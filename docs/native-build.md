@@ -4765,3 +4765,66 @@ qNaN, sign.)
 other agents' uncommitted work shipped by `--dirty` (tools/equiv64.py WIP, an include/decls edit). 83540-83628 (rev3
 fixes) interim 230 ok: the 4 coverage failures (0x003037f0_iterator_range, 0x002cb2b0_loop_exit_order,
 0x002c96e0_loop_back_edge, 0x000ea7c0_dyncast_vcall_pop) fail the same with HEAD's equiv.py on a loaded host (time budget).
+
+## tri3 (2026-11-15): the equivalent blocks whose proofs failed, fixed in source; strlazy and memub
+
+Work list: tri2's 156 still-failing `--wine` blocks, tri1's open list, 0x0030b8f0, D31's five exception TUs, the D28
+blocks and the 8 unanalysed boolexpl blocks (174 blocks; workspace build/tri3, RESUME.md, res.*.json). Baseline at
+9f6ddd1df (3,000 inputs, 600 s budget, both modes): MSVC 153 promotable of 162 reported, `--wine` 3 of 156.
+
+**Source causes fixed (each re-proved: MSVC 3,000 promotable, `--wine` 3,000 equivalent, `hash --proven`).**
+
+| cause | blocks |
+| --- | --- |
+| x87 values the original keeps in st (a call's float return, a running sum, a quotient) declared `float` | 0x0030b8f0 0x00115fb0 0x0013d940 0x00175360 0x002b07d0 0x0022a0d0 0x00322990 0x00330ba0 0x0015ebc0 |
+| a value the original stores (`fstp dword`) declared `hulk_freg` | 0x0013d410 |
+| `_ftol`'s 64-bit result: the low word (byte) of an out-of-range conversion | 0x00182380 0x003265f0 0x002b2ea0 0x0029d2c0 0x002208e0 0x001c46a0 (+ in 0x00322990 0x0022a0d0 0x00330ba0 0x0015ebc0) |
+| a test on the unrounded product (fst; fmul; fcom) | 0x002d50c0 |
+| MSVC evaluates call arguments before the object expression: a call hoisted | 0x00117480 0x00297ba0 0x002d50c0 |
+| `(obj->*m)(args)`: clang reads the member pointer and this before the arguments (clang-only spelling) | 0x00296160 |
+| products kept in st for x/y, spilled for z (clang-only spelling, MSVC code unchanged) | 0x00016120 |
+| `*p++` byte read: the original reads before it stores p + 1 | 0x0021b1c0 |
+| struct copy / memcpy over overlapping fuzzed pointers: word by word as the original | 0x002ee9a0 0x00300080 0x00202c30 0x00195290 0x00304930 0x00304a10 |
+| destructor with an empty body: clang skips the base vptr reset (`{ ; }`) | 0x0026e650 |
+| a stored `float` local the original keeps in st (with promoted operands) | 0x0001fe60 0x000ec360 0x0015ebc0 |
+
+D31: CDriftAction.cpp, MotionLocatorAction.cpp, DebugConsole.cpp lose their `// clang-flags: -fexceptions` line (every
+equivalent block of the three re-proved). Scenegraph_2.cpp keeps it (0x00297680 cannot be proved `--wine`, below);
+d3dExtFramebufferEffects.cpp keeps it (0x00321580, 0x00323ee0, 0x00324660 still fail there).
+
+**Checker (tools/equiv.py).** `strlazy`: the strcmp family and memcmp compare byte by byte to the first difference, as
+the C library and MSVC's inline loops read them (whole-string reads faulted ours on unterminated fuzzed strings):
+0x000e1dd0 0x000e7620 0x000f0b90 0x00044cb0 0x0033caa0. `memub`: ours's memcpy over overlapping ranges is undefined
+(C99 7.21.2.1), as intrub's strcpy; such inputs are `copy_overlap` when a difference follows: 0x002233e0 0x0021a3e0
+0x00280be0 0x002699f0 0x00269e00 0x0026ab60 0x0026af70. Cases in tests/equiv/cases; full regress (474) ok.
+
+**Observed:** in the Wine build a `float op float` expression is already evaluated at double (casting an operand to
+`hulk_freg` leaves the clang object unchanged); what rounds is a `float` local or member that is stored. Fix the
+declarations, not the expressions.
+
+**Proofs and gates (batch 1).** 37 blocks in 29 TUs: MSVC 3,000 promotable and `--wine` 3,000 equivalent (jobs
+P1 83494-83513, P2 83629-83634, P3 83683-83684), recorded with `tree_tu.py hash --proven` into a private
+ledger (build/tri3/proof/ledger.jsonl, 74 lines, for the D44 audit's ledger; config/proof-ledger.jsonl is not committed
+yet). verify of the 29 TUs with --relocs --x64 (83750): 983 matches, 327 equivalents code ok in both modes, 37 views ok,
+0 errors; x64 gate ok (47 changed blocks: 40 equivalent, 2 known baseline, reported: 0x0013d940 hang64, 0x002208e0 int,
+0x0022a0d0 float, 0x002d50c0 untyped, 0x0013a9e0 inconclusive). Wine proof on studio, play3 to 60000, private data
+TUs from HEAD: control 83660 (5650f3378), proof 83749 seeded from it: GATE ok, prng 0 of 2,012 common frames differ.
+
+**Passing now with the committed checker, code unchanged** (no source edit): 0x0001b3a0 0x00025590 0x0003acf0 0x00081690
+0x000d4b60 (and 0x00079990 0x000a4450 0x002d2c40 `--wine`; their MSVC runs did not finish).
+
+**Still unproven** (first difference with the final checker, `--wine` 3,000; build/tri3/remaining.txt):
+- the vptr loaded before a stubbed call that computes an argument, `this` re-read after it (no C++ order clang
+  follows; a checker model question for integ1): 0x00297680 (also has tri1's parked overload fix), 0x000e14b0,
+  0x00264050, 0x000f6b50 (vptrkeep does not fire although FUN_002672f0 looks pure), and likely the `this (ecx)` group
+  0x000bd1b0 0x000e8790 0x000e8cf0 0x000f0e60 0x00148f40 0x001b93a0.
+- frame-layout dependent (fuzzed index or overrun reaches another local / the argument area): 0x000c5e60 (`buf[k*3]`),
+  0x002d5a70 (writes into its own argument slots), 0x003088d0, 0x00334960 (stack address minus a stub return),
+  0x002411b0 (`_alloca` buffer address; fails MSVC too).
+- NaN payloads (x87 vs SSE through integer copies; integ1: no checker rule will cover them): 0x0022ca90 0x0022cc10
+  0x0022cdb0 0x00308ba0.
+- not yet analysed, by first difference: call arguments 30, memory writes 24, indirect call targets 14 (incl. D28's
+  0x000dc230 0x000dd350 0x00237050 0x00239f10 and the boolexpl blocks 0x000e2c90 0x000e9af0 0x000ea7c0 0x000ebf40),
+  call sequence 6, others 12 (wild_jump, hook_error, timeouts, register preservation, coverage 0x000fd0f0 0x002142d0).
+- D31: Scenegraph_2.cpp (0x00297680) and d3dExtFramebufferEffects.cpp (0x00321580 0x00323ee0 0x00324660) keep the
+  exception flag; CCharacter.cpp, Puppet.cpp, LevelLoader.cpp (tri1's) too.

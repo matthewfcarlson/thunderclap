@@ -7,7 +7,7 @@
 // 0x000ec350 MapThing::vfunc_3 (5 B): not yet verified
 
 // 0x000ec360 MapThing::vfunc_5 (1751 B): equivalent/0x000ec360.cpp [wrapped: macros]
-// sym: ?vfunc_5@MapThing@fn_000ec360@@UAEXXZ @fd606e435821 @w08fb7ef6b98d
+// sym: ?vfunc_5@MapThing@fn_000ec360@@UAEXXZ @fd606e435821 @w017aef4cf9b7 @v5e2528513974
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)
@@ -312,8 +312,8 @@ void MapThing::vfunc_5()
                     if (!(it->z < f.zhi))
                         continue;
                     (*(Render**)&DAT_0052c2ac)->dev->v15(0);
-                    float a2 = ((f.zhi - it->z) / f.spanZ + 0.5f) * f.wh.y;
-                    float a1 = ((it->x - f.xhi) / f.spanX + 0.5f) * f.wh.x;
+                    float a2 = ((f.zhi - (hulk_freg)it->z) / f.spanZ + 0.5f) * f.wh.y;
+                    float a1 = (((hulk_freg)it->x - f.xhi) / f.spanX + 0.5f) * f.wh.x;
                     (*(Render**)&DAT_0052c2ac)->FUN_00293d40(a1, a2, 0.0f);
                     if (idx == f118) {
                         f.s1c = (float)sin(DAT_004de98c) * 0.05f + 0.4f;
@@ -338,10 +338,10 @@ void MapThing::vfunc_5()
             pk->FUN_00035550(&f.l48);
             float nz = f.l48.z;
             float nx = f.l48.x;
-            float a2 = ((f.zhi - f.l54.z) / f.spanZ + 0.5f) * f.wh.y;
-            float a1 = ((f.l54.x - f.xhi) / f.spanX + 0.5f) * f.wh.x;
+            float a2 = ((f.zhi - (hulk_freg)f.l54.z) / f.spanZ + 0.5f) * f.wh.y; // (tri3) one x87 expression: promoted
+            float a1 = (((hulk_freg)f.l54.x - f.xhi) / f.spanX + 0.5f) * f.wh.x;
             (*(Render**)&DAT_0052c2ac)->FUN_00293d40(a1, a2, 0.0f);
-            (*(Render**)&DAT_0052c2ac)->FUN_00293c50((float)atan2(nz, nx) - 1.5707964f);
+            (*(Render**)&DAT_0052c2ac)->FUN_00293c50((hulk_freg)atan2(nz, nx) - 1.5707964f); // fpatan; fsub: unrounded
             (*(Render**)&DAT_0052c2ac)->FUN_00293da0(0.3f, 0.3f, 0.3f);
             keep->v8(0, 0);
         }

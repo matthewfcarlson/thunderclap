@@ -970,7 +970,7 @@ bool Manager_2fffa0::remove(Object* object, unsigned flags) {
 namespace fn_fb493392 {
 
 // 0x00300080 FUN_00300080 (114 B): equivalent/0x00300080.cpp
-// sym: ?FUN_00300080@Graph_300080@fn_fb493392@@QAEXHH@Z @0718044efdb7 @w98c23434764e
+// sym: ?FUN_00300080@Graph_300080@fn_fb493392@@QAEXHH@Z @0718044efdb7 @wa73903a571f3 @ve5b33a192704
 // STATUS: equivalent (tools/equiv.py level 3: 58 inputs, branch coverage 16/16)
 // FUN_00300080 @ 0x00300080
 void Graph_300080::FUN_00300080(int a, int b)
@@ -981,8 +981,15 @@ void Graph_300080::FUN_00300080(int a, int b)
         if ((p->a == a || p->b == a) && (p->a == b || p->b == b)) {
             Edge_300080 *last = end - 1;
             end = last;
-            if (p < last)
-                *p = *last;
+            if (p < last) {
+                // (tri3) word by word, in order, as the original (clang's struct copy is a memcpy call: the two may
+                // overlap when the array's bounds aren't a whole number of edges apart)
+                p->a = last->a;
+                p->b = last->b;
+                p->c = last->c;
+                p->d = last->d;
+                p->e = last->e;
+            }
             return;
         }
     }

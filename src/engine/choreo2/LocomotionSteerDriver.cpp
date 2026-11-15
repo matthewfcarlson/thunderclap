@@ -1239,7 +1239,7 @@ void __cdecl FUN_00229f40(Item_229f40* first, Item_229f40* last, hulk_intptr bud
 } // namespace fn_fb966b0a
 
 // 0x0022a0d0 FUN_0022a0d0 (1152 B): equivalent/0x0022a0d0.cpp [wrapped: conflict: FUN_0004af40]
-// sym: ?FUN_0022a0d0@Spawner_22a0d0@fn_0022a0d0@@QAEXM@Z @e56cd4fa1726 @w9cb4fe982e72
+// sym: ?FUN_0022a0d0@Spawner_22a0d0@fn_0022a0d0@@QAEXM@Z @6eb283d31150 @w028aaa5cea01 @v395c3ac13cb2
 namespace fn_0022a0d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 867 inputs, branch coverage 36/36)
 // FUN_0022a0d0 @ 0x0022a0d0
@@ -1300,14 +1300,16 @@ void Spawner_22a0d0::FUN_0022a0d0(float dt)
     }
     float B = blend;
     if (B > 0.01f && n0 != 0) {
-        angle = FUN_0004af40(0.0f, 6.28318548f, angle);
+        // (tri3) the original keeps the wrapped angle (fst), step and 1/step in st, and _ftol's low word for idx
+        hulk_freg a = FUN_0004af40(0.0f, 6.28318548f, angle);
+        angle = a;
         unsigned n1 = n;
-        float step = 6.28318548f / (float)n1;
-        float inv = 1.0f / step;
-        unsigned idx = (int)(angle * inv);
+        hulk_freg step = 6.28318548f / (hulk_freg)n1;
+        hulk_freg inv = 1.0f / step;
+        unsigned idx = (unsigned)(__int64)(a * inv);
         unsigned i0 = idx % n1;
         unsigned i1 = (i0 + 1) % n1;
-        float S = FUN_0015cf40((angle - (float)i0 * step) * inv);
+        float S = FUN_0015cf40((a - (hulk_freg)i0 * step) * inv);
         unsigned a0 = row * stride;
         if (row >= m - 1) {
             FUN_002287b0(grid[a0 + i0 + 1], (1.0f - S) * B, T0);
@@ -1340,7 +1342,7 @@ void Spawner_22a0d0::FUN_0022a0d0(float dt)
     Elem_22a0d0 *last = &arr[k];
     FUN_00229f40(first, last, last - first);
 
-    float sum = 0.0f;
+    hulk_freg sum = 0.0f; // (tri3) st0 through the loop
     for (unsigned i = 0; i < k; i++) {
         if (arr[i].w < 0.01f) {
             k = i;
@@ -1353,19 +1355,21 @@ void Spawner_22a0d0::FUN_0022a0d0(float dt)
     float W = 0.0f;
     if (k != 0) {
         double inv2 = 1.0f / sum;
+        hulk_freg Wacc = W; // (tri3) st(1) through the loop, stored once after it
         for (unsigned i = 0; i < k; i++) {
             volatile float nw = inv2 * arr[i].w;
             arr[i].w = nw;
-            W += nw * arr[i].f;
+            Wacc += nw * arr[i].f;
             Shape_22a0d0 *sh = ((Slot_22a0d0 *)this)[arr[i].idx].shape;
             if (sh) {
-                float a = sh->f10 - 1.0f;
-                float b = sh->f14;
+                hulk_freg a = sh->f10 - 1.0f;
+                hulk_freg b = sh->f14;
                 if (b < 0.0f)
                     b = 1.0f;
                 f20 = a / b * nw + f20;
             }
         }
+        W = Wacc;
     }
 
     if (f20 > 0.0f) {

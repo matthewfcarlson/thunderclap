@@ -1410,7 +1410,7 @@ char pure3d::scenegraph::Scenegraph::vfunc_7() {
 
 
 // 0x00296160 pure3d::scenegraph::Scenegraph::vfunc_8 (81 B): equivalent/0x00296160.cpp
-// sym: ?vfunc_8@Scenegraph@scenegraph@pure3d@@UAEXHH@Z @46b4e25d587c @w72bc518a835a
+// sym: ?vfunc_8@Scenegraph@scenegraph@pure3d@@UAEXHH@Z @46b4e25d587c @w736b80e97ef4 @v3191a63aad93
 // STATUS: equivalent (tools/equiv.py level 3: 20020 inputs, branch coverage 2/2)
 // pure3d::scenegraph::Scenegraph::vfunc_8 @ 0x00296160
 void pure3d::scenegraph::Scenegraph::vfunc_8(hulk_intptr a, int b) {
@@ -1418,7 +1418,15 @@ void pure3d::scenegraph::Scenegraph::vfunc_8(hulk_intptr a, int b) {
   (*(*(Device***)&DAT_0052c2ac))->vfunc_15(0);
   void **savedTable = *(void ***)(*(Child *volatile *)&this->f_40);
   typedef void (Child::*Method)(int, int, int);
+#if defined(__clang__)
+  // (tri3) the original's order: the vptr before vfunc_18, then its slot and this (f_40 re-read) after it; clang
+  // evaluates the object and the member pointer of `(obj->*m)(args)` before the arguments
+  int arg0 = (*(*(Device***)&DAT_0052c2ac))->vfunc_18(0);
+  Method m = *(Method*)&savedTable[8];
+  ((*(Child *volatile *)&this->f_40)->*m)(arg0, a, b);
+#else
   ((*(Child *volatile *)&this->f_40)->*(*(Method*)&savedTable[8]))((*(*(Device***)&DAT_0052c2ac))->vfunc_18(0), a, b);
+#endif
   (*(*(Device***)&DAT_0052c2ac))->vfunc_16(0);
  }
 }
@@ -2888,7 +2896,7 @@ Node_297680 *SceneLoader_297680::FUN_00297680(Stream_297680 *s, void *ctx)
 } // namespace fn_f9b7dd8c
 
 // 0x00297ba0 FUN_00297ba0 (862 B): equivalent/0x00297ba0.cpp [wrapped: conflict: FUN_000c0de0; Node; pure3d::DrawableContainer; pure3d::DrawableHierarchy]
-// sym: ?FUN_00297ba0@SceneLoader_297ba0@fn_00297ba0@@QAEPAVNode@2@PAUStream@2@PAX@Z @a3205ec08339 @w1be330bb790c
+// sym: ?FUN_00297ba0@SceneLoader_297ba0@fn_00297ba0@@QAEPAVNode@2@PAUStream@2@PAX@Z @2d06a7e9b8a5 @wfe193ab423e8 @v97b4bc1dfb51
 namespace fn_00297ba0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3075 inputs, branch coverage 37/37)
 // FUN_00297ba0 @ 0x00297ba0
@@ -3030,7 +3038,8 @@ Node *SceneLoader_297ba0::FUN_00297ba0(Stream *s, void *ctx)
         if (mem)
             b = ((NodeB_297ba0 *)mem)->FUN_00297460(f.x);
         b->name.FUN_0027b040(f.name);
-        s->reader->FUN_002647e0((void *)b->FUN_001a4990(), 0x10, 4, 1);
+        void *m16 = (void *)b->FUN_001a4990(); // before s->reader is loaded, as the original
+        s->reader->FUN_002647e0(m16, 0x10, 4, 1);
         node = b;
         break;
     }

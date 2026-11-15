@@ -91,7 +91,7 @@ bool CSmartPropDetachAction::vfunc_6(int unused) {
 
 
 // 0x00016120 CSmartPropThrowAction::vfunc_6 (788 B): equivalent/0x00016120.cpp [wrapped: conflict: CSmartPropThrowAction]
-// sym: ?vfunc_6@CSmartPropThrowAction@fn_00016120@@UAE_NH@Z @fb24f151b32d @wcebf4787df01
+// sym: ?vfunc_6@CSmartPropThrowAction@fn_00016120@@UAE_NH@Z @fb24f151b32d @w6aab1b88b210 @v59090d181e3c
 namespace fn_00016120 {
 // STATUS: equivalent (tools/equiv.py level 3: 20016 inputs, branch coverage 24/24)
 // CSmartPropThrowAction::vfunc_6 @ 0x00016120
@@ -262,12 +262,23 @@ bool CSmartPropThrowAction::vfunc_6(int arg)
         f.u8.anchor->FUN_00059a50(&f.g);
         f.g.y = (fighter->f140 == 3 ? 0.0f : 3.0f) + f.g.y;
         f.w = f.l;
+#if defined(__clang__)
+        // (tri3) MSVC 7.1 keeps the x and y products in st (one rounding each) and spills the z product (fstp, then
+        // adds: two roundings); clang rounds every store, so it is spelled out
+        hulk_freg wx3 = (hulk_freg)f.w.x * 3.0f;
+        hulk_freg wy3 = (hulk_freg)f.w.y * 3.0f;
+        f.w.z = f.w.z * 3.0f;
+        f.w.x = f.g.x + wx3;
+        f.w.y = wy3 + f.g.y;
+        f.w.z = f.g.z + f.w.z;
+#else
         f.w.x = f.w.x * 3.0f;
         f.w.y = f.w.y * 3.0f;
         f.w.z = f.w.z * 3.0f;
         f.w.x = f.g.x + f.w.x;
         f.w.y = f.w.y + f.g.y;
         f.w.z = f.g.z + f.w.z;
+#endif
         f.u8.zero = 0;
         if (fighter->FUN_00038de0(&f.g, &f.w, 0, 1, &f.out4, &f.out3, &f.u8.zero, 0)) {
             f.out1.FUN_0022d110();

@@ -3885,7 +3885,7 @@ void Overlay::Draw() {
 } // namespace fn_f57e27cb
 
 // 0x00322990 FUN_00322990 (821 B): equivalent/0x00322990.cpp [wrapped: conflict: Overlay]
-// sym: ?Draw@Overlay@fn_00322990@@QAEXXZ @a9bc73cdad02 @wfe9d79e92977
+// sym: ?Draw@Overlay@fn_00322990@@QAEXXZ @a9bc73cdad02 @wc99521cd5c7d @vbbdb09dac5e8
 namespace fn_00322990 {
 // STATUS: equivalent (tools/equiv.py level 3: 18262 inputs, branch coverage 11/12, incomplete)
 // FUN_00322990 @ 0x00322990
@@ -4038,7 +4038,8 @@ void Overlay::Draw() {
         tex->v0();
         shader->SetTexture(0x584554, tex);
     }
-    unsigned int a = (unsigned char)(int)(alpha * 254.0f);
+    // (tri3) fld; fmul; call _ftol: the product unrounded, _ftol's 64-bit result (its low byte past 2^31 too)
+    unsigned int a = (unsigned char)(__int64)((hulk_freg)alpha * 254.0f);
     float f[3];
     f[0] = scale;
     f[1] = scale + 4.0f;
@@ -4069,7 +4070,7 @@ void Overlay::Draw() {
     float w = (float)ctx->viewport->GetWidth();
     for (int i = 0; i < n; i++) {
         Prim_322990* p = ctx->f30(shader, 1, 0x2021, 4, 0);
-        float v = farv * f[i];
+        hulk_freg v = (hulk_freg)farv * f[i]; // st0 in the original: h - v takes it unrounded
         float u = f[i];
         float vMax = h - v;
         float uMax = w - f[i];

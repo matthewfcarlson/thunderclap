@@ -218,7 +218,7 @@ extern "C" void __cdecl FUN_00220850(LuaVMFuncState* fs, int n) {
 
 
 // 0x002208e0 FUN_002208e0 (202 B): equivalent/0x002208e0.cpp
-// sym: _FUN_002208e0 @e5832297dede @wbdde14b0c12c
+// sym: _FUN_002208e0 @e5832297dede @w8d316e2ac33c @v0b15d6047acf
 // STATUS: equivalent (tools/equiv.py level 3: 2872 inputs, branch coverage 14/14)
 // addk (float-number build): find or append constant v, keyed by k, in the prototype's constant table.
 // fs arrives in ebx and k in ecx; v is on the stack.
@@ -230,7 +230,7 @@ extern "C" int __cdecl FUN_002208e0(LuaVMFuncState* fs, LuaVMTObject* k, LuaVMTO
     LuaVMProto* f = fs->f;
     int oldsize = f->sizek;
     if (idx->tt == LUAVM_TNUMBER) {
-        return (int)idx->value.n;
+        return (int)(__int64)idx->value.n; // _ftol: the low word of its 64-bit result
     } else {
         idx->tt = LUAVM_TNUMBER;
         idx->value.n = (float)fs->nk;

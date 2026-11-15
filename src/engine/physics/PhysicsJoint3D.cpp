@@ -2270,14 +2270,14 @@ void PhysicsJoint3D::vfunc_17(float* a, float s, float* b) {
 
 
 // 0x0030b8f0 physics::PhysicsJoint3D::vfunc_25 (453 B): equivalent/0x0030b8f0.cpp
-// sym: ?FUN_0030b8f0@PhysicsJoint3D_30b8f0@fn_fca90e00@@QAEXXZ @ff01af200697 @w4df9dc43113c
+// sym: ?FUN_0030b8f0@PhysicsJoint3D_30b8f0@fn_fca90e00@@QAEXXZ @ff01af200697 @we3fa14b13146 @vdafb18ad1a20
 // STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 14/14)
 // physics::PhysicsJoint3D::vfunc_25 @ 0x0030b8f0
 void PhysicsJoint3D_30b8f0::FUN_0030b8f0()
 {
     hulk_freg lenSq = (dir[0] * dir[0] + dir[1] * dir[1]) + dir[2] * dir[2];
     if (lenSq > (*(const float*)&DAT_004d31d4)) {
-        hulk_freg s = (*(const float*)&DAT_004d3198) / (float)sqrt(lenSq);
+        hulk_freg s = (*(const float*)&DAT_004d3198) / (hulk_freg)sqrt(lenSq); // fsqrt; fdivr: never rounded
         dir[0] = dir[0] * s;
         dir[1] = dir[1] * s;
         dir[2] = dir[2] * s;
@@ -2288,13 +2288,13 @@ void PhysicsJoint3D_30b8f0::FUN_0030b8f0()
 
     float a = slip < 0.0f ? -slip : slip;
     if (a > (*(const float*)&DAT_004d3194)) {
-        float t;
+        hulk_freg t; // st0 throughout in the original (fsub/fadd, fmul, fld st0)
         if (slip > 0.0f)
             t = slip - (*(const float*)&DAT_004d3194);
         else
             t = (*(const float*)&DAT_004d3194) + slip;
         t = t * (*(const float*)&DAT_004d31a0);
-        float nt = -t;
+        hulk_freg nt = -t;
         impulse[0] = nt * axis[0] + impulse[0];
         impulse[1] = nt * axis[1] + impulse[1];
         impulse[2] = nt * axis[2] + impulse[2];

@@ -603,7 +603,7 @@ bool TextureResource::Create(int w, int h, int a2, int a3, int mips, int fmt, in
 
 
 // 0x003265f0 FUN_003265f0 (659 B): equivalent/0x003265f0.cpp [wrapped: compile error in a shared declaration (C2556)]
-// sym: ?Create@TextureBuilder@fn_003265f0@@QAE_NHHHHHHHH@Z @01ae64de44ad @w9cc4157ecfeb
+// sym: ?Create@TextureBuilder@fn_003265f0@@QAE_NHHHHHHHH@Z @01ae64de44ad @wf6d80bde2cd1 @vc47024353c1b
 namespace fn_003265f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 10590 inputs, branch coverage 38/38)
 // FUN_003265f0 @ 0x003265f0
@@ -801,17 +801,17 @@ bool TextureBuilder::Create(int w, int h, int d, int a4, int a5, int lvls, int a
     field_dc = stride;
     field_e0 = FUN_00325fb0(0, layout.mask);
     totalSize = 0;
-    float scale;
+    hulk_freg scale; // st(1) through the loop in the original (fild, never stored)
     if (hasAlpha)
         scale = 0.5f;
     else
-        scale = (float)(stride / 8);
+        scale = (hulk_freg)(stride / 8);
     int cw = width;
     int ch = height;
     int cd = d;
     for (int i = 0; i < this->levels + 1; i++) {
         unsigned int size = cd * ch * cw;
-        totalSize += (int)((float)size * scale);
+        totalSize += (int)(__int64)((hulk_freg)size * scale); // fild (+2^32); fmul st1; _ftol's low word
         cw = (unsigned int)cw >> 1;
         ch = (unsigned int)ch >> 1;
         cd = (unsigned int)cd >> 1;

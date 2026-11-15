@@ -156,7 +156,7 @@ extern "C" void __cdecl FUN_0021b160(LuaVMState* L, LuaVMLexState* ls, LuaVMZio*
 
 
 // 0x0021b1c0 FUN_0021b1c0 (104 B): equivalent/0x0021b1c0.cpp
-// sym: _FUN_0021b1c0 @d4c627fa9e02 @w0af7d2f7379d
+// sym: _FUN_0021b1c0 @6bb6e69c166d @w39ba73118c4b @v2bd98e48d7fe
 // STATUS: equivalent (tools/equiv.py level 3: 2948 inputs, branch coverage 4/4)
 // save_and_next: append the current character to the buffer, then read the next one.
 // equiv-conv: FUN_0021b1c0 edi
@@ -168,9 +168,14 @@ extern "C" void FUN_0021b1c0(LuaVMLexState* ls) {
     }
     b->buffer[b->n] = (char)ls->current;
     b->n++;
-    if (ls->z->n-- > 0)
-        ls->current = (unsigned char)*ls->z->p++;
-    else
+    if (ls->z->n-- > 0) {
+        // (tri3) the original reads the byte before it stores p + 1 (clang's `*p++` stores first)
+        LuaVMZio* z = ls->z;
+        const char* p = z->p;
+        int c = (unsigned char)*p;
+        z->p = p + 1;
+        ls->current = c;
+    } else
         ls->current = FUN_0021a550(ls->z);
 }
 

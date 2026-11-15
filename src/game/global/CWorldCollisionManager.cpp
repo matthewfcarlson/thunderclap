@@ -1122,7 +1122,7 @@ extern "C" bool FUN_002029e0(Vec3_2029e0* from, Vec3_2029e0* to, int tag, int mo
 
 
 // 0x00202c30 FUN_00202c30 (711 B): equivalent/0x00202c30.cpp [wrapped: conflict: World]
-// sym: ?FUN_00202c30@fn_00202c30@@YA_NPAUV3_202c30@1@0HH00PAPAUShape_202c30@1@PAU31@DPAUProbe_202c30@1@@Z @352b4967a135 @w626f7ff96436
+// sym: ?FUN_00202c30@fn_00202c30@@YA_NPAUV3_202c30@1@0HH00PAPAUShape_202c30@1@PAU31@DPAUProbe_202c30@1@@Z @2ee5a9df7295 @w378186cec668 @v4d683f77fa25
 namespace fn_00202c30 {
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 32/32)
 // FUN_00202c30 @ 0x00202c30
@@ -1303,7 +1303,10 @@ bool FUN_00202c30(V3_202c30 *origin, V3_202c30 *end, int a3, int mask, V3_202c30
                     break;
                 }
             }
-            *hit = *end;
+            // (tri3) word by word, as the original copies it (clang's struct copy is a memcpy where hit and end overlap)
+            hit->x = end->x;
+            hit->y = end->y;
+            hit->z = end->z;
             hit->x = hit->x - origin->x;
             hit->y = hit->y - origin->y;
             hit->z = hit->z - origin->z;

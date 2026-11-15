@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// clang-flags: -fexceptions -fcxx-exceptions   (gx2, D22: kept until its --wine proof passes again; docs/native-build.md "gx2")
 // object 0x00117350..0x001178e0 (kind game, layer game, confidence medium), dominant class hulkfight::ai::MotionLocatorAction
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -191,7 +190,7 @@ bool MotionLocatorAction_1173f0::f() {
 
 
 // 0x00117480 hulkfight::ai::MotionLocatorAction::vfunc_5 (1108 B): equivalent/0x00117480.cpp
-// sym: ?v5@MotionLocatorAction@fn_fdfac53b@@UAEDTArg1_117480@2@H@Z @b0ff6c415211 @wad437a8dc280
+// sym: ?v5@MotionLocatorAction@fn_fdfac53b@@UAEDTArg1_117480@2@H@Z @45f955724cd0 @wc348dcd97112 @v14e2f61b7369
 // STATUS: equivalent (tools/equiv.py level 3: 3085 inputs, branch coverage 54/61, incomplete)
 // hulkfight::ai::MotionLocatorAction::vfunc_5 @ 0x00117480
 char MotionLocatorAction::v5(Arg1_117480 a1, int a2)
@@ -213,7 +212,8 @@ char MotionLocatorAction::v5(Arg1_117480 a1, int a2)
     } else if (inf->flag29) {
         id = owner->id1d70;
     } else if (inf->flag28) {
-        id = FUN_002672f0(FUN_001d4c90()->FUN_001d3030(owner->FUN_00036d00(), "locator"), 0, 0);
+        const char *name = owner->FUN_00036d00(); // the original calls it before FUN_001d4c90 (MSVC: arguments first)
+        id = FUN_002672f0(FUN_001d4c90()->FUN_001d3030(name, "locator"), 0, 0);
         if (id == 0) {
             id = owner->id1d70;
             if (id == 0)

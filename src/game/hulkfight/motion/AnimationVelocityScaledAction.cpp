@@ -4420,7 +4420,7 @@ extern "C" void __cdecl FUN_0013d3c0(Factory* factory) {
 } // namespace fn_f30d2d27
 
 // 0x0013d410 hulkfight::motion::AnimationAction::vfunc_3 (870 B): equivalent/0x0013d410.cpp [wrapped: conflict: AnimationAction; FUN_00059a40; World; content::LoadInventory::DynamicCaster (+1)]
-// sym: ?vfunc_3@AnimationAction@fn_0013d410@@UAE_NHH@Z @0cf2e1851a2e @w722d1e57c279
+// sym: ?vfunc_3@AnimationAction@fn_0013d410@@UAE_NHH@Z @0cf2e1851a2e @w78b90a472867 @ve041bb4a2de8
 namespace fn_0013d410 {
 // STATUS: equivalent (tools/equiv.py level 3: 3254 inputs, branch coverage 52/52; Wine build 700 inputs, 52/52)
 // hulkfight::motion::AnimationAction::vfunc_3 @ 0x0013d410
@@ -4689,7 +4689,7 @@ bool AnimationAction::vfunc_3(int a, int b)
     if (f24 < 0.0f) {
         if (driver->b224) {
             hulk_freg lo2 = driver->f22c;
-            hulk_freg span = driver->f230 - lo2;
+            float span = driver->f230 - lo2; // (tri3) stored across the FUN_000964e0 call (fstp dword)
             hulk_freg v = FUN_000964e0() * span + lo2;
             driver->FUN_00225cf0(v);
         } else {

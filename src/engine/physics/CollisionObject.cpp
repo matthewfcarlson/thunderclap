@@ -436,7 +436,7 @@ void owners::Buffer_3048a0::FUN_003048a0(int newCapacity) {
 namespace fn_f3c9f944 {
 
 // 0x00304930 FUN_00304930 (211 B): equivalent/0x00304930.cpp
-// sym: ?FUN_00304930@Array_304930@fn_f3c9f944@@QAEXH@Z @d87b51f9e65b @w72821b36ef43
+// sym: ?FUN_00304930@Array_304930@fn_f3c9f944@@QAEXH@Z @d87b51f9e65b @w935a46bf1827 @v278ee95a1514
 // STATUS: equivalent (tools/equiv.py level 3: 267 inputs, branch coverage 15/16, incomplete)
 // FUN_00304930 @ 0x00304930
 void Array_304930::FUN_00304930(int n) {
@@ -447,7 +447,17 @@ void Array_304930::FUN_00304930(int n) {
  if(raw) { *raw=n; fresh=(Element_304930*)(raw+1); FUN_00011520(fresh,20,n,&Element_304930::FUN_00304640); }
  if(count>0) {
  if(copyMembers) { for(int i=0;i<count;++i) { volatile Element_304930* src=data+i; volatile Element_304930* dst=fresh+i; dst->a=src->a; dst->b=src->b; dst->c=src->c; dst->d=src->d; dst->e=src->e; } }
- else { memcpy(fresh,data,(unsigned int)count*20); }
+ else {
+#if defined(__clang__)
+  // (tri3) MSVC inlines this memcpy as `rep movsd; rep movsb`, forward; clang calls memcpy. Spelled as the original's
+  // copy, so that it does what the original does where fresh overlaps data
+  unsigned int len=(unsigned int)count*20; const unsigned int* s=(const unsigned int*)data; unsigned int* d=(unsigned int*)fresh;
+  for(unsigned int k=0;k<(len>>2);++k) d[k]=s[k];
+  for(unsigned int k=len&~3u;k<len;++k) ((unsigned char*)fresh)[k]=((const unsigned char*)data)[k];
+#else
+  memcpy(fresh,data,(unsigned int)count*20);
+#endif
+ }
  }
  if(data) FUN_0008d340((unsigned int*)data-1);
  data=fresh; capacity=n;
@@ -455,7 +465,7 @@ void Array_304930::FUN_00304930(int n) {
 
 
 // 0x00304a10 FUN_00304a10 (133 B): equivalent/0x00304a10.cpp
-// sym: ?Reserve@PairArray@fn_f3c9f944@@QAEXH@Z @c2011433a531 @wefa9e7baa9ea
+// sym: ?Reserve@PairArray@fn_f3c9f944@@QAEXH@Z @c2011433a531 @wb2f1f5a1a0c5 @ve670469f35f7
 // STATUS: equivalent (tools/equiv.py level 3: 12195 inputs, branch coverage 11/12, incomplete)
 // FUN_00304a10 @ 0x00304a10
 // FUN_00304a10 @ 0x00304a10
@@ -478,7 +488,16 @@ void PairArray::Reserve(int wanted)
                 i++;
             } while (i < count);
         } else {
+#if defined(__clang__)
+            // (tri3) MSVC inlines this memcpy as `rep movsd`, forward word by word; clang calls memcpy. Spelled as the
+            // original's copy, so that it does what the original does where fresh overlaps data
+            const int *s = (const int *)data;
+            int *d = (int *)fresh;
+            for (int k = 0, n = count * 2; k < n; k++)
+                d[k] = s[k];
+#else
             memcpy(fresh, data, count * 8);
+#endif
         }
     }
     thunk_FUN_00267090(data);

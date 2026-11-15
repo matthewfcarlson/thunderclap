@@ -3340,7 +3340,7 @@ void Pair_1c4620::FUN_001c4620(int arg)
 } // namespace fn_ffffca36
 
 // 0x001c46a0 FUN_001c46a0 (747 B): equivalent/0x001c46a0.cpp [wrapped: conflict: Gfx]
-// sym: ?FUN_001c46a0@Bar@fn_001c46a0@@QAEXXZ @a53f15d510d2 @wc26f55ded0ce
+// sym: ?FUN_001c46a0@Bar@fn_001c46a0@@QAEXXZ @a53f15d510d2 @w442c6949c95c @v17153fd398f4
 namespace fn_001c46a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 19783 inputs, branch coverage 12/12)
 // FUN_001c46a0 @ 0x001c46a0
@@ -3464,7 +3464,7 @@ void Bar::FUN_001c46a0()
         (*(*(Stage_1c46a0***)&DAT_0052c2ac))->S15(0);
         (*(*(Stage_1c46a0***)&DAT_0052c2ac))->S13(0);
 
-        unsigned int color = (int)(alpha * 255.0f);
+        unsigned int color = (unsigned int)(__int64)((hulk_freg)alpha * 255.0f); // (tri3) fmul; _ftol's low word
         color = (((color << 8) | r) << 8 | g) << 8 | b;
 
         Vertex_1c46a0 *v = DAT_0052c2a8->Begin(surface->handle, 1, 0x2020, 4, 0);

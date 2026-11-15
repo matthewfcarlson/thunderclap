@@ -954,3 +954,28 @@ blocks fight::Action's whole family: the records come first there.
   include/decls) fails unrelated cases; read failures by their cause before blaming a checker change.
 - Coverage-threshold regress cases (0x003037f0_iterator_range, 0x002cb2b0_loop_exit_order) fail on a loaded laptop
   with HEAD's checker as well: time budget, not code.
+
+## 2026-11-15 tri3: failing equivalent proofs fixed in source; strlazy and memub
+
+- In the Wine build a `float op float` expression is already evaluated at double: casting an operand to `hulk_freg`
+  leaves the clang object unchanged (0x0009faa0, 0x00356fa0 checked). What rounds is a `float` local, member or
+  argument that is stored. Fix the declaration of the value the original keeps in st (`hulk_freg`), not the expression;
+  and the other way round, a value the original spills with `fstp dword` must stay `float` (0x0013d410's span).
+- `(int)x` / `(unsigned char)(int)x` of a float that can leave int range: the original's `_ftol` returns a 64-bit
+  result whose low word the code keeps; clang's cvttss2si gives 0x80000000. Spell `(int)(__int64)x` (MSVC's code is
+  unchanged). Six more blocks had it.
+- clang makes a struct copy above a few words a `memcpy` call; MSVC 7.1 a forward `rep movsd`. Fuzzed overlapping
+  pointers made the two differ in 13 blocks; memcpy on overlapping ranges is undefined, so the checker now sets such
+  inputs aside (`memub`), and where the original's word order matters for real (in-place edge removal) the source
+  copies word by word.
+- clang evaluates the object of a call (and of `(obj->*m)(args)`) before its arguments; MSVC 7.1 the arguments first.
+  When an argument is a call that the stub lets write memory, the object the original reads after the call differs:
+  hoist the argument into a local (0x00117480, 0x00297ba0, 0x002d50c0). The converse pattern, the vptr read before an
+  argument call and `this` re-read after it (0x000e14b0, 0x00264050, 0x00297680), has no C++ spelling clang follows:
+  a checker model question, not a source fix.
+- clang does not reset the vptr in a destructor whose body is empty (`~Base() {}`), even at -O0; the original does.
+  `{ ; }` keeps the store with identical MSVC code (0x0026e650).
+- `*p++` in clang -O0 stores p + 1 before it reads the byte; the original reads first. Where p can point at itself
+  (fuzzed), spell the read first (llex 0x0021b1c0).
+- Process: a temporary-index commit must read-tree the HEAD it will commit on and build every file from that HEAD:
+  building files from an older HEAD reverts whatever landed in between (caught before the push here).

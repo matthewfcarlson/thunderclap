@@ -293,7 +293,7 @@ void* pure3d::d3dToonVertexShader::vfunc_23() {
 namespace fn_f44f442a {
 
 // 0x00330ba0 FUN_00330ba0 (241 B): equivalent/0x00330ba0.cpp
-// sym: ?FillGradient@TextureHolder@fn_f44f442a@@QAEXXZ @7362dc6528bb @w7e7d75983459
+// sym: ?FillGradient@TextureHolder@fn_f44f442a@@QAEXXZ @7362dc6528bb @w7013c488e784 @vf8e380c64be0
 // STATUS: equivalent (tools/equiv.py level 3: 43 inputs, branch coverage 9/10, incomplete)
 // FUN_00330ba0 @ 0x00330ba0
 void TextureHolder::FillGradient() {
@@ -302,13 +302,13 @@ void TextureHolder::FillGradient() {
     unsigned int* pixels = (unsigned int*)lock.pBits;
     float step = 1.0f / height;
     float stepScaled = step * 245.0f;
-    float value = 10.0f;
+    hulk_freg value = 10.0f; // (tri3) st0 throughout in the original
     float limit = step * 64.0f;
     for (int row = 0; row < height; row++) {
         if (0.0f < limit) {
             int col = 0;
             do {
-                signed char c = (signed char)(int)value;
+                signed char c = (signed char)(__int64)value; // _ftol's low byte
                 *pixels++ = 0xff000000 + c * 0x10101;
                 col++;
                 limit = 64.0f / height;

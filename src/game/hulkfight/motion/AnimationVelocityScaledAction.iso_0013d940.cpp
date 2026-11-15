@@ -5,7 +5,7 @@
 
 
 // 0x0013d940 hulkfight::motion::AnimationVelocityScaledAction::vfunc_3 (1306 B): equivalent/0x0013d940.cpp [isolated: helper definitions (2 out-of-line function bodies); compile error C2027: use of undefined type 'fn_fa36bb23::Node']
-// sym: ?vfunc_3@AnimationVelocityScaledAction@motion@hulkfight@fn_f2ea2d39@@UAEDHH@Z @ef7be189dab2 @w2b45b99a543e
+// sym: ?vfunc_3@AnimationVelocityScaledAction@motion@hulkfight@fn_f2ea2d39@@UAEDHH@Z @ef7be189dab2 @w3d04d712abc2 @v2370ff40eab9
 #include "gen/owners.h"
 namespace fn_f2ea2d39 {} using namespace fn_f2ea2d39;
 namespace fn_f2ea2d39 {
@@ -300,10 +300,10 @@ char AnimationVelocityScaledAction::vfunc_3(int a0, int a1)
         f.vec.y = 0.0f;
         f.vec.z = 0.0f;
         player->FUN_002251d0((char *)layers + 0x10, e0, e1, &f.vec);
-        s = (float)(sqrt(f.vec.z * f.vec.z + f.vec.y * f.vec.y + f.vec.x * f.vec.x) / rate);
+        s = (float)(sqrt((hulk_freg)f.vec.z * f.vec.z + (hulk_freg)f.vec.y * f.vec.y + (hulk_freg)f.vec.x * f.vec.x) / rate);
     }
 
-    float val;
+    hulk_freg val; // (tri3) st0 from the getter until the fdiv in the original
     switch (cfg->mode20) {
     case 0:
         f.vec.x = 0.0f;

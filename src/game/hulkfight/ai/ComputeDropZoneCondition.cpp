@@ -272,7 +272,7 @@ bool hulkfight::ai::HasGroundPointCondition::vfunc_6(void* __p0, void* __p1, voi
 namespace fn_fb4fb98f {
 
 // 0x00115fb0 hulkfight::ai::ComputeDropZoneCondition::vfunc_6 (1556 B): equivalent/0x00115fb0.cpp
-// sym: ?vfunc_6@ComputeDropZoneCondition@fn_fb4fb98f@@UAE_NHPAUEntity@2@H@Z @cd883323e8c0 @w583eafae34f3
+// sym: ?vfunc_6@ComputeDropZoneCondition@fn_fb4fb98f@@UAE_NHPAUEntity@2@H@Z @cd883323e8c0 @w64dbbcafa8c8 @v2fd3b10688da
 // STATUS: equivalent (tools/equiv.py level 3: 3073 inputs, branch coverage 90/104, incomplete)
 // hulkfight::ai::ComputeDropZoneCondition::vfunc_6 @ 0x00115fb0
 bool ComputeDropZoneCondition::vfunc_6(int a0, Entity *e, int a2)
@@ -324,8 +324,8 @@ bool ComputeDropZoneCondition::vfunc_6(int a0, Entity *e, int a2)
     f.tmp.y = 0.0f;
     f.tmp.z = 0.0f;
     o8->FUN_000356c0(&f.tmp);
-    float len = f.tmp.FUN_0022d110();
-    float s;
+    hulk_freg len = f.tmp.FUN_0022d110(); // (tri3) len, s and k stay in st in the original
+    hulk_freg s;
     if (len <= 0.0f) {
         o8->FUN_00035550(&f.tmp);
         s = 4.0f;
@@ -334,7 +334,7 @@ bool ComputeDropZoneCondition::vfunc_6(int a0, Entity *e, int a2)
     } else {
         s = len;
     }
-    float k = s * scale;
+    hulk_freg k = s * scale;
     f.cand = f.tmp;
     f.cand.y = f.cand.y * k;
     f.cand.z = f.cand.z * k;

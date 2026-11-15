@@ -1551,7 +1551,7 @@ void __fastcall target(Obj_2d5090* self) {
 
 
 // 0x002d50c0 FUN_002d50c0 (770 B): equivalent/0x002d50c0.cpp
-// sym: ?FUN_002d50c0@Blend_2d50c0@fn_f0cbe20f@@QAEXPAUCtx@2@PBUKey_2d50c0@2@1HPBX@Z @8575beb1afea @w930f8a1f1a8a
+// sym: ?FUN_002d50c0@Blend_2d50c0@fn_f0cbe20f@@QAEXPAUCtx@2@PBUKey_2d50c0@2@1HPBX@Z @48e7e5070fc4 @wc176a63f01af @v0b9a57a681f1
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 16/16)
 // FUN_002d50c0 @ 0x002d50c0
 void Blend_2d50c0::FUN_002d50c0(Ctx *ctx, const Key_2d50c0 *a, const Key_2d50c0 *b, int t, const void *xform)
@@ -1566,21 +1566,34 @@ void Blend_2d50c0::FUN_002d50c0(Ctx *ctx, const Key_2d50c0 *a, const Key_2d50c0 
     tmp.FUN_0022ca90(&mat, (*(*(MatrixHolder***)&DAT_0052c2b0))->FUN_0028faa0());
     mat = tmp;
 
-    fac = FUN_0028b150(a->c[2], b->c[2], t, ctx);
-    fac = fac * fb0;
-    if (fac < 0.0f)
-        fac = 0.0f;
-    fb8 = FUN_0028b150(a->c[3], b->c[3], t, ctx);
-    fb8 = fb8 * fc0;
-    if (fb8 < 0.0f)
-        fb8 = 0.0f;
+    // (tri3) fst; fmul; the test on the unrounded product, as the original
+    {
+        hulk_freg r = FUN_0028b150(a->c[2], b->c[2], t, ctx);
+        fac = r;
+        r = r * fb0;
+        if (r < 0.0f)
+            r = 0.0f;
+        fac = r;
+    }
+    {
+        hulk_freg r = FUN_0028b150(a->c[3], b->c[3], t, ctx);
+        fb8 = r;
+        r = r * fc0;
+        if (r < 0.0f)
+            r = 0.0f;
+        fb8 = r;
+    }
     fbc = FUN_0028b150(a->c[4], b->c[4], t, ctx);
     fc4 = FUN_0028b150(a->c[5], b->c[5], t, ctx) * fcc;
     fc8 = FUN_0028b150(a->c[6], b->c[6], t, ctx);
-    fd0 = FUN_0028b150(a->c[7], b->c[7], t, ctx);
-    fd0 = fd0 * fd8;
-    if (fd0 < 0.0f)
-        fd0 = 0.0f;
+    {
+        hulk_freg r = FUN_0028b150(a->c[7], b->c[7], t, ctx);
+        fd0 = r;
+        r = r * fd8;
+        if (r < 0.0f)
+            r = 0.0f;
+        fd0 = r;
+    }
     fd4 = FUN_0028b150(a->c[8], b->c[8], t, ctx);
     if (a->c[9] && b->c[9])
         fe4 = FUN_0028b150(a->c[9], b->c[9], t, ctx) * fec;
@@ -1592,7 +1605,8 @@ void Blend_2d50c0::FUN_002d50c0(Ctx *ctx, const Key_2d50c0 *a, const Key_2d50c0 
     f104 = FUN_0028b150(a->c[14], b->c[14], t, ctx) * f108;
     unsigned int col;
     f10c = *FUN_0028b2f0(&col, a->c[15], b->c[15], t, ctx);
-    f10c = (f10c & 0xffffff) | ((unsigned int)FUN_0028b100(a->c[17], b->c[17], t, ctx) << 24);
+    unsigned int alpha = (unsigned int)FUN_0028b100(a->c[17], b->c[17], t, ctx); // (tri3) before f10c is re-read, as the original
+    f10c = (f10c & 0xffffff) | (alpha << 24);
     f110 = FUN_0028b100(a->c[16], b->c[16], t, ctx);
     f111 = FUN_0028b100(a->c[18], b->c[18], t, ctx);
 }

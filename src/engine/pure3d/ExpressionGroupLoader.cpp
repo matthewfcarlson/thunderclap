@@ -481,11 +481,11 @@ void B_2b0550::run() {
 } // namespace fn_fd745641
 
 // 0x002b07d0 FUN_002b07d0 (78 B): equivalent/0x002b07d0.cpp [wrapped: code differs from its standalone build]
-// sym: ?FUN_002b07d0@Holder@fn_002b07d0@@QAE_NXZ @90a4016af869 @w9522312ed1b6
+// sym: ?FUN_002b07d0@Holder@fn_002b07d0@@QAE_NXZ @90a4016af869 @w76481e58df46 @vf8e8549d1567
 namespace fn_002b07d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 637 inputs, branch coverage 6/6)
 // FUN_002b07d0 @ 0x002b07d0
-struct Item { char pad[0x14]; float value; }; struct Entry { Item* item; int other; }; struct Holder { Entry* begin; Entry* end; int unused; float reciprocal; bool FUN_002b07d0(); }; bool Holder::FUN_002b07d0() { float sum = 0.0f; hulk_intptr count = ((hulk_intptr)end - (hulk_intptr)begin) >> 3; if (count == 0) return false; Entry* it = begin; do { sum += it->item->value; ++it; --count; } while (count != 0); if (sum < 0.01f) return false; reciprocal = 1.0f / sum; return true; }
+struct Item { char pad[0x14]; float value; }; struct Entry { Item* item; int other; }; struct Holder { Entry* begin; Entry* end; int unused; float reciprocal; bool FUN_002b07d0(); }; bool Holder::FUN_002b07d0() { hulk_freg sum = 0.0f; /* (tri3) st0 throughout */ hulk_intptr count = ((hulk_intptr)end - (hulk_intptr)begin) >> 3; if (count == 0) return false; Entry* it = begin; do { sum += it->item->value; ++it; --count; } while (count != 0); if (sum < 0.01f) return false; reciprocal = 1.0f / sum; return true; }
 } // namespace fn_002b07d0
 
 namespace fn_fd745641 {

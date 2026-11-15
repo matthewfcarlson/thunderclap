@@ -375,7 +375,7 @@ bool hulkfight::motion::DriftToPositionAction::vfunc_3(int a, float b)
 
 
 // 0x00175360 hulkfight::motion::DriftToPositionAction::vfunc_5 (629 B): equivalent/0x00175360.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?vfunc_5@DriftToPositionAction@motion@hulkfight@fn_00175360@@UAE_NHM@Z @712b1afc4d37 @wa35a5478324b
+// sym: ?vfunc_5@DriftToPositionAction@motion@hulkfight@fn_00175360@@UAE_NHM@Z @712b1afc4d37 @wdbb6720adcba @v2d155ec7c2f2
 namespace fn_00175360 {
 // STATUS: equivalent (tools/equiv.py level 3: 3025 inputs, branch coverage 44/44)
 // hulkfight::motion::DriftToPositionAction::vfunc_5 @ 0x00175360
@@ -490,8 +490,8 @@ bool hulkfight::motion::DriftToPositionAction::vfunc_5(int mode, float dt)
         if (marker->flag)
             fr.d.y = 0;
     }
-    float len = fr.d.FUN_00018990();
-    float m = (timer > dt ? dt / timer : 1.0f) * len;
+    hulk_freg len = fr.d.FUN_00018990(); // (tri3) st1 in the original; the ratio st0: m is their product, rounded once
+    float m = (timer > dt ? (hulk_freg)dt / timer : (hulk_freg)1.0f) * len;
     fr.e = fr.d;
     fr.e.FUN_0022d110();
     fr.e.x = fr.e.x * m;

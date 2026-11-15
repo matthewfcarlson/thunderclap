@@ -149,7 +149,7 @@ bool FireProjectileAction::vfunc_3(unsigned,unsigned) {
 
 
 // 0x00195290 FUN_00195290 (708 B): equivalent/0x00195290.cpp [wrapped: conflict: World]
-// sym: ?FUN_00195290@fn_00195290@@YA_NPAUV3_195290@1@PAPAX1000PAPAUShape_195290@1@PAUHandle_195290@1@DPADH@Z @4966aaf0e1f7 @wa79dc65382fe
+// sym: ?FUN_00195290@fn_00195290@@YA_NPAUV3_195290@1@PAPAX1000PAPAUShape_195290@1@PAUHandle_195290@1@DPADH@Z @a5473dc505fe @w73aa9767db54 @vde9b5d63a726
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)
@@ -337,7 +337,10 @@ bool FUN_00195290(V3_195290 *self, void **out2, void **out1, V3_195290 *origin, 
             }
             if (f.rec.t > 0.0f && f.rec.t < dist) {
                 Shape_195290 *shape2 = node->shape;
-                *self = *end;
+                // (tri3) word by word, as the original copies it (clang's struct copy is a memcpy where self and end overlap)
+                self->x = end->x;
+                self->y = end->y;
+                self->z = end->z;
                 self->x = self->x - origin->x;
                 self->y = self->y - origin->y;
                 self->z = self->z - origin->z;

@@ -782,7 +782,7 @@ float Lights::FUN_0029d090(V3 *pos, unsigned int mask)
 namespace fn_f3bb83d9 {
 
 // 0x0029d2c0 FUN_0029d2c0 (769 B): equivalent/0x0029d2c0.cpp
-// sym: ?FUN_0029d2c0@Emitter_29d2c0@fn_f3bb83d9@@QAEMPBUVec3_29d2c0@2@I@Z @d6a38def34cd @w3a091064f2d5
+// sym: ?FUN_0029d2c0@Emitter_29d2c0@fn_f3bb83d9@@QAEMPBUVec3_29d2c0@2@I@Z @d6a38def34cd @wa6abb0f5c3e7 @v489afc77aed8
 // STATUS: equivalent (tools/equiv.py level 3: 2728 inputs, branch coverage 29/30, incomplete)
 // FUN_0029d2c0 @ 0x0029d2c0
 float Emitter_29d2c0::FUN_0029d2c0(const Vec3_29d2c0 *pos, unsigned int mask)
@@ -860,9 +860,9 @@ float Emitter_29d2c0::FUN_0029d2c0(const Vec3_29d2c0 *pos, unsigned int mask)
             if (!(c2 < m))
                 m = c2;
             life = (float)(m * ratio);
-            fr.v0 = (int)(c0 * ratio);
-            fr.v1 = (int)(c1 * ratio);
-            fr.v2 = (int)(c2 * ratio);
+            fr.v0 = (int)(__int64)(c0 * ratio); // _ftol: the low word of its 64-bit result
+            fr.v1 = (int)(__int64)(c1 * ratio);
+            fr.v2 = (int)(__int64)(c2 * ratio);
             fr.lo1 = 0;
             fr.hi1 = 255;
             fr.hi2 = 255;

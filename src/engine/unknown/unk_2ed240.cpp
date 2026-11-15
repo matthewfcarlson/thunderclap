@@ -1353,7 +1353,7 @@ void Registry_2ee710::FUN_002ee710(Item_2ee710 *obj)
 
 
 // 0x002ee9a0 FUN_002ee9a0 (114 B): equivalent/0x002ee9a0.cpp
-// sym: ?FUN_002ee9a0@Graph_2ee9a0@fn_f671dae7@@QAEXHH@Z @f11a29d29f4b @w3e98a508cdd6
+// sym: ?FUN_002ee9a0@Graph_2ee9a0@fn_f671dae7@@QAEXHH@Z @f11a29d29f4b @w15f8ef3eb23c @vedbae89bad8b
 // STATUS: equivalent (tools/equiv.py level 3: 57 inputs, branch coverage 16/16)
 // FUN_002ee9a0 @ 0x002ee9a0
 void Graph_2ee9a0::FUN_002ee9a0(int a, int b)
@@ -1364,8 +1364,15 @@ void Graph_2ee9a0::FUN_002ee9a0(int a, int b)
         if ((p->a == a || p->b == a) && (p->a == b || p->b == b)) {
             Edge_2ee9a0 *last = end - 1;
             end = last;
-            if (p < last)
-                *p = *last;
+            if (p < last) {
+                // (tri3) word by word, in order, as the original (clang's struct copy is a memcpy call: the two may
+                // overlap when the array's bounds aren't a whole number of edges apart)
+                p->a = last->a;
+                p->b = last->b;
+                p->c = last->c;
+                p->d = last->d;
+                p->e = last->e;
+            }
             return;
         }
     }

@@ -2762,7 +2762,7 @@ void ClimbLocomotionAction_15eb70::f() {
 
 
 // 0x0015ebc0 FUN_0015ebc0 (334 B): equivalent/0x0015ebc0.cpp
-// sym: ?FUN_0015ebc0@Table_15ebc0@fn_f94adb62@@QAEMMMM@Z @f09e06a15aea @wf22ef084edc2
+// sym: ?FUN_0015ebc0@Table_15ebc0@fn_f94adb62@@QAEMMMM@Z @f09e06a15aea @w18ff18b262b1 @v939569a55d58
 // STATUS: equivalent (tools/equiv.py level 3: 20003 inputs, branch coverage 12/12)
 // FUN_0015ebc0 @ 0x0015ebc0
 hulk_freg Table_15ebc0::FUN_0015ebc0(float t, float a, float b)
@@ -2776,15 +2776,15 @@ hulk_freg Table_15ebc0::FUN_0015ebc0(float t, float a, float b)
         DAT_004e11bc = 1.5707964f;
     }
     hulk_freg inv = 1.0f / DAT_004e11bc;
-    int quad = (int)(inv * r2);
+    int quad = (int)(__int64)(inv * r2); // (tri3) _ftol's low word
     int i0 = quad % 4;
     int i1 = (i0 + 1) % 4;
     hulk_freg f = (r2 - (float)i0 * DAT_004e11bc) * inv;
     if (!(t > 0.5f)) {
-        return ((1.0f - f) * lo[i0] + f * lo[i1]) * (t + t);
+        return ((1.0f - f) * lo[i0] + f * lo[i1]) * ((hulk_freg)t + t); // (tri3) fadd st0, st0: unrounded
     }
     if (t < 1.0f) {
-        hulk_freg h = (t - 0.5f) + (t - 0.5f);
+        hulk_freg h = ((hulk_freg)t - 0.5f) + ((hulk_freg)t - 0.5f);
         hulk_freg a1 = (1.0f - f) * lo[i0] + f * lo[i1];
         hulk_freg b1 = (1.0f - f) * hi[i0] + f * hi[i1];
         return (1.0f - h) * a1 + b1 * h;

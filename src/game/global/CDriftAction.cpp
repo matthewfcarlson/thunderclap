@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// clang-flags: -fexceptions -fcxx-exceptions   (gx2, D22: kept until its --wine proof passes again; docs/native-build.md "gx2")
 // object 0x0001fc60..0x00020020 (kind game, layer game, confidence medium), dominant class CDriftAction
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -240,7 +239,7 @@ CAction_1fe30::~CAction_1fe30() {
 } // namespace fn_f47061e1
 
 // 0x0001fe60 CDriftAction::vfunc_7 (448 B): equivalent/0x0001fe60.cpp [wrapped: conflict: CDriftAction]
-// sym: ?vfunc_7@CDriftAction@fn_0001fe60@@UAE_NM@Z @e0c844c4d74c @w534b0c885c4a
+// sym: ?vfunc_7@CDriftAction@fn_0001fe60@@UAE_NM@Z @e0c844c4d74c @wcfb0f2417b48 @v9db25d21e6f1
 namespace fn_0001fe60 {
 // STATUS: equivalent (tools/equiv.py level 3: 73 inputs, branch coverage 7/8, incomplete)
 // CDriftAction::vfunc_7 @ 0x0001fe60
@@ -323,7 +322,8 @@ bool CDriftAction::vfunc_7(float arg)
         Cfg_1fe60 *cfg = f20;
         fr.h.x = 0.0f;
         fr.h.y = 0.0f;
-        fr.h.z = -((cfg->c14 + (cfg->c18 - cfg->c14) * fr.s) * fr.dot * arg);
+        // (tri3) one x87 expression in the original (53-bit): promoted so the Wine build's SSE code doesn't round each step
+        fr.h.z = -((cfg->c14 + ((hulk_freg)cfg->c18 - cfg->c14) * fr.s) * fr.dot * arg);
         float g1 = pl->FUN_000354c0();
         FUN_00224d70(g1, &fr.h);
         pl->FUN_000357a0(&fr.h);
@@ -333,12 +333,12 @@ bool CDriftAction::vfunc_7(float arg)
         fr.h.z = 0.0f;
         pl->FUN_000356c0(&fr.h);
         fr.h.y = 0.0f;
-        if (!(fr.h.x * fr.g.x + fr.h.z * fr.g.z + fr.g.y * 0.0f > 0.0f))
+        if (!((hulk_freg)fr.h.x * fr.g.x + (hulk_freg)fr.h.z * fr.g.z + (hulk_freg)fr.g.y * 0.0f > 0.0f))
             return true;
         Cfg_1fe60 *cfg = f20;
-        fr.L = (float)sqrt(fr.h.z * fr.h.z + fr.h.x * fr.h.x);
-        float A = cfg->c14 + (cfg->c18 - cfg->c14) * fr.s;
-        float B = A;
+        fr.L = (float)sqrt((hulk_freg)fr.h.z * fr.h.z + (hulk_freg)fr.h.x * fr.h.x);
+        hulk_freg A = cfg->c14 + ((hulk_freg)cfg->c18 - cfg->c14) * fr.s;
+        hulk_freg B = A;
         if (fr.L - A < 0.0f)
             B = fr.L;
         fr.k.x = 0.0f;

@@ -297,7 +297,7 @@ extern "C" void* __cdecl FUN_002b2c30(void * obj, void* p) {
 } // namespace fn_f35e48b8
 
 // 0x002b2ea0 pure3d::MultiControllerLoader::vfunc_5 (1180 B): equivalent/0x002b2ea0.cpp [wrapped: macros]
-// sym: ?vfunc_5@MultiControllerLoader@fn_002b2ea0@@QAEXPAPAVMultiController_2b2ea0@pure3d@2@PA_KPAUReader@2@PAUInventory@2@@Z @f550cd6988d7 @w023e6d440361
+// sym: ?vfunc_5@MultiControllerLoader@fn_002b2ea0@@QAEXPAPAVMultiController_2b2ea0@pure3d@2@PA_KPAUReader@2@PAUInventory@2@@Z @f550cd6988d7 @w131af8fb8f9d @vdbb570896b0e
 inline void *operator new(size_t, void *p) throw() { return p; }
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
@@ -456,7 +456,7 @@ void MultiControllerLoader::vfunc_5(pure3d::MultiController_2b2ea0 **out, unsign
     int sv;
     if (f.v1.i == 0) {
         ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.v1.i), (hulk_intptr)1, 4, (hulk_intptr)1));
-        sv = (int)f.v1.f;
+        sv = (int)(__int64)f.v1.f; // _ftol: the low word of its 64-bit result
     } else {
         ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.v1.i), (hulk_intptr)1, 4, (hulk_intptr)1));
         sv = f.v1.i;
