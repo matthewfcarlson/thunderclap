@@ -1035,10 +1035,14 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
     under memfwd (at 1,000 inputs it fails without memfwd too, on inputs with no overlapping copy: input 461). The 7
     blocks memub had rescued (0x002233e0, 0x0021a3e0, 0x00280be0, 0x002699f0, 0x00269e00, 0x0026ab60, 0x0026af70) are
     `--wine` equivalent and promotable at 3,000 with memfwd, with no input set aside for an overlap (jobs 84172-84178).
-    memub's set-aside remains for copies over 1 MB and with `EQUIV_OFF=memfwd`. Cases `_memub_fwdoff`,
-    `_memub_hidden{,_fwdoff}`; `_memub_off` turns both off.
+    memub's set-aside remains for copies over 1 MB and with `EQUIV_OFF=memfwd`. `level3.inputs_memfwd` counts the
+    passing inputs on which ours's overlapping memcpy ran as the forward copy, and the proof ledger records it
+    (`memfwd`): the host's memcpy is undefined on overlap, so such a proof marks a port hazard (rev4). Cases
+    `0x002233e0_native_memub_fwdoff` (memub's set-aside alone), `0x002233e0_native_memub_hidden` (fails at 1,000
+    inputs), rev4's `0x002233e0_native_memfwd_inswap{,_fwdoff}` (a difference that needs the forward copy: it fails with
+    memfwd and passes with memub's set-aside alone); `_memub_off` turns both off.
   - Promotion cap (integ1, rev4): a run with `copy_overlap` inputs (intrub, memub) over 10% of the inputs run is not
-    promotable (as `wild` and `nan_payload`).
+    promotable (as `wild`).
   - `strlazy` (tri3, 2026-11-15; a model change, not a set-aside: every input stays compared): the strcmp family
     (strcmp, stricmp, strncmp, strnicmp) and memcmp are performed byte by
     byte up to the first difference or terminator (or n), as the C library defines them and as MSVC's inline loops /
@@ -1338,6 +1342,39 @@ epoch) and maps nothing, so the rule can only act through its overlay after a st
 0x0007f690 and 0x001e3020 (tri1's misfires) are equivalent and promotable at 3,000 inputs in MSVC mode.
 `EQUIV_OFF=vptrread` restores the mapping read; regress cases `0x00106290_vptrread{,_off,_wrong}`. Open: other hooks
 call `_read_u32` too (it maps past the page limit); they were not audited for the same side effect.
+
+(integ1, `proofcap`) A proof-sized run (`--inputs 3000`: promotions and `tree_tu.py hash --proven`) draws every input it
+asked for: after the directed and the other phases, the random phase runs on without its 32-inconclusive stop (a speed
+heuristic, not a verdict) until 3,000 inputs are drawn or the time budget ends (`level3.proofcap`: the seed it resumed
+at). Only more inputs; no comparison changes. Proofs that stopped there drew as few as 105 of 3,000 (0x002ee9a0).
+`EQUIV_OFF=proofcap` restores the stop. Case `0x0021a3e0_proofcap` (luaH newkey: 535 drawn, 442 compared before; it
+must now compare 1,500).
+
+(integ1, D54) **Preconditions: `// pre:` and HULK_PRE_NOTNAN.** NOT ADOPTED until an independent review signs off.
+Where the original's code and the Wine/native builds can only differ on inputs the game must never pass (a NaN operand:
+x87 and SSE hand on different NaNs when two meet: 0x0022ca90, 0x0022cc10, 0x0022cdb0, 0x00308ba0, 0x00229360), the
+contract is stated twice, as code and as an annotation (user decision: assert the input is not a NaN, so a violation
+stops with a backtrace instead of computing on):
+- **Code** (include/compat/pre.h, included by the TU): `HULK_PRE_NOTNAN(x)`. MSVC 7.1: nothing (`((void)0)`, no
+  declaration either, so the MSVC object and its proof are unchanged). clang (Wine and native builds): a NaN calls
+  `hulk_pre_fail(__func__, "notnan(x)")`, a static inline function (no external symbol) that stores the function and the
+  condition in two static words and executes `__builtin_trap()`.
+- **Annotation** among the block's directives: `// pre: notnan(LOC) ...`, `notnan64(LOC)` for a double. LOC: `argN` (the
+  N-th declared parameter's stack word; a hidden struct-return pointer not counted), `*argN[+0xOFF][..0xEND]` (the floats
+  at pointer argument N + OFF up to + END, exclusive), `*this[+0xOFF][..0xEND]` (through ecx). Fastcall register
+  arguments are not supported.
+- **The checker** (both modes): before an input runs, every contract word that holds a NaN is given a finite value on both
+  sides (the same input otherwise; `level3.inputs_pre_repaired`). Repaired, not excluded: a matrix's 32 operand floats
+  hold a fuzzed -1 word on most inputs (390 of 1,004 for 0x0022ca90), and setting those aside would stop the random phase
+  at its inconclusive cap. In `--wine` mode, one input that breaks the contract (a quiet NaN in its first word) is then
+  run without the repair, uncounted: our code must stop in the trap (`level3.pre_trap: fired`), else the block fails
+  with `pre_trap_missing`. An annotation whose block has no HULK_PRE_NOTNAN is refused at level 2 (`pre_without_trap`); an
+  unparsable one too (`pre_unparsed`). The annotation enters the checker view (`@v`) and the proof ledger (`pre`,
+  `pre_repaired`), so a proof records what it assumed. `EQUIV_OFF=pre` ignores the annotations (a proof refuses any switch).
+- Cases (`regress.py`): `0x0022ca90_native_pre` (equivalent, the trap fires) and `_msvc` (MSVC mode: equivalent), must-fail
+  `_notrap` (contract without the macro: refused), `_nopre` (macro without the contract: NaN inputs reach the trap, `original
+  ret but ours fault`), `_wrong` (a wrong element still fails under the contract), `_off`.
+- Not done: other conditions (finite, range); the native builds' crash handler printing the two stored words.
 
 (integ1, D39, `nanpayload`) **Dropped (user decision D50, 2026-11-15).** A rule to set aside quiet-NaN words that differ
 only in payload (x87 hands on the larger significand when two NaNs meet, SSE the first operand) was written (a07ba065a),

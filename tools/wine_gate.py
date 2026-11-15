@@ -52,6 +52,13 @@ def judge(rep):
     n = (rep.get("level3") or {}).get("inputs_run") or 0
     if n < MIN_RUN:
         return False, "wine: only %d inputs completed (%d needed)" % (n, MIN_RUN)
+    asked = (rep.get("tree_code") or {}).get("n_inputs") or rep.get("n_inputs_asked")
+    if asked and asked >= WINE_INPUTS:
+        # (integ1) a proof-sized run must have run: not cut by the time budget, every input drawn, 2,000 compared
+        import tree_tu
+        why_ = tree_tu.run_shortfall(rep, asked)
+        if why_:
+            return False, "wine: " + why_
     return True, "wine: equivalent at %d inputs" % n
 
 

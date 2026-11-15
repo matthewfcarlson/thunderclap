@@ -96,6 +96,7 @@ class Parsing(unittest.TestCase):
 
     def test_proves(self):
         good = {"native": False, "status": "equivalent", "promotable": True,
+                "level3": {"inputs_run": 2900, "inputs_inconclusive": 100},
                 "tree_code": {"msvc": "0123456789ab", "n_inputs": 3000}}
         self.assertTrue(tree_tu.proves(good, "msvc", "0123456789ab")[0])
         self.assertFalse(tree_tu.proves(good, "msvc", "0123456789ac")[0])           # other code
@@ -104,12 +105,21 @@ class Parsing(unittest.TestCase):
                                         "0123456789ab")[0])
         self.assertFalse(tree_tu.proves(dict(good, tree_code={"n_inputs": 3000}), "msvc", "0123456789ab")[0])
         self.assertFalse(tree_tu.proves(good, "wine", "0123456789ab")[0])           # an MSVC run proves no clang code
-        wine = {"native": True, "status": "equivalent", "level3": {"inputs_run": 2900},
+        wine = {"native": True, "status": "equivalent", "level3": {"inputs_run": 2900, "inputs_faulted": 100},
                 "tree_code": {"wine": "aaaaaaaaaaaa", "n_inputs": 3000, "x87_keep": 0}}
         self.assertTrue(tree_tu.proves(wine, "wine", "aaaaaaaaaaaa")[0])
         self.assertFalse(tree_tu.proves(dict(wine, tree_code=dict(wine["tree_code"], x87_keep=3)), "wine",
                                         "aaaaaaaaaaaa")[0])
         self.assertFalse(tree_tu.proves(dict(wine, status="mismatch"), "wine", "aaaaaaaaaaaa")[0])
+        # (integ1, D38 as run) a run the time budget cut or that drew fewer inputs than asked proves nothing
+        cut = dict(good, level3={"inputs_run": 349, "inputs_inconclusive": 0, "time_budget_hit": True})
+        ok_, why_ = tree_tu.proves(cut, "msvc", "0123456789ab")
+        self.assertFalse(ok_)
+        self.assertIn("time budget", why_)
+        few = dict(good, level3={"inputs_run": 534, "inputs_inconclusive": 32, "inconclusive_cap_hit": True})
+        self.assertFalse(tree_tu.proves(few, "msvc", "0123456789ab")[0])
+        self.assertFalse(tree_tu.proves(dict(wine, level3={"inputs_run": 534, "time_budget_hit": True}), "wine",
+                                        "aaaaaaaaaaaa")[0])
 
     def test_view_hash(self):
         # (integ1, D42) `@v` is the third hash; pin_text keeps it and writes it from a 3-tuple; a 2-tuple keeps it
@@ -131,6 +141,7 @@ class Parsing(unittest.TestCase):
 
     def test_proves_view(self):
         good = {"native": False, "status": "equivalent", "promotable": True,
+                "level3": {"inputs_run": 2900, "inputs_inconclusive": 100},
                 "tree_code": {"msvc": "0123456789ab", "n_inputs": 3000, "view": "00000000000f"}}
         self.assertTrue(tree_tu.proves(good, "msvc", "0123456789ab", "00000000000f")[0])
         self.assertFalse(tree_tu.proves(good, "msvc", "0123456789ab", "00000000000e")[0])     # another view

@@ -3854,6 +3854,7 @@ class Run:
         self.cmp_obs = {}           # jcc -> observation of the comparison that fed it
         self.cmp_obs2 = {}          # ... the second time (a loop's next iteration)
         self.str_obs = []           # compares of a buffer with a literal in .rdata (directed inputs plant it)
+        self.memfwd = 0             # (integ1, rev4) overlapping memcpy calls of ours performed as a forward copy (memfwd)
         self.str_eq = []            # (integ1, strcase) our strcmp-family calls: (epoch, first string's address, second string)
         self.deref_obs = []         # (round 13, objptr) [(pointer key, its source, disp)] (directed inputs)
         self.byte_bufs = {}         # byte compare site -> (address, epoch) of the first byte it compared
@@ -4341,6 +4342,7 @@ class Run:
                 # compared as any other (memub set it aside, which hid later differences on such inputs: rev4's
                 # 0x002233e0_native_memub_hidden). Over 1 MB: memub's set-aside as before
                 nd_ = w[2] & ~3
+                self.memfwd += 1
                 for i_ in range(0, nd_, 4):
                     self._mem((w[0] + i_) & M32, 4, self._mem((w[1] + i_) & M32, 4))
                 for i_ in range(nd_, w[2]):
@@ -7877,6 +7879,42 @@ _NAN_SIGN = [0]
 _NAN_EQ = [0]
 
 
+_PRE_ITEM = re.compile(r"(notnan64|notnan)\(([^()]*)\)")
+_PRE_LOC = re.compile(r"^(?:(arg)(\d+)|\*(arg)(\d+)|\*(this))(?:\+0x([0-9a-fA-F]+))?(?:\.\.0x([0-9a-fA-F]+))?$")
+
+
+def _parse_pre(lines):
+    """(integ1, D54) `// pre:` lines -> ([(width, kind, n, off, end)], [errors]). Items: notnan(LOC) (a float, 4 bytes) or
+    notnan64(LOC) (a double); LOC: argN (the N-th declared parameter's stack word, 1-based; the hidden struct-return
+    pointer not counted), *argN[+0xOFF][..0xEND] (the floats from pointer argument N + OFF up to + END, exclusive; one
+    when no END), *this[+0xOFF][..0xEND] (through ecx)."""
+    out, bad = [], []
+    for l in lines:
+        items = _PRE_ITEM.findall(l)
+        rest = _PRE_ITEM.sub("", l).replace(",", " ").strip()
+        if not items or rest:
+            bad.append("not `notnan(LOC)` items: %r" % l)
+            continue
+        for fn, loc in items:
+            m = _PRE_LOC.match(loc.replace(" ", ""))
+            if not m:
+                bad.append("location %r" % loc)
+                continue
+            w = 8 if fn == "notnan64" else 4
+            off = int(m.group(6), 16) if m.group(6) else 0
+            end = int(m.group(7), 16) if m.group(7) else None
+            if m.group(1):
+                if m.group(6) or m.group(7):
+                    bad.append("argN takes no offset: %r" % loc)
+                    continue
+                out.append((w, "arg", int(m.group(2)), 0, None))
+            elif m.group(3):
+                out.append((w, "parg", int(m.group(4)), off, end))
+            else:
+                out.append((w, "pthis", 0, off, end))
+    return out, bad
+
+
 def _fuzzed_heap(a):
     """(integ1, strcase) A string the input's own memory holds (the same address on both sides): not the null page, the
     stack, the original's image or our object (a literal there has another address on the other side)."""
@@ -9802,6 +9840,8 @@ def checker_view(native, fsym, sig, ret_kind, void_eax, convs, rep, psizes, decl
          "narrow": {"0x%08x" % a: d for a, d in NATIVE_NARROW.items()} if native else {},
          "issues": sorted({(i.get("kind"), str(i.get("symbol") or i.get("target") or "")) for i in issues}),
          "conflicts": len(l2.get("conflicts") or [])}
+    if rep.get("pre"):
+        v["pre"] = list(rep["pre"])       # (integ1, D54) what the proof assumed about its inputs
     if (EQUIV_OFF - {""}) or (EQUIV_ON - {""}):
         # (integ1, rev3) a run with non-default switches is another check (no default-run view equals it)
         v["switches"] = {"off": sorted(EQUIV_OFF - {""}), "on": sorted(EQUIV_ON - {""})}
@@ -9831,6 +9871,7 @@ def _verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappi
     explicit = dict(mapping or {})
     conv_lines = list(conventions or [])
     dead_lines = []             # `// equiv-dead: +0x52 taken, +0x61 not taken: why` (hand-reviewed)
+    pre_lines = []              # (integ1, D54) `// pre: notnan(*arg1+0x0..0x40)`: the function's input contract
     if src_lines is not None or src and os.path.exists(src):
         for line in (src_lines if src_lines is not None else open(src, errors="replace")):
             m = re.match(r"\s*//\s*equiv-map:\s*(\S+)\s*=\s*(0x[0-9a-fA-F]+)", line)
@@ -9842,6 +9883,9 @@ def _verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappi
             m = re.match(r"\s*//\s*equiv-dead:\s*(.+?)\s*$", line)
             if m and "declared" not in EQUIV_OFF:
                 dead_lines.append(m.group(1))
+            m = re.match(r"\s*//\s*pre:\s*(.+?)\s*$", line)
+            if m and "pre" not in EQUIV_OFF:
+                pre_lines.append(m.group(1))
     # ---- level 1
     tmp = None
     if obj_path is None:
@@ -10250,6 +10294,23 @@ def _verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappi
         if rep["level"] == 2:
             rep["level"] = 1
         issues = issues + bad
+    pre_specs, pre_bad = _parse_pre(pre_lines)
+    if pre_lines:
+        # (integ1, D54) a block's input contract: the inputs that break it are repaired on both sides (level3), and the
+        # source must state it as code too (HULK_PRE_NOTNAN, include/compat/pre.h), so the builds trap where it breaks
+        rep["pre"] = list(pre_lines)
+        text_ = "\n".join(src_lines) if src_lines is not None else \
+            (open(src, errors="replace").read() if src and os.path.exists(src) else "")
+        bad_ = [{"kind": "pre_unparsed", "why": "`// pre: %s`: %s" % ("; ".join(pre_lines), b_)} for b_ in pre_bad]
+        if "HULK_PRE_NOTNAN(" not in text_:
+            bad_.append({"kind": "pre_without_trap", "why": "`// pre: %s` without HULK_PRE_NOTNAN in the block: the "
+                         "builds would compute on where the proof assumed the contract" % "; ".join(pre_lines)})
+        if bad_:
+            issues = issues + bad_
+            rep["level2"]["issues"] = rep["level2"]["issues"] + bad_
+            rep["level2"]["ok"] = False
+            if rep["level"] == 2:
+                rep["level"] = 1
     try:
         rep["view"], view_ = checker_view(native, fsym, sig, ret_kind, void_eax, convs, rep, psizes, decls, issues)
     except Exception as e_:     # noqa: BLE001 - no view: the report can't record one (hash --proven refuses it)
@@ -10275,8 +10336,15 @@ def _verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappi
         except Exception as e_:     # noqa: BLE001 - a diagnostic: never fail the check because of it
             rep["x87_decl_error"] = str(e_)[:200]
     l3 = level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs, max_steps, keep_runs,
-                time_budget, psizes=psizes, convs=convs, decls=decls, void_eax=void_eax, seeds=seeds)
+                time_budget, psizes=psizes, convs=convs, decls=decls, void_eax=void_eax, seeds=seeds, pre=pre_specs)
     rep["level3"] = l3
+    if pre_specs and native and l3.get("pre_trap") != "fired" and not seeds:
+        # (integ1, D54) --wine: an input that violates the contract must hit HULK_PRE_NOTNAN's trap in our code
+        bad_ = {"kind": "pre_trap_missing", "why": "an input violating `// pre: %s` did not trap in our code (%s)" % (
+            "; ".join(pre_lines), l3.get("pre_trap") or "not tried")}
+        issues = issues + [bad_]
+        rep["level2"]["issues"] = rep["level2"]["issues"] + [bad_]
+        rep["level2"]["ok"] = False
     if l3["ok"] and rep["level"] == 2:
         rep["level"] = 3
     if l3.get("unsupported"):
@@ -10488,7 +10556,7 @@ def caller_cleaned(prog, oview):
 
 
 def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs, max_steps, keep_runs=False,
-           time_budget=120, directed=96, psizes=None, convs=None, decls=None, void_eax=False, seeds=None):
+           time_budget=120, directed=96, psizes=None, convs=None, decls=None, void_eax=False, seeds=None, pre=None):
     only_seeds = set(seeds) if seeds else ONLY_SEEDS
     globals_ = sorted({t for _, k, t in orefs if k in ("data", "imm") and prog.section_name(t) in (".data", "BINKDATA", "DOLBY")})
     if "wglobals" not in EQUIV_OFF:
@@ -10818,6 +10886,95 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
     edge_frames = []
     edges_any = set()
 
+    pre_off = [False]
+    sret_w = 1 if sig and sig.get("ret") == "struct" else 0
+
+    def _pre_words(inp):
+        """[(where, width)]: where is ("stack", word index) or ("mem", address) for each word the contract names."""
+        out = []
+        for w, kind, n, off, end in pre or ():
+            if kind == "arg":
+                wi = n - 1 + sret_w
+                if wi < len(inp["stack"]):
+                    out.append((("stack", wi), w))
+                continue
+            if kind == "pthis":
+                base = inp["regs"].get("ecx")
+            else:
+                wi = n - 1 + sret_w
+                base = inp["stack"][wi] if wi < len(inp["stack"]) else None
+            if base is None:
+                continue
+            for o_ in range(off, end if end is not None else off + w, w):
+                a_ = (base + o_) & M32
+                if a_ >= NULL_HI and not STACK_LO <= a_ < STACK_HI and not OURS <= a_ < OURS + OURS_SIZE and \
+                        not _reserved(a_) and not _reserved(a_ + w - 1):
+                    out.append((("mem", a_), w))
+        return out
+
+    def _is_nan_bits(b, w):
+        v = int.from_bytes(b, "little")
+        return (v & 0x7F800000) == 0x7F800000 and (v & 0x7FFFFF) != 0 if w == 4 else \
+            (v & 0x7FF0000000000000) == 0x7FF0000000000000 and (v & 0xFFFFFFFFFFFFF) != 0
+
+    def _pre_fix(seed, inp, mach):
+        """The overlay and stack patch that give every word of the contract a finite value where it holds a NaN."""
+        ov, sp = {}, {}
+        for (where, x), w in _pre_words(inp):
+            if where == "stack":
+                b = b"".join(struct.pack("<I", inp["stack"][x + i] & M32) for i in range(w // 4) if x + i < len(inp["stack"]))
+            else:
+                b = bytes(mach.byte(x + i, 0) for i in range(w))
+            if len(b) != w or not _is_nan_bits(b, w):
+                continue
+            fv = FLOATS[mix(seed, x, 0x9E) % len(FLOATS)]
+            nb = struct.pack("<f", fv) if w == 4 else struct.pack("<d", fv)
+            if where == "stack":
+                for i in range(w // 4):
+                    sp[("sbyte", x + i, 0, 4)] = struct.unpack_from("<I", nb, 4 * i)[0]
+            else:
+                ov[(0, x)] = nb
+        return ov, sp
+
+    def pre_trap_check():
+        """(integ1, D54, --wine) one input that breaks the contract (a quiet NaN in its first word), run without the
+        repair: our code must stop in HULK_PRE_NOTNAN's trap. Counted nowhere (the run's tallies are put back)."""
+        import copy
+        for seed0 in range(8):
+            inp0, _, _ = build(seed0, None, None)
+            words = _pre_words(inp0)
+            if not words:
+                continue
+            (where, x), w = words[0]
+            nan = b"\x00\x00\xc0\x7f" if w == 4 else b"\x00\x00\x00\x00\x00\x00\xf8\x7f"
+            ov, sp = {}, {}
+            if where == "stack":
+                for i in range(w // 4):
+                    sp[("sbyte", x + i, 0, 4)] = struct.unpack_from("<I", nan, 4 * i)[0]
+            else:
+                ov[(0, x)] = nan
+            saved = (copy.deepcopy(res), set(edges), Counter(hits), set(edges_any))
+            pre_off[0] = True
+            try:
+                run_input(seed0, ov, sp, label="pre-trap")
+                mm_ = [m_ for m_ in res["mismatches"] if m_.get("input") == "pre-trap"]
+                stat_ = dict(res["statuses"])
+            finally:
+                pre_off[0] = False
+                res.clear()
+                res.update(saved[0])
+                edges.clear(); edges.update(saved[1])
+                hits.clear(); hits.update(saved[2])
+                edges_any.clear(); edges_any.update(saved[3])
+            d_ = mm_[0]["diffs"] if mm_ else []
+            if any("but ours fault" in x_ or "ours fault" in x_ for x_ in d_):
+                res["pre_trap"] = "fired"
+            else:
+                res["pre_trap"] = "missing: %s" % ("; ".join(d_)[:200] if d_ else "the run passed or was set aside (%s)" %
+                                                   ", ".join("%s %d" % kv for kv in stat_.items())[:160])
+            return
+        res["pre_trap"] = "missing: no input reaches a contract word"
+
     def run_input(seed, overlay=None, stack_patch=None, label=None, _vk=False, _ar=False, _bf=None):
         """Run one input on both sides; returns the set of new original edges (None if inconclusive)."""
         fr_ = []
@@ -10852,6 +11009,18 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
 
     def _run_input(seed, overlay, stack_patch, label, _vk, _ar, _bf):
         inp, inp_o, mach = build(seed, overlay, stack_patch)
+        if pre and not pre_off[0]:
+            # (integ1, D54) an input that breaks the block's `// pre:` contract is outside the function's domain: the
+            # words that break it are given finite values on both sides (the same input otherwise), so the input
+            # still counts, as the contract's input (excluding it would set most inputs of a float-heavy block aside)
+            ov_, sp_ = _pre_fix(seed, inp, mach)
+            if ov_ or sp_:
+                overlay = dict(overlay or {})
+                overlay.update(ov_)
+                stack_patch = dict(stack_patch or {})
+                stack_patch.update(sp_)
+                inp, inp_o, mach = build(seed, overlay, stack_patch)
+                res["inputs_pre_repaired"] = res.get("inputs_pre_repaired", 0) + 1
         # (round 8, overlap) strncat(d, d + 12, n): overlapping copies are undefined behaviour, and the
         # original's word-at-a-time reads and a byte loop see each other's writes differently
         ub = "overlap_ub" if ub_copy is not None and len(inp_o["stack"]) >= 3 and \
@@ -11309,6 +11478,10 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                 # (integ1, measure only) a passing input on which _feq took two different NaNs as equal (rev3's question:
                 # how many proofs rest on NaN == NaN). Reported, never a verdict
                 res["inputs_nan_eq"] = res.get("inputs_nan_eq", 0) + 1
+            if rrun.memfwd:
+                # (integ1, rev4) an input compared only because ours's overlapping memcpy ran as the original's forward
+                # copy: the host's memcpy is undefined there (a port hazard), so a proof shows how many it rests on
+                res["inputs_memfwd"] = res.get("inputs_memfwd", 0) + 1
         else:
             res["inputs_faulted"] += 1    # compared up to the fault, but not counted as a passing input
         if diffs:
@@ -11939,6 +12112,8 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             directed_run(seed0, ov, sp0, "%d+case" % seed0)
 
     strcase_phase()
+    if pre and NATIVE_MODE and not only_seeds and not out_of_time():
+        pre_trap_check()
     if res.get("inconclusive_cap_hit") and 5 * rs["rinc"] <= res["inputs_run"] and rs["seed"] < max_inputs and \
             not out_of_time() and res["inputs_failed"] < MAX_FAIL and "rate" not in EQUIV_OFF:
         # the random phase stopped at 32 inconclusive inputs though most complete (a few fuzzed counts run
@@ -11961,6 +12136,13 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             res["covcap"] = True
             random_phase(soft=False, nocap=True)
             directed_phase()
+    if n_inputs >= 3000 and rs["seed"] < max_inputs and not out_of_time() and res["inputs_failed"] < MAX_FAIL and \
+            not only_seeds and "proofcap" not in EQUIV_OFF:
+        # (integ1, D38 as run) a proof-sized run (--inputs 3000: promotions, `hash --proven`) draws every input it asked
+        # for: the 32-inconclusive stop above is a speed heuristic, not a verdict, and a proof that stopped there drew
+        # 105 of 3,000 (0x002ee9a0). More inputs only; nothing is compared more loosely. The time budget still ends it
+        res["proofcap"] = rs["seed"]
+        random_phase(soft=False, nocap=True)
     res["coverage"] = coverage_of(oview, edges)
     res["statuses"] = dict(res["statuses"])
     if res.get("unexplained"):

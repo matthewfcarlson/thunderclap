@@ -254,7 +254,12 @@ is already in the ledger needs no run; otherwise a report that `proves()` it (th
 promotable at >= 3,000 inputs, --wine passing tools/wine_gate.py at >= 3,000 inputs without an x87-keep list) is
 appended to the ledger. When every mode is covered, the pin line gets the code hashes and `@v`; a mode proven alone still
 goes into the ledger (that run passed), the pin line is left as it is. A block with no result whose code is unchanged is
-`skipped`. Reports from before views (no `tree_code.view`) prove nothing: re-run them. `--ledger FILE` reads and appends
+`skipped`. Reports from before views (no `tree_code.view`) prove nothing: re-run them. (integ1, D38 as run) A run proves
+only what it ran: `tree_tu.run_shortfall` (used by `proves()` and `tools/wine_gate.judge()`) refuses a run the time budget
+cut or that drew fewer inputs than it asked for (completed + inconclusive + faulted + failed), naming the shortfall; a
+floor on the completed inputs waits for user decision D62 (`MIN_COMPLETED`, 0 for now). equiv.py's proof-sized runs
+(`--inputs 3000`) no longer stop at the random phase's 32-inconclusive heuristic (`proofcap`, docs/equivalence.md).
+Runs made with any EQUIV_ON / EQUIV_OFF switch prove nothing either. `--ledger FILE` reads and appends
 another ledger (tests, dry runs).
 
 ### Checks beyond the blocks (tool2, 2026-11-13)

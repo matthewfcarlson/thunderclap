@@ -554,6 +554,7 @@ def code_hashes(coff, rec, pairs, path):
 
 
 WCACHE = os.path.join(ROOT, "build/tree-cache/whash")
+WFAIL = {}          # (integ1) TU path -> why its clang compile failed in this process (wine_hashes caches no failure)
 _WK = {}
 
 
@@ -635,7 +636,10 @@ def wine_hashes(path, recs, rec=None):
     cp_ = os.path.join(WCACHE, key + ".json")
     try:
         with open(cp_) as f:
-            return json.load(f)
+            got_ = json.load(f)
+        if not (got_ and all(v is None for v in got_.values())):
+            return got_
+        # (integ1) an entry an older tree_tu.py wrote for a failed compile: compiled again, never trusted
     except (OSError, ValueError):
         pass
     os.makedirs(WCACHE, exist_ok=True)
@@ -647,8 +651,11 @@ def wine_hashes(path, recs, rec=None):
             if isinstance(e, RuntimeError):
                 raise
             obj = None
+            WFAIL[ap] = repr(e)[:500]
         if obj is None:
-            out = {r["addr"]: None for r in eq}
+            # (integ1, gx4's report) never cached: a failed compile (a loaded host's timeout, a transient file error)
+            # stored here made every later check of the same text `no_object` while the TU compiles fine
+            return {r["addr"]: None for r in eq}
         else:
             coff = Coff(obj)
             fs = {s[0]: s for s in coff.function_symbols()}
@@ -816,6 +823,7 @@ def ledger_entry(addr, mode, code, view, rep, tu):
             "inputs_run": l3.get("inputs_run"), "inconclusive": l3.get("inputs_inconclusive"),
             "coverage": "%s/%s" % (cov.get("edges_covered"), cov.get("edges_total")) if cov else None,
             "status": rep.get("status"), "promotable": rep.get("promotable"), "checker": tc.get("checker"),
+            "memfwd": l3.get("inputs_memfwd", 0), "pre": rep.get("pre"), "pre_repaired": l3.get("inputs_pre_repaired", 0),
             "job": tc.get("job"), "date": datetime.date.today().isoformat()}
 
 
@@ -1628,6 +1636,26 @@ def removed_hashes(path, recs, ref):
 
 # ------------------------------------------------------------------------------------------------------- recording
 MSVC_INPUTS, WINE_INPUTS = 3000, 3000     # (integ1, D38: --wine at 3,000 too, was 600)
+MIN_COMPLETED = 0       # (integ1) completed (compared) inputs a proof needs: on hold (user decision D62), so none yet
+
+
+def run_shortfall(rep, asked):
+    """(integ1, x64t13's report) Why a run's inputs fall short of a proof, or None: the time budget cut it, it drew
+    fewer inputs than ASKED (completed + inconclusive + faulted + failed: the random phase also stops at 32
+    inconclusive inputs), or (once D62 sets MIN_COMPLETED) fewer were compared. --inputs 3000 that drew 349 proved 349."""
+    l3 = rep.get("level3") or {}
+    run = l3.get("inputs_run") or 0
+    drawn = run + (l3.get("inputs_inconclusive") or 0) + (l3.get("inputs_faulted") or 0) + (l3.get("inputs_failed") or 0)
+    if l3.get("time_budget_hit"):
+        return "the time budget cut the run: %d of %d inputs drawn, %d compared (use a longer --time-budget)" % (
+            drawn, asked, run)
+    if drawn < asked:
+        return "only %d of %d inputs drawn, %d compared%s" % (drawn, asked, run, " (the inconclusive cap stopped it)"
+                                                               if l3.get("inconclusive_cap_hit") else "")
+    if MIN_COMPLETED and run < MIN_COMPLETED:
+        return "only %d inputs compared (%d needed; %d inconclusive)" % (run, MIN_COMPLETED,
+                                                                         l3.get("inputs_inconclusive") or 0)
+    return None
 
 
 def proof_code(src, addr, native, recs):
@@ -1681,7 +1709,10 @@ def proves(rep, kind, h, view=None):
             return False, "not promotable (%s)" % rep.get("status")
         if (tc.get("n_inputs") or 0) < MSVC_INPUTS:
             return False, "asked for %s inputs (%d needed)" % (tc.get("n_inputs"), MSVC_INPUTS)
-        return True, "promotable at %s inputs" % tc["n_inputs"]
+        why_ = run_shortfall(rep, tc["n_inputs"])
+        if why_:
+            return False, why_
+        return True, "promotable at %s inputs (%s compared)" % (tc["n_inputs"], (rep.get("level3") or {}).get("inputs_run"))
     import wine_gate
     ok, why = wine_gate.judge(rep)
     if not ok:
@@ -1690,6 +1721,9 @@ def proves(rep, kind, h, view=None):
         return False, "the --wine compile used an x87-keep list (%d functions): run it without one" % tc["x87_keep"]
     if (tc.get("n_inputs") or 0) < WINE_INPUTS:
         return False, "asked for %s inputs (%d needed)" % (tc.get("n_inputs"), WINE_INPUTS)
+    why_ = run_shortfall(rep, tc["n_inputs"])
+    if why_:
+        return False, why_
     return True, why
 
 

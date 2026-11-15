@@ -330,6 +330,12 @@ $J $N sync | lineages   # inputs on the hosts (submit does it) | lineage workspa
   cached errors); and `PYTHONHASHSEED=0` for the build.
 - **Big jobs.** A queued job of 4+ slots now reserves the hosts it could run on (`BIG_SLOTS` in `jobq.py`), else one-slot jobs
   starve it. This needs the daemon restarted; until then a build waits for an idle remote (or use `--slots 2`).
+- **2- and 3-slot jobs can starve (integ1, 2026-11-15).** Below `BIG_SLOTS` nothing is reserved: while hundreds of 1-slot
+  jobs are queued (integ1's re-audit at `--prio -10`), every slot that frees is taken by the next 1-slot job, and a
+  2-slot job waits even at a higher priority. `regress.py --jobq` submits 2-slot jobs: 70 of 89 sat queued for hours.
+  Workaround: submit such work as 1-slot jobs (build/integ1/scripts/regress_slots1.py: `regress.py --names ... --jobs 1`
+  per job, `--slots 1 --prio 5`; ship tools/equiv.py, tests/equiv/regress.py and tests/equiv/cases). Fix (not done):
+  let the dispatcher hold a freeing slot for a higher-priority multi-slot job.
 - **Placement (jq3, 2026-11-04).** `submit` no longer picks a host. Without `--host` the job is unpinned and the daemon
   starts it on whichever build host (remote, `msvc` + `clang`, plus `wine` for a replay) has room. What used to be decided at
   submit is now host-independent or done at dispatch:
