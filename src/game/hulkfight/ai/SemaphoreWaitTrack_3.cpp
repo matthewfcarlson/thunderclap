@@ -39,7 +39,7 @@ namespace fn_f15aa14c { struct Obj_10c550 { char SetRandomIntroWait_0010c550(cha
 namespace fn_f15aa14c { struct Obj_10c600 { bool SetTimeBegin_0010c600(int); }; }   // (gx3, D18) setters, as defined in unk_10c0d0.cpp
 namespace fn_f15aa14c { struct Obj_10c650 { bool SetTimeEnd_0010c650(int); }; }   // (gx3, D18) setters, as defined in unk_10c0d0.cpp
 namespace fn_f15aa14c { struct Obj_10c670 { unsigned char SetFloatDelayOnEnd_0010c670(unsigned char); }; }   // (gx3, D18) setters, as defined in unk_10c0d0.cpp
-namespace fn_f15aa14c { struct Owner { int SetText_0010c8d0(char const *); }; }   // (gx3, D18) setters, as defined in unk_10c0d0.cpp
+namespace fn_f15aa14c { struct Owner { hulk_intptr SetText_0010c8d0(char const *); }; }   // (gx3, D18) setters, as defined in unk_10c0d0.cpp (gx4: its hulk_intptr return, for the native name)
 namespace fn_f15aa14c { struct T_10c300 { char SetNumberofAttachedProps_0010c300(char); }; }   // (gx3, D18) setters, as defined in unk_10c0d0.cpp
 namespace fn_f15aa14c { struct T_10c4e0 { bool SetTimeEnd_0010c4e0(int); }; }   // (gx3, D18) setters, as defined in unk_10c0d0.cpp
 namespace fn_f15aa14c { struct T_10c570 { char Set(unsigned int); }; }   // (gx3, D18) setters, as defined in unk_10c0d0.cpp

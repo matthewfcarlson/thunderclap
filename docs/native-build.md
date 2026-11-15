@@ -4828,3 +4828,92 @@ TUs from HEAD: control 83660 (5650f3378), proof 83749 seeded from it: GATE ok, p
   call sequence 6, others 12 (wild_jump, hook_error, timeouts, register preservation, coverage 0x000fd0f0 0x002142d0).
 - D31: Scenegraph_2.cpp (0x00297680) and d3dExtFramebufferEffects.cpp (0x00321580 0x00323ee0 0x00324660) keep the
   exception flag; CCharacter.cpp, Puppet.cpp, LevelLoader.cpp (tri1's) too.
+
+## The Name and int-word parameter families constructed for real; 197 more registrations (gx4, 2026-11-15)
+
+User decisions D18 / D24 continued from gx3 (its items 2-7; item 8 waits on D48).
+
+**Order.** build/gx4/scripts/feas2.py checks the remaining registration groups jointly (a group's `??_G` blocks may be
+emitted by another group's registrations, which gen20 moves them to): with the nine families gx3 supported no group
+could move (29 needed a new family, 8 were blocked by a non-template class's `??_G`); with all 16 families 25 groups
+(197 registrations) can, 12 groups (69) stay blocked by non-template classes (gx3's item 2). So item 3 went first.
+
+**gx4 1 (D18 item 3).**
+- The value classes' constructors: 0x00234a90 `ParamValueName::ParamValueName(const char*)` and 0x00234ba0
+  `ParamValueNameList::ParamValueNameList(const char*)` store ParamValue's vftable, initialise the name and store
+  their own: the intermediate constructor (ParamValueString's 0x002349e0, ParamValueStringList's 0x00234af0) is
+  inlined, its vftable store dead. MSVC 7.1 /O2 does exactly that when the two constructors are in one TU (MATCH,
+  relocations ok), and not across objects, so each derived constructor belongs to its base's object: config/splits.json
+  moves the boundaries (0x002349e0..0x00234af0 ParamValueString_2, 0x00234af0..0x00234c00 ParamValueStringList_2,
+  0x00234c00..0x00234cc0 ParamValueScript; the COMDAT strays 0x00234ac0 / 0x00234bd0 move with them;
+  ParamValueScript.iso_00234ba0.cpp is gone). config/data.json regenerated (six zero / RTTI items change owner within
+  engine/fight; include/decls/data/engine/fight.h reorders four declarations). 0x00234af0 and 0x00234c00 are the real
+  `ParamValueStringList(const char*)` / `ParamValueScript(const char*)` (were TU-local classes' constructors).
+- include/gen/fight.h (under `HULK_FIGHT_PARAM_IMPLICIT`): the four value classes' constructors (destructors implicit),
+  template constructors `(name, setter)` for ParamName (the setter is ParamValueName's own +0x10 word, set in the body),
+  ParamNameConstList, ParamNameList, ParamStringConstList, ParamScript, ParamBoolPtr, ParamFloatPtrConstRange (each
+  `hulk_intptr f_10` + `int f_14`: the registrations allocate 0x18). config/gen-sizes.json: 123 instantiations
+  16/20 -> 24. The `FUN_00234a90` / `FUN_00234ba0` member declarations stay for the registrations not rewritten yet.
+- build/gx4/scripts/gen20.py (gx3's gen19 plus): the seven families; setters the tree pins as `extern "C"` fastcall
+  getters (`@GetText_0010c630@4`) or stdcall functions (`_FUN_00068eb0@4`) named by their address, declared as defined;
+  overloaded setter names (`Obj::Set(Src*)` / `Obj::Set(const Vec3*)`) cast to their member pointer type; an enum count
+  held in a register (`xor edi, edi` ... `mov [esi+0x14], edi`) read from the register's constant; the Ptr families'
+  word is a data member's offset (vfunc_6 stores through `p[f_10]`), written `&::CWeaponCollisionTrack::f_cc` (a pointer
+  to the include/gen field at that offset; on the 64-bit builds the native offset). It reads HEAD (a `git archive`),
+  never the shared working copy. fixgx.py drops `// cl-flags: /GX` from a TU once no `??_G` block of it has code left
+  (after every group's moves).
+- 25 groups: SemaphoreWaitTrack_3 (25 registrations), RayCastCondition_3 (27),
+  PropAddToCollisionTrack_3 (21), CAlertStatusTrack_3 (12), CWeaponCollisionTrack (12), MotionClosestWaypointAction_2
+  (12), PropSpawnTrack_reg (9), SnapToGroundTrack_2 (8), CSmartPropDistanceCondition_reg_055220, unk_161c10,
+  Event_PathNameCondition (7 each), ThreatDistanceCondition, WorldConeDamageAction (6), CollisionThrownObjectCondition_reg,
+  TimerCondition (5), WallJumpAction, unk_05c6b0, unk_19c050 (4), CCollisionTrack, unk_05fa10, TankLocomotionAction, ChargeCondition_3 (3),
+  LuaCondition (2), PostEvent_StringTrack, TargetArcCondition_reg (1): 197 registrations, all MATCH with relocations ok;
+  80 sibling / `_params` TUs left without blocks are gone (src/link-order.txt); `/GX` TUs 398 -> 309.
+- Also: gx3's gen19 comments named `hulkfight::` classes without `fight::` (`<hulkai::X>`): fixed in its 5 TUs.
+
+**Item 7 in the same batch (D19 / D14): four real destructors.** fight::PrintCondition, fight::PrintTrack,
+hulkfight::DebugPrintCondition and hulkfight::StatTrack free their strings: their out-of-line destructors 0x002388e0,
+0x00238a50, 0x0012e590, 0x0012f010 (were TU-local stand-ins: `dtorish`, `FUN_00238a50`, `CRawScript::run`) are now
+`C::~C() { delete[] f_0c; delete[] f_10; }` (StatTrack: `f_10` only) on include/gen's classes (declared virtual there,
+the string words `char*`), and their scalar deleting destructors 0x00238ca0, 0x00238ce0, 0x0012fc90, 0x0012fea0
+(stand-ins too, StatTrack's was the one user-written `??_G` left in GameStateCondition.cpp) are header-only blocks:
+MSVC 7.1 emits them beside the vftable the destructor stores, with the destructor inlined, as in the game. `delete[]`
+needs `void operator delete[](void*);` declared (the game's 0x0008d340); without it MSVC 7.1 calls `operator delete`
+(0x0008d330) and the relocation check reports the two targets of `??3` as inconsistent. With StatTrack's `??_G` gone,
+GameStateCondition's 13 registrations (ParamStringConstList and the rest) migrate too (4 sibling TUs gone).
+Natively the stubs' implicit destructors now run the real ones (no more leaked strings: dtor1's D14 list).
+
+- Gates (a9badac5f): whole tree with the batch shipped, 22,687 MATCH with relocations ok, 4,751 equivalents with
+  both hashes ok, 0 bad; gen_headers.py --probe 18/18 headers, 4,238 classes, sizes ok; x64 gate (temporary commit
+  133ecc27b): no new gating failure (894 changed blocks: 294 equivalent, 596 unsupported:tool, 3 int, 1 known
+  ptrtrunc), config/x64-baseline.json ratcheted (0x00234a90, 0x00234af0, 0x00234ba0, 0x001a1b00 layout ->
+  equivalent). Wine proof on studio (private data TUs): control 84007 (7969b8777), proof 84076 seeded from it:
+  GATE ok, 0 of 2,016 common frames differ (prng too). (The commit message says "4 known": 4 improved, 1 known.)
+- gx4 2: SemaphoreWaitTrack_3.cpp's declaration of the setter 0x0010c8d0 returns `hulk_intptr` as its definition
+  does (the 32-bit demangled `int` gave the 64-bit builds another name). MATCH unchanged, x64 gate equivalent.
+
+**Native unbound names** (each Wine build's clang-probe snapshot linked with its own binding map):
+
+| state | macOS | Linux | Android |
+|---|---|---|---|
+| control 84007 (7969b8777) | 13,582 | 13,562 | 13,573 |
+| gx4 1, proof 84076 | **12,776** | **12,756** | **12,767** |
+
+806 names gone on each target: the stand-in classes and setters of the 210 rewritten registrations, the value
+classes' TU-local constructors, the four destructors' stand-ins (macOS by name: 808 gone, 2 new). The 2 new: the
+setter 0x0010c8d0 (fixed in gx4 2) and `fn_ff0a839e::Obj_12960::Get`, a setter whose definition (unk_011000.cpp) is
+virtual on its stand-in class while the registration needs its address (a non-virtual declaration; the stand-in
+should not be virtual: left for the class's owner).
+
+**What is left of D18 / D24 and the rest of gx3's list.**
+- Item 2: 56 registrations in 11 groups wait for non-template classes' real destructors / constructors. The three in
+  src/engine/fight (OpportunityAction, SequenceAction, ExecuteAction) call their own out-of-line destructors, which end
+  in fight::Action's destructor 0x002326a0: making them real needs `Action::~Action` real first, and 121 TUs name it
+  `FUN_002326a0`. The others need their classes' destructors the same way (CTrack, CMotionTrailTrack,
+  GrappleAnimationTrack, GrappleHitReactionAction, FireBeamAction, ClimbLocomotion4Track / LocomotionStrafe4Track /
+  LocomotionSteerTrack / ClimbLocomotion4Action, NISAnimationTrack / Action, RoutAction / PathFormationAction /
+  PathAction): build/gx4/scripts/feas2.py lists them.
+- Item 5 (D24, Method/Closure: 646 `??_G` in 158 TUs), item 6 (the base ParamValueX slot blocks: 13 of them are
+  equivalent blocks on TU-local signatures; renaming means re-proving each), item 7's 20 Condition stubs: not started.
+- `/GX`: 308 TUs: their user-written `??_G` are non-template classes' in 154, Method/Closure's in 158,
+  parameter templates' in 12 (some TUs have two kinds); plus dynamic_initializers and GrappleThrowAction.iso_00148f40.

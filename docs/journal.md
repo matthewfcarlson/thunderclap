@@ -979,3 +979,24 @@ blocks fight::Action's whole family: the records come first there.
   (fuzzed), spell the read first (llex 0x0021b1c0).
 - Process: a temporary-index commit must read-tree the HEAD it will commit on and build every file from that HEAD:
   building files from an older HEAD reverts whatever landed in between (caught before the push here).
+
+## 2026-11-15 gx4: Name / int-word parameter families constructed for real (D18)
+
+- MSVC 7.1 /O2 inlines a base class's out-of-line constructor into a derived constructor defined in the same TU and
+  drops the base's (dead) vftable store: 0x00234a90 ParamValueName(const char*) = ParamValue's vftable, the name, its
+  own vftable. Never across objects, so 0x00234a90 / 0x00234ba0 belong to ParamValueString's / ParamValueStringList's
+  objects; config/splits.json had each one object too late (moved, data.json regenerated).
+- ParamBoolPtr / ParamFloatPtrConstRange's +0x10 word is a data member offset (vfunc_6 stores `p[f_10] = v`), written
+  as `&T::f_xx` (a pointer to the include/gen field). The other families' word is a member function's address; some
+  setters are pinned as fastcall / stdcall C functions (getters `return this + k`), named by address in the
+  registrations.
+- gx3's gen19 read the shared working copy for files outside its overlay: a batch could carry another agent's
+  uncommitted edit (gx4 caught tri3's 0x0015ebc0 in its overlay through a changed `--wine` hash). gen20 reads a
+  `git archive HEAD` snapshot.
+- After the 11-15 reboot, local wibo (MSVC) runs hung at 0 CPU on the laptop; the queue hosts were unaffected.
+- `delete[]` of a char* in MSVC 7.1 calls `operator delete` (??3) unless `void operator delete[](void*);` is declared;
+  the game's destructors call 0x0008d340 for the strings and 0x0008d330 for `delete this`, so the declaration is
+  needed (verify_relocs: "inconsistent ??3").
+- A setter pinned on a virtual stand-in method (`?Get@Obj_12960@fn_ff0a839e@@UAEPAXXZ`) can't be named from a
+  registration as its address without a non-virtual declaration, which gives another native name: such stand-ins
+  should not be virtual.
