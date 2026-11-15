@@ -4648,3 +4648,85 @@ Hash gap (docs/merge-once.md "What the hash does not cover"): proposal `@v`, a h
 conventions, level-2 bindings, callee pointee sizes, return note) recomputed by check/verify. Process gap: hash1/hash2
 recorded hashes over blocks that docs/equivalence.md already listed as failing (0x000d3170, 0x00088020) or whose tree TU
 had never been run; a hash should come only from a passing run of the tree TU.
+
+## The registration objects settled; the parameter registrations of 11 more objects construct the real templates (gx3, 2026-11-15)
+
+User decisions: D32 (settle the object boundaries in config/splits.json before migrating the 241 registrations whose
+`??_G` blocks sit in other objects), D18 / D24 continued from gx2.
+
+**gx3 1 (D32): registration objects.** A fight parameter registration (a caller of the parameter list set-up
+0x002347b0) constructs `fight::ParamX<T>` objects. A template vftable and its scalar deleting destructor (slot 0) are
+COMDATs that only an object constructing the class emits, and the linker keeps the copies of the first object in link
+order; when the registration is the only function in the image that stores the vftable (true of 985 of the 1,013
+vftables the registrations store; the other 28 also have an out-of-line constructor copy, not used as evidence), the
+`??_G` was emitted by the registration's own object. So every span from such a `??_G` to its registration is inside
+one object, and the inferred objects those spans touch are one object.
+- tools/infer_splits.py step 8 (`registration_spans`, `registration_objects`; `--registration-objects` applies it alone
+  to the committed config/splits.json, without the rest of the inference's drift): 15 merges of 198 inferred objects
+  (1,830 -> 1,647 objects). The large ones are whole files of conditions or tracks: 0x00051480..0x00056af0 (21 objects:
+  the CStageCondition .. CSmartPropDistanceCondition parameters, 48 registrations), 0x0006e840..0x00075ce0 (50 objects,
+  37 registrations), 0x00110e60 (13), 0x00127a00 (15), 0x00153f40 (19), 0x0016a050 (13), 0x00178d00 (26),
+  0x00186680 (27); seven merge a class's object with an unattached `unknown/` run holding its registrations
+  (CHapticTrack + unk_05d370, CExplosionTrack_2 + DataHandler/ObjectCreator, FightNodeTimeCondition + unk_2361a0, ...).
+  The merged object keeps its first high-confidence member's name; the tree keeps the members' TUs as separate
+  compile units of it (their `// object` lines name the pre-D32 piece).
+- config/data.json regenerated: 8,936 item owners move into the merged objects (nothing else changes);
+  include/decls/data regenerated: game/DataHandler.h has no items left (removed; ObjectCreator.cpp includes global.h),
+  1,223 names leave game/unknown.h, 75 TUs include the header of their names' new owner (build/gx3/scripts/declfix.py).
+- Three equivalent blocks' MSVC code changed with the headers alone (MSVC 7.1's stack slot assignment depends on the declarations seen:
+  0x000b86b0, 0x00027930, 0x001a9b10 swap two spill slots); re-proved at 3,000 inputs (MSVC and `--wine`) and recorded.
+- Gates (21d2cd23c): whole tree with the batch shipped, all blocks MATCH / equivalent with both hashes ok; x64 gate ok
+  (15 changed blocks, unsupported:tool); Wine proof on studio: control 82305 (9f6ddd1df), proof 82489: GATE ok, 0 of
+  2,011 common frames differ.
+
+**gx3 2 (D18): the registrations of 11 objects.** build/gx3/scripts/gen19.py (gx2's gen18.py extended):
+- `ParamEnumConstList<T>(name, table, count, setter)` (include/gen/fight.h, under `HULK_FIGHT_PARAM_IMPLICIT`): the
+  enum's name table at +0x10, its count at +0x14 (an immediate or a `const int` the registration reads), the setter at
+  +0x18; `int f_1c` added (the registrations allocate 0x20; config/gen-sizes.json: 168 instantiations 28 -> 32).
+  0x00234cc0 is the real `fight::ParamValueEnum::ParamValueEnum(const char*)` (was a TU-local class's constructor).
+- A `??_G` of a constructed class that sits in another TU of the (merged) object moves into the registration's TU as a
+  header-only block (the registration emits it); the TU it leaves loses the block, and its `/GX` when no `??_G` is left.
+- Setters are named as their blocks define them (the pin): a setter of another TU's local namespace gets a declaration
+  of that namespace and class (`namespace fn_X { struct C { char F(int); }; }`, class-typed parameters forward-declared
+  with their own class key), `owners::` ones include gen/owners.h, an `operator=` setter is cast to its member pointer
+  type (the implicit copy assignment overloads it); the TU's own `FUN_002347b0` declarations with other parameter types
+  go (clang rejects two `extern "C"` declarations that disagree). Counters and lists declared as byte arrays in the
+  decls headers are read through `*(int*)&`.
+- Groups (the registration TU and its `.iso_` / `.new_*` siblings): CNameFlagConditionBase_reg (41 registrations),
+  InterruptPriorityTrack_reg (32), unk_070620 (25), AcquireTargetTrack_2 (21), unk_179c10 (19), FallTrack (9),
+  unk_2361a0 (3), ObjectCreator (2), FaceTargetAction (2), unk_05d370 and DebugCondition (1): 156 registrations, all
+  MATCH now (most were equivalent), 60 sibling TUs and `_params` TUs left without blocks are gone (src/link-order.txt),
+  49 TUs lose `// cl-flags: /GX` (448 -> 399).
+- Gates (4ded9f0e5, restored by 3d5e44c3c after bc332e523 reverted it from a stale shared index): every changed TU
+  MATCH / equivalent ok, whole tree ok; gen_headers.py --probe 18/18 headers, 4,238 classes ok; x64 gate (temporary
+  commit ee3624eab): no new gating failure (502 changed blocks: 195 equivalent, 300 unsupported:tool, 1 known), the 6
+  `??_G` blocks the gate's run left without a result re-run through the queue with its settings (82842): equivalent;
+  config/x64-baseline.json ratcheted (0x00053d80, 0x00234cc0 layout -> equivalent). Wine proof on studio: control
+  82489 (gx3 1's proof), proof 82735: GATE ok, 0 of 2,009 common frames differ (prng too).
+
+**Native unbound names** (each proof's clang-probe snapshot linked with its own binding map):
+
+| state | macOS | Linux | Android |
+|---|---|---|---|
+| gx3 1, proof 82489 (21d2cd23c; no native code change: declarations only) | 14,242 | 14,222 | 14,233 |
+| gx3 2, proof 82735 | **13,581** | **13,561** | **13,572** |
+
+gx3 2: 661 names gone on each target, none new: the merged TUs' invented local classes (`ParamFloatConstRange<T>` /
+`ParamRegistry` stand-ins and their constructors), the setters declared under names nothing defines (now the
+definitions' own names), the explicit `(ren2)` instantiations' members, `??0ParamValueEnum@fn_fe7c326e@@...`.
+The base ParamValueX slots (`ParamValueBool::vfunc_1`, `ParamValueEnum::vfunc_5`, `ParamValue::~ParamValue`, ...)
+stay unbound (item 6 below: their blocks are defined on TU-local or wrapped classes).
+
+**What is left of D18 / D24** (measured on the batch's tree): 266 of the game's 434 registrations. 399 `/GX` TUs:
+102 with ParamX `??_G` blocks (714), 161 with Method/Closure family ones (664), 152 with non-template classes' (195),
+the two dynamic_initializers TUs and GrappleThrowAction.iso_00148f40. The registrations still waiting need: the Name families (ParamName,
+ParamNameConstList, ParamNameList: their ParamValueName constructors inline ParamValueString's), ParamFloatPtrConstRange
+/ ParamBoolPtr / ParamScript / ParamStringConstList (the int +0x10 word), and the non-template classes' constructors in
+15 groups (OpportunityAction, SequenceAction, ExecuteAction, CTrack, GrappleAnimationTrack, ...), whose `??_G` sit in
+the registration's TU.
+
+**Not done here (for the next agent):** item 6 (rename the base ParamValueX slot blocks onto include/gen's classes;
+binds those names, 14 by gx2's count, D16), the Name and `int`-word families, the non-template classes' constructors, the
+Method/Closure family (D24), the 20 skipped Condition stubs and the PrintCondition / PrintTrack / StatTrack
+destructors. Item 8 (a native-only member pointer type for the ParamX setter word on Linux/Android) is a writable
+member function pointer field, which D40 rules out; reported to the user instead.

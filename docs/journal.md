@@ -916,3 +916,23 @@ blocks fight::Action's whole family: the records come first there.
 - The rest pass with a bigger budget or at the input count they were proven with (20,000), not at the audit's 3,000/120 s.
 - Pitfall: an unsigned literal decides which of two same-named declarations a call binds (`f(0x28)` vs `f(0x28u)` with
   `extern "C" f(int)` and `f(unsigned)` both in scope).
+
+## 2026-11-15 gx3: registration objects (D32); 156 more registrations construct the real parameter templates
+
+- A fight registration that is the only storer of a `ParamX<T>` vftable fixes the object of that vftable's `??_G`
+  (COMDATs come from the first object in link order that emits them, and only a constructing object emits them). That
+  rule alone merges 198 inferred objects into 15 (tools/infer_splits.py step 8); the merged ones are whole files of
+  condition / track classes (up to 50 inferred objects, 0x0006e840..0x00075ce0), so the `_params` / `_reg` cuts of the
+  registration runs were within-file COMDAT order, not object boundaries.
+- MSVC 7.1's stack slot assignment depends on the declarations the TU has seen: three equivalent blocks (0x000b86b0, 0x00027930, 0x001a9b10) changed
+  code when only their TU's data declaration header gained or lost unrelated `extern` lines. A header-only data change
+  can need re-proofs.
+- clang rejects two `extern "C"` declarations of one function with different parameter types (MSVC accepts them):
+  merging registration TUs must drop the siblings' own declarations of the list set-up 0x002347b0.
+- An `operator=` setter (`O_47fa0::operator=(int)`) needs its member pointer type spelled out: `&C::operator=` names
+  the implicit copy assignment too, and template argument deduction fails on the overload set.
+- Shared-checkout hazard: a commit made from the shared index right after another agent's temporary-index commit can
+  carry that index's stale entries and revert the other commit wholesale (bc332e523 reverted gx3 2's 128 paths;
+  restored by 3d5e44c3c). After a temporary-index commit, sync the shared index entries of the committed paths at once
+  (build/gx3/scripts/commitpatch.py does, but only where the entry still equals HEAD~1, which a concurrent commit
+  breaks); check `git show --stat HEAD` of the next commits.
