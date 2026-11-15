@@ -574,6 +574,21 @@ def _spell(x):
 RANGE_ATTR = re.compile(r"^hulk_range (-?\d+) (-?\d+)$")
 
 
+def _cites_writers(c):
+    """(integ1, rev5) Does the declaration of field C carry a comment naming at least one 0x address (its writer sites)?
+    The raw comment libclang attaches, else the source lines of the declaration and the line before it."""
+    txt = c.raw_comment or ""
+    if not re.search(r"0x[0-9a-fA-F]{5,}", txt):
+        try:
+            f = c.extent.start.file.name
+            lines = open(f, errors="replace").read().split("\n")
+            lo, hi = c.extent.start.line - 2, c.extent.end.line
+            txt = "\n".join(lines[max(0, lo):hi])
+        except Exception:   # noqa: BLE001
+            return False
+    return bool(re.search(r"(//|/\*).*0x[0-9a-fA-F]{5,}", txt))
+
+
 def field_range(c):
     """(x64t13) The values an integer field takes, (lo, hi), from its HULK_RANGE(lo, hi) annotation
     (include/decls/data/records.h: `int bucket HULK_RANGE(0, 1);`, an attribute only this checker's libclang parse
@@ -665,6 +680,7 @@ class Types:
     """Paired layouts from the two parses (lockstep walk of the same declarations)."""
 
     def __init__(self, tu32, tu64, vtables):
+        self.ranges_used = {}    # (integ1, rev5) {(record, field): (lo, hi)} of the HULK_RANGE annotations used
         self.t = {32: tu32, 64: tu64}
         self.cache = {}
         self.pairs = {}             # (x64t12) key -> (RAW, the 64-bit type's spelling): what fingerprints() reports
@@ -791,6 +807,17 @@ class Types:
             n0 = len(out)
             self._flatten(x.type, y.type, o32 + pa // 8, o64 + pb // 8, path + (x.spelling or "anon%d" % pa,), out, None)
             rng = field_range(x)
+            if rng is not None and "rangecheck" not in OFF:
+                # (integ1, rev5/D61) only on a scalar integer field (one integer leaf: not a struct, array or pointer), and
+                # its declaration must cite the sites that write it (a comment on its lines naming a 0x address): the
+                # range is a claim about the game's stores, checked by reading them
+                lv_ = out[n0:]
+                if len(lv_) != 1 or lv_[0].kind != "i":
+                    raise Unsupported("HULK_RANGE on %s::%s, not a scalar integer field" % (a.spelling, x.spelling))
+                if not _cites_writers(x):
+                    raise Unsupported("HULK_RANGE on %s::%s without a comment citing the writer sites (0x addresses)"
+                                      % (a.spelling, x.spelling))
+                self.ranges_used[(a.spelling, x.spelling)] = rng
             if rng is not None:
                 for l in out[n0:]:
                     if l.kind == "i":
@@ -1629,6 +1656,9 @@ class Checker:
                     self.param_casts[k] = (a32[k], a64[k])
         self.param_into = {}
         a32, a64 = param_into(c32.get_definition() or c32), param_into(c64.get_definition() or c64)
+        if a32 != a64 and "intocheck" not in OFF:
+            # (integ1, rev5/D61) the two parses must agree on every HULK_INTO: refuse instead of dropping it silently
+            raise Unsupported("HULK_INTO: the 32- and 64-bit parses disagree (%s / %s)" % (a32, a64))
         for k in a32:
             if a64.get(k) == a32[k]:
                 self.param_into[k] = a32[k]
@@ -2502,16 +2532,26 @@ class Side:
         """(x64t13, HULK_INTO) A pointer into the array this->FIELD points to, at a fuzzed byte offset (null with it);
         None when `this` has no such pointer field."""
         o = self.heap.by_ident.get(("arg", "this"))
+        strict = "intocheck" not in OFF
         if o is None or o.lay.raw:
+            # (integ1, rev5/D61) refuse: the annotation names a field of `this`, and there is no typed this-object
+            if strict:
+                raise Unsupported("HULK_INTO(%s): no typed this-object" % field)
             return None
         l = next((x for x in o.lay.leaves if x.path == (field,) and x.kind == "p"), None)
         if l is None:
+            if strict:
+                raise Unsupported("HULK_INTO(%s): `this` has no pointer field of that name" % field)
             return None
         v = self.heap.leaf_value(o, 0, l)
         if v[0] != "p" or v[1] is None:
             return self.heap.ptr_value(self.bits, ("p", None, 0)).to_bytes(self.ps, "little")
         t = v[1]
         n = t.size(32) - v[2]
+        if strict and n <= 1 and t.size(32) <= 1:
+            # (integ1, rev5/D61) a base whose object is one element (a char* field's pointee generated as one char):
+            # the offset draw would always be 0, so the annotation would test nothing
+            raise Unsupported("HULK_INTO(%s): the pointee object is %d byte(s): no offset to draw" % (field, t.size(32)))
         off = v[2] + (r.below(n) if n > 0 else 0)
         return self.heap.ptr_value(self.bits, ("p", t, off)).to_bytes(self.ps, "little")
 
@@ -3426,6 +3466,11 @@ def _verify64(src, addr, symbol=None, n_inputs=200, seeds=None, time_budget=120,
         rep["types"] = chk.types.fingerprints()
         return rep
     rep["types"] = chk.types.fingerprints()     # (x64t12) the layouts the verdict rests on (tools/x64_gate.py's cache)
+    # (integ1, rev5/D61) the input annotations the run used: a verdict that rests on them says so
+    if chk.types.ranges_used:
+        rep["hulk_range"] = sorted(["%s::%s" % k, list(v)] for k, v in chk.types.ranges_used.items())
+    if getattr(chk, "param_into", None):
+        rep["hulk_into"] = {str(k): v for k, v in sorted(chk.param_into.items())}
     rep["inputs"], rep["completed"], rep["skipped"] = res["inputs"], res["completed"], res["skipped"]
     if res.get("skip_first"):
         rep["skip_first"] = res["skip_first"]

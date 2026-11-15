@@ -8,7 +8,7 @@
 struct Entry {
     void* words[25];
     Entry* next;
-    int bucket HULK_RANGE(0, 1);
+    int bucket HULK_RANGE(0, 1);            // +0x68 the list it is on (as records.h: 0x00277570 indexes by it)
     void* callback;
 };
 struct Table {
