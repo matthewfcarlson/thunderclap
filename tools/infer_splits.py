@@ -28,6 +28,12 @@ Method (docs/splits.md has the long version):
    range edges and where the functions switch from platform classes / platform calls to portable classes;
    then an engine-region object is `platform/xbox` when it is mostly Xbox implementation (platform classes,
    or direct XDK/kernel calls from build/port/platform_calls.json), or only serves such objects.
+8. (gx3, D32) Registration objects: a fight parameter registration (a caller of the parameter list set-up
+   0x002347b0) constructs `fight::ParamX<T>` objects; a vftable it stores that no other function stores was
+   emitted (with its scalar deleting destructor, the vftable's slot 0) only by the registration's object, so that
+   ??_G lies in the same object. The objects such a span [??_G .. registration] touches are merged into one.
+
+  build/venv/bin/python tools/infer_splits.py --registration-objects   # apply step 8 alone to config/splits.json
 
 Only addresses and names are written; no game bytes.
 """
@@ -96,6 +102,7 @@ FIXED_OBJECTS = [
 ]
 # The fight registration runs (docs/merge-prep.md "Registration TUs"): conditions, tracks, motion conditions/tracks
 REGISTRATION_RANGES = [(0x0004E000, 0x00057000), (0x0006A000, 0x00070000), (0x00150000, 0x00159000)]
+PARAM_LIST_SETUP = 0x002347B0     # (gx3, D32) fight's parameter list set-up: its callers are the registrations
 LIB_PREFIXES = ("XAPILIB::", "D3D8::", "xboxkrnl.exe::", "DSOUND::", "XGRAPHC::", "LIBCMT::")
 
 # Clustering / cutting parameters (see docs/splits.md "Parameters").
@@ -705,6 +712,8 @@ class Inferrer:
                     o["file"] = "%s_%d%s" % (stem, dup[f], ext)
                     o["evidence"].append("same dominant class as an earlier object (class split across files)")
         self.registration_names(objs)
+        objs = registration_objects(objs, self.funcs)
+        self.stats["registration objects merged"] = sum(1 for o in objs if o.get("merged"))
         self.vtable_order_check(objs)
         self.assign_layers(objs)
         self.objects = objs
@@ -907,6 +916,108 @@ class Inferrer:
 
 # ---------------------------------------------------------------------------------------------
 # Output
+def registration_spans(funcs):
+    """(gx3, D32) [(lo, hi, registration)]: for each fight parameter registration (a function that calls
+    PARAM_LIST_SETUP), the span from the lowest ??_G (slot 0) of a vftable that it alone stores to the registration.
+    A template vftable and its scalar deleting destructor are COMDATs: the linker keeps the copies of the first object
+    in link order that emits them, and only an object that constructs the class emits them; when the registration is
+    the only function in the image that stores the vftable, that object is the registration's."""
+    import capstone
+    import struct
+    xbe = Xbe(XBE_PATH)
+    md = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
+    md.detail = True
+    stores = collections.defaultdict(set)     # vftable -> functions storing it as an immediate
+    regs, vts = [], {}
+    vtset = {v for vs in load_vtables().values() for v in vs}
+    for a, size, _, _ in funcs:
+        if a >= GAME_TEXT_END:
+            continue
+        o = xbe.offset(a)
+        if o is None:
+            continue
+        mine, isreg = set(), False
+        for ins in md.disasm(xbe.data[o:o + size], a):
+            if ins.mnemonic == "call" and ins.operands[0].type == capstone.x86.X86_OP_IMM and \
+                    ins.operands[0].imm & 0xFFFFFFFF == PARAM_LIST_SETUP:
+                isreg = True
+            if ins.mnemonic == "mov" and len(ins.operands) == 2 and ins.operands[0].type == capstone.x86.X86_OP_MEM and \
+                    ins.operands[1].type == capstone.x86.X86_OP_IMM and (ins.operands[1].imm & 0xFFFFFFFF) in vtset:
+                mine.add(ins.operands[1].imm & 0xFFFFFFFF)
+        for v in mine:
+            stores[v].add(a)
+        if isreg:
+            regs.append(a)
+            vts[a] = mine
+    out = []
+    for r in regs:
+        g = [struct.unpack("<I", xbe.data[xbe.offset(v):xbe.offset(v) + 4])[0] for v in vts[r] if stores[v] == {r}]
+        if g:
+            out.append((min(g + [r]), max(g + [r]), r))
+    return sorted(out)
+
+
+def registration_objects(objs, funcs, spans=None):
+    """(gx3, D32) Merge the objects each registration span (registration_spans) touches into one object, named after
+    its first high-confidence member (else its first member). Objects keep their int start/end; the merged one says
+    which objects it absorbed (`merged`)."""
+    spans = registration_spans(funcs) if spans is None else spans
+    cl = []
+    for lo, hi, r in spans:
+        if cl and lo <= cl[-1][1]:
+            cl[-1][1] = max(cl[-1][1], hi)
+            cl[-1][2].append(r)
+        else:
+            cl.append([lo, hi, [r]])
+    out = list(objs)
+    for lo, hi, rs in cl:
+        mem = [o for o in out if o["start"] <= hi and o["end"] > lo]
+        if len(mem) < 2:
+            continue
+        if any(o["kind"] != "game" or o.get("layer", mem[0].get("layer")) != mem[0].get("layer") for o in mem):
+            raise ValueError("registration span 0x%x..0x%x crosses a kind or layer: %s" % (
+                lo, hi, [(o["file"], o["kind"], o.get("layer")) for o in mem]))
+        head = next((o for o in mem if o["confidence"] == "high" and not o["file"].startswith("unknown/")), mem[0])
+        m = dict(head)
+        m["start"], m["end"] = mem[0]["start"], mem[-1]["end"]
+        m["confidence"] = "high"
+        m["functions"] = sum(o.get("functions") or 0 for o in mem)
+        m["named"] = sum(o.get("named") or 0 for o in mem)
+        m["comdat"] = [c for o in mem for c in (o.get("comdat") or [])]
+        m["evidence"] = ["registration object (gx3, D32): %d registrations (0x%x..0x%x) construct parameter classes "
+                         "whose scalar deleting destructors only they emit, from 0x%x; merged %d objects: %s" % (
+                             len(rs), rs[0], rs[-1], lo, len(mem), ", ".join(o["file"] for o in mem))] + head["evidence"]
+        m["merged"] = [o["file"] for o in mem]
+        i = out.index(mem[0])
+        for o in mem:
+            out.remove(o)
+        out.insert(i, m)
+    return out
+
+
+def apply_registration_objects():
+    """--registration-objects: step 8 alone on the committed config/splits.json (the other steps' output kept as is)."""
+    d = json.load(open(OUT_JSON))
+    objs = []
+    for r in d["objects"]:
+        o = dict(r)
+        o["start"], o["end"] = int(r["start"], 16), int(r["end"], 16)
+        objs.append(o)
+    if any("registration object (gx3, D32)" in e for o in objs for e in o["evidence"]):
+        print("config/splits.json already has the registration objects")
+        return 0
+    new = registration_objects(objs, load_functions())
+    for o in new:
+        o["start"], o["end"] = "0x%08x" % o["start"], "0x%08x" % o["end"]
+        o.pop("merged", None)
+    d["objects"] = new
+    with open(OUT_JSON, "w") as f:
+        json.dump(d, f, indent=1)
+        f.write("\n")
+    print("objects: %d -> %d" % (len(objs), len(new)))
+    return 0
+
+
 def to_json(objs):
     out = []
     for o in objs:
@@ -1024,6 +1135,13 @@ def write_md(inf, objs):
 7. **Evidence checked and rejected.** Inter-function padding is uniformly `CC` and %s of game functions
    start 16-byte aligned, so padding carries no boundary signal (the linker aligns every `/Gy` COMDAT).
    `.rdata` vtable order is used only as a consistency check (table above): vtables are COMDATs too.
+8. **Registration objects (gx3, D32).** A fight parameter registration (a caller of the parameter list set-up
+   0x002347b0) constructs `fight::ParamX<T>` objects. A vftable that only the registration stores was emitted, with its
+   scalar deleting destructor (the vftable's slot 0), only by the registration's object (COMDATs are kept from the
+   first object in link order that emits them), so the span from that `??_G` to the registration is one object. The
+   objects such spans touch are merged (15 merges of 198 inferred objects; the merged object keeps the name of its
+   first high-confidence member). `tools/infer_splits.py --registration-objects` applies this step alone to the
+   committed `config/splits.json`. The tree keeps the members' TUs as separate compile units of the merged object.
 """ % (CLUSTER_GAP_BYTES, CLUSTER_GAP_CLASSES, STRAY_MAX_FUNCS, STRAY_MAX_BYTES, PROPAGATE_ROUNDS,
        PROPAGATE_DECAY, MID_MIN_FUNCS, MID_MIN_SEG, "99.9%"))
     L.append("Confidence: `high` = a core with at least 3 named functions, `medium` = a core with fewer,")
@@ -1075,7 +1193,11 @@ def write_md(inf, objs):
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--stats", action="store_true", help="print the summary, write nothing")
+    ap.add_argument("--registration-objects", action="store_true",
+                    help="(gx3, D32) apply only the registration-object merge (step 8) to config/splits.json")
     a = ap.parse_args(argv)
+    if a.registration_objects:
+        return apply_registration_objects()
     inf = Inferrer()
     objs = inf.run()
     game = [o for o in objs if o["kind"] == "game"]

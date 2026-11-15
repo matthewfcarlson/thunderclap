@@ -2,6 +2,7 @@
 // object 0x0005d370..0x0005d850 (kind game, layer game, confidence low)
 #include "tree_prelude.h"
 #include "decls/data/game/unknown.h"
+#include "decls/data/game/global.h"   // (gx3, D32) its owner object's data, merged
 #include "gen/fight.h"
 #include "gen/owners.h"
 #define TREE_TU_BEGIN namespace fn_f133b0a3 {

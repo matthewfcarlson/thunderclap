@@ -8,6 +8,8 @@
 #include "gen/owners.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/unknown.h"
+#include "decls/data/engine/fight.h"   // (gx3, D32) its owner object's data, merged
+#include "decls/data/game/global.h"   // (gx3, D32) its owner object's data, merged
 namespace fn_fc0b43de {} using namespace fn_fc0b43de;
 namespace fn_fc0b43de {
 // STATUS: equivalent (tools/equiv.py level 3: 2992 inputs, branch coverage 10/10)

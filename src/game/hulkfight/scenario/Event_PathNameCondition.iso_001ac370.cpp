@@ -8,6 +8,7 @@
 #include "gen/owners.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/hulkfight/scenario.h"
+#include "decls/data/engine/fight.h"   // (gx3, D32) its owner object's data, merged
 namespace fn_fe32daa8 {} using namespace fn_fe32daa8;
 namespace fn_fe32daa8 {
 // STATUS: equivalent (tools/equiv.py level 3: 2996 inputs, branch coverage 8/8)

@@ -6,6 +6,7 @@
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/hulkfight/motion.h"
 #include "decls/data/game/unknown.h"
+#include "decls/data/engine/fight.h"   // (gx3, D32) its owner object's data, merged
 #include "gen/fight.h"
 #define TREE_TU_BEGIN namespace fn_f45cd32f {
 #define TREE_TU_END }

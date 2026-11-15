@@ -7,6 +7,7 @@
 // sym: _FUN_000538b0
 #include "gen/owners.h"
 #include "decls/data/game/unknown.h"
+#include "decls/data/game/global.h"   // (gx3, D32) its owner object's data, merged
 namespace fn_f252765d {} using namespace fn_f252765d;
 namespace fn_f252765d {
 

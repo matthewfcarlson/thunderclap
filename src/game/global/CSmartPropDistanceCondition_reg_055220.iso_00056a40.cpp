@@ -9,6 +9,7 @@
 // FUN_00056a40 @ 0x00056a40
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/unknown.h"
+#include "decls/data/engine/fight.h"   // (gx3, D32) its owner object's data, merged
 
 inline void* operator new(size_t, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);

@@ -2,7 +2,6 @@
 // object 0x000783a0..0x000788e0 (kind game, layer game, confidence medium), dominant class DataHandler::ObjectCreator
 #include "tree_prelude.h"
 #include "compat/ptr.h"
-#include "decls/data/game/DataHandler.h"
 #include "decls/data/game/global.h"
 #include "gen/owners.h"
 #define TREE_TU_BEGIN namespace fn_f3f3201f {

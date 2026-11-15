@@ -9,6 +9,7 @@
 #include "decls/data/game/hulkfight/motion.h"
 #include "decls/data/game/hulkfight/scenario.h"
 #include "decls/data/game/unknown.h"
+#include "decls/data/engine/fight.h"   // (gx3, D32) its owner object's data, merged
 #include "gen/content.h"
 #include "gen/fight.h"
 #include "gen/hulkfight.h"

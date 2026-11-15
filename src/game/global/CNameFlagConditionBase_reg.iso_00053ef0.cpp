@@ -8,6 +8,7 @@
 #include "gen/owners.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/unknown.h"
+#include "decls/data/engine/fight.h"   // (gx3, D32) its owner object's data, merged
 namespace fn_fe9f288b {} using namespace fn_fe9f288b;
 namespace fn_fe9f288b {
 // STATUS: equivalent (tools/equiv.py level 3: 2992 inputs, branch coverage 8/8)

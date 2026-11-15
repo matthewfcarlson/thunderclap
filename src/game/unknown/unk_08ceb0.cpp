@@ -5,6 +5,7 @@
 #include "decls/data/game/unknown.h"
 #include "decls/data/platform/xbox/pure3d.h"
 #include "decls/data/records.h"
+#include "decls/data/game/global.h"   // (gx3, D32) its owner object's data, merged
 #define TREE_TU_BEGIN namespace fn_fe5d7f9e {
 #define TREE_TU_END }
 #define TREE_LOCAL_CSPHulkProp

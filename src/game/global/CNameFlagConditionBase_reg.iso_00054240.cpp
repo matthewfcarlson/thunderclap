@@ -9,6 +9,7 @@
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
+#include "decls/data/engine/fight.h"   // (gx3, D32) its owner object's data, merged
 namespace fn_f089f8b4 {} using namespace fn_f089f8b4;
 namespace fn_f089f8b4 {
 

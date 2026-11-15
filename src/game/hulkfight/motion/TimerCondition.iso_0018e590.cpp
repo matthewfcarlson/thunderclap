@@ -8,6 +8,7 @@
 #include "gen/owners.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/hulkfight/motion.h"
+#include "decls/data/engine/fight.h"   // (gx3, D32) its owner object's data, merged
 namespace fn_f0930188 {} using namespace fn_f0930188;
 namespace fn_f0930188 {
 // STATUS: equivalent (tools/equiv.py level 3: 2990 inputs, branch coverage 8/8)

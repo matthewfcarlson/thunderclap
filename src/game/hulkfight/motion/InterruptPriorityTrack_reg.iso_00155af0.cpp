@@ -9,6 +9,7 @@
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/hulkfight/motion.h"
 #include "decls/data/game/unknown.h"
+#include "decls/data/engine/fight.h"   // (gx3, D32) its owner object's data, merged
 namespace fn_f11224a9 {} using namespace fn_f11224a9;
 namespace fn_f11224a9 {
 // STATUS: equivalent (tools/equiv.py level 3: 2994 inputs, branch coverage 6/6)

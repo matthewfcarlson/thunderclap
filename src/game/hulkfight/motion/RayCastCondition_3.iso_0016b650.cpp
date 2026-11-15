@@ -10,6 +10,7 @@
 #include "decls/data/game/global.h"
 #include "decls/data/game/hulkfight/motion.h"
 #include "decls/data/game/unknown.h"
+#include "decls/data/engine/fight.h"   // (gx3, D32) its owner object's data, merged
 namespace fn_fe582589 {} using namespace fn_fe582589;
 namespace fn_fe582589 {
 

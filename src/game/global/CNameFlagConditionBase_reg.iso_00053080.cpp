@@ -7,6 +7,7 @@
 // sym: _FUN_00053080 @791f3291990e @w8cacb3bff834
 #include "gen/owners.h"
 #include "decls/data/game/unknown.h"
+#include "decls/data/game/global.h"   // (gx3, D32) its owner object's data, merged
 namespace fn_f156495c {} using namespace fn_f156495c;
 namespace fn_f156495c {
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 8/8)

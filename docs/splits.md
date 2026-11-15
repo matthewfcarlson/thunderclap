@@ -97,6 +97,13 @@ Borderline objects (9):
 7. **Evidence checked and rejected.** Inter-function padding is uniformly `CC` and 99.9% of game functions
    start 16-byte aligned, so padding carries no boundary signal (the linker aligns every `/Gy` COMDAT).
    `.rdata` vtable order is used only as a consistency check (table above): vtables are COMDATs too.
+8. **Registration objects (gx3, D32).** A fight parameter registration (a caller of the parameter list set-up
+   0x002347b0) constructs `fight::ParamX<T>` objects. A vftable that only the registration stores was emitted, with its
+   scalar deleting destructor (the vftable's slot 0), only by the registration's object (COMDATs are kept from the
+   first object in link order that emits them), so the span from that `??_G` to the registration is one object. The
+   objects such spans touch are merged (15 merges of 198 inferred objects; the merged object keeps the name of its
+   first high-confidence member). `tools/infer_splits.py --registration-objects` applies this step alone to the
+   committed `config/splits.json`. The tree keeps the members' TUs as separate compile units of the merged object.
 
 Confidence: `high` = a core with at least 3 named functions, `medium` = a core with fewer,
 `low` = an unattached run of unnamed functions (or the init region).

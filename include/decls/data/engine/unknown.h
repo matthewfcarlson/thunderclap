@@ -458,27 +458,6 @@ extern "C" unsigned char DAT_004e5ae4[4];
 extern "C" unsigned char DAT_004e5bdc[4];
 extern "C" int DAT_004e5be0;
 
-// unknown/unk_2361a0.cpp
-extern "C" const char DAT_0042773c[4];  // s_lwB_0042773c
-extern "C" const int DAT_00427754;
-extern "C" const char DAT_00427758;  // tbl_00427758
-extern "C" const int DAT_00427760;
-extern "C" const char DAT_00427e50[8];  // s_recurse_00427e50
-extern "C" const char DAT_00427e58[7];  // s_parent_00427e58
-extern "C" const float DAT_00427e60[7];  // fltTbl_00427e60
-extern "C" const unsigned int DAT_0047e488[1];  // zero_0047e488
-extern "C" const unsigned int DAT_0047e4d4[1];  // zero_0047e4d4
-extern "C" const unsigned int DAT_0047e520[1];  // zero_0047e520
-extern "C" const unsigned int DAT_0047e56c[1];  // zero_0047e56c
-extern "C" const unsigned int DAT_0047e5b8[1];  // zero_0047e5b8
-extern "C" const unsigned int DAT_0047e604[1];  // zero_0047e604
-extern "C" const unsigned int DAT_0047e654[1];  // zero_0047e654
-extern "C" unsigned int DAT_004ca4bc[1];  // zero_004ca4bc
-extern "C" unsigned int DAT_004ca504[1];  // zero_004ca504
-extern "C" unsigned int DAT_004ca54c[1];  // zero_004ca54c
-extern "C" unsigned int DAT_004ca59c[1];  // zero_004ca59c
-extern "C" float DAT_004ca5ec[4];  // fltTbl_004ca5ec
-
 // unknown/unk_242090.cpp
 extern "C" const unsigned int DAT_00480944[1];  // zero_00480944
 extern "C" const unsigned int DAT_00480990[1];  // zero_00480990

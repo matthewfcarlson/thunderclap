@@ -2,6 +2,7 @@
 // object 0x0004d680..0x0004d860 (kind game, layer game, confidence medium), dominant class CGrappleTimerCondition
 #include "tree_prelude.h"
 #include "decls/data/game/unknown.h"
+#include "decls/data/game/global.h"   // (gx3, D32) its owner object's data, merged
 #define TREE_TU_BEGIN namespace fn_fc1bb4c1 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CCollisionTrack

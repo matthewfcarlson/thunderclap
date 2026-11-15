@@ -3,6 +3,7 @@
 #include "tree_prelude.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/unknown.h"
+#include "decls/data/engine/fight.h"   // (gx3, D32) its owner object's data, merged
 #define TREE_TU_BEGIN namespace fn_f52ddce5 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CSPHulkProp

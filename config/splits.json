@@ -4780,12 +4780,13 @@
   },
   {
    "start": "0x00051480",
-   "end": "0x000514f0",
+   "end": "0x00056af0",
    "file": "global/CStageCondition_params_factory.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
+    "registration object (gx3, D32): 48 registrations (0x52720..0x548b0) construct parameter classes whose scalar deleting destructors only they emit, from 0x514b0; merged 21 objects: global/CStageCondition_params_factory.cpp, global/CButtonCondition_params.cpp, global/CSmartPropAttachedCondition_params_051940.cpp, global/CSmartPropWeaponizableTypeCondition_params_0519a0.cpp, global/CSmartPropDistanceCondition_params.cpp, global/CLuaNumberCondition_params_051b10.cpp, global/CClimbableCondition_params_051c50.cpp, global/CGrappleTimerCondition_params.cpp, global/CFightNodePrevCondition.cpp, global/CFightNodeCondition.cpp, global/CFightNodeParentCondition.cpp, global/CFightNodeTimeCondition.cpp, global/CGrappleFightNodeCondition.cpp, global/CGrappleFightNodeParentCondition.cpp, global/CGrappleFightNodeTimeCondition.cpp, global/CIsGrappledCondition.cpp, global/CIsHelicopterCondition.cpp, global/CIsInvincibleCondition.cpp, global/CNameFlagConditionBase_reg.cpp, fight/ParamValueStringList.cpp, global/CSmartPropDistanceCondition_reg_055220.cpp",
     "classes: CStageCondition (3 fn)",
     "vtables 0x3f6d74..0x3f6d74 (1)",
     "same dominant class as an earlier object (class split across files)",
@@ -4796,27 +4797,8 @@
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
    ],
    "dominant": "CStageCondition",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x000514f0",
-   "end": "0x00051940",
-   "file": "global/CButtonCondition_params.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "low",
-   "evidence": [
-    "only template instantiations/unnamed functions; template args: CButtonCondition",
-    "34 COMDAT stray(s) from other classes' homes",
-    "unattached run: no call affinity to neighbouring objects",
-    "registration run object, renamed from unknown/unk_0514f0.cpp (REGISTRATION_RANGES)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "functions": 34,
-   "named": 0,
+   "functions": 195,
+   "named": 58,
    "comdat": [
     {
      "addr": "0x000514f0",
@@ -4987,48 +4969,7 @@
      "addr": "0x00051920",
      "name": "fight::ParamFloatConstRange<CCollisionStunTimeCondition>::vfunc_0",
      "home": "0x0004c550"
-    }
-   ]
-  },
-  {
-   "start": "0x00051940",
-   "end": "0x000519a0",
-   "file": "global/CSmartPropAttachedCondition_params_051940.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: CSmartPropAttachedCondition (3 fn)",
-    "vtables 0x3f710c..0x3f710c (1)",
-    "same dominant class as an earlier object (class split across files)",
-    "registration run object, renamed from global/CSmartPropAttachedCondition_3.cpp (REGISTRATION_RANGES)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "CSmartPropAttachedCondition",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x000519a0",
-   "end": "0x00051aa0",
-   "file": "global/CSmartPropWeaponizableTypeCondition_params_0519a0.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "low",
-   "evidence": [
-    "only template instantiations/unnamed functions; template args: CSmartPropWeaponizableTypeCondition",
-    "8 COMDAT stray(s) from other classes' homes",
-    "unattached run: no call affinity to neighbouring objects",
-    "registration run object, renamed from unknown/unk_0519a0.cpp (REGISTRATION_RANGES)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "functions": 8,
-   "named": 0,
-   "comdat": [
+    },
     {
      "addr": "0x000519a0",
      "name": "fight::ParamEnumConstList<CSmartPropWeaponizableTypeCondition>::vfunc_0",
@@ -5068,50 +5009,7 @@
      "addr": "0x00051a80",
      "name": "fight::ParamFloatConstRange<CSmartPropAngleCondition>::vfunc_0",
      "home": "0x0004c760"
-    }
-   ]
-  },
-  {
-   "start": "0x00051aa0",
-   "end": "0x00051b10",
-   "file": "global/CSmartPropDistanceCondition_params.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: CSmartPropDistanceCondition (3 fn)",
-    "vtables 0x3f71e4..0x3f71e4 (1)",
-    "same dominant class as an earlier object (class split across files)",
-    "registration run object, renamed from global/CSmartPropDistanceCondition_3.cpp (REGISTRATION_RANGES)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "CSmartPropDistanceCondition",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x00051b10",
-   "end": "0x00051c50",
-   "file": "global/CLuaNumberCondition_params_051b10.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: CLuaNumberCondition (3 fn)",
-    "vtables 0x3f7304..0x3f7304 (1)",
-    "7 COMDAT stray(s) from other classes' homes",
-    "same dominant class as an earlier object (class split across files)",
-    "registration run object, renamed from global/CLuaNumberCondition_3.cpp (REGISTRATION_RANGES)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "CLuaNumberCondition",
-   "functions": 10,
-   "named": 3,
-   "comdat": [
+    },
     {
      "addr": "0x00051b10",
      "name": "fight::ParamEnumConstList<CSmartPropGrabbableNameCondition>::vfunc_0",
@@ -5146,28 +5044,7 @@
      "addr": "0x00051bd0",
      "name": "fight::ParamEnumConstList<CGrappleSizeCondition>::vfunc_0",
      "home": "0x00057f80"
-    }
-   ]
-  },
-  {
-   "start": "0x00051c50",
-   "end": "0x00051d70",
-   "file": "global/CClimbableCondition_params_051c50.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "low",
-   "evidence": [
-    "only template instantiations/unnamed functions; template args: CClimbableCondition",
-    "9 COMDAT stray(s) from other classes' homes",
-    "unattached run: no call affinity to neighbouring objects",
-    "registration run object, renamed from unknown/unk_051c50.cpp (REGISTRATION_RANGES)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "functions": 9,
-   "named": 0,
-   "comdat": [
+    },
     {
      "addr": "0x00051c50",
      "name": "fight::ParamEnumConstList<CCharacterTemplateCondition>::vfunc_0",
@@ -5212,48 +5089,7 @@
      "addr": "0x00051d50",
      "name": "fight::ParamBool<CRageModeCondition>::vfunc_0",
      "home": "0x00058670"
-    }
-   ]
-  },
-  {
-   "start": "0x00051d70",
-   "end": "0x00051dd0",
-   "file": "global/CGrappleTimerCondition_params.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: CGrappleTimerCondition (3 fn)",
-    "vtables 0x3f7450..0x3f7450 (1)",
-    "same dominant class as an earlier object (class split across files)",
-    "registration run object, renamed from global/CGrappleTimerCondition_3.cpp (REGISTRATION_RANGES)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "CGrappleTimerCondition",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x00051dd0",
-   "end": "0x00051ed0",
-   "file": "global/CFightNodePrevCondition.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: CFightNodePrevCondition (3 fn)",
-    "vtables 0x3f74e0..0x3f74e0 (1)",
-    "5 COMDAT stray(s) from other classes' homes"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "CFightNodePrevCondition",
-   "functions": 8,
-   "named": 3,
-   "comdat": [
+    },
     {
      "addr": "0x00051dd0",
      "name": "fight::ParamEnumConstList<CInactivityTimerCondition>::vfunc_0",
@@ -5278,28 +5114,7 @@
      "addr": "0x00051e50",
      "name": "fight::ParamEnumConstList<CCharacterBoolCondition>::vfunc_0",
      "home": "0x00050110"
-    }
-   ]
-  },
-  {
-   "start": "0x00051ed0",
-   "end": "0x00052050",
-   "file": "global/CFightNodeCondition.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: CFightNodeCondition (5 fn)",
-    "vtables 0x3f84c4..0x3f84c4 (1)",
-    "5 COMDAT stray(s) from other classes' homes"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "CFightNodeCondition",
-   "functions": 10,
-   "named": 5,
-   "comdat": [
+    },
     {
      "addr": "0x00051ed0",
      "name": "fight::ParamEnumConstList<CIntentionSpeedCondition>::vfunc_0",
@@ -5324,174 +5139,7 @@
      "addr": "0x00051f50",
      "name": "fight::ParamFloatConstRange<CMotionClimbAngleCondition>::vfunc_0",
      "home": "0x0004dc30"
-    }
-   ]
-  },
-  {
-   "start": "0x00052050",
-   "end": "0x00052130",
-   "file": "global/CFightNodeParentCondition.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: CFightNodeParentCondition (5 fn)",
-    "vtables 0x3f8504..0x3f8504 (1)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "CFightNodeParentCondition",
-   "functions": 5,
-   "named": 5
-  },
-  {
-   "start": "0x00052130",
-   "end": "0x00052210",
-   "file": "global/CFightNodeTimeCondition.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: CFightNodeTimeCondition (5 fn)",
-    "vtables 0x3f8544..0x3f8544 (1)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "CFightNodeTimeCondition",
-   "functions": 5,
-   "named": 5
-  },
-  {
-   "start": "0x00052210",
-   "end": "0x00052320",
-   "file": "global/CGrappleFightNodeCondition.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: CGrappleFightNodeCondition (5 fn)",
-    "vtables 0x3f8584..0x3f8584 (1)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "CGrappleFightNodeCondition",
-   "functions": 5,
-   "named": 5
-  },
-  {
-   "start": "0x00052320",
-   "end": "0x00052430",
-   "file": "global/CGrappleFightNodeParentCondition.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: CGrappleFightNodeParentCondition (5 fn)",
-    "vtables 0x3f85c4..0x3f85c4 (1)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "CGrappleFightNodeParentCondition",
-   "functions": 5,
-   "named": 5
-  },
-  {
-   "start": "0x00052430",
-   "end": "0x00052540",
-   "file": "global/CGrappleFightNodeTimeCondition.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: CGrappleFightNodeTimeCondition (5 fn)",
-    "vtables 0x3f8604..0x3f8604 (1)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "CGrappleFightNodeTimeCondition",
-   "functions": 5,
-   "named": 5
-  },
-  {
-   "start": "0x00052540",
-   "end": "0x000525e0",
-   "file": "global/CIsGrappledCondition.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: CIsGrappledCondition (3 fn)",
-    "vtables 0x3f72bc..0x3f72bc (1)",
-    "vtables precede the previous object's in .rdata (order inverted)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "CIsGrappledCondition",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x000525e0",
-   "end": "0x00052680",
-   "file": "global/CIsHelicopterCondition.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: CIsHelicopterCondition (3 fn)",
-    "vtables 0x3f7574..0x3f7574 (1)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "CIsHelicopterCondition",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x00052680",
-   "end": "0x00052720",
-   "file": "global/CIsInvincibleCondition.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: CIsInvincibleCondition (3 fn)",
-    "vtables 0x3f7298..0x3f7298 (1)",
-    "vtables precede the previous object's in .rdata (order inverted)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "CIsInvincibleCondition",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x00052720",
-   "end": "0x00055210",
-   "file": "global/CNameFlagConditionBase_reg.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "low",
-   "evidence": [
-    "only template instantiations/unnamed functions; template args: CNameFlagConditionBase",
-    "2 COMDAT stray(s) from other classes' homes",
-    "unattached run: no call affinity to neighbouring objects",
-    "registration run object, renamed from unknown/unk_052720.cpp (REGISTRATION_RANGES)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "functions": 47,
-   "named": 0,
-   "comdat": [
+    },
     {
      "addr": "0x000551b0",
      "name": "fight::ParamName<CNameFlagConditionBase>::vfunc_7",
@@ -5501,46 +5149,7 @@
      "addr": "0x000551e0",
      "name": "fight::ParamName<CSmartPropNameCondition>::vfunc_7",
      "home": "0x00049570"
-    }
-   ]
-  },
-  {
-   "start": "0x00055210",
-   "end": "0x00055220",
-   "file": "fight/ParamValueStringList.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "medium",
-   "evidence": [
-    "classes: fight::ParamValueStringList (1 fn)",
-    "vtables 0x427abc..0x427abc (1)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "fight::ParamValueStringList",
-   "functions": 1,
-   "named": 1
-  },
-  {
-   "start": "0x00055220",
-   "end": "0x00056af0",
-   "file": "global/CSmartPropDistanceCondition_reg_055220.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "low",
-   "evidence": [
-    "only template instantiations/unnamed functions; template args: CSmartPropDistanceCondition",
-    "12 COMDAT stray(s) from other classes' homes",
-    "unattached run: no call affinity to neighbouring objects",
-    "registration run object, renamed from unknown/unk_055220.cpp (REGISTRATION_RANGES)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "functions": 22,
-   "named": 0,
-   "comdat": [
+    },
     {
      "addr": "0x00055220",
      "name": "fight::ParamNameConstList<CSmartPropDistanceCondition>::vfunc_7",
@@ -6734,12 +6343,13 @@
   },
   {
    "start": "0x0005a740",
-   "end": "0x0005c6b0",
+   "end": "0x0005d190",
    "file": "global/CGrappleOpportunityTrack.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
+    "registration object (gx3, D32): 7 registrations (0x5c6b0..0x5cf20) construct parameter classes whose scalar deleting destructors only they emit, from 0x5bfc0; merged 2 objects: global/CGrappleOpportunityTrack.cpp, unknown/unk_05c6b0.cpp",
     "classes: CGrappleOpportunityTrack (17 fn), CGrabTrack (22 fn), CGrappleSequenceTrack (13 fn), CGrappleAttachTrack (20 fn), CGrappleSwapTrack (20 fn), CGrappleLocoStrafe4Track (15 fn) +6 more",
     "vtables 0x3f9908..0x427c88 (12)",
     "7 COMDAT stray(s) from other classes' homes",
@@ -6749,7 +6359,7 @@
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
    ],
    "dominant": "CGrappleOpportunityTrack",
-   "functions": 161,
+   "functions": 171,
    "named": 125,
    "comdat": [
     {
@@ -6790,29 +6400,14 @@
    ]
   },
   {
-   "start": "0x0005c6b0",
-   "end": "0x0005d190",
-   "file": "unknown/unk_05c6b0.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "low",
-   "evidence": [
-    "unattached run: no call affinity to neighbouring objects"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "functions": 10,
-   "named": 0
-  },
-  {
    "start": "0x0005d190",
-   "end": "0x0005d370",
+   "end": "0x0005d850",
    "file": "global/CHapticTrack.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
+    "registration object (gx3, D32): 1 registrations (0x5d370..0x5d370) construct parameter classes whose scalar deleting destructors only they emit, from 0x5d330; merged 2 objects: global/CHapticTrack.cpp, unknown/unk_05d370.cpp",
     "classes: CHapticTrack (13 fn)",
     "vtables 0x3fa034..0x3fa034 (1)",
     "vtable range overlaps the previous object's (may be one file)"
@@ -6821,33 +6416,19 @@
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
    ],
    "dominant": "CHapticTrack",
-   "functions": 14,
-   "named": 13
-  },
-  {
-   "start": "0x0005d370",
-   "end": "0x0005d850",
-   "file": "unknown/unk_05d370.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "low",
-   "evidence": [
-    "unattached run: no call affinity to neighbouring objects"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "functions": 51,
-   "named": 0
+   "functions": 65,
+   "named": 13,
+   "comdat": []
   },
   {
    "start": "0x0005d850",
-   "end": "0x0005fa10",
+   "end": "0x000604d0",
    "file": "global/CCollisionTrack.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
+    "registration object (gx3, D32): 6 registrations (0x5f150..0x5ef60) construct parameter classes whose scalar deleting destructors only they emit, from 0x5ea70; merged 2 objects: global/CCollisionTrack.cpp, unknown/unk_05fa10.cpp",
     "classes: CCollisionTrack (36 fn), COpportunityBallTrack (19 fn), CProceduralDurationAnimationTrack (21 fn), CStunAnimationTrack (19 fn), CSnapToWallTrack (18 fn), CClearHitRecordsTrack (9 fn)",
     "vtables 0x3fa214..0x3fa338 (6)",
     "2 COMDAT stray(s) from other classes' homes"
@@ -6856,7 +6437,7 @@
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
    ],
    "dominant": "CCollisionTrack",
-   "functions": 156,
+   "functions": 193,
    "named": 122,
    "comdat": [
     {
@@ -6870,22 +6451,6 @@
      "home": "0x0006fd80"
     }
    ]
-  },
-  {
-   "start": "0x0005fa10",
-   "end": "0x000604d0",
-   "file": "unknown/unk_05fa10.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "low",
-   "evidence": [
-    "unattached run: no call affinity to neighbouring objects"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "functions": 37,
-   "named": 0
   },
   {
    "start": "0x000604d0",
@@ -8841,12 +8406,13 @@
   },
   {
    "start": "0x0006e840",
-   "end": "0x0006e8c0",
+   "end": "0x00075ce0",
    "file": "global/CJointTrack_params_06e840.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
+    "registration object (gx3, D32): 34 registrations (0x74ab0..0x72a20) construct parameter classes whose scalar deleting destructors only they emit, from 0x6e860; merged 50 objects: global/CJointTrack_params_06e840.cpp, global/CJumpTrack_params_06e8c0.cpp, global/CDropTrack_params_06e960.cpp, global/CKeyPoseTrack_params_06e9c0.cpp, global/CSoundTrack_params_06ea20.cpp, global/CComboMessageTrack_params_06ea80.cpp, global/CAutoTargetTrack_params.cpp, global/CCameraDramaticTrack_params_06ec00.cpp, global/CJumpAttackTrack_params_06ed60.cpp, global/COrientTrack_params_06ee00.cpp, global/CHeadTrackerTrack_params_06ee60.cpp, global/CAlertStatusTrack_params.cpp, global/CClearHitRecordsTrack.cpp, global/CCollisionTrack_factory.cpp, global/CEffectTrack_factory.cpp, global/CEffectStopTrack.cpp, global/CExplosionTrack.cpp, global/CGrabTrack.cpp, global/CGrappleAttachTrack.cpp, global/CGrappleDetachTrack.cpp, global/CGrappleEffectTrack.cpp, global/CGrappleEffectStopTrack.cpp, global/CGrappleLocoStrafe4Track.cpp, global/CGrappleMotionTrailTrack.cpp, global/CGrappleOpportunityTrack_factory.cpp, global/CGrappleSequenceTrack.cpp, global/CGrappleSmartPropDropTrack.cpp, global/CGrappleSwapTrack.cpp, global/CHeliDeathSpiralTrack.cpp, global/CHitAnimationTrack.cpp, global/CMotionTrailTrack.cpp, global/COpportunityBallTrack.cpp, global/CPropActorSetStateTrack.cpp, global/CPushBackAnimationTrack.cpp, global/CHapticTrack_factory.cpp, global/CSmartPropAttachTrack.cpp, global/CSmartPropDetachTrack.cpp, global/CSmartPropDropTrack.cpp, global/CSmartPropEventTrack.cpp, global/CSmartPropRemoveInstanceTrack.cpp, global/CSmartPropSetStateTrack.cpp, global/CSmartPropSpawnTrack.cpp, global/CSmartPropThrowTrack.cpp, global/CSmartPropThrowingTrack.cpp, global/CSmartPropUpdateAttachmentTrack.cpp, global/CSnapToWallTrack.cpp, global/CStunAnimationTrack.cpp, global/CWeaponCollisionTrack_2.cpp, unknown/unk_070620.cpp, global/CAlertStatusTrack_3.cpp",
     "classes: CJointTrack (4 fn)",
     "vtables 0x3fb9c4..0x3fb9c4 (1)",
     "same dominant class as an earlier object (class split across files)",
@@ -8857,29 +8423,8 @@
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
    ],
    "dominant": "CJointTrack",
-   "functions": 4,
-   "named": 4
-  },
-  {
-   "start": "0x0006e8c0",
-   "end": "0x0006e960",
-   "file": "global/CJumpTrack_params_06e8c0.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: CJumpTrack (3 fn)",
-    "vtables 0x3fba74..0x3fba74 (1)",
-    "2 COMDAT stray(s) from other classes' homes",
-    "same dominant class as an earlier object (class split across files)",
-    "registration run object, renamed from global/CJumpTrack_3.cpp (REGISTRATION_RANGES)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "CJumpTrack",
-   "functions": 5,
-   "named": 3,
+   "functions": 239,
+   "named": 152,
    "comdat": [
     {
      "addr": "0x0006e8c0",
@@ -8890,110 +8435,7 @@
      "addr": "0x0006e8e0",
      "name": "fight::ParamFloatConstRange<CClimbingTrack>::vfunc_0",
      "home": "0x00075f90"
-    }
-   ]
-  },
-  {
-   "start": "0x0006e960",
-   "end": "0x0006e9c0",
-   "file": "global/CDropTrack_params_06e960.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: CDropTrack (3 fn)",
-    "vtables 0x3fbaf8..0x3fbaf8 (1)",
-    "same dominant class as an earlier object (class split across files)",
-    "registration run object, renamed from global/CDropTrack_3.cpp (REGISTRATION_RANGES)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "CDropTrack",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x0006e9c0",
-   "end": "0x0006ea20",
-   "file": "global/CKeyPoseTrack_params_06e9c0.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: CKeyPoseTrack (3 fn)",
-    "vtables 0x3fbb34..0x3fbb34 (1)",
-    "same dominant class as an earlier object (class split across files)",
-    "registration run object, renamed from global/CKeyPoseTrack_3.cpp (REGISTRATION_RANGES)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "CKeyPoseTrack",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x0006ea20",
-   "end": "0x0006ea80",
-   "file": "global/CSoundTrack_params_06ea20.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: CSoundTrack (3 fn)",
-    "vtables 0x3fbb70..0x3fbb70 (1)",
-    "same dominant class as an earlier object (class split across files)",
-    "registration run object, renamed from global/CSoundTrack_3.cpp (REGISTRATION_RANGES)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "CSoundTrack",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x0006ea80",
-   "end": "0x0006eae0",
-   "file": "global/CComboMessageTrack_params_06ea80.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: CComboMessageTrack (3 fn)",
-    "vtables 0x3fbbac..0x3fbbac (1)",
-    "same dominant class as an earlier object (class split across files)",
-    "registration run object, renamed from global/CComboMessageTrack_3.cpp (REGISTRATION_RANGES)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "CComboMessageTrack",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x0006eae0",
-   "end": "0x0006ec00",
-   "file": "global/CAutoTargetTrack_params.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: CAutoTargetTrack (3 fn)",
-    "vtables 0x3fbcd8..0x3fbcd8 (1)",
-    "6 COMDAT stray(s) from other classes' homes",
-    "same dominant class as an earlier object (class split across files)",
-    "registration run object, renamed from global/CAutoTargetTrack_3.cpp (REGISTRATION_RANGES)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "CAutoTargetTrack",
-   "functions": 9,
-   "named": 3,
-   "comdat": [
+    },
     {
      "addr": "0x0006eae0",
      "name": "fight::ParamFloatConstRange<CMoveTrack>::vfunc_0",
@@ -9023,30 +8465,7 @@
      "addr": "0x0006eb80",
      "name": "fight::ParamIntConstRange<CSweepTrack>::vfunc_0",
      "home": "0x00077690"
-    }
-   ]
-  },
-  {
-   "start": "0x0006ec00",
-   "end": "0x0006ed60",
-   "file": "global/CCameraDramaticTrack_params_06ec00.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: CCameraDramaticTrack (4 fn)",
-    "vtables 0x3fbeb8..0x3fbeb8 (1)",
-    "7 COMDAT stray(s) from other classes' homes",
-    "same dominant class as an earlier object (class split across files)",
-    "registration run object, renamed from global/CCameraDramaticTrack_3.cpp (REGISTRATION_RANGES)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "CCameraDramaticTrack",
-   "functions": 11,
-   "named": 4,
-   "comdat": [
+    },
     {
      "addr": "0x0006ec00",
      "name": "fight::ParamFloatConstRange<CDamageTrack>::vfunc_0",
@@ -9081,30 +8500,7 @@
      "addr": "0x0006ecc0",
      "name": "fight::ParamFloatConstRange<CCameraShakeTrack>::vfunc_0",
      "home": "0x00075e30"
-    }
-   ]
-  },
-  {
-   "start": "0x0006ed60",
-   "end": "0x0006ee00",
-   "file": "global/CJumpAttackTrack_params_06ed60.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: CJumpAttackTrack (3 fn)",
-    "vtables 0x3fbf30..0x3fbf30 (1)",
-    "2 COMDAT stray(s) from other classes' homes",
-    "same dominant class as an earlier object (class split across files)",
-    "registration run object, renamed from global/CJumpAttackTrack_3.cpp (REGISTRATION_RANGES)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "CJumpAttackTrack",
-   "functions": 5,
-   "named": 3,
-   "comdat": [
+    },
     {
      "addr": "0x0006ed60",
      "name": "fight::ParamFloatConstRange<CCameraHintTrack>::vfunc_0",
@@ -9114,50 +8510,7 @@
      "addr": "0x0006ed80",
      "name": "fight::ParamEnumConstList<CCameraHintTrack>::vfunc_0",
      "home": "0x00075d70"
-    }
-   ]
-  },
-  {
-   "start": "0x0006ee00",
-   "end": "0x0006ee60",
-   "file": "global/COrientTrack_params_06ee00.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: COrientTrack (3 fn)",
-    "vtables 0x3fbf68..0x3fbf68 (1)",
-    "same dominant class as an earlier object (class split across files)",
-    "registration run object, renamed from global/COrientTrack_3.cpp (REGISTRATION_RANGES)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "COrientTrack",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x0006ee60",
-   "end": "0x0006efa0",
-   "file": "global/CHeadTrackerTrack_params_06ee60.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: CHeadTrackerTrack (3 fn)",
-    "vtables 0x3fc0d0..0x3fc0d0 (1)",
-    "7 COMDAT stray(s) from other classes' homes",
-    "same dominant class as an earlier object (class split across files)",
-    "registration run object, renamed from global/CHeadTrackerTrack_3.cpp (REGISTRATION_RANGES)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "CHeadTrackerTrack",
-   "functions": 10,
-   "named": 3,
-   "comdat": [
+    },
     {
      "addr": "0x0006ee60",
      "name": "fight::ParamFloatConstRange<CDriftTrack>::vfunc_0",
@@ -9192,28 +8545,7 @@
      "addr": "0x0006ef20",
      "name": "fight::ParamIntConstRange<CStageTrack>::vfunc_0",
      "home": "0x000775e0"
-    }
-   ]
-  },
-  {
-   "start": "0x0006efa0",
-   "end": "0x0006f0c0",
-   "file": "global/CAlertStatusTrack_params.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "low",
-   "evidence": [
-    "only template instantiations/unnamed functions; template args: CAlertStatusTrack",
-    "9 COMDAT stray(s) from other classes' homes",
-    "unattached run: no call affinity to neighbouring objects",
-    "registration run object, renamed from unknown/unk_06efa0.cpp (REGISTRATION_RANGES)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "functions": 9,
-   "named": 0,
-   "comdat": [
+    },
     {
      "addr": "0x0006efa0",
      "name": "fight::ParamFloatConstRange<CAlertStatusTrack>::vfunc_0",
@@ -9258,718 +8590,7 @@
      "addr": "0x0006f0a0",
      "name": "fight::ParamFloatConstRange<CTargetTrack>::vfunc_0",
      "home": "0x00077750"
-    }
-   ]
-  },
-  {
-   "start": "0x0006f0c0",
-   "end": "0x0006f150",
-   "file": "global/CClearHitRecordsTrack.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: CClearHitRecordsTrack (3 fn)",
-    "vtables 0x3fa338..0x3fa338 (1)",
-    "vtables precede the previous object's in .rdata (order inverted)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "CClearHitRecordsTrack",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x0006f150",
-   "end": "0x0006f1e0",
-   "file": "global/CCollisionTrack_factory.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: CCollisionTrack (3 fn)",
-    "vtables 0x3fa214..0x3fa214 (1)",
-    "same dominant class as an earlier object (class split across files)",
-    "registration run object, renamed from global/CCollisionTrack_2.cpp (REGISTRATION_RANGES)",
-    "vtables precede the previous object's in .rdata (order inverted)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "CCollisionTrack",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x0006f1e0",
-   "end": "0x0006f270",
-   "file": "global/CEffectTrack_factory.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: CEffectTrack (3 fn)",
-    "vtables 0x3faa80..0x3faa80 (1)",
-    "same dominant class as an earlier object (class split across files)",
-    "registration run object, renamed from global/CEffectTrack_2.cpp (REGISTRATION_RANGES)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "CEffectTrack",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x0006f270",
-   "end": "0x0006f300",
-   "file": "global/CEffectStopTrack.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: CEffectStopTrack (3 fn)",
-    "vtables 0x3faab4..0x3faab4 (1)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "CEffectStopTrack",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x0006f300",
-   "end": "0x0006f390",
-   "file": "global/CExplosionTrack.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: CExplosionTrack (3 fn)",
-    "vtables 0x3fed6c..0x3fed6c (1)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "CExplosionTrack",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x0006f390",
-   "end": "0x0006f420",
-   "file": "global/CGrabTrack.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: CGrabTrack (3 fn)",
-    "vtables 0x3f9a5c..0x3f9a5c (1)",
-    "vtables precede the previous object's in .rdata (order inverted)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "CGrabTrack",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x0006f420",
-   "end": "0x0006f4b0",
-   "file": "global/CGrappleAttachTrack.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: CGrappleAttachTrack (3 fn)",
-    "vtables 0x3f9944..0x3f9944 (1)",
-    "vtables precede the previous object's in .rdata (order inverted)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "CGrappleAttachTrack",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x0006f4b0",
-   "end": "0x0006f540",
-   "file": "global/CGrappleDetachTrack.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: CGrappleDetachTrack (3 fn)",
-    "vtables 0x3f99bc..0x3f99bc (1)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "CGrappleDetachTrack",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x0006f540",
-   "end": "0x0006f600",
-   "file": "global/CGrappleEffectTrack.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: CGrappleEffectTrack (4 fn)",
-    "vtables 0x3fd044..0x3fd044 (1)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "CGrappleEffectTrack",
-   "functions": 4,
-   "named": 4
-  },
-  {
-   "start": "0x0006f600",
-   "end": "0x0006f6c0",
-   "file": "global/CGrappleEffectStopTrack.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: CGrappleEffectStopTrack (4 fn)",
-    "vtables 0x3fd094..0x3fd094 (1)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "CGrappleEffectStopTrack",
-   "functions": 4,
-   "named": 4
-  },
-  {
-   "start": "0x0006f6c0",
-   "end": "0x0006f750",
-   "file": "global/CGrappleLocoStrafe4Track.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: CGrappleLocoStrafe4Track (3 fn)",
-    "vtables 0x3f9908..0x3f9908 (1)",
-    "vtables precede the previous object's in .rdata (order inverted)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "CGrappleLocoStrafe4Track",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x0006f750",
-   "end": "0x0006f810",
-   "file": "global/CGrappleMotionTrailTrack.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: CGrappleMotionTrailTrack (4 fn)",
-    "vtables 0x3fd108..0x3fd108 (1)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "CGrappleMotionTrailTrack",
-   "functions": 4,
-   "named": 4
-  },
-  {
-   "start": "0x0006f810",
-   "end": "0x0006f8a0",
-   "file": "global/CGrappleOpportunityTrack_factory.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: CGrappleOpportunityTrack (3 fn)",
-    "vtables 0x3f99f8..0x3f99f8 (1)",
-    "same dominant class as an earlier object (class split across files)",
-    "registration run object, renamed from global/CGrappleOpportunityTrack_2.cpp (REGISTRATION_RANGES)",
-    "vtables precede the previous object's in .rdata (order inverted)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "CGrappleOpportunityTrack",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x0006f8a0",
-   "end": "0x0006f930",
-   "file": "global/CGrappleSequenceTrack.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: CGrappleSequenceTrack (3 fn)",
-    "vtables 0x3f9a2c..0x3f9a2c (1)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "CGrappleSequenceTrack",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x0006f930",
-   "end": "0x0006f9f0",
-   "file": "global/CGrappleSmartPropDropTrack.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: CGrappleSmartPropDropTrack (4 fn)",
-    "vtables 0x3fd19c..0x3fd19c (1)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "CGrappleSmartPropDropTrack",
-   "functions": 4,
-   "named": 4
-  },
-  {
-   "start": "0x0006f9f0",
-   "end": "0x0006fa80",
-   "file": "global/CGrappleSwapTrack.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: CGrappleSwapTrack (3 fn)",
-    "vtables 0x3f9980..0x3f9980 (1)",
-    "vtables precede the previous object's in .rdata (order inverted)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "CGrappleSwapTrack",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x0006fa80",
-   "end": "0x0006fb10",
-   "file": "global/CHeliDeathSpiralTrack.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: CHeliDeathSpiralTrack (3 fn)",
-    "vtables 0x3fed30..0x3fed30 (1)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "CHeliDeathSpiralTrack",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x0006fb10",
-   "end": "0x0006fbd0",
-   "file": "global/CHitAnimationTrack.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: CHitAnimationTrack (4 fn)",
-    "vtables 0x3fd230..0x3fd230 (1)",
-    "vtables precede the previous object's in .rdata (order inverted)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "CHitAnimationTrack",
-   "functions": 4,
-   "named": 4
-  },
-  {
-   "start": "0x0006fbd0",
-   "end": "0x0006fc60",
-   "file": "global/CMotionTrailTrack.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: CMotionTrailTrack (3 fn)",
-    "vtables 0x3faa44..0x3faa44 (1)",
-    "vtables precede the previous object's in .rdata (order inverted)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "CMotionTrailTrack",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x0006fc60",
-   "end": "0x0006fcf0",
-   "file": "global/COpportunityBallTrack.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: COpportunityBallTrack (3 fn)",
-    "vtables 0x3fa248..0x3fa248 (1)",
-    "vtables precede the previous object's in .rdata (order inverted)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "COpportunityBallTrack",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x0006fcf0",
-   "end": "0x0006fd80",
-   "file": "global/CPropActorSetStateTrack.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: CPropActorSetStateTrack (3 fn)",
-    "vtables 0x3fb1bc..0x3fb1bc (1)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "CPropActorSetStateTrack",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x0006fd80",
-   "end": "0x0006fe40",
-   "file": "global/CPushBackAnimationTrack.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: CPushBackAnimationTrack (4 fn)",
-    "vtables 0x3fd2dc..0x3fd2dc (1)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "CPushBackAnimationTrack",
-   "functions": 4,
-   "named": 4
-  },
-  {
-   "start": "0x0006fe40",
-   "end": "0x0006fed0",
-   "file": "global/CHapticTrack_factory.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: CHapticTrack (3 fn)",
-    "vtables 0x3fa034..0x3fa034 (1)",
-    "same dominant class as an earlier object (class split across files)",
-    "registration run object, renamed from global/CHapticTrack_2.cpp (REGISTRATION_RANGES)",
-    "vtables precede the previous object's in .rdata (order inverted)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "CHapticTrack",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x0006fed0",
-   "end": "0x0006ff60",
-   "file": "global/CSmartPropAttachTrack.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: CSmartPropAttachTrack (3 fn)",
-    "vtables 0x3faf60..0x3faf60 (1)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "CSmartPropAttachTrack",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x0006ff60",
-   "end": "0x0006fff0",
-   "file": "global/CSmartPropDetachTrack.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: CSmartPropDetachTrack (3 fn)",
-    "vtables 0x3fb050..0x3fb050 (1)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "CSmartPropDetachTrack",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x0006fff0",
-   "end": "0x00070080",
-   "file": "global/CSmartPropDropTrack.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: CSmartPropDropTrack (3 fn)",
-    "vtables 0x3fb104..0x3fb104 (1)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "CSmartPropDropTrack",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x00070080",
-   "end": "0x00070110",
-   "file": "global/CSmartPropEventTrack.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: CSmartPropEventTrack (3 fn)",
-    "vtables 0x3fb144..0x3fb144 (1)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "CSmartPropEventTrack",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x00070110",
-   "end": "0x000701a0",
-   "file": "global/CSmartPropRemoveInstanceTrack.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: CSmartPropRemoveInstanceTrack (3 fn)",
-    "vtables 0x3fb180..0x3fb180 (1)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "CSmartPropRemoveInstanceTrack",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x000701a0",
-   "end": "0x00070230",
-   "file": "global/CSmartPropSetStateTrack.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: CSmartPropSetStateTrack (3 fn)",
-    "vtables 0x3fb014..0x3fb014 (1)",
-    "vtables precede the previous object's in .rdata (order inverted)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "CSmartPropSetStateTrack",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x00070230",
-   "end": "0x000702c0",
-   "file": "global/CSmartPropSpawnTrack.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: CSmartPropSpawnTrack (3 fn)",
-    "vtables 0x3fafd8..0x3fafd8 (1)",
-    "vtables precede the previous object's in .rdata (order inverted)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "CSmartPropSpawnTrack",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x000702c0",
-   "end": "0x00070350",
-   "file": "global/CSmartPropThrowTrack.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: CSmartPropThrowTrack (3 fn)",
-    "vtables 0x3fb08c..0x3fb08c (1)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "CSmartPropThrowTrack",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x00070350",
-   "end": "0x000703e0",
-   "file": "global/CSmartPropThrowingTrack.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: CSmartPropThrowingTrack (3 fn)",
-    "vtables 0x3fb0c8..0x3fb0c8 (1)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "CSmartPropThrowingTrack",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x000703e0",
-   "end": "0x00070470",
-   "file": "global/CSmartPropUpdateAttachmentTrack.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: CSmartPropUpdateAttachmentTrack (3 fn)",
-    "vtables 0x3faf9c..0x3faf9c (1)",
-    "vtables precede the previous object's in .rdata (order inverted)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "CSmartPropUpdateAttachmentTrack",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x00070470",
-   "end": "0x00070500",
-   "file": "global/CSnapToWallTrack.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: CSnapToWallTrack (3 fn)",
-    "vtables 0x3fa2fc..0x3fa2fc (1)",
-    "vtables precede the previous object's in .rdata (order inverted)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "CSnapToWallTrack",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x00070500",
-   "end": "0x00070590",
-   "file": "global/CStunAnimationTrack.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: CStunAnimationTrack (3 fn)",
-    "vtables 0x3fa2c0..0x3fa2c0 (1)",
-    "vtables precede the previous object's in .rdata (order inverted)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "CStunAnimationTrack",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x00070590",
-   "end": "0x00070620",
-   "file": "global/CWeaponCollisionTrack_2.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: CWeaponCollisionTrack (3 fn)",
-    "vtables 0x3faf2c..0x3faf2c (1)",
-    "same dominant class as an earlier object (class split across files)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "CWeaponCollisionTrack",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x00070620",
-   "end": "0x00072590",
-   "file": "unknown/unk_070620.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "low",
-   "evidence": [
-    "unattached run: no call affinity to neighbouring objects"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "functions": 25,
-   "named": 0
-  },
-  {
-   "start": "0x00072590",
-   "end": "0x00075ce0",
-   "file": "global/CAlertStatusTrack_3.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: CAlertStatusTrack (3 fn)",
-    "vtables 0x3fc10c..0x3fc10c (1)",
-    "12 COMDAT stray(s) from other classes' homes",
-    "same dominant class as an earlier object (class split across files)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "CAlertStatusTrack",
-   "functions": 32,
-   "named": 3,
-   "comdat": [
+    },
     {
      "addr": "0x00073540",
      "name": "fight::ParamNameConstList<CJointTrack>::vfunc_7",
@@ -10936,12 +9557,13 @@
   },
   {
    "start": "0x00077f30",
-   "end": "0x000783a0",
+   "end": "0x000788e0",
    "file": "global/CExplosionTrack_2.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
+    "registration object (gx3, D32): 2 registrations (0x783a0..0x78610) construct parameter classes whose scalar deleting destructors only they emit, from 0x78300; merged 2 objects: global/CExplosionTrack_2.cpp, DataHandler/ObjectCreator.cpp",
     "classes: CExplosionTrack (17 fn), CHeliDeathSpiralTrack (12 fn)",
     "vtables 0x3fed30..0x3fed6c (2)",
     "same dominant class as an earlier object (class split across files)"
@@ -10950,26 +9572,9 @@
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
    ],
    "dominant": "CExplosionTrack",
-   "functions": 32,
-   "named": 29
-  },
-  {
-   "start": "0x000783a0",
-   "end": "0x000788e0",
-   "file": "DataHandler/ObjectCreator.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "medium",
-   "evidence": [
-    "classes: DataHandler::ObjectCreator (1 fn)",
-    "vtables 0x3feefc..0x3feefc (1)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "DataHandler::ObjectCreator",
-   "functions": 8,
-   "named": 1
+   "functions": 40,
+   "named": 30,
+   "comdat": []
   },
   {
    "start": "0x000788e0",
@@ -15405,12 +14010,13 @@
   },
   {
    "start": "0x00110e60",
-   "end": "0x00110f00",
+   "end": "0x001133f0",
    "file": "hulkfight/ai/OnBlockedTriangleCondition_2.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
+    "registration object (gx3, D32): 24 registrations (0x111b50..0x112f10) construct parameter classes whose scalar deleting destructors only they emit, from 0x110e90; merged 13 objects: hulkfight/ai/OnBlockedTriangleCondition_2.cpp, hulkfight/ai/AIHistoryNameCondition_2.cpp, hulkfight/ai/HulkActionLargestCondition.cpp, hulkfight/ai/PropsToChuckCondition_2.cpp, hulkfight/ai/HulkActionRecentCondition.cpp, hulkfight/ai/KeyWordWaitCondition.cpp, hulkfight/ai/FormationReadyCondition_3.cpp, hulkfight/ai/InActiveCondition_3.cpp, hulkfight/ai/HulkActionCountCondition_3.cpp, hulkfight/ai/PropsToSuckCondition_3.cpp, hulkfight/ai/RandomKeyWordWaitCondition_3.cpp, hulkfight/ai/SemaphoreClearTrack_3.cpp, hulkfight/ai/SemaphoreWaitTrack_3.cpp",
     "classes: hulkfight::ai::OnBlockedTriangleCondition (4 fn)",
     "vtables 0x40d984..0x40d984 (1)",
     "same dominant class as an earlier object (class split across files)",
@@ -15420,28 +14026,8 @@
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
    ],
    "dominant": "hulkfight::ai::OnBlockedTriangleCondition",
-   "functions": 4,
-   "named": 4
-  },
-  {
-   "start": "0x00110f00",
-   "end": "0x00111060",
-   "file": "hulkfight/ai/AIHistoryNameCondition_2.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::ai::AIHistoryNameCondition (4 fn)",
-    "vtables 0x40d9e4..0x40d9e4 (1)",
-    "4 COMDAT stray(s) from other classes' homes",
-    "same dominant class as an earlier object (class split across files)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::ai::AIHistoryNameCondition",
-   "functions": 8,
-   "named": 4,
+   "functions": 116,
+   "named": 73,
    "comdat": [
     {
      "addr": "0x00110f00",
@@ -15462,83 +14048,7 @@
      "addr": "0x00110f90",
      "name": "fight::ParamBool<hulkfight::ai::DefendingCondition>::vfunc_0",
      "home": "0x00113ea0"
-    }
-   ]
-  },
-  {
-   "start": "0x00111060",
-   "end": "0x001110e0",
-   "file": "hulkfight/ai/HulkActionLargestCondition.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::ai::HulkActionLargestCondition (3 fn)",
-    "vtables 0x40da04..0x40da04 (1)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::ai::HulkActionLargestCondition",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x001110e0",
-   "end": "0x00111160",
-   "file": "hulkfight/ai/PropsToChuckCondition_2.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::ai::PropsToChuckCondition (3 fn)",
-    "vtables 0x40da24..0x40da24 (1)",
-    "same dominant class as an earlier object (class split across files)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::ai::PropsToChuckCondition",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x00111160",
-   "end": "0x001111e0",
-   "file": "hulkfight/ai/HulkActionRecentCondition.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::ai::HulkActionRecentCondition (3 fn)",
-    "vtables 0x40da44..0x40da44 (1)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::ai::HulkActionRecentCondition",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x001111e0",
-   "end": "0x001112e0",
-   "file": "hulkfight/ai/KeyWordWaitCondition.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::ai::KeyWordWaitCondition (4 fn)",
-    "vtables 0x40da84..0x40da84 (1)",
-    "2 COMDAT stray(s) from other classes' homes"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::ai::KeyWordWaitCondition",
-   "functions": 6,
-   "named": 4,
-   "comdat": [
+    },
     {
      "addr": "0x001111e0",
      "name": "fight::ConditionFactoryCasterTemplate<hulkfight::ai::LeashedCondition>::vfunc_0",
@@ -15548,124 +14058,7 @@
      "addr": "0x00111210",
      "name": "fight::ParamBool<hulkfight::ai::LeashedCondition>::vfunc_0",
      "home": "0x00114200"
-    }
-   ]
-  },
-  {
-   "start": "0x001112e0",
-   "end": "0x00111360",
-   "file": "hulkfight/ai/FormationReadyCondition_3.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::ai::FormationReadyCondition (3 fn)",
-    "vtables 0x40daa4..0x40daa4 (1)",
-    "same dominant class as an earlier object (class split across files)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::ai::FormationReadyCondition",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x00111360",
-   "end": "0x001113e0",
-   "file": "hulkfight/ai/InActiveCondition_3.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::ai::InActiveCondition (3 fn)",
-    "vtables 0x40dac4..0x40dac4 (1)",
-    "same dominant class as an earlier object (class split across files)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::ai::InActiveCondition",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x001113e0",
-   "end": "0x00111480",
-   "file": "hulkfight/ai/HulkActionCountCondition_3.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::ai::HulkActionCountCondition (4 fn)",
-    "vtables 0x40dae4..0x40dae4 (1)",
-    "same dominant class as an earlier object (class split across files)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::ai::HulkActionCountCondition",
-   "functions": 4,
-   "named": 4
-  },
-  {
-   "start": "0x00111480",
-   "end": "0x00111540",
-   "file": "hulkfight/ai/PropsToSuckCondition_3.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::ai::PropsToSuckCondition (5 fn)",
-    "vtables 0x40db04..0x40db04 (1)",
-    "same dominant class as an earlier object (class split across files)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::ai::PropsToSuckCondition",
-   "functions": 5,
-   "named": 5
-  },
-  {
-   "start": "0x00111540",
-   "end": "0x001115c0",
-   "file": "hulkfight/ai/RandomKeyWordWaitCondition_3.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::ai::RandomKeyWordWaitCondition (3 fn)",
-    "vtables 0x40db24..0x40db24 (1)",
-    "same dominant class as an earlier object (class split across files)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::ai::RandomKeyWordWaitCondition",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x001115c0",
-   "end": "0x00111720",
-   "file": "hulkfight/ai/SemaphoreClearTrack_3.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::ai::SemaphoreClearTrack (4 fn)",
-    "vtables 0x40db84..0x40db84 (1)",
-    "4 COMDAT stray(s) from other classes' homes",
-    "same dominant class as an earlier object (class split across files)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::ai::SemaphoreClearTrack",
-   "functions": 8,
-   "named": 4,
-   "comdat": [
+    },
     {
      "addr": "0x001115c0",
      "name": "fight::ConditionFactoryCasterTemplate<hulkfight::ai::TokenCondition>::vfunc_0",
@@ -15685,29 +14078,7 @@
      "addr": "0x00111650",
      "name": "fight::ParamEnumConstList<hulkfight::ai::FightingOtherNPCCondition>::vfunc_0",
      "home": "0x00114770"
-    }
-   ]
-  },
-  {
-   "start": "0x00111720",
-   "end": "0x001133f0",
-   "file": "hulkfight/ai/SemaphoreWaitTrack_3.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::ai::AIHistorySetTrack (5 fn), hulkfight::ai::SemaphoreWaitTrack (5 fn), hulkfight::ai::TokenSupressTrack (4 fn), hulkfight::ai::HulkActionTrack (4 fn), hulkfight::ai::ButtonTrack (4 fn), hulkfight::ai::TokenTrack (4 fn) +1 more",
-    "vtables 0x40dbb4..0x40dd04 (7)",
-    "7 COMDAT stray(s) from other classes' homes",
-    "same dominant class as an earlier object (class split across files)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::ai::SemaphoreWaitTrack",
-   "functions": 63,
-   "named": 30,
-   "comdat": [
+    },
     {
      "addr": "0x001117a0",
      "name": "fight::TrackFactoryCasterTemplate<hulkfight::ai::AIHistoryCountTrack>::vfunc_0",
@@ -17435,12 +15806,13 @@
   },
   {
    "start": "0x00127a00",
-   "end": "0x00127a80",
+   "end": "0x0012a270",
    "file": "hulkfight/ai/TargetDirectionYCondition.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
+    "registration object (gx3, D32): 22 registrations (0x1284f0..0x129480) construct parameter classes whose scalar deleting destructors only they emit, from 0x127a50; merged 15 objects: hulkfight/ai/TargetDirectionYCondition.cpp, hulkfight/ai/TargetArcCondition_2.cpp, hulkfight/ai/TargetDistanceCondition_2.cpp, hulkfight/ai/TargetAngleYCondition.cpp, hulkfight/ai/TargetDirectionCondition.cpp, hulkfight/ai/TargetDistanceYCondition.cpp, hulkfight/ai/ProjectileDistanceCondition.cpp, hulkfight/ai/TargetVelocityYCondition.cpp, hulkfight/ai/TargetVelocityCondition_2.cpp, hulkfight/ai/TargetDistanceXZCondition_2.cpp, hulkfight/ai/AcquireTargetCondition_2.cpp, hulkfight/ai/TargetVelocityXZCondition_2.cpp, hulkfight/ai/TargetDirectionXZCondition_2.cpp, hulkfight/ai/AcquireTargetTrack_2.cpp, hulkfight/ai/TargetArcCondition_reg.cpp",
     "classes: hulkfight::ai::TargetDirectionYCondition (3 fn)",
     "vtables 0x40fd14..0x40fd14 (1)",
     "vtables precede the previous object's in .rdata (order inverted)"
@@ -17449,47 +15821,8 @@
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
    ],
    "dominant": "hulkfight::ai::TargetDirectionYCondition",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x00127a80",
-   "end": "0x00127b20",
-   "file": "hulkfight/ai/TargetArcCondition_2.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::ai::TargetArcCondition (4 fn)",
-    "vtables 0x40fd34..0x40fd34 (1)",
-    "same dominant class as an earlier object (class split across files)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::ai::TargetArcCondition",
-   "functions": 4,
-   "named": 4
-  },
-  {
-   "start": "0x00127b20",
-   "end": "0x00127c20",
-   "file": "hulkfight/ai/TargetDistanceCondition_2.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::ai::TargetDistanceCondition (4 fn)",
-    "vtables 0x40fd74..0x40fd74 (1)",
-    "2 COMDAT stray(s) from other classes' homes",
-    "same dominant class as an earlier object (class split across files)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::ai::TargetDistanceCondition",
-   "functions": 6,
-   "named": 4,
+   "functions": 100,
+   "named": 57,
    "comdat": [
     {
      "addr": "0x00127b20",
@@ -17500,82 +15833,7 @@
      "addr": "0x00127b50",
      "name": "fight::ParamEnumConstList<hulkfight::ai::TargetTypeCondition>::vfunc_0",
      "home": "0x00124750"
-    }
-   ]
-  },
-  {
-   "start": "0x00127c20",
-   "end": "0x00127ca0",
-   "file": "hulkfight/ai/TargetAngleYCondition.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::ai::TargetAngleYCondition (3 fn)",
-    "vtables 0x40fd94..0x40fd94 (1)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::ai::TargetAngleYCondition",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x00127ca0",
-   "end": "0x00127d20",
-   "file": "hulkfight/ai/TargetDirectionCondition.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::ai::TargetDirectionCondition (3 fn)",
-    "vtables 0x40fdb4..0x40fdb4 (1)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::ai::TargetDirectionCondition",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x00127d20",
-   "end": "0x00127dc0",
-   "file": "hulkfight/ai/TargetDistanceYCondition.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::ai::TargetDistanceYCondition (4 fn)",
-    "vtables 0x40fdd4..0x40fdd4 (1)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::ai::TargetDistanceYCondition",
-   "functions": 4,
-   "named": 4
-  },
-  {
-   "start": "0x00127dc0",
-   "end": "0x00127ec0",
-   "file": "hulkfight/ai/ProjectileDistanceCondition.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::ai::ProjectileDistanceCondition (4 fn)",
-    "vtables 0x40fe14..0x40fe14 (1)",
-    "2 COMDAT stray(s) from other classes' homes"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::ai::ProjectileDistanceCondition",
-   "functions": 6,
-   "named": 4,
-   "comdat": [
+    },
     {
      "addr": "0x00127dc0",
      "name": "fight::ConditionFactoryCasterTemplate<hulkfight::ai::TargetOrientationCondition>::vfunc_0",
@@ -17585,28 +15843,7 @@
      "addr": "0x00127df0",
      "name": "fight::ParamFloatConstRange<hulkfight::ai::TargetOrientationCondition>::vfunc_0",
      "home": "0x001259c0"
-    }
-   ]
-  },
-  {
-   "start": "0x00127ec0",
-   "end": "0x00127fa0",
-   "file": "hulkfight/ai/TargetVelocityYCondition.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::ai::TargetVelocityYCondition (3 fn)",
-    "vtables 0x40fe54..0x40fe54 (1)",
-    "2 COMDAT stray(s) from other classes' homes"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::ai::TargetVelocityYCondition",
-   "functions": 5,
-   "named": 3,
-   "comdat": [
+    },
     {
      "addr": "0x00127ec0",
      "name": "fight::ConditionFactoryCasterTemplate<hulkfight::ai::HasTargetCondition>::vfunc_0",
@@ -17616,124 +15853,7 @@
      "addr": "0x00127ef0",
      "name": "fight::ParamBool<hulkfight::ai::HasTargetCondition>::vfunc_0",
      "home": "0x0012a7f0"
-    }
-   ]
-  },
-  {
-   "start": "0x00127fa0",
-   "end": "0x00128020",
-   "file": "hulkfight/ai/TargetVelocityCondition_2.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::ai::TargetVelocityCondition (3 fn)",
-    "vtables 0x40fe74..0x40fe74 (1)",
-    "same dominant class as an earlier object (class split across files)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::ai::TargetVelocityCondition",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x00128020",
-   "end": "0x001280c0",
-   "file": "hulkfight/ai/TargetDistanceXZCondition_2.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::ai::TargetDistanceXZCondition (4 fn)",
-    "vtables 0x40fe94..0x40fe94 (1)",
-    "same dominant class as an earlier object (class split across files)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::ai::TargetDistanceXZCondition",
-   "functions": 4,
-   "named": 4
-  },
-  {
-   "start": "0x001280c0",
-   "end": "0x00128140",
-   "file": "hulkfight/ai/AcquireTargetCondition_2.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::ai::AcquireTargetCondition (3 fn)",
-    "vtables 0x40feb4..0x40feb4 (1)",
-    "same dominant class as an earlier object (class split across files)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::ai::AcquireTargetCondition",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x00128140",
-   "end": "0x001281c0",
-   "file": "hulkfight/ai/TargetVelocityXZCondition_2.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::ai::TargetVelocityXZCondition (3 fn)",
-    "vtables 0x40fed4..0x40fed4 (1)",
-    "same dominant class as an earlier object (class split across files)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::ai::TargetVelocityXZCondition",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x001281c0",
-   "end": "0x00128240",
-   "file": "hulkfight/ai/TargetDirectionXZCondition_2.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::ai::TargetDirectionXZCondition (3 fn)",
-    "vtables 0x40fef4..0x40fef4 (1)",
-    "same dominant class as an earlier object (class split across files)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::ai::TargetDirectionXZCondition",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x00128240",
-   "end": "0x001296f0",
-   "file": "hulkfight/ai/AcquireTargetTrack_2.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::ai::AcquireTargetTrack (5 fn), hulkfight::ai::TargetClearTrack (4 fn), hulkfight::ai::ClearProjectileDistanceTrack (4 fn)",
-    "vtables 0x40ff74..0x40ffd4 (3)",
-    "8 COMDAT stray(s) from other classes' homes",
-    "same dominant class as an earlier object (class split across files)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::ai::AcquireTargetTrack",
-   "functions": 42,
-   "named": 13,
-   "comdat": [
+    },
     {
      "addr": "0x00128240",
      "name": "fight::ConditionFactoryCasterTemplate<hulkfight::ai::TargetFirstShotCondition>::vfunc_0",
@@ -17773,28 +15893,7 @@
      "addr": "0x00129650",
      "name": "hulkfight::ai::ClearProjectileDistanceAction::vfunc_2",
      "home": "0x00124cb0"
-    }
-   ]
-  },
-  {
-   "start": "0x001296f0",
-   "end": "0x0012a270",
-   "file": "hulkfight/ai/TargetArcCondition_reg.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "low",
-   "evidence": [
-    "only template instantiations/unnamed functions; template args: hulkfight::ai::TargetArcCondition",
-    "3 COMDAT stray(s) from other classes' homes",
-    "unattached run: no call affinity to neighbouring objects",
-    "registration run object, renamed from unknown/unk_1296f0.cpp (REGISTRATION_RANGES)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "functions": 8,
-   "named": 0,
-   "comdat": [
+    },
     {
      "addr": "0x001296f0",
      "name": "hulkfight::ai::TargetClearAction::vfunc_2",
@@ -20501,12 +18600,13 @@
   },
   {
    "start": "0x00153f40",
-   "end": "0x00154000",
+   "end": "0x00158f00",
    "file": "hulkfight/motion/InterruptAccumulatorCondition.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
+    "registration object (gx3, D32): 36 registrations (0x1550b0..0x156bb0) construct parameter classes whose scalar deleting destructors only they emit, from 0x153fb0; merged 19 objects: hulkfight/motion/InterruptAccumulatorCondition.cpp, hulkfight/motion/CollisionSourceForceMagnitudeCondition.cpp, hulkfight/motion/CollisionTargetPriorityCondition_params_factory.cpp, hulkfight/motion/CollisionDevastatorCondition_params_factory.cpp, hulkfight/motion/HitPushbackVelocityCondition_params_factory.cpp, hulkfight/motion/CollisionSourceNodeCondition_params_factory.cpp, hulkfight/motion/CollisionChargeCondition_params_factory.cpp, hulkfight/motion/CollisionDamageHealthCompareCondition_params_factory.cpp, hulkfight/motion/CollisionTargetTypeCondition_params_factory.cpp, hulkfight/motion/HitThrowTrack_params_factory.cpp, hulkfight/motion/HitReactionFloatTrack_params_factory.cpp, hulkfight/motion/HitReactionTrack_params_factory.cpp, hulkfight/motion/HitWaitTrack_params_factory.cpp, hulkfight/motion/InterruptPriorityTrack_reg.cpp, unknown/unk_156e80.cpp, hulkfight/motion/NoHitPushbackAction.cpp, unknown/unk_1571a0.cpp, hulkfight/motion/ClearFightParamsHitRecordAction.cpp, hulkfight/motion/CollisionThrownObjectCondition_reg.cpp",
     "classes: hulkfight::motion::InterruptAccumulatorCondition (3 fn)",
     "vtables 0x413f70..0x413f70 (1)",
     "2 COMDAT stray(s) from other classes' homes",
@@ -20516,8 +18616,8 @@
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
    ],
    "dominant": "hulkfight::motion::InterruptAccumulatorCondition",
-   "functions": 5,
-   "named": 3,
+   "functions": 201,
+   "named": 67,
    "comdat": [
     {
      "addr": "0x00153f40",
@@ -20528,48 +18628,7 @@
      "addr": "0x00153f60",
      "name": "fight::ParamFloatConstRange<hulkfight::motion::NoHitPushbackTrack>::vfunc_2",
      "home": "0x0015a440"
-    }
-   ]
-  },
-  {
-   "start": "0x00154000",
-   "end": "0x00154080",
-   "file": "hulkfight/motion/CollisionSourceForceMagnitudeCondition.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::CollisionSourceForceMagnitudeCondition (3 fn)",
-    "vtables 0x413f90..0x413f90 (1)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::CollisionSourceForceMagnitudeCondition",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x00154080",
-   "end": "0x00154220",
-   "file": "hulkfight/motion/CollisionTargetPriorityCondition_params_factory.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::CollisionTargetPriorityCondition (3 fn)",
-    "vtables 0x414010..0x414010 (1)",
-    "6 COMDAT stray(s) from other classes' homes",
-    "same dominant class as an earlier object (class split across files)",
-    "registration run object, renamed from hulkfight/motion/CollisionTargetPriorityCondition_3.cpp (REGISTRATION_RANGES)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::CollisionTargetPriorityCondition",
-   "functions": 9,
-   "named": 3,
-   "comdat": [
+    },
     {
      "addr": "0x00154080",
      "name": "fight::ConditionFactoryCasterTemplate<hulkfight::motion::CollisionThrowCondition>::vfunc_0",
@@ -20599,28 +18658,7 @@
      "addr": "0x00154170",
      "name": "fight::ParamEnumConstList<hulkfight::motion::CollisionSourceTypeCondition>::vfunc_0",
      "home": "0x001591b0"
-    }
-   ]
-  },
-  {
-   "start": "0x00154220",
-   "end": "0x00154400",
-   "file": "hulkfight/motion/CollisionDevastatorCondition_params_factory.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "low",
-   "evidence": [
-    "only template instantiations/unnamed functions; template args: hulkfight::motion::CollisionDevastatorCondition",
-    "10 COMDAT stray(s) from other classes' homes",
-    "unattached run: no call affinity to neighbouring objects",
-    "registration run object, renamed from unknown/unk_154220.cpp (REGISTRATION_RANGES)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "functions": 10,
-   "named": 0,
-   "comdat": [
+    },
     {
      "addr": "0x00154220",
      "name": "fight::ConditionFactoryCasterTemplate<hulkfight::motion::CollisionDevastatorCondition>::vfunc_0",
@@ -20670,50 +18708,7 @@
      "addr": "0x001543d0",
      "name": "fight::ParamBool<hulkfight::motion::CollisionSourceIsMissileCondition>::vfunc_0",
      "home": "0x001595a0"
-    }
-   ]
-  },
-  {
-   "start": "0x00154400",
-   "end": "0x00154480",
-   "file": "hulkfight/motion/HitPushbackVelocityCondition_params_factory.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::HitPushbackVelocityCondition (3 fn)",
-    "vtables 0x4140d0..0x4140d0 (1)",
-    "same dominant class as an earlier object (class split across files)",
-    "registration run object, renamed from hulkfight/motion/HitPushbackVelocityCondition_2.cpp (REGISTRATION_RANGES)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::HitPushbackVelocityCondition",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x00154480",
-   "end": "0x001545e0",
-   "file": "hulkfight/motion/CollisionSourceNodeCondition_params_factory.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::CollisionSourceNodeCondition (4 fn)",
-    "vtables 0x414130..0x414130 (1)",
-    "4 COMDAT stray(s) from other classes' homes",
-    "same dominant class as an earlier object (class split across files)",
-    "registration run object, renamed from hulkfight/motion/CollisionSourceNodeCondition_3.cpp (REGISTRATION_RANGES)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::CollisionSourceNodeCondition",
-   "functions": 8,
-   "named": 4,
-   "comdat": [
+    },
     {
      "addr": "0x00154480",
      "name": "fight::ConditionFactoryCasterTemplate<hulkfight::motion::CollisionThrownObjectCondition>::vfunc_0",
@@ -20733,50 +18728,7 @@
      "addr": "0x00154510",
      "name": "fight::ParamBool<hulkfight::motion::CollisionExplosionCondition>::vfunc_0",
      "home": "0x001596f0"
-    }
-   ]
-  },
-  {
-   "start": "0x001545e0",
-   "end": "0x00154680",
-   "file": "hulkfight/motion/CollisionChargeCondition_params_factory.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::CollisionChargeCondition (4 fn)",
-    "vtables 0x414150..0x414150 (1)",
-    "same dominant class as an earlier object (class split across files)",
-    "registration run object, renamed from hulkfight/motion/CollisionChargeCondition_2.cpp (REGISTRATION_RANGES)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::CollisionChargeCondition",
-   "functions": 4,
-   "named": 4
-  },
-  {
-   "start": "0x00154680",
-   "end": "0x00154780",
-   "file": "hulkfight/motion/CollisionDamageHealthCompareCondition_params_factory.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::CollisionDamageHealthCompareCondition (4 fn)",
-    "vtables 0x414190..0x414190 (1)",
-    "2 COMDAT stray(s) from other classes' homes",
-    "same dominant class as an earlier object (class split across files)",
-    "registration run object, renamed from hulkfight/motion/CollisionDamageHealthCompareCondition_2.cpp (REGISTRATION_RANGES)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::CollisionDamageHealthCompareCondition",
-   "functions": 6,
-   "named": 4,
-   "comdat": [
+    },
     {
      "addr": "0x00154680",
      "name": "fight::ConditionFactoryCasterTemplate<hulkfight::motion::CollisionTargetNameCondition>::vfunc_0",
@@ -20786,28 +18738,7 @@
      "addr": "0x001546b0",
      "name": "fight::ParamEnumConstList<hulkfight::motion::CollisionTargetNameCondition>::vfunc_0",
      "home": "0x0014e760"
-    }
-   ]
-  },
-  {
-   "start": "0x00154780",
-   "end": "0x00154900",
-   "file": "hulkfight/motion/CollisionTargetTypeCondition_params_factory.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "low",
-   "evidence": [
-    "only template instantiations/unnamed functions; template args: hulkfight::motion::CollisionTargetTypeCondition",
-    "8 COMDAT stray(s) from other classes' homes",
-    "unattached run: no call affinity to neighbouring objects",
-    "registration run object, renamed from unknown/unk_154780.cpp (REGISTRATION_RANGES)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "functions": 8,
-   "named": 0,
-   "comdat": [
+    },
     {
      "addr": "0x00154780",
      "name": "fight::ConditionFactoryCasterTemplate<hulkfight::motion::CollisionTargetTypeCondition>::vfunc_0",
@@ -20847,70 +18778,7 @@
      "addr": "0x001548d0",
      "name": "fight::ParamFloatConstRange<hulkfight::motion::InterruptAccumulatorSetTrack>::vfunc_0",
      "home": "0x00159b00"
-    }
-   ]
-  },
-  {
-   "start": "0x00154900",
-   "end": "0x001549a0",
-   "file": "hulkfight/motion/HitThrowTrack_params_factory.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::HitThrowTrack (4 fn)",
-    "vtables 0x414240..0x414240 (1)",
-    "same dominant class as an earlier object (class split across files)",
-    "registration run object, renamed from hulkfight/motion/HitThrowTrack_3.cpp (REGISTRATION_RANGES)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::HitThrowTrack",
-   "functions": 4,
-   "named": 4
-  },
-  {
-   "start": "0x001549a0",
-   "end": "0x00154a60",
-   "file": "hulkfight/motion/HitReactionFloatTrack_params_factory.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::HitReactionFloatTrack (5 fn)",
-    "vtables 0x414270..0x414270 (1)",
-    "same dominant class as an earlier object (class split across files)",
-    "registration run object, renamed from hulkfight/motion/HitReactionFloatTrack_4.cpp (REGISTRATION_RANGES)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::HitReactionFloatTrack",
-   "functions": 5,
-   "named": 5
-  },
-  {
-   "start": "0x00154a60",
-   "end": "0x00154b80",
-   "file": "hulkfight/motion/HitReactionTrack_params_factory.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::HitReactionTrack (5 fn)",
-    "vtables 0x4142d0..0x4142d0 (1)",
-    "2 COMDAT stray(s) from other classes' homes",
-    "same dominant class as an earlier object (class split across files)",
-    "registration run object, renamed from hulkfight/motion/HitReactionTrack_4.cpp (REGISTRATION_RANGES)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::HitReactionTrack",
-   "functions": 7,
-   "named": 5,
-   "comdat": [
+    },
     {
      "addr": "0x00154a60",
      "name": "fight::TrackFactoryCasterTemplate<hulkfight::motion::HitPauseTrack>::vfunc_0",
@@ -20920,50 +18788,7 @@
      "addr": "0x00154a90",
      "name": "fight::ParamFloatConstRange<hulkfight::motion::HitPauseTrack>::vfunc_0",
      "home": "0x00159c70"
-    }
-   ]
-  },
-  {
-   "start": "0x00154b80",
-   "end": "0x00154c00",
-   "file": "hulkfight/motion/HitWaitTrack_params_factory.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::HitWaitTrack (3 fn)",
-    "vtables 0x414300..0x414300 (1)",
-    "same dominant class as an earlier object (class split across files)",
-    "registration run object, renamed from hulkfight/motion/HitWaitTrack_3.cpp (REGISTRATION_RANGES)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::HitWaitTrack",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x00154c00",
-   "end": "0x00156e80",
-   "file": "hulkfight/motion/InterruptPriorityTrack_reg.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::InterruptPriorityTrack (4 fn), hulkfight::motion::GroundSlideTrack (4 fn), hulkfight::motion::HitFloatTrack (4 fn), hulkfight::motion::HitPushbackTrack (4 fn), hulkfight::motion::HitOrientToPushbackTrack (3 fn), hulkfight::motion::HealthTrack (3 fn) +2 more",
-    "vtables 0x414330..0x41452c (8)",
-    "11 COMDAT stray(s) from other classes' homes",
-    "same dominant class as an earlier object (class split across files)",
-    "registration run object, renamed from hulkfight/motion/InterruptPriorityTrack_3.cpp (REGISTRATION_RANGES)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::InterruptPriorityTrack",
-   "functions": 67,
-   "named": 24,
-   "comdat": [
+    },
     {
      "addr": "0x00154da0",
      "name": "fight::TrackFactoryCasterTemplate<hulkfight::motion::ClearFightParamsHitRecordTrack>::vfunc_0",
@@ -21018,26 +18843,7 @@
      "addr": "0x00156de0",
      "name": "hulkfight::motion::HitWaitAction::vfunc_2",
      "home": "0x0014ee80"
-    }
-   ]
-  },
-  {
-   "start": "0x00156e80",
-   "end": "0x00157150",
-   "file": "unknown/unk_156e80.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "low",
-   "evidence": [
-    "10 COMDAT stray(s) from other classes' homes",
-    "unattached run: no call affinity to neighbouring objects"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "functions": 10,
-   "named": 0,
-   "comdat": [
+    },
     {
      "addr": "0x00156e80",
      "name": "hulkfight::motion::GroundSlideAction::vfunc_2",
@@ -21087,44 +18893,7 @@
      "addr": "0x00157100",
      "name": "hulkfight::motion::NoHitPushbackTrack::vfunc_10",
      "home": "0x0015a440"
-    }
-   ]
-  },
-  {
-   "start": "0x00157150",
-   "end": "0x001571a0",
-   "file": "hulkfight/motion/NoHitPushbackAction.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "medium",
-   "evidence": [
-    "classes: hulkfight::motion::NoHitPushbackAction (1 fn)",
-    "vtables 0x4145f0..0x4145f0 (1)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::NoHitPushbackAction",
-   "functions": 1,
-   "named": 1
-  },
-  {
-   "start": "0x001571a0",
-   "end": "0x001575f0",
-   "file": "unknown/unk_1571a0.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "low",
-   "evidence": [
-    "13 COMDAT stray(s) from other classes' homes",
-    "unattached run: no call affinity to neighbouring objects"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "functions": 13,
-   "named": 0,
-   "comdat": [
+    },
     {
      "addr": "0x001571a0",
      "name": "hulkfight::motion::HitPushbackTrack::vfunc_10",
@@ -21189,46 +18958,7 @@
      "addr": "0x001575a0",
      "name": "hulkfight::motion::ClearFightParamsHitRecordTrack::vfunc_10",
      "home": "0x0015a020"
-    }
-   ]
-  },
-  {
-   "start": "0x001575f0",
-   "end": "0x00157800",
-   "file": "hulkfight/motion/ClearFightParamsHitRecordAction.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "medium",
-   "evidence": [
-    "classes: hulkfight::motion::ClearFightParamsHitRecordAction (1 fn)",
-    "vtables 0x4146b4..0x4146b4 (1)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::ClearFightParamsHitRecordAction",
-   "functions": 1,
-   "named": 1
-  },
-  {
-   "start": "0x00157800",
-   "end": "0x00158f00",
-   "file": "hulkfight/motion/CollisionThrownObjectCondition_reg.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "low",
-   "evidence": [
-    "only template instantiations/unnamed functions; template args: hulkfight::motion::CollisionThrownObjectCondition",
-    "10 COMDAT stray(s) from other classes' homes",
-    "unattached run: no call affinity to neighbouring objects",
-    "registration run object, renamed from unknown/unk_157800.cpp (REGISTRATION_RANGES)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "functions": 34,
-   "named": 0,
-   "comdat": [
+    },
     {
      "addr": "0x00157800",
      "name": "fight::ParamName<hulkfight::motion::CollisionThrownObjectCondition>::vfunc_7",
@@ -22091,12 +19821,13 @@
   },
   {
    "start": "0x0015cd10",
-   "end": "0x00161c10",
+   "end": "0x00163a90",
    "file": "hulkfight/motion/HeliLocomotionAction.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
+    "registration object (gx3, D32): 10 registrations (0x161280..0x163790) construct parameter classes whose scalar deleting destructors only they emit, from 0x160dc0; merged 2 objects: hulkfight/motion/HeliLocomotionAction.cpp, unknown/unk_161c10.cpp",
     "classes: hulkfight::motion::HeliLocomotionAction (1 fn), hulkfight::motion::LocomotionStrafeAction (2 fn), hulkfight::motion::ClimbLocomotionAction (2 fn), hulkfight::motion::LocomotionSprintAction (1 fn), hulkfight::motion::JointPlantedCondition (9 fn), hulkfight::motion::LocomotionSteerAction (1 fn) +9 more",
     "vtables 0x415950..0x415bd0 (15)",
     "24 COMDAT stray(s) from other classes' homes",
@@ -22106,7 +19837,7 @@
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
    ],
    "dominant": "hulkfight::motion::HeliLocomotionAction",
-   "functions": 143,
+   "functions": 158,
    "named": 94,
    "comdat": [
     {
@@ -22230,22 +19961,6 @@
      "home": "0x00160c60"
     }
    ]
-  },
-  {
-   "start": "0x00161c10",
-   "end": "0x00163a90",
-   "file": "unknown/unk_161c10.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "low",
-   "evidence": [
-    "unattached run: no call affinity to neighbouring objects"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "functions": 15,
-   "named": 0
   },
   {
    "start": "0x00163a90",
@@ -23325,12 +21040,13 @@
   },
   {
    "start": "0x0016a050",
-   "end": "0x0016a0d0",
+   "end": "0x0016d360",
    "file": "hulkfight/motion/ChargeCondition_2.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
+    "registration object (gx3, D32): 30 registrations (0x16ade0..0x16bf00) construct parameter classes whose scalar deleting destructors only they emit, from 0x16a080; merged 13 objects: hulkfight/motion/ChargeCondition_2.cpp, hulkfight/motion/VelocityCondition.cpp, hulkfight/motion/VelocityYCondition.cpp, hulkfight/motion/VelocityAnimatedXZCondition.cpp, hulkfight/motion/RayCastTargetCondition.cpp, hulkfight/motion/TurningVelocityCondition.cpp, hulkfight/motion/RayCastConeCondition_3.cpp, hulkfight/motion/VelocityAnimatedYCondition_3.cpp, hulkfight/motion/TargetHealthPercentCondition_2.cpp, hulkfight/motion/GrappleHealthCondition_2.cpp, hulkfight/motion/CharacterPropStatusCondition_2.cpp, hulkfight/motion/RayCastCondition_3.cpp, hulkfight/motion/ChargeCondition_3.cpp",
     "classes: hulkfight::motion::ChargeCondition (3 fn)",
     "vtables 0x416658..0x416658 (1)",
     "same dominant class as an earlier object (class split across files)",
@@ -23340,27 +21056,8 @@
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
    ],
    "dominant": "hulkfight::motion::ChargeCondition",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x0016a0d0",
-   "end": "0x0016a210",
-   "file": "hulkfight/motion/VelocityCondition.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::VelocityCondition (3 fn)",
-    "vtables 0x4166b8..0x4166b8 (1)",
-    "4 COMDAT stray(s) from other classes' homes"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::VelocityCondition",
-   "functions": 7,
-   "named": 3,
+   "functions": 120,
+   "named": 56,
    "comdat": [
     {
      "addr": "0x0016a0d0",
@@ -23381,101 +21078,7 @@
      "addr": "0x0016a160",
      "name": "fight::ParamBool<hulkfight::motion::IntentionButtonDownAnyCondition>::vfunc_0",
      "home": "0x00166b40"
-    }
-   ]
-  },
-  {
-   "start": "0x0016a210",
-   "end": "0x0016a290",
-   "file": "hulkfight/motion/VelocityYCondition.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::VelocityYCondition (3 fn)",
-    "vtables 0x4166d8..0x4166d8 (1)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::VelocityYCondition",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x0016a290",
-   "end": "0x0016a310",
-   "file": "hulkfight/motion/VelocityAnimatedXZCondition.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::VelocityAnimatedXZCondition (3 fn)",
-    "vtables 0x4166f8..0x4166f8 (1)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::VelocityAnimatedXZCondition",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x0016a310",
-   "end": "0x0016a3b0",
-   "file": "hulkfight/motion/RayCastTargetCondition.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::RayCastTargetCondition (4 fn)",
-    "vtables 0x416718..0x416718 (1)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::RayCastTargetCondition",
-   "functions": 4,
-   "named": 4
-  },
-  {
-   "start": "0x0016a3b0",
-   "end": "0x0016a430",
-   "file": "hulkfight/motion/TurningVelocityCondition.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::TurningVelocityCondition (3 fn)",
-    "vtables 0x416738..0x416738 (1)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::TurningVelocityCondition",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x0016a430",
-   "end": "0x0016a5f0",
-   "file": "hulkfight/motion/RayCastConeCondition_3.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::RayCastConeCondition (4 fn)",
-    "vtables 0x4167b8..0x4167b8 (1)",
-    "6 COMDAT stray(s) from other classes' homes",
-    "same dominant class as an earlier object (class split across files)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::RayCastConeCondition",
-   "functions": 10,
-   "named": 4,
-   "comdat": [
+    },
     {
      "addr": "0x0016a430",
      "name": "fight::ConditionFactoryCasterTemplate<hulkfight::motion::IntentionInputCondition>::vfunc_0",
@@ -23505,29 +21108,7 @@
      "addr": "0x0016a520",
      "name": "fight::ParamEnumConstList<hulkfight::motion::GrappleReactionTypeCondition>::vfunc_0",
      "home": "0x00166cb0"
-    }
-   ]
-  },
-  {
-   "start": "0x0016a5f0",
-   "end": "0x0016a6d0",
-   "file": "hulkfight/motion/VelocityAnimatedYCondition_3.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::VelocityAnimatedYCondition (3 fn)",
-    "vtables 0x4167f8..0x4167f8 (1)",
-    "2 COMDAT stray(s) from other classes' homes",
-    "same dominant class as an earlier object (class split across files)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::VelocityAnimatedYCondition",
-   "functions": 5,
-   "named": 3,
-   "comdat": [
+    },
     {
      "addr": "0x0016a5f0",
      "name": "fight::ConditionFactoryCasterTemplate<hulkfight::motion::TargetingCondition>::vfunc_0",
@@ -23537,29 +21118,7 @@
      "addr": "0x0016a620",
      "name": "fight::ParamBool<hulkfight::motion::TargetingCondition>::vfunc_0",
      "home": "0x0016d980"
-    }
-   ]
-  },
-  {
-   "start": "0x0016a6d0",
-   "end": "0x0016a7b0",
-   "file": "hulkfight/motion/TargetHealthPercentCondition_2.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::TargetHealthPercentCondition (3 fn)",
-    "vtables 0x416838..0x416838 (1)",
-    "2 COMDAT stray(s) from other classes' homes",
-    "same dominant class as an earlier object (class split across files)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::TargetHealthPercentCondition",
-   "functions": 5,
-   "named": 3,
-   "comdat": [
+    },
     {
      "addr": "0x0016a6d0",
      "name": "fight::ConditionFactoryCasterTemplate<hulkfight::motion::TargetLocomotionMotionStateCondition>::vfunc_0",
@@ -23569,48 +21128,7 @@
      "addr": "0x0016a700",
      "name": "fight::ParamEnumConstList<hulkfight::motion::TargetLocomotionMotionStateCondition>::vfunc_0",
      "home": "0x0016dad0"
-    }
-   ]
-  },
-  {
-   "start": "0x0016a7b0",
-   "end": "0x0016a830",
-   "file": "hulkfight/motion/GrappleHealthCondition_2.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::GrappleHealthCondition (3 fn)",
-    "vtables 0x416858..0x416858 (1)",
-    "same dominant class as an earlier object (class split across files)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::GrappleHealthCondition",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x0016a830",
-   "end": "0x0016a910",
-   "file": "hulkfight/motion/CharacterPropStatusCondition_2.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::CharacterPropStatusCondition (3 fn)",
-    "vtables 0x416898..0x416898 (1)",
-    "2 COMDAT stray(s) from other classes' homes",
-    "same dominant class as an earlier object (class split across files)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::CharacterPropStatusCondition",
-   "functions": 5,
-   "named": 3,
-   "comdat": [
+    },
     {
      "addr": "0x0016a830",
      "name": "fight::ConditionFactoryCasterTemplate<hulkfight::motion::TargetCharacterTemplateCondition>::vfunc_0",
@@ -23620,29 +21138,7 @@
      "addr": "0x0016a860",
      "name": "fight::ParamString<hulkfight::motion::TargetCharacterTemplateCondition>::vfunc_0",
      "home": "0x00168a70"
-    }
-   ]
-  },
-  {
-   "start": "0x0016a910",
-   "end": "0x0016c600",
-   "file": "hulkfight/motion/RayCastCondition_3.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::RayCastCondition (6 fn), hulkfight::motion::VelocityXZCondition (3 fn), hulkfight::motion::HealthPercentCondition (3 fn), hulkfight::motion::VelocityAnimatedCondition (3 fn), hulkfight::motion::HealthCondition (3 fn)",
-    "vtables 0x4168d8..0x4169f8 (5)",
-    "16 COMDAT stray(s) from other classes' homes",
-    "same dominant class as an earlier object (class split across files)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::RayCastCondition",
-   "functions": 62,
-   "named": 18,
-   "comdat": [
+    },
     {
      "addr": "0x0016a910",
      "name": "fight::ConditionFactoryCasterTemplate<hulkfight::motion::VelocityXZAngleCondition>::vfunc_0",
@@ -23724,26 +21220,6 @@
      "home": "0x00166820"
     }
    ]
-  },
-  {
-   "start": "0x0016c600",
-   "end": "0x0016d360",
-   "file": "hulkfight/motion/ChargeCondition_3.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::ChargeCondition (3 fn)",
-    "vtables 0x416658..0x416658 (1)",
-    "same dominant class as an earlier object (class split across files)",
-    "vtables precede the previous object's in .rdata (order inverted)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::ChargeCondition",
-   "functions": 7,
-   "named": 3
   },
   {
    "start": "0x0016d360",
@@ -26041,12 +23517,13 @@
   },
   {
    "start": "0x00178d00",
-   "end": "0x00178de0",
+   "end": "0x0017e1a0",
    "file": "hulkfight/motion/JointTrackerTrack_3.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
+    "registration object (gx3, D32): 27 registrations (0x17c650..0x17ddf0) construct parameter classes whose scalar deleting destructors only they emit, from 0x178d30; merged 26 objects: hulkfight/motion/JointTrackerTrack_3.cpp, hulkfight/motion/ChargeTrack_3.cpp, hulkfight/motion/RestPoseTrack_3.cpp, hulkfight/motion/JointRelativeTrack_3.cpp, hulkfight/motion/SyncToLocatorTrack_3.cpp, hulkfight/motion/LocomotionStateTrack_3.cpp, hulkfight/motion/MoveJointTrack_3.cpp, hulkfight/motion/DriftToPositionTrack_3.cpp, hulkfight/motion/DriftToHulkTrack_3.cpp, hulkfight/motion/MotionStateTrack_3.cpp, hulkfight/motion/PushOutTrack_3.cpp, hulkfight/motion/TeleportTrack_3.cpp, hulkfight/motion/JointPivotTrackerTrack_3.cpp, hulkfight/motion/SurfTrack_3.cpp, hulkfight/motion/SuckInPropsTrack_3.cpp, hulkfight/motion/TeleportRelativeTrack_3.cpp, hulkfight/motion/TeleportToLocatorTrack_3.cpp, hulkfight/motion/ChargeClearTrack_3.cpp, hulkfight/motion/VisibilityTrack_3.cpp, hulkfight/motion/FootPivotTrack_3.cpp, unknown/unk_179c10.cpp, hulkfight/motion/LocomotionStateAction.cpp, hulkfight/motion/MotionStateAction.cpp, hulkfight/motion/IntentionClearAction.cpp, unknown/unk_17b330.cpp, hulkfight/motion/SnapToGroundTrack_2.cpp",
     "classes: hulkfight::motion::JointTrackerTrack (6 fn)",
     "vtables 0x417898..0x417898 (1)",
     "same dominant class as an earlier object (class split across files)",
@@ -26056,66 +23533,8 @@
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
    ],
    "dominant": "hulkfight::motion::JointTrackerTrack",
-   "functions": 6,
-   "named": 6
-  },
-  {
-   "start": "0x00178de0",
-   "end": "0x00178e80",
-   "file": "hulkfight/motion/ChargeTrack_3.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::ChargeTrack (4 fn)",
-    "vtables 0x4178c8..0x4178c8 (1)",
-    "same dominant class as an earlier object (class split across files)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::ChargeTrack",
-   "functions": 4,
-   "named": 4
-  },
-  {
-   "start": "0x00178e80",
-   "end": "0x00178f00",
-   "file": "hulkfight/motion/RestPoseTrack_3.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::RestPoseTrack (3 fn)",
-    "vtables 0x4178f8..0x4178f8 (1)",
-    "same dominant class as an earlier object (class split across files)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::RestPoseTrack",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x00178f00",
-   "end": "0x00179020",
-   "file": "hulkfight/motion/JointRelativeTrack_3.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::JointRelativeTrack (5 fn)",
-    "vtables 0x417958..0x417958 (1)",
-    "2 COMDAT stray(s) from other classes' homes",
-    "same dominant class as an earlier object (class split across files)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::JointRelativeTrack",
-   "functions": 7,
-   "named": 5,
+   "functions": 224,
+   "named": 94,
    "comdat": [
     {
      "addr": "0x00178f00",
@@ -26126,48 +23545,7 @@
      "addr": "0x00178f30",
      "name": "fight::ParamFloatConstRange<hulkfight::motion::SnapToGroundTrack>::vfunc_0",
      "home": "0x0017bfa0"
-    }
-   ]
-  },
-  {
-   "start": "0x00179020",
-   "end": "0x00179100",
-   "file": "hulkfight/motion/SyncToLocatorTrack_3.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::SyncToLocatorTrack (6 fn)",
-    "vtables 0x417988..0x417988 (1)",
-    "same dominant class as an earlier object (class split across files)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::SyncToLocatorTrack",
-   "functions": 6,
-   "named": 6
-  },
-  {
-   "start": "0x00179100",
-   "end": "0x001791e0",
-   "file": "hulkfight/motion/LocomotionStateTrack_3.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::LocomotionStateTrack (3 fn)",
-    "vtables 0x4179e8..0x4179e8 (1)",
-    "2 COMDAT stray(s) from other classes' homes",
-    "same dominant class as an earlier object (class split across files)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::LocomotionStateTrack",
-   "functions": 5,
-   "named": 3,
-   "comdat": [
+    },
     {
      "addr": "0x00179100",
      "name": "fight::TrackFactoryCasterTemplate<hulkfight::motion::SuckTrack>::vfunc_0",
@@ -26177,105 +23555,7 @@
      "addr": "0x00179130",
      "name": "fight::ParamFloatConstRange<hulkfight::motion::SuckTrack>::vfunc_0",
      "home": "0x0017e1a0"
-    }
-   ]
-  },
-  {
-   "start": "0x001791e0",
-   "end": "0x001792a0",
-   "file": "hulkfight/motion/MoveJointTrack_3.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::MoveJointTrack (5 fn)",
-    "vtables 0x417a18..0x417a18 (1)",
-    "same dominant class as an earlier object (class split across files)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::MoveJointTrack",
-   "functions": 5,
-   "named": 5
-  },
-  {
-   "start": "0x001792a0",
-   "end": "0x00179360",
-   "file": "hulkfight/motion/DriftToPositionTrack_3.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::DriftToPositionTrack (5 fn)",
-    "vtables 0x417a48..0x417a48 (1)",
-    "same dominant class as an earlier object (class split across files)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::DriftToPositionTrack",
-   "functions": 5,
-   "named": 5
-  },
-  {
-   "start": "0x00179360",
-   "end": "0x001793e0",
-   "file": "hulkfight/motion/DriftToHulkTrack_3.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::DriftToHulkTrack (3 fn)",
-    "vtables 0x417a78..0x417a78 (1)",
-    "same dominant class as an earlier object (class split across files)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::DriftToHulkTrack",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x001793e0",
-   "end": "0x00179460",
-   "file": "hulkfight/motion/MotionStateTrack_3.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::MotionStateTrack (3 fn)",
-    "vtables 0x417aa8..0x417aa8 (1)",
-    "same dominant class as an earlier object (class split across files)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::MotionStateTrack",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x00179460",
-   "end": "0x001795c0",
-   "file": "hulkfight/motion/PushOutTrack_3.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::PushOutTrack (4 fn)",
-    "vtables 0x417b38..0x417b38 (1)",
-    "4 COMDAT stray(s) from other classes' homes",
-    "same dominant class as an earlier object (class split across files)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::PushOutTrack",
-   "functions": 8,
-   "named": 4,
-   "comdat": [
+    },
     {
      "addr": "0x00179460",
      "name": "fight::TrackFactoryCasterTemplate<hulkfight::motion::MomentumXZAddTrack>::vfunc_0",
@@ -26295,86 +23575,7 @@
      "addr": "0x001794f0",
      "name": "fight::ParamFloatConstRange<hulkfight::motion::TargetBreakTrack>::vfunc_0",
      "home": "0x0017e610"
-    }
-   ]
-  },
-  {
-   "start": "0x001795c0",
-   "end": "0x00179640",
-   "file": "hulkfight/motion/TeleportTrack_3.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::TeleportTrack (3 fn)",
-    "vtables 0x417b68..0x417b68 (1)",
-    "same dominant class as an earlier object (class split across files)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::TeleportTrack",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x00179640",
-   "end": "0x00179720",
-   "file": "hulkfight/motion/JointPivotTrackerTrack_3.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::JointPivotTrackerTrack (6 fn)",
-    "vtables 0x417b98..0x417b98 (1)",
-    "same dominant class as an earlier object (class split across files)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::JointPivotTrackerTrack",
-   "functions": 6,
-   "named": 6
-  },
-  {
-   "start": "0x00179720",
-   "end": "0x001797a0",
-   "file": "hulkfight/motion/SurfTrack_3.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::SurfTrack (3 fn)",
-    "vtables 0x417bc8..0x417bc8 (1)",
-    "same dominant class as an earlier object (class split across files)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::SurfTrack",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x001797a0",
-   "end": "0x001798e0",
-   "file": "hulkfight/motion/SuckInPropsTrack_3.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::SuckInPropsTrack (3 fn)",
-    "vtables 0x417c58..0x417c58 (1)",
-    "4 COMDAT stray(s) from other classes' homes",
-    "same dominant class as an earlier object (class split across files)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::SuckInPropsTrack",
-   "functions": 7,
-   "named": 3,
-   "comdat": [
+    },
     {
      "addr": "0x001797a0",
      "name": "fight::TrackFactoryCasterTemplate<hulkfight::motion::TargetIconDistanceTrack>::vfunc_0",
@@ -26394,48 +23595,7 @@
      "addr": "0x00179830",
      "name": "fight::ParamFloatConstRange<hulkfight::motion::CriticalMassDrainTrack>::vfunc_0",
      "home": "0x0017e8d0"
-    }
-   ]
-  },
-  {
-   "start": "0x001798e0",
-   "end": "0x00179960",
-   "file": "hulkfight/motion/TeleportRelativeTrack_3.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::TeleportRelativeTrack (3 fn)",
-    "vtables 0x417c88..0x417c88 (1)",
-    "same dominant class as an earlier object (class split across files)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::TeleportRelativeTrack",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x00179960",
-   "end": "0x00179a60",
-   "file": "hulkfight/motion/TeleportToLocatorTrack_3.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::TeleportToLocatorTrack (4 fn)",
-    "vtables 0x417ce8..0x417ce8 (1)",
-    "2 COMDAT stray(s) from other classes' homes",
-    "same dominant class as an earlier object (class split across files)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::TeleportToLocatorTrack",
-   "functions": 6,
-   "named": 4,
-   "comdat": [
+    },
     {
      "addr": "0x00179960",
      "name": "fight::TrackFactoryCasterTemplate<hulkfight::motion::IntentionClearTrack>::vfunc_0",
@@ -26445,153 +23605,17 @@
      "addr": "0x00179990",
      "name": "fight::ParamFloatConstRange<hulkfight::motion::IntentionClearTrack>::vfunc_0",
      "home": "0x0017eb10"
-    }
-   ]
-  },
-  {
-   "start": "0x00179a60",
-   "end": "0x00179ae0",
-   "file": "hulkfight/motion/ChargeClearTrack_3.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::ChargeClearTrack (3 fn)",
-    "vtables 0x417d18..0x417d18 (1)",
-    "same dominant class as an earlier object (class split across files)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::ChargeClearTrack",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x00179ae0",
-   "end": "0x00179b60",
-   "file": "hulkfight/motion/VisibilityTrack_3.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::VisibilityTrack (3 fn)",
-    "vtables 0x417d48..0x417d48 (1)",
-    "same dominant class as an earlier object (class split across files)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::VisibilityTrack",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x00179b60",
-   "end": "0x00179c10",
-   "file": "hulkfight/motion/FootPivotTrack_3.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::FootPivotTrack (5 fn)",
-    "vtables 0x417d78..0x417d78 (1)",
-    "same dominant class as an earlier object (class split across files)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::FootPivotTrack",
-   "functions": 5,
-   "named": 5
-  },
-  {
-   "start": "0x00179c10",
-   "end": "0x0017afd0",
-   "file": "unknown/unk_179c10.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "low",
-   "evidence": [
-    "1 COMDAT stray(s) from other classes' homes",
-    "unattached run: no call affinity to neighbouring objects"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "functions": 20,
-   "named": 0,
-   "comdat": [
+    },
     {
      "addr": "0x0017af80",
      "name": "hulkfight::motion::LocomotionStateTrack::vfunc_10",
      "home": "0x0017e260"
-    }
-   ]
-  },
-  {
-   "start": "0x0017afd0",
-   "end": "0x0017b020",
-   "file": "hulkfight/motion/LocomotionStateAction.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "medium",
-   "evidence": [
-    "classes: hulkfight::motion::LocomotionStateAction (1 fn)",
-    "vtables 0x417db8..0x417db8 (1)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::LocomotionStateAction",
-   "functions": 1,
-   "named": 1
-  },
-  {
-   "start": "0x0017b020",
-   "end": "0x0017b0c0",
-   "file": "hulkfight/motion/MotionStateAction.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "medium",
-   "evidence": [
-    "classes: hulkfight::motion::MotionStateAction (1 fn)",
-    "vtables 0x417dd4..0x417dd4 (1)",
-    "1 COMDAT stray(s) from other classes' homes"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::MotionStateAction",
-   "functions": 2,
-   "named": 1,
-   "comdat": [
+    },
     {
      "addr": "0x0017b020",
      "name": "hulkfight::motion::MotionStateTrack::vfunc_10",
      "home": "0x0017e4a0"
-    }
-   ]
-  },
-  {
-   "start": "0x0017b0c0",
-   "end": "0x0017b330",
-   "file": "hulkfight/motion/IntentionClearAction.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "medium",
-   "evidence": [
-    "classes: hulkfight::motion::IntentionClearAction (1 fn)",
-    "vtables 0x417e4c..0x417e4c (1)",
-    "7 COMDAT stray(s) from other classes' homes"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::IntentionClearAction",
-   "functions": 8,
-   "named": 1,
-   "comdat": [
+    },
     {
      "addr": "0x0017b0c0",
      "name": "hulkfight::motion::JointTrackerTrack::vfunc_10",
@@ -26626,26 +23650,7 @@
      "addr": "0x0017b290",
      "name": "hulkfight::motion::IntentionClearTrack::vfunc_10",
      "home": "0x0017eb10"
-    }
-   ]
-  },
-  {
-   "start": "0x0017b330",
-   "end": "0x0017bc70",
-   "file": "unknown/unk_17b330.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "low",
-   "evidence": [
-    "30 COMDAT stray(s) from other classes' homes",
-    "unattached run: no call affinity to neighbouring objects"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "functions": 30,
-   "named": 0,
-   "comdat": [
+    },
     {
      "addr": "0x0017b330",
      "name": "hulkfight::motion::ChargeTrack::vfunc_10",
@@ -26795,30 +23800,7 @@
      "addr": "0x0017bc10",
      "name": "hulkfight::motion::SurfAction::vfunc_2",
      "home": "0x001765f0"
-    }
-   ]
-  },
-  {
-   "start": "0x0017bc70",
-   "end": "0x0017e1a0",
-   "file": "hulkfight/motion/SnapToGroundTrack_2.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::SnapToGroundTrack (4 fn), hulkfight::motion::ChargeTrack (3 fn), hulkfight::motion::RestPoseTrack (3 fn), hulkfight::motion::VisibilityAction (1 fn)",
-    "vtables 0x4178c8..0x418084 (4)",
-    "23 COMDAT stray(s) from other classes' homes",
-    "same dominant class as an earlier object (class split across files)",
-    "vtable range overlaps the previous object's (may be one file)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::SnapToGroundTrack",
-   "functions": 69,
-   "named": 11,
-   "comdat": [
+    },
     {
      "addr": "0x0017bcc0",
      "name": "hulkfight::motion::RestPoseAction::vfunc_2",
@@ -28726,12 +25708,13 @@
   },
   {
    "start": "0x00186680",
-   "end": "0x00186700",
+   "end": "0x0018b4e0",
    "file": "hulkfight/motion/PropMissionCriticalCondition.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
+    "registration object (gx3, D32): 30 registrations (0x187650..0x188730) construct parameter classes whose scalar deleting destructors only they emit, from 0x1866b0; merged 27 objects: hulkfight/motion/PropMissionCriticalCondition.cpp, hulkfight/motion/SmartPropGrabbableCondition.cpp, hulkfight/motion/GrapplePropStateByNameCondition.cpp, hulkfight/motion/PropMassCondition.cpp, hulkfight/motion/PropIsAttachedCondition.cpp, hulkfight/motion/PropStateByNameCondition.cpp, hulkfight/motion/PropStateByIndexCondition_3.cpp, hulkfight/motion/PropMissileCountCondition_3.cpp, hulkfight/motion/PropCollidedWithWorldCondition_2.cpp, hulkfight/motion/PropActorToPropTrack_3.cpp, hulkfight/motion/PropSetStateByNameTrack_3.cpp, hulkfight/motion/PropActorThinkingTrack_3.cpp, hulkfight/motion/PropDropTrack_3.cpp, hulkfight/motion/PropAnimationTrack_3.cpp, hulkfight/motion/GrapplePropDamageTrack_3.cpp, hulkfight/motion/PropThrowTrack_3.cpp, hulkfight/motion/BallAndChainReturnTrack_3.cpp, hulkfight/motion/PropSetStateByIndexTrack_3.cpp, hulkfight/motion/BallAndChainShootTrack_3.cpp, hulkfight/motion/BallAndChainSpinTrack_3.cpp, hulkfight/motion/PropAddToCollisionTrack_3.cpp, unknown/unk_188ab0.cpp, hulkfight/motion/PropDropAction.cpp, unknown/unk_188d80.cpp, hulkfight/motion/ShieldArcAction.cpp, hulkfight/motion/BallAndChainShootTrack_4.cpp, hulkfight/motion/PropSpawnTrack_reg.cpp",
     "classes: hulkfight::motion::PropMissionCriticalCondition (3 fn)",
     "vtables 0x41912c..0x41912c (1)",
     "vtables precede the previous object's in .rdata (order inverted)"
@@ -28740,63 +25723,8 @@
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
    ],
    "dominant": "hulkfight::motion::PropMissionCriticalCondition",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x00186700",
-   "end": "0x00186780",
-   "file": "hulkfight/motion/SmartPropGrabbableCondition.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::SmartPropGrabbableCondition (3 fn)",
-    "vtables 0x41914c..0x41914c (1)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::SmartPropGrabbableCondition",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x00186780",
-   "end": "0x00186800",
-   "file": "hulkfight/motion/GrapplePropStateByNameCondition.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::GrapplePropStateByNameCondition (3 fn)",
-    "vtables 0x41916c..0x41916c (1)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::GrapplePropStateByNameCondition",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x00186800",
-   "end": "0x00186900",
-   "file": "hulkfight/motion/PropMassCondition.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::PropMassCondition (4 fn)",
-    "vtables 0x4191ac..0x4191ac (1)",
-    "2 COMDAT stray(s) from other classes' homes"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::PropMassCondition",
-   "functions": 6,
-   "named": 4,
+   "functions": 201,
+   "named": 102,
    "comdat": [
     {
      "addr": "0x00186800",
@@ -28807,28 +25735,7 @@
      "addr": "0x00186830",
      "name": "fight::ParamBool<hulkfight::motion::PropGrabbableIsThrownCondition>::vfunc_0",
      "home": "0x0018b820"
-    }
-   ]
-  },
-  {
-   "start": "0x00186900",
-   "end": "0x001869e0",
-   "file": "hulkfight/motion/PropIsAttachedCondition.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::PropIsAttachedCondition (3 fn)",
-    "vtables 0x4191ec..0x4191ec (1)",
-    "2 COMDAT stray(s) from other classes' homes"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::PropIsAttachedCondition",
-   "functions": 5,
-   "named": 3,
-   "comdat": [
+    },
     {
      "addr": "0x00186900",
      "name": "fight::ConditionFactoryCasterTemplate<hulkfight::motion::PropAtRestCondition>::vfunc_0",
@@ -28838,104 +25745,7 @@
      "addr": "0x00186930",
      "name": "fight::ParamBool<hulkfight::motion::PropAtRestCondition>::vfunc_0",
      "home": "0x0018b8c0"
-    }
-   ]
-  },
-  {
-   "start": "0x001869e0",
-   "end": "0x00186a60",
-   "file": "hulkfight/motion/PropStateByNameCondition.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::PropStateByNameCondition (3 fn)",
-    "vtables 0x41920c..0x41920c (1)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::PropStateByNameCondition",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x00186a60",
-   "end": "0x00186ae0",
-   "file": "hulkfight/motion/PropStateByIndexCondition_3.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::PropStateByIndexCondition (3 fn)",
-    "vtables 0x41922c..0x41922c (1)",
-    "same dominant class as an earlier object (class split across files)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::PropStateByIndexCondition",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x00186ae0",
-   "end": "0x00186b60",
-   "file": "hulkfight/motion/PropMissileCountCondition_3.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::PropMissileCountCondition (3 fn)",
-    "vtables 0x41924c..0x41924c (1)",
-    "same dominant class as an earlier object (class split across files)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::PropMissileCountCondition",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x00186b60",
-   "end": "0x00186be0",
-   "file": "hulkfight/motion/PropCollidedWithWorldCondition_2.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::PropCollidedWithWorldCondition (3 fn)",
-    "vtables 0x41926c..0x41926c (1)",
-    "same dominant class as an earlier object (class split across files)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::PropCollidedWithWorldCondition",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x00186be0",
-   "end": "0x00186d40",
-   "file": "hulkfight/motion/PropActorToPropTrack_3.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::PropActorToPropTrack (4 fn)",
-    "vtables 0x4192cc..0x4192cc (1)",
-    "4 COMDAT stray(s) from other classes' homes",
-    "same dominant class as an earlier object (class split across files)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::PropActorToPropTrack",
-   "functions": 8,
-   "named": 4,
-   "comdat": [
+    },
     {
      "addr": "0x00186be0",
      "name": "fight::ConditionFactoryCasterTemplate<hulkfight::motion::SmartPropIsCargoCondition>::vfunc_0",
@@ -28955,219 +25765,7 @@
      "addr": "0x00186c70",
      "name": "fight::ParamBool<hulkfight::motion::CSMPropIsCharacterCondition>::vfunc_0",
      "home": "0x0018bcc0"
-    }
-   ]
-  },
-  {
-   "start": "0x00186d40",
-   "end": "0x00186dc0",
-   "file": "hulkfight/motion/PropSetStateByNameTrack_3.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::PropSetStateByNameTrack (3 fn)",
-    "vtables 0x4192fc..0x4192fc (1)",
-    "same dominant class as an earlier object (class split across files)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::PropSetStateByNameTrack",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x00186dc0",
-   "end": "0x00186e40",
-   "file": "hulkfight/motion/PropActorThinkingTrack_3.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::PropActorThinkingTrack (3 fn)",
-    "vtables 0x41932c..0x41932c (1)",
-    "same dominant class as an earlier object (class split across files)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::PropActorThinkingTrack",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x00186e40",
-   "end": "0x00186ec0",
-   "file": "hulkfight/motion/PropDropTrack_3.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::PropDropTrack (3 fn)",
-    "vtables 0x41935c..0x41935c (1)",
-    "same dominant class as an earlier object (class split across files)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::PropDropTrack",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x00186ec0",
-   "end": "0x00186f60",
-   "file": "hulkfight/motion/PropAnimationTrack_3.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::PropAnimationTrack (4 fn)",
-    "vtables 0x41938c..0x41938c (1)",
-    "same dominant class as an earlier object (class split across files)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::PropAnimationTrack",
-   "functions": 4,
-   "named": 4
-  },
-  {
-   "start": "0x00186f60",
-   "end": "0x00186fe0",
-   "file": "hulkfight/motion/GrapplePropDamageTrack_3.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::GrapplePropDamageTrack (3 fn)",
-    "vtables 0x4193bc..0x4193bc (1)",
-    "same dominant class as an earlier object (class split across files)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::GrapplePropDamageTrack",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x00186fe0",
-   "end": "0x001870c0",
-   "file": "hulkfight/motion/PropThrowTrack_3.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::PropThrowTrack (6 fn)",
-    "vtables 0x4193ec..0x4193ec (1)",
-    "same dominant class as an earlier object (class split across files)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::PropThrowTrack",
-   "functions": 6,
-   "named": 6
-  },
-  {
-   "start": "0x001870c0",
-   "end": "0x00187160",
-   "file": "hulkfight/motion/BallAndChainReturnTrack_3.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::BallAndChainReturnTrack (4 fn)",
-    "vtables 0x41941c..0x41941c (1)",
-    "same dominant class as an earlier object (class split across files)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::BallAndChainReturnTrack",
-   "functions": 4,
-   "named": 4
-  },
-  {
-   "start": "0x00187160",
-   "end": "0x001871e0",
-   "file": "hulkfight/motion/PropSetStateByIndexTrack_3.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::PropSetStateByIndexTrack (3 fn)",
-    "vtables 0x41944c..0x41944c (1)",
-    "same dominant class as an earlier object (class split across files)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::PropSetStateByIndexTrack",
-   "functions": 3,
-   "named": 3
-  },
-  {
-   "start": "0x001871e0",
-   "end": "0x001872a0",
-   "file": "hulkfight/motion/BallAndChainShootTrack_3.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::BallAndChainShootTrack (5 fn)",
-    "vtables 0x41947c..0x41947c (1)",
-    "same dominant class as an earlier object (class split across files)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::BallAndChainShootTrack",
-   "functions": 5,
-   "named": 5
-  },
-  {
-   "start": "0x001872a0",
-   "end": "0x00187340",
-   "file": "hulkfight/motion/BallAndChainSpinTrack_3.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::BallAndChainSpinTrack (4 fn)",
-    "vtables 0x4194ac..0x4194ac (1)",
-    "same dominant class as an earlier object (class split across files)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::BallAndChainSpinTrack",
-   "functions": 4,
-   "named": 4
-  },
-  {
-   "start": "0x00187340",
-   "end": "0x00188ab0",
-   "file": "hulkfight/motion/PropAddToCollisionTrack_3.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::PropAddToCollisionTrack (5 fn), hulkfight::motion::PropAddToMissileCountTrack (4 fn), hulkfight::motion::PropSpawnTrack (4 fn), hulkfight::motion::PropDamageTrack (3 fn), hulkfight::motion::PropDestroyTrack (3 fn), hulkfight::motion::PropActorToPropAction (1 fn)",
-    "vtables 0x41950c..0x419608 (6)",
-    "8 COMDAT stray(s) from other classes' homes",
-    "same dominant class as an earlier object (class split across files)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::PropAddToCollisionTrack",
-   "functions": 49,
-   "named": 20,
-   "comdat": [
+    },
     {
      "addr": "0x00187340",
      "name": "fight::TrackFactoryCasterTemplate<hulkfight::motion::ShieldArcTrack>::vfunc_0",
@@ -29207,26 +25805,7 @@
      "addr": "0x00188a10",
      "name": "hulkfight::motion::PropAddToMissileCountAction::vfunc_2",
      "home": "0x00181f90"
-    }
-   ]
-  },
-  {
-   "start": "0x00188ab0",
-   "end": "0x00188d30",
-   "file": "unknown/unk_188ab0.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "low",
-   "evidence": [
-    "8 COMDAT stray(s) from other classes' homes",
-    "unattached run: no call affinity to neighbouring objects"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "functions": 8,
-   "named": 0,
-   "comdat": [
+    },
     {
      "addr": "0x00188ab0",
      "name": "hulkfight::motion::PropAddToCollisionAction::vfunc_2",
@@ -29266,44 +25845,7 @@
      "addr": "0x00188ce0",
      "name": "hulkfight::motion::PropDropTrack::vfunc_10",
      "home": "0x0018bec0"
-    }
-   ]
-  },
-  {
-   "start": "0x00188d30",
-   "end": "0x00188d80",
-   "file": "hulkfight/motion/PropDropAction.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "medium",
-   "evidence": [
-    "classes: hulkfight::motion::PropDropAction (1 fn)",
-    "vtables 0x4196e8..0x4196e8 (1)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::PropDropAction",
-   "functions": 1,
-   "named": 1
-  },
-  {
-   "start": "0x00188d80",
-   "end": "0x00189050",
-   "file": "unknown/unk_188d80.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "low",
-   "evidence": [
-    "9 COMDAT stray(s) from other classes' homes",
-    "unattached run: no call affinity to neighbouring objects"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "functions": 9,
-   "named": 0,
-   "comdat": [
+    },
     {
      "addr": "0x00188d80",
      "name": "hulkfight::motion::PropDamageTrack::vfunc_10",
@@ -29348,48 +25890,7 @@
      "addr": "0x00189000",
      "name": "hulkfight::motion::ShieldArcTrack::vfunc_10",
      "home": "0x0018c170"
-    }
-   ]
-  },
-  {
-   "start": "0x00189050",
-   "end": "0x001890a0",
-   "file": "hulkfight/motion/ShieldArcAction.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "medium",
-   "evidence": [
-    "classes: hulkfight::motion::ShieldArcAction (1 fn)",
-    "vtables 0x419774..0x419774 (1)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::ShieldArcAction",
-   "functions": 1,
-   "named": 1
-  },
-  {
-   "start": "0x001890a0",
-   "end": "0x001899a0",
-   "file": "hulkfight/motion/BallAndChainShootTrack_4.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "high",
-   "evidence": [
-    "classes: hulkfight::motion::BallAndChainShootTrack (5 fn), hulkfight::motion::BallAndChainReturnTrack (5 fn)",
-    "vtables 0x41941c..0x41947c (2)",
-    "17 COMDAT stray(s) from other classes' homes",
-    "same dominant class as an earlier object (class split across files)",
-    "vtables precede the previous object's in .rdata (order inverted)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "dominant": "hulkfight::motion::BallAndChainShootTrack",
-   "functions": 27,
-   "named": 10,
-   "comdat": [
+    },
     {
      "addr": "0x001890a0",
      "name": "hulkfight::motion::BallAndChainSpinTrack::vfunc_10",
@@ -29474,28 +25975,7 @@
      "addr": "0x00189900",
      "name": "fight::ParamName<hulkfight::motion::PropThrowTrack>::vfunc_0",
      "home": "0x00186fe0"
-    }
-   ]
-  },
-  {
-   "start": "0x001899a0",
-   "end": "0x0018b4e0",
-   "file": "hulkfight/motion/PropSpawnTrack_reg.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "low",
-   "evidence": [
-    "only template instantiations/unnamed functions; template args: hulkfight::motion::PropSpawnTrack",
-    "1 COMDAT stray(s) from other classes' homes",
-    "unattached run: no call affinity to neighbouring objects",
-    "registration run object, renamed from unknown/unk_1899a0.cpp (REGISTRATION_RANGES)"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "functions": 28,
-   "named": 0,
-   "comdat": [
+    },
     {
      "addr": "0x001899a0",
      "name": "fight::ParamNameConstList<hulkfight::motion::PropSpawnTrack>::vfunc_0",
@@ -30263,12 +26743,13 @@
   },
   {
    "start": "0x00199630",
-   "end": "0x0019c050",
+   "end": "0x0019e430",
    "file": "hulkfight/motion/FireProjectileAction.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
+    "registration object (gx3, D32): 9 registrations (0x19a7d0..0x19de50) construct parameter classes whose scalar deleting destructors only they emit, from 0x19a1b0; merged 2 objects: hulkfight/motion/FireProjectileAction.cpp, unknown/unk_19c050.cpp",
     "classes: hulkfight::motion::FireProjectileAction (2 fn), hulkfight::motion::FireMissileTrack (28 fn), hulkfight::motion::FireBeamAction (2 fn), hulkfight::motion::FireProjectileTrack (25 fn), hulkfight::motion::FireBeamTrack (24 fn), hulkfight::motion::FireGroundShockwaveTrack (20 fn) +7 more",
     "vtables 0x41b248..0x41b4e0 (13)",
     "7 COMDAT stray(s) from other classes' homes",
@@ -30278,7 +26759,7 @@
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
    ],
    "dominant": "hulkfight::motion::FireProjectileAction",
-   "functions": 153,
+   "functions": 165,
    "named": 137,
    "comdat": [
     {
@@ -30317,22 +26798,6 @@
      "home": "0x00194d90"
     }
    ]
-  },
-  {
-   "start": "0x0019c050",
-   "end": "0x0019e430",
-   "file": "unknown/unk_19c050.cpp",
-   "kind": "game",
-   "layer": "game",
-   "confidence": "low",
-   "evidence": [
-    "unattached run: no call affinity to neighbouring objects"
-   ],
-   "layer_evidence": [
-    "link order: game code (.text before the XAPILIB span at 0x208b9c)"
-   ],
-   "functions": 12,
-   "named": 0
   },
   {
    "start": "0x0019e430",
@@ -33265,12 +29730,13 @@
   },
   {
    "start": "0x00235a20",
-   "end": "0x002361a0",
+   "end": "0x002366e0",
    "file": "fight/FightNodeTimeCondition.cpp",
    "kind": "game",
    "layer": "engine",
    "confidence": "high",
    "evidence": [
+    "registration object (gx3, D32): 3 registrations (0x2361a0..0x236340) construct parameter classes whose scalar deleting destructors only they emit, from 0x2360c0; merged 2 objects: fight/FightNodeTimeCondition.cpp, unknown/unk_2361a0.cpp",
     "classes: fight::FightNodeTimeCondition (11 fn), fight::FightNodeParentCondition (13 fn), fight::FightNodeCondition (10 fn), fight::FightNodeBaseCondition (1 fn)",
     "vtables 0x427ccc..0x427d38 (4)"
    ],
@@ -33278,24 +29744,9 @@
     "link order: Radical library code (after the XAPILIB span)"
    ],
    "dominant": "fight::FightNodeTimeCondition",
-   "functions": 43,
-   "named": 35
-  },
-  {
-   "start": "0x002361a0",
-   "end": "0x002366e0",
-   "file": "unknown/unk_2361a0.cpp",
-   "kind": "game",
-   "layer": "engine",
-   "confidence": "low",
-   "evidence": [
-    "unattached run: no call affinity to neighbouring objects"
-   ],
-   "layer_evidence": [
-    "link order: Radical library code (after the XAPILIB span)"
-   ],
-   "functions": 8,
-   "named": 0
+   "functions": 51,
+   "named": 35,
+   "comdat": []
   },
   {
    "start": "0x002366e0",
