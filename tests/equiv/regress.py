@@ -763,6 +763,14 @@ CASES = {
     "0x0022ca90_native_pre_wrong": ("fail", "write to this+0x14", 0, {"native": True, "n_inputs": 300}),
     "0x0022ca90_native_pre_off": ("fail", "ours fault", 0, {"src": "0x0022ca90_native_pre", "native": True, "n_inputs": 1000,
                                                             "equiv_off": "pre"}),
+    # (rev5, D54 review) _partial: the macro checks element 0 of each operand where the contract names all 16 (a NaN in
+    # another element computes on untrapped while the checker repaired it): every contract word must reach the trap.
+    # _msvc_hidden: MSVC 7.1 compiles the macro to nothing, so an MSVC-mode run must not assume the contract (a branch
+    # taken only on a NaN a->m[0][0]); _msvc_hidden_off: the same without the contract fails (the difference is reachable)
+    "0x0022ca90_native_pre_partial": ("fail", "pre_trap_missing", 0, {"native": True, "n_inputs": 300}),
+    "0x0022ca90_native_pre_msvc_hidden": ("fail", "this+0xc", 0, {"n_inputs": 1000}),
+    "0x0022ca90_native_pre_msvc_hidden_off": ("fail", "this+0xc", 0, {"src": "0x0022ca90_native_pre_msvc_hidden",
+                                                                      "n_inputs": 1000, "equiv_off": "pre"}),
     # (rev3, D39 review) an int -2 where the original stores -1 (both qNaN-shaped as floats): a difference
     "0x0021e080_native_nanpayload_int": ("fail", "(0xfffffffe, expected 0xffffffff)", 0, {"native": True, "n_inputs": 300}),
     # (wine1) the difference at seed 11 is `f_text[f_n] = 0` with a fuzzed f_n beyond the whole stack, where each frame layout puts
