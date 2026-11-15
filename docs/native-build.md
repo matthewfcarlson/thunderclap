@@ -5047,3 +5047,143 @@ until the trap is traced (which function, which caller, and whether the control 
   build/tri4/parked): 0x0024a280 0x002155f0 0x002a2200 0x002b07d0 0x002ee9a0 0x00300080; coverage under 75%:
   0x002142d0 (88/120) 0x000fd0f0 0x001f9810.
 - NaN not expressible as a contract LOC: 0x00229360.
+
+## fight::Action constructed and destroyed for real; four more registration groups; the parameter values' base slots (gx5, 2026-11-15)
+
+User decisions D56 (fight::Action's constructor and destructor real, its own batch with a full proof), D57 (the base
+ParamValueX slot blocks renamed onto include/gen's classes), D48 (a native-only member function pointer for the ParamX
+setter word, written only by the constructor), D58 (mechanical batches may share one Wine proof).
+
+**gx5 1 (D56), c50988fe3.**
+- include/gen/fight.h: `fight::Action()` (out of line, 0x00232660) and `~Action` (0x002326a0; both MATCH,
+  relocations ok), the words the constructor zeroes (`f_08` a held reference, `f_0c`..`f_18`); the 228 classes derived
+  from it (directly, or through fieldless CAction / StrafeCircleAction) lose their own `_pad_08` / `f_0c`..`f_18`
+  (build/gx5/scripts/actderiv.py). config/gen-sizes.json: fight::Action, CAction, StrafeCircleAction 8 -> 28.
+  0x00232700 (`??_GAction`) is header-only. The 121 TUs that call `FUN_002326a0` keep that declaration (as gx2 did for
+  the old registration constructors); the binding maps resolve it by its address.
+- include/gen/core.h: `core::ReleaseRef(p)` / `core::SetRef(p, v)`, the game's idiom for a held reference (release
+  through slot 1 and clear when set; AddRef the new, Release the old, store). Written as the inline call, MSVC 7.1
+  schedules the destructor's vftable store before the load of the word, as 0x002326a0 does; the same statements written
+  in place load first (the stand-ins needed `_ReadWriteBarrier()` for it).
+- core::IRefCount's and pure3d::NonCopyable's destructors are inline and empty (the game's: their vftable stores are
+  dead or last), but only in a TU that defines `HULK_REFCOUNT_INLINE_DTOR` before its includes (the TUs with real
+  destructors of such classes). Unconditionally they changed 20 blocks of the /GX TUs that write a class's scalar
+  deleting destructor as an empty user destructor (`pure3d::View::~View() {}` must stay out of line there, or MSVC
+  inlines it into the `??_G`: View, CAgent, CPhysicalController, the physics and vertex-animation classes, ...).
+  docs/tech-debt.md.
+- HeliLocomotionAction.cpp 0x0015d460 stored `*(int*)&f_20 = 0` into a pointer word (x64 gate wild64 once the layout
+  moved): the whole word now. config/x64-baseline.json: 0x000147d0 (COpportunityBallAction::vfunc_6) accepted as
+  crash64: it fails at 2472de24e too (class `untyped`: the TU's views `H3_147d0 { char p[0x64]; void* q; }` read
+  pointers at 32-bit offsets); the fix is typing those views.
+- Gates: whole tree with the batch shipped (jobs 84655-84670) 22,687 MATCH relocs ok, 4,751 equivalent ok, 0 bad;
+  gen_headers.py --probe 18/18, 4,238 classes; x64 gate (temporary commit 3d587d3b3): ok (279 changed, 232 equivalent,
+  10 known, 36 not gating); Wine proof on studio: control 84331 (2472de24e), proof 85468: GATE ok, 0 of 2,003 common
+  frames differ (prng too).
+
+**gx5 2 (D56 continued, D57 part; one Wine proof, D58).**
+- fight::OpportunityAction (0x00237470 / 0x00237530), SequenceAction (0x00237c90 / 0x00237d30), ExecuteAction
+  (0x002397c0 / 0x00239870) and hulkfight::motion::GrappleHitReactionAction (0x00148840 / 0x001488a0) are real
+  constructors / destructors on include/gen's classes, their words typed (held references `::core::IRefCount*`,
+  released with ReleaseRef in reverse order and set with SetRef; the track word cleared, not released); their `??_G`
+  blocks are header-only (the constructor and destructor emit the vftable; the `??_G` calls the destructor, as the
+  game's). SequenceAction is 0x3c bytes (its factory allocates 0x3c; config/gen-sizes.json 56 -> 60). Constructors
+  that take arguments have default arguments and one-line declarations: the header probe defines a class's declared
+  out-of-line constructors in its layout TU only from a one-line declaration, and default-constructs the class.
+- fight::ActionList (include/gen/fight.h, no RTTI): the ten words of the action runner ExecuteAction (+0x38),
+  GrappleHitReactionAction (+0x24), CCharacter and CEventManager embed; f_20 the list of running actions (Action's own
+  f_08 is the next one). Its constructor 0x00231e50, Reset 0x00232240 and destructor 0x002325f0 (`{ Reset(); }`, a
+  `jmp` the tree listed as a thunk "not yet verified") are real; the derived destructors' member destructor call goes
+  to 0x002325f0 as the game's.
+- build/gx5/scripts/gen20.py (gx4's, reading build/gx5/head, a `git archive` of the base) over the four groups:
+  0x00237870, 0x00237f40, 0x00239a90 and GrappleThrowAction.cpp's 13 registrations (16) construct the real templates
+  (MATCH); OpportunityTrack / ExecuteAction / GrappleThrowAction `.new_throw.cpp` are gone; OpportunityTrack,
+  SequenceTrack, ExecuteAction and GrappleThrowAction lose `// cl-flags: /GX` (308 -> 304). 0x00147db0
+  (CivilianAttachAction::vfunc_3)'s MSVC code changed with /GX-: re-proved (3,000 MSVC job 85480 and `--wine` 85482,
+  `--x64` 85483 equivalent) and recorded with `hash --proven`.
+- D57 (part): `fight::ParamValue::~ParamValue` (0x00234780, which the parameter classes' implicit destructors end in;
+  it destroys the name id), `core::NameId` (include/gen/core.h, no RTTI: the 64-bit name id; its out-of-line empty
+  destructor 0x0027af50 was `extern "C" FUN_0027af50`, 160 TUs still call it by that name),
+  `ParamValueBool::vfunc_1` (0x0004ea60), `ParamValueScript::vfunc_1` (0x00177c10), `ParamValueBranch` /
+  `ParamValueConditionGroup` `vfunc_3` / `vfunc_4` (0x002351a0, 0x002351c0, 0x00235250, 0x00235270): blocks on
+  include/gen's classes (all MATCH). ParamValue's slots 3 / 4 take (owner, context) as pointers (they were `int`s;
+  ParamValue's own empty 0x00234790 / 0x002347a0 re-pinned), the Branch / ConditionGroup `vfunc_6` (and the
+  ParamBranch / ParamConditionGroup templates') return the owner's branch / group. Also fight::Action::vfunc_4
+  (0x00232640, was a free function): Action's vftable is emitted natively since gx5 1 and named it.
+- Not done of D57: the `vfunc_5` blocks (Bool, Int, Float, String, StringList, Script, Enum, Vector, Colour, Entity,
+  Branch, ConditionGroup, Name, NameList; 8 of them equivalent) and Name / NameList `vfunc_6`. Their gen signature
+  (`int vfunc_5(int, int, int)`) is not the game's: the call is `(owner, value, fight::Reader*)` from Param::vfunc_4,
+  returning bool, and the reads go through fight::Reader slots 5..12 whose include/gen signatures are `int`s where
+  the game passes out-pointers. Typing fight::Reader's slots first (its overriders BinReader / StringReader / ... and
+  their blocks follow), then ParamValue::vfunc_5, then the 14 blocks (8 re-proofs) is the order.
+- Gates (66ddd924b): whole tree with the batch shipped (jobs 85747-85762, Action.cpp 85765) 22,704 MATCH relocs ok,
+  4,735 equivalent ok, 0 bad; gen_headers.py --probe 18/18, 4,238 classes; x64 gate (temporary commit 796ca5ed3): ok
+  (97 changed, 39 equivalent, 1 known layout, 57 not gating); Wine proof on studio: control 85728 (c50988fe3), proof
+  85816 (its first attempt was killed by a queue daemon restart): GATE ok, 0 of 2,008 common frames differ (prng too).
+- `hash --proven` appends to config/proof-ledger.jsonl, which HEAD does not have yet (committing it would switch the
+  ledger checks on for every block); 0x00147db0's two ledger lines are in build/gx5/ledger-lines.jsonl.
+
+**Native unbound names** (each proof's clang-probe snapshot linked with its own binding map; macOS / Linux / Android):
+
+| state | macOS | Linux | Android |
+|---|---|---|---|
+| control 84331 (2472de24e) | 12,736 | 12,716 | 12,727 |
+| gx5 1, proof 85468 | 12,734 | 12,714 | 12,725 |
+| control 85728 (c50988fe3) | 12,734 | 12,714 | 12,725 |
+| gx5 2, proof 85816 | **12,677** | **12,657** | **12,668** |
+
+gx5 1: `~Action` and `pure3d::NonCopyable::~NonCopyable` bound (the latter emitted by the TUs that define
+HULK_REFCOUNT_INLINE_DTOR), `??1Action@fn_f7416411` (the stand-in) gone; new: `fight::Action::vfunc_4` (Action's vftable
+is emitted natively now; gx5 2 names the block). gx5 2 on macOS: 99 names gone (the four classes' stand-in
+constructors / destructors and placeholder slots, the rewritten registrations' local classes, `~ParamValue`, the six
+base slots), 42 new: 32 are the ParamBranch / ParamConditionGroup `vfunc_6` under their new return type (unbound
+before too: the template slots' blocks are on stand-ins), 2 renamed TU-local declarations, `FUN_0027af50` (gx5 3), and
+7 slots the four classes' vftables name now that their constructors emit them natively (ExecuteAction vfunc_3 / 4 / 5,
+OpportunityAction vfunc_5, SequenceAction vfunc_4, GrappleHitReactionAction vfunc_3 / 5: blocks on wrapped or TU-local
+classes, 4 of them equivalent; the next renames).
+
+**D48: not needed (measured).** Every native target compiles the tree with an MS-ABI front end
+(tools/native_elf.py TARGETS: `x86_64-pc-windows-msvc` / `aarch64-pc-windows-msvc`, the IR retargeted to ELF), so a
+member function pointer has the MS representation on Linux and Android too: 8 bytes for a complete single-inheritance
+class (clang, `sizeof(bool (D::*)(int))`), 24 for an incomplete one. Every ParamX `vfunc_6` in the tree (1,374 blocks)
+casts the word to `bool (ParamX<T>::**)(int)`, ParamX<T> complete and single-inheritance, so it reads `f_10` alone on
+every target; gx2's 16-byte Itanium reading does not occur. Nothing was changed (no writable member pointer field).
+
+**gx5 3.** 0x0027af50 became core::NameId's destructor in gx5 2; the 160 TUs that still call it as the free function
+`FUN_0027af50(void*)` are bound by the Wine link's map, but the native links left the name unbound (proof 85816's
+macOS link listed it as new: such a call reaches a stub). A 64-bit-only definition by that name (CLAUDE.md's rule for
+64-bit branches) calls the destructor; no 32-bit code changes.
+
+**gx5 4 (D46): the merged objects' TUs renamed.** The 15 objects gx3 merged (D32) kept their 239 TUs under the old
+pieces' names. Each TU now carries its merged object's name (build/gx5/scripts/d46plan.py, d46apply.py): the TU named
+as the object keeps its name, the other pieces (a TU with its `.iso_` / `.new_` / `.GS` siblings) become OBJ_2,
+OBJ_3, ... in link order, in the object's directory (a number another object's TU already uses is skipped), with their
+suffixes: 206 renames, 35 of them into the object's directory (`unknown/unk_05c6b0.cpp` ->
+`global/CGrappleOpportunityTrack_2.cpp`, `fight/ParamValueStringList.cpp` -> `global/CStageCondition_params_factory_13.cpp`).
+The `// object` line names the merged object; a `// piece` line keeps the TU's own range, dominant class and old name.
+src/link-order.txt keeps every entry in place (renamed), so the link order is unchanged.
+- MSVC objects before and after (build/gx5/scripts/objhash.py): all 239 identical in every non-debug section, the
+  relocations (compared by symbol name) and the symbols; they differ in .debug$S / .debug$F (the source path, line
+  numbers: one more comment line) and the .file record, whose longer names add symbol-table aux records and so shift
+  the raw relocation indexes. Not byte-identical files, so a Wine proof was run anyway.
+- The x64 gate keys a renamed TU's blocks as changed (1,630 blocks; 638 cached): ok, the 9 known ones only.
+- Gates (87ee76580): whole tree with the batch shipped (jobs 85891-85906) 22,704 MATCH relocs ok, 4,735 equivalent
+  ok, 0 bad; x64 gate (temporary commit ece101db6) ok; Wine proof on studio: control 86187 (b99af780f), proof 86221:
+  GATE ok, 0 of 2,016 common frames differ (prng too).
+- Others' histories (docs, config/splits.json's evidence strings) keep the old names; docs/native-unbound-plan.md's two
+  paths follow the rename.
+
+**What is left of D18 / D24 / D57 (for the next agent).**
+- 40 registrations in 8 groups still wait for their non-template classes: CTrack + CGrappleLocoStrafe4Track
+  (CGrappleOpportunityTrack), CMotionTrailTrack (CEffectTrack: core::NameId members, CTrack's destructor 0x00068c70),
+  GrappleAnimationTrack, FireBeamAction (its destructor in FireBeamAction.cpp, its constructor 0x0019b500 allocates a
+  helper object with its own vftable 0x0041b4a0), the locomotion tracks / ClimbLocomotion4Action and the TU-local
+  LocomotionSteerTrack (HeliLocomotionAction), NISAnimationTrack / NISAnimationAction (EffectAction), RoutAction /
+  PathFormationAction / PathAction (PathLocatorTestCondition: core::NameId members at +0x60). Same recipe: the class's
+  words on include/gen, constructor / destructor real with ReleaseRef / SetRef, HULK_REFCOUNT_INLINE_DTOR in the TU,
+  `??_G` header-only, then gen20 over the group.
+- The seven slots of the four new real classes still on stand-ins (ExecuteAction vfunc_3 (equivalent, .GS) / 4 / 5,
+  OpportunityAction vfunc_5 (equivalent), SequenceAction vfunc_4, GrappleHitReactionAction vfunc_3 / 5 (equivalent)).
+- D57's vfunc_5 family and Name / NameList vfunc_6 (above); D24 Method/Closure (663 user-written `??_G` in 160 TUs by
+  build/gx5/scripts/gxcount.py); the 20 skipped Condition stubs.
+- `/GX` TUs: 304 (gxcount.py: 100 parameter-template `??_G` in 8 TUs, 663 Method/Closure in 160, 191 non-template in
+  147; plus dynamic_initializers and GrappleThrowAction.iso_00148f40).

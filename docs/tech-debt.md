@@ -51,15 +51,15 @@ Kept by `tools/tech_debt.py` as written (everything from this heading on).
   an `unsigned int`) still read pointers as 32-bit words. (The projectile pool's views are on the record since x64t12.)
 - **TUs still compiled with /GX (`// cl-flags: /GX`; gx1 D17, accepted as the interim state by the user's D23,
   2026-11-14).** The game was built without C++ exceptions and the tree compiles with /GX- by default
-  (tools/compare.py DEFAULT_FLAGS; clang with -fno-exceptions everywhere since gx2). 308 TUs still say `// cl-flags: /GX`
-  (457 at D23; gx2 2 took nine src/engine/fight TUs off, gx3 2 another 49, gx4 1 another 90):
-  - 305 hold the scalar deleting destructors (`??_G`; 1,873 blocks at D23, 995 now) written as empty user destructors
+  (tools/compare.py DEFAULT_FLAGS; clang with -fno-exceptions everywhere since gx2). 304 TUs still say `// cl-flags: /GX`
+  (457 at D23; gx2 2 took nine src/engine/fight TUs off, gx3 2 another 49, gx4 1 another 90, gx5 2 another 4):
+  - 301 hold the scalar deleting destructors (`??_G`; 1,873 blocks at D23, 954 now: build/gx5/scripts/gxcount.py) written as empty user destructors
     (`template <> ParamX<T>::~ParamX() {}`, `Method2<...>::~Method2() {}`, `C::~C() {}`). In the game these
     destructors are implicit and their `??_G` is emitted next to the vftable by the code that constructs the class:
-    the fight parameter registration functions (137 blocks in 12 TUs; 56 of the game's 434 registrations still
-    store the vftables by hand, all in the 12 groups below), the script binding constructors (`Closure`/`Method`
-    template constructors such as 0x0002e4f0, stubs today: 646 blocks in 158 TUs) and the non-template classes'
-    constructors / destructors (212 blocks in 154 TUs). Under /GX- an empty user destructor is inlined with its vftable store and no longer matches, so these TUs
+    the fight parameter registration functions (100 blocks in 8 TUs; 40 of the game's 434 registrations still
+    store the vftables by hand, all in the 8 groups below), the script binding constructors (`Closure`/`Method`
+    template constructors such as 0x0002e4f0, stubs today: 663 blocks in 160 TUs) and the non-template classes'
+    constructors / destructors (191 blocks in 147 TUs). Under /GX- an empty user destructor is inlined with its vftable store and no longer matches, so these TUs
     keep /GX until that code constructs the real classes.
   - 2 for good: src/game/init/dynamic_initializers.cpp and dynamic_initializers.Oy-.cpp (library unwind funclets past
     the game's .text, built with exceptions).
@@ -70,11 +70,17 @@ Kept by `tools/tech_debt.py` as written (everything from this heading on).
   TU of the same object (config/splits.json's registration objects, D32) moved to the registration that emits them;
   build/gx3/scripts/gen19.py), and the Method/Closure constructors become the real template constructors; a TU loses
   its marker when all of its blocks match / re-prove with /GX-. All 16 parameter families construct for real since
-  gx4. Next: the non-template classes whose `??_G` share a registration's TU (11 groups, 56 registrations:
-  OpportunityAction, SequenceAction, ExecuteAction (each needs fight::Action's destructor 0x002326a0 real: 121 TUs name
-  it `FUN_002326a0`), CTrack, CMotionTrailTrack, GrappleAnimationTrack, GrappleHitReactionAction, FireBeamAction, the
-  locomotion tracks, NISAnimationTrack/Action, RoutAction/PathAction ...; build/gx4/scripts/feas2.py lists them), then
-  Method/Closure (D24). This entry's count goes down as that lands.
+  gx4; fight::Action's constructor / destructor and OpportunityAction, SequenceAction, ExecuteAction,
+  GrappleHitReactionAction since gx5. Next: the non-template classes whose `??_G` share a registration's TU (8 groups,
+  40 registrations: CTrack + CGrappleLocoStrafe4Track, CMotionTrailTrack, GrappleAnimationTrack, FireBeamAction (and the
+  helper object its constructor allocates), the locomotion tracks, NISAnimationTrack/Action, RoutAction /
+  PathFormationAction / PathAction; several hold core::NameId members (destructor 0x0027af50, real since gx5);
+  build/gx4/scripts/feas2.py lists them), then Method/Closure (D24). This entry's count goes down as that lands.
+- **HULK_REFCOUNT_INLINE_DTOR (gx5, 2026-11-15).** core::IRefCount's and pure3d::NonCopyable's destructors are inline
+  (as in the game) only in the TUs that define the macro before their includes; elsewhere they stay declared out of
+  line, because the /GX TUs that write a class's scalar deleting destructor as an empty user destructor
+  (`pure3d::View::~View() {}`) need that destructor to stay non-trivial (20 blocks change otherwise). The macro goes
+  when those TUs construct their classes for real (the entry above); then the inline definitions become unconditional.
 - **TUs whose Wine build still compiles with exceptions (`// clang-flags: -fexceptions -fcxx-exceptions`; gx2,
   2026-11-14).** Since D22 the Wine build and `equiv.py --wine` compile with -fno-exceptions. 72 equivalent blocks'
   clang code changed with that; 60 re-proved, 12 do not pass `--wine` at 3,000 inputs under the current checker and

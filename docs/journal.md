@@ -1046,3 +1046,25 @@ blocks fight::Action's whole family: the records come first there.
   0x00229360's NaN comes through `this->blends[i].weight` and callee returns: no LOC expresses it.
 - D62 leaves blocks whose loops run over fuzzed counts unprovable from the source side: 0x0024a280 (430 of 11,171
   compared), 0x002155f0 (582 of 10,000), 0x002b07d0 (1,250), 0x002ee9a0 (2,327), 0x00300080 (2,446).
+
+## 2026-11-15 gx5: fight::Action real; HULK_REFCOUNT_INLINE_DTOR; D48 not needed
+- MSVC 7.1 schedules a destructor's vftable store after the load of the word it releases when the release is written
+  in place (`if (f_08) { f_08->Release(); f_08 = 0; }`), but before it when the same statements are an inline function
+  taking the word by reference (`core::ReleaseRef(f_08)`), as the game's destructors do (0x002326a0, 0x00237530,
+  0x00239870, ...). The stand-ins pinned the order with `*(void* volatile*)this = ...; _ReadWriteBarrier();`.
+- The game inlines core::IRefCount's and pure3d::NonCopyable's (empty) destructors everywhere; the tree can only do so
+  in TUs without user-written empty `??_G` destructors (`pure3d::View::~View() {}` under /GX): once ~NonCopyable is
+  inline, such a destructor is trivial and MSVC inlines it into the `??_G` (20 blocks changed). Gated per TU with
+  HULK_REFCOUNT_INLINE_DTOR until those TUs construct their classes for real.
+- gen_headers.py --probe defines a class's out-of-line constructors in its layout TU only when the declaration is on
+  one line (`X(P...);`, defaults stripped); a constructor declared over two lines leaves the vftable unemitted ("vftable
+  +0x0 not emitted"). A constructor that takes arguments needs defaults for the probe's `new X`.
+- fight::Action's +0x08 word is the next action of the list a fight::ActionList (10 words, no RTTI: ExecuteAction +0x38,
+  GrappleHitReactionAction +0x24, CCharacter, CEventManager) runs; 0x002325f0, listed as a thunk "not yet verified", is
+  ActionList's destructor `{ Reset(); }`, which MSVC 7.1 compiles to `jmp Reset`.
+- D48's premise (a 16-byte Itanium member function pointer on Linux / Android) does not hold: every native target's
+  front end is MS-ABI (tools/native_elf.py TARGETS), where `bool (C::*)(int)` is 8 bytes for a complete
+  single-inheritance class; all 1,374 ParamX vfunc_6 blocks cast to their own ParamX<T>.
+- config/proof-ledger.jsonl does not exist in HEAD: `hash --proven` creates it in the job tree, and committing it would
+  switch the ledger checks on for every block (all unproven). The two ledger lines of 0x00147db0 are kept in
+  build/gx5/ledger-lines.jsonl for when the ledger is started.

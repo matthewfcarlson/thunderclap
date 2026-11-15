@@ -8,8 +8,8 @@ The goal is a **native port**: C++ source we build for the supported targets, x8
 | | Functions | Bytes |
 |---|---|---|
 | Game code (`.text`, excluding XDK/CRT/Bink) | 27,437 | 2.73 MB |
-| Byte-matched (`: matches` blocks) | 22,685 (82.7%) | 1009 KB (37.0%) |
-| Proven equivalent (`: equivalent` blocks) | 4,751 (17.3%) | 1719 KB (63.0%) |
+| Byte-matched (`: matches` blocks) | 22,701 (82.7%) | 1014 KB (37.2%) |
+| Proven equivalent (`: equivalent` blocks) | 4,735 (17.3%) | 1714 KB (62.8%) |
 | **Verified source, total** | 27,436 (100.0%) | 2727 KB (**100.0%**) |
 <!-- /status -->
 
