@@ -293,15 +293,16 @@ void* pure3d::d3dToonVertexShader::vfunc_23() {
 namespace fn_f44f442a {
 
 // 0x00330ba0 FUN_00330ba0 (241 B): equivalent/0x00330ba0.cpp
-// sym: ?FillGradient@TextureHolder@fn_f44f442a@@QAEXXZ @7362dc6528bb @w7013c488e784 @vf8e380c64be0
+// sym: ?FillGradient@TextureHolder@fn_f44f442a@@QAEXXZ @7362dc6528bb @w05def396826b @vf8e380c64be0
 // STATUS: equivalent (tools/equiv.py level 3: 43 inputs, branch coverage 9/10, incomplete)
 // FUN_00330ba0 @ 0x00330ba0
 void TextureHolder::FillGradient() {
     D3DLOCKED_RECT lock;
     D3D8::D3DTexture_LockRect(texture->Data, 0, &lock, 0, 0);
     unsigned int* pixels = (unsigned int*)lock.pBits;
-    float step = 1.0f / height;
-    float stepScaled = step * 245.0f;
+    hulk_freg stepu = 1.0f / height;
+    float step = (float)stepu;              // fst: the limit uses the stored step, 245 * the unrounded one
+    float stepScaled = stepu * 245.0f;
     hulk_freg value = 10.0f; // (tri3) st0 throughout in the original
     float limit = step * 64.0f;
     for (int row = 0; row < height; row++) {

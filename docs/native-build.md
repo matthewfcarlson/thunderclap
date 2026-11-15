@@ -4997,3 +4997,53 @@ Findings: D62's drawing exposed a difference in regress case 0x002155f0_diff_bou
 0x0026de40, 0x0030b8f0 now compare 3,000; 0x002b07d0, 0x002ee9a0, 0x00300080 cannot (timeouts, 10,000 drawn); 0x00330ba0
 --wine fails with more inputs. Re-audit reruns (2,936 block-modes that compared < 3,000, jobs 84808-85395, prio -10):
 running; the ledger (D51) lands when they and a HEAD-side pass over the TUs changed since a47153bc5 are seeded.
+
+## tri4 (2026-11-16): the failing equivalent blocks, fixed in source (D55)
+
+Work list: tri3's ~85 unanalysed failing blocks (build/tri3/remaining.txt), smallest first, plus the NaN-payload five
+(D54 preconditions, once signed off) and the lead's additions. Workspace build/tri4 (RESUME.md, work.txt, parked/).
+Every proof: MSVC and `--wine` at 3,000 **compared** inputs (D62; budget 3,600-7,200 s), recorded with
+`tree_tu.py hash --proven` into a private ledger (build/tri4/proof/ledger.jsonl; config/proof-ledger.jsonl is not
+landed yet).
+
+**Source causes fixed (batch 1, tri4 1: 26 blocks in 23 TUs).**
+
+| cause | blocks |
+| --- | --- |
+| a byte the original tests whole (`test al, al`) declared `bool`: `char` | 0x000e2c90 0x000ebf40 0x000e9af0 0x000ea7c0 0x00239f10 0x00245390 0x001bea80 |
+| local order: the neighbour the original's frame puts above a local passed by pointer | 0x00310bc0 0x001e2ed0 0x002a8450 0x000ed990 0x002a9f60 |
+| clang reads the array base / object before the call | 0x001ed0b0 0x000c1b50 |
+| re-reads the original does not make (a member read once per iteration, before the generator writes) | 0x002828e0 0x00078d20 |
+| x87 values kept in st / stored where the original stores | 0x00301650 0x002d31e0 0x00326330 0x00174940 0x00321580 0x00323ee0 0x00324660 0x0029d880 0x00330ba0 |
+| helper's trailing callee-popped call before its epilogue (`__forceinline`) | 0x002801b0 |
+
+D31: d3dExtFramebufferEffects.cpp loses its `// clang-flags: -fexceptions` line: all 22 equivalent blocks proven
+again (0x00320540's clang code is unchanged without the flag). In 0x00323ee0 and 0x00324660 the clang spelling of the
+st-kept values is under `#if defined(__clang__)`: MSVC 7.1's register allocation changed with the new temporaries
+(1-ulp MSVC failures); its object stays as proven.
+
+**Gates (batch 1, tri4 1).** tree_tu.py verify --relocs --x64 of the TUs with the batch shipped
+(85847, 85848): every equivalent's code hash ok in both modes, every match MATCH with relocations ok, 0 errors; x64 gate
+ok (2 known baseline crash64: 0x001ed0b0, 0x00310bc0; reported: 0x00078d20 inconclusive, 0x000ed990 untyped,
+0x001e2ed0 tool, 0x00302a00 call). Wine proof on studio, play3 to 60000, private data TUs: control 85539
+(ed5f54b18), proof 86189 seeded from it: GATE ok, 0 of 2,018 common frames differ (prng too). OpportunityTrack.cpp (0x00237050) waits for batch 2: gx5's
+66ddd924b changed its base after the proof.
+
+**The NaN preconditions trap in play3 (D65).** 0x0022ca90 0x0022cc10 0x0022cdb0 (contracts on the floats read) and
+0x00308ba0 (periodScale, dampingScale) pass both modes with @msvc unchanged, but the batch's Wine proof with them
+(85859, rerun 86188) stops at frame 37080 every time (rc 4): a contract is violated in the replay. They stay unproven
+until the trap is traced (which function, which caller, and whether the control sees the NaN too).
+
+**Still unproven** (build/tri4/still_unproven.txt has the full list):
+- D53 vptr-before-argument-call (objkeep, D63): 0x000f6bd0 0x002de250 0x002bf4f0.
+- checker model: 0x002b2040 (an early push of the next call's last argument is attributed to a 0-pop virtual; fixed
+  source parked: IsFrozen() and FUN_002899e0's eighth argument), 0x0030a9d0 (32 bits compared for a recursive call's
+  char argument), 0x00265cd0 and 0x002ea010 (a frame address stored into memory: clang -O0 cannot place the local
+  where the original does), 0x002e84e0 and 0x00201e00 (a stub's write through a short / 3-byte local reaches the next
+  local; the original's local is a 4-byte dead slot).
+- frame layout (fuzzed index or count runs past a local, inalloca write extents): 0x00203bb0 0x00203a80 0x0021e5b0
+  0x001fa3a0 0x001fa1c0 0x0028a630 0x00281e60 0x00283110 0x0035a2a0 0x000e98d0 0x00283e10 0x00280d90 0x002a0050.
+- input model (D62, timeouts over fuzzed counts, fewer than 3,000 compared at 10,000 drawn; source fixes parked in
+  build/tri4/parked): 0x0024a280 0x002155f0 0x002a2200 0x002b07d0 0x002ee9a0 0x00300080; coverage under 75%:
+  0x002142d0 (88/120) 0x000fd0f0 0x001f9810.
+- NaN not expressible as a contract LOC: 0x00229360.

@@ -265,7 +265,7 @@ MenuSelector* MenuSelector::Target(unsigned int a, unsigned int b) {
 } // namespace fn_f9e7f90b
 
 // 0x000ebf40 MenuSelector::vfunc_12 (781 B): equivalent/0x000ebf40.cpp [wrapped: conflict: MenuSelector]
-// sym: ?vfunc_12@MenuSelector@fn_000ebf40@@UAE_NHH@Z @f3b67e055b0b @w6f9e4b689098
+// sym: ?vfunc_12@MenuSelector@fn_000ebf40@@UAE_NHH@Z @f3b67e055b0b @wdd642041f2b6 @vf07e078f3c69
 namespace fn_000ebf40 {
 // STATUS: equivalent (tools/equiv.py level 3: 103 inputs, branch coverage 39/42, incomplete)
 // MenuSelector::vfunc_12 @ 0x000ebf40
@@ -294,7 +294,7 @@ public:
     virtual void notifyChanged();
     virtual void v2();
     virtual void v3();
-    virtual bool v4(int kind, int id, int oldIndex, int newIndex);
+    virtual char v4(int kind, int id, int oldIndex, int newIndex);    // tested as a whole byte (test al, al)
 };
 
 struct Scroller {

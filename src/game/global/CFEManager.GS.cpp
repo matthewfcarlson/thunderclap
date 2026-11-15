@@ -1035,7 +1035,7 @@ bool FrontEnd_c1790::FUN_000c1790(const char* code)
 
 
 // 0x000c1b50 FUN_000c1b50 (887 B): equivalent/0x000c1b50.cpp [wrapped: conflict: Frame; content::LoadInventory::DynamicCaster]
-// sym: ?FUN_000c1b50@GalleryScreen@fn_000c1b50@@QAEXHHH@Z @d4ba45ad2859 @w644c1f14ca94
+// sym: ?FUN_000c1b50@GalleryScreen@fn_000c1b50@@QAEXHHH@Z @d4ba45ad2859 @wa012bc044f6f @ve7040a1272e6
 namespace fn_000c1b50 {
 // STATUS: equivalent (tools/equiv.py level 3: 1706 inputs, branch coverage 45/46, incomplete)
 // FUN_000c1b50 @ 0x000c1b50
@@ -1232,7 +1232,8 @@ void GalleryScreen::FUN_000c1b50(int kind, int first, int last)
                     Pair* p = items->FUN_00092bb0(i);
                     if ((p->a | p->b) == 0)
                         continue;
-                    int id = FUN_000fc1b0()->FUN_000f7240(p->a, p->b);
+                    int pa = p->a, pb = p->b;      // the arguments before the object call (MSVC order)
+                    int id = FUN_000fc1b0()->FUN_000f7240(pa, pb);
                     if (id == -1)
                         continue;
                     f.entry2.FUN_000f7930();

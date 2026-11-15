@@ -28,7 +28,7 @@ class Stream {
     virtual void _m_vf5();
     virtual void v6(unsigned int a, unsigned int b, unsigned int c);
     virtual void _m_vf7();
-    virtual bool v8(unsigned int *out);
+    virtual char v8(unsigned int *out);     // tested as a whole byte (test al, al)
     virtual void _m_vf9();
     virtual void _m_vf10();
     virtual void v11();
@@ -38,9 +38,9 @@ class Stream {
 extern "C" void FUN_00245380();
 extern "C" Stream *FUN_0025bec0(Stream *s);
 extern "C" void *FUN_0025d340(void *a, unsigned int n, int z);
-extern "C" bool FUN_0025d070(void *buf, unsigned int done, unsigned int left, int z, unsigned int *x3, unsigned int *x2, unsigned int *x1);
+extern "C" char FUN_0025d070(void *buf, unsigned int done, unsigned int left, int z, unsigned int *x3, unsigned int *x2, unsigned int *x1);
 extern "C" void FUN_0025d0f0(void *buf, unsigned int n);
-bool FUN_0025d010(void *buf);
+char FUN_0025d010(void *buf);           // tested as a whole byte
 class Entity {
   public:
     virtual void vfunc_0();
@@ -415,7 +415,7 @@ extern "C" void FUN_00245380() {}
 
 
 // 0x00245390 FUN_00245390 (452 B): equivalent/0x00245390.cpp
-// sym: ?FUN_00245390@fn_f6720d1b@@YAPAXPAVStream@1@P6AXXZ@Z @101d217764cc @w918194cedff6
+// sym: ?FUN_00245390@fn_f6720d1b@@YAPAXPAVStream@1@P6AXXZ@Z @101d217764cc @wfa50fc8ec47c @v375ff6f80cb9
 // STATUS: equivalent (tools/equiv.py level 3: 106 inputs, branch coverage 34/36, incomplete)
 // FUN_00245390 @ 0x00245390
 void *FUN_00245390(Stream *s, void (*pump)())

@@ -362,7 +362,7 @@ void Owner_326300::Set(D3DResource* value) {
 } // namespace fn_ff6ae8d9
 
 // 0x00326330 FUN_00326330 (665 B): equivalent/0x00326330.cpp [wrapped: compile error C2440: '=' : cannot convert from 'int (__stdcall *)(unsigned long,unsigned long,unsigned long,unsigned long,unsigned long,unsig]
-// sym: ?Create@TextureResource@fn_00326330@@QAE_NHHHHHHH@Z @3af5232999c1 @w091c74803fa3
+// sym: ?Create@TextureResource@fn_00326330@@QAE_NHHHHHHH@Z @3af5232999c1 @w630b9d23de0b @vd151691ae10b
 namespace fn_00326330 {
 // STATUS: equivalent (tools/equiv.py level 3: 4904 inputs, branch coverage 46/46)
 // FUN_00326330 @ 0x00326330
@@ -584,15 +584,15 @@ bool TextureResource::Create(int w, int h, int a2, int a3, int mips, int fmt, in
     field0dc = bitsPerPixel;
     field0e0 = FUN_00325fb0(0, field0b4);
     totalBytes = 0;
-    float bytesPer;
+    hulk_freg bytesPer;             // kept in st (fild of the byte count: exact)
     if (isCompressed)
         bytesPer = 0.5f;
     else
-        bytesPer = (float)((int)bitsPerPixel / 8);
+        bytesPer = (hulk_freg)((int)bitsPerPixel / 8);
     unsigned int mw = width;
     unsigned int mh = height;
     for (int i = 0; i < levels + 1; i++) {
-        totalBytes += (int)((float)(mw * mh) * bytesPer);
+        totalBytes += (int)(__int64)((hulk_freg)(mw * mh) * bytesPer);   // fild (unsigned) * bytesPer in st, _ftol
         mw >>= 1;
         mh >>= 1;
     }

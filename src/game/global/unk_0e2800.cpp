@@ -227,7 +227,7 @@ struct Controller_e2c90 {
 };
 struct Link_e2c90 { char pad[4]; Controller_e2c90* controller; };
 struct Owner_e2c90 { char pad[8]; Link_e2c90* link; };
-struct Entry_e2c90 { virtual void slot0(); virtual void finish(); virtual void slot2(); virtual void slot3(); virtual bool update(int, int, int, int); };
+struct Entry_e2c90 { virtual void slot0(); virtual void finish(); virtual void slot2(); virtual void slot3(); virtual char update(int, int, int, int); };  // tested as a whole byte (test al, al)
 struct Target_e2c90 {
  char pad0[0x14]; Owner_e2c90* owner; char pad18[0x90]; int value; char padAC[0x6c]; Entry_e2c90* entries[10]; unsigned char enabled;
  void FUN_000e2c90(int mode,int arg2,int arg3);
@@ -463,7 +463,7 @@ void owners::C_e2c60::FUN_000e2c60(hulk_intptr x) {
 namespace fn_fb20b5f7 {
 
 // 0x000e2c90 FUN_000e2c90 (170 B): equivalent/0x000e2c90.cpp
-// sym: ?FUN_000e2c90@Target_e2c90@fn_fb20b5f7@@QAEXHHH@Z @ce89755cc1e9 @w5b23b08aab4b
+// sym: ?FUN_000e2c90@Target_e2c90@fn_fb20b5f7@@QAEXHHH@Z @ce89755cc1e9 @w59a04c512c52 @vcc8484ba1ca5
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 20/20)
 // FUN_000e2c90 @ 0x000e2c90
 void Target_e2c90::FUN_000e2c90(int mode,int arg2,int arg3) {

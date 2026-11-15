@@ -132,7 +132,7 @@ hulk_freg TextTable::vfunc_9() {
 
 
 // 0x000ed990 TextTable::vfunc_3 (453 B): equivalent/0x000ed990.cpp [wrapped: conflict: TextTable]
-// sym: ?vfunc_3@TextTable@fn_000ed990@@UAEXXZ @bbda469e5551 @wf89983587c38
+// sym: ?vfunc_3@TextTable@fn_000ed990@@UAEXXZ @bbda469e5551 @w1af9595cbe24 @vca612ecd5646
 namespace fn_000ed990 {
 // STATUS: equivalent (tools/equiv.py level 3: 19737 inputs, branch coverage 22/22)
 // TextTable::vfunc_3 @ 0x000ed990
@@ -286,6 +286,7 @@ void TextTable::vfunc_3()
     float t = owner->v17(this);
     x.cells[x.cursor].a.f = owner->v16(this) * t;
 
+    Vec3_ed990 size;            // one local for both v15 calls (the original's)
     int lastRow = 0;
     if (rowCount > 0) {
         Cell_ed990 *row = &cells[0][0];
@@ -301,7 +302,6 @@ void TextTable::vfunc_3()
                 c++;
             }
             float next = widest + used + spacing;
-            Vec3_ed990 size;
             owner->v15(&size, this);
             if (next >= size.y) {
                 lastRow = i;
@@ -325,7 +325,6 @@ void TextTable::vfunc_3()
             if (w > widest)
                 widest = w;
         }
-        Vec3_ed990 size;
         owner->v15(&size, this);
         f7c = size.y * 0.5f - widest * 0.5f;
     }

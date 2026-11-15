@@ -936,7 +936,7 @@ ParticleGenerator_2d31b0* ParticleGenerator_2d31b0::vfunc_5(signed char flags) {
 
 
 // 0x002d31e0 pure3d::ParticleGenerator::vfunc_10 (319 B): equivalent/0x002d31e0.cpp
-// sym: ?vfunc_10@ParticleGenerator@fn_fd7a7bd7@@UAEXM@Z @dee4acba2914 @w6df609bf45b2
+// sym: ?vfunc_10@ParticleGenerator@fn_fd7a7bd7@@UAEXM@Z @dee4acba2914 @w6c81622480ac @v9cd76490fbf7
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 13/14, incomplete)
 // pure3d::ParticleGenerator::vfunc_10 @ 0x002d31e0
 void ParticleGenerator::vfunc_10(float t)
@@ -961,12 +961,13 @@ void ParticleGenerator::vfunc_10(float t)
         return;
     }
 
-    float x = (float)(int)(count - 1) * t;
-    int idx = (int)floor(x);
+    hulk_freg px = (hulk_freg)(int)(count - 1) * t;    // floor() gets the unrounded product
+    float x = (float)px;
+    int idx = (int)(__int64)floor(px);
     time = t;
     index = idx;
-    float f = x - (float)idx;
-    frac = f;
+    hulk_freg f = x - (hulk_freg)idx;                 // kept in st (fst to frac)
+    frac = (float)f;
 
     float rem = f - 1.0f;
     *(unsigned *)&rem &= 0x7fffffff;

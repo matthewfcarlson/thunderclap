@@ -178,7 +178,7 @@ public:
     virtual void v10();
     virtual void v11();
     virtual void v12();
-    virtual bool v13(HSlider *s);
+    virtual char v13(HSlider *s);    // tested as a whole byte (test al, al)
     virtual void v14(V3_e9af0 *out, HSlider *s);
     virtual void v15();
     virtual float v16(HSlider *s);
@@ -443,7 +443,7 @@ void HSlider::vfunc_3()
 namespace fn_f686bfea {
 
 // 0x000e9af0 HSlider::vfunc_5 (868 B): equivalent/0x000e9af0.cpp
-// sym: ?vfunc_5@HSlider@fn_f686bfea@@UAEXXZ @fa4165cdd589 @wb20175a00b6d
+// sym: ?vfunc_5@HSlider@fn_f686bfea@@UAEXXZ @fa4165cdd589 @w6dbaf5df65a3 @v6bb9f4cd3507
 // STATUS: equivalent (tools/equiv.py level 3: 19732 inputs, branch coverage 34/34)
 // HSlider::vfunc_5 @ 0x000e9af0
 void HSlider::vfunc_5()

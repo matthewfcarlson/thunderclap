@@ -389,7 +389,7 @@ struct Owner_302e60 {
 
 
 // 0x00301650 FUN_00301650 (317 B): equivalent/0x00301650.cpp
-// sym: ?FUN_00301650@Contact_301650@fn_f617c19c@@QAEXPAVShape_301650@2@0@Z @df0d8af7f0c8 @w345e277e6b90
+// sym: ?FUN_00301650@Contact_301650@fn_f617c19c@@QAEXPAVShape_301650@2@0@Z @df0d8af7f0c8 @w87d22a31e87f @v19452a4e44a4
 // STATUS: equivalent (tools/equiv.py level 3: 71 inputs, branch coverage 4/4)
 // FUN_00301650 @ 0x00301650
     // equiv-conv: FUN_00314be0 ecx stack stack stack stack stack stack
@@ -409,7 +409,7 @@ void Contact_301650::FUN_00301650(Shape_301650 *b, Shape_301650 *a)
     float absS = s;
     *(unsigned *)&absS = *(unsigned *)&s & 0x7fffffff;
 
-    float d = dir->z * delta.z + dir->y * delta.y + dir->x * delta.x;
+    hulk_freg d = dir->z * delta.z + dir->y * delta.y + dir->x * delta.x;   // kept in st (fst to dist, then compared)
     dist = d;
     if (d < absS + f0c) {
         float t = -absS;

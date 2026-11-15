@@ -50,7 +50,7 @@ class Node {
     virtual void _m_vf0();
     virtual void f1(void*);
     virtual void Call(void*);
-    virtual bool initialize(unsigned __int64 id, Factory_239f10* factory, Reader* reader);
+    virtual char initialize(unsigned __int64 id, Factory_239f10* factory, Reader* reader);
     virtual void _m_vf4();
     virtual Node* clone();
     union { Node* link; Node* next; };
@@ -76,7 +76,7 @@ struct Reader {
  virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
  virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
  virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11(); virtual void v12();
- virtual bool more(); virtual unsigned __int64 readId();
+ virtual char more(); virtual unsigned __int64 readId();
  void FUN_00232c90();
 };
 struct Factory_239f10 { Node* FUN_002367f0(unsigned __int64 id); };
@@ -180,7 +180,7 @@ int List::Add(Node* p) {
 
 
 // 0x00239f10 FUN_00239f10 (267 B): equivalent/0x00239f10.cpp
-// sym: ?FUN_00239f10@List_239f10@fn_f6f801d4@@QAE_NPAUFactory_239f10@2@PAUReader@2@H@Z @e5a48c68e2d5 @w8e31c7e84130
+// sym: ?FUN_00239f10@List_239f10@fn_f6f801d4@@QAE_NPAUFactory_239f10@2@PAUReader@2@H@Z @e5a48c68e2d5 @wa9761bdc8979 @v0b89d38349b6
 // STATUS: equivalent (tools/equiv.py level 3: 174 inputs, branch coverage 21/22, incomplete)
 // FUN_00239f10 @ 0x00239f10
 bool List_239f10::FUN_00239f10(Factory_239f10* factory, Reader* reader, int index) {

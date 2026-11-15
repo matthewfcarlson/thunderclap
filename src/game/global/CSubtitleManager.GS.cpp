@@ -123,7 +123,7 @@ public:
     virtual void v56();
     virtual void v57();
     virtual void v58(int a);
-    virtual bool v59();
+    virtual char v59();      // its whole byte is passed back to v58
 };
 namespace fn_f03fc358 {
 struct Display_1bea80 {
@@ -134,7 +134,7 @@ struct Display_1bea80 {
 struct Frame_1bea80 {
     Vec3_1bea80 v;
     union {
-        bool flag;
+        char flag;
         int word;
     } saved;
     Blender_1bea80 b;
@@ -235,7 +235,7 @@ public:
 
 
 // 0x001bea80 FUN_001bea80 (524 B): equivalent/0x001bea80.cpp
-// sym: ?FUN_001bea80@Overlay@fn_f03fc358@@QAEXXZ @f05fc200663c @wb6c22651e172
+// sym: ?FUN_001bea80@Overlay@fn_f03fc358@@QAEXXZ @f05fc200663c @w1948735b1190 @v2d694eca1498
 // STATUS: equivalent (tools/equiv.py level 3: 7413 inputs, branch coverage 2/2)
 // FUN_001bea80 @ 0x001bea80
 void Overlay::FUN_001bea80()

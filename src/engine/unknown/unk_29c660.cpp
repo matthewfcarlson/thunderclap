@@ -1004,7 +1004,7 @@ float Mixer::FUN_0029d5d0(const V3 *pos, unsigned int mask)
 
 
 // 0x0029d880 FUN_0029d880 (1084 B): equivalent/0x0029d880.cpp [wrapped: conflict: DAT_004cf730; Light]
-// sym: ?FUN_0029d880@LightMgr@fn_0029d880@@QAEMPAUV3@2@I@Z @4b2a6b2f98d1 @wbf23c7d7c387
+// sym: ?FUN_0029d880@LightMgr@fn_0029d880@@QAEMPAUV3@2@I@Z @4b2a6b2f98d1 @wbac9b784491e @v8da3adf6bd6c
 namespace fn_0029d880 {
 // STATUS: equivalent (tools/equiv.py level 3: 17928 inputs, branch coverage 51/54, incomplete)
 // FUN_0029d880 @ 0x0029d880
@@ -1060,13 +1060,13 @@ struct LightCtx {
     Rec *recs;                       // 0x04
 };
 
-float __cdecl FUN_000186b0(float *v, float *lo, float *hi);
+hulk_freg __cdecl FUN_000186b0(float *v, float *lo, float *hi);    // its st0 result is used unrounded
 char __cdecl FUN_00018960(float a, float b, float eps);
 
 extern unsigned int DAT_004cf730;
 
 // The original keeps these unrounded on the FPU stack, so they are recomputed at each use.
-static __forceinline float Reach(float len, float p0, float p1, float p2)
+static __forceinline hulk_freg Reach(float len, float p0, float p1, float p2)
 {
     if (p1 > 0.0f)
         return len * p1;
@@ -1169,12 +1169,14 @@ float LightMgr::FUN_0029d880(V3 *pos, unsigned int mask)
             color = DAT_004cf730;
             useColor = false;
         } else {
-            float r2;
-            f.q1 = (float)cos(f.q1 * 0.5f);
-            if (f.q1 - f.c1 == 0.0f) {
+            hulk_freg r2;
+            hulk_freg q1 = cos(f.q1 * 0.5f);
+            f.q1 = (float)q1;               // fst: the difference uses the unrounded cosine
+            hulk_freg dq = q1 - f.c1;
+            if (dq == 0.0f) {
                 r2 = 0.0f;
             } else {
-                f.u20.a = (f.u10.len - f.c1) / (f.q1 - f.c1);
+                f.u20.a = (f.u10.len - f.c1) / dq;
                 f.k30 = 1.0f;
                 f.k34 = 0.0f;
                 r2 = FUN_000186b0(&f.u20.a, &f.k34, &f.k30);

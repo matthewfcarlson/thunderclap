@@ -657,7 +657,7 @@ void TextSelector::vfunc_7(ChooserArg arg)
 } // namespace fn_f12e8a1b
 
 // 0x000ea7c0 TextSelector::vfunc_5 (5060 B): equivalent/0x000ea7c0.cpp [wrapped: conflict: TextSelector]
-// sym: ?vfunc_5@TextSelector@fn_000ea7c0@@UAEXXZ @d592231553a0 @w5e0341beebce
+// sym: ?vfunc_5@TextSelector@fn_000ea7c0@@UAEXXZ @d592231553a0 @w178ece37650f @ve842ac252ffb
 namespace fn_000ea7c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 582 inputs, branch coverage 129/142, incomplete)
 // TextSelector::vfunc_5 @ 0x000ea7c0
@@ -800,7 +800,7 @@ class Owner_ea7c0 {
     virtual void v10();
     virtual void v11();
     virtual void v12();
-    virtual bool v13(void* obj);
+    virtual char v13(void* obj);     // tested as a whole byte (test al, al)
     virtual void v14(Vec3_ea7c0* out, void* obj);
     virtual void v15(Vec3_ea7c0* out, void* obj);
     virtual float v16(void* obj);
@@ -1133,7 +1133,7 @@ void TextSelector::vfunc_5() {
         if (selected->ctl)
             animation =
                 dynamic_cast<pure3d::TextureAnimationController*>(selected->ctl->p44->p3c->p8->v18(0));
-        bool focused = owner->v13(this);
+        char focused = owner->v13(this);
         if (frame.fade != 0) {
             if (focused) {
                 if (w60 != 0) {

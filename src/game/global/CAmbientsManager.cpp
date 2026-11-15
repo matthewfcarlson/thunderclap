@@ -1596,19 +1596,22 @@ void C_78d00::Set(char value) {
 
 
 // 0x00078d20 FUN_00078d20 (441 B): equivalent/0x00078d20.cpp
-// sym: ?FUN_00078d20@Pool_78d20@fn_f9399ba1@@QAE_NHHPAH0@Z @3b88ea3919ed @w9c61b706c9ad
+// sym: ?FUN_00078d20@Pool_78d20@fn_f9399ba1@@QAE_NHHPAH0@Z @372fd78907e0 @we62801594a41 @v739f591ee637
 // STATUS: equivalent (tools/equiv.py level 3: 47 inputs, branch coverage 24/24)
 // FUN_00078d20 @ 0x00078d20
 bool Pool_78d20::FUN_00078d20(int a, int b, int *pIdx, int *pSub)
 {
     Rng_78d20 *r = FUN_000964d0();
+    int n = count;                  // read before the generator's state is written (as the original)
     r->s0 = 36969 * (r->s0 & 0xffff) + (r->s0 >> 16);
     r->s1 = 18000 * (r->s1 & 0xffff) + (r->s1 >> 16);
-    *pIdx = ((r->s0 << 16) + (r->s1 & 0xffff)) % count;
+    int idx = ((r->s0 << 16) + (r->s1 & 0xffff)) % n;
+    *pIdx = idx;
 
+    int m0 = recs[idx].count;
     r->s0 = 36969 * (r->s0 & 0xffff) + (r->s0 >> 16);
     r->s1 = 18000 * (r->s1 & 0xffff) + (r->s1 >> 16);
-    *pSub = ((r->s0 << 16) + (r->s1 & 0xffff)) % recs[*pIdx].count;
+    *pSub = ((r->s0 << 16) + (r->s1 & 0xffff)) % m0;
 
     if (count <= 0)
         return false;

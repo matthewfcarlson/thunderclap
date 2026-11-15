@@ -1535,7 +1535,7 @@ void owners::Owner_280160::FUN_00280160() {
 
 
 // 0x002801b0 FUN_002801b0 (460 B): equivalent/0x002801b0.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?FUN_002801b0@VoicePool_2801b0@fn_002801b0@@QAEXM@Z @b20c69512f7e @w20c8bd41ca9e
+// sym: ?FUN_002801b0@VoicePool_2801b0@fn_002801b0@@QAEXM@Z @b20c69512f7e @w2609db3aae27 @vf4dfdc251bd6
 namespace fn_002801b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 87 inputs, branch coverage 31/32, incomplete)
 // FUN_002801b0 @ 0x002801b0
@@ -1618,7 +1618,7 @@ public:
     void FUN_002801b0(float dt);
 };
 
-static void StopFx(Node *&fx)
+static __forceinline void StopFx(Node *&fx)   // (forced: at -O0 the out-of-line copy ends in a callee-popped virtual call right before its epilogue)
 {
     fx->v16(2);
     fx->v18(1);   // the original reloads the member after the first call
@@ -2944,7 +2944,7 @@ void pure3d::prop::CMotionTrail::vfunc_13() {
 
 
 // 0x002828e0 FUN_002828e0 (296 B): equivalent/0x002828e0.cpp [wrapped: conflict: Object]
-// sym: ?FUN_002828e0@Object@fn_002828e0@@QAEXIMPAUResource_2828e0@2@0PBUKey_2828e0@2@PBUTriple_2828e0@2@H1IIIMMM@Z @c552b7fb1706 @w5add3f6cfc60
+// sym: ?FUN_002828e0@Object@fn_002828e0@@QAEXIMPAUResource_2828e0@2@0PBUKey_2828e0@2@PBUTriple_2828e0@2@H1IIIMMM@Z @79f121fae587 @wad095e5de242 @v109609dd1e78
 namespace fn_002828e0 {
 // STATUS: equivalent (tools/equiv.py level 3: 236 inputs, branch coverage 12/12)
 // FUN_002828e0 @ 0x002828e0
@@ -2969,7 +2969,8 @@ void Object::FUN_002828e0(unsigned a,float b,Resource_2828e0* r2,Resource_2828e0
  zeroA=0; zeroB=0;
  for(int i=0;i<n;++i) {
  indices[i]=r2->FUN_002843a0(keys[i].a,keys[i].b);
- triples[i].a=data[i].a; triples[i].b=data[i].b; triples[i].c=data[i].c;
+ Triple_2828e0* t=&triples[i];   // read once, as the original
+ t->a=data[i].a; t->b=data[i].b; t->c=data[i].c;
  }
  finalA=a; finalB=b; invFinal=1.0f/b;
 }

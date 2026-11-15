@@ -564,7 +564,7 @@ void owners::Crusher_1ecd00::FUN_001ecd00(const char *name, hulk_intptr a)
 namespace fn_f7674384 {
 
 // 0x001ed0b0 FUN_001ed0b0 (613 B): equivalent/0x001ed0b0.cpp
-// sym: ?FUN_001ed0b0@Footsteps@fn_f7674384@@QAEXPAUActor_1ed0b0@2@@Z @81b155f9b3c2 @w47dc0e7a085f
+// sym: ?FUN_001ed0b0@Footsteps@fn_f7674384@@QAEXPAUActor_1ed0b0@2@@Z @81b155f9b3c2 @w140c1a6b7e31 @vad5862d25e24
 // STATUS: equivalent (tools/equiv.py level 3: 20012 inputs, branch coverage 34/34)
 // FUN_001ed0b0 @ 0x001ed0b0
 void Footsteps::FUN_001ed0b0(Actor_1ed0b0 *a)
@@ -582,7 +582,8 @@ void Footsteps::FUN_001ed0b0(Actor_1ed0b0 *a)
     }
 
     Skeleton *skel = a->skel;
-    BoneEntry_1ed0b0 *e = &skel->bones[skel->FUN_002843a0(FUN_002672f0("Ball_L", 0, 0))];
+    int bl = skel->FUN_002843a0(FUN_002672f0("Ball_L", 0, 0));     // the index before skel->bones is read
+    BoneEntry_1ed0b0 *e = &skel->bones[bl];
     f.foot.x = e->pos.x;
     f.foot.y = e->pos.y - a->groundY;
     f.foot.z = e->pos.z;
@@ -604,7 +605,7 @@ void Footsteps::FUN_001ed0b0(Actor_1ed0b0 *a)
     } else {
         strcat(f.buf, "fast");
     }
-    hulk_freg thr = f.scale * 0.1f;
+    float thr = f.scale * 0.1f;           // stored (fstp dword) before the compares
     if (a->leftDown == 0) {
         if (f.foot.y < thr) {
             a->leftDown = 1;
@@ -614,7 +615,8 @@ void Footsteps::FUN_001ed0b0(Actor_1ed0b0 *a)
         a->leftDown = 0;
     }
 
-    hulk_freg ry = skel->bones[skel->FUN_002843a0(FUN_002672f0("Ball_R", 0, 0))].pos.y - f.groundCopy;
+    int br = skel->FUN_002843a0(FUN_002672f0("Ball_R", 0, 0));
+    hulk_freg ry = skel->bones[br].pos.y - f.groundCopy;
     if (a->rightDown == 0) {
         if (ry < thr) {
             a->rightDown = 1;

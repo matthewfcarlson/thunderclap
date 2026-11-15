@@ -54,7 +54,7 @@ struct World {
     Wrap_174940 *wrap;
 };
 namespace fn_f4a7e04a {
-extern "C" bool __cdecl FUN_00018960(float a, float b, float eps);
+extern "C" char __cdecl FUN_00018960(float a, float b, float eps);   // tested as a whole byte
 struct Data_174940 {
     char pad0[0x20];
     V3_174940 pa;              // 0x20
@@ -81,7 +81,7 @@ public:
 
 
 // 0x00174940 hulkfight::motion::PushOutAction::vfunc_5 (709 B): equivalent/0x00174940.cpp
-// sym: ?vfunc_5@PushOutAction@motion@hulkfight@fn_f4a7e04a@@UAE_NHH@Z @cd5cec620ad9 @wf4cbc3fd2ac3
+// sym: ?vfunc_5@PushOutAction@motion@hulkfight@fn_f4a7e04a@@UAE_NHH@Z @cd5cec620ad9 @w5a262e8626da @ve409039dc29c
 // STATUS: equivalent (tools/equiv.py level 3: 109 inputs, branch coverage 22/22)
 // hulkfight::motion::PushOutAction::vfunc_5 @ 0x00174940
 namespace hulkfight { namespace motion {
@@ -145,10 +145,11 @@ bool PushOutAction::vfunc_5(int a1, int a2)
     f.t.x = f.t.x - f.p.x;
     f.t.y = f.t.y - f.p.y;
     f.t.z = f.t.z - f.p.z;
-    f.rem = f.f38 - f.t.FUN_00018990();
-    if (!(f.rem > 0.0f))
+    hulk_freg rem = f.f38 - f.t.FUN_00018990();
+    f.rem = rem;                    // fst: the test is on the unrounded value
+    if (!(rem > 0.0f))
         return true;
-    float ratio;
+    hulk_freg ratio;                // kept in st
     if (FUN_00018960(f.f38, 0.0f, 0.00001f))
         ratio = 1.0f;
     else

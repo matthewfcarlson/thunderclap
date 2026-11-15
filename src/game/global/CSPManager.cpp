@@ -8406,7 +8406,7 @@ Prop_1e2940 *Mgr_1e2940::F(int idx)
 
 
 // 0x001e2ed0 FUN_001e2ed0 (334 B): equivalent/0x001e2ed0.cpp [wrapped: conflict: Skeleton; content::LoadInventory::DynamicCaster; content::LoadInventory::DynamicCasterBase]
-// sym: ?FUN_001e2ed0@Inventory_1e2ed0@fn_001e2ed0@@QAEHHHH@Z @f7db0b9b4bdb @we60a36dbe9f9
+// sym: ?FUN_001e2ed0@Inventory_1e2ed0@fn_001e2ed0@@QAEHHHH@Z @0e0a65120d1d @wec89070e395e @v63ec0f18bff2
 namespace fn_001e2ed0 {
 // STATUS: equivalent (tools/equiv.py level 3: 84 inputs, branch coverage 20/24, incomplete)
 // FUN_001e2ed0 @ 0x001e2ed0
@@ -8513,19 +8513,19 @@ int Inventory_1e2ed0::FUN_001e2ed0(int idx, int lo, int hi)
 {
     if (idx < 0)
         return -1;
-    Entry_1e2ed0 *e = &entries[idx];
-    Slot_1e2ed0 *s = &slots[e->slot];
     Indexer_1e2ed0 *indexer;
     bool direct;
+    Entry_1e2ed0 *e = &entries[idx];
+    Slot_1e2ed0 *s = &slots[e->slot];
     if ((s->flags & 1) && e->skel) {
         indexer = e->skel->indexer;
         direct = true;
     } else {
+        content::LoadInventory::DynamicCaster<CSPHulkProp> caster;     // the original's frame: s right above it
         int rlo = e->resLo;
         int rhi = e->resHi;
         direct = false;
         Factory_1e2ed0 *factory = mgr->holder->FUN_000862a0()->FUN_00203d70();
-        content::LoadInventory::DynamicCaster<CSPHulkProp> caster;
         indexer = factory->f3(&caster, rlo, rhi);
         if (!indexer)
             return -1;

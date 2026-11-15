@@ -246,7 +246,7 @@ void Owner_2a9f30::Set(Source_2a9f30* src) {
 } // namespace fn_ff685ee7
 
 // 0x002a9f60 pure3d::ExpressionAnimationController::vfunc_7 (157 B): equivalent/0x002a9f60.cpp [wrapped: conflict: ExpressionAnimationController]
-// sym: ?FUN_002a9f60@ExpressionAnimationController@fn_002a9f60@@QAEXXZ @99fe135fcf5e @wb6d40ac23e2f
+// sym: ?FUN_002a9f60@ExpressionAnimationController@fn_002a9f60@@QAEXXZ @99fe135fcf5e @wc3ef622b2660 @v4c2c3f42740f
 namespace fn_002a9f60 {
 // STATUS: equivalent (tools/equiv.py level 3: 59 inputs, branch coverage 10/10)
 // pure3d::ExpressionAnimationController::vfunc_7 @ 0x002a9f60
@@ -299,9 +299,10 @@ void ExpressionAnimationController::FUN_002a9f60()
         Chunk *c = chunks->FUN_00288a10(i);
         Channel *ch = c->FUN_00288960(0x455453, 0x31544c46);
         if (ch != 0) {
+            float saved;        // the original's frame: saved sits right above v
             float v;
             ch->FUN_0028a1c0(f34, &v);
-            float saved = v;
+            saved = v;
             int slot = output->index->FUN_002afe80((char *)c + 8);
             output->values[slot] = saved;
         }

@@ -220,7 +220,7 @@ bool pure3d::ShaderAnimationController::vfunc_26(void* __p0) { void * p = (void 
 
 
 // 0x002a8450 pure3d::ShaderAnimationController::vfunc_7 (460 B): equivalent/0x002a8450.cpp
-// sym: ?vfunc_7@ShaderAnimationController@pure3d@@UAEXXZ @f9c83d82bc9b @wd303900717e8
+// sym: ?vfunc_7@ShaderAnimationController@pure3d@@UAEXXZ @f9c83d82bc9b @w17f938516c65 @v467264ad2825
 // STATUS: equivalent (tools/equiv.py level 3: 141 inputs, branch coverage 18/22, incomplete)
 // pure3d::ShaderAnimationController::vfunc_7 @ 0x002a8450
 void pure3d::ShaderAnimationController::vfunc_7() {
@@ -257,16 +257,16 @@ void pure3d::ShaderAnimationController::vfunc_7() {
             (*(SinkHolder_2a8450 * *)&this->f_40)->sink->s6(ch->paramId, value);
             break;
         }
+        case 0x4c4f4f42: {
+            unsigned char b;    // (case order: b's frame byte sits right below value's, as the original's)
+            ch->FUN_0028ac90(this->f_34, &b);
+            (*(SinkHolder_2a8450 * *)&this->f_40)->sink->s6(ch->paramId, b);
+            break;
+        }
         case 0x31544c46: {
             float f;
             ch->FUN_0028a1c0(this->f_34, &f);
             (*(SinkHolder_2a8450 * *)&this->f_40)->sink->s7(ch->paramId, f);
-            break;
-        }
-        case 0x4c4f4f42: {
-            unsigned char b;
-            ch->FUN_0028ac90(this->f_34, &b);
-            (*(SinkHolder_2a8450 * *)&this->f_40)->sink->s6(ch->paramId, b);
             break;
         }
         case 0x54434556: {

@@ -1023,3 +1023,26 @@ blocks fight::Action's whole family: the records come first there.
 - Equivalence rules that set inputs aside hide differences on those inputs (rev4's memub_hidden): prefer modelling the
   original (memfwd) or repairing the input to the contract (preconditions) over excluding it.
 - x64_gate's cache was keyed on all of equiv.py: every 32-bit checker edit re-ran every --x64 result.
+
+## 2026-11-16 tri4: the failing equivalent blocks, fixed in source (D55)
+- A byte the original tests whole (`test al, al` after a call: a virtual, a function pointer, a stub) is a `char`
+  return in source: clang tests bit 0 of a `bool`, so a callee returning 2 takes the other branch (boolexpl, D28).
+  Fixed 0x000e2c90, 0x000ebf40, 0x000e9af0, 0x000ea7c0, 0x00239f10, 0x00245390 (0x00237050 in batch 2); 0x001bea80 passes the
+  whole byte of a `bool` getter back to its setter.
+- clang -O0 lays out locals in declaration order, the first at the highest address. Where a stub's write through a
+  pointer argument or the checker's comparison of a local reaches the next local (the original's frame), declaring
+  the neighbour first reproduces it (0x002a9f60, 0x00310bc0, 0x001e2ed0, 0x002a8450 by case order, 0x000ed990 one
+  local for two calls).
+- `a[f()]` and `obj->m(x)` read the array base / object before the call in clang; the original calls first
+  (0x001ed0b0 `bones[FUN()]`, 0x000c1b50 the arguments before `FUN_000fc1b0()->`).
+- x87 keeps what it does not store: 0x00323ee0's tan product, 0x00324660's dot, 0x00326330's unsigned-to-float count,
+  0x0029d880's cosine difference and its `Reach()` helper, 0x002d31e0's floor argument, 0x003078a0's dx. Read the
+  `fst`/`fstp` pairs: an `fst` value is stored rounded and kept unrounded.
+- A static helper ending in a callee-popped virtual call right before its epilogue loses the checker's `sub esp` cue
+  (clang_pop_after): `__forceinline` it (0x002801b0).
+- NaN preconditions (D54) on 0x0022ca90, 0x0022cc10, 0x0022cdb0 (the floats read) and 0x00308ba0 (periodScale,
+  dampingScale) prove in both modes with @msvc unchanged, but the Wine build traps at play3 frame 37080 with them
+  (deterministic, 85859 / 86188): game data, or one of our differences upstream, does hand one of them a NaN.
+  0x00229360's NaN comes through `this->blends[i].weight` and callee returns: no LOC expresses it.
+- D62 leaves blocks whose loops run over fuzzed counts unprovable from the source side: 0x0024a280 (430 of 11,171
+  compared), 0x002155f0 (582 of 10,000), 0x002b07d0 (1,250), 0x002ee9a0 (2,327), 0x00300080 (2,446).
