@@ -119,7 +119,9 @@ Terms: the *Wine build* is the 32-bit clang image run under Wine (`tools/wine_*.
 - **Shared checkout.** Many agents work in `src/`, `include/`, `tools/` and `docs/` at once, uncommitted.
   Commit explicit paths only (`F=(a b); git commit -m MSG -- "${F[@]}"`, or `git add -- "${F[@]}"`); never `git add -A`
   or `git add .`; never `git checkout`, `restore`, `stash` or `reset` files you didn't write. Don't delete untracked files.
-  Before committing, check that the staged diff holds only your hunks.
+  Before committing, check that the staged diff holds only your hunks. After a commit made with a temporary
+  `GIT_INDEX_FILE`, sync the shared index entries of the committed paths right away: a commit from a stale shared index
+  reverts others' work. Generators that rewrite many TUs read a `git archive HEAD` snapshot, never the shared working copy.
 - Never relax a comparison in the checker to make something pass; a source that doesn't pass is not promoted.
   A byte match needs `compare.py` MATCH and `verify_relocs.py` ok; an equivalent needs a promotable `equiv.py` run.
 - Don't run xemu, the Wine build or other long jobs unless the task is that job. The farm is archived (`farm/` removed); don't
