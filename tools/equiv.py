@@ -3817,8 +3817,6 @@ class Run:
         self.seg_stores = set()     # (round 22, stackval) non-stack bytes the code stored since the last call
         self.seg_stack_written = set()  # ... and stack bytes
         self.seg_fpu = []           # per segment: {dword addr: size} written by fst/fstp
-        self.seg_f32 = []           # (integ1, nanpayload) per segment: addresses whose last store was a whole 4-byte float
-        self.cur_f32 = set()        # store (fst/fstp dword, movss): no later store of the segment overlaps it
         self.cur_fpu = {}
         self.epoch = 0
         self.mapped = set()
@@ -4160,11 +4158,6 @@ class Run:
             self.ub_at.setdefault("ro_write", len(self.calls))
         if self.cur_insn is not None and self.cur_insn.is_fpu_store and size in (4, 8):
             self.cur_fpu[addr] = size
-        if self.cur_f32:
-            for w_ in range(addr - 3, addr + size):
-                self.cur_f32.discard(w_)
-        if size == 4 and self.cur_insn is not None and self.cur_insn.mnemonic in ("fst", "fstp", "movss", "vmovss"):
-            self.cur_f32.add(addr)
 
     def _on_intr(self, uc, intno, _):
         self.fault = self.fault or ("interrupt_%d" % intno, uc.reg_read(self.u.UC_X86_REG_EIP))
@@ -4226,8 +4219,6 @@ class Run:
         self.segments.append(snap)
         self.seg_fpu.append(self.cur_fpu)
         self.cur_fpu = {}
-        self.seg_f32.append(self.cur_f32)
-        self.cur_f32 = set()
 
     def _perturb(self):
         """After a stubbed call: the callee may have changed any non-stack memory."""
@@ -7140,7 +7131,6 @@ class Run:
         out["entry"] = self.orig_entry
         out["segments"] = self.segments
         out["seg_fpu"] = self.seg_fpu
-        out["seg_f32"] = self.seg_f32
         out["epochs"] = self.epoch
         out["max_mapped"] = max(self.max_mapped, len(self.mapped))
         out["huge_rep"] = self.huge_rep
@@ -7884,7 +7874,6 @@ def _feq(a, b, rel=None, ab=None):
 
 
 _NAN_SIGN = [0]
-_NAN_PAYLOAD = [0]
 _NAN_EQ = [0]
 
 
@@ -7895,23 +7884,7 @@ def _fuzzed_heap(a):
         not OURS <= a < OURS + OURS_SIZE and not _reserved(a)
 
 
-def _nan_payload_only(a, b, f32=False):
-    """(integ1, D39, nanpayload; NOT ADOPTED: on only with EQUIV_ON=nanpayload until a reviewer signs off) Two float words
-    that are both quiet NaNs (exponent 0xff, quiet bit 0x00400000 set) and differ in sign or payload. Which operand's NaN
-    an arithmetic instruction hands on when both are NaN differs between the x87 (the larger significand; and an invalid
-    operation's indefinite 0xffc00000 meets the other operand's NaN by that rule too) and SSE (the first source operand),
-    so a source whose operands are in the original's order still gives another NaN whenever two NaNs meet (0x0022ca90's
-    matrix product: `this+0x4 was 0xfff84ab4, expected 0xffeca8b1`). IEEE leaves the choice open; the game never reads a
-    NaN's payload. Restricted: --wine only (an MSVC-mode run is x87 on both sides), 32-bit float words only (a double's
-    low word is compared as bits), both quiet (a signalling or non-NaN word on either side is still a difference), and
-    the input is inconclusive (`statuses.nan_payload`) only when no other difference remains on it."""
-    if not f32 or not NATIVE_MODE or "nanpayload" not in EQUIV_ON or "nanpayload" in EQUIV_OFF or a == b:
-        return False
-    qnan = lambda w: (w & 0x7F800000) == 0x7F800000 and (w & 0x00400000) != 0      # noqa: E731
-    return qnan(a) and qnan(b)
-
-
-def _nan_sign_only(a, b, f32=False):
+def _nan_sign_only(a, b):
     """(round 19, nansign) Two float words that are NaNs with the same payload and opposite signs. MSVC 7.1 turns
     `x * -1.0f` into `fchs` (flips the sign of a NaN), clang keeps `fmul` by -1 (x87 returns the NaN operand
     unchanged): IEEE leaves the sign of an arithmetic NaN unspecified, so this is not a behaviour difference unless
@@ -7928,9 +7901,6 @@ def _nan_sign_only(a, b, f32=False):
     # emulated x87 load keeps a signalling float NaN signalling, cvtss2sd (and a real x87) quiets it, bit 0x00080000
     if "nanquiet64" not in EQUIV_OFF and (a & 0x7FF00000) == 0x7FF00000 and (a ^ b) & 0x7FFFFFFF == 0x00080000 \
             and (b & 0x00080000) != 0:
-        return True
-    if _nan_payload_only(a, b, f32):
-        _NAN_PAYLOAD[0] += 1        # (counted apart: statuses.nan_payload)
         return True
     return False
 
@@ -8004,7 +7974,6 @@ def compare_runs(o, r, ret_kind, machine, namer, prog, max_report=4, esp_adjust=
     """List of human-readable behaviour differences (empty = same)."""
     out = []
     _NAN_SIGN[0] = 0
-    _NAN_PAYLOAD[0] = 0
     _NAN_EQ[0] = 0
     oc, rc = o["calls"], r["calls"]
     if r.get("cookie_bad") and not o.get("cookie_bad"):
@@ -8069,7 +8038,7 @@ def compare_runs(o, r, ret_kind, machine, namer, prog, max_report=4, esp_adjust=
             if _norm(ov) == _norm(rv):
                 j += 1
                 continue
-            if _nan_sign_only(ov, rv, f32=of == 4 and rf == 4):
+            if _nan_sign_only(ov, rv):
                 _NAN_SIGN[0] += 1
                 j += 1
                 continue
@@ -8228,8 +8197,7 @@ def compare_runs(o, r, ret_kind, machine, namer, prog, max_report=4, esp_adjust=
                     # object's vptr is not observable
                     done.update(range(w0, w0 + 4))
                     continue
-                if _nan_sign_only(ow4, rw4, f32=w0 in (o.get("seg_f32") or [set()] * (s + 1))[s] and
-                                  w0 in (r.get("seg_f32") or [set()] * (s + 1))[s]):
+                if _nan_sign_only(ow4, rw4):
                     done.update(range(w0, w0 + 4))
                     _NAN_SIGN[0] += 1
                     continue
@@ -8376,8 +8344,6 @@ def compare_runs(o, r, ret_kind, machine, namer, prog, max_report=4, esp_adjust=
         r["nan_eq"] = _NAN_EQ[0]        # (integ1, measure only: no verdict changes)
     if not out and _NAN_SIGN[0]:
         r["nan_sign"] = True
-        if _NAN_PAYLOAD[0]:
-            r["nan_payload"] = True
     return out[:max_report]
 
 
@@ -8499,8 +8465,7 @@ def _first_diff(ob, rb, ofp, rfp, written=None):
     if NATIVE_MODE and "nansign" not in EQUIV_OFF:
         for off in range(0, n - 3, 4):
             wo_, wr_ = struct.unpack_from("<I", ob, off)[0], struct.unpack_from("<I", rb, off)[0]
-            if _nan_sign_only(wo_, wr_, f32=ofp.get(off) == 4 and rfp.get(off) == 4) and \
-                    (written is None or off in written):
+            if _nan_sign_only(wo_, wr_) and (written is None or off in written):
                 skip.update(range(off, off + 4))
                 _NAN_SIGN[0] += 1
     for i in range(n):
@@ -10348,10 +10313,6 @@ def _verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappi
         # inputs set aside because control flow went wild: a few are fuzzing accidents, many mean the
         # model of some call is off (a stack that drifts until the final ret), which hides that code
         short.append("%d inputs went wild (control left the function) or crashed on both sides" % wild)
-    npl = st.get("nan_payload", 0)
-    if npl > 0.1 * max(l3.get("inputs_run", 0), 1):
-        # (integ1, rev3) inputs set aside by nanpayload hide that much code, as wild ones do
-        short.append("%d inputs set aside as nan_payload (over 10%% of %d)" % (npl, l3.get("inputs_run", 0)))
     cov_ = st.get("copy_overlap", 0)
     if cov_ > 0.1 * max(l3.get("inputs_run", 0), 1):
         # (integ1, rev4) inputs set aside for an overlapping copy (intrub, memub) hide that much code too
@@ -11232,7 +11193,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                                                                     c_["regs"]["ecx"], c_["ret_to"]), file=sys.stderr)
         if not diffs and r.get("nan_sign"):
             res["inputs_inconclusive"] += 1         # (round 19) the only differences are NaN signs, see _nan_sign_only
-            res["statuses"]["nan_payload" if r.get("nan_payload") else "nan_sign"] += 1
+            res["statuses"]["nan_sign"] += 1
             return None
         # (chk1, ubafter) the masks below set aside an input whose difference undefined behaviour met during the run can
         # explain: never a difference in a call the run made before it met it (those calls can't be its consequence)
