@@ -1772,7 +1772,11 @@ public:
 // .?AVParamValueEnum@fight@@  vftable 0x427b20 (9)
 class ParamValueEnum : public ::fight::ParamValue {
 public:
+#if defined(HULK_FIGHT_PARAM_IMPLICIT)
+    ParamValueEnum(const char* name); // (gx3) its destructor implicit
+#else
     virtual ~ParamValueEnum(); // overrides fight::ParamValue slot 0
+#endif
     virtual int vfunc_1(); // overrides fight::ParamValue slot 1
     virtual int vfunc_5(int, int, int); // overrides fight::ParamValue slot 5
     virtual void* vfunc_6(int, int) = 0; // slot 6
@@ -1954,14 +1958,21 @@ public:
 template <class T0>
 class ParamEnumConstList : public ::fight::ParamValueEnum {
 public:
+#if defined(HULK_FIGHT_PARAM_IMPLICIT)
+    // (gx3, D18) the name, the enum's name table and its count, the setter (the registrations allocate 0x20)
+    template <class S> ParamEnumConstList(const char* name, void* table, int count, S setter)
+        : ::fight::ParamValueEnum(name), f_10(table), f_14(count), f_18(hulk_setter_word(setter)) {}
+#else
     virtual ~ParamEnumConstList(); // overrides fight::ParamValue slot 0
+#endif
     virtual bool vfunc_2(); // overrides fight::ParamValue slot 2
     virtual void* vfunc_6(int, int); // overrides fight::ParamValueEnum slot 6
     virtual int vfunc_7(int); // overrides fight::ParamValueEnum slot 7
     virtual bool vfunc_8(int, int); // overrides fight::ParamValueEnum slot 8
-    void* f_10;
-    int f_14;
-    hulk_intptr f_18;
+    void* f_10; // the enum's name table
+    int f_14; // its count
+    hulk_intptr f_18; // the setter (vfunc_6 calls it as a member function of T0)
+    int f_1c; // (gx3) unknown: the game allocates 0x20
 };
 
 // .?AVParamValueFloat@fight@@  vftable 0x427a58 (7)

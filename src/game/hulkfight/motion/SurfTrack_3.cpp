@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x00179720..0x001797a0 (kind game, layer game, confidence high), dominant class hulkfight::motion::SurfTrack
 #include "tree_prelude.h"
 #include "gen/fight.h"
@@ -36,24 +35,4 @@ class SurfTrack {};
 } // namespace hulkfight
 template int fight::TrackFactoryCasterTemplate<hulkfight::motion::SurfTrack>::vfunc_0(void*);
 } // namespace fn_00179720
-
-
-// 0x00179750 fight::ParamFloatConstRange<hulkfight::motion::SurfTrack>::vfunc_0 (30 B): matches/0x00179750.cpp
-// sym: ??_G?$ParamFloatConstRange@VSurfTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
-// Same code shape as 0x00021840 (propagated; names are from that function)
-// scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamFloatConstRange<hulkfight::motion::SurfTrack>::~ParamFloatConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamFloatConstRange<hulkfight::motion::SurfTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x179750)
-#endif
-
-
-// 0x00179770 fight::ParamIntConstRange<hulkfight::motion::SurfTrack>::vfunc_0 (30 B): matches/0x00179770.cpp
-// sym: ??_G?$ParamIntConstRange@VSurfTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
-// Same code shape as 0x00021840 (propagated; names are from that function)
-// scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamIntConstRange<hulkfight::motion::SurfTrack>::~ParamIntConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamIntConstRange<hulkfight::motion::SurfTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x179770)
-#endif
 

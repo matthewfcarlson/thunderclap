@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x00179ae0..0x00179b60 (kind game, layer game, confidence high), dominant class hulkfight::motion::VisibilityTrack
 #include "tree_prelude.h"
 #include "gen/fight.h"
@@ -33,24 +32,4 @@ template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::Visibility
 
     return FUN_00344e74(p, 0, &DAT_0049850c, &DAT_004bae48, 0) != 0;
 }
-
-
-// 0x00179b10 fight::ParamFloatConstRange<hulkfight::motion::VisibilityTrack>::vfunc_0 (30 B): matches/0x00179b10.cpp
-// sym: ??_G?$ParamFloatConstRange@VVisibilityTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
-// Same code shape as 0x00021840 (propagated; names are from that function)
-// scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamFloatConstRange<hulkfight::motion::VisibilityTrack>::~ParamFloatConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamFloatConstRange<hulkfight::motion::VisibilityTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x179b10)
-#endif
-
-
-// 0x00179b30 fight::ParamBool<hulkfight::motion::VisibilityTrack>::vfunc_0 (30 B): matches/0x00179b30.cpp
-// sym: ??_G?$ParamBool@VVisibilityTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
-// Same code shape as 0x00021840 (propagated; names are from that function)
-// scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamBool<hulkfight::motion::VisibilityTrack>::~ParamBool() {}
-#if defined(HULK_PTR64)
-template class fight::ParamBool<hulkfight::motion::VisibilityTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x179b30)
-#endif
 

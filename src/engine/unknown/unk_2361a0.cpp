@@ -1,6 +1,8 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x002361a0..0x002366e0 (kind game, layer engine, confidence low)
 #include "tree_prelude.h"
+#define HULK_FIGHT_PARAM_IMPLICIT   // (gx2, D18) include/gen/fight.h: the parameter templates constructed for real
+#include "gen/owners.h"   // (gx3, D18) for the merged registrations
 #include "decls/data/engine/fight.h"
 #include "decls/data/engine/unknown.h"
 #include "gen/fight.h"
@@ -8,6 +10,11 @@
 #define TREE_TU_END }
 namespace fn_fa6aa741 {} using namespace fn_fa6aa741;
 #include "engine/unknown.h"
+void* operator new(size_t) HULK_NEW_THROW;   // (gx2, D18) the game's operator new (0x0008d690)
+extern "C" void __cdecl FUN_002347b0(void* list, void* params, int count);   // (gx2, D18) a parameter list's set-up
+namespace fn_f7988f86 { struct Obj_235980 { void * GetParent_00235980(); }; }   // (gx3, D18) setters, as defined in unk_235950.cpp
+namespace fn_f7988f86 { struct Obj_235990 { unsigned char SetRecurse_00235990(unsigned char); }; }   // (gx3, D18) setters, as defined in unk_235950.cpp
+namespace fn_f7988f86 { struct X_235970 { bool SetCompare_00235970(int); }; }   // (gx3, D18) setters, as defined in unk_235950.cpp
 
 // ---- declarations shared by the functions below
 inline void* operator new(size_t, void* p) throw() { return p; }
@@ -53,7 +60,6 @@ public:
 };
 }
 namespace fn_fa6aa741 {
-extern "C" void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 } // namespace fn_fa6aa741
 namespace fight {
 class FightNodeTimeCondition_236340 {
@@ -123,50 +129,108 @@ struct C_2366b0 {
 };
 
 
-// 0x002361a0 FUN_002361a0 (176 B): equivalent/0x002361a0.cpp
-// sym: _FUN_002361a0 @b2d6861d1e03 @w3d371fe7da4b
-// STATUS: equivalent (tools/equiv.py level 3: 2998 inputs, branch coverage 6/6)
-// FUN_002361a0 @ 0x002361a0
+} // namespace fn_fa6aa741
+
+// 0x002360c0 fight::ParamEnumConstList<fight::FightNodeCondition>::vfunc_0 (30 B): matches/0x002360c0.cpp
+// sym: ??_G?$ParamEnumConstList@VFightNodeCondition@fight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from FightNodeTimeCondition.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_002361a0 / FUN_00236250 / FUN_00236340)
+
+
+
+// 0x002360e0 fight::ParamBranch<fight::FightNodeCondition>::vfunc_0 (30 B): matches/0x002360e0.cpp
+// sym: ??_G?$ParamBranch@VFightNodeCondition@fight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from FightNodeTimeCondition.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_002361a0 / FUN_00236250 / FUN_00236340)
+
+
+
+// 0x00236100 fight::ParamEnumConstList<fight::FightNodeParentCondition>::vfunc_0 (30 B): matches/0x00236100.cpp
+// sym: ??_G?$ParamEnumConstList@VFightNodeParentCondition@fight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from FightNodeTimeCondition.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_002361a0 / FUN_00236250 / FUN_00236340)
+
+
+
+// 0x00236120 fight::ParamBranch<fight::FightNodeParentCondition>::vfunc_0 (30 B): matches/0x00236120.cpp
+// sym: ??_G?$ParamBranch@VFightNodeParentCondition@fight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from FightNodeTimeCondition.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_002361a0 / FUN_00236250 / FUN_00236340)
+
+
+
+// 0x00236140 fight::ParamBool<fight::FightNodeParentCondition>::vfunc_0 (30 B): matches/0x00236140.cpp
+// sym: ??_G?$ParamBool@VFightNodeParentCondition@fight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from FightNodeTimeCondition.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_002361a0 / FUN_00236250 / FUN_00236340)
+
+
+
+// 0x00236160 fight::ParamEnumConstList<fight::FightNodeTimeCondition>::vfunc_0 (30 B): matches/0x00236160.cpp
+// sym: ??_G?$ParamEnumConstList@VFightNodeTimeCondition@fight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from FightNodeTimeCondition.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_002361a0 / FUN_00236250 / FUN_00236340)
+
+
+
+// 0x00236180 fight::ParamFloatConstRange<fight::FightNodeTimeCondition>::vfunc_0 (30 B): matches/0x00236180.cpp
+// sym: ??_G?$ParamFloatConstRange@VFightNodeTimeCondition@fight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from FightNodeTimeCondition.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_002361a0 / FUN_00236250 / FUN_00236340)
+
+
+
+// 0x002361a0 FUN_002361a0 (176 B): matches/0x002361a0.cpp
+// sym: _FUN_002361a0
+// (gx2, D18) rewritten; constructs the real ParamBranch<FightNodeCondition>, ParamEnumConstList<FightNodeCondition>,
+// whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_002361a0()
 {
     if (DAT_004e5be0 == 0) {
-        void* params[2];
-        void* mem;
-        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_2361a0<fight::FightNodeCondition_2361a0>));
-        params[0] = 0;
-        if (mem)
-            params[0] = new (mem) fight::ParamEnumConstList_2361a0<fight::FightNodeCondition_2361a0>("compare", ((const char**)&DAT_00427758), (*(int*)&DAT_00427760), (void (fight::FightNodeCondition_2361a0::*)())&fight::FightNodeCondition_2361a0::FUN_00235950);
-        mem = FUN_0008d690((int)sizeof(fight::ParamBranch_2361a0<fight::FightNodeCondition_2361a0>));
-        params[1] = 0;
-        if (mem)
-            params[1] = new (mem) fight::ParamBranch_2361a0<fight::FightNodeCondition_2361a0>("fightNode", &fight::FightNodeCondition_2361a0::FUN_00235960);
-        FUN_002347b0(((ParamRegistry*)&DAT_004e5bdc), params, 2);
+        ::fight::ParamValue* params[2];
+        params[0] = new ::fight::ParamEnumConstList< ::fight::FightNodeCondition>("compare", (void*)&DAT_00427758, DAT_00427760, &owners::C_235950::FUN_00235950);
+        params[1] = new ::fight::ParamBranch< ::fight::FightNodeCondition>("fightNode", &owners::Thing_235960::FUN_00235960);
+        FUN_002347b0(&DAT_004e5bdc, params, 2);
     }
     DAT_004e5be0++;
 }
 
 
-// 0x00236340 FUN_00236340 (176 B): equivalent/0x00236340.cpp
-// sym: _FUN_00236340 @dd7619bab03d @w7a6bfdf1c7f8
-// STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 6/6)
-// FUN_00236340 @ 0x00236340
+
+// 0x00236250 FUN_00236250 (231 B): matches/0x00236250.cpp
+// sym: _FUN_00236250
+// (gx2, D18) from unk_2361a0.new_plain.cpp; constructs the real ParamBool<FightNodeParentCondition>, ParamBranch<FightNodeParentCondition>, ParamEnumConstList<FightNodeParentCondition>,
+// whose vftable and scalar deleting destructor it emits
+extern "C" void FUN_00236250()
+{
+    if (DAT_004e5be8 == 0) {
+        ::fight::ParamValue* params[3];
+        params[0] = new ::fight::ParamEnumConstList< ::fight::FightNodeParentCondition>("compare", (void*)&DAT_00427758, DAT_00427760, &fn_f7988f86::X_235970::SetCompare_00235970);
+        params[1] = new ::fight::ParamBranch< ::fight::FightNodeParentCondition>("parent", &fn_f7988f86::Obj_235980::GetParent_00235980);
+        params[2] = new ::fight::ParamBool< ::fight::FightNodeParentCondition>("recurse", &fn_f7988f86::Obj_235990::SetRecurse_00235990);
+        FUN_002347b0(&DAT_004e5be4, params, 3);
+    }
+    DAT_004e5be8++;
+}
+
+
+
+// 0x00236340 FUN_00236340 (176 B): matches/0x00236340.cpp
+// sym: _FUN_00236340
+// (gx2, D18) rewritten; constructs the real ParamEnumConstList<FightNodeTimeCondition>, ParamFloatConstRange<FightNodeTimeCondition>,
+// whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_00236340()
 {
     if (DAT_004e5bf0 == 0) {
-        void* params[2];
-        void* mem;
-        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_236340<fight::FightNodeTimeCondition_236340>));
-        params[0] = 0;
-        if (mem)
-            params[0] = new (mem) fight::ParamEnumConstList_236340<fight::FightNodeTimeCondition_236340>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), (void (fight::FightNodeTimeCondition_236340::*)())&fight::FightNodeTimeCondition_236340::FUN_002359a0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_236340<fight::FightNodeTimeCondition_236340>));
-        params[1] = 0;
-        if (mem)
-            params[1] = new (mem) fight::ParamFloatConstRange_236340<fight::FightNodeTimeCondition_236340>("time", (void (fight::FightNodeTimeCondition_236340::*)())&fight::FightNodeTimeCondition_236340::FUN_002359b0);
-        FUN_002347b0(((ParamRegistry*)&DAT_004e5bec), params, 2);
+        ::fight::ParamValue* params[2];
+        params[0] = new ::fight::ParamEnumConstList< ::fight::FightNodeTimeCondition>("compare", (void*)&DAT_0042773c, DAT_00427754, &owners::X_2359a0::FUN_002359a0);
+        params[1] = new ::fight::ParamFloatConstRange< ::fight::FightNodeTimeCondition>("time", &owners::Obj_2359b0::FUN_002359b0);
+        FUN_002347b0(&DAT_004e5bec, params, 2);
     }
     DAT_004e5bf0++;
 }
+
+namespace fn_fa6aa741 {
 
 
 // 0x002363f0 FUN_002363f0 (1 B): matches/0x002363f0.cpp
