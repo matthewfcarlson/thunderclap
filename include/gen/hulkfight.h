@@ -502,9 +502,10 @@ class DebugPrintCondition : public ::fight::Condition {
 public:
     DebugPrintCondition(void* owner = 0) : ::fight::Condition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
+    virtual ~DebugPrintCondition(); // overrides fight::Param slot 5 (gx4: 0x0012e590, GameStateCondition.cpp; inlined into 0x0012fc90)
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
-    void* f_0c;
-    void* f_10;
+    char* f_0c; // (gx4) the strings the destructor frees (operator delete[])
+    char* f_10;
 };
 
 // .?AVDebugPrintTrack@hulkfight@@  vftable 0x411374 (11)
@@ -688,11 +689,12 @@ public:
 class StatTrack : public ::fight::Track {
 public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
+    virtual ~StatTrack(); // overrides fight::Param slot 5 (gx4: 0x0012f010, GameStateCondition.cpp; inlined into 0x0012fea0)
     virtual hulk_freg vfunc_6(); // overrides fight::Track slot 6
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
     float f_0c;
-    int f_10;
+    char* f_10; // (gx4) the string the destructor frees (operator delete[])
 };
 
 // .?AVUnlockableCondition@hulkfight@@  vftable 0x411244 (7)

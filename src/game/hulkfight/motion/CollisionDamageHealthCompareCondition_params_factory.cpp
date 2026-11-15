@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x00154680..0x00154780 (kind game, layer game, confidence high), dominant class hulkfight::motion::CollisionDamageHealthCompareCondition
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -35,16 +34,6 @@ template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::motion::Collis
 
     return __RTDynamicCast(p, 0, (void*)(&hulk_at_00491ca8), (void*)(&hulk_at_004b28b8), 0) != 0;
 }
-
-
-// 0x001546b0 fight::ParamEnumConstList<hulkfight::motion::CollisionTargetNameCondition>::vfunc_0 (30 B): matches/0x001546b0.cpp
-// sym: ??_G?$ParamEnumConstList@VCollisionTargetNameCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
-// Same code shape as 0x00021840 (propagated; names are from that function)
-// scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamEnumConstList<hulkfight::motion::CollisionTargetNameCondition>::~ParamEnumConstList() {}
-#if defined(HULK_PTR64)
-template class fight::ParamEnumConstList<hulkfight::motion::CollisionTargetNameCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1546b0)
-#endif
 
 
 // 0x001546e0 fight::ConditionFactoryCasterTemplate<hulkfight::motion::CollisionDamageHealthCompareCondition>::vfunc_0 (36 B): matches/0x001546e0.cpp

@@ -17,6 +17,7 @@ void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's
 namespace fn_fbe81dc2 { extern "C" char DAT_004282dc[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 namespace fn_fbe81dc2 { extern "C" char DAT_00428330[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "engine/fight.h"
+void operator delete[](void*);   // (gx4) the game's (0x0008d340): the destructors' `delete[]` (MSVC 7.1 calls operator delete without it)
 
 void* operator new(size_t) HULK_NEW_THROW;   // (gx2) the game's operator new (0x0008d690), null-checked
 // ---- declarations shared by the functions below
@@ -306,16 +307,19 @@ hulk_intptr fight::PrintCondition::vfunc_0(int index) {
 
 namespace fn_fbe81dc2 {
 
-// 0x002388e0 FUN_002388e0 (38 B): matches/0x002388e0.cpp
-// sym: ?dtorish@PrintCondition_2388e0@fn_fbe81dc2@@QAEXXZ
-// Same code shape as 0x0012e590 (propagated; names are from that function)
-void PrintCondition_2388e0::dtorish() {
-    u32_2388e0 x = a;
-    vt = &hulk_at_004282dc;
-    thunk_FUN_00267090(x);
-    thunk_FUN_00267090(b);
-    Condition_2388e0::finish_002345b0();
+} // namespace fn_fbe81dc2
+
+// 0x002388e0 fight::PrintCondition::~PrintCondition (38 B): matches/0x002388e0.cpp
+// sym: ??1PrintCondition@fight@@UAE@XZ
+// (gx4, D19/D14) the class's destructor (was a TU-local stand-in): it frees the strings (operator delete[]), then
+// the base destructor; MSVC 7.1 also inlines it into the scalar deleting destructor below
+fight::PrintCondition::~PrintCondition() {
+    delete[] f_0c;
+    delete[] f_10;
 }
+
+namespace fn_fbe81dc2 {
+
 
 } // namespace fn_fbe81dc2
 
@@ -401,14 +405,16 @@ hulk_freg fight::PrintTrack::vfunc_7() {
 }
 
 
-// 0x00238a50 FUN_00238a50 (38 B): matches/0x00238a50.cpp
-// sym: ?FUN_00238a50@PrintTrack@fight@@QAEXXZ
-void fight::PrintTrack::FUN_00238a50() {
-    *(hulk_uintptr*)this = (hulk_uintptr)&hulk_at_004282fc;
-    ReleaseThing_0008d340(this->f_10);
-    ReleaseThing_0008d340(this->f_14);
-    ((PrintTrack_nv_238a50*)this)->Cleanup_00236d60();
+// 0x00238a50 fight::PrintTrack::~PrintTrack (38 B): matches/0x00238a50.cpp
+// sym: ??1PrintTrack@fight@@UAE@XZ
+// (gx4, D19/D14) the class's destructor (was a TU-local stand-in): it frees the strings (operator delete[]), then
+// the base destructor; MSVC 7.1 also inlines it into the scalar deleting destructor below
+fight::PrintTrack::~PrintTrack() {
+    delete[] f_10;
+    delete[] f_14;
 }
+
+
 
 namespace fn_fbe81dc2 {
 
@@ -482,61 +488,24 @@ bool fight::PrintAction::vfunc_3(hulk_intptr a, hulk_intptr b) {
 
 namespace fn_fbe81dc2 {
 
+} // namespace fn_fbe81dc2
+
 // 0x00238ca0 fight::PrintCondition::vfunc_5 (59 B): matches/0x00238ca0.cpp
-// sym: ?v5@PrintCondition_238ca0@fn_fbe81dc2@@UAEPAXE@Z
-// Same code shape as 0x0012fc90 (propagated; names are from that function)
-void* PrintCondition_238ca0::v5(unsigned char flag) {
-    *(char**)this = ((char*)DAT_004282dc);
-    thunk_FUN_00267090(m_p1);
-    thunk_FUN_00267090b_0008d340(m_p2);
-    ((BaseCls_238ca0*)this)->Dtor_002345b0();
-    if (flag & 1) {
-        thunk_FUN_00267090c_0008d330(this);
-    }
-    return this;
-}
+// sym: ??_GPrintCondition@fight@@UAEPAXI@Z
+// (gx4, D19/D14) the implicit scalar deleting destructor: MSVC 7.1 emits it beside the class's vftable, which the
+// destructor (0x002388e0, this TU) stores, with that destructor inlined
+
+namespace fn_fbe81dc2 {
+
 
 } // namespace fn_fbe81dc2
 
-// 0x00238ce0 fight::PrintTrack::vfunc_5 (59 B): matches/0x00238ce0.cpp [wrapped: conflict: PrintTrack]
-// sym: ?vfunc_5@PrintTrack@fn_00238ce0@@UAEPAV12@E@Z
-namespace fn_00238ce0 {
-extern "C" char DAT_004282fc[];
-void __cdecl thunk_FUN_00267090(void* p);
-void __cdecl thunk_FUN_00267090_b(void* p);
-class Track {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5(unsigned char);
-    virtual void v6();
-    virtual void v7();
-    virtual void v8();
-    virtual void v9();
-    virtual void v10();
-    virtual void v11();
-    void FUN_00236d60();
-    char pad[8];
-    int a;
-    int b;
-};
-class PrintTrack : public Track {
-  public:
-    virtual PrintTrack* vfunc_5(unsigned char);
-};
-PrintTrack* PrintTrack::vfunc_5(unsigned char p) {
-    *(hulk_intptr*)this = ((hulk_intptr)DAT_004282fc);
-    thunk_FUN_00267090((void*)(*(hulk_intptr*)((char*)&this->b)));
-    thunk_FUN_00267090((void*)(*(hulk_intptr*)((char*)this + 0x14)));
-    FUN_00236d60();
-    if (p & 1)
-        thunk_FUN_00267090_b((void*)this);
-    return this;
-}
-} // namespace fn_00238ce0
+// 0x00238ce0 fight::PrintTrack::vfunc_5 (59 B): matches/0x00238ce0.cpp
+// sym: ??_GPrintTrack@fight@@UAEPAXI@Z
+// (gx4, D19/D14) the implicit scalar deleting destructor: MSVC 7.1 emits it beside the class's vftable, which the
+// destructor (0x00238a50, this TU) stores, with that destructor inlined
+
+
 
 namespace fn_fbe81dc2 {
 

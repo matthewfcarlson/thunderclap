@@ -914,7 +914,7 @@ template <> int fight::TrackFactoryCasterTemplate<hulkfight::ai::FaceMotionTrack
 
 // 0x0010bc00 FUN_0010bc00 (158 B): matches/0x0010bc00.cpp
 // sym: ?FUN_0010bc00@@YAXXZ
-// (gx2, D18) from FaceTargetAction.new_throw.cpp; constructs the real ParamFloatConstRange<hulkai::FaceTargetTrack>,
+// (gx2, D18) from FaceTargetAction.new_throw.cpp; constructs the real ParamFloatConstRange<hulkfight::ai::FaceTargetTrack>,
 // whose vftable and scalar deleting destructor it emits
 void FUN_0010bc00()
 {
@@ -931,7 +931,7 @@ void FUN_0010bc00()
 
 // 0x0010bca0 FUN_0010bca0 (158 B): matches/0x0010bca0.cpp
 // sym: ?FUN_0010bca0@@YAXXZ
-// (gx2, D18) from FaceTargetAction.new_throw.cpp; constructs the real ParamFloatConstRange<hulkai::FaceMotionTrack>,
+// (gx2, D18) from FaceTargetAction.new_throw.cpp; constructs the real ParamFloatConstRange<hulkfight::ai::FaceMotionTrack>,
 // whose vftable and scalar deleting destructor it emits
 void FUN_0010bca0()
 {

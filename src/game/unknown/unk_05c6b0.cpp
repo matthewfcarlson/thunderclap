@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x0005c6b0..0x0005d190 (kind game, layer game, confidence low)
 #include "tree_prelude.h"
+#define HULK_FIGHT_PARAM_IMPLICIT   // (gx2, D18) include/gen/fight.h: the parameter templates constructed for real
 #include "decls/data/game/global.h"
 #include "decls/data/game/hulkfight.h"
 #include "decls/data/game/unknown.h"
@@ -10,6 +11,28 @@
 #define TREE_TU_END }
 namespace fn_f35d11f7 {} using namespace fn_f35d11f7;
 #include "game/unknown.h"
+void* operator new(size_t) HULK_NEW_THROW;   // (gx2, D18) the game's operator new (0x0008d690)
+extern "C" void __cdecl FUN_002347b0(void* list, void* params, int count);   // (gx2, D18) a parameter list's set-up
+namespace fn_f8b0a0f7 { struct S_5a240; } 
+namespace fn_f8b0a0f7 { struct S_5a390; } 
+namespace fn_f8b0a0f7 { struct V; } 
+namespace fn_f8b0a0f7 { struct Vec3; } 
+namespace fn_f8b0a0f7 { struct Vec3_5a1b0; } 
+namespace fn_ff0a839e { class C_12af0; } 
+namespace fn_ff0a839e { class Obj_12990; } 
+namespace fn_ff0a839e { struct S_12be0; } namespace fn_ff0a839e { struct S_12be0; } 
+namespace fn_ff0a839e { struct T; } 
+namespace fn_ff0a839e { void * __fastcall FUN_00012970(void *); }   // (gx3, D18) a setter, as defined in unk_011000.cpp
+namespace fn_ff0a839e { void * __fastcall FUN_00012990(class fn_ff0a839e::Obj_12990 *); }   // (gx3, D18) a setter, as defined in unk_011000.cpp
+namespace fn_ff0a839e { int * __fastcall FUN_00012af0(class fn_ff0a839e::C_12af0 *); }   // (gx3, D18) a setter, as defined in unk_011000.cpp
+namespace fn_ff0a839e { struct fn_ff0a839e::S_12be0 * __fastcall FUN_00012be0(struct fn_ff0a839e::S_12be0 *); }   // (gx3, D18) a setter, as defined in unk_011000.cpp
+namespace fn_f8b0a0f7 { struct C_5a240 { bool Set(struct fn_f8b0a0f7::S_5a240 const *); }; }   // (gx3, D18) setters, as defined in CFightParamsCollision.cpp
+namespace fn_f8b0a0f7 { struct O_5a140 { char Set(struct fn_f8b0a0f7::V *); }; }   // (gx3, D18) setters, as defined in CFightParamsCollision.cpp
+namespace fn_f8b0a0f7 { struct O_5a390 { bool Set(struct fn_f8b0a0f7::S_5a390 *); }; }   // (gx3, D18) setters, as defined in CFightParamsCollision.cpp
+namespace fn_f8b0a0f7 { struct Obj { unsigned char FUN_0005a180(struct fn_f8b0a0f7::Vec3 const *); }; }   // (gx3, D18) setters, as defined in CFightParamsCollision.cpp
+namespace fn_f8b0a0f7 { struct Obj_5a1b0 { bool Set(struct fn_f8b0a0f7::Vec3_5a1b0 const *); }; }   // (gx3, D18) setters, as defined in CFightParamsCollision.cpp
+namespace fn_ff0a839e { struct O_12980 { struct fn_ff0a839e::T * Get(); }; }   // (gx3, D18) setters, as defined in unk_011000.cpp
+namespace fn_ff0a839e { struct Obj_12960 { void * Get(); }; }   // (gx3, D18) setters, as defined in unk_011000.cpp
 
 // ---- declarations shared by the functions below
 inline void* operator new(size_t, void* p) throw() { return p; }
@@ -80,7 +103,6 @@ public:
 namespace fn_f35d11f7 {
 extern ParamRegistry hulk_at_004dc590;
 extern int hulk_at_004dc594;
-extern "C" void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 class CGrappleAttachTrack_5ca20 {
 public:
     bool FUN_0005a120(int); /* (unb4) as defined; address taken only */
@@ -245,258 +267,248 @@ class X_5d150 {
 };
 
 
-// 0x0005c6b0 FUN_0005c6b0 (868 B): equivalent/0x0005c6b0.cpp
-// sym: _FUN_0005c6b0 @8c9ae9661be1 @w58187241c629
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 34/34)
-// FUN_0005c6b0 @ 0x0005c6b0
+} // namespace fn_f35d11f7
+
+// 0x0005bfa0 fight::ParamFloatConstRange<CGrappleLocoStrafe4Track>::vfunc_0 (30 B): matches/0x0005bfa0.cpp
+// sym: ??_G?$ParamFloatConstRange@VCGrappleLocoStrafe4Track@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CGrappleOpportunityTrack.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0005c6b0 / FUN_0005ca20 / FUN_0005cd20 / FUN_0005cf20)
+
+
+
+// 0x0005bfc0 fight::ParamIntConstRange<CGrappleLocoStrafe4Track>::vfunc_0 (30 B): matches/0x0005bfc0.cpp
+// sym: ??_G?$ParamIntConstRange@VCGrappleLocoStrafe4Track@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CGrappleOpportunityTrack.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0005c6b0 / FUN_0005ca20 / FUN_0005cd20 / FUN_0005cf20)
+
+
+
+// 0x0005bfe0 fight::ParamFloatConstRange<CGrappleAttachTrack>::vfunc_0 (30 B): matches/0x0005bfe0.cpp
+// sym: ??_G?$ParamFloatConstRange@VCGrappleAttachTrack@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CGrappleOpportunityTrack.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0005c6b0 / FUN_0005ca20 / FUN_0005cd20 / FUN_0005cf20)
+
+
+
+// 0x0005c000 fight::ParamBool<CGrappleAttachTrack>::vfunc_0 (30 B): matches/0x0005c000.cpp
+// sym: ??_G?$ParamBool@VCGrappleAttachTrack@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CGrappleOpportunityTrack.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0005c6b0 / FUN_0005ca20 / FUN_0005cd20 / FUN_0005cf20)
+
+
+
+// 0x0005c020 fight::ParamVector<CGrappleAttachTrack>::vfunc_0 (30 B): matches/0x0005c020.cpp
+// sym: ??_G?$ParamVector@VCGrappleAttachTrack@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CGrappleOpportunityTrack.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0005c6b0 / FUN_0005ca20 / FUN_0005cd20 / FUN_0005cf20)
+
+
+
+// 0x0005c040 fight::ParamIntConstRange<CGrappleAttachTrack>::vfunc_0 (30 B): matches/0x0005c040.cpp
+// sym: ??_G?$ParamIntConstRange@VCGrappleAttachTrack@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CGrappleOpportunityTrack.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0005c6b0 / FUN_0005ca20 / FUN_0005cd20 / FUN_0005cf20)
+
+
+
+// 0x0005c060 fight::ParamFloatConstRange<CGrappleSwapTrack>::vfunc_0 (30 B): matches/0x0005c060.cpp
+// sym: ??_G?$ParamFloatConstRange@VCGrappleSwapTrack@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CGrappleOpportunityTrack.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0005c6b0 / FUN_0005ca20 / FUN_0005cd20 / FUN_0005cf20)
+
+
+
+// 0x0005c080 fight::ParamBool<CGrappleSwapTrack>::vfunc_0 (30 B): matches/0x0005c080.cpp
+// sym: ??_G?$ParamBool@VCGrappleSwapTrack@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CGrappleOpportunityTrack.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0005c6b0 / FUN_0005ca20 / FUN_0005cd20 / FUN_0005cf20)
+
+
+
+// 0x0005c0a0 fight::ParamVector<CGrappleSwapTrack>::vfunc_0 (30 B): matches/0x0005c0a0.cpp
+// sym: ??_G?$ParamVector@VCGrappleSwapTrack@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CGrappleOpportunityTrack.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0005c6b0 / FUN_0005ca20 / FUN_0005cd20 / FUN_0005cf20)
+
+
+
+// 0x0005c0c0 fight::ParamIntConstRange<CGrappleSwapTrack>::vfunc_0 (30 B): matches/0x0005c0c0.cpp
+// sym: ??_G?$ParamIntConstRange@VCGrappleSwapTrack@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CGrappleOpportunityTrack.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0005c6b0 / FUN_0005ca20 / FUN_0005cd20 / FUN_0005cf20)
+
+
+
+// 0x0005c1e0 fight::ParamFloatConstRange<CGrabTrack>::vfunc_0 (30 B): matches/0x0005c1e0.cpp
+// sym: ??_G?$ParamFloatConstRange@VCGrabTrack@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CGrappleOpportunityTrack.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0005c6b0 / FUN_0005ca20 / FUN_0005cd20 / FUN_0005cf20)
+
+
+
+// 0x0005c200 fight::ParamVector<CGrabTrack>::vfunc_0 (30 B): matches/0x0005c200.cpp
+// sym: ??_G?$ParamVector@VCGrabTrack@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CGrappleOpportunityTrack.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0005c6b0 / FUN_0005ca20 / FUN_0005cd20 / FUN_0005cf20)
+
+
+
+// 0x0005c220 fight::ParamIntConstRange<CGrabTrack>::vfunc_0 (30 B): matches/0x0005c220.cpp
+// sym: ??_G?$ParamIntConstRange@VCGrabTrack@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CGrappleOpportunityTrack.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0005c6b0 / FUN_0005ca20 / FUN_0005cd20 / FUN_0005cf20)
+
+
+
+// 0x0005c240 fight::ParamBool<CGrabTrack>::vfunc_0 (30 B): matches/0x0005c240.cpp
+// sym: ??_G?$ParamBool@VCGrabTrack@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CGrappleOpportunityTrack.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0005c6b0 / FUN_0005ca20 / FUN_0005cd20 / FUN_0005cf20)
+
+
+
+// 0x0005c260 fight::ParamBranch<CGrabTrack>::vfunc_0 (30 B): matches/0x0005c260.cpp
+// sym: ??_G?$ParamBranch@VCGrabTrack@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CGrappleOpportunityTrack.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0005c6b0 / FUN_0005ca20 / FUN_0005cd20 / FUN_0005cf20)
+
+
+
+// 0x0005c630 fight::ParamName<CGrappleLocoStrafe4Track>::vfunc_0 (30 B): matches/0x0005c630.cpp
+// sym: ??_G?$ParamName@VCGrappleLocoStrafe4Track@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CGrappleOpportunityTrack.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0005c6b0 / FUN_0005ca20 / FUN_0005cd20 / FUN_0005cf20)
+
+
+
+// 0x0005c650 fight::ParamNameConstList<CGrappleAttachTrack>::vfunc_0 (30 B): matches/0x0005c650.cpp
+// sym: ??_G?$ParamNameConstList@VCGrappleAttachTrack@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CGrappleOpportunityTrack.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0005c6b0 / FUN_0005ca20 / FUN_0005cd20 / FUN_0005cf20)
+
+
+
+// 0x0005c670 fight::ParamNameConstList<CGrappleSwapTrack>::vfunc_0 (30 B): matches/0x0005c670.cpp
+// sym: ??_G?$ParamNameConstList@VCGrappleSwapTrack@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CGrappleOpportunityTrack.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0005c6b0 / FUN_0005ca20 / FUN_0005cd20 / FUN_0005cf20)
+
+
+
+// 0x0005c690 fight::ParamNameConstList<CGrabTrack>::vfunc_0 (30 B): matches/0x0005c690.cpp
+// sym: ??_G?$ParamNameConstList@VCGrabTrack@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CGrappleOpportunityTrack.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0005c6b0 / FUN_0005ca20 / FUN_0005cd20 / FUN_0005cf20)
+
+
+
+// 0x0005c6b0 FUN_0005c6b0 (868 B): matches/0x0005c6b0.cpp
+// sym: _FUN_0005c6b0
+// (gx2, D18) rewritten; constructs the real ParamFloatConstRange<CGrappleLocoStrafe4Track>, ParamIntConstRange<CGrappleLocoStrafe4Track>, ParamName<CGrappleLocoStrafe4Track>,
+// whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_0005c6b0()
 {
-    if (hulk_at_004dc594 == 0) {
-        void* params[16];
-        void* mem;
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>));
-        params[0] = 0;
-        if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>("timeBegin", &::CGrappleLocoStrafe4Track_5c6b0::FUN_0005a0d0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>));
-        params[1] = 0;
-        if (mem)
-            params[1] = new (mem) fight::ParamFloatConstRange_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>("timeEnd", &::CGrappleLocoStrafe4Track_5c6b0::FUN_0005a0e0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamName_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>));
-        params[2] = 0;
-        if (mem)
-            params[2] = new (mem) fight::ParamName_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>("locomotion", &::CGrappleLocoStrafe4Track_5c6b0::FUN_00012900);
-        mem = FUN_0008d690((int)sizeof(fight::ParamName_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>));
-        params[3] = 0;
-        if (mem)
-            params[3] = new (mem) fight::ParamName_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>("animIdle", &::CGrappleLocoStrafe4Track_5c6b0::FUN_00012910);
-        mem = FUN_0008d690((int)sizeof(fight::ParamName_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>));
-        params[4] = 0;
-        if (mem)
-            params[4] = new (mem) fight::ParamName_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>("animWalkNorth", &::CGrappleLocoStrafe4Track_5c6b0::FUN_00012920);
-        mem = FUN_0008d690((int)sizeof(fight::ParamName_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>));
-        params[5] = 0;
-        if (mem)
-            params[5] = new (mem) fight::ParamName_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>("animWalkEast", &::CGrappleLocoStrafe4Track_5c6b0::FUN_00012930);
-        mem = FUN_0008d690((int)sizeof(fight::ParamName_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>));
-        params[6] = 0;
-        if (mem)
-            params[6] = new (mem) fight::ParamName_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>("animWalkSouth", &::CGrappleLocoStrafe4Track_5c6b0::FUN_00012940);
-        mem = FUN_0008d690((int)sizeof(fight::ParamName_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>));
-        params[7] = 0;
-        if (mem)
-            params[7] = new (mem) fight::ParamName_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>("animWalkWest", &::CGrappleLocoStrafe4Track_5c6b0::FUN_00012950);
-        mem = FUN_0008d690((int)sizeof(fight::ParamName_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>));
-        params[8] = 0;
-        if (mem)
-            params[8] = new (mem) fight::ParamName_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>("animRunNorth", &::CGrappleLocoStrafe4Track_5c6b0::FUN_00012960);
-        mem = FUN_0008d690((int)sizeof(fight::ParamName_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>));
-        params[9] = 0;
-        if (mem)
-            params[9] = new (mem) fight::ParamName_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>("animRunEast", &::CGrappleLocoStrafe4Track_5c6b0::FUN_00012970);
-        mem = FUN_0008d690((int)sizeof(fight::ParamName_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>));
-        params[10] = 0;
-        if (mem)
-            params[10] = new (mem) fight::ParamName_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>("animRunSouth", &::CGrappleLocoStrafe4Track_5c6b0::FUN_00012980);
-        mem = FUN_0008d690((int)sizeof(fight::ParamName_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>));
-        params[11] = 0;
-        if (mem)
-            params[11] = new (mem) fight::ParamName_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>("animRunWest", &::CGrappleLocoStrafe4Track_5c6b0::FUN_00012990);
-        mem = FUN_0008d690((int)sizeof(fight::ParamName_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>));
-        params[12] = 0;
-        if (mem)
-            params[12] = new (mem) fight::ParamName_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>("partition", &::CGrappleLocoStrafe4Track_5c6b0::FUN_000129a0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>));
-        params[13] = 0;
-        if (mem)
-            params[13] = new (mem) fight::ParamIntConstRange_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>("priority", &::CGrappleLocoStrafe4Track_5c6b0::FUN_0005a0f0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>));
-        params[14] = 0;
-        if (mem)
-            params[14] = new (mem) fight::ParamFloatConstRange_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>("blendInTime", &::CGrappleLocoStrafe4Track_5c6b0::FUN_0005a100);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>));
-        params[15] = 0;
-        if (mem)
-            params[15] = new (mem) fight::ParamFloatConstRange_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>("blendOutTime", &::CGrappleLocoStrafe4Track_5c6b0::FUN_0005a110);
-        FUN_002347b0(&hulk_at_004dc590, params, 16);
+    if ((*(int*)&DAT_004dc594) == 0) {
+        ::fight::ParamValue* params[16];
+        params[0] = new ::fight::ParamFloatConstRange< ::CGrappleLocoStrafe4Track>("timeBegin", &owners::O_5a0d0::FUN_0005a0d0);
+        params[1] = new ::fight::ParamFloatConstRange< ::CGrappleLocoStrafe4Track>("timeEnd", &owners::Obj_5a0e0::FUN_0005a0e0);
+        params[2] = new ::fight::ParamName< ::CGrappleLocoStrafe4Track>("locomotion", &owners::Obj_12900::FUN_00012900);
+        params[3] = new ::fight::ParamName< ::CGrappleLocoStrafe4Track>("animIdle", &owners::Obj_12910::FUN_00012910);
+        params[4] = new ::fight::ParamName< ::CGrappleLocoStrafe4Track>("animWalkNorth", &owners::X_12920::FUN_00012920);
+        params[5] = new ::fight::ParamName< ::CGrappleLocoStrafe4Track>("animWalkEast", &owners::X_12930::FUN_00012930);
+        params[6] = new ::fight::ParamName< ::CGrappleLocoStrafe4Track>("animWalkSouth", &owners::Obj_12940::FUN_00012940);
+        params[7] = new ::fight::ParamName< ::CGrappleLocoStrafe4Track>("animWalkWest", &owners::C_12950::FUN_00012950);
+        params[8] = new ::fight::ParamName< ::CGrappleLocoStrafe4Track>("animRunNorth", &fn_ff0a839e::Obj_12960::Get);
+        params[9] = new ::fight::ParamName< ::CGrappleLocoStrafe4Track>("animRunEast", &fn_ff0a839e::FUN_00012970);
+        params[10] = new ::fight::ParamName< ::CGrappleLocoStrafe4Track>("animRunSouth", &fn_ff0a839e::O_12980::Get);
+        params[11] = new ::fight::ParamName< ::CGrappleLocoStrafe4Track>("animRunWest", &fn_ff0a839e::FUN_00012990);
+        params[12] = new ::fight::ParamName< ::CGrappleLocoStrafe4Track>("partition", &owners::Obj_129a0::FUN_000129a0);
+        params[13] = new ::fight::ParamIntConstRange< ::CGrappleLocoStrafe4Track>("priority", &owners::Obj_5a0f0::FUN_0005a0f0);
+        params[14] = new ::fight::ParamFloatConstRange< ::CGrappleLocoStrafe4Track>("blendInTime", &owners::Obj_5a100::FUN_0005a100);
+        params[15] = new ::fight::ParamFloatConstRange< ::CGrappleLocoStrafe4Track>("blendOutTime", &owners::Obj_5a110::FUN_0005a110);
+        FUN_002347b0(&DAT_004dc590, params, 16);
     }
-    hulk_at_004dc594++;
+    (*(int*)&DAT_004dc594)++;
 }
 
 
-// 0x0005ca20 FUN_0005ca20 (766 B): equivalent/0x0005ca20.cpp
-// sym: _FUN_0005ca20 @f524d4da3623 @w895e39d36e35
-// STATUS: equivalent (tools/equiv.py level 3: 66 inputs, branch coverage 30/30)
-// FUN_0005ca20 @ 0x0005ca20
+
+// 0x0005ca20 FUN_0005ca20 (766 B): matches/0x0005ca20.cpp
+// sym: _FUN_0005ca20
+// (gx2, D18) rewritten; constructs the real ParamBool<CGrappleAttachTrack>, ParamFloatConstRange<CGrappleAttachTrack>, ParamIntConstRange<CGrappleAttachTrack>, ParamNameConstList<CGrappleAttachTrack>, ParamVector<CGrappleAttachTrack>,
+// whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_0005ca20()
 {
     if (DAT_004dc59c == 0) {
-        void* params[14];
-        void* mem;
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5ca20<CGrappleAttachTrack_5ca20>));
-        params[0] = 0;
-        if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange_5ca20<CGrappleAttachTrack_5ca20>("timeBegin", (void (CGrappleAttachTrack_5ca20::*)())&CGrappleAttachTrack_5ca20::FUN_0005a120);
-        mem = FUN_0008d690((int)sizeof(fight::ParamNameConstList_5ca20<CGrappleAttachTrack_5ca20>));
-        params[1] = 0;
-        if (mem)
-            params[1] = new (mem) fight::ParamNameConstList_5ca20<CGrappleAttachTrack_5ca20>("joint", &CGrappleAttachTrack_5ca20::FUN_000129e0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamNameConstList_5ca20<CGrappleAttachTrack_5ca20>));
-        params[2] = 0;
-        if (mem)
-            params[2] = new (mem) fight::ParamNameConstList_5ca20<CGrappleAttachTrack_5ca20>("channel", &CGrappleAttachTrack_5ca20::FUN_000129f0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamBool_5ca20<CGrappleAttachTrack_5ca20>));
-        params[3] = 0;
-        if (mem)
-            params[3] = new (mem) fight::ParamBool_5ca20<CGrappleAttachTrack_5ca20>("useOffset", (void (CGrappleAttachTrack_5ca20::*)())&CGrappleAttachTrack_5ca20::FUN_0005a130);
-        mem = FUN_0008d690((int)sizeof(fight::ParamVector_5ca20<CGrappleAttachTrack_5ca20>));
-        params[4] = 0;
-        if (mem)
-            params[4] = new (mem) fight::ParamVector_5ca20<CGrappleAttachTrack_5ca20>("offsetPosition", (void (CGrappleAttachTrack_5ca20::*)())&CGrappleAttachTrack_5ca20::FUN_0005a140);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5ca20<CGrappleAttachTrack_5ca20>));
-        params[5] = 0;
-        if (mem)
-            params[5] = new (mem) fight::ParamFloatConstRange_5ca20<CGrappleAttachTrack_5ca20>("offsetOrientation", (void (CGrappleAttachTrack_5ca20::*)())&CGrappleAttachTrack_5ca20::FUN_0005a160);
-        mem = FUN_0008d690((int)sizeof(fight::ParamVector_5ca20<CGrappleAttachTrack_5ca20>));
-        params[6] = 0;
-        if (mem)
-            params[6] = new (mem) fight::ParamVector_5ca20<CGrappleAttachTrack_5ca20>("offsetAngle", (void (CGrappleAttachTrack_5ca20::*)())&CGrappleAttachTrack_5ca20::FUN_0005a180);
-        mem = FUN_0008d690((int)sizeof(fight::ParamNameConstList_5ca20<CGrappleAttachTrack_5ca20>));
-        params[7] = 0;
-        if (mem)
-            params[7] = new (mem) fight::ParamNameConstList_5ca20<CGrappleAttachTrack_5ca20>("orientJoint", &CGrappleAttachTrack_5ca20::FUN_00012a60);
-        mem = FUN_0008d690((int)sizeof(fight::ParamVector_5ca20<CGrappleAttachTrack_5ca20>));
-        params[8] = 0;
-        if (mem)
-            params[8] = new (mem) fight::ParamVector_5ca20<CGrappleAttachTrack_5ca20>("orientJointOffset", (void (CGrappleAttachTrack_5ca20::*)())&CGrappleAttachTrack_5ca20::FUN_0005a1b0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5ca20<CGrappleAttachTrack_5ca20>));
-        params[9] = 0;
-        if (mem)
-            params[9] = new (mem) fight::ParamFloatConstRange_5ca20<CGrappleAttachTrack_5ca20>("orientJointMinDistance", (void (CGrappleAttachTrack_5ca20::*)())&CGrappleAttachTrack_5ca20::FUN_0005a1d0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5ca20<CGrappleAttachTrack_5ca20>));
-        params[10] = 0;
-        if (mem)
-            params[10] = new (mem) fight::ParamFloatConstRange_5ca20<CGrappleAttachTrack_5ca20>("orientJointMaxDistance", (void (CGrappleAttachTrack_5ca20::*)())&CGrappleAttachTrack_5ca20::FUN_0005a1e0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamBool_5ca20<CGrappleAttachTrack_5ca20>));
-        params[11] = 0;
-        if (mem)
-            params[11] = new (mem) fight::ParamBool_5ca20<CGrappleAttachTrack_5ca20>("attachToGrapplee", (void (CGrappleAttachTrack_5ca20::*)())&CGrappleAttachTrack_5ca20::FUN_0005a1f0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_5ca20<CGrappleAttachTrack_5ca20>));
-        params[12] = 0;
-        if (mem)
-            params[12] = new (mem) fight::ParamIntConstRange_5ca20<CGrappleAttachTrack_5ca20>("rootPriority", (void (CGrappleAttachTrack_5ca20::*)())&CGrappleAttachTrack_5ca20::FUN_0005a200);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5ca20<CGrappleAttachTrack_5ca20>));
-        params[13] = 0;
-        if (mem)
-            params[13] = new (mem) fight::ParamFloatConstRange_5ca20<CGrappleAttachTrack_5ca20>("rootBlendInTime", (void (CGrappleAttachTrack_5ca20::*)())&CGrappleAttachTrack_5ca20::FUN_0005a210);
-        FUN_002347b0(((ParamRegistry*)&DAT_004dc598), params, 14);
+        ::fight::ParamValue* params[14];
+        params[0] = new ::fight::ParamFloatConstRange< ::CGrappleAttachTrack>("timeBegin", &owners::C_5a120::FUN_0005a120);
+        params[1] = new ::fight::ParamNameConstList< ::CGrappleAttachTrack>("joint", &owners::A_129e0::FUN_000129e0);
+        params[2] = new ::fight::ParamNameConstList< ::CGrappleAttachTrack>("channel", &owners::Obj_129f0::FUN_000129f0);
+        params[3] = new ::fight::ParamBool< ::CGrappleAttachTrack>("useOffset", &owners::Obj_5a130::FUN_0005a130);
+        params[4] = new ::fight::ParamVector< ::CGrappleAttachTrack>("offsetPosition", &fn_f8b0a0f7::O_5a140::Set);
+        params[5] = new ::fight::ParamFloatConstRange< ::CGrappleAttachTrack>("offsetOrientation", &owners::Obj_5a160::FUN_0005a160);
+        params[6] = new ::fight::ParamVector< ::CGrappleAttachTrack>("offsetAngle", &fn_f8b0a0f7::Obj::FUN_0005a180);
+        params[7] = new ::fight::ParamNameConstList< ::CGrappleAttachTrack>("orientJoint", &owners::Obj_12a60::FUN_00012a60);
+        params[8] = new ::fight::ParamVector< ::CGrappleAttachTrack>("orientJointOffset", &fn_f8b0a0f7::Obj_5a1b0::Set);
+        params[9] = new ::fight::ParamFloatConstRange< ::CGrappleAttachTrack>("orientJointMinDistance", &owners::Obj_5a1d0::FUN_0005a1d0);
+        params[10] = new ::fight::ParamFloatConstRange< ::CGrappleAttachTrack>("orientJointMaxDistance", &owners::Obj_5a1e0::FUN_0005a1e0);
+        params[11] = new ::fight::ParamBool< ::CGrappleAttachTrack>("attachToGrapplee", &owners::Obj_5a1f0::FUN_0005a1f0);
+        params[12] = new ::fight::ParamIntConstRange< ::CGrappleAttachTrack>("rootPriority", &owners::Obj_5a200::FUN_0005a200);
+        params[13] = new ::fight::ParamFloatConstRange< ::CGrappleAttachTrack>("rootBlendInTime", &owners::Obj_5a210::FUN_0005a210);
+        FUN_002347b0(&DAT_004dc598, params, 14);
     }
     DAT_004dc59c++;
 }
 
 
-// 0x0005cd20 FUN_0005cd20 (511 B): equivalent/0x0005cd20.cpp
-// sym: _FUN_0005cd20 @28668867e3d2 @wd9d64ba1b0a1
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 20/20)
-// FUN_0005cd20 @ 0x0005cd20
+
+// 0x0005cd20 FUN_0005cd20 (511 B): matches/0x0005cd20.cpp
+// sym: _FUN_0005cd20
+// (gx2, D18) rewritten; constructs the real ParamBool<CGrappleSwapTrack>, ParamFloatConstRange<CGrappleSwapTrack>, ParamIntConstRange<CGrappleSwapTrack>, ParamNameConstList<CGrappleSwapTrack>, ParamVector<CGrappleSwapTrack>,
+// whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_0005cd20()
 {
     if (DAT_004dc5a4 == 0) {
-        void* params[9];
-        void* mem;
-        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CGrappleSwapTrack_5cd20>));
-        params[0] = 0;
-        if (mem)
-            params[0] = new (mem) ParamFloatConstRange<CGrappleSwapTrack_5cd20>("timeBegin", (void (CGrappleSwapTrack_5cd20::*)())&CGrappleSwapTrack_5cd20::FUN_0005a220);
-        mem = FUN_0008d690((int)sizeof(ParamNameConstList<CGrappleSwapTrack_5cd20>));
-        params[1] = 0;
-        if (mem)
-            params[1] = new (mem) ParamNameConstList<CGrappleSwapTrack_5cd20>("joint", &CGrappleSwapTrack_5cd20::FUN_00012ae0);
-        mem = FUN_0008d690((int)sizeof(ParamNameConstList<CGrappleSwapTrack_5cd20>));
-        params[2] = 0;
-        if (mem)
-            params[2] = new (mem) ParamNameConstList<CGrappleSwapTrack_5cd20>("channel", &CGrappleSwapTrack_5cd20::FUN_00012af0);
-        mem = FUN_0008d690((int)sizeof(ParamBool<CGrappleSwapTrack_5cd20>));
-        params[3] = 0;
-        if (mem)
-            params[3] = new (mem) ParamBool<CGrappleSwapTrack_5cd20>("useOffset", (void (CGrappleSwapTrack_5cd20::*)())&CGrappleSwapTrack_5cd20::FUN_0005a230);
-        mem = FUN_0008d690((int)sizeof(ParamVector<CGrappleSwapTrack_5cd20>));
-        params[4] = 0;
-        if (mem)
-            params[4] = new (mem) ParamVector<CGrappleSwapTrack_5cd20>("offsetPosition", (void (CGrappleSwapTrack_5cd20::*)())&CGrappleSwapTrack_5cd20::FUN_0005a240);
-        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CGrappleSwapTrack_5cd20>));
-        params[5] = 0;
-        if (mem)
-            params[5] = new (mem) ParamFloatConstRange<CGrappleSwapTrack_5cd20>("offsetOrientation", (void (CGrappleSwapTrack_5cd20::*)())&CGrappleSwapTrack_5cd20::FUN_0005a260);
-        mem = FUN_0008d690((int)sizeof(ParamIntConstRange<CGrappleSwapTrack_5cd20>));
-        params[6] = 0;
-        if (mem)
-            params[6] = new (mem) ParamIntConstRange<CGrappleSwapTrack_5cd20>("rootPriority", (void (CGrappleSwapTrack_5cd20::*)())&CGrappleSwapTrack_5cd20::FUN_0005a280);
-        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CGrappleSwapTrack_5cd20>));
-        params[7] = 0;
-        if (mem)
-            params[7] = new (mem) ParamFloatConstRange<CGrappleSwapTrack_5cd20>("rootBlendInTime", (void (CGrappleSwapTrack_5cd20::*)())&CGrappleSwapTrack_5cd20::FUN_0005a290);
-        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CGrappleSwapTrack_5cd20>));
-        params[8] = 0;
-        if (mem)
-            params[8] = new (mem) ParamFloatConstRange<CGrappleSwapTrack_5cd20>("rootBlendOutTime", (void (CGrappleSwapTrack_5cd20::*)())&CGrappleSwapTrack_5cd20::FUN_0005a2a0);
-        FUN_002347b0(((ParamRegistry*)&DAT_004dc5a0), params, 9);
+        ::fight::ParamValue* params[9];
+        params[0] = new ::fight::ParamFloatConstRange< ::CGrappleSwapTrack>("timeBegin", &owners::C_5a220::FUN_0005a220);
+        params[1] = new ::fight::ParamNameConstList< ::CGrappleSwapTrack>("joint", &owners::Obj_12ae0::FUN_00012ae0);
+        params[2] = new ::fight::ParamNameConstList< ::CGrappleSwapTrack>("channel", &fn_ff0a839e::FUN_00012af0);
+        params[3] = new ::fight::ParamBool< ::CGrappleSwapTrack>("useOffset", &owners::O_5a230::FUN_0005a230);
+        params[4] = new ::fight::ParamVector< ::CGrappleSwapTrack>("offsetPosition", &fn_f8b0a0f7::C_5a240::Set);
+        params[5] = new ::fight::ParamFloatConstRange< ::CGrappleSwapTrack>("offsetOrientation", &owners::Thing_5a260::FUN_0005a260);
+        params[6] = new ::fight::ParamIntConstRange< ::CGrappleSwapTrack>("rootPriority", &owners::Obj_5a280::FUN_0005a280);
+        params[7] = new ::fight::ParamFloatConstRange< ::CGrappleSwapTrack>("rootBlendInTime", &owners::Obj_5a290::FUN_0005a290);
+        params[8] = new ::fight::ParamFloatConstRange< ::CGrappleSwapTrack>("rootBlendOutTime", &owners::Obj_5a2a0::FUN_0005a2a0);
+        FUN_002347b0(&DAT_004dc5a0, params, 9);
     }
     DAT_004dc5a4++;
 }
 
 
-// 0x0005cf20 FUN_0005cf20 (511 B): equivalent/0x0005cf20.cpp
-// sym: _FUN_0005cf20 @b38df0393e62 @wd2b064cb7759
-// STATUS: equivalent (tools/equiv.py level 3: 84 inputs, branch coverage 20/20)
-// FUN_0005cf20 @ 0x0005cf20
+
+// 0x0005cf20 FUN_0005cf20 (511 B): matches/0x0005cf20.cpp
+// sym: _FUN_0005cf20
+// (gx2, D18) rewritten; constructs the real ParamBool<CGrabTrack>, ParamBranch<CGrabTrack>, ParamFloatConstRange<CGrabTrack>, ParamIntConstRange<CGrabTrack>, ParamNameConstList<CGrabTrack>, ParamVector<CGrabTrack>,
+// whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_0005cf20()
 {
     if (DAT_004dc5c4 == 0) {
-        void* params[9];
-        void* mem;
-        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CGrabTrack_5cf20>));
-        params[0] = 0;
-        if (mem)
-            params[0] = new (mem) ParamFloatConstRange<CGrabTrack_5cf20>("timeBegin", (void (CGrabTrack_5cf20::*)())&CGrabTrack_5cf20::FUN_0005a360);
-        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CGrabTrack_5cf20>));
-        params[1] = 0;
-        if (mem)
-            params[1] = new (mem) ParamFloatConstRange<CGrabTrack_5cf20>("timeEnd", (void (CGrabTrack_5cf20::*)())&CGrabTrack_5cf20::FUN_0005a370);
-        mem = FUN_0008d690((int)sizeof(ParamNameConstList<CGrabTrack_5cf20>));
-        params[2] = 0;
-        if (mem)
-            params[2] = new (mem) ParamNameConstList<CGrabTrack_5cf20>("joint", &CGrabTrack_5cf20::FUN_0005a380);
-        mem = FUN_0008d690((int)sizeof(ParamVector<CGrabTrack_5cf20>));
-        params[3] = 0;
-        if (mem)
-            params[3] = new (mem) ParamVector<CGrabTrack_5cf20>("offset", (void (CGrabTrack_5cf20::*)())&CGrabTrack_5cf20::FUN_0005a390);
-        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CGrabTrack_5cf20>));
-        params[4] = 0;
-        if (mem)
-            params[4] = new (mem) ParamFloatConstRange<CGrabTrack_5cf20>("radius", (void (CGrabTrack_5cf20::*)())&CGrabTrack_5cf20::FUN_0005a3b0);
-        mem = FUN_0008d690((int)sizeof(ParamIntConstRange<CGrabTrack_5cf20>));
-        params[5] = 0;
-        if (mem)
-            params[5] = new (mem) ParamIntConstRange<CGrabTrack_5cf20>("interruptPriority", (void (CGrabTrack_5cf20::*)())&CGrabTrack_5cf20::FUN_0005a3c0);
-        mem = FUN_0008d690((int)sizeof(ParamBool<CGrabTrack_5cf20>));
-        params[6] = 0;
-        if (mem)
-            params[6] = new (mem) ParamBool<CGrabTrack_5cf20>("missileCatch", (void (CGrabTrack_5cf20::*)())&CGrabTrack_5cf20::FUN_0005a3d0);
-        mem = FUN_0008d690((int)sizeof(ParamBranch<CGrabTrack_5cf20>));
-        params[7] = 0;
-        if (mem)
-            params[7] = new (mem) ParamBranch<CGrabTrack_5cf20>("receiver", &CGrabTrack_5cf20::FUN_00012bd0);
-        mem = FUN_0008d690((int)sizeof(ParamBranch<CGrabTrack_5cf20>));
-        params[8] = 0;
-        if (mem)
-            params[8] = new (mem) ParamBranch<CGrabTrack_5cf20>("giver", &CGrabTrack_5cf20::FUN_00012be0);
-        FUN_002347b0(((ParamRegistry*)&DAT_004dc5c0), params, 9);
+        ::fight::ParamValue* params[9];
+        params[0] = new ::fight::ParamFloatConstRange< ::CGrabTrack>("timeBegin", &owners::Obj_5a360::FUN_0005a360);
+        params[1] = new ::fight::ParamFloatConstRange< ::CGrabTrack>("timeEnd", &owners::Obj_5a370::FUN_0005a370);
+        params[2] = new ::fight::ParamNameConstList< ::CGrabTrack>("joint", &owners::Obj_5a380::FUN_0005a380);
+        params[3] = new ::fight::ParamVector< ::CGrabTrack>("offset", &fn_f8b0a0f7::O_5a390::Set);
+        params[4] = new ::fight::ParamFloatConstRange< ::CGrabTrack>("radius", &owners::O_5a3b0::FUN_0005a3b0);
+        params[5] = new ::fight::ParamIntConstRange< ::CGrabTrack>("interruptPriority", &owners::Obj_5a3c0::FUN_0005a3c0);
+        params[6] = new ::fight::ParamBool< ::CGrabTrack>("missileCatch", &owners::Obj_5a3d0::FUN_0005a3d0);
+        params[7] = new ::fight::ParamBranch< ::CGrabTrack>("receiver", &owners::O_12bd0::FUN_00012bd0);
+        params[8] = new ::fight::ParamBranch< ::CGrabTrack>("giver", &fn_ff0a839e::FUN_00012be0);
+        FUN_002347b0(&DAT_004dc5c0, params, 9);
     }
     DAT_004dc5c4++;
 }
 
-} // namespace fn_f35d11f7
+
 
 // 0x0005d120 FUN_0005d120 (12 B): matches/0x0005d120.cpp
 // sym: ?FUN_0005d120@Obj_5d120@owners@@QAE_NH@Z

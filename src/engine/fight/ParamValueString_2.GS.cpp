@@ -1,6 +1,6 @@
 // cl-flags: /GS
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// object 0x002349e0..0x00234a90 (kind game, layer engine, confidence medium), dominant class fight::ParamValueString
+// object 0x002349e0..0x00234af0 (kind game, layer engine, confidence medium), dominant class fight::ParamValueString
 #include "tree_prelude.h"
 #define TREE_TU_BEGIN namespace fn_ff45ca36 {
 #define TREE_TU_END }

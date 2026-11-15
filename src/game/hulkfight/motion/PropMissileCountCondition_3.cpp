@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x00186ae0..0x00186b60 (kind game, layer game, confidence high), dominant class hulkfight::motion::PropMissileCountCondition
 #include "tree_prelude.h"
 #include "gen/fight.h"
@@ -31,24 +30,4 @@ template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::motion::PropMi
 
     return FUN_00344e74(s, 0, &DAT_00491ca8, &DAT_004bd988, 0) != 0;
 }
-
-
-// 0x00186b10 fight::ParamIntConstRange<hulkfight::motion::PropMissileCountCondition>::vfunc_0 (30 B): matches/0x00186b10.cpp
-// sym: ??_G?$ParamIntConstRange@VPropMissileCountCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
-// Same code shape as 0x00021840 (propagated; names are from that function)
-// scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamIntConstRange<hulkfight::motion::PropMissileCountCondition>::~ParamIntConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamIntConstRange<hulkfight::motion::PropMissileCountCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x186b10)
-#endif
-
-
-// 0x00186b30 fight::ParamEnumConstList<hulkfight::motion::PropMissileCountCondition>::vfunc_0 (30 B): matches/0x00186b30.cpp
-// sym: ??_G?$ParamEnumConstList@VPropMissileCountCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
-// Same code shape as 0x00021840 (propagated; names are from that function)
-// scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamEnumConstList<hulkfight::motion::PropMissileCountCondition>::~ParamEnumConstList() {}
-#if defined(HULK_PTR64)
-template class fight::ParamEnumConstList<hulkfight::motion::PropMissileCountCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x186b30)
-#endif
 

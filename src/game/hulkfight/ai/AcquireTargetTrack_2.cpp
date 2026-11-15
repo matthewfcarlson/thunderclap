@@ -795,7 +795,7 @@ namespace fn_f253994b {
 
 // 0x001284f0 FUN_001284f0 (176 B): matches/0x001284f0.cpp
 // sym: _FUN_001284f0
-// (gx2, D18) rewritten; constructs the real ParamEnumConstList<hulkai::TargetDirectionYCondition>, ParamIntConstRange<hulkai::TargetDirectionYCondition>,
+// (gx2, D18) rewritten; constructs the real ParamEnumConstList<hulkfight::ai::TargetDirectionYCondition>, ParamIntConstRange<hulkfight::ai::TargetDirectionYCondition>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_001284f0()
 {
@@ -812,7 +812,7 @@ extern "C" void FUN_001284f0()
 
 // 0x001285a0 FUN_001285a0 (190 B): matches/0x001285a0.cpp
 // sym: ?FUN_001285a0@@YAXXZ
-// (gx2, D18) from AcquireTargetTrack_2.new_plain.cpp; constructs the real ParamEnumConstList<hulkai::TargetTypeCondition>,
+// (gx2, D18) from AcquireTargetTrack_2.new_plain.cpp; constructs the real ParamEnumConstList<hulkfight::ai::TargetTypeCondition>,
 // whose vftable and scalar deleting destructor it emits
 void FUN_001285a0()
 {
@@ -829,7 +829,7 @@ void FUN_001285a0()
 
 // 0x00128660 FUN_00128660 (274 B): matches/0x00128660.cpp
 // sym: ?FUN_00128660@@YAXXZ
-// (gx2, D18) from AcquireTargetTrack_2.iso_00128660.cpp; constructs the real ParamBool<hulkai::TargetDistanceCondition>, ParamEnumConstList<hulkai::TargetDistanceCondition>, ParamFloatConstRange<hulkai::TargetDistanceCondition>,
+// (gx2, D18) from AcquireTargetTrack_2.iso_00128660.cpp; constructs the real ParamBool<hulkfight::ai::TargetDistanceCondition>, ParamEnumConstList<hulkfight::ai::TargetDistanceCondition>, ParamFloatConstRange<hulkfight::ai::TargetDistanceCondition>,
 // whose vftable and scalar deleting destructor it emits
 void FUN_00128660()
 {
@@ -848,7 +848,7 @@ void FUN_00128660()
 
 // 0x00128780 FUN_00128780 (176 B): matches/0x00128780.cpp
 // sym: _FUN_00128780
-// (gx2, D18) rewritten; constructs the real ParamEnumConstList<hulkai::TargetAngleYCondition>, ParamFloatConstRange<hulkai::TargetAngleYCondition>,
+// (gx2, D18) rewritten; constructs the real ParamEnumConstList<hulkfight::ai::TargetAngleYCondition>, ParamFloatConstRange<hulkfight::ai::TargetAngleYCondition>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_00128780()
 {
@@ -865,7 +865,7 @@ extern "C" void FUN_00128780()
 
 // 0x00128830 FUN_00128830 (176 B): matches/0x00128830.cpp
 // sym: _FUN_00128830
-// (gx2, D18) rewritten; constructs the real ParamEnumConstList<hulkai::TargetDirectionCondition>, ParamFloatConstRange<hulkai::TargetDirectionCondition>,
+// (gx2, D18) rewritten; constructs the real ParamEnumConstList<hulkfight::ai::TargetDirectionCondition>, ParamFloatConstRange<hulkfight::ai::TargetDirectionCondition>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_00128830()
 {
@@ -882,7 +882,7 @@ extern "C" void FUN_00128830()
 
 // 0x001288e0 FUN_001288e0 (325 B): matches/0x001288e0.cpp
 // sym: _FUN_001288e0
-// (gx2, D18) rewritten; constructs the real ParamBool<hulkai::TargetDistanceYCondition>, ParamEnumConstList<hulkai::TargetDistanceYCondition>, ParamFloatConstRange<hulkai::TargetDistanceYCondition>,
+// (gx2, D18) rewritten; constructs the real ParamBool<hulkfight::ai::TargetDistanceYCondition>, ParamEnumConstList<hulkfight::ai::TargetDistanceYCondition>, ParamFloatConstRange<hulkfight::ai::TargetDistanceYCondition>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_001288e0()
 {
@@ -902,7 +902,7 @@ extern "C" void FUN_001288e0()
 
 // 0x00128a30 FUN_00128a30 (158 B): matches/0x00128a30.cpp
 // sym: _FUN_00128a30
-// (gx2, D18) rewritten; constructs the real ParamFloatConstRange<hulkai::TargetOrientationCondition>,
+// (gx2, D18) rewritten; constructs the real ParamFloatConstRange<hulkfight::ai::TargetOrientationCondition>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_00128a30()
 {
@@ -919,7 +919,7 @@ extern "C" void FUN_00128a30()
 
 // 0x00128ad0 FUN_00128ad0 (274 B): matches/0x00128ad0.cpp
 // sym: _FUN_00128ad0
-// (gx2, D18) from AcquireTargetTrack_2.iso_00128ad0.cpp; constructs the real ParamBool<hulkai::ProjectileDistanceCondition>, ParamEnumConstList<hulkai::ProjectileDistanceCondition>, ParamFloatConstRange<hulkai::ProjectileDistanceCondition>,
+// (gx2, D18) from AcquireTargetTrack_2.iso_00128ad0.cpp; constructs the real ParamBool<hulkfight::ai::ProjectileDistanceCondition>, ParamEnumConstList<hulkfight::ai::ProjectileDistanceCondition>, ParamFloatConstRange<hulkfight::ai::ProjectileDistanceCondition>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_00128ad0()
 {
@@ -938,7 +938,7 @@ extern "C" void FUN_00128ad0()
 
 // 0x00128bf0 FUN_00128bf0 (95 B): matches/0x00128bf0.cpp
 // sym: _FUN_00128bf0
-// (gx2, D18) rewritten; constructs the real ParamBool<hulkai::HasTargetCondition>,
+// (gx2, D18) rewritten; constructs the real ParamBool<hulkfight::ai::HasTargetCondition>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_00128bf0()
 {
@@ -954,7 +954,7 @@ extern "C" void FUN_00128bf0()
 
 // 0x00128c50 FUN_00128c50 (176 B): matches/0x00128c50.cpp
 // sym: _FUN_00128c50
-// (gx2, D18) rewritten; constructs the real ParamEnumConstList<hulkai::TargetVelocityYCondition>, ParamFloatConstRange<hulkai::TargetVelocityYCondition>,
+// (gx2, D18) rewritten; constructs the real ParamEnumConstList<hulkfight::ai::TargetVelocityYCondition>, ParamFloatConstRange<hulkfight::ai::TargetVelocityYCondition>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_00128c50()
 {
@@ -971,7 +971,7 @@ extern "C" void FUN_00128c50()
 
 // 0x00128d00 FUN_00128d00 (176 B): matches/0x00128d00.cpp
 // sym: _FUN_00128d00
-// (gx2, D18) rewritten; constructs the real ParamEnumConstList<hulkai::TargetVelocityCondition>, ParamFloatConstRange<hulkai::TargetVelocityCondition>,
+// (gx2, D18) rewritten; constructs the real ParamEnumConstList<hulkfight::ai::TargetVelocityCondition>, ParamFloatConstRange<hulkfight::ai::TargetVelocityCondition>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_00128d00()
 {
@@ -988,7 +988,7 @@ extern "C" void FUN_00128d00()
 
 // 0x00128db0 FUN_00128db0 (274 B): matches/0x00128db0.cpp
 // sym: _FUN_00128db0
-// (gx2, D18) from AcquireTargetTrack_2.iso_00128db0.cpp; constructs the real ParamBool<hulkai::TargetDistanceXZCondition>, ParamEnumConstList<hulkai::TargetDistanceXZCondition>, ParamFloatConstRange<hulkai::TargetDistanceXZCondition>,
+// (gx2, D18) from AcquireTargetTrack_2.iso_00128db0.cpp; constructs the real ParamBool<hulkfight::ai::TargetDistanceXZCondition>, ParamEnumConstList<hulkfight::ai::TargetDistanceXZCondition>, ParamFloatConstRange<hulkfight::ai::TargetDistanceXZCondition>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_00128db0()
 {
@@ -1007,7 +1007,7 @@ extern "C" void FUN_00128db0()
 
 // 0x00128ed0 FUN_00128ed0 (213 B): matches/0x00128ed0.cpp
 // sym: _FUN_00128ed0
-// (gx2, D18) from AcquireTargetTrack_2.iso_00128ed0.cpp; constructs the real ParamBool<hulkai::AcquireTargetCondition>, ParamFloatConstRange<hulkai::AcquireTargetCondition>,
+// (gx2, D18) from AcquireTargetTrack_2.iso_00128ed0.cpp; constructs the real ParamBool<hulkfight::ai::AcquireTargetCondition>, ParamFloatConstRange<hulkfight::ai::AcquireTargetCondition>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_00128ed0()
 {
@@ -1025,7 +1025,7 @@ extern "C" void FUN_00128ed0()
 
 // 0x00128fb0 FUN_00128fb0 (176 B): matches/0x00128fb0.cpp
 // sym: _FUN_00128fb0
-// (gx2, D18) rewritten; constructs the real ParamEnumConstList<hulkai::TargetVelocityXZCondition>, ParamFloatConstRange<hulkai::TargetVelocityXZCondition>,
+// (gx2, D18) rewritten; constructs the real ParamEnumConstList<hulkfight::ai::TargetVelocityXZCondition>, ParamFloatConstRange<hulkfight::ai::TargetVelocityXZCondition>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_00128fb0()
 {
@@ -1042,7 +1042,7 @@ extern "C" void FUN_00128fb0()
 
 // 0x00129060 FUN_00129060 (176 B): matches/0x00129060.cpp
 // sym: _FUN_00129060
-// (gx2, D18) rewritten; constructs the real ParamEnumConstList<hulkai::TargetDirectionXZCondition>, ParamFloatConstRange<hulkai::TargetDirectionXZCondition>,
+// (gx2, D18) rewritten; constructs the real ParamEnumConstList<hulkfight::ai::TargetDirectionXZCondition>, ParamFloatConstRange<hulkfight::ai::TargetDirectionXZCondition>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_00129060()
 {
@@ -1059,7 +1059,7 @@ extern "C" void FUN_00129060()
 
 // 0x00129110 FUN_00129110 (95 B): matches/0x00129110.cpp
 // sym: _FUN_00129110
-// (gx2, D18) rewritten; constructs the real ParamBool<hulkai::TargetFirstShotCondition>,
+// (gx2, D18) rewritten; constructs the real ParamBool<hulkfight::ai::TargetFirstShotCondition>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_00129110()
 {
@@ -1075,7 +1075,7 @@ extern "C" void FUN_00129110()
 
 // 0x00129170 FUN_00129170 (95 B): matches/0x00129170.cpp
 // sym: _FUN_00129170
-// (gx2, D18) rewritten; constructs the real ParamBool<hulkai::TargetInvincibleCondition>,
+// (gx2, D18) rewritten; constructs the real ParamBool<hulkfight::ai::TargetInvincibleCondition>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_00129170()
 {
@@ -1091,7 +1091,7 @@ extern "C" void FUN_00129170()
 
 // 0x001291d0 FUN_001291d0 (158 B): matches/0x001291d0.cpp
 // sym: _FUN_001291d0
-// (gx2, D18) rewritten; constructs the real ParamBool<hulkai::CanSeeTargetCondition>,
+// (gx2, D18) rewritten; constructs the real ParamBool<hulkfight::ai::CanSeeTargetCondition>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_001291d0()
 {
@@ -1108,7 +1108,7 @@ extern "C" void FUN_001291d0()
 
 // 0x00129270 FUN_00129270 (158 B): matches/0x00129270.cpp
 // sym: _FUN_00129270
-// (gx2, D18) rewritten; constructs the real ParamBool<hulkai::TargetClearTrack>, ParamFloatConstRange<hulkai::TargetClearTrack>,
+// (gx2, D18) rewritten; constructs the real ParamBool<hulkfight::ai::TargetClearTrack>, ParamFloatConstRange<hulkfight::ai::TargetClearTrack>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_00129270()
 {
@@ -1125,7 +1125,7 @@ extern "C" void FUN_00129270()
 
 // 0x00129310 FUN_00129310 (358 B): matches/0x00129310.cpp
 // sym: _FUN_00129310
-// (gx2, D18) rewritten; constructs the real ParamBool<hulkai::AcquireTargetTrack>, ParamFloatConstRange<hulkai::AcquireTargetTrack>, ParamVector<hulkai::AcquireTargetTrack>,
+// (gx2, D18) rewritten; constructs the real ParamBool<hulkfight::ai::AcquireTargetTrack>, ParamFloatConstRange<hulkfight::ai::AcquireTargetTrack>, ParamVector<hulkfight::ai::AcquireTargetTrack>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_00129310()
 {
@@ -1146,7 +1146,7 @@ extern "C" void FUN_00129310()
 
 // 0x00129480 FUN_00129480 (213 B): matches/0x00129480.cpp
 // sym: ?FUN_00129480@@YAXXZ
-// (gx2, D18) from AcquireTargetTrack_2.iso_00129480.cpp; constructs the real ParamBool<hulkai::ClearProjectileDistanceTrack>, ParamFloatConstRange<hulkai::ClearProjectileDistanceTrack>,
+// (gx2, D18) from AcquireTargetTrack_2.iso_00129480.cpp; constructs the real ParamBool<hulkfight::ai::ClearProjectileDistanceTrack>, ParamFloatConstRange<hulkfight::ai::ClearProjectileDistanceTrack>,
 // whose vftable and scalar deleting destructor it emits
 void FUN_00129480()
 {

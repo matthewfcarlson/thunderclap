@@ -1,7 +1,9 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x00055220..0x00056af0 (kind game, layer game, confidence low)
 #include "tree_prelude.h"
+#define HULK_FIGHT_PARAM_IMPLICIT   // (gx2, D18) include/gen/fight.h: the parameter templates constructed for real
+#include "decls/data/game/unknown.h"   // (gx3, D18) for the merged registrations
+#include "gen/owners.h"   // (gx3, D18) for the merged registrations
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/global.h"
 #include "decls/data/engine/fight.h"   // (gx3, D32) its owner object's data, merged
@@ -10,6 +12,15 @@
 #define TREE_TU_END }
 namespace fn_fb762e08 {} using namespace fn_fb762e08;
 #include "game/global.h"
+void* operator new(size_t) HULK_NEW_THROW;   // (gx2, D18) the game's operator new (0x0008d690)
+extern "C" void __cdecl FUN_002347b0(void* list, void* params, int count);   // (gx2, D18) a parameter list's set-up
+namespace fn_f64b1530 { struct C_47ef0 { bool Set(int); }; }   // (gx3, D18) setters, as defined in unk_047970.cpp
+namespace fn_f64b1530 { struct C_47f10 { char Set(void const *); }; }   // (gx3, D18) setters, as defined in unk_047970.cpp
+namespace fn_f64b1530 { struct Obj_47e90 { bool SetCompare_00047e90(int); }; }   // (gx3, D18) setters, as defined in unk_047970.cpp
+namespace fn_f64b1530 { struct Obj_47ea0 { int * GetName_00047ea0(); }; }   // (gx3, D18) setters, as defined in unk_047970.cpp
+namespace fn_f64b1530 { struct Obj_47eb0 { bool SetAttachmentIndex_00047eb0(int); }; }   // (gx3, D18) setters, as defined in unk_047970.cpp
+namespace fn_f64b1530 { struct Obj_47ee0 { bool Set(int); }; }   // (gx3, D18) setters, as defined in unk_047970.cpp
+namespace fn_f64b1530 { struct Obj_47f00 { char * Get(); }; }   // (gx3, D18) setters, as defined in unk_047970.cpp
 
 // ---- declarations shared by the functions below
 namespace fn_fb762e08 {
@@ -19,6 +30,85 @@ class ParamBranch : public ParamValueBranch, public ParamValue {
     void(__fastcall* fn)(void*);
     virtual void vfunc_6(void*);
 };
+
+
+} // namespace fn_fb762e08
+
+// 0x000517b0 fight::ParamEnumConstList<CNameFlagConditionBase>::vfunc_0 (30 B): matches/0x000517b0.cpp
+// sym: ??_G?$ParamEnumConstList@VCNameFlagConditionBase@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CButtonCondition_params.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00056570 / FUN_00056620 / FUN_00056710 / FUN_00056830 / FUN_000568e0 / FUN_00056990 / FUN_00056a40)
+
+
+
+// 0x00051a40 fight::ParamEnumConstList<CSmartPropNameCondition>::vfunc_0 (30 B): matches/0x00051a40.cpp
+// sym: ??_G?$ParamEnumConstList@VCSmartPropNameCondition@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CSmartPropWeaponizableTypeCondition_params_0519a0.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00056570 / FUN_00056620 / FUN_00056710 / FUN_00056830 / FUN_000568e0 / FUN_00056990 / FUN_00056a40)
+
+
+
+// 0x00051a60 fight::ParamIntConstRange<CSmartPropNameCondition>::vfunc_0 (30 B): matches/0x00051a60.cpp
+// sym: ??_G?$ParamIntConstRange@VCSmartPropNameCondition@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CSmartPropWeaponizableTypeCondition_params_0519a0.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00056570 / FUN_00056620 / FUN_00056710 / FUN_00056830 / FUN_000568e0 / FUN_00056990 / FUN_00056a40)
+
+
+
+// 0x00051aa0 fight::ParamEnumConstList<CSmartPropDistanceCondition>::vfunc_0 (30 B): matches/0x00051aa0.cpp
+// sym: ??_G?$ParamEnumConstList@VCSmartPropDistanceCondition@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CSmartPropDistanceCondition_params.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00056570 / FUN_00056620 / FUN_00056710 / FUN_00056830 / FUN_000568e0 / FUN_00056990 / FUN_00056a40)
+
+
+
+// 0x00051ac0 fight::ParamFloatConstRange<CSmartPropDistanceCondition>::vfunc_0 (30 B): matches/0x00051ac0.cpp
+// sym: ??_G?$ParamFloatConstRange@VCSmartPropDistanceCondition@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CSmartPropDistanceCondition_params.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00056570 / FUN_00056620 / FUN_00056710 / FUN_00056830 / FUN_000568e0 / FUN_00056990 / FUN_00056a40)
+
+
+
+// 0x00051af0 fight::ParamVector<CSmartPropDistanceCondition>::vfunc_0 (30 B): matches/0x00051af0.cpp
+// sym: ??_G?$ParamVector@VCSmartPropDistanceCondition@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CSmartPropDistanceCondition_params.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00056570 / FUN_00056620 / FUN_00056710 / FUN_00056830 / FUN_000568e0 / FUN_00056990 / FUN_00056a40)
+
+
+
+// 0x00051b10 fight::ParamEnumConstList<CSmartPropGrabbableNameCondition>::vfunc_0 (30 B): matches/0x00051b10.cpp
+// sym: ??_G?$ParamEnumConstList@VCSmartPropGrabbableNameCondition@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CLuaNumberCondition_params_051b10.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00056570 / FUN_00056620 / FUN_00056710 / FUN_00056830 / FUN_000568e0 / FUN_00056990 / FUN_00056a40)
+
+
+
+// 0x00051c50 fight::ParamEnumConstList<CCharacterTemplateCondition>::vfunc_0 (30 B): matches/0x00051c50.cpp
+// sym: ??_G?$ParamEnumConstList@VCCharacterTemplateCondition@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CClimbableCondition_params_051c50.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00056570 / FUN_00056620 / FUN_00056710 / FUN_00056830 / FUN_000568e0 / FUN_00056990 / FUN_00056a40)
+
+namespace fn_fb762e08 {
+
+
+} // namespace fn_fb762e08
+
+// 0x00051c70 fight::ParamEnumConstList<CCharacterTemplateVariationCondition>::vfunc_0 (30 B): matches/0x00051c70.cpp
+// sym: ??_G?$ParamEnumConstList@VCCharacterTemplateVariationCondition@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CClimbableCondition_params_051c50.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00056570 / FUN_00056620 / FUN_00056710 / FUN_00056830 / FUN_000568e0 / FUN_00056990 / FUN_00056a40)
+
+namespace fn_fb762e08 {
+
+
+} // namespace fn_fb762e08
+
+// 0x00051c90 fight::ParamEnumConstList<CGrappleCharacterTemplateCondition>::vfunc_0 (30 B): matches/0x00051c90.cpp
+// sym: ??_G?$ParamEnumConstList@VCGrappleCharacterTemplateCondition@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CClimbableCondition_params_051c50.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00056570 / FUN_00056620 / FUN_00056710 / FUN_00056830 / FUN_000568e0 / FUN_00056990 / FUN_00056a40)
+
+namespace fn_fb762e08 {
 
 
 // 0x00055220 fight::ParamNameConstList<CSmartPropDistanceCondition>::vfunc_7 (12 B): matches/0x00055220.cpp
@@ -138,70 +228,49 @@ void ParamBranch::vfunc_6(void* p) {
 // sym: ??_G?$ParamName@VCNameFlagConditionBase@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamName<CNameFlagConditionBase>::~ParamName() {}
-#if defined(HULK_PTR64)
-template class fight::ParamName<CNameFlagConditionBase>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x552f0)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00055310 fight::ParamName<CSmartPropNameCondition>::vfunc_0 (30 B): matches/0x00055310.cpp
 // sym: ??_G?$ParamName@VCSmartPropNameCondition@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamName<CSmartPropNameCondition>::~ParamName() {}
-#if defined(HULK_PTR64)
-template class fight::ParamName<CSmartPropNameCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x55310)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00055330 fight::ParamNameConstList<CSmartPropDistanceCondition>::vfunc_0 (30 B): matches/0x00055330.cpp
 // sym: ??_G?$ParamNameConstList@VCSmartPropDistanceCondition@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamNameConstList<CSmartPropDistanceCondition>::~ParamNameConstList() {}
-#if defined(HULK_PTR64)
-template class fight::ParamNameConstList<CSmartPropDistanceCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x55330)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00055350 fight::ParamName<CSmartPropGrabbableNameCondition>::vfunc_0 (30 B): matches/0x00055350.cpp
 // sym: ??_G?$ParamName@VCSmartPropGrabbableNameCondition@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamName<CSmartPropGrabbableNameCondition>::~ParamName() {}
-#if defined(HULK_PTR64)
-template class fight::ParamName<CSmartPropGrabbableNameCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x55350)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00055370 fight::ParamNameList<CCharacterTemplateCondition>::vfunc_0 (30 B): matches/0x00055370.cpp
 // sym: ??_G?$ParamNameList@VCCharacterTemplateCondition@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamNameList<CCharacterTemplateCondition>::~ParamNameList() {}
-#if defined(HULK_PTR64)
-template class fight::ParamNameList<CCharacterTemplateCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x55370)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00055390 fight::ParamNameList<CCharacterTemplateVariationCondition>::vfunc_0 (30 B): matches/0x00055390.cpp
 // sym: ??_G?$ParamNameList@VCCharacterTemplateVariationCondition@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamNameList<CCharacterTemplateVariationCondition>::~ParamNameList() {}
-#if defined(HULK_PTR64)
-template class fight::ParamNameList<CCharacterTemplateVariationCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x55390)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x000553b0 fight::ParamNameList<CGrappleCharacterTemplateCondition>::vfunc_0 (30 B): matches/0x000553b0.cpp
 // sym: ??_G?$ParamNameList@VCGrappleCharacterTemplateCondition@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamNameList<CGrappleCharacterTemplateCondition>::~ParamNameList() {}
-#if defined(HULK_PTR64)
-template class fight::ParamNameList<CGrappleCharacterTemplateCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x553b0)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x000553d0 FUN_000553d0 (2465 B): matches/0x000553d0.cpp [wrapped: conflict: fight::ConditionFactoryCasterTemplate]
@@ -997,83 +1066,124 @@ extern "C" bool __cdecl FUN_00056460(Registry_56460* registry) {
 } // namespace fn_00056460
 
 
-// 0x00056620 FUN_00056620 (231 B): equivalent/0x00056620.cpp [wrapped: conflict: fight::ParamEnumConstList; fight::ParamIntConstRange; fight::ParamName]
-// sym: ?target@fn_00056620@@YAXXZ @1713fe49e0e8 @w941d717e47e5
-inline void* operator new(size_t,void* p) { return p; }
-namespace fn_00056620 {
-// STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 8/8)
-// FUN_00056620 @ 0x00056620
-
-
-namespace fight {
-template<class T> struct ParamEnumConstList { virtual void slot0(); char pad[12]; void* list; int count; void (*callback)(); int extra; void FUN_00234cc0(const char*); };
-template<class T> struct ParamName { virtual void slot0(); char pad[12]; void (*callback)(); int extra; void FUN_00234a90(const char*); };
-template<class T> struct ParamIntConstRange { virtual void slot0(); char pad[12]; void (*callback)(); int extra; void FUN_002348e0(const char*); };
+// 0x00056570 FUN_00056570 (176 B): matches/0x00056570.cpp
+// sym: _FUN_00056570
+// (gx2, D18) from CSmartPropDistanceCondition_reg_055220.iso_00056570.cpp; constructs the real ParamEnumConstList<CNameFlagConditionBase>, ParamName<CNameFlagConditionBase>,
+// whose vftable and scalar deleting destructor it emits
+extern "C" void FUN_00056570()
+{
+    if (DAT_004dc46c == 0) {
+        ::fight::ParamValue* params[2];
+        params[0] = new ::fight::ParamEnumConstList< ::CNameFlagConditionBase>("compare", (void*)&DAT_00427758, DAT_00427760, &owners::Obj_47d20::FUN_00047d20);
+        params[1] = new ::fight::ParamName< ::CNameFlagConditionBase>("flag", &owners::Obj_47d30::FUN_00047d30);
+        FUN_002347b0(&DAT_004dc468, params, 2);
+    }
+    DAT_004dc46c++;
 }
-class CSmartPropNameCondition;
-   
-bool SetCompare_00047e90(void*, int); /* (unb5) as defined; address taken only */ void* GetName_00047ea0(void*); /* (unb5) as defined; address taken only */ bool SetAttachmentIndex_00047eb0(void*, int); /* (unb5) as defined; address taken only */
-void* __cdecl FUN_0008d690(unsigned);
-void __cdecl FUN_002347b0(void*,void**,int);
-void target() {
- if (!DAT_004dc4c4) {
- void* params[3];
- fight::ParamEnumConstList<CSmartPropNameCondition>* a = (fight::ParamEnumConstList<CSmartPropNameCondition>*)FUN_0008d690((int)sizeof(fight::ParamEnumConstList<CSmartPropNameCondition>));
- if(a) { int count=(*(int*)&DAT_00427760); a->FUN_00234cc0("compare"); a->count=count; new (a) fight::ParamEnumConstList<CSmartPropNameCondition>; a->list=((int*)&DAT_00427758); a->callback=(void (*)())SetCompare_00047e90; }
- params[0]=a;
- fight::ParamName<CSmartPropNameCondition>* b=(fight::ParamName<CSmartPropNameCondition>*)FUN_0008d690((int)sizeof(fight::ParamName<CSmartPropNameCondition>));
- if(b) { b->FUN_00234a90("name"); new (b) fight::ParamName<CSmartPropNameCondition>; b->callback=(void (*)())GetName_00047ea0; } params[1]=b;
- fight::ParamIntConstRange<CSmartPropNameCondition>* c=(fight::ParamIntConstRange<CSmartPropNameCondition>*)FUN_0008d690((int)sizeof(fight::ParamIntConstRange<CSmartPropNameCondition>));
- if(c) { c->FUN_002348e0("attachmentIndex"); new (c) fight::ParamIntConstRange<CSmartPropNameCondition>; c->callback=(void (*)())SetAttachmentIndex_00047eb0; } params[2]=c;
- FUN_002347b0(&DAT_004dc4c0,params,3);
- }
- ++DAT_004dc4c4;
+
+
+
+// 0x00056620 FUN_00056620 (231 B): matches/0x00056620.cpp
+// sym: ?FUN_00056620@@YAXXZ
+// (gx2, D18) rewritten; constructs the real ParamEnumConstList<CSmartPropNameCondition>, ParamIntConstRange<CSmartPropNameCondition>, ParamName<CSmartPropNameCondition>,
+// whose vftable and scalar deleting destructor it emits
+void FUN_00056620()
+{
+    if (DAT_004dc4c4 == 0) {
+        ::fight::ParamValue* params[3];
+        params[0] = new ::fight::ParamEnumConstList< ::CSmartPropNameCondition>("compare", (void*)&DAT_00427758, DAT_00427760, &fn_f64b1530::Obj_47e90::SetCompare_00047e90);
+        params[1] = new ::fight::ParamName< ::CSmartPropNameCondition>("name", &fn_f64b1530::Obj_47ea0::GetName_00047ea0);
+        params[2] = new ::fight::ParamIntConstRange< ::CSmartPropNameCondition>("attachmentIndex", &fn_f64b1530::Obj_47eb0::SetAttachmentIndex_00047eb0);
+        FUN_002347b0(&DAT_004dc4c0, params, 3);
+    }
+    DAT_004dc4c4++;
 }
-} // namespace fn_00056620
 
 
-// 0x00056710 FUN_00056710 (274 B): equivalent/0x00056710.cpp [wrapped: conflict: fight::ParamEnumConstList; fight::ParamFloatConstRange; fight::ParamNameConstList; fight::ParamVector]
-// sym: ?target@fn_00056710@@YAXXZ @7c45722bf0c8 @w6a06e7073dac
-namespace fn_00056710 {
-// STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 10/10)
-// FUN_00056710 @ 0x00056710
 
-void* __cdecl FUN_0008d690(unsigned);
-
-bool FUN_00047ee0(void*, int); /* (unb5) as defined; address taken only */
-bool FUN_00047ef0(void*, int); /* (unb5) as defined; address taken only */
-void* FUN_00047f00(void*); /* (unb5) as defined; address taken only */
-char FUN_00047f10(void*, void*); /* (unb5) as defined; address taken only */
-void __cdecl FUN_002347b0(void*,void**,int);
-class CSmartPropDistanceCondition;
-struct FUN_00234cc0 { virtual void slot(); char pad[12]; const char* values; int count; void (*callback)(); int extra; FUN_00234cc0(const char* = "compare"); };
-struct FUN_00234960 { virtual void slot(); char pad[12]; void (*callback)(); int extra; FUN_00234960(const char* = "distance"); };
-struct FUN_00234ba0 { virtual void slot(); char pad[12]; void (*callback)(); int extra; FUN_00234ba0(const char* = "joint"); };
-struct FUN_00234e50 { virtual void slot(); char pad[12]; void (*callback)(); int extra; FUN_00234e50(const char* = "offset"); };
-namespace fight {
-template<class T> struct ParamEnumConstList : FUN_00234cc0 { virtual void slot(); };
-template<class T> struct ParamFloatConstRange : FUN_00234960 { virtual void slot(); };
-template<class T> struct ParamNameConstList : FUN_00234ba0 { virtual void slot(); };
-template<class T> struct ParamVector : FUN_00234e50 { virtual void slot(); };
+// 0x00056710 FUN_00056710 (274 B): matches/0x00056710.cpp
+// sym: ?FUN_00056710@@YAXXZ
+// (gx2, D18) rewritten; constructs the real ParamEnumConstList<CSmartPropDistanceCondition>, ParamFloatConstRange<CSmartPropDistanceCondition>, ParamNameConstList<CSmartPropDistanceCondition>, ParamVector<CSmartPropDistanceCondition>,
+// whose vftable and scalar deleting destructor it emits
+void FUN_00056710()
+{
+    if (DAT_004dc4d4 == 0) {
+        ::fight::ParamValue* params[4];
+        params[0] = new ::fight::ParamEnumConstList< ::CSmartPropDistanceCondition>("compare", (void*)&DAT_0042773c, DAT_00427754, &fn_f64b1530::Obj_47ee0::Set);
+        params[1] = new ::fight::ParamFloatConstRange< ::CSmartPropDistanceCondition>("distance", &fn_f64b1530::C_47ef0::Set);
+        params[2] = new ::fight::ParamNameConstList< ::CSmartPropDistanceCondition>("joint", &fn_f64b1530::Obj_47f00::Get);
+        params[3] = new ::fight::ParamVector< ::CSmartPropDistanceCondition>("offset", &fn_f64b1530::C_47f10::Set);
+        FUN_002347b0(&DAT_004dc4d0, params, 4);
+    }
+    DAT_004dc4d4++;
 }
-void __cdecl target() {
- if (!DAT_004dc4d4) {
- void* list[4];
- void* p=FUN_0008d690((int)sizeof(fight::ParamEnumConstList<CSmartPropDistanceCondition>));
- if(p) {
- int n=(*(int*)&DAT_00427754);
- fight::ParamEnumConstList<CSmartPropDistanceCondition>* a=new(p) fight::ParamEnumConstList<CSmartPropDistanceCondition>;
- a->count=n; a->values="lwB"; a->callback=(void (*)())FUN_00047ee0; list[0]=a;
- } else list[0]=0;
- p=FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<CSmartPropDistanceCondition>));
- if(p) { fight::ParamFloatConstRange<CSmartPropDistanceCondition>* a=new(p) fight::ParamFloatConstRange<CSmartPropDistanceCondition>; a->callback=(void (*)())FUN_00047ef0; list[1]=a; } else list[1]=0;
- p=FUN_0008d690((int)sizeof(fight::ParamNameConstList<CSmartPropDistanceCondition>));
- if(p) { fight::ParamNameConstList<CSmartPropDistanceCondition>* a=new(p) fight::ParamNameConstList<CSmartPropDistanceCondition>; a->callback=(void (*)())FUN_00047f00; list[2]=a; } else list[2]=0;
- p=FUN_0008d690((int)sizeof(fight::ParamVector<CSmartPropDistanceCondition>));
- if(p) { fight::ParamVector<CSmartPropDistanceCondition>* a=new(p) fight::ParamVector<CSmartPropDistanceCondition>; a->callback=(void (*)())FUN_00047f10; list[3]=a; } else list[3]=0;
- FUN_002347b0(&DAT_004dc4d0,list,4);
- }
- ++DAT_004dc4d4;
+
+
+
+// 0x00056830 FUN_00056830 (176 B): matches/0x00056830.cpp
+// sym: _FUN_00056830
+// (gx2, D18) from CSmartPropDistanceCondition_reg_055220.iso_00056830.cpp; constructs the real ParamEnumConstList<CSmartPropGrabbableNameCondition>, ParamName<CSmartPropGrabbableNameCondition>,
+// whose vftable and scalar deleting destructor it emits
+extern "C" void FUN_00056830()
+{
+    if (DAT_004dc4dc == 0) {
+        ::fight::ParamValue* params[2];
+        params[0] = new ::fight::ParamEnumConstList< ::CSmartPropGrabbableNameCondition>("compare", (void*)&DAT_00427758, DAT_00427760, &owners::X_47f30::FUN_00047f30);
+        params[1] = new ::fight::ParamName< ::CSmartPropGrabbableNameCondition>("name", &owners::Obj_47f40::FUN_00047f40);
+        FUN_002347b0(&DAT_004dc4d8, params, 2);
+    }
+    DAT_004dc4dc++;
 }
-} // namespace fn_00056710
+
+
+
+// 0x000568e0 FUN_000568e0 (176 B): matches/0x000568e0.cpp
+// sym: _FUN_000568e0
+// (gx2, D18) from CSmartPropDistanceCondition_reg_055220.iso_000568e0.cpp; constructs the real ParamEnumConstList<CCharacterTemplateCondition>, ParamNameList<CCharacterTemplateCondition>,
+// whose vftable and scalar deleting destructor it emits
+extern "C" void FUN_000568e0()
+{
+    if (DAT_004dc50c == 0) {
+        ::fight::ParamValue* params[2];
+        params[0] = new ::fight::ParamEnumConstList< ::CCharacterTemplateCondition>("compare", (void*)&DAT_00427758, DAT_00427760, &owners::Obj_47fe0::FUN_00047fe0);
+        params[1] = new ::fight::ParamNameList< ::CCharacterTemplateCondition>("characterTemplate", &owners::Obj_47ff0::FUN_00047ff0);
+        FUN_002347b0(&DAT_004dc508, params, 2);
+    }
+    DAT_004dc50c++;
+}
+
+
+
+// 0x00056990 FUN_00056990 (176 B): matches/0x00056990.cpp
+// sym: _FUN_00056990
+// (gx2, D18) from CSmartPropDistanceCondition_reg_055220.iso_00056990.cpp; constructs the real ParamEnumConstList<CCharacterTemplateVariationCondition>, ParamNameList<CCharacterTemplateVariationCondition>,
+// whose vftable and scalar deleting destructor it emits
+extern "C" void FUN_00056990()
+{
+    if (DAT_004dc514 == 0) {
+        ::fight::ParamValue* params[2];
+        params[0] = new ::fight::ParamEnumConstList< ::CCharacterTemplateVariationCondition>("compare", (void*)&DAT_00427758, DAT_00427760, &owners::A_48000::FUN_00048000);
+        params[1] = new ::fight::ParamNameList< ::CCharacterTemplateVariationCondition>("CharacterTemplateVariation", &owners::Obj_48010::FUN_00048010);
+        FUN_002347b0(&DAT_004dc510, params, 2);
+    }
+    DAT_004dc514++;
+}
+
+
+
+// 0x00056a40 FUN_00056a40 (176 B): matches/0x00056a40.cpp
+// sym: _FUN_00056a40
+// (gx2, D18) from CSmartPropDistanceCondition_reg_055220.iso_00056a40.cpp; constructs the real ParamEnumConstList<CGrappleCharacterTemplateCondition>, ParamNameList<CGrappleCharacterTemplateCondition>,
+// whose vftable and scalar deleting destructor it emits
+extern "C" void FUN_00056a40()
+{
+    if (DAT_004dc51c == 0) {
+        ::fight::ParamValue* params[2];
+        params[0] = new ::fight::ParamEnumConstList< ::CGrappleCharacterTemplateCondition>("compare", (void*)&DAT_00427758, DAT_00427760, &owners::X_48020::FUN_00048020);
+        params[1] = new ::fight::ParamNameList< ::CGrappleCharacterTemplateCondition>("characterTemplate", &owners::Obj_48030::FUN_00048030);
+        FUN_002347b0(&DAT_004dc518, params, 2);
+    }
+    DAT_004dc51c++;
+}
+
 

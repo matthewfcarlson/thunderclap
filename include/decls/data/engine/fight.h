@@ -330,17 +330,17 @@ extern "C" unsigned char DAT_004e5bd0[8];
 extern "C" unsigned int DAT_004e5bd8;
 
 // fight/ParamValueScript.cpp
-extern "C" const unsigned int DAT_0047e130[1];  // zero_0047e130
 extern "C" const unsigned int DAT_0047e160[1];  // zero_0047e160
-extern "C" unsigned int DAT_004947f4[1];  // zero_004947f4
 extern "C" unsigned int DAT_004b8cf4[1];  // zero_004b8cf4
 
 // fight/ParamValueStringList_2.cpp
-extern "C" const unsigned int DAT_0047e0cc[1];  // zero_0047e0cc
 extern "C" const unsigned int DAT_0047e100[1];  // zero_0047e100
+extern "C" const unsigned int DAT_0047e130[1];  // zero_0047e130
+extern "C" unsigned int DAT_004947f4[1];  // zero_004947f4
 
 // fight/ParamValueString_2.cpp
 extern "C" const unsigned int DAT_0047e09c[1];  // zero_0047e09c
+extern "C" const unsigned int DAT_0047e0cc[1];  // zero_0047e0cc
 
 // fight/ParamValueVector.cpp
 extern "C" const unsigned int DAT_0047e1d8[1];  // zero_0047e1d8

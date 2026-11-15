@@ -29386,7 +29386,7 @@
   },
   {
    "start": "0x002349e0",
-   "end": "0x00234a90",
+   "end": "0x00234af0",
    "file": "fight/ParamValueString_2.cpp",
    "kind": "game",
    "layer": "engine",
@@ -29394,32 +29394,13 @@
    "evidence": [
     "classes: fight::ParamValueString (1 fn)",
     "vtables 0x427a78..0x427a78 (1)",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "gx4: 0x00234a90 (ParamValueName ctor) inlines this object's ParamValueString ctor: same object"
    ],
    "layer_evidence": [
     "link order: Radical library code (after the XAPILIB span)"
    ],
    "dominant": "fight::ParamValueString",
-   "functions": 2,
-   "named": 1
-  },
-  {
-   "start": "0x00234a90",
-   "end": "0x00234ba0",
-   "file": "fight/ParamValueStringList_2.cpp",
-   "kind": "game",
-   "layer": "engine",
-   "confidence": "medium",
-   "evidence": [
-    "classes: fight::ParamValueStringList (1 fn)",
-    "vtables 0x427abc..0x427abc (1)",
-    "1 COMDAT stray(s) from other classes' homes",
-    "same dominant class as an earlier object (class split across files)"
-   ],
-   "layer_evidence": [
-    "link order: Radical library code (after the XAPILIB span)"
-   ],
-   "dominant": "fight::ParamValueStringList",
    "functions": 4,
    "named": 1,
    "comdat": [
@@ -29431,21 +29412,23 @@
    ]
   },
   {
-   "start": "0x00234ba0",
-   "end": "0x00234cc0",
-   "file": "fight/ParamValueScript.cpp",
+   "start": "0x00234af0",
+   "end": "0x00234c00",
+   "file": "fight/ParamValueStringList_2.cpp",
    "kind": "game",
    "layer": "engine",
    "confidence": "medium",
    "evidence": [
-    "classes: fight::ParamValueScript (1 fn)",
-    "vtables 0x427b00..0x427b00 (1)",
-    "1 COMDAT stray(s) from other classes' homes"
+    "classes: fight::ParamValueStringList (1 fn)",
+    "vtables 0x427abc..0x427abc (1)",
+    "1 COMDAT stray(s) from other classes' homes",
+    "same dominant class as an earlier object (class split across files)",
+    "gx4: 0x00234ba0 (ParamValueNameList ctor) inlines this object's ParamValueStringList ctor: same object"
    ],
    "layer_evidence": [
     "link order: Radical library code (after the XAPILIB span)"
    ],
-   "dominant": "fight::ParamValueScript",
+   "dominant": "fight::ParamValueStringList",
    "functions": 4,
    "named": 1,
    "comdat": [
@@ -29455,6 +29438,24 @@
      "home": "0x00235490"
     }
    ]
+  },
+  {
+   "start": "0x00234c00",
+   "end": "0x00234cc0",
+   "file": "fight/ParamValueScript.cpp",
+   "kind": "game",
+   "layer": "engine",
+   "confidence": "medium",
+   "evidence": [
+    "classes: fight::ParamValueScript (1 fn)",
+    "vtables 0x427b00..0x427b00 (1)"
+   ],
+   "layer_evidence": [
+    "link order: Radical library code (after the XAPILIB span)"
+   ],
+   "dominant": "fight::ParamValueScript",
+   "functions": 2,
+   "named": 1
   },
   {
    "start": "0x00234cc0",

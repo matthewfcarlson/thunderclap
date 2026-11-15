@@ -1,6 +1,8 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x0016c600..0x0016d360 (kind game, layer game, confidence high), dominant class hulkfight::motion::ChargeCondition
 #include "tree_prelude.h"
+#define HULK_FIGHT_PARAM_IMPLICIT   // (gx2, D18) include/gen/fight.h: the parameter templates constructed for real
+#include "gen/owners.h"   // (gx3, D18) for the merged registrations
 #include "compat/ptr.h"
 #include "decls/data/game/unknown.h"
 #include "gen/fight.h"
@@ -12,6 +14,18 @@ void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's
 }
 namespace fn_f3263be4 { extern "C" char DAT_00416658[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/hulkfight/motion.h"
+void* operator new(size_t) HULK_NEW_THROW;   // (gx2, D18) the game's operator new (0x0008d690)
+extern "C" void __cdecl FUN_002347b0(void* list, void* params, int count);   // (gx2, D18) a parameter list's set-up
+namespace fn_f5579237 { class Vec3_1655f0; } 
+namespace fn_f5579237 { struct Src_165470; } 
+namespace fn_f5579237 { struct Src_1654b0; } 
+namespace fn_f5579237 { struct Src_1657f0; } 
+namespace fn_f5579237 { struct Vec3_165830; } 
+namespace fn_f5579237 { struct Obj_165470 { bool Set(struct fn_f5579237::Src_165470 *); }; }   // (gx3, D18) setters, as defined in unk_165380.cpp
+namespace fn_f5579237 { struct Obj_1654b0 { bool Set(struct fn_f5579237::Src_1654b0 *); }; }   // (gx3, D18) setters, as defined in unk_165380.cpp
+namespace fn_f5579237 { struct Obj_1655f0 { bool Set(class fn_f5579237::Vec3_1655f0 const *); }; }   // (gx3, D18) setters, as defined in unk_165380.cpp
+namespace fn_f5579237 { struct Obj_1657f0 { bool Set(struct fn_f5579237::Src_1657f0 *); }; }   // (gx3, D18) setters, as defined in unk_165380.cpp
+namespace fn_f5579237 { struct Obj_165830 { bool Copy(struct fn_f5579237::Vec3_165830 *); }; }   // (gx3, D18) setters, as defined in unk_165380.cpp
 
 // ---- declarations shared by the functions below
 inline void* operator new(size_t, void* p) throw() { return p; }
@@ -67,7 +81,6 @@ public:
     void (T::*setter)();
     int unused14;
 };
-extern "C" void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 class RayCastConeCondition {
 public:
     void FUN_001655c0();
@@ -112,125 +125,154 @@ struct ConditionFactoryTemplate_16d330 {
 };
 
 
-// 0x0016c600 FUN_0016c600 (307 B): equivalent/0x0016c600.cpp
-// sym: _FUN_0016c600 @c85cbac477ad @wbbcc7cd746fa
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/12)
-// FUN_0016c600 @ 0x0016c600
+} // namespace fn_f3263be4
+
+// 0x0016a340 fight::ParamVector<hulkfight::motion::RayCastTargetCondition>::vfunc_0 (30 B): matches/0x0016a340.cpp
+// sym: ??_G?$ParamVector@VRayCastTargetCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from RayCastTargetCondition.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0016c600 / FUN_0016c830 / FUN_0016cb50)
+
+
+
+// 0x0016a360 fight::ParamFloatConstRange<hulkfight::motion::RayCastTargetCondition>::vfunc_0 (30 B): matches/0x0016a360.cpp
+// sym: ??_G?$ParamFloatConstRange@VRayCastTargetCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from RayCastTargetCondition.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0016c600 / FUN_0016c830 / FUN_0016cb50)
+
+
+
+// 0x0016a380 fight::ParamBool<hulkfight::motion::RayCastTargetCondition>::vfunc_0 (30 B): matches/0x0016a380.cpp
+// sym: ??_G?$ParamBool@VRayCastTargetCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from RayCastTargetCondition.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0016c600 / FUN_0016c830 / FUN_0016cb50)
+
+
+
+// 0x0016a580 fight::ParamVector<hulkfight::motion::RayCastConeCondition>::vfunc_0 (30 B): matches/0x0016a580.cpp
+// sym: ??_G?$ParamVector@VRayCastConeCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from RayCastConeCondition_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0016c600 / FUN_0016c830 / FUN_0016cb50)
+
+
+
+// 0x0016a5a0 fight::ParamFloatConstRange<hulkfight::motion::RayCastConeCondition>::vfunc_0 (30 B): matches/0x0016a5a0.cpp
+// sym: ??_G?$ParamFloatConstRange@VRayCastConeCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from RayCastConeCondition_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0016c600 / FUN_0016c830 / FUN_0016cb50)
+
+
+
+// 0x0016a5c0 fight::ParamBool<hulkfight::motion::RayCastConeCondition>::vfunc_0 (30 B): matches/0x0016a5c0.cpp
+// sym: ??_G?$ParamBool@VRayCastConeCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from RayCastConeCondition_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0016c600 / FUN_0016c830 / FUN_0016cb50)
+
+
+
+// 0x0016a9a0 fight::ParamVector<hulkfight::motion::RayCastCondition>::vfunc_0 (30 B): matches/0x0016a9a0.cpp
+// sym: ??_G?$ParamVector@VRayCastCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from RayCastCondition_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0016c600 / FUN_0016c830 / FUN_0016cb50)
+
+
+
+// 0x0016a9c0 fight::ParamFloatConstRange<hulkfight::motion::RayCastCondition>::vfunc_0 (30 B): matches/0x0016a9c0.cpp
+// sym: ??_G?$ParamFloatConstRange@VRayCastCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from RayCastCondition_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0016c600 / FUN_0016c830 / FUN_0016cb50)
+
+
+
+// 0x0016a9e0 fight::ParamBool<hulkfight::motion::RayCastCondition>::vfunc_0 (30 B): matches/0x0016a9e0.cpp
+// sym: ??_G?$ParamBool@VRayCastCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from RayCastCondition_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0016c600 / FUN_0016c830 / FUN_0016cb50)
+
+
+
+// 0x0016c450 fight::ParamNameConstList<hulkfight::motion::RayCastTargetCondition>::vfunc_0 (30 B): matches/0x0016c450.cpp
+// sym: ??_G?$ParamNameConstList@VRayCastTargetCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from RayCastCondition_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0016c600 / FUN_0016c830 / FUN_0016cb50)
+
+
+
+// 0x0016c470 fight::ParamNameConstList<hulkfight::motion::RayCastConeCondition>::vfunc_0 (30 B): matches/0x0016c470.cpp
+// sym: ??_G?$ParamNameConstList@VRayCastConeCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from RayCastCondition_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0016c600 / FUN_0016c830 / FUN_0016cb50)
+
+
+
+// 0x0016c490 fight::ParamNameConstList<hulkfight::motion::RayCastCondition>::vfunc_0 (30 B): matches/0x0016c490.cpp
+// sym: ??_G?$ParamNameConstList@VRayCastCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from RayCastCondition_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0016c600 / FUN_0016c830 / FUN_0016cb50)
+
+
+
+// 0x0016c600 FUN_0016c600 (307 B): matches/0x0016c600.cpp
+// sym: _FUN_0016c600
+// (gx2, D18) rewritten; constructs the real ParamBool<hulkfight::motion::RayCastTargetCondition>, ParamFloatConstRange<hulkfight::motion::RayCastTargetCondition>, ParamNameConstList<hulkfight::motion::RayCastTargetCondition>, ParamVector<hulkfight::motion::RayCastTargetCondition>,
+// whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_0016c600()
 {
     if (DAT_004e120c == 0) {
-        void* params[5];
-        void* mem;
-
-        mem = FUN_0008d690((int)sizeof(ParamNameConstList<RayCastTargetCondition>));
-        params[0] = 0;
-        if (mem)
-            params[0] = new (mem) ParamNameConstList<RayCastTargetCondition>("joint", &RayCastTargetCondition::FUN_00165440);
-        mem = FUN_0008d690((int)sizeof(ParamVector<RayCastTargetCondition>));
-        params[1] = 0;
-        if (mem)
-            params[1] = new (mem) ParamVector<RayCastTargetCondition>("offset", (void (RayCastTargetCondition::*)())&RayCastTargetCondition::FUN_00165470);
-        mem = FUN_0008d690((int)sizeof(ParamVector<RayCastTargetCondition>));
-        params[2] = 0;
-        if (mem)
-            params[2] = new (mem) ParamVector<RayCastTargetCondition>("direction", (void (RayCastTargetCondition::*)())&RayCastTargetCondition::FUN_001654b0);
-        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<RayCastTargetCondition>));
-        params[3] = 0;
-        if (mem)
-            params[3] = new (mem) ParamFloatConstRange<RayCastTargetCondition>("length", (void (RayCastTargetCondition::*)())&RayCastTargetCondition::FUN_001654e0);
-        mem = FUN_0008d690((int)sizeof(ParamBool<RayCastTargetCondition>));
-        params[4] = 0;
-        if (mem)
-            params[4] = new (mem) ParamBool<RayCastTargetCondition>("hitFound", (void (RayCastTargetCondition::*)())&RayCastTargetCondition::FUN_00165500);
-        FUN_002347b0(((ParamRegistry*)&DAT_004e1208), params, 5);
+        ::fight::ParamValue* params[5];
+        params[0] = new ::fight::ParamNameConstList< ::hulkfight::motion::RayCastTargetCondition>("joint", &owners::A_165440::FUN_00165440);
+        params[1] = new ::fight::ParamVector< ::hulkfight::motion::RayCastTargetCondition>("offset", &fn_f5579237::Obj_165470::Set);
+        params[2] = new ::fight::ParamVector< ::hulkfight::motion::RayCastTargetCondition>("direction", &fn_f5579237::Obj_1654b0::Set);
+        params[3] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::RayCastTargetCondition>("length", &owners::Obj_1654e0::FUN_001654e0);
+        params[4] = new ::fight::ParamBool< ::hulkfight::motion::RayCastTargetCondition>("hitFound", &owners::X_165500::FUN_00165500);
+        FUN_002347b0(&DAT_004e1208, params, 5);
     }
     DAT_004e120c++;
 }
 
 
-// 0x0016c830 FUN_0016c830 (358 B): equivalent/0x0016c830.cpp
-// sym: _FUN_0016c830 @d865513f22a8 @w81afde01dcb8
-// STATUS: equivalent (tools/equiv.py level 3: 75 inputs, branch coverage 14/14)
-// FUN_0016c830 @ 0x0016c830
+
+// 0x0016c830 FUN_0016c830 (358 B): matches/0x0016c830.cpp
+// sym: _FUN_0016c830
+// (gx2, D18) rewritten; constructs the real ParamBool<hulkfight::motion::RayCastConeCondition>, ParamFloatConstRange<hulkfight::motion::RayCastConeCondition>, ParamNameConstList<hulkfight::motion::RayCastConeCondition>, ParamVector<hulkfight::motion::RayCastConeCondition>,
+// whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_0016c830()
 {
     if (DAT_004e1234 == 0) {
-        void* params[6];
-        void* mem;
-
-        mem = FUN_0008d690((int)sizeof(ParamNameConstList<RayCastConeCondition>));
-        params[0] = 0;
-        if (mem)
-            params[0] = new (mem) ParamNameConstList<RayCastConeCondition>("joint", &RayCastConeCondition::FUN_001655c0);
-        mem = FUN_0008d690((int)sizeof(ParamVector<RayCastConeCondition>));
-        params[1] = 0;
-        if (mem)
-            params[1] = new (mem) ParamVector<RayCastConeCondition>("offset", (void (RayCastConeCondition::*)())&RayCastConeCondition::FUN_001655f0);
-        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<RayCastConeCondition>));
-        params[2] = 0;
-        if (mem)
-            params[2] = new (mem) ParamFloatConstRange<RayCastConeCondition>("length", (void (RayCastConeCondition::*)())&RayCastConeCondition::FUN_00165620);
-        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<RayCastConeCondition>));
-        params[3] = 0;
-        if (mem)
-            params[3] = new (mem) ParamFloatConstRange<RayCastConeCondition>("angle", (void (RayCastConeCondition::*)())&RayCastConeCondition::FUN_00165640);
-        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<RayCastConeCondition>));
-        params[4] = 0;
-        if (mem)
-            params[4] = new (mem) ParamFloatConstRange<RayCastConeCondition>("stepSize", (void (RayCastConeCondition::*)())&RayCastConeCondition::FUN_00165660);
-        mem = FUN_0008d690((int)sizeof(ParamBool<RayCastConeCondition>));
-        params[5] = 0;
-        if (mem)
-            params[5] = new (mem) ParamBool<RayCastConeCondition>("hitFound", (void (RayCastConeCondition::*)())&RayCastConeCondition::FUN_00165680);
-        FUN_002347b0(((ParamRegistry*)&DAT_004e1230), params, 6);
+        ::fight::ParamValue* params[6];
+        params[0] = new ::fight::ParamNameConstList< ::hulkfight::motion::RayCastConeCondition>("joint", &owners::Obj_1655c0::FUN_001655c0);
+        params[1] = new ::fight::ParamVector< ::hulkfight::motion::RayCastConeCondition>("offset", &fn_f5579237::Obj_1655f0::Set);
+        params[2] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::RayCastConeCondition>("length", &owners::Obj_165620::FUN_00165620);
+        params[3] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::RayCastConeCondition>("angle", &owners::X_165640::FUN_00165640);
+        params[4] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::RayCastConeCondition>("stepSize", &owners::X_165660::FUN_00165660);
+        params[5] = new ::fight::ParamBool< ::hulkfight::motion::RayCastConeCondition>("hitFound", &owners::Obj_165680::FUN_00165680);
+        FUN_002347b0(&DAT_004e1230, params, 6);
     }
     DAT_004e1234++;
 }
 
 
-// 0x0016cb50 FUN_0016cb50 (409 B): equivalent/0x0016cb50.cpp
-// sym: _FUN_0016cb50 @b7d3b16e90d7 @wbc471039f669
-// STATUS: equivalent (tools/equiv.py level 3: 66 inputs, branch coverage 16/16)
-// FUN_0016cb50 @ 0x0016cb50
+
+// 0x0016cb50 FUN_0016cb50 (409 B): matches/0x0016cb50.cpp
+// sym: _FUN_0016cb50
+// (gx2, D18) rewritten; constructs the real ParamBool<hulkfight::motion::RayCastCondition>, ParamFloatConstRange<hulkfight::motion::RayCastCondition>, ParamNameConstList<hulkfight::motion::RayCastCondition>, ParamVector<hulkfight::motion::RayCastCondition>,
+// whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_0016cb50()
 {
     if (DAT_004e127c == 0) {
-        void* params[7];
-        void* mem;
-        mem = FUN_0008d690((int)sizeof(ParamNameConstList<RayCastCondition>));
-        params[0] = 0;
-        if (mem)
-            params[0] = new (mem) ParamNameConstList<RayCastCondition>("joint", &RayCastCondition::FUN_001657c0);
-        mem = FUN_0008d690((int)sizeof(ParamVector<RayCastCondition>));
-        params[1] = 0;
-        if (mem)
-            params[1] = new (mem) ParamVector<RayCastCondition>("offset", (void (RayCastCondition::*)())&RayCastCondition::FUN_001657f0);
-        mem = FUN_0008d690((int)sizeof(ParamVector<RayCastCondition>));
-        params[2] = 0;
-        if (mem)
-            params[2] = new (mem) ParamVector<RayCastCondition>("direction", (void (RayCastCondition::*)())&RayCastCondition::FUN_00165830);
-        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<RayCastCondition>));
-        params[3] = 0;
-        if (mem)
-            params[3] = new (mem) ParamFloatConstRange<RayCastCondition>("length", (void (RayCastCondition::*)())&RayCastCondition::FUN_00165860);
-        mem = FUN_0008d690((int)sizeof(ParamBool<RayCastCondition>));
-        params[4] = 0;
-        if (mem)
-            params[4] = new (mem) ParamBool<RayCastCondition>("hitFound", (void (RayCastCondition::*)())&RayCastCondition::FUN_00165880);
-        mem = FUN_0008d690((int)sizeof(ParamBool<RayCastCondition>));
-        params[5] = 0;
-        if (mem)
-            params[5] = new (mem) ParamBool<RayCastCondition>("testForGroundPointAtEnd", (void (RayCastCondition::*)())&RayCastCondition::FUN_001658a0);
-        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<RayCastCondition>));
-        params[6] = 0;
-        if (mem)
-            params[6] = new (mem) ParamFloatConstRange<RayCastCondition>("allowedHeightAtEnd", (void (RayCastCondition::*)())&RayCastCondition::FUN_001658c0);
-        FUN_002347b0(((ParamRegistry*)&DAT_004e1278), params, 7);
+        ::fight::ParamValue* params[7];
+        params[0] = new ::fight::ParamNameConstList< ::hulkfight::motion::RayCastCondition>("joint", &owners::Obj_1657c0::FUN_001657c0);
+        params[1] = new ::fight::ParamVector< ::hulkfight::motion::RayCastCondition>("offset", &fn_f5579237::Obj_1657f0::Set);
+        params[2] = new ::fight::ParamVector< ::hulkfight::motion::RayCastCondition>("direction", &fn_f5579237::Obj_165830::Copy);
+        params[3] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::RayCastCondition>("length", &owners::Target_165860::FUN_00165860);
+        params[4] = new ::fight::ParamBool< ::hulkfight::motion::RayCastCondition>("hitFound", &owners::A_165880::FUN_00165880);
+        params[5] = new ::fight::ParamBool< ::hulkfight::motion::RayCastCondition>("testForGroundPointAtEnd", &owners::T_1658a0::FUN_001658a0);
+        params[6] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::RayCastCondition>("allowedHeightAtEnd", &owners::Obj_1658c0::FUN_001658c0);
+        FUN_002347b0(&DAT_004e1278, params, 7);
     }
     DAT_004e127c++;
 }
 
-} // namespace fn_f3263be4
+
 
 // 0x0016cea0 FUN_0016cea0 (1029 B): matches/0x0016cea0.cpp [wrapped: conflict: fight::ConditionFactoryCasterTemplate]
 // sym: _FUN_0016cea0

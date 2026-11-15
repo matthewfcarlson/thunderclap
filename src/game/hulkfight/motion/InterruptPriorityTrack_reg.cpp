@@ -1170,7 +1170,7 @@ namespace fn_ff72ca8e {
 
 // 0x001550b0 FUN_001550b0 (176 B): matches/0x001550b0.cpp
 // sym: _FUN_001550b0
-// (gx2, D18) rewritten; constructs the real ParamEnumConstList<hulkmotion::InterruptAccumulatorCondition>, ParamFloatConstRange<hulkmotion::InterruptAccumulatorCondition>,
+// (gx2, D18) rewritten; constructs the real ParamEnumConstList<hulkfight::motion::InterruptAccumulatorCondition>, ParamFloatConstRange<hulkfight::motion::InterruptAccumulatorCondition>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_001550b0()
 {
@@ -1187,7 +1187,7 @@ extern "C" void FUN_001550b0()
 
 // 0x00155160 FUN_00155160 (176 B): matches/0x00155160.cpp
 // sym: _FUN_00155160
-// (gx2, D18) rewritten; constructs the real ParamEnumConstList<hulkmotion::CollisionSourceForceMagnitudeCondition>, ParamFloatConstRange<hulkmotion::CollisionSourceForceMagnitudeCondition>,
+// (gx2, D18) rewritten; constructs the real ParamEnumConstList<hulkfight::motion::CollisionSourceForceMagnitudeCondition>, ParamFloatConstRange<hulkfight::motion::CollisionSourceForceMagnitudeCondition>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_00155160()
 {
@@ -1204,7 +1204,7 @@ extern "C" void FUN_00155160()
 
 // 0x00155210 FUN_00155210 (95 B): matches/0x00155210.cpp
 // sym: _FUN_00155210
-// (gx2, D18) rewritten; constructs the real ParamBool<hulkmotion::CollisionThrowCondition>,
+// (gx2, D18) rewritten; constructs the real ParamBool<hulkfight::motion::CollisionThrowCondition>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_00155210()
 {
@@ -1220,7 +1220,7 @@ extern "C" void FUN_00155210()
 
 // 0x00155270 FUN_00155270 (192 B): matches/0x00155270.cpp
 // sym: _FUN_00155270
-// (gx2, D18) from InterruptPriorityTrack_reg.new_plain.cpp; constructs the real ParamEnumConstList<hulkmotion::CollisionSourceSizeCondition>,
+// (gx2, D18) from InterruptPriorityTrack_reg.new_plain.cpp; constructs the real ParamEnumConstList<hulkfight::motion::CollisionSourceSizeCondition>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_00155270()
 {
@@ -1237,7 +1237,7 @@ extern "C" void FUN_00155270()
 
 // 0x00155330 FUN_00155330 (190 B): matches/0x00155330.cpp
 // sym: _FUN_00155330
-// (gx2, D18) from InterruptPriorityTrack_reg.new_plain.cpp; constructs the real ParamEnumConstList<hulkmotion::CollisionSourceTypeCondition>,
+// (gx2, D18) from InterruptPriorityTrack_reg.new_plain.cpp; constructs the real ParamEnumConstList<hulkfight::motion::CollisionSourceTypeCondition>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_00155330()
 {
@@ -1254,7 +1254,7 @@ extern "C" void FUN_00155330()
 
 // 0x001553f0 FUN_001553f0 (176 B): matches/0x001553f0.cpp
 // sym: _FUN_001553f0
-// (gx2, D18) rewritten; constructs the real ParamEnumConstList<hulkmotion::CollisionTargetPriorityCondition>, ParamIntConstRange<hulkmotion::CollisionTargetPriorityCondition>,
+// (gx2, D18) rewritten; constructs the real ParamEnumConstList<hulkfight::motion::CollisionTargetPriorityCondition>, ParamIntConstRange<hulkfight::motion::CollisionTargetPriorityCondition>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_001553f0()
 {
@@ -1271,7 +1271,7 @@ extern "C" void FUN_001553f0()
 
 // 0x001554a0 FUN_001554a0 (95 B): matches/0x001554a0.cpp
 // sym: _FUN_001554a0
-// (gx2, D18) rewritten; constructs the real ParamBool<hulkmotion::CollisionDevastatorCondition>,
+// (gx2, D18) rewritten; constructs the real ParamBool<hulkfight::motion::CollisionDevastatorCondition>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_001554a0()
 {
@@ -1287,7 +1287,7 @@ extern "C" void FUN_001554a0()
 
 // 0x00155500 FUN_00155500 (95 B): matches/0x00155500.cpp
 // sym: _FUN_00155500
-// (gx2, D18) from InterruptPriorityTrack_reg.iso_00155500.cpp; constructs the real ParamBool<hulkmotion::HitPushbackCondition>,
+// (gx2, D18) from InterruptPriorityTrack_reg.iso_00155500.cpp; constructs the real ParamBool<hulkfight::motion::HitPushbackCondition>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_00155500()
 {
@@ -1303,7 +1303,7 @@ extern "C" void FUN_00155500()
 
 // 0x00155560 FUN_00155560 (95 B): matches/0x00155560.cpp
 // sym: _FUN_00155560
-// (gx2, D18) rewritten; constructs the real ParamBool<hulkmotion::CollisionTargetIsTargetCondition>,
+// (gx2, D18) rewritten; constructs the real ParamBool<hulkfight::motion::CollisionTargetIsTargetCondition>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_00155560()
 {
@@ -1319,7 +1319,7 @@ extern "C" void FUN_00155560()
 
 // 0x001555c0 FUN_001555c0 (192 B): matches/0x001555c0.cpp
 // sym: _FUN_001555c0
-// (gx2, D18) from InterruptPriorityTrack_reg.new_plain.cpp; constructs the real ParamEnumConstList<hulkmotion::CollisionTargetSizeCondition>,
+// (gx2, D18) from InterruptPriorityTrack_reg.new_plain.cpp; constructs the real ParamEnumConstList<hulkfight::motion::CollisionTargetSizeCondition>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_001555c0()
 {
@@ -1336,7 +1336,7 @@ extern "C" void FUN_001555c0()
 
 // 0x00155680 FUN_00155680 (95 B): matches/0x00155680.cpp
 // sym: _FUN_00155680
-// (gx2, D18) rewritten; constructs the real ParamBool<hulkmotion::CollisionSourceIsMissileCondition>,
+// (gx2, D18) rewritten; constructs the real ParamBool<hulkfight::motion::CollisionSourceIsMissileCondition>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_00155680()
 {
@@ -1352,7 +1352,7 @@ extern "C" void FUN_00155680()
 
 // 0x001556e0 FUN_001556e0 (176 B): matches/0x001556e0.cpp
 // sym: _FUN_001556e0
-// (gx2, D18) rewritten; constructs the real ParamEnumConstList<hulkmotion::HitPushbackVelocityCondition>, ParamFloatConstRange<hulkmotion::HitPushbackVelocityCondition>,
+// (gx2, D18) rewritten; constructs the real ParamEnumConstList<hulkfight::motion::HitPushbackVelocityCondition>, ParamFloatConstRange<hulkfight::motion::HitPushbackVelocityCondition>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_001556e0()
 {
@@ -1369,7 +1369,7 @@ extern "C" void FUN_001556e0()
 
 // 0x00155790 FUN_00155790 (95 B): matches/0x00155790.cpp
 // sym: _FUN_00155790
-// (gx2, D18) rewritten; constructs the real ParamBool<hulkmotion::CollisionExplosionCondition>,
+// (gx2, D18) rewritten; constructs the real ParamBool<hulkfight::motion::CollisionExplosionCondition>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_00155790()
 {
@@ -1385,7 +1385,7 @@ extern "C" void FUN_00155790()
 
 // 0x001557f0 FUN_001557f0 (231 B): matches/0x001557f0.cpp
 // sym: ?FUN_001557f0@@YAXXZ
-// (gx2, D18) from InterruptPriorityTrack_reg.new_plain.cpp; constructs the real ParamBool<hulkmotion::CollisionSourceNodeCondition>, ParamBranch<hulkmotion::CollisionSourceNodeCondition>, ParamEnumConstList<hulkmotion::CollisionSourceNodeCondition>,
+// (gx2, D18) from InterruptPriorityTrack_reg.new_plain.cpp; constructs the real ParamBool<hulkfight::motion::CollisionSourceNodeCondition>, ParamBranch<hulkfight::motion::CollisionSourceNodeCondition>, ParamEnumConstList<hulkfight::motion::CollisionSourceNodeCondition>,
 // whose vftable and scalar deleting destructor it emits
 void FUN_001557f0()
 {
@@ -1403,7 +1403,7 @@ void FUN_001557f0()
 
 // 0x001558e0 FUN_001558e0 (231 B): matches/0x001558e0.cpp
 // sym: ?FUN_001558e0@@YAXXZ
-// (gx2, D18) from InterruptPriorityTrack_reg.new_plain.cpp; constructs the real ParamBool<hulkmotion::CollisionChargeCondition>, ParamEnumConstList<hulkmotion::CollisionChargeCondition>, ParamFloatConstRange<hulkmotion::CollisionChargeCondition>,
+// (gx2, D18) from InterruptPriorityTrack_reg.new_plain.cpp; constructs the real ParamBool<hulkfight::motion::CollisionChargeCondition>, ParamEnumConstList<hulkfight::motion::CollisionChargeCondition>, ParamFloatConstRange<hulkfight::motion::CollisionChargeCondition>,
 // whose vftable and scalar deleting destructor it emits
 void FUN_001558e0()
 {
@@ -1421,7 +1421,7 @@ void FUN_001558e0()
 
 // 0x001559d0 FUN_001559d0 (274 B): matches/0x001559d0.cpp
 // sym: _FUN_001559d0
-// (gx2, D18) from InterruptPriorityTrack_reg.iso_001559d0.cpp; constructs the real ParamBool<hulkmotion::CollisionDamageHealthCompareCondition>, ParamEnumConstList<hulkmotion::CollisionDamageHealthCompareCondition>, ParamFloatConstRange<hulkmotion::CollisionDamageHealthCompareCondition>,
+// (gx2, D18) from InterruptPriorityTrack_reg.iso_001559d0.cpp; constructs the real ParamBool<hulkfight::motion::CollisionDamageHealthCompareCondition>, ParamEnumConstList<hulkfight::motion::CollisionDamageHealthCompareCondition>, ParamFloatConstRange<hulkfight::motion::CollisionDamageHealthCompareCondition>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_001559d0()
 {
@@ -1440,7 +1440,7 @@ extern "C" void FUN_001559d0()
 
 // 0x00155af0 FUN_00155af0 (190 B): matches/0x00155af0.cpp
 // sym: _FUN_00155af0
-// (gx2, D18) from InterruptPriorityTrack_reg.iso_00155af0.cpp; constructs the real ParamEnumConstList<hulkmotion::CollisionTargetTypeCondition>,
+// (gx2, D18) from InterruptPriorityTrack_reg.iso_00155af0.cpp; constructs the real ParamEnumConstList<hulkfight::motion::CollisionTargetTypeCondition>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_00155af0()
 {
@@ -1457,7 +1457,7 @@ extern "C" void FUN_00155af0()
 
 // 0x00155bb0 FUN_00155bb0 (113 B): matches/0x00155bb0.cpp
 // sym: _FUN_00155bb0
-// (gx2, D18) rewritten; constructs the real ParamEnumConstList<hulkmotion::CollisionInterruptPriorityCondition>,
+// (gx2, D18) rewritten; constructs the real ParamEnumConstList<hulkfight::motion::CollisionInterruptPriorityCondition>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_00155bb0()
 {
@@ -1473,7 +1473,7 @@ extern "C" void FUN_00155bb0()
 
 // 0x00155c30 FUN_00155c30 (158 B): matches/0x00155c30.cpp
 // sym: _FUN_00155c30
-// (gx2, D18) rewritten; constructs the real ParamFloatConstRange<hulkmotion::InterruptAccumulatorSetTrack>,
+// (gx2, D18) rewritten; constructs the real ParamFloatConstRange<hulkfight::motion::InterruptAccumulatorSetTrack>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_00155c30()
 {
@@ -1490,7 +1490,7 @@ extern "C" void FUN_00155c30()
 
 // 0x00155cd0 FUN_00155cd0 (460 B): matches/0x00155cd0.cpp
 // sym: _FUN_00155cd0
-// (gx2, D18) rewritten; constructs the real ParamBool<hulkmotion::HitThrowTrack>, ParamFloatConstRange<hulkmotion::HitThrowTrack>, ParamIntConstRange<hulkmotion::HitThrowTrack>,
+// (gx2, D18) rewritten; constructs the real ParamBool<hulkfight::motion::HitThrowTrack>, ParamFloatConstRange<hulkfight::motion::HitThrowTrack>, ParamIntConstRange<hulkfight::motion::HitThrowTrack>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_00155cd0()
 {
@@ -1513,7 +1513,7 @@ extern "C" void FUN_00155cd0()
 
 // 0x00155ea0 FUN_00155ea0 (213 B): matches/0x00155ea0.cpp
 // sym: _FUN_00155ea0
-// (gx2, D18) from InterruptPriorityTrack_reg.iso_00155ea0.cpp; constructs the real ParamFloatConstRange<hulkmotion::HitPauseTrack>,
+// (gx2, D18) from InterruptPriorityTrack_reg.iso_00155ea0.cpp; constructs the real ParamFloatConstRange<hulkfight::motion::HitPauseTrack>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_00155ea0()
 {
@@ -1531,7 +1531,7 @@ extern "C" void FUN_00155ea0()
 
 // 0x00155f80 FUN_00155f80 (172 B): matches/0x00155f80.cpp
 // sym: _FUN_00155f80
-// (gx2, D18) rewritten; constructs the real ParamEnumConstList<hulkmotion::HitWaitTrack>, ParamFloatConstRange<hulkmotion::HitWaitTrack>,
+// (gx2, D18) rewritten; constructs the real ParamEnumConstList<hulkfight::motion::HitWaitTrack>, ParamFloatConstRange<hulkfight::motion::HitWaitTrack>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_00155f80()
 {
@@ -1548,7 +1548,7 @@ extern "C" void FUN_00155f80()
 
 // 0x00156030 FUN_00156030 (213 B): matches/0x00156030.cpp
 // sym: _FUN_00156030
-// (gx2, D18) from InterruptPriorityTrack_reg.iso_00156030.cpp; constructs the real ParamFloatConstRange<hulkmotion::InterruptPriorityTrack>, ParamIntConstRange<hulkmotion::InterruptPriorityTrack>,
+// (gx2, D18) from InterruptPriorityTrack_reg.iso_00156030.cpp; constructs the real ParamFloatConstRange<hulkfight::motion::InterruptPriorityTrack>, ParamIntConstRange<hulkfight::motion::InterruptPriorityTrack>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_00156030()
 {
@@ -1566,7 +1566,7 @@ extern "C" void FUN_00156030()
 
 // 0x00156110 FUN_00156110 (358 B): matches/0x00156110.cpp
 // sym: _FUN_00156110
-// (gx2, D18) rewritten; constructs the real ParamFloatConstRange<hulkmotion::HitOrientToPushbackTrack>, ParamIntConstRange<hulkmotion::HitOrientToPushbackTrack>,
+// (gx2, D18) rewritten; constructs the real ParamFloatConstRange<hulkfight::motion::HitOrientToPushbackTrack>, ParamIntConstRange<hulkfight::motion::HitOrientToPushbackTrack>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_00156110()
 {
@@ -1587,7 +1587,7 @@ extern "C" void FUN_00156110()
 
 // 0x00156280 FUN_00156280 (409 B): matches/0x00156280.cpp
 // sym: _FUN_00156280
-// (gx2, D18) rewritten; constructs the real ParamBool<hulkmotion::HitFloatTrack>, ParamFloatConstRange<hulkmotion::HitFloatTrack>, ParamIntConstRange<hulkmotion::HitFloatTrack>,
+// (gx2, D18) rewritten; constructs the real ParamBool<hulkfight::motion::HitFloatTrack>, ParamFloatConstRange<hulkfight::motion::HitFloatTrack>, ParamIntConstRange<hulkfight::motion::HitFloatTrack>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_00156280()
 {
@@ -1609,7 +1609,7 @@ extern "C" void FUN_00156280()
 
 // 0x00156420 FUN_00156420 (95 B): matches/0x00156420.cpp
 // sym: _FUN_00156420
-// (gx2, D18) rewritten; constructs the real ParamFloatConstRange<hulkmotion::ClearFightParamsHitRecordTrack>,
+// (gx2, D18) rewritten; constructs the real ParamFloatConstRange<hulkfight::motion::ClearFightParamsHitRecordTrack>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_00156420()
 {
@@ -1625,7 +1625,7 @@ extern "C" void FUN_00156420()
 
 // 0x00156480 FUN_00156480 (158 B): matches/0x00156480.cpp
 // sym: _FUN_00156480
-// (gx2, D18) rewritten; constructs the real ParamFloatConstRange<hulkmotion::HitPushbackAddTrack>,
+// (gx2, D18) rewritten; constructs the real ParamFloatConstRange<hulkfight::motion::HitPushbackAddTrack>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_00156480()
 {
@@ -1642,7 +1642,7 @@ extern "C" void FUN_00156480()
 
 // 0x00156520 FUN_00156520 (307 B): matches/0x00156520.cpp
 // sym: _FUN_00156520
-// (gx2, D18) rewritten; constructs the real ParamBool<hulkmotion::HealthTrack>, ParamFloatConstRange<hulkmotion::HealthTrack>,
+// (gx2, D18) rewritten; constructs the real ParamBool<hulkfight::motion::HealthTrack>, ParamFloatConstRange<hulkfight::motion::HealthTrack>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_00156520()
 {
@@ -1662,7 +1662,7 @@ extern "C" void FUN_00156520()
 
 // 0x00156660 FUN_00156660 (158 B): matches/0x00156660.cpp
 // sym: _FUN_00156660
-// (gx2, D18) rewritten; constructs the real ParamFloatConstRange<hulkmotion::HitDamageTrack>,
+// (gx2, D18) rewritten; constructs the real ParamFloatConstRange<hulkfight::motion::HitDamageTrack>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_00156660()
 {
@@ -1679,7 +1679,7 @@ extern "C" void FUN_00156660()
 
 // 0x00156700 FUN_00156700 (613 B): matches/0x00156700.cpp
 // sym: _FUN_00156700
-// (gx2, D18) rewritten; constructs the real ParamFloatConstRange<hulkmotion::GroundSlideTrack>, ParamIntConstRange<hulkmotion::GroundSlideTrack>,
+// (gx2, D18) rewritten; constructs the real ParamFloatConstRange<hulkfight::motion::GroundSlideTrack>, ParamIntConstRange<hulkfight::motion::GroundSlideTrack>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_00156700()
 {
@@ -1705,7 +1705,7 @@ extern "C" void FUN_00156700()
 
 // 0x00156970 FUN_00156970 (562 B): matches/0x00156970.cpp
 // sym: _FUN_00156970
-// (gx2, D18) rewritten; constructs the real ParamBool<hulkmotion::HitPushbackTrack>, ParamFloatConstRange<hulkmotion::HitPushbackTrack>, ParamIntConstRange<hulkmotion::HitPushbackTrack>,
+// (gx2, D18) rewritten; constructs the real ParamBool<hulkfight::motion::HitPushbackTrack>, ParamFloatConstRange<hulkfight::motion::HitPushbackTrack>, ParamIntConstRange<hulkfight::motion::HitPushbackTrack>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_00156970()
 {
@@ -1730,7 +1730,7 @@ extern "C" void FUN_00156970()
 
 // 0x00156bb0 FUN_00156bb0 (158 B): matches/0x00156bb0.cpp
 // sym: _FUN_00156bb0
-// (gx2, D18) rewritten; constructs the real ParamFloatConstRange<hulkmotion::NoHitPushbackTrack>,
+// (gx2, D18) rewritten; constructs the real ParamFloatConstRange<hulkfight::motion::NoHitPushbackTrack>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_00156bb0()
 {

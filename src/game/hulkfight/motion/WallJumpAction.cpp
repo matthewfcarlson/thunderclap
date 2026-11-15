@@ -1,7 +1,9 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x0013e810..0x00143100 (kind game, layer game, confidence high), dominant class hulkfight::motion::WallJumpAction
 #include "tree_prelude.h"
+#define HULK_FIGHT_PARAM_IMPLICIT   // (gx2, D18) include/gen/fight.h: the parameter templates constructed for real
+#include "decls/data/engine/unknown.h"   // (gx3, D18) for the merged registrations
+#include "decls/data/engine/fight.h"   // (gx3, D18) for the merged registrations
 #include "compat/ptr.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/hulkfight.h"
@@ -19,6 +21,8 @@ void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's
 }
 namespace fn_f8068520 { extern "C" char DAT_00412b60[], DAT_00412b80[], DAT_00412b9c[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/hulkfight/motion.h"
+void* operator new(size_t) HULK_NEW_THROW;   // (gx2, D18) the game's operator new (0x0008d690)
+extern "C" void __cdecl FUN_002347b0(void* list, void* params, int count);   // (gx2, D18) a parameter list's set-up
 // (ren2) __RTDynamicCast's own name (CRT, C linkage)
 extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
@@ -3302,20 +3306,14 @@ template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::motion::WallVe
 // sym: ??_G?$ParamEnumConstList@VWallVelocityCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamEnumConstList<hulkfight::motion::WallVelocityCondition>::~ParamEnumConstList() {}
-#if defined(HULK_PTR64)
-template class fight::ParamEnumConstList<hulkfight::motion::WallVelocityCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1418e0)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00141900 fight::ParamFloatConstRange<hulkfight::motion::WallVelocityCondition>::vfunc_0 (30 B): matches/0x00141900.cpp
 // sym: ??_G?$ParamFloatConstRange@VWallVelocityCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamFloatConstRange<hulkfight::motion::WallVelocityCondition>::~ParamFloatConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamFloatConstRange<hulkfight::motion::WallVelocityCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x141900)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00141930 fight::TrackFactoryCasterTemplate<hulkfight::motion::WallRunTrack>::vfunc_0 (36 B): matches/0x00141930.cpp
@@ -3330,30 +3328,21 @@ template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::WallRunTra
 // sym: ??_G?$ParamFloatConstRange@VWallRunTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamFloatConstRange<hulkfight::motion::WallRunTrack>::~ParamFloatConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamFloatConstRange<hulkfight::motion::WallRunTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x141960)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00141980 fight::ParamBool<hulkfight::motion::WallRunTrack>::vfunc_0 (30 B): matches/0x00141980.cpp
 // sym: ??_G?$ParamBool@VWallRunTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamBool<hulkfight::motion::WallRunTrack>::~ParamBool() {}
-#if defined(HULK_PTR64)
-template class fight::ParamBool<hulkfight::motion::WallRunTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x141980)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x001419a0 fight::ParamIntConstRange<hulkfight::motion::WallRunTrack>::vfunc_0 (30 B): matches/0x001419a0.cpp
 // sym: ??_G?$ParamIntConstRange@VWallRunTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamIntConstRange<hulkfight::motion::WallRunTrack>::~ParamIntConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamIntConstRange<hulkfight::motion::WallRunTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1419a0)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x001419d0 fight::TrackFactoryCasterTemplate<hulkfight::motion::WallJumpTrack>::vfunc_0 (36 B): matches/0x001419d0.cpp
@@ -3368,30 +3357,21 @@ template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::WallJumpTr
 // sym: ??_G?$ParamFloatConstRange@VWallJumpTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamFloatConstRange<hulkfight::motion::WallJumpTrack>::~ParamFloatConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamFloatConstRange<hulkfight::motion::WallJumpTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x141a00)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00141a20 fight::ParamBool<hulkfight::motion::WallJumpTrack>::vfunc_0 (30 B): matches/0x00141a20.cpp
 // sym: ??_G?$ParamBool@VWallJumpTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamBool<hulkfight::motion::WallJumpTrack>::~ParamBool() {}
-#if defined(HULK_PTR64)
-template class fight::ParamBool<hulkfight::motion::WallJumpTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x141a20)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00141a40 fight::ParamIntConstRange<hulkfight::motion::WallJumpTrack>::vfunc_0 (30 B): matches/0x00141a40.cpp
 // sym: ??_G?$ParamIntConstRange@VWallJumpTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamIntConstRange<hulkfight::motion::WallJumpTrack>::~ParamIntConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamIntConstRange<hulkfight::motion::WallJumpTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x141a40)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00141a70 fight::TrackFactoryCasterTemplate<hulkfight::motion::WallExitTrack>::vfunc_0 (36 B): matches/0x00141a70.cpp
@@ -3406,20 +3386,90 @@ template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::WallExitTr
 // sym: ??_G?$ParamFloatConstRange@VWallExitTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamFloatConstRange<hulkfight::motion::WallExitTrack>::~ParamFloatConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamFloatConstRange<hulkfight::motion::WallExitTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x141aa0)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00141ac0 fight::ParamIntConstRange<hulkfight::motion::WallExitTrack>::vfunc_0 (30 B): matches/0x00141ac0.cpp
 // sym: ??_G?$ParamIntConstRange@VWallExitTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamIntConstRange<hulkfight::motion::WallExitTrack>::~ParamIntConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamIntConstRange<hulkfight::motion::WallExitTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x141ac0)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
+
+
+// 0x00141ae0 FUN_00141ae0 (176 B): matches/0x00141ae0.cpp
+// sym: ?FUN_00141ae0@@YAXXZ
+// (gx2, D18) from WallJumpAction.new_throw.cpp; constructs the real ParamEnumConstList<hulkfight::motion::WallVelocityCondition>, ParamFloatConstRange<hulkfight::motion::WallVelocityCondition>,
+// whose vftable and scalar deleting destructor it emits
+void FUN_00141ae0()
+{
+    if (DAT_004e0f44 == 0) {
+        ::fight::ParamValue* params[2];
+        params[0] = new ::fight::ParamEnumConstList< ::hulkfight::motion::WallVelocityCondition>("compare", (void*)&DAT_0042773c, DAT_00427754, &owners::X_13e810::FUN_0013e810);
+        params[1] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::WallVelocityCondition>("velocity", &owners::Obj_13e820::FUN_0013e820);
+        FUN_002347b0(&DAT_004e0f40, params, 2);
+    }
+    DAT_004e0f44++;
+}
+
+
+
+// 0x00141b90 FUN_00141b90 (970 B): matches/0x00141b90.cpp
+// sym: ?FUN_00141b90@@YAXXZ
+// (gx2, D18) from WallJumpAction.new_throw.cpp; constructs the real ParamBool<hulkfight::motion::WallJumpTrack>, ParamFloatConstRange<hulkfight::motion::WallJumpTrack>, ParamIntConstRange<hulkfight::motion::WallJumpTrack>,
+// whose vftable and scalar deleting destructor it emits
+void FUN_00141b90()
+{
+    if (DAT_004e0f54 == 0) {
+        ::fight::ParamValue* params[18];
+        params[0] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::WallJumpTrack>("timeBegin", &owners::Obj_13ea20::FUN_0013ea20);
+        params[1] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::WallJumpTrack>("timeEnd", &fn_f8068520::A_13ea30::Set);
+        params[2] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::WallJumpTrack>("velocityMin", &owners::Obj_13ea50::FUN_0013ea50);
+        params[3] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::WallJumpTrack>("velocityMax", &owners::Obj_13ea70::FUN_0013ea70);
+        params[4] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::WallJumpTrack>("velocityXZMax", &owners::A_13ea90::FUN_0013ea90);
+        params[5] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::WallJumpTrack>("gravity", &owners::Obj_13eab0::FUN_0013eab0);
+        params[6] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::WallJumpTrack>("upAngleMin", &owners::Obj_13ead0::FUN_0013ead0);
+        params[7] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::WallJumpTrack>("upAngleMax", &owners::X_13eb00::FUN_0013eb00);
+        params[8] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::WallJumpTrack>("turningVelocity", &owners::Obj_13eb30::FUN_0013eb30);
+        params[9] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::WallJumpTrack>("straightUpArc", &owners::A_13eb60::FUN_0013eb60);
+        params[10] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::WallJumpTrack>("drift", &owners::Obj_13eb90::FUN_0013eb90);
+        params[11] = new ::fight::ParamBool< ::hulkfight::motion::WallJumpTrack>("useCurrentMotionAngle", &owners::C_13ebb0::FUN_0013ebb0);
+        params[12] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::WallJumpTrack>("angle", &owners::Obj_13ebd0::FUN_0013ebd0);
+        params[13] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::WallJumpTrack>("arc", &owners::X_13ec00::FUN_0013ec00);
+        params[14] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::WallJumpTrack>("minYAngle", &fn_f8068520::O_13ec30::Set);
+        params[15] = new ::fight::ParamIntConstRange< ::hulkfight::motion::WallJumpTrack>("priority", &owners::Obj_13ec60::FUN_0013ec60);
+        params[16] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::WallJumpTrack>("blendInTime", &owners::Obj_13ec80::FUN_0013ec80);
+        params[17] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::WallJumpTrack>("blendOutTime", &owners::X_13eca0::FUN_0013eca0);
+        FUN_002347b0(&DAT_004e0f50, params, 18);
+    }
+    DAT_004e0f54++;
+}
+
+
+
+// 0x00141f60 FUN_00141f60 (613 B): matches/0x00141f60.cpp
+// sym: ?FUN_00141f60@@YAXXZ
+// (gx2, D18) from WallJumpAction.new_throw.cpp; constructs the real ParamFloatConstRange<hulkfight::motion::WallExitTrack>, ParamIntConstRange<hulkfight::motion::WallExitTrack>,
+// whose vftable and scalar deleting destructor it emits
+void FUN_00141f60()
+{
+    if (DAT_004e0f5c == 0) {
+        ::fight::ParamValue* params[11];
+        params[0] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::WallExitTrack>("timeBegin", &owners::Obj_13ecb0::FUN_0013ecb0);
+        params[1] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::WallExitTrack>("timeEnd", &owners::Obj_13ecc0::FUN_0013ecc0);
+        params[2] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::WallExitTrack>("velocityMin", &owners::Obj_13ece0::FUN_0013ece0);
+        params[3] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::WallExitTrack>("velocityMax", &owners::Obj_13ed00::FUN_0013ed00);
+        params[4] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::WallExitTrack>("gravity", &owners::Obj_13ed20::FUN_0013ed20);
+        params[5] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::WallExitTrack>("upAngleMin", &owners::Obj_13ed40::FUN_0013ed40);
+        params[6] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::WallExitTrack>("upAngleMax", &owners::Obj_13ed70::FUN_0013ed70);
+        params[7] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::WallExitTrack>("turningVelocity", &owners::X_13eda0::FUN_0013eda0);
+        params[8] = new ::fight::ParamIntConstRange< ::hulkfight::motion::WallExitTrack>("priority", &owners::X_13edd0::FUN_0013edd0);
+        params[9] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::WallExitTrack>("blendInTime", &owners::O_13edf0::FUN_0013edf0);
+        params[10] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::WallExitTrack>("blendOutTime", &owners::Obj_13ee10::FUN_0013ee10);
+        FUN_002347b0(&DAT_004e0f58, params, 11);
+    }
+    DAT_004e0f5c++;
+}
+
 
 
 // 0x001421d0 hulkfight::motion::WallRunTrack::vfunc_10 (70 B): matches/0x001421d0.cpp
@@ -3558,10 +3608,7 @@ void ParamBranch::vfunc_6(void* p) {
 // sym: ??_G?$ParamName@VWallRunTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamName<hulkfight::motion::WallRunTrack>::~ParamName() {}
-#if defined(HULK_PTR64)
-template class fight::ParamName<hulkfight::motion::WallRunTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x142490)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 namespace fn_f8068520 {
 
@@ -3572,6 +3619,41 @@ extern "C" void __cdecl FUN_001424e0(Owner* owner, const char* name) {
     Track* t = Find_00236ac0(name, &c);
     owner->Set_002367c0(t);
 }
+
+
+} // namespace fn_f8068520
+
+// 0x00142510 FUN_00142510 (919 B): matches/0x00142510.cpp
+// sym: ?FUN_00142510@@YAXXZ
+// (gx2, D18) from WallJumpAction.new_throw.cpp; constructs the real ParamBool<hulkfight::motion::WallRunTrack>, ParamFloatConstRange<hulkfight::motion::WallRunTrack>, ParamIntConstRange<hulkfight::motion::WallRunTrack>, ParamName<hulkfight::motion::WallRunTrack>,
+// whose vftable and scalar deleting destructor it emits
+void FUN_00142510()
+{
+    if (DAT_004e0f4c == 0) {
+        ::fight::ParamValue* params[17];
+        params[0] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::WallRunTrack>("timeBegin", &owners::Obj_13e830::FUN_0013e830);
+        params[1] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::WallRunTrack>("timeEnd", &owners::X_13e840::FUN_0013e840);
+        params[2] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::WallRunTrack>("velocityInit", &owners::Obj_13e860::FUN_0013e860);
+        params[3] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::WallRunTrack>("velocityInitY", &owners::C_13e880::FUN_0013e880);
+        params[4] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::WallRunTrack>("velocityMin", &owners::Obj_13e8a0::FUN_0013e8a0);
+        params[5] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::WallRunTrack>("velocityMax", &owners::Obj_13e8c0::FUN_0013e8c0);
+        params[6] = new ::fight::ParamBool< ::hulkfight::motion::WallRunTrack>("useCharge", &owners::Obj_13e8e0::FUN_0013e8e0);
+        params[7] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::WallRunTrack>("gravity", &owners::Obj_13e900::FUN_0013e900);
+        params[8] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::WallRunTrack>("friction", &owners::Obj_13e920::FUN_0013e920);
+        params[9] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::WallRunTrack>("turningRate", &owners::Obj_13e940::FUN_0013e940);
+        params[10] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::WallRunTrack>("maxAngleChange", &owners::R_13e970::FUN_0013e970);
+        params[11] = new ::fight::ParamName< ::hulkfight::motion::WallRunTrack>("animLeft", &owners::X_13e990::FUN_0013e990);
+        params[12] = new ::fight::ParamName< ::hulkfight::motion::WallRunTrack>("animUp", &fn_f8068520::FUN_0013e9a0);
+        params[13] = new ::fight::ParamName< ::hulkfight::motion::WallRunTrack>("animRight", &FUN_0013e9b0);
+        params[14] = new ::fight::ParamIntConstRange< ::hulkfight::motion::WallRunTrack>("priority", &owners::Obj_13e9d0::FUN_0013e9d0);
+        params[15] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::WallRunTrack>("blendInTime", &owners::O_13e9f0::FUN_0013e9f0);
+        params[16] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::WallRunTrack>("blendOutTime", &owners::C_13ea10::FUN_0013ea10);
+        FUN_002347b0(&DAT_004e0f48, params, 17);
+    }
+    DAT_004e0f4c++;
+}
+
+namespace fn_f8068520 {
 
 
 // 0x001428b0 FUN_001428b0 (38 B): matches/0x001428b0.cpp

@@ -593,7 +593,7 @@ Object_17af80* __cdecl Alloc_0008d690(int);
 
 // 0x00179c10 FUN_00179c10 (325 B): matches/0x00179c10.cpp
 // sym: ?FUN_00179c10@@YAXXZ
-// (gx2, D18) rewritten; constructs the real ParamBool<hulkmotion::ChargeTrack>, ParamEnumConstList<hulkmotion::ChargeTrack>, ParamFloatConstRange<hulkmotion::ChargeTrack>,
+// (gx2, D18) rewritten; constructs the real ParamBool<hulkfight::motion::ChargeTrack>, ParamEnumConstList<hulkfight::motion::ChargeTrack>, ParamFloatConstRange<hulkfight::motion::ChargeTrack>,
 // whose vftable and scalar deleting destructor it emits
 void FUN_00179c10()
 {
@@ -613,7 +613,7 @@ void FUN_00179c10()
 
 // 0x00179d60 FUN_00179d60 (95 B): matches/0x00179d60.cpp
 // sym: ?FUN_00179d60@@YAXXZ
-// (gx2, D18) rewritten; constructs the real ParamFloatConstRange<hulkmotion::SnapToGroundTrack>,
+// (gx2, D18) rewritten; constructs the real ParamFloatConstRange<hulkfight::motion::SnapToGroundTrack>,
 // whose vftable and scalar deleting destructor it emits
 void FUN_00179d60()
 {
@@ -629,7 +629,7 @@ void FUN_00179d60()
 
 // 0x00179dc0 FUN_00179dc0 (358 B): matches/0x00179dc0.cpp
 // sym: _FUN_00179dc0
-// (gx2, D18) rewritten; constructs the real ParamFloatConstRange<hulkmotion::SuckTrack>,
+// (gx2, D18) rewritten; constructs the real ParamFloatConstRange<hulkfight::motion::SuckTrack>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_00179dc0()
 {
@@ -650,7 +650,7 @@ extern "C" void FUN_00179dc0()
 
 // 0x00179f30 FUN_00179f30 (170 B): matches/0x00179f30.cpp
 // sym: _FUN_00179f30
-// (gx2, D18) rewritten; constructs the real ParamEnumConstList<hulkmotion::LocomotionStateTrack>, ParamFloatConstRange<hulkmotion::LocomotionStateTrack>,
+// (gx2, D18) rewritten; constructs the real ParamEnumConstList<hulkfight::motion::LocomotionStateTrack>, ParamFloatConstRange<hulkfight::motion::LocomotionStateTrack>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_00179f30()
 {
@@ -667,7 +667,7 @@ extern "C" void FUN_00179f30()
 
 // 0x00179fe0 FUN_00179fe0 (409 B): matches/0x00179fe0.cpp
 // sym: _FUN_00179fe0
-// (gx2, D18) rewritten; constructs the real ParamBool<hulkmotion::DriftToPositionTrack>, ParamFloatConstRange<hulkmotion::DriftToPositionTrack>, ParamString<hulkmotion::DriftToPositionTrack>, ParamVector<hulkmotion::DriftToPositionTrack>,
+// (gx2, D18) rewritten; constructs the real ParamBool<hulkfight::motion::DriftToPositionTrack>, ParamFloatConstRange<hulkfight::motion::DriftToPositionTrack>, ParamString<hulkfight::motion::DriftToPositionTrack>, ParamVector<hulkfight::motion::DriftToPositionTrack>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_00179fe0()
 {
@@ -689,7 +689,7 @@ extern "C" void FUN_00179fe0()
 
 // 0x0017a180 FUN_0017a180 (213 B): matches/0x0017a180.cpp
 // sym: ?FUN_0017a180@@YAXXZ
-// (gx2, D18) from unk_179c10.new_plain.cpp; constructs the real ParamFloatConstRange<hulkmotion::DriftToHulkTrack>, ParamVector<hulkmotion::DriftToHulkTrack>,
+// (gx2, D18) from unk_179c10.new_plain.cpp; constructs the real ParamFloatConstRange<hulkfight::motion::DriftToHulkTrack>, ParamVector<hulkfight::motion::DriftToHulkTrack>,
 // whose vftable and scalar deleting destructor it emits
 void FUN_0017a180()
 {
@@ -707,7 +707,7 @@ void FUN_0017a180()
 
 // 0x0017a260 FUN_0017a260 (221 B): matches/0x0017a260.cpp
 // sym: _FUN_0017a260
-// (gx2, D18) from unk_179c10.new_plain.cpp; constructs the real ParamEnumConstList<hulkmotion::MotionStateTrack>, ParamFloatConstRange<hulkmotion::MotionStateTrack>,
+// (gx2, D18) from unk_179c10.new_plain.cpp; constructs the real ParamEnumConstList<hulkfight::motion::MotionStateTrack>, ParamFloatConstRange<hulkfight::motion::MotionStateTrack>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_0017a260()
 {
@@ -725,7 +725,7 @@ extern "C" void FUN_0017a260()
 
 // 0x0017a340 FUN_0017a340 (213 B): matches/0x0017a340.cpp
 // sym: ?FUN_0017a340@@YAXXZ
-// (gx2, D18) from unk_179c10.new_plain.cpp; constructs the real ParamFloatConstRange<hulkmotion::MomentumXZAddTrack>,
+// (gx2, D18) from unk_179c10.new_plain.cpp; constructs the real ParamFloatConstRange<hulkfight::motion::MomentumXZAddTrack>,
 // whose vftable and scalar deleting destructor it emits
 void FUN_0017a340()
 {
@@ -743,7 +743,7 @@ void FUN_0017a340()
 
 // 0x0017a420 FUN_0017a420 (95 B): matches/0x0017a420.cpp
 // sym: _FUN_0017a420
-// (gx2, D18) rewritten; constructs the real ParamFloatConstRange<hulkmotion::TargetBreakTrack>,
+// (gx2, D18) rewritten; constructs the real ParamFloatConstRange<hulkfight::motion::TargetBreakTrack>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_0017a420()
 {
@@ -759,7 +759,7 @@ extern "C" void FUN_0017a420()
 
 // 0x0017a480 FUN_0017a480 (158 B): matches/0x0017a480.cpp
 // sym: _FUN_0017a480
-// (gx2, D18) rewritten; constructs the real ParamFloatConstRange<hulkmotion::TeleportTrack>, ParamVector<hulkmotion::TeleportTrack>,
+// (gx2, D18) rewritten; constructs the real ParamFloatConstRange<hulkfight::motion::TeleportTrack>, ParamVector<hulkfight::motion::TeleportTrack>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_0017a480()
 {
@@ -776,7 +776,7 @@ extern "C" void FUN_0017a480()
 
 // 0x0017a520 FUN_0017a520 (817 B): matches/0x0017a520.cpp
 // sym: _FUN_0017a520
-// (gx2, D18) rewritten; constructs the real ParamFloatConstRange<hulkmotion::SurfTrack>, ParamIntConstRange<hulkmotion::SurfTrack>,
+// (gx2, D18) rewritten; constructs the real ParamFloatConstRange<hulkfight::motion::SurfTrack>, ParamIntConstRange<hulkfight::motion::SurfTrack>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_0017a520()
 {
@@ -806,7 +806,7 @@ extern "C" void FUN_0017a520()
 
 // 0x0017a860 FUN_0017a860 (307 B): matches/0x0017a860.cpp
 // sym: _FUN_0017a860
-// (gx2, D18) rewritten; constructs the real ParamFloatConstRange<hulkmotion::TargetIconDistanceTrack>,
+// (gx2, D18) rewritten; constructs the real ParamFloatConstRange<hulkfight::motion::TargetIconDistanceTrack>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_0017a860()
 {
@@ -826,7 +826,7 @@ extern "C" void FUN_0017a860()
 
 // 0x0017a9a0 FUN_0017a9a0 (158 B): matches/0x0017a9a0.cpp
 // sym: _FUN_0017a9a0
-// (gx2, D18) rewritten; constructs the real ParamFloatConstRange<hulkmotion::CriticalMassDrainTrack>,
+// (gx2, D18) rewritten; constructs the real ParamFloatConstRange<hulkfight::motion::CriticalMassDrainTrack>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_0017a9a0()
 {
@@ -843,7 +843,7 @@ extern "C" void FUN_0017a9a0()
 
 // 0x0017aa40 FUN_0017aa40 (307 B): matches/0x0017aa40.cpp
 // sym: _FUN_0017aa40
-// (gx2, D18) rewritten; constructs the real ParamFloatConstRange<hulkmotion::SuckInPropsTrack>, ParamIntConstRange<hulkmotion::SuckInPropsTrack>,
+// (gx2, D18) rewritten; constructs the real ParamFloatConstRange<hulkfight::motion::SuckInPropsTrack>, ParamIntConstRange<hulkfight::motion::SuckInPropsTrack>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_0017aa40()
 {
@@ -863,7 +863,7 @@ extern "C" void FUN_0017aa40()
 
 // 0x0017ab80 FUN_0017ab80 (256 B): matches/0x0017ab80.cpp
 // sym: _FUN_0017ab80
-// (gx2, D18) from unk_179c10.new_plain.cpp; constructs the real ParamFloatConstRange<hulkmotion::TeleportRelativeTrack>, ParamVector<hulkmotion::TeleportRelativeTrack>,
+// (gx2, D18) from unk_179c10.new_plain.cpp; constructs the real ParamFloatConstRange<hulkfight::motion::TeleportRelativeTrack>, ParamVector<hulkfight::motion::TeleportRelativeTrack>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_0017ab80()
 {
@@ -882,7 +882,7 @@ extern "C" void FUN_0017ab80()
 
 // 0x0017ac80 FUN_0017ac80 (158 B): matches/0x0017ac80.cpp
 // sym: _FUN_0017ac80
-// (gx2, D18) rewritten; constructs the real ParamFloatConstRange<hulkmotion::IntentionClearTrack>,
+// (gx2, D18) rewritten; constructs the real ParamFloatConstRange<hulkfight::motion::IntentionClearTrack>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_0017ac80()
 {
@@ -899,7 +899,7 @@ extern "C" void FUN_0017ac80()
 
 // 0x0017ad20 FUN_0017ad20 (213 B): matches/0x0017ad20.cpp
 // sym: _FUN_0017ad20
-// (gx2, D18) from unk_179c10.new_plain.cpp; constructs the real ParamFloatConstRange<hulkmotion::TeleportToLocatorTrack>, ParamString<hulkmotion::TeleportToLocatorTrack>, ParamVector<hulkmotion::TeleportToLocatorTrack>,
+// (gx2, D18) from unk_179c10.new_plain.cpp; constructs the real ParamFloatConstRange<hulkfight::motion::TeleportToLocatorTrack>, ParamString<hulkfight::motion::TeleportToLocatorTrack>, ParamVector<hulkfight::motion::TeleportToLocatorTrack>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_0017ad20()
 {
@@ -917,7 +917,7 @@ extern "C" void FUN_0017ad20()
 
 // 0x0017ae00 FUN_0017ae00 (213 B): matches/0x0017ae00.cpp
 // sym: ?FUN_0017ae00@@YAXXZ
-// (gx2, D18) from unk_179c10.new_plain.cpp; constructs the real ParamBool<hulkmotion::ChargeClearTrack>, ParamFloatConstRange<hulkmotion::ChargeClearTrack>,
+// (gx2, D18) from unk_179c10.new_plain.cpp; constructs the real ParamBool<hulkfight::motion::ChargeClearTrack>, ParamFloatConstRange<hulkfight::motion::ChargeClearTrack>,
 // whose vftable and scalar deleting destructor it emits
 void FUN_0017ae00()
 {
@@ -935,7 +935,7 @@ void FUN_0017ae00()
 
 // 0x0017aee0 FUN_0017aee0 (158 B): matches/0x0017aee0.cpp
 // sym: _FUN_0017aee0
-// (gx2, D18) rewritten; constructs the real ParamBool<hulkmotion::VisibilityTrack>, ParamFloatConstRange<hulkmotion::VisibilityTrack>,
+// (gx2, D18) rewritten; constructs the real ParamBool<hulkfight::motion::VisibilityTrack>, ParamFloatConstRange<hulkfight::motion::VisibilityTrack>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_0017aee0()
 {

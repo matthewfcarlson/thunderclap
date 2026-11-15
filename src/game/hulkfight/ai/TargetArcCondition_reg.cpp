@@ -1,7 +1,8 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x001296f0..0x0012a270 (kind game, layer game, confidence low)
 #include "tree_prelude.h"
+#define HULK_FIGHT_PARAM_IMPLICIT   // (gx2, D18) include/gen/fight.h: the parameter templates constructed for real
+#include "gen/owners.h"   // (gx3, D18) for the merged registrations
 #include "compat/ptr.h"
 #include "decls/data/game/unknown.h"
 #include "gen/fight.h"
@@ -9,6 +10,10 @@
 #define TREE_TU_END }
 namespace fn_f63a58e9 {} using namespace fn_f63a58e9;
 #include "game/hulkfight/ai.h"
+void* operator new(size_t) HULK_NEW_THROW;   // (gx2, D18) the game's operator new (0x0008d690)
+extern "C" void __cdecl FUN_002347b0(void* list, void* params, int count);   // (gx2, D18) a parameter list's set-up
+namespace fn_f239bcb5 { struct Data_1235c0; } 
+namespace fn_f239bcb5 { struct Obj_1235c0 { bool Set(struct fn_f239bcb5::Data_1235c0 *); }; }   // (gx3, D18) setters, as defined in unk_123510.cpp
 
 // ---- declarations shared by the functions below
 namespace fn_f63a58e9 {
@@ -83,7 +88,6 @@ public:
     void (T::*setter)();
     int unused14;
 };
-extern "C" void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 class TrackFactoryCasterTemplate_129f50 {
   public:
     virtual bool Cast_00128360(void*);
@@ -111,6 +115,33 @@ class Target {
     void Run_002367c0(void*);
 };
 extern "C++" __declspec(nothrow) void* __cdecl FUN_00236ac0(void*, TrackFactoryCasterTemplate_129fb0*);
+
+
+} // namespace fn_f63a58e9
+
+// 0x00127ab0 fight::ParamFloatConstRange<hulkfight::ai::TargetArcCondition>::vfunc_0 (30 B): matches/0x00127ab0.cpp
+// sym: ??_G?$ParamFloatConstRange@VTargetArcCondition@ai@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from TargetArcCondition_2.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00129ab0)
+
+
+
+// 0x00127ad0 fight::ParamBool<hulkfight::ai::TargetArcCondition>::vfunc_0 (30 B): matches/0x00127ad0.cpp
+// sym: ??_G?$ParamBool@VTargetArcCondition@ai@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from TargetArcCondition_2.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00129ab0)
+
+namespace fn_f63a58e9 {
+
+
+} // namespace fn_f63a58e9
+
+// 0x00127af0 fight::ParamVector<hulkfight::ai::TargetArcCondition>::vfunc_0 (30 B): matches/0x00127af0.cpp
+// sym: ??_G?$ParamVector@VTargetArcCondition@ai@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from TargetArcCondition_2.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00129ab0)
+
+namespace fn_f63a58e9 {
 
 
 // 0x001296f0 hulkfight::ai::TargetClearAction::vfunc_2 (71 B): matches/0x001296f0.cpp
@@ -148,51 +179,32 @@ void ParamBranch::vfunc_6(void* p) {
 // sym: ??_G?$ParamName@VTargetArcCondition@ai@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamName<hulkfight::ai::TargetArcCondition>::~ParamName() {}
-#if defined(HULK_PTR64)
-template class fight::ParamName<hulkfight::ai::TargetArcCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x129a30)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 namespace fn_f63a58e9 {
 
-// 0x00129ab0 FUN_00129ab0 (358 B): equivalent/0x00129ab0.cpp
-// sym: _FUN_00129ab0 @ec913ce85def @w760f01215ec4
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 14/14)
-// FUN_00129ab0 @ 0x00129ab0
+} // namespace fn_f63a58e9
+
+// 0x00129ab0 FUN_00129ab0 (358 B): matches/0x00129ab0.cpp
+// sym: _FUN_00129ab0
+// (gx2, D18) rewritten; constructs the real ParamBool<hulkfight::ai::TargetArcCondition>, ParamFloatConstRange<hulkfight::ai::TargetArcCondition>, ParamName<hulkfight::ai::TargetArcCondition>, ParamVector<hulkfight::ai::TargetArcCondition>,
+// whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_00129ab0()
 {
     if (DAT_004e0d70 == 0) {
-        void* params[6];
-        void* mem;
-
-        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<TargetArcCondition>));
-        params[0] = 0;
-        if (mem)
-            params[0] = new (mem) ParamFloatConstRange<TargetArcCondition>("angle", (void (TargetArcCondition::*)())&TargetArcCondition::FUN_00123530);
-        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<TargetArcCondition>));
-        params[1] = 0;
-        if (mem)
-            params[1] = new (mem) ParamFloatConstRange<TargetArcCondition>("arc", (void (TargetArcCondition::*)())&TargetArcCondition::FUN_00123550);
-        mem = FUN_0008d690((int)sizeof(ParamBool<TargetArcCondition>));
-        params[2] = 0;
-        if (mem)
-            params[2] = new (mem) ParamBool<TargetArcCondition>("useCameraDirection", (void (TargetArcCondition::*)())&TargetArcCondition::FUN_00123580);
-        mem = FUN_0008d690((int)sizeof(ParamName<TargetArcCondition>));
-        params[3] = 0;
-        if (mem)
-            params[3] = new (mem) ParamName<TargetArcCondition>("joint", &TargetArcCondition::FUN_00123590);
-        mem = FUN_0008d690((int)sizeof(ParamVector<TargetArcCondition>));
-        params[4] = 0;
-        if (mem)
-            params[4] = new (mem) ParamVector<TargetArcCondition>("direction", (void (TargetArcCondition::*)())&TargetArcCondition::FUN_001235c0);
-        mem = FUN_0008d690((int)sizeof(ParamBool<TargetArcCondition>));
-        params[5] = 0;
-        if (mem)
-            params[5] = new (mem) ParamBool<TargetArcCondition>("useHulk", (void (TargetArcCondition::*)())&TargetArcCondition::FUN_001235f0);
-        FUN_002347b0(((ParamRegistry*)&DAT_004e0d6c), params, 6);
+        ::fight::ParamValue* params[6];
+        params[0] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::TargetArcCondition>("angle", &owners::O_123530::FUN_00123530);
+        params[1] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::TargetArcCondition>("arc", &owners::Obj_123550::FUN_00123550);
+        params[2] = new ::fight::ParamBool< ::hulkfight::ai::TargetArcCondition>("useCameraDirection", &owners::Obj_123580::FUN_00123580);
+        params[3] = new ::fight::ParamName< ::hulkfight::ai::TargetArcCondition>("joint", &owners::X_123590::FUN_00123590);
+        params[4] = new ::fight::ParamVector< ::hulkfight::ai::TargetArcCondition>("direction", &fn_f239bcb5::Obj_1235c0::Set);
+        params[5] = new ::fight::ParamBool< ::hulkfight::ai::TargetArcCondition>("useHulk", &owners::X_1235f0::FUN_001235f0);
+        FUN_002347b0(&DAT_004e0d6c, params, 6);
     }
     DAT_004e0d70++;
 }
+
+namespace fn_f63a58e9 {
 
 
 // 0x00129f50 FUN_00129f50 (38 B): matches/0x00129f50.cpp

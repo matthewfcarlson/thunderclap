@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x0016a0d0..0x0016a210 (kind game, layer game, confidence high), dominant class hulkfight::motion::VelocityCondition
 #include "tree_prelude.h"
 #include "gen/fight.h"
@@ -59,16 +58,6 @@ template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::motion::Target
 }
 
 
-// 0x0016a100 fight::ParamEnumConstList<hulkfight::motion::TargetMotionStateCondition>::vfunc_0 (30 B): matches/0x0016a100.cpp
-// sym: ??_G?$ParamEnumConstList@VTargetMotionStateCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
-// Same code shape as 0x00021840 (propagated; names are from that function)
-// scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamEnumConstList<hulkfight::motion::TargetMotionStateCondition>::~ParamEnumConstList() {}
-#if defined(HULK_PTR64)
-template class fight::ParamEnumConstList<hulkfight::motion::TargetMotionStateCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x16a100)
-#endif
-
-
 // 0x0016a130 fight::ConditionFactoryCasterTemplate<hulkfight::motion::IntentionButtonDownAnyCondition>::vfunc_0 (36 B): matches/0x0016a130.cpp
 // sym: ?vfunc_0@?$ConditionFactoryCasterTemplate@VIntentionButtonDownAnyCondition@motion@hulkfight@@@fight@@UAE_NPAX@Z
  // namespace hulkfight
@@ -78,16 +67,6 @@ template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::motion::Intent
 }
 
 
-// 0x0016a160 fight::ParamBool<hulkfight::motion::IntentionButtonDownAnyCondition>::vfunc_0 (30 B): matches/0x0016a160.cpp
-// sym: ??_G?$ParamBool@VIntentionButtonDownAnyCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
-// Same code shape as 0x00021840 (propagated; names are from that function)
-// scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamBool<hulkfight::motion::IntentionButtonDownAnyCondition>::~ParamBool() {}
-#if defined(HULK_PTR64)
-template class fight::ParamBool<hulkfight::motion::IntentionButtonDownAnyCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x16a160)
-#endif
-
-
 // 0x0016a190 fight::ConditionFactoryCasterTemplate<hulkfight::motion::VelocityCondition>::vfunc_0 (36 B): matches/0x0016a190.cpp
 // sym: ?vfunc_0@?$ConditionFactoryCasterTemplate@VVelocityCondition@motion@hulkfight@@@fight@@UAE_NPAX@Z
  // namespace hulkfight
@@ -95,24 +74,4 @@ template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::motion::Veloci
 
     return FUN_00344e74(p, 0, &DAT_00491ca8, &DAT_004b67a8, 0) != 0;
 }
-
-
-// 0x0016a1c0 fight::ParamEnumConstList<hulkfight::motion::VelocityCondition>::vfunc_0 (30 B): matches/0x0016a1c0.cpp
-// sym: ??_G?$ParamEnumConstList@VVelocityCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
-// Same code shape as 0x00021840 (propagated; names are from that function)
-// scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamEnumConstList<hulkfight::motion::VelocityCondition>::~ParamEnumConstList() {}
-#if defined(HULK_PTR64)
-template class fight::ParamEnumConstList<hulkfight::motion::VelocityCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x16a1c0)
-#endif
-
-
-// 0x0016a1e0 fight::ParamFloatConstRange<hulkfight::motion::VelocityCondition>::vfunc_0 (30 B): matches/0x0016a1e0.cpp
-// sym: ??_G?$ParamFloatConstRange@VVelocityCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
-// Same code shape as 0x00021840 (propagated; names are from that function)
-// scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamFloatConstRange<hulkfight::motion::VelocityCondition>::~ParamFloatConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamFloatConstRange<hulkfight::motion::VelocityCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x16a1e0)
-#endif
 

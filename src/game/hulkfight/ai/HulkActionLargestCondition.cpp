@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x00111060..0x001110e0 (kind game, layer game, confidence high), dominant class hulkfight::ai::HulkActionLargestCondition
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -23,24 +22,4 @@ template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::ai::HulkAction
 
     return FUN_00344e74((hulk_intptr)p, 0, (hulk_intptr)&hulk_at_00491ca8, (hulk_intptr)&gTypeB, 0) != 0;
 }
-
-
-// 0x00111090 fight::ParamEnumConstList<hulkfight::ai::HulkActionLargestCondition>::vfunc_0 (30 B): matches/0x00111090.cpp
-// sym: ??_G?$ParamEnumConstList@VHulkActionLargestCondition@ai@hulkfight@@@fight@@UAEPAXI@Z
-// Same code shape as 0x00021840 (propagated; names are from that function)
-// scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamEnumConstList<hulkfight::ai::HulkActionLargestCondition>::~ParamEnumConstList() {}
-#if defined(HULK_PTR64)
-template class fight::ParamEnumConstList<hulkfight::ai::HulkActionLargestCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x111090)
-#endif
-
-
-// 0x001110b0 fight::ParamString<hulkfight::ai::HulkActionLargestCondition>::vfunc_0 (30 B): matches/0x001110b0.cpp
-// sym: ??_G?$ParamString@VHulkActionLargestCondition@ai@hulkfight@@@fight@@UAEPAXI@Z
-// Same code shape as 0x00021840 (propagated; names are from that function)
-// scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamString<hulkfight::ai::HulkActionLargestCondition>::~ParamString() {}
-#if defined(HULK_PTR64)
-template class fight::ParamString<hulkfight::ai::HulkActionLargestCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1110b0)
-#endif
 

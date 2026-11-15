@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// object 0x00234a90..0x00234ba0 (kind game, layer engine, confidence medium), dominant class fight::ParamValueStringList
+// object 0x00234af0..0x00234c00 (kind game, layer engine, confidence medium), dominant class fight::ParamValueStringList
 #include "tree_prelude.h"
+#define HULK_FIGHT_PARAM_IMPLICIT   // (gx2, D18) include/gen/fight.h: the parameter classes' real constructors
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #define TREE_TU_BEGIN namespace fn_f7578ec5 {
@@ -10,40 +11,28 @@ namespace fn_f7578ec5 {} using namespace fn_f7578ec5;
 
 // ---- declarations shared by the functions below
 namespace fn_f7578ec5 {
-extern "C" char DAT_00427a98[];
-struct Member_234a90 {
-    void Init_0027b0e0(const char*);
-};
-extern int hulk_at_004279fc;
-extern int hulk_at_00427abc;
-class Part_234af0 {
-  public:
-    void Init_0027b0e0(int);
-};
-class ParamValueStringList {
-  public:
-    int vptr;
-    int pad;
-    Part_234af0 part;
-    ParamValueStringList(hulk_intptr);
-};
 
 } // namespace fn_f7578ec5
 
-// 0x00234a90 FUN_00234a90 (34 B): matches/0x00234a90.cpp
-// sym: ?FUN_00234a90@ParamValueName@fight@@QAEPAV12@PBD@Z
-fight::ParamValueName* fight::ParamValueName::FUN_00234a90(const char* name) {
-    *(hulk_intptr*)this = ((hulk_intptr)DAT_004279fc);
-    ((Member_234a90*)((char*)this + 8))->Init_0027b0e0(name);
-    *(hulk_intptr*)this = ((hulk_intptr)DAT_00427a98);
-    return (fight::ParamValueName*)(this);
-}
+// 0x00234af0 FUN_00234af0 (34 B): matches/0x00234af0.cpp
+// sym: ??0ParamValueStringList@fight@@QAE@PBD@Z
+// (gx4, D18) the constructor the parameter registrations call (`new ParamStringConstList<T>(name, setter)`)
+fight::ParamValueStringList::ParamValueStringList(const char* name) : fight::ParamValue(name) {}
 
 
-// 0x00234ac0 fight::ParamValueName::vfunc_6 (36 B): matches/0x00234ac0.cpp [wrapped: conflict: fight::ParamValueName]
-// sym: ?vfunc_6@ParamValueName@fight@fn_00234ac0@@QAE_NPAX0@Z
-namespace fn_00234ac0 {
-class ParamValueString {
+// 0x00234ba0 FUN_00234ba0 (34 B): matches/0x00234ba0.cpp
+// sym: ??0ParamValueNameList@fight@@QAE@PBD@Z
+// (gx4, D18) the constructor the parameter registrations call (`new ParamNameConstList<T>(name, setter)`,
+// `new ParamNameList<T>(name, setter)`); it inlines ParamValueStringList's (this object's; its vftable store is dead),
+// so it belongs to this object (config/splits.json; it was ParamValueScript.iso_00234ba0.cpp)
+fight::ParamValueNameList::ParamValueNameList(const char* name) : fight::ParamValueStringList(name) {}
+
+
+// 0x00234bd0 fight::ParamValueNameList::vfunc_6 (36 B): matches/0x00234bd0.cpp
+// sym: ?vfunc_6@ParamValueNameList@fight@fn_f1ee0f39@@QAE_NPAX0@Z
+// (gx4) moved from ParamValueScript.cpp with its object (config/splits.json); its declarations kept in its namespace
+namespace fn_f1ee0f39 {
+class ParamValueStringList_234bd0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -54,32 +43,22 @@ class ParamValueString {
     virtual void f6();
     virtual void* get(void*);
 };
-namespace fight { class ParamValueName : public ParamValueString {
+namespace fight {
+class ParamValueNameList : public ParamValueStringList_234bd0 {
   public:
     bool vfunc_6(void*, void*);
-}; }
-class Receiver_234ac0 {
+};
+}
+class Receiver_234bd0 {
   public:
     void run_0027b040(void*);
 };
-bool fight::ParamValueName::vfunc_6(void* a, void* b) {
+bool fight::ParamValueNameList::vfunc_6(void* a, void* b) {
     void* x = get(a);
     if (!x)
         return false;
-    ((Receiver_234ac0*)x)->run_0027b040(b);
+    ((Receiver_234bd0*)x)->run_0027b040(b);
     return true;
 }
-} // namespace fn_00234ac0
+} // namespace fn_f1ee0f39
 
-namespace fn_f7578ec5 {
-
-// 0x00234af0 FUN_00234af0 (34 B): matches/0x00234af0.cpp
-// sym: ??0ParamValueStringList@fn_f7578ec5@@QAE@H@Z
-ParamValueStringList::ParamValueStringList(hulk_intptr x) {
-    int* p = &vptr;
-    *(hulk_intptr*)p = (hulk_intptr)&hulk_at_004279fc;
-    part.Init_0027b0e0(x);
-    *(hulk_intptr*)p = (hulk_intptr)&hulk_at_00427abc;
-}
-
-} // namespace fn_f7578ec5

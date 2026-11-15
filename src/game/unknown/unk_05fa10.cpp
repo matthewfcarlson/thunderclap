@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x0005fa10..0x000604d0 (kind game, layer game, confidence low)
 #include "tree_prelude.h"
+#define HULK_FIGHT_PARAM_IMPLICIT   // (gx2, D18) include/gen/fight.h: the parameter templates constructed for real
 #include "decls/data/game/global.h"
 #include "decls/data/game/hulkfight/motion.h"
 #include "decls/data/game/unknown.h"
@@ -10,6 +11,11 @@
 #define TREE_TU_END }
 namespace fn_fe2e62b7 {} using namespace fn_fe2e62b7;
 #include "game/unknown.h"
+void* operator new(size_t) HULK_NEW_THROW;   // (gx2, D18) the game's operator new (0x0008d690)
+extern "C" void __cdecl FUN_002347b0(void* list, void* params, int count);   // (gx2, D18) a parameter list's set-up
+namespace fn_f133b0a3 { struct Src_5d6c0; } 
+namespace fn_f133b0a3 { struct Owner_5d6c0 { bool Set(struct fn_f133b0a3::Src_5d6c0 *); }; }   // (gx3, D18) setters, as defined in unk_05d370.cpp
+namespace fn_ff0a839e { struct O_130f0 { int * Get(); }; }   // (gx3, D18) setters, as defined in unk_011000.cpp
 
 // ---- declarations shared by the functions below
 inline void* operator new(size_t, void* p) throw() { return p; }
@@ -68,7 +74,6 @@ public:
     void (T::*setter)();
     int unused14;
 };
-extern "C" void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 class CProceduralDurationAnimationTrack_5fbe0 {
 public:
     bool FUN_0005d700(int); /* (unb4) as defined; address taken only */
@@ -285,181 +290,183 @@ class Obj_60450 {
 };
 
 
-// 0x0005fa10 FUN_0005fa10 (460 B): equivalent/0x0005fa10.cpp
-// sym: _FUN_0005fa10 @4b78b42fa8a2 @w1a62c898c9a9
-// STATUS: equivalent (tools/equiv.py level 3: 100 inputs, branch coverage 18/18)
-// FUN_0005fa10 @ 0x0005fa10
+} // namespace fn_fe2e62b7
+
+// 0x0005eb90 fight::ParamFloatConstRange<COpportunityBallTrack>::vfunc_0 (30 B): matches/0x0005eb90.cpp
+// sym: ??_G?$ParamFloatConstRange@VCOpportunityBallTrack@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CCollisionTrack.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0005fa10 / FUN_0005fbe0 / FUN_0005fef0)
+
+
+
+// 0x0005ebb0 fight::ParamVector<COpportunityBallTrack>::vfunc_0 (30 B): matches/0x0005ebb0.cpp
+// sym: ??_G?$ParamVector@VCOpportunityBallTrack@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CCollisionTrack.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0005fa10 / FUN_0005fbe0 / FUN_0005fef0)
+
+
+
+// 0x0005ebd0 fight::ParamIntConstRange<COpportunityBallTrack>::vfunc_0 (30 B): matches/0x0005ebd0.cpp
+// sym: ??_G?$ParamIntConstRange@VCOpportunityBallTrack@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CCollisionTrack.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0005fa10 / FUN_0005fbe0 / FUN_0005fef0)
+
+
+
+// 0x0005ebf0 fight::ParamBranch<COpportunityBallTrack>::vfunc_0 (30 B): matches/0x0005ebf0.cpp
+// sym: ??_G?$ParamBranch@VCOpportunityBallTrack@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CCollisionTrack.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0005fa10 / FUN_0005fbe0 / FUN_0005fef0)
+
+
+
+// 0x0005ec10 fight::ParamFloatConstRange<CProceduralDurationAnimationTrack>::vfunc_0 (30 B): matches/0x0005ec10.cpp
+// sym: ??_G?$ParamFloatConstRange@VCProceduralDurationAnimationTrack@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CCollisionTrack.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0005fa10 / FUN_0005fbe0 / FUN_0005fef0)
+
+
+
+// 0x0005ec30 fight::ParamEnumConstList<CProceduralDurationAnimationTrack>::vfunc_0 (30 B): matches/0x0005ec30.cpp
+// sym: ??_G?$ParamEnumConstList@VCProceduralDurationAnimationTrack@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CCollisionTrack.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0005fa10 / FUN_0005fbe0 / FUN_0005fef0)
+
+
+
+// 0x0005ec50 fight::ParamIntConstRange<CProceduralDurationAnimationTrack>::vfunc_0 (30 B): matches/0x0005ec50.cpp
+// sym: ??_G?$ParamIntConstRange@VCProceduralDurationAnimationTrack@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CCollisionTrack.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0005fa10 / FUN_0005fbe0 / FUN_0005fef0)
+
+
+
+// 0x0005ec70 fight::ParamBool<CProceduralDurationAnimationTrack>::vfunc_0 (30 B): matches/0x0005ec70.cpp
+// sym: ??_G?$ParamBool@VCProceduralDurationAnimationTrack@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CCollisionTrack.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0005fa10 / FUN_0005fbe0 / FUN_0005fef0)
+
+
+
+// 0x0005ec90 fight::ParamFloatConstRange<CStunAnimationTrack>::vfunc_0 (30 B): matches/0x0005ec90.cpp
+// sym: ??_G?$ParamFloatConstRange@VCStunAnimationTrack@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CCollisionTrack.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0005fa10 / FUN_0005fbe0 / FUN_0005fef0)
+
+
+
+// 0x0005ecb0 fight::ParamEnumConstList<CStunAnimationTrack>::vfunc_0 (30 B): matches/0x0005ecb0.cpp
+// sym: ??_G?$ParamEnumConstList@VCStunAnimationTrack@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CCollisionTrack.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0005fa10 / FUN_0005fbe0 / FUN_0005fef0)
+
+
+
+// 0x0005ecd0 fight::ParamIntConstRange<CStunAnimationTrack>::vfunc_0 (30 B): matches/0x0005ecd0.cpp
+// sym: ??_G?$ParamIntConstRange@VCStunAnimationTrack@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CCollisionTrack.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0005fa10 / FUN_0005fbe0 / FUN_0005fef0)
+
+
+
+// 0x0005f0f0 fight::ParamNameConstList<COpportunityBallTrack>::vfunc_0 (30 B): matches/0x0005f0f0.cpp
+// sym: ??_G?$ParamNameConstList@VCOpportunityBallTrack@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CCollisionTrack.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0005fa10 / FUN_0005fbe0 / FUN_0005fef0)
+
+
+
+// 0x0005f110 fight::ParamName<CProceduralDurationAnimationTrack>::vfunc_0 (30 B): matches/0x0005f110.cpp
+// sym: ??_G?$ParamName@VCProceduralDurationAnimationTrack@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CCollisionTrack.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0005fa10 / FUN_0005fbe0 / FUN_0005fef0)
+
+
+
+// 0x0005f130 fight::ParamName<CStunAnimationTrack>::vfunc_0 (30 B): matches/0x0005f130.cpp
+// sym: ??_G?$ParamName@VCStunAnimationTrack@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CCollisionTrack.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0005fa10 / FUN_0005fbe0 / FUN_0005fef0)
+
+
+
+// 0x0005fa10 FUN_0005fa10 (460 B): matches/0x0005fa10.cpp
+// sym: _FUN_0005fa10
+// (gx2, D18) rewritten; constructs the real ParamBranch<COpportunityBallTrack>, ParamFloatConstRange<COpportunityBallTrack>, ParamIntConstRange<COpportunityBallTrack>, ParamNameConstList<COpportunityBallTrack>, ParamVector<COpportunityBallTrack>,
+// whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_0005fa10()
 {
     if (DAT_004dc5dc == 0) {
-        void* params[8];
-        void* mem;
-        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<COpportunityBallTrack_5fa10>));
-        params[0] = 0;
-        if (mem)
-            params[0] = new (mem) ParamFloatConstRange<COpportunityBallTrack_5fa10>("timeBegin", (void (COpportunityBallTrack_5fa10::*)())&COpportunityBallTrack_5fa10::FUN_0005d690);
-        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<COpportunityBallTrack_5fa10>));
-        params[1] = 0;
-        if (mem)
-            params[1] = new (mem) ParamFloatConstRange<COpportunityBallTrack_5fa10>("timeEnd", (void (COpportunityBallTrack_5fa10::*)())&COpportunityBallTrack_5fa10::FUN_0005d6a0);
-        mem = FUN_0008d690((int)sizeof(ParamNameConstList<COpportunityBallTrack_5fa10>));
-        params[2] = 0;
-        if (mem)
-            params[2] = new (mem) ParamNameConstList<COpportunityBallTrack_5fa10>("joint", &COpportunityBallTrack_5fa10::FUN_0005d6b0);
-        mem = FUN_0008d690((int)sizeof(ParamVector<COpportunityBallTrack_5fa10>));
-        params[3] = 0;
-        if (mem)
-            params[3] = new (mem) ParamVector<COpportunityBallTrack_5fa10>("offset", (void (COpportunityBallTrack_5fa10::*)())&COpportunityBallTrack_5fa10::FUN_0005d6c0);
-        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<COpportunityBallTrack_5fa10>));
-        params[4] = 0;
-        if (mem)
-            params[4] = new (mem) ParamFloatConstRange<COpportunityBallTrack_5fa10>("radius", (void (COpportunityBallTrack_5fa10::*)())&COpportunityBallTrack_5fa10::FUN_0005d6e0);
-        mem = FUN_0008d690((int)sizeof(ParamIntConstRange<COpportunityBallTrack_5fa10>));
-        params[5] = 0;
-        if (mem)
-            params[5] = new (mem) ParamIntConstRange<COpportunityBallTrack_5fa10>("maxHitCount", (void (COpportunityBallTrack_5fa10::*)())&COpportunityBallTrack_5fa10::FUN_0005d6f0);
-        mem = FUN_0008d690((int)sizeof(ParamBranch<COpportunityBallTrack_5fa10>));
-        params[6] = 0;
-        if (mem)
-            params[6] = new (mem) ParamBranch<COpportunityBallTrack_5fa10>("receiver", &COpportunityBallTrack_5fa10::FUN_00013050);
-        mem = FUN_0008d690((int)sizeof(ParamBranch<COpportunityBallTrack_5fa10>));
-        params[7] = 0;
-        if (mem)
-            params[7] = new (mem) ParamBranch<COpportunityBallTrack_5fa10>("giver", &COpportunityBallTrack_5fa10::FUN_00013060);
-        FUN_002347b0(((ParamRegistry*)&DAT_004dc5d8), params, 8);
+        ::fight::ParamValue* params[8];
+        params[0] = new ::fight::ParamFloatConstRange< ::COpportunityBallTrack>("timeBegin", &owners::Obj_5d690::FUN_0005d690);
+        params[1] = new ::fight::ParamFloatConstRange< ::COpportunityBallTrack>("timeEnd", &owners::A_5d6a0::FUN_0005d6a0);
+        params[2] = new ::fight::ParamNameConstList< ::COpportunityBallTrack>("joint", &owners::Obj_5d6b0::FUN_0005d6b0);
+        params[3] = new ::fight::ParamVector< ::COpportunityBallTrack>("offset", &fn_f133b0a3::Owner_5d6c0::Set);
+        params[4] = new ::fight::ParamFloatConstRange< ::COpportunityBallTrack>("radius", &owners::C_5d6e0::FUN_0005d6e0);
+        params[5] = new ::fight::ParamIntConstRange< ::COpportunityBallTrack>("maxHitCount", &owners::A_5d6f0::FUN_0005d6f0);
+        params[6] = new ::fight::ParamBranch< ::COpportunityBallTrack>("receiver", &owners::A_13050::FUN_00013050);
+        params[7] = new ::fight::ParamBranch< ::COpportunityBallTrack>("giver", &owners::Obj_13060::FUN_00013060);
+        FUN_002347b0(&DAT_004dc5d8, params, 8);
     }
     DAT_004dc5dc++;
 }
 
 
-// 0x0005fbe0 FUN_0005fbe0 (784 B): equivalent/0x0005fbe0.cpp
-// sym: _FUN_0005fbe0 @fe8a8dc65ebc @wc92ed906f70c
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 30/30)
-// FUN_0005fbe0 @ 0x0005fbe0
+
+// 0x0005fbe0 FUN_0005fbe0 (784 B): matches/0x0005fbe0.cpp
+// sym: _FUN_0005fbe0
+// (gx2, D18) rewritten; constructs the real ParamBool<CProceduralDurationAnimationTrack>, ParamEnumConstList<CProceduralDurationAnimationTrack>, ParamFloatConstRange<CProceduralDurationAnimationTrack>, ParamIntConstRange<CProceduralDurationAnimationTrack>, ParamName<CProceduralDurationAnimationTrack>,
+// whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_0005fbe0()
 {
     if (DAT_004dc5e4 == 0) {
-        void* params[14];
-        void* mem;
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5fbe0<CProceduralDurationAnimationTrack_5fbe0>));
-        params[0] = 0;
-        if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange_5fbe0<CProceduralDurationAnimationTrack_5fbe0>("timeBegin", (void (CProceduralDurationAnimationTrack_5fbe0::*)())&CProceduralDurationAnimationTrack_5fbe0::FUN_0005d700);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5fbe0<CProceduralDurationAnimationTrack_5fbe0>));
-        params[1] = 0;
-        if (mem)
-            params[1] = new (mem) fight::ParamFloatConstRange_5fbe0<CProceduralDurationAnimationTrack_5fbe0>("timeScale", (void (CProceduralDurationAnimationTrack_5fbe0::*)())&CProceduralDurationAnimationTrack_5fbe0::FUN_0005d710);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5fbe0<CProceduralDurationAnimationTrack_5fbe0>));
-        params[2] = 0;
-        if (mem)
-            params[2] = new (mem) fight::ParamFloatConstRange_5fbe0<CProceduralDurationAnimationTrack_5fbe0>("timeEndMin", (void (CProceduralDurationAnimationTrack_5fbe0::*)())&CProceduralDurationAnimationTrack_5fbe0::FUN_0005d720);
-        mem = FUN_0008d690((int)sizeof(fight::ParamName_5fbe0<CProceduralDurationAnimationTrack_5fbe0>));
-        params[3] = 0;
-        if (mem)
-            params[3] = new (mem) fight::ParamName_5fbe0<CProceduralDurationAnimationTrack_5fbe0>("animation", &CProceduralDurationAnimationTrack_5fbe0::FUN_00013090);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5fbe0<CProceduralDurationAnimationTrack_5fbe0>));
-        params[4] = 0;
-        if (mem)
-            params[4] = new (mem) fight::ParamFloatConstRange_5fbe0<CProceduralDurationAnimationTrack_5fbe0>("speed", (void (CProceduralDurationAnimationTrack_5fbe0::*)())&CProceduralDurationAnimationTrack_5fbe0::FUN_0005d730);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5fbe0<CProceduralDurationAnimationTrack_5fbe0>));
-        params[5] = 0;
-        if (mem)
-            params[5] = new (mem) fight::ParamFloatConstRange_5fbe0<CProceduralDurationAnimationTrack_5fbe0>("initFrame", (void (CProceduralDurationAnimationTrack_5fbe0::*)())&CProceduralDurationAnimationTrack_5fbe0::FUN_0005d740);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5fbe0<CProceduralDurationAnimationTrack_5fbe0>));
-        params[6] = 0;
-        if (mem)
-            params[6] = new (mem) fight::ParamFloatConstRange_5fbe0<CProceduralDurationAnimationTrack_5fbe0>("startFrame", (void (CProceduralDurationAnimationTrack_5fbe0::*)())&CProceduralDurationAnimationTrack_5fbe0::FUN_0005d750);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5fbe0<CProceduralDurationAnimationTrack_5fbe0>));
-        params[7] = 0;
-        if (mem)
-            params[7] = new (mem) fight::ParamFloatConstRange_5fbe0<CProceduralDurationAnimationTrack_5fbe0>("endFrame", (void (CProceduralDurationAnimationTrack_5fbe0::*)())&CProceduralDurationAnimationTrack_5fbe0::FUN_0005d760);
-        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_5fbe0<CProceduralDurationAnimationTrack_5fbe0>));
-        params[8] = 0;
-        if (mem)
-            params[8] = new (mem) fight::ParamEnumConstList_5fbe0<CProceduralDurationAnimationTrack_5fbe0>("cyclic", ((const char**)&DAT_004abf70), (*(int*)&DAT_004123d4), (void (CProceduralDurationAnimationTrack_5fbe0::*)())&CProceduralDurationAnimationTrack_5fbe0::FUN_0005d770);
-        mem = FUN_0008d690((int)sizeof(fight::ParamName_5fbe0<CProceduralDurationAnimationTrack_5fbe0>));
-        params[9] = 0;
-        if (mem)
-            params[9] = new (mem) fight::ParamName_5fbe0<CProceduralDurationAnimationTrack_5fbe0>("partition", &CProceduralDurationAnimationTrack_5fbe0::FUN_000130f0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_5fbe0<CProceduralDurationAnimationTrack_5fbe0>));
-        params[10] = 0;
-        if (mem)
-            params[10] = new (mem) fight::ParamIntConstRange_5fbe0<CProceduralDurationAnimationTrack_5fbe0>("priority", (void (CProceduralDurationAnimationTrack_5fbe0::*)())&CProceduralDurationAnimationTrack_5fbe0::FUN_0005d780);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5fbe0<CProceduralDurationAnimationTrack_5fbe0>));
-        params[11] = 0;
-        if (mem)
-            params[11] = new (mem) fight::ParamFloatConstRange_5fbe0<CProceduralDurationAnimationTrack_5fbe0>("blendInTime", (void (CProceduralDurationAnimationTrack_5fbe0::*)())&CProceduralDurationAnimationTrack_5fbe0::FUN_0005d790);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5fbe0<CProceduralDurationAnimationTrack_5fbe0>));
-        params[12] = 0;
-        if (mem)
-            params[12] = new (mem) fight::ParamFloatConstRange_5fbe0<CProceduralDurationAnimationTrack_5fbe0>("blendOutTime", (void (CProceduralDurationAnimationTrack_5fbe0::*)())&CProceduralDurationAnimationTrack_5fbe0::FUN_0005d7a0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamBool_5fbe0<CProceduralDurationAnimationTrack_5fbe0>));
-        params[13] = 0;
-        if (mem)
-            params[13] = new (mem) fight::ParamBool_5fbe0<CProceduralDurationAnimationTrack_5fbe0>("useRootMotion", (void (CProceduralDurationAnimationTrack_5fbe0::*)())&CProceduralDurationAnimationTrack_5fbe0::FUN_0005d7b0);
-        FUN_002347b0(((ParamRegistry*)&DAT_004dc5e0), params, 14);
+        ::fight::ParamValue* params[14];
+        params[0] = new ::fight::ParamFloatConstRange< ::CProceduralDurationAnimationTrack>("timeBegin", &owners::Obj_5d700::FUN_0005d700);
+        params[1] = new ::fight::ParamFloatConstRange< ::CProceduralDurationAnimationTrack>("timeScale", &owners::Obj_5d710::FUN_0005d710);
+        params[2] = new ::fight::ParamFloatConstRange< ::CProceduralDurationAnimationTrack>("timeEndMin", &owners::Obj_5d720::FUN_0005d720);
+        params[3] = new ::fight::ParamName< ::CProceduralDurationAnimationTrack>("animation", &owners::Obj_13090::FUN_00013090);
+        params[4] = new ::fight::ParamFloatConstRange< ::CProceduralDurationAnimationTrack>("speed", &owners::Obj_5d730::FUN_0005d730);
+        params[5] = new ::fight::ParamFloatConstRange< ::CProceduralDurationAnimationTrack>("initFrame", &owners::Obj_5d740::FUN_0005d740);
+        params[6] = new ::fight::ParamFloatConstRange< ::CProceduralDurationAnimationTrack>("startFrame", &owners::A_5d750::FUN_0005d750);
+        params[7] = new ::fight::ParamFloatConstRange< ::CProceduralDurationAnimationTrack>("endFrame", &owners::Obj_5d760::FUN_0005d760);
+        params[8] = new ::fight::ParamEnumConstList< ::CProceduralDurationAnimationTrack>("cyclic", (void*)&DAT_004abf70, DAT_004123d4, &owners::T_5d770::FUN_0005d770);
+        params[9] = new ::fight::ParamName< ::CProceduralDurationAnimationTrack>("partition", &fn_ff0a839e::O_130f0::Get);
+        params[10] = new ::fight::ParamIntConstRange< ::CProceduralDurationAnimationTrack>("priority", &owners::Obj_5d780::FUN_0005d780);
+        params[11] = new ::fight::ParamFloatConstRange< ::CProceduralDurationAnimationTrack>("blendInTime", &owners::Obj_5d790::FUN_0005d790);
+        params[12] = new ::fight::ParamFloatConstRange< ::CProceduralDurationAnimationTrack>("blendOutTime", &owners::Obj_5d7a0::FUN_0005d7a0);
+        params[13] = new ::fight::ParamBool< ::CProceduralDurationAnimationTrack>("useRootMotion", &owners::Thing_5d7b0::FUN_0005d7b0);
+        FUN_002347b0(&DAT_004dc5e0, params, 14);
     }
     DAT_004dc5e4++;
 }
 
 
-// 0x0005fef0 FUN_0005fef0 (631 B): equivalent/0x0005fef0.cpp
-// sym: _FUN_0005fef0 @dcfa6e5b5b42 @wa801744abcc5
-// STATUS: equivalent (tools/equiv.py level 3: 66 inputs, branch coverage 24/24)
-// FUN_0005fef0 @ 0x0005fef0
+
+// 0x0005fef0 FUN_0005fef0 (631 B): matches/0x0005fef0.cpp
+// sym: _FUN_0005fef0
+// (gx2, D18) rewritten; constructs the real ParamEnumConstList<CStunAnimationTrack>, ParamFloatConstRange<CStunAnimationTrack>, ParamIntConstRange<CStunAnimationTrack>, ParamName<CStunAnimationTrack>,
+// whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_0005fef0()
 {
     if (DAT_004dc5ec == 0) {
-        void* params[11];
-        void* mem;
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5fef0<CStunAnimationTrack_5fef0>));
-        params[0] = 0;
-        if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange_5fef0<CStunAnimationTrack_5fef0>("timeBegin", (void (CStunAnimationTrack_5fef0::*)())&CStunAnimationTrack_5fef0::FUN_0005d7c0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamName_5fef0<CStunAnimationTrack_5fef0>));
-        params[1] = 0;
-        if (mem)
-            params[1] = new (mem) fight::ParamName_5fef0<CStunAnimationTrack_5fef0>("animation", &CStunAnimationTrack_5fef0::FUN_00013140);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5fef0<CStunAnimationTrack_5fef0>));
-        params[2] = 0;
-        if (mem)
-            params[2] = new (mem) fight::ParamFloatConstRange_5fef0<CStunAnimationTrack_5fef0>("speed", (void (CStunAnimationTrack_5fef0::*)())&CStunAnimationTrack_5fef0::FUN_0005d7d0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5fef0<CStunAnimationTrack_5fef0>));
-        params[3] = 0;
-        if (mem)
-            params[3] = new (mem) fight::ParamFloatConstRange_5fef0<CStunAnimationTrack_5fef0>("initFrame", (void (CStunAnimationTrack_5fef0::*)())&CStunAnimationTrack_5fef0::FUN_0005d7e0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5fef0<CStunAnimationTrack_5fef0>));
-        params[4] = 0;
-        if (mem)
-            params[4] = new (mem) fight::ParamFloatConstRange_5fef0<CStunAnimationTrack_5fef0>("startFrame", (void (CStunAnimationTrack_5fef0::*)())&CStunAnimationTrack_5fef0::FUN_0005d7f0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5fef0<CStunAnimationTrack_5fef0>));
-        params[5] = 0;
-        if (mem)
-            params[5] = new (mem) fight::ParamFloatConstRange_5fef0<CStunAnimationTrack_5fef0>("endFrame", (void (CStunAnimationTrack_5fef0::*)())&CStunAnimationTrack_5fef0::FUN_0005d800);
-        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_5fef0<CStunAnimationTrack_5fef0>));
-        params[6] = 0;
-        if (mem)
-            params[6] = new (mem) fight::ParamEnumConstList_5fef0<CStunAnimationTrack_5fef0>("cyclic", ((const char**)&DAT_004abf70), (*(int*)&DAT_004123d4), (void (CStunAnimationTrack_5fef0::*)())&CStunAnimationTrack_5fef0::FUN_0005d810);
-        mem = FUN_0008d690((int)sizeof(fight::ParamName_5fef0<CStunAnimationTrack_5fef0>));
-        params[7] = 0;
-        if (mem)
-            params[7] = new (mem) fight::ParamName_5fef0<CStunAnimationTrack_5fef0>("partition", &CStunAnimationTrack_5fef0::FUN_000131a0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_5fef0<CStunAnimationTrack_5fef0>));
-        params[8] = 0;
-        if (mem)
-            params[8] = new (mem) fight::ParamIntConstRange_5fef0<CStunAnimationTrack_5fef0>("priority", (void (CStunAnimationTrack_5fef0::*)())&CStunAnimationTrack_5fef0::FUN_0005d820);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5fef0<CStunAnimationTrack_5fef0>));
-        params[9] = 0;
-        if (mem)
-            params[9] = new (mem) fight::ParamFloatConstRange_5fef0<CStunAnimationTrack_5fef0>("blendInTime", (void (CStunAnimationTrack_5fef0::*)())&CStunAnimationTrack_5fef0::FUN_0005d830);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5fef0<CStunAnimationTrack_5fef0>));
-        params[10] = 0;
-        if (mem)
-            params[10] = new (mem) fight::ParamFloatConstRange_5fef0<CStunAnimationTrack_5fef0>("blendOutTime", (void (CStunAnimationTrack_5fef0::*)())&CStunAnimationTrack_5fef0::FUN_0005d840);
-        FUN_002347b0(((ParamRegistry*)&DAT_004dc5e8), params, 11);
+        ::fight::ParamValue* params[11];
+        params[0] = new ::fight::ParamFloatConstRange< ::CStunAnimationTrack>("timeBegin", &owners::X_5d7c0::FUN_0005d7c0);
+        params[1] = new ::fight::ParamName< ::CStunAnimationTrack>("animation", &owners::X_13140::FUN_00013140);
+        params[2] = new ::fight::ParamFloatConstRange< ::CStunAnimationTrack>("speed", &owners::Obj_5d7d0::FUN_0005d7d0);
+        params[3] = new ::fight::ParamFloatConstRange< ::CStunAnimationTrack>("initFrame", &owners::Obj_5d7e0::FUN_0005d7e0);
+        params[4] = new ::fight::ParamFloatConstRange< ::CStunAnimationTrack>("startFrame", &owners::C_5d7f0::FUN_0005d7f0);
+        params[5] = new ::fight::ParamFloatConstRange< ::CStunAnimationTrack>("endFrame", &owners::Obj_5d800::FUN_0005d800);
+        params[6] = new ::fight::ParamEnumConstList< ::CStunAnimationTrack>("cyclic", (void*)&DAT_004abf70, DAT_004123d4, &owners::Obj_5d810::FUN_0005d810);
+        params[7] = new ::fight::ParamName< ::CStunAnimationTrack>("partition", &owners::Obj_131a0::FUN_000131a0);
+        params[8] = new ::fight::ParamIntConstRange< ::CStunAnimationTrack>("priority", &owners::Obj_5d820::FUN_0005d820);
+        params[9] = new ::fight::ParamFloatConstRange< ::CStunAnimationTrack>("blendInTime", &owners::C_5d830::FUN_0005d830);
+        params[10] = new ::fight::ParamFloatConstRange< ::CStunAnimationTrack>("blendOutTime", &owners::Obj_5d840::FUN_0005d840);
+        FUN_002347b0(&DAT_004dc5e8, params, 11);
     }
     DAT_004dc5ec++;
 }
+
+namespace fn_fe2e62b7 {
 
 
 // 0x00060170 FUN_00060170 (118 B): equivalent/0x00060170.cpp

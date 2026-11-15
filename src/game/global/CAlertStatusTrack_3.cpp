@@ -1,7 +1,8 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x00072590..0x00075ce0 (kind game, layer game, confidence high), dominant class CAlertStatusTrack
 #include "tree_prelude.h"
+#define HULK_FIGHT_PARAM_IMPLICIT   // (gx2, D18) include/gen/fight.h: the parameter templates constructed for real
+#include "decls/data/game/unknown.h"   // (gx3, D18) for the merged registrations
 #include "compat/ptr.h"
 #include "decls/data/game/global.h"
 #include "gen/fight.h"
@@ -14,6 +15,30 @@ struct FactoryCtor { void init_00236a90(); };   // (unb4) the factory constructo
 void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
 }
 #include "game/global.h"
+void* operator new(size_t) HULK_NEW_THROW;   // (gx2, D18) the game's operator new (0x0008d690)
+extern "C" void __cdecl FUN_002347b0(void* list, void* params, int count);   // (gx2, D18) a parameter list's set-up
+extern "C" bool __stdcall FUN_00068eb0(hulk_intptr x);   // (gx4, D18) a setter, as defined in CScrubberTrack.cpp
+namespace fn_f51b6026 { struct Vec; } 
+namespace fn_fa3ff49b { struct Entry_67f60; } 
+namespace fn_fa3ff49b { struct In; } 
+namespace fn_fa3ff49b { struct S_68a30; } 
+namespace fn_fa3ff49b { struct Src_68650; } 
+namespace fn_fa3ff49b { struct Sub_68b60; } 
+namespace fn_fa3ff49b { struct Vec3_689f0; } 
+namespace fn_f88b40b1 { int __cdecl FUN_00068e70(void *); }   // (gx3, D18) a setter, as defined in CScrubberTrack.cpp
+namespace fn_fa3ff49b { bool __fastcall FUN_00068a30(struct fn_fa3ff49b::S_68a30 *, void *, float); }   // (gx3, D18) a setter, as defined in CWeaponCollisionTrack.cpp
+namespace fn_f51b6026 { struct Obj { unsigned char Set(struct fn_f51b6026::Vec const *); }; }   // (gx3, D18) setters, as defined in CJointTrack.cpp
+namespace fn_fa3ff49b { struct C_68b90 { bool SetTimeBegin_00068b90(int); }; }   // (gx3, D18) setters, as defined in CWeaponCollisionTrack.cpp
+namespace fn_fa3ff49b { struct Obj_67f60 { bool Set(struct fn_fa3ff49b::Entry_67f60 *); }; }   // (gx3, D18) setters, as defined in CWeaponCollisionTrack.cpp
+namespace fn_fa3ff49b { struct Obj_67f90 { bool Set(int); }; }   // (gx3, D18) setters, as defined in CWeaponCollisionTrack.cpp
+namespace fn_fa3ff49b { struct Obj_68650 { char Set(struct fn_fa3ff49b::Src_68650 *); }; }   // (gx3, D18) setters, as defined in CWeaponCollisionTrack.cpp
+namespace fn_fa3ff49b { struct Obj_689f0 { bool Set(struct fn_fa3ff49b::Vec3_689f0 const *); }; }   // (gx3, D18) setters, as defined in CWeaponCollisionTrack.cpp
+namespace fn_fa3ff49b { struct Obj_68a10 { bool Set(struct fn_fa3ff49b::In *); }; }   // (gx3, D18) setters, as defined in CWeaponCollisionTrack.cpp
+namespace fn_fa3ff49b { struct Obj_68b40 { bool SetTimeBegin_00068b40(int); }; }   // (gx3, D18) setters, as defined in CWeaponCollisionTrack.cpp
+namespace fn_fa3ff49b { struct Obj_68b50 { bool SetTimeEnd_00068b50(int); }; }   // (gx3, D18) setters, as defined in CWeaponCollisionTrack.cpp
+namespace fn_fa3ff49b { struct Obj_68b60 { struct fn_fa3ff49b::Sub_68b60 * GetHint_00068b60(); }; }   // (gx3, D18) setters, as defined in CWeaponCollisionTrack.cpp
+namespace fn_fa3ff49b { struct Obj_68ba0 { bool SetTimeEnd_00068ba0(int); }; }   // (gx3, D18) setters, as defined in CWeaponCollisionTrack.cpp
+namespace fn_fa3ff49b { struct Obj_68bb0 { bool SetHeight_00068bb0(int); }; }   // (gx3, D18) setters, as defined in CWeaponCollisionTrack.cpp
 
 // ---- declarations shared by the functions below
 namespace fn_f4b6f30b {
@@ -62,7 +87,6 @@ namespace fight {
 template<class T> struct ParamName_75b50 : ParamBase_75b50 { virtual void slot0(); };
 }
 namespace fn_f4b6f30b {
-void __cdecl FUN_002347b0(int*, ParamBase_75b50**, int);
 } // namespace fn_f4b6f30b
 void* __cdecl operator new(size_t size);
 namespace fn_f4b6f30b {
@@ -90,45 +114,289 @@ struct TrackFactoryTemplate {
 
 } // namespace fn_f4b6f30b
 
-// 0x00072740 FUN_00072740 (213 B): equivalent/0x00072740.cpp [wrapped: conflict: fight::ParamFloatConstRange]
-// sym: _FUN_00072740 @ffbc7270478e @w2313c9cd17c4
-namespace fn_00072740 {
-// STATUS: equivalent (tools/equiv.py level 3: 2992 inputs, branch coverage 8/8)
-// FUN_00072740 @ 0x00072740
+namespace fn_f4b6f30b {
+
+} // namespace fn_f4b6f30b
+
+// 0x0006e840 fight::ParamFloatConstRange<CJointTrack>::vfunc_0 (30 B): matches/0x0006e840.cpp
+// sym: ??_G?$ParamFloatConstRange@VCJointTrack@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CJointTrack_params_06e840.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00072590 / FUN_00072640 / FUN_000726a0 / FUN_00072740 / FUN_00072820 / FUN_00072a20 / FUN_00074ab0 / FUN_00074cf0 / FUN_00074d90 / FUN_00075230 / FUN_00075810 / FUN_00075b50)
 
 
-extern "C" void* __cdecl FUN_0008d690(unsigned int);
-extern bool SetTimeBegin_00068b90(void*, int); /* (unb5) as defined; address taken only */
-extern bool SetTimeEnd_00068ba0(void*, int); /* (unb5) as defined; address taken only */
-extern bool SetHeight_00068bb0(void*, int); /* (unb5) as defined; address taken only */
-class CMotionHitGroundHeightTrack;
-namespace fight {
-template<class T> struct ParamFloatConstRange {
- virtual void slot0();
- char data[12];
- void (__cdecl *callback)();
- int tail;
- void FUN_00234960(const char*);
-};
+
+// 0x0006e860 fight::ParamBool<CJointTrack>::vfunc_0 (30 B): matches/0x0006e860.cpp
+// sym: ??_G?$ParamBool@VCJointTrack@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CJointTrack_params_06e840.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00072590 / FUN_00072640 / FUN_000726a0 / FUN_00072740 / FUN_00072820 / FUN_00072a20 / FUN_00074ab0 / FUN_00074cf0 / FUN_00074d90 / FUN_00075230 / FUN_00075810 / FUN_00075b50)
+
+
+
+// 0x0006e880 fight::ParamVector<CJointTrack>::vfunc_0 (30 B): matches/0x0006e880.cpp
+// sym: ??_G?$ParamVector@VCJointTrack@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CJointTrack_params_06e840.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00072590 / FUN_00072640 / FUN_000726a0 / FUN_00072740 / FUN_00072820 / FUN_00072a20 / FUN_00074ab0 / FUN_00074cf0 / FUN_00074d90 / FUN_00075230 / FUN_00075810 / FUN_00075b50)
+
+
+
+// 0x0006e8a0 fight::ParamIntConstRange<CJointTrack>::vfunc_0 (30 B): matches/0x0006e8a0.cpp
+// sym: ??_G?$ParamIntConstRange@VCJointTrack@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CJointTrack_params_06e840.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00072590 / FUN_00072640 / FUN_000726a0 / FUN_00072740 / FUN_00072820 / FUN_00072a20 / FUN_00074ab0 / FUN_00074cf0 / FUN_00074d90 / FUN_00075230 / FUN_00075810 / FUN_00075b50)
+
+
+
+// 0x0006e8c0 fight::ParamFloat<CScrubberTrack>::vfunc_0 (30 B): matches/0x0006e8c0.cpp
+// sym: ??_G?$ParamFloat@VCScrubberTrack@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CJumpTrack_params_06e8c0.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00072590 / FUN_00072640 / FUN_000726a0 / FUN_00072740 / FUN_00072820 / FUN_00072a20 / FUN_00074ab0 / FUN_00074cf0 / FUN_00074d90 / FUN_00075230 / FUN_00075810 / FUN_00075b50)
+
+
+
+// 0x0006e9c0 fight::ParamFloatConstRange<CKeyPoseTrack>::vfunc_0 (30 B): matches/0x0006e9c0.cpp
+// sym: ??_G?$ParamFloatConstRange@VCKeyPoseTrack@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CKeyPoseTrack_params_06e9c0.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00072590 / FUN_00072640 / FUN_000726a0 / FUN_00072740 / FUN_00072820 / FUN_00072a20 / FUN_00074ab0 / FUN_00074cf0 / FUN_00074d90 / FUN_00075230 / FUN_00075810 / FUN_00075b50)
+
+
+
+// 0x0006e9e0 fight::ParamBool<CKeyPoseTrack>::vfunc_0 (30 B): matches/0x0006e9e0.cpp
+// sym: ??_G?$ParamBool@VCKeyPoseTrack@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CKeyPoseTrack_params_06e9c0.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00072590 / FUN_00072640 / FUN_000726a0 / FUN_00072740 / FUN_00072820 / FUN_00072a20 / FUN_00074ab0 / FUN_00074cf0 / FUN_00074d90 / FUN_00075230 / FUN_00075810 / FUN_00075b50)
+
+
+
+// 0x0006ea00 fight::ParamIntConstRange<CKeyPoseTrack>::vfunc_0 (30 B): matches/0x0006ea00.cpp
+// sym: ??_G?$ParamIntConstRange@VCKeyPoseTrack@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CKeyPoseTrack_params_06e9c0.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00072590 / FUN_00072640 / FUN_000726a0 / FUN_00072740 / FUN_00072820 / FUN_00072a20 / FUN_00074ab0 / FUN_00074cf0 / FUN_00074d90 / FUN_00075230 / FUN_00075810 / FUN_00075b50)
+
+
+
+// 0x0006ece0 fight::ParamFloatConstRange<CCameraDramaticTrack>::vfunc_0 (30 B): matches/0x0006ece0.cpp
+// sym: ??_G?$ParamFloatConstRange@VCCameraDramaticTrack@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CCameraDramaticTrack_params_06ec00.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00072590 / FUN_00072640 / FUN_000726a0 / FUN_00072740 / FUN_00072820 / FUN_00072a20 / FUN_00074ab0 / FUN_00074cf0 / FUN_00074d90 / FUN_00075230 / FUN_00075810 / FUN_00075b50)
+
+
+
+// 0x0006ed00 fight::ParamVector<CCameraDramaticTrack>::vfunc_0 (30 B): matches/0x0006ed00.cpp
+// sym: ??_G?$ParamVector@VCCameraDramaticTrack@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CCameraDramaticTrack_params_06ec00.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00072590 / FUN_00072640 / FUN_000726a0 / FUN_00072740 / FUN_00072820 / FUN_00072a20 / FUN_00074ab0 / FUN_00074cf0 / FUN_00074d90 / FUN_00075230 / FUN_00075810 / FUN_00075b50)
+
+
+
+// 0x0006ed20 fight::ParamBool<CCameraDramaticTrack>::vfunc_0 (30 B): matches/0x0006ed20.cpp
+// sym: ??_G?$ParamBool@VCCameraDramaticTrack@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CCameraDramaticTrack_params_06ec00.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00072590 / FUN_00072640 / FUN_000726a0 / FUN_00072740 / FUN_00072820 / FUN_00072a20 / FUN_00074ab0 / FUN_00074cf0 / FUN_00074d90 / FUN_00075230 / FUN_00075810 / FUN_00075b50)
+
+
+
+// 0x0006ed40 fight::ParamEnumConstList<CCameraDramaticTrack>::vfunc_0 (30 B): matches/0x0006ed40.cpp
+// sym: ??_G?$ParamEnumConstList@VCCameraDramaticTrack@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CCameraDramaticTrack_params_06ec00.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00072590 / FUN_00072640 / FUN_000726a0 / FUN_00072740 / FUN_00072820 / FUN_00072a20 / FUN_00074ab0 / FUN_00074cf0 / FUN_00074d90 / FUN_00075230 / FUN_00075810 / FUN_00075b50)
+
+
+
+// 0x0006ef40 fight::ParamFloatConstRange<CHeadTrackerTrack>::vfunc_0 (30 B): matches/0x0006ef40.cpp
+// sym: ??_G?$ParamFloatConstRange@VCHeadTrackerTrack@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CHeadTrackerTrack_params_06ee60.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00072590 / FUN_00072640 / FUN_000726a0 / FUN_00072740 / FUN_00072820 / FUN_00072a20 / FUN_00074ab0 / FUN_00074cf0 / FUN_00074d90 / FUN_00075230 / FUN_00075810 / FUN_00075b50)
+
+
+
+// 0x0006ef60 fight::ParamVector<CHeadTrackerTrack>::vfunc_0 (30 B): matches/0x0006ef60.cpp
+// sym: ??_G?$ParamVector@VCHeadTrackerTrack@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CHeadTrackerTrack_params_06ee60.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00072590 / FUN_00072640 / FUN_000726a0 / FUN_00072740 / FUN_00072820 / FUN_00072a20 / FUN_00074ab0 / FUN_00074cf0 / FUN_00074d90 / FUN_00075230 / FUN_00075810 / FUN_00075b50)
+
+
+
+// 0x0006ef80 fight::ParamIntConstRange<CHeadTrackerTrack>::vfunc_0 (30 B): matches/0x0006ef80.cpp
+// sym: ??_G?$ParamIntConstRange@VCHeadTrackerTrack@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CHeadTrackerTrack_params_06ee60.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00072590 / FUN_00072640 / FUN_000726a0 / FUN_00072740 / FUN_00072820 / FUN_00072a20 / FUN_00074ab0 / FUN_00074cf0 / FUN_00074d90 / FUN_00075230 / FUN_00075810 / FUN_00075b50)
+
+
+
+// 0x0006efa0 fight::ParamFloatConstRange<CAlertStatusTrack>::vfunc_0 (30 B): matches/0x0006efa0.cpp
+// sym: ??_G?$ParamFloatConstRange@VCAlertStatusTrack@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CAlertStatusTrack_params.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00072590 / FUN_00072640 / FUN_000726a0 / FUN_00072740 / FUN_00072820 / FUN_00072a20 / FUN_00074ab0 / FUN_00074cf0 / FUN_00074d90 / FUN_00075230 / FUN_00075810 / FUN_00075b50)
+
+
+
+// 0x0006efc0 fight::ParamEnumConstList<CAlertStatusTrack>::vfunc_0 (30 B): matches/0x0006efc0.cpp
+// sym: ??_G?$ParamEnumConstList@VCAlertStatusTrack@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CAlertStatusTrack_params.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00072590 / FUN_00072640 / FUN_000726a0 / FUN_00072740 / FUN_00072820 / FUN_00072a20 / FUN_00074ab0 / FUN_00074cf0 / FUN_00074d90 / FUN_00075230 / FUN_00075810 / FUN_00075b50)
+
+
+
+// 0x0006efe0 fight::ParamFloatConstRange<CDeathTrack>::vfunc_0 (30 B): matches/0x0006efe0.cpp
+// sym: ??_G?$ParamFloatConstRange@VCDeathTrack@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CAlertStatusTrack_params.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00072590 / FUN_00072640 / FUN_000726a0 / FUN_00072740 / FUN_00072820 / FUN_00072a20 / FUN_00074ab0 / FUN_00074cf0 / FUN_00074d90 / FUN_00075230 / FUN_00075810 / FUN_00075b50)
+
+
+
+// 0x0006f000 fight::ParamFloatConstRange<CAIHintTrack>::vfunc_0 (30 B): matches/0x0006f000.cpp
+// sym: ??_G?$ParamFloatConstRange@VCAIHintTrack@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CAlertStatusTrack_params.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00072590 / FUN_00072640 / FUN_000726a0 / FUN_00072740 / FUN_00072820 / FUN_00072a20 / FUN_00074ab0 / FUN_00074cf0 / FUN_00074d90 / FUN_00075230 / FUN_00075810 / FUN_00075b50)
+
+
+
+// 0x0006f020 fight::ParamFloatConstRange<CClearCollisionStun>::vfunc_0 (30 B): matches/0x0006f020.cpp
+// sym: ??_G?$ParamFloatConstRange@VCClearCollisionStun@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CAlertStatusTrack_params.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00072590 / FUN_00072640 / FUN_000726a0 / FUN_00072740 / FUN_00072820 / FUN_00072a20 / FUN_00074ab0 / FUN_00074cf0 / FUN_00074d90 / FUN_00075230 / FUN_00075810 / FUN_00075b50)
+
+
+
+// 0x0006f040 fight::ParamFloatConstRange<CMotionHitGroundHeightTrack>::vfunc_0 (30 B): matches/0x0006f040.cpp
+// sym: ??_G?$ParamFloatConstRange@VCMotionHitGroundHeightTrack@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CAlertStatusTrack_params.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00072590 / FUN_00072640 / FUN_000726a0 / FUN_00072740 / FUN_00072820 / FUN_00072a20 / FUN_00074ab0 / FUN_00074cf0 / FUN_00074d90 / FUN_00075230 / FUN_00075810 / FUN_00075b50)
+
+
+
+// 0x0006f060 fight::ParamFloatConstRange<CWallSlideTrack>::vfunc_0 (30 B): matches/0x0006f060.cpp
+// sym: ??_G?$ParamFloatConstRange@VCWallSlideTrack@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CAlertStatusTrack_params.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00072590 / FUN_00072640 / FUN_000726a0 / FUN_00072740 / FUN_00072820 / FUN_00072a20 / FUN_00074ab0 / FUN_00074cf0 / FUN_00074d90 / FUN_00075230 / FUN_00075810 / FUN_00075b50)
+
+
+
+// 0x0006f080 fight::ParamIntConstRange<CWallSlideTrack>::vfunc_0 (30 B): matches/0x0006f080.cpp
+// sym: ??_G?$ParamIntConstRange@VCWallSlideTrack@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CAlertStatusTrack_params.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00072590 / FUN_00072640 / FUN_000726a0 / FUN_00072740 / FUN_00072820 / FUN_00072a20 / FUN_00074ab0 / FUN_00074cf0 / FUN_00074d90 / FUN_00075230 / FUN_00075810 / FUN_00075b50)
+
+
+
+// 0x0006f0a0 fight::ParamFloatConstRange<CTargetTrack>::vfunc_0 (30 B): matches/0x0006f0a0.cpp
+// sym: ??_G?$ParamFloatConstRange@VCTargetTrack@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from CAlertStatusTrack_params.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00072590 / FUN_00072640 / FUN_000726a0 / FUN_00072740 / FUN_00072820 / FUN_00072a20 / FUN_00074ab0 / FUN_00074cf0 / FUN_00074d90 / FUN_00075230 / FUN_00075810 / FUN_00075b50)
+
+
+
+// 0x00072590 FUN_00072590 (170 B): matches/0x00072590.cpp
+// sym: _FUN_00072590
+// (gx2, D18) from CAlertStatusTrack_3.iso_00072590.cpp; constructs the real ParamEnumConstList<CAlertStatusTrack>, ParamFloatConstRange<CAlertStatusTrack>,
+// whose vftable and scalar deleting destructor it emits
+namespace fn_f4b6f30b {
+extern "C" void FUN_00072590()
+{
+    if (DAT_004dcffc == 0) {
+        ::fight::ParamValue* params[2];
+        params[0] = new ::fight::ParamFloatConstRange< ::CAlertStatusTrack>("timeBegin", &owners::Obj_68b10::FUN_00068b10);
+        params[1] = new ::fight::ParamEnumConstList< ::CAlertStatusTrack>("status", (void*)&DAT_004a1ab4, DAT_0040d0e4, &owners::Obj_68b20::FUN_00068b20);
+        FUN_002347b0(&DAT_004dcff8, params, 2);
+    }
+    DAT_004dcffc++;
 }
-typedef fight::ParamFloatConstRange<CMotionHitGroundHeightTrack> Param;
-extern void __cdecl FUN_002347b0(int*, Param**, int);
-extern "C" void FUN_00072740() {
- if (!DAT_004dd01c) {
- Param* params[3];
- Param* p = (Param*)FUN_0008d690((int)sizeof(Param));
- if (p) { p->FUN_00234960("timeBegin"); new(p) Param; p->callback=(void (*)())SetTimeBegin_00068b90; } params[0]=p;
- p = (Param*)FUN_0008d690((int)sizeof(Param));
- if (p) { p->FUN_00234960("timeEnd"); new(p) Param; p->callback=(void (*)())SetTimeEnd_00068ba0; } params[1]=p;
- p = (Param*)FUN_0008d690((int)sizeof(Param));
- if (p) { p->FUN_00234960("height"); new(p) Param; p->callback=(void (*)())SetHeight_00068bb0; } params[2]=p;
- FUN_002347b0(&DAT_004dd018, params, 3);
- }
- ++DAT_004dd01c;
+} // namespace fn_f4b6f30b
+
+
+
+// 0x00072640 FUN_00072640 (95 B): matches/0x00072640.cpp
+// sym: _FUN_00072640
+// (gx2, D18) from CAlertStatusTrack_3.iso_00072640.cpp; constructs the real ParamFloatConstRange<CDeathTrack>,
+// whose vftable and scalar deleting destructor it emits
+extern "C" void FUN_00072640()
+{
+    if (DAT_004dd004 == 0) {
+        ::fight::ParamValue* params[1];
+        params[0] = new ::fight::ParamFloatConstRange< ::CDeathTrack>("timeBegin", &owners::Obj_68b30::FUN_00068b30);
+        FUN_002347b0(&DAT_004dd000, params, 1);
+    }
+    DAT_004dd004++;
 }
-} // namespace fn_00072740
+
+
+
+// 0x000726a0 FUN_000726a0 (158 B): matches/0x000726a0.cpp
+// sym: _FUN_000726a0
+// (gx2, D18) from CAlertStatusTrack_3.iso_000726a0.cpp; constructs the real ParamFloatConstRange<CClearCollisionStun>,
+// whose vftable and scalar deleting destructor it emits
+extern "C" void FUN_000726a0()
+{
+    if (DAT_004dd014 == 0) {
+        ::fight::ParamValue* params[2];
+        params[0] = new ::fight::ParamFloatConstRange< ::CClearCollisionStun>("timeBegin", &owners::Obj_68b70::FUN_00068b70);
+        params[1] = new ::fight::ParamFloatConstRange< ::CClearCollisionStun>("timeEnd", &owners::Obj_68b80::FUN_00068b80);
+        FUN_002347b0(&DAT_004dd010, params, 2);
+    }
+    DAT_004dd014++;
+}
+
+
+
+// 0x00072740 FUN_00072740 (213 B): matches/0x00072740.cpp
+// sym: _FUN_00072740
+// (gx2, D18) rewritten; constructs the real ParamFloatConstRange<CMotionHitGroundHeightTrack>,
+// whose vftable and scalar deleting destructor it emits
+extern "C" void FUN_00072740()
+{
+    if (DAT_004dd01c == 0) {
+        ::fight::ParamValue* params[3];
+        params[0] = new ::fight::ParamFloatConstRange< ::CMotionHitGroundHeightTrack>("timeBegin", &fn_fa3ff49b::C_68b90::SetTimeBegin_00068b90);
+        params[1] = new ::fight::ParamFloatConstRange< ::CMotionHitGroundHeightTrack>("timeEnd", &fn_fa3ff49b::Obj_68ba0::SetTimeEnd_00068ba0);
+        params[2] = new ::fight::ParamFloatConstRange< ::CMotionHitGroundHeightTrack>("height", &fn_fa3ff49b::Obj_68bb0::SetHeight_00068bb0);
+        FUN_002347b0(&DAT_004dd018, params, 3);
+    }
+    DAT_004dd01c++;
+}
+
+
+
+// 0x00072820 FUN_00072820 (511 B): matches/0x00072820.cpp
+// sym: _FUN_00072820
+// (gx2, D18) from CAlertStatusTrack_3.new_throw.cpp; constructs the real ParamFloatConstRange<CWallSlideTrack>, ParamIntConstRange<CWallSlideTrack>,
+// whose vftable and scalar deleting destructor it emits
+extern "C" void FUN_00072820()
+{
+    if (DAT_004dd024 == 0) {
+        ::fight::ParamValue* params[9];
+        params[0] = new ::fight::ParamFloatConstRange< ::CWallSlideTrack>("timeBegin", &owners::X_68bc0::FUN_00068bc0);
+        params[1] = new ::fight::ParamFloatConstRange< ::CWallSlideTrack>("maxTimeEnd", &owners::A_68bd0::FUN_00068bd0);
+        params[2] = new ::fight::ParamFloatConstRange< ::CWallSlideTrack>("friction", &owners::C_68be0::FUN_00068be0);
+        params[3] = new ::fight::ParamFloatConstRange< ::CWallSlideTrack>("gravity", &owners::Obj_68bf0::FUN_00068bf0);
+        params[4] = new ::fight::ParamFloatConstRange< ::CWallSlideTrack>("deceleration", &owners::Obj_68c00::FUN_00068c00);
+        params[5] = new ::fight::ParamFloatConstRange< ::CWallSlideTrack>("minVelocity", &owners::Obj_68c10::FUN_00068c10);
+        params[6] = new ::fight::ParamIntConstRange< ::CWallSlideTrack>("priority", &owners::Obj_68c20::FUN_00068c20);
+        params[7] = new ::fight::ParamFloatConstRange< ::CWallSlideTrack>("blendInTime", &owners::X_68c30::FUN_00068c30);
+        params[8] = new ::fight::ParamFloatConstRange< ::CWallSlideTrack>("blendOutTime", &owners::Obj_68c40::FUN_00068c40);
+        FUN_002347b0(&DAT_004dd020, params, 9);
+    }
+    DAT_004dd024++;
+}
+
+
+
+// 0x00072a20 FUN_00072a20 (158 B): matches/0x00072a20.cpp
+// sym: _FUN_00072a20
+// (gx2, D18) from CAlertStatusTrack_3.iso_00072a20.cpp; constructs the real ParamFloatConstRange<CTargetTrack>,
+// whose vftable and scalar deleting destructor it emits
+extern "C" void FUN_00072a20()
+{
+    if (DAT_004dd02c == 0) {
+        ::fight::ParamValue* params[2];
+        params[0] = new ::fight::ParamFloatConstRange< ::CTargetTrack>("timeBegin", &owners::Obj_68c50::FUN_00068c50);
+        params[1] = new ::fight::ParamFloatConstRange< ::CTargetTrack>("timeEnd", &owners::Obj_68c60::FUN_00068c60);
+        FUN_002347b0(&DAT_004dd028, params, 2);
+    }
+    DAT_004dd02c++;
+}
 
 namespace fn_f4b6f30b {
+
 
 // 0x00072c40 FUN_00072c40 (27 B): matches/0x00072c40.cpp
 // sym: ?Target@fn_f4b6f30b@@YAXPAVCDamageTrack@@@Z
@@ -290,60 +558,42 @@ void ParamBranch::vfunc_6(void* p) {
 // sym: ??_G?$ParamNameConstList@VCJointTrack@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamNameConstList<CJointTrack>::~ParamNameConstList() {}
-#if defined(HULK_PTR64)
-template class fight::ParamNameConstList<CJointTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x73640)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00073660 fight::ParamName<CScrubberTrack>::vfunc_0 (30 B): matches/0x00073660.cpp
 // sym: ??_G?$ParamName@VCScrubberTrack@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamName<CScrubberTrack>::~ParamName() {}
-#if defined(HULK_PTR64)
-template class fight::ParamName<CScrubberTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x73660)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00073680 fight::ParamName<CKeyPoseTrack>::vfunc_0 (30 B): matches/0x00073680.cpp
 // sym: ??_G?$ParamName@VCKeyPoseTrack@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamName<CKeyPoseTrack>::~ParamName() {}
-#if defined(HULK_PTR64)
-template class fight::ParamName<CKeyPoseTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x73680)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x000736a0 fight::ParamName<CCameraDramaticTrack>::vfunc_0 (30 B): matches/0x000736a0.cpp
 // sym: ??_G?$ParamName@VCCameraDramaticTrack@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamName<CCameraDramaticTrack>::~ParamName() {}
-#if defined(HULK_PTR64)
-template class fight::ParamName<CCameraDramaticTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x736a0)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x000736c0 fight::ParamNameConstList<CHeadTrackerTrack>::vfunc_0 (30 B): matches/0x000736c0.cpp
 // sym: ??_G?$ParamNameConstList@VCHeadTrackerTrack@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamNameConstList<CHeadTrackerTrack>::~ParamNameConstList() {}
-#if defined(HULK_PTR64)
-template class fight::ParamNameConstList<CHeadTrackerTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x736c0)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x000736e0 fight::ParamName<CAIHintTrack>::vfunc_0 (30 B): matches/0x000736e0.cpp
 // sym: ??_G?$ParamName@VCAIHintTrack@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamName<CAIHintTrack>::~ParamName() {}
-#if defined(HULK_PTR64)
-template class fight::ParamName<CAIHintTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x736e0)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00073700 FUN_00073700 (4234 B): matches/0x00073700.cpp [wrapped: conflict: fight::TrackFactoryCasterTemplate]
@@ -1086,40 +1336,176 @@ extern "C" bool __cdecl FUN_000749e0(Registry_749e0* registry) {
 
 namespace fn_f4b6f30b {
 
-// 0x00075b50 FUN_00075b50 (213 B): equivalent/0x00075b50.cpp
-// sym: _FUN_00075b50 @4864e2dc4984 @w7c46dc9191df
-// STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 8/8)
-// FUN_00075b50 @ 0x00075b50
-extern "C" void __cdecl FUN_00075b50() {
- if (DAT_004dd00c == 0) {
-  ParamBase_75b50* params[3];
-  ParamBase_75b50* p = (ParamBase_75b50*)FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_75b50<CAIHintTrack_75b50>));
-  if(p) {
-   ((fight::ParamValueFloat *)(ParamBase_75b50 *)p)->FUN_00234960("timeBegin");
-   new(p) fight::ParamFloatConstRange_75b50<CAIHintTrack_75b50>;
-   p->callback = (void (*)())SetTimeBegin_00068b40;
-  }
-  params[0]=p;
-  p=(ParamBase_75b50*)FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_75b50<CAIHintTrack_75b50>));
-  if(p) {
-   ((fight::ParamValueFloat *)(ParamBase_75b50 *)p)->FUN_00234960("timeEnd");
-   new(p) fight::ParamFloatConstRange_75b50<CAIHintTrack_75b50>;
-   p->callback=(void (*)())SetTimeEnd_00068b50;
-  }
-  params[1]=p;
-  p=(ParamBase_75b50*)FUN_0008d690((int)sizeof(fight::ParamName_75b50<CAIHintTrack_75b50>));
-  if(p) {
-   ((fight::ParamValueName *)(ParamBase_75b50 *)p)->FUN_00234a90("hint");
-   new(p) fight::ParamName_75b50<CAIHintTrack_75b50>;
-   p->callback=(void (*)())GetHint_00068b60;
-  }
-  params[2]=p;
-  FUN_002347b0(&DAT_004dd008,params,3);
- }
- ++DAT_004dd00c;
+} // namespace fn_f4b6f30b
+
+// 0x00074ab0 FUN_00074ab0 (562 B): matches/0x00074ab0.cpp
+// sym: _FUN_00074ab0
+// (gx2, D18) from CAlertStatusTrack_3.new_throw.cpp; constructs the real ParamBool<CJointTrack>, ParamFloatConstRange<CJointTrack>, ParamIntConstRange<CJointTrack>, ParamNameConstList<CJointTrack>, ParamVector<CJointTrack>,
+// whose vftable and scalar deleting destructor it emits
+extern "C" void FUN_00074ab0()
+{
+    if (DAT_004dcf0c == 0) {
+        ::fight::ParamValue* params[10];
+        params[0] = new ::fight::ParamFloatConstRange< ::CJointTrack>("timeBegin", &owners::Obj_67f30::FUN_00067f30);
+        params[1] = new ::fight::ParamFloatConstRange< ::CJointTrack>("timeEnd", &owners::Obj_67f40::FUN_00067f40);
+        params[2] = new ::fight::ParamNameConstList< ::CJointTrack>("joint", &owners::A_11ce0::FUN_00011ce0);
+        params[3] = new ::fight::ParamBool< ::CJointTrack>("hasTranslation", &owners::X_67f50::FUN_00067f50);
+        params[4] = new ::fight::ParamVector< ::CJointTrack>("translation", &fn_fa3ff49b::Obj_67f60::Set);
+        params[5] = new ::fight::ParamBool< ::CJointTrack>("hasRotation", &owners::Obj_67f80::FUN_00067f80);
+        params[6] = new ::fight::ParamVector< ::CJointTrack>("rotation", &fn_f51b6026::Obj::Set);
+        params[7] = new ::fight::ParamIntConstRange< ::CJointTrack>("priority", &fn_fa3ff49b::Obj_67f90::Set);
+        params[8] = new ::fight::ParamFloatConstRange< ::CJointTrack>("blendInTime", &owners::Obj_67fa0::FUN_00067fa0);
+        params[9] = new ::fight::ParamFloatConstRange< ::CJointTrack>("blendOutTime", &owners::Obj_67fb0::FUN_00067fb0);
+        FUN_002347b0(&DAT_004dcf08, params, 10);
+    }
+    DAT_004dcf0c++;
 }
 
-} // namespace fn_f4b6f30b
+
+
+// 0x00074cf0 FUN_00074cf0 (158 B): matches/0x00074cf0.cpp
+// sym: _FUN_00074cf0
+// (gx2, D18) from CAlertStatusTrack_3.iso_00074cf0.cpp; constructs the real ParamFloat<CScrubberTrack>, ParamName<CScrubberTrack>,
+// whose vftable and scalar deleting destructor it emits
+extern "C" void FUN_00074cf0()
+{
+    if (DAT_004dcf14 == 0) {
+        ::fight::ParamValue* params[2];
+        params[0] = new ::fight::ParamName< ::CScrubberTrack>("animation", &fn_f88b40b1::FUN_00068e70);
+        params[1] = new ::fight::ParamFloat< ::CScrubberTrack>("frame", &FUN_00068eb0);
+        FUN_002347b0(&DAT_004dcf10, params, 2);
+    }
+    DAT_004dcf14++;
+}
+
+
+
+// 0x00074d90 FUN_00074d90 (1174 B): matches/0x00074d90.cpp
+// sym: _FUN_00074d90
+// (gx2, D18) from CAlertStatusTrack_3.iso_00074d90.cpp; constructs the real ParamBool<CKeyPoseTrack>, ParamFloatConstRange<CKeyPoseTrack>, ParamIntConstRange<CKeyPoseTrack>, ParamName<CKeyPoseTrack>,
+// whose vftable and scalar deleting destructor it emits
+extern "C" void FUN_00074d90()
+{
+    if (DAT_004dcf34 == 0) {
+        ::fight::ParamValue* params[22];
+        params[0] = new ::fight::ParamName< ::CKeyPoseTrack>("animation", &owners::Obj_11e20::FUN_00011e20);
+        params[1] = new ::fight::ParamFloatConstRange< ::CKeyPoseTrack>("key0", &owners::Obj_6b310::FUN_0006b310);
+        params[2] = new ::fight::ParamFloatConstRange< ::CKeyPoseTrack>("map0", &owners::X_6b320::FUN_0006b320);
+        params[3] = new ::fight::ParamFloatConstRange< ::CKeyPoseTrack>("key1", &owners::X_6b330::FUN_0006b330);
+        params[4] = new ::fight::ParamFloatConstRange< ::CKeyPoseTrack>("map1", &owners::Obj_6b340::FUN_0006b340);
+        params[5] = new ::fight::ParamFloatConstRange< ::CKeyPoseTrack>("key2", &owners::Obj_6b350::FUN_0006b350);
+        params[6] = new ::fight::ParamFloatConstRange< ::CKeyPoseTrack>("map2", &owners::Obj_6b360::FUN_0006b360);
+        params[7] = new ::fight::ParamFloatConstRange< ::CKeyPoseTrack>("key3", &owners::Obj_6b370::FUN_0006b370);
+        params[8] = new ::fight::ParamFloatConstRange< ::CKeyPoseTrack>("map3", &owners::Obj_6b380::FUN_0006b380);
+        params[9] = new ::fight::ParamFloatConstRange< ::CKeyPoseTrack>("key4", &owners::C_6b390::FUN_0006b390);
+        params[10] = new ::fight::ParamFloatConstRange< ::CKeyPoseTrack>("map4", &owners::Obj_6b3a0::FUN_0006b3a0);
+        params[11] = new ::fight::ParamFloatConstRange< ::CKeyPoseTrack>("key5", &owners::Obj_6b3b0::FUN_0006b3b0);
+        params[12] = new ::fight::ParamFloatConstRange< ::CKeyPoseTrack>("map5", &owners::Obj_6b3c0::FUN_0006b3c0);
+        params[13] = new ::fight::ParamFloatConstRange< ::CKeyPoseTrack>("key6", &owners::Obj_6b3d0::FUN_0006b3d0);
+        params[14] = new ::fight::ParamFloatConstRange< ::CKeyPoseTrack>("map6", &owners::Obj_6b3e0::FUN_0006b3e0);
+        params[15] = new ::fight::ParamFloatConstRange< ::CKeyPoseTrack>("key7", &owners::A_6b3f0::FUN_0006b3f0);
+        params[16] = new ::fight::ParamFloatConstRange< ::CKeyPoseTrack>("map7", &owners::X_6b400::FUN_0006b400);
+        params[17] = new ::fight::ParamBool< ::CKeyPoseTrack>("rootMotion", &owners::O_68210::FUN_00068210);
+        params[18] = new ::fight::ParamName< ::CKeyPoseTrack>("partition", &owners::Obj_11e40::FUN_00011e40);
+        params[19] = new ::fight::ParamIntConstRange< ::CKeyPoseTrack>("priority", &owners::Obj_68220::FUN_00068220);
+        params[20] = new ::fight::ParamFloatConstRange< ::CKeyPoseTrack>("blendInTime", &owners::Obj_68230::FUN_00068230);
+        params[21] = new ::fight::ParamFloatConstRange< ::CKeyPoseTrack>("blendOutTime", &owners::Obj_68240::FUN_00068240);
+        FUN_002347b0(&DAT_004dcf30, params, 22);
+    }
+    DAT_004dcf34++;
+}
+
+
+
+// 0x00075230 FUN_00075230 (1502 B): matches/0x00075230.cpp
+// sym: _FUN_00075230
+// (gx2, D18) from CAlertStatusTrack_3.iso_00075230.cpp; constructs the real ParamBool<CCameraDramaticTrack>, ParamEnumConstList<CCameraDramaticTrack>, ParamFloatConstRange<CCameraDramaticTrack>, ParamName<CCameraDramaticTrack>, ParamVector<CCameraDramaticTrack>,
+// whose vftable and scalar deleting destructor it emits
+extern "C" void FUN_00075230()
+{
+    if (DAT_004dcfac == 0) {
+        ::fight::ParamValue* params[27];
+        params[0] = new ::fight::ParamFloatConstRange< ::CCameraDramaticTrack>("timeBegin", &owners::Obj_68630::FUN_00068630);
+        params[1] = new ::fight::ParamFloatConstRange< ::CCameraDramaticTrack>("timeEnd", &owners::Obj_68640::FUN_00068640);
+        params[2] = new ::fight::ParamVector< ::CCameraDramaticTrack>("targetOffset", &fn_fa3ff49b::Obj_68650::Set);
+        params[3] = new ::fight::ParamFloatConstRange< ::CCameraDramaticTrack>("noCamWeight", &owners::A_686f0::FUN_000686f0);
+        params[4] = new ::fight::ParamName< ::CCameraDramaticTrack>("animation0", &owners::O_12080::FUN_00012080);
+        params[5] = new ::fight::ParamFloatConstRange< ::CCameraDramaticTrack>("weight0", &owners::Obj_68670::FUN_00068670);
+        params[6] = new ::fight::ParamName< ::CCameraDramaticTrack>("animation1", &owners::Obj_120a0::FUN_000120a0);
+        params[7] = new ::fight::ParamFloatConstRange< ::CCameraDramaticTrack>("weight1", &owners::C_68680::FUN_00068680);
+        params[8] = new ::fight::ParamName< ::CCameraDramaticTrack>("animation2", &owners::Obj_120c0::FUN_000120c0);
+        params[9] = new ::fight::ParamFloatConstRange< ::CCameraDramaticTrack>("weight2", &owners::Obj_68690::FUN_00068690);
+        params[10] = new ::fight::ParamName< ::CCameraDramaticTrack>("animation3", &owners::Obj_120e0::FUN_000120e0);
+        params[11] = new ::fight::ParamFloatConstRange< ::CCameraDramaticTrack>("weight3", &owners::Obj_686a0::FUN_000686a0);
+        params[12] = new ::fight::ParamName< ::CCameraDramaticTrack>("animation4", &owners::C_12100::FUN_00012100);
+        params[13] = new ::fight::ParamFloatConstRange< ::CCameraDramaticTrack>("weight4", &owners::Obj_686b0::FUN_000686b0);
+        params[14] = new ::fight::ParamName< ::CCameraDramaticTrack>("animation5", &owners::Obj_12120::FUN_00012120);
+        params[15] = new ::fight::ParamFloatConstRange< ::CCameraDramaticTrack>("weight5", &owners::Obj_686c0::FUN_000686c0);
+        params[16] = new ::fight::ParamName< ::CCameraDramaticTrack>("animation6", &owners::Obj_12140::FUN_00012140);
+        params[17] = new ::fight::ParamFloatConstRange< ::CCameraDramaticTrack>("weight6", &owners::Obj_686d0::FUN_000686d0);
+        params[18] = new ::fight::ParamName< ::CCameraDramaticTrack>("animation7", &owners::T_12160::FUN_00012160);
+        params[19] = new ::fight::ParamFloatConstRange< ::CCameraDramaticTrack>("weight7", &owners::Obj_686e0::FUN_000686e0);
+        params[20] = new ::fight::ParamBool< ::CCameraDramaticTrack>("abortWhenInterrupted", &owners::O_68700::FUN_00068700);
+        params[21] = new ::fight::ParamEnumConstList< ::CCameraDramaticTrack>("blendInTransition", (void*)&DAT_00496f9c, 2, &owners::Target_68710::FUN_00068710);
+        params[22] = new ::fight::ParamEnumConstList< ::CCameraDramaticTrack>("blendInBlend", (void*)&DAT_00496fa4, 4, &owners::Obj_68720::FUN_00068720);
+        params[23] = new ::fight::ParamFloatConstRange< ::CCameraDramaticTrack>("blendInDuration", &owners::Obj_68730::FUN_00068730);
+        params[24] = new ::fight::ParamEnumConstList< ::CCameraDramaticTrack>("blendOutTransition", (void*)&DAT_00496f9c, 2, &owners::Obj_68740::FUN_00068740);
+        params[25] = new ::fight::ParamEnumConstList< ::CCameraDramaticTrack>("blendOutBlend", (void*)&DAT_00496fa4, 4, &owners::Obj_68750::FUN_00068750);
+        params[26] = new ::fight::ParamFloatConstRange< ::CCameraDramaticTrack>("blendOutDuration", &owners::Target_68760::FUN_00068760);
+        FUN_002347b0(&DAT_004dcfa8, params, 27);
+    }
+    DAT_004dcfac++;
+}
+
+
+
+// 0x00075810 FUN_00075810 (817 B): matches/0x00075810.cpp
+// sym: _FUN_00075810
+// (gx2, D18) from CAlertStatusTrack_3.iso_00075810.cpp; constructs the real ParamFloatConstRange<CHeadTrackerTrack>, ParamIntConstRange<CHeadTrackerTrack>, ParamNameConstList<CHeadTrackerTrack>, ParamVector<CHeadTrackerTrack>,
+// whose vftable and scalar deleting destructor it emits
+extern "C" void FUN_00075810()
+{
+    if (DAT_004dcff4 == 0) {
+        ::fight::ParamValue* params[15];
+        params[0] = new ::fight::ParamFloatConstRange< ::CHeadTrackerTrack>("timeBegin", &owners::Obj_689d0::FUN_000689d0);
+        params[1] = new ::fight::ParamFloatConstRange< ::CHeadTrackerTrack>("timeEnd", &owners::Obj_689e0::FUN_000689e0);
+        params[2] = new ::fight::ParamNameConstList< ::CHeadTrackerTrack>("joint", &owners::T_12310::FUN_00012310);
+        params[3] = new ::fight::ParamVector< ::CHeadTrackerTrack>("north", &fn_fa3ff49b::Obj_689f0::Set);
+        params[4] = new ::fight::ParamVector< ::CHeadTrackerTrack>("east", &fn_fa3ff49b::Obj_68a10::Set);
+        params[5] = new ::fight::ParamFloatConstRange< ::CHeadTrackerTrack>("turnRate", &fn_fa3ff49b::FUN_00068a30);
+        params[6] = new ::fight::ParamFloatConstRange< ::CHeadTrackerTrack>("verticalMinAngle", &owners::Obj_68a50::FUN_00068a50);
+        params[7] = new ::fight::ParamFloatConstRange< ::CHeadTrackerTrack>("verticalMaxAngle", &owners::C_68a70::FUN_00068a70);
+        params[8] = new ::fight::ParamFloatConstRange< ::CHeadTrackerTrack>("horizontalMinAngle", &owners::Obj_68a90::FUN_00068a90);
+        params[9] = new ::fight::ParamFloatConstRange< ::CHeadTrackerTrack>("horizontalMaxAngle", &owners::T_68ab0::FUN_00068ab0);
+        params[10] = new ::fight::ParamFloatConstRange< ::CHeadTrackerTrack>("arc", &owners::Thing_6ad10::FUN_0006ad10);
+        params[11] = new ::fight::ParamFloatConstRange< ::CHeadTrackerTrack>("distance", &owners::O_68ad0::FUN_00068ad0);
+        params[12] = new ::fight::ParamIntConstRange< ::CHeadTrackerTrack>("priority", &owners::Obj_68ae0::FUN_00068ae0);
+        params[13] = new ::fight::ParamFloatConstRange< ::CHeadTrackerTrack>("blendInTime", &owners::Obj_68af0::FUN_00068af0);
+        params[14] = new ::fight::ParamFloatConstRange< ::CHeadTrackerTrack>("blendOutTime", &owners::Obj_68b00::FUN_00068b00);
+        FUN_002347b0(&DAT_004dcff0, params, 15);
+    }
+    DAT_004dcff4++;
+}
+
+
+
+// 0x00075b50 FUN_00075b50 (213 B): matches/0x00075b50.cpp
+// sym: _FUN_00075b50
+// (gx2, D18) rewritten; constructs the real ParamFloatConstRange<CAIHintTrack>, ParamName<CAIHintTrack>,
+// whose vftable and scalar deleting destructor it emits
+extern "C" void FUN_00075b50()
+{
+    if (DAT_004dd00c == 0) {
+        ::fight::ParamValue* params[3];
+        params[0] = new ::fight::ParamFloatConstRange< ::CAIHintTrack>("timeBegin", &fn_fa3ff49b::Obj_68b40::SetTimeBegin_00068b40);
+        params[1] = new ::fight::ParamFloatConstRange< ::CAIHintTrack>("timeEnd", &fn_fa3ff49b::Obj_68b50::SetTimeEnd_00068b50);
+        params[2] = new ::fight::ParamName< ::CAIHintTrack>("hint", &fn_fa3ff49b::Obj_68b60::GetHint_00068b60);
+        FUN_002347b0(&DAT_004dd008, params, 3);
+    }
+    DAT_004dd00c++;
+}
+
+
 
 // 0x00075c30 fight::TrackFactoryCasterTemplate<CAlertStatusTrack>::vfunc_1 (60 B): matches/0x00075c30.cpp
 // sym: ?vfunc_1@?$TrackFactoryCasterTemplate@VCAlertStatusTrack@@@fight@@UAEPAXPAX@Z

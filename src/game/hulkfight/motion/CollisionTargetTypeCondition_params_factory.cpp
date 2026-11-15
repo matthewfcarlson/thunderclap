@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x00154780..0x00154900 (kind game, layer game, confidence low)
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -72,16 +71,6 @@ template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::motion::Collis
 
     return FUN_00344e74(p, 0, &DAT_00491ca8, &DAT_004b2c00, 0) != 0;
 }
-
-
-// 0x00154870 fight::ParamEnumConstList<hulkfight::motion::CollisionSourceNameCondition>::vfunc_0 (30 B): matches/0x00154870.cpp
-// sym: ??_G?$ParamEnumConstList@VCollisionSourceNameCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
-// Same code shape as 0x00021840 (propagated; names are from that function)
-// scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamEnumConstList<hulkfight::motion::CollisionSourceNameCondition>::~ParamEnumConstList() {}
-#if defined(HULK_PTR64)
-template class fight::ParamEnumConstList<hulkfight::motion::CollisionSourceNameCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x154870)
-#endif
 
 
 // 0x001548a0 fight::TrackFactoryCasterTemplate<hulkfight::motion::InterruptAccumulatorSetTrack>::vfunc_0 (36 B): matches/0x001548a0.cpp

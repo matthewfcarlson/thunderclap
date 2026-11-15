@@ -1,7 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x001a1290..0x001a1ed0 (kind game, layer game, confidence high), dominant class hulkfight::scenario::LuaCondition
 #include "tree_prelude.h"
+#define HULK_FIGHT_PARAM_IMPLICIT   // (gx2, D18) include/gen/fight.h: the parameter templates constructed for real
 #include "compat/ptr.h"
 #include "decls/data/game/hulkfight.h"
 #include "decls/data/game/hulkfight/scenario.h"
@@ -16,6 +16,8 @@ struct FactoryCtor { void init_002343b0(); void init_00236a90(); };   // (unb4) 
 void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
 }
 #include "game/hulkfight/scenario.h"
+void* operator new(size_t) HULK_NEW_THROW;   // (gx2, D18) the game's operator new (0x0008d690)
+extern "C" void __cdecl FUN_002347b0(void* list, void* params, int count);   // (gx2, D18) a parameter list's set-up
 // (ren2) __RTDynamicCast's own name (CRT, C linkage)
 extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
@@ -214,7 +216,6 @@ extern char DAT_004c1600;
 extern "C" void __cdecl FUN_001a1350();
 extern "C" char DAT_0041c3ac[];
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
-extern "C" void FUN_002347b0(void*, void**, int);
 class Base_1a1b00 {
   public:
     virtual void V0();
@@ -768,10 +769,7 @@ template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::scenario::LuaC
 // sym: ??_G?$ParamScript@VLuaCondition@scenario@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamScript<hulkfight::scenario::LuaCondition>::~ParamScript() {}
-#if defined(HULK_PTR64)
-template class fight::ParamScript<hulkfight::scenario::LuaCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1a1a60)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x001a1a90 fight::TrackFactoryCasterTemplate<hulkfight::scenario::LuaTrack>::vfunc_0 (36 B): matches/0x001a1a90.cpp
@@ -786,92 +784,51 @@ template <> bool fight::TrackFactoryCasterTemplate<hulkfight::scenario::LuaTrack
 // sym: ??_G?$ParamFloatConstRange@VLuaTrack@scenario@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamFloatConstRange<hulkfight::scenario::LuaTrack>::~ParamFloatConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamFloatConstRange<hulkfight::scenario::LuaTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1a1ac0)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x001a1ae0 fight::ParamScript<hulkfight::scenario::LuaTrack>::vfunc_0 (30 B): matches/0x001a1ae0.cpp
 // sym: ??_G?$ParamScript@VLuaTrack@scenario@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamScript<hulkfight::scenario::LuaTrack>::~ParamScript() {}
-#if defined(HULK_PTR64)
-template class fight::ParamScript<hulkfight::scenario::LuaTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1a1ae0)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 namespace fn_fd836fc7 {
 
-// 0x001a1b00 FUN_001a1b00 (95 B): matches/0x001a1b00.cpp
-// sym: ?FUN_001a1b00@fn_fd836fc7@@YAXXZ
-// data: g_count_1a1b00 = DAT_004e16f8, g_slot_1a1b00 = DAT_004e16f4
-void FUN_001a1b00() {
-    void* tmp;
-    if ((*(int*)&DAT_004e16f8) == 0) {
-        ParamScript* p = (ParamScript*)FUN_0008d690(0x18);
-        if (p) {
-            p->Init_00234c00((const char*)((hulk_intptr)((char*)&DAT_0041c420)));
-            *(hulk_uintptr*)p = ((hulk_intptr)DAT_0041c3ac);
-            *(hulk_uintptr*)((char*)p + 0x10) = ((hulk_intptr)(void (__cdecl*)())&FUN_001a1350);
-            tmp = p;
-        } else
-            tmp = 0;
-        FUN_002347b0(((void**)&DAT_004e16f4), &tmp, 1);
-    }
-    ++(*(int*)&DAT_004e16f8);
-}
-
 } // namespace fn_fd836fc7
 
-// 0x001a1b60 FUN_001a1b60 (213 B): equivalent/0x001a1b60.cpp [wrapped: conflict: fight::ParamFloatConstRange; fight::ParamScript]
-// sym: ?FUN_001a1b60@fn_001a1b60@@YAXXZ @e821b5c161a2 @w0447def177e4
-namespace fn_001a1b60 {
-// STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 8/8)
-// FUN_001a1b60 @ 0x001a1b60
+// 0x001a1b00 FUN_001a1b00 (95 B): matches/0x001a1b00.cpp
+// sym: ?FUN_001a1b00@@YAXXZ
+// (gx2, D18) rewritten; constructs the real ParamScript<hulkfight::scenario::LuaCondition>,
+// whose vftable and scalar deleting destructor it emits
+void FUN_001a1b00()
+{
+    if ((*(int*)&DAT_004e16f8) == 0) {
+        ::fight::ParamValue* params[1];
+        params[0] = new ::fight::ParamScript< ::hulkfight::scenario::LuaCondition>("script", &fn_fd836fc7::StrHolder_1a1350::FUN_001a1350);
+        FUN_002347b0(&DAT_004e16f4, params, 1);
+    }
+    (*(int*)&DAT_004e16f8)++;
+}
 
 
-void* __cdecl FUN_0008d690(unsigned int);
-void __cdecl SetTimeBegin_001a1290();
-void __cdecl SetTimeEnd_001a12a0();
-void __cdecl SetScript_001a1460();
-namespace hulkfight { namespace scenario { class LuaTrack; } }
-namespace fight {
-template<class T> struct ParamFloatConstRange {
- virtual void slot0();
- char pad[12];
- void (__cdecl *callback)();
- int tail;
- void FUN_00234960(const char*);
-};
-template<class T> struct ParamScript {
- virtual void slot0();
- char pad[12];
- void (__cdecl *callback)();
- int tail;
- void FUN_00234c00(const char*);
-};
+
+// 0x001a1b60 FUN_001a1b60 (213 B): matches/0x001a1b60.cpp
+// sym: ?FUN_001a1b60@@YAXXZ
+// (gx2, D18) rewritten; constructs the real ParamFloatConstRange<hulkfight::scenario::LuaTrack>, ParamScript<hulkfight::scenario::LuaTrack>,
+// whose vftable and scalar deleting destructor it emits
+void FUN_001a1b60()
+{
+    if ((*(int*)&DAT_004e1700) == 0) {
+        ::fight::ParamValue* params[3];
+        params[0] = new ::fight::ParamFloatConstRange< ::hulkfight::scenario::LuaTrack>("timeBegin", &fn_fd836fc7::Obj_1a1290::SetTimeBegin_001a1290);
+        params[1] = new ::fight::ParamFloatConstRange< ::hulkfight::scenario::LuaTrack>("timeEnd", &fn_fd836fc7::X_1a12a0::SetTimeEnd_001a12a0);
+        params[2] = new ::fight::ParamScript< ::hulkfight::scenario::LuaTrack>("script", &fn_fd836fc7::StrHolder_1a1460::SetScript_001a1460);
+        FUN_002347b0(&DAT_004e16fc, params, 3);
+    }
+    (*(int*)&DAT_004e1700)++;
 }
-void __cdecl FUN_002347b0(int*, void**, int);
-void FUN_001a1b60() {
- if (!(*(int*)&DAT_004e1700)) {
- void* items[3];
- typedef fight::ParamFloatConstRange<hulkfight::scenario::LuaTrack> FloatParam;
- typedef fight::ParamScript<hulkfight::scenario::LuaTrack> ScriptParam;
- FloatParam* a = (FloatParam*)FUN_0008d690((int)sizeof(FloatParam));
- if(a) { a->FUN_00234960("timeBegin"); new (a) FloatParam; a->callback = SetTimeBegin_001a1290; }
- items[0] = a;
- FloatParam* b = (FloatParam*)FUN_0008d690((int)sizeof(FloatParam));
- if(b) { b->FUN_00234960("timeEnd"); new (b) FloatParam; b->callback = SetTimeEnd_001a12a0; }
- items[1] = b;
- ScriptParam* c = (ScriptParam*)FUN_0008d690((int)sizeof(ScriptParam));
- if(c) { c->FUN_00234c00("script"); new (c) ScriptParam; c->callback = SetScript_001a1460; }
- items[2] = c;
- FUN_002347b0(&DAT_004e16fc, items, 3);
- }
- ++(*(int*)&DAT_004e1700);
-}
-} // namespace fn_001a1b60
+
 
 
 // 0x001a1c40 hulkfight::scenario::LuaTrack::vfunc_10 (48 B): matches/0x001a1c40.cpp

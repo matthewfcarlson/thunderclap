@@ -1,7 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x00061e30..0x00068c80 (kind game, layer game, confidence high), dominant class CWeaponCollisionTrack
 #include "tree_prelude.h"
+#define HULK_FIGHT_PARAM_IMPLICIT   // (gx2, D18) include/gen/fight.h: the parameter templates constructed for real
 #include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
@@ -15,6 +15,23 @@
 namespace fn_fa3ff49b {} using namespace fn_fa3ff49b;
 namespace fn_fa3ff49b { extern "C" char DAT_003fb104[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "game/global.h"
+void* operator new(size_t) HULK_NEW_THROW;   // (gx2, D18) the game's operator new (0x0008d690)
+extern "C" void __cdecl FUN_002347b0(void* list, void* params, int count);   // (gx2, D18) a parameter list's set-up
+namespace fn_fa748c45 { struct S; } 
+namespace fn_fa748c45 { struct Src; } 
+namespace fn_fa748c45 { struct T_61d90; } 
+namespace fn_fa748c45 { struct V3_61d30; } 
+namespace fn_fa748c45 { struct V; } 
+namespace fn_fa748c45 { struct Vec3; } 
+namespace fn_ff0a839e { struct Obj_12720; } 
+namespace fn_ff0a839e { char * __fastcall FUN_00012670(char *); }   // (gx3, D18) a setter, as defined in unk_011000.cpp
+namespace fn_ff0a839e { void * __fastcall FUN_00012720(struct fn_ff0a839e::Obj_12720 *); }   // (gx3, D18) a setter, as defined in unk_011000.cpp
+namespace fn_fa748c45 { struct A { bool Set(struct fn_fa748c45::S const *); }; }   // (gx3, D18) setters, as defined in unk_061b40.cpp
+namespace fn_fa748c45 { struct Obj { bool Set(struct fn_fa748c45::Src *); bool Set(struct fn_fa748c45::Vec3 const *); }; }   // (gx3, D18) setters, as defined in unk_061b40.cpp
+namespace fn_fa748c45 { struct Obj_61d30 { bool Set(struct fn_fa748c45::V3_61d30 const *); }; }   // (gx3, D18) setters, as defined in unk_061b40.cpp
+namespace fn_fa748c45 { struct S_61d90 { bool Set(struct fn_fa748c45::T_61d90 const *); }; }   // (gx3, D18) setters, as defined in unk_061b40.cpp
+namespace fn_fa748c45 { struct T_61cf0 { char f(struct fn_fa748c45::V *); }; }   // (gx3, D18) setters, as defined in unk_061b40.cpp
+namespace fn_fa748c45 { struct Thing { bool Fn(struct fn_fa748c45::Vec3 *); }; }   // (gx3, D18) setters, as defined in unk_061b40.cpp
 // (ren2) __RTDynamicCast's own name (CRT, C linkage)
 extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
@@ -801,7 +818,6 @@ public:
 };
 }
 namespace fn_fa3ff49b {
-void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 class CSmartPropAttachTrack_65190 {
 public:
     bool FUN_00061cb0(void*); /* (unb4) as defined; address taken only */
@@ -4433,448 +4449,421 @@ template <> bool fight::ParamIntConstRange<CPropActorSetStateTrack>::vfunc_2() {
 // sym: ??_G?$ParamFloatConstRange@VCWeaponCollisionTrack@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamFloatConstRange<CWeaponCollisionTrack>::~ParamFloatConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamFloatConstRange<CWeaponCollisionTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x63d00)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00063d20 fight::ParamIntConstRange<CWeaponCollisionTrack>::vfunc_0 (30 B): matches/0x00063d20.cpp
 // sym: ??_G?$ParamIntConstRange@VCWeaponCollisionTrack@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamIntConstRange<CWeaponCollisionTrack>::~ParamIntConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamIntConstRange<CWeaponCollisionTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x63d20)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00063d40 fight::ParamBool<CWeaponCollisionTrack>::vfunc_0 (30 B): matches/0x00063d40.cpp
 // sym: ??_G?$ParamBool@VCWeaponCollisionTrack@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamBool<CWeaponCollisionTrack>::~ParamBool() {}
-#if defined(HULK_PTR64)
-template class fight::ParamBool<CWeaponCollisionTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x63d40)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00063d60 fight::ParamEnumConstList<CWeaponCollisionTrack>::vfunc_0 (30 B): matches/0x00063d60.cpp
 // sym: ??_G?$ParamEnumConstList@VCWeaponCollisionTrack@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamEnumConstList<CWeaponCollisionTrack>::~ParamEnumConstList() {}
-#if defined(HULK_PTR64)
-template class fight::ParamEnumConstList<CWeaponCollisionTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x63d60)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00063d80 fight::ParamBranch<CWeaponCollisionTrack>::vfunc_0 (30 B): matches/0x00063d80.cpp
 // sym: ??_G?$ParamBranch@VCWeaponCollisionTrack@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamBranch<CWeaponCollisionTrack>::~ParamBranch() {}
-#if defined(HULK_PTR64)
-template class fight::ParamBranch<CWeaponCollisionTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x63d80)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00063da0 fight::ParamString<CWeaponCollisionTrack>::vfunc_0 (30 B): matches/0x00063da0.cpp
 // sym: ??_G?$ParamString@VCWeaponCollisionTrack@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamString<CWeaponCollisionTrack>::~ParamString() {}
-#if defined(HULK_PTR64)
-template class fight::ParamString<CWeaponCollisionTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x63da0)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00063dc0 fight::ParamVector<CWeaponCollisionTrack>::vfunc_0 (30 B): matches/0x00063dc0.cpp
 // sym: ??_G?$ParamVector@VCWeaponCollisionTrack@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamVector<CWeaponCollisionTrack>::~ParamVector() {}
-#if defined(HULK_PTR64)
-template class fight::ParamVector<CWeaponCollisionTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x63dc0)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00063de0 fight::ParamBoolPtr<CWeaponCollisionTrack>::vfunc_0 (30 B): matches/0x00063de0.cpp
 // sym: ??_G?$ParamBoolPtr@VCWeaponCollisionTrack@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamBoolPtr<CWeaponCollisionTrack>::~ParamBoolPtr() {}
-#if defined(HULK_PTR64)
-template class fight::ParamBoolPtr<CWeaponCollisionTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x63de0)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00063e00 fight::ParamFloatPtrConstRange<CWeaponCollisionTrack>::vfunc_0 (30 B): matches/0x00063e00.cpp
 // sym: ??_G?$ParamFloatPtrConstRange@VCWeaponCollisionTrack@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamFloatPtrConstRange<CWeaponCollisionTrack>::~ParamFloatPtrConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamFloatPtrConstRange<CWeaponCollisionTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x63e00)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00063e20 fight::ParamFloatConstRange<CSmartPropAttachTrack>::vfunc_0 (30 B): matches/0x00063e20.cpp
 // sym: ??_G?$ParamFloatConstRange@VCSmartPropAttachTrack@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamFloatConstRange<CSmartPropAttachTrack>::~ParamFloatConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamFloatConstRange<CSmartPropAttachTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x63e20)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00063e40 fight::ParamIntConstRange<CSmartPropAttachTrack>::vfunc_0 (30 B): matches/0x00063e40.cpp
 // sym: ??_G?$ParamIntConstRange@VCSmartPropAttachTrack@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamIntConstRange<CSmartPropAttachTrack>::~ParamIntConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamIntConstRange<CSmartPropAttachTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x63e40)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00063e60 fight::ParamBool<CSmartPropAttachTrack>::vfunc_0 (30 B): matches/0x00063e60.cpp
 // sym: ??_G?$ParamBool@VCSmartPropAttachTrack@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamBool<CSmartPropAttachTrack>::~ParamBool() {}
-#if defined(HULK_PTR64)
-template class fight::ParamBool<CSmartPropAttachTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x63e60)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00063e80 fight::ParamVector<CSmartPropAttachTrack>::vfunc_0 (30 B): matches/0x00063e80.cpp
 // sym: ??_G?$ParamVector@VCSmartPropAttachTrack@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamVector<CSmartPropAttachTrack>::~ParamVector() {}
-#if defined(HULK_PTR64)
-template class fight::ParamVector<CSmartPropAttachTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x63e80)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00063ea0 fight::ParamFloatConstRange<CSmartPropUpdateAttachmentTrack>::vfunc_0 (30 B): matches/0x00063ea0.cpp
 // sym: ??_G?$ParamFloatConstRange@VCSmartPropUpdateAttachmentTrack@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamFloatConstRange<CSmartPropUpdateAttachmentTrack>::~ParamFloatConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamFloatConstRange<CSmartPropUpdateAttachmentTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x63ea0)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00063ec0 fight::ParamIntConstRange<CSmartPropUpdateAttachmentTrack>::vfunc_0 (30 B): matches/0x00063ec0.cpp
 // sym: ??_G?$ParamIntConstRange@VCSmartPropUpdateAttachmentTrack@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamIntConstRange<CSmartPropUpdateAttachmentTrack>::~ParamIntConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamIntConstRange<CSmartPropUpdateAttachmentTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x63ec0)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00063ee0 fight::ParamBool<CSmartPropUpdateAttachmentTrack>::vfunc_0 (30 B): matches/0x00063ee0.cpp
 // sym: ??_G?$ParamBool@VCSmartPropUpdateAttachmentTrack@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamBool<CSmartPropUpdateAttachmentTrack>::~ParamBool() {}
-#if defined(HULK_PTR64)
-template class fight::ParamBool<CSmartPropUpdateAttachmentTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x63ee0)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00063f00 fight::ParamVector<CSmartPropUpdateAttachmentTrack>::vfunc_0 (30 B): matches/0x00063f00.cpp
 // sym: ??_G?$ParamVector@VCSmartPropUpdateAttachmentTrack@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamVector<CSmartPropUpdateAttachmentTrack>::~ParamVector() {}
-#if defined(HULK_PTR64)
-template class fight::ParamVector<CSmartPropUpdateAttachmentTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x63f00)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00063f20 fight::ParamFloatConstRange<CSmartPropSpawnTrack>::vfunc_0 (30 B): matches/0x00063f20.cpp
 // sym: ??_G?$ParamFloatConstRange@VCSmartPropSpawnTrack@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamFloatConstRange<CSmartPropSpawnTrack>::~ParamFloatConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamFloatConstRange<CSmartPropSpawnTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x63f20)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00063f40 fight::ParamString<CSmartPropSpawnTrack>::vfunc_0 (30 B): matches/0x00063f40.cpp
 // sym: ??_G?$ParamString@VCSmartPropSpawnTrack@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamString<CSmartPropSpawnTrack>::~ParamString() {}
-#if defined(HULK_PTR64)
-template class fight::ParamString<CSmartPropSpawnTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x63f40)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00063f60 fight::ParamIntConstRange<CSmartPropSpawnTrack>::vfunc_0 (30 B): matches/0x00063f60.cpp
 // sym: ??_G?$ParamIntConstRange@VCSmartPropSpawnTrack@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamIntConstRange<CSmartPropSpawnTrack>::~ParamIntConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamIntConstRange<CSmartPropSpawnTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x63f60)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00063f80 fight::ParamBool<CSmartPropSpawnTrack>::vfunc_0 (30 B): matches/0x00063f80.cpp
 // sym: ??_G?$ParamBool@VCSmartPropSpawnTrack@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamBool<CSmartPropSpawnTrack>::~ParamBool() {}
-#if defined(HULK_PTR64)
-template class fight::ParamBool<CSmartPropSpawnTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x63f80)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00063fa0 fight::ParamVector<CSmartPropSpawnTrack>::vfunc_0 (30 B): matches/0x00063fa0.cpp
 // sym: ??_G?$ParamVector@VCSmartPropSpawnTrack@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamVector<CSmartPropSpawnTrack>::~ParamVector() {}
-#if defined(HULK_PTR64)
-template class fight::ParamVector<CSmartPropSpawnTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x63fa0)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00063fc0 fight::ParamFloatConstRange<CSmartPropSetStateTrack>::vfunc_0 (30 B): matches/0x00063fc0.cpp
 // sym: ??_G?$ParamFloatConstRange@VCSmartPropSetStateTrack@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamFloatConstRange<CSmartPropSetStateTrack>::~ParamFloatConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamFloatConstRange<CSmartPropSetStateTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x63fc0)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00063fe0 fight::ParamIntConstRange<CSmartPropSetStateTrack>::vfunc_0 (30 B): matches/0x00063fe0.cpp
 // sym: ??_G?$ParamIntConstRange@VCSmartPropSetStateTrack@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamIntConstRange<CSmartPropSetStateTrack>::~ParamIntConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamIntConstRange<CSmartPropSetStateTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x63fe0)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00064000 fight::ParamFloatConstRange<CSmartPropDetachTrack>::vfunc_0 (30 B): matches/0x00064000.cpp
 // sym: ??_G?$ParamFloatConstRange@VCSmartPropDetachTrack@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamFloatConstRange<CSmartPropDetachTrack>::~ParamFloatConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamFloatConstRange<CSmartPropDetachTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x64000)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00064020 fight::ParamFloatConstRange<CSmartPropThrowTrack>::vfunc_0 (30 B): matches/0x00064020.cpp
 // sym: ??_G?$ParamFloatConstRange@VCSmartPropThrowTrack@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamFloatConstRange<CSmartPropThrowTrack>::~ParamFloatConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamFloatConstRange<CSmartPropThrowTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x64020)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00064040 fight::ParamIntConstRange<CSmartPropThrowTrack>::vfunc_0 (30 B): matches/0x00064040.cpp
 // sym: ??_G?$ParamIntConstRange@VCSmartPropThrowTrack@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamIntConstRange<CSmartPropThrowTrack>::~ParamIntConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamIntConstRange<CSmartPropThrowTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x64040)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00064060 fight::ParamVector<CSmartPropThrowTrack>::vfunc_0 (30 B): matches/0x00064060.cpp
 // sym: ??_G?$ParamVector@VCSmartPropThrowTrack@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamVector<CSmartPropThrowTrack>::~ParamVector() {}
-#if defined(HULK_PTR64)
-template class fight::ParamVector<CSmartPropThrowTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x64060)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00064080 fight::ParamBool<CSmartPropThrowTrack>::vfunc_0 (30 B): matches/0x00064080.cpp
 // sym: ??_G?$ParamBool@VCSmartPropThrowTrack@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamBool<CSmartPropThrowTrack>::~ParamBool() {}
-#if defined(HULK_PTR64)
-template class fight::ParamBool<CSmartPropThrowTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x64080)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x000640a0 fight::ParamFloatConstRange<CSmartPropThrowingTrack>::vfunc_0 (30 B): matches/0x000640a0.cpp
 // sym: ??_G?$ParamFloatConstRange@VCSmartPropThrowingTrack@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamFloatConstRange<CSmartPropThrowingTrack>::~ParamFloatConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamFloatConstRange<CSmartPropThrowingTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x640a0)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x000640c0 fight::ParamFloatConstRange<CSmartPropDropTrack>::vfunc_0 (30 B): matches/0x000640c0.cpp
 // sym: ??_G?$ParamFloatConstRange@VCSmartPropDropTrack@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamFloatConstRange<CSmartPropDropTrack>::~ParamFloatConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamFloatConstRange<CSmartPropDropTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x640c0)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x000640e0 fight::ParamIntConstRange<CSmartPropDropTrack>::vfunc_0 (30 B): matches/0x000640e0.cpp
 // sym: ??_G?$ParamIntConstRange@VCSmartPropDropTrack@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamIntConstRange<CSmartPropDropTrack>::~ParamIntConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamIntConstRange<CSmartPropDropTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x640e0)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00064100 fight::ParamIntConstRange<CSmartPropEventTrack>::vfunc_0 (30 B): matches/0x00064100.cpp
 // sym: ??_G?$ParamIntConstRange@VCSmartPropEventTrack@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamIntConstRange<CSmartPropEventTrack>::~ParamIntConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamIntConstRange<CSmartPropEventTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x64100)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00064120 fight::ParamEnumConstList<CSmartPropEventTrack>::vfunc_0 (30 B): matches/0x00064120.cpp
 // sym: ??_G?$ParamEnumConstList@VCSmartPropEventTrack@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamEnumConstList<CSmartPropEventTrack>::~ParamEnumConstList() {}
-#if defined(HULK_PTR64)
-template class fight::ParamEnumConstList<CSmartPropEventTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x64120)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00064140 fight::ParamFloatConstRange<CSmartPropEventTrack>::vfunc_0 (30 B): matches/0x00064140.cpp
 // sym: ??_G?$ParamFloatConstRange@VCSmartPropEventTrack@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamFloatConstRange<CSmartPropEventTrack>::~ParamFloatConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamFloatConstRange<CSmartPropEventTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x64140)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00064160 fight::ParamIntConstRange<CSmartPropRemoveInstanceTrack>::vfunc_0 (30 B): matches/0x00064160.cpp
 // sym: ??_G?$ParamIntConstRange@VCSmartPropRemoveInstanceTrack@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamIntConstRange<CSmartPropRemoveInstanceTrack>::~ParamIntConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamIntConstRange<CSmartPropRemoveInstanceTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x64160)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00064180 fight::ParamFloatConstRange<CSmartPropRemoveInstanceTrack>::vfunc_0 (30 B): matches/0x00064180.cpp
 // sym: ??_G?$ParamFloatConstRange@VCSmartPropRemoveInstanceTrack@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamFloatConstRange<CSmartPropRemoveInstanceTrack>::~ParamFloatConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamFloatConstRange<CSmartPropRemoveInstanceTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x64180)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x000641a0 fight::ParamFloatConstRange<CPropActorSetStateTrack>::vfunc_0 (30 B): matches/0x000641a0.cpp
 // sym: ??_G?$ParamFloatConstRange@VCPropActorSetStateTrack@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamFloatConstRange<CPropActorSetStateTrack>::~ParamFloatConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamFloatConstRange<CPropActorSetStateTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x641a0)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x000641c0 fight::ParamIntConstRange<CPropActorSetStateTrack>::vfunc_0 (30 B): matches/0x000641c0.cpp
 // sym: ??_G?$ParamIntConstRange@VCPropActorSetStateTrack@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamIntConstRange<CPropActorSetStateTrack>::~ParamIntConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamIntConstRange<CPropActorSetStateTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x641c0)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 namespace fn_fa3ff49b {
 
-// 0x000642e0 FUN_000642e0 (562 B): equivalent/0x000642e0.cpp
-// sym: _FUN_000642e0 @b8938b6db98f @w1641c446770f
-// STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 22/22)
-// FUN_000642e0 @ 0x000642e0
+} // namespace fn_fa3ff49b
+
+// 0x000641e0 FUN_000641e0 (158 B): matches/0x000641e0.cpp
+// sym: _FUN_000641e0
+// (gx2, D18) from CWeaponCollisionTrack.iso_000641e0.cpp; constructs the real ParamFloatConstRange<CSmartPropSetStateTrack>, ParamIntConstRange<CSmartPropSetStateTrack>,
+// whose vftable and scalar deleting destructor it emits
+extern "C" void FUN_000641e0()
+{
+    if (DAT_004dc63c == 0) {
+        ::fight::ParamValue* params[2];
+        params[0] = new ::fight::ParamFloatConstRange< ::CSmartPropSetStateTrack>("timeBegin", &owners::O_61e30::FUN_00061e30);
+        params[1] = new ::fight::ParamIntConstRange< ::CSmartPropSetStateTrack>("state", &owners::O_61e40::FUN_00061e40);
+        FUN_002347b0(&DAT_004dc638, params, 2);
+    }
+    DAT_004dc63c++;
+}
+
+
+
+// 0x00064280 FUN_00064280 (95 B): matches/0x00064280.cpp
+// sym: _FUN_00064280
+// (gx2, D18) from CWeaponCollisionTrack.iso_00064280.cpp; constructs the real ParamFloatConstRange<CSmartPropDetachTrack>,
+// whose vftable and scalar deleting destructor it emits
+extern "C" void FUN_00064280()
+{
+    if (DAT_004dc644 == 0) {
+        ::fight::ParamValue* params[1];
+        params[0] = new ::fight::ParamFloatConstRange< ::CSmartPropDetachTrack>("timeBegin", &owners::Obj_61e50::FUN_00061e50);
+        FUN_002347b0(&DAT_004dc640, params, 1);
+    }
+    DAT_004dc644++;
+}
+
+
+
+// 0x000642e0 FUN_000642e0 (562 B): matches/0x000642e0.cpp
+// sym: _FUN_000642e0
+// (gx2, D18) rewritten; constructs the real ParamBool<CSmartPropThrowTrack>, ParamFloatConstRange<CSmartPropThrowTrack>, ParamIntConstRange<CSmartPropThrowTrack>, ParamVector<CSmartPropThrowTrack>,
+// whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_000642e0()
 {
     if (DAT_004dc64c == 0) {
-        void* params[10];
-        void* mem;
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_642e0<CSmartPropThrowTrack_642e0>));
-        params[0] = 0;
-        if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange_642e0<CSmartPropThrowTrack_642e0>("timeBegin", &CSmartPropThrowTrack_642e0::FUN_00061e60);
-        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_642e0<CSmartPropThrowTrack_642e0>));
-        params[1] = 0;
-        if (mem)
-            params[1] = new (mem) fight::ParamIntConstRange_642e0<CSmartPropThrowTrack_642e0>("attachmentIndex", &CSmartPropThrowTrack_642e0::FUN_00061e70);
-        mem = FUN_0008d690((int)sizeof(fight::ParamVector_642e0<CSmartPropThrowTrack_642e0>));
-        params[2] = 0;
-        if (mem)
-            params[2] = new (mem) fight::ParamVector_642e0<CSmartPropThrowTrack_642e0>("direction", &CSmartPropThrowTrack_642e0::FUN_00061e80);
-        mem = FUN_0008d690((int)sizeof(fight::ParamVector_642e0<CSmartPropThrowTrack_642e0>));
-        params[3] = 0;
-        if (mem)
-            params[3] = new (mem) fight::ParamVector_642e0<CSmartPropThrowTrack_642e0>("offset", &CSmartPropThrowTrack_642e0::FUN_00061ea0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_642e0<CSmartPropThrowTrack_642e0>));
-        params[4] = 0;
-        if (mem)
-            params[4] = new (mem) fight::ParamFloatConstRange_642e0<CSmartPropThrowTrack_642e0>("arc", &CSmartPropThrowTrack_642e0::FUN_00061ec0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_642e0<CSmartPropThrowTrack_642e0>));
-        params[5] = 0;
-        if (mem)
-            params[5] = new (mem) fight::ParamFloatConstRange_642e0<CSmartPropThrowTrack_642e0>("minDistance", &CSmartPropThrowTrack_642e0::FUN_00061ee0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_642e0<CSmartPropThrowTrack_642e0>));
-        params[6] = 0;
-        if (mem)
-            params[6] = new (mem) fight::ParamFloatConstRange_642e0<CSmartPropThrowTrack_642e0>("maxDistance", &CSmartPropThrowTrack_642e0::FUN_00061ef0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_642e0<CSmartPropThrowTrack_642e0>));
-        params[7] = 0;
-        if (mem)
-            params[7] = new (mem) fight::ParamFloatConstRange_642e0<CSmartPropThrowTrack_642e0>("velocity", &CSmartPropThrowTrack_642e0::FUN_00061f00);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_642e0<CSmartPropThrowTrack_642e0>));
-        params[8] = 0;
-        if (mem)
-            params[8] = new (mem) fight::ParamFloatConstRange_642e0<CSmartPropThrowTrack_642e0>("naturalDistance", &CSmartPropThrowTrack_642e0::FUN_00061f10);
-        mem = FUN_0008d690((int)sizeof(fight::ParamBool_642e0<CSmartPropThrowTrack_642e0>));
-        params[9] = 0;
-        if (mem)
-            params[9] = new (mem) fight::ParamBool_642e0<CSmartPropThrowTrack_642e0>("useYVelocity", &CSmartPropThrowTrack_642e0::FUN_00061f20);
-        FUN_002347b0(((ParamRegistry*)&DAT_004dc648), params, 10);
+        ::fight::ParamValue* params[10];
+        params[0] = new ::fight::ParamFloatConstRange< ::CSmartPropThrowTrack>("timeBegin", &owners::Obj_61e60::FUN_00061e60);
+        params[1] = new ::fight::ParamIntConstRange< ::CSmartPropThrowTrack>("attachmentIndex", &owners::C_61e70::FUN_00061e70);
+        params[2] = new ::fight::ParamVector< ::CSmartPropThrowTrack>("direction", static_cast<bool (fn_00061e80::T_61e80::*)(struct fn_00061e80::S_61e80 const *)>(&fn_00061e80::T_61e80::operator=));
+        params[3] = new ::fight::ParamVector< ::CSmartPropThrowTrack>("offset", &fn_fa3ff49b::Obj_61ea0::Set);
+        params[4] = new ::fight::ParamFloatConstRange< ::CSmartPropThrowTrack>("arc", &owners::Obj_61ec0::FUN_00061ec0);
+        params[5] = new ::fight::ParamFloatConstRange< ::CSmartPropThrowTrack>("minDistance", &owners::Obj_61ee0::FUN_00061ee0);
+        params[6] = new ::fight::ParamFloatConstRange< ::CSmartPropThrowTrack>("maxDistance", &owners::O_61ef0::FUN_00061ef0);
+        params[7] = new ::fight::ParamFloatConstRange< ::CSmartPropThrowTrack>("velocity", &owners::Obj_61f00::FUN_00061f00);
+        params[8] = new ::fight::ParamFloatConstRange< ::CSmartPropThrowTrack>("naturalDistance", &owners::Obj_61f10::FUN_00061f10);
+        params[9] = new ::fight::ParamBool< ::CSmartPropThrowTrack>("useYVelocity", &owners::O_61f20::FUN_00061f20);
+        FUN_002347b0(&DAT_004dc648, params, 10);
     }
     DAT_004dc64c++;
 }
 
-} // namespace fn_fa3ff49b
+
+
+// 0x00064520 FUN_00064520 (158 B): matches/0x00064520.cpp
+// sym: _FUN_00064520
+// (gx2, D18) from CWeaponCollisionTrack.iso_00064520.cpp; constructs the real ParamFloatConstRange<CSmartPropThrowingTrack>,
+// whose vftable and scalar deleting destructor it emits
+extern "C" void FUN_00064520()
+{
+    if (DAT_004dc654 == 0) {
+        ::fight::ParamValue* params[2];
+        params[0] = new ::fight::ParamFloatConstRange< ::CSmartPropThrowingTrack>("timeBegin", &owners::O_61f30::FUN_00061f30);
+        params[1] = new ::fight::ParamFloatConstRange< ::CSmartPropThrowingTrack>("timeEnd", &owners::Obj_61f40::FUN_00061f40);
+        FUN_002347b0(&DAT_004dc650, params, 2);
+    }
+    DAT_004dc654++;
+}
+
+
+
+// 0x000645c0 FUN_000645c0 (158 B): matches/0x000645c0.cpp
+// sym: _FUN_000645c0
+// (gx2, D18) from CWeaponCollisionTrack.iso_000645c0.cpp; constructs the real ParamFloatConstRange<CSmartPropDropTrack>, ParamIntConstRange<CSmartPropDropTrack>,
+// whose vftable and scalar deleting destructor it emits
+extern "C" void FUN_000645c0()
+{
+    if (DAT_004dc65c == 0) {
+        ::fight::ParamValue* params[2];
+        params[0] = new ::fight::ParamFloatConstRange< ::CSmartPropDropTrack>("timeBegin", &owners::Obj_61f50::FUN_00061f50);
+        params[1] = new ::fight::ParamIntConstRange< ::CSmartPropDropTrack>("state", &owners::A_61f60::FUN_00061f60);
+        FUN_002347b0(&DAT_004dc658, params, 2);
+    }
+    DAT_004dc65c++;
+}
+
+
+
+// 0x00064660 FUN_00064660 (227 B): matches/0x00064660.cpp
+// sym: _FUN_00064660
+// (gx2, D18) from CWeaponCollisionTrack.iso_00064660.cpp; constructs the real ParamEnumConstList<CSmartPropEventTrack>, ParamFloatConstRange<CSmartPropEventTrack>, ParamIntConstRange<CSmartPropEventTrack>,
+// whose vftable and scalar deleting destructor it emits
+extern "C" void FUN_00064660()
+{
+    if (DAT_004dc664 == 0) {
+        ::fight::ParamValue* params[3];
+        params[0] = new ::fight::ParamIntConstRange< ::CSmartPropEventTrack>("attachmentIndex", &fn_fa3ff49b::A_61f80::SetAttachmentIndex_00061f80);
+        params[1] = new ::fight::ParamEnumConstList< ::CSmartPropEventTrack>("event", (void*)&DAT_00496168, 14, &fn_fa3ff49b::Obj_61f90::SetEvent_00061f90);
+        params[2] = new ::fight::ParamFloatConstRange< ::CSmartPropEventTrack>("timeBegin", &fn_fa3ff49b::X_61f70::SetTimeBegin_00061f70);
+        FUN_002347b0(&DAT_004dc660, params, 3);
+    }
+    DAT_004dc664++;
+}
+
+
+
+// 0x00064750 FUN_00064750 (158 B): matches/0x00064750.cpp
+// sym: _FUN_00064750
+// (gx2, D18) from CWeaponCollisionTrack.iso_00064750.cpp; constructs the real ParamFloatConstRange<CSmartPropRemoveInstanceTrack>, ParamIntConstRange<CSmartPropRemoveInstanceTrack>,
+// whose vftable and scalar deleting destructor it emits
+extern "C" void FUN_00064750()
+{
+    if (DAT_004dc66c == 0) {
+        ::fight::ParamValue* params[2];
+        params[0] = new ::fight::ParamIntConstRange< ::CSmartPropRemoveInstanceTrack>("attachmentIndex", &owners::Obj_61fb0::FUN_00061fb0);
+        params[1] = new ::fight::ParamFloatConstRange< ::CSmartPropRemoveInstanceTrack>("timeBegin", &fn_fa3ff49b::O_61fa0::Set);
+        FUN_002347b0(&DAT_004dc668, params, 2);
+    }
+    DAT_004dc66c++;
+}
+
+
+
+// 0x000647f0 FUN_000647f0 (158 B): matches/0x000647f0.cpp
+// sym: _FUN_000647f0
+// (gx2, D18) from CWeaponCollisionTrack.iso_000647f0.cpp; constructs the real ParamFloatConstRange<CPropActorSetStateTrack>, ParamIntConstRange<CPropActorSetStateTrack>,
+// whose vftable and scalar deleting destructor it emits
+extern "C" void FUN_000647f0()
+{
+    if (DAT_004dc674 == 0) {
+        ::fight::ParamValue* params[2];
+        params[0] = new ::fight::ParamFloatConstRange< ::CPropActorSetStateTrack>("timeBegin", &owners::Obj_61fc0::FUN_00061fc0);
+        params[1] = new ::fight::ParamIntConstRange< ::CPropActorSetStateTrack>("state", &owners::Obj_61fd0::FUN_00061fd0);
+        FUN_002347b0(&DAT_004dc670, params, 2);
+    }
+    DAT_004dc674++;
+}
+
+
 
 // 0x000648b0 fight::ParamName<CWeaponCollisionTrack>::vfunc_7 (12 B): matches/0x000648b0.cpp [wrapped: same definition as 0x00063230 in this TU]
 // sym: ?vfunc_6@ParamBranch@fn_000648b0@@UAEXPAX@Z
@@ -5036,230 +5025,170 @@ void ParamBranch::vfunc_6(void* p) {
 // sym: ??_G?$ParamName@VCWeaponCollisionTrack@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamName<CWeaponCollisionTrack>::~ParamName() {}
-#if defined(HULK_PTR64)
-template class fight::ParamName<CWeaponCollisionTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x649b0)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x000649d0 fight::ParamNameConstList<CSmartPropAttachTrack>::vfunc_0 (30 B): matches/0x000649d0.cpp
 // sym: ??_G?$ParamNameConstList@VCSmartPropAttachTrack@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamNameConstList<CSmartPropAttachTrack>::~ParamNameConstList() {}
-#if defined(HULK_PTR64)
-template class fight::ParamNameConstList<CSmartPropAttachTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x649d0)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x000649f0 fight::ParamName<CSmartPropAttachTrack>::vfunc_0 (30 B): matches/0x000649f0.cpp
 // sym: ??_G?$ParamName@VCSmartPropAttachTrack@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamName<CSmartPropAttachTrack>::~ParamName() {}
-#if defined(HULK_PTR64)
-template class fight::ParamName<CSmartPropAttachTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x649f0)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00064a10 fight::ParamNameConstList<CSmartPropUpdateAttachmentTrack>::vfunc_0 (30 B): matches/0x00064a10.cpp
 // sym: ??_G?$ParamNameConstList@VCSmartPropUpdateAttachmentTrack@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamNameConstList<CSmartPropUpdateAttachmentTrack>::~ParamNameConstList() {}
-#if defined(HULK_PTR64)
-template class fight::ParamNameConstList<CSmartPropUpdateAttachmentTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x64a10)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00064a30 fight::ParamName<CSmartPropSpawnTrack>::vfunc_0 (30 B): matches/0x00064a30.cpp
 // sym: ??_G?$ParamName@VCSmartPropSpawnTrack@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamName<CSmartPropSpawnTrack>::~ParamName() {}
-#if defined(HULK_PTR64)
-template class fight::ParamName<CSmartPropSpawnTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x64a30)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00064a50 fight::ParamNameConstList<CSmartPropSpawnTrack>::vfunc_0 (30 B): matches/0x00064a50.cpp
 // sym: ??_G?$ParamNameConstList@VCSmartPropSpawnTrack@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamNameConstList<CSmartPropSpawnTrack>::~ParamNameConstList() {}
-#if defined(HULK_PTR64)
-template class fight::ParamNameConstList<CSmartPropSpawnTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x64a50)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 namespace fn_fa3ff49b {
 
-// 0x00065190 FUN_00065190 (664 B): equivalent/0x00065190.cpp
-// sym: _FUN_00065190 @4a75346d1e3b @w9273e856b1f9
-// STATUS: equivalent (tools/equiv.py level 3: 69 inputs, branch coverage 26/26)
-// FUN_00065190 @ 0x00065190
+} // namespace fn_fa3ff49b
+
+// 0x00064a70 FUN_00064a70 (1809 B): matches/0x00064a70.cpp
+// sym: _FUN_00064a70
+// (gx2, D18) from CWeaponCollisionTrack.iso_00064a70.cpp; constructs the real ParamBool<CWeaponCollisionTrack>, ParamBoolPtr<CWeaponCollisionTrack>, ParamBranch<CWeaponCollisionTrack>, ParamEnumConstList<CWeaponCollisionTrack>, ParamFloatConstRange<CWeaponCollisionTrack>, ParamFloatPtrConstRange<CWeaponCollisionTrack>, ParamIntConstRange<CWeaponCollisionTrack>, ParamName<CWeaponCollisionTrack>, ParamString<CWeaponCollisionTrack>, ParamVector<CWeaponCollisionTrack>,
+// whose vftable and scalar deleting destructor it emits
+extern "C" void FUN_00064a70()
+{
+    if (DAT_004dc61c == 0) {
+        ::fight::ParamValue* params[33];
+        params[0] = new ::fight::ParamFloatConstRange< ::CWeaponCollisionTrack>("timeBegin", &owners::X_61b40::FUN_00061b40);
+        params[1] = new ::fight::ParamFloatConstRange< ::CWeaponCollisionTrack>("timeEnd", &owners::C_61b50::FUN_00061b50);
+        params[2] = new ::fight::ParamIntConstRange< ::CWeaponCollisionTrack>("attachmentIndex", &owners::Obj_61b60::FUN_00061b60);
+        params[3] = new ::fight::ParamFloatConstRange< ::CWeaponCollisionTrack>("scale", &owners::Obj_61b70::FUN_00061b70);
+        params[4] = new ::fight::ParamIntConstRange< ::CWeaponCollisionTrack>("smallMaxHitCount", &owners::X_61b80::FUN_00061b80);
+        params[5] = new ::fight::ParamIntConstRange< ::CWeaponCollisionTrack>("largeMaxHitCount", &owners::Obj_61b90::FUN_00061b90);
+        params[6] = new ::fight::ParamFloatConstRange< ::CWeaponCollisionTrack>("damageReceived", &owners::X_61ca0::FUN_00061ca0);
+        params[7] = new ::fight::ParamBool< ::CWeaponCollisionTrack>("missilePunch", &owners::Obj_61ba0::FUN_00061ba0);
+        params[8] = new ::fight::ParamEnumConstList< ::CWeaponCollisionTrack>("hitTypes", (void*)&DAT_00495480, DAT_003fa110, &owners::X_61bb0::FUN_00061bb0);
+        params[9] = new ::fight::ParamBranch< ::CWeaponCollisionTrack>("receiver", &owners::Obj_12530::FUN_00012530);
+        params[10] = new ::fight::ParamBranch< ::CWeaponCollisionTrack>("giver", &owners::X_12540::FUN_00012540);
+        params[11] = new ::fight::ParamName< ::CWeaponCollisionTrack>("flag", &owners::Thing_12550::FUN_00012550);
+        params[12] = new ::fight::ParamString< ::CWeaponCollisionTrack>("sound", &owners::Obj_62180::FUN_00062180);
+        params[13] = new ::fight::ParamFloatConstRange< ::CWeaponCollisionTrack>("damage", &owners::C_61bc0::FUN_00061bc0);
+        params[14] = new ::fight::ParamFloatConstRange< ::CWeaponCollisionTrack>("damageMax", &owners::Obj_61bd0::FUN_00061bd0);
+        params[15] = new ::fight::ParamVector< ::CWeaponCollisionTrack>("force", &fn_fa748c45::A::Set);
+        params[16] = new ::fight::ParamVector< ::CWeaponCollisionTrack>("forceMax", static_cast<bool (fn_fa748c45::Obj::*)(struct fn_fa748c45::Src *)>(&fn_fa748c45::Obj::Set));
+        params[17] = new ::fight::ParamEnumConstList< ::CWeaponCollisionTrack>("direction", (void*)&DAT_004954b4, DAT_003fa118, &owners::T_61c40::FUN_00061c40);
+        params[18] = new ::fight::ParamIntConstRange< ::CWeaponCollisionTrack>("interruptPriority", &owners::Obj_61c50::FUN_00061c50);
+        params[19] = new ::fight::ParamVector< ::CWeaponCollisionTrack>("hitFreezeTime", &fn_fa748c45::Thing::Fn);
+        params[20] = new ::fight::ParamEnumConstList< ::CWeaponCollisionTrack>("location", (void*)&DAT_0048f6cc, DAT_003f5ed0, &owners::Obj_61c90::FUN_00061c90);
+        params[21] = new ::fight::ParamBoolPtr< ::CWeaponCollisionTrack>("smallInterrupt", &::CWeaponCollisionTrack::f_cc);
+        params[22] = new ::fight::ParamFloatPtrConstRange< ::CWeaponCollisionTrack>("smallHitReactionTime", &::CWeaponCollisionTrack::f_d0);
+        params[23] = new ::fight::ParamFloatPtrConstRange< ::CWeaponCollisionTrack>("smallPushbackDistance", &::CWeaponCollisionTrack::f_d4);
+        params[24] = new ::fight::ParamFloatPtrConstRange< ::CWeaponCollisionTrack>("smallPushbackTime", &::CWeaponCollisionTrack::f_d8);
+        params[25] = new ::fight::ParamFloatPtrConstRange< ::CWeaponCollisionTrack>("smallHeight", &::CWeaponCollisionTrack::f_dc);
+        params[26] = new ::fight::ParamFloatPtrConstRange< ::CWeaponCollisionTrack>("smallStunTime", &::CWeaponCollisionTrack::f_e0);
+        params[27] = new ::fight::ParamBoolPtr< ::CWeaponCollisionTrack>("largeInterrupt", &::CWeaponCollisionTrack::f_e4);
+        params[28] = new ::fight::ParamFloatPtrConstRange< ::CWeaponCollisionTrack>("largeHitReactionTime", &::CWeaponCollisionTrack::f_e8);
+        params[29] = new ::fight::ParamFloatPtrConstRange< ::CWeaponCollisionTrack>("largePushbackDistance", &::CWeaponCollisionTrack::f_ec);
+        params[30] = new ::fight::ParamFloatPtrConstRange< ::CWeaponCollisionTrack>("largePushbackTime", &::CWeaponCollisionTrack::f_f0);
+        params[31] = new ::fight::ParamFloatPtrConstRange< ::CWeaponCollisionTrack>("largeHeight", &::CWeaponCollisionTrack::f_f4);
+        params[32] = new ::fight::ParamFloatPtrConstRange< ::CWeaponCollisionTrack>("largeStunTime", &::CWeaponCollisionTrack::f_f8);
+        FUN_002347b0(&DAT_004dc618, params, 33);
+    }
+    DAT_004dc61c++;
+}
+
+
+
+// 0x00065190 FUN_00065190 (664 B): matches/0x00065190.cpp
+// sym: _FUN_00065190
+// (gx2, D18) rewritten; constructs the real ParamBool<CSmartPropAttachTrack>, ParamFloatConstRange<CSmartPropAttachTrack>, ParamIntConstRange<CSmartPropAttachTrack>, ParamName<CSmartPropAttachTrack>, ParamNameConstList<CSmartPropAttachTrack>, ParamVector<CSmartPropAttachTrack>,
+// whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_00065190()
 {
     if (DAT_004dc624 == 0) {
-        void* params[12];
-        void* mem;
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_65190<CSmartPropAttachTrack_65190>));
-        params[0] = 0;
-        if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange_65190<CSmartPropAttachTrack_65190>("timeBegin", (void (CSmartPropAttachTrack_65190::*)())&CSmartPropAttachTrack_65190::FUN_00061cb0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_65190<CSmartPropAttachTrack_65190>));
-        params[1] = 0;
-        if (mem)
-            params[1] = new (mem) fight::ParamFloatConstRange_65190<CSmartPropAttachTrack_65190>("timeAttach", (void (CSmartPropAttachTrack_65190::*)())&CSmartPropAttachTrack_65190::FUN_00061cc0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_65190<CSmartPropAttachTrack_65190>));
-        params[2] = 0;
-        if (mem)
-            params[2] = new (mem) fight::ParamIntConstRange_65190<CSmartPropAttachTrack_65190>("attachmentIndex", (void (CSmartPropAttachTrack_65190::*)())&CSmartPropAttachTrack_65190::FUN_00061cd0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamNameConstList_65190<CSmartPropAttachTrack_65190>));
-        params[3] = 0;
-        if (mem)
-            params[3] = new (mem) fight::ParamNameConstList_65190<CSmartPropAttachTrack_65190>("joint", &CSmartPropAttachTrack_65190::FUN_00012670);
-        mem = FUN_0008d690((int)sizeof(fight::ParamNameConstList_65190<CSmartPropAttachTrack_65190>));
-        params[4] = 0;
-        if (mem)
-            params[4] = new (mem) fight::ParamNameConstList_65190<CSmartPropAttachTrack_65190>("channel", &CSmartPropAttachTrack_65190::FUN_00012680);
-        mem = FUN_0008d690((int)sizeof(fight::ParamBool_65190<CSmartPropAttachTrack_65190>));
-        params[5] = 0;
-        if (mem)
-            params[5] = new (mem) fight::ParamBool_65190<CSmartPropAttachTrack_65190>("useOffset", (void (CSmartPropAttachTrack_65190::*)())&CSmartPropAttachTrack_65190::FUN_00061ce0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamVector_65190<CSmartPropAttachTrack_65190>));
-        params[6] = 0;
-        if (mem)
-            params[6] = new (mem) fight::ParamVector_65190<CSmartPropAttachTrack_65190>("offset", (void (CSmartPropAttachTrack_65190::*)())&CSmartPropAttachTrack_65190::FUN_00061cf0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamVector_65190<CSmartPropAttachTrack_65190>));
-        params[7] = 0;
-        if (mem)
-            params[7] = new (mem) fight::ParamVector_65190<CSmartPropAttachTrack_65190>("orientation", &CSmartPropAttachTrack_65190::FUN_000622d0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_65190<CSmartPropAttachTrack_65190>));
-        params[8] = 0;
-        if (mem)
-            params[8] = new (mem) fight::ParamFloatConstRange_65190<CSmartPropAttachTrack_65190>("minDistance", (void (CSmartPropAttachTrack_65190::*)())&CSmartPropAttachTrack_65190::FUN_00061d20);
-        mem = FUN_0008d690((int)sizeof(fight::ParamBool_65190<CSmartPropAttachTrack_65190>));
-        params[9] = 0;
-        if (mem)
-            params[9] = new (mem) fight::ParamBool_65190<CSmartPropAttachTrack_65190>("useCharacterArray", (void (CSmartPropAttachTrack_65190::*)())&CSmartPropAttachTrack_65190::FUN_00061d10);
-        mem = FUN_0008d690((int)sizeof(fight::ParamVector_65190<CSmartPropAttachTrack_65190>));
-        params[10] = 0;
-        if (mem)
-            params[10] = new (mem) fight::ParamVector_65190<CSmartPropAttachTrack_65190>("velocityOffset", (void (CSmartPropAttachTrack_65190::*)())&CSmartPropAttachTrack_65190::FUN_00061d30);
-        mem = FUN_0008d690((int)sizeof(fight::ParamName_65190<CSmartPropAttachTrack_65190>));
-        params[11] = 0;
-        if (mem)
-            params[11] = new (mem) fight::ParamName_65190<CSmartPropAttachTrack_65190>("state", &CSmartPropAttachTrack_65190::FUN_00012720);
-        FUN_002347b0(((ParamRegistry*)&DAT_004dc620), params, 12);
+        ::fight::ParamValue* params[12];
+        params[0] = new ::fight::ParamFloatConstRange< ::CSmartPropAttachTrack>("timeBegin", &owners::Obj_61cb0::FUN_00061cb0);
+        params[1] = new ::fight::ParamFloatConstRange< ::CSmartPropAttachTrack>("timeAttach", &owners::Obj_61cc0::FUN_00061cc0);
+        params[2] = new ::fight::ParamIntConstRange< ::CSmartPropAttachTrack>("attachmentIndex", &owners::C_61cd0::FUN_00061cd0);
+        params[3] = new ::fight::ParamNameConstList< ::CSmartPropAttachTrack>("joint", &fn_ff0a839e::FUN_00012670);
+        params[4] = new ::fight::ParamNameConstList< ::CSmartPropAttachTrack>("channel", &owners::Obj_12680::FUN_00012680);
+        params[5] = new ::fight::ParamBool< ::CSmartPropAttachTrack>("useOffset", &owners::Obj_61ce0::FUN_00061ce0);
+        params[6] = new ::fight::ParamVector< ::CSmartPropAttachTrack>("offset", &fn_fa748c45::T_61cf0::f);
+        params[7] = new ::fight::ParamVector< ::CSmartPropAttachTrack>("orientation", &fn_fa3ff49b::Obj::Set);
+        params[8] = new ::fight::ParamFloatConstRange< ::CSmartPropAttachTrack>("minDistance", &owners::C_61d20::FUN_00061d20);
+        params[9] = new ::fight::ParamBool< ::CSmartPropAttachTrack>("useCharacterArray", &owners::Obj_61d10::FUN_00061d10);
+        params[10] = new ::fight::ParamVector< ::CSmartPropAttachTrack>("velocityOffset", &fn_fa748c45::Obj_61d30::Set);
+        params[11] = new ::fight::ParamName< ::CSmartPropAttachTrack>("state", &fn_ff0a839e::FUN_00012720);
+        FUN_002347b0(&DAT_004dc620, params, 12);
     }
     DAT_004dc624++;
 }
 
 
-// 0x00065430 FUN_00065430 (511 B): equivalent/0x00065430.cpp
-// sym: _FUN_00065430 @4c80a44060b4 @wae47d26da145
-// STATUS: equivalent (tools/equiv.py level 3: 95 inputs, branch coverage 20/20)
-// FUN_00065430 @ 0x00065430
+
+// 0x00065430 FUN_00065430 (511 B): matches/0x00065430.cpp
+// sym: _FUN_00065430
+// (gx2, D18) rewritten; constructs the real ParamBool<CSmartPropUpdateAttachmentTrack>, ParamFloatConstRange<CSmartPropUpdateAttachmentTrack>, ParamIntConstRange<CSmartPropUpdateAttachmentTrack>, ParamNameConstList<CSmartPropUpdateAttachmentTrack>, ParamVector<CSmartPropUpdateAttachmentTrack>,
+// whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_00065430()
 {
     if (DAT_004dc62c == 0) {
-        void* params[9];
-        void* mem;
-        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CSmartPropUpdateAttachmentTrack_65430>));
-        params[0] = 0;
-        if (mem)
-            params[0] = new (mem) ParamFloatConstRange<CSmartPropUpdateAttachmentTrack_65430>("timeBegin", (void (CSmartPropUpdateAttachmentTrack_65430::*)())&CSmartPropUpdateAttachmentTrack_65430::FUN_00061d50);
-        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CSmartPropUpdateAttachmentTrack_65430>));
-        params[1] = 0;
-        if (mem)
-            params[1] = new (mem) ParamFloatConstRange<CSmartPropUpdateAttachmentTrack_65430>("timeAttach", (void (CSmartPropUpdateAttachmentTrack_65430::*)())&CSmartPropUpdateAttachmentTrack_65430::FUN_00061d60);
-        mem = FUN_0008d690((int)sizeof(ParamIntConstRange<CSmartPropUpdateAttachmentTrack_65430>));
-        params[2] = 0;
-        if (mem)
-            params[2] = new (mem) ParamIntConstRange<CSmartPropUpdateAttachmentTrack_65430>("attachmentIndex", (void (CSmartPropUpdateAttachmentTrack_65430::*)())&CSmartPropUpdateAttachmentTrack_65430::FUN_00061d70);
-        mem = FUN_0008d690((int)sizeof(ParamNameConstList<CSmartPropUpdateAttachmentTrack_65430>));
-        params[3] = 0;
-        if (mem)
-            params[3] = new (mem) ParamNameConstList<CSmartPropUpdateAttachmentTrack_65430>("joint", &CSmartPropUpdateAttachmentTrack_65430::FUN_00012740);
-        mem = FUN_0008d690((int)sizeof(ParamNameConstList<CSmartPropUpdateAttachmentTrack_65430>));
-        params[4] = 0;
-        if (mem)
-            params[4] = new (mem) ParamNameConstList<CSmartPropUpdateAttachmentTrack_65430>("channel", &CSmartPropUpdateAttachmentTrack_65430::FUN_00012750);
-        mem = FUN_0008d690((int)sizeof(ParamBool<CSmartPropUpdateAttachmentTrack_65430>));
-        params[5] = 0;
-        if (mem)
-            params[5] = new (mem) ParamBool<CSmartPropUpdateAttachmentTrack_65430>("useOffset", (void (CSmartPropUpdateAttachmentTrack_65430::*)())&CSmartPropUpdateAttachmentTrack_65430::FUN_00061d80);
-        mem = FUN_0008d690((int)sizeof(ParamVector<CSmartPropUpdateAttachmentTrack_65430>));
-        params[6] = 0;
-        if (mem)
-            params[6] = new (mem) ParamVector<CSmartPropUpdateAttachmentTrack_65430>("offset", (void (CSmartPropUpdateAttachmentTrack_65430::*)())&CSmartPropUpdateAttachmentTrack_65430::FUN_00061d90);
-        mem = FUN_0008d690((int)sizeof(ParamVector<CSmartPropUpdateAttachmentTrack_65430>));
-        params[7] = 0;
-        if (mem)
-            params[7] = new (mem) ParamVector<CSmartPropUpdateAttachmentTrack_65430>("orientation", &CSmartPropUpdateAttachmentTrack_65430::FUN_00062480);
-        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CSmartPropUpdateAttachmentTrack_65430>));
-        params[8] = 0;
-        if (mem)
-            params[8] = new (mem) ParamFloatConstRange<CSmartPropUpdateAttachmentTrack_65430>("minDistance", (void (CSmartPropUpdateAttachmentTrack_65430::*)())&CSmartPropUpdateAttachmentTrack_65430::FUN_00061db0);
-        FUN_002347b0(((ParamRegistry*)&DAT_004dc628), params, 9);
+        ::fight::ParamValue* params[9];
+        params[0] = new ::fight::ParamFloatConstRange< ::CSmartPropUpdateAttachmentTrack>("timeBegin", &owners::Obj_61d50::FUN_00061d50);
+        params[1] = new ::fight::ParamFloatConstRange< ::CSmartPropUpdateAttachmentTrack>("timeAttach", &owners::Obj_61d60::FUN_00061d60);
+        params[2] = new ::fight::ParamIntConstRange< ::CSmartPropUpdateAttachmentTrack>("attachmentIndex", &owners::C_61d70::FUN_00061d70);
+        params[3] = new ::fight::ParamNameConstList< ::CSmartPropUpdateAttachmentTrack>("joint", &owners::Obj_12740::FUN_00012740);
+        params[4] = new ::fight::ParamNameConstList< ::CSmartPropUpdateAttachmentTrack>("channel", &owners::Obj_12750::FUN_00012750);
+        params[5] = new ::fight::ParamBool< ::CSmartPropUpdateAttachmentTrack>("useOffset", &owners::Obj_61d80::FUN_00061d80);
+        params[6] = new ::fight::ParamVector< ::CSmartPropUpdateAttachmentTrack>("offset", &fn_fa748c45::S_61d90::Set);
+        params[7] = new ::fight::ParamVector< ::CSmartPropUpdateAttachmentTrack>("orientation", &fn_00062480::Obj::Set);
+        params[8] = new ::fight::ParamFloatConstRange< ::CSmartPropUpdateAttachmentTrack>("minDistance", &owners::X_61db0::FUN_00061db0);
+        FUN_002347b0(&DAT_004dc628, params, 9);
     }
     DAT_004dc62c++;
 }
 
 
-// 0x00065630 FUN_00065630 (562 B): equivalent/0x00065630.cpp
-// sym: _FUN_00065630 @cd340a1019c4 @wccb918d9b4ee
-// STATUS: equivalent (tools/equiv.py level 3: 67 inputs, branch coverage 22/22)
-// FUN_00065630 @ 0x00065630
+
+// 0x00065630 FUN_00065630 (562 B): matches/0x00065630.cpp
+// sym: _FUN_00065630
+// (gx2, D18) rewritten; constructs the real ParamBool<CSmartPropSpawnTrack>, ParamFloatConstRange<CSmartPropSpawnTrack>, ParamIntConstRange<CSmartPropSpawnTrack>, ParamName<CSmartPropSpawnTrack>, ParamNameConstList<CSmartPropSpawnTrack>, ParamString<CSmartPropSpawnTrack>, ParamVector<CSmartPropSpawnTrack>,
+// whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_00065630()
 {
     if (DAT_004dc634 == 0) {
-        void* params[10];
-        void* mem;
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_65630<CSmartPropSpawnTrack_65630>));
-        params[0] = 0;
-        if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange_65630<CSmartPropSpawnTrack_65630>("timeBegin", (void (CSmartPropSpawnTrack_65630::*)())&CSmartPropSpawnTrack_65630::FUN_00061dc0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamString_65630<CSmartPropSpawnTrack_65630>));
-        params[1] = 0;
-        if (mem)
-            params[1] = new (mem) fight::ParamString_65630<CSmartPropSpawnTrack_65630>("name", &CSmartPropSpawnTrack_65630::FUN_000626c0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamName_65630<CSmartPropSpawnTrack_65630>));
-        params[2] = 0;
-        if (mem)
-            params[2] = new (mem) fight::ParamName_65630<CSmartPropSpawnTrack_65630>("initialState", &CSmartPropSpawnTrack_65630::FUN_000127d0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_65630<CSmartPropSpawnTrack_65630>));
-        params[3] = 0;
-        if (mem)
-            params[3] = new (mem) fight::ParamIntConstRange_65630<CSmartPropSpawnTrack_65630>("attachmentIndex", (void (CSmartPropSpawnTrack_65630::*)())&CSmartPropSpawnTrack_65630::FUN_00061e20);
-        mem = FUN_0008d690((int)sizeof(fight::ParamNameConstList_65630<CSmartPropSpawnTrack_65630>));
-        params[4] = 0;
-        if (mem)
-            params[4] = new (mem) fight::ParamNameConstList_65630<CSmartPropSpawnTrack_65630>("joint", &CSmartPropSpawnTrack_65630::FUN_000127e0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamNameConstList_65630<CSmartPropSpawnTrack_65630>));
-        params[5] = 0;
-        if (mem)
-            params[5] = new (mem) fight::ParamNameConstList_65630<CSmartPropSpawnTrack_65630>("channel", &CSmartPropSpawnTrack_65630::FUN_000127f0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamBool_65630<CSmartPropSpawnTrack_65630>));
-        params[6] = 0;
-        if (mem)
-            params[6] = new (mem) fight::ParamBool_65630<CSmartPropSpawnTrack_65630>("useOffset", (void (CSmartPropSpawnTrack_65630::*)())&CSmartPropSpawnTrack_65630::FUN_00061dd0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamVector_65630<CSmartPropSpawnTrack_65630>));
-        params[7] = 0;
-        if (mem)
-            params[7] = new (mem) fight::ParamVector_65630<CSmartPropSpawnTrack_65630>("offset", (void (CSmartPropSpawnTrack_65630::*)())&CSmartPropSpawnTrack_65630::FUN_00061de0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamVector_65630<CSmartPropSpawnTrack_65630>));
-        params[8] = 0;
-        if (mem)
-            params[8] = new (mem) fight::ParamVector_65630<CSmartPropSpawnTrack_65630>("orientation", &CSmartPropSpawnTrack_65630::FUN_00062680);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_65630<CSmartPropSpawnTrack_65630>));
-        params[9] = 0;
-        if (mem)
-            params[9] = new (mem) fight::ParamFloatConstRange_65630<CSmartPropSpawnTrack_65630>("minDistance", (void (CSmartPropSpawnTrack_65630::*)())&CSmartPropSpawnTrack_65630::FUN_00061e10);
-        FUN_002347b0(((ParamRegistry*)&DAT_004dc630), params, 10);
+        ::fight::ParamValue* params[10];
+        params[0] = new ::fight::ParamFloatConstRange< ::CSmartPropSpawnTrack>("timeBegin", &owners::O_61dc0::FUN_00061dc0);
+        params[1] = new ::fight::ParamString< ::CSmartPropSpawnTrack>("name", &owners::X_626c0::FUN_000626c0);
+        params[2] = new ::fight::ParamName< ::CSmartPropSpawnTrack>("initialState", &owners::X_127d0::FUN_000127d0);
+        params[3] = new ::fight::ParamIntConstRange< ::CSmartPropSpawnTrack>("attachmentIndex", &owners::Obj_61e20::FUN_00061e20);
+        params[4] = new ::fight::ParamNameConstList< ::CSmartPropSpawnTrack>("joint", &owners::Obj_127e0::FUN_000127e0);
+        params[5] = new ::fight::ParamNameConstList< ::CSmartPropSpawnTrack>("channel", &owners::Obj_127f0::FUN_000127f0);
+        params[6] = new ::fight::ParamBool< ::CSmartPropSpawnTrack>("useOffset", &owners::T_61dd0::FUN_00061dd0);
+        params[7] = new ::fight::ParamVector< ::CSmartPropSpawnTrack>("offset", static_cast<bool (fn_fa748c45::Obj::*)(struct fn_fa748c45::Vec3 const *)>(&fn_fa748c45::Obj::Set));
+        params[8] = new ::fight::ParamVector< ::CSmartPropSpawnTrack>("orientation", &fn_00062680::Obj::Set);
+        params[9] = new ::fight::ParamFloatConstRange< ::CSmartPropSpawnTrack>("minDistance", &owners::Obj_61e10::FUN_00061e10);
+        FUN_002347b0(&DAT_004dc630, params, 10);
     }
     DAT_004dc634++;
 }
+
+namespace fn_fa3ff49b {
 
 
 // 0x00065870 FUN_00065870 (25 B): matches/0x00065870.cpp

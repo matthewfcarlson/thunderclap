@@ -1400,7 +1400,7 @@ namespace fn_f0de5d41 {
 
 // 0x001379f0 FUN_001379f0 (358 B): matches/0x001379f0.cpp
 // sym: ?FUN_001379f0@@YAXXZ
-// (gx2, D18) from FallTrack.iso_001379f0.cpp; constructs the real ParamFloatConstRange<hulkmotion::FlyingDashTrack>, ParamIntConstRange<hulkmotion::FlyingDashTrack>,
+// (gx2, D18) from FallTrack.iso_001379f0.cpp; constructs the real ParamFloatConstRange<hulkfight::motion::FlyingDashTrack>, ParamIntConstRange<hulkfight::motion::FlyingDashTrack>,
 // whose vftable and scalar deleting destructor it emits
 void FUN_001379f0()
 {
@@ -1421,7 +1421,7 @@ void FUN_001379f0()
 
 // 0x00137b60 FUN_00137b60 (213 B): matches/0x00137b60.cpp
 // sym: ?FUN_00137b60@@YAXXZ
-// (gx2, D18) rewritten; constructs the real ParamFloatConstRange<hulkmotion::GrappleHoverTrack>, ParamIntConstRange<hulkmotion::GrappleHoverTrack>,
+// (gx2, D18) rewritten; constructs the real ParamFloatConstRange<hulkfight::motion::GrappleHoverTrack>, ParamIntConstRange<hulkfight::motion::GrappleHoverTrack>,
 // whose vftable and scalar deleting destructor it emits
 void FUN_00137b60()
 {
@@ -1439,7 +1439,7 @@ void FUN_00137b60()
 
 // 0x00137c40 FUN_00137c40 (511 B): matches/0x00137c40.cpp
 // sym: ?FUN_00137c40@@YAXXZ
-// (gx2, D18) from FallTrack.iso_00137c40.cpp; constructs the real ParamFloatConstRange<hulkmotion::FlyingBrakeTrack>, ParamIntConstRange<hulkmotion::FlyingBrakeTrack>,
+// (gx2, D18) from FallTrack.iso_00137c40.cpp; constructs the real ParamFloatConstRange<hulkfight::motion::FlyingBrakeTrack>, ParamIntConstRange<hulkfight::motion::FlyingBrakeTrack>,
 // whose vftable and scalar deleting destructor it emits
 void FUN_00137c40()
 {
@@ -1463,7 +1463,7 @@ void FUN_00137c40()
 
 // 0x00137e40 FUN_00137e40 (562 B): matches/0x00137e40.cpp
 // sym: ?FUN_00137e40@@YAXXZ
-// (gx2, D18) from FallTrack.iso_00137e40.cpp; constructs the real ParamFloatConstRange<hulkmotion::BounceTrack>, ParamIntConstRange<hulkmotion::BounceTrack>,
+// (gx2, D18) from FallTrack.iso_00137e40.cpp; constructs the real ParamFloatConstRange<hulkfight::motion::BounceTrack>, ParamIntConstRange<hulkfight::motion::BounceTrack>,
 // whose vftable and scalar deleting destructor it emits
 void FUN_00137e40()
 {
@@ -1488,7 +1488,7 @@ void FUN_00137e40()
 
 // 0x00138080 FUN_00138080 (613 B): matches/0x00138080.cpp
 // sym: ?FUN_00138080@@YAXXZ
-// (gx2, D18) from FallTrack.iso_00138080.cpp; constructs the real ParamFloatConstRange<hulkmotion::AirToGroundTargetTrack>, ParamIntConstRange<hulkmotion::AirToGroundTargetTrack>,
+// (gx2, D18) from FallTrack.iso_00138080.cpp; constructs the real ParamFloatConstRange<hulkfight::motion::AirToGroundTargetTrack>, ParamIntConstRange<hulkfight::motion::AirToGroundTargetTrack>,
 // whose vftable and scalar deleting destructor it emits
 void FUN_00138080()
 {
@@ -1514,7 +1514,7 @@ void FUN_00138080()
 
 // 0x001382f0 FUN_001382f0 (213 B): matches/0x001382f0.cpp
 // sym: ?FUN_001382f0@@YAXXZ
-// (gx2, D18) from FallTrack.iso_001382f0.cpp; constructs the real ParamFloatConstRange<hulkmotion::HoverTrack>, ParamIntConstRange<hulkmotion::HoverTrack>,
+// (gx2, D18) from FallTrack.iso_001382f0.cpp; constructs the real ParamFloatConstRange<hulkfight::motion::HoverTrack>, ParamIntConstRange<hulkfight::motion::HoverTrack>,
 // whose vftable and scalar deleting destructor it emits
 void FUN_001382f0()
 {
@@ -1532,7 +1532,7 @@ void FUN_001382f0()
 
 // 0x001383d0 FUN_001383d0 (766 B): matches/0x001383d0.cpp
 // sym: ?FUN_001383d0@@YAXXZ
-// (gx2, D18) from FallTrack.iso_001383d0.cpp; constructs the real ParamBool<hulkmotion::FallTrack>, ParamFloatConstRange<hulkmotion::FallTrack>, ParamIntConstRange<hulkmotion::FallTrack>, ParamVector<hulkmotion::FallTrack>,
+// (gx2, D18) from FallTrack.iso_001383d0.cpp; constructs the real ParamBool<hulkfight::motion::FallTrack>, ParamFloatConstRange<hulkfight::motion::FallTrack>, ParamIntConstRange<hulkfight::motion::FallTrack>, ParamVector<hulkfight::motion::FallTrack>,
 // whose vftable and scalar deleting destructor it emits
 void FUN_001383d0()
 {
@@ -1561,7 +1561,7 @@ void FUN_001383d0()
 
 // 0x001386d0 FUN_001386d0 (562 B): matches/0x001386d0.cpp
 // sym: ?FUN_001386d0@@YAXXZ
-// (gx2, D18) from FallTrack.iso_001386d0.cpp; constructs the real ParamFloatConstRange<hulkmotion::FlyingAutoTargetTrack>, ParamIntConstRange<hulkmotion::FlyingAutoTargetTrack>, ParamVector<hulkmotion::FlyingAutoTargetTrack>,
+// (gx2, D18) from FallTrack.iso_001386d0.cpp; constructs the real ParamFloatConstRange<hulkfight::motion::FlyingAutoTargetTrack>, ParamIntConstRange<hulkfight::motion::FlyingAutoTargetTrack>, ParamVector<hulkfight::motion::FlyingAutoTargetTrack>,
 // whose vftable and scalar deleting destructor it emits
 void FUN_001386d0()
 {
@@ -1586,7 +1586,7 @@ void FUN_001386d0()
 
 // 0x00138910 FUN_00138910 (613 B): matches/0x00138910.cpp
 // sym: _FUN_00138910
-// (gx2, D18) from FallTrack.iso_00138910.cpp; constructs the real ParamBool<hulkmotion::FlyingAttackTrack>, ParamFloatConstRange<hulkmotion::FlyingAttackTrack>, ParamIntConstRange<hulkmotion::FlyingAttackTrack>, ParamVector<hulkmotion::FlyingAttackTrack>,
+// (gx2, D18) from FallTrack.iso_00138910.cpp; constructs the real ParamBool<hulkfight::motion::FlyingAttackTrack>, ParamFloatConstRange<hulkfight::motion::FlyingAttackTrack>, ParamIntConstRange<hulkfight::motion::FlyingAttackTrack>, ParamVector<hulkfight::motion::FlyingAttackTrack>,
 // whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_00138910()
 {

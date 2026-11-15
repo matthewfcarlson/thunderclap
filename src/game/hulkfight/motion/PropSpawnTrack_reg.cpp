@@ -1,7 +1,10 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x001899a0..0x0018b4e0 (kind game, layer game, confidence low)
 #include "tree_prelude.h"
+#define HULK_FIGHT_PARAM_IMPLICIT   // (gx2, D18) include/gen/fight.h: the parameter templates constructed for real
+#include "decls/data/engine/unknown.h"   // (gx3, D18) for the merged registrations
+#include "decls/data/engine/fight.h"   // (gx3, D18) for the merged registrations
+#include "gen/owners.h"   // (gx3, D18) for the merged registrations
 #include "decls/data/game/hulkfight/motion.h"
 #include "decls/data/game/unknown.h"
 #include "decls/data/game/global.h"   // (gx3, D32) its owner object's data, merged
@@ -10,6 +13,51 @@
 #define TREE_TU_END }
 namespace fn_f6684e61 {} using namespace fn_f6684e61;
 #include "game/hulkfight/motion.h"
+void* operator new(size_t) HULK_NEW_THROW;   // (gx2, D18) the game's operator new (0x0008d690)
+extern "C" void __cdecl FUN_002347b0(void* list, void* params, int count);   // (gx2, D18) a parameter list's set-up
+namespace fn_f4259b06 { struct Data_17fe20; } 
+namespace fn_f4259b06 { struct Field; } 
+namespace fn_f4259b06 { struct S_17fd80; } 
+namespace fn_f4259b06 { struct S_180520; } 
+namespace fn_f4259b06 { struct Src_17fef0; } 
+namespace fn_f4259b06 { struct Src_17ff30; } 
+namespace fn_f4259b06 { struct Sub_17f800; } 
+namespace fn_f4259b06 { struct T_17fd40; } 
+namespace fn_f4259b06 { struct T_180560; } 
+namespace fn_f4259b06 { struct Vec3_17f980; } 
+namespace fn_f4259b06 { struct Vec3_17fdd0; } 
+namespace fn_f4259b06 { struct Vec3_1800f0; } 
+namespace fn_f4259b06 { struct Vec3_180480; } 
+namespace fn_f4259b06 { struct Vec; } 
+namespace fn_fa661594 { struct Vec3_17ff70; } 
+namespace fn_f4259b06 { struct C_17f430 { bool SetAttachmentIndex_0017f430(int); }; }   // (gx3, D18) setters, as defined in unk_17f2b0.cpp
+namespace fn_f4259b06 { struct C_17f4e0 { char Set(int); }; }   // (gx3, D18) setters, as defined in unk_17f2b0.cpp
+namespace fn_f4259b06 { struct C_17f570 { char SetCompare_0017f570(int); }; }   // (gx3, D18) setters, as defined in unk_17f2b0.cpp
+namespace fn_f4259b06 { struct C_17fd80 { char Set(struct fn_f4259b06::S_17fd80 *); }; }   // (gx3, D18) setters, as defined in unk_17f2b0.cpp
+namespace fn_f4259b06 { struct O_180520 { bool Set(struct fn_f4259b06::S_180520 *); }; }   // (gx3, D18) setters, as defined in unk_17f2b0.cpp
+namespace fn_f4259b06 { struct O_180560 { bool Set(struct fn_f4259b06::T_180560 *); }; }   // (gx3, D18) setters, as defined in unk_17f2b0.cpp
+namespace fn_f4259b06 { struct Obj { char Set(struct fn_f4259b06::Field *); char Set(struct fn_f4259b06::Vec const *); }; }   // (gx3, D18) setters, as defined in unk_17f2b0.cpp
+namespace fn_f4259b06 { struct Obj_17f450 { bool SetCompare_0017f450(void *); }; }   // (gx3, D18) setters, as defined in unk_17f2b0.cpp
+namespace fn_f4259b06 { struct Obj_17f460 { char * GetState_0017f460(); }; }   // (gx3, D18) setters, as defined in unk_17f2b0.cpp
+namespace fn_f4259b06 { struct Obj_17f490 { char Set(int); }; }   // (gx3, D18) setters, as defined in unk_17f2b0.cpp
+namespace fn_f4259b06 { struct Obj_17f4b0 { char Set(int); }; }   // (gx3, D18) setters, as defined in unk_17f2b0.cpp
+namespace fn_f4259b06 { struct Obj_17f4c0 { int * Get(); }; }   // (gx3, D18) setters, as defined in unk_17f2b0.cpp
+namespace fn_f4259b06 { struct Obj_17f550 { bool SetAttachmentIndex_0017f550(void *); }; }   // (gx3, D18) setters, as defined in unk_17f2b0.cpp
+namespace fn_f4259b06 { struct Obj_17f720 { bool Set(int); }; }   // (gx3, D18) setters, as defined in unk_17f2b0.cpp
+namespace fn_f4259b06 { struct Obj_17f740 { bool Set(int); }; }   // (gx3, D18) setters, as defined in unk_17f2b0.cpp
+namespace fn_f4259b06 { struct Obj_17f750 { char ** Get(); }; }   // (gx3, D18) setters, as defined in unk_17f2b0.cpp
+namespace fn_f4259b06 { struct Obj_17f800 { struct fn_f4259b06::Sub_17f800 * GetField(); }; }   // (gx3, D18) setters, as defined in unk_17f2b0.cpp
+namespace fn_f4259b06 { struct Obj_17f980 { bool Set(struct fn_f4259b06::Vec3_17f980 *); }; }   // (gx3, D18) setters, as defined in unk_17f2b0.cpp
+namespace fn_f4259b06 { struct Obj_17fd40 { bool FUN_0017fd40(struct fn_f4259b06::T_17fd40 const *); }; }   // (gx3, D18) setters, as defined in unk_17f2b0.cpp
+namespace fn_f4259b06 { struct Obj_17fe20 { bool Set(struct fn_f4259b06::Data_17fe20 *); }; }   // (gx3, D18) setters, as defined in unk_17f2b0.cpp
+namespace fn_f4259b06 { struct Obj_17fef0 { bool Set(struct fn_f4259b06::Src_17fef0 const *); }; }   // (gx3, D18) setters, as defined in unk_17f2b0.cpp
+namespace fn_f4259b06 { struct Obj_17ff30 { bool Copy(struct fn_f4259b06::Src_17ff30 *); }; }   // (gx3, D18) setters, as defined in unk_17f2b0.cpp
+namespace fn_f4259b06 { struct Obj_1800f0 { bool Set(struct fn_f4259b06::Vec3_1800f0 const *); }; }   // (gx3, D18) setters, as defined in unk_17f2b0.cpp
+namespace fn_f4259b06 { struct Obj_180480 { bool Set(struct fn_f4259b06::Vec3_180480 const *); }; }   // (gx3, D18) setters, as defined in unk_17f2b0.cpp
+namespace fn_f4259b06 { struct T_17f580 { char * GetState_0017f580(); }; }   // (gx3, D18) setters, as defined in unk_17f2b0.cpp
+namespace fn_f4259b06 { struct Thing_17fc00 { void * Get(); }; }   // (gx3, D18) setters, as defined in unk_17f2b0.cpp
+namespace fn_f4259b06 { struct X_17fdd0 { bool Set(struct fn_f4259b06::Vec3_17fdd0 *); }; }   // (gx3, D18) setters, as defined in unk_17f2b0.cpp
+namespace fn_fa661594 { struct Obj_17ff70 { bool Set(struct fn_fa661594::Vec3_17ff70 *); }; }   // (gx3, D18) setters, as defined in unk_17f2b0.O1.cpp
 
 // ---- declarations shared by the functions below
 namespace fn_f6684e61 {
@@ -74,7 +122,6 @@ public:
     void (T::*setter)();
     int unused14;
 };
-void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 class TrackFactoryCasterTemplate_18a310 {
   public:
     virtual bool Cast_00186fe0(void*);
@@ -422,16 +469,330 @@ extern "C++" __declspec(nothrow) void* __cdecl FUN_00236ac0(void*, TrackFactoryC
 
 } // namespace fn_f6684e61
 
+// 0x001867b0 fight::ParamIntConstRange<hulkfight::motion::GrapplePropStateByNameCondition>::vfunc_0 (30 B): matches/0x001867b0.cpp
+// sym: ??_G?$ParamIntConstRange@VGrapplePropStateByNameCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from GrapplePropStateByNameCondition.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00189a50 / FUN_00189ba0 / FUN_00189d50 / FUN_00189f90 / FUN_0018a100 / FUN_0018a340 / FUN_0018a870 / FUN_0018abd0 / FUN_0018b140)
+
+
+
+// 0x001867d0 fight::ParamEnumConstList<hulkfight::motion::GrapplePropStateByNameCondition>::vfunc_0 (30 B): matches/0x001867d0.cpp
+// sym: ??_G?$ParamEnumConstList@VGrapplePropStateByNameCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from GrapplePropStateByNameCondition.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00189a50 / FUN_00189ba0 / FUN_00189d50 / FUN_00189f90 / FUN_0018a100 / FUN_0018a340 / FUN_0018a870 / FUN_0018abd0 / FUN_0018b140)
+
+
+
+// 0x00186890 fight::ParamIntConstRange<hulkfight::motion::PropMassCondition>::vfunc_0 (30 B): matches/0x00186890.cpp
+// sym: ??_G?$ParamIntConstRange@VPropMassCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from PropMassCondition.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00189a50 / FUN_00189ba0 / FUN_00189d50 / FUN_00189f90 / FUN_0018a100 / FUN_0018a340 / FUN_0018a870 / FUN_0018abd0 / FUN_0018b140)
+
+
+
+// 0x001868b0 fight::ParamEnumConstList<hulkfight::motion::PropMassCondition>::vfunc_0 (30 B): matches/0x001868b0.cpp
+// sym: ??_G?$ParamEnumConstList@VPropMassCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from PropMassCondition.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00189a50 / FUN_00189ba0 / FUN_00189d50 / FUN_00189f90 / FUN_0018a100 / FUN_0018a340 / FUN_0018a870 / FUN_0018abd0 / FUN_0018b140)
+
+
+
+// 0x001868d0 fight::ParamFloatConstRange<hulkfight::motion::PropMassCondition>::vfunc_0 (30 B): matches/0x001868d0.cpp
+// sym: ??_G?$ParamFloatConstRange@VPropMassCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from PropMassCondition.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00189a50 / FUN_00189ba0 / FUN_00189d50 / FUN_00189f90 / FUN_0018a100 / FUN_0018a340 / FUN_0018a870 / FUN_0018abd0 / FUN_0018b140)
+
+
+
+// 0x00186a10 fight::ParamIntConstRange<hulkfight::motion::PropStateByNameCondition>::vfunc_0 (30 B): matches/0x00186a10.cpp
+// sym: ??_G?$ParamIntConstRange@VPropStateByNameCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from PropStateByNameCondition.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00189a50 / FUN_00189ba0 / FUN_00189d50 / FUN_00189f90 / FUN_0018a100 / FUN_0018a340 / FUN_0018a870 / FUN_0018abd0 / FUN_0018b140)
+
+
+
+// 0x00186a30 fight::ParamEnumConstList<hulkfight::motion::PropStateByNameCondition>::vfunc_0 (30 B): matches/0x00186a30.cpp
+// sym: ??_G?$ParamEnumConstList@VPropStateByNameCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from PropStateByNameCondition.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00189a50 / FUN_00189ba0 / FUN_00189d50 / FUN_00189f90 / FUN_0018a100 / FUN_0018a340 / FUN_0018a870 / FUN_0018abd0 / FUN_0018b140)
+
+
+
+// 0x00186d70 fight::ParamFloatConstRange<hulkfight::motion::PropSetStateByNameTrack>::vfunc_0 (30 B): matches/0x00186d70.cpp
+// sym: ??_G?$ParamFloatConstRange@VPropSetStateByNameTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from PropSetStateByNameTrack_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00189a50 / FUN_00189ba0 / FUN_00189d50 / FUN_00189f90 / FUN_0018a100 / FUN_0018a340 / FUN_0018a870 / FUN_0018abd0 / FUN_0018b140)
+
+
+
+// 0x00186d90 fight::ParamIntConstRange<hulkfight::motion::PropSetStateByNameTrack>::vfunc_0 (30 B): matches/0x00186d90.cpp
+// sym: ??_G?$ParamIntConstRange@VPropSetStateByNameTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from PropSetStateByNameTrack_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00189a50 / FUN_00189ba0 / FUN_00189d50 / FUN_00189f90 / FUN_0018a100 / FUN_0018a340 / FUN_0018a870 / FUN_0018abd0 / FUN_0018b140)
+
+
+
+// 0x00186ef0 fight::ParamFloatConstRange<hulkfight::motion::PropAnimationTrack>::vfunc_0 (30 B): matches/0x00186ef0.cpp
+// sym: ??_G?$ParamFloatConstRange@VPropAnimationTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from PropAnimationTrack_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00189a50 / FUN_00189ba0 / FUN_00189d50 / FUN_00189f90 / FUN_0018a100 / FUN_0018a340 / FUN_0018a870 / FUN_0018abd0 / FUN_0018b140)
+
+
+
+// 0x00186f10 fight::ParamIntConstRange<hulkfight::motion::PropAnimationTrack>::vfunc_0 (30 B): matches/0x00186f10.cpp
+// sym: ??_G?$ParamIntConstRange@VPropAnimationTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from PropAnimationTrack_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00189a50 / FUN_00189ba0 / FUN_00189d50 / FUN_00189f90 / FUN_0018a100 / FUN_0018a340 / FUN_0018a870 / FUN_0018abd0 / FUN_0018b140)
+
+
+
+// 0x00186f30 fight::ParamEnumConstList<hulkfight::motion::PropAnimationTrack>::vfunc_0 (30 B): matches/0x00186f30.cpp
+// sym: ??_G?$ParamEnumConstList@VPropAnimationTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from PropAnimationTrack_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00189a50 / FUN_00189ba0 / FUN_00189d50 / FUN_00189f90 / FUN_0018a100 / FUN_0018a340 / FUN_0018a870 / FUN_0018abd0 / FUN_0018b140)
+
+
+
+// 0x00187010 fight::ParamFloatConstRange<hulkfight::motion::PropThrowTrack>::vfunc_0 (30 B): matches/0x00187010.cpp
+// sym: ??_G?$ParamFloatConstRange@VPropThrowTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from PropThrowTrack_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00189a50 / FUN_00189ba0 / FUN_00189d50 / FUN_00189f90 / FUN_0018a100 / FUN_0018a340 / FUN_0018a870 / FUN_0018abd0 / FUN_0018b140)
+
+
+
+// 0x00187030 fight::ParamIntConstRange<hulkfight::motion::PropThrowTrack>::vfunc_0 (30 B): matches/0x00187030.cpp
+// sym: ??_G?$ParamIntConstRange@VPropThrowTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from PropThrowTrack_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00189a50 / FUN_00189ba0 / FUN_00189d50 / FUN_00189f90 / FUN_0018a100 / FUN_0018a340 / FUN_0018a870 / FUN_0018abd0 / FUN_0018b140)
+
+
+
+// 0x00187050 fight::ParamBool<hulkfight::motion::PropThrowTrack>::vfunc_0 (30 B): matches/0x00187050.cpp
+// sym: ??_G?$ParamBool@VPropThrowTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from PropThrowTrack_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00189a50 / FUN_00189ba0 / FUN_00189d50 / FUN_00189f90 / FUN_0018a100 / FUN_0018a340 / FUN_0018a870 / FUN_0018abd0 / FUN_0018b140)
+
+
+
+// 0x00187070 fight::ParamVector<hulkfight::motion::PropThrowTrack>::vfunc_0 (30 B): matches/0x00187070.cpp
+// sym: ??_G?$ParamVector@VPropThrowTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from PropThrowTrack_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00189a50 / FUN_00189ba0 / FUN_00189d50 / FUN_00189f90 / FUN_0018a100 / FUN_0018a340 / FUN_0018a870 / FUN_0018abd0 / FUN_0018b140)
+
+
+
+// 0x00187090 fight::ParamBranch<hulkfight::motion::PropThrowTrack>::vfunc_0 (30 B): matches/0x00187090.cpp
+// sym: ??_G?$ParamBranch@VPropThrowTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from PropThrowTrack_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00189a50 / FUN_00189ba0 / FUN_00189d50 / FUN_00189f90 / FUN_0018a100 / FUN_0018a340 / FUN_0018a870 / FUN_0018abd0 / FUN_0018b140)
+
+
+
+// 0x001870f0 fight::ParamFloatConstRange<hulkfight::motion::BallAndChainReturnTrack>::vfunc_0 (30 B): matches/0x001870f0.cpp
+// sym: ??_G?$ParamFloatConstRange@VBallAndChainReturnTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from BallAndChainReturnTrack_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00189a50 / FUN_00189ba0 / FUN_00189d50 / FUN_00189f90 / FUN_0018a100 / FUN_0018a340 / FUN_0018a870 / FUN_0018abd0 / FUN_0018b140)
+
+
+
+// 0x00187110 fight::ParamIntConstRange<hulkfight::motion::BallAndChainReturnTrack>::vfunc_0 (30 B): matches/0x00187110.cpp
+// sym: ??_G?$ParamIntConstRange@VBallAndChainReturnTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from BallAndChainReturnTrack_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00189a50 / FUN_00189ba0 / FUN_00189d50 / FUN_00189f90 / FUN_0018a100 / FUN_0018a340 / FUN_0018a870 / FUN_0018abd0 / FUN_0018b140)
+
+
+
+// 0x00187130 fight::ParamVector<hulkfight::motion::BallAndChainReturnTrack>::vfunc_0 (30 B): matches/0x00187130.cpp
+// sym: ??_G?$ParamVector@VBallAndChainReturnTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from BallAndChainReturnTrack_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00189a50 / FUN_00189ba0 / FUN_00189d50 / FUN_00189f90 / FUN_0018a100 / FUN_0018a340 / FUN_0018a870 / FUN_0018abd0 / FUN_0018b140)
+
+
+
+// 0x00187210 fight::ParamFloatConstRange<hulkfight::motion::BallAndChainShootTrack>::vfunc_0 (30 B): matches/0x00187210.cpp
+// sym: ??_G?$ParamFloatConstRange@VBallAndChainShootTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from BallAndChainShootTrack_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00189a50 / FUN_00189ba0 / FUN_00189d50 / FUN_00189f90 / FUN_0018a100 / FUN_0018a340 / FUN_0018a870 / FUN_0018abd0 / FUN_0018b140)
+
+
+
+// 0x00187230 fight::ParamIntConstRange<hulkfight::motion::BallAndChainShootTrack>::vfunc_0 (30 B): matches/0x00187230.cpp
+// sym: ??_G?$ParamIntConstRange@VBallAndChainShootTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from BallAndChainShootTrack_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00189a50 / FUN_00189ba0 / FUN_00189d50 / FUN_00189f90 / FUN_0018a100 / FUN_0018a340 / FUN_0018a870 / FUN_0018abd0 / FUN_0018b140)
+
+
+
+// 0x00187250 fight::ParamVector<hulkfight::motion::BallAndChainShootTrack>::vfunc_0 (30 B): matches/0x00187250.cpp
+// sym: ??_G?$ParamVector@VBallAndChainShootTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from BallAndChainShootTrack_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00189a50 / FUN_00189ba0 / FUN_00189d50 / FUN_00189f90 / FUN_0018a100 / FUN_0018a340 / FUN_0018a870 / FUN_0018abd0 / FUN_0018b140)
+
+
+
+// 0x00187270 fight::ParamEnumConstList<hulkfight::motion::BallAndChainShootTrack>::vfunc_0 (30 B): matches/0x00187270.cpp
+// sym: ??_G?$ParamEnumConstList@VBallAndChainShootTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from BallAndChainShootTrack_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00189a50 / FUN_00189ba0 / FUN_00189d50 / FUN_00189f90 / FUN_0018a100 / FUN_0018a340 / FUN_0018a870 / FUN_0018abd0 / FUN_0018b140)
+
+
+
+// 0x00187570 fight::ParamFloatConstRange<hulkfight::motion::PropSpawnTrack>::vfunc_0 (30 B): matches/0x00187570.cpp
+// sym: ??_G?$ParamFloatConstRange@VPropSpawnTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from PropAddToCollisionTrack_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00189a50 / FUN_00189ba0 / FUN_00189d50 / FUN_00189f90 / FUN_0018a100 / FUN_0018a340 / FUN_0018a870 / FUN_0018abd0 / FUN_0018b140)
+
+
+
+// 0x00187590 fight::ParamString<hulkfight::motion::PropSpawnTrack>::vfunc_0 (30 B): matches/0x00187590.cpp
+// sym: ??_G?$ParamString@VPropSpawnTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from PropAddToCollisionTrack_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00189a50 / FUN_00189ba0 / FUN_00189d50 / FUN_00189f90 / FUN_0018a100 / FUN_0018a340 / FUN_0018a870 / FUN_0018abd0 / FUN_0018b140)
+
+
+
+// 0x001875b0 fight::ParamVector<hulkfight::motion::PropSpawnTrack>::vfunc_0 (30 B): matches/0x001875b0.cpp
+// sym: ??_G?$ParamVector@VPropSpawnTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from PropAddToCollisionTrack_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00189a50 / FUN_00189ba0 / FUN_00189d50 / FUN_00189f90 / FUN_0018a100 / FUN_0018a340 / FUN_0018a870 / FUN_0018abd0 / FUN_0018b140)
+
+
+
+// 0x00189860 fight::ParamName<hulkfight::motion::GrapplePropStateByNameCondition>::vfunc_0 (30 B): matches/0x00189860.cpp
+// sym: ??_G?$ParamName@VGrapplePropStateByNameCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from BallAndChainShootTrack_4.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00189a50 / FUN_00189ba0 / FUN_00189d50 / FUN_00189f90 / FUN_0018a100 / FUN_0018a340 / FUN_0018a870 / FUN_0018abd0 / FUN_0018b140)
+
+
+
+// 0x00189880 fight::ParamNameConstList<hulkfight::motion::PropMassCondition>::vfunc_0 (30 B): matches/0x00189880.cpp
+// sym: ??_G?$ParamNameConstList@VPropMassCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from BallAndChainShootTrack_4.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00189a50 / FUN_00189ba0 / FUN_00189d50 / FUN_00189f90 / FUN_0018a100 / FUN_0018a340 / FUN_0018a870 / FUN_0018abd0 / FUN_0018b140)
+
+
+
+// 0x001898a0 fight::ParamName<hulkfight::motion::PropStateByNameCondition>::vfunc_0 (30 B): matches/0x001898a0.cpp
+// sym: ??_G?$ParamName@VPropStateByNameCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from BallAndChainShootTrack_4.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00189a50 / FUN_00189ba0 / FUN_00189d50 / FUN_00189f90 / FUN_0018a100 / FUN_0018a340 / FUN_0018a870 / FUN_0018abd0 / FUN_0018b140)
+
+
+
+// 0x001898c0 fight::ParamName<hulkfight::motion::PropSetStateByNameTrack>::vfunc_0 (30 B): matches/0x001898c0.cpp
+// sym: ??_G?$ParamName@VPropSetStateByNameTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from BallAndChainShootTrack_4.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00189a50 / FUN_00189ba0 / FUN_00189d50 / FUN_00189f90 / FUN_0018a100 / FUN_0018a340 / FUN_0018a870 / FUN_0018abd0 / FUN_0018b140)
+
+
+
+// 0x001898e0 fight::ParamName<hulkfight::motion::PropAnimationTrack>::vfunc_0 (30 B): matches/0x001898e0.cpp
+// sym: ??_G?$ParamName@VPropAnimationTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from BallAndChainShootTrack_4.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00189a50 / FUN_00189ba0 / FUN_00189d50 / FUN_00189f90 / FUN_0018a100 / FUN_0018a340 / FUN_0018a870 / FUN_0018abd0 / FUN_0018b140)
+
+
+
+// 0x00189900 fight::ParamName<hulkfight::motion::PropThrowTrack>::vfunc_0 (30 B): matches/0x00189900.cpp
+// sym: ??_G?$ParamName@VPropThrowTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from BallAndChainShootTrack_4.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00189a50 / FUN_00189ba0 / FUN_00189d50 / FUN_00189f90 / FUN_0018a100 / FUN_0018a340 / FUN_0018a870 / FUN_0018abd0 / FUN_0018b140)
+
+
+
+// 0x00189920 fight::ParamName<hulkfight::motion::BallAndChainReturnTrack>::vfunc_0 (30 B): matches/0x00189920.cpp
+// sym: ??_G?$ParamName@VBallAndChainReturnTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from BallAndChainShootTrack_4.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00189a50 / FUN_00189ba0 / FUN_00189d50 / FUN_00189f90 / FUN_0018a100 / FUN_0018a340 / FUN_0018a870 / FUN_0018abd0 / FUN_0018b140)
+
+
+
+// 0x00189940 fight::ParamNameConstList<hulkfight::motion::BallAndChainReturnTrack>::vfunc_0 (30 B): matches/0x00189940.cpp
+// sym: ??_G?$ParamNameConstList@VBallAndChainReturnTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from BallAndChainShootTrack_4.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00189a50 / FUN_00189ba0 / FUN_00189d50 / FUN_00189f90 / FUN_0018a100 / FUN_0018a340 / FUN_0018a870 / FUN_0018abd0 / FUN_0018b140)
+
+
+
+// 0x00189960 fight::ParamName<hulkfight::motion::BallAndChainShootTrack>::vfunc_0 (30 B): matches/0x00189960.cpp
+// sym: ??_G?$ParamName@VBallAndChainShootTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from BallAndChainShootTrack_4.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00189a50 / FUN_00189ba0 / FUN_00189d50 / FUN_00189f90 / FUN_0018a100 / FUN_0018a340 / FUN_0018a870 / FUN_0018abd0 / FUN_0018b140)
+
+
+
+// 0x00189980 fight::ParamNameConstList<hulkfight::motion::BallAndChainShootTrack>::vfunc_0 (30 B): matches/0x00189980.cpp
+// sym: ??_G?$ParamNameConstList@VBallAndChainShootTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from BallAndChainShootTrack_4.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00189a50 / FUN_00189ba0 / FUN_00189d50 / FUN_00189f90 / FUN_0018a100 / FUN_0018a340 / FUN_0018a870 / FUN_0018abd0 / FUN_0018b140)
+
+
+
 // 0x001899a0 fight::ParamNameConstList<hulkfight::motion::PropSpawnTrack>::vfunc_0 (30 B): matches/0x001899a0.cpp
 // sym: ??_G?$ParamNameConstList@VPropSpawnTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamNameConstList<hulkfight::motion::PropSpawnTrack>::~ParamNameConstList() {}
-#if defined(HULK_PTR64)
-template class fight::ParamNameConstList<hulkfight::motion::PropSpawnTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1899a0)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 namespace fn_f6684e61 {
+
+} // namespace fn_f6684e61
+
+// 0x00189a50 FUN_00189a50 (231 B): matches/0x00189a50.cpp
+// sym: _FUN_00189a50
+// (gx2, D18) from PropSpawnTrack_reg.new_plain.cpp; constructs the real ParamEnumConstList<hulkfight::motion::GrapplePropStateByNameCondition>, ParamIntConstRange<hulkfight::motion::GrapplePropStateByNameCondition>, ParamName<hulkfight::motion::GrapplePropStateByNameCondition>,
+// whose vftable and scalar deleting destructor it emits
+extern "C" void FUN_00189a50()
+{
+    if (DAT_004e1414 == 0) {
+        ::fight::ParamValue* params[3];
+        params[0] = new ::fight::ParamIntConstRange< ::hulkfight::motion::GrapplePropStateByNameCondition>("attachmentIndex", &fn_f4259b06::C_17f430::SetAttachmentIndex_0017f430);
+        params[1] = new ::fight::ParamEnumConstList< ::hulkfight::motion::GrapplePropStateByNameCondition>("compare", (void*)&DAT_00427758, DAT_00427760, &fn_f4259b06::Obj_17f450::SetCompare_0017f450);
+        params[2] = new ::fight::ParamName< ::hulkfight::motion::GrapplePropStateByNameCondition>("state", &fn_f4259b06::Obj_17f460::GetState_0017f460);
+        FUN_002347b0(&DAT_004e1410, params, 3);
+    }
+    DAT_004e1414++;
+}
+
+
+
+// 0x00189ba0 FUN_00189ba0 (274 B): matches/0x00189ba0.cpp
+// sym: ?FUN_00189ba0@@YAXXZ
+// (gx2, D18) from PropSpawnTrack_reg.iso_00189ba0.cpp; constructs the real ParamEnumConstList<hulkfight::motion::PropMassCondition>, ParamFloatConstRange<hulkfight::motion::PropMassCondition>, ParamIntConstRange<hulkfight::motion::PropMassCondition>, ParamNameConstList<hulkfight::motion::PropMassCondition>,
+// whose vftable and scalar deleting destructor it emits
+void FUN_00189ba0()
+{
+    if (DAT_004e1424 == 0) {
+        ::fight::ParamValue* params[4];
+        params[0] = new ::fight::ParamIntConstRange< ::hulkfight::motion::PropMassCondition>("attachmentIndex", &fn_f4259b06::Obj_17f490::Set);
+        params[1] = new ::fight::ParamEnumConstList< ::hulkfight::motion::PropMassCondition>("compare", (void*)&DAT_0042773c, DAT_00427754, &fn_f4259b06::Obj_17f4b0::Set);
+        params[2] = new ::fight::ParamNameConstList< ::hulkfight::motion::PropMassCondition>("massClass", &fn_f4259b06::Obj_17f4c0::Get);
+        params[3] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::PropMassCondition>("massMultiplier", &fn_f4259b06::C_17f4e0::Set);
+        FUN_002347b0(&DAT_004e1420, params, 4);
+    }
+    DAT_004e1424++;
+}
+
+
+
+// 0x00189d50 FUN_00189d50 (231 B): matches/0x00189d50.cpp
+// sym: _FUN_00189d50
+// (gx2, D18) from PropSpawnTrack_reg.iso_00189d50.cpp; constructs the real ParamEnumConstList<hulkfight::motion::PropStateByNameCondition>, ParamIntConstRange<hulkfight::motion::PropStateByNameCondition>, ParamName<hulkfight::motion::PropStateByNameCondition>,
+// whose vftable and scalar deleting destructor it emits
+extern "C" void FUN_00189d50()
+{
+    if ((*(int*)&DAT_004e143c) == 0) {
+        ::fight::ParamValue* params[3];
+        params[0] = new ::fight::ParamIntConstRange< ::hulkfight::motion::PropStateByNameCondition>("attachmentIndex", &fn_f4259b06::Obj_17f550::SetAttachmentIndex_0017f550);
+        params[1] = new ::fight::ParamEnumConstList< ::hulkfight::motion::PropStateByNameCondition>("compare", (void*)&DAT_00427758, DAT_00427760, &fn_f4259b06::C_17f570::SetCompare_0017f570);
+        params[2] = new ::fight::ParamName< ::hulkfight::motion::PropStateByNameCondition>("state", &fn_f4259b06::T_17f580::GetState_0017f580);
+        FUN_002347b0(&DAT_004e1438, params, 3);
+    }
+    (*(int*)&DAT_004e143c)++;
+}
+
+namespace fn_f6684e61 {
+
 
 // 0x00189f30 FUN_00189f30 (38 B): matches/0x00189f30.cpp
 // sym: _FUN_00189f30
@@ -459,6 +820,24 @@ extern "C" int FUN_00189f60(Obj* obj, int name) {
     return obj->Do_002367c0(Find_00236ac0(name, &c));
 }
 } // namespace fn_00189f60
+
+
+// 0x00189f90 FUN_00189f90 (213 B): matches/0x00189f90.cpp
+// sym: ?FUN_00189f90@@YAXXZ
+// (gx2, D18) from PropSpawnTrack_reg.iso_00189f90.cpp; constructs the real ParamFloatConstRange<hulkfight::motion::PropSetStateByNameTrack>, ParamIntConstRange<hulkfight::motion::PropSetStateByNameTrack>, ParamName<hulkfight::motion::PropSetStateByNameTrack>,
+// whose vftable and scalar deleting destructor it emits
+void FUN_00189f90()
+{
+    if (DAT_004e1474 == 0) {
+        ::fight::ParamValue* params[3];
+        params[0] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::PropSetStateByNameTrack>("timeBegin", &fn_f4259b06::Obj_17f720::Set);
+        params[1] = new ::fight::ParamIntConstRange< ::hulkfight::motion::PropSetStateByNameTrack>("attachmentIndex", &fn_f4259b06::Obj_17f740::Set);
+        params[2] = new ::fight::ParamName< ::hulkfight::motion::PropSetStateByNameTrack>("state", &fn_f4259b06::Obj_17f750::Get);
+        FUN_002347b0(&DAT_004e1470, params, 3);
+    }
+    DAT_004e1474++;
+}
+
 
 
 // 0x0018a070 FUN_0018a070 (38 B): matches/0x0018a070.cpp [wrapped: conflict: Find]
@@ -508,54 +887,30 @@ extern "C" void FUN_0018a0d0(Track* track, void* name) {
 }
 
 
-// 0x0018a100 FUN_0018a100 (476 B): equivalent/0x0018a100.cpp
-// sym: _FUN_0018a100 @7f66d45eefa2 @w21a9b4e62679
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 18/18)
-// FUN_0018a100 @ 0x0018a100
+} // namespace fn_f6684e61
+
+// 0x0018a100 FUN_0018a100 (476 B): matches/0x0018a100.cpp
+// sym: _FUN_0018a100
+// (gx2, D18) rewritten; constructs the real ParamEnumConstList<hulkfight::motion::PropAnimationTrack>, ParamFloatConstRange<hulkfight::motion::PropAnimationTrack>, ParamIntConstRange<hulkfight::motion::PropAnimationTrack>, ParamName<hulkfight::motion::PropAnimationTrack>,
+// whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_0018a100()
 {
     if (DAT_004e148c == 0) {
-        void* params[8];
-        void* mem;
-
-        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<PropAnimationTrack>));
-        params[0] = 0;
-        if (mem)
-            params[0] = new (mem) ParamFloatConstRange<PropAnimationTrack>("timeBegin", (void (PropAnimationTrack::*)())&PropAnimationTrack::FUN_0017f7c0);
-        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<PropAnimationTrack>));
-        params[1] = 0;
-        if (mem)
-            params[1] = new (mem) ParamFloatConstRange<PropAnimationTrack>("timeEnd", (void (PropAnimationTrack::*)())&PropAnimationTrack::FUN_0017f7d0);
-        mem = FUN_0008d690((int)sizeof(ParamIntConstRange<PropAnimationTrack>));
-        params[2] = 0;
-        if (mem)
-            params[2] = new (mem) ParamIntConstRange<PropAnimationTrack>("attachmentIndex", (void (PropAnimationTrack::*)())&PropAnimationTrack::FUN_0017f7f0);
-        mem = FUN_0008d690((int)sizeof(ParamName<PropAnimationTrack>));
-        params[3] = 0;
-        if (mem)
-            params[3] = new (mem) ParamName<PropAnimationTrack>("animation", &PropAnimationTrack::FUN_0017f800);
-        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<PropAnimationTrack>));
-        params[4] = 0;
-        if (mem)
-            params[4] = new (mem) ParamFloatConstRange<PropAnimationTrack>("speed", (void (PropAnimationTrack::*)())&PropAnimationTrack::FUN_0017f820);
-        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<PropAnimationTrack>));
-        params[5] = 0;
-        if (mem)
-            params[5] = new (mem) ParamFloatConstRange<PropAnimationTrack>("startFrame", (void (PropAnimationTrack::*)())&PropAnimationTrack::FUN_0017f840);
-        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<PropAnimationTrack>));
-        params[6] = 0;
-        if (mem)
-            params[6] = new (mem) ParamFloatConstRange<PropAnimationTrack>("endFrame", (void (PropAnimationTrack::*)())&PropAnimationTrack::FUN_0017f860);
-        mem = FUN_0008d690((int)sizeof(ParamEnumConstList<PropAnimationTrack>));
-        params[7] = 0;
-        if (mem)
-            params[7] = new (mem) ParamEnumConstList<PropAnimationTrack>("cyclic", ((char**)&DAT_004abf70), (*(int*)&DAT_004123d4), (void (PropAnimationTrack::*)())&PropAnimationTrack::FUN_0017f880);
-        FUN_002347b0(((ParamRegistry*)&DAT_004e1488), params, 8);
+        ::fight::ParamValue* params[8];
+        params[0] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::PropAnimationTrack>("timeBegin", &owners::X_17f7c0::FUN_0017f7c0);
+        params[1] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::PropAnimationTrack>("timeEnd", &owners::C_17f7d0::FUN_0017f7d0);
+        params[2] = new ::fight::ParamIntConstRange< ::hulkfight::motion::PropAnimationTrack>("attachmentIndex", &owners::Obj_17f7f0::FUN_0017f7f0);
+        params[3] = new ::fight::ParamName< ::hulkfight::motion::PropAnimationTrack>("animation", &fn_f4259b06::Obj_17f800::GetField);
+        params[4] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::PropAnimationTrack>("speed", &owners::Obj_17f820::FUN_0017f820);
+        params[5] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::PropAnimationTrack>("startFrame", &owners::Obj_17f840::FUN_0017f840);
+        params[6] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::PropAnimationTrack>("endFrame", &owners::Obj_17f860::FUN_0017f860);
+        params[7] = new ::fight::ParamEnumConstList< ::hulkfight::motion::PropAnimationTrack>("cyclic", (void*)&DAT_004abf70, DAT_004123d4, &owners::Obj_17f880::FUN_0017f880);
+        FUN_002347b0(&DAT_004e1488, params, 8);
     }
     DAT_004e148c++;
 }
 
-} // namespace fn_f6684e61
+
 
 // 0x0018a2e0 FUN_0018a2e0 (38 B): matches/0x0018a2e0.cpp [wrapped: conflict: Find]
 // sym: _FUN_0018a2e0
@@ -586,117 +941,46 @@ extern "C" void FUN_0018a310(Owner* owner, const char* name) {
 }
 
 
-// 0x0018a340 FUN_0018a340 (1276 B): equivalent/0x0018a340.cpp
-// sym: _FUN_0018a340 @d78f209e0412 @w7e7e49b89cfe
-// STATUS: equivalent (tools/equiv.py level 3: 1986 inputs, branch coverage 50/50)
-// FUN_0018a340 @ 0x0018a340
+} // namespace fn_f6684e61
+
+// 0x0018a340 FUN_0018a340 (1276 B): matches/0x0018a340.cpp
+// sym: _FUN_0018a340
+// (gx2, D18) rewritten; constructs the real ParamBool<hulkfight::motion::PropThrowTrack>, ParamBranch<hulkfight::motion::PropThrowTrack>, ParamFloatConstRange<hulkfight::motion::PropThrowTrack>, ParamIntConstRange<hulkfight::motion::PropThrowTrack>, ParamName<hulkfight::motion::PropThrowTrack>, ParamVector<hulkfight::motion::PropThrowTrack>,
+// whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_0018a340()
 {
     if (DAT_004e149c == 0) {
-        void* params[24];
-        void* mem;
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>));
-        params[0] = 0;
-        if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>("timeBegin", (void (hulkfight::motion::PropThrowTrack_18a340::*)())&hulkfight::motion::PropThrowTrack_18a340::FUN_0017f900);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>));
-        params[1] = 0;
-        if (mem)
-            params[1] = new (mem) fight::ParamFloatConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>("timeEnd", (void (hulkfight::motion::PropThrowTrack_18a340::*)())&hulkfight::motion::PropThrowTrack_18a340::FUN_0017f910);
-        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>));
-        params[2] = 0;
-        if (mem)
-            params[2] = new (mem) fight::ParamIntConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>("attachmentIndex", (void (hulkfight::motion::PropThrowTrack_18a340::*)())&hulkfight::motion::PropThrowTrack_18a340::FUN_0017f930);
-        mem = FUN_0008d690((int)sizeof(fight::ParamBool_18a340<hulkfight::motion::PropThrowTrack_18a340>));
-        params[3] = 0;
-        if (mem)
-            params[3] = new (mem) fight::ParamBool_18a340<hulkfight::motion::PropThrowTrack_18a340>("useCameraDirection", (void (hulkfight::motion::PropThrowTrack_18a340::*)())&hulkfight::motion::PropThrowTrack_18a340::FUN_0017f950);
-        mem = FUN_0008d690((int)sizeof(fight::ParamVector_18a340<hulkfight::motion::PropThrowTrack_18a340>));
-        params[4] = 0;
-        if (mem)
-            params[4] = new (mem) fight::ParamVector_18a340<hulkfight::motion::PropThrowTrack_18a340>("direction", (void (hulkfight::motion::PropThrowTrack_18a340::*)())&hulkfight::motion::PropThrowTrack_18a340::FUN_0017f980);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>));
-        params[5] = 0;
-        if (mem)
-            params[5] = new (mem) fight::ParamFloatConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>("distanceMin", (void (hulkfight::motion::PropThrowTrack_18a340::*)())&hulkfight::motion::PropThrowTrack_18a340::FUN_0017f9b0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>));
-        params[6] = 0;
-        if (mem)
-            params[6] = new (mem) fight::ParamFloatConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>("distanceMax", (void (hulkfight::motion::PropThrowTrack_18a340::*)())&hulkfight::motion::PropThrowTrack_18a340::FUN_0017f9d0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>));
-        params[7] = 0;
-        if (mem)
-            params[7] = new (mem) fight::ParamFloatConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>("velocityMin", (void (hulkfight::motion::PropThrowTrack_18a340::*)())&hulkfight::motion::PropThrowTrack_18a340::FUN_0017f9f0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>));
-        params[8] = 0;
-        if (mem)
-            params[8] = new (mem) fight::ParamFloatConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>("velocityMax", (void (hulkfight::motion::PropThrowTrack_18a340::*)())&hulkfight::motion::PropThrowTrack_18a340::FUN_0017fa10);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>));
-        params[9] = 0;
-        if (mem)
-            params[9] = new (mem) fight::ParamFloatConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>("spinMin", (void (hulkfight::motion::PropThrowTrack_18a340::*)())&hulkfight::motion::PropThrowTrack_18a340::FUN_0017fa30);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>));
-        params[10] = 0;
-        if (mem)
-            params[10] = new (mem) fight::ParamFloatConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>("spinMax", (void (hulkfight::motion::PropThrowTrack_18a340::*)())&hulkfight::motion::PropThrowTrack_18a340::FUN_0017fa60);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>));
-        params[11] = 0;
-        if (mem)
-            params[11] = new (mem) fight::ParamFloatConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>("trackingMin", (void (hulkfight::motion::PropThrowTrack_18a340::*)())&hulkfight::motion::PropThrowTrack_18a340::FUN_0017fa90);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>));
-        params[12] = 0;
-        if (mem)
-            params[12] = new (mem) fight::ParamFloatConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>("trackingMax", (void (hulkfight::motion::PropThrowTrack_18a340::*)())&hulkfight::motion::PropThrowTrack_18a340::FUN_0017fac0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>));
-        params[13] = 0;
-        if (mem)
-            params[13] = new (mem) fight::ParamIntConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>("bounceMin", (void (hulkfight::motion::PropThrowTrack_18a340::*)())&hulkfight::motion::PropThrowTrack_18a340::FUN_0017faf0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>));
-        params[14] = 0;
-        if (mem)
-            params[14] = new (mem) fight::ParamIntConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>("bounceMax", (void (hulkfight::motion::PropThrowTrack_18a340::*)())&hulkfight::motion::PropThrowTrack_18a340::FUN_0017fb10);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>));
-        params[15] = 0;
-        if (mem)
-            params[15] = new (mem) fight::ParamFloatConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>("yFixupAngle", (void (hulkfight::motion::PropThrowTrack_18a340::*)())&hulkfight::motion::PropThrowTrack_18a340::FUN_0017fb30);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>));
-        params[16] = 0;
-        if (mem)
-            params[16] = new (mem) fight::ParamFloatConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>("forceMin", (void (hulkfight::motion::PropThrowTrack_18a340::*)())&hulkfight::motion::PropThrowTrack_18a340::FUN_0017fb60);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>));
-        params[17] = 0;
-        if (mem)
-            params[17] = new (mem) fight::ParamFloatConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>("forceMax", (void (hulkfight::motion::PropThrowTrack_18a340::*)())&hulkfight::motion::PropThrowTrack_18a340::FUN_0017fb80);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>));
-        params[18] = 0;
-        if (mem)
-            params[18] = new (mem) fight::ParamFloatConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>("damageMin", (void (hulkfight::motion::PropThrowTrack_18a340::*)())&hulkfight::motion::PropThrowTrack_18a340::FUN_0017fba0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>));
-        params[19] = 0;
-        if (mem)
-            params[19] = new (mem) fight::ParamFloatConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>("damageMax", (void (hulkfight::motion::PropThrowTrack_18a340::*)())&hulkfight::motion::PropThrowTrack_18a340::FUN_0017fbc0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>));
-        params[20] = 0;
-        if (mem)
-            params[20] = new (mem) fight::ParamIntConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>("interruptPriority", (void (hulkfight::motion::PropThrowTrack_18a340::*)())&hulkfight::motion::PropThrowTrack_18a340::FUN_0017fbe0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamBranch_18a340<hulkfight::motion::PropThrowTrack_18a340>));
-        params[21] = 0;
-        if (mem)
-            params[21] = new (mem) fight::ParamBranch_18a340<hulkfight::motion::PropThrowTrack_18a340>("hitBranch", &hulkfight::motion::PropThrowTrack_18a340::FUN_0017fbf0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamName_18a340<hulkfight::motion::PropThrowTrack_18a340>));
-        params[22] = 0;
-        if (mem)
-            params[22] = new (mem) fight::ParamName_18a340<hulkfight::motion::PropThrowTrack_18a340>("hitEffect", &hulkfight::motion::PropThrowTrack_18a340::FUN_0017fc00);
-        mem = FUN_0008d690((int)sizeof(fight::ParamBool_18a340<hulkfight::motion::PropThrowTrack_18a340>));
-        params[23] = 0;
-        if (mem)
-            params[23] = new (mem) fight::ParamBool_18a340<hulkfight::motion::PropThrowTrack_18a340>("clearCharge", (void (hulkfight::motion::PropThrowTrack_18a340::*)())&hulkfight::motion::PropThrowTrack_18a340::FUN_0017fc20);
-        FUN_002347b0(((ParamRegistry*)&DAT_004e1498), params, 24);
+        ::fight::ParamValue* params[24];
+        params[0] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::PropThrowTrack>("timeBegin", &owners::X_17f900::FUN_0017f900);
+        params[1] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::PropThrowTrack>("timeEnd", &owners::Obj_17f910::FUN_0017f910);
+        params[2] = new ::fight::ParamIntConstRange< ::hulkfight::motion::PropThrowTrack>("attachmentIndex", &owners::Obj_17f930::FUN_0017f930);
+        params[3] = new ::fight::ParamBool< ::hulkfight::motion::PropThrowTrack>("useCameraDirection", &owners::Obj_17f950::FUN_0017f950);
+        params[4] = new ::fight::ParamVector< ::hulkfight::motion::PropThrowTrack>("direction", &fn_f4259b06::Obj_17f980::Set);
+        params[5] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::PropThrowTrack>("distanceMin", &owners::Obj_17f9b0::FUN_0017f9b0);
+        params[6] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::PropThrowTrack>("distanceMax", &owners::C_17f9d0::FUN_0017f9d0);
+        params[7] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::PropThrowTrack>("velocityMin", &owners::Obj_17f9f0::FUN_0017f9f0);
+        params[8] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::PropThrowTrack>("velocityMax", &owners::X_17fa10::FUN_0017fa10);
+        params[9] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::PropThrowTrack>("spinMin", &owners::Obj_17fa30::FUN_0017fa30);
+        params[10] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::PropThrowTrack>("spinMax", &owners::X_17fa60::FUN_0017fa60);
+        params[11] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::PropThrowTrack>("trackingMin", &owners::Obj_17fa90::FUN_0017fa90);
+        params[12] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::PropThrowTrack>("trackingMax", &owners::Thing_17fac0::FUN_0017fac0);
+        params[13] = new ::fight::ParamIntConstRange< ::hulkfight::motion::PropThrowTrack>("bounceMin", &owners::Obj_17faf0::FUN_0017faf0);
+        params[14] = new ::fight::ParamIntConstRange< ::hulkfight::motion::PropThrowTrack>("bounceMax", &owners::Target_17fb10::FUN_0017fb10);
+        params[15] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::PropThrowTrack>("yFixupAngle", &owners::Thing_17fb30::FUN_0017fb30);
+        params[16] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::PropThrowTrack>("forceMin", &owners::Obj_17fb60::FUN_0017fb60);
+        params[17] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::PropThrowTrack>("forceMax", &owners::C_17fb80::FUN_0017fb80);
+        params[18] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::PropThrowTrack>("damageMin", &owners::Obj_17fba0::FUN_0017fba0);
+        params[19] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::PropThrowTrack>("damageMax", &owners::Obj_17fbc0::FUN_0017fbc0);
+        params[20] = new ::fight::ParamIntConstRange< ::hulkfight::motion::PropThrowTrack>("interruptPriority", &owners::Target_17fbe0::FUN_0017fbe0);
+        params[21] = new ::fight::ParamBranch< ::hulkfight::motion::PropThrowTrack>("hitBranch", &owners::Base_17fbf0::FUN_0017fbf0);
+        params[22] = new ::fight::ParamName< ::hulkfight::motion::PropThrowTrack>("hitEffect", &fn_f4259b06::Thing_17fc00::Get);
+        params[23] = new ::fight::ParamBool< ::hulkfight::motion::PropThrowTrack>("clearCharge", &owners::Obj_17fc20::FUN_0017fc20);
+        FUN_002347b0(&DAT_004e1498, params, 24);
     }
     DAT_004e149c++;
 }
 
-} // namespace fn_f6684e61
+
 
 // 0x0018a840 FUN_0018a840 (38 B): matches/0x0018a840.cpp [wrapped: conflict: Find]
 // sym: _FUN_0018a840
@@ -719,75 +1003,36 @@ extern "C" void __cdecl FUN_0018a840(Obj* obj, const char* name) {
 
 namespace fn_f6684e61 {
 
-// 0x0018a870 FUN_0018a870 (766 B): equivalent/0x0018a870.cpp
-// sym: _FUN_0018a870 @0bd26d8136e2 @w8bf8367d5bfb
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 30/30)
-// FUN_0018a870 @ 0x0018a870
+} // namespace fn_f6684e61
+
+// 0x0018a870 FUN_0018a870 (766 B): matches/0x0018a870.cpp
+// sym: _FUN_0018a870
+// (gx2, D18) rewritten; constructs the real ParamFloatConstRange<hulkfight::motion::BallAndChainReturnTrack>, ParamIntConstRange<hulkfight::motion::BallAndChainReturnTrack>, ParamName<hulkfight::motion::BallAndChainReturnTrack>, ParamNameConstList<hulkfight::motion::BallAndChainReturnTrack>, ParamVector<hulkfight::motion::BallAndChainReturnTrack>,
+// whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_0018a870()
 {
     if (DAT_004e14a4 == 0) {
-        void* params[14];
-        void* mem;
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_18a870<hulkfight::motion::BallAndChainReturnTrack_18a870>));
-        params[0] = 0;
-        if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange_18a870<hulkfight::motion::BallAndChainReturnTrack_18a870>("timeBegin", (void (hulkfight::motion::BallAndChainReturnTrack_18a870::*)())&hulkfight::motion::BallAndChainReturnTrack_18a870::FUN_0017fc30);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_18a870<hulkfight::motion::BallAndChainReturnTrack_18a870>));
-        params[1] = 0;
-        if (mem)
-            params[1] = new (mem) fight::ParamFloatConstRange_18a870<hulkfight::motion::BallAndChainReturnTrack_18a870>("timeEnd", (void (hulkfight::motion::BallAndChainReturnTrack_18a870::*)())&hulkfight::motion::BallAndChainReturnTrack_18a870::FUN_0017fc40);
-        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_18a870<hulkfight::motion::BallAndChainReturnTrack_18a870>));
-        params[2] = 0;
-        if (mem)
-            params[2] = new (mem) fight::ParamIntConstRange_18a870<hulkfight::motion::BallAndChainReturnTrack_18a870>("attachmentIndex", (void (hulkfight::motion::BallAndChainReturnTrack_18a870::*)())&hulkfight::motion::BallAndChainReturnTrack_18a870::FUN_0017fc60);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_18a870<hulkfight::motion::BallAndChainReturnTrack_18a870>));
-        params[3] = 0;
-        if (mem)
-            params[3] = new (mem) fight::ParamFloatConstRange_18a870<hulkfight::motion::BallAndChainReturnTrack_18a870>("initVelocity", (void (hulkfight::motion::BallAndChainReturnTrack_18a870::*)())&hulkfight::motion::BallAndChainReturnTrack_18a870::FUN_0017fc80);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_18a870<hulkfight::motion::BallAndChainReturnTrack_18a870>));
-        params[4] = 0;
-        if (mem)
-            params[4] = new (mem) fight::ParamFloatConstRange_18a870<hulkfight::motion::BallAndChainReturnTrack_18a870>("acceleration", (void (hulkfight::motion::BallAndChainReturnTrack_18a870::*)())&hulkfight::motion::BallAndChainReturnTrack_18a870::FUN_0017fca0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_18a870<hulkfight::motion::BallAndChainReturnTrack_18a870>));
-        params[5] = 0;
-        if (mem)
-            params[5] = new (mem) fight::ParamFloatConstRange_18a870<hulkfight::motion::BallAndChainReturnTrack_18a870>("tracking", (void (hulkfight::motion::BallAndChainReturnTrack_18a870::*)())&hulkfight::motion::BallAndChainReturnTrack_18a870::FUN_0017fcc0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_18a870<hulkfight::motion::BallAndChainReturnTrack_18a870>));
-        params[6] = 0;
-        if (mem)
-            params[6] = new (mem) fight::ParamFloatConstRange_18a870<hulkfight::motion::BallAndChainReturnTrack_18a870>("targetYOffset", (void (hulkfight::motion::BallAndChainReturnTrack_18a870::*)())&hulkfight::motion::BallAndChainReturnTrack_18a870::FUN_0017fcf0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_18a870<hulkfight::motion::BallAndChainReturnTrack_18a870>));
-        params[7] = 0;
-        if (mem)
-            params[7] = new (mem) fight::ParamFloatConstRange_18a870<hulkfight::motion::BallAndChainReturnTrack_18a870>("minDistance", (void (hulkfight::motion::BallAndChainReturnTrack_18a870::*)())&hulkfight::motion::BallAndChainReturnTrack_18a870::FUN_0017fd10);
-        mem = FUN_0008d690((int)sizeof(fight::ParamVector_18a870<hulkfight::motion::BallAndChainReturnTrack_18a870>));
-        params[8] = 0;
-        if (mem)
-            params[8] = new (mem) fight::ParamVector_18a870<hulkfight::motion::BallAndChainReturnTrack_18a870>("offset", (void (hulkfight::motion::BallAndChainReturnTrack_18a870::*)())&hulkfight::motion::BallAndChainReturnTrack_18a870::FUN_0017fd40);
-        mem = FUN_0008d690((int)sizeof(fight::ParamVector_18a870<hulkfight::motion::BallAndChainReturnTrack_18a870>));
-        params[9] = 0;
-        if (mem)
-            params[9] = new (mem) fight::ParamVector_18a870<hulkfight::motion::BallAndChainReturnTrack_18a870>("propAxis", (void (hulkfight::motion::BallAndChainReturnTrack_18a870::*)())&hulkfight::motion::BallAndChainReturnTrack_18a870::FUN_0017fd80);
-        mem = FUN_0008d690((int)sizeof(fight::ParamName_18a870<hulkfight::motion::BallAndChainReturnTrack_18a870>));
-        params[10] = 0;
-        if (mem)
-            params[10] = new (mem) fight::ParamName_18a870<hulkfight::motion::BallAndChainReturnTrack_18a870>("beamEffect", &hulkfight::motion::BallAndChainReturnTrack_18a870::FUN_0017fda0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamVector_18a870<hulkfight::motion::BallAndChainReturnTrack_18a870>));
-        params[11] = 0;
-        if (mem)
-            params[11] = new (mem) fight::ParamVector_18a870<hulkfight::motion::BallAndChainReturnTrack_18a870>("beamOffset", (void (hulkfight::motion::BallAndChainReturnTrack_18a870::*)())&hulkfight::motion::BallAndChainReturnTrack_18a870::FUN_0017fdd0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamNameConstList_18a870<hulkfight::motion::BallAndChainReturnTrack_18a870>));
-        params[12] = 0;
-        if (mem)
-            params[12] = new (mem) fight::ParamNameConstList_18a870<hulkfight::motion::BallAndChainReturnTrack_18a870>("beamAttachJoint", &hulkfight::motion::BallAndChainReturnTrack_18a870::FUN_0017fdf0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamVector_18a870<hulkfight::motion::BallAndChainReturnTrack_18a870>));
-        params[13] = 0;
-        if (mem)
-            params[13] = new (mem) fight::ParamVector_18a870<hulkfight::motion::BallAndChainReturnTrack_18a870>("beamAttachJointOffset", (void (hulkfight::motion::BallAndChainReturnTrack_18a870::*)())&hulkfight::motion::BallAndChainReturnTrack_18a870::FUN_0017fe20);
-        FUN_002347b0(((ParamRegistry*)&DAT_004e14a0), params, 14);
+        ::fight::ParamValue* params[14];
+        params[0] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::BallAndChainReturnTrack>("timeBegin", &owners::Obj_17fc30::FUN_0017fc30);
+        params[1] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::BallAndChainReturnTrack>("timeEnd", &owners::T_17fc40::FUN_0017fc40);
+        params[2] = new ::fight::ParamIntConstRange< ::hulkfight::motion::BallAndChainReturnTrack>("attachmentIndex", &owners::Obj_17fc60::FUN_0017fc60);
+        params[3] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::BallAndChainReturnTrack>("initVelocity", &owners::Obj_17fc80::FUN_0017fc80);
+        params[4] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::BallAndChainReturnTrack>("acceleration", &owners::Obj_17fca0::FUN_0017fca0);
+        params[5] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::BallAndChainReturnTrack>("tracking", &owners::Obj_17fcc0::FUN_0017fcc0);
+        params[6] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::BallAndChainReturnTrack>("targetYOffset", &owners::Obj_17fcf0::FUN_0017fcf0);
+        params[7] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::BallAndChainReturnTrack>("minDistance", &owners::Obj_17fd10::FUN_0017fd10);
+        params[8] = new ::fight::ParamVector< ::hulkfight::motion::BallAndChainReturnTrack>("offset", &fn_f4259b06::Obj_17fd40::FUN_0017fd40);
+        params[9] = new ::fight::ParamVector< ::hulkfight::motion::BallAndChainReturnTrack>("propAxis", &fn_f4259b06::C_17fd80::Set);
+        params[10] = new ::fight::ParamName< ::hulkfight::motion::BallAndChainReturnTrack>("beamEffect", &owners::Obj_17fda0::FUN_0017fda0);
+        params[11] = new ::fight::ParamVector< ::hulkfight::motion::BallAndChainReturnTrack>("beamOffset", &fn_f4259b06::X_17fdd0::Set);
+        params[12] = new ::fight::ParamNameConstList< ::hulkfight::motion::BallAndChainReturnTrack>("beamAttachJoint", &owners::T_17fdf0::FUN_0017fdf0);
+        params[13] = new ::fight::ParamVector< ::hulkfight::motion::BallAndChainReturnTrack>("beamAttachJointOffset", &fn_f4259b06::Obj_17fe20::Set);
+        FUN_002347b0(&DAT_004e14a0, params, 14);
     }
     DAT_004e14a4++;
 }
+
+namespace fn_f6684e61 {
 
 
 // 0x0018ab70 FUN_0018ab70 (38 B): matches/0x0018ab70.cpp
@@ -820,101 +1065,42 @@ extern "C" void __cdecl FUN_0018aba0(Owner* owner, void* key) {
 
 namespace fn_f6684e61 {
 
-// 0x0018abd0 FUN_0018abd0 (1090 B): equivalent/0x0018abd0.cpp
-// sym: _FUN_0018abd0 @7702f9b41523 @we2ec7dfd0466
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 42/42)
-// FUN_0018abd0 @ 0x0018abd0
+} // namespace fn_f6684e61
+
+// 0x0018abd0 FUN_0018abd0 (1090 B): matches/0x0018abd0.cpp
+// sym: _FUN_0018abd0
+// (gx2, D18) rewritten; constructs the real ParamEnumConstList<hulkfight::motion::BallAndChainShootTrack>, ParamFloatConstRange<hulkfight::motion::BallAndChainShootTrack>, ParamIntConstRange<hulkfight::motion::BallAndChainShootTrack>, ParamName<hulkfight::motion::BallAndChainShootTrack>, ParamNameConstList<hulkfight::motion::BallAndChainShootTrack>, ParamVector<hulkfight::motion::BallAndChainShootTrack>,
+// whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_0018abd0()
 {
     if (DAT_004e14b4 == 0) {
-        void* params[20];
-        void* mem;
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_18abd0<hulkfight::motion::BallAndChainShootTrack_18abd0>));
-        params[0] = 0;
-        if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange_18abd0<hulkfight::motion::BallAndChainShootTrack_18abd0>("timeBegin", (void (hulkfight::motion::BallAndChainShootTrack_18abd0::*)())&hulkfight::motion::BallAndChainShootTrack_18abd0::FUN_0017fe90);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_18abd0<hulkfight::motion::BallAndChainShootTrack_18abd0>));
-        params[1] = 0;
-        if (mem)
-            params[1] = new (mem) fight::ParamFloatConstRange_18abd0<hulkfight::motion::BallAndChainShootTrack_18abd0>("timeEnd", (void (hulkfight::motion::BallAndChainShootTrack_18abd0::*)())&hulkfight::motion::BallAndChainShootTrack_18abd0::FUN_0017fea0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_18abd0<hulkfight::motion::BallAndChainShootTrack_18abd0>));
-        params[2] = 0;
-        if (mem)
-            params[2] = new (mem) fight::ParamIntConstRange_18abd0<hulkfight::motion::BallAndChainShootTrack_18abd0>("attachmentIndex", (void (hulkfight::motion::BallAndChainShootTrack_18abd0::*)())&hulkfight::motion::BallAndChainShootTrack_18abd0::FUN_0017fec0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamVector_18abd0<hulkfight::motion::BallAndChainShootTrack_18abd0>));
-        params[3] = 0;
-        if (mem)
-            params[3] = new (mem) fight::ParamVector_18abd0<hulkfight::motion::BallAndChainShootTrack_18abd0>("initPosition", (void (hulkfight::motion::BallAndChainShootTrack_18abd0::*)())&hulkfight::motion::BallAndChainShootTrack_18abd0::FUN_0017fef0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamVector_18abd0<hulkfight::motion::BallAndChainShootTrack_18abd0>));
-        params[4] = 0;
-        if (mem)
-            params[4] = new (mem) fight::ParamVector_18abd0<hulkfight::motion::BallAndChainShootTrack_18abd0>("direction", (void (hulkfight::motion::BallAndChainShootTrack_18abd0::*)())&hulkfight::motion::BallAndChainShootTrack_18abd0::FUN_0017ff30);
-        mem = FUN_0008d690((int)sizeof(fight::ParamVector_18abd0<hulkfight::motion::BallAndChainShootTrack_18abd0>));
-        params[5] = 0;
-        if (mem)
-            params[5] = new (mem) fight::ParamVector_18abd0<hulkfight::motion::BallAndChainShootTrack_18abd0>("propAxis", (void (hulkfight::motion::BallAndChainShootTrack_18abd0::*)())&hulkfight::motion::BallAndChainShootTrack_18abd0::FUN_0017ff70);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_18abd0<hulkfight::motion::BallAndChainShootTrack_18abd0>));
-        params[6] = 0;
-        if (mem)
-            params[6] = new (mem) fight::ParamFloatConstRange_18abd0<hulkfight::motion::BallAndChainShootTrack_18abd0>("distanceMin", (void (hulkfight::motion::BallAndChainShootTrack_18abd0::*)())&hulkfight::motion::BallAndChainShootTrack_18abd0::FUN_0017ffa0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_18abd0<hulkfight::motion::BallAndChainShootTrack_18abd0>));
-        params[7] = 0;
-        if (mem)
-            params[7] = new (mem) fight::ParamFloatConstRange_18abd0<hulkfight::motion::BallAndChainShootTrack_18abd0>("distanceMax", (void (hulkfight::motion::BallAndChainShootTrack_18abd0::*)())&hulkfight::motion::BallAndChainShootTrack_18abd0::FUN_0017ffc0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_18abd0<hulkfight::motion::BallAndChainShootTrack_18abd0>));
-        params[8] = 0;
-        if (mem)
-            params[8] = new (mem) fight::ParamFloatConstRange_18abd0<hulkfight::motion::BallAndChainShootTrack_18abd0>("velocityMin", (void (hulkfight::motion::BallAndChainShootTrack_18abd0::*)())&hulkfight::motion::BallAndChainShootTrack_18abd0::FUN_0017ffe0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_18abd0<hulkfight::motion::BallAndChainShootTrack_18abd0>));
-        params[9] = 0;
-        if (mem)
-            params[9] = new (mem) fight::ParamFloatConstRange_18abd0<hulkfight::motion::BallAndChainShootTrack_18abd0>("velocityMax", (void (hulkfight::motion::BallAndChainShootTrack_18abd0::*)())&hulkfight::motion::BallAndChainShootTrack_18abd0::FUN_00180000);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_18abd0<hulkfight::motion::BallAndChainShootTrack_18abd0>));
-        params[10] = 0;
-        if (mem)
-            params[10] = new (mem) fight::ParamFloatConstRange_18abd0<hulkfight::motion::BallAndChainShootTrack_18abd0>("trackingMin", (void (hulkfight::motion::BallAndChainShootTrack_18abd0::*)())&hulkfight::motion::BallAndChainShootTrack_18abd0::FUN_00180020);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_18abd0<hulkfight::motion::BallAndChainShootTrack_18abd0>));
-        params[11] = 0;
-        if (mem)
-            params[11] = new (mem) fight::ParamFloatConstRange_18abd0<hulkfight::motion::BallAndChainShootTrack_18abd0>("trackingMax", (void (hulkfight::motion::BallAndChainShootTrack_18abd0::*)())&hulkfight::motion::BallAndChainShootTrack_18abd0::FUN_00180050);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_18abd0<hulkfight::motion::BallAndChainShootTrack_18abd0>));
-        params[12] = 0;
-        if (mem)
-            params[12] = new (mem) fight::ParamFloatConstRange_18abd0<hulkfight::motion::BallAndChainShootTrack_18abd0>("yFixupAngle", (void (hulkfight::motion::BallAndChainShootTrack_18abd0::*)())&hulkfight::motion::BallAndChainShootTrack_18abd0::FUN_00180080);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_18abd0<hulkfight::motion::BallAndChainShootTrack_18abd0>));
-        params[13] = 0;
-        if (mem)
-            params[13] = new (mem) fight::ParamFloatConstRange_18abd0<hulkfight::motion::BallAndChainShootTrack_18abd0>("targetYOffset", (void (hulkfight::motion::BallAndChainShootTrack_18abd0::*)())&hulkfight::motion::BallAndChainShootTrack_18abd0::FUN_001800b0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamName_18abd0<hulkfight::motion::BallAndChainShootTrack_18abd0>));
-        params[14] = 0;
-        if (mem)
-            params[14] = new (mem) fight::ParamName_18abd0<hulkfight::motion::BallAndChainShootTrack_18abd0>("beamEffect", &hulkfight::motion::BallAndChainShootTrack_18abd0::FUN_001800c0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamVector_18abd0<hulkfight::motion::BallAndChainShootTrack_18abd0>));
-        params[15] = 0;
-        if (mem)
-            params[15] = new (mem) fight::ParamVector_18abd0<hulkfight::motion::BallAndChainShootTrack_18abd0>("beamOffset", (void (hulkfight::motion::BallAndChainShootTrack_18abd0::*)())&hulkfight::motion::BallAndChainShootTrack_18abd0::FUN_001800f0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamNameConstList_18abd0<hulkfight::motion::BallAndChainShootTrack_18abd0>));
-        params[16] = 0;
-        if (mem)
-            params[16] = new (mem) fight::ParamNameConstList_18abd0<hulkfight::motion::BallAndChainShootTrack_18abd0>("beamAttachJoint", &hulkfight::motion::BallAndChainShootTrack_18abd0::FUN_00180110);
-        mem = FUN_0008d690((int)sizeof(fight::ParamVector_18abd0<hulkfight::motion::BallAndChainShootTrack_18abd0>));
-        params[17] = 0;
-        if (mem)
-            params[17] = new (mem) fight::ParamVector_18abd0<hulkfight::motion::BallAndChainShootTrack_18abd0>("beamAttachJointOffset", (void (hulkfight::motion::BallAndChainShootTrack_18abd0::*)())&hulkfight::motion::BallAndChainShootTrack_18abd0::FUN_00180150);
-        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_18abd0<hulkfight::motion::BallAndChainShootTrack_18abd0>));
-        params[18] = 0;
-        if (mem)
-            params[18] = new (mem) fight::ParamEnumConstList_18abd0<hulkfight::motion::BallAndChainShootTrack_18abd0>("damageType", ((const char**)&DAT_004ad788), (*(int*)&DAT_00412ed4), (void (hulkfight::motion::BallAndChainShootTrack_18abd0::*)())&hulkfight::motion::BallAndChainShootTrack_18abd0::FUN_00180190);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_18abd0<hulkfight::motion::BallAndChainShootTrack_18abd0>));
-        params[19] = 0;
-        if (mem)
-            params[19] = new (mem) fight::ParamFloatConstRange_18abd0<hulkfight::motion::BallAndChainShootTrack_18abd0>("damageScale", (void (hulkfight::motion::BallAndChainShootTrack_18abd0::*)())&hulkfight::motion::BallAndChainShootTrack_18abd0::FUN_001801b0);
-        FUN_002347b0(((ParamRegistry*)&DAT_004e14b0), params, 20);
+        ::fight::ParamValue* params[20];
+        params[0] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::BallAndChainShootTrack>("timeBegin", &owners::Obj_17fe90::FUN_0017fe90);
+        params[1] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::BallAndChainShootTrack>("timeEnd", &owners::Obj_17fea0::FUN_0017fea0);
+        params[2] = new ::fight::ParamIntConstRange< ::hulkfight::motion::BallAndChainShootTrack>("attachmentIndex", &owners::Obj_17fec0::FUN_0017fec0);
+        params[3] = new ::fight::ParamVector< ::hulkfight::motion::BallAndChainShootTrack>("initPosition", &fn_f4259b06::Obj_17fef0::Set);
+        params[4] = new ::fight::ParamVector< ::hulkfight::motion::BallAndChainShootTrack>("direction", &fn_f4259b06::Obj_17ff30::Copy);
+        params[5] = new ::fight::ParamVector< ::hulkfight::motion::BallAndChainShootTrack>("propAxis", &fn_fa661594::Obj_17ff70::Set);
+        params[6] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::BallAndChainShootTrack>("distanceMin", &owners::Obj_17ffa0::FUN_0017ffa0);
+        params[7] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::BallAndChainShootTrack>("distanceMax", &owners::Obj_17ffc0::FUN_0017ffc0);
+        params[8] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::BallAndChainShootTrack>("velocityMin", &owners::X_17ffe0::FUN_0017ffe0);
+        params[9] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::BallAndChainShootTrack>("velocityMax", &owners::T_180000::FUN_00180000);
+        params[10] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::BallAndChainShootTrack>("trackingMin", &owners::X_180020::FUN_00180020);
+        params[11] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::BallAndChainShootTrack>("trackingMax", &owners::Obj_180050::FUN_00180050);
+        params[12] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::BallAndChainShootTrack>("yFixupAngle", &owners::Obj_180080::FUN_00180080);
+        params[13] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::BallAndChainShootTrack>("targetYOffset", &owners::Obj_1800b0::FUN_001800b0);
+        params[14] = new ::fight::ParamName< ::hulkfight::motion::BallAndChainShootTrack>("beamEffect", &owners::Obj_1800c0::FUN_001800c0);
+        params[15] = new ::fight::ParamVector< ::hulkfight::motion::BallAndChainShootTrack>("beamOffset", &fn_f4259b06::Obj_1800f0::Set);
+        params[16] = new ::fight::ParamNameConstList< ::hulkfight::motion::BallAndChainShootTrack>("beamAttachJoint", &owners::Obj_180110::FUN_00180110);
+        params[17] = new ::fight::ParamVector< ::hulkfight::motion::BallAndChainShootTrack>("beamAttachJointOffset", static_cast<char (fn_f4259b06::Obj::*)(struct fn_f4259b06::Field *)>(&fn_f4259b06::Obj::Set));
+        params[18] = new ::fight::ParamEnumConstList< ::hulkfight::motion::BallAndChainShootTrack>("damageType", (void*)&DAT_004ad788, DAT_00412ed4, &owners::Obj_180190::FUN_00180190);
+        params[19] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::BallAndChainShootTrack>("damageScale", &owners::C_1801b0::FUN_001801b0);
+        FUN_002347b0(&DAT_004e14b0, params, 20);
     }
     DAT_004e14b4++;
 }
 
-} // namespace fn_f6684e61
+
 
 // 0x0018b020 FUN_0018b020 (38 B): matches/0x0018b020.cpp [wrapped: conflict: Find]
 // sym: _FUN_0018b020
@@ -993,47 +1179,29 @@ extern "C" void* FUN_0018b110(Target* t, void* name) {
 }
 
 
-// 0x0018b140 FUN_0018b140 (409 B): equivalent/0x0018b140.cpp
-// sym: _FUN_0018b140 @c4aa9fa2c8df @w0485f117081c
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 16/16)
-// FUN_0018b140 @ 0x0018b140
+} // namespace fn_f6684e61
+
+// 0x0018b140 FUN_0018b140 (409 B): matches/0x0018b140.cpp
+// sym: _FUN_0018b140
+// (gx2, D18) rewritten; constructs the real ParamFloatConstRange<hulkfight::motion::PropSpawnTrack>, ParamNameConstList<hulkfight::motion::PropSpawnTrack>, ParamString<hulkfight::motion::PropSpawnTrack>, ParamVector<hulkfight::motion::PropSpawnTrack>,
+// whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_0018b140()
 {
     if (DAT_004e14e4 == 0) {
-        void* params[7];
-        void* mem;
-        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<PropSpawnTrack>));
-        params[0] = 0;
-        if (mem)
-            params[0] = new (mem) ParamFloatConstRange<PropSpawnTrack>("timeBegin", (void (PropSpawnTrack::*)())&PropSpawnTrack::FUN_00180430);
-        mem = FUN_0008d690((int)sizeof(ParamString<PropSpawnTrack>));
-        params[1] = 0;
-        if (mem)
-            params[1] = new (mem) ParamString<PropSpawnTrack>("propName", (void (PropSpawnTrack::*)())&PropSpawnTrack::FUN_00181670);
-        mem = FUN_0008d690((int)sizeof(ParamNameConstList<PropSpawnTrack>));
-        params[2] = 0;
-        if (mem)
-            params[2] = new (mem) ParamNameConstList<PropSpawnTrack>("joint", &PropSpawnTrack::FUN_00180450);
-        mem = FUN_0008d690((int)sizeof(ParamVector<PropSpawnTrack>));
-        params[3] = 0;
-        if (mem)
-            params[3] = new (mem) ParamVector<PropSpawnTrack>("offset", (void (PropSpawnTrack::*)())&PropSpawnTrack::FUN_00180480);
-        mem = FUN_0008d690((int)sizeof(ParamVector<PropSpawnTrack>));
-        params[4] = 0;
-        if (mem)
-            params[4] = new (mem) ParamVector<PropSpawnTrack>("orient", (void (PropSpawnTrack::*)())&PropSpawnTrack::FUN_001804c0);
-        mem = FUN_0008d690((int)sizeof(ParamVector<PropSpawnTrack>));
-        params[5] = 0;
-        if (mem)
-            params[5] = new (mem) ParamVector<PropSpawnTrack>("impulse", (void (PropSpawnTrack::*)())&PropSpawnTrack::FUN_00180520);
-        mem = FUN_0008d690((int)sizeof(ParamVector<PropSpawnTrack>));
-        params[6] = 0;
-        if (mem)
-            params[6] = new (mem) ParamVector<PropSpawnTrack>("impulseOffset", (void (PropSpawnTrack::*)())&PropSpawnTrack::FUN_00180560);
-        FUN_002347b0(((ParamRegistry*)&DAT_004e14e0), params, 7);
+        ::fight::ParamValue* params[7];
+        params[0] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::PropSpawnTrack>("timeBegin", &owners::C_180430::FUN_00180430);
+        params[1] = new ::fight::ParamString< ::hulkfight::motion::PropSpawnTrack>("propName", &owners::X_181670::FUN_00181670);
+        params[2] = new ::fight::ParamNameConstList< ::hulkfight::motion::PropSpawnTrack>("joint", &owners::A_180450::FUN_00180450);
+        params[3] = new ::fight::ParamVector< ::hulkfight::motion::PropSpawnTrack>("offset", &fn_f4259b06::Obj_180480::Set);
+        params[4] = new ::fight::ParamVector< ::hulkfight::motion::PropSpawnTrack>("orient", static_cast<char (fn_f4259b06::Obj::*)(struct fn_f4259b06::Vec const *)>(&fn_f4259b06::Obj::Set));
+        params[5] = new ::fight::ParamVector< ::hulkfight::motion::PropSpawnTrack>("impulse", &fn_f4259b06::O_180520::Set);
+        params[6] = new ::fight::ParamVector< ::hulkfight::motion::PropSpawnTrack>("impulseOffset", &fn_f4259b06::O_180560::Set);
+        FUN_002347b0(&DAT_004e14e0, params, 7);
     }
     DAT_004e14e4++;
 }
+
+namespace fn_f6684e61 {
 
 
 // 0x0018b2e0 FUN_0018b2e0 (38 B): matches/0x0018b2e0.cpp

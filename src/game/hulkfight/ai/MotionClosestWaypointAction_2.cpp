@@ -1,7 +1,10 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x00117ce0..0x0011b800 (kind game, layer game, confidence high), dominant class hulkfight::ai::MotionClosestWaypointAction
 #include "tree_prelude.h"
+#define HULK_FIGHT_PARAM_IMPLICIT   // (gx2, D18) include/gen/fight.h: the parameter templates constructed for real
+#include "decls/data/engine/unknown.h"   // (gx3, D18) for the merged registrations
+#include "decls/data/game/hulkfight/ai.h"   // (gx3, D18) for the merged registrations
+#include "decls/data/engine/fight.h"   // (gx3, D18) for the merged registrations
 #include "compat/ptr.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
@@ -16,6 +19,17 @@ struct FactoryCtor { void init_002343b0(); void init_00236a90(); };   // (unb4) 
 void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
 }
 #include "game/hulkfight/ai.h"
+extern "C" void __cdecl FUN_002347b0(void* list, void* params, int count);   // (gx2, D18) a parameter list's set-up
+namespace fn_f7a1ef3e { struct S_115450; } 
+namespace fn_f7a1ef3e { struct Src_1151a0; } 
+namespace fn_f7a1ef3e { struct Vec3_1150b0; } 
+namespace fn_f7a1ef3e { struct A_1150e0 { bool SetTimeEnd_001150e0(int); }; }   // (gx3, D18) setters, as defined in unk_114eb0.cpp
+namespace fn_f7a1ef3e { struct Obj_1150b0 { bool Set(struct fn_f7a1ef3e::Vec3_1150b0 *); }; }   // (gx3, D18) setters, as defined in unk_114eb0.cpp
+namespace fn_f7a1ef3e { struct Obj_1150d0 { char SetTimeBegin_001150d0(int); }; }   // (gx3, D18) setters, as defined in unk_114eb0.cpp
+namespace fn_f7a1ef3e { struct Obj_115300 { char Set(int); }; }   // (gx3, D18) setters, as defined in unk_114eb0.cpp
+namespace fn_f7a1ef3e { struct T_115100 { bool SetSpeed_00115100(int); }; }   // (gx3, D18) setters, as defined in unk_114eb0.cpp
+namespace fn_f7a1ef3e { struct T_115450 { char Fn(struct fn_f7a1ef3e::S_115450 const *); }; }   // (gx3, D18) setters, as defined in unk_114eb0.cpp
+namespace fn_f7a1ef3e { struct Tgt { char Set(struct fn_f7a1ef3e::Src_1151a0 const *); }; }   // (gx3, D18) setters, as defined in unk_114eb0.cpp
 // (ren2) __RTDynamicCast's own name (CRT, C linkage)
 extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
@@ -1741,10 +1755,7 @@ int CF::vfunc_0(int a) {
 // sym: ??_G?$ParamBool@VHasGroundPointCondition@ai@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamBool<hulkfight::ai::HasGroundPointCondition>::~ParamBool() {}
-#if defined(HULK_PTR64)
-template class fight::ParamBool<hulkfight::ai::HasGroundPointCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x118900)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00118930 fight::ConditionFactoryCasterTemplate<hulkfight::ai::LocatorDistanceCondition>::vfunc_0 (36 B): matches/0x00118930.cpp
@@ -1759,20 +1770,14 @@ template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::ai::LocatorDis
 // sym: ??_G?$ParamEnumConstList@VLocatorDistanceCondition@ai@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamEnumConstList<hulkfight::ai::LocatorDistanceCondition>::~ParamEnumConstList() {}
-#if defined(HULK_PTR64)
-template class fight::ParamEnumConstList<hulkfight::ai::LocatorDistanceCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x118960)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00118980 fight::ParamFloatConstRange<hulkfight::ai::LocatorDistanceCondition>::vfunc_0 (30 B): matches/0x00118980.cpp
 // sym: ??_G?$ParamFloatConstRange@VLocatorDistanceCondition@ai@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamFloatConstRange<hulkfight::ai::LocatorDistanceCondition>::~ParamFloatConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamFloatConstRange<hulkfight::ai::LocatorDistanceCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x118980)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x001189b0 fight::ConditionFactoryCasterTemplate<hulkfight::ai::ComputeDropZoneCondition>::vfunc_0 (36 B): matches/0x001189b0.cpp
@@ -1788,20 +1793,14 @@ template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::ai::ComputeDro
 // sym: ??_G?$ParamFloatConstRange@VComputeDropZoneCondition@ai@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamFloatConstRange<hulkfight::ai::ComputeDropZoneCondition>::~ParamFloatConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamFloatConstRange<hulkfight::ai::ComputeDropZoneCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1189e0)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00118a00 fight::ParamBool<hulkfight::ai::ComputeDropZoneCondition>::vfunc_0 (30 B): matches/0x00118a00.cpp
 // sym: ??_G?$ParamBool@VComputeDropZoneCondition@ai@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamBool<hulkfight::ai::ComputeDropZoneCondition>::~ParamBool() {}
-#if defined(HULK_PTR64)
-template class fight::ParamBool<hulkfight::ai::ComputeDropZoneCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x118a00)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00118a30 fight::ConditionFactoryCasterTemplate<hulkfight::ai::HasGroundPointExtendedCondition>::vfunc_0 (36 B): matches/0x00118a30.cpp
@@ -1817,30 +1816,21 @@ template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::ai::HasGroundP
 // sym: ??_G?$ParamBool@VHasGroundPointExtendedCondition@ai@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamBool<hulkfight::ai::HasGroundPointExtendedCondition>::~ParamBool() {}
-#if defined(HULK_PTR64)
-template class fight::ParamBool<hulkfight::ai::HasGroundPointExtendedCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x118a60)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00118a80 fight::ParamFloatConstRange<hulkfight::ai::HasGroundPointExtendedCondition>::vfunc_0 (30 B): matches/0x00118a80.cpp
 // sym: ??_G?$ParamFloatConstRange@VHasGroundPointExtendedCondition@ai@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamFloatConstRange<hulkfight::ai::HasGroundPointExtendedCondition>::~ParamFloatConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamFloatConstRange<hulkfight::ai::HasGroundPointExtendedCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x118a80)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00118aa0 fight::ParamVector<hulkfight::ai::HasGroundPointExtendedCondition>::vfunc_0 (30 B): matches/0x00118aa0.cpp
 // sym: ??_G?$ParamVector@VHasGroundPointExtendedCondition@ai@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamVector<hulkfight::ai::HasGroundPointExtendedCondition>::~ParamVector() {}
-#if defined(HULK_PTR64)
-template class fight::ParamVector<hulkfight::ai::HasGroundPointExtendedCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x118aa0)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00118ad0 fight::TrackFactoryCasterTemplate<hulkfight::ai::MotionFleeTrack>::vfunc_0 (36 B): matches/0x00118ad0.cpp
@@ -1855,10 +1845,7 @@ template <> bool fight::TrackFactoryCasterTemplate<hulkfight::ai::MotionFleeTrac
 // sym: ??_G?$ParamFloatConstRange@VMotionFleeTrack@ai@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamFloatConstRange<hulkfight::ai::MotionFleeTrack>::~ParamFloatConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamFloatConstRange<hulkfight::ai::MotionFleeTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x118b00)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00118b30 fight::TrackFactoryCasterTemplate<hulkfight::ai::MotionStopTrack>::vfunc_0 (36 B): matches/0x00118b30.cpp
@@ -1874,10 +1861,7 @@ template <> bool fight::TrackFactoryCasterTemplate<hulkfight::ai::MotionStopTrac
 // sym: ??_G?$ParamFloatConstRange@VMotionStopTrack@ai@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamFloatConstRange<hulkfight::ai::MotionStopTrack>::~ParamFloatConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamFloatConstRange<hulkfight::ai::MotionStopTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x118b60)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00118b90 fight::TrackFactoryCasterTemplate<hulkfight::ai::MotionFacingTrack>::vfunc_0 (36 B): matches/0x00118b90.cpp
@@ -1892,20 +1876,14 @@ template <> bool fight::TrackFactoryCasterTemplate<hulkfight::ai::MotionFacingTr
 // sym: ??_G?$ParamFloatConstRange@VMotionFacingTrack@ai@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamFloatConstRange<hulkfight::ai::MotionFacingTrack>::~ParamFloatConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamFloatConstRange<hulkfight::ai::MotionFacingTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x118bc0)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00118be0 fight::ParamVector<hulkfight::ai::MotionFacingTrack>::vfunc_0 (30 B): matches/0x00118be0.cpp
 // sym: ??_G?$ParamVector@VMotionFacingTrack@ai@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamVector<hulkfight::ai::MotionFacingTrack>::~ParamVector() {}
-#if defined(HULK_PTR64)
-template class fight::ParamVector<hulkfight::ai::MotionFacingTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x118be0)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00118c10 fight::TrackFactoryCasterTemplate<hulkfight::ai::MotionBoostTrack>::vfunc_0 (36 B): matches/0x00118c10.cpp
@@ -1920,10 +1898,7 @@ template <> bool fight::TrackFactoryCasterTemplate<hulkfight::ai::MotionBoostTra
 // sym: ??_G?$ParamFloatConstRange@VMotionBoostTrack@ai@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamFloatConstRange<hulkfight::ai::MotionBoostTrack>::~ParamFloatConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamFloatConstRange<hulkfight::ai::MotionBoostTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x118c40)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00118c70 fight::TrackFactoryCasterTemplate<hulkfight::ai::MotionLocatorTrack>::vfunc_0 (36 B): matches/0x00118c70.cpp
@@ -1938,20 +1913,14 @@ template <> bool fight::TrackFactoryCasterTemplate<hulkfight::ai::MotionLocatorT
 // sym: ??_G?$ParamFloatConstRange@VMotionLocatorTrack@ai@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamFloatConstRange<hulkfight::ai::MotionLocatorTrack>::~ParamFloatConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamFloatConstRange<hulkfight::ai::MotionLocatorTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x118ca0)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00118cc0 fight::ParamBool<hulkfight::ai::MotionLocatorTrack>::vfunc_0 (30 B): matches/0x00118cc0.cpp
 // sym: ??_G?$ParamBool@VMotionLocatorTrack@ai@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamBool<hulkfight::ai::MotionLocatorTrack>::~ParamBool() {}
-#if defined(HULK_PTR64)
-template class fight::ParamBool<hulkfight::ai::MotionLocatorTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x118cc0)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00118cf0 fight::TrackFactoryCasterTemplate<hulkfight::ai::MotionTargetTrack>::vfunc_0 (36 B): matches/0x00118cf0.cpp
@@ -1967,20 +1936,14 @@ template <> bool fight::TrackFactoryCasterTemplate<hulkfight::ai::MotionTargetTr
 // sym: ??_G?$ParamFloatConstRange@VMotionTargetTrack@ai@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamFloatConstRange<hulkfight::ai::MotionTargetTrack>::~ParamFloatConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamFloatConstRange<hulkfight::ai::MotionTargetTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x118d20)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00118d40 fight::ParamVector<hulkfight::ai::MotionTargetTrack>::vfunc_0 (30 B): matches/0x00118d40.cpp
 // sym: ??_G?$ParamVector@VMotionTargetTrack@ai@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamVector<hulkfight::ai::MotionTargetTrack>::~ParamVector() {}
-#if defined(HULK_PTR64)
-template class fight::ParamVector<hulkfight::ai::MotionTargetTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x118d40)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00118d70 fight::TrackFactoryCasterTemplate<hulkfight::ai::MotionChaseTrack>::vfunc_0 (36 B): matches/0x00118d70.cpp
@@ -1996,10 +1959,7 @@ template <> bool fight::TrackFactoryCasterTemplate<hulkfight::ai::MotionChaseTra
 // sym: ??_G?$ParamFloatConstRange@VMotionChaseTrack@ai@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamFloatConstRange<hulkfight::ai::MotionChaseTrack>::~ParamFloatConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamFloatConstRange<hulkfight::ai::MotionChaseTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x118da0)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00118dc0 FUN_00118dc0 (9 B): matches/0x00118dc0.cpp [wrapped: conflict: fight::TrackFactoryCasterTemplate; hulkfight::ai::MotionClosestWaypointTrack]
@@ -2034,62 +1994,240 @@ template <> bool fight::TrackFactoryCasterTemplate<hulkfight::ai::MotionClosestW
 // sym: ??_G?$ParamFloatConstRange@VMotionClosestWaypointTrack@ai@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamFloatConstRange<hulkfight::ai::MotionClosestWaypointTrack>::~ParamFloatConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamFloatConstRange<hulkfight::ai::MotionClosestWaypointTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x118e00)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00118e20 fight::ParamBool<hulkfight::ai::MotionClosestWaypointTrack>::vfunc_0 (30 B): matches/0x00118e20.cpp
 // sym: ??_G?$ParamBool@VMotionClosestWaypointTrack@ai@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamBool<hulkfight::ai::MotionClosestWaypointTrack>::~ParamBool() {}
-#if defined(HULK_PTR64)
-template class fight::ParamBool<hulkfight::ai::MotionClosestWaypointTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x118e20)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
-// 0x00119300 FUN_00119300 (213 B): equivalent/0x00119300.cpp [wrapped: conflict: fight::ParamFloatConstRange]
-// sym: ?target@fn_00119300@@YAXXZ @1329705d510e @w1870eeab7b3f
-namespace fn_00119300 {
-// STATUS: equivalent (tools/equiv.py level 3: 2990 inputs, branch coverage 8/8)
-// FUN_00119300 @ 0x00119300
-
-void* __cdecl FUN_0008d690(unsigned int);
-char SetTimeBegin_001150d0(void*, int); /* (unb5) as defined; address taken only */
-bool SetTimeEnd_001150e0(void*, int); /* (unb5) as defined; address taken only */
-bool SetSpeed_00115100(void*, int); /* (unb5) as defined; address taken only */
-
-namespace hulkfight { namespace ai { class MotionFleeTrack; } }
-namespace fight {
-template<class T> struct ParamFloatConstRange {
- virtual void slot0();
- char pad[12];
- void (__cdecl *callback)();
- unsigned int tail;
- void FUN_00234960(const char*);
-};
+// 0x00118e40 FUN_00118e40 (158 B): matches/0x00118e40.cpp
+// sym: ?FUN_00118e40@@YAXXZ
+// (gx2, D18) from MotionClosestWaypointAction_2.new_throw.cpp; constructs the real ParamBool<hulkfight::ai::HasGroundPointCondition>,
+// whose vftable and scalar deleting destructor it emits
+void FUN_00118e40()
+{
+    if (DAT_004e0c28 == 0) {
+        ::fight::ParamValue* params[2];
+        params[0] = new ::fight::ParamBool< ::hulkfight::ai::HasGroundPointCondition>("groundPoint", &owners::Obj_114eb0::FUN_00114eb0);
+        params[1] = new ::fight::ParamBool< ::hulkfight::ai::HasGroundPointCondition>("useMyTargetInstead", &owners::T_114ed0::FUN_00114ed0);
+        FUN_002347b0(&DAT_004e0c24, params, 2);
+    }
+    DAT_004e0c28++;
 }
-typedef fight::ParamFloatConstRange<hulkfight::ai::MotionFleeTrack> Param;
-void __cdecl FUN_002347b0(unsigned int*, Param**, int);
-void __cdecl target() {
- if (DAT_004e0c48 == 0) {
-  Param* entries[3];
-  Param* p = (Param*)FUN_0008d690((int)sizeof(Param));
-  if(p) { p->FUN_00234960("timeBegin"); p = new(p) Param; p->callback = (void (*)())SetTimeBegin_001150d0; }
-  entries[0]=p;
-  p = (Param*)FUN_0008d690((int)sizeof(Param));
-  if(p) { p->FUN_00234960("timeEnd"); p = new(p) Param; p->callback = (void (*)())SetTimeEnd_001150e0; }
-  entries[1]=p;
-  p = (Param*)FUN_0008d690((int)sizeof(Param));
-  if(p) { p->FUN_00234960("speed"); p = new(p) Param; p->callback = (void (*)())SetSpeed_00115100; }
-  entries[2]=p;
-  FUN_002347b0(&DAT_004e0c44,entries,3);
- }
- ++DAT_004e0c48;
+
+
+
+// 0x00118ee0 FUN_00118ee0 (176 B): matches/0x00118ee0.cpp
+// sym: ?FUN_00118ee0@@YAXXZ
+// (gx2, D18) from MotionClosestWaypointAction_2.new_throw.cpp; constructs the real ParamEnumConstList<hulkfight::ai::LocatorDistanceCondition>, ParamFloatConstRange<hulkfight::ai::LocatorDistanceCondition>,
+// whose vftable and scalar deleting destructor it emits
+void FUN_00118ee0()
+{
+    if (DAT_004e0c30 == 0) {
+        ::fight::ParamValue* params[2];
+        params[0] = new ::fight::ParamEnumConstList< ::hulkfight::ai::LocatorDistanceCondition>("compare", (void*)&DAT_0042773c, DAT_00427754, &owners::Obj_114ee0::FUN_00114ee0);
+        params[1] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::LocatorDistanceCondition>("distance", &owners::A_114ef0::FUN_00114ef0);
+        FUN_002347b0(&DAT_004e0c2c, params, 2);
+    }
+    DAT_004e0c30++;
 }
-} // namespace fn_00119300
+
+
+
+// 0x00118f90 FUN_00118f90 (358 B): matches/0x00118f90.cpp
+// sym: ?FUN_00118f90@@YAXXZ
+// (gx2, D18) from MotionClosestWaypointAction_2.new_throw.cpp; constructs the real ParamBool<hulkfight::ai::ComputeDropZoneCondition>, ParamFloatConstRange<hulkfight::ai::ComputeDropZoneCondition>,
+// whose vftable and scalar deleting destructor it emits
+void FUN_00118f90()
+{
+    if (DAT_004e0c38 == 0) {
+        ::fight::ParamValue* params[6];
+        params[0] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::ComputeDropZoneCondition>("increment", &owners::Obj_114f10::FUN_00114f10);
+        params[1] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::ComputeDropZoneCondition>("heightMax", &owners::Obj_114f30::FUN_00114f30);
+        params[2] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::ComputeDropZoneCondition>("dropDistance", &owners::Obj_114f50::FUN_00114f50);
+        params[3] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::ComputeDropZoneCondition>("boostHeightTolerance", &owners::Obj_114f60::FUN_00114f60);
+        params[4] = new ::fight::ParamBool< ::hulkfight::ai::ComputeDropZoneCondition>("useOffset", &owners::Obj_114f80::FUN_00114f80);
+        params[5] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::ComputeDropZoneCondition>("offset", &owners::Obj_114fa0::FUN_00114fa0);
+        FUN_002347b0(&DAT_004e0c34, params, 6);
+    }
+    DAT_004e0c38++;
+}
+
+
+
+// 0x00119100 FUN_00119100 (511 B): matches/0x00119100.cpp
+// sym: ?FUN_00119100@@YAXXZ
+// (gx2, D18) from MotionClosestWaypointAction_2.new_throw.cpp; constructs the real ParamBool<hulkfight::ai::HasGroundPointExtendedCondition>, ParamFloatConstRange<hulkfight::ai::HasGroundPointExtendedCondition>, ParamVector<hulkfight::ai::HasGroundPointExtendedCondition>,
+// whose vftable and scalar deleting destructor it emits
+void FUN_00119100()
+{
+    if (DAT_004e0c40 == 0) {
+        ::fight::ParamValue* params[9];
+        params[0] = new ::fight::ParamBool< ::hulkfight::ai::HasGroundPointExtendedCondition>("groundPoint", &owners::Obj_114fb0::FUN_00114fb0);
+        params[1] = new ::fight::ParamBool< ::hulkfight::ai::HasGroundPointExtendedCondition>("useMyVelocity", &owners::X_114fd0::FUN_00114fd0);
+        params[2] = new ::fight::ParamBool< ::hulkfight::ai::HasGroundPointExtendedCondition>("useMyFacing", &owners::X_114fe0::FUN_00114fe0);
+        params[3] = new ::fight::ParamBool< ::hulkfight::ai::HasGroundPointExtendedCondition>("target", &owners::Obj_115000::FUN_00115000);
+        params[4] = new ::fight::ParamBool< ::hulkfight::ai::HasGroundPointExtendedCondition>("useCustomOffset", &owners::Obj_115020::FUN_00115020);
+        params[5] = new ::fight::ParamBool< ::hulkfight::ai::HasGroundPointExtendedCondition>("absolute", &owners::Obj_115040::FUN_00115040);
+        params[6] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::HasGroundPointExtendedCondition>("distance", &owners::X_115060::FUN_00115060);
+        params[7] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::HasGroundPointExtendedCondition>("allowedHeight", &owners::O_115080::FUN_00115080);
+        params[8] = new ::fight::ParamVector< ::hulkfight::ai::HasGroundPointExtendedCondition>("customOffset", &fn_f7a1ef3e::Obj_1150b0::Set);
+        FUN_002347b0(&DAT_004e0c3c, params, 9);
+    }
+    DAT_004e0c40++;
+}
+
+
+
+// 0x00119300 FUN_00119300 (213 B): matches/0x00119300.cpp
+// sym: ?FUN_00119300@@YAXXZ
+// (gx2, D18) rewritten; constructs the real ParamFloatConstRange<hulkfight::ai::MotionFleeTrack>,
+// whose vftable and scalar deleting destructor it emits
+void FUN_00119300()
+{
+    if (DAT_004e0c48 == 0) {
+        ::fight::ParamValue* params[3];
+        params[0] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::MotionFleeTrack>("timeBegin", &fn_f7a1ef3e::Obj_1150d0::SetTimeBegin_001150d0);
+        params[1] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::MotionFleeTrack>("timeEnd", &fn_f7a1ef3e::A_1150e0::SetTimeEnd_001150e0);
+        params[2] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::MotionFleeTrack>("speed", &fn_f7a1ef3e::T_115100::SetSpeed_00115100);
+        FUN_002347b0(&DAT_004e0c44, params, 3);
+    }
+    DAT_004e0c48++;
+}
+
+
+
+// 0x001193e0 FUN_001193e0 (158 B): matches/0x001193e0.cpp
+// sym: ?FUN_001193e0@@YAXXZ
+// (gx2, D18) from MotionClosestWaypointAction_2.new_throw.cpp; constructs the real ParamFloatConstRange<hulkfight::ai::MotionStopTrack>,
+// whose vftable and scalar deleting destructor it emits
+void FUN_001193e0()
+{
+    if (DAT_004e0c50 == 0) {
+        ::fight::ParamValue* params[2];
+        params[0] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::MotionStopTrack>("timeBegin", &owners::Body_115110::FUN_00115110);
+        params[1] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::MotionStopTrack>("timeEnd", &owners::Obj_115120::FUN_00115120);
+        FUN_002347b0(&DAT_004e0c4c, params, 2);
+    }
+    DAT_004e0c50++;
+}
+
+
+
+// 0x00119480 FUN_00119480 (307 B): matches/0x00119480.cpp
+// sym: ?FUN_00119480@@YAXXZ
+// (gx2, D18) from MotionClosestWaypointAction_2.new_throw.cpp; constructs the real ParamFloatConstRange<hulkfight::ai::MotionFacingTrack>, ParamVector<hulkfight::ai::MotionFacingTrack>,
+// whose vftable and scalar deleting destructor it emits
+void FUN_00119480()
+{
+    if (DAT_004e0c58 == 0) {
+        ::fight::ParamValue* params[5];
+        params[0] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::MotionFacingTrack>("timeBegin", &owners::Obj_115130::FUN_00115130);
+        params[1] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::MotionFacingTrack>("timeEnd", &owners::X_115140::FUN_00115140);
+        params[2] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::MotionFacingTrack>("angle", &owners::Obj_115160::FUN_00115160);
+        params[3] = new ::fight::ParamVector< ::hulkfight::ai::MotionFacingTrack>("vector", &fn_f7a1ef3e::Tgt::Set);
+        params[4] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::MotionFacingTrack>("speed", &owners::O_1151d0::FUN_001151d0);
+        FUN_002347b0(&DAT_004e0c54, params, 5);
+    }
+    DAT_004e0c58++;
+}
+
+
+
+// 0x001195c0 FUN_001195c0 (460 B): matches/0x001195c0.cpp
+// sym: ?FUN_001195c0@@YAXXZ
+// (gx2, D18) from MotionClosestWaypointAction_2.new_throw.cpp; constructs the real ParamFloatConstRange<hulkfight::ai::MotionBoostTrack>,
+// whose vftable and scalar deleting destructor it emits
+void FUN_001195c0()
+{
+    if (DAT_004e0c60 == 0) {
+        ::fight::ParamValue* params[8];
+        params[0] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::MotionBoostTrack>("timeBegin", &owners::Obj_1151e0::FUN_001151e0);
+        params[1] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::MotionBoostTrack>("timeEnd", &owners::Obj_1151f0::FUN_001151f0);
+        params[2] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::MotionBoostTrack>("distanceMin", &owners::Obj_115210::FUN_00115210);
+        params[3] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::MotionBoostTrack>("distanceMax", &owners::Obj_115230::FUN_00115230);
+        params[4] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::MotionBoostTrack>("heightMin", &owners::X_115240::FUN_00115240);
+        params[5] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::MotionBoostTrack>("heightMax", &owners::Obj_115250::FUN_00115250);
+        params[6] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::MotionBoostTrack>("speed", &owners::Target_115270::FUN_00115270);
+        params[7] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::MotionBoostTrack>("boost", &owners::C_115280::FUN_00115280);
+        FUN_002347b0(&DAT_004e0c5c, params, 8);
+    }
+    DAT_004e0c60++;
+}
+
+
+
+// 0x00119790 FUN_00119790 (307 B): matches/0x00119790.cpp
+// sym: ?FUN_00119790@@YAXXZ
+// (gx2, D18) from MotionClosestWaypointAction_2.new_throw.cpp; constructs the real ParamFloatConstRange<hulkfight::ai::MotionTargetTrack>, ParamVector<hulkfight::ai::MotionTargetTrack>,
+// whose vftable and scalar deleting destructor it emits
+void FUN_00119790()
+{
+    if (DAT_004e0c70 == 0) {
+        ::fight::ParamValue* params[5];
+        params[0] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::MotionTargetTrack>("timeBegin", &owners::X_1153e0::FUN_001153e0);
+        params[1] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::MotionTargetTrack>("timeEnd", &owners::X_1153f0::FUN_001153f0);
+        params[2] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::MotionTargetTrack>("angle", &owners::X_115410::FUN_00115410);
+        params[3] = new ::fight::ParamVector< ::hulkfight::ai::MotionTargetTrack>("vector", &fn_f7a1ef3e::T_115450::Fn);
+        params[4] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::MotionTargetTrack>("speed", &owners::Obj_115480::FUN_00115480);
+        FUN_002347b0(&DAT_004e0c6c, params, 5);
+    }
+    DAT_004e0c70++;
+}
+
+
+
+// 0x001198d0 FUN_001198d0 (460 B): matches/0x001198d0.cpp
+// sym: ?FUN_001198d0@@YAXXZ
+// (gx2, D18) from MotionClosestWaypointAction_2.new_throw.cpp; constructs the real ParamFloatConstRange<hulkfight::ai::MotionChaseTrack>,
+// whose vftable and scalar deleting destructor it emits
+void FUN_001198d0()
+{
+    if (DAT_004e0c78 == 0) {
+        ::fight::ParamValue* params[8];
+        params[0] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::MotionChaseTrack>("timeBegin", &owners::X_115490::FUN_00115490);
+        params[1] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::MotionChaseTrack>("timeEnd", &owners::A_1154a0::FUN_001154a0);
+        params[2] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::MotionChaseTrack>("distanceMin", &owners::X_1154c0::FUN_001154c0);
+        params[3] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::MotionChaseTrack>("distanceMax", &owners::C_1154e0::FUN_001154e0);
+        params[4] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::MotionChaseTrack>("heightMin", &owners::Obj_115500::FUN_00115500);
+        params[5] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::MotionChaseTrack>("heightMax", &owners::Obj_115520::FUN_00115520);
+        params[6] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::MotionChaseTrack>("speed", &owners::Obj_115540::FUN_00115540);
+        params[7] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::MotionChaseTrack>("boost", &owners::X_115550::FUN_00115550);
+        FUN_002347b0(&DAT_004e0c74, params, 8);
+    }
+    DAT_004e0c78++;
+}
+
+
+
+// 0x00119aa0 FUN_00119aa0 (613 B): matches/0x00119aa0.cpp
+// sym: ?FUN_00119aa0@@YAXXZ
+// (gx2, D18) from MotionClosestWaypointAction_2.new_throw.cpp; constructs the real ParamBool<hulkfight::ai::MotionClosestWaypointTrack>, ParamFloatConstRange<hulkfight::ai::MotionClosestWaypointTrack>,
+// whose vftable and scalar deleting destructor it emits
+void FUN_00119aa0()
+{
+    if (DAT_004e0c80 == 0) {
+        ::fight::ParamValue* params[11];
+        params[0] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::MotionClosestWaypointTrack>("timeBegin", &owners::X_115560::FUN_00115560);
+        params[1] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::MotionClosestWaypointTrack>("timeEnd", &owners::Obj_115570::FUN_00115570);
+        params[2] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::MotionClosestWaypointTrack>("speed", &owners::C_115590::FUN_00115590);
+        params[3] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::MotionClosestWaypointTrack>("distanceMin", &owners::X_1155b0::FUN_001155b0);
+        params[4] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::MotionClosestWaypointTrack>("distanceMax", &owners::Obj_1155d0::FUN_001155d0);
+        params[5] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::MotionClosestWaypointTrack>("heightMin", &owners::Obj_1155f0::FUN_001155f0);
+        params[6] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::MotionClosestWaypointTrack>("heightMax", &owners::Obj_115610::FUN_00115610);
+        params[7] = new ::fight::ParamBool< ::hulkfight::ai::MotionClosestWaypointTrack>("useAvoidance", &owners::C_115630::FUN_00115630);
+        params[8] = new ::fight::ParamBool< ::hulkfight::ai::MotionClosestWaypointTrack>("setWaypointAsDriftPosition", &owners::Obj_115650::FUN_00115650);
+        params[9] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::MotionClosestWaypointTrack>("maxTimeInSamePosition", &owners::Obj_115670::FUN_00115670);
+        params[10] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::MotionClosestWaypointTrack>("minSpeedToKeepMoving", &owners::Obj_115690::FUN_00115690);
+        FUN_002347b0(&DAT_004e0c7c, params, 11);
+    }
+    DAT_004e0c80++;
+}
+
 
 
 // 0x00119d10 hulkfight::ai::MotionStopTrack::vfunc_10 (70 B): matches/0x00119d10.cpp
@@ -2598,10 +2736,7 @@ void ParamBranch::vfunc_6(void* p) {
 // sym: ??_G?$ParamName@VMotionLocatorTrack@ai@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamName<hulkfight::ai::MotionLocatorTrack>::~ParamName() {}
-#if defined(HULK_PTR64)
-template class fight::ParamName<hulkfight::ai::MotionLocatorTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x11a960)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 namespace fn_ffc509e9 {
 
@@ -2639,6 +2774,33 @@ extern "C" void FUN_0011aa10(Owner* owner, void* name) {
 }
 
 } // namespace fn_ffc509e9
+
+// 0x0011ab30 FUN_0011ab30 (664 B): matches/0x0011ab30.cpp
+// sym: ?FUN_0011ab30@@YAXXZ
+// (gx2, D18) from MotionClosestWaypointAction_2.new_throw.cpp; constructs the real ParamBool<hulkfight::ai::MotionLocatorTrack>, ParamFloatConstRange<hulkfight::ai::MotionLocatorTrack>, ParamName<hulkfight::ai::MotionLocatorTrack>,
+// whose vftable and scalar deleting destructor it emits
+void FUN_0011ab30()
+{
+    if (DAT_004e0c68 == 0) {
+        ::fight::ParamValue* params[12];
+        params[0] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::MotionLocatorTrack>("timeBegin", &owners::Obj_115290::FUN_00115290);
+        params[1] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::MotionLocatorTrack>("timeEnd", &owners::Obj_1152a0::FUN_001152a0);
+        params[2] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::MotionLocatorTrack>("speed", &owners::C_1152c0::FUN_001152c0);
+        params[3] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::MotionLocatorTrack>("distanceMin", &owners::O_1152e0::FUN_001152e0);
+        params[4] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::MotionLocatorTrack>("distanceMax", &fn_f7a1ef3e::Obj_115300::Set);
+        params[5] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::MotionLocatorTrack>("heightMin", &owners::Obj_115320::FUN_00115320);
+        params[6] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::MotionLocatorTrack>("heightMax", &owners::Obj_115340::FUN_00115340);
+        params[7] = new ::fight::ParamBool< ::hulkfight::ai::MotionLocatorTrack>("stringParamLocator", &owners::X_115360::FUN_00115360);
+        params[8] = new ::fight::ParamBool< ::hulkfight::ai::MotionLocatorTrack>("myLocator", &owners::X_115380::FUN_00115380);
+        params[9] = new ::fight::ParamBool< ::hulkfight::ai::MotionLocatorTrack>("defendLocator", &owners::X_1153a0::FUN_001153a0);
+        params[10] = new ::fight::ParamBool< ::hulkfight::ai::MotionLocatorTrack>("namedLocator", &owners::Obj_1153c0::FUN_001153c0);
+        params[11] = new ::fight::ParamName< ::hulkfight::ai::MotionLocatorTrack>("locatorName", &owners::Obj_1153d0::FUN_001153d0);
+        FUN_002347b0(&DAT_004e0c64, params, 12);
+    }
+    DAT_004e0c68++;
+}
+
+
 
 // 0x0011ae60 FUN_0011ae60 (281 B): equivalent/0x0011ae60.cpp [wrapped: conflict: fight::TrackFactoryCasterTemplate]
 // sym: _FUN_0011ae60 @65cf0ea0459f @wb714cd8b2859

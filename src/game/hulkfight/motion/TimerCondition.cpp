@@ -1,7 +1,9 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x0018cab0..0x0018ecb0 (kind game, layer game, confidence high), dominant class hulkfight::motion::TimerCondition
 #include "tree_prelude.h"
+#define HULK_FIGHT_PARAM_IMPLICIT   // (gx2, D18) include/gen/fight.h: the parameter templates constructed for real
+#include "decls/data/engine/unknown.h"   // (gx3, D18) for the merged registrations
+#include "decls/data/engine/fight.h"   // (gx3, D18) for the merged registrations
 #include "compat/ptr.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/hulkfight.h"
@@ -18,6 +20,7 @@ void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's
 }
 namespace fn_f1f11990 { extern "C" char DAT_0041aa68[], DAT_0041aa88[], DAT_0041aad8[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/hulkfight/motion.h"
+extern "C" void __cdecl FUN_002347b0(void* list, void* params, int count);   // (gx2, D18) a parameter list's set-up
 // (ren2) __RTDynamicCast's own name (CRT, C linkage)
 extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
@@ -1806,40 +1809,28 @@ template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::motion::TimerC
 // sym: ??_G?$ParamIntConstRange@VTimerCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamIntConstRange<hulkfight::motion::TimerCondition>::~ParamIntConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamIntConstRange<hulkfight::motion::TimerCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x18dc40)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x0018dc60 fight::ParamEnumConstList<hulkfight::motion::TimerCondition>::vfunc_0 (30 B): matches/0x0018dc60.cpp
 // sym: ??_G?$ParamEnumConstList@VTimerCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamEnumConstList<hulkfight::motion::TimerCondition>::~ParamEnumConstList() {}
-#if defined(HULK_PTR64)
-template class fight::ParamEnumConstList<hulkfight::motion::TimerCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x18dc60)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x0018dc80 fight::ParamFloatConstRange<hulkfight::motion::TimerCondition>::vfunc_0 (30 B): matches/0x0018dc80.cpp
 // sym: ??_G?$ParamFloatConstRange@VTimerCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamFloatConstRange<hulkfight::motion::TimerCondition>::~ParamFloatConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamFloatConstRange<hulkfight::motion::TimerCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x18dc80)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x0018dca0 fight::ParamBool<hulkfight::motion::TimerCondition>::vfunc_0 (30 B): matches/0x0018dca0.cpp
 // sym: ??_G?$ParamBool@VTimerCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamBool<hulkfight::motion::TimerCondition>::~ParamBool() {}
-#if defined(HULK_PTR64)
-template class fight::ParamBool<hulkfight::motion::TimerCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x18dca0)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x0018dcd0 fight::ConditionFactoryCasterTemplate<hulkfight::motion::GrappleVarCompareCondition>::vfunc_0 (36 B): matches/0x0018dcd0.cpp [wrapped: conflict: fight::ConditionFactoryCaster]
@@ -1871,20 +1862,14 @@ int fight::GrappleCaster::vfunc_0(void* p) {
 // sym: ??_G?$ParamEnumConstList@VGrappleVarCompareCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamEnumConstList<hulkfight::motion::GrappleVarCompareCondition>::~ParamEnumConstList() {}
-#if defined(HULK_PTR64)
-template class fight::ParamEnumConstList<hulkfight::motion::GrappleVarCompareCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x18dd00)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x0018dd20 fight::ParamIntConstRange<hulkfight::motion::GrappleVarCompareCondition>::vfunc_0 (30 B): matches/0x0018dd20.cpp
 // sym: ??_G?$ParamIntConstRange@VGrappleVarCompareCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamIntConstRange<hulkfight::motion::GrappleVarCompareCondition>::~ParamIntConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamIntConstRange<hulkfight::motion::GrappleVarCompareCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x18dd20)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x0018dd50 fight::ConditionFactoryCasterTemplate<hulkfight::motion::VarCompareCondition>::vfunc_0 (36 B): matches/0x0018dd50.cpp
@@ -1899,20 +1884,14 @@ template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::motion::VarCom
 // sym: ??_G?$ParamEnumConstList@VVarCompareCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamEnumConstList<hulkfight::motion::VarCompareCondition>::~ParamEnumConstList() {}
-#if defined(HULK_PTR64)
-template class fight::ParamEnumConstList<hulkfight::motion::VarCompareCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x18dd80)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x0018dda0 fight::ParamIntConstRange<hulkfight::motion::VarCompareCondition>::vfunc_0 (30 B): matches/0x0018dda0.cpp
 // sym: ??_G?$ParamIntConstRange@VVarCompareCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamIntConstRange<hulkfight::motion::VarCompareCondition>::~ParamIntConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamIntConstRange<hulkfight::motion::VarCompareCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x18dda0)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x0018ddd0 fight::TrackFactoryCasterTemplate<hulkfight::motion::TimerSetTrack>::vfunc_0 (36 B): matches/0x0018ddd0.cpp
@@ -1928,20 +1907,14 @@ template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::TimerSetTr
 // sym: ??_G?$ParamFloatConstRange@VTimerSetTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamFloatConstRange<hulkfight::motion::TimerSetTrack>::~ParamFloatConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamFloatConstRange<hulkfight::motion::TimerSetTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x18de00)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x0018de20 fight::ParamIntConstRange<hulkfight::motion::TimerSetTrack>::vfunc_0 (30 B): matches/0x0018de20.cpp
 // sym: ??_G?$ParamIntConstRange@VTimerSetTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamIntConstRange<hulkfight::motion::TimerSetTrack>::~ParamIntConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamIntConstRange<hulkfight::motion::TimerSetTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x18de20)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x0018de50 fight::TrackFactoryCasterTemplate<hulkfight::motion::VarAssignTrack>::vfunc_0 (36 B): matches/0x0018de50.cpp
@@ -1957,80 +1930,72 @@ template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::VarAssignT
 // sym: ??_G?$ParamFloatConstRange@VVarAssignTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamFloatConstRange<hulkfight::motion::VarAssignTrack>::~ParamFloatConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamFloatConstRange<hulkfight::motion::VarAssignTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x18de80)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x0018dea0 fight::ParamEnumConstList<hulkfight::motion::VarAssignTrack>::vfunc_0 (30 B): matches/0x0018dea0.cpp
 // sym: ??_G?$ParamEnumConstList@VVarAssignTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamEnumConstList<hulkfight::motion::VarAssignTrack>::~ParamEnumConstList() {}
-#if defined(HULK_PTR64)
-template class fight::ParamEnumConstList<hulkfight::motion::VarAssignTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x18dea0)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x0018dec0 fight::ParamIntConstRange<hulkfight::motion::VarAssignTrack>::vfunc_0 (30 B): matches/0x0018dec0.cpp
 // sym: ??_G?$ParamIntConstRange@VVarAssignTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamIntConstRange<hulkfight::motion::VarAssignTrack>::~ParamIntConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamIntConstRange<hulkfight::motion::VarAssignTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x18dec0)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x0018dee0 fight::ParamBool<hulkfight::motion::VarAssignTrack>::vfunc_0 (30 B): matches/0x0018dee0.cpp
 // sym: ??_G?$ParamBool@VVarAssignTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamBool<hulkfight::motion::VarAssignTrack>::~ParamBool() {}
-#if defined(HULK_PTR64)
-template class fight::ParamBool<hulkfight::motion::VarAssignTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x18dee0)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
-
-// 0x0018e060 FUN_0018e060 (213 B): equivalent/0x0018e060.cpp [wrapped: conflict: fight::ParamFloatConstRange; fight::ParamIntConstRange]
-// sym: ?FUN_0018e060@fn_0018e060@@YAXXZ @4ea37e894a48 @wa9384706866f
-inline void* __cdecl operator new(size_t,void* p) { return p; }
-namespace fn_0018e060 {
-// STATUS: equivalent (tools/equiv.py level 3: 2994 inputs, branch coverage 8/8)
-// FUN_0018e060 @ 0x0018e060
-
-
-void* __cdecl FUN_0008d690(unsigned int);
-void __cdecl SetTimeBegin_0018cb80(); void __cdecl SetTimer_0018cba0(); void __cdecl SetValue_0018cbc0();
-namespace hulkfight { namespace motion { class TimerSetTrack; } }
-namespace fight {
-template<class T> struct ParamFloatConstRange { virtual void slot0(); char pad[12]; void (__cdecl *callback)(); char tail[4]; void FUN_00234960(const char*); };
-template<class T> struct ParamIntConstRange { virtual void slot0(); char pad[12]; void (__cdecl *callback)(); char tail[4]; void FUN_002348e0(const char*); };
-}
- 
-void __cdecl FUN_002347b0(void*,void**,int);
-void __cdecl FUN_0018e060() {
- if (!DAT_004e1524) {
-  void* params[3];
-  typedef fight::ParamFloatConstRange<hulkfight::motion::TimerSetTrack> F;
-  typedef fight::ParamIntConstRange<hulkfight::motion::TimerSetTrack> I;
-  F* a=(F*)FUN_0008d690((int)sizeof(F));
-  if(a) { a->FUN_00234960("timeBegin"); a=new(a) F; a->callback=SetTimeBegin_0018cb80; }
-  params[0]=a;
-  I* b=(I*)FUN_0008d690((int)sizeof(I));
-  if(b) { b->FUN_002348e0("timer"); b=new(b) I; b->callback=SetTimer_0018cba0; }
-  params[1]=b;
-  F* c=(F*)FUN_0008d690((int)sizeof(F));
-  if(c) { c->FUN_00234960("value"); c=new(c) F; c->callback=SetValue_0018cbc0; }
-  params[2]=c;
-  FUN_002347b0(&DAT_004e1520,params,3);
- }
- ++DAT_004e1524;
-}
-} // namespace fn_0018e060
 
 namespace fn_f1f11990 {
+
+} // namespace fn_f1f11990
+
+// 0x0018df00 FUN_0018df00 (339 B): matches/0x0018df00.cpp
+// sym: ?FUN_0018df00@@YAXXZ
+// (gx2, D18) from TimerCondition.new_throw.cpp; constructs the real ParamBool<hulkfight::motion::TimerCondition>, ParamEnumConstList<hulkfight::motion::TimerCondition>, ParamFloatConstRange<hulkfight::motion::TimerCondition>, ParamIntConstRange<hulkfight::motion::TimerCondition>,
+// whose vftable and scalar deleting destructor it emits
+void FUN_0018df00()
+{
+    if (DAT_004e150c == 0) {
+        ::fight::ParamValue* params[5];
+        params[0] = new ::fight::ParamIntConstRange< ::hulkfight::motion::TimerCondition>("timer", &owners::Obj_18cab0::FUN_0018cab0);
+        params[1] = new ::fight::ParamEnumConstList< ::hulkfight::motion::TimerCondition>("compare", (void*)&DAT_0042773c, DAT_00427754, &owners::X_18cac0::FUN_0018cac0);
+        params[2] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::TimerCondition>("value", &owners::Obj_18cad0::FUN_0018cad0);
+        params[3] = new ::fight::ParamBool< ::hulkfight::motion::TimerCondition>("useKeyWordWait", &owners::X_18caf0::FUN_0018caf0);
+        params[4] = new ::fight::ParamEnumConstList< ::hulkfight::motion::TimerCondition>("keyWord", (void*)&DAT_004bebb4, 15, &owners::Obj_18cb10::FUN_0018cb10);
+        FUN_002347b0(&DAT_004e1508, params, 5);
+    }
+    DAT_004e150c++;
+}
+
+
+
+// 0x0018e060 FUN_0018e060 (213 B): matches/0x0018e060.cpp
+// sym: ?FUN_0018e060@@YAXXZ
+// (gx2, D18) rewritten; constructs the real ParamFloatConstRange<hulkfight::motion::TimerSetTrack>, ParamIntConstRange<hulkfight::motion::TimerSetTrack>,
+// whose vftable and scalar deleting destructor it emits
+void FUN_0018e060()
+{
+    if (DAT_004e1524 == 0) {
+        ::fight::ParamValue* params[3];
+        params[0] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::TimerSetTrack>("timeBegin", &fn_f1f11990::Obj_18cb80::SetTimeBegin_0018cb80);
+        params[1] = new ::fight::ParamIntConstRange< ::hulkfight::motion::TimerSetTrack>("timer", &fn_f1f11990::Obj_18cba0::SetTimer_0018cba0);
+        params[2] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::TimerSetTrack>("value", &fn_f1f11990::Obj_18cbc0::SetValue_0018cbc0);
+        FUN_002347b0(&DAT_004e1520, params, 3);
+    }
+    DAT_004e1524++;
+}
+
+namespace fn_f1f11990 {
+
 
 // 0x0018e190 hulkfight::motion::VarAssignAction::vfunc_2 (71 B): matches/0x0018e190.cpp
 // sym: ?vfunc_2@VarAssignAction_18e190@fn_f1f11990@@QAEPAV12@H@Z
@@ -2141,30 +2106,78 @@ void ParamBranch::vfunc_6(void* p) {
 // sym: ??_G?$ParamName@VGrappleVarCompareCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamName<hulkfight::motion::GrappleVarCompareCondition>::~ParamName() {}
-#if defined(HULK_PTR64)
-template class fight::ParamName<hulkfight::motion::GrappleVarCompareCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x18e3b0)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x0018e3d0 fight::ParamName<hulkfight::motion::VarCompareCondition>::vfunc_0 (30 B): matches/0x0018e3d0.cpp
 // sym: ??_G?$ParamName@VVarCompareCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamName<hulkfight::motion::VarCompareCondition>::~ParamName() {}
-#if defined(HULK_PTR64)
-template class fight::ParamName<hulkfight::motion::VarCompareCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x18e3d0)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x0018e3f0 fight::ParamName<hulkfight::motion::VarAssignTrack>::vfunc_0 (30 B): matches/0x0018e3f0.cpp
 // sym: ??_G?$ParamName@VVarAssignTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamName<hulkfight::motion::VarAssignTrack>::~ParamName() {}
-#if defined(HULK_PTR64)
-template class fight::ParamName<hulkfight::motion::VarAssignTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x18e3f0)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
+
+
+// 0x0018e470 FUN_0018e470 (231 B): matches/0x0018e470.cpp
+// sym: ?FUN_0018e470@@YAXXZ
+// (gx2, D18) from TimerCondition.iso_0018e470.cpp; constructs the real ParamEnumConstList<hulkfight::motion::GrappleVarCompareCondition>, ParamIntConstRange<hulkfight::motion::GrappleVarCompareCondition>, ParamName<hulkfight::motion::GrappleVarCompareCondition>,
+// whose vftable and scalar deleting destructor it emits
+void FUN_0018e470()
+{
+    if (DAT_004e1514 == 0) {
+        ::fight::ParamValue* params[3];
+        params[0] = new ::fight::ParamName< ::hulkfight::motion::GrappleVarCompareCondition>("variable", &fn_f1f11990::A_18cb20::Get);
+        params[1] = new ::fight::ParamEnumConstList< ::hulkfight::motion::GrappleVarCompareCondition>("compare", (void*)&DAT_0042773c, DAT_00427754, &fn_f1f11990::Obj_18cb30::Set);
+        params[2] = new ::fight::ParamIntConstRange< ::hulkfight::motion::GrappleVarCompareCondition>("value", &fn_f1f11990::Obj_18cb40::Set);
+        FUN_002347b0(&DAT_004e1510, params, 3);
+    }
+    DAT_004e1514++;
+}
+
+
+
+// 0x0018e590 FUN_0018e590 (231 B): matches/0x0018e590.cpp
+// sym: ?FUN_0018e590@@YAXXZ
+// (gx2, D18) from TimerCondition.iso_0018e590.cpp; constructs the real ParamEnumConstList<hulkfight::motion::VarCompareCondition>, ParamIntConstRange<hulkfight::motion::VarCompareCondition>, ParamName<hulkfight::motion::VarCompareCondition>,
+// whose vftable and scalar deleting destructor it emits
+void FUN_0018e590()
+{
+    if (DAT_004e151c == 0) {
+        ::fight::ParamValue* params[3];
+        params[0] = new ::fight::ParamName< ::hulkfight::motion::VarCompareCondition>("variable", &fn_f1f11990::Obj_18cb50::GetVariable_0018cb50);
+        params[1] = new ::fight::ParamEnumConstList< ::hulkfight::motion::VarCompareCondition>("compare", (void*)&DAT_0042773c, DAT_00427754, &fn_f1f11990::Obj_18cb60::SetCompare_0018cb60);
+        params[2] = new ::fight::ParamIntConstRange< ::hulkfight::motion::VarCompareCondition>("value", &fn_f1f11990::Obj_18cb70::SetValue_0018cb70);
+        FUN_002347b0(&DAT_004e1518, params, 3);
+    }
+    DAT_004e151c++;
+}
+
+
+
+// 0x0018e6e0 FUN_0018e6e0 (372 B): matches/0x0018e6e0.cpp
+// sym: ?FUN_0018e6e0@@YAXXZ
+// (gx2, D18) from TimerCondition.new_throw.cpp; constructs the real ParamBool<hulkfight::motion::VarAssignTrack>, ParamEnumConstList<hulkfight::motion::VarAssignTrack>, ParamFloatConstRange<hulkfight::motion::VarAssignTrack>, ParamIntConstRange<hulkfight::motion::VarAssignTrack>, ParamName<hulkfight::motion::VarAssignTrack>,
+// whose vftable and scalar deleting destructor it emits
+void FUN_0018e6e0()
+{
+    if (DAT_004e152c == 0) {
+        ::fight::ParamValue* params[6];
+        params[0] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::VarAssignTrack>("timeBegin", &owners::O_18cbd0::FUN_0018cbd0);
+        params[1] = new ::fight::ParamName< ::hulkfight::motion::VarAssignTrack>("variable", &owners::Obj_18cbe0::FUN_0018cbe0);
+        params[2] = new ::fight::ParamEnumConstList< ::hulkfight::motion::VarAssignTrack>("operator", (void*)&DAT_004beb94, 8, &owners::Obj_18cc00::FUN_0018cc00);
+        params[3] = new ::fight::ParamIntConstRange< ::hulkfight::motion::VarAssignTrack>("value", &owners::O_18cc20::FUN_0018cc20);
+        params[4] = new ::fight::ParamIntConstRange< ::hulkfight::motion::VarAssignTrack>("valueAtEnd", &owners::Obj_18cc40::FUN_0018cc40);
+        params[5] = new ::fight::ParamBool< ::hulkfight::motion::VarAssignTrack>("setToValueAtEnd", &owners::Obj_18cc60::FUN_0018cc60);
+        FUN_002347b0(&DAT_004e1528, params, 6);
+    }
+    DAT_004e152c++;
+}
+
 
 
 // 0x0018e860 FUN_0018e860 (111 B): matches/0x0018e860.cpp [wrapped: conflict: fight::ConditionFactoryCasterTemplate]

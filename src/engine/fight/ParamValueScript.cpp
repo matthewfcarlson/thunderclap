@@ -1,7 +1,9 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// object 0x00234ba0..0x00234cc0 (kind game, layer engine, confidence medium), dominant class fight::ParamValueScript
+// object 0x00234c00..0x00234cc0 (kind game, layer engine, confidence medium), dominant class fight::ParamValueScript
 #include "tree_prelude.h"
+#define HULK_FIGHT_PARAM_IMPLICIT   // (gx2, D18) include/gen/fight.h: the parameter classes' real constructors
 #include "compat/ptr.h"
+#include "gen/fight.h"
 #define TREE_TU_BEGIN namespace fn_f1ee0f39 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CEffectStopTrack
@@ -12,40 +14,6 @@ namespace fn_f1ee0f39 {} using namespace fn_f1ee0f39;
 
 // ---- declarations shared by the functions below
 namespace fn_f1ee0f39 {
-class ParamValueStringList_234bd0 {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual void f5();
-    virtual void f6();
-    virtual void* get(void*);
-};
-namespace fight {
-class ParamValueNameList : public ParamValueStringList_234bd0 {
-  public:
-    bool vfunc_6(void*, void*);
-};
-}
-class Receiver_234bd0 {
-  public:
-    void run_0027b040(void*);
-};
-extern void* hulk_at_004279fc[];
-extern void* hulk_at_00427b00[];
-class Sub_234c00 {
-  public:
-    void Init_0027b0e0(int a);
-};
-class ParamValueScript_234c00 {
-  public:
-    void* vptr;
-    char pad[4];
-    Sub_234c00 sub;
-    ParamValueScript_234c00(hulk_intptr a);
-};
 void* __cdecl FUN_00238190(int a);
 extern "C" char* __cdecl FUN_00266e00(void* heap, int size);
 void __cdecl thunk_FUN_00267090(void* p);
@@ -73,25 +41,14 @@ public:
 }
 
 
-// 0x00234bd0 fight::ParamValueNameList::vfunc_6 (36 B): matches/0x00234bd0.cpp
-// sym: ?vfunc_6@ParamValueNameList@fight@fn_f1ee0f39@@QAE_NPAX0@Z
-// Same code shape as 0x00234ac0 (propagated; names are from that function)
-bool fight::ParamValueNameList::vfunc_6(void* a, void* b) {
-    void* x = get(a);
-    if (!x)
-        return false;
-    ((Receiver_234bd0*)x)->run_0027b040(b);
-    return true;
-}
-
+} // namespace fn_f1ee0f39
 
 // 0x00234c00 FUN_00234c00 (34 B): matches/0x00234c00.cpp
-// sym: ??0ParamValueScript_234c00@fn_f1ee0f39@@QAE@H@Z
-ParamValueScript_234c00::ParamValueScript_234c00(hulk_intptr a) {
-    vptr = hulk_at_004279fc;
-    sub.Init_0027b0e0(a);
-    vptr = hulk_at_00427b00;
-}
+// sym: ??0ParamValueScript@fight@@QAE@PBD@Z
+// (gx4, D18) the constructor the parameter registrations call (`new ParamScript<T>(name, setter)`)
+::fight::ParamValueScript::ParamValueScript(const char* name) : ::fight::ParamValue(name) {}
+
+namespace fn_f1ee0f39 {
 
 
 // 0x00234c30 fight::ParamValueScript::vfunc_5 (138 B): equivalent/0x00234c30.cpp

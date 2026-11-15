@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x001110e0..0x00111160 (kind game, layer game, confidence high), dominant class hulkfight::ai::PropsToChuckCondition
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -23,24 +22,4 @@ template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::ai::PropsToChu
 
     return (FUN_00344e74(a, 0, (hulk_intptr)&DAT_00491ca8, (hulk_intptr)&DAT_004a3ce0, 0) != 0);
 }
-
-
-// 0x00111110 fight::ParamEnumConstList<hulkfight::ai::PropsToChuckCondition>::vfunc_0 (30 B): matches/0x00111110.cpp
-// sym: ??_G?$ParamEnumConstList@VPropsToChuckCondition@ai@hulkfight@@@fight@@UAEPAXI@Z
-// Same code shape as 0x00021840 (propagated; names are from that function)
-// scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamEnumConstList<hulkfight::ai::PropsToChuckCondition>::~ParamEnumConstList() {}
-#if defined(HULK_PTR64)
-template class fight::ParamEnumConstList<hulkfight::ai::PropsToChuckCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x111110)
-#endif
-
-
-// 0x00111130 fight::ParamIntConstRange<hulkfight::ai::PropsToChuckCondition>::vfunc_0 (30 B): matches/0x00111130.cpp
-// sym: ??_G?$ParamIntConstRange@VPropsToChuckCondition@ai@hulkfight@@@fight@@UAEPAXI@Z
-// Same code shape as 0x00021840 (propagated; names are from that function)
-// scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamIntConstRange<hulkfight::ai::PropsToChuckCondition>::~ParamIntConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamIntConstRange<hulkfight::ai::PropsToChuckCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x111130)
-#endif
 

@@ -1,7 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x0012d920..0x0012dfe0 (kind game, layer game, confidence high), dominant class hulkfight::PostEvent_StringTrack
 #include "tree_prelude.h"
+#define HULK_FIGHT_PARAM_IMPLICIT   // (gx2, D18) include/gen/fight.h: the parameter templates constructed for real
 #include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
@@ -18,6 +18,8 @@ void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's
 }
 namespace fn_facdac2a { extern "C" char DAT_004110e0[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/hulkfight.h"
+void* operator new(size_t) HULK_NEW_THROW;   // (gx2, D18) the game's operator new (0x0008d690)
+extern "C" void __cdecl FUN_002347b0(void* list, void* params, int count);   // (gx2, D18) a parameter list's set-up
 
 // ---- declarations shared by the functions below
 namespace fn_facdac2a {
@@ -504,20 +506,14 @@ template <> bool fight::TrackFactoryCasterTemplate<hulkfight::PostEvent_StringTr
 // sym: ??_G?$ParamFloatConstRange@VPostEvent_StringTrack@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamFloatConstRange<hulkfight::PostEvent_StringTrack>::~ParamFloatConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamFloatConstRange<hulkfight::PostEvent_StringTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x12dcb0)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x0012dcd0 fight::ParamBool<hulkfight::PostEvent_StringTrack>::vfunc_0 (30 B): matches/0x0012dcd0.cpp
 // sym: ??_G?$ParamBool@VPostEvent_StringTrack@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamBool<hulkfight::PostEvent_StringTrack>::~ParamBool() {}
-#if defined(HULK_PTR64)
-template class fight::ParamBool<hulkfight::PostEvent_StringTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x12dcd0)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x0012dcf0 hulkfight::PostEvent_StringTrack::vfunc_10 (86 B): matches/0x0012dcf0.cpp
@@ -572,10 +568,7 @@ void ParamBranch::vfunc_6(void* p) {
 // sym: ??_G?$ParamName@VPostEvent_StringTrack@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamName<hulkfight::PostEvent_StringTrack>::~ParamName() {}
-#if defined(HULK_PTR64)
-template class fight::ParamName<hulkfight::PostEvent_StringTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x12dde0)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 namespace fn_facdac2a {
 
@@ -588,93 +581,25 @@ extern "C" void __cdecl FUN_0012de00(Obj* obj, void* key) {
 
 } // namespace fn_facdac2a
 
-// 0x0012de30 FUN_0012de30 (256 B): matches/0x0012de30.cpp [wrapped: conflict: fight::ParamBool; fight::ParamFloatConstRange; fight::ParamName]
-// sym: _FUN_0012de30
-namespace fn_0012de30 {
-
-void* __cdecl FUN_0008d690(unsigned int);
-void __cdecl FUN_0012d920();
-void __cdecl FUN_0012d930();
-void __cdecl FUN_0012d950();
-void __cdecl FUN_0012d970();
-struct FUN_00234960 {
-    FUN_00234960(const char* s = "timeBegin");
-    virtual void slot0();
-    char pad[12];
-    void(__cdecl* callback)();
-    char tail[4];
-};
-struct FUN_00234a90 {
-    FUN_00234a90(const char* s = "text");
-    virtual void slot0();
-    char pad[12];
-    void(__cdecl* callback)();
-    char tail[4];
-};
-struct FUN_00234860 {
-    FUN_00234860(const char* s = "onlyInTutorialMode");
-    virtual void slot0();
-    char pad[12];
-    void(__cdecl* callback)();
-    char tail[4];
-};
-namespace hulkfight {
-class PostEvent_StringTrack;
-}
-namespace fight {
-template <class T> struct ParamFloatConstRange : FUN_00234960 {
-    virtual void slot0();
-};
-template <class T> struct ParamName : FUN_00234a90 {
-    virtual void slot0();
-};
-template <class T> struct ParamBool : FUN_00234860 {
-    virtual void slot0();
-    ParamBool(const char* s = "onlyInTutorialMode") : FUN_00234860(s) {}
-};
-} // namespace fight
-
-extern "C" void __cdecl FUN_002347b0(int*, void**, int);
-extern "C" void FUN_0012de30() {
+// 0x0012de30 FUN_0012de30 (256 B): matches/0x0012de30.cpp
+// sym: ?FUN_0012de30@fn_facdac2a@@YAXXZ
+// (gx2, D18) rewritten; constructs the real ParamBool<hulkfight::PostEvent_StringTrack>, ParamFloatConstRange<hulkfight::PostEvent_StringTrack>, ParamName<hulkfight::PostEvent_StringTrack>,
+// whose vftable and scalar deleting destructor it emits
+namespace fn_facdac2a {
+void FUN_0012de30()
+{
     if (DAT_004e0e48 == 0) {
-        void* items[4];
-        void* p = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<hulkfight::PostEvent_StringTrack>));
-        if (p) {
-            fight::ParamFloatConstRange<hulkfight::PostEvent_StringTrack>* a =
-                new (p) fight::ParamFloatConstRange<hulkfight::PostEvent_StringTrack>;
-            a->callback = FUN_0012d920;
-            items[0] = a;
-        } else
-            items[0] = 0;
-        p = FUN_0008d690((int)sizeof(fight::ParamName<hulkfight::PostEvent_StringTrack>));
-        if (p) {
-            fight::ParamName<hulkfight::PostEvent_StringTrack>* a =
-                new (p) fight::ParamName<hulkfight::PostEvent_StringTrack>;
-            a->callback = FUN_0012d930;
-            items[1] = a;
-        } else
-            items[1] = 0;
-        p = FUN_0008d690((int)sizeof(fight::ParamBool<hulkfight::PostEvent_StringTrack>));
-        if (p) {
-            fight::ParamBool<hulkfight::PostEvent_StringTrack>* a =
-                new (p) fight::ParamBool<hulkfight::PostEvent_StringTrack>("onlyInTutorialMode");
-            a->callback = FUN_0012d950;
-            items[2] = a;
-        } else
-            items[2] = 0;
-        p = FUN_0008d690((int)sizeof(fight::ParamBool<hulkfight::PostEvent_StringTrack>));
-        if (p) {
-            fight::ParamBool<hulkfight::PostEvent_StringTrack>* a =
-                new (p) fight::ParamBool<hulkfight::PostEvent_StringTrack>("unique");
-            a->callback = FUN_0012d970;
-            items[3] = a;
-        } else
-            items[3] = 0;
-        FUN_002347b0(&DAT_004e0e44, items, 4);
+        ::fight::ParamValue* params[4];
+        params[0] = new ::fight::ParamFloatConstRange< ::hulkfight::PostEvent_StringTrack>("timeBegin", &fn_facdac2a::A_12d920::Set);
+        params[1] = new ::fight::ParamName< ::hulkfight::PostEvent_StringTrack>("text", &fn_facdac2a::A_12d930::Get);
+        params[2] = new ::fight::ParamBool< ::hulkfight::PostEvent_StringTrack>("onlyInTutorialMode", &fn_facdac2a::Foo_12d950::Set);
+        params[3] = new ::fight::ParamBool< ::hulkfight::PostEvent_StringTrack>("unique", &fn_facdac2a::Obj::SetFlag);
+        FUN_002347b0(&DAT_004e0e44, params, 4);
     }
-    ++DAT_004e0e48;
+    DAT_004e0e48++;
 }
-} // namespace fn_0012de30
+} // namespace fn_facdac2a
+
 
 
 // 0x0012df30 fight::TrackFactoryCasterTemplate<hulkfight::PostEvent_StringTrack>::vfunc_1 (60 B): matches/0x0012df30.cpp

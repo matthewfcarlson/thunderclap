@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x001115c0..0x00111720 (kind game, layer game, confidence high), dominant class hulkfight::ai::SemaphoreClearTrack
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -55,16 +54,6 @@ template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::ai::TokenCondi
 }
 
 
-// 0x001115f0 fight::ParamBool<hulkfight::ai::TokenCondition>::vfunc_0 (30 B): matches/0x001115f0.cpp
-// sym: ??_G?$ParamBool@VTokenCondition@ai@hulkfight@@@fight@@UAEPAXI@Z
-// Same code shape as 0x00021840 (propagated; names are from that function)
-// scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamBool<hulkfight::ai::TokenCondition>::~ParamBool() {}
-#if defined(HULK_PTR64)
-template class fight::ParamBool<hulkfight::ai::TokenCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1115f0)
-#endif
-
-
 // 0x00111620 fight::ConditionFactoryCasterTemplate<hulkfight::ai::FightingOtherNPCCondition>::vfunc_0 (36 B): matches/0x00111620.cpp
 // sym: ?vfunc_0@?$ConditionFactoryCasterTemplate@VFightingOtherNPCCondition@ai@hulkfight@@@fight@@UAE_NPAX@Z
  // namespace hulkfight
@@ -74,50 +63,10 @@ template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::ai::FightingOt
 }
 
 
-// 0x00111650 fight::ParamEnumConstList<hulkfight::ai::FightingOtherNPCCondition>::vfunc_0 (30 B): matches/0x00111650.cpp
-// sym: ??_G?$ParamEnumConstList@VFightingOtherNPCCondition@ai@hulkfight@@@fight@@UAEPAXI@Z
-// Same code shape as 0x00021840 (propagated; names are from that function)
-// scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamEnumConstList<hulkfight::ai::FightingOtherNPCCondition>::~ParamEnumConstList() {}
-#if defined(HULK_PTR64)
-template class fight::ParamEnumConstList<hulkfight::ai::FightingOtherNPCCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x111650)
-#endif
-
-
 // 0x00111680 fight::TrackFactoryCasterTemplate<hulkfight::ai::SemaphoreClearTrack>::vfunc_0 (36 B): matches/0x00111680.cpp
 // sym: ?vfunc_0@?$TrackFactoryCasterTemplate@VSemaphoreClearTrack@ai@hulkfight@@@fight@@UAE_NPAX@Z
 template <> bool fight::TrackFactoryCasterTemplate<hulkfight::ai::SemaphoreClearTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
     return FUN_00344e74(p, 0, &DAT_0049850c, &DAT_004a44b0, 0) != 0;
 }
-
-
-// 0x001116b0 fight::ParamFloatConstRange<hulkfight::ai::SemaphoreClearTrack>::vfunc_0 (30 B): matches/0x001116b0.cpp
-// sym: ??_G?$ParamFloatConstRange@VSemaphoreClearTrack@ai@hulkfight@@@fight@@UAEPAXI@Z
-// Same code shape as 0x00021840 (propagated; names are from that function)
-// scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamFloatConstRange<hulkfight::ai::SemaphoreClearTrack>::~ParamFloatConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamFloatConstRange<hulkfight::ai::SemaphoreClearTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1116b0)
-#endif
-
-
-// 0x001116d0 fight::ParamName<hulkfight::ai::SemaphoreClearTrack>::vfunc_0 (30 B): matches/0x001116d0.cpp
-// sym: ??_G?$ParamName@VSemaphoreClearTrack@ai@hulkfight@@@fight@@UAEPAXI@Z
-// Same code shape as 0x00021840 (propagated; names are from that function)
-// scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamName<hulkfight::ai::SemaphoreClearTrack>::~ParamName() {}
-#if defined(HULK_PTR64)
-template class fight::ParamName<hulkfight::ai::SemaphoreClearTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1116d0)
-#endif
-
-
-// 0x001116f0 fight::ParamBool<hulkfight::ai::SemaphoreClearTrack>::vfunc_0 (30 B): matches/0x001116f0.cpp
-// sym: ??_G?$ParamBool@VSemaphoreClearTrack@ai@hulkfight@@@fight@@UAEPAXI@Z
-// Same code shape as 0x00021840 (propagated; names are from that function)
-// scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamBool<hulkfight::ai::SemaphoreClearTrack>::~ParamBool() {}
-#if defined(HULK_PTR64)
-template class fight::ParamBool<hulkfight::ai::SemaphoreClearTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1116f0)
-#endif
 

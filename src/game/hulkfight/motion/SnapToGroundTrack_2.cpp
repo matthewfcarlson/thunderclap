@@ -1,7 +1,8 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x0017bc70..0x0017e1a0 (kind game, layer game, confidence high), dominant class hulkfight::motion::SnapToGroundTrack
 #include "tree_prelude.h"
+#define HULK_FIGHT_PARAM_IMPLICIT   // (gx2, D18) include/gen/fight.h: the parameter templates constructed for real
+#include "gen/owners.h"   // (gx3, D18) for the merged registrations
 #include "compat/ptr.h"
 #include "decls/data/game/hulkfight.h"
 #include "decls/data/game/hulkfight/motion.h"
@@ -14,6 +15,28 @@ namespace fn_f05a6271 {
 void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
 }
 #include "game/hulkfight/motion.h"
+extern "C" void __cdecl FUN_002347b0(void* list, void* params, int count);   // (gx2, D18) a parameter list's set-up
+namespace fn_0016eb60 { struct S_16eb60; } 
+namespace fn_fa642773 { struct Data_16f2e0; } 
+namespace fn_fa642773 { struct Src_16ef80; } 
+namespace fn_fa642773 { struct Src_16f400; } 
+namespace fn_fa642773 { struct V; } 
+namespace fn_fa642773 { struct Vec3; } 
+namespace fn_fa642773 { struct Vec3_16ef40; } 
+namespace fn_fa642773 { struct Vec3_16f2a0; } 
+namespace fn_fa642773 { struct Vec3_16f440; } 
+namespace fn_fa642773 { struct Vec; } 
+namespace fn_0016eb60 { struct C_16eb60 { bool operator=(struct fn_0016eb60::S_16eb60 *); }; }   // (gx3, D18) setters, as defined in unk_16e720.cpp
+namespace fn_fa642773 { struct C_16e770 { bool Set(struct fn_fa642773::V *); }; }   // (gx3, D18) setters, as defined in unk_16e720.cpp
+namespace fn_fa642773 { struct Ctx_16f2e0 { char Set(struct fn_fa642773::Data_16f2e0 *); }; }   // (gx3, D18) setters, as defined in unk_16e720.cpp
+namespace fn_fa642773 { struct Obj { bool Set(struct fn_fa642773::Vec const &); }; }   // (gx3, D18) setters, as defined in unk_16e720.cpp
+namespace fn_fa642773 { struct Obj_16ef10 { char * Get(); }; }   // (gx3, D18) setters, as defined in unk_16e720.cpp
+namespace fn_fa642773 { struct Obj_16ef40 { bool Set(struct fn_fa642773::Vec3_16ef40 const *); }; }   // (gx3, D18) setters, as defined in unk_16e720.cpp
+namespace fn_fa642773 { struct Obj_16ef80 { bool Set(struct fn_fa642773::Src_16ef80 *); }; }   // (gx3, D18) setters, as defined in unk_16e720.cpp
+namespace fn_fa642773 { struct Obj_16f2a0 { char Set(struct fn_fa642773::Vec3_16f2a0 *); }; }   // (gx3, D18) setters, as defined in unk_16e720.cpp
+namespace fn_fa642773 { struct Obj_16f400 { bool Set(struct fn_fa642773::Src_16f400 *); }; }   // (gx3, D18) setters, as defined in unk_16e720.cpp
+namespace fn_fa642773 { struct Obj_16f440 { bool Set(struct fn_fa642773::Vec3_16f440 *); }; }   // (gx3, D18) setters, as defined in unk_16e720.cpp
+namespace fn_fa642773 { struct Thing { bool Set(struct fn_fa642773::Vec3 const *); }; }   // (gx3, D18) setters, as defined in unk_16e720.cpp
 // (ren2) __RTDynamicCast's own name (CRT, C linkage)
 extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
@@ -244,7 +267,6 @@ public:
 };
 }
 namespace fn_f05a6271 {
-extern "C" void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 class RestPoseTrack {
 public:
     bool FUN_0016ea30(int); /* (unb4) as defined; address taken only */
@@ -782,6 +804,230 @@ extern int hulk_at_00418de0;
 
 } // namespace fn_f05a6271
 
+// 0x00178d30 fight::ParamFloatConstRange<hulkfight::motion::JointTrackerTrack>::vfunc_0 (30 B): matches/0x00178d30.cpp
+// sym: ??_G?$ParamFloatConstRange@VJointTrackerTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from JointTrackerTrack_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0017c650 / FUN_0017ca60 / FUN_0017cc30 / FUN_0017ced0 / FUN_0017d210 / FUN_0017d6a0 / FUN_0017d8d0 / FUN_0017ddf0)
+
+
+
+// 0x00178d50 fight::ParamVector<hulkfight::motion::JointTrackerTrack>::vfunc_0 (30 B): matches/0x00178d50.cpp
+// sym: ??_G?$ParamVector@VJointTrackerTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from JointTrackerTrack_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0017c650 / FUN_0017ca60 / FUN_0017cc30 / FUN_0017ced0 / FUN_0017d210 / FUN_0017d6a0 / FUN_0017d8d0 / FUN_0017ddf0)
+
+
+
+// 0x00178d70 fight::ParamBool<hulkfight::motion::JointTrackerTrack>::vfunc_0 (30 B): matches/0x00178d70.cpp
+// sym: ??_G?$ParamBool@VJointTrackerTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from JointTrackerTrack_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0017c650 / FUN_0017ca60 / FUN_0017cc30 / FUN_0017ced0 / FUN_0017d210 / FUN_0017d6a0 / FUN_0017d8d0 / FUN_0017ddf0)
+
+
+
+// 0x00178d90 fight::ParamEnumConstList<hulkfight::motion::JointTrackerTrack>::vfunc_0 (30 B): matches/0x00178d90.cpp
+// sym: ??_G?$ParamEnumConstList@VJointTrackerTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from JointTrackerTrack_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0017c650 / FUN_0017ca60 / FUN_0017cc30 / FUN_0017ced0 / FUN_0017d210 / FUN_0017d6a0 / FUN_0017d8d0 / FUN_0017ddf0)
+
+
+
+// 0x00178db0 fight::ParamIntConstRange<hulkfight::motion::JointTrackerTrack>::vfunc_0 (30 B): matches/0x00178db0.cpp
+// sym: ??_G?$ParamIntConstRange@VJointTrackerTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from JointTrackerTrack_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0017c650 / FUN_0017ca60 / FUN_0017cc30 / FUN_0017ced0 / FUN_0017d210 / FUN_0017d6a0 / FUN_0017d8d0 / FUN_0017ddf0)
+
+
+
+// 0x00178eb0 fight::ParamFloatConstRange<hulkfight::motion::RestPoseTrack>::vfunc_0 (30 B): matches/0x00178eb0.cpp
+// sym: ??_G?$ParamFloatConstRange@VRestPoseTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from RestPoseTrack_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0017c650 / FUN_0017ca60 / FUN_0017cc30 / FUN_0017ced0 / FUN_0017d210 / FUN_0017d6a0 / FUN_0017d8d0 / FUN_0017ddf0)
+
+
+
+// 0x00178ed0 fight::ParamIntConstRange<hulkfight::motion::RestPoseTrack>::vfunc_0 (30 B): matches/0x00178ed0.cpp
+// sym: ??_G?$ParamIntConstRange@VRestPoseTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from RestPoseTrack_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0017c650 / FUN_0017ca60 / FUN_0017cc30 / FUN_0017ced0 / FUN_0017d210 / FUN_0017d6a0 / FUN_0017d8d0 / FUN_0017ddf0)
+
+
+
+// 0x00178f90 fight::ParamFloatConstRange<hulkfight::motion::JointRelativeTrack>::vfunc_0 (30 B): matches/0x00178f90.cpp
+// sym: ??_G?$ParamFloatConstRange@VJointRelativeTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from JointRelativeTrack_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0017c650 / FUN_0017ca60 / FUN_0017cc30 / FUN_0017ced0 / FUN_0017d210 / FUN_0017d6a0 / FUN_0017d8d0 / FUN_0017ddf0)
+
+
+
+// 0x00178fb0 fight::ParamBool<hulkfight::motion::JointRelativeTrack>::vfunc_0 (30 B): matches/0x00178fb0.cpp
+// sym: ??_G?$ParamBool@VJointRelativeTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from JointRelativeTrack_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0017c650 / FUN_0017ca60 / FUN_0017cc30 / FUN_0017ced0 / FUN_0017d210 / FUN_0017d6a0 / FUN_0017d8d0 / FUN_0017ddf0)
+
+
+
+// 0x00178fd0 fight::ParamVector<hulkfight::motion::JointRelativeTrack>::vfunc_0 (30 B): matches/0x00178fd0.cpp
+// sym: ??_G?$ParamVector@VJointRelativeTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from JointRelativeTrack_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0017c650 / FUN_0017ca60 / FUN_0017cc30 / FUN_0017ced0 / FUN_0017d210 / FUN_0017d6a0 / FUN_0017d8d0 / FUN_0017ddf0)
+
+
+
+// 0x00178ff0 fight::ParamIntConstRange<hulkfight::motion::JointRelativeTrack>::vfunc_0 (30 B): matches/0x00178ff0.cpp
+// sym: ??_G?$ParamIntConstRange@VJointRelativeTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from JointRelativeTrack_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0017c650 / FUN_0017ca60 / FUN_0017cc30 / FUN_0017ced0 / FUN_0017d210 / FUN_0017d6a0 / FUN_0017d8d0 / FUN_0017ddf0)
+
+
+
+// 0x00179050 fight::ParamFloatConstRange<hulkfight::motion::SyncToLocatorTrack>::vfunc_0 (30 B): matches/0x00179050.cpp
+// sym: ??_G?$ParamFloatConstRange@VSyncToLocatorTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from SyncToLocatorTrack_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0017c650 / FUN_0017ca60 / FUN_0017cc30 / FUN_0017ced0 / FUN_0017d210 / FUN_0017d6a0 / FUN_0017d8d0 / FUN_0017ddf0)
+
+
+
+// 0x00179070 fight::ParamScript<hulkfight::motion::SyncToLocatorTrack>::vfunc_0 (30 B): matches/0x00179070.cpp
+// sym: ??_G?$ParamScript@VSyncToLocatorTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from SyncToLocatorTrack_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0017c650 / FUN_0017ca60 / FUN_0017cc30 / FUN_0017ced0 / FUN_0017d210 / FUN_0017d6a0 / FUN_0017d8d0 / FUN_0017ddf0)
+
+
+
+// 0x00179090 fight::ParamEnumConstList<hulkfight::motion::SyncToLocatorTrack>::vfunc_0 (30 B): matches/0x00179090.cpp
+// sym: ??_G?$ParamEnumConstList@VSyncToLocatorTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from SyncToLocatorTrack_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0017c650 / FUN_0017ca60 / FUN_0017cc30 / FUN_0017ced0 / FUN_0017d210 / FUN_0017d6a0 / FUN_0017d8d0 / FUN_0017ddf0)
+
+
+
+// 0x001790b0 fight::ParamVector<hulkfight::motion::SyncToLocatorTrack>::vfunc_0 (30 B): matches/0x001790b0.cpp
+// sym: ??_G?$ParamVector@VSyncToLocatorTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from SyncToLocatorTrack_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0017c650 / FUN_0017ca60 / FUN_0017cc30 / FUN_0017ced0 / FUN_0017d210 / FUN_0017d6a0 / FUN_0017d8d0 / FUN_0017ddf0)
+
+
+
+// 0x001790d0 fight::ParamIntConstRange<hulkfight::motion::SyncToLocatorTrack>::vfunc_0 (30 B): matches/0x001790d0.cpp
+// sym: ??_G?$ParamIntConstRange@VSyncToLocatorTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from SyncToLocatorTrack_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0017c650 / FUN_0017ca60 / FUN_0017cc30 / FUN_0017ced0 / FUN_0017d210 / FUN_0017d6a0 / FUN_0017d8d0 / FUN_0017ddf0)
+
+
+
+// 0x00179210 fight::ParamFloatConstRange<hulkfight::motion::MoveJointTrack>::vfunc_0 (30 B): matches/0x00179210.cpp
+// sym: ??_G?$ParamFloatConstRange@VMoveJointTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from MoveJointTrack_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0017c650 / FUN_0017ca60 / FUN_0017cc30 / FUN_0017ced0 / FUN_0017d210 / FUN_0017d6a0 / FUN_0017d8d0 / FUN_0017ddf0)
+
+
+
+// 0x00179230 fight::ParamIntConstRange<hulkfight::motion::MoveJointTrack>::vfunc_0 (30 B): matches/0x00179230.cpp
+// sym: ??_G?$ParamIntConstRange@VMoveJointTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from MoveJointTrack_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0017c650 / FUN_0017ca60 / FUN_0017cc30 / FUN_0017ced0 / FUN_0017d210 / FUN_0017d6a0 / FUN_0017d8d0 / FUN_0017ddf0)
+
+
+
+// 0x00179250 fight::ParamVector<hulkfight::motion::MoveJointTrack>::vfunc_0 (30 B): matches/0x00179250.cpp
+// sym: ??_G?$ParamVector@VMoveJointTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from MoveJointTrack_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0017c650 / FUN_0017ca60 / FUN_0017cc30 / FUN_0017ced0 / FUN_0017d210 / FUN_0017d6a0 / FUN_0017d8d0 / FUN_0017ddf0)
+
+
+
+// 0x00179270 fight::ParamBool<hulkfight::motion::MoveJointTrack>::vfunc_0 (30 B): matches/0x00179270.cpp
+// sym: ??_G?$ParamBool@VMoveJointTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from MoveJointTrack_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0017c650 / FUN_0017ca60 / FUN_0017cc30 / FUN_0017ced0 / FUN_0017d210 / FUN_0017d6a0 / FUN_0017d8d0 / FUN_0017ddf0)
+
+
+
+// 0x00179550 fight::ParamFloatConstRange<hulkfight::motion::PushOutTrack>::vfunc_0 (30 B): matches/0x00179550.cpp
+// sym: ??_G?$ParamFloatConstRange@VPushOutTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from PushOutTrack_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0017c650 / FUN_0017ca60 / FUN_0017cc30 / FUN_0017ced0 / FUN_0017d210 / FUN_0017d6a0 / FUN_0017d8d0 / FUN_0017ddf0)
+
+
+
+// 0x00179570 fight::ParamVector<hulkfight::motion::PushOutTrack>::vfunc_0 (30 B): matches/0x00179570.cpp
+// sym: ??_G?$ParamVector@VPushOutTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from PushOutTrack_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0017c650 / FUN_0017ca60 / FUN_0017cc30 / FUN_0017ced0 / FUN_0017d210 / FUN_0017d6a0 / FUN_0017d8d0 / FUN_0017ddf0)
+
+
+
+// 0x00179590 fight::ParamBool<hulkfight::motion::PushOutTrack>::vfunc_0 (30 B): matches/0x00179590.cpp
+// sym: ??_G?$ParamBool@VPushOutTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from PushOutTrack_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0017c650 / FUN_0017ca60 / FUN_0017cc30 / FUN_0017ced0 / FUN_0017d210 / FUN_0017d6a0 / FUN_0017d8d0 / FUN_0017ddf0)
+
+
+
+// 0x00179670 fight::ParamFloatConstRange<hulkfight::motion::JointPivotTrackerTrack>::vfunc_0 (30 B): matches/0x00179670.cpp
+// sym: ??_G?$ParamFloatConstRange@VJointPivotTrackerTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from JointPivotTrackerTrack_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0017c650 / FUN_0017ca60 / FUN_0017cc30 / FUN_0017ced0 / FUN_0017d210 / FUN_0017d6a0 / FUN_0017d8d0 / FUN_0017ddf0)
+
+
+
+// 0x00179690 fight::ParamVector<hulkfight::motion::JointPivotTrackerTrack>::vfunc_0 (30 B): matches/0x00179690.cpp
+// sym: ??_G?$ParamVector@VJointPivotTrackerTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from JointPivotTrackerTrack_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0017c650 / FUN_0017ca60 / FUN_0017cc30 / FUN_0017ced0 / FUN_0017d210 / FUN_0017d6a0 / FUN_0017d8d0 / FUN_0017ddf0)
+
+
+
+// 0x001796b0 fight::ParamBool<hulkfight::motion::JointPivotTrackerTrack>::vfunc_0 (30 B): matches/0x001796b0.cpp
+// sym: ??_G?$ParamBool@VJointPivotTrackerTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from JointPivotTrackerTrack_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0017c650 / FUN_0017ca60 / FUN_0017cc30 / FUN_0017ced0 / FUN_0017d210 / FUN_0017d6a0 / FUN_0017d8d0 / FUN_0017ddf0)
+
+
+
+// 0x001796d0 fight::ParamEnumConstList<hulkfight::motion::JointPivotTrackerTrack>::vfunc_0 (30 B): matches/0x001796d0.cpp
+// sym: ??_G?$ParamEnumConstList@VJointPivotTrackerTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from JointPivotTrackerTrack_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0017c650 / FUN_0017ca60 / FUN_0017cc30 / FUN_0017ced0 / FUN_0017d210 / FUN_0017d6a0 / FUN_0017d8d0 / FUN_0017ddf0)
+
+
+
+// 0x001796f0 fight::ParamIntConstRange<hulkfight::motion::JointPivotTrackerTrack>::vfunc_0 (30 B): matches/0x001796f0.cpp
+// sym: ??_G?$ParamIntConstRange@VJointPivotTrackerTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from JointPivotTrackerTrack_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0017c650 / FUN_0017ca60 / FUN_0017cc30 / FUN_0017ced0 / FUN_0017d210 / FUN_0017d6a0 / FUN_0017d8d0 / FUN_0017ddf0)
+
+
+
+// 0x00179b90 fight::ParamFloatConstRange<hulkfight::motion::FootPivotTrack>::vfunc_0 (30 B): matches/0x00179b90.cpp
+// sym: ??_G?$ParamFloatConstRange@VFootPivotTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from FootPivotTrack_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0017c650 / FUN_0017ca60 / FUN_0017cc30 / FUN_0017ced0 / FUN_0017d210 / FUN_0017d6a0 / FUN_0017d8d0 / FUN_0017ddf0)
+
+
+
+// 0x00179bb0 fight::ParamVector<hulkfight::motion::FootPivotTrack>::vfunc_0 (30 B): matches/0x00179bb0.cpp
+// sym: ??_G?$ParamVector@VFootPivotTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from FootPivotTrack_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0017c650 / FUN_0017ca60 / FUN_0017cc30 / FUN_0017ced0 / FUN_0017d210 / FUN_0017d6a0 / FUN_0017d8d0 / FUN_0017ddf0)
+
+
+
+// 0x00179bd0 fight::ParamBool<hulkfight::motion::FootPivotTrack>::vfunc_0 (30 B): matches/0x00179bd0.cpp
+// sym: ??_G?$ParamBool@VFootPivotTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from FootPivotTrack_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0017c650 / FUN_0017ca60 / FUN_0017cc30 / FUN_0017ced0 / FUN_0017d210 / FUN_0017d6a0 / FUN_0017d8d0 / FUN_0017ddf0)
+
+
+
+// 0x00179bf0 fight::ParamIntConstRange<hulkfight::motion::FootPivotTrack>::vfunc_0 (30 B): matches/0x00179bf0.cpp
+// sym: ??_G?$ParamIntConstRange@VFootPivotTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from FootPivotTrack_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_0017c650 / FUN_0017ca60 / FUN_0017cc30 / FUN_0017ced0 / FUN_0017d210 / FUN_0017d6a0 / FUN_0017d8d0 / FUN_0017ddf0)
+
+
+
 // 0x0017bc70 hulkfight::motion::RestPoseTrack::vfunc_10 (70 B): matches/0x0017bc70.cpp
 // sym: ?vfunc_10@RestPoseTrack@motion@hulkfight@@UAEHHHH@Z
 // Same code shape as 0x001131c0 (propagated; names are from that function)
@@ -1145,80 +1391,56 @@ void ParamBranch::vfunc_6(void* p) {
 // sym: ??_G?$ParamNameConstList@VJointTrackerTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamNameConstList<hulkfight::motion::JointTrackerTrack>::~ParamNameConstList() {}
-#if defined(HULK_PTR64)
-template class fight::ParamNameConstList<hulkfight::motion::JointTrackerTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x17c520)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x0017c540 fight::ParamName<hulkfight::motion::RestPoseTrack>::vfunc_0 (30 B): matches/0x0017c540.cpp
 // sym: ??_G?$ParamName@VRestPoseTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamName<hulkfight::motion::RestPoseTrack>::~ParamName() {}
-#if defined(HULK_PTR64)
-template class fight::ParamName<hulkfight::motion::RestPoseTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x17c540)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x0017c560 fight::ParamNameConstList<hulkfight::motion::JointRelativeTrack>::vfunc_0 (30 B): matches/0x0017c560.cpp
 // sym: ??_G?$ParamNameConstList@VJointRelativeTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamNameConstList<hulkfight::motion::JointRelativeTrack>::~ParamNameConstList() {}
-#if defined(HULK_PTR64)
-template class fight::ParamNameConstList<hulkfight::motion::JointRelativeTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x17c560)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x0017c580 fight::ParamName<hulkfight::motion::SyncToLocatorTrack>::vfunc_0 (30 B): matches/0x0017c580.cpp
 // sym: ??_G?$ParamName@VSyncToLocatorTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamName<hulkfight::motion::SyncToLocatorTrack>::~ParamName() {}
-#if defined(HULK_PTR64)
-template class fight::ParamName<hulkfight::motion::SyncToLocatorTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x17c580)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x0017c5a0 fight::ParamNameConstList<hulkfight::motion::MoveJointTrack>::vfunc_0 (30 B): matches/0x0017c5a0.cpp
 // sym: ??_G?$ParamNameConstList@VMoveJointTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamNameConstList<hulkfight::motion::MoveJointTrack>::~ParamNameConstList() {}
-#if defined(HULK_PTR64)
-template class fight::ParamNameConstList<hulkfight::motion::MoveJointTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x17c5a0)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x0017c5c0 fight::ParamNameConstList<hulkfight::motion::PushOutTrack>::vfunc_0 (30 B): matches/0x0017c5c0.cpp
 // sym: ??_G?$ParamNameConstList@VPushOutTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamNameConstList<hulkfight::motion::PushOutTrack>::~ParamNameConstList() {}
-#if defined(HULK_PTR64)
-template class fight::ParamNameConstList<hulkfight::motion::PushOutTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x17c5c0)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x0017c5e0 fight::ParamNameConstList<hulkfight::motion::JointPivotTrackerTrack>::vfunc_0 (30 B): matches/0x0017c5e0.cpp
 // sym: ??_G?$ParamNameConstList@VJointPivotTrackerTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamNameConstList<hulkfight::motion::JointPivotTrackerTrack>::~ParamNameConstList() {}
-#if defined(HULK_PTR64)
-template class fight::ParamNameConstList<hulkfight::motion::JointPivotTrackerTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x17c5e0)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x0017c600 fight::ParamNameConstList<hulkfight::motion::FootPivotTrack>::vfunc_0 (30 B): matches/0x0017c600.cpp
 // sym: ??_G?$ParamNameConstList@VFootPivotTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamNameConstList<hulkfight::motion::FootPivotTrack>::~ParamNameConstList() {}
-#if defined(HULK_PTR64)
-template class fight::ParamNameConstList<hulkfight::motion::FootPivotTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x17c600)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x0017c620 FUN_0017c620 (38 B): matches/0x0017c620.cpp [wrapped: conflict: Find; fight::TrackFactoryCasterTemplate]
@@ -1243,89 +1465,39 @@ extern "C" void FUN_0017c620(Thing* thing, const char* name) {
 
 namespace fn_f05a6271 {
 
-// 0x0017c650 FUN_0017c650 (933 B): equivalent/0x0017c650.cpp
-// sym: _FUN_0017c650 @ed9f49ce204b @w15d6c7af4405
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 36/36)
-// FUN_0017c650 @ 0x0017c650
+} // namespace fn_f05a6271
+
+// 0x0017c650 FUN_0017c650 (933 B): matches/0x0017c650.cpp
+// sym: _FUN_0017c650
+// (gx2, D18) rewritten; constructs the real ParamBool<hulkfight::motion::JointTrackerTrack>, ParamEnumConstList<hulkfight::motion::JointTrackerTrack>, ParamFloatConstRange<hulkfight::motion::JointTrackerTrack>, ParamIntConstRange<hulkfight::motion::JointTrackerTrack>, ParamNameConstList<hulkfight::motion::JointTrackerTrack>, ParamVector<hulkfight::motion::JointTrackerTrack>,
+// whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_0017c650()
 {
     if (DAT_004e12ec == 0) {
-        void* params[17];
-        void* mem;
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>));
-        params[0] = 0;
-        if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>("timeBegin", (void (hulkfight::motion::JointTrackerTrack_17c650::*)())&hulkfight::motion::JointTrackerTrack_17c650::FUN_0016e720);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>));
-        params[1] = 0;
-        if (mem)
-            params[1] = new (mem) fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>("timeEnd", (void (hulkfight::motion::JointTrackerTrack_17c650::*)())&hulkfight::motion::JointTrackerTrack_17c650::FUN_0016e730);
-        mem = FUN_0008d690((int)sizeof(fight::ParamNameConstList_17c650<hulkfight::motion::JointTrackerTrack_17c650>));
-        params[2] = 0;
-        if (mem)
-            params[2] = new (mem) fight::ParamNameConstList_17c650<hulkfight::motion::JointTrackerTrack_17c650>("joint", &hulkfight::motion::JointTrackerTrack_17c650::FUN_0016e740);
-        mem = FUN_0008d690((int)sizeof(fight::ParamVector_17c650<hulkfight::motion::JointTrackerTrack_17c650>));
-        params[3] = 0;
-        if (mem)
-            params[3] = new (mem) fight::ParamVector_17c650<hulkfight::motion::JointTrackerTrack_17c650>("north", (void (hulkfight::motion::JointTrackerTrack_17c650::*)())&hulkfight::motion::JointTrackerTrack_17c650::FUN_0016e770);
-        mem = FUN_0008d690((int)sizeof(fight::ParamVector_17c650<hulkfight::motion::JointTrackerTrack_17c650>));
-        params[4] = 0;
-        if (mem)
-            params[4] = new (mem) fight::ParamVector_17c650<hulkfight::motion::JointTrackerTrack_17c650>("east", (void (hulkfight::motion::JointTrackerTrack_17c650::*)())&hulkfight::motion::JointTrackerTrack_17c650::FUN_0016e7b0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>));
-        params[5] = 0;
-        if (mem)
-            params[5] = new (mem) fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>("turnRate", (void (hulkfight::motion::JointTrackerTrack_17c650::*)())&hulkfight::motion::JointTrackerTrack_17c650::FUN_0016e7e0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>));
-        params[6] = 0;
-        if (mem)
-            params[6] = new (mem) fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>("vertMinAngle", (void (hulkfight::motion::JointTrackerTrack_17c650::*)())&hulkfight::motion::JointTrackerTrack_17c650::FUN_0016e810);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>));
-        params[7] = 0;
-        if (mem)
-            params[7] = new (mem) fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>("vertMaxAngle", (void (hulkfight::motion::JointTrackerTrack_17c650::*)())&hulkfight::motion::JointTrackerTrack_17c650::FUN_0016e840);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>));
-        params[8] = 0;
-        if (mem)
-            params[8] = new (mem) fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>("horzMinAngle", (void (hulkfight::motion::JointTrackerTrack_17c650::*)())&hulkfight::motion::JointTrackerTrack_17c650::FUN_0016e870);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>));
-        params[9] = 0;
-        if (mem)
-            params[9] = new (mem) fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>("horzMaxAngle", (void (hulkfight::motion::JointTrackerTrack_17c650::*)())&hulkfight::motion::JointTrackerTrack_17c650::FUN_0016e8a0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamBool_17c650<hulkfight::motion::JointTrackerTrack_17c650>));
-        params[10] = 0;
-        if (mem)
-            params[10] = new (mem) fight::ParamBool_17c650<hulkfight::motion::JointTrackerTrack_17c650>("targetRequired", (void (hulkfight::motion::JointTrackerTrack_17c650::*)())&hulkfight::motion::JointTrackerTrack_17c650::FUN_0016e8d0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>));
-        params[11] = 0;
-        if (mem)
-            params[11] = new (mem) fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>("targetArc", (void (hulkfight::motion::JointTrackerTrack_17c650::*)())&hulkfight::motion::JointTrackerTrack_17c650::FUN_0016e8f0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>));
-        params[12] = 0;
-        if (mem)
-            params[12] = new (mem) fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>("targetDistance", (void (hulkfight::motion::JointTrackerTrack_17c650::*)())&hulkfight::motion::JointTrackerTrack_17c650::FUN_0016e920);
-        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_17c650<hulkfight::motion::JointTrackerTrack_17c650>));
-        params[13] = 0;
-        if (mem)
-            params[13] = new (mem) fight::ParamEnumConstList_17c650<hulkfight::motion::JointTrackerTrack_17c650>("targetLocation", ((const char**)&DAT_004b7cf0), 3, (void (hulkfight::motion::JointTrackerTrack_17c650::*)())&hulkfight::motion::JointTrackerTrack_17c650::FUN_0016e940);
-        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>));
-        params[14] = 0;
-        if (mem)
-            params[14] = new (mem) fight::ParamIntConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>("priority", (void (hulkfight::motion::JointTrackerTrack_17c650::*)())&hulkfight::motion::JointTrackerTrack_17c650::FUN_0016e960);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>));
-        params[15] = 0;
-        if (mem)
-            params[15] = new (mem) fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>("blendInTime", (void (hulkfight::motion::JointTrackerTrack_17c650::*)())&hulkfight::motion::JointTrackerTrack_17c650::FUN_0016e980);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>));
-        params[16] = 0;
-        if (mem)
-            params[16] = new (mem) fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>("blendOutTime", (void (hulkfight::motion::JointTrackerTrack_17c650::*)())&hulkfight::motion::JointTrackerTrack_17c650::FUN_0016e9a0);
-        FUN_002347b0(((ParamRegistry*)&DAT_004e12e8), params, 17);
+        ::fight::ParamValue* params[17];
+        params[0] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::JointTrackerTrack>("timeBegin", &owners::Obj_16e720::FUN_0016e720);
+        params[1] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::JointTrackerTrack>("timeEnd", &owners::Obj_16e730::FUN_0016e730);
+        params[2] = new ::fight::ParamNameConstList< ::hulkfight::motion::JointTrackerTrack>("joint", &owners::A_16e740::FUN_0016e740);
+        params[3] = new ::fight::ParamVector< ::hulkfight::motion::JointTrackerTrack>("north", &fn_fa642773::C_16e770::Set);
+        params[4] = new ::fight::ParamVector< ::hulkfight::motion::JointTrackerTrack>("east", &fn_fa642773::Thing::Set);
+        params[5] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::JointTrackerTrack>("turnRate", &owners::A_16e7e0::FUN_0016e7e0);
+        params[6] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::JointTrackerTrack>("vertMinAngle", &owners::Obj_16e810::FUN_0016e810);
+        params[7] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::JointTrackerTrack>("vertMaxAngle", &owners::Obj_16e840::FUN_0016e840);
+        params[8] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::JointTrackerTrack>("horzMinAngle", &owners::X_16e870::FUN_0016e870);
+        params[9] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::JointTrackerTrack>("horzMaxAngle", &owners::Obj_16e8a0::FUN_0016e8a0);
+        params[10] = new ::fight::ParamBool< ::hulkfight::motion::JointTrackerTrack>("targetRequired", &owners::C_16e8d0::FUN_0016e8d0);
+        params[11] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::JointTrackerTrack>("targetArc", &owners::Target_16e8f0::FUN_0016e8f0);
+        params[12] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::JointTrackerTrack>("targetDistance", &owners::Obj_16e920::FUN_0016e920);
+        params[13] = new ::fight::ParamEnumConstList< ::hulkfight::motion::JointTrackerTrack>("targetLocation", (void*)&DAT_004b7cf0, 3, &owners::Obj_16e940::FUN_0016e940);
+        params[14] = new ::fight::ParamIntConstRange< ::hulkfight::motion::JointTrackerTrack>("priority", &owners::Obj_16e960::FUN_0016e960);
+        params[15] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::JointTrackerTrack>("blendInTime", &owners::Obj_16e980::FUN_0016e980);
+        params[16] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::JointTrackerTrack>("blendOutTime", &owners::Obj_16e9a0::FUN_0016e9a0);
+        FUN_002347b0(&DAT_004e12e8, params, 17);
     }
     DAT_004e12ec++;
 }
 
-} // namespace fn_f05a6271
+
 
 // 0x0017ca00 FUN_0017ca00 (38 B): matches/0x0017ca00.cpp [wrapped: conflict: Find]
 // sym: _FUN_0017ca00
@@ -1367,44 +1539,28 @@ extern "C" void __cdecl FUN_0017ca30(Obj* obj, void* name) {
 
 namespace fn_f05a6271 {
 
-// 0x0017ca60 FUN_0017ca60 (358 B): equivalent/0x0017ca60.cpp
-// sym: _FUN_0017ca60 @c2779d21229a @w7aac995ae6c0
-// STATUS: equivalent (tools/equiv.py level 3: 87 inputs, branch coverage 14/14)
-// FUN_0017ca60 @ 0x0017ca60
+} // namespace fn_f05a6271
+
+// 0x0017ca60 FUN_0017ca60 (358 B): matches/0x0017ca60.cpp
+// sym: _FUN_0017ca60
+// (gx2, D18) rewritten; constructs the real ParamFloatConstRange<hulkfight::motion::RestPoseTrack>, ParamIntConstRange<hulkfight::motion::RestPoseTrack>, ParamName<hulkfight::motion::RestPoseTrack>,
+// whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_0017ca60()
 {
     if (DAT_004e12fc == 0) {
-        void* params[6];
-        void* mem;
-
-        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<RestPoseTrack>));
-        params[0] = 0;
-        if (mem)
-            params[0] = new (mem) ParamFloatConstRange<RestPoseTrack>("timeBegin", (void (RestPoseTrack::*)())&RestPoseTrack::FUN_0016ea30);
-        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<RestPoseTrack>));
-        params[1] = 0;
-        if (mem)
-            params[1] = new (mem) ParamFloatConstRange<RestPoseTrack>("timeEnd", (void (RestPoseTrack::*)())&RestPoseTrack::FUN_0016ea40);
-        mem = FUN_0008d690((int)sizeof(ParamName<RestPoseTrack>));
-        params[2] = 0;
-        if (mem)
-            params[2] = new (mem) ParamName<RestPoseTrack>("partition", &RestPoseTrack::FUN_0016ea50);
-        mem = FUN_0008d690((int)sizeof(ParamIntConstRange<RestPoseTrack>));
-        params[3] = 0;
-        if (mem)
-            params[3] = new (mem) ParamIntConstRange<RestPoseTrack>("priority", (void (RestPoseTrack::*)())&RestPoseTrack::FUN_0016ea70);
-        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<RestPoseTrack>));
-        params[4] = 0;
-        if (mem)
-            params[4] = new (mem) ParamFloatConstRange<RestPoseTrack>("blendInTime", (void (RestPoseTrack::*)())&RestPoseTrack::FUN_0016ea90);
-        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<RestPoseTrack>));
-        params[5] = 0;
-        if (mem)
-            params[5] = new (mem) ParamFloatConstRange<RestPoseTrack>("blendOutTime", (void (RestPoseTrack::*)())&RestPoseTrack::FUN_0016eab0);
-        FUN_002347b0(((ParamRegistry*)&DAT_004e12f8), params, 6);
+        ::fight::ParamValue* params[6];
+        params[0] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::RestPoseTrack>("timeBegin", &owners::C_16ea30::FUN_0016ea30);
+        params[1] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::RestPoseTrack>("timeEnd", &owners::Foo_16ea40::FUN_0016ea40);
+        params[2] = new ::fight::ParamName< ::hulkfight::motion::RestPoseTrack>("partition", &owners::Obj_16ea50::FUN_0016ea50);
+        params[3] = new ::fight::ParamIntConstRange< ::hulkfight::motion::RestPoseTrack>("priority", &owners::O_16ea70::FUN_0016ea70);
+        params[4] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::RestPoseTrack>("blendInTime", &owners::X_16ea90::FUN_0016ea90);
+        params[5] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::RestPoseTrack>("blendOutTime", &owners::Obj_16eab0::FUN_0016eab0);
+        FUN_002347b0(&DAT_004e12f8, params, 6);
     }
     DAT_004e12fc++;
 }
+
+namespace fn_f05a6271 {
 
 
 // 0x0017cbd0 FUN_0017cbd0 (38 B): matches/0x0017cbd0.cpp
@@ -1424,65 +1580,33 @@ extern "C" void FUN_0017cc00(Track* track, const char* name) {
 }
 
 
-// 0x0017cc30 FUN_0017cc30 (613 B): equivalent/0x0017cc30.cpp
-// sym: _FUN_0017cc30 @19491d48245d @w23b1deba88f0
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 24/24)
-// FUN_0017cc30 @ 0x0017cc30
+} // namespace fn_f05a6271
+
+// 0x0017cc30 FUN_0017cc30 (613 B): matches/0x0017cc30.cpp
+// sym: _FUN_0017cc30
+// (gx2, D18) rewritten; constructs the real ParamBool<hulkfight::motion::JointRelativeTrack>, ParamFloatConstRange<hulkfight::motion::JointRelativeTrack>, ParamIntConstRange<hulkfight::motion::JointRelativeTrack>, ParamNameConstList<hulkfight::motion::JointRelativeTrack>, ParamVector<hulkfight::motion::JointRelativeTrack>,
+// whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_0017cc30()
 {
     if (DAT_004e130c == 0) {
-        void* params[11];
-        void* mem;
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17cc30<JointRelativeTrack>));
-        params[0] = 0;
-        if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange_17cc30<JointRelativeTrack>("timeBegin", (void (JointRelativeTrack::*)())&JointRelativeTrack::FUN_0016ead0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17cc30<JointRelativeTrack>));
-        params[1] = 0;
-        if (mem)
-            params[1] = new (mem) fight::ParamFloatConstRange_17cc30<JointRelativeTrack>("timeEnd", (void (JointRelativeTrack::*)())&JointRelativeTrack::FUN_0016eae0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamNameConstList_17cc30<JointRelativeTrack>));
-        params[2] = 0;
-        if (mem)
-            params[2] = new (mem) fight::ParamNameConstList_17cc30<JointRelativeTrack>("joint", &JointRelativeTrack::FUN_0016eaf0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamBool_17cc30<JointRelativeTrack>));
-        params[3] = 0;
-        if (mem)
-            params[3] = new (mem) fight::ParamBool_17cc30<JointRelativeTrack>("useRestPose", (void (JointRelativeTrack::*)())&JointRelativeTrack::FUN_0016eb10);
-        mem = FUN_0008d690((int)sizeof(fight::ParamBool_17cc30<JointRelativeTrack>));
-        params[4] = 0;
-        if (mem)
-            params[4] = new (mem) fight::ParamBool_17cc30<JointRelativeTrack>("hasTranslation", (void (JointRelativeTrack::*)())&JointRelativeTrack::FUN_0016eb30);
-        mem = FUN_0008d690((int)sizeof(fight::ParamVector_17cc30<JointRelativeTrack>));
-        params[5] = 0;
-        if (mem)
-            params[5] = new (mem) fight::ParamVector_17cc30<JointRelativeTrack>("translation", (void (JointRelativeTrack::*)())&JointRelativeTrack::FUN_0016eb60);
-        mem = FUN_0008d690((int)sizeof(fight::ParamBool_17cc30<JointRelativeTrack>));
-        params[6] = 0;
-        if (mem)
-            params[6] = new (mem) fight::ParamBool_17cc30<JointRelativeTrack>("hasRotation", (void (JointRelativeTrack::*)())&JointRelativeTrack::FUN_0016eb90);
-        mem = FUN_0008d690((int)sizeof(fight::ParamVector_17cc30<JointRelativeTrack>));
-        params[7] = 0;
-        if (mem)
-            params[7] = new (mem) fight::ParamVector_17cc30<JointRelativeTrack>("rotation", (void (JointRelativeTrack::*)())&JointRelativeTrack::FUN_0016ebc0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_17cc30<JointRelativeTrack>));
-        params[8] = 0;
-        if (mem)
-            params[8] = new (mem) fight::ParamIntConstRange_17cc30<JointRelativeTrack>("priority", (void (JointRelativeTrack::*)())&JointRelativeTrack::FUN_0016ec10);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17cc30<JointRelativeTrack>));
-        params[9] = 0;
-        if (mem)
-            params[9] = new (mem) fight::ParamFloatConstRange_17cc30<JointRelativeTrack>("blendInTime", (void (JointRelativeTrack::*)())&JointRelativeTrack::FUN_0016ec30);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17cc30<JointRelativeTrack>));
-        params[10] = 0;
-        if (mem)
-            params[10] = new (mem) fight::ParamFloatConstRange_17cc30<JointRelativeTrack>("blendOutTime", (void (JointRelativeTrack::*)())&JointRelativeTrack::FUN_0016ec50);
-        FUN_002347b0(((ParamRegistry*)&DAT_004e1308), params, 11);
+        ::fight::ParamValue* params[11];
+        params[0] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::JointRelativeTrack>("timeBegin", &owners::Obj_16ead0::FUN_0016ead0);
+        params[1] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::JointRelativeTrack>("timeEnd", &owners::Obj_16eae0::FUN_0016eae0);
+        params[2] = new ::fight::ParamNameConstList< ::hulkfight::motion::JointRelativeTrack>("joint", &owners::Obj_16eaf0::FUN_0016eaf0);
+        params[3] = new ::fight::ParamBool< ::hulkfight::motion::JointRelativeTrack>("useRestPose", &owners::Obj_16eb10::FUN_0016eb10);
+        params[4] = new ::fight::ParamBool< ::hulkfight::motion::JointRelativeTrack>("hasTranslation", &owners::Obj_16eb30::FUN_0016eb30);
+        params[5] = new ::fight::ParamVector< ::hulkfight::motion::JointRelativeTrack>("translation", static_cast<bool (fn_0016eb60::C_16eb60::*)(struct fn_0016eb60::S_16eb60 *)>(&fn_0016eb60::C_16eb60::operator=));
+        params[6] = new ::fight::ParamBool< ::hulkfight::motion::JointRelativeTrack>("hasRotation", &owners::Obj_16eb90::FUN_0016eb90);
+        params[7] = new ::fight::ParamVector< ::hulkfight::motion::JointRelativeTrack>("rotation", &owners::Obj_16ebc0::FUN_0016ebc0);
+        params[8] = new ::fight::ParamIntConstRange< ::hulkfight::motion::JointRelativeTrack>("priority", &owners::Obj_16ec10::FUN_0016ec10);
+        params[9] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::JointRelativeTrack>("blendInTime", &owners::X_16ec30::FUN_0016ec30);
+        params[10] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::JointRelativeTrack>("blendOutTime", &owners::Obj_16ec50::FUN_0016ec50);
+        FUN_002347b0(&DAT_004e1308, params, 11);
     }
     DAT_004e130c++;
 }
 
-} // namespace fn_f05a6271
+
 
 // 0x0017cea0 FUN_0017cea0 (38 B): matches/0x0017cea0.cpp [wrapped: conflict: Find]
 // sym: _FUN_0017cea0
@@ -1505,67 +1629,34 @@ extern "C" void FUN_0017cea0(Obj* obj, void* name) {
 
 namespace fn_f05a6271 {
 
-// 0x0017ced0 FUN_0017ced0 (678 B): equivalent/0x0017ced0.cpp
-// sym: _FUN_0017ced0 @2a2028bfaf9b @w4378baffa689
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 26/26)
-// FUN_0017ced0 @ 0x0017ced0
+} // namespace fn_f05a6271
+
+// 0x0017ced0 FUN_0017ced0 (678 B): matches/0x0017ced0.cpp
+// sym: _FUN_0017ced0
+// (gx2, D18) rewritten; constructs the real ParamEnumConstList<hulkfight::motion::SyncToLocatorTrack>, ParamFloatConstRange<hulkfight::motion::SyncToLocatorTrack>, ParamIntConstRange<hulkfight::motion::SyncToLocatorTrack>, ParamName<hulkfight::motion::SyncToLocatorTrack>, ParamScript<hulkfight::motion::SyncToLocatorTrack>, ParamVector<hulkfight::motion::SyncToLocatorTrack>,
+// whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_0017ced0()
 {
     if (DAT_004e1314 == 0) {
-        void* params[12];
-        void* mem;
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>));
-        params[0] = 0;
-        if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>("timeBegin", (void (hulkfight::motion::SyncToLocatorTrack_17ced0::*)())&hulkfight::motion::SyncToLocatorTrack_17ced0::FUN_0016ec60);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>));
-        params[1] = 0;
-        if (mem)
-            params[1] = new (mem) fight::ParamFloatConstRange_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>("timeEnd", (void (hulkfight::motion::SyncToLocatorTrack_17ced0::*)())&hulkfight::motion::SyncToLocatorTrack_17ced0::FUN_0016ec70);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>));
-        params[2] = 0;
-        if (mem)
-            params[2] = new (mem) fight::ParamFloatConstRange_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>("rotationEnd", (void (hulkfight::motion::SyncToLocatorTrack_17ced0::*)())&hulkfight::motion::SyncToLocatorTrack_17ced0::FUN_0016ec90);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>));
-        params[3] = 0;
-        if (mem)
-            params[3] = new (mem) fight::ParamFloatConstRange_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>("translationEnd", (void (hulkfight::motion::SyncToLocatorTrack_17ced0::*)())&hulkfight::motion::SyncToLocatorTrack_17ced0::FUN_0016ecb0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamName_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>));
-        params[4] = 0;
-        if (mem)
-            params[4] = new (mem) fight::ParamName_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>("locatorName", &hulkfight::motion::SyncToLocatorTrack_17ced0::FUN_0016ecc0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamScript_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>));
-        params[5] = 0;
-        if (mem)
-            params[5] = new (mem) fight::ParamScript_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>("locatorInitScript", (void (hulkfight::motion::SyncToLocatorTrack_17ced0::*)())&hulkfight::motion::SyncToLocatorTrack_17ced0::FUN_00170130);
-        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>));
-        params[6] = 0;
-        if (mem)
-            params[6] = new (mem) fight::ParamEnumConstList_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>("rotationOverride", ((const char**)&DAT_004b7cfc), 3, (void (hulkfight::motion::SyncToLocatorTrack_17ced0::*)())&hulkfight::motion::SyncToLocatorTrack_17ced0::FUN_0016ed00);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>));
-        params[7] = 0;
-        if (mem)
-            params[7] = new (mem) fight::ParamFloatConstRange_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>("orientOffset", (void (hulkfight::motion::SyncToLocatorTrack_17ced0::*)())&hulkfight::motion::SyncToLocatorTrack_17ced0::FUN_0016ed20);
-        mem = FUN_0008d690((int)sizeof(fight::ParamVector_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>));
-        params[8] = 0;
-        if (mem)
-            params[8] = new (mem) fight::ParamVector_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>("positionOffset", (void (hulkfight::motion::SyncToLocatorTrack_17ced0::*)())&hulkfight::motion::SyncToLocatorTrack_17ced0::FUN_0016ed60);
-        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>));
-        params[9] = 0;
-        if (mem)
-            params[9] = new (mem) fight::ParamIntConstRange_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>("priority", (void (hulkfight::motion::SyncToLocatorTrack_17ced0::*)())&hulkfight::motion::SyncToLocatorTrack_17ced0::FUN_0016ed90);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>));
-        params[10] = 0;
-        if (mem)
-            params[10] = new (mem) fight::ParamFloatConstRange_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>("blendInTime", (void (hulkfight::motion::SyncToLocatorTrack_17ced0::*)())&hulkfight::motion::SyncToLocatorTrack_17ced0::FUN_0016edb0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>));
-        params[11] = 0;
-        if (mem)
-            params[11] = new (mem) fight::ParamFloatConstRange_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>("blendOutTime", (void (hulkfight::motion::SyncToLocatorTrack_17ced0::*)())&hulkfight::motion::SyncToLocatorTrack_17ced0::FUN_0016edd0);
-        FUN_002347b0(((ParamRegistry*)&DAT_004e1310), params, 12);
+        ::fight::ParamValue* params[12];
+        params[0] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::SyncToLocatorTrack>("timeBegin", &owners::Obj_16ec60::FUN_0016ec60);
+        params[1] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::SyncToLocatorTrack>("timeEnd", &owners::Obj_16ec70::FUN_0016ec70);
+        params[2] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::SyncToLocatorTrack>("rotationEnd", &owners::Obj_16ec90::FUN_0016ec90);
+        params[3] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::SyncToLocatorTrack>("translationEnd", &owners::Obj_16ecb0::FUN_0016ecb0);
+        params[4] = new ::fight::ParamName< ::hulkfight::motion::SyncToLocatorTrack>("locatorName", &owners::Obj_16ecc0::FUN_0016ecc0);
+        params[5] = new ::fight::ParamScript< ::hulkfight::motion::SyncToLocatorTrack>("locatorInitScript", &owners::StrHolder_170130::FUN_00170130);
+        params[6] = new ::fight::ParamEnumConstList< ::hulkfight::motion::SyncToLocatorTrack>("rotationOverride", (void*)&DAT_004b7cfc, 3, &owners::Obj_16ed00::FUN_0016ed00);
+        params[7] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::SyncToLocatorTrack>("orientOffset", &owners::Obj_16ed20::FUN_0016ed20);
+        params[8] = new ::fight::ParamVector< ::hulkfight::motion::SyncToLocatorTrack>("positionOffset", &fn_fa642773::Obj::Set);
+        params[9] = new ::fight::ParamIntConstRange< ::hulkfight::motion::SyncToLocatorTrack>("priority", &owners::Obj_16ed90::FUN_0016ed90);
+        params[10] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::SyncToLocatorTrack>("blendInTime", &owners::X_16edb0::FUN_0016edb0);
+        params[11] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::SyncToLocatorTrack>("blendOutTime", &owners::Obj_16edd0::FUN_0016edd0);
+        FUN_002347b0(&DAT_004e1310, params, 12);
     }
     DAT_004e1314++;
 }
+
+namespace fn_f05a6271 {
 
 
 // 0x0017d180 FUN_0017d180 (38 B): matches/0x0017d180.cpp
@@ -1594,85 +1685,38 @@ extern "C" void FUN_0017d1e0(Obj* obj, int n) {
 }
 
 
-// 0x0017d210 FUN_0017d210 (868 B): equivalent/0x0017d210.cpp
-// sym: _FUN_0017d210 @349d8f786f61 @wc0fd0d999dbf
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 34/34)
-// FUN_0017d210 @ 0x0017d210
+} // namespace fn_f05a6271
+
+// 0x0017d210 FUN_0017d210 (868 B): matches/0x0017d210.cpp
+// sym: _FUN_0017d210
+// (gx2, D18) rewritten; constructs the real ParamBool<hulkfight::motion::MoveJointTrack>, ParamFloatConstRange<hulkfight::motion::MoveJointTrack>, ParamIntConstRange<hulkfight::motion::MoveJointTrack>, ParamNameConstList<hulkfight::motion::MoveJointTrack>, ParamVector<hulkfight::motion::MoveJointTrack>,
+// whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_0017d210()
 {
-    if (hulk_at_004e132c == 0) {
-        void* params[16];
-        void* mem;
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>));
-        params[0] = 0;
-        if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>("timeBegin", (void (hulkfight::motion::MoveJointTrack_17d210::*)())&hulkfight::motion::MoveJointTrack_17d210::FUN_0016eeb0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>));
-        params[1] = 0;
-        if (mem)
-            params[1] = new (mem) fight::ParamFloatConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>("timeEnd", (void (hulkfight::motion::MoveJointTrack_17d210::*)())&hulkfight::motion::MoveJointTrack_17d210::FUN_0016eed0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>));
-        params[2] = 0;
-        if (mem)
-            params[2] = new (mem) fight::ParamIntConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>("attachmentIndex", (void (hulkfight::motion::MoveJointTrack_17d210::*)())&hulkfight::motion::MoveJointTrack_17d210::FUN_0016eef0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamNameConstList_17d210<hulkfight::motion::MoveJointTrack_17d210>));
-        params[3] = 0;
-        if (mem)
-            params[3] = new (mem) fight::ParamNameConstList_17d210<hulkfight::motion::MoveJointTrack_17d210>("moveJoint", &hulkfight::motion::MoveJointTrack_17d210::FUN_0016ef00);
-        mem = FUN_0008d690((int)sizeof(fight::ParamNameConstList_17d210<hulkfight::motion::MoveJointTrack_17d210>));
-        params[4] = 0;
-        if (mem)
-            params[4] = new (mem) fight::ParamNameConstList_17d210<hulkfight::motion::MoveJointTrack_17d210>("startJoint", &hulkfight::motion::MoveJointTrack_17d210::FUN_0016ef10);
-        mem = FUN_0008d690((int)sizeof(fight::ParamVector_17d210<hulkfight::motion::MoveJointTrack_17d210>));
-        params[5] = 0;
-        if (mem)
-            params[5] = new (mem) fight::ParamVector_17d210<hulkfight::motion::MoveJointTrack_17d210>("offset", (void (hulkfight::motion::MoveJointTrack_17d210::*)())&hulkfight::motion::MoveJointTrack_17d210::FUN_0016ef40);
-        mem = FUN_0008d690((int)sizeof(fight::ParamVector_17d210<hulkfight::motion::MoveJointTrack_17d210>));
-        params[6] = 0;
-        if (mem)
-            params[6] = new (mem) fight::ParamVector_17d210<hulkfight::motion::MoveJointTrack_17d210>("direction", (void (hulkfight::motion::MoveJointTrack_17d210::*)())&hulkfight::motion::MoveJointTrack_17d210::FUN_0016ef80);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>));
-        params[7] = 0;
-        if (mem)
-            params[7] = new (mem) fight::ParamFloatConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>("distanceStart", (void (hulkfight::motion::MoveJointTrack_17d210::*)())&hulkfight::motion::MoveJointTrack_17d210::FUN_0016efb0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>));
-        params[8] = 0;
-        if (mem)
-            params[8] = new (mem) fight::ParamFloatConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>("distanceEnd", (void (hulkfight::motion::MoveJointTrack_17d210::*)())&hulkfight::motion::MoveJointTrack_17d210::FUN_0016efd0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>));
-        params[9] = 0;
-        if (mem)
-            params[9] = new (mem) fight::ParamFloatConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>("initVelocity", (void (hulkfight::motion::MoveJointTrack_17d210::*)())&hulkfight::motion::MoveJointTrack_17d210::FUN_0016eff0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>));
-        params[10] = 0;
-        if (mem)
-            params[10] = new (mem) fight::ParamFloatConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>("maxVelocity", (void (hulkfight::motion::MoveJointTrack_17d210::*)())&hulkfight::motion::MoveJointTrack_17d210::FUN_0016f010);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>));
-        params[11] = 0;
-        if (mem)
-            params[11] = new (mem) fight::ParamFloatConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>("acceleration", (void (hulkfight::motion::MoveJointTrack_17d210::*)())&hulkfight::motion::MoveJointTrack_17d210::FUN_0016f030);
-        mem = FUN_0008d690((int)sizeof(fight::ParamBool_17d210<hulkfight::motion::MoveJointTrack_17d210>));
-        params[12] = 0;
-        if (mem)
-            params[12] = new (mem) fight::ParamBool_17d210<hulkfight::motion::MoveJointTrack_17d210>("simulateMotion", (void (hulkfight::motion::MoveJointTrack_17d210::*)())&hulkfight::motion::MoveJointTrack_17d210::FUN_0016f050);
-        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>));
-        params[13] = 0;
-        if (mem)
-            params[13] = new (mem) fight::ParamIntConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>("priority", (void (hulkfight::motion::MoveJointTrack_17d210::*)())&hulkfight::motion::MoveJointTrack_17d210::FUN_0016f060);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>));
-        params[14] = 0;
-        if (mem)
-            params[14] = new (mem) fight::ParamFloatConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>("blendInTime", (void (hulkfight::motion::MoveJointTrack_17d210::*)())&hulkfight::motion::MoveJointTrack_17d210::FUN_0016f070);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>));
-        params[15] = 0;
-        if (mem)
-            params[15] = new (mem) fight::ParamFloatConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>("blendOutTime", (void (hulkfight::motion::MoveJointTrack_17d210::*)())&hulkfight::motion::MoveJointTrack_17d210::FUN_0016f080);
-        FUN_002347b0(&hulk_at_004e1328, params, 16);
+    if ((*(int*)&DAT_004e132c) == 0) {
+        ::fight::ParamValue* params[16];
+        params[0] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::MoveJointTrack>("timeBegin", &owners::X_16eeb0::FUN_0016eeb0);
+        params[1] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::MoveJointTrack>("timeEnd", &owners::C_16eed0::FUN_0016eed0);
+        params[2] = new ::fight::ParamIntConstRange< ::hulkfight::motion::MoveJointTrack>("attachmentIndex", &owners::X_16eef0::FUN_0016eef0);
+        params[3] = new ::fight::ParamNameConstList< ::hulkfight::motion::MoveJointTrack>("moveJoint", &owners::Obj_16ef00::FUN_0016ef00);
+        params[4] = new ::fight::ParamNameConstList< ::hulkfight::motion::MoveJointTrack>("startJoint", &fn_fa642773::Obj_16ef10::Get);
+        params[5] = new ::fight::ParamVector< ::hulkfight::motion::MoveJointTrack>("offset", &fn_fa642773::Obj_16ef40::Set);
+        params[6] = new ::fight::ParamVector< ::hulkfight::motion::MoveJointTrack>("direction", &fn_fa642773::Obj_16ef80::Set);
+        params[7] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::MoveJointTrack>("distanceStart", &owners::Obj_16efb0::FUN_0016efb0);
+        params[8] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::MoveJointTrack>("distanceEnd", &owners::Thing_16efd0::FUN_0016efd0);
+        params[9] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::MoveJointTrack>("initVelocity", &owners::Obj_16eff0::FUN_0016eff0);
+        params[10] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::MoveJointTrack>("maxVelocity", &owners::X_16f010::FUN_0016f010);
+        params[11] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::MoveJointTrack>("acceleration", &owners::X_16f030::FUN_0016f030);
+        params[12] = new ::fight::ParamBool< ::hulkfight::motion::MoveJointTrack>("simulateMotion", &owners::X_16f050::FUN_0016f050);
+        params[13] = new ::fight::ParamIntConstRange< ::hulkfight::motion::MoveJointTrack>("priority", &owners::X_16f060::FUN_0016f060);
+        params[14] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::MoveJointTrack>("blendInTime", &owners::Obj_16f070::FUN_0016f070);
+        params[15] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::MoveJointTrack>("blendOutTime", &owners::Obj_16f080::FUN_0016f080);
+        FUN_002347b0(&DAT_004e1328, params, 16);
     }
-    hulk_at_004e132c++;
+    (*(int*)&DAT_004e132c)++;
 }
 
-} // namespace fn_f05a6271
+
 
 // 0x0017d580 FUN_0017d580 (38 B): matches/0x0017d580.cpp [wrapped: conflict: Find]
 // sym: _FUN_0017d580
@@ -1750,53 +1794,30 @@ extern "C" void FUN_0017d670(Owner* owner, void* key) {
 }
 
 
-// 0x0017d6a0 FUN_0017d6a0 (460 B): equivalent/0x0017d6a0.cpp
-// sym: _FUN_0017d6a0 @61eae1ca18e2 @w793c539dce88
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 18/18)
-// FUN_0017d6a0 @ 0x0017d6a0
+} // namespace fn_f05a6271
+
+// 0x0017d6a0 FUN_0017d6a0 (460 B): matches/0x0017d6a0.cpp
+// sym: _FUN_0017d6a0
+// (gx2, D18) rewritten; constructs the real ParamBool<hulkfight::motion::PushOutTrack>, ParamFloatConstRange<hulkfight::motion::PushOutTrack>, ParamNameConstList<hulkfight::motion::PushOutTrack>, ParamVector<hulkfight::motion::PushOutTrack>,
+// whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_0017d6a0()
 {
     if (DAT_004e135c == 0) {
-        void* params[8];
-        void* mem;
-        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<PushOutTrack>));
-        params[0] = 0;
-        if (mem)
-            params[0] = new (mem) ParamFloatConstRange<PushOutTrack>("timeBegin", (void (PushOutTrack::*)())&PushOutTrack::FUN_0016f250);
-        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<PushOutTrack>));
-        params[1] = 0;
-        if (mem)
-            params[1] = new (mem) ParamFloatConstRange<PushOutTrack>("timeEnd", (void (PushOutTrack::*)())&PushOutTrack::FUN_0016f260);
-        mem = FUN_0008d690((int)sizeof(ParamNameConstList<PushOutTrack>));
-        params[2] = 0;
-        if (mem)
-            params[2] = new (mem) ParamNameConstList<PushOutTrack>("joint", &PushOutTrack::FUN_0016f270);
-        mem = FUN_0008d690((int)sizeof(ParamVector<PushOutTrack>));
-        params[3] = 0;
-        if (mem)
-            params[3] = new (mem) ParamVector<PushOutTrack>("offset", (void (PushOutTrack::*)())&PushOutTrack::FUN_0016f2a0);
-        mem = FUN_0008d690((int)sizeof(ParamVector<PushOutTrack>));
-        params[4] = 0;
-        if (mem)
-            params[4] = new (mem) ParamVector<PushOutTrack>("direction", (void (PushOutTrack::*)())&PushOutTrack::FUN_0016f2e0);
-        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<PushOutTrack>));
-        params[5] = 0;
-        if (mem)
-            params[5] = new (mem) ParamFloatConstRange<PushOutTrack>("distance", (void (PushOutTrack::*)())&PushOutTrack::FUN_0016f310);
-        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<PushOutTrack>));
-        params[6] = 0;
-        if (mem)
-            params[6] = new (mem) ParamFloatConstRange<PushOutTrack>("velocity", (void (PushOutTrack::*)())&PushOutTrack::FUN_0016f330);
-        mem = FUN_0008d690((int)sizeof(ParamBool<PushOutTrack>));
-        params[7] = 0;
-        if (mem)
-            params[7] = new (mem) ParamBool<PushOutTrack>("allowY", (void (PushOutTrack::*)())&PushOutTrack::FUN_0016f350);
-        FUN_002347b0(((ParamRegistry*)&DAT_004e1358), params, 8);
+        ::fight::ParamValue* params[8];
+        params[0] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::PushOutTrack>("timeBegin", &owners::Obj_16f250::FUN_0016f250);
+        params[1] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::PushOutTrack>("timeEnd", &owners::X_16f260::FUN_0016f260);
+        params[2] = new ::fight::ParamNameConstList< ::hulkfight::motion::PushOutTrack>("joint", &owners::Obj_16f270::FUN_0016f270);
+        params[3] = new ::fight::ParamVector< ::hulkfight::motion::PushOutTrack>("offset", &fn_fa642773::Obj_16f2a0::Set);
+        params[4] = new ::fight::ParamVector< ::hulkfight::motion::PushOutTrack>("direction", &fn_fa642773::Ctx_16f2e0::Set);
+        params[5] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::PushOutTrack>("distance", &owners::X_16f310::FUN_0016f310);
+        params[6] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::PushOutTrack>("velocity", &owners::Thing_16f330::FUN_0016f330);
+        params[7] = new ::fight::ParamBool< ::hulkfight::motion::PushOutTrack>("allowY", &owners::X_16f350::FUN_0016f350);
+        FUN_002347b0(&DAT_004e1358, params, 8);
     }
     DAT_004e135c++;
 }
 
-} // namespace fn_f05a6271
+
 
 // 0x0017d870 FUN_0017d870 (38 B): matches/0x0017d870.cpp [wrapped: conflict: find]
 // sym: _FUN_0017d870
@@ -1827,79 +1848,37 @@ extern "C" void FUN_0017d8a0(Obj* obj, void* id) {
 }
 
 
-// 0x0017d8d0 FUN_0017d8d0 (831 B): equivalent/0x0017d8d0.cpp
-// sym: _FUN_0017d8d0 @3b2a4c945e8b @w54a93db2ac84
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 32/32)
-// FUN_0017d8d0 @ 0x0017d8d0
+} // namespace fn_f05a6271
+
+// 0x0017d8d0 FUN_0017d8d0 (831 B): matches/0x0017d8d0.cpp
+// sym: _FUN_0017d8d0
+// (gx2, D18) rewritten; constructs the real ParamBool<hulkfight::motion::JointPivotTrackerTrack>, ParamEnumConstList<hulkfight::motion::JointPivotTrackerTrack>, ParamFloatConstRange<hulkfight::motion::JointPivotTrackerTrack>, ParamIntConstRange<hulkfight::motion::JointPivotTrackerTrack>, ParamNameConstList<hulkfight::motion::JointPivotTrackerTrack>, ParamVector<hulkfight::motion::JointPivotTrackerTrack>,
+// whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_0017d8d0()
 {
     if (DAT_004e136c == 0) {
-        void* params[15];
-        void* mem;
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>));
-        params[0] = 0;
-        if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>("timeBegin", (void (hulkfight::motion::JointPivotTrackerTrack_17d8d0::*)())&hulkfight::motion::JointPivotTrackerTrack_17d8d0::FUN_0016f3b0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>));
-        params[1] = 0;
-        if (mem)
-            params[1] = new (mem) fight::ParamFloatConstRange_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>("timeEnd", (void (hulkfight::motion::JointPivotTrackerTrack_17d8d0::*)())&hulkfight::motion::JointPivotTrackerTrack_17d8d0::FUN_0016f3c0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamNameConstList_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>));
-        params[2] = 0;
-        if (mem)
-            params[2] = new (mem) fight::ParamNameConstList_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>("joint", &hulkfight::motion::JointPivotTrackerTrack_17d8d0::FUN_0016f3d0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamVector_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>));
-        params[3] = 0;
-        if (mem)
-            params[3] = new (mem) fight::ParamVector_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>("trackAxis", (void (hulkfight::motion::JointPivotTrackerTrack_17d8d0::*)())&hulkfight::motion::JointPivotTrackerTrack_17d8d0::FUN_0016f400);
-        mem = FUN_0008d690((int)sizeof(fight::ParamVector_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>));
-        params[4] = 0;
-        if (mem)
-            params[4] = new (mem) fight::ParamVector_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>("pivotAxis", (void (hulkfight::motion::JointPivotTrackerTrack_17d8d0::*)())&hulkfight::motion::JointPivotTrackerTrack_17d8d0::FUN_0016f440);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>));
-        params[5] = 0;
-        if (mem)
-            params[5] = new (mem) fight::ParamFloatConstRange_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>("turnRate", (void (hulkfight::motion::JointPivotTrackerTrack_17d8d0::*)())&hulkfight::motion::JointPivotTrackerTrack_17d8d0::FUN_0016f470);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>));
-        params[6] = 0;
-        if (mem)
-            params[6] = new (mem) fight::ParamFloatConstRange_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>("angleMin", (void (hulkfight::motion::JointPivotTrackerTrack_17d8d0::*)())&hulkfight::motion::JointPivotTrackerTrack_17d8d0::FUN_0016f4a0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>));
-        params[7] = 0;
-        if (mem)
-            params[7] = new (mem) fight::ParamFloatConstRange_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>("angleMax", (void (hulkfight::motion::JointPivotTrackerTrack_17d8d0::*)())&hulkfight::motion::JointPivotTrackerTrack_17d8d0::FUN_0016f4d0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamBool_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>));
-        params[8] = 0;
-        if (mem)
-            params[8] = new (mem) fight::ParamBool_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>("targetRequired", (void (hulkfight::motion::JointPivotTrackerTrack_17d8d0::*)())&hulkfight::motion::JointPivotTrackerTrack_17d8d0::FUN_0016f500);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>));
-        params[9] = 0;
-        if (mem)
-            params[9] = new (mem) fight::ParamFloatConstRange_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>("targetArc", (void (hulkfight::motion::JointPivotTrackerTrack_17d8d0::*)())&hulkfight::motion::JointPivotTrackerTrack_17d8d0::FUN_0016f520);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>));
-        params[10] = 0;
-        if (mem)
-            params[10] = new (mem) fight::ParamFloatConstRange_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>("targetDistance", (void (hulkfight::motion::JointPivotTrackerTrack_17d8d0::*)())&hulkfight::motion::JointPivotTrackerTrack_17d8d0::FUN_0016f550);
-        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>));
-        params[11] = 0;
-        if (mem)
-            params[11] = new (mem) fight::ParamEnumConstList_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>("targetLocation", ((const char**)&DAT_004b7cf0), 3, (void (hulkfight::motion::JointPivotTrackerTrack_17d8d0::*)())&hulkfight::motion::JointPivotTrackerTrack_17d8d0::FUN_0016f570);
-        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>));
-        params[12] = 0;
-        if (mem)
-            params[12] = new (mem) fight::ParamIntConstRange_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>("priority", (void (hulkfight::motion::JointPivotTrackerTrack_17d8d0::*)())&hulkfight::motion::JointPivotTrackerTrack_17d8d0::FUN_0016f590);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>));
-        params[13] = 0;
-        if (mem)
-            params[13] = new (mem) fight::ParamFloatConstRange_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>("blendInTime", (void (hulkfight::motion::JointPivotTrackerTrack_17d8d0::*)())&hulkfight::motion::JointPivotTrackerTrack_17d8d0::FUN_0016f5b0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>));
-        params[14] = 0;
-        if (mem)
-            params[14] = new (mem) fight::ParamFloatConstRange_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>("blendOutTime", (void (hulkfight::motion::JointPivotTrackerTrack_17d8d0::*)())&hulkfight::motion::JointPivotTrackerTrack_17d8d0::FUN_0016f5d0);
-        FUN_002347b0(((ParamRegistry*)&DAT_004e1368), params, 15);
+        ::fight::ParamValue* params[15];
+        params[0] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::JointPivotTrackerTrack>("timeBegin", &owners::Obj_16f3b0::FUN_0016f3b0);
+        params[1] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::JointPivotTrackerTrack>("timeEnd", &owners::Obj_16f3c0::FUN_0016f3c0);
+        params[2] = new ::fight::ParamNameConstList< ::hulkfight::motion::JointPivotTrackerTrack>("joint", &owners::O_16f3d0::FUN_0016f3d0);
+        params[3] = new ::fight::ParamVector< ::hulkfight::motion::JointPivotTrackerTrack>("trackAxis", &fn_fa642773::Obj_16f400::Set);
+        params[4] = new ::fight::ParamVector< ::hulkfight::motion::JointPivotTrackerTrack>("pivotAxis", &fn_fa642773::Obj_16f440::Set);
+        params[5] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::JointPivotTrackerTrack>("turnRate", &owners::Obj_16f470::FUN_0016f470);
+        params[6] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::JointPivotTrackerTrack>("angleMin", &owners::Obj_16f4a0::FUN_0016f4a0);
+        params[7] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::JointPivotTrackerTrack>("angleMax", &owners::Obj_16f4d0::FUN_0016f4d0);
+        params[8] = new ::fight::ParamBool< ::hulkfight::motion::JointPivotTrackerTrack>("targetRequired", &owners::Obj_16f500::FUN_0016f500);
+        params[9] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::JointPivotTrackerTrack>("targetArc", &owners::Obj_16f520::FUN_0016f520);
+        params[10] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::JointPivotTrackerTrack>("targetDistance", &owners::Obj_16f550::FUN_0016f550);
+        params[11] = new ::fight::ParamEnumConstList< ::hulkfight::motion::JointPivotTrackerTrack>("targetLocation", (void*)&DAT_004b7cf0, 3, &owners::Obj_16f570::FUN_0016f570);
+        params[12] = new ::fight::ParamIntConstRange< ::hulkfight::motion::JointPivotTrackerTrack>("priority", &owners::X_16f590::FUN_0016f590);
+        params[13] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::JointPivotTrackerTrack>("blendInTime", &owners::X_16f5b0::FUN_0016f5b0);
+        params[14] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::JointPivotTrackerTrack>("blendOutTime", &owners::X_16f5d0::FUN_0016f5d0);
+        FUN_002347b0(&DAT_004e1368, params, 15);
     }
     DAT_004e136c++;
 }
+
+namespace fn_f05a6271 {
 
 
 // 0x0017dc10 FUN_0017dc10 (38 B): matches/0x0017dc10.cpp
@@ -2073,61 +2052,32 @@ extern "C" void* FUN_0017ddc0(Obj* obj, void* key) {
 
 namespace fn_f05a6271 {
 
-// 0x0017ddf0 FUN_0017ddf0 (562 B): equivalent/0x0017ddf0.cpp
-// sym: _FUN_0017ddf0 @8fae0e3dc400 @w22c2a1c9ba59
-// STATUS: equivalent (tools/equiv.py level 3: 77 inputs, branch coverage 22/22)
-// FUN_0017ddf0 @ 0x0017ddf0
+} // namespace fn_f05a6271
+
+// 0x0017ddf0 FUN_0017ddf0 (562 B): matches/0x0017ddf0.cpp
+// sym: _FUN_0017ddf0
+// (gx2, D18) rewritten; constructs the real ParamBool<hulkfight::motion::FootPivotTrack>, ParamFloatConstRange<hulkfight::motion::FootPivotTrack>, ParamIntConstRange<hulkfight::motion::FootPivotTrack>, ParamNameConstList<hulkfight::motion::FootPivotTrack>, ParamVector<hulkfight::motion::FootPivotTrack>,
+// whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_0017ddf0()
 {
     if (DAT_004e13bc == 0) {
-        void* params[10];
-        void* mem;
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17ddf0<FootPivotTrack>));
-        params[0] = 0;
-        if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange_17ddf0<FootPivotTrack>("timeBegin", (void (FootPivotTrack::*)())&FootPivotTrack::FUN_0016fad0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17ddf0<FootPivotTrack>));
-        params[1] = 0;
-        if (mem)
-            params[1] = new (mem) fight::ParamFloatConstRange_17ddf0<FootPivotTrack>("timeEnd", (void (FootPivotTrack::*)())&FootPivotTrack::FUN_0016fae0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamNameConstList_17ddf0<FootPivotTrack>));
-        params[2] = 0;
-        if (mem)
-            params[2] = new (mem) fight::ParamNameConstList_17ddf0<FootPivotTrack>("joint", &FootPivotTrack::FUN_0016faf0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamVector_17ddf0<FootPivotTrack>));
-        params[3] = 0;
-        if (mem)
-            params[3] = new (mem) fight::ParamVector_17ddf0<FootPivotTrack>("offset", (void (FootPivotTrack::*)())&FootPivotTrack::FUN_0016fb20);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17ddf0<FootPivotTrack>));
-        params[4] = 0;
-        if (mem)
-            params[4] = new (mem) fight::ParamFloatConstRange_17ddf0<FootPivotTrack>("facing", (void (FootPivotTrack::*)())&FootPivotTrack::FUN_0016fb50);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17ddf0<FootPivotTrack>));
-        params[5] = 0;
-        if (mem)
-            params[5] = new (mem) fight::ParamFloatConstRange_17ddf0<FootPivotTrack>("turningVelocity", (void (FootPivotTrack::*)())&FootPivotTrack::FUN_0016fb80);
-        mem = FUN_0008d690((int)sizeof(fight::ParamBool_17ddf0<FootPivotTrack>));
-        params[6] = 0;
-        if (mem)
-            params[6] = new (mem) fight::ParamBool_17ddf0<FootPivotTrack>("useTarget", (void (FootPivotTrack::*)())&FootPivotTrack::FUN_0016fbb0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_17ddf0<FootPivotTrack>));
-        params[7] = 0;
-        if (mem)
-            params[7] = new (mem) fight::ParamIntConstRange_17ddf0<FootPivotTrack>("priority", (void (FootPivotTrack::*)())&FootPivotTrack::FUN_0016fbd0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17ddf0<FootPivotTrack>));
-        params[8] = 0;
-        if (mem)
-            params[8] = new (mem) fight::ParamFloatConstRange_17ddf0<FootPivotTrack>("blendInTime", (void (FootPivotTrack::*)())&FootPivotTrack::FUN_0016fbf0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17ddf0<FootPivotTrack>));
-        params[9] = 0;
-        if (mem)
-            params[9] = new (mem) fight::ParamFloatConstRange_17ddf0<FootPivotTrack>("blendOutTime", (void (FootPivotTrack::*)())&FootPivotTrack::FUN_0016fc10);
-        FUN_002347b0(((ParamRegistry*)&DAT_004e13b8), params, 10);
+        ::fight::ParamValue* params[10];
+        params[0] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::FootPivotTrack>("timeBegin", &owners::C_16fad0::FUN_0016fad0);
+        params[1] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::FootPivotTrack>("timeEnd", &owners::Obj_16fae0::FUN_0016fae0);
+        params[2] = new ::fight::ParamNameConstList< ::hulkfight::motion::FootPivotTrack>("joint", &owners::X_16faf0::FUN_0016faf0);
+        params[3] = new ::fight::ParamVector< ::hulkfight::motion::FootPivotTrack>("offset", &owners::A_16fb20::FUN_0016fb20);
+        params[4] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::FootPivotTrack>("facing", &owners::X_16fb50::FUN_0016fb50);
+        params[5] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::FootPivotTrack>("turningVelocity", &owners::Obj_16fb80::FUN_0016fb80);
+        params[6] = new ::fight::ParamBool< ::hulkfight::motion::FootPivotTrack>("useTarget", &owners::C_16fbb0::FUN_0016fbb0);
+        params[7] = new ::fight::ParamIntConstRange< ::hulkfight::motion::FootPivotTrack>("priority", &owners::Obj_16fbd0::FUN_0016fbd0);
+        params[8] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::FootPivotTrack>("blendInTime", &owners::X_16fbf0::FUN_0016fbf0);
+        params[9] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::FootPivotTrack>("blendOutTime", &owners::Obj_16fc10::FUN_0016fc10);
+        FUN_002347b0(&DAT_004e13b8, params, 10);
     }
     DAT_004e13bc++;
 }
 
-} // namespace fn_f05a6271
+
 
 // 0x0017e070 fight::TrackFactoryTemplate<hulkfight::motion::ChargeTrack>::vfunc_5 (77 B): matches/0x0017e070.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VChargeTrack@motion@hulkfight@@@fight@@UAEPAXXZ

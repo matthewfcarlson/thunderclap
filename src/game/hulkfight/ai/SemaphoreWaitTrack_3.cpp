@@ -1,7 +1,8 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x00111720..0x001133f0 (kind game, layer game, confidence high), dominant class hulkfight::ai::SemaphoreWaitTrack
 #include "tree_prelude.h"
+#define HULK_FIGHT_PARAM_IMPLICIT   // (gx2, D18) include/gen/fight.h: the parameter templates constructed for real
+#include "gen/owners.h"   // (gx3, D18) for the merged registrations
 #include "compat/ptr.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/hulkfight/ai.h"
@@ -13,6 +14,42 @@
 #define TREE_TU_END }
 namespace fn_fee140f0 {} using namespace fn_fee140f0;
 #include "game/hulkfight/ai.h"
+void* operator new(size_t) HULK_NEW_THROW;   // (gx2, D18) the game's operator new (0x0008d690)
+extern "C" void __cdecl FUN_002347b0(void* list, void* params, int count);   // (gx2, D18) a parameter list's set-up
+extern "C" void* __fastcall GetText_0010c630(void*);   // (gx4, D18) a setter (the tree pins it as a fastcall getter)
+namespace fn_f15aa14c { struct Inner_10c120; } 
+namespace fn_f15aa14c { struct A_10c4d0 { char SetTimeBegin_0010c4d0(int); }; }   // (gx3, D18) setters, as defined in unk_10c0d0.cpp
+namespace fn_f15aa14c { struct A_10c510 { bool SetValue_0010c510(int); }; }   // (gx3, D18) setters, as defined in unk_10c0d0.cpp
+namespace fn_f15aa14c { struct C_10c2b0 { char SetValue_0010c2b0(int); }; }   // (gx3, D18) setters, as defined in unk_10c0d0.cpp
+namespace fn_f15aa14c { struct C_10c2e0 { bool SetDistance_0010c2e0(int); }; }   // (gx3, D18) setters, as defined in unk_10c0d0.cpp
+namespace fn_f15aa14c { struct C_10c520 { char SetTimeBegin_0010c520(int); }; }   // (gx3, D18) setters, as defined in unk_10c0d0.cpp
+namespace fn_f15aa14c { struct O_10c280 { bool SetCompare_0010c280(int); }; }   // (gx3, D18) setters, as defined in unk_10c0d0.cpp
+namespace fn_f15aa14c { struct O_10c620 { char SetOnlySetAtEnd_0010c620(char); }; }   // (gx3, D18) setters, as defined in unk_10c0d0.cpp
+namespace fn_f15aa14c { struct Obj { char SetText_0010cc40(char const *); char SetText_0010ce60(char const *); }; }   // (gx3, D18) setters, as defined in unk_10c0d0.cpp
+namespace fn_f15aa14c { struct Obj_10c0d0 { char SetCompare_0010c0d0(int); }; }   // (gx3, D18) setters, as defined in unk_10c0d0.cpp
+namespace fn_f15aa14c { struct Obj_10c0f0 { char SetTarget_0010c0f0(unsigned char); }; }   // (gx3, D18) setters, as defined in unk_10c0d0.cpp
+namespace fn_f15aa14c { struct Obj_10c120 { struct fn_f15aa14c::Inner_10c120 & Get(); }; }   // (gx3, D18) setters, as defined in unk_10c0d0.cpp
+namespace fn_f15aa14c { struct Obj_10c140 { bool SetCompare_0010c140(int); }; }   // (gx3, D18) setters, as defined in unk_10c0d0.cpp
+namespace fn_f15aa14c { struct Obj_10c170 { unsigned char SetValue_0010c170(unsigned int); }; }   // (gx3, D18) setters, as defined in unk_10c0d0.cpp
+namespace fn_f15aa14c { struct Obj_10c2c0 { bool SetCompare_0010c2c0(int); }; }   // (gx3, D18) setters, as defined in unk_10c0d0.cpp
+namespace fn_f15aa14c { struct Obj_10c4f0 { void * GetText_0010c4f0(); }; }   // (gx3, D18) setters, as defined in unk_10c0d0.cpp
+namespace fn_f15aa14c { struct Obj_10c530 { bool SetTimeEnd_0010c530(int); }; }   // (gx3, D18) setters, as defined in unk_10c0d0.cpp
+namespace fn_f15aa14c { struct Obj_10c540 { int * GetKeyword_0010c540(); }; }   // (gx3, D18) setters, as defined in unk_10c0d0.cpp
+namespace fn_f15aa14c { struct Obj_10c550 { char SetRandomIntroWait_0010c550(char); }; }   // (gx3, D18) setters, as defined in unk_10c0d0.cpp
+namespace fn_f15aa14c { struct Obj_10c600 { bool SetTimeBegin_0010c600(int); }; }   // (gx3, D18) setters, as defined in unk_10c0d0.cpp
+namespace fn_f15aa14c { struct Obj_10c650 { bool SetTimeEnd_0010c650(int); }; }   // (gx3, D18) setters, as defined in unk_10c0d0.cpp
+namespace fn_f15aa14c { struct Obj_10c670 { unsigned char SetFloatDelayOnEnd_0010c670(unsigned char); }; }   // (gx3, D18) setters, as defined in unk_10c0d0.cpp
+namespace fn_f15aa14c { struct Owner { int SetText_0010c8d0(char const *); }; }   // (gx3, D18) setters, as defined in unk_10c0d0.cpp
+namespace fn_f15aa14c { struct T_10c300 { char SetNumberofAttachedProps_0010c300(char); }; }   // (gx3, D18) setters, as defined in unk_10c0d0.cpp
+namespace fn_f15aa14c { struct T_10c4e0 { bool SetTimeEnd_0010c4e0(int); }; }   // (gx3, D18) setters, as defined in unk_10c0d0.cpp
+namespace fn_f15aa14c { struct T_10c570 { char Set(unsigned int); }; }   // (gx3, D18) setters, as defined in unk_10c0d0.cpp
+namespace fn_f15aa14c { struct T_10c640 { char SetTimeBegin_0010c640(int); }; }   // (gx3, D18) setters, as defined in unk_10c0d0.cpp
+namespace fn_f15aa14c { struct X_10c110 { bool SetSmartPropIndex_0010c110(int); }; }   // (gx3, D18) setters, as defined in unk_10c0d0.cpp
+namespace fn_f15aa14c { struct X_10c200 { bool SetCompare_0010c200(int); }; }   // (gx3, D18) setters, as defined in unk_10c0d0.cpp
+namespace fn_f15aa14c { struct X_10c230 { char SetValue_0010c230(int); }; }   // (gx3, D18) setters, as defined in unk_10c0d0.cpp
+namespace fn_f15aa14c { struct X_10c320 { char SetNumber_0010c320(int); }; }   // (gx3, D18) setters, as defined in unk_10c0d0.cpp
+namespace fn_f15aa14c { struct X_10c3d0 { void * Get(); }; }   // (gx3, D18) setters, as defined in unk_10c0d0.cpp
+namespace fn_f15aa14c { struct X_10c610 { char SetTimeEnd_0010c610(int); }; }   // (gx3, D18) setters, as defined in unk_10c0d0.cpp
 // (ren2) __RTDynamicCast's own name (CRT, C linkage)
 extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
@@ -130,7 +167,6 @@ public:
 };
 }
 namespace fn_fee140f0 {
-void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 } // namespace fn_fee140f0
 namespace hulkfight { namespace ai {
 class DefendingCondition_111ca0 {
@@ -413,6 +449,258 @@ class AIHistorySetAction_113350 {
 
 } // namespace fn_fee140f0
 
+// 0x00110e90 fight::ParamEnumConstList<hulkfight::ai::OnBlockedTriangleCondition>::vfunc_0 (30 B): matches/0x00110e90.cpp
+// sym: ??_G?$ParamEnumConstList@VOnBlockedTriangleCondition@ai@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from OnBlockedTriangleCondition_2.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00111b50 / FUN_00111c40 / FUN_00111ca0 / FUN_00111d00 / FUN_00111df0 / FUN_00111ea0 / FUN_00111f50 / FUN_00112000 / FUN_00112060 / FUN_00112150 / FUN_00112200 / FUN_001122b0 / FUN_001123a0 / FUN_001124c0 / FUN_00112570 / FUN_00112610 / FUN_00112690 / FUN_001127d0 / FUN_00112940 / FUN_001129a0 / FUN_00112aa0 / FUN_00112ba0 / FUN_00112d30 / FUN_00112e30 / FUN_00112f10)
+
+
+
+// 0x00110eb0 fight::ParamBool<hulkfight::ai::OnBlockedTriangleCondition>::vfunc_0 (30 B): matches/0x00110eb0.cpp
+// sym: ??_G?$ParamBool@VOnBlockedTriangleCondition@ai@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from OnBlockedTriangleCondition_2.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00111b50 / FUN_00111c40 / FUN_00111ca0 / FUN_00111d00 / FUN_00111df0 / FUN_00111ea0 / FUN_00111f50 / FUN_00112000 / FUN_00112060 / FUN_00112150 / FUN_00112200 / FUN_001122b0 / FUN_001123a0 / FUN_001124c0 / FUN_00112570 / FUN_00112610 / FUN_00112690 / FUN_001127d0 / FUN_00112940 / FUN_001129a0 / FUN_00112aa0 / FUN_00112ba0 / FUN_00112d30 / FUN_00112e30 / FUN_00112f10)
+
+
+
+// 0x00110ed0 fight::ParamIntConstRange<hulkfight::ai::OnBlockedTriangleCondition>::vfunc_0 (30 B): matches/0x00110ed0.cpp
+// sym: ??_G?$ParamIntConstRange@VOnBlockedTriangleCondition@ai@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from OnBlockedTriangleCondition_2.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00111b50 / FUN_00111c40 / FUN_00111ca0 / FUN_00111d00 / FUN_00111df0 / FUN_00111ea0 / FUN_00111f50 / FUN_00112000 / FUN_00112060 / FUN_00112150 / FUN_00112200 / FUN_001122b0 / FUN_001123a0 / FUN_001124c0 / FUN_00112570 / FUN_00112610 / FUN_00112690 / FUN_001127d0 / FUN_00112940 / FUN_001129a0 / FUN_00112aa0 / FUN_00112ba0 / FUN_00112d30 / FUN_00112e30 / FUN_00112f10)
+
+
+
+// 0x00110f30 fight::ParamBranch<hulkfight::ai::AIFightNodeCondition>::vfunc_0 (30 B): matches/0x00110f30.cpp
+// sym: ??_G?$ParamBranch@VAIFightNodeCondition@ai@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from AIHistoryNameCondition_2.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00111b50 / FUN_00111c40 / FUN_00111ca0 / FUN_00111d00 / FUN_00111df0 / FUN_00111ea0 / FUN_00111f50 / FUN_00112000 / FUN_00112060 / FUN_00112150 / FUN_00112200 / FUN_001122b0 / FUN_001123a0 / FUN_001124c0 / FUN_00112570 / FUN_00112610 / FUN_00112690 / FUN_001127d0 / FUN_00112940 / FUN_001129a0 / FUN_00112aa0 / FUN_00112ba0 / FUN_00112d30 / FUN_00112e30 / FUN_00112f10)
+
+
+
+// 0x00110f90 fight::ParamBool<hulkfight::ai::DefendingCondition>::vfunc_0 (30 B): matches/0x00110f90.cpp
+// sym: ??_G?$ParamBool@VDefendingCondition@ai@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from AIHistoryNameCondition_2.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00111b50 / FUN_00111c40 / FUN_00111ca0 / FUN_00111d00 / FUN_00111df0 / FUN_00111ea0 / FUN_00111f50 / FUN_00112000 / FUN_00112060 / FUN_00112150 / FUN_00112200 / FUN_001122b0 / FUN_001123a0 / FUN_001124c0 / FUN_00112570 / FUN_00112610 / FUN_00112690 / FUN_001127d0 / FUN_00112940 / FUN_001129a0 / FUN_00112aa0 / FUN_00112ba0 / FUN_00112d30 / FUN_00112e30 / FUN_00112f10)
+
+
+
+// 0x00110ff0 fight::ParamEnumConstList<hulkfight::ai::AIHistoryNameCondition>::vfunc_0 (30 B): matches/0x00110ff0.cpp
+// sym: ??_G?$ParamEnumConstList@VAIHistoryNameCondition@ai@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from AIHistoryNameCondition_2.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00111b50 / FUN_00111c40 / FUN_00111ca0 / FUN_00111d00 / FUN_00111df0 / FUN_00111ea0 / FUN_00111f50 / FUN_00112000 / FUN_00112060 / FUN_00112150 / FUN_00112200 / FUN_001122b0 / FUN_001123a0 / FUN_001124c0 / FUN_00112570 / FUN_00112610 / FUN_00112690 / FUN_001127d0 / FUN_00112940 / FUN_001129a0 / FUN_00112aa0 / FUN_00112ba0 / FUN_00112d30 / FUN_00112e30 / FUN_00112f10)
+
+
+
+// 0x00111010 fight::ParamString<hulkfight::ai::AIHistoryNameCondition>::vfunc_0 (30 B): matches/0x00111010.cpp
+// sym: ??_G?$ParamString@VAIHistoryNameCondition@ai@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from AIHistoryNameCondition_2.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00111b50 / FUN_00111c40 / FUN_00111ca0 / FUN_00111d00 / FUN_00111df0 / FUN_00111ea0 / FUN_00111f50 / FUN_00112000 / FUN_00112060 / FUN_00112150 / FUN_00112200 / FUN_001122b0 / FUN_001123a0 / FUN_001124c0 / FUN_00112570 / FUN_00112610 / FUN_00112690 / FUN_001127d0 / FUN_00112940 / FUN_001129a0 / FUN_00112aa0 / FUN_00112ba0 / FUN_00112d30 / FUN_00112e30 / FUN_00112f10)
+
+
+
+// 0x00111030 fight::ParamFloatConstRange<hulkfight::ai::AIHistoryNameCondition>::vfunc_0 (30 B): matches/0x00111030.cpp
+// sym: ??_G?$ParamFloatConstRange@VAIHistoryNameCondition@ai@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from AIHistoryNameCondition_2.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00111b50 / FUN_00111c40 / FUN_00111ca0 / FUN_00111d00 / FUN_00111df0 / FUN_00111ea0 / FUN_00111f50 / FUN_00112000 / FUN_00112060 / FUN_00112150 / FUN_00112200 / FUN_001122b0 / FUN_001123a0 / FUN_001124c0 / FUN_00112570 / FUN_00112610 / FUN_00112690 / FUN_001127d0 / FUN_00112940 / FUN_001129a0 / FUN_00112aa0 / FUN_00112ba0 / FUN_00112d30 / FUN_00112e30 / FUN_00112f10)
+
+
+
+// 0x00111090 fight::ParamEnumConstList<hulkfight::ai::HulkActionLargestCondition>::vfunc_0 (30 B): matches/0x00111090.cpp
+// sym: ??_G?$ParamEnumConstList@VHulkActionLargestCondition@ai@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from HulkActionLargestCondition.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00111b50 / FUN_00111c40 / FUN_00111ca0 / FUN_00111d00 / FUN_00111df0 / FUN_00111ea0 / FUN_00111f50 / FUN_00112000 / FUN_00112060 / FUN_00112150 / FUN_00112200 / FUN_001122b0 / FUN_001123a0 / FUN_001124c0 / FUN_00112570 / FUN_00112610 / FUN_00112690 / FUN_001127d0 / FUN_00112940 / FUN_001129a0 / FUN_00112aa0 / FUN_00112ba0 / FUN_00112d30 / FUN_00112e30 / FUN_00112f10)
+
+
+
+// 0x001110b0 fight::ParamString<hulkfight::ai::HulkActionLargestCondition>::vfunc_0 (30 B): matches/0x001110b0.cpp
+// sym: ??_G?$ParamString@VHulkActionLargestCondition@ai@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from HulkActionLargestCondition.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00111b50 / FUN_00111c40 / FUN_00111ca0 / FUN_00111d00 / FUN_00111df0 / FUN_00111ea0 / FUN_00111f50 / FUN_00112000 / FUN_00112060 / FUN_00112150 / FUN_00112200 / FUN_001122b0 / FUN_001123a0 / FUN_001124c0 / FUN_00112570 / FUN_00112610 / FUN_00112690 / FUN_001127d0 / FUN_00112940 / FUN_001129a0 / FUN_00112aa0 / FUN_00112ba0 / FUN_00112d30 / FUN_00112e30 / FUN_00112f10)
+
+
+
+// 0x00111110 fight::ParamEnumConstList<hulkfight::ai::PropsToChuckCondition>::vfunc_0 (30 B): matches/0x00111110.cpp
+// sym: ??_G?$ParamEnumConstList@VPropsToChuckCondition@ai@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from PropsToChuckCondition_2.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00111b50 / FUN_00111c40 / FUN_00111ca0 / FUN_00111d00 / FUN_00111df0 / FUN_00111ea0 / FUN_00111f50 / FUN_00112000 / FUN_00112060 / FUN_00112150 / FUN_00112200 / FUN_001122b0 / FUN_001123a0 / FUN_001124c0 / FUN_00112570 / FUN_00112610 / FUN_00112690 / FUN_001127d0 / FUN_00112940 / FUN_001129a0 / FUN_00112aa0 / FUN_00112ba0 / FUN_00112d30 / FUN_00112e30 / FUN_00112f10)
+
+
+
+// 0x00111130 fight::ParamIntConstRange<hulkfight::ai::PropsToChuckCondition>::vfunc_0 (30 B): matches/0x00111130.cpp
+// sym: ??_G?$ParamIntConstRange@VPropsToChuckCondition@ai@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from PropsToChuckCondition_2.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00111b50 / FUN_00111c40 / FUN_00111ca0 / FUN_00111d00 / FUN_00111df0 / FUN_00111ea0 / FUN_00111f50 / FUN_00112000 / FUN_00112060 / FUN_00112150 / FUN_00112200 / FUN_001122b0 / FUN_001123a0 / FUN_001124c0 / FUN_00112570 / FUN_00112610 / FUN_00112690 / FUN_001127d0 / FUN_00112940 / FUN_001129a0 / FUN_00112aa0 / FUN_00112ba0 / FUN_00112d30 / FUN_00112e30 / FUN_00112f10)
+
+
+
+// 0x00111190 fight::ParamEnumConstList<hulkfight::ai::HulkActionRecentCondition>::vfunc_0 (30 B): matches/0x00111190.cpp
+// sym: ??_G?$ParamEnumConstList@VHulkActionRecentCondition@ai@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from HulkActionRecentCondition.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00111b50 / FUN_00111c40 / FUN_00111ca0 / FUN_00111d00 / FUN_00111df0 / FUN_00111ea0 / FUN_00111f50 / FUN_00112000 / FUN_00112060 / FUN_00112150 / FUN_00112200 / FUN_001122b0 / FUN_001123a0 / FUN_001124c0 / FUN_00112570 / FUN_00112610 / FUN_00112690 / FUN_001127d0 / FUN_00112940 / FUN_001129a0 / FUN_00112aa0 / FUN_00112ba0 / FUN_00112d30 / FUN_00112e30 / FUN_00112f10)
+
+
+
+// 0x001111b0 fight::ParamString<hulkfight::ai::HulkActionRecentCondition>::vfunc_0 (30 B): matches/0x001111b0.cpp
+// sym: ??_G?$ParamString@VHulkActionRecentCondition@ai@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from HulkActionRecentCondition.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00111b50 / FUN_00111c40 / FUN_00111ca0 / FUN_00111d00 / FUN_00111df0 / FUN_00111ea0 / FUN_00111f50 / FUN_00112000 / FUN_00112060 / FUN_00112150 / FUN_00112200 / FUN_001122b0 / FUN_001123a0 / FUN_001124c0 / FUN_00112570 / FUN_00112610 / FUN_00112690 / FUN_001127d0 / FUN_00112940 / FUN_001129a0 / FUN_00112aa0 / FUN_00112ba0 / FUN_00112d30 / FUN_00112e30 / FUN_00112f10)
+
+
+
+// 0x00111210 fight::ParamBool<hulkfight::ai::LeashedCondition>::vfunc_0 (30 B): matches/0x00111210.cpp
+// sym: ??_G?$ParamBool@VLeashedCondition@ai@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from KeyWordWaitCondition.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00111b50 / FUN_00111c40 / FUN_00111ca0 / FUN_00111d00 / FUN_00111df0 / FUN_00111ea0 / FUN_00111f50 / FUN_00112000 / FUN_00112060 / FUN_00112150 / FUN_00112200 / FUN_001122b0 / FUN_001123a0 / FUN_001124c0 / FUN_00112570 / FUN_00112610 / FUN_00112690 / FUN_001127d0 / FUN_00112940 / FUN_001129a0 / FUN_00112aa0 / FUN_00112ba0 / FUN_00112d30 / FUN_00112e30 / FUN_00112f10)
+
+
+
+// 0x00111270 fight::ParamEnumConstList<hulkfight::ai::KeyWordWaitCondition>::vfunc_0 (30 B): matches/0x00111270.cpp
+// sym: ??_G?$ParamEnumConstList@VKeyWordWaitCondition@ai@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from KeyWordWaitCondition.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00111b50 / FUN_00111c40 / FUN_00111ca0 / FUN_00111d00 / FUN_00111df0 / FUN_00111ea0 / FUN_00111f50 / FUN_00112000 / FUN_00112060 / FUN_00112150 / FUN_00112200 / FUN_001122b0 / FUN_001123a0 / FUN_001124c0 / FUN_00112570 / FUN_00112610 / FUN_00112690 / FUN_001127d0 / FUN_00112940 / FUN_001129a0 / FUN_00112aa0 / FUN_00112ba0 / FUN_00112d30 / FUN_00112e30 / FUN_00112f10)
+
+
+
+// 0x00111290 fight::ParamString<hulkfight::ai::KeyWordWaitCondition>::vfunc_0 (30 B): matches/0x00111290.cpp
+// sym: ??_G?$ParamString@VKeyWordWaitCondition@ai@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from KeyWordWaitCondition.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00111b50 / FUN_00111c40 / FUN_00111ca0 / FUN_00111d00 / FUN_00111df0 / FUN_00111ea0 / FUN_00111f50 / FUN_00112000 / FUN_00112060 / FUN_00112150 / FUN_00112200 / FUN_001122b0 / FUN_001123a0 / FUN_001124c0 / FUN_00112570 / FUN_00112610 / FUN_00112690 / FUN_001127d0 / FUN_00112940 / FUN_001129a0 / FUN_00112aa0 / FUN_00112ba0 / FUN_00112d30 / FUN_00112e30 / FUN_00112f10)
+
+
+
+// 0x001112b0 fight::ParamFloatConstRange<hulkfight::ai::KeyWordWaitCondition>::vfunc_0 (30 B): matches/0x001112b0.cpp
+// sym: ??_G?$ParamFloatConstRange@VKeyWordWaitCondition@ai@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from KeyWordWaitCondition.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00111b50 / FUN_00111c40 / FUN_00111ca0 / FUN_00111d00 / FUN_00111df0 / FUN_00111ea0 / FUN_00111f50 / FUN_00112000 / FUN_00112060 / FUN_00112150 / FUN_00112200 / FUN_001122b0 / FUN_001123a0 / FUN_001124c0 / FUN_00112570 / FUN_00112610 / FUN_00112690 / FUN_001127d0 / FUN_00112940 / FUN_001129a0 / FUN_00112aa0 / FUN_00112ba0 / FUN_00112d30 / FUN_00112e30 / FUN_00112f10)
+
+
+
+// 0x00111310 fight::ParamEnumConstList<hulkfight::ai::FormationReadyCondition>::vfunc_0 (30 B): matches/0x00111310.cpp
+// sym: ??_G?$ParamEnumConstList@VFormationReadyCondition@ai@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from FormationReadyCondition_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00111b50 / FUN_00111c40 / FUN_00111ca0 / FUN_00111d00 / FUN_00111df0 / FUN_00111ea0 / FUN_00111f50 / FUN_00112000 / FUN_00112060 / FUN_00112150 / FUN_00112200 / FUN_001122b0 / FUN_001123a0 / FUN_001124c0 / FUN_00112570 / FUN_00112610 / FUN_00112690 / FUN_001127d0 / FUN_00112940 / FUN_001129a0 / FUN_00112aa0 / FUN_00112ba0 / FUN_00112d30 / FUN_00112e30 / FUN_00112f10)
+
+
+
+// 0x00111330 fight::ParamString<hulkfight::ai::FormationReadyCondition>::vfunc_0 (30 B): matches/0x00111330.cpp
+// sym: ??_G?$ParamString@VFormationReadyCondition@ai@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from FormationReadyCondition_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00111b50 / FUN_00111c40 / FUN_00111ca0 / FUN_00111d00 / FUN_00111df0 / FUN_00111ea0 / FUN_00111f50 / FUN_00112000 / FUN_00112060 / FUN_00112150 / FUN_00112200 / FUN_001122b0 / FUN_001123a0 / FUN_001124c0 / FUN_00112570 / FUN_00112610 / FUN_00112690 / FUN_001127d0 / FUN_00112940 / FUN_001129a0 / FUN_00112aa0 / FUN_00112ba0 / FUN_00112d30 / FUN_00112e30 / FUN_00112f10)
+
+
+
+// 0x00111390 fight::ParamEnumConstList<hulkfight::ai::InActiveCondition>::vfunc_0 (30 B): matches/0x00111390.cpp
+// sym: ??_G?$ParamEnumConstList@VInActiveCondition@ai@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from InActiveCondition_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00111b50 / FUN_00111c40 / FUN_00111ca0 / FUN_00111d00 / FUN_00111df0 / FUN_00111ea0 / FUN_00111f50 / FUN_00112000 / FUN_00112060 / FUN_00112150 / FUN_00112200 / FUN_001122b0 / FUN_001123a0 / FUN_001124c0 / FUN_00112570 / FUN_00112610 / FUN_00112690 / FUN_001127d0 / FUN_00112940 / FUN_001129a0 / FUN_00112aa0 / FUN_00112ba0 / FUN_00112d30 / FUN_00112e30 / FUN_00112f10)
+
+
+
+// 0x001113b0 fight::ParamBool<hulkfight::ai::InActiveCondition>::vfunc_0 (30 B): matches/0x001113b0.cpp
+// sym: ??_G?$ParamBool@VInActiveCondition@ai@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from InActiveCondition_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00111b50 / FUN_00111c40 / FUN_00111ca0 / FUN_00111d00 / FUN_00111df0 / FUN_00111ea0 / FUN_00111f50 / FUN_00112000 / FUN_00112060 / FUN_00112150 / FUN_00112200 / FUN_001122b0 / FUN_001123a0 / FUN_001124c0 / FUN_00112570 / FUN_00112610 / FUN_00112690 / FUN_001127d0 / FUN_00112940 / FUN_001129a0 / FUN_00112aa0 / FUN_00112ba0 / FUN_00112d30 / FUN_00112e30 / FUN_00112f10)
+
+
+
+// 0x00111410 fight::ParamEnumConstList<hulkfight::ai::HulkActionCountCondition>::vfunc_0 (30 B): matches/0x00111410.cpp
+// sym: ??_G?$ParamEnumConstList@VHulkActionCountCondition@ai@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from HulkActionCountCondition_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00111b50 / FUN_00111c40 / FUN_00111ca0 / FUN_00111d00 / FUN_00111df0 / FUN_00111ea0 / FUN_00111f50 / FUN_00112000 / FUN_00112060 / FUN_00112150 / FUN_00112200 / FUN_001122b0 / FUN_001123a0 / FUN_001124c0 / FUN_00112570 / FUN_00112610 / FUN_00112690 / FUN_001127d0 / FUN_00112940 / FUN_001129a0 / FUN_00112aa0 / FUN_00112ba0 / FUN_00112d30 / FUN_00112e30 / FUN_00112f10)
+
+
+
+// 0x00111430 fight::ParamString<hulkfight::ai::HulkActionCountCondition>::vfunc_0 (30 B): matches/0x00111430.cpp
+// sym: ??_G?$ParamString@VHulkActionCountCondition@ai@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from HulkActionCountCondition_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00111b50 / FUN_00111c40 / FUN_00111ca0 / FUN_00111d00 / FUN_00111df0 / FUN_00111ea0 / FUN_00111f50 / FUN_00112000 / FUN_00112060 / FUN_00112150 / FUN_00112200 / FUN_001122b0 / FUN_001123a0 / FUN_001124c0 / FUN_00112570 / FUN_00112610 / FUN_00112690 / FUN_001127d0 / FUN_00112940 / FUN_001129a0 / FUN_00112aa0 / FUN_00112ba0 / FUN_00112d30 / FUN_00112e30 / FUN_00112f10)
+
+
+
+// 0x00111450 fight::ParamFloatConstRange<hulkfight::ai::HulkActionCountCondition>::vfunc_0 (30 B): matches/0x00111450.cpp
+// sym: ??_G?$ParamFloatConstRange@VHulkActionCountCondition@ai@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from HulkActionCountCondition_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00111b50 / FUN_00111c40 / FUN_00111ca0 / FUN_00111d00 / FUN_00111df0 / FUN_00111ea0 / FUN_00111f50 / FUN_00112000 / FUN_00112060 / FUN_00112150 / FUN_00112200 / FUN_001122b0 / FUN_001123a0 / FUN_001124c0 / FUN_00112570 / FUN_00112610 / FUN_00112690 / FUN_001127d0 / FUN_00112940 / FUN_001129a0 / FUN_00112aa0 / FUN_00112ba0 / FUN_00112d30 / FUN_00112e30 / FUN_00112f10)
+
+
+
+// 0x001114b0 fight::ParamEnumConstList<hulkfight::ai::PropsToSuckCondition>::vfunc_0 (30 B): matches/0x001114b0.cpp
+// sym: ??_G?$ParamEnumConstList@VPropsToSuckCondition@ai@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from PropsToSuckCondition_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00111b50 / FUN_00111c40 / FUN_00111ca0 / FUN_00111d00 / FUN_00111df0 / FUN_00111ea0 / FUN_00111f50 / FUN_00112000 / FUN_00112060 / FUN_00112150 / FUN_00112200 / FUN_001122b0 / FUN_001123a0 / FUN_001124c0 / FUN_00112570 / FUN_00112610 / FUN_00112690 / FUN_001127d0 / FUN_00112940 / FUN_001129a0 / FUN_00112aa0 / FUN_00112ba0 / FUN_00112d30 / FUN_00112e30 / FUN_00112f10)
+
+
+
+// 0x001114d0 fight::ParamFloatConstRange<hulkfight::ai::PropsToSuckCondition>::vfunc_0 (30 B): matches/0x001114d0.cpp
+// sym: ??_G?$ParamFloatConstRange@VPropsToSuckCondition@ai@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from PropsToSuckCondition_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00111b50 / FUN_00111c40 / FUN_00111ca0 / FUN_00111d00 / FUN_00111df0 / FUN_00111ea0 / FUN_00111f50 / FUN_00112000 / FUN_00112060 / FUN_00112150 / FUN_00112200 / FUN_001122b0 / FUN_001123a0 / FUN_001124c0 / FUN_00112570 / FUN_00112610 / FUN_00112690 / FUN_001127d0 / FUN_00112940 / FUN_001129a0 / FUN_00112aa0 / FUN_00112ba0 / FUN_00112d30 / FUN_00112e30 / FUN_00112f10)
+
+
+
+// 0x001114f0 fight::ParamBool<hulkfight::ai::PropsToSuckCondition>::vfunc_0 (30 B): matches/0x001114f0.cpp
+// sym: ??_G?$ParamBool@VPropsToSuckCondition@ai@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from PropsToSuckCondition_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00111b50 / FUN_00111c40 / FUN_00111ca0 / FUN_00111d00 / FUN_00111df0 / FUN_00111ea0 / FUN_00111f50 / FUN_00112000 / FUN_00112060 / FUN_00112150 / FUN_00112200 / FUN_001122b0 / FUN_001123a0 / FUN_001124c0 / FUN_00112570 / FUN_00112610 / FUN_00112690 / FUN_001127d0 / FUN_00112940 / FUN_001129a0 / FUN_00112aa0 / FUN_00112ba0 / FUN_00112d30 / FUN_00112e30 / FUN_00112f10)
+
+
+
+// 0x00111510 fight::ParamIntConstRange<hulkfight::ai::PropsToSuckCondition>::vfunc_0 (30 B): matches/0x00111510.cpp
+// sym: ??_G?$ParamIntConstRange@VPropsToSuckCondition@ai@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from PropsToSuckCondition_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00111b50 / FUN_00111c40 / FUN_00111ca0 / FUN_00111d00 / FUN_00111df0 / FUN_00111ea0 / FUN_00111f50 / FUN_00112000 / FUN_00112060 / FUN_00112150 / FUN_00112200 / FUN_001122b0 / FUN_001123a0 / FUN_001124c0 / FUN_00112570 / FUN_00112610 / FUN_00112690 / FUN_001127d0 / FUN_00112940 / FUN_001129a0 / FUN_00112aa0 / FUN_00112ba0 / FUN_00112d30 / FUN_00112e30 / FUN_00112f10)
+
+
+
+// 0x00111570 fight::ParamEnumConstList<hulkfight::ai::RandomKeyWordWaitCondition>::vfunc_0 (30 B): matches/0x00111570.cpp
+// sym: ??_G?$ParamEnumConstList@VRandomKeyWordWaitCondition@ai@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from RandomKeyWordWaitCondition_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00111b50 / FUN_00111c40 / FUN_00111ca0 / FUN_00111d00 / FUN_00111df0 / FUN_00111ea0 / FUN_00111f50 / FUN_00112000 / FUN_00112060 / FUN_00112150 / FUN_00112200 / FUN_001122b0 / FUN_001123a0 / FUN_001124c0 / FUN_00112570 / FUN_00112610 / FUN_00112690 / FUN_001127d0 / FUN_00112940 / FUN_001129a0 / FUN_00112aa0 / FUN_00112ba0 / FUN_00112d30 / FUN_00112e30 / FUN_00112f10)
+
+
+
+// 0x00111590 fight::ParamIntConstRange<hulkfight::ai::RandomKeyWordWaitCondition>::vfunc_0 (30 B): matches/0x00111590.cpp
+// sym: ??_G?$ParamIntConstRange@VRandomKeyWordWaitCondition@ai@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from RandomKeyWordWaitCondition_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00111b50 / FUN_00111c40 / FUN_00111ca0 / FUN_00111d00 / FUN_00111df0 / FUN_00111ea0 / FUN_00111f50 / FUN_00112000 / FUN_00112060 / FUN_00112150 / FUN_00112200 / FUN_001122b0 / FUN_001123a0 / FUN_001124c0 / FUN_00112570 / FUN_00112610 / FUN_00112690 / FUN_001127d0 / FUN_00112940 / FUN_001129a0 / FUN_00112aa0 / FUN_00112ba0 / FUN_00112d30 / FUN_00112e30 / FUN_00112f10)
+
+
+
+// 0x001115f0 fight::ParamBool<hulkfight::ai::TokenCondition>::vfunc_0 (30 B): matches/0x001115f0.cpp
+// sym: ??_G?$ParamBool@VTokenCondition@ai@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from SemaphoreClearTrack_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00111b50 / FUN_00111c40 / FUN_00111ca0 / FUN_00111d00 / FUN_00111df0 / FUN_00111ea0 / FUN_00111f50 / FUN_00112000 / FUN_00112060 / FUN_00112150 / FUN_00112200 / FUN_001122b0 / FUN_001123a0 / FUN_001124c0 / FUN_00112570 / FUN_00112610 / FUN_00112690 / FUN_001127d0 / FUN_00112940 / FUN_001129a0 / FUN_00112aa0 / FUN_00112ba0 / FUN_00112d30 / FUN_00112e30 / FUN_00112f10)
+
+
+
+// 0x00111650 fight::ParamEnumConstList<hulkfight::ai::FightingOtherNPCCondition>::vfunc_0 (30 B): matches/0x00111650.cpp
+// sym: ??_G?$ParamEnumConstList@VFightingOtherNPCCondition@ai@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from SemaphoreClearTrack_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00111b50 / FUN_00111c40 / FUN_00111ca0 / FUN_00111d00 / FUN_00111df0 / FUN_00111ea0 / FUN_00111f50 / FUN_00112000 / FUN_00112060 / FUN_00112150 / FUN_00112200 / FUN_001122b0 / FUN_001123a0 / FUN_001124c0 / FUN_00112570 / FUN_00112610 / FUN_00112690 / FUN_001127d0 / FUN_00112940 / FUN_001129a0 / FUN_00112aa0 / FUN_00112ba0 / FUN_00112d30 / FUN_00112e30 / FUN_00112f10)
+
+
+
+// 0x001116b0 fight::ParamFloatConstRange<hulkfight::ai::SemaphoreClearTrack>::vfunc_0 (30 B): matches/0x001116b0.cpp
+// sym: ??_G?$ParamFloatConstRange@VSemaphoreClearTrack@ai@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from SemaphoreClearTrack_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00111b50 / FUN_00111c40 / FUN_00111ca0 / FUN_00111d00 / FUN_00111df0 / FUN_00111ea0 / FUN_00111f50 / FUN_00112000 / FUN_00112060 / FUN_00112150 / FUN_00112200 / FUN_001122b0 / FUN_001123a0 / FUN_001124c0 / FUN_00112570 / FUN_00112610 / FUN_00112690 / FUN_001127d0 / FUN_00112940 / FUN_001129a0 / FUN_00112aa0 / FUN_00112ba0 / FUN_00112d30 / FUN_00112e30 / FUN_00112f10)
+
+
+
+// 0x001116d0 fight::ParamName<hulkfight::ai::SemaphoreClearTrack>::vfunc_0 (30 B): matches/0x001116d0.cpp
+// sym: ??_G?$ParamName@VSemaphoreClearTrack@ai@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from SemaphoreClearTrack_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00111b50 / FUN_00111c40 / FUN_00111ca0 / FUN_00111d00 / FUN_00111df0 / FUN_00111ea0 / FUN_00111f50 / FUN_00112000 / FUN_00112060 / FUN_00112150 / FUN_00112200 / FUN_001122b0 / FUN_001123a0 / FUN_001124c0 / FUN_00112570 / FUN_00112610 / FUN_00112690 / FUN_001127d0 / FUN_00112940 / FUN_001129a0 / FUN_00112aa0 / FUN_00112ba0 / FUN_00112d30 / FUN_00112e30 / FUN_00112f10)
+
+
+
+// 0x001116f0 fight::ParamBool<hulkfight::ai::SemaphoreClearTrack>::vfunc_0 (30 B): matches/0x001116f0.cpp
+// sym: ??_G?$ParamBool@VSemaphoreClearTrack@ai@hulkfight@@@fight@@UAEPAXI@Z
+// (gx3, D32/D18) moved from SemaphoreClearTrack_3.cpp: the implicit destructor of the class; its scalar deleting destructor is
+// emitted beside the vftable by the registration that constructs it (FUN_00111b50 / FUN_00111c40 / FUN_00111ca0 / FUN_00111d00 / FUN_00111df0 / FUN_00111ea0 / FUN_00111f50 / FUN_00112000 / FUN_00112060 / FUN_00112150 / FUN_00112200 / FUN_001122b0 / FUN_001123a0 / FUN_001124c0 / FUN_00112570 / FUN_00112610 / FUN_00112690 / FUN_001127d0 / FUN_00112940 / FUN_001129a0 / FUN_00112aa0 / FUN_00112ba0 / FUN_00112d30 / FUN_00112e30 / FUN_00112f10)
+
+
+
 // 0x00111720 fight::TrackFactoryCasterTemplate<hulkfight::ai::TokenSupressTrack>::vfunc_0 (36 B): matches/0x00111720.cpp
 // sym: ?vfunc_0@?$TrackFactoryCasterTemplate@VTokenSupressTrack@ai@hulkfight@@@fight@@UAE_NPAX@Z
  // namespace hulkfight
@@ -426,20 +714,14 @@ template <> bool fight::TrackFactoryCasterTemplate<hulkfight::ai::TokenSupressTr
 // sym: ??_G?$ParamFloatConstRange@VTokenSupressTrack@ai@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamFloatConstRange<hulkfight::ai::TokenSupressTrack>::~ParamFloatConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamFloatConstRange<hulkfight::ai::TokenSupressTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x111750)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00111770 fight::ParamBool<hulkfight::ai::TokenSupressTrack>::vfunc_0 (30 B): matches/0x00111770.cpp
 // sym: ??_G?$ParamBool@VTokenSupressTrack@ai@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamBool<hulkfight::ai::TokenSupressTrack>::~ParamBool() {}
-#if defined(HULK_PTR64)
-template class fight::ParamBool<hulkfight::ai::TokenSupressTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x111770)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x001117a0 fight::TrackFactoryCasterTemplate<hulkfight::ai::AIHistoryCountTrack>::vfunc_0 (36 B): matches/0x001117a0.cpp
@@ -455,10 +737,7 @@ template <> bool fight::TrackFactoryCasterTemplate<hulkfight::ai::AIHistoryCount
 // sym: ??_G?$ParamFloatConstRange@VAIHistoryCountTrack@ai@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamFloatConstRange<hulkfight::ai::AIHistoryCountTrack>::~ParamFloatConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamFloatConstRange<hulkfight::ai::AIHistoryCountTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1117d0)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00111800 fight::TrackFactoryCasterTemplate<hulkfight::ai::HulkActionTrack>::vfunc_0 (36 B): matches/0x00111800.cpp
@@ -474,20 +753,14 @@ template <> bool fight::TrackFactoryCasterTemplate<hulkfight::ai::HulkActionTrac
 // sym: ??_G?$ParamFloatConstRange@VHulkActionTrack@ai@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamFloatConstRange<hulkfight::ai::HulkActionTrack>::~ParamFloatConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamFloatConstRange<hulkfight::ai::HulkActionTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x111830)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00111850 fight::ParamName<hulkfight::ai::HulkActionTrack>::vfunc_0 (30 B): matches/0x00111850.cpp
 // sym: ??_G?$ParamName@VHulkActionTrack@ai@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamName<hulkfight::ai::HulkActionTrack>::~ParamName() {}
-#if defined(HULK_PTR64)
-template class fight::ParamName<hulkfight::ai::HulkActionTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x111850)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00111880 fight::TrackFactoryCasterTemplate<hulkfight::ai::KeywordWaitTrack>::vfunc_0 (36 B): matches/0x00111880.cpp
@@ -502,30 +775,21 @@ template <> bool fight::TrackFactoryCasterTemplate<hulkfight::ai::KeywordWaitTra
 // sym: ??_G?$ParamFloatConstRange@VKeywordWaitTrack@ai@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamFloatConstRange<hulkfight::ai::KeywordWaitTrack>::~ParamFloatConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamFloatConstRange<hulkfight::ai::KeywordWaitTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1118b0)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x001118d0 fight::ParamName<hulkfight::ai::KeywordWaitTrack>::vfunc_0 (30 B): matches/0x001118d0.cpp
 // sym: ??_G?$ParamName@VKeywordWaitTrack@ai@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamName<hulkfight::ai::KeywordWaitTrack>::~ParamName() {}
-#if defined(HULK_PTR64)
-template class fight::ParamName<hulkfight::ai::KeywordWaitTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1118d0)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x001118f0 fight::ParamBool<hulkfight::ai::KeywordWaitTrack>::vfunc_0 (30 B): matches/0x001118f0.cpp
 // sym: ??_G?$ParamBool@VKeywordWaitTrack@ai@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamBool<hulkfight::ai::KeywordWaitTrack>::~ParamBool() {}
-#if defined(HULK_PTR64)
-template class fight::ParamBool<hulkfight::ai::KeywordWaitTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1118f0)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00111920 fight::TrackFactoryCasterTemplate<hulkfight::ai::ButtonTrack>::vfunc_0 (36 B): matches/0x00111920.cpp
@@ -541,20 +805,14 @@ template <> bool fight::TrackFactoryCasterTemplate<hulkfight::ai::ButtonTrack>::
 // sym: ??_G?$ParamFloatConstRange@VButtonTrack@ai@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamFloatConstRange<hulkfight::ai::ButtonTrack>::~ParamFloatConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamFloatConstRange<hulkfight::ai::ButtonTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x111950)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00111970 fight::ParamEnumConstList<hulkfight::ai::ButtonTrack>::vfunc_0 (30 B): matches/0x00111970.cpp
 // sym: ??_G?$ParamEnumConstList@VButtonTrack@ai@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamEnumConstList<hulkfight::ai::ButtonTrack>::~ParamEnumConstList() {}
-#if defined(HULK_PTR64)
-template class fight::ParamEnumConstList<hulkfight::ai::ButtonTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x111970)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x001119a0 fight::TrackFactoryCasterTemplate<hulkfight::ai::AIHistorySetTrack>::vfunc_0 (36 B): matches/0x001119a0.cpp
@@ -570,30 +828,21 @@ template <> bool fight::TrackFactoryCasterTemplate<hulkfight::ai::AIHistorySetTr
 // sym: ??_G?$ParamFloatConstRange@VAIHistorySetTrack@ai@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamFloatConstRange<hulkfight::ai::AIHistorySetTrack>::~ParamFloatConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamFloatConstRange<hulkfight::ai::AIHistorySetTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1119d0)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x001119f0 fight::ParamBool<hulkfight::ai::AIHistorySetTrack>::vfunc_0 (30 B): matches/0x001119f0.cpp
 // sym: ??_G?$ParamBool@VAIHistorySetTrack@ai@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamBool<hulkfight::ai::AIHistorySetTrack>::~ParamBool() {}
-#if defined(HULK_PTR64)
-template class fight::ParamBool<hulkfight::ai::AIHistorySetTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1119f0)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00111a10 fight::ParamName<hulkfight::ai::AIHistorySetTrack>::vfunc_0 (30 B): matches/0x00111a10.cpp
 // sym: ??_G?$ParamName@VAIHistorySetTrack@ai@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamName<hulkfight::ai::AIHistorySetTrack>::~ParamName() {}
-#if defined(HULK_PTR64)
-template class fight::ParamName<hulkfight::ai::AIHistorySetTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x111a10)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00111a40 fight::TrackFactoryCasterTemplate<hulkfight::ai::TokenTrack>::vfunc_0 (36 B): matches/0x00111a40.cpp
@@ -608,20 +857,14 @@ template <> bool fight::TrackFactoryCasterTemplate<hulkfight::ai::TokenTrack>::v
 // sym: ??_G?$ParamFloatConstRange@VTokenTrack@ai@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamFloatConstRange<hulkfight::ai::TokenTrack>::~ParamFloatConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamFloatConstRange<hulkfight::ai::TokenTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x111a70)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00111a90 fight::ParamBool<hulkfight::ai::TokenTrack>::vfunc_0 (30 B): matches/0x00111a90.cpp
 // sym: ??_G?$ParamBool@VTokenTrack@ai@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamBool<hulkfight::ai::TokenTrack>::~ParamBool() {}
-#if defined(HULK_PTR64)
-template class fight::ParamBool<hulkfight::ai::TokenTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x111a90)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00111ab0 FUN_00111ab0 (9 B): matches/0x00111ab0.cpp [wrapped: conflict: fight::TrackFactoryCasterTemplate]
@@ -656,785 +899,489 @@ template <> bool fight::TrackFactoryCasterTemplate<hulkfight::ai::SemaphoreWaitT
 // sym: ??_G?$ParamFloatConstRange@VSemaphoreWaitTrack@ai@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamFloatConstRange<hulkfight::ai::SemaphoreWaitTrack>::~ParamFloatConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamFloatConstRange<hulkfight::ai::SemaphoreWaitTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x111af0)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00111b10 fight::ParamName<hulkfight::ai::SemaphoreWaitTrack>::vfunc_0 (30 B): matches/0x00111b10.cpp
 // sym: ??_G?$ParamName@VSemaphoreWaitTrack@ai@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamName<hulkfight::ai::SemaphoreWaitTrack>::~ParamName() {}
-#if defined(HULK_PTR64)
-template class fight::ParamName<hulkfight::ai::SemaphoreWaitTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x111b10)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00111b30 fight::ParamBool<hulkfight::ai::SemaphoreWaitTrack>::vfunc_0 (30 B): matches/0x00111b30.cpp
 // sym: ??_G?$ParamBool@VSemaphoreWaitTrack@ai@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamBool<hulkfight::ai::SemaphoreWaitTrack>::~ParamBool() {}
-#if defined(HULK_PTR64)
-template class fight::ParamBool<hulkfight::ai::SemaphoreWaitTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x111b30)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 namespace fn_fee140f0 {
 
-// 0x00111c40 FUN_00111c40 (95 B): equivalent/0x00111c40.cpp
-// sym: _FUN_00111c40 @8c95712c4ae4 @wb565d92c2ae9
-// STATUS: equivalent (tools/equiv.py level 3: 2998 inputs, branch coverage 4/4)
-// FUN_00111c40 @ 0x00111c40
+} // namespace fn_fee140f0
+
+namespace fn_fee140f0 {
+
+} // namespace fn_fee140f0
+
+namespace fn_fee140f0 {
+
+} // namespace fn_fee140f0
+
+namespace fn_fee140f0 {
+
+} // namespace fn_fee140f0
+
+namespace fn_fee140f0 {
+
+} // namespace fn_fee140f0
+
+// 0x00111b50 FUN_00111b50 (231 B): matches/0x00111b50.cpp
+// sym: ?FUN_00111b50@@YAXXZ
+// (gx2, D18) from SemaphoreWaitTrack_3.new_plain.cpp; constructs the real ParamBool<hulkfight::ai::OnBlockedTriangleCondition>, ParamEnumConstList<hulkfight::ai::OnBlockedTriangleCondition>, ParamIntConstRange<hulkfight::ai::OnBlockedTriangleCondition>,
+// whose vftable and scalar deleting destructor it emits
+void FUN_00111b50()
+{
+    if (DAT_004e0ae4 == 0) {
+        ::fight::ParamValue* params[3];
+        params[0] = new ::fight::ParamEnumConstList< ::hulkfight::ai::OnBlockedTriangleCondition>("compare", (void*)&DAT_0042773c, DAT_00427754, &fn_f15aa14c::Obj_10c0d0::SetCompare_0010c0d0);
+        params[1] = new ::fight::ParamBool< ::hulkfight::ai::OnBlockedTriangleCondition>("target", &fn_f15aa14c::Obj_10c0f0::SetTarget_0010c0f0);
+        params[2] = new ::fight::ParamIntConstRange< ::hulkfight::ai::OnBlockedTriangleCondition>("smartPropIndex", &fn_f15aa14c::X_10c110::SetSmartPropIndex_0010c110);
+        FUN_002347b0(&DAT_004e0ae0, params, 3);
+    }
+    DAT_004e0ae4++;
+}
+
+
+
+// 0x00111c40 FUN_00111c40 (95 B): matches/0x00111c40.cpp
+// sym: _FUN_00111c40
+// (gx2, D18) rewritten; constructs the real ParamBranch<hulkfight::ai::AIFightNodeCondition>,
+// whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_00111c40()
 {
     if (DAT_004e0aec == 0) {
-        void* params[1];
-        void* mem;
-        mem = FUN_0008d690((int)sizeof(fight::ParamBranch_111c40<hulkfight::ai::AIFightNodeCondition_111c40>));
-        params[0] = 0;
-        if (mem)
-            params[0] = new (mem) fight::ParamBranch_111c40<hulkfight::ai::AIFightNodeCondition_111c40>("branch", &hulkfight::ai::AIFightNodeCondition_111c40::FUN_0010c120);
-        FUN_002347b0(((ParamRegistry*)&DAT_004e0ae8), params, 1);
+        ::fight::ParamValue* params[1];
+        params[0] = new ::fight::ParamBranch< ::hulkfight::ai::AIFightNodeCondition>("branch", &fn_f15aa14c::Obj_10c120::Get);
+        FUN_002347b0(&DAT_004e0ae8, params, 1);
     }
     DAT_004e0aec++;
 }
 
 
-// 0x00111ca0 FUN_00111ca0 (95 B): equivalent/0x00111ca0.cpp
-// sym: _FUN_00111ca0 @f120cb5eb71f @w1886b39e903e
-// STATUS: equivalent (tools/equiv.py level 3: 2999 inputs, branch coverage 4/4)
-// FUN_00111ca0 @ 0x00111ca0
+
+// 0x00111ca0 FUN_00111ca0 (95 B): matches/0x00111ca0.cpp
+// sym: _FUN_00111ca0
+// (gx2, D18) rewritten; constructs the real ParamBool<hulkfight::ai::DefendingCondition>,
+// whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_00111ca0()
 {
     if (DAT_004e0af4 == 0) {
-        void* params[1];
-        void* mem;
-        mem = FUN_0008d690((int)sizeof(fight::ParamBool_111ca0<hulkfight::ai::DefendingCondition_111ca0>));
-        params[0] = 0;
-        if (mem)
-            params[0] = new (mem) fight::ParamBool_111ca0<hulkfight::ai::DefendingCondition_111ca0>("defending", (void (hulkfight::ai::DefendingCondition_111ca0::*)())&hulkfight::ai::DefendingCondition_111ca0::FUN_0010c130);
-        FUN_002347b0(((ParamRegistry*)&DAT_004e0af0), params, 1);
+        ::fight::ParamValue* params[1];
+        params[0] = new ::fight::ParamBool< ::hulkfight::ai::DefendingCondition>("defending", &owners::Obj_10c130::FUN_0010c130);
+        FUN_002347b0(&DAT_004e0af0, params, 1);
     }
     DAT_004e0af4++;
 }
 
-} // namespace fn_fee140f0
-
-// 0x00111df0 FUN_00111df0 (176 B): equivalent/0x00111df0.cpp [wrapped: conflict: fight::ParamEnumConstList; fight::ParamString; hulkfight::ai::HulkActionLargestCondition]
-// sym: _FUN_00111df0 @62f7d15f9646 @w6cb88f2ce1c5
-namespace fn_00111df0 {
-// STATUS: equivalent (tools/equiv.py level 3: 2989 inputs, branch coverage 6/6)
-// FUN_00111df0 @ 0x00111df0
 
 
-void* FUN_0008d690(unsigned int size);
-
-namespace hulkfight {
-namespace ai {
-class HulkActionLargestCondition {
-public:
-    char FUN_0010c180(int); /* (unb4) as defined; address taken only */
-    int FUN_0010c9b0(void*); /* (unb4) as defined; address taken only */
-};
-}
+// 0x00111d00 FUN_00111d00 (231 B): matches/0x00111d00.cpp
+// sym: _FUN_00111d00
+// (gx2, D18) from SemaphoreWaitTrack_3.iso_00111d00.cpp; constructs the real ParamEnumConstList<hulkfight::ai::AIHistoryNameCondition>, ParamFloatConstRange<hulkfight::ai::AIHistoryNameCondition>, ParamString<hulkfight::ai::AIHistoryNameCondition>,
+// whose vftable and scalar deleting destructor it emits
+extern "C" void FUN_00111d00()
+{
+    if (DAT_004e0afc == 0) {
+        ::fight::ParamValue* params[3];
+        params[0] = new ::fight::ParamEnumConstList< ::hulkfight::ai::AIHistoryNameCondition>("compare", (void*)&DAT_0042773c, DAT_00427754, &fn_f15aa14c::Obj_10c140::SetCompare_0010c140);
+        params[1] = new ::fight::ParamString< ::hulkfight::ai::AIHistoryNameCondition>("text", &fn_f15aa14c::Owner::SetText_0010c8d0);
+        params[2] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::AIHistoryNameCondition>("value", &fn_f15aa14c::Obj_10c170::SetValue_0010c170);
+        FUN_002347b0(&DAT_004e0af8, params, 3);
+    }
+    DAT_004e0afc++;
 }
 
-class __declspec(novtable) ParamEnumConstListBase {
-public:
-    virtual void v0();
-    char pad04[0xc];
-    void FUN_00234cc0(const char* name);
-    ParamEnumConstListBase(const char* name) { FUN_00234cc0(name); }
-};
-class __declspec(novtable) ParamStringBase {
-public:
-    virtual void v0();
-    char pad04[0xc];
-    void FUN_002349e0(const char* name);
-    ParamStringBase(const char* name) { FUN_002349e0(name); }
-};
-namespace fight {
-template <class T>
-class ParamEnumConstList : public ParamEnumConstListBase {
-public:
-    ParamEnumConstList(const char* name, const char** n, int c, void (T::*s)())
-        : ParamEnumConstListBase(name) { count = c; names = n; setter = s; }
-    virtual void v0();
-    const char** names;
-    int count;
-    void (T::*setter)();
-    int unused1c;
-};
-template <class T>
-class ParamString : public ParamStringBase {
-public:
-    ParamString(const char* name, void (T::*s)()) : ParamStringBase(name) { setter = s; }
-    virtual void v0();
-    void (T::*setter)();
-    int unused14;
-};
-}
-
-struct ParamRegistry {
-};
 
 
-
-void FUN_002347b0(ParamRegistry* reg, void** params, int count);
-
+// 0x00111df0 FUN_00111df0 (176 B): matches/0x00111df0.cpp
+// sym: _FUN_00111df0
+// (gx2, D18) rewritten; constructs the real ParamEnumConstList<hulkfight::ai::HulkActionLargestCondition>, ParamString<hulkfight::ai::HulkActionLargestCondition>,
+// whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_00111df0()
 {
     if (DAT_004e0b04 == 0) {
-        void* params[2];
-        void* mem;
-        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList<hulkfight::ai::HulkActionLargestCondition>));
-        params[0] = 0;
-        if (mem)
-            params[0] = new (mem) fight::ParamEnumConstList<hulkfight::ai::HulkActionLargestCondition>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), (void (hulkfight::ai::HulkActionLargestCondition::*)())&hulkfight::ai::HulkActionLargestCondition::FUN_0010c180);
-        mem = FUN_0008d690((int)sizeof(fight::ParamString<hulkfight::ai::HulkActionLargestCondition>));
-        params[1] = 0;
-        if (mem)
-            params[1] = new (mem) fight::ParamString<hulkfight::ai::HulkActionLargestCondition>("text", (void (hulkfight::ai::HulkActionLargestCondition::*)())&hulkfight::ai::HulkActionLargestCondition::FUN_0010c9b0);
-        FUN_002347b0(((ParamRegistry*)&DAT_004e0b00), params, 2);
+        ::fight::ParamValue* params[2];
+        params[0] = new ::fight::ParamEnumConstList< ::hulkfight::ai::HulkActionLargestCondition>("compare", (void*)&DAT_0042773c, DAT_00427754, &owners::A_10c180::FUN_0010c180);
+        params[1] = new ::fight::ParamString< ::hulkfight::ai::HulkActionLargestCondition>("text", &owners::Obj_10c9b0::FUN_0010c9b0);
+        FUN_002347b0(&DAT_004e0b00, params, 2);
     }
     DAT_004e0b04++;
 }
-} // namespace fn_00111df0
-
-
-// 0x00111ea0 FUN_00111ea0 (176 B): equivalent/0x00111ea0.cpp [wrapped: conflict: fight::ParamEnumConstList; fight::ParamIntConstRange; hulkfight::ai::PropsToChuckCondition]
-// sym: _FUN_00111ea0 @68b83cd08490 @wd773e97c09a4
-namespace fn_00111ea0 {
-// STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 6/6)
-// FUN_00111ea0 @ 0x00111ea0
-
-
-void* FUN_0008d690(unsigned int size);
-
-namespace hulkfight {
-namespace ai {
-class PropsToChuckCondition {
-public:
-    char FUN_0010c1a0(int); /* (unb4) as defined; address taken only */
-    char FUN_0010c1c0(int); /* (unb4) as defined; address taken only */
-};
-}
-}
-
-class __declspec(novtable) ParamEnumConstListBase {
-public:
-    virtual void v0();
-    char pad04[0xc];
-    void FUN_00234cc0(const char* name);
-    ParamEnumConstListBase(const char* name) { FUN_00234cc0(name); }
-};
-class __declspec(novtable) ParamIntConstRangeBase {
-public:
-    virtual void v0();
-    char pad04[0xc];
-    void FUN_002348e0(const char* name);
-    ParamIntConstRangeBase(const char* name) { FUN_002348e0(name); }
-};
-namespace fight {
-template <class T>
-class ParamEnumConstList : public ParamEnumConstListBase {
-public:
-    ParamEnumConstList(const char* name, const char** n, int c, void (T::*s)())
-        : ParamEnumConstListBase(name) { count = c; names = n; setter = s; }
-    virtual void v0();
-    const char** names;
-    int count;
-    void (T::*setter)();
-    int unused1c;
-};
-template <class T>
-class ParamIntConstRange : public ParamIntConstRangeBase {
-public:
-    ParamIntConstRange(const char* name, void (T::*s)()) : ParamIntConstRangeBase(name) { setter = s; }
-    virtual void v0();
-    void (T::*setter)();
-    int unused14;
-};
-}
-
-struct ParamRegistry {
-};
 
 
 
-void FUN_002347b0(ParamRegistry* reg, void** params, int count);
-
+// 0x00111ea0 FUN_00111ea0 (176 B): matches/0x00111ea0.cpp
+// sym: _FUN_00111ea0
+// (gx2, D18) rewritten; constructs the real ParamEnumConstList<hulkfight::ai::PropsToChuckCondition>, ParamIntConstRange<hulkfight::ai::PropsToChuckCondition>,
+// whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_00111ea0()
 {
     if (DAT_004e0b0c == 0) {
-        void* params[2];
-        void* mem;
-        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList<hulkfight::ai::PropsToChuckCondition>));
-        params[0] = 0;
-        if (mem)
-            params[0] = new (mem) fight::ParamEnumConstList<hulkfight::ai::PropsToChuckCondition>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), (void (hulkfight::ai::PropsToChuckCondition::*)())&hulkfight::ai::PropsToChuckCondition::FUN_0010c1a0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange<hulkfight::ai::PropsToChuckCondition>));
-        params[1] = 0;
-        if (mem)
-            params[1] = new (mem) fight::ParamIntConstRange<hulkfight::ai::PropsToChuckCondition>("number", (void (hulkfight::ai::PropsToChuckCondition::*)())&hulkfight::ai::PropsToChuckCondition::FUN_0010c1c0);
-        FUN_002347b0(((ParamRegistry*)&DAT_004e0b08), params, 2);
+        ::fight::ParamValue* params[2];
+        params[0] = new ::fight::ParamEnumConstList< ::hulkfight::ai::PropsToChuckCondition>("compare", (void*)&DAT_0042773c, DAT_00427754, &owners::Obj_10c1a0::FUN_0010c1a0);
+        params[1] = new ::fight::ParamIntConstRange< ::hulkfight::ai::PropsToChuckCondition>("number", &owners::O_10c1c0::FUN_0010c1c0);
+        FUN_002347b0(&DAT_004e0b08, params, 2);
     }
     DAT_004e0b0c++;
 }
-} // namespace fn_00111ea0
-
-
-// 0x00111f50 FUN_00111f50 (176 B): equivalent/0x00111f50.cpp [wrapped: conflict: fight::ParamEnumConstList; fight::ParamString; hulkfight::ai::HulkActionRecentCondition]
-// sym: _FUN_00111f50 @dd64dcef0456 @wf69c5551d0a0
-namespace fn_00111f50 {
-// STATUS: equivalent (tools/equiv.py level 3: 2996 inputs, branch coverage 6/6)
-// FUN_00111f50 @ 0x00111f50
-
-
-void* FUN_0008d690(unsigned int size);
-
-namespace hulkfight {
-namespace ai {
-class HulkActionRecentCondition {
-public:
-    char FUN_0010c1d0(int); /* (unb4) as defined; address taken only */
-    char FUN_0010cb00(void*); /* (unb4) as defined; address taken only */
-};
-}
-}
-
-class __declspec(novtable) ParamEnumConstListBase {
-public:
-    virtual void v0();
-    char pad04[0xc];
-    void FUN_00234cc0(const char* name);
-    ParamEnumConstListBase(const char* name) { FUN_00234cc0(name); }
-};
-class __declspec(novtable) ParamStringBase {
-public:
-    virtual void v0();
-    char pad04[0xc];
-    void FUN_002349e0(const char* name);
-    ParamStringBase(const char* name) { FUN_002349e0(name); }
-};
-namespace fight {
-template <class T>
-class ParamEnumConstList : public ParamEnumConstListBase {
-public:
-    ParamEnumConstList(const char* name, const char** n, int c, void (T::*s)())
-        : ParamEnumConstListBase(name) { count = c; names = n; setter = s; }
-    virtual void v0();
-    const char** names;
-    int count;
-    void (T::*setter)();
-    int unused1c;
-};
-template <class T>
-class ParamString : public ParamStringBase {
-public:
-    ParamString(const char* name, void (T::*s)()) : ParamStringBase(name) { setter = s; }
-    virtual void v0();
-    void (T::*setter)();
-    int unused14;
-};
-}
-
-struct ParamRegistry {
-};
 
 
 
-void FUN_002347b0(ParamRegistry* reg, void** params, int count);
-
+// 0x00111f50 FUN_00111f50 (176 B): matches/0x00111f50.cpp
+// sym: _FUN_00111f50
+// (gx2, D18) rewritten; constructs the real ParamEnumConstList<hulkfight::ai::HulkActionRecentCondition>, ParamString<hulkfight::ai::HulkActionRecentCondition>,
+// whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_00111f50()
 {
     if (DAT_004e0b14 == 0) {
-        void* params[2];
-        void* mem;
-        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList<hulkfight::ai::HulkActionRecentCondition>));
-        params[0] = 0;
-        if (mem)
-            params[0] = new (mem) fight::ParamEnumConstList<hulkfight::ai::HulkActionRecentCondition>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), (void (hulkfight::ai::HulkActionRecentCondition::*)())&hulkfight::ai::HulkActionRecentCondition::FUN_0010c1d0);
-        mem = FUN_0008d690((int)sizeof(fight::ParamString<hulkfight::ai::HulkActionRecentCondition>));
-        params[1] = 0;
-        if (mem)
-            params[1] = new (mem) fight::ParamString<hulkfight::ai::HulkActionRecentCondition>("text", (void (hulkfight::ai::HulkActionRecentCondition::*)())&hulkfight::ai::HulkActionRecentCondition::FUN_0010cb00);
-        FUN_002347b0(((ParamRegistry*)&DAT_004e0b10), params, 2);
+        ::fight::ParamValue* params[2];
+        params[0] = new ::fight::ParamEnumConstList< ::hulkfight::ai::HulkActionRecentCondition>("compare", (void*)&DAT_0042773c, DAT_00427754, &owners::O_10c1d0::FUN_0010c1d0);
+        params[1] = new ::fight::ParamString< ::hulkfight::ai::HulkActionRecentCondition>("text", &owners::Obj_10cb00::FUN_0010cb00);
+        FUN_002347b0(&DAT_004e0b10, params, 2);
     }
     DAT_004e0b14++;
 }
-} // namespace fn_00111f50
 
-namespace fn_fee140f0 {
 
-// 0x00112000 FUN_00112000 (95 B): equivalent/0x00112000.cpp
-// sym: _FUN_00112000 @d009095dfc64 @wbce8b64b3b78
-// STATUS: equivalent (tools/equiv.py level 3: 2996 inputs, branch coverage 4/4)
-// FUN_00112000 @ 0x00112000
+
+// 0x00112000 FUN_00112000 (95 B): matches/0x00112000.cpp
+// sym: _FUN_00112000
+// (gx2, D18) rewritten; constructs the real ParamBool<hulkfight::ai::LeashedCondition>,
+// whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_00112000()
 {
     if (DAT_004e0b1c == 0) {
-        void* params[1];
-        void* mem;
-        mem = FUN_0008d690((int)sizeof(fight::ParamBool_112000<hulkfight::ai::LeashedCondition_112000>));
-        params[0] = 0;
-        if (mem)
-            params[0] = new (mem) fight::ParamBool_112000<hulkfight::ai::LeashedCondition_112000>("leashed", (void (hulkfight::ai::LeashedCondition_112000::*)())&hulkfight::ai::LeashedCondition_112000::FUN_0010c1f0);
-        FUN_002347b0(((ParamRegistry*)&DAT_004e0b18), params, 1);
+        ::fight::ParamValue* params[1];
+        params[0] = new ::fight::ParamBool< ::hulkfight::ai::LeashedCondition>("leashed", &owners::Obj_10c1f0::FUN_0010c1f0);
+        FUN_002347b0(&DAT_004e0b18, params, 1);
     }
     DAT_004e0b1c++;
 }
 
-} // namespace fn_fee140f0
-
-// 0x00112150 FUN_00112150 (176 B): equivalent/0x00112150.cpp [wrapped: conflict: fight::ParamEnumConstList; fight::ParamString; hulkfight::ai::FormationReadyCondition]
-// sym: _FUN_00112150 @90d4e72c189e @w119e8a350c68
-namespace fn_00112150 {
-// STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 6/6)
-// FUN_00112150 @ 0x00112150
 
 
-void* FUN_0008d690(unsigned int size);
-
-namespace hulkfight {
-namespace ai {
-class FormationReadyCondition {
-public:
-    char FUN_0010c240(int); /* (unb4) as defined; address taken only */
-    bool FUN_0010cd20(void*); /* (unb4) as defined; address taken only */
-};
-}
+// 0x00112060 FUN_00112060 (231 B): matches/0x00112060.cpp
+// sym: _FUN_00112060
+// (gx2, D18) from SemaphoreWaitTrack_3.iso_00112060.cpp; constructs the real ParamEnumConstList<hulkfight::ai::KeyWordWaitCondition>, ParamFloatConstRange<hulkfight::ai::KeyWordWaitCondition>, ParamString<hulkfight::ai::KeyWordWaitCondition>,
+// whose vftable and scalar deleting destructor it emits
+extern "C" void FUN_00112060()
+{
+    if (DAT_004e0b24 == 0) {
+        ::fight::ParamValue* params[3];
+        params[0] = new ::fight::ParamEnumConstList< ::hulkfight::ai::KeyWordWaitCondition>("compare", (void*)&DAT_0042773c, DAT_00427754, &fn_f15aa14c::X_10c200::SetCompare_0010c200);
+        params[1] = new ::fight::ParamString< ::hulkfight::ai::KeyWordWaitCondition>("text", &fn_f15aa14c::Obj::SetText_0010cc40);
+        params[2] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::KeyWordWaitCondition>("value", &fn_f15aa14c::X_10c230::SetValue_0010c230);
+        FUN_002347b0(&DAT_004e0b20, params, 3);
+    }
+    DAT_004e0b24++;
 }
 
-class __declspec(novtable) ParamEnumConstListBase {
-public:
-    virtual void v0();
-    char pad04[0xc];
-    void FUN_00234cc0(const char* name);
-    ParamEnumConstListBase(const char* name) { FUN_00234cc0(name); }
-};
-class __declspec(novtable) ParamStringBase {
-public:
-    virtual void v0();
-    char pad04[0xc];
-    void FUN_002349e0(const char* name);
-    ParamStringBase(const char* name) { FUN_002349e0(name); }
-};
-namespace fight {
-template <class T>
-class ParamEnumConstList : public ParamEnumConstListBase {
-public:
-    ParamEnumConstList(const char* name, const char** n, int c, void (T::*s)())
-        : ParamEnumConstListBase(name) { count = c; names = n; setter = s; }
-    virtual void v0();
-    const char** names;
-    int count;
-    void (T::*setter)();
-    int unused1c;
-};
-template <class T>
-class ParamString : public ParamStringBase {
-public:
-    ParamString(const char* name, void (T::*s)()) : ParamStringBase(name) { setter = s; }
-    virtual void v0();
-    void (T::*setter)();
-    int unused14;
-};
-}
-
-struct ParamRegistry {
-};
 
 
-
-void FUN_002347b0(ParamRegistry* reg, void** params, int count);
-
+// 0x00112150 FUN_00112150 (176 B): matches/0x00112150.cpp
+// sym: _FUN_00112150
+// (gx2, D18) rewritten; constructs the real ParamEnumConstList<hulkfight::ai::FormationReadyCondition>, ParamString<hulkfight::ai::FormationReadyCondition>,
+// whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_00112150()
 {
     if (DAT_004e0b2c == 0) {
-        void* params[2];
-        void* mem;
-        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList<hulkfight::ai::FormationReadyCondition>));
-        params[0] = 0;
-        if (mem)
-            params[0] = new (mem) fight::ParamEnumConstList<hulkfight::ai::FormationReadyCondition>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), (void (hulkfight::ai::FormationReadyCondition::*)())&hulkfight::ai::FormationReadyCondition::FUN_0010c240);
-        mem = FUN_0008d690((int)sizeof(fight::ParamString<hulkfight::ai::FormationReadyCondition>));
-        params[1] = 0;
-        if (mem)
-            params[1] = new (mem) fight::ParamString<hulkfight::ai::FormationReadyCondition>("text", (void (hulkfight::ai::FormationReadyCondition::*)())&hulkfight::ai::FormationReadyCondition::FUN_0010cd20);
-        FUN_002347b0(((ParamRegistry*)&DAT_004e0b28), params, 2);
+        ::fight::ParamValue* params[2];
+        params[0] = new ::fight::ParamEnumConstList< ::hulkfight::ai::FormationReadyCondition>("compare", (void*)&DAT_0042773c, DAT_00427754, &owners::O_10c240::FUN_0010c240);
+        params[1] = new ::fight::ParamString< ::hulkfight::ai::FormationReadyCondition>("text", &owners::Obj_10cd20::FUN_0010cd20);
+        FUN_002347b0(&DAT_004e0b28, params, 2);
     }
     DAT_004e0b2c++;
 }
-} // namespace fn_00112150
 
-namespace fn_fee140f0 {
 
-// 0x00112200 FUN_00112200 (176 B): equivalent/0x00112200.cpp
-// sym: _FUN_00112200 @fd964f6dc84c @wdc63c4b0ad08
-// STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 6/6)
-// FUN_00112200 @ 0x00112200
+
+// 0x00112200 FUN_00112200 (176 B): matches/0x00112200.cpp
+// sym: _FUN_00112200
+// (gx2, D18) rewritten; constructs the real ParamBool<hulkfight::ai::InActiveCondition>, ParamEnumConstList<hulkfight::ai::InActiveCondition>,
+// whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_00112200()
 {
     if (DAT_004e0b34 == 0) {
-        void* params[2];
-        void* mem;
-        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_112200<hulkfight::ai::InActiveCondition_112200>));
-        params[0] = 0;
-        if (mem)
-            params[0] = new (mem) fight::ParamEnumConstList_112200<hulkfight::ai::InActiveCondition_112200>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), (void (hulkfight::ai::InActiveCondition_112200::*)())&hulkfight::ai::InActiveCondition_112200::FUN_0010c250);
-        mem = FUN_0008d690((int)sizeof(fight::ParamBool_112200<hulkfight::ai::InActiveCondition_112200>));
-        params[1] = 0;
-        if (mem)
-            params[1] = new (mem) fight::ParamBool_112200<hulkfight::ai::InActiveCondition_112200>("active", (void (hulkfight::ai::InActiveCondition_112200::*)())&hulkfight::ai::InActiveCondition_112200::FUN_0010c270);
-        FUN_002347b0(((ParamRegistry*)&DAT_004e0b30), params, 2);
+        ::fight::ParamValue* params[2];
+        params[0] = new ::fight::ParamEnumConstList< ::hulkfight::ai::InActiveCondition>("compare", (void*)&DAT_0042773c, DAT_00427754, &owners::Obj_10c250::FUN_0010c250);
+        params[1] = new ::fight::ParamBool< ::hulkfight::ai::InActiveCondition>("active", &owners::X_10c270::FUN_0010c270);
+        FUN_002347b0(&DAT_004e0b30, params, 2);
     }
     DAT_004e0b34++;
 }
 
-} // namespace fn_fee140f0
-
-// 0x001124c0 FUN_001124c0 (176 B): equivalent/0x001124c0.cpp [wrapped: conflict: fight::ParamEnumConstList; fight::ParamIntConstRange; hulkfight::ai::RandomKeyWordWaitCondition]
-// sym: _FUN_001124c0 @6274aa4302b7 @w9fd538eb68de
-namespace fn_001124c0 {
-// STATUS: equivalent (tools/equiv.py level 3: 2994 inputs, branch coverage 6/6)
-// FUN_001124c0 @ 0x001124c0
 
 
-void* FUN_0008d690(unsigned int size);
-
-namespace hulkfight {
-namespace ai {
-class RandomKeyWordWaitCondition {
-public:
-    char FUN_0010c330(int); /* (unb4) as defined; address taken only */
-    bool FUN_0010c350(int); /* (unb4) as defined; address taken only */
-};
-}
+// 0x001122b0 FUN_001122b0 (231 B): matches/0x001122b0.cpp
+// sym: _FUN_001122b0
+// (gx2, D18) from SemaphoreWaitTrack_3.iso_001122b0.cpp; constructs the real ParamEnumConstList<hulkfight::ai::HulkActionCountCondition>, ParamFloatConstRange<hulkfight::ai::HulkActionCountCondition>, ParamString<hulkfight::ai::HulkActionCountCondition>,
+// whose vftable and scalar deleting destructor it emits
+extern "C" void FUN_001122b0()
+{
+    if (DAT_004e0b3c == 0) {
+        ::fight::ParamValue* params[3];
+        params[0] = new ::fight::ParamEnumConstList< ::hulkfight::ai::HulkActionCountCondition>("compare", (void*)&DAT_0042773c, DAT_00427754, &fn_f15aa14c::O_10c280::SetCompare_0010c280);
+        params[1] = new ::fight::ParamString< ::hulkfight::ai::HulkActionCountCondition>("text", &fn_f15aa14c::Obj::SetText_0010ce60);
+        params[2] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::HulkActionCountCondition>("value", &fn_f15aa14c::C_10c2b0::SetValue_0010c2b0);
+        FUN_002347b0(&DAT_004e0b38, params, 3);
+    }
+    DAT_004e0b3c++;
 }
 
-class __declspec(novtable) ParamEnumConstListBase {
-public:
-    virtual void v0();
-    char pad04[0xc];
-    void FUN_00234cc0(const char* name);
-    ParamEnumConstListBase(const char* name) { FUN_00234cc0(name); }
-};
-class __declspec(novtable) ParamIntConstRangeBase {
-public:
-    virtual void v0();
-    char pad04[0xc];
-    void FUN_002348e0(const char* name);
-    ParamIntConstRangeBase(const char* name) { FUN_002348e0(name); }
-};
-namespace fight {
-template <class T>
-class ParamEnumConstList : public ParamEnumConstListBase {
-public:
-    ParamEnumConstList(const char* name, const char** n, int c, void (T::*s)())
-        : ParamEnumConstListBase(name) { count = c; names = n; setter = s; }
-    virtual void v0();
-    const char** names;
-    int count;
-    void (T::*setter)();
-    int unused1c;
-};
-template <class T>
-class ParamIntConstRange : public ParamIntConstRangeBase {
-public:
-    ParamIntConstRange(const char* name, void (T::*s)()) : ParamIntConstRangeBase(name) { setter = s; }
-    virtual void v0();
-    void (T::*setter)();
-    int unused14;
-};
+
+
+// 0x001123a0 FUN_001123a0 (274 B): matches/0x001123a0.cpp
+// sym: ?FUN_001123a0@@YAXXZ
+// (gx2, D18) from SemaphoreWaitTrack_3.iso_001123a0.cpp; constructs the real ParamBool<hulkfight::ai::PropsToSuckCondition>, ParamEnumConstList<hulkfight::ai::PropsToSuckCondition>, ParamFloatConstRange<hulkfight::ai::PropsToSuckCondition>, ParamIntConstRange<hulkfight::ai::PropsToSuckCondition>,
+// whose vftable and scalar deleting destructor it emits
+void FUN_001123a0()
+{
+    if (DAT_004e0b44 == 0) {
+        ::fight::ParamValue* params[4];
+        params[0] = new ::fight::ParamEnumConstList< ::hulkfight::ai::PropsToSuckCondition>("compare", (void*)&DAT_0042773c, DAT_00427754, &fn_f15aa14c::Obj_10c2c0::SetCompare_0010c2c0);
+        params[1] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::PropsToSuckCondition>("distance", &fn_f15aa14c::C_10c2e0::SetDistance_0010c2e0);
+        params[2] = new ::fight::ParamBool< ::hulkfight::ai::PropsToSuckCondition>("numberofAttachedProps", &fn_f15aa14c::T_10c300::SetNumberofAttachedProps_0010c300);
+        params[3] = new ::fight::ParamIntConstRange< ::hulkfight::ai::PropsToSuckCondition>("number", &fn_f15aa14c::X_10c320::SetNumber_0010c320);
+        FUN_002347b0(&DAT_004e0b40, params, 4);
+    }
+    DAT_004e0b44++;
 }
 
-struct ParamRegistry {
-};
 
 
-
-void FUN_002347b0(ParamRegistry* reg, void** params, int count);
-
+// 0x001124c0 FUN_001124c0 (176 B): matches/0x001124c0.cpp
+// sym: _FUN_001124c0
+// (gx2, D18) rewritten; constructs the real ParamEnumConstList<hulkfight::ai::RandomKeyWordWaitCondition>, ParamIntConstRange<hulkfight::ai::RandomKeyWordWaitCondition>,
+// whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_001124c0()
 {
     if (DAT_004e0b4c == 0) {
-        void* params[2];
-        void* mem;
-        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList<hulkfight::ai::RandomKeyWordWaitCondition>));
-        params[0] = 0;
-        if (mem)
-            params[0] = new (mem) fight::ParamEnumConstList<hulkfight::ai::RandomKeyWordWaitCondition>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), (void (hulkfight::ai::RandomKeyWordWaitCondition::*)())&hulkfight::ai::RandomKeyWordWaitCondition::FUN_0010c330);
-        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange<hulkfight::ai::RandomKeyWordWaitCondition>));
-        params[1] = 0;
-        if (mem)
-            params[1] = new (mem) fight::ParamIntConstRange<hulkfight::ai::RandomKeyWordWaitCondition>("value", (void (hulkfight::ai::RandomKeyWordWaitCondition::*)())&hulkfight::ai::RandomKeyWordWaitCondition::FUN_0010c350);
-        FUN_002347b0(((ParamRegistry*)&DAT_004e0b48), params, 2);
+        ::fight::ParamValue* params[2];
+        params[0] = new ::fight::ParamEnumConstList< ::hulkfight::ai::RandomKeyWordWaitCondition>("compare", (void*)&DAT_0042773c, DAT_00427754, &owners::Obj_10c330::FUN_0010c330);
+        params[1] = new ::fight::ParamIntConstRange< ::hulkfight::ai::RandomKeyWordWaitCondition>("value", &owners::Obj_10c350::FUN_0010c350);
+        FUN_002347b0(&DAT_004e0b48, params, 2);
     }
     DAT_004e0b4c++;
 }
-} // namespace fn_001124c0
 
-namespace fn_fee140f0 {
 
-// 0x00112570 FUN_00112570 (158 B): equivalent/0x00112570.cpp
-// sym: _FUN_00112570 @31d6dcd00a94 @wabe9b88601ec
-// STATUS: equivalent (tools/equiv.py level 3: 2997 inputs, branch coverage 6/6)
-// FUN_00112570 @ 0x00112570
+
+// 0x00112570 FUN_00112570 (158 B): matches/0x00112570.cpp
+// sym: _FUN_00112570
+// (gx2, D18) rewritten; constructs the real ParamBool<hulkfight::ai::TokenCondition>,
+// whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_00112570()
 {
     if (DAT_004e0b54 == 0) {
-        void* params[2];
-        void* mem;
-        mem = FUN_0008d690((int)sizeof(fight::ParamBool_112570<hulkfight::ai::TokenCondition_112570>));
-        params[0] = 0;
-        if (mem)
-            params[0] = new (mem) fight::ParamBool_112570<hulkfight::ai::TokenCondition_112570>("oRNoOneHas", (void (hulkfight::ai::TokenCondition_112570::*)())&hulkfight::ai::TokenCondition_112570::FUN_0010c370);
-        mem = FUN_0008d690((int)sizeof(fight::ParamBool_112570<hulkfight::ai::TokenCondition_112570>));
-        params[1] = 0;
-        if (mem)
-            params[1] = new (mem) fight::ParamBool_112570<hulkfight::ai::TokenCondition_112570>("have", (void (hulkfight::ai::TokenCondition_112570::*)())&hulkfight::ai::TokenCondition_112570::FUN_0010c390);
-        FUN_002347b0(((ParamRegistry*)&DAT_004e0b50), params, 2);
+        ::fight::ParamValue* params[2];
+        params[0] = new ::fight::ParamBool< ::hulkfight::ai::TokenCondition>("oRNoOneHas", &owners::Obj_10c370::FUN_0010c370);
+        params[1] = new ::fight::ParamBool< ::hulkfight::ai::TokenCondition>("have", &owners::Obj_10c390::FUN_0010c390);
+        FUN_002347b0(&DAT_004e0b50, params, 2);
     }
     DAT_004e0b54++;
 }
 
-} // namespace fn_fee140f0
-
-// 0x00112610 FUN_00112610 (113 B): equivalent/0x00112610.cpp [wrapped: conflict: fight::ParamEnumConstList; hulkfight::ai::FightingOtherNPCCondition]
-// sym: _FUN_00112610 @a8cbe724eda9 @w31859f5436b5
-namespace fn_00112610 {
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
-// FUN_00112610 @ 0x00112610
 
 
-void* FUN_0008d690(unsigned int size);
-
-namespace hulkfight { namespace ai {
-class FightingOtherNPCCondition {
-public:
-    bool FUN_0010c3a0(int); /* (unb4) as defined; address taken only */
-};
-} }
-
-class __declspec(novtable) ParamEnumConstListBase {
-public:
-    virtual void v0();
-    char pad04[0xc];
-    void FUN_00234cc0(const char* name);
-    ParamEnumConstListBase(const char* name) { FUN_00234cc0(name); }
-};
-namespace fight {
-template <class T>
-class ParamEnumConstList : public ParamEnumConstListBase {
-public:
-    ParamEnumConstList(const char* name, const char** n, int c, void (T::*s)())
-        : ParamEnumConstListBase(name) { count = c; names = n; setter = s; }
-    virtual void v0();
-    const char** names;
-    int count;
-    void (T::*setter)();
-    int unused1c;
-};
-}
-
-struct ParamRegistry {
-};
-void FUN_002347b0(ParamRegistry* reg, void** params, int count);
-
+// 0x00112610 FUN_00112610 (113 B): matches/0x00112610.cpp
+// sym: _FUN_00112610
+// (gx2, D18) rewritten; constructs the real ParamEnumConstList<hulkfight::ai::FightingOtherNPCCondition>,
+// whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_00112610()
 {
     if (DAT_004e0b5c == 0) {
-        void* params[1];
-        void* mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList<hulkfight::ai::FightingOtherNPCCondition>));
-        params[0] = 0;
-        if (mem)
-            params[0] = new (mem) fight::ParamEnumConstList<hulkfight::ai::FightingOtherNPCCondition>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), (void (hulkfight::ai::FightingOtherNPCCondition::*)())&hulkfight::ai::FightingOtherNPCCondition::FUN_0010c3a0);
-        FUN_002347b0(((ParamRegistry*)&DAT_004e0b58), params, 1);
+        ::fight::ParamValue* params[1];
+        params[0] = new ::fight::ParamEnumConstList< ::hulkfight::ai::FightingOtherNPCCondition>("compare", (void*)&DAT_0042773c, DAT_00427754, &owners::Obj_10c3a0::FUN_0010c3a0);
+        FUN_002347b0(&DAT_004e0b58, params, 1);
     }
     DAT_004e0b5c++;
 }
-} // namespace fn_00112610
 
-namespace fn_fee140f0 {
 
-// 0x00112690 FUN_00112690 (307 B): equivalent/0x00112690.cpp
-// sym: _FUN_00112690 @c7f6f25683df @w15154a6d6fb5
-// STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 12/12)
-// FUN_00112690 @ 0x00112690
+
+// 0x00112690 FUN_00112690 (307 B): matches/0x00112690.cpp
+// sym: _FUN_00112690
+// (gx2, D18) rewritten; constructs the real ParamBool<hulkfight::ai::SemaphoreClearTrack>, ParamFloatConstRange<hulkfight::ai::SemaphoreClearTrack>, ParamName<hulkfight::ai::SemaphoreClearTrack>,
+// whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_00112690()
 {
     if (DAT_004e0b64 == 0) {
-        void* params[5];
-        void* mem;
-
-        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<SemaphoreClearTrack>));
-        params[0] = 0;
-        if (mem)
-            params[0] = new (mem) ParamFloatConstRange<SemaphoreClearTrack>("timeBegin", (void (SemaphoreClearTrack::*)())&SemaphoreClearTrack::FUN_0010c3b0);
-        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<SemaphoreClearTrack>));
-        params[1] = 0;
-        if (mem)
-            params[1] = new (mem) ParamFloatConstRange<SemaphoreClearTrack>("timeEnd", (void (SemaphoreClearTrack::*)())&SemaphoreClearTrack::FUN_0010c3c0);
-        mem = FUN_0008d690((int)sizeof(ParamName<SemaphoreClearTrack>));
-        params[2] = 0;
-        if (mem)
-            params[2] = new (mem) ParamName<SemaphoreClearTrack>("semaphore", &SemaphoreClearTrack::FUN_0010c3d0);
-        mem = FUN_0008d690((int)sizeof(ParamBool<SemaphoreClearTrack>));
-        params[3] = 0;
-        if (mem)
-            params[3] = new (mem) ParamBool<SemaphoreClearTrack>("clearEveryFrame", (void (SemaphoreClearTrack::*)())&SemaphoreClearTrack::FUN_0010c3f0);
-        mem = FUN_0008d690((int)sizeof(ParamBool<SemaphoreClearTrack>));
-        params[4] = 0;
-        if (mem)
-            params[4] = new (mem) ParamBool<SemaphoreClearTrack>("clearAll", (void (SemaphoreClearTrack::*)())&SemaphoreClearTrack::FUN_0010c410);
-        FUN_002347b0(((ParamRegistry*)&DAT_004e0b60), params, 5);
+        ::fight::ParamValue* params[5];
+        params[0] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::SemaphoreClearTrack>("timeBegin", &owners::Obj_10c3b0::FUN_0010c3b0);
+        params[1] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::SemaphoreClearTrack>("timeEnd", &owners::Obj_10c3c0::FUN_0010c3c0);
+        params[2] = new ::fight::ParamName< ::hulkfight::ai::SemaphoreClearTrack>("semaphore", &fn_f15aa14c::X_10c3d0::Get);
+        params[3] = new ::fight::ParamBool< ::hulkfight::ai::SemaphoreClearTrack>("clearEveryFrame", &owners::Obj_10c3f0::FUN_0010c3f0);
+        params[4] = new ::fight::ParamBool< ::hulkfight::ai::SemaphoreClearTrack>("clearAll", &owners::Obj_10c410::FUN_0010c410);
+        FUN_002347b0(&DAT_004e0b60, params, 5);
     }
     DAT_004e0b64++;
 }
 
 
-// 0x001127d0 FUN_001127d0 (358 B): equivalent/0x001127d0.cpp
-// sym: _FUN_001127d0 @5604d43867db @wb0bee0121ca3
-// STATUS: equivalent (tools/equiv.py level 3: 66 inputs, branch coverage 14/14)
-// FUN_001127d0 @ 0x001127d0
+
+// 0x001127d0 FUN_001127d0 (358 B): matches/0x001127d0.cpp
+// sym: _FUN_001127d0
+// (gx2, D18) rewritten; constructs the real ParamBool<hulkfight::ai::TokenSupressTrack>, ParamFloatConstRange<hulkfight::ai::TokenSupressTrack>,
+// whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_001127d0()
 {
     if (DAT_004e0b6c == 0) {
-        void* params[6];
-        void* mem;
-
-        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<TokenSupressTrack>));
-        params[0] = 0;
-        if (mem)
-            params[0] = new (mem) ParamFloatConstRange<TokenSupressTrack>("timeBegin", (void (TokenSupressTrack::*)())&TokenSupressTrack::FUN_0010c420);
-        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<TokenSupressTrack>));
-        params[1] = 0;
-        if (mem)
-            params[1] = new (mem) ParamFloatConstRange<TokenSupressTrack>("timeEnd", (void (TokenSupressTrack::*)())&TokenSupressTrack::FUN_0010c430);
-        mem = FUN_0008d690((int)sizeof(ParamBool<TokenSupressTrack>));
-        params[2] = 0;
-        if (mem)
-            params[2] = new (mem) ParamBool<TokenSupressTrack>("supressEveryFrame", (void (TokenSupressTrack::*)())&TokenSupressTrack::FUN_0010c450);
-        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<TokenSupressTrack>));
-        params[3] = 0;
-        if (mem)
-            params[3] = new (mem) ParamFloatConstRange<TokenSupressTrack>("floatDelayDuration", (void (TokenSupressTrack::*)())&TokenSupressTrack::FUN_0010c470);
-        mem = FUN_0008d690((int)sizeof(ParamBool<TokenSupressTrack>));
-        params[4] = 0;
-        if (mem)
-            params[4] = new (mem) ParamBool<TokenSupressTrack>("floatDelayDurationPermenant", (void (TokenSupressTrack::*)())&TokenSupressTrack::FUN_0010c490);
-        mem = FUN_0008d690((int)sizeof(ParamBool<TokenSupressTrack>));
-        params[5] = 0;
-        if (mem)
-            params[5] = new (mem) ParamBool<TokenSupressTrack>("floatDelayEndOnTrackFinish", (void (TokenSupressTrack::*)())&TokenSupressTrack::FUN_0010c4b0);
-        FUN_002347b0(((ParamRegistry*)&DAT_004e0b68), params, 6);
+        ::fight::ParamValue* params[6];
+        params[0] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::TokenSupressTrack>("timeBegin", &owners::X_10c420::FUN_0010c420);
+        params[1] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::TokenSupressTrack>("timeEnd", &owners::O_10c430::FUN_0010c430);
+        params[2] = new ::fight::ParamBool< ::hulkfight::ai::TokenSupressTrack>("supressEveryFrame", &owners::Obj_10c450::FUN_0010c450);
+        params[3] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::TokenSupressTrack>("floatDelayDuration", &owners::X_10c470::FUN_0010c470);
+        params[4] = new ::fight::ParamBool< ::hulkfight::ai::TokenSupressTrack>("floatDelayDurationPermenant", &owners::Obj_10c490::FUN_0010c490);
+        params[5] = new ::fight::ParamBool< ::hulkfight::ai::TokenSupressTrack>("floatDelayEndOnTrackFinish", &owners::Obj_10c4b0::FUN_0010c4b0);
+        FUN_002347b0(&DAT_004e0b68, params, 6);
     }
     DAT_004e0b6c++;
 }
 
 
-// 0x00112940 FUN_00112940 (95 B): equivalent/0x00112940.cpp
-// sym: _FUN_00112940 @3fc710bba90d @w68eb935fc21c
-// STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 4/4)
-// FUN_00112940 @ 0x00112940
+
+// 0x00112940 FUN_00112940 (95 B): matches/0x00112940.cpp
+// sym: _FUN_00112940
+// (gx2, D18) rewritten; constructs the real ParamFloatConstRange<hulkfight::ai::AIHistoryCountTrack>,
+// whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_00112940()
 {
     if (DAT_004e0b74 == 0) {
-        void* params[1];
-        void* mem;
-        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_112940<hulkfight::ai::AIHistoryCountTrack_112940>));
-        params[0] = 0;
-        if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange_112940<hulkfight::ai::AIHistoryCountTrack_112940>("value", (void (hulkfight::ai::AIHistoryCountTrack_112940::*)())&hulkfight::ai::AIHistoryCountTrack_112940::FUN_0010c4c0);
-        FUN_002347b0(((ParamRegistry*)&DAT_004e0b70), params, 1);
+        ::fight::ParamValue* params[1];
+        params[0] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::AIHistoryCountTrack>("value", &owners::C_10c4c0::FUN_0010c4c0);
+        FUN_002347b0(&DAT_004e0b70, params, 1);
     }
     DAT_004e0b74++;
 }
 
 
-// 0x00112ba0 FUN_00112ba0 (386 B): equivalent/0x00112ba0.cpp
-// sym: _FUN_00112ba0 @bb11189dd8c0 @wa95c0d1900c4
-// STATUS: equivalent (tools/equiv.py level 3: 78 inputs, branch coverage 14/14)
-// FUN_00112ba0 @ 0x00112ba0
+
+// 0x001129a0 FUN_001129a0 (256 B): matches/0x001129a0.cpp
+// sym: _FUN_001129a0
+// (gx2, D18) from SemaphoreWaitTrack_3.iso_001129a0.cpp; constructs the real ParamFloatConstRange<hulkfight::ai::HulkActionTrack>, ParamName<hulkfight::ai::HulkActionTrack>,
+// whose vftable and scalar deleting destructor it emits
+extern "C" void FUN_001129a0()
+{
+    if (DAT_004e0b7c == 0) {
+        ::fight::ParamValue* params[4];
+        params[0] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::HulkActionTrack>("timeBegin", &fn_f15aa14c::A_10c4d0::SetTimeBegin_0010c4d0);
+        params[1] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::HulkActionTrack>("timeEnd", &fn_f15aa14c::T_10c4e0::SetTimeEnd_0010c4e0);
+        params[2] = new ::fight::ParamName< ::hulkfight::ai::HulkActionTrack>("text", &fn_f15aa14c::Obj_10c4f0::GetText_0010c4f0);
+        params[3] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::HulkActionTrack>("value", &fn_f15aa14c::A_10c510::SetValue_0010c510);
+        FUN_002347b0(&DAT_004e0b78, params, 4);
+    }
+    DAT_004e0b7c++;
+}
+
+
+
+// 0x00112aa0 FUN_00112aa0 (256 B): matches/0x00112aa0.cpp
+// sym: _FUN_00112aa0
+// (gx2, D18) from SemaphoreWaitTrack_3.iso_00112aa0.cpp; constructs the real ParamBool<hulkfight::ai::KeywordWaitTrack>, ParamFloatConstRange<hulkfight::ai::KeywordWaitTrack>, ParamName<hulkfight::ai::KeywordWaitTrack>,
+// whose vftable and scalar deleting destructor it emits
+extern "C" void FUN_00112aa0()
+{
+    if (DAT_004e0b84 == 0) {
+        ::fight::ParamValue* params[4];
+        params[0] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::KeywordWaitTrack>("timeBegin", &fn_f15aa14c::C_10c520::SetTimeBegin_0010c520);
+        params[1] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::KeywordWaitTrack>("timeEnd", &fn_f15aa14c::Obj_10c530::SetTimeEnd_0010c530);
+        params[2] = new ::fight::ParamName< ::hulkfight::ai::KeywordWaitTrack>("keyword", &fn_f15aa14c::Obj_10c540::GetKeyword_0010c540);
+        params[3] = new ::fight::ParamBool< ::hulkfight::ai::KeywordWaitTrack>("randomIntroWait", &fn_f15aa14c::Obj_10c550::SetRandomIntroWait_0010c550);
+        FUN_002347b0(&DAT_004e0b80, params, 4);
+    }
+    DAT_004e0b84++;
+}
+
+
+
+// 0x00112ba0 FUN_00112ba0 (386 B): matches/0x00112ba0.cpp
+// sym: _FUN_00112ba0
+// (gx2, D18) rewritten; constructs the real ParamEnumConstList<hulkfight::ai::ButtonTrack>, ParamFloatConstRange<hulkfight::ai::ButtonTrack>,
+// whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_00112ba0()
 {
     if (DAT_004e0b8c == 0) {
-        void* params[6];
-        void* mem;
-
-        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<ButtonTrack>));
-        params[0] = 0;
-        if (mem)
-            params[0] = new (mem) ParamFloatConstRange<ButtonTrack>("timeBegin", (void (ButtonTrack::*)())&ButtonTrack::FUN_0010c560);
-        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<ButtonTrack>));
-        params[1] = 0;
-        if (mem)
-            params[1] = new (mem) ParamFloatConstRange<ButtonTrack>("timeEnd", (void (ButtonTrack::*)())&ButtonTrack::FUN_0010c570);
-        mem = FUN_0008d690((int)sizeof(ParamEnumConstList<ButtonTrack>));
-        params[2] = 0;
-        if (mem)
-            params[2] = new (mem) ParamEnumConstList<ButtonTrack>("button", ((char**)&DAT_0049ee30), 13, (void (ButtonTrack::*)())&ButtonTrack::FUN_0010c590);
-        mem = FUN_0008d690((int)sizeof(ParamEnumConstList<ButtonTrack>));
-        params[3] = 0;
-        if (mem)
-            params[3] = new (mem) ParamEnumConstList<ButtonTrack>("state", ((char**)&DAT_0049ee64), 4, (void (ButtonTrack::*)())&ButtonTrack::FUN_0010c5b0);
-        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<ButtonTrack>));
-        params[4] = 0;
-        if (mem)
-            params[4] = new (mem) ParamFloatConstRange<ButtonTrack>("time", (void (ButtonTrack::*)())&ButtonTrack::FUN_0010c5d0);
-        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<ButtonTrack>));
-        params[5] = 0;
-        if (mem)
-            params[5] = new (mem) ParamFloatConstRange<ButtonTrack>("value", (void (ButtonTrack::*)())&ButtonTrack::FUN_0010c5f0);
-        FUN_002347b0(((ParamRegistry*)&DAT_004e0b88), params, 6);
+        ::fight::ParamValue* params[6];
+        params[0] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::ButtonTrack>("timeBegin", &owners::O_10c560::FUN_0010c560);
+        params[1] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::ButtonTrack>("timeEnd", &fn_f15aa14c::T_10c570::Set);
+        params[2] = new ::fight::ParamEnumConstList< ::hulkfight::ai::ButtonTrack>("button", (void*)&DAT_0049ee30, 13, &owners::Obj_10c590::FUN_0010c590);
+        params[3] = new ::fight::ParamEnumConstList< ::hulkfight::ai::ButtonTrack>("state", (void*)&DAT_0049ee64, 4, &owners::Obj_10c5b0::FUN_0010c5b0);
+        params[4] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::ButtonTrack>("time", &owners::O_10c5d0::FUN_0010c5d0);
+        params[5] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::ButtonTrack>("value", &owners::Obj_10c5f0::FUN_0010c5f0);
+        FUN_002347b0(&DAT_004e0b88, params, 6);
     }
     DAT_004e0b8c++;
 }
 
 
-// 0x00112f10 FUN_00112f10 (358 B): equivalent/0x00112f10.cpp
-// sym: _FUN_00112f10 @991cdd790143 @w457cc000a251
-// STATUS: equivalent (tools/equiv.py level 3: 69 inputs, branch coverage 14/14)
-// FUN_00112f10 @ 0x00112f10
+
+// 0x00112d30 FUN_00112d30 (256 B): matches/0x00112d30.cpp
+// sym: ?FUN_00112d30@@YAXXZ
+// (gx2, D18) from SemaphoreWaitTrack_3.iso_00112d30.cpp; constructs the real ParamBool<hulkfight::ai::AIHistorySetTrack>, ParamFloatConstRange<hulkfight::ai::AIHistorySetTrack>, ParamName<hulkfight::ai::AIHistorySetTrack>,
+// whose vftable and scalar deleting destructor it emits
+void FUN_00112d30()
+{
+    if (DAT_004e0b94 == 0) {
+        ::fight::ParamValue* params[4];
+        params[0] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::AIHistorySetTrack>("timeBegin", &fn_f15aa14c::Obj_10c600::SetTimeBegin_0010c600);
+        params[1] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::AIHistorySetTrack>("timeEnd", &fn_f15aa14c::X_10c610::SetTimeEnd_0010c610);
+        params[2] = new ::fight::ParamBool< ::hulkfight::ai::AIHistorySetTrack>("onlySetAtEnd", &fn_f15aa14c::O_10c620::SetOnlySetAtEnd_0010c620);
+        params[3] = new ::fight::ParamName< ::hulkfight::ai::AIHistorySetTrack>("text", &GetText_0010c630);
+        FUN_002347b0(&DAT_004e0b90, params, 4);
+    }
+    DAT_004e0b94++;
+}
+
+
+
+// 0x00112e30 FUN_00112e30 (213 B): matches/0x00112e30.cpp
+// sym: _FUN_00112e30
+// (gx2, D18) from SemaphoreWaitTrack_3.iso_00112e30.cpp; constructs the real ParamBool<hulkfight::ai::TokenTrack>, ParamFloatConstRange<hulkfight::ai::TokenTrack>,
+// whose vftable and scalar deleting destructor it emits
+extern "C" void FUN_00112e30()
+{
+    if (DAT_004e0b9c == 0) {
+        ::fight::ParamValue* params[3];
+        params[0] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::TokenTrack>("timeBegin", &fn_f15aa14c::T_10c640::SetTimeBegin_0010c640);
+        params[1] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::TokenTrack>("timeEnd", &fn_f15aa14c::Obj_10c650::SetTimeEnd_0010c650);
+        params[2] = new ::fight::ParamBool< ::hulkfight::ai::TokenTrack>("floatDelayOnEnd", &fn_f15aa14c::Obj_10c670::SetFloatDelayOnEnd_0010c670);
+        FUN_002347b0(&DAT_004e0b98, params, 3);
+    }
+    DAT_004e0b9c++;
+}
+
+
+
+// 0x00112f10 FUN_00112f10 (358 B): matches/0x00112f10.cpp
+// sym: _FUN_00112f10
+// (gx2, D18) rewritten; constructs the real ParamBool<hulkfight::ai::SemaphoreWaitTrack>, ParamFloatConstRange<hulkfight::ai::SemaphoreWaitTrack>, ParamName<hulkfight::ai::SemaphoreWaitTrack>,
+// whose vftable and scalar deleting destructor it emits
 extern "C" void FUN_00112f10()
 {
     if (DAT_004e0ba4 == 0) {
-        void* params[6];
-        void* mem;
-
-        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<SemaphoreWaitTrack>));
-        params[0] = 0;
-        if (mem)
-            params[0] = new (mem) ParamFloatConstRange<SemaphoreWaitTrack>("timeBegin", (void (SemaphoreWaitTrack::*)())&SemaphoreWaitTrack::FUN_0010c680);
-        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<SemaphoreWaitTrack>));
-        params[1] = 0;
-        if (mem)
-            params[1] = new (mem) ParamFloatConstRange<SemaphoreWaitTrack>("timeEnd", (void (SemaphoreWaitTrack::*)())&SemaphoreWaitTrack::FUN_0010c690);
-        mem = FUN_0008d690((int)sizeof(ParamName<SemaphoreWaitTrack>));
-        params[2] = 0;
-        if (mem)
-            params[2] = new (mem) ParamName<SemaphoreWaitTrack>("semaphore", &SemaphoreWaitTrack::FUN_0010c6a0);
-        mem = FUN_0008d690((int)sizeof(ParamBool<SemaphoreWaitTrack>));
-        params[3] = 0;
-        if (mem)
-            params[3] = new (mem) ParamBool<SemaphoreWaitTrack>("interuptable", (void (SemaphoreWaitTrack::*)())&SemaphoreWaitTrack::FUN_0010c6c0);
-        mem = FUN_0008d690((int)sizeof(ParamBool<SemaphoreWaitTrack>));
-        params[4] = 0;
-        if (mem)
-            params[4] = new (mem) ParamBool<SemaphoreWaitTrack>("useCharacterTimeout", (void (SemaphoreWaitTrack::*)())&SemaphoreWaitTrack::FUN_0010c6e0);
-        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<SemaphoreWaitTrack>));
-        params[5] = 0;
-        if (mem)
-            params[5] = new (mem) ParamFloatConstRange<SemaphoreWaitTrack>("timeoutOverride", (void (SemaphoreWaitTrack::*)())&SemaphoreWaitTrack::FUN_0010c700);
-        FUN_002347b0(((ParamRegistry*)&DAT_004e0ba0), params, 6);
+        ::fight::ParamValue* params[6];
+        params[0] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::SemaphoreWaitTrack>("timeBegin", &owners::T_10c680::FUN_0010c680);
+        params[1] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::SemaphoreWaitTrack>("timeEnd", &owners::Obj_10c690::FUN_0010c690);
+        params[2] = new ::fight::ParamName< ::hulkfight::ai::SemaphoreWaitTrack>("semaphore", &owners::Obj_10c6a0::FUN_0010c6a0);
+        params[3] = new ::fight::ParamBool< ::hulkfight::ai::SemaphoreWaitTrack>("interuptable", &owners::Obj_10c6c0::FUN_0010c6c0);
+        params[4] = new ::fight::ParamBool< ::hulkfight::ai::SemaphoreWaitTrack>("useCharacterTimeout", &owners::Obj_10c6e0::FUN_0010c6e0);
+        params[5] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::SemaphoreWaitTrack>("timeoutOverride", &owners::O_10c700::FUN_0010c700);
+        FUN_002347b0(&DAT_004e0ba0, params, 6);
     }
     DAT_004e0ba4++;
 }
 
-} // namespace fn_fee140f0
+
 
 // 0x00113080 hulkfight::ai::ButtonTrack::vfunc_10 (70 B): matches/0x00113080.cpp
 // sym: ?vfunc_10@ButtonTrack@ai@hulkfight@@UAEHHHH@Z
