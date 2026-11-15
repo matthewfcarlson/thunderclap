@@ -2149,8 +2149,10 @@ field on x86-64 changes the 64-bit key, so it is seen even when the MSVC object 
 **Runs.** `equiv.py --x64` at the sweep's settings (200 inputs, 60 s budget), through the queue (jobq_equiv, 4 blocks
 per job, libclang's binding shipped; the working tree's dirty files ship as usual, or with `--head C` the hosts check
 out C and get only the current tools) when more than 4 blocks need a run, here otherwise (`--local`/`--jobq` force
-one). Results are cached in build/tree-cache/x64gate/res/ by the code key, the checker's source (equiv64.py, equiv.py,
-equiv_batch.py) and the settings; keys in build/tree-cache/x64gate/keys/ by the TU's text, its include closure and the
+one). Results are cached in build/tree-cache/x64gate/res/ by the code key, the checker's source (equiv64.py,
+equiv_batch.py, compare.py, clang_probe.py, and of equiv.py only what the 64-bit check uses: `Obj`, `Program`,
+`pick_symbol`, `compile_native`, `deleting_wrapper_asm`, `_linkable`, `main`; integ1, D47: the whole equiv.py's hash threw
+every cached result away at each 32-bit checker edit, so an `--update-baseline` re-ran ~126 jobs) and the settings; keys in build/tree-cache/x64gate/keys/ by the TU's text, its include closure and the
 toolchain. Unchanged code is never run twice, and an unchanged TU is never compiled twice. A result also carries the
 fingerprints of the type layouts its run built (`types` in the `--x64` report: equiv64 `Types.fingerprints`, per layout
 key its sizes and leaves); before a cached result is used, `equiv64.type_fingerprints` lays the same keys out from the
@@ -2159,7 +2161,8 @@ without changing the block's code (x64t11's 0x00270740: gen's `f_24` became `cha
 verdict) is re-checked (x64t12).
 
 **Verdicts.** `new` (a gating class, not in the baseline: **fails**), `unchecked` (no result: the job gave up;
-**fails**: the gate can't vouch for it), `known` (in the baseline), `improved` (in the baseline, now equivalent:
+**fails**: the gate can't vouch for it; since integ1/D47 a block without a result is run once more first: gx3's six
+`??_G` were equivalent on a re-run; `X64_GATE_OFF=noretry` turns that off), `known` (in the baseline), `improved` (in the baseline, now equivalent:
 `--update-baseline` drops it), `known-unclear` (in the baseline, now another class, unsupported or inconclusive: kept), `ok`, `other` (a
 non-gating class, reported), `triage` (a `wild64` failure: listed apart for a look, never failing; mostly fuzzed indexes
 wrapping at 2^32 on i386, but an unsigned negative step `p += (unsigned)-k` is a real bug of that shape). Key errors (a

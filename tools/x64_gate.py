@@ -497,11 +497,27 @@ def changed_blocks(ref, head=None, tus=None, jobs=2, workdir=None):
 
 
 # ------------------------------------------------------------------------------------------------------ runs
+_CK = []
+
+
 def checker_key():
-    h = hashlib.sha1(b"x64res1\0" + json.dumps(SETTINGS, sort_keys=True).encode())
-    for m in ("equiv64.py", "equiv.py", "equiv_batch.py"):
-        h.update(_sha_file(os.path.join(ROOT, "tools", m)).encode())
-    return h.hexdigest()
+    """What a cached --x64 result depends on besides the code: equiv64.py and equiv_batch.py whole, and of equiv.py only
+    what the 64-bit check uses (integ1, D47: the whole file's hash invalidated every result at each 32-bit checker edit,
+    and an --update-baseline then re-ran ~126 jobs with nothing cached): the classes and functions equiv64 calls, the
+    --x64 entry (main), and the files they compile with (compare.py, clang_probe.py)."""
+    if not _CK:
+        import inspect
+        sys.path.insert(0, os.path.join(ROOT, "tools"))
+        import equiv
+        h = hashlib.sha1(b"x64res2\0" + json.dumps(SETTINGS, sort_keys=True).encode())
+        for m in ("equiv64.py", "equiv_batch.py", "compare.py", "clang_probe.py"):
+            h.update(_sha_file(os.path.join(ROOT, "tools", m)).encode())
+        for o in (equiv.Obj, equiv.Program, equiv.pick_symbol, equiv.compile_native, equiv.deleting_wrapper_asm,
+                  equiv._linkable, equiv.main):
+            h.update(inspect.getsource(o).encode())
+        h.update(repr(equiv.DEFAULT_FLAGS).encode())
+        _CK.append(h.hexdigest())
+    return _CK[0]
 
 
 def _res_path(key):
@@ -669,6 +685,14 @@ def gate(ref="HEAD", head=None, tus=None, mode="auto", jobs=2, name="x64gate", q
             print("x64_gate: %d changed blocks, %d cached, %d to run (%s)" % (len(ch["blocks"]), len(ch["blocks"]) - len(todo),
                                                                           len(todo), mode), file=sys.stderr, flush=True)
         fresh = run_blocks(todo, mode, jobs, name, rev(head) if head else None, quiet=quiet, prio=prio)
+        lost = [it for it in todo if it[0] not in fresh]
+        if lost and "noretry" not in os.environ.get("X64_GATE_OFF", ""):
+            # (integ1, D47) a block the batch gave no result for (a job that died, a lost record: gx3's 6 ??_G came out
+            # equivalent on a re-run) is run once more before it counts as `unchecked`
+            if not quiet:
+                print("x64_gate: %d blocks without a result, run again" % len(lost), file=sys.stderr, flush=True)
+            again = run_blocks(lost, mode, jobs, name + "-retry", rev(head) if head else None, quiet=quiet, prio=prio)
+            fresh.update(again)
         keyof = {a: h.get("key") for a, rel, h, why in ch["blocks"]}
         for a, r in fresh.items():
             r = {k: v for k, v in r.items() if k not in ("src", "host")}
