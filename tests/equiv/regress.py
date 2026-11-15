@@ -681,6 +681,12 @@ CASES = {
     "0x0008fca0_xlocal_fill_off": ("equivalent", None, 0, {"src": "0x0008fca0_xlocal_fill", "n_inputs": 300, "equiv_off": "xlfill"}),
     "0x0008fca0_xlocal_fill_wrong": ("fail", "argument 1 is 0x00000002, expected 0x00000001", 0, {"n_inputs": 300}),
     "0x0008fca0_xlocal_fill_wrong_off": ("equivalent", None, 0, {"src": "0x0008fca0_xlocal_fill_wrong", "n_inputs": 300, "equiv_off": "xlfill"}),
+    # (integ1, D43 vptrread) vptrkeep's tracker read every loaded word with a page-mapping read: in a call-free loop over a pointer
+    # array the original's run mapped pages past the 1000-page limit and returned where ours stopped at too_many_pages (input 7)
+    "0x00106290_vptrread": ("equivalent", None, 0.9, {"n_inputs": 200}),
+    "0x00106290_vptrread_off": ("fail", "original ret but ours fault:too_many_pages", 0, {"src": "0x00106290_vptrread", "n_inputs": 200,
+                                                                                         "equiv_off": "vptrread"}),
+    "0x00106290_vptrread_wrong": ("fail", "returned 0x00000003, expected 0xffffffff", 0, {"n_inputs": 200}),
     # (wine1) the difference at seed 11 is `f_text[f_n] = 0` with a fuzzed f_n beyond the whole stack, where each frame layout puts
     # the byte elsewhere: since fescape that input is inconclusive in Wine mode, so the case keeps testing xlocal with fescape off
     "0x0008e880_native_xlocal_elem0": ("fail", "unexpected write to 0xbe7ef6d4", 0, {"native": True, "n_inputs": 60,
@@ -1090,6 +1096,13 @@ X64_CASES = {
     "0x00268010_x64_thunk": ("equivalent", None, None, 50),
     # (x64eq) __chkstk's i386 C name (`_chkstk`) is the probe, not a callee without a signature
     "0x00245b00_x64_chkstk": ("equivalent", None, None, 50),
+    # (x64t13) an integer field annotated HULK_RANGE(0, 1) (records.h CoreCementLibrary::bucket, the list index) is
+    # drawn from its range: the library list's unlink is equivalent with most inputs used
+    "0x002775b0_x64_bucket_range": ("equivalent", None, None, 40),
+    # (x64t13) a pointer parameter annotated HULK_INTO(base) points into the array this->base points to (the pool's
+    # free: the block index is `value - base`); without the annotation the parameter is an unrelated object
+    "0x0008ff00_x64_into_pool": ("equivalent", None, None, 40),
+    "0x0008ff00_x64_into_none": ("fail", "layout", "].limit", 0),
 }
 
 # cases that must also complete this many inputs (the promotion bar is 50)

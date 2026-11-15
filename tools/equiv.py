@@ -6363,13 +6363,39 @@ class Run:
                     ea = self._ea(mem)
                     if STACK_LO <= ea < STACK_HI or _reserved(ea) or self.prog.is_code(ea):
                         return
-                    vp[r] = (ea, self._read_u32(ea), self.epoch, len(self.calls), base)
+                    vp[r] = (ea, self._vp_read(ea), self.epoch, len(self.calls), base)
                 except Exception:   # noqa: BLE001
                     pass
             elif ops[1][0] == "reg" and ops[1][1] in vp:
                 vp[r] = vp[ops[1][1]]
             else:
                 vp.pop(r, None)
+
+    def _vp_read(self, a):
+        """(integ1, D43 vptrread) vptrkeep's own reads of a word (when a register is loaded, at a later call) must not change
+        the run: `_read_u32` maps a page it finds unmapped, outside `_on_unmapped`'s 1000-page limit, so in a loop walking
+        memory without any call (0x00106290 `p = *list++; p->f_8`) the original mapped every page through the tracker
+        first and returned where ours (no tracker) stopped at `too_many_pages`, a failure no stub explains. Read an
+        unmapped page's bytes from what mapping it would write (the machine's page for this epoch) and map nothing.
+        EQUIV_OFF=vptrread restores the mapping read."""
+        if "vptrread" in EQUIV_OFF:
+            return self._read_u32(a)
+        uc = self.uc
+        if a <= M32 - 3:
+            try:
+                return struct.unpack("<I", uc.mem_read(a, 4))[0]
+            except Exception:   # noqa: BLE001
+                pass
+        b = bytearray()
+        for i in range(4):
+            x = (a + i) & M32
+            try:
+                b += uc.mem_read(x, 1)
+            except Exception:   # noqa: BLE001
+                if _reserved(x):
+                    raise Fault("bad_access")
+                b.append(self.m.page(x & ~0xFFF, self.epoch)[x & 0xFFF])
+        return struct.unpack("<I", bytes(b))[0]
 
     def _vslot_keep(self, ent, slot):
         """(round 22, vslotkeep) Keep the vtable slot word a `call [R+k]` reads at its value from the epoch R was loaded in."""
@@ -6378,7 +6404,7 @@ class Run:
                 self.prog.is_code(slot) or IMAGE_LO <= slot < IMAGE_HI:
             return
         old = int.from_bytes(bytes(self.m.byte(slot + i, ep) for i in range(4)), "little")
-        if old != self._read_u32(slot):
+        if old != self._vp_read(slot):
             self.vp_havoc[slot] = (old, ep)
 
     def _vptr_use(self, ent):
@@ -6386,7 +6412,7 @@ class Run:
         if ep == self.epoch or a in self.vp_havoc:
             return
         try:
-            cur = self._read_u32(a)
+            cur = self._vp_read(a)
         except Exception:   # noqa: BLE001
             return
         if cur == val:

@@ -1291,6 +1291,18 @@ call's result a bool, normalised to 0/1) stops at a load into al/ax/eax in betwe
 (0x000a97e0 `--wine`: `call #12 to 0x001c3c20: this (ecx) is 0x00000001`). Regress cases
 `0x000a97e0_native_boolafter{,_off,_wrong}`.
 
+(integ1, D43, `vptrread`) vptrkeep's (round 21) own reads change nothing in the run. Its tracker reads the word behind
+every `mov r32, [mem]` of the original when the register is loaded (and again at a later call, and a slot for
+`vslotkeep`) with `_read_u32`, which maps a page it finds unmapped outside `_on_unmapped`'s 1000-page limit. In a loop
+that walks memory with no call at all (0x00106290 `for (...) { Entry *e = entries[i]; if (e->first == ...) }`) the
+original's pages were all mapped by the tracker first, so the original returned where ours (which has no tracker) ran
+into the page limit: `original ret but ours fault:too_many_pages` on directed input 7, a "failure" with no stub to keep a
+vptr across. The tracker now reads an unmapped page's bytes from what mapping it would write (the machine's page for the
+epoch) and maps nothing, so the rule can only act through its overlay after a stubbed call, as designed. 0x00106290,
+0x0007f690 and 0x001e3020 (tri1's misfires) are equivalent and promotable at 3,000 inputs in MSVC mode.
+`EQUIV_OFF=vptrread` restores the mapping read; regress cases `0x00106290_vptrread{,_off,_wrong}`. Open: other hooks
+call `_read_u32` too (it maps past the page limit); they were not audited for the same side effect.
+
 **Wild control flow** (`statuses`: `wild`). A run stops (`fault:wild_jump`) where control leaves the
 function's own code: a return through a return address that a fuzzed pointer or an overflowed stack buffer
 overwrote, or a call through a fuzzed function pointer into junk. Before, the junk ran on, with effects that
