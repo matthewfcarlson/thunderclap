@@ -1192,6 +1192,8 @@ X64_CASES = {
     # free: the block index is `value - base`); without the annotation the parameter is an unrelated object
     "0x0008ff00_x64_into_pool": ("equivalent", None, None, 40),
     "0x0008ff00_x64_into_none": ("fail", "layout", "].limit", 0),
+    # (rev5, D61 review) HULK_RANGE whose declaration names no 0x address: unsupported (rangecheck), not drawn from the range
+    "0x002775b0_x64_bucket_range_nocite": ("unsupported", None, "writer sites", 0),
 }
 
 # cases that must also complete this many inputs (the promotion bar is 50)
