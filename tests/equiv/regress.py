@@ -771,6 +771,9 @@ CASES = {
     "0x0022ca90_native_pre_msvc_hidden": ("fail", "this+0xc", 0, {"n_inputs": 1000}),
     "0x0022ca90_native_pre_msvc_hidden_off": ("fail", "this+0xc", 0, {"src": "0x0022ca90_native_pre_msvc_hidden",
                                                                       "n_inputs": 1000, "equiv_off": "pre"}),
+    # (rev5, D54 re-review) _over64: b's contract words come after the trap check's first 64 (all of a, which the macro
+    # checks); b is repaired but never trap-checked and the macro skips it. Must fail (refused or pre_trap_missing)
+    "0x0022ca90_native_pre_over64": ("fail", None, 0, {"native": True, "n_inputs": 300}),
     # (rev3, D39 review) an int -2 where the original stores -1 (both qNaN-shaped as floats): a difference
     "0x0021e080_native_nanpayload_int": ("fail", "(0xfffffffe, expected 0xffffffff)", 0, {"native": True, "n_inputs": 300}),
     # (wine1) the difference at seed 11 is `f_text[f_n] = 0` with a fuzzed f_n beyond the whole stack, where each frame layout puts
