@@ -33,6 +33,10 @@ def judge(rep):
     """(ok, reason) of an equiv.py --wine report."""
     if rep is None:
         return False, "wine: no result"
+    if rep.get("equiv_on") or rep.get("equiv_off"):
+        # (integ1, rev3) a rule not adopted (EQUIV_ON) or a default one switched off (EQUIV_OFF) is not the checker
+        return False, "wine: run with non-default checker switches (EQUIV_OFF %s, EQUIV_ON %s)" % (
+            ",".join(rep.get("equiv_off") or []) or "-", ",".join(rep.get("equiv_on") or []) or "-")
     st = rep.get("status")
     if st == "compile_error" and "clang" in (rep.get("error") or "") and "needs" in (rep.get("error") or ""):
         return False, "wine: toolchain unavailable (%s); --no-wine-gate to promote without it" % rep["error"][:120]

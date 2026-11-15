@@ -3817,6 +3817,8 @@ class Run:
         self.seg_stores = set()     # (round 22, stackval) non-stack bytes the code stored since the last call
         self.seg_stack_written = set()  # ... and stack bytes
         self.seg_fpu = []           # per segment: {dword addr: size} written by fst/fstp
+        self.seg_f32 = []           # (integ1, nanpayload) per segment: addresses whose last store was a whole 4-byte float
+        self.cur_f32 = set()        # store (fst/fstp dword, movss): no later store of the segment overlaps it
         self.cur_fpu = {}
         self.epoch = 0
         self.mapped = set()
@@ -4157,6 +4159,11 @@ class Run:
             self.ub_at.setdefault("ro_write", len(self.calls))
         if self.cur_insn is not None and self.cur_insn.is_fpu_store and size in (4, 8):
             self.cur_fpu[addr] = size
+        if self.cur_f32:
+            for w_ in range(addr - 3, addr + size):
+                self.cur_f32.discard(w_)
+        if size == 4 and self.cur_insn is not None and self.cur_insn.mnemonic in ("fst", "fstp", "movss", "vmovss"):
+            self.cur_f32.add(addr)
 
     def _on_intr(self, uc, intno, _):
         self.fault = self.fault or ("interrupt_%d" % intno, uc.reg_read(self.u.UC_X86_REG_EIP))
@@ -4218,6 +4225,8 @@ class Run:
         self.segments.append(snap)
         self.seg_fpu.append(self.cur_fpu)
         self.cur_fpu = {}
+        self.seg_f32.append(self.cur_f32)
+        self.cur_f32 = set()
 
     def _perturb(self):
         """After a stubbed call: the callee may have changed any non-stack memory."""
@@ -7040,6 +7049,7 @@ class Run:
         out["entry"] = self.orig_entry
         out["segments"] = self.segments
         out["seg_fpu"] = self.seg_fpu
+        out["seg_f32"] = self.seg_f32
         out["epochs"] = self.epoch
         out["max_mapped"] = max(self.max_mapped, len(self.mapped))
         out["huge_rep"] = self.huge_rep
@@ -7770,6 +7780,8 @@ def _feq(a, b, rel=None, ab=None):
     if a is None or b is None:
         return a is b
     if math.isnan(a) or math.isnan(b):
+        if math.isnan(a) and math.isnan(b) and struct.pack("<d", a) != struct.pack("<d", b):
+            _NAN_EQ[0] += 1     # (integ1, measure only) two NaNs that differ in sign or payload, taken as equal
         return math.isnan(a) and math.isnan(b)
     if rel is None and ab is None:
         if "ftolexact" not in EQUIV_OFF:
@@ -7782,9 +7794,10 @@ def _feq(a, b, rel=None, ab=None):
 
 _NAN_SIGN = [0]
 _NAN_PAYLOAD = [0]
+_NAN_EQ = [0]
 
 
-def _nan_payload_only(a, b):
+def _nan_payload_only(a, b, f32=False):
     """(integ1, D39, nanpayload; NOT ADOPTED: on only with EQUIV_ON=nanpayload until a reviewer signs off) Two float words
     that are both quiet NaNs (exponent 0xff, quiet bit 0x00400000 set) and differ in sign or payload. Which operand's NaN
     an arithmetic instruction hands on when both are NaN differs between the x87 (the larger significand; and an invalid
@@ -7794,13 +7807,13 @@ def _nan_payload_only(a, b):
     NaN's payload. Restricted: --wine only (an MSVC-mode run is x87 on both sides), 32-bit float words only (a double's
     low word is compared as bits), both quiet (a signalling or non-NaN word on either side is still a difference), and
     the input is inconclusive (`statuses.nan_payload`) only when no other difference remains on it."""
-    if not NATIVE_MODE or "nanpayload" not in EQUIV_ON or "nanpayload" in EQUIV_OFF or a == b:
+    if not f32 or not NATIVE_MODE or "nanpayload" not in EQUIV_ON or "nanpayload" in EQUIV_OFF or a == b:
         return False
     qnan = lambda w: (w & 0x7F800000) == 0x7F800000 and (w & 0x00400000) != 0      # noqa: E731
     return qnan(a) and qnan(b)
 
 
-def _nan_sign_only(a, b):
+def _nan_sign_only(a, b, f32=False):
     """(round 19, nansign) Two float words that are NaNs with the same payload and opposite signs. MSVC 7.1 turns
     `x * -1.0f` into `fchs` (flips the sign of a NaN), clang keeps `fmul` by -1 (x87 returns the NaN operand
     unchanged): IEEE leaves the sign of an arithmetic NaN unspecified, so this is not a behaviour difference unless
@@ -7818,7 +7831,7 @@ def _nan_sign_only(a, b):
     if "nanquiet64" not in EQUIV_OFF and (a & 0x7FF00000) == 0x7FF00000 and (a ^ b) & 0x7FFFFFFF == 0x00080000 \
             and (b & 0x00080000) != 0:
         return True
-    if _nan_payload_only(a, b):
+    if _nan_payload_only(a, b, f32):
         _NAN_PAYLOAD[0] += 1        # (counted apart: statuses.nan_payload)
         return True
     return False
@@ -7894,6 +7907,7 @@ def compare_runs(o, r, ret_kind, machine, namer, prog, max_report=4, esp_adjust=
     out = []
     _NAN_SIGN[0] = 0
     _NAN_PAYLOAD[0] = 0
+    _NAN_EQ[0] = 0
     oc, rc = o["calls"], r["calls"]
     if r.get("cookie_bad") and not o.get("cookie_bad"):
         out.append("__security_check_cookie (before call #%d) doesn't get the cookie in ecx: it is __fastcall, "
@@ -7957,7 +7971,7 @@ def compare_runs(o, r, ret_kind, machine, namer, prog, max_report=4, esp_adjust=
             if _norm(ov) == _norm(rv):
                 j += 1
                 continue
-            if _nan_sign_only(ov, rv):
+            if _nan_sign_only(ov, rv, f32=of == 4 and rf == 4):
                 _NAN_SIGN[0] += 1
                 j += 1
                 continue
@@ -8116,7 +8130,8 @@ def compare_runs(o, r, ret_kind, machine, namer, prog, max_report=4, esp_adjust=
                     # object's vptr is not observable
                     done.update(range(w0, w0 + 4))
                     continue
-                if _nan_sign_only(ow4, rw4):
+                if _nan_sign_only(ow4, rw4, f32=w0 in (o.get("seg_f32") or [set()] * (s + 1))[s] and
+                                  w0 in (r.get("seg_f32") or [set()] * (s + 1))[s]):
                     done.update(range(w0, w0 + 4))
                     _NAN_SIGN[0] += 1
                     continue
@@ -8259,6 +8274,8 @@ def compare_runs(o, r, ret_kind, machine, namer, prog, max_report=4, esp_adjust=
                    "takes %d: the other %d bytes belong to another call (a virtual declared with extra words that "
                    "the next call passes again gives the same bytes; natively the callee pops only its own). "
                    "Declare the words on the call that takes them" % (k_ + 1, dpop_, real_, dpop_ - real_))
+    if not out and _NAN_EQ[0]:
+        r["nan_eq"] = _NAN_EQ[0]        # (integ1, measure only: no verdict changes)
     if not out and _NAN_SIGN[0]:
         r["nan_sign"] = True
         if _NAN_PAYLOAD[0]:
@@ -8384,7 +8401,8 @@ def _first_diff(ob, rb, ofp, rfp, written=None):
     if NATIVE_MODE and "nansign" not in EQUIV_OFF:
         for off in range(0, n - 3, 4):
             wo_, wr_ = struct.unpack_from("<I", ob, off)[0], struct.unpack_from("<I", rb, off)[0]
-            if _nan_sign_only(wo_, wr_) and (written is None or off in written):
+            if _nan_sign_only(wo_, wr_, f32=ofp.get(off) == 4 and rfp.get(off) == 4) and \
+                    (written is None or off in written):
                 skip.update(range(off, off + 4))
                 _NAN_SIGN[0] += 1
     for i in range(n):
@@ -9627,7 +9645,8 @@ def verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappin
     if src and tree_tu.is_tree_tu(src):
         # (hash1) a run that can prove a code hash: the tree's own object and directives, the full checker
         plain = not flags and not mapping and obj_path is None and not seeds and not ONLY_SEEDS and level3_fn is None \
-            and max_level >= 3 and use_names and conventions is None and not clang and not (EQUIV_OFF - {""})
+            and max_level >= 3 and use_names and conventions is None and not clang and not (EQUIV_OFF - {""}) \
+            and not (EQUIV_ON - {""})
         with tree_tu.active(src):
             try:
                 recs_ = recs if recs is not None else tree_tu.check_tu(src)
@@ -9720,6 +9739,9 @@ def checker_view(native, fsym, sig, ret_kind, void_eax, convs, rep, psizes, decl
          "narrow": {"0x%08x" % a: d for a, d in NATIVE_NARROW.items()} if native else {},
          "issues": sorted({(i.get("kind"), str(i.get("symbol") or i.get("target") or "")) for i in issues}),
          "conflicts": len(l2.get("conflicts") or [])}
+    if (EQUIV_OFF - {""}) or (EQUIV_ON - {""}):
+        # (integ1, rev3) a run with non-default switches is another check (no default-run view equals it)
+        v["switches"] = {"off": sorted(EQUIV_OFF - {""}), "on": sorted(EQUIV_ON - {""})}
     c = _canon(v)
     return hashlib.sha1(json.dumps(c, sort_keys=True).encode()).hexdigest()[:12], c
 
@@ -9740,7 +9762,9 @@ def _verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappi
     max_inputs = max(max_inputs, n_inputs)      # (--inputs 3000 asks for at least that many)
     prog = Program.get()
     size, tname = prog.funcs[addr]
-    rep = {"addr": "0x%08x" % addr, "src": src, "target": tname, "level": 0, "status": "fail"}
+    rep = {"addr": "0x%08x" % addr, "src": src, "target": tname, "level": 0, "status": "fail",
+           # (integ1, rev3) the non-default switches this run had: a proof needs none (tree_tu.proves, wine_gate.judge)
+           "equiv_off": sorted(EQUIV_OFF - {""}), "equiv_on": sorted(EQUIV_ON - {""})}
     explicit = dict(mapping or {})
     conv_lines = list(conventions or [])
     dead_lines = []             # `// equiv-dead: +0x52 taken, +0x61 not taken: why` (hand-reviewed)
@@ -10226,6 +10250,10 @@ def _verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappi
         # inputs set aside because control flow went wild: a few are fuzzing accidents, many mean the
         # model of some call is off (a stack that drifts until the final ret), which hides that code
         short.append("%d inputs went wild (control left the function) or crashed on both sides" % wild)
+    npl = st.get("nan_payload", 0)
+    if npl > 0.1 * max(l3.get("inputs_run", 0), 1):
+        # (integ1, rev3) inputs set aside by nanpayload hide that much code, as wild ones do
+        short.append("%d inputs set aside as nan_payload (over 10%% of %d)" % (npl, l3.get("inputs_run", 0)))
     rep["promotable"] = rep["status"] == "equivalent" and not short
     if rep["status"] == "equivalent" and short:
         rep["promotable_note"] = "; ".join(short)
@@ -11206,6 +11234,10 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             return None
         if o["status"] == "ret":
             res["inputs_run"] += 1
+            if not diffs and r.get("nan_eq") and not r.get("nan_sign"):
+                # (integ1, measure only) a passing input on which _feq took two different NaNs as equal (rev3's question:
+                # how many proofs rest on NaN == NaN). Reported, never a verdict
+                res["inputs_nan_eq"] = res.get("inputs_nan_eq", 0) + 1
         else:
             res["inputs_faulted"] += 1    # compared up to the fault, but not counted as a passing input
         if diffs:

@@ -687,16 +687,23 @@ CASES = {
     "0x00106290_vptrread_off": ("fail", "original ret but ours fault:too_many_pages", 0, {"src": "0x00106290_vptrread", "n_inputs": 200,
                                                                                          "equiv_off": "vptrread"}),
     "0x00106290_vptrread_wrong": ("fail", "returned 0x00000003, expected 0xffffffff", 0, {"n_inputs": 200}),
-    # (integ1, D39 nanpayload; NOT ADOPTED: EQUIV_ON=nanpayload until rev3 signs off) --wine: two quiet NaNs meeting in a
-    # matrix product (x87: the larger significand, SSE: the first operand) give another quiet NaN at this+0x4 on input 938
-    "0x0022ca90_native_nanpayload": ("equivalent", None, 0, {"native": True, "n_inputs": 1000, "equiv_on": "nanpayload"}),
+    # (integ1, D39 nanpayload; NOT ADOPTED: EQUIV_ON=nanpayload; rev3 rejected a07ba065a's form) --wine: two quiet NaNs meeting in
+    # a matrix product give another quiet NaN at this+0x4 on input 938. The restricted rule takes only words both sides last
+    # stored as 4-byte floats; clang's struct copy into *this stores integer words, so all of these fail with the rule on too
+    "0x0022ca90_native_nanpayload": ("fail", "write to this+0x4 before return was 0xfff84ab4, expected 0xffeca8b1", 0,
+                                     {"native": True, "n_inputs": 1000, "equiv_on": "nanpayload"}),
     "0x0022ca90_native_nanpayload_off": ("fail", "write to this+0x4 before return was 0xfff84ab4, expected 0xffeca8b1", 0,
                                          {"src": "0x0022ca90_native_nanpayload", "native": True, "n_inputs": 1000}),
-    "0x0022ca90_native_nanpayload_off2": ("fail", "write to this+0x4 before return was 0xfff84ab4, expected 0xffeca8b1", 0,
-                                          {"src": "0x0022ca90_native_nanpayload", "native": True, "n_inputs": 1000,
-                                           "equiv_on": "nanpayload", "equiv_off": "nanpayload"}),
     "0x0022ca90_native_nanpayload_wrong": ("fail", "this+0x14", 0, {"native": True, "n_inputs": 300, "equiv_on": "nanpayload"}),
     "0x0022ca90_native_nanpayload_nanconst": ("fail", "this+0xc", 0, {"native": True, "n_inputs": 300, "equiv_on": "nanpayload"}),
+    # (integ1, rev3 review) must fail with the rule on; each passed with a07ba065a's rule (nan_payload inputs: byte 8 of 292,
+    # sret 41 of 967, share 32 of 87): a byte store into a -1 word, a returned-struct word, every NaN element re-payloaded
+    "0x00035ce0_native_nanpayload_byte": ("fail", "write to this+0x1cf4 before return was 0xffffff01, expected 0xffffff00", 0,
+                                          {"native": True, "n_inputs": 300, "equiv_on": "nanpayload"}),
+    "0x000a92c0_native_nanpayload_sret": ("fail", "the returned struct differs at +0x0 (0xfffffffe, expected 0xffffffff)", 0,
+                                          {"native": True, "n_inputs": 1000, "equiv_on": "nanpayload"}),
+    "0x0022ca90_native_nanpayload_share": ("fail", "write to this+0x0 before return was 0xfffffffe, expected 0xffffffff", 0,
+                                           {"native": True, "n_inputs": 1000, "equiv_on": "nanpayload"}),
     # (rev3, D39 review) must fail with the rule on: an int -2 where the original stores -1, whose bit patterns both read as
     # quiet NaNs. a07ba065a's rule sets it aside (equivalent, promotable at --inputs 3000: 32 inputs nan_payload): the rule
     # must only take words both sides stored as floats. _off: the mutant fails without the rule

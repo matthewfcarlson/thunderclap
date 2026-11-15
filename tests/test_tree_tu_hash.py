@@ -139,6 +139,13 @@ class Parsing(unittest.TestCase):
         wine = {"native": True, "status": "equivalent", "level3": {"inputs_run": 600},
                 "tree_code": {"wine": "aaaaaaaaaaaa", "n_inputs": 600, "x87_keep": 0}}
         self.assertFalse(tree_tu.proves(wine, "wine", "aaaaaaaaaaaa")[0])      # (D38) --wine needs 3,000 now
+        # (rev3) a run with a rule not adopted (EQUIV_ON) or a default one off (EQUIV_OFF) proves nothing
+        self.assertFalse(tree_tu.proves(dict(good, equiv_on=["nanpayload"]), "msvc", "0123456789ab", "00000000000f")[0])
+        self.assertFalse(tree_tu.proves(dict(good, equiv_off=["vptrread"]), "msvc", "0123456789ab", "00000000000f")[0])
+        import wine_gate
+        w3 = {"native": True, "status": "equivalent", "level3": {"inputs_run": 2900}, "equiv_on": ["nanpayload"]}
+        self.assertFalse(wine_gate.judge(w3)[0])
+        self.assertTrue(wine_gate.judge(dict(w3, equiv_on=[]))[0])
 
     def test_ledger_and_marks(self):
         import collections

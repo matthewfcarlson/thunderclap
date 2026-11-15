@@ -1667,6 +1667,9 @@ def proves(rep, kind, h, view=None):
     tc = rep.get("tree_code") or {}
     if h is None:
         return False, "no hash to prove"
+    if rep.get("equiv_off") or rep.get("equiv_on"):
+        return False, "a run with non-default checker switches (EQUIV_OFF %s, EQUIV_ON %s)" % (
+            ",".join(rep.get("equiv_off") or []) or "-", ",".join(rep.get("equiv_on") or []) or "-")
     if bool(rep.get("native")) != (kind == "wine"):
         return False, "another mode"
     if tc.get(kind) != h:

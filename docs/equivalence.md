@@ -1304,22 +1304,30 @@ epoch) and maps nothing, so the rule can only act through its overlay after a st
 `EQUIV_OFF=vptrread` restores the mapping read; regress cases `0x00106290_vptrread{,_off,_wrong}`. Open: other hooks
 call `_read_u32` too (it maps past the page limit); they were not audited for the same side effect.
 
-(integ1, D39, `nanpayload`) **Written, not adopted: on only with `EQUIV_ON=nanpayload` until an independent review (rev3)
-signs off; no proof, ledger line or re-audit uses it.** When two NaNs meet in an arithmetic instruction, the x87 hands
-on the one with the larger significand (an invalid operation's indefinite, 0xffc00000, takes part by the same rule) and
-SSE the first source operand, so a `--wine` source with the original's operand order still produces another NaN on such
-inputs: 0x0022ca90's matrix product, `write to this+0x4 before return was 0xfff84ab4, expected 0xffeca8b1` (input 938;
-also 0x0022cc10, 0x0022cdb0, 0x00308ba0: tri2's open set). IEEE 754 leaves the choice open and the game never reads a
-NaN's payload. The rule, an extension of round 19's `nansign` (`_nan_sign_only` / `_nan_payload_only`): a compared
-32-bit word where both sides hold a quiet NaN (exponent 0xff, bit 0x00400000 set) that differ in sign or payload is not
-a difference, and the input is inconclusive (`statuses.nan_payload`) only when no other difference remains on it.
-Restrictions: `--wine` only (MSVC mode is x87 on both sides); float words only (a double's low word is still compared
-as bits); a signalling NaN or a number on either side is still a difference. With it, 0x0022ca90 `--wine` 3,000:
-equivalent and promotable, 1 of 3,004 inputs `nan_payload`. Switches: `EQUIV_ON=nanpayload` turns it on,
-`EQUIV_OFF=nanpayload` off again (once adopted, only the latter). Regress cases (`regress.py`, `equiv_on` keyword):
-`0x0022ca90_native_nanpayload` (equivalent with the rule), `_off` (fails without it), `_off2` (on, then off: fails),
-and two must-fail mutants with the rule on, `_wrong` (r.m[1][1] reads the wrong element) and `_nanconst` (a quiet NaN
-constant where the original stores 0.0f).
+(integ1, D39, `nanpayload`) **Written, not adopted: on only with `EQUIV_ON=nanpayload`; no proof, ledger line or
+re-audit uses it, and since rev3's review a run with any `EQUIV_ON` rule or `EQUIV_OFF` switch proves nothing
+(`tree_tu.proves`, `wine_gate.judge`; reports carry `equiv_on` / `equiv_off`, and the checker view includes them).**
+When two NaNs meet in an arithmetic instruction, the x87 hands on the one with the larger significand (an invalid
+operation's indefinite, 0xffc00000, takes part by the same rule) and SSE the first source operand, so a `--wine` source
+with the original's operand order can still produce another NaN on such inputs (0x0022ca90's matrix product: `write to
+this+0x4 before return was 0xfff84ab4, expected 0xffeca8b1`, input 938; also 0x0022cc10, 0x0022cdb0, 0x00308ba0).
+a07ba065a's first form took any two quiet-NaN-shaped 32-bit words; rev3 rejected it: `0xffffffff` / `0xfffffffe` are
+integers as often as NaNs (the fuzzer's -1), and an int mutant of 0x0021e080 (`-2` for Lua's `NO_JUMP`) came out
+equivalent and promotable. The rule now (`_nan_payload_only(a, b, f32)`): a compared word where both sides hold quiet
+NaNs differing in sign or payload is set aside only when **both sides last stored that word with a whole 4-byte float
+store** in that segment: memory, the original's `fst`/`fstp dword` and ours' `fst`/`fstp dword`/`movss` with no later
+store overlapping the word (`Run.seg_f32`); an argument word both sides pass as a float (`of == rf == 4`); a pointee word
+both fpu maps record as 4 bytes. Never a returned-struct word, a partial or byte store, or either word of an 8-byte store.
+The input is inconclusive (`statuses.nan_payload`) only when no other difference remains on it, and a run with
+`nan_payload` inputs over 10% of the inputs run is not promotable. **Effect: none on the blocks that motivated it.** In
+0x0022ca90, 0x0022cc10 and 0x0022cdb0 clang copies the result into `*this` as integer words, and in 0x00308ba0 the
+original copies the word with `mov`; all four still fail with the rule on. Regress cases (`regress.py`, `equiv_on`):
+`0x0022ca90_native_nanpayload` (fails with the rule on: it documents the restriction), `_off`, must-fail mutants with
+the rule on: `_wrong`, `_nanconst`, rev3's `0x0021e080_native_nanpayload_int`, and `0x00035ce0_native_nanpayload_byte`
+(a byte store into a -1 word), `0x000a92c0_native_nanpayload_sret` (a returned-struct word), `0x0022ca90_native_nanpayload_share`
+(every NaN element re-payloaded); each of the last four passed with a07ba065a's form. Not built: a double case (a NaN
+double against a finite one whose high word is NaN-shaped; 0x0025abf0's float argument is never NaN in 1,000 inputs);
+an 8-byte store never marks its words (`seg_f32` takes 4-byte stores only and drops every word another store overlaps).
 
 **Wild control flow** (`statuses`: `wild`). A run stops (`fault:wild_jump`) where control leaves the
 function's own code: a return through a return address that a fuzzed pointer or an overflowed stack buffer
