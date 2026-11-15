@@ -101,6 +101,12 @@ Pair_27af30& Pair_27af30::Assign(const Pair_27af30* src) {
 // (gx5, D57) core::NameId's destructor (include/gen/core.h): empty, out of line; the TUs not rewritten yet call it as
 // `FUN_0027af50` (the binding maps resolve the name by its address)
 core::NameId::~NameId() {}
+#if defined(HULK_PTR64)
+// (gx5) 64-bit only: the TUs not rewritten yet call this destructor as the free function `FUN_0027af50(void*)`, which
+// the native link does not bind to the member destructor (the call reached an unbound stub): defined here by that name
+// (CLAUDE.md: a function only a 64-bit branch defines is named FUN_<addr>)
+extern "C" void FUN_0027af50(void* self) { static_cast< ::core::NameId*>(self)->::core::NameId::~NameId(); }
+#endif
 
 // 0x0027af60 FUN_0027af60 (16 B): matches/0x0027af60.cpp
 // sym: ?FUN_0027af60@Pair_27af60@owners@@QAEXHH@Z
