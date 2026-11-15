@@ -1,0 +1,81 @@
+// Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// object 0x00186680..0x0018b4e0 (kind game, layer game, confidence high), merged by D32: hulkfight/motion/PropMissionCriticalCondition.cpp
+// piece 0x00186be0..0x00186d40 (kind game, layer game, confidence high, dominant class hulkfight::motion::PropActorToPropTrack); was game/hulkfight/motion/PropActorToPropTrack_3.cpp until D46
+#include "tree_prelude.h"
+#include "gen/fight.h"
+#define TREE_TU_BEGIN namespace fn_fa7f24e6 {
+#define TREE_TU_END }
+namespace fn_fa7f24e6 {} using namespace fn_fa7f24e6;
+#include "game/hulkfight/motion.h"
+
+// ---- declarations shared by the functions below
+namespace fn_fa7f24e6 {
+class SmartPropIsCargoCondition_186be0 {};
+extern "C" int __cdecl FUN_00344e74(void*, int, void*, void*, int);
+extern char DAT_004bdb20;
+} // namespace fn_fa7f24e6
+namespace fight {
+class ConditionFactoryCaster_186be0 {
+  public:
+    virtual int vfunc_0(void*) = 0;
+    virtual void vfunc_1() = 0;
+};
+}
+namespace fn_fa7f24e6 {
+extern char DAT_004bdbe8;
+} // namespace fn_fa7f24e6
+namespace fight {
+class ConditionFactoryCaster_186c40 {
+  public:
+    virtual int vfunc_0(void*);
+    virtual void vfunc_1();
+};
+}
+namespace hulkfight { namespace motion {
+class CSMPropIsCharacterCondition_186c40;
+} }
+namespace fn_fa7f24e6 {
+class Actor;
+class Track_186ca0;
+} // namespace fn_fa7f24e6
+namespace fight {
+class TrackFactoryCaster_186ca0 {
+  public:
+    virtual int vfunc_0(void*);
+    virtual void vfunc_1();
+};
+}
+namespace hulkfight { namespace motion {
+class PropActorToPropTrack_186ca0 {};
+} }
+namespace fn_fa7f24e6 {
+extern char DAT_0049850c;
+extern char DAT_004bdca8;
+
+} // namespace fn_fa7f24e6
+
+// 0x00186be0 fight::ConditionFactoryCasterTemplate<hulkfight::motion::SmartPropIsCargoCondition>::vfunc_0 (36 B): matches/0x00186be0.cpp
+// sym: ?vfunc_0@?$ConditionFactoryCasterTemplate@VSmartPropIsCargoCondition@motion@hulkfight@@@fight@@UAE_NPAX@Z
+ // namespace fight
+template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::motion::SmartPropIsCargoCondition>::vfunc_0(void* __p0) { void * p = (void *)__p0;
+
+    return FUN_00344e74(p, 0, &DAT_00491ca8, &DAT_004bdb20, 0) != 0;
+}
+
+
+// 0x00186c40 fight::ConditionFactoryCasterTemplate<hulkfight::motion::CSMPropIsCharacterCondition>::vfunc_0 (36 B): matches/0x00186c40.cpp
+// sym: ?vfunc_0@?$ConditionFactoryCasterTemplate@VCSMPropIsCharacterCondition@motion@hulkfight@@@fight@@UAE_NPAX@Z
+ // namespace hulkfight
+template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::motion::CSMPropIsCharacterCondition>::vfunc_0(void* __p0) { void * p = (void *)__p0;
+
+    return FUN_00344e74(p, 0, &DAT_00491ca8, &DAT_004bdbe8, 0) != 0;
+}
+
+
+// 0x00186ca0 fight::TrackFactoryCasterTemplate<hulkfight::motion::PropActorToPropTrack>::vfunc_0 (36 B): matches/0x00186ca0.cpp
+// sym: ?vfunc_0@?$TrackFactoryCasterTemplate@VPropActorToPropTrack@motion@hulkfight@@@fight@@UAE_NPAX@Z
+template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::PropActorToPropTrack>::vfunc_0(void* __p0) { void * x = (void *)__p0;
+
+    return FUN_00344e74(x, 0, &DAT_0049850c, &DAT_004bdca8, 0) != 0;
+}
+

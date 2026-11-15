@@ -1,5 +1,6 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// object 0x00199630..0x0019c050 (kind game, layer game, confidence high), dominant class hulkfight::motion::FireProjectileAction
+// object 0x00199630..0x0019e430 (kind game, layer game, confidence high), merged by D32: hulkfight/motion/FireProjectileAction.cpp
+// piece 0x00199630..0x0019c050 (kind game, layer game, confidence high, dominant class hulkfight::motion::FireProjectileAction)
 // (tree_prelude.h: not needed)
 #include "compat/ptr.h"
 // (ren2) __RTDynamicCast's own name (CRT, C linkage)

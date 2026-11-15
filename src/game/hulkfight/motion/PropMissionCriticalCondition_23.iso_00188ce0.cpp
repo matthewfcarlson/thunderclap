@@ -1,0 +1,35 @@
+// Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// object 0x00186680..0x0018b4e0 (kind game, layer game, confidence high), merged by D32: hulkfight/motion/PropMissionCriticalCondition.cpp
+// piece 0x00188ab0..0x00188d30 (kind game, layer game, confidence low); was game/unknown/unk_188ab0.iso_00188ce0.cpp until D46
+// (tree_prelude.h: not needed)
+#include "compat/ptr.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
+
+
+// 0x00188ce0 hulkfight::motion::PropDropTrack::vfunc_10 (70 B): matches/0x00188ce0.cpp [isolated: conflict: Alloc; on include/gen/ and not mergeable]
+// sym: ?vfunc_10@PropDropTrack@motion@hulkfight@@UAEHHHH@Z
+// Same code shape as 0x0010bd40 (propagated; names are from that function)
+#include "gen/hulkfight.h"
+
+class Params_188ce0 {
+  public:
+    int x;
+};
+extern Params_188ce0 hulk_at_00494b44;
+extern Params_188ce0 hulk_at_00494b60;
+struct PropDropAction_nv_188ce0 {
+    int Init_00183ed0(hulkfight::motion::PropDropTrack*, hulk_intptr);
+};
+hulkfight::motion::PropDropAction* __cdecl Alloc_0008d690(int);
+
+hulk_intptr hulkfight::motion::PropDropTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
+    int result = ((int)(hulk_uintptr)__RTDynamicCast((void*)c, 0, (void*)(&hulk_at_00494b44), (void*)(&hulk_at_00494b60), 0));
+    if (result) {
+        hulkfight::motion::PropDropAction* p = Alloc_0008d690(0x24);
+        if (p)
+            return ((PropDropAction_nv_188ce0*)(((hulkfight::motion::PropDropAction*)(p))))->Init_00183ed0(this, c);
+    }
+    return 0;
+}
+

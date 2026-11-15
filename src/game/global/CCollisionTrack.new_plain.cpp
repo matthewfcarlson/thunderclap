@@ -1,5 +1,6 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// object 0x0005d850..0x0005fa10 (kind game, layer game, confidence high), dominant class CCollisionTrack
+// object 0x0005d850..0x000604d0 (kind game, layer game, confidence high), merged by D32: global/CCollisionTrack.cpp
+// piece 0x0005d850..0x0005fa10 (kind game, layer game, confidence high, dominant class CCollisionTrack)
 #include "tree_prelude.h"
 #define TREE_TU_BEGIN namespace fn_fe5613d0 {
 #define TREE_TU_END }

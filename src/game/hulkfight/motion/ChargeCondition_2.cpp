@@ -1,5 +1,6 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// object 0x0016a050..0x0016a0d0 (kind game, layer game, confidence high), dominant class hulkfight::motion::ChargeCondition
+// object 0x0016a050..0x0016d360 (kind game, layer game, confidence high), merged by D32: hulkfight/motion/ChargeCondition_2.cpp
+// piece 0x0016a050..0x0016a0d0 (kind game, layer game, confidence high, dominant class hulkfight::motion::ChargeCondition)
 #include "tree_prelude.h"
 #include "gen/fight.h"
 #define TREE_TU_BEGIN namespace fn_f83e72bb {

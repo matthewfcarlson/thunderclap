@@ -129,7 +129,7 @@ B1, jmp thunks and CRT (1,278):
 - src/game/hulkfight/ai/TargetDistanceCondition_3.cpp:91 `thunk_delete(void*)` [0x00263f30, `jmp` to 0x00267090]
 - src/game/global/CClimbableCondition.cpp:140 `SweepTrack_DeleteThis(void*)` [0x0008d330, `jmp` to 0x00267090]
 - src/game/hulkfight/motion/FireProjectileAction.cpp:837 `Check(void*, int, Params_19b3c0*, ...)` [0x00344e74, `__RTDynamicCast`]
-- src/game/hulkfight/motion/JointRelativeTrack_3.cpp:27 `do_cast` [0x00344e74]
+- src/game/hulkfight/motion/JointTrackerTrack_3_4.cpp (D46: was JointRelativeTrack_3.cpp) `do_cast` [0x00344e74]
 
 B3 / B3b, stub virtual members (vftable slots):
 - src/game/global/AICollisionSolverAgent.cpp:223 `Function_1b1660::f()`
@@ -139,7 +139,7 @@ B3 / B3b, stub virtual members (vftable slots):
   vftable that the map pairs with the game's 0x00417f2c)
 
 B5, address taken only (the parameter tables' setters):
-- src/game/hulkfight/motion/PropSpawnTrack_reg.cpp:292 / :874: `void FUN_00180050();` is stored as
+- src/game/hulkfight/motion/PropMissionCriticalCondition_28.cpp (D46: was PropSpawnTrack_reg.cpp): `void FUN_00180050();` is stored as
   `&BallAndChainShootTrack_18abd0::FUN_00180050` through `ParamFloatConstRange_18abd0(const char*, void (T::*)())`.
   The definition is `bool (float)`: IR `void(ptr)` / `i1(ptr, float)`.
 - src/game/hulkfight/motion/PropAddToCollisionTrack_3.iso_00187e00.cpp:21 `void __cdecl SetTimeBegin_0017f6b0();`

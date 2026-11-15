@@ -1,5 +1,6 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// object 0x00127a00..0x00127a80 (kind game, layer game, confidence high), dominant class hulkfight::ai::TargetDirectionYCondition
+// object 0x00127a00..0x0012a270 (kind game, layer game, confidence high), merged by D32: hulkfight/ai/TargetDirectionYCondition.cpp
+// piece 0x00127a00..0x00127a80 (kind game, layer game, confidence high, dominant class hulkfight::ai::TargetDirectionYCondition)
 #include "tree_prelude.h"
 #include "gen/fight.h"
 #define TREE_TU_BEGIN namespace fn_fa5629fc {

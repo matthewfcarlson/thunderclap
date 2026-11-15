@@ -1,5 +1,6 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// object 0x00186680..0x00186700 (kind game, layer game, confidence high), dominant class hulkfight::motion::PropMissionCriticalCondition
+// object 0x00186680..0x0018b4e0 (kind game, layer game, confidence high), merged by D32: hulkfight/motion/PropMissionCriticalCondition.cpp
+// piece 0x00186680..0x00186700 (kind game, layer game, confidence high, dominant class hulkfight::motion::PropMissionCriticalCondition)
 #include "tree_prelude.h"
 #include "gen/fight.h"
 #define TREE_TU_BEGIN namespace fn_fe12320d {

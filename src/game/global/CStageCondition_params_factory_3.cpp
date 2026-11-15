@@ -1,0 +1,116 @@
+// Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// cl-flags: /GX
+// object 0x00051480..0x00056af0 (kind game, layer game, confidence high), merged by D32: global/CStageCondition_params_factory.cpp
+// piece 0x00051ed0..0x00052050 (kind game, layer game, confidence high, dominant class CFightNodeCondition); was game/global/CFightNodeCondition.cpp until D46
+#include "tree_prelude.h"
+#include "compat/ptr.h"
+#include "gen/fight.h"
+#include "gen/global.h"
+#include "gen/owners.h"
+#define TREE_TU_BEGIN namespace fn_f43bcfc1 {
+#define TREE_TU_END }
+namespace fn_f43bcfc1 {} using namespace fn_f43bcfc1;
+namespace fn_f43bcfc1 {
+struct FactoryCtor { void init_002343b0(); };   // (unb4) the factory constructors InitHelper::init stood for
+void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
+}
+#include "game/global.h"
+
+// ---- declarations shared by the functions below
+void* __cdecl operator new(size_t size);
+inline void* __cdecl operator new(size_t, void* where) {
+    return where;
+}
+namespace fn_f43bcfc1 {
+class TrackFactoryTemplate_51f70 {
+  public:
+    TrackFactoryTemplate_51f70() {}
+    virtual void vf0_00038290();
+    virtual void vf1_000382a0();
+    int mPad;
+    TrackImpl mTrack;
+};
+extern int hulk_at_003f84a8;
+struct ConditionFactoryTemplate_51fb0 {
+    void* m_vptr;
+    void base1_dtor_00235a00();
+    void base2_dtor_002343d0();
+    void* scalar_dtor(unsigned char flags);
+};
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
+struct CFightNodeCondition_51fe0 {
+    virtual void a();
+    virtual void b();
+    virtual void c();
+    virtual void d();
+    virtual void e();
+    virtual void f();
+    void Init_00235a30();
+};
+class Helper_52010 {
+  public:
+    int second_00059a30();
+};
+
+} // namespace fn_f43bcfc1
+
+// 0x00051f70 fight::ConditionFactoryCasterTemplate<CFightNodeCondition>::vfunc_1 (60 B): matches/0x00051f70.cpp
+// sym: ?vfunc_1@?$ConditionFactoryCasterTemplate@VCFightNodeCondition@@@fight@@UAEPAXPAX@Z
+// Same code shape as 0x00122f30 (propagated; names are from that function)
+template <> void* fight::ConditionFactoryCasterTemplate<CFightNodeCondition>::vfunc_1(void* __p0) { void * arg = (void *)__p0;
+
+    void* mem = operator new(sizeof(TrackFactoryTemplate_51f70));
+    if (mem) {
+        ((FactoryCtor*)mem)->init_002343b0();
+        TrackFactoryTemplate_51f70* t = new (mem) TrackFactoryTemplate_51f70();
+        ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
+        FUN_002361a0();
+        return (void*)(t);
+    }
+    return (void*)(0);
+}
+
+namespace fn_f43bcfc1 {
+
+// 0x00051fb0 fight::ConditionFactoryTemplate<CFightNodeCondition>::vfunc_2 (43 B): matches/0x00051fb0.cpp
+// sym: ?scalar_dtor@ConditionFactoryTemplate_51fb0@fn_f43bcfc1@@QAEPAXE@Z
+// Same code shape as 0x0006fb50 (propagated; names are from that function)
+void* ConditionFactoryTemplate_51fb0::scalar_dtor(unsigned char flags) {
+    m_vptr = (void*)&hulk_at_003f84a8;
+    base1_dtor_00235a00();
+    base2_dtor_002343d0();
+    if (flags & 1)
+        thunk_delete_00263f30(this);
+    return this;
+}
+
+} // namespace fn_f43bcfc1
+
+// 0x00051fe0 fight::ConditionFactoryTemplate<CFightNodeCondition>::vfunc_5 (38 B): matches/0x00051fe0.cpp
+// sym: ?vfunc_5@?$ConditionFactoryTemplate@VCFightNodeCondition@@@fight@@UAEPAXXZ
+template <> void* fight::ConditionFactoryTemplate<CFightNodeCondition>::vfunc_5() {
+    CFightNodeCondition_51fe0* p = (CFightNodeCondition_51fe0*)FUN_0008d690(0x1c);
+    if (p) {
+        p->Init_00235a30();
+        *(void**)p = &CFightNodeConditionVtable;
+        return (void*)(p);
+    }
+    return (void*)(0);
+}
+
+
+// 0x00052010 CFightNodeCondition::vfunc_7 (24 B): matches/0x00052010.cpp
+// sym: ?vfunc_7@CFightNodeCondition@@UAEHPAX@Z
+hulk_intptr CFightNodeCondition::vfunc_7(void* __p0) { void * arg = (void *)__p0;
+
+    hulk_intptr x = ((int)((owners::Object_592a0 *)(((Helper_52010*)arg)))->FUN_000592a0());
+    return ((Helper_52010*)x)->second_00059a30() + 0xdc;
+}
+
+
+// 0x00052030 CFightNodeCondition::vfunc_5 (30 B): matches/0x00052030.cpp
+// sym: ??_GCFightNodeCondition@@UAEPAXI@Z
+// Same code shape as 0x00021840 (propagated; names are from that function)
+// scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+CFightNodeCondition::~CFightNodeCondition() {}
+

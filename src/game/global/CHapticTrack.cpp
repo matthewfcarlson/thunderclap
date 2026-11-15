@@ -1,5 +1,6 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// object 0x0005d190..0x0005d370 (kind game, layer game, confidence high), dominant class CHapticTrack
+// object 0x0005d190..0x0005d850 (kind game, layer game, confidence high), merged by D32: global/CHapticTrack.cpp
+// piece 0x0005d190..0x0005d370 (kind game, layer game, confidence high, dominant class CHapticTrack)
 #include "tree_prelude.h"
 #include "compat/ptr.h"
 #include "decls/data/game/global.h"

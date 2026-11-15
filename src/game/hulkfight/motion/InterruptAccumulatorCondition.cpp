@@ -1,5 +1,6 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// object 0x00153f40..0x00154000 (kind game, layer game, confidence high), dominant class hulkfight::motion::InterruptAccumulatorCondition
+// object 0x00153f40..0x00158f00 (kind game, layer game, confidence high), merged by D32: hulkfight/motion/InterruptAccumulatorCondition.cpp
+// piece 0x00153f40..0x00154000 (kind game, layer game, confidence high, dominant class hulkfight::motion::InterruptAccumulatorCondition)
 #include "tree_prelude.h"
 #include "compat/ptr.h"
 #include "gen/fight.h"

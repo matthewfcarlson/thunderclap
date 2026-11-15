@@ -1,0 +1,43 @@
+// Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// object 0x0016a050..0x0016d360 (kind game, layer game, confidence high), merged by D32: hulkfight/motion/ChargeCondition_2.cpp
+// piece 0x0016a830..0x0016a910 (kind game, layer game, confidence high, dominant class hulkfight::motion::CharacterPropStatusCondition); was game/hulkfight/motion/CharacterPropStatusCondition_2.cpp until D46
+#include "tree_prelude.h"
+#include "gen/fight.h"
+#define TREE_TU_BEGIN namespace fn_ffa1c541 {
+#define TREE_TU_END }
+namespace fn_ffa1c541 {} using namespace fn_ffa1c541;
+#include "game/hulkfight/motion.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
+
+// ---- declarations shared by the functions below
+namespace fn_ffa1c541 {
+extern int hulk_at_00491ca8, hulk_at_004b7270;
+extern "C" int __cdecl FUN_00344e74(void*, int, void*, void*, int);
+extern char DAT_004b7340;
+} // namespace fn_ffa1c541
+namespace fight {
+class ConditionFactoryCaster_16a890 {
+  public:
+    virtual int vfunc_0(void*);
+    virtual void vfunc_1();
+};
+}
+
+
+// 0x0016a830 fight::ConditionFactoryCasterTemplate<hulkfight::motion::TargetCharacterTemplateCondition>::vfunc_0 (36 B): matches/0x0016a830.cpp
+// sym: ?vfunc_0@?$ConditionFactoryCasterTemplate@VTargetCharacterTemplateCondition@motion@hulkfight@@@fight@@UAE_NPAX@Z
+template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::motion::TargetCharacterTemplateCondition>::vfunc_0(void* __p0) { void * p = (void *)__p0;
+
+    return ((int)(hulk_uintptr)__RTDynamicCast(p, 0, &hulk_at_00491ca8, &hulk_at_004b7270, 0)) != 0;
+}
+
+
+// 0x0016a890 fight::ConditionFactoryCasterTemplate<hulkfight::motion::CharacterPropStatusCondition>::vfunc_0 (36 B): matches/0x0016a890.cpp
+// sym: ?vfunc_0@?$ConditionFactoryCasterTemplate@VCharacterPropStatusCondition@motion@hulkfight@@@fight@@UAE_NPAX@Z
+ // namespace fight
+template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::motion::CharacterPropStatusCondition>::vfunc_0(void* __p0) { void * p = (void *)__p0;
+
+    return FUN_00344e74(p, 0, &DAT_00491ca8, &DAT_004b7340, 0) != 0;
+}
+

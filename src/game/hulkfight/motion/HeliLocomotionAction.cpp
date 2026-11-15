@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // cl-flags: /GX
-// object 0x0015cd10..0x00161c10 (kind game, layer game, confidence high), dominant class hulkfight::motion::HeliLocomotionAction
+// object 0x0015cd10..0x00163a90 (kind game, layer game, confidence high), merged by D32: hulkfight/motion/HeliLocomotionAction.cpp
+// piece 0x0015cd10..0x00161c10 (kind game, layer game, confidence high, dominant class hulkfight::motion::HeliLocomotionAction)
 #include "tree_prelude.h"
 #include "compat/ptr.h"
 #include "decls/address.h"

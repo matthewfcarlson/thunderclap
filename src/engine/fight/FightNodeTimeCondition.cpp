@@ -1,5 +1,6 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// object 0x00235a20..0x002361a0 (kind game, layer engine, confidence high), dominant class fight::FightNodeTimeCondition
+// object 0x00235a20..0x002366e0 (kind game, layer engine, confidence high), merged by D32: fight/FightNodeTimeCondition.cpp
+// piece 0x00235a20..0x002361a0 (kind game, layer engine, confidence high, dominant class fight::FightNodeTimeCondition)
 #include "tree_prelude.h"
 #include "compat/ptr.h"
 #include "decls/data/engine/fight.h"

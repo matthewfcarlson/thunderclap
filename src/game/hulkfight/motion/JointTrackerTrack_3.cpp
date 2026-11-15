@@ -1,5 +1,6 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// object 0x00178d00..0x00178de0 (kind game, layer game, confidence high), dominant class hulkfight::motion::JointTrackerTrack
+// object 0x00178d00..0x0017e1a0 (kind game, layer game, confidence high), merged by D32: hulkfight/motion/JointTrackerTrack_3.cpp
+// piece 0x00178d00..0x00178de0 (kind game, layer game, confidence high, dominant class hulkfight::motion::JointTrackerTrack)
 #include "tree_prelude.h"
 #include "gen/fight.h"
 #define TREE_TU_BEGIN namespace fn_f6ef1ee0 {

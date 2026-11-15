@@ -1,5 +1,6 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// object 0x0005d850..0x0005fa10 (kind game, layer game, confidence high), dominant class CCollisionTrack
+// object 0x0005d850..0x000604d0 (kind game, layer game, confidence high), merged by D32: global/CCollisionTrack.cpp
+// piece 0x0005d850..0x0005fa10 (kind game, layer game, confidence high, dominant class CCollisionTrack)
 #include "tree_prelude.h"
 #define HULK_FIGHT_PARAM_IMPLICIT   // (gx2, D18) include/gen/fight.h: the parameter templates constructed for real
 #include "decls/data/game/unknown.h"   // (gx3, D18) for the merged registrations
