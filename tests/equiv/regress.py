@@ -761,6 +761,16 @@ CASES = {
                                                                 "n_inputs": 1000}),
     "0x00264050_native_objkeep_wrong": ("fail", "this (ecx)", 0, {"native": True, "n_inputs": 300, "equiv_on": "objkeep"}),
     "0x00264050_native_objkeep_thischange": ("fail", "unexpected write to this+0x8", 0, {"native": True, "n_inputs": 300, "equiv_on": "objkeep"}),
+    # (rev6, D53 review) _stale: this->stream read once before v16 and reused for v3, a third order that differs from the
+    # original's and clang's only if a call in between rewrote Reader::stream: objkeep takes all three (the assumption, recorded).
+    # 0x000e8790 _pin: this->owner read once and reused across v6 and FUN_002998d0, calls after the virtual call objkeep checked
+    # (the keep must end at that call); _ctl: the same split re-reading owner each time; _pin_off: _pin fails without objkeep.
+    # _pin FAILS (equivalent) at a4a81138a: the keep is an ("after", epoch) overlay that pins the word for every later epoch
+    "0x00264050_native_objkeep_stale": ("equivalent", None, 0, {"native": True, "n_inputs": 1000, "equiv_on": "objkeep"}),
+    "0x000e8790_native_objkeep_ctl": ("equivalent", None, 0, {"native": True, "n_inputs": 1000, "equiv_on": "objkeep"}),
+    "0x000e8790_native_objkeep_pin": ("fail", "this (ecx)", 0, {"native": True, "n_inputs": 1000, "equiv_on": "objkeep"}),
+    "0x000e8790_native_objkeep_pin_off": ("fail", "this (ecx)", 0, {"src": "0x000e8790_native_objkeep_pin", "native": True,
+                                                                    "n_inputs": 1000}),
     # (integ1, D54) a `// pre: notnan(...)` contract with HULK_PRE_NOTNAN (include/compat/pre.h): NaN words of the contract are
     # repaired on both sides (390 of 1,004 inputs), --wine checks that a violating input hits the trap; _notrap: the contract
     # without the macro is refused; _nopre: the macro without the contract fails on NaN inputs; _wrong: a wrong element fails

@@ -1,0 +1,56 @@
+// STATUS: equivalent with EQUIV_ON=objkeep (rev6, D53 review, documents the assumption): this->stream read once
+// before the calls; a third order objkeep can't tell from the original's or clang's (they differ only if v16 or
+// FUN_0026fd50 rewrote Reader::stream)
+// FUN_00264050 @ 0x00264050
+#include "compat/ptr.h"
+int __cdecl FUN_0026fd50(hulk_intptr a, int b);
+class Stream {
+public:
+    virtual void v0();
+    virtual void v1();
+    virtual void v2();
+    virtual void v3(int a, int b, int c);
+    virtual void v4();
+    virtual void v5();
+    virtual void v6();
+    virtual void v7();
+    virtual void v8();
+    virtual void v9();
+    virtual void v10();
+    virtual void v11();
+    virtual void v12();
+    virtual void v13();
+    virtual void v14();
+    virtual void v15();
+    virtual int v16();
+};
+class Reader {
+public:
+    char pad0[8];
+    Stream* stream;
+    char pad0c[4];
+    unsigned int limit;
+    char pad14[4];
+    unsigned int pos;
+    char pad1c[0x34 - 0x1c];
+    int lastCount;
+    unsigned int chunk;
+    void FUN_00264050(int dest);
+};
+void Reader::FUN_00264050(int dest) {
+    if (pos >= limit)
+        return;
+    unsigned int n = chunk;
+    if (pos + n >= limit) {
+        int rest = limit - pos;
+        Stream* s_ = stream;
+        int c_ = FUN_0026fd50(rest, s_->v16());
+        s_->v3(dest, c_, 1);    // stale: this->stream read once, before v16 (the original re-reads it after FUN_0026fd50)
+        lastCount = rest;
+        pos = pos + rest;
+        return;
+    }
+    stream->v3(dest, n, 1);
+    pos += n;
+    lastCount = n;
+}
