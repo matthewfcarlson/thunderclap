@@ -15,12 +15,12 @@ namespace fn_fe4a9338 {} using namespace fn_fe4a9338;
 namespace fn_fe4a9338 {
 class DriveRequest_275b40 {
   public:
-    DriveRequest_275b40(unsigned int);
+    DriveRequest_275b40(HulkInstanceDrive*);   // (x64t13) 0x00275600 takes the drive (was an unsigned int)
     virtual void Fn();
 };
 class DriveFindCloseRequest : public DriveRequest_275b40 {
   public:
-    DriveFindCloseRequest(hulk_uintptr);
+    DriveFindCloseRequest(HulkInstanceDrive*);
     virtual void Fn();
 };
 extern void FUN_002705f0();
@@ -51,8 +51,8 @@ struct DriveFindCloseRequest {
 
 
 // 0x00275b40 FUN_00275b40 (30 B): matches/0x00275b40.cpp
-// sym: ??0DriveFindCloseRequest@fn_fe4a9338@@QAE@I@Z
-DriveFindCloseRequest::DriveFindCloseRequest(hulk_uintptr x) : DriveRequest_275b40(x) {
+// sym: ??0DriveFindCloseRequest@fn_fe4a9338@@QAE@PAUHulkInstanceDrive@@@Z
+DriveFindCloseRequest::DriveFindCloseRequest(HulkInstanceDrive* x) : DriveRequest_275b40(x) {
     FUN_002705f0();
 }
 

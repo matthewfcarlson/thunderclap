@@ -69,12 +69,13 @@ class Checker_276980 {
     virtual char check();
     void Finish_00272b60(void*, int, int);
 };
-extern void __cdecl Parse_002697c0(int, char*, char*, int*, int*);
+// (x64t13) the name and the parser's results are pointers (FUN_002697c0, unk_269680.cpp)
+extern void __cdecl Parse_002697c0(const char*, char*, char*, char**, const char**);
 extern void* __cdecl Allocate_00273560(int);
 class InstanceDrive;
 class Builder {
   public:
-    Builder* make_002759e0(InstanceDrive*, int, int);
+    Builder* make_002759e0(InstanceDrive*, const char*, int);
 };
 class Other_276cf0 {
   public:
@@ -273,7 +274,7 @@ class InstanceDrive {
     int count;
     union { Checker_276980* checker; Drive* drive; };
     int field10;
-    void vfunc_8(int p2, int p3);
+    void vfunc_8(const char* p2, int p3);
     void F1() { v1(); }
 };
 struct Obj_2770a0 {
@@ -627,14 +628,14 @@ int core::InstanceDrive::vfunc_7(const char* path) {
 namespace fn_ff53bcc9 {
 
 // 0x00276980 core::InstanceDrive::vfunc_8 (146 B): matches/0x00276980.cpp
-// sym: ?vfunc_8@InstanceDrive@fn_ff53bcc9@@QAEXHH@Z
-void InstanceDrive::vfunc_8(int p2, int p3) {
+// sym: ?vfunc_8@InstanceDrive@fn_ff53bcc9@@QAEXPBDH@Z
+void InstanceDrive::vfunc_8(const char* p2, int p3) {
     char local104[260];
     char local118[20];
-    int local120 = 0;
-    int local11c = 0;
+    const char* local120 = 0;
+    char* local11c = 0;
     Parse_002697c0(p2, local104, local118, &local11c, &local120);
-    int value = local11c;
+    const char* value = local11c;
     if (checker->check() & 0x80)
         value = local120;
     Builder* b = (Builder*)Allocate_00273560(0x114);
@@ -726,24 +727,24 @@ void core::InstanceDrive::vfunc_12() {
 
 
 // 0x00276b30 core::InstanceDrive::vfunc_13 (26 B): matches/0x00276b30.cpp
-// sym: ?vfunc_13@InstanceDrive@core@@UAEXH@Z
-void core::InstanceDrive::vfunc_13(int x) {
+// sym: ?vfunc_13@InstanceDrive@core@@UAEXPBD@Z
+void core::InstanceDrive::vfunc_13(const char* x) {
     vfunc_6(x);
     vfunc_22();
 }
 
 
 // 0x00276b50 core::InstanceDrive::vfunc_14 (26 B): matches/0x00276b50.cpp
-// sym: ?vfunc_14@InstanceDrive@core@@UAEXH@Z
-void core::InstanceDrive::vfunc_14(int x) {
+// sym: ?vfunc_14@InstanceDrive@core@@UAEXPBD@Z
+void core::InstanceDrive::vfunc_14(const char* x) {
     vfunc_7(x);
     vfunc_22();
 }
 
 
 // 0x00276b70 core::InstanceDrive::vfunc_15 (31 B): matches/0x00276b70.cpp
-// sym: ?vfunc_15@InstanceDrive@core@@UAEXHH@Z
-void core::InstanceDrive::vfunc_15(int a, int b) {
+// sym: ?vfunc_15@InstanceDrive@core@@UAEXPBDH@Z
+void core::InstanceDrive::vfunc_15(const char* a, int b) {
     vfunc_8(a, b);
     vfunc_22();
 }
@@ -758,8 +759,8 @@ void core::InstanceDrive::vfunc_16(int p) {
 
 
 // 0x00276bb0 core::InstanceDrive::vfunc_17 (26 B): matches/0x00276bb0.cpp
-// sym: ?vfunc_17@InstanceDrive@core@@UAEXH@Z
-void core::InstanceDrive::vfunc_17(int x) {
+// sym: ?vfunc_17@InstanceDrive@core@@UAEXPBD@Z
+void core::InstanceDrive::vfunc_17(const char* x) {
     vfunc_10(x);
     vfunc_22();
 }

@@ -1000,3 +1000,18 @@ blocks fight::Action's whole family: the records come first there.
 - A setter pinned on a virtual stand-in method (`?Get@Obj_12960@fn_ff0a839e@@UAEPAXXZ`) can't be named from a
   registration as its address without a non-virtual declaration, which gives another native name: such stand-ins
   should not be virtual.
+
+## 2026-11-15 x64t13: macOS start-up into the loader fiber; D34's gate entries fixed; D35 thunks
+- A thunk call "passing 2 arguments" can push 5: MSVC interleaves the pushes of nested zero-argument thiscalls, so
+  0x00272df0's `cb->run(error, drive->slot4(), req->kind(), req->name(), arg)` and the old source's nested
+  one-argument calls compile to the same bytes. Only the callees' `ret` sizes tell them apart (bare `ret` for the
+  slots, `ret 0x14` for MyDriveErrorCallback::vfunc_0); both were equivalent at 32-bit, only one is right natively.
+- equiv64 input annotations (docs/equivalence.md): `HULK_RANGE(lo, hi)` on an integer field and `HULK_INTO(field)` on
+  a pointer parameter, seen only by the checker's libclang parse; they model a domain fact (a list index, a pool
+  block) instead of accepting the block into the x64 baseline. D34's 0x002775b0 and 0x0008ff00 left the baseline.
+- native_unbound.Defs lacked native_mac.TreeDefs's own-address rule, so a call to a function that only a 64-bit branch
+  defines (named `FUN_<addr>`) never bound; with it 0x00266890's native constructor binds.
+- Local wibo (MSVC) processes hung in state U after the 09:30 reboot (unkillable); every MSVC check after that ran
+  on the queue.
+- 32abd96a2 (tri3) committed x64t13's three regress entries from the shared index before their case files and the
+  equiv64 change existed; this batch adds them.

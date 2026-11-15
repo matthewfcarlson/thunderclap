@@ -95,7 +95,7 @@ class A_263e90 {
 };
 typedef unsigned int U_263ed0;
 extern "C" U_263ed0 __cdecl FUN_00266da0(U_263ed0);
-extern "C" U_263ed0 __cdecl FUN_0008d690(U_263ed0);
+extern "C" void* __cdecl FUN_0008d690(U_263ed0);   // (x64t13) the game's allocator returns the block
 
 
 // 0x002634c0 FUN_002634c0 (14 B): matches/0x002634c0.cpp
@@ -689,9 +689,10 @@ void __fastcall FUN_00263e90(A_263e90* p) {
 
 // 0x00263ed0 FUN_00263ed0 (40 B): matches/0x00263ed0.cpp
 // sym: _FUN_00263ed0
-extern "C" hulk_uintptr __cdecl FUN_00263ed0(U_263ed0 size, U_263ed0 heap) {
+// (x64t13) the block is a pointer (it was kept in an unsigned int: natively its low half)
+extern "C" void* __cdecl FUN_00263ed0(U_263ed0 size, U_263ed0 heap) {
     U_263ed0 a = FUN_00266da0(heap);
-    U_263ed0 b = FUN_0008d690(size);
+    void* b = FUN_0008d690(size);
     FUN_00266da0(a);
     return b;
 }

@@ -17,12 +17,12 @@ namespace fn_ff8d14c6 {
 struct DriveRequest_275750 {
     virtual void* Run_00275780(char);
     int dummy;
-    DriveRequest_275750(int x);
+    DriveRequest_275750(HulkInstanceDrive* x);   // (x64t13) 0x00275600 takes the drive (was an int)
 };
 struct DriveMediaRequest_275750 : DriveRequest_275750 {
     int b;
     int value;
-    DriveMediaRequest_275750(hulk_intptr x, int y);
+    DriveMediaRequest_275750(HulkInstanceDrive* x, int y);
 };
 extern void* hulk_at_0042b9bc[];
 class Pool_275780 {
@@ -54,9 +54,9 @@ class DriveMediaRequest_275780 {
 
 
 // 0x00275750 FUN_00275750 (37 B): matches/0x00275750.cpp
-// sym: ??0DriveMediaRequest_275750@fn_ff8d14c6@@QAE@HH@Z
+// sym: ??0DriveMediaRequest_275750@fn_ff8d14c6@@QAE@PAUHulkInstanceDrive@@H@Z
 // Same code shape as 0x00275390 (propagated; names are from that function)
-DriveMediaRequest_275750::DriveMediaRequest_275750(hulk_intptr x, int y) : DriveRequest_275750(x) {
+DriveMediaRequest_275750::DriveMediaRequest_275750(HulkInstanceDrive* x, int y) : DriveRequest_275750(x) {
     value = y;
     FinishInit();
 }

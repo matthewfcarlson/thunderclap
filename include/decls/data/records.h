@@ -19,6 +19,19 @@
 #define HULK_SIZE32(T, n) \
     typedef char HULK_SIZE32_CAT(hulk_size32_, __LINE__)[(sizeof(void*) != 4 || sizeof(T) == (n)) ? 1 : -1]
 
+// HULK_RANGE(lo, hi), after an integer field's declarator: the values the game stores there (lo..hi), where the code
+// uses the field as an index. Only tools/equiv64.py's libclang parse sees it (HULK_EQ64_PARSE: the generator draws
+// the field from the range); every compiled build gets nothing, so no code changes.
+// HULK_INTO(field), after a pointer parameter's name in a member function's definition: the pointer is into the
+// array this->field points to (a pool's block, from the pool's data); tools/equiv64.py generates it there.
+#if defined(HULK_EQ64_PARSE)
+#define HULK_RANGE(lo, hi) __attribute__((annotate("hulk_range " #lo " " #hi)))
+#define HULK_INTO(field) __attribute__((annotate("hulk_into " #field)))
+#else
+#define HULK_RANGE(lo, hi)
+#define HULK_INTO(field)
+#endif
+
 // The memory allocator registry (core, 0x00266e00-0x00267280): one slot per heap id; the slots also form a tree
 // under the root 0x00527f40 (first child, next sibling, parent), which 0x00266f50 / 0x00266f90 walk to find the
 // allocator that owns an address. 0x00267280 points every slot at the static malloc allocator 0x00527f50,
@@ -1436,7 +1449,7 @@ struct CoreCementLibrary {
     void* table;                            // +0x60 the entry table (0x00277810 allocates it with 0x00266eb0;
                                             //       0x002779b0 searches it with 0x00277310; 0x002776c0 frees it)
     CoreCementLibrary* next;                // +0x64 the drive's list link (CoreDriveLibraryList: 0x00277570 / 0x002775b0)
-    int bucket;                             // +0x68 the list it is on (3rd argument; 0x00277570 indexes by it)
+    int bucket HULK_RANGE(0, 1);            // +0x68 the list it is on (3rd argument; 0x00277570 indexes by it)
     void* callback;                         // +0x6c the open-completion callback (vfunc_5 0x002773f0 sets it,
                                             //       0x00277410 calls its slot 3 and releases it)
     hulk_uintptr callbackArgument;          // +0x70 vfunc_5's 2nd argument, passed back to the callback's slot 3
@@ -1805,5 +1818,33 @@ struct GameLanguageName {
     const char* name;
 };
 extern "C" const GameLanguageName DAT_0040cc74[6];
+
+// A load request's arguments (x64t13): what the caller fills on its stack (FUN_001bc0c0's frame) and hands to the
+// loader's 0x00265810, which copies them into the content::LoadRequest it allocates (its constructor 0x00266890 copies
+// the 0x110 bytes whole). The file's path, the context 0x00266850 stores in the request, the completion callback
+// (the constructor calls its slot 0, the destructor 0x00266690 releases it), the kind and the wait flag (0x00265810
+// polls the request until it is done when it is set).
+struct ContentLoadArgs {
+    char path[0x100];                       // +0x000
+    void* context;                          // +0x100
+    void* callback;                         // +0x104
+    int kind;                               // +0x108 (0xb from FUN_001bc0c0)
+    unsigned char wait;                     // +0x10c
+    char pad10d[3];                         // +0x10d
+};
+
+// content::LoadRequest (vftable 0x0042aee4; 0x130 bytes, 0x00265810 allocates it with 0x00263ed0): the flat view of
+// its words, as gen/content.h's class (content::LoadObject packs to 12 bytes natively, HULK_REFCOUNT_PACK) lays them
+// out. The methods 0x002666d0 .. 0x00266890 (src/engine/unknown/unk_266690.cpp) read it through this record.
+struct ContentLoadRequest {
+    void* vftable;                          // +0x00
+    int refs;                               // +0x04 (0 at construction)
+    unsigned int time;                      // +0x08 FUN_00267f80() at construction
+    int f0c, f10;                           // +0x0c
+    int state;                              // +0x14 (0x002666e0 sets 4; 3 is done, 5 failed: 0x00266750 / 0x00266760)
+    void* stream;                           // +0x18 a reference-counted object (0x00266820 sets it, 0x00266700 returns it)
+    void* context;                          // +0x1c a reference-counted object (0x00266850 sets it, 0x00266880 returns it)
+    ContentLoadArgs args;                   // +0x20 (0x002666d0 / 0x002666f0 return its address)
+};
 
 #endif

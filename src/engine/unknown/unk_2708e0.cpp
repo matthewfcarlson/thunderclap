@@ -695,7 +695,8 @@ extern "C" void __cdecl FUN_00271530(A_271530* a, const char* b, int c, int d) {
 // FUN_00271560 @ 0x00271560
 // (x64t11) the output is the caller's file pointer (CPlatformManager's archive slot; 0x00277b70 stores a
 // CementLibrary* through it): as an int* the miss stored 4 of its 8 bytes natively
-extern "C" void __cdecl FUN_00271560(void** output, hulk_intptr name, int flags, int extra) {
+// (x64t13) the archive's name is a pointer (was a hulk_intptr: CGame's set-up 0x00088020 passes the string)
+extern "C" void __cdecl FUN_00271560(void** output, const char* name, int flags, int extra) {
     Work_271560 work;
     work.remainder = 0;
     work.suffix = 0;

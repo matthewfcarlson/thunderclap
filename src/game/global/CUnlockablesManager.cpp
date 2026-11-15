@@ -1759,8 +1759,9 @@ extern "C" char* __cdecl FUN_00096450(const char* source)
 
 
 // 0x000964a0 FUN_000964a0 (47 B): matches/0x000964a0.cpp
-// sym: ?FUN_000964a0@fn_f8b63219@@YAXPADHPBDZZ
-void FUN_000964a0(char* buffer, int size, const char* format, ...) {
+// sym: _FUN_000964a0
+// (x64t13) C linkage and its result (eax is _vsnprintf's on every path): the callers' declarations are one name
+extern "C" int __cdecl FUN_000964a0(char* buffer, int size, const char* format, ...) {
 #if defined(HULK_PTR64)
     __builtin_va_list args;
     __builtin_va_start(args, format);
@@ -1770,6 +1771,7 @@ void FUN_000964a0(char* buffer, int size, const char* format, ...) {
     int result = __vsnprintf(buffer, size, format, args);
     if (size > 0 && result == -1)
         buffer[size - 1] = 0;
+    return result;
 }
 
 } // namespace fn_f8b63219

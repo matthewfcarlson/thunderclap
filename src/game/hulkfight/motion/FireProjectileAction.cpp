@@ -2248,7 +2248,7 @@ ProjectileEffect* ProjectileEffect::vfunc_2(unsigned char flags) {
         m18 = 0;
     Cleanup_001b6820();
     if (flags & 1)
-        ((owners::Thing_8ff00*)DAT_004e2210)->FUN_0008ff00((hulk_intptr)this, 0x50);
+        ((owners::Thing_8ff00*)DAT_004e2210)->FUN_0008ff00(this, 0x50);
     return this;
 }
 
@@ -2652,7 +2652,7 @@ struct ThisCall_00198ab0 {
 ProjectileGroundShockwave* ProjectileGroundShockwave::vfunc_2(unsigned char flags) {
     ((ThisCall_00198ab0*)(this))->FUN_00198ab0();
     if (flags & 1)
-        ((owners::Thing_8ff00*)DAT_004e2210)->FUN_0008ff00((hulk_intptr)this, 0xc0);
+        ((owners::Thing_8ff00*)DAT_004e2210)->FUN_0008ff00(this, 0xc0);
     return this;
 }
 } // namespace fn_0019bbd0

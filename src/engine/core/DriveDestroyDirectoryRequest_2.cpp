@@ -22,7 +22,7 @@ namespace fn_f76db007 {
 class DriveRequest_275930 {
   public:
     virtual void* FnV_00275970(char);
-    DriveRequest_275930(int);
+    DriveRequest_275930(HulkInstanceDrive*);   // (x64t13) 0x00275600 takes the drive (was an int)
 };
 class DriveDestroyDirectoryRequest : public DriveRequest_275930 {
   public:
@@ -30,7 +30,7 @@ class DriveDestroyDirectoryRequest : public DriveRequest_275930 {
     char pad[8];
     char name[16];
     char tail;
-    DriveDestroyDirectoryRequest(int, const char*);
+    DriveDestroyDirectoryRequest(HulkInstanceDrive*, const char*);
 };
 typedef unsigned char byte_275970;
 struct O_275970 {
@@ -59,8 +59,8 @@ struct DriveDestroyDirectoryRequest {
 
 
 // 0x00275930 FUN_00275930 (53 B): matches/0x00275930.cpp
-// sym: ??0DriveDestroyDirectoryRequest@fn_f76db007@@QAE@HPBD@Z
-DriveDestroyDirectoryRequest::DriveDestroyDirectoryRequest(int a, const char* s) : DriveRequest_275930(a) {
+// sym: ??0DriveDestroyDirectoryRequest@fn_f76db007@@QAE@PAUHulkInstanceDrive@@PBD@Z
+DriveDestroyDirectoryRequest::DriveDestroyDirectoryRequest(HulkInstanceDrive* a, const char* s) : DriveRequest_275930(a) {
     InitOther_002705f0();
     strncpy(name, s, 16);
     tail = 0;

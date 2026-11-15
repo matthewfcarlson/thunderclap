@@ -3665,7 +3665,7 @@ struct Thing_8ff00 {
     char* base; // +0x10 (+0x18)
     unsigned int* bits; // +0x14 (+0x20)
     unsigned int limit; // +0x18 (+0x28) the next block to try
-    void FUN_0008ff00(hulk_intptr value, int unused);
+    void FUN_0008ff00(void* value, int unused);
 };
 // matches/0x00090050.cpp (stub Table_90050), size 0x8
 struct Table_90050 {
@@ -14896,8 +14896,12 @@ struct X_266130 {
 };
 // matches/0x002666e0.cpp (stub C_2666e0), size 0x18
 struct C_2666e0 {
-    char pad[0x14]; // +0x00
-    int value; // +0x14
+    // (x64t13) content::LoadRequest's first words (records.h ContentLoadRequest): the state at +0x14
+    void* vftable; // +0x00
+    int refs; // +0x04
+    unsigned int time; // +0x08
+    int f0c, f10; // +0x0c
+    int state; // +0x14
     void FUN_002666e0();
 };
 // matches/0x00266800.cpp (stub C_266800), size 0x20

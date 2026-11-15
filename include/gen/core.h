@@ -936,23 +936,25 @@ public:
 };
 
 // .?AUIDrive@core@@  vftable 0x42be84 (41)
+// (x64t13) slots 6 / 7 / 8 / 10 (create and destroy a directory, find the first file, delete a file) and 13 / 14 / 15 /
+// 17 (the same, then slot 22) take the name as a pointer (InstanceDrive.cpp: they hand it to FUN_002697c0)
 struct IDrive : public ::core::IRefCount {
 public:
     virtual void vfunc_3() = 0; // slot 3
     virtual int vfunc_4(int) = 0; // slot 4
     virtual int vfunc_5() = 0; // slot 5
-    virtual void vfunc_6(int) = 0; // slot 6
-    virtual int vfunc_7(int) = 0; // slot 7
-    virtual void vfunc_8(int, int) = 0; // slot 8
+    virtual void vfunc_6(const char*) = 0; // slot 6
+    virtual int vfunc_7(const char*) = 0; // slot 7
+    virtual void vfunc_8(const char*, int) = 0; // slot 8
     virtual int vfunc_9(int) = 0; // slot 9
-    virtual int vfunc_10(int) = 0; // slot 10
+    virtual int vfunc_10(const char*) = 0; // slot 10
     virtual void vfunc_11(int) = 0; // slot 11
     virtual void vfunc_12() = 0; // slot 12
-    virtual void vfunc_13(int) = 0; // slot 13
-    virtual void vfunc_14(int) = 0; // slot 14
-    virtual void vfunc_15(int, int) = 0; // slot 15
+    virtual void vfunc_13(const char*) = 0; // slot 13
+    virtual void vfunc_14(const char*) = 0; // slot 14
+    virtual void vfunc_15(const char*, int) = 0; // slot 15
     virtual void vfunc_16(int) = 0; // slot 16
-    virtual void vfunc_17(int) = 0; // slot 17
+    virtual void vfunc_17(const char*) = 0; // slot 17
     virtual int vfunc_18() = 0; // slot 18
     virtual int vfunc_19(int, int) = 0; // slot 19
     virtual int vfunc_20(int) = 0; // slot 20
@@ -1076,18 +1078,18 @@ public:
     virtual void vfunc_3(); // overrides core::IDrive slot 3
     virtual int vfunc_4(int); // overrides core::IDrive slot 4
     virtual int vfunc_5(); // overrides core::IDrive slot 5
-    virtual void vfunc_6(int); // overrides core::IDrive slot 6
-    virtual int vfunc_7(int); // overrides core::IDrive slot 7
-    virtual void vfunc_8(int, int); // overrides core::IDrive slot 8
+    virtual void vfunc_6(const char*); // overrides core::IDrive slot 6
+    virtual int vfunc_7(const char*); // overrides core::IDrive slot 7
+    virtual void vfunc_8(const char*, int); // overrides core::IDrive slot 8
     virtual int vfunc_9(int); // overrides core::IDrive slot 9
-    virtual int vfunc_10(int); // overrides core::IDrive slot 10
+    virtual int vfunc_10(const char*); // overrides core::IDrive slot 10
     virtual void vfunc_11(int); // overrides core::IDrive slot 11
     virtual void vfunc_12(); // overrides core::IDrive slot 12
-    virtual void vfunc_13(int); // overrides core::IDrive slot 13
-    virtual void vfunc_14(int); // overrides core::IDrive slot 14
-    virtual void vfunc_15(int, int); // overrides core::IDrive slot 15
+    virtual void vfunc_13(const char*); // overrides core::IDrive slot 13
+    virtual void vfunc_14(const char*); // overrides core::IDrive slot 14
+    virtual void vfunc_15(const char*, int); // overrides core::IDrive slot 15
     virtual void vfunc_16(int); // overrides core::IDrive slot 16
-    virtual void vfunc_17(int); // overrides core::IDrive slot 17
+    virtual void vfunc_17(const char*); // overrides core::IDrive slot 17
     virtual int vfunc_18(); // overrides core::IDrive slot 18
     virtual int vfunc_19(int, int); // overrides core::IDrive slot 19
     virtual int vfunc_20(int); // overrides core::IDrive slot 20

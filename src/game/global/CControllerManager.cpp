@@ -411,7 +411,7 @@ void Registry_aee00::FUN_000aee00(const char* name, CControllerManager* owner, b
 
 
 // 0x000aef10 FUN_000aef10 (440 B): equivalent/0x000aef10.cpp [wrapped: conflict: CControllerManager; Closure0; Closure1; Closure2 (+4)]
-// sym: ??0CControllerManager@fn_000aef10@@QAE@XZ @0cb353bcc559 @w60240028f6b1
+// sym: ??0CControllerManager@fn_000aef10@@QAE@XZ @9af2af7fa8d6 @w750e25a205da
 namespace fn_000aef10 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 8/8)
 // FUN_000aef10 @ 0x000aef10
@@ -501,10 +501,10 @@ public:
     Closure1(const char* name, void (T::*f)(bool), T* t) throw() : Method1<T, R, A>(name, f) { target = t; }
 };
 
+// CController (CController.cpp, decls/managers.h HulkController): its constructor called by its own address name
 class DeviceManager_aef10 {
 public:
-    DeviceManager_aef10(int flags) throw();
-    char pad[0x170];
+    DeviceManager_aef10* FUN_000ae4b0(int flags);
     virtual void vf0();
     void FUN_000adc00(int);
 };
@@ -533,7 +533,8 @@ HULK_MGR_SAME(CControllerManager, HulkControllerManager);   // (x64t9-mgr) inclu
 
 CControllerManager::CControllerManager() {
     field8 = 1;
-    devices = new DeviceManager_aef10(0);
+    DeviceManager_aef10* d = (DeviceManager_aef10*)FUN_0008d690(sizeof(HulkController));
+    devices = d ? d->FUN_000ae4b0(0) : 0;
     devices->vf0();
     devices->FUN_000adc00(field8);
     fieldC = 0;

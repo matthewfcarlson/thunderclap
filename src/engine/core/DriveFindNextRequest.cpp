@@ -61,12 +61,12 @@ class DriveFindFirstRequest {
 struct DriveRequest_275aa0 {
     virtual void* Run_00275ad0(char);
     int dummy;
-    DriveRequest_275aa0(int x);
+    DriveRequest_275aa0(void* x);   // (x64t13) 0x00275600 takes the drive (was an int)
 };
 struct DriveFindNextRequest_275aa0 : DriveRequest_275aa0 {
     int b;
     int value;
-    DriveFindNextRequest_275aa0(hulk_intptr x, int y);
+    DriveFindNextRequest_275aa0(void* x, int y);
 };
 extern void* g_vftable_275ad0[];
 class Pool_275ad0 {
@@ -132,9 +132,9 @@ core::DriveFindFirstRequest* core::DriveFindFirstRequest::vfunc_0(int flag) {
 
 
 // 0x00275aa0 FUN_00275aa0 (37 B): matches/0x00275aa0.cpp
-// sym: ??0DriveFindNextRequest_275aa0@fn_f105060a@@QAE@HH@Z
+// sym: ??0DriveFindNextRequest_275aa0@fn_f105060a@@QAE@PAXH@Z
 // Same code shape as 0x00275390 (propagated; names are from that function)
-DriveFindNextRequest_275aa0::DriveFindNextRequest_275aa0(hulk_intptr x, int y) : DriveRequest_275aa0(x) {
+DriveFindNextRequest_275aa0::DriveFindNextRequest_275aa0(void* x, int y) : DriveRequest_275aa0(x) {
     value = y;
     FinishInit();
 }

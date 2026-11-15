@@ -17,12 +17,12 @@ namespace fn_fc6c79c4 {
 class DriveRequest_2757f0 {
   public:
     virtual void* FnV_00275810(char);
-    DriveRequest_2757f0(int);
+    DriveRequest_2757f0(HulkInstanceDrive*);   // (x64t13) 0x00275600 takes the drive (was an int)
 };
 class DriveFormatRequest : public DriveRequest_2757f0 {
   public:
     virtual void FnW_002745d0();
-    DriveFormatRequest(hulk_intptr);
+    DriveFormatRequest(HulkInstanceDrive*);
 };
 extern void* hulk_at_0042b9bc[];
 class Pool_275810 {
@@ -54,8 +54,8 @@ class DriveFormatRequest_275810 {
 
 
 // 0x002757f0 FUN_002757f0 (30 B): matches/0x002757f0.cpp
-// sym: ??0DriveFormatRequest@fn_fc6c79c4@@QAE@H@Z
-DriveFormatRequest::DriveFormatRequest(hulk_intptr x) : DriveRequest_2757f0(x) {
+// sym: ??0DriveFormatRequest@fn_fc6c79c4@@QAE@PAUHulkInstanceDrive@@@Z
+DriveFormatRequest::DriveFormatRequest(HulkInstanceDrive* x) : DriveRequest_2757f0(x) {
     FinishInit();
 }
 

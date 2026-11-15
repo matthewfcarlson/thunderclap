@@ -14,7 +14,7 @@ namespace fn_f79594ae {} using namespace fn_f79594ae;
 // ---- declarations shared by the functions below
 namespace fn_f79594ae {
 void* __cdecl FUN_000f7120(int key);
-int __cdecl FUN_000964a0(char* buf, int size, const char* fmt, ...);
+extern "C" int __cdecl FUN_000964a0(char*, int, const char*, ...);   // (x64t13) as defined (CUnlockablesManager.cpp)
 class Console_1bdff0 {
 public:
     void FUN_000f7110();

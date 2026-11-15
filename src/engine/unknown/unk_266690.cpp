@@ -5,6 +5,7 @@
 #include "decls/data/engine/pure3d/scenegraph.h"
 #include "gen/content.h"
 #include "gen/owners.h"
+#include "decls/data/records.h"
 #define TREE_TU_BEGIN namespace fn_f4a58842 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CEffectStopTrack
@@ -20,26 +21,14 @@ class Ref_266690 {
     virtual void A();
     virtual void Release();
 };
-struct Obj_2666d0 {
-    char pad[0x20];
-};
-struct Obj_2666f0 {
-    char pad[0x20];
-};
-struct X_266710 {
-    char pad[0x14];
-    unsigned value;
-};
-class C_266750 {
+// (x64t13) content::LoadRequest's methods on records.h ContentLoadRequest (the pads put its words at their 32-bit
+// offsets natively)
+struct Obj_2666d0 : ContentLoadRequest {};
+struct Obj_2666f0 : ContentLoadRequest {};
+struct X_266710 : ContentLoadRequest {};
+class C_266750 : public ContentLoadRequest {};
+class Thing_266760 : public ContentLoadRequest {
   public:
-    char pad[0x14];
-    int x;
-};
-class Thing_266760 {
-    char pad[0x14];
-
-  public:
-    int state;
     void Wait();
 };
 void thunk_002696a0();
@@ -49,12 +38,7 @@ class Sub_266790 {
     int Fnf_00263fc0();
     int Fng_00263fb0();
 };
-class Obj_266790 {
-    char pad0[0x14];
-    int mode;
-    char pad18[4];
-    Sub_266790* sub;
-
+class Obj_266790 : public ContentLoadRequest {
   public:
     hulk_freg run();
 };
@@ -65,20 +49,15 @@ class Item_266820 {
     virtual void First();
     virtual void Second();
 };
-class Owner_266820 {
-    char pad[0x18];
-
+class Owner_266820 : public ContentLoadRequest {
   public:
-    Item_266820* item;
     void Set(Item_266820* p);
 };
 struct Ref_266850 {
     virtual void A();
     virtual void B();
 };
-struct Owner_266850 {
-    char pad[0x1c];
-    Ref_266850* member;
+struct Owner_266850 : ContentLoadRequest {
     void Set(Ref_266850*);
 };
 
@@ -103,7 +82,7 @@ namespace fn_f4a58842 {
 // sym: ?FUN_002666d0@fn_f4a58842@@YIPAXPAUObj_2666d0@1@@Z
 // Same code shape as 0x000897e0 (propagated; names are from that function)
 void* __fastcall FUN_002666d0(Obj_2666d0* p) {
-    return (char*)p + 0x20;
+    return &p->args;
 }
 
 } // namespace fn_f4a58842
@@ -111,7 +90,7 @@ void* __fastcall FUN_002666d0(Obj_2666d0* p) {
 // 0x002666e0 FUN_002666e0 (8 B): matches/0x002666e0.cpp
 // sym: ?FUN_002666e0@C_2666e0@owners@@QAEXXZ
 void owners::C_2666e0::FUN_002666e0() {
-    value = 4;
+    state = 4;
 }
 
 namespace fn_f4a58842 {
@@ -120,15 +99,15 @@ namespace fn_f4a58842 {
 // sym: @FUN_002666f0@4
 // Same code shape as 0x000897e0 (propagated; names are from that function)
 extern "C" void* __fastcall FUN_002666f0(Obj_2666f0* p) {
-    return (char*)p + 0x20;
+    return &p->args;
 }
 
 
 // 0x00266700 FUN_00266700 (4 B): matches/0x00266700.cpp
-// sym: ?FUN_00266700@fn_f4a58842@@YIHH@Z
+// sym: ?FUN_00266700@fn_f4a58842@@YIPAXPAUContentLoadRequest@@@Z
 // Same code shape as 0x00059a40 (propagated; names are from that function)
-int __fastcall FUN_00266700(hulk_intptr object) {
-    return *(int*)(object + 0x18);
+void* __fastcall FUN_00266700(ContentLoadRequest* object) {   // (x64t13) the stream is a pointer
+    return object->stream;
 }
 
 
@@ -136,14 +115,14 @@ int __fastcall FUN_00266700(hulk_intptr object) {
 // sym: ?target@fn_f4a58842@@YIIPAUX_266710@1@@Z
 // Same code shape as 0x000862d0 (propagated; names are from that function)
 unsigned __fastcall target(X_266710* self) {
-    return self->value;
+    return self->state;
 }
 
 
 // 0x00266750 FUN_00266750 (12 B): matches/0x00266750.cpp
 // sym: ?target@fn_f4a58842@@YI_NPAVC_266750@1@@Z
 bool __fastcall target(C_266750* self) {
-    return self->x == 3;
+    return self->state == 3;
 }
 
 
@@ -161,15 +140,15 @@ void Thing_266760::Wait() {
 // sym: ?run@Obj_266790@fn_f4a58842@@QAEMXZ
 // data: one = DAT_004c9f38
 hulk_freg Obj_266790::run() {
-    switch (mode) {
+    switch (state) {
     case 3:
         return 1.0f;
     case 2:
-        if (sub) {
+        if ((Sub_266790*)context) {
             // x87: the original stores f() as a float (rounded) and divides it by g() unrounded. A float local, not a
             // cast: clang's x87 code leaves `(float)` of an unsigned unrounded in the register
-            float n = (float)(unsigned int)sub->Fnf_00263fc0();
-            return n / (hulk_freg)(unsigned int)sub->Fng_00263fb0();
+            float n = (float)(unsigned int)((Sub_266790*)context)->Fnf_00263fc0();
+            return n / (hulk_freg)(unsigned int)((Sub_266790*)context)->Fng_00263fb0();
         }
         return 0.0f;
     default:
@@ -183,7 +162,7 @@ hulk_freg Obj_266790::run() {
 // sym: ?FUN_00266800@C_266800@owners@@QAEXPAD@Z
 void owners::C_266800::FUN_00266800(char* p) {
     if (p)
-        strncpy((char*)this + 0x20, p, 0xff);
+        strncpy(((ContentLoadRequest*)this)->args.path, p, 0xff);
 }
 
 namespace fn_f4a58842 {
@@ -194,9 +173,9 @@ namespace fn_f4a58842 {
 void Owner_266820::Set(Item_266820* p) {
     if (p)
         p->First();
-    if (item)
-        item->Second();
-    item = p;
+    if (stream)
+        ((Item_266820*)stream)->Second();
+    stream = p;
 }
 
 
@@ -205,9 +184,9 @@ void Owner_266820::Set(Item_266820* p) {
 void Owner_266850::Set(Ref_266850* p) {
     if (p)
         p->A();
-    if (member)
-        member->B();
-    member = p;
+    if (context)
+        ((Ref_266850*)context)->B();
+    context = p;
 }
 
 } // namespace fn_f4a58842
@@ -216,7 +195,7 @@ void Owner_266850::Set(Ref_266850* p) {
 // sym: ?FUN_00266880@PartitionDriver_266880@owners@@QAEHXZ
 // Same code shape as 0x00222300 (propagated; names are from that function)
 hulk_intptr owners::PartitionDriver_266880::FUN_00266880() {
-    return *(int*)((char*)this + 0x1c);
+    return (hulk_intptr)((ContentLoadRequest*)this)->context;   // (x64t13) a pointer
 }
 
 
@@ -227,6 +206,7 @@ extern "C" int FUN_00267f80();
 struct Obj_266890 {
     virtual void V();
 };
+#if !defined(HULK_PTR64)
 struct Data_266890 {
     char c;
     char pad[0xff];
@@ -268,5 +248,31 @@ LoadRequest::LoadRequest(const Data_266890* src) {
     if (o)
         o->V();
 }
+HULK_SIZE32(LoadRequest, 0x130);
+#else
+// The 64-bit builds: the classes above are a local polymorphic stand-in whose vftable natively is its own (one empty
+// slot, where the game's has content::LoadRequest's AddRef / Release / destructor), and whose base rounds to 16 bytes.
+// Here the constructor writes records.h ContentLoadRequest: the game's vftable by address (as 0x00266690 does), the
+// words as the original orders them, the arguments copied whole, then the callback's slot 0 (AddRef). It is named by
+// its own address: the loader's 0x00265810 calls it by that name.
+extern "C" char DAT_0042aee4[];   // content::LoadRequest's vftable
+struct Ctor_266890 : ContentLoadRequest {
+    Ctor_266890* FUN_00266890(const ContentLoadArgs* src);
+};
+Ctor_266890* Ctor_266890::FUN_00266890(const ContentLoadArgs* src) {
+    vftable = (void*)DAT_0042aee4;
+    refs = 0;
+    args = *src;
+    time = FUN_00267f80();
+    f0c = 0;
+    f10 = 0;
+    state = 0;
+    stream = 0;
+    context = 0;
+    if (args.callback)
+        ((Obj_266890*)args.callback)->V();
+    return this;
+}
+#endif
 } // namespace fn_00266890
 

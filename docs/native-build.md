@@ -4917,3 +4917,63 @@ should not be virtual: left for the class's owner).
   equivalent blocks on TU-local signatures; renaming means re-proving each), item 7's 20 Condition stubs: not started.
 - `/GX`: 308 TUs: their user-written `??_G` are non-template classes' in 154, Method/Closure's in 158,
   parameter templates' in 12 (some TUs have two kinds); plus dynamic_initializers and GrappleThrowAction.iso_00148f40.
+
+## macOS start-up into the loader fiber, D34's two gate entries gone, D35's thunks, names as pointers (x64t13, 2026-11-15)
+
+x64t12's follow-up (macOS start-up first). Native iteration on control 82292's clang-probe snapshot and binding map
+(9f6ddd1df) with the batch's files; the proof pair is on the commit's own HEAD (below).
+
+**Start-up, crash by crash** (each fixed at its root cause in source):
+- CGame's set-up 0x00088020 and the copyright splash 0x000879c0 declared `FUN_001bc0c0` with C++ linkage: now
+  `extern "C"` with the definition's types (CExtraRenderingCallback.GS.cpp).
+- CControllerManager 0x000aef10 constructed a local `DeviceManager_aef10` (0x174-byte pad, a constructor without an
+  address): it now allocates `sizeof(HulkController)` (decls/managers.h, a real record of CController 0x000ae4b0: the
+  device array a pointer, the 64-byte name at +0x134 that 0x000adc60 copies) and calls the constructor by its address
+  name `FUN_000ae4b0`; CController.cpp's view is the record's size (`HULK_MGR_SAME`). Re-proved.
+- `FUN_000964a0` (snprintf with the terminator) was a C++ `void` function that callers declared `int` and `extern "C"`:
+  it is `extern "C" int` (eax is `_vsnprintf`'s on every path; MATCH) and seven declarations follow it.
+- The content allocator 0x00263ed0 kept the game allocator's block in an `unsigned int` (natively its low half): `void*`.
+- The load request: records.h `ContentLoadArgs` (the caller's path, context, callback, kind, wait flag, 0x110 bytes)
+  and `ContentLoadRequest` (content::LoadRequest, 0x130 bytes, flat as gen/content.h lays it out over the packed
+  LoadObject). FUN_001bc0c0's arguments, the loader's 0x00265810 (allocates `sizeof(ContentLoadRequest)`) and all
+  of LoadRequest's methods 0x002666d0 .. 0x00266880 (unk_266690.cpp; their pads put the words at 32-bit offsets;
+  0x00266700 / 0x00266880 returned the stream / context through an `int`) use them (MATCH). The constructor
+  0x00266890 is a local polymorphic stand-in (its own one-slot vftable natively, a 16-byte base): its `HULK_PTR64`
+  branch writes the record with the game's vftable by address and is named by its own address.
+- tools/native_unbound.py `Defs` gains native_mac.TreeDefs's own-address rule (a 64-bit branch defining the function
+  as `FUN_<addr>`), so the loader's call of 0x00266890 binds (IR signature and the Wine map's caller name still checked).
+- The fiber start routine 0x0026dc20 and the loader's fiber entry 0x00265520 were passed through C declarations of
+  another type (unbound names natively): taken by their definitions.
+- The content registry (decls/loaders.h HulkContentRegistry): +0x08 is the request the loader fiber runs (a pointer;
+  was `unsigned int unused`), the 256-byte buffer is a ring of `int` values; the loader fiber 0x00265390 reads the
+  registry through the record (its view's pads), the handler probe with its table as a pointer and the key as its
+  two words, the heap switch 0x00266da0 by its C name (re-proved).
+- MyDriveErrorCallback::vfunc_0 0x0008e1f0 / the drive's vfunc_3 0x00272df0: the request's slots 5 / 6 and the drive's
+  slot 4 are bare `ret`s (0x00274430, 0x00273e10, 0x0026f1c0) and the callback ends `ret 0x14`, so the five pushes
+  are all the callback's: (error, the drive's slot 4 (a pointer), the request's kind, its file name, the argument).
+  0x00272df0 passes them so (its slot read at the call, after the arguments) and 0x0008e1f0 takes the name as
+  `const char*` for 0x0008d910 (both re-proved).
+
+**Where macOS start-up stops now**: the loader fiber runs the copyright request and calls content::P3DFileHandler's
+vfunc_3 (0x00265cd0), which reads the content::LoadStream it allocates (`FUN_00263ed0(0x48, 1)`) through pad views
+(`Res_265cd0`: the 0x48-byte LoadStream's words at their 32-bit offsets; `FUN_00263fb0` declared `void*` where the
+definition returns the stream's size) and calls through garbage. Next: a records.h record of content::LoadStream
+(0x48 bytes, gen/content.h's words) for 0x002644d0 .. 0x00264xxx and P3DFileHandler, as LoadRequest's above.
+
+**D34 (both gate entries fixed, not accepted)**: 0x0008ff00's value is a `void*` (owners.h, the three callers pass
+`this`), and two input annotations (docs/equivalence.md "x64t13's input annotations") model the game's domain where
+the fuzzer could not: `HULK_RANGE(0, 1)` on CoreCementLibrary::bucket (0x002775b0) and `HULK_INTO(base)` on
+0x0008ff00's value. Both blocks are `--x64` equivalent and left config/x64-baseline.json by `--update-baseline`.
+
+**D35**: the 64-bit-only adjustor thunks 0x0026f530 / 0x0026f540 (XboxDrive) and 0x002786f0 (XboxSaveDrive) call the
+deleting destructors by their definitions' own names (a qualified, direct `f2` call), not by `FUN_` names only the
+64-bit build has.
+
+**Names as pointers** (the drive layer): IDrive / InstanceDrive slots 6 / 7 / 8 / 10 / 13 / 14 / 15 / 17 take the name
+as `const char*` (gen/core.h); the find-first slot 0x00276980 parses the name into pointers; the request
+constructors 0x00275930 / 0x00275b40 / 0x002757f0 / 0x00275750 / 0x00275aa0 / 0x00275bd0 take the drive as a pointer
+(was `int` / `hulk_intptr`; 0x00275600's own type); the archive mount 0x00271560 takes its name as `const char*`;
+XboxDrive's declaration of FUN_002697c0 is the definition's.
+
+Four equivalent blocks whose MSVC code hash flips with shared declarations (0x00027930, 0x000b86b0, 0x001a9b10,
+0x002ea3c0; x64t12 saw them too) were re-proved and recorded.

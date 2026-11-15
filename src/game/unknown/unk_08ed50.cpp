@@ -758,9 +758,10 @@ hulk_intptr owners::BitPool_8fe90::FUN_0008fe90(int unused)
 
 
 // 0x0008ff00 FUN_0008ff00 (60 B): matches/0x0008ff00.cpp
-// sym: ?FUN_0008ff00@Thing_8ff00@owners@@QAEXHH@Z
-void owners::Thing_8ff00::FUN_0008ff00(hulk_intptr value, int unused) {
-    unsigned int index = (unsigned int)(value - (hulk_intptr)base) / divisor;
+// sym: ?FUN_0008ff00@Thing_8ff00@owners@@QAEXPAXH@Z
+// (x64t13) VALUE is a block of the pool (FireProjectileAction / ProjectileMissile free themselves): into the data
+void owners::Thing_8ff00::FUN_0008ff00(void* value HULK_INTO(base), int unused) {
+    unsigned int index = (unsigned int)((char*)value - base) / divisor;
     bits[index >> 5] &= ~(1u << (index & 31));
     if (index < limit)
         limit = index;

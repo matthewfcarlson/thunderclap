@@ -6,6 +6,7 @@
 #include "decls/data/engine/content.h"
 #include "decls/data/engine/pure3d/prop.h"
 #include "decls/data/game/global.h"
+#include "decls/data/records.h"
 #define TREE_TU_BEGIN namespace fn_fbe20c43 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CCollisionTrack
@@ -26,14 +27,8 @@ struct DynamicCaster {
     virtual void v0();
 };
 } }
-int __cdecl FUN_000964a0(char *buf, int size, const char *fmt, ...);
-struct LoadArgs {
-    char path[0x100];       // 0x00
-    int a;                  // 0x100
-    int b;                  // 0x104
-    int kind;               // 0x108
-    char flag;              // 0x10c
-};
+extern "C" int __cdecl FUN_000964a0(char*, int, const char*, ...);   // (x64t13) as defined (CUnlockablesManager.cpp)
+struct LoadArgs : ContentLoadArgs {};   // (x64t13) records.h: the path, the context and callback (pointers), kind, wait
 struct Handle_1bc0c0 {
     virtual void v0();
     virtual void Release();
@@ -203,9 +198,9 @@ extern "C" void FUN_001bc0c0(const char *name, int count, const char *dir)
         FUN_000964a0(f.buf1, 0x100, "%s/%s.p3d", dir, name);
     f.handle = 0;
     f.args.path[0] = 0;
-    f.args.a = 0;
-    f.args.b = 0;
-    f.args.flag = 1;
+    f.args.context = 0;
+    f.args.callback = 0;
+    f.args.wait = 1;
     f.args.kind = 0xb;
     strncpy(f.args.path, f.buf1, 0xff);
     (*(Loader_1bc0c0**)&DAT_00527c58)->FUN_00265810(&f.args, &f.handle);

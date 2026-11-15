@@ -84,7 +84,7 @@ class Obj_1bdfb0 {
 struct Subtitle { char pad[0x38]; struct Sink* sink; char pad2[0x0c]; int key; void FUN_001be060(); };
 struct Sink { void FUN_000f7110(); void FUN_000f7a80(char*); };
 extern const char* __cdecl FUN_000f7120(int);   // (x64t11) the language's name (FEThingsBase_3.cpp)
-extern void __cdecl FUN_000964a0(char*,int,const char*,...);
+extern "C" int __cdecl FUN_000964a0(char*, int, const char*, ...);   // (x64t13) as defined (CUnlockablesManager.cpp)
 extern int DAT_004d9968;
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern void __fastcall __security_check_cookie(int);

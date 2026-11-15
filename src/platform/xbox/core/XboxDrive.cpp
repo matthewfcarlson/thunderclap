@@ -47,7 +47,7 @@ class X_26f160 {
     void f();
 };
 extern "C" int __stdcall FUN_0020bbc2(void*);
-extern "C" void __cdecl FUN_002697c0(const char*, char*, int, char**, int);
+extern "C" void __cdecl FUN_002697c0(const char*, char*, char*, char**, const char**);   // (x64t13) as defined (unk_269680.cpp)
 } // namespace fn_f4379f43
 namespace core {
 struct XboxDrive_26f210 : CoreXboxDrive {
@@ -478,17 +478,15 @@ XboxDrive g_xbox;
 // The 64-bit builds: the code above is a compiler-generated adjustor thunk of an invented class (`this - 4`, then
 // the slot), whose adjustment and target are the invented layout's. Here the thunk is explicit: core::XboxDrive's
 // BaseObject slot 2 takes the BaseObject sub-object, steps back to the drive by that base's offset in records.h CoreDrive,
-// and runs the deleting destructor 0x0026f760 (named by its address, so the native link binds it). The function is
+// and runs the deleting destructor 0x0026f760 (a direct call of its definition's own name, D35: a name only the
+// 64-bit builds have is never in the Wine map, so the address binding cannot verify it). The function is
 // named by its own address: native_mac.TreeDefs finds the vftable slot's definition by that name (as 0x002786f0).
-struct Target_26f530 {
-    void* FUN_0026f760(unsigned char flags);
-};
 struct Thunk_26f530 {
     void* FUN_0026f530(unsigned char flags);
 };
 void* Thunk_26f530::FUN_0026f530(unsigned char flags) {
     char* drive = (char*)this - (hulk_uintptr)&((CoreDrive*)0)->vftableObject;
-    return ((Target_26f530*)drive)->FUN_0026f760(flags);
+    return ((fn_f4379f43::XboxDrive_26f760*)drive)->fn_f4379f43::XboxDrive_26f760::f2(flags);
 }
 #endif
 } // namespace fn_0026f530
@@ -529,17 +527,15 @@ XboxDrive* MakeXboxDrive() {
 // The 64-bit builds: the code above is a compiler-generated adjustor thunk of an invented class (`this - 0xc`, then
 // the slot), whose adjustment and target are the invented layout's. Here the thunk is explicit: core::XboxDrive's
 // IMutable slot 2 takes the IMutable sub-object, steps back to the drive by that base's offset in records.h CoreDrive,
-// and runs the deleting destructor 0x0026f760 (named by its address, so the native link binds it). The function is
+// and runs the deleting destructor 0x0026f760 (a direct call of its definition's own name, D35: a name only the
+// 64-bit builds have is never in the Wine map, so the address binding cannot verify it). The function is
 // named by its own address: native_mac.TreeDefs finds the vftable slot's definition by that name (as 0x002786f0).
-struct Target_26f540 {
-    void* FUN_0026f760(unsigned char flags);
-};
 struct Thunk_26f540 {
     void* FUN_0026f540(unsigned char flags);
 };
 void* Thunk_26f540::FUN_0026f540(unsigned char flags) {
     char* drive = (char*)this - (hulk_uintptr)&((CoreDrive*)0)->vftableMutable;
-    return ((Target_26f540*)drive)->FUN_0026f760(flags);
+    return ((fn_f4379f43::XboxDrive_26f760*)drive)->fn_f4379f43::XboxDrive_26f760::f2(flags);
 }
 #endif
 } // namespace fn_0026f540

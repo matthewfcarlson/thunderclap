@@ -289,6 +289,7 @@ class Defs:
         self.sym = {}
         self.why = {}
         by_name = None
+        own = None
         for a, c in self.by_addr.items():
             s = c["symbol"]
             k = norm(dem32.get(s, s)) if s.startswith("?") else c_plain32(s)
@@ -306,6 +307,16 @@ class Defs:
                 sh = shape(dem32.get(s, s))
                 if sh and sh["kind"] == "func":
                     t = by_name.get(sh["name"], set())
+            if not t:
+                # (x64t13) TreeDefs's rule (native_mac, boot1): a source whose 64-bit branch defines the function under
+                # its own address (0x00266890: the 32-bit constructor is a local polymorphic stand-in's)
+                if own is None:
+                    own = collections.defaultdict(set)
+                    for s2 in defined64:
+                        m2 = re.match(r"^\??FUN_(00[0-9a-f]{6})(?:@|$)", s2)
+                        if m2:
+                            own[int(m2.group(1), 16)].add(s2)
+                t = own.get(a, set())
             if len(t) == 1:
                 self.sym[a] = next(iter(t))
             else:

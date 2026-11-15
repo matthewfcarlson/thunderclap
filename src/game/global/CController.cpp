@@ -11,6 +11,7 @@
 #define TREE_LOCAL_pure3d
 namespace fn_fac5a26d {} using namespace fn_fac5a26d;
 #include "game/global.h"
+#include "decls/managers.h"
 
 // ---- declarations shared by the functions below
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
@@ -239,13 +240,14 @@ class CController {
     int blockAc[17];
     int blockF0[17];
     unsigned char field134;
-    char _m_pad_135[0x3];
+    char name135[0x3f];   // (x64t13) the 64-byte name at +0x134 (decls/managers.h HulkController)
     void Fna_000ad990();
     void Fnb_000add70();
     void run();
     void FUN_000ae090(int);
     void second_000add70();
 };
+HULK_MGR_SAME(CController, HulkController);   // (x64t13) 0x000aef10 allocates the record
 extern char hulk_at_00405d38, hulk_at_003f6098;
 struct ThisCall_000ad990 {
     void FUN_000ad990();

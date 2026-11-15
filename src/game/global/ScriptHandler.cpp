@@ -90,7 +90,7 @@ struct Obj {
     char flags[10];
     Obj();
 };
-int __cdecl FUN_000964a0(char *buf, int size, const char *fmt, ...);
+extern "C" int __cdecl FUN_000964a0(char*, int, const char*, ...);   // (x64t13) as defined (CUnlockablesManager.cpp)
 struct Target_1d16a0 : public ScriptHandlerFields {
     virtual void v0();
     void FUN_001d16a0(const char *name, float val);

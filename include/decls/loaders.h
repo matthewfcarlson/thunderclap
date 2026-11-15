@@ -130,7 +130,7 @@ struct FUN_00231160 {
 HULK_LOADER_SIZE32(FUN_00231160, 0x18);
 
 // The content registry (its constructor 0x002656b0; DAT_00527c58 points at it; 0x38 bytes on the 32-bit builds):
-// three flags, the poll interval (5000), a word, the handler and loader tables (0x00231550 builds each: the loaders by
+// three flags, the poll interval (5000), the request the loader fiber is running (0x00265390), the handler and loader tables (0x00231550 builds each: the loaders by
 // chunk id, 0x00265210 adds, 0x002659a0 / 0x00265310 look up), the ring of pending requests (0x00265810 queues
 // one: the head, tail, start and end of an array of {request, value} entries) and a 256-byte name buffer.
 struct HulkLoadEntry {
@@ -140,7 +140,7 @@ struct HulkLoadEntry {
 struct HulkContentRegistry {
     unsigned char a, b, c, pad3;
     unsigned int interval;
-    unsigned int unused;
+    void* current;   // (x64t13) +0x08 the request 0x00265390 runs (a pointer; was an unsigned int)
     void* first;
     void* second;
     HulkLoadEntry* head;
@@ -148,10 +148,11 @@ struct HulkContentRegistry {
     HulkLoadEntry* begin;
     HulkLoadEntry* end;
     unsigned int reserved;
-    char* buffer;
-    char* bufferBegin;
-    char* bufferCurrent;
-    char* bufferEnd;
+    // (x64t13) the 256-byte buffer is a ring of the finished requests' values (0x00265390: head, tail, start, end)
+    int* ringHead;
+    int* ringTail;
+    int* ringBegin;
+    int* ringEnd;
 };
 HULK_LOADER_SIZE32(HulkContentRegistry, 0x38);
 

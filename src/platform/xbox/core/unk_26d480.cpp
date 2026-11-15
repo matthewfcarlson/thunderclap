@@ -100,7 +100,6 @@ int __stdcall FUN_0020bd91(void *);
 extern "C" void _ReadWriteBarrier(void);
 namespace fn_fc974b3c {
 int __cdecl FUN_0026dc50(CoreThread *worker, int (__cdecl *entry)(hulk_intptr), hulk_intptr argument, int priority, unsigned long stackSize);
-extern "C" void __cdecl FUN_0026dc20();
 extern "C" void* __stdcall CreateFiber(unsigned int, void*, void*);
 struct Fiber_26dd70 {
     static void __cdecl FUN_0026dd10(CoreFiber*, void*, void*, unsigned int, unsigned int, unsigned int);
@@ -524,7 +523,8 @@ void __cdecl FUN_0026dd10(CoreFiber* p, void* entry, void* argument, unsigned in
     }
     l->last = p;
     p->next = 0;
-    void* r = CreateFiber(stack, (void*)((hulk_intptr)(void (__cdecl*)())&FUN_0026dc20), p);
+    // (x64t13) the start routine by its definition (above; a C declaration of the name was unbound natively)
+    void* r = CreateFiber(stack, (void*)&FUN_0026dc20, p);
     p->state[1] = 0;
     p->state[0] = 0;
     p->fiber = r;

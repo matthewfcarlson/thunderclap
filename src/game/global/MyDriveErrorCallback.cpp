@@ -183,7 +183,7 @@ template class Method1<CPlatformManager, void, const char *>; // (ren2) native o
 
 
 // 0x0008e1f0 MyDriveErrorCallback::vfunc_0 (1161 B): equivalent/0x0008e1f0.cpp [wrapped: conflict: FUN_0008e090; MyControllerCallback; MyDriveErrorCallback]
-// sym: ?vfunc_0@MyDriveErrorCallback@fn_0008e1f0@@UAEDIHHHH@Z @60a9a387765b @wa8a8bbdcb5dd
+// sym: ?vfunc_0@MyDriveErrorCallback@fn_0008e1f0@@UAEDIPAXHPBDI@Z @60a9a387765b @wfa58a7dd74a5
 inline void *operator new(size_t, void *p) throw() { return p; }
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
@@ -307,7 +307,7 @@ public:
 
 
 extern "C" void __cdecl FUN_001bb0b0(const char *key);
-extern "C" char __cdecl FUN_0008d910(int a3);
+extern "C" bool __cdecl FUN_0008d910(const char* name);   // (x64t13) as defined (unk_08ceb0.GS.cpp)
 extern "C" void __cdecl FUN_00240bb0();
 extern "C" Mgr_8e1f0 *__cdecl FUN_002684b0();
 extern "C" void __cdecl FUN_002684c0();
@@ -316,7 +316,9 @@ MyControllerCallback *FUN_0008e090();
 
 class MyDriveErrorCallback {
 public:
-    virtual char vfunc_0(unsigned int code, int a1, int a2, int a3, int a4);
+    // (x64t13) the drive's vfunc_3 0x00272df0 passes the error, its slot 4 (a pointer into the drive), the request's
+    // kind, the request's file name (null for a drive request) and its argument
+    virtual char vfunc_0(unsigned int code, void* a1, int a2, const char* a3, unsigned int a4);
     const char *f4;
     const char *f8;
     char b0c;
@@ -325,7 +327,7 @@ public:
     char b0f;
 };
 
-char MyDriveErrorCallback::vfunc_0(unsigned int code, int a1, int a2, int a3, int a4)
+char MyDriveErrorCallback::vfunc_0(unsigned int code, void* a1, int a2, const char* a3, unsigned int a4)
 {
     if (b0e) {
         FUN_001bb0b0(f4);

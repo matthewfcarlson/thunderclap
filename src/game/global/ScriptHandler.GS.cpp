@@ -576,7 +576,7 @@ namespace fn_001d3f60 {
 
 
 
-int __cdecl FUN_000964a0(char *buffer, int size, const char *format, ...);
+extern "C" int __cdecl FUN_000964a0(char*, int, const char*, ...);   // (x64t13) as defined (CUnlockablesManager.cpp)
 void __cdecl FUN_00212d80(LuaVMState *L, int index);
 int __cdecl FUN_00212d70(LuaVMState *L);
 int __cdecl FUN_00339a60(LuaVMState *L, const char *buffer, int size, const char *name);

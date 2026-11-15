@@ -45,6 +45,25 @@ struct HulkControllerManager {
 };
 HULK_MGR_SIZE32(HulkControllerManager, 36);
 
+// CController (0x000ae4b0, 372 bytes), the controller manager's device manager (0x000aef10 allocates it): the
+// vftable, two words, the enabled flag, the device count and the device array 0x000ae090 allocates (a pointer), the
+// four 17-word blocks and three words the constructor clears, and the 64-byte name 0x000adc60 copies from 0x004de7a8
+struct HulkController {
+    void* vftable;
+    int f04;
+    int owner;
+    unsigned char enabled;
+    int count;
+    void** items;
+    int block18[17];
+    int block5c[17];
+    int fA0, fA4, fA8;
+    int blockAc[17];
+    int blockF0[17];
+    char name[0x40];
+};
+HULK_MGR_SIZE32(HulkController, 0x174);
+
 // CGameControllerManager (0x000af310, 8 bytes): the vftable and its CGameController (allocated there)
 struct HulkGameControllerManager {
     void* vftable;

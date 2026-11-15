@@ -34,7 +34,7 @@ class ProjectileMissile {
 hulkfight::motion::ProjectileMissile* hulkfight::motion::ProjectileMissile::vfunc_2(byte_19e8e0 flags) {
     tick_0019b460();
     if (flags & 1)
-        ((owners::Thing_8ff00*)DAT_004e2210)->FUN_0008ff00((hulk_intptr)this, 0xdc);
+        ((owners::Thing_8ff00*)DAT_004e2210)->FUN_0008ff00(this, 0xdc);
     return this;
 }
 

@@ -382,10 +382,11 @@ struct Sink_265390 {
     virtual void vfn2();
     virtual void vfn3(const char *name, struct Job_265390 *job);
 };
+// (x64t13) the handler probe (decls/loaders.h FUN_00231160): its words, the table a pointer, the key as its two words
 struct Local_265390 {
-    char data[0x18];
-    void FUN_00231160(int v);
-    Sink_265390 *FUN_00231180(long long v);
+    char data[sizeof(FUN_00231160)];
+    void FUN_00231160(void* table);
+    Sink_265390 *FUN_00231180(unsigned int first, unsigned int second);
 };
 struct Job_265390 {
     virtual void vfn0();
@@ -399,24 +400,11 @@ struct Entry_265390 {
     int arg;
 };
 long long FUN_00267340(const char *s, int a, int b);
-void FUN_00266da0(int v);
-class Queue_265390 {
+// (x64t13) the loader fiber's view of decls/loaders.h HulkContentRegistry (its pads put the words at their 32-bit
+// offsets natively): the stop flag (b), the running request, the handler table, the request ring (its entries are
+// HulkLoadEntry) and the 256-byte buffer used as a ring of finished requests' values
+class Queue_265390 : public HulkContentRegistry {
 public:
-    char pad0;
-    char stop;                // 0x1
-    char pad1[6];
-    Job_265390 *current;             // 0x8
-    int fc;
-    char pad2[4];
-    Entry_265390 *head;              // 0x14
-    Entry_265390 *tail;              // 0x18
-    Entry_265390 *begin;             // 0x1c
-    Entry_265390 *end;               // 0x20
-    char pad3[4];
-    int *ringHead;            // 0x28
-    int *ringTail;            // 0x2c
-    int *ringBegin;           // 0x30
-    int *ringEnd;             // 0x34
     void FUN_00265390();
 };
 struct Obj_265520 {
@@ -455,13 +443,12 @@ struct Config_2656b0 { unsigned first, second, count, value; };
 struct Block_2656b0 { unsigned capacity, count, used; char padding[12]; void* slots; void* entries; int sentinel; void FUN_00231550(unsigned, unsigned, unsigned); };
 extern void* __cdecl FUN_0008d690(unsigned);
 extern "C" void* __cdecl FUN_0008d6d0(unsigned);
-extern void __cdecl FUN_00265520();
-extern "C" void __cdecl FUN_0026dd70(void*, void (__cdecl*)(), void*, unsigned, unsigned);
+extern "C" void __cdecl FUN_0026dd70(void*, void*, void*, unsigned, unsigned);   // (x64t13) as defined (unk_26d480.cpp)
 // (x64t8) the registry's record (decls/loaders.h HulkContentRegistry)
 struct Object : HulkContentRegistry {
  Object* FUN_002656b0(Config_2656b0* config);
 };
-struct Request { char pad[0x100]; void* context; char pad104[8]; unsigned char flags; };
+struct Request : ContentLoadArgs {};   // (x64t13) records.h: the context at +0x100 and the wait flag at +0x10c
 struct LoadRequest_265810 { virtual void slot0(); LoadRequest_265810* FUN_00266890(Request*);  void FUN_00266950(int); void FUN_00266850(void*); int FUN_00266710(); };
 extern "C" void* __cdecl FUN_00263ed0(unsigned int,int);
 struct Entry_265810 { LoadRequest_265810* task; unsigned int value; };
@@ -1205,12 +1192,12 @@ hulk_intptr owners::Thing_265340::FUN_00265340(char* text) {
 namespace fn_fa1126e6 {
 
 // 0x00265390 FUN_00265390 (390 B): equivalent/0x00265390.cpp
-// sym: ?FUN_00265390@Queue_265390@fn_fa1126e6@@QAEXXZ @bcddef107543 @wb58a4acef04a
+// sym: ?FUN_00265390@Queue_265390@fn_fa1126e6@@QAEXXZ @207b6f25a6c3 @wc01adbc99001 @vcdb5f96aab1f
 // STATUS: equivalent (tools/equiv.py level 3: 124 inputs, branch coverage 30/30)
 // FUN_00265390 @ 0x00265390
 void Queue_265390::FUN_00265390()
 {
-    while (!stop) {
+    while (!b) {
         int count;
         if (head > tail)
             count = (int)(tail - begin) + (int)(end - head);
@@ -1219,8 +1206,8 @@ void Queue_265390::FUN_00265390()
         if (count == 0) {
             ((owners::Q_264d20 *)this)->FUN_00264d20();
         } else {
-            Job_265390 *job = head->job;
-            int arg = head->arg;
+            Job_265390 *job = (Job_265390 *)head->task;
+            int arg = (int)head->value;
             if (tail >= end)
                 tail = head;
             head = head + 1;
@@ -1240,20 +1227,21 @@ void Queue_265390::FUN_00265390()
             if (job != 0) {
                 current = job;
                 if (job->FUN_00266710() != 4) {
-                    current->FUN_00266950(2);
+                    ((Job_265390 *)current)->FUN_00266950(2);
                     const char *ext = strrchr(job->FUN_002666d0(), '.');
                     long long key = FUN_00267340(ext + 1, 0, 0);
                     Local_265390 local;
-                    local.FUN_00231160(fc);
-                    Sink_265390 *sink = local.FUN_00231180(key);
-                    FUN_00266da0(*(int *)((const char *)job->FUN_002666d0() + 0x108));
+                    local.FUN_00231160(first);
+                    Sink_265390 *sink = local.FUN_00231180((unsigned int)key, (unsigned int)(key >> 32));
+                    // (x64t13) the request's kind selects the heap (0x00266da0 as defined: C, a word)
+                    FUN_00266da0((void*)(hulk_intptr)((const ContentLoadArgs *)job->FUN_002666d0())->kind);
                     sink->vfn3(job->FUN_002666d0(), job);
-                    if (current->FUN_00266710() == 2)
-                        current->FUN_00266950(3);
+                    if (((Job_265390 *)current)->FUN_00266710() == 2)
+                        ((Job_265390 *)current)->FUN_00266950(3);
                 }
-                if (current->FUN_00266710() == 4)
-                    current->FUN_00266950(3);
-                current->vfn1();
+                if (((Job_265390 *)current)->FUN_00266710() == 4)
+                    ((Job_265390 *)current)->FUN_00266950(3);
+                ((Job_265390 *)current)->vfn1();
                 current = 0;
             }
         }
@@ -1365,7 +1353,7 @@ extern "C" void __cdecl FUN_002656a0(void) {
 // STATUS: equivalent (tools/equiv.py level 3: 3005 inputs, branch coverage 10/10)
 // FUN_002656b0 @ 0x002656b0
 Object* Object::FUN_002656b0(Config_2656b0* config) {
- a=0; b=0; c=0; interval=5000; unused=0; first=0; second=0; head=0; tail=0; buffer=0; bufferBegin=0;
+ a=0; b=0; c=0; interval=5000; current=0; first=0; second=0; head=0; tail=0; ringHead=0; ringTail=0;
  Block_2656b0* p=(Block_2656b0*)FUN_0008d690((unsigned)sizeof(Block_2656b0));
  if(p) { unsigned n=config->first; p->FUN_00231550(n,200,n); }
  first=p;
@@ -1376,11 +1364,11 @@ Object* Object::FUN_002656b0(Config_2656b0* config) {
  // (x64t8) the request ring's entries by their size (8 bytes on the 32-bit builds; each holds a pointer)
  if(n) { unsigned bytes=n*(unsigned)sizeof(HulkLoadEntry); HulkLoadEntry* data=(HulkLoadEntry*)FUN_0008d6d0(bytes); head=data; if(data) { tail=data; begin=data; end=(HulkLoadEntry*)((char*)data+bytes); } else tail=0; }
  else { head=0; tail=0; }
- char* data=(char*)FUN_0008d6d0(256); buffer=data;
- if(data) { bufferBegin=data; bufferCurrent=data; bufferEnd=data+256; } else bufferBegin=0;
+ int* data=(int*)FUN_0008d6d0(256); ringHead=data;
+ if(data) { ringTail=data; ringBegin=data; ringEnd=(int*)((char*)data+256); } else ringTail=0;
  (*(CoreFiber**)&DAT_00527c4c)=FUN_0026dbf0();
  unsigned v=config->value; (*(unsigned*)&DAT_004cd504)=v;
- FUN_0026dd70(&DAT_00527c28,FUN_00265520,this,v,0);
+ FUN_0026dd70(&DAT_00527c28,(void*)&FUN_00265520,this,v,0);   // (x64t13) the fiber entry by its definition
  return this;
 }
 
@@ -1390,8 +1378,9 @@ Object* Object::FUN_002656b0(Config_2656b0* config) {
 // STATUS: equivalent (tools/equiv.py level 3: 170 inputs, branch coverage 20/20)
 // FUN_00265810 @ 0x00265810
 void Manager_265810::FUN_00265810(Request* request,LoadRequest_265810** output) {
- request->flags |= a;   // (x64t8) the registry's first flag
- LoadRequest_265810* memory = (LoadRequest_265810*)FUN_00263ed0(0x130,1);
+ HULK_SIZE32(ContentLoadRequest, 0x130);
+ request->wait |= a;   // (x64t8) the registry's first flag
+ LoadRequest_265810* memory = (LoadRequest_265810*)FUN_00263ed0(sizeof(ContentLoadRequest),1);   // (x64t13) 0x130
  LoadRequest_265810* task = memory ? memory->FUN_00266890(request) : 0;
  task->slot0(); task->slot0();
  if(tail < end) {
@@ -1403,7 +1392,7 @@ void Manager_265810::FUN_00265810(Request* request,LoadRequest_265810** output) 
  ((owners::C_266800 *)task)->FUN_00266800((char *)(Request *)request);
  task->FUN_00266950(1);
  if(request->context) task->FUN_00266850(request->context);
- if(request->flags) {
+ if(request->wait) {
   while(task->FUN_00266710()!=3) {
    if(task->FUN_00266710()==5) break;
    FUN_002655b0();

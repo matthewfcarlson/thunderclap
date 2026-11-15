@@ -2024,6 +2024,21 @@ equiv64's `rawint` and truncated-pointer tests rely on the 64-bit heap's low 32 
 32-bit heap address (0x23450000-0x43450000): Heap._region refuses to grow either heap past its span; the sized/unsized
 `operator delete` pairing relies on the platform's sized delete only forwarding to the unsized one.
 
+**x64t13's input annotations (2026-11-15, D34).** Two facts of the game's data the fuzzer could not know, written in
+the source where a field or parameter is declared and seen only by equiv64's libclang parse (`-DHULK_EQ64_PARSE`;
+include/decls/data/records.h defines both macros empty for every compiled build, so no code changes). Inputs are drawn
+from the annotated domain; nothing compared changes:
+- `HULK_RANGE(lo, hi)` after an integer field (`int bucket HULK_RANGE(0, 1);`, records.h CoreCementLibrary): the
+  field is drawn from lo..hi (`field_range`, Leaf.range, in the layout fingerprint). A fuzzed list index read
+  `head[bucket]` outside the list on both runs and, when it landed in a neighbouring object, the 64-bit run followed
+  different garbage (0x002775b0's `crash64`);
+- `HULK_INTO(field)` after a pointer parameter in a member function's definition (`void* value HULK_INTO(base)`,
+  0x0008ff00): the pointer is generated inside the array `this->field` points to, at a fuzzed offset (`param_into`,
+  `Side.arg_into`). Fuzzed as an object of its own, `value - base` is a difference of two unrelated objects that the
+  two heaps place differently (0x0008ff00's `layout`).
+Regress: `0x002775b0_x64_bucket_range` (equivalent), `0x0008ff00_x64_into_pool` (equivalent) and
+`0x0008ff00_x64_into_none` (the same without the annotation: fail, layout).
+
 **What a promotion gate needs.** (1) `pip install clang` in the checker hosts' venvs (or keep `batch`/`job_files`);
 (2) a policy: `equivalent` required except for an allow-list of `unsupported`/`untyped` sources reviewed by hand, and
 the existing fails fixed or listed (they are the 64-bit work list); (3) a regress run of `X64_CASES` after any change to

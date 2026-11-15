@@ -228,11 +228,15 @@ struct Drive_272d90 {
 };
 struct Node { virtual void destroy(int); virtual void n1(); virtual void n2(); virtual void n3(); virtual void n4(); virtual void n5(); virtual void n6(); virtual void process(); Node* next; bool FUN_00273680(CoreThread*); };
 struct Lock_272df0 { virtual void acquire(); virtual void release(); virtual void x(); };
-struct Provider_272df0 { virtual void a(); virtual void b(); virtual void c(); virtual void d(); virtual void e(); virtual unsigned get(unsigned); virtual unsigned convert(unsigned); };
-struct Callback_272df0 { virtual unsigned run(unsigned,unsigned); };
-typedef unsigned (Callback_272df0::*CallbackMethod)(unsigned,unsigned);
+// (x64t13) the completed request's slots 5 / 6 and the drive's slot 4 take no arguments (each is a bare `ret`:
+// 0x00274430 / 0x00273e10 / 0x0026f1c0), so all five pushes are the callback's (MyDriveErrorCallback::vfunc_0
+// 0x0008e1f0 ends `ret 0x14`): the error, the drive's slot 4 (a pointer into the drive), the request's kind (slot 6),
+// its file name (slot 5: FileRequest 0x002738d0 forwards to the file; null for the drive requests) and the argument
+struct Provider_272df0 { virtual void a(); virtual void b(); virtual void c(); virtual void d(); virtual void e(); virtual const char* name(); virtual int kind(); };
+struct Callback_272df0 { virtual unsigned run(unsigned,void*,int,const char*,unsigned); };
+typedef unsigned (Callback_272df0::*CallbackMethod)(unsigned,void*,int,const char*,unsigned);
 struct CallbackTable { void* run; };
-struct DriveSlots_272df0 { virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual unsigned vfunc_4(unsigned); };
+struct DriveSlots_272df0 { virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void* vfunc_4(); };
 extern "C" CoreThread* __cdecl FUN_0026dbb0();
 } // namespace fn_f59a9783
 namespace core {
@@ -578,7 +582,7 @@ Drive_272d90* Drive_272d90::Dtor(unsigned char flag) {
 } // namespace fn_f59a9783
 
 // 0x00272df0 core::Drive::vfunc_3 (259 B): equivalent/0x00272df0.cpp
-// sym: ?vfunc_3@Drive_272df0@core@@QAEXXZ @aeb70e9f52ca @w5850eccf0b6f
+// sym: ?vfunc_3@Drive_272df0@core@@QAEXXZ @2ce2da8fc6b1 @w8f35b1edd1be
 // STATUS: equivalent (tools/equiv.py level 3: 20026 inputs, branch coverage 12/12)
 // core::Drive::vfunc_3 @ 0x00272df0
 // core::Drive::vfunc_3 (records.h CoreDrive): runs the pending requests that belong to the calling thread, then the
@@ -598,11 +602,9 @@ void core::Drive_272df0::vfunc_3() {
    busy=1; lock->release();
    CallbackTable* table=*(CallbackTable**)callback;
    Provider_272df0* p=(Provider_272df0*)request;
-   unsigned value=p->get(argument);
-   value=p->convert(value);
-   unsigned kind=((DriveSlots_272df0*)this)->vfunc_4(value);
-   union { void* address; CallbackMethod method; } entry; entry.address=table->run;
-   unsigned result=(((Callback_272df0*)callback)->*entry.method)((unsigned)error,kind);
+   // the callback's slot is read from its table at the call, after the arguments (the table pointer before them)
+   unsigned result=(((Callback_272df0*)callback)->**(CallbackMethod*)&table->run)((unsigned)error,
+                    ((DriveSlots_272df0*)this)->vfunc_4(),p->kind(),p->name(),argument);
    FUN_00272a40(result);
    busy=0;
   } else lock->release();

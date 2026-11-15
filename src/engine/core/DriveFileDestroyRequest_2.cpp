@@ -24,7 +24,7 @@ namespace fn_fcf3cc66 {
 class DriveFileDestroyRequest {
   public:
     char pad[0x10c];
-    DriveFileDestroyRequest* Run(hulk_intptr, char*);
+    DriveFileDestroyRequest* Run(HulkInstanceDrive*, char*);   // (x64t13) the drive (was a hulk_intptr)
 };
 namespace core {
 struct Inner_275c10 {
@@ -78,9 +78,9 @@ class DriveFileDestroyRequest {
 
 
 // 0x00275bd0 FUN_00275bd0 (59 B): matches/0x00275bd0.cpp
-// sym: ?Run@DriveFileDestroyRequest@fn_fcf3cc66@@QAEPAV12@HPAD@Z
-DriveFileDestroyRequest* DriveFileDestroyRequest::Run(hulk_intptr a, char* p) {
-    ((ThisCall_00275600*)(this))->BaseInit_00275600((void*)a);
+// sym: ?Run@DriveFileDestroyRequest@fn_fcf3cc66@@QAEPAV12@PAUHulkInstanceDrive@@PAD@Z
+DriveFileDestroyRequest* DriveFileDestroyRequest::Run(HulkInstanceDrive* a, char* p) {
+    ((ThisCall_00275600*)(this))->BaseInit_00275600(a);
     *(hulk_uintptr*)this = ((hulk_intptr)DAT_0042bc60);
     InitMore();
     strncpy((char*)this + 0xc, p, 0x100);
