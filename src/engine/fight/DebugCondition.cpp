@@ -1,9 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// cl-flags: /GX
 // object 0x0023d420..0x0023d810 (kind game, layer engine, confidence high), dominant class fight::DebugCondition
 #include "tree_prelude.h"
-#define HULK_FIGHT_PARAM_IMPLICIT   // (gx2, D18) include/gen/fight.h: the parameter templates constructed for real
-#include "gen/owners.h"   // (gx3, D18) for the merged registrations
-#include "decls/data/engine/unknown.h"   // (gx3, D18) for the merged registrations
 #include "compat/ptr.h"
 #include "decls/data/engine/fight.h"
 #include "decls/data/game/global.h"
@@ -17,8 +15,6 @@ void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to f
 void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
 }
 #include "engine/fight.h"
-void* operator new(size_t) HULK_NEW_THROW;   // (gx2, D18) the game's operator new (0x0008d690)
-extern "C" void __cdecl FUN_002347b0(void* list, void* params, int count);   // (gx2, D18) a parameter list's set-up
 
 // ---- declarations shared by the functions below
 namespace fn_fd383094 {
@@ -239,29 +235,12 @@ template <> bool fight::ConditionFactoryCasterTemplate<fight::DebugCondition>::v
 // sym: ??_G?$ParamEnumConstList@VDebugCondition@fight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-// (gx2, D18) implicit: the registration that constructs the class emits this
+template <> fight::ParamEnumConstList<fight::DebugCondition>::~ParamEnumConstList() {}
+#if defined(HULK_PTR64)
+template class fight::ParamEnumConstList<fight::DebugCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x23d610)
+#endif
 
 namespace fn_fd383094 {
-
-} // namespace fn_fd383094
-
-// 0x0023d630 FUN_0023d630 (190 B): matches/0x0023d630.cpp
-// sym: ?FUN_0023d630@@YAXXZ
-// (gx2, D18) from DebugCondition.iso_0023d630.cpp; constructs the real ParamEnumConstList<DebugCondition>,
-// whose vftable and scalar deleting destructor it emits
-void FUN_0023d630()
-{
-    if (DAT_004e5c58 == 0) {
-        ::fight::ParamValue* params[2];
-        params[0] = new ::fight::ParamEnumConstList< ::fight::DebugCondition>("compare", (void*)&DAT_00427758, DAT_00427760, &fn_fd383094::Obj_23d450::SetCompare_0023d450);
-        params[1] = new ::fight::ParamEnumConstList< ::fight::DebugCondition>("mode", (void*)&DAT_00428b30, 3, &fn_fd383094::Obj_23d460::SetMode_0023d460);
-        FUN_002347b0(&DAT_004e5c54, params, 2);
-    }
-    DAT_004e5c58++;
-}
-
-namespace fn_fd383094 {
-
 
 // 0x0023d710 FUN_0023d710 (38 B): matches/0x0023d710.cpp
 // sym: _FUN_0023d710

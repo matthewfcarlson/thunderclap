@@ -1,9 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// cl-flags: /GX
 // object 0x00154c00..0x00156e80 (kind game, layer game, confidence high), dominant class hulkfight::motion::InterruptPriorityTrack
 #include "tree_prelude.h"
-#define HULK_FIGHT_PARAM_IMPLICIT   // (gx2, D18) include/gen/fight.h: the parameter templates constructed for real
-#include "decls/data/game/global.h"   // (gx3, D18) for the merged registrations
-#include "gen/owners.h"   // (gx3, D18) for the merged registrations
 #include "compat/ptr.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/hulkfight/motion.h"
@@ -15,35 +13,6 @@
 #define TREE_TU_END }
 namespace fn_ff72ca8e {} using namespace fn_ff72ca8e;
 #include "game/hulkfight/motion.h"
-void* operator new(size_t) HULK_NEW_THROW;   // (gx2, D18) the game's operator new (0x0008d690)
-extern "C" void __cdecl FUN_002347b0(void* list, void* params, int count);   // (gx2, D18) a parameter list's set-up
-namespace fn_f2fc69c6 { struct A_14c620 { void * GetBranch_0014c620(); }; }   // (gx3, D18) setters, as defined in unk_14c470.cpp
-namespace fn_f2fc69c6 { struct A_14c680 { char SetUseArmorValue_0014c680(char); }; }   // (gx3, D18) setters, as defined in unk_14c470.cpp
-namespace fn_f2fc69c6 { struct A_14c700 { unsigned char SetCompareVsHealthPercent_0014c700(unsigned char); }; }   // (gx3, D18) setters, as defined in unk_14c470.cpp
-namespace fn_f2fc69c6 { struct A_14cd10 { bool SetInterruptPriority_0014cd10(int); }; }   // (gx3, D18) setters, as defined in unk_14c470.cpp
-namespace fn_f2fc69c6 { struct C_14c730 { unsigned char f(int); }; }   // (gx3, D18) setters, as defined in unk_14c470.cpp
-namespace fn_f2fc69c6 { struct D { bool SetCompare_0014c580(int); }; }   // (gx3, D18) setters, as defined in unk_14c470.cpp
-namespace fn_f2fc69c6 { struct O_14cce0 { char SetTimeBegin_0014cce0(int); }; }   // (gx3, D18) setters, as defined in unk_14c470.cpp
-namespace fn_f2fc69c6 { struct Obj_14c490 { char Set(int); }; }   // (gx3, D18) setters, as defined in unk_14c470.cpp
-namespace fn_f2fc69c6 { struct Obj_14c4f0 { bool SetCompare_0014c4f0(int); }; }   // (gx3, D18) setters, as defined in unk_14c470.cpp
-namespace fn_f2fc69c6 { struct Obj_14c500 { char SetType_0014c500(int); }; }   // (gx3, D18) setters, as defined in unk_14c470.cpp
-namespace fn_f2fc69c6 { struct Obj_14c590 { bool SetSize_0014c590(int); }; }   // (gx3, D18) setters, as defined in unk_14c470.cpp
-namespace fn_f2fc69c6 { struct Obj_14c610 { unsigned char SetCompare_0014c610(int); }; }   // (gx3, D18) setters, as defined in unk_14c470.cpp
-namespace fn_f2fc69c6 { struct Obj_14c640 { bool SetCompare_0014c640(unsigned int); }; }   // (gx3, D18) setters, as defined in unk_14c470.cpp
-namespace fn_f2fc69c6 { struct Obj_14c6b0 { bool SetCompare_0014c6b0(int); }; }   // (gx3, D18) setters, as defined in unk_14c470.cpp
-namespace fn_f2fc69c6 { struct Obj_14c6e0 { char SetPercent_0014c6e0(int); }; }   // (gx3, D18) setters, as defined in unk_14c470.cpp
-namespace fn_f2fc69c6 { struct Obj_14c710 { char SetCompare_0014c710(int); }; }   // (gx3, D18) setters, as defined in unk_14c470.cpp
-namespace fn_f2fc69c6 { struct Obj_14c720 { bool SetType_0014c720(int); }; }   // (gx3, D18) setters, as defined in unk_14c470.cpp
-namespace fn_f2fc69c6 { struct Obj_14caa0 { bool SetTimeBegin_0014caa0(int); }; }   // (gx3, D18) setters, as defined in unk_14c470.cpp
-namespace fn_f2fc69c6 { struct Obj_14cac0 { bool SetPauseTime_0014cac0(int); }; }   // (gx3, D18) setters, as defined in unk_14c470.cpp
-namespace fn_f2fc69c6 { struct T_14ccf0 { char SetTimeEnd_0014ccf0(int); }; }   // (gx3, D18) setters, as defined in unk_14c470.cpp
-namespace fn_f2fc69c6 { struct X_14c4d0 { char SetCompare_0014c4d0(int); }; }   // (gx3, D18) setters, as defined in unk_14c470.cpp
-namespace fn_f2fc69c6 { struct X_14c4e0 { bool SetSize_0014c4e0(int); }; }   // (gx3, D18) setters, as defined in unk_14c470.cpp
-namespace fn_f2fc69c6 { struct X_14c550 { unsigned char Fn(unsigned char); }; }   // (gx3, D18) setters, as defined in unk_14c470.cpp
-namespace fn_f2fc69c6 { struct X_14c630 { unsigned char SetCheckAncestors_0014c630(unsigned char); }; }   // (gx3, D18) setters, as defined in unk_14c470.cpp
-namespace fn_f2fc69c6 { struct X_14c660 { char SetCharge_0014c660(int); }; }   // (gx3, D18) setters, as defined in unk_14c470.cpp
-namespace fn_f2fc69c6 { struct X_14c6d0 { char SetDamage_0014c6d0(int); }; }   // (gx3, D18) setters, as defined in unk_14c470.cpp
-namespace fn_f2fc69c6 { struct X_14cae0 { char SetBlendOutTime_0014cae0(int); }; }   // (gx3, D18) setters, as defined in unk_14c470.cpp
 // (ren2) __RTDynamicCast's own name (CRT, C linkage)
 extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
@@ -189,6 +158,7 @@ public:
 };
 }
 namespace fn_ff72ca8e {
+void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 } // namespace fn_ff72ca8e
 namespace hulkfight { namespace motion {
 class CollisionSourceForceMagnitudeCondition_155160 {
@@ -664,251 +634,6 @@ class AllocObj_156e30 {
 
 } // namespace fn_ff72ca8e
 
-// 0x00153fb0 fight::ParamEnumConstList<hulkfight::motion::InterruptAccumulatorCondition>::vfunc_0 (30 B): matches/0x00153fb0.cpp
-// sym: ??_G?$ParamEnumConstList@VInterruptAccumulatorCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
-// (gx3, D32/D18) moved from InterruptAccumulatorCondition.cpp: the implicit destructor of the class; its scalar deleting destructor is
-// emitted beside the vftable by the registration that constructs it (FUN_001550b0 / FUN_00155160 / FUN_00155210 / FUN_00155270 / FUN_00155330 / FUN_001553f0 / FUN_001554a0 / FUN_00155500 / FUN_00155560 / FUN_001555c0 / FUN_00155680 / FUN_001556e0 / FUN_00155790 / FUN_001557f0 / FUN_001558e0 / FUN_001559d0 / FUN_00155af0 / FUN_00155bb0 / FUN_00155c30 / FUN_00155cd0 / FUN_00155ea0 / FUN_00155f80 / FUN_00156030 / FUN_00156110 / FUN_00156280 / FUN_00156420 / FUN_00156480 / FUN_00156520 / FUN_00156660 / FUN_00156700 / FUN_00156970 / FUN_00156bb0)
-
-
-
-// 0x00153fd0 fight::ParamFloatConstRange<hulkfight::motion::InterruptAccumulatorCondition>::vfunc_0 (30 B): matches/0x00153fd0.cpp
-// sym: ??_G?$ParamFloatConstRange@VInterruptAccumulatorCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
-// (gx3, D32/D18) moved from InterruptAccumulatorCondition.cpp: the implicit destructor of the class; its scalar deleting destructor is
-// emitted beside the vftable by the registration that constructs it (FUN_001550b0 / FUN_00155160 / FUN_00155210 / FUN_00155270 / FUN_00155330 / FUN_001553f0 / FUN_001554a0 / FUN_00155500 / FUN_00155560 / FUN_001555c0 / FUN_00155680 / FUN_001556e0 / FUN_00155790 / FUN_001557f0 / FUN_001558e0 / FUN_001559d0 / FUN_00155af0 / FUN_00155bb0 / FUN_00155c30 / FUN_00155cd0 / FUN_00155ea0 / FUN_00155f80 / FUN_00156030 / FUN_00156110 / FUN_00156280 / FUN_00156420 / FUN_00156480 / FUN_00156520 / FUN_00156660 / FUN_00156700 / FUN_00156970 / FUN_00156bb0)
-
-
-
-// 0x00154030 fight::ParamEnumConstList<hulkfight::motion::CollisionSourceForceMagnitudeCondition>::vfunc_0 (30 B): matches/0x00154030.cpp
-// sym: ??_G?$ParamEnumConstList@VCollisionSourceForceMagnitudeCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
-// (gx3, D32/D18) moved from CollisionSourceForceMagnitudeCondition.cpp: the implicit destructor of the class; its scalar deleting destructor is
-// emitted beside the vftable by the registration that constructs it (FUN_001550b0 / FUN_00155160 / FUN_00155210 / FUN_00155270 / FUN_00155330 / FUN_001553f0 / FUN_001554a0 / FUN_00155500 / FUN_00155560 / FUN_001555c0 / FUN_00155680 / FUN_001556e0 / FUN_00155790 / FUN_001557f0 / FUN_001558e0 / FUN_001559d0 / FUN_00155af0 / FUN_00155bb0 / FUN_00155c30 / FUN_00155cd0 / FUN_00155ea0 / FUN_00155f80 / FUN_00156030 / FUN_00156110 / FUN_00156280 / FUN_00156420 / FUN_00156480 / FUN_00156520 / FUN_00156660 / FUN_00156700 / FUN_00156970 / FUN_00156bb0)
-
-
-
-// 0x00154050 fight::ParamFloatConstRange<hulkfight::motion::CollisionSourceForceMagnitudeCondition>::vfunc_0 (30 B): matches/0x00154050.cpp
-// sym: ??_G?$ParamFloatConstRange@VCollisionSourceForceMagnitudeCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
-// (gx3, D32/D18) moved from CollisionSourceForceMagnitudeCondition.cpp: the implicit destructor of the class; its scalar deleting destructor is
-// emitted beside the vftable by the registration that constructs it (FUN_001550b0 / FUN_00155160 / FUN_00155210 / FUN_00155270 / FUN_00155330 / FUN_001553f0 / FUN_001554a0 / FUN_00155500 / FUN_00155560 / FUN_001555c0 / FUN_00155680 / FUN_001556e0 / FUN_00155790 / FUN_001557f0 / FUN_001558e0 / FUN_001559d0 / FUN_00155af0 / FUN_00155bb0 / FUN_00155c30 / FUN_00155cd0 / FUN_00155ea0 / FUN_00155f80 / FUN_00156030 / FUN_00156110 / FUN_00156280 / FUN_00156420 / FUN_00156480 / FUN_00156520 / FUN_00156660 / FUN_00156700 / FUN_00156970 / FUN_00156bb0)
-
-
-
-// 0x001540b0 fight::ParamBool<hulkfight::motion::CollisionThrowCondition>::vfunc_0 (30 B): matches/0x001540b0.cpp
-// sym: ??_G?$ParamBool@VCollisionThrowCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
-// (gx3, D32/D18) moved from CollisionTargetPriorityCondition_params_factory.cpp: the implicit destructor of the class; its scalar deleting destructor is
-// emitted beside the vftable by the registration that constructs it (FUN_001550b0 / FUN_00155160 / FUN_00155210 / FUN_00155270 / FUN_00155330 / FUN_001553f0 / FUN_001554a0 / FUN_00155500 / FUN_00155560 / FUN_001555c0 / FUN_00155680 / FUN_001556e0 / FUN_00155790 / FUN_001557f0 / FUN_001558e0 / FUN_001559d0 / FUN_00155af0 / FUN_00155bb0 / FUN_00155c30 / FUN_00155cd0 / FUN_00155ea0 / FUN_00155f80 / FUN_00156030 / FUN_00156110 / FUN_00156280 / FUN_00156420 / FUN_00156480 / FUN_00156520 / FUN_00156660 / FUN_00156700 / FUN_00156970 / FUN_00156bb0)
-
-
-
-// 0x00154110 fight::ParamEnumConstList<hulkfight::motion::CollisionSourceSizeCondition>::vfunc_0 (30 B): matches/0x00154110.cpp
-// sym: ??_G?$ParamEnumConstList@VCollisionSourceSizeCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
-// (gx3, D32/D18) moved from CollisionTargetPriorityCondition_params_factory.cpp: the implicit destructor of the class; its scalar deleting destructor is
-// emitted beside the vftable by the registration that constructs it (FUN_001550b0 / FUN_00155160 / FUN_00155210 / FUN_00155270 / FUN_00155330 / FUN_001553f0 / FUN_001554a0 / FUN_00155500 / FUN_00155560 / FUN_001555c0 / FUN_00155680 / FUN_001556e0 / FUN_00155790 / FUN_001557f0 / FUN_001558e0 / FUN_001559d0 / FUN_00155af0 / FUN_00155bb0 / FUN_00155c30 / FUN_00155cd0 / FUN_00155ea0 / FUN_00155f80 / FUN_00156030 / FUN_00156110 / FUN_00156280 / FUN_00156420 / FUN_00156480 / FUN_00156520 / FUN_00156660 / FUN_00156700 / FUN_00156970 / FUN_00156bb0)
-
-
-
-// 0x00154170 fight::ParamEnumConstList<hulkfight::motion::CollisionSourceTypeCondition>::vfunc_0 (30 B): matches/0x00154170.cpp
-// sym: ??_G?$ParamEnumConstList@VCollisionSourceTypeCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
-// (gx3, D32/D18) moved from CollisionTargetPriorityCondition_params_factory.cpp: the implicit destructor of the class; its scalar deleting destructor is
-// emitted beside the vftable by the registration that constructs it (FUN_001550b0 / FUN_00155160 / FUN_00155210 / FUN_00155270 / FUN_00155330 / FUN_001553f0 / FUN_001554a0 / FUN_00155500 / FUN_00155560 / FUN_001555c0 / FUN_00155680 / FUN_001556e0 / FUN_00155790 / FUN_001557f0 / FUN_001558e0 / FUN_001559d0 / FUN_00155af0 / FUN_00155bb0 / FUN_00155c30 / FUN_00155cd0 / FUN_00155ea0 / FUN_00155f80 / FUN_00156030 / FUN_00156110 / FUN_00156280 / FUN_00156420 / FUN_00156480 / FUN_00156520 / FUN_00156660 / FUN_00156700 / FUN_00156970 / FUN_00156bb0)
-
-
-
-// 0x001541d0 fight::ParamEnumConstList<hulkfight::motion::CollisionTargetPriorityCondition>::vfunc_0 (30 B): matches/0x001541d0.cpp
-// sym: ??_G?$ParamEnumConstList@VCollisionTargetPriorityCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
-// (gx3, D32/D18) moved from CollisionTargetPriorityCondition_params_factory.cpp: the implicit destructor of the class; its scalar deleting destructor is
-// emitted beside the vftable by the registration that constructs it (FUN_001550b0 / FUN_00155160 / FUN_00155210 / FUN_00155270 / FUN_00155330 / FUN_001553f0 / FUN_001554a0 / FUN_00155500 / FUN_00155560 / FUN_001555c0 / FUN_00155680 / FUN_001556e0 / FUN_00155790 / FUN_001557f0 / FUN_001558e0 / FUN_001559d0 / FUN_00155af0 / FUN_00155bb0 / FUN_00155c30 / FUN_00155cd0 / FUN_00155ea0 / FUN_00155f80 / FUN_00156030 / FUN_00156110 / FUN_00156280 / FUN_00156420 / FUN_00156480 / FUN_00156520 / FUN_00156660 / FUN_00156700 / FUN_00156970 / FUN_00156bb0)
-
-
-
-// 0x001541f0 fight::ParamIntConstRange<hulkfight::motion::CollisionTargetPriorityCondition>::vfunc_0 (30 B): matches/0x001541f0.cpp
-// sym: ??_G?$ParamIntConstRange@VCollisionTargetPriorityCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
-// (gx3, D32/D18) moved from CollisionTargetPriorityCondition_params_factory.cpp: the implicit destructor of the class; its scalar deleting destructor is
-// emitted beside the vftable by the registration that constructs it (FUN_001550b0 / FUN_00155160 / FUN_00155210 / FUN_00155270 / FUN_00155330 / FUN_001553f0 / FUN_001554a0 / FUN_00155500 / FUN_00155560 / FUN_001555c0 / FUN_00155680 / FUN_001556e0 / FUN_00155790 / FUN_001557f0 / FUN_001558e0 / FUN_001559d0 / FUN_00155af0 / FUN_00155bb0 / FUN_00155c30 / FUN_00155cd0 / FUN_00155ea0 / FUN_00155f80 / FUN_00156030 / FUN_00156110 / FUN_00156280 / FUN_00156420 / FUN_00156480 / FUN_00156520 / FUN_00156660 / FUN_00156700 / FUN_00156970 / FUN_00156bb0)
-
-
-
-// 0x00154250 fight::ParamBool<hulkfight::motion::CollisionDevastatorCondition>::vfunc_0 (30 B): matches/0x00154250.cpp
-// sym: ??_G?$ParamBool@VCollisionDevastatorCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
-// (gx3, D32/D18) moved from CollisionDevastatorCondition_params_factory.cpp: the implicit destructor of the class; its scalar deleting destructor is
-// emitted beside the vftable by the registration that constructs it (FUN_001550b0 / FUN_00155160 / FUN_00155210 / FUN_00155270 / FUN_00155330 / FUN_001553f0 / FUN_001554a0 / FUN_00155500 / FUN_00155560 / FUN_001555c0 / FUN_00155680 / FUN_001556e0 / FUN_00155790 / FUN_001557f0 / FUN_001558e0 / FUN_001559d0 / FUN_00155af0 / FUN_00155bb0 / FUN_00155c30 / FUN_00155cd0 / FUN_00155ea0 / FUN_00155f80 / FUN_00156030 / FUN_00156110 / FUN_00156280 / FUN_00156420 / FUN_00156480 / FUN_00156520 / FUN_00156660 / FUN_00156700 / FUN_00156970 / FUN_00156bb0)
-
-
-
-// 0x001542b0 fight::ParamBool<hulkfight::motion::HitPushbackCondition>::vfunc_0 (30 B): matches/0x001542b0.cpp
-// sym: ??_G?$ParamBool@VHitPushbackCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
-// (gx3, D32/D18) moved from CollisionDevastatorCondition_params_factory.cpp: the implicit destructor of the class; its scalar deleting destructor is
-// emitted beside the vftable by the registration that constructs it (FUN_001550b0 / FUN_00155160 / FUN_00155210 / FUN_00155270 / FUN_00155330 / FUN_001553f0 / FUN_001554a0 / FUN_00155500 / FUN_00155560 / FUN_001555c0 / FUN_00155680 / FUN_001556e0 / FUN_00155790 / FUN_001557f0 / FUN_001558e0 / FUN_001559d0 / FUN_00155af0 / FUN_00155bb0 / FUN_00155c30 / FUN_00155cd0 / FUN_00155ea0 / FUN_00155f80 / FUN_00156030 / FUN_00156110 / FUN_00156280 / FUN_00156420 / FUN_00156480 / FUN_00156520 / FUN_00156660 / FUN_00156700 / FUN_00156970 / FUN_00156bb0)
-
-
-
-// 0x00154310 fight::ParamBool<hulkfight::motion::CollisionTargetIsTargetCondition>::vfunc_0 (30 B): matches/0x00154310.cpp
-// sym: ??_G?$ParamBool@VCollisionTargetIsTargetCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
-// (gx3, D32/D18) moved from CollisionDevastatorCondition_params_factory.cpp: the implicit destructor of the class; its scalar deleting destructor is
-// emitted beside the vftable by the registration that constructs it (FUN_001550b0 / FUN_00155160 / FUN_00155210 / FUN_00155270 / FUN_00155330 / FUN_001553f0 / FUN_001554a0 / FUN_00155500 / FUN_00155560 / FUN_001555c0 / FUN_00155680 / FUN_001556e0 / FUN_00155790 / FUN_001557f0 / FUN_001558e0 / FUN_001559d0 / FUN_00155af0 / FUN_00155bb0 / FUN_00155c30 / FUN_00155cd0 / FUN_00155ea0 / FUN_00155f80 / FUN_00156030 / FUN_00156110 / FUN_00156280 / FUN_00156420 / FUN_00156480 / FUN_00156520 / FUN_00156660 / FUN_00156700 / FUN_00156970 / FUN_00156bb0)
-
-
-
-// 0x00154370 fight::ParamEnumConstList<hulkfight::motion::CollisionTargetSizeCondition>::vfunc_0 (30 B): matches/0x00154370.cpp
-// sym: ??_G?$ParamEnumConstList@VCollisionTargetSizeCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
-// (gx3, D32/D18) moved from CollisionDevastatorCondition_params_factory.cpp: the implicit destructor of the class; its scalar deleting destructor is
-// emitted beside the vftable by the registration that constructs it (FUN_001550b0 / FUN_00155160 / FUN_00155210 / FUN_00155270 / FUN_00155330 / FUN_001553f0 / FUN_001554a0 / FUN_00155500 / FUN_00155560 / FUN_001555c0 / FUN_00155680 / FUN_001556e0 / FUN_00155790 / FUN_001557f0 / FUN_001558e0 / FUN_001559d0 / FUN_00155af0 / FUN_00155bb0 / FUN_00155c30 / FUN_00155cd0 / FUN_00155ea0 / FUN_00155f80 / FUN_00156030 / FUN_00156110 / FUN_00156280 / FUN_00156420 / FUN_00156480 / FUN_00156520 / FUN_00156660 / FUN_00156700 / FUN_00156970 / FUN_00156bb0)
-
-
-
-// 0x001543d0 fight::ParamBool<hulkfight::motion::CollisionSourceIsMissileCondition>::vfunc_0 (30 B): matches/0x001543d0.cpp
-// sym: ??_G?$ParamBool@VCollisionSourceIsMissileCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
-// (gx3, D32/D18) moved from CollisionDevastatorCondition_params_factory.cpp: the implicit destructor of the class; its scalar deleting destructor is
-// emitted beside the vftable by the registration that constructs it (FUN_001550b0 / FUN_00155160 / FUN_00155210 / FUN_00155270 / FUN_00155330 / FUN_001553f0 / FUN_001554a0 / FUN_00155500 / FUN_00155560 / FUN_001555c0 / FUN_00155680 / FUN_001556e0 / FUN_00155790 / FUN_001557f0 / FUN_001558e0 / FUN_001559d0 / FUN_00155af0 / FUN_00155bb0 / FUN_00155c30 / FUN_00155cd0 / FUN_00155ea0 / FUN_00155f80 / FUN_00156030 / FUN_00156110 / FUN_00156280 / FUN_00156420 / FUN_00156480 / FUN_00156520 / FUN_00156660 / FUN_00156700 / FUN_00156970 / FUN_00156bb0)
-
-
-
-// 0x00154430 fight::ParamEnumConstList<hulkfight::motion::HitPushbackVelocityCondition>::vfunc_0 (30 B): matches/0x00154430.cpp
-// sym: ??_G?$ParamEnumConstList@VHitPushbackVelocityCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
-// (gx3, D32/D18) moved from HitPushbackVelocityCondition_params_factory.cpp: the implicit destructor of the class; its scalar deleting destructor is
-// emitted beside the vftable by the registration that constructs it (FUN_001550b0 / FUN_00155160 / FUN_00155210 / FUN_00155270 / FUN_00155330 / FUN_001553f0 / FUN_001554a0 / FUN_00155500 / FUN_00155560 / FUN_001555c0 / FUN_00155680 / FUN_001556e0 / FUN_00155790 / FUN_001557f0 / FUN_001558e0 / FUN_001559d0 / FUN_00155af0 / FUN_00155bb0 / FUN_00155c30 / FUN_00155cd0 / FUN_00155ea0 / FUN_00155f80 / FUN_00156030 / FUN_00156110 / FUN_00156280 / FUN_00156420 / FUN_00156480 / FUN_00156520 / FUN_00156660 / FUN_00156700 / FUN_00156970 / FUN_00156bb0)
-
-
-
-// 0x00154450 fight::ParamFloatConstRange<hulkfight::motion::HitPushbackVelocityCondition>::vfunc_0 (30 B): matches/0x00154450.cpp
-// sym: ??_G?$ParamFloatConstRange@VHitPushbackVelocityCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
-// (gx3, D32/D18) moved from HitPushbackVelocityCondition_params_factory.cpp: the implicit destructor of the class; its scalar deleting destructor is
-// emitted beside the vftable by the registration that constructs it (FUN_001550b0 / FUN_00155160 / FUN_00155210 / FUN_00155270 / FUN_00155330 / FUN_001553f0 / FUN_001554a0 / FUN_00155500 / FUN_00155560 / FUN_001555c0 / FUN_00155680 / FUN_001556e0 / FUN_00155790 / FUN_001557f0 / FUN_001558e0 / FUN_001559d0 / FUN_00155af0 / FUN_00155bb0 / FUN_00155c30 / FUN_00155cd0 / FUN_00155ea0 / FUN_00155f80 / FUN_00156030 / FUN_00156110 / FUN_00156280 / FUN_00156420 / FUN_00156480 / FUN_00156520 / FUN_00156660 / FUN_00156700 / FUN_00156970 / FUN_00156bb0)
-
-
-
-// 0x00154510 fight::ParamBool<hulkfight::motion::CollisionExplosionCondition>::vfunc_0 (30 B): matches/0x00154510.cpp
-// sym: ??_G?$ParamBool@VCollisionExplosionCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
-// (gx3, D32/D18) moved from CollisionSourceNodeCondition_params_factory.cpp: the implicit destructor of the class; its scalar deleting destructor is
-// emitted beside the vftable by the registration that constructs it (FUN_001550b0 / FUN_00155160 / FUN_00155210 / FUN_00155270 / FUN_00155330 / FUN_001553f0 / FUN_001554a0 / FUN_00155500 / FUN_00155560 / FUN_001555c0 / FUN_00155680 / FUN_001556e0 / FUN_00155790 / FUN_001557f0 / FUN_001558e0 / FUN_001559d0 / FUN_00155af0 / FUN_00155bb0 / FUN_00155c30 / FUN_00155cd0 / FUN_00155ea0 / FUN_00155f80 / FUN_00156030 / FUN_00156110 / FUN_00156280 / FUN_00156420 / FUN_00156480 / FUN_00156520 / FUN_00156660 / FUN_00156700 / FUN_00156970 / FUN_00156bb0)
-
-
-
-// 0x00154570 fight::ParamEnumConstList<hulkfight::motion::CollisionSourceNodeCondition>::vfunc_0 (30 B): matches/0x00154570.cpp
-// sym: ??_G?$ParamEnumConstList@VCollisionSourceNodeCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
-// (gx3, D32/D18) moved from CollisionSourceNodeCondition_params_factory.cpp: the implicit destructor of the class; its scalar deleting destructor is
-// emitted beside the vftable by the registration that constructs it (FUN_001550b0 / FUN_00155160 / FUN_00155210 / FUN_00155270 / FUN_00155330 / FUN_001553f0 / FUN_001554a0 / FUN_00155500 / FUN_00155560 / FUN_001555c0 / FUN_00155680 / FUN_001556e0 / FUN_00155790 / FUN_001557f0 / FUN_001558e0 / FUN_001559d0 / FUN_00155af0 / FUN_00155bb0 / FUN_00155c30 / FUN_00155cd0 / FUN_00155ea0 / FUN_00155f80 / FUN_00156030 / FUN_00156110 / FUN_00156280 / FUN_00156420 / FUN_00156480 / FUN_00156520 / FUN_00156660 / FUN_00156700 / FUN_00156970 / FUN_00156bb0)
-
-
-
-// 0x00154590 fight::ParamBranch<hulkfight::motion::CollisionSourceNodeCondition>::vfunc_0 (30 B): matches/0x00154590.cpp
-// sym: ??_G?$ParamBranch@VCollisionSourceNodeCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
-// (gx3, D32/D18) moved from CollisionSourceNodeCondition_params_factory.cpp: the implicit destructor of the class; its scalar deleting destructor is
-// emitted beside the vftable by the registration that constructs it (FUN_001550b0 / FUN_00155160 / FUN_00155210 / FUN_00155270 / FUN_00155330 / FUN_001553f0 / FUN_001554a0 / FUN_00155500 / FUN_00155560 / FUN_001555c0 / FUN_00155680 / FUN_001556e0 / FUN_00155790 / FUN_001557f0 / FUN_001558e0 / FUN_001559d0 / FUN_00155af0 / FUN_00155bb0 / FUN_00155c30 / FUN_00155cd0 / FUN_00155ea0 / FUN_00155f80 / FUN_00156030 / FUN_00156110 / FUN_00156280 / FUN_00156420 / FUN_00156480 / FUN_00156520 / FUN_00156660 / FUN_00156700 / FUN_00156970 / FUN_00156bb0)
-
-
-
-// 0x001545b0 fight::ParamBool<hulkfight::motion::CollisionSourceNodeCondition>::vfunc_0 (30 B): matches/0x001545b0.cpp
-// sym: ??_G?$ParamBool@VCollisionSourceNodeCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
-// (gx3, D32/D18) moved from CollisionSourceNodeCondition_params_factory.cpp: the implicit destructor of the class; its scalar deleting destructor is
-// emitted beside the vftable by the registration that constructs it (FUN_001550b0 / FUN_00155160 / FUN_00155210 / FUN_00155270 / FUN_00155330 / FUN_001553f0 / FUN_001554a0 / FUN_00155500 / FUN_00155560 / FUN_001555c0 / FUN_00155680 / FUN_001556e0 / FUN_00155790 / FUN_001557f0 / FUN_001558e0 / FUN_001559d0 / FUN_00155af0 / FUN_00155bb0 / FUN_00155c30 / FUN_00155cd0 / FUN_00155ea0 / FUN_00155f80 / FUN_00156030 / FUN_00156110 / FUN_00156280 / FUN_00156420 / FUN_00156480 / FUN_00156520 / FUN_00156660 / FUN_00156700 / FUN_00156970 / FUN_00156bb0)
-
-
-
-// 0x00154610 fight::ParamEnumConstList<hulkfight::motion::CollisionChargeCondition>::vfunc_0 (30 B): matches/0x00154610.cpp
-// sym: ??_G?$ParamEnumConstList@VCollisionChargeCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
-// (gx3, D32/D18) moved from CollisionChargeCondition_params_factory.cpp: the implicit destructor of the class; its scalar deleting destructor is
-// emitted beside the vftable by the registration that constructs it (FUN_001550b0 / FUN_00155160 / FUN_00155210 / FUN_00155270 / FUN_00155330 / FUN_001553f0 / FUN_001554a0 / FUN_00155500 / FUN_00155560 / FUN_001555c0 / FUN_00155680 / FUN_001556e0 / FUN_00155790 / FUN_001557f0 / FUN_001558e0 / FUN_001559d0 / FUN_00155af0 / FUN_00155bb0 / FUN_00155c30 / FUN_00155cd0 / FUN_00155ea0 / FUN_00155f80 / FUN_00156030 / FUN_00156110 / FUN_00156280 / FUN_00156420 / FUN_00156480 / FUN_00156520 / FUN_00156660 / FUN_00156700 / FUN_00156970 / FUN_00156bb0)
-
-
-
-// 0x00154630 fight::ParamFloatConstRange<hulkfight::motion::CollisionChargeCondition>::vfunc_0 (30 B): matches/0x00154630.cpp
-// sym: ??_G?$ParamFloatConstRange@VCollisionChargeCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
-// (gx3, D32/D18) moved from CollisionChargeCondition_params_factory.cpp: the implicit destructor of the class; its scalar deleting destructor is
-// emitted beside the vftable by the registration that constructs it (FUN_001550b0 / FUN_00155160 / FUN_00155210 / FUN_00155270 / FUN_00155330 / FUN_001553f0 / FUN_001554a0 / FUN_00155500 / FUN_00155560 / FUN_001555c0 / FUN_00155680 / FUN_001556e0 / FUN_00155790 / FUN_001557f0 / FUN_001558e0 / FUN_001559d0 / FUN_00155af0 / FUN_00155bb0 / FUN_00155c30 / FUN_00155cd0 / FUN_00155ea0 / FUN_00155f80 / FUN_00156030 / FUN_00156110 / FUN_00156280 / FUN_00156420 / FUN_00156480 / FUN_00156520 / FUN_00156660 / FUN_00156700 / FUN_00156970 / FUN_00156bb0)
-
-
-
-// 0x00154650 fight::ParamBool<hulkfight::motion::CollisionChargeCondition>::vfunc_0 (30 B): matches/0x00154650.cpp
-// sym: ??_G?$ParamBool@VCollisionChargeCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
-// (gx3, D32/D18) moved from CollisionChargeCondition_params_factory.cpp: the implicit destructor of the class; its scalar deleting destructor is
-// emitted beside the vftable by the registration that constructs it (FUN_001550b0 / FUN_00155160 / FUN_00155210 / FUN_00155270 / FUN_00155330 / FUN_001553f0 / FUN_001554a0 / FUN_00155500 / FUN_00155560 / FUN_001555c0 / FUN_00155680 / FUN_001556e0 / FUN_00155790 / FUN_001557f0 / FUN_001558e0 / FUN_001559d0 / FUN_00155af0 / FUN_00155bb0 / FUN_00155c30 / FUN_00155cd0 / FUN_00155ea0 / FUN_00155f80 / FUN_00156030 / FUN_00156110 / FUN_00156280 / FUN_00156420 / FUN_00156480 / FUN_00156520 / FUN_00156660 / FUN_00156700 / FUN_00156970 / FUN_00156bb0)
-
-
-
-// 0x00154710 fight::ParamEnumConstList<hulkfight::motion::CollisionDamageHealthCompareCondition>::vfunc_0 (30 B): matches/0x00154710.cpp
-// sym: ??_G?$ParamEnumConstList@VCollisionDamageHealthCompareCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
-// (gx3, D32/D18) moved from CollisionDamageHealthCompareCondition_params_factory.cpp: the implicit destructor of the class; its scalar deleting destructor is
-// emitted beside the vftable by the registration that constructs it (FUN_001550b0 / FUN_00155160 / FUN_00155210 / FUN_00155270 / FUN_00155330 / FUN_001553f0 / FUN_001554a0 / FUN_00155500 / FUN_00155560 / FUN_001555c0 / FUN_00155680 / FUN_001556e0 / FUN_00155790 / FUN_001557f0 / FUN_001558e0 / FUN_001559d0 / FUN_00155af0 / FUN_00155bb0 / FUN_00155c30 / FUN_00155cd0 / FUN_00155ea0 / FUN_00155f80 / FUN_00156030 / FUN_00156110 / FUN_00156280 / FUN_00156420 / FUN_00156480 / FUN_00156520 / FUN_00156660 / FUN_00156700 / FUN_00156970 / FUN_00156bb0)
-
-
-
-// 0x00154730 fight::ParamFloatConstRange<hulkfight::motion::CollisionDamageHealthCompareCondition>::vfunc_0 (30 B): matches/0x00154730.cpp
-// sym: ??_G?$ParamFloatConstRange@VCollisionDamageHealthCompareCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
-// (gx3, D32/D18) moved from CollisionDamageHealthCompareCondition_params_factory.cpp: the implicit destructor of the class; its scalar deleting destructor is
-// emitted beside the vftable by the registration that constructs it (FUN_001550b0 / FUN_00155160 / FUN_00155210 / FUN_00155270 / FUN_00155330 / FUN_001553f0 / FUN_001554a0 / FUN_00155500 / FUN_00155560 / FUN_001555c0 / FUN_00155680 / FUN_001556e0 / FUN_00155790 / FUN_001557f0 / FUN_001558e0 / FUN_001559d0 / FUN_00155af0 / FUN_00155bb0 / FUN_00155c30 / FUN_00155cd0 / FUN_00155ea0 / FUN_00155f80 / FUN_00156030 / FUN_00156110 / FUN_00156280 / FUN_00156420 / FUN_00156480 / FUN_00156520 / FUN_00156660 / FUN_00156700 / FUN_00156970 / FUN_00156bb0)
-
-
-
-// 0x00154750 fight::ParamBool<hulkfight::motion::CollisionDamageHealthCompareCondition>::vfunc_0 (30 B): matches/0x00154750.cpp
-// sym: ??_G?$ParamBool@VCollisionDamageHealthCompareCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
-// (gx3, D32/D18) moved from CollisionDamageHealthCompareCondition_params_factory.cpp: the implicit destructor of the class; its scalar deleting destructor is
-// emitted beside the vftable by the registration that constructs it (FUN_001550b0 / FUN_00155160 / FUN_00155210 / FUN_00155270 / FUN_00155330 / FUN_001553f0 / FUN_001554a0 / FUN_00155500 / FUN_00155560 / FUN_001555c0 / FUN_00155680 / FUN_001556e0 / FUN_00155790 / FUN_001557f0 / FUN_001558e0 / FUN_001559d0 / FUN_00155af0 / FUN_00155bb0 / FUN_00155c30 / FUN_00155cd0 / FUN_00155ea0 / FUN_00155f80 / FUN_00156030 / FUN_00156110 / FUN_00156280 / FUN_00156420 / FUN_00156480 / FUN_00156520 / FUN_00156660 / FUN_00156700 / FUN_00156970 / FUN_00156bb0)
-
-
-
-// 0x001547b0 fight::ParamEnumConstList<hulkfight::motion::CollisionTargetTypeCondition>::vfunc_0 (30 B): matches/0x001547b0.cpp
-// sym: ??_G?$ParamEnumConstList@VCollisionTargetTypeCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
-// (gx3, D32/D18) moved from CollisionTargetTypeCondition_params_factory.cpp: the implicit destructor of the class; its scalar deleting destructor is
-// emitted beside the vftable by the registration that constructs it (FUN_001550b0 / FUN_00155160 / FUN_00155210 / FUN_00155270 / FUN_00155330 / FUN_001553f0 / FUN_001554a0 / FUN_00155500 / FUN_00155560 / FUN_001555c0 / FUN_00155680 / FUN_001556e0 / FUN_00155790 / FUN_001557f0 / FUN_001558e0 / FUN_001559d0 / FUN_00155af0 / FUN_00155bb0 / FUN_00155c30 / FUN_00155cd0 / FUN_00155ea0 / FUN_00155f80 / FUN_00156030 / FUN_00156110 / FUN_00156280 / FUN_00156420 / FUN_00156480 / FUN_00156520 / FUN_00156660 / FUN_00156700 / FUN_00156970 / FUN_00156bb0)
-
-
-
-// 0x00154810 fight::ParamEnumConstList<hulkfight::motion::CollisionInterruptPriorityCondition>::vfunc_0 (30 B): matches/0x00154810.cpp
-// sym: ??_G?$ParamEnumConstList@VCollisionInterruptPriorityCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
-// (gx3, D32/D18) moved from CollisionTargetTypeCondition_params_factory.cpp: the implicit destructor of the class; its scalar deleting destructor is
-// emitted beside the vftable by the registration that constructs it (FUN_001550b0 / FUN_00155160 / FUN_00155210 / FUN_00155270 / FUN_00155330 / FUN_001553f0 / FUN_001554a0 / FUN_00155500 / FUN_00155560 / FUN_001555c0 / FUN_00155680 / FUN_001556e0 / FUN_00155790 / FUN_001557f0 / FUN_001558e0 / FUN_001559d0 / FUN_00155af0 / FUN_00155bb0 / FUN_00155c30 / FUN_00155cd0 / FUN_00155ea0 / FUN_00155f80 / FUN_00156030 / FUN_00156110 / FUN_00156280 / FUN_00156420 / FUN_00156480 / FUN_00156520 / FUN_00156660 / FUN_00156700 / FUN_00156970 / FUN_00156bb0)
-
-
-
-// 0x001548d0 fight::ParamFloatConstRange<hulkfight::motion::InterruptAccumulatorSetTrack>::vfunc_0 (30 B): matches/0x001548d0.cpp
-// sym: ??_G?$ParamFloatConstRange@VInterruptAccumulatorSetTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
-// (gx3, D32/D18) moved from CollisionTargetTypeCondition_params_factory.cpp: the implicit destructor of the class; its scalar deleting destructor is
-// emitted beside the vftable by the registration that constructs it (FUN_001550b0 / FUN_00155160 / FUN_00155210 / FUN_00155270 / FUN_00155330 / FUN_001553f0 / FUN_001554a0 / FUN_00155500 / FUN_00155560 / FUN_001555c0 / FUN_00155680 / FUN_001556e0 / FUN_00155790 / FUN_001557f0 / FUN_001558e0 / FUN_001559d0 / FUN_00155af0 / FUN_00155bb0 / FUN_00155c30 / FUN_00155cd0 / FUN_00155ea0 / FUN_00155f80 / FUN_00156030 / FUN_00156110 / FUN_00156280 / FUN_00156420 / FUN_00156480 / FUN_00156520 / FUN_00156660 / FUN_00156700 / FUN_00156970 / FUN_00156bb0)
-
-
-
-// 0x00154930 fight::ParamFloatConstRange<hulkfight::motion::HitThrowTrack>::vfunc_0 (30 B): matches/0x00154930.cpp
-// sym: ??_G?$ParamFloatConstRange@VHitThrowTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
-// (gx3, D32/D18) moved from HitThrowTrack_params_factory.cpp: the implicit destructor of the class; its scalar deleting destructor is
-// emitted beside the vftable by the registration that constructs it (FUN_001550b0 / FUN_00155160 / FUN_00155210 / FUN_00155270 / FUN_00155330 / FUN_001553f0 / FUN_001554a0 / FUN_00155500 / FUN_00155560 / FUN_001555c0 / FUN_00155680 / FUN_001556e0 / FUN_00155790 / FUN_001557f0 / FUN_001558e0 / FUN_001559d0 / FUN_00155af0 / FUN_00155bb0 / FUN_00155c30 / FUN_00155cd0 / FUN_00155ea0 / FUN_00155f80 / FUN_00156030 / FUN_00156110 / FUN_00156280 / FUN_00156420 / FUN_00156480 / FUN_00156520 / FUN_00156660 / FUN_00156700 / FUN_00156970 / FUN_00156bb0)
-
-
-
-// 0x00154950 fight::ParamBool<hulkfight::motion::HitThrowTrack>::vfunc_0 (30 B): matches/0x00154950.cpp
-// sym: ??_G?$ParamBool@VHitThrowTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
-// (gx3, D32/D18) moved from HitThrowTrack_params_factory.cpp: the implicit destructor of the class; its scalar deleting destructor is
-// emitted beside the vftable by the registration that constructs it (FUN_001550b0 / FUN_00155160 / FUN_00155210 / FUN_00155270 / FUN_00155330 / FUN_001553f0 / FUN_001554a0 / FUN_00155500 / FUN_00155560 / FUN_001555c0 / FUN_00155680 / FUN_001556e0 / FUN_00155790 / FUN_001557f0 / FUN_001558e0 / FUN_001559d0 / FUN_00155af0 / FUN_00155bb0 / FUN_00155c30 / FUN_00155cd0 / FUN_00155ea0 / FUN_00155f80 / FUN_00156030 / FUN_00156110 / FUN_00156280 / FUN_00156420 / FUN_00156480 / FUN_00156520 / FUN_00156660 / FUN_00156700 / FUN_00156970 / FUN_00156bb0)
-
-
-
-// 0x00154970 fight::ParamIntConstRange<hulkfight::motion::HitThrowTrack>::vfunc_0 (30 B): matches/0x00154970.cpp
-// sym: ??_G?$ParamIntConstRange@VHitThrowTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
-// (gx3, D32/D18) moved from HitThrowTrack_params_factory.cpp: the implicit destructor of the class; its scalar deleting destructor is
-// emitted beside the vftable by the registration that constructs it (FUN_001550b0 / FUN_00155160 / FUN_00155210 / FUN_00155270 / FUN_00155330 / FUN_001553f0 / FUN_001554a0 / FUN_00155500 / FUN_00155560 / FUN_001555c0 / FUN_00155680 / FUN_001556e0 / FUN_00155790 / FUN_001557f0 / FUN_001558e0 / FUN_001559d0 / FUN_00155af0 / FUN_00155bb0 / FUN_00155c30 / FUN_00155cd0 / FUN_00155ea0 / FUN_00155f80 / FUN_00156030 / FUN_00156110 / FUN_00156280 / FUN_00156420 / FUN_00156480 / FUN_00156520 / FUN_00156660 / FUN_00156700 / FUN_00156970 / FUN_00156bb0)
-
-
-
-// 0x00154a90 fight::ParamFloatConstRange<hulkfight::motion::HitPauseTrack>::vfunc_0 (30 B): matches/0x00154a90.cpp
-// sym: ??_G?$ParamFloatConstRange@VHitPauseTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
-// (gx3, D32/D18) moved from HitReactionTrack_params_factory.cpp: the implicit destructor of the class; its scalar deleting destructor is
-// emitted beside the vftable by the registration that constructs it (FUN_001550b0 / FUN_00155160 / FUN_00155210 / FUN_00155270 / FUN_00155330 / FUN_001553f0 / FUN_001554a0 / FUN_00155500 / FUN_00155560 / FUN_001555c0 / FUN_00155680 / FUN_001556e0 / FUN_00155790 / FUN_001557f0 / FUN_001558e0 / FUN_001559d0 / FUN_00155af0 / FUN_00155bb0 / FUN_00155c30 / FUN_00155cd0 / FUN_00155ea0 / FUN_00155f80 / FUN_00156030 / FUN_00156110 / FUN_00156280 / FUN_00156420 / FUN_00156480 / FUN_00156520 / FUN_00156660 / FUN_00156700 / FUN_00156970 / FUN_00156bb0)
-
-
-
-// 0x00154bb0 fight::ParamFloatConstRange<hulkfight::motion::HitWaitTrack>::vfunc_0 (30 B): matches/0x00154bb0.cpp
-// sym: ??_G?$ParamFloatConstRange@VHitWaitTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
-// (gx3, D32/D18) moved from HitWaitTrack_params_factory.cpp: the implicit destructor of the class; its scalar deleting destructor is
-// emitted beside the vftable by the registration that constructs it (FUN_001550b0 / FUN_00155160 / FUN_00155210 / FUN_00155270 / FUN_00155330 / FUN_001553f0 / FUN_001554a0 / FUN_00155500 / FUN_00155560 / FUN_001555c0 / FUN_00155680 / FUN_001556e0 / FUN_00155790 / FUN_001557f0 / FUN_001558e0 / FUN_001559d0 / FUN_00155af0 / FUN_00155bb0 / FUN_00155c30 / FUN_00155cd0 / FUN_00155ea0 / FUN_00155f80 / FUN_00156030 / FUN_00156110 / FUN_00156280 / FUN_00156420 / FUN_00156480 / FUN_00156520 / FUN_00156660 / FUN_00156700 / FUN_00156970 / FUN_00156bb0)
-
-
-
-// 0x00154bd0 fight::ParamEnumConstList<hulkfight::motion::HitWaitTrack>::vfunc_0 (30 B): matches/0x00154bd0.cpp
-// sym: ??_G?$ParamEnumConstList@VHitWaitTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
-// (gx3, D32/D18) moved from HitWaitTrack_params_factory.cpp: the implicit destructor of the class; its scalar deleting destructor is
-// emitted beside the vftable by the registration that constructs it (FUN_001550b0 / FUN_00155160 / FUN_00155210 / FUN_00155270 / FUN_00155330 / FUN_001553f0 / FUN_001554a0 / FUN_00155500 / FUN_00155560 / FUN_001555c0 / FUN_00155680 / FUN_001556e0 / FUN_00155790 / FUN_001557f0 / FUN_001558e0 / FUN_001559d0 / FUN_00155af0 / FUN_00155bb0 / FUN_00155c30 / FUN_00155cd0 / FUN_00155ea0 / FUN_00155f80 / FUN_00156030 / FUN_00156110 / FUN_00156280 / FUN_00156420 / FUN_00156480 / FUN_00156520 / FUN_00156660 / FUN_00156700 / FUN_00156970 / FUN_00156bb0)
-
-
-
 // 0x00154c00 fight::TrackFactoryCasterTemplate<hulkfight::motion::InterruptPriorityTrack>::vfunc_0 (36 B): matches/0x00154c00.cpp
 // sym: ?vfunc_0@?$TrackFactoryCasterTemplate@VInterruptPriorityTrack@motion@hulkfight@@@fight@@UAE_NPAX@Z
 template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::InterruptPriorityTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
@@ -921,14 +646,20 @@ template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::InterruptP
 // sym: ??_G?$ParamFloatConstRange@VInterruptPriorityTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-// (gx2, D18) implicit: the registration that constructs the class emits this
+template <> fight::ParamFloatConstRange<hulkfight::motion::InterruptPriorityTrack>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<hulkfight::motion::InterruptPriorityTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x154c30)
+#endif
 
 
 // 0x00154c50 fight::ParamIntConstRange<hulkfight::motion::InterruptPriorityTrack>::vfunc_0 (30 B): matches/0x00154c50.cpp
 // sym: ??_G?$ParamIntConstRange@VInterruptPriorityTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-// (gx2, D18) implicit: the registration that constructs the class emits this
+template <> fight::ParamIntConstRange<hulkfight::motion::InterruptPriorityTrack>::~ParamIntConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamIntConstRange<hulkfight::motion::InterruptPriorityTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x154c50)
+#endif
 
 
 // 0x00154c80 fight::TrackFactoryCasterTemplate<hulkfight::motion::HitOrientToPushbackTrack>::vfunc_0 (36 B): matches/0x00154c80.cpp [wrapped: conflict: DAT_0049850c; fight::TrackFactoryCaster; fight::TrackFactoryCasterTemplate; hulkfight::motion::HitOrientToPushbackTrack]
@@ -964,14 +695,20 @@ template bool fight::TrackFactoryCasterTemplate<hulkfight::motion::HitOrientToPu
 // sym: ??_G?$ParamFloatConstRange@VHitOrientToPushbackTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-// (gx2, D18) implicit: the registration that constructs the class emits this
+template <> fight::ParamFloatConstRange<hulkfight::motion::HitOrientToPushbackTrack>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<hulkfight::motion::HitOrientToPushbackTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x154cb0)
+#endif
 
 
 // 0x00154cd0 fight::ParamIntConstRange<hulkfight::motion::HitOrientToPushbackTrack>::vfunc_0 (30 B): matches/0x00154cd0.cpp
 // sym: ??_G?$ParamIntConstRange@VHitOrientToPushbackTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-// (gx2, D18) implicit: the registration that constructs the class emits this
+template <> fight::ParamIntConstRange<hulkfight::motion::HitOrientToPushbackTrack>::~ParamIntConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamIntConstRange<hulkfight::motion::HitOrientToPushbackTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x154cd0)
+#endif
 
 
 // 0x00154d00 fight::TrackFactoryCasterTemplate<hulkfight::motion::HitFloatTrack>::vfunc_0 (36 B): matches/0x00154d00.cpp
@@ -986,21 +723,30 @@ template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::HitFloatTr
 // sym: ??_G?$ParamFloatConstRange@VHitFloatTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-// (gx2, D18) implicit: the registration that constructs the class emits this
+template <> fight::ParamFloatConstRange<hulkfight::motion::HitFloatTrack>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<hulkfight::motion::HitFloatTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x154d30)
+#endif
 
 
 // 0x00154d50 fight::ParamBool<hulkfight::motion::HitFloatTrack>::vfunc_0 (30 B): matches/0x00154d50.cpp
 // sym: ??_G?$ParamBool@VHitFloatTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-// (gx2, D18) implicit: the registration that constructs the class emits this
+template <> fight::ParamBool<hulkfight::motion::HitFloatTrack>::~ParamBool() {}
+#if defined(HULK_PTR64)
+template class fight::ParamBool<hulkfight::motion::HitFloatTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x154d50)
+#endif
 
 
 // 0x00154d70 fight::ParamIntConstRange<hulkfight::motion::HitFloatTrack>::vfunc_0 (30 B): matches/0x00154d70.cpp
 // sym: ??_G?$ParamIntConstRange@VHitFloatTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-// (gx2, D18) implicit: the registration that constructs the class emits this
+template <> fight::ParamIntConstRange<hulkfight::motion::HitFloatTrack>::~ParamIntConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamIntConstRange<hulkfight::motion::HitFloatTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x154d70)
+#endif
 
 
 // 0x00154da0 fight::TrackFactoryCasterTemplate<hulkfight::motion::ClearFightParamsHitRecordTrack>::vfunc_0 (36 B): matches/0x00154da0.cpp
@@ -1015,7 +761,10 @@ template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::ClearFight
 // sym: ??_G?$ParamFloatConstRange@VClearFightParamsHitRecordTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-// (gx2, D18) implicit: the registration that constructs the class emits this
+template <> fight::ParamFloatConstRange<hulkfight::motion::ClearFightParamsHitRecordTrack>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<hulkfight::motion::ClearFightParamsHitRecordTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x154dd0)
+#endif
 
 
 // 0x00154e00 fight::TrackFactoryCasterTemplate<hulkfight::motion::HitPushbackAddTrack>::vfunc_0 (36 B): matches/0x00154e00.cpp
@@ -1031,7 +780,10 @@ template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::HitPushbac
 // sym: ??_G?$ParamFloatConstRange@VHitPushbackAddTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-// (gx2, D18) implicit: the registration that constructs the class emits this
+template <> fight::ParamFloatConstRange<hulkfight::motion::HitPushbackAddTrack>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<hulkfight::motion::HitPushbackAddTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x154e30)
+#endif
 
 
 // 0x00154e60 fight::TrackFactoryCasterTemplate<hulkfight::motion::HealthTrack>::vfunc_0 (36 B): matches/0x00154e60.cpp
@@ -1047,14 +799,20 @@ template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::HealthTrac
 // sym: ??_G?$ParamFloatConstRange@VHealthTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-// (gx2, D18) implicit: the registration that constructs the class emits this
+template <> fight::ParamFloatConstRange<hulkfight::motion::HealthTrack>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<hulkfight::motion::HealthTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x154e90)
+#endif
 
 
 // 0x00154eb0 fight::ParamBool<hulkfight::motion::HealthTrack>::vfunc_0 (30 B): matches/0x00154eb0.cpp
 // sym: ??_G?$ParamBool@VHealthTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-// (gx2, D18) implicit: the registration that constructs the class emits this
+template <> fight::ParamBool<hulkfight::motion::HealthTrack>::~ParamBool() {}
+#if defined(HULK_PTR64)
+template class fight::ParamBool<hulkfight::motion::HealthTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x154eb0)
+#endif
 
 
 // 0x00154ee0 fight::TrackFactoryCasterTemplate<hulkfight::motion::HitDamageTrack>::vfunc_0 (36 B): matches/0x00154ee0.cpp
@@ -1069,7 +827,10 @@ template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::HitDamageT
 // sym: ??_G?$ParamFloatConstRange@VHitDamageTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-// (gx2, D18) implicit: the registration that constructs the class emits this
+template <> fight::ParamFloatConstRange<hulkfight::motion::HitDamageTrack>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<hulkfight::motion::HitDamageTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x154f10)
+#endif
 
 
 // 0x00154f40 fight::TrackFactoryCasterTemplate<hulkfight::motion::GroundSlideTrack>::vfunc_0 (36 B): matches/0x00154f40.cpp
@@ -1085,14 +846,20 @@ template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::GroundSlid
 // sym: ??_G?$ParamFloatConstRange@VGroundSlideTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-// (gx2, D18) implicit: the registration that constructs the class emits this
+template <> fight::ParamFloatConstRange<hulkfight::motion::GroundSlideTrack>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<hulkfight::motion::GroundSlideTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x154f70)
+#endif
 
 
 // 0x00154f90 fight::ParamIntConstRange<hulkfight::motion::GroundSlideTrack>::vfunc_0 (30 B): matches/0x00154f90.cpp
 // sym: ??_G?$ParamIntConstRange@VGroundSlideTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-// (gx2, D18) implicit: the registration that constructs the class emits this
+template <> fight::ParamIntConstRange<hulkfight::motion::GroundSlideTrack>::~ParamIntConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamIntConstRange<hulkfight::motion::GroundSlideTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x154f90)
+#endif
 
 
 // 0x00154fc0 fight::TrackFactoryCasterTemplate<hulkfight::motion::HitPushbackTrack>::vfunc_0 (36 B): matches/0x00154fc0.cpp [wrapped: conflict: DAT_0049850c; fight::TrackFactoryCaster; fight::TrackFactoryCasterTemplate; hulkfight::motion::HitPushbackTrack]
@@ -1128,21 +895,30 @@ template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::HitPushbac
 // sym: ??_G?$ParamFloatConstRange@VHitPushbackTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-// (gx2, D18) implicit: the registration that constructs the class emits this
+template <> fight::ParamFloatConstRange<hulkfight::motion::HitPushbackTrack>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<hulkfight::motion::HitPushbackTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x154ff0)
+#endif
 
 
 // 0x00155010 fight::ParamBool<hulkfight::motion::HitPushbackTrack>::vfunc_0 (30 B): matches/0x00155010.cpp
 // sym: ??_G?$ParamBool@VHitPushbackTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-// (gx2, D18) implicit: the registration that constructs the class emits this
+template <> fight::ParamBool<hulkfight::motion::HitPushbackTrack>::~ParamBool() {}
+#if defined(HULK_PTR64)
+template class fight::ParamBool<hulkfight::motion::HitPushbackTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x155010)
+#endif
 
 
 // 0x00155030 fight::ParamIntConstRange<hulkfight::motion::HitPushbackTrack>::vfunc_0 (30 B): matches/0x00155030.cpp
 // sym: ??_G?$ParamIntConstRange@VHitPushbackTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-// (gx2, D18) implicit: the registration that constructs the class emits this
+template <> fight::ParamIntConstRange<hulkfight::motion::HitPushbackTrack>::~ParamIntConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamIntConstRange<hulkfight::motion::HitPushbackTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x155030)
+#endif
 
 
 // 0x00155060 fight::TrackFactoryCasterTemplate<hulkfight::motion::NoHitPushbackTrack>::vfunc_0 (36 B): matches/0x00155060.cpp
@@ -1158,592 +934,698 @@ template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::NoHitPushb
 // sym: ??_G?$ParamFloatConstRange@VNoHitPushbackTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-// (gx2, D18) implicit: the registration that constructs the class emits this
+template <> fight::ParamFloatConstRange<hulkfight::motion::NoHitPushbackTrack>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<hulkfight::motion::NoHitPushbackTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x155090)
+#endif
 
 namespace fn_ff72ca8e {
 
-} // namespace fn_ff72ca8e
-
-namespace fn_ff72ca8e {
-
-} // namespace fn_ff72ca8e
-
-// 0x001550b0 FUN_001550b0 (176 B): matches/0x001550b0.cpp
-// sym: _FUN_001550b0
-// (gx2, D18) rewritten; constructs the real ParamEnumConstList<hulkmotion::InterruptAccumulatorCondition>, ParamFloatConstRange<hulkmotion::InterruptAccumulatorCondition>,
-// whose vftable and scalar deleting destructor it emits
+// 0x001550b0 FUN_001550b0 (176 B): equivalent/0x001550b0.cpp
+// sym: _FUN_001550b0 @8bc43043d391 @w84cdc963796f
+// STATUS: equivalent (tools/equiv.py level 3: 2994 inputs, branch coverage 6/6)
+// FUN_001550b0 @ 0x001550b0
 extern "C" void FUN_001550b0()
 {
     if (DAT_004e102c == 0) {
-        ::fight::ParamValue* params[2];
-        params[0] = new ::fight::ParamEnumConstList< ::hulkfight::motion::InterruptAccumulatorCondition>("compare", (void*)&DAT_0042773c, DAT_00427754, &owners::Obj_14c470::FUN_0014c470);
-        params[1] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::InterruptAccumulatorCondition>("percent", &owners::Obj_14c480::FUN_0014c480);
-        FUN_002347b0(&DAT_004e1028, params, 2);
+        void* params[2];
+        void* mem;
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_1550b0<hulkfight::motion::InterruptAccumulatorCondition_1550b0>));
+        params[0] = 0;
+        if (mem)
+            params[0] = new (mem) fight::ParamEnumConstList_1550b0<hulkfight::motion::InterruptAccumulatorCondition_1550b0>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), (void (hulkfight::motion::InterruptAccumulatorCondition_1550b0::*)())&hulkfight::motion::InterruptAccumulatorCondition_1550b0::FUN_0014c470);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_1550b0<hulkfight::motion::InterruptAccumulatorCondition_1550b0>));
+        params[1] = 0;
+        if (mem)
+            params[1] = new (mem) fight::ParamFloatConstRange_1550b0<hulkfight::motion::InterruptAccumulatorCondition_1550b0>("percent", (void (hulkfight::motion::InterruptAccumulatorCondition_1550b0::*)())&hulkfight::motion::InterruptAccumulatorCondition_1550b0::FUN_0014c480);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e1028), params, 2);
     }
     DAT_004e102c++;
 }
 
 
-
-// 0x00155160 FUN_00155160 (176 B): matches/0x00155160.cpp
-// sym: _FUN_00155160
-// (gx2, D18) rewritten; constructs the real ParamEnumConstList<hulkmotion::CollisionSourceForceMagnitudeCondition>, ParamFloatConstRange<hulkmotion::CollisionSourceForceMagnitudeCondition>,
-// whose vftable and scalar deleting destructor it emits
+// 0x00155160 FUN_00155160 (176 B): equivalent/0x00155160.cpp
+// sym: _FUN_00155160 @ba8efcc297c8 @wcc9bda801523
+// STATUS: equivalent (tools/equiv.py level 3: 2996 inputs, branch coverage 6/6)
+// FUN_00155160 @ 0x00155160
 extern "C" void FUN_00155160()
 {
     if (DAT_004e1034 == 0) {
-        ::fight::ParamValue* params[2];
-        params[0] = new ::fight::ParamEnumConstList< ::hulkfight::motion::CollisionSourceForceMagnitudeCondition>("compare", (void*)&DAT_0042773c, DAT_00427754, &fn_f2fc69c6::Obj_14c490::Set);
-        params[1] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::CollisionSourceForceMagnitudeCondition>("force", &owners::Obj_14c4b0::FUN_0014c4b0);
-        FUN_002347b0(&DAT_004e1030, params, 2);
+        void* params[2];
+        void* mem;
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_155160<hulkfight::motion::CollisionSourceForceMagnitudeCondition_155160>));
+        params[0] = 0;
+        if (mem)
+            params[0] = new (mem) fight::ParamEnumConstList_155160<hulkfight::motion::CollisionSourceForceMagnitudeCondition_155160>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), (void (hulkfight::motion::CollisionSourceForceMagnitudeCondition_155160::*)())&hulkfight::motion::CollisionSourceForceMagnitudeCondition_155160::FUN_0014c490);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_155160<hulkfight::motion::CollisionSourceForceMagnitudeCondition_155160>));
+        params[1] = 0;
+        if (mem)
+            params[1] = new (mem) fight::ParamFloatConstRange_155160<hulkfight::motion::CollisionSourceForceMagnitudeCondition_155160>("force", (void (hulkfight::motion::CollisionSourceForceMagnitudeCondition_155160::*)())&hulkfight::motion::CollisionSourceForceMagnitudeCondition_155160::FUN_0014c4b0);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e1030), params, 2);
     }
     DAT_004e1034++;
 }
 
 
-
-// 0x00155210 FUN_00155210 (95 B): matches/0x00155210.cpp
-// sym: _FUN_00155210
-// (gx2, D18) rewritten; constructs the real ParamBool<hulkmotion::CollisionThrowCondition>,
-// whose vftable and scalar deleting destructor it emits
+// 0x00155210 FUN_00155210 (95 B): equivalent/0x00155210.cpp
+// sym: _FUN_00155210 @3661897d1191 @wb5d68453cbe9
+// STATUS: equivalent (tools/equiv.py level 3: 2998 inputs, branch coverage 4/4)
+// FUN_00155210 @ 0x00155210
 extern "C" void FUN_00155210()
 {
     if (DAT_004e103c == 0) {
-        ::fight::ParamValue* params[1];
-        params[0] = new ::fight::ParamBool< ::hulkfight::motion::CollisionThrowCondition>("throw", &owners::Obj_14c4c0::FUN_0014c4c0);
-        FUN_002347b0(&DAT_004e1038, params, 1);
+        void* params[1];
+        void* mem;
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_155210<hulkfight::motion::CollisionThrowCondition_155210>));
+        params[0] = 0;
+        if (mem)
+            params[0] = new (mem) fight::ParamBool_155210<hulkfight::motion::CollisionThrowCondition_155210>("throw", (void (hulkfight::motion::CollisionThrowCondition_155210::*)())&hulkfight::motion::CollisionThrowCondition_155210::FUN_0014c4c0);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e1038), params, 1);
     }
     DAT_004e103c++;
 }
 
+} // namespace fn_ff72ca8e
+
+// 0x001553f0 FUN_001553f0 (176 B): equivalent/0x001553f0.cpp [wrapped: conflict: fight::ParamEnumConstList; fight::ParamIntConstRange; hulkfight::motion::CollisionTargetPriorityCondition]
+// sym: _FUN_001553f0 @9d90bee09bb2 @w0bc35e6e39d6
+namespace fn_001553f0 {
+// STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 6/6)
+// FUN_001553f0 @ 0x001553f0
 
 
-// 0x00155270 FUN_00155270 (192 B): matches/0x00155270.cpp
-// sym: _FUN_00155270
-// (gx2, D18) from InterruptPriorityTrack_reg.new_plain.cpp; constructs the real ParamEnumConstList<hulkmotion::CollisionSourceSizeCondition>,
-// whose vftable and scalar deleting destructor it emits
-extern "C" void FUN_00155270()
-{
-    if (DAT_004e1044 == 0) {
-        ::fight::ParamValue* params[2];
-        params[0] = new ::fight::ParamEnumConstList< ::hulkfight::motion::CollisionSourceSizeCondition>("compare", (void*)&DAT_00427758, DAT_00427760, &fn_f2fc69c6::X_14c4d0::SetCompare_0014c4d0);
-        params[1] = new ::fight::ParamEnumConstList< ::hulkfight::motion::CollisionSourceSizeCondition>("size", (void*)&DAT_0048f6b4, DAT_003f5eb4, &fn_f2fc69c6::X_14c4e0::SetSize_0014c4e0);
-        FUN_002347b0(&DAT_004e1040, params, 2);
-    }
-    DAT_004e1044++;
+void* FUN_0008d690(unsigned int size);
+
+namespace hulkfight {
+namespace motion {
+class CollisionTargetPriorityCondition {
+public:
+    bool FUN_0014c510(int); /* (unb4) as defined; address taken only */
+    bool FUN_0014c530(int); /* (unb4) as defined; address taken only */
+};
+}
 }
 
-
-
-// 0x00155330 FUN_00155330 (190 B): matches/0x00155330.cpp
-// sym: _FUN_00155330
-// (gx2, D18) from InterruptPriorityTrack_reg.new_plain.cpp; constructs the real ParamEnumConstList<hulkmotion::CollisionSourceTypeCondition>,
-// whose vftable and scalar deleting destructor it emits
-extern "C" void FUN_00155330()
-{
-    if (DAT_004e104c == 0) {
-        ::fight::ParamValue* params[2];
-        params[0] = new ::fight::ParamEnumConstList< ::hulkfight::motion::CollisionSourceTypeCondition>("compare", (void*)&DAT_00427758, DAT_00427760, &fn_f2fc69c6::Obj_14c4f0::SetCompare_0014c4f0);
-        params[1] = new ::fight::ParamEnumConstList< ::hulkfight::motion::CollisionSourceTypeCondition>("type", (void*)&DAT_004af9f0, 2, &fn_f2fc69c6::Obj_14c500::SetType_0014c500);
-        FUN_002347b0(&DAT_004e1048, params, 2);
-    }
-    DAT_004e104c++;
+class __declspec(novtable) ParamEnumConstListBase {
+public:
+    virtual void v0();
+    char pad04[0xc];
+    void FUN_00234cc0(const char* name);
+    ParamEnumConstListBase(const char* name) { FUN_00234cc0(name); }
+};
+class __declspec(novtable) ParamIntConstRangeBase {
+public:
+    virtual void v0();
+    char pad04[0xc];
+    void FUN_002348e0(const char* name);
+    ParamIntConstRangeBase(const char* name) { FUN_002348e0(name); }
+};
+namespace fight {
+template <class T>
+class ParamEnumConstList : public ParamEnumConstListBase {
+public:
+    ParamEnumConstList(const char* name, const char** n, int c, void (T::*s)())
+        : ParamEnumConstListBase(name) { count = c; names = n; setter = s; }
+    virtual void v0();
+    const char** names;
+    int count;
+    void (T::*setter)();
+    int unused1c;
+};
+template <class T>
+class ParamIntConstRange : public ParamIntConstRangeBase {
+public:
+    ParamIntConstRange(const char* name, void (T::*s)()) : ParamIntConstRangeBase(name) { setter = s; }
+    virtual void v0();
+    void (T::*setter)();
+    int unused14;
+};
 }
 
+struct ParamRegistry {
+};
 
 
-// 0x001553f0 FUN_001553f0 (176 B): matches/0x001553f0.cpp
-// sym: _FUN_001553f0
-// (gx2, D18) rewritten; constructs the real ParamEnumConstList<hulkmotion::CollisionTargetPriorityCondition>, ParamIntConstRange<hulkmotion::CollisionTargetPriorityCondition>,
-// whose vftable and scalar deleting destructor it emits
+
+void FUN_002347b0(ParamRegistry* reg, void** params, int count);
+
 extern "C" void FUN_001553f0()
 {
     if (DAT_004e1054 == 0) {
-        ::fight::ParamValue* params[2];
-        params[0] = new ::fight::ParamEnumConstList< ::hulkfight::motion::CollisionTargetPriorityCondition>("compare", (void*)&DAT_0042773c, DAT_00427754, &owners::X_14c510::FUN_0014c510);
-        params[1] = new ::fight::ParamIntConstRange< ::hulkfight::motion::CollisionTargetPriorityCondition>("targetPriority", &owners::T_14c530::FUN_0014c530);
-        FUN_002347b0(&DAT_004e1050, params, 2);
+        void* params[2];
+        void* mem;
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList<hulkfight::motion::CollisionTargetPriorityCondition>));
+        params[0] = 0;
+        if (mem)
+            params[0] = new (mem) fight::ParamEnumConstList<hulkfight::motion::CollisionTargetPriorityCondition>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), (void (hulkfight::motion::CollisionTargetPriorityCondition::*)())&hulkfight::motion::CollisionTargetPriorityCondition::FUN_0014c510);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange<hulkfight::motion::CollisionTargetPriorityCondition>));
+        params[1] = 0;
+        if (mem)
+            params[1] = new (mem) fight::ParamIntConstRange<hulkfight::motion::CollisionTargetPriorityCondition>("targetPriority", (void (hulkfight::motion::CollisionTargetPriorityCondition::*)())&hulkfight::motion::CollisionTargetPriorityCondition::FUN_0014c530);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e1050), params, 2);
     }
     DAT_004e1054++;
 }
+} // namespace fn_001553f0
 
+namespace fn_ff72ca8e {
 
-
-// 0x001554a0 FUN_001554a0 (95 B): matches/0x001554a0.cpp
-// sym: _FUN_001554a0
-// (gx2, D18) rewritten; constructs the real ParamBool<hulkmotion::CollisionDevastatorCondition>,
-// whose vftable and scalar deleting destructor it emits
+// 0x001554a0 FUN_001554a0 (95 B): equivalent/0x001554a0.cpp
+// sym: _FUN_001554a0 @72199db0f57c @w21e527b4ed88
+// STATUS: equivalent (tools/equiv.py level 3: 2999 inputs, branch coverage 4/4)
+// FUN_001554a0 @ 0x001554a0
 extern "C" void FUN_001554a0()
 {
     if (DAT_004e105c == 0) {
-        ::fight::ParamValue* params[1];
-        params[0] = new ::fight::ParamBool< ::hulkfight::motion::CollisionDevastatorCondition>("isDevastator", &owners::Obj_14c540::FUN_0014c540);
-        FUN_002347b0(&DAT_004e1058, params, 1);
+        void* params[1];
+        void* mem;
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_1554a0<hulkfight::motion::CollisionDevastatorCondition_1554a0>));
+        params[0] = 0;
+        if (mem)
+            params[0] = new (mem) fight::ParamBool_1554a0<hulkfight::motion::CollisionDevastatorCondition_1554a0>("isDevastator", (void (hulkfight::motion::CollisionDevastatorCondition_1554a0::*)())&hulkfight::motion::CollisionDevastatorCondition_1554a0::FUN_0014c540);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e1058), params, 1);
     }
     DAT_004e105c++;
 }
 
 
-
-// 0x00155500 FUN_00155500 (95 B): matches/0x00155500.cpp
-// sym: _FUN_00155500
-// (gx2, D18) from InterruptPriorityTrack_reg.iso_00155500.cpp; constructs the real ParamBool<hulkmotion::HitPushbackCondition>,
-// whose vftable and scalar deleting destructor it emits
-extern "C" void FUN_00155500()
-{
-    if ((*(int*)&DAT_004e1064) == 0) {
-        ::fight::ParamValue* params[1];
-        params[0] = new ::fight::ParamBool< ::hulkfight::motion::HitPushbackCondition>("hasHitPushback", &fn_f2fc69c6::X_14c550::Fn);
-        FUN_002347b0(&DAT_004e1060, params, 1);
-    }
-    (*(int*)&DAT_004e1064)++;
-}
-
-
-
-// 0x00155560 FUN_00155560 (95 B): matches/0x00155560.cpp
-// sym: _FUN_00155560
-// (gx2, D18) rewritten; constructs the real ParamBool<hulkmotion::CollisionTargetIsTargetCondition>,
-// whose vftable and scalar deleting destructor it emits
+// 0x00155560 FUN_00155560 (95 B): equivalent/0x00155560.cpp
+// sym: _FUN_00155560 @7d33a6745868 @w5653ca5d165e
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
+// FUN_00155560 @ 0x00155560
 extern "C" void FUN_00155560()
 {
     if (DAT_004e106c == 0) {
-        ::fight::ParamValue* params[1];
-        params[0] = new ::fight::ParamBool< ::hulkfight::motion::CollisionTargetIsTargetCondition>("isTarget", &owners::X_14c570::FUN_0014c570);
-        FUN_002347b0(&DAT_004e1068, params, 1);
+        void* params[1];
+        void* mem;
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_155560<hulkfight::motion::CollisionTargetIsTargetCondition_155560>));
+        params[0] = 0;
+        if (mem)
+            params[0] = new (mem) fight::ParamBool_155560<hulkfight::motion::CollisionTargetIsTargetCondition_155560>("isTarget", (void (hulkfight::motion::CollisionTargetIsTargetCondition_155560::*)())&hulkfight::motion::CollisionTargetIsTargetCondition_155560::FUN_0014c570);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e1068), params, 1);
     }
     DAT_004e106c++;
 }
 
 
-
-// 0x001555c0 FUN_001555c0 (192 B): matches/0x001555c0.cpp
-// sym: _FUN_001555c0
-// (gx2, D18) from InterruptPriorityTrack_reg.new_plain.cpp; constructs the real ParamEnumConstList<hulkmotion::CollisionTargetSizeCondition>,
-// whose vftable and scalar deleting destructor it emits
-extern "C" void FUN_001555c0()
-{
-    if (DAT_004e1074 == 0) {
-        ::fight::ParamValue* params[2];
-        params[0] = new ::fight::ParamEnumConstList< ::hulkfight::motion::CollisionTargetSizeCondition>("compare", (void*)&DAT_00427758, DAT_00427760, &fn_f2fc69c6::D::SetCompare_0014c580);
-        params[1] = new ::fight::ParamEnumConstList< ::hulkfight::motion::CollisionTargetSizeCondition>("size", (void*)&DAT_0048f6b4, DAT_003f5eb4, &fn_f2fc69c6::Obj_14c590::SetSize_0014c590);
-        FUN_002347b0(&DAT_004e1070, params, 2);
-    }
-    DAT_004e1074++;
-}
-
-
-
-// 0x00155680 FUN_00155680 (95 B): matches/0x00155680.cpp
-// sym: _FUN_00155680
-// (gx2, D18) rewritten; constructs the real ParamBool<hulkmotion::CollisionSourceIsMissileCondition>,
-// whose vftable and scalar deleting destructor it emits
+// 0x00155680 FUN_00155680 (95 B): equivalent/0x00155680.cpp
+// sym: _FUN_00155680 @8b12dc1def7a @wf69b7a26abb0
+// STATUS: equivalent (tools/equiv.py level 3: 2997 inputs, branch coverage 4/4)
+// FUN_00155680 @ 0x00155680
 extern "C" void FUN_00155680()
 {
     if (DAT_004e107c == 0) {
-        ::fight::ParamValue* params[1];
-        params[0] = new ::fight::ParamBool< ::hulkfight::motion::CollisionSourceIsMissileCondition>("isMissile", &owners::Obj_14c5a0::FUN_0014c5a0);
-        FUN_002347b0(&DAT_004e1078, params, 1);
+        void* params[1];
+        void* mem;
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_155680<hulkfight::motion::CollisionSourceIsMissileCondition_155680>));
+        params[0] = 0;
+        if (mem)
+            params[0] = new (mem) fight::ParamBool_155680<hulkfight::motion::CollisionSourceIsMissileCondition_155680>("isMissile", (void (hulkfight::motion::CollisionSourceIsMissileCondition_155680::*)())&hulkfight::motion::CollisionSourceIsMissileCondition_155680::FUN_0014c5a0);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e1078), params, 1);
     }
     DAT_004e107c++;
 }
 
 
-
-// 0x001556e0 FUN_001556e0 (176 B): matches/0x001556e0.cpp
-// sym: _FUN_001556e0
-// (gx2, D18) rewritten; constructs the real ParamEnumConstList<hulkmotion::HitPushbackVelocityCondition>, ParamFloatConstRange<hulkmotion::HitPushbackVelocityCondition>,
-// whose vftable and scalar deleting destructor it emits
+// 0x001556e0 FUN_001556e0 (176 B): equivalent/0x001556e0.cpp
+// sym: _FUN_001556e0 @1fd2a1ba265c @w63ccebd2973b
+// STATUS: equivalent (tools/equiv.py level 3: 2992 inputs, branch coverage 6/6)
+// FUN_001556e0 @ 0x001556e0
 extern "C" void FUN_001556e0()
 {
     if (DAT_004e1084 == 0) {
-        ::fight::ParamValue* params[2];
-        params[0] = new ::fight::ParamEnumConstList< ::hulkfight::motion::HitPushbackVelocityCondition>("compare", (void*)&DAT_0042773c, DAT_00427754, &owners::Obj_14c5b0::FUN_0014c5b0);
-        params[1] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::HitPushbackVelocityCondition>("velocity", &owners::Obj_14c5d0::FUN_0014c5d0);
-        FUN_002347b0(&DAT_004e1080, params, 2);
+        void* params[2];
+        void* mem;
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_1556e0<hulkfight::motion::HitPushbackVelocityCondition_1556e0>));
+        params[0] = 0;
+        if (mem)
+            params[0] = new (mem) fight::ParamEnumConstList_1556e0<hulkfight::motion::HitPushbackVelocityCondition_1556e0>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), (void (hulkfight::motion::HitPushbackVelocityCondition_1556e0::*)())&hulkfight::motion::HitPushbackVelocityCondition_1556e0::FUN_0014c5b0);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_1556e0<hulkfight::motion::HitPushbackVelocityCondition_1556e0>));
+        params[1] = 0;
+        if (mem)
+            params[1] = new (mem) fight::ParamFloatConstRange_1556e0<hulkfight::motion::HitPushbackVelocityCondition_1556e0>("velocity", (void (hulkfight::motion::HitPushbackVelocityCondition_1556e0::*)())&hulkfight::motion::HitPushbackVelocityCondition_1556e0::FUN_0014c5d0);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e1080), params, 2);
     }
     DAT_004e1084++;
 }
 
 
-
-// 0x00155790 FUN_00155790 (95 B): matches/0x00155790.cpp
-// sym: _FUN_00155790
-// (gx2, D18) rewritten; constructs the real ParamBool<hulkmotion::CollisionExplosionCondition>,
-// whose vftable and scalar deleting destructor it emits
+// 0x00155790 FUN_00155790 (95 B): equivalent/0x00155790.cpp
+// sym: _FUN_00155790 @a6f1c53a33d1 @wdadb06b451d0
+// STATUS: equivalent (tools/equiv.py level 3: 2999 inputs, branch coverage 4/4)
+// FUN_00155790 @ 0x00155790
 extern "C" void FUN_00155790()
 {
     if (DAT_004e1094 == 0) {
-        ::fight::ParamValue* params[1];
-        params[0] = new ::fight::ParamBool< ::hulkfight::motion::CollisionExplosionCondition>("explosion", &owners::Obj_14c600::FUN_0014c600);
-        FUN_002347b0(&DAT_004e1090, params, 1);
+        void* params[1];
+        void* mem;
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_155790<hulkfight::motion::CollisionExplosionCondition_155790>));
+        params[0] = 0;
+        if (mem)
+            params[0] = new (mem) fight::ParamBool_155790<hulkfight::motion::CollisionExplosionCondition_155790>("explosion", (void (hulkfight::motion::CollisionExplosionCondition_155790::*)())&hulkfight::motion::CollisionExplosionCondition_155790::FUN_0014c600);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e1090), params, 1);
     }
     DAT_004e1094++;
 }
 
 
-
-// 0x001557f0 FUN_001557f0 (231 B): matches/0x001557f0.cpp
-// sym: ?FUN_001557f0@@YAXXZ
-// (gx2, D18) from InterruptPriorityTrack_reg.new_plain.cpp; constructs the real ParamBool<hulkmotion::CollisionSourceNodeCondition>, ParamBranch<hulkmotion::CollisionSourceNodeCondition>, ParamEnumConstList<hulkmotion::CollisionSourceNodeCondition>,
-// whose vftable and scalar deleting destructor it emits
-void FUN_001557f0()
-{
-    if ((*(int*)&DAT_004e109c) == 0) {
-        ::fight::ParamValue* params[3];
-        params[0] = new ::fight::ParamEnumConstList< ::hulkfight::motion::CollisionSourceNodeCondition>("compare", (void*)&DAT_00427758, DAT_00427760, &fn_f2fc69c6::Obj_14c610::SetCompare_0014c610);
-        params[1] = new ::fight::ParamBranch< ::hulkfight::motion::CollisionSourceNodeCondition>("branch", &fn_f2fc69c6::A_14c620::GetBranch_0014c620);
-        params[2] = new ::fight::ParamBool< ::hulkfight::motion::CollisionSourceNodeCondition>("checkAncestors", &fn_f2fc69c6::X_14c630::SetCheckAncestors_0014c630);
-        FUN_002347b0(&DAT_004e1098, params, 3);
-    }
-    (*(int*)&DAT_004e109c)++;
-}
-
-
-
-// 0x001558e0 FUN_001558e0 (231 B): matches/0x001558e0.cpp
-// sym: ?FUN_001558e0@@YAXXZ
-// (gx2, D18) from InterruptPriorityTrack_reg.new_plain.cpp; constructs the real ParamBool<hulkmotion::CollisionChargeCondition>, ParamEnumConstList<hulkmotion::CollisionChargeCondition>, ParamFloatConstRange<hulkmotion::CollisionChargeCondition>,
-// whose vftable and scalar deleting destructor it emits
-void FUN_001558e0()
-{
-    if ((*(int*)&DAT_004e10a4) == 0) {
-        ::fight::ParamValue* params[3];
-        params[0] = new ::fight::ParamEnumConstList< ::hulkfight::motion::CollisionChargeCondition>("compare", (void*)&DAT_0042773c, DAT_00427754, &fn_f2fc69c6::Obj_14c640::SetCompare_0014c640);
-        params[1] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::CollisionChargeCondition>("charge", &fn_f2fc69c6::X_14c660::SetCharge_0014c660);
-        params[2] = new ::fight::ParamBool< ::hulkfight::motion::CollisionChargeCondition>("useArmorValue", &fn_f2fc69c6::A_14c680::SetUseArmorValue_0014c680);
-        FUN_002347b0(&DAT_004e10a0, params, 3);
-    }
-    (*(int*)&DAT_004e10a4)++;
-}
-
-
-
-// 0x001559d0 FUN_001559d0 (274 B): matches/0x001559d0.cpp
-// sym: _FUN_001559d0
-// (gx2, D18) from InterruptPriorityTrack_reg.iso_001559d0.cpp; constructs the real ParamBool<hulkmotion::CollisionDamageHealthCompareCondition>, ParamEnumConstList<hulkmotion::CollisionDamageHealthCompareCondition>, ParamFloatConstRange<hulkmotion::CollisionDamageHealthCompareCondition>,
-// whose vftable and scalar deleting destructor it emits
-extern "C" void FUN_001559d0()
-{
-    if (DAT_004e10b4 == 0) {
-        ::fight::ParamValue* params[4];
-        params[0] = new ::fight::ParamEnumConstList< ::hulkfight::motion::CollisionDamageHealthCompareCondition>("compare", (void*)&DAT_0042773c, DAT_00427754, &fn_f2fc69c6::Obj_14c6b0::SetCompare_0014c6b0);
-        params[1] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::CollisionDamageHealthCompareCondition>("damage", &fn_f2fc69c6::X_14c6d0::SetDamage_0014c6d0);
-        params[2] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::CollisionDamageHealthCompareCondition>("percent", &fn_f2fc69c6::Obj_14c6e0::SetPercent_0014c6e0);
-        params[3] = new ::fight::ParamBool< ::hulkfight::motion::CollisionDamageHealthCompareCondition>("compareVsHealthPercent", &fn_f2fc69c6::A_14c700::SetCompareVsHealthPercent_0014c700);
-        FUN_002347b0(&DAT_004e10b0, params, 4);
-    }
-    DAT_004e10b4++;
-}
-
-
-
-// 0x00155af0 FUN_00155af0 (190 B): matches/0x00155af0.cpp
-// sym: _FUN_00155af0
-// (gx2, D18) from InterruptPriorityTrack_reg.iso_00155af0.cpp; constructs the real ParamEnumConstList<hulkmotion::CollisionTargetTypeCondition>,
-// whose vftable and scalar deleting destructor it emits
-extern "C" void FUN_00155af0()
-{
-    if (DAT_004e10bc == 0) {
-        ::fight::ParamValue* params[2];
-        params[0] = new ::fight::ParamEnumConstList< ::hulkfight::motion::CollisionTargetTypeCondition>("compare", (void*)&DAT_00427758, DAT_00427760, &fn_f2fc69c6::Obj_14c710::SetCompare_0014c710);
-        params[1] = new ::fight::ParamEnumConstList< ::hulkfight::motion::CollisionTargetTypeCondition>("type", (void*)&DAT_004af9f0, 2, &fn_f2fc69c6::Obj_14c720::SetType_0014c720);
-        FUN_002347b0(&DAT_004e10b8, params, 2);
-    }
-    DAT_004e10bc++;
-}
-
-
-
 // 0x00155bb0 FUN_00155bb0 (113 B): matches/0x00155bb0.cpp
 // sym: _FUN_00155bb0
-// (gx2, D18) rewritten; constructs the real ParamEnumConstList<hulkmotion::CollisionInterruptPriorityCondition>,
-// whose vftable and scalar deleting destructor it emits
-extern "C" void FUN_00155bb0()
-{
-    if ((*(int*)&DAT_004e10c4) == 0) {
-        ::fight::ParamValue* params[1];
-        params[0] = new ::fight::ParamEnumConstList< ::hulkfight::motion::CollisionInterruptPriorityCondition>("compare", (void*)&DAT_0042773c, DAT_00427754, &fn_f2fc69c6::C_14c730::f);
-        FUN_002347b0(&DAT_004e10c0, params, 1);
+// data: gCount_155bb0 = DAT_004e10c4, gSlot_155bb0 = DAT_004e10c0, gValue_155bb0 = DAT_00427754
+extern "C" void FUN_00155bb0() {
+    if ((*(int*)&DAT_004e10c4)) {
+        ++(*(int*)&DAT_004e10c4);
+        return;
     }
-    (*(int*)&DAT_004e10c4)++;
+    void* tmp;
+    Param* p = (Param*)Alloc(0x20);
+    if (p) {
+        int v = (*(int*)&DAT_00427754);
+        p->Init_00234cc0("compare");
+        *(int*)((char*)p + 0x14) = v;
+        *(hulk_intptr*)p = ((hulk_intptr)DAT_00414ad0);
+        *(hulk_intptr*)((char*)p + 0x10) = ((hulk_intptr)((char*)&DAT_0042773c));
+        *(hulk_intptr*)((char*)p + 0x18) = ((hulk_intptr)(void (__cdecl*)())&FUN_0014c730);
+        tmp = p;
+    } else
+        tmp = 0;
+    Register_002347b0(((void**)&DAT_004e10c0), &tmp, 1);
+    ++(*(int*)&DAT_004e10c4);
 }
 
 
-
-// 0x00155c30 FUN_00155c30 (158 B): matches/0x00155c30.cpp
-// sym: _FUN_00155c30
-// (gx2, D18) rewritten; constructs the real ParamFloatConstRange<hulkmotion::InterruptAccumulatorSetTrack>,
-// whose vftable and scalar deleting destructor it emits
+// 0x00155c30 FUN_00155c30 (158 B): equivalent/0x00155c30.cpp
+// sym: _FUN_00155c30 @2356f4d4ef18 @w679380170fc0
+// STATUS: equivalent (tools/equiv.py level 3: 2997 inputs, branch coverage 6/6)
+// FUN_00155c30 @ 0x00155c30
 extern "C" void FUN_00155c30()
 {
     if (DAT_004e10d4 == 0) {
-        ::fight::ParamValue* params[2];
-        params[0] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::InterruptAccumulatorSetTrack>("timeBegin", &owners::A_14c760::FUN_0014c760);
-        params[1] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::InterruptAccumulatorSetTrack>("value", &owners::Obj_14c780::FUN_0014c780);
-        FUN_002347b0(&DAT_004e10d0, params, 2);
+        void* params[2];
+        void* mem;
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_155c30<hulkfight::motion::InterruptAccumulatorSetTrack_155c30>));
+        params[0] = 0;
+        if (mem)
+            params[0] = new (mem) fight::ParamFloatConstRange_155c30<hulkfight::motion::InterruptAccumulatorSetTrack_155c30>("timeBegin", (void (hulkfight::motion::InterruptAccumulatorSetTrack_155c30::*)())&hulkfight::motion::InterruptAccumulatorSetTrack_155c30::FUN_0014c760);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_155c30<hulkfight::motion::InterruptAccumulatorSetTrack_155c30>));
+        params[1] = 0;
+        if (mem)
+            params[1] = new (mem) fight::ParamFloatConstRange_155c30<hulkfight::motion::InterruptAccumulatorSetTrack_155c30>("value", (void (hulkfight::motion::InterruptAccumulatorSetTrack_155c30::*)())&hulkfight::motion::InterruptAccumulatorSetTrack_155c30::FUN_0014c780);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e10d0), params, 2);
     }
     DAT_004e10d4++;
 }
 
 
-
-// 0x00155cd0 FUN_00155cd0 (460 B): matches/0x00155cd0.cpp
-// sym: _FUN_00155cd0
-// (gx2, D18) rewritten; constructs the real ParamBool<hulkmotion::HitThrowTrack>, ParamFloatConstRange<hulkmotion::HitThrowTrack>, ParamIntConstRange<hulkmotion::HitThrowTrack>,
-// whose vftable and scalar deleting destructor it emits
+// 0x00155cd0 FUN_00155cd0 (460 B): equivalent/0x00155cd0.cpp
+// sym: _FUN_00155cd0 @eb9052ab16a4 @w2e682ee5c681
+// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 18/18)
+// FUN_00155cd0 @ 0x00155cd0
 extern "C" void FUN_00155cd0()
 {
     if (DAT_004e10dc == 0) {
-        ::fight::ParamValue* params[8];
-        params[0] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::HitThrowTrack>("timeBegin", &owners::X_14c790::FUN_0014c790);
-        params[1] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::HitThrowTrack>("timeEnd", &owners::X_14c7a0::FUN_0014c7a0);
-        params[2] = new ::fight::ParamBool< ::hulkfight::motion::HitThrowTrack>("snapToPushback", &owners::X_14c7c0::FUN_0014c7c0);
-        params[3] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::HitThrowTrack>("orientation", &owners::C_14c7e0::FUN_0014c7e0);
-        params[4] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::HitThrowTrack>("gravity", &owners::Obj_14c810::FUN_0014c810);
-        params[5] = new ::fight::ParamIntConstRange< ::hulkfight::motion::HitThrowTrack>("priority", &owners::Obj_14c830::FUN_0014c830);
-        params[6] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::HitThrowTrack>("blendInTime", &owners::Obj_14c850::FUN_0014c850);
-        params[7] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::HitThrowTrack>("blendOutTime", &owners::Obj_14c870::FUN_0014c870);
-        FUN_002347b0(&DAT_004e10d8, params, 8);
+        void* params[8];
+        void* mem;
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<HitThrowTrack>));
+        params[0] = 0;
+        if (mem)
+            params[0] = new (mem) ParamFloatConstRange<HitThrowTrack>("timeBegin", (void (HitThrowTrack::*)())&HitThrowTrack::FUN_0014c790);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<HitThrowTrack>));
+        params[1] = 0;
+        if (mem)
+            params[1] = new (mem) ParamFloatConstRange<HitThrowTrack>("timeEnd", (void (HitThrowTrack::*)())&HitThrowTrack::FUN_0014c7a0);
+        mem = FUN_0008d690((int)sizeof(ParamBool<HitThrowTrack>));
+        params[2] = 0;
+        if (mem)
+            params[2] = new (mem) ParamBool<HitThrowTrack>("snapToPushback", (void (HitThrowTrack::*)())&HitThrowTrack::FUN_0014c7c0);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<HitThrowTrack>));
+        params[3] = 0;
+        if (mem)
+            params[3] = new (mem) ParamFloatConstRange<HitThrowTrack>("orientation", (void (HitThrowTrack::*)())&HitThrowTrack::FUN_0014c7e0);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<HitThrowTrack>));
+        params[4] = 0;
+        if (mem)
+            params[4] = new (mem) ParamFloatConstRange<HitThrowTrack>("gravity", (void (HitThrowTrack::*)())&HitThrowTrack::FUN_0014c810);
+        mem = FUN_0008d690((int)sizeof(ParamIntConstRange<HitThrowTrack>));
+        params[5] = 0;
+        if (mem)
+            params[5] = new (mem) ParamIntConstRange<HitThrowTrack>("priority", (void (HitThrowTrack::*)())&HitThrowTrack::FUN_0014c830);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<HitThrowTrack>));
+        params[6] = 0;
+        if (mem)
+            params[6] = new (mem) ParamFloatConstRange<HitThrowTrack>("blendInTime", (void (HitThrowTrack::*)())&HitThrowTrack::FUN_0014c850);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<HitThrowTrack>));
+        params[7] = 0;
+        if (mem)
+            params[7] = new (mem) ParamFloatConstRange<HitThrowTrack>("blendOutTime", (void (HitThrowTrack::*)())&HitThrowTrack::FUN_0014c870);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e10d8), params, 8);
     }
     DAT_004e10dc++;
 }
 
 
-
-// 0x00155ea0 FUN_00155ea0 (213 B): matches/0x00155ea0.cpp
-// sym: _FUN_00155ea0
-// (gx2, D18) from InterruptPriorityTrack_reg.iso_00155ea0.cpp; constructs the real ParamFloatConstRange<hulkmotion::HitPauseTrack>,
-// whose vftable and scalar deleting destructor it emits
-extern "C" void FUN_00155ea0()
-{
-    if (DAT_004e10ec == 0) {
-        ::fight::ParamValue* params[3];
-        params[0] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::HitPauseTrack>("timeBegin", &fn_f2fc69c6::Obj_14caa0::SetTimeBegin_0014caa0);
-        params[1] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::HitPauseTrack>("pauseTime", &fn_f2fc69c6::Obj_14cac0::SetPauseTime_0014cac0);
-        params[2] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::HitPauseTrack>("blendOutTime", &fn_f2fc69c6::X_14cae0::SetBlendOutTime_0014cae0);
-        FUN_002347b0(&DAT_004e10e8, params, 3);
-    }
-    DAT_004e10ec++;
-}
-
-
-
-// 0x00155f80 FUN_00155f80 (172 B): matches/0x00155f80.cpp
-// sym: _FUN_00155f80
-// (gx2, D18) rewritten; constructs the real ParamEnumConstList<hulkmotion::HitWaitTrack>, ParamFloatConstRange<hulkmotion::HitWaitTrack>,
-// whose vftable and scalar deleting destructor it emits
+// 0x00155f80 FUN_00155f80 (172 B): equivalent/0x00155f80.cpp
+// sym: _FUN_00155f80 @d6d01487165f @we71a96704441
+// STATUS: equivalent (tools/equiv.py level 3: 2996 inputs, branch coverage 6/6)
+// FUN_00155f80 @ 0x00155f80
 extern "C" void FUN_00155f80()
 {
     if (DAT_004e10fc == 0) {
-        ::fight::ParamValue* params[2];
-        params[0] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::HitWaitTrack>("timeBegin", &owners::X_14ccb0::FUN_0014ccb0);
-        params[1] = new ::fight::ParamEnumConstList< ::hulkfight::motion::HitWaitTrack>("wait", (void*)&DAT_004af9e4, 3, &owners::Obj_14ccd0::FUN_0014ccd0);
-        FUN_002347b0(&DAT_004e10f8, params, 2);
+        void* params[2];
+        void* mem;
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_155f80<hulkfight::motion::HitWaitTrack_155f80>));
+        params[0] = 0;
+        if (mem)
+            params[0] = new (mem) fight::ParamFloatConstRange_155f80<hulkfight::motion::HitWaitTrack_155f80>("timeBegin", (void (hulkfight::motion::HitWaitTrack_155f80::*)())&hulkfight::motion::HitWaitTrack_155f80::FUN_0014ccb0);
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_155f80<hulkfight::motion::HitWaitTrack_155f80>));
+        params[1] = 0;
+        if (mem)
+            params[1] = new (mem) fight::ParamEnumConstList_155f80<hulkfight::motion::HitWaitTrack_155f80>("wait", ((const char**)&DAT_004af9e4), 3, (void (hulkfight::motion::HitWaitTrack_155f80::*)())&hulkfight::motion::HitWaitTrack_155f80::FUN_0014ccd0);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e10f8), params, 2);
     }
     DAT_004e10fc++;
 }
 
 
-
-// 0x00156030 FUN_00156030 (213 B): matches/0x00156030.cpp
-// sym: _FUN_00156030
-// (gx2, D18) from InterruptPriorityTrack_reg.iso_00156030.cpp; constructs the real ParamFloatConstRange<hulkmotion::InterruptPriorityTrack>, ParamIntConstRange<hulkmotion::InterruptPriorityTrack>,
-// whose vftable and scalar deleting destructor it emits
-extern "C" void FUN_00156030()
-{
-    if (DAT_004e1104 == 0) {
-        ::fight::ParamValue* params[3];
-        params[0] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::InterruptPriorityTrack>("timeBegin", &fn_f2fc69c6::O_14cce0::SetTimeBegin_0014cce0);
-        params[1] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::InterruptPriorityTrack>("timeEnd", &fn_f2fc69c6::T_14ccf0::SetTimeEnd_0014ccf0);
-        params[2] = new ::fight::ParamIntConstRange< ::hulkfight::motion::InterruptPriorityTrack>("interruptPriority", &fn_f2fc69c6::A_14cd10::SetInterruptPriority_0014cd10);
-        FUN_002347b0(&DAT_004e1100, params, 3);
-    }
-    DAT_004e1104++;
-}
-
-
-
-// 0x00156110 FUN_00156110 (358 B): matches/0x00156110.cpp
-// sym: _FUN_00156110
-// (gx2, D18) rewritten; constructs the real ParamFloatConstRange<hulkmotion::HitOrientToPushbackTrack>, ParamIntConstRange<hulkmotion::HitOrientToPushbackTrack>,
-// whose vftable and scalar deleting destructor it emits
+// 0x00156110 FUN_00156110 (358 B): equivalent/0x00156110.cpp
+// sym: _FUN_00156110 @25fba8729d11 @w03163c011485
+// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 14/14)
+// FUN_00156110 @ 0x00156110
 extern "C" void FUN_00156110()
 {
     if (DAT_004e110c == 0) {
-        ::fight::ParamValue* params[6];
-        params[0] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::HitOrientToPushbackTrack>("timeBegin", &owners::X_14cd20::FUN_0014cd20);
-        params[1] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::HitOrientToPushbackTrack>("timeEnd", &owners::Target_14cd30::FUN_0014cd30);
-        params[2] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::HitOrientToPushbackTrack>("turningVelocity", &owners::C_14cd50::FUN_0014cd50);
-        params[3] = new ::fight::ParamIntConstRange< ::hulkfight::motion::HitOrientToPushbackTrack>("priority", &owners::X_14cd80::FUN_0014cd80);
-        params[4] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::HitOrientToPushbackTrack>("blendInTime", &owners::Obj_14cda0::FUN_0014cda0);
-        params[5] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::HitOrientToPushbackTrack>("blendOutTime", &owners::Obj_14cdc0::FUN_0014cdc0);
-        FUN_002347b0(&DAT_004e1108, params, 6);
+        void* params[6];
+        void* mem;
+
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<HitOrientToPushbackTrack>));
+        params[0] = 0;
+        if (mem)
+            params[0] = new (mem) ParamFloatConstRange<HitOrientToPushbackTrack>("timeBegin", (void (HitOrientToPushbackTrack::*)())&HitOrientToPushbackTrack::FUN_0014cd20);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<HitOrientToPushbackTrack>));
+        params[1] = 0;
+        if (mem)
+            params[1] = new (mem) ParamFloatConstRange<HitOrientToPushbackTrack>("timeEnd", (void (HitOrientToPushbackTrack::*)())&HitOrientToPushbackTrack::FUN_0014cd30);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<HitOrientToPushbackTrack>));
+        params[2] = 0;
+        if (mem)
+            params[2] = new (mem) ParamFloatConstRange<HitOrientToPushbackTrack>("turningVelocity", (void (HitOrientToPushbackTrack::*)())&HitOrientToPushbackTrack::FUN_0014cd50);
+        mem = FUN_0008d690((int)sizeof(ParamIntConstRange<HitOrientToPushbackTrack>));
+        params[3] = 0;
+        if (mem)
+            params[3] = new (mem) ParamIntConstRange<HitOrientToPushbackTrack>("priority", (void (HitOrientToPushbackTrack::*)())&HitOrientToPushbackTrack::FUN_0014cd80);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<HitOrientToPushbackTrack>));
+        params[4] = 0;
+        if (mem)
+            params[4] = new (mem) ParamFloatConstRange<HitOrientToPushbackTrack>("blendInTime", (void (HitOrientToPushbackTrack::*)())&HitOrientToPushbackTrack::FUN_0014cda0);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<HitOrientToPushbackTrack>));
+        params[5] = 0;
+        if (mem)
+            params[5] = new (mem) ParamFloatConstRange<HitOrientToPushbackTrack>("blendOutTime", (void (HitOrientToPushbackTrack::*)())&HitOrientToPushbackTrack::FUN_0014cdc0);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e1108), params, 6);
     }
     DAT_004e110c++;
 }
 
 
-
-// 0x00156280 FUN_00156280 (409 B): matches/0x00156280.cpp
-// sym: _FUN_00156280
-// (gx2, D18) rewritten; constructs the real ParamBool<hulkmotion::HitFloatTrack>, ParamFloatConstRange<hulkmotion::HitFloatTrack>, ParamIntConstRange<hulkmotion::HitFloatTrack>,
-// whose vftable and scalar deleting destructor it emits
+// 0x00156280 FUN_00156280 (409 B): equivalent/0x00156280.cpp
+// sym: _FUN_00156280 @aa57aea330b0 @wb8835f80182d
+// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 16/16)
+// FUN_00156280 @ 0x00156280
 extern "C" void FUN_00156280()
 {
     if (DAT_004e1114 == 0) {
-        ::fight::ParamValue* params[7];
-        params[0] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::HitFloatTrack>("timeBegin", &owners::Obj_14cdd0::FUN_0014cdd0);
-        params[1] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::HitFloatTrack>("timeEnd", &owners::Obj_14cde0::FUN_0014cde0);
-        params[2] = new ::fight::ParamBool< ::hulkfight::motion::HitFloatTrack>("snapToPushback", &owners::Obj_14ce00::FUN_0014ce00);
-        params[3] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::HitFloatTrack>("orientation", &owners::C_14ce20::FUN_0014ce20);
-        params[4] = new ::fight::ParamIntConstRange< ::hulkfight::motion::HitFloatTrack>("priority", &owners::Obj_14ce50::FUN_0014ce50);
-        params[5] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::HitFloatTrack>("blendInTime", &owners::T_14ce70::FUN_0014ce70);
-        params[6] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::HitFloatTrack>("blendOutTime", &owners::Obj_14ce90::FUN_0014ce90);
-        FUN_002347b0(&DAT_004e1110, params, 7);
+        void* params[7];
+        void* mem;
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<hulkfight::motion::HitFloatTrack_156280>));
+        params[0] = 0;
+        if (mem)
+            params[0] = new (mem) ParamFloatConstRange<hulkfight::motion::HitFloatTrack_156280>("timeBegin", (void (hulkfight::motion::HitFloatTrack_156280::*)())&hulkfight::motion::HitFloatTrack_156280::FUN_0014cdd0);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<hulkfight::motion::HitFloatTrack_156280>));
+        params[1] = 0;
+        if (mem)
+            params[1] = new (mem) ParamFloatConstRange<hulkfight::motion::HitFloatTrack_156280>("timeEnd", (void (hulkfight::motion::HitFloatTrack_156280::*)())&hulkfight::motion::HitFloatTrack_156280::FUN_0014cde0);
+        mem = FUN_0008d690((int)sizeof(ParamBool<hulkfight::motion::HitFloatTrack_156280>));
+        params[2] = 0;
+        if (mem)
+            params[2] = new (mem) ParamBool<hulkfight::motion::HitFloatTrack_156280>("snapToPushback", (void (hulkfight::motion::HitFloatTrack_156280::*)())&hulkfight::motion::HitFloatTrack_156280::FUN_0014ce00);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<hulkfight::motion::HitFloatTrack_156280>));
+        params[3] = 0;
+        if (mem)
+            params[3] = new (mem) ParamFloatConstRange<hulkfight::motion::HitFloatTrack_156280>("orientation", (void (hulkfight::motion::HitFloatTrack_156280::*)())&hulkfight::motion::HitFloatTrack_156280::FUN_0014ce20);
+        mem = FUN_0008d690((int)sizeof(ParamIntConstRange<hulkfight::motion::HitFloatTrack_156280>));
+        params[4] = 0;
+        if (mem)
+            params[4] = new (mem) ParamIntConstRange<hulkfight::motion::HitFloatTrack_156280>("priority", (void (hulkfight::motion::HitFloatTrack_156280::*)())&hulkfight::motion::HitFloatTrack_156280::FUN_0014ce50);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<hulkfight::motion::HitFloatTrack_156280>));
+        params[5] = 0;
+        if (mem)
+            params[5] = new (mem) ParamFloatConstRange<hulkfight::motion::HitFloatTrack_156280>("blendInTime", (void (hulkfight::motion::HitFloatTrack_156280::*)())&hulkfight::motion::HitFloatTrack_156280::FUN_0014ce70);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<hulkfight::motion::HitFloatTrack_156280>));
+        params[6] = 0;
+        if (mem)
+            params[6] = new (mem) ParamFloatConstRange<hulkfight::motion::HitFloatTrack_156280>("blendOutTime", (void (hulkfight::motion::HitFloatTrack_156280::*)())&hulkfight::motion::HitFloatTrack_156280::FUN_0014ce90);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e1110), params, 7);
     }
     DAT_004e1114++;
 }
 
 
-
-// 0x00156420 FUN_00156420 (95 B): matches/0x00156420.cpp
-// sym: _FUN_00156420
-// (gx2, D18) rewritten; constructs the real ParamFloatConstRange<hulkmotion::ClearFightParamsHitRecordTrack>,
-// whose vftable and scalar deleting destructor it emits
+// 0x00156420 FUN_00156420 (95 B): equivalent/0x00156420.cpp
+// sym: _FUN_00156420 @a74b3938b2fa @waace213e7b69
+// STATUS: equivalent (tools/equiv.py level 3: 2997 inputs, branch coverage 4/4)
+// FUN_00156420 @ 0x00156420
 extern "C" void FUN_00156420()
 {
     if (DAT_004e111c == 0) {
-        ::fight::ParamValue* params[1];
-        params[0] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::ClearFightParamsHitRecordTrack>("timeBegin", &owners::Obj_14cea0::FUN_0014cea0);
-        FUN_002347b0(&DAT_004e1118, params, 1);
+        void* params[1];
+        void* mem;
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_156420<hulkfight::motion::ClearFightParamsHitRecordTrack_156420>));
+        params[0] = 0;
+        if (mem)
+            params[0] = new (mem) fight::ParamFloatConstRange_156420<hulkfight::motion::ClearFightParamsHitRecordTrack_156420>("timeBegin", (void (hulkfight::motion::ClearFightParamsHitRecordTrack_156420::*)())&hulkfight::motion::ClearFightParamsHitRecordTrack_156420::FUN_0014cea0);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e1118), params, 1);
     }
     DAT_004e111c++;
 }
 
 
-
-// 0x00156480 FUN_00156480 (158 B): matches/0x00156480.cpp
-// sym: _FUN_00156480
-// (gx2, D18) rewritten; constructs the real ParamFloatConstRange<hulkmotion::HitPushbackAddTrack>,
-// whose vftable and scalar deleting destructor it emits
+// 0x00156480 FUN_00156480 (158 B): equivalent/0x00156480.cpp
+// sym: _FUN_00156480 @ab3ca3551739 @we0df02d42b15
+// STATUS: equivalent (tools/equiv.py level 3: 2992 inputs, branch coverage 6/6)
+// FUN_00156480 @ 0x00156480
 extern "C" void FUN_00156480()
 {
     if (DAT_004e1124 == 0) {
-        ::fight::ParamValue* params[2];
-        params[0] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::HitPushbackAddTrack>("timeBegin", &owners::Target_14ceb0::FUN_0014ceb0);
-        params[1] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::HitPushbackAddTrack>("weight", &owners::X_14ced0::FUN_0014ced0);
-        FUN_002347b0(&DAT_004e1120, params, 2);
+        void* params[2];
+        void* mem;
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_156480<hulkfight::motion::HitPushbackAddTrack_156480>));
+        params[0] = 0;
+        if (mem)
+            params[0] = new (mem) fight::ParamFloatConstRange_156480<hulkfight::motion::HitPushbackAddTrack_156480>("timeBegin", (void (hulkfight::motion::HitPushbackAddTrack_156480::*)())&hulkfight::motion::HitPushbackAddTrack_156480::FUN_0014ceb0);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_156480<hulkfight::motion::HitPushbackAddTrack_156480>));
+        params[1] = 0;
+        if (mem)
+            params[1] = new (mem) fight::ParamFloatConstRange_156480<hulkfight::motion::HitPushbackAddTrack_156480>("weight", (void (hulkfight::motion::HitPushbackAddTrack_156480::*)())&hulkfight::motion::HitPushbackAddTrack_156480::FUN_0014ced0);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e1120), params, 2);
     }
     DAT_004e1124++;
 }
 
 
-
-// 0x00156520 FUN_00156520 (307 B): matches/0x00156520.cpp
-// sym: _FUN_00156520
-// (gx2, D18) rewritten; constructs the real ParamBool<hulkmotion::HealthTrack>, ParamFloatConstRange<hulkmotion::HealthTrack>,
-// whose vftable and scalar deleting destructor it emits
+// 0x00156520 FUN_00156520 (307 B): equivalent/0x00156520.cpp
+// sym: _FUN_00156520 @f19e6fc8a38f @w888ba7d01534
+// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/12)
+// FUN_00156520 @ 0x00156520
 extern "C" void FUN_00156520()
 {
     if (DAT_004e112c == 0) {
-        ::fight::ParamValue* params[5];
-        params[0] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::HealthTrack>("timeBegin", &owners::O_14cee0::FUN_0014cee0);
-        params[1] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::HealthTrack>("hitPoints", &owners::O_14cf00::FUN_0014cf00);
-        params[2] = new ::fight::ParamBool< ::hulkfight::motion::HealthTrack>("directDamage", &owners::Thing_14cf20::FUN_0014cf20);
-        params[3] = new ::fight::ParamBool< ::hulkfight::motion::HealthTrack>("addTheseHitPoints", &owners::X_14cf40::FUN_0014cf40);
-        params[4] = new ::fight::ParamBool< ::hulkfight::motion::HealthTrack>("subtractTheseHitPoints", &owners::X_14cf60::FUN_0014cf60);
-        FUN_002347b0(&DAT_004e1128, params, 5);
+        void* params[5];
+        void* mem;
+
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<HealthTrack>));
+        params[0] = 0;
+        if (mem)
+            params[0] = new (mem) ParamFloatConstRange<HealthTrack>("timeBegin", (void (HealthTrack::*)())&HealthTrack::FUN_0014cee0);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<HealthTrack>));
+        params[1] = 0;
+        if (mem)
+            params[1] = new (mem) ParamFloatConstRange<HealthTrack>("hitPoints", (void (HealthTrack::*)())&HealthTrack::FUN_0014cf00);
+        mem = FUN_0008d690((int)sizeof(ParamBool<HealthTrack>));
+        params[2] = 0;
+        if (mem)
+            params[2] = new (mem) ParamBool<HealthTrack>("directDamage", (void (HealthTrack::*)())&HealthTrack::FUN_0014cf20);
+        mem = FUN_0008d690((int)sizeof(ParamBool<HealthTrack>));
+        params[3] = 0;
+        if (mem)
+            params[3] = new (mem) ParamBool<HealthTrack>("addTheseHitPoints", (void (HealthTrack::*)())&HealthTrack::FUN_0014cf40);
+        mem = FUN_0008d690((int)sizeof(ParamBool<HealthTrack>));
+        params[4] = 0;
+        if (mem)
+            params[4] = new (mem) ParamBool<HealthTrack>("subtractTheseHitPoints", (void (HealthTrack::*)())&HealthTrack::FUN_0014cf60);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e1128), params, 5);
     }
     DAT_004e112c++;
 }
 
 
-
-// 0x00156660 FUN_00156660 (158 B): matches/0x00156660.cpp
-// sym: _FUN_00156660
-// (gx2, D18) rewritten; constructs the real ParamFloatConstRange<hulkmotion::HitDamageTrack>,
-// whose vftable and scalar deleting destructor it emits
+// 0x00156660 FUN_00156660 (158 B): equivalent/0x00156660.cpp
+// sym: _FUN_00156660 @1f084d2eeb95 @wfe1452c8bef5
+// STATUS: equivalent (tools/equiv.py level 3: 2996 inputs, branch coverage 6/6)
+// FUN_00156660 @ 0x00156660
 extern "C" void FUN_00156660()
 {
     if (DAT_004e1134 == 0) {
-        ::fight::ParamValue* params[2];
-        params[0] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::HitDamageTrack>("timeBegin", &owners::Obj_14cf70::FUN_0014cf70);
-        params[1] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::HitDamageTrack>("weight", &owners::Obj_14cf90::FUN_0014cf90);
-        FUN_002347b0(&DAT_004e1130, params, 2);
+        void* params[2];
+        void* mem;
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_156660<hulkfight::motion::HitDamageTrack_156660>));
+        params[0] = 0;
+        if (mem)
+            params[0] = new (mem) fight::ParamFloatConstRange_156660<hulkfight::motion::HitDamageTrack_156660>("timeBegin", (void (hulkfight::motion::HitDamageTrack_156660::*)())&hulkfight::motion::HitDamageTrack_156660::FUN_0014cf70);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_156660<hulkfight::motion::HitDamageTrack_156660>));
+        params[1] = 0;
+        if (mem)
+            params[1] = new (mem) fight::ParamFloatConstRange_156660<hulkfight::motion::HitDamageTrack_156660>("weight", (void (hulkfight::motion::HitDamageTrack_156660::*)())&hulkfight::motion::HitDamageTrack_156660::FUN_0014cf90);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e1130), params, 2);
     }
     DAT_004e1134++;
 }
 
 
-
-// 0x00156700 FUN_00156700 (613 B): matches/0x00156700.cpp
-// sym: _FUN_00156700
-// (gx2, D18) rewritten; constructs the real ParamFloatConstRange<hulkmotion::GroundSlideTrack>, ParamIntConstRange<hulkmotion::GroundSlideTrack>,
-// whose vftable and scalar deleting destructor it emits
+// 0x00156700 FUN_00156700 (613 B): equivalent/0x00156700.cpp
+// sym: _FUN_00156700 @7373d81b0235 @w500d41c423b0
+// STATUS: equivalent (tools/equiv.py level 3: 75 inputs, branch coverage 24/24)
+// FUN_00156700 @ 0x00156700
 extern "C" void FUN_00156700()
 {
     if (DAT_004e113c == 0) {
-        ::fight::ParamValue* params[11];
-        params[0] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::GroundSlideTrack>("timeBegin", &owners::Obj_14cfa0::FUN_0014cfa0);
-        params[1] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::GroundSlideTrack>("timeEnd", &owners::Target_14cfb0::FUN_0014cfb0);
-        params[2] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::GroundSlideTrack>("facing", &owners::C_14cfd0::FUN_0014cfd0);
-        params[3] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::GroundSlideTrack>("friction", &owners::X_14d000::FUN_0014d000);
-        params[4] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::GroundSlideTrack>("deceleration", &owners::Obj_14d020::FUN_0014d020);
-        params[5] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::GroundSlideTrack>("minInitVelocity", &owners::X_14d040::FUN_0014d040);
-        params[6] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::GroundSlideTrack>("minVelocity", &owners::X_14d060::FUN_0014d060);
-        params[7] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::GroundSlideTrack>("maxVelocity", &owners::C_14d080::FUN_0014d080);
-        params[8] = new ::fight::ParamIntConstRange< ::hulkfight::motion::GroundSlideTrack>("priority", &owners::Obj_14d0a0::FUN_0014d0a0);
-        params[9] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::GroundSlideTrack>("blendInTime", &owners::X_14d0c0::FUN_0014d0c0);
-        params[10] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::GroundSlideTrack>("blendOutTime", &owners::X_14d0e0::FUN_0014d0e0);
-        FUN_002347b0(&DAT_004e1138, params, 11);
+        void* params[11];
+        void* mem;
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_156700<GroundSlideTrack>));
+        params[0] = 0;
+        if (mem)
+            params[0] = new (mem) fight::ParamFloatConstRange_156700<GroundSlideTrack>("timeBegin", (void (GroundSlideTrack::*)())&GroundSlideTrack::FUN_0014cfa0);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_156700<GroundSlideTrack>));
+        params[1] = 0;
+        if (mem)
+            params[1] = new (mem) fight::ParamFloatConstRange_156700<GroundSlideTrack>("timeEnd", (void (GroundSlideTrack::*)())&GroundSlideTrack::FUN_0014cfb0);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_156700<GroundSlideTrack>));
+        params[2] = 0;
+        if (mem)
+            params[2] = new (mem) fight::ParamFloatConstRange_156700<GroundSlideTrack>("facing", (void (GroundSlideTrack::*)())&GroundSlideTrack::FUN_0014cfd0);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_156700<GroundSlideTrack>));
+        params[3] = 0;
+        if (mem)
+            params[3] = new (mem) fight::ParamFloatConstRange_156700<GroundSlideTrack>("friction", (void (GroundSlideTrack::*)())&GroundSlideTrack::FUN_0014d000);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_156700<GroundSlideTrack>));
+        params[4] = 0;
+        if (mem)
+            params[4] = new (mem) fight::ParamFloatConstRange_156700<GroundSlideTrack>("deceleration", (void (GroundSlideTrack::*)())&GroundSlideTrack::FUN_0014d020);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_156700<GroundSlideTrack>));
+        params[5] = 0;
+        if (mem)
+            params[5] = new (mem) fight::ParamFloatConstRange_156700<GroundSlideTrack>("minInitVelocity", (void (GroundSlideTrack::*)())&GroundSlideTrack::FUN_0014d040);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_156700<GroundSlideTrack>));
+        params[6] = 0;
+        if (mem)
+            params[6] = new (mem) fight::ParamFloatConstRange_156700<GroundSlideTrack>("minVelocity", (void (GroundSlideTrack::*)())&GroundSlideTrack::FUN_0014d060);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_156700<GroundSlideTrack>));
+        params[7] = 0;
+        if (mem)
+            params[7] = new (mem) fight::ParamFloatConstRange_156700<GroundSlideTrack>("maxVelocity", (void (GroundSlideTrack::*)())&GroundSlideTrack::FUN_0014d080);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_156700<GroundSlideTrack>));
+        params[8] = 0;
+        if (mem)
+            params[8] = new (mem) fight::ParamIntConstRange_156700<GroundSlideTrack>("priority", (void (GroundSlideTrack::*)())&GroundSlideTrack::FUN_0014d0a0);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_156700<GroundSlideTrack>));
+        params[9] = 0;
+        if (mem)
+            params[9] = new (mem) fight::ParamFloatConstRange_156700<GroundSlideTrack>("blendInTime", (void (GroundSlideTrack::*)())&GroundSlideTrack::FUN_0014d0c0);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_156700<GroundSlideTrack>));
+        params[10] = 0;
+        if (mem)
+            params[10] = new (mem) fight::ParamFloatConstRange_156700<GroundSlideTrack>("blendOutTime", (void (GroundSlideTrack::*)())&GroundSlideTrack::FUN_0014d0e0);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e1138), params, 11);
     }
     DAT_004e113c++;
 }
 
 
-
-// 0x00156970 FUN_00156970 (562 B): matches/0x00156970.cpp
-// sym: _FUN_00156970
-// (gx2, D18) rewritten; constructs the real ParamBool<hulkmotion::HitPushbackTrack>, ParamFloatConstRange<hulkmotion::HitPushbackTrack>, ParamIntConstRange<hulkmotion::HitPushbackTrack>,
-// whose vftable and scalar deleting destructor it emits
+// 0x00156970 FUN_00156970 (562 B): equivalent/0x00156970.cpp
+// sym: _FUN_00156970 @16a4b7c46034 @w17f073822b29
+// STATUS: equivalent (tools/equiv.py level 3: 78 inputs, branch coverage 22/22)
+// FUN_00156970 @ 0x00156970
 extern "C" void FUN_00156970()
 {
     if (DAT_004e1144 == 0) {
-        ::fight::ParamValue* params[10];
-        params[0] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::HitPushbackTrack>("timeBegin", &owners::X_14d0f0::FUN_0014d0f0);
-        params[1] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::HitPushbackTrack>("timeEnd", &owners::Obj_14d100::FUN_0014d100);
-        params[2] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::HitPushbackTrack>("weight", &owners::Obj_14d120::FUN_0014d120);
-        params[3] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::HitPushbackTrack>("maxDistance", &owners::Obj_14d140::FUN_0014d140);
-        params[4] = new ::fight::ParamBool< ::hulkfight::motion::HitPushbackTrack>("snapToPushback", &owners::T_14d160::FUN_0014d160);
-        params[5] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::HitPushbackTrack>("orientation", &owners::C_14d180::FUN_0014d180);
-        params[6] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::HitPushbackTrack>("proneSpin", &owners::C_14d1b0::FUN_0014d1b0);
-        params[7] = new ::fight::ParamIntConstRange< ::hulkfight::motion::HitPushbackTrack>("priority", &owners::C_14d1e0::FUN_0014d1e0);
-        params[8] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::HitPushbackTrack>("blendInTime", &owners::Obj_14d200::FUN_0014d200);
-        params[9] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::HitPushbackTrack>("blendOutTime", &owners::Obj_14d220::FUN_0014d220);
-        FUN_002347b0(&DAT_004e1140, params, 10);
+        void* params[10];
+        void* mem;
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_156970<HitPushbackTrack>));
+        params[0] = 0;
+        if (mem)
+            params[0] = new (mem) fight::ParamFloatConstRange_156970<HitPushbackTrack>("timeBegin", (void (HitPushbackTrack::*)())&HitPushbackTrack::FUN_0014d0f0);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_156970<HitPushbackTrack>));
+        params[1] = 0;
+        if (mem)
+            params[1] = new (mem) fight::ParamFloatConstRange_156970<HitPushbackTrack>("timeEnd", (void (HitPushbackTrack::*)())&HitPushbackTrack::FUN_0014d100);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_156970<HitPushbackTrack>));
+        params[2] = 0;
+        if (mem)
+            params[2] = new (mem) fight::ParamFloatConstRange_156970<HitPushbackTrack>("weight", (void (HitPushbackTrack::*)())&HitPushbackTrack::FUN_0014d120);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_156970<HitPushbackTrack>));
+        params[3] = 0;
+        if (mem)
+            params[3] = new (mem) fight::ParamFloatConstRange_156970<HitPushbackTrack>("maxDistance", (void (HitPushbackTrack::*)())&HitPushbackTrack::FUN_0014d140);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_156970<HitPushbackTrack>));
+        params[4] = 0;
+        if (mem)
+            params[4] = new (mem) fight::ParamBool_156970<HitPushbackTrack>("snapToPushback", (void (HitPushbackTrack::*)())&HitPushbackTrack::FUN_0014d160);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_156970<HitPushbackTrack>));
+        params[5] = 0;
+        if (mem)
+            params[5] = new (mem) fight::ParamFloatConstRange_156970<HitPushbackTrack>("orientation", (void (HitPushbackTrack::*)())&HitPushbackTrack::FUN_0014d180);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_156970<HitPushbackTrack>));
+        params[6] = 0;
+        if (mem)
+            params[6] = new (mem) fight::ParamFloatConstRange_156970<HitPushbackTrack>("proneSpin", (void (HitPushbackTrack::*)())&HitPushbackTrack::FUN_0014d1b0);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_156970<HitPushbackTrack>));
+        params[7] = 0;
+        if (mem)
+            params[7] = new (mem) fight::ParamIntConstRange_156970<HitPushbackTrack>("priority", (void (HitPushbackTrack::*)())&HitPushbackTrack::FUN_0014d1e0);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_156970<HitPushbackTrack>));
+        params[8] = 0;
+        if (mem)
+            params[8] = new (mem) fight::ParamFloatConstRange_156970<HitPushbackTrack>("blendInTime", (void (HitPushbackTrack::*)())&HitPushbackTrack::FUN_0014d200);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_156970<HitPushbackTrack>));
+        params[9] = 0;
+        if (mem)
+            params[9] = new (mem) fight::ParamFloatConstRange_156970<HitPushbackTrack>("blendOutTime", (void (HitPushbackTrack::*)())&HitPushbackTrack::FUN_0014d220);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e1140), params, 10);
     }
     DAT_004e1144++;
 }
 
 
-
-// 0x00156bb0 FUN_00156bb0 (158 B): matches/0x00156bb0.cpp
-// sym: _FUN_00156bb0
-// (gx2, D18) rewritten; constructs the real ParamFloatConstRange<hulkmotion::NoHitPushbackTrack>,
-// whose vftable and scalar deleting destructor it emits
+// 0x00156bb0 FUN_00156bb0 (158 B): equivalent/0x00156bb0.cpp
+// sym: _FUN_00156bb0 @c8d597476cba @w3d9673ae1609
+// STATUS: equivalent (tools/equiv.py level 3: 2996 inputs, branch coverage 6/6)
+// FUN_00156bb0 @ 0x00156bb0
 extern "C" void FUN_00156bb0()
 {
     if (DAT_004e114c == 0) {
-        ::fight::ParamValue* params[2];
-        params[0] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::NoHitPushbackTrack>("timeBegin", &owners::A_14d230::FUN_0014d230);
-        params[1] = new ::fight::ParamFloatConstRange< ::hulkfight::motion::NoHitPushbackTrack>("timeEnd", &owners::C_14d240::FUN_0014d240);
-        FUN_002347b0(&DAT_004e1148, params, 2);
+        void* params[2];
+        void* mem;
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_156bb0<hulkfight::motion::NoHitPushbackTrack_156bb0>));
+        params[0] = 0;
+        if (mem)
+            params[0] = new (mem) fight::ParamFloatConstRange_156bb0<hulkfight::motion::NoHitPushbackTrack_156bb0>("timeBegin", (void (hulkfight::motion::NoHitPushbackTrack_156bb0::*)())&hulkfight::motion::NoHitPushbackTrack_156bb0::FUN_0014d230);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_156bb0<hulkfight::motion::NoHitPushbackTrack_156bb0>));
+        params[1] = 0;
+        if (mem)
+            params[1] = new (mem) fight::ParamFloatConstRange_156bb0<hulkfight::motion::NoHitPushbackTrack_156bb0>("timeEnd", (void (hulkfight::motion::NoHitPushbackTrack_156bb0::*)())&hulkfight::motion::NoHitPushbackTrack_156bb0::FUN_0014d240);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e1148), params, 2);
     }
     DAT_004e114c++;
 }
-
-namespace fn_ff72ca8e {
 
 
 // 0x00156ca0 hulkfight::motion::InterruptAccumulatorSetAction::vfunc_2 (71 B): matches/0x00156ca0.cpp

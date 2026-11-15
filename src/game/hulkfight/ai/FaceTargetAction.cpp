@@ -1,7 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// cl-flags: /GX
 // object 0x0010b2a0..0x0010c0d0 (kind game, layer game, confidence high), dominant class hulkfight::ai::FaceTargetAction
 #include "tree_prelude.h"
-#define HULK_FIGHT_PARAM_IMPLICIT   // (gx2, D18) include/gen/fight.h: the parameter templates constructed for real
 #include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/hulkfight.h"
@@ -19,7 +19,6 @@ void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's
 }
 #include "game/hulkfight/ai.h"
 #include "decls/managers.h"
-extern "C" void __cdecl FUN_002347b0(void* list, void* params, int count);   // (gx2, D18) a parameter list's set-up
 // (ren2) __RTDynamicCast's own name (CRT, C linkage)
 extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
@@ -873,7 +872,10 @@ template <> bool fight::TrackFactoryCasterTemplate<hulkfight::ai::FaceTargetTrac
 // sym: ??_G?$ParamFloatConstRange@VFaceTargetTrack@ai@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-// (gx2, D18) implicit: the registration that constructs the class emits this
+template <> fight::ParamFloatConstRange<hulkfight::ai::FaceTargetTrack>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<hulkfight::ai::FaceTargetTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x10bb80)
+#endif
 
 
 // 0x0010bbb0 fight::TrackFactoryCasterTemplate<hulkfight::ai::FaceMotionTrack>::vfunc_0 (36 B): matches/0x0010bbb0.cpp [wrapped: conflict: fight::TrackFactoryCaster; fight::TrackFactoryCasterTemplate]
@@ -909,41 +911,10 @@ template <> int fight::TrackFactoryCasterTemplate<hulkfight::ai::FaceMotionTrack
 // sym: ??_G?$ParamFloatConstRange@VFaceMotionTrack@ai@hulkfight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-// (gx2, D18) implicit: the registration that constructs the class emits this
-
-
-// 0x0010bc00 FUN_0010bc00 (158 B): matches/0x0010bc00.cpp
-// sym: ?FUN_0010bc00@@YAXXZ
-// (gx2, D18) from FaceTargetAction.new_throw.cpp; constructs the real ParamFloatConstRange<hulkai::FaceTargetTrack>,
-// whose vftable and scalar deleting destructor it emits
-void FUN_0010bc00()
-{
-    if (DAT_004e0ad4 == 0) {
-        ::fight::ParamValue* params[2];
-        params[0] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::FaceTargetTrack>("timeBegin", &owners::Obj_10b3d0::FUN_0010b3d0);
-        params[1] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::FaceTargetTrack>("timeEnd", &owners::A_10b3e0::FUN_0010b3e0);
-        FUN_002347b0(&DAT_004e0ad0, params, 2);
-    }
-    DAT_004e0ad4++;
-}
-
-
-
-// 0x0010bca0 FUN_0010bca0 (158 B): matches/0x0010bca0.cpp
-// sym: ?FUN_0010bca0@@YAXXZ
-// (gx2, D18) from FaceTargetAction.new_throw.cpp; constructs the real ParamFloatConstRange<hulkai::FaceMotionTrack>,
-// whose vftable and scalar deleting destructor it emits
-void FUN_0010bca0()
-{
-    if (DAT_004e0adc == 0) {
-        ::fight::ParamValue* params[2];
-        params[0] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::FaceMotionTrack>("timeBegin", &owners::X_10b3f0::FUN_0010b3f0);
-        params[1] = new ::fight::ParamFloatConstRange< ::hulkfight::ai::FaceMotionTrack>("timeEnd", &owners::Obj_10b400::FUN_0010b400);
-        FUN_002347b0(&DAT_004e0ad8, params, 2);
-    }
-    DAT_004e0adc++;
-}
-
+template <> fight::ParamFloatConstRange<hulkfight::ai::FaceMotionTrack>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<hulkfight::ai::FaceMotionTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x10bbe0)
+#endif
 
 
 // 0x0010bd40 hulkfight::ai::FaceTargetTrack::vfunc_10 (70 B): matches/0x0010bd40.cpp

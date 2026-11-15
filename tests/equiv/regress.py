@@ -697,6 +697,13 @@ CASES = {
                                            "equiv_on": "nanpayload", "equiv_off": "nanpayload"}),
     "0x0022ca90_native_nanpayload_wrong": ("fail", "this+0x14", 0, {"native": True, "n_inputs": 300, "equiv_on": "nanpayload"}),
     "0x0022ca90_native_nanpayload_nanconst": ("fail", "this+0xc", 0, {"native": True, "n_inputs": 300, "equiv_on": "nanpayload"}),
+    # (rev3, D39 review) must fail with the rule on: an int -2 where the original stores -1, whose bit patterns both read as
+    # quiet NaNs. a07ba065a's rule sets it aside (equivalent, promotable at --inputs 3000: 32 inputs nan_payload): the rule
+    # must only take words both sides stored as floats. _off: the mutant fails without the rule
+    "0x0021e080_native_nanpayload_int": ("fail", "(0xfffffffe, expected 0xffffffff)", 0, {"native": True, "n_inputs": 300,
+                                                                                         "equiv_on": "nanpayload"}),
+    "0x0021e080_native_nanpayload_int_off": ("fail", "(0xfffffffe, expected 0xffffffff)", 0,
+                                             {"src": "0x0021e080_native_nanpayload_int", "native": True, "n_inputs": 300}),
     # (wine1) the difference at seed 11 is `f_text[f_n] = 0` with a fuzzed f_n beyond the whole stack, where each frame layout puts
     # the byte elsewhere: since fescape that input is inconclusive in Wine mode, so the case keeps testing xlocal with fescape off
     "0x0008e880_native_xlocal_elem0": ("fail", "unexpected write to 0xbe7ef6d4", 0, {"native": True, "n_inputs": 60,

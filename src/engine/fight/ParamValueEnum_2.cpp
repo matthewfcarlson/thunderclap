@@ -1,9 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x00234cc0..0x00234e50 (kind game, layer engine, confidence medium), dominant class fight::ParamValueEnum
 #include "tree_prelude.h"
-#define HULK_FIGHT_PARAM_IMPLICIT   // (gx3, D18) include/gen/fight.h: the parameter classes' real constructors
 #include "compat/ptr.h"
-#include "gen/fight.h"
 #define TREE_TU_BEGIN namespace fn_fe7c326e {
 #define TREE_TU_END }
 #define TREE_LOCAL_CEffectStopTrack
@@ -288,12 +286,12 @@ class ParamValueEnum : public ParamValue {
 };
 
 
-} // namespace fn_fe7c326e
-
 // 0x00234cc0 FUN_00234cc0 (34 B): matches/0x00234cc0.cpp
-// sym: ??0ParamValueEnum@fight@@QAE@PBD@Z
-// (gx3, D18) the constructor the parameter registrations call (`new ParamEnumConstList<T>(name, table, count, setter)`)
-::fight::ParamValueEnum::ParamValueEnum(const char* name) : ::fight::ParamValue(name) {}
+// sym: ??0ParamValueEnum@fn_fe7c326e@@QAE@H@Z
+ParamValueEnum::ParamValueEnum(hulk_intptr x) {
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_004279fc;
+    ((Obj_234cc0*)((char*)this + 8))->Init_0027b0e0(x);
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_00427b20;
+}
 
-
-
+} // namespace fn_fe7c326e

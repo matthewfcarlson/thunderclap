@@ -51,6 +51,16 @@ template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::HitPauseTr
 }
 
 
+// 0x00154a90 fight::ParamFloatConstRange<hulkfight::motion::HitPauseTrack>::vfunc_0 (30 B): matches/0x00154a90.cpp
+// sym: ??_G?$ParamFloatConstRange@VHitPauseTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// Same code shape as 0x00021840 (propagated; names are from that function)
+// scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+template <> fight::ParamFloatConstRange<hulkfight::motion::HitPauseTrack>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<hulkfight::motion::HitPauseTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x154a90)
+#endif
+
+
 // 0x00154ac0 fight::TrackFactoryCasterTemplate<hulkfight::motion::HitReactionTrack>::vfunc_0 (36 B): matches/0x00154ac0.cpp
 // sym: ?vfunc_0@?$TrackFactoryCasterTemplate@VHitReactionTrack@motion@hulkfight@@@fight@@UAE_NPAX@Z
 template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::HitReactionTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;

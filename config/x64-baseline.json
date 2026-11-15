@@ -3,8 +3,8 @@
   "gating": ["layout", "ptrtrunc", "crash64"],
   "settings": {"inputs": 200, "time_budget": 60},
   "source": "x64eq's tree-wide sweep at 96cba7a7c (the 44cb331c3 batch-2 blocks re-run after it), brought to ea6ce3693 by gate1's replay of the gate over every commit since",
-  "counts": {"crash64": 11, "crash64/ptr32": 203, "layout": 729, "ptrtrunc": 160},
-  "total": 1103,
+  "counts": {"crash64": 11, "crash64/ptr32": 203, "layout": 731, "ptrtrunc": 160},
+  "total": 1105,
   "why": {
     "0x0008ff00": "x64t12: the pool's free on records.h GameStaticAllocator; the block index is (value - data) / elemSize of a pointer passed as an integer: the fuzzer's integer and the heap's data pointer differ between the runs (a pointer-derived integer, the checker's limit); within the pool both runs agree (2026-11-14)",
     "0x002775b0": "x64t12: the library list on records.h CoreDriveLibraryList / CoreCementLibrary; a failing input has a bucket beyond the two lists (0x00277570 stores 0 or 1), so head[bucket] reads past the Table view on both runs and the 64-bit run follows what it finds there (2026-11-14)"
@@ -101,6 +101,7 @@
     "0x00051480": "ptrtrunc",
     "0x000520c0": "layout",
     "0x00052390": "layout",
+    "0x00053d80": "layout",
     "0x000578b0": "layout",
     "0x00057ab0": "layout",
     "0x00057d70": "layout",
@@ -757,6 +758,7 @@
     "0x00234a90": "layout",
     "0x00234af0": "layout",
     "0x00234ba0": "layout",
+    "0x00234cc0": "layout",
     "0x00235620": "layout",
     "0x00235800": "layout",
     "0x002358c0": "crash64/ptr32",

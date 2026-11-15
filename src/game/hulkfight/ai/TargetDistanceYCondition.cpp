@@ -1,4 +1,5 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// cl-flags: /GX
 // object 0x00127d20..0x00127dc0 (kind game, layer game, confidence high), dominant class hulkfight::ai::TargetDistanceYCondition
 #include "tree_prelude.h"
 #include "gen/fight.h"
@@ -32,4 +33,34 @@ template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::ai::TargetDist
 
     return FUN_00344e74(p, 0, &DAT_00491ca8, &DAT_004a82f8, 0) != 0;
 }
+
+
+// 0x00127d50 fight::ParamEnumConstList<hulkfight::ai::TargetDistanceYCondition>::vfunc_0 (30 B): matches/0x00127d50.cpp
+// sym: ??_G?$ParamEnumConstList@VTargetDistanceYCondition@ai@hulkfight@@@fight@@UAEPAXI@Z
+// Same code shape as 0x00021840 (propagated; names are from that function)
+// scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+template <> fight::ParamEnumConstList<hulkfight::ai::TargetDistanceYCondition>::~ParamEnumConstList() {}
+#if defined(HULK_PTR64)
+template class fight::ParamEnumConstList<hulkfight::ai::TargetDistanceYCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x127d50)
+#endif
+
+
+// 0x00127d70 fight::ParamFloatConstRange<hulkfight::ai::TargetDistanceYCondition>::vfunc_0 (30 B): matches/0x00127d70.cpp
+// sym: ??_G?$ParamFloatConstRange@VTargetDistanceYCondition@ai@hulkfight@@@fight@@UAEPAXI@Z
+// Same code shape as 0x00021840 (propagated; names are from that function)
+// scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+template <> fight::ParamFloatConstRange<hulkfight::ai::TargetDistanceYCondition>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<hulkfight::ai::TargetDistanceYCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x127d70)
+#endif
+
+
+// 0x00127d90 fight::ParamBool<hulkfight::ai::TargetDistanceYCondition>::vfunc_0 (30 B): matches/0x00127d90.cpp
+// sym: ??_G?$ParamBool@VTargetDistanceYCondition@ai@hulkfight@@@fight@@UAEPAXI@Z
+// Same code shape as 0x00021840 (propagated; names are from that function)
+// scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+template <> fight::ParamBool<hulkfight::ai::TargetDistanceYCondition>::~ParamBool() {}
+#if defined(HULK_PTR64)
+template class fight::ParamBool<hulkfight::ai::TargetDistanceYCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x127d90)
+#endif
 

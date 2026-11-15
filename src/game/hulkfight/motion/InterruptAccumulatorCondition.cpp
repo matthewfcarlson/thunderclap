@@ -1,4 +1,5 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// cl-flags: /GX
 // object 0x00153f40..0x00154000 (kind game, layer game, confidence high), dominant class hulkfight::motion::InterruptAccumulatorCondition
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -64,4 +65,24 @@ template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::motion::Interr
 
     return Check(p, 0, &DAT_00491ca8, &DAT_004b1bf0, 0) != 0;
 }
+
+
+// 0x00153fb0 fight::ParamEnumConstList<hulkfight::motion::InterruptAccumulatorCondition>::vfunc_0 (30 B): matches/0x00153fb0.cpp
+// sym: ??_G?$ParamEnumConstList@VInterruptAccumulatorCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
+// Same code shape as 0x00021840 (propagated; names are from that function)
+// scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+template <> fight::ParamEnumConstList<hulkfight::motion::InterruptAccumulatorCondition>::~ParamEnumConstList() {}
+#if defined(HULK_PTR64)
+template class fight::ParamEnumConstList<hulkfight::motion::InterruptAccumulatorCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x153fb0)
+#endif
+
+
+// 0x00153fd0 fight::ParamFloatConstRange<hulkfight::motion::InterruptAccumulatorCondition>::vfunc_0 (30 B): matches/0x00153fd0.cpp
+// sym: ??_G?$ParamFloatConstRange@VInterruptAccumulatorCondition@motion@hulkfight@@@fight@@UAEPAXI@Z
+// Same code shape as 0x00021840 (propagated; names are from that function)
+// scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+template <> fight::ParamFloatConstRange<hulkfight::motion::InterruptAccumulatorCondition>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<hulkfight::motion::InterruptAccumulatorCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x153fd0)
+#endif
 

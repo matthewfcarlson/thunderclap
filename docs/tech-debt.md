@@ -51,28 +51,23 @@ Kept by `tools/tech_debt.py` as written (everything from this heading on).
   an `unsigned int`) still read pointers as 32-bit words. (The projectile pool's views are on the record since x64t12.)
 - **TUs still compiled with /GX (`// cl-flags: /GX`; gx1 D17, accepted as the interim state by the user's D23,
   2026-11-14).** The game was built without C++ exceptions and the tree compiles with /GX- by default
-  (tools/compare.py DEFAULT_FLAGS; clang with -fno-exceptions everywhere since gx2). 399 TUs still say `// cl-flags: /GX`
-  (457 at D23; gx2 2 took nine src/engine/fight TUs off, gx3 2 another 49):
-  - 396 hold the scalar deleting destructors (`??_G`; 1,873 blocks at D23, 1,573 now) written as empty user destructors
+  (tools/compare.py DEFAULT_FLAGS; clang with -fno-exceptions everywhere since gx2). 448 TUs still say `// cl-flags: /GX`
+  (457 at D23; gx2 2 took nine src/engine/fight TUs off):
+  - 445 hold the scalar deleting destructors (`??_G`; 1,873 blocks at D23, 1,856 now) written as empty user destructors
     (`template <> ParamX<T>::~ParamX() {}`, `Method2<...>::~Method2() {}`, `C::~C() {}`). In the game these
     destructors are implicit and their `??_G` is emitted next to the vftable by the code that constructs the class:
-    the fight parameter registration functions (714 blocks in 102 TUs; 266 of the game's 434 registrations still
-    store the vftables by hand), the script binding constructors (`Closure`/`Method` template constructors such as
-    0x0002e4f0, stubs today: 664 blocks in 161 TUs) and the non-template classes' constructors (195 blocks in 152
-    TUs). Under /GX- an empty user destructor is inlined with its vftable store and no longer matches, so these TUs
-    keep /GX until that code constructs the real classes.
+    the fight parameter registration functions (435 blocks in 185 TUs, 105 of those `.iso_` TUs; they store the
+    vftables by hand today), the script binding constructors (`Closure`/`Method` template constructors such as
+    0x0002e4f0, stubs today) and the non-template classes' constructors. Under /GX- an empty user destructor is inlined
+    with its vftable store and no longer matches, so these TUs keep /GX until that code constructs the real classes.
   - 2 for good: src/game/init/dynamic_initializers.cpp and dynamic_initializers.Oy-.cpp (library unwind funclets past
     the game's .text, built with exceptions).
   - 1 until its clang proof passes: src/game/hulkfight/motion/GrappleThrowAction.iso_00148f40.cpp (0x00148f40
     re-proves on MSVC with /GX-; its `--wine` run fails the same way with or without the change).
-  What removes them: D18, TU by TU (docs/native-build.md "gx1", "gx2", "gx3"): the registration functions construct
-  the real `ParamX<T>` (each registration TU's `.iso_` / `.new_*` siblings merged back, the `??_G` blocks of another
-  TU of the same object (config/splits.json's registration objects, D32) moved to the registration that emits them;
-  build/gx3/scripts/gen19.py), and the Method/Closure constructors become the real template constructors; a TU loses
-  its marker when all of its blocks match / re-prove with /GX-. Next: the Name families (ParamName,
-  ParamNameConstList, ParamNameList), the `int`-word families (ParamFloatPtrConstRange, ParamBoolPtr, ParamScript,
-  ParamStringConstList) and the non-template classes whose `??_G` share a registration's TU (OpportunityAction,
-  SequenceAction, ExecuteAction, CTrack, ...). This entry's count goes down as that lands.
+  What removes them: D18, TU by TU (docs/native-build.md "gx1", "gx2"): the registration functions construct the
+  real `ParamX<T>` (merging each `.iso_` registration TU back into its parent TU so the `??_G` lands in the right
+  object) and the Method/Closure constructors become the real template constructors; a TU loses its marker when all
+  of its blocks match / re-prove with /GX-. This entry's count goes down as that lands.
 - **TUs whose Wine build still compiles with exceptions (`// clang-flags: -fexceptions -fcxx-exceptions`; gx2,
   2026-11-14).** Since D22 the Wine build and `equiv.py --wine` compile with -fno-exceptions. 72 equivalent blocks'
   clang code changed with that; 60 re-proved, 12 do not pass `--wine` at 3,000 inputs under the current checker and

@@ -1,9 +1,6 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x000783a0..0x000788e0 (kind game, layer game, confidence medium), dominant class DataHandler::ObjectCreator
 #include "tree_prelude.h"
-#define HULK_FIGHT_PARAM_IMPLICIT   // (gx2, D18) include/gen/fight.h: the parameter templates constructed for real
-#include "decls/data/game/unknown.h"   // (gx3, D18) for the merged registrations
-#include "gen/fight.h"   // (gx3, D18) for the merged registrations
 #include "compat/ptr.h"
 #include "decls/data/game/global.h"
 #include "gen/owners.h"
@@ -14,12 +11,6 @@
 namespace fn_f3f3201f {} using namespace fn_f3f3201f;
 namespace fn_f3f3201f { extern "C" char DAT_003feefc[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "game/DataHandler.h"
-void* operator new(size_t) HULK_NEW_THROW;   // (gx2, D18) the game's operator new (0x0008d690)
-extern "C" void __cdecl FUN_002347b0(void* list, void* params, int count);   // (gx2, D18) a parameter list's set-up
-namespace fn_f42fdcee { struct Vec3; } 
-namespace fn_f42fdcee { struct O_77ee0 { char SetExplosion_00077ee0(int); }; }   // (gx3, D18) setters, as defined in unk_077df0.cpp
-namespace fn_f42fdcee { struct Obj { bool SetOffset_00077ef0(struct fn_f42fdcee::Vec3 const *); }; }   // (gx3, D18) setters, as defined in unk_077df0.cpp
-namespace fn_f42fdcee { struct Obj_77ed0 { bool SetTimeBegin_00077ed0(int); }; }   // (gx3, D18) setters, as defined in unk_077df0.cpp
 
 // ---- declarations shared by the functions below
 inline void* __cdecl operator new(size_t, void* p) { return p; }
@@ -27,6 +18,7 @@ namespace fn_f3f3201f {
 bool SetTimeBegin_00077ed0(void*, int); /* (unb5) as defined; address taken only */
 char SetExplosion_00077ee0(void*, int); /* (unb5) as defined; address taken only */
 bool SetOffset_00077ef0(void*, void*); /* (unb5) as defined; address taken only */
+extern "C" void __cdecl FUN_002347b0(void*, void**, int);
 class CExplosionTrack;
 namespace fight {
 template<class T> struct ParamFloatConstRange { virtual void slot0(); char pad[12]; void (__cdecl *callback)(); char tail[4]; void FUN_00234960(const char*); };
@@ -70,86 +62,26 @@ class NonCopyable : public IRefCount {
 void thunk_FUN_00267090(pure3d::NonCopyable*);
 
 
-} // namespace fn_f3f3201f
-
-// 0x00078300 fight::ParamFloatConstRange<CHeliDeathSpiralTrack>::vfunc_0 (30 B): matches/0x00078300.cpp
-// sym: ??_G?$ParamFloatConstRange@VCHeliDeathSpiralTrack@@@fight@@UAEPAXI@Z
-// (gx3, D32/D18) moved from CExplosionTrack_2.cpp: the implicit destructor of the class; its scalar deleting destructor is
-// emitted beside the vftable by the registration that constructs it (FUN_000783a0 / FUN_00078610)
-
-
-
-// 0x00078320 fight::ParamIntConstRange<CHeliDeathSpiralTrack>::vfunc_0 (30 B): matches/0x00078320.cpp
-// sym: ??_G?$ParamIntConstRange@VCHeliDeathSpiralTrack@@@fight@@UAEPAXI@Z
-// (gx3, D32/D18) moved from CExplosionTrack_2.cpp: the implicit destructor of the class; its scalar deleting destructor is
-// emitted beside the vftable by the registration that constructs it (FUN_000783a0 / FUN_00078610)
-
-
-
-// 0x00078340 fight::ParamFloatConstRange<CExplosionTrack>::vfunc_0 (30 B): matches/0x00078340.cpp
-// sym: ??_G?$ParamFloatConstRange@VCExplosionTrack@@@fight@@UAEPAXI@Z
-// (gx3, D32/D18) moved from CExplosionTrack_2.cpp: the implicit destructor of the class; its scalar deleting destructor is
-// emitted beside the vftable by the registration that constructs it (FUN_000783a0 / FUN_00078610)
-
-
-
-// 0x00078360 fight::ParamEnumConstList<CExplosionTrack>::vfunc_0 (30 B): matches/0x00078360.cpp
-// sym: ??_G?$ParamEnumConstList@VCExplosionTrack@@@fight@@UAEPAXI@Z
-// (gx3, D32/D18) moved from CExplosionTrack_2.cpp: the implicit destructor of the class; its scalar deleting destructor is
-// emitted beside the vftable by the registration that constructs it (FUN_000783a0 / FUN_00078610)
-
-
-
-// 0x00078380 fight::ParamVector<CExplosionTrack>::vfunc_0 (30 B): matches/0x00078380.cpp
-// sym: ??_G?$ParamVector@VCExplosionTrack@@@fight@@UAEPAXI@Z
-// (gx3, D32/D18) moved from CExplosionTrack_2.cpp: the implicit destructor of the class; its scalar deleting destructor is
-// emitted beside the vftable by the registration that constructs it (FUN_000783a0 / FUN_00078610)
-
-
-
-// 0x000783a0 FUN_000783a0 (613 B): matches/0x000783a0.cpp
-// sym: _FUN_000783a0
-// (gx2, D18) from ObjectCreator.new_throw.cpp; constructs the real ParamFloatConstRange<CHeliDeathSpiralTrack>, ParamIntConstRange<CHeliDeathSpiralTrack>,
-// whose vftable and scalar deleting destructor it emits
-extern "C" void FUN_000783a0()
-{
-    if (DAT_004dd034 == 0) {
-        ::fight::ParamValue* params[11];
-        params[0] = new ::fight::ParamFloatConstRange< ::CHeliDeathSpiralTrack>("timeBegin", &owners::Obj_77df0::FUN_00077df0);
-        params[1] = new ::fight::ParamFloatConstRange< ::CHeliDeathSpiralTrack>("timeEnd", &owners::C_77e00::FUN_00077e00);
-        params[2] = new ::fight::ParamFloatConstRange< ::CHeliDeathSpiralTrack>("weightRatio", &owners::X_77e10::FUN_00077e10);
-        params[3] = new ::fight::ParamFloatConstRange< ::CHeliDeathSpiralTrack>("minTurningVelocity", &owners::X_77e20::FUN_00077e20);
-        params[4] = new ::fight::ParamFloatConstRange< ::CHeliDeathSpiralTrack>("maxTurningVelocity", &owners::Obj_77e40::FUN_00077e40);
-        params[5] = new ::fight::ParamFloatConstRange< ::CHeliDeathSpiralTrack>("acceleration", &owners::X_77e60::FUN_00077e60);
-        params[6] = new ::fight::ParamFloatConstRange< ::CHeliDeathSpiralTrack>("gravity", &owners::A_77e70::FUN_00077e70);
-        params[7] = new ::fight::ParamFloatConstRange< ::CHeliDeathSpiralTrack>("tilt", &owners::Target_77e80::FUN_00077e80);
-        params[8] = new ::fight::ParamIntConstRange< ::CHeliDeathSpiralTrack>("priority", &owners::Obj_77ea0::FUN_00077ea0);
-        params[9] = new ::fight::ParamFloatConstRange< ::CHeliDeathSpiralTrack>("blendInTime", &owners::X_77eb0::FUN_00077eb0);
-        params[10] = new ::fight::ParamFloatConstRange< ::CHeliDeathSpiralTrack>("blendOutTime", &owners::Obj_77ec0::FUN_00077ec0);
-        FUN_002347b0(&DAT_004dd030, params, 11);
-    }
-    DAT_004dd034++;
+// 0x00078610 FUN_00078610 (227 B): equivalent/0x00078610.cpp
+// sym: _FUN_00078610 @0eb57d2d0cc1 @wcccc195e738f
+// STATUS: equivalent (tools/equiv.py level 3: 2992 inputs, branch coverage 8/8)
+// FUN_00078610 @ 0x00078610
+extern "C" void FUN_00078610() {
+ if (DAT_004dd03c == 0) {
+ void* items[3];
+ fight::ParamFloatConstRange<CExplosionTrack>* a = (fight::ParamFloatConstRange<CExplosionTrack>*)FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<CExplosionTrack>));
+ if(a) { a->FUN_00234960("timeBegin"); new(a) fight::ParamFloatConstRange<CExplosionTrack>; a->callback=(void (*)())SetTimeBegin_00077ed0; }
+ items[0]=a;
+ fight::ParamEnumConstList<CExplosionTrack>* b=(fight::ParamEnumConstList<CExplosionTrack>*)FUN_0008d690((int)sizeof(fight::ParamEnumConstList<CExplosionTrack>));
+ if(b) { b->FUN_00234cc0("explosion"); new(b) fight::ParamEnumConstList<CExplosionTrack>; b->list=((char*)&DAT_0049b6b4); b->count=13; b->callback=(void (*)())SetExplosion_00077ee0; }
+ items[1]=b;
+ fight::ParamVector<CExplosionTrack>* c=(fight::ParamVector<CExplosionTrack>*)FUN_0008d690((int)sizeof(fight::ParamVector<CExplosionTrack>));
+ if(c) { c->FUN_00234e50("offset"); new(c) fight::ParamVector<CExplosionTrack>; c->callback=(void (*)())SetOffset_00077ef0; }
+ items[2]=c;
+ FUN_002347b0(((char*)&DAT_004dd038),items,3);
+ }
+ ++DAT_004dd03c;
 }
-
-
-
-// 0x00078610 FUN_00078610 (227 B): matches/0x00078610.cpp
-// sym: _FUN_00078610
-// (gx2, D18) rewritten; constructs the real ParamEnumConstList<CExplosionTrack>, ParamFloatConstRange<CExplosionTrack>, ParamVector<CExplosionTrack>,
-// whose vftable and scalar deleting destructor it emits
-extern "C" void FUN_00078610()
-{
-    if (DAT_004dd03c == 0) {
-        ::fight::ParamValue* params[3];
-        params[0] = new ::fight::ParamFloatConstRange< ::CExplosionTrack>("timeBegin", &fn_f42fdcee::Obj_77ed0::SetTimeBegin_00077ed0);
-        params[1] = new ::fight::ParamEnumConstList< ::CExplosionTrack>("explosion", (void*)&DAT_0049b6b4, 13, &fn_f42fdcee::O_77ee0::SetExplosion_00077ee0);
-        params[2] = new ::fight::ParamVector< ::CExplosionTrack>("offset", &fn_f42fdcee::Obj::SetOffset_00077ef0);
-        FUN_002347b0(&DAT_004dd038, params, 3);
-    }
-    DAT_004dd03c++;
-}
-
-namespace fn_f3f3201f {
 
 
 // 0x00078710 FUN_00078710 (55 B): matches/0x00078710.cpp

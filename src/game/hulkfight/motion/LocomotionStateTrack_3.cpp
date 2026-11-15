@@ -1,4 +1,5 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// cl-flags: /GX
 // object 0x00179100..0x001791e0 (kind game, layer game, confidence high), dominant class hulkfight::motion::LocomotionStateTrack
 #include "tree_prelude.h"
 #include "gen/fight.h"
@@ -47,6 +48,16 @@ template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::SuckTrack>
 }
 
 
+// 0x00179130 fight::ParamFloatConstRange<hulkfight::motion::SuckTrack>::vfunc_0 (30 B): matches/0x00179130.cpp
+// sym: ??_G?$ParamFloatConstRange@VSuckTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// Same code shape as 0x00021840 (propagated; names are from that function)
+// scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+template <> fight::ParamFloatConstRange<hulkfight::motion::SuckTrack>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<hulkfight::motion::SuckTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x179130)
+#endif
+
+
 // 0x00179160 fight::TrackFactoryCasterTemplate<hulkfight::motion::LocomotionStateTrack>::vfunc_0 (36 B): matches/0x00179160.cpp
 // sym: ?vfunc_0@?$TrackFactoryCasterTemplate@VLocomotionStateTrack@motion@hulkfight@@@fight@@UAE_NPAX@Z
  // namespace fight
@@ -54,4 +65,24 @@ template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::Locomotion
 
     return FUN_00344e74(p, 0, &DAT_0049850c, &DAT_004ba200, 0) != 0;
 }
+
+
+// 0x00179190 fight::ParamFloatConstRange<hulkfight::motion::LocomotionStateTrack>::vfunc_0 (30 B): matches/0x00179190.cpp
+// sym: ??_G?$ParamFloatConstRange@VLocomotionStateTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// Same code shape as 0x00021840 (propagated; names are from that function)
+// scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+template <> fight::ParamFloatConstRange<hulkfight::motion::LocomotionStateTrack>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<hulkfight::motion::LocomotionStateTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x179190)
+#endif
+
+
+// 0x001791b0 fight::ParamEnumConstList<hulkfight::motion::LocomotionStateTrack>::vfunc_0 (30 B): matches/0x001791b0.cpp
+// sym: ??_G?$ParamEnumConstList@VLocomotionStateTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// Same code shape as 0x00021840 (propagated; names are from that function)
+// scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+template <> fight::ParamEnumConstList<hulkfight::motion::LocomotionStateTrack>::~ParamEnumConstList() {}
+#if defined(HULK_PTR64)
+template class fight::ParamEnumConstList<hulkfight::motion::LocomotionStateTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1791b0)
+#endif
 

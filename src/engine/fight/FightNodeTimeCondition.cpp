@@ -1,4 +1,5 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// cl-flags: /GX
 // object 0x00235a20..0x002361a0 (kind game, layer engine, confidence high), dominant class fight::FightNodeTimeCondition
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -729,4 +730,74 @@ template <> bool fight::ParamFloatConstRange<fight::FightNodeTimeCondition>::vfu
 template <> bool fight::ParamFloatConstRange<fight::FightNodeTimeCondition>::vfunc_2() {
     return this->f_10 == 0;
 }
+
+
+// 0x002360c0 fight::ParamEnumConstList<fight::FightNodeCondition>::vfunc_0 (30 B): matches/0x002360c0.cpp
+// sym: ??_G?$ParamEnumConstList@VFightNodeCondition@fight@@@fight@@UAEPAXI@Z
+// Same code shape as 0x00021840 (propagated; names are from that function)
+// scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+template <> fight::ParamEnumConstList<fight::FightNodeCondition>::~ParamEnumConstList() {}
+#if defined(HULK_PTR64)
+template class fight::ParamEnumConstList<fight::FightNodeCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2360c0)
+#endif
+
+
+// 0x002360e0 fight::ParamBranch<fight::FightNodeCondition>::vfunc_0 (30 B): matches/0x002360e0.cpp
+// sym: ??_G?$ParamBranch@VFightNodeCondition@fight@@@fight@@UAEPAXI@Z
+// Same code shape as 0x00021840 (propagated; names are from that function)
+// scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+template <> fight::ParamBranch<fight::FightNodeCondition>::~ParamBranch() {}
+#if defined(HULK_PTR64)
+template class fight::ParamBranch<fight::FightNodeCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2360e0)
+#endif
+
+
+// 0x00236100 fight::ParamEnumConstList<fight::FightNodeParentCondition>::vfunc_0 (30 B): matches/0x00236100.cpp
+// sym: ??_G?$ParamEnumConstList@VFightNodeParentCondition@fight@@@fight@@UAEPAXI@Z
+// Same code shape as 0x00021840 (propagated; names are from that function)
+// scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+template <> fight::ParamEnumConstList<fight::FightNodeParentCondition>::~ParamEnumConstList() {}
+#if defined(HULK_PTR64)
+template class fight::ParamEnumConstList<fight::FightNodeParentCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x236100)
+#endif
+
+
+// 0x00236120 fight::ParamBranch<fight::FightNodeParentCondition>::vfunc_0 (30 B): matches/0x00236120.cpp
+// sym: ??_G?$ParamBranch@VFightNodeParentCondition@fight@@@fight@@UAEPAXI@Z
+// Same code shape as 0x00021840 (propagated; names are from that function)
+// scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+template <> fight::ParamBranch<fight::FightNodeParentCondition>::~ParamBranch() {}
+#if defined(HULK_PTR64)
+template class fight::ParamBranch<fight::FightNodeParentCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x236120)
+#endif
+
+
+// 0x00236140 fight::ParamBool<fight::FightNodeParentCondition>::vfunc_0 (30 B): matches/0x00236140.cpp
+// sym: ??_G?$ParamBool@VFightNodeParentCondition@fight@@@fight@@UAEPAXI@Z
+// Same code shape as 0x00021840 (propagated; names are from that function)
+// scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+template <> fight::ParamBool<fight::FightNodeParentCondition>::~ParamBool() {}
+#if defined(HULK_PTR64)
+template class fight::ParamBool<fight::FightNodeParentCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x236140)
+#endif
+
+
+// 0x00236160 fight::ParamEnumConstList<fight::FightNodeTimeCondition>::vfunc_0 (30 B): matches/0x00236160.cpp
+// sym: ??_G?$ParamEnumConstList@VFightNodeTimeCondition@fight@@@fight@@UAEPAXI@Z
+// Same code shape as 0x00021840 (propagated; names are from that function)
+// scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+template <> fight::ParamEnumConstList<fight::FightNodeTimeCondition>::~ParamEnumConstList() {}
+#if defined(HULK_PTR64)
+template class fight::ParamEnumConstList<fight::FightNodeTimeCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x236160)
+#endif
+
+
+// 0x00236180 fight::ParamFloatConstRange<fight::FightNodeTimeCondition>::vfunc_0 (30 B): matches/0x00236180.cpp
+// sym: ??_G?$ParamFloatConstRange@VFightNodeTimeCondition@fight@@@fight@@UAEPAXI@Z
+// Same code shape as 0x00021840 (propagated; names are from that function)
+// scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+template <> fight::ParamFloatConstRange<fight::FightNodeTimeCondition>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<fight::FightNodeTimeCondition>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x236180)
+#endif
 

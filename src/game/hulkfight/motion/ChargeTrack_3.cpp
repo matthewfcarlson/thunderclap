@@ -1,4 +1,5 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// cl-flags: /GX
 // object 0x00178de0..0x00178e80 (kind game, layer game, confidence high), dominant class hulkfight::motion::ChargeTrack
 #include "tree_prelude.h"
 #include "gen/fight.h"
@@ -31,4 +32,34 @@ template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::ChargeTrac
 
     return FUN_00344e74(p, 0, &DAT_0049850c, &DAT_004b9df8, 0) != 0;
 }
+
+
+// 0x00178e10 fight::ParamFloatConstRange<hulkfight::motion::ChargeTrack>::vfunc_0 (30 B): matches/0x00178e10.cpp
+// sym: ??_G?$ParamFloatConstRange@VChargeTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// Same code shape as 0x00021840 (propagated; names are from that function)
+// scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+template <> fight::ParamFloatConstRange<hulkfight::motion::ChargeTrack>::~ParamFloatConstRange() {}
+#if defined(HULK_PTR64)
+template class fight::ParamFloatConstRange<hulkfight::motion::ChargeTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x178e10)
+#endif
+
+
+// 0x00178e30 fight::ParamEnumConstList<hulkfight::motion::ChargeTrack>::vfunc_0 (30 B): matches/0x00178e30.cpp
+// sym: ??_G?$ParamEnumConstList@VChargeTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// Same code shape as 0x00021840 (propagated; names are from that function)
+// scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+template <> fight::ParamEnumConstList<hulkfight::motion::ChargeTrack>::~ParamEnumConstList() {}
+#if defined(HULK_PTR64)
+template class fight::ParamEnumConstList<hulkfight::motion::ChargeTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x178e30)
+#endif
+
+
+// 0x00178e50 fight::ParamBool<hulkfight::motion::ChargeTrack>::vfunc_0 (30 B): matches/0x00178e50.cpp
+// sym: ??_G?$ParamBool@VChargeTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// Same code shape as 0x00021840 (propagated; names are from that function)
+// scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+template <> fight::ParamBool<hulkfight::motion::ChargeTrack>::~ParamBool() {}
+#if defined(HULK_PTR64)
+template class fight::ParamBool<hulkfight::motion::ChargeTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x178e50)
+#endif
 
