@@ -500,22 +500,48 @@ def changed_blocks(ref, head=None, tus=None, jobs=2, workdir=None):
 _CK = []
 
 
+def equiv_closure():
+    """(integ1, rev5) The top-level names of equiv.py that the 64-bit check can reach: every `equiv.X` equiv64.py (and
+    equiv.py's --x64 entry, main) names, and, transitively, every top-level name those definitions use. Names equiv.py
+    imports from other modules are covered by those modules' files in the key (compare.py, ...)."""
+    import ast
+    src = open(os.path.join(ROOT, "tools", "equiv.py")).read()
+    tree = ast.parse(src)
+    defs = {}
+    for node in tree.body:
+        if isinstance(node, (ast.FunctionDef, ast.ClassDef)):
+            defs[node.name] = ast.get_source_segment(src, node)
+        elif isinstance(node, (ast.Assign, ast.AnnAssign)):
+            for t in (node.targets if isinstance(node, ast.Assign) else [node.target]):
+                for n_ in ast.walk(t):
+                    if isinstance(n_, ast.Name):
+                        defs[n_.id] = (defs.get(n_.id, "") + "\n" + ast.get_source_segment(src, node))
+    roots = set(re.findall(r"\bequiv\.(\w+)", open(os.path.join(ROOT, "tools", "equiv64.py")).read())) | {"main"}
+    seen, todo = set(), [r for r in roots if r in defs]
+    while todo:
+        n_ = todo.pop()
+        if n_ in seen:
+            continue
+        seen.add(n_)
+        for x in ast.walk(ast.parse(defs[n_].lstrip()) if defs[n_].lstrip() else ast.parse("")):
+            if isinstance(x, ast.Name) and x.id in defs and x.id not in seen:
+                todo.append(x.id)
+    return seen, {n_: defs[n_] for n_ in seen}, roots
+
+
 def checker_key():
-    """What a cached --x64 result depends on besides the code: equiv64.py and equiv_batch.py whole, and of equiv.py only
-    what the 64-bit check uses (integ1, D47: the whole file's hash invalidated every result at each 32-bit checker edit,
-    and an --update-baseline then re-ran ~126 jobs with nothing cached): the classes and functions equiv64 calls, the
-    --x64 entry (main), and the files they compile with (compare.py, clang_probe.py)."""
+    """What a cached --x64 result depends on besides the code: equiv64.py and equiv_batch.py whole, the files the check
+    compiles with (compare.py, clang_probe.py), the EQ64_OFF switches, and of equiv.py the transitive closure of the
+    names equiv64 uses (equiv_closure; integ1, D47 and rev5: the whole file's hash invalidated every result at each
+    32-bit checker edit, a hand-kept list missed _x87_value and compile_obj)."""
     if not _CK:
-        import inspect
-        sys.path.insert(0, os.path.join(ROOT, "tools"))
-        import equiv
-        h = hashlib.sha1(b"x64res2\0" + json.dumps(SETTINGS, sort_keys=True).encode())
+        h = hashlib.sha1(b"x64res3\0" + json.dumps(SETTINGS, sort_keys=True).encode())
+        h.update(os.environ.get("EQ64_OFF", "").encode() + b"\0")
         for m in ("equiv64.py", "equiv_batch.py", "compare.py", "clang_probe.py"):
             h.update(_sha_file(os.path.join(ROOT, "tools", m)).encode())
-        for o in (equiv.Obj, equiv.Program, equiv.pick_symbol, equiv.compile_native, equiv.deleting_wrapper_asm,
-                  equiv._linkable, equiv.main):
-            h.update(inspect.getsource(o).encode())
-        h.update(repr(equiv.DEFAULT_FLAGS).encode())
+        _, srcs, _ = equiv_closure()
+        for n_ in sorted(srcs):
+            h.update(n_.encode() + b"\0" + srcs[n_].encode())
         _CK.append(h.hexdigest())
     return _CK[0]
 
@@ -638,6 +664,8 @@ def judge(blocks, results, baseline):
     out = []
     for a, rel, h, why in blocks:
         r = results.get(a)
+        if r is not None and r.get("eq64_off"):
+            r = None        # (integ1, rev5) a run with EQ64_OFF switches vouches for nothing
         sc, g = classify(r)
         if r is None:
             v = "unchecked"
@@ -797,6 +825,9 @@ def main(argv=None):
                                if ("// %s " % addr) in open(p, errors="replace").read()), None)
             k = tu_keys(os.path.join(ROOT, tu)).get(addr) if tu else None
             r = cached_result((k or {}).get("key"))
+            if r and r.get("eq64_off"):
+                raise SystemExit("x64_gate accept: the cached result for %s was run with EQ64_OFF=%s: re-run without "
+                                 "switches" % (addr, ",".join(r["eq64_off"])))
             cls = classify(r)[1] if r else None
             if not cls:
                 raise SystemExit("x64_gate accept: no gating result for %s's current code (run the gate first, or "

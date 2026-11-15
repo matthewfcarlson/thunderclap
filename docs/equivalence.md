@@ -2092,6 +2092,15 @@ from the annotated domain; nothing compared changes:
   two heaps place differently (0x0008ff00's `layout`).
 Regress: `0x002775b0_x64_bucket_range` (equivalent), `0x0008ff00_x64_into_pool` (equivalent) and
 `0x0008ff00_x64_into_none` (the same without the annotation: fail, layout).
+(integ1, rev5's review, D61) Checks on the annotations: `HULK_RANGE` only on a scalar integer field whose declaration has a
+comment naming a 0x address, meant to be the field's writer sites; the checker only sees that an address is cited, not
+that it is a writer (reviewers check that; the bucket case cites the constructor 0x00277a70, its only writer). `HULK_INTO`
+refused (unsupported) when the 32- and 64-bit parses disagree, `this` has no typed object, the field is not a pointer
+field of `this`, or the pointee is one byte (`rev5`'s `0x002775b0_x64_bucket_range_nocite` must fail). The `--x64` report
+lists the annotations a run used (`hulk_range`, `hulk_into`) and the EQ64_OFF switches it ran with (`eq64_off`:
+`rangecheck`, `intocheck`, `rngloc`, `recone`, `retcasts`, ...); tools/x64_gate.py keys its cache on them, takes a
+switched result for no result (`unchecked`), and `accept` refuses one. Its cache key hashes the transitive closure of the
+equiv.py names equiv64 uses (`x64_gate.equiv_closure`; a unit test fails when equiv64 names an equiv.X outside it).
 
 **What a promotion gate needs.** (1) `pip install clang` in the checker hosts' venvs (or keep `batch`/`job_files`);
 (2) a policy: `equivalent` required except for an allow-list of `unsupported`/`untyped` sources reviewed by hand, and

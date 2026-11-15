@@ -3450,6 +3450,9 @@ def verify64(src, addr, symbol=None, n_inputs=200, seeds=None, time_budget=120, 
 def _verify64(src, addr, symbol=None, n_inputs=200, seeds=None, time_budget=120, verbose=False):
     t0 = time.time()
     rep = {"addr": "0x%08x" % addr, "src": src, "mode": "x64", "status": "fail"}
+    if OFF - {""}:
+        # (integ1, rev5) a run with EQ64_OFF switches is another check: tools/x64_gate.py takes it for no result
+        rep["eq64_off"] = sorted(OFF - {""})
     try:
         chk = Checker(src, addr, symbol, verbose)
     except CompileError as e:

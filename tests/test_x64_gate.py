@@ -359,3 +359,22 @@ class InJob(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class EquivClosure(unittest.TestCase):
+    """(integ1, rev5) The cache key covers every equiv.X the 64-bit check uses: by the closure, or by the file of the
+    module equiv.py imports it from (compare.py is in the key)."""
+
+    def test_every_reference_is_keyed(self):
+        import re as re_
+        seen, _, roots = g.equiv_closure()
+        src = open(os.path.join(ROOT, "tools", "equiv.py")).read()
+        from_compare = set()
+        m = re_.search(r"^from compare import ([^\n]+)", src, re_.M)
+        if m:
+            from_compare = {x.strip().split(" as ")[-1] for x in m.group(1).split("#")[0].split(",")}
+        missing = sorted(r for r in roots if r not in seen and r not in from_compare and r != "py")
+        self.assertEqual(missing, [], "equiv.X used by equiv64.py but not in x64_gate's key")
+        for n in ("_x87_value", "Obj", "Program", "pick_symbol", "compile_native"):
+            self.assertIn(n, seen)
+
