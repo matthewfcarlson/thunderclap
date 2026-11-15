@@ -17,8 +17,9 @@ for the plan. Run everything from the repo root with `build/venv/bin/python`.
   were removed at merge-once (d) (2026-11-13; last commit with them f98940cf5, `git show f98940cf5:matches/0x....cpp`).
 - `include/gen/`: the RTTI class headers, hand-maintained source since gen1 (2026-11-13; no longer generated). Edit
   them like `src/`; `tools/gen_headers.py --probe` checks every class's vftables, slots, base descriptors and sizeof
-  (`config/gen-sizes.json`; `--update-sizes` records an intended 32-bit size change; `docs/headers.md`).
-  `include/decls/` (addresses, data decls), `include/compat/`.
+  (`config/gen-sizes.json`; `--update-sizes` records an intended 32-bit size change; `docs/headers.md`). The probe
+  defines an out-of-line constructor only from a one-line declaration (`X(P...);`), and a constructor taking arguments
+  needs defaults for the probe's `new X`. `include/decls/` (addresses, data decls), `include/compat/`.
 - `src/platform/sdl/`: the SDL3 platform layer (shims for XDK/CRT, audio, input, files, movies, pddi/bgfx
   graphics backend).
 - `tools/`: all scripts. `tools/equiv_gen/` generators for near-identical function families; `tools/ghidra_scripts/`.
