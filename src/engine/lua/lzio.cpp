@@ -67,7 +67,7 @@ extern "C" void __cdecl FUN_0021a5e0(LuaVMState* L, LuaVMZio* z, LuaVMReader rea
 
 
 // 0x0021a610 FUN_0021a610 (150 B): equivalent/0x0021a610.cpp
-// sym: _FUN_0021a610 @9cde039791dd @wf3bb8f430e4a
+// sym: _FUN_0021a610 @9cde039791dd @w730fbe21eae2 @v368dfce3138c
 // STATUS: equivalent (tools/equiv.py level 3: 541 inputs, branch coverage 13/14, incomplete)
 // luaZ_read: copy n bytes out of the stream into b; the number of bytes missing.
 extern "C" unsigned int __cdecl FUN_0021a610(LuaVMZio* z, void* b, unsigned int n) {
@@ -79,7 +79,8 @@ extern "C" unsigned int __cdecl FUN_0021a610(LuaVMZio* z, void* b, unsigned int 
                 return n;
             z->n = size - 1;
             z->p = buff;
-            int c = *(const unsigned char*)z->p++;
+            int c = *(const unsigned char*)buff; // (tri3) the byte before p + 1 is stored, as the original
+            z->p = buff + 1;
             if (c == -1)
                 return n;
             z->n++;
