@@ -418,7 +418,8 @@ class TU:
     def __init__(self, wrapper, d, target, bits):
         m = ci()
         self.bits, self.ptr = bits, bits // 8
-        args = [a for a in front_flags(target) if a not in ("-O0",)] + ["-w", "-I" + d] + tree_inc() + ["-I" + os.path.join(ROOT, "include")]
+        args = [a for a in front_flags(target) if a not in ("-O0",)] + ["-w", "-DHULK_EQ64_PARSE", "-I" + d] + tree_inc() + \
+            ["-I" + os.path.join(ROOT, "include")]
         self.tu = m.Index.create().parse(wrapper, args=args)
         errs = [str(x) for x in self.tu.diagnostics if x.severity >= 3]
         if errs:
@@ -486,11 +487,12 @@ SAME_WIDTH = ("i", "f", "d")
 
 
 class Leaf:
-    __slots__ = ("path", "o32", "o64", "kind", "s32", "s64", "extra", "signed")
+    __slots__ = ("path", "o32", "o64", "kind", "s32", "s64", "extra", "signed", "range")
 
     def __init__(self, path, o32, o64, kind, s32, s64, extra=None, signed=False):
         self.path, self.o32, self.o64, self.kind, self.s32, self.s64 = path, o32, o64, kind, s32, s64
         self.extra, self.signed = extra, signed
+        self.range = None       # (x64t13) (lo, hi): the values an integer field takes (HULK_RANGE, field_range)
 
     def off(self, bits):
         return self.o32 if bits == 32 else self.o64
@@ -569,6 +571,24 @@ def _spell(x):
     return repr(x)
 
 
+RANGE_ATTR = re.compile(r"^hulk_range (-?\d+) (-?\d+)$")
+
+
+def field_range(c):
+    """(x64t13) The values an integer field takes, (lo, hi), from its HULK_RANGE(lo, hi) annotation
+    (include/decls/data/records.h: `int bucket HULK_RANGE(0, 1);`, an attribute only this checker's libclang parse
+    sees, under HULK_EQ64_PARSE). The generator draws the field from that range; nothing compared changes. For
+    integers the game only ever stores a few values that the code uses as an index (a list number), where a fuzzed
+    value would index outside the object on both runs and the two runs would follow different garbage."""
+    K = ci().CursorKind
+    for a in c.get_children():
+        if a.kind == K.ANNOTATE_ATTR:
+            m = RANGE_ATTR.match(a.spelling or "")
+            if m:
+                return int(m.group(1)), int(m.group(2))
+    return None
+
+
 def layout_fp(lay):
     """(x64t12) A digest of a Layout as the checker uses it: sizes and every leaf (path, offsets, kind, sizes,
     signedness, pointee types)."""
@@ -578,6 +598,8 @@ def layout_fp(lay):
     for l in lay.by32:
         h.update(("%r %d %d %s %d %d %d %s\n" % (l.path, l.o32, l.o64, l.kind, l.s32, l.s64, l.signed,
                                                   _spell(l.extra) if l.extra is not None else "")).encode())
+        if l.range is not None:
+            h.update(("range %d %d\n" % l.range).encode())
     return h.hexdigest()[:16]
 
 
@@ -766,7 +788,13 @@ class Types:
                 seen_units.add((ua, ub))
                 out.append(Leaf(path + ("bf", ua), o32 + ua, o64 + ub, "i", sz, sz))
                 continue
+            n0 = len(out)
             self._flatten(x.type, y.type, o32 + pa // 8, o64 + pb // 8, path + (x.spelling or "anon%d" % pa,), out, None)
+            rng = field_range(x)
+            if rng is not None:
+                for l in out[n0:]:
+                    if l.kind == "i":
+                        l.range = rng
             if union:
                 break
 
@@ -1102,6 +1130,8 @@ class Heap:
                 o.ptrs[key] = ("i", r.below(NULL_HI)) if r.below(2) else \
                     self.choose_ptr(r, ("leaf", o.id, e, l.o32), None)
             return o.ptrs[key]
+        if k == "i" and l.range is not None:
+            return ("i", l.range[0] + r.below(l.range[1] - l.range[0] + 1))
         if k == "i" or k == "u":
             return ("i", gen_int(r, min(l.s32, l.s64), l.signed))
         if k == "f":
@@ -1596,6 +1626,11 @@ class Checker:
             for k in a32:
                 if k in a64:
                     self.param_casts[k] = (a32[k], a64[k])
+        self.param_into = {}
+        a32, a64 = param_into(c32.get_definition() or c32), param_into(c64.get_definition() or c64)
+        for k in a32:
+            if a64.get(k) == a32[k]:
+                self.param_into[k] = a32[k]
         self.ret_casts = {}
         self.site_casts = {}
         if "retcasts" not in OFF:
@@ -1900,6 +1935,25 @@ def parse_entry(entry):
             break
         j -= 1
     return head[j:k].replace(" ", ""), meth, entry[open_at + 1:close]
+
+
+INTO_ATTR = re.compile(r"^hulk_into (\w+)$")
+
+
+def param_into(fn):
+    """(x64t13) {parameter index: field name} for the pointer parameters annotated HULK_INTO(field)
+    (include/decls/data/records.h): the pointer is into the array `this->field` points to (a pool's block, from the
+    pool's data). The generator makes it point there, at a fuzzed offset; nothing compared changes."""
+    K = ci().CursorKind
+    out = {}
+    params = [c for c in fn.get_children() if c.kind == K.PARM_DECL]
+    for i, p in enumerate(params):
+        for a in p.get_children():
+            if a.kind == K.ANNOTATE_ATTR:
+                m = INTO_ATTR.match(a.spelling or "")
+                if m:
+                    out[i] = m.group(1)
+    return out
 
 
 def param_casts(fn):
@@ -2372,7 +2426,11 @@ class Side:
                 if pi in chk.param_casts:
                     # a void* / hulk_intptr parameter the function casts to T*: generated as a T*
                     pt = chk.param_casts[pi]
-                data = self.arg_data(pt, ("arg", i), Rng(self.seed, "arg", i))
+                data = None
+                if pi in chk.param_into:
+                    data = self.arg_into(chk.param_into[pi], Rng(self.seed, "arg", i))
+                if data is None:
+                    data = self.arg_data(pt, ("arg", i), Rng(self.seed, "arg", i))
             if loc[0] == "reg":
                 regs[loc[1]] = int.from_bytes(data[:self.ps].ljust(self.ps, b"\0"), "little")
             elif loc[0] == "xmm":
@@ -2438,6 +2496,23 @@ class Side:
                     out["saved"] = "callee-saved register clobbered"
             out["ret"] = self.ret_value(sig, sret)
         return out
+
+    def arg_into(self, field, r):
+        """(x64t13, HULK_INTO) A pointer into the array this->FIELD points to, at a fuzzed byte offset (null with it);
+        None when `this` has no such pointer field."""
+        o = self.heap.by_ident.get(("arg", "this"))
+        if o is None or o.lay.raw:
+            return None
+        l = next((x for x in o.lay.leaves if x.path == (field,) and x.kind == "p"), None)
+        if l is None:
+            return None
+        v = self.heap.leaf_value(o, 0, l)
+        if v[0] != "p" or v[1] is None:
+            return self.heap.ptr_value(self.bits, ("p", None, 0)).to_bytes(self.ps, "little")
+        t = v[1]
+        n = t.size(32) - v[2]
+        off = v[2] + (r.below(n) if n > 0 else 0)
+        return self.heap.ptr_value(self.bits, ("p", t, off)).to_bytes(self.ps, "little")
 
     def arg_data(self, tt, ident, r):
         """Bytes of an input argument of paired type tt on this side (pointers to fresh objects)."""
