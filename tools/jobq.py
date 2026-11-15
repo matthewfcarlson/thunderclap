@@ -909,6 +909,8 @@ class Daemon:
         for i in order:
             r = rows[i]
             if share is not None and running.get(r["name"], 0) + r["slots"] > share and running.get(r["name"], 0) > 0:
+                if r["slots"] >= BIG_SLOTS:     # over its share this pass, but still holds its hosts against small jobs
+                    blocked |= {x.name for x in self.hosts if x.eligible(r, now, capacity=False)}
                 continue
             if r["id"] in self.live:
                 continue
