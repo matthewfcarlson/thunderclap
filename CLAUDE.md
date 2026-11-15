@@ -56,11 +56,13 @@ python tools/tree_tu.py verify . --changed-since origin/main --relocs --x64   # 
 ```
 
 An edited `matches` block must still MATCH with relocations ok. An `equivalent` block carries the hashes of its proven
-code (`// sym: NAME @msvc @wclang`, docs/merge-once.md "Code hashes"): unchanged code needs no new run; `check`/`verify`
-report `code_changed` (a failure) when an edit changed it, and it then needs a fresh promotable `equiv.py` run at 3,000
-inputs plus `--wine` (and `--x64` where the 64-bit build compiles it), recorded with `tree_tu.py hash --proven` (never
-write a hash by hand). A 64-bit fix changes the source, never the
-32-bit proof: re-check both sides.
+code and of the checker's view of it (`// sym: NAME @msvc @wclang @vview`, docs/merge-once.md "Code hashes" and
+"Checker views and the proof ledger"): unchanged code needs no new run; `check`/`verify` report `code_changed` or
+`view changed` (failures) when an edit changed it, and it then needs a fresh promotable `equiv.py` run at 3,000
+inputs plus `--wine` at 3,000 (and `--x64` where the 64-bit build compiles it), recorded with `tree_tu.py hash --proven`,
+which also appends config/proof-ledger.jsonl (never write a hash or a ledger line by hand). A proof is a run with no
+`EQUIV_ON`/`EQUIV_OFF` switches. A 64-bit fix changes the source, never the 32-bit proof: re-check both sides.
+`regress.py --jobq` ships every dirty file: read a failure's cause before blaming your own change.
 
 ## Builds and proofs
 
