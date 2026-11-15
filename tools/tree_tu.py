@@ -1636,26 +1636,29 @@ def removed_hashes(path, recs, ref):
 
 # ------------------------------------------------------------------------------------------------------- recording
 MSVC_INPUTS, WINE_INPUTS = 3000, 3000     # (integ1, D38: --wine at 3,000 too, was 600)
-MIN_COMPLETED = 0       # (integ1) completed (compared) inputs a proof needs: on hold (user decision D62), so none yet
+MIN_COMPLETED = 3000    # (integ1, user decision D62) inputs a proof must have COMPARED, per mode (inconclusive don't count)
 
 
 def run_shortfall(rep, asked):
-    """(integ1, x64t13's report) Why a run's inputs fall short of a proof, or None: the time budget cut it, it drew
-    fewer inputs than ASKED (completed + inconclusive + faulted + failed: the random phase also stops at 32
-    inconclusive inputs), or (once D62 sets MIN_COMPLETED) fewer were compared. --inputs 3000 that drew 349 proved 349."""
+    """(integ1, D38/D62) Why a run falls short of a proof, or None: it must have compared (completed) MIN_COMPLETED
+    inputs and at least as many as it asked for; inconclusive inputs are drawn but not compared. A proof-sized equiv.py
+    run draws on until it has (up to equiv.PROOF_DRAW_LIMIT, or the time budget). The refusal names the counts and the
+    main inconclusive causes."""
     l3 = rep.get("level3") or {}
     run = l3.get("inputs_run") or 0
-    drawn = run + (l3.get("inputs_inconclusive") or 0) + (l3.get("inputs_faulted") or 0) + (l3.get("inputs_failed") or 0)
+    inc = l3.get("inputs_inconclusive") or 0
+    drawn = l3.get("inputs_drawn") or (run + inc + (l3.get("inputs_faulted") or 0) + (l3.get("inputs_failed") or 0))
+    need = max(MIN_COMPLETED, asked or 0)
+    if run >= need:
+        return None
+    causes = sorted(((v, k) for k, v in (l3.get("statuses") or {}).items() if k != "ret" and v), reverse=True)[:3]
+    why = "%d of %d inputs compared (%d drawn, %d inconclusive%s)" % (
+        run, need, drawn, inc, (": " + ", ".join("%s %d" % (k, v) for v, k in causes)) if causes else "")
     if l3.get("time_budget_hit"):
-        return "the time budget cut the run: %d of %d inputs drawn, %d compared (use a longer --time-budget)" % (
-            drawn, asked, run)
-    if drawn < asked:
-        return "only %d of %d inputs drawn, %d compared%s" % (drawn, asked, run, " (the inconclusive cap stopped it)"
-                                                               if l3.get("inconclusive_cap_hit") else "")
-    if MIN_COMPLETED and run < MIN_COMPLETED:
-        return "only %d inputs compared (%d needed; %d inconclusive)" % (run, MIN_COMPLETED,
-                                                                         l3.get("inputs_inconclusive") or 0)
-    return None
+        why += "; the time budget ran out (use a longer --time-budget)"
+    elif l3.get("inconclusive_cap_hit") and not l3.get("proofcap"):
+        why += "; the inconclusive cap stopped it (a checker without proofcap)"
+    return why
 
 
 def proof_code(src, addr, native, recs):

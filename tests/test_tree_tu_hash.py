@@ -96,7 +96,7 @@ class Parsing(unittest.TestCase):
 
     def test_proves(self):
         good = {"native": False, "status": "equivalent", "promotable": True,
-                "level3": {"inputs_run": 2900, "inputs_inconclusive": 100},
+                "level3": {"inputs_run": 3000, "inputs_inconclusive": 100},
                 "tree_code": {"msvc": "0123456789ab", "n_inputs": 3000}}
         self.assertTrue(tree_tu.proves(good, "msvc", "0123456789ab")[0])
         self.assertFalse(tree_tu.proves(good, "msvc", "0123456789ac")[0])           # other code
@@ -105,7 +105,7 @@ class Parsing(unittest.TestCase):
                                         "0123456789ab")[0])
         self.assertFalse(tree_tu.proves(dict(good, tree_code={"n_inputs": 3000}), "msvc", "0123456789ab")[0])
         self.assertFalse(tree_tu.proves(good, "wine", "0123456789ab")[0])           # an MSVC run proves no clang code
-        wine = {"native": True, "status": "equivalent", "level3": {"inputs_run": 2900, "inputs_faulted": 100},
+        wine = {"native": True, "status": "equivalent", "level3": {"inputs_run": 3000, "inputs_faulted": 100},
                 "tree_code": {"wine": "aaaaaaaaaaaa", "n_inputs": 3000, "x87_keep": 0}}
         self.assertTrue(tree_tu.proves(wine, "wine", "aaaaaaaaaaaa")[0])
         self.assertFalse(tree_tu.proves(dict(wine, tree_code=dict(wine["tree_code"], x87_keep=3)), "wine",
@@ -118,6 +118,13 @@ class Parsing(unittest.TestCase):
         self.assertIn("time budget", why_)
         few = dict(good, level3={"inputs_run": 534, "inputs_inconclusive": 32, "inconclusive_cap_hit": True})
         self.assertFalse(tree_tu.proves(few, "msvc", "0123456789ab")[0])
+        # (D62) 3,000 COMPARED: 2,999 compared of 6,000 drawn is short; 3,000 compared of 6,000 drawn proves
+        short = dict(good, level3={"inputs_run": 2999, "inputs_inconclusive": 3001, "statuses": {"timeout": 3001}})
+        ok_, why_ = tree_tu.proves(short, "msvc", "0123456789ab")
+        self.assertFalse(ok_)
+        self.assertIn("timeout 3001", why_)
+        self.assertTrue(tree_tu.proves(dict(good, level3={"inputs_run": 3000, "inputs_inconclusive": 3000}), "msvc",
+                                       "0123456789ab")[0])
         self.assertFalse(tree_tu.proves(dict(wine, level3={"inputs_run": 534, "time_budget_hit": True}), "wine",
                                         "aaaaaaaaaaaa")[0])
 
@@ -141,7 +148,7 @@ class Parsing(unittest.TestCase):
 
     def test_proves_view(self):
         good = {"native": False, "status": "equivalent", "promotable": True,
-                "level3": {"inputs_run": 2900, "inputs_inconclusive": 100},
+                "level3": {"inputs_run": 3000, "inputs_inconclusive": 100},
                 "tree_code": {"msvc": "0123456789ab", "n_inputs": 3000, "view": "00000000000f"}}
         self.assertTrue(tree_tu.proves(good, "msvc", "0123456789ab", "00000000000f")[0])
         self.assertFalse(tree_tu.proves(good, "msvc", "0123456789ab", "00000000000e")[0])     # another view

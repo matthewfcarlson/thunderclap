@@ -751,15 +751,15 @@ CASES = {
     "0x0022ca90_native_nanpayload_share": ("fail", "write to this+0x0 before return was 0xfffffffe, expected 0xffffffff", 0,
                                            {"native": True, "n_inputs": 1000}),
     # (integ1, proofcap) luaH newkey: its fuzzed tables time out on 1 input in 6, and the random phase stopped at 32
-    # inconclusive inputs (535 of 3,000 drawn, 442 compared): a proof-sized run now draws all it asked for (MIN_RUN 1,500)
-    "0x0021a3e0_proofcap": ("equivalent", None, 0.9, {"n_inputs": 3000, "time_budget": 1200}),
+    # inconclusive inputs (535 drawn, 442 compared): a proof-sized run now draws until 3,000 are compared (MIN_RUN 3,000)
+    "0x0021a3e0_proofcap": ("equivalent", None, 0.9, {"n_inputs": 3000, "time_budget": 2400}),
     # (integ1, D54) a `// pre: notnan(...)` contract with HULK_PRE_NOTNAN (include/compat/pre.h): NaN words of the contract are
     # repaired on both sides (390 of 1,004 inputs), --wine checks that a violating input hits the trap; _notrap: the contract
     # without the macro is refused; _nopre: the macro without the contract fails on NaN inputs; _wrong: a wrong element fails
     "0x0022ca90_native_pre": ("equivalent", None, 0, {"native": True, "n_inputs": 1000}),
     "0x0022ca90_native_pre_msvc": ("equivalent", None, 0, {"src": "0x0022ca90_native_pre", "n_inputs": 1000}),
     "0x0022ca90_native_pre_notrap": ("fail", "L2 pre_without_trap", 0, {"native": True, "n_inputs": 200}),
-    "0x0022ca90_native_pre_nopre": ("fail", "ours fault", 0, {"native": True, "n_inputs": 1000}),
+    "0x0022ca90_native_pre_nopre": ("fail", "L2 trap_without_pre", 0, {"native": True, "n_inputs": 1000}),
     "0x0022ca90_native_pre_wrong": ("fail", "write to this+0x14", 0, {"native": True, "n_inputs": 300}),
     "0x0022ca90_native_pre_off": ("fail", "ours fault", 0, {"src": "0x0022ca90_native_pre", "native": True, "n_inputs": 1000,
                                                             "equiv_off": "pre"}),
@@ -1195,7 +1195,7 @@ X64_CASES = {
 MIN_RUN = {"0x0028c2a0_rep_count": 50, "0x000e36c0_small_counts": 50, "0x002155f0_diff_bound": 50,
            "0x0024a800_walk_end": 50, "0x001fe380_tiny_counts": 50, "0x002a4e40_static_count": 50,
            "0x00242da0_nil_addr_walk": 50, "0x002165c0_xlocal_ptr": 50,
-           "0x0021a3e0_proofcap": 1500}    # (integ1) 442 before: the 32-inconclusive stop ended the proof run at 535 drawn
+           "0x0021a3e0_proofcap": 3000}    # (integ1, D62) 442 before: the 32-inconclusive stop ended the proof run at 535 drawn
 
 
 def x64_job(name):

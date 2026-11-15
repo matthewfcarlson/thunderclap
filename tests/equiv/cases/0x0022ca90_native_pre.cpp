@@ -7,7 +7,8 @@ struct Matrix_22ca90 { float m[4][4]; void FUN_0022ca90(const Matrix_22ca90* a, 
 
 // pre: notnan(*arg1+0x0..0x40) notnan(*arg2+0x0..0x40)
 void Matrix_22ca90::FUN_0022ca90(const Matrix_22ca90* a, const Matrix_22ca90* b) {
- for (int i = 0; i < 16; ++i) { HULK_PRE_NOTNAN((&a->m[0][0])[i]); HULK_PRE_NOTNAN((&b->m[0][0])[i]); }
+ HULK_PRE_NOTNAN_N(&a->m[0][0], 16);
+ HULK_PRE_NOTNAN_N(&b->m[0][0], 16);
  Matrix_22ca90 r;
  r.m[0][0]=(a->m[0][0]*b->m[0][0]+a->m[0][2]*b->m[2][0])+b->m[1][0]*a->m[0][1];
  r.m[0][1]=(b->m[0][1]*a->m[0][0]+a->m[0][2]*b->m[2][1])+b->m[1][1]*a->m[0][1];

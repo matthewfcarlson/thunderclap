@@ -7883,6 +7883,26 @@ _PRE_ITEM = re.compile(r"(notnan64|notnan)\(([^()]*)\)")
 _PRE_LOC = re.compile(r"^(?:(arg)(\d+)|\*(arg)(\d+)|\*(this))(?:\+0x([0-9a-fA-F]+))?(?:\.\.0x([0-9a-fA-F]+))?$")
 
 
+def _pre_arg_word(sig, n):
+    """(integ1, rev5) The stack word index of the N-th declared parameter (1-based; a hidden struct-return pointer first),
+    counting doubles and 64-bit ints as two words; None past a by-value struct (its size is not known here) or N out of
+    range."""
+    params = (sig or {}).get("params")
+    if params is None or not 1 <= n <= len(params):
+        return None
+    wi = 1 if sig.get("ret") == "struct" else 0
+    for k in params[:n - 1]:
+        if k == "struct":
+            return None
+        wi += 2 if k in ("f64", "i64") else 1
+    return wi
+
+
+def _strip_comments(text):
+    """C/C++ source TEXT without its comments (string literals are left alone well enough for a token search)."""
+    return re.sub(r"//[^\n]*|/\*.*?\*/", " ", text, flags=re.S)
+
+
 def _parse_pre(lines):
     """(integ1, D54) `// pre:` lines -> ([(width, kind, n, off, end)], [errors]). Items: notnan(LOC) (a float, 4 bytes) or
     notnan64(LOC) (a double); LOC: argN (the N-th declared parameter's stack word, 1-based; the hidden struct-return
@@ -9814,6 +9834,7 @@ def _canon(x):
 
 
 VIEW_VERSION = 1
+PROOF_DRAW_LIMIT = 10000    # (integ1, D62) inputs a proof-sized run may draw to compare --inputs of them
 
 
 def _checker_digest():
@@ -10295,6 +10316,16 @@ def _verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappi
             rep["level"] = 1
         issues = issues + bad
     pre_specs, pre_bad = _parse_pre(pre_lines)
+    sig_l2_ = sig
+    if not pre_lines and "pre" not in EQUIV_OFF:
+        # (integ1, rev5) the macro without the contract: the builds trap where the proof compared freely
+        text0_ = "\n".join(src_lines) if src_lines is not None else \
+            (open(src, errors="replace").read() if src and os.path.exists(src) else "")
+        if re.search(r"\bHULK_PRE_NOTNAN(_N)?\s*\(", _strip_comments(text0_)):
+            bad0_ = {"kind": "trap_without_pre", "why": "HULK_PRE_NOTNAN without a `// pre:` annotation in the block"}
+            issues = issues + [bad0_]
+            rep["level2"]["issues"] = rep["level2"]["issues"] + [bad0_]
+            rep["level2"]["ok"] = False
     if pre_lines:
         # (integ1, D54) a block's input contract: the inputs that break it are repaired on both sides (level3), and the
         # source must state it as code too (HULK_PRE_NOTNAN, include/compat/pre.h), so the builds trap where it breaks
@@ -10302,9 +10333,12 @@ def _verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappi
         text_ = "\n".join(src_lines) if src_lines is not None else \
             (open(src, errors="replace").read() if src and os.path.exists(src) else "")
         bad_ = [{"kind": "pre_unparsed", "why": "`// pre: %s`: %s" % ("; ".join(pre_lines), b_)} for b_ in pre_bad]
-        if "HULK_PRE_NOTNAN(" not in text_:
+        if not re.search(r"\bHULK_PRE_NOTNAN(_N)?\s*\(", _strip_comments(text_)):
             bad_.append({"kind": "pre_without_trap", "why": "`// pre: %s` without HULK_PRE_NOTNAN in the block: the "
                          "builds would compute on where the proof assumed the contract" % "; ".join(pre_lines)})
+        for w_, kind_, n_, off_, end_ in pre_specs:
+            if kind_ in ("arg", "parg") and _pre_arg_word(sig_l2_, n_) is None:
+                bad_.append({"kind": "pre_unparsed", "why": "arg%d: no such parameter, or past a by-value struct" % n_})
         if bad_:
             issues = issues + bad_
             rep["level2"]["issues"] = rep["level2"]["issues"] + bad_
@@ -10887,6 +10921,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
     edges_any = set()
 
     pre_off = [False]
+    proof_draw = [False]        # (integ1, D62) drawing past --inputs until that many inputs are compared
     sret_w = 1 if sig and sig.get("ret") == "struct" else 0
 
     def _pre_words(inp):
@@ -10894,15 +10929,15 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
         out = []
         for w, kind, n, off, end in pre or ():
             if kind == "arg":
-                wi = n - 1 + sret_w
-                if wi < len(inp["stack"]):
+                wi = _pre_arg_word(sig, n)
+                if wi is not None and wi < len(inp["stack"]):
                     out.append((("stack", wi), w))
                 continue
             if kind == "pthis":
                 base = inp["regs"].get("ecx")
             else:
-                wi = n - 1 + sret_w
-                base = inp["stack"][wi] if wi < len(inp["stack"]) else None
+                wi = _pre_arg_word(sig, n)
+                base = inp["stack"][wi] if wi is not None and wi < len(inp["stack"]) else None
             if base is None:
                 continue
             for o_ in range(off, end if end is not None else off + w, w):
@@ -10937,17 +10972,27 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
         return ov, sp
 
     def pre_trap_check():
-        """(integ1, D54, --wine) one input that breaks the contract (a quiet NaN in its first word), run without the
-        repair: our code must stop in HULK_PRE_NOTNAN's trap. Counted nowhere (the run's tallies are put back)."""
+        """(integ1, D54, --wine; rev5: per contract word) For every word the contract names (up to 64): an input whose
+        other contract words are repaired and that word holds a quiet NaN, run without the repair: our code must stop at
+        the trap instruction (`ours fault:Invalid_instruction`), not compute on or fault elsewhere. One missing word fails
+        the block (a macro that checks fewer floats than the contract, a LOC that names other words than the code checks,
+        a contract over an integer). Counted nowhere (the run's tallies are put back)."""
         import copy
         for seed0 in range(8):
-            inp0, _, _ = build(seed0, None, None)
+            inp0, _, mach0 = build(seed0, None, None)
             words = _pre_words(inp0)
-            if not words:
-                continue
-            (where, x), w = words[0]
+            if words:
+                break
+        else:
+            res["pre_trap"] = "missing: no input reaches a contract word"
+            return
+        ov0, sp0 = _pre_fix(seed0, inp0, mach0)
+        missing, checked = [], 0
+        for (where, x), w in words[:64]:
+            if out_of_time():
+                break
             nan = b"\x00\x00\xc0\x7f" if w == 4 else b"\x00\x00\x00\x00\x00\x00\xf8\x7f"
-            ov, sp = {}, {}
+            ov, sp = dict(ov0), dict(sp0)
             if where == "stack":
                 for i in range(w // 4):
                     sp[("sbyte", x + i, 0, 4)] = struct.unpack_from("<I", nan, 4 * i)[0]
@@ -10966,14 +11011,15 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                 edges.clear(); edges.update(saved[1])
                 hits.clear(); hits.update(saved[2])
                 edges_any.clear(); edges_any.update(saved[3])
+            checked += 1
             d_ = mm_[0]["diffs"] if mm_ else []
-            if any("but ours fault" in x_ or "ours fault" in x_ for x_ in d_):
-                res["pre_trap"] = "fired"
-            else:
-                res["pre_trap"] = "missing: %s" % ("; ".join(d_)[:200] if d_ else "the run passed or was set aside (%s)" %
-                                                   ", ".join("%s %d" % kv for kv in stat_.items())[:160])
-            return
-        res["pre_trap"] = "missing: no input reaches a contract word"
+            if not any("ours fault:Invalid_instruction" in x_ for x_ in d_):
+                missing.append("%s 0x%x: %s" % (where, x, ("; ".join(d_)[:120] if d_ else "no difference (%s)" % ", ".join(
+                    "%s %d" % kv for kv in stat_.items())[:80])))
+        res["pre_trap_words"] = checked
+        res["pre_trap"] = "fired" if not missing and checked == len(words[:64]) else \
+            "missing: %d of %d contract words did not trap (%s)" % (len(missing) + len(words[:64]) - checked,
+                                                                  len(words[:64]), "; ".join(missing[:3]))
 
     def run_input(seed, overlay=None, stack_patch=None, label=None, _vk=False, _ar=False, _bf=None):
         """Run one input on both sides; returns the set of new original edges (None if inconclusive)."""
@@ -11009,8 +11055,9 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
 
     def _run_input(seed, overlay, stack_patch, label, _vk, _ar, _bf):
         inp, inp_o, mach = build(seed, overlay, stack_patch)
-        if pre and not pre_off[0]:
-            # (integ1, D54) an input that breaks the block's `// pre:` contract is outside the function's domain: the
+        if pre and not pre_off[0] and NATIVE_MODE:
+            # (integ1, D54; rev5: only where our object traps, --wine: in MSVC mode the macro is nothing, so the input
+            # is compared as it is) an input that breaks the block's `// pre:` contract is outside the function's domain: the
             # words that break it are given finite values on both sides (the same input otherwise), so the input
             # still counts, as the contract's input (excluding it would set most inputs of a float-heavy block aside)
             ov_, sp_ = _pre_fix(seed, inp, mach)
@@ -11731,7 +11778,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                 for st_ in list(stuck):
                     if not out_of_time():
                         repair(st_)
-            if seed >= n_inputs:
+            if seed >= n_inputs and not proof_draw[0]:
                 if coverage_of(oview, edges)["complete"] or rs["stale"] >= 16:
                     break
             n0 = len(stuck)
@@ -12136,13 +12183,20 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             res["covcap"] = True
             random_phase(soft=False, nocap=True)
             directed_phase()
-    if n_inputs >= 3000 and rs["seed"] < max_inputs and not out_of_time() and res["inputs_failed"] < MAX_FAIL and \
+    if n_inputs >= 3000 and res["inputs_run"] < n_inputs and not out_of_time() and res["inputs_failed"] < MAX_FAIL and \
             not only_seeds and "proofcap" not in EQUIV_OFF:
-        # (integ1, D38 as run) a proof-sized run (--inputs 3000: promotions, `hash --proven`) draws every input it asked
-        # for: the 32-inconclusive stop above is a speed heuristic, not a verdict, and a proof that stopped there drew
-        # 105 of 3,000 (0x002ee9a0). More inputs only; nothing is compared more loosely. The time budget still ends it
+        # (integ1, D38/D62) a proof-sized run (--inputs 3000: promotions, `hash --proven`) goes on drawing until it has
+        # COMPARED as many inputs as it asked for (inconclusive ones don't count), up to PROOF_DRAW_LIMIT drawn or the
+        # time budget. The 32-inconclusive stop above is a speed heuristic, not a verdict: a proof that stopped there had
+        # compared 56 of 3,000 (0x002ee9a0). More inputs only; nothing is compared more loosely
         res["proofcap"] = rs["seed"]
-        random_phase(soft=False, nocap=True)
+        max_inputs = max(max_inputs, PROOF_DRAW_LIMIT)
+        proof_draw[0] = True
+        try:
+            random_phase(soft=False, nocap=True, until_run=n_inputs)
+        finally:
+            proof_draw[0] = False
+        res["inputs_drawn"] = rs["seed"]
     res["coverage"] = coverage_of(oview, edges)
     res["statuses"] = dict(res["statuses"])
     if res.get("unexplained"):

@@ -1343,38 +1343,53 @@ epoch) and maps nothing, so the rule can only act through its overlay after a st
 `EQUIV_OFF=vptrread` restores the mapping read; regress cases `0x00106290_vptrread{,_off,_wrong}`. Open: other hooks
 call `_read_u32` too (it maps past the page limit); they were not audited for the same side effect.
 
-(integ1, `proofcap`) A proof-sized run (`--inputs 3000`: promotions and `tree_tu.py hash --proven`) draws every input it
-asked for: after the directed and the other phases, the random phase runs on without its 32-inconclusive stop (a speed
-heuristic, not a verdict) until 3,000 inputs are drawn or the time budget ends (`level3.proofcap`: the seed it resumed
-at). Only more inputs; no comparison changes. Proofs that stopped there drew as few as 105 of 3,000 (0x002ee9a0).
-`EQUIV_OFF=proofcap` restores the stop. Case `0x0021a3e0_proofcap` (luaH newkey: 535 drawn, 442 compared before; it
-must now compare 1,500).
+(integ1, `proofcap`; user decision D62) **A proof is 3,000 COMPARED inputs per mode.** A proof-sized run (`--inputs
+3000`: promotions and `tree_tu.py hash --proven`) goes on drawing inputs after its phases until it has compared (completed)
+3,000: inconclusive inputs (timeouts, `code_write`, `bool_ub`, ...) are drawn but do not count. It draws up to
+`PROOF_DRAW_LIMIT` (10,000) inputs or until the time budget ends, without the random phase's 32-inconclusive stop (a
+speed heuristic, not a verdict) and without its stop at complete coverage. Only more inputs; no comparison changes.
+`level3.inputs_drawn` and `level3.proofcap` (the seed the drawing resumed at) report it. `tree_tu.proves()` and
+`tools/wine_gate.judge()` refuse a run that compared fewer than 3,000 (`MIN_COMPLETED`), naming compared / drawn /
+inconclusive and its main causes; such a block stays unproven (never relabelled). Proofs that the old stop ended had
+compared as few as 56 (0x002ee9a0). `EQUIV_OFF=proofcap` restores the stop. Case `0x0021a3e0_proofcap` (luaH newkey,
+whose fuzzed tables time out on about 1 input in 6: 535 drawn and 442 compared before; it must now compare 3,000).
 
-(integ1, D54) **Preconditions: `// pre:` and HULK_PRE_NOTNAN.** NOT ADOPTED until an independent review signs off.
+(integ1, D54) **Preconditions: `// pre:` and HULK_PRE_NOTNAN.** NOT ADOPTED until the review's changes are re-reviewed
+(rev5 signed off with changes on 2ed1ec7e6; the changes below are its items).
 Where the original's code and the Wine/native builds can only differ on inputs the game must never pass (a NaN operand:
 x87 and SSE hand on different NaNs when two meet: 0x0022ca90, 0x0022cc10, 0x0022cdb0, 0x00308ba0, 0x00229360), the
 contract is stated twice, as code and as an annotation (user decision: assert the input is not a NaN, so a violation
 stops with a backtrace instead of computing on):
-- **Code** (include/compat/pre.h, included by the TU): `HULK_PRE_NOTNAN(x)`. MSVC 7.1: nothing (`((void)0)`, no
-  declaration either, so the MSVC object and its proof are unchanged). clang (Wine and native builds): a NaN calls
-  `hulk_pre_fail(__func__, "notnan(x)")`, a static inline function (no external symbol) that stores the function and the
-  condition in two static words and executes `__builtin_trap()`.
+- **Code** (include/compat/pre.h, included by the TU): `HULK_PRE_NOTNAN(x)` for one float or double and
+  `HULK_PRE_NOTNAN_N(p, n)` for n floats at p (one statement: a loop in the source changes MSVC 7.1's code even with an
+  empty body, rev5's 84760 vs 84761). MSVC 7.1: both are `((void)0)` and the header declares nothing, so the MSVC object
+  is unchanged: **an adopting edit must show its block's `@msvc` hash unchanged**. clang (Wine and native builds): a NaN
+  calls `hulk_pre_fail(__func__, "notnan(x)")`, a static inline function (no external symbol) that writes
+  `hulk: precondition failed: <function>: <condition>` to stderr with a raw `write(2, ...)` system call on the 64-bit
+  Linux / Android / macOS builds (none on the 32-bit Wine build), keeps both strings in static words for a debugger, and
+  executes `__builtin_trap()`.
 - **Annotation** among the block's directives: `// pre: notnan(LOC) ...`, `notnan64(LOC)` for a double. LOC: `argN` (the
-  N-th declared parameter's stack word; a hidden struct-return pointer not counted), `*argN[+0xOFF][..0xEND]` (the floats
-  at pointer argument N + OFF up to + END, exclusive), `*this[+0xOFF][..0xEND]` (through ecx). Fastcall register
-  arguments are not supported.
-- **The checker** (both modes): before an input runs, every contract word that holds a NaN is given a finite value on both
-  sides (the same input otherwise; `level3.inputs_pre_repaired`). Repaired, not excluded: a matrix's 32 operand floats
-  hold a fuzzed -1 word on most inputs (390 of 1,004 for 0x0022ca90), and setting those aside would stop the random phase
-  at its inconclusive cap. In `--wine` mode, one input that breaks the contract (a quiet NaN in its first word) is then
-  run without the repair, uncounted: our code must stop in the trap (`level3.pre_trap: fired`), else the block fails
-  with `pre_trap_missing`. An annotation whose block has no HULK_PRE_NOTNAN is refused at level 2 (`pre_without_trap`); an
-  unparsable one too (`pre_unparsed`). The annotation enters the checker view (`@v`) and the proof ledger (`pre`,
-  `pre_repaired`), so a proof records what it assumed. `EQUIV_OFF=pre` ignores the annotations (a proof refuses any switch).
-- Cases (`regress.py`): `0x0022ca90_native_pre` (equivalent, the trap fires) and `_msvc` (MSVC mode: equivalent), must-fail
-  `_notrap` (contract without the macro: refused), `_nopre` (macro without the contract: NaN inputs reach the trap, `original
-  ret but ours fault`), `_wrong` (a wrong element still fails under the contract), `_off`.
-- Not done: other conditions (finite, range); the native builds' crash handler printing the two stored words.
+  N-th declared parameter; its stack word is counted from the declaration: a double or 64-bit int before it takes two
+  words, a by-value struct before it is refused), `*argN[+0xOFF][..0xEND]` (the floats at pointer argument N + OFF up to
+  + END, exclusive), `*this[+0xOFF][..0xEND]` (through ecx). Fastcall register arguments are not supported.
+- **The checker**: in `--wine` mode (where our object traps), every contract word that holds a NaN is given a finite value
+  on both sides before the input runs (the same input otherwise; `level3.inputs_pre_repaired`). Repaired, not excluded,
+  and so not capped: the repair keeps the input count (3,000 compared still means 3,000 inputs), where excluding the 390
+  of 1,004 inputs of 0x0022ca90 that hold a fuzzed -1 word would have stopped the run. In MSVC mode nothing is repaired:
+  the macro is nothing there, so a difference on a NaN input is a difference (rev5's `_msvc_hidden`). Then, per contract
+  word (up to 64), one input with the other words repaired and that word a quiet NaN runs without the repair, uncounted:
+  our code must stop at the trap instruction (`ours fault:Invalid_instruction`; `level3.pre_trap: fired`,
+  `pre_trap_words`), else the block fails with `pre_trap_missing` naming the words: a macro that checks fewer floats than
+  the contract (rev5's `_partial`), a LOC that names other words than the code checks, a contract over an integer field.
+  Refused at level 2: an annotation without HULK_PRE_NOTNAN in the block (`pre_without_trap`), the macro without an
+  annotation (`trap_without_pre`; both searched in the block's text without comments), an unparsable annotation or an
+  argN that does not exist or follows a by-value struct (`pre_unparsed`). The annotation enters the checker view (`@v`)
+  and the proof ledger (`pre`, `pre_repaired`), so a proof records what it assumed. `EQUIV_OFF=pre` ignores both (a proof
+  refuses any switch).
+- Cases (`regress.py`): `0x0022ca90_native_pre` (equivalent; every contract word traps) and `_msvc`, must-fail `_notrap`,
+  `_nopre`, `_wrong`, `_off`, and rev5's `_partial` (element 0 checked of 16: pre_trap_missing) and `_msvc_hidden`
+  (`_msvc_hidden_off` shows the difference is reachable).
+- Not done: other conditions (finite, range).
 
 (integ1, D39, `nanpayload`) **Dropped (user decision D50, 2026-11-15).** A rule to set aside quiet-NaN words that differ
 only in payload (x87 hands on the larger significand when two NaNs meet, SSE the first operand) was written (a07ba065a),
