@@ -28,35 +28,11 @@ class ParamValueConditionGroup_235220 {
 };
 class Helper_235250 {
   public:
-    void Process_00236ee0(int);
+    void Process_00236ee0(void*);
 };
-namespace fight {
-class ParamValueConditionGroup {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void vfunc_3(int, int);
-    virtual void f4();
-    virtual void f5();
-    virtual int Query(int);
-    virtual void f7();
-};
-}
 class Helper_235270 {
   public:
-    void Process_00236f10(int);
-};
-class ParamValueConditionGroup_235270 {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void vfunc_3(int, int);
-    virtual void f4();
-    virtual void f5();
-    virtual int Query(int);
-    virtual void f7();
+    void Process_00236f10(void*);
 };
 
 
@@ -67,31 +43,25 @@ class ParamValueConditionGroup_235270 {
 // (gx2, D18) the constructor the parameter registrations call (`new ParamX<T>(name, setter)`)
 ::fight::ParamValueConditionGroup::ParamValueConditionGroup(const char* name) : ::fight::ParamValue(name) {}
 
-namespace fn_fb539295 {
-
-
-
-
 // 0x00235250 fight::ParamValueConditionGroup::vfunc_3 (29 B): matches/0x00235250.cpp
-// sym: ?vfunc_3@ParamValueConditionGroup@fight@fn_fb539295@@UAEXHH@Z
-// Same code shape as 0x002351a0 (propagated; names are from that function)
-void fight::ParamValueConditionGroup::vfunc_3(int a, int b) {
-    hulk_intptr x = Query(a);
+// sym: ?vfunc_3@ParamValueConditionGroup@fight@@UAEXPAX0@Z
+// (gx5, D57) the slot on include/gen's class (the parameter templates' vftables name it): the owner's condition group
+// (vfunc_6) gets the context (0x00236ee0)
+void fight::ParamValueConditionGroup::vfunc_3(void* owner, void* context) {
+    void* x = vfunc_6(owner);
     if (x)
-        ((Helper_235250*)x)->Process_00236ee0(b);
+        ((Helper_235250*)x)->Process_00236ee0(context);
 }
 
 
 // 0x00235270 fight::ParamValueConditionGroup::vfunc_4 (29 B): matches/0x00235270.cpp
-// sym: ?vfunc_3@ParamValueConditionGroup_235270@fn_fb539295@@UAEXHH@Z
-// Same code shape as 0x002351a0 (propagated; names are from that function)
-void ParamValueConditionGroup_235270::vfunc_3(int a, int b) {
-    hulk_intptr x = Query(a);
+// sym: ?vfunc_4@ParamValueConditionGroup@fight@@UAEXPAX0@Z
+// (gx5, D57) as vfunc_3, with 0x00236f10
+void fight::ParamValueConditionGroup::vfunc_4(void* owner, void* context) {
+    void* x = vfunc_6(owner);
     if (x)
-        ((Helper_235270*)x)->Process_00236f10(b);
+        ((Helper_235270*)x)->Process_00236f10(context);
 }
-
-} // namespace fn_fb539295
 
 // 0x00235290 fight::ParamValueConditionGroup::vfunc_5 (54 B): matches/0x00235290.cpp [wrapped: conflict: fight::ParamValueConditionGroup]
 // sym: ?v5@ParamValueConditionGroup@fight@fn_00235290@@UAEDHHH@Z

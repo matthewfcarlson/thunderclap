@@ -1,7 +1,8 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x002393a0..0x00239d50 (kind game, layer engine, confidence high), dominant class fight::ExecuteAction
+#define HULK_REFCOUNT_INLINE_DTOR   // (gx5, D56) include/gen/core.h: the real destructors inline IRefCount's and NonCopyable's
 #include "tree_prelude.h"
+#define HULK_FIGHT_PARAM_IMPLICIT   // (gx2, D18) include/gen/fight.h: the parameter templates constructed for real
 #include "compat/ptr.h"
 #include "decls/data/engine/fight.h"
 #include "decls/data/game/hulkfight.h"
@@ -15,6 +16,7 @@ struct FactoryCtor { void init_00236a90(); };   // (unb4) the factory constructo
 void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
 }
 #include "engine/fight.h"
+extern "C" void __cdecl FUN_002347b0(void* list, void* params, int count);   // (gx2, D18) a parameter list's set-up
 
 // ---- declarations shared by the functions below
 namespace fn_fd5a1171 {
@@ -127,56 +129,6 @@ class C_239780 {
     void Third_00236d60();
 };
 extern void __cdecl thunk_FUN_00267090(ExecuteTrack*);
-struct Ref_2397c0 {
-    virtual void AddRef();
-    virtual void Release();
-};
-struct Action_2397c0 {
-    Action_2397c0() throw();
-    virtual void V0();
-    char pad04[0x18];
-};
-struct S_2397c0 {
-    S_2397c0() throw();
-    char p[0x28];
-};
-struct ExecuteAction_2397c0 : Action_2397c0 {
-    Ref_2397c0* m1c;
-    hulk_intptr m20;
-    Ref_2397c0* m24;
-    int m28;
-    Ref_2397c0* m2c;
-    Ref_2397c0* m30;
-    Ref_2397c0* m34;
-    S_2397c0 s;
-    int m60;
-    char m64;
-    ExecuteAction_2397c0(Ref_2397c0* a, Ref_2397c0* b, Ref_2397c0* c, int d, Ref_2397c0* e, Ref_2397c0* f, Ref_2397c0* g);
-    virtual void V0();
-};
-class Ref_239870 {
-  public:
-    virtual void F0();
-    virtual void Release();
-};
-class Part_239870 {
-  public:
-    void Fini_002325f0() throw();
-};
-struct Action_239870 {
-    void* vf;
-    void Dtor_002326a0() throw();
-};
-struct ExecuteAction_239870 : Action_239870 {
-    char pad[0x18];
-    Ref_239870* p1c;
-    void* p20;
-    Ref_239870* p24;
-    char pad2[0xc];
-    Ref_239870* p34;
-    Part_239870 p38;
-    void Dtor2() throw();
-};
 class CStageCondition_239910;
 class ParamValue_239910 {
   public:
@@ -454,55 +406,35 @@ ExecuteTrack* ExecuteTrack::vfunc_5(int flags) {
 }
 
 
+} // namespace fn_fd5a1171
+
 // 0x002397c0 FUN_002397c0 (167 B): matches/0x002397c0.cpp
-// sym: ??0ExecuteAction_2397c0@fn_fd5a1171@@QAE@PAURef_2397c0@1@00H000@Z
-ExecuteAction_2397c0::ExecuteAction_2397c0(Ref_2397c0* a, Ref_2397c0* b, Ref_2397c0* c, int d, Ref_2397c0* e, Ref_2397c0* f, Ref_2397c0* g)
-    : m1c(0), m20(0), m24(0), m28(d), m2c(e), m30(f), m34(0) {
-    m60 = 0;
-    m64 = 0;
-    if (a)
-        a->AddRef();
-    if (m1c)
-        m1c->Release();
-    m1c = a;
-    m20 = (hulk_intptr)b;
-    if (c)
-        c->AddRef();
-    if (m24)
-        m24->Release();
-    m24 = c;
-    if (g)
-        g->AddRef();
-    if (m34)
-        m34->Release();
-    m34 = g;
+// sym: ??0ExecuteAction@fight@@QAE@PAUIRefCount@core@@PAX0H110@Z
+// (gx5, D56) fight::ExecuteAction's constructor (include/gen): Action's, the words, the action list (0x00231e50), then
+// the held references set (AddRef the new, Release the old)
+fight::ExecuteAction::ExecuteAction(::core::IRefCount* f1c, void* track, ::core::IRefCount* f24, int f28, void* f2c,
+                                    void* f30, ::core::IRefCount* f34)
+    : f_1c(0), f_20(0), f_24(0), f_28(f28), f_2c(f2c), f_30(f30), f_34(0) {
+    f_60 = 0;
+    f_64 = 0;
+    ::core::SetRef(f_1c, f1c);
+    f_20 = track;
+    ::core::SetRef(f_24, f24);
+    ::core::SetRef(f_34, f34);
 }
 
 
 // 0x00239870 FUN_00239870 (82 B): matches/0x00239870.cpp
-// sym: ?Dtor2@ExecuteAction_239870@fn_fd5a1171@@QAEXXZ
-void ExecuteAction_239870::Dtor2() throw() {
-    vf = vSeq;
-    _ReadWriteBarrier();
-    if (p34) {
-        p34->Release();
-        p34 = 0;
-    }
-    if (p24) {
-        p24->Release();
-        p24 = 0;
-    }
-    if (p20)
-        p20 = 0;
-    if (p1c) {
-        p1c->Release();
-        p1c = 0;
-    }
-    p38.Fini_002325f0();
-    Action_239870::Dtor_002326a0();
+// sym: ??1ExecuteAction@fight@@UAE@XZ
+// (gx5, D56) fight::ExecuteAction's destructor (include/gen): the held references released in reverse order, the
+// track cleared, then the action list's destructor (0x002325f0) and Action's (0x002326a0)
+fight::ExecuteAction::~ExecuteAction() {
+    ::core::ReleaseRef(f_34);
+    ::core::ReleaseRef(f_24);
+    if (f_20)
+        f_20 = 0;
+    ::core::ReleaseRef(f_1c);
 }
-
-} // namespace fn_fd5a1171
 
 // 0x002398f0 fight::ParamFloatConstRange<fight::ExecuteTrack>::vfunc_6 (26 B): matches/0x002398f0.cpp
 // sym: ?vfunc_6@?$ParamFloatConstRange@VExecuteTrack@fight@@@fight@@UAE_NHH@Z
@@ -589,42 +521,55 @@ template <> bool fight::TrackFactoryCasterTemplate<fight::ExecuteTrack>::vfunc_0
 // sym: ??_G?$ParamFloatConstRange@VExecuteTrack@fight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamFloatConstRange<fight::ExecuteTrack>::~ParamFloatConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamFloatConstRange<fight::ExecuteTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x239a10)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00239a30 fight::ParamBranch<fight::ExecuteTrack>::vfunc_0 (30 B): matches/0x00239a30.cpp
 // sym: ??_G?$ParamBranch@VExecuteTrack@fight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamBranch<fight::ExecuteTrack>::~ParamBranch() {}
-#if defined(HULK_PTR64)
-template class fight::ParamBranch<fight::ExecuteTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x239a30)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00239a50 fight::ParamIntConstRange<fight::ExecuteTrack>::vfunc_0 (30 B): matches/0x00239a50.cpp
 // sym: ??_G?$ParamIntConstRange@VExecuteTrack@fight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamIntConstRange<fight::ExecuteTrack>::~ParamIntConstRange() {}
-#if defined(HULK_PTR64)
-template class fight::ParamIntConstRange<fight::ExecuteTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x239a50)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 
 // 0x00239a70 fight::ParamConditionGroup<fight::ExecuteTrack>::vfunc_0 (30 B): matches/0x00239a70.cpp
 // sym: ??_G?$ParamConditionGroup@VExecuteTrack@fight@@@fight@@UAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-template <> fight::ParamConditionGroup<fight::ExecuteTrack>::~ParamConditionGroup() {}
-#if defined(HULK_PTR64)
-template class fight::ParamConditionGroup<fight::ExecuteTrack>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x239a70)
-#endif
+// (gx2, D18) implicit: the registration that constructs the class emits this
 
 namespace fn_fd5a1171 {
+
+} // namespace fn_fd5a1171
+
+// 0x00239a90 FUN_00239a90 (307 B): matches/0x00239a90.cpp
+// sym: _FUN_00239a90
+// (gx2, D18) from ExecuteAction.new_throw.cpp; constructs the real ParamBranch<fight::ExecuteTrack>, ParamConditionGroup<fight::ExecuteTrack>, ParamFloatConstRange<fight::ExecuteTrack>, ParamIntConstRange<fight::ExecuteTrack>,
+// whose vftable and scalar deleting destructor it emits
+namespace fn_fd5a1171 {
+extern "C" void FUN_00239a90()
+{
+    if (DAT_004e5c3c == 0) {
+        ::fight::ParamValue* params[5];
+        params[0] = new ::fight::ParamFloatConstRange< ::fight::ExecuteTrack>("timeBegin", &owners::Obj_2393a0::FUN_002393a0);
+        params[1] = new ::fight::ParamFloatConstRange< ::fight::ExecuteTrack>("timeEnd", &owners::O_2393b0::FUN_002393b0);
+        params[2] = new ::fight::ParamBranch< ::fight::ExecuteTrack>("branch", &owners::X_2393c0::FUN_002393c0);
+        params[3] = new ::fight::ParamIntConstRange< ::fight::ExecuteTrack>("priority", &owners::O_2393e0::FUN_002393e0);
+        params[4] = new ::fight::ParamConditionGroup< ::fight::ExecuteTrack>("conditionGroup", &owners::C_2393f0::FUN_002393f0);
+        FUN_002347b0(&DAT_004e5c38, params, 5);
+    }
+    DAT_004e5c3c++;
+}
+} // namespace fn_fd5a1171
+
+namespace fn_fd5a1171 {
+
 
 // 0x00239bd0 fight::ExecuteTrack::vfunc_10 (64 B): matches/0x00239bd0.cpp
 // sym: ?vfunc_10@ExecuteTrack@fn_fd5a1171@@QAEHHHH@Z
@@ -644,9 +589,8 @@ int ExecuteTrack::vfunc_10(int a, int b, int c) {
 
 // 0x00239c10 fight::ExecuteAction::vfunc_2 (30 B): matches/0x00239c10.cpp
 // sym: ??_GExecuteAction@fight@@UAEPAXI@Z
-// Same code shape as 0x00021840 (propagated; names are from that function)
-// scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-fight::ExecuteAction::~ExecuteAction() {}
+// (gx5, D56) the implicit scalar deleting destructor: MSVC 7.1 emits it beside the class's vftable, which the
+// constructor and destructor (this TU) store; it calls the destructor (0x00239870)
 
 namespace fn_fd5a1171 {
 

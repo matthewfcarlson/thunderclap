@@ -851,7 +851,6 @@ src/game/hulkfight/motion/AnimationVelocityScaledAction.iso_0013d940.cpp
 src/game/hulkfight/motion/WallJumpAction.cpp
 src/game/hulkfight/motion/WorldConeDamageAction.cpp
 src/game/hulkfight/motion/GrappleThrowAction.cpp
-src/game/hulkfight/motion/GrappleThrowAction.new_throw.cpp
 src/game/unknown/unk_14c470.cpp
 src/game/unknown/unk_14c470.O1.cpp
 src/game/hulkfight/motion/InterruptAccumulatorSetTrack.cpp
@@ -1531,14 +1530,12 @@ src/engine/fight/Context.cpp
 src/engine/fight/Params.cpp
 src/engine/fight/Track.cpp
 src/engine/fight/OpportunityTrack.cpp
-src/engine/fight/OpportunityTrack.new_throw.cpp
 src/engine/fight/SequenceTrack.cpp
 src/engine/fight/MaybeCondition.cpp
 src/engine/fight/PrintTrack.cpp
 src/engine/fight/PrintTrack.GS.cpp
 src/engine/fight/ExecuteAction.cpp
 src/engine/fight/ExecuteAction.GS.cpp
-src/engine/fight/ExecuteAction.new_throw.cpp
 src/engine/fight/unk_239d50.cpp
 src/engine/fight/QueuedNodeAction.cpp
 src/engine/fight/ScriptReader.cpp

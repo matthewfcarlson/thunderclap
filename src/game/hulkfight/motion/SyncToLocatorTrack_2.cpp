@@ -115,12 +115,16 @@ template <> bool fight::ParamFloatConstRange<hulkfight::motion::SyncToLocatorTra
 
 namespace fn_fb7097ec {
 
+} // namespace fn_fb7097ec
+
 // 0x00177c10 fight::ParamValueScript::vfunc_1 (6 B): matches/0x00177c10.cpp
-// sym: ?FUN_00177c10@fn_fb7097ec@@YAHXZ
-// Same code shape as 0x0008c580 (propagated; names are from that function)
-int FUN_00177c10() {
+// sym: ?vfunc_1@ParamValueScript@fight@@UAEHXZ
+// (gx5, D57) the slot on include/gen's class (the parameter templates' vftables name it); same code as 0x0008c580
+int fight::ParamValueScript::vfunc_1() {
     return 5;
 }
+
+namespace fn_fb7097ec {
 
 
 // 0x00177c20 fight::ParamScript<hulkfight::motion::SyncToLocatorTrack>::vfunc_6 (31 B): matches/0x00177c20.cpp

@@ -2765,7 +2765,7 @@
 "fight::RandomCondition": 16,
 "fight::Reference": 32,
 "fight::ScriptReader": 304,
-"fight::SequenceAction": 56,
+"fight::SequenceAction": 60,
 "fight::SequenceTrack": 32,
 "fight::SpawnAction": 88,
 "fight::SpawnTrack": 20,

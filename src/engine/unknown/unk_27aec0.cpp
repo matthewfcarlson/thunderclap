@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "decls/address.h"
 #include "gen/owners.h"
+#include "gen/core.h"
 #define TREE_TU_BEGIN namespace fn_f3f84338 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CEffectStopTrack
@@ -93,13 +94,13 @@ Pair_27af30& Pair_27af30::Assign(const Pair_27af30* src) {
     return *this;
 }
 
+} // namespace fn_f3f84338
 
 // 0x0027af50 FUN_0027af50 (1 B): matches/0x0027af50.cpp
-// sym: _FUN_0027af50
-// Same code shape as 0x00025410 (propagated; names are from that function)
-extern "C" void FUN_0027af50(void* /*this, unused: callers pass it (unb4)*/) {}
-
-} // namespace fn_f3f84338
+// sym: ??1NameId@core@@QAE@XZ
+// (gx5, D57) core::NameId's destructor (include/gen/core.h): empty, out of line; the TUs not rewritten yet call it as
+// `FUN_0027af50` (the binding maps resolve the name by its address)
+core::NameId::~NameId() {}
 
 // 0x0027af60 FUN_0027af60 (16 B): matches/0x0027af60.cpp
 // sym: ?FUN_0027af60@Pair_27af60@owners@@QAEXHH@Z

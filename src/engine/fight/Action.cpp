@@ -15,11 +15,6 @@ namespace fn_f7416411 { extern "C" char DAT_003f6098[]; }   // (x64t6) the game 
 
 // ---- declarations shared by the functions below
 namespace fn_f7416411 {
-class C_231e50 {
-  public:
-    int x[10];
-    C_231e50();
-};
 class C_231e80 {
   public:
     char pad0[0x14];
@@ -158,7 +153,6 @@ class Obj {
     union { Ref* d; int value; };
     Ref* e;
     void Set(int x);
-    void reset();
     void init_002321b0();
 };
 class Item_232290 {
@@ -262,20 +256,15 @@ void Obj::Set(int x) {
 }
 
 
+} // namespace fn_f7416411
+
 // 0x00231e50 FUN_00231e50 (34 B): matches/0x00231e50.cpp
-// sym: ??0C_231e50@fn_f7416411@@QAE@XZ
-C_231e50::C_231e50() {
-    x[0] = 0;
-    x[1] = 0;
-    x[2] = 0;
-    x[3] = 0;
-    x[4] = 0;
-    x[5] = 0;
-    x[6] = 0;
-    x[7] = 0;
-    x[8] = 0;
-    x[9] = 0;
-}
+// sym: ??0ActionList@fight@@QAE@XZ
+// (gx5) fight::ActionList's constructor (include/gen): the ten words zeroed
+fight::ActionList::ActionList()
+    : f_00(0), f_04(0), f_08(0), f_0c(0), f_10(0), f_14(0), f_18(0), f_1c(0), f_20(0), f_24(0) {}
+
+namespace fn_f7416411 {
 
 
 // 0x00231e80 FUN_00231e80 (38 B): matches/0x00231e80.cpp
@@ -440,29 +429,21 @@ void Obj_2321b0::run() {
 }
 
 
+} // namespace fn_f7416411
+
 // 0x00232240 FUN_00232240 (77 B): matches/0x00232240.cpp
-// sym: ?reset@Obj@fn_f7416411@@QAEXXZ
-void Obj::reset() {
-    init_002321b0();
-    if (e) {
-        e->release();
-        e = 0;
-    }
-    if (d) {
-        d->release();
-        d = 0;
-    }
-    c = 0;
-    _ReadWriteBarrier();
-    if (b) {
-        b->release();
-        b = 0;
-    }
-    if (a) {
-        a->release();
-        a = 0;
-    }
+// sym: ?Reset@ActionList@fight@@QAEXXZ
+// (gx5) fight::ActionList::Reset (include/gen): the list dropped (0x002321b0), the held references released
+void fight::ActionList::Reset() {
+    FUN_002321b0();
+    ::core::ReleaseRef(f_18);
+    ::core::ReleaseRef(f_14);
+    f_10 = 0;
+    ::core::ReleaseRef(f_0c);
+    ::core::ReleaseRef(f_04);
 }
+
+namespace fn_f7416411 {
 
 
 // 0x00232290 FUN_00232290 (92 B): matches/0x00232290.cpp
@@ -677,7 +658,12 @@ bool NodeList_2324b0::FUN_002324b0(char flush)
 }
 } // namespace fn_002324b0
 
-// 0x002325f0 thunk_FUN_00232240 (5 B): not yet verified
+// 0x002325f0 thunk_FUN_00232240 (5 B): matches
+// sym: ??1ActionList@fight@@QAE@XZ
+// (gx5) fight::ActionList's destructor (include/gen): Reset, which MSVC 7.1 reaches with a jump
+fight::ActionList::~ActionList() {
+    Reset();
+}
 
 // 0x00232600 FUN_00232600 (40 B): matches/0x00232600.cpp
 // sym: ?FUN_00232600@X_232600@owners@@QAEXI_N@Z
@@ -696,14 +682,10 @@ bool fight::Action::vfunc_3(hulk_intptr a, hulk_intptr b) {
     return (bool)(1);
 }
 
-namespace fn_f7416411 {
-
 // 0x00232640 fight::Action::vfunc_4 (1 B): matches/0x00232640.cpp
-// sym: ?FUN_00232640@fn_f7416411@@YAXXZ
-// Same code shape as 0x00025410 (propagated; names are from that function)
-void FUN_00232640() {}
-
-} // namespace fn_f7416411
+// sym: ?vfunc_4@Action@fight@@UAEXXZ
+// (gx5) the slot on include/gen's class: Action's vftable, which its constructor now emits, names it
+void fight::Action::vfunc_4() {}
 
 // 0x00232650 fight::Action::vfunc_5 (5 B): matches/0x00232650.cpp
 // sym: ?vfunc_5@Action@fight@@UAE_NHH@Z

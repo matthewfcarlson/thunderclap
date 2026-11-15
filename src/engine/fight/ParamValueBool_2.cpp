@@ -11,8 +11,6 @@ namespace fn_fff9a376 {} using namespace fn_fff9a376;
 
 // ---- declarations shared by the functions below
 namespace fn_fff9a376 {
-extern void* hulk_at_004279fc;
-extern "C" void __fastcall FUN_0027af50(void*);
 typedef hulk_uintptr U32_2347b0;
 extern void* MakeTemp_00238190(int);
 extern "C" void* FUN_00266da0(void*);
@@ -28,25 +26,26 @@ struct Member_234860 {
 };
 
 
-// 0x00234780 FUN_00234780 (14 B): matches/0x00234780.cpp
-// sym: ?FUN_00234780@fn_fff9a376@@YIXPAX@Z
-void __fastcall FUN_00234780(void* self) {
-    *(void**)self = &hulk_at_004279fc;
-    FUN_0027af50((char*)self + 8);
-}
-
 } // namespace fn_fff9a376
 
+// 0x00234780 FUN_00234780 (14 B): matches/0x00234780.cpp
+// sym: ??1ParamValue@fight@@UAE@XZ
+// (gx5, D57) fight::ParamValue's destructor (include/gen), which the parameter classes' implicit destructors end in:
+// the name id's (core::NameId, 0x0027af50)
+fight::ParamValue::~ParamValue() {
+    reinterpret_cast<ParamValueWords*>(this)->name.~ParamValueNameInit();
+}
+
 // 0x00234790 fight::ParamValue::vfunc_3 (3 B): matches/0x00234790.cpp
-// sym: ?vfunc_3@ParamValue@fight@@UAEXHH@Z
+// sym: ?vfunc_3@ParamValue@fight@@UAEXPAX0@Z
 // Same code shape as 0x00306fc0 (propagated; names are from that function)
-void fight::ParamValue::vfunc_3(int a, int b) {}
+void fight::ParamValue::vfunc_3(void* owner, void* context) {}
 
 
 // 0x002347a0 fight::ParamValue::vfunc_4 (3 B): matches/0x002347a0.cpp
-// sym: ?vfunc_4@ParamValue@fight@@UAEXHH@Z
+// sym: ?vfunc_4@ParamValue@fight@@UAEXPAX0@Z
 // Same code shape as 0x00306fc0 (propagated; names are from that function)
-void fight::ParamValue::vfunc_4(int a, int b) {}
+void fight::ParamValue::vfunc_4(void* owner, void* context) {}
 
 namespace fn_fff9a376 {
 

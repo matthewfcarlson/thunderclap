@@ -581,13 +581,36 @@ public:
     virtual void vfunc_4(); // slot 4
     virtual bool vfunc_5(hulk_intptr, int); // slot 5
     void FUN_002326a0(); // non-virtual: the destructor 0x002326a0 under the name the TUs not rewritten yet call
-    // (gx5, D56) the words the constructor zeroes: f_08 a reference-counted object (the destructor releases it
-    // through slot 1, 0x002326d0 sets it with slot 0 / slot 1), f_0c..f_18 the derived classes' ints
-    ::core::IRefCount* f_08;
+    // (gx5, D56) the words the constructor zeroes: f_08 the next action of the list the action is on (a held
+    // reference: the destructor releases it through slot 1, 0x002326d0 sets it; 0x002321b0 walks the list), f_0c its
+    // flags (bit 2 running), f_10..f_18 the derived classes' ints
+    ::fight::Action* f_08;
     int f_0c;
     int f_10;
     int f_14;
     int f_18;
+};
+
+// (gx5) no RTTI: the ten words a holder of running actions embeds (fight::ExecuteAction at +0x38,
+// GrappleHitReactionAction at +0x24, CCharacter, CEventManager, ...): f_20 the list of actions (0x00231f00 / 0x002321b0
+// walk it), the other words held references and counts. Constructed by 0x00231e50, destroyed by 0x002325f0 (a jump
+// to Reset, 0x00232240); 0x002321b0 stops the running actions and drops the list
+class ActionList {
+public:
+    ActionList(); // 0x00231e50
+    ~ActionList(); // 0x002325f0
+    void Reset(); // 0x00232240
+    void FUN_002321b0(); // the list cleared (Action.cpp)
+    ::core::IRefCount* f_00;
+    ::core::IRefCount* f_04;
+    int f_08;
+    ::core::IRefCount* f_0c;
+    int f_10;
+    ::core::IRefCount* f_14;
+    ::core::IRefCount* f_18;
+    int f_1c;
+    ::fight::Action* f_20;
+    ::core::IRefCount* f_24;
 };
 
 // .?AVBranch@fight@@  vftable 0x427898 (10)
@@ -1298,16 +1321,22 @@ public:
 // .?AVExecuteAction@fight@@  vftable 0x428448 (6)
 class ExecuteAction : public ::fight::Action {
 public:
-    virtual ~ExecuteAction(); // overrides core::IRefCount slot 2
+    // (gx5, D56) out of line: 0x002397c0 (ExecuteTrack::vfunc_10 constructs it)
+    ExecuteAction(::core::IRefCount* f1c = 0, void* track = 0, ::core::IRefCount* f24 = 0, int f28 = 0, void* f2c = 0, void* f30 = 0, ::core::IRefCount* f34 = 0); // (one line, defaults: for the header probe)
+    virtual ~ExecuteAction(); // overrides core::IRefCount slot 2 (gx5: defined at 0x00239870)
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_1c[0x8];
-    void* f_24;
+    // (gx5) the constructor's words: f_1c, f_24 and f_34 are held references (released by the destructor), f_20 the
+    // track (cleared, not released), f_38 the actions it runs
+    ::core::IRefCount* f_1c;
+    void* f_20;
+    ::core::IRefCount* f_24;
     int f_28;
     void* f_2c;
     void* f_30;
-    char _pad_34[0x2c];
+    ::core::IRefCount* f_34;
+    ::fight::ActionList f_38;
     int f_60;
     char f_64;
 };
@@ -1424,22 +1453,28 @@ public:
 // .?AVOpportunityAction@fight@@  vftable 0x428020 (6)
 class OpportunityAction : public ::fight::Action {
 public:
-    virtual ~OpportunityAction(); // overrides core::IRefCount slot 2
+    // (gx5, D56) out of line: 0x00237470 (OpportunityTrack::vfunc_10 allocates 0x50 and constructs it)
+    // (one line, defaults: the header probe defines it and default-constructs the class)
+    OpportunityAction(::core::IRefCount* f1c = 0, void* track = 0, float f24 = 0, float f28 = 0, ::core::IRefCount* f2c = 0, int f30 = 0, void* f34 = 0, int f38 = 0, ::core::IRefCount* f3c = 0);
+    virtual ~OpportunityAction(); // overrides core::IRefCount slot 2 (gx5: defined at 0x00237530)
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    int f_1c;
-    char _pad_20[0x8];
+    // (gx5) the constructor's words: f_1c, f_2c, f_3c and f_4c are held references (released by the destructor),
+    // f_20 the track (cleared, not released)
+    ::core::IRefCount* f_1c;
+    void* f_20;
+    float f_24;
     float f_28;
-    void* f_2c;
+    ::core::IRefCount* f_2c;
     int f_30;
-    char _pad_34[0x4];
+    void* f_34;
     int f_38;
-    int f_3c;
+    ::core::IRefCount* f_3c;
     int f_40;
     int f_44;
-    char _pad_48[0x4];
-    void* f_4c;
+    int f_48;
+    ::core::IRefCount* f_4c;
 };
 
 // .?AVOpportunityTrack@fight@@  vftable 0x427ff0 (11)
@@ -1468,7 +1503,7 @@ public:
 // (gx2, D18) the parameters constructed for real (a TU defines HULK_FIGHT_PARAM_IMPLICIT before its includes once its
 // registrations construct them): the name id at +0x08 (0x0027b0e0 constructs it), and a template's setter word (+0x10):
 // the code address a member function pointer (one word under MSVC 7.1) or a function pointer holds
-struct ParamValueNameInit { void Init_0027b0e0(const char*); };
+struct ParamValueNameInit : ::core::NameId { void Init_0027b0e0(const char*); }; // (gx5) a core::NameId
 // the words every ParamValueX declares after the vftable (`int f_04;` then the name id: `_pad_08` / `f_08` with `f_0c`):
 // the name id sits after one int on every target (+0x08 on the 32-bit builds, +0x0c on the 64-bit ones)
 struct ParamValueWords { void* vftable; int f_04; ParamValueNameInit name; };
@@ -1483,8 +1518,8 @@ public:
     virtual ~ParamValue(); // slot 0
     virtual int vfunc_1() = 0; // slot 1
     virtual bool vfunc_2(); // slot 2
-    virtual void vfunc_3(int, int); // slot 3
-    virtual void vfunc_4(int, int); // slot 4
+    virtual void vfunc_3(void*, void*); // slot 3 (gx5, D57: the owner and its context: pointers)
+    virtual void vfunc_4(void*, void*); // slot 4 (gx5, D57: the owner and its context: pointers)
     virtual int vfunc_5(int, int, int) = 0; // slot 5
 };
 
@@ -1691,10 +1726,10 @@ public:
     virtual ~ParamValueBranch(); // overrides fight::ParamValue slot 0
 #endif
     virtual int vfunc_1(); // overrides fight::ParamValue slot 1
-    virtual void vfunc_3(int, int); // overrides fight::ParamValue slot 3
-    virtual void vfunc_4(int, int); // overrides fight::ParamValue slot 4
+    virtual void vfunc_3(void*, void*); // overrides fight::ParamValue slot 3
+    virtual void vfunc_4(void*, void*); // overrides fight::ParamValue slot 4
     virtual int vfunc_5(int, int, int); // overrides fight::ParamValue slot 5
-    virtual void vfunc_6(void*) = 0; // slot 6
+    virtual void* vfunc_6(void*) = 0; // slot 6 (gx5, D57: the owner's branch / group, which vfunc_3 / vfunc_4 hand the context)
     ParamValueBranch* FUN_00235170(const char*); // non-virtual
     char _pad_04[0x8];
     int f_0c;
@@ -1731,7 +1766,7 @@ public:
 #else
     virtual ~ParamBranch(); // overrides fight::ParamValue slot 0
 #endif
-    virtual void vfunc_6(void*); // overrides fight::ParamValueBranch slot 6
+    virtual void* vfunc_6(void*); // overrides fight::ParamValueBranch slot 6
     hulk_intptr f_10; // the setter (vfunc_6 calls it as a member function of T0)
     int f_14; // (gx2) unknown: the game allocates 0x18
 };
@@ -1745,10 +1780,10 @@ public:
     virtual ~ParamValueConditionGroup(); // overrides fight::ParamValue slot 0
 #endif
     virtual int vfunc_1(); // overrides fight::ParamValue slot 1
-    virtual void vfunc_3(int, int); // overrides fight::ParamValue slot 3
-    virtual void vfunc_4(int, int); // overrides fight::ParamValue slot 4
+    virtual void vfunc_3(void*, void*); // overrides fight::ParamValue slot 3
+    virtual void vfunc_4(void*, void*); // overrides fight::ParamValue slot 4
     virtual int vfunc_5(int, int, int); // overrides fight::ParamValue slot 5
-    virtual void vfunc_6(void*) = 0; // slot 6
+    virtual void* vfunc_6(void*) = 0; // slot 6 (gx5, D57: the owner's branch / group, which vfunc_3 / vfunc_4 hand the context)
     int f_04;
     char _pad_08[0x4];
     int f_0c;
@@ -1773,7 +1808,7 @@ public:
 #else
     virtual ~ParamConditionGroup(); // overrides fight::ParamValue slot 0
 #endif
-    virtual void vfunc_6(void*); // overrides fight::ParamValueConditionGroup slot 6
+    virtual void* vfunc_6(void*); // overrides fight::ParamValueConditionGroup slot 6
     hulk_intptr f_10; // the setter (vfunc_6 calls it as a member function of T0)
     int f_14; // (gx2) unknown: the game allocates 0x18
 };
@@ -3097,15 +3132,20 @@ public:
 // .?AVSequenceAction@fight@@  vftable 0x428130 (6)
 class SequenceAction : public ::fight::Action {
 public:
-    virtual ~SequenceAction(); // overrides core::IRefCount slot 2
+    // (gx5, D56) out of line: 0x00237c90 (SequenceTrack::vfunc_10 allocates 0x3c and constructs it)
+    SequenceAction(::core::IRefCount* f1c = 0, void* track = 0, ::core::IRefCount* f24 = 0, int f28 = 0, void* f2c = 0, int f30 = 0, ::core::IRefCount* f34 = 0); // (one line, defaults: for the header probe)
+    virtual ~SequenceAction(); // overrides core::IRefCount slot 2 (gx5: defined at 0x00237d30)
     virtual void vfunc_4(); // overrides fight::Action slot 4
-    int f_1c;
-    char _pad_20[0x4];
-    void* f_24;
+    // (gx5) the constructor's words: f_1c, f_24, f_34 and f_38 are held references (released by the destructor),
+    // f_20 the track (cleared, not released)
+    ::core::IRefCount* f_1c;
+    void* f_20;
+    ::core::IRefCount* f_24;
     int f_28;
     void* f_2c;
     int f_30;
-    int f_34;
+    ::core::IRefCount* f_34;
+    ::core::IRefCount* f_38;
 };
 
 // .?AVSequenceTrack@fight@@  vftable 0x428100 (11)

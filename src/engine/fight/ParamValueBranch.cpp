@@ -15,20 +15,13 @@ extern "C" char DAT_00427c68[];
 struct Member_235170 {
     void Init_0027b0e0(const char*);
 };
+class Helper_2351a0 {
+  public:
+    void Process_00233fe0(void*);
+};
 class Helper_2351c0 {
   public:
-    void Process_00234090(int);
-};
-class ParamValueBranch {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void vfunc_3(int, int);
-    virtual void f4();
-    virtual void f5();
-    virtual int Query(int);
-    virtual void f7();
+    void Process_00234090(void*);
 };
 
 } // namespace fn_fd2c6ba9
@@ -41,43 +34,24 @@ class ParamValueBranch {
 
 
 
-// 0x002351a0 fight::ParamValueBranch::vfunc_3 (29 B): matches/0x002351a0.cpp [wrapped: conflict: fight::ParamValueBranch]
-// sym: ?vfunc_3@ParamValueBranch@fight@fn_002351a0@@UAEXHH@Z
-namespace fn_002351a0 {
-class Helper_2351a0 {
-  public:
-    void Process_00233fe0(int);
-};
-namespace fight { class ParamValueBranch {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void vfunc_3(int, int);
-    virtual void f4();
-    virtual void f5();
-    virtual int Query(int);
-    virtual void f7();
-}; }
-void fight::ParamValueBranch::vfunc_3(int a, int b) {
-    hulk_intptr x = Query(a);
+// 0x002351a0 fight::ParamValueBranch::vfunc_3 (29 B): matches/0x002351a0.cpp
+// sym: ?vfunc_3@ParamValueBranch@fight@@UAEXPAX0@Z
+// (gx5, D57) the slot on include/gen's class (the parameter templates' vftables name it): the owner's branch (vfunc_6)
+// gets the context
+void fight::ParamValueBranch::vfunc_3(void* owner, void* context) {
+    void* x = vfunc_6(owner);
     if (x)
-        ((Helper_2351a0*)x)->Process_00233fe0(b);
+        ((Helper_2351a0*)x)->Process_00233fe0(context);
 }
-} // namespace fn_002351a0
-
-namespace fn_fd2c6ba9 {
 
 // 0x002351c0 fight::ParamValueBranch::vfunc_4 (29 B): matches/0x002351c0.cpp
-// sym: ?vfunc_3@ParamValueBranch@fn_fd2c6ba9@@UAEXHH@Z
-// Same code shape as 0x002351a0 (propagated; names are from that function)
-void ParamValueBranch::vfunc_3(int a, int b) {
-    hulk_intptr x = Query(a);
+// sym: ?vfunc_4@ParamValueBranch@fight@@UAEXPAX0@Z
+// (gx5, D57) as vfunc_3, with 0x00234090
+void fight::ParamValueBranch::vfunc_4(void* owner, void* context) {
+    void* x = vfunc_6(owner);
     if (x)
-        ((Helper_2351c0*)x)->Process_00234090(b);
+        ((Helper_2351c0*)x)->Process_00234090(context);
 }
-
-} // namespace fn_fd2c6ba9
 
 // 0x002351e0 fight::ParamValueBranch::vfunc_5 (49 B): matches/0x002351e0.cpp [wrapped: conflict: fight::ParamValueBranch]
 // sym: ?v5@ParamValueBranch@fight@fn_002351e0@@UAEDHHH@Z

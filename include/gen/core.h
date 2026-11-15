@@ -99,6 +99,14 @@ public:
     virtual ~BaseObject(); // slot 0
 };
 
+// (gx5, D57) no RTTI: the engine's 64-bit name id (two words; 0x0027b0e0 hashes a string into one). Its destructor is
+// out of line and empty (0x0027af50, engine/unknown/unk_27aec0.cpp): the holders' destructors call it
+struct NameId {
+    unsigned int a;
+    unsigned int b;
+    ~NameId(); // 0x0027af50
+};
+
 // .?AUIRefCount@core@@  vftable 0x3f6098 (3)
 struct IRefCount {
 public:
@@ -123,6 +131,14 @@ template <class T> inline void ReleaseRef(T*& p) {
         p->vfunc_1();
         p = 0;
     }
+}
+// (gx5) and its assignment: the new object's slot 0 (AddRef), the old one's slot 1 (Release), then the store (0x002326d0)
+template <class T> inline void SetRef(T*& p, T* v) {
+    if (v)
+        v->vfunc_0();
+    if (p)
+        p->vfunc_1();
+    p = v;
 }
 
 // .?AUICementLibrary@core@@  vftable 0x42bf44 (9)

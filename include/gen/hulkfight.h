@@ -3606,13 +3606,17 @@ public:
 // .?AVGrappleHitReactionAction@motion@hulkfight@@  vftable 0x4137b4 (6)
 class GrappleHitReactionAction : public ::fight::Action {
 public:
-    virtual ~GrappleHitReactionAction(); // overrides core::IRefCount slot 2
+    GrappleHitReactionAction(void* track = 0, ::core::IRefCount* f20 = 0); // (gx5, D56) out of line: 0x00148840 (defaults: for the header probe)
+    virtual ~GrappleHitReactionAction(); // overrides core::IRefCount slot 2 (gx5: defined at 0x001488a0)
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_1c[0x4];
-    void* f_20;
-    char _pad_24[0x2c];
+    // (gx5) the constructor's words: f_1c the track (cleared, not released), f_20 and f_4c held references (released
+    // by the destructor), f_24 the actions it runs
+    void* f_1c;
+    ::core::IRefCount* f_20;
+    ::fight::ActionList f_24;
+    ::core::IRefCount* f_4c;
     int f_50;
     char f_54;
 };
