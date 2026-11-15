@@ -1015,3 +1015,11 @@ blocks fight::Action's whole family: the records come first there.
   on the queue.
 - 32abd96a2 (tri3) committed x64t13's three regress entries from the shared index before their case files and the
   equiv64 change existed; this batch adds them.
+
+## 2026-11-16 integ1 (2): what a proof ran
+- "--inputs 3000" had meant 3,000 drawn, and the random phase stops at 32 inconclusive inputs: recorded proofs had
+  compared as few as 56. D62: a proof is 3,000 compared inputs per mode; proof runs now draw until they get there.
+  Drawing more already found a real --wine difference (0x00330ba0) and one in a regress case (0x002155f0_diff_bound).
+- Equivalence rules that set inputs aside hide differences on those inputs (rev4's memub_hidden): prefer modelling the
+  original (memfwd) or repairing the input to the contract (preconditions) over excluding it.
+- x64_gate's cache was keyed on all of equiv.py: every 32-bit checker edit re-ran every --x64 result.

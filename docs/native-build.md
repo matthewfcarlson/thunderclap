@@ -4977,3 +4977,23 @@ XboxDrive's declaration of FUN_002697c0 is the definition's.
 
 Four equivalent blocks whose MSVC code hash flips with shared declarations (0x00027930, 0x000b86b0, 0x001a9b10,
 0x002ea3c0; x64t12 saw them too) were re-proved and recorded.
+
+### integ1, continued (2026-11-15/16)
+
+| item | what | commit |
+|---|---|---|
+| D50 | nanpayload removed; switch recording/refusal kept; its cases expect the plain checker's verdict | bd22ee1cb, 2b553f43f |
+| rev4 | memfwd (overlapping memcpy as MSVC's forward copy, counted in `inputs_memfwd`), copy_overlap 10% cap, strcase (case-only string plants), chunked memcmp | 22f917abc, 2ed1ec7e6 |
+| D38/D62 | a proof is 3,000 COMPARED inputs per mode: `run_shortfall` in proves()/judge(); proof runs draw until then (`proofcap`, `PROOF_DRAW_LIMIT` 10,000) | 2ed1ec7e6, 229481dc7 |
+| D54 | preconditions (`// pre:`, HULK_PRE_NOTNAN / _N, include/compat/pre.h): --wine repair, per-word trap check, stderr message; rev5 signed off | 2ed1ec7e6, 229481dc7, 648155a80 |
+| D47 | x64_gate: cache key = equiv.py closure equiv64 uses; a block without a result runs again; switched results unchecked | b0f226d54, 427d3f1ba |
+| D61 | equiv64: HULK_RANGE / HULK_INTO checked, refused instead of dropped, reported; eq64_off recorded | ed5f54b18, 427d3f1ba |
+| D52 | the other `_read_u32` side effect (_is_virtual_on_ecx) reads without mapping | a4a81138a |
+| D53 | objkeep, NOT adopted (EQUIV_ON): fixes 0x00264050, 0x000e14b0, 0x000e8790 --wine | a4a81138a |
+| whash | a failed clang compile is no longer cached as `no_object` | 2ed1ec7e6 |
+
+Findings: D62's drawing exposed a difference in regress case 0x002155f0_diff_bound (input 497+small, `unexpected write to
+0x00000000 before call #5`; it passed before with 56 compared). Of the 10 pins proven by short runs, 0x00027930, 0x00265390,
+0x0026de40, 0x0030b8f0 now compare 3,000; 0x002b07d0, 0x002ee9a0, 0x00300080 cannot (timeouts, 10,000 drawn); 0x00330ba0
+--wine fails with more inputs. Re-audit reruns (2,936 block-modes that compared < 3,000, jobs 84808-85395, prio -10):
+running; the ledger (D51) lands when they and a HEAD-side pass over the TUs changed since a47153bc5 are seeded.
