@@ -4730,3 +4730,38 @@ binds those names, 14 by gx2's count, D16), the Name and `int`-word families, th
 Method/Closure family (D24), the 20 skipped Condition stubs and the PrintCondition / PrintTrack / StatTrack
 destructors. Item 8 (a native-only member pointer type for the ParamX setter word on Linux/Android) is a writable
 member function pointer field, which D40 rules out; reported to the user instead.
+
+## integ1 (2026-11-15): proof integrity (D43, D38, D42, D37, D39, D44, D45)
+
+Workspace build/integ1 (RESUME.md, scripts/, audit/, meas/).
+
+| decision | what | commit |
+|---|---|---|
+| D43 | vptrkeep's tracker read words with a page-mapping read (`_read_u32`), outside the 1000-page limit: in call-free loops over pointer arrays the original returned where ours hit `too_many_pages`. `vptrread` reads unmapped pages from the machine's page for the epoch. 0x00106290, 0x0007f690, 0x001e3020: MSVC 3,000 equivalent + promotable | 3d44040ee |
+| D38 | `--wine` minimum 3,000 inputs (was 600): tree_tu `hash --proven`, wine_gate.py, promote_dispatch, clone_equivalent, wine_fix | a47153bc5 |
+| D42 | `@v`: the checker's view (equiv.checker_view: signature, return kind, conventions, level-2 bindings, pointee sizes, callee declarations, narrowed words, issue kinds; non-default switches). check/verify compute it (build/tree-cache/view; ~1.5 s MSVC + 2.3 s --wine a block uncached) and fail `view changed` / `view error` | a47153bc5 |
+| D37 | config/proof-ledger.jsonl, written only by `hash --proven` (one line per passing run: addr, mode, code, view, inputs, coverage, checker digest, job, date). check/verify: `unproven (mode)` fails (with --changed-since, untouched blocks are `unproven, unchanged since REF`); materialize ignores it; off until the file exists | a47153bc5, 3c3385942 |
+| D39 | nanpayload, written and NOT adopted (EQUIV_ON only). rev3 rejected the first form (an int -1/-2 passed); restricted to whole 4-byte float stores on both sides, 10% promotion cap; switch-made runs now prove nothing (proves/judge). The restricted rule rescues none of its four motivating blocks | a07ba065a, 71ed04064 |
+| D45 | measure only: level3.inputs_nan_eq (passing inputs on which _feq took two NaNs with different bits as equal) | 71ed04064 |
+
+Re-audit (D44): see the counts below; the ledger is not committed until the audit finishes (once the file exists every
+block without a line is `unproven`).
+
+**Re-audit (D44), interim** (jobs 82752-83349 at prio -10, both modes, 3,000 inputs, 600 s, plain tree-TU runs from
+a47153bc5; build/integ1/audit/all.jsonl, classes.json). 1,190 of 5,089 blocks done: MSVC 1,189 promotable, 1 not
+promotable on coverage (0x002142d0, known); --wine 1,158 promotable, 31 fail (write 16, call 8, argument 2, this 2,
+fault 2, return 1), 1 not promotable on coverage. 25 of the --wine failures are in tri2's still_failing.json; the others
+are tri1's D28 boolexpl blocks (0x00237050, 0x00239f10, 0x00245390), 0x0030b8f0 (D28, handed to tri2) and three new ones:
+0x0021a610, 0x00229360, 0x002ebef0. Seeding path checked end to end on the first 440 blocks (queue `hash --proven` into a
+private ledger, 3 jobs 83524-83526): 431 blocks recorded (code + @v), 871 ledger lines, 9 unproven; host and laptop
+views agree. The ledger lands only when the audit is complete (build/integ1/scripts/audit.py seed / apply).
+
+**D45 (measure only), interim**: `level3.inputs_nan_eq` over a 509-block sample (every 10th block, both modes, 1,000
+inputs, jobs 83695-83745): of the first 439 blocks (434 MSVC and 424 --wine equivalent), **none** has a passing input on
+which _feq took two NaNs with different bits as equal. (The counter does fire on such pairs: qNaN payloads, sNaN vs
+qNaN, sign.)
+
+**Regress**: 82313-82397 (D43) 508/510, 82503-82588 (D42/D37/D38) 504/512, 82754-82840 (D39) 514/517: every failure is
+other agents' uncommitted work shipped by `--dirty` (tools/equiv64.py WIP, an include/decls edit). 83540-83628 (rev3
+fixes) interim 230 ok: the 4 coverage failures (0x003037f0_iterator_range, 0x002cb2b0_loop_exit_order,
+0x002c96e0_loop_back_edge, 0x000ea7c0_dyncast_vcall_pop) fail the same with HEAD's equiv.py on a loaded host (time budget).

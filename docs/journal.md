@@ -936,3 +936,21 @@ blocks fight::Action's whole family: the records come first there.
   restored by 3d5e44c3c). After a temporary-index commit, sync the shared index entries of the committed paths at once
   (build/gx3/scripts/commitpatch.py does, but only where the entry still equals HEAD~1, which a concurrent commit
   breaks); check `git show --stat HEAD` of the next commits.
+
+## 2026-11-15 integ1: proof integrity (D43, D38, D42, D37, D39, D44, D45)
+
+- vptrkeep's own tracker changed runs: `_read_u32` maps an unmapped page outside the 1000-page limit, so in a call-free
+  loop over a pointer array the original (tracked) mapped past the limit and returned where ours hit too_many_pages.
+  A checker hook must read without side effects (`vptrread`, 3d44040ee). Other `_read_u32` callers are not audited yet.
+- Code hashes now have a third companion: `@v`, the checker's view (signature, bindings, pointee sizes, ...), and a
+  proof ledger (config/proof-ledger.jsonl, written only by `hash --proven`). Views computed on the laptop and on mac2 agree
+  (ChannelSendVolumeFadeBehaviour.cpp, 12 views). The ledger is held back until the re-audit finishes: once the file
+  exists every block without a line is `unproven`.
+- nanpayload (D39): rev3 found the first form set aside integer differences (-1 vs -2 are qNaN-shaped). Restricted to
+  words both sides last stored as 4-byte floats, it rescues none of the four blocks that motivated it (struct copies
+  as integer words, or the original's `mov` copy). Recommendation: drop it. Runs with EQUIV_ON / EQUIV_OFF switches now
+  prove nothing (proves, wine_gate.judge).
+- Shared-checkout hazard seen again: `regress.py --jobq` ships every dirty file, so other agents' WIP (equiv64.py,
+  include/decls) fails unrelated cases; read failures by their cause before blaming a checker change.
+- Coverage-threshold regress cases (0x003037f0_iterator_range, 0x002cb2b0_loop_exit_order) fail on a loaded laptop
+  with HEAD's checker as well: time budget, not code.
