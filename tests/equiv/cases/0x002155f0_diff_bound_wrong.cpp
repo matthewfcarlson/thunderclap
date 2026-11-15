@@ -51,9 +51,10 @@ TObject_2155f0 *FUN_002155f0(TObject_2155f0 *base, lua_State_2155f0 *L, int nfix
     TObject_2155f0 *slot = FUN_0021a500(L, htab, FUN_00219430(L, "n", 1));
     slot->tt = 3;
     slot->value.n = (float)actual;
-    L->top -= actual;
-    L->top->value.p = htab;
-    L->top->tt = 5;
+    TObject_2155f0 *t = L->top - actual;    // (tri4) stored once and written through: the original does not re-read L->top
+    L->top = t;
+    t->value.p = htab;
+    t->tt = 5;
     if ((char *)L->stack_last - (char *)L->top <= (int)sizeof(TObject_2155f0))
         FUN_00215460(L, 1);
     L->top++;
