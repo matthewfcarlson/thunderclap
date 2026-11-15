@@ -14,7 +14,7 @@ Routes are tried in order (ssh arguments ending in the target). Each host needs 
 already in <dir>; tools/ and include/ from git HEAD are shipped once per host per run.
 
 Wine gate (round 23, default on): the sources that pass the MSVC check (equivalent, no level-2 conflicts, >=75% branch
-coverage, >=50 inputs) are checked again with `--wine` at --wine-inputs (600) inputs, through the queue, into
+coverage, >=50 inputs) are checked again with `--wine` at --wine-inputs (3,000) inputs, through the queue, into
 OUT.wine.jsonl; each OUT record then carries "wine_gate": {"ok", "reason", "status", "inputs_run"} (tools/wine_gate.py
 judges). Installers promote only records whose gate is ok. --no-wine-gate (or HULK_NO_WINE_GATE=1) skips the second
 check and marks the records "wine gate off", for a host without the Wine toolchain (LLVM clang).
@@ -108,7 +108,7 @@ def main():
     ap.add_argument("--wine-gate", action=argparse.BooleanOptionalAction, default=True,
                     help="(default) check the MSVC passes again with --wine (tools/wine_gate.py); --no-wine-gate: the Wine "
                          "toolchain is unavailable")
-    ap.add_argument("--wine-inputs", type=int, default=600, help="inputs of the --wine gate check")
+    ap.add_argument("--wine-inputs", type=int, default=3000, help="inputs of the --wine gate check")
     a = ap.parse_args()
     if not a.wine_gate:
         os.environ["HULK_NO_WINE_GATE"] = "1"

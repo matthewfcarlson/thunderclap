@@ -106,7 +106,7 @@ carry it since 2026-11-10. The notes (STATUS, provenance, equiv directives) live
 - matches: `compare.py TU ADDR` MATCH + `verify_relocs.py` ok, on the TU's object (`tree_tu.py verify --relocs`).
 - equivalent: the function's code in the TU's object is the code that was proven (bytes, relocation positions and
   kinds, address targets: build_tree.same_code), or `equiv.py TU ADDR` passes again (3,000 inputs, plus the `--wine`
-  gate at 600, as for a promotion). Implemented 2026-11-11 (hash1) as a per-block code hash on the pin line,
+  gate at 3,000 since D38, 600 before, as for a promotion). Implemented 2026-11-11 (hash1) as a per-block code hash on the pin line,
   `// sym: NAME @<msvc12hex> @w<clang12hex>`: a TU edit that leaves a function's code unchanged needs no new equiv
   run, and one that changes it is `code_changed` until re-proven ([Code hashes](#code-hashes)).
 
@@ -156,13 +156,13 @@ Recording a hash needs a proof of the code as it is now:
 
 ```sh
 $J tools/equiv.py TU.cpp 0xADDR --json --inputs 3000 > msvc.json     # its report carries tree_code: the hash it checked
-$J tools/equiv.py TU.cpp 0xADDR --wine --json --inputs 600 > wine.json
+$J tools/equiv.py TU.cpp 0xADDR --wine --json --inputs 3000 > wine.json
 $J tools/tree_tu.py hash TU.cpp --proven msvc.json wine.json          # (a jsonl of such reports works too)
 ```
 
 `hash --proven` writes a block's new `@hash` only from an MSVC run whose `tree_code.msvc` is the code's hash now,
 asked for >= 3,000 inputs and promotable, and a new `@w` hash only from a `--wine` run whose `tree_code.wine` matches,
-asked for >= 600 inputs, passing tools/wine_gate.py and compiled without an x87-keep list; a block whose MSVC code
+asked for >= 3,000 inputs (600 before integ1, D38), passing tools/wine_gate.py and compiled without an x87-keep list; a block whose MSVC code
 changed needs both, one whose clang code alone changed needs the `--wine` run. equiv.py records `tree_code` only for a
 plain run of the tree TU (no extra flags, `--map`, seeds, replay level 3, EQUIV_OFF rules or another symbol). Nothing
 else writes a hash. `hash . --compute OUT [--tus LIST] [--commit SHA]` only reports the hashes of the code as it stands
@@ -211,14 +211,51 @@ pre-chk1 checker too, build/chk1/preexisting.txt):
   12-byte vector) while the laptop passed. Fixed: the `/I` paths are relative to both real paths. Every tree-TU run on
   a queue host since the merged tree (stage 1) had this.
 
-Proposal (not implemented): a third hash, `@v`, of the checker's view of the block, the inputs of its verdict that are
-not code: the signature (cc, ret, params, param_types, varargs), the conventions, the level-2 mapping (callee symbol ->
-address, how bound), the pointee sizes of every callee and the return-type note. equiv.py has them after level 2 (a
-compile, a parse and the probe: about a second per TU, cached by the TU and the headers it reaches), `check`/`verify`
-recompute it like `@w` and report `view_changed`, and `hash --proven` records it from the run's report. Either break
-above would have been a `view_changed` at the commit that made it (unb4's) or on the first host run (the probe), not a
-silent pass of a stale proof. It is keyed by the view, not by equiv.py's code, so a checker edit that changes no view
-re-proves nothing.
+That proposal is implemented below ([Checker views and the proof ledger](#checker-views-and-the-proof-ledger-integ1-2026-11-15)).
+
+### Checker views and the proof ledger (integ1, 2026-11-15)
+
+User decisions D42 (the view hash), D37 (the ledger) and D38 (`--wine` at 3,000).
+
+**`@v`: the checker's view (D42).** `equiv.checker_view` is what a verdict depends on besides the code: the signature
+it compares (cc, ret, params, param_types, varargs; for a C name from our declarations' text), the return kind it settled
+on (the outcome of the return note) and whether a void function's eax is compared, the register conventions, the level-2
+bindings (every symbol of our object -> address and how it was bound: name, pairing, `msvc:` for --wine, `treeblk:`...),
+the pointee sizes of every callee's pointer parameters (the sizeof probe), our declarations of the callees, the natively
+narrowed parameter words (--wine) and the level-2 issues and conflicts by kind. Each run (`equiv.py`, both modes) reports
+its view's digest (`view`, and in a tree TU's plain run `tree_code.view`, next to `tree_code.checker`, the digest of
+equiv.py, and `tree_code.job`, the queue job). `equiv.verify(..., view_only=True)` stops where level 3 would start
+(about 1.5 s a block in MSVC mode, 2.3 s with --wine). The pin line's third hash is the digest of the pair:
+
+```
+// sym: PIN @<msvc code> @w<clang code> @v<view of both modes>
+```
+
+`check` and `verify` compute every equivalent block's views (`tree_tu.views`, cached in build/tree-cache/view/ by the
+TU, its objects' keys, the checker's modules and _code_key's inputs) and report `view`: `ok`, `changed` (a failure:
+`equivalent view changed`; re-prove), `error` (no view: a failure), `unrecorded` (no `@v` yet: reported) or `unchecked`
+(`--no-wine-code`: the pair can't be formed). `--no-view` skips views and the ledger; `materialize` (the Wine build) does
+not compute them. A checker edit invalidates the view cache, but only an edit that changes a view makes a block
+`changed`. A view depends on the host only where equiv.py does (Ghidra's optional return-type hints under build/farm),
+which is what it is for: the probe bug above would have been `changed` on the first host run.
+
+**The proof ledger (D37).** config/proof-ledger.jsonl, one JSON line per passing proof run, appended by `hash --proven`
+only: `addr`, `mode` (msvc / wine), `code` and `view` (the hashes the run checked), `tu`, `n_inputs` (asked),
+`inputs_run`, `inconclusive`, `coverage`, `status`, `promotable`, `checker` (equiv.py's digest), `job` (the queue job id
+or null), `date`. No game content: addresses and hashes. `check`/`verify` mark a block `proof` per mode: `proven` when
+the ledger has its current (code, view) in that mode, else `unproven` (`n/a` for --wine when clang has no object,
+`unchecked` with --no-wine-code). `unproven (msvc|wine)` counts as a failure, shown on its own line in the counts;
+with `--changed-since REF` a block whose recorded hashes are REF's and whose code is unchanged is counted as
+`proof: unproven, unchanged since REF` instead (the change didn't make it so). `materialize` never fails on it. Until the
+file exists the ledger part is off (`ledger: none` in verify's summary).
+
+**Recording.** `hash --proven RESULT...` computes the views, then per block and mode: a mode whose current (code, view)
+is already in the ledger needs no run; otherwise a report that `proves()` it (the same code hash, the same view, MSVC
+promotable at >= 3,000 inputs, --wine passing tools/wine_gate.py at >= 3,000 inputs without an x87-keep list) is
+appended to the ledger. When every mode is covered, the pin line gets the code hashes and `@v`; a mode proven alone still
+goes into the ledger (that run passed), the pin line is left as it is. A block with no result whose code is unchanged is
+`skipped`. Reports from before views (no `tree_code.view`) prove nothing: re-run them. `--ledger FILE` reads and appends
+another ledger (tests, dry runs).
 
 ### Checks beyond the blocks (tool2, 2026-11-13)
 

@@ -32,7 +32,13 @@ Code hashes (docs/merge-once.md "Code hashes", tools/code_hash.py): an equivalen
 hashes of the code that was proven, `// sym: PIN @<MSVC object> @w<clang --wine object>`. check / verify / materialize
 recompute them (`--no-wine-code` skips the clang one) and fail a block whose code changed (`code_changed`) or that has
 none (`unhashed`); `hash --proven` records new
-values only from equiv.py runs of the code as it is now (3,000 inputs promotable, --wine at 600).
+values only from equiv.py runs of the code as it is now (3,000 inputs promotable, --wine at 3,000).
+
+Checker views and the proof ledger (integ1, D42/D37; docs/merge-once.md "Checker views and the proof ledger"): the pin
+line's third hash `@v<hex>` is the checker's view of the block in both modes (equiv.checker_view: signature, bindings,
+pointee sizes ...), recomputed by check / verify (`view`: changed is a failure); config/proof-ledger.jsonl holds one line
+per passing proof run; a block whose current (code, view) in a mode has none is `unproven` (a failure, counted on its
+own; materialize ignores it). Both are written only by `hash --proven`.
 
 Checks beyond the blocks (tool2, docs/merge-once.md "Checks beyond the blocks"): verify runs gen_headers.py --probe
 when an include/gen/ header changed (check: one its TU can include; `--gen-probe` forces it) and fails when it fails;
@@ -66,8 +72,9 @@ ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 BLOCK = re.compile(r"^// (0x[0-9a-f]{8}) (.+?) \((\d+) B\): (matches|equivalent)(?:/0x[0-9a-f]{8}\.cpp)?"
                    r"(?: \[(wrapped|isolated)(?::.*)?\])?\s*$")     # (a reason can hold brackets: `Cell [100] cells`)
 PLACEHOLDER = re.compile(r"^// 0x[0-9a-f]{8} .+ \(\d+ B\): not yet verified\s*$")
-SYM_LINE = re.compile(r"^// sym: (\S+)((?:[ \t]+@w?[0-9a-f]{12})*)\s*$")   # the pin, then the code hashes
-HASH_TOKEN = re.compile(r"@(w?)([0-9a-f]{12})")     # `@<hex>` the MSVC object's code, `@w<hex>` the clang object's
+SYM_LINE = re.compile(r"^// sym: (\S+)((?:[ \t]+@[wv]?[0-9a-f]{12})*)\s*$")   # the pin, then the code hashes
+HASH_TOKEN = re.compile(r"@([wv]?)([0-9a-f]{12})")  # `@<hex>` the MSVC object's code, `@w<hex>` the clang object's,
+                                                    # `@v<hex>` the checker's view of both (integ1, D42: views())
 DIRECTIVE = re.compile(r"^\s*//\s*equiv-(?:map|conv|dead|name):")
 PRELUDE = "tree_prelude.h"
 # HULK_TREE_TU_OFF=pins,relocpick: ignore `// sym:` lines / don't prefer the reloc-correct one of several exact candidates
@@ -173,20 +180,22 @@ def scan(path):
         while end > i + 1 and not lines[end - 1].strip():
             end -= 1
         addr, name, size, kind, mode = m.group(1), m.group(2), int(m.group(3)), m.group(4), m.group(5) or "merged"
-        sym = hsh = whsh = None
+        sym = hsh = whsh = vhsh = None
         k = i + 1
         if k < end and SYM_LINE.match(lines[k]):
             sm = SYM_LINE.match(lines[k])
             sym = sm.group(1)
             for w, hx in HASH_TOKEN.findall(sm.group(2)):
-                if w:
+                if w == "w":
                     whsh = hx
+                elif w == "v":
+                    vhsh = hx
                 else:
                     hsh = hx
         src = re.search(r": ((?:matches|equivalent)/0x[0-9a-f]{8}\.cpp)", lines[i])
         blocks.append({"addr": addr, "name": name, "size": size, "kind": kind, "mode": mode,
                        "src": src.group(1) if src else "%s/%s.cpp" % (kind, addr),
-                       "lines": [i + 1, end], "sym": sym, "hash": hsh, "whash": whsh, "ns": "fn_%s" % addr[2:] if mode == "wrapped" else None,
+                       "lines": [i + 1, end], "sym": sym, "hash": hsh, "whash": whsh, "vhash": vhsh, "ns": "fn_%s" % addr[2:] if mode == "wrapped" else None,
                        "notes": [l for l in lines[i + 1:end] if DIRECTIVE.match(l)]})
     rec = {"path": os.path.relpath(ap, root) if root else ap, "root": root, "blocks": blocks}
     m = re.search(r"^namespace (fn_f[0-9a-f]{7}) \{", text, re.M)       # (the TU namespace, gen_tree's fn_f<7 hex>)
@@ -672,6 +681,193 @@ def with_wine(path, recs, rec=None):
     return recs
 
 
+# ------------------------------------------------------------------------------------------------------- checker views
+# (integ1, D42) A verdict depends on more than the code: equiv.py also reads the block's signature (for a C name, from our
+# declarations' text), the level-2 bindings, the callees' pointee sizes (a sizeof probe), the return kind... (equiv.
+# checker_view). Two such reads broke proofs whose code hashes still said ok (docs/merge-once.md "What the hash does not
+# cover"). views() computes each equivalent block's view in both modes (equiv.verify(view_only=True): levels 1-2, about
+# a second a block and mode), `@v` on the pin line records the hash of the pair a proof ran with (`hash --proven` only),
+# and check/verify report `view`: ok, changed (a failure: re-prove), unrecorded (no @v yet: reported), unchecked
+# (--no-wine-code: the pair can't be formed), error (no view: a failure).
+VCACHE = os.path.join(ROOT, "build/tree-cache/view")
+VIEW_MODULES = ("addr_literal", "addr_names", "build_tree", "clang_probe", "code_hash", "compare", "cxx_items",
+                "data_overreach", "disasm", "equiv", "gen_tree", "hulk_env", "include_keys", "msvc_demangle",
+                "platform_map", "stub_layout", "tree_tu", "verify_relocs", "xbe")
+_VK = {}
+
+
+def _view_base_key():
+    """What every view depends on besides the TU: the checker's modules (VIEW_MODULES: what equiv.py's levels 1-2 load),
+    _code_key's inputs (the XBE, functions.csv, config/data.json), EQUIV_OFF and the clang toolchain."""
+    if not _VK:
+        import importlib
+        h = hashlib.sha1(b"view1\0" + os.environ.get("EQUIV_OFF", "").encode() + b"\0" + _code_key().encode())
+        tools = os.path.dirname(os.path.abspath(__file__))
+        for m in VIEW_MODULES:
+            p = os.path.join(tools, m + ".py")
+            if os.path.exists(p):
+                with open(p, "rb") as f:
+                    h.update(m.encode() + hashlib.sha1(f.read()).digest())
+        try:
+            h.update(_wine_base_key().encode())
+        except Exception as e:      # noqa: BLE001 - no clang here: the wine half is not computed (views(wine=False))
+            h.update(repr(e).encode())
+        _VK["k"] = h.hexdigest()
+    return _VK["k"]
+
+
+def view_digest(vm, vw):
+    """The `@v` hash of a block: its MSVC-mode view and its --wine view (None: clang has no object for the TU)."""
+    return hashlib.sha1(json.dumps({"msvc": vm, "wine": vw}, sort_keys=True).encode()).hexdigest()[:12]
+
+
+def views(path, recs, rec=None, wine=True):
+    """{addr: {"msvc": view hash or None, "wine": view hash, None (no clang object) or "unchecked" (WINE false),
+    "error": why a view is missing}} of the equivalent blocks of RECS (the TU's check records; with WINE their clang
+    code hashes, with_wine), cached in build/tree-cache/view/ by the TU's text, its objects' keys, the records and
+    _view_base_key."""
+    import tempfile
+    ap = os.path.abspath(path)
+    rec = rec or scan(path)
+    eq = [r for r in recs if r["kind"] == "equivalent" and r.get("symbol")]
+    if not eq:
+        return {}
+    text = open(ap, "rb").read()
+    k = hashlib.sha1((_view_base_key() + "\0" + object_key(ap) + "\0" + rec["path"] + "\0" + repr(bool(wine)) + "\0" +
+                      json.dumps([(r["addr"], r.get("symbol"), r.get("wine_code_hash") is None) for r in recs])).encode()
+                     + b"\0" + text)
+    if wine:
+        import include_keys
+        d = include_keys.digest(ap, [include_dir(ap), os.path.join(ROOT, "include")], root=ROOT,
+                                force=["compat/native.h"])
+        k.update(b"\0" + str(d).encode())
+    cp_ = os.path.join(VCACHE, k.hexdigest()[:24] + ".json")
+    try:
+        with open(cp_) as f:
+            return json.load(f)
+    except (OSError, ValueError):
+        pass
+    import equiv
+    out = {}
+    with tempfile.TemporaryDirectory(dir=os.path.join(ROOT, "build")) as tmp:
+        cobj = None
+        if wine and any(r.get("wine_code_hash") is not None for r in eq):
+            try:
+                cobj = wine_object(ap, tmp)      # (one clang compile for every block: what equiv.py --wine compiles)
+            except Exception:       # noqa: BLE001 - no object: each block's own run says why
+                cobj = None
+        for r in eq:
+            a = int(r["addr"], 16)
+            v = {}
+            for mode in ("msvc", "wine"):
+                if mode == "wine" and not wine:
+                    v["wine"] = "unchecked"
+                    continue
+                if mode == "wine" and r.get("wine_code_hash") is None:
+                    v["wine"] = None
+                    continue
+                try:
+                    rep = equiv.verify(ap, a, view_only=True, recs=recs, native=mode == "wine",
+                                       obj_path=cobj if mode == "wine" else None)
+                except Exception as e:      # noqa: BLE001
+                    rep = {"status": "error", "error": repr(e)[:300]}
+                v[mode] = rep.get("view")
+                if not rep.get("view"):
+                    v.setdefault("error", "%s: %s %s" % (mode, rep.get("status"), (rep.get("error") or
+                                                                                 rep.get("view_error") or "")[:200]))
+            out[r["addr"]] = v
+    os.makedirs(VCACHE, exist_ok=True)
+    with open(cp_ + ".%d.tmp" % os.getpid(), "w") as f:
+        json.dump(out, f)
+    os.replace(cp_ + ".%d.tmp" % os.getpid(), cp_)
+    return out
+
+
+# ------------------------------------------------------------------------------------------------------- proof ledger
+# (integ1, D37) config/proof-ledger.jsonl: one line per passing proof run recorded by `hash --proven` (nothing else writes
+# it): the block's address, the mode, the code hash and the checker view the run checked, the inputs asked for and run,
+# the branch coverage, the checker's digest, the queue job and the date. No game content (addresses and hashes only).
+# check/verify report a block whose current (code, view) pair in a mode has no line as `unproven` (a failure shown on
+# its own; with --changed-since a block the change left alone is `unproven, unchanged since REF`, not failing).
+LEDGER = os.path.join(ROOT, "config", "proof-ledger.jsonl")
+
+
+def ledger_index(path=None):
+    """{(addr, mode, code hash, view hash)} of the ledger, or None when it doesn't exist."""
+    path = path or LEDGER
+    if not os.path.exists(path):
+        return None
+    out = set()
+    with open(path) as f:
+        for l in f:
+            l = l.strip()
+            if l.startswith("{"):
+                e = json.loads(l)
+                out.add((e["addr"], e["mode"], e["code"], e["view"]))
+    return out
+
+
+def ledger_entry(addr, mode, code, view, rep, tu):
+    import datetime
+    tc = rep.get("tree_code") or {}
+    l3 = rep.get("level3") or {}
+    cov = l3.get("coverage") or {}
+    return {"addr": addr, "mode": mode, "code": code, "view": view, "tu": tu, "n_inputs": tc.get("n_inputs"),
+            "inputs_run": l3.get("inputs_run"), "inconclusive": l3.get("inputs_inconclusive"),
+            "coverage": "%s/%s" % (cov.get("edges_covered"), cov.get("edges_total")) if cov else None,
+            "status": rep.get("status"), "promotable": rep.get("promotable"), "checker": tc.get("checker"),
+            "job": tc.get("job"), "date": datetime.date.today().isoformat()}
+
+
+def ledger_append(entries, path=None):
+    path = path or LEDGER
+    have = ledger_index(path) or set()
+    new = []
+    for e in entries:
+        k = (e["addr"], e["mode"], e["code"], e["view"])
+        if k not in have:
+            have.add(k)
+            new.append(e)
+    if new:
+        with open(path, "a") as f:
+            for e in new:
+                f.write(json.dumps(e, sort_keys=True) + "\n")
+    return len(new)
+
+
+def mark_views(recs, rec, vs, ledger):
+    """Annotate equivalent check records with `view` (and `view_hash`, `view_msvc`, `view_wine`) from VS (views()) and,
+    with a LEDGER index, `proof` ({mode: proven / unproven / n/a / unchecked}) and `unproven` (the modes)."""
+    blocks = {b["addr"]: b for b in rec["blocks"]}
+    for r in recs:
+        v = vs.get(r["addr"])
+        if r["kind"] != "equivalent" or v is None:
+            continue
+        vm, vw = v.get("msvc"), v.get("wine")
+        r["view_msvc"], r["view_wine"] = vm, vw
+        if v.get("error") or vm is None or (vw is None and r.get("wine_code_hash") is not None):
+            r["view"], r["view_error"] = "error", v.get("error") or "no view"
+        elif vw == "unchecked":
+            r["view"] = "unchecked"
+        else:
+            r["view_hash"] = h = view_digest(vm, vw)
+            rv = blocks[r["addr"]].get("vhash")
+            r["view"] = "unrecorded" if rv is None else "ok" if rv == h else "changed"
+        if ledger is None:
+            continue
+        pr = {"msvc": "proven" if (r["addr"], "msvc", r.get("code_hash"), vm) in ledger else "unproven"}
+        if r.get("wine_code") == "no_object" or (vw is None and r.get("wine_code_hash") is None):
+            pr["wine"] = "n/a"
+        elif vw == "unchecked" or "wine_code_hash" not in r:
+            pr["wine"] = "unchecked"
+        else:
+            pr["wine"] = "proven" if (r["addr"], "wine", r.get("wine_code_hash"), vw) in ledger else "unproven"
+        r["proof"] = pr
+        un = [m for m, st in pr.items() if st == "unproven"]
+        if un:
+            r["unproven"] = un
+
+
 # ------------------------------------------------------------------------------------------------------- verify cache
 CACHE = os.path.join(ROOT, "build/tree-cache/tuverify")
 
@@ -701,8 +897,9 @@ def _code_key():
 _CK = []
 
 
-def cached_check(path, relocs=False, vs_standalone=False, wine=False):
-    """check_tu through the verify cache: (records, hit?). WINE: with the clang code hashes too (with_wine)."""
+def cached_check(path, relocs=False, vs_standalone=False, wine=False, view=False):
+    """check_tu through the verify cache: (records, hit?). WINE: with the clang code hashes too (with_wine). VIEW: with
+    the checker views and, when the proof ledger exists, the ledger's verdict (views(), mark_views(); integ1, D37/D42)."""
     if not _CK:
         _CK.append(_code_key())
     rec = scan(path)
@@ -725,6 +922,8 @@ def cached_check(path, relocs=False, vs_standalone=False, wine=False):
         os.replace(p + ".%d.tmp" % os.getpid(), p)
     if wine:
         with_wine(path, out, rec)
+    if view:
+        mark_views(out, rec, views(path, out, rec, wine=wine), _LEDGER[0] if _LEDGER else ledger_index())
     return out, hit
 
 
@@ -758,10 +957,13 @@ def changed_tus(root, ref):
     return [f for f in files if f.endswith(".cpp") and is_tree_tu(f)]
 
 
+_LEDGER = []        # (verify: the ledger index, read once before the pool forks)
+
+
 def _verify_one(args):
-    path, relocs, vs, wine = args
+    path, relocs, vs, wine, view = args
     try:
-        recs, hit = cached_check(path, relocs, vs, wine)
+        recs, hit = cached_check(path, relocs, vs, wine, view)
         return path, recs, hit, None
     except Exception as e:      # noqa: BLE001 - keep the sweep going
         return path, [], False, repr(e)[:300]
@@ -781,12 +983,27 @@ def count_codes(counts, r):
             counts["code hash ok (%s)" % kind] += 1
     if r.get("code_hash_removed"):
         counts["equivalent code hash removed"] += 1
+    # (integ1, D42) the checker's view: changed and error are failures, unrecorded / unchecked reported
+    st = r.get("view")
+    if st in ("changed", "error"):
+        counts["equivalent view %s" % st] += 1
+    elif st:
+        counts["view %s" % st] += 1
+    # (integ1, D37) the proof ledger: a mode whose (code, view) has no entry is unproven (failing() with unproven=True)
+    for m, st in sorted((r.get("proof") or {}).items()):
+        if st == "unproven" and r.get("unchanged_since_ref"):
+            counts["proof: unproven, unchanged since REF (%s)" % m] += 1
+        elif st == "unproven":
+            counts["unproven (%s)" % m] += 1
+        else:
+            counts["proof: %s (%s)" % (st, m)] += 1
 
 
-def failing(counts):
-    """verify's failure count of a summary's counts (also materialize's)."""
+def failing(counts, unproven=True):
+    """verify's failure count of a summary's counts (also materialize's, which passes UNPROVEN=False: the Wine build
+    builds what the tree holds; the ledger's verdict is verify's)."""
     return sum(n for k, n in counts.items() if k.split(" ")[0] in ("matches", "equivalent", "pinned", "ambiguous",
-                                                                    "overreach")
+                                                                    "overreach") + (("unproven",) if unproven else ())
                and not k.endswith((" match", " compiled", ": same")))
 
 
@@ -868,7 +1085,8 @@ def reach_files(paths):
 JOB_META = ".jobq/local-inputs.json"
 JOB_REF = ".jobq/ref"
 GEN_PREFIX = "include/gen/"
-CONFIG_READ = {"verify": ["config/data.json"], "check": ["config/data.json"], "x64": ["config/x64-baseline.json"],
+CONFIG_READ = {"verify": ["config/data.json", "config/proof-ledger.jsonl"],
+               "check": ["config/data.json", "config/proof-ledger.jsonl"], "x64": ["config/x64-baseline.json"],
                "gen": ["config/gen-sizes.json"]}
 _META = []
 
@@ -1143,17 +1361,20 @@ def overreach(obj, out, pairs):
         r.setdefault("overreach" if h["kind"] in dor.REPORTED else "overreach_info", []).append(k)
 
 
-def verify(paths, jobs=4, relocs=False, out=None, vs_standalone=False, wine=True, ref=None):
+def verify(paths, jobs=4, relocs=False, out=None, vs_standalone=False, wine=True, ref=None, view=True):
     """Check every block of PATHS (cached); returns the summary. OUT: one JSON record per function. WINE: the clang
-    code hashes too. REF (a git ref): a block that had a code hash there and has none now is a failure."""
+    code hashes too. REF (a git ref): a block that had a code hash there and has none now is a failure. VIEW: the
+    checker views and the proof ledger's verdict (integ1, D37/D42)."""
     import multiprocessing
     counts, hits = collections.Counter(), 0
     errors = []
+    led = ledger_index() if view else None
+    _LEDGER[:] = [led]
     f = open(out, "w") if out else None
     ctx = multiprocessing.get_context("fork")
     with ctx.Pool(max(1, jobs)) as pool:
-        for path, recs, hit, err in pool.imap_unordered(_verify_one, [(p, relocs, vs_standalone, wine) for p in paths],
-                                                         chunksize=4):
+        for path, recs, hit, err in pool.imap_unordered(_verify_one, [(p, relocs, vs_standalone, wine, view)
+                                                                       for p in paths], chunksize=4):
             hits += hit
             if err:
                 errors.append((path, err))
@@ -1181,7 +1402,8 @@ def verify(paths, jobs=4, relocs=False, out=None, vs_standalone=False, wine=True
     if f:
         f.close()
     return {"tus": len(paths), "cache_hits": hits, "counts": dict(sorted(counts.items())), "errors": errors[:20],
-            "n_errors": len(errors), "inputs": inputs_digest(paths)}
+            "n_errors": len(errors), "inputs": inputs_digest(paths),
+            "ledger": None if not view else "none" if led is None else len(led)}
 
 
 # ------------------------------------------------------------------------------------------------------- materialize
@@ -1245,7 +1467,7 @@ def materialize(root, out, jobs=4, relocs=False, wine=True):
     paths = sorted(os.path.join(out, rel) for rel in want)
     tus = [p for p in paths if is_tree_tu(p)]
     recs_out = os.path.join(out, "checks.jsonl")
-    s = verify(tus, jobs=jobs, relocs=relocs, out=recs_out, wine=wine)
+    s = verify(tus, jobs=jobs, relocs=relocs, out=recs_out, wine=wine, view=False)
     checks = [json.loads(l) for l in open(recs_out)]
     order = {p: i for i, p in enumerate(sorted(os.path.relpath(p, out) for p in tus))}
     checks.sort(key=lambda r: (order.get(r["tu"], 0), r["addr"]))
@@ -1336,14 +1558,16 @@ def layout(tree, root):
 
 
 # ------------------------------------------------------------------------------------------------------- pinning
-def sym_line(pin, h=None, wh=None):
-    return "// sym: " + pin + ("" if h is None else " @" + h) + ("" if wh is None else " @w" + wh)
+def sym_line(pin, h=None, wh=None, vh=None):
+    return "// sym: " + pin + ("" if h is None else " @" + h) + ("" if wh is None else " @w" + wh) + \
+        ("" if vh is None else " @v" + vh)
 
 
 def pin_text(path, records, hashes=None):
     """The TU's text with a `// sym:` line after every block line whose function has a symbol in RECORDS ({addr:
     symbol}); an existing pin is replaced, keeping its code hashes; a block without a symbol keeps its line as it is.
-    HASHES ({addr: (msvc hash or None, clang hash or None)}): code hashes to write (None: keep the line's)."""
+    HASHES ({addr: (msvc hash or None, clang hash or None[, view hash or None])}): hashes to write (None: keep the
+    line's)."""
     lines = open(path, errors="replace").read().split("\n")
     hashes = hashes or {}
     out, i = [], 0
@@ -1356,27 +1580,27 @@ def pin_text(path, records, hashes=None):
             old = SYM_LINE.match(lines[i]) if i < len(lines) else None
             if old:
                 i += 1
-            oh = dict((("w" if w else "m"), hx) for w, hx in HASH_TOKEN.findall(old.group(2))) if old else {}
+            oh = dict(((w or "m"), hx) for w, hx in HASH_TOKEN.findall(old.group(2))) if old else {}
             s = records.get(m.group(1)) or (old.group(1) if old else None)
-            nh = hashes.get(m.group(1), (None, None))
-            h, wh = nh[0] or oh.get("m"), nh[1] or oh.get("w")
+            nh = tuple(hashes.get(m.group(1), ())) + (None, None, None)
+            h, wh, vh = nh[0] or oh.get("m"), nh[1] or oh.get("w"), nh[2] or oh.get("v")
             if s:
-                out.append(sym_line(s, h, wh))
-            elif h or wh:
+                out.append(sym_line(s, h, wh, vh))
+            elif h or wh or vh:
                 raise ValueError("%s %s: code hashes without a pinned symbol" % (path, m.group(1)))
     return "\n".join(out)
 
 
-def text_hashes(text):
-    """{addr: (msvc hash, clang hash)} recorded in a TU's text."""
+def text_hashes(text, views=False):
+    """{addr: (msvc hash, clang hash)} recorded in a TU's text (VIEWS: (msvc, clang, view))."""
     out, lines = {}, text.split("\n")
     for i, l in enumerate(lines[:-1]):
         m = BLOCK.match(l)
         sm = SYM_LINE.match(lines[i + 1]) if m else None
         if sm:
-            hs = dict((("w" if w else "m"), hx) for w, hx in HASH_TOKEN.findall(sm.group(2)))
+            hs = dict(((w or "m"), hx) for w, hx in HASH_TOKEN.findall(sm.group(2)))
             if hs:
-                out[m.group(1)] = (hs.get("m"), hs.get("w"))
+                out[m.group(1)] = (hs.get("m"), hs.get("w")) + ((hs.get("v"),) if views else ())
     return out
 
 
@@ -1388,18 +1612,22 @@ def removed_hashes(path, recs, ref):
     r_ = subprocess.run(["git", "show", "%s:%s" % (ref, rel)], capture_output=True, text=True, cwd=ROOT, errors="replace")
     if r_.returncode or not root:
         return
-    before = text_hashes(r_.stdout)
-    now = text_hashes(open(path, errors="replace").read())
+    before = text_hashes(r_.stdout, views=True)
+    now = text_hashes(open(path, errors="replace").read(), views=True)
     for r in recs:
         if r["kind"] != "equivalent":
             continue
-        b, n = before.get(r["addr"], (None, None)), now.get(r["addr"], (None, None))
-        if (b[0] and not n[0]) or (b[1] and not n[1]):
+        b, n = before.get(r["addr"], (None, None, None)), now.get(r["addr"], (None, None, None))
+        if (b[0] and not n[0]) or (b[1] and not n[1]) or (b[2] and not n[2]):
             r["code_hash_removed"] = True
+        # (integ1, D37) the block's recorded hashes are REF's and its code is what they say: an `unproven` block the
+        # change did not touch is reported as such, not as this change's failure
+        if r["addr"] in before and b == n and r.get("code") in ("ok", None) and r.get("wine_code") in ("ok", "no_object", None):
+            r["unchanged_since_ref"] = True
 
 
 # ------------------------------------------------------------------------------------------------------- recording
-MSVC_INPUTS, WINE_INPUTS = 3000, 600
+MSVC_INPUTS, WINE_INPUTS = 3000, 3000     # (integ1, D38: --wine at 3,000 too, was 600)
 
 
 def proof_code(src, addr, native, recs):
@@ -1432,9 +1660,10 @@ def _load_results(paths):
     return out
 
 
-def proves(rep, kind, h):
-    """(ok, why): does equiv.py report REP prove the code that hashes to H? msvc: a promotable MSVC run asked for
-    >= 3,000 inputs; wine: a --wine run that passes the promotion gate (tools/wine_gate.py) asked for >= 600."""
+def proves(rep, kind, h, view=None):
+    """(ok, why): does equiv.py report REP prove the code that hashes to H (and, given VIEW, with the checker's view of it
+    as it is now: integ1, D42)? msvc: a promotable MSVC run asked for >= 3,000 inputs; wine: a --wine run that passes
+    the promotion gate (tools/wine_gate.py) asked for >= 3,000 (D38)."""
     tc = rep.get("tree_code") or {}
     if h is None:
         return False, "no hash to prove"
@@ -1442,6 +1671,8 @@ def proves(rep, kind, h):
         return False, "another mode"
     if tc.get(kind) != h:
         return False, "a run of other code (%s, now %s)" % (tc.get(kind), h)
+    if view is not None and tc.get("view") != view:
+        return False, "a run with another checker view (%s, now %s)" % (tc.get("view"), view)
     if kind == "msvc":
         if not rep.get("promotable"):
             return False, "not promotable (%s)" % rep.get("status")
@@ -1459,14 +1690,20 @@ def proves(rep, kind, h):
     return True, why
 
 
-def hash_proven(path, results, addrs=None, dry_run=False):
-    """Record the code hashes of PATH's equivalent blocks that changed (or have none) where RESULTS ({addr: [equiv.py
-    reports]}) prove the code as it is now (proves()); a block whose code didn't change keeps its hashes. Returns the
-    per-block outcome."""
+def hash_proven(path, results, addrs=None, dry_run=False, ledger=None):
+    """Record what RESULTS ({addr: [equiv.py reports]}) prove about PATH's equivalent blocks as they are now (proves():
+    the code and the checker's view in each mode): a proven mode's run goes into the proof ledger (integ1, D37), and a
+    block whose every mode is proven gets its code hashes and `@v` (D42) written; a mode already in the ledger for its
+    current code and view needs no new run. Returns the per-block outcome."""
     rec = scan(path)
     recs = check_tu(path, rec=rec)
     with_wine(path, recs, rec)
-    out, new = [], {}
+    vs = views(path, recs, rec, wine=True)
+    led = ledger_index(ledger) or set()
+    blocks = {b["addr"]: b for b in rec["blocks"]}
+    root = find_root(os.path.abspath(path))
+    tu = os.path.relpath(os.path.abspath(path), root) if root else path
+    out, new, entries = [], {}, []
     for r in recs:
         if r["kind"] != "equivalent" or (addrs and r["addr"] not in addrs):
             continue
@@ -1475,28 +1712,47 @@ def hash_proven(path, results, addrs=None, dry_run=False):
             o["result"] = "no symbol (%s)" % r["status"]
             out.append(o)
             continue
-        want = {}
-        for kind, key in (("msvc", "code"), ("wine", "wine_code")):
-            if r.get(key) in ("ok", "no_object"):
-                continue
+        if not results.get(r["addr"]) and r.get("code") == "ok" and r.get("wine_code") in ("ok", "no_object"):
+            o["result"] = "skipped: no result for this block (code unchanged)"
+            out.append(o)
+            continue
+        v = vs.get(r["addr"]) or {}
+        vm, vw = v.get("msvc"), v.get("wine")
+        if v.get("error") or vm is None or (vw is None and r.get("wine_code_hash") is not None):
+            o["result"] = "unproven: no checker view (%s)" % (v.get("error") or "none")
+            out.append(o)
+            continue
+        modes = [("msvc", "code", vm)] + ([("wine", "wine_code", vw)] if r.get("wine_code_hash") is not None else [])
+        for kind, key, view in modes:
             h = r.get(key + "_hash")
-            why = [proves(x, kind, h) for x in results.get(r["addr"], [])]
-            good = [w for ok, w in why if ok]
+            if (r["addr"], kind, h, view) in led:
+                o[kind] = "in the ledger"
+                continue
+            why = [(x, proves(x, kind, h, view)) for x in results.get(r["addr"], [])]
+            good = [(x, w) for x, (ok, w) in why if ok]
             if good:
-                want[kind] = h
-                o[kind] = good[0]
+                o[kind] = good[0][1]
+                entries.append(ledger_entry(r["addr"], kind, h, view, good[0][0], tu))
             else:
-                o[kind] = "unproven: " + ("; ".join(w for _, w in why) or "no result for this block")
+                o[kind] = "unproven: " + ("; ".join(w for _, (_, w) in why) or "no result for this block")
         if any(str(o.get(k, "")).startswith("unproven") for k in ("msvc", "wine")):
-            o["result"] = "unproven: nothing recorded"
-        elif want:
-            new[r["addr"]] = (want.get("msvc"), want.get("wine"))
+            o["result"] = "unproven: nothing recorded on the pin line"
+            out.append(o)
+            continue
+        vh = view_digest(vm, vw)
+        b = blocks[r["addr"]]
+        if b.get("hash") != r.get("code_hash") or (r.get("wine_code_hash") is not None and
+                                                    b.get("whash") != r.get("wine_code_hash")) or b.get("vhash") != vh:
+            new[r["addr"]] = (r.get("code_hash"), r.get("wine_code_hash"), vh)
             o["result"] = "recorded"
         else:
             o["result"] = "unchanged"
         out.append(o)
-    if new and not dry_run:
-        _write(path, {r["addr"]: r.get("pin") or r["symbol"] for r in recs if r["addr"] in new}, new)
+    if not dry_run:
+        if new:
+            _write(path, {r["addr"]: r.get("pin") or r["symbol"] for r in recs if r["addr"] in new}, new)
+        if entries:
+            ledger_append(entries, ledger)
     return out
 
 
@@ -1514,7 +1770,7 @@ def compute_records(root, paths, jobs=2, commit=None):
         r_ = subprocess.run(["git", "status", "--porcelain", "--", "src", "include"], capture_output=True, text=True,
                             cwd=root)
         dirty = r_.returncode != 0 or bool(r_.stdout.strip())
-    s = verify(paths, jobs=jobs, wine=True, out=None)     # (fills the caches in parallel)
+    s = verify(paths, jobs=jobs, wine=True, out=None, view=False)     # (fills the caches in parallel)
     for p in paths:
         recs, _ = cached_check(p, wine=True)
         text = open(p, "rb").read()
@@ -1539,6 +1795,7 @@ def main(argv=None):
     p.add_argument("--wine", action="store_true", help="with --equiv: the Wine build's clang object")
     p.add_argument("--x64", action="store_true", help="with --equiv: the 64-bit check")
     p.add_argument("--no-wine-code", action="store_true", help="skip the clang code hashes (no clang here)")
+    p.add_argument("--no-view", action="store_true", help="skip the checker views (@v) and the proof ledger")
     p.add_argument("--gen-probe", action="store_true", help="run gen_headers.py --probe (default: when an uncommitted "
                    "include/gen/ header this TU can #include changed)")
     p.add_argument("--head-only", action="store_true", help="as a queue job: check the commit, though the checkout "
@@ -1554,6 +1811,7 @@ def main(argv=None):
                    "against its standalone build (build_tree's check)")
     p.add_argument("--out", metavar="OUT.jsonl")
     p.add_argument("--no-wine-code", action="store_true", help="skip the clang code hashes (no clang here)")
+    p.add_argument("--no-view", action="store_true", help="skip the checker views (@v) and the proof ledger (D37/D42)")
     p.add_argument("--gen-probe", action="store_true", help="run gen_headers.py --probe even when no include/gen/ "
                    "header changed (by default it runs when one did: since --changed-since, uncommitted, or shipped)")
     p.add_argument("--head-only", action="store_true", help="as a queue job: verify the commit (plus what is shipped) "
@@ -1581,13 +1839,15 @@ def main(argv=None):
     p = sub.add_parser("hash", help="record equivalent blocks' code hashes (only from proofs)")
     p.add_argument("paths", nargs="+", help="TUs (--proven), or the tree root (--compute)")
     p.add_argument("--proven", nargs="+", metavar="RESULT", help="equiv.py --json reports / jsonl: an MSVC run at "
-                   "--inputs 3000 (promotable) and a --wine run (>= 600) of the code as it is now")
+                   "--inputs 3000 (promotable) and a --wine run (>= 3,000) of the code and checker view as they are now")
     p.add_argument("--addr", action="append", help="only these blocks (with --proven)")
     p.add_argument("--compute", metavar="OUT.jsonl", help="report the hashes of the code as it stands (writes no TU)")
     p.add_argument("--tus", metavar="FILE", help="with --compute: TU paths, one per line (default: every TU)")
     p.add_argument("--commit", help="with --compute: the commit the workspace is (recorded)")
     p.add_argument("--jobs", type=int, default=2)
     p.add_argument("--dry-run", action="store_true")
+    p.add_argument("--ledger", metavar="JSONL", help="with --proven: the proof ledger to read and append to (default "
+                   "config/proof-ledger.jsonl)")
     p.add_argument("--json", action="store_true")
     a = ap.parse_args(argv)
     if a.cmd == "hash":
@@ -1606,7 +1866,7 @@ def main(argv=None):
         addrs = {"0x%08x" % int(x, 16) for x in a.addr} if a.addr else None
         bad = 0
         for path in a.paths:
-            for o in hash_proven(path, res, addrs, dry_run=a.dry_run):
+            for o in hash_proven(path, res, addrs, dry_run=a.dry_run, ledger=a.ledger):
                 bad += o["result"].startswith(("unproven", "no symbol"))
                 print(json.dumps(dict(o, tu=path)) if a.json else "%s %s  %s%s" % (
                     o["addr"], o["result"], "msvc: %s " % o["msvc"] if "msvc" in o else "",
@@ -1619,7 +1879,7 @@ def main(argv=None):
         s = materialize(os.path.abspath(a.root), os.path.abspath(a.out), jobs=a.jobs, relocs=a.relocs,
                         wine=not a.no_wine_code)
         print(json.dumps(s, indent=1))
-        return 1 if failing(s["counts"]) or s["n_errors"] else 0
+        return 1 if failing(s["counts"], unproven=False) or s["n_errors"] else 0
     if a.cmd == "blocks":
         rec = scan(a.tu)
         if a.json:
@@ -1634,6 +1894,9 @@ def main(argv=None):
         recs = check_tu(a.tu, relocs=a.relocs)
         if not a.no_wine_code:
             with_wine(a.tu, recs)
+        if not a.no_view:
+            rec_ = scan(a.tu)
+            mark_views(recs, rec_, views(a.tu, recs, rec_, wine=not a.no_wine_code), ledger_index())
         if a.equiv:
             import equiv
             for r in recs:
@@ -1649,7 +1912,7 @@ def main(argv=None):
         for r in recs:
             ok = r["status"] in ("match", "compiled") and r.get("relocs", "ok") == "ok" and r.get("equiv", "equivalent") \
                 == "equivalent" and not r.get("code_changed") and "unhashed" not in (r.get("code"), r.get("wine_code")) \
-                and not r.get("overreach")
+                and not r.get("overreach") and r.get("view") not in ("changed", "error") and not r.get("unproven")
             bad += not ok
             if a.json:
                 print(json.dumps(r))
@@ -1657,6 +1920,10 @@ def main(argv=None):
                 code = ""
                 if r["kind"] == "equivalent" and "code" in r:
                     code = "code %s%s " % (r["code"], "/" + r["wine_code"] if "wine_code" in r else "")
+                if r.get("view"):
+                    code += "view %s " % r["view"]
+                if r.get("unproven"):
+                    code += "UNPROVEN(%s) " % ",".join(r["unproven"])
                 print("%s %-10s %-8s %-10s %s%s%s%s%s  %s" % (r["addr"], r["kind"], r["mode"], r["status"],
                                                             ("relocs " + r["relocs"] + " ") if "relocs" in r else "",
                                                             ("equiv " + str(r["equiv"]) + " ") if "equiv" in r else "",
@@ -1687,7 +1954,7 @@ def main(argv=None):
             print(json.dumps({"tus": len(paths), "inputs": inputs_digest(paths)}, indent=1))
             return 0
         s = verify(paths, jobs=a.jobs, relocs=a.relocs, out=a.out, vs_standalone=a.vs_standalone,
-                   wine=not a.no_wine_code, ref=a.changed_since)
+                   wine=not a.no_wine_code, ref=a.changed_since, view=not a.no_view)
         # (D10) in a queue job: the files checked against the checkout's at submit
         vl = inputs_vs_local("verify", (argv if argv is not None else sys.argv[1:])[1:], s["inputs"])
         if vl is not None:

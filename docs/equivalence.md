@@ -46,7 +46,8 @@ prints it (`not promotable (thin evidence): branch coverage 21/46 is under 75%`)
 so tools that parse it are unaffected.
 
 **Promotion is gated on both modes** (round 23). A source becomes an `equivalent` block (or replaces one) only when it is
-`promotable` in MSVC mode at 3,000 inputs *and* `equivalent` with `--wine` at 600 inputs (at least 50 completed):
+`promotable` in MSVC mode at 3,000 inputs *and* `equivalent` with `--wine` at 3,000 inputs (at least 50 completed; 600
+before integ1, D38, 2026-11-15: 53 of tri2's standalone failures only showed beyond 600):
 MSVC mode alone passed sources whose call declarations or float order the Wine build gets wrong. `tools/wine_gate.py`
 judges; every installer applies it (`build/agent-tools/promote-remote.sh` through `tools/promote_dispatch.py`,
 `tools/clone_equivalent.py`, `tools/wine_fix.py`, the farm) and rejects a failing source with the `--wine` report's

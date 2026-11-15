@@ -8,7 +8,7 @@ instruction sequence), collects every referenced address that moved (callees, gl
 the identifiers and `equiv-map`/`equiv-conv` lines in the proven source that embed the old address, and
 runs tools/equiv.py on the copy. A copy is installed when it is equivalent with no level-2 conflicts and
 at least 75% branch coverage, run at 3000 inputs, the same bar as an agent's pass, and passes the Wine gate
-(`--wine` at 600 inputs, tools/wine_gate.py; --no-wine-gate or HULK_NO_WINE_GATE=1 skips it).
+(`--wine` at 3,000 inputs, tools/wine_gate.py; --no-wine-gate or HULK_NO_WINE_GATE=1 skips it).
 
 Usage:
   tools/clone_equivalent.py [--dry-run] [--limit N] [--jobs N] [--skip FILE...]
@@ -112,7 +112,7 @@ def clone(pair):
         except Exception as e:  # noqa: BLE001
             return {"addr": dst, "from": src_addr, "status": "error", "detail": repr(e)[:120]}
         if accepted(r):
-            # (round 23) the Wine gate: --wine at 600 inputs as well (tools/wine_gate.py; --no-wine-gate skips it)
+            # (round 23) the Wine gate: --wine at 3,000 inputs as well (600 before D38) (tools/wine_gate.py; --no-wine-gate skips it)
             import wine_gate
             w = wine_gate.gate(path, d) if wine_gate.disabled() else \
                 wine_gate.gate(path, d, rep=run_equiv(path, dst, "--wine", "--inputs", str(wine_gate.WINE_INPUTS),

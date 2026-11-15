@@ -14,6 +14,7 @@ Library use: verify(src, addr, ...) -> report dict (see docs/equivalence.md for 
 Exit status: 0 = equivalent (level 3), 1 = anything else.
 """
 import argparse
+import hashlib
 import itertools
 import json
 import math
@@ -9586,8 +9587,11 @@ def render_decl_arity(items):
 
 def verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mapping=None, max_level=3,
            max_steps=50000, use_names=True, clang=False, obj_path=None, keep_runs=False, time_budget=120,
-           conventions=None, level3_fn=None, seeds=None, native=False):
+           conventions=None, level3_fn=None, seeds=None, native=False, view_only=False, recs=None):
     """Run levels 1-3 for SRC against the original function at ADDR. Returns the report dict.
+
+    (integ1, D42) VIEW_ONLY: stop where level 3 would start and return the report with `view` (checker_view: the inputs
+    of the verdict besides the code); RECS: the tree TU's check records when the caller has them (tree_tu.views).
 
     (merge-once) SRC may be a tree TU (tools/tree_tu.py): the function at ADDR is checked inside the TU's object (the
     MSVC object from the tree's cache, or the TU compiled with clang under --wine), found by the tree's rules, with the
@@ -9599,7 +9603,7 @@ def verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappin
             and max_level >= 3 and use_names and conventions is None and not clang and not (EQUIV_OFF - {""})
         with tree_tu.active(src):
             try:
-                recs_ = tree_tu.check_tu(src)
+                recs_ = recs if recs is not None else tree_tu.check_tu(src)
             except Exception as e:      # noqa: BLE001
                 return {"addr": "0x%08x" % addr, "src": src, "level": 0, "status": "compile_error", "error": repr(e)[:300]}
             r_ = next((x for x in recs_ if int(x["addr"], 16) == addr), None)
@@ -9635,21 +9639,67 @@ def verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappin
             try:
                 rep_ = _verify(src, addr, symbol, flags, n_inputs, max_inputs, mapping, max_level, max_steps, use_names,
                                clang, obj_path, keep_runs, time_budget, conventions, level3_fn, seeds, native,
-                               src_lines=tree_tu.block_lines(src, addr))
-                if tcode is not None and isinstance(rep_, dict):
-                    rep_["tree_code"] = dict(tcode, n_inputs=n_inputs)
+                               src_lines=tree_tu.block_lines(src, addr), view_only=view_only)
+                if tcode is not None and isinstance(rep_, dict) and not view_only:
+                    # (integ1, D37) the checker's own digest and the queue job: what the proof ledger records
+                    rep_["tree_code"] = dict(tcode, n_inputs=n_inputs, checker=_checker_digest(),
+                                             job=os.environ.get("JOBQ_JOB"))
+                    if rep_.get("view"):
+                        rep_["tree_code"]["view"] = rep_["view"]
                 return rep_
             finally:
                 TREE_TEXT.pop(src, None)
                 TREE_ADDR.pop()
                 TREE_EXTERNAL.clear()
     return _verify(src, addr, symbol, flags, n_inputs, max_inputs, mapping, max_level, max_steps, use_names, clang,
-                   obj_path, keep_runs, time_budget, conventions, level3_fn, seeds, native)
+                   obj_path, keep_runs, time_budget, conventions, level3_fn, seeds, native, view_only=view_only)
+
+
+def _canon(x):
+    """A JSON-stable form of X (dict keys as strings, sorted; sets and tuples as lists; ints of addresses as they are)."""
+    if isinstance(x, dict):
+        return {str(k): _canon(v) for k, v in sorted(x.items(), key=lambda kv: str(kv[0]))}
+    if isinstance(x, (set, frozenset)):
+        return sorted((_canon(v) for v in x), key=lambda v: json.dumps(v, sort_keys=True))
+    if isinstance(x, (list, tuple)):
+        return [_canon(v) for v in x]
+    return x
+
+
+VIEW_VERSION = 1
+
+
+def _checker_digest():
+    with open(os.path.abspath(__file__), "rb") as f:
+        return hashlib.sha1(f.read()).hexdigest()[:12]
+
+
+def checker_view(native, fsym, sig, ret_kind, void_eax, convs, rep, psizes, decls, issues):
+    """(integ1, D42) The checker's view of a function: what equiv.py's verdict depends on besides the code (the code is
+    tools/code_hash.py's): the signature it compares (cc, ret, params, param_types, varargs: for a C name from our
+    declarations' text), the return kind it settled on (the return note's outcome) and whether a void function's eax is
+    compared, the register conventions, the level-2 bindings (symbol -> address and how it was bound), the pointee sizes
+    of every callee's pointer parameters (the sizeof probe), our declarations of the callees, the natively narrowed
+    parameter words and the level-2 issues and conflicts by kind. A change to any of them is a different check of the
+    same code: `tree_tu.py check/verify` recompute it and report `view_changed` against the block's recorded `@v`.
+    Returns (digest: 12 hex, the canonical dict)."""
+    l2 = rep.get("level2") or {}
+    v = {"version": VIEW_VERSION, "mode": "wine" if native else "msvc", "symbol": fsym[0], "sig": sig,
+         "ret_kind": ret_kind, "void_eax": bool(void_eax),
+         "conventions": {"0x%08x" % a: list(c) for a, c in (convs or {}).items()},
+         "bindings": {n: [m_.get("addr"), m_.get("how")] for n, m_ in (l2.get("mapping") or {}).items()},
+         "pointee_sizes": {"0x%08x" % a: d for a, d in (psizes or {}).items()},
+         "decls": {"0x%08x" % a: d for a, d in (decls or {}).items()},
+         "narrow": {"0x%08x" % a: d for a, d in NATIVE_NARROW.items()} if native else {},
+         "issues": sorted({(i.get("kind"), str(i.get("symbol") or i.get("target") or "")) for i in issues}),
+         "conflicts": len(l2.get("conflicts") or [])}
+    c = _canon(v)
+    return hashlib.sha1(json.dumps(c, sort_keys=True).encode()).hexdigest()[:12], c
 
 
 def _verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mapping=None, max_level=3,
             max_steps=50000, use_names=True, clang=False, obj_path=None, keep_runs=False, time_budget=120,
-            conventions=None, level3_fn=None, seeds=None, native=False, src_lines=None):
+            conventions=None, level3_fn=None, seeds=None, native=False, src_lines=None, view_only=False):
     """verify() (SRC_LINES: the lines its directives are read from, default all of SRC).
 
     seeds: run only these random seeds (a regression case for one input out of thousands); EQUIV_SEEDS=1,2 too.
@@ -9894,7 +9944,7 @@ def _verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappi
                      "mapping": {n: {"addr": "0x%08x" % resolved[n] if n in resolved else None, "how": how[n]}
                                  for n in how},
                      "conflicts": conflicts[:10]}
-    if "declarity" not in EQUIV_OFF and not native:
+    if "declarity" not in EQUIV_OFF and not native and (not view_only or STRICT_DECL):
         # (round 23, declarity) callees whose stack arity our declaration states wrongly: reported; a failure with
         # --strict-decl only (existing promotions keep their status). MSVC mode only: clang's object binds its own
         # symbols by pairing (a destructor call MSVC inlined pairs with another callee), so its names can't be judged
@@ -9912,7 +9962,7 @@ def _verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappi
             rep["level2"]["ok"] = False
     if not issues:
         rep["level"] = 2
-    if max_level < 3:
+    if max_level < 3 and not view_only:
         rep["status"] = "draft" if not issues else "fail"
         rep["time"] = round(time.time() - t0, 2)
         return rep
@@ -10086,6 +10136,15 @@ def _verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappi
         if rep["level"] == 2:
             rep["level"] = 1
         issues = issues + bad
+    try:
+        rep["view"], view_ = checker_view(native, fsym, sig, ret_kind, void_eax, convs, rep, psizes, decls, issues)
+    except Exception as e_:     # noqa: BLE001 - no view: the report can't record one (hash --proven refuses it)
+        rep["view_error"], view_ = repr(e_)[:300], None
+    if view_only:
+        rep["view_detail"] = view_
+        rep["status"] = "view" if not issues else "fail"
+        rep["time"] = round(time.time() - t0, 2)
+        return rep
     if level3_fn is not None:
         rep["replay"] = level3_fn(prog=prog, oview=oview, rview=rview, ours=ours, orefs=orefs, sig=sig,
                                   ret_kind=ret_kind, psizes=psizes, convs=convs, decls=decls, void_eax=void_eax,

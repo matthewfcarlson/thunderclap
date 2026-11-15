@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """The Wine-build gate of a promotion into equivalent/ (docs/equivalence.md "Promotion").
 
-  build/venv/bin/python tools/wine_gate.py SRC.cpp 0xADDR [--inputs 600] [--json]     # exit 0: passes the gate
+  build/venv/bin/python tools/wine_gate.py SRC.cpp 0xADDR [--inputs 3000] [--json]     # exit 0: passes the gate
 
 A source goes into equivalent/ (or replaces one there) only when tools/equiv.py passes it in MSVC mode at 3,000 inputs
-(promotable) and in Wine mode (`--wine`: the clang object the Wine build runs) at WINE_INPUTS (600) inputs: status
+(promotable) and in Wine mode (`--wine`: the clang object the Wine build runs) at WINE_INPUTS (3,000; 600 before
+integrity D38, 2026-11-15) inputs: status
 "equivalent" with at least 50 completed inputs. MSVC mode alone passed sources whose call declarations or float
 order the Wine build gets wrong (docs/equivalence.md, rounds 22 and 23). Every installer calls gate():
 build/agent-tools/promote-remote.sh (through tools/promote_dispatch.py), tools/clone_equivalent.py, tools/wine_fix.py
@@ -20,7 +21,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-WINE_INPUTS = 600
+WINE_INPUTS = 3000       # (integ1, D38: as the MSVC side; was 600)
 MIN_RUN = 50
 
 

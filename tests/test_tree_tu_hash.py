@@ -7,7 +7,8 @@ the compile tests are skipped) and, where LLVM's clang is found, with clang as `
   * `$L` labels renumbered (an EH function added before the block) -> ok;
   * a changed constant -> code_changed; a call to another address with identical bytes -> code_changed;
   * no hash recorded -> `unhashed` (a failure);
-  * pin_text keeps a block's hashes through a re-pin; proves() accepts only a run of the code as it is now.
+  * pin_text keeps a block's hashes through a re-pin; proves() accepts only a run of the code as it is now;
+  * (integ1) `@v` parsed and kept, proves() checks the checker view, the proof ledger and `unproven` (D37/D42).
 
   build/venv/bin/python -m unittest tests/test_tree_tu_hash.py
 """
@@ -103,12 +104,76 @@ class Parsing(unittest.TestCase):
                                         "0123456789ab")[0])
         self.assertFalse(tree_tu.proves(dict(good, tree_code={"n_inputs": 3000}), "msvc", "0123456789ab")[0])
         self.assertFalse(tree_tu.proves(good, "wine", "0123456789ab")[0])           # an MSVC run proves no clang code
-        wine = {"native": True, "status": "equivalent", "level3": {"inputs_run": 600},
-                "tree_code": {"wine": "aaaaaaaaaaaa", "n_inputs": 600, "x87_keep": 0}}
+        wine = {"native": True, "status": "equivalent", "level3": {"inputs_run": 2900},
+                "tree_code": {"wine": "aaaaaaaaaaaa", "n_inputs": 3000, "x87_keep": 0}}
         self.assertTrue(tree_tu.proves(wine, "wine", "aaaaaaaaaaaa")[0])
         self.assertFalse(tree_tu.proves(dict(wine, tree_code=dict(wine["tree_code"], x87_keep=3)), "wine",
                                         "aaaaaaaaaaaa")[0])
         self.assertFalse(tree_tu.proves(dict(wine, status="mismatch"), "wine", "aaaaaaaaaaaa")[0])
+
+    def test_view_hash(self):
+        # (integ1, D42) `@v` is the third hash; pin_text keeps it and writes it from a 3-tuple; a 2-tuple keeps it
+        m = tree_tu.SYM_LINE.match("// sym: ?f@@YAXXZ @0123456789ab @wba9876543210 @v00000000000f")
+        self.assertEqual(tree_tu.HASH_TOKEN.findall(m.group(2))[-1], ("v", "00000000000f"))
+        with tempfile.TemporaryDirectory() as d:
+            p = os.path.join(d, "t.cpp")
+            with open(p, "w") as f:
+                f.write("// 0x00011000 FUN_00011000 (10 B): equivalent\n// sym: ?f@@YAXXZ @0123456789ab @wba9876543210 "
+                        "@v00000000000f\nvoid f() {}\n")
+            self.assertEqual(tree_tu.scan(p)["blocks"][0]["vhash"], "00000000000f")
+            text = tree_tu.pin_text(p, {"0x00011000": "?g@@YAXXZ"})
+            self.assertIn("// sym: ?g@@YAXXZ @0123456789ab @wba9876543210 @v00000000000f\n", text)
+            text = tree_tu.pin_text(p, {}, {"0x00011000": (None, None, "0000000000aa")})
+            self.assertIn("@wba9876543210 @v0000000000aa", text)
+            self.assertEqual(tree_tu.text_hashes(text, views=True)["0x00011000"],
+                             ("0123456789ab", "ba9876543210", "0000000000aa"))
+        self.assertNotEqual(tree_tu.view_digest("a", "b"), tree_tu.view_digest("a", None))
+
+    def test_proves_view(self):
+        good = {"native": False, "status": "equivalent", "promotable": True,
+                "tree_code": {"msvc": "0123456789ab", "n_inputs": 3000, "view": "00000000000f"}}
+        self.assertTrue(tree_tu.proves(good, "msvc", "0123456789ab", "00000000000f")[0])
+        self.assertFalse(tree_tu.proves(good, "msvc", "0123456789ab", "00000000000e")[0])     # another view
+        old = dict(good, tree_code={"msvc": "0123456789ab", "n_inputs": 3000})              # a run before views
+        self.assertFalse(tree_tu.proves(old, "msvc", "0123456789ab", "00000000000f")[0])
+        wine = {"native": True, "status": "equivalent", "level3": {"inputs_run": 600},
+                "tree_code": {"wine": "aaaaaaaaaaaa", "n_inputs": 600, "x87_keep": 0}}
+        self.assertFalse(tree_tu.proves(wine, "wine", "aaaaaaaaaaaa")[0])      # (D38) --wine needs 3,000 now
+
+    def test_ledger_and_marks(self):
+        import collections
+        with tempfile.TemporaryDirectory() as d:
+            led = os.path.join(d, "ledger.jsonl")
+            self.assertIsNone(tree_tu.ledger_index(led))
+            rep = {"status": "equivalent", "promotable": True, "level3": {"inputs_run": 2900, "coverage":
+                   {"edges_covered": 4, "edges_total": 4}}, "tree_code": {"n_inputs": 3000, "checker": "c", "job": "1"}}
+            e = tree_tu.ledger_entry("0x00011000", "msvc", "0123456789ab", "00000000000f", rep, "src/game/T.cpp")
+            self.assertEqual(tree_tu.ledger_append([e, e], led), 1)
+            self.assertEqual(tree_tu.ledger_append([e], led), 0)
+            idx = tree_tu.ledger_index(led)
+            self.assertEqual(idx, {("0x00011000", "msvc", "0123456789ab", "00000000000f")})
+            rec = {"blocks": [{"addr": "0x00011000", "vhash": tree_tu.view_digest("00000000000f", "00000000000e")}]}
+            r = {"addr": "0x00011000", "kind": "equivalent", "code_hash": "0123456789ab", "wine_code_hash": "bbbbbbbbbbbb",
+                 "wine_code": "ok", "code": "ok"}
+            tree_tu.mark_views([r], rec, {"0x00011000": {"msvc": "00000000000f", "wine": "00000000000e"}}, idx)
+            self.assertEqual((r["view"], r["proof"], r["unproven"]), ("ok", {"msvc": "proven", "wine": "unproven"},
+                                                                      ["wine"]))
+            c = collections.Counter()
+            tree_tu.count_codes(c, r)
+            self.assertEqual(tree_tu.failing(c), 1)
+            self.assertEqual(tree_tu.failing(c, unproven=False), 0)
+            r2 = dict(r, unchanged_since_ref=True)
+            c = collections.Counter()
+            tree_tu.count_codes(c, r2)
+            self.assertEqual(tree_tu.failing(c), 0)     # (unproven before the change too: reported, not this change's)
+            r3 = {"addr": "0x00011000", "kind": "equivalent", "code_hash": "0123456789ab", "wine_code_hash": None,
+                  "wine_code": "no_object"}
+            tree_tu.mark_views([r3], rec, {"0x00011000": {"msvc": "00000000000d", "wine": None}}, idx)
+            self.assertEqual(r3["view"], "changed")
+            c = collections.Counter()
+            tree_tu.count_codes(c, r3)
+            self.assertEqual(c["equivalent view changed"], 1)
+            self.assertEqual(r3["proof"]["wine"], "n/a")
 
     def test_failing(self):
         import collections

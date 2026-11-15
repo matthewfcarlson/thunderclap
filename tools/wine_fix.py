@@ -753,7 +753,7 @@ def demote_verify(rel, addr, text):
         except (ValueError, IndexError):
             return "equiv.py: no result", None
         if rep.get("status") == "equivalent" and rep.get("promotable"):
-            # (round 23) the Wine gate: --wine at 600 inputs too (tools/wine_gate.py; HULK_NO_WINE_GATE=1 or
+            # (round 23) the Wine gate: --wine at 3,000 inputs too (600 before D38) (tools/wine_gate.py; HULK_NO_WINE_GATE=1 or
             # --no-wine-gate skips it)
             import wine_gate
             if not wine_gate.disabled():
