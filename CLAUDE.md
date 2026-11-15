@@ -62,6 +62,8 @@ code and of the checker's view of it (`// sym: NAME @msvc @wclang @vview`, docs/
 inputs plus `--wine` at 3,000 (and `--x64` where the 64-bit build compiles it), recorded with `tree_tu.py hash --proven`,
 which also appends config/proof-ledger.jsonl (never write a hash or a ledger line by hand). A proof is a run with no
 `EQUIV_ON`/`EQUIV_OFF` switches. A 64-bit fix changes the source, never the 32-bit proof: re-check both sides.
+A function only a 64-bit branch defines is named `FUN_<addr>`; native_mac and native_unbound bind callers to it by that
+address, and 64-bit-only thunks call their targets by the targets' own names (D35).
 `regress.py --jobq` ships every dirty file: read a failure's cause before blaming your own change.
 
 ## Builds and proofs
