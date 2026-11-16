@@ -804,6 +804,12 @@ CASES = {
     "0x0022ca90_native_defnan_overtrap": ("fail", "pre_trap_missing", 0, {"native": True, "n_inputs": 300}),
     "0x0022ca90_native_defnan_nanbranch": ("fail", None, 0, {"native": True, "n_inputs": 300}),
     "0x0022ca90_native_defnan_partial": ("fail", "pre_trap_missing", 0, {"native": True, "n_inputs": 300}),
+    # (integ2, selfnarrow) a recursive call's char argument at its declared width (MSVC pushes the incoming slot whole);
+    # _wrong: another low byte must still fail; _off: without the rule the stale upper bytes are a difference
+    "0x0030a9d0_native_selfnarrow": ("equivalent", None, 0, {"native": True, "n_inputs": 600}),
+    "0x0030a9d0_native_selfnarrow_wrong": ("fail", "argument 7", 0, {"native": True, "n_inputs": 600}),
+    "0x0030a9d0_native_selfnarrow_off": ("fail", "argument 7", 0, {"src": "0x0030a9d0_native_selfnarrow", "native": True,
+                                                                   "n_inputs": 600, "equiv_off": "selfnarrow"}),
     "0x0022ca90_native_defnan_off": ("fail", "ours fault", 0, {"src": "0x0022ca90_native_defnan", "native": True,
                                                                "n_inputs": 1000, "equiv_off": "pre"}),
     # (rev3, D39 review) an int -2 where the original stores -1 (both qNaN-shaped as floats): a difference

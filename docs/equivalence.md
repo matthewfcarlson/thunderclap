@@ -780,6 +780,12 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
     compared. 0x001fe000.
   - `narrowstruct`: natnarrow (round 19) stopped counting parameter words at a by-value struct, so `f(Name n, short v)`
     compared all 32 bits of `v` (clang leaves the upper half stale). The struct's words are counted now (sizeof probe). 0x001fe000.
+  - `selfnarrow` (integ2, 2026-11-16): natnarrow covered the callees among our object's relocations, not the function's
+    own recursive call; a function the original calls from inside itself now takes its own declaration for that call
+    (the same trust as any callee's: the callee reads only the declared low bits). 0x0030a9d0 passes its char flag on
+    (MSVC pushes the incoming slot whole, upper bytes stale). Cases `0x0030a9d0_native_selfnarrow` (equivalent),
+    must-fail `_wrong` (another low byte) and `_off`. Enters the --wine view of 0x0030a9d0, 0x00306190, 0x00093600,
+    0x001adeb0 (re-proved).
   - `tailthis`: a tail `jmp` to a function that returns its `this` (an adjustor thunk `sub ecx, 4; jmp ~XboxSaveDrive`) leaves
     that `this` in eax, as the call form already did; ours, a real call natively, returned it and the original's stub a fuzzed
     word. 0x002786e0.
@@ -1374,10 +1380,14 @@ whose fuzzed tables time out on about 1 input in 6: 535 drawn and 442 compared b
 (integ2, `proofdraw`; user decision D69) **Past 10,000 draws for inputs that time out.** When a proof-sized run has drawn
 `PROOF_DRAW_LIMIT` inputs and compared fewer than it asked for, and at least three in four of the inputs that did not
 compare ran out of steps (a `timeout` status, or a runaway the loop repair set aside; inconclusive inputs of other kinds
-count against it), it draws on to `drawn * needed / compared` plus a tenth, at most `PROOF_DRAW_CAP` (30,000).
-`level3.proofdraw` reports where it started, the compared count then and the new limit. Only more inputs: every input
-is compared as before, and a proof still needs 3,000 COMPARED. Blocks whose rate is under 1 in 10 (0x002a2200: 631 of
-10,000; 0x002155f0: 582; 0x0024a280: 430) stay short at the cap. `EQUIV_OFF=proofdraw` stops at 10,000.
+count against it), it draws on in stages, each sized from the previous stage's own compare rate (the shortfall over
+the rate, plus a tenth: later draws compare less often than the first 10,000, whose directed and small-count inputs
+compare more), until it has compared enough, a stage compares nothing, or `PROOF_DRAW_CAP` (30,000) inputs are
+drawn. `level3.proofdraw` reports where it started, the compared count then, each stage's limit and count, and the
+last limit. Only more inputs: every input
+is compared as before, and a proof still needs 3,000 COMPARED. First runs (one stage of drawn * needed / compared):
+0x002ee9a0 2,327 -> 2,973 at 14,182 drawn, 0x00300080 2,446 -> 2,985 at 13,492, 0x002b07d0 1,250 -> 2,275 at 26,400,
+0x002a2200 631 -> 631 at 30,000 (nothing past 10,000 compares: drawing does not help it). `EQUIV_OFF=proofdraw` stops at 10,000.
 
 (integ1, D54) **Preconditions: `// pre:` and HULK_PRE_NOTNAN.** NOT ADOPTED until the review's changes are re-reviewed
 (rev5 signed off with changes on 2ed1ec7e6; the changes below are its items).

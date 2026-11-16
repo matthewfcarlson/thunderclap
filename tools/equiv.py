@@ -10257,10 +10257,22 @@ def _verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappi
         # low byte or word (the ABI says the caller extends, the original's caller leaves stale upper bits, and
         # the callee ignores them), so the upper bits of the pushed word are not compared. Trust: the declaration.
         bv_sizes = {}
+        ndecls_ = decls
+        if addr not in decls and "selfnarrow" not in EQUIV_OFF:
+            # (integ2, selfnarrow) a function that calls itself: the recursive call's callee is this very function, whose
+            # declaration is ours (the same trust as any callee's): its char/bool/short parameters are read at their
+            # width (0x0030a9d0 passes its own char flag on: MSVC pushes the whole incoming slot, stale upper bytes and
+            # all, clang zero-extends). Only when the original makes a direct call to itself
+            size_ = prog.funcs[addr][0]
+            if any(addr <= s_ < addr + size_ for s_ in prog.call_sites(addr)):
+                own_ = parse_signature(fsym[0])
+                if own_ is not None and own_.get("params"):
+                    ndecls_ = dict(decls)
+                    ndecls_[addr] = own_
         if "narrowstruct" not in EQUIV_OFF:
             # (round 22, narrowstruct) a by-value struct before the narrow parameter (`f(Name n, short value)`): its words
             # are counted (sizeof from a probe of our source), where the mapping used to stop at the struct
-            bv_ = sorted({pt_.split(" ", 1)[1] for sg_ in decls.values() if sg_ and sg_.get("params")
+            bv_ = sorted({pt_.split(" ", 1)[1] for sg_ in ndecls_.values() if sg_ and sg_.get("params")
                           for k_, pt_ in zip(sg_["params"], sg_.get("param_types") or []) if k_ == "struct" and
                           pt_.startswith(("struct ", "class ", "union ")) and
                           any(x in ("b8", "i8", "i16") for x in sg_["params"])})
@@ -10269,7 +10281,7 @@ def _verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappi
                     bv_sizes = _probe_sizes(src, flags, bv_)
                 except Exception:   # noqa: BLE001
                     bv_sizes = {}
-        for t_, sg_ in decls.items():
+        for t_, sg_ in ndecls_.items():
             if not sg_ or not sg_.get("params"):
                 continue
             wi_, nm_ = 0, {}
@@ -12294,14 +12306,25 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                     "proofdraw" not in EQUIV_OFF:
                 # (integ2, D69) the inputs that did not compare are (three in four at least) ones that ran out of steps
                 # (loops over fuzzed counts, runaway walks), not ones a rule set aside: drawing on at the rate observed
-                # reaches the inputs a proof needs. The limit scales with the shortfall (drawn * needed / compared, a
-                # tenth over), capped at PROOF_DRAW_CAP; every input is compared as before, and a proof still needs
-                # --inputs COMPARED (tree_tu.run_shortfall)
-                lim_ = min(PROOF_DRAW_CAP, -(-drawn_ * n_inputs * 11 // (run_ * 10)))
-                if lim_ > max_inputs:
-                    res["proofdraw"] = {"at": drawn_, "compared": run_, "limit": lim_}
+                # reaches the inputs a proof needs, up to PROOF_DRAW_CAP; every input is compared as before, and a proof
+                # still needs --inputs COMPARED (tree_tu.run_shortfall). Each stage's limit is its shortfall over the
+                # compare rate, a tenth over
+                # (later draws compare at a lower rate than the first 10,000, whose directed and small-count inputs
+                # compare more often: each stage re-estimates from the previous stage's own rate, until the cap or a
+                # stage that compared nothing)
+                res["proofdraw"] = {"at": drawn_, "compared": run_, "stages": []}
+                rate_ = run_ / float(drawn_)
+                while res["inputs_run"] < n_inputs and rs["seed"] < PROOF_DRAW_CAP and not out_of_time() and \
+                        res["inputs_failed"] < MAX_FAIL and rate_ > 0:
+                    d0_, r0_ = rs["seed"], res["inputs_run"]
+                    lim_ = min(PROOF_DRAW_CAP, d0_ + max(500, int((n_inputs - r0_) * 1.1 / rate_) + 1))
                     max_inputs = lim_
                     random_phase(soft=False, nocap=True, until_run=n_inputs)
+                    res["proofdraw"]["stages"].append([lim_, res["inputs_run"]])
+                    if rs["seed"] <= d0_:
+                        break
+                    rate_ = (res["inputs_run"] - r0_) / float(rs["seed"] - d0_)
+                res["proofdraw"]["limit"] = max_inputs
         finally:
             proof_draw[0] = False
         res["inputs_drawn"] = rs["seed"]
