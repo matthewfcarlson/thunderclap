@@ -3951,7 +3951,7 @@
 "pure3d::TargaHandler": 24,
 "pure3d::TextBible": 20,
 "pure3d::TextString": 80,
-"pure3d::Texture": 20,
+"pure3d::Texture": 24,
 "pure3d::TextureAnimationController": 68,
 "pure3d::TextureBuilder": 52,
 "pure3d::TextureFont": 60,

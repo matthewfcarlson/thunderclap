@@ -803,9 +803,9 @@ Sprite *Loader_2c0590::FUN_002c0590(Reader *r, int unused)
         int id = r->FUN_00266a30();
         if (id == 0x19002) {
             ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.a), (hulk_intptr)1, 4, (hulk_intptr)1);
-            int v = ((int)((owners::Target_266c90 *)r)->FUN_00266c90());
-            result = ((Sprite *)((owners::SomeClass_2aed60 *)factory)->FUN_002aed60((void *)(hulk_uintptr)(int)v, (void *)(hulk_uintptr)(int)(f.b)));
-            r->FUN_00266ca0(v);
+            hulk_intptr v = ((hulk_intptr)((owners::Target_266c90 *)r)->FUN_00266c90());   // (x64t16) the stream
+            result = ((Sprite *)((owners::SomeClass_2aed60 *)factory)->FUN_002aed60((void *)v, (void *)(hulk_uintptr)(int)(f.b)));
+            r->FUN_00266ca0((int)v);
         } else if (id == 0x19003) {
             ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.len), (hulk_intptr)1, 1, (hulk_intptr)1);
             int n = f.len;

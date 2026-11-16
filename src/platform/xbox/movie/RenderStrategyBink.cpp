@@ -386,7 +386,9 @@ void movie::RenderStrategyBink::vfunc_6(unsigned w,unsigned h,int mode,float rat
  Tile_334620* t=tiles; unsigned yy=0;
  for(unsigned row=0;row<rows;++row,yy+=1024) { unsigned xx=0; for(unsigned col=0;col<cols;++col,++t) {
  if(t->texture) { t->texture->release(); t->texture=0; }
- Texture* p=(Texture*)FUN_00263ea0(24); if(p) p=p->FUN_002c1c30(); t->texture=p; p->acquire();
+ // (x64t16) a pure3d::Texture: its vftable, Entity's three words, f_10 and f_14 (0x18 bytes on the 32-bit builds)
+ struct TextureWords { void* vftable; int entity[3]; void* f10; int f14; };
+ Texture* p=(Texture*)FUN_00263ea0(sizeof(TextureWords)); if(p) p=p->FUN_002c1c30(); t->texture=p; p->acquire();
  t->texture->FUN_002c1c70(width,height,32,0,0,11,0);
  t->x=xx; t->y=yy; xx+=1024;
  t->width=xx>width ? width&1023 :1024;

@@ -310,8 +310,8 @@ struct Counter { int FUN_00263fc0(); }; struct Object { char pad0[0x8c]; struct 
 
 
 // 0x00266c90 FUN_00266c90 (7 B): matches/0x00266c90.cpp
-// sym: ?FUN_00266c90@Target_266c90@owners@@QAEIXZ
-unsigned int owners::Target_266c90::FUN_00266c90() {
+// sym: ?FUN_00266c90@Target_266c90@owners@@QAEPAXXZ
+void* owners::Target_266c90::FUN_00266c90() {   // (x64t16) the reader's stream
     return value;
 }
 

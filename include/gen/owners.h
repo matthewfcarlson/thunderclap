@@ -14945,9 +14945,10 @@ struct Copy_2669d0 {
 };
 // matches/0x00266c90.cpp (stub Target_266c90), size 0x288
 struct Target_266c90 {
+    // (x64t16) the chunk reader (records.h ContentChunkReader): its stream, a pointer (+0x288 natively)
     char pad[0x284]; // +0x00
-    unsigned int value; // +0x284
-    unsigned int FUN_00266c90();
+    void* value; // +0x284
+    void* FUN_00266c90();
 };
 // equivalent/0x00268d30.cpp (stub InputValue), size 0x2c (0x30)
 struct InputValue_268d30 {

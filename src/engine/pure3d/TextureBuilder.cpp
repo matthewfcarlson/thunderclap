@@ -112,7 +112,7 @@ namespace fn_f9c5e282 {
 // FUN_002ae1a0 @ 0x002ae1a0
 int Object_2ae1a0::run(int width,int height,int requestedDepth,int unused,void* palette) {
  if(resource) resource->vfunc_1();
- pure3d::Texture* p=(pure3d::Texture*)FUN_00263ea0(24);
+ pure3d::Texture* p=(pure3d::Texture*)FUN_00263ea0(sizeof(::pure3d::Texture));   // (x64t16) 0x18 on the 32-bit builds
  if(p) p=((Texture_nv_2ae1a0*)(p))->FUN_002c1c30();
  resource=p;
  if(depth==16) ((Texture_nv_2ae1a0*)(resource))->FUN_002c1c70(width,height,16,field20,field24,0,field2c);
@@ -209,7 +209,7 @@ public:
 bool pure3d::TextureBuilder::vfunc_0(int a1, int a2, int a3, int a4, int a5)
 {
     if (tex == 0) {
-        void *mem = FUN_00263ea0(0x18);
+        void *mem = FUN_00263ea0(sizeof(::pure3d::Texture));   // (x64t16) 0x18 on the 32-bit builds
         Texture *t = 0;
         if (mem)
             t = ((Texture *)mem)->FUN_002c1c30();

@@ -1102,3 +1102,19 @@ blocks fight::Action's whole family: the records come first there.
   objects (clang tests the byte differently) though MSVC's were unchanged; `HULK_TYPE64(char, bool)` keeps both 32-bit
   objects and binds natively. Changing a result's signedness (`int` -> `unsigned`) is not free under `--x64` either:
   it flips a comparison.
+
+## 2026-11-16 x64t16: libpng / zlib on records; four things the batch showed
+
+- **A header's size can move MSVC 7.1's code.** Adding the libpng records (about 270 lines of types) to
+  include/decls/data/records.h, which most TUs reach, changed 0x002ea3c0's object (two loads swapped) although its TU
+  used none of the new types; the same text in a header only three TUs include changed nothing elsewhere. Large
+  additions to widely included headers need a whole-tree check before anything else is built on them.
+- **A caller's declaration must not become the definition in the same TU.** The views' distinct parameter types kept
+  every libpng caller's declaration a different overload from the definition; unifying them on one record would make
+  them the same function, which MSVC then inlines (the tree's "a call became inline code" wraps). The conversion kept
+  them distinct (a `void *` / `hulk_intptr` parameter), which natively binds like the pointer.
+- **TreeDefs and `hulk_intptr` first parameters.** Three `target` definitions (png_set_cHRM / oFFs / pHYs) whose first
+  parameter is `hulk_intptr` were "definition without a unique 64-bit symbol" natively (their demangled forms collapse
+  once int / __int64 are loosened); named by their addresses they bind by their own address.
+- **The game's global operator delete** (0x00267090, as the Wine map binds `??3@YAXPAX@Z` / `??_V@YAXPAX@Z`) had no
+  MS-mangled definition natively: every deleting destructor ran into a stub. Defined for the 64-bit builds only.

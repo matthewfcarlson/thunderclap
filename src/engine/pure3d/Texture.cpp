@@ -26,7 +26,7 @@ class Texture_2c1c30 {
   public:
     hulk_intptr v;
     char pad[12];
-    int field10;
+    void* field10;   // (x64t16) pure3d::Texture's f_10, a pointer (+0x18 natively, after Entity's words)
 };
 struct Texture_nv_2c1c30 {
     void Init_0027b070();
@@ -73,7 +73,9 @@ struct Manager_2c1c70 {
     virtual Object* Create(Args_2c1c70*);
 };
 struct Owner_2c1c70 {
-    char pad[16];
+    // (x64t16) pure3d::Texture: its vftable and Entity's three words (natively 0x14 bytes), then f_10
+    void* vftable;
+    int entity[3];
     Object* value;
     bool Fn(int, int, int, int, int, int, int);
 };
@@ -101,7 +103,9 @@ class Factory_2c1cf0 {
 };
 class Owner_2c1cf0 {
   public:
-    char pad[0x10];
+    // (x64t16) pure3d::Texture: its vftable and Entity's three words (natively 0x14 bytes), then f_10
+    void* vftable;
+    int entity[3];
     Result_2c1cf0* result;
     bool Run(int, int, int, int, int, int, int, int);
 };
@@ -114,9 +118,9 @@ struct Sprite_2c1d70 {
 };
 struct TextureBuilder_nv_2c1d70 {
     Sprite_2c1d70 *FUN_002aedd0(const char *name);
-    Sprite_2c1d70 *FUN_002aeec0(int h, int a, int b);
+    Sprite_2c1d70 *FUN_002aeec0(hulk_intptr h, int a, int b);   // (x64t16) the stream: pointer-sized
     void FUN_002aef60(const char *name, Sprite_2c1d70 *existing, int arg);
-    void FUN_002af010(int h, Sprite_2c1d70 *existing, int b, int arg);
+    void FUN_002af010(hulk_intptr h, Sprite_2c1d70 *existing, int b, int arg);
 };
 struct Stream_2c1d70 {
     bool FUN_002647e0(void *dst, int a, int b, int c);
@@ -368,12 +372,12 @@ Sprite_2c1d70 *Loader_2c1d70::FUN_002c1d70(Reader_2c1d70 *r, pure3d::TextureBuil
             int id = r->FUN_00266a30();
             if (id == 0x19002) {
                 r->stream->FUN_002647e0(&fr.a, 1, 4, 1);
-                int h = ((int)((owners::Target_266c90 *)r)->FUN_00266c90());
+                hulk_intptr h = ((hulk_intptr)((owners::Target_266c90 *)r)->FUN_00266c90());   // (x64t16) the stream
                 if (existing == 0)
                     existing = ((TextureBuilder_nv_2c1d70*)(((pure3d::TextureBuilder*)(sd))))->FUN_002aeec0(h, fr.a, fr.b);
                 else
                     ((TextureBuilder_nv_2c1d70*)(((pure3d::TextureBuilder*)(sd))))->FUN_002af010(h, existing, fr.b, arg);
-                r->FUN_00266ca0(h);
+                r->FUN_00266ca0((int)h);
             } else if (id == 0x19003) {
                 r->stream->FUN_002647e0(&fr.len, 1, 1, 1);
                 unsigned int m = fr.len;
@@ -444,11 +448,11 @@ void *Loader_2c1f80::FUN_002c1f80(Reader *r, Factory_2c1f80 *factory, hulk_intpt
                     int id = r->FUN_00266a30();
                     if (id == 0x19002) {
                         ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.v2), (hulk_intptr)1, 4, (hulk_intptr)1);
-                        int h = ((int)((owners::Target_266c90 *)r)->FUN_00266c90());
-                        Ref_2c1f80 *obj = ((Ref_2c1f80 *)((owners::SomeClass_2aed60 *)factory)->FUN_002aed60((void *)(hulk_uintptr)(int)h, (void *)(hulk_uintptr)(int)(f.v0)));
+                        hulk_intptr h = ((hulk_intptr)((owners::Target_266c90 *)r)->FUN_00266c90());   // (x64t16) the stream
+                        Ref_2c1f80 *obj = ((Ref_2c1f80 *)((owners::SomeClass_2aed60 *)factory)->FUN_002aed60((void *)h, (void *)(hulk_uintptr)(int)(f.v0)));
                         f.items[n] = obj;
                         obj->AddRef();
-                        r->FUN_00266ca0(h);
+                        r->FUN_00266ca0((int)h);
                         n++;
                         found = true;
                     } else if (id == 0x19003) {

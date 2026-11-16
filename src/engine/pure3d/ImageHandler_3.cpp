@@ -552,7 +552,7 @@ public:
     virtual void v6();
     virtual void v7();
     virtual void v8();
-    virtual void v9(int stream, TextureBuilder *tb);
+    virtual void v9(hulk_intptr stream, TextureBuilder *tb);   // (x64t16) the stream: pointer-sized
 };
 
 class ImageRegistry_2aeec0 {
@@ -566,10 +566,10 @@ public:
     int pa0;
 
     ImageHandler *FUN_002ae9d0(hulk_intptr type);   // (x64t15) the key pointer-sized, as defined (void*)
-    hulk_intptr FUN_002aeec0(int stream, int unused, int type);
+    hulk_intptr FUN_002aeec0(hulk_intptr stream, int unused, int type);
 };
 
-hulk_intptr ImageRegistry_2aeec0::FUN_002aeec0(int stream, int unused, int type)
+hulk_intptr ImageRegistry_2aeec0::FUN_002aeec0(hulk_intptr stream, int unused, int type)
 {
     ImageHandler *h = FUN_002ae9d0(type);
     if (h == 0)
@@ -695,14 +695,14 @@ public:
     virtual void v6();
     virtual void v7();
     virtual void v8();
-    virtual void v9(int a, TextureBuilder *tb);
+    virtual void v9(hulk_intptr a, TextureBuilder *tb);   // (x64t16) the stream: pointer-sized
 };
 struct ThisWrap_002af010 {
     Builder * FUN_002ae9d0(hulk_intptr a);   // (x64t15) the key pointer-sized, as defined (void*)
-    void FUN_002af010(int a1, hulk_intptr a2, int a3, int a4);
+    void FUN_002af010(hulk_intptr a1, hulk_intptr a2, int a3, int a4);
 };
 
-void ThisWrap_002af010::FUN_002af010(int a1, hulk_intptr a2, int a3, int a4) {
+void ThisWrap_002af010::FUN_002af010(hulk_intptr a1, hulk_intptr a2, int a3, int a4) {
     Builder *b = this->FUN_002ae9d0(a3);
     if (b != 0) {
         TextureBuilder tb(a2, a4);

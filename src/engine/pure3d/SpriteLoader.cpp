@@ -902,9 +902,9 @@ Sprite *SpriteLoader::vfunc_8(Reader *r, int unused)
         int id = r->FUN_00266a30();
         if (id == 0x19002) {
             ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.a), (hulk_intptr)1, 4, (hulk_intptr)1);
-            int v = ((int)((owners::Target_266c90 *)r)->FUN_00266c90());
-            result = ((Sprite *)((owners::SomeClass_2aed60 *)factory)->FUN_002aed60((void *)(hulk_uintptr)(int)v, (void *)(hulk_uintptr)(int)(f.b)));
-            r->FUN_00266ca0(v);
+            hulk_intptr v = ((hulk_intptr)((owners::Target_266c90 *)r)->FUN_00266c90());   // (x64t16) the stream
+            result = ((Sprite *)((owners::SomeClass_2aed60 *)factory)->FUN_002aed60((void *)v, (void *)(hulk_uintptr)(int)(f.b)));
+            r->FUN_00266ca0((int)v);
         } else if (id == 0x19003) {
             ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.len), (hulk_intptr)1, 1, (hulk_intptr)1);
             int n = f.len;
@@ -943,7 +943,7 @@ struct SpriteData_2be1b0 {
     int field8c;
     void FUN_002ae950(int a, int b, int c, int d);
     Sprite *FUN_002aedd0(const char *name);
-    Sprite *FUN_002aeec0(int a, int b, int c);
+    Sprite *FUN_002aeec0(hulk_intptr a, int b, int c);   // (x64t16) the stream: pointer-sized
 };
 
 struct Stream {
@@ -956,7 +956,7 @@ struct Reader {
     bool FUN_002669f0();
     int FUN_00266a30();   // (x64t15) i32 as defined (natively a hulk_intptr result did not bind)
     void FUN_00266be0();
-    int FUN_00266c90();
+    hulk_intptr FUN_00266c90();   // (x64t16) the stream: pointer-sized
     void FUN_00266ca0(int v);
 };
 
@@ -1031,9 +1031,9 @@ Sprite *pure3d::SpriteLoader::vfunc_9(Reader *r, int unused)
             int id = r->FUN_00266a30();
             if (id == 0x19002) {
                 r->stream->FUN_002647e0(&fr.a, 1, 4, 1);
-                int h = r->FUN_00266c90();
+                hulk_intptr h = r->FUN_00266c90();
                 result = data->FUN_002aeec0(h, fr.a, fr.b);
-                r->FUN_00266ca0(h);
+                r->FUN_00266ca0((int)h);
             } else if (id == 0x19003) {
                 r->stream->FUN_002647e0(&fr.len, 1, 1, 1);
                 unsigned int m = fr.len;

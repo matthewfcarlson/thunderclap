@@ -5316,3 +5316,81 @@ fields, and libpng's ~60 functions (unk_2d6bb0.cpp, unk_2e6780.cpp) on it.
 
 **Landed** with x64t14's batch (both re-gated on 7de0e7baf): Wine control 86353 / proof 86377 GATE ok; native unbound on
 the control's and the proof's own snapshots 12677 / 12657 / 12668 -> 12490 / 12470 / 12481 (macOS / Linux / Android).
+
+## x64t16: the game's libpng / zlib on records, the heap id as a fixed-width integer (2026-11-16)
+
+x64t15's follow-up (D72, D70, D71). Native iteration as x64t15's (build/x64t16/scripts/inc.sh on an APFS clone of its
+kit), plus two things a batch that renames symbols needs locally: the kit's snapshot report (`cp/snap/report.json`
+checks: TreeDefs binds a caller by the definition's 32-bit symbol at that address) refreshed from `tree_tu.py check`
+(scripts/snaprep.py), and a private copy of the Wine binding map with the new names (scripts/augmap2.py: a name the
+map lacks is "not verified" and stays unbound); scripts/why.py replays plan_link to print each unbound name's reason.
+
+**libpng 1.0.3 / zlib 1.1.3 on records (D72).** include/decls/libpng.h: PngStruct (0x21c bytes on the 32-bit builds),
+PngInfo (0xb8), PngRowInfo, PngText, the colour records, ZStream (0x38), ZInflateState, ZInflateBlocks, ZInflateCodes
+and ZInflateHuft, laid out from the game's own call sites (every view's offsets; png_create_read_struct's
+`_setjmp3` buffer is the 64-byte one the native CRT keeps). Every view of these structures in unk_2d6bb0.cpp,
+unk_2e6780.cpp and PNGHandler_2.cpp (about 90 pad views, most of them wrapped blocks' own) is a typedef of the record
+now, the fields by name; pointers the views kept in 32-bit words are pointers (the io pointer, the allocation and free
+callbacks, the zlib buffers, the palette / trans / hist / text pointers the png_get_ / png_set_ functions pass), the
+sizes are sizeof (0x002e6a50's allocations with HULK_SIZE32 checks, png_read_destroy's and png_info_init's clears,
+the inflate states, the text and pCAL arrays, the gamma tables' pointer arrays). Both 32-bit builds' objects are
+unchanged but for 0x002ea3c0 (two instructions MSVC schedules differently once the TU declares the records) and
+0x002ec620 (a fifth, unused parameter, inflate_trees_fixed's stream, as its caller passes it: the Wine object
+changes), both re-proved.
+
+Not records.h: a header nearly every TU reaches. Growing it by the records perturbed MSVC 7.1's instruction order in
+0x002ea3c0 although the TU used none of them (two loads swapped), so the records live in a header only the three TUs
+include.
+
+Two rules the conversion followed (both visible in the objects): a declaration that a TU uses to call a function
+defined in the same TU must stay a different function (another parameter type, e.g. `void *` / `hulk_intptr` for the
+png): once it is the same function MSVC inlines the call; and a block that took the png as `int` takes it as
+`hulk_intptr` (`int` on the 32-bit builds: same object and mangled name; natively the pointer's width).
+
+Native binding fixes on the start-up path: png_malloc / png_free / png_crc_read take (png, ...) as pointers;
+inflateInit_ 0x002e6f50 takes the stream and version as pointers (they were u32: the C name bound but truncated them);
+png_set_read_fn 0x002dd6f0 takes the io pointer as a pointer; png_zalloc 0x002d6c20 takes zlib's opaque as a pointer
+(and png_create_read_struct declares it as zlib calls it, so the stored function pointer is the definition);
+adler32 is passed to inflate_blocks_new under its own type; zcalloc 0x002eb120 returns calloc's block; the IHDR /
+PLTE / sRGB / pCAL setters' byte and word arguments are declared with D71's HULK_TYPE64 (`HULK_TYPE64(int, unsigned
+char)`), and three setters named `target` are named by their addresses (their `hulk_intptr` first parameter made the
+demangled forms ambiguous to TreeDefs).
+
+**Past the PNG decoder** (the same batch, each a stop of the macOS start-up):
+- The chunk reader's stream as the image loaders pass it (SpriteLoader, Image32, Texture, the image factory
+  0x002aeec0 / 0x002af010 and the handlers' slot 9): owners::Target_266c90 (0x00266c90) read a 32-bit word at +0x284,
+  which natively is padding before the pointer at +0x288 (records.h ContentChunkReader); it returns the pointer now,
+  and the callers keep it in a `hulk_intptr` (`int` on the 32-bit builds) down to PNGHandler::vfunc_9.
+- pure3d::Texture: every allocation is 0x18 bytes (gen's class was 0x14: `f_14` added, config/gen-sizes.json 24), so
+  the five allocations say sizeof; its constructor 0x002c1c30 zeroed f_10 as a 32-bit word at +0x14 natively (the
+  pointer is at +0x18, after Entity's words) and Create 0x002c1c70 / 0x002c1cf0 stored the resource at +0x10: their
+  views are pointer-typed after the vftable and Entity's three words now.
+- The game's global operator delete / delete[] are 0x00267090 (the Wine map binds `??3@YAXPAX@Z` / `??_V@YAXPAX@Z`
+  there); natively nothing defined the MS-mangled names (96 + 28 references), so every deleting destructor stopped:
+  MemoryAllocatorMalloc.cpp defines them for the 64-bit builds only (`HULK_PTR64`).
+
+**Where macOS start-up stops now**: PNGHandler_2's RGB reader 0x002ad9d0 calls the image sink through a slot past the
+end of its vftable: the sink is 0x002aeec0's local TextureBuilder, whose vftable natively is clang's for the local
+class (fewer slots than the game's pure3d::TextureBuilder). Next: TextureBuilder's views on gen's class (its vftable
+by address) with pointer fields (its f_04 / f_0c / f_14 words hold the texture, the surface and the row pointer).
+
+**D71: HULK_TYPE64(t32, t64)** (compat/ptr.h, x64t15) is the standard for a declaration that must bind natively to a
+definition of another type while the 32-bit builds keep the caller's spelling (their objects were built and proved
+with it). Not for a call whose result the caller reads from a void definition (the type of an expression, not of a
+declaration: such callers stay unbound, below).
+
+**D70: the heap id as int32_t.** include/compat/fixedint.h gives int32_t / uint32_t (MSVC 7.1 has no <stdint.h>: its
+`__int32`, which is `int`; clang's __INT32_TYPE__ / __UINT32_TYPE__). The heap switch 0x00266da0's remaining
+`void *` / `hulk_intptr` / `hulk_uintptr` declarations and the locals that held its result (15 TUs: unk_232780,
+ParamValueBool_2, CCharacterGolem.iso_000febc0, HulkShaderCallback, CAmbientsManager.iso_0007f310, Action, Branch,
+Track, QueuedNodeAction, CSPHulkPropLoader, CWorldStreamManager, CCharacter, CSPListener, CExtraRenderingCallback,
+HUDOverlay_2.GS) say `int32_t` (signed: the definition, DAT_00527f60 and every caller's `int`; no object changed, so
+no unsigned spelling was needed); 0x00238190 (the heap id table) and Branch's 0x00266e00 likewise.
+
+Also: 0x00364150 (an atexit handler) is `void`, as _atexit takes it and as 0x002580e0 returns.
+
+**Landed** (three commits on 5b619bfe7, proved together): Wine control 86407 / proof 86472 seeded from it, both on
+studio, play3 60000: GATE ok; whole-tree check with --relocs 86417-86432 (+ 86481 after the re-proofs' hashes);
+re-proved at 3,000 compared inputs, MSVC + --wine: 0x002ea3c0, 0x002ec620, 0x002dc3e0; x64 gate ok (4 improved,
+dropped from the baseline); native unbound on the control's and the proof's own snapshots 12490 / 12470 / 12481 ->
+12407 / 12387 / 12398 (macOS / Linux / Android).

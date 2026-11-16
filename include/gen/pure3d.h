@@ -2931,6 +2931,7 @@ public:
     virtual void* vfunc_4(); // overrides pure3d::Entity slot 4
     virtual unsigned char vfunc_5(); // slot 5
     void* f_10;
+    int f_14; // (x64t16) every allocation is 0x18 bytes (0x002ae1a0, 0x002ae2b0, 0x002de250, 0x002de3f0, 0x00334620)
 };
 
 // .?AVTextureAnimationController@pure3d@@  vftable 0x42de4c (27)

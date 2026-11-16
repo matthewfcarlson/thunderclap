@@ -288,7 +288,7 @@ void __fastcall FUN_002de240(void* self) {
 Texture *ImageConverter::vfunc_1(Image *img, bool flag)
 {
     Texture *tex;
-    Texture *mem = (Texture *)FUN_00263ea0(0x18);
+    Texture *mem = (Texture *)FUN_00263ea0(sizeof(::pure3d::Texture));   // (x64t16) 0x18 on the 32-bit builds
     if (mem)
         tex = mem->FUN_002c1c30();
     else
@@ -357,7 +357,7 @@ void* __cdecl FUN_00263ea0(int);
 Extra_2de3f0* __cdecl FUN_00344e74(Image*,int,void*,void*,int);
 namespace pure3d { struct ImageConverter { virtual void vfunc_0(); virtual void vfunc_1(); virtual Texture_2de3f0* vfunc_2(Image**,int,int,int); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(Image*,void*,int); virtual void vfunc_7(); virtual void vfunc_8(); }; }
 Texture_2de3f0* pure3d::ImageConverter::vfunc_2(Image** images,int count,int a,int b) {
- void* mem=FUN_00263ea0(24);
+ void* mem=FUN_00263ea0(sizeof(::pure3d::Texture));   // (x64t16) 0x18 on the 32-bit builds
  Texture_2de3f0* result=mem?((Texture_2de3f0*)mem)->FUN_002c1c30():0;
  if(images[0]) result->name.FUN_0027af70(&images[0]->name);
  Image* image=images[0];
