@@ -75,6 +75,9 @@ Large additions to a header most TUs reach (records.h, owners.h) can change MSVC
 run the whole-tree check before building on them, or put new records in a header only their TUs include (D74, D77).
 A caller's declaration must never become the same function as a definition in its own TU (MSVC inlines the call); keep it
 a distinct overload, e.g. a `void *` or hulk_intptr parameter, which binds natively like the pointer.
+A float local the listing only loads and stores (`mov`, or `fld`/`fst` with no arithmetic) stays `float`; `hulk_freg` is
+only for values computed in st. Under the Wine build's SSE code, write a product that feeds a sum the original keeps in st
+as `(hulk_freg)a * b` (D80).
 
 ## Builds and proofs
 
