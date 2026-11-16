@@ -49,6 +49,7 @@ RUNNER_SRC = os.path.join(ROOT, "tools/jobq_run.py")
 IDLE_EXIT = int(os.environ.get("JOBQ_IDLE_EXIT", "900"))
 KEEP_BASES = 4
 BIG_SLOTS = 4       # a queued job this big reserves the hosts it could run on (dispatch), so small jobs cannot starve it
+LEND_MAX_S = 1800  # a host held for a big job lends idle slots only to jobs with a limit this short
 PER_NAME_HEAD = 400  # dispatch looks at each submitter's first N queued jobs (per name, so nobody is hidden behind a long queue)
 SSH_SPACING = 0.3   # seconds between new ssh connections to one host (Host.ssh_gate)
 FEATURES = ["prep", "affinity", "slots_now", "add_hosts"]   # what this daemon does (hosts-state.json: submitters check)
@@ -620,8 +621,9 @@ class Host:
                 return False
         if not capacity:
             return self.cap >= job["slots"] or (self.cap > 0 and (not self.local or needs == "wine-gfx"))
-        if lend_only:                                         # held for a big job: only idle reserved slots are lent
-            return job["slots"] == 1 and self.lend_budget >= 1
+        if lend_only:                                         # held for a big job: only idle reserved slots are lent, and
+            return (job["slots"] == 1 and self.lend_budget >= 1      # only to short jobs (long idle-looking ones
+                    and jget(job, "limit_s", 1800) <= LEND_MAX_S)    # refill every freed slot and it never starts)
         if self.cap - self.used >= job["slots"]:
             return True
         if job["slots"] == 1 and self.lend_budget >= 1:      # borrow an idle reserved slot (probe)
@@ -883,7 +885,7 @@ class Daemon:
         names = [r["name"] for r in c.execute("SELECT DISTINCT name FROM jobs WHERE state='queued'")]
         rows = []
         for nm in names:
-            rows += c.execute("SELECT id,name,needs,slots,prio,tried,cmd,pin,affinity,affinity_until FROM jobs WHERE state='queued' AND name=? "
+            rows += c.execute("SELECT id,name,needs,slots,prio,tried,cmd,pin,affinity,affinity_until,limit_s FROM jobs WHERE state='queued' AND name=? "
                               "ORDER BY prio DESC, id LIMIT ?", (nm, PER_NAME_HEAD)).fetchall()
         if not rows:
             return 0
