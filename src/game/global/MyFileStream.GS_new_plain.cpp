@@ -33,10 +33,10 @@ void DataHandlerRawLoader::vfunc_5(void* __p0, void* __p1, void* __p2, hulk_intp
 
  int old = FUN_00266da0(1);
  unsigned size;
- ((owners::X_2647e0 *)(stream->backend))->FUN_002647e0((hulk_intptr)(&size), (hulk_intptr)1, 4, (hulk_intptr)1);
+ ((owners::X_2647e0 *)(stream->backend))->FUN_002647e0((void*)(&size), (hulk_intptr)1, 4, (hulk_intptr)1);
  stream->FUN_00266c40();
  void* data = FUN_0008d6d0(size);
- ((owners::X_2647e0 *)(stream->backend))->FUN_002647e0((hulk_intptr)data, (hulk_intptr)size, 1, (hulk_intptr)1);
+ ((owners::X_2647e0 *)(stream->backend))->FUN_002647e0((void*)data, (hulk_intptr)size, 1, (hulk_intptr)1);
  CDataHandlerObject_1fb050* obj = (CDataHandlerObject_1fb050*)FUN_00263ea0(16);
  if(obj) { new (obj) CDataHandlerObject_1fb050; obj->refs=0; obj->size=size; obj->data=data; }
  char name[64]; unsigned n=(*(Counter_1fb050 * *)&this->f_14)->count++;

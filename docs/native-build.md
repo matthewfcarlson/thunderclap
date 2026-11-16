@@ -5257,3 +5257,62 @@ file was opened and read synchronously before). Next: the read request's path (0
 **Not changed**: FUN_00266da0 has ~60 declarations as `int` / `unsigned` / `hulk_intptr` (it takes and returns the
 heap pointer): natively the `extern "C" int` ones pass and keep a truncated pointer. A sweep like FUN_000964a0's
 needs the callers' locals typed too (fight/ and CMotionTrail.cpp, both with other agents' work in flight).
+
+## The start-up hang (a cement library entry's size) and the content loaders' calls into the chunk reader (x64t15, 2026-11-15)
+
+x64t14's follow-up (macOS start-up first). Native iteration: a local incremental build (build/x64t15/scripts/inc.sh:
+the changed TUs compiled with `native_mac.py compile --only`, their objects merged into a whole snapshot's report,
+linked with a Wine map, run headless), lldb attached at the hang (scripts/hang.sh, lhang.py) and breakpoint
+callbacks on the drive queue (lbp.py).
+
+**The hang** was not in the drive: the drive thread ran every request (the queue's push 0x00272fc0 and pop
+0x00273140 pair up), and core::File::vfunc_21 returned. The copyright p3d (art\copyright-en.p3d) is an entry of a
+cement library, and FileOpenRequest 0x00273920 takes its size from the file's view (records.h CoreFileView) through
+0x00277cd0, whose owners.h view had a 12-byte pad before the value: natively that is words[1] (0), so the file's
+size was 0, content::LoadStream's size and fill chunk were 0, and 0x00264590 looped forever copying 0 bytes and
+asking 0x00264050 (which returns at once when the offset is not below the size) for the next bank. owners::C_277cd0
+is now CoreFileView's head (the value is words[2]).
+
+**Then, crash by crash** (each a declaration that passes or returns differently from its definition, so the native
+link left the call unbound, or a view at 32-bit offsets):
+- FUN_0026fd50 (round up) through a C++ `int (hulk_intptr, int)` in LoadStream.cpp and BinkCallback.cpp: the
+  definition's `extern "C" hulk_uintptr (hulk_uintptr, unsigned)`.
+- The chunk reader's methods as the loaders declare them: 0x002669f0 (data left) returns `unsigned` on the 32-bit
+  builds (its bytes) and `bool` natively (`Ret_2669f0`), and the 40 loader declarations that said `char` / `int`
+  say `HULK_TYPE64(char, bool)` (compat/ptr.h: the 32-bit spelling, both MSVC's and the Wine build's objects
+  unchanged, and the definition's type natively); 0x00266a30 (next chunk) is declared `int` (i32 like the
+  definition's `unsigned`; `hulk_intptr` was an i64 result). A first spelling of these as plain `bool` /
+  `unsigned` changed 44 equivalent blocks' Wine-build objects (clang tests a `bool` differently from a `char`), and
+  `unsigned` for 0x00266a30 changed a 64-bit comparison's sign (MultiControllerLoader 0x002b2ea0 under `--x64`).
+- The stream read 0x002647e0 is `bool (void* dst, int count, int size, int flag)`, as the two readers it forwards to
+  take it and as the loaders declare it (it took pointer-sized integers: no loader's own declaration bound); the 519
+  calls through owners::X_2647e0 pass the destination as a pointer.
+  The audio stream's read callback 0x002469f0 (Clip_2.cpp) takes its count and flag as `int`s (they were `void*`,
+  which the reader's `int` arguments truncated: the x64 gate's one new layout class).
+- The content registry's lookup 0x00265310 returns the loader (`void*`) for an `unsigned` chunk type (was an
+  integer for an integer).
+- ImageHandler_3: the image factory's lookup 0x002ae9d0 takes a pointer-sized key (two callers passed an `int`).
+- SpriteLoader: its two readers' views (0x002bdfc0, 0x002be1b0) had a 0x18-byte pad before the image factory
+  (+0x1c): decls/loaders.h `HULK_CHUNKHANDLER_WORDS` / `HULK_SPRITELOADER_WORDS` (D67: the handler's words for a view
+  that keeps its own vftable pointer) put it at gen's native offset.
+- The heap switch 0x00266da0 sets and returns the current heap's id, an `int` (DAT_00527f60 is a 4-byte item;
+  0x00266d90 returns it as an int and 0x00266e00 allocates from the heap it names; the callers pass 1, 0xb, 0xd):
+  defined with `void*`, it wrote 8 bytes into the item natively. D66 (its ~60 declarations as `void*` / uintptr)
+  rested on its being a heap pointer; the `int` declarations are the right ones, and the few `void*` /
+  `hulk_intptr` ones (unk_232780.cpp, ParamValueBool_2.cpp, CCharacterGolem.iso_000febc0.cpp, HulkShaderCallback.cpp
+  and the `extern "C" int (hulk_intptr)` spellings) are what is left to fix.
+  The content loader keeps each side's heap id in DAT_00527c50 / DAT_00527c54 (0x00264d20 swaps them): records.h
+  now types them `int` (were pointer-sized words).
+- PNGHandler_2: the PNG reader's allocation callback 0x002ad7e0 returns the block (it returned nothing natively)
+  and is passed through a declaration of its own type; the read callback 0x002ad790 takes pointer-sized words.
+
+**Where macOS start-up stops now**: in the loader fiber, the copyright p3d's image (a PNG) is decoded by the
+game's libpng 1.0.3: png_create_read_struct (0x002d6f10) gets its png_struct from the allocation callback, then
+calls png_malloc (0x002e6c00) through a declaration that does not bind (the definition takes `void*` for the size).
+Beyond the declaration, libpng's png_struct has no record: every function reads it through pads at 32-bit offsets
+with its pointers (the io pointer +0x5c, the allocation callback +0x210, the zlib stream's buffers) as 32-bit words,
+so natively they are truncated. Next: a records.h png_struct (and z_stream) on its 32-bit layout with real pointer
+fields, and libpng's ~60 functions (unk_2d6bb0.cpp, unk_2e6780.cpp) on it.
+
+**Landed** with x64t14's batch (both re-gated on 7de0e7baf): Wine control 86353 / proof 86377 GATE ok; native unbound on
+the control's and the proof's own snapshots 12677 / 12657 / 12668 -> 12490 / 12470 / 12481 (macOS / Linux / Android).

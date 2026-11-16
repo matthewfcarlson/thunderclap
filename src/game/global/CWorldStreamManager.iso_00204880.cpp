@@ -29,7 +29,7 @@ struct Table_204880 {
 struct Reader_204880 {
     char pad0[0x284];
     content::LoadInventory *stream;
-    char FUN_002669f0();
+    HULK_TYPE64(char, bool) FUN_002669f0();
     void FUN_00266a30();
     int FUN_00266c30();
     void FUN_00266be0();
@@ -55,10 +55,10 @@ void Loader_204880::FUN_00204880(Slot_204880 arg, int unused)
         unsigned int junk;
     } fr;
 
-    ((owners::X_2647e0 *)(((LoadInventory_nv_204880*)(rd->stream))))->FUN_002647e0((hulk_intptr)(&arg.value), (hulk_intptr)1, 4, (hulk_intptr)1);
-    ((owners::X_2647e0 *)(((LoadInventory_nv_204880*)(rd->stream))))->FUN_002647e0((hulk_intptr)(&fr.second), (hulk_intptr)1, 4, (hulk_intptr)1);
-    ((owners::X_2647e0 *)(((LoadInventory_nv_204880*)(rd->stream))))->FUN_002647e0((hulk_intptr)(&fr.junk), (hulk_intptr)1, 4, (hulk_intptr)1);
-    ((owners::X_2647e0 *)(((LoadInventory_nv_204880*)(rd->stream))))->FUN_002647e0((hulk_intptr)(&fr.junk), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(((LoadInventory_nv_204880*)(rd->stream))))->FUN_002647e0((void*)(&arg.value), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(((LoadInventory_nv_204880*)(rd->stream))))->FUN_002647e0((void*)(&fr.second), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(((LoadInventory_nv_204880*)(rd->stream))))->FUN_002647e0((void*)(&fr.junk), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(((LoadInventory_nv_204880*)(rd->stream))))->FUN_002647e0((void*)(&fr.junk), (hulk_intptr)1, 4, (hulk_intptr)1);
 
     unsigned int second = fr.second;
     Table_204880 *t = table;
@@ -71,10 +71,10 @@ void Loader_204880::FUN_00204880(Slot_204880 arg, int unused)
     while (rd->FUN_002669f0()) {
         rd->FUN_00266a30();
         if (rd->FUN_00266c30() == 0x60000724) {
-            ((owners::X_2647e0 *)(((LoadInventory_nv_204880*)(rd->stream))))->FUN_002647e0((hulk_intptr)(&arg.value), (hulk_intptr)1, 4, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(((LoadInventory_nv_204880*)(rd->stream))))->FUN_002647e0((void*)(&arg.value), (hulk_intptr)1, 4, (hulk_intptr)1);
             e->FUN_00208b40(arg.value);
         } else if (rd->FUN_00266c30() == 0x60000725) {
-            ((owners::X_2647e0 *)(((LoadInventory_nv_204880*)(rd->stream))))->FUN_002647e0((hulk_intptr)(&fr.second), (hulk_intptr)1, 4, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(((LoadInventory_nv_204880*)(rd->stream))))->FUN_002647e0((void*)(&fr.second), (hulk_intptr)1, 4, (hulk_intptr)1);
             e->FUN_00208b60(fr.second);
         }
         rd->FUN_00266be0();

@@ -14852,7 +14852,7 @@ struct X_2647e0 {
     unsigned char a; // +0x0c (+0x18) open
     char padD; // +0x0d (+0x19)
     unsigned char b; // +0x0e (+0x1a) buffered
-    unsigned char FUN_002647e0(hulk_intptr, hulk_intptr, int, hulk_intptr);
+    bool FUN_002647e0(void* dst, int count, int size, int flag);   // (x64t15) as the readers 0x00264270 / 0x00264590 take and return it (the loaders declare it so)
     // (x64t14) the two readers by their addresses (the destination a pointer, as defined)
     bool FUN_00264270(void*, int, int, int);
     bool FUN_00264590(const void*, int, int, int);
@@ -14894,7 +14894,7 @@ struct Obj_265310 {
     int pad4, pad8; // +0x04
     void* first; // +0x0c
     void* value; // +0x10 the second table
-    hulk_intptr FUN_00265310(hulk_intptr);
+    void* FUN_00265310(unsigned int);   // (x64t15) the type's loader (a pointer; its callers pass the chunk id)
 };
 // matches/0x00265340.cpp (stub Thing_265340), size 0x10
 struct Thing_265340 {
@@ -15020,9 +15020,11 @@ struct Obj_277630 {   // (x64t12) records.h CoreDriveLibraryList: the shared buf
     void FUN_00277630(int, hulk_intptr, int);
 };
 // matches/0x00277cd0.cpp (stub C_277cd0), size 0x10
-struct C_277cd0 {
-    char pad[12]; // +0x00
-    unsigned int value; // +0x0c
+struct C_277cd0 {   // (x64t15) records.h CoreFileView's head: the entry's size, words[2] (FileOpenRequest 0x00273920
+                     // and FileOpenByKeyRequest 0x00273b90 call it on the file's view; a 12-byte pad read words[1] natively)
+    void* resource; // +0x00
+    unsigned int words[2]; // +0x04
+    unsigned int value; // +0x0c words[2]
     unsigned int FUN_00277cd0();
 };
 // matches/0x00278010.cpp (stub Obj_278010), size 0x20

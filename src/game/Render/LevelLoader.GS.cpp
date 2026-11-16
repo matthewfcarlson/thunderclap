@@ -60,8 +60,8 @@ struct Stream {
 struct Reader {
     char pad00[0x284];
     Stream *stream;
-    char FUN_002669f0();
-    hulk_intptr FUN_00266a30();
+    HULK_TYPE64(char, bool) FUN_002669f0();
+    int FUN_00266a30();   // (x64t15) i32 as defined (natively a hulk_intptr result did not bind)
     int FUN_00266c30();
     void FUN_00266be0();
 };

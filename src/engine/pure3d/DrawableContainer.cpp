@@ -833,9 +833,9 @@ void __stdcall resizeArray(Array_2a4a50* a, unsigned int count) {
 // FUN_002a4b00 @ 0x002a4b00
 void Target_2a4b00::work(Collection_2a4b00* collection, Reader* reader, hulk_uintptr arg) {
  unsigned count;
- ((owners::X_2647e0 *)(reader->source))->FUN_002647e0((hulk_intptr)(&count), (hulk_intptr)1, 4, (hulk_intptr)1);
+ ((owners::X_2647e0 *)(reader->source))->FUN_002647e0((void*)(&count), (hulk_intptr)1, 4, (hulk_intptr)1);
  unsigned size = (unsigned)(collection->end - collection->begin);
- ((owners::X_2647e0 *)(reader->source))->FUN_002647e0((hulk_intptr)(&count), (hulk_intptr)1, 4, (hulk_intptr)1);
+ ((owners::X_2647e0 *)(reader->source))->FUN_002647e0((void*)(&count), (hulk_intptr)1, 4, (hulk_intptr)1);
  FUN_002a4a50(collection,count+size);
  Factory_2a4b00* factory = FUN_00344e74(((void *)((owners::Obj_265310 *)((*(Manager_2a4b00**)&DAT_00527c58)))->FUN_00265310((hulk_intptr)0x121201)),0,&DAT_0049c7dc,&DAT_004ce770,0);
  factory->retain();

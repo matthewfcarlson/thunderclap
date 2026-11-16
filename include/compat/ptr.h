@@ -59,6 +59,16 @@ typedef double hulk_freg;
 #define HULK_PURE64
 #endif
 
+// HULK_TYPE64(t32, t64) (x64t15): a declaration's type as the 64-bit builds need it to bind to its definition (t64,
+// the definition's) where the 32-bit builds keep the caller's own spelling (t32) that their verified objects, MSVC's
+// and the Wine build's clang's, were built with: `HULK_TYPE64(char, bool) FUN_002669f0();` (the native link binds a
+// call only when the caller's IR signature is the definition's, so `char` / `bool` / `unsigned` results differ there).
+#if defined(HULK_PTR64)
+#define HULK_TYPE64(t32, t64) t64
+#else
+#define HULK_TYPE64(t32, t64) t32
+#endif
+
 // HULK_REFCOUNT_PACK / HULK_REFCOUNT_PACK_END (x64t7): around a class that is only a vftable and a 4-byte reference
 // count at 4 (pure3d::NonCopyable, and the sources' local stand-ins for it): natively the class packs to 4, so it is
 // 12 bytes and a derived class's words follow the count directly, as in the original and as the hand-written flat

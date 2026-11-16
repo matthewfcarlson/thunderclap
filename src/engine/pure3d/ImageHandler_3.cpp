@@ -565,7 +565,7 @@ public:
     int p9c;
     int pa0;
 
-    ImageHandler *FUN_002ae9d0(int type);
+    ImageHandler *FUN_002ae9d0(hulk_intptr type);   // (x64t15) the key pointer-sized, as defined (void*)
     hulk_intptr FUN_002aeec0(int stream, int unused, int type);
 };
 
@@ -698,7 +698,7 @@ public:
     virtual void v9(int a, TextureBuilder *tb);
 };
 struct ThisWrap_002af010 {
-    Builder * FUN_002ae9d0(int a);
+    Builder * FUN_002ae9d0(hulk_intptr a);   // (x64t15) the key pointer-sized, as defined (void*)
     void FUN_002af010(int a1, hulk_intptr a2, int a3, int a4);
 };
 

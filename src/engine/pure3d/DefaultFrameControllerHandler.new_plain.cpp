@@ -34,7 +34,7 @@ namespace content { namespace LoadInventory {
 template<class T> struct DynamicCaster { virtual void cast(); };
 } }
 struct Stream {
-    int FUN_002647e0(void *buf, int count, int size, int flag);
+    HULK_TYPE64(int, bool) FUN_002647e0(void *buf, int count, int size, int flag);
 };
 class StreamHolder {
 public:

@@ -97,7 +97,7 @@ bool pure3d::RawImageHandler::vfunc_8(int x) {
 void pure3d::RawImageHandler::vfunc_9(hulk_intptr __p0, hulk_intptr __p1) { Stream_2ddf10 * stream = (Stream_2ddf10 *)__p0; Image_2ddf10 * image = (Image_2ddf10 *)__p1;
 
     RawHeader hdr;
-    ((owners::X_2647e0 *)stream)->FUN_002647e0((hulk_intptr)(&hdr), (hulk_intptr)7, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)stream)->FUN_002647e0((void*)(&hdr), (hulk_intptr)7, 4, (hulk_intptr)1);
     if (hdr.magic != 0x49443350)    // "P3DI"
         return;
 
@@ -105,11 +105,11 @@ void pure3d::RawImageHandler::vfunc_9(hulk_intptr __p0, hulk_intptr __p1) { Stre
     if (hdr.words[4] > 0) {
         void *palette = image->GetPalette();
         if (palette != 0)
-            ((owners::X_2647e0 *)stream)->FUN_002647e0((hulk_intptr)palette, (hulk_intptr)(hdr.words[4]), 1, (hulk_intptr)1);
+            ((owners::X_2647e0 *)stream)->FUN_002647e0((void*)palette, (hulk_intptr)(hdr.words[4]), 1, (hulk_intptr)1);
     }
     void *pixels = image->GetPixels();
     if (pixels != 0)
-        ((owners::X_2647e0 *)stream)->FUN_002647e0((hulk_intptr)pixels, (hulk_intptr)(hdr.words[5]), 1, (hulk_intptr)1);
+        ((owners::X_2647e0 *)stream)->FUN_002647e0((void*)pixels, (hulk_intptr)(hdr.words[5]), 1, (hulk_intptr)1);
     image->Finish();
 }
 

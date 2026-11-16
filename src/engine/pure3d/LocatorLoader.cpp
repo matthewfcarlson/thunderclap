@@ -74,7 +74,7 @@ struct Reader_2c1770 {
 struct Stream_2c1770 {
     char pad0[0x284];
     Reader_2c1770 *reader;
-    char FUN_002669f0();
+    HULK_TYPE64(char, bool) FUN_002669f0();
     int FUN_00266a30();
     void FUN_00266be0();
 };
@@ -126,11 +126,11 @@ void pure3d::LocatorLoader::vfunc_5(void* __p0, void* __p1, void* __p2, hulk_int
 
     Frame_2c1770 f;
     Reader_2c1770 *rd = s->reader;
-    ((owners::X_2647e0 *)rd)->FUN_002647e0((hulk_intptr)(&f.len), (hulk_intptr)1, 1, (hulk_intptr)1);
-    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(f.name), (hulk_intptr)(f.len), 1, (hulk_intptr)1);
-    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.count), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)rd)->FUN_002647e0((void*)(&f.len), (hulk_intptr)1, 1, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((void*)(f.name), (hulk_intptr)(f.len), 1, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((void*)(&f.count), (hulk_intptr)1, 4, (hulk_intptr)1);
     f.name[f.len] = 0;
-    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.pos), (hulk_intptr)3, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((void*)(&f.pos), (hulk_intptr)3, 4, (hulk_intptr)1);
 
     void *mem = FUN_00263ea0(0x30);
     pure3d::Locator_2c1770 *loc = 0;
@@ -142,7 +142,7 @@ void pure3d::LocatorLoader::vfunc_5(void* __p0, void* __p1, void* __p2, hulk_int
 
     while (s->FUN_002669f0()) {
         if (s->FUN_00266a30() == 0x14001) {
-            ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.quat), (hulk_intptr)4, 4, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((void*)(&f.quat), (hulk_intptr)4, 4, (hulk_intptr)1);
             f.tmp.quat = f.quat;
             loc->rotation = f.tmp.quat;
         }

@@ -543,18 +543,18 @@ public:
 void VertexOffsetExpressionMixerLoader::vfunc_5(VertexOffsetExpressionMixer_2b16a0 **out, unsigned __int64 *outId, Stream *s, LoadContext_2b16a0 *ctx)
 {
     Frame_2b16a0 f;
-    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.cell), (hulk_intptr)1, 4, (hulk_intptr)1);
-    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.len), (hulk_intptr)1, 1, (hulk_intptr)1);
-    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(f.mixerName), (hulk_intptr)(f.len), 1, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((void*)(&f.cell), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((void*)(&f.len), (hulk_intptr)1, 1, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((void*)(f.mixerName), (hulk_intptr)(f.len), 1, (hulk_intptr)1);
     f.mixerName[f.len] = 0;
 
-    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.cell), (hulk_intptr)1, 4, (hulk_intptr)1);
-    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.len), (hulk_intptr)1, 1, (hulk_intptr)1);
-    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(f.skinName), (hulk_intptr)(f.len), 1, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((void*)(&f.cell), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((void*)(&f.len), (hulk_intptr)1, 1, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((void*)(f.skinName), (hulk_intptr)(f.len), 1, (hulk_intptr)1);
     f.skinName[f.len] = 0;
 
-    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.len), (hulk_intptr)1, 1, (hulk_intptr)1);
-    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(f.groupName), (hulk_intptr)(f.len), 1, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((void*)(&f.len), (hulk_intptr)1, 1, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((void*)(f.groupName), (hulk_intptr)(f.len), 1, (hulk_intptr)1);
     f.groupName[f.len] = 0;
 
     unsigned __int64 groupId = FUN_0027b020(f.groupName);

@@ -18,13 +18,13 @@ namespace fn_f0ae8a57 {} using namespace fn_f0ae8a57;
 inline void *operator new(size_t, void *p) throw() { return p; }
 namespace fn_f0ae8a57 {
 struct Stream {
-    char FUN_002647e0(void *dest, unsigned int count, unsigned int size, int flag);
+    HULK_TYPE64(char, bool) FUN_002647e0(void *dest, unsigned int count, unsigned int size, int flag);
 };
 struct Reader {
     char pad[0x284];
     Stream *stream;
-    char FUN_002669f0();
-    hulk_intptr FUN_00266a30();
+    HULK_TYPE64(char, bool) FUN_002669f0();
+    int FUN_00266a30();   // (x64t15) i32 as defined (natively a hulk_intptr result did not bind)
     void FUN_00266be0();
 };
 struct NameField_29a190 {

@@ -533,7 +533,7 @@ unsigned char fight::StreamStringReader::vfunc_4() {
         this->f_11 = false;
         return (unsigned char)(this->f_10);
     }
-    ((owners::X_2647e0 *)(((Source_23a550*)*(void**)((char*)&this->f_0c))))->FUN_002647e0((hulk_intptr)((char*)&this->f_10), (hulk_intptr)1, 1, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(((Source_23a550*)*(void**)((char*)&this->f_0c))))->FUN_002647e0((void*)((char*)&this->f_10), (hulk_intptr)1, 1, (hulk_intptr)1);
     this->f_11 = true;
     return (unsigned char)(this->f_10);
 }

@@ -297,7 +297,7 @@ extern "C" void* __cdecl FUN_002b2c30(void * obj, void* p) {
 } // namespace fn_f35e48b8
 
 // 0x002b2ea0 pure3d::MultiControllerLoader::vfunc_5 (1180 B): equivalent/0x002b2ea0.cpp [wrapped: macros]
-// sym: ?vfunc_5@MultiControllerLoader@fn_002b2ea0@@QAEXPAPAVMultiController_2b2ea0@pure3d@2@PA_KPAUReader@2@PAUInventory@2@@Z @f550cd6988d7 @w131af8fb8f9d @vdbb570896b0e
+// sym: ?vfunc_5@MultiControllerLoader@fn_002b2ea0@@QAEXPAPAVMultiController_2b2ea0@pure3d@2@PA_KPAUReader@2@PAUInventory@2@@Z @f550cd6988d7 @w131af8fb8f9d @v141f04127a24
 inline void *operator new(size_t, void *p) throw() { return p; }
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
@@ -341,8 +341,8 @@ struct Stream {
 struct Reader {
     char pad[0x284];
     Stream *stream;
-    char FUN_002669f0();
-    hulk_intptr FUN_00266a30();
+    HULK_TYPE64(char, bool) FUN_002669f0();
+    int FUN_00266a30();   // (x64t15) i32 as defined (natively a hulk_intptr result did not bind)
     void FUN_00266be0();
 };
 
@@ -446,27 +446,27 @@ void MultiControllerLoader::vfunc_5(pure3d::MultiController_2b2ea0 **out, unsign
 {
     Frame f;
 
-    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.v1.i), (hulk_intptr)1, 4, (hulk_intptr)1));
-    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.len), (hulk_intptr)1, 1, (hulk_intptr)1));
+    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.v1.i), (hulk_intptr)1, 4, (hulk_intptr)1));
+    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.len), (hulk_intptr)1, 1, (hulk_intptr)1));
     unsigned int l1 = f.len;
-    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(f.name), (hulk_intptr)l1, 1, (hulk_intptr)1));
+    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(f.name), (hulk_intptr)l1, 1, (hulk_intptr)1));
     f.name[l1] = 0;
-    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.type), (hulk_intptr)1, 4, (hulk_intptr)1));
+    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.type), (hulk_intptr)1, 4, (hulk_intptr)1));
 
     int sv;
     if (f.v1.i == 0) {
-        ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.v1.i), (hulk_intptr)1, 4, (hulk_intptr)1));
+        ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.v1.i), (hulk_intptr)1, 4, (hulk_intptr)1));
         sv = (int)(__int64)f.v1.f; // _ftol: the low word of its 64-bit result
     } else {
-        ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.v1.i), (hulk_intptr)1, 4, (hulk_intptr)1));
+        ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.v1.i), (hulk_intptr)1, 4, (hulk_intptr)1));
         sv = f.v1.i;
     }
-    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.v1.i), (hulk_intptr)1, 4, (hulk_intptr)1));
+    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.v1.i), (hulk_intptr)1, 4, (hulk_intptr)1));
     if (f.v1.i != 0)
         sv = 0;
-    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.v4), (hulk_intptr)1, 4, (hulk_intptr)1));
-    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.v1.i), (hulk_intptr)1, 4, (hulk_intptr)1));
-    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.c), (hulk_intptr)1, 4, (hulk_intptr)1));
+    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.v4), (hulk_intptr)1, 4, (hulk_intptr)1));
+    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.v1.i), (hulk_intptr)1, 4, (hulk_intptr)1));
+    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.c), (hulk_intptr)1, 4, (hulk_intptr)1));
 
     void *mem = FUN_00263ea0(0x58);
     pure3d::MultiController_2b2ea0 *mc = 0;
@@ -499,12 +499,12 @@ void MultiControllerLoader::vfunc_5(pure3d::MultiController_2b2ea0 **out, unsign
     if (r->FUN_002669f0()) {
         do {
             if (r->FUN_00266a30() == 0x121203) {
-                ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.v4), (hulk_intptr)1, 4, (hulk_intptr)1));
-                ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.len), (hulk_intptr)1, 1, (hulk_intptr)1));
+                ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.v4), (hulk_intptr)1, 4, (hulk_intptr)1));
+                ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.len), (hulk_intptr)1, 1, (hulk_intptr)1));
                 unsigned int l2 = f.len;
-                ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(f.name2), (hulk_intptr)l2, 1, (hulk_intptr)1));
+                ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(f.name2), (hulk_intptr)l2, 1, (hulk_intptr)1));
                 f.name2[l2] = 0;
-                ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.type), (hulk_intptr)1, 4, (hulk_intptr)1));
+                ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.type), (hulk_intptr)1, 4, (hulk_intptr)1));
                 void *ctrl;
                 switch (f.type) {
                 case 0x4d4143:

@@ -946,7 +946,7 @@ struct Reader {
 struct Stream {
     char pad0[0x284];
     Reader *reader;
-    char FUN_002669f0();
+    HULK_TYPE64(char, bool) FUN_002669f0();
     int FUN_00266a30();
     void FUN_00266be0();
 };

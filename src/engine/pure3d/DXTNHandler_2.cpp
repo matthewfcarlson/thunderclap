@@ -76,10 +76,10 @@ namespace fn_f10fa4c6 {
 extern "C" void FUN_002de030(void *s, void *tex)
 {
     DdsFile f;
-    ((char)((owners::X_2647e0 *)(((Stream *)s)))->FUN_002647e0((hulk_intptr)(&f.magic), (hulk_intptr)1, 4, (hulk_intptr)1));
+    ((char)((owners::X_2647e0 *)(((Stream *)s)))->FUN_002647e0((void*)(&f.magic), (hulk_intptr)1, 4, (hulk_intptr)1));
     if (f.magic == 0x44445320)
         ((Stream *)s)->flag = (((Stream *)s)->flag == 0);
-    ((char)((owners::X_2647e0 *)(((Stream *)s)))->FUN_002647e0((hulk_intptr)(&f.header), (hulk_intptr)0x1f, 4, (hulk_intptr)1));
+    ((char)((owners::X_2647e0 *)(((Stream *)s)))->FUN_002647e0((void*)(&f.header), (hulk_intptr)0x1f, 4, (hulk_intptr)1));
 
     int format;
     switch (f.header.fourCC) {
@@ -100,7 +100,7 @@ extern "C" void FUN_002de030(void *s, void *tex)
         void *dst = ((Texture *)tex)->v4();
         if (dst == 0)
             return;
-        ((char)((owners::X_2647e0 *)(((Stream *)s)))->FUN_002647e0((hulk_intptr)dst, (hulk_intptr)(f.header.pitchOrLinear), 1, (hulk_intptr)1));
+        ((char)((owners::X_2647e0 *)(((Stream *)s)))->FUN_002647e0((void*)dst, (hulk_intptr)(f.header.pitchOrLinear), 1, (hulk_intptr)1));
         ((Texture *)tex)->v10();
         return;
     }
@@ -111,7 +111,7 @@ extern "C" void FUN_002de030(void *s, void *tex)
         return;
     char *row = buf;
     for (unsigned int y = 0; y < f.header.height; y++) {
-        ((char)((owners::X_2647e0 *)(((Stream *)s)))->FUN_002647e0((hulk_intptr)row, (hulk_intptr)rowBytes, 1, (hulk_intptr)1));
+        ((char)((owners::X_2647e0 *)(((Stream *)s)))->FUN_002647e0((void*)row, (hulk_intptr)rowBytes, 1, (hulk_intptr)1));
         row += f.header.pitchOrLinear;
     }
     ((Texture *)tex)->v3(buf, f.header.pitchOrLinear * f.header.height);

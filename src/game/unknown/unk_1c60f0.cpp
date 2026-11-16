@@ -126,7 +126,7 @@ U_1c61c0 C_1c61c0::g() {
 // sym: ?Run@C_1c61e0@fn_fb68dce8@@QAEMXZ
 F_1c61e0 C_1c61e0::Run() {
     F_1c61e0 x;
-    ((owners::X_2647e0 *)m)->FUN_002647e0((hulk_intptr)(&x), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)m)->FUN_002647e0((void*)(&x), (hulk_intptr)1, 4, (hulk_intptr)1);
     return x;
 }
 
@@ -134,7 +134,7 @@ F_1c61e0 C_1c61e0::Run() {
 // 0x001c6200 FUN_001c6200 (25 B): matches/0x001c6200.cpp
 // sym: ?f@A_1c6200@fn_fb68dce8@@QAEXPAX@Z
 void A_1c6200::f(void* param) {
-    ((owners::X_2647e0 *)member)->FUN_002647e0((hulk_intptr)param, (hulk_intptr)3, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)member)->FUN_002647e0((void*)param, (hulk_intptr)3, 4, (hulk_intptr)1);
 }
 
 

@@ -144,11 +144,12 @@ struct CoreThread {
 
 extern "C" CoreThread DAT_0052a130;
 extern "C" CoreFiber DAT_00527c28;          // the content loader's fiber (0x002656b0 starts it, 0x00264d20 yields to it)
-// the content loader's other side (pointer-sized words, read and written through casts): the game's fiber that
-// started it (a CoreFiber*), and the current heap (0x00266da0's) kept for each side while the other one runs
+// the content loader's other side: the game's fiber that started it (a CoreFiber*, a pointer-sized word read and
+// written through casts), and the current heap's id (0x00266da0's, an int: x64t15) kept for each side while the other
+// one runs (0x00264d20 swaps them)
 extern "C" hulk_uintptr DAT_00527c4c;
-extern "C" hulk_uintptr DAT_00527c50;
-extern "C" hulk_uintptr DAT_00527c54;
+extern "C" int DAT_00527c50;
+extern "C" int DAT_00527c54;
 
 // om::MetaType (0x0025fa00 constructs one, 0x0025fa80 / 0x0025fc30 destroy it) and the red-black tree of meta types
 // by name (0x004e79b8; 0x004cd360 points at it). The tree is the om trees' layout: the root, then the sentinel node

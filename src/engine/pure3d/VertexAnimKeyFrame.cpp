@@ -194,15 +194,15 @@ struct Reader {
   public:
     char _m_pad_0[0x284];
     Stream* stream;
-    char FUN_002669f0();
-    hulk_intptr FUN_00266a30();
+    HULK_TYPE64(char, bool) FUN_002669f0();
+    int FUN_00266a30();   // (x64t15) i32 as defined (natively a hulk_intptr result did not bind)
     void FUN_00266be0();
 };
 struct Stream {
   public:
     char _m_pad_0[0x284];
     Reader *reader;
-    char FUN_002669f0();
+    HULK_TYPE64(char, bool) FUN_002669f0();
     int FUN_00266a30();
     void FUN_00266be0();
 };
@@ -248,7 +248,7 @@ void VertexAnimKeyFrame_2e5a70::f() {
 VertexAnimKeyFrame_2e5b20 *__stdcall FUN_002e5b20(Stream *s, int unused)
 {
     Frame_2e5b20 f;
-    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.t88), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((void*)(&f.t88), (hulk_intptr)1, 4, (hulk_intptr)1);
     void *mem = FUN_0008d690((int)sizeof(VertexAnimKeyFrame_2e5b20));
     VertexAnimKeyFrame_2e5b20 *m;
     if (mem != 0) {
@@ -258,108 +258,108 @@ VertexAnimKeyFrame_2e5b20 *__stdcall FUN_002e5b20(Stream *s, int unused)
         f.mesh = 0;
         m = f.mesh;
     }
-    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.u44), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((void*)(&f.u44), (hulk_intptr)1, 4, (hulk_intptr)1);
     m->f08 = f.u44;
-    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.u44), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((void*)(&f.u44), (hulk_intptr)1, 4, (hulk_intptr)1);
     m->f0c = f.u44;
     while (s->FUN_002669f0()) {
         int id = s->FUN_00266a30() - 0x10f00;
         if (id == 0) {
-            ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.t100), (hulk_intptr)1, 4, (hulk_intptr)1);
-            ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.t80), (hulk_intptr)1, 4, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((void*)(&f.t100), (hulk_intptr)1, 4, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((void*)(&f.t80), (hulk_intptr)1, 4, (hulk_intptr)1);
             if (f.t80 == 0x534f50) {
-                ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.u44), (hulk_intptr)1, 4, (hulk_intptr)1);
+                ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((void*)(&f.u44), (hulk_intptr)1, 4, (hulk_intptr)1);
                 unsigned int n = f.u44;
                 m->pos.FUN_002e5640(n, &f.d.e16);
                 if (n > 0) {
                     unsigned int rem = f.u44;
                     unsigned int i = 0;
                     do {
-                        ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.t88), (hulk_intptr)1, 4, (hulk_intptr)1);
+                        ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((void*)(&f.t88), (hulk_intptr)1, 4, (hulk_intptr)1);
                         m->pos.begin[i].id = f.t88;
-                        ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(m->pos.begin[i].v), (hulk_intptr)3, 4, (hulk_intptr)1);
+                        ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((void*)(m->pos.begin[i].v), (hulk_intptr)3, 4, (hulk_intptr)1);
                         i++;
                     } while (--rem != 0);
                 }
                 m->flags |= 0x10;
             } else if (f.t80 == 0x4c4d524e) {
-                ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.c40), (hulk_intptr)1, 4, (hulk_intptr)1);
+                ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((void*)(&f.c40), (hulk_intptr)1, 4, (hulk_intptr)1);
                 unsigned int n = f.c40;
                 m->nrm.FUN_002e5640(n, &f.d.e16);
                 if (n > 0) {
                     unsigned int rem = f.c40;
                     unsigned int i = 0;
                     do {
-                        ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.t84), (hulk_intptr)1, 4, (hulk_intptr)1);
+                        ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((void*)(&f.t84), (hulk_intptr)1, 4, (hulk_intptr)1);
                         m->nrm.begin[i].id = f.t84;
-                        ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(m->nrm.begin[i].v), (hulk_intptr)3, 4, (hulk_intptr)1);
+                        ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((void*)(m->nrm.begin[i].v), (hulk_intptr)3, 4, (hulk_intptr)1);
                         i++;
                     } while (--rem != 0);
                 }
                 m->flags |= 0x20;
             }
         } else if (id == 1) {
-            ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.t96), (hulk_intptr)1, 4, (hulk_intptr)1);
-            ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.t60), (hulk_intptr)1, 4, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((void*)(&f.t96), (hulk_intptr)1, 4, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((void*)(&f.t60), (hulk_intptr)1, 4, (hulk_intptr)1);
             if (f.t60 == 0x325655) {
-                ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.c32), (hulk_intptr)1, 4, (hulk_intptr)1);
+                ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((void*)(&f.c32), (hulk_intptr)1, 4, (hulk_intptr)1);
                 unsigned int n = f.c32;
                 m->vu2.FUN_002e56a0(n, &f.d.f12);
                 if (n > 0) {
                     f.remain = f.c32;
                     unsigned int i = 0;
                     do {
-                        ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.t72), (hulk_intptr)1, 4, (hulk_intptr)1);
+                        ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((void*)(&f.t72), (hulk_intptr)1, 4, (hulk_intptr)1);
                         m->vu2.begin[i].id = f.t72;
-                        ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(m->vu2.begin[i].v), (hulk_intptr)2, 4, (hulk_intptr)1);
+                        ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((void*)(m->vu2.begin[i].v), (hulk_intptr)2, 4, (hulk_intptr)1);
                         i++;
                         f.remain--;
                     } while (f.remain != 0);
                 }
                 m->flags |= 4;
             } else if (f.t60 == 0x305655) {
-                ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.c28), (hulk_intptr)1, 4, (hulk_intptr)1);
+                ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((void*)(&f.c28), (hulk_intptr)1, 4, (hulk_intptr)1);
                 unsigned int n = f.c28;
                 m->vu0.FUN_002e56a0(n, &f.d.f12);
                 if (n > 0) {
                     f.remain = f.c28;
                     unsigned int i = 0;
                     do {
-                        ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.t68), (hulk_intptr)1, 4, (hulk_intptr)1);
+                        ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((void*)(&f.t68), (hulk_intptr)1, 4, (hulk_intptr)1);
                         m->vu0.begin[i].id = f.t68;
-                        ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(m->vu0.begin[i].v), (hulk_intptr)2, 4, (hulk_intptr)1);
+                        ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((void*)(m->vu0.begin[i].v), (hulk_intptr)2, 4, (hulk_intptr)1);
                         i++;
                         f.remain--;
                     } while (f.remain != 0);
                 }
                 m->flags |= 1;
             } else if (f.t60 == 0x315655) {
-                ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.c24), (hulk_intptr)1, 4, (hulk_intptr)1);
+                ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((void*)(&f.c24), (hulk_intptr)1, 4, (hulk_intptr)1);
                 unsigned int n = f.c24;
                 m->vu1.FUN_002e56a0(n, &f.d.f12);
                 if (n > 0) {
                     f.remain = f.c24;
                     unsigned int i = 0;
                     do {
-                        ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.t64), (hulk_intptr)1, 4, (hulk_intptr)1);
+                        ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((void*)(&f.t64), (hulk_intptr)1, 4, (hulk_intptr)1);
                         m->vu1.begin[i].id = f.t64;
-                        ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(m->vu1.begin[i].v), (hulk_intptr)2, 4, (hulk_intptr)1);
+                        ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((void*)(m->vu1.begin[i].v), (hulk_intptr)2, 4, (hulk_intptr)1);
                         i++;
                         f.remain--;
                     } while (f.remain != 0);
                 }
                 m->flags |= 2;
             } else if (f.t60 == 0x335655) {
-                ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.c36), (hulk_intptr)1, 4, (hulk_intptr)1);
+                ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((void*)(&f.c36), (hulk_intptr)1, 4, (hulk_intptr)1);
                 unsigned int n = f.c36;
                 m->vu3.FUN_002e56a0(n, &f.d.f12);
                 if (n > 0) {
                     f.remain = f.c36;
                     unsigned int i = 0;
                     do {
-                        ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.t76), (hulk_intptr)1, 4, (hulk_intptr)1);
+                        ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((void*)(&f.t76), (hulk_intptr)1, 4, (hulk_intptr)1);
                         m->vu3.begin[i].id = f.t76;
-                        ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(m->vu3.begin[i].v), (hulk_intptr)2, 4, (hulk_intptr)1);
+                        ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((void*)(m->vu3.begin[i].v), (hulk_intptr)2, 4, (hulk_intptr)1);
                         i++;
                         f.remain--;
                     } while (f.remain != 0);
@@ -367,10 +367,10 @@ VertexAnimKeyFrame_2e5b20 *__stdcall FUN_002e5b20(Stream *s, int unused)
                 m->flags |= 8;
             }
         } else if (id == 2) {
-            ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.t92), (hulk_intptr)1, 4, (hulk_intptr)1);
-            ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.t48), (hulk_intptr)1, 4, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((void*)(&f.t92), (hulk_intptr)1, 4, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((void*)(&f.t48), (hulk_intptr)1, 4, (hulk_intptr)1);
             if (f.t48 == 0x30524c43) {
-                ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.c20), (hulk_intptr)1, 4, (hulk_intptr)1);
+                ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((void*)(&f.c20), (hulk_intptr)1, 4, (hulk_intptr)1);
                 f.d.e12.q.FUN_002c6d30();
                 unsigned int n = f.c20;
                 m->clr0.FUN_002e5700(n, &f.d.e12);
@@ -379,16 +379,16 @@ VertexAnimKeyFrame_2e5b20 *__stdcall FUN_002e5b20(Stream *s, int unused)
                     f.remain = f.c20;
                     unsigned int i = 0;
                     do {
-                        ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.t56), (hulk_intptr)1, 4, (hulk_intptr)1);
+                        ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((void*)(&f.t56), (hulk_intptr)1, 4, (hulk_intptr)1);
                         m->clr0.begin[i].id = f.t56;
-                        ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&m->clr0.begin[i].q), (hulk_intptr)4, 2, (hulk_intptr)1);
+                        ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((void*)(&m->clr0.begin[i].q), (hulk_intptr)4, 2, (hulk_intptr)1);
                         i++;
                         f.remain--;
                     } while (f.remain != 0);
                 }
                 m->flags |= 0x40;
             } else if (f.t48 == 0x31524c43) {
-                ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.c12), (hulk_intptr)1, 4, (hulk_intptr)1);
+                ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((void*)(&f.c12), (hulk_intptr)1, 4, (hulk_intptr)1);
                 f.clr1.q.FUN_002c6d30();
                 unsigned int n = f.c12;
                 m->clr1.FUN_002e5700(n, &f.clr1);
@@ -397,9 +397,9 @@ VertexAnimKeyFrame_2e5b20 *__stdcall FUN_002e5b20(Stream *s, int unused)
                     f.remain = f.c12;
                     unsigned int i = 0;
                     do {
-                        ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.t52), (hulk_intptr)1, 4, (hulk_intptr)1);
+                        ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((void*)(&f.t52), (hulk_intptr)1, 4, (hulk_intptr)1);
                         m->clr1.begin[i].id = f.t52;
-                        ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&m->clr1.begin[i].q), (hulk_intptr)4, 2, (hulk_intptr)1);
+                        ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((void*)(&m->clr1.begin[i].q), (hulk_intptr)4, 2, (hulk_intptr)1);
                         i++;
                         f.remain--;
                     } while (f.remain != 0);
@@ -523,25 +523,25 @@ pure3d::VertexAnimKeyFrameList_2e6340* KeyFrameLoader::FUN_002e6340(Reader* r, P
     } f;
 
     f.self = this;
-    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.scratch), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.scratch), (hulk_intptr)1, 4, (hulk_intptr)1);
 
     f.list = 0;
     void* mem = FUN_0008d690((int)sizeof(pure3d::VertexAnimKeyFrameList_2e6340));
     if (mem)
         f.list = new (mem) pure3d::VertexAnimKeyFrameList_2e6340();
 
-    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.count), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.count), (hulk_intptr)1, 4, (hulk_intptr)1);
 
     unsigned int n = f.count;
     f.scratch = 0;
     ((owners::Buffer_2e16f0 *)&(f.list->keys))->FUN_002e16f0(n, (void *)(&f.scratch));
     f.zeroFill = 0;
     ((owners::Buffer_2e6160 *)&(f.list->tracks))->FUN_002e6160(n, (hulk_intptr)(&f.zeroFill));
-    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(f.list->keys.begin), (hulk_intptr)n, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(f.list->keys.begin), (hulk_intptr)n, 4, (hulk_intptr)1);
 
     f.offset = 0;
     for (f.scratch = n; f.scratch != 0; f.scratch--, f.offset += sizeof(Track)) {
-        ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.count), (hulk_intptr)1, 4, (hulk_intptr)1);
+        ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.count), (hulk_intptr)1, 4, (hulk_intptr)1);
         Track* track = (Track*)((char*)f.list->tracks.begin + f.offset);
         if (track->begin == 0) {
             if (f.count == 0) {

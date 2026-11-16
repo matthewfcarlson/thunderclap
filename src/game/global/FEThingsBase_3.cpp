@@ -6671,7 +6671,7 @@ unsigned short* __stdcall FUN_000f7080(BufferSlot slot, int count, Stream* strea
             if (pos >= stream->FUN_00263fb0()) {
                 break;
             }
-            ((owners::X_2647e0 *)stream)->FUN_002647e0((hulk_intptr)(&slot.ch), (hulk_intptr)1, 2, (hulk_intptr)1);
+            ((owners::X_2647e0 *)stream)->FUN_002647e0((void*)(&slot.ch), (hulk_intptr)1, 2, (hulk_intptr)1);
             unsigned short c = slot.ch;
             buffer[n++] = c;
             if (c == 0xa) {

@@ -166,8 +166,8 @@ struct Stream {
 struct Reader {
     char pad0[0x284];
     Stream *stream;
-    char FUN_002669f0();
-    hulk_intptr FUN_00266a30();
+    HULK_TYPE64(char, bool) FUN_002669f0();
+    int FUN_00266a30();   // (x64t15) i32 as defined (natively a hulk_intptr result did not bind)
     void FUN_00266be0();
     void FUN_00266ca0(int v);
 };
@@ -785,31 +785,31 @@ Sprite *Loader_2c0590::FUN_002c0590(Reader *r, int unused)
 {
     Frame_2c0590 f;
     Sprite *result = 0;
-    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.len), (hulk_intptr)1, 1, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.len), (hulk_intptr)1, 1, (hulk_intptr)1);
     int len = f.len;
-    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(f.buf1), (hulk_intptr)len, 1, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(f.buf1), (hulk_intptr)len, 1, (hulk_intptr)1);
     f.buf1[len] = 0;
-    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.a), (hulk_intptr)1, 4, (hulk_intptr)1);
-    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.a), (hulk_intptr)1, 4, (hulk_intptr)1);
-    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.a), (hulk_intptr)1, 4, (hulk_intptr)1);
-    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.a), (hulk_intptr)1, 4, (hulk_intptr)1);
-    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.b), (hulk_intptr)1, 4, (hulk_intptr)1);
-    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.b), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.a), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.a), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.a), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.a), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.b), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.b), (hulk_intptr)1, 4, (hulk_intptr)1);
     int kind = f.b;
     f.flag = (kind == 1);
-    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.b), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.b), (hulk_intptr)1, 4, (hulk_intptr)1);
     factory->f8c = f.a;
     while (r->FUN_002669f0()) {
         int id = r->FUN_00266a30();
         if (id == 0x19002) {
-            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.a), (hulk_intptr)1, 4, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.a), (hulk_intptr)1, 4, (hulk_intptr)1);
             int v = ((int)((owners::Target_266c90 *)r)->FUN_00266c90());
             result = ((Sprite *)((owners::SomeClass_2aed60 *)factory)->FUN_002aed60((void *)(hulk_uintptr)(int)v, (void *)(hulk_uintptr)(int)(f.b)));
             r->FUN_00266ca0(v);
         } else if (id == 0x19003) {
-            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.len), (hulk_intptr)1, 1, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.len), (hulk_intptr)1, 1, (hulk_intptr)1);
             int n = f.len;
-            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(f.buf2), (hulk_intptr)n, 1, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(f.buf2), (hulk_intptr)n, 1, (hulk_intptr)1);
             f.buf2[n] = 0;
             result = factory->FUN_002aecb0(f.buf2);
         }

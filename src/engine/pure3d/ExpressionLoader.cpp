@@ -163,9 +163,9 @@ Expression_2afb70::~Expression_2afb70() {
 void pure3d::ExpressionLoader::vfunc_5(void* __p0, void* __p1, void* __p2, hulk_intptr __p3) { pure3d::Expression_2afba0 ** out = (pure3d::Expression_2afba0 **)__p0; unsigned long long * outId = (unsigned long long *)__p1; Stream_2afba0 * s = (Stream_2afba0 *)__p2; void * ctx = (void *)__p3;
 
     Frame_2afba0 f;
-    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.cell), (hulk_intptr)1, 4, (hulk_intptr)1);
-    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.len), (hulk_intptr)1, 1, (hulk_intptr)1);
-    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(f.name), (hulk_intptr)(f.len), 1, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((void*)(&f.cell), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((void*)(&f.len), (hulk_intptr)1, 1, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((void*)(f.name), (hulk_intptr)(f.len), 1, (hulk_intptr)1);
     f.name[f.len] = 0;
 
     void *mem = FUN_00263ea0(0x20);
@@ -174,16 +174,16 @@ void pure3d::ExpressionLoader::vfunc_5(void* __p0, void* __p1, void* __p2, hulk_
         e = new (mem) pure3d::Expression_2afba0();
     ((owners::Target_27b040 *)&(e->name))->FUN_0027b040((hulk_uintptr)(f.name));
 
-    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.cell), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((void*)(&f.cell), (hulk_intptr)1, 4, (hulk_intptr)1);
     e->count = f.cell.i;
     e->values = (float *)FUN_0008d6d0(f.cell.i * 4);
     e->keys = (int *)FUN_0008d6d0(e->count * 4);
     for (unsigned int i = 0; i < e->count; i++) {
-        ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.cell), (hulk_intptr)1, 4, (hulk_intptr)1);
+        ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((void*)(&f.cell), (hulk_intptr)1, 4, (hulk_intptr)1);
         e->values[i] = f.cell.f;
     }
     for (unsigned int i = 0; i < e->count; i++) {
-        ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.cell), (hulk_intptr)1, 4, (hulk_intptr)1);
+        ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((void*)(&f.cell), (hulk_intptr)1, 4, (hulk_intptr)1);
         e->keys[i] = f.cell.i;
     }
     *out = e;

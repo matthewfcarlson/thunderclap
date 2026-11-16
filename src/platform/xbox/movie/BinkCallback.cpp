@@ -467,7 +467,7 @@ struct FileStream_335010 {
     virtual void vf15();
     virtual int GetBlockSize();
 };
-int __cdecl FUN_0026fd50(hulk_intptr, int);
+extern "C" hulk_uintptr __cdecl FUN_0026fd50(hulk_uintptr value, unsigned int alignment);   // (x64t15) as defined (MemoryPool.cpp; a C++ int (hulk_intptr, int) did not bind natively)
 int __cdecl FUN_00368660();
 struct BinkRequest {
     char pad0[0x1c];

@@ -41,6 +41,13 @@ class Inner_2669c0 {
 class Outer_2669c0 : public ContentChunkReader {};
 typedef unsigned int u32_2669f0;
 class Thing_2669f0 : public ContentChunkReader {};
+// (x64t15) whether the innermost chunk has data left: the loaders declare it `bool` (it returns 0 / 1); the 64-bit
+// builds return that, so their calls bind (the 32-bit object keeps the 32-bit result its bytes need)
+#if defined(HULK_PTR64)
+typedef bool Ret_2669f0;
+#else
+typedef u32_2669f0 Ret_2669f0;
+#endif
 extern "C" u32_2669f0 __fastcall FUN_00263fc0(ContentLoadStream*);
 typedef unsigned int uint_266a30;
 class Stream : public ContentLoadStream {
@@ -222,7 +229,7 @@ namespace fn_f49c50bb {
 
 // 0x002669f0 FUN_002669f0 (59 B): matches/0x002669f0.cpp
 // sym: ?FUN_002669f0@fn_f49c50bb@@YIIPAVThing_2669f0@1@@Z
-u32_2669f0 __fastcall FUN_002669f0(Thing_2669f0* self) {
+Ret_2669f0 __fastcall FUN_002669f0(Thing_2669f0* self) {
     u32_2669f0* p = (u32_2669f0*)((char*)self + (self->index + 8) * 16);
     if (p[2] > p[1]) {
         u32_2669f0 value = FUN_00263fc0(self->stream);
@@ -247,11 +254,11 @@ uint_266a30 Object::FUN_00266a30() {
     uint_266a30 pos = stream->FUN_00263fc0();
     entries[index + 1].position = pos;
     uint_266a30 value;
-    ((owners::X_2647e0 *)stream)->FUN_002647e0((hulk_intptr)(&value), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)stream)->FUN_002647e0((void*)(&value), (hulk_intptr)1, 4, (hulk_intptr)1);
     entries[index + 1].value = value;
-    ((owners::X_2647e0 *)stream)->FUN_002647e0((hulk_intptr)(&value), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)stream)->FUN_002647e0((void*)(&value), (hulk_intptr)1, 4, (hulk_intptr)1);
     entries[index + 1].second = value;
-    ((owners::X_2647e0 *)stream)->FUN_002647e0((hulk_intptr)(&value), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)stream)->FUN_002647e0((void*)(&value), (hulk_intptr)1, 4, (hulk_intptr)1);
     entries[index + 1].third = value;
     return entries[index + 1].value;
 }
@@ -263,9 +270,9 @@ int Obj_266b30::Target(int arg) {
     count++;
     e[count].d = mgr->Get_00263fc0() - 4;
     e[count].a = arg;
-    ((owners::X_2647e0 *)mgr)->FUN_002647e0((hulk_intptr)(&arg), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)mgr)->FUN_002647e0((void*)(&arg), (hulk_intptr)1, 4, (hulk_intptr)1);
     e[count].b = arg;
-    ((owners::X_2647e0 *)mgr)->FUN_002647e0((hulk_intptr)(&arg), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)mgr)->FUN_002647e0((void*)(&arg), (hulk_intptr)1, 4, (hulk_intptr)1);
     e[count].c = arg;
     return e[count].a;
 }
@@ -326,7 +333,7 @@ Obj_266cb0* Obj_266cb0::Init(Stream* s) {
     stream = s;
     name[0] = 0;
     ((Ref_266cb0*)s)->f0();
-    ((owners::X_2647e0 *)stream)->FUN_002647e0((hulk_intptr)(&v), (hulk_intptr)4, 1, (hulk_intptr)1);
+    ((owners::X_2647e0 *)stream)->FUN_002647e0((void*)(&v), (hulk_intptr)4, 1, (hulk_intptr)1);
     if (v == 0x503344ff) {
         stream->swap = (stream->swap == 0);
         v = 0xff443350;
@@ -361,9 +368,12 @@ extern "C" int FUN_00266d90(void) {
 // sym: _FUN_00266da0
 // Same code shape as 0x002474f0 (propagated; names are from that function)
 // data: g_ptr = DAT_00527f60
-extern "C" void* __cdecl FUN_00266da0(void* value) {
-    void* old = (*(void**)&DAT_00527f60);
-    (*(void**)&DAT_00527f60) = value;
+// (x64t15) the current heap's id (DAT_00527f60, 4 bytes: 0x00266d90 returns it as an int and 0x00266e00 allocates
+// from the heap it names; the callers pass 1, 0xb, 0xd, ...): set, the previous one returned. It was a pointer, which
+// natively wrote 8 bytes into the 4-byte item.
+extern "C" int __cdecl FUN_00266da0(int value) {
+    int old = (*(int*)&DAT_00527f60);
+    (*(int*)&DAT_00527f60) = value;
     return old;
 }
 

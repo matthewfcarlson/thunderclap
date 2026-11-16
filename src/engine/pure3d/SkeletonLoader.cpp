@@ -179,7 +179,7 @@ struct Stream_27c720 {
 struct Reader_27c720 {
     char pad[0x284];
     Stream_27c720* stream;
-    char FUN_002669f0();
+    HULK_TYPE64(char, bool) FUN_002669f0();
     int FUN_00266a30();
     void FUN_00266be0();
     int FUN_00266c30();
@@ -896,7 +896,7 @@ struct Stream {
 struct Loader_27c140 {
     char pad0[0x284];
     Stream *stream;
-    char FUN_002669f0();
+    HULK_TYPE64(char, bool) FUN_002669f0();
     void FUN_00266a30();
     int FUN_00266c30();
     void FUN_00266be0();
@@ -977,14 +977,14 @@ void SkeletonLoader::F(Skeleton **out, unsigned __int64 *outId, Loader_27c140 *l
         char N4[0x100];
     } fr;
 
-    ((owners::X_2647e0 *)(ld->stream))->FUN_002647e0((hulk_intptr)(&fr.len1), (hulk_intptr)1, 1, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(ld->stream))->FUN_002647e0((void*)(&fr.len1), (hulk_intptr)1, 1, (hulk_intptr)1);
     int len = fr.len1;
-    ((owners::X_2647e0 *)(ld->stream))->FUN_002647e0((hulk_intptr)(fr.N), (hulk_intptr)len, 1, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(ld->stream))->FUN_002647e0((void*)(fr.N), (hulk_intptr)len, 1, (hulk_intptr)1);
     fr.N[len] = 0;
-    ((owners::X_2647e0 *)(ld->stream))->FUN_002647e0((hulk_intptr)(&fr.v38), (hulk_intptr)1, 4, (hulk_intptr)1);
-    ((owners::X_2647e0 *)(ld->stream))->FUN_002647e0((hulk_intptr)(&fr.v1c), (hulk_intptr)1, 4, (hulk_intptr)1);
-    ((owners::X_2647e0 *)(ld->stream))->FUN_002647e0((hulk_intptr)(&fr.v10), (hulk_intptr)1, 4, (hulk_intptr)1);
-    ((owners::X_2647e0 *)(ld->stream))->FUN_002647e0((hulk_intptr)(&fr.v18), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(ld->stream))->FUN_002647e0((void*)(&fr.v38), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(ld->stream))->FUN_002647e0((void*)(&fr.v1c), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(ld->stream))->FUN_002647e0((void*)(&fr.v10), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(ld->stream))->FUN_002647e0((void*)(&fr.v18), (hulk_intptr)1, 4, (hulk_intptr)1);
     unsigned int nJoints = fr.v1c;
     if (nJoints < 1) {
         FUN_0028fcc0("SkeletonLoader - skipping skeleton: '%s' because nJoints out of range: %d\n", fr.N, nJoints);
@@ -1035,17 +1035,17 @@ void SkeletonLoader::F(Skeleton **out, unsigned __int64 *outId, Loader_27c140 *l
         do {
             ld->FUN_00266a30();
             if (ld->FUN_00266c30() == 0x23001) {
-                ((owners::X_2647e0 *)(ld->stream))->FUN_002647e0((hulk_intptr)(&fr.len1), (hulk_intptr)1, 1, (hulk_intptr)1);
+                ((owners::X_2647e0 *)(ld->stream))->FUN_002647e0((void*)(&fr.len1), (hulk_intptr)1, 1, (hulk_intptr)1);
                 int n = fr.len1;
-                ((owners::X_2647e0 *)(ld->stream))->FUN_002647e0((hulk_intptr)(fr.N2), (hulk_intptr)n, 1, (hulk_intptr)1);
+                ((owners::X_2647e0 *)(ld->stream))->FUN_002647e0((void*)(fr.N2), (hulk_intptr)n, 1, (hulk_intptr)1);
                 fr.N2[n] = 0;
                 unsigned __int64 h = FUN_002672f0(fr.N2, 0, 0);
                 char *ids = sk->ids;
                 *(unsigned int *)(ids + fr.v30) = (unsigned int)h;
                 *(unsigned int *)(ids + fr.v30 + 4) = (unsigned int)(h >> 32);
-                ((owners::X_2647e0 *)(ld->stream))->FUN_002647e0((hulk_intptr)(&fr.v44), (hulk_intptr)1, 4, (hulk_intptr)1);
+                ((owners::X_2647e0 *)(ld->stream))->FUN_002647e0((void*)(&fr.v44), (hulk_intptr)1, 4, (hulk_intptr)1);
                 *(unsigned short *)(sk->parents + fr.v34) = (unsigned short)fr.v44;
-                ((owners::X_2647e0 *)(ld->stream))->FUN_002647e0((hulk_intptr)(sk->mats + fr.v2c), (hulk_intptr)0x10, 4, (hulk_intptr)1);
+                ((owners::X_2647e0 *)(ld->stream))->FUN_002647e0((void*)(sk->mats + fr.v2c), (hulk_intptr)0x10, 4, (hulk_intptr)1);
                 Info_27c140 *s2 = (Info_27c140 *)fr.v14;
                 if (s2) {
                     char *dup = DupStr(fr.N2);
@@ -1057,19 +1057,19 @@ void SkeletonLoader::F(Skeleton **out, unsigned __int64 *outId, Loader_27c140 *l
                 fr.v28 += 4;
             } else if (ld->FUN_00266c30() == 0x23002) {
                 Elem_27c140 *e = (Elem_27c140 *)(sk->arrA + fr.v20);
-                ((owners::X_2647e0 *)(ld->stream))->FUN_002647e0((hulk_intptr)(&fr.len2), (hulk_intptr)1, 1, (hulk_intptr)1);
+                ((owners::X_2647e0 *)(ld->stream))->FUN_002647e0((void*)(&fr.len2), (hulk_intptr)1, 1, (hulk_intptr)1);
                 int n = fr.len2;
-                ((owners::X_2647e0 *)(ld->stream))->FUN_002647e0((hulk_intptr)(fr.N3), (hulk_intptr)n, 1, (hulk_intptr)1);
+                ((owners::X_2647e0 *)(ld->stream))->FUN_002647e0((void*)(fr.N3), (hulk_intptr)n, 1, (hulk_intptr)1);
                 fr.N3[n] = 0;
                 unsigned __int64 h = FUN_002672f0(fr.N3, 0, 0);
                 e->idLo = (unsigned int)h;
                 e->idHi = (unsigned int)(h >> 32);
-                ((owners::X_2647e0 *)(ld->stream))->FUN_002647e0((hulk_intptr)(&fr.v3c), (hulk_intptr)1, 4, (hulk_intptr)1);
+                ((owners::X_2647e0 *)(ld->stream))->FUN_002647e0((void*)(&fr.v3c), (hulk_intptr)1, 4, (hulk_intptr)1);
                 unsigned int cnt = fr.v3c;
                 if (cnt != 0) {
                     unsigned int j = 0;
                     do {
-                        ((owners::X_2647e0 *)(ld->stream))->FUN_002647e0((hulk_intptr)(&fr.v4c), (hulk_intptr)1, 4, (hulk_intptr)1);
+                        ((owners::X_2647e0 *)(ld->stream))->FUN_002647e0((void*)(&fr.v4c), (hulk_intptr)1, 4, (hulk_intptr)1);
                         e->arr10[j + 1] = fr.v4c;
                         j++;
                     } while (j < cnt);
@@ -1087,18 +1087,18 @@ void SkeletonLoader::F(Skeleton **out, unsigned __int64 *outId, Loader_27c140 *l
                 unsigned __int64 h = FUN_002672f0(fr.N4, 0, 0);
                 e->idLo = (unsigned int)h;
                 e->idHi = (unsigned int)(h >> 32);
-                ((owners::X_2647e0 *)(ld->stream))->FUN_002647e0((hulk_intptr)(&fr.v48), (hulk_intptr)1, 4, (hulk_intptr)1);
+                ((owners::X_2647e0 *)(ld->stream))->FUN_002647e0((void*)(&fr.v48), (hulk_intptr)1, 4, (hulk_intptr)1);
                 e->f18 = fr.v48;
-                ((owners::X_2647e0 *)(ld->stream))->FUN_002647e0((hulk_intptr)(&fr.v50), (hulk_intptr)1, 4, (hulk_intptr)1);
+                ((owners::X_2647e0 *)(ld->stream))->FUN_002647e0((void*)(&fr.v50), (hulk_intptr)1, 4, (hulk_intptr)1);
                 e->f1c = fr.v50;
-                ((owners::X_2647e0 *)(ld->stream))->FUN_002647e0((hulk_intptr)(&fr.v54), (hulk_intptr)1, 4, (hulk_intptr)1);
+                ((owners::X_2647e0 *)(ld->stream))->FUN_002647e0((void*)(&fr.v54), (hulk_intptr)1, 4, (hulk_intptr)1);
                 e->f20 = fr.v54;
-                ((owners::X_2647e0 *)(ld->stream))->FUN_002647e0((hulk_intptr)(&fr.v40), (hulk_intptr)1, 4, (hulk_intptr)1);
+                ((owners::X_2647e0 *)(ld->stream))->FUN_002647e0((void*)(&fr.v40), (hulk_intptr)1, 4, (hulk_intptr)1);
                 unsigned int cnt = fr.v40;
                 if (cnt != 0) {
                     unsigned int j = 0;
                     do {
-                        ((owners::X_2647e0 *)(ld->stream))->FUN_002647e0((hulk_intptr)(&fr.v38), (hulk_intptr)1, 4, (hulk_intptr)1);
+                        ((owners::X_2647e0 *)(ld->stream))->FUN_002647e0((void*)(&fr.v38), (hulk_intptr)1, 4, (hulk_intptr)1);
                         e->arr10[j + 1] = fr.v38;
                         j++;
                     } while (j < cnt);
@@ -1134,12 +1134,12 @@ void pure3d::LegacySkeletonLoader::vfunc_5(void* __p0, void* __p1, void* __p2, h
 
     Frame_27c720 f;
 
-    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.len), (hulk_intptr)1, 1, (hulk_intptr)1));
+    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.len), (hulk_intptr)1, 1, (hulk_intptr)1));
     unsigned int n = f.len;
-    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(f.name), (hulk_intptr)n, 1, (hulk_intptr)1));
+    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(f.name), (hulk_intptr)n, 1, (hulk_intptr)1));
     f.name[n] = 0;
-    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.w18), (hulk_intptr)1, 4, (hulk_intptr)1));
-    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.w10), (hulk_intptr)1, 4, (hulk_intptr)1));
+    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.w18), (hulk_intptr)1, 4, (hulk_intptr)1));
+    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.w10), (hulk_intptr)1, 4, (hulk_intptr)1));
     int nJoints = f.w10;
     if (nJoints < 1)
         FUN_0028fcc0("LegacySkeletonLoader - skipping skeleton: '%s' because nJoints < 1\n", f.name);
@@ -1157,19 +1157,19 @@ void pure3d::LegacySkeletonLoader::vfunc_5(void* __p0, void* __p1, void* __p2, h
         do {
             r->FUN_00266a30();
             if (r->FUN_00266c30() == 0x4501) {
-                ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.len), (hulk_intptr)1, 1, (hulk_intptr)1));
+                ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.len), (hulk_intptr)1, 1, (hulk_intptr)1));
                 unsigned int m = f.len;
-                ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(f.jointName), (hulk_intptr)m, 1, (hulk_intptr)1));
+                ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(f.jointName), (hulk_intptr)m, 1, (hulk_intptr)1));
                 f.jointName[m] = 0;
                 skel->hashes[off8 / 8] = FUN_002672f0(f.jointName, 0, 0);
-                ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.w18), (hulk_intptr)1, 4, (hulk_intptr)1));
+                ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.w18), (hulk_intptr)1, 4, (hulk_intptr)1));
                 *(unsigned short*)((char*)skel->parents + f.w10) = (unsigned short)f.w18;
-                ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.w2c), (hulk_intptr)1, 4, (hulk_intptr)1));
-                ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.w1c), (hulk_intptr)1, 4, (hulk_intptr)1));
-                ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.w28), (hulk_intptr)1, 4, (hulk_intptr)1));
-                ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.w20), (hulk_intptr)1, 4, (hulk_intptr)1));
-                ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.w24), (hulk_intptr)1, 4, (hulk_intptr)1));
-                ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(skel->matrices + f.w14), (hulk_intptr)0x10, 4, (hulk_intptr)1));
+                ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.w2c), (hulk_intptr)1, 4, (hulk_intptr)1));
+                ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.w1c), (hulk_intptr)1, 4, (hulk_intptr)1));
+                ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.w28), (hulk_intptr)1, 4, (hulk_intptr)1));
+                ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.w20), (hulk_intptr)1, 4, (hulk_intptr)1));
+                ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.w24), (hulk_intptr)1, 4, (hulk_intptr)1));
+                ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(skel->matrices + f.w14), (hulk_intptr)0x10, 4, (hulk_intptr)1));
                 off8 += 8;
                 f.w10 += 2;
                 f.w14 += 0x40;

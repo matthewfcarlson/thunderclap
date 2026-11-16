@@ -37,12 +37,12 @@ struct Stream_2f4eb0 {
     char open;
     char pad1;
     char binary;
-    char FUN_002647e0(void* dest, unsigned count, unsigned size, int flag);
+    HULK_TYPE64(char, bool) FUN_002647e0(void* dest, unsigned count, unsigned size, int flag);
 };
 struct Reader_2f4eb0 {
     char pad[0x284];
     Stream_2f4eb0* stream;
-    char FUN_002669f0();
+    HULK_TYPE64(char, bool) FUN_002669f0();
     int FUN_00266a30();
     void FUN_00266be0();
 };

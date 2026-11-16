@@ -1091,3 +1091,14 @@ blocks fight::Action's whole family: the records come first there.
 - `until ! pgrep -f "it.sh i5"` matches its own shell's command line and never ends; wait on a log line instead.
 - A helper script that imported tree_tu and did its work at module level ran recursively (thousands of copies) and
   exhausted the laptop's processes; scripts that import the tools keep their work under `if __name__ == "__main__"`.
+
+## 2026-11-15 x64t15: the start-up hang was a size of 0; declarations that bind only natively
+- The macOS start-up "hang in the drive" was a stream of size 0 copying 0 bytes forever: a 12-byte pad in front of a
+  cement library entry's size (owners::C_277cd0) read the neighbouring word natively. When a wait never ends, check
+  that the work it waits for was ever asked for (breakpoints on the queue's push and pop showed every request ran).
+- The native link binds a call by address only when the caller's IR signature is the definition's: `char`, `bool` and
+  `int` results are three different types there (i8 / i1 / i32), `int` and `unsigned` are one (i32), a pointer and a
+  pointer-sized integer are one (64-bit). Making a loader's declaration say the definition's `bool` changed 44 Wine-build
+  objects (clang tests the byte differently) though MSVC's were unchanged; `HULK_TYPE64(char, bool)` keeps both 32-bit
+  objects and binds natively. Changing a result's signedness (`int` -> `unsigned`) is not free under `--x64` either:
+  it flips a comparison.

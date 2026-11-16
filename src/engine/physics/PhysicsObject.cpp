@@ -176,7 +176,7 @@ struct Stream_2f70a0 {
 struct Reader_2f70a0 {
     char pad000[0x284];
     Stream_2f70a0 *stream;                  // 0x284
-    char FUN_002669f0();
+    HULK_TYPE64(char, bool) FUN_002669f0();
     void FUN_00266a30();
     int FUN_00266c30();
     void FUN_00266be0();
@@ -1146,17 +1146,17 @@ namespace fn_ff237b18 {
 // sym: _FUN_002f5fe0
 extern "C" void __cdecl FUN_002f5fe0(void * owner, float* dst) {
     float value;
-    ((owners::X_2647e0 *)(((Owner_2f5fe0 *)owner)->mgr))->FUN_002647e0((hulk_intptr)(&value), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(((Owner_2f5fe0 *)owner)->mgr))->FUN_002647e0((void*)(&value), (hulk_intptr)1, 4, (hulk_intptr)1);
     dst[1] = value;
-    ((owners::X_2647e0 *)(((Owner_2f5fe0 *)owner)->mgr))->FUN_002647e0((hulk_intptr)(&value), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(((Owner_2f5fe0 *)owner)->mgr))->FUN_002647e0((void*)(&value), (hulk_intptr)1, 4, (hulk_intptr)1);
     dst[2] = value;
-    ((owners::X_2647e0 *)(((Owner_2f5fe0 *)owner)->mgr))->FUN_002647e0((hulk_intptr)(&value), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(((Owner_2f5fe0 *)owner)->mgr))->FUN_002647e0((void*)(&value), (hulk_intptr)1, 4, (hulk_intptr)1);
     dst[3] = value;
-    ((owners::X_2647e0 *)(((Owner_2f5fe0 *)owner)->mgr))->FUN_002647e0((hulk_intptr)(&value), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(((Owner_2f5fe0 *)owner)->mgr))->FUN_002647e0((void*)(&value), (hulk_intptr)1, 4, (hulk_intptr)1);
     dst[4] = value;
-    ((owners::X_2647e0 *)(((Owner_2f5fe0 *)owner)->mgr))->FUN_002647e0((hulk_intptr)(&value), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(((Owner_2f5fe0 *)owner)->mgr))->FUN_002647e0((void*)(&value), (hulk_intptr)1, 4, (hulk_intptr)1);
     dst[5] = value;
-    ((owners::X_2647e0 *)(((Owner_2f5fe0 *)owner)->mgr))->FUN_002647e0((hulk_intptr)(&value), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(((Owner_2f5fe0 *)owner)->mgr))->FUN_002647e0((void*)(&value), (hulk_intptr)1, 4, (hulk_intptr)1);
     dst[6] = value;
 }
 
@@ -2375,18 +2375,18 @@ void physics::PhysicsObjectLoader::vfunc_5(void* __p0, void* __p1, void* __p2, h
         char msg[0x12c];             // 0x25c
     } f;
 
-    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.len), (hulk_intptr)1, 1, (hulk_intptr)1));
+    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.len), (hulk_intptr)1, 1, (hulk_intptr)1));
     unsigned int n = f.len;
-    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(f.name1), (hulk_intptr)n, 1, (hulk_intptr)1));
+    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(f.name1), (hulk_intptr)n, 1, (hulk_intptr)1));
     f.name1[n] = 0;
-    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.a), (hulk_intptr)1, 4, (hulk_intptr)1));
-    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.len), (hulk_intptr)1, 1, (hulk_intptr)1));
+    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.a), (hulk_intptr)1, 4, (hulk_intptr)1));
+    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.len), (hulk_intptr)1, 1, (hulk_intptr)1));
     n = f.len;
-    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(f.name2), (hulk_intptr)n, 1, (hulk_intptr)1));
+    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(f.name2), (hulk_intptr)n, 1, (hulk_intptr)1));
     f.name2[n] = 0;
-    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.b), (hulk_intptr)1, 4, (hulk_intptr)1));
-    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.c), (hulk_intptr)1, 4, (hulk_intptr)1));
-    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.d), (hulk_intptr)1, 4, (hulk_intptr)1));
+    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.b), (hulk_intptr)1, 4, (hulk_intptr)1));
+    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.c), (hulk_intptr)1, 4, (hulk_intptr)1));
+    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.d), (hulk_intptr)1, 4, (hulk_intptr)1));
 
     Part_2f70a0 **parts = 0;
     int count = 0;
@@ -2403,14 +2403,14 @@ void physics::PhysicsObjectLoader::vfunc_5(void* __p0, void* __p1, void* __p2, h
         if (id == 0x7011001) {
             FUN_002f5fe0((Reader_2f70a0 *)r, (float *)(SymMatrix_2f70a0 *)(&f.sm));
         } else if (id == 0x7011002) {
-            ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.center), (hulk_intptr)3, 4, (hulk_intptr)1));
+            ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.center), (hulk_intptr)3, 4, (hulk_intptr)1));
         } else if (id == 0x7011020) {
-            ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.v0), (hulk_intptr)1, 4, (hulk_intptr)1));
-            ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.v1), (hulk_intptr)1, 4, (hulk_intptr)1));
-            ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.v2), (hulk_intptr)1, 4, (hulk_intptr)1));
-            ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.v3), (hulk_intptr)1, 4, (hulk_intptr)1));
-            ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.d), (hulk_intptr)1, 4, (hulk_intptr)1));
-            ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.v5), (hulk_intptr)1, 4, (hulk_intptr)1));
+            ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.v0), (hulk_intptr)1, 4, (hulk_intptr)1));
+            ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.v1), (hulk_intptr)1, 4, (hulk_intptr)1));
+            ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.v2), (hulk_intptr)1, 4, (hulk_intptr)1));
+            ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.v3), (hulk_intptr)1, 4, (hulk_intptr)1));
+            ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.d), (hulk_intptr)1, 4, (hulk_intptr)1));
+            ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.v5), (hulk_intptr)1, 4, (hulk_intptr)1));
             f.zero.x = 0.0f;
             f.zero.y = 0.0f;
             f.zero.z = 0.0f;
@@ -2421,7 +2421,7 @@ void physics::PhysicsObjectLoader::vfunc_5(void* __p0, void* __p1, void* __p2, h
                 if (sub == 0x7011001)
                     FUN_002f5fe0((Reader_2f70a0 *)r, (float *)(SymMatrix_2f70a0 *)(&f.sm));
                 else if (sub == 0x7011002)
-                    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.zero), (hulk_intptr)3, 4, (hulk_intptr)1));
+                    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.zero), (hulk_intptr)3, 4, (hulk_intptr)1));
                 r->FUN_00266be0();
             }
             int prev = FUN_00266da0(1);

@@ -26,15 +26,26 @@
 // 0x002b6150, ShadowSkinLoader 0x002b6870, MultiControllerLoader 0x002b23a0, ScenegraphLoader 0x00297150,
 // ExpressionGroupLoader 0x002aff60, VertexOffsetExpressionMixerLoader 0x002b0f40, ExpressionLoader 0x002aff20,
 // StatePropDataLoader 0x00290740 and IgnoreLoader (0x00291dc0's own).
+// HULK_CHUNKHANDLER_WORDS (x64t15, D67): the handler's words after its vftable, for a loader's view that keeps its own
+// vftable pointer (`class V { virtual ...; HULK_CHUNKHANDLER_WORDS <the loader's own words> };` lays them out as the
+// record does on every target)
+#define HULK_CHUNKHANDLER_WORDS \
+    int refs; \
+    int id; \
+    int f0c; \
+    void* f10;   /* (x64t14) the chunk reader P3DFileHandler 0x00265cd0 lends the handler while its vfunc_3 runs (0x00265ff0 \
+                    passes it to vfunc_5): a pointer (natively +0x18; was an int at +0x14 that the 8-byte store overran) */
 struct HulkChunkHandler {
     void* vftable;
-    int refs;
-    int id;
-    int f0c;
-    void* f10;   // (x64t14) the chunk reader P3DFileHandler 0x00265cd0 lends the handler while its vfunc_3 runs (0x00265ff0
-                 // passes it to vfunc_5): a pointer (natively +0x18; was an int at +0x14 that the 8-byte store overran)
+    HULK_CHUNKHANDLER_WORDS
 };
 HULK_LOADER_SIZE32(HulkChunkHandler, 0x14);
+// pure3d::SpriteLoader (include/gen/pure3d.h, 0x24 bytes): the handler's words, a word, two pointers (+0x1c the image
+// factory its readers 0x002bdfc0 / 0x002be1b0 build through) and two flags (vfunc_6 0x002beb00 / vfunc_7 0x002beb10)
+#define HULK_SPRITELOADER_WORDS \
+    HULK_CHUNKHANDLER_WORDS \
+    int f14; \
+    void* f18;
 // SkeletonLoader 0x0027b980: the handler's words and a flag (1)
 struct HulkSkeletonLoader : HulkChunkHandler {
     unsigned char f14;

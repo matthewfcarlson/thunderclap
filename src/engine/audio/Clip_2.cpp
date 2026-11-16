@@ -1057,8 +1057,10 @@ extern "C" bool FUN_002469e0() {
 
 // 0x002469f0 FUN_002469f0 (30 B): matches/0x002469f0.cpp
 // sym: _FUN_002469f0
-extern "C" void FUN_002469f0(Obj* o, void* a, void* b, void* c) {
-    ((owners::X_2647e0 *)(o->ptr))->FUN_002647e0((hulk_intptr)a, (hulk_intptr)b, 1, (hulk_intptr)c);
+// (x64t15) the stream's read callback: the destination, the count and the flag as the reader takes them (the count and
+// the flag were pointer-typed, which the reader's int arguments truncated natively)
+extern "C" void FUN_002469f0(Obj* o, void* a, int b, int c) {
+    ((owners::X_2647e0 *)(o->ptr))->FUN_002647e0(a, b, 1, c);
 }
 
 

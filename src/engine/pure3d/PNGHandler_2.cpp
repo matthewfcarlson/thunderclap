@@ -17,7 +17,7 @@ namespace fn_f4f469f6 {
 class Obj {
   public:
 };
-extern "C" Obj* __cdecl FUN_002d6dd0(int);
+extern "C" Obj* __cdecl FUN_002d6dd0(hulk_intptr);   // (x64t15) the png (a pointer natively)
 int __cdecl FUN_00266f00(int allocator, void* pointer);
 class ImageHandler_2ad800 {
   public:
@@ -114,10 +114,10 @@ struct PngInfoView {
     char pad0[0x1e];
     unsigned char pixelDepth;
 };
-void FUN_002ad790();
+void __cdecl FUN_002ad790(hulk_intptr png, hulk_intptr data, int length);   // (x64t15) as defined (Target)
 void FUN_002ad7c0();
 void FUN_002ad7d0();
-void FUN_002ad7e0();
+void* __cdecl FUN_002ad7e0(hulk_intptr png, unsigned int size);   // (x64t15) as defined (fn_002ad7e0)
 void FUN_002ad7f0();
 png_struct *__cdecl FUN_002d6f10(const char *version, void *errPtr, void (*errFn)(), void (*warnFn)(), void *memPtr,
                                  void (*mallocFn)(), void (*freeFn)());
@@ -142,9 +142,10 @@ void FUN_002adb10(png_info *info, png_struct *png, ImageSink_2adba0 *sink);
 
 // 0x002ad790 FUN_002ad790 (35 B): matches/0x002ad790.cpp
 // sym: ?Target@fn_f4f469f6@@YAXHHH@Z
-void __cdecl Target(int a, int b, int c) {
+// (x64t15) the PNG reader's read callback (png_rw_ptr: the png, the destination, the length): pointer-sized words
+void __cdecl Target(hulk_intptr a, hulk_intptr b, int c) {
     Obj* p = FUN_002d6dd0(a);
-    ((owners::X_2647e0 *)p)->FUN_002647e0((hulk_intptr)b, (hulk_intptr)c, 1, (hulk_intptr)1);
+    ((owners::X_2647e0 *)p)->FUN_002647e0((void*)b, c, 1, 1);
 }
 
 } // namespace fn_f4f469f6
@@ -164,12 +165,14 @@ extern "C" void __cdecl FUN_002ad7d0() {}
 
 
 // 0x002ad7e0 FUN_002ad7e0 (13 B): matches/0x002ad7e0.cpp [wrapped: conflict: FUN_00266e00]
-// sym: ?FUN_002ad7e0@fn_002ad7e0@@YAXHH@Z
+// sym: ?FUN_002ad7e0@fn_002ad7e0@@YAPAXHI@Z
 namespace fn_002ad7e0 {
-extern void __cdecl FUN_00266e00(int, int);
-void __cdecl FUN_002ad7e0(int arg, int b) {
+extern "C" void* FUN_00266e00(int, int);   // (x64t15) as defined (unk_266950.cpp: the heap's allocation)
+// (x64t15) the PNG reader's allocation callback (png_malloc's (png, size)): the block from heap 1, in the png
+// argument's slot (a pointer-sized word natively), returned
+void* __cdecl FUN_002ad7e0(hulk_intptr arg, unsigned int b) {
     arg = 1;
-    FUN_00266e00(arg, b);
+    return FUN_00266e00((int)arg, (int)b);
 }
 } // namespace fn_002ad7e0
 
@@ -337,7 +340,7 @@ void pure3d::PNGHandler::vfunc_9(hulk_intptr __p0, hulk_intptr __p1) { void * io
         png_info *info;
     } f;
 
-    f.png = FUN_002d6f10("1.0.3", 0, FUN_002ad7c0, FUN_002ad7d0, 0, FUN_002ad7e0, FUN_002ad7f0);
+    f.png = FUN_002d6f10("1.0.3", 0, FUN_002ad7c0, FUN_002ad7d0, 0, (void (*)())FUN_002ad7e0, FUN_002ad7f0);
     if (f.png == 0)
         return;
     f.info = FUN_002d6ea0(f.png);
@@ -345,7 +348,7 @@ void pure3d::PNGHandler::vfunc_9(hulk_intptr __p0, hulk_intptr __p1) { void * io
         FUN_002d7df0(&f.png, 0, 0);
         return;
     }
-    FUN_002dd6f0(f.png, io, FUN_002ad790);
+    FUN_002dd6f0(f.png, io, (void (*)())FUN_002ad790);
     FUN_002d7150(f.png, f.info);
     unsigned int bitDepth = FUN_002d7f10(f.png, f.info);
     unsigned int colorType = FUN_002d7f30(f.png, f.info);

@@ -2503,7 +2503,7 @@ public:
 }
 
 struct Stream {
-    int FUN_002647e0(void *buf, int count, int size, int flag);
+    HULK_TYPE64(int, bool) FUN_002647e0(void *buf, int count, int size, int flag);
 };
 
 class Reader {

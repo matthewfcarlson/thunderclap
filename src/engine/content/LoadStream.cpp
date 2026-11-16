@@ -46,7 +46,7 @@ Job_263fd0* StartJob_002703c0(void* dst, int mode, void* src, int one, unsigned 
 // (x64t14) the stream's copy (a thiscall method that does not read the stream: 0x00264590 calls it with the stream
 // in ecx; natively a free function took the stream for the destination)
 struct Copy_263fd0 : ContentLoadStream { void F(void* dst, void* src, unsigned n, int mode); };
-int __cdecl FUN_0026fd50(hulk_intptr a, int b);
+extern "C" hulk_uintptr __cdecl FUN_0026fd50(hulk_uintptr value, unsigned int alignment);   // (x64t15) as defined (MemoryPool.cpp; a C++ int (hulk_intptr, int) did not bind natively)
 class Manager_2640f0 {
   public:
 };
@@ -101,7 +101,7 @@ struct X_264870 {
     unsigned int value;
 };
 extern "C" CoreFiber* __cdecl FUN_0026dbf0();
-extern "C" void* __cdecl FUN_00266da0(void*);
+extern "C" int __cdecl FUN_00266da0(int);   // (x64t15) the heap id, as defined (unk_266950.cpp)
 extern "C" void __cdecl FUN_0026dc00(CoreFiber*);
 struct Pair_264e10 {
     unsigned a;
@@ -419,7 +419,7 @@ void Reader::FUN_00264050(void* dest) {
     unsigned int n = chunk;
     if (offset + n >= size) {
         int rest = size - offset;
-        file->Read(dest, FUN_0026fd50(rest, file->GetGranularity()), 1);
+        file->Read(dest, (int)FUN_0026fd50(rest, file->GetGranularity()), 1);
         filled = rest;
         offset = offset + rest;
         return;
@@ -754,13 +754,14 @@ bool Stream::FUN_00264590(const void *data, int count, int size, int flag)
 
 
 // 0x002647e0 FUN_002647e0 (29 B): matches/0x002647e0.cpp
-// sym: ?FUN_002647e0@X_2647e0@owners@@QAEEHHHH@Z
-unsigned char owners::X_2647e0::FUN_002647e0(hulk_intptr x, hulk_intptr y, int z, hulk_intptr w) {
+// sym: ?FUN_002647e0@X_2647e0@owners@@QAE_NPAXHHH@Z
+bool owners::X_2647e0::FUN_002647e0(void* x, int y, int z, int w) {   // (x64t15) the readers' arguments (were pointer-sized integers: natively the
+                                                                    // loaders' calls did not bind)
     if (!a)
         return 0;
     if (!b)
-        return FUN_00264270((void*)x, ((int)y), z, ((int)w));
-    return FUN_00264590((const void*)x, ((int)y), z, ((int)w));
+        return FUN_00264270(x, y, z, w);
+    return FUN_00264590(x, y, z, w);
 }
 
 
@@ -814,11 +815,11 @@ void owners::Q_264d20::FUN_00264d20() {
             n = ((int)(e - m1c) >> 3) + ((int)(m20 - s) >> 3);
         }
         if ((unsigned)n > 0 || m8 != 0) {
-            (*(void**)&DAT_00527c54) = FUN_00266da0((*(void**)&DAT_00527c50));
+            DAT_00527c54 = FUN_00266da0(DAT_00527c50);
             FUN_0026dc00(&DAT_00527c28);
         }
     } else {
-        (*(void**)&DAT_00527c50) = FUN_00266da0((*(void**)&DAT_00527c54));
+        DAT_00527c50 = FUN_00266da0(DAT_00527c54);
         FUN_0026dc00((*(CoreFiber**)&DAT_00527c4c));
     }
 }
@@ -970,10 +971,10 @@ void Queue_265280::clear() {
 } // namespace fn_fa1126e6
 
 // 0x00265310 FUN_00265310 (38 B): matches/0x00265310.cpp
-// sym: ?FUN_00265310@Obj_265310@owners@@QAEHH@Z
-hulk_intptr owners::Obj_265310::FUN_00265310(hulk_intptr param) {
+// sym: ?FUN_00265310@Obj_265310@owners@@QAEPAXI@Z
+void* owners::Obj_265310::FUN_00265310(unsigned int param) {   // (x64t15) the loader as a pointer (was an integer: natively unbound for the callers)
     FUN_00231160 t((hulk_intptr)value);   // (x64t8) the probe by its constructor's address (decls/loaders.h; was 0x18 bytes, short natively, and unbound)
-    return (hulk_intptr)t.FUN_00231180((unsigned int)param, 0);
+    return t.FUN_00231180(param, 0);
 }
 
 
@@ -990,7 +991,7 @@ hulk_intptr owners::Thing_265340::FUN_00265340(char* text) {
 namespace fn_fa1126e6 {
 
 // 0x00265390 FUN_00265390 (390 B): equivalent/0x00265390.cpp
-// sym: ?FUN_00265390@Queue_265390@fn_fa1126e6@@QAEXXZ @207b6f25a6c3 @wc01adbc99001 @vcdb5f96aab1f
+// sym: ?FUN_00265390@Queue_265390@fn_fa1126e6@@QAEXXZ @207b6f25a6c3 @wc01adbc99001 @v9732585bd646
 // STATUS: equivalent (tools/equiv.py level 3: 124 inputs, branch coverage 30/30)
 // FUN_00265390 @ 0x00265390
 void Queue_265390::FUN_00265390()
@@ -1032,7 +1033,7 @@ void Queue_265390::FUN_00265390()
                     local.FUN_00231160(first);
                     Sink_265390 *sink = local.FUN_00231180((unsigned int)key, (unsigned int)(key >> 32));
                     // (x64t13) the request's kind selects the heap (0x00266da0 as defined: C, a word)
-                    FUN_00266da0((void*)(hulk_intptr)((const ContentLoadArgs *)job->FUN_002666d0())->kind);
+                    FUN_00266da0((int)((const ContentLoadArgs *)job->FUN_002666d0())->kind);
                     sink->vfn3(job->FUN_002666d0(), job);
                     if (((Job_265390 *)current)->FUN_00266710() == 2)
                         ((Job_265390 *)current)->FUN_00266950(3);

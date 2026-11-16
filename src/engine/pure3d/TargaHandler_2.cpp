@@ -110,29 +110,29 @@ extern "C" void FUN_002dd760(void *out, void *s)
 {
     unsigned int tmp;
 
-    ((owners::X_2647e0 *)(((Stream *)s)))->FUN_002647e0((hulk_intptr)(&tmp), (hulk_intptr)1, 1, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(((Stream *)s)))->FUN_002647e0((void*)(&tmp), (hulk_intptr)1, 1, (hulk_intptr)1);
     ((Header_2dd760 *)out)->b0 = *(unsigned char *)&tmp;
-    ((owners::X_2647e0 *)(((Stream *)s)))->FUN_002647e0((hulk_intptr)(&tmp), (hulk_intptr)1, 1, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(((Stream *)s)))->FUN_002647e0((void*)(&tmp), (hulk_intptr)1, 1, (hulk_intptr)1);
     ((Header_2dd760 *)out)->b1 = *(unsigned char *)&tmp;
-    ((owners::X_2647e0 *)(((Stream *)s)))->FUN_002647e0((hulk_intptr)(&tmp), (hulk_intptr)1, 1, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(((Stream *)s)))->FUN_002647e0((void*)(&tmp), (hulk_intptr)1, 1, (hulk_intptr)1);
     ((Header_2dd760 *)out)->b2 = *(unsigned char *)&tmp;
-    ((owners::X_2647e0 *)(((Stream *)s)))->FUN_002647e0((hulk_intptr)(&tmp), (hulk_intptr)1, 2, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(((Stream *)s)))->FUN_002647e0((void*)(&tmp), (hulk_intptr)1, 2, (hulk_intptr)1);
     ((Header_2dd760 *)out)->w4 = *(unsigned short *)&tmp;
-    ((owners::X_2647e0 *)(((Stream *)s)))->FUN_002647e0((hulk_intptr)(&tmp), (hulk_intptr)1, 2, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(((Stream *)s)))->FUN_002647e0((void*)(&tmp), (hulk_intptr)1, 2, (hulk_intptr)1);
     ((Header_2dd760 *)out)->w6 = *(unsigned short *)&tmp;
-    ((owners::X_2647e0 *)(((Stream *)s)))->FUN_002647e0((hulk_intptr)(&tmp), (hulk_intptr)1, 1, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(((Stream *)s)))->FUN_002647e0((void*)(&tmp), (hulk_intptr)1, 1, (hulk_intptr)1);
     ((Header_2dd760 *)out)->b8 = *(unsigned char *)&tmp;
-    ((owners::X_2647e0 *)(((Stream *)s)))->FUN_002647e0((hulk_intptr)(&tmp), (hulk_intptr)1, 2, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(((Stream *)s)))->FUN_002647e0((void*)(&tmp), (hulk_intptr)1, 2, (hulk_intptr)1);
     ((Header_2dd760 *)out)->wA = *(unsigned short *)&tmp;
-    ((owners::X_2647e0 *)(((Stream *)s)))->FUN_002647e0((hulk_intptr)(&tmp), (hulk_intptr)1, 2, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(((Stream *)s)))->FUN_002647e0((void*)(&tmp), (hulk_intptr)1, 2, (hulk_intptr)1);
     ((Header_2dd760 *)out)->wC = *(unsigned short *)&tmp;
-    ((owners::X_2647e0 *)(((Stream *)s)))->FUN_002647e0((hulk_intptr)(&tmp), (hulk_intptr)1, 2, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(((Stream *)s)))->FUN_002647e0((void*)(&tmp), (hulk_intptr)1, 2, (hulk_intptr)1);
     ((Header_2dd760 *)out)->wE = *(unsigned short *)&tmp;
-    ((owners::X_2647e0 *)(((Stream *)s)))->FUN_002647e0((hulk_intptr)(&tmp), (hulk_intptr)1, 2, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(((Stream *)s)))->FUN_002647e0((void*)(&tmp), (hulk_intptr)1, 2, (hulk_intptr)1);
     ((Header_2dd760 *)out)->w10 = *(unsigned short *)&tmp;
-    ((owners::X_2647e0 *)(((Stream *)s)))->FUN_002647e0((hulk_intptr)(&tmp), (hulk_intptr)1, 1, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(((Stream *)s)))->FUN_002647e0((void*)(&tmp), (hulk_intptr)1, 1, (hulk_intptr)1);
     ((Header_2dd760 *)out)->b12 = *(unsigned char *)&tmp;
-    ((owners::X_2647e0 *)(((Stream *)s)))->FUN_002647e0((hulk_intptr)(&tmp), (hulk_intptr)1, 1, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(((Stream *)s)))->FUN_002647e0((void*)(&tmp), (hulk_intptr)1, 1, (hulk_intptr)1);
     ((Header_2dd760 *)out)->b13 = *(unsigned char *)&tmp;
 }
 
@@ -158,18 +158,18 @@ extern "C" void FUN_002dd890(void *info, void *r, void *dev)
     }
     if (((ImageInfo_2dd890 *)info)->bpp == 0x18) {
         for (i = 0; i < n; i++) {
-            ((owners::X_2647e0 *)(((Reader *)r)))->FUN_002647e0((hulk_intptr)(&f.c0), (hulk_intptr)1, 1, (hulk_intptr)1);
-            ((owners::X_2647e0 *)(((Reader *)r)))->FUN_002647e0((hulk_intptr)(&f.c1), (hulk_intptr)1, 1, (hulk_intptr)1);
-            ((owners::X_2647e0 *)(((Reader *)r)))->FUN_002647e0((hulk_intptr)(&f.c2), (hulk_intptr)1, 1, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(((Reader *)r)))->FUN_002647e0((void*)(&f.c0), (hulk_intptr)1, 1, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(((Reader *)r)))->FUN_002647e0((void*)(&f.c1), (hulk_intptr)1, 1, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(((Reader *)r)))->FUN_002647e0((void*)(&f.c2), (hulk_intptr)1, 1, (hulk_intptr)1);
             palette[i] = (((0xffffff00u | f.c2) << 8 | f.c1) << 8) | f.c0;
         }
     } else {
-        ((owners::X_2647e0 *)(((Reader *)r)))->FUN_002647e0((hulk_intptr)palette, (hulk_intptr)(n * 4), 1, (hulk_intptr)1);
+        ((owners::X_2647e0 *)(((Reader *)r)))->FUN_002647e0((void*)palette, (hulk_intptr)(n * 4), 1, (hulk_intptr)1);
     }
     ((Device_2dd890 *)dev)->FUN_slot0(((ImageInfo_2dd890 *)info)->width, ((ImageInfo_2dd890 *)info)->height, 8, !((((ImageInfo_2dd890 *)info)->flags >> 5) & 1), palette);
     void *row = FUN_00266e00(1, ((ImageInfo_2dd890 *)info)->width);
     for (i = 0; i < ((ImageInfo_2dd890 *)info)->height; i++) {
-        ((owners::X_2647e0 *)(((Reader *)r)))->FUN_002647e0((hulk_intptr)row, (hulk_intptr)(((ImageInfo_2dd890 *)info)->width), 1, (hulk_intptr)1);
+        ((owners::X_2647e0 *)(((Reader *)r)))->FUN_002647e0((void*)row, (hulk_intptr)(((ImageInfo_2dd890 *)info)->width), 1, (hulk_intptr)1);
         ((Device_2dd890 *)dev)->FUN_slot2(row);
     }
     FUN_00267090(row);
@@ -201,18 +201,18 @@ extern "C" void FUN_002dd9e0(void *dev, void *rd, void * infoArg_)
     fr.row = (unsigned char *)FUN_00266e00(1, info->width * 4);
     if (info->bpp == 0x20) {
         for (arg.count = 0; arg.count < info->height; arg.count++) {
-            ((owners::X_2647e0 *)(((Reader *)rd)))->FUN_002647e0((hulk_intptr)(fr.row), (hulk_intptr)(info->width), 4, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(((Reader *)rd)))->FUN_002647e0((void*)(fr.row), (hulk_intptr)(info->width), 4, (hulk_intptr)1);
             ((Device *)dev)->FUN_slot1(fr.row);
         }
     } else {
         for (fr.y = 0; fr.y < info->height; fr.y++) {
             unsigned char *p = fr.row;
             for (fr.x = info->width; fr.x != 0; fr.x--) {
-                ((owners::X_2647e0 *)(((Reader *)rd)))->FUN_002647e0((hulk_intptr)(&arg.byte), (hulk_intptr)1, 1, (hulk_intptr)1);
+                ((owners::X_2647e0 *)(((Reader *)rd)))->FUN_002647e0((void*)(&arg.byte), (hulk_intptr)1, 1, (hulk_intptr)1);
                 p[0] = arg.byte;
-                ((owners::X_2647e0 *)(((Reader *)rd)))->FUN_002647e0((hulk_intptr)(&fr.c1), (hulk_intptr)1, 1, (hulk_intptr)1);
+                ((owners::X_2647e0 *)(((Reader *)rd)))->FUN_002647e0((void*)(&fr.c1), (hulk_intptr)1, 1, (hulk_intptr)1);
                 p[1] = fr.c1;
-                ((owners::X_2647e0 *)(((Reader *)rd)))->FUN_002647e0((hulk_intptr)(&fr.c2), (hulk_intptr)1, 1, (hulk_intptr)1);
+                ((owners::X_2647e0 *)(((Reader *)rd)))->FUN_002647e0((void*)(&fr.c2), (hulk_intptr)1, 1, (hulk_intptr)1);
                 p[2] = fr.c2;
                 p[3] = 0xff;
                 p += 4;

@@ -336,7 +336,7 @@ struct Reader {
     char pad0[0x284];
     Stream *stream;
     bool FUN_002669f0();
-    hulk_intptr FUN_00266a30();
+    int FUN_00266a30();   // (x64t15) i32 as defined (natively a hulk_intptr result did not bind)
     void FUN_00266be0();
     int FUN_00266c30();
 };
@@ -553,7 +553,7 @@ class Reader_2abba0 {
 public:
     char pad0[0x284];
     Stream_2abba0 *stream;
-    char FUN_002669f0();
+    HULK_TYPE64(char, bool) FUN_002669f0();
     int FUN_00266a30();
     void FUN_00266be0();
 };
@@ -665,7 +665,7 @@ struct Source_2abfb0;
 struct Reader_2abfb0 {
     char pad000[0x284];
     Stream_2abfb0* stream;
-    char FUN_002669f0();
+    HULK_TYPE64(char, bool) FUN_002669f0();
     int FUN_00266a30();
     void FUN_00266be0();
 };
@@ -1197,18 +1197,18 @@ unsigned ParticleSystemLoader_2ab030::FUN_002ab030(ParticleSystem_2ab030 **out, 
 {
     Frame_2ab030 f;
     f.self = this;
-    ((owners::X_2647e0 *)(reader->stream))->FUN_002647e0((hulk_intptr)(&f.f28), (hulk_intptr)1, 4, (hulk_intptr)1);
-    ((owners::X_2647e0 *)(reader->stream))->FUN_002647e0((hulk_intptr)(&f.nameLen), (hulk_intptr)1, 1, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(reader->stream))->FUN_002647e0((void*)(&f.f28), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(reader->stream))->FUN_002647e0((void*)(&f.nameLen), (hulk_intptr)1, 1, (hulk_intptr)1);
     unsigned char len = f.nameLen;
-    ((owners::X_2647e0 *)(reader->stream))->FUN_002647e0((hulk_intptr)(f.name), (hulk_intptr)len, 1, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(reader->stream))->FUN_002647e0((void*)(f.name), (hulk_intptr)len, 1, (hulk_intptr)1);
     f.name[len] = 0;
-    ((owners::X_2647e0 *)(reader->stream))->FUN_002647e0((hulk_intptr)(&f.f1c), (hulk_intptr)1, 4, (hulk_intptr)1);
-    ((owners::X_2647e0 *)(reader->stream))->FUN_002647e0((hulk_intptr)(&f.f18), (hulk_intptr)1, 4, (hulk_intptr)1);
-    ((owners::X_2647e0 *)(reader->stream))->FUN_002647e0((hulk_intptr)(&f.f14), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(reader->stream))->FUN_002647e0((void*)(&f.f1c), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(reader->stream))->FUN_002647e0((void*)(&f.f18), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(reader->stream))->FUN_002647e0((void*)(&f.f14), (hulk_intptr)1, 4, (hulk_intptr)1);
     bool flag = f.f14 != 0;
-    ((owners::X_2647e0 *)(reader->stream))->FUN_002647e0((hulk_intptr)(&f.quat), (hulk_intptr)4, 4, (hulk_intptr)1);
-    ((owners::X_2647e0 *)(reader->stream))->FUN_002647e0((hulk_intptr)(&f.pos), (hulk_intptr)3, 4, (hulk_intptr)1);
-    ((owners::X_2647e0 *)(reader->stream))->FUN_002647e0((hulk_intptr)(&f.f14), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(reader->stream))->FUN_002647e0((void*)(&f.quat), (hulk_intptr)4, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(reader->stream))->FUN_002647e0((void*)(&f.pos), (hulk_intptr)3, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(reader->stream))->FUN_002647e0((void*)(&f.f14), (hulk_intptr)1, 4, (hulk_intptr)1);
     void *mem = FUN_00263ea0(0xb0);
     ParticleSystem_2ab030 *p;
     if (mem)
@@ -1226,12 +1226,12 @@ unsigned ParticleSystemLoader_2ab030::FUN_002ab030(ParticleSystem_2ab030 **out, 
         int id = reader->FUN_00266a30();
         switch (id) {
         case 0x10003:
-            ((owners::X_2647e0 *)(reader->stream))->FUN_002647e0((hulk_intptr)(&p->v14), (hulk_intptr)3, 4, (hulk_intptr)1);
-            ((owners::X_2647e0 *)(reader->stream))->FUN_002647e0((hulk_intptr)(&p->v20), (hulk_intptr)3, 4, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(reader->stream))->FUN_002647e0((void*)(&p->v14), (hulk_intptr)3, 4, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(reader->stream))->FUN_002647e0((void*)(&p->v20), (hulk_intptr)3, 4, (hulk_intptr)1);
             break;
         case 0x10004:
-            ((owners::X_2647e0 *)(reader->stream))->FUN_002647e0((hulk_intptr)(&p->v2c), (hulk_intptr)3, 4, (hulk_intptr)1);
-            ((owners::X_2647e0 *)(reader->stream))->FUN_002647e0((hulk_intptr)(&f.f2c), (hulk_intptr)1, 4, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(reader->stream))->FUN_002647e0((void*)(&p->v2c), (hulk_intptr)3, 4, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(reader->stream))->FUN_002647e0((void*)(&f.f2c), (hulk_intptr)1, 4, (hulk_intptr)1);
             p->f38 = f.f2c;
             break;
         case 0x121201: {
@@ -1255,8 +1255,8 @@ unsigned ParticleSystemLoader_2ab030::FUN_002ab030(ParticleSystem_2ab030 **out, 
             break;
         }
         case 0x122000: {
-            ((owners::X_2647e0 *)(reader->stream))->FUN_002647e0((hulk_intptr)(&f.f34), (hulk_intptr)1, 4, (hulk_intptr)1);
-            ((owners::X_2647e0 *)(reader->stream))->FUN_002647e0((hulk_intptr)(&f.f28), (hulk_intptr)1, 4, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(reader->stream))->FUN_002647e0((void*)(&f.f34), (hulk_intptr)1, 4, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(reader->stream))->FUN_002647e0((void*)(&f.f28), (hulk_intptr)1, 4, (hulk_intptr)1);
             float v = f.f28;
             if (v >= 0.0f) {
                 if (!(v <= 1.0f))
@@ -1713,18 +1713,18 @@ unsigned char Buffer::FUN_002aba80(unsigned int count, const void* fill) {
 ParticlePointGenerator_2abba0 *__stdcall FUN_002abba0(Reader_2abba0 *r, int arg)
 {
     Frame_2abba0 f;
-    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.state), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.state), (hulk_intptr)1, 4, (hulk_intptr)1);
     void *mem = FUN_00263ea0(0x50);
     ParticlePointGenerator_2abba0 *res;
     if (mem)
         res = ((ParticlePointGenerator_2abba0 *)mem)->FUN_002d3740();
     else
         res = 0;
-    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.count), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.count), (hulk_intptr)1, 4, (hulk_intptr)1);
     res->a38 = f.count;
-    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.count), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.count), (hulk_intptr)1, 4, (hulk_intptr)1);
     res->a3c = f.count;
-    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.count), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.count), (hulk_intptr)1, 4, (hulk_intptr)1);
     res->a40 = f.count;
 
     while (r->FUN_002669f0()) {
@@ -1839,14 +1839,14 @@ ParticlePlaneGenerator_2abd90 * __stdcall FUN_002abd90(Reader_2abd90 *r, int fla
 ParticleSphereGenerator_2abfb0* __stdcall FUN_002abfb0(Reader_2abfb0* r, void* arg)
 {
     Frame_2abfb0 f;
-    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.old), (hulk_intptr)1, 4, (hulk_intptr)1));
+    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.old), (hulk_intptr)1, 4, (hulk_intptr)1));
     ParticleSphereGenerator_2abfb0* gen = 0;
     void* mem = FUN_00263ea0(0x48);
     if (mem != 0)
         gen = ((ParticleSphereGenerator_2abfb0*)mem)->FUN_002d3b40();
-    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.y), (hulk_intptr)1, 4, (hulk_intptr)1));
+    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.y), (hulk_intptr)1, 4, (hulk_intptr)1));
     gen->dim0 = f.y;
-    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.y), (hulk_intptr)1, 4, (hulk_intptr)1));
+    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.y), (hulk_intptr)1, 4, (hulk_intptr)1));
     gen->dim1 = f.y;
     while (r->FUN_002669f0() != 0) {
         if (r->FUN_00266a30() == 0x121000) {
@@ -1901,8 +1901,8 @@ struct Source_2ac180;
 struct Reader {
     char pad000[0x284];
     Stream* stream;
-    char FUN_002669f0();
-    hulk_intptr FUN_00266a30();
+    HULK_TYPE64(char, bool) FUN_002669f0();
+    int FUN_00266a30();   // (x64t15) i32 as defined (natively a hulk_intptr result did not bind)
     void FUN_00266be0();
 };
 
@@ -1986,7 +1986,7 @@ struct Frame_2ac180 {
 Generator_2ac180* __stdcall FUN_002ac180(Reader* r, void* arg, int kind)
 {
     Frame_2ac180 f;
-    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.old), (hulk_intptr)1, 4, (hulk_intptr)1));
+    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.old), (hulk_intptr)1, 4, (hulk_intptr)1));
     f.loader = dynamic_cast<pure3d::AnimationLoader_2ac180*>(((content :: ObjectLoader_2ac180 *)((owners::Obj_265310 *)((*(Registry_2ac180**)&DAT_00527c58)))->FUN_00265310((hulk_intptr)0x121000)));
     f.loader->AddRef();
     f.old = f.loader->FUN_00288e90();
@@ -2277,14 +2277,14 @@ void *__cdecl FUN_0008d6d0(unsigned int size);
 void *__cdecl FUN_002aa300(int a, int b, int c, int d, int e);
 
 struct Stream {
-    int FUN_002647e0(void *buf, int count, int size, int flag);
+    HULK_TYPE64(int, bool) FUN_002647e0(void *buf, int count, int size, int flag);
 };
 
 class Reader {
 public:
     char pad0[0x284];
     Stream *stream;
-    char FUN_002669f0();
+    HULK_TYPE64(char, bool) FUN_002669f0();
     int FUN_00266a30();
     void FUN_00266be0();
 };
@@ -2801,7 +2801,7 @@ struct Reader {
     char pad0[0x284];
     Stream *stream;
     bool FUN_002669f0();
-    hulk_intptr FUN_00266a30();
+    int FUN_00266a30();   // (x64t15) i32 as defined (natively a hulk_intptr result did not bind)
     void FUN_00266be0();
 };
 

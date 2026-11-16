@@ -246,7 +246,7 @@ struct Reader_289070 {
     char pad000[0x280];
     int pad280;
     Stream_289070* stream;
-    char FUN_002669f0();
+    HULK_TYPE64(char, bool) FUN_002669f0();
     int FUN_00266a30();
     void FUN_00266be0();
 };
@@ -764,8 +764,8 @@ namespace fn_f25f8e16 {
 pure3d::AnimationMemoryBlock* AnimationLoader_289070::FUN_00289070(Reader_289070* r)
 {
     Frame_289070 f;
-    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.total), (hulk_intptr)1, 4, (hulk_intptr)1));
-    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.total), (hulk_intptr)1, 4, (hulk_intptr)1));
+    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.total), (hulk_intptr)1, 4, (hulk_intptr)1));
+    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.total), (hulk_intptr)1, 4, (hulk_intptr)1));
     if (f.total == 0)
         return 0;
     f.total = f.total << 5;
@@ -777,22 +777,22 @@ pure3d::AnimationMemoryBlock* AnimationLoader_289070::FUN_00289070(Reader_289070
             return 0;
         }
         if (id == 0x121007) {
-            ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.skipB), (hulk_intptr)1, 4, (hulk_intptr)1));
-            ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.key), (hulk_intptr)1, 4, (hulk_intptr)1));
-            ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.n), (hulk_intptr)1, 4, (hulk_intptr)1));
+            ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.skipB), (hulk_intptr)1, 4, (hulk_intptr)1));
+            ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.key), (hulk_intptr)1, 4, (hulk_intptr)1));
+            ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.n), (hulk_intptr)1, 4, (hulk_intptr)1));
             extra += f.n * 4;
             for (unsigned int i = f.n; i != 0; i--) {
                 Field_289070* fld = table->FUN_0028b020(f.key);
                 if (fld != 0) {
-                    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.value), (hulk_intptr)1, 2, (hulk_intptr)1));
+                    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.value), (hulk_intptr)1, 2, (hulk_intptr)1));
                     fld->Measure(&f.outA, &f.outB, f.key, f.value);
                     f.total += f.outA;
                     extra += f.outB;
                 }
             }
         } else if (id == 0x121400) {
-            ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.skipC), (hulk_intptr)1, 4, (hulk_intptr)1));
-            ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.x2), (hulk_intptr)1, 4, (hulk_intptr)1));
+            ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.skipC), (hulk_intptr)1, 4, (hulk_intptr)1));
+            ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.x2), (hulk_intptr)1, 4, (hulk_intptr)1));
             this->count = f.x2;
             extra += f.x2 * 24;
         }
@@ -1001,7 +1001,7 @@ struct Reader {
     char pad0[0x284];
     Stream *stream;
     bool FUN_002669f0();
-    hulk_intptr FUN_00266a30();
+    int FUN_00266a30();   // (x64t15) i32 as defined (natively a hulk_intptr result did not bind)
     void FUN_00266be0();
 };
 

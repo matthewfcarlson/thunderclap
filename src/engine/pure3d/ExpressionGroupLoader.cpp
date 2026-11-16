@@ -373,7 +373,7 @@ struct Reader {
     int depth;
     Stream *stream;
     bool FUN_002669f0();
-    hulk_intptr FUN_00266a30();
+    int FUN_00266a30();   // (x64t15) i32 as defined (natively a hulk_intptr result did not bind)
     void FUN_00266be0();
     void *FUN_00266c30();
 };

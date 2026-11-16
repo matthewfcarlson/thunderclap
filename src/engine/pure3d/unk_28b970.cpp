@@ -475,8 +475,8 @@ struct Reader {
   public:
     char _m_pad_0[0x284];
     Stream *stream;
-    char FUN_002669f0();
-    hulk_intptr FUN_00266a30();
+    HULK_TYPE64(char, bool) FUN_002669f0();
+    int FUN_00266a30();   // (x64t15) i32 as defined (natively a hulk_intptr result did not bind)
     void FUN_00266be0();
     int FUN_00266c30();
     void FUN_002647e0(void*, unsigned, unsigned, unsigned);
@@ -1227,9 +1227,9 @@ IntChannel_28c580 * __stdcall FUN_0028c580(Reader *r, unsigned unused, Parent_28
     unsigned a;
     IntChannel_28c580 *node;
 
-    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&x), (hulk_intptr)1, 4, (hulk_intptr)1);
-    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&a), (hulk_intptr)1, 4, (hulk_intptr)1);
-    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&x), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&x), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&a), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&x), (hulk_intptr)1, 4, (hulk_intptr)1);
 
     if (parent == 0) {
         void *mem = FUN_0008d690((int)sizeof(IntChannel_28c580));
@@ -1244,13 +1244,13 @@ IntChannel_28c580 * __stdcall FUN_0028c580(Reader *r, unsigned unused, Parent_28
     }
 
     node->field_08 = a;
-    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(node->field_14), (hulk_intptr)x, 2, (hulk_intptr)1);
-    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(node->field_18), (hulk_intptr)x, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(node->field_14), (hulk_intptr)x, 2, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(node->field_18), (hulk_intptr)x, 4, (hulk_intptr)1);
 
     while (r->FUN_002669f0()) {
         if ((char *)r->FUN_00266a30() == ((char*)0x00121110)) {
-            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&parent), (hulk_intptr)1, 4, (hulk_intptr)1);
-            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&x), (hulk_intptr)1, 4, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&parent), (hulk_intptr)1, 4, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&x), (hulk_intptr)1, 4, (hulk_intptr)1);
             node->field_04 = x;
         }
         r->FUN_00266be0();
@@ -1269,9 +1269,9 @@ Float1Channel_28c6b0 * __stdcall FUN_0028c6b0(Reader *r, unsigned unused, Parent
     unsigned a;
     Float1Channel_28c6b0 *node;
 
-    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&x), (hulk_intptr)1, 4, (hulk_intptr)1);
-    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&a), (hulk_intptr)1, 4, (hulk_intptr)1);
-    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&x), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&x), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&a), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&x), (hulk_intptr)1, 4, (hulk_intptr)1);
 
     if (parent == 0) {
         void *mem = FUN_0008d690((int)sizeof(Float1Channel_28c6b0));
@@ -1286,13 +1286,13 @@ Float1Channel_28c6b0 * __stdcall FUN_0028c6b0(Reader *r, unsigned unused, Parent
     }
 
     node->field_08 = a;
-    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(node->field_14), (hulk_intptr)x, 2, (hulk_intptr)1);
-    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(node->field_18), (hulk_intptr)x, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(node->field_14), (hulk_intptr)x, 2, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(node->field_18), (hulk_intptr)x, 4, (hulk_intptr)1);
 
     while (r->FUN_002669f0()) {
         if ((char *)r->FUN_00266a30() == ((char*)0x00121110)) {
-            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&parent), (hulk_intptr)1, 4, (hulk_intptr)1);
-            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&x), (hulk_intptr)1, 4, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&parent), (hulk_intptr)1, 4, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&x), (hulk_intptr)1, 4, (hulk_intptr)1);
             node->field_04 = x;
         }
         r->FUN_00266be0();
@@ -1311,9 +1311,9 @@ Float2Channel_28c7e0 * __stdcall FUN_0028c7e0(Reader *r, unsigned unused, Parent
     unsigned a;
     Float2Channel_28c7e0 *node;
 
-    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&x), (hulk_intptr)1, 4, (hulk_intptr)1);
-    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&a), (hulk_intptr)1, 4, (hulk_intptr)1);
-    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&x), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&x), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&a), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&x), (hulk_intptr)1, 4, (hulk_intptr)1);
 
     if (parent == 0) {
         void *mem = FUN_0008d690((int)sizeof(Float2Channel_28c7e0));
@@ -1328,13 +1328,13 @@ Float2Channel_28c7e0 * __stdcall FUN_0028c7e0(Reader *r, unsigned unused, Parent
     }
 
     node->field_08 = a;
-    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(node->field_14), (hulk_intptr)x, 2, (hulk_intptr)1);
-    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(node->field_18), (hulk_intptr)(x * 2), 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(node->field_14), (hulk_intptr)x, 2, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(node->field_18), (hulk_intptr)(x * 2), 4, (hulk_intptr)1);
 
     while (r->FUN_002669f0()) {
         if ((char *)r->FUN_00266a30() == ((char*)0x00121110)) {
-            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&parent), (hulk_intptr)1, 4, (hulk_intptr)1);
-            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&x), (hulk_intptr)1, 4, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&parent), (hulk_intptr)1, 4, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&x), (hulk_intptr)1, 4, (hulk_intptr)1);
             node->field_04 = x;
         }
         r->FUN_00266be0();
@@ -1354,13 +1354,13 @@ Obj_28c910 *__stdcall FUN_0028c910(Arg1_28c910 a1, int a2, Arg3_28c910 a3) {
     int id;
     switch (r->FUN_00266c30()) {
     case 0x121102:
-        ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&a1.id), (hulk_intptr)1, 4, (hulk_intptr)1);
-        ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.l1c), (hulk_intptr)1, 4, (hulk_intptr)1);
-        ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&a1.count16), (hulk_intptr)1, 2, (hulk_intptr)1);
+        ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&a1.id), (hulk_intptr)1, 4, (hulk_intptr)1);
+        ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.l1c), (hulk_intptr)1, 4, (hulk_intptr)1);
+        ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&a1.count16), (hulk_intptr)1, 2, (hulk_intptr)1);
         {
             int s = a1.count16;
-            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.l20), (hulk_intptr)3, 4, (hulk_intptr)1);
-            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&a1.id), (hulk_intptr)1, 4, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.l20), (hulk_intptr)3, 4, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&a1.id), (hulk_intptr)1, 4, (hulk_intptr)1);
             id = a1.id;
             ObjA_28c910 *o;
             if (a3.obj == 0) {
@@ -1378,21 +1378,21 @@ Obj_28c910 *__stdcall FUN_0028c910(Arg1_28c910 a1, int a2, Arg3_28c910 a3) {
             o->field1c = f.l20;
             o->field20 = f.l24;
             o->field24 = f.l28;
-            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(o->data14), (hulk_intptr)id, 2, (hulk_intptr)1);
-            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(o->data28), (hulk_intptr)id, 4, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(o->data14), (hulk_intptr)id, 2, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(o->data28), (hulk_intptr)id, 4, (hulk_intptr)1);
             obj = o;
         }
         break;
     case 0x121103:
-        ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&a1.id), (hulk_intptr)1, 4, (hulk_intptr)1);
-        ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.l10), (hulk_intptr)1, 4, (hulk_intptr)1);
-        ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&a1.count16), (hulk_intptr)1, 2, (hulk_intptr)1);
+        ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&a1.id), (hulk_intptr)1, 4, (hulk_intptr)1);
+        ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.l10), (hulk_intptr)1, 4, (hulk_intptr)1);
+        ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&a1.count16), (hulk_intptr)1, 2, (hulk_intptr)1);
         {
             int s = a1.count16;
-            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.l14), (hulk_intptr)1, 4, (hulk_intptr)1);
-            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.l18), (hulk_intptr)1, 4, (hulk_intptr)1);
-            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.l1c), (hulk_intptr)1, 4, (hulk_intptr)1);
-            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&a1.id), (hulk_intptr)1, 4, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.l14), (hulk_intptr)1, 4, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.l18), (hulk_intptr)1, 4, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.l1c), (hulk_intptr)1, 4, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&a1.id), (hulk_intptr)1, 4, (hulk_intptr)1);
             id = a1.id;
             Vector2DOFChannel_28c910 *o;
             if (a3.obj == 0) {
@@ -1410,15 +1410,15 @@ Obj_28c910 *__stdcall FUN_0028c910(Arg1_28c910 a1, int a2, Arg3_28c910 a3) {
             o->field1c = f.l14;
             o->field20 = f.l18;
             o->field24 = f.l1c;
-            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(o->data14), (hulk_intptr)id, 2, (hulk_intptr)1);
-            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(o->data28), (hulk_intptr)(id * 2), 4, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(o->data14), (hulk_intptr)id, 2, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(o->data28), (hulk_intptr)(id * 2), 4, (hulk_intptr)1);
             obj = o;
         }
         break;
     case 0x121104:
-        ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&a1.id), (hulk_intptr)1, 4, (hulk_intptr)1);
-        ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.l10), (hulk_intptr)1, 4, (hulk_intptr)1);
-        ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&a1.id), (hulk_intptr)1, 4, (hulk_intptr)1);
+        ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&a1.id), (hulk_intptr)1, 4, (hulk_intptr)1);
+        ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.l10), (hulk_intptr)1, 4, (hulk_intptr)1);
+        ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&a1.id), (hulk_intptr)1, 4, (hulk_intptr)1);
         {
             id = a1.id;
             Vector3DOFChannel_28c910 *o;
@@ -1433,8 +1433,8 @@ Obj_28c910 *__stdcall FUN_0028c910(Arg1_28c910 a1, int a2, Arg3_28c910 a3) {
                     o = o->FUN_0028bf20(id, a3.obj);
             }
             o->field8 = f.l10;
-            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(o->data14), (hulk_intptr)id, 2, (hulk_intptr)1);
-            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(o->data18), (hulk_intptr)(id * 3), 4, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(o->data14), (hulk_intptr)id, 2, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(o->data18), (hulk_intptr)(id * 3), 4, (hulk_intptr)1);
             obj = o;
         }
         break;
@@ -1443,8 +1443,8 @@ Obj_28c910 *__stdcall FUN_0028c910(Arg1_28c910 a1, int a2, Arg3_28c910 a3) {
     }
     while (r->FUN_002669f0()) {
         if (r->FUN_00266a30() == 0x121110) {
-            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&a1.id), (hulk_intptr)1, 4, (hulk_intptr)1);
-            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&a3.value), (hulk_intptr)1, 4, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&a1.id), (hulk_intptr)1, 4, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&a3.value), (hulk_intptr)1, 4, (hulk_intptr)1);
             obj->field4 = a3.value;
         }
         r->FUN_00266be0();
@@ -1484,16 +1484,16 @@ Result_28cd80* __stdcall FUN_0028cd80(Context* context, unsigned unused, Pool_28
 // FUN_0028ceb0 @ 0x0028ceb0
 BoolChannel_28ceb0* __stdcall FUN_0028ceb0(Owner_28ceb0* owner, unsigned unused, Pool_28ceb0* pool) {
  unsigned count; unsigned value;
- ((owners::X_2647e0 *)(owner->stream))->FUN_002647e0((hulk_intptr)(&count), (hulk_intptr)1, 4, (hulk_intptr)1);
- ((owners::X_2647e0 *)(owner->stream))->FUN_002647e0((hulk_intptr)(&value), (hulk_intptr)1, 4, (hulk_intptr)1);
- ((owners::X_2647e0 *)(owner->stream))->FUN_002647e0((hulk_intptr)(&count), (hulk_intptr)1, 2, (hulk_intptr)1);
+ ((owners::X_2647e0 *)(owner->stream))->FUN_002647e0((void*)(&count), (hulk_intptr)1, 4, (hulk_intptr)1);
+ ((owners::X_2647e0 *)(owner->stream))->FUN_002647e0((void*)(&value), (hulk_intptr)1, 4, (hulk_intptr)1);
+ ((owners::X_2647e0 *)(owner->stream))->FUN_002647e0((void*)(&count), (hulk_intptr)1, 2, (hulk_intptr)1);
  bool active = (unsigned short)count == 1;
- ((owners::X_2647e0 *)(owner->stream))->FUN_002647e0((hulk_intptr)(&count), (hulk_intptr)1, 4, (hulk_intptr)1);
+ ((owners::X_2647e0 *)(owner->stream))->FUN_002647e0((void*)(&count), (hulk_intptr)1, 4, (hulk_intptr)1);
  BoolChannel_28ceb0* storage = (BoolChannel_28ceb0*)(pool ? ((void *)((owners::C_2888c0 *)pool)->FUN_002888c0((int)sizeof(BoolChannel_28ceb0), 7)) : FUN_0008d690((int)sizeof(BoolChannel_28ceb0)));
  BoolChannel_28ceb0* result = storage ? storage->FUN_0028c370(count+1,pool) : 0;
  unsigned short* destination = result->entries + 1;
  result->value = value;
- ((owners::X_2647e0 *)(owner->stream))->FUN_002647e0((hulk_intptr)destination, (hulk_intptr)count, 2, (hulk_intptr)1);
+ ((owners::X_2647e0 *)(owner->stream))->FUN_002647e0((void*)destination, (hulk_intptr)count, 2, (hulk_intptr)1);
  result->entries[0] = 0xffff;
  unsigned total = count+1;
  for(unsigned i=0;i<total;++i) {
@@ -1514,9 +1514,9 @@ ColourChannel_28cfd0 * __stdcall FUN_0028cfd0(Reader *r, unsigned unused, Parent
     unsigned a;
     ColourChannel_28cfd0 *node;
 
-    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&x), (hulk_intptr)1, 4, (hulk_intptr)1);
-    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&a), (hulk_intptr)1, 4, (hulk_intptr)1);
-    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&x), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&x), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&a), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&x), (hulk_intptr)1, 4, (hulk_intptr)1);
 
     if (parent == 0) {
         void *mem = FUN_0008d690((int)sizeof(ColourChannel_28cfd0));
@@ -1531,13 +1531,13 @@ ColourChannel_28cfd0 * __stdcall FUN_0028cfd0(Reader *r, unsigned unused, Parent
     }
 
     node->field_08 = a;
-    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(node->field_14), (hulk_intptr)x, 2, (hulk_intptr)1);
-    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(node->field_18), (hulk_intptr)x, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(node->field_14), (hulk_intptr)x, 2, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(node->field_18), (hulk_intptr)x, 4, (hulk_intptr)1);
 
     while (r->FUN_002669f0()) {
         if ((char *)r->FUN_00266a30() == ((char*)0x00121110)) {
-            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&parent), (hulk_intptr)1, 4, (hulk_intptr)1);
-            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&x), (hulk_intptr)1, 4, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&parent), (hulk_intptr)1, 4, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&x), (hulk_intptr)1, 4, (hulk_intptr)1);
             node->field_04 = x;
         }
         r->FUN_00266be0();

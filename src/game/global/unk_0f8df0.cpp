@@ -256,9 +256,9 @@ U_f95e0 C_f95e0::g() {
 // sym: ?Fn@Owner_f9600@fn_f696183f@@QAEHH@Z
 hulk_intptr Owner_f9600::Fn(hulk_intptr p) {
     unsigned char tmp[4];
-    ((owners::X_2647e0 *)sub)->FUN_002647e0((hulk_intptr)((char*)tmp + 3), (hulk_intptr)1, 1, (hulk_intptr)1);
+    ((owners::X_2647e0 *)sub)->FUN_002647e0((void*)((char*)tmp + 3), (hulk_intptr)1, 1, (hulk_intptr)1);
     unsigned int n = tmp[3];
-    ((owners::X_2647e0 *)sub)->FUN_002647e0((hulk_intptr)((char*)p), (hulk_intptr)n, 1, (hulk_intptr)1);
+    ((owners::X_2647e0 *)sub)->FUN_002647e0((void*)((char*)p), (hulk_intptr)n, 1, (hulk_intptr)1);
     *((char*)p + n) = 0;
     return p;
 }
@@ -267,7 +267,7 @@ hulk_intptr Owner_f9600::Fn(hulk_intptr p) {
 // 0x000f9650 FUN_000f9650 (31 B): matches/0x000f9650.cpp
 // sym: ?Target@Obj_f9650@fn_f696183f@@QAEXHHH@Z
 void Obj_f9650::Target(hulk_intptr a, hulk_intptr b, int c) {
-    ((owners::X_2647e0 *)p)->FUN_002647e0((hulk_intptr)a, (hulk_intptr)b, c, (hulk_intptr)1);
+    ((owners::X_2647e0 *)p)->FUN_002647e0((void*)a, (hulk_intptr)b, c, (hulk_intptr)1);
 }
 
 } // namespace fn_f696183f

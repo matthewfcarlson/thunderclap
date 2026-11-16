@@ -17,14 +17,14 @@ namespace fn_fc71db16 {} using namespace fn_fc71db16;
 namespace fn_fc71db16 {
 void *__cdecl FUN_0008d690(unsigned int size);
 struct Stream {
-    int FUN_002647e0(void *buf, int count, int size, int flag);
+    HULK_TYPE64(int, bool) FUN_002647e0(void *buf, int count, int size, int flag);
 };
 class Reader {
 public:
     char pad0[0x284];
     Stream *stream;
-    char FUN_002669f0();
-    hulk_intptr FUN_00266a30();
+    HULK_TYPE64(char, bool) FUN_002669f0();
+    int FUN_00266a30();   // (x64t15) i32 as defined (natively a hulk_intptr result did not bind)
     int FUN_00266c30();
     void FUN_00266be0();
 };

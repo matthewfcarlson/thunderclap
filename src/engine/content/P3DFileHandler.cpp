@@ -47,7 +47,7 @@ struct State_265c40 {
 extern "C" void __cdecl thunk_FUN_00267090_a(void*);
 extern "C" void __cdecl thunk_FUN_00267090_b(void*);
 void* __cdecl FUN_00263ed0(unsigned int size, int flag);
-hulk_intptr __cdecl FUN_00266da0(hulk_intptr heap);   // (x64t14) the heap pointer (unk_266950.cpp: void*; pointer-sized natively)
+int __cdecl FUN_00266da0(int heap);   // (x64t15) the heap id, as defined (unk_266950.cpp)
 struct Ctx_265cd0;
 struct Cache_265cd0;
 struct LoadInventory_265cd0;
@@ -72,17 +72,13 @@ struct LoadInventory_265cd0 {
 };
 // (x64t14) 0x002669f0 returns eax 0 / 1 (unk_266950.cpp: unsigned int); the original tests al. The 64-bit builds
 // declare the definition's type (a bool is another IR signature: the call did not bind), the 32-bit ones keep `bool`.
-#if defined(HULK_PTR64)
-typedef unsigned int Ret_2669f0;
-#else
-typedef bool Ret_2669f0;
-#endif
+typedef bool Ret_2669f0;   // (x64t15) as the 64-bit definition returns it (unk_266950.cpp)
 // (x64t14) the chunk reader on records.h ContentChunkReader (natively 0x290 bytes: was a 0x288-byte pad)
 struct Reader : ContentChunkReader {
     Reader* FUN_00266cb0(Res_265cd0* stream);
     void FUN_002669d0(Ctx_265cd0* ctx);
     Ret_2669f0 FUN_002669f0();
-    hulk_intptr FUN_00266a30();
+    int FUN_00266a30();   // (x64t15) i32 as defined (unk_266950.cpp; a hulk_intptr result did not bind natively)
     int FUN_00266c30();
     void FUN_00266be0();
     void FUN_002669c0();
@@ -228,7 +224,7 @@ void P3DFileHandler::vfunc_3(Ctx_265cd0* ctx, Cache_265cd0* cache)
     ((Ref_265cd0*)res)->AddRef();
     if (listener != 0)
         listener->v0(ctx, res->FUN_00263fb0());
-    hulk_intptr old = FUN_00266da0(1);
+    int old = FUN_00266da0(1);
     void* mem2 = FUN_00263ed0(HULK_LOADINVENTORY_SIZE, 1);
     LoadInventory_265cd0* stream = 0;
     if (mem2 != 0)
