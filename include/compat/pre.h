@@ -10,7 +10,11 @@
 //     <function>: <condition>" to stderr (fd 2, a raw write system call on the 64-bit Linux / Android / macOS builds: no
 //     library call; the Wine build has none and only traps), keeps the two strings where a debugger or a crash dump shows
 //     them, and executes a trap instruction: the run stops with a backtrace where the contract broke.
-// A block that uses them carries the matching `// pre: notnan(...)` annotation, and an annotation needs them
+// HULK_PRE_DEFNAN(x) / HULK_PRE_DEFNAN_N(p, n) (integ2, D65): any NaN among them is the default NaN 0xffc00000 (the x87
+// indefinite, SSE's default NaN). The game does pass the default NaN (play3 frame 37080: a matrix whose rotation is all
+// 0xffc00000 reaches FUN_0022ca90); with that NaN as the only one, x87 and SSE hand on the same bits. Only another NaN
+// traps; the test is on the bits (no float load).
+// A block that uses them carries the matching `// pre: notnan(...)` / `// pre: defnan(...)` annotation, and an annotation needs them
 // (tools/equiv.py refuses either without the other; it repairs violating inputs and checks the trap per contract word).
 // Include this header in the TU that uses it (not from common.h: MSVC 7.1's code for some functions depends on how
 // many declarations precede them, docs/merge-once.md hash3; this header declares nothing under MSVC).
@@ -59,11 +63,32 @@ static inline void hulk_pre_notnan_n(const float* p, int n, const char* fn, cons
         if (__builtin_isnan(p[i]))
             hulk_pre_fail(fn, what);
 }
+static inline int hulk_pre_otherNaN(unsigned int u) {
+    return (u & 0x7fffffffu) > 0x7f800000u && u != 0xffc00000u;
+}
+static inline void hulk_pre_defnan_n(const void* p, int n, const char* fn, const char* what) {
+    for (int i = 0; i < n; ++i) {
+        unsigned int u;
+        __builtin_memcpy(&u, (const char*)p + 4 * i, 4);
+        if (hulk_pre_otherNaN(u))
+            hulk_pre_fail(fn, what);
+    }
+}
+static inline void hulk_pre_defnan1(float x, const char* fn, const char* what) {
+    unsigned int u;
+    __builtin_memcpy(&u, &x, 4);
+    if (hulk_pre_otherNaN(u))
+        hulk_pre_fail(fn, what);
+}
 #define HULK_PRE_NOTNAN(x) (__builtin_isnan(x) ? hulk_pre_fail(__func__, "notnan(" #x ")") : (void)0)
 #define HULK_PRE_NOTNAN_N(p, n) hulk_pre_notnan_n((const float*)(p), (n), __func__, "notnan(" #p "[0.." #n "])")
+#define HULK_PRE_DEFNAN(x) hulk_pre_defnan1((x), __func__, "defnan(" #x ")")
+#define HULK_PRE_DEFNAN_N(p, n) hulk_pre_defnan_n((const void*)(p), (n), __func__, "defnan(" #p "[0.." #n "])")
 #else
 #define HULK_PRE_NOTNAN(x) ((void)0)
 #define HULK_PRE_NOTNAN_N(p, n) ((void)0)
+#define HULK_PRE_DEFNAN(x) ((void)0)
+#define HULK_PRE_DEFNAN_N(p, n) ((void)0)
 #endif
 
 #endif

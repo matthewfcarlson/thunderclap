@@ -792,6 +792,20 @@ CASES = {
     # (rev5, D54 re-review) _over64: b's contract words come after the trap check's first 64 (all of a, which the macro
     # checks); b is repaired but never trap-checked and the macro skips it. Must fail (refused or pre_trap_missing)
     "0x0022ca90_native_pre_over64": ("fail", None, 0, {"native": True, "n_inputs": 300}),
+    # (integ2, D65) `// pre: defnan(...)` with HULK_PRE_DEFNAN: any NaN is the default NaN 0xffc00000. The checker gives
+    # other NaNs a finite value or the default NaN, plants the default NaN in one input of four, and per word checks
+    # that another NaN traps and that the default NaN computes as the original. _msvc: MSVC mode (nothing repaired).
+    # Must fail: _notnanmacro (a notnan macro under a defnan contract: refused at level 2), _overtrap (a hand trap on
+    # any NaN: the default-NaN word check), _nanbranch (ours stores otherwise on a NaN), _partial (element 0 only
+    # checked), _off (the contract ignored: the fuzzed NaNs that trap are not repaired)
+    "0x0022ca90_native_defnan": ("equivalent", None, 0, {"native": True, "n_inputs": 1000}),
+    "0x0022ca90_native_defnan_msvc": ("equivalent", None, 0, {"src": "0x0022ca90_native_defnan", "n_inputs": 1000}),
+    "0x0022ca90_native_defnan_notnanmacro": ("fail", "L2 pre_without_trap", 0, {"native": True, "n_inputs": 200}),
+    "0x0022ca90_native_defnan_overtrap": ("fail", "pre_trap_missing", 0, {"native": True, "n_inputs": 300}),
+    "0x0022ca90_native_defnan_nanbranch": ("fail", None, 0, {"native": True, "n_inputs": 300}),
+    "0x0022ca90_native_defnan_partial": ("fail", "pre_trap_missing", 0, {"native": True, "n_inputs": 300}),
+    "0x0022ca90_native_defnan_off": ("fail", "ours fault", 0, {"src": "0x0022ca90_native_defnan", "native": True,
+                                                               "n_inputs": 1000, "equiv_off": "pre"}),
     # (rev3, D39 review) an int -2 where the original stores -1 (both qNaN-shaped as floats): a difference
     "0x0021e080_native_nanpayload_int": ("fail", "(0xfffffffe, expected 0xffffffff)", 0, {"native": True, "n_inputs": 300}),
     # (wine1) the difference at seed 11 is `f_text[f_n] = 0` with a fuzzed f_n beyond the whole stack, where each frame layout puts

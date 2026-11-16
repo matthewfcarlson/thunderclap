@@ -1371,6 +1371,14 @@ inconclusive and its main causes; such a block stays unproven (never relabelled)
 compared as few as 56 (0x002ee9a0). `EQUIV_OFF=proofcap` restores the stop. Case `0x0021a3e0_proofcap` (luaH newkey,
 whose fuzzed tables time out on about 1 input in 6: 535 drawn and 442 compared before; it must now compare 3,000).
 
+(integ2, `proofdraw`; user decision D69) **Past 10,000 draws for inputs that time out.** When a proof-sized run has drawn
+`PROOF_DRAW_LIMIT` inputs and compared fewer than it asked for, and at least three in four of the inputs that did not
+compare ran out of steps (a `timeout` status, or a runaway the loop repair set aside; inconclusive inputs of other kinds
+count against it), it draws on to `drawn * needed / compared` plus a tenth, at most `PROOF_DRAW_CAP` (30,000).
+`level3.proofdraw` reports where it started, the compared count then and the new limit. Only more inputs: every input
+is compared as before, and a proof still needs 3,000 COMPARED. Blocks whose rate is under 1 in 10 (0x002a2200: 631 of
+10,000; 0x002155f0: 582; 0x0024a280: 430) stay short at the cap. `EQUIV_OFF=proofdraw` stops at 10,000.
+
 (integ1, D54) **Preconditions: `// pre:` and HULK_PRE_NOTNAN.** NOT ADOPTED until the review's changes are re-reviewed
 (rev5 signed off with changes on 2ed1ec7e6; the changes below are its items).
 Where the original's code and the Wine/native builds can only differ on inputs the game must never pass (a NaN operand:
@@ -1409,6 +1417,21 @@ checked in part). Refused at level 2: an annotation without HULK_PRE_NOTNAN in t
   `_nopre`, `_wrong`, `_off`, and rev5's `_partial` (element 0 checked of 16: pre_trap_missing) and `_msvc_hidden`
   (`_msvc_hidden_off` shows the difference is reachable), `_over64` (b's words past the first 64).
 - Not done: other conditions (finite, range).
+- (integ2, D65, user decision: option b) **`defnan`: any NaN is the default NaN 0xffc00000.** The game does pass NaNs to
+  the matrix blocks (play3 frame 37080: slot 24 of FUN_0027f2a0's render table hands FUN_0022ca90 a matrix whose 3x3
+  rotation is all 0xffc00000, the x87 indefinite), so `notnan` trapped the Wine build there. With the default NaN as the
+  only NaN, x87 and SSE hand on the same bits (a NaN meeting the same NaN, or a generated NaN, which both make
+  0xffc00000). `HULK_PRE_DEFNAN(x)` / `HULK_PRE_DEFNAN_N(p, n)` trap only on another NaN (a test on the bits: no float
+  load); MSVC 7.1: nothing. Annotation `defnan(LOC)` (floats only). The checker (`--wine`): a contract word holding another
+  NaN gets a finite value or the default NaN (by the seed), and one input in four gets the default NaN in one contract
+  word (`level3.inputs_defnan_planted`), so the contract's NaN is compared, not only repaired away. The trap check plants
+  another NaN (0x7fc00000) in every word (must trap), and also the default NaN (must not trap and must compute as the
+  original: `pre_defnan_words`); either failing fails the block (`pre_trap_missing`). Level 2 wants, per condition named,
+  its own macro: a notnan macro under a defnan contract traps on the allowed NaN (`pre_without_trap`, and
+  `trap_without_pre` for the stray macro). Cases `0x0022ca90_native_defnan` (equivalent, `_msvc`), must-fail
+  `_notnanmacro`, `_overtrap` (a hand trap on any NaN in a->m[1][1]), `_nanbranch` (ours stores 1.0 on a NaN),
+  `_partial`, `_off`. Used by 0x0022ca90, 0x0022cc10, 0x0022cdb0, 0x00308ba0 (NOT ADOPTED until an independent review
+  signs it off).
 
 (integ1, D39, `nanpayload`) **Dropped (user decision D50, 2026-11-15).** A rule to set aside quiet-NaN words that differ
 only in payload (x87 hands on the larger significand when two NaNs meet, SSE the first operand) was written (a07ba065a),
