@@ -1166,3 +1166,23 @@ blocks fight::Action's whole family: the records come first there.
   nothing new past 10,000: their inputs need a model, not draws.
 - **selfnarrow**: natnarrow skipped the function's own recursive calls (the self-call is not among our relocations'
   callees); 0x0030a9d0 now passes --wine at 3,000.
+
+## 2026-11-16 x64t17: TextureBuilder and d3dTexture on records (D76)
+
+- **A source-local polymorphic stand-in for a game object the code constructs gets clang's vftable natively, sized
+  by the stand-in's declared virtuals.** The image factories' five TextureBuilder stand-ins each had 1 to 11 slots; the
+  PNG reader called slot 10 and jumped into whatever followed the short table. Constructing the object as a
+  non-polymorphic record with the game's vftable stored by address (`init()`) makes every caller, whatever its view,
+  reach the game's slots, which the native link binds to the tree's definitions; the definitions then must not be
+  virtual members of yet another local class (they are record-derived structs' plain members, named as before but `Q`).
+- **A local stand-in base whose constructor is only declared** (`d3dBase();`, `pddiObject() throw();`) is an unbound
+  name natively: the Wine build binds it by relocation position, the native link has no address in the name. The fix
+  is the record plus the base constructor by its address name (`HulkD3dTexture* FUN_0031bac0();`), as x64t5 did for
+  d3dDisplay.
+- **An overload set split by `int` / `unsigned int` (FUN_0008d690 in d3dDevice.cpp) is ambiguous natively for a
+  `sizeof` argument** (size_t is unsigned long): cast the argument to the overload the 32-bit object called.
+- **A changed gen layout changes the checker view of blocks that never touch the class** (0x00320d30's view moved with
+  gen d3dTexture's fields although its code did not): budget re-proofs for every view a gen edit reaches (the
+  whole-tree check lists them).
+- 0x003821c0 is the next missing XDK function (the game's Get2DSurfaceDesc, D3DTexture_GetLevelDesc); the native D3D
+  shim creates no textures (CreateTexture2 returns 0), so the native image's textures are empty until it does.

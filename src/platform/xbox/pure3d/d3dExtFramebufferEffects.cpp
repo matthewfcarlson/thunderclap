@@ -8,6 +8,7 @@
 #include "decls/data/platform/xbox/pure3d.h"
 #include "gen/owners.h"
 #include "gen/pure3d.h"
+#include "decls/pddi_texture.h"
 #define TREE_TU_BEGIN namespace fn_f57e27cb {
 #define TREE_TU_END }
 namespace fn_f57e27cb {} using namespace fn_f57e27cb;
@@ -664,15 +665,15 @@ struct Surface_3226d0 {
     unsigned int common;
 };
 struct Ctx_3226d0;
-struct HeapObj {
-    static void* operator new(size_t size) HULK_NEW_THROW;
-};
-class d3dTexture_3226d0 : public HeapObj {
+// (x64t17) the texture (decls/pddi_texture.h HulkD3dTexture) through its slots, and its constructor 0x00326110 by
+// its address name on the record (the local class's constructor and operator new had no definitions natively)
+class d3dTexture_3226d0 {
   public:
-    d3dTexture_3226d0(Ctx_3226d0* ctx, int arg) throw();
     virtual void v0();
     void FUN_00326300(Surface_3226d0* s);
-    char pad4[0xf8 - 4];
+};
+struct d3dTextureRec_3226d0 : HulkD3dTexture {
+    d3dTexture_3226d0* FUN_00326110(Ctx_3226d0* ctx, void* resource);
 };
 class ShaderObj_3226d0 {
   public:
@@ -3826,7 +3827,7 @@ void pure3d::d3dExtFramebufferEffects::vfunc_2() {
 namespace fn_f57e27cb {
 
 // 0x003226d0 FUN_003226d0 (696 B): equivalent/0x003226d0.cpp
-// sym: ?Draw@Overlay@fn_f57e27cb@@QAEXXZ @303fb9133d34 @w89099d249021 @ve4d77c7b4134
+// sym: ?Draw@Overlay@fn_f57e27cb@@QAEXXZ @3cb2a9b7a025 @w8dd0da1c5f66 @v55406942d93f
 // STATUS: equivalent (tools/equiv.py level 3: 18904 inputs, branch coverage 6/6)
 // FUN_003226d0 @ 0x003226d0
 void Overlay::Draw() {
@@ -3834,7 +3835,8 @@ void Overlay::Draw() {
         return;
     if (shader == 0) {
         shader = ctx->factory->CreateShader("simple", 0);
-        tex = new d3dTexture_3226d0(ctx, 0);
+        d3dTextureRec_3226d0* mem = (d3dTextureRec_3226d0*)FUN_0008d690(sizeof(HulkD3dTexture));
+        tex = mem ? mem->FUN_00326110(ctx, 0) : 0;
         shader->v0();
         tex->v0();
         shader->SetTexture(0x584554, tex);
@@ -3897,7 +3899,7 @@ void Overlay::Draw() {
 } // namespace fn_f57e27cb
 
 // 0x00322990 FUN_00322990 (821 B): equivalent/0x00322990.cpp [wrapped: conflict: Overlay]
-// sym: ?Draw@Overlay@fn_00322990@@QAEXXZ @a9bc73cdad02 @w84174b1aed64 @vbbdb09dac5e8
+// sym: ?Draw@Overlay@fn_00322990@@QAEXXZ @7ce37d70cd36 @w9584f5b54a47 @v1e5b9cb0224c
 namespace fn_00322990 {
 // STATUS: equivalent (tools/equiv.py level 3: 18262 inputs, branch coverage 11/12, incomplete)
 // FUN_00322990 @ 0x00322990
@@ -3909,15 +3911,15 @@ struct Surface_322990 {
     unsigned int common;
 };
 struct Ctx_322990;
-struct HeapObj {
-    static void* operator new(size_t size) HULK_NEW_THROW;
-};
-class d3dTexture_322990 : public HeapObj {
+// (x64t17) the texture (decls/pddi_texture.h HulkD3dTexture) through its slots, and its constructor 0x00326110 by
+// its address name on the record (the local class's constructor and operator new had no definitions natively)
+class d3dTexture_322990 {
   public:
-    d3dTexture_322990(Ctx_322990* ctx, int arg) throw();
     virtual void v0();
     void FUN_00326300(Surface_322990* s);
-    char pad4[0xf8 - 4];
+};
+struct d3dTextureRec_322990 : HulkD3dTexture {
+    d3dTexture_322990* FUN_00326110(Ctx_322990* ctx, void* resource);
 };
 class ShaderObj_322990 {
   public:
@@ -4045,7 +4047,8 @@ void Overlay::Draw() {
         return;
     if (shader == 0) {
         shader = ctx->factory->CreateShader("simple", 0);
-        tex = new d3dTexture_322990(ctx, 0);
+        d3dTextureRec_322990* mem = (d3dTextureRec_322990*)FUN_0008d690(sizeof(HulkD3dTexture));
+        tex = mem ? mem->FUN_00326110(ctx, 0) : 0;
         shader->v0();
         tex->v0();
         shader->SetTexture(0x584554, tex);
@@ -4265,7 +4268,7 @@ result = (curve < 1.0f ? curve : 1.0f) * scale;
 // sym: ?vfunc_1@d3dExtFrameBufferTexture@pure3d@@UAEPAXH@Z
 void* pure3d::d3dExtFrameBufferTexture::vfunc_1(int param) {
     if (!(*(Obj_323be0 * *)&this->f_08)) {
-        Obj_323be0* p = (Obj_323be0*)FUN_0008d690(0xf8);
+        Obj_323be0* p = (Obj_323be0*)FUN_0008d690(sizeof(HulkD3dTexture));   // (x64t17) the texture's record
         Obj_323be0* r;
         if (p)
             r = p->Create((*(void * *)&this->f_04), 0);

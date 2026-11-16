@@ -6,6 +6,7 @@
 #include "decls/data/platform/xbox/pure3d.h"
 #include "gen/owners.h"
 #include "gen/pure3d.h"
+#include "decls/pddi_texture.h"
 #define TREE_TU_BEGIN namespace fn_f721c355 {
 #define TREE_TU_END }
 namespace fn_f721c355 {} using namespace fn_f721c355;
@@ -563,7 +564,7 @@ d3dRefractVertexShader::d3dRefractVertexShader(void* arg) : FUN_00333520(arg) {
     field88 = 10.0f;
     field8c = 1.0f;
     field90 = -1;
-    d3dTexture_32f2e0* allocation = (d3dTexture_32f2e0*)FUN_0008d690(248);
+    d3dTexture_32f2e0* allocation = (d3dTexture_32f2e0*)FUN_0008d690(sizeof(HulkD3dTexture));   // (x64t17) the record
     if (allocation) resource = allocation->FUN_00326110(owner, 0);
     else resource = 0;
 }

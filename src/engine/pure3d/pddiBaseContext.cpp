@@ -8,6 +8,7 @@
 #include "decls/data/records.h"
 #include "gen/owners.h"
 #include "gen/pure3d.h"
+#include "decls/pddi_texture.h"
 #define TREE_TU_BEGIN namespace fn_fc049dac {
 #define TREE_TU_END }
 #define TREE_LOCAL_CAction
@@ -53,20 +54,12 @@ struct FormatDesc_31c570 {
     int width;
     int height;
 };
+// (x64t17) D3DLOCKED_RECT (the bits a pointer) and the texture's lock record (decls/pddi_texture.h HulkPixelLock)
 struct Surface_31c570 {
     int pitch;
-    int bits;
+    unsigned char* bits;
 };
-struct LevelDesc_31c570 {
-    int width;
-    int height;
-    int bytesPerPixel;
-    int depth;
-    char pad10[0x38];
-    int stride;
-    int slicePitch;
-    int bits;
-};
+typedef HulkPixelLock LevelDesc_31c570;
 extern "C" int FUN_0031c180(int format);
 extern "C" void __cdecl FUN_0031c290(unsigned int, void *);
 struct FormatDesc_31c600 {
@@ -76,21 +69,13 @@ struct FormatDesc_31c600 {
     int height;
     int depth;
 };
+// (x64t17) D3DLOCKED_BOX (the bits a pointer) and the texture's lock record (decls/pddi_texture.h HulkPixelLock)
 struct Surface_31c600 {
     int pitch;
     int slicePitch;
-    int bits;
+    unsigned char* bits;
 };
-struct LevelDesc_31c600 {
-    int width;
-    int height;
-    int bytesPerPixel;
-    int depth;
-    char pad10[0x38];
-    int stride;
-    int slicePitch;
-    int bits;
-};
+typedef HulkPixelLock LevelDesc_31c600;
 extern void* pddiObject_31c780_vftable[];
 class pddiObject_31c780 {
   public:
@@ -492,11 +477,11 @@ struct Inner_31e0f0 {
 namespace fn_fc049dac {
 class Thing_31e1f0 {
   public:
-    virtual void Call(int, int);
+    virtual void Call(hulk_intptr, int);   // (x64t17) the texture (a pointer natively)
 };
 struct Obj_31e210 {
     virtual void f0();
-    virtual void f1(int);
+    virtual void f1(hulk_intptr);   // (x64t17) the texture
 };
 typedef unsigned int u32_31e230;
 extern void* stackVftable;
@@ -820,7 +805,7 @@ extern "C" void __cdecl FUN_0031c290(unsigned int format, void * out) {
 
 
 // 0x0031c570 FUN_0031c570 (134 B): equivalent/0x0031c570.cpp
-// sym: _FUN_0031c570 @0dfb454a85bf @wca3be01ab4b9 @vad61c3c71f00
+// sym: _FUN_0031c570 @0dfb454a85bf @w051296181015 @vad61c3c71f00
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // FUN_0031c570 @ 0x0031c570
 // Fills a 2D texture-level description from a format descriptor and an optional locked surface.
@@ -830,11 +815,11 @@ extern "C" void FUN_0031c570(const FormatDesc_31c570 *desc, const Surface_31c570
     out->width = desc->width;
     out->height = desc->height;
     out->depth = 1;
-    out->bytesPerPixel = FUN_0031c180(desc->format);
+    out->bitsPerPixel = FUN_0031c180(desc->format);
     if (surf) {
         int format = desc->format;
         if (flipped && format != 0xc && format != 0xe && format != 0xf) {
-            out->bits = (out->height - 1) * surf->pitch + surf->bits;
+            out->bits = surf->bits + (out->height - 1) * surf->pitch;
             out->stride = -surf->pitch;
         } else {
             out->bits = surf->bits;
@@ -846,7 +831,7 @@ extern "C" void FUN_0031c570(const FormatDesc_31c570 *desc, const Surface_31c570
 
 
 // 0x0031c600 FUN_0031c600 (121 B): equivalent/0x0031c600.cpp
-// sym: _FUN_0031c600 @da9ca860a4f2 @w16a8c49ee5b2 @va4879ed8a304
+// sym: _FUN_0031c600 @da9ca860a4f2 @wef7ac3a2f089 @va4879ed8a304
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // FUN_0031c600 @ 0x0031c600
 // Fills a texture-level description from a format descriptor and an optional locked surface.
@@ -856,11 +841,11 @@ extern "C" void FUN_0031c600(const FormatDesc_31c600 *desc, const Surface_31c600
     out->width = desc->width;
     out->height = desc->height;
     out->depth = desc->depth;
-    out->bytesPerPixel = FUN_0031c180(desc->format);
+    out->bitsPerPixel = FUN_0031c180(desc->format);
     if (surf) {
         int format = desc->format;
         if (flipped && format != 0xc && format != 0xe && format != 0xf) {
-            out->bits = (out->height - 1) * surf->pitch + surf->bits;
+            out->bits = surf->bits + (out->height - 1) * surf->pitch;
             out->stride = -surf->pitch;
         } else {
             out->bits = surf->bits;
@@ -2940,7 +2925,7 @@ namespace fn_fc049dac {
 // 0x0031e1f0 FUN_0031e1f0 (25 B): matches/0x0031e1f0.cpp
 // sym: _FUN_0031e1f0
 // data: gThing_31e1f0 = DAT_005554ac
-extern "C" void FUN_0031e1f0(int a, int b) {
+extern "C" void FUN_0031e1f0(hulk_intptr a, int b) {   // (x64t17) a: the texture (a pointer natively)
     if ((*(Thing_31e1f0**)&DAT_005554ac))
         (*(Thing_31e1f0**)&DAT_005554ac)->Call(a, b);
 }

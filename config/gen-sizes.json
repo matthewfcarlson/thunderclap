@@ -4001,7 +4001,7 @@
 "pure3d::d3dRefractVertexShader": 156,
 "pure3d::d3dSimpleShader": 148,
 "pure3d::d3dSpheremapVertexShader": 152,
-"pure3d::d3dTexture": 244,
+"pure3d::d3dTexture": 248,
 "pure3d::d3dToon2VertexShader": 220,
 "pure3d::d3dToonVertexShader": 236,
 "pure3d::d3dVertexProgram": 4,

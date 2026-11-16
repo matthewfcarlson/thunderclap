@@ -7,6 +7,7 @@
 #include "decls/data/game/unknown.h"
 #include "decls/data/platform/xbox/pure3d.h"
 #include "gen/pure3d.h"
+#include "decls/pddi_texture.h"
 #define TREE_TU_BEGIN namespace fn_f44f442a {
 #define TREE_TU_END }
 namespace fn_f44f442a {} using namespace fn_f44f442a;
@@ -409,7 +410,7 @@ void d3dToonVertexShader_330de0::Update() {
         GetDesc(s, &d);
         Release(s);
         int t = CreateTexture2(0x40, 1, 1, 1, 0, d.format, 3);
-        Obj_330de0* o = (Obj_330de0*)Alloc(0xf8);
+        Obj_330de0* o = (Obj_330de0*)Alloc(sizeof(HulkD3dTexture));   // (x64t17) the texture's record
         if (o)
             o = ((d3dTexture_nv_330de0*)(((pure3d::d3dTexture*)(((pure3d::d3dTexture*)o)))))->Build(m, t);
         else

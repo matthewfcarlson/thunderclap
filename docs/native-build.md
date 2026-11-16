@@ -5496,3 +5496,54 @@ view of four recursive blocks with narrow parameters (0x0030a9d0, 0x00306190, 0x
   local, offset) when both sides store an address inside a paired local; otherwise as now. 0x00265cd0's &f.reader
   is ecx of the reader calls before the store, so it is paired; 0x002ea010's `&extra` is not passed before it is
   stored (needs the pairing at the use instead). Not written.
+
+## x64t17: pure3d::TextureBuilder and pure3d::d3dTexture as records, their game vftables by address (2026-11-16)
+
+D76 (x64t16's stop) and the next stop it led to. Kit: build/x64t17/nat-b = a full mac compile of HEAD's clang-probe
+snapshot on the queue (scripts/nmfull.sh: the whole native_mac dir comes back, 99 s on studio's warm cache) plus
+x64t16's inc.sh / snaprep.py / augmap2.py; augmap3.py adds, for a declaration whose parameter types changed, the
+address the Wine map gives the old spelling (same qualified name), so a local relink binds it before the proof's map
+exists.
+
+**pure3d::TextureBuilder (D76).** include/decls/texture_builder.h HulkTextureBuilder (0x34 bytes on the 32-bit builds:
+the vftable, the texture, the palette, the locked level, the stride, the row pointer, rows, the mip level and the
+creation parameters alpha depth / mips / pddi format / usage / bit depth). The image factories 0x002aea70, 0x002aedd0,
+0x002aeec0, 0x002aef60 and 0x002af010 constructed five different local polymorphic stand-ins (natively each got
+clang's own vftable: the PNG reader's slot 10 call ran past its end); they construct the record now with `init()`,
+which stores the game's vftable 0x0042e154 by address, so the readers call the game's slots (the link's emitted game
+vftable, bound to the tree's definitions). Every view in TextureBuilder.cpp is the record: slot 0 0x002ae2b0 and slot 2
+0x002ae6c0 are members of record-derived structs (non-virtual: they are only reached through the game vftable), slot 4
+0x002ae880 returns the row pointer as a pointer, slot 5 0x002ae890 the word after the lock, slot 10 0x002ae820 is gen's
+member. gen/pure3d.h's TextureBuilder fields are typed as the record's (natively the same layout). Two native bugs the
+views hid: slot 1 0x002ae5a0 added the stride (negative for a bottom-up lock) to the row pointer as an `unsigned int`
+(natively 4 GB past the row), and slot 10 passed the mip level as a pointer from a field natively 8 bytes off.
+
+**The texture's lock and pure3d::d3dTexture.** include/decls/pddi_texture.h: HulkPixelLock (what slot 13 returns,
+0x54 bytes on the 32-bit builds, the bits pointer at +0x50 on both builds, as the SDL backend's bgfxTexture::LockInfo)
+and HulkD3dTexture (0xf8 bytes: pddiObject's three words, the context, the wrapped resource, the D3D texture / volume
+texture, D3DLOCKED_RECT / D3DLOCKED_BOX with pointer bits, the two level descriptions, the palette, the lock, and the
+getters' words). Every view in d3dTexture.cpp is the record: the constructors 0x00326110 / 0x00326b40 were local
+classes deriving from stand-ins whose constructors had no definition natively (`??0d3dBase@...`: the start-up's next
+stop); they are record members named by their addresses (they return this), call pddiObject's constructor by its
+address name (FUN_0031bac0) and store the game's vftable 0x004333ac by address. Create 0x00326330 / 0x003265f0 call
+slot 18 through a slots-only view; lock 0x00326900 / unlock 0x00326a10 / the palette slots 0x003268a0 / 0x003268d0 /
+the stage bind 0x00326b00 / the release 0x00326290 / 0x00326300 / the getters read pointer fields (the palette and the
+D3D handles were read through 32-bit words). gen's d3dTexture fields follow the record (an anonymous struct keeps the
+lock pointer-aligned natively; its 32-bit size is 248, as every allocation: config/gen-sizes.json). pddiBaseContext's
+level-description fillers 0x0031c570 / 0x0031c600 write the lock record (the bits a pointer, from a D3DLOCKED_RECT /
+BOX with pointer bits); 0x0031e1f0 / 0x0031e210 take the texture as hulk_intptr. The seven allocations of a texture
+(d3dDevice slot 9, d3dExtFramebufferEffects 0x003226d0 / 0x00322990 / 0x00323be0, d3dRefractVertexShader 0x0032f2e0,
+d3dToon2VertexShader 0x00330350 / 0x003303e0, d3dToonVertexShader 0x00330de0) say sizeof(HulkD3dTexture);
+0x003226d0 / 0x00322990 construct it through 0x00326110 (their local class's constructor and operator new had no
+definition natively).
+
+**Where macOS start-up stops now**: d3dTexture's Create 0x00326330 calls 0x003821c0, the function the game's sources
+call Get2DSurfaceDesc (XDK D3DTexture_GetLevelDesc; native_bind.NAME_RULE_EXCEPT keeps the name off row 0x0038abf0):
+the XDK shim has no row at that address (missing at run time). Next: a shim row for 0x003821c0 (and with it the
+D3D shim's textures: D3DDevice_CreateTexture2 returns 0 natively, so every texture's level is empty).
+
+**Landed** (two commits, proved together): Wine control 87246 / proof 87382 seeded from it (studio, play3 60000):
+GATE ok; whole-tree check --relocs 87358-87373; 17 blocks re-proved at 3,000 MSVC + --wine; x64 gate ok (0x003268d0
+improved, dropped from the baseline); native unbound 12407 / 12387 / 12398 -> 12395 / 12375 / 12386 (macOS / Linux /
+Android). A checker finding on the way: 0x00320d30's checker view depends on the host (its D3D callees bind `xdk` on
+the laptop and `paired` on mac2), so its `@v` reads "changed" on one host and ok on another with the same code.

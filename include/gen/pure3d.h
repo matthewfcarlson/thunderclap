@@ -4551,10 +4551,17 @@ public:
     virtual void vfunc_17(); // overrides pure3d::pddiTexture slot 17
     virtual void vfunc_18(unsigned int); // overrides pure3d::pddiTexture slot 18
     virtual unsigned int vfunc_19(); // overrides pure3d::pddiTexture slot 19
-    char _pad_0c[0x14];
-    int f_20;
-    char _pad_24[0x8];
-    int f_2c;
+    // (x64t17) the fields as decls/pddi_texture.h's HulkD3dTexture (the D3D handles and bits pointers; the lock is
+    // pointer-aligned natively)
+    void* f_0c; // the context
+    void* f_10; // a wrapped D3D resource
+    void* f_14; // the D3D texture
+    void* f_18; // the D3D volume texture
+    int f_1c;
+    unsigned char* f_20; // the locked rect's bits
+    int f_24;
+    int f_28;
+    unsigned char* f_2c; // the locked box's bits
     int f_30;
     char _pad_34[0x10];
     int f_44;
@@ -4564,30 +4571,33 @@ public:
     int f_5c;
     int f_60;
     int f_64;
-    void* f_68;
-    char _pad_6c[0x4];
-    int f_70;
-    int f_74;
-    int f_78;
-    int f_7c;
-    int f_80;
-    char f_84;
-    char _pad_85[0x3];
-    int f_88;
-    int f_8c;
-    int f_90;
-    int f_94;
-    int f_98;
-    int f_9c;
-    int f_a0;
-    int f_a4;
-    int f_a8;
-    int f_ac;
-    int f_b0;
-    int f_b4;
-    int f_b8;
-    int f_bc;
-    char _pad_c0[0x8];
+    void* f_68; // the D3D palette
+    int f_6c;
+    struct { // the lock (HulkPixelLock)
+        int f_70;
+        int f_74;
+        int f_78;
+        int f_7c;
+        int f_80;
+        char f_84;
+        char _pad_85[0x3];
+        int f_88;
+        int f_8c;
+        int f_90;
+        int f_94;
+        int f_98;
+        int f_9c;
+        int f_a0;
+        int f_a4;
+        int f_a8;
+        int f_ac;
+        int f_b0;
+        int f_b4;
+        int f_b8;
+        int f_bc;
+        unsigned char* f_c0; // the bits
+    };
+    int f_c4;
     int f_c8;
     int f_cc;
     unsigned int f_d0;
@@ -4602,6 +4612,7 @@ public:
     char f_ee;
     char f_ef;
     unsigned int f_f0;
+    unsigned char* f_f4; // slot 13's staging copy
 };
 
 // .?AVd3dToon2VertexShader@pure3d@@  vftable 0x433d3c (25)

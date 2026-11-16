@@ -7,6 +7,7 @@
 #include "decls/data/platform/xbox/pure3d.h"
 #include "gen/owners.h"
 #include "gen/pure3d.h"
+#include "decls/pddi_texture.h"
 #define TREE_TU_BEGIN namespace fn_f6ae905d {
 #define TREE_TU_END }
 namespace fn_f6ae905d {} using namespace fn_f6ae905d;
@@ -536,7 +537,7 @@ void d3dToon2VertexShader_330350::FUN_00330350() {
         D3D8::D3DSurface_GetDesc(backBuffer, &desc);
         D3D8::D3DResource_Release(backBuffer);
         void* newTexture = D3D8::D3DDevice_CreateTexture2(256, 1, 1, 1, 0, desc.format, 3);
-        d3dTexture_330350* object = (d3dTexture_330350*)FUN_0008d690(0xf8);
+        d3dTexture_330350* object = (d3dTexture_330350*)FUN_0008d690(sizeof(HulkD3dTexture));   // (x64t17) the record
         texture = object != 0 ? object->FUN_00326110(device, newTexture) : 0;
         FUN_0032ff00();
     }
@@ -558,8 +559,7 @@ void* __stdcall D3DDevice_CreateTexture2(unsigned int width, unsigned int height
                                          unsigned int pool);
 } // namespace D3D8
 extern "C" void* __cdecl FUN_0008d690(unsigned int size);
-struct d3dTexture_3303e0 {
-    char pad[0xf8];
+struct d3dTexture_3303e0 : HulkD3dTexture {   // (x64t17) decls/pddi_texture.h
     d3dTexture_3303e0* FUN_00326110(void* device, void* texture);
 };
 struct d3dToon2VertexShader_3303e0 {

@@ -5,6 +5,7 @@
 #include "compat/ptr.h"
 #include "gen/owners.h"
 #include "gen/pure3d.h"
+#include "decls/pddi_texture.h"
 #define TREE_TU_BEGIN namespace fn_ff6ae8d9 {
 #define TREE_TU_END }
 namespace fn_ff6ae8d9 {} using namespace fn_ff6ae8d9;
@@ -26,10 +27,8 @@ class pddiTexture : public pddiObject_3260f0 {
     pddiTexture();
     virtual void f();
 };
-class d3dTexture_326240 {
-    char pad[0xd8];
-
-  public:
+// (x64t17) the texture's record (decls/pddi_texture.h HulkD3dTexture)
+struct d3dTexture_326240 : HulkD3dTexture {
     int vfunc_6();
 };
 } // namespace fn_ff6ae8d9
@@ -75,25 +74,17 @@ class pddiTexture_326260 {
 };
 extern "C" char DAT_00433354[];
 extern "C" char DAT_004333ac[];
-typedef unsigned int U_326290;
-extern void __stdcall Release(U_326290);
-extern "C" void __cdecl FUN_0031e210(U_326290);
-struct d3dTexture_326290 {
-    hulk_uintptr vt;
-    char pad[12];
-    U_326290 a;
-    U_326290 b;
-    U_326290 c;
-    char gap[0x68 - 0x1c];
-    U_326290 d;
+// (x64t17) the texture's record (decls/pddi_texture.h HulkD3dTexture): the D3D handles are pointers
+extern void __stdcall Release(void*);
+extern "C" void __cdecl FUN_0031e210(hulk_intptr);
+struct d3dTexture_326290 : HulkD3dTexture {
     void BaseDestroy();
 };
 struct D3DResource {};
 void __stdcall D3DResource_AddRef(D3DResource*);
 void __stdcall D3DResource_Release(D3DResource*);
-struct Owner_326300 {
-    char pad[0x10];
-    D3DResource* resource;
+// (x64t17) the texture's record (decls/pddi_texture.h HulkD3dTexture): the wrapped resource
+struct Owner_326300 : HulkD3dTexture {
     void Set(D3DResource*);
 };
 extern "C" void* __stdcall D3DPalette_Lock2(void*, int);
@@ -104,7 +95,7 @@ extern "C" void* memcpy(void*, const void*, unsigned int);
 namespace fn_ff6ae8d9 {
 typedef unsigned int u32_3268d0;
 namespace D3D8 {
-void* __stdcall D3DPalette_Lock2(u32_3268d0, int);
+void* __stdcall D3DPalette_Lock2(void*, int);
 }
 
 
@@ -188,88 +179,74 @@ pddiTexture::pddiTexture() : pddiObject_3260f0() {}
 } // namespace fn_ff6ae8d9
 
 // 0x00326110 FUN_00326110 (270 B): equivalent/0x00326110.cpp [wrapped: conflict: pure3d::d3dTexture; pure3d::pddiObject]
-// sym: ??0d3dTexture@pure3d@fn_00326110@@QAE@PAUCtx@2@H@Z @b49306bea547 @w4b501323f38e @vbb650b90ff6b
+// sym: ?FUN_00326110@d3dTexture@pure3d@fn_00326110@@QAEPAU123@PAUCtx@3@PAX@Z @73375809c2a3 @wc255c9155ada @vd59636a4d691
 namespace fn_00326110 {
 // STATUS: equivalent (tools/equiv.py level 3: 20001 inputs, branch coverage 2/2)
 // FUN_00326110 @ 0x00326110
+// (x64t17) the texture's record (decls/pddi_texture.h HulkD3dTexture): the constructor is a member named by its
+// address (it returns this), pddiObject's 0x0031bac0 is called by its address name and the vftable stored by address
+// (the local stand-in's constructor had no definition natively and its vftable was clang's)
 namespace D3D8 {
-void __stdcall D3DResource_AddRef(int);
+void __stdcall D3DResource_AddRef(void*);
 }
 struct Ctx;
+extern "C" char DAT_004333ac[];   // pure3d::d3dTexture's vftable
 namespace pure3d {
-class pddiObject {
-  public:
-    pddiObject() throw();
-    virtual void p0();
-    int field4;
-    int field8;
+struct d3dTexture : HulkD3dTexture {
+    d3dTexture* FUN_00326110(Ctx* ctx, void* resource);
+    HulkD3dTexture* FUN_0031bac0();   // pure3d::pddiObject's constructor
 };
-class d3dTexture : public pddiObject {
-  public:
-    d3dTexture(Ctx* ctx, hulk_intptr resource) throw();
-    virtual void v1();
-    Ctx* ctx;
-    int resource;
-    int f14, f18;
-    char pad1c[0x68 - 0x1c];
-    int f68;
-    char pad6c[4];
-    int f70, f74, f78, f7c, f80;
-    unsigned char f84;
-    char pad85[0x88 - 0x85];
-    int f88, f8c, f90, f94, f98, f9c, fa0, fa4, fa8, fac, fb0, fb4, fb8, fbc, fc0;
-    int fc4;
-    int fc8, fcc, fd0, fd4, fd8, fdc, fe0, fe4, fe8;
-    unsigned char fec, fed, fee, fef;
-    int ff0, ff4;
-};
-d3dTexture::d3dTexture(Ctx* c, hulk_intptr res) throw() {
-    f70 = 0;
-    f74 = 0;
-    f78 = 0;
-    f7c = 0;
-    f80 = 0;
-    f84 = 0;
-    fb8 = 0;
-    fbc = 0;
-    fc0 = 0;
-    f94 = 0;
-    f90 = 0;
-    f8c = 0;
-    f88 = 0;
-    fa4 = 0;
-    fa0 = 0;
-    f9c = 0;
-    f98 = 0;
-    fb4 = 0;
-    fb0 = 0;
-    fac = 0;
-    fa8 = 0;
-    ctx = c;
-    f14 = 0;
-    f18 = 0;
+d3dTexture* d3dTexture::FUN_00326110(Ctx* c, void* res) {
+    FUN_0031bac0();
+    vftable = (void*)DAT_004333ac;
+    lock.width = 0;
+    lock.height = 0;
+    lock.bitsPerPixel = 0;
+    lock.depth = 0;
+    lock.type = 0;
+    lock.direct = 0;
+    lock.stride = 0;
+    lock.slicePitch = 0;
+    lock.bits = 0;
+    lock.left[3] = 0;
+    lock.left[2] = 0;
+    lock.left[1] = 0;
+    lock.left[0] = 0;
+    lock.right[3] = 0;
+    lock.right[2] = 0;
+    lock.right[1] = 0;
+    lock.right[0] = 0;
+    lock.mask[3] = 0;
+    lock.mask[2] = 0;
+    lock.mask[1] = 0;
+    lock.mask[0] = 0;
+    context = c;
+    texture = 0;
+    volume = 0;
     resource = res;
     if (res)
         D3D8::D3DResource_AddRef(res);
-    fcc = 1;
+    usage = 1;
     fef = 1;
-    f68 = 0;
-    ff4 = 0;
-    fc8 = 0;
-    fd0 = 0;
-    fd4 = 0;
-    fd8 = 0;
-    fdc = 0;
-    fe0 = 0;
-    fe4 = 0;
-    fec = 0;
-    fed = 0;
-    fee = 0;
-    fe8 = 0;
-    ff0 = 0xf;
+    palette = 0;
+    buffer = 0;
+    format = 0;
+    type = 0;
+    width = 0;
+    height = 0;
+    bitsPerPixel = 0;
+    alphaBits = 0;
+    mips = 0;
+    compressed = 0;
+    palettized = 0;
+    linear = 0;
+    bytes = 0;
+    priority = 0xf;
+    return this;
 }
 }
 } // namespace fn_00326110
+
 
 
 // 0x00326220 pure3d::d3dTexture::vfunc_4 (7 B): matches/0x00326220.cpp
@@ -283,7 +260,7 @@ unsigned int pure3d::d3dTexture::vfunc_4() {
 // 0x00326230 pure3d::d3dTexture::vfunc_5 (7 B): matches/0x00326230.cpp
 // sym: ?vfunc_5@d3dTexture@pure3d@@UAEIXZ
 unsigned int pure3d::d3dTexture::vfunc_5() {
-    return *(unsigned int*)((char*)&this->f_d4);
+    return this->f_d4;
 }
 
 namespace fn_ff6ae8d9 {
@@ -291,7 +268,7 @@ namespace fn_ff6ae8d9 {
 // 0x00326240 pure3d::d3dTexture::vfunc_6 (7 B): matches/0x00326240.cpp
 // sym: ?vfunc_6@d3dTexture_326240@fn_ff6ae8d9@@QAEHXZ
 int d3dTexture_326240::vfunc_6() {
-    return *(int*)(this->pad + 0xd8);
+    return height;
 }
 
 } // namespace fn_ff6ae8d9
@@ -307,7 +284,7 @@ unsigned int pure3d::d3dTexture::vfunc_7() {
 // 0x00326260 pure3d::d3dTexture::vfunc_8 (7 B): matches/0x00326260.cpp
 // sym: ?vfunc_8@d3dTexture@pure3d@@UAEHXZ
 int pure3d::d3dTexture::vfunc_8() {
-    return *(int*)((char*)&this->f_e0);
+    return this->f_e0;
 }
 
 
@@ -331,20 +308,20 @@ namespace fn_ff6ae8d9 {
 // 0x00326290 FUN_00326290 (99 B): matches/0x00326290.cpp
 // sym: ?FUN_00326290@fn_ff6ae8d9@@YIXPAUd3dTexture_326290@1@@Z
 void __fastcall FUN_00326290(d3dTexture_326290* self) {
-    self->vt = ((hulk_intptr)DAT_004333ac);
-    if (self->a)
-        Release(self->a);
-    if (self->b) {
-        Release(self->b);
-        FUN_0031e210(self->b);
+    self->vftable = (void*)DAT_004333ac;
+    if (self->resource)
+        Release(self->resource);
+    if (self->texture) {
+        Release(self->texture);
+        FUN_0031e210((hulk_intptr)self->texture);
     }
-    if (self->c) {
-        Release(self->c);
-        FUN_0031e210(self->c);
+    if (self->volume) {
+        Release(self->volume);
+        FUN_0031e210((hulk_intptr)self->volume);
     }
-    if (self->d)
-        Release(self->d);
-    self->vt = ((hulk_intptr)DAT_00433354);
+    if (self->palette)
+        Release(self->palette);
+    self->vftable = (void*)DAT_00433354;
     self->BaseDestroy();
 }
 
@@ -355,22 +332,22 @@ void Owner_326300::Set(D3DResource* value) {
     if (value)
         D3DResource_AddRef(value);
     if (resource)
-        D3DResource_Release(resource);
+        D3DResource_Release((D3DResource*)resource);
     resource = value;
 }
 
 } // namespace fn_ff6ae8d9
 
 // 0x00326330 FUN_00326330 (665 B): equivalent/0x00326330.cpp [wrapped: compile error C2440: '=' : cannot convert from 'int (__stdcall *)(unsigned long,unsigned long,unsigned long,unsigned long,unsigned long,unsig]
-// sym: ?Create@TextureResource@fn_00326330@@QAE_NHHHHHHH@Z @3af5232999c1 @w630b9d23de0b @vd151691ae10b
+// sym: ?Create@TextureResource@fn_00326330@@QAE_NHHHHHHH@Z @e46dc6dbab35 @w13b03879fbc3 @v23863f97e4c9
 namespace fn_00326330 {
 // STATUS: equivalent (tools/equiv.py level 3: 4904 inputs, branch coverage 46/46)
 // FUN_00326330 @ 0x00326330
 // FUN_00326330 @ 0x00326330
 namespace D3D8 {
-int __stdcall D3DDevice_CreateTexture2(unsigned long w, unsigned long h, unsigned long depth, unsigned long levels, unsigned long usage, unsigned long format, unsigned long type);
-int __stdcall D3DDevice_CreatePalette2(unsigned long size);
-void __stdcall Get2DSurfaceDesc(int tex, unsigned long level, void* desc);
+void* __stdcall D3DDevice_CreateTexture2(unsigned long w, unsigned long h, unsigned long depth, unsigned long levels, unsigned long usage, unsigned long format, unsigned long type);
+void* __stdcall D3DDevice_CreatePalette2(unsigned long size);
+void __stdcall Get2DSurfaceDesc(void* tex, unsigned long level, void* desc);   // (x64t17) the texture a pointer
 }
 struct SurfaceDesc_326330 {
     unsigned long format;
@@ -471,12 +448,13 @@ public:
 };
 void __cdecl FUN_0031c230(unsigned long code);
 void __cdecl FUN_0031c570(SurfaceDesc_326330* desc, int a, void* out, int b);
-void __cdecl FUN_0031e1f0(int tex, int bytes);
+void __cdecl FUN_0031e1f0(void* tex, int bytes);   // (x64t17) the texture a pointer
 int __fastcall FUN_00325fb0(int ignored, int field);
 // equiv-conv: FUN_00325fd0 ecx edx eax stack
 int __cdecl FUN_00325fd0(int fmt, int a3, int a2, GfxDevice* dev);
 
-class TextureResource {
+// (x64t17) the texture's record (decls/pddi_texture.h HulkD3dTexture); slot 18 (the priority) through the vftable
+class TextureSlots_326330 {
 public:
     virtual void vf0();
     virtual void vf1();
@@ -497,35 +475,9 @@ public:
     virtual void vf16();
     virtual void vf17();
     virtual void SetDirty(int value);
-    int field4;
-    int errorCode;
-    GfxDevice* device;
-    int field10;
-    int texture;
-    char pad18[0x68 - 0x18];
-    int palette;
-    char pad6c[0x70 - 0x6c];
-    char layoutInfo[0x8];
-    unsigned int field78;
-    char pad7c[0x80 - 0x7c];
-    int field80;
-    char pad84[0xb4 - 0x84];
-    int field0b4;
-    char padb8[0xc8 - 0xb8];
-    int format;
-    int arg6;
-    int field0d0;
-    unsigned int width;
-    unsigned int height;
-    unsigned int field0dc;
-    int field0e0;
-    int levels;
-    int totalBytes;
-    char isCompressed;
-    char isPalettized;
-    char isLinear;
-    char pad0ef;
-    int field0f0;
+};
+struct TextureResource : HulkD3dTexture {
+    GfxDevice* device() { return (GfxDevice*)context; }
     bool Create(int width, int height, int a2, int a3, int mips, int fmt, int a6);
 };
 bool TextureResource::Create(int w, int h, int a2, int a3, int mips, int fmt, int a6) {
@@ -534,42 +486,42 @@ bool TextureResource::Create(int w, int h, int a2, int a3, int mips, int fmt, in
         if (fmt == 12) {
             usage = 1;
             fmt = 11;
-            isLinear = 1;
+            linear = 1;
         }
     } else {
         if ((w & (w - 1)) != 0 || (h & (h - 1)) != 0) {
-            errorCode = 0xc8;
+            error = 0xc8;
             return false;
         }
     }
-    if (w > device->GetMaxTextureSize() || h > device->GetMaxTextureSize()) {
-        errorCode = 0xc9;
+    if (w > device()->GetMaxTextureSize() || h > device()->GetMaxTextureSize()) {
+        error = 0xc9;
         return false;
     }
     if (fmt == 1)
         fmt = 0;
-    int mapped = FUN_00325fd0(fmt, a3, a2, device);
+    int mapped = FUN_00325fd0(fmt, a3, a2, device());
     if (mapped == -1) {
-        errorCode = 0xca;
+        error = 0xca;
         return false;
     }
-    if (isLinear) {
+    if (linear) {
         switch (mapped) {
         case 3: case 5: case 6: case 7: case 17: case 18: case 28: case 30:
             break;
         default:
-            errorCode = 0xca;
+            error = 0xca;
             return false;
         }
     }
-    arg6 = a6;
+    this->usage = a6;
     format = fmt;
-    field0d0 = 0;
-    levels = mips;
+    type = 0;
+    this->mips = mips;
     width = w;
     height = h;
-    isCompressed = (fmt == 4 || fmt == 5 || fmt == 6 || fmt == 7 || fmt == 8);
-    isPalettized = (fmt == 11);
+    compressed = (fmt == 4 || fmt == 5 || fmt == 6 || fmt == 7 || fmt == 8);
+    palettized = (fmt == 11);
     texture = D3D8::D3DDevice_CreateTexture2(w, h, 1, mips + 1, usage, mapped, 3);
     FUN_0031c230(texture != 0 ? 0 : 0x8007000e);
     if (mapped == 11)
@@ -577,33 +529,33 @@ bool TextureResource::Create(int w, int h, int a2, int a3, int mips, int fmt, in
     SurfaceDesc_326330 desc;
     D3D8::Get2DSurfaceDesc(texture, 0, &desc);
     FUN_0031c230(0);
-    SetDirty(field0f0);
-    FUN_0031c570(&desc, 0, layoutInfo, 1);
-    field0d0 = field80;
-    unsigned int bitsPerPixel = field78;
-    field0dc = bitsPerPixel;
-    field0e0 = FUN_00325fb0(0, field0b4);
-    totalBytes = 0;
+    ((TextureSlots_326330*)this)->SetDirty(priority);
+    FUN_0031c570(&desc, 0, &lock, 1);
+    type = lock.type;
+    unsigned int bitsPerPixel = lock.bitsPerPixel;
+    this->bitsPerPixel = bitsPerPixel;
+    alphaBits = FUN_00325fb0(0, lock.mask[3]);
+    bytes = 0;
     hulk_freg bytesPer;             // kept in st (fild of the byte count: exact)
-    if (isCompressed)
+    if (compressed)
         bytesPer = 0.5f;
     else
         bytesPer = (hulk_freg)((int)bitsPerPixel / 8);
     unsigned int mw = width;
     unsigned int mh = height;
-    for (int i = 0; i < levels + 1; i++) {
-        totalBytes += (int)(__int64)((hulk_freg)(mw * mh) * bytesPer);   // fild (unsigned) * bytesPer in st, _ftol
+    for (int i = 0; i < this->mips + 1; i++) {
+        bytes += (int)(__int64)((hulk_freg)(mw * mh) * bytesPer);   // fild (unsigned) * bytesPer in st, _ftol
         mw >>= 1;
         mh >>= 1;
     }
-    FUN_0031e1f0(texture, totalBytes);
+    FUN_0031e1f0(texture, bytes);
     return true;
 }
 } // namespace fn_00326330
 
 
 // 0x003265f0 FUN_003265f0 (659 B): equivalent/0x003265f0.cpp [wrapped: compile error in a shared declaration (C2556)]
-// sym: ?Create@TextureBuilder@fn_003265f0@@QAE_NHHHHHHHH@Z @01ae64de44ad @wf6d80bde2cd1 @vc47024353c1b
+// sym: ?Create@TextureBuilder@fn_003265f0@@QAE_NHHHHHHHH@Z @ef81fa798c61 @w2eb9e6ab04a3 @v23dbe6a34f9f
 namespace fn_003265f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 10590 inputs, branch coverage 38/38)
 // FUN_003265f0 @ 0x003265f0
@@ -623,13 +575,7 @@ void __stdcall thunk_FUN_0038acb0(Texture* tex, DWORD level, SurfaceDesc_3265f0*
 void FUN_0031c230(long hr);
 int __fastcall FUN_00325fb0(int ignored, int mask);
 void FUN_0031e1f0(Texture* tex, int size);
-struct Layout_3265f0 {
-    int f0, f4, f8, fc, f10;
-    char pad14[0x44 - 0x14];
-    int mask;
-    char pad48[0x54 - 0x48];
-};
-void FUN_0031c600(SurfaceDesc_3265f0* desc, int a, Layout_3265f0* out, int b);
+void FUN_0031c600(SurfaceDesc_3265f0* desc, int a, HulkPixelLock* out, int b);   // (x64t17) the lock record
 struct Ctx_3265f0 {
     virtual void v0();
     virtual void v1();
@@ -719,7 +665,8 @@ struct Ctx_3265f0 {
 };
 // equiv-conv: FUN_00325fd0 ecx edx eax stack
 int FUN_00325fd0(int a7, int a5, int a4, Ctx_3265f0* ctx);
-struct TextureBuilder {
+// (x64t17) the texture's record (decls/pddi_texture.h HulkD3dTexture); slot 18 (the priority) through the vftable
+struct TextureSlots_3265f0 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -739,29 +686,9 @@ struct TextureBuilder {
     virtual void v16();
     virtual void v17();
     virtual void SetFormat(int);
-    char pad4[4];
-    int error;
-    Ctx_3265f0* ctx;
-    char pad10[0x18 - 0x10];
-    Texture* tex;
-    char pad1c[0x68 - 0x1c];
-    Palette* palette;
-    int format;
-    Layout_3265f0 layout;
-    int c4pad;
-    int srcFormat;
-    int usage;
-    int field_d0;
-    int width;
-    int height;
-    int field_dc;
-    int field_e0;
-    int levels;
-    int totalSize;
-    unsigned char hasAlpha;
-    unsigned char isPaletted;
-    char padee[2];
-    int fieldf0;
+};
+struct TextureBuilder : HulkD3dTexture {
+    Ctx_3265f0* ctx() { return (Ctx_3265f0*)context; }
     bool Create(int width, int height, int depth, int a4, int a5, int levels, int a7, int a8);
 };
 bool TextureBuilder::Create(int w, int h, int d, int a4, int a5, int lvls, int a7, int a8) {
@@ -769,54 +696,54 @@ bool TextureBuilder::Create(int w, int h, int d, int a4, int a5, int lvls, int a
         error = 0xc8;
         return false;
     }
-    if (w > ctx->GetMaxTextureSize() || h > ctx->GetMaxTextureSize() || d > ctx->GetMaxTextureSize()) {
+    if (w > ctx()->GetMaxTextureSize() || h > ctx()->GetMaxTextureSize() || d > ctx()->GetMaxTextureSize()) {
         error = 0xc9;
         return false;
     }
-    int fmt = FUN_00325fd0(a7, a5, a4, ctx);
-    format = fmt;
+    int fmt = FUN_00325fd0(a7, a5, a4, ctx());
+    d3dFormat = fmt;
     if (fmt == -1) {
         error = 0xca;
         return false;
     }
-    srcFormat = a7;
+    format = a7;
     usage = a8;
-    field_d0 = 0;
-    this->levels = lvls;
+    type = 0;
+    this->mips = lvls;
     width = w;
     height = h;
-    hasAlpha = (a7 == 4 || a7 == 5 || a7 == 6 || a7 == 7 || a7 == 8);
-    isPaletted = (a7 == 0xb);
-    tex = D3D8::D3DDevice_CreateTexture2(w, h, d, lvls + 1, a8, fmt, 4);
-    FUN_0031c230(tex ? 0 : 0x8007000e);
-    if (format == 0xb)
+    compressed = (a7 == 4 || a7 == 5 || a7 == 6 || a7 == 7 || a7 == 8);
+    palettized = (a7 == 0xb);
+    volume = D3D8::D3DDevice_CreateTexture2(w, h, d, lvls + 1, a8, fmt, 4);
+    FUN_0031c230(volume ? 0 : 0x8007000e);
+    if (d3dFormat == 0xb)
         palette = D3D8::D3DDevice_CreatePalette2(0);
     SurfaceDesc_3265f0 desc;
-    thunk_FUN_0038acb0(tex, 0, &desc);
+    thunk_FUN_0038acb0((Texture*)volume, 0, &desc);
     FUN_0031c230(0);
-    SetFormat(fieldf0);
-    FUN_0031c600(&desc, 0, &layout, 1);
-    int stride = layout.f8;
-    field_d0 = layout.f10;
-    field_dc = stride;
-    field_e0 = FUN_00325fb0(0, layout.mask);
-    totalSize = 0;
+    ((TextureSlots_3265f0*)this)->SetFormat(priority);
+    FUN_0031c600(&desc, 0, &lock, 1);
+    int stride = lock.bitsPerPixel;
+    type = lock.type;
+    bitsPerPixel = stride;
+    alphaBits = FUN_00325fb0(0, lock.mask[3]);
+    bytes = 0;
     hulk_freg scale; // st(1) through the loop in the original (fild, never stored)
-    if (hasAlpha)
+    if (compressed)
         scale = 0.5f;
     else
         scale = (hulk_freg)(stride / 8);
     int cw = width;
     int ch = height;
     int cd = d;
-    for (int i = 0; i < this->levels + 1; i++) {
+    for (int i = 0; i < this->mips + 1; i++) {
         unsigned int size = cd * ch * cw;
-        totalSize += (int)(__int64)((hulk_freg)size * scale); // fild (+2^32); fmul st1; _ftol's low word
+        bytes += (int)(__int64)((hulk_freg)size * scale); // fild (+2^32); fmul st1; _ftol's low word
         cw = (unsigned int)cw >> 1;
         ch = (unsigned int)ch >> 1;
         cd = (unsigned int)cd >> 1;
     }
-    FUN_0031e1f0(tex, totalSize);
+    FUN_0031e1f0((Texture*)volume, bytes);
     return true;
 }
 } // namespace fn_003265f0
@@ -835,8 +762,8 @@ unsigned int pure3d::d3dTexture::vfunc_10() {
  // namespace pure3d
 void pure3d::d3dTexture::vfunc_11(unsigned int count, void* __p1) { unsigned int * src = (unsigned int *)__p1;
 
-    if ((*(void * *)&this->f_68)) {
-        void* dst = D3DPalette_Lock2((*(void * *)&this->f_68), 0);
+    if (this->f_68) {
+        void* dst = D3DPalette_Lock2(this->f_68, 0);
         volatile unsigned int* p = src;
         memcpy(dst, (const void*)p, count * 4);
     }
@@ -847,8 +774,8 @@ void pure3d::d3dTexture::vfunc_11(unsigned int count, void* __p1) { unsigned int
 // sym: ?vfunc_12@d3dTexture@pure3d@@UAEHH@Z
 int pure3d::d3dTexture::vfunc_12(hulk_intptr __p0) { u32_3268d0 * out = (u32_3268d0 *)__p0;
 
-    if ((*(u32_3268d0 *)&this->f_68)) {
-        void* p = D3D8::D3DPalette_Lock2((*(u32_3268d0 *)&this->f_68), 0);
+    if (this->f_68) {   // (x64t17) the palette a pointer (was read as its low 32 bits)
+        void* p = D3D8::D3DPalette_Lock2(this->f_68, 0);
         memcpy(out, p, 0x400);
     }
     return (int)(256);
@@ -856,169 +783,99 @@ int pure3d::d3dTexture::vfunc_12(hulk_intptr __p0) { u32_3268d0 * out = (u32_326
 
 
 // 0x00326900 pure3d::d3dTexture::vfunc_13 (272 B): equivalent/0x00326900.cpp [wrapped: conflict: pure3d::d3dTexture; pure3d::pddiObject]
-// sym: ?vfunc_13@d3dTexture@pure3d@fn_00326900@@UAEPAUImageInfo_326900@23@IH@Z @eeb9a2219205 @w88741c449fff @v3eed71833d87
+// sym: ?vfunc_13@d3dTexture@pure3d@fn_00326900@@QAEPAUHulkPixelLock@@IH@Z @d373bccdd104 @w724fca37709c @vb362909e8da3
 namespace fn_00326900 {
 // STATUS: equivalent (tools/equiv.py level 3: 78 inputs, branch coverage 10/10)
 // pure3d::d3dTexture::vfunc_13 @ 0x00326900
-namespace pure3d {
-struct ImageInfo_326900 {
-    int width;
-    int height;
-    int bitsPerPixel;
-    int depth;
-};
-}
-struct D3DTextureHandle;
-struct D3DVolumeTextureHandle;
-struct LockedRect_326900 {
-    int pitch;
-    void* bits;
-};
-struct LockedBox {
-    int rowPitch;
-    int slicePitch;
-    void* bits;
-};
+// (x64t17) the texture's record (decls/pddi_texture.h HulkD3dTexture): slot 13 locks a level and returns the record's
+// lock (HulkPixelLock); the formats the Xbox swizzles get a staging copy, written bottom-up
 struct SurfaceDesc_326900 {
     char data[0x1c];
 };
 struct VolumeDesc {
-    char data[0x24];
+    char data[0x1c];
 };
 namespace D3D8 {
-void __stdcall Get2DSurfaceDesc(D3DTextureHandle* tex, unsigned int level, SurfaceDesc_326900* desc);
-void __stdcall D3DTexture_LockRect(D3DTextureHandle* tex, unsigned int level, LockedRect_326900* locked, const void* rect, unsigned int flags);
-void __stdcall D3DVolumeTexture_LockBox(D3DVolumeTextureHandle* tex, unsigned int level, LockedBox* locked, const void* box, unsigned int flags);
+void __stdcall Get2DSurfaceDesc(void* tex, unsigned int level, void* desc);
+void __stdcall D3DTexture_LockRect(void* tex, unsigned int level, void* locked, const void* rect, unsigned int flags);
+void __stdcall D3DVolumeTexture_LockBox(void* tex, unsigned int level, void* locked, const void* box, unsigned int flags);
 }
-void __stdcall thunk_FUN_0038acb0(D3DVolumeTextureHandle* tex, unsigned int level, VolumeDesc* desc);
+void __stdcall thunk_FUN_0038acb0(void* tex, unsigned int level, void* desc);
 void FUN_0031c230(int arg);
-void FUN_0031c570(SurfaceDesc_326900* desc, LockedRect_326900* locked, pure3d::ImageInfo_326900* info, int flag);
-void FUN_0031c600(VolumeDesc* desc, LockedBox* locked, pure3d::ImageInfo_326900* info, int flag);
+void FUN_0031c570(void* desc, void* locked, HulkPixelLock* info, int flag);
+void FUN_0031c600(void* desc, void* locked, HulkPixelLock* info, int flag);
 extern "C" void* FUN_0008d690(int size);
 
 namespace pure3d {
-class pddiObject {
-  public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-};
-class d3dTexture {
-  public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    virtual void vfunc_5();
-    virtual void vfunc_6();
-    virtual void vfunc_7();
-    virtual void vfunc_8();
-    virtual void vfunc_9();
-    virtual void vfunc_10();
-    virtual void vfunc_11();
-    virtual void vfunc_12();
-    virtual ImageInfo_326900* vfunc_13(unsigned int level, int unused);
-
-    char pad_04[0xc];
-    int locked;
-    D3DTextureHandle* texture2D;
-    D3DVolumeTextureHandle* texture3D;
-    LockedRect_326900 lockedRect;
-    LockedBox lockedBox;
-    SurfaceDesc_326900 surfaceDesc;
-    VolumeDesc volumeDesc;
-    ImageInfo_326900 info;
-    char pad_80[0xb8 - 0x80];
-    int rowStride;
-    char pad_bc[4];
-    char* dataEnd;
-    char pad_c4[0xec - 0xc4];
-    char flag_ec;
-    char flag_ed;
-    char pad_ee[0xf4 - 0xee];
-    void* buffer;
+struct d3dTexture : HulkD3dTexture {
+    HulkPixelLock* vfunc_13(unsigned int level, int unused);
 };
 }
 
-pure3d::ImageInfo_326900* pure3d::d3dTexture::vfunc_13(unsigned int level, int unused) {
-    if (locked == 0) {
-        if (texture2D != 0) {
-            D3D8::Get2DSurfaceDesc(texture2D, level, &surfaceDesc);
+HulkPixelLock* pure3d::d3dTexture::vfunc_13(unsigned int level, int unused) {
+    if (resource == 0) {
+        if (texture != 0) {
+            D3D8::Get2DSurfaceDesc(texture, level, surfaceDesc);
             FUN_0031c230(0);
-            D3D8::D3DTexture_LockRect(texture2D, level, &lockedRect, 0, 0);
+            D3D8::D3DTexture_LockRect(texture, level, &lockedRect, 0, 0);
             FUN_0031c230(0);
-            FUN_0031c570(&surfaceDesc, &lockedRect, &info, 1);
-        } else if (texture3D != 0) {
-            thunk_FUN_0038acb0(texture3D, level, &volumeDesc);
+            FUN_0031c570(surfaceDesc, &lockedRect, &lock, 1);
+        } else if (volume != 0) {
+            thunk_FUN_0038acb0(volume, level, volumeDesc);
             FUN_0031c230(0);
-            D3D8::D3DVolumeTexture_LockBox(texture3D, level, &lockedBox, 0, 0);
+            D3D8::D3DVolumeTexture_LockBox(volume, level, &lockedBox, 0, 0);
             FUN_0031c230(0);
-            FUN_0031c600(&volumeDesc, &lockedBox, &info, 1);
+            FUN_0031c600(volumeDesc, &lockedBox, &lock, 1);
         }
-        if (flag_ec == 0 && flag_ed == 0) {
-            buffer = FUN_0008d690((info.bitsPerPixel >> 3) * info.depth * info.height * info.width + 0x10);
-            int bytesPerPixel = info.bitsPerPixel >> 3;
-            dataEnd = (char*)(((hulk_uintptr)buffer + 0xf) & 0xfffffff0) + (info.height - 1) * info.width * bytesPerPixel;
-            rowStride = -(info.width * bytesPerPixel);
+        if (compressed == 0 && palettized == 0) {
+            buffer = (unsigned char*)FUN_0008d690((lock.bitsPerPixel >> 3) * lock.depth * lock.height * lock.width + 0x10);
+            int bytesPerPixel = lock.bitsPerPixel >> 3;
+            lock.bits = (unsigned char*)(((hulk_uintptr)buffer + 0xf) & ~(hulk_uintptr)0xf) + (lock.height - 1) * lock.width * bytesPerPixel;
+            lock.stride = -(lock.width * bytesPerPixel);
         }
     }
-    return &info;
+    return &lock;
 }
 } // namespace fn_00326900
 
 
+
 // 0x00326a10 pure3d::d3dTexture::vfunc_14 (189 B): equivalent/0x00326a10.cpp [wrapped: conflict: pure3d::d3dTexture]
-// sym: ?vfunc_14@d3dTexture@pure3d@fn_00326a10@@UAEXH@Z @da2ba997e707 @we7b13c583a05 @vb8057c81bae1
+// sym: ?vfunc_14@d3dTexture@pure3d@fn_00326a10@@QAEXH@Z @e9a8123f9dcf @w0400036c699c @vcef82bad93f9
 namespace fn_00326a10 {
 // STATUS: equivalent (tools/equiv.py level 3: 85 inputs, branch coverage 10/10)
 // pure3d::d3dTexture::vfunc_14 @ 0x00326a10
+// (x64t17) the texture's record (decls/pddi_texture.h HulkD3dTexture): slot 14 swizzles the staging copy into the
+// locked level and frees it (the XG calls take the pointers as pointers)
 namespace XGRAPHC {
-void __stdcall XGSwizzleRect(unsigned, unsigned, unsigned, unsigned, unsigned, unsigned, unsigned, unsigned);
-void __stdcall XGSwizzleBox(unsigned, unsigned, unsigned, unsigned, unsigned, unsigned, unsigned, unsigned, unsigned, unsigned);
+void __stdcall XGSwizzleRect(void*, unsigned, unsigned, void*, unsigned, unsigned, unsigned, unsigned);
+void __stdcall XGSwizzleBox(void*, unsigned, unsigned, unsigned, void*, unsigned, unsigned, unsigned, unsigned, unsigned);
 }
 // equiv-conv: FUN_00325f30 eax
 extern "C++" __declspec(nothrow) int FUN_00325f30(int format);
-void __cdecl FUN_0008d330(unsigned);
+void __cdecl FUN_0008d330(void*);
 
 namespace pure3d {
-class d3dTexture {
-public:
-    virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4();
-    virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9();
-    virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13();
-    virtual void vfunc_14(int unused);
-    char pad04[0x0c];
-    unsigned f10, f14, f18;
-    char pad1c[4];
-    unsigned f20;
-    char pad24[8];
-    unsigned f2c, f30;
-    char pad34[0x10];
-    unsigned f44, f48, f4c;
-    char pad50[0x0c];
-    unsigned f5c, f60, f64;
-    char pad68[0x84];
-    unsigned char fEc, fEd;
-    char padEE[6];
-    unsigned fF4;
+struct d3dTexture : HulkD3dTexture {
+    void vfunc_14(int unused);
 };
 
 void d3dTexture::vfunc_14(int) {
-    if (f10 == 0 && !fEc && !fEd) {
-        if (f14 != 0) {
-            int bytesPerPixel = FUN_00325f30(f30) >> 3;
-            XGRAPHC::XGSwizzleRect((fF4 + 0xf) & 0xfffffff0, 0, 0, f20, f44, f48, 0, bytesPerPixel);
-        } else if (f18 != 0) {
-            int bytesPerPixel = FUN_00325f30(f4c) >> 3;
-            XGRAPHC::XGSwizzleBox((fF4 + 0xf) & 0xfffffff0, 0, 0, 0, f2c, f5c, f60, f64, 0, bytesPerPixel);
+    if (resource == 0 && !compressed && !palettized) {
+        if (texture != 0) {
+            int bytesPerPixel = FUN_00325f30(surfaceDesc[0]) >> 3;
+            XGRAPHC::XGSwizzleRect((void*)(((hulk_uintptr)buffer + 0xf) & ~(hulk_uintptr)0xf), 0, 0, lockedRect.bits, surfaceDesc[5], surfaceDesc[6], 0, bytesPerPixel);
+        } else if (volume != 0) {
+            int bytesPerPixel = FUN_00325f30(volumeDesc[0]) >> 3;
+            XGRAPHC::XGSwizzleBox((void*)(((hulk_uintptr)buffer + 0xf) & ~(hulk_uintptr)0xf), 0, 0, 0, lockedBox.bits, volumeDesc[4], volumeDesc[5], volumeDesc[6], 0, bytesPerPixel);
         }
-        FUN_0008d330(fF4);
-        fF4 = 0;
+        FUN_0008d330(buffer);
+        buffer = 0;
     }
 }
 }
 } // namespace fn_00326a10
+
 
 namespace fn_ff6ae8d9 {
 
@@ -1044,69 +901,67 @@ void pure3d::d3dTexture::vfunc_18(unsigned int value) {
 
 
 // 0x00326b00 FUN_00326b00 (63 B): matches/0x00326b00.cpp
-// sym: ?FUN_00326b00@Obj_326b00@owners@@QAEXK@Z
- // namespace D3D8
-void owners::Obj_326b00::FUN_00326b00(DWORD stage) {
-    D3D8::D3DDevice_SetPalette(stage, palette);
-    DWORD texture = texB;
-    if (texture == 0)
-        texture = texC;
-    if (texture != 0)
-        D3D8::D3DDevice_SetTexture(stage, texture);
-    else if (texA != 0)
-        D3D8::D3DDevice_SetTexture(stage, texA);
+// sym: ?FUN_00326b00@Texture_326b00@fn_ff6ae8d9@@QAEXK@Z
+// (x64t17) the texture's record (decls/pddi_texture.h HulkD3dTexture; owners' Obj_326b00 kept the handles in 32-bit
+// words): binds the palette, then the texture (the created one, else the volume, else the wrapped resource) to a stage
+namespace fn_ff6ae8d9 {
+namespace D3D8 {
+void __stdcall D3DDevice_SetPalette(DWORD, void*);
+void __stdcall D3DDevice_SetTexture(DWORD, void*);
 }
+struct Texture_326b00 : HulkD3dTexture {
+    void FUN_00326b00(DWORD stage);
+};
+void Texture_326b00::FUN_00326b00(DWORD stage) {
+    D3D8::D3DDevice_SetPalette(stage, palette);
+    void* tex = texture;
+    if (tex == 0)
+        tex = volume;
+    if (tex != 0)
+        D3D8::D3DDevice_SetTexture(stage, tex);
+    else if (resource != 0)
+        D3D8::D3DDevice_SetTexture(stage, resource);
+}
+} // namespace fn_ff6ae8d9
 
 
 // 0x00326b40 FUN_00326b40 (254 B): equivalent/0x00326b40.cpp [wrapped: conflict: pure3d::d3dTexture]
-// sym: ??0d3dTexture@pure3d@fn_00326b40@@QAE@I@Z @e2c243482144 @w1657151d0512 @v9e2b0d15c4fe
+// sym: ?FUN_00326b40@d3dTexture@pure3d@fn_00326b40@@QAEPAU123@PAX@Z @cb3dd2d573f3 @wda35968cb24b @v4ca080519280
 namespace fn_00326b40 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_00326b40 @ 0x00326b40
+// (x64t17) the texture's record (decls/pddi_texture.h HulkD3dTexture), as 0x00326110: d3dDevice's slot 9 constructs
+// it (the local stand-in's base constructor had no definition natively)
+extern "C" char DAT_004333ac[];   // pure3d::d3dTexture's vftable
 namespace pure3d {
-class d3dBase {
-  public:
-    d3dBase();
-    virtual void vfunc_0();
-    virtual void vfunc_1();
+struct d3dTexture : HulkD3dTexture {
+    d3dTexture* FUN_00326b40(void* ctx);
+    HulkD3dTexture* FUN_0031bac0();   // pure3d::pddiObject's constructor
 };
-class d3dTexture : public d3dBase {
-  public:
-    d3dTexture(hulk_uintptr arg);
-    unsigned int f04, f08;
-    unsigned int f0c, f10, f14, f18;
-    char pad1c[0x68 - 0x1c];
-    unsigned int f68;
-    char pad6c[4];
-    unsigned int f70, f74, f78, f7c, f80;
-    unsigned char f84;
-    char pad85[3];
-    unsigned int f88, f8c, f90, f94, f98, f9c, fa0, fa4, fa8, fac, fb0, fb4, fb8, fbc, fc0;
-    unsigned int fc4;
-    unsigned int fc8, fcc, fd0, fd4, fd8, fdc, fe0, fe4, fe8;
-    unsigned char fec, fed, fee, fef;
-    unsigned int ff0, ff4;
-};
-d3dTexture::d3dTexture(hulk_uintptr arg) : d3dBase() {
-    f70 = 0; f74 = 0; f78 = 0; f7c = 0; f80 = 0;
-    f84 = 0;
-    fb8 = 0; fbc = 0; fc0 = 0;
-    f94 = 0; f90 = 0; f8c = 0; f88 = 0;
-    fa4 = 0; fa0 = 0; f9c = 0; f98 = 0;
-    fb4 = 0; fb0 = 0; fac = 0; fa8 = 0;
-    f0c = arg;
-    f14 = 0; f18 = 0; f10 = 0;
-    f68 = 0;
-    ff4 = 0;
-    fc8 = 0; fd0 = 0; fd4 = 0; fd8 = 0; fdc = 0; fe0 = 0; fe4 = 0;
-    fec = 0; fed = 0; fee = 0;
-    fe8 = 0;
-    fcc = 1;
-    ff0 = 0xf;
+d3dTexture* d3dTexture::FUN_00326b40(void* ctx) {
+    FUN_0031bac0();
+    vftable = (void*)DAT_004333ac;
+    lock.width = 0; lock.height = 0; lock.bitsPerPixel = 0; lock.depth = 0; lock.type = 0;
+    lock.direct = 0;
+    lock.stride = 0; lock.slicePitch = 0; lock.bits = 0;
+    lock.left[3] = 0; lock.left[2] = 0; lock.left[1] = 0; lock.left[0] = 0;
+    lock.right[3] = 0; lock.right[2] = 0; lock.right[1] = 0; lock.right[0] = 0;
+    lock.mask[3] = 0; lock.mask[2] = 0; lock.mask[1] = 0; lock.mask[0] = 0;
+    context = ctx;
+    texture = 0; volume = 0; resource = 0;
+    palette = 0;
+    buffer = 0;
+    format = 0; type = 0; width = 0; height = 0; bitsPerPixel = 0; alphaBits = 0; mips = 0;
+    compressed = 0; palettized = 0; linear = 0;
+    bytes = 0;
+    usage = 1;
+    priority = 0xf;
     fef = 1;
+    return this;
 }
 }
 } // namespace fn_00326b40
+
 
 
 // 0x00326c40 pure3d::d3dTexture::vfunc_3 (30 B): matches/0x00326c40.cpp

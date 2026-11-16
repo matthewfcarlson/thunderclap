@@ -6,6 +6,7 @@
 #include "decls/data/platform/xbox/pure3d.h"
 #include "decls/data/records.h"
 #include "gen/pure3d.h"
+#include "decls/pddi_texture.h"
 #define TREE_TU_BEGIN namespace fn_f2bbfa1e {
 #define TREE_TU_END }
 namespace fn_f2bbfa1e {} using namespace fn_f2bbfa1e;
@@ -284,7 +285,7 @@ void* pure3d::d3dDevice::vfunc_8(void* __p0) { void * p = (void *)__p0;
 // pure3d::d3dDevice::vfunc_9 @ 0x0031b8a0
 void* pure3d::d3dDevice::vfunc_9(hulk_intptr __p0) { Params_31b8a0 * p = (Params_31b8a0 *)__p0;
 
- d3dTexture_31b8a0* s = (d3dTexture_31b8a0*)FUN_0008d690(0xf8);
+ d3dTexture_31b8a0* s = (d3dTexture_31b8a0*)FUN_0008d690((int)sizeof(HulkD3dTexture));   // (x64t17) the texture's record
  if(s) s=s->FUN_00326b40((*(void * *)&this->f_0c));
  bool ok;
  if(p->extended) ok=s->FUN_003265f0(p->a,p->b,p->c,p->d,p->e,p->f,p->g,p->h);
