@@ -5442,3 +5442,54 @@ build/integ2/unproven.json); x64 gate ok (known: 0x0003dd70 and 0x002a8bb0 layou
 - coverage under 75%: 0x002142d0 0x000fd0f0 0x001f9810; input model (fill_readback on half the inputs): 0x0015f6b0.
 - 0x001fe380 (the inlined distance kept in st) is fixed in the working tree, its proof (timeouts over fuzzed list
   counts) still running.
+
+## integ2 (2026-11-16): the proof ledger landed, `defnan`, proof draws past 10,000, `selfnarrow`
+
+**The proof ledger (D51).** `config/proof-ledger.jsonl` landed in 238edce66 with 8,611 lines and `@v` on 4,097 blocks.
+Seeded at eb6ff7e53 by `tree_tu.py hash --proven` in 87 queue jobs (86482-86568) from 23,496 equiv.py reports harvested
+from the queue's outputs (jobs >= 82000) and the agents' workspaces, offered only when their checker digest is that of
+a committed tools/equiv.py (a47153bc5 .. a4a81138a) and they carry no switch (887 reports of private or unrecorded
+checkers left out). hash --proven decided each: code hash and checker view current, >= 3,000 compared. The other
+agents' ledger files (tri3, tri4, x64t13-16, gx5) needed no folding by hand: their lines came from reports in those
+jobs, which the harvest offered to the tool like any other. `.gitattributes`: `merge=union` for the ledger.
+Whole-tree verify on the result (86644): 22,704 matches, 4,735 equivalents' code hashes ok, 0 errors; proven msvc
+4,362 / wine 4,249; **unproven msvc 373 / wine 486 (509 blocks)**: by the harvested reports at the current code and view,
+165 block-modes fail, 409 compared fewer than 3,000, 279 had no run at that code and view (rerun at HEAD with the
+committed D69 checker: build/integ2/rerun), 6 ran short of the --wine gate.
+
+**`defnan` (D65, user option b).** See docs/equivalence.md "Preconditions". 9c82fb4cc (checker, pre.h, cases);
+the four matrix blocks proven at 3,000 both modes and --x64 equivalent (86741-86748, 86941-86944; ~750 inputs of 3,000
+planted the default NaN, every contract word trap-checked both ways), @msvc unchanged, hashed (86945). Wine proof:
+control 86978 (studio, 238edce66) and proof 86981 (+ the two TUs, seed:86978): play3 to 60870 past frame 37080, where
+notnan trapped; `ckpt_gate` GATE ok (only the known transients 5880, 5910, 34260). The TUs wait for the review.
+
+**Proof draws past 10,000 (D69).** Stages sized by the previous stage's compare rate, cap 30,000. Later draws compare
+far less often than the first 10,000 (one stage of drawn*needed/compared left 0x002ee9a0 at 2,973): 0x002ee9a0 and
+0x00300080 now compare 3,000 (14,373 / 13,641 drawn); 0x002b07d0 2,506 at the cap; 0x002a2200 (631), 0x002155f0 (698)
+and 0x0024a280 (430) compare almost nothing past 10,000: an input model, not more draws.
+
+**`selfnarrow`.** A recursive call's char/bool/short parameters are compared at their declared width, as natnarrow
+does for any callee our source declares (0x0030a9d0: MSVC pushes the incoming char slot whole). Changes the --wine
+view of four recursive blocks with narrow parameters (0x0030a9d0, 0x00306190, 0x00093600, 0x001adeb0).
+
+**tri4's checker list (not done but `selfnarrow`; findings for the next one).**
+- *0x002b2040* (0-pop virtual with an early-pushed word): with tri4's parked fix (IsFrozen() without arguments,
+  FUN_002899e0 with `int mode` last, read before the virtual call) --wine compares call #1's "argument 1": in native
+  mode the k-th indirect call takes as many words as the original's k-th call had pending (`arity_by_call` /
+  `nargs_by_call`), and the original pushed `mode` before `call [vt+0x4c]`. vstatic's feasible pops ({0}) say the callee
+  pops nothing, but not that it reads nothing: a cdecl member with deferred cleanup looks the same. A precise model needs
+  the possible targets: every slot-19 entry of the vtables of MultiController's descendants (RTTI) ends `ret` and reads no
+  stack word above its return address -> the call takes 0 words. Not written. (The parked patch also needs
+  FUN_002899e0's definition to take the 8th parameter, or the link breaks.)
+- *0x00201e00 / 0x002e84e0* (stub write width through narrow locals): the out-parameter fill writes the first word whole
+  (`put(v, ...)`), then up to ARRAY_WINDOW over free words. A trial (`narrowfill`: for a pointer our declaration types
+  as char/short, fill the first word only up to the next byte of ours' data, like natfill) did not fix 0x00201e00
+  (still `missing call #3 to 0x002f8e10` at input 4; the clobbered word is not the first word's tail), so it was
+  dropped (build/integ2/narrowfill_attempt.py.txt). 0x002e84e0's `png_bytep buf` (3 bytes read, declared pointee 1)
+  needs our frame's local sizes (clang debug info), not the declaration.
+- *0x00265cd0 / 0x002ea010* (a frame address stored into memory): the stored word is the original's frame address
+  (0x002ea010: its own argument slot 0x7eff0004 reused as a local) against ours'. A precise model: pair addresses that
+  the same call received in the same argument position (`out_ptrs`), and compare a stored frame address as (paired
+  local, offset) when both sides store an address inside a paired local; otherwise as now. 0x00265cd0's &f.reader
+  is ecx of the reader calls before the store, so it is paired; 0x002ea010's `&extra` is not passed before it is
+  stored (needs the pairing at the use instead). Not written.

@@ -1151,3 +1151,18 @@ blocks fight::Action's whole family: the records come first there.
 - **A stub's return model depends on how soon eax is used.** 0x000a4450: after `FUN_0009fef0` the original stores a
   constant and jumps to a shared copy tail before dereferencing eax; the checker gives its stub a scalar return (0x42)
   and ours (dereferencing at once) the first argument. A checker case.
+
+## 2026-11-16 integ2: the ledger landed; defnan; proof draws past 10,000; selfnarrow
+
+- **Ledger (D51)**: 238edce66, 8,611 lines from 23,496 harvested reports of committed checkers, decided by
+  `hash --proven` at eb6ff7e53. Whole tree: 509 blocks unproven in some mode (373 msvc, 486 wine), now failing verify
+  wherever a change touches them. Reports of five uncommitted checker digests (139 reports) and 733 without a digest
+  were not offered.
+- **defnan (D65)**: the default NaN 0xffc00000 is the only NaN the four matrix blocks accept; with it x87 and SSE hand
+  on the same bits. The checker plants it (one input in four) and checks per contract word that another NaN traps and
+  that the default NaN computes as the original. The play3 replay is the test that the game's NaNs are all default.
+- **D69**: past 10,000 draws compare much less often than before (the first 10,000 include the directed and
+  small-count inputs): the extension must be staged on the marginal rate, not the average. Three parked blocks compare
+  nothing new past 10,000: their inputs need a model, not draws.
+- **selfnarrow**: natnarrow skipped the function's own recursive calls (the self-call is not among our relocations'
+  callees); 0x0030a9d0 now passes --wine at 3,000.

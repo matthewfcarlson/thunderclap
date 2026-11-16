@@ -1733,7 +1733,7 @@ void Mover_30a7b0::FUN_0030a7b0(Vec3_30a7b0 a, Vec3_30a7b0 b)
 
 
 // 0x0030a9d0 FUN_0030a9d0 (825 B): equivalent/0x0030a9d0.cpp
-// sym: ?FUN_0030a9d0@Body_30a9d0@fn_fca90e00@@QAEXUVec3_30a9d0@2@0D@Z @6d113a570789 @w24e4e712fa98
+// sym: ?FUN_0030a9d0@Body_30a9d0@fn_fca90e00@@QAEXUVec3_30a9d0@2@0D@Z @6d113a570789 @w24e4e712fa98 @v3234345ad683
 // STATUS: equivalent (tools/equiv.py level 3: 2142 inputs, branch coverage 35/36, incomplete)
 // FUN_0030a9d0 @ 0x0030a9d0
 void Body_30a9d0::FUN_0030a9d0(Vec3_30a9d0 a, Vec3_30a9d0 b, char flag)

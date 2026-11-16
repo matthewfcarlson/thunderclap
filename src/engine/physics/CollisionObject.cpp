@@ -1379,7 +1379,7 @@ void __fastcall FUN_003060e0(Thing_3060e0* p) {
 } // namespace fn_f3c9f944
 
 // 0x00306190 FUN_00306190 (152 B): equivalent/0x00306190.cpp [wrapped: conflict: Node]
-// sym: ?FUN_00306190@Node@fn_00306190@@QAEPAV12@H_N@Z @ac58ddd028cb @w654d127d1d14 @v2c5698e16f01
+// sym: ?FUN_00306190@Node@fn_00306190@@QAEPAV12@H_N@Z @ac58ddd028cb @w654d127d1d14 @v1d7599ccee3b
 namespace fn_00306190 {
 // STATUS: equivalent (tools/equiv.py level 3: 2999 inputs, branch coverage 20/20)
 // FUN_00306190 @ 0x00306190
