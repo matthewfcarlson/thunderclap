@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "decls/data/engine/pure3d/prop.h"
 #include "gen/pure3d.h"
+#include "decls/texture_builder.h"
 #define TREE_TU_BEGIN namespace fn_f9c5e282 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CAction
@@ -23,50 +24,18 @@ struct Texture_nv_2ae1a0 {
 };
 struct Manager_2ae1a0 { virtual void slot0(); virtual void slot1(); virtual int slot2(); };
 extern void* __cdecl FUN_00263ea0(int);
-struct Object_2ae1a0 {
- int field0; pure3d::Texture* resource; char pad[24]; int field20; int field24; int field28; int field2c; int depth;
+// (x64t17) the builder's record (decls/texture_builder.h)
+struct Object_2ae1a0 : HulkTextureBuilder {
  int run(int width,int height,int requestedDepth,int unused,void* palette);
 };
 } // namespace fn_f9c5e282
 namespace pure3d {
-struct PixelFormat_2ae5a0 {
- int width; int unknown4; int bits; char reserved[8]; unsigned char directCopy; char pad[3];
- unsigned redLeft, greenLeft, blueLeft, alphaLeft;
- unsigned redRight, greenRight, blueRight, alphaRight;
+// (x64t17) the locked level (decls/texture_builder.h HulkPixelLock; channels red, green, blue, alpha)
+struct PixelFormat_2ae5a0 : HulkPixelLock {
  unsigned FUN_002addb0(unsigned pixel);
 };
 }
 namespace fn_f9c5e282 {
-class ImageHandler {
-  public:
-    class Builder {
-      public:
-        virtual void v0();
-        virtual void v1();
-        virtual void v2();
-        virtual void v3();
-        virtual void v4();
-        virtual void v5();
-        virtual void v6();
-        virtual void vfunc_7();
-        virtual void vfunc_8();
-    };
-};
-class TextureBuilder : public ImageHandler::Builder {
-  public:
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual void d();
-    virtual void e();
-    virtual void f();
-    virtual void g();
-    virtual void vfunc_9();
-    virtual void vfunc_10();
-    void* mThing;
-    char pad[0x14];
-    void* mArg;
-};
 class Receiver_2ae820 {
   public:
     virtual void v0();
@@ -83,18 +52,13 @@ class Receiver_2ae820 {
     virtual void v11();
     virtual void v12();
     virtual void v13();
-    virtual void v14(void*);
+    virtual void v14(int level);   // (x64t17) the pddi texture's unlock (d3dTexture 0x00326a10)
 };
 } // namespace fn_f9c5e282
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" void* memcpy(void* dst, const void* src, unsigned int n);
 #endif
 namespace fn_f9c5e282 {
-struct X_2ae880 {
-    char pad[0x14];
-    unsigned value;
-};
-
 } // namespace fn_f9c5e282
 
 // 0x002ae0e0 pure3d::TextureBuilder::vfunc_9 (10 B): matches/0x002ae0e0.cpp
@@ -111,34 +75,27 @@ namespace fn_f9c5e282 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 16/16)
 // FUN_002ae1a0 @ 0x002ae1a0
 int Object_2ae1a0::run(int width,int height,int requestedDepth,int unused,void* palette) {
- if(resource) resource->vfunc_1();
+ if(texture) texture->vfunc_1();
  pure3d::Texture* p=(pure3d::Texture*)FUN_00263ea0(sizeof(::pure3d::Texture));   // (x64t16) 0x18 on the 32-bit builds
  if(p) p=((Texture_nv_2ae1a0*)(p))->FUN_002c1c30();
- resource=p;
- if(depth==16) ((Texture_nv_2ae1a0*)(resource))->FUN_002c1c70(width,height,16,field20,field24,0,field2c);
- else if(depth>8 || requestedDepth>8) ((Texture_nv_2ae1a0*)(resource))->FUN_002c1c70(width,height,32,field20,field24,0,field2c);
- else if(requestedDepth==8) { ((Texture_nv_2ae1a0*)(resource))->FUN_002c1c70(width,height,8,field20,field24,1,field2c); (*(Surface_2ae1a0 * *)&resource->f_10)->setPalette(256,palette); }
- else if(requestedDepth==4) { ((Texture_nv_2ae1a0*)(resource))->FUN_002c1c70(width,height,4,field20,field24,1,field2c); (*(Surface_2ae1a0 * *)&resource->f_10)->setPalette(16,palette); }
- if((*(Surface_2ae1a0 * *)&resource->f_10)) return (*(Manager_2ae1a0**)&DAT_0052c2a0)->slot2();
+ texture=p;
+ if(bits==16) ((Texture_nv_2ae1a0*)(texture))->FUN_002c1c70(width,height,16,alphaDepth,mips,0,usage);
+ else if(bits>8 || requestedDepth>8) ((Texture_nv_2ae1a0*)(texture))->FUN_002c1c70(width,height,32,alphaDepth,mips,0,usage);
+ else if(requestedDepth==8) { ((Texture_nv_2ae1a0*)(texture))->FUN_002c1c70(width,height,8,alphaDepth,mips,1,usage); ((Surface_2ae1a0*)texture->f_10)->setPalette(256,palette); }
+ else if(requestedDepth==4) { ((Texture_nv_2ae1a0*)(texture))->FUN_002c1c70(width,height,4,alphaDepth,mips,1,usage); ((Surface_2ae1a0*)texture->f_10)->setPalette(16,palette); }
+ if(texture->f_10) return (*(Manager_2ae1a0**)&DAT_0052c2a0)->slot2();
  return 0;
 }
 
 } // namespace fn_f9c5e282
 
 // 0x002ae2b0 pure3d::TextureBuilder::vfunc_0 (529 B): equivalent/0x002ae2b0.cpp [wrapped: conflict: pure3d::TextureBuilder]
-// sym: ?vfunc_0@TextureBuilder@pure3d@fn_002ae2b0@@UAE_NHHHHH@Z @42553a1ce8a9 @w33373a30acb4 @v636c3d64305e
+// sym: ?vfunc_0@TextureBuilder@pure3d@fn_002ae2b0@@QAE_NHHHHPAI@Z @42553a1ce8a9 @w96d592fc8802 @vb0ca69230046
 namespace fn_002ae2b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3106 inputs, branch coverage 62/62)
 // pure3d::TextureBuilder::vfunc_0 @ 0x002ae2b0
 
 void *FUN_00263ea0(unsigned int size);
-
-struct Surface_2ae2b0 {
-    char pad00[0x48];
-    int pitch;
-    char pad4c[4];
-    unsigned char *data;
-};
 
 class Resource_2ae2b0 {
 public:
@@ -153,11 +110,13 @@ public:
     virtual void vfunc_8();
     virtual void vfunc_9();
     virtual void vfunc_10();
-    virtual void vfunc_11(int size, int arg);
+    virtual void vfunc_11(int count, unsigned int *palette);
     virtual void vfunc_12();
-    virtual Surface_2ae2b0 *vfunc_13(int a, int b);
+    virtual HulkPixelLock *vfunc_13(int level, int flags);
 };
 
+// pure3d::Texture: its vftable and Entity's three words, then the resource (the pddi texture; gen's f_10, natively
+// at +0x18)
 class Texture {
 public:
     virtual void vfunc_0();
@@ -176,59 +135,38 @@ public:
 };
 
 
+// (x64t17) the builder's record (decls/texture_builder.h): slot 0 of the game's vftable 0x0042e154
 namespace pure3d {
-class TextureBuilder {
-public:
-    virtual bool vfunc_0(int a1, int a2, int a3, int a4, int a5);
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    virtual void vfunc_5();
-    virtual void vfunc_6();
-    virtual void vfunc_7();
-    virtual void vfunc_8();
-    virtual void vfunc_9();
-    virtual void vfunc_10();
-
-    Texture *tex;           // 0x04
-    int flags;              // 0x08
-    Surface_2ae2b0 *surface;       // 0x0c
-    int stride;             // 0x10
-    unsigned char *dest;    // 0x14
-    int rows;               // 0x18
-    int level;              // 0x1c
-    int width;              // 0x20
-    int height;             // 0x24
-    int format;             // 0x28
-    int depth;              // 0x2c
-    int bpp;                // 0x30
+struct TextureBuilder : HulkTextureBuilder {
+    bool vfunc_0(int a1, int a2, int a3, int a4, unsigned int *a5);
 };
 }
 
-bool pure3d::TextureBuilder::vfunc_0(int a1, int a2, int a3, int a4, int a5)
+static inline Resource_2ae2b0 *res_2ae2b0(::pure3d::Texture *t) { return ((Texture *)t)->res; }
+
+bool pure3d::TextureBuilder::vfunc_0(int a1, int a2, int a3, int a4, unsigned int *a5)
 {
-    if (tex == 0) {
+    if (texture == 0) {
         void *mem = FUN_00263ea0(sizeof(::pure3d::Texture));   // (x64t16) 0x18 on the 32-bit builds
         Texture *t = 0;
         if (mem)
             t = ((Texture *)mem)->FUN_002c1c30();
-        tex = t;
+        texture = (::pure3d::Texture *)t;
         int fmt = format;
         switch (fmt) {
         case 0:
         case 1: {
-            int g = bpp;
+            int g = bits;
             if (g == 0x10) {
-                t->FUN_002c1c70(a1, a2, 0x10, width, height, 0, depth);
+                t->FUN_002c1c70(a1, a2, 0x10, alphaDepth, mips, 0, usage);
             } else if (g > 8 || a3 > 8) {
-                t->FUN_002c1c70(a1, a2, 0x20, width, height, 0, depth);
+                t->FUN_002c1c70(a1, a2, 0x20, alphaDepth, mips, 0, usage);
             } else if (a3 == 8) {
-                t->FUN_002c1c70(a1, a2, 8, width, height, 1, depth);
-                tex->res->vfunc_11(0x100, a5);
+                t->FUN_002c1c70(a1, a2, 8, alphaDepth, mips, 1, usage);
+                res_2ae2b0(texture)->vfunc_11(0x100, a5);
             } else if (a3 == 4) {
-                t->FUN_002c1c70(a1, a2, 4, width, height, 1, depth);
-                tex->res->vfunc_11(0x10, a5);
+                t->FUN_002c1c70(a1, a2, 4, alphaDepth, mips, 1, usage);
+                res_2ae2b0(texture)->vfunc_11(0x10, a5);
             }
             break;
         }
@@ -237,7 +175,7 @@ bool pure3d::TextureBuilder::vfunc_0(int a1, int a2, int a3, int a4, int a5)
         case 6:
         case 7:
         case 8:
-            t->FUN_002c1c70(a1, a2, 2, 0, height, fmt, depth);
+            t->FUN_002c1c70(a1, a2, 2, 0, mips, fmt, usage);
             break;
         case 0xd:
         case 0xe:
@@ -249,34 +187,34 @@ bool pure3d::TextureBuilder::vfunc_0(int a1, int a2, int a3, int a4, int a5)
         case 0x15:
         case 0x13:
         case 0x14:
-            t->FUN_002c1c70(a1, a2, a3, 8, height, fmt, depth);
+            t->FUN_002c1c70(a1, a2, a3, 8, mips, fmt, usage);
             break;
         case 0x1c:
-            t->FUN_002c1c70(a1, a2, 0x20, 0x1c, height, fmt, depth);
+            t->FUN_002c1c70(a1, a2, 0x20, 0x1c, mips, fmt, usage);
             break;
         default:
             break;
         }
     }
 
-    if (tex->res == 0) {
+    if (res_2ae2b0(texture) == 0) {
         if ((*(Device_2ae2b0**)&DAT_0052c2a0)->vfunc_2() != 1) {
-            tex->vfunc_1();
-            tex = 0;
+            ((Texture *)texture)->vfunc_1();
+            texture = 0;
         }
     }
-    if (tex == 0)
+    if (texture == 0)
         return false;
 
-    surface = tex->res->vfunc_13(level, 0);
-    dest = surface->data;
+    lock = res_2ae2b0(texture)->vfunc_13(level, 0);
+    row = lock->bits;
     rows = 0;
-    stride = surface->pitch;
+    stride = lock->stride;
     if (a4 == 1) {
-        dest = dest + (a2 - 1) * stride;
+        row = row + (a2 - 1) * stride;
         stride = -stride;
     }
-    flags = a5;
+    palette = a5;
     return true;
 }
 } // namespace fn_002ae2b0
@@ -288,141 +226,113 @@ bool pure3d::TextureBuilder::vfunc_0(int a1, int a2, int a3, int a4, int a5)
 // pure3d::TextureBuilder::vfunc_1 @ 0x002ae5a0
 void pure3d::TextureBuilder::vfunc_1(void* __p0) { const unsigned int * source = (const unsigned int *)__p0;
 
- if (!(*(unsigned int *)&this->f_04)) return;
- if ((*(PixelFormat_2ae5a0 * *)&this->f_0c)->bits == 16) {
-  unsigned short* out = (unsigned short*)(*(unsigned char * *)&this->f_14);
-  for (int i=0; i<(*(PixelFormat_2ae5a0 * *)&this->f_0c)->width; ++i) {
-   PixelFormat_2ae5a0* f = (*(PixelFormat_2ae5a0 * *)&this->f_0c);
+ // (x64t17) the record's fields (decls/texture_builder.h): the texture and the row pointers natively 8 bytes; the
+ // stride an int (negative for a bottom-up lock; added as an unsigned it moved the row 4 GB natively)
+ if (!this->f_04) return;
+ if (((PixelFormat_2ae5a0 *)this->f_0c)->bitsPerPixel == 16) {
+  unsigned short* out = (unsigned short*)this->f_14;
+  for (int i=0; i<((PixelFormat_2ae5a0 *)this->f_0c)->width; ++i) {
+   PixelFormat_2ae5a0* f = (PixelFormat_2ae5a0 *)this->f_0c;
    unsigned p = *source++;
-   unsigned b = ((p & 0xffu) >> (f->blueRight & 31)) << (f->blueLeft & 31);
-   unsigned r = ((p & 0xff0000u) >> (f->redRight & 31)) << (f->redLeft & 31);
-   unsigned a = ((p & 0xff000000u) >> (f->alphaRight & 31)) << (f->alphaLeft & 31);
-   unsigned g = ((p & 0xff00u) >> (f->greenRight & 31)) << (f->greenLeft & 31);
+   unsigned b = ((p & 0xffu) >> (f->right[2] & 31)) << (f->left[2] & 31);
+   unsigned r = ((p & 0xff0000u) >> (f->right[0] & 31)) << (f->left[0] & 31);
+   unsigned a = ((p & 0xff000000u) >> (f->right[3] & 31)) << (f->left[3] & 31);
+   unsigned g = ((p & 0xff00u) >> (f->right[1] & 31)) << (f->left[1] & 31);
    *out++ = (unsigned short)(b | r | a | g);
   }
- } else if ((*(PixelFormat_2ae5a0 * *)&this->f_0c)->bits == 32) {
-  unsigned* out = (unsigned*)(*(unsigned char * *)&this->f_14);
-  if ((*(PixelFormat_2ae5a0 * *)&this->f_0c)->directCopy) {
-   unsigned count = ((unsigned)(*(PixelFormat_2ae5a0 * *)&this->f_0c)->width << 2) >> 2;
+ } else if (((PixelFormat_2ae5a0 *)this->f_0c)->bitsPerPixel == 32) {
+  unsigned* out = (unsigned*)this->f_14;
+  if (((PixelFormat_2ae5a0 *)this->f_0c)->direct) {
+   unsigned count = ((unsigned)((PixelFormat_2ae5a0 *)this->f_0c)->width << 2) >> 2;
    for (unsigned i=0; i<count; ++i) *out++ = *source++;
   } else {
-   for (int i=0; i<(*(PixelFormat_2ae5a0 * *)&this->f_0c)->width; ++i) {
-    unsigned converted = (*(PixelFormat_2ae5a0 * *)&this->f_0c)->FUN_002addb0(*source);
+   for (int i=0; i<((PixelFormat_2ae5a0 *)this->f_0c)->width; ++i) {
+    unsigned converted = ((PixelFormat_2ae5a0 *)this->f_0c)->FUN_002addb0(*source);
     *out++ = converted;
     ++source;
    }
   }
  }
- (*(unsigned char * *)&this->f_14) += (*(unsigned int *)&this->f_10);
- ++(*(unsigned int *)&this->f_18);
+ this->f_14 += this->f_10;
+ ++this->f_18;
 }
 
 
 // 0x002ae6c0 pure3d::TextureBuilder::vfunc_2 (348 B): equivalent/0x002ae6c0.cpp [wrapped: conflict: pure3d::TextureBuilder]
-// sym: ?vfunc_2@TextureBuilder@pure3d@fn_002ae6c0@@UAEXPBE@Z @a5a4da82d7f2 @wd984b903602a @v23fe525f3056
+// sym: ?vfunc_2@TextureBuilder@pure3d@fn_002ae6c0@@QAEXPBE@Z @5f0007bfab7d @wa29135a7a2aa @v4890380f5dcf
 namespace fn_002ae6c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 156 inputs, branch coverage 22/22)
 // pure3d::TextureBuilder::vfunc_2 @ 0x002ae6c0
-struct PixelFormat_2ae6c0 {
-    int count;
-    char pad04[4];
-    int bits;
-    char pad0c[0x18 - 0xc];
-    int shlR;
-    int shlG;
-    int shlB;
-    int shlA;
-    int shrR;
-    int shrG;
-    int shrB;
-    int shrA;
+// (x64t17) the locked level (decls/texture_builder.h HulkPixelLock)
+struct PixelFormat_2ae6c0 : HulkPixelLock {
     unsigned int FUN_002addb0(unsigned int color);
 };
 
+// (x64t17) the builder's record (decls/texture_builder.h): slot 2 of the game's vftable 0x0042e154
 namespace pure3d {
-class TextureBuilder {
-public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2(const unsigned char *src);
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    virtual void vfunc_5();
-    virtual void vfunc_6();
-    virtual void vfunc_7();
-    virtual void vfunc_8();
-    virtual void vfunc_9();
-    virtual void vfunc_10();
-
-    int active;
-    unsigned int *palette;
-    PixelFormat_2ae6c0 *format;
-    int stride;
-    unsigned char *dest;
-    int rows;
+struct TextureBuilder : HulkTextureBuilder {
+    void vfunc_2(const unsigned char *src);
+    PixelFormat_2ae6c0 *format() { return (PixelFormat_2ae6c0 *)lock; }
 };
 }
 
 void pure3d::TextureBuilder::vfunc_2(const unsigned char *src)
 {
-    if (active == 0)
+    if (texture == 0)
         return;
-    int bits = format->bits;
+    int bits = format()->bitsPerPixel;
     if (bits == 16) {
-        unsigned short *out = (unsigned short *)dest;
-        for (int i = 0; i < format->count; i++) {
+        unsigned short *out = (unsigned short *)row;
+        for (int i = 0; i < format()->width; i++) {
             unsigned int px = palette[*src];
-            PixelFormat_2ae6c0 *f = format;
-            unsigned int v = ((px & 0xff) >> f->shrB) << f->shlB;
-            v |= ((px & 0xff0000) >> f->shrR) << f->shlR;
-            v |= ((px & 0xff000000) >> f->shrA) << f->shlA;
-            v |= ((px & 0xff00) >> f->shrG) << f->shlG;
+            PixelFormat_2ae6c0 *f = format();
+            unsigned int v = ((px & 0xff) >> f->right[2]) << f->left[2];
+            v |= ((px & 0xff0000) >> f->right[0]) << f->left[0];
+            v |= ((px & 0xff000000) >> f->right[3]) << f->left[3];
+            v |= ((px & 0xff00) >> f->right[1]) << f->left[1];
             *out++ = (unsigned short)v;
             src++;
         }
     } else if (bits == 32) {
-        unsigned int *out = (unsigned int *)dest;
-        for (int i = 0; i < format->count; i++) {
-            *out = format->FUN_002addb0(palette[*src]);
+        unsigned int *out = (unsigned int *)row;
+        for (int i = 0; i < format()->width; i++) {
+            *out = format()->FUN_002addb0(palette[*src]);
             out++;
             src++;
         }
     } else if (bits == 8) {
-        unsigned char *out = dest;
-        for (int i = 0; i < format->count; i++)
+        unsigned char *out = row;
+        for (int i = 0; i < format()->width; i++)
             *out++ = *src++;
     } else if (bits == 4) {
-        unsigned char *out = dest;
-        for (int i = 0; i < format->count; i += 2) {
+        unsigned char *out = row;
+        for (int i = 0; i < format()->width; i += 2) {
             *out++ = (unsigned char)((src[1] << 4) | (src[0] & 0xf));
             src += 2;
         }
     }
-    dest = dest + stride;
+    row = row + stride;
     rows = rows + 1;
 }
 } // namespace fn_002ae6c0
 
-namespace fn_f9c5e282 {
-
 // 0x002ae820 pure3d::TextureBuilder::vfunc_10 (22 B): matches/0x002ae820.cpp
-// sym: ?vfunc_10@TextureBuilder@fn_f9c5e282@@UAEXXZ
-void TextureBuilder::vfunc_10() {
-    if (mThing) {
-        Receiver_2ae820* r = *(Receiver_2ae820**)((char*)mThing + 0x10);
-        r->v14(mArg);
+// sym: ?vfunc_10@TextureBuilder@pure3d@@UAEXXZ
+// (x64t17) on gen's class (the record's fields): unlocks the level the texture's pddi texture locked
+void pure3d::TextureBuilder::vfunc_10() {
+    if (f_04) {
+        Receiver_2ae820* r = (Receiver_2ae820*)f_04->f_10;
+        r->v14(f_1c);
     }
 }
-
-} // namespace fn_f9c5e282
 
 // 0x002ae840 pure3d::TextureBuilder::vfunc_3 (41 B): matches/0x002ae840.cpp
 // sym: ?vfunc_3@TextureBuilder@pure3d@@UAEXHH@Z
  // namespace pure3d
 void pure3d::TextureBuilder::vfunc_3(hulk_intptr __p0, int __p1) { const void * src = (const void *)__p0; unsigned int n = (unsigned int)__p1;
 
-    if ((*(int *)&this->f_04)) {
-        memcpy((*(void * *)&this->f_14), src, n);
+    if (this->f_04) {
+        memcpy(this->f_14, src, n);
     }
 }
 
@@ -435,10 +345,11 @@ void pure3d::TextureBuilder::vfunc_6(int , int , int ) {}
 namespace fn_f9c5e282 {
 
 // 0x002ae880 pure3d::TextureBuilder::vfunc_4 (4 B): matches/0x002ae880.cpp
-// sym: ?target@fn_f9c5e282@@YIIPAUX_2ae880@1@@Z
+// sym: ?target@fn_f9c5e282@@YIPAEPAUHulkTextureBuilder@@@Z
 // Same code shape as 0x000862d0 (propagated; names are from that function)
-unsigned __fastcall target(X_2ae880* self) {
-    return self->value;
+// (x64t17) the next row (the record's +0x14, a pointer natively)
+unsigned char* __fastcall target(HulkTextureBuilder* self) {
+    return self->row;
 }
 
 } // namespace fn_f9c5e282
@@ -446,31 +357,13 @@ unsigned __fastcall target(X_2ae880* self) {
 // 0x002ae890 pure3d::TextureBuilder::vfunc_5 (7 B): matches/0x002ae890.cpp [wrapped: conflict: ImageHandler]
 // sym: ?vfunc_5@TextureBuilder_2ae890@fn_002ae890@@QAEIXZ
 namespace fn_002ae890 {
-class ImageHandler {
-  public:
-    class Builder {
-      public:
-        virtual void f0();
-        virtual void f1();
-        virtual void f2();
-        virtual void f3();
-        virtual void f4();
-        virtual void f5();
-        virtual void f6();
-        virtual void f7();
-        virtual void f8();
-        virtual void f9();
-        virtual void f10();
-    };
-};
-class TextureBuilder_2ae890 : public ImageHandler::Builder {
-  public:
-    char pad[8];
-    void* mPtr;
+// (x64t17) the builder's record (decls/texture_builder.h): the word after the lock (the lock is d3dTexture's at +0x70,
+// this its +0xc4)
+struct TextureBuilder_2ae890 : HulkTextureBuilder {
     unsigned int vfunc_5();
 };
 unsigned int TextureBuilder_2ae890::vfunc_5() {
-    return *(unsigned int*)((char*)mPtr + 0x54);
+    return *(unsigned int*)(lock + 1);
 }
 } // namespace fn_002ae890
 

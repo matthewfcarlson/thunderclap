@@ -2958,13 +2958,14 @@ public:
     virtual void vfunc_6(int, int, int); // overrides pure3d::ImageHandler::Builder slot 6
     virtual void vfunc_9(int); // overrides pure3d::ImageHandler::Builder slot 9
     virtual void vfunc_10(); // overrides pure3d::ImageHandler::Builder slot 10
-    void* f_04;
-    char _pad_08[0x4];
-    void* f_0c;
-    int f_10;
-    void* f_14;
-    int f_18;
-    void* f_1c;
+    // (x64t17) the fields as decls/texture_builder.h's HulkTextureBuilder (the record the factories construct)
+    ::pure3d::Texture* f_04; // the texture
+    unsigned int* f_08; // the palette
+    void* f_0c; // the locked level (HulkPixelLock)
+    int f_10; // the row stride (negative for a bottom-up lock)
+    unsigned char* f_14; // the next row
+    int f_18; // rows written
+    int f_1c; // the mip level
     int f_20;
     int f_24;
     int f_28;

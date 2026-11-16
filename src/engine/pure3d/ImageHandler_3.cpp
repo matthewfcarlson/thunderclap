@@ -3,6 +3,7 @@
 #include "tree_prelude.h"
 #include "compat/ptr.h"
 #include "decls/loaders.h"
+#include "decls/texture_builder.h"
 #include "decls/data/records.h"
 #include "decls/data/game/global.h"
 #include "gen/owners.h"
@@ -148,25 +149,6 @@ struct LoadInventory_2aea70 {
     virtual void add(unsigned int keyLo, unsigned int keyHi, void* obj);
     LoadInventory_2aea70* FUN_00266480(int size);
 };
-namespace pure3d {
-class TextureBuilder {
-public:
-    virtual bool vfunc_0_002ae2b0(int, int, int, int, int);
-    Resource_2aea70* tex;
-    int flags;
-    void* surface;
-    int stride;
-    void* dest;
-    int rows;
-    int level;
-    int width;
-    int height;
-    int format;
-    int depth;
-    int bpp;
-    TextureBuilder() : tex(0), flags(0), surface(0), stride(0), dest(0), rows(0), level(0), width(8), height(0), format(0), depth(0), bpp(0) {}
-};
-}
 namespace pure3d {
 class ImageBuilder {
 public:
@@ -344,7 +326,7 @@ Item* Collection::FUN_002ae9d0(void* value) { for (int i = 0; i < count; ++i) { 
 
 
 // 0x002aea70 pure3d::ImageHandler::vfunc_3 (575 B): equivalent/0x002aea70.cpp
-// sym: ?vfunc_3@ImageHandler@pure3d@fn_fee005c0@@UAEXPAURequest@3@PAUContext@3@@Z @95ff84ed5f2d @w75736fd2503b @v9992cc7ee0f0
+// sym: ?vfunc_3@ImageHandler@pure3d@fn_fee005c0@@UAEXPAURequest@3@PAUContext@3@@Z @ef56564aa2bf @w2cbc811350cb @v219b18bdc952
 // STATUS: equivalent (tools/equiv.py level 3: 61 inputs, branch coverage 18/24, incomplete)
 // pure3d::ImageHandler::vfunc_3 @ 0x002aea70
 void pure3d::ImageHandler::vfunc_3(Request* req, Context* ctx)
@@ -383,9 +365,10 @@ void pure3d::ImageHandler::vfunc_3(Request* req, Context* ctx)
         loader = ((LoadInventory_2aea70*)lmem)->FUN_00266480(0x400);
 
     if (mode == 1) {
-        pure3d::TextureBuilder builder;
+        HulkTextureBuilder builder;   // (x64t17) decls/texture_builder.h, the game's vftable by address
+        builder.init(0, 0, 8, 0, 0, 0, 0);
         load(file, &builder);
-        Resource_2aea70* tex = builder.tex;
+        Resource_2aea70* tex = (Resource_2aea70*)builder.texture;
         if (tex != 0) {
             tex->name.FUN_0027b040(name);
             loader->add(tex->name.keyLo, tex->name.keyHi, tex);
@@ -485,7 +468,7 @@ hulk_intptr owners::SomeClass_2aed60::FUN_002aed60(void* param2, void* param3) {
 
 
 // 0x002aedd0 FUN_002aedd0 (230 B): equivalent/0x002aedd0.cpp [wrapped: compile error C2440: 'initializing' : cannot convert from 'fn_fee005c0::pure3d::Texture *' to 'fn_fee005c0::Texture *']
-// sym: ?target@Owner_2aedd0@fn_002aedd0@@QAEPAUTexture@2@PAX@Z @92376fb8bc70 @w91138fa829d7 @va23c367b9b35
+// sym: ?target@Owner_2aedd0@fn_002aedd0@@QAEPAUTexture@2@PAX@Z @0a486de7c1ee @w4abb0fe01bee @v64540da5db16
 namespace fn_002aedd0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 5/6, incomplete)
 // FUN_002aedd0 @ 0x002aedd0
@@ -493,8 +476,7 @@ void* __cdecl FUN_00263ea0(unsigned int);
 struct LoadStream_2aedd0 { virtual void slot0(); virtual void slot1(); LoadStream_2aedd0* FUN_00264430(void*, int, int); void FUN_00263fb0(); };
 struct Link_2aedd0 {  };
 struct Texture { char pad[8]; Link_2aedd0 link; };
-namespace pure3d { struct TextureBuilder_2aedd0 { virtual bool slot0_002ae2b0(int, int, int, int, int); Texture* result; unsigned int f08,f0c,f10,f14,f18,f1c; unsigned int f20,f24,f28,f2c,f30; }; }
-struct Loader_2aedd0 { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(LoadStream_2aedd0*, pure3d::TextureBuilder_2aedd0*); };
+struct Loader_2aedd0 { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(LoadStream_2aedd0*, HulkTextureBuilder*); };
 struct Owner_2aedd0 { char pad[0x8c]; unsigned int f8c,f90,f94,f98,f9c,fa0; Loader_2aedd0* FUN_002ae980(void*); Texture* target(void*); };
 Texture* Owner_2aedd0::target(void* arg) {
  LoadStream_2aedd0* raw=(LoadStream_2aedd0*)FUN_00263ea0(sizeof(ContentLoadStream));
@@ -502,12 +484,11 @@ Texture* Owner_2aedd0::target(void* arg) {
  resource->slot0();
  Loader_2aedd0* loader=FUN_002ae980(arg);
  if (!loader) return 0;
- pure3d::TextureBuilder_2aedd0 builder;
- builder.result=0; builder.f08=0; builder.f0c=0; builder.f10=0; builder.f14=0; builder.f18=0; builder.f1c=0;
- builder.f20=f94; builder.f24=f98; builder.f28=f9c; builder.f2c=fa0; builder.f30=f8c;
+ HulkTextureBuilder builder;   // (x64t17) decls/texture_builder.h, the game's vftable by address
+ builder.init(0, 0, f94, f98, f9c, fa0, f8c);
  resource->FUN_00263fb0();
  loader->v9(resource,&builder);
- Texture* result=builder.result;
+ Texture* result=(Texture*)builder.texture;
  if(result) ((owners::Target_27b040 *)&(result->link))->FUN_0027b040((hulk_uintptr)arg);
  resource->slot1();
  return result;
@@ -516,31 +497,10 @@ Texture* Owner_2aedd0::target(void* arg) {
 
 
 // 0x002aeec0 FUN_002aeec0 (145 B): equivalent/0x002aeec0.cpp [wrapped: compile error in a shared declaration (C2065)]
-// sym: ?FUN_002aeec0@ImageRegistry_2aeec0@fn_002aeec0@@QAEHHHH@Z @a2b5c4d0a18b @w63b7b092adc6 @v0e1198981926
+// sym: ?FUN_002aeec0@ImageRegistry_2aeec0@fn_002aeec0@@QAEHHHH@Z @0b9d4853f7f4 @we3bf1682a117 @va2b4120750b5
 namespace fn_002aeec0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_002aeec0 @ 0x002aeec0
-class TextureBuilder {
-public:
-    int result, f8, fc, f10, f14, f18, f1c, f20, f24, f28, f2c, f30;
-    TextureBuilder(int a, int b, int c, int d, int e)
-    {
-        result = 0;
-        f8 = 0;
-        fc = 0;
-        f10 = 0;
-        f14 = 0;
-        f18 = 0;
-        f1c = 0;
-        f20 = a;
-        f24 = b;
-        f28 = c;
-        f2c = d;
-        f30 = e;
-    }
-    virtual bool v0_002ae2b0(int, int, int, int, int);
-};
-
 class ImageHandler {
 public:
     virtual void v0();
@@ -552,7 +512,7 @@ public:
     virtual void v6();
     virtual void v7();
     virtual void v8();
-    virtual void v9(hulk_intptr stream, TextureBuilder *tb);   // (x64t16) the stream: pointer-sized
+    virtual void v9(hulk_intptr stream, HulkTextureBuilder *tb);   // (x64t16) the stream: pointer-sized
 };
 
 class ImageRegistry_2aeec0 {
@@ -574,15 +534,16 @@ hulk_intptr ImageRegistry_2aeec0::FUN_002aeec0(hulk_intptr stream, int unused, i
     ImageHandler *h = FUN_002ae9d0(type);
     if (h == 0)
         return 0;
-    TextureBuilder tb(p94, p98, p9c, pa0, p8c);
+    HulkTextureBuilder tb;   // (x64t17) decls/texture_builder.h, the game's vftable by address
+    tb.init(0, 0, p94, p98, p9c, pa0, p8c);
     h->v9(stream, &tb);
-    return tb.result;
+    return (hulk_intptr)tb.texture;
 }
 } // namespace fn_002aeec0
 
 
 // 0x002aef60 FUN_002aef60 (161 B): equivalent/0x002aef60.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?FUN_002aef60@Owner_2aef60@fn_002aef60@@QAEXIHH@Z @5f98d1561bc5 @w75a04eefa465 @v77b736ef11ab
+// sym: ?FUN_002aef60@Owner_2aef60@fn_002aef60@@QAEXIHH@Z @b1a69ed72336 @wcd2835ffcb68 @vddf5089c6bad
 namespace fn_002aef60 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_002aef60 @ 0x002aef60
@@ -597,17 +558,6 @@ public:
     Stream *FUN_00264430(hulk_uintptr id, int a, int b);   // (x64t14) the name (was truncated natively)
 };
 
-class TextureBuilder {
-public:
-    virtual bool v0_002ae2b0(int, int, int, int, int);
-    int f04;
-    int f08, f0c, f10, f14, f18;
-    int f1c;
-    int f20;
-    int f24, f28, f2c, f30;
-    TextureBuilder(int a, int b);
-};
-
 class Handler_2aef60 {
 public:
     virtual void v0();
@@ -619,7 +569,7 @@ public:
     virtual void v6();
     virtual void v7();
     virtual void v8();
-    virtual void Build(Stream *stream, TextureBuilder *builder);
+    virtual void Build(Stream *stream, HulkTextureBuilder *builder);
 };
 
 class Owner_2aef60 {
@@ -628,22 +578,6 @@ public:
     void FUN_002aef60(hulk_uintptr id, hulk_intptr a, int b);
 };
 
-TextureBuilder::TextureBuilder(int a, int b)
-{
-    f04 = a;
-    f08 = 0;
-    f0c = 0;
-    f10 = 0;
-    f14 = 0;
-    f18 = 0;
-    f20 = 8;
-    f24 = 0;
-    f28 = 0;
-    f2c = 0;
-    f30 = 0;
-    f1c = b;
-}
-
 void Owner_2aef60::FUN_002aef60(hulk_uintptr id, hulk_intptr a, int b)
 {
     void *memory = thunk_FUN_0008d690(sizeof(ContentLoadStream));
@@ -651,7 +585,8 @@ void Owner_2aef60::FUN_002aef60(hulk_uintptr id, hulk_intptr a, int b)
     stream->AddRef();
     Handler_2aef60 *handler = FUN_002ae980(id);
     if (handler) {
-        TextureBuilder builder(a, b);
+        HulkTextureBuilder builder;   // (x64t17) decls/texture_builder.h, the game's vftable by address; refills a
+        builder.init((::pure3d::Texture*)a, b, 8, 0, 0, 0, 0);   // texture at level b
         handler->Build(stream, &builder);
         stream->Release();
     }
@@ -660,30 +595,10 @@ void Owner_2aef60::FUN_002aef60(hulk_uintptr id, hulk_intptr a, int b)
 
 
 // 0x002af010 FUN_002af010 (109 B): equivalent/0x002af010.cpp [wrapped: compile error in a shared declaration (C2065)]
-// sym: ?FUN_002af010@ThisWrap_002af010@fn_002af010@@QAEXHHHH@Z @a82edd933c73 @w7d03dd76ea8d @v355c824790b0
+// sym: ?FUN_002af010@ThisWrap_002af010@fn_002af010@@QAEXHHHH@Z @ad04fc3250d4 @wc16b21612abf @v85608fa739ac
 namespace fn_002af010 {
 // STATUS: equivalent (tools/equiv.py level 3: 17396 inputs, branch coverage 2/2)
 // FUN_002af010 @ 0x002af010
-class TextureBuilder {
-public:
-    int f4, f8, fc, f10, f14, f18, f1c, f20, f24, f28, f2c, f30;
-    TextureBuilder(int a, int b)
-    {
-        f8 = 0;
-        fc = 0;
-        f10 = 0;
-        f14 = 0;
-        f18 = 0;
-        f24 = 0;
-        f28 = 0;
-        f2c = 0;
-        f30 = 0;
-        f4 = a;
-        f20 = 8;
-        f1c = b;
-    }
-    virtual bool v0_002ae2b0(int, int, int, int, int);
-};
 class Builder {
 public:
     virtual void v0();
@@ -695,7 +610,7 @@ public:
     virtual void v6();
     virtual void v7();
     virtual void v8();
-    virtual void v9(hulk_intptr a, TextureBuilder *tb);   // (x64t16) the stream: pointer-sized
+    virtual void v9(hulk_intptr a, HulkTextureBuilder *tb);   // (x64t16) the stream: pointer-sized
 };
 struct ThisWrap_002af010 {
     Builder * FUN_002ae9d0(hulk_intptr a);   // (x64t15) the key pointer-sized, as defined (void*)
@@ -705,7 +620,8 @@ struct ThisWrap_002af010 {
 void ThisWrap_002af010::FUN_002af010(hulk_intptr a1, hulk_intptr a2, int a3, int a4) {
     Builder *b = this->FUN_002ae9d0(a3);
     if (b != 0) {
-        TextureBuilder tb(a2, a4);
+        HulkTextureBuilder tb;   // (x64t17) decls/texture_builder.h, the game's vftable by address; refills
+        tb.init((::pure3d::Texture*)a2, a4, 8, 0, 0, 0, 0);   // the texture a2 at level a4
         b->v9(a1, &tb);
     }
 }
