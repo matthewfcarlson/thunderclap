@@ -2,6 +2,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x000f1570..0x000f8690 (kind game, layer game, confidence high), dominant class FEThingsBase
 #include "tree_prelude.h"
+#include "decls/data/records.h"   // (x64t14) ContentLoadStream
 #include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
@@ -93,7 +94,9 @@ class LoadStream_f7a80 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
-    char pad04[8];
+    // (x64t14) records.h ContentLoadStream's first words (was a pad: natively the flag sat 8 bytes early)
+    int refs;
+    void *file;
     char ok;
     LoadStream_f7a80 *FUN_00264430(const char *name, int a, int b);
     void FUN_002647e0(void *out, int a, int b, int c);
@@ -320,7 +323,7 @@ bool StringTable_f7a80::FUN_000f7a80(const char *filename)
     }
 
     LoadStream_f7a80 *file = 0;
-    void *mem = FUN_00263ea0(0x48);
+    void *mem = FUN_00263ea0(sizeof(ContentLoadStream));
     if (mem != 0)
         file = ((LoadStream_f7a80 *)mem)->FUN_00264430(fn, 0, 1);
 

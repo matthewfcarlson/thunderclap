@@ -151,7 +151,7 @@ class PolySkinLoader_2b7d30 {
     int m4;
     int m8;
     int mc;
-    int m10;
+    void* m10;   // (x64t14) decls/loaders.h HulkChunkHandler's reader (a pointer)
     char m14;
     int m18;
     RP_2b7d30 m1c;

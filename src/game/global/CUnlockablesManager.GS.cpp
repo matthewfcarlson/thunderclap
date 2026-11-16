@@ -65,7 +65,7 @@ extern char DAT_004048e0[];
 extern char DAT_004048fc[];
 char* __cdecl FUN_0008d6d0(unsigned int);
 void __cdecl FUN_0008d340(void*);
-int __cdecl FUN_000964a0(char* buf, int size, const char* fmt, int n);
+extern "C" int __cdecl FUN_000964a0(char*, int, const char*, ...);   // (x64t14) as defined (CUnlockablesManager.cpp)
 
 class Link8 { public: char b[8]; void FUN_0027af00(); };
 

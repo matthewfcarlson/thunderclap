@@ -38,7 +38,7 @@ namespace content {
 struct P3DFileHandler {
     void* vftable;
     int f04;   // content::LoadObject's reference count
-    int f08;
+    void* f08;   // (x64t14) the listener 0x00265cd0 calls (a pointer: natively at +0x10, where it reads it; was an int at +0xc)
     P3DFileHandler() { f04 = 0; vftable = (void*)DAT_0042ce00; f08 = 0; }
 };
 }

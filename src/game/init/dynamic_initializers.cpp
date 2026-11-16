@@ -4445,7 +4445,7 @@ extern "C" int __cdecl atexit(void(__cdecl*)());
 
 extern "C++" __declspec(nothrow) void __cdecl FUN_003640d0();
 void __cdecl target() {
-    ((owners::String_23fc40 *)&((*(Obj*)((char*)&DAT_004e3748 + 4))))->FUN_0023fc40("sound/rsd", (hulk_intptr)0);
+    ((owners::String_23fc40 *)&DAT_004e3748[0].text)->FUN_0023fc40("sound/rsd", (hulk_intptr)0);   // (x64t14) records.h
     atexit(FUN_003640d0);
 }
 } // namespace fn_0035ee10
@@ -9645,7 +9645,7 @@ extern "C" void FUN_003640c0() {
 // sym: _FUN_003640d0
 // Same code shape as 0x00363af0 (propagated; names are from that function)
 extern "C" void FUN_003640d0() {
-    ((owners::Str_240060 *)&((*(Obj_3640d0*)((char*)&DAT_004e3748 + 4))))->FUN_00240060();
+    ((owners::Str_240060 *)&DAT_004e3748[0].text)->FUN_00240060();   // (x64t14) records.h CountedStringRecord
 }
 
 } // namespace fn_f1ddef39

@@ -1449,7 +1449,8 @@ struct CoreCementLibrary {
     void* table;                            // +0x60 the entry table (0x00277810 allocates it with 0x00266eb0;
                                             //       0x002779b0 searches it with 0x00277310; 0x002776c0 frees it)
     CoreCementLibrary* next;                // +0x64 the drive's list link (CoreDriveLibraryList: 0x00277570 / 0x002775b0)
-    int bucket HULK_RANGE(0, 1);            // +0x68 the list it is on (3rd argument; 0x00277570 indexes by it)
+    int bucket HULK_RANGE(0, 1);            // +0x68 the list it is on: its only writer, the constructor 0x00277a70, stores
+                                            //       its 3rd argument (0 or 1; 0x00277570 indexes by it)
     void* callback;                         // +0x6c the open-completion callback (vfunc_5 0x002773f0 sets it,
                                             //       0x00277410 calls its slot 3 and releases it)
     hulk_uintptr callbackArgument;          // +0x70 vfunc_5's 2nd argument, passed back to the callback's slot 3
@@ -1721,6 +1722,17 @@ extern "C" StringRecord_23fc40 DAT_004dd260[1];
 extern "C" StringRecord_23fc40 DAT_004dd6f4[1];
 extern "C" StringRecord_23fc40 DAT_004de608[1];
 
+// (x64t14) An event counter and a sound-bank path string: 0x001effc0 counts the events it fires in the word, the
+// start-up initializer 0x0035ee10 builds "sound/rsd" in the string at +4 (owners::String_23fc40) and its atexit handler
+// 0x003640d0 frees it. 16 bytes on the 32-bit builds, 24 on 64-bit (as a 16-byte item the string's length overran
+// natively into the pddi device slot DAT_005554a4, which then held 9).
+struct CountedStringRecord {
+    unsigned int count;
+    StringRecord_23fc40 text;
+};
+
+extern "C" CountedStringRecord DAT_004e3748[1];
+
 // (dg1) The controller's name lists (0x000b10d0 fills them: a count and a block of `count` 32-byte names that
 // 0x000b1020 allocates): four arrays, 0x004dda48 [13], 0x004ddab0 [2][2][3], 0x004ddb10 [11] and 0x004ddb68 [2][2][3].
 // The start-up zeroes or constructs them (0x0035d310, 0x0035d340, 0x0035d2a0, 0x0035d2d0) and its atexit handlers
@@ -1842,9 +1854,89 @@ struct ContentLoadRequest {
     unsigned int time;                      // +0x08 FUN_00267f80() at construction
     int f0c, f10;                           // +0x0c
     int state;                              // +0x14 (0x002666e0 sets 4; 3 is done, 5 failed: 0x00266750 / 0x00266760)
-    void* stream;                           // +0x18 a reference-counted object (0x00266820 sets it, 0x00266700 returns it)
-    void* context;                          // +0x1c a reference-counted object (0x00266850 sets it, 0x00266880 returns it)
+    void* stream;                           // +0x18 a reference-counted object (0x00266820 sets it, 0x00266700 returns it;
+                                            //       P3DFileHandler 0x00265cd0 stores the content::LoadInventory it fills)
+    void* context;                          // +0x1c a reference-counted object (0x00266850 sets it, 0x00266880 returns it;
+                                            //       0x00265cd0 / 0x002aea70 store the ContentLoadStream they open)
     ContentLoadArgs args;                   // +0x20 (0x002666d0 / 0x002666f0 return its address)
+};
+
+// content::LoadStream (vftable 0x0042ae9c; 0x48 bytes): a file read through two 0x20000-byte banks of DAT_004e7c28,
+// or a block in memory. The constructors 0x002644d0 (a load request's arguments: the path, the wait flag),
+// 0x00264430 (a name) and 0x00264190 (memory, size) and 0x00263f50 (zeroes the words) write it; 0x00263fb0 returns
+// the size, 0x00263fc0 the position, 0x002647e0 reads (0x00264270 unbuffered, 0x00264590 from the banks), 0x00264510
+// skips, 0x00264050 fills the next bank, 0x002642c0 swaps the banks, 0x002640f0 waits for the file's read. The flat
+// view of its words as gen/content.h's class lays them out over the packed LoadObject (the file pointer then sits at
+// +0x10 natively). Every allocation is `sizeof(ContentLoadStream)` (0x48 on the 32-bit builds).
+// The file a ContentLoadStream reads (0x002710d0 opens it): the slots the stream calls.
+struct ContentStreamFile {
+    virtual void AddRef();                  // 0
+    virtual void Release();                 // 1
+    virtual void slot2();
+    virtual void Read(void* dst, int n, int flag);   // 3 (an asynchronous read when the stream does not wait)
+    virtual void slot4();
+    virtual void Seek(unsigned int pos);    // 5
+    virtual void slot6(); virtual void slot7(); virtual void slot8(); virtual void slot9(); virtual void slot10();
+    virtual void slot11(); virtual void slot12(); virtual void slot13(); virtual void slot14();
+    virtual unsigned int GetSize();         // 15
+    virtual int GetGranularity();           // 16 (0x00264050 rounds the last read by it: FUN_0026fd50)
+    virtual void slot17(); virtual void slot18(); virtual void slot19();
+    virtual bool IsDone();                  // 20 the last read has finished
+    virtual void Wait();                    // 21 until it has
+    virtual void slot22();
+    virtual bool IsOpen();                  // 23
+};
+
+struct ContentLoadStream {
+    void* vftable;                          // +0x00
+    int refs;                               // +0x04
+    ContentStreamFile* file;                // +0x08 the open file
+    unsigned char open;                     // +0x0c
+    unsigned char sync;                     // +0x0d the request's wait flag: wait on the file's reads (slot 21)
+    unsigned char buffered;                 // +0x0e read through the banks
+    unsigned char swap;                     // +0x0f reverse each element's bytes (0x00264140)
+    unsigned int size;                      // +0x10
+    unsigned int pos;                       // +0x14 bytes read (or skipped) so far
+    unsigned int offset;                    // +0x18 the file offset the next bank fills from
+    int bank;                               // +0x1c the bank being read
+    void* m20;                              // +0x20 freed by the destructor (0x00267070)
+    void* m24;                              // +0x24 freed by the destructor (0x00267070)
+    char* buffer;                           // +0x28 the bank being read (the block, for a memory stream)
+    unsigned int bufPos;                    // +0x2c
+    unsigned int limit;                     // +0x30 bytes in the bank being read
+    unsigned int filled;                    // +0x34 bytes the last fill read
+    unsigned int chunk;                     // +0x38 bytes per fill
+    unsigned int pending;                   // +0x3c bytes read since the last pump
+    unsigned int interval;                  // +0x40 ms between pumps (0x00264870's value / 1000)
+    unsigned int lastTime;                  // +0x44 0x00267f80() at the last pump
+};
+// ContentLoadStream's words after the vftable, for a source's polymorphic view of the stream (it calls slots 0 / 1,
+// AddRef / Release, through its own vftable pointer): `class V { virtual void a(); virtual void b();
+// HULK_CONTENT_LOADSTREAM_WORDS };` lays them out as the record does on every target.
+#define HULK_CONTENT_LOADSTREAM_WORDS \
+    int refs; ContentStreamFile* file; unsigned char open; unsigned char sync; unsigned char buffered; unsigned char swap; \
+    unsigned int size; unsigned int pos; unsigned int offset; int bank; void* m20; void* m24; char* buffer; \
+    unsigned int bufPos; unsigned int limit; unsigned int filled; unsigned int chunk; unsigned int pending; \
+    unsigned int interval; unsigned int lastTime;
+
+// A chunk of a Pure3D file as the chunk reader keeps it (x64t14): its id, the size of its own data, its size with its
+// children, and the stream position of its header.
+struct ContentChunkEntry {
+    unsigned int id;                        // +0x00
+    unsigned int dataSize;                  // +0x04
+    unsigned int size;                      // +0x08
+    unsigned int position;                  // +0x0c
+};
+
+// The chunk reader (0x288 bytes; P3DFileHandler 0x00265cd0 keeps one on its stack): the file name 0x002669d0 copies,
+// the open chunks (0x00266b30 pushes one, 0x00266be0 skips to its end and pops it), the innermost one's index (-1:
+// none) and the stream it reads (0x00266cb0 takes it and reads the file's magic). Natively the stream pointer is at
+// +0x288 and the reader 0x290 bytes.
+struct ContentChunkReader {
+    char name[0x80];                        // +0x000
+    ContentChunkEntry entries[32];          // +0x080
+    int index;                              // +0x280
+    ContentLoadStream* stream;              // +0x284
 };
 
 #endif

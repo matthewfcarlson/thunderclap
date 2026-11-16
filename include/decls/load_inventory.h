@@ -10,7 +10,8 @@ struct HulkLoadInventory {
     int f04;
     char f08, f09;
     void* pool;
-    int f10;
+    void* f10;   // (x64t14) the inventory's parent: 0x002660a0 sets it (AddRef / Release), vfunc_3 0x00266280 asks it
+                 // when a lookup misses (a pointer; natively +0x18 either way)
 };
 #define HULK_LOADINVENTORY_SIZE ((int)sizeof(HulkLoadInventory))
 

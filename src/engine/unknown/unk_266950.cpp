@@ -36,26 +36,19 @@ class Inner_2669c0 {
     virtual void f();
     virtual void g();
 };
-class Outer_2669c0 {
-  public:
-    char pad[0x284];
-    Inner_2669c0* p;
-};
+// (x64t14) the chunk reader's methods on records.h ContentChunkReader (the stream pointer natively at +0x288; 0x002669f0
+// passed it to 0x00263fc0 as an int) and the stream's on ContentLoadStream (its byte-order flag at +0xf)
+class Outer_2669c0 : public ContentChunkReader {};
 typedef unsigned int u32_2669f0;
-class Thing_2669f0 {
-  public:
-    char pad0[0x280];
-    int mIndex;
-    int mArg;
-};
-extern "C" u32_2669f0 __fastcall FUN_00263fc0(int);
+class Thing_2669f0 : public ContentChunkReader {};
+extern "C" u32_2669f0 __fastcall FUN_00263fc0(ContentLoadStream*);
 typedef unsigned int uint_266a30;
-class Stream {
+class Stream : public ContentLoadStream {
   public:
-    virtual void f0();
-    char _m_pad_4[0xb];
-    char m0f;
     uint_266a30 FUN_00263fc0();
+};
+struct Ref_266cb0 {
+    virtual void f0();
 };
 struct Entry_266a30 {
     uint_266a30 value;
@@ -110,14 +103,10 @@ class CAgent {
     virtual void vfunc_9();
     virtual void vfunc_10();
 };
-class Obj_266cb0 {
+class Obj_266cb0 : public ContentChunkReader {
   public:
     Obj_266cb0* Init(Stream* s);
     void Next_00266b30(unsigned int v);
-    char m0;
-    char pad[0x27f];
-    int m280;
-    Stream* m284;
 };
 struct Manager {
     virtual void slot0();
@@ -218,7 +207,7 @@ void Obj_266950::F(int mode) {
 // 0x002669c0 FUN_002669c0 (11 B): matches/0x002669c0.cpp
 // sym: ?target@fn_f49c50bb@@YIXPAVOuter_2669c0@1@@Z
 void __fastcall target(Outer_2669c0* self) {
-    self->p->g();
+    ((Inner_2669c0*)self->stream)->g();
 }
 
 } // namespace fn_f49c50bb
@@ -234,9 +223,9 @@ namespace fn_f49c50bb {
 // 0x002669f0 FUN_002669f0 (59 B): matches/0x002669f0.cpp
 // sym: ?FUN_002669f0@fn_f49c50bb@@YIIPAVThing_2669f0@1@@Z
 u32_2669f0 __fastcall FUN_002669f0(Thing_2669f0* self) {
-    u32_2669f0* p = (u32_2669f0*)((char*)self + (self->mIndex + 8) * 16);
+    u32_2669f0* p = (u32_2669f0*)((char*)self + (self->index + 8) * 16);
     if (p[2] > p[1]) {
-        u32_2669f0 value = FUN_00263fc0(self->mArg);
+        u32_2669f0 value = FUN_00263fc0(self->stream);
         if (value < p[3] + p[2])
             return 1;
     }
@@ -333,13 +322,13 @@ void CAgent::vfunc_7(int a) {
 // sym: ?Init@Obj_266cb0@fn_f49c50bb@@QAEPAV12@PAVStream@2@@Z
 Obj_266cb0* Obj_266cb0::Init(Stream* s) {
     unsigned int v;
-    m280 = -1;
-    m284 = s;
-    m0 = 0;
-    s->f0();
-    ((owners::X_2647e0 *)m284)->FUN_002647e0((hulk_intptr)(&v), (hulk_intptr)4, 1, (hulk_intptr)1);
+    index = -1;
+    stream = s;
+    name[0] = 0;
+    ((Ref_266cb0*)s)->f0();
+    ((owners::X_2647e0 *)stream)->FUN_002647e0((hulk_intptr)(&v), (hulk_intptr)4, 1, (hulk_intptr)1);
     if (v == 0x503344ff) {
-        m284->m0f = (m284->m0f == 0);
+        stream->swap = (stream->swap == 0);
         v = 0xff443350;
     }
     Next_00266b30(v);

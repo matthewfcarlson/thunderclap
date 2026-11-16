@@ -72,7 +72,7 @@ struct CSPManager_1e4c40 {
     Node *FUN_001e4760(Prop_1e4c40 *prop, char *name, int a, Mat4_1e4c40 *m, int b, int c, int d);
     Node *FUN_001e4c40(const char *key, Vec3_1e4c40 *pos, int type, char *name, Vec3_1e4c40 *dir, int c);
 };
-int __cdecl FUN_000964a0(char *buf, int size, const char *fmt, ...);
+extern "C" int __cdecl FUN_000964a0(char*, int, const char*, ...);   // (x64t14) as defined (CUnlockablesManager.cpp)
 } // namespace fn_f80c1c30
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" int __cdecl sprintf(char *, const char *, ...);

@@ -2,6 +2,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x000f9870..0x000fb3b0 (kind game, layer game, confidence high), dominant class DollyScript::CTokenString
 #include "tree_prelude.h"
+#include "decls/data/records.h"   // (x64t14) ContentLoadStream
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 #include "gen/owners.h"
@@ -76,7 +77,7 @@ struct Frame_faf80 {
 // FUN_000fa4b0 @ 0x000fa4b0
 DollyScript::CRawScript* __stdcall FUN_000fa4b0(const char* name) {
  char buffer[256]; sprintf(buffer,"%s",name);
- Reader* mem=(Reader*)FUN_00263ea0(0x48);
+ Reader* mem=(Reader*)FUN_00263ea0(sizeof(ContentLoadStream));
  Reader* reader=mem ? mem->FUN_00264430(buffer,0,0) : 0;
  uint size=reader->FUN_00263fb0(); void* data=FUN_0008d6d0(size);
  reader->FUN_002647e0(data,size,1,1); reader->slot1();

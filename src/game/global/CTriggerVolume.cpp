@@ -81,7 +81,7 @@ struct Element_1fbd00 {
     const char *name;
     void FUN_00336600(const char *attr, float *x, float *y, float *z);
 };
-int __cdecl FUN_000964a0(char *buf, int size, const char *fmt, ...);
+extern "C" int __cdecl FUN_000964a0(char*, int, const char*, ...);   // (x64t14) as defined (CUnlockablesManager.cpp)
 class Marker_1fbd00 {
 public:
     char pad0[8];
@@ -739,7 +739,7 @@ public:
     unsigned char FUN_00336600(const char *key, float *a, float *b, float *c);
 };
 
-void __cdecl FUN_000964a0(char *dst, int size, const char *fmt, ...);
+extern "C" int __cdecl FUN_000964a0(char*, int, const char*, ...);   // (x64t14) as defined (CUnlockablesManager.cpp)
 
 class Transform_1fc3c0 {
 public:

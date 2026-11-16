@@ -68,7 +68,7 @@ struct Owner_1e47e0 {
 };
 struct Slot40 { char pad[0x22]; short idx; char pad2[4]; };
 struct Slot14_1e47e0 { unsigned char flags; char pad[0x13]; };
-int __cdecl FUN_000964a0(char *buf, int size, const char *fmt, ...);
+extern "C" int __cdecl FUN_000964a0(char*, int, const char*, ...);   // (x64t14) as defined (CUnlockablesManager.cpp)
 class CSPManager_1e47e0 {
 public:
     char pad0[0x608];

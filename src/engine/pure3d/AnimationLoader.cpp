@@ -358,7 +358,8 @@ class AnimationLoader_289e00 {
     void* vftable;
     int a;   // content::LoadObject's reference count
     int b;   // the chunk id (was a `void*`)
-    int c, d;
+    int c;
+    void* d;   // (x64t14) decls/loaders.h HulkChunkHandler's reader (a pointer)
     FUN_0028e9b0* anim;
     int e, f, g;
 };

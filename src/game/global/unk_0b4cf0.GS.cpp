@@ -20,7 +20,7 @@ extern "C" int __cdecl sprintf(char*, const char*, ...);
 // ---- declarations shared by the functions below
 namespace fn_f61f5a00 {
 extern const char *__cdecl FUN_000f7120(int);
-extern void __cdecl FUN_000964a0(char *, int, const char *, ...);   // (x64t11) returns nothing (CUnlockablesManager.cpp)
+extern "C" int __cdecl FUN_000964a0(char*, int, const char*, ...);   // (x64t14) as defined (CUnlockablesManager.cpp; x64t11 had it return nothing)
 struct Resource_b51c0 {
  virtual void slot0(); virtual void release();
  virtual void slot2(); virtual void slot3(); virtual void slot4(); virtual void slot5();
@@ -252,7 +252,7 @@ public:
 FEObject_b63a0 *__cdecl FUN_000fc260(const char *name);
 Manager_b63a0 *__cdecl FUN_000fc1b0();
 void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
-int __cdecl FUN_000964a0(char *dst, int size, const char *fmt, ...);
+extern "C" int __cdecl FUN_000964a0(char*, int, const char*, ...);   // (x64t14) as defined (CUnlockablesManager.cpp)
 
 class SelectorView_b63a0 {
 public:
@@ -715,7 +715,7 @@ Widget_b79a0* __cdecl FUN_000fc260(const char* name);
 void* __cdecl FUN_00344e74(void* obj, int vfDelta, char* srcType, char* dstType, int isRef);
 UiMgr_b79a0* __cdecl FUN_000fc3d0();
 Manager_b79a0* __cdecl FUN_000fc1b0();
-int __cdecl FUN_000964a0(char* buf, int size, const char* fmt, ...);
+extern "C" int __cdecl FUN_000964a0(char*, int, const char*, ...);   // (x64t14) as defined (CUnlockablesManager.cpp)
 
 class Briefing {
 public:
@@ -914,7 +914,7 @@ struct Unlocks_b7cd0 {
 
 FEObject* FUN_000fc260(const char* name);
 UiMgr_b7cd0* FUN_000fc3d0();
-void FUN_000964a0(char* buf, int size, const char* fmt, ...);
+extern "C" int __cdecl FUN_000964a0(char*, int, const char*, ...);   // (x64t14) as defined (CUnlockablesManager.cpp)
 void FUN_000fc020(unsigned short* buf, int count, const unsigned short* fmt, ...);
 
 struct Frame_b7cd0 {
@@ -1364,7 +1364,7 @@ namespace fn_000b8f20 {
 class Manager_b8f20 { public: char pad[4]; };
 Manager_b8f20 *__cdecl FUN_000fc1b0();
 
-int __cdecl FUN_000964a0(char *buf, int size, const char *fmt, ...);
+extern "C" int __cdecl FUN_000964a0(char*, int, const char*, ...);   // (x64t14) as defined (CUnlockablesManager.cpp)
 int FUN_00345804(const char *str, const char *fmt, ...);
 
 struct TextEntry_b8f20 {
@@ -1593,7 +1593,7 @@ struct Progress_b9bf0 {
 FEObject_b9bf0 *__cdecl FUN_000fc260(const char *name);
 Manager_b9bf0 *__cdecl FUN_000fc1b0();
 void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
-int __cdecl FUN_000964a0(char *dst, int size, const char *fmt, ...);
+extern "C" int __cdecl FUN_000964a0(char*, int, const char*, ...);   // (x64t14) as defined (CUnlockablesManager.cpp)
 extern "C" int __cdecl FUN_00267760(char *dst, int size, const char *fmt, ...);
 int __cdecl FUN_00345804(const char *s, const char *fmt, int *a, int *b);
 Registry_b9bf0 *__cdecl FUN_001d4c90();

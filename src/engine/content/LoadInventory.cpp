@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "gen/content.h"
 #include "gen/owners.h"
+#include "decls/load_inventory.h"
 #define TREE_TU_BEGIN namespace fn_fa919a6c {
 #define TREE_TU_END }
 namespace fn_fa919a6c {} using namespace fn_fa919a6c;
@@ -16,10 +17,9 @@ class Item_2660a0 {
     virtual void First();
     virtual void Second();
 };
-class Owner_2660a0 {
+// (x64t14) on decls/load_inventory.h's record (a 0x10-byte pad put the parent at +0x10 natively, over the pool)
+class Owner_2660a0 : public HulkLoadInventory {
   public:
-    char pad[0x10];
-    Item_2660a0* item;
     void Set(Item_2660a0* p);
 };
 typedef unsigned __int64 U64;
@@ -170,17 +170,17 @@ namespace fn_fa919a6c {
 void Owner_2660a0::Set(Item_2660a0* p) {
     if (p)
         p->First();
-    if (item)
-        item->Second();
-    item = p;
+    if (f10)
+        ((Item_2660a0*)f10)->Second();
+    f10 = p;
 }
 
 } // namespace fn_fa919a6c
 
 // 0x00266130 FUN_00266130 (10 B): matches/0x00266130.cpp
-// sym: ?FUN_00266130@X_266130@owners@@QAEXE@Z
-void owners::X_266130::FUN_00266130(unsigned char value) {
-    field = value;
+// sym: ?FUN_00266130@X_266130@owners@@QAEXH@Z
+void owners::X_266130::FUN_00266130(int value) {
+    field = (unsigned char)value;
 }
 
 namespace fn_fa919a6c {
@@ -277,7 +277,7 @@ class LoadInventory {
     char flag9;
     char pad[2];
     Pool_266480* pool;
-    int field10;
+    void* field10;   // (x64t14) the parent (decls/load_inventory.h; a pointer)
 };
 }
 

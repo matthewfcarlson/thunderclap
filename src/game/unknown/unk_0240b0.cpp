@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x000240b0..0x0002c4f0 (kind game, layer game, confidence low)
 #include "tree_prelude.h"
+#include "decls/data/records.h"   // (x64t14) ContentLoadStream
 #include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/engine/fight.h"
@@ -1837,8 +1838,7 @@ class Thing_24400 {
   public:
     virtual void A();
     virtual void B();
-    char pad[8];
-    unsigned char ready;
+    HULK_CONTENT_LOADSTREAM_WORDS   // (x64t14) records.h ContentLoadStream's words (was a pad: natively short)
 };
 class LoadStream_24400 {
   public:
@@ -1854,13 +1854,13 @@ int __stdcall FUN_00024400(int param, char skip) {
     int result;
     if (skip && !(*(char*)&DAT_004dd841))
         return 0;
-    LoadStream_24400* f = (LoadStream_24400*)thunk_FUN_0008d690(0x48);
+    LoadStream_24400* f = (LoadStream_24400*)thunk_FUN_0008d690(sizeof(ContentLoadStream));
     if (f)
         p = f->Make_00264430(param, 0, 1);
     else
         p = 0;
     p->A();
-    if (!p->ready) {
+    if (!p->open) {
         p->B();
         return 0;
     }

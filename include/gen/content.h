@@ -211,7 +211,7 @@ public:
     int f_1c;
     void* f_20;
     void* f_24;
-    int f_28;
+    char* f_28;   // (x64t14) the bank being read (records.h ContentLoadStream)
     int f_2c;
     int f_30;
     int f_34;
@@ -244,7 +244,7 @@ public:
     virtual void vfunc_5(void*, void*, void*, hulk_intptr) = 0; // slot 5
     int f_08;
     int f_0c;
-    int f_10;
+    void* f_10;   // (x64t14) the chunk reader (decls/loaders.h HulkChunkHandler)
 };
 
 } // namespace content

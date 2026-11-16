@@ -31,7 +31,8 @@ struct HulkChunkHandler {
     int refs;
     int id;
     int f0c;
-    int f10;
+    void* f10;   // (x64t14) the chunk reader P3DFileHandler 0x00265cd0 lends the handler while its vfunc_3 runs (0x00265ff0
+                 // passes it to vfunc_5): a pointer (natively +0x18; was an int at +0x14 that the 8-byte store overran)
 };
 HULK_LOADER_SIZE32(HulkChunkHandler, 0x14);
 // SkeletonLoader 0x0027b980: the handler's words and a flag (1)

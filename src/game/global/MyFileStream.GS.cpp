@@ -38,7 +38,7 @@ union InventoryArg_1fb260 {
     Inventory_1fb260 *inv;
     char caster[4];
 };
-int __cdecl FUN_000964a0(char *buf, int size, const char *fmt, ...);
+extern "C" int __cdecl FUN_000964a0(char*, int, const char*, ...);   // (x64t14) as defined (CUnlockablesManager.cpp)
 class DataLoader_1fb260 {
 public:
     char pad0[0x2c];

@@ -917,7 +917,7 @@ struct Panel_c1790 {
 extern "C" int __cdecl FUN_00266da0(int mode);
 Ui_c1790* __cdecl FUN_000fc1b0();
 const char* __cdecl FUN_000f7120(int index);
-void FUN_000964a0(char* buf, int size, const char* fmt, ...);
+extern "C" int __cdecl FUN_000964a0(char*, int, const char*, ...);   // (x64t14) as defined (CUnlockablesManager.cpp)
 bool __cdecl FUN_000fc1c0(const char* path);
 DynamicLabel* __cdecl FUN_000fc260(const char* name);
 
@@ -1429,7 +1429,7 @@ struct Inventory_c1f70 {
 
 
 void* __cdecl FUN_00263ea0(int size);
-int __cdecl FUN_000964a0(char* dst, int size, const char* fmt, ...);
+extern "C" int __cdecl FUN_000964a0(char*, int, const char*, ...);   // (x64t14) as defined (CUnlockablesManager.cpp)
 
 struct Frame_c1f70 {
     char path[0x100];
@@ -1686,7 +1686,7 @@ FEObject* __cdecl FUN_000fc260(const char* name);
 void __cdecl FUN_000fb690(unsigned short* dst, const unsigned short* src, int count);
 void __cdecl FUN_000fb790(unsigned short* dst, const char* src, int count);
 void __cdecl FUN_000fc020(unsigned short* dst, int count, const unsigned short* fmt, ...);
-void __cdecl FUN_000964a0(char* dst, int size, const char* fmt, ...);
+extern "C" int __cdecl FUN_000964a0(char*, int, const char*, ...);   // (x64t14) as defined (CUnlockablesManager.cpp)
 
 class UnlockMenu {
   public:
@@ -1933,7 +1933,7 @@ struct Output_c2990 { void FUN_001b7310(const char*,int,int); };
 extern int DAT_0049dab8, DAT_0049db80;
 extern "C" Track* __cdecl FUN_00344e74(Track*,int,const void*,const void*,int);
 extern "C++" Manager_c2990* __cdecl FUN_001d4c90();
-extern "C" int __cdecl FUN_000964a0(char*,int,const char*,...);
+extern "C" int __cdecl FUN_000964a0(char*, int, const char*, ...);   // (x64t14) as defined (CUnlockablesManager.cpp)
 struct Target_c2990 {
  char pad0[0x10]; int state; char pad14[0x38]; Lookup_c2990* lookup; char pad50[0xc]; Group_c2990* group; char pad60[0x1810]; unsigned char active; char pad1871[3]; int id;
  void FUN_000ba040(); void FUN_000c21b0(int);
@@ -2017,7 +2017,7 @@ extern char DAT_0049f48c[];
 extern char DAT_0049f4a4[];
 extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
 extern void *__cdecl FUN_000fc260(const char *name);
-extern int __cdecl FUN_000964a0(char *buf, int size, const char *fmt, ...);
+extern "C" int __cdecl FUN_000964a0(char*, int, const char*, ...);   // (x64t14) as defined (CUnlockablesManager.cpp)
 extern int __cdecl FUN_000fc020(char *buf, int size, const char *fmt, ...);
 extern "C" void __cdecl FUN_000fc280(const char *name);
 
@@ -2434,7 +2434,7 @@ Loc *__cdecl FUN_000fc1b0();
 Dlg *__cdecl FUN_000fc3d0();
 extern "C" int __cdecl FUN_000fb720(const wchar_t *s);
 void __cdecl FUN_000fb690(wchar_t *dst, const wchar_t *src, int n);
-void __cdecl FUN_000964a0(char *dst, int n, const char *fmt, ...);
+extern "C" int __cdecl FUN_000964a0(char*, int, const char*, ...);   // (x64t14) as defined (CUnlockablesManager.cpp)
 
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" int strcmp(const char *a, const char *b);
@@ -2729,7 +2729,7 @@ struct Gfx { V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7) V(8) V(9) V(10) V(11) virtu
 struct Screen { V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7) V(8) V(9) V(10) V(11) V(12) V(13) V(14) V(15) V(16) V(17) V(18) V(19) V(20) V(21) V(22) V(23) V(24) V(25) V(26) V(27) V(28) V(29) V(30) V(31) V(32) V(33) V(34) V(35) V(36) V(37) V(38) V(39) V(40) V(41) V(42) V(43) V(44) V(45) V(46) V(47) V(48) V(49) V(50) V(51) V(52) V(53) V(54) V(55) V(56) V(57) V(58) V(59) V(60) V(61) V(62) V(63) V(64) V(65) V(66) V(67) V(68) V(69) V(70) V(71) V(72) V(73) V(74) V(75) V(76) V(77) V(78) V(79) V(80) V(81) V(82) V(83) V(84) V(85) V(86) V(87) V(88) V(89) V(90) virtual void finish(); };
 struct Root { char pad[0xe4]; Screen* screen; };
 struct Other { void FUN_000929a0(U,int); };
-int __cdecl FUN_000964a0(char*,int,const char*,...);
+extern "C" int __cdecl FUN_000964a0(char*, int, const char*, ...);   // (x64t14) as defined (CUnlockablesManager.cpp)
 void* __cdecl FUN_00263ea0(int);
 extern "C" U __cdecl FUN_00267f80();
 extern "C" void __cdecl FUN_000b9230(Obj*);
@@ -2940,7 +2940,7 @@ TextManager_c4020* __cdecl FUN_000fc3d0();
 FEObject_c4020* __cdecl FUN_000fc260(const char* name);
 Manager_c4020* __cdecl FUN_000fc1b0();
 extern "C" void __cdecl FUN_000fc100(int a, int b);
-int __cdecl FUN_000964a0(char* buf, int size, const char* fmt, ...);
+extern "C" int __cdecl FUN_000964a0(char*, int, const char*, ...);   // (x64t14) as defined (CUnlockablesManager.cpp)
 int FUN_00345804(const char* str, const char* fmt, ...);
 
 class MissionMenu {

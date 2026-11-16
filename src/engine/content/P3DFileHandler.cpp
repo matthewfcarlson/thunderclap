@@ -47,18 +47,18 @@ struct State_265c40 {
 extern "C" void __cdecl thunk_FUN_00267090_a(void*);
 extern "C" void __cdecl thunk_FUN_00267090_b(void*);
 void* __cdecl FUN_00263ed0(unsigned int size, int flag);
-int __cdecl FUN_00266da0(int mode);
+hulk_intptr __cdecl FUN_00266da0(hulk_intptr heap);   // (x64t14) the heap pointer (unk_266950.cpp: void*; pointer-sized natively)
 struct Ctx_265cd0;
 struct Cache_265cd0;
 struct LoadInventory_265cd0;
-struct Res_265cd0 {
-    char pad04[8];
-    unsigned char ok;
-    char pad0d[3];
+// (x64t14) the stream on records.h ContentLoadStream (was a pad view; 0x00263fb0 returns its size, not a pointer)
+struct Res_265cd0 : ContentLoadStream {
+    Res_265cd0* FUN_002644d0(Ctx_265cd0* a, Cache_265cd0* b, int c);
+    unsigned int FUN_00263fb0();
+};
+struct Ref_265cd0 {
     virtual void AddRef();
     virtual void Release();
-    Res_265cd0* FUN_002644d0(Ctx_265cd0* a, Cache_265cd0* b, int c);
-    void* FUN_00263fb0();
 };
 struct LoadInventory_265cd0 {
     virtual void AddRef();
@@ -70,22 +70,25 @@ struct LoadInventory_265cd0 {
     void FUN_00266130(int v);
     void FUN_002660a0(void* v);
 };
-struct Reader {
-    char pad00[0x288];
-    Reader* FUN_00266cb0(void* handle);
+// (x64t14) 0x002669f0 returns eax 0 / 1 (unk_266950.cpp: unsigned int); the original tests al. The 64-bit builds
+// declare the definition's type (a bool is another IR signature: the call did not bind), the 32-bit ones keep `bool`.
+#if defined(HULK_PTR64)
+typedef unsigned int Ret_2669f0;
+#else
+typedef bool Ret_2669f0;
+#endif
+// (x64t14) the chunk reader on records.h ContentChunkReader (natively 0x290 bytes: was a 0x288-byte pad)
+struct Reader : ContentChunkReader {
+    Reader* FUN_00266cb0(Res_265cd0* stream);
     void FUN_002669d0(Ctx_265cd0* ctx);
-    bool FUN_002669f0();
+    Ret_2669f0 FUN_002669f0();
     hulk_intptr FUN_00266a30();
     int FUN_00266c30();
     void FUN_00266be0();
     void FUN_002669c0();
 };
-struct Ctx_265cd0 {
-    char pad00[0x100];
-    void* res;
-    void* f104;
-    void* f108;
-};
+// (x64t14) the request's arguments (records.h ContentLoadArgs: the stream goes in the context word)
+struct Ctx_265cd0 : ContentLoadArgs {};
 struct Cache_265cd0 {
     Res_265cd0* FUN_00266880();
     void FUN_00266850(Res_265cd0* r);
@@ -108,7 +111,7 @@ public:
     virtual void AddRef();
     virtual void Release();
     virtual void v2();
-    virtual void v3(LoadedObject** out, Pair_265cd0* pair, void* a2, void* a3, void* a4);
+    virtual void v3(LoadedObject** out, Pair_265cd0* pair, void* a2, int a3, void* a4);
 };
 }
 namespace content {
@@ -126,7 +129,7 @@ struct Registry_265cd0 {
 };
 class Listener_265cd0 {
 public:
-    virtual void v0(Ctx_265cd0* ctx, void* x);
+    virtual void v0(Ctx_265cd0* ctx, unsigned int size);
     virtual void v1(Ctx_265cd0* ctx);
     virtual void v2(int type);
     virtual void v3(int type, LoadedObject* obj, Pair_265cd0* pair);
@@ -207,7 +210,7 @@ void P3DFileHandler::vfunc_3(Ctx_265cd0* ctx, Cache_265cd0* cache)
     f.res = res;
     if (res == 0) {
         created = true;
-        void* mem = FUN_00263ed0(0x48, 1);
+        void* mem = FUN_00263ed0(sizeof(ContentLoadStream), 1);
         if (mem != 0)
             f.res = ((Res_265cd0*)mem)->FUN_002644d0(ctx, cache, 1);
         else
@@ -215,26 +218,26 @@ void P3DFileHandler::vfunc_3(Ctx_265cd0* ctx, Cache_265cd0* cache)
         cache->FUN_00266850(f.res);
         res = f.res;
     }
-    if (res->ok == 0) {
+    if (res->open == 0) {
         if (created)
             cache->FUN_00266850(0);
         cache->FUN_00266950(5);
         return;
     }
-    ctx->res = res;
-    res->AddRef();
+    ctx->context = res;
+    ((Ref_265cd0*)res)->AddRef();
     if (listener != 0)
         listener->v0(ctx, res->FUN_00263fb0());
-    int old = FUN_00266da0(1);
+    hulk_intptr old = FUN_00266da0(1);
     void* mem2 = FUN_00263ed0(HULK_LOADINVENTORY_SIZE, 1);
     LoadInventory_265cd0* stream = 0;
     if (mem2 != 0)
         stream = ((LoadInventory_265cd0*)mem2)->FUN_00266480(0x400);
     FUN_00266da0(old);
     stream->FUN_00266130(0);
-    stream->FUN_002660a0(ctx->f104);
+    stream->FUN_002660a0(ctx->callback);
     stream->AddRef();
-    f.reader.FUN_00266cb0(ctx->res);
+    f.reader.FUN_00266cb0((Res_265cd0*)ctx->context);
     f.reader.FUN_002669d0(ctx);
     f.status = 0;
     if (f.reader.FUN_002669f0()) {
@@ -261,7 +264,7 @@ void P3DFileHandler::vfunc_3(Ctx_265cd0* ctx, Cache_265cd0* cache)
                     if (st == 1)
                         f.status = sh->status;
                 } else {
-                    ld->v3(&f.obj, &f.pair, ctx->res, ctx->f108, ctx->f104);
+                    ld->v3(&f.obj, &f.pair, ctx->context, ctx->kind, ctx->callback);
                 }
                 ld->Release();
                 if (listener != 0)
@@ -277,7 +280,7 @@ void P3DFileHandler::vfunc_3(Ctx_265cd0* ctx, Cache_265cd0* cache)
     stream->FUN_002660a0(0);
     if (cache->FUN_00266710() != 4 && f.status == 0)
         cache->FUN_00266820(stream);
-    res->Release();
+    ((Ref_265cd0*)res)->Release();
     stream->Release();
     if (listener != 0)
         listener->v1(ctx);

@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x00232780..0x00232c40 (kind game, layer engine, confidence low)
 #include "tree_prelude.h"
+#include "decls/data/records.h"   // (x64t14) ContentLoadStream
 #include "compat/ptr.h"
 #include "decls/data/engine/fight.h"
 #include "gen/content.h"
@@ -330,7 +331,7 @@ int Loader_232ae0::FUN_00232ae0(Source_232ae0 *source, unsigned int size)
     void *buffer = FUN_0008d6d0(size);
     source->Read(buffer, size, 1);
     source->Rewind();
-    void *memory = thunk_FUN_0008d690(0x48);
+    void *memory = thunk_FUN_0008d690(sizeof(ContentLoadStream));
     content::LoadStream *stream = memory ? ((LoadStream_nv_232ae0*)(((content::LoadStream*)(((content::LoadStream *)memory)))))->FUN_00264190(buffer, size) : 0;
     stream->vfunc_0();
     int result = FUN_00232870(buffer, stream, size, source->GetOption());

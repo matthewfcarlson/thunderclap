@@ -20,7 +20,7 @@ extern "C" void *memset(void *, int, unsigned int);
 #endif
 inline void *operator new(size_t, void *p) throw() { return p; }
 namespace fn_f0cc89ae {
-extern "C" int __cdecl FUN_000964a0(char *buf, unsigned int size, const char *fmt, const char *arg);
+extern "C" int __cdecl FUN_000964a0(char*, int, const char*, ...);   // (x64t14) as defined (CUnlockablesManager.cpp)
 void *__cdecl FUN_00263ed0(unsigned int a, unsigned int b);
 namespace content { namespace LoadInventory {
 template<class T> struct DynamicCaster { virtual void cast(); };

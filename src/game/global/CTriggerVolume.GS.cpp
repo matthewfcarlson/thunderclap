@@ -54,7 +54,7 @@ struct Receiver_1fb5a0 { void FUN_001cbc20(Message_1fb5a0*); };
 struct World { char pad[48]; Receiver_1fb5a0* receiver; };
 extern Manager_1fb5a0* __cdecl FUN_001d4c90();
 extern int __cdecl _sprintf(char*,const char*,...);
-extern int __cdecl FUN_000964a0(char*,unsigned,const char*,...);
+extern "C" int __cdecl FUN_000964a0(char*, int, const char*, ...);   // (x64t14) as defined (CUnlockablesManager.cpp)
 struct CTriggerVolume { virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); virtual void vfunc_7(); virtual void vfunc_8(); virtual void vfunc_9(unsigned,unsigned,int); virtual void vfunc_10(); virtual void vfunc_11(); virtual void vfunc_12(); virtual void vfunc_13(Input_1fb5a0*); char pad[140]; char name[1]; };
 void CTriggerVolume::vfunc_13(Input_1fb5a0* input) {
  vfunc_9(input->a,input->b,1);
@@ -118,7 +118,7 @@ struct Receiver_1fb6a0 { void FUN_001cbc20(Key_1fb6a0*); };
 struct World { char pad[48]; Receiver_1fb6a0* receiver; };
 extern Manager_1fb6a0* __cdecl FUN_001d4c90();
 extern int __cdecl _sprintf(char*, const char*, ...);
-extern void __cdecl FUN_000964a0(char*, int, const char*, ...);
+extern "C" int __cdecl FUN_000964a0(char*, int, const char*, ...);   // (x64t14) as defined (CUnlockablesManager.cpp)
 struct CTriggerVolume {
 virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); virtual void vfunc_7(); virtual void vfunc_8(); virtual void vfunc_9(int,int,int); virtual void vfunc_10(); virtual void vfunc_11(); virtual void vfunc_12(); virtual void vfunc_13(); virtual void vfunc_14(Input_1fb6a0*); virtual void vfunc_15();
 char pad[140]; char name[1];
@@ -165,7 +165,7 @@ struct Argument_1fb7a0 { const char* FUN_00036d00(); };
 int __cdecl sprintf(char*, const char*, ...);
 #endif
 
-void __cdecl FUN_000964a0(char*, unsigned, const char*, ...);
+extern "C" int __cdecl FUN_000964a0(char*, int, const char*, ...);   // (x64t14) as defined (CUnlockablesManager.cpp)
 struct CTriggerVolume { char pad[0x90]; char name[1]; void vfunc_15(Argument_1fb7a0*); };
 void CTriggerVolume::vfunc_15(Argument_1fb7a0* argument) {
  Recipient_1fb7a0* recipient = FUN_001d4c90();

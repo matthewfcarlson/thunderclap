@@ -5201,3 +5201,59 @@ no bone). HEAD without any tri4 change traps there too (86240). The logged matri
 translation (-1921.5, 10.12, -961.3), w = 1, the whole 3x3 rotation the default NaN 0xffc00000 (an invalid operation:
 0/0, a zero-length direction). x87 and SSE both produce that same default NaN, so the original computes the same NaN
 rotation and only renders it.
+
+## The content stream and chunk reader on records, the pddi device slot's overrun, FUN_000964a0's declarations (x64t14, 2026-11-15)
+
+x64t13's follow-up (macOS start-up first). Native iteration on a control's materialized tree (2472de24e) as the
+snapshot and its binding map, with the batch's files and data TUs generated with this records.h.
+
+**Start-up, crash by crash** (each at its root cause in source):
+- content::LoadStream (0x48 bytes) is records.h `ContentLoadStream`: the file (`ContentStreamFile`: the slots the
+  stream calls, Release 1, Read 3, Seek 5, GetSize 15, GetGranularity 16, IsDone 20, Wait 21, IsOpen 23), the open /
+  wait / buffered / byte-swap flags, size, position, file offset, the two 0x20000-byte banks of DAT_004e7c28 and the
+  pump timing. Its methods 0x00263f50 .. 0x002647e0 (LoadStream.cpp) and owners.h's views of 0x00264140, 0x002642c0,
+  0x00264510 and 0x002647e0 use it; `HULK_CONTENT_LOADSTREAM_WORDS` lays the words out after a polymorphic view's
+  own vftable pointer. 0x00264190 (the memory stream) writes the game's vftable itself (was a local polymorphic
+  stand-in); 0x00263fd0 is a thiscall method (0x00264590 calls it with the stream in ecx); 0x002647e0 calls its two
+  readers by address (`FUN_00264270` / `FUN_00264590`, the destination a pointer; were `first` / `second` with `(int)`
+  casts). Every allocation is `sizeof(ContentLoadStream)` (P3DFileHandler, ImageHandler_3 x4, CTokenString,
+  0x00024400, FEThingsBase_3, 0x00232ae0).
+- P3DFileHandler 0x00265cd0: the stream through the record (`FUN_00263fb0` returns the size; it was declared `void*`,
+  so the call did not bind), the request's arguments as ContentLoadArgs, the chunk reader as records.h
+  `ContentChunkReader` (0x288 bytes, 0x290 natively: its stream pointer at +0x284; the frame's 0x288-byte pad was 8
+  bytes short), the heap switch 0x00266da0 pointer-sized (`hulk_intptr`) and 0x002669f0's result the definition's
+  `unsigned int` on 64-bit only (`bool` stays on the 32-bit builds): the block's 32-bit objects are unchanged (its
+  --wine proof fails at HEAD under D62 with HEAD's source too: tri4).
+- The chunk reader's methods (unk_266950.cpp: 0x002669c0, 0x002669f0, which passed the stream to 0x00263fc0 as an
+  `int`, 0x00266cb0) on the record.
+- DAT_004e3748 is records.h `CountedStringRecord`: an event counter (0x001effc0) and the "sound/rsd" string
+  (0x0035ee10 / 0x003640d0) at +4. As a 16-byte item the native string's length landed on the pddi device slot
+  DAT_005554a4, so CPlatformManager's set-up crashed in 0x002c3230 on "device" 9.
+- P3DFileHandler's listener (+8) is a pointer where unk_291dc0.cpp constructs the handler (an `int` at native +0xc;
+  0x00265cd0 reads +0x10); decls/loaders.h HulkChunkHandler's +0x10 is the chunk reader P3DFileHandler lends a handler
+  (a pointer; SimpleChunkHandler::vfunc_3 0x00265ff0 takes P3DFileHandler's pointers, were `int`s); the three flat
+  views that mirror the record (AnimationLoader, GeometryLoader, PolySkin: their size asserts caught it) follow.
+- decls/load_inventory.h's +0x10 is the inventory's parent (a pointer): 0x002660a0 sets it through the record (a
+  0x10-byte pad put it natively over the pool); owners::X_266130's flag at its native offset, 0x00266130 takes the
+  `int` its one caller passes.
+- ImageHandler_3's request view is ContentLoadArgs (the stream in the context word, the heap flag at +0x108).
+
+**FUN_000964a0**: 45 declarations in 26 files are now the definition's `extern "C" int __cdecl (char*, int, const
+char*, ...)` (C++ / `void` / `unsigned` ones, and two with a fixed fourth argument, which arm64 Darwin passes
+differently from a variadic one). (FETextInput.GS.cpp's two were applied on HEAD's text when x64t15 landed the batch.)
+
+**Function pointers through a mismatched declaration** (build/x64t14/scripts/fpsweep.py over 240 address-taken
+`FUN_` names): 76 C definitions taken through C++ declarations and 14 the other way; nearly all are `void()` atexit
+handlers whose IR signatures agree, so they bind by address. The real mismatches are the fight parameters' setters
+taken through `extern "C" void FUN_x()` (GrappleThrowAction.cpp 0x0014a3a0: they are `bool Set(int)` methods,
+constructor-written function pointers, D48: gx5) and 0x00364150 (`int` vs `void`).
+
+**Where macOS start-up stops now**: in the loader fiber, the copyright p3d's chunk reader reads the file's magic
+(0x00266cb0 -> 0x002647e0 -> 0x00264590) and waits in core::File::vfunc_21 (0x00276240) for the first bank's read,
+which never finishes (vfunc_20 polls the file's pending count; the drive thread idles in WaitForSingleObject; the
+file was opened and read synchronously before). Next: the read request's path (0x00275eb0 -> the drive's queue
+0x00272b60 -> the drive thread) natively.
+
+**Not changed**: FUN_00266da0 has ~60 declarations as `int` / `unsigned` / `hulk_intptr` (it takes and returns the
+heap pointer): natively the `extern "C" int` ones pass and keep a truncated pointer. A sweep like FUN_000964a0's
+needs the callers' locals typed too (fight/ and CMotionTrail.cpp, both with other agents' work in flight).

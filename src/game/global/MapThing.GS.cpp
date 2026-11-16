@@ -26,7 +26,7 @@ struct Link_e39c0 { char pad[8]; Manager_e39c0* manager; };
 } // namespace fn_f9d36b1d
 struct World { char pad[0x28]; Store* store; char gap[0x10]; Link_e39c0* link; };
 namespace fn_f9d36b1d {
-extern int __cdecl FUN_000964a0(char*, unsigned, const char*, ...);
+extern "C" int __cdecl FUN_000964a0(char*, int, const char*, ...);   // (x64t14) as defined (CUnlockablesManager.cpp)
 struct MapThing { char pad[0x118]; int id; Entry_e39c0* vfunc_13(); };
 
 

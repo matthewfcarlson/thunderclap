@@ -1585,7 +1585,7 @@ extern "C" unsigned char DAT_004e372c[4];
 extern "C" unsigned char DAT_004e3730[4];
 extern "C" unsigned char DAT_004e3734[8];
 extern "C" unsigned char DAT_004e373c[4];
-extern "C" unsigned char DAT_004e3748[16];
+// DAT_004e3748: typed by decls/data/records.h (included above)
 
 // unknown/unk_1f0630.cpp
 extern "C" const unsigned int DAT_0047b2a0[1];  // zero_0047b2a0

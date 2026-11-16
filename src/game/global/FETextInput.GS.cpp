@@ -69,7 +69,7 @@ public:
     virtual char Handle35(Parser_dc230 *p, Sink_dc230 *sink, void *owner, Node *node);
     virtual char Handle36(Parser_dc230 *p, Sink_dc230 *sink, void *owner, Node *node);
 };
-void FUN_000964a0(char *buf, int size, const char *fmt, ...);
+extern "C" int __cdecl FUN_000964a0(char*, int, const char*, ...);   // (x64t14) as defined (CUnlockablesManager.cpp)
 class Config_dc230 {
 public:
     char pad0[0x154];
@@ -90,7 +90,7 @@ public:
 
 
 // 0x000dc230 FUN_000dc230 (741 B): equivalent/0x000dc230.cpp
-// sym: ?FUN_000dc230@Config_dc230@fn_f0ffd6c9@@QAE_NPAVParser_dc230@2@PAVHandler_dc230@2@PAVSink_dc230@2@@Z @48840ed200be @w82c022e2e09d @v3b75f0ec728e
+// sym: ?FUN_000dc230@Config_dc230@fn_f0ffd6c9@@QAE_NPAVParser_dc230@2@PAVHandler_dc230@2@PAVSink_dc230@2@@Z @48840ed200be @w82c022e2e09d @v35d7d7f127b3
 // STATUS: equivalent (tools/equiv.py level 3: 1893 inputs, branch coverage 52/52)
 // FUN_000dc230 @ 0x000dc230
 bool Config_dc230::FUN_000dc230(Parser_dc230 *parser, Handler_dc230 *handler, Sink_dc230 *sink)
@@ -157,7 +157,7 @@ bool Config_dc230::FUN_000dc230(Parser_dc230 *parser, Handler_dc230 *handler, Si
 } // namespace fn_f0ffd6c9
 
 // 0x000dd350 FUN_000dd350 (825 B): equivalent/0x000dd350.cpp [wrapped: conflict: FUN_000964a0]
-// sym: ?FUN_000dd350@Config_dd350@fn_000dd350@@QAE_NPAVParser_dd350@2@PAVHandler_dd350@2@PAVSink_dd350@2@@Z @ccf148283394 @w1a5031f6e0e2 @v5a7af7db92a8
+// sym: ?FUN_000dd350@Config_dd350@fn_000dd350@@QAE_NPAVParser_dd350@2@PAVHandler_dd350@2@PAVSink_dd350@2@@Z @ccf148283394 @w1a5031f6e0e2 @va066f44d3e67
 namespace fn_000dd350 {
 // STATUS: equivalent (tools/equiv.py level 3: 1771 inputs, branch coverage 52/52)
 // FUN_000dd350 @ 0x000dd350
@@ -285,7 +285,7 @@ struct Slot_dd350 {
     int a, b, c;
 };
 
-int __cdecl FUN_000964a0(char* buf, int size, const char* fmt, ...);
+extern "C" int __cdecl FUN_000964a0(char*, int, const char*, ...);   // (x64t14) as defined (CUnlockablesManager.cpp)
 void __cdecl FUN_0008d340(void* p);
 extern "C" char* __cdecl FUN_0008d6d0(int size);
 

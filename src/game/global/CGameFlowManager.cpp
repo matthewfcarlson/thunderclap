@@ -402,7 +402,7 @@ union Slot_8b4b0 {
     char *ptr;
     int value;
 };
-void __cdecl FUN_000964a0(char *dst, int size, const char *fmt, ...);
+extern "C" int __cdecl FUN_000964a0(char*, int, const char*, ...);   // (x64t14) as defined (CUnlockablesManager.cpp)
 class Missions_8b4b0 {
 public:
     char pad0[0xabf];

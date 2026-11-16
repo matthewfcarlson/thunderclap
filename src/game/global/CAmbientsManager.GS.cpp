@@ -19,7 +19,7 @@ struct Matrix { char data[64]; void FUN_0022b980(); void FUN_0022cc90(const void
 struct Request { char data[8]; Request* FUN_0027b0e0(const char*); void FUN_0027af50(); };
 struct Manager_796e0 { unsigned int FUN_001dd330(Request*, unsigned int, Matrix*, unsigned int, unsigned int, unsigned int, unsigned int); };
 struct Holder_796e0 { char pad[12]; Manager_796e0* manager; };
-extern "C" int __cdecl FUN_000964a0(char*, unsigned int, const char*, ...);
+extern "C" int __cdecl FUN_000964a0(char*, int, const char*, ...);   // (x64t14) as defined (CUnlockablesManager.cpp)
 struct Object { char pad[0x382c]; Holder_796e0* holder; unsigned int FUN_000796e0(hulk_uintptr, const char*, const void*, const void*, unsigned int, unsigned int, unsigned int); };
 } // namespace fn_fa24d555
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
@@ -66,7 +66,7 @@ struct Cell_7e740 {
 extern "C" Rng_7e740 *FUN_000964d0();
 void FUN_00224d70(float angle, V3_7e740 *v);
 extern "C" char __cdecl FUN_00202560(V3_7e740 *origin, float dist, int a, V3_7e740 *outB, V3_7e740 *outA, int b, int c, int d);
-int __cdecl FUN_000964a0(char *buf, int size, const char *fmt, ...);
+extern "C" int __cdecl FUN_000964a0(char*, int, const char*, ...);   // (x64t14) as defined (CUnlockablesManager.cpp)
 class Game_7e740 {
 public:
     char pad0[8];

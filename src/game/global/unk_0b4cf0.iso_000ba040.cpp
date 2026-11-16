@@ -84,7 +84,7 @@ extern "C" Script* __cdecl FUN_001d4c90();
 extern "C" FEObject* __cdecl FUN_000fc260(const char* name);
 extern "C" TextStore* __cdecl FUN_000fc1b0();
 extern "C" int __cdecl FUN_00267760(char* buf, int size, const char* fmt, ...);
-extern "C" int __cdecl FUN_000964a0(char* buf, int size, const char* fmt, ...);
+extern "C" int __cdecl FUN_000964a0(char*, int, const char*, ...);   // (x64t14) as defined (CUnlockablesManager.cpp)
 extern "C" char* __cdecl FUN_000fb690(char* dst, const char* src, int n);
 extern "C" char* __cdecl FUN_000fb790(char* dst, const char* src, int n);
 

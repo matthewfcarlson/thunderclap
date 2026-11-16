@@ -1075,3 +1075,19 @@ blocks fight::Action's whole family: the records come first there.
   not hold for the matrix product; a NaN that is the default NaN on both sides is not a payload difference.
 - A frame address stored into memory (0x00265cd0's &f.reader) cannot be placed by clang -O0 where the original's
   frame-pointer-less layout puts it (ebp, saved registers and the this spill sit above every local).
+
+## 2026-11-15 x64t14: content stream / chunk reader records; the device slot overrun; FUN_000964a0
+- A 16-byte data item holding a counter and a 12-byte string (DAT_004e3748) overran natively by the string's 64-bit
+  growth into the next item, the pddi device slot: the first symptom was a crash on "device 9" (the string's length)
+  far from either. Check the neighbour of a slot that holds garbage before debugging its writer.
+- A polymorphic view with a pad after its vptr (`virtual f(); char pad[8]; char ok;`) keeps 32-bit distances, so
+  natively its fields miss the record's pointer-aligned words; HULK_CONTENT_LOADSTREAM_WORDS lays a record's words
+  after a view's own vptr.
+- Fixes on a block whose proof can't currently be redone (0x00265cd0, --wine fails at HEAD under D62) can keep its
+  32-bit objects byte-identical with pointer-sized integer types (`hulk_intptr`) or a 64-bit-only typedef (a result
+  type the 64-bit call needs to bind): check then reports its code hashes ok.
+- A call by a name the Wine map doesn't know yet (a renamed member) is unbound in a local native link until the next
+  Wine build: name such callees by address (`FUN_<addr>` members) so the own-address rule binds them.
+- `until ! pgrep -f "it.sh i5"` matches its own shell's command line and never ends; wait on a log line instead.
+- A helper script that imported tree_tu and did its work at module level ran recursively (thousands of copies) and
+  exhausted the laptop's processes; scripts that import the tools keep their work under `if __name__ == "__main__"`.

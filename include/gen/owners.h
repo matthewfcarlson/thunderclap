@@ -14794,46 +14794,68 @@ struct X_263d30 {
 };
 // equivalent/0x00264140.cpp (stub Converter), size 0x10
 struct Converter_264140 {
-    char pad[15]; // +0x00
-    unsigned char reverse; // +0x0f
+    // (x64t14) content::LoadStream's words (records.h ContentLoadStream; pads put them at 32-bit offsets natively)
+    void* vftable; // +0x00
+    int refs; // +0x04 (+0x08)
+    void* file; // +0x08 (+0x10)
+    unsigned char open, sync, buffered; // +0x0c (+0x18)
+    unsigned char reverse; // +0x0f (+0x1b)
     void FUN_00264140(unsigned char* data, unsigned int count, unsigned int size);
 };
 // equivalent/0x002642c0.cpp (stub Controller), size 0x38 (0x40)
 struct Controller_2642c0 {
-    char pad0[0x1c]; // +0x00
-    unsigned int selected; // +0x1c
-    char pad20[0x8]; // +0x20
-    char* currentBuffer; // +0x28
-    unsigned int position; // +0x2c (+0x30)
-    unsigned int limit; // +0x30 (+0x34)
-    unsigned int capacity; // +0x34 (+0x38)
+    // (x64t14) content::LoadStream's words (records.h ContentLoadStream; pads put them at 32-bit offsets natively)
+    void* vftable; // +0x00
+    int refs; // +0x04 (+0x08)
+    void* file; // +0x08 (+0x10)
+    unsigned char open, sync, buffered, swap; // +0x0c (+0x18)
+    unsigned int size, pos, offset; // +0x10 (+0x1c)
+    unsigned int selected; // +0x1c (+0x28)
+    void* m20; // +0x20 (+0x30)
+    void* m24; // +0x24 (+0x38)
+    char* currentBuffer; // +0x28 (+0x40)
+    unsigned int position; // +0x2c (+0x48)
+    unsigned int limit; // +0x30 (+0x4c)
+    unsigned int capacity; // +0x34 (+0x50) the bytes the last fill read
     void FUN_002640f0();
     void FUN_00264050(char* buffer);
     void FUN_002642c0();
 };
 // matches/0x00264510.cpp (stub S_264510), size 0x34
 struct S_264510 {
-    char p0[0xc]; // +0x00
-    char m0c; // +0x0c
-    char pd; // +0x0d
-    char m0e; // +0x0e
-    char pf[5]; // +0x0f
-    unsigned m14; // +0x14
-    char p18[0x14]; // +0x18
-    unsigned m2c, m30; // +0x2c
+    // (x64t14) content::LoadStream's words (records.h ContentLoadStream; pads put them at 32-bit offsets natively)
+    void* vftable; // +0x00
+    int refs; // +0x04 (+0x08)
+    void* file; // +0x08 (+0x10)
+    char m0c; // +0x0c (+0x18) open
+    char pd; // +0x0d (+0x19)
+    char m0e; // +0x0e (+0x1a) buffered
+    char pf; // +0x0f (+0x1b)
+    unsigned size; // +0x10 (+0x1c)
+    unsigned m14; // +0x14 (+0x20) the position
+    unsigned offset; // +0x18 (+0x24)
+    int bank; // +0x1c (+0x28)
+    void* m20; // +0x20 (+0x30)
+    void* m24; // +0x24 (+0x38)
+    char* buffer; // +0x28 (+0x40)
+    unsigned m2c, m30; // +0x2c (+0x48) the bank's position and its bytes
     void A(unsigned);
     void B();
     void FUN_00264510(unsigned n);
 };
 // matches/0x002647e0.cpp (stub X_2647e0), size 0xf
 struct X_2647e0 {
-    char pad[0xC]; // +0x00
-    unsigned char a; // +0x0c
-    char padD; // +0x0d
-    unsigned char b; // +0x0e
+    // (x64t14) content::LoadStream's words (records.h ContentLoadStream; pads put them at 32-bit offsets natively)
+    void* vftable; // +0x00
+    int refs; // +0x04 (+0x08)
+    void* file; // +0x08 (+0x10)
+    unsigned char a; // +0x0c (+0x18) open
+    char padD; // +0x0d (+0x19)
+    unsigned char b; // +0x0e (+0x1a) buffered
     unsigned char FUN_002647e0(hulk_intptr, hulk_intptr, int, hulk_intptr);
-    unsigned char first(int, int, int, int);
-    unsigned char second(int, int, int, int);
+    // (x64t14) the two readers by their addresses (the destination a pointer, as defined)
+    bool FUN_00264270(void*, int, int, int);
+    bool FUN_00264590(const void*, int, int, int);
 };
 // matches/0x00264860.cpp (stub C_264860), size 0x8
 struct C_264860 {
@@ -14890,9 +14912,12 @@ struct A_266090 {
 };
 // matches/0x00266130.cpp (stub X_266130), size 0xa
 struct X_266130 {
-    char pad[9]; // +0x00
-    unsigned char field; // +0x09
-    void FUN_00266130(unsigned char value);
+    // (x64t14) content::LoadInventory's words (decls/load_inventory.h; the pad put the flag at +9 natively)
+    void* vftable; // +0x00
+    int refs; // +0x04 (+0x08)
+    char f08; // +0x08 (+0x0c)
+    unsigned char field; // +0x09 (+0x0d)
+    void FUN_00266130(int value);   // (x64t14) an int, as its one caller (P3DFileHandler 0x00265cd0) passes it
 };
 // matches/0x002666e0.cpp (stub C_2666e0), size 0x18
 struct C_2666e0 {

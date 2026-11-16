@@ -216,7 +216,7 @@ struct InfoReader {
  bool FUN_001d2ba0(const char*, int, int);
 };
 extern "C" InfoReader* __cdecl FUN_001d4c90();
-void __cdecl FUN_000964a0(char*, int, const char*, ...);
+extern "C" int __cdecl FUN_000964a0(char*, int, const char*, ...);   // (x64t14) as defined (CUnlockablesManager.cpp)
 struct Entry_89f80 { unsigned int low, high; char text[16]; };
 struct Manager_89f80 {
  char pad[0x158];

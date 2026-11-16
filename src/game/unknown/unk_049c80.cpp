@@ -51,7 +51,7 @@ class CCondition_49e80 {
   public:
     virtual int vfunc_0(int);
 };
-extern "C" void __cdecl FUN_000964a0(char*, int, const char*, ...);
+extern "C" int __cdecl FUN_000964a0(char*, int, const char*, ...);   // (x64t14) as defined (CUnlockablesManager.cpp)
 class Obj_49ed0 {
     char pad[0x10];
 

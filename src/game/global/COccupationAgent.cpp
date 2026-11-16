@@ -129,7 +129,7 @@ struct World {
     Index_103640 *index;
 };
 namespace fn_f34ce6e5 {
-int FUN_000964a0(char *buf, int size, const char *fmt, ...);
+extern "C" int __cdecl FUN_000964a0(char*, int, const char*, ...);   // (x64t14) as defined (CUnlockablesManager.cpp)
 union NameSlot_103640 {
     const char *name;
     float y;

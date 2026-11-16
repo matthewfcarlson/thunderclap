@@ -15,17 +15,21 @@ class SimpleChunkHandler {
     virtual void f0();
     virtual void f1();
     virtual void f2();
-    virtual void f3(int, int, int, int, int);
+    virtual void f3(void*, void*, void*, int, void*);
     virtual void f4();
-    virtual void f5(int, int, int, int);
-    char pad[12];
-    int member10;
+    virtual void f5(void*, void*, void*, void*);
+    // (x64t14) decls/loaders.h HulkChunkHandler's words after the vftable: the reader a pointer (was a 12-byte pad and an
+    // int, natively at +0x14); vfunc_3's arguments are P3DFileHandler 0x00265cd0's pointers (were ints: truncated)
+    int refs;
+    int id;
+    int f0c;
+    void* member10;
 };
 
 
 // 0x00265ff0 content::SimpleChunkHandler::vfunc_3 (27 B): matches/0x00265ff0.cpp
-// sym: ?f3@SimpleChunkHandler@fn_f6cd38f1@@UAEXHHHHH@Z
-void SimpleChunkHandler::f3(int a, int b, int c, int d, int e) {
+// sym: ?f3@SimpleChunkHandler@fn_f6cd38f1@@UAEXPAX00H0@Z
+void SimpleChunkHandler::f3(void* a, void* b, void* c, int d, void* e) {
     f5(a, b, member10, e);
 }
 

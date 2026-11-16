@@ -3,6 +3,7 @@
 #include "tree_prelude.h"
 #include "compat/ptr.h"
 #include "decls/loaders.h"
+#include "decls/data/records.h"
 #include "decls/data/game/global.h"
 #include "gen/owners.h"
 #define TREE_TU_BEGIN namespace fn_fee005c0 {
@@ -58,12 +59,9 @@ struct File {
     virtual void Release();
     File* FUN_002644d0(Request* req, Context* ctx, int one);
 };
-struct Request {
-    char name[0x100];
-    File* file;
-    int pad104;
-    int allocTag;
-};
+// (x64t14) the load request's arguments (records.h ContentLoadArgs: the stream goes in the context word; the heap
+// flag at +0x108)
+struct Request : ContentLoadArgs {};
 struct LoadInventory_2aea70;
 struct Context {
     char pad0[0x18];
@@ -355,18 +353,18 @@ void pure3d::ImageHandler::vfunc_3(Request* req, Context* ctx)
 
     File* file = ctx->FUN_00266880();
     if (file == 0) {
-        void* mem = FUN_00263ed0(0x48, 1);
+        void* mem = FUN_00263ed0(sizeof(ContentLoadStream), 1);
         if (mem)
             file = ((File*)mem)->FUN_002644d0(req, ctx, 1);
         else
             file = 0;
         ctx->FUN_00266850(file);
     }
-    req->file = file;
+    req->context = file;
     file->AddRef();
 
     if (copyName) {
-        const char* src = req->name;
+        const char* src = req->path;
         char* dst = name;
         char c;
         do {
@@ -376,10 +374,10 @@ void pure3d::ImageHandler::vfunc_3(Request* req, Context* ctx)
             dst++;
         } while (c != 0);
     } else {
-        FUN_0028fb20(name, req->name);
+        FUN_0028fb20(name, req->path);
     }
 
-    void* lmem = FUN_00263ed0(0x14, req->allocTag);
+    void* lmem = FUN_00263ed0(0x14, req->kind);
     LoadInventory_2aea70* loader = 0;
     if (lmem)
         loader = ((LoadInventory_2aea70*)lmem)->FUN_00266480(0x400);
@@ -428,7 +426,7 @@ void pure3d::ImageHandler::vfunc_3(Request* req, Context* ctx)
 // 0x002aecb0 FUN_002aecb0 (172 B): matches/0x002aecb0.cpp
 // sym: ?target@Owner_2aecb0@fn_fee005c0@@QAEPAUResult_2aecb0@2@PAUInput@2@@Z
 Result_2aecb0* Owner_2aecb0::target(Input* input) {
-    LoadStream_2aecb0* mem = (LoadStream_2aecb0*)thunk_FUN_0008d690(0x48);
+    LoadStream_2aecb0* mem = (LoadStream_2aecb0*)thunk_FUN_0008d690(sizeof(ContentLoadStream));
     LoadStream_2aecb0* r = mem ? mem->FUN_00264430(input, 0, 1) : 0;
     r->slot0();
     Container_2aecb0* c = FUN_002ae980(input);
@@ -499,7 +497,7 @@ namespace pure3d { struct TextureBuilder_2aedd0 { virtual bool slot0_002ae2b0(in
 struct Loader_2aedd0 { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(LoadStream_2aedd0*, pure3d::TextureBuilder_2aedd0*); };
 struct Owner_2aedd0 { char pad[0x8c]; unsigned int f8c,f90,f94,f98,f9c,fa0; Loader_2aedd0* FUN_002ae980(void*); Texture* target(void*); };
 Texture* Owner_2aedd0::target(void* arg) {
- LoadStream_2aedd0* raw=(LoadStream_2aedd0*)FUN_00263ea0(0x48);
+ LoadStream_2aedd0* raw=(LoadStream_2aedd0*)FUN_00263ea0(sizeof(ContentLoadStream));
  LoadStream_2aedd0* resource=raw ? raw->FUN_00264430(arg,0,1) : 0;
  resource->slot0();
  Loader_2aedd0* loader=FUN_002ae980(arg);
@@ -596,7 +594,7 @@ class Stream {
 public:
     virtual void AddRef();
     virtual void Release();
-    Stream *FUN_00264430(unsigned int id, int a, int b);
+    Stream *FUN_00264430(hulk_uintptr id, int a, int b);   // (x64t14) the name (was truncated natively)
 };
 
 class TextureBuilder {
@@ -648,7 +646,7 @@ TextureBuilder::TextureBuilder(int a, int b)
 
 void Owner_2aef60::FUN_002aef60(hulk_uintptr id, hulk_intptr a, int b)
 {
-    void *memory = thunk_FUN_0008d690(0x48);
+    void *memory = thunk_FUN_0008d690(sizeof(ContentLoadStream));
     Stream *stream = memory ? ((Stream *)memory)->FUN_00264430(id, 0, 0) : 0;
     stream->AddRef();
     Handler_2aef60 *handler = FUN_002ae980(id);

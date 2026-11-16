@@ -170,7 +170,7 @@ struct W_206320 {
 extern "C" Registry_206320* __cdecl FUN_001d4c90();
 extern "C" Rand* __cdecl FUN_000964d0();
 extern "C" void* __cdecl FUN_00263ea0(int);
-extern "C" void __cdecl FUN_000964a0(char*, int, const char*, ...);
+extern "C" int __cdecl FUN_000964a0(char*, int, const char*, ...);   // (x64t14) as defined (CUnlockablesManager.cpp)
 } // namespace fn_f43ea553
 extern "C" int __cdecl _strncmp(const char*, const char*, unsigned int);
 
@@ -964,7 +964,7 @@ namespace fn_00207580 {
 // cl-flags: /GS
 
 extern "C" int __cdecl _sprintf(char *, const char *, ...);
-extern int __cdecl FUN_000964a0(char *buf, int size, const char *fmt, ...);
+extern "C" int __cdecl FUN_000964a0(char*, int, const char*, ...);   // (x64t14) as defined (CUnlockablesManager.cpp)
 
 struct Node {
     char pad0[0x56];

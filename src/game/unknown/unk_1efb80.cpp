@@ -3,6 +3,7 @@
 #include "tree_prelude.h"
 #include "compat/ptr.h"
 #include "decls/data/game/unknown.h"
+#include "decls/data/records.h"
 #include "gen/owners.h"
 #define TREE_TU_BEGIN namespace fn_f4b77e46 {
 #define TREE_TU_END }
@@ -333,7 +334,7 @@ void Player_1effc0::FUN_001effc0(float delta) {
    for (int j = 0; event && j < i; ++j) event = event->next;
   }
   if (event && event->time >= previous && event->time <= time) {
-   ++(*(unsigned int*)&DAT_004e3748);
+   ++DAT_004e3748[0].count;   // (x64t14) records.h CountedStringRecord
    event->fire(&context, arg);
    ++completed;
    if (completed == count) {

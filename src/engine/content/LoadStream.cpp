@@ -20,26 +20,14 @@ class Service_263f50 {
   public:
     int Get_00264870();
 };
-class LoadStream_263f50 {
+// (x64t14) content::LoadStream's methods on records.h ContentLoadStream (the pads put its words at their 32-bit
+// offsets natively)
+class LoadStream_263f50 : public ContentLoadStream {
   public:
-    char p[8];
-    int a;
-    char b[4];
-    int c[12];
-    int d;
-    int e;
     void Init();
 };
-class Obj_263fb0 {
-    char pad[0x10];
-
-  public:
-    unsigned int value;
-};
-struct X_263fc0 {
-    char pad[0x14];
-    unsigned value;
-};
+class Obj_263fb0 : public ContentLoadStream {};
+struct X_263fc0 : ContentLoadStream {};
 } // namespace fn_fa1126e6
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" void* memcpy(void*, const void*, unsigned);
@@ -55,200 +43,59 @@ struct Pump_263fd0 {
     void Tick_00264d20();
 };
 Job_263fd0* StartJob_002703c0(void* dst, int mode, void* src, int one, unsigned n);
+// (x64t14) the stream's copy (a thiscall method that does not read the stream: 0x00264590 calls it with the stream
+// in ecx; natively a free function took the stream for the destination)
+struct Copy_263fd0 : ContentLoadStream { void F(void* dst, void* src, unsigned n, int mode); };
 int __cdecl FUN_0026fd50(hulk_intptr a, int b);
-class Inner_2640f0 {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual void f5();
-    virtual void f6();
-    virtual void f7();
-    virtual void f8();
-    virtual void f9();
-    virtual void f10();
-    virtual void f11();
-    virtual void f12();
-    virtual void f13();
-    virtual void f14();
-    virtual void f15();
-    virtual void f16();
-    virtual void f17();
-    virtual void f18();
-    virtual void f19();
-    virtual bool f20();
-    virtual void f21();
-};
 class Manager_2640f0 {
   public:
 };
 extern int getThing_00267f80();
-class Target_2640f0 {
+class Target_2640f0 : public ContentLoadStream {
   public:
-    char pad0[8];
-    Inner_2640f0* obj;
-    char padc[1];
-    bool flag;
-    char pad_e[0x36];
-    int result;
     void run();
 };
+// (x64t14) the memory stream's constructor on the record: it writes the game's vftable itself (was a local
+// polymorphic stand-in, whose vftable natively was its own one-slot table)
 namespace content {
-struct LoadStream {
-    virtual void hulk_slot_FUN_00263f50_00038290(); void FUN_00263f50();
-    int field04;
-    char pad08[4];
-    unsigned char flag0c;
-    char pad0d;
-    unsigned char flag0e;
-    char pad0f;
-    int field10, field14, field18, field1c;
-    char pad20[8];
-    int field28, field2c, field30, field34, field38;
+struct LoadStream : ContentLoadStream {
+    void FUN_00263f50();
     LoadStream(hulk_intptr a, int b);
 };
 }
 extern "C" char DAT_0042ae9c[];
-class Obj_2641e0 {
+class LoadStream : public ContentLoadStream {
   public:
-    virtual void X();
-    virtual void Release();
-};
-class LoadStream {
-  public:
-    LoadStream(void* a, hulk_intptr b, int c);
-    union { void* vp; hulk_uintptr vt; hulk_intptr vtable; };
-    union { int field4; int m; };
-    Obj_2641e0* mObj;
-    char _m_pad_c[0x1];
-    union { unsigned char flagD; unsigned char value; };
-    union { unsigned char flag; unsigned char flagE; };
-    char _m_pad_f[0x11];
-    void* m20;
-    void* m24;
+    LoadStream(const ContentLoadArgs* a, void* b, int c);
     void Init();
     void Destroy();
-    void Setup_00264310(int);
-    LoadStream* Target(hulk_intptr, int, int);
+    void Setup_00264310(const char*);
+    LoadStream* Target(const char*, int, int);
     void Base0_00263f50();
-    void Init_00264310(void* a);
+    void Init_00264310(const ContentLoadArgs* a);
 };
 extern "C" void FUN_00267070(void*);
-class Sink_264230 {
+class Obj_264230 : public ContentLoadStream {
   public:
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual void d();
-    virtual void e();
-    virtual void f(int);
-};
-class Obj_264230 {
-  public:
-    char pad0[8];
-    Sink_264230* sink;
-    char padc[1];
-    char flag;
-    char padE[6];
-    int pos;
     void target(int);
     void refresh_002640f0();
 };
-class Inner_264270 {
+class Obj_264270 : public ContentLoadStream {
   public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3(int, int, int);
-};
-class Obj_264270 {
-  public:
-    char p[8];
-    Inner_264270* mInner;
-    char q[8];
-    int mCount;
-    char r[4];
     void FUN_002640f0();
-    bool fnB(int, int, int, int);
+    bool fnB(void*, int, int, int);
 };
-struct Sink_264310 {
-    virtual void vfn0();
-    virtual void vfn1();
-    virtual void vfn2();
-    virtual void vfn3();
-    virtual void vfn4();
-    virtual void vfn5();
-    virtual void vfn6();
-    virtual void vfn7();
-    virtual void vfn8();
-    virtual void vfn9();
-    virtual void vfn10();
-    virtual void vfn11();
-    virtual void vfn12();
-    virtual void vfn13();
-    virtual void vfn14();
-    virtual unsigned int vfn15();
-    virtual void vfn16();
-    virtual void vfn17();
-    virtual void vfn18();
-    virtual void vfn19();
-    virtual void vfn20();
-    virtual void vfn21();
-    virtual void vfn22();
-    virtual bool vfn23();
-};
-class Stream {
+class Stream : public ContentLoadStream {
   public:
-    virtual void _m_vf0();
-    virtual void _m_vf1();
-    virtual void _m_vf2();
-    virtual void v3(int a, int b, int c);
-    virtual void _m_vf4();
-    virtual void _m_vf5();
-    virtual void _m_vf6();
-    virtual void _m_vf7();
-    virtual void _m_vf8();
-    virtual void _m_vf9();
-    virtual void _m_vf10();
-    virtual void _m_vf11();
-    virtual void _m_vf12();
-    virtual void _m_vf13();
-    virtual void _m_vf14();
-    virtual void _m_vf15();
-    virtual int v16();
-    char _m_pad_4[0x4];
-    Sink_264310 *sink;
-    char open;
-    char _m_pad_d[0x1];
-    char buffered;
-    char _m_pad_f[0x1];
-    unsigned int size;
-    char _m_pad_14[0x8];
-    int bank;
-    char _m_pad_20[0x10];
-    unsigned int limit;
-    char _m_pad_34[0x4];
-    unsigned int capacity;
     void FUN_00264050(char *other);
     void FUN_002640f0();
     void FUN_00264310(const char *name);
 };
-class Reader {
+class Reader : public ContentLoadStream {
 public:
-    char pad0[8];
-    Stream* stream;
-    char pad0c[4];
-    unsigned int limit;
-    char pad14[4];
-    unsigned int pos;
-    char pad1c[0x34 - 0x1c];
-    int lastCount;
-    unsigned int chunk;
-    void FUN_00264050(int dest);
+    void FUN_00264050(void* dest);
 };
-void __cdecl thunk_FUN_002710d0(Sink_264310 **out, const char *name, int a, int b, int c, int d, int e, int f);
+void __cdecl thunk_FUN_002710d0(ContentStreamFile **out, const char *name, int a, int b, int c, int d, int e, int f);
 struct X_264870 {
     int pad;
     unsigned int value;
@@ -507,26 +354,26 @@ void* FUN_0008d690(int size);
 // 0x00263f50 FUN_00263f50 (89 B): matches/0x00263f50.cpp
 // sym: ?Init@LoadStream_263f50@fn_fa1126e6@@QAEXXZ
 void LoadStream_263f50::Init() {
-    a = 0;
-    b[0] = 0;
-    b[1] = 0;
-    b[2] = 0;
-    b[3] = 0;
-    c[0] = 0;
-    c[1] = 0;
-    c[2] = 0;
-    c[3] = 0;
-    c[4] = 0;
-    c[5] = 0;
-    c[6] = 0;
-    c[7] = 0;
-    c[8] = 0;
-    c[9] = 0;
-    c[10] = 0;
-    c[11] = 0;
+    file = 0;
+    open = 0;
+    sync = 0;
+    buffered = 0;
+    swap = 0;
+    size = 0;
+    pos = 0;
+    offset = 0;
+    bank = 0;
+    m20 = 0;
+    m24 = 0;
+    buffer = 0;
+    bufPos = 0;
+    limit = 0;
+    filled = 0;
+    chunk = 0;
+    pending = 0;
     unsigned int x = (*(Service_263f50**)&DAT_00527c58)->Get_00264870();
-    e = 0;
-    d = x / 1000;
+    lastTime = 0;
+    interval = x / 1000;
 }
 
 
@@ -534,7 +381,7 @@ void LoadStream_263f50::Init() {
 // sym: ?FUN_00263fb0@fn_fa1126e6@@YIIPAVObj_263fb0@1@@Z
 // Same code shape as 0x00059a30 (propagated; names are from that function)
 unsigned int __fastcall FUN_00263fb0(Obj_263fb0* self) {
-    return self->value;
+    return self->size;
 }
 
 
@@ -542,14 +389,14 @@ unsigned int __fastcall FUN_00263fb0(Obj_263fb0* self) {
 // sym: @FUN_00263fc0@4
 // Same code shape as 0x000862d0 (propagated; names are from that function)
 extern "C" unsigned __fastcall FUN_00263fc0(X_263fc0* self) {
-    return self->value;
+    return self->pos;
 }
 
 
 // 0x00263fd0 FUN_00263fd0 (116 B): matches/0x00263fd0.cpp
-// sym: ?F@fn_fa1126e6@@YGXPAX0IH@Z
+// sym: ?F@Copy_263fd0@fn_fa1126e6@@QAEXPAX0IH@Z
 // data: g_pump = DAT_00527c58
-void __stdcall F(void* dst, void* src, unsigned n, int mode) {
+void Copy_263fd0::F(void* dst, void* src, unsigned n, int mode) {
     if (mode == 1) {
         memcpy(dst, src, n);
         return;
@@ -563,23 +410,23 @@ void __stdcall F(void* dst, void* src, unsigned n, int mode) {
 
 
 // 0x00264050 FUN_00264050 (105 B): equivalent/0x00264050.cpp
-// sym: ?FUN_00264050@Reader@fn_fa1126e6@@QAEXH@Z @df4c877e83b1 @w8ec67ce6e27b
+// sym: ?FUN_00264050@Reader@fn_fa1126e6@@QAEXPAX@Z @df4c877e83b1 @w8ec67ce6e27b
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_00264050 @ 0x00264050
-void Reader::FUN_00264050(int dest) {
-    if (pos >= limit)
+void Reader::FUN_00264050(void* dest) {
+    if (offset >= size)
         return;
     unsigned int n = chunk;
-    if (pos + n >= limit) {
-        int rest = limit - pos;
-        stream->v3(dest, FUN_0026fd50(rest, stream->v16()), 1);
-        lastCount = rest;
-        pos = pos + rest;
+    if (offset + n >= size) {
+        int rest = size - offset;
+        file->Read(dest, FUN_0026fd50(rest, file->GetGranularity()), 1);
+        filled = rest;
+        offset = offset + rest;
         return;
     }
-    stream->v3(dest, n, 1);
-    pos += n;
-    lastCount = n;
+    file->Read(dest, n, 1);
+    offset += n;
+    filled = n;
 }
 
 
@@ -587,14 +434,14 @@ void Reader::FUN_00264050(int dest) {
 // sym: ?run@Target_2640f0@fn_fa1126e6@@QAEXXZ
 // data: gThing_2640f0 = DAT_00527c58
 void Target_2640f0::run() {
-    if (obj) {
-        if (flag) {
-            obj->f21();
+    if (file) {
+        if (sync) {
+            file->Wait();
             return;
         }
-        while (!obj->f20()) {
+        while (!file->IsDone()) {
             ((owners::Q_264d20 *)((*(Manager_2640f0**)&DAT_00527c58)))->FUN_00264d20();
-            result = getThing_00267f80();
+            lastTime = getThing_00267f80();
         }
     }
 }
@@ -625,24 +472,25 @@ void owners::Converter_264140::FUN_00264140(unsigned char* data, unsigned int co
 namespace fn_fa1126e6 {
 
 // 0x00264190 FUN_00264190 (70 B): equivalent/0x00264190.cpp
-// sym: ??0LoadStream@content@fn_fa1126e6@@QAE@HH@Z @28260351894c @wa985e4119a98
+// sym: ??0LoadStream@content@fn_fa1126e6@@QAE@HH@Z @05a87e20d3c7 @wf2f750d5b988 @vaf147775a4de
 // STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 0/0)
 // FUN_00264190 @ 0x00264190
 namespace content {
 LoadStream::LoadStream(hulk_intptr a, int b) {
-    field04 = 0;
+    refs = 0;
+    vftable = (void*)DAT_0042ae9c;
     FUN_00263f50();
-    field28 = a;
-    field1c = 0;
-    field2c = 0;
-    field18 = 0;
-    field14 = 0;
-    field34 = 0;
-    field10 = b;
-    field30 = b;
-    field38 = b;
-    flag0c = 1;
-    flag0e = 1;
+    buffer = (char*)a;
+    bank = 0;
+    bufPos = 0;
+    offset = 0;
+    pos = 0;
+    filled = 0;
+    size = b;
+    limit = b;
+    chunk = b;
+    open = 1;
+    buffered = 1;
 }
 }
 
@@ -650,36 +498,36 @@ LoadStream::LoadStream(hulk_intptr a, int b) {
 // 0x002641e0 FUN_002641e0 (66 B): matches/0x002641e0.cpp
 // sym: ?Destroy@LoadStream@fn_fa1126e6@@QAEXXZ
 void LoadStream::Destroy() {
-    vt = ((hulk_intptr)DAT_0042ae9c);
+    vftable = (void*)DAT_0042ae9c;
     Init();
-    if (mObj)
-        mObj->Release();
+    if (file)
+        file->Release();
     if (m20)
         FUN_00267070(m20);
     if (m24)
         FUN_00267070(m24);
-    vt = ((hulk_intptr)DAT_003f6098);
+    vftable = (void*)DAT_003f6098;
 }
 
 
 // 0x00264230 FUN_00264230 (49 B): matches/0x00264230.cpp
 // sym: ?target@Obj_264230@fn_fa1126e6@@QAEXH@Z
 void Obj_264230::target(int amount) {
-    sink->f(pos + amount);
+    file->Seek(pos + amount);
     pos += amount;
-    if (flag)
+    if (sync)
         refresh_002640f0();
 }
 
 
 // 0x00264270 FUN_00264270 (76 B): matches/0x00264270.cpp
-// sym: ?fnB@Obj_264270@fn_fa1126e6@@QAE_NHHHH@Z
-bool Obj_264270::fnB(int a, int b, int c, int d) {
+// sym: ?fnB@Obj_264270@fn_fa1126e6@@QAE_NPAXHHH@Z
+bool Obj_264270::fnB(void* a, int b, int c, int d) {
     int n = b * c;
-    mInner->f3(a, n, d);
-    mCount += n;
+    file->Read(a, n, d);
+    pos += n;
     FUN_002640f0();
-    ((owners::Converter_264140 *)this)->FUN_00264140((unsigned char *)(hulk_uintptr)(int)a, (unsigned int)b, (unsigned int)c);
+    ((owners::Converter_264140 *)this)->FUN_00264140((unsigned char *)a, (unsigned int)b, (unsigned int)c);
     return true;
 }
 
@@ -702,28 +550,28 @@ void owners::Controller_2642c0::FUN_002642c0() {
 namespace fn_fa1126e6 {
 
 // 0x00264310 FUN_00264310 (167 B): equivalent/0x00264310.cpp
-// sym: ?FUN_00264310@Stream@fn_fa1126e6@@QAEXPBD@Z @c7f45bfd7fdd @w446e794450fa
+// sym: ?FUN_00264310@Stream@fn_fa1126e6@@QAEXPBD@Z @d31e99726804 @wa5c993ebc06b @vf8792b4bcacc
 // STATUS: equivalent (tools/equiv.py level 3: 3009 inputs, branch coverage 10/10)
 // FUN_00264310 @ 0x00264310
 void Stream::FUN_00264310(const char *name)
 {
-    thunk_FUN_002710d0(&sink, name, 0, 0, 1, 0, 1, 1);
-    if (sink != 0) {
+    thunk_FUN_002710d0(&file, name, 0, 0, 1, 0, 1, 1);
+    if (file != 0) {
         FUN_002640f0();
-        if (sink->vfn23()) {
+        if (file->IsOpen()) {
             open = 1;
-            unsigned int n = sink->vfn15();
+            unsigned int n = file->GetSize();
             size = n;
             if (!buffered) {
                 limit = n;
-                capacity = n;
+                chunk = n;
                 return;
             }
             if (n < 0x20000) {
                 bank = 1;
-                capacity = n;
+                chunk = n;
             } else {
-                capacity = 0x20000;
+                chunk = 0x20000;
             }
             FUN_00264050(((char*)((char*)&DAT_004e7c28)) + ((bank == 0) << 17));
             FUN_002640f0();
@@ -735,13 +583,13 @@ void Stream::FUN_00264310(const char *name)
 
 
 // 0x00264430 FUN_00264430 (59 B): matches/0x00264430.cpp
-// sym: ?Target@LoadStream@fn_fa1126e6@@QAEPAV12@HHH@Z
-LoadStream* LoadStream::Target(hulk_intptr a, int b, int c) {
-    field4 = 0;
-    vtable = ((hulk_intptr)DAT_0042ae9c);
+// sym: ?Target@LoadStream@fn_fa1126e6@@QAEPAV12@PBDHH@Z
+LoadStream* LoadStream::Target(const char* a, int b, int c) {
+    refs = 0;
+    vftable = (void*)DAT_0042ae9c;
     Init();
-    flagD = 1;
-    flagE = (c == 1);
+    sync = 1;
+    buffered = (c == 1);
     Setup_00264310(a);
     return this;
 }
@@ -751,22 +599,13 @@ LoadStream* LoadStream::Target(hulk_intptr a, int b, int c) {
 // 0x00264470 content::LoadStream::vfunc_2 (86 B): matches/0x00264470.cpp [wrapped: conflict: LoadStream]
 // sym: ?f2@LoadStream@fn_00264470@@UAEPAV12@E@Z
 namespace fn_00264470 {
-class Ref_264470 {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-};
+// (x64t14) the destructor slot of content::LoadStream's vftable: a polymorphic view (its slot 2 is this), the words
+// read through records.h ContentLoadStream (pads after the vftable put them at their 32-bit offsets natively)
 class LoadStream {
   public:
     virtual void f0();
     virtual void f1();
     virtual LoadStream* f2(unsigned char);
-    char pad[4];
-    Ref_264470* mRef;
-    char pad2[20];
-    void* a;
-    void* b;
 };
 extern int hulk_at_0042ae9c, hulk_at_003f6098;
 struct ThisCall_002640f0 {
@@ -775,15 +614,16 @@ struct ThisCall_002640f0 {
 extern "C" void FUN_00267070(void*);
 void Destroy_00263f30(LoadStream*);
 LoadStream* LoadStream::f2(unsigned char flag) {
-    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_0042ae9c;
+    ContentLoadStream* s = (ContentLoadStream*)this;
+    s->vftable = (void*)&hulk_at_0042ae9c;
     ((ThisCall_002640f0*)(this))->Init_002640f0();
-    if (mRef)
-        mRef->f1();
-    if (a)
-        FUN_00267070(a);
-    if (b)
-        FUN_00267070(b);
-    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_003f6098;
+    if (s->file)
+        s->file->Release();
+    if (s->m20)
+        FUN_00267070(s->m20);
+    if (s->m24)
+        FUN_00267070(s->m24);
+    s->vftable = (void*)&hulk_at_003f6098;
     if (flag & 1)
         Destroy_00263f30(this);
     return this;
@@ -793,13 +633,13 @@ LoadStream* LoadStream::f2(unsigned char flag) {
 namespace fn_fa1126e6 {
 
 // 0x002644d0 FUN_002644d0 (59 B): matches/0x002644d0.cpp
-// sym: ??0LoadStream@fn_fa1126e6@@QAE@PAXHH@Z
-LoadStream::LoadStream(void* a, hulk_intptr b, int c) {
-    m = 0;
-    vp = (void*)((hulk_intptr)DAT_0042ae9c);
+// sym: ??0LoadStream@fn_fa1126e6@@QAE@PBUContentLoadArgs@@PAXH@Z
+LoadStream::LoadStream(const ContentLoadArgs* a, void* b, int c) {
+    refs = 0;
+    vftable = (void*)DAT_0042ae9c;
     Base0_00263f50();
-    flag = (c == 1);
-    value = ((unsigned char*)a)[0x10c];
+    buffered = (c == 1);
+    sync = a->wait;
     Init_00264310(a);
 }
 
@@ -845,55 +685,13 @@ namespace fn_00264590 {
 // STATUS: equivalent (tools/equiv.py level 3: 2949 inputs, branch coverage 28/28)
 // FUN_00264590 @ 0x00264590
 
-struct Sink_264590 {
-    virtual void vfn0();
-    virtual void vfn1();
-    virtual void vfn2();
-    virtual void vfn3();
-    virtual void vfn4();
-    virtual void vfn5();
-    virtual void vfn6();
-    virtual void vfn7();
-    virtual void vfn8();
-    virtual void vfn9();
-    virtual void vfn10();
-    virtual void vfn11();
-    virtual void vfn12();
-    virtual void vfn13();
-    virtual void vfn14();
-    virtual void vfn15();
-    virtual void vfn16();
-    virtual void vfn17();
-    virtual void vfn18();
-    virtual void vfn19();
-    virtual bool vfn20();
-    virtual void vfn21();
-};
 struct Clock_264590 {
 };
 unsigned int FUN_00267f80();
 
-class Stream {
+// (x64t14) on records.h ContentLoadStream (the read from the banks; `data` is the destination)
+class Stream : public ContentLoadStream {
 public:
-    char pad0[8];
-    Sink_264590 *sink;              // 0x8
-    char pad1[1];
-    char fd;                 // 0xd
-    char pad2;
-    char notify;             // 0xf
-    char pad3[0x14 - 0x10];
-    int total;               // 0x14
-    char pad4[0x1c - 0x18];
-    int bank;                // 0x1c
-    char pad5[0x28 - 0x20];
-    char *buffer;            // 0x28
-    unsigned int pos;        // 0x2c
-    unsigned int limit;      // 0x30
-    unsigned int capacity;   // 0x34
-    char pad6[4];
-    unsigned int pending;    // 0x3c
-    unsigned int interval;   // 0x40
-    unsigned int lastTime;   // 0x44
     void FUN_00263fd0(const void *src, char *dst, int n, int flag);
     void FUN_00264050(char *other);
     bool FUN_00264590(const void *data, int count, int size, int flag);
@@ -902,46 +700,46 @@ public:
 bool Stream::FUN_00264590(const void *data, int count, int size, int flag)
 {
     int n = count * size;
-    unsigned int used = pos;
+    unsigned int used = bufPos;
     pending += n;
     if (used + n <= limit) {
         FUN_00263fd0(data, buffer + used, n, flag);
+        bufPos += n;
         pos += n;
-        total += n;
     } else {
         const char *src = (const char *)data;
         while (n > 0) {
             int chunk = n;
-            if (pos + n > limit)
-                chunk = limit - pos;
-            FUN_00263fd0(src, buffer + pos, chunk, flag);
+            if (bufPos + n > limit)
+                chunk = limit - bufPos;
+            FUN_00263fd0(src, buffer + bufPos, chunk, flag);
+            bufPos += chunk;
             pos += chunk;
-            total += chunk;
             n -= chunk;
             src += chunk;
             if (n <= 0)
                 break;
-            if (sink != 0) {
-                if (fd) {
-                    sink->vfn21();
+            if (file != 0) {
+                if (sync) {
+                    file->Wait();
                 } else {
-                    while (!sink->vfn20()) {
+                    while (!file->IsDone()) {
                         ((owners::Q_264d20 *)((*(Clock_264590**)&DAT_00527c58)))->FUN_00264d20();
                         lastTime = FUN_00267f80();
                     }
                 }
             }
             int next = (bank == 0);
-            pos = 0;
-            limit = capacity;
+            bufPos = 0;
+            limit = filled;
             buffer = ((char*)((char*)&DAT_004e7c28)) + (next << 17);
             bank = next;
             FUN_00264050(((char*)((char*)&DAT_004e7c28)) + ((next == 0) << 17));
         }
     }
-    if (notify)
+    if (swap)
         ((owners::Converter_264140 *)this)->FUN_00264140((unsigned char *)data, (unsigned int)count, (unsigned int)size);
-    if (!fd) {
+    if (!sync) {
         if (pending >= 0x400) {
             if (FUN_00267f80() - lastTime >= interval) {
                 ((owners::Q_264d20 *)((*(Clock_264590**)&DAT_00527c58)))->FUN_00264d20();
@@ -961,8 +759,8 @@ unsigned char owners::X_2647e0::FUN_002647e0(hulk_intptr x, hulk_intptr y, int z
     if (!a)
         return 0;
     if (!b)
-        return first(((int)x), ((int)y), z, ((int)w));
-    return second(((int)x), ((int)y), z, ((int)w));
+        return FUN_00264270((void*)x, ((int)y), z, ((int)w));
+    return FUN_00264590((const void*)x, ((int)y), z, ((int)w));
 }
 
 

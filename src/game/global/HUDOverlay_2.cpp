@@ -3697,7 +3697,7 @@ extern "C" double sqrt(double);
 #endif
 
 extern unsigned int DAT_004d9968;
-extern int __cdecl FUN_000964a0(char *buf, int size, const char *fmt, ...);
+extern "C" int __cdecl FUN_000964a0(char*, int, const char*, ...);   // (x64t14) as defined (CUnlockablesManager.cpp)
 
 struct V3_d05f0 {
     float x, y, z;

@@ -21,7 +21,7 @@ struct CDataHandlerObject_1fb050 { virtual void vfunc_0_00038290(); unsigned ref
 extern "C" int __cdecl FUN_00266da0(int);
 extern "C" void* __cdecl FUN_0008d6d0(unsigned);
 extern void* __cdecl FUN_00263ea0(unsigned);
-extern int __cdecl FUN_000964a0(char*, unsigned, const char*, ...);
+extern "C" int __cdecl FUN_000964a0(char*, int, const char*, ...);   // (x64t14) as defined (CUnlockablesManager.cpp)
 
 } // namespace fn_f57d431a
 

@@ -197,7 +197,7 @@ struct Frame_1bec90 {
 };
 extern "C" int __cdecl FUN_00266da0(int id);
 int __cdecl FUN_000f7120(int handle);
-int __cdecl FUN_000964a0(char *buf, int size, const char *fmt, ...);
+extern "C" int __cdecl FUN_000964a0(char*, int, const char*, ...);   // (x64t14) as defined (CUnlockablesManager.cpp)
 struct Label_1c0ab0 {
     void FUN_000f7110();
     void FUN_000f7a80(const char *text);
