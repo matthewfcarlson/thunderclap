@@ -71,6 +71,10 @@ address, and 64-bit-only thunks call their targets by the targets' own names (D3
 jobs, which starve behind low-priority 1-slot work.
 An interactive zsh does not word-split `$VAR`: build `jobq.py submit --files $F` lists inside `sh` scripts (an unsplit
 list fails remotely as `ssh/remote exit 1` showing the file list).
+Large additions to a header most TUs reach (records.h, owners.h) can change MSVC 7.1's code in TUs that don't use them:
+run the whole-tree check before building on them, or put new records in a header only their TUs include (D74, D77).
+A caller's declaration must never become the same function as a definition in its own TU (MSVC inlines the call); keep it
+a distinct overload, e.g. a `void *` or hulk_intptr parameter, which binds natively like the pointer.
 
 ## Builds and proofs
 
