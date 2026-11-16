@@ -174,7 +174,7 @@ class CollisionDevastatorCondition : public Condition_14ed00, public fight_Param
 
 
 // 0x0014ea20 hulkfight::motion::CollisionTargetIsTargetCondition::vfunc_6 (106 B): equivalent/0x0014ea20.cpp
-// sym: ?vfunc_6@CollisionTargetIsTargetCondition@motion@hulkfight@fn_f0463da2@@UAE_NPAXPAVTarget_14ea20@4@0@Z @fa366bb900d6 @w4846e0092024
+// sym: ?vfunc_6@CollisionTargetIsTargetCondition@motion@hulkfight@fn_f0463da2@@UAE_NPAXPAVTarget_14ea20@4@0@Z @fa366bb900d6 @w4846e0092024 @v8ed0b3227bc2
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // hulkfight::motion::CollisionTargetIsTargetCondition::vfunc_6 @ 0x0014ea20
 bool hulkfight::motion::CollisionTargetIsTargetCondition::vfunc_6(void* a1, Target_14ea20* target, void* a3)
@@ -224,7 +224,7 @@ bool CollisionTargetTypeCondition::vfunc_6(int unused1, fight::Params* params, i
 
 
 // 0x0014eb10 hulkfight::motion::CollisionSourceSizeCondition::vfunc_6 (127 B): equivalent/0x0014eb10.cpp
-// sym: ?vfunc_6@CollisionSourceSizeCondition@motion@hulkfight@fn_f0463da2@@UAE_NHPAVEntity@4@H@Z @0b4943e87d78 @wae6d2ad38547
+// sym: ?vfunc_6@CollisionSourceSizeCondition@motion@hulkfight@fn_f0463da2@@UAE_NHPAVEntity@4@H@Z @0b4943e87d78 @wae6d2ad38547 @v0321971f911c
 // STATUS: equivalent (tools/equiv.py level 3: 3019 inputs, branch coverage 20/20)
 // hulkfight::motion::CollisionSourceSizeCondition::vfunc_6 @ 0x0014eb10
 bool hulkfight::motion::CollisionSourceSizeCondition::vfunc_6(int unused1, Entity* entity, int unused2)
@@ -250,7 +250,7 @@ bool hulkfight::motion::CollisionSourceSizeCondition::vfunc_6(int unused1, Entit
 } // namespace fn_f0463da2
 
 // 0x0014eb90 hulkfight::motion::CollisionTargetSizeCondition::vfunc_6 (127 B): equivalent/0x0014eb90.cpp [wrapped: conflict: Entity]
-// sym: ?vfunc_6@CollisionTargetSizeCondition@motion@hulkfight@fn_0014eb90@@UAE_NHPAVEntity@4@H@Z @bb3ee98b6619 @w623ff78bfb0f
+// sym: ?vfunc_6@CollisionTargetSizeCondition@motion@hulkfight@fn_0014eb90@@UAE_NHPAVEntity@4@H@Z @bb3ee98b6619 @w623ff78bfb0f @v6a48a16ce32a
 namespace fn_0014eb90 {
 // STATUS: equivalent (tools/equiv.py level 3: 3023 inputs, branch coverage 20/20)
 // hulkfight::motion::CollisionTargetSizeCondition::vfunc_6 @ 0x0014eb90
@@ -328,7 +328,7 @@ bool hulkfight::motion::CollisionTargetSizeCondition::vfunc_6(int unused1, Entit
 
 
 // 0x0014ec60 hulkfight::motion::CollisionThrowCondition::vfunc_6 (71 B): equivalent/0x0014ec60.cpp [wrapped: conflict: DAT_00494b44; DAT_00494b60]
-// sym: ?vfunc_6@CollisionThrowCondition@motion@hulkfight@fn_0014ec60@@QAEEPAXPAUFightTarget@4@0@Z @80cfb9ab0595 @w9c15859d3c29
+// sym: ?vfunc_6@CollisionThrowCondition@motion@hulkfight@fn_0014ec60@@QAEEPAXPAUFightTarget@4@0@Z @80cfb9ab0595 @w9c15859d3c29 @v52640c6fd67b
 namespace fn_0014ec60 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // hulkfight::motion::CollisionThrowCondition::vfunc_6 @ 0x0014ec60

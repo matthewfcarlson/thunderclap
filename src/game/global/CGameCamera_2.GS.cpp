@@ -95,7 +95,7 @@ struct CGameCamera { virtual void vfunc_0();virtual void vfunc_1();virtual void 
 
 
 // 0x000a9630 FUN_000a9630 (369 B): equivalent/0x000a9630.cpp
-// sym: ?FUN_000a9630@Manager_a9630@fn_fc2d0c90@@QAEXPAUHolder_a9630@2@@Z @df905f9a7069 @w7c02b8cbc786
+// sym: ?FUN_000a9630@Manager_a9630@fn_fc2d0c90@@QAEXPAUHolder_a9630@2@@Z @df905f9a7069 @w7c02b8cbc786 @ve6a7e616f74b
 // STATUS: equivalent (tools/equiv.py level 3: 186 inputs, branch coverage 24/24)
 // FUN_000a9630 @ 0x000a9630
 void Manager_a9630::FUN_000a9630(Holder_a9630* holder) {

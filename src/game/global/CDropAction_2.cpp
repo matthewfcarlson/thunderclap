@@ -97,7 +97,7 @@ void CDropAction_19100::Shutdown() {
 } // namespace fn_f63f1981
 
 // 0x00019140 CDropAction::vfunc_7 (565 B): equivalent/0x00019140.cpp [wrapped: conflict: CDropAction]
-// sym: ?vfunc_7@CDropAction@fn_00019140@@UAE_NM@Z @3a14cd209593 @wf62b367626a1
+// sym: ?vfunc_7@CDropAction@fn_00019140@@UAE_NM@Z @3a14cd209593 @wf62b367626a1 @v219f07557ea3
 namespace fn_00019140 {
 // STATUS: equivalent (tools/equiv.py level 3: 77 inputs, branch coverage 22/22)
 // CDropAction::vfunc_7 @ 0x00019140

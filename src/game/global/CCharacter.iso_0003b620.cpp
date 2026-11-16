@@ -5,7 +5,7 @@
 
 
 // 0x0003b620 FUN_0003b620 (419 B): equivalent/0x0003b620.cpp [isolated: code differs from its standalone build]
-// sym: ?FUN_0003b620@CCharacter_3b620@fn_f107bb06@@QAEDD@Z @0e7d7e4b06b3 @w422e70cf64d8
+// sym: ?FUN_0003b620@CCharacter_3b620@fn_f107bb06@@QAEDD@Z @0e7d7e4b06b3 @w422e70cf64d8 @vab01598b6c9a
 #include "gen/owners.h"
 namespace fn_f107bb06 {} using namespace fn_f107bb06;
 namespace fn_f107bb06 {

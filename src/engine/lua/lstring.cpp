@@ -97,7 +97,7 @@ extern "C" LuaVMString* __cdecl FUN_00219390(LuaVMState* L, const char* str, uns
 
 
 // 0x00219430 FUN_00219430 (160 B): equivalent/0x00219430.cpp
-// sym: _FUN_00219430 @6a592759981e @w6a5ac5df6db4
+// sym: _FUN_00219430 @6a592759981e @w6a5ac5df6db4 @v766689f1e551
 // STATUS: equivalent (tools/equiv.py level 3: 3007 inputs, branch coverage 14/14)
 // luaS_newlstr: the interned string of l bytes (a dead one found is revived), else a new one.
 // MSVC 7.1 expands memcmp inline (repe cmpsb); so does this.

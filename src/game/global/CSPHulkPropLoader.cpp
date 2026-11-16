@@ -408,7 +408,7 @@ Obj_1d5040* __fastcall FUN_001d5040(Obj_1d5040* self) {
 
 
 // 0x001d5050 FUN_001d5050 (140 B): equivalent/0x001d5050.cpp
-// sym: _FUN_001d5050 @f1d679508745 @wf6ec0921f6e7
+// sym: _FUN_001d5050 @f1d679508745 @wf6ec0921f6e7 @vaa62feb0e4cf
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // FUN_001d5050 @ 0x001d5050
 // Map a weapon name to its id (0 for an unknown name).
@@ -435,7 +435,7 @@ extern "C" int FUN_001d5050(const char* name)
 
 
 // 0x001d50e0 FUN_001d50e0 (83 B): equivalent/0x001d50e0.cpp
-// sym: _FUN_001d50e0 @404a9c89114f @wcf1de19e6dee
+// sym: _FUN_001d50e0 @404a9c89114f @wcf1de19e6dee @vdc1935034f49
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_001d50e0 @ 0x001d50e0
 extern "C" int __cdecl FUN_001d50e0(const char *name) {
@@ -447,7 +447,7 @@ extern "C" int __cdecl FUN_001d50e0(const char *name) {
 
 
 // 0x001d5140 FUN_001d5140 (166 B): equivalent/0x001d5140.cpp
-// sym: _FUN_001d5140 @83449d5837f3 @wdb794ab646b3
+// sym: _FUN_001d5140 @83449d5837f3 @wdb794ab646b3 @v57916d6ebf91
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_001d5140 @ 0x001d5140
 extern "C" int FUN_001d5140(const char *name)
@@ -469,7 +469,7 @@ extern "C" int FUN_001d5140(const char *name)
 
 
 // 0x001d51f0 FUN_001d51f0 (260 B): equivalent/0x001d51f0.cpp
-// sym: _FUN_001d51f0 @509a6f71dbcb @we4712ed65b2a
+// sym: _FUN_001d51f0 @509a6f71dbcb @we4712ed65b2a @v3cf0f70262ff
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 18/18)
 // FUN_001d51f0 @ 0x001d51f0
 extern "C" int __cdecl FUN_001d51f0(const char* material)
@@ -488,7 +488,7 @@ extern "C" int __cdecl FUN_001d51f0(const char* material)
 
 
 // 0x001d5300 FUN_001d5300 (442 B): equivalent/0x001d5300.cpp
-// sym: _FUN_001d5300 @5c239124d9bc @wbb9c2f653ba6
+// sym: _FUN_001d5300 @5c239124d9bc @wbb9c2f653ba6 @vd68ac3fe59d6
 // STATUS: equivalent (tools/equiv.py level 3: 128 inputs, branch coverage 32/32)
 // FUN_001d5300 @ 0x001d5300
 extern "C" int FUN_001d5300(const char *name)
@@ -582,7 +582,7 @@ int Obj_1d5710::Count() {
 
 
 // 0x001d5730 FUN_001d5730 (111 B): equivalent/0x001d5730.cpp
-// sym: ?FUN_001d5730@Holder_1d5730@fn_f590c0bf@@QAEXPAVResource_1d5730@2@@Z @531f630098a1 @we10c4f419f04
+// sym: ?FUN_001d5730@Holder_1d5730@fn_f590c0bf@@QAEXPAVResource_1d5730@2@@Z @531f630098a1 @we10c4f419f04 @v24fe826d8932
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_001d5730 @ 0x001d5730
 // equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d340
@@ -611,7 +611,7 @@ CSPHulkProp::~CSPHulkProp() {}
 namespace fn_f590c0bf {
 
 // 0x001d5c70 FUN_001d5c70 (175 B): equivalent/0x001d5c70.cpp
-// sym: ?FUN_001d5c70@CSPHulkPropInstance_1d5c70@fn_f590c0bf@@QAEJH@Z @f3fca7ae15bd @wa4fdfb6dae1f
+// sym: ?FUN_001d5c70@CSPHulkPropInstance_1d5c70@fn_f590c0bf@@QAEJH@Z @f3fca7ae15bd @wa4fdfb6dae1f @v6c9b06ece0bf
 // STATUS: equivalent (tools/equiv.py level 3: 19928 inputs, branch coverage 14/14)
 // FUN_001d5c70 @ 0x001d5c70
 long CSPHulkPropInstance_1d5c70::FUN_001d5c70(int index) {
@@ -637,7 +637,7 @@ long CSPHulkPropInstance_1d5c70::FUN_001d5c70(int index) {
 
 
 // 0x001d5d20 FUN_001d5d20 (175 B): equivalent/0x001d5d20.cpp
-// sym: ?target@CSPHulkPropInstance_1d5d20@fn_f590c0bf@@QAEJH@Z @d3909ff69526 @w72f94164a45c
+// sym: ?target@CSPHulkPropInstance_1d5d20@fn_f590c0bf@@QAEJH@Z @d3909ff69526 @w72f94164a45c @ve082586850c2
 // STATUS: equivalent (tools/equiv.py level 3: 19966 inputs, branch coverage 14/14)
 // FUN_001d5d20 @ 0x001d5d20
 long CSPHulkPropInstance_1d5d20::target(int index) {
@@ -664,7 +664,7 @@ long CSPHulkPropInstance_1d5d20::target(int index) {
 
 
 // 0x001d5dd0 FUN_001d5dd0 (175 B): equivalent/0x001d5dd0.cpp
-// sym: ?target@Object@fn_f590c0bf@@QAEHH@Z @8207867274ee @wed850ee1ba21
+// sym: ?target@Object@fn_f590c0bf@@QAEHH@Z @8207867274ee @wed850ee1ba21 @v0d1b451f4bd8
 // STATUS: equivalent (tools/equiv.py level 3: 1352 inputs, branch coverage 14/14)
 // FUN_001d5dd0 @ 0x001d5dd0
 int Object::target(int index) {
@@ -688,7 +688,7 @@ int Object::target(int index) {
 
 
 // 0x001d5e80 FUN_001d5e80 (183 B): equivalent/0x001d5e80.cpp
-// sym: ?FUN_001d5e80@CSPHulkPropInstance_1d5e80@fn_f590c0bf@@QAEHH@Z @9ebc02e9a502 @wafa67c93345a
+// sym: ?FUN_001d5e80@CSPHulkPropInstance_1d5e80@fn_f590c0bf@@QAEHH@Z @9ebc02e9a502 @wafa67c93345a @vd0e22ee6f7d3
 // STATUS: equivalent (tools/equiv.py level 3: 18951 inputs, branch coverage 14/14)
 // FUN_001d5e80 @ 0x001d5e80
 int CSPHulkPropInstance_1d5e80::FUN_001d5e80(int index) {
@@ -711,7 +711,7 @@ int CSPHulkPropInstance_1d5e80::FUN_001d5e80(int index) {
 } // namespace fn_f590c0bf
 
 // 0x001d5f40 FUN_001d5f40 (186 B): equivalent/0x001d5f40.cpp [wrapped: conflict: Object; Object::target]
-// sym: ?target@Object@fn_001d5f40@@QAE_NH@Z @021ae7266bba @w617e5d584c39
+// sym: ?target@Object@fn_001d5f40@@QAE_NH@Z @021ae7266bba @w617e5d584c39 @v2e9e82cf857d
 namespace fn_001d5f40 {
 // STATUS: equivalent (tools/equiv.py level 3: 1515 inputs, branch coverage 14/14)
 // FUN_001d5f40 @ 0x001d5f40
@@ -775,7 +775,7 @@ bool Object::target(int index) {
 
 
 // 0x001d6000 FUN_001d6000 (186 B): equivalent/0x001d6000.cpp [wrapped: conflict: Object]
-// sym: ?check@Object@fn_001d6000@@QAE_NH@Z @63916a488e1f @w28d163c9cef7
+// sym: ?check@Object@fn_001d6000@@QAE_NH@Z @63916a488e1f @w28d163c9cef7 @vf3e63893da41
 namespace fn_001d6000 {
 // STATUS: equivalent (tools/equiv.py level 3: 1590 inputs, branch coverage 14/14)
 // FUN_001d6000 @ 0x001d6000
@@ -842,7 +842,7 @@ bool Object::check(int index) {
 namespace fn_f590c0bf {
 
 // 0x001d60c0 FUN_001d60c0 (215 B): equivalent/0x001d60c0.cpp
-// sym: ?FUN_001d60c0@Object@fn_f590c0bf@@QAEHXZ @3f5df826b11c @wd57357561468
+// sym: ?FUN_001d60c0@Object@fn_f590c0bf@@QAEHXZ @3f5df826b11c @wd57357561468 @v583caf907ecf
 // STATUS: equivalent (tools/equiv.py level 3: 571 inputs, branch coverage 20/22, incomplete)
 // FUN_001d60c0 @ 0x001d60c0
 int Object::FUN_001d60c0() {
@@ -921,7 +921,7 @@ unsigned char owners::Obj_1d62c0::FUN_001d62c0() {
 
 
 // 0x001d62d0 FUN_001d62d0 (218 B): equivalent/0x001d62d0.cpp [wrapped: conflict: Node]
-// sym: ?FUN_001d62d0@Object@fn_001d62d0@@QAEHXZ @b7800e8293b9 @wb5face9fd001
+// sym: ?FUN_001d62d0@Object@fn_001d62d0@@QAEHXZ @b7800e8293b9 @wb5face9fd001 @v5286abea6db6
 namespace fn_001d62d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 518 inputs, branch coverage 20/22, incomplete)
 // FUN_001d62d0 @ 0x001d62d0

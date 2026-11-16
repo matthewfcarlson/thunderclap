@@ -553,7 +553,7 @@ class ParamValueInt_1101e0 : public ParamValue_1101e0 {
 } // namespace fn_f49cf0cf
 
 // 0x0010f0f0 hulkfight::ai::HulkActionLargestCondition::vfunc_6 (295 B): equivalent/0x0010f0f0.cpp [wrapped: conflict: hulkfight::ai::HulkActionLargestCondition]
-// sym: ?vfunc_6@HulkActionLargestCondition@ai@hulkfight@@UAE_NPAX00@Z @5e3a47756c94 @wbabdb96105a2
+// sym: ?vfunc_6@HulkActionLargestCondition@ai@hulkfight@@UAE_NPAX00@Z @5e3a47756c94 @wbabdb96105a2 @vdc31665f42af
 namespace fn_0010f0f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3008 inputs, branch coverage 12/12)
 // hulkfight::ai::HulkActionLargestCondition::vfunc_6 @ 0x0010f0f0
@@ -595,7 +595,7 @@ bool ::hulkfight::ai::HulkActionLargestCondition::vfunc_6(void*, void* subject, 
 
 
 // 0x0010f220 hulkfight::ai::HulkActionRecentCondition::vfunc_6 (229 B): equivalent/0x0010f220.cpp [wrapped: conflict: FUN_000678d0; hulkfight::ai::HulkActionRecentCondition]
-// sym: ?vfunc_6@HulkActionRecentCondition@ai@hulkfight@fn_0010f220@@UAE_NPAXPAUActor_10f220@4@0@Z @cf33af37ee36 @wc9a8ae01b2b0
+// sym: ?vfunc_6@HulkActionRecentCondition@ai@hulkfight@fn_0010f220@@UAE_NPAXPAUActor_10f220@4@0@Z @cf33af37ee36 @wc9a8ae01b2b0 @v4c9700904849
 namespace fn_0010f220 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // hulkfight::ai::HulkActionRecentCondition::vfunc_6 @ 0x0010f220
@@ -669,7 +669,7 @@ HulkAction_10f360::~HulkAction_10f360() {
 
 
 // 0x0010f480 hulkfight::ai::AIHistoryNameCondition::vfunc_6 (394 B): equivalent/0x0010f480.cpp
-// sym: ?FUN_0010f480@AIHistoryNameCondition@fn_f49cf0cf@@QAEDHPAVParams_10f480@fight@@H@Z @f501419946f7 @w814085068346
+// sym: ?FUN_0010f480@AIHistoryNameCondition@fn_f49cf0cf@@QAEDHPAVParams_10f480@fight@@H@Z @f501419946f7 @w814085068346 @v3470486c3432
 // STATUS: equivalent (tools/equiv.py level 3: 20027 inputs, branch coverage 38/38)
 // hulkfight::ai::AIHistoryNameCondition::vfunc_6 @ 0x0010f480
 char AIHistoryNameCondition::FUN_0010f480(int a1, fight::Params_10f480 *params, int a3)
@@ -730,7 +730,7 @@ char AIHistoryNameCondition::FUN_0010f480(int a1, fight::Params_10f480 *params, 
 
 
 // 0x0010f630 hulkfight::ai::KeyWordWaitCondition::vfunc_6 (300 B): equivalent/0x0010f630.cpp
-// sym: ?FUN_0010f630@KeyWordWaitCondition@fn_f49cf0cf@@QAE_NHPAVParams_10f630@fight@@H@Z @d83561011bfa @w3ee0892168b2
+// sym: ?FUN_0010f630@KeyWordWaitCondition@fn_f49cf0cf@@QAE_NHPAVParams_10f630@fight@@H@Z @d83561011bfa @w3ee0892168b2 @vae187e5b29e3
 // STATUS: equivalent (tools/equiv.py level 3: 83 inputs, branch coverage 22/24, incomplete)
 // hulkfight::ai::KeyWordWaitCondition::vfunc_6 @ 0x0010f630
 bool KeyWordWaitCondition::FUN_0010f630(int a1, fight::Params_10f630 *params, int a3)

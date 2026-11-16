@@ -88,7 +88,7 @@ extern "C" void FUN_0027b1d0() {
 
 
 // 0x0027b200 FUN_0027b200 (55 B): equivalent/0x0027b200.cpp
-// sym: ?FUN_0027b200@Table@fn_fdc3a51a@@QAEIII@Z @ce0fa2fdd9cb @w7167c836f40f
+// sym: ?FUN_0027b200@Table@fn_fdc3a51a@@QAEIII@Z @ce0fa2fdd9cb @w7167c836f40f @vbffa13cb2f4b
 // STATUS: equivalent (tools/equiv.py level 3: 153 inputs, branch coverage 8/8)
 // FUN_0027b200 @ 0x0027b200
 unsigned int Table::FUN_0027b200(unsigned int first, unsigned int second) { for (unsigned int i = 0; i < count; ++i) { if (entries[i].first == first && entries[i].second == second) return i; } return 0xffff; }
@@ -130,7 +130,7 @@ void Object::update() {
 
 
 // 0x0027b340 FUN_0027b340 (46 B): equivalent/0x0027b340.cpp
-// sym: _FUN_0027b340 @1a54f58afca3 @w00bc6e0dcc86
+// sym: _FUN_0027b340 @1a54f58afca3 @w00bc6e0dcc86 @vf7b409feb346
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 4/4)
 // FUN_0027b340 @ 0x0027b340
 // equiv-conv: FUN_0027b340 eax

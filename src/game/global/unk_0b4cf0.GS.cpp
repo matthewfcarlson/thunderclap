@@ -60,7 +60,7 @@ extern "C" bool __cdecl FUN_000b51c0(int language) {
 
 
 // 0x000b5250 FUN_000b5250 (544 B): equivalent/0x000b5250.cpp
-// sym: ?FUN_000b5250@fn_f61f5a00@@YGXPAUTextEntry_b5250@1@PBD111111@Z @b0f71453a6a3 @wc3beff6ed1fa
+// sym: ?FUN_000b5250@fn_f61f5a00@@YGXPAUTextEntry_b5250@1@PBD111111@Z @b0f71453a6a3 @wc3beff6ed1fa @v2bc36c11fb6d
 // STATUS: equivalent (tools/equiv.py level 3: 7848 inputs, branch coverage 14/14)
 // FUN_000b5250 @ 0x000b5250
 void __stdcall FUN_000b5250(TextEntry_b5250 *entry, const char *key, const char *k2, const char *k3,
@@ -138,7 +138,7 @@ void __stdcall FUN_000b5250(TextEntry_b5250 *entry, const char *key, const char 
 } // namespace fn_f61f5a00
 
 // 0x000b5670 FUN_000b5670 (146 B): equivalent/0x000b5670.cpp [wrapped: conflict: FUN_000fc020; FUN_000fc1b0; FUN_000fc260]
-// sym: _FUN_000b5670@4 @f3e2a63f5acc @wb29615edabf4
+// sym: _FUN_000b5670@4 @f3e2a63f5acc @wb29615edabf4 @v15ae6e625cea
 namespace fn_000b5670 {
 // STATUS: equivalent (tools/equiv.py level 3: 20016 inputs, branch coverage 3/3)
 // FUN_000b5670 @ 0x000b5670
@@ -1191,7 +1191,7 @@ void CheatMenu_b86b0::FUN_000b86b0()
 
 
 // 0x000b89e0 FUN_000b89e0 (615 B): equivalent/0x000b89e0.cpp [wrapped: conflict: FUN_000fc1b0; FUN_000fc260; FUN_001d4c90]
-// sym: ?FUN_000b89e0@MissionFailMenu@fn_000b89e0@@QAEXXZ @bce601f476fc @wbe949d59b2ca
+// sym: ?FUN_000b89e0@MissionFailMenu@fn_000b89e0@@QAEXXZ @bce601f476fc @wbe949d59b2ca @v3ccbab9219ea
 namespace fn_000b89e0 {
 // STATUS: equivalent (tools/equiv.py level 3: 19950 inputs, branch coverage 42/42)
 // FUN_000b89e0 @ 0x000b89e0
@@ -1433,7 +1433,7 @@ void TextHost::FUN_000b8f20()
 
 
 // 0x000b9930 FUN_000b9930 (128 B): equivalent/0x000b9930.cpp [wrapped: conflict: FUN_000fc1b0; FUN_000fc260; _sprintf]
-// sym: ?FUN_000b9930@Hud_b9930@fn_000b9930@@QAEXXZ @ecb6f437dca9 @w516039dc8c48
+// sym: ?FUN_000b9930@Hud_b9930@fn_000b9930@@QAEXXZ @ecb6f437dca9 @w516039dc8c48 @v58e45d67494c
 namespace fn_000b9930 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_000b9930 @ 0x000b9930

@@ -42,7 +42,7 @@ CCollisionPushbackYCondition* CCollisionPushbackYCondition::vfunc_5(signed char 
 } // namespace fn_f8dc77cd
 
 // 0x0004c320 CCollisionPushbackYCondition::vfunc_7 (189 B): equivalent/0x0004c320.cpp [wrapped: conflict: CCollisionPushbackYCondition]
-// sym: ?vfunc_7@CCollisionPushbackYCondition@fn_0004c320@@UAE_NPAUParams@2@@Z @5f1b986a9110 @w9d4865375c28
+// sym: ?vfunc_7@CCollisionPushbackYCondition@fn_0004c320@@UAE_NPAUParams@2@@Z @5f1b986a9110 @w9d4865375c28 @v4c88f3db0ea3
 namespace fn_0004c320 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 16/16)
 // CCollisionPushbackYCondition::vfunc_7 @ 0x0004c320

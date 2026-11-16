@@ -129,7 +129,7 @@ void FUN_001fa9d0() {}
 } // namespace fn_fa90982c
 
 // 0x001fa9e0 MyBufferStream::vfunc_3 (66 B): equivalent/0x001fa9e0.cpp [wrapped: conflict: MyBufferStream]
-// sym: ?vfunc_3@MyBufferStream@fn_001fa9e0@@UAEXPAXI@Z @6a8a3a21fb72 @wb224670e0d87
+// sym: ?vfunc_3@MyBufferStream@fn_001fa9e0@@UAEXPAXI@Z @6a8a3a21fb72 @wb224670e0d87 @v65f6eacd5aad
 namespace fn_001fa9e0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2462 inputs, branch coverage 4/4)
 // MyBufferStream::vfunc_3 @ 0x001fa9e0
@@ -219,7 +219,7 @@ bool Loader_1faa80::FUN_001faa80(int a, int b) {
 
 
 // 0x001fab00 FUN_001fab00 (106 B): equivalent/0x001fab00.cpp [wrapped: conflict: MyBufferStream]
-// sym: ?Load@Loader_1fab00@fn_001fab00@@QAE_NUArgSlot_1fab00@2@@Z @da0bc5df5223 @w899f42957573
+// sym: ?Load@Loader_1fab00@fn_001fab00@@QAE_NUArgSlot_1fab00@2@@Z @da0bc5df5223 @w899f42957573 @v7cd961c19935
 namespace fn_001fab00 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_001fab00 @ 0x001fab00

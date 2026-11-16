@@ -714,7 +714,7 @@ char owners::C_5dad0::FUN_0005dad0(int x) {
 
 
 // 0x0005daf0 CCollisionTrack::vfunc_10 (138 B): equivalent/0x0005daf0.cpp
-// sym: ?vfunc_10@CCollisionTrack@@UAEHHHH@Z @315e25010566 @w255c1eb27779
+// sym: ?vfunc_10@CCollisionTrack@@UAEHHHH@Z @315e25010566 @w255c1eb27779 @vb7e3d558168d
 // STATUS: equivalent (tools/equiv.py level 3: 20001 inputs, branch coverage 8/8)
 // CCollisionTrack::vfunc_10 @ 0x0005daf0
 hulk_intptr CCollisionTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { void * a = (void *)__p0; void * c = (void *)__p2;

@@ -68,7 +68,7 @@ CMotionClimbAngleCondition* CMotionClimbAngleCondition::vfunc_5(signed char flag
 } // namespace fn_f7347cb6
 
 // 0x0004dc60 CMotionClimbAngleCondition::vfunc_7 (623 B): equivalent/0x0004dc60.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?vfunc_7@CMotionClimbAngleCondition@fn_0004dc60@@UAE_NPAX@Z @265078ce346f @wae2c5db0793c
+// sym: ?vfunc_7@CMotionClimbAngleCondition@fn_0004dc60@@UAE_NPAX@Z @265078ce346f @wae2c5db0793c @v7985381fce07
 namespace fn_0004dc60 {
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 16/16)
 // CMotionClimbAngleCondition::vfunc_7 @ 0x0004dc60

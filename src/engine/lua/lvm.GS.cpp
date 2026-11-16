@@ -20,7 +20,7 @@ extern "C" LuaVMString* __cdecl FUN_00219430(LuaVMState* L, const char* str, uns
 
 
 // 0x00217640 FUN_00217640 (128 B): equivalent/0x00217640.cpp
-// sym: _FUN_00217640 @e348251c6e1c @w2946635b4585
+// sym: _FUN_00217640 @e348251c6e1c @w2946635b4585 @v3b97097fe13f
 // STATUS: equivalent (tools/equiv.py level 3: 3003 inputs, branch coverage 4/4)
 // luaV_tostring: convert a number in place to its string ("%.7g"); 0 when obj is not a number.
 extern "C" int __cdecl FUN_00217640(LuaVMState* L, LuaVMTObject* obj) {

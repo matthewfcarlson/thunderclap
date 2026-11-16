@@ -550,7 +550,7 @@ struct Parent_28cfd0 {
 
 
 // 0x0028b970 FUN_0028b970 (70 B): equivalent/0x0028b970.cpp
-// sym: ?FUN_0028b970@SimpleChannel@fn_f8c9e634@@QAEXXZ @a744b4570613 @wc2f041e4b675
+// sym: ?FUN_0028b970@SimpleChannel@fn_f8c9e634@@QAEXXZ @a744b4570613 @wc2f041e4b675 @v122a684ecf70
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 3/4, incomplete)
 // FUN_0028b970 @ 0x0028b970
 void SimpleChannel::FUN_0028b970() {
@@ -689,7 +689,7 @@ void Float2Channel_28bc20::F() {
 
 
 // 0x0028bcd0 FUN_0028bcd0 (110 B): equivalent/0x0028bcd0.cpp
-// sym: ??1VectorChannel@pure3d@fn_f8c9e634@@UAE@XZ @7cd129283b1a @w7f462c1e9446
+// sym: ??1VectorChannel@pure3d@fn_f8c9e634@@UAE@XZ @7cd129283b1a @w7f462c1e9446 @v3cd90214063e
 // STATUS: equivalent (tools/equiv.py level 3: 3036 inputs, branch coverage 6/8, incomplete)
 // FUN_0028bcd0 @ 0x0028bcd0
 // equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d340
@@ -725,7 +725,7 @@ Vector1DOFChannel::Vector1DOFChannel(int a, hulk_intptr b) : VectorChannel_28bd4
 } // namespace fn_f8c9e634
 
 // 0x0028bdb0 FUN_0028bdb0 (103 B): equivalent/0x0028bdb0.cpp [wrapped: conflict: pure3d::Channel]
-// sym: ??1Vector1DOFChannel@pure3d@fn_0028bdb0@@UAE@XZ @725c91af60f2 @w26cb4bdfe256
+// sym: ??1Vector1DOFChannel@pure3d@fn_0028bdb0@@UAE@XZ @725c91af60f2 @w26cb4bdfe256 @v9db96a54de0c
 namespace fn_0028bdb0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 5/6, incomplete)
 // FUN_0028bdb0 @ 0x0028bdb0
@@ -811,7 +811,7 @@ void Vector2DOFChannel_28beb0::F() {
 
 
 // 0x0028bf20 FUN_0028bf20 (130 B): equivalent/0x0028bf20.cpp
-// sym: ?Construct@Vector3DOFChannel_28bf20@fn_f8c9e634@@QAEPAV12@HH@Z @6e464a0bbc85 @wab18543f1773
+// sym: ?Construct@Vector3DOFChannel_28bf20@fn_f8c9e634@@QAEPAV12@HH@Z @6e464a0bbc85 @wab18543f1773 @v0eccf7cc0e10
 // STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 4/4)
 // FUN_0028bf20 @ 0x0028bf20
 // 0x0028bf20: channel constructor holding 12-byte elements, allocated from the parent pool or the heap
@@ -838,7 +838,7 @@ Vector3DOFChannel_28bf20* Vector3DOFChannel_28bf20::Construct(int a, hulk_intptr
 } // namespace fn_f8c9e634
 
 // 0x0028bfb0 FUN_0028bfb0 (103 B): equivalent/0x0028bfb0.cpp [wrapped: conflict: pure3d::Channel]
-// sym: ??1Vector3DOFChannel@pure3d@fn_0028bfb0@@UAE@XZ @ca4634c1bc08 @w5069b4fdf171
+// sym: ??1Vector3DOFChannel@pure3d@fn_0028bfb0@@UAE@XZ @ca4634c1bc08 @w5069b4fdf171 @v8bc91a621d84
 namespace fn_0028bfb0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 5/6, incomplete)
 // FUN_0028bfb0 @ 0x0028bfb0
@@ -884,7 +884,7 @@ pure3d::Vector3DOFChannel::~Vector3DOFChannel() {
 
 
 // 0x0028c040 FUN_0028c040 (110 B): equivalent/0x0028c040.cpp [wrapped: conflict: pure3d::Channel; pure3d::SimpleChannel]
-// sym: ??1RotationChannel@pure3d@fn_0028c040@@UAE@XZ @69dc5d1951a0 @w57f312baaa6f
+// sym: ??1RotationChannel@pure3d@fn_0028c040@@UAE@XZ @69dc5d1951a0 @w57f312baaa6f @v072c5ff5be06
 namespace fn_0028c040 {
 // STATUS: equivalent (tools/equiv.py level 3: 3036 inputs, branch coverage 6/8, incomplete)
 // FUN_0028c040 @ 0x0028c040
@@ -935,7 +935,7 @@ RotationChannel::~RotationChannel() {
 namespace fn_f8c9e634 {
 
 // 0x0028c0b0 FUN_0028c0b0 (126 B): equivalent/0x0028c0b0.cpp
-// sym: ?Construct@QuaternionChannel@fn_f8c9e634@@QAEPAV12@HH@Z @9b97d2549955 @w56dff3c77ee2
+// sym: ?Construct@QuaternionChannel@fn_f8c9e634@@QAEPAV12@HH@Z @9b97d2549955 @w56dff3c77ee2 @v0a5fe6973527
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_0028c0b0 @ 0x0028c0b0
 // 0x0028c0b0: quaternion channel constructor holding 16-byte elements, allocated from the parent pool or the heap
@@ -1178,7 +1178,7 @@ void BoolChannel_28c3e0::F() {
 
 
 // 0x0028c470 FUN_0028c470 (128 B): equivalent/0x0028c470.cpp
-// sym: ?Construct@ColourChannel_28c470@fn_f8c9e634@@QAEPAV12@HH@Z @61f9315b2fde @w87134c3f6ce3
+// sym: ?Construct@ColourChannel_28c470@fn_f8c9e634@@QAEPAV12@HH@Z @61f9315b2fde @w87134c3f6ce3 @va037514796bd
 // STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 4/4)
 // FUN_0028c470 @ 0x0028c470
 // 0x0028c470: channel constructor holding 4-byte elements, allocated from the parent pool or the heap
@@ -1454,7 +1454,7 @@ Obj_28c910 *__stdcall FUN_0028c910(Arg1_28c910 a1, int a2, Arg3_28c910 a3) {
 
 
 // 0x0028cd80 FUN_0028cd80 (289 B): equivalent/0x0028cd80.cpp
-// sym: ?FUN_0028cd80@fn_f8c9e634@@YGPAUResult_28cd80@1@PAUContext@1@IPAUPool_28cd80@1@@Z @0d8f303f2aba @wd8dbf2972f3a
+// sym: ?FUN_0028cd80@fn_f8c9e634@@YGPAUResult_28cd80@1@PAUContext@1@IPAUPool_28cd80@1@@Z @0d8f303f2aba @wd8dbf2972f3a @v872d3355817e
 // STATUS: equivalent (tools/equiv.py level 3: 78 inputs, branch coverage 10/10)
 // FUN_0028cd80 @ 0x0028cd80
 Result_28cd80* __stdcall FUN_0028cd80(Context* context, unsigned unused, Pool_28cd80* pool) {

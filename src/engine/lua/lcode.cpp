@@ -47,7 +47,7 @@ extern "C" void __cdecl FUN_00221860(int rkc, int rkb, int op, LuaVMExpDesc* res
 
 
 // 0x002204e0 FUN_002204e0 (72 B): equivalent/0x002204e0.cpp
-// sym: _FUN_002204e0 @bcfb5e9a0243 @wf2a3f9dc717d
+// sym: _FUN_002204e0 @bcfb5e9a0243 @wf2a3f9dc717d @v2aa66c8a00ec
 // STATUS: equivalent (tools/equiv.py level 3: 2935 inputs, branch coverage 2/2)
 // fixjump: point the jump at pc to dest (the sBx field), with the "control structure too long" check.
 // equiv-conv: FUN_002204e0 eax ecx ebx
@@ -73,7 +73,7 @@ extern "C" int __cdecl FUN_00220530(LuaVMFuncState* fs) {
 
 
 // 0x002205a0 FUN_002205a0 (119 B): equivalent/0x002205a0.cpp
-// sym: _FUN_002205a0 @7b475e94dbe4 @w0463294e21bd
+// sym: _FUN_002205a0 @7b475e94dbe4 @w0463294e21bd @vb2d9c525969a
 // STATUS: equivalent (tools/equiv.py level 3: 3009 inputs, branch coverage 13/14, incomplete)
 // need_value: does any jump in the list need a value (its control is not a TEST with this condition)?
 // equiv-conv: FUN_002205a0 ecx eax stack
@@ -96,7 +96,7 @@ extern "C" int __cdecl FUN_002205a0(int list, LuaVMFuncState* fs, int cond) {
 
 
 // 0x00220650 FUN_00220650 (311 B): equivalent/0x00220650.cpp
-// sym: _FUN_00220650 @941ab99a462b @w276d2f23258f
+// sym: _FUN_00220650 @941ab99a462b @w276d2f23258f @v6a1131702c00
 // STATUS: equivalent (tools/equiv.py level 3: 2964 inputs, branch coverage 22/22)
 // patchlistaux: patch every jump of the list (TESTs to ttarget / ftarget with their registers, others to dtarget).
 // equiv-conv: FUN_00220650 edx ebx stack stack stack stack stack
@@ -148,7 +148,7 @@ extern "C" void __cdecl FUN_00220650(int list, LuaVMFuncState* fs, int ttarget, 
 
 
 // 0x00220790 FUN_00220790 (39 B): equivalent/0x00220790.cpp
-// sym: _FUN_00220790 @d479a4a72d1d @w50c9c8651cbb
+// sym: _FUN_00220790 @d479a4a72d1d @w50c9c8651cbb @vbc8e69b02d5b
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // luaK_dischargejpc: patch the pending jumps to the current pc.
 // equiv-conv: FUN_00220650 edx ebx stack stack stack stack stack
@@ -251,7 +251,7 @@ extern "C" int __cdecl FUN_002208e0(LuaVMFuncState* fs, LuaVMTObject* k, LuaVMTO
 
 
 // 0x002209b0 FUN_002209b0 (42 B): equivalent/0x002209b0.cpp
-// sym: _FUN_002209b0 @383080443d06 @waac8ce243925
+// sym: _FUN_002209b0 @383080443d06 @waac8ce243925 @vc23a5453dace
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // luaK_stringK: the constant index of string s.
 // equiv-conv: FUN_002208e0 ebx ecx stack
@@ -264,7 +264,7 @@ extern "C" int __cdecl FUN_002209b0(LuaVMFuncState* fs, LuaVMString* s) {
 
 
 // 0x002209e0 FUN_002209e0 (42 B): equivalent/0x002209e0.cpp
-// sym: _FUN_002209e0 @e72f0c79ae9b @w3452b543c8c1
+// sym: _FUN_002209e0 @e72f0c79ae9b @w3452b543c8c1 @vc06ae43d05c0
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // luaK_numberK: the constant index of number r.
 // equiv-conv: FUN_002208e0 ebx ecx stack
@@ -277,7 +277,7 @@ extern "C" int __cdecl FUN_002209e0(LuaVMFuncState* fs, float r) {
 
 
 // 0x00220a10 FUN_00220a10 (51 B): equivalent/0x00220a10.cpp
-// sym: _FUN_00220a10 @474f8220e044 @w391006bb3619
+// sym: _FUN_00220a10 @474f8220e044 @w391006bb3619 @vebd1df9d3461
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // nilK: the constant index of nil (keyed by the constant table itself).
 // equiv-conv: FUN_002208e0 ebx ecx stack
@@ -292,7 +292,7 @@ extern "C" int __cdecl FUN_00220a10(LuaVMFuncState* fs) {
 
 
 // 0x00220a50 FUN_00220a50 (83 B): equivalent/0x00220a50.cpp
-// sym: _FUN_00220a50 @1de801280018 @we8b751a8c274
+// sym: _FUN_00220a50 @1de801280018 @we8b751a8c274 @vb66177650104
 // STATUS: equivalent (tools/equiv.py level 3: 3007 inputs, branch coverage 4/4)
 // luaK_setcallreturns: set a call's result count (C = nresults + 1); one result makes it a VNONRELOC in A.
 extern "C" void __cdecl FUN_00220a50(LuaVMFuncState* fs, LuaVMExpDesc* e, int nresults) {
@@ -308,7 +308,7 @@ extern "C" void __cdecl FUN_00220a50(LuaVMFuncState* fs, LuaVMExpDesc* e, int nr
 
 
 // 0x00220ab0 FUN_00220ab0 (67 B): equivalent/0x00220ab0.cpp
-// sym: _FUN_00220ab0 @ded4c546c015 @w4f2b0110da6b
+// sym: _FUN_00220ab0 @ded4c546c015 @w4f2b0110da6b @v28f6159d1676
 // STATUS: equivalent (tools/equiv.py level 3: 2722 inputs, branch coverage 4/4)
 // invertjump: flip the condition (A) of the jump's control instruction.
 // equiv-conv: FUN_00220ab0 ecx eax
@@ -330,7 +330,7 @@ extern "C" void __cdecl FUN_00220b00(LuaVMFuncState* fs, int line) {
 
 
 // 0x00220b20 FUN_00220b20 (171 B): equivalent/0x00220b20.cpp
-// sym: _FUN_00220b20 @05af1b487628 @w043b6ab3aaa8
+// sym: _FUN_00220b20 @05af1b487628 @w043b6ab3aaa8 @v407c0fd2eda0
 // STATUS: equivalent (tools/equiv.py level 3: 2760 inputs, branch coverage 4/4)
 // luaK_code: discharge the pending jumps, then append instruction i (and its line).
 // equiv-conv: FUN_00220650 edx ebx stack stack stack stack stack
@@ -403,7 +403,7 @@ extern "C" int __cdecl FUN_00220cd0(LuaVMFuncState* fs) {
 
 
 // 0x00220d10 FUN_00220d10 (93 B): equivalent/0x00220d10.cpp
-// sym: _FUN_00220d10 @7b5196f8dd9e @w692646d7d77a
+// sym: _FUN_00220d10 @7b5196f8dd9e @w692646d7d77a @ve05d4f37c876
 // STATUS: equivalent (tools/equiv.py level 3: 3004 inputs, branch coverage 0/0)
 // condjump: emit op A B C, then a jump; returns the jump.
 // equiv-conv: FUN_00220d10 eax esi stack stack stack
@@ -430,7 +430,7 @@ extern "C" void __cdecl FUN_00220d70(LuaVMFuncState* fs, int list) {
 
 
 // 0x00220d90 FUN_00220d90 (175 B): equivalent/0x00220d90.cpp
-// sym: _FUN_00220d90 @e5364d29e6f4 @w3ae254844a1c
+// sym: _FUN_00220d90 @e5364d29e6f4 @w3ae254844a1c @v00655dc5f318
 // STATUS: equivalent (tools/equiv.py level 3: 3007 inputs, branch coverage 18/18)
 // luaK_dischargevars: turn a variable expression (local, upvalue, global, indexed, call) into a value.
 extern "C" void __cdecl FUN_00220d90(LuaVMFuncState* fs, LuaVMExpDesc* e) {
@@ -464,7 +464,7 @@ extern "C" void __cdecl FUN_00220d90(LuaVMFuncState* fs, LuaVMExpDesc* e) {
 
 
 // 0x00220e90 FUN_00220e90 (189 B): equivalent/0x00220e90.cpp
-// sym: _FUN_00220e90 @e30d49c4890a @w18fb112d313e
+// sym: _FUN_00220e90 @e30d49c4890a @w18fb112d313e @v7935913f3ef5
 // STATUS: equivalent (tools/equiv.py level 3: 2998 inputs, branch coverage 12/12)
 // discharge2reg: put the expression's value into register reg (VNONRELOC).
 // equiv-conv: FUN_00220e90 ebx esi edi
@@ -499,7 +499,7 @@ extern "C" void __cdecl FUN_00220e90(LuaVMExpDesc* e, unsigned int reg, LuaVMFun
 
 
 // 0x00220f80 FUN_00220f80 (82 B): equivalent/0x00220f80.cpp
-// sym: _FUN_00220f80 @68a951a3756e @w658d22b12724
+// sym: _FUN_00220f80 @68a951a3756e @w658d22b12724 @v67129607e03a
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 6/6)
 // discharge2anyreg: unless already in a register, reserve one and discharge the expression into it.
 // equiv-conv: FUN_00220e90 ebx esi edi
@@ -519,7 +519,7 @@ extern "C" void __cdecl FUN_00220f80(LuaVMFuncState* fs, LuaVMExpDesc* e) {
 
 
 // 0x00220fe0 FUN_00220fe0 (297 B): equivalent/0x00220fe0.cpp
-// sym: _FUN_00220fe0 @96e5a67de8b7 @w721d01a9cdac
+// sym: _FUN_00220fe0 @96e5a67de8b7 @w721d01a9cdac @vdfd5759c610d
 // STATUS: equivalent (tools/equiv.py level 3: 3007 inputs, branch coverage 10/10)
 // luaK_exp2reg: put the expression (with its true / false jump lists) into register reg.
 // equiv-conv: FUN_00220e90 ebx esi edi
@@ -558,7 +558,7 @@ extern "C" int __cdecl FUN_00220fe0(LuaVMFuncState* fs, LuaVMExpDesc* e, int reg
 
 
 // 0x00221110 FUN_00221110 (119 B): equivalent/0x00221110.cpp
-// sym: _FUN_00221110 @1c8d933f4faa @w1223980b79b1
+// sym: _FUN_00221110 @1c8d933f4faa @w1223980b79b1 @vaa7d59ab08c1
 // STATUS: equivalent (tools/equiv.py level 3: 3012 inputs, branch coverage 10/10)
 // luaK_exp2nextreg: put the expression into the next free register.
 // equiv-conv: FUN_00220fe0 eax stack stack
@@ -578,7 +578,7 @@ extern "C" void __cdecl FUN_00221110(LuaVMFuncState* fs, LuaVMExpDesc* e) {
 
 
 // 0x00221190 FUN_00221190 (80 B): equivalent/0x00221190.cpp
-// sym: _FUN_00221190 @26c81eccf5c3 @w01f8697e3d07
+// sym: _FUN_00221190 @26c81eccf5c3 @w01f8697e3d07 @ve7a1197a0770
 // STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 6/6)
 // luaK_exp2anyreg: put the expression into some register; returns it.
 // equiv-conv: FUN_00220fe0 eax stack stack
@@ -609,7 +609,7 @@ extern "C" void __cdecl FUN_002211e0(LuaVMFuncState* fs, LuaVMExpDesc* e) {
 
 
 // 0x00221200 FUN_00221200 (114 B): equivalent/0x00221200.cpp
-// sym: _FUN_00221200 @2a62eb8f430e @w494507a6fb87
+// sym: _FUN_00221200 @2a62eb8f430e @w494507a6fb87 @v0feeec232d54
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 10/10)
 // luaK_exp2RK: a register or a constant index (+ 250) for the expression.
 // equiv-conv: FUN_00220a10 eax
@@ -636,7 +636,7 @@ extern "C" int __cdecl FUN_00221200(LuaVMFuncState* fs, LuaVMExpDesc* e) {
 
 
 // 0x00221280 FUN_00221280 (204 B): equivalent/0x00221280.cpp
-// sym: _FUN_00221280 @e4a6ab294bbe @w6f4c1b1ce991
+// sym: _FUN_00221280 @e4a6ab294bbe @w6f4c1b1ce991 @vb809a26df3c3
 // STATUS: equivalent (tools/equiv.py level 3: 3032 inputs, branch coverage 18/18)
 // luaK_storevar: store expression ex into variable var (local, upvalue, global, indexed).
 // equiv-conv: FUN_00220fe0 eax stack stack
@@ -693,7 +693,7 @@ extern "C" void __cdecl FUN_00221360(LuaVMFuncState* fs, LuaVMExpDesc* e, LuaVME
 
 
 // 0x00221430 FUN_00221430 (127 B): equivalent/0x00221430.cpp
-// sym: _FUN_00221430 @0125623dfeda @w8d52d5525ff0
+// sym: _FUN_00221430 @0125623dfeda @w8d52d5525ff0 @vb0d7ff0f399e
 // STATUS: equivalent (tools/equiv.py level 3: 3009 inputs, branch coverage 12/12)
 // jumponcond: emit a TEST on the expression and a jump; folds a preceding NOT, otherwise discharges it first.
 // equiv-conv: FUN_00220d10 eax esi stack stack stack
@@ -717,7 +717,7 @@ extern "C" int __cdecl FUN_00221430(LuaVMFuncState* fs, LuaVMExpDesc* e, int con
 
 
 // 0x002214b0 FUN_002214b0 (140 B): equivalent/0x002214b0.cpp
-// sym: _FUN_002214b0 @336b7b3906a9 @w6f6792d79672
+// sym: _FUN_002214b0 @336b7b3906a9 @w6f6792d79672 @vb2fa98c6099e
 // STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 10/10)
 // luaK_goiftrue: jump when the expression is false (added to its false list); the true list falls through.
 // equiv-conv: FUN_00220ab0 ecx eax
@@ -746,7 +746,7 @@ extern "C" void __cdecl FUN_002214b0(LuaVMFuncState* fs, LuaVMExpDesc* e) {
 
 
 // 0x00221560 FUN_00221560 (139 B): equivalent/0x00221560.cpp
-// sym: _FUN_00221560 @064fb845cfdf @w2ab35aaf2613
+// sym: _FUN_00221560 @064fb845cfdf @w2ab35aaf2613 @vb3cb4bf6d625
 // STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 6/6)
 // luaK_goiffalse: jump when the expression is true (added to its true list).
 // equiv-conv: FUN_00221430 eax edi ebx
@@ -773,7 +773,7 @@ extern "C" void __cdecl FUN_00221560(LuaVMFuncState* fs, LuaVMExpDesc* e) {
 
 
 // 0x00221610 FUN_00221610 (176 B): equivalent/0x00221610.cpp
-// sym: _FUN_00221610 @81b6804114fb @we1297b2163ea
+// sym: _FUN_00221610 @81b6804114fb @we1297b2163ea @va89fc405de73
 // STATUS: equivalent (tools/equiv.py level 3: 3011 inputs, branch coverage 12/13, incomplete)
 // codenot: the logical negation of the expression (constants fold, jumps invert, values get OP_NOT); swaps t / f.
 // equiv-conv: FUN_00220ab0 ecx eax
@@ -820,7 +820,7 @@ extern "C" void __cdecl FUN_002216e0(LuaVMFuncState* fs, LuaVMExpDesc* t, LuaVME
 } // namespace fn_f079174c
 
 // 0x00221700 FUN_00221700 (178 B): equivalent/0x00221700.cpp [wrapped: code differs from its standalone build]
-// sym: _FUN_00221700 @58903e9d23e9 @wcc8433eafc1a
+// sym: _FUN_00221700 @58903e9d23e9 @wcc8433eafc1a @v40aa60ac1242
 namespace fn_00221700 {
 // STATUS: equivalent (tools/equiv.py level 3: 3037 inputs, branch coverage 14/14)
 // luaK_prefix: unary minus (a numeric constant folds) or not.
@@ -859,7 +859,7 @@ extern "C" void __cdecl FUN_00221700(LuaVMFuncState* fs, int op, LuaVMExpDesc* e
 namespace fn_f079174c {
 
 // 0x002217c0 FUN_002217c0 (155 B): equivalent/0x002217c0.cpp
-// sym: _FUN_002217c0 @b3c6682c129d @w35cfc3599d4c
+// sym: _FUN_002217c0 @b3c6682c129d @w35cfc3599d4c @v5d88ce65406d
 // STATUS: equivalent (tools/equiv.py level 3: 3017 inputs, branch coverage 6/6)
 // luaK_infix: prepare the first operand of a binary operator (and / or / concat / RK operand).
 extern "C" void __cdecl FUN_002217c0(LuaVMFuncState* fs, int op, LuaVMExpDesc* v) {
@@ -887,7 +887,7 @@ extern "C" void __cdecl FUN_002217c0(LuaVMFuncState* fs, int op, LuaVMExpDesc* v
 
 
 // 0x00221860 FUN_00221860 (112 B): equivalent/0x00221860.cpp
-// sym: _FUN_00221860 @edc40a0bc24c @w98e222902394
+// sym: _FUN_00221860 @edc40a0bc24c @w98e222902394 @ve207fc6287e5
 // STATUS: equivalent (tools/equiv.py level 3: 3004 inputs, branch coverage 6/6)
 // codebinop: an arithmetic instruction (B = rkb, C = rkc), or a comparison and its jump (operands swapped for > / >=).
 // equiv-conv: FUN_00220d10 eax esi stack stack stack
@@ -914,7 +914,7 @@ extern "C" void __cdecl FUN_00221860(int rkc, int rkb, int op, LuaVMExpDesc* res
 
 
 // 0x002218d0 FUN_002218d0 (515 B): equivalent/0x002218d0.cpp
-// sym: _FUN_002218d0 @2feee3c1766a @wec9b0084b035
+// sym: _FUN_002218d0 @2feee3c1766a @wec9b0084b035 @v5bb0684e1a4b
 // STATUS: equivalent (tools/equiv.py level 3: 3095 inputs, branch coverage 41/42, incomplete)
 // luaK_posfix: finish a binary operator (and / or merge jump lists, concat merges OP_CONCATs, the rest codebinop).
 // equiv-conv: FUN_00221860 eax ecx edx edi stack
@@ -985,7 +985,7 @@ extern "C" void __cdecl FUN_002218d0(LuaVMFuncState* fs, int op, LuaVMExpDesc* e
 
 
 // 0x00221ae0 FUN_00221ae0 (66 B): equivalent/0x00221ae0.cpp
-// sym: _FUN_00221ae0 @f228a32a46ee @wd72700e9ec3c
+// sym: _FUN_00221ae0 @f228a32a46ee @wd72700e9ec3c @v04a7bba69f95
 // STATUS: equivalent (tools/equiv.py level 3: 3003 inputs, branch coverage 2/2)
 // luaK_patchlist: patch the list to target (to the pending jumps when target is the current pc).
 // equiv-conv: FUN_00220650 edx ebx stack stack stack stack stack

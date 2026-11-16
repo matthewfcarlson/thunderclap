@@ -139,7 +139,7 @@ FireGroundShockwaveAction_198950::~FireGroundShockwaveAction_198950() {
 } // namespace fn_f3bcd8a9
 
 // 0x00198990 FUN_00198990 (275 B): equivalent/0x00198990.cpp
-// sym: ??0ProjectileGroundShockwave@motion@hulkfight@@QAE@PAUParams@fn_f3bcd8a9@@@Z @31c3ec2a0e1a @wd777363e5257
+// sym: ??0ProjectileGroundShockwave@motion@hulkfight@@QAE@PAUParams@fn_f3bcd8a9@@@Z @31c3ec2a0e1a @wd777363e5257 @v8f80498fe389
 // STATUS: equivalent (tools/equiv.py level 3: 19901 inputs, branch coverage 4/4)
 // FUN_00198990 @ 0x00198990
 namespace hulkfight { namespace motion {
@@ -203,7 +203,7 @@ ProjectileGroundShockwave_198ab0::~ProjectileGroundShockwave_198ab0() {
 } // namespace fn_f3bcd8a9
 
 // 0x00198b30 hulkfight::motion::ProjectileGroundShockwave::vfunc_4 (1320 B): equivalent/0x00198b30.cpp [wrapped: conflict: FUN_0027f250; hulkfight::motion::ProjectileGroundShockwave]
-// sym: ?vfunc_4@ProjectileGroundShockwave@motion@hulkfight@fn_00198b30@@UAEXM@Z @854b948c271e @wbb4f815ff7b6
+// sym: ?vfunc_4@ProjectileGroundShockwave@motion@hulkfight@fn_00198b30@@UAEXM@Z @854b948c271e @wbb4f815ff7b6 @v90c89d4c90fb
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)
@@ -521,7 +521,7 @@ void ProjectileGroundShockwave::vfunc_4(float dt)
 
 
 // 0x00199060 hulkfight::motion::ProjectileGroundShockwave::vfunc_6 (1476 B): equivalent/0x00199060.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?F@ProjectileGroundShockwave@fn_00199060@@QAEDPAVThing_199060@2@PAVOther_199060@2@PAUV3_199060@2@HH@Z @a1601ddfe85b @w8867bc243605
+// sym: ?F@ProjectileGroundShockwave@fn_00199060@@QAEDPAVThing_199060@2@PAVOther_199060@2@PAUV3_199060@2@HH@Z @a1601ddfe85b @w8867bc243605 @v73c9832cebbf
 namespace fn_00199060 {
 // STATUS: equivalent (tools/equiv.py level 3: 3141 inputs, branch coverage 76/76)
 // hulkfight::motion::ProjectileGroundShockwave::vfunc_6 @ 0x00199060

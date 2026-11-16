@@ -452,7 +452,7 @@ struct LightsChooserCache : FUN_0027b070 {
 
 
 // 0x0029c660 FUN_0029c660 (194 B): equivalent/0x0029c660.cpp
-// sym: ?reset@Target_29c660@fn_f3bb83d9@@QAEXXZ @68ac3a373351 @w7dcad05ad4fb
+// sym: ?reset@Target_29c660@fn_f3bb83d9@@QAEXXZ @68ac3a373351 @w7dcad05ad4fb @vda86f0b39043
 // STATUS: equivalent (tools/equiv.py level 3: 69 inputs, branch coverage 12/12)
 // FUN_0029c660 @ 0x0029c660
 void Target_29c660::reset() { for(int i=count-1;i>=0;--i) { entries[i].first=0; entries[i].second=0; entries[i].third=0; } for(int j=owner->count-1;j>=0;--j) owner->FUN_002a0fc0(j,0); }
@@ -481,7 +481,7 @@ void Target_29ca50::run() {
 
 
 // 0x0029cb70 FUN_0029cb70 (140 B): equivalent/0x0029cb70.cpp
-// sym: ?FUN_0029cb70@Pool_29cb70@fn_f3bb83d9@@QAEXI@Z @d3a9c23eb309 @w26f198c5a93d
+// sym: ?FUN_0029cb70@Pool_29cb70@fn_f3bb83d9@@QAEXI@Z @d3a9c23eb309 @w26f198c5a93d @v179815f6d2d1
 // STATUS: equivalent (tools/equiv.py level 3: 108 inputs, branch coverage 10/10)
 // FUN_0029cb70 @ 0x0029cb70
 // Age the pool's entries by the time elapsed since `since`: expire the ones whose lifetime is used up
@@ -535,7 +535,7 @@ Owner_29cc70* Owner_29cc70::run(unsigned char flags) {
 
 
 // 0x0029ccb0 FUN_0029ccb0 (308 B): equivalent/0x0029ccb0.cpp
-// sym: ?FUN_0029ccb0@Shader@fn_f3bb83d9@@QAEXPAUItemList_29ccb0@2@M@Z @25efd20f8957 @w5f91abc12b5c
+// sym: ?FUN_0029ccb0@Shader@fn_f3bb83d9@@QAEXPAUItemList_29ccb0@2@M@Z @25efd20f8957 @w5f91abc12b5c @v85d041706705
 // STATUS: equivalent (tools/equiv.py level 3: 1274 inputs, branch coverage 31/32, incomplete)
 // FUN_0029ccb0 @ 0x0029ccb0
 void Shader::FUN_0029ccb0(ItemList_29ccb0 *list, float amount)
@@ -593,7 +593,7 @@ void Shader::FUN_0029ccb0(ItemList_29ccb0 *list, float amount)
 
 
 // 0x0029ce40 FUN_0029ce40 (588 B): equivalent/0x0029ce40.cpp
-// sym: ?FUN_0029ce40@Lighting@fn_f3bb83d9@@QAEXPAUVec3_29ce40@2@0@Z @83a095624519 @w2bc9bafab61b
+// sym: ?FUN_0029ce40@Lighting@fn_f3bb83d9@@QAEXPAUVec3_29ce40@2@0@Z @83a095624519 @w2bc9bafab61b @v7b5d6bc42eca
 // STATUS: equivalent (tools/equiv.py level 3: 9439 inputs, branch coverage 32/32)
 // FUN_0029ce40 @ 0x0029ce40
 void Lighting::FUN_0029ce40(Vec3_29ce40* out, Vec3_29ce40* p)
@@ -660,7 +660,7 @@ void Lighting::FUN_0029ce40(Vec3_29ce40* out, Vec3_29ce40* p)
 } // namespace fn_f3bb83d9
 
 // 0x0029d090 FUN_0029d090 (552 B): equivalent/0x0029d090.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?FUN_0029d090@Lights@fn_0029d090@@QAEMPAUV3@2@I@Z @1271ec0cd8c4 @wd1ce72645329
+// sym: ?FUN_0029d090@Lights@fn_0029d090@@QAEMPAUV3@2@I@Z @1271ec0cd8c4 @wd1ce72645329 @v3e4091b286b7
 namespace fn_0029d090 {
 // STATUS: equivalent (tools/equiv.py level 3: 2668 inputs, branch coverage 35/38, incomplete)
 // FUN_0029d090 @ 0x0029d090
@@ -891,7 +891,7 @@ float Emitter_29d2c0::FUN_0029d2c0(const Vec3_29d2c0 *pos, unsigned int mask)
 } // namespace fn_f3bb83d9
 
 // 0x0029d5d0 FUN_0029d5d0 (688 B): equivalent/0x0029d5d0.cpp [wrapped: conflict: SourceList]
-// sym: ?FUN_0029d5d0@Mixer@fn_0029d5d0@@QAEMPBUV3@2@I@Z @babcc6e60cc7 @wb9b74ebcaa82
+// sym: ?FUN_0029d5d0@Mixer@fn_0029d5d0@@QAEMPBUV3@2@I@Z @babcc6e60cc7 @wb9b74ebcaa82 @vde8eec016793
 namespace fn_0029d5d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 10453 inputs, branch coverage 34/42, incomplete)
 // FUN_0029d5d0 @ 0x0029d5d0
@@ -1241,7 +1241,7 @@ hulk_freg Obj_29dcc0::F(int a, int b) {
 
 
 // 0x0029dd30 FUN_0029dd30 (597 B): equivalent/0x0029dd30.cpp
-// sym: ?FUN_0029dd30@SortedMerge@fn_f3bb83d9@@QAEMPAUBlock@2@@Z @53cc4f4d9f26 @wb90ad0b655f9
+// sym: ?FUN_0029dd30@SortedMerge@fn_f3bb83d9@@QAEMPAUBlock@2@@Z @53cc4f4d9f26 @wb90ad0b655f9 @v073b9995c49b
 // STATUS: equivalent (tools/equiv.py level 3: 130 inputs, branch coverage 25/26, incomplete)
 // FUN_0029dd30 @ 0x0029dd30
 hulk_freg SortedMerge::FUN_0029dd30(Block *out)
@@ -1299,7 +1299,7 @@ hulk_freg SortedMerge::FUN_0029dd30(Block *out)
 
 
 // 0x0029df90 FUN_0029df90 (902 B): equivalent/0x0029df90.cpp
-// sym: ?FUN_0029df90@Manager@fn_f3bb83d9@@QAEXPAUGroup@2@TArg2@2@TArg3@2@@Z @ef679a60dd8e @w42c19e171400
+// sym: ?FUN_0029df90@Manager@fn_f3bb83d9@@QAEXPAUGroup@2@TArg2@2@TArg3@2@@Z @ef679a60dd8e @w42c19e171400 @va3773212d03c
 // STATUS: equivalent (tools/equiv.py level 3: 11440 inputs, branch coverage 47/50, incomplete)
 // FUN_0029df90 @ 0x0029df90
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
@@ -1396,7 +1396,7 @@ void Manager::FUN_0029df90(Group *group, Arg2 a2, Arg3 a3)
 
 
 // 0x0029e320 FUN_0029e320 (664 B): equivalent/0x0029e320.cpp
-// sym: ?FUN_0029e320@Effect_29e320@fn_f3bb83d9@@QAEXPAUContainer_29e320@2@PAUV3_29e320@2@TArg3_29e320@2@@Z @fa40679a3fca @w4d3c5abd8ac6
+// sym: ?FUN_0029e320@Effect_29e320@fn_f3bb83d9@@QAEXPAUContainer_29e320@2@PAUV3_29e320@2@TArg3_29e320@2@@Z @fa40679a3fca @w4d3c5abd8ac6 @v87acf6487aef
 // STATUS: equivalent (tools/equiv.py level 3: 95 inputs, branch coverage 40/42, incomplete)
 // FUN_0029e320 @ 0x0029e320
   // 0.0
@@ -1460,7 +1460,7 @@ void Effect_29e320::FUN_0029e320(Container_29e320 *c, V3_29e320 *p, Arg3_29e320 
 
 
 // 0x0029e5c0 FUN_0029e5c0 (120 B): equivalent/0x0029e5c0.cpp
-// sym: ?FUN_0029e5c0@Tracker_29e5c0@fn_f3bb83d9@@QAE_NPAUTarget_29e5c0@2@PAUCounter_29e5c0@2@@Z @d87f237a7916 @w513cb39a2283
+// sym: ?FUN_0029e5c0@Tracker_29e5c0@fn_f3bb83d9@@QAE_NPAUTarget_29e5c0@2@PAUCounter_29e5c0@2@@Z @d87f237a7916 @w513cb39a2283 @v9ad118aca134
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // FUN_0029e5c0 @ 0x0029e5c0
 bool Tracker_29e5c0::FUN_0029e5c0(Target_29e5c0* t, Counter_29e5c0* c) {
@@ -1516,7 +1516,7 @@ void __stdcall FUN_0029e680(Obj_29e680* p) {
 
 
 // 0x0029e6c0 FUN_0029e6c0 (227 B): equivalent/0x0029e6c0.cpp
-// sym: ??0LightsChooserCache@pure3d@fn_f3bb83d9@@QAE@H@Z @43daad4db70b @wb4b6ef764089
+// sym: ??0LightsChooserCache@pure3d@fn_f3bb83d9@@QAE@H@Z @43daad4db70b @wb4b6ef764089 @v152c5f578201
 // STATUS: equivalent (tools/equiv.py level 3: 18165 inputs, branch coverage 8/8)
 // FUN_0029e6c0 @ 0x0029e6c0
 namespace pure3d {

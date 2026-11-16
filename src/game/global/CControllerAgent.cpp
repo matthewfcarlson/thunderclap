@@ -143,7 +143,7 @@ public:
 } // namespace fn_f8104e0e
 
 // 0x000fcd30 FUN_000fcd30 (169 B): equivalent/0x000fcd30.cpp [wrapped: conflict: CControllerAgent]
-// sym: ??0CControllerAgent@fn_000fcd30@@QAE@PAX@Z @3761dac039ef @wb881c90ef8ef
+// sym: ??0CControllerAgent@fn_000fcd30@@QAE@PAX@Z @3761dac039ef @wb881c90ef8ef @vac5c6df002fb
 namespace fn_000fcd30 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_000fcd30 @ 0x000fcd30
@@ -212,7 +212,7 @@ hulk_freg CControllerAgent::vfunc_3(hulk_intptr a, int b) {
 namespace fn_f8104e0e {
 
 // 0x000fce60 FUN_000fce60 (423 B): equivalent/0x000fce60.cpp
-// sym: ?FUN_000fce60@fn_f8104e0e@@YAXPAUMatrix_fce60@1@PAUVec3_fce60@1@HHMM1@Z @19df9a0820a9 @w0e2c06f0d38a
+// sym: ?FUN_000fce60@fn_f8104e0e@@YAXPAUMatrix_fce60@1@PAUVec3_fce60@1@HHMM1@Z @19df9a0820a9 @w0e2c06f0d38a @v22ae72f1487c
 // STATUS: equivalent (tools/equiv.py level 3: 3008 inputs, branch coverage 4/4)
 // FUN_000fce60 @ 0x000fce60
 // local is the 3x3 rotation matrix (0x2c bytes) built by Matrix::build (0x0022baf0)
@@ -263,7 +263,7 @@ void FUN_000fce60(Matrix_fce60 *rot, Vec3_fce60 *axis, int unused2, int unused3,
 
 
 // 0x000fd010 FUN_000fd010 (176 B): equivalent/0x000fd010.cpp
-// sym: ?FUN_000fd010@fn_f8104e0e@@YAXPAUTransform_fd010@1@IIMMPAUVec_fd010@1@@Z @ab4afeffae7f @w375d0e9f9e7c
+// sym: ?FUN_000fd010@fn_f8104e0e@@YAXPAUTransform_fd010@1@IIMMPAUVec_fd010@1@@Z @ab4afeffae7f @w375d0e9f9e7c @v7a4412f6d0ef
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_000fd010 @ 0x000fd010
 void __cdecl FUN_000fd010(Transform_fd010* transform, unsigned int unused1, unsigned int unused2, float a, float b, Vec_fd010* output)
@@ -298,7 +298,7 @@ CControllerAgent_fd0c0* CControllerAgent_fd0c0::vfunc_5(signed char flags) {
 
 
 // 0x000fd8a0 FUN_000fd8a0 (423 B): equivalent/0x000fd8a0.cpp
-// sym: ?Start@Sweep_fd8a0@fn_f8104e0e@@QAEXPAUArgs_fd8a0@2@PBUMat_fd8a0@2@HH@Z @a337b207b872 @w77ceab8ce9b0
+// sym: ?Start@Sweep_fd8a0@fn_f8104e0e@@QAEXPAUArgs_fd8a0@2@PBUMat_fd8a0@2@HH@Z @a337b207b872 @w77ceab8ce9b0 @v793d2907237b
 // STATUS: equivalent (tools/equiv.py level 3: 83 inputs, branch coverage 8/8)
 // FUN_000fd8a0 @ 0x000fd8a0
 void Sweep_fd8a0::Start(Args_fd8a0 *args, const Mat_fd8a0 *m, int a, int b)

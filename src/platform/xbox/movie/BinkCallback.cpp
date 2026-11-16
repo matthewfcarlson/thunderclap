@@ -189,7 +189,7 @@ U_334960 __stdcall FUN_00334960(State_334960* state,U_334960 position,unsigned c
 } // namespace fn_f8921c09
 
 // 0x00334b00 FUN_00334b00 (249 B): equivalent/0x00334b00.cpp [wrapped: conflict: Stream]
-// sym: ?FUN_00334b00@Owner_334b00@fn_00334b00@@QAEXXZ @2dcab71b7ac7 @wd90c64559dc5
+// sym: ?FUN_00334b00@Owner_334b00@fn_00334b00@@QAEXXZ @2dcab71b7ac7 @wd90c64559dc5 @v6d7b73a3bf45
 namespace fn_00334b00 {
 // STATUS: equivalent (tools/equiv.py level 3: 11840 inputs, branch coverage 16/16; run with --inputs 12000)
 // FUN_00334b00 @ 0x00334b00
@@ -258,7 +258,7 @@ void Owner_334b00::FUN_00334b00() {
 namespace fn_f8921c09 {
 
 // 0x00334c00 FUN_00334c00 (49 B): equivalent/0x00334c00.cpp
-// sym: ?target@fn_f8921c09@@YGPAXPAVItem@1@@Z @bd66382acfd2 @w13a6f8514fb8
+// sym: ?target@fn_f8921c09@@YGPAXPAVItem@1@@Z @bd66382acfd2 @w13a6f8514fb8 @v0a8ec83aea73
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 6/6)
 // FUN_00334c00 @ 0x00334c00
 // equiv-conv: FUN_00334b00 esi
@@ -276,7 +276,7 @@ void* __stdcall target(Item* p) {
 
 
 // 0x00334c40 FUN_00334c40 (36 B): equivalent/0x00334c40.cpp
-// sym: _FUN_00334c40 @73773fc5af82 @w1569518e9471
+// sym: _FUN_00334c40 @73773fc5af82 @w1569518e9471 @vf25a4a8bbc44
 // STATUS: equivalent (tools/equiv.py level 3: 2390 inputs, branch coverage 4/4)
 // FUN_00334c40 @ 0x00334c40
 // equiv-conv: FUN_00334c40 esi
@@ -291,7 +291,7 @@ extern "C" void FUN_00334c40(void *state) {
 } // namespace fn_f8921c09
 
 // 0x00334c70 FUN_00334c70 (628 B): equivalent/0x00334c70.cpp [wrapped: macros]
-// sym: ?target@fn_00334c70@@YGIPAUState_334c70@1@IIPAEI@Z @06e30ca3e953 @wd24f68a71df5
+// sym: ?target@fn_00334c70@@YGIPAUState_334c70@1@IIPAEI@Z @06e30ca3e953 @wd24f68a71df5 @vf3399f7bd377
 namespace fn_00334c70 {
 // STATUS: equivalent (tools/equiv.py level 3: 3019 inputs, branch coverage 36/36; Wine build 644 inputs, 35/36)
 // FUN_00334c70 @ 0x00334c70
@@ -368,7 +368,7 @@ void __stdcall FUN_00334ef0(int unused, void* p) {
 } // namespace fn_f8921c09
 
 // 0x00334f10 FUN_00334f10 (75 B): equivalent/0x00334f10.cpp [wrapped: compile error in a shared declaration (C2732)]
-// sym: ?FUN_00334f10@fn_00334f10@@YGXPAUState@1@IIII@Z @dab5122554bf @w4a5da39202e6
+// sym: ?FUN_00334f10@fn_00334f10@@YGXPAUState@1@IIII@Z @dab5122554bf @w4a5da39202e6 @v66878ee3c75e
 namespace fn_00334f10 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00334f10 @ 0x00334f10
@@ -423,7 +423,7 @@ void __stdcall Run(Thing* s) {
 
 
 // 0x00334fa0 FUN_00334fa0 (107 B): equivalent/0x00334fa0.cpp
-// sym: _FUN_00334fa0@12 @6a3c4a602192 @w4a7007ab027d
+// sym: _FUN_00334fa0@12 @6a3c4a602192 @w4a7007ab027d @v4fafec23a567
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_00334fa0 @ 0x00334fa0
 extern "C" int __stdcall FUN_00334fa0(State_334fa0* state,unsigned int arg,unsigned int unused) {

@@ -192,7 +192,7 @@ extern "C" void FUN_001bc510(void* /*this, unused: callers pass it (unb4)*/) {
 namespace fn_f0a5b372 {
 
 // 0x001bc530 FUN_001bc530 (113 B): equivalent/0x001bc530.cpp
-// sym: ?FUN_001bc530@fn_f0a5b372@@YAXPAURect_1bc530@1@H@Z @763051e48af7 @w6b0ebfd83bc3
+// sym: ?FUN_001bc530@fn_f0a5b372@@YAXPAURect_1bc530@1@H@Z @763051e48af7 @w6b0ebfd83bc3 @veedcb3862b66
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 8/8; Wine build 606 inputs, 8/8)
 // FUN_001bc530 @ 0x001bc530
 // Grows the rect (passed in esi) to include the point mapped from arg.
@@ -214,7 +214,7 @@ void FUN_001bc530(Rect_1bc530* rect, hulk_intptr arg)
 } // namespace fn_f0a5b372
 
 // 0x001bc5b0 FUN_001bc5b0 (348 B): equivalent/0x001bc5b0.cpp [wrapped: conflict: FUN_001c3d90]
-// sym: _FUN_001bc5b0 @2a1cc770d8af @w440e730a7494
+// sym: _FUN_001bc5b0 @2a1cc770d8af @w440e730a7494 @v43690f93af69
 namespace fn_001bc5b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 8531 inputs, branch coverage 0/0)
 // FUN_001bc5b0 @ 0x001bc5b0
@@ -417,7 +417,7 @@ void Holder_1bc830::Free() {
 
 
 // 0x001bc8a0 FUN_001bc8a0 (881 B): equivalent/0x001bc8a0.cpp
-// sym: _FUN_001bc8a0 @6195f90fc8bd @w4ed8eaa4ea89
+// sym: _FUN_001bc8a0 @6195f90fc8bd @w4ed8eaa4ea89 @v299689d21f6c
 // STATUS: equivalent (tools/equiv.py level 3: 143 inputs, branch coverage 36/36)
 // FUN_001bc8a0 @ 0x001bc8a0
 // FUN_001bc8a0 @ 0x001bc8a0
@@ -518,7 +518,7 @@ extern "C" void FUN_001bc8a0(void * obj_, void *q)
 } // namespace fn_f0a5b372
 
 // 0x001bcc30 FUN_001bcc30 (628 B): equivalent/0x001bcc30.cpp [wrapped: conflict: FUN_001c3d90]
-// sym: ?FUN_001bcc30@Rig_1bcc30@fn_001bcc30@@QAEXXZ @97bcd82fc3a7 @wb2132a48ddb9
+// sym: ?FUN_001bcc30@Rig_1bcc30@fn_001bcc30@@QAEXXZ @97bcd82fc3a7 @wb2132a48ddb9 @v706dc57bbc2f
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)
@@ -744,7 +744,7 @@ CExtraRenderingCallback::CExtraRenderingCallback() {
 } // namespace fn_f0a5b372
 
 // 0x001bcef0 FUN_001bcef0 (3155 B): equivalent/0x001bcef0.cpp [wrapped: helper definitions (4 out-of-line function bodies)]
-// sym: ?FUN_001bcef0@Fx_1bcef0@fn_001bcef0@@QAEXXZ @b357113b6fea @w9f14f7854afa
+// sym: ?FUN_001bcef0@Fx_1bcef0@fn_001bcef0@@QAEXXZ @b357113b6fea @w9f14f7854afa @vb55442238185
 namespace fn_001bcef0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20186 inputs, branch coverage 136/140, incomplete)
 // FUN_001bcef0 @ 0x001bcef0

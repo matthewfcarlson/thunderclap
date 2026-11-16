@@ -337,7 +337,7 @@ Item* Collection::find(int x) {
 
 
 // 0x002ae9d0 FUN_002ae9d0 (65 B): equivalent/0x002ae9d0.cpp
-// sym: ?FUN_002ae9d0@Collection@fn_fee005c0@@QAEPAVItem@2@PAX@Z @b6eb5602814b @w2c8215f181ac
+// sym: ?FUN_002ae9d0@Collection@fn_fee005c0@@QAEPAVItem@2@PAX@Z @b6eb5602814b @w2c8215f181ac @v5a60b9a0e18c
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_002ae9d0 @ 0x002ae9d0
 Item* Collection::FUN_002ae9d0(void* value) { for (int i = 0; i < count; ++i) { if (items[i]->matches(value)) return items[i]; } return 0; }
@@ -485,7 +485,7 @@ hulk_intptr owners::SomeClass_2aed60::FUN_002aed60(void* param2, void* param3) {
 
 
 // 0x002aedd0 FUN_002aedd0 (230 B): equivalent/0x002aedd0.cpp [wrapped: compile error C2440: 'initializing' : cannot convert from 'fn_fee005c0::pure3d::Texture *' to 'fn_fee005c0::Texture *']
-// sym: ?target@Owner_2aedd0@fn_002aedd0@@QAEPAUTexture@2@PAX@Z @92376fb8bc70 @w91138fa829d7
+// sym: ?target@Owner_2aedd0@fn_002aedd0@@QAEPAUTexture@2@PAX@Z @92376fb8bc70 @w91138fa829d7 @va23c367b9b35
 namespace fn_002aedd0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 5/6, incomplete)
 // FUN_002aedd0 @ 0x002aedd0
@@ -516,7 +516,7 @@ Texture* Owner_2aedd0::target(void* arg) {
 
 
 // 0x002aeec0 FUN_002aeec0 (145 B): equivalent/0x002aeec0.cpp [wrapped: compile error in a shared declaration (C2065)]
-// sym: ?FUN_002aeec0@ImageRegistry_2aeec0@fn_002aeec0@@QAEHHHH@Z @a2b5c4d0a18b @w63b7b092adc6
+// sym: ?FUN_002aeec0@ImageRegistry_2aeec0@fn_002aeec0@@QAEHHHH@Z @a2b5c4d0a18b @w63b7b092adc6 @v0e1198981926
 namespace fn_002aeec0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_002aeec0 @ 0x002aeec0
@@ -582,7 +582,7 @@ hulk_intptr ImageRegistry_2aeec0::FUN_002aeec0(hulk_intptr stream, int unused, i
 
 
 // 0x002aef60 FUN_002aef60 (161 B): equivalent/0x002aef60.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?FUN_002aef60@Owner_2aef60@fn_002aef60@@QAEXIHH@Z @5f98d1561bc5 @w75a04eefa465
+// sym: ?FUN_002aef60@Owner_2aef60@fn_002aef60@@QAEXIHH@Z @5f98d1561bc5 @w75a04eefa465 @v77b736ef11ab
 namespace fn_002aef60 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_002aef60 @ 0x002aef60
@@ -660,7 +660,7 @@ void Owner_2aef60::FUN_002aef60(hulk_uintptr id, hulk_intptr a, int b)
 
 
 // 0x002af010 FUN_002af010 (109 B): equivalent/0x002af010.cpp [wrapped: compile error in a shared declaration (C2065)]
-// sym: ?FUN_002af010@ThisWrap_002af010@fn_002af010@@QAEXHHHH@Z @a82edd933c73 @w7d03dd76ea8d
+// sym: ?FUN_002af010@ThisWrap_002af010@fn_002af010@@QAEXHHHH@Z @a82edd933c73 @w7d03dd76ea8d @v355c824790b0
 namespace fn_002af010 {
 // STATUS: equivalent (tools/equiv.py level 3: 17396 inputs, branch coverage 2/2)
 // FUN_002af010 @ 0x002af010

@@ -243,7 +243,7 @@ class ParamValueInt_169290 : public ParamValue_169290 {
 } // namespace fn_f665a2ac
 
 // 0x00168380 hulkfight::motion::VelocityAnimatedXZCondition::vfunc_6 (232 B): equivalent/0x00168380.cpp
-// sym: ?vfunc_6@VelocityAnimatedXZCondition@motion@hulkfight@@UAE_NPAX00@Z @64ecafd20e3e @wb3fd8ed91a3e
+// sym: ?vfunc_6@VelocityAnimatedXZCondition@motion@hulkfight@@UAE_NPAX00@Z @64ecafd20e3e @wb3fd8ed91a3e @v4d40be36e023
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 16/16)
 // hulkfight::motion::VelocityAnimatedXZCondition::vfunc_6 @ 0x00168380
 bool hulkfight::motion::VelocityAnimatedXZCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { Actor_168380 * actor = (Actor_168380 *)__p1;
@@ -263,7 +263,7 @@ bool hulkfight::motion::VelocityAnimatedXZCondition::vfunc_6(void* __p0, void* _
 
 
 // 0x00168480 hulkfight::motion::VelocityAnimatedXZAngleCondition::vfunc_6 (254 B): equivalent/0x00168480.cpp
-// sym: ?vfunc_6@VelocityAnimatedXZAngleCondition@motion@hulkfight@@UAE_NPAX00@Z @5ef19976ae71 @w31ecdb863519
+// sym: ?vfunc_6@VelocityAnimatedXZAngleCondition@motion@hulkfight@@UAE_NPAX00@Z @5ef19976ae71 @w31ecdb863519 @v467f5d801c2a
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // hulkfight::motion::VelocityAnimatedXZAngleCondition::vfunc_6 @ 0x00168480
 bool hulkfight::motion::VelocityAnimatedXZAngleCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { Actor_168480 * actor = (Actor_168480 *)__p1;
@@ -282,7 +282,7 @@ return this->f_10*0.5f > absval.f;
 
 
 // 0x00168580 hulkfight::motion::ChargeCondition::vfunc_6 (250 B): equivalent/0x00168580.cpp [wrapped: conflict: DAT_00494b44; DAT_00494b60; hulkfight::motion::ChargeCondition]
-// sym: ?vfunc_6@ChargeCondition@motion@hulkfight@fn_00168580@@UAE_NPAXPAUActor_168580@4@0@Z @08d3d8f21c98 @w1145d0261118
+// sym: ?vfunc_6@ChargeCondition@motion@hulkfight@fn_00168580@@UAE_NPAXPAUActor_168580@4@0@Z @08d3d8f21c98 @w1145d0261118 @ve9eff43dcbce
 namespace fn_00168580 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 18/18)
 // hulkfight::motion::ChargeCondition::vfunc_6 @ 0x00168580
@@ -315,7 +315,7 @@ bool ChargeCondition::vfunc_6(void*, Actor_168580* actor, void*) {
 
 
 // 0x001686a0 hulkfight::motion::TurningVelocityCondition::vfunc_6 (231 B): equivalent/0x001686a0.cpp [wrapped: conflict: DAT_00494b44; DAT_00494b60; hulkfight::motion::TurningVelocityCondition]
-// sym: ?vfunc_6@TurningVelocityCondition@motion@hulkfight@fn_001686a0@@UAE_NPAXPAUActor_1686a0@4@0@Z @7d3da1eed760 @w9d6af4f0817a
+// sym: ?vfunc_6@TurningVelocityCondition@motion@hulkfight@fn_001686a0@@UAE_NPAXPAUActor_1686a0@4@0@Z @7d3da1eed760 @w9d6af4f0817a @v73ff5af507ad
 namespace fn_001686a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 16/16)
 // hulkfight::motion::TurningVelocityCondition::vfunc_6 @ 0x001686a0
@@ -351,7 +351,7 @@ bool TurningVelocityCondition::vfunc_6(void*, Actor_1686a0* actor, void*) {
 namespace fn_f665a2ac {
 
 // 0x001687a0 FUN_001687a0 (228 B): equivalent/0x001687a0.cpp
-// sym: ?target@fn_f665a2ac@@YA_NPAUObject@1@IHM@Z @82ac97e76b5c @wbe456d796196
+// sym: ?target@fn_f665a2ac@@YA_NPAUObject@1@IHM@Z @82ac97e76b5c @wbe456d796196 @v769e0a9103da
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 22/22)
 // FUN_001687a0 @ 0x001687a0
 // equiv-conv: target ecx esi stack stack
@@ -380,7 +380,7 @@ bool __cdecl target(Object* object, unsigned comparison, int source, float scale
 } // namespace fn_f665a2ac
 
 // 0x001688a0 hulkfight::motion::HealthCondition::vfunc_6 (82 B): equivalent/0x001688a0.cpp [wrapped: conflict: hulkfight::motion::HealthCondition]
-// sym: ?vfunc_6@HealthCondition@motion@hulkfight@fn_001688a0@@QAEHHPAUFightObject@4@H@Z @0f12f0369ed6 @w86983ad016cf
+// sym: ?vfunc_6@HealthCondition@motion@hulkfight@fn_001688a0@@QAEHHPAUFightObject@4@H@Z @0f12f0369ed6 @w86983ad016cf @v605240723951
 namespace fn_001688a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // hulkfight::motion::HealthCondition::vfunc_6 @ 0x001688a0
@@ -410,7 +410,7 @@ int HealthCondition::vfunc_6(int unused, FightObject* object, int unused2) {
 
 
 // 0x00168900 hulkfight::motion::GrappleHealthCondition::vfunc_6 (38 B): equivalent/0x00168900.cpp [wrapped: conflict: hulkfight::motion::GrappleHealthCondition]
-// sym: ?vfunc_6@GrappleHealthCondition@motion@hulkfight@fn_00168900@@UAEHPAX00@Z @51b48f7c42fb @w9e70ceb08d77
+// sym: ?vfunc_6@GrappleHealthCondition@motion@hulkfight@fn_00168900@@UAEHPAX00@Z @51b48f7c42fb @w9e70ceb08d77 @vce95a6d05188
 namespace fn_00168900 {
 // STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 0/0)
 // hulkfight::motion::GrappleHealthCondition::vfunc_6 @ 0x00168900
@@ -442,7 +442,7 @@ int hulkfight::motion::GrappleHealthCondition::vfunc_6(void* arg1, void* arg2, v
 
 
 // 0x00168930 hulkfight::motion::HealthPercentCondition::vfunc_6 (290 B): equivalent/0x00168930.cpp [wrapped: conflict: DAT_00494b44; DAT_00494b60; hulkfight::motion::HealthPercentCondition]
-// sym: ?vfunc_6@HealthPercentCondition@motion@hulkfight@fn_00168930@@UAE_NPAXPAUActor_168930@4@0@Z @10faf054f961 @w8dfbaacbc016
+// sym: ?vfunc_6@HealthPercentCondition@motion@hulkfight@fn_00168930@@UAE_NPAXPAUActor_168930@4@0@Z @10faf054f961 @w8dfbaacbc016 @v2e6986fbfbd5
 namespace fn_00168930 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 18/18)
 // hulkfight::motion::HealthPercentCondition::vfunc_6 @ 0x00168930
@@ -480,7 +480,7 @@ bool HealthPercentCondition::vfunc_6(void*, Actor_168930* actor, void*) {
 
 
 // 0x00168b30 hulkfight::motion::TargetHealthPercentCondition::vfunc_6 (285 B): equivalent/0x00168b30.cpp
-// sym: ?vfunc_6@TargetHealthPercentCondition@motion@hulkfight@@UAE_NPAX00@Z @5398ab5f1f7a @wc689843e8543
+// sym: ?vfunc_6@TargetHealthPercentCondition@motion@hulkfight@@UAE_NPAX00@Z @5398ab5f1f7a @wc689843e8543 @v131be4c54389
 // STATUS: equivalent (tools/equiv.py level 3: 3028 inputs, branch coverage 19/22, incomplete)
 // hulkfight::motion::TargetHealthPercentCondition::vfunc_6 @ 0x00168b30
 bool hulkfight::motion::TargetHealthPercentCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { Context_168b30 * context = (Context_168b30 *)__p1;

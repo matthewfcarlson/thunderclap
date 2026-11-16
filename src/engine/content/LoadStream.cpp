@@ -449,7 +449,7 @@ void Target_2640f0::run() {
 } // namespace fn_fa1126e6
 
 // 0x00264140 FUN_00264140 (74 B): equivalent/0x00264140.cpp
-// sym: ?FUN_00264140@Converter_264140@owners@@QAEXPAEII@Z @13ade0e732d2 @w73141b7868f0
+// sym: ?FUN_00264140@Converter_264140@owners@@QAEXPAEII@Z @13ade0e732d2 @w73141b7868f0 @ve310d72f3697
 // STATUS: equivalent (tools/equiv.py level 3: 2544 inputs, branch coverage 12/12)
 // FUN_00264140 @ 0x00264140
 void owners::Converter_264140::FUN_00264140(unsigned char* data, unsigned int count, unsigned int size)
@@ -534,7 +534,7 @@ bool Obj_264270::fnB(void* a, int b, int c, int d) {
 } // namespace fn_fa1126e6
 
 // 0x002642c0 FUN_002642c0 (74 B): equivalent/0x002642c0.cpp
-// sym: ?FUN_002642c0@Controller_2642c0@owners@@QAEXXZ @4d134cc2f98b @w5204fcc7a6d3
+// sym: ?FUN_002642c0@Controller_2642c0@owners@@QAEXXZ @4d134cc2f98b @w5204fcc7a6d3 @v01d55d1a92c7
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_002642c0 @ 0x002642c0
 void owners::Controller_2642c0::FUN_002642c0() {
@@ -680,7 +680,7 @@ void owners::S_264510::FUN_00264510(unsigned n) {
 
 
 // 0x00264590 FUN_00264590 (390 B): equivalent/0x00264590.cpp [wrapped: conflict: Stream]
-// sym: ?FUN_00264590@Stream@fn_00264590@@QAE_NPBXHHH@Z @898fe5807097 @w57d277de22da
+// sym: ?FUN_00264590@Stream@fn_00264590@@QAE_NPBXHHH@Z @898fe5807097 @w57d277de22da @v01f278a22cb3
 namespace fn_00264590 {
 // STATUS: equivalent (tools/equiv.py level 3: 2949 inputs, branch coverage 28/28)
 // FUN_00264590 @ 0x00264590
@@ -877,7 +877,7 @@ void __fastcall FUN_002650e0(Owner_2650e0* self) {
 
 
 // 0x00265190 FUN_00265190 (122 B): equivalent/0x00265190.cpp
-// sym: ?FUN_00265190@Queue_265190@fn_fa1126e6@@QAEXPAVReleasable_265190@2@@Z @e029440ee375 @wdf3594bc1747
+// sym: ?FUN_00265190@Queue_265190@fn_fa1126e6@@QAEXPAVReleasable_265190@2@@Z @e029440ee375 @wdf3594bc1747 @v7a2ea95550b2
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_00265190 @ 0x00265190
 void Queue_265190::FUN_00265190(Releasable_265190* obj) {
@@ -1076,7 +1076,7 @@ void A_265590::Run() {
 } // namespace fn_fa1126e6
 
 // 0x002655b0 FUN_002655b0 (162 B): equivalent/0x002655b0.cpp [wrapped: helper definitions (3 out-of-line function bodies)]
-// sym: ?FUN_002655b0@TaskQueue@fn_002655b0@@QAEXXZ @10e9f9dae208 @we27ad86a0afb
+// sym: ?FUN_002655b0@TaskQueue@fn_002655b0@@QAEXXZ @10e9f9dae208 @we27ad86a0afb @v17038e02d8e0
 namespace fn_002655b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 107 inputs, branch coverage 14/14)
 // FUN_002655b0 @ 0x002655b0
@@ -1173,7 +1173,7 @@ Object* Object::FUN_002656b0(Config_2656b0* config) {
 
 
 // 0x00265810 FUN_00265810 (264 B): equivalent/0x00265810.cpp
-// sym: ?FUN_00265810@Manager_265810@fn_fa1126e6@@QAEXPAURequest@2@PAPAULoadRequest_265810@2@@Z @f1975c8f97b4 @w86e686969579
+// sym: ?FUN_00265810@Manager_265810@fn_fa1126e6@@QAEXPAURequest@2@PAPAULoadRequest_265810@2@@Z @f1975c8f97b4 @w86e686969579 @vc8e8ebc7b05f
 // STATUS: equivalent (tools/equiv.py level 3: 170 inputs, branch coverage 20/20)
 // FUN_00265810 @ 0x00265810
 void Manager_265810::FUN_00265810(Request* request,LoadRequest_265810** output) {
@@ -1218,7 +1218,7 @@ void C_265920::Go(const char* s, int x, int z) {
 
 
 // 0x002659a0 FUN_002659a0 (116 B): equivalent/0x002659a0.cpp
-// sym: ?FUN_002659a0@W_2659a0@fn_fa1126e6@@QAEXH@Z @d43238c65b41 @w28ae076ea759
+// sym: ?FUN_002659a0@W_2659a0@fn_fa1126e6@@QAEXH@Z @d43238c65b41 @w28ae076ea759 @v8c7ac955b2cc
 // STATUS: equivalent (tools/equiv.py level 3: 13 inputs, branch coverage 8/8)
 // FUN_002659a0 @ 0x002659a0
 void W_2659a0::FUN_002659a0(int key){
@@ -1240,7 +1240,7 @@ void W_2659a0::FUN_002659a0(int key){
 } // namespace fn_fa1126e6
 
 // 0x00265a20 FUN_00265a20 (164 B): equivalent/0x00265a20.cpp [wrapped: conflict: FUN_00267340; Object]
-// sym: ?FUN_00265a20@Registry_265a20@fn_00265a20@@QAEXPBD@Z @1890a3036cc2 @we8cb5ebab5b7
+// sym: ?FUN_00265a20@Registry_265a20@fn_00265a20@@QAEXPBD@Z @1890a3036cc2 @we8cb5ebab5b7 @v39ac4c7f11fc
 namespace fn_00265a20 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/12)
 // FUN_00265a20 @ 0x00265a20

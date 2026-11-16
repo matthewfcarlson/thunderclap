@@ -234,7 +234,7 @@ bool pure3d::TargaHandler::vfunc_8(int x) {
 
 
 // 0x002ddb40 pure3d::TargaHandler::vfunc_9 (157 B): equivalent/0x002ddb40.cpp
-// sym: ?vfunc_9@TargaHandler@pure3d@@UAEXHH@Z @318c26657199 @wb4b88570f7e2
+// sym: ?vfunc_9@TargaHandler@pure3d@@UAEXHH@Z @318c26657199 @wb4b88570f7e2 @vb4fbbac2314f
 // STATUS: equivalent (tools/equiv.py level 3: 19366 inputs, branch coverage 21/22, incomplete)
 // pure3d::TargaHandler::vfunc_9 @ 0x002ddb40
 // pure3d::TargaHandler::vfunc_9 @ 0x002ddb40

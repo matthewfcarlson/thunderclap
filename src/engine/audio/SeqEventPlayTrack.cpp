@@ -254,7 +254,7 @@ SeqEventPlayTrack_2515e0* SeqEventPlayTrack_2515e0::vfunc_4(unsigned char flag) 
 } // namespace fn_f9a4f3e3
 
 // 0x00251610 audio::SeqEventPlayTrack::vfunc_1 (181 B): equivalent/0x00251610.cpp [wrapped: conflict: audio::SeqEvent; audio::SeqEventPlayTrack]
-// sym: ?vfunc_1@SeqEventPlayTrack@audio@fn_00251610@@UAE_NPAUContext@3@@Z @92997774998b @w0f62c75a38ee
+// sym: ?vfunc_1@SeqEventPlayTrack@audio@fn_00251610@@UAE_NPAUContext@3@@Z @92997774998b @w0f62c75a38ee @vcbb5a9aea5ab
 namespace fn_00251610 {
 // STATUS: equivalent (tools/equiv.py level 3: 1600 inputs, branch coverage 14/14)
 // audio::SeqEventPlayTrack::vfunc_1 @ 0x00251610
@@ -311,7 +311,7 @@ SeqActionPlayTrack* SeqActionPlayTrack::vfunc_0(int x) {
 } // namespace fn_f9a4f3e3
 
 // 0x00251720 audio::SeqActionPlayTrack::vfunc_1 (181 B): equivalent/0x00251720.cpp
-// sym: ?vfunc_1@SeqActionPlayTrack@audio@@UAEXPAX@Z @007cba4f7629 @wf39630e13d9d
+// sym: ?vfunc_1@SeqActionPlayTrack@audio@@UAEXPAX@Z @007cba4f7629 @wf39630e13d9d @vf1a2913b40e9
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 4/4)
 // audio::SeqActionPlayTrack::vfunc_1 @ 0x00251720
 void audio::SeqActionPlayTrack::vfunc_1(void* __p0) { Context_251720 * context = (Context_251720 *)__p0;
@@ -331,7 +331,7 @@ void audio::SeqActionPlayTrack::vfunc_1(void* __p0) { Context_251720 * context =
 
 
 // 0x002517e0 audio::SeqEventPlayTrack::vfunc_2 (66 B): equivalent/0x002517e0.cpp [wrapped: conflict: audio::SeqActionPlayTrack; audio::SeqEvent; audio::SeqEventPlayTrack]
-// sym: ?vfunc_2@SeqEventPlayTrack@audio@fn_002517e0@@UAEPAXPAX@Z @13edbe6acfe7 @w7507a5ed9445
+// sym: ?vfunc_2@SeqEventPlayTrack@audio@fn_002517e0@@UAEPAXPAX@Z @13edbe6acfe7 @w7507a5ed9445 @v525076cee502
 inline void* __cdecl operator new(size_t, void* p) { return p; }
 namespace fn_002517e0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 2/2)

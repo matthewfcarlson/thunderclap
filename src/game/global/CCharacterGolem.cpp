@@ -578,7 +578,7 @@ bool owners::C_fde60::FUN_000fde60(int* out) {
 namespace fn_f54027db {
 
 // 0x000fde80 FUN_000fde80 (147 B): equivalent/0x000fde80.cpp
-// sym: ?FUN_000fde80@Settings_fde80@fn_f54027db@@QAEXXZ @5842446318d9 @w2c2c404aa6af
+// sym: ?FUN_000fde80@Settings_fde80@fn_f54027db@@QAEXXZ @5842446318d9 @w2c2c404aa6af @v4aed22dfca87
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_000fde80 @ 0x000fde80
 void Settings_fde80::FUN_000fde80()
@@ -790,7 +790,7 @@ int Container_fe230::Remove(int key) {
 } // namespace fn_f54027db
 
 // 0x000fe290 CGolem::vfunc_7 (52 B): equivalent/0x000fe290.cpp [wrapped: conflict: CGolem]
-// sym: ?vfunc_7@CGolem@fn_000fe290@@UAEXXZ @8adc487fb377 @w3e357c820d5b
+// sym: ?vfunc_7@CGolem@fn_000fe290@@UAEXXZ @8adc487fb377 @w3e357c820d5b @v0721b56b15ba
 namespace fn_000fe290 {
 // STATUS: equivalent (tools/equiv.py level 3: 3017 inputs, branch coverage 5/6, incomplete)
 // CGolem::vfunc_7 @ 0x000fe290
@@ -829,7 +829,7 @@ pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
 namespace fn_f54027db {
 
 // 0x000fe300 FUN_000fe300 (289 B): equivalent/0x000fe300.cpp
-// sym: ?update@State_fe300@fn_f54027db@@QAEXPBUVec_fe300@2@EMMM@Z @bb4aa128100e @wc42a2fab045c
+// sym: ?update@State_fe300@fn_f54027db@@QAEXPBUVec_fe300@2@EMMM@Z @bb4aa128100e @wc42a2fab045c @va1c6fb3b609f
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 16/16)
 // FUN_000fe300 @ 0x000fe300
 void State_fe300::update(const Vec_fe300* target, unsigned char flag, float rate, float threshold, float dt) {
@@ -864,7 +864,7 @@ int CActorGolem::vfunc_6() {
 
 
 // 0x000fe460 CActorGolem::vfunc_3 (109 B): equivalent/0x000fe460.cpp [wrapped: conflict: CActorGolem]
-// sym: ?vfunc_3@CActorGolem@fn_000fe460@@UAEXHM@Z @d75feb4eb5fd @w67a8eb774480
+// sym: ?vfunc_3@CActorGolem@fn_000fe460@@UAEXHM@Z @d75feb4eb5fd @w67a8eb774480 @v38ea84263df9
 namespace fn_000fe460 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // CActorGolem::vfunc_3 @ 0x000fe460
@@ -1023,7 +1023,7 @@ void CCharacterGolem::vfunc_7() {
 
 
 // 0x000fe680 CCharacterGolem::vfunc_3 (700 B): equivalent/0x000fe680.cpp [wrapped: conflict: CCharacterGolem]
-// sym: ?vfunc_3@CCharacterGolem@fn_000fe680@@UAEXPAUEntity@2@M@Z @29400653fba5 @w8dba29f047ad
+// sym: ?vfunc_3@CCharacterGolem@fn_000fe680@@UAEXPAUEntity@2@M@Z @29400653fba5 @w8dba29f047ad @v1f54955d6685
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)
@@ -1251,7 +1251,7 @@ void CCharacterGolem::vfunc_3(Entity *a1, float dt)
 namespace fn_f54027db {
 
 // 0x000fe940 FUN_000fe940 (158 B): equivalent/0x000fe940.cpp
-// sym: ?FUN_000fe940@fn_f54027db@@YAXPAUAgentHost_fe940@1@PAPAUCAgent_fe940@1@@Z @f495c85e4087 @wcf34ade08564
+// sym: ?FUN_000fe940@fn_f54027db@@YAXPAUAgentHost_fe940@1@PAPAUCAgent_fe940@1@@Z @f495c85e4087 @wcf34ade08564 @vcac17dc3a605
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 13/14, incomplete)
 // FUN_000fe940 @ 0x000fe940
 // 0x000fe940: fetch (or lazily create) the CRangedAgent in *slot
@@ -1282,7 +1282,7 @@ void __cdecl FUN_000fe940(AgentHost_fe940 *host, CAgent_fe940 **slot)
 
 
 // 0x000fe9e0 FUN_000fe9e0 (158 B): equivalent/0x000fe9e0.cpp
-// sym: ?FUN_000fe9e0@fn_f54027db@@YAXPAUAgentHost_fe9e0@1@PAPAUCAgent_fe9e0@1@@Z @81254826d8f5 @w5216876a5c3f
+// sym: ?FUN_000fe9e0@fn_f54027db@@YAXPAUAgentHost_fe9e0@1@PAPAUCAgent_fe9e0@1@@Z @81254826d8f5 @w5216876a5c3f @v84f08241fa54
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 13/14, incomplete)
 // FUN_000fe9e0 @ 0x000fe9e0
 // 0x000fe9e0: fetch (or lazily create) the CHand2HandAgent in *slot
@@ -1313,7 +1313,7 @@ void __cdecl FUN_000fe9e0(AgentHost_fe9e0 *host, CAgent_fe9e0 **slot)
 
 
 // 0x000fea80 FUN_000fea80 (155 B): equivalent/0x000fea80.cpp
-// sym: ?FUN_000fea80@fn_f54027db@@YAXPAUAgentHost_fea80@1@PAPAUCAgent_fea80@1@@Z @b58418138aa5 @we6704b07ca29
+// sym: ?FUN_000fea80@fn_f54027db@@YAXPAUAgentHost_fea80@1@PAPAUCAgent_fea80@1@@Z @b58418138aa5 @we6704b07ca29 @v0c1876fb63f1
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // FUN_000fea80 @ 0x000fea80
 // FUN_000fea80: fetch (or lazily create) the CChaseAgent in *slot
@@ -1344,7 +1344,7 @@ void __cdecl FUN_000fea80(AgentHost_fea80 *host, CAgent_fea80 **slot)
 
 
 // 0x000feb20 FUN_000feb20 (155 B): equivalent/0x000feb20.cpp
-// sym: ?FUN_000feb20@fn_f54027db@@YAXPAUAgentHost_feb20@1@PAPAUCAgent_feb20@1@@Z @8ac8ef787f81 @wa5805ce61916
+// sym: ?FUN_000feb20@fn_f54027db@@YAXPAUAgentHost_feb20@1@PAPAUCAgent_feb20@1@@Z @8ac8ef787f81 @wa5805ce61916 @v6979b7ea89b9
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // FUN_000feb20 @ 0x000feb20
 // FUN_000feb20: fetch (or lazily create) the CMoveAgent in *slot
@@ -1375,7 +1375,7 @@ void __cdecl FUN_000feb20(AgentHost_feb20 *host, CAgent_feb20 **slot)
 
 
 // 0x000fec60 FUN_000fec60 (158 B): equivalent/0x000fec60.cpp
-// sym: ?FUN_000fec60@fn_f54027db@@YAXPAUAgentHost_fec60@1@PAPAUCAgent_fec60@1@@Z @be3a21ae190d @wf1c57f8a92f9
+// sym: ?FUN_000fec60@fn_f54027db@@YAXPAUAgentHost_fec60@1@PAPAUCAgent_fec60@1@@Z @be3a21ae190d @wf1c57f8a92f9 @v8d251565a912
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 13/14, incomplete)
 // FUN_000fec60 @ 0x000fec60
 // 0x000fec60: fetch (or lazily create) the CPathGraphAgent in *slot
@@ -1501,7 +1501,7 @@ CActorGolem* CActorGolem::Init(void* p) {
 
 
 // 0x000fee10 FUN_000fee10 (258 B): equivalent/0x000fee10.cpp [wrapped: conflict: CCharacterGolem; FUN_000964d0]
-// sym: ?FUN_000fee10@CCharacterGolem@fn_000fee10@@QAEPAV12@H@Z @73d92583846a @w17a0eb871bfc
+// sym: ?FUN_000fee10@CCharacterGolem@fn_000fee10@@QAEPAV12@H@Z @73d92583846a @w17a0eb871bfc @va8f7aad59c09
 inline void *operator new(size_t, void *p) { return p; }
 namespace fn_000fee10 {
 // STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 2/2)
@@ -1616,7 +1616,7 @@ void FUN_000ff000(Obj* p, int x) {
 } // namespace fn_f54027db
 
 // 0x000ff180 FUN_000ff180 (161 B): equivalent/0x000ff180.cpp [wrapped: conflict: CHand2HandAgent]
-// sym: ??0CHand2HandAgent@fn_000ff180@@QAE@H@Z @3b989f0bb5ed @w9ba79a90a10c
+// sym: ??0CHand2HandAgent@fn_000ff180@@QAE@H@Z @3b989f0bb5ed @w9ba79a90a10c @v7847ff4db31c
 namespace fn_000ff180 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_000ff180 @ 0x000ff180

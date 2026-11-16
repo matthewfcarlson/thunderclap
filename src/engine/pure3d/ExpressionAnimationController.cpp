@@ -183,7 +183,7 @@ void ExpressionAnimationController_2a9de0::f() {
 } // namespace fn_ff685ee7
 
 // 0x002a9e30 pure3d::ExpressionAnimationController::vfunc_26 (102 B): equivalent/0x002a9e30.cpp
-// sym: ?vfunc_26@ExpressionAnimationController@pure3d@@UAE_NPAX@Z @4ad4b9e7f5b6 @w26bc4d3da9bb
+// sym: ?vfunc_26@ExpressionAnimationController@pure3d@@UAE_NPAX@Z @4ad4b9e7f5b6 @w26bc4d3da9bb @vcad3f5288434
 // STATUS: equivalent (tools/equiv.py level 3: 3028 inputs, branch coverage 13/14, incomplete)
 // pure3d::ExpressionAnimationController::vfunc_26 @ 0x002a9e30
 bool pure3d::ExpressionAnimationController::vfunc_26(void* __p0) { Anim_2a9e30 * a = (Anim_2a9e30 *)__p0;
@@ -210,7 +210,7 @@ bool pure3d::ExpressionAnimationController::vfunc_26(void* __p0) { Anim_2a9e30 *
 namespace fn_ff685ee7 {
 
 // 0x002a9ea0 FUN_002a9ea0 (135 B): equivalent/0x002a9ea0.cpp
-// sym: ?FUN_002a9ea0@ExpressionAnimationController_2a9ea0@fn_ff685ee7@@QAEXPAVSource_2a9ea0@2@@Z @80c2eb98712e @w9af7c7601a33
+// sym: ?FUN_002a9ea0@ExpressionAnimationController_2a9ea0@fn_ff685ee7@@QAEXPAVSource_2a9ea0@2@@Z @80c2eb98712e @w9af7c7601a33 @veaba51858286
 // STATUS: equivalent (tools/equiv.py level 3: 67 inputs, branch coverage 8/8)
 // FUN_002a9ea0 @ 0x002a9ea0
 // equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d340

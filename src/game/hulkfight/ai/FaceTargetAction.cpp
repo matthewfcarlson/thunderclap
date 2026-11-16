@@ -678,7 +678,7 @@ bool FaceTargetAction::vfunc_5(int a, int b)
 } // namespace fn_f8ed28bc
 
 // 0x0010b890 hulkfight::ai::FaceMotionAction::vfunc_5 (78 B): equivalent/0x0010b890.cpp
-// sym: ?vfunc_5@FaceMotionAction@ai@hulkfight@@UAE_NHH@Z @47a7b1f1933a @wdc1faf6b1fcf
+// sym: ?vfunc_5@FaceMotionAction@ai@hulkfight@@UAE_NHH@Z @47a7b1f1933a @wdc1faf6b1fcf @v969a9d3447cb
 // STATUS: equivalent (tools/equiv.py level 3: 19972 inputs, branch coverage 4/4)
 // hulkfight::ai::FaceMotionAction::vfunc_5 @ 0x0010b890
 bool hulkfight::ai::FaceMotionAction::vfunc_5(hulk_intptr mode, int unused) {

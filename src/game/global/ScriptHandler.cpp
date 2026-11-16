@@ -642,7 +642,7 @@ void __fastcall target(ScriptHandlerView* self, int arg, int extra) {
 
 
 // 0x001d1180 FUN_001d1180 (149 B): equivalent/0x001d1180.cpp
-// sym: ?FUN_001d1180@SortedList@fn_f55829c3@@QAE_NPAUScriptFunctionView@@@Z @c270604b1744 @we17eaab57ff0
+// sym: ?FUN_001d1180@SortedList@fn_f55829c3@@QAE_NPAUScriptFunctionView@@@Z @c270604b1744 @we17eaab57ff0 @v7309ae110252
 // STATUS: equivalent (tools/equiv.py level 3: 3005 inputs, branch coverage 20/20)
 // FUN_001d1180 @ 0x001d1180
 // ScriptHandler's function list (include/decls/data/script.h ScriptFunctionList): inserts a Function by its key,
@@ -674,7 +674,7 @@ bool SortedList::FUN_001d1180(ScriptFunctionView *e)
 } // namespace fn_f55829c3
 
 // 0x001d1220 FUN_001d1220 (315 B): equivalent/0x001d1220.cpp [wrapped: macros]
-// sym: ?FUN_001d1220@Table_1d1220@fn_001d1220@@QAEPBDPBD0@Z @5515155a7f02 @w9d3352bc2fc4
+// sym: ?FUN_001d1220@Table_1d1220@fn_001d1220@@QAEPBDPBD0@Z @5515155a7f02 @w9d3352bc2fc4 @vca98450371ea
 namespace fn_001d1220 {
 // STATUS: equivalent (tools/equiv.py level 3: 994 inputs, branch coverage 34/36, incomplete)
 // FUN_001d1220 @ 0x001d1220
@@ -715,7 +715,7 @@ const char* Table_1d1220::FUN_001d1220(const char* prefix, const char* previous)
 namespace fn_f55829c3 {
 
 // 0x001d1360 FUN_001d1360 (167 B): equivalent/0x001d1360.cpp
-// sym: ?FUN_001d1360@ItemList_1d1360@fn_f55829c3@@QAE_NPAUScriptFunctionView@@@Z @416ce1cfa671 @w0ccae33744d3
+// sym: ?FUN_001d1360@ItemList_1d1360@fn_f55829c3@@QAE_NPAUScriptFunctionView@@@Z @416ce1cfa671 @w0ccae33744d3 @v8eb2fa1c15db
 // STATUS: equivalent (tools/equiv.py level 3: 2891 inputs, branch coverage 20/20)
 // FUN_001d1360 @ 0x001d1360
 // ScriptHandler's function list (include/decls/data/script.h ScriptFunctionList): deletes the Function whose key is
@@ -744,7 +744,7 @@ bool ItemList_1d1360::FUN_001d1360(ScriptFunctionView *key)
 
 
 // 0x001d1410 FUN_001d1410 (127 B): equivalent/0x001d1410.cpp
-// sym: ?Insert@SortedTable@fn_f55829c3@@QAE_NPAUEntry_1d1410@2@@Z @c9a35c7c19db @w739514ce5580
+// sym: ?Insert@SortedTable@fn_f55829c3@@QAE_NPAUEntry_1d1410@2@@Z @c9a35c7c19db @w739514ce5580 @v993faa251c12
 // STATUS: equivalent (tools/equiv.py level 3: 2523 inputs, branch coverage 18/20, incomplete)
 // FUN_001d1410 @ 0x001d1410
 // 0x001d1410: insert an entry into a sorted pointer table of at most 20 entries
@@ -778,7 +778,7 @@ bool SortedTable::Insert(Entry_1d1410* e)
 
 
 // 0x001d1490 FUN_001d1490 (309 B): equivalent/0x001d1490.cpp
-// sym: ?FUN_001d1490@Table_1d1490@fn_f55829c3@@QAEPADPBD0@Z @15431395952e @wd8400cc37321
+// sym: ?FUN_001d1490@Table_1d1490@fn_f55829c3@@QAEPADPBD0@Z @15431395952e @wd8400cc37321 @v5cb44971606d
 // STATUS: equivalent (tools/equiv.py level 3: 921 inputs, branch coverage 34/36, incomplete)
 // FUN_001d1490 @ 0x001d1490
 char *Table_1d1490::FUN_001d1490(const char *prefix, const char *previous) {
@@ -882,7 +882,7 @@ void ScriptHandler_1d3c90::FUN_001d1740(LuaVMState* L) {
 } // namespace fn_f55829c3
 
 // 0x001d17f0 FUN_001d17f0 (233 B): equivalent/0x001d17f0.cpp
-// sym: ?FUN_001d17f0@Object_1d17f0@owners@@QAEHPAX@Z @0e72e3af33dc @wb784850f7dfc
+// sym: ?FUN_001d17f0@Object_1d17f0@owners@@QAEHPAX@Z @0e72e3af33dc @wb784850f7dfc @v6abea0258889
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // FUN_001d17f0 @ 0x001d17f0
 int owners::Object_1d17f0::FUN_001d17f0(void* context) {
@@ -1234,7 +1234,7 @@ void A_1d2110::f(Arg_1d2110* arg) {
 
 
 // 0x001d2190 FUN_001d2190 (260 B): equivalent/0x001d2190.cpp
-// sym: ?FUN_001d2190@ScriptRunner@fn_f55829c3@@QAEHPBDUScriptCallArgs@@PAULuaVMState@@@Z @a53f8b22c72d @w75d4e71eaca8
+// sym: ?FUN_001d2190@ScriptRunner@fn_f55829c3@@QAEHPBDUScriptCallArgs@@PAULuaVMState@@@Z @a53f8b22c72d @w75d4e71eaca8 @v4b5ec4b5df18
 // STATUS: equivalent (tools/equiv.py level 3: 3046 inputs, branch coverage 20/20)
 // FUN_001d2190 @ 0x001d2190
 // Calls a global Lua function with the 's' / 'f' / 'b' / 'i' typed arguments of `call` on the state L.
@@ -1364,7 +1364,7 @@ Table::Table() {
 } // namespace fn_f55829c3
 
 // 0x001d2810 FUN_001d2810 (118 B): equivalent/0x001d2810.cpp [wrapped: conflict: ScriptHandler]
-// sym: ?FUN_001d2810@ScriptHandler@fn_001d2810@@QAEHPAULuaVMState@@PBDH1@Z @9bc5171b7339 @w21d8502cf883
+// sym: ?FUN_001d2810@ScriptHandler@fn_001d2810@@QAEHPAULuaVMState@@PBDH1@Z @9bc5171b7339 @w21d8502cf883 @va9bbfce8238d
 namespace fn_001d2810 {
 // STATUS: equivalent (tools/equiv.py level 3: 3003 inputs, branch coverage 10/10)
 // FUN_001d2810 @ 0x001d2810
@@ -1477,7 +1477,7 @@ int owners::Obj_1d2b10::FUN_001d2b10(int start, int end) {
 namespace fn_f55829c3 {
 
 // 0x001d2ba0 FUN_001d2ba0 (185 B): equivalent/0x001d2ba0.cpp
-// sym: ?target@Object@fn_f55829c3@@QAE_NPBDH_N@Z @237ef19cb865 @w05d882c79acc
+// sym: ?target@Object@fn_f55829c3@@QAE_NPBDH_N@Z @237ef19cb865 @w05d882c79acc @v308023bbe783
 // STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 8/8)
 // FUN_001d2ba0 @ 0x001d2ba0
 bool Object::target(const char* key, int mode, bool retry) {
@@ -1720,7 +1720,7 @@ template <> Method4<ScriptHandler, void, const char *, const char *, const char 
 
 
 // 0x001d32e0 Method4<ScriptHandler,void,const_char_*,const_char_*,const_char_*,const_char_*>::vfunc_2 (40 B): equivalent/0x001d32e0.cpp
-// sym: ?vfunc_2@?$Method4@VScriptHandler@@XPBDPBDPBDPBD@@UAEXPAX00@Z @06f2e20faa8a @we84ffb84b326
+// sym: ?vfunc_2@?$Method4@VScriptHandler@@XPBDPBDPBDPBD@@UAEXPAX00@Z @06f2e20faa8a @we84ffb84b326 @v26e4fc1dd393
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // Method4<ScriptHandler,void,const_char_*,const_char_*,const_char_*,const_char_*>::vfunc_2 @ 0x001d32e0
 template <> void Method4<ScriptHandler, void, const char *, const char *, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ScriptHandler_1d32e0 * handler = (ScriptHandler_1d32e0 *)__p0; const char ** args = (const char **)__p1; void * unused = (void *)__p2;
@@ -1827,7 +1827,7 @@ ScriptHandler::~ScriptHandler() {
 
 
 // 0x001d3600 FUN_001d3600 (219 B): equivalent/0x001d3600.cpp
-// sym: ?FUN_001d3600@Object_1d3600@owners@@QAEHPBDI@Z @e538d7d60991 @w07b790a5de7c
+// sym: ?FUN_001d3600@Object_1d3600@owners@@QAEHPBDI@Z @e538d7d60991 @w07b790a5de7c @v9d8885fcc226
 // STATUS: equivalent (tools/equiv.py level 3: 2996 inputs, branch coverage 6/6)
 // FUN_001d3600 @ 0x001d3600
 int owners::Object_1d3600::FUN_001d3600(const char* name, unsigned int unused) {
@@ -1985,7 +1985,7 @@ int ScriptHandler_1d3c90::FUN_001d3c90(LuaVMState** state) {
 namespace fn_f55829c3 {
 
 // 0x001d3f00 FUN_001d3f00 (86 B): equivalent/0x001d3f00.cpp
-// sym: ?FUN_001d3f00@ScriptHandler_1d3f00@fn_f55829c3@@QAEXPBD0@Z @3cb426702b40 @w929a6dde0232
+// sym: ?FUN_001d3f00@ScriptHandler_1d3f00@fn_f55829c3@@QAEXPBD0@Z @3cb426702b40 @w929a6dde0232 @v887504683b80
 // STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 4/4)
 // FUN_001d3f00 @ 0x001d3f00
 void ScriptHandler_1d3f00::FUN_001d3f00(const char *text, const char *value) {
@@ -2604,7 +2604,7 @@ void Owner_1d47c0::FUN_001d47c0(const char* a, ScriptHandler_1d47c0* b, Fn_1d47c
 
 
 // 0x001d4830 FUN_001d4830 (1114 B): equivalent/0x001d4830.cpp [wrapped: conflict: Closure1; Closure2; Method1; Method2 (+1)]
-// sym: ??0ScriptHandler@fn_001d4830@@QAE@XZ @50592479c1e6 @wf75ffbdf0d7a
+// sym: ??0ScriptHandler@fn_001d4830@@QAE@XZ @50592479c1e6 @wf75ffbdf0d7a @v2665e6c27732
 namespace fn_001d4830 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_001d4830 @ 0x001d4830

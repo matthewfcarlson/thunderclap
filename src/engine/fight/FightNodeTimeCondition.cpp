@@ -362,7 +362,7 @@ void CCharacterTemplateVariationCondition::Run() {
 namespace fn_fac1015e {
 
 // 0x00235b50 fight::FightNodeParentCondition::vfunc_6 (131 B): equivalent/0x00235b50.cpp
-// sym: ?vfunc_6@FightNodeParentCondition@fn_fac1015e@@UAE_NHHH@Z @474c1962185e @waae72b192bd8
+// sym: ?vfunc_6@FightNodeParentCondition@fn_fac1015e@@UAE_NHHH@Z @474c1962185e @waae72b192bd8 @v4f38aa6a73a5
 // STATUS: equivalent (tools/equiv.py level 3: 3007 inputs, branch coverage 24/24)
 // fight::FightNodeParentCondition::vfunc_6 @ 0x00235b50
 bool FightNodeParentCondition::vfunc_6(int a1, int a2, int a3)
@@ -520,7 +520,7 @@ FightNodeTimeCondition_235d00* FightNodeTimeCondition_235d00::vfunc_5(signed cha
 } // namespace fn_fac1015e
 
 // 0x00235d30 fight::FightNodeTimeCondition::vfunc_6 (192 B): equivalent/0x00235d30.cpp [wrapped: conflict: fight::FightNodeTimeCondition]
-// sym: ?vfunc_6@FightNodeTimeCondition@fight@fn_00235d30@@UAE_NIII@Z @6c22b7617baf @wb5780400b347
+// sym: ?vfunc_6@FightNodeTimeCondition@fight@fn_00235d30@@UAE_NIII@Z @6c22b7617baf @wb5780400b347 @v67bedf7185ba
 namespace fn_00235d30 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 16/16)
 // fight::FightNodeTimeCondition::vfunc_6 @ 0x00235d30

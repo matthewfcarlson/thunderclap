@@ -379,7 +379,7 @@ void owners::C_2c6f30::FUN_002c6f30(int a, float* b, int c, float d) {
 namespace fn_f3d8c80d {
 
 // 0x002c6f70 FUN_002c6f70 (254 B): equivalent/0x002c6f70.cpp
-// sym: ?blend@Object@fn_f3d8c80d@@QAEXHPBUValue_2c6f70@2@HM@Z @bc73769ba084 @w08b0f637cdda
+// sym: ?blend@Object@fn_f3d8c80d@@QAEXHPBUValue_2c6f70@2@HM@Z @bc73769ba084 @w08b0f637cdda @v0d21bc064104
 // STATUS: equivalent (tools/equiv.py level 3: 2978 inputs, branch coverage 0/0)
 // FUN_002c6f70 @ 0x002c6f70
 void Object::blend(int index, const Value_2c6f70* target, int bank, float fraction) {
@@ -416,7 +416,7 @@ void owners::Thing_2c7070::FUN_002c7070() {
 
 
 // 0x002c7120 FUN_002c7120 (84 B): equivalent/0x002c7120.cpp
-// sym: ?FUN_002c7120@ItemBuffer_2c7120@owners@@QAEXXZ @02740867895d @w7d0b22daf8fa
+// sym: ?FUN_002c7120@ItemBuffer_2c7120@owners@@QAEXXZ @02740867895d @w7d0b22daf8fa @v7db4ad6f1a02
 // STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 4/4)
 // FUN_002c7120 @ 0x002c7120
 void owners::ItemBuffer_2c7120::FUN_002c7120() { if (!items) { unsigned savedCount = count; void* p = FUN_0008d6d0(savedCount * 12); if (p) FUN_00011520(p, 12, savedCount, ((char*)(void (__cdecl*)())&FUN_00011090)); items = p; flags |= 0x10; } }
@@ -434,7 +434,7 @@ void Obj_2c7180::Clear() {
 } // namespace fn_f3d8c80d
 
 // 0x002c71b0 FUN_002c71b0 (84 B): equivalent/0x002c71b0.cpp
-// sym: ?FUN_002c71b0@Buffer_2c71b0@owners@@QAEXXZ @b2d16d900fa3 @w585247d250f3
+// sym: ?FUN_002c71b0@Buffer_2c71b0@owners@@QAEXXZ @b2d16d900fa3 @w585247d250f3 @v5b89691eaf32
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_002c71b0 @ 0x002c71b0
 void owners::Buffer_2c71b0::FUN_002c71b0() {
@@ -476,7 +476,7 @@ void owners::Obj_2c7240::FUN_002c7240(int index) {
 
 
 // 0x002c72e0 FUN_002c72e0 (92 B): equivalent/0x002c72e0.cpp
-// sym: ?FUN_002c72e0@Object_2c72e0@owners@@QAEXH@Z @d073a041ea6d @w7f7e63749bf7
+// sym: ?FUN_002c72e0@Object_2c72e0@owners@@QAEXH@Z @d073a041ea6d @w7f7e63749bf7 @v947425e3c74b
 // STATUS: equivalent (tools/equiv.py level 3: 2997 inputs, branch coverage 4/4)
 // FUN_002c72e0 @ 0x002c72e0
 void owners::Object_2c72e0::FUN_002c72e0(int index) {
@@ -497,7 +497,7 @@ void owners::Object_2c72e0::FUN_002c72e0(int index) {
 namespace fn_f3d8c80d {
 
 // 0x002c7340 FUN_002c7340 (772 B): equivalent/0x002c7340.cpp
-// sym: ?FUN_002c7340@MeshBuffers_2c7340@fn_f3d8c80d@@QAEXIII@Z @e50977fee5dc @wfb298504b55f
+// sym: ?FUN_002c7340@MeshBuffers_2c7340@fn_f3d8c80d@@QAEXIII@Z @e50977fee5dc @wfb298504b55f @v23e9f30bc322
 // STATUS: equivalent (tools/equiv.py level 3: 97 inputs, branch coverage 52/52)
 // FUN_002c7340 @ 0x002c7340
 void MeshBuffers_2c7340::FUN_002c7340(unsigned int flags, unsigned int n, unsigned int indexCount)
@@ -837,7 +837,7 @@ void FUN_002c7a50(unsigned char alt, Source_2c7a50* src, Emitter_2c7a50* out)
 
 
 // 0x002c7e40 FUN_002c7e40 (681 B): equivalent/0x002c7e40.cpp
-// sym: _FUN_002c7e40 @d80957fed24a @w853093b8a881
+// sym: _FUN_002c7e40 @d80957fed24a @w853093b8a881 @vf9d2c520c890
 // STATUS: equivalent (tools/equiv.py level 3: 78 inputs, branch coverage 46/46)
 // FUN_002c7e40 @ 0x002c7e40
 // batch arrives in eax, mode in cl, renderer in esi.
@@ -919,7 +919,7 @@ extern "C" void FUN_002c7e40(Batch_2c7e40 *s, char mode, Renderer_2c7e40 *r)
 
 
 // 0x002c8130 FUN_002c8130 (719 B): equivalent/0x002c8130.cpp
-// sym: _FUN_002c8130 @f0217e548a16 @wa9aff51fd9db
+// sym: _FUN_002c8130 @f0217e548a16 @wa9aff51fd9db @v2edf1adbcc05
 // STATUS: equivalent (tools/equiv.py level 3: 71 inputs, branch coverage 46/46)
 // FUN_002c8130 @ 0x002c8130
 // equiv-conv: FUN_002c8130 ecx eax esi

@@ -334,7 +334,7 @@ void TextTable::vfunc_3()
 
 
 // 0x000edb60 TextTable::vfunc_5 (1015 B): equivalent/0x000edb60.cpp [wrapped: conflict: Builder; TextTable]
-// sym: ?vfunc_5@TextTable@fn_000edb60@@UAEXXZ @f8c85e1ba565 @we9c306ac6e66
+// sym: ?vfunc_5@TextTable@fn_000edb60@@UAEXXZ @f8c85e1ba565 @we9c306ac6e66 @v457294872626
 namespace fn_000edb60 {
 // STATUS: equivalent (tools/equiv.py level 3: 515 inputs, branch coverage 32/32)
 // TextTable::vfunc_5 @ 0x000edb60

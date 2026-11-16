@@ -175,7 +175,7 @@ struct Frame_eca60 {
 // 0x000eca50 TextLabel::vfunc_3 (5 B): not yet verified
 
 // 0x000eca60 TextLabel::vfunc_5 (781 B): equivalent/0x000eca60.cpp
-// sym: ?vfunc_5@TextLabel@fn_f8e23a7c@@UAEXXZ @fe8373c4eda7 @wf70eda87336c
+// sym: ?vfunc_5@TextLabel@fn_f8e23a7c@@UAEXXZ @fe8373c4eda7 @wf70eda87336c @v9b1f934821fc
 // STATUS: equivalent (tools/equiv.py level 3: 57 inputs, branch coverage 17/20, incomplete)
 // TextLabel::vfunc_5 @ 0x000eca60
 void TextLabel::vfunc_5()

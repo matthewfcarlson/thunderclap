@@ -466,7 +466,7 @@ void ImageSelector_ee000::f() {
 } // namespace fn_ff2916d8
 
 // 0x000ee0c0 ImageSelector::vfunc_20 (178 B): equivalent/0x000ee0c0.cpp [wrapped: conflict: ImageSelector]
-// sym: ?vfunc_20@ImageSelector@fn_000ee0c0@@QAEXPAUItem_ee0c0@2@_N@Z @1896516dae7c @w67d5918d48d8
+// sym: ?vfunc_20@ImageSelector@fn_000ee0c0@@QAEXPAUItem_ee0c0@2@_N@Z @1896516dae7c @w67d5918d48d8 @v90780e842dff
 namespace fn_000ee0c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 15/16, incomplete)
 // ImageSelector::vfunc_20 @ 0x000ee0c0

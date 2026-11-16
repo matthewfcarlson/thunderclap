@@ -53,7 +53,7 @@ public:
 } // namespace fn_f9024596
 
 // 0x001e8d40 FUN_001e8d40 (183 B): equivalent/0x001e8d40.cpp
-// sym: ?FUN_001e8d40@Clip_1e8d40@owners@@QAEXXZ @0b64eb284ff1 @w3035267bd626
+// sym: ?FUN_001e8d40@Clip_1e8d40@owners@@QAEXXZ @0b64eb284ff1 @w3035267bd626 @va5325526ff22
 // STATUS: equivalent (tools/equiv.py level 3: 20019 inputs, branch coverage 11/12, incomplete)
 // FUN_001e8d40 @ 0x001e8d40
 void owners::Clip_1e8d40::FUN_001e8d40() {
@@ -73,7 +73,7 @@ void owners::Clip_1e8d40::FUN_001e8d40() {
 namespace fn_f9024596 {
 
 // 0x001e95c0 FUN_001e95c0 (185 B): equivalent/0x001e95c0.cpp
-// sym: ?update@Target_1e95c0@fn_f9024596@@QAEXM_N@Z @de303c0605f1 @w6756f70ef062
+// sym: ?update@Target_1e95c0@fn_f9024596@@QAEXM_N@Z @de303c0605f1 @w6756f70ef062 @v0c077df5153b
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 16/16)
 // FUN_001e95c0 @ 0x001e95c0
 void Target_1e95c0::update(float time, bool active) {

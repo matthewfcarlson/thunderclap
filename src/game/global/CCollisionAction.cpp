@@ -170,7 +170,7 @@ bool __fastcall FUN_00013ed0(A_13ed0* self) {
 
 
 // 0x00013f20 FUN_00013f20 (712 B): equivalent/0x00013f20.cpp
-// sym: ?FUN_00013f20@Self_13f20@fn_fd8b7d01@@QAEXMPAUTarget_13f20@2@PAM1@Z @96bf36e2a8cc @w943c2e8b84a8
+// sym: ?FUN_00013f20@Self_13f20@fn_fd8b7d01@@QAEXMPAUTarget_13f20@2@PAM1@Z @96bf36e2a8cc @w943c2e8b84a8 @vda3bad9e60c8
 // STATUS: equivalent (tools/equiv.py level 3: 20090 inputs, branch coverage 66/66)
 // FUN_00013f20 @ 0x00013f20
 void Self_13f20::FUN_00013f20(float k, Target_13f20 *t, float *outA, float *outB)
@@ -263,7 +263,7 @@ void Self_13f20::FUN_00013f20(float k, Target_13f20 *t, float *outA, float *outB
 } // namespace fn_fd8b7d01
 
 // 0x00014210 FUN_00014210 (533 B): equivalent/0x00014210.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?FUN_00014210@fn_00014210@@YAXHPAUFrame_14210@1@PAXPAUVec3_14210@1@@Z @5aacbd1996e1 @waee3b7719c1f
+// sym: ?FUN_00014210@fn_00014210@@YAXHPAUFrame_14210@1@PAXPAUVec3_14210@1@@Z @5aacbd1996e1 @waee3b7719c1f @vb3aa016103f9
 namespace fn_00014210 {
 // STATUS: equivalent (tools/equiv.py level 3: 87 inputs, branch coverage 12/12)
 // FUN_00014210 @ 0x00014210
@@ -371,7 +371,7 @@ void FUN_00014210(int mode, Frame_14210 *frame, void *obj, Vec3_14210 *out)
 
 
 // 0x00014430 CCollisionAction::vfunc_7 (325 B): equivalent/0x00014430.cpp [wrapped: conflict: World]
-// sym: ?vfunc_7@CCollisionAction@fn_00014430@@UAEDH@Z @dc984de90a06 @w169984497ae4
+// sym: ?vfunc_7@CCollisionAction@fn_00014430@@UAEDH@Z @dc984de90a06 @w169984497ae4 @v26cf8addd0c2
 namespace fn_00014430 {
 // STATUS: equivalent (tools/equiv.py level 3: 12000 inputs, branch coverage 11/12, incomplete; run with --inputs 12000)
 // CCollisionAction::vfunc_7 @ 0x00014430

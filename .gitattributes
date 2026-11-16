@@ -1,0 +1,2 @@
+# (integ2, D51) the proof ledger is append-only: concurrent appends merge as the union of both sides
+config/proof-ledger.jsonl merge=union

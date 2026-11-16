@@ -349,7 +349,7 @@ void Obj_e3890::Target(const char* s, char flag) {
 } // namespace fn_ffa3e06c
 
 // 0x000e3900 MapThing::vfunc_11 (152 B): equivalent/0x000e3900.cpp
-// sym: ?vfunc_11@MapThing@@UAEXH@Z @4177c6d48b64 @w9890824fb1d1
+// sym: ?vfunc_11@MapThing@@UAEXH@Z @4177c6d48b64 @w9890824fb1d1 @v0c79c542d583
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // MapThing::vfunc_11 @ 0x000e3900
 // Finds the region that contains the entity's position and selects it.

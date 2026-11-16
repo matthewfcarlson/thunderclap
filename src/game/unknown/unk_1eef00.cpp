@@ -171,7 +171,7 @@ void __stdcall target(void* p) {
 
 
 // 0x001eefc0 FUN_001eefc0 (77 B): equivalent/0x001eefc0.cpp
-// sym: ?FUN_001eefc0@Owner@fn_fcd387f7@@QAEPAUEntry@2@XZ @d569fcc379fa @wbb10122d595c
+// sym: ?FUN_001eefc0@Owner@fn_fcd387f7@@QAEPAUEntry@2@XZ @d569fcc379fa @wbb10122d595c @v44ff6e70817e
 // STATUS: equivalent (tools/equiv.py level 3: 2983 inputs, branch coverage 6/6)
 // FUN_001eefc0 @ 0x001eefc0
 Entry* Owner::FUN_001eefc0() {
@@ -319,7 +319,7 @@ void Owner_1ef260::Add(Node* n) {
 
 
 // 0x001ef2a0 FUN_001ef2a0 (114 B): equivalent/0x001ef2a0.cpp
-// sym: ?FUN_001ef2a0@Spawner_1ef2a0@owners@@QAEXHH@Z @f33370ac8ac6 @w8e8d52e903a2
+// sym: ?FUN_001ef2a0@Spawner_1ef2a0@owners@@QAEXHH@Z @f33370ac8ac6 @w8e8d52e903a2 @v077b30bc3e12
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_001ef2a0 @ 0x001ef2a0
        // function-local static

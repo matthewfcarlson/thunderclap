@@ -530,7 +530,7 @@ DisplayList_29bdc0::~DisplayList_29bdc0() throw() {
 } // namespace fn_f6d36770
 
 // 0x0029bea0 FUN_0029bea0 (160 B): equivalent/0x0029bea0.cpp [wrapped: conflict: pure3d::DisplayList]
-// sym: ??0DisplayList@pure3d@fn_0029bea0@@QAE@II@Z @df288fd77dd0 @wc0ad1cb2719b
+// sym: ??0DisplayList@pure3d@fn_0029bea0@@QAE@II@Z @df288fd77dd0 @wc0ad1cb2719b @vbf6e9f7506ba
 namespace fn_0029bea0 {
 // STATUS: equivalent (tools/equiv.py level 3: 58 inputs, branch coverage 8/8)
 // FUN_0029bea0 @ 0x0029bea0

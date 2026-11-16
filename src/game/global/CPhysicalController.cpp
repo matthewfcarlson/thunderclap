@@ -163,7 +163,7 @@ void Obj_b0ff0::Clear() {
 } // namespace fn_f3919bbe
 
 // 0x000b1020 FUN_000b1020 (117 B): equivalent/0x000b1020.cpp
-// sym: ?FUN_000b1020@StringTable_b1020@owners@@QAEXH@Z @4c8b617bc477 @w84a6c5202619
+// sym: ?FUN_000b1020@StringTable_b1020@owners@@QAEXH@Z @4c8b617bc477 @w84a6c5202619 @v952905b93b8e
 // STATUS: equivalent (tools/equiv.py level 3: 1429 inputs, branch coverage 11/12, incomplete)
 // FUN_000b1020 @ 0x000b1020
 // equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d330
@@ -364,7 +364,7 @@ bool Obj::Fn(int a, int b, int c, int d) {
 namespace fn_f3919bbe {
 
 // 0x000b1aa0 FUN_000b1aa0 (230 B): equivalent/0x000b1aa0.cpp
-// sym: ?Update@Object@fn_f3919bbe@@QAEXXZ @f68ff6a6b6d9 @w14b8e1cb58a6
+// sym: ?Update@Object@fn_f3919bbe@@QAEXXZ @f68ff6a6b6d9 @w14b8e1cb58a6 @v7e4774c7903a
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_000b1aa0 @ 0x000b1aa0
 void Object::Update() {
@@ -385,7 +385,7 @@ void Object::Update() {
 } // namespace fn_f3919bbe
 
 // 0x000b1b90 FUN_000b1b90 (256 B): equivalent/0x000b1b90.cpp [wrapped: conflict: Object]
-// sym: ?FUN_000b1b90@Object@fn_000b1b90@@QAEXPAUResult_b1b90@2@@Z @67e7a3c0d8a5 @wc4a8ffcc7f3b
+// sym: ?FUN_000b1b90@Object@fn_000b1b90@@QAEXPAUResult_b1b90@2@@Z @67e7a3c0d8a5 @wc4a8ffcc7f3b @v32e19528bbb9
 namespace fn_000b1b90 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 16/16)
 // FUN_000b1b90 @ 0x000b1b90
@@ -427,7 +427,7 @@ void Object::FUN_000b1b90(Result_b1b90* result) {
 
 
 // 0x000b1c90 FUN_000b1c90 (286 B): equivalent/0x000b1c90.cpp [wrapped: conflict: sControllerInputPointCallback]
-// sym: ?FUN_000b1c90@Controller_b1c90@fn_000b1c90@@QAEXPAUState_b1c90@2@H@Z @8465ce0bb9e4 @w35ef5301bb18
+// sym: ?FUN_000b1c90@Controller_b1c90@fn_000b1c90@@QAEXPAUState_b1c90@2@H@Z @8465ce0bb9e4 @w35ef5301bb18 @v0ac5aaaa1288
 inline void* operator new(size_t, void* p) { return p; }
 namespace fn_000b1c90 {
 // STATUS: equivalent (tools/equiv.py level 3: 1691 inputs, branch coverage 22/22)
@@ -560,7 +560,7 @@ void CPhysicalController::FUN_000b1db0()
 
 
 // 0x000b2060 FUN_000b2060 (733 B): equivalent/0x000b2060.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?FUN_000b2060@Mapper_b2060@fn_000b2060@@QAEXH@Z @69c4d7084ab8 @w2723768a27db
+// sym: ?FUN_000b2060@Mapper_b2060@fn_000b2060@@QAEXH@Z @69c4d7084ab8 @w2723768a27db @vf643fff0332b
 namespace fn_000b2060 {
 // STATUS: equivalent (tools/equiv.py level 3: 114 inputs, branch coverage 40/40)
 // FUN_000b2060 @ 0x000b2060
@@ -764,7 +764,7 @@ CPhysicalController::CPhysicalController(int arg)
 
 
 // 0x000b2640 FUN_000b2640 (454 B): equivalent/0x000b2640.cpp [wrapped: conflict: CPhysicalController; FUN_0008d330; core::IRefCount]
-// sym: ??1CPhysicalController@fn_000b2640@@QAE@XZ @8a3d026cac48 @w4b788b7002eb
+// sym: ??1CPhysicalController@fn_000b2640@@QAE@XZ @8a3d026cac48 @w4b788b7002eb @vf460640e1aa8
 namespace fn_000b2640 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 36/36)
 // FUN_000b2640 @ 0x000b2640
@@ -804,7 +804,7 @@ CPhysicalController::~CPhysicalController() {
 
 
 // 0x000b2810 FUN_000b2810 (2209 B): equivalent/0x000b2810.cpp [wrapped: conflict: FUN_00267830]
-// sym: ?FUN_000b2810@Pad_b2810@fn_000b2810@@QAEXXZ @11c08f27a541 @w3bd3af6630b2
+// sym: ?FUN_000b2810@Pad_b2810@fn_000b2810@@QAEXXZ @11c08f27a541 @w3bd3af6630b2 @vb9cab3477f47
 namespace fn_000b2810 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 102/102)
 // FUN_000b2810 @ 0x000b2810

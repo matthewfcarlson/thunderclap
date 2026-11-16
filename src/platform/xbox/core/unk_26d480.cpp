@@ -158,7 +158,7 @@ extern "C" void __cdecl FUN_0026d6d0(int value) {
 
 
 // 0x0026d780 FUN_0026d780 (26 B): equivalent/0x0026d780.cpp
-// sym: _FUN_0026d780 @847b651456aa @w2d050da50a34
+// sym: _FUN_0026d780 @847b651456aa @w2d050da50a34 @v93a2c630b518
 // STATUS: equivalent (tools/equiv.py level 3: 2892 inputs, branch coverage 2/2)
 // FUN_0026d780 @ 0x0026d780
 extern "C" int __cdecl FUN_0026d780(Task* task) {
@@ -293,7 +293,7 @@ extern "C" void __cdecl FUN_0026d940(void * node) {
 
 
 // 0x0026d990 FUN_0026d990 (133 B): equivalent/0x0026d990.cpp
-// sym: _FUN_0026d990 @48e212580e40 @wd87400e12fb3
+// sym: _FUN_0026d990 @48e212580e40 @wd87400e12fb3 @vf90340df8055
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 2/2)
 // FUN_0026d990 @ 0x0026d990
 // The calling thread becomes a scheduler thread: its record's own fiber is the converted thread.
@@ -329,7 +329,7 @@ extern "C" void __cdecl FUN_0026d990(void * self_) {
 
 
 // 0x0026da20 FUN_0026da20 (87 B): equivalent/0x0026da20.cpp
-// sym: ?FUN_0026da20@fn_fc974b3c@@YAXXZ @fe4aaf9ffc40 @w3094136c4164
+// sym: ?FUN_0026da20@fn_fc974b3c@@YAXXZ @fe4aaf9ffc40 @w3094136c4164 @v7c463c4e439d
 // STATUS: equivalent (tools/equiv.py level 3: 2949 inputs, branch coverage 4/4)
 // FUN_0026da20 @ 0x0026da20
 // The main thread leaves the scheduler: its own fiber off its thread's fiber list, then the thread off the list.
@@ -445,7 +445,7 @@ extern "C" void __cdecl FUN_0026dc00(CoreFiber* target) {
 
 
 // 0x0026dc20 FUN_0026dc20 (42 B): equivalent/0x0026dc20.cpp
-// sym: ?FUN_0026dc20@fn_fc974b3c@@YGXH@Z @d76343dcd56c @w041b68de5f9c
+// sym: ?FUN_0026dc20@fn_fc974b3c@@YGXH@Z @d76343dcd56c @w041b68de5f9c @v5d32bf87b0bf
 // STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 1/1)
 // FUN_0026dc20 @ 0x0026dc20
 // equiv-dead: +0x7 not taken: the null-result path dereferences null (faults on every input)
@@ -467,7 +467,7 @@ void __stdcall FUN_0026dc20(int unused)
 
 
 // 0x0026dc50 FUN_0026dc50 (129 B): equivalent/0x0026dc50.cpp
-// sym: ?FUN_0026dc50@fn_fc974b3c@@YAHPAUCoreThread@@P6AHH@ZHHK@Z @4912a605e6b7 @we27998c4c6e1
+// sym: ?FUN_0026dc50@fn_fc974b3c@@YAHPAUCoreThread@@P6AHH@ZHHK@Z @4912a605e6b7 @we27998c4c6e1 @v21a3ec1438c7
 // STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 0/0)
 // FUN_0026dc50 @ 0x0026dc50
 // A new scheduler thread: its record's own fiber runs entry(argument) on a thread 0x0026db70 starts.

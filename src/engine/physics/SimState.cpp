@@ -419,7 +419,7 @@ u32_2ef4a0 __fastcall Target(C_2ef4a0* self) {
 } // namespace fn_f89b78b9
 
 // 0x002ef530 physics::SimState::vfunc_8 (116 B): equivalent/0x002ef530.cpp
-// sym: ?vfunc_8@SimState@physics@@UAEXHHH@Z @153a8f7283be @wb85210fe96ea
+// sym: ?vfunc_8@SimState@physics@@UAEXHHH@Z @153a8f7283be @wb85210fe96ea @v06697692bc63
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 0/0)
 // physics::SimState::vfunc_8 @ 0x002ef530
 void physics::SimState::vfunc_8(hulk_intptr __p0, hulk_intptr __p1, int unused) { const Vec3_2ef530 * p = (const Vec3_2ef530 *)__p0; Vec3_2ef530 * out = (Vec3_2ef530 *)__p1;
@@ -495,7 +495,7 @@ void physics::SimState::vfunc_10(int a) {
 namespace fn_f89b78b9 {
 
 // 0x002ef760 FUN_002ef760 (143 B): equivalent/0x002ef760.cpp
-// sym: ?FUN_002ef760@fn_f89b78b9@@YAXPAUPose@1@0MMPAUMotion_2ef760@1@@Z @9c3b1efd31cb @w7775b0d7286e
+// sym: ?FUN_002ef760@fn_f89b78b9@@YAXPAUPose@1@0MMPAUMotion_2ef760@1@@Z @9c3b1efd31cb @w7775b0d7286e @v8cd55b8b5985
 // STATUS: equivalent (tools/equiv.py level 3: 20007 inputs, branch coverage 2/2)
 // FUN_002ef760 @ 0x002ef760
 void __cdecl FUN_002ef760(Pose *from, Pose *to, float scale, float dt, Motion_2ef760 *out) {
@@ -584,7 +584,7 @@ void State_2ef8b0::set(int x) {
 
 
 // 0x002ef900 physics::SimState::vfunc_6 (330 B): equivalent/0x002ef900.cpp
-// sym: ?vfunc_6@SimState@fn_f89b78b9@@UAEXPAUMat_2ef900@2@M@Z @66a949132582 @w90c5a277a95b
+// sym: ?vfunc_6@SimState@fn_f89b78b9@@UAEXPAUMat_2ef900@2@M@Z @66a949132582 @w90c5a277a95b @v71df242808ec
 // STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 21/24, incomplete)
 // physics::SimState::vfunc_6 @ 0x002ef900
 void SimState::vfunc_6(Mat_2ef900 *mat, float dt)
@@ -635,7 +635,7 @@ void SimState::vfunc_6(Mat_2ef900 *mat, float dt)
 
 
 // 0x002efa90 FUN_002efa90 (192 B): equivalent/0x002efa90.cpp
-// sym: _FUN_002efa90 @bee551f84037 @wc45417a8875b
+// sym: _FUN_002efa90 @bee551f84037 @wc45417a8875b @v28bfd5adfdef
 // STATUS: equivalent (tools/equiv.py level 3: 20020 inputs, branch coverage 23/24, incomplete)
 // FUN_002efa90 @ 0x002efa90
 extern "C" SimState_2efa90* __cdecl FUN_002efa90(Source_2efa90* source, Parent_2efa90* parent, SimState_2efa90* storage) {

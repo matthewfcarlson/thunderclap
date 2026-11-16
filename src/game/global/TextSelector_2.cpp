@@ -157,14 +157,14 @@ class TextSelector {
 
 
 // 0x000e9e60 FUN_000e9e60 (93 B): equivalent/0x000e9e60.cpp
-// sym: ?FUN_000e9e60@Owner@fn_f12e8a1b@@QAEXXZ @f1c5ee39ff71 @wd6e2715529f4
+// sym: ?FUN_000e9e60@Owner@fn_f12e8a1b@@QAEXXZ @f1c5ee39ff71 @wd6e2715529f4 @v75563272b195
 // STATUS: equivalent (tools/equiv.py level 3: 2999 inputs, branch coverage 4/4)
 // FUN_000e9e60 @ 0x000e9e60
 void Owner::FUN_000e9e60() { manager->FUN_002998d0(0); List* list = manager->list; if ((unsigned char)(list->end - list->begin) != 0) { Item* item = *list->begin; if (item) { item->FUN_slot30(value / divisor * multiplier); item->FUN_slot18(10.0f, 1); } } }
 
 
 // 0x000e9ec0 FUN_000e9ec0 (295 B): equivalent/0x000e9ec0.cpp
-// sym: ??0HSlider@fn_f12e8a1b@@QAE@H@Z @70bdc278929f @wae8c153c5439
+// sym: ??0HSlider@fn_f12e8a1b@@QAE@H@Z @70bdc278929f @wae8c153c5439 @v1b94b772173a
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_000e9ec0 @ 0x000e9ec0
 HSlider::HSlider(int arg) : FUN_000e9240(arg) {
@@ -245,7 +245,7 @@ void TextSelector::vfunc_19(const char* text, unsigned char select, Receiver_ea0
 } // namespace fn_f12e8a1b
 
 // 0x000ea1b0 TextSelector::vfunc_20 (303 B): equivalent/0x000ea1b0.cpp [wrapped: conflict: TextSelector]
-// sym: ?vfunc_20@TextSelector@fn_000ea1b0@@UAEXHPBUElem_ea1b0@2@@Z @4ab9a60b975a @w166b09701041
+// sym: ?vfunc_20@TextSelector@fn_000ea1b0@@UAEXHPBUElem_ea1b0@2@@Z @4ab9a60b975a @w166b09701041 @v96a7a0aee58c
 namespace fn_000ea1b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 70 inputs, branch coverage 16/20, incomplete)
 // TextSelector::vfunc_20 @ 0x000ea1b0
@@ -628,7 +628,7 @@ void TextSelector::vfunc_3()
 namespace fn_f12e8a1b {
 
 // 0x000ea740 TextSelector::vfunc_7 (113 B): equivalent/0x000ea740.cpp
-// sym: ?vfunc_7@TextSelector@fn_f12e8a1b@@UAEXTChooserArg@2@@Z @47fbd34dd9db @wbc842b7f66b2
+// sym: ?vfunc_7@TextSelector@fn_f12e8a1b@@UAEXTChooserArg@2@@Z @47fbd34dd9db @wbc842b7f66b2 @v014ae34477a3
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // TextSelector::vfunc_7 @ 0x000ea740
 void TextSelector::vfunc_7(ChooserArg arg)

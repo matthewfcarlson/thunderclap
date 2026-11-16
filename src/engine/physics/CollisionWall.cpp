@@ -181,7 +181,7 @@ void CollisionWall::vfunc_15(unsigned int* p) {
 } // namespace fn_fc25916f
 
 // 0x0030e700 FUN_0030e700 (69 B): equivalent/0x0030e700.cpp [wrapped: conflict: CollisionWall]
-// sym: ??0CollisionWall@fn_0030e700@@QAE@XZ @5884b0411c5a @wd87cff3de568
+// sym: ??0CollisionWall@fn_0030e700@@QAE@XZ @5884b0411c5a @wd87cff3de568 @v530bada524ba
 namespace fn_0030e700 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0030e700 @ 0x0030e700
@@ -195,7 +195,7 @@ struct FUN_003060a0 : HulkCollisionVolume { FUN_003060a0(); }; struct CollisionW
 namespace fn_fc25916f {
 
 // 0x0030e760 FUN_0030e760 (107 B): equivalent/0x0030e760.cpp
-// sym: ?Init@Ray_30e760@fn_fc25916f@@QAEXPBUVec3_30e760@2@0@Z @1f323cd13f73 @w56893ae4e562
+// sym: ?Init@Ray_30e760@fn_fc25916f@@QAEXPBUVec3_30e760@2@0@Z @1f323cd13f73 @w56893ae4e562 @vf0eceb7a683a
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0030e760 @ 0x0030e760
 void Ray_30e760::Init(const Vec3_30e760* from, const Vec3_30e760* direction)
@@ -276,7 +276,7 @@ void physics::CollisionWall::vfunc_7(float x) {
 
 
 // 0x0030e870 physics::CollisionWall::vfunc_13 (39 B): equivalent/0x0030e870.cpp
-// sym: ?vfunc_13@CollisionWall@physics@@UAEXXZ @1de21a83c1ce @w78bba1aafffd
+// sym: ?vfunc_13@CollisionWall@physics@@UAEXXZ @1de21a83c1ce @w78bba1aafffd @v62d657ca678b
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 0/0)
 // physics::CollisionWall::vfunc_13 @ 0x0030e870
 void physics::CollisionWall::vfunc_13() {

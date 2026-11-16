@@ -246,7 +246,7 @@ void TeleportRelativeAction::Destroy() {
 } // namespace fn_fe744ac4
 
 // 0x001759c0 hulkfight::motion::TeleportRelativeAction::vfunc_5 (763 B): equivalent/0x001759c0.cpp
-// sym: ?vfunc_5@TeleportRelativeAction@motion@hulkfight@@UAE_NHM@Z @03145b120ccc @w77b7dc4eff73
+// sym: ?vfunc_5@TeleportRelativeAction@motion@hulkfight@@UAE_NHM@Z @03145b120ccc @w77b7dc4eff73 @vfdc44c511738
 // STATUS: equivalent (tools/equiv.py level 3: 127 inputs, branch coverage 35/38, incomplete)
 // hulkfight::motion::TeleportRelativeAction::vfunc_5 @ 0x001759c0
 bool hulkfight::motion::TeleportRelativeAction::vfunc_5(int mode, float dt)

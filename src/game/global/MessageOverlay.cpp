@@ -504,7 +504,7 @@ class Slots_d6d90 {
 
 
 // 0x000d40e0 FUN_000d40e0 (641 B): equivalent/0x000d40e0.cpp
-// sym: ?FUN_000d40e0@Screen_d40e0@fn_f27eef39@@QAEXPAUSource_d40e0@2@PAUMode_d40e0@2@PAUCamera@2@@Z @82c2cf79638d @w7d20b4c1ae24
+// sym: ?FUN_000d40e0@Screen_d40e0@fn_f27eef39@@QAEXPAUSource_d40e0@2@PAUMode_d40e0@2@PAUCamera@2@@Z @82c2cf79638d @w7d20b4c1ae24 @v3b4233a1fd08
 // STATUS: equivalent (tools/equiv.py level 3: 72 inputs, branch coverage 8/8)
 // FUN_000d40e0 @ 0x000d40e0
 void Screen_d40e0::FUN_000d40e0(Source_d40e0 *src, Mode_d40e0 *m, Camera *cam)
@@ -572,7 +572,7 @@ void Screen_d40e0::FUN_000d40e0(Source_d40e0 *src, Mode_d40e0 *m, Camera *cam)
 
 
 // 0x000d4390 FUN_000d4390 (103 B): equivalent/0x000d4390.cpp
-// sym: ?FUN_000d4390@Pool_d4390@fn_f27eef39@@QAEPAURec_d4390@2@XZ @abd12bac6c61 @wa034f1005beb
+// sym: ?FUN_000d4390@Pool_d4390@fn_f27eef39@@QAEPAURec_d4390@2@XZ @abd12bac6c61 @wa034f1005beb @v171e3dad29ea
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_000d4390 @ 0x000d4390
 Rec_d4390* Pool_d4390::FUN_000d4390() {
@@ -593,7 +593,7 @@ Rec_d4390* Pool_d4390::FUN_000d4390() {
 } // namespace fn_f27eef39
 
 // 0x000d4400 FUN_000d4400 (395 B): equivalent/0x000d4400.cpp
-// sym: ?FUN_000d4400@Accum_d4400@owners@@QAEXHM@Z @1b2df47e64f5 @wed602a1373c3
+// sym: ?FUN_000d4400@Accum_d4400@owners@@QAEXHM@Z @1b2df47e64f5 @wed602a1373c3 @v73ae00b1d3f9
 // STATUS: equivalent (tools/equiv.py level 3: 68 inputs, branch coverage 17/18, incomplete)
 // FUN_000d4400 @ 0x000d4400
 void owners::Accum_d4400::FUN_000d4400(int id, float amount)
@@ -687,7 +687,7 @@ void Obj::Set(float x) {
 } // namespace fn_f27eef39
 
 // 0x000d4620 FUN_000d4620 (244 B): equivalent/0x000d4620.cpp [wrapped: compile error C2120: 'void' illegal with all types]
-// sym: ?FUN_000d4620@Object@fn_000d4620@@QAEXHPBDHHM@Z @60c4dce3bbf2 @w7289c5dc547b
+// sym: ?FUN_000d4620@Object@fn_000d4620@@QAEXHPBDHHM@Z @60c4dce3bbf2 @w7289c5dc547b @v26716a37b7ed
 namespace fn_000d4620 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 16/16)
 // FUN_000d4620 @ 0x000d4620
@@ -736,7 +736,7 @@ void Obj::Fn(float a, float b, float c, float d, float e, float f, float g) {
 
 
 // 0x000d4780 FUN_000d4780 (79 B): equivalent/0x000d4780.cpp
-// sym: ?Set@Obj_d4780@fn_f27eef39@@QAEXHHMMM@Z @12d2a6b3a9bf @w6fa99b620028
+// sym: ?Set@Obj_d4780@fn_f27eef39@@QAEXHHMMM@Z @12d2a6b3a9bf @w6fa99b620028 @v79bfc0e592db
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_000d4780 @ 0x000d4780
 void Obj_d4780::Set(int a, int b, float r, float g, float bl)
@@ -747,7 +747,7 @@ void Obj_d4780::Set(int a, int b, float r, float g, float bl)
 
 
 // 0x000d47d0 FUN_000d47d0 (79 B): equivalent/0x000d47d0.cpp
-// sym: ?Set@Obj_d47d0@fn_f27eef39@@QAEXHHMMM@Z @17378d77282b @wf46041920d37
+// sym: ?Set@Obj_d47d0@fn_f27eef39@@QAEXHHMMM@Z @17378d77282b @wf46041920d37 @v355aca13bc38
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_000d47d0 @ 0x000d47d0
 void Obj_d47d0::Set(int a, int b, float r, float g, float bl)
@@ -777,7 +777,7 @@ unsigned char Obj_d4850::Set(unsigned char x) {
 // 0x000d4860 thunk_FUN_001d04a0 (5 B): not yet verified
 
 // 0x000d4900 FUN_000d4900 (69 B): equivalent/0x000d4900.cpp
-// sym: ?FUN_000d4900@Player@fn_f27eef39@@QAEMMH@Z @de5894143770 @we0a7c0bb5b76
+// sym: ?FUN_000d4900@Player@fn_f27eef39@@QAEMMH@Z @de5894143770 @we0a7c0bb5b76 @vb74f27f1bdd5
 // STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 0/0)
 // FUN_000d4900 @ 0x000d4900
 hulk_freg Player::FUN_000d4900(float input, int index)
@@ -793,7 +793,7 @@ hulk_freg Player::FUN_000d4900(float input, int index)
 
 
 // 0x000d4950 FUN_000d4950 (69 B): equivalent/0x000d4950.cpp
-// sym: ?FUN_000d4950@Owner@fn_f27eef39@@QAENMH@Z @6a4d052c23be @wf551bcbf5f17
+// sym: ?FUN_000d4950@Owner@fn_f27eef39@@QAENMH@Z @6a4d052c23be @wf551bcbf5f17 @v3c6644046861
 // STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 0/0)
 // FUN_000d4950 @ 0x000d4950
 double Owner::FUN_000d4950(float value, int index)
@@ -807,7 +807,7 @@ double Owner::FUN_000d4950(float value, int index)
 
 
 // 0x000d49b0 FUN_000d49b0 (299 B): equivalent/0x000d49b0.cpp
-// sym: ?FUN_000d49b0@fn_f27eef39@@YGXPAUVec_d49b0@1@0@Z @353eccc4bc4b @wbc62799c5fa3
+// sym: ?FUN_000d49b0@fn_f27eef39@@YGXPAUVec_d49b0@1@0@Z @353eccc4bc4b @wbc62799c5fa3 @v1d62e0c3537e
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 17/20, incomplete)
 // FUN_000d49b0 @ 0x000d49b0
 void __stdcall FUN_000d49b0(Vec_d49b0* target, Vec_d49b0* current) {
@@ -827,7 +827,7 @@ void __stdcall FUN_000d49b0(Vec_d49b0* target, Vec_d49b0* current) {
 
 
 // 0x000d4ae0 FUN_000d4ae0 (117 B): equivalent/0x000d4ae0.cpp
-// sym: ?FUN_000d4ae0@Formatter_d4ae0@fn_f27eef39@@QAEHPADPAUProfile_d4ae0@2@H@Z @935e07219b8a @w83fe00541fd4
+// sym: ?FUN_000d4ae0@Formatter_d4ae0@fn_f27eef39@@QAEHPADPAUProfile_d4ae0@2@H@Z @935e07219b8a @w83fe00541fd4 @v291ba3252e8f
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_000d4ae0 @ 0x000d4ae0
 int Formatter_d4ae0::FUN_000d4ae0(char *text, Profile_d4ae0 *prof, hulk_intptr extra)
@@ -843,7 +843,7 @@ int Formatter_d4ae0::FUN_000d4ae0(char *text, Profile_d4ae0 *prof, hulk_intptr e
 } // namespace fn_f27eef39
 
 // 0x000d50f0 FUN_000d50f0 (403 B): equivalent/0x000d50f0.cpp [wrapped: conflict: Overlay]
-// sym: ?FUN_000d50f0@FadeQuad@fn_000d50f0@@QAEXXZ @745a28f3cd24 @w2b5f957df668
+// sym: ?FUN_000d50f0@FadeQuad@fn_000d50f0@@QAEXXZ @745a28f3cd24 @w2b5f957df668 @v1ec4fb1f4102
 namespace fn_000d50f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 19840 inputs, branch coverage 2/2)
 // FUN_000d50f0 @ 0x000d50f0
@@ -1054,7 +1054,7 @@ void FadeQuad::FUN_000d50f0()
 namespace fn_f27eef39 {
 
 // 0x000d5290 FUN_000d5290 (427 B): equivalent/0x000d5290.cpp
-// sym: ?Update@MessageOverlay_d5290@fn_f27eef39@@QAEXM@Z @e244a1a4966d @w5380f5ecd84f
+// sym: ?Update@MessageOverlay_d5290@fn_f27eef39@@QAEXM@Z @e244a1a4966d @w5380f5ecd84f @v447fffc1a9fa
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 23/24, incomplete)
 // FUN_000d5290 @ 0x000d5290
 void MessageOverlay_d5290::Update(float dt)
@@ -1104,7 +1104,7 @@ void MessageOverlay_d5290::Update(float dt)
 
 
 // 0x000d5440 FUN_000d5440 (131 B): equivalent/0x000d5440.cpp
-// sym: ?FUN_000d5440@Gauge_d5440@fn_f27eef39@@QAEXXZ @fb18ac719662 @wfd00825ab5a6
+// sym: ?FUN_000d5440@Gauge_d5440@fn_f27eef39@@QAEXXZ @fb18ac719662 @wfd00825ab5a6 @vd66588816d80
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_000d5440 @ 0x000d5440
 void Gauge_d5440::FUN_000d5440()
@@ -1370,7 +1370,7 @@ void Method5::vfunc_2(MessageOverlay* obj, void* p, int) {
 namespace fn_f27eef39 {
 
 // 0x000d5980 MessageOverlay::vfunc_3 (406 B): equivalent/0x000d5980.cpp
-// sym: ?vfunc_3@MessageOverlay_d5980@fn_f27eef39@@UAEXM@Z @59f281d01059 @wfbf81464c448
+// sym: ?vfunc_3@MessageOverlay_d5980@fn_f27eef39@@UAEXM@Z @59f281d01059 @wfbf81464c448 @v46eec883b36e
 // STATUS: equivalent (tools/equiv.py level 3: 20014 inputs, branch coverage 16/16)
 // MessageOverlay::vfunc_3 @ 0x000d5980
 void MessageOverlay_d5980::vfunc_3(float dt)
@@ -1409,7 +1409,7 @@ void MessageOverlay_d5980::vfunc_3(float dt)
 } // namespace fn_f27eef39
 
 // 0x000d5b20 MessageOverlay::vfunc_4 (1124 B): equivalent/0x000d5b20.cpp [wrapped: conflict: MessageOverlay]
-// sym: ?v4@MessageOverlay@fn_000d5b20@@UAEXXZ @bab9c6051620 @w5f7282723151
+// sym: ?v4@MessageOverlay@fn_000d5b20@@UAEXXZ @bab9c6051620 @w5f7282723151 @vee3e12d82103
 namespace fn_000d5b20 {
 // STATUS: equivalent (tools/equiv.py level 3: 20046 inputs, branch coverage 27/28, incomplete)
 // MessageOverlay::vfunc_4 @ 0x000d5b20
@@ -1662,7 +1662,7 @@ template class Closure7<MessageOverlay, void, const char *, const char *, const 
 
 
 // 0x000d6150 Closure3<MessageOverlay,void,const_char_*,int,math::Vector>::vfunc_2 (56 B): equivalent/0x000d6150.cpp [wrapped: conflict: Closure3; MessageOverlay]
-// sym: ?vfunc_2@Closure3@fn_000d6150@@UAEXPAXPAUArguments@2@0@Z @d2144190d08a @w32681aba3ab9
+// sym: ?vfunc_2@Closure3@fn_000d6150@@UAEXPAXPAUArguments@2@0@Z @d2144190d08a @w32681aba3ab9 @ve7602fa05c7c
 namespace fn_000d6150 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // Closure3<MessageOverlay,void,const_char_*,int,math::Vector>::vfunc_2 @ 0x000d6150
@@ -1811,7 +1811,7 @@ template <> void Closure1<MessageOverlay, void, float>::vfunc_2(void* __p0, void
 
 
 // 0x000d6370 Closure5<MessageOverlay,void,int,const_char_*,int,math::Vector,float>::vfunc_2 (69 B): equivalent/0x000d6370.cpp [wrapped: conflict: Arguments; Closure5; MessageOverlay]
-// sym: ?vfunc_2@Closure5@fn_000d6370@@UAEXHPBUArguments@2@H@Z @875b921ad142 @w594de1369214
+// sym: ?vfunc_2@Closure5@fn_000d6370@@UAEXHPBUArguments@2@H@Z @875b921ad142 @w594de1369214 @vddf07633c239
 namespace fn_000d6370 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // Closure5<MessageOverlay,void,int,const_char_*,int,math::Vector,float>::vfunc_2 @ 0x000d6370
@@ -1842,7 +1842,7 @@ void Closure5::vfunc_2(int unused, const Arguments *args, int unused2) {
 namespace fn_f27eef39 {
 
 // 0x000d6410 FUN_000d6410 (83 B): equivalent/0x000d6410.cpp
-// sym: ?FUN_000d6410@Registry_d6410@fn_f27eef39@@QAEXPBDPAVMessageOverlay_d6410@2@P832@AEX0000000@Z@Z @e38d30a5b951 @wcbe43a24ae63
+// sym: ?FUN_000d6410@Registry_d6410@fn_f27eef39@@QAEXPBDPAVMessageOverlay_d6410@2@P832@AEX0000000@Z@Z @e38d30a5b951 @wcbe43a24ae63 @v40efffec8494
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_000d6410 @ 0x000d6410
 // FUN_000d6410 @ 0x000d6410  (generated by tools/equiv_gen/reg_helper.py)
@@ -1860,7 +1860,7 @@ void Registry_d6410::FUN_000d6410(const char* a1, MessageOverlay_d6410* a2, Fn_d
 
 
 // 0x000d6470 FUN_000d6470 (83 B): equivalent/0x000d6470.cpp
-// sym: ?FUN_000d6470@Registry_d6470@fn_f27eef39@@QAEXPBDPAVMessageOverlay_d6470@2@P832@AEX0HVVector_d6470@math@@@Z@Z @7b3840338a5e @w86ca6e81286a
+// sym: ?FUN_000d6470@Registry_d6470@fn_f27eef39@@QAEXPBDPAVMessageOverlay_d6470@2@P832@AEX0HVVector_d6470@math@@@Z@Z @7b3840338a5e @w86ca6e81286a @v70f2e522bc42
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_000d6470 @ 0x000d6470
 // FUN_000d6470 @ 0x000d6470  (generated by tools/equiv_gen/reg_helper.py)
@@ -1879,7 +1879,7 @@ void Registry_d6470::FUN_000d6470(const char* a1, MessageOverlay_d6470* a2, Fn_d
 } // namespace fn_f27eef39
 
 // 0x000d6520 FUN_000d6520 (109 B): equivalent/0x000d6520.cpp [wrapped: conflict: Closure0; MessageOverlay; Method0]
-// sym: ?FUN_000d6520@Registry_d6520@fn_000d6520@@QAEXPBDPAVMessageOverlay@2@P832@AEXXZ@Z @e5099dc6498d @w0043378574a3
+// sym: ?FUN_000d6520@Registry_d6520@fn_000d6520@@QAEXPBDPAVMessageOverlay@2@P832@AEXXZ@Z @e5099dc6498d @w0043378574a3 @vd610e316b634
 namespace fn_000d6520 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_000d6520 @ 0x000d6520
@@ -1965,7 +1965,7 @@ void Registry_d6520::FUN_000d6520(const char* name, MessageOverlay* owner, void 
 namespace fn_f27eef39 {
 
 // 0x000d65e0 FUN_000d65e0 (83 B): equivalent/0x000d65e0.cpp
-// sym: ?FUN_000d65e0@Registry_d65e0@fn_f27eef39@@QAEXPBDPAVMessageOverlay_d65e0@2@P832@AEXH0HVVector_d65e0@math@@M@Z@Z @3ab0dbad306f @w482e20843b7f
+// sym: ?FUN_000d65e0@Registry_d65e0@fn_f27eef39@@QAEXPBDPAVMessageOverlay_d65e0@2@P832@AEXH0HVVector_d65e0@math@@M@Z@Z @3ab0dbad306f @w482e20843b7f @v69ba479d2192
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_000d65e0 @ 0x000d65e0
 // FUN_000d65e0 @ 0x000d65e0  (generated by tools/equiv_gen/reg_helper.py)
@@ -2009,7 +2009,7 @@ pure3d::NonCopyable_d6900* pure3d::NonCopyable_d6900::f2(unsigned char param) {
 
 
 // 0x000d6970 FUN_000d6970 (101 B): equivalent/0x000d6970.cpp [wrapped: conflict: COverlayManager]
-// sym: ??0COverlayManager@fn_000d6970@@QAE@XZ @9b17649b1575 @w1c9100588a19
+// sym: ??0COverlayManager@fn_000d6970@@QAE@XZ @9b17649b1575 @w1c9100588a19 @v65f11f368645
 namespace fn_000d6970 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_000d6970 @ 0x000d6970
@@ -2045,7 +2045,7 @@ COverlayManager::COverlayManager() {
 namespace fn_f27eef39 {
 
 // 0x000d6a20 FUN_000d6a20 (253 B): equivalent/0x000d6a20.cpp
-// sym: ?FUN_000d6a20@Target_d6a20@fn_f27eef39@@QAEXXZ @6b5bbcd43f60 @wd7ccc883cc32
+// sym: ?FUN_000d6a20@Target_d6a20@fn_f27eef39@@QAEXXZ @6b5bbcd43f60 @wd7ccc883cc32 @v73e5fb5f692b
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // FUN_000d6a20 @ 0x000d6a20
 void Target_d6a20::FUN_000d6a20(){
@@ -2085,7 +2085,7 @@ void X::Run(int) {
 } // namespace fn_f27eef39
 
 // 0x000d6c70 FUN_000d6c70 (288 B): equivalent/0x000d6c70.cpp [wrapped: conflict: Gfx]
-// sym: ?run@Target_d6c70@fn_000d6c70@@QAEXXZ @0a72b72efb43 @w125c0023f3f3
+// sym: ?run@Target_d6c70@fn_000d6c70@@QAEXXZ @0a72b72efb43 @w125c0023f3f3 @v0b5e0fbc8607
 namespace fn_000d6c70 {
 // STATUS: equivalent (tools/equiv.py level 3: 7465 inputs, branch coverage 6/6)
 // FUN_000d6c70 @ 0x000d6c70

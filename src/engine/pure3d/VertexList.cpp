@@ -692,7 +692,7 @@ void Skin::FUN_002c92f0(MatSet *ms, Remap *rm)
 
 
 // 0x002c96e0 FUN_002c96e0 (7050 B): equivalent/0x002c96e0.cpp
-// sym: _FUN_002c96e0 @7f2afb499c91 @w50afe8bcf12e
+// sym: _FUN_002c96e0 @7f2afb499c91 @w50afe8bcf12e @v029e3a56e61d
 // STATUS: equivalent (tools/equiv.py level 3: 483 inputs, branch coverage 327/382, incomplete)
 // FUN_002c96e0 @ 0x002c96e0
 // equiv-conv: FUN_002c96e0 eax edx esi
@@ -993,7 +993,7 @@ extern "C" void FUN_002c96e0(Source_2c96e0* src, unsigned char flag, VertexSink_
 
 
 // 0x002cb2b0 FUN_002cb2b0 (7735 B): equivalent/0x002cb2b0.cpp
-// sym: _FUN_002cb2b0 @13e2e43a77d5 @w2a41468436f9
+// sym: _FUN_002cb2b0 @13e2e43a77d5 @w2a41468436f9 @v83bff9867f3b
 // STATUS: equivalent (tools/equiv.py level 3: 472 inputs, branch coverage 307/382, incomplete)
 // FUN_002cb2b0 @ 0x002cb2b0
 // equiv-conv: FUN_002cb2b0 ecx stack esi
@@ -1293,7 +1293,7 @@ extern "C" void FUN_002cb2b0(Source_2cb2b0* src, unsigned char flag, VertexSink_
 
 
 // 0x002cd130 FUN_002cd130 (6817 B): equivalent/0x002cd130.cpp
-// sym: ?FUN_002cd130@fn_f7aa76dc@@YAXPAUSource_2cd130@1@EPAUVertexSink_2cd130@1@@Z @2fae2c19588f @wa1491f1b4f85
+// sym: ?FUN_002cd130@fn_f7aa76dc@@YAXPAUSource_2cd130@1@EPAUVertexSink_2cd130@1@@Z @2fae2c19588f @wa1491f1b4f85 @v0e972100d06f
 // STATUS: equivalent (tools/equiv.py level 3: 562 inputs, branch coverage 322/376, incomplete)
 // FUN_002cd130 @ 0x002cd130
 // equiv-conv: FUN_002cd130 eax edx esi
@@ -1566,7 +1566,7 @@ void FUN_002cd130(Source_2cd130* src, unsigned char flag, VertexSink_2cd130* out
 
 
 // 0x002cec10 FUN_002cec10 (7087 B): equivalent/0x002cec10.cpp
-// sym: _FUN_002cec10 @e61a6558cb4a @w1a7d4bbb6ebb
+// sym: _FUN_002cec10 @e61a6558cb4a @w1a7d4bbb6ebb @v5ac25ae8459c
 // STATUS: equivalent (tools/equiv.py level 3: 604 inputs, branch coverage 302/376, incomplete)
 // FUN_002cec10 @ 0x002cec10
 // equiv-conv: FUN_002cec10 ecx edx esi

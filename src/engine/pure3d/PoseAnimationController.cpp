@@ -259,7 +259,7 @@ bool pure3d::PoseAnimationController::vfunc_26(void* __p0) { void * p = (void *)
 namespace fn_f83362ab {
 
 // 0x00287a40 FUN_00287a40 (575 B): equivalent/0x00287a40.cpp
-// sym: ?FUN_00287a40@PoseAnimationController_287a40@fn_f83362ab@@QAEXHMMPAUChannelPair@2@@Z @09fcd2257115 @w444de4b43293
+// sym: ?FUN_00287a40@PoseAnimationController_287a40@fn_f83362ab@@QAEXHMMPAUChannelPair@2@@Z @09fcd2257115 @w444de4b43293 @v93c2ed015833
 // STATUS: equivalent (tools/equiv.py level 3: 89 inputs, branch coverage 16/16)
 // FUN_00287a40 @ 0x00287a40
 void PoseAnimationController_287a40::FUN_00287a40(int unused, float v, float t, ChannelPair* pairs)
@@ -329,7 +329,7 @@ void PoseAnimationController_287db0::FUN_00287db0()
 
 
 // 0x00287e20 FUN_00287e20 (284 B): equivalent/0x00287e20.cpp
-// sym: ?update@PoseAnimationController_287e20@fn_f83362ab@@QAEXXZ @2e5f9ddd0e36 @w18d2ffef501d
+// sym: ?update@PoseAnimationController_287e20@fn_f83362ab@@QAEXXZ @2e5f9ddd0e36 @w18d2ffef501d @v115d802c52db
 // STATUS: equivalent (tools/equiv.py level 3: 106 inputs, branch coverage 12/12)
 // FUN_00287e20 @ 0x00287e20
 void PoseAnimationController_287e20::update() {
@@ -487,7 +487,7 @@ void PoseAnimationController::vfunc_12(int param) {
 namespace fn_f83362ab {
 
 // 0x00288080 FUN_00288080 (463 B): equivalent/0x00288080.cpp
-// sym: ?FUN_00288080@PoseAnimationController_288080@fn_f83362ab@@QAEXPAVSkeleton@2@@Z @b1f9a864ec0a @w86d57f8def39
+// sym: ?FUN_00288080@PoseAnimationController_288080@fn_f83362ab@@QAEXPAVSkeleton@2@@Z @b1f9a864ec0a @w86d57f8def39 @ve68e95799d9a
 // STATUS: equivalent (tools/equiv.py level 3: 79 inputs, branch coverage 20/20)
 // FUN_00288080 @ 0x00288080
 void PoseAnimationController_288080::FUN_00288080(Skeleton *sk)
@@ -562,7 +562,7 @@ void PoseAnimationController::vfunc_27() {
 
 
 // 0x002882f0 pure3d::PoseAnimationController::vfunc_28 (933 B): equivalent/0x002882f0.cpp [wrapped: conflict: pure3d::PoseAnimationController]
-// sym: ?vfunc_28@PoseAnimationController@pure3d@fn_002882f0@@UAEXXZ @b2db782cea39 @wc12103a4bbc1
+// sym: ?vfunc_28@PoseAnimationController@pure3d@fn_002882f0@@UAEXXZ @b2db782cea39 @wc12103a4bbc1 @v73f972f7350b
 namespace fn_002882f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 205 inputs, branch coverage 26/26)
 // pure3d::PoseAnimationController::vfunc_28 @ 0x002882f0

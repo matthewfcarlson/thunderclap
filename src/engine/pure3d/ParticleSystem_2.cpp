@@ -257,7 +257,7 @@ void ParticleSystem::vfunc_6(void* a, int b) {
 
 
 // 0x002a3740 pure3d::ParticleSystem::vfunc_7 (34 B): equivalent/0x002a3740.cpp [wrapped: conflict: pure3d::DrawableContainer; pure3d::ParticleSystem]
-// sym: ?vfunc_7@ParticleSystem@pure3d@fn_002a3740@@QAEXXZ @fc3f24fb87a9 @w61b30096e132
+// sym: ?vfunc_7@ParticleSystem@pure3d@fn_002a3740@@QAEXXZ @fc3f24fb87a9 @w61b30096e132 @vb7c448df3776
 namespace fn_002a3740 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // pure3d::ParticleSystem::vfunc_7 @ 0x002a3740
@@ -348,7 +348,7 @@ int ParticleSystem::vfunc_18(int index) {
 
 
 // 0x002a37b0 pure3d::ParticleSystem::vfunc_17 (46 B): equivalent/0x002a37b0.cpp [wrapped: conflict: pure3d::DrawableContainer; pure3d::ParticleSystem]
-// sym: ?vfunc_17@ParticleSystem@pure3d@fn_002a37b0@@QAEXHH@Z @42467b477c7a @wde3fd3b616fb
+// sym: ?vfunc_17@ParticleSystem@pure3d@fn_002a37b0@@QAEXHH@Z @42467b477c7a @wde3fd3b616fb @vd00b44aa1438
 namespace fn_002a37b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // pure3d::ParticleSystem::vfunc_17 @ 0x002a37b0
@@ -641,7 +641,7 @@ void Owner::Run(int x) {
 
 
 // 0x002a3c80 FUN_002a3c80 (58 B): equivalent/0x002a3c80.cpp
-// sym: ?FUN_002a3c80@Owner@fn_f1899950@@QAEXPAVItem@2@@Z @399694e73503 @w9e5b535f1127
+// sym: ?FUN_002a3c80@Owner@fn_f1899950@@QAEXPAVItem@2@@Z @399694e73503 @w9e5b535f1127 @v2c886eec75b9
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_002a3c80 @ 0x002a3c80
 void Owner::FUN_002a3c80(Item *next) {
@@ -698,7 +698,7 @@ ParticleSystem* ParticleSystem::vfunc_2(unsigned char p) {
 
 
 // 0x002a3d90 FUN_002a3d90 (135 B): equivalent/0x002a3d90.cpp [wrapped: conflict: pure3d::ParticleSystem]
-// sym: ??0ParticleSystem@pure3d@fn_002a3d90@@QAE@PBV012@@Z @9a6e0180f5c4 @we399a3bc6a43
+// sym: ??0ParticleSystem@pure3d@fn_002a3d90@@QAE@PBV012@@Z @9a6e0180f5c4 @we399a3bc6a43 @v159d1f2083e7
 namespace fn_002a3d90 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_002a3d90 @ 0x002a3d90

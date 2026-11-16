@@ -304,7 +304,7 @@ void Owner_231f00::Run() {
 
 
 // 0x00231f20 FUN_00231f20 (109 B): equivalent/0x00231f20.cpp
-// sym: ?FUN_00231f20@Target_231f20@fn_f7416411@@QAEXH@Z @8c2bf903df5d @wad564a3b6d72
+// sym: ?FUN_00231f20@Target_231f20@fn_f7416411@@QAEXH@Z @8c2bf903df5d @wad564a3b6d72 @vdc71de47df63
 // STATUS: equivalent (tools/equiv.py level 3: 2742 inputs, branch coverage 10/10)
 // FUN_00231f20 @ 0x00231f20
 void Target_231f20::FUN_00231f20(int arg)
@@ -356,7 +356,7 @@ bool Owner_232060::Set(Ref_232060* a, int b, Ref_232060* c, int d) {
 
 
 // 0x002320d0 FUN_002320d0 (167 B): equivalent/0x002320d0.cpp
-// sym: ?FUN_002320d0@Owner_2320d0@fn_f7416411@@QAE_NPAUSpec_2320d0@2@HH@Z @623158de4685 @wd8c83f98e34c
+// sym: ?FUN_002320d0@Owner_2320d0@fn_f7416411@@QAE_NPAUSpec_2320d0@2@HH@Z @623158de4685 @wd8c83f98e34c @v3108d5440f85
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 16/16)
 // FUN_002320d0 @ 0x002320d0
 bool Owner_2320d0::FUN_002320d0(Spec_2320d0 *spec, hulk_intptr a, int b)
@@ -472,7 +472,7 @@ bool Owner_232290::Attach(Item_232290* item) {
 
 
 // 0x002322f0 FUN_002322f0 (436 B): equivalent/0x002322f0.cpp
-// sym: ?FUN_002322f0@Sequence@fn_f7416411@@QAEXHM@Z @f62538ea2850 @w3e888745bc13
+// sym: ?FUN_002322f0@Sequence@fn_f7416411@@QAEXHM@Z @f62538ea2850 @w3e888745bc13 @vd281de9f373e
 // STATUS: equivalent (tools/equiv.py level 3: 77 inputs, branch coverage 42/42)
 // FUN_002322f0 @ 0x002322f0
 void Sequence::FUN_002322f0(int arg, float dt)

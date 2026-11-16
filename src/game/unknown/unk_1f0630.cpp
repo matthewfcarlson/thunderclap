@@ -144,7 +144,7 @@ class CSoundCommand_CueNISEvent : public CSoundCommand_1f0960 {
 
 
 // 0x001f0630 FUN_001f0630 (112 B): equivalent/0x001f0630.cpp
-// sym: ??0CSoundCommand_PlayDialogueEvent@fn_f1aba5fa@@QAE@PBD0MH@Z @f8c74664a7d9 @wf7d02dbfa866
+// sym: ??0CSoundCommand_PlayDialogueEvent@fn_f1aba5fa@@QAE@PBD0MH@Z @f8c74664a7d9 @wf7d02dbfa866 @v2752a5581d92
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_001f0630 @ 0x001f0630
 CSoundCommand_PlayDialogueEvent::CSoundCommand_PlayDialogueEvent(const char* name, const char* sub, float value, int arg)
@@ -174,7 +174,7 @@ pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
 
 
 // 0x001f06c0 FUN_001f06c0 (119 B): equivalent/0x001f06c0.cpp
-// sym: ??0CSoundCommand_PlayFightDialogueEvent@fn_f1aba5fa@@QAE@PBD0HMH@Z @882c5fa30a84 @we766cbe93753
+// sym: ??0CSoundCommand_PlayFightDialogueEvent@fn_f1aba5fa@@QAE@PBD0HMH@Z @882c5fa30a84 @we766cbe93753 @vdff0e5af424d
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_001f06c0 @ 0x001f06c0
 CSoundCommand_PlayFightDialogueEvent::CSoundCommand_PlayFightDialogueEvent(const char* name, const char* sub, int extra, float value, int arg)
@@ -225,7 +225,7 @@ pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
 namespace fn_f1aba5fa {
 
 // 0x001f0760 FUN_001f0760 (136 B): equivalent/0x001f0760.cpp
-// sym: ??0CSoundCommand_PlayMissionDialogueEvent@fn_f1aba5fa@@QAE@PBD00HMH@Z @cafdf5ca1397 @w4d95d966bd2e
+// sym: ??0CSoundCommand_PlayMissionDialogueEvent@fn_f1aba5fa@@QAE@PBD00HMH@Z @cafdf5ca1397 @w4d95d966bd2e @vf21786ac00c1
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_001f0760 @ 0x001f0760
 CSoundCommand_PlayMissionDialogueEvent::CSoundCommand_PlayMissionDialogueEvent(const char* name, const char* sub, const char* line, int arg1, float value, int arg2)
@@ -362,7 +362,7 @@ pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
 
 
 // 0x001f08f0 FUN_001f08f0 (73 B): equivalent/0x001f08f0.cpp [wrapped: conflict: FUN_002672f0]
-// sym: ??0CSoundCommand_PlaySFXEvent@fn_001f08f0@@QAE@HHH@Z @25780a11ee3a @w524d0063a4a6
+// sym: ??0CSoundCommand_PlaySFXEvent@fn_001f08f0@@QAE@HHH@Z @25780a11ee3a @w524d0063a4a6 @v2a2e6143d9e1
 namespace fn_001f08f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_001f08f0 @ 0x001f08f0

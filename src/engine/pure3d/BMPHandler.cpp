@@ -68,7 +68,7 @@ struct Header_2af8c0 {
 } // namespace fn_f24f7502
 
 // 0x002af2d0 FUN_002af2d0 (529 B): equivalent/0x002af2d0.cpp [wrapped: conflict: pure3d::BMPHandler; pure3d::DXTNHandler; pure3d::ImageHandler; pure3d::PNGHandler (+2)]
-// sym: ?FUN_002af2d0@ImageRegistry_2af2d0@fn_002af2d0@@QAEPAV12@XZ @dbd17883139e @w23e1aa9e5b6e
+// sym: ?FUN_002af2d0@ImageRegistry_2af2d0@fn_002af2d0@@QAEPAV12@XZ @dbd17883139e @w23e1aa9e5b6e @va47bc28b433b
 inline void *operator new(size_t, void *p) throw() { return p; }
 namespace fn_002af2d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/12)
@@ -358,7 +358,7 @@ extern "C" void FUN_002af8c0(void *h, void *r)
 } // namespace fn_f24f7502
 
 // 0x002afa60 pure3d::BMPHandler::vfunc_9 (195 B): equivalent/0x002afa60.cpp [wrapped: conflict: pure3d::BMPHandler]
-// sym: ?vfunc_9@BMPHandler@pure3d@fn_002afa60@@UAEXTStreamArg@3@PAUOutput@3@@Z @ce4128d26481 @wa66696a928b3
+// sym: ?vfunc_9@BMPHandler@pure3d@fn_002afa60@@UAEXTStreamArg@3@PAUOutput@3@@Z @ce4128d26481 @wa66696a928b3 @v2b4fa24794a1
 namespace fn_002afa60 {
 // STATUS: equivalent (tools/equiv.py level 3: 3027 inputs, branch coverage 20/20)
 // pure3d::BMPHandler::vfunc_9 @ 0x002afa60

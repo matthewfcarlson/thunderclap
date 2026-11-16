@@ -139,7 +139,7 @@ extern "C" int* FUN_00254ae0() {
 } // namespace fn_f524576d
 
 // 0x00254b10 FUN_00254b10 (86 B): equivalent/0x00254b10.cpp [wrapped: conflict: audio::SeqEventLogicRepeatType]
-// sym: ?FUN_00254b10@SeqEventLogicRepeatType@audio@fn_00254b10@@QAEPAU123@XZ @480bc38369c9 @w416b1e94a46e
+// sym: ?FUN_00254b10@SeqEventLogicRepeatType@audio@fn_00254b10@@QAEPAU123@XZ @480bc38369c9 @w416b1e94a46e @v528e07d273ce
 namespace fn_00254b10 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00254b10 @ 0x00254b10
@@ -178,7 +178,7 @@ audio::SeqEventLogicRepeatType::~SeqEventLogicRepeatType() {}
 
 
 // 0x00254b90 audio::SeqEventLogicRepeat::vfunc_1 (141 B): equivalent/0x00254b90.cpp [wrapped: conflict: audio::SeqEvent; audio::SeqEventContainer; audio::SeqEventLogicRepeat]
-// sym: ?vfunc_1@SeqEventLogicRepeat@audio@fn_00254b90@@UAEDPAUArchive_254b90@3@@Z @17cdc090c731 @we8b269a72d77
+// sym: ?vfunc_1@SeqEventLogicRepeat@audio@fn_00254b90@@UAEDPAUArchive_254b90@3@@Z @17cdc090c731 @we8b269a72d77 @ve285a1a88961
 namespace fn_00254b90 {
 // STATUS: equivalent (tools/equiv.py level 3: 1543 inputs, branch coverage 12/12)
 // audio::SeqEventLogicRepeat::vfunc_1 @ 0x00254b90
@@ -328,7 +328,7 @@ audio::SeqCommandLogicRepeat* audio::SeqCommandLogicRepeat::vfunc_1(int x) {
 
 
 // 0x00254d10 audio::SeqCommandLogicRepeat::vfunc_0 (107 B): equivalent/0x00254d10.cpp [wrapped: conflict: audio::SeqCommandLogicRepeat]
-// sym: ?vfunc_0@SeqCommandLogicRepeat@audio@fn_00254d10@@UAEXPAUContext@3@@Z @2c9d4dd32396 @w31f4fcdfd41f
+// sym: ?vfunc_0@SeqCommandLogicRepeat@audio@fn_00254d10@@UAEXPAUContext@3@@Z @2c9d4dd32396 @w31f4fcdfd41f @v4d9e834dd6ca
 namespace fn_00254d10 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // audio::SeqCommandLogicRepeat::vfunc_0 @ 0x00254d10
@@ -405,7 +405,7 @@ void* audio::SeqEventLogicRepeatType::vfunc_3() {
 namespace fn_f524576d {
 
 // 0x00254dd0 audio::SeqEventLogicRepeat::vfunc_2 (58 B): equivalent/0x00254dd0.cpp
-// sym: ?vfunc_2@SeqEventLogicRepeat_254dd0@fn_f524576d@@QAEXPAUReceiver@2@@Z @1d0ac0ab3bbe @wd4ba8e3b8078
+// sym: ?vfunc_2@SeqEventLogicRepeat_254dd0@fn_f524576d@@QAEXPAUReceiver@2@@Z @1d0ac0ab3bbe @wd4ba8e3b8078 @v9135a139856f
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // audio::SeqEventLogicRepeat::vfunc_2 @ 0x00254dd0
 void SeqEventLogicRepeat_254dd0::vfunc_2(Receiver* receiver) {

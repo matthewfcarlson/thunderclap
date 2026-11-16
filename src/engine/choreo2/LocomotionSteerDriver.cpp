@@ -337,7 +337,7 @@ void owners::C_228700::FUN_00228700(hulk_intptr x) {
 namespace fn_fb966b0a {
 
 // 0x00228720 FUN_00228720 (124 B): equivalent/0x00228720.cpp
-// sym: ?FUN_00228720@Emitter_228720@fn_fb966b0a@@QAEXPAUV3_228720@2@@Z @aa955714ab6a @w3bdd4a9beb7a
+// sym: ?FUN_00228720@Emitter_228720@fn_fb966b0a@@QAEXPAUV3_228720@2@@Z @aa955714ab6a @w3bdd4a9beb7a @v676252fd9708
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00228720 @ 0x00228720
 // Transforms the default direction by the emitter's transform and scales it by its speed.
@@ -367,7 +367,7 @@ float owners::C_2287a0::FUN_002287a0(int i) {
 namespace fn_fb966b0a {
 
 // 0x002287b0 FUN_002287b0 (197 B): equivalent/0x002287b0.cpp
-// sym: ?FUN_002287b0@Object@fn_fb966b0a@@QAEXIMM@Z @fd566b9fb2e1 @w81488392a212
+// sym: ?FUN_002287b0@Object@fn_fb966b0a@@QAEXIMM@Z @fd566b9fb2e1 @w81488392a212 @vb5036162b0b3
 // STATUS: equivalent (tools/equiv.py level 3: 440 inputs, branch coverage 10/10)
 // FUN_002287b0 @ 0x002287b0
 void Object::FUN_002287b0(hulk_uintptr index, float weight, float value) {
@@ -406,7 +406,7 @@ void FUN_00228910(HeapEntry_228910* first, int hole, int top, HeapEntry_228910 v
 
 
 // 0x00228990 FUN_00228990 (269 B): equivalent/0x00228990.cpp
-// sym: ?FUN_00228990@fn_fb966b0a@@YAXPAUItem_228990@1@00@Z @559eaa088b9e @w3836875c6296
+// sym: ?FUN_00228990@fn_fb966b0a@@YAXPAUItem_228990@1@00@Z @559eaa088b9e @w3836875c6296 @v2d2030030e56
 // STATUS: equivalent (tools/equiv.py level 3: 90 inputs, branch coverage 17/18, incomplete)
 // FUN_00228990 @ 0x00228990
 void __cdecl FUN_00228990(Item_228990* first, Item_228990* middle, Item_228990* last)
@@ -453,7 +453,7 @@ choreo2::LocomotionSteerDriver::~LocomotionSteerDriver() {}
 namespace fn_fb966b0a {
 
 // 0x00228ac0 FUN_00228ac0 (596 B): equivalent/0x00228ac0.cpp
-// sym: ?FUN_00228ac0@LocomotionSteerDriver_228ac0@fn_fb966b0a@@QAEXIPAPAVObj_228ac0@2@M@Z @01011c84a882 @w40267eb190a5
+// sym: ?FUN_00228ac0@LocomotionSteerDriver_228ac0@fn_fb966b0a@@QAEXIPAPAVObj_228ac0@2@M@Z @01011c84a882 @w40267eb190a5 @v2124f45de9d8
 // STATUS: equivalent (tools/equiv.py level 3: 80 inputs, branch coverage 34/34)
 // FUN_00228ac0 @ 0x00228ac0
 void LocomotionSteerDriver_228ac0::FUN_00228ac0(unsigned int index, Obj_228ac0 **objs, float weight)
@@ -548,7 +548,7 @@ void C_228d30::F(V* v) {
 } // namespace fn_fb966b0a
 
 // 0x00228da0 choreo2::LocomotionSteerDriver::vfunc_10 (914 B): equivalent/0x00228da0.cpp [wrapped: conflict: choreo2::LocomotionSteerDriver]
-// sym: ?vfunc_10@LocomotionSteerDriver@choreo2@fn_00228da0@@UAEXTArgBase_228da0@3@TArgPose_228da0@3@PAURig_228da0@3@M@Z @912ac47b0851 @wd2892cf083df
+// sym: ?vfunc_10@LocomotionSteerDriver@choreo2@fn_00228da0@@UAEXTArgBase_228da0@3@TArgPose_228da0@3@PAURig_228da0@3@M@Z @912ac47b0851 @wd2892cf083df @va82b350f0228
 namespace fn_00228da0 {
 // STATUS: equivalent (tools/equiv.py level 3: 493 inputs, branch coverage 26/26)
 // choreo2::LocomotionSteerDriver::vfunc_10 @ 0x00228da0
@@ -780,7 +780,7 @@ void choreo2::LocomotionSteerDriver::vfunc_10(ArgBase_228da0 a, ArgPose_228da0 p
 
 
 // 0x00229140 choreo2::LocomotionSteerDriver::vfunc_11 (542 B): equivalent/0x00229140.cpp [wrapped: conflict: Channel; Pose; choreo2::LocomotionSteerDriver]
-// sym: ?vfunc_11@LocomotionSteerDriver@choreo2@fn_00229140@@UAEDIIPAVPose@3@M@Z @505ceae92805 @w600c1aded310
+// sym: ?vfunc_11@LocomotionSteerDriver@choreo2@fn_00229140@@UAEDIIPAVPose@3@M@Z @505ceae92805 @w600c1aded310 @v13be97be2971
 namespace fn_00229140 {
 // STATUS: equivalent (tools/equiv.py level 3: 6536 inputs, branch coverage 17/18, incomplete)
 // choreo2::LocomotionSteerDriver::vfunc_11 @ 0x00229140
@@ -974,7 +974,7 @@ bool LocomotionSteerDriver::vfunc_12(Source_229360 *src, float *out)
 
 
 // 0x00229560 FUN_00229560 (196 B): equivalent/0x00229560.cpp
-// sym: _FUN_00229560 @ff9bcf2ad356 @w2e731d2c70a9
+// sym: _FUN_00229560 @ff9bcf2ad356 @w2e731d2c70a9 @v8b63fd26ef4c
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_00229560 @ 0x00229560
 extern "C" void __cdecl FUN_00229560(void * a_, void * b_, void * c)
@@ -1000,7 +1000,7 @@ extern "C" void __cdecl FUN_00229560(void * a_, void * b_, void * c)
 
 
 // 0x00229630 FUN_00229630 (166 B): equivalent/0x00229630.cpp
-// sym: ?FUN_00229630@fn_fb966b0a@@YAXPAUItem_229630@1@HHU21@@Z @108f9689d33e @w30e4da4c4022
+// sym: ?FUN_00229630@fn_fb966b0a@@YAXPAUItem_229630@1@HHU21@@Z @108f9689d33e @w30e4da4c4022 @v4b522ee0e1a6
 // STATUS: equivalent (tools/equiv.py level 3: 2971 inputs, branch coverage 8/8)
 // FUN_00229630 @ 0x00229630
 // Sift-down half of an adjust-heap (children compared by key) followed by FUN_00228910 sift-up.
@@ -1033,7 +1033,7 @@ void target(V* begin, V* end, V* out, V a) {
 } // namespace fn_fb966b0a
 
 // 0x00229760 FUN_00229760 (212 B): equivalent/0x00229760.cpp [wrapped: conflict: choreo2::LocomotionSteerDriver]
-// sym: ??0LocomotionSteerDriver@choreo2@fn_00229760@@QAE@PAXIIPBM1@Z @974dfc34d75d @w19bcc41f54ab
+// sym: ??0LocomotionSteerDriver@choreo2@fn_00229760@@QAE@PAXIIPBM1@Z @974dfc34d75d @w19bcc41f54ab @v9b68520026a4
 namespace fn_00229760 {
 // STATUS: equivalent (tools/equiv.py level 3: 351 inputs, branch coverage 8/8)
 // FUN_00229760 @ 0x00229760
@@ -1195,7 +1195,7 @@ extern "C" void FUN_00229dd0(void * first_, void *last) {
 
 
 // 0x00229ea0 FUN_00229ea0 (154 B): equivalent/0x00229ea0.cpp
-// sym: _FUN_00229ea0 @fe9752ea5b13 @w02d42970e23b
+// sym: _FUN_00229ea0 @fe9752ea5b13 @w02d42970e23b @v513cb8bf8982
 // STATUS: equivalent (tools/equiv.py level 3: 89 inputs, branch coverage 4/4)
 // FUN_00229ea0 @ 0x00229ea0
 // Heap-sort phase: repeatedly moves the root to the back and re-sifts.
@@ -1212,7 +1212,7 @@ extern "C" void __cdecl FUN_00229ea0(void *first, void * last_)
 
 
 // 0x00229f40 FUN_00229f40 (289 B): equivalent/0x00229f40.cpp
-// sym: ?FUN_00229f40@fn_fb966b0a@@YAXPAUItem_229f40@1@0H@Z @e3975485076c @w0e280beb5c56
+// sym: ?FUN_00229f40@fn_fb966b0a@@YAXPAUItem_229f40@1@0H@Z @e3975485076c @w0e280beb5c56 @v49408d912e02
 // STATUS: equivalent (tools/equiv.py level 3: 3036 inputs, branch coverage 12/14, incomplete)
 // FUN_00229f40 @ 0x00229f40
 void __cdecl FUN_00229f40(Item_229f40* first, Item_229f40* last, hulk_intptr budget) {

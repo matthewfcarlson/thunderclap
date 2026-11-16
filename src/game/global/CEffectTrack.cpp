@@ -438,7 +438,7 @@ hulk_intptr CEffectTrack::vfunc_0(int index) {
 
 
 // 0x00060660 FUN_00060660 (148 B): equivalent/0x00060660.cpp [wrapped: conflict: CEffectTrack]
-// sym: ?FUN_00060660@CEffectTrack@fn_00060660@@QAEPAV12@XZ @7979fe47b4b4 @w0fe71ea0d1ad
+// sym: ?FUN_00060660@CEffectTrack@fn_00060660@@QAEPAV12@XZ @7979fe47b4b4 @w0fe71ea0d1ad @vebd72edb1285
 namespace fn_00060660 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00060660 @ 0x00060660
@@ -558,7 +558,7 @@ hulk_freg CEffectTrack::vfunc_7() {
 namespace fn_fb6e447b {
 
 // 0x00060770 FUN_00060770 (96 B): equivalent/0x00060770.cpp
-// sym: ?FUN_00060770@Object@fn_fb6e447b@@QAEXPAUAngles@2@@Z @6c499787af27 @w34b6842f3428
+// sym: ?FUN_00060770@Object@fn_fb6e447b@@QAEXPAUAngles@2@@Z @6c499787af27 @w34b6842f3428 @v7097862217bc
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00060770 @ 0x00060770
 void Object::FUN_00060770(Angles *out) { Angles source = angles; out->x = source.x * (*(float*)&DAT_003f3ef4); out->y = source.y * (*(float*)&DAT_003f3ef4); out->z = source.z * (*(float*)&DAT_003f3ef4); }
@@ -590,7 +590,7 @@ hulk_intptr CEffectTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) 
 
 
 // 0x00060840 CGrappleEffectTrack::vfunc_8 (16 B): equivalent/0x00060840.cpp
-// sym: ?vfunc_8@CGrappleEffectTrack@@UAEPAXPAX0@Z @5e7e5e474090 @w36f8b99ce836
+// sym: ?vfunc_8@CGrappleEffectTrack@@UAEPAXPAX0@Z @5e7e5e474090 @w36f8b99ce836 @vbdd40b197c38
 // STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 0/0)
 // CGrappleEffectTrack::vfunc_8 @ 0x00060840
 void* CGrappleEffectTrack::vfunc_8(void* __p0, void* __p1) { hulk_intptr unused = (hulk_intptr)__p0; hulk_intptr value = (hulk_intptr)__p1;
@@ -706,7 +706,7 @@ extern "C" int __stdcall FUN_00060970(int x) {
 } // namespace fn_fb6e447b
 
 // 0x00060a00 FUN_00060a00 (239 B): equivalent/0x00060a00.cpp [wrapped: conflict: CMotionTrailTrack]
-// sym: ?FUN_00060a00@CMotionTrailTrack@fn_00060a00@@QAEPAV12@XZ @ec643aea3425 @wbc45ea44ca4b
+// sym: ?FUN_00060a00@CMotionTrailTrack@fn_00060a00@@QAEPAV12@XZ @ec643aea3425 @wbc45ea44ca4b @v639218b861e9
 namespace fn_00060a00 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_00060a00 @ 0x00060a00
@@ -1201,7 +1201,7 @@ template class fight::ParamIntConstRange<CEffectStopTrack>; // (ren2) native onl
 namespace fn_fb6e447b {
 
 // 0x000610c0 FUN_000610c0 (213 B): equivalent/0x000610c0.cpp
-// sym: _FUN_000610c0 @d529af485e94 @w90b4ee62fbfb
+// sym: _FUN_000610c0 @d529af485e94 @w90b4ee62fbfb @veba079a585f0
 // STATUS: equivalent (tools/equiv.py level 3: 2992 inputs, branch coverage 8/8)
 // FUN_000610c0 @ 0x000610c0
 extern "C" void __cdecl FUN_000610c0() {

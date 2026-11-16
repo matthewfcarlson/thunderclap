@@ -109,7 +109,7 @@ void* __stdcall D3DPalette_Lock2(u32_3268d0, int);
 
 
 // 0x00325f30 FUN_00325f30 (43 B): equivalent/0x00325f30.cpp
-// sym: _FUN_00325f30 @fccd57a6909a @w1a7e1db73e1d
+// sym: _FUN_00325f30 @fccd57a6909a @w1a7e1db73e1d @v9c498d87c8f5
 // STATUS: equivalent (tools/equiv.py level 3: 3008 inputs, branch coverage 6/6)
 // FUN_00325f30 @ 0x00325f30
 // equiv-conv: FUN_00325f30 eax
@@ -142,7 +142,7 @@ int __fastcall count(unsigned int ignored, unsigned int value) {
 
 
 // 0x00325fd0 FUN_00325fd0 (228 B): equivalent/0x00325fd0.cpp
-// sym: ?FUN_00325fd0@fn_ff6ae8d9@@YAHHHHPAVDevice_325fd0@1@@Z @69f54cdfb770 @wd5e598858790
+// sym: ?FUN_00325fd0@fn_ff6ae8d9@@YAHHHHPAVDevice_325fd0@1@@Z @69f54cdfb770 @wd5e598858790 @vf8f13d66e44a
 // STATUS: equivalent (tools/equiv.py level 3: 3033 inputs, branch coverage 36/36)
 // FUN_00325fd0 @ 0x00325fd0
 // equiv-conv: FUN_00325fd0 ecx edx eax stack
@@ -188,7 +188,7 @@ pddiTexture::pddiTexture() : pddiObject_3260f0() {}
 } // namespace fn_ff6ae8d9
 
 // 0x00326110 FUN_00326110 (270 B): equivalent/0x00326110.cpp [wrapped: conflict: pure3d::d3dTexture; pure3d::pddiObject]
-// sym: ??0d3dTexture@pure3d@fn_00326110@@QAE@PAUCtx@2@H@Z @b49306bea547 @w4b501323f38e
+// sym: ??0d3dTexture@pure3d@fn_00326110@@QAE@PAUCtx@2@H@Z @b49306bea547 @w4b501323f38e @vbb650b90ff6b
 namespace fn_00326110 {
 // STATUS: equivalent (tools/equiv.py level 3: 20001 inputs, branch coverage 2/2)
 // FUN_00326110 @ 0x00326110
@@ -856,7 +856,7 @@ int pure3d::d3dTexture::vfunc_12(hulk_intptr __p0) { u32_3268d0 * out = (u32_326
 
 
 // 0x00326900 pure3d::d3dTexture::vfunc_13 (272 B): equivalent/0x00326900.cpp [wrapped: conflict: pure3d::d3dTexture; pure3d::pddiObject]
-// sym: ?vfunc_13@d3dTexture@pure3d@fn_00326900@@UAEPAUImageInfo_326900@23@IH@Z @eeb9a2219205 @w88741c449fff
+// sym: ?vfunc_13@d3dTexture@pure3d@fn_00326900@@UAEPAUImageInfo_326900@23@IH@Z @eeb9a2219205 @w88741c449fff @v3eed71833d87
 namespace fn_00326900 {
 // STATUS: equivalent (tools/equiv.py level 3: 78 inputs, branch coverage 10/10)
 // pure3d::d3dTexture::vfunc_13 @ 0x00326900
@@ -969,7 +969,7 @@ pure3d::ImageInfo_326900* pure3d::d3dTexture::vfunc_13(unsigned int level, int u
 
 
 // 0x00326a10 pure3d::d3dTexture::vfunc_14 (189 B): equivalent/0x00326a10.cpp [wrapped: conflict: pure3d::d3dTexture]
-// sym: ?vfunc_14@d3dTexture@pure3d@fn_00326a10@@UAEXH@Z @da2ba997e707 @we7b13c583a05
+// sym: ?vfunc_14@d3dTexture@pure3d@fn_00326a10@@UAEXH@Z @da2ba997e707 @we7b13c583a05 @vb8057c81bae1
 namespace fn_00326a10 {
 // STATUS: equivalent (tools/equiv.py level 3: 85 inputs, branch coverage 10/10)
 // pure3d::d3dTexture::vfunc_14 @ 0x00326a10
@@ -1059,7 +1059,7 @@ void owners::Obj_326b00::FUN_00326b00(DWORD stage) {
 
 
 // 0x00326b40 FUN_00326b40 (254 B): equivalent/0x00326b40.cpp [wrapped: conflict: pure3d::d3dTexture]
-// sym: ??0d3dTexture@pure3d@fn_00326b40@@QAE@I@Z @e2c243482144 @w1657151d0512
+// sym: ??0d3dTexture@pure3d@fn_00326b40@@QAE@I@Z @e2c243482144 @w1657151d0512 @v9e2b0d15c4fe
 namespace fn_00326b40 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_00326b40 @ 0x00326b40

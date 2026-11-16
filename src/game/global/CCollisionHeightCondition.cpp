@@ -103,7 +103,7 @@ CCollisionHeightCondition* CCollisionHeightCondition::vfunc_5(signed char flags)
 } // namespace fn_f685d77c
 
 // 0x0004c0c0 CCollisionHeightCondition::vfunc_7 (217 B): equivalent/0x0004c0c0.cpp [wrapped: conflict: CCollisionHeightCondition]
-// sym: ?vfunc_7@CCollisionHeightCondition@fn_0004c0c0@@UAE_NPAUContext@2@@Z @b34884153e45 @w4e52be5dbf0e
+// sym: ?vfunc_7@CCollisionHeightCondition@fn_0004c0c0@@UAE_NPAUContext@2@@Z @b34884153e45 @w4e52be5dbf0e @vb614cc7391b2
 namespace fn_0004c0c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 16/16)
 // CCollisionHeightCondition::vfunc_7 @ 0x0004c0c0

@@ -354,7 +354,7 @@ CAction_201f0::~CAction_201f0() {
 
 
 // 0x00020220 FUN_00020220 (111 B): equivalent/0x00020220.cpp
-// sym: ??0CHeadTrackerAction@fn_f81bc752@@QAE@HPAVRefCounted_20220@1@@Z @be80367e20ae @w8b3208e7a313
+// sym: ??0CHeadTrackerAction@fn_f81bc752@@QAE@HPAVRefCounted_20220@1@@Z @be80367e20ae @w8b3208e7a313 @v5cf99ef6d496
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_00020220 @ 0x00020220
 // equiv-map: ??0ActionBase@@QAE@XZ = 0x00232660

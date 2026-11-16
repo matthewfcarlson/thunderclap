@@ -53,7 +53,7 @@ struct Name64 { char c[0x40]; };
 } // namespace fn_fefa7a64
 
 // 0x0012f400 hulkfight::GameStateCondition::vfunc_6 (621 B): equivalent/0x0012f400.cpp
-// sym: ?vfunc_6@GameStateCondition@hulkfight@@UAE_NPAX00@Z @cb284170d1d5 @wae62fe588411
+// sym: ?vfunc_6@GameStateCondition@hulkfight@@UAE_NPAX00@Z @cb284170d1d5 @wae62fe588411 @vf2e5b5a0b7fd
 // STATUS: equivalent (tools/equiv.py level 3: 20043 inputs, branch coverage 45/48, incomplete)
 // hulkfight::GameStateCondition::vfunc_6 @ 0x0012f400
 bool hulkfight::GameStateCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { hulk_intptr a = (hulk_intptr)__p0; hulk_intptr b = (hulk_intptr)__p1; hulk_intptr c = (hulk_intptr)__p2;

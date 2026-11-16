@@ -1833,7 +1833,7 @@ bool X::Set(const char* s) {
 namespace fn_f587a2cf {
 
 // 0x0012e320 FUN_0012e320 (82 B): equivalent/0x0012e320.cpp
-// sym: ?FUN_0012e320@Object@fn_f587a2cf@@QAEEPBD@Z @f4449191efda @wdafe9e63c58f
+// sym: ?FUN_0012e320@Object@fn_f587a2cf@@QAEEPBD@Z @f4449191efda @wdafe9e63c58f @v3e43adf3a7cf
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_0012e320 @ 0x0012e320
 unsigned char Object::FUN_0012e320(const char* source) {
@@ -1979,7 +1979,7 @@ namespace fn_f587a2cf {
 } // namespace fn_f587a2cf
 
 // 0x0012e5c0 FUN_0012e5c0 (82 B): equivalent/0x0012e5c0.cpp
-// sym: ?FUN_0012e5c0@Object_12e5c0@owners@@QAE_NPBD@Z @ceb1083b6fd1 @w2ae63d33cad5
+// sym: ?FUN_0012e5c0@Object_12e5c0@owners@@QAE_NPBD@Z @ceb1083b6fd1 @w2ae63d33cad5 @v9e2211c4ec5e
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_0012e5c0 @ 0x0012e5c0
 bool owners::Object_12e5c0::FUN_0012e5c0(const char* text) {
@@ -1995,7 +1995,7 @@ bool owners::Object_12e5c0::FUN_0012e5c0(const char* text) {
 
 
 // 0x0012e620 FUN_0012e620 (82 B): equivalent/0x0012e620.cpp
-// sym: ?FUN_0012e620@C_12e620@owners@@QAE_NPBD@Z @42521a6c5bc3 @w8be7a7c06f53
+// sym: ?FUN_0012e620@C_12e620@owners@@QAE_NPBD@Z @42521a6c5bc3 @w8be7a7c06f53 @v7dfbb992c77d
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_0012e620 @ 0x0012e620
 bool owners::C_12e620::FUN_0012e620(const char* value) { FUN_0008d340(text); if (!value) { text = 0; return true; } unsigned int size = 1; for (const char* p = value; *p; ++p) ++size; text = (char*)FUN_0008d6d0(size); char* dest = text; do { *dest++ = *value; } while (*value++); return true; }
@@ -2033,7 +2033,7 @@ void __fastcall FUN_0012e6e0(GameStateCondition_12e6e0* p) {
 } // namespace fn_f587a2cf
 
 // 0x0012e710 FUN_0012e710 (82 B): equivalent/0x0012e710.cpp [wrapped: conflict: FUN_0008d340]
-// sym: ?SetEnvironment_0012e710@Obj@fn_0012e710@@QAEIPBD@Z @ba96014dfacf @wa9d6b9a54db2
+// sym: ?SetEnvironment_0012e710@Obj@fn_0012e710@@QAEIPBD@Z @ba96014dfacf @wa9d6b9a54db2 @vb648b33fc929
 namespace fn_0012e710 {
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // SetEnvironment_0012e710 @ 0x0012e710
@@ -2056,7 +2056,7 @@ unsigned int Obj::SetEnvironment_0012e710(const char *value) {
 
 
 // 0x0012e770 FUN_0012e770 (82 B): equivalent/0x0012e770.cpp [wrapped: conflict: FUN_0008d340; FUN_0008d6d0; Object]
-// sym: ?SetTimeOfDay_0012e770@Object@fn_0012e770@@QAEHPBD@Z @0703693ede6c @w7495cc681be3
+// sym: ?SetTimeOfDay_0012e770@Object@fn_0012e770@@QAEHPBD@Z @0703693ede6c @w7495cc681be3 @v9192edec67f0
 namespace fn_0012e770 {
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // SetTimeOfDay_0012e770 @ 0x0012e770
@@ -2264,7 +2264,7 @@ void NISSoundTrack::Destroy() {
 
 
 // 0x0012e9e0 FUN_0012e9e0 (82 B): equivalent/0x0012e9e0.cpp [wrapped: conflict: FUN_0008d340; FUN_0008d6d0]
-// sym: ?FUN_0012e9e0@Object@fn_0012e9e0@@QAEIPBD@Z @6421589101a5 @w7959d6fe2bc5
+// sym: ?FUN_0012e9e0@Object@fn_0012e9e0@@QAEIPBD@Z @6421589101a5 @w7959d6fe2bc5 @vac194f85826b
 namespace fn_0012e9e0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_0012e9e0 @ 0x0012e9e0
@@ -2328,7 +2328,7 @@ unsigned char Obj::Set(const char* s) {
 
 
 // 0x0012eaa0 FUN_0012eaa0 (82 B): equivalent/0x0012eaa0.cpp [wrapped: conflict: FUN_0008d340; Obj]
-// sym: ?FUN_0012eaa0@Obj@fn_0012eaa0@@QAEHPBD@Z @e0221e0d3234 @w7d3f4bae3f6b
+// sym: ?FUN_0012eaa0@Obj@fn_0012eaa0@@QAEHPBD@Z @e0221e0d3234 @w7d3f4bae3f6b @vcec36abd45d9
 namespace fn_0012eaa0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_0012eaa0 @ 0x0012eaa0
@@ -2411,7 +2411,7 @@ void DialogueTrack::destroy() {
 } // namespace fn_f587a2cf
 
 // 0x0012ebc0 FUN_0012ebc0 (82 B): equivalent/0x0012ebc0.cpp [wrapped: conflict: Object]
-// sym: ?FUN_0012ebc0@Object@fn_0012ebc0@@QAE_NPBD@Z @22db57b6ceaa @w0225d9ec3efd
+// sym: ?FUN_0012ebc0@Object@fn_0012ebc0@@QAE_NPBD@Z @22db57b6ceaa @w0225d9ec3efd @vdcf22f2d5e17
 namespace fn_0012ebc0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_0012ebc0 @ 0x0012ebc0
@@ -2435,14 +2435,14 @@ bool Object::FUN_0012ebc0(const char *value) {
 
 
 // 0x0012ec20 FUN_0012ec20 (82 B): equivalent/0x0012ec20.cpp
-// sym: ?FUN_0012ec20@Object_12ec20@owners@@QAE_NPBD@Z @fb12656ebe36 @wc1c995f6464c
+// sym: ?FUN_0012ec20@Object_12ec20@owners@@QAE_NPBD@Z @fb12656ebe36 @wc1c995f6464c @vd62aa8f351d7
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_0012ec20 @ 0x0012ec20
 bool owners::Object_12ec20::FUN_0012ec20(const char* input) { FUN_0008d340(text); if (!input) { text = 0; return true; } unsigned int length = 0; while (input[length]) ++length; text = (char*)FUN_0008d6d0(length + 1); char* dst = text; do { *dst++ = *input; } while (*input++); return true; }
 
 
 // 0x0012ece0 FUN_0012ece0 (82 B): equivalent/0x0012ece0.cpp
-// sym: ?FUN_0012ece0@Thing_12ece0@owners@@QAEEPBD@Z @6747492f8a9e @wd82974c3248d
+// sym: ?FUN_0012ece0@Thing_12ece0@owners@@QAEEPBD@Z @6747492f8a9e @wd82974c3248d @v64995e6174a9
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_0012ece0 @ 0x0012ece0
 unsigned char owners::Thing_12ece0::FUN_0012ece0(const char* value) {
@@ -2566,7 +2566,7 @@ bool Obj::Set(const char* s) {
 
 
 // 0x0012ee50 FUN_0012ee50 (82 B): equivalent/0x0012ee50.cpp [wrapped: conflict: FUN_0008d340; Object]
-// sym: ?SetChannel_0012ee50@Object@fn_0012ee50@@QAEIPBD@Z @9913d0a3788a @w4254c54bcbab
+// sym: ?SetChannel_0012ee50@Object@fn_0012ee50@@QAEIPBD@Z @9913d0a3788a @w4254c54bcbab @v7881eea1cf08
 namespace fn_0012ee50 {
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // SetChannel_0012ee50 @ 0x0012ee50
@@ -2792,7 +2792,7 @@ hulk_freg hulkfight::XPTrack::vfunc_7() {
 
 
 // 0x0012f110 hulkfight::UnlockableCondition::vfunc_6 (235 B): equivalent/0x0012f110.cpp [wrapped: conflict: FUN_00344e74; hulkfight::UnlockableCondition]
-// sym: ?vfunc_6@UnlockableCondition@hulkfight@fn_0012f110@@UAE_NHHH@Z @e89975909e46 @w5d0012d03b8e
+// sym: ?vfunc_6@UnlockableCondition@hulkfight@fn_0012f110@@UAE_NHHH@Z @e89975909e46 @w5d0012d03b8e @v066ba63a68c8
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)
@@ -2862,7 +2862,7 @@ bool UnlockableCondition::vfunc_6(int,int,int) {
 
 
 // 0x0012f200 hulkfight::ChapterMissionCondition::vfunc_6 (238 B): equivalent/0x0012f200.cpp [wrapped: conflict: hulkfight::ChapterMissionCondition]
-// sym: ?vfunc_6@ChapterMissionCondition@hulkfight@fn_0012f200@@UAEHHHH@Z @9ae8f370ae05 @w68571b33809c
+// sym: ?vfunc_6@ChapterMissionCondition@hulkfight@fn_0012f200@@UAEHHHH@Z @9ae8f370ae05 @w68571b33809c @v2e244ca5fe59
 namespace fn_0012f200 {
 // STATUS: equivalent (tools/equiv.py level 3: 3096 inputs, branch coverage 36/48, incomplete)
 // hulkfight::ChapterMissionCondition::vfunc_6 @ 0x0012f200
@@ -2940,7 +2940,7 @@ int ChapterMissionCondition::vfunc_6(int,int,int) {
 
 
 // 0x0012f320 hulkfight::LocationCondition::vfunc_6 (211 B): equivalent/0x0012f320.cpp [wrapped: conflict: World; hulkfight::LocationCondition]
-// sym: ?vfunc_6@LocationCondition@hulkfight@fn_0012f320@@UAE_NHHH@Z @eb212eed23ee @w935b6a013695
+// sym: ?vfunc_6@LocationCondition@hulkfight@fn_0012f320@@UAE_NHHH@Z @eb212eed23ee @w935b6a013695 @v9137d0f109c4
 namespace fn_0012f320 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 30/30)
 // hulkfight::LocationCondition::vfunc_6 @ 0x0012f320
@@ -3129,7 +3129,7 @@ void FUN_0012f920() {}
 } // namespace fn_f587a2cf
 
 // 0x0012f930 hulkfight::NISSoundAction::vfunc_3 (90 B): equivalent/0x0012f930.cpp [wrapped: conflict: Singleton_4dd6ec; hulkfight::NISSoundAction]
-// sym: ?vfunc_3@NISSoundAction@hulkfight@fn_0012f930@@UAE_NHH@Z @f0ace26cb039 @wb95eaf61ce5b
+// sym: ?vfunc_3@NISSoundAction@hulkfight@fn_0012f930@@UAE_NHH@Z @f0ace26cb039 @wb95eaf61ce5b @v5af237a9b6b3
 namespace fn_0012f930 {
 // STATUS: equivalent (tools/equiv.py level 3: 3004 inputs, branch coverage 2/2)
 // hulkfight::NISSoundAction::vfunc_3 @ 0x0012f930

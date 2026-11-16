@@ -279,7 +279,7 @@ JointPivotTrackerAction_173c50::~JointPivotTrackerAction_173c50() {
 } // namespace fn_fee916a2
 
 // 0x00173ca0 hulkfight::motion::JointPivotTrackerAction::vfunc_5 (2494 B): equivalent/0x00173ca0.cpp
-// sym: ?vfunc_5@JointPivotTrackerAction@motion@hulkfight@@UAE_NHM@Z @1b0c222c3e01 @w3b89a04adb20
+// sym: ?vfunc_5@JointPivotTrackerAction@motion@hulkfight@@UAE_NHM@Z @1b0c222c3e01 @w3b89a04adb20 @v6c7641e61093
 // STATUS: equivalent (tools/equiv.py level 3: 3128 inputs, branch coverage 95/98, incomplete)
 // hulkfight::motion::JointPivotTrackerAction::vfunc_5 @ 0x00173ca0
 bool hulkfight::motion::JointPivotTrackerAction::vfunc_5(int a, float dt)

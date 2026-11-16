@@ -249,7 +249,7 @@ void hulkfight::ai::MotionClosestWaypointAction::vfunc_4() {
 
 
 // 0x00115f40 hulkfight::ai::HasGroundPointCondition::vfunc_6 (103 B): equivalent/0x00115f40.cpp
-// sym: ?vfunc_6@HasGroundPointCondition@ai@hulkfight@@UAE_NPAX00@Z @8626c836c4fd @w36ba08242754
+// sym: ?vfunc_6@HasGroundPointCondition@ai@hulkfight@@UAE_NPAX00@Z @8626c836c4fd @w36ba08242754 @v553e4aad0678
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 12/12)
 // hulkfight::ai::HasGroundPointCondition::vfunc_6 @ 0x00115f40
 bool hulkfight::ai::HasGroundPointCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { int a = (int)__p0; fight::Params_115f40 * params = (fight::Params_115f40 *)__p1; int c = (int)__p2;

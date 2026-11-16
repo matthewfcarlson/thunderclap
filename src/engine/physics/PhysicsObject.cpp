@@ -350,7 +350,7 @@ public:
 } // namespace fn_ff237b18
 
 // 0x002f5130 FUN_002f5130 (254 B): equivalent/0x002f5130.cpp [wrapped: conflict: physics::ExportInfoLoader]
-// sym: _FUN_002f5130 @8e51b6d6da51 @wedaf772c53cc
+// sym: _FUN_002f5130 @8e51b6d6da51 @wedaf772c53cc @v04ec11ca36f0
 inline void* operator new(size_t, void* p) throw() { return p; }
 namespace fn_002f5130 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 10/10)
@@ -415,7 +415,7 @@ void physics::PhysicsObject::vfunc_27(int x) {
 namespace fn_ff237b18 {
 
 // 0x002f5400 FUN_002f5400 (31 B): equivalent/0x002f5400.cpp
-// sym: ?FUN_002f5400@fn_ff237b18@@YAXXZ @a4ae9a9a8c29 @w09e53dc03c43
+// sym: ?FUN_002f5400@fn_ff237b18@@YAXXZ @a4ae9a9a8c29 @w09e53dc03c43 @v2d952001af9a
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_002f5400 @ 0x002f5400
 void FUN_002f5400() {
@@ -438,7 +438,7 @@ SymMatrix_2f5460* SymMatrix_2f5460::vfunc_2(unsigned char flags) {
 } // namespace fn_ff237b18
 
 // 0x002f5480 FUN_002f5480 (230 B): equivalent/0x002f5480.cpp [wrapped: conflict: physics::PhysicsObject]
-// sym: ??0PhysicsObject@physics@fn_002f5480@@QAE@XZ @2463b2525c8b @w9b7887c438bc
+// sym: ??0PhysicsObject@physics@fn_002f5480@@QAE@XZ @2463b2525c8b @w9b7887c438bc @v680808b2a063
 namespace fn_002f5480 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_002f5480 @ 0x002f5480
@@ -675,7 +675,7 @@ void PhysicsObject::Setup() {
 
 
 // 0x002f56b0 physics::PhysicsObject::vfunc_6 (286 B): equivalent/0x002f56b0.cpp [wrapped: conflict: physics::PhysicsObject]
-// sym: ?vfunc_6@PhysicsObject@physics@fn_002f56b0@@UAEXE@Z @d41db7686f43 @we44ff0b31aa6
+// sym: ?vfunc_6@PhysicsObject@physics@fn_002f56b0@@UAEXE@Z @d41db7686f43 @we44ff0b31aa6 @v41d54e12d5ab
 namespace fn_002f56b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // physics::PhysicsObject::vfunc_6 @ 0x002f56b0
@@ -722,7 +722,7 @@ void PhysicsObject::vfunc_6(unsigned char reset) {
 namespace fn_ff237b18 {
 
 // 0x002f57d0 FUN_002f57d0 (140 B): equivalent/0x002f57d0.cpp
-// sym: ?FUN_002f57d0@Node@fn_ff237b18@@QAEXPBUVec3_2f57d0@2@@Z @de77401e454e @w1ff390788d62
+// sym: ?FUN_002f57d0@Node@fn_ff237b18@@QAEXPBUVec3_2f57d0@2@@Z @de77401e454e @w1ff390788d62 @v55890f88f052
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_002f57d0 @ 0x002f57d0
 // Store a new target offset and note whether it is (nearly) zero; if a listener is attached, notify it.
@@ -775,7 +775,7 @@ void physics::PhysicsObject::vfunc_7() {
 
 
 // 0x002f58e0 physics::PhysicsObject::vfunc_12 (272 B): equivalent/0x002f58e0.cpp [wrapped: conflict: physics::PhysicsObject]
-// sym: ?vfunc_12@PhysicsObject@physics@fn_002f58e0@@UAE_NH@Z @413050a3e4bb @wa1d2babc9d06
+// sym: ?vfunc_12@PhysicsObject@physics@fn_002f58e0@@UAE_NH@Z @413050a3e4bb @wa1d2babc9d06 @v8e1af283a702
 namespace fn_002f58e0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // physics::PhysicsObject::vfunc_12 @ 0x002f58e0
@@ -816,7 +816,7 @@ void physics::PhysicsObject::vfunc_13() {
 namespace fn_ff237b18 {
 
 // 0x002f5a20 FUN_002f5a20 (157 B): equivalent/0x002f5a20.cpp
-// sym: ?FUN_002f5a20@PhysicsObject_2f5a20@fn_ff237b18@@QAEXPAUV3_2f5a20@2@@Z @f0c347abbf39 @w36c58057e742
+// sym: ?FUN_002f5a20@PhysicsObject_2f5a20@fn_ff237b18@@QAEXPAUV3_2f5a20@2@@Z @f0c347abbf39 @w36c58057e742 @va095d945ddf7
 // STATUS: equivalent (tools/equiv.py level 3: 19923 inputs, branch coverage 2/2)
 // FUN_002f5a20 @ 0x002f5a20
 // FUN_002f5a20: move the pivot (or, when free, the cross product of the offset and the axis) onto a position
@@ -842,7 +842,7 @@ void PhysicsObject_2f5a20::FUN_002f5a20(V3_2f5a20 *target)
 } // namespace fn_ff237b18
 
 // 0x002f5ac0 physics::PhysicsObject::vfunc_32 (198 B): equivalent/0x002f5ac0.cpp
-// sym: ?vfunc_32@PhysicsObject@physics@@UAEXHH@Z @33e0a108143e @w446f3bda3a3c
+// sym: ?vfunc_32@PhysicsObject@physics@@UAEXHH@Z @33e0a108143e @w446f3bda3a3c @vae72cecddaad
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // physics::PhysicsObject::vfunc_32 @ 0x002f5ac0
 void physics::PhysicsObject::vfunc_32(hulk_intptr __p0, hulk_intptr __p1) { Vec_2f5ac0 * f = (Vec_2f5ac0 *)__p0; Vec_2f5ac0 * p = (Vec_2f5ac0 *)__p1;
@@ -860,7 +860,7 @@ if(vfunc_11()) vfunc_13();
 
 
 // 0x002f5b90 physics::PhysicsObject::vfunc_33 (78 B): equivalent/0x002f5b90.cpp
-// sym: ?vfunc_33@PhysicsObject@physics@@UAEXH@Z @b680ccdc717a @w608f004eabc4
+// sym: ?vfunc_33@PhysicsObject@physics@@UAEXH@Z @b680ccdc717a @w608f004eabc4 @v41422c497e12
 // STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 2/2)
 // physics::PhysicsObject::vfunc_33 @ 0x002f5b90
 void physics::PhysicsObject::vfunc_33(hulk_intptr __p0) { const float * delta = (const float *)__p0;
@@ -963,7 +963,7 @@ void physics::PhysicsObject::vfunc_37() {
 
 
 // 0x002f5c70 physics::PhysicsObject::vfunc_18 (175 B): equivalent/0x002f5c70.cpp
-// sym: ?vfunc_18@PhysicsObject@physics@@UAE_NHHHHHH@Z @a9f15ee65bae @w2e63e8d886d7
+// sym: ?vfunc_18@PhysicsObject@physics@@UAE_NHHHHHH@Z @a9f15ee65bae @w2e63e8d886d7 @v997cd72f4612
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 0/0)
 // physics::PhysicsObject::vfunc_18 @ 0x002f5c70
 bool physics::PhysicsObject::vfunc_18(hulk_intptr __p0, hulk_intptr __p1, int __p2, int __p3, int __p4, int __p5) { const Vec_2f5c70 * point = (const Vec_2f5c70 *)__p0; const Vec_2f5c70 * force = (const Vec_2f5c70 *)__p1; unsigned int a = (unsigned int)__p2; unsigned int b = (unsigned int)__p3; unsigned int c = (unsigned int)__p4; unsigned int d = (unsigned int)__p5;
@@ -1028,7 +1028,7 @@ void physics::PhysicsObject::vfunc_35(float x) {
 
 
 // 0x002f5db0 physics::PhysicsObject::vfunc_19 (272 B): equivalent/0x002f5db0.cpp [wrapped: conflict: physics::PhysicsObject]
-// sym: ?vfunc_19@PhysicsObject@physics@fn_002f5db0@@UAEXHHH@Z @0f4c20d804c6 @w2a60e0f22ad7
+// sym: ?vfunc_19@PhysicsObject@physics@fn_002f5db0@@UAEXHHH@Z @0f4c20d804c6 @w2a60e0f22ad7 @v12d2d9fe3ffc
 namespace fn_002f5db0 {
 // STATUS: equivalent (tools/equiv.py level 3: 19979 inputs, branch coverage 4/4)
 // physics::PhysicsObject::vfunc_19 @ 0x002f5db0
@@ -1200,7 +1200,7 @@ float PhysicsObject::vfunc_14() {
 
 
 // 0x002f60f0 physics::SimulatedObject::vfunc_14 (91 B): equivalent/0x002f60f0.cpp
-// sym: ?vfunc_14@SimulatedObject@physics@@UAEMXZ @7bf6d3859ce0 @w7eb6c300af0f
+// sym: ?vfunc_14@SimulatedObject@physics@@UAEMXZ @7bf6d3859ce0 @w7eb6c300af0f @vd0746b08603f
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // physics::SimulatedObject::vfunc_14 @ 0x002f60f0
 hulk_freg physics::SimulatedObject::vfunc_14() {
@@ -1346,7 +1346,7 @@ PhysicsObject::PhysicsObject(unsigned char flag) {
 
 
 // 0x002f6220 FUN_002f6220 (966 B): equivalent/0x002f6220.cpp [wrapped: conflict: physics::PhysicsObject; physics::SimCGSValue; physics::SimLength; physics::SimTime (+3)]
-// sym: ??0PhysicsObject@physics@fn_002f6220@@QAE@HPAUV3_2f6220@2@PAVSymMatrix@12@H@Z @1e8573166258 @w5d49a836bfb5
+// sym: ??0PhysicsObject@physics@fn_002f6220@@QAE@HPAUV3_2f6220@2@PAVSymMatrix@12@H@Z @1e8573166258 @w5d49a836bfb5 @vfbc8e6e1483b
 namespace fn_002f6220 {
 // STATUS: equivalent (tools/equiv.py level 3: 20012 inputs, branch coverage 10/10)
 // FUN_002f6220 @ 0x002f6220
@@ -1612,7 +1612,7 @@ PhysicsObject::PhysicsObject(int arg, V3_2f6220 *pos, SymMatrix *inertia, int ow
 
 
 // 0x002f65f0 FUN_002f65f0 (707 B): equivalent/0x002f65f0.cpp [wrapped: conflict: physics::PhysicsObject; physics::SimCGSValue; physics::SimLength; physics::SimTime (+2)]
-// sym: ??0PhysicsObject@physics@fn_002f65f0@@QAE@H@Z @1356a3b5657e @w80b993bbd0be
+// sym: ??0PhysicsObject@physics@fn_002f65f0@@QAE@H@Z @1356a3b5657e @w80b993bbd0be @v84ee5e50d45f
 namespace fn_002f65f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 70 inputs, branch coverage 6/6)
 // FUN_002f65f0 @ 0x002f65f0
@@ -1831,7 +1831,7 @@ void physics::PhysicsObject::vfunc_30() {
 
 
 // 0x002f6960 physics::PhysicsObject::vfunc_5 (395 B): equivalent/0x002f6960.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?vfunc_5@PhysicsObject@fn_002f6960@@UAEXM@Z @ef7d25d66097 @wf75101ffd225
+// sym: ?vfunc_5@PhysicsObject@fn_002f6960@@UAEXM@Z @ef7d25d66097 @wf75101ffd225 @ve240bc5a3ab2
 namespace fn_002f6960 {
 // STATUS: equivalent (tools/equiv.py level 3: 102 inputs, branch coverage 21/24, incomplete)
 // physics::PhysicsObject::vfunc_5 @ 0x002f6960
@@ -2018,7 +2018,7 @@ void PhysicsObject::vfunc_5(float dt)
 
 
 // 0x002f6af0 physics::PhysicsObject::vfunc_38 (1383 B): equivalent/0x002f6af0.cpp [wrapped: conflict: PhysicsObject]
-// sym: ?vfunc_38@PhysicsObject@fn_002f6af0@@UAEXM@Z @1c469351c10b @w8b01a6058c25
+// sym: ?vfunc_38@PhysicsObject@fn_002f6af0@@UAEXM@Z @1c469351c10b @w8b01a6058c25 @v445035173a44
 namespace fn_002f6af0 {
 // STATUS: equivalent (tools/equiv.py level 3: 19953 inputs, branch coverage 35/36, incomplete)
 // physics::PhysicsObject::vfunc_38 @ 0x002f6af0
@@ -2523,7 +2523,7 @@ Obj_2f7530* Obj_2f7530::operator=(const Obj_2f7530& o_2f7530) {
 namespace fn_ff237b18 {
 
 // 0x002f75d0 FUN_002f75d0 (747 B): equivalent/0x002f75d0.cpp
-// sym: ?FUN_002f75d0@Obj_2f75d0@fn_ff237b18@@QAEXPAV12@H@Z @9d4fc2fa7e22 @w35af60c32f7c
+// sym: ?FUN_002f75d0@Obj_2f75d0@fn_ff237b18@@QAEXPAV12@H@Z @9d4fc2fa7e22 @w35af60c32f7c @v15bcdb94d4fb
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // FUN_002f75d0 @ 0x002f75d0
 void Obj_2f75d0::FUN_002f75d0(Obj_2f75d0 *dst, int arg)

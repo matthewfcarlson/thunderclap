@@ -203,7 +203,7 @@ pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
 
 
 // 0x00109c00 CAvoidBehaviour::vfunc_4 (483 B): equivalent/0x00109c00.cpp
-// sym: ?vfunc_4@CAvoidBehaviour@fn_f710b797@@UAE_NPAUV3_109c00@2@0PAVCtx_109c00@2@PAUTarget_109c00@2@H00@Z @52fe5ae8e18f @w49d2e2f2870e
+// sym: ?vfunc_4@CAvoidBehaviour@fn_f710b797@@UAE_NPAUV3_109c00@2@0PAVCtx_109c00@2@PAUTarget_109c00@2@H00@Z @52fe5ae8e18f @w49d2e2f2870e @v96b36ccbd745
 // STATUS: equivalent (tools/equiv.py level 3: 20014 inputs, branch coverage 12/12)
 // CAvoidBehaviour::vfunc_4 @ 0x00109c00
 bool CAvoidBehaviour::vfunc_4(V3_109c00 *a, V3_109c00 *b, Ctx_109c00 *ctx, Target_109c00 *tgt, int a5, V3_109c00 *d, V3_109c00 *c)
@@ -270,7 +270,7 @@ bool CAvoidBehaviour::vfunc_4(V3_109c00 *a, V3_109c00 *b, Ctx_109c00 *ctx, Targe
 
 
 // 0x00109df0 FUN_00109df0 (579 B): equivalent/0x00109df0.cpp
-// sym: ?FUN_00109df0@fn_f710b797@@YG_NPAUContext@1@PAUVec3_109df0@1@1H111PAUEntity@1@@Z @0f4c274ead97 @wc67f1505f618
+// sym: ?FUN_00109df0@fn_f710b797@@YG_NPAUContext@1@PAUVec3_109df0@1@1H111PAUEntity@1@@Z @0f4c274ead97 @wc67f1505f618 @v916273c6884a
 // STATUS: equivalent (tools/equiv.py level 3: 1183 inputs, branch coverage 34/34)
 // FUN_00109df0 @ 0x00109df0
 bool __stdcall FUN_00109df0(Context* ctx, Vec3_109df0* from, Vec3_109df0* to, int tag, Vec3_109df0* outPoint,

@@ -584,7 +584,7 @@ Color::Color(unsigned int a, unsigned int b, unsigned int c, unsigned int d) {
 } // namespace fn_ff0a839e
 
 // 0x00011750 FUN_00011750 (200 B): equivalent/0x00011750.cpp
-// sym: ?FUN_00011750@Color_11750@owners@@QAEXIIM@Z @fc9b3ecab332 @w9a47baec0e7e
+// sym: ?FUN_00011750@Color_11750@owners@@QAEXIIM@Z @fc9b3ecab332 @w9a47baec0e7e @v410e4771b667
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00011750 @ 0x00011750
 void owners::Color_11750::FUN_00011750(unsigned int from, unsigned int to, float amount) {
@@ -1007,7 +1007,7 @@ int __fastcall FUN_00012600(Target_12600* self) {
 
 
 // 0x00012610 FUN_00012610 (33 B): equivalent/0x00012610.cpp
-// sym: ?FUN_00012610@Object@fn_ff0a839e@@QAEXPAUTriple@2@@Z @cbf2d0676b5c @w35c55d6eb28c
+// sym: ?FUN_00012610@Object@fn_ff0a839e@@QAEXPAUTriple@2@@Z @cbf2d0676b5c @w35c55d6eb28c @vf04e122c77ac
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00012610 @ 0x00012610
 void Object::FUN_00012610(Triple* result) { result->x = value.x; result->y = value.y; result->z = value.z; }

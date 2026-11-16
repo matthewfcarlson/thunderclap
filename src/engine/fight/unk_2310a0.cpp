@@ -285,7 +285,7 @@ Obj_231160::Obj_231160(hulk_intptr arg) {
 
 
 // 0x00231180 FUN_00231180 (164 B): equivalent/0x00231180.cpp
-// sym: ?FUN_00231180@Probe_231180@fn_f6bca062@@QAEPAXII@Z @359ffcd7a5ad @w540886df74a3
+// sym: ?FUN_00231180@Probe_231180@fn_f6bca062@@QAEPAXII@Z @359ffcd7a5ad @w540886df74a3 @vf218f771e0f7
 // STATUS: equivalent (tools/equiv.py level 3: 2730 inputs, branch coverage 9/10, incomplete)
 // FUN_00231180 @ 0x00231180
 void *Probe_231180::FUN_00231180(unsigned int firstKey, unsigned int secondKey)
@@ -315,7 +315,7 @@ void *Probe_231180::FUN_00231180(unsigned int firstKey, unsigned int secondKey)
 
 
 // 0x00231230 FUN_00231230 (117 B): equivalent/0x00231230.cpp
-// sym: ?FUN_00231230@Probe_231230@fn_f6bca062@@QAEPAUSlot@2@XZ @354d9fc7bc3c @w2dca9f32c9ee
+// sym: ?FUN_00231230@Probe_231230@fn_f6bca062@@QAEPAUSlot@2@XZ @354d9fc7bc3c @w2dca9f32c9ee @v3fe813c06f12
 // STATUS: equivalent (tools/equiv.py level 3: 195 inputs, branch coverage 9/10, incomplete)
 // FUN_00231230 @ 0x00231230
 Slot *Probe_231230::FUN_00231230()
@@ -344,7 +344,7 @@ Slot *Probe_231230::FUN_00231230()
 
 
 // 0x002312b0 FUN_002312b0 (181 B): equivalent/0x002312b0.cpp
-// sym: ?FUN_002312b0@Probe_2312b0@fn_f6bca062@@QAEPAXII@Z @aa765950b964 @w07149f591d4e
+// sym: ?FUN_002312b0@Probe_2312b0@fn_f6bca062@@QAEPAXII@Z @aa765950b964 @w07149f591d4e @v5d916678c067
 // STATUS: equivalent (tools/equiv.py level 3: 190 inputs, branch coverage 12/12)
 // FUN_002312b0 @ 0x002312b0
 void * Probe_2312b0::FUN_002312b0(unsigned lo, unsigned hi) {
@@ -367,7 +367,7 @@ void * Probe_2312b0::FUN_002312b0(unsigned lo, unsigned hi) {
 
 
 // 0x00231370 FUN_00231370 (142 B): equivalent/0x00231370.cpp
-// sym: ?FUN_00231370@HashProbe@fn_f6bca062@@QAEPAUHashEntry@2@XZ @faf0f4c14fa8 @w43eac3e93dde
+// sym: ?FUN_00231370@HashProbe@fn_f6bca062@@QAEPAUHashEntry@2@XZ @faf0f4c14fa8 @w43eac3e93dde @vfade2fa281be
 // STATUS: equivalent (tools/equiv.py level 3: 178 inputs, branch coverage 12/12)
 // FUN_00231370 @ 0x00231370
 // Advances to the next slot in the open-addressing sequence that holds the key (or is empty).
@@ -539,7 +539,7 @@ int owners::Obj_231770::FUN_00231770(hulk_uintptr key) {
 namespace fn_f6bca062 {
 
 // 0x002317e0 FUN_002317e0 (180 B): equivalent/0x002317e0.cpp
-// sym: ?FUN_002317e0@Table_2317e0@fn_f6bca062@@QAE_NIII@Z @7f7c211708f1 @w42961fd5f0fc
+// sym: ?FUN_002317e0@Table_2317e0@fn_f6bca062@@QAE_NIII@Z @7f7c211708f1 @w42961fd5f0fc @v6825a433a96a
 // STATUS: equivalent (tools/equiv.py level 3: 212 inputs, branch coverage 14/14)
 // FUN_002317e0 @ 0x002317e0
 bool Table_2317e0::FUN_002317e0(unsigned key, unsigned value, unsigned match) {

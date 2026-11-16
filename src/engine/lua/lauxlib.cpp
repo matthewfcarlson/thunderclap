@@ -205,7 +205,7 @@ extern "C" void __cdecl FUN_003390d0(LuaVMState* state, const char* name, const 
 
 
 // 0x003391f0 FUN_003391f0 (116 B): equivalent/0x003391f0.cpp
-// sym: _FUN_003391f0 @b43cef487b20 @w1de259553b98
+// sym: _FUN_003391f0 @b43cef487b20 @w1de259553b98 @ved8ee056eaac
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_003391f0 @ 0x003391f0
 // getsizes: pushes registry[2], the weak-keyed table of explicit table sizes (created on first use).
@@ -227,7 +227,7 @@ extern "C" void __cdecl FUN_003391f0(LuaVMState *L)
 
 
 // 0x00339270 FUN_00339270 (80 B): equivalent/0x00339270.cpp
-// sym: _FUN_00339270 @8d997c45ecc2 @w54a8557823d7
+// sym: _FUN_00339270 @8d997c45ecc2 @w54a8557823d7 @v1cbc02db91d4
 // STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 4/4)
 // FUN_00339270 @ 0x00339270
 // luaL_setn
@@ -244,7 +244,7 @@ extern "C" void __cdecl FUN_00339270(LuaVMState* a, int b, int c) {
 
 
 // 0x003392c0 FUN_003392c0 (250 B): equivalent/0x003392c0.cpp
-// sym: _FUN_003392c0 @b77417cfe9f2 @wc2cf73e536c4
+// sym: _FUN_003392c0 @b77417cfe9f2 @wc2cf73e536c4 @ve86fbdd7c8ff
 // STATUS: equivalent (tools/equiv.py level 3: 2575 inputs, branch coverage 16/16)
 // FUN_003392c0 @ 0x003392c0
 // luaL_getn
@@ -462,7 +462,7 @@ extern "C" const char* __cdecl FUN_00339770(LuaVMState* L, void* ud, unsigned in
 
 
 // 0x003397c0 FUN_003397c0 (54 B): equivalent/0x003397c0.cpp
-// sym: _FUN_003397c0 @817810d4233a @w4b1e99a30086
+// sym: _FUN_003397c0 @817810d4233a @w4b1e99a30086 @v5bf0a2efba93
 // STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 0/0)
 // FUN_003397c0 @ 0x003397c0
 // errfile: "cannot read <file name>: <strerror(errno)>" in place of the chunk name.
@@ -525,7 +525,7 @@ extern "C" LuaVMState* __cdecl FUN_00339ac0(void) {
 
 
 // 0x00339ad0 FUN_00339ad0 (91 B): equivalent/0x00339ad0.cpp
-// sym: _FUN_00339ad0 @3cc16107aeed @w48d04bf84c58
+// sym: _FUN_00339ad0 @3cc16107aeed @w48d04bf84c58 @vec2594a58b6a
 // STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 4/4)
 // FUN_00339ad0 @ 0x00339ad0
 // aux_do's error report: a failed chunk's message goes to the global ALERT function, or to stderr.
@@ -547,7 +547,7 @@ extern "C" void __cdecl FUN_00339ad0(int active, LuaVMState *session)
 
 
 // 0x00339ba0 FUN_00339ba0 (85 B): equivalent/0x00339ba0.cpp
-// sym: _FUN_00339ba0 @324cf01e1e4b @w755eef53cebc
+// sym: _FUN_00339ba0 @324cf01e1e4b @w755eef53cebc @vf8e242999c72
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_00339ba0 @ 0x00339ba0
 // lua_dobuffer
@@ -623,7 +623,7 @@ extern "C" const char* __cdecl FUN_00339df0(LuaVMState* a, int b, unsigned int* 
 
 
 // 0x00339e60 FUN_00339e60 (87 B): equivalent/0x00339e60.cpp
-// sym: _FUN_00339e60 @a5fc578969ec @wbcfebfd609a1
+// sym: _FUN_00339e60 @a5fc578969ec @wbcfebfd609a1 @ve8196c1e90c2
 // STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 8/8)
 // FUN_00339e60 @ 0x00339e60
 // luaL_optlstring

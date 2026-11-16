@@ -423,7 +423,7 @@ void d3dToonVertexShader_330de0::Update() {
 } // namespace fn_f44f442a
 
 // 0x00330e60 pure3d::d3dToonVertexShader::vfunc_14 (1290 B): equivalent/0x00330e60.cpp
-// sym: ?vfunc_14@d3dToonVertexShader@pure3d@@UAEXH@Z @4d3cbf1f217c @wa9aa7c734050
+// sym: ?vfunc_14@d3dToonVertexShader@pure3d@@UAEXH@Z @4d3cbf1f217c @wa9aa7c734050 @vcbb06379f2ff
 // STATUS: equivalent (tools/equiv.py level 3: 99 inputs, branch coverage 40/40)
 // pure3d::d3dToonVertexShader::vfunc_14 @ 0x00330e60
 // pure3d::d3dToonVertexShader::vfunc_14 @ 0x00330e60

@@ -260,7 +260,7 @@ SuckAction_177040::~SuckAction_177040() {
 } // namespace fn_f9af4c99
 
 // 0x00177080 hulkfight::motion::SuckAction::vfunc_5 (942 B): equivalent/0x00177080.cpp
-// sym: ?vfunc_5@SuckAction@motion@hulkfight@@UAE_NHH@Z @308dcbff309f @wb7261219feb2
+// sym: ?vfunc_5@SuckAction@motion@hulkfight@@UAE_NHH@Z @308dcbff309f @wb7261219feb2 @v2426344f6299
 // STATUS: equivalent (tools/equiv.py level 3: 3015 inputs, branch coverage 48/50, incomplete)
 // hulkfight::motion::SuckAction::vfunc_5 @ 0x00177080
 bool hulkfight::motion::SuckAction::vfunc_5(hulk_intptr a, int b) {

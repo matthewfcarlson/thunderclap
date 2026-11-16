@@ -631,7 +631,7 @@ void Hud_d3170::FUN_000d3170(A1 *a1, int a2, A3 *a3)
 namespace fn_fb5eeb37 {
 
 // 0x000d3f10 FUN_000d3f10 (392 B): equivalent/0x000d3f10.cpp
-// sym: ?FUN_000d3f10@Finder_d3f10@fn_fb5eeb37@@QAEPAXPBD@Z @508b5e43e8a9 @wf7c885beb8c6
+// sym: ?FUN_000d3f10@Finder_d3f10@fn_fb5eeb37@@QAEPAXPBD@Z @508b5e43e8a9 @wf7c885beb8c6 @v55015b164bec
 // STATUS: equivalent (tools/equiv.py level 3: 20136 inputs, branch coverage 33/34, incomplete)
 // FUN_000d3f10 @ 0x000d3f10
 void* Finder_d3f10::FUN_000d3f10(const char* name) {

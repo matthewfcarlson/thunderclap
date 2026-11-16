@@ -415,7 +415,7 @@ VertexAnimKeyFrame_2e5b20 *__stdcall FUN_002e5b20(Stream *s, int unused)
 } // namespace fn_f411a916
 
 // 0x002e6160 FUN_002e6160 (94 B): equivalent/0x002e6160.cpp
-// sym: ?FUN_002e6160@Buffer_2e6160@owners@@QAE_NIH@Z @13475177e516 @wfa222d388003
+// sym: ?FUN_002e6160@Buffer_2e6160@owners@@QAE_NIH@Z @13475177e516 @wfa222d388003 @vfb51f4f97018
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_002e6160 @ 0x002e6160
 bool owners::Buffer_2e6160::FUN_002e6160(unsigned int count, hulk_intptr value) {

@@ -324,7 +324,7 @@ namespace fn_fbe81dc2 {
 } // namespace fn_fbe81dc2
 
 // 0x00238910 FUN_00238910 (82 B): equivalent/0x00238910.cpp
-// sym: ?FUN_00238910@Object_238910@owners@@QAE_NPBD@Z @ceb1083b6fd1 @w2ae63d33cad5
+// sym: ?FUN_00238910@Object_238910@owners@@QAE_NPBD@Z @ceb1083b6fd1 @w2ae63d33cad5 @vd6b9761e25d1
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_00238910 @ 0x00238910
 bool owners::Object_238910::FUN_00238910(const char *value) {
@@ -419,7 +419,7 @@ fight::PrintTrack::~PrintTrack() {
 namespace fn_fbe81dc2 {
 
 // 0x00238a80 FUN_00238a80 (82 B): equivalent/0x00238a80.cpp
-// sym: ?SetChannel_00238a80@Obj@fn_fbe81dc2@@QAE_NPBD@Z @479a89a7457f @wf4aa5da2059f
+// sym: ?SetChannel_00238a80@Obj@fn_fbe81dc2@@QAE_NPBD@Z @479a89a7457f @wf4aa5da2059f @vca9fc7a4740c
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // SetChannel_00238a80 @ 0x00238a80
 bool Obj::SetChannel_00238a80(const char* value) { FUN_0008d340(text); if (!value) { text = 0; return true; } unsigned int length = 0; while (value[length]) ++length; text = (char*)FUN_0008d6d0(length + 1); char* dest = text; do { *dest++ = *value; } while (*value++); return true; }
@@ -427,7 +427,7 @@ bool Obj::SetChannel_00238a80(const char* value) { FUN_0008d340(text); if (!valu
 } // namespace fn_fbe81dc2
 
 // 0x00238ae0 FUN_00238ae0 (82 B): equivalent/0x00238ae0.cpp [wrapped: compile error in a shared declaration (C2732)]
-// sym: ?SetText_00238ae0@Object@fn_00238ae0@@QAE_NPBD@Z @f4449191efda @w7da5b8150b6f
+// sym: ?SetText_00238ae0@Object@fn_00238ae0@@QAE_NPBD@Z @f4449191efda @w7da5b8150b6f @v1934e9c461ac
 namespace fn_00238ae0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // SetText_00238ae0 @ 0x00238ae0

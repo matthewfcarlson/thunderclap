@@ -67,7 +67,7 @@ class FEPoseAnimation_e89e0 {
 
 
 // 0x000e8600 FUN_000e8600 (69 B): equivalent/0x000e8600.cpp
-// sym: ?FUN_000e8600@Target@fn_f477ab1c@@QAEMHH@Z @ea85b3045feb @w5b262aed9caf
+// sym: ?FUN_000e8600@Target@fn_f477ab1c@@QAEMHH@Z @ea85b3045feb @w5b262aed9caf @vd8b92f21b59b
 // STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 0/0)
 // FUN_000e8600 @ 0x000e8600
 hulk_freg Target::FUN_000e8600(int parameter, int index) {

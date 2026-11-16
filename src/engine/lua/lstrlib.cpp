@@ -81,7 +81,7 @@ extern "C" int __cdecl FUN_0033bd00(LuaVMState* L) {
 
 
 // 0x0033bd40 FUN_0033bd40 (155 B): equivalent/0x0033bd40.cpp
-// sym: _FUN_0033bd40 @8a4ebb47ab86 @w96a8b8e0434a
+// sym: _FUN_0033bd40 @8a4ebb47ab86 @w96a8b8e0434a @v821fbce2859f
 // STATUS: equivalent (tools/equiv.py level 3: 3003 inputs, branch coverage 10/10)
 // FUN_0033bd40 @ 0x0033bd40
 // FUN_0033bd40: Lua string.sub
@@ -136,7 +136,7 @@ extern "C" int __cdecl FUN_0033c1b0(LuaVMState* L, const void* p, unsigned int s
 
 
 // 0x0033c2b0 FUN_0033c2b0 (105 B): equivalent/0x0033c2b0.cpp
-// sym: ?FUN_0033c2b0@fn_f0814e11@@YAPBDPAULuaVMMatchState@@PBD@Z @b0b72a9ab18c @wf9c09134dc09
+// sym: ?FUN_0033c2b0@fn_f0814e11@@YAPBDPAULuaVMMatchState@@PBD@Z @b0b72a9ab18c @wf9c09134dc09 @v39523720a299
 // STATUS: equivalent (tools/equiv.py level 3: 3065 inputs, branch coverage 16/16)
 // FUN_0033c2b0 @ 0x0033c2b0
 // lstrlib luaI_classend: the end of the single-character class at p
@@ -164,7 +164,7 @@ const char* FUN_0033c2b0(LuaVMMatchState* ms, const char* p) {
 
 
 // 0x0033c320 FUN_0033c320 (199 B): equivalent/0x0033c320.cpp
-// sym: ?FUN_0033c320@fn_f0814e11@@YAHHH@Z @ab5c42b851e9 @w7be3c0e24378
+// sym: ?FUN_0033c320@fn_f0814e11@@YAHHH@Z @ab5c42b851e9 @w7be3c0e24378 @v0444fb940ae0
 // STATUS: equivalent (tools/equiv.py level 3: 3045 inputs, branch coverage 21/21)
 // FUN_0033c320 @ 0x0033c320
 // equiv-conv: FUN_0033c320 eax edi
@@ -188,7 +188,7 @@ int __cdecl FUN_0033c320(int character, int classCode) {
 
 
 // 0x0033c430 FUN_0033c430 (145 B): equivalent/0x0033c430.cpp
-// sym: ?FUN_0033c430@fn_f0814e11@@YAHHPBD0@Z @4100ddde7394 @wabf89f5e6daf
+// sym: ?FUN_0033c430@fn_f0814e11@@YAHHPBD0@Z @4100ddde7394 @wabf89f5e6daf @v8ff55fc4240b
 // STATUS: equivalent (tools/equiv.py level 3: 2752 inputs, branch coverage 22/22)
 // FUN_0033c430 @ 0x0033c430
 // Lua 5.0 lstrlib matchbracketclass
@@ -219,7 +219,7 @@ int FUN_0033c430(int c, const char *p, const char *ec)
 
 
 // 0x0033c4d0 FUN_0033c4d0 (70 B): equivalent/0x0033c4d0.cpp
-// sym: ?FUN_0033c4d0@fn_f0814e11@@YAHPBDH0@Z @c3dfd05e7a22 @wf3510307be58
+// sym: ?FUN_0033c4d0@fn_f0814e11@@YAHPBDH0@Z @c3dfd05e7a22 @wf3510307be58 @v0fd484b749ba
 // STATUS: equivalent (tools/equiv.py level 3: 3003 inputs, branch coverage 6/6)
 // FUN_0033c4d0 @ 0x0033c4d0
 // lstrlib singlematch(c, p, ep)
@@ -240,7 +240,7 @@ int FUN_0033c4d0(const char *p, int c, const char *ep)
 
 
 // 0x0033c520 FUN_0033c520 (100 B): equivalent/0x0033c520.cpp
-// sym: ?FUN_0033c520@fn_f0814e11@@YAPBDPBD0PAULuaVMMatchState@@@Z @0cd9bc23c449 @wdeaf61e7d686
+// sym: ?FUN_0033c520@fn_f0814e11@@YAPBDPBD0PAULuaVMMatchState@@@Z @0cd9bc23c449 @wdeaf61e7d686 @v1c5846bd9a88
 // STATUS: equivalent (tools/equiv.py level 3: 3028 inputs, branch coverage 16/16)
 // FUN_0033c520 @ 0x0033c520
 // lstrlib matchbalance
@@ -269,7 +269,7 @@ const char *FUN_0033c520(const char *p, const char *s, LuaVMMatchState *ms)
 
 
 // 0x0033c590 FUN_0033c590 (164 B): equivalent/0x0033c590.cpp
-// sym: ?FUN_0033c590@fn_f0814e11@@YAPBDPBDPAULuaVMMatchState@@00@Z @2bf2fd452093 @wb01afeddb449
+// sym: ?FUN_0033c590@fn_f0814e11@@YAPBDPBDPAULuaVMMatchState@@00@Z @2bf2fd452093 @wb01afeddb449 @vc4e8a3d55c7f
 // STATUS: equivalent (tools/equiv.py level 3: 3097 inputs, branch coverage 17/18, incomplete)
 // FUN_0033c590 @ 0x0033c590
 // Lua 5.0 lstrlib max_expand
@@ -311,7 +311,7 @@ const char *FUN_0033c590(const char *p, LuaVMMatchState *ms, const char *s, cons
 
 
 // 0x0033c640 FUN_0033c640 (145 B): equivalent/0x0033c640.cpp
-// sym: ?FUN_0033c640@fn_f0814e11@@YAPBDPBDPAULuaVMMatchState@@00@Z @aa012003f44d @w98dea6f45fe9
+// sym: ?FUN_0033c640@fn_f0814e11@@YAPBDPBDPAULuaVMMatchState@@00@Z @aa012003f44d @w98dea6f45fe9 @vdc5a6b19ff78
 // STATUS: equivalent (tools/equiv.py level 3: 3058 inputs, branch coverage 14/14)
 // FUN_0033c640 @ 0x0033c640
 // Lua 5.0 lstrlib min_expand
@@ -350,7 +350,7 @@ const char *FUN_0033c640(const char *s, LuaVMMatchState *ms, const char *p, cons
 
 
 // 0x0033c6e0 FUN_0033c6e0 (66 B): equivalent/0x0033c6e0.cpp
-// sym: ?FUN_0033c6e0@fn_f0814e11@@YAPBDPAULuaVMMatchState@@PBD1H@Z @1ce8cfaf82db @w71de7750794b
+// sym: ?FUN_0033c6e0@fn_f0814e11@@YAPBDPAULuaVMMatchState@@PBD1H@Z @1ce8cfaf82db @w71de7750794b @va2af653bb3ce
 // STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 4/4)
 // FUN_0033c6e0 @ 0x0033c6e0
 // lstrlib start_capture
@@ -371,7 +371,7 @@ const char* FUN_0033c6e0(LuaVMMatchState* ms, const char* s, const char* p, int 
 
 
 // 0x0033c730 FUN_0033c730 (89 B): equivalent/0x0033c730.cpp
-// sym: ?FUN_0033c730@fn_f0814e11@@YAPBDPAULuaVMMatchState@@PBD1@Z @403a72ad433e @wb3ed9e80ec2b
+// sym: ?FUN_0033c730@fn_f0814e11@@YAPBDPAULuaVMMatchState@@PBD1@Z @403a72ad433e @wb3ed9e80ec2b @v669f8ae99dff
 // STATUS: equivalent (tools/equiv.py level 3: 157 inputs, branch coverage 8/8)
 // FUN_0033c730 @ 0x0033c730
 // lstrlib end_capture (capture_to_close inlined)
@@ -392,7 +392,7 @@ const char* FUN_0033c730(LuaVMMatchState* ms, const char* s, const char* p)
 
 
 // 0x0033c790 FUN_0033c790 (75 B): equivalent/0x0033c790.cpp
-// sym: ?FUN_0033c790@fn_f0814e11@@YAPBDHPAULuaVMMatchState@@PBD@Z @f9239e98b202 @we573211d2494
+// sym: ?FUN_0033c790@fn_f0814e11@@YAPBDHPAULuaVMMatchState@@PBD@Z @f9239e98b202 @we573211d2494 @v4f69fd4fbb5f
 // STATUS: equivalent (tools/equiv.py level 3: 3004 inputs, branch coverage 10/10)
 // FUN_0033c790 @ 0x0033c790
 // lstrlib match_capture (check_capture inlined)
@@ -414,7 +414,7 @@ const char *FUN_0033c790(int l, LuaVMMatchState *ms, const char *s)
 
 
 // 0x0033c7e0 FUN_0033c7e0 (591 B): equivalent/0x0033c7e0.cpp
-// sym: _FUN_0033c7e0 @923e31a2652b @w48822f6801bb
+// sym: _FUN_0033c7e0 @923e31a2652b @w48822f6801bb @v6955406797d9
 // STATUS: equivalent (tools/equiv.py level 3: 3164 inputs, branch coverage 53/57, incomplete)
 // FUN_0033c7e0 @ 0x0033c7e0
 // lstrlib match
@@ -550,7 +550,7 @@ const char *FUN_0033caa0(const char *s1, unsigned int l1, const char *s2, unsign
 
 
 // 0x0033cb10 FUN_0033cb10 (81 B): equivalent/0x0033cb10.cpp
-// sym: ?FUN_0033cb10@fn_f0814e11@@YAXHPAULuaVMMatchState@@@Z @f427e4fedd57 @w99102cfadd88
+// sym: ?FUN_0033cb10@fn_f0814e11@@YAXHPAULuaVMMatchState@@@Z @f427e4fedd57 @w99102cfadd88 @v06f551cdad4f
 // STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 4/4)
 // FUN_0033cb10 @ 0x0033cb10
 // lstrlib push_onecapture
@@ -569,7 +569,7 @@ void FUN_0033cb10(int i, LuaVMMatchState* ms)
 
 
 // 0x0033cb70 FUN_0033cb70 (158 B): equivalent/0x0033cb70.cpp
-// sym: ?FUN_0033cb70@fn_f0814e11@@YAHPAULuaVMMatchState@@PBD1@Z @07a8ef120324 @w3c9dc2c04dc5
+// sym: ?FUN_0033cb70@fn_f0814e11@@YAHPAULuaVMMatchState@@PBD1@Z @07a8ef120324 @w3c9dc2c04dc5 @v3ac8b01af64b
 // STATUS: equivalent (tools/equiv.py level 3: 3003 inputs, branch coverage 12/12)
 // FUN_0033cb70 @ 0x0033cb70
 // FUN_0033cb70 @ 0x0033cb70: Lua 5.0 lstrlib push_captures (push_onecapture inlined)
@@ -595,7 +595,7 @@ int FUN_0033cb70(LuaVMMatchState *ms, const char *s, const char *e)
 
 
 // 0x0033cc10 FUN_0033cc10 (402 B): equivalent/0x0033cc10.cpp
-// sym: _FUN_0033cc10 @065f220d16df @w0576e7663462
+// sym: _FUN_0033cc10 @065f220d16df @w0576e7663462 @v14cddad32317
 // STATUS: equivalent (tools/equiv.py level 3: 3004 inputs, branch coverage 20/20)
 // FUN_0033cc10 @ 0x0033cc10
 // lstrlib str_find
@@ -660,7 +660,7 @@ extern "C" int __cdecl FUN_0033cc10(LuaVMState* L) {
 
 
 // 0x0033cdb0 FUN_0033cdb0 (207 B): equivalent/0x0033cdb0.cpp
-// sym: _FUN_0033cdb0 @835666cdde2f @wccf665a98a16
+// sym: _FUN_0033cdb0 @835666cdde2f @wccf665a98a16 @vbab016252480
 // STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 8/8)
 // FUN_0033cdb0 @ 0x0033cdb0
 // lstrlib gfind_aux (upvalues: the string, the pattern, the position)
@@ -709,7 +709,7 @@ extern "C" int __cdecl FUN_0033ce80(LuaVMState* L) {
 
 
 // 0x0033cec0 FUN_0033cec0 (296 B): equivalent/0x0033cec0.cpp
-// sym: ?FUN_0033cec0@fn_f0814e11@@YAXPAULuaVMMatchState@@PAULuaVMLBuffer@@PBD2@Z @a9a0fa6f5bb2 @w0f7a8384df34
+// sym: ?FUN_0033cec0@fn_f0814e11@@YAXPAULuaVMMatchState@@PAULuaVMLBuffer@@PBD2@Z @a9a0fa6f5bb2 @w0f7a8384df34 @vc1bf7642c2c9
 // STATUS: equivalent (tools/equiv.py level 3: 2485 inputs, branch coverage 22/22)
 // FUN_0033cec0 @ 0x0033cec0
 // lstrlib add_s (gsub's replacement: a string with %n captures, or a function)
@@ -756,7 +756,7 @@ void FUN_0033cec0(LuaVMMatchState* ms, LuaVMLBuffer* b, const char* s, const cha
 
 
 // 0x0033d1c0 FUN_0033d1c0 (219 B): equivalent/0x0033d1c0.cpp
-// sym: ?FUN_0033d1c0@fn_f0814e11@@YAXPAULuaVMLBuffer@@PAULuaVMState@@H@Z @c891a623335d @w058690e0665a
+// sym: ?FUN_0033d1c0@fn_f0814e11@@YAXPAULuaVMLBuffer@@PAULuaVMState@@H@Z @c891a623335d @w058690e0665a @vb8e6d52c8724
 // STATUS: equivalent (tools/equiv.py level 3: 151 inputs, branch coverage 19/19)
 // FUN_0033d1c0 @ 0x0033d1c0
 // lstrlib addquoted (format's %q)
@@ -794,7 +794,7 @@ void FUN_0033d1c0(LuaVMLBuffer* b, LuaVMState* L, int arg) {
 
 
 // 0x0033d310 FUN_0033d310 (235 B): equivalent/0x0033d310.cpp
-// sym: ?FUN_0033d310@fn_f0814e11@@YAPBDPBDPAULuaVMState@@PADPAH@Z @bf8c403356cc @w4c37d675dad1
+// sym: ?FUN_0033d310@fn_f0814e11@@YAPBDPBDPAULuaVMState@@PADPAH@Z @bf8c403356cc @w4c37d675dad1 @v9a793d46c1f0
 // STATUS: equivalent (tools/equiv.py level 3: 2655 inputs, branch coverage 18/18)
 // FUN_0033d310 @ 0x0033d310
 // lstrlib scanformat

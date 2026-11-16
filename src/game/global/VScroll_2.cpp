@@ -330,7 +330,7 @@ void VScroll::FUN_000e8cf0(int idx, int mode)
 
 
 // 0x000e8e80 VScroll::vfunc_7 (306 B): equivalent/0x000e8e80.cpp [wrapped: conflict: FEControl; FELayout; FEObject; VScroll]
-// sym: ?vfunc_7@VScroll@fn_000e8e80@@UAEDHH@Z @290c02e18ab5 @w22360d3a55fa
+// sym: ?vfunc_7@VScroll@fn_000e8e80@@UAEDHH@Z @290c02e18ab5 @w22360d3a55fa @v47b6f72775c9
 namespace fn_000e8e80 {
 // STATUS: equivalent (tools/equiv.py level 3: 84 inputs, branch coverage 29/34, incomplete)
 // VScroll::vfunc_7 @ 0x000e8e80

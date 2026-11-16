@@ -2073,7 +2073,7 @@ bool Target_13a5c0::Run() {
 } // namespace fn_f30d2d27
 
 // 0x0013a5f0 hulkfight::motion::AnimationAction::vfunc_5 (74 B): equivalent/0x0013a5f0.cpp
-// sym: ?vfunc_5@AnimationAction@motion@hulkfight@@UAE_NHH@Z @f4a65125a6a1 @we3b8b0e70dba
+// sym: ?vfunc_5@AnimationAction@motion@hulkfight@@UAE_NHH@Z @f4a65125a6a1 @we3b8b0e70dba @v4629948793e5
 // STATUS: equivalent (tools/equiv.py level 3: 3003 inputs, branch coverage 7/8, incomplete)
 // hulkfight::motion::AnimationAction::vfunc_5 @ 0x0013a5f0
 bool hulkfight::motion::AnimationAction::vfunc_5(hulk_intptr event, int unused) {
@@ -2115,7 +2115,7 @@ bool Target_13a670::Run() {
 } // namespace fn_f30d2d27
 
 // 0x0013a6a0 hulkfight::motion::AnimationVelocityScaledAction::vfunc_5 (74 B): equivalent/0x0013a6a0.cpp
-// sym: ?vfunc_5@AnimationVelocityScaledAction@motion@hulkfight@@UAE_NHH@Z @f4a65125a6a1 @we3b8b0e70dba
+// sym: ?vfunc_5@AnimationVelocityScaledAction@motion@hulkfight@@UAE_NHH@Z @f4a65125a6a1 @we3b8b0e70dba @v4d6a448f0db4
 // STATUS: equivalent (tools/equiv.py level 3: 3003 inputs, branch coverage 7/8, incomplete)
 // hulkfight::motion::AnimationVelocityScaledAction::vfunc_5 @ 0x0013a6a0
 bool hulkfight::motion::AnimationVelocityScaledAction::vfunc_5(hulk_intptr type, int unused) { if(type != 1) return true; Animation_13a6a0* anim = (Animation_13a6a0*)(*(Actor * *)&this->f_20)->FUN_000592a0(); State* state = (State*)anim->FUN_00059a40(); if (!state) return false; return !state->FUN_00222a00((*(void * *)&this->f_24)); }
@@ -2318,7 +2318,7 @@ AnimationVelocityScaledTrack* AnimationVelocityScaledTrack::v5(byte_13a9a0 x) {
 namespace fn_f30d2d27 {
 
 // 0x0013a9e0 hulkfight::motion::FrameCondition::vfunc_6 (330 B): equivalent/0x0013a9e0.cpp
-// sym: ?vfunc_6@FrameCondition@fn_f30d2d27@@UAEDHPAVParams_13a9e0@fight@@H@Z @8a1cce5c2a27 @wd3bb9be582db
+// sym: ?vfunc_6@FrameCondition@fn_f30d2d27@@UAEDHPAVParams_13a9e0@fight@@H@Z @8a1cce5c2a27 @wd3bb9be582db @v8e322118fd8e
 // STATUS: equivalent (tools/equiv.py level 3: 3035 inputs, branch coverage 30/30; Wine build 3036 inputs, 30/30)
 // hulkfight::motion::FrameCondition::vfunc_6 @ 0x0013a9e0
 char FrameCondition::vfunc_6(int a, fight::Params_13a9e0 *params, int c)
@@ -2353,7 +2353,7 @@ char FrameCondition::vfunc_6(int a, fight::Params_13a9e0 *params, int c)
 } // namespace fn_f30d2d27
 
 // 0x0013ab50 hulkfight::motion::FrameReachedCondition::vfunc_6 (459 B): equivalent/0x0013ab50.cpp [wrapped: conflict: FUN_00059a40]
-// sym: ?vfunc_6@FrameReachedCondition@fn_0013ab50@@UAEDHPAVParams_13ab50@fight@2@H@Z @0a29ee7495d4 @w007bf94d7887
+// sym: ?vfunc_6@FrameReachedCondition@fn_0013ab50@@UAEDHPAVParams_13ab50@fight@2@H@Z @0a29ee7495d4 @w007bf94d7887 @v7c36010794e2
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)
@@ -2576,7 +2576,7 @@ void AnimationAction::Destroy() {
 
 
 // 0x0013adc0 hulkfight::motion::AnimationAction::vfunc_4 (88 B): equivalent/0x0013adc0.cpp
-// sym: ?vfunc_4@AnimationAction@motion@hulkfight@@UAEXXZ @3d982c555041 @w794e7460a0a1
+// sym: ?vfunc_4@AnimationAction@motion@hulkfight@@UAEXXZ @3d982c555041 @w794e7460a0a1 @v3b2210e6cf5d
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // hulkfight::motion::AnimationAction::vfunc_4 @ 0x0013adc0
 void hulkfight::motion::AnimationAction::vfunc_4() { if ((*(AnimationClip * *)&this->f_24)) { Link* link = (Link*)(*(Context_13adc0 * *)&this->f_20)->FUN_000592a0(); Controller* controller = (Controller*)link->FUN_00059a40(); if (controller) { if ((*(AnimationClip * *)&this->f_24)->flag) controller->FUN_00222b50((*(AnimationClip * *)&this->f_24), 0, -1.0f); else controller->FUN_00222970((*(AnimationClip * *)&this->f_24), 0); if ((*(AnimationClip * *)&this->f_24)) { (*(AnimationClip * *)&this->f_24)->vfunc_1(); (*(AnimationClip * *)&this->f_24) = 0; } } } }
@@ -2678,7 +2678,7 @@ void AnimationAction::Destroy() {
 
 
 // 0x0013af20 hulkfight::motion::AnimationPhaseMatchedAction::vfunc_5 (288 B): equivalent/0x0013af20.cpp
-// sym: ?vfunc_5@AnimationPhaseMatchedAction@motion@hulkfight@@UAE_NHH@Z @4c42a813c5ab @wf040abf8a17a
+// sym: ?vfunc_5@AnimationPhaseMatchedAction@motion@hulkfight@@UAE_NHH@Z @4c42a813c5ab @wf040abf8a17a @vb658d5b24ed8
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // hulkfight::motion::AnimationPhaseMatchedAction::vfunc_5 @ 0x0013af20
 bool hulkfight::motion::AnimationPhaseMatchedAction::vfunc_5(hulk_intptr flag, int unused) {
@@ -2886,7 +2886,7 @@ void AnimationAction::Destroy() {
 
 
 // 0x0013b220 hulkfight::motion::AnimationChargeAction::vfunc_5 (127 B): equivalent/0x0013b220.cpp
-// sym: ?vfunc_5@AnimationChargeAction@motion@hulkfight@@UAE_NHH@Z @dfe5a263177f @wf35148dff070
+// sym: ?vfunc_5@AnimationChargeAction@motion@hulkfight@@UAE_NHH@Z @dfe5a263177f @wf35148dff070 @v1988a8f5da49
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // hulkfight::motion::AnimationChargeAction::vfunc_5 @ 0x0013b220
 bool hulkfight::motion::AnimationChargeAction::vfunc_5(hulk_intptr skip, int unused) {
@@ -4314,7 +4314,7 @@ template class fight::ParamName<hulkfight::motion::AnimationVelocityScaledTrack>
 
 
 // 0x0013c530 FUN_0013c530 (231 B): equivalent/0x0013c530.cpp [wrapped: conflict: fight::ParamEnumConstList; fight::ParamFloatConstRange; fight::ParamName]
-// sym: ?FUN_0013c530@fn_0013c530@@YAXXZ @05f69ba953ea @w98adf8dce2fe
+// sym: ?FUN_0013c530@fn_0013c530@@YAXXZ @05f69ba953ea @w98adf8dce2fe @v593f1ed8df6c
 namespace fn_0013c530 {
 // STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 8/8)
 // FUN_0013c530 @ 0x0013c530
@@ -4728,7 +4728,7 @@ extern "C" void __cdecl FUN_0013d780(Target* t, const char* name) {
 
 
 // 0x0013de80 hulkfight::motion::AnimationChargeAction::vfunc_3 (488 B): equivalent/0x0013de80.cpp [wrapped: conflict: AnimationChargeAction; FUN_000592a0; World; content::LoadInventory::DynamicCaster (+1)]
-// sym: ?vfunc_3@AnimationChargeAction@fn_0013de80@@UAEDHH@Z @b52170e99310 @w83f935dfe99c
+// sym: ?vfunc_3@AnimationChargeAction@fn_0013de80@@UAEDHH@Z @b52170e99310 @w83f935dfe99c @v81cc63a9885f
 namespace fn_0013de80 {
 // STATUS: equivalent (tools/equiv.py level 3: 3008 inputs, branch coverage 16/16)
 // hulkfight::motion::AnimationChargeAction::vfunc_3 @ 0x0013de80
@@ -4943,7 +4943,7 @@ char AnimationChargeAction::vfunc_3(int a, int b)
 
 
 // 0x0013e070 hulkfight::motion::AnimationLinkedAction::vfunc_3 (699 B): equivalent/0x0013e070.cpp [wrapped: conflict: Animation; FUN_00059a40; World; choreo2::Driver (+2)]
-// sym: ?vfunc_3@AnimationLinkedAction@fn_0013e070@@UAE_NHH@Z @42864d7bfd25 @w99c2b3b54875
+// sym: ?vfunc_3@AnimationLinkedAction@fn_0013e070@@UAE_NHH@Z @42864d7bfd25 @w99c2b3b54875 @v86f51d1a9179
 namespace fn_0013e070 {
 // STATUS: equivalent (tools/equiv.py level 3: 3290 inputs, branch coverage 37/40, incomplete; Wine build 745 inputs, 37/40)
 // hulkfight::motion::AnimationLinkedAction::vfunc_3 @ 0x0013e070

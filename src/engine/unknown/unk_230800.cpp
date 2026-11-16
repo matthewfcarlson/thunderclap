@@ -124,7 +124,7 @@ void Tree_2308a0::Replace(Node* n) {
 namespace fn_f39652ec {
 
 // 0x00230900 FUN_00230900 (599 B): equivalent/0x00230900.cpp
-// sym: ?FUN_00230900@RbTree_230900@fn_f39652ec@@QAEXPAURbNode_230900@2@@Z @a6569af7fff5 @w5e6f89aab37e
+// sym: ?FUN_00230900@RbTree_230900@fn_f39652ec@@QAEXPAURbNode_230900@2@@Z @a6569af7fff5 @w5e6f89aab37e @vc57dcb0179ca
 // STATUS: equivalent (tools/equiv.py level 3: 3139 inputs, branch coverage 59/60, incomplete)
 // FUN_00230900 @ 0x00230900
 // Red-black tree erase rebalancing: 'x' is the node that carries the extra black.
@@ -328,7 +328,7 @@ Node* Tree_230be0::FindNode(CompareFn_230be0 compare, void* value) {
 
 
 // 0x00230c30 FUN_00230c30 (423 B): equivalent/0x00230c30.cpp
-// sym: ?Insert@Tree_230c30@fn_f39652ec@@QAEXPAUNode@2@P6AH00@Z0@Z @ab6a17d45966 @w277f767e9497
+// sym: ?Insert@Tree_230c30@fn_f39652ec@@QAEXPAUNode@2@P6AH00@Z0@Z @ab6a17d45966 @w277f767e9497 @vf86858d7dbb3
 // STATUS: equivalent (tools/equiv.py level 3: 12082 inputs, branch coverage 35/38, incomplete; run with --inputs 12000)
 // FUN_00230c30 @ 0x00230c30
 void Tree_230c30::Insert(Node *node, int (__cdecl *cmp)(Node *, Node *), Node *parent)
@@ -431,7 +431,7 @@ void Tree_230c30::Insert(Node *node, int (__cdecl *cmp)(Node *, Node *), Node *p
 
 
 // 0x00230de0 FUN_00230de0 (179 B): equivalent/0x00230de0.cpp
-// sym: ?FUN_00230de0@Tree_230de0@fn_f39652ec@@QAEXPAUNode@2@@Z @7ff310ea89ff @w247877d6fbdf
+// sym: ?FUN_00230de0@Tree_230de0@fn_f39652ec@@QAEXPAUNode@2@@Z @7ff310ea89ff @w247877d6fbdf @vef202b80e86c
 // STATUS: equivalent (tools/equiv.py level 3: 704 inputs, branch coverage 24/24)
 // FUN_00230de0 @ 0x00230de0
 void Tree_230de0::FUN_00230de0(Node* node) {

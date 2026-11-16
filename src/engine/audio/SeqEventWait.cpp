@@ -221,7 +221,7 @@ extern "C" int* FUN_00250150() {
 } // namespace fn_f0ad381b
 
 // 0x00250160 audio::SeqActionWait::vfunc_6 (162 B): equivalent/0x00250160.cpp
-// sym: ?vfunc_6@SeqActionWait@audio@@UAEXH@Z @17f68bcf9ce7 @wc7f7d908503c
+// sym: ?vfunc_6@SeqActionWait@audio@@UAEXH@Z @17f68bcf9ce7 @wc7f7d908503c @va7dfe5497c95
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 9/9)
 // audio::SeqActionWait::vfunc_6 @ 0x00250160
 void audio::SeqActionWait::vfunc_6(hulk_intptr __p0) { Ctx_250160 * ctx = (Ctx_250160 *)__p0;
@@ -291,7 +291,7 @@ int audio::SeqActionWait::vfunc_5(int ) {
 
 
 // 0x00250290 FUN_00250290 (86 B): equivalent/0x00250290.cpp [wrapped: conflict: audio::SeqEventWaitType]
-// sym: ?FUN_00250290@SeqEventWaitType@audio@fn_00250290@@QAEXXZ @126891e15ac6 @w9f7899d44e64
+// sym: ?FUN_00250290@SeqEventWaitType@audio@fn_00250290@@QAEXXZ @126891e15ac6 @w9f7899d44e64 @v0a4b37d45a86
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)
@@ -396,7 +396,7 @@ SeqEventWait* SeqEventWait::f4(int flags) {
 } // namespace fn_f0ad381b
 
 // 0x00250380 audio::SeqEventWait::vfunc_1 (131 B): equivalent/0x00250380.cpp [wrapped: conflict: audio::SeqEvent; audio::SeqEventWait]
-// sym: ?vfunc_1@SeqEventWait@audio@fn_00250380@@QAEHPAUWriter_250380@3@@Z @02be8d9faf28 @w67d7b9d8848a
+// sym: ?vfunc_1@SeqEventWait@audio@fn_00250380@@QAEHPAUWriter_250380@3@@Z @02be8d9faf28 @w67d7b9d8848a @v3f337cec8ce1
 namespace fn_00250380 {
 // STATUS: equivalent (tools/equiv.py level 3: 1600 inputs, branch coverage 10/10)
 // audio::SeqEventWait::vfunc_1 @ 0x00250380

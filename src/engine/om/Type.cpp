@@ -145,7 +145,7 @@ Node* __cdecl next(Header* root, Node* x) {
 
 
 // 0x00258230 FUN_00258230 (604 B): equivalent/0x00258230.cpp
-// sym: _FUN_00258230 @394c7c009b90 @w3415c875f53d
+// sym: _FUN_00258230 @394c7c009b90 @w3415c875f53d @v77f7b441fb1c
 // STATUS: equivalent (tools/equiv.py level 3: 205 inputs, branch coverage 60/60)
 // FUN_00258230 @ 0x00258230
 // Red-black tree erase rebalancing: 'x' is the node that carries the extra black.
@@ -422,7 +422,7 @@ bool __cdecl FUN_00258530(OmTree* tree, OmType* item, const OmKey* key)
 
 
 // 0x00258730 FUN_00258730 (182 B): equivalent/0x00258730.cpp
-// sym: ?FUN_00258730@fn_ff0fd322@@YAXPAUOmTree@@PAUOmType@@@Z @b7d30cde48e3 @w1ec424f7e1f7
+// sym: ?FUN_00258730@fn_ff0fd322@@YAXPAUOmTree@@PAUOmType@@@Z @b7d30cde48e3 @w1ec424f7e1f7 @v458ffa82f07e
 // STATUS: equivalent (tools/equiv.py level 3: 2941 inputs, branch coverage 24/24)
 // FUN_00258730 @ 0x00258730
 // The tree of om types by key (records.h OmType's node; 0x004cd1a8 is an OmTree without the count).

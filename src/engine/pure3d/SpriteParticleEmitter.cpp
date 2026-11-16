@@ -762,7 +762,7 @@ EmitterBlendState_2d4040::EmitterBlendState_2d4040(Src_2d4040* s) throw() {
 
 
 // 0x002d4200 FUN_002d4200 (261 B): equivalent/0x002d4200.cpp
-// sym: ?FUN_002d4200@State_2d4200@fn_f0cbe20f@@QAEPAU12@XZ @0d192875ef58 @wd721db1dba4b
+// sym: ?FUN_002d4200@State_2d4200@fn_f0cbe20f@@QAEPAU12@XZ @0d192875ef58 @wd721db1dba4b @vc7e19973aa1b
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_002d4200 @ 0x002d4200
 State_2d4200* State_2d4200::FUN_002d4200() {
@@ -996,7 +996,7 @@ void pure3d::SpriteParticleEmitter::vfunc_16() {
 
 
 // 0x002d4530 pure3d::SpriteParticleEmitter::vfunc_18 (118 B): equivalent/0x002d4530.cpp [wrapped: conflict: pure3d::SpriteParticleEmitter]
-// sym: ?vfunc_18@SpriteParticleEmitter@pure3d@fn_002d4530@@UAEMH@Z @21dddd51eef6 @w11623ad8cd91
+// sym: ?vfunc_18@SpriteParticleEmitter@pure3d@fn_002d4530@@UAEMH@Z @21dddd51eef6 @w11623ad8cd91 @vfd96d02141b1
 namespace fn_002d4530 {
 // STATUS: equivalent (tools/equiv.py level 3: 3049 inputs, branch coverage 18/18)
 // pure3d::SpriteParticleEmitter::vfunc_18 @ 0x002d4530
@@ -1100,7 +1100,7 @@ V* SpriteParticleEmitter::vfunc_22(V* out) {
 } // namespace fn_f0cbe20f
 
 // 0x002d4650 pure3d::SpriteParticleEmitter::vfunc_10 (172 B): equivalent/0x002d4650.cpp [wrapped: conflict: pure3d::SpriteParticleEmitter]
-// sym: ?vfunc_10@SpriteParticleEmitter@pure3d@fn_002d4650@@UAEXXZ @3a5d709d16f8 @we9733626e8b1
+// sym: ?vfunc_10@SpriteParticleEmitter@pure3d@fn_002d4650@@UAEXXZ @3a5d709d16f8 @we9733626e8b1 @va8b4da386758
 namespace fn_002d4650 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // pure3d::SpriteParticleEmitter::vfunc_10 @ 0x002d4650
@@ -1130,7 +1130,7 @@ void SpriteParticleEmitter::vfunc_10() {
 
 
 // 0x002d49c0 FUN_002d49c0 (85 B): equivalent/0x002d49c0.cpp
-// sym: ?FUN_002d49c0@Random_2d49c0@owners@@QAEHHH@Z @e5c8b242a819 @w4e8fc7f52f9f
+// sym: ?FUN_002d49c0@Random_2d49c0@owners@@QAEHHH@Z @e5c8b242a819 @w4e8fc7f52f9f @v5b122611eac9
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_002d49c0 @ 0x002d49c0
 int owners::Random_2d49c0::FUN_002d49c0(int base, int range) {
@@ -1143,7 +1143,7 @@ int owners::Random_2d49c0::FUN_002d49c0(int base, int range) {
 
 
 // 0x002d4a20 FUN_002d4a20 (300 B): equivalent/0x002d4a20.cpp [wrapped: conflict: ParticleEmitter]
-// sym: ??0ParticleEmitter@fn_002d4a20@@QAE@ABV01@@Z @8e2e03cb4aa4 @w17a55f045ece
+// sym: ??0ParticleEmitter@fn_002d4a20@@QAE@ABV01@@Z @8e2e03cb4aa4 @w17a55f045ece @v3bee4180309b
 namespace fn_002d4a20 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 14/14)
 // FUN_002d4a20 @ 0x002d4a20
@@ -1298,7 +1298,7 @@ ParticleEmitter_2d4b50::~ParticleEmitter_2d4b50() {
 } // namespace fn_f0cbe20f
 
 // 0x002d4bd0 pure3d::ParticleEmitter::vfunc_19 (368 B): equivalent/0x002d4bd0.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?vfunc_19@ParticleEmitter@fn_002d4bd0@@UAEXM@Z @19577e393752 @wfd3b67bfdbb5
+// sym: ?vfunc_19@ParticleEmitter@fn_002d4bd0@@UAEXM@Z @19577e393752 @wfd3b67bfdbb5 @vad6f99ba5848
 namespace fn_002d4bd0 {
 // STATUS: equivalent (tools/equiv.py level 3: 82 inputs, branch coverage 15/16, incomplete)
 // pure3d::ParticleEmitter::vfunc_19 @ 0x002d4bd0
@@ -1498,7 +1498,7 @@ pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
 namespace fn_f0cbe20f {
 
 // 0x002d4e80 FUN_002d4e80 (522 B): equivalent/0x002d4e80.cpp
-// sym: ?FUN_002d4e80@Config_2d4e80@fn_f0cbe20f@@QAEPAU12@PBU12@@Z @e71d20c0f286 @wcf06203768be
+// sym: ?FUN_002d4e80@Config_2d4e80@fn_f0cbe20f@@QAEPAU12@PBU12@@Z @e71d20c0f286 @wcf06203768be @vbc7b0b459f94
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 6/6)
 // FUN_002d4e80 @ 0x002d4e80
 Config_2d4e80 *Config_2d4e80::FUN_002d4e80(const Config_2d4e80 *src)
@@ -1613,7 +1613,7 @@ void Blend_2d50c0::FUN_002d50c0(Ctx *ctx, const Key_2d50c0 *a, const Key_2d50c0 
 
 
 // 0x002d53d0 FUN_002d53d0 (589 B): equivalent/0x002d53d0.cpp
-// sym: ?FUN_002d53d0@Emitter_2d53d0@fn_f0cbe20f@@QAEXPAUStream@2@PAUDesc_2d53d0@2@PAUMatrix@2@@Z @078df37a71ec @w5e63090fcc0a
+// sym: ?FUN_002d53d0@Emitter_2d53d0@fn_f0cbe20f@@QAEXPAUStream@2@PAUDesc_2d53d0@2@PAUMatrix@2@@Z @078df37a71ec @w5e63090fcc0a @vb3940ee14297
 // STATUS: equivalent (tools/equiv.py level 3: 20010 inputs, branch coverage 12/12)
 // FUN_002d53d0 @ 0x002d53d0
 void Emitter_2d53d0::FUN_002d53d0(Stream* s, Desc_2d53d0* d, Matrix* parent)
@@ -1685,7 +1685,7 @@ pure3d::SpriteParticleEmitter::OverLifeAttributes::~OverLifeAttributes() {}
 
 
 // 0x002d5640 FUN_002d5640 (1063 B): equivalent/0x002d5640.cpp [wrapped: conflict: pure3d::SpriteParticleEmitter]
-// sym: ??0OverLifeAttributes@SpriteParticleEmitter@pure3d@fn_002d5640@@QAE@PAVSource_2d5640@3@HH@Z @c4e5abc50aa4 @wa612b6f9b663
+// sym: ??0OverLifeAttributes@SpriteParticleEmitter@pure3d@fn_002d5640@@QAE@PAVSource_2d5640@3@HH@Z @c4e5abc50aa4 @wa612b6f9b663 @vd90a827e9571
 namespace fn_002d5640 {
 // STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 38/38)
 // FUN_002d5640 @ 0x002d5640
@@ -1967,7 +1967,7 @@ void pure3d::SpriteParticleEmitter::vfunc_15() {
 
 
 // 0x002d5d10 pure3d::SpriteParticleEmitter::vfunc_17 (182 B): equivalent/0x002d5d10.cpp [wrapped: conflict: pure3d::SpriteParticleEmitter]
-// sym: ?vfunc_17@SpriteParticleEmitter@pure3d@fn_002d5d10@@QAEXIM@Z @e446f9f85307 @w0d1a3c62a0bc
+// sym: ?vfunc_17@SpriteParticleEmitter@pure3d@fn_002d5d10@@QAEXIM@Z @e446f9f85307 @w0d1a3c62a0bc @vd98c8401f49e
 namespace fn_002d5d10 {
 // STATUS: equivalent (tools/equiv.py level 3: 3030 inputs, branch coverage 20/20)
 // pure3d::SpriteParticleEmitter::vfunc_17 @ 0x002d5d10
@@ -2044,7 +2044,7 @@ void SpriteParticleEmitter_2d5f20::target(int a, int b, int c) {
 } // namespace fn_f0cbe20f
 
 // 0x002d5fe0 FUN_002d5fe0 (200 B): equivalent/0x002d5fe0.cpp
-// sym: ?FUN_002d5fe0@SpriteParticleEmitter@pure3d@@QAEXM@Z @cb38ccd3eafe @w712cdf08120b
+// sym: ?FUN_002d5fe0@SpriteParticleEmitter@pure3d@@QAEXM@Z @cb38ccd3eafe @w712cdf08120b @v9a49213dacaf
 // STATUS: equivalent (tools/equiv.py level 3: 105 inputs, branch coverage 14/14)
 // FUN_002d5fe0 @ 0x002d5fe0
 void pure3d::SpriteParticleEmitter::FUN_002d5fe0(float dt) {
@@ -2099,7 +2099,7 @@ SpriteParticleEmitter_2d63a0::SpriteParticleEmitter_2d63a0() {
 } // namespace fn_f0cbe20f
 
 // 0x002d63f0 FUN_002d63f0 (413 B): equivalent/0x002d63f0.cpp [wrapped: conflict: SpriteParticleEmitter]
-// sym: ??0SpriteParticleEmitter@fn_002d63f0@@QAE@ABV01@@Z @81bad6605a30 @w3ece43f4e219
+// sym: ??0SpriteParticleEmitter@fn_002d63f0@@QAE@ABV01@@Z @81bad6605a30 @w3ece43f4e219 @vb20cc2b921aa
 namespace fn_002d63f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 35 inputs, branch coverage 28/28)
 // FUN_002d63f0 @ 0x002d63f0

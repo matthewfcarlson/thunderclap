@@ -4,7 +4,7 @@
 
 
 // 0x0002f9a0 Closure3<CActorManager,void,const_char_*,float,float>::vfunc_2 (28 B): equivalent/0x0002f9a0.cpp [isolated: conflict: Args; on include/gen/ and not mergeable]
-// sym: ?vfunc_2@?$Closure3@VCActorManager@@XPBDMM@@UAEXPAX00@Z @737c210bc5da @w4be225ef0d24
+// sym: ?vfunc_2@?$Closure3@VCActorManager@@XPBDMM@@UAEXPAX00@Z @737c210bc5da @w4be225ef0d24 @v9e5cdf2552a3
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Closure3<CActorManager,void,const_char_*,float,float>::vfunc_2 @ 0x0002f9a0
 #include "gen/global.h"

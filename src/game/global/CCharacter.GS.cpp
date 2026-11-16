@@ -119,7 +119,7 @@ public:
 
 
 // 0x000382c0 FUN_000382c0 (318 B): equivalent/0x000382c0.cpp
-// sym: ?FUN_000382c0@Camera@fn_f21e3c3e@@QAE_NPAUVec3_382c0@2@@Z @0a7c1fafe546 @w2e92b2428bc0
+// sym: ?FUN_000382c0@Camera@fn_f21e3c3e@@QAE_NPAUVec3_382c0@2@@Z @0a7c1fafe546 @w2e92b2428bc0 @v79d9d913d392
 // STATUS: equivalent (tools/equiv.py level 3: 3031 inputs, branch coverage 16/16)
 // FUN_000382c0 @ 0x000382c0
     // equiv-conv: FUN_00059a50 ecx stack
@@ -166,7 +166,7 @@ bool Camera::FUN_000382c0(Vec3_382c0 *out)
 } // namespace fn_f21e3c3e
 
 // 0x0003b1c0 FUN_0003b1c0 (355 B): equivalent/0x0003b1c0.cpp [wrapped: conflict: World]
-// sym: ?FUN_0003b1c0@Timer@fn_0003b1c0@@QAE_NM_N@Z @01b81550a43b @w0c40b05b49d9
+// sym: ?FUN_0003b1c0@Timer@fn_0003b1c0@@QAE_NM_N@Z @01b81550a43b @w0c40b05b49d9 @vb1b2df5d7d11
 namespace fn_0003b1c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20014 inputs, branch coverage 30/30)
 // FUN_0003b1c0 @ 0x0003b1c0
@@ -284,7 +284,7 @@ bool Timer::FUN_0003b1c0(float dt, bool force)
 
 
 // 0x0003c1d0 FUN_0003c1d0 (4074 B): equivalent/0x0003c1d0.cpp [wrapped: conflict: DAT_004e2198; DAT_004e219c]
-// sym: ?FUN_0003c1d0@Character_3c1d0@fn_0003c1d0@@QAEXHM@Z @d2650de39232 @w80d30ab4bc9f
+// sym: ?FUN_0003c1d0@Character_3c1d0@fn_0003c1d0@@QAEXHM@Z @d2650de39232 @w80d30ab4bc9f @vf8c025ee60e6
 namespace fn_0003c1d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3284 inputs, branch coverage 206/224, incomplete)
 // FUN_0003c1d0 @ 0x0003c1d0
@@ -903,7 +903,7 @@ void Entity::FUN_0003f650()
 } // namespace fn_f21e3c3e
 
 // 0x000401a0 FUN_000401a0 (590 B): equivalent/0x000401a0.cpp [wrapped: conflict: World]
-// sym: ?FUN_000401a0@Character_401a0@fn_000401a0@@QAEXXZ @f5413cb56748 @wbf957dda2d54
+// sym: ?FUN_000401a0@Character_401a0@fn_000401a0@@QAEXXZ @f5413cb56748 @wbf957dda2d54 @v307c31c7e160
 namespace fn_000401a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 19195 inputs, branch coverage 38/38)
 // FUN_000401a0 @ 0x000401a0
@@ -1056,7 +1056,7 @@ void Character_401a0::FUN_000401a0()
 
 
 // 0x00040970 FUN_00040970 (1089 B): equivalent/0x00040970.cpp [wrapped: conflict: World]
-// sym: ?FUN_00040970@Actor_40970@fn_00040970@@QAEXPAUWorld@2@M@Z @a35ebee64893 @wb55044f6312f
+// sym: ?FUN_00040970@Actor_40970@fn_00040970@@QAEXPAUWorld@2@M@Z @a35ebee64893 @wb55044f6312f @vaa9c0f6f0313
 namespace fn_00040970 {
 // STATUS: equivalent (tools/equiv.py level 3: 3104 inputs, branch coverage 76/78, incomplete)
 // FUN_00040970 @ 0x00040970

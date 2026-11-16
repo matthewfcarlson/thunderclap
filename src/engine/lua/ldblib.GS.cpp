@@ -53,7 +53,7 @@ struct Frame_33aa40 {
 
 
 // 0x0033a080 FUN_0033a080 (638 B): equivalent/0x0033a080.cpp
-// sym: _FUN_0033a080 @aa67f72dd789 @wabbbe981e0ba
+// sym: _FUN_0033a080 @aa67f72dd789 @wabbbe981e0ba @v6e9dcf9097ca
 // STATUS: equivalent (tools/equiv.py level 3: 3098 inputs, branch coverage 23/24, incomplete)
 // FUN_0033a080 @ 0x0033a080
 // db_getinfo
@@ -131,7 +131,7 @@ extern "C" int __cdecl FUN_0033a080(LuaVMState *L)
 
 
 // 0x0033a340 FUN_0033a340 (234 B): equivalent/0x0033a340.cpp
-// sym: _FUN_0033a340 @0b85159dad48 @w587e96961e7f
+// sym: _FUN_0033a340 @0b85159dad48 @w587e96961e7f @v36f517724cff
 // STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 6/6)
 // FUN_0033a340 @ 0x0033a340
 // db_getlocal
@@ -162,7 +162,7 @@ extern "C" int __cdecl FUN_0033a340(LuaVMState* state) {
 
 
 // 0x0033a430 FUN_0033a430 (206 B): equivalent/0x0033a430.cpp
-// sym: _FUN_0033a430 @90e29219b96c @w1b1eb1116a97
+// sym: _FUN_0033a430 @90e29219b96c @w1b1eb1116a97 @vbe8635ff34df
 // STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 4/4)
 // FUN_0033a430 @ 0x0033a430
 // db_setlocal
@@ -192,7 +192,7 @@ extern "C" int __cdecl FUN_0033a430(LuaVMState* state) {
 
 
 // 0x0033a970 FUN_0033a970 (206 B): equivalent/0x0033a970.cpp
-// sym: _FUN_0033a970 @13c6df3a3472 @w06d00de33826
+// sym: _FUN_0033a970 @13c6df3a3472 @w06d00de33826 @v350085d8e5f4
 // STATUS: equivalent (tools/equiv.py level 3: 2586 inputs, branch coverage 6/6)
 // FUN_0033a970 @ 0x0033a970
 // db_debug: a line-by-line console until "cont".
@@ -213,7 +213,7 @@ extern "C" int __cdecl FUN_0033a970(LuaVMState *state) {
 
 
 // 0x0033aa40 FUN_0033aa40 (574 B): equivalent/0x0033aa40.cpp
-// sym: _FUN_0033aa40 @75914efbe89a @w38d9c6b8e514
+// sym: _FUN_0033aa40 @75914efbe89a @w38d9c6b8e514 @v269264067498
 // STATUS: equivalent (tools/equiv.py level 3: 2615 inputs, branch coverage 32/32)
 // FUN_0033aa40 @ 0x0033aa40
 // Lua 5.0 errorfb (stack traceback builder)

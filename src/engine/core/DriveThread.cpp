@@ -360,7 +360,7 @@ void __fastcall Target(Thing_273120* self, void*, u8_273120 value) {
 
 
 // 0x00273140 FUN_00273140 (108 B): equivalent/0x00273140.cpp
-// sym: ?FUN_00273140@Queue_273140@fn_f30ddaac@@QAEPAUNode@2@PAI@Z @b2f75a021ad7 @w9d36f455ac7b
+// sym: ?FUN_00273140@Queue_273140@fn_f30ddaac@@QAEPAUNode@2@PAI@Z @b2f75a021ad7 @w9d36f455ac7b @vb2ea8193d91f
 // STATUS: equivalent (tools/equiv.py level 3: 19878 inputs, branch coverage 8/8)
 // FUN_00273140 @ 0x00273140
 Node* Queue_273140::FUN_00273140(unsigned int* index) {
@@ -433,7 +433,7 @@ extern "C" int __cdecl FUN_002731d0(hulk_intptr argument) {
 
 
 // 0x002733c0 FUN_002733c0 (180 B): equivalent/0x002733c0.cpp
-// sym: ?FUN_002733c0@DriveThread_2733c0@fn_f30ddaac@@QAEPAU12@II@Z @9d012e356273 @wc9ca7ae2f499
+// sym: ?FUN_002733c0@DriveThread_2733c0@fn_f30ddaac@@QAEPAU12@II@Z @9d012e356273 @wc9ca7ae2f499 @va5cd630b592d
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_002733c0 @ 0x002733c0
 DriveThread_2733c0* DriveThread_2733c0::FUN_002733c0(hulk_uintptr arg1, hulk_uintptr arg2) {

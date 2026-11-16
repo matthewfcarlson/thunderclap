@@ -180,7 +180,7 @@ SuckInPropsAction_176020::~SuckInPropsAction_176020() {
 } // namespace fn_f3a32d27
 
 // 0x00176060 hulkfight::motion::SuckInPropsAction::vfunc_5 (517 B): equivalent/0x00176060.cpp
-// sym: ?vfunc_5@SuckInPropsAction@motion@hulkfight@@UAE_NHM@Z @ee0f31f273cc @w7ceacc3075b7
+// sym: ?vfunc_5@SuckInPropsAction@motion@hulkfight@@UAE_NHM@Z @ee0f31f273cc @w7ceacc3075b7 @v4a0b21bc7616
 // STATUS: equivalent (tools/equiv.py level 3: 20041 inputs, branch coverage 31/32, incomplete)
 // hulkfight::motion::SuckInPropsAction::vfunc_5 @ 0x00176060
 namespace hulkfight { namespace motion {

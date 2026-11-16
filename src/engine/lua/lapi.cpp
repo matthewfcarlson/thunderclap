@@ -187,7 +187,7 @@ extern "C" void __cdecl FUN_00212e20(LuaVMState* L, int idx) {
 } // namespace fn_f4ee33a9
 
 // 0x00212e60 FUN_00212e60 (103 B): equivalent/0x00212e60.cpp [wrapped: code differs from its standalone build]
-// sym: _FUN_00212e60 @376f153c3155 @w9e65b924284f
+// sym: _FUN_00212e60 @376f153c3155 @w9e65b924284f @v99d7bcf18320
 namespace fn_00212e60 {
 // STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 8/8)
 // lua_replace: pop the top value into idx (the write barrier for a C upvalue).
@@ -226,7 +226,7 @@ extern "C" void __cdecl FUN_00212ed0(LuaVMState* L, int idx) {
 
 
 // 0x00212f00 FUN_00212f00 (27 B): equivalent/0x00212f00.cpp
-// sym: _FUN_00212f00 @af779f846ba2 @wf39dc8b2e0aa
+// sym: _FUN_00212f00 @af779f846ba2 @wf39dc8b2e0aa @vc5193cced38a
 // STATUS: equivalent (tools/equiv.py level 3: 3003 inputs, branch coverage 2/2)
 // lua_type: the type tag of the value at idx (LUA_TNONE -1 when absent).
 extern "C" int __cdecl FUN_00212f00(LuaVMState* L, int idx) {
@@ -260,7 +260,7 @@ extern "C" int __cdecl FUN_00212f40(LuaVMState* L, int idx) {
 
 
 // 0x00212f70 FUN_00212f70 (51 B): equivalent/0x00212f70.cpp
-// sym: _FUN_00212f70 @c029d65787d1 @web43671a6b44
+// sym: _FUN_00212f70 @c029d65787d1 @web43671a6b44 @vde1009b517f2
 // STATUS: equivalent (tools/equiv.py level 3: 3003 inputs, branch coverage 4/4)
 // lua_isnumber: the value at idx is a number or converts to one.
 extern "C" int __cdecl FUN_00212f70(LuaVMState* L, int idx) {
@@ -285,7 +285,7 @@ extern "C" int __cdecl FUN_00212fb0(LuaVMState* L, int idx) {
 
 
 // 0x00212fe0 FUN_00212fe0 (34 B): equivalent/0x00212fe0.cpp
-// sym: _FUN_00212fe0 @44231d3f7dbf @w085a447c3bea
+// sym: _FUN_00212fe0 @44231d3f7dbf @w085a447c3bea @v84c4ccf0e120
 // STATUS: equivalent (tools/equiv.py level 3: 3004 inputs, branch coverage 4/4)
 // lua_isuserdata: the value at idx is a full or light userdata.
 extern "C" int __cdecl FUN_00212fe0(LuaVMState* L, int idx) {
@@ -319,7 +319,7 @@ extern "C" int __cdecl FUN_002130a0(LuaVMState* L, int index1, int index2) {
 
 
 // 0x002130e0 FUN_002130e0 (55 B): equivalent/0x002130e0.cpp
-// sym: _FUN_002130e0 @9838312afc7e @wef758c084ba6
+// sym: _FUN_002130e0 @9838312afc7e @wef758c084ba6 @v6b4190f9d0d5
 // STATUS: equivalent (tools/equiv.py level 3: 3005 inputs, branch coverage 4/4)
 // lua_tonumber: the number at idx (converted from a string when it can be); 0 otherwise.
 extern "C" float __cdecl FUN_002130e0(LuaVMState* L, int idx) {
@@ -335,7 +335,7 @@ extern "C" float __cdecl FUN_002130e0(LuaVMState* L, int idx) {
 
 
 // 0x00213120 FUN_00213120 (54 B): equivalent/0x00213120.cpp
-// sym: _FUN_00213120 @c5b1f05a3464 @wd84a9595004e
+// sym: _FUN_00213120 @c5b1f05a3464 @wd84a9595004e @v1ccad33d8130
 // STATUS: equivalent (tools/equiv.py level 3: 3005 inputs, branch coverage 4/4)
 // lua_tointeger: the number at idx truncated to an integer (converted from a string when it can be); 0 otherwise.
 extern "C" int __cdecl FUN_00213120(LuaVMState* L, int idx) {
@@ -386,7 +386,7 @@ extern "C" unsigned int __cdecl FUN_002131f0(LuaVMState* L, int idx) {
 
 
 // 0x00213260 FUN_00213260 (39 B): equivalent/0x00213260.cpp
-// sym: _FUN_00213260 @72cb92e3aaf6 @w94328e78c427
+// sym: _FUN_00213260 @72cb92e3aaf6 @w94328e78c427 @v698917901a6a
 // STATUS: equivalent (tools/equiv.py level 3: 3004 inputs, branch coverage 4/4)
 // lua_touserdata: the block of the full userdata or the light userdata at idx; NULL otherwise.
 extern "C" void* __cdecl FUN_00213260(LuaVMState* L, int idx) {
@@ -412,7 +412,7 @@ extern "C" LuaVMState* __cdecl FUN_00213290(LuaVMState* L, int idx) {
 
 
 // 0x002132b0 FUN_002132b0 (77 B): equivalent/0x002132b0.cpp
-// sym: _FUN_002132b0 @1b8d56fbfc68 @wa03ce85b7549
+// sym: _FUN_002132b0 @1b8d56fbfc68 @wa03ce85b7549 @v1be758ad402f
 // STATUS: equivalent (tools/equiv.py level 3: 3024 inputs, branch coverage 13/13)
 // lua_topointer: the address of the table, function, thread or userdata at idx; NULL otherwise.
 extern "C" const void* __cdecl FUN_002132b0(LuaVMState* L, int idx) {
@@ -456,7 +456,7 @@ extern "C" void __cdecl FUN_00213340(LuaVMState* L, float n) {
 
 
 // 0x00213360 FUN_00213360 (25 B): equivalent/0x00213360.cpp
-// sym: _FUN_00213360 @5b1edf84b448 @weed379248c19
+// sym: _FUN_00213360 @5b1edf84b448 @weed379248c19 @va96e49638b6b
 // STATUS: equivalent (tools/equiv.py level 3: 2992 inputs, branch coverage 0/0)
 // lua_pushinteger.
 extern "C" void __cdecl FUN_00213360(LuaVMState* L, int n) {
@@ -482,7 +482,7 @@ extern "C" void __cdecl FUN_00213380(LuaVMState* L, const char* s, unsigned int 
 
 
 // 0x002133d0 FUN_002133d0 (107 B): equivalent/0x002133d0.cpp
-// sym: _FUN_002133d0 @2cc9a3e120b7 @w1431442576ef
+// sym: _FUN_002133d0 @2cc9a3e120b7 @w1431442576ef @vf35eac59c60f
 // STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 6/6)
 // lua_pushstring: push a copy of s (nil for NULL; a GC step first when due).
 extern "C" void __cdecl FUN_002133d0(LuaVMState* L, const char* s) {
@@ -573,7 +573,7 @@ extern "C" void __cdecl FUN_00213550(LuaVMState* L, void* p) {
 } // namespace fn_f4ee33a9
 
 // 0x00213570 FUN_00213570 (36 B): equivalent/0x00213570.cpp [wrapped: code differs from its standalone build]
-// sym: _FUN_00213570 @e468d440e1d0 @w5b9ef395bc04
+// sym: _FUN_00213570 @e468d440e1d0 @w5b9ef395bc04 @vb3a76bd0aec3
 namespace fn_00213570 {
 // STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 0/0)
 // lua_gettable: replace the key on top with t[key] for the table at idx (metamethods apply).
@@ -716,7 +716,7 @@ extern "C" void __cdecl FUN_00213800(LuaVMState* L, int idx) {
 
 
 // 0x00213870 FUN_00213870 (110 B): equivalent/0x00213870.cpp
-// sym: _FUN_00213870 @d7f68a7a9e7c @we4de6bcfba40
+// sym: _FUN_00213870 @d7f68a7a9e7c @we4de6bcfba40 @vf60d183547f1
 // STATUS: equivalent (tools/equiv.py level 3: 2999 inputs, branch coverage 6/6)
 // lua_rawseti: t[n] = the top value for the table at idx (no metamethods; the write barrier); pops it.
 extern "C" void __cdecl FUN_00213870(LuaVMState* L, int idx, int n) {
@@ -737,7 +737,7 @@ extern "C" void __cdecl FUN_00213870(LuaVMState* L, int idx, int n) {
 
 
 // 0x002138e0 FUN_002138e0 (112 B): equivalent/0x002138e0.cpp
-// sym: _FUN_002138e0 @14740bac8878 @wa48d92b296d9
+// sym: _FUN_002138e0 @14740bac8878 @wa48d92b296d9 @vc3cf58b55350
 // STATUS: equivalent (tools/equiv.py level 3: 3017 inputs, branch coverage 12/12)
 // lua_setmetatable: pop the top table (or nil) into the metatable of the table or userdata at objindex.
 extern "C" int __cdecl FUN_002138e0(LuaVMState* L, int objindex) {
@@ -778,7 +778,7 @@ extern "C" int __cdecl FUN_00213950(LuaVMState* L, int idx) {
 
 
 // 0x002139a0 FUN_002139a0 (33 B): equivalent/0x002139a0.cpp
-// sym: _FUN_002139a0 @7a4b97860670 @w6f765692b60d
+// sym: _FUN_002139a0 @7a4b97860670 @w6f765692b60d @v65267c687268
 // STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 0/0)
 // lua_call: call the function below the nargs top values.
 extern "C" void __cdecl FUN_002139a0(LuaVMState* L, int nargs, int nresults) {
@@ -872,7 +872,7 @@ extern "C" int __cdecl FUN_00213b60(LuaVMState* L, LuaVMWriter writer, void* dat
 
 
 // 0x00213ba0 FUN_00213ba0 (117 B): equivalent/0x00213ba0.cpp
-// sym: _FUN_00213ba0 @8d29388af301 @w8e3d6befaf8b
+// sym: _FUN_00213ba0 @8d29388af301 @w8e3d6befaf8b @v3851d16710e2
 // STATUS: equivalent (tools/equiv.py level 3: 3005 inputs, branch coverage 13/13)
 // lua_gc: stop, restart, collect, count (KB) or step the collector.
 extern "C" int __cdecl FUN_00213ba0(LuaVMState* L, int what, int data) {
@@ -998,7 +998,7 @@ extern "C" const char* __cdecl FUN_00213dd0(LuaVMState* L, int funcindex, int n)
 
 
 // 0x00213e50 FUN_00213e50 (157 B): equivalent/0x00213e50.cpp
-// sym: _FUN_00213e50 @3dd27258316e @w278bd81994e2
+// sym: _FUN_00213e50 @3dd27258316e @w278bd81994e2 @v1e01b5d65158
 // STATUS: equivalent (tools/equiv.py level 3: 3021 inputs, branch coverage 15/16, incomplete)
 // lua_setupvalue: pop the top value into upvalue n of the function at funcindex (the write barrier); its name or NULL.
 extern "C" const char* __cdecl FUN_00213e50(LuaVMState* L, int funcindex, int n) {

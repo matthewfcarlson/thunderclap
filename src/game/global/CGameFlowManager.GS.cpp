@@ -144,7 +144,7 @@ public:
 
 
 // 0x000894d0 FUN_000894d0 (240 B): equivalent/0x000894d0.cpp
-// sym: ?FUN_000894d0@Object@fn_f25fffae@@QAEXXZ @1d08d63cdf00 @w63e6e80402c3
+// sym: ?FUN_000894d0@Object@fn_f25fffae@@QAEXXZ @1d08d63cdf00 @w63e6e80402c3 @va98ad1f1e1b9
 // STATUS: equivalent (tools/equiv.py level 3: 1484 inputs, branch coverage 12/12)
 // FUN_000894d0 @ 0x000894d0
 void Object::FUN_000894d0() {

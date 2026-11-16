@@ -395,7 +395,7 @@ char pure3d::DrawableContainer::vfunc_7() {
 
 
 // 0x002a41e0 FUN_002a41e0 (368 B): equivalent/0x002a41e0.cpp [wrapped: macros]
-// sym: ?FUN_002a41e0@Group_2a41e0@fn_002a41e0@@QAEXPAVParent_2a41e0@2@H@Z @8ed859dccd65 @w8d920481ec05
+// sym: ?FUN_002a41e0@Group_2a41e0@fn_002a41e0@@QAEXPAVParent_2a41e0@2@H@Z @8ed859dccd65 @w8d920481ec05 @vea069234764c
 namespace fn_002a41e0 {
 // STATUS: equivalent (tools/equiv.py level 3: 19720 inputs, branch coverage 24/24)
 // FUN_002a41e0 @ 0x002a41e0
@@ -573,7 +573,7 @@ void* pure3d::DrawableContainer::vfunc_17(int key1, int key2) {
 
 
 // 0x002a44b0 pure3d::DrawableContainer::vfunc_18 (78 B): equivalent/0x002a44b0.cpp [wrapped: conflict: pure3d::DrawableContainer]
-// sym: ?vfunc_18@DrawableContainer@pure3d@fn_002a44b0@@QAEPAXI@Z @1e9e158f1645 @wfefff2c7c4a3
+// sym: ?vfunc_18@DrawableContainer@pure3d@fn_002a44b0@@QAEPAXI@Z @1e9e158f1645 @wfefff2c7c4a3 @v91ed84ab3249
 namespace fn_002a44b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 632 inputs, branch coverage 6/6)
 // pure3d::DrawableContainer::vfunc_18 @ 0x002a44b0
@@ -707,7 +707,7 @@ extern "C" int* FUN_002a4730(int* dst, int count, const int* src) {
 
 
 // 0x002a4760 FUN_002a4760 (110 B): equivalent/0x002a4760.cpp
-// sym: ??0IntVector_2a4760@fn_f6d01fd6@@QAE@ABU01@@Z @e6af28e42022 @w28f00e00918c
+// sym: ??0IntVector_2a4760@fn_f6d01fd6@@QAE@ABU01@@Z @e6af28e42022 @w28f00e00918c @v1a0f59d1fa0a
 // STATUS: equivalent (tools/equiv.py level 3: 73 inputs, branch coverage 9/10, incomplete)
 // FUN_002a4760 @ 0x002a4760
 IntVector_2a4760::IntVector_2a4760(const IntVector_2a4760 &other) throw()

@@ -836,7 +836,7 @@ struct ThisCall_000f79a0 {
 
 
 // 0x000f1570 FUN_000f1570 (224 B): equivalent/0x000f1570.cpp
-// sym: ?update@Object@fn_f5892d97@@QAEXXZ @9c91a6770426 @wd8a3bd066334
+// sym: ?update@Object@fn_f5892d97@@QAEXXZ @9c91a6770426 @wd8a3bd066334 @v4fbace7b2169
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_000f1570 @ 0x000f1570
 void Object::update() {
@@ -853,7 +853,7 @@ void Object::update() {
 
 
 // 0x000f1650 FUN_000f1650 (340 B): equivalent/0x000f1650.cpp
-// sym: ?FUN_000f1650@Slider_f1650@fn_f5892d97@@QAEXM@Z @7b1f6d44aab9 @wb5d3ea11e385
+// sym: ?FUN_000f1650@Slider_f1650@fn_f5892d97@@QAEXM@Z @7b1f6d44aab9 @wb5d3ea11e385 @v2ed7f594346b
 // STATUS: equivalent (tools/equiv.py level 3: 3030 inputs, branch coverage 14/16, incomplete)
 // FUN_000f1650 @ 0x000f1650
 void Slider_f1650::FUN_000f1650(float dt)
@@ -995,7 +995,7 @@ int Object::FUN_000f17b0() {
 namespace fn_f5892d97 {
 
 // 0x000f1890 FUN_000f1890 (336 B): equivalent/0x000f1890.cpp
-// sym: ?FUN_000f1890@Slider_f1890@fn_f5892d97@@QAEXM@Z @315980a8c044 @we26f575876e8
+// sym: ?FUN_000f1890@Slider_f1890@fn_f5892d97@@QAEXM@Z @315980a8c044 @we26f575876e8 @v8eb280bf424c
 // STATUS: equivalent (tools/equiv.py level 3: 20020 inputs, branch coverage 16/16)
 // FUN_000f1890 @ 0x000f1890
 void Slider_f1890::FUN_000f1890(float dt)
@@ -1060,7 +1060,7 @@ void owners::Obj_f1a70::FUN_000f1a70(float x) {
 
 
 // 0x000f1ab0 FUN_000f1ab0 (122 B): equivalent/0x000f1ab0.cpp [wrapped: conflict: pure3d::CompositeDrawable; pure3d::Entity]
-// sym: ?FUN_000f1ab0@Player_f1ab0@fn_000f1ab0@@QAEXPAVSource_f1ab0@2@@Z @6f9bc00047db @we31098fa9537
+// sym: ?FUN_000f1ab0@Player_f1ab0@fn_000f1ab0@@QAEXPAVSource_f1ab0@2@@Z @6f9bc00047db @we31098fa9537 @v3116ffcaaf98
 namespace fn_000f1ab0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_000f1ab0 @ 0x000f1ab0
@@ -1181,7 +1181,7 @@ MapThing_f1ba0* MapThing_f1ba0::vfunc_5(signed char flags) {
 
 
 // 0x000f1bd0 FUN_000f1bd0 (142 B): equivalent/0x000f1bd0.cpp
-// sym: ?FUN_000f1bd0@Widget_f1bd0@fn_f5892d97@@QAEXUArgPair@2@M@Z @89049d513e8b @w5cb3e31486af
+// sym: ?FUN_000f1bd0@Widget_f1bd0@fn_f5892d97@@QAEXUArgPair@2@M@Z @89049d513e8b @w5cb3e31486af @v5badd5339355
 // STATUS: equivalent (tools/equiv.py level 3: 3011 inputs, branch coverage 2/2)
 // FUN_000f1bd0 @ 0x000f1bd0
 void Widget_f1bd0::FUN_000f1bd0(ArgPair args, float c) {
@@ -1566,7 +1566,7 @@ void Owner_f1e50::FUN_000f1e50(Context* context, void* arg, void* object, Node* 
 
 
 // 0x000f1f40 FEThingsBase::vfunc_9 (229 B): equivalent/0x000f1f40.cpp [wrapped: conflict: DAT_004de94c; FEThingsBase]
-// sym: ?vfunc_9@FEThingsBase@fn_000f1f40@@UAE_NXZ @104d4c182193 @wb5f69a737bc9
+// sym: ?vfunc_9@FEThingsBase@fn_000f1f40@@UAE_NXZ @104d4c182193 @wb5f69a737bc9 @v21b6fad3ff5b
 namespace fn_000f1f40 {
 // STATUS: equivalent (tools/equiv.py level 3: 2982 inputs, branch coverage 14/14)
 // FEThingsBase::vfunc_9 @ 0x000f1f40
@@ -1713,7 +1713,7 @@ extern "C" hulk_intptr __cdecl FUN_000f23d0(Inv* inv, void* name) {
 } // namespace fn_f5892d97
 
 // 0x000f2460 FUN_000f2460 (108 B): equivalent/0x000f2460.cpp [wrapped: conflict: FEPoseAnimation; FUN_0027b020; content::LoadInventory::DynamicCaster; content::LoadInventory::DynamicCasterBase]
-// sym: ??0FEPoseAnimation@fn_000f2460@@QAE@HPBD@Z @31551760319a @w7e223dc28a9a
+// sym: ??0FEPoseAnimation@fn_000f2460@@QAE@HPBD@Z @31551760319a @w7e223dc28a9a @v3bc5e7e30ce9
 inline void *operator new(size_t, void *p) throw() { return p; }
 namespace fn_000f2460 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
@@ -2102,7 +2102,7 @@ hulk_intptr owners::Holder_f2920::FUN_000f2920(hulk_intptr arg) {
 
 
 // 0x000f2980 VScroll::vfunc_0 (243 B): equivalent/0x000f2980.cpp [wrapped: conflict: FELayout; VScroll; content::LoadInventory]
-// sym: ?vfunc_0@VScroll@fn_000f2980@@UAEXXZ @473cee1da133 @w0aa82b242a46
+// sym: ?vfunc_0@VScroll@fn_000f2980@@UAEXXZ @473cee1da133 @w0aa82b242a46 @vbb9987bb452d
 namespace fn_000f2980 {
 // STATUS: equivalent (tools/equiv.py level 3: 631 inputs, branch coverage 12/12)
 // VScroll::vfunc_0 @ 0x000f2980
@@ -2255,7 +2255,7 @@ void FEContainer::Add(const char* name) {
 
 
 // 0x000f2c10 FUN_000f2c10 (290 B): equivalent/0x000f2c10.cpp [wrapped: conflict: content::LoadInventory::DynamicCaster]
-// sym: ?target@Owner_f2c10@fn_000f2c10@@QAEXPBD@Z @b510838d1557 @w8056225f633f
+// sym: ?target@Owner_f2c10@fn_000f2c10@@QAEXPBD@Z @b510838d1557 @w8056225f633f @vce001e1a5ae5
 namespace fn_000f2c10 {
 // STATUS: equivalent (tools/equiv.py level 3: 20025 inputs, branch coverage 6/6)
 // FUN_000f2c10 @ 0x000f2c10
@@ -2341,7 +2341,7 @@ void Owner_f2d40::Run(void* p) {
 } // namespace fn_f5892d97
 
 // 0x000f2db0 FUN_000f2db0 (191 B): equivalent/0x000f2db0.cpp [wrapped: conflict: content::LoadInventory::DynamicCaster]
-// sym: ?run@Target_f2db0@fn_000f2db0@@QAEXPBD0@Z @fc4f1a46bcb9 @waa04b9fb58c1
+// sym: ?run@Target_f2db0@fn_000f2db0@@QAEXPBD0@Z @fc4f1a46bcb9 @waa04b9fb58c1 @v3f4bd8cff155
 namespace fn_000f2db0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 11/12, incomplete)
 // FUN_000f2db0 @ 0x000f2db0
@@ -2409,7 +2409,7 @@ void Target_f2db0::run(const char *name,const char *scene) {
 
 
 // 0x000f2ee0 FUN_000f2ee0 (107 B): equivalent/0x000f2ee0.cpp [wrapped: conflict: FUN_0027b020; content::LoadInventory::DynamicCaster; content::LoadInventory::DynamicCasterBase]
-// sym: ?FUN_000f2ee0@Inventory_f2ee0@fn_000f2ee0@@QAEXPBD@Z @e66afebdb0e6 @wf6a8fdbc1add
+// sym: ?FUN_000f2ee0@Inventory_f2ee0@fn_000f2ee0@@QAEXPBD@Z @e66afebdb0e6 @wf6a8fdbc1add @v07af05032e7c
 namespace fn_000f2ee0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 7/8, incomplete)
 // FUN_000f2ee0 @ 0x000f2ee0
@@ -2482,7 +2482,7 @@ void Inventory_f2ee0::FUN_000f2ee0(const char *name)
 
 
 // 0x000f2f50 FUN_000f2f50 (107 B): equivalent/0x000f2f50.cpp [wrapped: conflict: FUN_0027b020; content::LoadInventory::DynamicCaster; content::LoadInventory::DynamicCasterBase]
-// sym: ?FUN_000f2f50@Inventory_f2f50@fn_000f2f50@@QAEXPBD@Z @ab166e946080 @wce965b1fd594
+// sym: ?FUN_000f2f50@Inventory_f2f50@fn_000f2f50@@QAEXPBD@Z @ab166e946080 @wce965b1fd594 @v2e1bd8e902d9
 namespace fn_000f2f50 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/8, incomplete)
 // FUN_000f2f50 @ 0x000f2f50
@@ -2640,7 +2640,7 @@ void FEMenuBase::f53(u32_f2fc0* p) {
 
 
 // 0x000f3000 FUN_000f3000 (619 B): equivalent/0x000f3000.cpp [wrapped: conflict: FEAnimationHolder; FEThingsBase; content::LoadInventory::DynamicCaster; content::LoadInventory::DynamicCasterBase]
-// sym: ??0FEThingsBase@fn_000f3000@@QAE@XZ @88b471eaa314 @w5183e8275d88
+// sym: ??0FEThingsBase@fn_000f3000@@QAE@XZ @88b471eaa314 @w5183e8275d88 @v78e21b8ecfd7
 namespace fn_000f3000 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 8/8)
 // FUN_000f3000 @ 0x000f3000
@@ -2894,7 +2894,7 @@ FEThingsBase::FEThingsBase()
 
 
 // 0x000f3270 FEThingsBase::vfunc_35 (1734 B): equivalent/0x000f3270.cpp [wrapped: conflict: FEThingsBase; content::LoadInventory::DynamicCaster]
-// sym: ?vfunc_35@FEThingsBase@fn_000f3270@@UAE_NPAUReader@2@HPAUDest_f3270@2@PAUKey_f3270@2@@Z @b7fd6f7a4822 @wbeabfc5c5f4c
+// sym: ?vfunc_35@FEThingsBase@fn_000f3270@@UAE_NPAUReader@2@HPAUDest_f3270@2@PAUKey_f3270@2@@Z @b7fd6f7a4822 @wbeabfc5c5f4c @vc6760771e32e
 namespace fn_000f3270 {
 // STATUS: equivalent (tools/equiv.py level 3: 3218 inputs, branch coverage 94/94)
 // FEThingsBase::vfunc_35 @ 0x000f3270
@@ -3221,7 +3221,7 @@ bool FEThingsBase::vfunc_35(Reader *r, int unused, Dest_f3270 *dst, Key_f3270 *k
 
 
 // 0x000f3940 FUN_000f3940 (467 B): equivalent/0x000f3940.cpp [wrapped: conflict: FEControl; FEThingsBase; TextWindow; content::LoadInventory::DynamicCaster (+2)]
-// sym: ?FUN_000f3940@FEThingsBase@fn_000f3940@@QAEXPAUToken_f3940@2@PAVParser_f3940@2@PAVFEControl@2@PAVNode@2@@Z @e51d38063214 @we87b1e7fdd7f
+// sym: ?FUN_000f3940@FEThingsBase@fn_000f3940@@QAEXPAUToken_f3940@2@PAVParser_f3940@2@PAVFEControl@2@PAVNode@2@@Z @e51d38063214 @we87b1e7fdd7f @vbbb9d26b5e2a
 namespace fn_000f3940 {
 // STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 24/24)
 // FUN_000f3940 @ 0x000f3940
@@ -3462,7 +3462,7 @@ void FEThingsBase::FUN_000f3940(Token_f3940 *a0, Parser_f3940 *a1, FEControl *a2
 
 
 // 0x000f3b20 FUN_000f3b20 (657 B): equivalent/0x000f3b20.cpp [wrapped: conflict: FEThingsBase; content::LoadInventory::DynamicCaster; pure3d::CompositeDrawable]
-// sym: ?FUN_000f3b20@FEThingsBase@fn_000f3b20@@QAEXTParamArg_f3b20@2@PAVLoader_f3b20@2@PAXPAVArgs_f3b20@2@@Z @20bb47896868 @w9d52a56e9673
+// sym: ?FUN_000f3b20@FEThingsBase@fn_000f3b20@@QAEXTParamArg_f3b20@2@PAVLoader_f3b20@2@PAXPAVArgs_f3b20@2@@Z @20bb47896868 @w9d52a56e9673 @v63e203a8e477
 namespace fn_000f3b20 {
 // STATUS: equivalent (tools/equiv.py level 3: 3049 inputs, branch coverage 36/38, incomplete)
 // FUN_000f3b20 @ 0x000f3b20
@@ -3741,7 +3741,7 @@ void FEThingsBase::FUN_000f3b20(ParamArg_f3b20 arg, Loader_f3b20 *c, void *d, Ar
 
 
 // 0x000f3dc0 FUN_000f3dc0 (309 B): equivalent/0x000f3dc0.cpp [wrapped: conflict: FEThingsBase; Param]
-// sym: ?FUN_000f3dc0@FEThingsBase@fn_000f3dc0@@QAEXPAVParam@2@HPAXPAVArgs@2@@Z @c0ab32f2dee0 @w480753e6770e
+// sym: ?FUN_000f3dc0@FEThingsBase@fn_000f3dc0@@QAEXPAVParam@2@HPAXPAVArgs@2@@Z @c0ab32f2dee0 @w480753e6770e @v95a4d401a941
 namespace fn_000f3dc0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 20/20)
 // FUN_000f3dc0 @ 0x000f3dc0
@@ -3863,7 +3863,7 @@ void FEThingsBase::FUN_000f3dc0(Param *param, hulk_intptr c, void *d, Args *args
 
 
 // 0x000f3f00 FUN_000f3f00 (946 B): equivalent/0x000f3f00.cpp [wrapped: conflict: FEThingsBase; Param]
-// sym: ?FUN_000f3f00@FEThingsBase@fn_000f3f00@@QAEXPAVParam@2@PAVSource_f3f00@2@PAXPAVArgs_f3f00@2@@Z @a58014cf98f3 @wb68f5befd211
+// sym: ?FUN_000f3f00@FEThingsBase@fn_000f3f00@@QAEXPAVParam@2@PAVSource_f3f00@2@PAXPAVArgs_f3f00@2@@Z @a58014cf98f3 @wb68f5befd211 @v4ed6f457ab67
 namespace fn_000f3f00 {
 // STATUS: equivalent (tools/equiv.py level 3: 3022 inputs, branch coverage 44/44)
 // FUN_000f3f00 @ 0x000f3f00
@@ -4132,7 +4132,7 @@ void FEThingsBase::FUN_000f3f00(Param* param, Source_f3f00* c, void* d, Args_f3f
 
 
 // 0x000f42c0 FUN_000f42c0 (1222 B): equivalent/0x000f42c0.cpp [wrapped: conflict: FEThingsBase; FUN_0027b020; Param; content::LoadInventory::DynamicCaster (+1)]
-// sym: ?FUN_000f42c0@FEThingsBase@fn_000f42c0@@QAEXPAVParam@2@PAVFactory_f42c0@2@TSlot3@2@PAVArgs_f42c0@2@@Z @2da7871022a5 @w88f37fa71da4
+// sym: ?FUN_000f42c0@FEThingsBase@fn_000f42c0@@QAEXPAVParam@2@PAVFactory_f42c0@2@TSlot3@2@PAVArgs_f42c0@2@@Z @2da7871022a5 @w88f37fa71da4 @vd91d10bfed1a
 namespace fn_000f42c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3113 inputs, branch coverage 72/72)
 // FUN_000f42c0 @ 0x000f42c0
@@ -4488,7 +4488,7 @@ void FEThingsBase::FUN_000f42c0(Param *p, Factory_f42c0 *c, Slot3 d3, Args_f42c0
 
 
 // 0x000f4790 FEThingsBase::vfunc_39 (460 B): equivalent/0x000f4790.cpp
-// sym: ?vfunc_39@FEThingsBase@@UAEDHHH@Z @a914baae71fe @w2cb7949e9cd1
+// sym: ?vfunc_39@FEThingsBase@@UAEDHHH@Z @a914baae71fe @w2cb7949e9cd1 @v98e4f522cc99
 // STATUS: equivalent (tools/equiv.py level 3: 147 inputs, branch coverage 26/26)
 // FEThingsBase::vfunc_39 @ 0x000f4790
 char FEThingsBase::vfunc_39(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { Node_f4790 * node = (Node_f4790 *)__p0; Factory_f4790 * factory = (Factory_f4790 *)__p1; Message_f4790 * msg = (Message_f4790 *)__p2;
@@ -5029,7 +5029,7 @@ void FEThingsBase::FUN_000f4e90(Param *p, int unused, Target_f4e90 *t, Args_f4e9
 
 
 // 0x000f50a0 FUN_000f50a0 (135 B): equivalent/0x000f50a0.cpp [wrapped: conflict: content::LoadInventory::DynamicCaster]
-// sym: ?FUN_000f50a0@Slots_f50a0@fn_000f50a0@@QAEXPBD@Z @0ad6a44a570b @wb94338e4f605
+// sym: ?FUN_000f50a0@Slots_f50a0@fn_000f50a0@@QAEXPBD@Z @0ad6a44a570b @wb94338e4f605 @v6ad21a96234c
 namespace fn_000f50a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 9/10, incomplete)
 // FUN_000f50a0 @ 0x000f50a0
@@ -5127,7 +5127,7 @@ void Slots_f50a0::FUN_000f50a0(const char *assetName)
 
 
 // 0x000f5130 FUN_000f5130 (209 B): equivalent/0x000f5130.cpp [wrapped: conflict: content::LoadInventory; pure3d::MultiController]
-// sym: ?Run@Object@fn_000f5130@@QAEXPBD0@Z @b6bb860987ac @wd162c491b314
+// sym: ?Run@Object@fn_000f5130@@QAEXPBD0@Z @b6bb860987ac @wd162c491b314 @vd96da85c14a2
 namespace fn_000f5130 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 13/14, incomplete)
 // FUN_000f5130 @ 0x000f5130
@@ -5193,7 +5193,7 @@ void Object::Run(const char* a, const char* b) {
 
 
 // 0x000f5210 FUN_000f5210 (135 B): equivalent/0x000f5210.cpp [wrapped: conflict: content::LoadInventory::DynamicCaster]
-// sym: ?FUN_000f5210@Slots_f5210@fn_000f5210@@QAEXPBD@Z @30ac8738adb5 @w3a468dd83d31
+// sym: ?FUN_000f5210@Slots_f5210@fn_000f5210@@QAEXPBD@Z @30ac8738adb5 @w3a468dd83d31 @v2ca6adab2427
 namespace fn_000f5210 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 9/10, incomplete)
 // FUN_000f5210 @ 0x000f5210
@@ -5292,7 +5292,7 @@ void Slots_f5210::FUN_000f5210(const char *assetName)
 
 
 // 0x000f52a0 FUN_000f52a0 (135 B): equivalent/0x000f52a0.cpp [wrapped: conflict: content::LoadInventory::DynamicCaster]
-// sym: ?FUN_000f52a0@Slots_f52a0@fn_000f52a0@@QAEXPBD@Z @cf963a2f6511 @wa3992379acff
+// sym: ?FUN_000f52a0@Slots_f52a0@fn_000f52a0@@QAEXPBD@Z @cf963a2f6511 @wa3992379acff @vaaadb14e4c5d
 namespace fn_000f52a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 9/10, incomplete)
 // FUN_000f52a0 @ 0x000f52a0
@@ -5390,7 +5390,7 @@ void Slots_f52a0::FUN_000f52a0(const char *assetName)
 
 
 // 0x000f5330 FEThingsBase::vfunc_37 (2020 B): equivalent/0x000f5330.cpp [wrapped: conflict: FEThingsBase; Param]
-// sym: ?v37@FEThingsBase@fn_000f5330@@UAEDPAVParam@2@PAVFactory_f5330@2@PAVArgs_f5330@2@@Z @1752d366becc @wfea459d0013d
+// sym: ?v37@FEThingsBase@fn_000f5330@@UAEDPAVParam@2@PAVFactory_f5330@2@PAVArgs_f5330@2@@Z @1752d366becc @wfea459d0013d @vb59b4c8a19a4
 namespace fn_000f5330 {
 // STATUS: equivalent (tools/equiv.py level 3: 3136 inputs, branch coverage 134/134)
 // FEThingsBase::vfunc_37 @ 0x000f5330
@@ -5749,7 +5749,7 @@ char FEThingsBase::v37(Param *a0, Factory_f5330 *a1, Args_f5330 *a2)
 
 
 // 0x000f5b20 FUN_000f5b20 (1141 B): equivalent/0x000f5b20.cpp [wrapped: conflict: FEThingsBase; Param]
-// sym: ?FUN_000f5b20@FEThingsBase@fn_000f5b20@@QAEXTParamSlot@2@PAVSource@2@PAXPAVArgs_f5b20@2@@Z @890aa2c02809 @wa88c7ce069d6
+// sym: ?FUN_000f5b20@FEThingsBase@fn_000f5b20@@QAEXTParamSlot@2@PAVSource@2@PAXPAVArgs_f5b20@2@@Z @890aa2c02809 @wa88c7ce069d6 @v1e794d81df77
 namespace fn_000f5b20 {
 // STATUS: equivalent (tools/equiv.py level 3: 20044 inputs, branch coverage 70/70)
 // FUN_000f5b20 @ 0x000f5b20
@@ -6086,7 +6086,7 @@ V S_f6370::Target() {
 } // namespace fn_f5892d97
 
 // 0x000f63c0 FUN_000f63c0 (71 B): equivalent/0x000f63c0.cpp [wrapped: conflict: Object]
-// sym: ?FUN_000f63c0@Object@fn_000f63c0@@QAEXPAI@Z @8ec3ede7b3f3 @wa9500be99d9e
+// sym: ?FUN_000f63c0@Object@fn_000f63c0@@QAEXPAI@Z @8ec3ede7b3f3 @wa9500be99d9e @v6ef0b88a63f2
 namespace fn_000f63c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 0/0)
 // FUN_000f63c0 @ 0x000f63c0
@@ -6133,7 +6133,7 @@ void S_f6420::f() {
 
 
 // 0x000f6460 FUN_000f6460 (183 B): equivalent/0x000f6460.cpp
-// sym: ?FUN_000f6460@Traversal@fn_f5892d97@@QAEPAUNode@2@XZ @8413a0eb1c8f @wc7d2bf925812
+// sym: ?FUN_000f6460@Traversal@fn_f5892d97@@QAEPAUNode@2@XZ @8413a0eb1c8f @wc7d2bf925812 @v511297703cee
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_000f6460 @ 0x000f6460
 Node* Traversal::FUN_000f6460() {
@@ -6161,7 +6161,7 @@ Node* Traversal::FUN_000f6460() {
 
 
 // 0x000f6530 FUN_000f6530 (217 B): equivalent/0x000f6530.cpp
-// sym: _FUN_000f6530 @d48e95a602be @w04dfd3db271d
+// sym: _FUN_000f6530 @d48e95a602be @w04dfd3db271d @vd7151347df33
 // STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 0/0)
 // FUN_000f6530 @ 0x000f6530
 extern "C" void __cdecl FUN_000f6530(void * source, void * dest) {
@@ -6204,7 +6204,7 @@ extern "C" int FUN_000f6660(int a, int b) {
 
 
 // 0x000f6680 FUN_000f6680 (449 B): equivalent/0x000f6680.cpp
-// sym: ?FUN_000f6680@fn_f5892d97@@YAXPAUObj_f6680@1@MM@Z @5b22d85cdb30 @wc11204bd9d3d
+// sym: ?FUN_000f6680@fn_f5892d97@@YAXPAUObj_f6680@1@MM@Z @5b22d85cdb30 @wc11204bd9d3d @v1ae640fbd4ee
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 8/8)
 // FUN_000f6680 @ 0x000f6680
 void FUN_000f6680(Obj_f6680 *p, float angle, float k)
@@ -6320,7 +6320,7 @@ hulk_freg __cdecl Calc(Input_f6a70* a, Camera* b, void* c) {
 } // namespace fn_f5892d97
 
 // 0x000f6af0 FUN_000f6af0 (85 B): equivalent/0x000f6af0.cpp [wrapped: conflict: Inventory; content::LoadInventory; pure3d::CompositeDrawable]
-// sym: _FUN_000f6af0 @d6d2ccc3e4a1 @wd779b1dddc03
+// sym: _FUN_000f6af0 @d6d2ccc3e4a1 @wd779b1dddc03 @v009cb6614366
 namespace fn_000f6af0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_000f6af0 @ 0x000f6af0
@@ -6757,7 +6757,7 @@ unsigned long long owners::Obj_f72c0::FUN_000f72c0(int index) {
 namespace fn_f5892d97 {
 
 // 0x000f72e0 FUN_000f72e0 (77 B): equivalent/0x000f72e0.cpp
-// sym: _FUN_000f72e0 @52c1a53f22b5 @w992d2ac7eaae
+// sym: _FUN_000f72e0 @52c1a53f22b5 @w992d2ac7eaae @vfb1aea05638d
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // FUN_000f72e0 @ 0x000f72e0
 // equiv-conv: FUN_000f72e0 eax ebx
@@ -6799,7 +6799,7 @@ int __stdcall FUN_000f76c0(short* p) {
 
 
 // 0x000f7790 FUN_000f7790 (119 B): equivalent/0x000f7790.cpp
-// sym: ?FUN_000f7790@fn_f5892d97@@YGHPAG@Z @c1dc1af921b8 @web95929f6ec3
+// sym: ?FUN_000f7790@fn_f5892d97@@YGHPAG@Z @c1dc1af921b8 @web95929f6ec3 @v73f97edb8e60
 // STATUS: equivalent (tools/equiv.py level 3: 316 inputs, branch coverage 14/14)
 // FUN_000f7790 @ 0x000f7790
 // Unescapes \b \n \s (zero width space) in place, returns the new length.
@@ -6887,7 +6887,7 @@ void owners::X_f78f0::FUN_000f78f0() {
 
 
 // 0x000f7930 FUN_000f7930 (46 B): equivalent/0x000f7930.cpp
-// sym: ?FUN_000f7930@State_f7930@owners@@QAEPAU12@XZ @6a2de3ac06c9 @w7e2d34cb2a08
+// sym: ?FUN_000f7930@State_f7930@owners@@QAEPAU12@XZ @6a2de3ac06c9 @w7e2d34cb2a08 @v493360b4dde0
 // STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 0/0)
 // FUN_000f7930 @ 0x000f7930
 owners::State_f7930* owners::State_f7930::FUN_000f7930() {
@@ -6976,7 +6976,7 @@ void Obj_f7ce0::Clear() {
 
 
 // 0x000f7d60 FUN_000f7d60 (502 B): equivalent/0x000f7d60.cpp
-// sym: ?FUN_000f7d60@TextBox_f7d60@fn_f5892d97@@QAEXPBGHMHHPAVCallback_f7d60@2@@Z @0530ad078c73 @w4151bc8fe8a6
+// sym: ?FUN_000f7d60@TextBox_f7d60@fn_f5892d97@@QAEXPBGHMHHPAVCallback_f7d60@2@@Z @0530ad078c73 @w4151bc8fe8a6 @v0e392c188f1e
 // STATUS: equivalent (tools/equiv.py level 3: 3052 inputs, branch coverage 20/20)
 // FUN_000f7d60 @ 0x000f7d60
 void TextBox_f7d60::FUN_000f7d60(const unsigned short* text, int index, float scale, int align, int mode, Callback_f7d60* cb) {
@@ -7044,7 +7044,7 @@ void TextBox_f7d60::FUN_000f7d60(const unsigned short* text, int index, float sc
 
 
 // 0x000f7fe0 FUN_000f7fe0 (143 B): equivalent/0x000f7fe0.cpp
-// sym: ?FUN_000f7fe0@Blender_f7fe0@fn_f5892d97@@QAEPAU12@PAUOwner_f7fe0@2@@Z @09a84d839c4a @w78c06bd306c0
+// sym: ?FUN_000f7fe0@Blender_f7fe0@fn_f5892d97@@QAEPAU12@PAUOwner_f7fe0@2@@Z @09a84d839c4a @w78c06bd306c0 @v2d5af1de0dc6
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_000f7fe0 @ 0x000f7fe0
 Blender_f7fe0* Blender_f7fe0::FUN_000f7fe0(Owner_f7fe0* o) {
@@ -7065,7 +7065,7 @@ Blender_f7fe0* Blender_f7fe0::FUN_000f7fe0(Owner_f7fe0* o) {
 } // namespace fn_f5892d97
 
 // 0x000f80e0 FUN_000f80e0 (202 B): equivalent/0x000f80e0.cpp [wrapped: conflict: Object]
-// sym: ?FUN_000f80e0@Object@fn_000f80e0@@QAEXHHH@Z @f1ff3429580c @w2da91ace4333
+// sym: ?FUN_000f80e0@Object@fn_000f80e0@@QAEXHHH@Z @f1ff3429580c @w2da91ace4333 @v9dab96aa7a31
 namespace fn_000f80e0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_000f80e0 @ 0x000f80e0
@@ -7100,7 +7100,7 @@ void Object::FUN_000f80e0(hulk_intptr a,int slot,int c) {
 
 
 // 0x000f81b0 FUN_000f81b0 (202 B): equivalent/0x000f81b0.cpp [wrapped: conflict: Context]
-// sym: ?target@Context@fn_000f81b0@@QAEIIII@Z @78f4dbea0da1 @wb04273eaae3a
+// sym: ?target@Context@fn_000f81b0@@QAEIIII@Z @78f4dbea0da1 @wb04273eaae3a @va9dd8aa05981
 namespace fn_000f81b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_000f81b0 @ 0x000f81b0
@@ -7146,7 +7146,7 @@ unsigned Context::target(unsigned a, unsigned index, unsigned b) {
 
 
 // 0x000f8280 FUN_000f8280 (305 B): equivalent/0x000f8280.cpp [wrapped: conflict: DAT_004de948]
-// sym: ?FUN_000f8280@Gradient@fn_000f8280@@QAEXIII@Z @e9bb0aad436f @wf65f1fac93c6
+// sym: ?FUN_000f8280@Gradient@fn_000f8280@@QAEXIII@Z @e9bb0aad436f @wf65f1fac93c6 @vef25cf5e1f53
 namespace fn_000f8280 {
 // STATUS: equivalent (tools/equiv.py level 3: 18624 inputs, branch coverage 10/10)
 // FUN_000f8280 @ 0x000f8280
@@ -7217,7 +7217,7 @@ Obj_f83c0* __fastcall Copy(Obj_f83c0* self, void*, Obj_f83c0* src) {
 } // namespace fn_f5892d97
 
 // 0x000f83f0 FUN_000f83f0 (269 B): equivalent/0x000f83f0.cpp [wrapped: conflict: Context; Object]
-// sym: ?target@Object@fn_000f83f0@@QAEPAXPAUContext@2@PAUParameters_f83f0@2@@Z @524c631d59b9 @w3bb685576642
+// sym: ?target@Object@fn_000f83f0@@QAEPAXPAUContext@2@PAUParameters_f83f0@2@@Z @524c631d59b9 @w3bb685576642 @va787d7dd6dae
 namespace fn_000f83f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 20/20)
 // FUN_000f83f0 @ 0x000f83f0

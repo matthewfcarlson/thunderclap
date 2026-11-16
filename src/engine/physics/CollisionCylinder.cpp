@@ -178,7 +178,7 @@ void CollisionCylinder::vfunc_7(float p) {
 } // namespace fn_f419e76e
 
 // 0x002f2fc0 physics::CollisionCylinder::vfunc_13 (39 B): equivalent/0x002f2fc0.cpp [wrapped: conflict: physics::CollisionCylinder]
-// sym: ?vfunc_13@CollisionCylinder@physics@fn_002f2fc0@@UAEXXZ @d1d158d4a7ea @w42949e13a7b8
+// sym: ?vfunc_13@CollisionCylinder@physics@fn_002f2fc0@@UAEXXZ @d1d158d4a7ea @w42949e13a7b8 @v6440c099005a
 namespace fn_002f2fc0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 0/0)
 // physics::CollisionCylinder::vfunc_13 @ 0x002f2fc0
@@ -266,7 +266,7 @@ physics::CollisionCylinder* physics::CollisionCylinder::vfunc_2(u8_2f3030 flag) 
 
 
 // 0x002f3070 FUN_002f3070 (179 B): equivalent/0x002f3070.cpp [wrapped: conflict: physics::CollisionCylinder]
-// sym: ??0CollisionCylinder@physics@fn_002f3070@@QAE@PAUVector3_2f3070@2@IIII@Z @521299292e19 @wc18a2c653e6f
+// sym: ??0CollisionCylinder@physics@fn_002f3070@@QAE@PAUVector3_2f3070@2@IIII@Z @521299292e19 @wc18a2c653e6f @v9d858b3a822f
 namespace fn_002f3070 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_002f3070 @ 0x002f3070
@@ -306,7 +306,7 @@ physics::CollisionCylinder::CollisionCylinder(Vector3_2f3070* p,hulk_uintptr a,u
 
 
 // 0x002f3160 physics::CollisionCylinder::vfunc_8 (270 B): equivalent/0x002f3160.cpp
-// sym: ?vfunc_8@CollisionCylinder@physics@@UAEXXZ @77372ebe9ba7 @wc94a37943e11
+// sym: ?vfunc_8@CollisionCylinder@physics@@UAEXXZ @77372ebe9ba7 @wc94a37943e11 @v8049b20438eb
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // physics::CollisionCylinder::vfunc_8 @ 0x002f3160
 void physics::CollisionCylinder::vfunc_8() {
@@ -322,7 +322,7 @@ void physics::CollisionCylinder::vfunc_8() {
 
 
 // 0x002f3270 physics::CollisionCylinder::vfunc_9 (51 B): equivalent/0x002f3270.cpp [wrapped: conflict: physics::CollisionCylinder; physics::CollisionVolume]
-// sym: ?vfunc_9@CollisionCylinder@physics@fn_002f3270@@QAEXXZ @53342f59eb3d @wde717e935bb5
+// sym: ?vfunc_9@CollisionCylinder@physics@fn_002f3270@@QAEXXZ @53342f59eb3d @wde717e935bb5 @vec168ee8cd6d
 namespace fn_002f3270 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // physics::CollisionCylinder::vfunc_9 @ 0x002f3270

@@ -813,7 +813,7 @@ int Compare(Item_1f2e80** a, Item_1f2e80** b) {
 
 
 // 0x001f2f30 FUN_001f2f30 (120 B): equivalent/0x001f2f30.cpp
-// sym: ?FUN_001f2f30@Group_1f2f30@fn_f7fca51a@@QAEPAUItem_1f2f30@2@HPAUId64_1f2f30@2@@Z @2f0ae43d3b2b @w9a74863474d5
+// sym: ?FUN_001f2f30@Group_1f2f30@fn_f7fca51a@@QAEPAUItem_1f2f30@2@HPAUId64_1f2f30@2@@Z @2f0ae43d3b2b @w9a74863474d5 @vc04f1a2e8863
 // STATUS: equivalent (tools/equiv.py level 3: 130 inputs, branch coverage 21/22, incomplete)
 // FUN_001f2f30 @ 0x001f2f30
 Item_1f2f30* Group_1f2f30::FUN_001f2f30(int id, Id64_1f2f30* key) {
@@ -867,7 +867,7 @@ extern "C" void * FUN_001f2ff0(unsigned __int64* k) {
 
 
 // 0x001f3040 FUN_001f3040 (156 B): equivalent/0x001f3040.cpp
-// sym: _FUN_001f3040 @a5e7f5c306f5 @wa198b0fa6914
+// sym: _FUN_001f3040 @a5e7f5c306f5 @wa198b0fa6914 @v84acaabd22a2
 // STATUS: equivalent (tools/equiv.py level 3: 20010 inputs, branch coverage 6/6)
 // FUN_001f3040 @ 0x001f3040
 // FUN_001f3040: look up an entry and fetch two sound handles from it (or default to "hulk")
@@ -911,7 +911,7 @@ void __stdcall FUN_001f30e0(const char* first, const char* second, const char* t
 
 
 // 0x001f31a0 FUN_001f31a0 (111 B): equivalent/0x001f31a0.cpp
-// sym: ?FUN_001f31a0@Registry_1f31a0@fn_f7fca51a@@QAEPAUEntry_1f31a0@2@PBUId_1f31a0@2@@Z @fa43fe4f4f35 @w3b51000fcf88
+// sym: ?FUN_001f31a0@Registry_1f31a0@fn_f7fca51a@@QAEPAUEntry_1f31a0@2@PBUId_1f31a0@2@@Z @fa43fe4f4f35 @w3b51000fcf88 @v8e24a1ba829b
 // STATUS: equivalent (tools/equiv.py level 3: 140 inputs, branch coverage 12/12)
 // FUN_001f31a0 @ 0x001f31a0
 Entry_1f31a0 *Registry_1f31a0::FUN_001f31a0(const Id_1f31a0 *key)
@@ -953,7 +953,7 @@ void __fastcall FUN_001f3280(CSoundSequenceVoice* self) {
 namespace fn_f7fca51a {
 
 // 0x001f32b0 FUN_001f32b0 (191 B): equivalent/0x001f32b0.cpp
-// sym: ?initialize@Object@fn_f7fca51a@@QAEHPAUResource_1f32b0@2@HH@Z @1dbba48e54bb @w14da9ce00702
+// sym: ?initialize@Object@fn_f7fca51a@@QAEHPAUResource_1f32b0@2@HH@Z @1dbba48e54bb @w14da9ce00702 @vdb067cdaefe9
 // STATUS: equivalent (tools/equiv.py level 3: 3004 inputs, branch coverage 6/6)
 // FUN_001f32b0 @ 0x001f32b0
 int Object::initialize(Resource_1f32b0* input, int flag, int option) {
@@ -1104,7 +1104,7 @@ void Target_1f3720::Set(Pair_1f3720* p, int a, int b, int c, int d, unsigned cha
 
 
 // 0x001f3780 FUN_001f3780 (128 B): equivalent/0x001f3780.cpp
-// sym: ?FUN_001f3780@Holder_1f3780@fn_f7fca51a@@QAEPAV12@XZ @9528a8b9b32e @w1739953eacc0
+// sym: ?FUN_001f3780@Holder_1f3780@fn_f7fca51a@@QAEPAV12@XZ @9528a8b9b32e @w1739953eacc0 @vc86b29ef4f91
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_001f3780 @ 0x001f3780
 // 0x001f3780: constructor that resets two names, an id and four unit-scale slots
@@ -1238,7 +1238,7 @@ void owners::Thing_1f3990::FUN_001f3990(float x) {
 namespace fn_f7fca51a {
 
 // 0x001f3a50 FUN_001f3a50 (122 B): equivalent/0x001f3a50.cpp
-// sym: ?FUN_001f3a50@Player_1f3a50@fn_f7fca51a@@QAE_NHH@Z @68079cf86f3c @w7c207fbd2277
+// sym: ?FUN_001f3a50@Player_1f3a50@fn_f7fca51a@@QAE_NHH@Z @68079cf86f3c @w7c207fbd2277 @vb80d51244004
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_001f3a50 @ 0x001f3a50
 bool Player_1f3a50::FUN_001f3a50(int target, int arg) {
@@ -1267,7 +1267,7 @@ bool Obj_1f3ad0::run() {
 
 
 // 0x001f3af0 FUN_001f3af0 (263 B): equivalent/0x001f3af0.cpp
-// sym: ?run@Object@fn_f7fca51a@@QAE_NPAUItem_1f3af0@2@PAXPAUInput_1f3af0@2@@Z @c8c969ac3e06 @w4619561932b4
+// sym: ?run@Object@fn_f7fca51a@@QAE_NPAUItem_1f3af0@2@PAXPAUInput_1f3af0@2@@Z @c8c969ac3e06 @w4619561932b4 @v3596ea1a6322
 // STATUS: equivalent (tools/equiv.py level 3: 19971 inputs, branch coverage 16/16)
 // FUN_001f3af0 @ 0x001f3af0
 bool Object::run(Item_1f3af0* item,void* arg,Input_1f3af0* input) {
@@ -1292,7 +1292,7 @@ bool Object::run(Item_1f3af0* item,void* arg,Input_1f3af0* input) {
 
 
 // 0x001f3c00 FUN_001f3c00 (587 B): equivalent/0x001f3c00.cpp
-// sym: ?FUN_001f3c00@Player_1f3c00@fn_f7fca51a@@QAE_NPAUVoice_1f3c00@2@PAHPAUId_1f3c00@2@PBDHH@Z @25b114b5f0e7 @w733b275a6812
+// sym: ?FUN_001f3c00@Player_1f3c00@fn_f7fca51a@@QAE_NPAUVoice_1f3c00@2@PAHPAUId_1f3c00@2@PBDHH@Z @25b114b5f0e7 @w733b275a6812 @v3d3db2e654a1
 // STATUS: equivalent (tools/equiv.py level 3: 19351 inputs, branch coverage 50/50)
 // FUN_001f3c00 @ 0x001f3c00
 bool Player_1f3c00::FUN_001f3c00(Voice_1f3c00* voice, int* value, Id_1f3c00* id, const char* name, int qty, int flag)
@@ -1372,7 +1372,7 @@ void owners::Obj_1f3e90::FUN_001f3e90(int a, hulk_intptr b, int c, float d, int 
 namespace fn_f7fca51a {
 
 // 0x001f3ec0 FUN_001f3ec0 (322 B): equivalent/0x001f3ec0.cpp
-// sym: ?FUN_001f3ec0@VoicePool_1f3ec0@fn_f7fca51a@@QAEPAUVoice_1f3ec0@2@HHHHD@Z @9d043a77e302 @w74ba68af0fd1
+// sym: ?FUN_001f3ec0@VoicePool_1f3ec0@fn_f7fca51a@@QAEPAUVoice_1f3ec0@2@HHHHD@Z @9d043a77e302 @w74ba68af0fd1 @vaec9e802f0b2
 // STATUS: equivalent (tools/equiv.py level 3: 82 inputs, branch coverage 27/28, incomplete)
 // FUN_001f3ec0 @ 0x001f3ec0
 Voice_1f3ec0 *VoicePool_1f3ec0::FUN_001f3ec0(int a, int unused, int flags, int c, char tag)
@@ -1406,7 +1406,7 @@ Voice_1f3ec0 *VoicePool_1f3ec0::FUN_001f3ec0(int a, int unused, int flags, int c
 } // namespace fn_f7fca51a
 
 // 0x001f4010 FUN_001f4010 (291 B): equivalent/0x001f4010.cpp [wrapped: conflict: Object]
-// sym: ?target@Owner_1f4010@fn_001f4010@@QAEPAUEntry_1f4010@2@III@Z @5aefca1ef4bd @w224bf5703111
+// sym: ?target@Owner_1f4010@fn_001f4010@@QAEPAUEntry_1f4010@2@III@Z @5aefca1ef4bd @w224bf5703111 @v954464b930e5
 namespace fn_001f4010 {
 // STATUS: equivalent (tools/equiv.py level 3: 86 inputs, branch coverage 24/24)
 // FUN_001f4010 @ 0x001f4010
@@ -1470,7 +1470,7 @@ Entry_1f4010* Owner_1f4010::target(hulk_uintptr arg1,hulk_uintptr arg2,unsigned 
 namespace fn_f7fca51a {
 
 // 0x001f4140 FUN_001f4140 (389 B): equivalent/0x001f4140.cpp
-// sym: ?FUN_001f4140@Player_1f4140@fn_f7fca51a@@QAEX_N@Z @4fbde6e1e6e3 @w25affc79f28a
+// sym: ?FUN_001f4140@Player_1f4140@fn_f7fca51a@@QAEX_N@Z @4fbde6e1e6e3 @w25affc79f28a @v91c479fa3c43
 // STATUS: equivalent (tools/equiv.py level 3: 19961 inputs, branch coverage 30/30)
 // FUN_001f4140 @ 0x001f4140
 // FUN_001f4140 @ 0x001f4140
@@ -1518,7 +1518,7 @@ void Player_1f4140::FUN_001f4140(bool force)
 
 
 // 0x001f42d0 FUN_001f42d0 (326 B): equivalent/0x001f42d0.cpp
-// sym: ?FUN_001f42d0@Manager_1f42d0@fn_f7fca51a@@QAEXPBUId_1f42d0@2@PAXMMMIIIIIITIdSlot@2@H@Z @c8f82c0998c9 @wc257b9d40459
+// sym: ?FUN_001f42d0@Manager_1f42d0@fn_f7fca51a@@QAEXPBUId_1f42d0@2@PAXMMMIIIIIITIdSlot@2@H@Z @c8f82c0998c9 @wc257b9d40459 @vfe26eb00c1a0
 // STATUS: equivalent (tools/equiv.py level 3: 13302 inputs, branch coverage 12/12)
 // FUN_001f42d0 @ 0x001f42d0
 // FUN_001f42d0 @ 0x001f42d0
@@ -1572,7 +1572,7 @@ void Manager_1f42d0::FUN_001f42d0(const Id_1f42d0 *id, void *owner, float px, fl
 } // namespace fn_f7fca51a
 
 // 0x001f4420 FUN_001f4420 (489 B): equivalent/0x001f4420.cpp [wrapped: conflict: FUN_002673a0]
-// sym: ?FUN_001f4420@ThisWrap_001f4420@fn_001f4420@@QAEXH@Z @0444fb444f0f @w8bf1e2ef3924
+// sym: ?FUN_001f4420@ThisWrap_001f4420@fn_001f4420@@QAEXH@Z @0444fb444f0f @w8bf1e2ef3924 @vda2eb788917d
 namespace fn_001f4420 {
 // STATUS: equivalent (tools/equiv.py level 3: 4899 inputs, branch coverage 28/28)
 // FUN_001f4420 @ 0x001f4420
@@ -1793,7 +1793,7 @@ void Obj_1f46a0::Fn() {
 
 
 // 0x001f4710 FUN_001f4710 (152 B): equivalent/0x001f4710.cpp
-// sym: ?FUN_001f4710@Player_1f4710@fn_f7fca51a@@QAE_NXZ @bcb3c1111e5b @wfb652742c1a5
+// sym: ?FUN_001f4710@Player_1f4710@fn_f7fca51a@@QAE_NXZ @bcb3c1111e5b @wfb652742c1a5 @veaf8f5f8e854
 // STATUS: equivalent (tools/equiv.py level 3: 2135 inputs, branch coverage 12/12)
 // FUN_001f4710 @ 0x001f4710
 bool Player_1f4710::FUN_001f4710()
@@ -1820,7 +1820,7 @@ bool Player_1f4710::FUN_001f4710()
 
 
 // 0x001f47b0 FUN_001f47b0 (142 B): equivalent/0x001f47b0.cpp
-// sym: ?FUN_001f47b0@Owner_1f47b0@fn_f7fca51a@@QAE_NPAUKey_1f47b0@2@@Z @d03423852374 @w3fef6976e68b
+// sym: ?FUN_001f47b0@Owner_1f47b0@fn_f7fca51a@@QAE_NPAUKey_1f47b0@2@@Z @d03423852374 @w3fef6976e68b @v977df63fe590
 // STATUS: equivalent (tools/equiv.py level 3: 20005 inputs, branch coverage 10/10)
 // FUN_001f47b0 @ 0x001f47b0
 bool Owner_1f47b0::FUN_001f47b0(Key_1f47b0 *key) {
@@ -1867,7 +1867,7 @@ template <> Method3<CSoundVoiceManager, void, bool, bool, bool>::~Method3() {}
 
 
 // 0x001f4a00 Method3<CSoundVoiceManager,void,bool,bool,bool>::vfunc_2 (38 B): equivalent/0x001f4a00.cpp
-// sym: ?vfunc_2@?$Method3@VCSoundVoiceManager@@X_N_N_N@@UAEXPAX00@Z @bef8e04b316d @w2ddfd28c5258
+// sym: ?vfunc_2@?$Method3@VCSoundVoiceManager@@X_N_N_N@@UAEXPAX00@Z @bef8e04b316d @w2ddfd28c5258 @vc992ddbfe3b8
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Method3<CSoundVoiceManager,void,bool,bool,bool>::vfunc_2 @ 0x001f4a00
 template <> void Method3<CSoundVoiceManager, void, bool, bool, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { CSoundVoiceManager_1f4a00 * manager = (CSoundVoiceManager_1f4a00 *)__p0; Args * args = (Args *)__p1; void * unused = (void *)__p2;
@@ -1923,7 +1923,7 @@ template <> Method4<CSoundVoiceManager, void, char *, char *, char *, int>::~Met
 
 
 // 0x001f4b30 Method4<CSoundVoiceManager,void,char_*,char_*,char_*,int>::vfunc_2 (40 B): equivalent/0x001f4b30.cpp
-// sym: ?vfunc_2@?$Method4@VCSoundVoiceManager@@XPADPADPADH@@UAEXPAX00@Z @06f2e20faa8a @we84ffb84b326
+// sym: ?vfunc_2@?$Method4@VCSoundVoiceManager@@XPADPADPADH@@UAEXPAX00@Z @06f2e20faa8a @we84ffb84b326 @v9f97f9c6aa34
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Method4<CSoundVoiceManager,void,char_*,char_*,char_*,int>::vfunc_2 @ 0x001f4b30
 template <> void Method4<CSoundVoiceManager, void, char *, char *, char *, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { CSoundVoiceManager_1f4b30 * object = (CSoundVoiceManager_1f4b30 *)__p0; void ** arguments = (void **)__p1; void * unused = (void *)__p2;
@@ -1952,7 +1952,7 @@ Obj_1f4b60* __fastcall target(Obj_1f4b60* self, void*) {
 } // namespace fn_f7fca51a
 
 // 0x001f4ba0 FUN_001f4ba0 (170 B): equivalent/0x001f4ba0.cpp [wrapped: conflict: FUN_002673a0; Object]
-// sym: ?FUN_001f4ba0@Object@fn_001f4ba0@@QAEPAU12@I@Z @b6c553861501 @w0c890eab1353
+// sym: ?FUN_001f4ba0@Object@fn_001f4ba0@@QAEPAU12@I@Z @b6c553861501 @w0c890eab1353 @vd7073a7c1113
 namespace fn_001f4ba0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_001f4ba0 @ 0x001f4ba0
@@ -2280,7 +2280,7 @@ void SoundMgr::FUN_001f54c0()
 namespace fn_f7fca51a {
 
 // 0x001f5640 FUN_001f5640 (101 B): equivalent/0x001f5640.cpp
-// sym: ?FUN_001f5640@Player_1f5640@fn_f7fca51a@@QAEDHH@Z @594a6d9da211 @w69b958a8f3d7
+// sym: ?FUN_001f5640@Player_1f5640@fn_f7fca51a@@QAEDHH@Z @594a6d9da211 @w69b958a8f3d7 @vc5d077f19ff1
 // STATUS: equivalent (tools/equiv.py level 3: 20003 inputs, branch coverage 6/6)
 // FUN_001f5640 @ 0x001f5640
 char Player_1f5640::FUN_001f5640(int obj, int arg)
@@ -2299,7 +2299,7 @@ char Player_1f5640::FUN_001f5640(int obj, int arg)
 } // namespace fn_f7fca51a
 
 // 0x001f56b0 FUN_001f56b0 (293 B): equivalent/0x001f56b0.cpp [wrapped: conflict: Object]
-// sym: ?FUN_001f56b0@Object@fn_001f56b0@@QAE_NPAXH@Z @7a0ab0849bfa @w641e83b8513b
+// sym: ?FUN_001f56b0@Object@fn_001f56b0@@QAE_NPAXH@Z @7a0ab0849bfa @w641e83b8513b @v6f176b4906f9
 namespace fn_001f56b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20011 inputs, branch coverage 16/16)
 // FUN_001f56b0 @ 0x001f56b0
@@ -2344,7 +2344,7 @@ bool Object::FUN_001f56b0(void* owner,int value) {
 namespace fn_f7fca51a {
 
 // 0x001f57e0 FUN_001f57e0 (125 B): equivalent/0x001f57e0.cpp
-// sym: ?FUN_001f57e0@Registry_1f57e0@fn_f7fca51a@@QAE_KXZ @bbdc1b85e0db @w4b9a984892e4
+// sym: ?FUN_001f57e0@Registry_1f57e0@fn_f7fca51a@@QAE_KXZ @bbdc1b85e0db @w4b9a984892e4 @v1408e3dd5ec7
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // FUN_001f57e0 @ 0x001f57e0
 // Walks the list for the first entry that casts to the wanted type and returns its pair.
@@ -2425,7 +2425,7 @@ void SoundSlot::FUN_001f5860(float dt)
 } // namespace fn_f7fca51a
 
 // 0x001f5a50 Closure3<CSoundVoiceManager,void,bool,bool,bool>::vfunc_2 (37 B): equivalent/0x001f5a50.cpp
-// sym: ?vfunc_2@?$Closure3@VCSoundVoiceManager@@X_N_N_N@@UAEXPAX00@Z @48a141b5b230 @wec057be68bc3
+// sym: ?vfunc_2@?$Closure3@VCSoundVoiceManager@@X_N_N_N@@UAEXPAX00@Z @48a141b5b230 @wec057be68bc3 @vf571867b89cc
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Closure3<CSoundVoiceManager,void,bool,bool,bool>::vfunc_2 @ 0x001f5a50
 template <> void Closure3<CSoundVoiceManager, void, bool, bool, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr unused = (hulk_intptr)__p0; Args * args = (Args *)__p1; hulk_intptr unused2 = (hulk_intptr)__p2;
@@ -2443,7 +2443,7 @@ template <> void Closure0<CSoundVoiceManager, void>::vfunc_2(void* __p0, void* _
 
 
 // 0x001f5b40 Closure4<CSoundVoiceManager,void,char_*,char_*,char_*,int>::vfunc_2 (39 B): equivalent/0x001f5b40.cpp
-// sym: ?vfunc_2@?$Closure4@VCSoundVoiceManager@@XPADPADPADH@@UAEXPAX00@Z @35da6a76506a @w988358e1f154
+// sym: ?vfunc_2@?$Closure4@VCSoundVoiceManager@@XPADPADPADH@@UAEXPAX00@Z @35da6a76506a @w988358e1f154 @v40c1115c7292
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Closure4<CSoundVoiceManager,void,char_*,char_*,char_*,int>::vfunc_2 @ 0x001f5b40
 template <> void Closure4<CSoundVoiceManager, void, char *, char *, char *, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { VoiceArgs * arguments = (VoiceArgs *)__p1;
@@ -2453,7 +2453,7 @@ template <> void Closure4<CSoundVoiceManager, void, char *, char *, char *, int>
 
 
 // 0x001f5b70 FUN_001f5b70 (171 B): equivalent/0x001f5b70.cpp [wrapped: conflict: Object]
-// sym: ?update@Object@fn_001f5b70@@QAEXXZ @ed918f9a1552 @w61280a7065e1
+// sym: ?update@Object@fn_001f5b70@@QAEXXZ @ed918f9a1552 @w61280a7065e1 @veda2a2e016ef
 namespace fn_001f5b70 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 20/20)
 // FUN_001f5b70 @ 0x001f5b70
@@ -2488,7 +2488,7 @@ void Object::update() {
 
 
 // 0x001f5c20 FUN_001f5c20 (1571 B): equivalent/0x001f5c20.cpp [wrapped: conflict: FUN_00249b40]
-// sym: ?FUN_001f5c20@Mgr_1f5c20@fn_001f5c20@@QAEXH@Z @cfbc1be37dfc @w7d59ba68d618
+// sym: ?FUN_001f5c20@Mgr_1f5c20@fn_001f5c20@@QAEXH@Z @cfbc1be37dfc @w7d59ba68d618 @vb80e769de00a
 namespace fn_001f5c20 {
 // STATUS: equivalent (tools/equiv.py level 3: 18776 inputs, branch coverage 99/102, incomplete)
 // FUN_001f5c20 @ 0x001f5c20
@@ -2965,7 +2965,7 @@ char Manager_1f6250::FUN_001f6250(Item_1f6250 *item)
 
 
 // 0x001f63a0 FUN_001f63a0 (275 B): equivalent/0x001f63a0.cpp [wrapped: conflict: FUN_00249b40]
-// sym: ?update@Manager_1f63a0@fn_001f63a0@@QAEXXZ @391c9c625f92 @wf9b9ef83b653
+// sym: ?update@Manager_1f63a0@fn_001f63a0@@QAEXXZ @391c9c625f92 @wf9b9ef83b653 @v41577fddf555
 namespace fn_001f63a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 1919 inputs, branch coverage 34/34)
 // FUN_001f63a0 @ 0x001f63a0
@@ -3026,7 +3026,7 @@ void owners::Obj_1f67c0::FUN_001f67c0() {
 namespace fn_f7fca51a {
 
 // 0x001f6860 FUN_001f6860 (83 B): equivalent/0x001f6860.cpp
-// sym: ?FUN_001f6860@Registry_1f6860@fn_f7fca51a@@QAEXPBDPAVCSoundVoiceManager_1f6860@2@P832@AEX_N22@Z@Z @5c6da0877854 @w44ce400cadd7
+// sym: ?FUN_001f6860@Registry_1f6860@fn_f7fca51a@@QAEXPBDPAVCSoundVoiceManager_1f6860@2@P832@AEX_N22@Z@Z @5c6da0877854 @w44ce400cadd7 @va864adedb5a1
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_001f6860 @ 0x001f6860
 // FUN_001f6860 @ 0x001f6860  (generated by tools/equiv_gen/reg_helper.py)

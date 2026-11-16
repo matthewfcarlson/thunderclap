@@ -515,7 +515,7 @@ void __fastcall FUN_002c2330(TextureLoader* self) {
 
 
 // 0x002c2370 FUN_002c2370 (504 B): equivalent/0x002c2370.cpp
-// sym: ?FUN_002c2370@Loader_2c2370@fn_f9a208e6@@QAEPAUCreated_2c2370@2@PAUReader@2@@Z @21d7f1b3c386 @wf76cfc935d96
+// sym: ?FUN_002c2370@Loader_2c2370@fn_f9a208e6@@QAEPAUCreated_2c2370@2@PAUReader@2@@Z @21d7f1b3c386 @wf76cfc935d96 @vf2fa6e1f1245
 // STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 16/18, incomplete)
 // FUN_002c2370 @ 0x002c2370
 Created_2c2370* Loader_2c2370::FUN_002c2370(Reader* rd)

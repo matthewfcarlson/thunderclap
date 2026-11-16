@@ -69,7 +69,7 @@ extern "C" void* __cdecl FUN_0008d690(int);
 
 
 // 0x002f27c0 FUN_002f27c0 (198 B): equivalent/0x002f27c0.cpp
-// sym: ?FUN_002f27c0@Table_2f27c0@fn_f6d70462@@QAEPAUEntry_2f27c0@2@_KMMMM@Z @fd0fa82c9ba5 @w7032b67eaba8
+// sym: ?FUN_002f27c0@Table_2f27c0@fn_f6d70462@@QAEPAUEntry_2f27c0@2@_KMMMM@Z @fd0fa82c9ba5 @w7032b67eaba8 @v8b20fe79a7a5
 // STATUS: equivalent (tools/equiv.py level 3: 176 inputs, branch coverage 9/10, incomplete)
 // FUN_002f27c0 @ 0x002f27c0
 // (x64t4) the key one 64-bit hash and the values floats, as every caller passes them (were six `int`s); the entry keeps

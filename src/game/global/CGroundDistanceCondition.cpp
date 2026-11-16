@@ -42,7 +42,7 @@ CGroundDistanceCondition* CGroundDistanceCondition::vfunc_5(signed char flags) {
 } // namespace fn_f0912206
 
 // 0x0004bca0 CGroundDistanceCondition::vfunc_7 (324 B): equivalent/0x0004bca0.cpp [wrapped: conflict: CGroundDistanceCondition]
-// sym: ?vfunc_7@CGroundDistanceCondition@fn_0004bca0@@UAEDPAX@Z @2114c0973ad1 @wbde10e678187
+// sym: ?vfunc_7@CGroundDistanceCondition@fn_0004bca0@@UAEDPAX@Z @2114c0973ad1 @wbde10e678187 @v4a604a2d73ff
 namespace fn_0004bca0 {
 // STATUS: equivalent (tools/equiv.py level 3: 83 inputs, branch coverage 14/16, incomplete)
 // CGroundDistanceCondition::vfunc_7 @ 0x0004bca0

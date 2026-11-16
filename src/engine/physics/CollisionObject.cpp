@@ -548,7 +548,7 @@ void Mgr_304bd0::Fn(Node* n, int lvl, int f) {
 
 
 // 0x00304c40 FUN_00304c40 (104 B): equivalent/0x00304c40.cpp
-// sym: ?FUN_00304c40@CollisionObject_304c40@fn_f3c9f944@@QAEXPAUNode@2@PAUContext@2@@Z @7e133ce1c39e @w81d0ba6996b9
+// sym: ?FUN_00304c40@CollisionObject_304c40@fn_f3c9f944@@QAEXPAUNode@2@PAUContext@2@@Z @7e133ce1c39e @w81d0ba6996b9 @v92442ecc77e1
 // STATUS: equivalent (tools/equiv.py level 3: 848 inputs, branch coverage 7/8, incomplete)
 // FUN_00304c40 @ 0x00304c40
 void CollisionObject_304c40::FUN_00304c40(Node* node, Context* ctx) {
@@ -564,7 +564,7 @@ void CollisionObject_304c40::FUN_00304c40(Node* node, Context* ctx) {
 } // namespace fn_f3c9f944
 
 // 0x00304cb0 FUN_00304cb0 (128 B): equivalent/0x00304cb0.cpp [wrapped: conflict: Node]
-// sym: ?FUN_00304cb0@Finder_304cb0@fn_00304cb0@@QAEHPAUNode@2@0@Z @a55292612c20 @wd47a62da5812
+// sym: ?FUN_00304cb0@Finder_304cb0@fn_00304cb0@@QAEHPAUNode@2@0@Z @a55292612c20 @wd47a62da5812 @v7cd2f956ac8e
 namespace fn_00304cb0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 11/12, incomplete)
 // FUN_00304cb0 @ 0x00304cb0
@@ -632,7 +632,7 @@ char* Container_304e50::Next() {
 
 
 // 0x00304e80 FUN_00304e80 (79 B): equivalent/0x00304e80.cpp
-// sym: ?FUN_00304e80@Owner@fn_f3c9f944@@QAEXXZ @f6a9d9812ad0 @w7c06f17af2d7
+// sym: ?FUN_00304e80@Owner@fn_f3c9f944@@QAEXXZ @f6a9d9812ad0 @w7c06f17af2d7 @vf3f6e57f6082
 // STATUS: equivalent (tools/equiv.py level 3: 720 inputs, branch coverage 6/6)
 // FUN_00304e80 @ 0x00304e80
 void Owner::FUN_00304e80() {
@@ -650,7 +650,7 @@ void Owner::FUN_00304e80() {
 } // namespace fn_f3c9f944
 
 // 0x00304ed0 FUN_00304ed0 (127 B): equivalent/0x00304ed0.cpp [wrapped: conflict: physics::CollisionObject]
-// sym: ??0CollisionObject@physics@fn_00304ed0@@QAE@XZ @25eedda23765 @w804538179ac2
+// sym: ??0CollisionObject@physics@fn_00304ed0@@QAE@XZ @25eedda23765 @w804538179ac2 @v1578a64b238a
 namespace fn_00304ed0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00304ed0 @ 0x00304ed0
@@ -726,7 +726,7 @@ physics::CollisionObject::CollisionObject()
 namespace fn_f3c9f944 {
 
 // 0x00304f50 FUN_00304f50 (154 B): equivalent/0x00304f50.cpp
-// sym: ?FUN_00304f50@CollisionObject@fn_f3c9f944@@QAEPAU12@H@Z @d4bba464d725 @w3527caa98e0d
+// sym: ?FUN_00304f50@CollisionObject@fn_f3c9f944@@QAEPAU12@H@Z @d4bba464d725 @w3527caa98e0d @vdf2e5e6bac6e
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00304f50 @ 0x00304f50
 CollisionObject *CollisionObject::FUN_00304f50(hulk_intptr arg)
@@ -834,7 +834,7 @@ void Obj_305030::run() {
 } // namespace fn_f3c9f944
 
 // 0x00305070 physics::CollisionObject::vfunc_7 (244 B): equivalent/0x00305070.cpp [wrapped: conflict: physics::CollisionObject]
-// sym: ?vfunc_7@CollisionObject@physics@fn_00305070@@UAEPAXPAUContext@3@@Z @0cd827695290 @w5700e70b8465
+// sym: ?vfunc_7@CollisionObject@physics@fn_00305070@@UAEPAXPAUContext@3@@Z @0cd827695290 @w5700e70b8465 @vf060ac058485
 namespace fn_00305070 {
 // STATUS: equivalent (tools/equiv.py level 3: 93 inputs, branch coverage 18/18)
 // physics::CollisionObject::vfunc_7 @ 0x00305070
@@ -901,7 +901,7 @@ void T_305190::Add(int a, int b, int c, unsigned char d) {
 
 
 // 0x00305210 FUN_00305210 (261 B): equivalent/0x00305210.cpp
-// sym: ?FUN_00305210@Container_305210@fn_f3c9f944@@QAEPAU12@PBU12@@Z @33030c1dfc86 @wd58a9064c163
+// sym: ?FUN_00305210@Container_305210@fn_f3c9f944@@QAEPAU12@PBU12@@Z @33030c1dfc86 @wd58a9064c163 @vb150e4f562ce
 // STATUS: equivalent (tools/equiv.py level 3: 53 inputs, branch coverage 20/20)
 // FUN_00305210 @ 0x00305210
 Container_305210* Container_305210::FUN_00305210(const Container_305210* source) {
@@ -995,7 +995,7 @@ physics::CollisionObject* physics::CollisionObject::vfunc_2(unsigned char p) {
 
 
 // 0x00305400 physics::CollisionObject::vfunc_5 (278 B): equivalent/0x00305400.cpp [wrapped: conflict: physics::CollisionObject]
-// sym: ?vfunc_5@CollisionObject@physics@fn_00305400@@UAEPAU123@PAX@Z @0d2a14fc0e68 @w4a3873195a5d
+// sym: ?vfunc_5@CollisionObject@physics@fn_00305400@@UAEPAU123@PAX@Z @0d2a14fc0e68 @w4a3873195a5d @v942524d70b04
 namespace fn_00305400 {
 // STATUS: equivalent (tools/equiv.py level 3: 462 inputs, branch coverage 6/6)
 // physics::CollisionObject::vfunc_5 @ 0x00305400
@@ -1044,7 +1044,7 @@ CollisionObject* CollisionObject::vfunc_5(void* newOwner) {   // (x64t5) the own
 namespace fn_f3c9f944 {
 
 // 0x00305520 FUN_00305520 (230 B): equivalent/0x00305520.cpp
-// sym: _FUN_00305520 @a5d1453a1ea1 @wacb28fb6da06
+// sym: _FUN_00305520 @a5d1453a1ea1 @wacb28fb6da06 @v27d71185cb92
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00305520 @ 0x00305520
 extern "C" void __cdecl FUN_00305520(const void * rotation_, void * matrix)
@@ -1061,7 +1061,7 @@ extern "C" void __cdecl FUN_00305520(const void * rotation_, void * matrix)
 } // namespace fn_f3c9f944
 
 // 0x00305630 FUN_00305630 (197 B): equivalent/0x00305630.cpp [wrapped: conflict: Matrix]
-// sym: _FUN_00305630 @ea7da691cb3d @wd1bca8866275
+// sym: _FUN_00305630 @ea7da691cb3d @wd1bca8866275 @vf270fd6fa45d
 namespace fn_00305630 {
 // STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 0/0)
 // FUN_00305630 @ 0x00305630
@@ -1106,7 +1106,7 @@ extern "C" void FUN_00305700(float s, float* src, float* dst) {
 
 
 // 0x00305800 FUN_00305800 (190 B): equivalent/0x00305800.cpp
-// sym: _FUN_00305800 @34fde874a5c8 @wcd42418e93b4
+// sym: _FUN_00305800 @34fde874a5c8 @wcd42418e93b4 @v98e31a82069e
 // STATUS: equivalent (tools/equiv.py level 3: 18764 inputs, branch coverage 4/4)
 // FUN_00305800 @ 0x00305800
 extern "C" void __cdecl FUN_00305800(const Vec_305800* input, Object* object, float divisor) {
@@ -1126,7 +1126,7 @@ extern "C" void __cdecl FUN_00305800(const Vec_305800* input, Object* object, fl
 } // namespace fn_f3c9f944
 
 // 0x003058c0 FUN_003058c0 (243 B): equivalent/0x003058c0.cpp [wrapped: conflict: Matrix]
-// sym: ?FUN_003058c0@fn_003058c0@@YAMPBUMatrix@1@M@Z @fb734ef7fb13 @wd398d1025776
+// sym: ?FUN_003058c0@fn_003058c0@@YAMPBUMatrix@1@M@Z @fb734ef7fb13 @wd398d1025776 @v2382a79634c9
 namespace fn_003058c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 4/4)
 // FUN_003058c0 @ 0x003058c0
@@ -1173,7 +1173,7 @@ extern "C" bool FUN_003059c0(Vec_3059c0* a, Q_3059c0* b) {
 
 
 // 0x00305a40 FUN_00305a40 (186 B): equivalent/0x00305a40.cpp
-// sym: _FUN_00305a40 @31b7236bd8a2 @w610cdee6ff59
+// sym: _FUN_00305a40 @31b7236bd8a2 @w610cdee6ff59 @v30a24eb760d5
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_00305a40 @ 0x00305a40
 extern "C" int __cdecl FUN_00305a40(const Vec3_305a40* v, unsigned char absolute)
@@ -1191,7 +1191,7 @@ extern "C" int __cdecl FUN_00305a40(const Vec3_305a40* v, unsigned char absolute
 
 
 // 0x00305b00 FUN_00305b00 (117 B): equivalent/0x00305b00.cpp
-// sym: _FUN_00305b00 @545f9f7c960e @w38c9be55ba09
+// sym: _FUN_00305b00 @545f9f7c960e @w38c9be55ba09 @vf82332500a9c
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00305b00 @ 0x00305b00
 extern "C" void __cdecl FUN_00305b00(Tensor_305b00 *out, const V3_305b00 *v, int a)
@@ -1207,7 +1207,7 @@ extern "C" void __cdecl FUN_00305b00(Tensor_305b00 *out, const V3_305b00 *v, int
 
 
 // 0x00305b80 FUN_00305b80 (113 B): equivalent/0x00305b80.cpp
-// sym: ?FUN_00305b80@fn_f3c9f944@@YA_NPBUNode@1@0M@Z @798330d791a5 @w45ba71d996ff
+// sym: ?FUN_00305b80@fn_f3c9f944@@YA_NPBUNode@1@0M@Z @798330d791a5 @w45ba71d996ff @vdab688806226
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_00305b80 @ 0x00305b80
 // True when every component of a and b differs by no more than tol.
@@ -1245,7 +1245,7 @@ extern "C" bool FUN_00305c00(const float* a, const float* b, float e) {
 
 
 // 0x00305c70 FUN_00305c70 (590 B): equivalent/0x00305c70.cpp
-// sym: ?FUN_00305c70@fn_f3c9f944@@YA_NPBUVec_305c70@1@0PAUQuat_305c70@1@PA_N@Z @8be7ea96cf9c @w5b5663df60c3
+// sym: ?FUN_00305c70@fn_f3c9f944@@YA_NPBUVec_305c70@1@0PAUQuat_305c70@1@PA_N@Z @8be7ea96cf9c @w5b5663df60c3 @v612f6be7e38b
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_00305c70 @ 0x00305c70
 bool __cdecl FUN_00305c70(const Vec_305c70* a,const Vec_305c70* b,Quat_305c70* out,bool* opposite) {
@@ -1281,7 +1281,7 @@ bool __cdecl FUN_00305c70(const Vec_305c70* a,const Vec_305c70* b,Quat_305c70* o
 
 
 // 0x00305f00 FUN_00305f00 (351 B): equivalent/0x00305f00.cpp
-// sym: _FUN_00305f00 @d0488ceffa82 @wc04e68093d92
+// sym: _FUN_00305f00 @d0488ceffa82 @wc04e68093d92 @v8fb137a55a5f
 // STATUS: equivalent (tools/equiv.py level 3: 20014 inputs, branch coverage 6/6)
 // FUN_00305f00 @ 0x00305f00
 // Axis (cross product b x a) and angle between two vectors.
@@ -1379,7 +1379,7 @@ void __fastcall FUN_003060e0(Thing_3060e0* p) {
 } // namespace fn_f3c9f944
 
 // 0x00306190 FUN_00306190 (152 B): equivalent/0x00306190.cpp [wrapped: conflict: Node]
-// sym: ?FUN_00306190@Node@fn_00306190@@QAEPAV12@H_N@Z @ac58ddd028cb @w654d127d1d14
+// sym: ?FUN_00306190@Node@fn_00306190@@QAEPAV12@H_N@Z @ac58ddd028cb @w654d127d1d14 @v2c5698e16f01
 namespace fn_00306190 {
 // STATUS: equivalent (tools/equiv.py level 3: 2999 inputs, branch coverage 20/20)
 // FUN_00306190 @ 0x00306190
@@ -1523,7 +1523,7 @@ void Node::FUN_00306300()
 
 
 // 0x00306380 FUN_00306380 (208 B): equivalent/0x00306380.cpp [wrapped: conflict: Node]
-// sym: ?FUN_00306380@Node@fn_00306380@@QAEXXZ @1fdabd70002a @wd446182cf61c
+// sym: ?FUN_00306380@Node@fn_00306380@@QAEXXZ @1fdabd70002a @wd446182cf61c @ve942cac1a819
 namespace fn_00306380 {
 // STATUS: equivalent (tools/equiv.py level 3: 680 inputs, branch coverage 12/12)
 // FUN_00306380 @ 0x00306380

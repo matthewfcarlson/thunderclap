@@ -42,7 +42,7 @@ extern "C" int __cdecl FUN_00217350(LuaVMState* L, int lim);
 
 
 // 0x002164b0 FUN_002164b0 (193 B): equivalent/0x002164b0.cpp
-// sym: _FUN_002164b0 @e714bf1025cf @wee6cfacdf830
+// sym: _FUN_002164b0 @e714bf1025cf @wee6cfacdf830 @vcff9e10466ab
 // STATUS: equivalent (tools/equiv.py level 3: 3026 inputs, branch coverage 21/21)
 // reallymarkobject: make a white object gray (onto g->gray) or black (strings, userdata, closed upvalues).
 extern "C" void __cdecl FUN_002164b0(LuaVMGlobal* g, LuaVMGCObject* o) {
@@ -96,7 +96,7 @@ extern "C" void __cdecl FUN_002164b0(LuaVMGlobal* g, LuaVMGCObject* o) {
 
 
 // 0x002165c0 FUN_002165c0 (164 B): equivalent/0x002165c0.cpp
-// sym: _FUN_002165c0 @50b3809b536c @w8645daa92175
+// sym: _FUN_002165c0 @50b3809b536c @w8645daa92175 @v02388c00adcc
 // STATUS: equivalent (tools/equiv.py level 3: 3058 inputs, branch coverage 16/16)
 // luaC_separateudata: move the dead (or, with all, every) userdata with a __gc metamethod onto g->tmudata; the bytes.
 extern "C" unsigned int __cdecl FUN_002165c0(LuaVMState* L, int all) {
@@ -222,7 +222,7 @@ extern "C" void __cdecl FUN_00216810(LuaVMProto* f, LuaVMGlobal* g) {
 
 
 // 0x002168d0 FUN_002168d0 (172 B): equivalent/0x002168d0.cpp
-// sym: _FUN_002168d0 @26abeccc04c5 @wceff551d0b76
+// sym: _FUN_002168d0 @26abeccc04c5 @wceff551d0b76 @vf0340ff7972e
 // STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 20/20)
 // traverseclosure: mark a C closure's upvalues, or a Lua closure's globals table, prototype and upvalues.
 // equiv-conv: FUN_002168d0 esi stack
@@ -250,7 +250,7 @@ extern "C" void __cdecl FUN_002168d0(LuaVMClosure* cl, LuaVMGlobal* g) {
 
 
 // 0x002169e0 FUN_002169e0 (212 B): equivalent/0x002169e0.cpp
-// sym: _FUN_002169e0 @b1ea49eb4e7d @w02db4aa2a2fc
+// sym: _FUN_002169e0 @b1ea49eb4e7d @w02db4aa2a2fc @v30969120d21f
 // STATUS: equivalent (tools/equiv.py level 3: 145 inputs, branch coverage 30/30)
 // traversestack: mark a thread's globals and live stack, clear the slots above, and shrink the CallInfo array and
 // the stack when little is used.
@@ -284,7 +284,7 @@ extern "C" void __cdecl FUN_002169e0(LuaVMState* L, LuaVMGlobal* g) {
 
 
 // 0x00216ac0 FUN_00216ac0 (296 B): equivalent/0x00216ac0.cpp
-// sym: _FUN_00216ac0 @8e35ef1dee70 @wb44d2f91046e
+// sym: _FUN_00216ac0 @8e35ef1dee70 @wb44d2f91046e @ve36cd962909e
 // STATUS: equivalent (tools/equiv.py level 3: 1088 inputs, branch coverage 17/17)
 // propagatemarks: traverse gray objects (black afterwards; threads go onto grayagain) until lim bytes are done.
 // equiv-conv: FUN_00216670 edi stack
@@ -346,7 +346,7 @@ extern "C" int __cdecl FUN_00216ac0(int lim, LuaVMGlobal* g) {
 
 
 // 0x00216c40 FUN_00216c40 (231 B): equivalent/0x00216c40.cpp
-// sym: _FUN_00216c40 @c1953c173590 @w59706db7a5e2
+// sym: _FUN_00216c40 @c1953c173590 @w59706db7a5e2 @vf1b76efdcb37
 // STATUS: equivalent (tools/equiv.py level 3: 131 inputs, branch coverage 43/44, incomplete)
 // cleartable: remove the collected keys and values from the weak tables on the list l (by gclist).
 // equiv-conv: FUN_00216c40 eax
@@ -397,7 +397,7 @@ extern "C" void __cdecl FUN_00216c40(LuaVMGCObject* l) {
 
 
 // 0x00216d30 FUN_00216d30 (118 B): equivalent/0x00216d30.cpp
-// sym: _FUN_00216d30 @8b1fd7d6492f @w419b5229898f
+// sym: _FUN_00216d30 @8b1fd7d6492f @w419b5229898f @v12ce9e0d35c8
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 9/9)
 // freeobj: free a collectable object by its type.
 // equiv-conv: FUN_00216d30 ecx eax
@@ -430,7 +430,7 @@ extern "C" void __cdecl FUN_00216d30(LuaVMState* L, LuaVMGCObject* o) {
 } // namespace fn_f29d11ae
 
 // 0x00216e10 FUN_00216e10 (96 B): equivalent/0x00216e10.cpp [wrapped: code differs from its standalone build]
-// sym: _FUN_00216e10 @d61717e63512 @wba80607c472a
+// sym: _FUN_00216e10 @d61717e63512 @wba80607c472a @v5d60d4ec8020
 namespace fn_00216e10 {
 // STATUS: equivalent (tools/equiv.py level 3: 2989 inputs, branch coverage 8/8)
 // sweepstrings: sweep the string table's buckets from g->sweepstrgc until lim bytes are done; the budget left.
@@ -459,7 +459,7 @@ extern "C" int __cdecl FUN_00216e10(int all, int lim, LuaVMState* L) {
 namespace fn_f29d11ae {
 
 // 0x00216e70 FUN_00216e70 (85 B): equivalent/0x00216e70.cpp
-// sym: _FUN_00216e70 @32a1a17504ae @wf13164b4ba5b
+// sym: _FUN_00216e70 @32a1a17504ae @wf13164b4ba5b @vb0fb5f5c632a
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // checkSizes: halve the string table when a quarter full and the concatenation buffer when over 64 bytes.
 // equiv-conv: FUN_00216e70 ebx
@@ -478,7 +478,7 @@ extern "C" void __cdecl FUN_00216e70(LuaVMState* L) {
 
 
 // 0x00216ed0 FUN_00216ed0 (139 B): equivalent/0x00216ed0.cpp
-// sym: _FUN_00216ed0 @e8cb01c9f69d @w2fb218ddd78f
+// sym: _FUN_00216ed0 @e8cb01c9f69d @w2fb218ddd78f @vc63927d64434
 // STATUS: equivalent (tools/equiv.py level 3: 2951 inputs, branch coverage 6/6)
 // GCTM: take the next userdata awaiting finalization, put it back after the dummy udata (white) and call its __gc.
 // equiv-conv: FUN_00216ed0 esi
@@ -510,7 +510,7 @@ extern "C" void __cdecl FUN_00216ed0(LuaVMState* L) {
 
 
 // 0x00216f60 FUN_00216f60 (33 B): equivalent/0x00216f60.cpp
-// sym: _FUN_00216f60 @3de41143b629 @w7ba909a60583
+// sym: _FUN_00216f60 @3de41143b629 @w7ba909a60583 @v09e793c77e22
 // STATUS: equivalent (tools/equiv.py level 3: 3005 inputs, branch coverage 4/4)
 // luaC_callGCTM: run the pending finalizers.
 // equiv-conv: FUN_00216ed0 esi
@@ -521,7 +521,7 @@ extern "C" void __cdecl FUN_00216f60(LuaVMState* L) {
 
 
 // 0x00216f90 FUN_00216f90 (96 B): equivalent/0x00216f90.cpp
-// sym: _FUN_00216f90 @32377db9eb43 @w6d337ada192c
+// sym: _FUN_00216f90 @32377db9eb43 @w6d337ada192c @vfbaa8cf74ac9
 // STATUS: equivalent (tools/equiv.py level 3: 3009 inputs, branch coverage 10/10)
 // markroot: start a collection: mark the main thread, its globals and the registry.
 // equiv-conv: FUN_00216f90 edi
@@ -574,7 +574,7 @@ extern "C" void __cdecl FUN_00216ff0(LuaVMGlobal* g) {
 
 
 // 0x00217050 FUN_00217050 (170 B): equivalent/0x00217050.cpp
-// sym: _FUN_00217050 @7054adeadb80 @wd01e588f83b6
+// sym: _FUN_00217050 @7054adeadb80 @wd01e588f83b6 @vd4879007eac0
 // STATUS: equivalent (tools/equiv.py level 3: 2933 inputs, branch coverage 6/6)
 // atomic: finish the mark phase (upvalues, weak tables, the running thread, grayagain, finalizable userdata), clear
 // the weak tables, flip the white and start sweeping the strings.
@@ -654,7 +654,7 @@ extern "C" void __cdecl FUN_00217160(LuaVMState* L, LuaVMUpVal* uv) {
 
 
 // 0x002171c0 FUN_002171c0 (250 B): equivalent/0x002171c0.cpp
-// sym: _FUN_002171c0 @4080cfd7450a @w3ee5578e21be
+// sym: _FUN_002171c0 @4080cfd7450a @w3ee5578e21be @vc73d4070792d
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 18/18)
 // sweeplist: free the dead objects of the list at p (re-whiten the live ones, sweep threads' open upvalues) until
 // *lim bytes are done; the link reached.
@@ -698,7 +698,7 @@ extern "C" LuaVMGCObject** __cdecl FUN_002171c0(LuaVMState* L, LuaVMGCObject** p
 
 
 // 0x002172c0 FUN_002172c0 (136 B): equivalent/0x002172c0.cpp
-// sym: _FUN_002172c0 @1cbc2b7b78c2 @we8f90d7436d8
+// sym: _FUN_002172c0 @1cbc2b7b78c2 @we8f90d7436d8 @v737c62c43335
 // STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 2/2)
 // luaC_sweepall: sweep everything twice (the second time with the other white), keeping the main thread.
 // equiv-conv: FUN_00216e10 stack stack ebx
@@ -719,7 +719,7 @@ extern "C" void __cdecl FUN_002172c0(LuaVMState* L) {
 
 
 // 0x00217350 FUN_00217350 (212 B): equivalent/0x00217350.cpp
-// sym: _FUN_00217350 @72a5e1ef6993 @wd8557eb43e13
+// sym: _FUN_00217350 @72a5e1ef6993 @wd8557eb43e13 @va26180524a74
 // STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 14/14)
 // singlestep: one step of the collector's state machine (propagate, sweep strings, sweep, finalize); the budget left.
 // equiv-conv: FUN_00216ac0 eax stack
@@ -769,7 +769,7 @@ extern "C" int __cdecl FUN_00217350(LuaVMState* L, int lim) {
 
 
 // 0x00217440 FUN_00217440 (78 B): equivalent/0x00217440.cpp
-// sym: _FUN_00217440 @d58b683673e0 @w7e92b6023154
+// sym: _FUN_00217440 @d58b683673e0 @w7e92b6023154 @vcab9246d05dc
 // STATUS: equivalent (tools/equiv.py level 3: 2592 inputs, branch coverage 6/6)
 // luaC_step: run collector steps for the bytes allocated past the threshold; set the next threshold.
 // equiv-conv: FUN_00217350 eax stack

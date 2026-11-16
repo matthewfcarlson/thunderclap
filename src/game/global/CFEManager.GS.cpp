@@ -372,7 +372,7 @@ void owners::Loader_befc0::FUN_000befc0(const char* name, int param, bool pump)
 
 
 // 0x000bfa10 FUN_000bfa10 (455 B): equivalent/0x000bfa10.cpp [wrapped: conflict: FUN_000fc1b0]
-// sym: ?FUN_000bfa10@UnlockMenu@fn_000bfa10@@QAEXHH@Z @203d8ff8a617 @wbfee5d32b7ae
+// sym: ?FUN_000bfa10@UnlockMenu@fn_000bfa10@@QAEXHH@Z @203d8ff8a617 @wbfee5d32b7ae @v7317278153a6
 namespace fn_000bfa10 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_000bfa10 @ 0x000bfa10
@@ -515,7 +515,7 @@ void Owner::FUN_000c0b30(int first, int second, int third) {
 
 
 // 0x000c0b80 FUN_000c0b80 (90 B): equivalent/0x000c0b80.cpp
-// sym: ?FUN_000c0b80@Manager@fn_f71c7272@@QAEXPBD00@Z @624314ad8c4d @we95606312e5b
+// sym: ?FUN_000c0b80@Manager@fn_f71c7272@@QAEXPBD00@Z @624314ad8c4d @we95606312e5b @v3bf44635eeba
 // STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 0/0)
 // FUN_000c0b80 @ 0x000c0b80
 void Manager::FUN_000c0b80(const char *first, const char *second, const char *third)
@@ -730,7 +730,7 @@ void Registry_c0cc0::FUN_000c0cc0(const char *name, CFEManager *owner, Closure_c
 namespace fn_f71c7272 {
 
 // 0x000c1430 FUN_000c1430 (853 B): equivalent/0x000c1430.cpp
-// sym: ?FUN_000c1430@CFEManager@fn_f71c7272@@QAEXXZ @ef174ec69ea2 @wf8f1281b471e
+// sym: ?FUN_000c1430@CFEManager@fn_f71c7272@@QAEXXZ @ef174ec69ea2 @wf8f1281b471e @va7b77be17c81
 // STATUS: equivalent (tools/equiv.py level 3: 1176 inputs, branch coverage 26/26)
 // FUN_000c1430 @ 0x000c1430
 void CFEManager::FUN_000c1430()
@@ -1920,7 +1920,7 @@ void UnlockMenu::FUN_000c21b0(volatile int id) {
 
 
 // 0x000c2990 FUN_000c2990 (510 B): equivalent/0x000c2990.cpp [wrapped: conflict: FUN_001d4c90]
-// sym: ?run@Target_c2990@fn_000c2990@@QAEXPAUOutput_c2990@2@@Z @9a15de49e39b @weaec597f9f38
+// sym: ?run@Target_c2990@fn_000c2990@@QAEXPAUOutput_c2990@2@@Z @9a15de49e39b @weaec597f9f38 @vb4dd7a64a889
 namespace fn_000c2990 {
 // STATUS: equivalent (tools/equiv.py level 3: 3073 inputs, branch coverage 26/26)
 // FUN_000c2990 @ 0x000c2990
@@ -3025,7 +3025,7 @@ void MissionMenu::FUN_000c4020(int a, int b)
 namespace fn_f71c7272 {
 
 // 0x000c4220 FUN_000c4220 (348 B): equivalent/0x000c4220.cpp
-// sym: ?update@State_c4220@fn_f71c7272@@QAEXPAUPlayer_c4220@2@@Z @e4adf6679b7d @wacbf346f47c1
+// sym: ?update@State_c4220@fn_f71c7272@@QAEXPAUPlayer_c4220@2@@Z @e4adf6679b7d @wacbf346f47c1 @v3a8267e31cb4
 // STATUS: equivalent (tools/equiv.py level 3: 19408 inputs, branch coverage 19/19)
 // FUN_000c4220 @ 0x000c4220
 // FUN_000c4220 @ 0x000c4220

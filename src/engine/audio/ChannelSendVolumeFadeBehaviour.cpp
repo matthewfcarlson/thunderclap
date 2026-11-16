@@ -240,7 +240,7 @@ char target(const char** p, const char* s, const char** q) {
 
 
 // 0x0024ebe0 FUN_0024ebe0 (133 B): equivalent/0x0024ebe0.cpp
-// sym: ?FUN_0024ebe0@fn_f983a9d8@@YA_NPAUWriter_24ebe0@1@PBE@Z @da185ddb00d8 @wac889ecde655
+// sym: ?FUN_0024ebe0@fn_f983a9d8@@YA_NPAUWriter_24ebe0@1@PBE@Z @da185ddb00d8 @wac889ecde655 @v9b8212954de0
 // STATUS: equivalent (tools/equiv.py level 3: 377 inputs, branch coverage 10/10)
 // FUN_0024ebe0 @ 0x0024ebe0
 bool FUN_0024ebe0(Writer_24ebe0 *w, const unsigned char *bytes)
@@ -330,7 +330,7 @@ audio::ChannelSendVolumeFadeBehaviour* audio::ChannelSendVolumeFadeBehaviour::vf
 
 
 // 0x0024ee40 audio::ChannelSendVolumeFadeBehaviour::vfunc_1 (395 B): equivalent/0x0024ee40.cpp [wrapped: conflict: audio::ChannelSendVolumeFadeBehaviour; om::DynBehaviour]
-// sym: ?vfunc_1@ChannelSendVolumeFadeBehaviour@audio@fn_0024ee40@@UAE_NHH@Z @40dd2c6adf01 @wccb46d1d7fd2
+// sym: ?vfunc_1@ChannelSendVolumeFadeBehaviour@audio@fn_0024ee40@@UAE_NHH@Z @40dd2c6adf01 @wccb46d1d7fd2 @v18229e1c2f0c
 namespace fn_0024ee40 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 30/30)
 // audio::ChannelSendVolumeFadeBehaviour::vfunc_1 @ 0x0024ee40
@@ -414,7 +414,7 @@ unsigned char Target(int a, int* out) {
 
 
 // 0x0024f070 FUN_0024f070 (131 B): equivalent/0x0024f070.cpp
-// sym: ?FUN_0024f070@fn_f983a9d8@@YA_NPAUWriter_24f070@1@PAM@Z @070d6b942f34 @w9ad8981f9b26
+// sym: ?FUN_0024f070@fn_f983a9d8@@YA_NPAUWriter_24f070@1@PAM@Z @070d6b942f34 @w9ad8981f9b26 @v1c94dd389c9b
 // STATUS: equivalent (tools/equiv.py level 3: 383 inputs, branch coverage 10/10)
 // FUN_0024f070 @ 0x0024f070
 // Writes a 16-float matrix as "[ v v ... ]" lines to a text stream.
@@ -453,7 +453,7 @@ unsigned int* __fastcall FUN_0024f180(Owner_24f180* self) {
 } // namespace fn_f983a9d8
 
 // 0x0024f1c0 FUN_0024f1c0 (57 B): equivalent/0x0024f1c0.cpp [wrapped: conflict: audio::SeqEventChannelSendVolumes]
-// sym: ??0SeqEventChannelSendVolumes@audio@fn_0024f1c0@@QAE@XZ @55e792334131 @wa76bf51ab9e0
+// sym: ??0SeqEventChannelSendVolumes@audio@fn_0024f1c0@@QAE@XZ @55e792334131 @wa76bf51ab9e0 @vef51ab95b871
 namespace fn_0024f1c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0024f1c0 @ 0x0024f1c0
@@ -643,7 +643,7 @@ extern "C" unsigned char __cdecl FUN_0024f4a0(void* source, const unsigned char*
 } // namespace fn_f983a9d8
 
 // 0x0024f540 audio::SeqEventChannelSendVolumesType::vfunc_3 (80 B): equivalent/0x0024f540.cpp [wrapped: conflict: FUN_002673a0; audio::SeqEventChannelSendVolumes; audio::SeqEventChannelSendVolumesType]
-// sym: ?vfunc_3@SeqEventChannelSendVolumesType@audio@fn_0024f540@@UAEPAUSeqEventChannelSendVolumes@23@XZ @5cee1a3156c9 @w150a18947b9a
+// sym: ?vfunc_3@SeqEventChannelSendVolumesType@audio@fn_0024f540@@UAEPAUSeqEventChannelSendVolumes@23@XZ @5cee1a3156c9 @w150a18947b9a @va4883c9c7915
 namespace fn_0024f540 {
 // STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 2/2)
 // audio::SeqEventChannelSendVolumesType::vfunc_3 @ 0x0024f540
@@ -686,7 +686,7 @@ audio::SeqEventChannelSendVolumes *audio::SeqEventChannelSendVolumesType::vfunc_
 
 
 // 0x0024f590 audio::SeqEventChannelSendVolumes::vfunc_1 (97 B): equivalent/0x0024f590.cpp [wrapped: conflict: audio::SeqEvent; audio::SeqEventChannelSendVolumes]
-// sym: ?vfunc_1@SeqEventChannelSendVolumes@audio@fn_0024f590@@UAE_NPAPAX@Z @7f2d8c9ec0d6 @we835559aebab
+// sym: ?vfunc_1@SeqEventChannelSendVolumes@audio@fn_0024f590@@UAE_NPAPAX@Z @7f2d8c9ec0d6 @we835559aebab @v690f82007c4c
 namespace fn_0024f590 {
 // STATUS: equivalent (tools/equiv.py level 3: 2853 inputs, branch coverage 6/6)
 // audio::SeqEventChannelSendVolumes::vfunc_1 @ 0x0024f590

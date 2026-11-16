@@ -204,7 +204,7 @@ Node* __cdecl findNext(Header* h, Node* x) {
 
 
 // 0x00263690 FUN_00263690 (604 B): equivalent/0x00263690.cpp
-// sym: _FUN_00263690 @394c7c009b90 @w3415c875f53d
+// sym: _FUN_00263690 @394c7c009b90 @w3415c875f53d @v854dd1f7ffe5
 // STATUS: equivalent (tools/equiv.py level 3: 205 inputs, branch coverage 60/60)
 // FUN_00263690 @ 0x00263690
 // Red-black tree erase rebalancing: 'x' is the node that carries the extra black.
@@ -569,7 +569,7 @@ extern "C" void FUN_00263bb0(void * tree, void * node) {
 namespace fn_f551a4d0 {
 
 // 0x00263c90 FUN_00263c90 (158 B): equivalent/0x00263c90.cpp
-// sym: ?FUN_00263c90@fn_f551a4d0@@YA_KXZ @977842fa41cc @w14a1fc967640
+// sym: ?FUN_00263c90@fn_f551a4d0@@YA_KXZ @977842fa41cc @w14a1fc967640 @v168f788f449a
 // STATUS: equivalent (tools/equiv.py level 3: 16731 inputs, branch coverage 4/4)
 // FUN_00263c90 @ 0x00263c90
 // FUN_00263c90 @ 0x00263c90: build a unique 64-bit id from the clock and bump it until it is not in the id set

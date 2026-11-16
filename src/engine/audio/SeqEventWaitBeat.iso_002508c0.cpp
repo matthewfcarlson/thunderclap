@@ -5,7 +5,7 @@
 
 
 // 0x002508c0 audio::SeqEventWaitBeat::vfunc_2 (70 B): equivalent/0x002508c0.cpp [isolated: compile error C2264: 'operator new' : error in function definition or declaration; function not called; on include/gen/ and not mergeable]
-// sym: ?vfunc_2@SeqEventWaitBeat@audio@@UAEXH@Z @a1578b58bf7d @w92aae4a3e218
+// sym: ?vfunc_2@SeqEventWaitBeat@audio@@UAEXH@Z @a1578b58bf7d @w92aae4a3e218 @v65c3bb95595c
 // STATUS: equivalent (tools/equiv.py level 3: 19942 inputs, branch coverage 2/2)
 // audio::SeqEventWaitBeat::vfunc_2 @ 0x002508c0
 #include "gen/audio.h"

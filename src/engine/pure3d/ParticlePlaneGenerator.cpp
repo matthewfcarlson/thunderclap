@@ -663,7 +663,7 @@ bool pure3d::ParticlePlaneGenerator::vfunc_3() {
 namespace fn_fd7a7bd7 {
 
 // 0x002d2630 pure3d::ParticlePlaneGenerator::vfunc_6 (1194 B): equivalent/0x002d2630.cpp
-// sym: ?vfunc_6@ParticlePlaneGenerator@fn_fd7a7bd7@@QAEIITMatArg@2@0MTEmArg@2@@Z @38ef6898d59e @w4fef05c2bde8
+// sym: ?vfunc_6@ParticlePlaneGenerator@fn_fd7a7bd7@@QAEIITMatArg@2@0MTEmArg@2@@Z @38ef6898d59e @w4fef05c2bde8 @ved16c6adf737
 // STATUS: equivalent (tools/equiv.py level 3: 19136 inputs, branch coverage 9/10, incomplete)
 // pure3d::ParticlePlaneGenerator::vfunc_6 @ 0x002d2630
 unsigned int ParticlePlaneGenerator::vfunc_6(unsigned int count, MatArg from, MatArg to, float step, EmArg em)
@@ -748,7 +748,7 @@ unsigned int ParticlePlaneGenerator::vfunc_6(unsigned int count, MatArg from, Ma
 } // namespace fn_fd7a7bd7
 
 // 0x002d2ae0 pure3d::ParticlePlaneGenerator::vfunc_7 (67 B): equivalent/0x002d2ae0.cpp [wrapped: conflict: pure3d::ParticlePlaneGenerator]
-// sym: ?vfunc_7@ParticlePlaneGenerator@pure3d@fn_002d2ae0@@QAEXII@Z @e4cc1aa4136e @w9db31a791fb7
+// sym: ?vfunc_7@ParticlePlaneGenerator@pure3d@fn_002d2ae0@@QAEXII@Z @e4cc1aa4136e @w9db31a791fb7 @v9d64e1a9a1f5
 namespace fn_002d2ae0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 7/7)
 // pure3d::ParticlePlaneGenerator::vfunc_7 @ 0x002d2ae0
@@ -757,7 +757,7 @@ namespace pure3d { struct ParticlePlaneGenerator { char padding[0x4c]; unsigned 
 
 
 // 0x002d2b40 pure3d::ParticlePlaneGenerator::vfunc_8 (56 B): equivalent/0x002d2b40.cpp [wrapped: conflict: pure3d::ParticlePlaneGenerator]
-// sym: ?vfunc_8@ParticlePlaneGenerator@pure3d@fn_002d2b40@@QAEMI@Z @1b73419227fd @wbfabf5e4d44b
+// sym: ?vfunc_8@ParticlePlaneGenerator@pure3d@fn_002d2b40@@QAEMI@Z @1b73419227fd @wbfabf5e4d44b @v12f93dcdcff3
 namespace fn_002d2b40 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 7/7)
 // pure3d::ParticlePlaneGenerator::vfunc_8 @ 0x002d2b40
@@ -1069,7 +1069,7 @@ pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
 
 
 // 0x002d3410 pure3d::ParticlePlaneGenerator::vfunc_5 (249 B): equivalent/0x002d3410.cpp [wrapped: conflict: pure3d::ParticlePlaneGenerator]
-// sym: ?vfunc_5@ParticlePlaneGenerator@pure3d@fn_002d3410@@QAEXM@Z @dd84d9a9f05c @w45854849fefd
+// sym: ?vfunc_5@ParticlePlaneGenerator@pure3d@fn_002d3410@@QAEXM@Z @dd84d9a9f05c @w45854849fefd @v74c4926f5a09
 namespace fn_002d3410 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // pure3d::ParticlePlaneGenerator::vfunc_5 @ 0x002d3410
@@ -1142,7 +1142,7 @@ pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
 
 
 // 0x002d3530 pure3d::ParticleSphereGenerator::vfunc_5 (136 B): equivalent/0x002d3530.cpp [wrapped: conflict: pure3d::ParticleSphereGenerator]
-// sym: ?vfunc_5@ParticleSphereGenerator@pure3d@fn_002d3530@@QAEXM@Z @a71627fc0f57 @w600ec5ba93ea
+// sym: ?vfunc_5@ParticleSphereGenerator@pure3d@fn_002d3530@@QAEXM@Z @a71627fc0f57 @w600ec5ba93ea @v400b6c6c9f48
 namespace fn_002d3530 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // pure3d::ParticleSphereGenerator::vfunc_5 @ 0x002d3530
@@ -1199,7 +1199,7 @@ ParticlePointGenerator_2d3740::ParticlePointGenerator_2d3740() throw() {
 } // namespace fn_fd7a7bd7
 
 // 0x002d3790 FUN_002d3790 (267 B): equivalent/0x002d3790.cpp [wrapped: conflict: pure3d::ParticleGenerator; pure3d::ParticlePointGenerator]
-// sym: ?copy@ParticlePointGenerator@pure3d@fn_002d3790@@QAEPAU123@ABU123@@Z @e32fe6d01dac @w1b693f82774a
+// sym: ?copy@ParticlePointGenerator@pure3d@fn_002d3790@@QAEPAU123@ABU123@@Z @e32fe6d01dac @w1b693f82774a @v881dfaf77a05
 void* __cdecl operator new(size_t,void*);
 namespace fn_002d3790 {
 // STATUS: equivalent (tools/equiv.py level 3: 37 inputs, branch coverage 16/16)
@@ -1263,7 +1263,7 @@ void* pure3d::ParticlePointGenerator::vfunc_4() {
 
 
 // 0x002d3930 FUN_002d3930 (79 B): equivalent/0x002d3930.cpp [wrapped: conflict: pure3d::ParticlePlaneGenerator]
-// sym: ??0ParticlePlaneGenerator@pure3d@fn_002d3930@@QAE@XZ @13ca534329d3 @webeacc81de34
+// sym: ??0ParticlePlaneGenerator@pure3d@fn_002d3930@@QAE@XZ @13ca534329d3 @webeacc81de34 @vd62195901b0d
 namespace fn_002d3930 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_002d3930 @ 0x002d3930
@@ -1297,7 +1297,7 @@ ParticlePlaneGenerator::ParticlePlaneGenerator() {
 
 
 // 0x002d3980 FUN_002d3980 (297 B): equivalent/0x002d3980.cpp [wrapped: conflict: pure3d::ParticleGenerator; pure3d::ParticlePlaneGenerator]
-// sym: ?copy@ParticlePlaneGenerator@pure3d@fn_002d3980@@QAEPAU123@ABU123@@Z @7ff0f3cc0571 @w8b93527ed2f8
+// sym: ?copy@ParticlePlaneGenerator@pure3d@fn_002d3980@@QAEPAU123@ABU123@@Z @7ff0f3cc0571 @w8b93527ed2f8 @v9c55429ead6f
 inline void* __cdecl operator new(size_t, void* p) { return p; }
 namespace fn_002d3980 {
 // STATUS: equivalent (tools/equiv.py level 3: 37 inputs, branch coverage 16/16)
@@ -1416,7 +1416,7 @@ ParticleSphereGenerator::ParticleSphereGenerator() {}
 
 
 // 0x002d3b80 FUN_002d3b80 (265 B): equivalent/0x002d3b80.cpp [wrapped: conflict: pure3d::ParticleGenerator; pure3d::ParticleSphereGenerator]
-// sym: ??0ParticleSphereGenerator@pure3d@fn_002d3b80@@QAE@ABU012@@Z @d018ea310c83 @wf8060fd1029c
+// sym: ??0ParticleSphereGenerator@pure3d@fn_002d3b80@@QAE@ABU012@@Z @d018ea310c83 @wf8060fd1029c @v3766039a88c1
 namespace fn_002d3b80 {
 // STATUS: equivalent (tools/equiv.py level 3: 37 inputs, branch coverage 16/16)
 // FUN_002d3b80 @ 0x002d3b80

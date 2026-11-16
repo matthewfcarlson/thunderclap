@@ -359,7 +359,7 @@ d3dToon2VertexShader_32ffe0* d3dToon2VertexShader_32ffe0::vfunc_3(unsigned char 
 } // namespace fn_f6ae905d
 
 // 0x00330040 pure3d::d3dToon2VertexShader::vfunc_24 (782 B): equivalent/0x00330040.cpp [wrapped: conflict: pure3d::d3dToon2VertexShader]
-// sym: ?vfunc_24@d3dToon2VertexShader@pure3d@fn_00330040@@UAEXXZ @612e0212896a @w371af56298dd
+// sym: ?vfunc_24@d3dToon2VertexShader@pure3d@fn_00330040@@UAEXXZ @612e0212896a @w371af56298dd @v69f1aad37336
 namespace fn_00330040 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/12)
 // pure3d::d3dToon2VertexShader::vfunc_24 @ 0x00330040

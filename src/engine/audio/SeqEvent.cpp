@@ -243,7 +243,7 @@ Node* __cdecl FUN_0025fe80(Node* n, Node* x) {
 
 
 // 0x0025fec0 FUN_0025fec0 (604 B): equivalent/0x0025fec0.cpp
-// sym: _FUN_0025fec0 @394c7c009b90 @w3415c875f53d
+// sym: _FUN_0025fec0 @394c7c009b90 @w3415c875f53d @va9935607faaf
 // STATUS: equivalent (tools/equiv.py level 3: 205 inputs, branch coverage 60/60)
 // FUN_0025fec0 @ 0x0025fec0
 // Red-black tree erase rebalancing: 'x' is the node that carries the extra black.
@@ -408,7 +408,7 @@ pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
 namespace fn_f3ff1114 {
 
 // 0x002601d0 FUN_002601d0 (514 B): equivalent/0x002601d0.cpp
-// sym: _FUN_002601d0 @c913194c1320 @w85a7b1e42798
+// sym: _FUN_002601d0 @c913194c1320 @w85a7b1e42798 @vdf8554940295
 // STATUS: equivalent (tools/equiv.py level 3: 3126 inputs, branch coverage 48/48)
 // FUN_002601d0 @ 0x002601d0
 // Unique-key insertion into a red-black tree keyed by string. Returns whether
@@ -531,7 +531,7 @@ extern "C" char FUN_002601d0(void * tree_, void * elem_, void * key)
 
 
 // 0x002603e0 FUN_002603e0 (182 B): equivalent/0x002603e0.cpp
-// sym: _FUN_002603e0 @0e18f080af41 @w9c898005045a
+// sym: _FUN_002603e0 @0e18f080af41 @w9c898005045a @v249871896278
 // STATUS: equivalent (tools/equiv.py level 3: 2947 inputs, branch coverage 24/24)
 // FUN_002603e0 @ 0x002603e0
 // The tree of sequence event types (records.h: OmTree of SeqEventTypeHead entries).
@@ -655,7 +655,7 @@ Item_260520 *FUN_00260520(Tree_260520 *tree, int steps)
 namespace fn_f3ff1114 {
 
 // 0x00260590 FUN_00260590 (74 B): equivalent/0x00260590.cpp
-// sym: _FUN_00260590 @7de2dfd68a4a @wfb162e91e198
+// sym: _FUN_00260590 @7de2dfd68a4a @wfb162e91e198 @v73c002dbe6e3
 // STATUS: equivalent (tools/equiv.py level 3: 1411 inputs, branch coverage 7/7)
 // FUN_00260590 @ 0x00260590
 // The original searches for the node's predecessor by walking from the head, but the node it removes
@@ -680,7 +680,7 @@ extern "C" void FUN_00260590(List* list)
 } // namespace fn_f3ff1114
 
 // 0x002605e0 FUN_002605e0 (150 B): equivalent/0x002605e0.cpp [wrapped: conflict: audio::SeqEventType; om::Type]
-// sym: ?FUN_002605e0@SeqEventType@audio@fn_002605e0@@QAEPAV123@PBDPAXHH@Z @a51067cb3e5b @w5d2298630b2f
+// sym: ?FUN_002605e0@SeqEventType@audio@fn_002605e0@@QAEPAV123@PBDPAXHH@Z @a51067cb3e5b @w5d2298630b2f @v78416110d0ab
 inline void *operator new(size_t, void *p) { return p; }
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)

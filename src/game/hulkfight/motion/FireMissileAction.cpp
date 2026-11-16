@@ -166,7 +166,7 @@ public:
 
 
 // 0x0019e430 hulkfight::motion::FireMissileAction::vfunc_5 (1188 B): equivalent/0x0019e430.cpp
-// sym: ?vfunc_5@FireMissileAction@motion@hulkfight@fn_fac9c0e0@@UAEDHH@Z @e9ca4b658c1f @wac4a0d442811
+// sym: ?vfunc_5@FireMissileAction@motion@hulkfight@fn_fac9c0e0@@UAEDHH@Z @e9ca4b658c1f @wac4a0d442811 @v217f867592a4
 // STATUS: equivalent (tools/equiv.py level 3: 20037 inputs, branch coverage 61/62, incomplete)
 // hulkfight::motion::FireMissileAction::vfunc_5 @ 0x0019e430
 // hulkfight::motion::FireMissileAction::vfunc_5 @ 0x0019e430

@@ -452,7 +452,7 @@ ParticleController_2a73d0::ParticleController_2a73d0() {
 } // namespace fn_fa907639
 
 // 0x002a7410 FUN_002a7410 (197 B): equivalent/0x002a7410.cpp [wrapped: conflict: pure3d::ParticleController]
-// sym: ??0ParticleController@pure3d@fn_002a7410@@QAE@ABU012@@Z @34a597f705f9 @w0c75339472c1
+// sym: ??0ParticleController@pure3d@fn_002a7410@@QAE@ABU012@@Z @34a597f705f9 @w0c75339472c1 @v52706a85a19c
 namespace fn_002a7410 {
 // STATUS: equivalent (tools/equiv.py level 3: 56 inputs, branch coverage 12/12)
 // FUN_002a7410 @ 0x002a7410

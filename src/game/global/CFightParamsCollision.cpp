@@ -718,7 +718,7 @@ Slots_59370 *Slots_59370::FUN_00059370(const Slots_59370 *other)
 
 
 // 0x00059510 FUN_00059510 (213 B): equivalent/0x00059510.cpp
-// sym: ?FUN_00059510@State_59510@fn_f8b0a0f7@@QAEXXZ @a85cd1c23154 @w0058107c670b
+// sym: ?FUN_00059510@State_59510@fn_f8b0a0f7@@QAEXXZ @a85cd1c23154 @w0058107c670b @v7bb1b8db09f1
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_00059510 @ 0x00059510
 void State_59510::FUN_00059510() {
@@ -744,7 +744,7 @@ void State_59510::FUN_00059510() {
 
 
 // 0x000595f0 FUN_000595f0 (298 B): equivalent/0x000595f0.cpp
-// sym: ?FUN_000595f0@Obj_595f0@fn_f8b0a0f7@@QAEXPBUVec_595f0@2@MMM@Z @7785552e5bf8 @w7272f812eaa5
+// sym: ?FUN_000595f0@Obj_595f0@fn_f8b0a0f7@@QAEXPBUVec_595f0@2@MMM@Z @7785552e5bf8 @w7272f812eaa5 @v6b1416cf1f72
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_000595f0 @ 0x000595f0
 void Obj_595f0::FUN_000595f0(const Vec_595f0* v, float scale, float time, float height) {
@@ -1040,7 +1040,7 @@ char Obj_59a90::Set(Src_59a90* src) {
 
 
 // 0x00059ad0 FUN_00059ad0 (135 B): equivalent/0x00059ad0.cpp
-// sym: ?FUN_00059ad0@EntryPool@fn_f8b0a0f7@@QAEPAV12@XZ @36070a07a279 @w8dbf87af1b22
+// sym: ?FUN_00059ad0@EntryPool@fn_f8b0a0f7@@QAEPAV12@XZ @36070a07a279 @w8dbf87af1b22 @vbc1417f36cb1
 // STATUS: equivalent (tools/equiv.py level 3: 69 inputs, branch coverage 8/8)
 // FUN_00059ad0 @ 0x00059ad0
 EntryPool *EntryPool::FUN_00059ad0()
@@ -1202,7 +1202,7 @@ void EntryTable_59d30::FUN_00059d30() {
 } // namespace fn_f8b0a0f7
 
 // 0x00059db0 FUN_00059db0 (149 B): equivalent/0x00059db0.cpp [wrapped: conflict: World]
-// sym: ?FUN_00059db0@ItemList_59db0@fn_00059db0@@QAEXXZ @890cee28b6de @wdd90953071c8
+// sym: ?FUN_00059db0@ItemList_59db0@fn_00059db0@@QAEXXZ @890cee28b6de @wdd90953071c8 @v42241287ae4d
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)
@@ -1354,7 +1354,7 @@ void C_59ee0::run() {
 
 
 // 0x00059f30 FUN_00059f30 (209 B): equivalent/0x00059f30.cpp
-// sym: ?FUN_00059f30@Item_59f30@fn_f8b0a0f7@@QAEPAXE@Z @e9c52ee1ccd7 @wfb6445942925
+// sym: ?FUN_00059f30@Item_59f30@fn_f8b0a0f7@@QAEPAXE@Z @e9c52ee1ccd7 @wfb6445942925 @v4ac15051c250
 // STATUS: equivalent (tools/equiv.py level 3: 294 inputs, branch coverage 22/22)
 // FUN_00059f30 @ 0x00059f30
 void* Item_59f30::FUN_00059f30(unsigned char flags) {
@@ -1760,7 +1760,7 @@ extern "C" hulk_intptr __cdecl FUN_0005a3f0(X_5a3f0* param) {
 
 
 // 0x0005a430 FUN_0005a430 (51 B): equivalent/0x0005a430.cpp
-// sym: _FUN_0005a430 @c8424f0a9135 @wdad6db87ab83
+// sym: _FUN_0005a430 @c8424f0a9135 @wdad6db87ab83 @ve4bc23cf560d
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_0005a430 @ 0x0005a430
 extern "C" void* __cdecl FUN_0005a430(Input* input) { if (!input) return 0; Middle* middle = (Middle*)((void *)((owners::Object_592a0 *)input)->FUN_000592a0()); if (!middle) return 0; Result* result = middle->FUN_00059a30(); if (!result) return 0; return result->preferred ? result->preferred : result->fallback; }

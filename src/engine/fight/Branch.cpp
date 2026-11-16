@@ -354,7 +354,7 @@ int __fastcall FUN_00232fc0(Node* p) {
 } // namespace fn_f3f1aadd
 
 // 0x00232fe0 FUN_00232fe0 (34 B): equivalent/0x00232fe0.cpp
-// sym: ?FUN_00232fe0@Node_232fe0@owners@@QAEPAU12@XZ @e09903816921 @w809246f242bd
+// sym: ?FUN_00232fe0@Node_232fe0@owners@@QAEPAU12@XZ @e09903816921 @w809246f242bd @vdb9012f39da9
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_00232fe0 @ 0x00232fe0
 owners::Node_232fe0* owners::Node_232fe0::FUN_00232fe0() { if (boundary) return boundary; owners::Node_232fe0* node = this; while (node) { if (node->value) return node->value; node = node->parent; } return 0; }
@@ -516,7 +516,7 @@ bool List::Remove(int n) {
 
 
 // 0x00233320 FUN_00233320 (59 B): equivalent/0x00233320.cpp
-// sym: ?FUN_00233320@Node_233320@owners@@QAEPAU12@HH@Z @99feae2467f5 @w0428d8fd16b7
+// sym: ?FUN_00233320@Node_233320@owners@@QAEPAU12@HH@Z @99feae2467f5 @w0428d8fd16b7 @v93b8aa0f5373
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_00233320 @ 0x00233320
 owners::Node_233320 *owners::Node_233320::FUN_00233320(int first, int second) {
@@ -624,7 +624,7 @@ void fight::Branch::FUN_00233970() {
 
 
 // 0x00233990 FUN_00233990 (115 B): equivalent/0x00233990.cpp [wrapped: conflict: Node]
-// sym: ?FUN_00233990@Node@fn_00233990@@QAEPAU12@XZ @574d0a266de2 @w23aac7e998bf
+// sym: ?FUN_00233990@Node@fn_00233990@@QAEPAU12@XZ @574d0a266de2 @w23aac7e998bf @v6dd93f0b8f43
 namespace fn_00233990 {
 // STATUS: equivalent (tools/equiv.py level 3: 3052 inputs, branch coverage 22/28, incomplete)
 // FUN_00233990 @ 0x00233990
@@ -667,7 +667,7 @@ Node *Node::FUN_00233990()
 
 
 // 0x00233b30 FUN_00233b30 (114 B): equivalent/0x00233b30.cpp [wrapped: conflict: Node]
-// sym: ?FUN_00233b30@List_233b30@fn_00233b30@@QAEHHPAVNode@2@@Z @b9f201bf880e @w74d0c906ee44
+// sym: ?FUN_00233b30@List_233b30@fn_00233b30@@QAEHHPAVNode@2@@Z @b9f201bf880e @w74d0c906ee44 @v68b9569d79f6
 namespace fn_00233b30 {
 // STATUS: equivalent (tools/equiv.py level 3: 3015 inputs, branch coverage 13/14, incomplete)
 // FUN_00233b30 @ 0x00233b30

@@ -256,7 +256,7 @@ void FUN_00044cb0(const char *category, const char *key, float value)
 namespace fn_fd48bef5 {
 
 // 0x000452e0 FUN_000452e0 (912 B): equivalent/0x000452e0.cpp
-// sym: _FUN_000452e0 @9d5eefae4e7f @w978c8a1367e2
+// sym: _FUN_000452e0 @9d5eefae4e7f @w978c8a1367e2 @v55df3270702d
 // STATUS: equivalent (tools/equiv.py level 3: 3032 inputs, branch coverage 66/66)
 // FUN_000452e0 @ 0x000452e0
 extern "C" hulk_intptr FUN_000452e0(const char *id, const char *name, int value)

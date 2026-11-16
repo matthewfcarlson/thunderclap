@@ -341,7 +341,7 @@ int ImageConverter::f3(void** items, int count, void* a, void* b) {
 } // namespace fn_f9c3d788
 
 // 0x002de3f0 pure3d::ImageConverter::vfunc_2 (293 B): equivalent/0x002de3f0.cpp [wrapped: conflict: DAT_004d098c; Image; pure3d::ImageConverter]
-// sym: ?vfunc_2@ImageConverter@pure3d@fn_002de3f0@@UAEPAUTexture_2de3f0@3@PAPAUImage@3@HHH@Z @af968681bc51 @w38161c7b12de
+// sym: ?vfunc_2@ImageConverter@pure3d@fn_002de3f0@@UAEPAUTexture_2de3f0@3@PAPAUImage@3@HHH@Z @af968681bc51 @w38161c7b12de @v4ab8d30c2f75
 namespace fn_002de3f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 222 inputs, branch coverage 20/20)
 // pure3d::ImageConverter::vfunc_2 @ 0x002de3f0
@@ -479,7 +479,7 @@ extern "C" void FUN_002de600(unsigned short* destination, const unsigned* source
 
 
 // 0x002de6c0 FUN_002de6c0 (204 B): equivalent/0x002de6c0.cpp
-// sym: _FUN_002de6c0 @365ee9503fb9 @wcea8df7219eb
+// sym: _FUN_002de6c0 @365ee9503fb9 @wcea8df7219eb @v9ebd1118c3c2
 // STATUS: equivalent (tools/equiv.py level 3: 88 inputs, branch coverage 8/8)
 // FUN_002de6c0 @ 0x002de6c0
 // equiv-conv: FUN_002de6c0 eax esi stack
@@ -541,7 +541,7 @@ extern "C" void __cdecl FUN_002de790(unsigned char* destination, void * format, 
 
 
 // 0x002de8b0 FUN_002de8b0 (209 B): equivalent/0x002de8b0.cpp
-// sym: _FUN_002de8b0 @2b07893b222b @w0e1406468ea2
+// sym: _FUN_002de8b0 @2b07893b222b @w0e1406468ea2 @vab926ef5aaf3
 // STATUS: equivalent (tools/equiv.py level 3: 88 inputs, branch coverage 8/8)
 // FUN_002de8b0 @ 0x002de8b0
 // equiv-conv: FUN_002de8b0 eax esi stack
@@ -562,7 +562,7 @@ extern "C" void FUN_002de8b0(unsigned int* destination, void * format, void * so
 
 
 // 0x002de990 FUN_002de990 (43 B): equivalent/0x002de990.cpp
-// sym: _FUN_002de990@8 @123afddf0bc4 @w876d0ff2d3eb
+// sym: _FUN_002de990@8 @123afddf0bc4 @w876d0ff2d3eb @v1375cfd38648
 // STATUS: equivalent (tools/equiv.py level 3: 18669 inputs, branch coverage 2/2)
 // FUN_002de990 @ 0x002de990
 // FUN_002de990 @ 0x002de990
@@ -578,7 +578,7 @@ extern "C" void __stdcall FUN_002de990(void *item, void *context) {
 
 
 // 0x002de9c0 FUN_002de9c0 (51 B): equivalent/0x002de9c0.cpp
-// sym: _FUN_002de9c0@8 @c3ba1a49fc05 @w17ececcc6a09
+// sym: _FUN_002de9c0@8 @c3ba1a49fc05 @w17ececcc6a09 @v4e396b867320
 // STATUS: equivalent (tools/equiv.py level 3: 18664 inputs, branch coverage 2/2)
 // FUN_002de9c0 @ 0x002de9c0
 // FUN_002de9c0 @ 0x002de9c0
@@ -623,7 +623,7 @@ void* ImageConverter::vfunc_4(void* p) {
 } // namespace fn_f9c3d788
 
 // 0x002dea50 pure3d::ImageConverter::vfunc_8 (546 B): equivalent/0x002dea50.cpp
-// sym: ?vfunc_8@ImageConverter@pure3d@@UAEXHH@Z @0b4ed66adf3a @w2053fdba4a45
+// sym: ?vfunc_8@ImageConverter@pure3d@@UAEXHH@Z @0b4ed66adf3a @w2053fdba4a45 @v6141d010c4bb
 // STATUS: equivalent (tools/equiv.py level 3: 110 inputs, branch coverage 20/20)
 // pure3d::ImageConverter::vfunc_8 @ 0x002dea50
 void pure3d::ImageConverter::vfunc_8(hulk_intptr __p0, hulk_intptr __p1) { PixelFormat_2dea50 * fmt = (PixelFormat_2dea50 *)__p0; Image_2dea50 * img = (Image_2dea50 *)__p1;
@@ -704,7 +704,7 @@ pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
 
 
 // 0x002deca0 pure3d::ImageConverter::vfunc_7 (107 B): equivalent/0x002deca0.cpp
-// sym: ?vfunc_7@ImageConverter@pure3d@@UAEXHH@Z @cb32f18a6225 @w6ff1a3e12dbd
+// sym: ?vfunc_7@ImageConverter@pure3d@@UAEXHH@Z @cb32f18a6225 @w6ff1a3e12dbd @v784eb02a4460
 // STATUS: equivalent (tools/equiv.py level 3: 3030 inputs, branch coverage 13/13)
 // pure3d::ImageConverter::vfunc_7 @ 0x002deca0
 void pure3d::ImageConverter::vfunc_7(hulk_intptr __p0, hulk_intptr __p1) { Texture_2deca0 * dest = (Texture_2deca0 *)__p0; SourceImage * src = (SourceImage *)__p1;
@@ -732,7 +732,7 @@ void pure3d::ImageConverter::vfunc_7(hulk_intptr __p0, hulk_intptr __p1) { Textu
 
 
 // 0x002ded30 pure3d::ImageConverter::vfunc_6 (111 B): equivalent/0x002ded30.cpp
-// sym: ?vfunc_6@ImageConverter@pure3d@@UAEXHHH@Z @59a24a91955e @w4a7d368f5fea
+// sym: ?vfunc_6@ImageConverter@pure3d@@UAEXHHH@Z @59a24a91955e @w4a7d368f5fea @v9f673a4ea0f5
 // STATUS: equivalent (tools/equiv.py level 3: 3023 inputs, branch coverage 15/15)
 // pure3d::ImageConverter::vfunc_6 @ 0x002ded30
 void pure3d::ImageConverter::vfunc_6(hulk_intptr __p0, hulk_intptr __p1, int row) { Image_2ded30 * img = (Image_2ded30 *)__p0; Surface_2ded30 * s = (Surface_2ded30 *)__p1;

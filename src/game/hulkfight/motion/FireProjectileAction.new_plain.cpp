@@ -41,7 +41,7 @@ void __cdecl FUN_002347b0(void*, Param**, int);
 } // namespace fn_f67703b9
 
 // 0x0019aba0 FUN_0019aba0 (256 B): equivalent/0x0019aba0.cpp [wrapped: conflict: fight::ParamBranch; fight::ParamFloatConstRange]
-// sym: ?FUN_0019aba0@fn_0019aba0@@YAXXZ @b07d2e930326 @wc6a52ec621e6
+// sym: ?FUN_0019aba0@fn_0019aba0@@YAXXZ @b07d2e930326 @wc6a52ec621e6 @v6d46d1897ff5
 namespace fn_0019aba0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 10/10)
 // FUN_0019aba0 @ 0x0019aba0
@@ -97,7 +97,7 @@ void __cdecl FUN_0019aba0() {
 namespace fn_f67703b9 {
 
 // 0x0019aca0 FUN_0019aca0 (256 B): equivalent/0x0019aca0.cpp
-// sym: ?target@fn_f67703b9@@YAXXZ @b29b25e93b6c @wcada368a46d4
+// sym: ?target@fn_f67703b9@@YAXXZ @b29b25e93b6c @wcada368a46d4 @vb6c36ed80cfb
 // STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 10/10)
 // FUN_0019aca0 @ 0x0019aca0
 void target() {

@@ -145,7 +145,7 @@ void owners::C_2a1340::FUN_002a1340(int x) {
 
 
 // 0x002a1400 pure3d::ShadowTraversal::vfunc_4 (277 B): equivalent/0x002a1400.cpp [wrapped: conflict: pure3d::ShadowTraversal]
-// sym: ?vfunc_4@ShadowTraversal@pure3d@fn_002a1400@@UAEXXZ @f6bf8a6387c1 @w35b1b76d84c2
+// sym: ?vfunc_4@ShadowTraversal@pure3d@fn_002a1400@@UAEXXZ @f6bf8a6387c1 @w35b1b76d84c2 @v0a5c42f1c0a8
 namespace fn_002a1400 {
 // STATUS: equivalent (tools/equiv.py level 3: 156 inputs, branch coverage 10/10)
 // pure3d::ShadowTraversal::vfunc_4 @ 0x002a1400
@@ -221,7 +221,7 @@ void pure3d::ShadowTraversal::vfunc_6(void* __p0, unsigned int idx, float key) {
 namespace fn_f2e163a0 {
 
 // 0x002a15d0 FUN_002a15d0 (99 B): equivalent/0x002a15d0.cpp
-// sym: ?FUN_002a15d0@Holder@fn_f2e163a0@@QAEXI@Z @0348ea458b58 @w964ced30343e
+// sym: ?FUN_002a15d0@Holder@fn_f2e163a0@@QAEXI@Z @0348ea458b58 @w964ced30343e @v40e6baa388d1
 // STATUS: equivalent (tools/equiv.py level 3: 20010 inputs, branch coverage 12/12)
 // FUN_002a15d0 @ 0x002a15d0
 void Holder::FUN_002a15d0(unsigned int newCount) {
@@ -245,7 +245,7 @@ void Holder::FUN_002a15d0(unsigned int newCount) {
 } // namespace fn_f2e163a0
 
 // 0x002a16c0 FUN_002a16c0 (245 B): equivalent/0x002a16c0.cpp [wrapped: conflict: pure3d::ShadowGenerator; pure3d::ShadowTraversal]
-// sym: ??0ShadowTraversal@pure3d@fn_002a16c0@@QAE@II@Z @3390c7496604 @w5ad18c166d0b
+// sym: ??0ShadowTraversal@pure3d@fn_002a16c0@@QAE@II@Z @3390c7496604 @w5ad18c166d0b @v4626fd52d11f
 namespace fn_002a16c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 19969 inputs, branch coverage 10/10)
 // FUN_002a16c0 @ 0x002a16c0

@@ -772,7 +772,7 @@ void owners::Target_203870::FUN_00203870(char* p) {
 
 
 // 0x00203890 FUN_00203890 (206 B): equivalent/0x00203890.cpp
-// sym: ?FUN_00203890@Object_203890@owners@@QAEXH@Z @cfa221d435d8 @wcabcb086c82e
+// sym: ?FUN_00203890@Object_203890@owners@@QAEXH@Z @cfa221d435d8 @wcabcb086c82e @v36396a62ac60
 // STATUS: equivalent (tools/equiv.py level 3: 3026 inputs, branch coverage 18/19, incomplete)
 // FUN_00203890 @ 0x00203890
 void owners::Object_203890::FUN_00203890(int index) {
@@ -827,7 +827,7 @@ void owners::C_203a10::FUN_00203a10() {
 namespace fn_f49dcb8d {
 
 // 0x00203cd0 FUN_00203cd0 (138 B): equivalent/0x00203cd0.cpp
-// sym: ?GetValue@Actor_203cd0@fn_f49dcb8d@@QAEHXZ @243694e42754 @wa0699d733520
+// sym: ?GetValue@Actor_203cd0@fn_f49dcb8d@@QAEHXZ @243694e42754 @wa0699d733520 @vc8d0c6caa507
 // STATUS: equivalent (tools/equiv.py level 3: 3007 inputs, branch coverage 14/14)
 // FUN_00203cd0 @ 0x00203cd0
 int Actor_203cd0::GetValue() {
@@ -952,7 +952,7 @@ void ItemSet::FUN_00204180(int n) {
 } // namespace fn_f49dcb8d
 
 // 0x00204200 FUN_00204200 (147 B): equivalent/0x00204200.cpp [wrapped: conflict: FUN_001c3d90]
-// sym: ?FUN_00204200@fn_00204200@@YGHHHH@Z @fe4fe39b16bb @w2d0233c3c480
+// sym: ?FUN_00204200@fn_00204200@@YGHHHH@Z @fe4fe39b16bb @w2d0233c3c480 @v8e46fd12c6b5
 namespace fn_00204200 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_00204200 @ 0x00204200
@@ -1137,7 +1137,7 @@ int CWorldStreamManager_204410::Find(int index) {
 
 
 // 0x00204440 FUN_00204440 (48 B): equivalent/0x00204440.cpp
-// sym: ?FUN_00204440@CWorldStreamManager_204440@fn_f49dcb8d@@QAEIH@Z @15bece14bb11 @w5bd92076019c
+// sym: ?FUN_00204440@CWorldStreamManager_204440@fn_f49dcb8d@@QAEIH@Z @15bece14bb11 @w5bd92076019c @v048131b84836
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_00204440 @ 0x00204440
 unsigned int CWorldStreamManager_204440::FUN_00204440(int index) { if (index < 0 || index >= 1024) return (unsigned int)index & 0xffffff00u; unsigned char value = flags[index]; return value == 1 || value == 3; }
@@ -1157,7 +1157,7 @@ bool owners::C_204470::FUN_00204470(hulk_intptr i) {
 namespace fn_f49dcb8d {
 
 // 0x00204540 FUN_00204540 (211 B): equivalent/0x00204540.cpp
-// sym: ?FUN_00204540@Registry_204540@fn_f49dcb8d@@QAEPAUEntry_204540@2@PBD@Z @1afc8dfb445e @w5834e524c9e2
+// sym: ?FUN_00204540@Registry_204540@fn_f49dcb8d@@QAEPAUEntry_204540@2@PBD@Z @1afc8dfb445e @w5834e524c9e2 @ve12dd44ba22f
 // STATUS: equivalent (tools/equiv.py level 3: 3020 inputs, branch coverage 28/28)
 // FUN_00204540 @ 0x00204540
 Entry_204540* Registry_204540::FUN_00204540(const char* name) {
@@ -1178,7 +1178,7 @@ Entry_204540* Registry_204540::FUN_00204540(const char* name) {
 
 
 // 0x002046b0 FUN_002046b0 (99 B): equivalent/0x002046b0.cpp
-// sym: ?FUN_002046b0@Game@fn_f49dcb8d@@QAE_NH@Z @5ce6c4729c20 @w08210f02f521
+// sym: ?FUN_002046b0@Game@fn_f49dcb8d@@QAE_NH@Z @5ce6c4729c20 @w08210f02f521 @v6f8546d9a182
 // STATUS: equivalent (tools/equiv.py level 3: 702 inputs, branch coverage 12/12)
 // FUN_002046b0 @ 0x002046b0
 bool Game::FUN_002046b0(int value) {
@@ -1250,7 +1250,7 @@ void Object_2047c0::FUN_002047c0(const char* text, int identifier, int mode, int
 } // namespace fn_f49dcb8d
 
 // 0x00204ad0 FUN_00204ad0 (308 B): equivalent/0x00204ad0.cpp [wrapped: conflict: FUN_001c3d90]
-// sym: ?FUN_00204ad0@Owner_204ad0@fn_00204ad0@@QAEHHPAH@Z @18b669427b21 @w922a1363e12a
+// sym: ?FUN_00204ad0@Owner_204ad0@fn_00204ad0@@QAEHHPAH@Z @18b669427b21 @w922a1363e12a @v0390919b7a77
 namespace fn_00204ad0 {
 // STATUS: equivalent (tools/equiv.py level 3: 19273 inputs, branch coverage 20/20)
 // FUN_00204ad0 @ 0x00204ad0
@@ -1366,7 +1366,7 @@ int Owner_204ad0::FUN_00204ad0(int count, int *ignore)
 
 
 // 0x00204c10 FUN_00204c10 (347 B): equivalent/0x00204c10.cpp [wrapped: conflict: FUN_001c3d90]
-// sym: ?FUN_00204c10@Finder_204c10@fn_00204c10@@QAEHD@Z @9e7ae45e3786 @w43389eb2ba0a
+// sym: ?FUN_00204c10@Finder_204c10@fn_00204c10@@QAEHD@Z @9e7ae45e3786 @w43389eb2ba0a @v297e774051e8
 namespace fn_00204c10 {
 // STATUS: equivalent (tools/equiv.py level 3: 19593 inputs, branch coverage 28/28)
 // FUN_00204c10 @ 0x00204c10
@@ -1561,7 +1561,7 @@ void __fastcall target(A_204f00* a) {
 } // namespace fn_f49dcb8d
 
 // 0x00204f60 TransitionsLoader::vfunc_5 (162 B): equivalent/0x00204f60.cpp [wrapped: conflict: TransitionsLoader]
-// sym: ?vfunc_5@TransitionsLoader@fn_00204f60@@UAEPAHPAH0TStreamArg_204f60@2@H@Z @9b4d61171c69 @w9f34a7cbcbb0
+// sym: ?vfunc_5@TransitionsLoader@fn_00204f60@@UAEPAHPAH0TStreamArg_204f60@2@H@Z @9b4d61171c69 @w9f34a7cbcbb0 @vb585a6dcaf81
 namespace fn_00204f60 {
 // STATUS: equivalent (tools/equiv.py level 3: 2565 inputs, branch coverage 6/6)
 // TransitionsLoader::vfunc_5 @ 0x00204f60
@@ -1950,7 +1950,7 @@ void Object_205910::target() {
 
 
 // 0x002059d0 FUN_002059d0 (258 B): equivalent/0x002059d0.cpp
-// sym: ?cleanup@Object@fn_f49dcb8d@@QAEXXZ @01927733a62c @w1e2d907c68da
+// sym: ?cleanup@Object@fn_f49dcb8d@@QAEXXZ @01927733a62c @w1e2d907c68da @v3b47e5f2cfa4
 // STATUS: equivalent (tools/equiv.py level 3: 2999 inputs, branch coverage 28/28)
 // FUN_002059d0 @ 0x002059d0
 void Object::cleanup() {
@@ -2108,7 +2108,7 @@ template <> Closure3<CWorldStreamManager, bool, float, float, float>::~Closure3(
 
 
 // 0x00205ce0 Closure3<CWorldStreamManager,bool,float,float,float>::vfunc_2 (64 B): equivalent/0x00205ce0.cpp
-// sym: ?vfunc_2@?$Closure3@VCWorldStreamManager@@_NMMM@@UAEXPAX00@Z @b66dd089ba69 @w9c630f34be59
+// sym: ?vfunc_2@?$Closure3@VCWorldStreamManager@@_NMMM@@UAEXPAX00@Z @b66dd089ba69 @w9c630f34be59 @v5c8a73e92b23
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // Closure3<CWorldStreamManager,bool,float,float,float>::vfunc_2 @ 0x00205ce0
 template <> void Closure3<CWorldStreamManager, bool, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; float * arguments = (float *)__p1; bool * result = (bool *)__p2;
@@ -2129,7 +2129,7 @@ template <> Closure3<CWorldStreamManager, int, float, float, float>::~Closure3()
 
 
 // 0x00205d70 Closure3<CWorldStreamManager,int,float,float,float>::vfunc_2 (64 B): equivalent/0x00205d70.cpp
-// sym: ?vfunc_2@?$Closure3@VCWorldStreamManager@@HMMM@@UAEXPAX00@Z @df53f4d6ac4d @wf56146c9fa5a
+// sym: ?vfunc_2@?$Closure3@VCWorldStreamManager@@HMMM@@UAEXPAX00@Z @df53f4d6ac4d @wf56146c9fa5a @v765d5af4e34b
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // Closure3<CWorldStreamManager,int,float,float,float>::vfunc_2 @ 0x00205d70
 template <> void Closure3<CWorldStreamManager, int, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr unused = (hulk_intptr)__p0; const float * args = (const float *)__p1; int * result = (int *)__p2;
@@ -2207,7 +2207,7 @@ template <> Closure2<CWorldStreamManager, int, int, int>::~Closure2() {}
 
 
 // 0x00205eb0 Closure2<CWorldStreamManager,int,int,int>::vfunc_2 (36 B): equivalent/0x00205eb0.cpp
-// sym: ?vfunc_2@?$Closure2@VCWorldStreamManager@@HHH@@UAEXPAX00@Z @5f2db1ebe681 @w1a588241b2b0
+// sym: ?vfunc_2@?$Closure2@VCWorldStreamManager@@HHH@@UAEXPAX00@Z @5f2db1ebe681 @w1a588241b2b0 @v9d2093b60b8f
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // Closure2<CWorldStreamManager,int,int,int>::vfunc_2 @ 0x00205eb0
 template <> void Closure2<CWorldStreamManager, int, int, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr unused = (hulk_intptr)__p0; Arguments * arguments = (Arguments *)__p1; int * result = (int *)__p2;
@@ -2266,7 +2266,7 @@ template <> Closure1<CWorldStreamManager, int, int>::~Closure1() {}
 
 
 // 0x00205f50 Closure1<CWorldStreamManager,int,int>::vfunc_2 (30 B): equivalent/0x00205f50.cpp
-// sym: ?vfunc_2@?$Closure1@VCWorldStreamManager@@HH@@UAEXPAX00@Z @d5fcbfd9f63b @we2b2731e125e
+// sym: ?vfunc_2@?$Closure1@VCWorldStreamManager@@HH@@UAEXPAX00@Z @d5fcbfd9f63b @we2b2731e125e @v831dab222706
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // Closure1<CWorldStreamManager,int,int>::vfunc_2 @ 0x00205f50
 template <> void Closure1<CWorldStreamManager, int, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; int * argument = (int *)__p1; int * result = (int *)__p2;
@@ -2414,7 +2414,7 @@ template <> void Closure0<CWorldStreamManager, void>::vfunc_2(void* __p0, void* 
 
 
 // 0x002061c0 Closure3<CWorldStreamManager,void,const_char_*,int,bool>::vfunc_2 (30 B): equivalent/0x002061c0.cpp
-// sym: ?vfunc_2@?$Closure3@VCWorldStreamManager@@XPBDH_N@@UAEXPAX00@Z @bf9aeccd3fbc @w361740b851d9
+// sym: ?vfunc_2@?$Closure3@VCWorldStreamManager@@XPBDH_N@@UAEXPAX00@Z @bf9aeccd3fbc @w361740b851d9 @v0f507b461492
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Closure3<CWorldStreamManager,void,const_char_*,int,bool>::vfunc_2 @ 0x002061c0
 template <> void Closure3<CWorldStreamManager, void, const char *, int, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { const Args * args = (const Args *)__p1;
@@ -2547,7 +2547,7 @@ CMemoryPool_206c10* CMemoryPool_206c10::vfunc_5(signed char flags) {
 namespace fn_f49dcb8d {
 
 // 0x00206c90 FUN_00206c90 (83 B): equivalent/0x00206c90.cpp
-// sym: ?FUN_00206c90@Registry_206c90@fn_f49dcb8d@@QAEXPBDPAVCWorldStreamManager_206c90@2@P832@AE_NMMM@Z@Z @57b38241786c @w754d32f6f3d4
+// sym: ?FUN_00206c90@Registry_206c90@fn_f49dcb8d@@QAEXPBDPAVCWorldStreamManager_206c90@2@P832@AE_NMMM@Z@Z @57b38241786c @w754d32f6f3d4 @vce210739b689
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_00206c90 @ 0x00206c90
 // FUN_00206c90 @ 0x00206c90  (generated by tools/equiv_gen/reg_helper.py)
@@ -2565,7 +2565,7 @@ void Registry_206c90::FUN_00206c90(const char* a1, CWorldStreamManager_206c90* a
 
 
 // 0x00206cf0 FUN_00206cf0 (83 B): equivalent/0x00206cf0.cpp
-// sym: ?FUN_00206cf0@Registry_206cf0@fn_f49dcb8d@@QAEXPBDPAVCWorldStreamManager_206cf0@2@P832@AEHMMM@Z@Z @e16d4541ca0a @w1b1ccce25d0d
+// sym: ?FUN_00206cf0@Registry_206cf0@fn_f49dcb8d@@QAEXPBDPAVCWorldStreamManager_206cf0@2@P832@AEHMMM@Z@Z @e16d4541ca0a @w1b1ccce25d0d @v791c074f268b
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_00206cf0 @ 0x00206cf0
 // FUN_00206cf0 @ 0x00206cf0  (generated by tools/equiv_gen/reg_helper.py)
@@ -2584,7 +2584,7 @@ void Registry_206cf0::FUN_00206cf0(const char* a1, CWorldStreamManager_206cf0* a
 } // namespace fn_f49dcb8d
 
 // 0x00206d50 FUN_00206d50 (109 B): equivalent/0x00206d50.cpp [wrapped: conflict: CWorldStreamManager; Closure0; Method0]
-// sym: ?FUN_00206d50@Registry_206d50@fn_00206d50@@QAEXPBDPAVCWorldStreamManager@2@P832@AEPBDXZ@Z @4867969fd4ca @wbf0a86559e1b
+// sym: ?FUN_00206d50@Registry_206d50@fn_00206d50@@QAEXPBDPAVCWorldStreamManager@2@P832@AEPBDXZ@Z @4867969fd4ca @wbf0a86559e1b @v10b2c07a7200
 namespace fn_00206d50 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_00206d50 @ 0x00206d50
@@ -2669,7 +2669,7 @@ void Registry_206d50::FUN_00206d50(const char* name, CWorldStreamManager* owner,
 
 
 // 0x00206e60 FUN_00206e60 (109 B): equivalent/0x00206e60.cpp [wrapped: conflict: CWorldStreamManager; Closure0; Method0]
-// sym: ?FUN_00206e60@Registry_206e60@fn_00206e60@@QAEXPBDPAVCWorldStreamManager@2@P832@AEHXZ@Z @9cd42b669a78 @w59874c1f5869
+// sym: ?FUN_00206e60@Registry_206e60@fn_00206e60@@QAEXPBDPAVCWorldStreamManager@2@P832@AEHXZ@Z @9cd42b669a78 @w59874c1f5869 @v763353f188fc
 namespace fn_00206e60 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_00206e60 @ 0x00206e60
@@ -2754,7 +2754,7 @@ void Registry_206e60::FUN_00206e60(const char* name, CWorldStreamManager* owner,
 
 
 // 0x00206f20 FUN_00206f20 (109 B): equivalent/0x00206f20.cpp [wrapped: conflict: CWorldStreamManager; Closure0; Method0]
-// sym: ?FUN_00206f20@Registry_206f20@fn_00206f20@@QAEXPBDPAVCWorldStreamManager@2@P832@AE_NXZ@Z @3bdb22bf72d6 @wf3b4f5495dc9
+// sym: ?FUN_00206f20@Registry_206f20@fn_00206f20@@QAEXPBDPAVCWorldStreamManager@2@P832@AE_NXZ@Z @3bdb22bf72d6 @wf3b4f5495dc9 @v40e5ce4b3959
 namespace fn_00206f20 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_00206f20 @ 0x00206f20
@@ -2839,7 +2839,7 @@ void Registry_206f20::FUN_00206f20(const char* name, CWorldStreamManager* owner,
 
 
 // 0x00206f90 FUN_00206f90 (109 B): equivalent/0x00206f90.cpp [wrapped: conflict: CWorldStreamManager; Closure0; Method0]
-// sym: ?FUN_00206f90@Registry_206f90@fn_00206f90@@QAEXPBDPAVCWorldStreamManager@2@P832@AEXXZ@Z @d92e23b64c5e @we1f5dd150665
+// sym: ?FUN_00206f90@Registry_206f90@fn_00206f90@@QAEXPBDPAVCWorldStreamManager@2@P832@AEXXZ@Z @d92e23b64c5e @we1f5dd150665 @v5d46c4ddd9c0
 namespace fn_00206f90 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_00206f90 @ 0x00206f90
@@ -2925,7 +2925,7 @@ void Registry_206f90::FUN_00206f90(const char* name, CWorldStreamManager* owner,
 namespace fn_f49dcb8d {
 
 // 0x00207000 FUN_00207000 (83 B): equivalent/0x00207000.cpp
-// sym: ?FUN_00207000@Registry_207000@fn_f49dcb8d@@QAEXPBDPAVCWorldStreamManager_207000@2@P832@AEX0H_N@Z@Z @27e3346d5e83 @web88aa33fe50
+// sym: ?FUN_00207000@Registry_207000@fn_f49dcb8d@@QAEXPBDPAVCWorldStreamManager_207000@2@P832@AEX0H_N@Z@Z @27e3346d5e83 @web88aa33fe50 @v95983c35fe3b
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_00207000 @ 0x00207000
 // FUN_00207000 @ 0x00207000  (generated by tools/equiv_gen/reg_helper.py)
@@ -3087,7 +3087,7 @@ void Mixer::FUN_002071e0(int n)
 
 
 // 0x00207410 FUN_00207410 (354 B): equivalent/0x00207410.cpp
-// sym: ?FUN_00207410@Player_207410@fn_f49dcb8d@@QAEDXZ @11803fbe1783 @w0a23b8e3960b
+// sym: ?FUN_00207410@Player_207410@fn_f49dcb8d@@QAEDXZ @11803fbe1783 @w0a23b8e3960b @v069da9d2e722
 // STATUS: equivalent (tools/equiv.py level 3: 20005 inputs, branch coverage 26/26)
 // FUN_00207410 @ 0x00207410
 char Player_207410::FUN_00207410()
@@ -3150,7 +3150,7 @@ char Player_207410::FUN_00207410()
 } // namespace fn_f49dcb8d
 
 // 0x00207850 FUN_00207850 (127 B): equivalent/0x00207850.cpp
-// sym: ?FUN_00207850@LoadInventory_207850@owners@@QAE_NH@Z @4a4f06948147 @w732bccc5a1ec
+// sym: ?FUN_00207850@LoadInventory_207850@owners@@QAE_NH@Z @4a4f06948147 @w732bccc5a1ec @va88a7bf10ad7
 // STATUS: equivalent (tools/equiv.py level 3: 20001 inputs, branch coverage 12/12)
 // FUN_00207850 @ 0x00207850
 bool owners::LoadInventory_207850::FUN_00207850(int flag)
@@ -3276,7 +3276,7 @@ void CWorldStreamManager::FUN_00207b90() {
 
 
 // 0x00207ba0 FUN_00207ba0 (471 B): equivalent/0x00207ba0.cpp [wrapped: conflict: FUN_001c3d90]
-// sym: ?FUN_00207ba0@CWorldStreamManager_207ba0@fn_00207ba0@@QAEXXZ @66119de0f620 @w8a30fbbdbfbf
+// sym: ?FUN_00207ba0@CWorldStreamManager_207ba0@fn_00207ba0@@QAEXXZ @66119de0f620 @w8a30fbbdbfbf @v02a137b2f471
 namespace fn_00207ba0 {
 // STATUS: equivalent (tools/equiv.py level 3: 99 inputs, branch coverage 41/42, incomplete)
 // FUN_00207ba0 @ 0x00207ba0
@@ -3377,7 +3377,7 @@ void CWorldStreamManager_207ba0::FUN_00207ba0()
 
 
 // 0x00207d80 FUN_00207d80 (252 B): equivalent/0x00207d80.cpp [wrapped: conflict: FUN_001c3d90; Gfx]
-// sym: ?target@CWorldStreamManager_207d80@fn_00207d80@@QAEXXZ @66f750b361eb @wdf497badf1a5
+// sym: ?target@CWorldStreamManager_207d80@fn_00207d80@@QAEXXZ @66f750b361eb @wdf497badf1a5 @v400061b77016
 namespace fn_00207d80 {
 // STATUS: equivalent (tools/equiv.py level 3: 19975 inputs, branch coverage 14/14)
 // FUN_00207d80 @ 0x00207d80
@@ -3446,7 +3446,7 @@ void CWorldStreamManager_207d80::target() {
 namespace fn_f49dcb8d {
 
 // 0x00208040 FUN_00208040 (110 B): equivalent/0x00208040.cpp
-// sym: ?FUN_00208040@Table_208040@fn_f49dcb8d@@QAE_NHH@Z @f39ec1dd04f1 @w054c6f530fbd
+// sym: ?FUN_00208040@Table_208040@fn_f49dcb8d@@QAE_NHH@Z @f39ec1dd04f1 @w054c6f530fbd @vc76d78348bb8
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 7/8, incomplete)
 // FUN_00208040 @ 0x00208040
 bool Table_208040::FUN_00208040(int a, int b)
@@ -3471,7 +3471,7 @@ bool Table_208040::FUN_00208040(int a, int b)
 } // namespace fn_f49dcb8d
 
 // 0x00208210 FUN_00208210 (1544 B): equivalent/0x00208210.cpp [wrapped: conflict: CWorldStreamManager; Closure1; Method1]
-// sym: ??0CWorldStreamManager@fn_00208210@@QAE@XZ @bc124a750423 @w0dcafb160efe
+// sym: ??0CWorldStreamManager@fn_00208210@@QAE@XZ @bc124a750423 @w0dcafb160efe @v66eb513a22a6
 namespace fn_00208210 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 24/24)
 // FUN_00208210 @ 0x00208210
@@ -3809,7 +3809,7 @@ void CWorldStreamManager::FUN_00208820() {
 namespace fn_f49dcb8d {
 
 // 0x002088a0 FUN_002088a0 (124 B): equivalent/0x002088a0.cpp
-// sym: ?FUN_002088a0@Pool_2088a0@fn_f49dcb8d@@QAEXXZ @94760b38b8c7 @w25f5df33b30b
+// sym: ?FUN_002088a0@Pool_2088a0@fn_f49dcb8d@@QAEXXZ @94760b38b8c7 @w25f5df33b30b @v540431442a38
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_002088a0 @ 0x002088a0
 void Pool_2088a0::FUN_002088a0() {
@@ -3937,7 +3937,7 @@ bool Actor_208920::FUN_00208920() {
 
 
 // 0x002089f0 FUN_002089f0 (151 B): equivalent/0x002089f0.cpp
-// sym: ?FUN_002089f0@Pump_2089f0@owners@@QAEXXZ @4514210b35bc @w95ef3279148a
+// sym: ?FUN_002089f0@Pump_2089f0@owners@@QAEXXZ @4514210b35bc @w95ef3279148a @vf1b4eea19b13
 // STATUS: equivalent (tools/equiv.py level 3: 62 inputs, branch coverage 14/14)
 // FUN_002089f0 @ 0x002089f0
 void owners::Pump_2089f0::FUN_002089f0()

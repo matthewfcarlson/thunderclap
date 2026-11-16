@@ -232,7 +232,7 @@ hulk_intptr fight::RandomCondition::vfunc_0(int index) {
 namespace fn_fc1ade79 {
 
 // 0x002382a0 FUN_002382a0 (98 B): equivalent/0x002382a0.cpp
-// sym: ?FUN_002382a0@fn_fc1ade79@@YAMXZ @09004bd526ac @w7d957d83f2d2
+// sym: ?FUN_002382a0@fn_fc1ade79@@YAMXZ @09004bd526ac @w7d957d83f2d2 @v06f8663d2cc7
 // STATUS: equivalent (tools/equiv.py level 3: 19809 inputs, branch coverage 0/0)
 // FUN_002382a0 @ 0x002382a0
 hulk_freg FUN_002382a0()

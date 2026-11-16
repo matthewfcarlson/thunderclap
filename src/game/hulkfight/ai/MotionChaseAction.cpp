@@ -164,7 +164,7 @@ MotionChaseAction_116c60::~MotionChaseAction_116c60() {
 } // namespace fn_fae0ed28
 
 // 0x00116cb0 hulkfight::ai::MotionChaseAction::vfunc_5 (1017 B): equivalent/0x00116cb0.cpp
-// sym: ?vfunc_5@MotionChaseAction@ai@hulkfight@@UAE_NHH@Z @505ba9282761 @wc494041f0db5
+// sym: ?vfunc_5@MotionChaseAction@ai@hulkfight@@UAE_NHH@Z @505ba9282761 @wc494041f0db5 @vd028c7c18b4f
 // STATUS: equivalent (tools/equiv.py level 3: 20017 inputs, branch coverage 56/58, incomplete)
 // hulkfight::ai::MotionChaseAction::vfunc_5 @ 0x00116cb0
 namespace hulkfight { namespace ai {

@@ -143,7 +143,7 @@ extern "C" void FUN_0021f460(LuaVMLexState* ls);
 
 
 // 0x0021c190 FUN_0021c190 (48 B): equivalent/0x0021c190.cpp
-// sym: _FUN_0021c190 @50a09c324ef0 @wec0069b13261
+// sym: _FUN_0021c190 @50a09c324ef0 @wec0069b13261 @vbdd06e5713d4
 // STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 2/2)
 // next: advance to the lookahead token when there is one, else lex the next token.
 // equiv-conv: FUN_0021c190 esi
@@ -160,7 +160,7 @@ extern "C" void FUN_0021c190(LuaVMLexState* ls) {
 
 
 // 0x0021c240 FUN_0021c240 (78 B): equivalent/0x0021c240.cpp
-// sym: _FUN_0021c240 @605c7126fa4f @w5b997d041c5f
+// sym: _FUN_0021c240 @605c7126fa4f @w5b997d041c5f @v309ab98aa3d3
 // STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 2/2)
 // errorlimit: "main function has more than N what" / "function at line L has more than N what" as a lexer error.
 // equiv-conv: FUN_0021c240 esi ecx edx
@@ -177,7 +177,7 @@ extern "C" void FUN_0021c240(LuaVMFuncState* fs, const char* what, int limit) {
 
 
 // 0x0021c290 FUN_0021c290 (70 B): equivalent/0x0021c290.cpp
-// sym: _FUN_0021c290 @4346cad8d486 @w5d88cbe84300
+// sym: _FUN_0021c290 @4346cad8d486 @w5d88cbe84300 @vef337a17fc74
 // STATUS: equivalent (tools/equiv.py level 3: 3011 inputs, branch coverage 4/4)
 // testnext: when the current token is c, advance and return 1; else 0.
 // equiv-conv: FUN_0021c290 esi ecx
@@ -198,7 +198,7 @@ extern "C" int FUN_0021c290(LuaVMLexState* ls, int c) {
 
 
 // 0x0021c2e0 FUN_0021c2e0 (86 B): equivalent/0x0021c2e0.cpp
-// sym: _FUN_0021c2e0 @884c6b04e67b @w0154d9a10d40
+// sym: _FUN_0021c2e0 @884c6b04e67b @w0154d9a10d40 @v37bc2ea01db4
 // STATUS: equivalent (tools/equiv.py level 3: 3011 inputs, branch coverage 4/4)
 // checknext: expect token c ("`c' expected" otherwise), then advance.
 // equiv-conv: FUN_0021c2e0 esi eax
@@ -221,7 +221,7 @@ extern "C" void FUN_0021c2e0(LuaVMLexState* ls, int c) {
 
 
 // 0x0021c340 FUN_0021c340 (143 B): equivalent/0x0021c340.cpp
-// sym: _FUN_0021c340 @155d40012bc6 @w8f02bbfef86c
+// sym: _FUN_0021c340 @155d40012bc6 @w8f02bbfef86c @vdb7f63cf832f
 // STATUS: equivalent (tools/equiv.py level 3: 3012 inputs, branch coverage 6/6)
 // check_match: expect token what, else report an error (mentioning who and its line when it is another line).
          // luaX_syntaxerror
@@ -248,7 +248,7 @@ extern "C" void FUN_0021c340(int where, LuaVMLexState* ls, int what, int who) {
 
 
 // 0x0021c3d0 FUN_0021c3d0 (80 B): equivalent/0x0021c3d0.cpp
-// sym: _FUN_0021c3d0 @4b5a403993b8 @w669b35538dde
+// sym: _FUN_0021c3d0 @4b5a403993b8 @w669b35538dde @v9ec81c197d4e
 // STATUS: equivalent (tools/equiv.py level 3: 3011 inputs, branch coverage 4/4)
 // str_checkname: expect a name token, return its string and advance.
 // equiv-conv: FUN_0021c3d0 esi
@@ -269,7 +269,7 @@ extern "C" LuaVMString* FUN_0021c3d0(LuaVMLexState* ls) {
 
 
 // 0x0021c440 FUN_0021c440 (32 B): equivalent/0x0021c440.cpp
-// sym: _FUN_0021c440 @003cf6c639bb @w8fe5bd4d3c82
+// sym: _FUN_0021c440 @003cf6c639bb @w8fe5bd4d3c82 @v2ab04790b6d9
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // codestring: e = a string constant (VK) of s.
 // equiv-conv: FUN_0021c440 ecx eax esi
@@ -302,7 +302,7 @@ extern "C" int __cdecl FUN_0021c490(LuaVMLexState* ls, LuaVMString* varname) {
 
 
 // 0x0021c570 FUN_0021c570 (49 B): equivalent/0x0021c570.cpp
-// sym: _FUN_0021c570 @0594bee465f7 @wa7a7e6bf5701
+// sym: _FUN_0021c570 @0594bee465f7 @wa7a7e6bf5701 @v480cd7c5d0b9
 // STATUS: equivalent (tools/equiv.py level 3: 70 inputs, branch coverage 4/4)
 // adjustlocalvars: activate the last nvars declared locals (their startpc is the current pc).
 // equiv-conv: FUN_0021c570 eax edx
@@ -318,7 +318,7 @@ extern "C" void FUN_0021c570(LuaVMLexState* ls, int nvars) {
 
 
 // 0x0021c5b0 FUN_0021c5b0 (58 B): equivalent/0x0021c5b0.cpp
-// sym: _FUN_0021c5b0 @049efe78ca57 @w97634b8a9761
+// sym: _FUN_0021c5b0 @049efe78ca57 @w97634b8a9761 @v599c125788ac
 // STATUS: equivalent (tools/equiv.py level 3: 125 inputs, branch coverage 4/4)
 // removevars: close the scope of the active locals above tolevel (their endpc is the current pc).
 // equiv-conv: FUN_0021c5b0 eax edx
@@ -332,7 +332,7 @@ extern "C" void FUN_0021c5b0(LuaVMLexState* ls, int tolevel) {
 
 
 // 0x0021c5f0 FUN_0021c5f0 (324 B): equivalent/0x0021c5f0.cpp
-// sym: _FUN_0021c5f0 @cb055c3feeca @w6389992b72e2
+// sym: _FUN_0021c5f0 @cb055c3feeca @w6389992b72e2 @vfe0589c127cf
 // STATUS: equivalent (tools/equiv.py level 3: 2980 inputs, branch coverage 22/22)
 // indexupvalue: the index of the upvalue v of the function (added, with its name, when new).
 // fs arrives in edi, name and v on the stack.
@@ -374,7 +374,7 @@ extern "C" int FUN_0021c5f0(LuaVMFuncState* fs, LuaVMString* name, LuaVMExpDesc*
 
 
 // 0x0021c790 FUN_0021c790 (225 B): equivalent/0x0021c790.cpp
-// sym: _FUN_0021c790 @a65bf5d7144b @w76cf5eb23bb5
+// sym: _FUN_0021c790 @a65bf5d7144b @w76cf5eb23bb5 @v0f0c7d64d3b7
 // STATUS: equivalent (tools/equiv.py level 3: 3114 inputs, branch coverage 21/22, incomplete)
 // singlevaraux: resolve the name n as a local of fs (marking its block as having an upvalue unless base), an
 // upvalue of an enclosing function, or a global (its name constant when base).
@@ -422,7 +422,7 @@ extern "C" void __cdecl FUN_0021c790(LuaVMFuncState* fs, LuaVMString* n, LuaVMEx
 
 
 // 0x0021c8b0 FUN_0021c8b0 (114 B): equivalent/0x0021c8b0.cpp
-// sym: _FUN_0021c8b0 @6e5ac2128836 @w4d7918c900b7
+// sym: _FUN_0021c8b0 @6e5ac2128836 @w4d7918c900b7 @v18192e46117a
 // STATUS: equivalent (tools/equiv.py level 3: 3003 inputs, branch coverage 8/8)
 // adjust_assign: match nexps values to nvars targets (a call's results adjusted, missing values set to nil).
  // luaK_nil
@@ -452,7 +452,7 @@ extern "C" void FUN_0021c8b0(LuaVMLexState* ls, LuaVMExpDesc* e, int nexps, int 
 
 
 // 0x0021c9b0 FUN_0021c9b0 (261 B): equivalent/0x0021c9b0.cpp
-// sym: _FUN_0021c9b0 @e51c34d4466f @wc7983a02df91
+// sym: _FUN_0021c9b0 @e51c34d4466f @wc7983a02df91 @v15e5abb06fd7
 // STATUS: equivalent (tools/equiv.py level 3: 2861 inputs, branch coverage 16/16)
 // pushclosure: add the nested function's prototype to the parent's p, code its CLOSURE (v: VRELOCABLE) and one
 // MOVE / GETUPVAL per upvalue.
@@ -484,7 +484,7 @@ extern "C" void __cdecl FUN_0021c9b0(LuaVMLexState* ls, LuaVMFuncState* func, Lu
 
 
 // 0x0021cac0 FUN_0021cac0 (179 B): equivalent/0x0021cac0.cpp
-// sym: _FUN_0021cac0 @ab5b8cc5ac1a @w27e8a4fd9472
+// sym: _FUN_0021cac0 @ab5b8cc5ac1a @w27e8a4fd9472 @vb2af5deb5461
 // STATUS: equivalent (tools/equiv.py level 3: 2942 inputs, branch coverage 4/4)
 // open_func: start a function: a new prototype and constant table, the FuncState linked on the lexer, both
 // anchored on the stack.
@@ -526,7 +526,7 @@ extern "C" void FUN_0021cac0(LuaVMLexState* ls, LuaVMFuncState* fs) {
 
 
 // 0x0021cb80 FUN_0021cb80 (301 B): equivalent/0x0021cb80.cpp
-// sym: _FUN_0021cb80 @103a1f347ba9 @wd4dff04eb9a8
+// sym: _FUN_0021cb80 @103a1f347ba9 @wd4dff04eb9a8 @vd92b7f4f265c
 // STATUS: equivalent (tools/equiv.py level 3: 2971 inputs, branch coverage 4/4)
 // close_func: finish a function: close its locals, code the final RETURN, shrink the prototype's vectors to their
 // use, unlink the FuncState and pop its anchors (re-anchoring the current name or string token).
@@ -574,7 +574,7 @@ extern "C" void __cdecl FUN_0021cb80(LuaVMLexState* ls) {
 
 
 // 0x0021ccb0 FUN_0021ccb0 (127 B): equivalent/0x0021ccb0.cpp
-// sym: _FUN_0021ccb0 @5d7818a2f7b4 @w86dc29322399
+// sym: _FUN_0021ccb0 @5d7818a2f7b4 @w86dc29322399 @vd425e1cd6c5d
 // STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 2/2)
 // field: v.name (v into a register, the name as a string constant key, VINDEXED).
 // equiv-conv: FUN_0021c3d0 esi
@@ -601,7 +601,7 @@ extern "C" void FUN_0021ccb0(LuaVMLexState* ls, LuaVMExpDesc* v) {
 
 
 // 0x0021cd30 FUN_0021cd30 (85 B): equivalent/0x0021cd30.cpp
-// sym: _FUN_0021cd30 @1c3449f51a32 @wb7402a0c1ee0
+// sym: _FUN_0021cd30 @1c3449f51a32 @wb7402a0c1ee0 @va0668ec1de1d
 // STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 2/2)
 // yindex: [ exp ] (the key as a value).
 // equiv-conv: FUN_0021c2e0 esi eax
@@ -622,7 +622,7 @@ extern "C" void FUN_0021cd30(LuaVMLexState* ls, LuaVMExpDesc* v) {
 
 
 // 0x0021cd90 FUN_0021cd90 (224 B): equivalent/0x0021cd90.cpp
-// sym: _FUN_0021cd90 @8f91ee59194b @wfceadcf31ec8
+// sym: _FUN_0021cd90 @8f91ee59194b @wfceadcf31ec8 @v580ebb7cf5f8
 // STATUS: equivalent (tools/equiv.py level 3: 3004 inputs, branch coverage 4/4)
 // recfield: name = exp or [exp] = exp in a table constructor (OP_SETTABLE); returns the instruction's pc.
 // equiv-conv: FUN_0021c240 esi ecx edx
@@ -657,7 +657,7 @@ extern "C" int __cdecl FUN_0021cd90(LuaVMLexState* ls, LuaVMConsControl* cc) {
 
 
 // 0x0021cec0 FUN_0021cec0 (105 B): equivalent/0x0021cec0.cpp
-// sym: _FUN_0021cec0 @59e4481baecc @w9fb8378e190e
+// sym: _FUN_0021cec0 @59e4481baecc @w9fb8378e190e @v492c52bf4677
 // STATUS: equivalent (tools/equiv.py level 3: 3009 inputs, branch coverage 6/6)
 // lastlistfield: flush the constructor's pending array items (SETLISTO for an open call).
 // cc arrives in esi, fs in edi.
@@ -678,7 +678,7 @@ extern "C" void FUN_0021cec0(LuaVMConsControl* cc, LuaVMFuncState* fs) {
 
 
 // 0x0021cf70 FUN_0021cf70 (664 B): equivalent/0x0021cf70.cpp
-// sym: _FUN_0021cf70 @0a6821b769fb @w96fcf9a748c3
+// sym: _FUN_0021cf70 @0a6821b769fb @w96fcf9a748c3 @v9fa4699a7ee4
 // STATUS: equivalent (tools/equiv.py level 3: 2742 inputs, branch coverage 24/28, incomplete)
 // constructor: a table constructor { ... } (NEWTABLE sized by the items read; list items flushed by SETLIST).
 // equiv-conv: FUN_0021c2e0 esi eax
@@ -774,7 +774,7 @@ extern "C" void FUN_0021cf70(LuaVMLexState* ls, LuaVMExpDesc* t) {
 
 
 // 0x0021d210 FUN_0021d210 (665 B): equivalent/0x0021d210.cpp
-// sym: _FUN_0021d210 @e18adce07a05 @wd5f0fe59d8c0
+// sym: _FUN_0021d210 @e18adce07a05 @wd5f0fe59d8c0 @v94fbd5eed2d5
 // STATUS: equivalent (tools/equiv.py level 3: 3026 inputs, branch coverage 22/28, incomplete)
 // parlist: the parameter list (names, `...' as the vararg `arg'); numparams, is_vararg, the registers.
 // equiv-conv: FUN_0021c2e0 esi eax
@@ -831,7 +831,7 @@ extern "C" void FUN_0021d210(LuaVMLexState* ls) {
 
 
 // 0x0021d4b0 FUN_0021d4b0 (263 B): equivalent/0x0021d4b0.cpp
-// sym: _FUN_0021d4b0 @d7a1ec39f945 @w0bcca9d2bc9b
+// sym: _FUN_0021d4b0 @d7a1ec39f945 @w0bcca9d2bc9b @v2c4a31eecf24
 // STATUS: equivalent (tools/equiv.py level 3: 2847 inputs, branch coverage 4/4)
 // body: a function body ( parlist ) chunk end, compiled in a new FuncState (with `self' first when needself);
 // e is the closure.
@@ -869,7 +869,7 @@ extern "C" void __cdecl FUN_0021d4b0(LuaVMLexState* ls, LuaVMExpDesc* e, int nee
 
 
 // 0x0021d5c0 FUN_0021d5c0 (105 B): equivalent/0x0021d5c0.cpp
-// sym: _FUN_0021d5c0 @a624af55bee4 @w60bc3c539b1f
+// sym: _FUN_0021d5c0 @a624af55bee4 @w60bc3c539b1f @vbd5f4adb5246
 // STATUS: equivalent (tools/equiv.py level 3: 3011 inputs, branch coverage 4/4)
 // explist1: expr { , expr } (each but the last into the next register); returns the count.
 // ls arrives in esi, v in edi.
@@ -895,7 +895,7 @@ extern "C" int FUN_0021d5c0(LuaVMLexState* ls, LuaVMExpDesc* v) {
 
 
 // 0x0021d630 FUN_0021d630 (349 B): equivalent/0x0021d630.cpp
-// sym: _FUN_0021d630 @57af896d5266 @w9d36c1a56cb7
+// sym: _FUN_0021d630 @57af896d5266 @w9d36c1a56cb7 @vb9bcd98c32f6
 // STATUS: equivalent (tools/equiv.py level 3: 3039 inputs, branch coverage 15/16, incomplete)
 // funcargs: a call's arguments: ( explist ), a table constructor or a string; f becomes the CALL (VCALL).
 // equiv-conv: FUN_0021c190 esi
@@ -965,7 +965,7 @@ extern "C" void FUN_0021d630(LuaVMLexState* ls, LuaVMExpDesc* f) {
 
 
 // 0x0021d790 FUN_0021d790 (145 B): equivalent/0x0021d790.cpp
-// sym: _FUN_0021d790 @b4e5058a911c @w0af19f1c1f67
+// sym: _FUN_0021d790 @b4e5058a911c @w0af19f1c1f67 @v59972f5804e3
 // STATUS: equivalent (tools/equiv.py level 3: 3015 inputs, branch coverage 6/6)
 // prefixexp: a name or a parenthesized expression.
 // equiv-conv: FUN_0021c340 eax esi edi stack
@@ -1000,7 +1000,7 @@ extern "C" void FUN_0021d790(LuaVMLexState* ls, LuaVMExpDesc* v) {
 
 
 // 0x0021d830 FUN_0021d830 (519 B): equivalent/0x0021d830.cpp
-// sym: _FUN_0021d830 @772dc8023272 @w40a106e0bb2f
+// sym: _FUN_0021d830 @772dc8023272 @w40a106e0bb2f @vd2ca0dd55c6f
 // STATUS: equivalent (tools/equiv.py level 3: 3039 inputs, branch coverage 18/21, incomplete)
 // equiv-conv: FUN_0021d790 eax ebx
 // equiv-conv: FUN_0021ccb0 eax ebx
@@ -1085,7 +1085,7 @@ extern "C" void FUN_0021d830(LuaVMExpDesc* v, LuaVMLexState* ls) {
 
 
 // 0x0021db50 FUN_0021db50 (245 B): equivalent/0x0021db50.cpp
-// sym: _FUN_0021db50 @b82adf1061b8 @w6040d2b41ce3
+// sym: _FUN_0021db50 @b82adf1061b8 @w6040d2b41ce3 @v3990dc1fa95d
 // STATUS: equivalent (tools/equiv.py level 3: 3026 inputs, branch coverage 10/10)
 // simpleexp: a number, string, nil, true, false, table constructor, function or primary expression.
 // equiv-conv: FUN_0021c190 esi
@@ -1133,7 +1133,7 @@ extern "C" void FUN_0021db50(LuaVMLexState* ls, LuaVMExpDesc* v) {
 
 
 // 0x0021dd30 FUN_0021dd30 (111 B): equivalent/0x0021dd30.cpp
-// sym: _FUN_0021dd30 @e0eabb45273b @w69ceb13528dc
+// sym: _FUN_0021dd30 @e0eabb45273b @w69ceb13528dc @va21d21416462
 // STATUS: equivalent (tools/equiv.py level 3: 3038 inputs, branch coverage 17/17)
 // FUN_0021dd30 @ 0x0021dd30
 // equiv-conv: FUN_0021dd30 eax
@@ -1174,7 +1174,7 @@ extern "C" int FUN_0021dd30(int op) {
 } // namespace fn_f77c2fa8
 
 // 0x0021ded0 FUN_0021ded0 (327 B): equivalent/0x0021ded0.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: _FUN_0021ded0 @fbc3259bff05 @wc9e97791f427
+// sym: _FUN_0021ded0 @fbc3259bff05 @wc9e97791f427 @vba9f8e15e313
 namespace fn_0021ded0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2751 inputs, branch coverage 16/16)
 // subexpr: (simpleexp | unop subexpr) { binop subexpr } while the operator's left priority exceeds limit;
@@ -1234,7 +1234,7 @@ extern "C" int __cdecl FUN_0021ded0(LuaVMLexState* ls, LuaVMExpDesc* v, unsigned
 namespace fn_f77c2fa8 {
 
 // 0x0021e080 FUN_0021e080 (129 B): equivalent/0x0021e080.cpp
-// sym: _FUN_0021e080 @9510f32c38ca @w13a1dce54ee7
+// sym: _FUN_0021e080 @9510f32c38ca @w13a1dce54ee7 @vb13333876240
 // STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 2/2)
 // block: enter a block, parse the chunk, then leave the block (close its locals and upvalues, patch its breaks).
 // equiv-conv: FUN_0021c5b0 eax edx
@@ -1263,7 +1263,7 @@ extern "C" void FUN_0021e080(LuaVMLexState* ls) {
 
 
 // 0x0021e110 FUN_0021e110 (95 B): equivalent/0x0021e110.cpp
-// sym: _FUN_0021e110 @2b20fc8aedc3 @wb879eb11361c
+// sym: _FUN_0021e110 @2b20fc8aedc3 @wb879eb11361c @v19b0cfa77f4a
 // STATUS: equivalent (tools/equiv.py level 3: 3007 inputs, branch coverage 12/12)
 // check_conflict: when an earlier target of the assignment indexes with the local v, use a copy of v instead.
 // equiv-conv: FUN_0021e110 ecx eax edi
@@ -1291,7 +1291,7 @@ extern "C" void FUN_0021e110(LuaVMLexState* ls, LuaVMLHSAssign* lh, LuaVMExpDesc
 
 
 // 0x0021e170 FUN_0021e170 (308 B): equivalent/0x0021e170.cpp
-// sym: _FUN_0021e170 @cc37661985ad @w955bec4dd3dd
+// sym: _FUN_0021e170 @cc37661985ad @w955bec4dd3dd @vbf3f30bac694
 // STATUS: equivalent (tools/equiv.py level 3: 3037 inputs, branch coverage 14/14)
 // equiv-conv: FUN_0021d830 eax esi
 // equiv-conv: FUN_0021e110 ecx eax edi
@@ -1342,7 +1342,7 @@ extern "C" void __cdecl FUN_0021e170(LuaVMLexState* ls, LuaVMLHSAssign* lh, int 
 
 
 // 0x0021e2b0 FUN_0021e2b0 (70 B): equivalent/0x0021e2b0.cpp
-// sym: _FUN_0021e2b0 @f811c0346f62 @w025d97ffcb91
+// sym: _FUN_0021e2b0 @f811c0346f62 @w025d97ffcb91 @v5d48b92ebde7
 // STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 2/2)
 // cond: a condition (nil as false); jumps when true go here, returns the false list.
 // equiv-conv: FUN_0021e2b0 esi
@@ -1358,7 +1358,7 @@ extern "C" int FUN_0021e2b0(LuaVMLexState* ls) {
 
 
 // 0x0021e300 FUN_0021e300 (673 B): equivalent/0x0021e300.cpp
-// sym: _FUN_0021e300 @9a451946eac5 @wbb1bbedbdb29
+// sym: _FUN_0021e300 @9a451946eac5 @wbb1bbedbdb29 @v8ebbfd2f9d05
 // STATUS: equivalent (tools/equiv.py level 3: 3035 inputs, branch coverage 23/26, incomplete)
 // equiv-conv: FUN_0021e080 eax
 // equiv-conv: FUN_0021c340 eax esi edi stack
@@ -1479,7 +1479,7 @@ extern "C" void FUN_0021e5b0(LuaVMLexState* ls, int line) {
 } // namespace fn_f77c2fa8
 
 // 0x0021e700 FUN_0021e700 (349 B): equivalent/0x0021e700.cpp [wrapped: code differs from its standalone build]
-// sym: _FUN_0021e700 @2dcd0ee3998b @wc00739d1c11b
+// sym: _FUN_0021e700 @2dcd0ee3998b @wc00739d1c11b @vaed0e8ff698d
 namespace fn_0021e700 {
 // STATUS: equivalent (tools/equiv.py level 3: 110 inputs, branch coverage 10/10)
 
@@ -1552,7 +1552,7 @@ extern "C" void FUN_0021e700(LuaVMLexState* ls, int base, int line, int nvars, i
 namespace fn_f77c2fa8 {
 
 // 0x0021e860 FUN_0021e860 (503 B): equivalent/0x0021e860.cpp
-// sym: _FUN_0021e860 @296eefd5a973 @w8174a83e9f5a
+// sym: _FUN_0021e860 @296eefd5a973 @w8174a83e9f5a @v54ee276fb39c
 // STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 12/12)
 // equiv-conv: FUN_0021c240 esi ecx edx
 // equiv-conv: FUN_0021c2e0 esi eax
@@ -1620,7 +1620,7 @@ extern "C" void FUN_0021e860(LuaVMLexState* ls, LuaVMString* varname, int line) 
 
 
 // 0x0021ea60 FUN_0021ea60 (615 B): equivalent/0x0021ea60.cpp
-// sym: _FUN_0021ea60 @e14dcde7769b @w50db1d6c99b6
+// sym: _FUN_0021ea60 @e14dcde7769b @w50db1d6c99b6 @v3aefd3f85e39
 // STATUS: equivalent (tools/equiv.py level 3: 3007 inputs, branch coverage 17/20, incomplete)
 // equiv-conv: FUN_0021c240 esi ecx edx
 // equiv-conv: FUN_0021c2e0 esi eax
@@ -1691,7 +1691,7 @@ extern "C" void FUN_0021ea60(LuaVMLexState* ls, LuaVMString* indexname) {
 
 
 // 0x0021ecd0 FUN_0021ecd0 (267 B): equivalent/0x0021ecd0.cpp
-// sym: _FUN_0021ecd0 @96e57c39aba6 @w33f97c5a4134
+// sym: _FUN_0021ecd0 @96e57c39aba6 @w33f97c5a4134 @vc73e8ddee35e
 // STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 10/10)
 // forstat: for name = ... (fornum) or for name {, name} in ... (forlist) ... end, in a loop block.
 // equiv-conv: FUN_0021c3d0 esi
@@ -1735,7 +1735,7 @@ extern "C" void FUN_0021ecd0(LuaVMLexState* ls, int line) {
 
 
 // 0x0021ede0 FUN_0021ede0 (144 B): equivalent/0x0021ede0.cpp
-// sym: _FUN_0021ede0 @18ad508009df @w807da299dc2c
+// sym: _FUN_0021ede0 @18ad508009df @w807da299dc2c @v2fbdbbccdefd
 // STATUS: equivalent (tools/equiv.py level 3: 3011 inputs, branch coverage 4/4)
 // test_then_block: skip IF/ELSEIF, parse the condition, expect THEN, parse the block; returns the false list.
 // equiv-conv: FUN_0021c2e0 esi eax
@@ -1764,7 +1764,7 @@ extern "C" int FUN_0021ede0(LuaVMLexState* ls) {
 
 
 // 0x0021ee70 FUN_0021ee70 (233 B): equivalent/0x0021ee70.cpp
-// sym: _FUN_0021ee70 @ab9f5fb7d125 @wa537059e7ae2
+// sym: _FUN_0021ee70 @ab9f5fb7d125 @wa537059e7ae2 @v93a1bc361f44
 // STATUS: equivalent (tools/equiv.py level 3: 3022 inputs, branch coverage 8/8)
 // ifstat: if cond then block {elseif cond then block} [else block] end.
 // equiv-conv: FUN_0021ede0 eax
@@ -1805,7 +1805,7 @@ extern "C" void FUN_0021ee70(LuaVMLexState* ls, int line) {
 
 
 // 0x0021ef60 FUN_0021ef60 (308 B): equivalent/0x0021ef60.cpp
-// sym: _FUN_0021ef60 @9b36051cc994 @w22094edd1712
+// sym: _FUN_0021ef60 @9b36051cc994 @w22094edd1712 @vb392deb52a37
 // STATUS: equivalent (tools/equiv.py level 3: 122 inputs, branch coverage 2/2)
 // localfunc: local function name body (the local is active before the body, for recursion).
 // equiv-conv: FUN_0021c3d0 esi
@@ -1857,7 +1857,7 @@ extern "C" void FUN_0021ef60(LuaVMLexState* ls) {
 
 
 // 0x0021f0a0 FUN_0021f0a0 (380 B): equivalent/0x0021f0a0.cpp
-// sym: _FUN_0021f0a0 @1364bc44dd7e @w43ac04bef193
+// sym: _FUN_0021f0a0 @1364bc44dd7e @w43ac04bef193 @va53f97a6ffe5
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 13/16, incomplete)
 // localstat: local name {, name} [= explist1].
 // equiv-conv: FUN_0021d5c0 esi edi
@@ -1903,7 +1903,7 @@ extern "C" void FUN_0021f0a0(LuaVMLexState* ls) {
 
 
 // 0x0021f220 FUN_0021f220 (92 B): equivalent/0x0021f220.cpp
-// sym: _FUN_0021f220 @9bd0cb481be7 @w6a36c3448dc4
+// sym: _FUN_0021f220 @9bd0cb481be7 @w6a36c3448dc4 @vfe12b705cf92
 // STATUS: equivalent (tools/equiv.py level 3: 3017 inputs, branch coverage 6/6)
 // funcname: name {. name} [: name]; returns 1 for a method (needself).
 // equiv-conv: FUN_0021c3d0 esi
@@ -1923,7 +1923,7 @@ extern "C" int FUN_0021f220(LuaVMLexState* ls, LuaVMExpDesc* v) {
 
 
 // 0x0021f280 FUN_0021f280 (114 B): equivalent/0x0021f280.cpp
-// sym: _FUN_0021f280 @d61e271fa507 @wc646d60e9d12
+// sym: _FUN_0021f280 @d61e271fa507 @wc646d60e9d12 @v762bc0fe1ac9
 // STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 2/2)
 // funcstat: function funcname body (stored to the name).
 // equiv-conv: FUN_0021f220 ecx eax
@@ -1950,7 +1950,7 @@ extern "C" void FUN_0021f280(LuaVMLexState* ls, int line) {
 
 
 // 0x0021f300 FUN_0021f300 (78 B): equivalent/0x0021f300.cpp
-// sym: _FUN_0021f300 @e49a73dbdac5 @w0b8c110bb7ae
+// sym: _FUN_0021f300 @e49a73dbdac5 @w0b8c110bb7ae @v57a1b1e02f9a
 // STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 2/2)
 // exprstat: a call statement (no results) or an assignment.
 // equiv-conv: FUN_0021d830 eax esi
@@ -1969,7 +1969,7 @@ extern "C" void FUN_0021f300(LuaVMLexState* ls) {
 
 
 // 0x0021f350 FUN_0021f350 (231 B): equivalent/0x0021f350.cpp
-// sym: _FUN_0021f350 @4b3a3d145dde @w58d258a6ddeb
+// sym: _FUN_0021f350 @4b3a3d145dde @w58d258a6ddeb @v03608ba66048
 // STATUS: equivalent (tools/equiv.py level 3: 3034 inputs, branch coverage 13/14, incomplete)
 // retstat: return [explist1] (a single call becomes a tail call).
 // equiv-conv: FUN_0021d5c0 esi edi
@@ -2009,7 +2009,7 @@ extern "C" unsigned int FUN_0021f350(LuaVMLexState* ls) {
 
 
 // 0x0021f460 FUN_0021f460 (145 B): equivalent/0x0021f460.cpp
-// sym: _FUN_0021f460 @c0dce6ef6cac @w8c8f7bfcc128
+// sym: _FUN_0021f460 @c0dce6ef6cac @w8c8f7bfcc128 @v6a6bde9a17cd
 // STATUS: equivalent (tools/equiv.py level 3: 3016 inputs, branch coverage 10/10)
 // breakstat: break (closes the upvalues of the blocks left, jumps to the enclosing loop's break list).
  // luaK_concat
@@ -2041,7 +2041,7 @@ extern "C" void FUN_0021f460(LuaVMLexState* ls) {
 
 
 // 0x0021f500 FUN_0021f500 (251 B): equivalent/0x0021f500.cpp
-// sym: _FUN_0021f500 @021e5f20d561 @w0dc6b43dacda
+// sym: _FUN_0021f500 @021e5f20d561 @w0dc6b43dacda @v9e6575cdbafc
 // STATUS: equivalent (tools/equiv.py level 3: 3028 inputs, branch coverage 14/14)
 // statement: one statement; returns 1 when the statement must be the last of its block.
 // equiv-conv: FUN_0021c190 esi
@@ -2103,7 +2103,7 @@ extern "C" int FUN_0021f500(LuaVMLexState* ls) {
 } // namespace fn_f77c2fa8
 
 // 0x0021f640 FUN_0021f640 (160 B): equivalent/0x0021f640.cpp [wrapped: helper definitions (3 out-of-line function bodies)]
-// sym: _FUN_0021f640 @07db6018d23f @wcaafa2a4f4a2
+// sym: _FUN_0021f640 @07db6018d23f @wcaafa2a4f4a2 @v85b0e897d075
 namespace fn_0021f640 {
 // STATUS: equivalent (tools/equiv.py level 3: 2728 inputs, branch coverage 12/12)
 // chunk: { stat [';'] } with a nesting-depth guard

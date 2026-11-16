@@ -113,7 +113,7 @@ DriftToPositionAction_175020::~DriftToPositionAction_175020() {
 } // namespace fn_f735d51c
 
 // 0x00175060 hulkfight::motion::DriftToPositionAction::vfunc_3 (761 B): equivalent/0x00175060.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?vfunc_3@DriftToPositionAction@motion@hulkfight@fn_00175060@@UAE_NHM@Z @40192628bb96 @w173791c6cde7
+// sym: ?vfunc_3@DriftToPositionAction@motion@hulkfight@fn_00175060@@UAE_NHM@Z @40192628bb96 @w173791c6cde7 @v8c2e55e20f84
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)

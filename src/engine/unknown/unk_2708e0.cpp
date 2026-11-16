@@ -190,7 +190,7 @@ void FUN_00270940(ControllerBuffer** out, GameMemoryAllocator heap) {
 
 
 // 0x00270980 FUN_00270980 (40 B): equivalent/0x00270980.cpp
-// sym: _FUN_00270980 @e6fc2eed2f6c @wa12ba155776d
+// sym: _FUN_00270980 @e6fc2eed2f6c @wa12ba155776d @vd42354e11e32
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_00270980 @ 0x00270980
 // equiv-conv: FUN_00270980 eax
@@ -203,7 +203,7 @@ extern "C" void FUN_00270980(char* text) {
 
 
 // 0x002709b0 FUN_002709b0 (124 B): equivalent/0x002709b0.cpp
-// sym: ?FUN_002709b0@fn_f44852ae@@YAHIIII@Z @d889dd76b88f @w53be0895307f
+// sym: ?FUN_002709b0@fn_f44852ae@@YAHIIII@Z @d889dd76b88f @w53be0895307f @v8017032e11d9
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_002709b0 @ 0x002709b0
 // the drive registry (records.h CoreDriveRegistryEntry): every drive unmounted, every source directory cleared
@@ -441,7 +441,7 @@ void __cdecl FUN_00270d40(const char* name, const char* path) {
 namespace fn_f44852ae {
 
 // 0x00270e60 FUN_00270e60 (168 B): equivalent/0x00270e60.cpp
-// sym: ?FUN_00270e60@fn_f44852ae@@YAXPBDPAD@Z @08a5d5c18a41 @wa0fab06fc8a2
+// sym: ?FUN_00270e60@fn_f44852ae@@YAXPBDPAD@Z @08a5d5c18a41 @wa0fab06fc8a2 @v533b8de41a5b
 // STATUS: equivalent (tools/equiv.py level 3: 68 inputs, branch coverage 8/8)
 // FUN_00270e60 @ 0x00270e60
 // the drive registry (records.h CoreDriveRegistryEntry)
@@ -470,7 +470,7 @@ void __cdecl FUN_00270e60(const char *key, char *output)
 } // namespace fn_f44852ae
 
 // 0x00270f10 FUN_00270f10 (119 B): equivalent/0x00270f10.cpp [wrapped: conflict: FUN_0026d840]
-// sym: _FUN_00270f10 @db26ab1aee5d @w752defe2c008
+// sym: _FUN_00270f10 @db26ab1aee5d @w752defe2c008 @v0374464eb27f
 namespace fn_00270f10 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_00270f10 @ 0x00270f10
@@ -505,7 +505,7 @@ extern "C" int __cdecl FUN_00270f10(const char *name, void *argument)
 namespace fn_f44852ae {
 
 // 0x00270f90 FUN_00270f90 (221 B): equivalent/0x00270f90.cpp
-// sym: _FUN_00270f90 @f047213d17fa @w26a319499192
+// sym: _FUN_00270f90 @f047213d17fa @w26a319499192 @v6c8189026913
 // STATUS: equivalent (tools/equiv.py level 3: 66 inputs, branch coverage 12/12)
 // FUN_00270f90 @ 0x00270f90
 // equiv-conv: FUN_00270980 eax
@@ -570,7 +570,7 @@ void __cdecl FUN_00271070() {
 } // namespace fn_f44852ae
 
 // 0x002710d0 FUN_002710d0 (348 B): equivalent/0x002710d0.cpp [wrapped: conflict: FUN_0026d840]
-// sym: ?FUN_002710d0@fn_002710d0@@YAHPAPAUFile_2710d0@1@PBDHHHHHH@Z @78bbba83b9d8 @w520703ea30d0
+// sym: ?FUN_002710d0@fn_002710d0@@YAHPAPAUFile_2710d0@1@PBDHHHHHH@Z @78bbba83b9d8 @w520703ea30d0 @v5174cc70f9ac
 inline void* operator new(size_t, void* p) { return p; }
 namespace fn_002710d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3012 inputs, branch coverage 14/14)
@@ -640,7 +640,7 @@ extern "C" void FUN_00271230(Obj_271230** p, const char* a, int b, int c, int d,
 
 
 // 0x00271410 FUN_00271410 (281 B): equivalent/0x00271410.cpp
-// sym: ?FUN_00271410@fn_f44852ae@@YAXPAPAVInstanceDrive@core@@PBDHH@Z @d46f18d0ffa5 @w4b7f42f9bd11
+// sym: ?FUN_00271410@fn_f44852ae@@YAXPAPAVInstanceDrive@core@@PBDHH@Z @d46f18d0ffa5 @w4b7f42f9bd11 @vd6828e194712
 // STATUS: equivalent (tools/equiv.py level 3: 20008 inputs, branch coverage 16/16)
 // FUN_00271410 @ 0x00271410
 // the drive registry (records.h CoreDriveRegistryEntry): the entry's drive
@@ -741,7 +741,7 @@ bool FUN_002716c0(byte_2716c0* src, unsigned int* length, uint_2716c0* codepoint
 
 
 // 0x002716f0 FUN_002716f0 (155 B): equivalent/0x002716f0.cpp
-// sym: ?convertCharacter@fn_f44852ae@@YAHIPADIIPAII@Z @324d267928fe @w40916d9831cd
+// sym: ?convertCharacter@fn_f44852ae@@YAHIPADIIPAII@Z @324d267928fe @w40916d9831cd @vaf5797d1c578
 // STATUS: equivalent (tools/equiv.py level 3: 85 inputs, branch coverage 14/14)
 // FUN_002716f0 @ 0x002716f0
 int __cdecl convertCharacter(unsigned int character, char *output, unsigned int capacity, unsigned int fallback, unsigned int *written, hulk_uintptr state)
@@ -771,7 +771,7 @@ int __cdecl convertCharacter(unsigned int character, char *output, unsigned int 
 
 
 // 0x00271820 FUN_00271820 (70 B): equivalent/0x00271820.cpp
-// sym: _FUN_00271820 @badc79e83f20 @w87de519a7364
+// sym: _FUN_00271820 @badc79e83f20 @w87de519a7364 @vbdde5dee9031
 // STATUS: equivalent (tools/equiv.py level 3: 82 inputs, branch coverage 9/10, incomplete)
 // FUN_00271820 @ 0x00271820
 extern "C" unsigned int __cdecl FUN_00271820(const unsigned char *text, unsigned int *length, unsigned int *value)
@@ -792,7 +792,7 @@ extern "C" unsigned int __cdecl FUN_00271820(const unsigned char *text, unsigned
 
 
 // 0x00271870 FUN_00271870 (183 B): equivalent/0x00271870.cpp
-// sym: ?ConvertWithFallback@fn_f44852ae@@YAHIPADIIPAII@Z @5dd6251cad00 @w4ee193a894ad
+// sym: ?ConvertWithFallback@fn_f44852ae@@YAHIPADIIPAII@Z @5dd6251cad00 @w4ee193a894ad @v511f0bd57259
 // STATUS: equivalent (tools/equiv.py level 3: 79 inputs, branch coverage 18/18)
 // FUN_00271870 @ 0x00271870
 int __cdecl ConvertWithFallback(hulk_uintptr codepoint, char *output, unsigned int capacity, hulk_uintptr fallback, unsigned int *written, hulk_uintptr flags)
@@ -821,7 +821,7 @@ int __cdecl ConvertWithFallback(hulk_uintptr codepoint, char *output, unsigned i
 
 
 // 0x00271930 FUN_00271930 (58 B): equivalent/0x00271930.cpp
-// sym: ?FUN_00271930@fn_f44852ae@@YAXPADPBDI@Z @96ed5baef46b @w292875ccfe7c
+// sym: ?FUN_00271930@fn_f44852ae@@YAXPADPBDI@Z @96ed5baef46b @w292875ccfe7c @v05e59a293316
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_00271930 @ 0x00271930
 void __cdecl FUN_00271930(char* dest, const char* src, unsigned int size) {

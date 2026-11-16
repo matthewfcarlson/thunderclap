@@ -646,7 +646,7 @@ fight::OpportunityAction::~OpportunityAction() {
 }
 
 // 0x00237590 fight::OpportunityAction::vfunc_5 (278 B): equivalent/0x00237590.cpp [wrapped: conflict: fight::OpportunityAction]
-// sym: ?vfunc_5@OpportunityAction@fight@fn_00237590@@UAE_NHM@Z @fea86490945e @wc2a3d60f4042
+// sym: ?vfunc_5@OpportunityAction@fight@fn_00237590@@UAE_NHM@Z @fea86490945e @wc2a3d60f4042 @vd6f9ee6853af
 namespace fn_00237590 {
 // STATUS: equivalent (tools/equiv.py level 3: 3009 inputs, branch coverage 30/30)
 // fight::OpportunityAction::vfunc_5 @ 0x00237590
@@ -823,7 +823,7 @@ namespace fn_f6c81acf {
 
 
 // 0x002379e0 fight::OpportunityTrack::vfunc_10 (138 B): equivalent/0x002379e0.cpp
-// sym: ?vfunc_10@OpportunityTrack@fn_f6c81acf@@UAEPAXPAX00@Z @5055f2e746bf @w061700de61cc
+// sym: ?vfunc_10@OpportunityTrack@fn_f6c81acf@@UAEPAXPAX00@Z @5055f2e746bf @w061700de61cc @vde638bdc978a
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // fight::OpportunityTrack::vfunc_10 @ 0x002379e0
 void* OpportunityTrack::vfunc_10(void* a1, void* a2, void* a3) {

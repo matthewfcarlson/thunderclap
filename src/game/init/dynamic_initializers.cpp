@@ -1026,7 +1026,7 @@ struct Obj_364820 {
 // 0x0035c0a6 __unwindfunclet_0035c0a6 (10 B): not yet verified
 
 // 0x0035c0b0 FUN_0035c0b0 (10 B): equivalent/0x0035c0b0.cpp
-// sym: ?FUN_0035c0b0@fn_f1ddef39@@YAXPAD@Z @ea71c203747c @wc8fc188532f2
+// sym: ?FUN_0035c0b0@fn_f1ddef39@@YAXPAD@Z @ea71c203747c @wc8fc188532f2 @v84d233c20066
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0035c0b0 @ 0x0035c0b0
 // equiv-conv: FUN_0035c0b0 ebp
@@ -1106,7 +1106,7 @@ void __cdecl FUN_0035c0b0(char *callerFrame) {
 } // namespace fn_f1ddef39
 
 // 0x0035c350 FUN_0035c350 (10 B): equivalent/0x0035c350.cpp [wrapped: conflict: FUN_003abdde]
-// sym: ?FUN_0035c350@fn_0035c350@@YAHPAUContext@1@@Z @0888f7e71c91 @we810e03f66c6
+// sym: ?FUN_0035c350@fn_0035c350@@YAHPAUContext@1@@Z @0888f7e71c91 @we810e03f66c6 @vac8c275a612f
 namespace fn_0035c350 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0035c350 @ 0x0035c350
@@ -1131,7 +1131,7 @@ int FUN_0035c350(Context* context) {
 namespace fn_f1ddef39 {
 
 // 0x0035c3c0 FUN_0035c3c0 (8 B): equivalent/0x0035c3c0.cpp
-// sym: ?FUN_0035c3c0@fn_f1ddef39@@YAXXZ @41f6238161a5 @wa9494d6d9323
+// sym: ?FUN_0035c3c0@fn_f1ddef39@@YAXXZ @41f6238161a5 @wa9494d6d9323 @v9962fccfe216
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0035c3c0 @ 0x0035c3c0
 void __cdecl FUN_0035c3c0() { Obj* object = 0; object->FUN_003b17b0(); }
@@ -1885,7 +1885,7 @@ void initSound() {
 namespace fn_f1ddef39 {
 
 // 0x0035d090 FUN_0035d090 (109 B): equivalent/0x0035d090.cpp
-// sym: ?FUN_0035d090@fn_f1ddef39@@YAXXZ @6ac71135b35b @w41a9ee5d793b
+// sym: ?FUN_0035d090@fn_f1ddef39@@YAXXZ @6ac71135b35b @w41a9ee5d793b @v28d150da5c52
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0035d090 @ 0x0035d090
 void FUN_0035d090()
@@ -7058,7 +7058,7 @@ void RegisterCleanup() {
 } // namespace fn_f1ddef39
 
 // 0x00361850 FUN_00361850 (65 B): equivalent/0x00361850.cpp [wrapped: conflict: DAT_004d4d80; DAT_004d4d84; DAT_004d4d88; DAT_004d4d8c (+4)]
-// sym: ?FUN_00361850@fn_00361850@@YAXXZ @7e64ee769867 @w94706341d678
+// sym: ?FUN_00361850@fn_00361850@@YAXXZ @7e64ee769867 @w94706341d678 @v5954cc4c5e74
 namespace fn_00361850 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00361850 @ 0x00361850
@@ -7081,7 +7081,7 @@ void FUN_00361850()
 namespace fn_f1ddef39 {
 
 // 0x003618a0 FUN_003618a0 (149 B): equivalent/0x003618a0.cpp
-// sym: ?FUN_003618a0@fn_f1ddef39@@YAXXZ @965ab13520b3 @wa2683c18d0e7
+// sym: ?FUN_003618a0@fn_f1ddef39@@YAXXZ @965ab13520b3 @wa2683c18d0e7 @v4d955411733b
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_003618a0 @ 0x003618a0
 // (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d4d00 by name (the data TU defines
@@ -7113,7 +7113,7 @@ void FUN_003618a0()
 } // namespace fn_f1ddef39
 
 // 0x00361940 FUN_00361940 (93 B): equivalent/0x00361940.cpp [wrapped: conflict: DAT_004d4db0; DAT_004d4db4; DAT_004d4db8; DAT_004d4dbc (+8)]
-// sym: ?FUN_00361940@fn_00361940@@YAXXZ @8e8993b98e72 @wb5f182aebc85
+// sym: ?FUN_00361940@fn_00361940@@YAXXZ @8e8993b98e72 @wb5f182aebc85 @v4e77ca42b273
 namespace fn_00361940 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00361940 @ 0x00361940
@@ -7141,7 +7141,7 @@ void FUN_00361940()
 namespace fn_f1ddef39 {
 
 // 0x003619a0 FUN_003619a0 (149 B): equivalent/0x003619a0.cpp
-// sym: ?FUN_003619a0@fn_f1ddef39@@YAXXZ @599e13d5afaa @wbe2082087046
+// sym: ?FUN_003619a0@fn_f1ddef39@@YAXXZ @599e13d5afaa @wbe2082087046 @v3d563d025c84
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_003619a0 @ 0x003619a0
 // Static initialiser for a global table of 4 handler slots followed by a terminator.
@@ -7174,7 +7174,7 @@ void FUN_003619a0()
 } // namespace fn_f1ddef39
 
 // 0x00361a40 FUN_00361a40 (65 B): equivalent/0x00361a40.cpp [wrapped: conflict: DAT_004d7990; DAT_004d7994; DAT_004d79a8]
-// sym: ?FUN_00361a40@fn_00361a40@@YAXXZ @3f98ac639d8f @w3e5d067c1846
+// sym: ?FUN_00361a40@fn_00361a40@@YAXXZ @3f98ac639d8f @w3e5d067c1846 @v41c982a4574b
 namespace fn_00361a40 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00361a40 @ 0x00361a40
@@ -7197,7 +7197,7 @@ void FUN_00361a40()
 namespace fn_f1ddef39 {
 
 // 0x00361a90 FUN_00361a90 (345 B): equivalent/0x00361a90.cpp
-// sym: ?FUN_00361a90@fn_f1ddef39@@YAXXZ @4bf862a25da2 @w8fc9000a9398
+// sym: ?FUN_00361a90@fn_f1ddef39@@YAXXZ @4bf862a25da2 @w8fc9000a9398 @v40f703dfe208
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00361a90 @ 0x00361a90
 // (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d7aa8 by name (the data TU defines
@@ -7256,7 +7256,7 @@ void FUN_00361a90()
 
 
 // 0x00361bf0 FUN_00361bf0 (149 B): equivalent/0x00361bf0.cpp
-// sym: ?FUN_00361bf0@fn_f1ddef39@@YAXXZ @6f3280e29e21 @wc9505130d41d
+// sym: ?FUN_00361bf0@fn_f1ddef39@@YAXXZ @6f3280e29e21 @wc9505130d41d @v7732a8296841
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00361bf0 @ 0x00361bf0
 // (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d79b8 by name (the data TU defines
@@ -7288,7 +7288,7 @@ void FUN_00361bf0()
 } // namespace fn_f1ddef39
 
 // 0x00361c90 FUN_00361c90 (93 B): equivalent/0x00361c90.cpp [wrapped: conflict: DAT_004d7d68; DAT_004d7d6c; DAT_004d7d80; DAT_004d7d84 (+1)]
-// sym: ?FUN_00361c90@fn_00361c90@@YAXXZ @e7b601f5342f @wab8e519f81f3
+// sym: ?FUN_00361c90@fn_00361c90@@YAXXZ @e7b601f5342f @wab8e519f81f3 @v339a06211435
 namespace fn_00361c90 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00361c90 @ 0x00361c90
@@ -7316,7 +7316,7 @@ void FUN_00361c90()
 namespace fn_f1ddef39 {
 
 // 0x00361cf0 FUN_00361cf0 (345 B): equivalent/0x00361cf0.cpp
-// sym: ?FUN_00361cf0@fn_f1ddef39@@YAXXZ @5db51c02ec47 @wfb143a8cad0c
+// sym: ?FUN_00361cf0@fn_f1ddef39@@YAXXZ @5db51c02ec47 @wfb143a8cad0c @v925c2504618d
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00361cf0 @ 0x00361cf0
 // (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d7c40 by name (the data TU defines
@@ -7375,7 +7375,7 @@ void FUN_00361cf0()
 
 
 // 0x00361e50 FUN_00361e50 (149 B): equivalent/0x00361e50.cpp
-// sym: ?FUN_00361e50@fn_f1ddef39@@YAXXZ @e97bcb2ebf57 @we9c991978797
+// sym: ?FUN_00361e50@fn_f1ddef39@@YAXXZ @e97bcb2ebf57 @we9c991978797 @v34c6c77575b1
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00361e50 @ 0x00361e50
 // Static initialiser for a global table of 4 handler slots followed by a terminator.
@@ -7408,7 +7408,7 @@ void FUN_00361e50()
 } // namespace fn_f1ddef39
 
 // 0x00361ef0 FUN_00361ef0 (93 B): equivalent/0x00361ef0.cpp [wrapped: conflict: DAT_004d7f58; DAT_004d7f5c; DAT_004d7f70; DAT_004d7f74 (+1)]
-// sym: ?FUN_00361ef0@fn_00361ef0@@YAXXZ @ae2c057930df @w3341e8331cc1
+// sym: ?FUN_00361ef0@fn_00361ef0@@YAXXZ @ae2c057930df @w3341e8331cc1 @v635bdf91d7c6
 namespace fn_00361ef0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00361ef0 @ 0x00361ef0
@@ -7436,7 +7436,7 @@ void FUN_00361ef0()
 namespace fn_f1ddef39 {
 
 // 0x00361f50 FUN_00361f50 (177 B): equivalent/0x00361f50.cpp
-// sym: ?FUN_00361f50@fn_f1ddef39@@YAXXZ @83447bafd910 @w655baf918e8f
+// sym: ?FUN_00361f50@fn_f1ddef39@@YAXXZ @83447bafd910 @w655baf918e8f @vf1834cb804fc
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00361f50 @ 0x00361f50
 // Static init of a six-entry handler table (shared callbacks; entry 4 gets its own).
@@ -7472,7 +7472,7 @@ void FUN_00361f50()
 
 
 // 0x00362010 FUN_00362010 (261 B): equivalent/0x00362010.cpp
-// sym: ?FUN_00362010@fn_f1ddef39@@YAXXZ @c783f20c905f @we0e633002899
+// sym: ?FUN_00362010@fn_f1ddef39@@YAXXZ @c783f20c905f @we0e633002899 @v88d207ee3152
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00362010 @ 0x00362010
 // Static initialiser for a global table of 8 handler slots followed by a terminator.
@@ -7520,7 +7520,7 @@ void FUN_00362010()
 
 
 // 0x00362120 FUN_00362120 (121 B): equivalent/0x00362120.cpp
-// sym: ?FUN_00362120@fn_f1ddef39@@YAXXZ @2a98f5ab1aad @wa009702074c2
+// sym: ?FUN_00362120@fn_f1ddef39@@YAXXZ @2a98f5ab1aad @wa009702074c2 @v9334c1cbae48
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00362120 @ 0x00362120
 // (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d7e60 by name (the data TU defines
@@ -7547,7 +7547,7 @@ void FUN_00362120()
 
 
 // 0x003621a0 FUN_003621a0 (149 B): equivalent/0x003621a0.cpp
-// sym: ?FUN_003621a0@fn_f1ddef39@@YAXXZ @70242e4869ee @wc8a0c8d4d1e6
+// sym: ?FUN_003621a0@fn_f1ddef39@@YAXXZ @70242e4869ee @wc8a0c8d4d1e6 @v92743bac69e0
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_003621a0 @ 0x003621a0
 // (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d8190 by name (the data TU defines
@@ -7578,7 +7578,7 @@ void FUN_003621a0()
 
 
 // 0x00362240 FUN_00362240 (93 B): equivalent/0x00362240.cpp
-// sym: ?FUN_00362240@fn_f1ddef39@@YAXXZ @0dd060361b2a @w6038e0546a44
+// sym: ?FUN_00362240@fn_f1ddef39@@YAXXZ @0dd060361b2a @w6038e0546a44 @v54f3faf4e576
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00362240 @ 0x00362240
 // (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d8148 by name (the data TU defines
@@ -7601,7 +7601,7 @@ void FUN_00362240()
 
 
 // 0x003622a0 FUN_003622a0 (261 B): equivalent/0x003622a0.cpp
-// sym: ?FUN_003622a0@fn_f1ddef39@@YAXXZ @b68d2dfc42ac @w44c71b24cb2b
+// sym: ?FUN_003622a0@fn_f1ddef39@@YAXXZ @b68d2dfc42ac @w44c71b24cb2b @v44c8401ab96c
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_003622a0 @ 0x003622a0
 // Static initialiser for a global table of 8 handler slots followed by a terminator.
@@ -7649,7 +7649,7 @@ void FUN_003622a0()
 
 
 // 0x003623b0 FUN_003623b0 (121 B): equivalent/0x003623b0.cpp
-// sym: ?FUN_003623b0@fn_f1ddef39@@YAXXZ @b93386771813 @w415e3d49204e
+// sym: ?FUN_003623b0@fn_f1ddef39@@YAXXZ @b93386771813 @w415e3d49204e @v8a6c55763d3e
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_003623b0 @ 0x003623b0
 // Static initialiser for a global table of 3 handler slots followed by a terminator.
@@ -7678,7 +7678,7 @@ void FUN_003623b0()
 } // namespace fn_f1ddef39
 
 // 0x00362430 FUN_00362430 (65 B): equivalent/0x00362430.cpp [wrapped: conflict: DAT_004d80c0; DAT_004d80c4; DAT_004d80c8; DAT_004d80cc (+4)]
-// sym: ?FUN_00362430@fn_00362430@@YAXXZ @b2a976f59f48 @w799af45b6546
+// sym: ?FUN_00362430@fn_00362430@@YAXXZ @b2a976f59f48 @w799af45b6546 @v01dc1dcce196
 namespace fn_00362430 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00362430 @ 0x00362430
@@ -7700,7 +7700,7 @@ void FUN_00362430()
 
 
 // 0x00362480 FUN_00362480 (65 B): equivalent/0x00362480.cpp [wrapped: conflict: DAT_004d83a8; DAT_004d83ac; DAT_004d83b0; DAT_004d83b4 (+4)]
-// sym: ?FUN_00362480@fn_00362480@@YAXXZ @4a7676c39e8e @wf8e254c9eb8f
+// sym: ?FUN_00362480@fn_00362480@@YAXXZ @4a7676c39e8e @wf8e254c9eb8f @v27f7bffe33b8
 namespace fn_00362480 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00362480 @ 0x00362480
@@ -7723,7 +7723,7 @@ void FUN_00362480()
 namespace fn_f1ddef39 {
 
 // 0x003624d0 FUN_003624d0 (149 B): equivalent/0x003624d0.cpp
-// sym: ?FUN_003624d0@fn_f1ddef39@@YAXXZ @649122bf82d9 @weec667ef63a5
+// sym: ?FUN_003624d0@fn_f1ddef39@@YAXXZ @649122bf82d9 @weec667ef63a5 @v95bde1e01ae0
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_003624d0 @ 0x003624d0
 // Static initialiser for a global table of 4 handler slots followed by a terminator.
@@ -7755,7 +7755,7 @@ void FUN_003624d0()
 
 
 // 0x00362570 FUN_00362570 (233 B): equivalent/0x00362570.cpp
-// sym: ?FUN_00362570@fn_f1ddef39@@YAXXZ @0a674c92395a @w5b0a4a764398
+// sym: ?FUN_00362570@fn_f1ddef39@@YAXXZ @0a674c92395a @w5b0a4a764398 @v2cfd908b1a31
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00362570 @ 0x00362570
 // Static initialiser for a global table of 7 handler slots followed by a terminator.
@@ -7800,7 +7800,7 @@ void FUN_00362570()
 } // namespace fn_f1ddef39
 
 // 0x00362660 FUN_00362660 (93 B): equivalent/0x00362660.cpp [wrapped: conflict: DAT_004d8698; DAT_004d869c; DAT_004d86b0; DAT_004d86b4 (+1)]
-// sym: ?FUN_00362660@fn_00362660@@YAXXZ @7413f32833fb @wf45f3900228f
+// sym: ?FUN_00362660@fn_00362660@@YAXXZ @7413f32833fb @wf45f3900228f @v7e32e6803fc0
 namespace fn_00362660 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00362660 @ 0x00362660
@@ -7828,7 +7828,7 @@ void FUN_00362660()
 namespace fn_f1ddef39 {
 
 // 0x003626c0 FUN_003626c0 (401 B): equivalent/0x003626c0.cpp
-// sym: ?FUN_003626c0@fn_f1ddef39@@YAXXZ @11700f5fcefd @w14aa360b1de9
+// sym: ?FUN_003626c0@fn_f1ddef39@@YAXXZ @11700f5fcefd @w14aa360b1de9 @v68f161afde5c
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_003626c0 @ 0x003626c0
 // (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d84c8 by name (the data TU defines
@@ -7895,7 +7895,7 @@ void FUN_003626c0()
 
 
 // 0x00362860 FUN_00362860 (149 B): equivalent/0x00362860.cpp
-// sym: ?FUN_00362860@fn_f1ddef39@@YAXXZ @0eaf6eea4fe0 @w22ce159b1d18
+// sym: ?FUN_00362860@fn_f1ddef39@@YAXXZ @0eaf6eea4fe0 @w22ce159b1d18 @v308a6b856e0a
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00362860 @ 0x00362860
 // (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d86d8 by name (the data TU defines
@@ -7926,7 +7926,7 @@ void FUN_00362860()
 
 
 // 0x00362900 FUN_00362900 (149 B): equivalent/0x00362900.cpp
-// sym: ?FUN_00362900@fn_f1ddef39@@YAXXZ @f1e247947e0a @wb10373957f0e
+// sym: ?FUN_00362900@fn_f1ddef39@@YAXXZ @f1e247947e0a @wb10373957f0e @v7c95007c5359
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00362900 @ 0x00362900
 // Static initialiser for a global table of 4 handler slots followed by a terminator.
@@ -7958,7 +7958,7 @@ void FUN_00362900()
 
 
 // 0x003629a0 FUN_003629a0 (121 B): equivalent/0x003629a0.cpp
-// sym: ?FUN_003629a0@fn_f1ddef39@@YAXXZ @bdf2ddc33534 @w2ea0d94a773d
+// sym: ?FUN_003629a0@fn_f1ddef39@@YAXXZ @bdf2ddc33534 @w2ea0d94a773d @va0bef1ed290a
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_003629a0 @ 0x003629a0
 // (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d8798 by name (the data TU defines
@@ -7985,7 +7985,7 @@ void FUN_003629a0()
 
 
 // 0x00362a20 FUN_00362a20 (177 B): equivalent/0x00362a20.cpp
-// sym: ?FUN_00362a20@fn_f1ddef39@@YAXXZ @5e0b6b17d54d @wdef75bb8b3f1
+// sym: ?FUN_00362a20@fn_f1ddef39@@YAXXZ @5e0b6b17d54d @wdef75bb8b3f1 @vf6373f832091
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00362a20 @ 0x00362a20
 // Static init of a six-entry handler table (shared callbacks; entry 4 gets its own).
@@ -8022,7 +8022,7 @@ void FUN_00362a20()
 } // namespace fn_f1ddef39
 
 // 0x00362ae0 FUN_00362ae0 (65 B): equivalent/0x00362ae0.cpp [wrapped: conflict: DAT_004d88c0; DAT_004d88c4; DAT_004d88d8]
-// sym: ?FUN_00362ae0@fn_00362ae0@@YAXXZ @966a8328099f @w4af956813aa3
+// sym: ?FUN_00362ae0@fn_00362ae0@@YAXXZ @966a8328099f @w4af956813aa3 @v5751a75afc5a
 namespace fn_00362ae0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00362ae0 @ 0x00362ae0
@@ -8045,7 +8045,7 @@ void FUN_00362ae0()
 namespace fn_f1ddef39 {
 
 // 0x00362b30 FUN_00362b30 (261 B): equivalent/0x00362b30.cpp
-// sym: ?FUN_00362b30@fn_f1ddef39@@YAXXZ @cac7344010ba @wd9438418c1a4
+// sym: ?FUN_00362b30@fn_f1ddef39@@YAXXZ @cac7344010ba @wd9438418c1a4 @v84f3f386f15a
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00362b30 @ 0x00362b30
 // Static initialiser for a global table of 8 handler slots followed by a terminator.
@@ -8093,7 +8093,7 @@ void FUN_00362b30()
 
 
 // 0x00362c40 FUN_00362c40 (149 B): equivalent/0x00362c40.cpp
-// sym: ?FUN_00362c40@fn_f1ddef39@@YAXXZ @0f25ae490007 @wbe778b635b1c
+// sym: ?FUN_00362c40@fn_f1ddef39@@YAXXZ @0f25ae490007 @wbe778b635b1c @vf376676fa5fc
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00362c40 @ 0x00362c40
 // (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d8840 by name (the data TU defines
@@ -8125,7 +8125,7 @@ void FUN_00362c40()
 } // namespace fn_f1ddef39
 
 // 0x00362ce0 FUN_00362ce0 (65 B): equivalent/0x00362ce0.cpp [wrapped: conflict: DAT_004d8b48; DAT_004d8b4c; DAT_004d8b60]
-// sym: ?FUN_00362ce0@fn_00362ce0@@YAXXZ @fb5abc02e71a @w7b14c9adf5dc
+// sym: ?FUN_00362ce0@fn_00362ce0@@YAXXZ @fb5abc02e71a @w7b14c9adf5dc @v1dc37e79a56f
 namespace fn_00362ce0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00362ce0 @ 0x00362ce0
@@ -8147,7 +8147,7 @@ void FUN_00362ce0()
 
 
 // 0x00362d30 FUN_00362d30 (65 B): equivalent/0x00362d30.cpp [wrapped: conflict: DAT_004d8b18; DAT_004d8b1c; DAT_004d8b20; DAT_004d8b24 (+4)]
-// sym: ?FUN_00362d30@fn_00362d30@@YAXXZ @d5d883208919 @w2e8bfee48d4e
+// sym: ?FUN_00362d30@fn_00362d30@@YAXXZ @d5d883208919 @w2e8bfee48d4e @v492b8795eb28
 namespace fn_00362d30 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00362d30 @ 0x00362d30
@@ -8170,7 +8170,7 @@ void FUN_00362d30()
 namespace fn_f1ddef39 {
 
 // 0x00362d80 FUN_00362d80 (317 B): equivalent/0x00362d80.cpp
-// sym: ?FUN_00362d80@fn_f1ddef39@@YAXXZ @722dff22e158 @wd5be3581f55c
+// sym: ?FUN_00362d80@fn_f1ddef39@@YAXXZ @722dff22e158 @wd5be3581f55c @vd75be9cf52b6
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00362d80 @ 0x00362d80
 // (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d8b70 by name (the data TU defines
@@ -8225,7 +8225,7 @@ void FUN_00362d80()
 
 
 // 0x00362ec0 FUN_00362ec0 (149 B): equivalent/0x00362ec0.cpp
-// sym: ?FUN_00362ec0@fn_f1ddef39@@YAXXZ @b4131a8e3755 @w291379543323
+// sym: ?FUN_00362ec0@fn_f1ddef39@@YAXXZ @b4131a8e3755 @w291379543323 @v2b28e15377c8
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00362ec0 @ 0x00362ec0
 // Static initialiser for a global table of 4 handler slots followed by a terminator.
@@ -8257,7 +8257,7 @@ void FUN_00362ec0()
 
 
 // 0x00362f60 FUN_00362f60 (373 B): equivalent/0x00362f60.cpp
-// sym: ?FUN_00362f60@fn_f1ddef39@@YAXXZ @5b10479bb56e @wc97c9f5e80c6
+// sym: ?FUN_00362f60@fn_f1ddef39@@YAXXZ @5b10479bb56e @wc97c9f5e80c6 @vd4661757bcb7
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00362f60 @ 0x00362f60
 // (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d8d68 by name (the data TU defines
@@ -8321,7 +8321,7 @@ void FUN_00362f60()
 } // namespace fn_f1ddef39
 
 // 0x003630e0 FUN_003630e0 (65 B): equivalent/0x003630e0.cpp [wrapped: conflict: DAT_004d8d40; DAT_004d8d44; DAT_004d8d48; DAT_004d8d4c (+4)]
-// sym: ?FUN_003630e0@fn_003630e0@@YAXXZ @927ffcb54196 @wd403b626459c
+// sym: ?FUN_003630e0@fn_003630e0@@YAXXZ @927ffcb54196 @wd403b626459c @v5cdc69fc2277
 namespace fn_003630e0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_003630e0 @ 0x003630e0
@@ -8344,7 +8344,7 @@ void FUN_003630e0()
 
 
 // 0x00363130 FUN_00363130 (93 B): equivalent/0x00363130.cpp [wrapped: conflict: DAT_004d8ea8; DAT_004d8eac; DAT_004d8eb0; DAT_004d8eb4 (+8)]
-// sym: ?FUN_00363130@fn_00363130@@YAXXZ @2bc85576599b @w34d101a0c125
+// sym: ?FUN_00363130@fn_00363130@@YAXXZ @2bc85576599b @w34d101a0c125 @vaba0af44cafb
 namespace fn_00363130 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00363130 @ 0x00363130
@@ -8372,7 +8372,7 @@ void FUN_00363130()
 namespace fn_f1ddef39 {
 
 // 0x00363190 FUN_00363190 (149 B): equivalent/0x00363190.cpp
-// sym: ?FUN_00363190@fn_f1ddef39@@YAXXZ @3fabc05d7036 @w53014f1d8b18
+// sym: ?FUN_00363190@fn_f1ddef39@@YAXXZ @3fabc05d7036 @w53014f1d8b18 @v5a7100ba554d
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00363190 @ 0x00363190
 // (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d8cc0 by name (the data TU defines
@@ -8403,7 +8403,7 @@ void FUN_00363190()
 
 
 // 0x00363230 FUN_00363230 (93 B): equivalent/0x00363230.cpp
-// sym: ?FUN_00363230@fn_f1ddef39@@YAXXZ @86e58697a30c @we5f8ea7ad4e0
+// sym: ?FUN_00363230@fn_f1ddef39@@YAXXZ @86e58697a30c @we5f8ea7ad4e0 @vc6bbfdd63968
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00363230 @ 0x00363230
 // (x64t4 wrote the words by their own items: a 64-bit view had overrun DAT_004d9060's items in the native link.)
@@ -8427,7 +8427,7 @@ void FUN_00363230()
 
 
 // 0x00363290 FUN_00363290 (177 B): equivalent/0x00363290.cpp
-// sym: ?FUN_00363290@fn_f1ddef39@@YAXXZ @531c18f5a21d @wee4a79ea9591
+// sym: ?FUN_00363290@fn_f1ddef39@@YAXXZ @531c18f5a21d @wee4a79ea9591 @v9b42c6b035f7
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00363290 @ 0x00363290
 // Static init of a six-entry handler table (shared callbacks; entry 4 gets its own).
@@ -8463,7 +8463,7 @@ void FUN_00363290()
 
 
 // 0x00363350 FUN_00363350 (261 B): equivalent/0x00363350.cpp
-// sym: ?FUN_00363350@fn_f1ddef39@@YAXXZ @4c9229a4b4d6 @wb2d355429cf6
+// sym: ?FUN_00363350@fn_f1ddef39@@YAXXZ @4c9229a4b4d6 @wb2d355429cf6 @v8bda54bd6630
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00363350 @ 0x00363350
 // Static initialiser for a global table of 8 handler slots followed by a terminator.
@@ -8511,7 +8511,7 @@ void FUN_00363350()
 
 
 // 0x00363460 FUN_00363460 (121 B): equivalent/0x00363460.cpp
-// sym: ?FUN_00363460@fn_f1ddef39@@YAXXZ @8e70c0afd89e @wda9c3468f5a5
+// sym: ?FUN_00363460@fn_f1ddef39@@YAXXZ @8e70c0afd89e @wda9c3468f5a5 @vddc4a777e059
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00363460 @ 0x00363460
 // Static initialiser for a global table of 3 handler slots followed by a terminator.
@@ -8540,7 +8540,7 @@ void FUN_00363460()
 } // namespace fn_f1ddef39
 
 // 0x003634e0 FUN_003634e0 (65 B): equivalent/0x003634e0.cpp [wrapped: conflict: DAT_004d8f40; DAT_004d8f44; DAT_004d8f48; DAT_004d8f4c (+4)]
-// sym: ?FUN_003634e0@fn_003634e0@@YAXXZ @c725ddd628b7 @w5d68b335714a
+// sym: ?FUN_003634e0@fn_003634e0@@YAXXZ @c725ddd628b7 @w5d68b335714a @vfae6ce13675d
 namespace fn_003634e0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_003634e0 @ 0x003634e0
@@ -8564,7 +8564,7 @@ void FUN_003634e0()
 namespace fn_f1ddef39 {
 
 // 0x00363530 FUN_00363530 (121 B): equivalent/0x00363530.cpp
-// sym: ?FUN_00363530@fn_f1ddef39@@YAXXZ @c4ac3b070dc5 @wec2268e18822
+// sym: ?FUN_00363530@fn_f1ddef39@@YAXXZ @c4ac3b070dc5 @wec2268e18822 @v088b9fc61ce7
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00363530 @ 0x00363530
 // (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d9328 by name (the data TU defines
@@ -8591,7 +8591,7 @@ void FUN_00363530()
 
 
 // 0x003635b0 FUN_003635b0 (289 B): equivalent/0x003635b0.cpp
-// sym: ?FUN_003635b0@fn_f1ddef39@@YAXXZ @2c0058e453c4 @wa37992a98567
+// sym: ?FUN_003635b0@fn_f1ddef39@@YAXXZ @2c0058e453c4 @wa37992a98567 @v50e71b0a0a6a
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_003635b0 @ 0x003635b0
 // Static initialiser for a global table of 9 handler slots followed by a terminator.
@@ -8643,7 +8643,7 @@ void FUN_003635b0()
 
 
 // 0x003636e0 FUN_003636e0 (121 B): equivalent/0x003636e0.cpp
-// sym: ?FUN_003636e0@fn_f1ddef39@@YAXXZ @4424e8db40a9 @w920d89c83b16
+// sym: ?FUN_003636e0@fn_f1ddef39@@YAXXZ @4424e8db40a9 @w920d89c83b16 @vba32ce1c3164
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_003636e0 @ 0x003636e0
 // Static initialiser for a global table of 3 handler slots followed by a terminator.
@@ -8671,7 +8671,7 @@ void FUN_003636e0()
 
 
 // 0x00363760 FUN_00363760 (149 B): equivalent/0x00363760.cpp
-// sym: ?FUN_00363760@fn_f1ddef39@@YAXXZ @fadb62ed843d @weabc158a3355
+// sym: ?FUN_00363760@fn_f1ddef39@@YAXXZ @fadb62ed843d @weabc158a3355 @v5682cb5024dd
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00363760 @ 0x00363760
 // Static initialiser for a global table of 4 handler slots followed by a terminator.
@@ -8703,7 +8703,7 @@ void FUN_00363760()
 
 
 // 0x00363800 FUN_00363800 (93 B): equivalent/0x00363800.cpp
-// sym: ?FUN_00363800@fn_f1ddef39@@YAXXZ @27b2065f8c64 @wccbb6037c469
+// sym: ?FUN_00363800@fn_f1ddef39@@YAXXZ @27b2065f8c64 @wccbb6037c469 @v4d6b498b43c2
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00363800 @ 0x00363800
 // (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d9658 by name (the data TU defines
@@ -8726,7 +8726,7 @@ void FUN_00363800()
 
 
 // 0x00363860 FUN_00363860 (289 B): equivalent/0x00363860.cpp
-// sym: ?FUN_00363860@fn_f1ddef39@@YAXXZ @fcb4e0a0b63e @we6183966035a
+// sym: ?FUN_00363860@fn_f1ddef39@@YAXXZ @fcb4e0a0b63e @we6183966035a @v78a55be36d19
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00363860 @ 0x00363860
 // Static initialiser for a global table of 9 handler slots followed by a terminator.
@@ -8778,7 +8778,7 @@ void FUN_00363860()
 
 
 // 0x00363990 FUN_00363990 (121 B): equivalent/0x00363990.cpp
-// sym: ?FUN_00363990@fn_f1ddef39@@YAXXZ @5a169b19c41f @wb44d61beaf68
+// sym: ?FUN_00363990@fn_f1ddef39@@YAXXZ @5a169b19c41f @wb44d61beaf68 @v2be202f6a15c
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00363990 @ 0x00363990
 // (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d96a0 by name (the data TU defines
@@ -8805,7 +8805,7 @@ void FUN_00363990()
 
 
 // 0x00363a10 FUN_00363a10 (149 B): equivalent/0x00363a10.cpp
-// sym: ?FUN_00363a10@fn_f1ddef39@@YAXXZ @b4dc791f33da @w3b9281a10ace
+// sym: ?FUN_00363a10@fn_f1ddef39@@YAXXZ @b4dc791f33da @w3b9281a10ace @v0d1350dd99d8
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00363a10 @ 0x00363a10
 // (dg1) the table's words through records.h's ShaderParamEntry table DAT_004d94f0 by name (the data TU defines

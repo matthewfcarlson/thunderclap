@@ -179,7 +179,7 @@ owners::Vec3_78750* owners::Vec3_78750::FUN_00078750(owners::Vec3_78750* out, ow
 namespace fn_f3f3201f {
 
 // 0x00078780 FUN_00078780 (85 B): equivalent/0x00078780.cpp
-// sym: ?FUN_00078780@RandomState@fn_f3f3201f@@QAEMXZ @22afe0c31dd3 @w5b2e526cfd9f
+// sym: ?FUN_00078780@RandomState@fn_f3f3201f@@QAEMXZ @22afe0c31dd3 @w5b2e526cfd9f @vc9f6947d075b
 // STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 0/0)
 // FUN_00078780 @ 0x00078780
 hulk_freg RandomState::FUN_00078780() {

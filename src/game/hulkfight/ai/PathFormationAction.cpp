@@ -1055,7 +1055,7 @@ PathTrack* PathTrack::vfunc_5(int flag) {
 
 
 // 0x0011cd70 FUN_0011cd70 (81 B): equivalent/0x0011cd70.cpp [wrapped: conflict: hulkfight::ai::StrafeRunAction]
-// sym: ??0StrafeRunAction@ai@hulkfight@fn_0011cd70@@QAE@PAXPAURefObject@123@@Z @b4f59cbfb603 @wab25e1bd325d
+// sym: ??0StrafeRunAction@ai@hulkfight@fn_0011cd70@@QAE@PAXPAURefObject@123@@Z @b4f59cbfb603 @wab25e1bd325d @v7258178d7d5f
 namespace fn_0011cd70 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_0011cd70 @ 0x0011cd70
@@ -1404,7 +1404,7 @@ bool StrafeRunAction::vfunc_5(Slot_11ce20 a0, Slot_11ce20 a1)
 
 
 // 0x0011d2c0 hulkfight::ai::PathFormationAction::vfunc_5 (1431 B): equivalent/0x0011d2c0.cpp [wrapped: conflict: World]
-// sym: ?F@PathFormationAction@fn_0011d2c0@@QAEDHM@Z @a84797e9e69e @w07462c3217ab
+// sym: ?F@PathFormationAction@fn_0011d2c0@@QAEDHM@Z @a84797e9e69e @w07462c3217ab @v720707b9823a
 namespace fn_0011d2c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3087 inputs, branch coverage 62/62)
 // hulkfight::ai::PathFormationAction::vfunc_5 @ 0x0011d2c0

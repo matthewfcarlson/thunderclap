@@ -43,7 +43,7 @@ CAxisDirectionCondition* CAxisDirectionCondition::vfunc_5(signed char flags) {
 } // namespace fn_fcf6c406
 
 // 0x0004b880 CAxisDirectionCondition::vfunc_8 (991 B): equivalent/0x0004b880.cpp [wrapped: conflict: CAxisDirectionCondition]
-// sym: ?vfunc_8@CAxisDirectionCondition@fn_0004b880@@UAEDPAX@Z @849a2dcf2735 @w3fb29e7cfbdf
+// sym: ?vfunc_8@CAxisDirectionCondition@fn_0004b880@@UAEDPAX@Z @849a2dcf2735 @w3fb29e7cfbdf @ve51ac75c9a9c
 namespace fn_0004b880 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 25/26, incomplete)
 // CAxisDirectionCondition::vfunc_8 @ 0x0004b880

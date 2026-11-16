@@ -4,7 +4,7 @@
 
 
 // 0x000bfef0 Closure6<CFEManager,void,const_char_*,const_char_*,const_char_*,const_char_*,int,int>::vfunc_2 (58 B): equivalent/0x000bfef0.cpp [isolated: code differs from its standalone build; on include/gen/ and not mergeable]
-// sym: ?vfunc_2@?$Closure6@VCFEManager@@XPBDPBDPBDPBDHH@@UAEXPAX00@Z @d87f9086673d @w1d20f9aaabb3
+// sym: ?vfunc_2@?$Closure6@VCFEManager@@XPBDPBDPBDPBDHH@@UAEXPAX00@Z @d87f9086673d @w1d20f9aaabb3 @v82a8bf383501
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Closure6<CFEManager,void,const_char_*,const_char_*,const_char_*,const_char_*,int,int>::vfunc_2 @ 0x000bfef0
 #include "gen/global.h"

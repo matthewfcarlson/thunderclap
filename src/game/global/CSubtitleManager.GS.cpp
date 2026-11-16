@@ -279,7 +279,7 @@ void Overlay::FUN_001bea80()
 
 
 // 0x001bec90 FUN_001bec90 (382 B): equivalent/0x001bec90.cpp
-// sym: ?FUN_001bec90@Overlay@fn_f03fc358@@QAEXXZ @294aca72c6c0 @w3fa7fcd13052
+// sym: ?FUN_001bec90@Overlay@fn_f03fc358@@QAEXXZ @294aca72c6c0 @w3fa7fcd13052 @v681d4d998aa7
 // STATUS: equivalent (tools/equiv.py level 3: 12891 inputs, branch coverage 2/2)
 // FUN_001bec90 @ 0x001bec90
 void Overlay::FUN_001bec90()

@@ -790,7 +790,7 @@ struct StackD { void* vftable; int capacity; unsigned int index; pure3d::StateD*
 struct StackE { void* vftable; int capacity; unsigned int index; pure3d::StateE* data; StackE* FUN_0031f0a0(int); };
 
 // 0x0031c290 FUN_0031c290 (643 B): equivalent/0x0031c290.cpp
-// sym: _FUN_0031c290 @85ec70769861 @w7e18dffbdd48
+// sym: _FUN_0031c290 @85ec70769861 @w7e18dffbdd48 @vae603e2a5187
 // STATUS: equivalent (tools/equiv.py level 3: 20026 inputs, branch coverage 52/54, incomplete)
 // FUN_0031c290 @ 0x0031c290
 extern "C" void __cdecl FUN_0031c290(unsigned int format, void * out) {
@@ -820,7 +820,7 @@ extern "C" void __cdecl FUN_0031c290(unsigned int format, void * out) {
 
 
 // 0x0031c570 FUN_0031c570 (134 B): equivalent/0x0031c570.cpp
-// sym: _FUN_0031c570 @0dfb454a85bf @wca3be01ab4b9
+// sym: _FUN_0031c570 @0dfb454a85bf @wca3be01ab4b9 @vad61c3c71f00
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // FUN_0031c570 @ 0x0031c570
 // Fills a 2D texture-level description from a format descriptor and an optional locked surface.
@@ -846,7 +846,7 @@ extern "C" void FUN_0031c570(const FormatDesc_31c570 *desc, const Surface_31c570
 
 
 // 0x0031c600 FUN_0031c600 (121 B): equivalent/0x0031c600.cpp
-// sym: _FUN_0031c600 @da9ca860a4f2 @w16a8c49ee5b2
+// sym: _FUN_0031c600 @da9ca860a4f2 @w16a8c49ee5b2 @va4879ed8a304
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // FUN_0031c600 @ 0x0031c600
 // Fills a texture-level description from a format descriptor and an optional locked surface.
@@ -873,7 +873,7 @@ extern "C" void FUN_0031c600(const FormatDesc_31c600 *desc, const Surface_31c600
 
 
 // 0x0031c680 FUN_0031c680 (216 B): equivalent/0x0031c680.cpp
-// sym: _FUN_0031c680 @d765d456ae63 @wddcb70ecbace
+// sym: _FUN_0031c680 @d765d456ae63 @wddcb70ecbace @v6eb459f973be
 // STATUS: equivalent (tools/equiv.py level 3: 83 inputs, branch coverage 9/10, incomplete)
 // FUN_0031c680 @ 0x0031c680
 extern "C" unsigned int* __cdecl FUN_0031c680(unsigned int* output, unsigned int first, unsigned int second, int weight)
@@ -951,7 +951,7 @@ void Obj_31c880::Copy(U32_31c880 param) {
 } // namespace fn_fc049dac
 
 // 0x0031c8c0 pure3d::pddiRenderState::vfunc_0 (121 B): equivalent/0x0031c8c0.cpp
-// sym: ?vfunc_0@pddiRenderState@pure3d@@UAEXPAX@Z @6f7f3bee37f2 @wf28077b37998
+// sym: ?vfunc_0@pddiRenderState@pure3d@@UAEXPAX@Z @6f7f3bee37f2 @wf28077b37998 @vf5f9fb14b1c4
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // pure3d::pddiRenderState::vfunc_0 @ 0x0031c8c0
 void pure3d::pddiRenderState::vfunc_0(void* __p0) { Context_31c8c0 * context = (Context_31c8c0 *)__p0;
@@ -980,7 +980,7 @@ void pure3d::pddiViewState::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
 
 // 0x0031c9b0 pure3d::pddiLightingState::vfunc_0 (188 B): equivalent/0x0031c9b0.cpp [wrapped: conflict: pure3d::Light; pure3d::pddiLightingState]
-// sym: ?vfunc_0@pddiLightingState@pure3d@fn_0031c9b0@@UAEXPAUContext@23@@Z @c3868b954134 @w9f925abf9db8
+// sym: ?vfunc_0@pddiLightingState@pure3d@fn_0031c9b0@@UAEXPAUContext@23@@Z @c3868b954134 @w9f925abf9db8 @v1cb612302d0f
 namespace fn_0031c9b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // pure3d::pddiLightingState::vfunc_0 @ 0x0031c9b0
@@ -1057,7 +1057,7 @@ CCollisionAction* CCollisionAction::vfunc_2(unsigned char flags) {
 } // namespace fn_fc049dac
 
 // 0x0031cb60 pure3d::pddiBaseContext::vfunc_99 (1859 B): equivalent/0x0031cb60.cpp
-// sym: ?vfunc_99@pddiBaseContext@pure3d@@UAEXXZ @45e30163d936 @w46b06968b132
+// sym: ?vfunc_99@pddiBaseContext@pure3d@@UAEXXZ @45e30163d936 @w46b06968b132 @v3bfb1ec44d4c
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // pure3d::pddiBaseContext::vfunc_99 @ 0x0031cb60
 // the default states, written through the context's current-state pointers (f_48 view, f_4c raster, f_50 lighting,
@@ -1155,7 +1155,7 @@ void pure3d::pddiBaseContext::vfunc_103() {
 
 
 // 0x0031d380 pure3d::pddiBaseContext::vfunc_104 (100 B): equivalent/0x0031d380.cpp
-// sym: ?vfunc_104@pddiBaseContext@pure3d@@UAEXXZ @94358cb0e589 @w01a40bdb6417
+// sym: ?vfunc_104@pddiBaseContext@pure3d@@UAEXXZ @94358cb0e589 @w01a40bdb6417 @v6601d12ae13e
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 4/4)
 // pure3d::pddiBaseContext::vfunc_104 @ 0x0031d380
 void pure3d::pddiBaseContext::vfunc_104() {
@@ -1171,7 +1171,7 @@ void pure3d::pddiBaseContext::vfunc_104() {
 
 
 // 0x0031d3f0 pure3d::pddiBaseContext::vfunc_105 (113 B): equivalent/0x0031d3f0.cpp [wrapped: conflict: pure3d::pddiBaseContext]
-// sym: ?vfunc_105@pddiBaseContext@pure3d@fn_0031d3f0@@QAEXXZ @0697d04a3c9e @w2cda20ad302b
+// sym: ?vfunc_105@pddiBaseContext@pure3d@fn_0031d3f0@@QAEXXZ @0697d04a3c9e @w2cda20ad302b @vd64914efde03
 namespace fn_0031d3f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // pure3d::pddiBaseContext::vfunc_105 @ 0x0031d3f0
@@ -1609,7 +1609,7 @@ void pure3d::pddiBaseContext::vfunc_17(int i, int p) {
 
 
 // 0x0031d630 pure3d::pddiBaseContext::vfunc_93 (137 B): equivalent/0x0031d630.cpp [wrapped: conflict: pure3d::pddiBaseContext]
-// sym: ?vfunc_93@pddiBaseContext@pure3d@fn_0031d630@@UAEXHIII@Z @139ce28ae0e7 @w33b4f9745566
+// sym: ?vfunc_93@pddiBaseContext@pure3d@fn_0031d630@@UAEXHIII@Z @139ce28ae0e7 @w33b4f9745566 @v364f25b0ed12
 namespace fn_0031d630 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // pure3d::pddiBaseContext::vfunc_93 @ 0x0031d630
@@ -1762,7 +1762,7 @@ void pure3d::pddiBaseContext::vfunc_32(hulk_intptr a, hulk_intptr b) {}
 
 
 // 0x0031d830 pure3d::pddiBaseContext::vfunc_33 (201 B): equivalent/0x0031d830.cpp [wrapped: conflict: pure3d::pddiBaseContext]
-// sym: ?vfunc_33@pddiBaseContext@pure3d@fn_0031d830@@UAEXIIII@Z @eceab65a8f9d @w3bd94950aa57
+// sym: ?vfunc_33@pddiBaseContext@pure3d@fn_0031d830@@UAEXIIII@Z @eceab65a8f9d @w3bd94950aa57 @v1848172fb1b5
 namespace fn_0031d830 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // pure3d::pddiBaseContext::vfunc_33 @ 0x0031d830
@@ -1866,7 +1866,7 @@ int* pddiBaseContext::vfunc_36(int* out) {
 
 
 // 0x0031d940 pure3d::pddiBaseContext::vfunc_37 (255 B): equivalent/0x0031d940.cpp [wrapped: macros]
-// sym: ?vfunc_37@pddiBaseContext@pure3d@fn_0031d940@@UAEXHPBULightInput@23@I@Z @323766d6a588 @w9d710557cc24
+// sym: ?vfunc_37@pddiBaseContext@pure3d@fn_0031d940@@UAEXHPBULightInput@23@I@Z @323766d6a588 @w9d710557cc24 @v64a98e1028c3
 namespace fn_0031d940 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // pure3d::pddiBaseContext::vfunc_37 @ 0x0031d940
@@ -1937,7 +1937,7 @@ int pure3d::pddiBaseContext::vfunc_41(int x) {
 
 
 // 0x0031db00 pure3d::pddiBaseContext::vfunc_42 (156 B): equivalent/0x0031db00.cpp
-// sym: ?vfunc_42@pddiBaseContext@pure3d@@UAEXHH@Z @1948613f869f @wb354951b2efa
+// sym: ?vfunc_42@pddiBaseContext@pure3d@@UAEXHH@Z @1948613f869f @wb354951b2efa @vfd9c473d2761
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // pure3d::pddiBaseContext::vfunc_42 @ 0x0031db00
 void pure3d::pddiBaseContext::vfunc_42(int index, int __p1) { unsigned int color = (unsigned int)__p1;
@@ -1957,7 +1957,7 @@ void pure3d::pddiBaseContext::vfunc_42(int index, int __p1) { unsigned int color
 
 
 // 0x0031dba0 pure3d::pddiBaseContext::vfunc_43 (41 B): equivalent/0x0031dba0.cpp
-// sym: ?vfunc_43@pddiBaseContext@pure3d@@UAEXHH@Z @3ed26edf3941 @w96e6a466be8d
+// sym: ?vfunc_43@pddiBaseContext@pure3d@@UAEXHH@Z @3ed26edf3941 @w96e6a466be8d @v5b9512ac43ae
 // STATUS: equivalent (tools/equiv.py level 3: 19889 inputs, branch coverage 2/2)
 // pure3d::pddiBaseContext::vfunc_43 @ 0x0031dba0
 void pure3d::pddiBaseContext::vfunc_43(hulk_intptr __p0, int index) { unsigned int * result = (unsigned int *)__p0;
@@ -1970,7 +1970,7 @@ void pure3d::pddiBaseContext::vfunc_43(hulk_intptr __p0, int index) { unsigned i
 
 
 // 0x0031dbd0 pure3d::pddiBaseContext::vfunc_44 (114 B): equivalent/0x0031dbd0.cpp
-// sym: ?vfunc_44@pddiBaseContext@pure3d@@UAEXHH@Z @5ab4c8f98eb9 @w7b04c4bccd13
+// sym: ?vfunc_44@pddiBaseContext@pure3d@@UAEXHH@Z @5ab4c8f98eb9 @w7b04c4bccd13 @v17316a62880d
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 2/2)
 // pure3d::pddiBaseContext::vfunc_44 @ 0x0031dbd0
 // Sets the position of light `index` (0..7) in the context's light table and re-applies the light.
@@ -3088,7 +3088,7 @@ int pure3d::pddiBaseContext::vfunc_98(void* __p0, int ) {
 
 
 // 0x0031e610 pure3d::pddiBaseContext::vfunc_100 (509 B): equivalent/0x0031e610.cpp [wrapped: conflict: pure3d::pddiBaseContext; pure3d::pddiMatrixStack; pure3d::pddiStack]
-// sym: ?vfunc_100@pddiBaseContext@pure3d@fn_0031e610@@QAEXXZ @a3f252042ce8 @wa419f97040b4
+// sym: ?vfunc_100@pddiBaseContext@pure3d@fn_0031e610@@QAEXXZ @a3f252042ce8 @wa419f97040b4 @v26a5ccaf799b
 inline void* __cdecl operator new(size_t, void* p) { return p; }
 namespace fn_0031e610 {
 // STATUS: equivalent (tools/equiv.py level 3: 63 inputs, branch coverage 20/20)
@@ -3127,7 +3127,7 @@ void pddiBaseContext::vfunc_100() {
 
 
 // 0x0031e810 pure3d::pddiBaseContext::vfunc_15 (43 B): equivalent/0x0031e810.cpp [wrapped: conflict: pure3d::pddiBaseContext]
-// sym: ?vfunc_15@pddiBaseContext@pure3d@fn_0031e810@@UAEXH@Z @b9702846f414 @w75fea7f80798
+// sym: ?vfunc_15@pddiBaseContext@pure3d@fn_0031e810@@UAEXH@Z @b9702846f414 @w75fea7f80798 @vf366c635e260
 namespace fn_0031e810 {
 // STATUS: equivalent (tools/equiv.py level 3: 2936 inputs, branch coverage 0/0)
 // pure3d::pddiBaseContext::vfunc_15 @ 0x0031e810
@@ -3345,7 +3345,7 @@ int pddiBaseContext::vfunc_18(int index) {
 
 
 // 0x0031e880 pure3d::pddiBaseContext::vfunc_21 (78 B): equivalent/0x0031e880.cpp [wrapped: conflict: pure3d::pddiBaseContext]
-// sym: ?vfunc_21@pddiBaseContext@pure3d@fn_0031e880@@UAEXH@Z @d23f5ad05164 @wd02e9c5d813b
+// sym: ?vfunc_21@pddiBaseContext@pure3d@fn_0031e880@@UAEXH@Z @d23f5ad05164 @wd02e9c5d813b @v2125d041d6e9
 namespace fn_0031e880 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // pure3d::pddiBaseContext::vfunc_21 @ 0x0031e880
@@ -3372,7 +3372,7 @@ vfunc_108(index);
 
 
 // 0x0031e8d0 pure3d::pddiBaseContext::vfunc_22 (82 B): equivalent/0x0031e8d0.cpp [wrapped: macros]
-// sym: ?vfunc_22@pddiBaseContext@pure3d@fn_0031e8d0@@UAEXHPBUMatrix@23@@Z @a3c858b6a552 @wf5c158a80cbd
+// sym: ?vfunc_22@pddiBaseContext@pure3d@fn_0031e8d0@@UAEXHPBUMatrix@23@@Z @a3c858b6a552 @wf5c158a80cbd @vb5d29a634505
 namespace fn_0031e8d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // pure3d::pddiBaseContext::vfunc_22 @ 0x0031e8d0
@@ -3568,7 +3568,7 @@ pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
 
 
 // 0x0031ed40 FUN_0031ed40 (102 B): equivalent/0x0031ed40.cpp [wrapped: conflict: pure3d::pddiStack; pure3d::pddiViewState]
-// sym: ??0?$pddiStack@UpddiViewState@pure3d@fn_0031ed40@@@pure3d@fn_0031ed40@@QAE@H@Z @c1ed07de3547 @wbf19bf9b1bec
+// sym: ??0?$pddiStack@UpddiViewState@pure3d@fn_0031ed40@@@pure3d@fn_0031ed40@@QAE@H@Z @c1ed07de3547 @wbf19bf9b1bec @vdf9fd4a1bf48
 namespace fn_0031ed40 {
 // STATUS: equivalent (tools/equiv.py level 3: 57 inputs, branch coverage 6/6)
 // FUN_0031ed40 @ 0x0031ed40
@@ -3698,7 +3698,7 @@ pddiStack* pddiStack::vfunc_0(unsigned char flag) {
 
 
 // 0x0031eef0 FUN_0031eef0 (116 B): equivalent/0x0031eef0.cpp [wrapped: conflict: pure3d::pddiLightingState; pure3d::pddiStack]
-// sym: ??0?$pddiStack@VpddiLightingState@pure3d@fn_0031eef0@@@pure3d@fn_0031eef0@@QAE@H@Z @c0594cdd8440 @wee470eed1387
+// sym: ??0?$pddiStack@VpddiLightingState@pure3d@fn_0031eef0@@@pure3d@fn_0031eef0@@QAE@H@Z @c0594cdd8440 @wee470eed1387 @v8c2222fdf3ff
 namespace fn_0031eef0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2752 inputs, branch coverage 6/6; --wine 590 inputs)
 // FUN_0031eef0 @ 0x0031eef0
@@ -3771,7 +3771,7 @@ pddiStack* pddiStack::vfunc_0(unsigned char flag) {
 
 
 // 0x0031efd0 FUN_0031efd0 (102 B): equivalent/0x0031efd0.cpp [wrapped: conflict: pure3d::pddiFogState; pure3d::pddiStack]
-// sym: ??0?$pddiStack@VpddiFogState@pure3d@fn_0031efd0@@@pure3d@fn_0031efd0@@QAE@H@Z @d66e7f3afac0 @w67b82e9a5fdd
+// sym: ??0?$pddiStack@VpddiFogState@pure3d@fn_0031efd0@@@pure3d@fn_0031efd0@@QAE@H@Z @d66e7f3afac0 @w67b82e9a5fdd @vb522851d0c59
 namespace fn_0031efd0 {
 // STATUS: equivalent (tools/equiv.py level 3: 57 inputs, branch coverage 6/6)
 // FUN_0031efd0 @ 0x0031efd0
@@ -3837,7 +3837,7 @@ pddiStack* pddiStack::vfunc_0(unsigned char flag) {
 
 
 // 0x0031f0a0 FUN_0031f0a0 (102 B): equivalent/0x0031f0a0.cpp [wrapped: conflict: pure3d::pddiStack; pure3d::pddiStencilState]
-// sym: ??0?$pddiStack@VpddiStencilState@pure3d@fn_0031f0a0@@@pure3d@fn_0031f0a0@@QAE@H@Z @6089d5c5c60f @we4b01941f1d2
+// sym: ??0?$pddiStack@VpddiStencilState@pure3d@fn_0031f0a0@@@pure3d@fn_0031f0a0@@QAE@H@Z @6089d5c5c60f @we4b01941f1d2 @v03e99df4ba58
 namespace fn_0031f0a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 57 inputs, branch coverage 6/6)
 // FUN_0031f0a0 @ 0x0031f0a0
@@ -3898,7 +3898,7 @@ pddiStack* pddiStack::vfunc_0(unsigned char flag) {
 
 
 // 0x0031f190 pure3d::pddiBaseContext::vfunc_101 (248 B): equivalent/0x0031f190.cpp
-// sym: ?vfunc_101@pddiBaseContext@pure3d@@UAEXXZ @5fa42ff9ecd4 @w6b9946560464
+// sym: ?vfunc_101@pddiBaseContext@pure3d@@UAEXXZ @5fa42ff9ecd4 @w6b9946560464 @v5b0193adaf1b
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 10/10)
 // pure3d::pddiBaseContext::vfunc_101 @ 0x0031f190
 void pure3d::pddiBaseContext::vfunc_101() {
@@ -3913,7 +3913,7 @@ void pure3d::pddiBaseContext::vfunc_101() {
 
 
 // 0x0031f290 pure3d::pddiBaseContext::vfunc_87 (373 B): equivalent/0x0031f290.cpp
-// sym: ?vfunc_87@pddiBaseContext@pure3d@@UAEXH@Z @deaea3247e42 @w6839dfd91bdd
+// sym: ?vfunc_87@pddiBaseContext@pure3d@@UAEXH@Z @deaea3247e42 @w6839dfd91bdd @va12fe6bef361
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 10/10)
 // pure3d::pddiBaseContext::vfunc_87 @ 0x0031f290
 void pure3d::pddiBaseContext::vfunc_87(int __p0) { unsigned char flags = (unsigned char)__p0;
@@ -3973,7 +3973,7 @@ void pure3d::pddiBaseContext::vfunc_87(int __p0) { unsigned char flags = (unsign
 
 
 // 0x0031f410 FUN_0031f410 (239 B): equivalent/0x0031f410.cpp [wrapped: conflict: FUN_0008d690; pure3d::pddiBaseContext]
-// sym: ??0pddiBaseContext@pure3d@fn_0031f410@@QAE@PAURef_31f410@2@0@Z @4cf887fe43e1 @wc141a3ec1a0e
+// sym: ??0pddiBaseContext@pure3d@fn_0031f410@@QAE@PAURef_31f410@2@0@Z @4cf887fe43e1 @wc141a3ec1a0e @v6f9dfd83937d
 namespace fn_0031f410 {
 // STATUS: equivalent (tools/equiv.py level 3: 3009 inputs, branch coverage 2/2; --wine 609 inputs)
 // FUN_0031f410 @ 0x0031f410

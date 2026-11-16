@@ -247,7 +247,7 @@ void HeapPlace(int* a, int index, int limit, int value, Compare_2a1a60 cmp) {
 
 
 // 0x002a1ac0 FUN_002a1ac0 (150 B): equivalent/0x002a1ac0.cpp
-// sym: ?FUN_002a1ac0@fn_f7803771@@YAXPAH00@Z @fff34162d876 @w209cc2860326
+// sym: ?FUN_002a1ac0@fn_f7803771@@YAXPAH00@Z @fff34162d876 @w209cc2860326 @v22028a2f334e
 // STATUS: equivalent (tools/equiv.py level 3: 78 inputs, branch coverage 17/18, incomplete)
 // FUN_002a1ac0 @ 0x002a1ac0
 // std::rotate for a range of 4-byte elements (cycle-leader algorithm)
@@ -312,7 +312,7 @@ void pure3d::TranslucentTraversal::vfunc_4() {
 
 
 // 0x002a1ca0 pure3d::TranslucentTraversal::vfunc_6 (242 B): equivalent/0x002a1ca0.cpp
-// sym: ?vfunc_6@TranslucentTraversal@pure3d@@UAEXPAXIM@Z @62066553e467 @wdf3791823ea8
+// sym: ?vfunc_6@TranslucentTraversal@pure3d@@UAEXPAXIM@Z @62066553e467 @wdf3791823ea8 @vcba8f402b0e7
 // STATUS: equivalent (tools/equiv.py level 3: 19092 inputs, branch coverage 4/4)
 // pure3d::TranslucentTraversal::vfunc_6 @ 0x002a1ca0
 void pure3d::TranslucentTraversal::vfunc_6(void* __p0, unsigned int index, float depth) { Object_2a1ca0 * object = (Object_2a1ca0 *)__p0;
@@ -409,7 +409,7 @@ void FUN_002a2090(hulk_intptr first, int last, int arg) {
 } // namespace fn_f7803771
 
 // 0x002a2130 FUN_002a2130 (130 B): equivalent/0x002a2130.cpp [wrapped: conflict: pure3d::DisplayTraversal; pure3d::TranslucentTraversal]
-// sym: ??0TranslucentTraversal@pure3d@fn_002a2130@@QAE@I@Z @10960ed3b24b @w9e089267f8ee
+// sym: ??0TranslucentTraversal@pure3d@fn_002a2130@@QAE@I@Z @10960ed3b24b @w9e089267f8ee @vaa0fca364260
 namespace fn_002a2130 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_002a2130 @ 0x002a2130
@@ -657,7 +657,7 @@ void* TranslucentTraversal::vfunc_2(unsigned char param) {
 namespace fn_f7803771 {
 
 // 0x002a2510 FUN_002a2510 (74 B): equivalent/0x002a2510.cpp
-// sym: ?FUN_002a2510@fn_f7803771@@YAXPAH0H@Z @15a0aae0e459 @w5e94977ea806
+// sym: ?FUN_002a2510@fn_f7803771@@YAXPAH0H@Z @15a0aae0e459 @w5e94977ea806 @vae30d85b617a
 // STATUS: equivalent (tools/equiv.py level 3: 89 inputs, branch coverage 4/4)
 // FUN_002a2510 @ 0x002a2510
 void __cdecl FUN_002a2510(int* first, int* last, hulk_intptr value)
@@ -673,7 +673,7 @@ void __cdecl FUN_002a2510(int* first, int* last, hulk_intptr value)
 
 
 // 0x002a2560 FUN_002a2560 (238 B): equivalent/0x002a2560.cpp
-// sym: ?FUN_002a2560@fn_f7803771@@YAXPAH0HPAX@Z @988cc7b30411 @we487d63f9af1
+// sym: ?FUN_002a2560@fn_f7803771@@YAXPAH0HPAX@Z @988cc7b30411 @we487d63f9af1 @v10709678ce93
 // STATUS: equivalent (tools/equiv.py level 3: 3030 inputs, branch coverage 12/14, incomplete)
 // FUN_002a2560 @ 0x002a2560
 void __cdecl FUN_002a2560(int* first, int* last, int depth, void* compare) {

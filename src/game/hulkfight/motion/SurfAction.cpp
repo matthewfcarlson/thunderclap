@@ -154,7 +154,7 @@ struct Frame_176770 {
 
 
 // 0x001765f0 hulkfight::motion::SurfAction::vfunc_3 (376 B): equivalent/0x001765f0.cpp
-// sym: ?vfunc_3@SurfAction@fn_ff2f3be0@@UAE_NHH@Z @8c87713013d6 @w9b81012b73f2
+// sym: ?vfunc_3@SurfAction@fn_ff2f3be0@@UAE_NHH@Z @8c87713013d6 @w9b81012b73f2 @v0d1f97831d44
 // STATUS: equivalent (tools/equiv.py level 3: 69 inputs, branch coverage 16/16)
 // hulkfight::motion::SurfAction::vfunc_3 @ 0x001765f0
 bool SurfAction::vfunc_3(int a, int b)
@@ -199,7 +199,7 @@ bool SurfAction::vfunc_3(int a, int b)
 
 
 // 0x00176770 hulkfight::motion::SurfAction::vfunc_5 (2005 B): equivalent/0x00176770.cpp
-// sym: ?v5@SurfAction@fn_ff2f3be0@@UAE_NHM@Z @67045c6e6b90 @w33e024b3d716
+// sym: ?v5@SurfAction@fn_ff2f3be0@@UAE_NHM@Z @67045c6e6b90 @w33e024b3d716 @v5f5739cc64c7
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 52/52)
 // hulkfight::motion::SurfAction::vfunc_5 @ 0x00176770
 bool SurfAction::v5(int a0, float dt)

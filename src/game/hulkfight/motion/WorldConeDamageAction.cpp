@@ -1019,7 +1019,7 @@ struct Grapple_146890 {
 } // namespace fn_f3c8e3e3
 
 // 0x00143100 FUN_00143100 (103 B): equivalent/0x00143100.cpp
-// sym: ?FUN_00143100@RandomGen_143100@owners@@QAEMXZ @524a37e27e33 @wee527563539a
+// sym: ?FUN_00143100@RandomGen_143100@owners@@QAEMXZ @524a37e27e33 @wee527563539a @v06c13c8a7bff
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00143100 @ 0x00143100
 float owners::RandomGen_143100::FUN_00143100() {
@@ -1573,7 +1573,7 @@ hulk_intptr hulkfight::motion::WorldDamageTrack::vfunc_0(int index) {
 
 
 // 0x00143890 FUN_00143890 (79 B): equivalent/0x00143890.cpp [wrapped: conflict: hulkfight::motion::WorldDamageTrack]
-// sym: ??0WorldDamageTrack@motion@hulkfight@fn_00143890@@QAE@XZ @6e1986357fab @w4802410f3583
+// sym: ??0WorldDamageTrack@motion@hulkfight@fn_00143890@@QAE@XZ @6e1986357fab @w4802410f3583 @v3b42391fa15d
 namespace fn_00143890 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00143890 @ 0x00143890
@@ -1653,7 +1653,7 @@ hulk_intptr hulkfight::motion::WorldConeDamageTrack::vfunc_0(int index) {
 
 
 // 0x00143950 FUN_00143950 (103 B): equivalent/0x00143950.cpp [wrapped: conflict: hulkfight::motion::WorldConeDamageTrack]
-// sym: ?FUN_00143950@WorldConeDamageTrack@motion@hulkfight@fn_00143950@@QAEPAV1234@XZ @f215eae40e4c @wba0d14f7d512
+// sym: ?FUN_00143950@WorldConeDamageTrack@motion@hulkfight@fn_00143950@@QAEPAV1234@XZ @f215eae40e4c @wba0d14f7d512 @v78f1e5318b1b
 namespace fn_00143950 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00143950 @ 0x00143950
@@ -1832,7 +1832,7 @@ hulk_freg hulkfight::motion::MotionTrailStopTrack::vfunc_7() {
 
 
 // 0x00143b20 hulkfight::motion::WorldDamageAction::vfunc_5 (707 B): equivalent/0x00143b20.cpp
-// sym: ?vfunc_5@WorldDamageAction@motion@hulkfight@@UAE_NHH@Z @b3a5cc1cfdb4 @w32d93461cb37
+// sym: ?vfunc_5@WorldDamageAction@motion@hulkfight@@UAE_NHH@Z @b3a5cc1cfdb4 @w32d93461cb37 @v32f10a0a0434
 // STATUS: equivalent (tools/equiv.py level 3: 92 inputs, branch coverage 16/16)
 // hulkfight::motion::WorldDamageAction::vfunc_5 @ 0x00143b20
 bool hulkfight::motion::WorldDamageAction::vfunc_5(hulk_intptr a1, int a2) {
@@ -1929,7 +1929,7 @@ bool SlowMotionAction::vfunc_3(int a, int b) {
 } // namespace fn_f3c8e3e3
 
 // 0x001441a0 hulkfight::motion::SlowMotionAction::vfunc_5 (325 B): equivalent/0x001441a0.cpp [wrapped: conflict: World]
-// sym: ?vfunc_5@SlowMotionAction@fn_001441a0@@UAEDHM@Z @e24ed9e8ae4c @w2441d1f5e7b5
+// sym: ?vfunc_5@SlowMotionAction@fn_001441a0@@UAEDHM@Z @e24ed9e8ae4c @w2441d1f5e7b5 @v93e847b38d21
 namespace fn_001441a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3017 inputs, branch coverage 12/12; Wine build 617 inputs, 12/12)
 // hulkfight::motion::SlowMotionAction::vfunc_5 @ 0x001441a0
@@ -2063,7 +2063,7 @@ bool hulkfight::motion::MotionBlurAction::vfunc_3(hulk_intptr a, hulk_intptr b) 
 
 
 // 0x00144360 hulkfight::motion::MotionBlurAction::vfunc_5 (528 B): equivalent/0x00144360.cpp [wrapped: conflict: FUN_001c3d90; hulkfight::motion::MotionBlurAction]
-// sym: ?vfunc_5@MotionBlurAction@motion@hulkfight@fn_00144360@@UAE_NHM@Z @65958afd2054 @wc9a39cb9900b
+// sym: ?vfunc_5@MotionBlurAction@motion@hulkfight@fn_00144360@@UAE_NHM@Z @65958afd2054 @wc9a39cb9900b @v3f736757a05d
 namespace fn_00144360 {
 // STATUS: equivalent (tools/equiv.py level 3: 3015 inputs, branch coverage 14/14; Wine build 625 inputs, 14/14)
 // hulkfight::motion::MotionBlurAction::vfunc_5 @ 0x00144360
@@ -2205,7 +2205,7 @@ void MotionTrailStopAction::vfunc_4() {
 } // namespace fn_f3c8e3e3
 
 // 0x001445d0 hulkfight::motion::HitEffectAction::vfunc_3 (283 B): equivalent/0x001445d0.cpp [wrapped: conflict: World; hulkfight::motion::HitEffectAction]
-// sym: ?vfunc_3@HitEffectAction@motion@hulkfight@fn_001445d0@@UAE_NII@Z @f446c0e8670f @wd68115e2a6d1
+// sym: ?vfunc_3@HitEffectAction@motion@hulkfight@fn_001445d0@@UAE_NII@Z @f446c0e8670f @wd68115e2a6d1 @v08e6c3215edf
 namespace fn_001445d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // hulkfight::motion::HitEffectAction::vfunc_3 @ 0x001445d0
@@ -3328,7 +3328,7 @@ extern "C" int FUN_001463a0(Target* t, void* x) {
 
 
 // 0x00146400 FUN_00146400 (215 B): equivalent/0x00146400.cpp [wrapped: conflict: fight::TrackFactoryCasterTemplate]
-// sym: _FUN_00146400 @5f1e86489d52 @w65d7f3a29874
+// sym: _FUN_00146400 @5f1e86489d52 @w65d7f3a29874 @v5036a54ba1bd
 namespace fn_00146400 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00146400 @ 0x00146400

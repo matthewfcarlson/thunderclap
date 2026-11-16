@@ -282,7 +282,7 @@ void Obj_272aa0::Run(hulk_intptr arg) {
 
 
 // 0x00272ae0 FUN_00272ae0 (84 B): equivalent/0x00272ae0.cpp
-// sym: ?FUN_00272ae0@Object@fn_f59a9783@@QAE_NPAI0@Z @caeedb54f514 @wce41a8582698
+// sym: ?FUN_00272ae0@Object@fn_f59a9783@@QAE_NPAI0@Z @caeedb54f514 @wce41a8582698 @v2c24f3f9fe12
 // STATUS: equivalent (tools/equiv.py level 3: 20017 inputs, branch coverage 2/2)
 // FUN_00272ae0 @ 0x00272ae0
 bool Object::FUN_00272ae0(unsigned int *first, unsigned int *second) {
@@ -477,7 +477,7 @@ void core::Drive::vfunc_21(int a) {
 
 
 // 0x00272ca0 core::Drive::vfunc_0_adj4 (8 B): equivalent/0x00272ca0.cpp [wrapped: conflict: core::Drive; core::IRefCount; core::Object]
-// sym: ?vfunc_0_adj4@Object@core@fn_00272ca0@@QAEXI@Z @003c2a31091b @wc0ab97093e5f
+// sym: ?vfunc_0_adj4@Object@core@fn_00272ca0@@QAEXI@Z @003c2a31091b @wc0ab97093e5f @vc9ea7ee9dff5
 namespace fn_00272ca0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 0/0)
 // core::Drive::vfunc_0_adj4 @ 0x00272ca0

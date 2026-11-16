@@ -284,7 +284,7 @@ void* pure3d::ImageFont::vfunc_4() {
 
 
 // 0x002bf1f0 pure3d::ImageFont::vfunc_9 (56 B): equivalent/0x002bf1f0.cpp
-// sym: ?vfunc_9@ImageFont@pure3d@@UAEHH@Z @aeebd2af2a9b @w4a682f8c3cbc
+// sym: ?vfunc_9@ImageFont@pure3d@@UAEHH@Z @aeebd2af2a9b @w4a682f8c3cbc @v2536d5f7598a
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // pure3d::ImageFont::vfunc_9 @ 0x002bf1f0
 int pure3d::ImageFont::vfunc_9(hulk_intptr __p0) { const unsigned short * text = (const unsigned short *)__p0;
@@ -339,7 +339,7 @@ unsigned int ImageFont::vfunc_10(const short* s) {
 
 
 // 0x002bf2a0 pure3d::ImageFont::vfunc_11 (166 B): equivalent/0x002bf2a0.cpp [wrapped: conflict: pure3d::ImageFont]
-// sym: ?vfunc_11@ImageFont@pure3d@fn_002bf2a0@@UAEXPAVCanvas@3@HHPBGI@Z @d22f9455b15d @w2d0b41e34549
+// sym: ?vfunc_11@ImageFont@pure3d@fn_002bf2a0@@UAEXPAVCanvas@3@HHPBGI@Z @d22f9455b15d @w2d0b41e34549 @v2adc1efd20fa
 namespace fn_002bf2a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2781 inputs, branch coverage 18/18)
 // pure3d::ImageFont::vfunc_11 @ 0x002bf2a0
@@ -406,7 +406,7 @@ void pure3d::ImageFont::vfunc_11(Canvas *canvas, int a2, int y, const unsigned s
 
 
 // 0x002bf350 FUN_002bf350 (143 B): equivalent/0x002bf350.cpp [wrapped: macros]
-// sym: ?FUN_002bf350@KeyTable@fn_002bf350@@QAEHG@Z @beb4fce086d9 @wdfe46f33a85a
+// sym: ?FUN_002bf350@KeyTable@fn_002bf350@@QAEHG@Z @beb4fce086d9 @wdfe46f33a85a @v104ca098bc27
 namespace fn_002bf350 {
 // STATUS: equivalent (tools/equiv.py level 3: 2999 inputs, branch coverage 18/18)
 // FUN_002bf350 @ 0x002bf350
@@ -455,7 +455,7 @@ int KeyTable::FUN_002bf350(unsigned short key) {
 
 
 // 0x002bf490 pure3d::ImageFont::vfunc_16 (93 B): equivalent/0x002bf490.cpp [wrapped: conflict: pure3d::ImageFont]
-// sym: ?vfunc_16@ImageFont@pure3d@fn_002bf490@@QAEHPBG@Z @18ecf42b896f @w3856dfb88fbd
+// sym: ?vfunc_16@ImageFont@pure3d@fn_002bf490@@QAEHPBG@Z @18ecf42b896f @w3856dfb88fbd @v55ac6863be71
 namespace fn_002bf490 {
 // STATUS: equivalent (tools/equiv.py level 3: 2998 inputs, branch coverage 12/12)
 // pure3d::ImageFont::vfunc_16 @ 0x002bf490

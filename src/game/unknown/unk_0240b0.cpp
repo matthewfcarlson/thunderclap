@@ -1707,7 +1707,7 @@ int List_241c0::Find(int key) {
 } // namespace fn_f6d645d0
 
 // 0x00024230 FUN_00024230 (73 B): equivalent/0x00024230.cpp [wrapped: conflict: Lookup]
-// sym: ?FUN_00024230@Finder@fn_00024230@@QAEHH@Z @daf27835e093 @w4aa879152803
+// sym: ?FUN_00024230@Finder@fn_00024230@@QAEHH@Z @daf27835e093 @w4aa879152803 @v2e63bbdc8709
 namespace fn_00024230 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_00024230 @ 0x00024230
@@ -1724,7 +1724,7 @@ int Finder::FUN_00024230(hulk_intptr wanted) {
 
 
 // 0x00024280 FUN_00024280 (75 B): equivalent/0x00024280.cpp [wrapped: conflict: Lookup]
-// sym: ?FUN_00024280@Table@fn_00024280@@QAEPAUEntry@2@HH@Z @466c9c72354a @w577675291d25
+// sym: ?FUN_00024280@Table@fn_00024280@@QAEPAUEntry@2@HH@Z @466c9c72354a @w577675291d25 @v9d770127f9af
 namespace fn_00024280 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // FUN_00024280 @ 0x00024280
@@ -1873,7 +1873,7 @@ int __stdcall FUN_00024400(int param, char skip) {
 namespace fn_f6d645d0 {
 
 // 0x00024480 FUN_00024480 (24 B): equivalent/0x00024480.cpp
-// sym: ?FUN_00024480@fn_f6d645d0@@YGHHH@Z @2cc19a33bbba @w9009cb9a92e9
+// sym: ?FUN_00024480@fn_f6d645d0@@YGHHH@Z @2cc19a33bbba @w9009cb9a92e9 @v766d9225a789
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00024480 @ 0x00024480
 int __stdcall FUN_00024480(int a, int b) {
@@ -1967,7 +1967,7 @@ void Obj_24580::Target(int unused) {
 
 
 // 0x000245b0 FUN_000245b0 (252 B): equivalent/0x000245b0.cpp
-// sym: ?FUN_000245b0@Target_245b0@fn_f6d645d0@@QAEXXZ @c84fc3de3948 @w427bd9765e8b
+// sym: ?FUN_000245b0@Target_245b0@fn_f6d645d0@@QAEXXZ @c84fc3de3948 @w427bd9765e8b @v5914dbb6a2ab
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 8/8)
 // FUN_000245b0 @ 0x000245b0
 // FUN_000245b0 @ 0x000245b0
@@ -1990,7 +1990,7 @@ void Target_245b0::FUN_000245b0() {
 
 
 // 0x000246e0 FUN_000246e0 (62 B): equivalent/0x000246e0.cpp
-// sym: ?FUN_000246e0@Object@fn_f6d645d0@@QAEHHH@Z @36348a8d2338 @wf9617dc197ae
+// sym: ?FUN_000246e0@Object@fn_f6d645d0@@QAEHHH@Z @36348a8d2338 @wf9617dc197ae @v2e90c42e76be
 // STATUS: equivalent (tools/equiv.py level 3: 2188 inputs, branch coverage 8/8)
 // FUN_000246e0 @ 0x000246e0
 int Object::FUN_000246e0(int first, int second) { for (int i=0; i<count; ++i) { if (entries[i].first==first && entries[i].second==second) return i; } return -1; }
@@ -2054,7 +2054,7 @@ int Owner_24800::func() {
 } // namespace fn_f6d645d0
 
 // 0x00024840 FUN_00024840 (146 B): equivalent/0x00024840.cpp [wrapped: conflict: FUN_0027b020]
-// sym: ?FUN_00024840@Group_24840@fn_00024840@@QAEHPBD@Z @1976761a05fc @w2676f6f4c53c
+// sym: ?FUN_00024840@Group_24840@fn_00024840@@QAEHPBD@Z @1976761a05fc @w2676f6f4c53c @v69765adcff6f
 namespace fn_00024840 {
 // STATUS: equivalent (tools/equiv.py level 3: 599 inputs, branch coverage 14/14)
 // FUN_00024840 @ 0x00024840
@@ -2199,7 +2199,7 @@ bool Target_249d0::Process() {
 
 
 // 0x00024a10 FUN_00024a10 (118 B): equivalent/0x00024a10.cpp
-// sym: ?FUN_00024a10@Group_24a10@fn_f6d645d0@@QAE_NXZ @e5472088f9ba @wa277e4ded196
+// sym: ?FUN_00024a10@Group_24a10@fn_f6d645d0@@QAE_NXZ @e5472088f9ba @wa277e4ded196 @v72b29a92313d
 // STATUS: equivalent (tools/equiv.py level 3: 623 inputs, branch coverage 10/12, incomplete)
 // FUN_00024a10 @ 0x00024a10
 bool Group_24a10::FUN_00024a10() {
@@ -2218,7 +2218,7 @@ bool Group_24a10::FUN_00024a10() {
 } // namespace fn_f6d645d0
 
 // 0x00024a90 FUN_00024a90 (111 B): equivalent/0x00024a90.cpp [wrapped: conflict: World]
-// sym: ?FUN_00024a90@Roster_24a90@fn_00024a90@@QAEHPBD@Z @a13eb04f3e67 @waf48c5d6c64d
+// sym: ?FUN_00024a90@Roster_24a90@fn_00024a90@@QAEHPBD@Z @a13eb04f3e67 @waf48c5d6c64d @vb9abc27c5174
 namespace fn_00024a90 {
 // STATUS: equivalent (tools/equiv.py level 3: 599 inputs, branch coverage 8/8)
 // FUN_00024a90 @ 0x00024a90
@@ -2302,7 +2302,7 @@ int Roster_24a90::FUN_00024a90(const char *name)
 namespace fn_f6d645d0 {
 
 // 0x00024b00 FUN_00024b00 (119 B): equivalent/0x00024b00.cpp
-// sym: ?FUN_00024b00@Group_24b00@fn_f6d645d0@@QAEHPBUName_24b00@2@@Z @d6db16e68b63 @w7e0d5e8ea343
+// sym: ?FUN_00024b00@Group_24b00@fn_f6d645d0@@QAEHPBUName_24b00@2@@Z @d6db16e68b63 @w7e0d5e8ea343 @v4e7a78d4468d
 // STATUS: equivalent (tools/equiv.py level 3: 599 inputs, branch coverage 10/10)
 // FUN_00024b00 @ 0x00024b00
 int Group_24b00::FUN_00024b00(const Name_24b00* key) {
@@ -2587,7 +2587,7 @@ void Obj::Fn(int a, int b) {
 namespace fn_f6d645d0 {
 
 // 0x00024e90 FUN_00024e90 (45 B): equivalent/0x00024e90.cpp
-// sym: ?FUN_00024e90@Container@fn_f6d645d0@@QAEPAXHPAX@Z @98a6fb7f3025 @w870ab00b2b26
+// sym: ?FUN_00024e90@Container@fn_f6d645d0@@QAEPAXHPAX@Z @98a6fb7f3025 @w870ab00b2b26 @vd7733225252b
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_00024e90 @ 0x00024e90
 void* Container::FUN_00024e90(int index, void* value) {
@@ -2650,7 +2650,7 @@ void FUN_00024f50(void* /*this, unused: callers pass it (unb4)*/) {
 
 
 // 0x00024f60 FUN_00024f60 (172 B): equivalent/0x00024f60.cpp
-// sym: ?FUN_00024f60@List_24f60@fn_f6d645d0@@QAEHPBD@Z @77281265bde6 @wec7e65611323
+// sym: ?FUN_00024f60@List_24f60@fn_f6d645d0@@QAEHPBD@Z @77281265bde6 @wec7e65611323 @vc47215ecb397
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 19/20, incomplete)
 // FUN_00024f60 @ 0x00024f60
 int List_24f60::FUN_00024f60(const char* text) {
@@ -2672,7 +2672,7 @@ int List_24f60::FUN_00024f60(const char* text) {
 
 
 // 0x00025010 FUN_00025010 (225 B): equivalent/0x00025010.cpp
-// sym: ?FUN_00025010@Target_25010@fn_f6d645d0@@QAEPBDPBDH@Z @2c5eec7d650c @we4e217d23780
+// sym: ?FUN_00025010@Target_25010@fn_f6d645d0@@QAEPBDPBDH@Z @2c5eec7d650c @we4e217d23780 @vf863156451c3
 // STATUS: equivalent (tools/equiv.py level 3: 2359 inputs, branch coverage 23/24, incomplete)
 // FUN_00025010 @ 0x00025010
 const char* Target_25010::FUN_00025010(const char* name,int occurrence) {
@@ -2690,7 +2690,7 @@ const char* Target_25010::FUN_00025010(const char* name,int occurrence) {
 } // namespace fn_f6d645d0
 
 // 0x00025110 FUN_00025110 (296 B): equivalent/0x00025110.cpp [wrapped: conflict: FUN_001c3d90]
-// sym: ?FUN_00025110@Actor_25110@fn_00025110@@QAEXM@Z @08fbf02b2333 @waa191e71a3c3
+// sym: ?FUN_00025110@Actor_25110@fn_00025110@@QAEXM@Z @08fbf02b2333 @waa191e71a3c3 @vf7aa472c8335
 namespace fn_00025110 {
 // STATUS: equivalent (tools/equiv.py level 3: 3007 inputs, branch coverage 18/18)
 // FUN_00025110 @ 0x00025110
@@ -2984,7 +2984,7 @@ void owners::C_25720::FUN_00025720(int key) {
 
 
 // 0x00025750 FUN_00025750 (193 B): equivalent/0x00025750.cpp [wrapped: conflict: Object]
-// sym: ?FUN_00025750@Object@fn_00025750@@QAEXXZ @6527152319a3 @waed9a91638f3
+// sym: ?FUN_00025750@Object@fn_00025750@@QAEXXZ @6527152319a3 @waed9a91638f3 @v4ff956d4614f
 namespace fn_00025750 {
 // STATUS: equivalent (tools/equiv.py level 3: 759 inputs, branch coverage 8/8)
 // FUN_00025750 @ 0x00025750
@@ -3062,7 +3062,7 @@ void* owners::C_25890::FUN_00025890(int x) {
 namespace fn_f6d645d0 {
 
 // 0x000258b0 FUN_000258b0 (116 B): equivalent/0x000258b0.cpp
-// sym: ?FUN_000258b0@Palette_258b0@fn_f6d645d0@@QAEXPBDMMM@Z @18182650d012 @wd74be07e1197
+// sym: ?FUN_000258b0@Palette_258b0@fn_f6d645d0@@QAEXPBDMMM@Z @18182650d012 @wd74be07e1197 @v56e55bf544b8
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/8, incomplete)
 // FUN_000258b0 @ 0x000258b0
 void Palette_258b0::FUN_000258b0(const char *name, float r, float g, float b)
@@ -3130,7 +3130,7 @@ hulk_freg __fastcall FUN_000259c0(float* p) {
 
 
 // 0x00025a20 FUN_00025a20 (105 B): equivalent/0x00025a20.cpp
-// sym: ?Set@Params@fn_f6d645d0@@QAEXHHPBUVec3I@2@0MM@Z @1f4e9b75e0a0 @w9e0b4afabd0f
+// sym: ?Set@Params@fn_f6d645d0@@QAEXHHPBUVec3I@2@0MM@Z @1f4e9b75e0a0 @w9e0b4afabd0f @v28bf38321576
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_00025a20 @ 0x00025a20
 void Params::Set(int a_, int b_, const Vec3I* p0, const Vec3I* p1, float lo_, float hi_)
@@ -3149,7 +3149,7 @@ void Params::Set(int a_, int b_, const Vec3I* p0, const Vec3I* p1, float lo_, fl
 
 
 // 0x00025a90 FUN_00025a90 (671 B): equivalent/0x00025a90.cpp
-// sym: ?FUN_00025a90@Thing_25a90@fn_f6d645d0@@QAEPAU12@XZ @0cf2b4a86fbe @w3441c748adf0
+// sym: ?FUN_00025a90@Thing_25a90@fn_f6d645d0@@QAEPAU12@XZ @0cf2b4a86fbe @w3441c748adf0 @vc5f9ff5bd9ff
 // STATUS: equivalent (tools/equiv.py level 3: 6310 inputs, branch coverage 16/16)
 // FUN_00025a90 @ 0x00025a90
 // FUN_00025a90 @ 0x00025a90
@@ -3242,7 +3242,7 @@ Thing_25a90 *Thing_25a90::FUN_00025a90()
 
 
 // 0x00025d30 FUN_00025d30 (30 B): equivalent/0x00025d30.cpp
-// sym: ?FUN_00025d30@fn_f6d645d0@@YGHPAUObject@1@@Z @698bca028fdf @w617f481624c2
+// sym: ?FUN_00025d30@fn_f6d645d0@@YGHPAUObject@1@@Z @698bca028fdf @w617f481624c2 @v682f05484f4c
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_00025d30 @ 0x00025d30
 int __stdcall FUN_00025d30(Object* object) {
@@ -3251,7 +3251,7 @@ int __stdcall FUN_00025d30(Object* object) {
 
 
 // 0x00025d50 FUN_00025d50 (255 B): equivalent/0x00025d50.cpp
-// sym: ?FUN_00025d50@Selection_25d50@fn_f6d645d0@@QAEHMMM@Z @b141a988d606 @w0e06c9b26eeb
+// sym: ?FUN_00025d50@Selection_25d50@fn_f6d645d0@@QAEHMMM@Z @b141a988d606 @w0e06c9b26eeb @vfd11f712af69
 // STATUS: equivalent (tools/equiv.py level 3: 569 inputs, branch coverage 16/16)
 // FUN_00025d50 @ 0x00025d50
 int Selection_25d50::FUN_00025d50(float x,float y,float z) {
@@ -3273,7 +3273,7 @@ int Selection_25d50::FUN_00025d50(float x,float y,float z) {
 } // namespace fn_f6d645d0
 
 // 0x00025e50 FUN_00025e50 (91 B): equivalent/0x00025e50.cpp [wrapped: compile error in a shared declaration (C2143)]
-// sym: ?FUN_00025e50@Owner@fn_00025e50@@QAEHPAUObj@2@@Z @09dfc3fb77c0 @w51229c3365b5
+// sym: ?FUN_00025e50@Owner@fn_00025e50@@QAEHPAUObj@2@@Z @09dfc3fb77c0 @w51229c3365b5 @v3e43132e1bea
 namespace fn_00025e50 {
 // STATUS: equivalent (tools/equiv.py level 3: 3009 inputs, branch coverage 8/8)
 // FUN_00025e50 @ 0x00025e50
@@ -3300,7 +3300,7 @@ void owners::Thing_25eb0::FUN_00025eb0() {
 
 
 // 0x00025f10 FUN_00025f10 (169 B): equivalent/0x00025f10.cpp [wrapped: conflict: World]
-// sym: ?SetFlag@Group_25f10@fn_00025f10@@QAEXPBDD@Z @c002d19819a9 @w6e3984a7c347
+// sym: ?SetFlag@Group_25f10@fn_00025f10@@QAEXPBDD@Z @c002d19819a9 @w6e3984a7c347 @v79bdcc68d90a
 namespace fn_00025f10 {
 // STATUS: equivalent (tools/equiv.py level 3: 2992 inputs, branch coverage 20/20)
 // FUN_00025f10 @ 0x00025f10
@@ -3408,7 +3408,7 @@ void Obj::Target(int x) {
 
 
 // 0x00025ff0 FUN_00025ff0 (2198 B): equivalent/0x00025ff0.cpp [wrapped: conflict: FUN_001c3d90]
-// sym: ?Update@Selector_25ff0@fn_00025ff0@@QAEXMM@Z @a9c76e00c442 @w7e52608ddc7a
+// sym: ?Update@Selector_25ff0@fn_00025ff0@@QAEXMM@Z @a9c76e00c442 @w7e52608ddc7a @v808030dcca4c
 namespace fn_00025ff0 {
 // STATUS: equivalent (tools/equiv.py level 3: 1306 inputs, branch coverage 143/146, incomplete)
 // FUN_00025ff0 @ 0x00025ff0
@@ -3916,7 +3916,7 @@ void Owner::Action(int a, Vec3_26b10 b) {
 namespace fn_f6d645d0 {
 
 // 0x00026c30 FUN_00026c30 (133 B): equivalent/0x00026c30.cpp
-// sym: ?FUN_00026c30@Owner_26c30@fn_f6d645d0@@QAE?AUVec3_26c30@2@PBD@Z @11a8ebf30695 @wfc801b6199b8
+// sym: ?FUN_00026c30@Owner_26c30@fn_f6d645d0@@QAE?AUVec3_26c30@2@PBD@Z @11a8ebf30695 @wfc801b6199b8 @vb4851efe01bf
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_00026c30 @ 0x00026c30
 Vec3_26c30 Owner_26c30::FUN_00026c30(const char* name)
@@ -3933,7 +3933,7 @@ Vec3_26c30 Owner_26c30::FUN_00026c30(const char* name)
 
 
 // 0x00026cc0 FUN_00026cc0 (133 B): equivalent/0x00026cc0.cpp
-// sym: ?FUN_00026cc0@Group_26cc0@fn_f6d645d0@@QAEPAUVec3_26cc0@2@PAU32@PBD@Z @9c560aaf6fc0 @w6c06a66b2f8f
+// sym: ?FUN_00026cc0@Group_26cc0@fn_f6d645d0@@QAEPAUVec3_26cc0@2@PAU32@PBD@Z @9c560aaf6fc0 @w6c06a66b2f8f @v554108504544
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_00026cc0 @ 0x00026cc0
 Vec3_26cc0 *Group_26cc0::FUN_00026cc0(Vec3_26cc0 *out, const char *name)
@@ -3959,7 +3959,7 @@ Vec3_26cc0 *Group_26cc0::FUN_00026cc0(Vec3_26cc0 *out, const char *name)
 } // namespace fn_f6d645d0
 
 // 0x00026d50 FUN_00026d50 (94 B): equivalent/0x00026d50.cpp [wrapped: conflict: Vec3]
-// sym: ?FUN_00026d50@Object@fn_00026d50@@QAEXPAUVec3@2@H@Z @29a370466b56 @we6a7de92ecd8
+// sym: ?FUN_00026d50@Object@fn_00026d50@@QAEXPAUVec3@2@H@Z @29a370466b56 @we6a7de92ecd8 @v092829b002c9
 namespace fn_00026d50 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_00026d50 @ 0x00026d50
@@ -4031,7 +4031,7 @@ hulk_freg X::Fn(int x) {
 
 
 // 0x00026e30 FUN_00026e30 (247 B): equivalent/0x00026e30.cpp [wrapped: conflict: Entity]
-// sym: ?FUN_00026e30@Target_26e30@fn_00026e30@@QAEHMPAHH@Z @64864c4906b1 @w12b5fe721b6a
+// sym: ?FUN_00026e30@Target_26e30@fn_00026e30@@QAEHMPAHH@Z @64864c4906b1 @w12b5fe721b6a @vd57ad19dc9c2
 namespace fn_00026e30 {
 // STATUS: equivalent (tools/equiv.py level 3: 205 inputs, branch coverage 24/24)
 // FUN_00026e30 @ 0x00026e30
@@ -4834,7 +4834,7 @@ void Obj::Func(int id, int value) {
 } // namespace fn_f6d645d0
 
 // 0x00027730 FUN_00027730 (281 B): equivalent/0x00027730.cpp [wrapped: conflict: Object]
-// sym: ?FUN_00027730@Object@fn_00027730@@QAE_NPADPBD@Z @a60f8e0884be @w0dc82de9904e
+// sym: ?FUN_00027730@Object@fn_00027730@@QAE_NPADPBD@Z @a60f8e0884be @w0dc82de9904e @v82e465cc21bb
 namespace fn_00027730 {
 // STATUS: equivalent (tools/equiv.py level 3: 87 inputs, branch coverage 22/22)
 // FUN_00027730 @ 0x00027730
@@ -4866,7 +4866,7 @@ bool Object::FUN_00027730(char* destination, const char* source) {
 
 
 // 0x00027850 FUN_00027850 (221 B): equivalent/0x00027850.cpp [wrapped: conflict: Object]
-// sym: ?FUN_00027850@Object@fn_00027850@@QAE_NPADPBD@Z @1a1ecdf230e9 @w7e5d9253aa97
+// sym: ?FUN_00027850@Object@fn_00027850@@QAE_NPADPBD@Z @1a1ecdf230e9 @w7e5d9253aa97 @v63f76ba720e3
 namespace fn_00027850 {
 // STATUS: equivalent (tools/equiv.py level 3: 90 inputs, branch coverage 20/20)
 // FUN_00027850 @ 0x00027850
@@ -4900,7 +4900,7 @@ bool Object::FUN_00027850(char* destination, const char* source) {
 
 
 // 0x00027a50 FUN_00027a50 (253 B): equivalent/0x00027a50.cpp [wrapped: conflict: Object; memmove]
-// sym: ?FUN_00027a50@Object@fn_00027a50@@QAE_NPADPBD@Z @55d1c7d84538 @wb1f98e532e12
+// sym: ?FUN_00027a50@Object@fn_00027a50@@QAE_NPADPBD@Z @55d1c7d84538 @wb1f98e532e12 @va37b617a8cd3
 namespace fn_00027a50 {
 // STATUS: equivalent (tools/equiv.py level 3: 67 inputs, branch coverage 18/18)
 // FUN_00027a50 @ 0x00027a50
@@ -4942,7 +4942,7 @@ bool Object::FUN_00027a50(char* destination, const char* suffix) {
 namespace fn_f6d645d0 {
 
 // 0x00027b50 FUN_00027b50 (305 B): equivalent/0x00027b50.cpp
-// sym: ?FUN_00027b50@Table_27b50@fn_f6d645d0@@QAEXPBDMHMHH0@Z @bf63e7a8c432 @wbc31f73010cc
+// sym: ?FUN_00027b50@Table_27b50@fn_f6d645d0@@QAEXPBDMHMHH0@Z @bf63e7a8c432 @wbc31f73010cc @v4c2933117fc9
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_00027b50 @ 0x00027b50
 void Table_27b50::FUN_00027b50(const char *name, float a1, int a2, float a3, int a4, int a5, const char *s) {
@@ -4974,7 +4974,7 @@ void Table_27b50::FUN_00027b50(const char *name, float a1, int a2, float a3, int
 
 
 // 0x00027c90 FUN_00027c90 (202 B): equivalent/0x00027c90.cpp
-// sym: ?FUN_00027c90@Group_27c90@fn_f6d645d0@@QAEXPBD0@Z @1d2919b90126 @wea532214aee6
+// sym: ?FUN_00027c90@Group_27c90@fn_f6d645d0@@QAEXPBD0@Z @1d2919b90126 @wea532214aee6 @v46c5b4c7eb17
 // STATUS: equivalent (tools/equiv.py level 3: 2996 inputs, branch coverage 12/12)
 // FUN_00027c90 @ 0x00027c90
 // Group method: look up a named pawn and a node by path, then register the pawn's slot with it.
@@ -5005,7 +5005,7 @@ void Group_27c90::FUN_00027c90(const char *name, const char *path)
 
 
 // 0x00027d60 FUN_00027d60 (202 B): equivalent/0x00027d60.cpp
-// sym: ?FUN_00027d60@Group_27d60@fn_f6d645d0@@QAEXPBD0@Z @bc7e75c3d644 @w924288d8ebf9
+// sym: ?FUN_00027d60@Group_27d60@fn_f6d645d0@@QAEXPBD0@Z @bc7e75c3d644 @w924288d8ebf9 @va7cde210894f
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_00027d60 @ 0x00027d60
 // Group method: look up a named pawn and a bank/node by path, then register the pawn's slot with it.
@@ -5037,7 +5037,7 @@ void Group_27d60::FUN_00027d60(const char *name, const char *path)
 } // namespace fn_f6d645d0
 
 // 0x00027e30 FUN_00027e30 (208 B): equivalent/0x00027e30.cpp [wrapped: conflict: FUN_00344e74]
-// sym: ?FUN_00027e30@Target_27e30@fn_00027e30@@QAE_NPBD0@Z @ea544ad17d9d @wa1c98e182150
+// sym: ?FUN_00027e30@Target_27e30@fn_00027e30@@QAE_NPBD0@Z @ea544ad17d9d @wa1c98e182150 @vb192e4ae0581
 namespace fn_00027e30 {
 // STATUS: equivalent (tools/equiv.py level 3: 3021 inputs, branch coverage 23/24, incomplete)
 // FUN_00027e30 @ 0x00027e30
@@ -5114,7 +5114,7 @@ bool Target_27e30::FUN_00027e30(const char* name, const char* path) {
 
 
 // 0x00027f00 FUN_00027f00 (187 B): equivalent/0x00027f00.cpp [wrapped: conflict: Context; FUN_00344e74; Object]
-// sym: ?FUN_00027f00@Target_27f00@fn_00027f00@@QAE_NPBD0@Z @8fe9dc43a0f7 @w7d33622482ea
+// sym: ?FUN_00027f00@Target_27f00@fn_00027f00@@QAE_NPBD0@Z @8fe9dc43a0f7 @w7d33622482ea @v4f6a226f257d
 namespace fn_00027f00 {
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 21/22, incomplete)
 // FUN_00027f00 @ 0x00027f00
@@ -5188,7 +5188,7 @@ bool Target_27f00::FUN_00027f00(const char* name, const char* path) {
 
 
 // 0x00027fc0 FUN_00027fc0 (137 B): equivalent/0x00027fc0.cpp [wrapped: conflict: FUN_002672f0; Object]
-// sym: ?FUN_00027fc0@Owner_27fc0@fn_00027fc0@@QAE_NII@Z @4116de80d4b5 @w3a7a90d23258
+// sym: ?FUN_00027fc0@Owner_27fc0@fn_00027fc0@@QAE_NII@Z @4116de80d4b5 @w3a7a90d23258 @vf3310dbdc01f
 namespace fn_00027fc0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3012 inputs, branch coverage 17/18, incomplete)
 // FUN_00027fc0 @ 0x00027fc0
@@ -5223,7 +5223,7 @@ bool Owner_27fc0::FUN_00027fc0(hulk_uintptr key, hulk_uintptr name) {
 namespace fn_f6d645d0 {
 
 // 0x00028050 FUN_00028050 (137 B): equivalent/0x00028050.cpp
-// sym: ?FUN_00028050@Object@fn_f6d645d0@@QAE_NPBD0@Z @39bf2c3ab959 @w313e6e44a853
+// sym: ?FUN_00028050@Object@fn_f6d645d0@@QAE_NPBD0@Z @39bf2c3ab959 @w313e6e44a853 @va48772a97ca5
 // STATUS: equivalent (tools/equiv.py level 3: 3012 inputs, branch coverage 17/18, incomplete)
 // FUN_00028050 @ 0x00028050
 bool Object::FUN_00028050(const char* name, const char* ancestor) {
@@ -5416,7 +5416,7 @@ int Thing::Get(int a) {
 
 
 // 0x00028290 FUN_00028290 (94 B): equivalent/0x00028290.cpp [wrapped: conflict: FUN_002672f0]
-// sym: ?FUN_00028290@Context@fn_00028290@@QAE_NHH@Z @511c2a632203 @w853cc6029d0d
+// sym: ?FUN_00028290@Context@fn_00028290@@QAE_NHH@Z @511c2a632203 @w853cc6029d0d @v81fbca83c99e
 namespace fn_00028290 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_00028290 @ 0x00028290
@@ -5468,7 +5468,7 @@ char Obj::Run(int a, int b) {
 namespace fn_f6d645d0 {
 
 // 0x00028330 FUN_00028330 (202 B): equivalent/0x00028330.cpp
-// sym: ?FUN_00028330@Group_28330@fn_f6d645d0@@QAE_NPBDMM@Z @870a65079c17 @w2d904896cded
+// sym: ?FUN_00028330@Group_28330@fn_f6d645d0@@QAE_NPBDMM@Z @870a65079c17 @w2d904896cded @v18e4ead15c32
 // STATUS: equivalent (tools/equiv.py level 3: 20001 inputs, branch coverage 6/6)
 // FUN_00028330 @ 0x00028330
 // Group method: is the named pawn's ground position in front of the given heading, within the given arc?
@@ -5493,7 +5493,7 @@ bool Group_28330::FUN_00028330(const char *name, float heading, float arc)
 
 
 // 0x00028400 FUN_00028400 (110 B): equivalent/0x00028400.cpp
-// sym: ?FUN_00028400@Group_28400@fn_f6d645d0@@QAEXPBDMMM@Z @523eca804881 @w2d604529b834
+// sym: ?FUN_00028400@Group_28400@fn_f6d645d0@@QAEXPBDMMM@Z @523eca804881 @w2d604529b834 @v0315a300668f
 // STATUS: equivalent (tools/equiv.py level 3: 2986 inputs, branch coverage 2/2)
 // FUN_00028400 @ 0x00028400
 void Group_28400::FUN_00028400(const char *name, float x, float y, float z)
@@ -5574,7 +5574,7 @@ unsigned char Obj::Test(int x) {
 namespace fn_f6d645d0 {
 
 // 0x00028530 FUN_00028530 (128 B): equivalent/0x00028530.cpp
-// sym: ?FUN_00028530@Owner_28530@fn_f6d645d0@@QAEHPBD0M@Z @a482a33505a8 @w23bcee08b2fd
+// sym: ?FUN_00028530@Owner_28530@fn_f6d645d0@@QAEHPBD0M@Z @a482a33505a8 @w23bcee08b2fd @v3b3661eb05c9
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_00028530 @ 0x00028530
 int Owner_28530::FUN_00028530(const char* name, const char* attr, float value)
@@ -6223,7 +6223,7 @@ float Obj::get(int x) {
 namespace fn_f6d645d0 {
 
 // 0x00028ba0 FUN_00028ba0 (121 B): equivalent/0x00028ba0.cpp
-// sym: ?FUN_00028ba0@Group_28ba0@fn_f6d645d0@@QAEXPBDH0@Z @e4d9da70c229 @w148a10e781d1
+// sym: ?FUN_00028ba0@Group_28ba0@fn_f6d645d0@@QAEXPBDH0@Z @e4d9da70c229 @w148a10e781d1 @v2a2e0187d479
 // STATUS: equivalent (tools/equiv.py level 3: 2986 inputs, branch coverage 8/8)
 // FUN_00028ba0 @ 0x00028ba0
 void Group_28ba0::FUN_00028ba0(const char *name, int value, const char *modeName)
@@ -6485,7 +6485,7 @@ void Handler::Run(int a, int b) {
 } // namespace fn_f6d645d0
 
 // 0x00028e30 FUN_00028e30 (84 B): equivalent/0x00028e30.cpp [wrapped: compile error in a shared declaration (C2143)]
-// sym: ?FUN_00028e30@Owner@fn_00028e30@@QAEXPAX@Z @4a5aa60ce6e0 @wbaf1a043871d
+// sym: ?FUN_00028e30@Owner@fn_00028e30@@QAEXPAX@Z @4a5aa60ce6e0 @wbaf1a043871d @v8bd3f072777f
 namespace fn_00028e30 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_00028e30 @ 0x00028e30
@@ -6510,7 +6510,7 @@ void Main::fn(const char* text, int x) {
 
 
 // 0x00028ee0 FUN_00028ee0 (68 B): equivalent/0x00028ee0.cpp
-// sym: ?FUN_00028ee0@Owner@fn_f6d645d0@@QAEIPBD@Z @18965fc50462 @w621c8122eaf8
+// sym: ?FUN_00028ee0@Owner@fn_f6d645d0@@QAEIPBD@Z @18965fc50462 @w621c8122eaf8 @vc0a7fc81f1ac
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_00028ee0 @ 0x00028ee0
 unsigned int Owner::FUN_00028ee0(const char* name) {
@@ -6525,7 +6525,7 @@ unsigned int Owner::FUN_00028ee0(const char* name) {
 } // namespace fn_f6d645d0
 
 // 0x00028f30 FUN_00028f30 (68 B): equivalent/0x00028f30.cpp [wrapped: conflict: Query; Result]
-// sym: ?FUN_00028f30@Owner@fn_00028f30@@QAEHPBD@Z @002a251a609a @w8abeaa0332f4
+// sym: ?FUN_00028f30@Owner@fn_00028f30@@QAEHPBD@Z @002a251a609a @w8abeaa0332f4 @v1d2d8727cf89
 namespace fn_00028f30 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_00028f30 @ 0x00028f30
@@ -6581,7 +6581,7 @@ int Owner::FUN_00028f30(const char *name) {
 
 
 // 0x00028f80 FUN_00028f80 (68 B): equivalent/0x00028f80.cpp [wrapped: conflict: Result]
-// sym: ?FUN_00028f80@Handler@fn_00028f80@@QAEHH@Z @7db91bf70f82 @w01ea53565bd3
+// sym: ?FUN_00028f80@Handler@fn_00028f80@@QAEHH@Z @7db91bf70f82 @w01ea53565bd3 @v379bad295a16
 namespace fn_00028f80 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_00028f80 @ 0x00028f80
@@ -6645,7 +6645,7 @@ void Obj::Fn(int a, int b) {
 
 
 // 0x000290a0 FUN_000290a0 (73 B): equivalent/0x000290a0.cpp [wrapped: conflict: Item]
-// sym: ?FUN_000290a0@Owner@fn_000290a0@@QAEXH@Z @7a9ce429bcbb @wced57e9a2e1b
+// sym: ?FUN_000290a0@Owner@fn_000290a0@@QAEXH@Z @7a9ce429bcbb @wced57e9a2e1b @v254b035b0c3a
 namespace fn_000290a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_000290a0 @ 0x000290a0
@@ -6696,7 +6696,7 @@ void Obj::Target(void* p) {
 namespace fn_f6d645d0 {
 
 // 0x00029140 FUN_00029140 (267 B): equivalent/0x00029140.cpp
-// sym: ?FUN_00029140@Target_29140@fn_f6d645d0@@QAEXUVec_29140@2@M@Z @a7decbaedf9b @w2d8f7e47d366
+// sym: ?FUN_00029140@Target_29140@fn_f6d645d0@@QAEXUVec_29140@2@M@Z @a7decbaedf9b @w2d8f7e47d366 @vf33ba5787f64
 // STATUS: equivalent (tools/equiv.py level 3: 81 inputs, branch coverage 20/22, incomplete)
 // FUN_00029140 @ 0x00029140
 void Target_29140::FUN_00029140(Vec_29140 center,float radius) {
@@ -6723,7 +6723,7 @@ void Target_29140::FUN_00029140(Vec_29140 center,float radius) {
 } // namespace fn_f6d645d0
 
 // 0x00029250 FUN_00029250 (233 B): equivalent/0x00029250.cpp [wrapped: conflict: Entity]
-// sym: ?FUN_00029250@Target_29250@fn_00029250@@QAEXHPBUVec3_29250@2@MH@Z @d653b53d5c75 @wad100147b2d0
+// sym: ?FUN_00029250@Target_29250@fn_00029250@@QAEXHPBUVec3_29250@2@MH@Z @d653b53d5c75 @wad100147b2d0 @vf0e3b6e9257c
 namespace fn_00029250 {
 // STATUS: equivalent (tools/equiv.py level 3: 77 inputs, branch coverage 17/20, incomplete)
 // FUN_00029250 @ 0x00029250
@@ -6761,7 +6761,7 @@ void Target_29250::FUN_00029250(int a, const Vec3_29250* point, float radius, in
 
 
 // 0x00029340 FUN_00029340 (75 B): equivalent/0x00029340.cpp [wrapped: conflict: FUN_002672f0; Node]
-// sym: ?FUN_00029340@Owner@fn_00029340@@QAEHPAX@Z @2a20adf2696e @w5467263e98ba
+// sym: ?FUN_00029340@Owner@fn_00029340@@QAEHPAX@Z @2a20adf2696e @w5467263e98ba @vb956d2969892
 namespace fn_00029340 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_00029340 @ 0x00029340
@@ -6784,7 +6784,7 @@ hulk_intptr Owner::FUN_00029340(void *input) {
 namespace fn_f6d645d0 {
 
 // 0x00029390 FUN_00029390 (94 B): equivalent/0x00029390.cpp
-// sym: ?FUN_00029390@Owner@fn_f6d645d0@@QAEHHHHH@Z @c47d54118d57 @w8993f632b52d
+// sym: ?FUN_00029390@Owner@fn_f6d645d0@@QAEHHHHH@Z @c47d54118d57 @w8993f632b52d @vab701568a768
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_00029390 @ 0x00029390
 hulk_intptr Owner::FUN_00029390(int key, int value, int flag, int extra) {
@@ -6939,7 +6939,7 @@ void Owner::Run(const char* name, int a, int b, int c, int d) {
 namespace fn_f6d645d0 {
 
 // 0x00029500 FUN_00029500 (148 B): equivalent/0x00029500.cpp
-// sym: ?FUN_00029500@Owner_29500@fn_f6d645d0@@QAEXPBD0@Z @b176bbda2f76 @w3b7aed01e1fc
+// sym: ?FUN_00029500@Owner_29500@fn_f6d645d0@@QAEXPBD0@Z @b176bbda2f76 @w3b7aed01e1fc @v895355c1e851
 // STATUS: equivalent (tools/equiv.py level 3: 19977 inputs, branch coverage 10/10)
 // FUN_00029500 @ 0x00029500
 void Owner_29500::FUN_00029500(const char* name, const char* other)
@@ -7065,7 +7065,7 @@ void Owner::Set(int key, unsigned char flag) {
 
 
 // 0x000296a0 FUN_000296a0 (158 B): equivalent/0x000296a0.cpp
-// sym: ?FUN_000296a0@Group_296a0@fn_f6d645d0@@QAEXPBD0H@Z @f9669282e2bf @w00b0ab450c46
+// sym: ?FUN_000296a0@Group_296a0@fn_f6d645d0@@QAEXPBD0H@Z @f9669282e2bf @w00b0ab450c46 @vf25eefeed72e
 // STATUS: equivalent (tools/equiv.py level 3: 2994 inputs, branch coverage 10/10)
 // FUN_000296a0 @ 0x000296a0
 // Group method: copy a value taken from a named pawn (or, failing that, a spawned prop)
@@ -7282,7 +7282,7 @@ int Holder::get(int x) {
 namespace fn_f6d645d0 {
 
 // 0x00029990 FUN_00029990 (189 B): equivalent/0x00029990.cpp
-// sym: ?FUN_00029990@Target_29990@fn_f6d645d0@@QAEHXZ @bc5251c34ba1 @w773b03a32521
+// sym: ?FUN_00029990@Target_29990@fn_f6d645d0@@QAEHXZ @bc5251c34ba1 @w773b03a32521 @v5a08b762d8f7
 // STATUS: equivalent (tools/equiv.py level 3: 85 inputs, branch coverage 21/22, incomplete)
 // FUN_00029990 @ 0x00029990
 int Target_29990::FUN_00029990() { int best=0; int n=count; Output_29990 output; for(int i=0;i<n;++i) { if(i>=0 && i<count) { Entity* e=((Entity *)((owners::ThisWrap_00059c10 *)(owner->manager))->FUN_00059c10((void *)(hulk_uintptr)(int)(ids[i]))); if(e) { e->info->FUN_00059a50(&output); if(e->flag338==0 && e->flag334==0 && !(e->amount<=0.0f) && !e->FUN_00035ab0()) { Value_29990* v=e->value; if(v && v->v9()>best) best=v->v9(); } } } } return best; }
@@ -7326,7 +7326,7 @@ unsigned char Owner::FUN_00029a50(void* value) {
 
 
 // 0x00029a90 FUN_00029a90 (191 B): equivalent/0x00029a90.cpp [wrapped: conflict: Object]
-// sym: ?FUN_00029a90@Object@fn_00029a90@@QAE_NXZ @1cb5171f2e37 @waba15194ad95
+// sym: ?FUN_00029a90@Object@fn_00029a90@@QAE_NXZ @1cb5171f2e37 @waba15194ad95 @v56f7671426c0
 namespace fn_00029a90 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_00029a90 @ 0x00029a90
@@ -7397,7 +7397,7 @@ void Owner_29bb0::Set(int k, Thing_29bb0* t, int v) {
 
 
 // 0x00029c00 FUN_00029c00 (75 B): equivalent/0x00029c00.cpp
-// sym: ?FUN_00029c00@Owner@fn_f6d645d0@@QAEXPAUResource@2@@Z @683a508c6c86 @w4dbbce2477d7
+// sym: ?FUN_00029c00@Owner@fn_f6d645d0@@QAEXPAUResource@2@@Z @683a508c6c86 @w4dbbce2477d7 @va74df9b57423
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_00029c00 @ 0x00029c00
 void Owner::FUN_00029c00(Resource *item) { if (item == primary) { if (primary) { primary->slot1(); primary = 0; } if (secondary) { secondary->slot1(); secondary = 0; } state = 0; } }
@@ -7672,7 +7672,7 @@ hulk_freg Holder::Read(int id) {
 namespace fn_f6d645d0 {
 
 // 0x00029f20 FUN_00029f20 (145 B): equivalent/0x00029f20.cpp
-// sym: ?FUN_00029f20@Group_29f20@fn_f6d645d0@@QAEMPBD0@Z @6a92503ef1e1 @wc41ea5abf3a7
+// sym: ?FUN_00029f20@Group_29f20@fn_f6d645d0@@QAEMPBD0@Z @6a92503ef1e1 @wc41ea5abf3a7 @va806df6a9274
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 8/8)
 // FUN_00029f20 @ 0x00029f20
 // Distance between two named pawns (-1 when either is missing or has no position).
@@ -7796,7 +7796,7 @@ void X::fn(int a, Vec3_2a0a0 b) {
 
 
 // 0x0002a0e0 FUN_0002a0e0 (184 B): equivalent/0x0002a0e0.cpp
-// sym: ?FUN_0002a0e0@Group_2a0e0@fn_f6d645d0@@QAEDTNameSlot_2a0e0@2@MMMMMM@Z @2e01ba03f136 @wd13928021128
+// sym: ?FUN_0002a0e0@Group_2a0e0@fn_f6d645d0@@QAEDTNameSlot_2a0e0@2@MMMMMM@Z @2e01ba03f136 @wd13928021128 @v6b59a9deb081
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_0002a0e0 @ 0x0002a0e0
 // Group method: look up a named pawn and run a collision sweep between two points, caching the result.
@@ -8038,7 +8038,7 @@ hulk_freg __cdecl FUN_0002a380(const Vec* a, const Vec* b) {
 
 
 // 0x0002a800 FUN_0002a800 (131 B): equivalent/0x0002a800.cpp
-// sym: ?FUN_0002a800@ItemList_2a800@fn_f6d645d0@@QAE_NXZ @a976e9871b39 @w8cd5f4e6e74d
+// sym: ?FUN_0002a800@ItemList_2a800@fn_f6d645d0@@QAE_NXZ @a976e9871b39 @w8cd5f4e6e74d @v0708fe7682e8
 // STATUS: equivalent (tools/equiv.py level 3: 1354 inputs, branch coverage 8/10, incomplete)
 // FUN_0002a800 @ 0x0002a800
 bool ItemList_2a800::FUN_0002a800()
@@ -8059,7 +8059,7 @@ bool ItemList_2a800::FUN_0002a800()
 
 
 // 0x0002a890 FUN_0002a890 (196 B): equivalent/0x0002a890.cpp
-// sym: ?FUN_0002a890@Target_2a890@fn_f6d645d0@@QAEXXZ @cde2cd08d43b @wf62884a74f74
+// sym: ?FUN_0002a890@Target_2a890@fn_f6d645d0@@QAEXXZ @cde2cd08d43b @wf62884a74f74 @vfda767e65561
 // STATUS: equivalent (tools/equiv.py level 3: 132 inputs, branch coverage 16/18, incomplete)
 // FUN_0002a890 @ 0x0002a890
 void Target_2a890::FUN_0002a890() {
@@ -8085,7 +8085,7 @@ void Target_2a890::FUN_0002a890() {
 
 
 // 0x0002a960 FUN_0002a960 (465 B): equivalent/0x0002a960.cpp
-// sym: ?FUN_0002a960@SpawnWatcher@fn_f6d645d0@@QAEXPAUContext@2@@Z @ecaf266a628b @wf7ac8e61f863
+// sym: ?FUN_0002a960@SpawnWatcher@fn_f6d645d0@@QAEXPAUContext@2@@Z @ecaf266a628b @wf7ac8e61f863 @v95aa209eb5bc
 // STATUS: equivalent (tools/equiv.py level 3: 402 inputs, branch coverage 32/32)
 // FUN_0002a960 @ 0x0002a960
 void SpawnWatcher::FUN_0002a960(Context *ctx)
@@ -8130,7 +8130,7 @@ void SpawnWatcher::FUN_0002a960(Context *ctx)
 
 
 // 0x0002ab40 FUN_0002ab40 (825 B): equivalent/0x0002ab40.cpp
-// sym: ?FUN_0002ab40@AgentSet@fn_f6d645d0@@QAEXHH@Z @b600bfb3d999 @w9fe543400b93
+// sym: ?FUN_0002ab40@AgentSet@fn_f6d645d0@@QAEXHH@Z @b600bfb3d999 @w9fe543400b93 @v227d775e5795
 // STATUS: equivalent (tools/equiv.py level 3: 3029 inputs, branch coverage 68/68)
 // FUN_0002ab40 @ 0x0002ab40
 // FUN_0002ab40 @ 0x0002ab40
@@ -8207,7 +8207,7 @@ void AgentSet::FUN_0002ab40(hulk_intptr a0, hulk_intptr a1)
 
 
 // 0x0002b250 FUN_0002b250 (188 B): equivalent/0x0002b250.cpp
-// sym: ?FUN_0002b250@Container_2b250@fn_f6d645d0@@QAEHHH@Z @0fe9c0423d52 @wc2682a872409
+// sym: ?FUN_0002b250@Container_2b250@fn_f6d645d0@@QAEHHH@Z @0fe9c0423d52 @wc2682a872409 @v72f25167bae5
 // STATUS: equivalent (tools/equiv.py level 3: 140 inputs, branch coverage 14/14)
 // FUN_0002b250 @ 0x0002b250
 int Container_2b250::FUN_0002b250(int desired, int filter) {
@@ -8289,7 +8289,7 @@ void Obj_2b3d0::run() {
 
 
 // 0x0002b450 FUN_0002b450 (145 B): equivalent/0x0002b450.cpp
-// sym: ?FUN_0002b450@Owner_2b450@fn_f6d645d0@@QAEMPBD0@Z @6c530fc555c2 @wdfec69e33602
+// sym: ?FUN_0002b450@Owner_2b450@fn_f6d645d0@@QAEMPBD0@Z @6c530fc555c2 @wdfec69e33602 @ved2f53c0cddd
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 8/8)
 // FUN_0002b450 @ 0x0002b450
 hulk_freg Owner_2b450::FUN_0002b450(const char* nameA, const char* nameB)
@@ -8311,7 +8311,7 @@ hulk_freg Owner_2b450::FUN_0002b450(const char* nameA, const char* nameB)
 } // namespace fn_f6d645d0
 
 // 0x0002b4f0 FUN_0002b4f0 (153 B): equivalent/0x0002b4f0.cpp [wrapped: conflict: Object]
-// sym: ?FUN_0002b4f0@Group_2b4f0@fn_0002b4f0@@QAEMPBDH@Z @0970b2ce7658 @w74cde5e011a4
+// sym: ?FUN_0002b4f0@Group_2b4f0@fn_0002b4f0@@QAEMPBDH@Z @0970b2ce7658 @w74cde5e011a4 @v861fa313ca9e
 namespace fn_0002b4f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20010 inputs, branch coverage 8/8)
 // FUN_0002b4f0 @ 0x0002b4f0
@@ -8407,7 +8407,7 @@ hulk_freg Group_2b4f0::FUN_0002b4f0(const char *name, int objectKey)
 namespace fn_f6d645d0 {
 
 // 0x0002b590 FUN_0002b590 (256 B): equivalent/0x0002b590.cpp
-// sym: ?FUN_0002b590@Manager_2b590@fn_f6d645d0@@QAEXXZ @f7e973b21bfa @w15a6448d1057
+// sym: ?FUN_0002b590@Manager_2b590@fn_f6d645d0@@QAEXXZ @f7e973b21bfa @w15a6448d1057 @vefb2a14042ef
 // STATUS: equivalent (tools/equiv.py level 3: 437 inputs, branch coverage 28/28)
 // FUN_0002b590 @ 0x0002b590
 void Manager_2b590::FUN_0002b590() {
@@ -8470,7 +8470,7 @@ void T_2b690::A() {
 
 
 // 0x0002b730 FUN_0002b730 (151 B): equivalent/0x0002b730.cpp
-// sym: ?FUN_0002b730@Group_2b730@fn_f6d645d0@@QAE_NPBD@Z @17bd3b9ed2ef @w237f024260c3
+// sym: ?FUN_0002b730@Group_2b730@fn_f6d645d0@@QAE_NPBD@Z @17bd3b9ed2ef @w237f024260c3 @v53b61cec3bf1
 // STATUS: equivalent (tools/equiv.py level 3: 91 inputs, branch coverage 14/14)
 // FUN_0002b730 @ 0x0002b730
 // Walks the ids backwards and releases every item whose link carries the given name.
@@ -8499,7 +8499,7 @@ bool Group_2b730::FUN_0002b730(const char *name)
 } // namespace fn_f6d645d0
 
 // 0x0002b7d0 FUN_0002b7d0 (89 B): equivalent/0x0002b7d0.cpp [wrapped: compile error in a shared declaration (C2143)]
-// sym: ?FUN_0002b7d0@Target@fn_0002b7d0@@QAEEXZ @0429baf6f160 @wcd7a5d1f6264
+// sym: ?FUN_0002b7d0@Target@fn_0002b7d0@@QAEEXZ @0429baf6f160 @wcd7a5d1f6264 @v601a50dbfdea
 namespace fn_0002b7d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_0002b7d0 @ 0x0002b7d0
@@ -8534,7 +8534,7 @@ char Obj::Run(const char* s) {
 namespace fn_f6d645d0 {
 
 // 0x0002b860 FUN_0002b860 (260 B): equivalent/0x0002b860.cpp
-// sym: ?FUN_0002b860@Target_2b860@fn_f6d645d0@@QAE_NMMM@Z @0d054c89604a @w6dc2b60684bb
+// sym: ?FUN_0002b860@Target_2b860@fn_f6d645d0@@QAE_NMMM@Z @0d054c89604a @w6dc2b60684bb @v85641111851b
 // STATUS: equivalent (tools/equiv.py level 3: 569 inputs, branch coverage 16/16)
 // FUN_0002b860 @ 0x0002b860
 bool Target_2b860::FUN_0002b860(float x,float y,float z) { float best=-1.0f; int selected=-1; for(int i=0;i<count;++i) { Item_2b860* item=owner->manager->FUN_00059ba0(items[i]); if(!item) continue; Entity* entity=item->FUN_00059a30(); if(!entity || entity->FUN_00035ab0()) continue; Vec_2b860 position; item->FUN_00059a50(&position); double dx=(double)position.x-x,dy=(double)position.y-y,dz=(double)position.z-z; double distance=sqrt(dz*dz+dy*dy+dx*dx); if(best<0.0f || distance<best) { best=(float)distance; selected=i; } } if(selected>=0) { ((owners::ThisWrap_00059c10 *)(owner->manager))->FUN_00059c10((void *)(hulk_uintptr)(int)(items[selected])); FUN_0002a4b0(selected,0); } return true; }
@@ -8542,7 +8542,7 @@ bool Target_2b860::FUN_0002b860(float x,float y,float z) { float best=-1.0f; int
 } // namespace fn_f6d645d0
 
 // 0x0002b970 FUN_0002b970 (1499 B): equivalent/0x0002b970.cpp [wrapped: helper definitions (6 out-of-line function bodies)]
-// sym: ?F@Spawner_2b970@fn_0002b970@@QAEDPBDUV3_2b970@2@M00D0D@Z @67991a53ccc1 @w4dfa8bd1100c
+// sym: ?F@Spawner_2b970@fn_0002b970@@QAEDPBDUV3_2b970@2@M00D0D@Z @67991a53ccc1 @w4dfa8bd1100c @vee70c0ab73af
 namespace fn_0002b970 {
 // STATUS: equivalent (tools/equiv.py level 3: 20068 inputs, branch coverage 100/100)
 // FUN_0002b970 @ 0x0002b970
@@ -8919,7 +8919,7 @@ int Actor::FUN_0002bf80(unsigned a, Triple b, unsigned e, unsigned f, unsigned g
 
 
 // 0x0002bfd0 FUN_0002bfd0 (114 B): equivalent/0x0002bfd0.cpp
-// sym: ?FUN_0002bfd0@Group_2bfd0@fn_f6d645d0@@QAE_NHHHHHHHHPBD@Z @614d7bffcb8a @w0d4687d2b3fb
+// sym: ?FUN_0002bfd0@Group_2bfd0@fn_f6d645d0@@QAE_NHHHHHHHHPBD@Z @614d7bffcb8a @w0d4687d2b3fb @vafe6a8400f54
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_0002bfd0 @ 0x0002bfd0
 // Components are plain ints: the original copies them with integer moves.
@@ -8939,7 +8939,7 @@ bool Group_2bfd0::FUN_0002bfd0(int a1, int x, int y, int z, int a5, int a6, int 
 } // namespace fn_f6d645d0
 
 // 0x0002c050 FUN_0002c050 (138 B): equivalent/0x0002c050.cpp [wrapped: conflict: Object]
-// sym: ?Place@Actor_2c050@fn_0002c050@@QAEDHHHHHH@Z @1520d0757c2e @we66db23b34d2
+// sym: ?Place@Actor_2c050@fn_0002c050@@QAEDHHHHHH@Z @1520d0757c2e @we66db23b34d2 @vc9a549aae2f3
 namespace fn_0002c050 {
 // STATUS: equivalent (tools/equiv.py level 3: 3008 inputs, branch coverage 4/4)
 // FUN_0002c050 @ 0x0002c050

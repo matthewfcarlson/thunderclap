@@ -294,7 +294,7 @@ hulk_freg Outer_e2850::call() {
 } // namespace fn_fb20b5f7
 
 // 0x000e2860 FUN_000e2860 (180 B): equivalent/0x000e2860.cpp [wrapped: conflict: FEObject]
-// sym: ??0FEObject@fn_000e2860@@QAE@H@Z @d62a167780f4 @w7e1b3504e1da
+// sym: ??0FEObject@fn_000e2860@@QAE@H@Z @d62a167780f4 @w7e1b3504e1da @v69747c265334
 namespace fn_000e2860 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_000e2860 @ 0x000e2860

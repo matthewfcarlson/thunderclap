@@ -221,7 +221,7 @@ extern "C" Node* __cdecl FUN_0025e9b0(Node* x, Node* head) {
 
 
 // 0x0025e9f0 FUN_0025e9f0 (604 B): equivalent/0x0025e9f0.cpp
-// sym: _FUN_0025e9f0 @394c7c009b90 @w3415c875f53d
+// sym: _FUN_0025e9f0 @394c7c009b90 @w3415c875f53d @v45474e1ab2fe
 // STATUS: equivalent (tools/equiv.py level 3: 205 inputs, branch coverage 60/60)
 // FUN_0025e9f0 @ 0x0025e9f0
 // Red-black tree erase rebalancing: 'x' is the node that carries the extra black.
@@ -462,7 +462,7 @@ Node* __cdecl f(Node* head, Node* x) {
 
 
 // 0x0025ed40 FUN_0025ed40 (604 B): equivalent/0x0025ed40.cpp
-// sym: _FUN_0025ed40 @394c7c009b90 @w3415c875f53d
+// sym: _FUN_0025ed40 @394c7c009b90 @w3415c875f53d @v2c31e80122e2
 // STATUS: equivalent (tools/equiv.py level 3: 205 inputs, branch coverage 60/60)
 // FUN_0025ed40 @ 0x0025ed40
 // Red-black tree erase rebalancing: 'x' is the node that carries the extra black.
@@ -634,7 +634,7 @@ void * __cdecl FUN_0025f030(Head *head, Range *range)
 
 
 // 0x0025f080 FUN_0025f080 (105 B): equivalent/0x0025f080.cpp
-// sym: ?FUN_0025f080@fn_f98b1434@@YAPAUEntry_25f080@1@PAUTree_25f080@1@PAUKey_25f080@1@@Z @1e8822d436d4 @w1f653c587ce5
+// sym: ?FUN_0025f080@fn_f98b1434@@YAPAUEntry_25f080@1@PAUTree_25f080@1@PAUKey_25f080@1@@Z @1e8822d436d4 @w1f653c587ce5 @vc68e3c845580
 // STATUS: equivalent (tools/equiv.py level 3: 97 inputs, branch coverage 15/16, incomplete)
 // FUN_0025f080 @ 0x0025f080
 // Looks a name up in a string-keyed ordered map; returns the entry or null.
@@ -704,7 +704,7 @@ Entry* __cdecl FUN_0025f120(Entry *end, Iterator *it)
 
 
 // 0x0025f170 FUN_0025f170 (530 B): equivalent/0x0025f170.cpp
-// sym: ?FUN_0025f170@fn_f98b1434@@YA_NPAUOmTree@@PAUOmMetaType@@PAPBD@Z @76e6b2efd79e @w27ee6be65869
+// sym: ?FUN_0025f170@fn_f98b1434@@YA_NPAUOmTree@@PAUOmMetaType@@PAPBD@Z @76e6b2efd79e @w27ee6be65869 @v2942fe4554ae
 // STATUS: equivalent (tools/equiv.py level 3: 822 inputs, branch coverage 54/56, incomplete)
 // FUN_0025f170 @ 0x0025f170
 bool FUN_0025f170(OmTree *t, OmMetaType *item, const char **pkey)
@@ -812,7 +812,7 @@ bool FUN_0025f170(OmTree *t, OmMetaType *item, const char **pkey)
 } // namespace fn_f98b1434
 
 // 0x0025f390 FUN_0025f390 (182 B): equivalent/0x0025f390.cpp [wrapped: conflict: FUN_0025e9b0; Node]
-// sym: _FUN_0025f390 @2e9ac7a2dde4 @w0d5af692a892
+// sym: _FUN_0025f390 @2e9ac7a2dde4 @w0d5af692a892 @v6bf5dfde9fa7
 namespace fn_0025f390 {
 // STATUS: equivalent (tools/equiv.py level 3: 880 inputs, branch coverage 24/24)
 // FUN_0025f390 @ 0x0025f390
@@ -857,7 +857,7 @@ extern "C" void __cdecl FUN_0025f390(void * tree_, void * entry_) {
 
 
 // 0x0025f450 FUN_0025f450 (530 B): equivalent/0x0025f450.cpp [wrapped: conflict: Node]
-// sym: _FUN_0025f450 @5558e777f593 @w27c879a6ae1e
+// sym: _FUN_0025f450 @5558e777f593 @w27c879a6ae1e @v112a18838afe
 namespace fn_0025f450 {
 // STATUS: equivalent (tools/equiv.py level 3: 2578 inputs, branch coverage 55/56, incomplete)
 // FUN_0025f450 @ 0x0025f450
@@ -1030,7 +1030,7 @@ extern "C" void * FUN_0025f670(void * t, const char** key) {
 
 
 // 0x0025f6e0 FUN_0025f6e0 (182 B): equivalent/0x0025f6e0.cpp [wrapped: conflict: Node]
-// sym: _FUN_0025f6e0 @d8448d83e17b @we0a563299998
+// sym: _FUN_0025f6e0 @d8448d83e17b @we0a563299998 @vd01628999f4a
 namespace fn_0025f6e0 {
 // STATUS: equivalent (tools/equiv.py level 3: 880 inputs, branch coverage 24/24)
 // FUN_0025f6e0 @ 0x0025f6e0
@@ -1222,7 +1222,7 @@ void MetaType_25fa80::run() {
 
 
 // 0x0025fad0 FUN_0025fad0 (41 B): equivalent/0x0025fad0.cpp
-// sym: ?FUN_0025fad0@Node@fn_f98b1434@@QAEXH@Z @53a0ca6f3a57 @wc0cc8deb21db
+// sym: ?FUN_0025fad0@Node@fn_f98b1434@@QAEXH@Z @53a0ca6f3a57 @wc0cc8deb21db @v46bf1985bd24
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_0025fad0 @ 0x0025fad0
 void Node::FUN_0025fad0(hulk_intptr value) {

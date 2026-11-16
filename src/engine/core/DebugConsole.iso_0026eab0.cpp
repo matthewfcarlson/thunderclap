@@ -4,7 +4,7 @@
 
 
 // 0x0026eab0 FUN_0026eab0 (702 B): equivalent/0x0026eab0.cpp [isolated: code differs from its standalone build]
-// sym: ?FUN_0026eab0@Connection@fn_f5a7d674@@QAEXXZ @80f25e34b20a @we39526ed00a2
+// sym: ?FUN_0026eab0@Connection@fn_f5a7d674@@QAEXXZ @80f25e34b20a @we39526ed00a2 @v82df4d8f57aa
 #include "gen/owners.h"
 namespace fn_f5a7d674 {} using namespace fn_f5a7d674;
 namespace fn_f5a7d674 {

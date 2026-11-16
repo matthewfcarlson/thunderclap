@@ -149,7 +149,7 @@ bool pure3d_d3dToon2VertexShader_8ed50::IsEnabled() {
 
 
 // 0x0008ef00 FUN_0008ef00 (131 B): equivalent/0x0008ef00.cpp
-// sym: ?FUN_0008ef00@Stream@fn_ff1b4d41@@QAEXXZ @82740341b844 @w8974617211bb
+// sym: ?FUN_0008ef00@Stream@fn_ff1b4d41@@QAEXXZ @82740341b844 @w8974617211bb @vb7a5665c5a83
 // STATUS: equivalent (tools/equiv.py level 3: 71 inputs, branch coverage 10/10)
 // FUN_0008ef00 @ 0x0008ef00
 void Stream::FUN_0008ef00() {
@@ -212,7 +212,7 @@ hulk_intptr Hash::Calc(const char* s) {
 
 
 // 0x0008f0b0 FUN_0008f0b0 (131 B): equivalent/0x0008f0b0.cpp
-// sym: ??0IntArray_8f0b0@fn_ff1b4d41@@QAE@HHH@Z @575f5cb1655d @w5e0259daa8b7
+// sym: ??0IntArray_8f0b0@fn_ff1b4d41@@QAE@HHH@Z @575f5cb1655d @w5e0259daa8b7 @v41c7646cfb32
 // STATUS: equivalent (tools/equiv.py level 3: 288 inputs, branch coverage 8/8)
 // FUN_0008f0b0 @ 0x0008f0b0
 IntArray_8f0b0::IntArray_8f0b0(int count, int b, int a)
@@ -245,7 +245,7 @@ void __fastcall FUN_0008f160(Target_8f160* self) {
 
 
 // 0x0008f3a0 FUN_0008f3a0 (275 B): equivalent/0x0008f3a0.cpp
-// sym: ?target@Plot@fn_ff1b4d41@@QAEXXZ @cc92dec26286 @w99f5ff00e4da
+// sym: ?target@Plot@fn_ff1b4d41@@QAEXXZ @cc92dec26286 @w99f5ff00e4da @v94f3076b6c9a
 // STATUS: equivalent (tools/equiv.py level 3: 98 inputs, branch coverage 6/6)
 // FUN_0008f3a0 @ 0x0008f3a0
 void Plot::target() {
@@ -278,7 +278,7 @@ void Plot::target() {
 } // namespace fn_ff1b4d41
 
 // 0x0008f4c0 FUN_0008f4c0 (959 B): equivalent/0x0008f4c0.cpp [wrapped: conflict: Gfx]
-// sym: ?FUN_0008f4c0@DebugOverlay@fn_0008f4c0@@QAEXXZ @48a82583b561 @w6eff8b0f0607
+// sym: ?FUN_0008f4c0@DebugOverlay@fn_0008f4c0@@QAEXXZ @48a82583b561 @w6eff8b0f0607 @vbf98b39ef39f
 namespace fn_0008f4c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 581 inputs, branch coverage 10/10)
 // FUN_0008f4c0 @ 0x0008f4c0
@@ -725,7 +725,7 @@ CStaticAllocator::CStaticAllocator(unsigned a, unsigned b, int c, int d) {
 } // namespace fn_ff1b4d41
 
 // 0x0008fe90 FUN_0008fe90 (109 B): equivalent/0x0008fe90.cpp
-// sym: ?FUN_0008fe90@BitPool_8fe90@owners@@QAEHH@Z @84cc07bf9c05 @wef620245627c
+// sym: ?FUN_0008fe90@BitPool_8fe90@owners@@QAEHH@Z @84cc07bf9c05 @wef620245627c @vc045591cd606
 // STATUS: equivalent (tools/equiv.py level 3: 2994 inputs, branch coverage 8/8)
 // FUN_0008fe90 @ 0x0008fe90
 hulk_intptr owners::BitPool_8fe90::FUN_0008fe90(int unused)

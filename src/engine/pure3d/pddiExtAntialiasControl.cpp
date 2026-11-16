@@ -39,7 +39,7 @@ void thunk_FUN_00267090(pure3d::NonCopyable*);
 
 
 // 0x0031ffc0 FUN_0031ffc0 (105 B): equivalent/0x0031ffc0.cpp
-// sym: _FUN_0031ffc0 @a122b9768665 @w8ddd4ac52033
+// sym: _FUN_0031ffc0 @a122b9768665 @w8ddd4ac52033 @v0ebe1dac5beb
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_0031ffc0 @ 0x0031ffc0
 // equiv-conv: FUN_0031ffc0 ecx stack

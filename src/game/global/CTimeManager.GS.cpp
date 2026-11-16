@@ -67,7 +67,7 @@ void Timer::FUN_00086450() {
 } // namespace fn_ffdc64b2
 
 // 0x000873a0 FUN_000873a0 (618 B): equivalent/0x000873a0.cpp [wrapped: macros]
-// sym: ?update@Main@fn_000873a0@@QAEXXZ @100ea426cfd9 @w9fc6b0911eaa
+// sym: ?update@Main@fn_000873a0@@QAEXXZ @100ea426cfd9 @w9fc6b0911eaa @vbab020b014dd
 namespace fn_000873a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3063 inputs, branch coverage 21/21)
 // FUN_000873a0 @ 0x000873a0
@@ -211,7 +211,7 @@ void Base_88020::FUN_00088020(){ void* p; p=FUN_0008d690((int)sizeof(HulkPlatfor
 
 
 // 0x00088940 FUN_00088940 (565 B): equivalent/0x00088940.cpp [wrapped: macros]
-// sym: ?run@Obj_88940@fn_00088940@@QAEXPAUContext@2@PAUMission_88940@2@@Z @177a598f3895 @wee03094025ee
+// sym: ?run@Obj_88940@fn_00088940@@QAEXPAUContext@2@PAUMission_88940@2@@Z @177a598f3895 @wee03094025ee @v4ed981548355
 namespace fn_00088940 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00088940 @ 0x00088940

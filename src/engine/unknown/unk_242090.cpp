@@ -887,7 +887,7 @@ extern "C" void FUN_00242da0(void *ctx, void *group)
 namespace fn_f215d331 {
 
 // 0x00242ec0 FUN_00242ec0 (148 B): equivalent/0x00242ec0.cpp
-// sym: ?FUN_00242ec0@fn_f215d331@@YAXHPAUContainer_242ec0@1@@Z @ed77b45f244d @w51d9fc3a3912
+// sym: ?FUN_00242ec0@fn_f215d331@@YAXHPAUContainer_242ec0@1@@Z @ed77b45f244d @w51d9fc3a3912 @v2070520213ff
 // STATUS: equivalent (tools/equiv.py level 3: 2832 inputs, branch coverage 10/10)
 // FUN_00242ec0 @ 0x00242ec0
 void __cdecl FUN_00242ec0(hulk_intptr arg, Container_242ec0 *list)
@@ -1033,7 +1033,7 @@ void __cdecl FUN_00243110(Block* b, unsigned* p, unsigned n) {
 
 
 // 0x002431a0 FUN_002431a0 (108 B): equivalent/0x002431a0.cpp
-// sym: ?FUN_002431a0@fn_f215d331@@YAPAUPool_2431a0@1@PAU21@PADII@Z @ea0e32d81e71 @w29680836e393
+// sym: ?FUN_002431a0@fn_f215d331@@YAPAUPool_2431a0@1@PAU21@PADII@Z @ea0e32d81e71 @w29680836e393 @v91a53b908ffd
 // STATUS: equivalent (tools/equiv.py level 3: 166 inputs, branch coverage 9/10, incomplete)
 // FUN_002431a0 @ 0x002431a0
 Pool_2431a0 *FUN_002431a0(Pool_2431a0 *p, char *buf, unsigned int total, unsigned int elem)

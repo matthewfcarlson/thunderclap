@@ -168,7 +168,7 @@ char *__cdecl FUN_002611b0(Parser_2619c0 *p);
 
 
 // 0x00260d00 FUN_00260d00 (217 B): equivalent/0x00260d00.cpp
-// sym: ?FUN_00260d00@fn_f6df0856@@YAMPBD@Z @4eb4d8cec31a @w5a0aae2a1182
+// sym: ?FUN_00260d00@fn_f6df0856@@YAMPBD@Z @4eb4d8cec31a @w5a0aae2a1182 @v7dc93613e740
 // STATUS: equivalent (tools/equiv.py level 3: 20100 inputs, branch coverage 20/22, incomplete)
 // FUN_00260d00 @ 0x00260d00
 // atof-style parser: optional '-', digits, optional '.', up to six fractional digits.
@@ -378,7 +378,7 @@ void* __cdecl FUN_002610e0(Tree* tree, const unsigned* key) { Node* node = tree-
 
 
 // 0x00261120 FUN_00261120 (137 B): equivalent/0x00261120.cpp
-// sym: ?RegisterString@fn_f6df0856@@YAPAVString@om@1@PAURegistry@1@PAHPBV231@@Z @e787bc82d6ae @wbe14c23fd64f
+// sym: ?RegisterString@fn_f6df0856@@YAPAVString@om@1@PAURegistry@1@PAHPBV231@@Z @e787bc82d6ae @wbe14c23fd64f @v80b98eddd18c
 // STATUS: equivalent (tools/equiv.py level 3: 2992 inputs, branch coverage 2/2)
 // FUN_00261120 @ 0x00261120
 // equiv-map: ??0Type@om@@QAE@PAX0HH@Z = 0x002584d0
@@ -398,7 +398,7 @@ om::String* RegisterString(Registry* reg, int* key, const om::String* text) {
 
 
 // 0x002611b0 FUN_002611b0 (499 B): equivalent/0x002611b0.cpp
-// sym: ?FUN_002611b0@fn_f6df0856@@YAPBDPAUInterp_2611b0@1@@Z @030305cea058 @we6cdb1af7b6b
+// sym: ?FUN_002611b0@fn_f6df0856@@YAPBDPAUInterp_2611b0@1@@Z @030305cea058 @we6cdb1af7b6b @vc5a47f64665a
 // STATUS: equivalent (tools/equiv.py level 3: 400 inputs, branch coverage 38/40, incomplete; run with --inputs 12000)
 // FUN_002611b0 @ 0x002611b0
 const char *__cdecl FUN_002611b0(Interp_2611b0 *in)
@@ -705,7 +705,7 @@ extern "C" hulk_uintptr __cdecl FUN_00261980(U_261980 param) {
 
 
 // 0x002619c0 FUN_002619c0 (111 B): equivalent/0x002619c0.cpp
-// sym: _FUN_002619c0 @27602ca93ac1 @w4f80e911fe91
+// sym: _FUN_002619c0 @27602ca93ac1 @w4f80e911fe91 @v549fc5dd51de
 // STATUS: equivalent (tools/equiv.py level 3: 1006 inputs, branch coverage 9/10, incomplete)
 // FUN_002619c0 @ 0x002619c0
 extern "C" char *FUN_002619c0(Parser_2619c0 *p)

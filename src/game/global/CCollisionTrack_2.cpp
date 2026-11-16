@@ -471,7 +471,7 @@ namespace fn_fe2e62b7 {
 
 
 // 0x00060170 FUN_00060170 (118 B): equivalent/0x00060170.cpp
-// sym: ?FUN_00060170@Object@fn_fe2e62b7@@QAEXXZ @b45888004883 @w90958a31a05c
+// sym: ?FUN_00060170@Object@fn_fe2e62b7@@QAEXXZ @b45888004883 @w90958a31a05c @v4c41c7841ece
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00060170 @ 0x00060170
 void Object::FUN_00060170() {

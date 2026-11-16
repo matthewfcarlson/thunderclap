@@ -245,7 +245,7 @@ struct S_306e70 {
 } // namespace fn_fecd5d4c
 
 // 0x00306450 physics::CollisionVolume::vfunc_9 (61 B): equivalent/0x00306450.cpp [wrapped: conflict: physics::CollisionVolume]
-// sym: ?vfunc_9@CollisionVolume@physics@fn_00306450@@UAEXXZ @1f3093908206 @wc7fb3d4276a2
+// sym: ?vfunc_9@CollisionVolume@physics@fn_00306450@@UAEXXZ @1f3093908206 @wc7fb3d4276a2 @vde4fe9f634e4
 namespace fn_00306450 {
 // STATUS: equivalent (tools/equiv.py level 3: 2985 inputs, branch coverage 6/6)
 // physics::CollisionVolume::vfunc_9 @ 0x00306450
@@ -289,7 +289,7 @@ void Node::run() {
 } // namespace fn_fecd5d4c
 
 // 0x00306560 physics::CollisionVolume::vfunc_7 (65 B): equivalent/0x00306560.cpp [wrapped: conflict: physics::CollisionVolume]
-// sym: ?FUN_00306560@CollisionVolume@physics@fn_00306560@@QAEXPAX@Z @8055fba4d6ec @wea49f8ffcb6c
+// sym: ?FUN_00306560@CollisionVolume@physics@fn_00306560@@QAEXPAX@Z @8055fba4d6ec @wea49f8ffcb6c @vb903098e9be6
 namespace fn_00306560 {
 // STATUS: equivalent (tools/equiv.py level 3: 2986 inputs, branch coverage 6/6)
 // physics::CollisionVolume::vfunc_7 @ 0x00306560
@@ -363,7 +363,7 @@ void Node::Set(int v) {
 namespace fn_fecd5d4c {
 
 // 0x00306650 FUN_00306650 (319 B): equivalent/0x00306650.cpp
-// sym: _FUN_00306650 @3c86561b3d06 @w29e8587265a7
+// sym: _FUN_00306650 @3c86561b3d06 @w29e8587265a7 @v77e842f4e94a
 // STATUS: equivalent (tools/equiv.py level 3: 72 inputs, branch coverage 18/18)
 // FUN_00306650 @ 0x00306650
 // equiv-conv: FUN_00306650 esi edi stack
@@ -410,7 +410,7 @@ extern "C" bool FUN_00306650(void * a_, void *b, float margin)
 
 
 // 0x00306790 FUN_00306790 (264 B): equivalent/0x00306790.cpp
-// sym: ?FUN_00306790@fn_fecd5d4c@@YA_NPAUShape_306790@1@0M@Z @b3b6578cf068 @w816897d766e3
+// sym: ?FUN_00306790@fn_fecd5d4c@@YA_NPAUShape_306790@1@0M@Z @b3b6578cf068 @w816897d766e3 @v192ae81797c7
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // FUN_00306790 @ 0x00306790
 // equiv-conv: FUN_00306650 esi edi stack
@@ -433,7 +433,7 @@ bool FUN_00306790(Shape_306790* a, Shape_306790* b, float margin) {
 } // namespace fn_fecd5d4c
 
 // 0x003068a0 physics::CollisionVolume::vfunc_12 (54 B): equivalent/0x003068a0.cpp [wrapped: conflict: physics::CollisionVolume]
-// sym: ?vfunc_12@CollisionVolume@physics@fn_003068a0@@UAEXPAU123@PAX@Z @847fdbab3db3 @w1b23463e1896
+// sym: ?vfunc_12@CollisionVolume@physics@fn_003068a0@@UAEXPAU123@PAX@Z @847fdbab3db3 @w1b23463e1896 @v49b13dd7ed96
 namespace fn_003068a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 14802 inputs, branch coverage 4/4)
 // physics::CollisionVolume::vfunc_12 @ 0x003068a0
@@ -479,7 +479,7 @@ void physics::CollisionVolume::vfunc_10() {
 namespace fn_fecd5d4c {
 
 // 0x00306930 FUN_00306930 (149 B): equivalent/0x00306930.cpp
-// sym: ?FUN_00306930@Owner_306930@fn_fecd5d4c@@QAEXPAVItem_306930@2@@Z @30d61565d000 @w0463aa48f06b
+// sym: ?FUN_00306930@Owner_306930@fn_fecd5d4c@@QAEXPAVItem_306930@2@@Z @30d61565d000 @w0463aa48f06b @v67110daf8e1e
 // STATUS: equivalent (tools/equiv.py level 3: 108 inputs, branch coverage 14/14)
 // FUN_00306930 @ 0x00306930
 void Owner_306930::FUN_00306930(Item_306930 *item)
@@ -512,7 +512,7 @@ void Owner_306930::FUN_00306930(Item_306930 *item)
 } // namespace fn_fecd5d4c
 
 // 0x003069d0 FUN_003069d0 (177 B): equivalent/0x003069d0.cpp [wrapped: conflict: Node]
-// sym: ?FUN_003069d0@Node@fn_003069d0@@QAE_NPAU12@@Z @30e14a2065d5 @w896ae72915b6
+// sym: ?FUN_003069d0@Node@fn_003069d0@@QAE_NPAU12@@Z @30e14a2065d5 @w896ae72915b6 @va835d5f63049
 namespace fn_003069d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 89 inputs, branch coverage 18/18)
 // FUN_003069d0 @ 0x003069d0
@@ -590,7 +590,7 @@ CollisionVolume_306ac0::~CollisionVolume_306ac0() throw() {
 } // namespace fn_fecd5d4c
 
 // 0x00306b40 FUN_00306b40 (81 B): equivalent/0x00306b40.cpp [wrapped: conflict: physics::CollisionCylinder]
-// sym: ??0CollisionCylinder@physics@fn_00306b40@@QAE@XZ @b3d5cc5274a1 @wd68932b1e035
+// sym: ??0CollisionCylinder@physics@fn_00306b40@@QAE@XZ @b3d5cc5274a1 @wd68932b1e035 @vfd177bbe6f2f
 namespace fn_00306b40 {
 extern "C" char DAT_004313cc[];   // (x64t6) physics::CollisionCylinder's vftable
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
@@ -648,7 +648,7 @@ CollisionCylinder::CollisionCylinder() {
 
 
 // 0x00306ba0 FUN_00306ba0 (81 B): equivalent/0x00306ba0.cpp [wrapped: conflict: physics::CollisionOBB]
-// sym: ??0CollisionOBB@physics@fn_00306ba0@@QAE@XZ @d648a0421ffd @wdf3f372793c1
+// sym: ??0CollisionOBB@physics@fn_00306ba0@@QAE@XZ @d648a0421ffd @wdf3f372793c1 @v349fa0aaed25
 namespace fn_00306ba0 {
 extern "C" char DAT_004317dc[];   // (x64t6) physics::CollisionOBB's vftable
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
@@ -731,7 +731,7 @@ physics::CollisionVolume::~CollisionVolume() {}
 namespace fn_fecd5d4c {
 
 // 0x00306c60 FUN_00306c60 (169 B): equivalent/0x00306c60.cpp
-// sym: ?clone@Object@fn_fecd5d4c@@QAEPAXXZ @0a45091c4441 @wafe20abc2dbc
+// sym: ?clone@Object@fn_fecd5d4c@@QAEPAXXZ @0a45091c4441 @wafe20abc2dbc @v84835a7732b1
 // STATUS: equivalent (tools/equiv.py level 3: 3004 inputs, branch coverage 21/22, incomplete)
 // FUN_00306c60 @ 0x00306c60
 void* Object::clone() {
@@ -766,7 +766,7 @@ void* Object::clone() {
 } // namespace fn_fecd5d4c
 
 // 0x00306d30 physics::CollisionVolume::vfunc_14 (208 B): equivalent/0x00306d30.cpp [wrapped: conflict: physics::CollisionVolume]
-// sym: ?vfunc_14@CollisionVolume@physics@fn_00306d30@@UAEXPAU123@@Z @ba75bf38d0a5 @wda00f107bda6
+// sym: ?vfunc_14@CollisionVolume@physics@fn_00306d30@@UAEXPAU123@@Z @ba75bf38d0a5 @wda00f107bda6 @v3b4e8813879d
 namespace fn_00306d30 {
 // STATUS: equivalent (tools/equiv.py level 3: 403 inputs, branch coverage 12/12)
 // physics::CollisionVolume::vfunc_14 @ 0x00306d30

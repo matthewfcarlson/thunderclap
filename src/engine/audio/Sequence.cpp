@@ -324,7 +324,7 @@ Node* findNode(Node* base, Node* node) {
 
 
 // 0x00256940 FUN_00256940 (604 B): equivalent/0x00256940.cpp
-// sym: _FUN_00256940 @394c7c009b90 @w3415c875f53d
+// sym: _FUN_00256940 @394c7c009b90 @w3415c875f53d @va43e365bf658
 // STATUS: equivalent (tools/equiv.py level 3: 205 inputs, branch coverage 60/60)
 // FUN_00256940 @ 0x00256940
 // Red-black tree erase rebalancing: 'x' is the node that carries the extra black.
@@ -514,7 +514,7 @@ SeqTrack* SeqTrack::Build(unsigned char flags) {
 } // namespace fn_f06eb07d
 
 // 0x00256d40 FUN_00256d40 (93 B): equivalent/0x00256d40.cpp [wrapped: conflict: DAT_0042a600]
-// sym: ?FUN_00256d40@fn_00256d40@@YAXPAUList@1@@Z @e6f42b49c12e @w3b15a654acc6
+// sym: ?FUN_00256d40@fn_00256d40@@YAXPAUList@1@@Z @e6f42b49c12e @w3b15a654acc6 @v46e0133fb5e9
 namespace fn_00256d40 {
 // STATUS: equivalent (tools/equiv.py level 3: 16597 inputs, branch coverage 8/8)
 // FUN_00256d40 @ 0x00256d40
@@ -627,7 +627,7 @@ extern "C" N_256e80* __cdecl FUN_00256e80(N_256e80* s, N_256e80* n) {
 
 
 // 0x00256f10 FUN_00256f10 (604 B): equivalent/0x00256f10.cpp
-// sym: ?FUN_00256f10@fn_f06eb07d@@YAXPAURbTree_256f10@1@PAURbNode_256f10@1@@Z @394c7c009b90 @wb8331f7a823d
+// sym: ?FUN_00256f10@fn_f06eb07d@@YAXPAURbTree_256f10@1@PAURbNode_256f10@1@@Z @394c7c009b90 @wb8331f7a823d @v12aba55ecae8
 // STATUS: equivalent (tools/equiv.py level 3: 205 inputs, branch coverage 60/60)
 // FUN_00256f10 @ 0x00256f10
 // Red-black tree erase rebalancing: 'x' is the node that carries the extra black.
@@ -808,7 +808,7 @@ hulk_intptr owners::C_257270::FUN_00257270(hulk_uintptr x) {
 namespace fn_f06eb07d {
 
 // 0x00257290 FUN_00257290 (141 B): equivalent/0x00257290.cpp
-// sym: ?FUN_00257290@SeqTrackList@fn_f06eb07d@@QAE_NPAUArchive_257290@2@@Z @99ffa7799b9b @wc80bac8810f4
+// sym: ?FUN_00257290@SeqTrackList@fn_f06eb07d@@QAE_NPAUArchive_257290@2@@Z @99ffa7799b9b @wc80bac8810f4 @v44ced579d1eb
 // STATUS: equivalent (tools/equiv.py level 3: 2986 inputs, branch coverage 14/14)
 // FUN_00257290 @ 0x00257290
 // Write the "mSeqTrackList" block: every track in the linked list, one per line.
@@ -875,7 +875,7 @@ bool Owner_257320::FUN_00257320(Output_257320* volatile* output) {
 
 
 // 0x00257410 audio::Sequence::vfunc_3 (118 B): equivalent/0x00257410.cpp
-// sym: ?vfunc_3@Sequence@audio@@UAE_NPAX@Z @dcc11bb2fc42 @wa7a19b9f8b9a
+// sym: ?vfunc_3@Sequence@audio@@UAE_NPAX@Z @dcc11bb2fc42 @wa7a19b9f8b9a @v3a7f9c2bb08b
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 10/10)
 // audio::Sequence::vfunc_3 @ 0x00257410
 bool audio::Sequence::vfunc_3(void* __p0) { Stream_257410 ** w = (Stream_257410 **)__p0;
@@ -1168,7 +1168,7 @@ extern "C" char FUN_00257780(void * tree_, void * nodeArg, const unsigned* keyPt
 
 
 // 0x00257980 audio::SequenceType::vfunc_2 (91 B): equivalent/0x00257980.cpp [wrapped: conflict: audio::Sequence; audio::SequenceType; om::EntityType]
-// sym: ?vfunc_2@SequenceType@audio@fn_00257980@@UAEPAUSequence@23@XZ @db38185f666e @waf555c2c7a10
+// sym: ?vfunc_2@SequenceType@audio@fn_00257980@@UAEPAUSequence@23@XZ @db38185f666e @waf555c2c7a10 @vacce71ec6a10
 __forceinline void* operator new(size_t, void* p) { return p; }
 namespace fn_00257980 {
 // STATUS: equivalent (tools/equiv.py level 3: 2994 inputs, branch coverage 2/2)
@@ -1269,7 +1269,7 @@ bool audio::Sequence::vfunc_4(int __p0) { unsigned int p = (unsigned int)__p0;
 
 
 // 0x00257b30 FUN_00257b30 (234 B): equivalent/0x00257b30.cpp [wrapped: conflict: FUN_00247530]
-// sym: ?target@Owner_257b30@fn_00257b30@@QAE_NPAX@Z @79bd5499b1eb @wd189bbfc99b6
+// sym: ?target@Owner_257b30@fn_00257b30@@QAE_NPAX@Z @79bd5499b1eb @wd189bbfc99b6 @v234288475c4a
 namespace fn_00257b30 {
 // STATUS: equivalent (tools/equiv.py level 3: 373 inputs, branch coverage 11/12, incomplete)
 // FUN_00257b30 @ 0x00257b30
@@ -1363,7 +1363,7 @@ Sequence_257c90* Sequence_257c90::f2(unsigned char flags) {
 } // namespace fn_f06eb07d
 
 // 0x00257ce0 FUN_00257ce0 (155 B): equivalent/0x00257ce0.cpp [wrapped: conflict: FUN_00247530; audio::SeqTrack]
-// sym: ?FUN_00257ce0@Mix@fn_00257ce0@@QAE_NTStreamArg_257ce0@2@@Z @b18a9c4d50e2 @w59cfd236bce9
+// sym: ?FUN_00257ce0@Mix@fn_00257ce0@@QAE_NTStreamArg_257ce0@2@@Z @b18a9c4d50e2 @w59cfd236bce9 @v504cdbcd6f36
 namespace fn_00257ce0 {
 // STATUS: equivalent (tools/equiv.py level 3: 407 inputs, branch coverage 10/10)
 // FUN_00257ce0 @ 0x00257ce0

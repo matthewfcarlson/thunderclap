@@ -195,7 +195,7 @@ X_a8340::X_a8340() {}
 
 
 // 0x000a8400 FUN_000a8400 (150 B): equivalent/0x000a8400.cpp
-// sym: ??0CDramaticCamera@fn_f6c39404@@QAE@XZ @b1e6b5c42c9a @w9949342ffa22
+// sym: ??0CDramaticCamera@fn_f6c39404@@QAE@XZ @b1e6b5c42c9a @w9949342ffa22 @vc4520f57f397
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_000a8400 @ 0x000a8400
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
@@ -244,7 +244,7 @@ void Obj::Fn(hulk_intptr a, int b, const Mat* m) {
 
 
 // 0x000a8670 FUN_000a8670 (306 B): equivalent/0x000a8670.cpp
-// sym: ?FUN_000a8670@PathSampler@fn_f6c39404@@QAEHPAUVec3_a8670@2@H@Z @b23fe85d1c44 @w3f060b162b6c
+// sym: ?FUN_000a8670@PathSampler@fn_f6c39404@@QAEHPAUVec3_a8670@2@H@Z @b23fe85d1c44 @w3f060b162b6c @v86f4a60f9352
 // STATUS: equivalent (tools/equiv.py level 3: 14682 inputs, branch coverage 14/14)
 // FUN_000a8670 @ 0x000a8670
 int PathSampler::FUN_000a8670(Vec3_a8670 *out, int count)
@@ -296,7 +296,7 @@ void owners::V_a87f0::FUN_000a87f0(owners::V_a87f0* p) {
 namespace fn_f6c39404 {
 
 // 0x000a8890 FUN_000a8890 (217 B): equivalent/0x000a8890.cpp
-// sym: ?FUN_000a8890@Box_a8890@fn_f6c39404@@QAEPAUSphere_a8890@2@PAU32@@Z @973f29cf0ee0 @w665b1d06fb7d
+// sym: ?FUN_000a8890@Box_a8890@fn_f6c39404@@QAEPAUSphere_a8890@2@PAU32@@Z @973f29cf0ee0 @w665b1d06fb7d @v980715304d17
 // STATUS: equivalent (tools/equiv.py level 3: 20009 inputs, branch coverage 6/6)
 // FUN_000a8890 @ 0x000a8890
 // FUN_000a8890 @ 0x000a8890

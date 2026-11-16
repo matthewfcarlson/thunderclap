@@ -45,14 +45,14 @@ struct B_24cb70 {
 
 
 // 0x0024c1c0 FUN_0024c1c0 (51 B): equivalent/0x0024c1c0.cpp
-// sym: _FUN_0024c1c0 @5f76c8943744 @w8966a7b50904
+// sym: _FUN_0024c1c0 @5f76c8943744 @w8966a7b50904 @v8c5ecaa3eab3
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_0024c1c0 @ 0x0024c1c0
 extern "C" int __cdecl FUN_0024c1c0(const int *key) { for (int i = 0; i < 6; ++i) { if (*key == *(const int*)DAT_004cc248[i].fourcc) return DAT_004cc248[i].id; } return 7; }
 
 
 // 0x0024c200 FUN_0024c200 (97 B): equivalent/0x0024c200.cpp
-// sym: ?FUN_0024c200@fn_f52e920b@@YAHPBD@Z @d7cfacbe3c2f @w2760b7f485d1
+// sym: ?FUN_0024c200@fn_f52e920b@@YAHPBD@Z @d7cfacbe3c2f @w2760b7f485d1 @vf29e0cdf7787
 // STATUS: equivalent (tools/equiv.py level 3: 3005 inputs, branch coverage 12/12)
 // FUN_0024c200 @ 0x0024c200
 int __cdecl FUN_0024c200(const char *name)
@@ -160,7 +160,7 @@ extern "C" unsigned __cdecl FUN_0024c4d0(unsigned* p, unsigned n) {
 
 
 // 0x0024c520 FUN_0024c520 (109 B): equivalent/0x0024c520.cpp
-// sym: ?FUN_0024c520@fn_f52e920b@@YAIPAII@Z @60937ef45405 @wf7d4dec2ed8e
+// sym: ?FUN_0024c520@fn_f52e920b@@YAIPAII@Z @60937ef45405 @wf7d4dec2ed8e @va699099a772a
 // STATUS: equivalent (tools/equiv.py level 3: 965 inputs, branch coverage 0/0)
 // FUN_0024c520 @ 0x0024c520
 unsigned int FUN_0024c520(unsigned int *packed, unsigned int value)

@@ -769,7 +769,7 @@ struct SimState {
 
 
 // 0x002ed240 FUN_002ed240 (386 B): equivalent/0x002ed240.cpp
-// sym: ?FUN_002ed240@Broadphase_2ed240@fn_f671dae7@@QAEXH@Z @5b54c6aa4ef4 @w33725a3c6406
+// sym: ?FUN_002ed240@Broadphase_2ed240@fn_f671dae7@@QAEXH@Z @5b54c6aa4ef4 @w33725a3c6406 @v9d0fd6e131ec
 // STATUS: equivalent (tools/equiv.py level 3: 156 inputs, branch coverage 25/26, incomplete; run with --inputs 12000)
 // FUN_002ed240 @ 0x002ed240
 void Broadphase_2ed240::FUN_002ed240(int index)
@@ -812,7 +812,7 @@ void Broadphase_2ed240::FUN_002ed240(int index)
 
 
 // 0x002ed3d0 FUN_002ed3d0 (772 B): equivalent/0x002ed3d0.cpp
-// sym: ?FUN_002ed3d0@SweepAndPrune@fn_f671dae7@@QAEXI@Z @80c5fa163ecd @wbad7938629bd
+// sym: ?FUN_002ed3d0@SweepAndPrune@fn_f671dae7@@QAEXI@Z @80c5fa163ecd @wbad7938629bd @vfeb0fab85e5a
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 37/40, incomplete)
 // FUN_002ed3d0 @ 0x002ed3d0
 void SweepAndPrune::FUN_002ed3d0(unsigned int index)
@@ -969,7 +969,7 @@ bool Container_2ed7a0::Find(Obj_2ed7a0* obj) {
 
 
 // 0x002edb20 FUN_002edb20 (102 B): equivalent/0x002edb20.cpp
-// sym: ?FUN_002edb20@Mgr_2edb20@fn_f671dae7@@QAEEHHH@Z @a6786aa7f582 @w842c1666b553
+// sym: ?FUN_002edb20@Mgr_2edb20@fn_f671dae7@@QAEEHHH@Z @a6786aa7f582 @w842c1666b553 @v376d34ca2b0c
 // STATUS: equivalent (tools/equiv.py level 3: 131 inputs, branch coverage 6/6)
 // FUN_002edb20 @ 0x002edb20
 unsigned char Mgr_2edb20::FUN_002edb20(int a, int b, int c) {
@@ -1029,7 +1029,7 @@ void Collection_2edc20::FUN_002edc20(Word_2edc20 output,Word_2edc20 query,Word_2
 
 
 // 0x002edce0 FUN_002edce0 (265 B): equivalent/0x002edce0.cpp
-// sym: ?FUN_002edce0@Manager_2edce0@fn_f671dae7@@QAEEPAUHit_2edce0@2@PAUVec_2edce0@2@1E@Z @916d0506bb34 @wed6711eb1bea
+// sym: ?FUN_002edce0@Manager_2edce0@fn_f671dae7@@QAEEPAUHit_2edce0@2@PAUVec_2edce0@2@1E@Z @916d0506bb34 @wed6711eb1bea @ve57d7e1b06a6
 // STATUS: equivalent (tools/equiv.py level 3: 120 inputs, branch coverage 19/20, incomplete)
 // FUN_002edce0 @ 0x002edce0
 unsigned char Manager_2edce0::FUN_002edce0(Hit_2edce0* hit, Vec_2edce0* start, Vec_2edce0* finish, unsigned char filter) {
@@ -1091,7 +1091,7 @@ bool Buffer_2ee0c0::Add(Item_2ee0c0* value) {
 } // namespace fn_f671dae7
 
 // 0x002ee140 FUN_002ee140 (275 B): equivalent/0x002ee140.cpp
-// sym: ?target@World@@QAE_NPAUResults@fn_f671dae7@@PAUVec_2ee140@3@1H@Z @28cd5d2a125e @w52589322b788
+// sym: ?target@World@@QAE_NPAUResults@fn_f671dae7@@PAUVec_2ee140@3@1H@Z @28cd5d2a125e @w52589322b788 @v67b2cb97d354
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // FUN_002ee140 @ 0x002ee140
 bool World::target(Results* results, Vec_2ee140* start, Vec_2ee140* end, int filter) {
@@ -1118,7 +1118,7 @@ bool World::target(Results* results, Vec_2ee140* start, Vec_2ee140* end, int fil
 namespace fn_f671dae7 {
 
 // 0x002ee260 FUN_002ee260 (631 B): equivalent/0x002ee260.cpp
-// sym: ?FUN_002ee260@Tracker_2ee260@fn_f671dae7@@QAEXPAVObj_2ee260@2@@Z @37cbd20b32da @w424f9df701a5
+// sym: ?FUN_002ee260@Tracker_2ee260@fn_f671dae7@@QAEXPAVObj_2ee260@2@@Z @37cbd20b32da @w424f9df701a5 @vcc132185efa3
 // STATUS: equivalent (tools/equiv.py level 3: 2857 inputs, branch coverage 28/28; --wine 74 inputs)
 // FUN_002ee260 @ 0x002ee260
 void Tracker_2ee260::FUN_002ee260(Obj_2ee260 *obj)
@@ -1483,7 +1483,7 @@ void Obj_2eedd0::Run(void* arg) {
 // 0x002eee00 thunk_FUN_002eecc0 (5 B): not yet verified
 
 // 0x002eee10 FUN_002eee10 (432 B): equivalent/0x002eee10.cpp
-// sym: ?FUN_002eee10@Pool_2eee10@fn_f671dae7@@QAEPAV12@XZ @5df244d0a4bb @w6afb8e897b15
+// sym: ?FUN_002eee10@Pool_2eee10@fn_f671dae7@@QAEPAV12@XZ @5df244d0a4bb @w6afb8e897b15 @vf16eae3eea4d
 // STATUS: equivalent (tools/equiv.py level 3: 29 inputs, branch coverage 24/24)
 // FUN_002eee10 @ 0x002eee10
 Pool_2eee10 *Pool_2eee10::FUN_002eee10()

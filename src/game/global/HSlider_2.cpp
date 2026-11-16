@@ -233,7 +233,7 @@ class HSlider : public FEControl_e9af0 {
 
 
 // 0x000e9800 HSlider::vfunc_7 (194 B): equivalent/0x000e9800.cpp
-// sym: ?vfunc_7@HSlider@fn_f686bfea@@QAEXPAUSource_e9800@2@@Z @3204712238bb @wca40c0730d55
+// sym: ?vfunc_7@HSlider@fn_f686bfea@@QAEXPAUSource_e9800@2@@Z @3204712238bb @wca40c0730d55 @vfefcb29bc31c
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 16/16)
 // HSlider::vfunc_7 @ 0x000e9800
 void HSlider::vfunc_7(Source_e9800* source) {

@@ -166,7 +166,7 @@ bool Param::V2(int arg) {
 
 
 // 0x002342f0 fight::Param::vfunc_3 (83 B): equivalent/0x002342f0.cpp
-// sym: ?vfunc_3@Param@fight@fn_f350f41f@@UAE_NIIIPAUSource@3@@Z @bf5cbfbc77c9 @w009fa9f8acfa
+// sym: ?vfunc_3@Param@fight@fn_f350f41f@@UAE_NIIIPAUSource@3@@Z @bf5cbfbc77c9 @w009fa9f8acfa @v1b1950c32827
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // fight::Param::vfunc_3 @ 0x002342f0
 namespace fight {

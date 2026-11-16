@@ -566,7 +566,7 @@ C_268010::~C_268010() {}
 
 
 // 0x00268020 core::TimerList::vfunc_5 (70 B): equivalent/0x00268020.cpp
-// sym: ?vfunc_5@TimerList@core@@UAEXXZ @d9be2ba353fa @w14d8d8a1f992
+// sym: ?vfunc_5@TimerList@core@@UAEXXZ @d9be2ba353fa @w14d8d8a1f992 @ve67109717860
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // core::TimerList::vfunc_5 @ 0x00268020
 void core::TimerList::vfunc_5() {

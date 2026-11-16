@@ -227,7 +227,7 @@ Expression* Expression::f2(int x) {
 namespace fn_fb28d753 {
 
 // 0x002afe80 FUN_002afe80 (82 B): equivalent/0x002afe80.cpp
-// sym: ?FUN_002afe80@Collection@fn_fb28d753@@QAEHH@Z @4d27714530fb @wdaad038e4fd5
+// sym: ?FUN_002afe80@Collection@fn_fb28d753@@QAEHH@Z @4d27714530fb @wdaad038e4fd5 @v4078c242d863
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_002afe80 @ 0x002afe80
 int Collection::FUN_002afe80(hulk_intptr key) {

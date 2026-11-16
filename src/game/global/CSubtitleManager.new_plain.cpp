@@ -55,7 +55,7 @@ HULK_MGR_SAME(CSubtitleManager, HulkSubtitleManager);
 
 
 // 0x001c0cd0 FUN_001c0cd0 (1241 B): equivalent/0x001c0cd0.cpp
-// sym: ?FUN_001c0cd0@CSubtitleManager@fn_f74613ff@@QAEPAU12@XZ @7e6a47c269a3 @w0f5384d9a3f6
+// sym: ?FUN_001c0cd0@CSubtitleManager@fn_f74613ff@@QAEPAU12@XZ @7e6a47c269a3 @w0f5384d9a3f6 @v9a9832590c7d
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 40/40)
 // FUN_001c0cd0 @ 0x001c0cd0
 CSubtitleManager* CSubtitleManager::FUN_001c0cd0() {

@@ -6,7 +6,7 @@
 
 
 // 0x0005b5b0 CGrappleSoundTrack::vfunc_12 (105 B): equivalent/0x0005b5b0.cpp [isolated: compile error C2440: 'static_cast' : cannot convert from 'fn_f63372f2::R_5aad0 *' to 'CSoundAction *'; on include/gen/ and not mergeable]
-// sym: ?vfunc_12@CGrappleSoundTrack@@UAEHH@Z @4b824845195b @w649c54c61eed
+// sym: ?vfunc_12@CGrappleSoundTrack@@UAEHH@Z @4b824845195b @w649c54c61eed @v4f456a43d3ca
 // STATUS: equivalent (tools/equiv.py level 3: 20042 inputs, branch coverage 15/16, incomplete)
 // CGrappleSoundTrack::vfunc_12 @ 0x0005b5b0
 #include "gen/global.h"

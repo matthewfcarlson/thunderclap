@@ -304,7 +304,7 @@ struct CSPListener_1db200 {
 
 
 // 0x001d7b80 FUN_001d7b80 (463 B): equivalent/0x001d7b80.cpp
-// sym: ?FUN_001d7b80@Actor_1d7b80@fn_f9c60317@@QAEXHH@Z @e745b4d0a158 @w87a67b0e2bd2
+// sym: ?FUN_001d7b80@Actor_1d7b80@fn_f9c60317@@QAEXHH@Z @e745b4d0a158 @w87a67b0e2bd2 @veb9388f048ed
 // STATUS: equivalent (tools/equiv.py level 3: 3027 inputs, branch coverage 38/38)
 // FUN_001d7b80 @ 0x001d7b80
 void Actor_1d7b80::FUN_001d7b80(int a, int b)
@@ -374,7 +374,7 @@ void Actor_1d7b80::FUN_001d7b80(int a, int b)
 } // namespace fn_f9c60317
 
 // 0x001d7d50 FUN_001d7d50 (274 B): equivalent/0x001d7d50.cpp [wrapped: conflict: World]
-// sym: ?target@Object@fn_001d7d50@@QAE_NXZ @c09b498b0aa4 @w9623ff005e59
+// sym: ?target@Object@fn_001d7d50@@QAE_NXZ @c09b498b0aa4 @w9623ff005e59 @vd396d8866c9c
 namespace fn_001d7d50 {
 // STATUS: equivalent (tools/equiv.py level 3: 3026 inputs, branch coverage 32/32)
 // FUN_001d7d50 @ 0x001d7d50
@@ -441,7 +441,7 @@ bool Object::target() {
 namespace fn_f9c60317 {
 
 // 0x001d7e70 FUN_001d7e70 (102 B): equivalent/0x001d7e70.cpp
-// sym: ?FUN_001d7e70@Obj_1d7e70@fn_f9c60317@@QAEXXZ @c8e10b5c642d @w8077c7c4720d
+// sym: ?FUN_001d7e70@Obj_1d7e70@fn_f9c60317@@QAEXXZ @c8e10b5c642d @w8077c7c4720d @v8169da878cde
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_001d7e70 @ 0x001d7e70
 void Obj_1d7e70::FUN_001d7e70() {
@@ -460,7 +460,7 @@ void Obj_1d7e70::FUN_001d7e70() {
 } // namespace fn_f9c60317
 
 // 0x001d7ee0 FUN_001d7ee0 (266 B): equivalent/0x001d7ee0.cpp [wrapped: conflict: Object]
-// sym: ?target@Object@fn_001d7ee0@@QAEXPAURef_1d7ee0@2@@Z @717d03826bc6 @w9d7191df5fed
+// sym: ?target@Object@fn_001d7ee0@@QAEXPAURef_1d7ee0@2@@Z @717d03826bc6 @w9d7191df5fed @vc88808475209
 namespace fn_001d7ee0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3027 inputs, branch coverage 31/32, incomplete)
 // FUN_001d7ee0 @ 0x001d7ee0
@@ -496,7 +496,7 @@ void Object::target(Ref_1d7ee0* incoming) {
 namespace fn_f9c60317 {
 
 // 0x001d7ff0 FUN_001d7ff0 (272 B): equivalent/0x001d7ff0.cpp
-// sym: ?target@Owner_1d7ff0@fn_f9c60317@@QAEXXZ @9e8165b64d66 @wf43d92e00116
+// sym: ?target@Owner_1d7ff0@fn_f9c60317@@QAEXXZ @9e8165b64d66 @wf43d92e00116 @vb3b1abfa6adf
 // STATUS: equivalent (tools/equiv.py level 3: 2975 inputs, branch coverage 26/26)
 // FUN_001d7ff0 @ 0x001d7ff0
 void Owner_1d7ff0::target() {
@@ -693,7 +693,7 @@ int Obj_1d82d0::Run() {
 } // namespace fn_f9c60317
 
 // 0x001d8350 FUN_001d8350 (856 B): equivalent/0x001d8350.cpp [wrapped: conflict: World]
-// sym: ?FUN_001d8350@Collector_1d8350@fn_001d8350@@QAEXPAUFighter_1d8350@2@@Z @f3b3ac5ce2af @wbe523fb5cbc3
+// sym: ?FUN_001d8350@Collector_1d8350@fn_001d8350@@QAEXPAUFighter_1d8350@2@@Z @f3b3ac5ce2af @wbe523fb5cbc3 @v3b03a2dd209b
 namespace fn_001d8350 {
 // STATUS: equivalent (tools/equiv.py level 3: 3070 inputs, branch coverage 60/60; --wine 714 inputs)
 // FUN_001d8350 @ 0x001d8350
@@ -922,7 +922,7 @@ void Collector_1d8350::FUN_001d8350(Fighter_1d8350 *a)
 
 
 // 0x001d86d0 FUN_001d86d0 (1431 B): equivalent/0x001d86d0.cpp [wrapped: conflict: World]
-// sym: ?F@Thing_1d86d0@fn_001d86d0@@QAEXPAUV3_1d86d0@2@PAX@Z @0e16365b516d @w98a8b54c5eb5
+// sym: ?F@Thing_1d86d0@fn_001d86d0@@QAEXPAUV3_1d86d0@2@PAX@Z @0e16365b516d @w98a8b54c5eb5 @vefd15a857f10
 namespace fn_001d86d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3081 inputs, branch coverage 61/62, incomplete)
 // FUN_001d86d0 @ 0x001d86d0
@@ -1254,7 +1254,7 @@ void Obj_1d8c70::Set(Item_1d8c70* p) {
 } // namespace fn_f9c60317
 
 // 0x001d8cd0 FUN_001d8cd0 (192 B): equivalent/0x001d8cd0.cpp [wrapped: conflict: World]
-// sym: ?FUN_001d8cd0@Object@fn_001d8cd0@@QAEXXZ @de0e3d8b8f56 @wa1dc620e52b7
+// sym: ?FUN_001d8cd0@Object@fn_001d8cd0@@QAEXXZ @de0e3d8b8f56 @wa1dc620e52b7 @vfc7ad5f503a7
 namespace fn_001d8cd0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_001d8cd0 @ 0x001d8cd0
@@ -1580,7 +1580,7 @@ CSPHulkPropInstance::~CSPHulkPropInstance() {
 
 
 // 0x001d8fc0 FUN_001d8fc0 (4982 B): equivalent/0x001d8fc0.cpp [wrapped: conflict: CSPHulkPropInstance; DAT_004dd700; FUN_001c3d90; FUN_0027b020 (+2)]
-// sym: ?FUN_001d8fc0@CSPHulkPropInstance@fn_001d8fc0@@QAEXM@Z @35fb518564bd @w28c8499f42af
+// sym: ?FUN_001d8fc0@CSPHulkPropInstance@fn_001d8fc0@@QAEXM@Z @35fb518564bd @w28c8499f42af @v0236e03b3b8d
 namespace fn_001d8fc0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3086 inputs, branch coverage 255/270, incomplete; Wine build 3081 inputs, 265/270)
 // FUN_001d8fc0 @ 0x001d8fc0
@@ -2493,7 +2493,7 @@ void CSPHulkPropInstance::FUN_001d8fc0(float dt)
 
 
 // 0x001da350 FUN_001da350 (490 B): equivalent/0x001da350.cpp [wrapped: conflict: World]
-// sym: ?FUN_001da350@Entity@fn_001da350@@QAEDPAVRefCounted_1da350@2@PAURaw3_1da350@2@1I0IIIIII0I@Z @8ddc4c546240 @w7bb8ccdc3c1d
+// sym: ?FUN_001da350@Entity@fn_001da350@@QAEDPAVRefCounted_1da350@2@PAURaw3_1da350@2@1I0IIIIII0I@Z @8ddc4c546240 @w7bb8ccdc3c1d @v9527e3a87525
 namespace fn_001da350 {
 // STATUS: equivalent (tools/equiv.py level 3: 3025 inputs, branch coverage 32/32)
 // FUN_001da350 @ 0x001da350
@@ -3297,7 +3297,7 @@ CSPListener::CSPListener(void* p) {
 
 
 // 0x001db1f0 CSPListener::vfunc_2_adj4 (8 B): equivalent/0x001db1f0.cpp [wrapped: conflict: CSPListener]
-// sym: ?vfunc_2_adj4@CSPListener@fn_001db1f0@@QAEXH@Z @4167a0db4318 @w3a16cd148c31
+// sym: ?vfunc_2_adj4@CSPListener@fn_001db1f0@@QAEXH@Z @4167a0db4318 @w3a16cd148c31 @v63ecc35a3579
 namespace fn_001db1f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 0/0)
 // CSPListener::vfunc_2_adj4 @ 0x001db1f0

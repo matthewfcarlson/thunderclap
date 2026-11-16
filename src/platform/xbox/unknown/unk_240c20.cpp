@@ -119,7 +119,7 @@ void __cdecl FUN_00240e00(float x) {
 
 
 // 0x00240eb0 FUN_00240eb0 (159 B): equivalent/0x00240eb0.cpp
-// sym: _FUN_00240eb0 @8d196f4d9439 @w10880e91369a
+// sym: _FUN_00240eb0 @8d196f4d9439 @w10880e91369a @v8166f513d941
 // STATUS: equivalent (tools/equiv.py level 3: 3004 inputs, branch coverage 0/0)
 // FUN_00240eb0 @ 0x00240eb0
 // FUN_00240eb0 @ 0x00240eb0

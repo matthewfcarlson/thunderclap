@@ -142,7 +142,7 @@ template <> Method2<CEffectManager, int, const char *,math::Vector>::~Method2() 
 
 
 // 0x001f76e0 Method2<CEffectManager,int,const_char_*,math::Vector>::vfunc_2 (58 B): equivalent/0x001f76e0.cpp
-// sym: ?vfunc_2@?$Method2@VCEffectManager@@HPBDVVector@math@@@@UAEXPAX00@Z @bb24390dc870 @w74df6adcba10
+// sym: ?vfunc_2@?$Method2@VCEffectManager@@HPBDVVector@math@@@@UAEXPAX00@Z @bb24390dc870 @w74df6adcba10 @v07a7e475bfbf
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // Method2<CEffectManager,int,const_char_*,math::Vector>::vfunc_2 @ 0x001f76e0
 template <> void Method2<CEffectManager, int, const char *,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { CEffectManager_1f76e0 * manager = (CEffectManager_1f76e0 *)__p0; const EffectArguments * args = (const EffectArguments *)__p1; int * result = (int *)__p2;
@@ -177,7 +177,7 @@ template <> Method3<CEffectManager, int, const char *,math::Vector,math::Vector>
 
 
 // 0x001f77a0 Method3<CEffectManager,int,const_char_*,math::Vector,math::Vector>::vfunc_2 (102 B): equivalent/0x001f77a0.cpp
-// sym: ?vfunc_2@?$Method3@VCEffectManager@@HPBDVVector@math@@V23@@@UAEXPAX00@Z @7ff14e27db80 @w2db63ba4069d
+// sym: ?vfunc_2@?$Method3@VCEffectManager@@HPBDVVector@math@@V23@@@UAEXPAX00@Z @7ff14e27db80 @w2db63ba4069d @v75f96d7ac648
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // Method3<CEffectManager,int,const_char_*,math::Vector,math::Vector>::vfunc_2 @ 0x001f77a0
 template <> void Method3<CEffectManager, int, const char *,math::Vector,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { CEffectManager_1f77a0 * obj = (CEffectManager_1f77a0 *)__p0; Args_1f77a0 * args = (Args_1f77a0 *)__p1; int * result = (int *)__p2;
@@ -199,7 +199,7 @@ template <> Method2<CEffectManager, bool, int,math::Vector>::~Method2() {}
 
 
 // 0x001f7880 Method2<CEffectManager,bool,int,math::Vector>::vfunc_2 (58 B): equivalent/0x001f7880.cpp
-// sym: ?vfunc_2@?$Method2@VCEffectManager@@_NHVVector@math@@@@UAEXPAX00@Z @5070c124e04e @w8cf067245f4c
+// sym: ?vfunc_2@?$Method2@VCEffectManager@@_NHVVector@math@@@@UAEXPAX00@Z @5070c124e04e @w8cf067245f4c @vb292603f0c12
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // Method2<CEffectManager,bool,int,math::Vector>::vfunc_2 @ 0x001f7880
 template <> void Method2<CEffectManager, bool, int,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { CEffectManager_1f7880 * object = (CEffectManager_1f7880 *)__p0; Arguments * args = (Arguments *)__p1; bool * result = (bool *)__p2;
@@ -408,7 +408,7 @@ template class Closure2<CEffectManager, int, const char *,math::Vector>; // (ren
 
 
 // 0x001f7ba0 Closure2<CEffectManager,int,const_char_*,math::Vector>::vfunc_2 (61 B): equivalent/0x001f7ba0.cpp [wrapped: conflict: Arguments; CEffectManager; Closure2]
-// sym: ?vfunc_2@Closure2@fn_001f7ba0@@UAEXPAXPAUArguments@2@PAH@Z @69c5af852677 @w0dfc1d6ccf29
+// sym: ?vfunc_2@Closure2@fn_001f7ba0@@UAEXPAXPAUArguments@2@PAH@Z @69c5af852677 @w0dfc1d6ccf29 @v3f22645da249
 namespace fn_001f7ba0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // Closure2<CEffectManager,int,const_char_*,math::Vector>::vfunc_2 @ 0x001f7ba0
@@ -519,7 +519,7 @@ template class Closure2<CEffectManager, bool, int,math::Vector>; // (ren2) nativ
 
 
 // 0x001f7cc0 Closure2<CEffectManager,bool,int,math::Vector>::vfunc_2 (61 B): equivalent/0x001f7cc0.cpp [wrapped: conflict: CEffectManager; Closure2; EffectArguments]
-// sym: ?vfunc_2@Closure2@fn_001f7cc0@@UAEXPAXPBUEffectArguments@2@PA_N@Z @6c585092a365 @w54271f29a7dd
+// sym: ?vfunc_2@Closure2@fn_001f7cc0@@UAEXPAXPBUEffectArguments@2@PA_N@Z @6c585092a365 @w54271f29a7dd @vdba43968aa56
 namespace fn_001f7cc0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // Closure2<CEffectManager,bool,int,math::Vector>::vfunc_2 @ 0x001f7cc0
@@ -543,7 +543,7 @@ void Closure2::vfunc_2(void *unused, const EffectArguments *args, bool *result) 
 
 
 // 0x001f7d50 Closure3<CEffectManager,unsigned_int,char_*,float,float>::vfunc_2 (54 B): equivalent/0x001f7d50.cpp [wrapped: conflict: Arguments; CEffectManager; Closure3]
-// sym: ?vfunc_2@Closure3@fn_001f7d50@@UAEIPAXPAUArguments@2@PAI@Z @df53f4d6ac4d @w6fd122bfc109
+// sym: ?vfunc_2@Closure3@fn_001f7d50@@UAEIPAXPAUArguments@2@PAI@Z @df53f4d6ac4d @w6fd122bfc109 @vd85dbba5706a
 namespace fn_001f7d50 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // Closure3<CEffectManager,unsigned_int,char_*,float,float>::vfunc_2 @ 0x001f7d50
@@ -687,7 +687,7 @@ template <> void Closure1<CEffectManager, bool, bool>::vfunc_2(void* __p0, void*
 namespace fn_f919337e {
 
 // 0x001f7fa0 FUN_001f7fa0 (83 B): equivalent/0x001f7fa0.cpp
-// sym: ?FUN_001f7fa0@Registry_1f7fa0@fn_f919337e@@QAEXPBDPAVCEffectManager_1f7fa0@2@P832@AEH0VVector_1f7fa0@math@@2@Z@Z @0858e1e010ba @wf8b6059f2ce7
+// sym: ?FUN_001f7fa0@Registry_1f7fa0@fn_f919337e@@QAEXPBDPAVCEffectManager_1f7fa0@2@P832@AEH0VVector_1f7fa0@math@@2@Z@Z @0858e1e010ba @wf8b6059f2ce7 @v055768a63737
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_001f7fa0 @ 0x001f7fa0
 // FUN_001f7fa0 @ 0x001f7fa0  (generated by tools/equiv_gen/reg_helper.py)
@@ -731,7 +731,7 @@ void Registry_1f8000::FUN_001f8000(const char* a1, Owner* a2, Fn_1f8000 a3) {
 namespace fn_f919337e {
 
 // 0x001f8050 FUN_001f8050 (83 B): equivalent/0x001f8050.cpp
-// sym: ?FUN_001f8050@Registry_1f8050@fn_f919337e@@QAEXPBDPAVCEffectManager_1f8050@2@P832@AEIPADMM@Z@Z @b1e64d2555ad @wbd95c126b78c
+// sym: ?FUN_001f8050@Registry_1f8050@fn_f919337e@@QAEXPBDPAVCEffectManager_1f8050@2@P832@AEIPADMM@Z@Z @b1e64d2555ad @wbd95c126b78c @vc08ee44c5acb
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_001f8050 @ 0x001f8050
 // FUN_001f8050 @ 0x001f8050  (generated by tools/equiv_gen/reg_helper.py)
@@ -750,7 +750,7 @@ void Registry_1f8050::FUN_001f8050(const char* a1, CEffectManager_1f8050* a2, Fn
 } // namespace fn_f919337e
 
 // 0x001f80b0 FUN_001f80b0 (109 B): equivalent/0x001f80b0.cpp [wrapped: conflict: CEffectManager; Closure0; Method0]
-// sym: ?FUN_001f80b0@Registry_1f80b0@fn_001f80b0@@QAEXPBDPAVCEffectManager@2@P832@AEMXZ@Z @ce4cd83c9d05 @w3266886c35f8
+// sym: ?FUN_001f80b0@Registry_1f80b0@fn_001f80b0@@QAEXPBDPAVCEffectManager@2@P832@AEMXZ@Z @ce4cd83c9d05 @w3266886c35f8 @v658cc91c1c27
 namespace fn_001f80b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_001f80b0 @ 0x001f80b0
@@ -835,7 +835,7 @@ void Registry_1f80b0::FUN_001f80b0(const char* name, CEffectManager* owner, floa
 
 
 // 0x001f81c0 FUN_001f81c0 (776 B): equivalent/0x001f81c0.cpp [wrapped: conflict: CEffectManager; Closure1; Function; Function2 (+2)]
-// sym: ?FUN_001f81c0@CEffectManager@fn_001f81c0@@QAEXXZ @ec6b6e1e6640 @w4c1669df197d
+// sym: ?FUN_001f81c0@CEffectManager@fn_001f81c0@@QAEXXZ @ec6b6e1e6640 @w4c1669df197d @vf80557ece0cf
 namespace fn_001f81c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 18/18)
 // FUN_001f81c0 @ 0x001f81c0

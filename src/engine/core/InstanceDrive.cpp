@@ -334,7 +334,7 @@ void InstanceDrive::F0() {
 } // namespace fn_ff53bcc9
 
 // 0x00276720 core::InstanceDrive::vfunc_1 (127 B): equivalent/0x00276720.cpp [wrapped: conflict: core::InstanceDrive]
-// sym: ?vfunc_1@InstanceDrive@core@fn_00276720@@UAEXXZ @80dc47ba07f9 @w6abf63025fd0
+// sym: ?vfunc_1@InstanceDrive@core@fn_00276720@@UAEXXZ @80dc47ba07f9 @w6abf63025fd0 @ve5abbe65ecf0
 namespace fn_00276720 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // core::InstanceDrive::vfunc_1 @ 0x00276720
@@ -502,7 +502,7 @@ void core::InstanceDrive::vfunc_3() {
 
 
 // 0x002767d0 core::InstanceDrive::vfunc_4 (69 B): equivalent/0x002767d0.cpp [wrapped: conflict: FUN_00273560; core::InstanceDrive]
-// sym: ?vfunc_4@InstanceDrive@core@fn_002767d0@@UAEII@Z @3855712a99df @w5b59a447f3c2
+// sym: ?vfunc_4@InstanceDrive@core@fn_002767d0@@UAEII@Z @3855712a99df @w5b59a447f3c2 @v8735dd9b9f94
 namespace fn_002767d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // core::InstanceDrive::vfunc_4 @ 0x002767d0
@@ -568,7 +568,7 @@ int core::InstanceDrive::vfunc_5() {
 
 
 // 0x00276860 core::InstanceDrive::vfunc_6 (135 B): equivalent/0x00276860.cpp [wrapped: conflict: FUN_00273560; core::InstanceDrive]
-// sym: ?vfunc_6@InstanceDrive@core@fn_00276860@@UAEXPBD@Z @190f06a65848 @w6c7209a84f4c
+// sym: ?vfunc_6@InstanceDrive@core@fn_00276860@@UAEXPBD@Z @190f06a65848 @w6c7209a84f4c @v76b3624bec0f
 namespace fn_00276860 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // core::InstanceDrive::vfunc_6 @ 0x00276860
@@ -604,7 +604,7 @@ void InstanceDrive::vfunc_6(const char* input) {
 
 
 // 0x002768f0 core::InstanceDrive::vfunc_7 (135 B): equivalent/0x002768f0.cpp [wrapped: conflict: core::InstanceDrive]
-// sym: ?vfunc_7@InstanceDrive@core@fn_002768f0@@QAEHPBD@Z @c4ff4ce8dfc9 @we8cbbb333265
+// sym: ?vfunc_7@InstanceDrive@core@fn_002768f0@@QAEHPBD@Z @c4ff4ce8dfc9 @we8cbbb333265 @vb3a011e5b829
 namespace fn_002768f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // core::InstanceDrive::vfunc_7 @ 0x002768f0
@@ -650,7 +650,7 @@ void InstanceDrive::vfunc_8(const char* p2, int p3) {
 } // namespace fn_ff53bcc9
 
 // 0x00276a20 core::InstanceDrive::vfunc_9 (69 B): equivalent/0x00276a20.cpp [wrapped: conflict: core::InstanceDrive]
-// sym: ?vfunc_9@InstanceDrive@core@fn_00276a20@@QAEII@Z @c5f07056321c @w92c042a1ee2e
+// sym: ?vfunc_9@InstanceDrive@core@fn_00276a20@@QAEII@Z @c5f07056321c @w92c042a1ee2e @ve34b82215373
 namespace fn_00276a20 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // core::InstanceDrive::vfunc_9 @ 0x00276a20
@@ -678,7 +678,7 @@ unsigned int InstanceDrive::vfunc_9(unsigned int arg) {
 
 
 // 0x00276a70 core::InstanceDrive::vfunc_10 (138 B): equivalent/0x00276a70.cpp [wrapped: conflict: core::InstanceDrive]
-// sym: ?vfunc_10@InstanceDrive@core@fn_00276a70@@UAEIPBD@Z @479b855080bd @w103c8f8ada10
+// sym: ?vfunc_10@InstanceDrive@core@fn_00276a70@@UAEIPBD@Z @479b855080bd @w103c8f8ada10 @v5650fdc79208
 namespace fn_00276a70 {
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 4/4)
 // core::InstanceDrive::vfunc_10 @ 0x00276a70
@@ -797,7 +797,7 @@ int InstanceDrive::vfunc_18() {
 
 
 // 0x00276c10 core::InstanceDrive::vfunc_19 (85 B): equivalent/0x00276c10.cpp [wrapped: conflict: core::InstanceDrive]
-// sym: ?vfunc_19@InstanceDrive@core@fn_00276c10@@QAEIII@Z @94385131cbcd @we47d2e2b1f6f
+// sym: ?vfunc_19@InstanceDrive@core@fn_00276c10@@QAEIII@Z @94385131cbcd @we47d2e2b1f6f @v45ee45ce242c
 namespace fn_00276c10 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // core::InstanceDrive::vfunc_19 @ 0x00276c10
@@ -825,7 +825,7 @@ unsigned InstanceDrive::vfunc_19(unsigned a, unsigned b) {
 
 
 // 0x00276c70 core::InstanceDrive::vfunc_20 (72 B): equivalent/0x00276c70.cpp [wrapped: conflict: core::InstanceDrive]
-// sym: ?vfunc_20@InstanceDrive@core@fn_00276c70@@QAEII@Z @521ff26c692a @w71bb2b74036b
+// sym: ?vfunc_20@InstanceDrive@core@fn_00276c70@@QAEII@Z @521ff26c692a @w71bb2b74036b @v3879efc9dd9f
 namespace fn_00276c70 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // core::InstanceDrive::vfunc_20 @ 0x00276c70
@@ -1051,7 +1051,7 @@ bool core::InstanceDrive::vfunc_32(unsigned int* a0, unsigned int* a1) {
 
 
 // 0x00276df0 core::InstanceDrive::vfunc_33 (203 B): equivalent/0x00276df0.cpp [wrapped: conflict: core::InstanceDrive]
-// sym: ?vfunc_33@InstanceDrive@core@fn_00276df0@@QAEPAUCreated_276df0@3@PAPAU43@PBDIIIIII@Z @363e27a14f13 @w4245767e7c33
+// sym: ?vfunc_33@InstanceDrive@core@fn_00276df0@@QAEPAUCreated_276df0@3@PAPAU43@PBDIIIIII@Z @363e27a14f13 @w4245767e7c33 @v38e510ecba2f
 namespace fn_00276df0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20008 inputs, branch coverage 4/4)
 // core::InstanceDrive::vfunc_33 @ 0x00276df0
@@ -1090,7 +1090,7 @@ void InstanceDrive_276ec0::f34(int* p, int a, int b, int c, int d, int e, int f,
 } // namespace fn_ff53bcc9
 
 // 0x00276f00 core::InstanceDrive::vfunc_35 (193 B): equivalent/0x00276f00.cpp [wrapped: conflict: FUN_00275d50; core::InstanceDrive]
-// sym: ?vfunc_35@InstanceDrive@core@fn_00276f00@@QAEPAUFile_276f00@3@PAPAU43@PBDIIIII@Z @719987e34b7d @w91cc8d0b6421
+// sym: ?vfunc_35@InstanceDrive@core@fn_00276f00@@QAEPAUFile_276f00@3@PAPAU43@PBDIIIII@Z @719987e34b7d @w91cc8d0b6421 @v9b6f60a357ae
 namespace fn_00276f00 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // core::InstanceDrive::vfunc_35 @ 0x00276f00

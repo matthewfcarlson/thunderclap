@@ -463,7 +463,7 @@ hulk_intptr hulkfight::motion::FireProjectileTrack::vfunc_0(int index) {
 
 
 // 0x00193c90 FUN_00193c90 (228 B): equivalent/0x00193c90.cpp [wrapped: conflict: hulkfight::motion::FireProjectileTrack]
-// sym: ?FUN_00193c90@FireProjectileTrack@motion@hulkfight@fn_00193c90@@QAEPAV1234@XZ @9b72c201c4c4 @w08a93b1aa6cc
+// sym: ?FUN_00193c90@FireProjectileTrack@motion@hulkfight@fn_00193c90@@QAEPAV1234@XZ @9b72c201c4c4 @w08a93b1aa6cc @v52269dbcf4c5
 inline void *operator new(size_t, void *p) { return p; }
 namespace fn_00193c90 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
@@ -635,7 +635,7 @@ hulk_intptr hulkfight::motion::MissileThrowTrack::vfunc_0(int index) {
 
 
 // 0x00193e20 FUN_00193e20 (102 B): equivalent/0x00193e20.cpp [wrapped: conflict: hulkfight::motion::MissileThrowTrack]
-// sym: ?FUN_00193e20@MissileThrowTrack@motion@hulkfight@fn_00193e20@@QAEPAV1234@XZ @8a252dad3de3 @w9f463766bea0
+// sym: ?FUN_00193e20@MissileThrowTrack@motion@hulkfight@fn_00193e20@@QAEPAV1234@XZ @8a252dad3de3 @w9f463766bea0 @ve28920c27c83
 namespace fn_00193e20 {
 // STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 0/0)
 // FUN_00193e20 @ 0x00193e20
@@ -835,7 +835,7 @@ hulk_intptr hulkfight::motion::FireBeamTrack::vfunc_0(int index) {
 
 
 // 0x00194030 FUN_00194030 (433 B): equivalent/0x00194030.cpp [wrapped: conflict: hulkfight::motion::FireBeamTrack]
-// sym: ?FUN_00194030@FireBeamTrack@motion@hulkfight@fn_00194030@@QAEPAV1234@XZ @b7d9b91c10c0 @w9c0682921966
+// sym: ?FUN_00194030@FireBeamTrack@motion@hulkfight@fn_00194030@@QAEPAV1234@XZ @b7d9b91c10c0 @w9c0682921966 @v8c3ca6aa6118
 namespace fn_00194030 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00194030 @ 0x00194030
@@ -1039,7 +1039,7 @@ hulk_intptr hulkfight::motion::FireMissileTrack::vfunc_0(int index) {
 
 
 // 0x00194290 FUN_00194290 (480 B): equivalent/0x00194290.cpp [wrapped: conflict: hulkfight::motion::FireMissileTrack]
-// sym: ??0FireMissileTrack@motion@hulkfight@fn_00194290@@QAE@XZ @88e24418ddf7 @w71f2714a0192
+// sym: ??0FireMissileTrack@motion@hulkfight@fn_00194290@@QAE@XZ @88e24418ddf7 @w71f2714a0192 @v3f2b0252578d
 namespace fn_00194290 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00194290 @ 0x00194290
@@ -1206,7 +1206,7 @@ FireMissileTrack_194490::~FireMissileTrack_194490() throw() {
 } // namespace fn_fc8c1e47
 
 // 0x00194510 FUN_00194510 (97 B): equivalent/0x00194510.cpp
-// sym: ?FUN_00194510@Object_194510@owners@@QAEEPBD@Z @b0ce0be62dac @wb2dca91d21d9
+// sym: ?FUN_00194510@Object_194510@owners@@QAEEPBD@Z @b0ce0be62dac @wb2dca91d21d9 @vad63659aaf92
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_00194510 @ 0x00194510
 unsigned char owners::Object_194510::FUN_00194510(const char* value) {
@@ -1241,7 +1241,7 @@ hulk_intptr hulkfight::motion::FireGroundShockwaveTrack::vfunc_0(int index) {
 
 
 // 0x001945b0 FUN_001945b0 (220 B): equivalent/0x001945b0.cpp [wrapped: conflict: hulkfight::motion::FireGroundShockwaveTrack]
-// sym: ??0FireGroundShockwaveTrack@motion@hulkfight@fn_001945b0@@QAE@XZ @5eb66809a769 @w463216ddaac1
+// sym: ??0FireGroundShockwaveTrack@motion@hulkfight@fn_001945b0@@QAE@XZ @5eb66809a769 @w463216ddaac1 @v17cafb17c52a
 namespace fn_001945b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_001945b0 @ 0x001945b0
@@ -1369,7 +1369,7 @@ void owners::C_194720::FUN_00194720(int* p) {
 namespace fn_fc8c1e47 {
 
 // 0x001947a0 FUN_001947a0 (505 B): equivalent/0x001947a0.cpp
-// sym: _FUN_001947a0 @ac654a4fa39f @wa374d29a513f
+// sym: _FUN_001947a0 @ac654a4fa39f @wa374d29a513f @v777249e2421e
 // STATUS: equivalent (tools/equiv.py level 3: 94 inputs, branch coverage 16/16)
 // FUN_001947a0 @ 0x001947a0
 // Random walk step: the position arrives in esi, the walker and the step size on the stack.
@@ -1447,7 +1447,7 @@ extern "C" void FUN_001947a0(Vec3_1947a0* pos, Wanderer* w, float step)
 } // namespace fn_fc8c1e47
 
 // 0x001949d0 hulkfight::motion::PropGrabbableIsMissileCondition::vfunc_6 (235 B): equivalent/0x001949d0.cpp [wrapped: conflict: hulkfight::motion::PropGrabbableIsMissileCondition]
-// sym: ?vfunc_6@PropGrabbableIsMissileCondition@motion@hulkfight@fn_001949d0@@UAE_NPAXPAUActor_1949d0@4@0@Z @57a1735bd23a @we6e1448a13e2
+// sym: ?vfunc_6@PropGrabbableIsMissileCondition@motion@hulkfight@fn_001949d0@@UAE_NPAXPAUActor_1949d0@4@0@Z @57a1735bd23a @we6e1448a13e2 @vee65d9ab67f8
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)
@@ -1618,7 +1618,7 @@ bool PropIsMissileCondition::vfunc_6(void*, Actor_194ac0* actor, void*) {
 
 
 // 0x00194ba0 hulkfight::motion::ProjectileMissile::vfunc_5 (21 B): equivalent/0x00194ba0.cpp [wrapped: conflict: World; hulkfight::motion::ProjectileMissile]
-// sym: ?vfunc_5@ProjectileMissile@motion@hulkfight@fn_00194ba0@@QAEXXZ @b1b849f3e649 @w9272e9b79d5d
+// sym: ?vfunc_5@ProjectileMissile@motion@hulkfight@fn_00194ba0@@QAEXXZ @b1b849f3e649 @w9272e9b79d5d @v80b281305ea3
 namespace fn_00194ba0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // hulkfight::motion::ProjectileMissile::vfunc_5 @ 0x00194ba0
@@ -1669,7 +1669,7 @@ void ProjectileMissile::vfunc_5() {
 
 
 // 0x00194bd0 hulkfight::motion::AccuracyLatencyAction::vfunc_3 (217 B): equivalent/0x00194bd0.cpp [wrapped: conflict: World; hulkfight::motion::AccuracyLatencyAction]
-// sym: ?vfunc_3@AccuracyLatencyAction@motion@hulkfight@fn_00194bd0@@UAE_NIM@Z @2b1a4ac7d0e0 @w852e8173baaf
+// sym: ?vfunc_3@AccuracyLatencyAction@motion@hulkfight@fn_00194bd0@@UAE_NIM@Z @2b1a4ac7d0e0 @w852e8173baaf @v6d1ae7151dca
 namespace fn_00194bd0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 16/16)
 // hulkfight::motion::AccuracyLatencyAction::vfunc_3 @ 0x00194bd0
@@ -1745,7 +1745,7 @@ bool AccuracyLatencyAction::vfunc_3(unsigned unused, float t) {
 
 
 // 0x00194cb0 hulkfight::motion::AccuracyLatencyAction::vfunc_4 (129 B): equivalent/0x00194cb0.cpp
-// sym: ?vfunc_4@AccuracyLatencyAction@motion@hulkfight@@UAEXXZ @8b456efe7435 @w97720cfd2788
+// sym: ?vfunc_4@AccuracyLatencyAction@motion@hulkfight@@UAEXXZ @8b456efe7435 @w97720cfd2788 @v2f78a22f0f0a
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 6/6)
 // hulkfight::motion::AccuracyLatencyAction::vfunc_4 @ 0x00194cb0
 void hulkfight::motion::AccuracyLatencyAction::vfunc_4() {

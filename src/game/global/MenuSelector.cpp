@@ -137,7 +137,7 @@ class MenuSelector {
 
 
 // 0x000ebb90 FUN_000ebb90 (260 B): equivalent/0x000ebb90.cpp
-// sym: ??0TextSelector@fn_f9e7f90b@@QAE@HPBD@Z @d76da6feb917 @wbbf2c5de717d
+// sym: ??0TextSelector@fn_f9e7f90b@@QAE@HPBD@Z @d76da6feb917 @wbbf2c5de717d @v52d198baf006
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_000ebb90 @ 0x000ebb90
 TextSelector::TextSelector(int arg,const char* name) : FUN_000e9240(arg) {
@@ -226,7 +226,7 @@ void Owner_ebdd0::Set(Thing_ebdd0* p) {
 
 
 // 0x000ebe00 FUN_000ebe00 (232 B): equivalent/0x000ebe00.cpp
-// sym: ?FUN_000ebe00@Object@fn_f9e7f90b@@QAEXPAU12@@Z @1cbe6566f1c6 @w177c0f27924f
+// sym: ?FUN_000ebe00@Object@fn_f9e7f90b@@QAEXPAU12@@Z @1cbe6566f1c6 @w177c0f27924f @v0823961f39d1
 // STATUS: equivalent (tools/equiv.py level 3: 749 inputs, branch coverage 4/4)
 // FUN_000ebe00 @ 0x000ebe00
 void Object::FUN_000ebe00(Object* src) {

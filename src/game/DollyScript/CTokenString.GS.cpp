@@ -72,7 +72,7 @@ struct Frame_faf80 {
 
 
 // 0x000fa4b0 FUN_000fa4b0 (231 B): equivalent/0x000fa4b0.cpp
-// sym: ?FUN_000fa4b0@fn_f5b5e0ac@@YGPAUCRawScript@DollyScript@1@PBD@Z @ddacf92fd5c6 @w56b47ac57895
+// sym: ?FUN_000fa4b0@fn_f5b5e0ac@@YGPAUCRawScript@DollyScript@1@PBD@Z @ddacf92fd5c6 @w56b47ac57895 @vf7699a5a6d0c
 // STATUS: equivalent (tools/equiv.py level 3: 16204 inputs, branch coverage 4/4)
 // FUN_000fa4b0 @ 0x000fa4b0
 DollyScript::CRawScript* __stdcall FUN_000fa4b0(const char* name) {
@@ -91,7 +91,7 @@ DollyScript::CRawScript* __stdcall FUN_000fa4b0(const char* name) {
 
 
 // 0x000faf80 FUN_000faf80 (399 B): equivalent/0x000faf80.cpp
-// sym: ?FUN_000faf80@Script_faf80@fn_f5b5e0ac@@QAEPAUHead_faf80@2@PAVLines@2@@Z @621bd5b4d1ba @w272319c00128
+// sym: ?FUN_000faf80@Script_faf80@fn_f5b5e0ac@@QAEPAUHead_faf80@2@PAVLines@2@@Z @621bd5b4d1ba @w272319c00128 @ve2ecaef221d9
 // STATUS: equivalent (tools/equiv.py level 3: 16169 inputs, branch coverage 27/27)
 // FUN_000faf80 @ 0x000faf80
 Head_faf80 *Script_faf80::FUN_000faf80(Lines *lines)

@@ -601,7 +601,7 @@ public:
 
 
 // 0x002e1960 FUN_002e1960 (2315 B): equivalent/0x002e1960.cpp
-// sym: ?Load@Hdr_2e1960@fn_fcb4ee90@@QAEXHPAUReader@2@HPAVPalList_2e1960@2@PAI@Z @c0ddd16ec73d @w1f5ecd418e3a
+// sym: ?Load@Hdr_2e1960@fn_fcb4ee90@@QAEXHPAUReader@2@HPAVPalList_2e1960@2@PAI@Z @c0ddd16ec73d @w1f5ecd418e3a @v76a984aa9f5f
 // STATUS: equivalent (tools/equiv.py level 3: 2161 inputs, branch coverage 134/134)
 // FUN_002e1960 @ 0x002e1960
 // equiv-map: ??0PrimGroupBase@@QAE@XZ = 0x002a5060
@@ -1143,7 +1143,7 @@ void PrimLoader::FUN_002e2a70(int a1, Slot2 a2, int a3, RefObj_2e2a70 *a4, Slot5
 } // namespace fn_fcb4ee90
 
 // 0x002e30f0 FUN_002e30f0 (2657 B): equivalent/0x002e30f0.cpp [wrapped: conflict: Gfx; PrimGroup; pure3d::MatrixPaletteList]
-// sym: ?Load@Hdr@fn_002e30f0@@QAEXHPAVReader@2@HPAVPalList_2e30f0@2@@Z @1cb189e2b0c6 @w1ada80326604
+// sym: ?Load@Hdr@fn_002e30f0@@QAEXHPAVReader@2@HPAVPalList_2e30f0@2@@Z @1cb189e2b0c6 @w1ada80326604 @v4229904c618d
 namespace fn_002e30f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2774 inputs, branch coverage 116/126, incomplete)
 // FUN_002e30f0 @ 0x002e30f0
@@ -1811,7 +1811,7 @@ void Hdr::Load(int a1, Reader *R, int a3, PalList_2e30f0 *a4)
 
 
 // 0x002e3bd0 FUN_002e3bd0 (1657 B): equivalent/0x002e3bd0.cpp [wrapped: using-directive]
-// sym: ?FUN_002e3bd0@Loader@fn_002e3bd0@@QAEXTSlot1@2@TSlot2@2@HPAUPalSrc@2@@Z @40b947a5bd8f @w2d702a468345
+// sym: ?FUN_002e3bd0@Loader@fn_002e3bd0@@QAEXTSlot1@2@TSlot2@2@HPAUPalSrc@2@@Z @40b947a5bd8f @w2d702a468345 @vb11392e2b212
 namespace fn_002e3bd0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2765 inputs, branch coverage 118/118)
 // FUN_002e3bd0 @ 0x002e3bd0
@@ -2335,7 +2335,7 @@ void Loader::FUN_002e3bd0(Slot1 a1, Slot2 a2, int a3, PalSrc *a4)
 namespace fn_fcb4ee90 {
 
 // 0x002e49a0 FUN_002e49a0 (545 B): equivalent/0x002e49a0.cpp
-// sym: ?FUN_002e49a0@ShaderLoader@fn_fcb4ee90@@QAEDPAUStream@2@PAVLoadContext_2e49a0@2@@Z @00bfc8c126b8 @w3f69425a3527
+// sym: ?FUN_002e49a0@ShaderLoader@fn_fcb4ee90@@QAEDPAUStream@2@PAVLoadContext_2e49a0@2@@Z @00bfc8c126b8 @w3f69425a3527 @ve03b1bea7af6
 // STATUS: equivalent (tools/equiv.py level 3: 91 inputs, branch coverage 12/12)
 // FUN_002e49a0 @ 0x002e49a0
 char ShaderLoader::FUN_002e49a0(Stream *s, LoadContext_2e49a0 *ctx)
@@ -2392,7 +2392,7 @@ char ShaderLoader::FUN_002e49a0(Stream *s, LoadContext_2e49a0 *ctx)
 } // namespace fn_fcb4ee90
 
 // 0x002e4bd0 FUN_002e4bd0 (413 B): equivalent/0x002e4bd0.cpp [wrapped: conflict: ShaderLoader]
-// sym: ?FUN_002e4bd0@ShaderLoader@fn_002e4bd0@@QAEDPAUStream@2@PAVLoadContext_2e4bd0@2@@Z @dc6d7427eb9e @wcabe63468199
+// sym: ?FUN_002e4bd0@ShaderLoader@fn_002e4bd0@@QAEDPAUStream@2@PAVLoadContext_2e4bd0@2@@Z @dc6d7427eb9e @wcabe63468199 @v7d92b90bf338
 namespace fn_002e4bd0 {
 // STATUS: equivalent (tools/equiv.py level 3: 81 inputs, branch coverage 8/8)
 // FUN_002e4bd0 @ 0x002e4bd0
@@ -2543,7 +2543,7 @@ char ShaderLoader::FUN_002e4bd0(Stream *s, LoadContext_2e4bd0 *ctx)
 namespace fn_fcb4ee90 {
 
 // 0x002e4d70 FUN_002e4d70 (144 B): equivalent/0x002e4d70.cpp
-// sym: ?FUN_002e4d70@Dispatcher_2e4d70@fn_fcb4ee90@@QAEXHHHHDH@Z @319dae267db2 @w73359ff32803
+// sym: ?FUN_002e4d70@Dispatcher_2e4d70@fn_fcb4ee90@@QAEXHHHHDH@Z @319dae267db2 @w73359ff32803 @v51287a5c0c25
 // STATUS: equivalent (tools/equiv.py level 3: 3004 inputs, branch coverage 12/12)
 // FUN_002e4d70 @ 0x002e4d70
 void Dispatcher_2e4d70::FUN_002e4d70(int a, int b, int c, int d, char direct, int e) {
@@ -2561,7 +2561,7 @@ void Dispatcher_2e4d70::FUN_002e4d70(int a, int b, int c, int d, char direct, in
 
 
 // 0x002e4e00 FUN_002e4e00 (83 B): equivalent/0x002e4e00.cpp
-// sym: ?FUN_002e4e00@Controller@fn_fcb4ee90@@QAEXHHHHD@Z @ebb791c67697 @wbf79a91a5c8d
+// sym: ?FUN_002e4e00@Controller@fn_fcb4ee90@@QAEXHHHHD@Z @ebb791c67697 @wbf79a91a5c8d @v0a5c5c0ee0f1
 // STATUS: equivalent (tools/equiv.py level 3: 3004 inputs, branch coverage 6/6)
 // FUN_002e4e00 @ 0x002e4e00
 void Controller::FUN_002e4e00(int first, int second, int third, int fourth, char flag) {

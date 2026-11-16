@@ -937,7 +937,7 @@ template class Method2<CActorManager, void, const char *,math::Vector>; // (ren2
 
 
 // 0x0002c5b0 Method2<CActorManager,void,const_char_*,math::Vector>::vfunc_2 (48 B): equivalent/0x0002c5b0.cpp [wrapped: conflict: Args; CActorManager; Function; Method2]
-// sym: ?vfunc_2@Method2@fn_0002c5b0@@UAEXPAUCActorManager@2@PBXH@Z @db11992ea1ff @w53dc8781dea7
+// sym: ?vfunc_2@Method2@fn_0002c5b0@@UAEXPAUCActorManager@2@PBXH@Z @db11992ea1ff @w53dc8781dea7 @v88007a9e27e9
 namespace fn_0002c5b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // Method2<CActorManager,void,const_char_*,math::Vector>::vfunc_2 @ 0x0002c5b0
@@ -1175,7 +1175,7 @@ template <> Method3<CActorManager, void, const char *, float, bool>::~Method3() 
 
 
 // 0x0002c890 Method3<CActorManager,void,const_char_*,float,bool>::vfunc_2 (31 B): equivalent/0x0002c890.cpp
-// sym: ?vfunc_2@?$Method3@UCActorManager@@XPBDM_N@@UAEXPAX00@Z @086ee6cd29ba @wc99d4108e717
+// sym: ?vfunc_2@?$Method3@UCActorManager@@XPBDM_N@@UAEXPAX00@Z @086ee6cd29ba @wc99d4108e717 @vc800b2dac207
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Method3<CActorManager,void,const_char_*,float,bool>::vfunc_2 @ 0x0002c890
 template <> void Method3<CActorManager, void, const char *, float, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_2c890 * actor = (CActorManager_2c890 *)__p0; const CallArguments * arguments = (const CallArguments *)__p1; hulk_intptr unused = (hulk_intptr)__p2;
@@ -1228,7 +1228,7 @@ template class Method3<CActorManager, void, const char *, float, const char *>; 
 
 
 // 0x0002c930 Method3<CActorManager,void,const_char_*,float,const_char_*>::vfunc_2 (29 B): equivalent/0x0002c930.cpp [wrapped: conflict: Function; Method3]
-// sym: ?vfunc_2@Method3@fn_0002c930@@UAEXPAUCActorManager@2@PBUArgs@2@PAX@Z @a7a6d240b96d @wba0c35a5e91c
+// sym: ?vfunc_2@Method3@fn_0002c930@@UAEXPAUCActorManager@2@PBUArgs@2@PAX@Z @a7a6d240b96d @wba0c35a5e91c @v1a3fdee4cbdb
 namespace fn_0002c930 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // Method3<CActorManager,void,const_char_*,float,const_char_*>::vfunc_2 @ 0x0002c930
@@ -1432,7 +1432,7 @@ template class Method7<CActorManager, bool, const char *,math::Vector, float, co
 namespace fn_f8e68f21 {
 
 // 0x0002cc30 FUN_0002cc30 (121 B): equivalent/0x0002cc30.cpp
-// sym: ?FUN_0002cc30@fn_f8e68f21@@YAXPAVTarget_2cc30@1@TBlockArg@1@PAEP821@AEEHUTriple_2cc30@1@HHHIH@Z@Z @9a48b591be50 @w0a09c09b7ece
+// sym: ?FUN_0002cc30@fn_f8e68f21@@YAXPAVTarget_2cc30@1@TBlockArg@1@PAEP821@AEEHUTriple_2cc30@1@HHHIH@Z@Z @9a48b591be50 @w0a09c09b7ece @v4ab13edf67ee
 // STATUS: equivalent (tools/equiv.py level 3: 2975 inputs, branch coverage 2/2)
 // FUN_0002cc30 @ 0x0002cc30
 void FUN_0002cc30(Target_2cc30* self, BlockArg arg, unsigned char* out, Fn_2cc30 fn) {
@@ -1651,7 +1651,7 @@ template class Method1<CActorManager,math::Vector, const char *>; // (ren2) nati
 
 
 // 0x0002d160 Method1<CActorManager,math::Vector,const_char_*>::vfunc_2 (69 B): equivalent/0x0002d160.cpp [wrapped: conflict: CActorManager; Method1]
-// sym: ?vfunc_2@Method1@fn_0002d160@@UAEXPAUCActorManager@2@PAPBDPAUVector@2@@Z @97077a2a52c1 @we0844cc63fd1
+// sym: ?vfunc_2@Method1@fn_0002d160@@UAEXPAUCActorManager@2@PAPBDPAUVector@2@@Z @97077a2a52c1 @we0844cc63fd1 @vad0302af9643
 namespace fn_0002d160 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // Method1<CActorManager,math::Vector,const_char_*>::vfunc_2 @ 0x0002d160
@@ -1778,7 +1778,7 @@ template class Method7<CActorManager, void, const char *, float, float, float, f
 
 
 // 0x0002d440 FUN_0002d440 (88 B): equivalent/0x0002d440.cpp [wrapped: conflict: Args]
-// sym: ?FUN_0002d440@fn_0002d440@@YAXPAUCallbackObj@1@PBUArgs@1@IP6IX0IIIIIIII@Z@Z @9876e944addb @w113adbc320f0
+// sym: ?FUN_0002d440@fn_0002d440@@YAXPAUCallbackObj@1@PBUArgs@1@IP6IX0IIIIIIII@Z@Z @9876e944addb @w113adbc320f0 @vd42a5e4ccfa8
 namespace fn_0002d440 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0002d440 @ 0x0002d440
@@ -1998,7 +1998,7 @@ template class Method4<CActorManager, void, const char *, float, float, float>; 
 
 
 // 0x0002d8c0 Method4<CActorManager,void,const_char_*,float,float,float>::vfunc_2 (46 B): equivalent/0x0002d8c0.cpp [wrapped: conflict: CActorManager; Method4]
-// sym: ?target@Method4@fn_0002d8c0@@QAEXPAUCActorManager@2@PBII@Z @06f2e20faa8a @w509fe939fc52
+// sym: ?target@Method4@fn_0002d8c0@@QAEXPAUCActorManager@2@PBII@Z @06f2e20faa8a @w509fe939fc52 @vbd1f93283298
 namespace fn_0002d8c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // Method4<CActorManager,void,const_char_*,float,float,float>::vfunc_2 @ 0x0002d8c0
@@ -2194,7 +2194,7 @@ template class Method3<CActorManager, void, const char *, float, float>; // (ren
 
 
 // 0x0002dba0 Method3<CActorManager,void,const_char_*,float,float>::vfunc_2 (29 B): equivalent/0x0002dba0.cpp [wrapped: conflict: CActorManager; Function; Method3]
-// sym: ?vfunc_2@Method3@fn_0002dba0@@UAEXPAUCActorManager@2@PAUActorArgs@2@PAX@Z @a7a6d240b96d @w05a13dc0adbf
+// sym: ?vfunc_2@Method3@fn_0002dba0@@UAEXPAUCActorManager@2@PAUActorArgs@2@PAX@Z @a7a6d240b96d @w05a13dc0adbf @v2ae709d51bb9
 namespace fn_0002dba0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // Method3<CActorManager,void,const_char_*,float,float>::vfunc_2 @ 0x0002dba0
@@ -2285,7 +2285,7 @@ template class Method3<CActorManager, void, const char *, const char *, float>; 
 
 
 // 0x0002dce0 Method3<CActorManager,void,const_char_*,const_char_*,float>::vfunc_2 (29 B): equivalent/0x0002dce0.cpp [wrapped: conflict: Function; Method3]
-// sym: ?vfunc_2@Method3@fn_0002dce0@@UAEXPAUCActorManager@2@PBUActorArguments@2@PAX@Z @a7a6d240b96d @w69b19def5989
+// sym: ?vfunc_2@Method3@fn_0002dce0@@UAEXPAUCActorManager@2@PBUActorArguments@2@PAX@Z @a7a6d240b96d @w69b19def5989 @vce1aa13659a5
 namespace fn_0002dce0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // Method3<CActorManager,void,const_char_*,const_char_*,float>::vfunc_2 @ 0x0002dce0
@@ -2331,7 +2331,7 @@ template class Method4<CActorManager, void, const char *, const char *, float, f
 
 
 // 0x0002dd90 Method4<CActorManager,void,const_char_*,const_char_*,float,float>::vfunc_2 (40 B): equivalent/0x0002dd90.cpp [wrapped: conflict: Method4]
-// sym: ?vfunc_2@Method4@fn_0002dd90@@UAEXPAUCActorManager@2@PBUArguments@2@PAX@Z @06f2e20faa8a @wf51ff9f09ecf
+// sym: ?vfunc_2@Method4@fn_0002dd90@@UAEXPAUCActorManager@2@PBUArguments@2@PAX@Z @06f2e20faa8a @wf51ff9f09ecf @vd4705c828a6c
 namespace fn_0002dd90 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // Method4<CActorManager,void,const_char_*,const_char_*,float,float>::vfunc_2 @ 0x0002dd90
@@ -2525,7 +2525,7 @@ template <> Method2<CActorManager,math::Vector,math::Vector, float>::~Method2() 
 
 
 // 0x0002e120 Method2<CActorManager,math::Vector,math::Vector,float>::vfunc_2 (106 B): equivalent/0x0002e120.cpp
-// sym: ?vfunc_2@?$Method2@UCActorManager@@VVector@math@@V23@M@@UAEXPAX00@Z @ffc0ee1e1efd @w466ac40d7f4e
+// sym: ?vfunc_2@?$Method2@UCActorManager@@VVector@math@@V23@M@@UAEXPAX00@Z @ffc0ee1e1efd @w466ac40d7f4e @v5919d840c7b9
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // Method2<CActorManager,math::Vector,math::Vector,float>::vfunc_2 @ 0x0002e120
 template <> void Method2<CActorManager,math::Vector,math::Vector, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_2e120 * owner = (CActorManager_2e120 *)__p0; CallParams * params = (CallParams *)__p1; Vector_2e120 * out = (Vector_2e120 *)__p2;
@@ -2605,7 +2605,7 @@ template class Method3<CActorManager, void, int, int, int>; // (ren2) native onl
 
 
 // 0x0002e330 Method3<CActorManager,void,int,int,int>::vfunc_2 (29 B): equivalent/0x0002e330.cpp [wrapped: conflict: Args; CActorManager; Function; Method3]
-// sym: ?vfunc_2@Method3@fn_0002e330@@UAEXPAUCActorManager@2@PAUArgs@2@H@Z @a7a6d240b96d @w9b83a8b8e93b
+// sym: ?vfunc_2@Method3@fn_0002e330@@UAEXPAUCActorManager@2@PAUArgs@2@H@Z @a7a6d240b96d @w9b83a8b8e93b @v9377ab55c3de
 namespace fn_0002e330 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // Method3<CActorManager,void,int,int,int>::vfunc_2 @ 0x0002e330
@@ -2695,7 +2695,7 @@ template <> Method3<CActorManager, bool, const char *,math::Vector,math::Vector>
 
 
 // 0x0002e3d0 Method3<CActorManager,bool,const_char_*,math::Vector,math::Vector>::vfunc_2 (102 B): equivalent/0x0002e3d0.cpp
-// sym: ?vfunc_2@?$Method3@UCActorManager@@_NPBDVVector@math@@V23@@@UAEXPAX00@Z @7c392f6af52b @w28fcddcb9c47
+// sym: ?vfunc_2@?$Method3@UCActorManager@@_NPBDVVector@math@@V23@@@UAEXPAX00@Z @7c392f6af52b @w28fcddcb9c47 @v590613ce17bb
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // Method3<CActorManager,bool,const_char_*,math::Vector,math::Vector>::vfunc_2 @ 0x0002e3d0
 template <> void Method3<CActorManager, bool, const char *,math::Vector,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_2e3d0 * owner = (CActorManager_2e3d0 *)__p0; Args_2e3d0 * args = (Args_2e3d0 *)__p1; bool * result = (bool *)__p2;
@@ -2840,7 +2840,7 @@ template class Closure2<CActorManager, void, const char *,math::Vector>; // (ren
 
 
 // 0x0002e620 Closure2<CActorManager,void,const_char_*,math::Vector>::vfunc_2 (47 B): equivalent/0x0002e620.cpp [wrapped: conflict: Arguments; CActorManager; Closure2]
-// sym: ?vfunc_2@Closure2@fn_0002e620@@UAEXPAXPBUArguments@2@0@Z @967618bc6127 @wf30778dea4a0
+// sym: ?vfunc_2@Closure2@fn_0002e620@@UAEXPAXPBUArguments@2@0@Z @967618bc6127 @wf30778dea4a0 @vbaea1d815836
 namespace fn_0002e620 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // Closure2<CActorManager,void,const_char_*,math::Vector>::vfunc_2 @ 0x0002e620
@@ -3625,7 +3625,7 @@ template <> Closure2<CActorManager, bool, const char *, const char *>::~Closure2
 
 
 // 0x0002efc0 Closure2<CActorManager,bool,const_char_*,const_char_*>::vfunc_2 (36 B): equivalent/0x0002efc0.cpp
-// sym: ?vfunc_2@?$Closure2@UCActorManager@@_NPBDPBD@@UAEXPAX00@Z @e654de0dce29 @w4e3d89bebec6
+// sym: ?vfunc_2@?$Closure2@UCActorManager@@_NPBDPBD@@UAEXPAX00@Z @e654de0dce29 @w4e3d89bebec6 @v6da97e962de2
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // Closure2<CActorManager,bool,const_char_*,const_char_*>::vfunc_2 @ 0x0002efc0
 template <> void Closure2<CActorManager, bool, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; const char ** args = (const char **)__p1; bool * result = (bool *)__p2;
@@ -3744,7 +3744,7 @@ template class Closure1<CActorManager,math::Vector, const char *>; // (ren2) nat
 
 
 // 0x0002f100 Closure1<CActorManager,math::Vector,const_char_*>::vfunc_2 (70 B): equivalent/0x0002f100.cpp [wrapped: conflict: CActorManager]
-// sym: ?vfunc_2@Closure@fn_0002f100@@UAEXPAXPAPBDPAUVector@2@@Z @307fff147072 @wb98e40599041
+// sym: ?vfunc_2@Closure@fn_0002f100@@UAEXPAXPAPBDPAUVector@2@@Z @307fff147072 @wb98e40599041 @v79099bdec487
 namespace fn_0002f100 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // Closure1<CActorManager,math::Vector,const_char_*>::vfunc_2 @ 0x0002f100
@@ -3959,7 +3959,7 @@ template class Closure1<CActorManager, const char *,math::Vector>; // (ren2) nat
 
 
 // 0x0002f300 Closure1<CActorManager,const_char_*,math::Vector>::vfunc_2 (52 B): equivalent/0x0002f300.cpp [wrapped: conflict: CActorManager; Closure1]
-// sym: ?vfunc_2@Closure1@fn_0002f300@@UAEXPAXPBUVector@2@PAI@Z @d145a21c7e71 @w810791563e95
+// sym: ?vfunc_2@Closure1@fn_0002f300@@UAEXPAXPBUVector@2@PAI@Z @d145a21c7e71 @w810791563e95 @v19ab7521e34d
 namespace fn_0002f300 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // Closure1<CActorManager,const_char_*,math::Vector>::vfunc_2 @ 0x0002f300
@@ -4173,7 +4173,7 @@ template <> Closure2<CActorManager, bool, const char *, int>::~Closure2() {}
 
 
 // 0x0002f580 Closure2<CActorManager,bool,const_char_*,int>::vfunc_2 (36 B): equivalent/0x0002f580.cpp
-// sym: ?vfunc_2@?$Closure2@UCActorManager@@_NPBDH@@UAEXPAX00@Z @e654de0dce29 @w4e3d89bebec6
+// sym: ?vfunc_2@?$Closure2@UCActorManager@@_NPBDH@@UAEXPAX00@Z @e654de0dce29 @w4e3d89bebec6 @vc7f547317854
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // Closure2<CActorManager,bool,const_char_*,int>::vfunc_2 @ 0x0002f580
 template <> void Closure2<CActorManager, bool, const char *, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; const ActorArgs * args = (const ActorArgs *)__p1; bool * result = (bool *)__p2;
@@ -4318,7 +4318,7 @@ template class Closure4<CActorManager, void, const char *, float, int, float>; /
 
 
 // 0x0002f710 Closure4<CActorManager,void,const_char_*,float,int,float>::vfunc_2 (45 B): equivalent/0x0002f710.cpp [wrapped: conflict: CActorManager; Closure4]
-// sym: ?vfunc_2@Closure4@fn_0002f710@@UAEXHPBXH@Z @35da6a76506a @wc1e95d57ad4d
+// sym: ?vfunc_2@Closure4@fn_0002f710@@UAEXHPBXH@Z @35da6a76506a @wc1e95d57ad4d @v3144d6494306
 namespace fn_0002f710 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // Closure4<CActorManager,void,const_char_*,float,int,float>::vfunc_2 @ 0x0002f710
@@ -4350,7 +4350,7 @@ template <> Closure4<CActorManager, void, const char *, float, float, float>::~C
 
 
 // 0x0002f790 Closure4<CActorManager,void,const_char_*,float,float,float>::vfunc_2 (45 B): equivalent/0x0002f790.cpp
-// sym: ?vfunc_2@?$Closure4@UCActorManager@@XPBDMMM@@UAEXPAX00@Z @35da6a76506a @w86f05f0358a7
+// sym: ?vfunc_2@?$Closure4@UCActorManager@@XPBDMMM@@UAEXPAX00@Z @35da6a76506a @w86f05f0358a7 @vef69d9b32215
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Closure4<CActorManager,void,const_char_*,float,float,float>::vfunc_2 @ 0x0002f790
 template <> void Closure4<CActorManager, void, const char *, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; ActorArgs * args = (ActorArgs *)__p1; void * unused2 = (void *)__p2;
@@ -4387,7 +4387,7 @@ template <> Closure5<CActorManager, void, const char *, const char *, float, flo
 
 
 // 0x0002f880 Closure5<CActorManager,void,const_char_*,const_char_*,float,float,float>::vfunc_2 (55 B): equivalent/0x0002f880.cpp
-// sym: ?vfunc_2@?$Closure5@UCActorManager@@XPBDPBDMMM@@UAEXPAX00@Z @ad17d42b696f @wa74f3d089783
+// sym: ?vfunc_2@?$Closure5@UCActorManager@@XPBDPBDMMM@@UAEXPAX00@Z @ad17d42b696f @wa74f3d089783 @ve616074dc761
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Closure5<CActorManager,void,const_char_*,const_char_*,float,float,float>::vfunc_2 @ 0x0002f880
 template <> void Closure5<CActorManager, void, const char *, const char *, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { const Arguments * args = (const Arguments *)__p1;
@@ -4466,7 +4466,7 @@ template <> Closure2<CActorManager, bool, const char *, float>::~Closure2() {}
 
 
 // 0x0002fa40 Closure2<CActorManager,bool,const_char_*,float>::vfunc_2 (40 B): equivalent/0x0002fa40.cpp
-// sym: ?vfunc_2@?$Closure2@UCActorManager@@_NPBDM@@UAEXPAX00@Z @e654de0dce29 @w869ed99f0dcb
+// sym: ?vfunc_2@?$Closure2@UCActorManager@@_NPBDM@@UAEXPAX00@Z @e654de0dce29 @w869ed99f0dcb @v75e51167ee16
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // Closure2<CActorManager,bool,const_char_*,float>::vfunc_2 @ 0x0002fa40
 template <> void Closure2<CActorManager, bool, const char *, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; CallArgs * args = (CallArgs *)__p1; bool * result = (bool *)__p2;
@@ -4497,7 +4497,7 @@ template <> Closure4<CActorManager, void, const char *, const char *, float, flo
 
 
 // 0x0002fb30 Closure4<CActorManager,void,const_char_*,const_char_*,float,float>::vfunc_2 (39 B): equivalent/0x0002fb30.cpp
-// sym: ?vfunc_2@?$Closure4@UCActorManager@@XPBDPBDMM@@UAEXPAX00@Z @35da6a76506a @w27dfc6c0d2b4
+// sym: ?vfunc_2@?$Closure4@UCActorManager@@XPBDPBDMM@@UAEXPAX00@Z @35da6a76506a @w27dfc6c0d2b4 @vef3b5617b914
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Closure4<CActorManager,void,const_char_*,const_char_*,float,float>::vfunc_2 @ 0x0002fb30
 template <> void Closure4<CActorManager, void, const char *, const char *, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { const void * arguments = (const void *)__p1;
@@ -4564,7 +4564,7 @@ template class Closure2<CActorManager, const char *, const char *, int>; // (ren
 
 
 // 0x0002fbe0 Closure2<CActorManager,const_char_*,const_char_*,int>::vfunc_2 (36 B): equivalent/0x0002fbe0.cpp [wrapped: conflict: ActorMethod; Closure2]
-// sym: ?vfunc_2@Closure2@fn_0002fbe0@@UAEXPAXPAPBDPAH@Z @5f2db1ebe681 @waf66c672aa7b
+// sym: ?vfunc_2@Closure2@fn_0002fbe0@@UAEXPAXPAPBDPAH@Z @5f2db1ebe681 @waf66c672aa7b @v4e5800feb020
 namespace fn_0002fbe0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // Closure2<CActorManager,const_char_*,const_char_*,int>::vfunc_2 @ 0x0002fbe0
@@ -4635,7 +4635,7 @@ template class Closure2<CActorManager, int, const char *, const char *>; // (ren
 
 
 // 0x0002fc90 Closure2<CActorManager,int,const_char_*,const_char_*>::vfunc_2 (36 B): equivalent/0x0002fc90.cpp [wrapped: conflict: CActorManager]
-// sym: ?vfunc_2@Closure2_CActorManager_int_const_char_const_char@fn_0002fc90@@UAEXHPBUArguments@2@PAH@Z @5f2db1ebe681 @waf66c672aa7b
+// sym: ?vfunc_2@Closure2_CActorManager_int_const_char_const_char@fn_0002fc90@@UAEXHPBUArguments@2@PAH@Z @5f2db1ebe681 @waf66c672aa7b @vf9885143613c
 namespace fn_0002fc90 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // Closure2<CActorManager,int,const_char_*,const_char_*>::vfunc_2 @ 0x0002fc90
@@ -4702,7 +4702,7 @@ template <> Closure2<CActorManager, const char *, const char *, const char *>::~
 
 
 // 0x0002fd40 Closure2<CActorManager,const_char_*,const_char_*,const_char_*>::vfunc_2 (36 B): equivalent/0x0002fd40.cpp
-// sym: ?vfunc_2@?$Closure2@UCActorManager@@PBDPBDPBD@@UAEXPAX00@Z @5f2db1ebe681 @w1a588241b2b0
+// sym: ?vfunc_2@?$Closure2@UCActorManager@@PBDPBDPBD@@UAEXPAX00@Z @5f2db1ebe681 @w1a588241b2b0 @v260654de492c
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // Closure2<CActorManager,const_char_*,const_char_*,const_char_*>::vfunc_2 @ 0x0002fd40
 template <> void Closure2<CActorManager, const char *, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; const char ** arguments = (const char **)__p1; int * result = (int *)__p2;
@@ -5017,7 +5017,7 @@ Closure2::Closure2(const char* a1, Owner_30130* a2, Fn_30130 a3) : FUN_001d0480(
 
 
 // 0x000301b0 Closure2<CActorManager,bool,const_char_*,math::Vector>::vfunc_2 (61 B): equivalent/0x000301b0.cpp
-// sym: ?vfunc_2@?$Closure2@UCActorManager@@_NPBDVVector@math@@@@UAEXPAX00@Z @6c585092a365 @wa53bb2aee1dc
+// sym: ?vfunc_2@?$Closure2@UCActorManager@@_NPBDVVector@math@@@@UAEXPAX00@Z @6c585092a365 @wa53bb2aee1dc @v7fe8451da96b
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // Closure2<CActorManager,bool,const_char_*,math::Vector>::vfunc_2 @ 0x000301b0
 template <> void Closure2<CActorManager, bool, const char *,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { const void * data = (const void *)__p1; bool * result = (bool *)__p2;
@@ -5031,7 +5031,7 @@ template <> void Closure2<CActorManager, bool, const char *,math::Vector>::vfunc
 namespace fn_f8e68f21 {
 
 // 0x000301f0 FUN_000301f0 (70 B): equivalent/0x000301f0.cpp
-// sym: ?FUN_000301f0@Registry_301f0@fn_f8e68f21@@QAEXPBDPAVOwner@2@P832@AE_N0_N@Z@Z @aeccf7ef3dcf @wd424ead24da9
+// sym: ?FUN_000301f0@Registry_301f0@fn_f8e68f21@@QAEXPBDPAVOwner@2@P832@AE_N0_N@Z@Z @aeccf7ef3dcf @wd424ead24da9 @va88b47191270
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_000301f0 @ 0x000301f0
 // FUN_000301f0 @ 0x000301f0  (generated by tools/equiv_gen/reg_helper.py)
@@ -5046,7 +5046,7 @@ void Registry_301f0::FUN_000301f0(const char* a1, Owner* a2, Fn_301f0 a3) {
 
 
 // 0x00030240 FUN_00030240 (70 B): equivalent/0x00030240.cpp
-// sym: ?FUN_00030240@Registry_30240@fn_f8e68f21@@QAEXPBDPAVOwner@2@P832@AEX0VVector_30240@math@@@Z@Z @c10c95a68458 @w6416760a2ac7
+// sym: ?FUN_00030240@Registry_30240@fn_f8e68f21@@QAEXPBDPAVOwner@2@P832@AEX0VVector_30240@math@@@Z@Z @c10c95a68458 @w6416760a2ac7 @vdb7e8b5f8bc0
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_00030240 @ 0x00030240
 // FUN_00030240 @ 0x00030240  (generated by tools/equiv_gen/reg_helper.py)
@@ -5087,7 +5087,7 @@ void Registry_30380::FUN_00030380(const char* a1, Owner* a2, Fn_30380 a3) {
 
 
 // 0x000303d0 FUN_000303d0 (83 B): equivalent/0x000303d0.cpp
-// sym: ?FUN_000303d0@Registry_303d0@fn_f8e68f21@@QAEXPBDPAVCActorManager_303d0@2@P832@AEX0M_N@Z@Z @e9789a1eb347 @wa20e6ee8ec20
+// sym: ?FUN_000303d0@Registry_303d0@fn_f8e68f21@@QAEXPBDPAVCActorManager_303d0@2@P832@AEX0M_N@Z@Z @e9789a1eb347 @wa20e6ee8ec20 @v102e2d0d85e2
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_000303d0 @ 0x000303d0
 // FUN_000303d0 @ 0x000303d0  (generated by tools/equiv_gen/reg_helper.py)
@@ -5105,7 +5105,7 @@ void Registry_303d0::FUN_000303d0(const char* a1, CActorManager_303d0* a2, Fn_30
 
 
 // 0x00030430 FUN_00030430 (83 B): equivalent/0x00030430.cpp
-// sym: ?FUN_00030430@Registry_30430@fn_f8e68f21@@QAEXPBDPAVCActorManager_30430@2@P832@AEX0M0@Z@Z @1085fbb9384e @w035e8c6a7381
+// sym: ?FUN_00030430@Registry_30430@fn_f8e68f21@@QAEXPBDPAVCActorManager_30430@2@P832@AEX0M0@Z@Z @1085fbb9384e @w035e8c6a7381 @v224b46c3f04e
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_00030430 @ 0x00030430
 // FUN_00030430 @ 0x00030430  (generated by tools/equiv_gen/reg_helper.py)
@@ -5123,7 +5123,7 @@ void Registry_30430::FUN_00030430(const char* a1, CActorManager_30430* a2, Fn_30
 
 
 // 0x00030490 FUN_00030490 (70 B): equivalent/0x00030490.cpp
-// sym: ?FUN_00030490@Registry_30490@fn_f8e68f21@@QAEXPBDPAVOwner@2@P832@AEH0@Z@Z @8021c033702e @w13dd4c1457ed
+// sym: ?FUN_00030490@Registry_30490@fn_f8e68f21@@QAEXPBDPAVOwner@2@P832@AEH0@Z@Z @8021c033702e @w13dd4c1457ed @v1b3931142e46
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_00030490 @ 0x00030490
 // FUN_00030490 @ 0x00030490  (generated by tools/equiv_gen/reg_helper.py)
@@ -5138,7 +5138,7 @@ void Registry_30490::FUN_00030490(const char* a1, Owner* a2, Fn_30490 a3) {
 
 
 // 0x000304e0 FUN_000304e0 (70 B): equivalent/0x000304e0.cpp
-// sym: ?FUN_000304e0@Registry_304e0@fn_f8e68f21@@QAEXPBDPAVOwner@2@P832@AEPBD0@Z@Z @1d96525ce2d6 @w22cb138b4650
+// sym: ?FUN_000304e0@Registry_304e0@fn_f8e68f21@@QAEXPBDPAVOwner@2@P832@AEPBD0@Z@Z @1d96525ce2d6 @w22cb138b4650 @v7b0411429653
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_000304e0 @ 0x000304e0
 // FUN_000304e0 @ 0x000304e0  (generated by tools/equiv_gen/reg_helper.py)
@@ -5153,7 +5153,7 @@ void Registry_304e0::FUN_000304e0(const char* a1, Owner* a2, Fn_304e0 a3) {
 
 
 // 0x00030530 FUN_00030530 (83 B): equivalent/0x00030530.cpp
-// sym: ?FUN_00030530@Registry_30530@fn_f8e68f21@@QAEXPBDPAVCActorManager_30530@2@P832@AE_N0000_N0@Z@Z @2b37255c6b54 @wa505edbe93b3
+// sym: ?FUN_00030530@Registry_30530@fn_f8e68f21@@QAEXPBDPAVCActorManager_30530@2@P832@AE_N0000_N0@Z@Z @2b37255c6b54 @wa505edbe93b3 @v47a24c7f30be
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_00030530 @ 0x00030530
 // FUN_00030530 @ 0x00030530  (generated by tools/equiv_gen/reg_helper.py)
@@ -5171,7 +5171,7 @@ void Registry_30530::FUN_00030530(const char* a1, CActorManager_30530* a2, Fn_30
 
 
 // 0x00030590 FUN_00030590 (83 B): equivalent/0x00030590.cpp
-// sym: ?FUN_00030590@Registry_30590@fn_f8e68f21@@QAEXPBDPAVCActorManager_30590@2@P832@AE_N0VVector_30590@math@@M00_N0@Z@Z @0d44eb422c2c @w4fa8a51cca3b
+// sym: ?FUN_00030590@Registry_30590@fn_f8e68f21@@QAEXPBDPAVCActorManager_30590@2@P832@AE_N0VVector_30590@math@@M00_N0@Z@Z @0d44eb422c2c @w4fa8a51cca3b @v752e9300a583
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_00030590 @ 0x00030590
 // FUN_00030590 @ 0x00030590  (generated by tools/equiv_gen/reg_helper.py)
@@ -5198,7 +5198,7 @@ void Registry_305f0::FUN_000305f0(const char* a1, Owner* a2, Fn_305f0 a3) {
 
 
 // 0x00030640 FUN_00030640 (70 B): equivalent/0x00030640.cpp
-// sym: ?FUN_00030640@Registry_30640@fn_f8e68f21@@QAEXPBDPAVOwner@2@P832@AEXMM@Z@Z @f7a8cbe17d2e @wf2eff8227cac
+// sym: ?FUN_00030640@Registry_30640@fn_f8e68f21@@QAEXPBDPAVOwner@2@P832@AEXMM@Z@Z @f7a8cbe17d2e @wf2eff8227cac @v34b886c4a456
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_00030640 @ 0x00030640
 // FUN_00030640 @ 0x00030640  (generated by tools/equiv_gen/reg_helper.py)
@@ -5213,7 +5213,7 @@ void Registry_30640::FUN_00030640(const char* a1, Owner* a2, Fn_30640 a3) {
 
 
 // 0x00030690 FUN_00030690 (70 B): equivalent/0x00030690.cpp
-// sym: ?FUN_00030690@Registry_30690@fn_f8e68f21@@QAEXPBDPAVOwner@2@P832@AEX0@Z@Z @2852d56b3db9 @w653d8056fb65
+// sym: ?FUN_00030690@Registry_30690@fn_f8e68f21@@QAEXPBDPAVOwner@2@P832@AEX0@Z@Z @2852d56b3db9 @w653d8056fb65 @vc00e34b9dd28
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_00030690 @ 0x00030690
 // FUN_00030690 @ 0x00030690  (generated by tools/equiv_gen/reg_helper.py)
@@ -5229,7 +5229,7 @@ void Registry_30690::FUN_00030690(const char* a1, Owner* a2, Fn_30690 a3) {
 } // namespace fn_f8e68f21
 
 // 0x000306e0 FUN_000306e0 (109 B): equivalent/0x000306e0.cpp [wrapped: conflict: CActorManager; Closure0; Method0]
-// sym: ?FUN_000306e0@Registry_306e0@fn_000306e0@@QAEXPBDPAVCActorManager@2@P832@AEPBDXZ@Z @5f8daf579b1b @wab5ce5a50914
+// sym: ?FUN_000306e0@Registry_306e0@fn_000306e0@@QAEXPBDPAVCActorManager@2@P832@AEPBDXZ@Z @5f8daf579b1b @wab5ce5a50914 @vfc3b501f9824
 namespace fn_000306e0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_000306e0 @ 0x000306e0
@@ -5313,7 +5313,7 @@ void Registry_306e0::FUN_000306e0(const char* name, CActorManager* owner, const 
 
 
 // 0x00030750 FUN_00030750 (109 B): equivalent/0x00030750.cpp [wrapped: conflict: CActorManager; Closure0; Method0]
-// sym: ?FUN_00030750@Registry_30750@fn_00030750@@QAEXPBDPAVCActorManager@2@P832@AEHXZ@Z @cf756b110c3e @w5ad328747996
+// sym: ?FUN_00030750@Registry_30750@fn_00030750@@QAEXPBDPAVCActorManager@2@P832@AEHXZ@Z @cf756b110c3e @w5ad328747996 @v88e7cbb9dad2
 namespace fn_00030750 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_00030750 @ 0x00030750
@@ -5398,7 +5398,7 @@ void Registry_30750::FUN_00030750(const char* name, CActorManager* owner, int (C
 namespace fn_f8e68f21 {
 
 // 0x00030810 FUN_00030810 (70 B): equivalent/0x00030810.cpp
-// sym: ?FUN_00030810@Registry_30810@fn_f8e68f21@@QAEXPBDPAVOwner@2@P832@AE_N00@Z@Z @bda904035b14 @w9c2958ac6ebb
+// sym: ?FUN_00030810@Registry_30810@fn_f8e68f21@@QAEXPBDPAVOwner@2@P832@AE_N00@Z@Z @bda904035b14 @w9c2958ac6ebb @v36c9d1cb8673
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_00030810 @ 0x00030810
 // FUN_00030810 @ 0x00030810  (generated by tools/equiv_gen/reg_helper.py)
@@ -5422,7 +5422,7 @@ void Registry_30860::FUN_00030860(const char* a1, Owner* a2, Fn_30860 a3) {
 
 
 // 0x000309a0 FUN_000309a0 (70 B): equivalent/0x000309a0.cpp
-// sym: ?FUN_000309a0@Registry_309a0@fn_f8e68f21@@QAEXPBDPAVOwner@2@P832@AEPBDVVector_309a0@math@@@Z@Z @63023534a494 @w5d10d65f6895
+// sym: ?FUN_000309a0@Registry_309a0@fn_f8e68f21@@QAEXPBDPAVOwner@2@P832@AEPBDVVector_309a0@math@@@Z@Z @63023534a494 @w5d10d65f6895 @vf3bcf4138729
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_000309a0 @ 0x000309a0
 // FUN_000309a0 @ 0x000309a0  (generated by tools/equiv_gen/reg_helper.py)
@@ -5437,7 +5437,7 @@ void Registry_309a0::FUN_000309a0(const char* a1, Owner* a2, Fn_309a0 a3) {
 
 
 // 0x000309f0 FUN_000309f0 (83 B): equivalent/0x000309f0.cpp
-// sym: ?FUN_000309f0@Registry_309f0@fn_f8e68f21@@QAEXPBDPAVCActorManager_309f0@2@P832@AEX0MMMMM0@Z@Z @79d246cbf94d @w394da7e84c20
+// sym: ?FUN_000309f0@Registry_309f0@fn_f8e68f21@@QAEXPBDPAVCActorManager_309f0@2@P832@AEX0MMMMM0@Z@Z @79d246cbf94d @w394da7e84c20 @vf6b56b01cea0
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_000309f0 @ 0x000309f0
 // FUN_000309f0 @ 0x000309f0  (generated by tools/equiv_gen/reg_helper.py)
@@ -5455,7 +5455,7 @@ void Registry_309f0::FUN_000309f0(const char* a1, CActorManager_309f0* a2, Fn_30
 
 
 // 0x00030af0 FUN_00030af0 (70 B): equivalent/0x00030af0.cpp
-// sym: ?FUN_00030af0@Registry_30af0@fn_f8e68f21@@QAEXPBDPAVOwner@2@P832@AE_N0H@Z@Z @9b01ebfb321d @wcdc8cb50ce24
+// sym: ?FUN_00030af0@Registry_30af0@fn_f8e68f21@@QAEXPBDPAVOwner@2@P832@AE_N0H@Z@Z @9b01ebfb321d @wcdc8cb50ce24 @v632d27ea99b4
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_00030af0 @ 0x00030af0
 // FUN_00030af0 @ 0x00030af0  (generated by tools/equiv_gen/reg_helper.py)
@@ -5471,7 +5471,7 @@ void Registry_30af0::FUN_00030af0(const char* a1, Owner* a2, Fn_30af0 a3) {
 } // namespace fn_f8e68f21
 
 // 0x00030b90 FUN_00030b90 (109 B): equivalent/0x00030b90.cpp [wrapped: conflict: CActorManager; Closure0; Method0]
-// sym: ?FUN_00030b90@Registry_30b90@fn_00030b90@@QAEXPBDPAVCActorManager@2@P832@AE_NXZ@Z @647c1ac8ee87 @wdcdee8da3c71
+// sym: ?FUN_00030b90@Registry_30b90@fn_00030b90@@QAEXPBDPAVCActorManager@2@P832@AE_NXZ@Z @647c1ac8ee87 @wdcdee8da3c71 @v3a583c737687
 namespace fn_00030b90 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_00030b90 @ 0x00030b90
@@ -5556,7 +5556,7 @@ void Registry_30b90::FUN_00030b90(const char* name, CActorManager* owner, bool (
 namespace fn_f8e68f21 {
 
 // 0x00030c00 FUN_00030c00 (83 B): equivalent/0x00030c00.cpp
-// sym: ?FUN_00030c00@Registry_30c00@fn_f8e68f21@@QAEXPBDPAVCActorManager_30c00@2@P832@AEX0MHM@Z@Z @b1cdf269efde @w7de3e5ff1d24
+// sym: ?FUN_00030c00@Registry_30c00@fn_f8e68f21@@QAEXPBDPAVCActorManager_30c00@2@P832@AEX0MHM@Z@Z @b1cdf269efde @w7de3e5ff1d24 @v368032e40715
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_00030c00 @ 0x00030c00
 // FUN_00030c00 @ 0x00030c00  (generated by tools/equiv_gen/reg_helper.py)
@@ -5574,7 +5574,7 @@ void Registry_30c00::FUN_00030c00(const char* a1, CActorManager_30c00* a2, Fn_30
 
 
 // 0x00030c60 FUN_00030c60 (83 B): equivalent/0x00030c60.cpp
-// sym: ?FUN_00030c60@Registry_30c60@fn_f8e68f21@@QAEXPBDPAVCActorManager_30c60@2@P832@AEX0MMM@Z@Z @1869dc344f1b @w671062ae3537
+// sym: ?FUN_00030c60@Registry_30c60@fn_f8e68f21@@QAEXPBDPAVCActorManager_30c60@2@P832@AEX0MMM@Z@Z @1869dc344f1b @w671062ae3537 @v5655a58f2f8a
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_00030c60 @ 0x00030c60
 // FUN_00030c60 @ 0x00030c60  (generated by tools/equiv_gen/reg_helper.py)
@@ -5593,7 +5593,7 @@ void Registry_30c60::FUN_00030c60(const char* a1, CActorManager_30c60* a2, Fn_30
 } // namespace fn_f8e68f21
 
 // 0x00030cc0 FUN_00030cc0 (109 B): equivalent/0x00030cc0.cpp [wrapped: conflict: CActorManager; Closure0; Method0]
-// sym: ?FUN_00030cc0@Registry_30cc0@fn_00030cc0@@QAEXPBDPAVCActorManager@2@P832@AEXXZ@Z @ca19b424712b @waab1df37046b
+// sym: ?FUN_00030cc0@Registry_30cc0@fn_00030cc0@@QAEXPBDPAVCActorManager@2@P832@AEXXZ@Z @ca19b424712b @waab1df37046b @vf79f1ada95de
 namespace fn_00030cc0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_00030cc0 @ 0x00030cc0
@@ -5678,7 +5678,7 @@ void Registry_30cc0::FUN_00030cc0(const char* name, CActorManager* owner, void (
 namespace fn_f8e68f21 {
 
 // 0x00030d30 FUN_00030d30 (83 B): equivalent/0x00030d30.cpp
-// sym: ?FUN_00030d30@Registry_30d30@fn_f8e68f21@@QAEXPBDPAVCActorManager_30d30@2@P832@AEX00MMM@Z@Z @b5e44df43da4 @wc973722eca75
+// sym: ?FUN_00030d30@Registry_30d30@fn_f8e68f21@@QAEXPBDPAVCActorManager_30d30@2@P832@AEX00MMM@Z@Z @b5e44df43da4 @wc973722eca75 @vf3865f2aaf7f
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_00030d30 @ 0x00030d30
 // FUN_00030d30 @ 0x00030d30  (generated by tools/equiv_gen/reg_helper.py)
@@ -5696,7 +5696,7 @@ void Registry_30d30::FUN_00030d30(const char* a1, CActorManager_30d30* a2, Fn_30
 
 
 // 0x00030d90 FUN_00030d90 (83 B): equivalent/0x00030d90.cpp
-// sym: ?FUN_00030d90@Registry_30d90@fn_f8e68f21@@QAEXPBDPAVCActorManager_30d90@2@P832@AE_N0MM@Z@Z @91888fbbf44c @w255885b63ea5
+// sym: ?FUN_00030d90@Registry_30d90@fn_f8e68f21@@QAEXPBDPAVCActorManager_30d90@2@P832@AE_N0MM@Z@Z @91888fbbf44c @w255885b63ea5 @v24f7a9306586
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_00030d90 @ 0x00030d90
 // FUN_00030d90 @ 0x00030d90  (generated by tools/equiv_gen/reg_helper.py)
@@ -5714,7 +5714,7 @@ void Registry_30d90::FUN_00030d90(const char* a1, CActorManager_30d90* a2, Fn_30
 
 
 // 0x00030df0 FUN_00030df0 (83 B): equivalent/0x00030df0.cpp
-// sym: ?FUN_00030df0@Registry_30df0@fn_f8e68f21@@QAEXPBDPAVCActorManager_30df0@2@P832@AEX0MM@Z@Z @28632c009b9c @w6bc4127d3191
+// sym: ?FUN_00030df0@Registry_30df0@fn_f8e68f21@@QAEXPBDPAVCActorManager_30df0@2@P832@AEX0MM@Z@Z @28632c009b9c @w6bc4127d3191 @vca8b1c053c4a
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_00030df0 @ 0x00030df0
 // FUN_00030df0 @ 0x00030df0  (generated by tools/equiv_gen/reg_helper.py)
@@ -5732,7 +5732,7 @@ void Registry_30df0::FUN_00030df0(const char* a1, CActorManager_30df0* a2, Fn_30
 
 
 // 0x00030ea0 FUN_00030ea0 (83 B): equivalent/0x00030ea0.cpp
-// sym: ?FUN_00030ea0@Registry_30ea0@fn_f8e68f21@@QAEXPBDPAVCActorManager_30ea0@2@P832@AEX00M@Z@Z @c0af818f3063 @w614f85a8c621
+// sym: ?FUN_00030ea0@Registry_30ea0@fn_f8e68f21@@QAEXPBDPAVCActorManager_30ea0@2@P832@AEX00M@Z@Z @c0af818f3063 @w614f85a8c621 @v136ed3bb4b95
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_00030ea0 @ 0x00030ea0
 // FUN_00030ea0 @ 0x00030ea0  (generated by tools/equiv_gen/reg_helper.py)
@@ -5750,7 +5750,7 @@ void Registry_30ea0::FUN_00030ea0(const char* a1, CActorManager_30ea0* a2, Fn_30
 
 
 // 0x00030f00 FUN_00030f00 (83 B): equivalent/0x00030f00.cpp
-// sym: ?FUN_00030f00@Registry_30f00@fn_f8e68f21@@QAEXPBDPAVCActorManager_30f00@2@P832@AEX00MM@Z@Z @7952045bcbc7 @w909628140cb4
+// sym: ?FUN_00030f00@Registry_30f00@fn_f8e68f21@@QAEXPBDPAVCActorManager_30f00@2@P832@AEX00MM@Z@Z @7952045bcbc7 @w909628140cb4 @v9b204c13cfd4
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_00030f00 @ 0x00030f00
 // FUN_00030f00 @ 0x00030f00  (generated by tools/equiv_gen/reg_helper.py)
@@ -5787,7 +5787,7 @@ void Registry_31050::FUN_00031050(const char* a1, Owner* a2, Fn_31050 a3) {
 } // namespace fn_f8e68f21
 
 // 0x000310a0 FUN_000310a0 (109 B): equivalent/0x000310a0.cpp [wrapped: conflict: CActorManager; Closure0; Method0]
-// sym: ?FUN_000310a0@Registry_310a0@fn_000310a0@@QAEXPBDPAVCActorManager@2@P832@AEMXZ@Z @56c31fbe0596 @wd1f2bed4c515
+// sym: ?FUN_000310a0@Registry_310a0@fn_000310a0@@QAEXPBDPAVCActorManager@2@P832@AEMXZ@Z @56c31fbe0596 @wd1f2bed4c515 @v54befc5ef969
 namespace fn_000310a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_000310a0 @ 0x000310a0
@@ -5880,7 +5880,7 @@ void Registry_311b0::FUN_000311b0(const char* a1, Owner* a2, Fn_311b0 a3) {
 
 
 // 0x00031200 FUN_00031200 (83 B): equivalent/0x00031200.cpp
-// sym: ?FUN_00031200@Registry_31200@fn_f8e68f21@@QAEXPBDPAVCActorManager_31200@2@P832@AEXHHH@Z@Z @39326d2b8320 @w064c113405a7
+// sym: ?FUN_00031200@Registry_31200@fn_f8e68f21@@QAEXPBDPAVCActorManager_31200@2@P832@AEXHHH@Z@Z @39326d2b8320 @w064c113405a7 @v6baa5cd06f23
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_00031200 @ 0x00031200
 // FUN_00031200 @ 0x00031200  (generated by tools/equiv_gen/reg_helper.py)
@@ -5898,7 +5898,7 @@ void Registry_31200::FUN_00031200(const char* a1, CActorManager_31200* a2, Fn_31
 
 
 // 0x00031260 FUN_00031260 (83 B): equivalent/0x00031260.cpp
-// sym: ?FUN_00031260@Registry_31260@fn_f8e68f21@@QAEXPBDPAVCActorManager_31260@2@P832@AE_N0VVector_31260@math@@2@Z@Z @f4dcf3c0650e @wcfdb8e40a7c3
+// sym: ?FUN_00031260@Registry_31260@fn_f8e68f21@@QAEXPBDPAVCActorManager_31260@2@P832@AE_N0VVector_31260@math@@2@Z@Z @f4dcf3c0650e @wcfdb8e40a7c3 @vb5d38c7df31b
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
 // FUN_00031260 @ 0x00031260
 // FUN_00031260 @ 0x00031260  (generated by tools/equiv_gen/reg_helper.py)
@@ -5916,7 +5916,7 @@ void Registry_31260::FUN_00031260(const char* a1, CActorManager_31260* a2, Fn_31
 
 
 // 0x000312c0 FUN_000312c0 (70 B): equivalent/0x000312c0.cpp
-// sym: ?FUN_000312c0@Registry_312c0@fn_f8e68f21@@QAEXPBDPAVOwner@2@P832@AE_N0VVector_312c0@math@@@Z@Z @46ed78ee6ec7 @wa38084198f06
+// sym: ?FUN_000312c0@Registry_312c0@fn_f8e68f21@@QAEXPBDPAVOwner@2@P832@AE_N0VVector_312c0@math@@@Z@Z @46ed78ee6ec7 @wa38084198f06 @vdc872ba60f3b
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_000312c0 @ 0x000312c0
 // FUN_000312c0 @ 0x000312c0  (generated by tools/equiv_gen/reg_helper.py)
@@ -5932,7 +5932,7 @@ void Registry_312c0::FUN_000312c0(const char* a1, Owner* a2, Fn_312c0 a3) {
 } // namespace fn_f8e68f21
 
 // 0x00031310 FUN_00031310 (12490 B): equivalent/0x00031310.cpp [wrapped: macros]
-// sym: ?Register@CActorManager@fn_00031310@@QAEXXZ @d874a6e6706b @we4cdeea44aaa
+// sym: ?Register@CActorManager@fn_00031310@@QAEXXZ @d874a6e6706b @we4cdeea44aaa @v072c761f2c3f
 namespace fn_00031310 {
 // STATUS: equivalent (tools/equiv.py level 3: 79 inputs, branch coverage 314/314)
 // FUN_00031310 @ 0x00031310

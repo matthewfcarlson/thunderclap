@@ -264,7 +264,7 @@ void __cdecl destroy(d3dRefractVertexShader_32f360*);
 
 
 // 0x0032ee30 FUN_0032ee30 (105 B): equivalent/0x0032ee30.cpp
-// sym: ?FUN_0032ee30@fn_f721c355@@YAXPAUColor_32ee30@1@I@Z @cec5512b14e2 @w13fcba2cf77c
+// sym: ?FUN_0032ee30@fn_f721c355@@YAXPAUColor_32ee30@1@I@Z @cec5512b14e2 @w13fcba2cf77c @v09cbfccad31f
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_0032ee30 @ 0x0032ee30
 // equiv-conv: FUN_0032ee30 ecx stack
@@ -363,7 +363,7 @@ int pure3d::d3dRefractVertexShader::vfunc_11() {
 namespace fn_f721c355 {
 
 // 0x0032efa0 pure3d::d3dRefractVertexShader::vfunc_14 (619 B): equivalent/0x0032efa0.cpp
-// sym: ?vfunc_14@d3dRefractVertexShader_32efa0@fn_f721c355@@QAEXH@Z @6ad609150ce0 @w4360377434a1
+// sym: ?vfunc_14@d3dRefractVertexShader_32efa0@fn_f721c355@@QAEXH@Z @6ad609150ce0 @w4360377434a1 @v3cffd3116b38
 // STATUS: equivalent (tools/equiv.py level 3: 19543 inputs, branch coverage 28/28)
 // pure3d::d3dRefractVertexShader::vfunc_14 @ 0x0032efa0
 void d3dRefractVertexShader_32efa0::vfunc_14(int) {
@@ -534,7 +534,7 @@ void pure3d::d3dRefractVertexShader::vfunc_13() {
 
 
 // 0x0032f2e0 FUN_0032f2e0 (125 B): equivalent/0x0032f2e0.cpp [wrapped: conflict: pure3d::d3dRefractVertexShader]
-// sym: ??0d3dRefractVertexShader@pure3d@fn_0032f2e0@@QAE@PAX@Z @445c62e03208 @w67b400ce2311
+// sym: ??0d3dRefractVertexShader@pure3d@fn_0032f2e0@@QAE@PAX@Z @445c62e03208 @w67b400ce2311 @ve171dc6c06bb
 namespace fn_0032f2e0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 2/2)
 // FUN_0032f2e0 @ 0x0032f2e0

@@ -201,7 +201,7 @@ void __stdcall FUN_003338c0(int x) {
 } // namespace fn_f1126c37
 
 // 0x003338e0 movie::PlayerBink::vfunc_6 (135 B): equivalent/0x003338e0.cpp [wrapped: conflict: movie::PlayerBink]
-// sym: ?vfunc_6@PlayerBink@movie@fn_003338e0@@UAEXIHII@Z @1371ba213891 @wcc948612ee32
+// sym: ?vfunc_6@PlayerBink@movie@fn_003338e0@@UAEXIHII@Z @1371ba213891 @wcc948612ee32 @v9c5e03876075
 namespace fn_003338e0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // movie::PlayerBink::vfunc_6 @ 0x003338e0
@@ -610,7 +610,7 @@ void movie::PlayerBink::vfunc_9() {
 namespace fn_f1126c37 {
 
 // 0x00333de0 FUN_00333de0 (265 B): equivalent/0x00333de0.cpp
-// sym: ?FUN_00333de0@Obj_333de0@fn_f1126c37@@QAEXXZ @51de8ad48bc4 @w28722a24910f
+// sym: ?FUN_00333de0@Obj_333de0@fn_f1126c37@@QAEXXZ @51de8ad48bc4 @w28722a24910f @vdbfbbe3c8c92
 // STATUS: equivalent (tools/equiv.py level 3: 111 inputs, branch coverage 18/22, incomplete)
 // FUN_00333de0 @ 0x00333de0
 void Obj_333de0::FUN_00333de0() {

@@ -69,7 +69,7 @@ extern "C" const char* __cdecl FUN_0021af00(LuaVMLexState* ls, int token) {
 
 
 // 0x0021af60 FUN_0021af60 (99 B): equivalent/0x0021af60.cpp
-// sym: _FUN_0021af60 @f817c98ca699 @wce84fc7f84ae
+// sym: _FUN_0021af60 @f817c98ca699 @wce84fc7f84ae @v25eed371e213
 // STATUS: equivalent (tools/equiv.py level 3: 3005 inputs, branch coverage 8/8)
 // txtToken: a name, string or number token as the buffer's text (NUL-terminated), any other by luaX_token2str.
 // equiv-conv: FUN_0021af60 eax edi
@@ -112,7 +112,7 @@ extern "C" LuaVMString* __cdecl FUN_0021b080(LuaVMLexState* ls, const char* str,
 
 
 // 0x0021b0d0 FUN_0021b0d0 (139 B): equivalent/0x0021b0d0.cpp
-// sym: _FUN_0021b0d0 @fcb28a928da9 @w18fb5ddbe3fe
+// sym: _FUN_0021b0d0 @fcb28a928da9 @w18fb5ddbe3fe @v44b36471e915
 // STATUS: equivalent (tools/equiv.py level 3: 3004 inputs, branch coverage 12/12)
 // inclinenumber: skip a newline sequence ("\n", "\r", "\n\r" or "\r\n") and count the line.
  // luaX_lexerror
@@ -182,7 +182,7 @@ extern "C" void FUN_0021b1c0(LuaVMLexState* ls) {
 } // namespace fn_f9ca7db9
 
 // 0x0021b230 FUN_0021b230 (590 B): equivalent/0x0021b230.cpp [wrapped: macros]
-// sym: _FUN_0021b230 @008f0495b548 @wd4b873dc0649
+// sym: _FUN_0021b230 @008f0495b548 @wd4b873dc0649 @va50de7d132f1
 namespace fn_0021b230 {
 // STATUS: equivalent (tools/equiv.py level 3: 1803 inputs, branch coverage 40/40)
 // read_numeral: lex the digits of a number (fraction, exponent) into the token buffer and convert it.
@@ -265,7 +265,7 @@ extern "C" void FUN_0021b230(LuaVMLexState* LS, LuaVMSemInfo* seminfo) {
 namespace fn_f9ca7db9 {
 
 // 0x0021b480 FUN_0021b480 (149 B): equivalent/0x0021b480.cpp
-// sym: _FUN_0021b480 @6685ade32ca8 @wc1f07883eb37
+// sym: _FUN_0021b480 @6685ade32ca8 @wc1f07883eb37 @v7c03374e3778
 // STATUS: equivalent (tools/equiv.py level 3: 3061 inputs, branch coverage 10/10)
 // skip_sep: count the run of '*' after a long bracket's opening character (-count - 1 when the closing one differs).
 // equiv-conv: FUN_0021b1c0 edi
@@ -370,7 +370,7 @@ extern "C" void FUN_0021b520(LuaVMLexState* ls, int sep, LuaVMSemInfo* seminfo) 
 } // namespace fn_f9ca7db9
 
 // 0x0021b720 FUN_0021b720 (898 B): equivalent/0x0021b720.cpp [wrapped: macros]
-// sym: _FUN_0021b720 @57755bc35946 @wcdfb1651a96c
+// sym: _FUN_0021b720 @57755bc35946 @wcdfb1651a96c @v82b9fba78fa6
 namespace fn_0021b720 {
 // STATUS: equivalent (tools/equiv.py level 3: 1255 inputs, branch coverage 45/48, incomplete)
 // read_string: a quoted string up to the delimiter, with escapes; interned and anchored in the constant table.
@@ -524,7 +524,7 @@ extern "C" void FUN_0021b720(LuaVMLexState* ls, int del, LuaVMSemInfo* seminfo) 
 
 
 // 0x0021bbc0 FUN_0021bbc0 (1310 B): equivalent/0x0021bbc0.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: _FUN_0021bbc0 @72472be06074 @wee4ecac95fa9
+// sym: _FUN_0021bbc0 @72472be06074 @wee4ecac95fa9 @v99afe5721d89
 namespace fn_0021bbc0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2771 inputs, branch coverage 68/89, incomplete)
 // llex: the next token (its semantic value in seminfo).

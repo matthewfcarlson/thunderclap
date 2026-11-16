@@ -234,7 +234,7 @@ bool Source_236bc0::FUN_00236bc0(int a, Sink_236bc0 *sink, int c)
 
 
 // 0x00236c50 fight::Track::vfunc_3 (178 B): equivalent/0x00236c50.cpp
-// sym: ?vfunc_3@Track@fn_f5a78e74@@UAE_N_KHTParamArg_236c50@2@@Z @2ba3a0d5e550 @w8717447ff019
+// sym: ?vfunc_3@Track@fn_f5a78e74@@UAE_N_KHTParamArg_236c50@2@@Z @2ba3a0d5e550 @w8717447ff019 @v71b651ca4cba
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // fight::Track::vfunc_3 @ 0x00236c50
 bool Track::vfunc_3(unsigned __int64 id, int extra, ParamArg_236c50 arg)

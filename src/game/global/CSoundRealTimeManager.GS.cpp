@@ -258,7 +258,7 @@ public:
 
 
 // 0x001eab10 FUN_001eab10 (733 B): equivalent/0x001eab10.cpp
-// sym: ?FUN_001eab10@Player_1eab10@fn_f7674384@@QAEXPBD@Z @d2db7f64b4fb @w7ce27daf4d08
+// sym: ?FUN_001eab10@Player_1eab10@fn_f7674384@@QAEXPBD@Z @d2db7f64b4fb @w7ce27daf4d08 @vdaecb49215f8
 // STATUS: equivalent (tools/equiv.py level 3: 128 inputs, branch coverage 24/24)
 // FUN_001eab10 @ 0x001eab10
 void Player_1eab10::FUN_001eab10(const char *name)
@@ -436,7 +436,7 @@ void __stdcall FUN_001ebf50(const char *name, int unused) {
 
 
 // 0x001ec100 FUN_001ec100 (391 B): equivalent/0x001ec100.cpp
-// sym: ?FUN_001ec100@Handler_1ec100@fn_f7674384@@QAEXPAUEntity@2@PBD@Z @f1ef534ef8e4 @w197b2412d71d
+// sym: ?FUN_001ec100@Handler_1ec100@fn_f7674384@@QAEXPAUEntity@2@PBD@Z @f1ef534ef8e4 @w197b2412d71d @vd7c0819138c3
 // STATUS: equivalent (tools/equiv.py level 3: 19662 inputs, branch coverage 20/20)
 // FUN_001ec100 @ 0x001ec100
 void Handler_1ec100::FUN_001ec100(Entity *entity, const char *name)
@@ -475,7 +475,7 @@ void Handler_1ec100::FUN_001ec100(Entity *entity, const char *name)
 
 
 // 0x001ec310 FUN_001ec310 (178 B): equivalent/0x001ec310.cpp
-// sym: ?FUN_001ec310@Target_1ec310@fn_f7674384@@QAEXI@Z @36fbe05246ba @wca5372b8c93f
+// sym: ?FUN_001ec310@Target_1ec310@fn_f7674384@@QAEXI@Z @36fbe05246ba @wca5372b8c93f @vb78d3fbed18e
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 8/8)
 // FUN_001ec310 @ 0x001ec310
 void Target_1ec310::FUN_001ec310(unsigned int) {
@@ -497,7 +497,7 @@ void Target_1ec310::FUN_001ec310(unsigned int) {
 
 
 // 0x001eca40 FUN_001eca40 (288 B): equivalent/0x001eca40.cpp
-// sym: ?FUN_001eca40@Controller_1eca40@fn_f7674384@@QAEXPAUObject@2@0PBD@Z @3a74fed892e5 @wec201d533323
+// sym: ?FUN_001eca40@Controller_1eca40@fn_f7674384@@QAEXPAUObject@2@0PBD@Z @3a74fed892e5 @wec201d533323 @v2205f9107d10
 // STATUS: equivalent (tools/equiv.py level 3: 20014 inputs, branch coverage 16/16)
 // FUN_001eca40 @ 0x001eca40
 void Controller_1eca40::FUN_001eca40(Object* first, Object* second, const char* sound) {
@@ -521,7 +521,7 @@ void Controller_1eca40::FUN_001eca40(Object* first, Object* second, const char* 
 
 
 // 0x001ecb60 FUN_001ecb60 (286 B): equivalent/0x001ecb60.cpp
-// sym: ?FUN_001ecb60@Effects_1ecb60@fn_f7674384@@QAEXPAUSource_1ecb60@2@PAURecipient_1ecb60@2@PBD@Z @5c76fece0b68 @wda8bf319ce47
+// sym: ?FUN_001ecb60@Effects_1ecb60@fn_f7674384@@QAEXPAUSource_1ecb60@2@PAURecipient_1ecb60@2@PBD@Z @5c76fece0b68 @wda8bf319ce47 @vcfd35cde7d02
 // STATUS: equivalent (tools/equiv.py level 3: 20008 inputs, branch coverage 18/18)
 // FUN_001ecb60 @ 0x001ecb60
 void Effects_1ecb60::FUN_001ecb60(Source_1ecb60* source, Recipient_1ecb60* recipient, const char* name) {

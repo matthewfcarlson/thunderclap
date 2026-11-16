@@ -323,7 +323,7 @@ void __cdecl FUN_00307030(u16_307030 value) {
 
 
 // 0x00307060 FUN_00307060 (454 B): equivalent/0x00307060.cpp
-// sym: ?FUN_00307060@Stream@fn_fa930a40@@QAEXPBGH@Z @bf4810b6b389 @wf5d822b465d5
+// sym: ?FUN_00307060@Stream@fn_fa930a40@@QAEXPBGH@Z @bf4810b6b389 @wf5d822b465d5 @v210049567ad3
 // STATUS: equivalent (tools/equiv.py level 3: 53 inputs, branch coverage 33/36, incomplete)
 // FUN_00307060 @ 0x00307060
 // A packed stream of 16-bit words: each record has a header (selector in bits 12-13,
@@ -414,7 +414,7 @@ void Stream::FUN_00307060(const unsigned short* limits, hulk_intptr unused)
 } // namespace fn_fa930a40
 
 // 0x00307240 FUN_00307240 (1389 B): equivalent/0x00307240.cpp [wrapped: code differs from its standalone build]
-// sym: ?FUN_00307240@Stream@fn_00307240@@QAEXTArg_307240@2@@Z @9633500c5509 @we1b0410c47aa
+// sym: ?FUN_00307240@Stream@fn_00307240@@QAEXTArg_307240@2@@Z @9633500c5509 @we1b0410c47aa @vdc0c4de61507
 namespace fn_00307240 {
 // STATUS: equivalent (tools/equiv.py level 3: 91 inputs, branch coverage 84/90, incomplete)
 // FUN_00307240 @ 0x00307240
@@ -871,7 +871,7 @@ char* X_307ef0::next() {
 
 
 // 0x00307f30 FUN_00307f30 (226 B): equivalent/0x00307f30.cpp
-// sym: ?FUN_00307f30@Object@fn_fa930a40@@QAEXH@Z @e77a25a32722 @w8fbe1a65936f
+// sym: ?FUN_00307f30@Object@fn_fa930a40@@QAEXH@Z @e77a25a32722 @w8fbe1a65936f @v3620570ea101
 // STATUS: equivalent (tools/equiv.py level 3: 44 inputs, branch coverage 18/18)
 // FUN_00307f30 @ 0x00307f30
 void Object::FUN_00307f30(int n) {
