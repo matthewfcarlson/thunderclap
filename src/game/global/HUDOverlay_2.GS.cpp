@@ -3,6 +3,7 @@
 // object 0x000cc7e0..0x000d40e0 (kind game, layer game, confidence high), dominant class HUDOverlay
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "compat/fixedint.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 #include "gen/owners.h"
@@ -114,7 +115,7 @@ class Geometry;
 extern "C" int sprintf(char *, const char *, ...);
 #endif
 
-extern "C" int __cdecl FUN_00266da0(hulk_intptr mode);
+extern "C" int32_t __cdecl FUN_00266da0(int32_t mode);   // (x64t16, D70) the heap id: a 32-bit integer
 void *__cdecl FUN_0008d690(unsigned int size);
 void *thunk_FUN_0008d690(unsigned int size);
 extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);

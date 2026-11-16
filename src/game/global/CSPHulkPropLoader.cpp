@@ -3,6 +3,7 @@
 // object 0x001d4d50..0x001d64c0 (kind game, layer game, confidence medium), dominant class CSPHulkPropLoader
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "compat/fixedint.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 #include "gen/global.h"
@@ -80,7 +81,7 @@ struct CSPHulkProp_1d55d0 : Entity_1d55d0 {
 };
 struct Query_1d5630 { void FUN_0008ced0(int,int,unsigned*,int,int,int); };
 extern "C" Query_1d5630* __cdecl FUN_0008ceb0();
-extern "C" unsigned __cdecl FUN_00266da0(hulk_uintptr);
+extern "C" int32_t __cdecl FUN_00266da0(int32_t);   // (x64t16, D70) the heap id: a 32-bit integer
 struct Owner_1d5630;
 struct Entry_1d5630;
 struct CSPHulkPropInstance_nv_1d5630 {
@@ -553,7 +554,7 @@ CSPHulkPropInstance* Owner_1d5630::target(hulk_uintptr a,unsigned b) {
  unsigned size;
  FUN_0008ceb0()->FUN_0008ced0(10,0,&size,0,0,0);
  if(size<0xc800) return 0;
- unsigned old=FUN_00266da0(10);
+ int32_t old=FUN_00266da0(10);
  CSPHulkPropInstance* obj=FUN_00263ea0(0x278);
  if(obj) obj=((CSPHulkPropInstance_nv_1d5630*)(((CSPHulkPropInstance*)(obj))))->FUN_001d7890(this,0);
  FUN_00266da0(old);

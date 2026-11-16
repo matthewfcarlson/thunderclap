@@ -2,6 +2,7 @@
 // object 0x00232c40..0x00234090 (kind game, layer engine, confidence high), dominant class fight::Branch
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "compat/fixedint.h"
 #include "decls/data/engine/fight.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
@@ -198,7 +199,7 @@ struct ScopeNode {
     ScopeNode *next;
 };
 extern "C" int FUN_00238190(int mode);
-extern "C" int FUN_00266da0(hulk_intptr v);
+extern "C" int32_t FUN_00266da0(int32_t v);   // (x64t16, D70) the heap id: a 32-bit integer
 extern "C" void FUN_00232cc0(Lexer *lexer, const char *msg, ...);
 void *__cdecl FUN_00263ea0(unsigned int size);
 class Branch_2337c0 {
@@ -826,8 +827,8 @@ public:
 };
 
 void FUN_00267090(char *p);
-void *FUN_00238190(int kind);
-extern "C" char *FUN_00266e00(void *pool, int size);
+int32_t FUN_00238190(int kind);   // (x64t16, D70) a heap id
+extern "C" char *FUN_00266e00(int32_t pool, int size);
 
 class NameHolder_233f20 {
 public:

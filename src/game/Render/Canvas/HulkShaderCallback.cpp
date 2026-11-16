@@ -2,6 +2,7 @@
 // object 0x001c1460..0x001c49c0 (kind game, layer game, confidence high), dominant class Render::Canvas::HulkShaderCallback
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "compat/fixedint.h"
 #include "decls/data/engine/content.h"
 #include "decls/data/engine/pure3d/prop.h"
 #include "decls/data/game/Render/Canvas.h"
@@ -3151,7 +3152,7 @@ struct Entry_1c4190 {
     Entry_1c4190 *FUN_001c5cf0(Key_1c4190 *key, Res_1c4190 *r);
 };
 
-extern "C++" int __cdecl FUN_00266da0(hulk_intptr mode);
+extern "C++" int32_t __cdecl FUN_00266da0(int32_t mode);   // (x64t16, D70) the heap id: a 32-bit integer
 extern "C" void *__cdecl FUN_0008d690(unsigned int size);
 
 class Loader_1c4190 {

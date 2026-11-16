@@ -2,6 +2,7 @@
 // object 0x00236a90..0x00236e00 (kind game, layer engine, confidence high), dominant class fight::Track
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "compat/fixedint.h"
 #include "decls/data/engine/fight.h"
 #include "gen/fight.h"
 #define TREE_TU_BEGIN namespace fn_f5a78e74 {
@@ -14,7 +15,7 @@ namespace fn_f5a78e74 { extern "C" char DAT_00427f54[], DAT_00427f70[]; }   // (
 namespace fn_f5a78e74 {
 typedef unsigned __int64 Key_236ac0;
 extern "C" int __cdecl FUN_00238190(int);
-extern "C" int __cdecl FUN_00266da0(hulk_intptr);
+extern "C" int32_t __cdecl FUN_00266da0(int32_t);   // (x64t16, D70) the heap id: a 32-bit integer
 } // namespace fn_f5a78e74
 extern "C" Key_236ac0 __cdecl FUN_002672f0(int, int, int);
 namespace fn_f5a78e74 {

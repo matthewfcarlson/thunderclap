@@ -3,6 +3,7 @@
 // object 0x00203870..0x00208b9c (kind game, layer game, confidence high), dominant class CWorldStreamManager
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "compat/fixedint.h"
 #include "decls/address.h"
 #include "decls/data/engine/content.h"
 #include "decls/data/game/global.h"
@@ -177,7 +178,7 @@ struct Waiter {
 struct Target_203e30 {
     void Run(Waiter*);
 };
-extern "C" int __cdecl FUN_00266da0(hulk_intptr pool);
+extern "C" int32_t __cdecl FUN_00266da0(int32_t pool);   // (x64t16, D70) the heap id: a 32-bit integer
 extern "C" void* __cdecl FUN_0008d6d0(unsigned int size);
 struct Item_204180 {
     char data[0x56];

@@ -3,6 +3,7 @@
 #define HULK_REFCOUNT_INLINE_DTOR   // (gx5, D56) include/gen/core.h: the real destructors inline IRefCount's and NonCopyable's
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "compat/fixedint.h"
 #include "decls/data/engine/fight.h"
 #include "decls/data/game/global.h"
 #include "gen/fight.h"
@@ -565,7 +566,7 @@ namespace fn_002324b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 95 inputs, branch coverage 34/36, incomplete)
 // FUN_002324b0 @ 0x002324b0
 
-void *__cdecl FUN_00266da0(hulk_intptr n);
+int32_t __cdecl FUN_00266da0(int32_t n);   // (x64t16, D70) the heap id: a 32-bit integer
 int __cdecl FUN_00238190(int n);
 
 class Node {
@@ -599,7 +600,7 @@ public:
 
 bool NodeList_2324b0::FUN_002324b0(char flush)
 {
-    void *saved = FUN_00266da0(FUN_00238190(3));
+    int32_t saved = FUN_00266da0(FUN_00238190(3));
     bool keep = false;
     Node *prev = 0;
     Node *n = head;
@@ -653,7 +654,7 @@ bool NodeList_2324b0::FUN_002324b0(char flush)
                 FUN_002321b0();
         }
     }
-    FUN_00266da0((hulk_intptr)saved);
+    FUN_00266da0(saved);
     return keep;
 }
 } // namespace fn_002324b0

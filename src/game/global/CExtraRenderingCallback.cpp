@@ -2,6 +2,7 @@
 // object 0x001bc0c0..0x001bddc0 (kind game, layer game, confidence medium), dominant class CExtraRenderingCallback
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "compat/fixedint.h"
 #include "decls/data/engine/pure3d/prop.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
@@ -1462,7 +1463,7 @@ struct World {
     Holder_1bdb90 *holder;
 };
 
-extern "C" int __cdecl FUN_00266da0(hulk_intptr mode);
+extern "C" int32_t __cdecl FUN_00266da0(int32_t mode);   // (x64t16, D70) the heap id: a 32-bit integer
 
 class Widget_1bdb90 {
 public:

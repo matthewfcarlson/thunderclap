@@ -2,6 +2,7 @@
 // object 0x000fdab0..0x000ff230 (kind game, layer game, confidence high), dominant class CCharacterGolem
 // (tree_prelude.h: not needed)
 #include "compat/ptr.h"
+#include "compat/fixedint.h"
 
 
 // 0x000febc0 FUN_000febc0 (158 B): matches/0x000febc0.cpp [isolated: compile error C2664: 'fn_000febc0::Owner_febc0::Find' : cannot convert parameter 1 from 'const type_info' to 'const fn_000febc0::type_info &']
@@ -22,7 +23,7 @@ class CPathAgent_febc0 {
   public:
     CPathAgent* Make_001047b0(Owner_febc0*);
 };
-extern "C" void* __cdecl FUN_00266da0(hulk_intptr);
+extern "C" int32_t __cdecl FUN_00266da0(int32_t);   // (x64t16, D70) the heap id: a 32-bit integer
 extern "C" void* __cdecl FUN_0008d690(int);
 void __cdecl FUN_000febc0(Owner_febc0* owner, CPathAgent** out) {
     CAgent* p = owner->Find_000fdd30(typeid(CPathAgent));
@@ -35,7 +36,7 @@ void __cdecl FUN_000febc0(Owner_febc0* owner, CPathAgent** out) {
         *out = q;
     }
     if (!*out) {
-        void* b = FUN_00266da0(0xc);
+        int32_t b = FUN_00266da0(0xc);
         void* a = FUN_0008d690(0xfc);
         CPathAgent* q;
         if (a)
@@ -47,7 +48,7 @@ void __cdecl FUN_000febc0(Owner_febc0* owner, CPathAgent** out) {
         if (*out)
             (*out)->D();
         *out = q;
-        FUN_00266da0((hulk_intptr)b);
+        FUN_00266da0(b);
     }
 }
 

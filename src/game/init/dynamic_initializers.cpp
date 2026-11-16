@@ -9710,15 +9710,16 @@ extern "C" void FUN_00364140() {
 } // namespace fn_f1ddef39
 
 // 0x00364150 FUN_00364150 (10 B): matches/0x00364150.cpp [wrapped: conflict: FUN_00364150]
-// sym: ?FUN_00364150@fn_00364150@@YAHXZ
+// sym: ?FUN_00364150@fn_00364150@@YAXXZ
 namespace fn_00364150 {
 // data: gGlobal_364150 = DAT_004e5d68
 
 struct G_364150 {
-    int FnF_002580e0();
+    void FnF_002580e0();   // (x64t16) as defined (0x002580e0 returns nothing)
 };
-int __cdecl FUN_00364150() {
-    return (*(G_364150*)((char*)&DAT_004e5d68)).FnF_002580e0();
+// (x64t16) an atexit handler: void, as _atexit takes it (the caller's `extern "C" void FUN_00364150()`)
+void __cdecl FUN_00364150() {
+    (*(G_364150*)((char*)&DAT_004e5d68)).FnF_002580e0();
 }
 } // namespace fn_00364150
 

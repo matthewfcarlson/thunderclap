@@ -2,6 +2,7 @@
 // object 0x000788e0..0x00081340 (kind game, layer game, confidence high), dominant class CAmbientsManager
 // (tree_prelude.h: not needed)
 #include "compat/ptr.h"
+#include "compat/fixedint.h"
 
 
 // 0x0007f310 FUN_0007f310 (318 B): equivalent/0x0007f310.cpp [isolated: code differs from its standalone build]
@@ -12,7 +13,7 @@ namespace fn_f804b1ac {
 // STATUS: equivalent (tools/equiv.py level 3: 2834 inputs, branch coverage 12/12)
 // FUN_0007f310 @ 0x0007f310
 void *__cdecl FUN_00263ea0(unsigned int size);
-extern "C" void *__cdecl FUN_00266da0(hulk_intptr n);
+extern "C" int32_t __cdecl FUN_00266da0(int32_t n);   // (x64t16, D70) the heap id: a 32-bit integer
 
 struct Timer {
     // equiv-conv: FUN_0008ced0 ecx stack stack stack stack stack stack
@@ -74,7 +75,7 @@ Node *Manager_7f310::FUN_0007f310(int a0, int a1, int count, int base)
     if (stamp < 0x3c00)
         return 0;
 
-    void *saved = FUN_00266da0(10);
+    int32_t saved = FUN_00266da0(10);
     Entry_7f310 *e = &tbl[count];
     Node *node = 0;
     Resource_7f310 *res = FUN_0007e570(e, base);
@@ -99,7 +100,7 @@ Node *Manager_7f310::FUN_0007f310(int a0, int a1, int count, int base)
         }
         res->Release();
     }
-    FUN_00266da0((hulk_intptr)saved);
+    FUN_00266da0(saved);
     return node;
 }
 } // namespace fn_f804b1ac

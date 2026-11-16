@@ -2,6 +2,7 @@
 // object 0x0023a0f0..0x0023a3f0 (kind game, layer engine, confidence high), dominant class fight::QueuedNodeAction
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "compat/fixedint.h"
 #include "gen/fight.h"
 #define TREE_TU_BEGIN namespace fn_fb73e034 {
 #define TREE_TU_END }
@@ -71,7 +72,7 @@ namespace fn_0023a0f0 {
 // fight::QueuedNodeAction::vfunc_3 @ 0x0023a0f0
 typedef unsigned int uint_23a0f0;
 extern "C" uint_23a0f0 __cdecl FUN_00238190(uint_23a0f0);
-extern "C" uint_23a0f0 __cdecl FUN_00266da0(hulk_uintptr);
+extern "C" int32_t __cdecl FUN_00266da0(int32_t);   // (x64t16, D70) the heap id: a 32-bit integer
 struct Result_23a0f0 { char pad[12]; uint_23a0f0 flags; float first, second; };
 struct Owner_23a0f0;
 struct Node {
@@ -93,7 +94,7 @@ struct QueuedNodeAction {
  char pad0[8]; uint_23a0f0 flags; char pad1[12]; Owner_23a0f0* owner; uint_23a0f0 query; uint_23a0f0 expected; uint_23a0f0 context; Queue_23a0f0 queue; uint_23a0f0 value; unsigned char active;
 };
 bool QueuedNodeAction::vfunc_3(uint_23a0f0 arg, uint_23a0f0 arg2) {
- uint_23a0f0 saved = FUN_00266da0(FUN_00238190(3));
+ int32_t saved = FUN_00266da0(FUN_00238190(3));
  value = arg;
  if (!owner) { FUN_00266da0(saved); return false; }
  uint_23a0f0 status = 1;

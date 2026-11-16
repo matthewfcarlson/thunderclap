@@ -3,6 +3,7 @@
 #include "tree_prelude.h"
 #include "decls/data/records.h"   // (x64t14) ContentLoadStream
 #include "compat/ptr.h"
+#include "compat/fixedint.h"
 #include "decls/data/engine/fight.h"
 #include "gen/content.h"
 #include "gen/owners.h"
@@ -170,7 +171,7 @@ Entry *Collection::FUN_00232840(unsigned int first, unsigned int second) { for (
 namespace fn_00232870 {
 // STATUS: equivalent (tools/equiv.py level 3: 77 inputs, branch coverage 18/18)
 // FUN_00232870 @ 0x00232870
-void* __cdecl FUN_00266da0(hulk_intptr n);
+int32_t __cdecl FUN_00266da0(int32_t n);   // (x64t16, D70) the heap id: a 32-bit integer
 int __cdecl FUN_00238190(int n);
 void* __cdecl FUN_00263ea0(unsigned int size);
 
@@ -223,7 +224,7 @@ public:
 
 Chunk_232870* __stdcall FUN_00232870(const char* data, int a1, unsigned int size, int a3)
 {
-    void* guard = FUN_00266da0(FUN_00238190(1));
+    int32_t guard = FUN_00266da0(FUN_00238190(1));
     Stream* stream;
     Model_232870* model;
 
@@ -251,18 +252,18 @@ Chunk_232870* __stdcall FUN_00232870(const char* data, int a1, unsigned int size
         if (mem)
             model = ((ScriptReader_232870*)mem)->FUN_0023b470(stream, 1);
     } else {
-        FUN_00266da0((hulk_intptr)guard);
+        FUN_00266da0(guard);
         return 0;
     }
 
     model->v0();
-    void* inner = FUN_00266da0(FUN_00238190(2));
+    int32_t inner = FUN_00266da0(FUN_00238190(2));
     void* mem = FUN_00263ea0(0x30);
     Chunk_232870* dest = 0;
     if (mem)
         dest = ((Chunk_232870*)mem)->FUN_0023b540();
     dest->v9(0, model, -1);
-    FUN_00266da0((hulk_intptr)inner);
+    FUN_00266da0(inner);
     model->v1();
     stream->v1();
     FUN_00266da0((hulk_intptr)guard);

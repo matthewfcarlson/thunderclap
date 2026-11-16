@@ -3,6 +3,7 @@
 // object 0x001d7b80..0x001db770 (kind game, layer game, confidence medium), dominant class CSPListener
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "compat/fixedint.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 #include "gen/global.h"
@@ -2914,7 +2915,7 @@ struct Fx34_1da540 {
     void FUN_001ebd80(Entity *e, const char *name, float v, int z);
 };
 
-extern "C" int __cdecl FUN_00266da0(hulk_intptr mode);
+extern "C" int32_t __cdecl FUN_00266da0(int32_t mode);   // (x64t16, D70) the heap id: a 32-bit integer
 extern "C" void *__cdecl FUN_0008d690(unsigned int size);
 void __cdecl FUN_00018810(RefObj_1da540 **slot, RefObj_1da540 *obj);
 void __cdecl FUN_00224d70(float ang, V3_1da540 *v);

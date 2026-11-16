@@ -4,6 +4,7 @@
 // object 0x000382c0..0x00044910 (kind game, layer game, confidence medium), dominant class CCharacter
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "compat/fixedint.h"
 #include "decls/address.h"
 #include "decls/data/engine/physics.h"
 #include "decls/data/game/global.h"
@@ -760,7 +761,7 @@ struct Singleton_3dd70 {
 };
 Singleton_3dd70 *FUN_0027f250();
 extern "C" float __cdecl FUN_000186b0(float *a, float *b, float *c);
-extern "C" int __cdecl FUN_00266da0(hulk_intptr v);
+extern "C" int32_t __cdecl FUN_00266da0(int32_t v);   // (x64t16, D70) the heap id: a 32-bit integer
 struct Pool_3dd70 {
     int first;
     void FUN_00059a50(V3_3dd70 *out);

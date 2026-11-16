@@ -3,6 +3,7 @@
 #include "tree_prelude.h"
 #define HULK_FIGHT_PARAM_IMPLICIT   // (gx2, D18) include/gen/fight.h: the parameter classes' real constructors
 #include "compat/ptr.h"
+#include "compat/fixedint.h"
 #include "gen/fight.h"
 #define TREE_TU_BEGIN namespace fn_fff9a376 {
 #define TREE_TU_END }
@@ -12,8 +13,8 @@ namespace fn_fff9a376 {} using namespace fn_fff9a376;
 // ---- declarations shared by the functions below
 namespace fn_fff9a376 {
 typedef hulk_uintptr U32_2347b0;
-extern void* MakeTemp_00238190(int);
-extern "C" void* FUN_00266da0(void*);
+extern int32_t MakeTemp_00238190(int);   // (x64t16, D70) a heap id
+extern "C" int32_t FUN_00266da0(int32_t);   // (x64t16, D70) the heap id: a 32-bit integer
 extern "C" void* FUN_0008d6d0(int);
 class Item {
   public:
@@ -52,7 +53,7 @@ namespace fn_fff9a376 {
 // 0x002347b0 FUN_002347b0 (91 B): matches/0x002347b0.cpp
 // sym: _FUN_002347b0
 extern "C" void FUN_002347b0(U32_2347b0** out, U32_2347b0* src, int count) {
-    void* p = MakeTemp_00238190(0);
+    int32_t p = MakeTemp_00238190(0);
     p = FUN_00266da0(p);
     *out = (U32_2347b0*)FUN_0008d6d0(count * sizeof(U32_2347b0) + sizeof(U32_2347b0));
     int i;
