@@ -60,7 +60,7 @@ struct Finder_d3f10 {
 } // namespace fn_fb5eeb37
 
 // 0x000d3170 FUN_000d3170 (3067 B): equivalent/0x000d3170.cpp [wrapped: helper definitions (5 out-of-line function bodies)]
-// sym: ?FUN_000d3170@Hud_d3170@fn_000d3170@@QAEXPAUA1@2@HPAUA3@2@@Z @402124f9cd97 @w750b841ba0ab
+// sym: ?FUN_000d3170@Hud_d3170@fn_000d3170@@QAEXPAUA1@2@HPAUA3@2@@Z @176f54814cec @w0008d77948a6 @v000b04d9ebec
 inline void *operator new(size_t, void *p) throw() { return p; }
 namespace fn_000d3170 {
 // STATUS: equivalent (tools/equiv.py level 3: 125 inputs, branch coverage 123/130, incomplete)
@@ -389,35 +389,39 @@ void Hud_d3170::FUN_000d3170(A1 *a1, int a2, A3 *a3)
     f54.f0 = 0;
 
     // HUD layout constants
-    f.s60 = DAT_004de600 * -0.5f;
+    // (the original keeps A = x * -0.5, B = y * 0.5 and the products in st; what it stores is rounded there)
+    hulk_freg A = (hulk_freg)DAT_004de600 * -0.5f;
+    f.s60 = A;
     f.vec.x = DAT_004de600;
     f.vec.y = DAT_004de604;
+    hulk_freg B = (hulk_freg)DAT_004de604 * 0.5f;
     DAT_004ddf14 = 0;
     DAT_004ddeb8 = 0;
     DAT_004ddea0 = 0;
     DAT_004ddf08 = 0;
     f.s50 = f.vec.y * -0.1f;
     f.u74.s74 = f.s50;
-    DAT_004ddf0c = f.vec.x * 0.06f + f.s60;
-    DAT_004ddf10 = f.s50 + DAT_004de604 * 0.5f;
-    f.s5c = DAT_004de604 * -0.5f;
-    DAT_004ddeb0 = f.vec.x * 0.1f + f.s60;
-    DAT_004ddeb4 = f.vec.y * 0.36f + f.s5c;
-    DAT_004dde98 = f.vec.x * 0.1f + f.s60;
-    DAT_004dde9c = f.vec.y * 0.4f + f.s5c;
+    DAT_004ddf0c = (hulk_freg)f.vec.x * 0.06f + f.s60;
+    DAT_004ddf10 = f.u74.s74 + B;
+    f.s5c = (hulk_freg)DAT_004de604 * -0.5f;
+    DAT_004ddeb0 = (hulk_freg)f.vec.x * 0.1f + f.s60;
+    DAT_004ddeb4 = (hulk_freg)f.vec.y * 0.36f + f.s5c;
+    DAT_004dde98 = (hulk_freg)f.vec.x * 0.1f + f.s60;
+    DAT_004dde9c = (hulk_freg)f.vec.y * 0.4f + f.s5c;
     f.s50 = f.vec.y * -0.18f;
-    DAT_004ddf00 = f.vec.x * 0.04f + DAT_004de600 * -0.5f;
-    DAT_004ddf04 = f.s50 + DAT_004de604 * 0.5f;
-    f.u70.s70 = 0.5f * f.vec.x;
+    DAT_004ddf00 = (hulk_freg)f.vec.x * 0.04f + A;
+    DAT_004ddf04 = f.s50 + B;
+    hulk_freg K = 0.5f * (hulk_freg)f.vec.x;
+    f.u70.s70 = K;
     (*(float*)&DAT_004dded0) = 0;
     f.s50 = -(0.1f * f.vec.y);
     (*(float*)((char*)&DAT_004ddea4 + 8)) = 0;
-    DAT_004ddec8 = f.u70.s70 + DAT_004de600 * -0.5f;
-    DAT_004ddecc = f.s50 + DAT_004de604 * 0.5f;
-    f.s54 = DAT_004de600 * -0.5f;
+    DAT_004ddec8 = K + A;
+    DAT_004ddecc = f.s50 + B;
+    f.s54 = A;
     f.s5c = -(0.14f * f.vec.y);
     (*(float*)&DAT_004ddea4) = f.u70.s70 + f.s54;
-    (*(float*)((char*)&DAT_004ddea4 + 4)) = f.s5c + DAT_004de604 * 0.5f;
+    (*(float*)((char*)&DAT_004ddea4 + 4)) = f.s5c + B;
 
     Res_d3170 *r;
     {
@@ -451,16 +455,18 @@ void Hud_d3170::FUN_000d3170(A1 *a1, int a2, A3 *a3)
     f228 = 0;
     f22c = 0;
     f.s5c = f.u74.s74;
-    f.s54 = DAT_004de600 * 0.5f;
+    f.s54 = (hulk_freg)DAT_004de600 * 0.5f;
     DAT_004ddefc = 0;
     DAT_004ddec4 = 0;
     DAT_004ddf1c = 0;
     (*(float*)&DAT_004ddf20) = 0;
-    (*(float*)&DAT_004ddef4) = f.vec.x * -0.08f + f.s54;
-    DAT_004ddef8 = f.s5c + DAT_004de604 * 0.5f;
-    f.s5c = DAT_004de604 * 0.5f;
+    hulk_freg B2 = (hulk_freg)DAT_004de604 * 0.5f;     // B2, A2 and the products kept in st
+    (*(float*)&DAT_004ddef4) = (hulk_freg)f.vec.x * -0.08f + f.s54;
+    DAT_004ddef8 = f.s5c + B2;
+    hulk_freg A2 = (hulk_freg)DAT_004de600 * -0.5f;
+    f.s5c = B2;
     f.s50 = f.vec.y * -0.127f;
-    DAT_004ddebc = f.vec.x * 0.05f + DAT_004de600 * -0.5f;
+    DAT_004ddebc = (hulk_freg)f.vec.x * 0.05f + A2;
     DAT_004ddec0 = f.s50 + f.s5c;
     DAT_004ddf18 = f.vec.x * 0.0333f;
     {

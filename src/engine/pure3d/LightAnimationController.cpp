@@ -344,7 +344,7 @@ void LightAnimationController_2a8aa0::Set(Object* value) {
 } // namespace fn_f5607ee0
 
 // 0x002a8bb0 pure3d::LightAnimationController::vfunc_28 (1853 B): equivalent/0x002a8bb0.cpp [wrapped: conflict: Light; LightAnimationController]
-// sym: ?v28@LightAnimationController@fn_002a8bb0@@UAEXXZ @eeaded3d3c7f @w21ec0d2610b5
+// sym: ?v28@LightAnimationController@fn_002a8bb0@@UAEXXZ @eeaded3d3c7f @w257b89ebf63d @v49a4751ba660
 namespace fn_002a8bb0 {
 // STATUS: equivalent (tools/equiv.py level 3: 145 inputs, branch coverage 76/84, incomplete)
 // pure3d::LightAnimationController::vfunc_28 @ 0x002a8bb0
@@ -585,22 +585,22 @@ void LightAnimationController::v28()
         default:
             break;
         }
-        c0 = (int)f.acc0;
+        c0 = (int)(__int64)f.acc0;      // _ftol: the low word
         if (c0 < 0)
             c0 = 0;
         else if (c0 > 0xff)
             c0 = 0xff;
-        c1 = (int)f.acc1;
+        c1 = (int)(__int64)f.acc1;      // _ftol: the low word
         if (c1 < 0)
             c1 = 0;
         else if (c1 > 0xff)
             c1 = 0xff;
-        c2 = (int)f.acc2;
+        c2 = (int)(__int64)f.acc2;      // _ftol: the low word
         if (c2 < 0)
             c2 = 0;
         else if (c2 > 0xff)
             c2 = 0xff;
-        c3 = (int)f.acc3;
+        c3 = (int)(__int64)f.acc3;      // _ftol: the low word
         if (c3 < 0)
             c3 = 0;
         else if (c3 > 0xff)
@@ -639,22 +639,22 @@ void LightAnimationController::v28()
             el++;
         } while (i < count);
     }
-    c0 = (int)f.acc0;
+    c0 = (int)(__int64)f.acc0;      // _ftol: the low word
     if (c0 < 0)
         c0 = 0;
     else if (c0 > 0xff)
         c0 = 0xff;
-    c1 = (int)f.acc1;
+    c1 = (int)(__int64)f.acc1;      // _ftol: the low word
     if (c1 < 0)
         c1 = 0;
     else if (c1 > 0xff)
         c1 = 0xff;
-    c2 = (int)f.acc2;
+    c2 = (int)(__int64)f.acc2;      // _ftol: the low word
     if (c2 < 0)
         c2 = 0;
     else if (c2 > 0xff)
         c2 = 0xff;
-    c3 = (int)f.acc3;
+    c3 = (int)(__int64)f.acc3;      // _ftol: the low word
     if (c3 < 0)
         c3 = 0;
     else if (c3 > 0xff)

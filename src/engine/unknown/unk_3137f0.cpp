@@ -2348,7 +2348,7 @@ void Controller_317610::target(void* a,Object* obj,const Vec_317610* input,float
 } // namespace fn_fc854b07
 
 // 0x00317700 FUN_00317700 (4549 B): equivalent/0x00317700.cpp [wrapped: conflict: Vec3]
-// sym: ?FUN_00317700@Resolver@fn_00317700@@QAE_NPAVBody@2@0D_N@Z @aea6d2ea7a4e @w5797b2b0673c
+// sym: ?FUN_00317700@Resolver@fn_00317700@@QAE_NPAVBody@2@0D_N@Z @32db6e67f6ee @w2ad199afb108 @v508a32072a2a
 namespace fn_00317700 {
 // STATUS: equivalent (tools/equiv.py level 3: 20036 inputs, branch coverage 122/126, incomplete)
 // FUN_00317700 @ 0x00317700
@@ -2479,19 +2479,19 @@ bool Resolver::FUN_00317700(Body *a, Body *b, char mode, bool emit)
                 dir.y = fr.P0.y - fr.Q0.y;
                 dir.z = fr.P0.z - fr.Q0.z;
                 fr.len = dir.FUN_0022d110();
-                if ((b->f54 + a->f54) + threshold >= fr.len
-                    && !(((fr.u.z * dir.z + fr.u.y * dir.y) + fr.u.x * dir.x) > 0.0f)
-                    && !(((fr.w.z * dir.z + fr.w.y * dir.y) + fr.w.x * dir.x) < 0.0f)) {
+                if (((hulk_freg)b->f54 + a->f54) + threshold >= fr.len
+                    && !((((hulk_freg)fr.u.z * dir.z + (hulk_freg)fr.u.y * dir.y) + (hulk_freg)fr.u.x * dir.x) > 0.0f)
+                    && !((((hulk_freg)fr.w.z * dir.z + (hulk_freg)fr.w.y * dir.y) + (hulk_freg)fr.w.x * dir.x) < 0.0f)) {
                     if (emit) {
                         float ha = -a->f54;
-                        fr.pA.x = ha * dir.x + fr.P0.x;
-                        fr.pA.y = ha * dir.y + fr.P0.y;
-                        fr.pA.z = ha * dir.z + fr.P0.z;
+                        fr.pA.x = (hulk_freg)ha * dir.x + fr.P0.x;
+                        fr.pA.y = (hulk_freg)ha * dir.y + fr.P0.y;
+                        fr.pA.z = (hulk_freg)ha * dir.z + fr.P0.z;
                         float hb = b->f54;
-                        fr.pB.x = hb * dir.x + fr.Q0.x;
-                        fr.pB.y = hb * dir.y + fr.Q0.y;
-                        fr.pB.z = hb * dir.z + fr.Q0.z;
-                        FUN_00314be0(a, &fr.pA, b, &fr.pB, fr.len - (b->f54 + a->f54), &dir);
+                        fr.pB.x = (hulk_freg)hb * dir.x + fr.Q0.x;
+                        fr.pB.y = (hulk_freg)hb * dir.y + fr.Q0.y;
+                        fr.pB.z = (hulk_freg)hb * dir.z + fr.Q0.z;
+                        FUN_00314be0(a, &fr.pA, b, &fr.pB, fr.len - ((hulk_freg)b->f54 + a->f54), &dir);
                     }
                     return true;
                 }
@@ -2506,10 +2506,10 @@ bool Resolver::FUN_00317700(Body *a, Body *b, char mode, bool emit)
         // Both long.
         volatile Vec3 *offw = &offset;
         volatile Vec3 *dirw = &dir;
-        fr.cosAB = ((a->n.z * b->n.z + a->n.y * b->n.y) + b->n.x * a->n.x);
-        fr.N.x = a->n.y * b->n.z - a->n.z * b->n.y;
-        fr.N.y = a->n.z * b->n.x - b->n.z * a->n.x;
-        fr.N.z = b->n.y * a->n.x - a->n.y * b->n.x;
+        fr.cosAB = (((hulk_freg)a->n.z * b->n.z + (hulk_freg)a->n.y * b->n.y) + (hulk_freg)b->n.x * a->n.x);
+        fr.N.x = (hulk_freg)a->n.y * b->n.z - (hulk_freg)a->n.z * b->n.y;
+        fr.N.y = (hulk_freg)a->n.z * b->n.x - (hulk_freg)b->n.z * a->n.x;
+        fr.N.z = (hulk_freg)b->n.y * a->n.x - (hulk_freg)a->n.y * b->n.x;
         fr.axis = fr.N;
         fr.sinAB = fr.N.FUN_0022d110();
         fr.ra = a->f50;
@@ -2517,35 +2517,36 @@ bool Resolver::FUN_00317700(Body *a, Body *b, char mode, bool emit)
             fr.rb = b->f50;
             for (fr.j = 0; fr.j < 2; fr.j++, fr.rb = fr.rb * -1.0f) {
                 Vec3 *ca = a->vfunc_4();
-                fr.P.x = fr.ra * a->n.x + ca->x;
-                fr.P.y = fr.ra * a->n.y + ca->y;
-                fr.P.z = fr.ra * a->n.z + ca->z;
+                fr.P.x = (hulk_freg)fr.ra * a->n.x + ca->x;
+                fr.P.y = (hulk_freg)fr.ra * a->n.y + ca->y;
+                fr.P.z = (hulk_freg)fr.ra * a->n.z + ca->z;
                 Vec3 *cb = b->vfunc_4();
-                fr.Q.x = fr.rb * b->n.x + cb->x;
-                fr.Q.y = fr.rb * b->n.y + cb->y;
-                fr.Q.z = fr.rb * b->n.z + cb->z;
+                fr.Q.x = (hulk_freg)fr.rb * b->n.x + cb->x;
+                fr.Q.y = (hulk_freg)fr.rb * b->n.y + cb->y;
+                fr.Q.z = (hulk_freg)fr.rb * b->n.z + cb->z;
                 offw->x = fr.P.x - fr.Q.x;
                 offw->y = fr.P.y - fr.Q.y;
                 offw->z = fr.P.z - fr.Q.z;
-                if ((fr.rb * fr.ra) * fr.cosAB > 0.0f)
+                if (((hulk_freg)fr.rb * fr.ra) * fr.cosAB > 0.0f)     // in st: no underflow to 0
                     continue;
 
                 float hmax = a->f54 < b->f54 ? b->f54 : a->f54;
-                if (fr.sinAB < threshold / hmax) {
+                if (fr.sinAB < (hulk_freg)threshold / hmax) {      // the quotient unrounded
                     // Nearly parallel axes.
                     float s = fr.rb < 0.0f ? -1.0f : (fr.rb > 0.0f ? 1.0f : 0.0f);
                     dirw->x = s * b->n.x;
                     dirw->y = s * b->n.y;
                     dirw->z = s * b->n.z;
-                    fr.d = ((dir.z * offset.z + dir.y * offset.y) + dir.x * offset.x);
-                    if (!(fr.d < threshold))
+                    hulk_freg dd = (((hulk_freg)dir.z * offset.z + (hulk_freg)dir.y * offset.y) + (hulk_freg)dir.x * offset.x);
+                    fr.d = dd;                      // fst: stored rounded, compared unrounded
+                    if (!(dd < threshold))
                         continue;
                     float rmin = a->f50 < b->f50 ? a->f50 : b->f50;
                     if (!(rmin + rmin > -fr.d))
                         continue;
-                    fr.Q.x = fr.d * dir.x + fr.Q.x;
-                    fr.Q.y = fr.d * dir.y + fr.Q.y;
-                    fr.Q.z = fr.d * dir.z + fr.Q.z;
+                    fr.Q.x = (hulk_freg)fr.d * dir.x + fr.Q.x;
+                    fr.Q.y = (hulk_freg)fr.d * dir.y + fr.Q.y;
+                    fr.Q.z = (hulk_freg)fr.d * dir.z + fr.Q.z;
                     int rc;
                     if (a->f54 < b->f54)
                         rc = FUN_00314a10(&fr.P, &fr.Q, &a->n, a->f54, b->f54, 1, &fr.pA, &fr.pA2);
@@ -2556,9 +2557,9 @@ bool Resolver::FUN_00317700(Body *a, Body *b, char mode, bool emit)
                         continue;
                     if (emit) {
                         fr.nd = -fr.d;
-                        fr.pB.x = fr.nd * dir.x + fr.pA.x;
-                        fr.pB.y = fr.nd * dir.y + fr.pA.y;
-                        fr.pB.z = fr.nd * dir.z + fr.pA.z;
+                        fr.pB.x = (hulk_freg)fr.nd * dir.x + fr.pA.x;
+                        fr.pB.y = (hulk_freg)fr.nd * dir.y + fr.pA.y;
+                        fr.pB.z = (hulk_freg)fr.nd * dir.z + fr.pA.z;
                         FUN_00314be0(a, &fr.pA, b, &fr.pB, fr.d, &dir);
                         if (fr.rc == 2) {
                             fr.pB.FUN_001f6bc0(&fr.pA2, fr.nd, &dir);
@@ -2569,14 +2570,14 @@ bool Resolver::FUN_00317700(Body *a, Body *b, char mode, bool emit)
                 }
 
                 // Separation along each axis, beyond the other body's reach.
-                fr.ta.f = ((a->n.z * offset.z + a->n.y * offset.y) + a->n.x * offset.x);
+                fr.ta.f = (((hulk_freg)a->n.z * offset.z + (hulk_freg)a->n.y * offset.y) + (hulk_freg)a->n.x * offset.x);
                 fr.ta.u &= 0x7fffffff;
-                float sa = fr.ta.f - fr.sinAB * b->f54;
+                hulk_freg sa = fr.ta.f - (hulk_freg)fr.sinAB * b->f54;     // sa, sb kept in st
                 if (sa > threshold)
                     continue;
-                fr.tb.f = ((b->n.z * offset.z + b->n.y * offset.y) + offset.x * b->n.x);
+                fr.tb.f = (((hulk_freg)b->n.z * offset.z + (hulk_freg)b->n.y * offset.y) + (hulk_freg)offset.x * b->n.x);
                 fr.tb.u &= 0x7fffffff;
-                float sb = fr.tb.f - fr.sinAB * a->f54;
+                hulk_freg sb = fr.tb.f - (hulk_freg)fr.sinAB * a->f54;
                 if (sb > threshold)
                     continue;
                 if (sa <= sb) {
@@ -2598,24 +2599,24 @@ bool Resolver::FUN_00317700(Body *a, Body *b, char mode, bool emit)
 
                 // Closest points of the two axes.
                 FUN_003148c0(&fr.P, &fr.Q, &a->n, &b->n, &fr.R, &fr.axis, false);
-                float px = fr.P.x - fr.R.x;
-                float py = fr.P.y - fr.R.y;
-                float pz = fr.P.z - fr.R.z;
+                hulk_freg px = fr.P.x - fr.R.x;         // px, py, pz, da, za, zb kept in st
+                hulk_freg py = fr.P.y - fr.R.y;
+                hulk_freg pz = fr.P.z - fr.R.z;
                 fr.qr.x = fr.Q.x - fr.R.x;
                 fr.qr.y = fr.Q.y - fr.R.y;
                 fr.qr.z = fr.Q.z - fr.R.z;
                 fr.e1 = ((px * fr.N.x + pz * fr.N.z) + py * fr.N.y);
-                fr.e2 = ((fr.qr.x * fr.N.x + fr.qr.z * fr.N.z) + fr.qr.y * fr.N.y);
-                float da = ((px * px + pz * pz) + py * py) - fr.e1 * fr.e1;
-                fr.Y = ((fr.qr.x * fr.qr.x + fr.qr.z * fr.qr.z) + fr.qr.y * fr.qr.y) - fr.e2 * fr.e2;
+                fr.e2 = (((hulk_freg)fr.qr.x * fr.N.x + (hulk_freg)fr.qr.z * fr.N.z) + (hulk_freg)fr.qr.y * fr.N.y);
+                hulk_freg da = ((px * px + pz * pz) + py * py) - (hulk_freg)fr.e1 * fr.e1;
+                fr.Y = (((hulk_freg)fr.qr.x * fr.qr.x + (hulk_freg)fr.qr.z * fr.qr.z) + (hulk_freg)fr.qr.y * fr.qr.y) - (hulk_freg)fr.e2 * fr.e2;
                 if (!(0.0f < da))
                     da = 0.0f;
                 if (!(0.0f < fr.Y))
                     fr.Y = 0.0f;
-                float za = a->f54 * a->f54 - da;
-                za = za > 0.0f ? (float)sqrt(za) : 0.0f;
-                float zb = b->f54 * b->f54 - fr.Y;
-                zb = zb > 0.0f ? (float)sqrt(zb) : 0.0f;
+                hulk_freg za = (hulk_freg)a->f54 * a->f54 - da;
+                za = za > 0.0f ? sqrt(za) : 0.0;
+                hulk_freg zb = (hulk_freg)b->f54 * b->f54 - fr.Y;
+                zb = zb > 0.0f ? sqrt(zb) : 0.0;
                 fr.diff.f = fr.e1 - fr.e2;
                 fr.ad.u = fr.diff.u & 0x7fffffff;
                 if (!(fr.ad.f - (zb + za) < threshold))
@@ -2633,14 +2634,15 @@ bool Resolver::FUN_00317700(Body *a, Body *b, char mode, bool emit)
                     fr.pb2 = &fr.Q;
                     fr.pa2 = &fr.P;
                 }
-                float c = 1.0f - fr.sinAB * fr.sinAB;
-                c = c > 0.0f ? (float)sqrt(c) : 0.0f;
+                hulk_freg c = 1.0f - (hulk_freg)fr.sinAB * fr.sinAB;   // kept in st
+                c = c > 0.0f ? sqrt(c) : 0.0;
                 fr.rc = FUN_00314a10(fr.pa2, fr.pb2, &fr.s1->n, fr.s1->f54, c * s2->f54, 1, &fr.pA, &fr.hit2);
                 if (fr.rc == 1 || fr.rc == 2) {
                     fr.pB.x = fr.pA.x - fr.pa2->x;
                     fr.pB.y = fr.pA.y - fr.pa2->y;
-                    fr.pB.z = fr.pA.z - fr.pa2->z;
-                    fr.d0 = ((fr.pB.z * dir.z + fr.pB.y * dir.y) + fr.pB.x * dir.x);
+                    hulk_freg bz = fr.pA.z - fr.pa2->z;   // fst: pB.z stored, the product from the unrounded value
+                    fr.pB.z = bz;
+                    fr.d0 = ((bz * dir.z + (hulk_freg)fr.pB.y * dir.y) + (hulk_freg)fr.pB.x * dir.x);
                 }
                 if ((fr.rc == 1 || fr.rc == 2) && fr.d0 < threshold && fr.sinAB < 0.5f) {
                     if (!emit)
@@ -2651,9 +2653,11 @@ bool Resolver::FUN_00317700(Body *a, Body *b, char mode, bool emit)
                 if (fr.rc == 2) {
                     fr.pB.x = fr.hit2.x - fr.pa2->x;
                     fr.pB.y = fr.hit2.y - fr.pa2->y;
-                    fr.pB.z = fr.hit2.z - fr.pa2->z;
-                    fr.d0 = ((fr.pB.z * dir.z + fr.pB.y * dir.y) + fr.pB.x * dir.x);
-                    if (fr.d0 < threshold && fr.sinAB < 0.5f) {
+                    hulk_freg bz = fr.hit2.z - fr.pa2->z;
+                    fr.pB.z = bz;
+                    hulk_freg dd = ((bz * dir.z + (hulk_freg)fr.pB.y * dir.y) + (hulk_freg)fr.pB.x * dir.x);
+                    fr.d0 = dd;                         // fst: compared unrounded
+                    if (dd < threshold && fr.sinAB < 0.5f) {
                         if (!emit)
                             return true;
                         fr.pB.FUN_001f6bc0(&fr.hit2, -fr.d0, &dir);
@@ -2662,19 +2666,19 @@ bool Resolver::FUN_00317700(Body *a, Body *b, char mode, bool emit)
                 }
 
                 // Points of s2's axis at the distance s1's radius from s1's axis: solve the quadratic.
-                fr.W.x = fr.N.z * s2->n.y - fr.N.y * s2->n.z;
-                fr.W.y = fr.N.x * s2->n.z - fr.N.z * s2->n.x;
-                fr.W.z = fr.N.y * s2->n.x - fr.N.x * s2->n.y;
+                fr.W.x = (hulk_freg)fr.N.z * s2->n.y - (hulk_freg)fr.N.y * s2->n.z;   // products in st
+                fr.W.y = (hulk_freg)fr.N.x * s2->n.z - (hulk_freg)fr.N.z * s2->n.x;
+                fr.W.z = (hulk_freg)fr.N.y * s2->n.x - (hulk_freg)fr.N.x * s2->n.y;
                 fr.W.FUN_0022d110();
                 Body *s1 = fr.s1;
-                float p = ((fr.W.z * s1->n.z + fr.W.y * s1->n.y) + fr.W.x * s1->n.x);
-                float q = ((s1->n.z * offset.z + s1->n.y * offset.y) + offset.x * s1->n.x);
+                hulk_freg p = (((hulk_freg)fr.W.z * s1->n.z + (hulk_freg)fr.W.y * s1->n.y) + (hulk_freg)fr.W.x * s1->n.x);   // p, q, r kept in st
+                hulk_freg q = (((hulk_freg)s1->n.z * offset.z + (hulk_freg)s1->n.y * offset.y) + (hulk_freg)offset.x * s1->n.x);
                 fr.A1 = ((1.0f - p * p) * s2->f54) * s2->f54;
-                float r = ((fr.W.z * offset.z + fr.W.y * offset.y) + fr.W.x * offset.x);
+                hulk_freg r = (((hulk_freg)fr.W.z * offset.z + (hulk_freg)fr.W.y * offset.y) + (hulk_freg)fr.W.x * offset.x);
                 fr.B1 = ((r - q * p) * s2->f54) * 2.0f;
-                fr.C1 = (((offset.z * offset.z + offset.y * offset.y) + offset.x * offset.x) - q * q) - s1->f54 * s1->f54;
-                float ac = fr.C1 * fr.A1;
-                fr.disc = (fr.B1 * fr.B1) - (ac * 4.0f);
+                fr.C1 = ((((hulk_freg)offset.z * offset.z + (hulk_freg)offset.y * offset.y) + (hulk_freg)offset.x * offset.x) - q * q) - (hulk_freg)s1->f54 * s1->f54;
+                hulk_freg ac = fr.C1 * fr.A1;           // kept in st: disc from the unrounded product
+                fr.disc = ((hulk_freg)fr.B1 * fr.B1) - (ac * 4.0f);
                 fr.tmp.f = ac;
                 fr.tmp.u &= 0x7fffffff;
                 if (fr.tmp.f < 9.99999997e-007f) {
@@ -2700,8 +2704,8 @@ bool Resolver::FUN_00317700(Body *a, Body *b, char mode, bool emit)
                 } else {
                     if (!(fr.disc >= 0.0f))
                         continue;
-                    float root = (float)sqrt(fr.disc);
-                    float inv = 1.0f / fr.A1;
+                    hulk_freg root = sqrt(fr.disc);         // root, inv kept in st
+                    hulk_freg inv = 1.0f / fr.A1;
                     fr.t1 = ((root - fr.B1) * inv) * 0.5f;
                     fr.t2 = ((-fr.B1 - root) * inv) * 0.5f;
                 }
@@ -2714,15 +2718,16 @@ bool Resolver::FUN_00317700(Body *a, Body *b, char mode, bool emit)
                 if (!(fr.tmp.f <= 1.0f))
                     fr.t2 = FUN_00083d90(&fr.t2);
 
-                                float s = fr.t1 * s2->f54;
+                                hulk_freg s = fr.t1 * s2->f54;      // kept in st
                 fr.pA.x = fr.W.x * s + fr.pb2->x;
                 fr.pA.y = fr.W.y * s + fr.pb2->y;
                 fr.pA.z = fr.W.z * s + fr.pb2->z;
                 fr.pB.x = fr.pA.x - fr.pa2->x;
                 fr.pB.y = fr.pA.y - fr.pa2->y;
                 fr.pB.z = fr.pA.z - fr.pa2->z;
-                fr.d0 = ((fr.pB.z * dir.z + fr.pB.y * dir.y) + fr.pB.x * dir.x);
-                if (fr.d0 < threshold) {
+                hulk_freg dd = (((hulk_freg)fr.pB.z * dir.z + (hulk_freg)fr.pB.y * dir.y) + (hulk_freg)fr.pB.x * dir.x);
+                fr.d0 = dd;                             // fst: compared unrounded
+                if (dd < threshold) {
                     if (!emit)
                         return true;
                     fr.pB.FUN_001f6bc0(&fr.pA, -fr.d0, &dir);
@@ -2734,9 +2739,11 @@ bool Resolver::FUN_00317700(Body *a, Body *b, char mode, bool emit)
                 fr.pA.z = fr.W.z * s + fr.pb2->z;
                 fr.pB.x = fr.pA.x - fr.pa2->x;
                 fr.pB.y = fr.pA.y - fr.pa2->y;
-                fr.pB.z = fr.pA.z - fr.pa2->z;
-                fr.d0 = ((fr.pB.z * dir.z + fr.pB.y * dir.y) + fr.pB.x * dir.x);
-                if (fr.d0 < threshold && emit) {
+                hulk_freg bz = fr.pA.z - fr.pa2->z;     // fst: pB.z stored, the product from the unrounded value
+                fr.pB.z = bz;
+                dd = ((bz * dir.z + (hulk_freg)fr.pB.y * dir.y) + (hulk_freg)fr.pB.x * dir.x);
+                fr.d0 = dd;
+                if (dd < threshold && emit) {
                     fr.pB.FUN_001f6bc0(&fr.pA, -fr.d0, &dir);
                     FUN_00314be0(s2, &fr.pA, fr.s1, &fr.pB, fr.d0, &dir);
                 }
@@ -2760,14 +2767,14 @@ bool Resolver::FUN_00317700(Body *a, Body *b, char mode, bool emit)
     fr.r0 = sht->f50;
     for (fr.j = 0; fr.j < 2; fr.j++) {
         Vec3 *cs = sht->vfunc_4();
-        fr.S.x = fr.r0 * sht->n.x + cs->x;
-        fr.S.y = fr.r0 * sht->n.y + cs->y;
-        fr.S.z = fr.r0 * sht->n.z + cs->z;
+        fr.S.x = (hulk_freg)fr.r0 * sht->n.x + cs->x;
+        fr.S.y = (hulk_freg)fr.r0 * sht->n.y + cs->y;
+        fr.S.z = (hulk_freg)fr.r0 * sht->n.z + cs->z;
         Vec3 *cl = lng->vfunc_4();
         offset.x = cl->x - fr.S.x;
         offset.y = cl->y - fr.S.y;
         offset.z = cl->z - fr.S.z;
-        fr.lenSq = ((offset.z * offset.z + offset.y * offset.y) + offset.x * offset.x);
+        fr.lenSq = (((hulk_freg)offset.z * offset.z + (hulk_freg)offset.y * offset.y) + (hulk_freg)offset.x * offset.x);
         if (FUN_00314430(lng, &fr.S, sht->f54, &dir, &fr.lenSq, fr.outA, fr.outB, mode)) {
             fr.hit = 1;
             if (!emit)
@@ -2810,7 +2817,7 @@ unsigned char Owner::FUN_003188d0(float value)
 
 
 // 0x00318910 FUN_00318910 (659 B): equivalent/0x00318910.cpp
-// sym: ?FUN_00318910@Solver_318910@fn_fc854b07@@QAEXPAVProbe_318910@2@0@Z @f2e3d95bd06e @w959df1b66773
+// sym: ?FUN_00318910@Solver_318910@fn_fc854b07@@QAEXPAVProbe_318910@2@0@Z @f2e3d95bd06e @w9353447f8efa @vf0923218f5fe
 // STATUS: equivalent (tools/equiv.py level 3: 20042 inputs, branch coverage 21/22, incomplete)
 // FUN_00318910 @ 0x00318910
 void Solver_318910::FUN_00318910(Probe_318910 *a1, Probe_318910 *a2)
@@ -2836,8 +2843,14 @@ void Solver_318910::FUN_00318910(Probe_318910 *a1, Probe_318910 *a2)
         dz = q0->z - fr.p.z;
         lenSq = *(volatile float *)&dz * *(volatile float *)&dz + dy * dy + dx * dx; // dz is reloaded (rounded) from the member
         if (FUN_00314430(y, &fr.p, x->ref, &fr.d, &lenSq, &fr.out2, &fr.out1, 1)) {
+#if defined(__clang__)   // (the Wine build: the original stores sq rounded (fst) and compares the unrounded st value)
+            hulk_freg sq = fr.d.z * fr.d.z + fr.d.y * fr.d.y + fr.d.x * fr.d.x;
+            fr.sq = sq;
+            if (sq > 0.0f) {
+#else                    // (MSVC 7.1 compares the value it just stored without reloading it: the original's code)
             fr.sq = fr.d.z * fr.d.z + fr.d.y * fr.d.y + fr.d.x * fr.d.x;
             if (fr.sq > 0.0f) {
+#endif
                 fr.tmp = fr.sq - 1.0f;
                 if (fr.tmp < 0.0f)
                     fr.tmp = -fr.tmp;

@@ -129,7 +129,7 @@ hulk_freg __stdcall FUN_00356e50(const float *p)
 
 
 // 0x00356fa0 FUN_00356fa0 (651 B): equivalent/0x00356fa0.cpp
-// sym: ?FUN_00356fa0@fn_f10b45e7@@YGMPAM@Z @d9bd4a727249 @w25b088d61d7d
+// sym: ?FUN_00356fa0@fn_f10b45e7@@YGMPAM@Z @d9bd4a727249 @w23ba2f21aee1 @v7569b3438f48
 // STATUS: equivalent (tools/equiv.py level 3: 20001 inputs, branch coverage 0/0)
 // FUN_00356fa0 @ 0x00356fa0
 hulk_freg __stdcall FUN_00356fa0(float *p)
@@ -161,7 +161,7 @@ hulk_freg __stdcall FUN_00356fa0(float *p)
     int ba = DAT_0056bfc8[b + yi];
     int bb = DAT_0056bfc8[b + yi1];
 
-    hulk_freg fz1 = fz - 1.0f;
+    float fz1 = fz - 1.0f;               // stored (fstp dword), as fx1 and fy1
     float u = (hulk_freg)((3.0f - (fx + fx)) * fx * fx);
     float v = (hulk_freg)((3.0f - (fy + fy)) * fy * fy);
 

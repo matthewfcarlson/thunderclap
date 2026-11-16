@@ -104,7 +104,7 @@ pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
 
 
 // 0x002d6790 pure3d::SpriteParticleRenderer::vfunc_4 (977 B): equivalent/0x002d6790.cpp [wrapped: conflict: SpriteParticleRenderer]
-// sym: ?vfunc_4@SpriteParticleRenderer@fn_002d6790@@UAEXPAVEmitter_2d6790@2@@Z @64db4feeb62a @w521bc3175f91
+// sym: ?vfunc_4@SpriteParticleRenderer@fn_002d6790@@UAEXPAVEmitter_2d6790@2@@Z @fbc04ee83e39 @wd94f947a50a1 @v4b9d4590f708
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)
@@ -340,11 +340,11 @@ void SpriteParticleRenderer::vfunc_4(Emitter_2d6790 *e)
     for (unsigned int i = 0; i < count; i++) {
         Particle_2d6790 *p = e->particles[i];
         hulk_freg a = p->angle + 0.7853982f;
-        hulk_freg c = (float)cos(a) * p->size;
-        hulk_freg s = (float)sin(a) * p->size;
+        hulk_freg c = cos(a) * p->size;          // fcos / fsin: unrounded
+        hulk_freg s = sin(a) * p->size;
         hulk_freg x = (m.m[0] * p->pos.x + m.m[8] * p->pos.z) + m.m[4] * p->pos.y + m.m[12];
-        hulk_freg y = (m.m[1] * p->pos.x + m.m[9] * p->pos.z) + m.m[5] * p->pos.y + m.m[13];
-        hulk_freg z = (m.m[2] * p->pos.x + m.m[10] * p->pos.z) + m.m[6] * p->pos.y + m.m[14];
+        float y = (m.m[1] * p->pos.x + m.m[9] * p->pos.z) + m.m[5] * p->pos.y + m.m[13];
+        float z = (m.m[2] * p->pos.x + m.m[10] * p->pos.z) + m.m[6] * p->pos.y + m.m[14];
         hulk_freg ax = x + c;
         hulk_freg ay = y + s;
         hulk_freg bx = x - s;
@@ -358,11 +358,11 @@ void SpriteParticleRenderer::vfunc_4(Emitter_2d6790 *e)
         hulk_freg cz = z;
         hulk_freg dz = z;
         float *cols = atlas->cols + p->index;
-        hulk_freg u0 = cols[0];
-        hulk_freg u1 = cols[1];
+        float u0 = cols[0];                         // moved as a word (mov edx, [ecx]), never through st
+        float u1 = cols[1];                         // loaded and stored, never computed: no conversion
         unsigned int color = p->color;
         hulk_freg r = p->size / z;
-        hulk_freg r2 = r * r;
+        float r2 = r * r;                           // y, z, r2 stored (fstp dword); x kept in st
         if (r2 > 0.225f) {
             if (r2 > 0.45f) {
                 az = -1.0f;

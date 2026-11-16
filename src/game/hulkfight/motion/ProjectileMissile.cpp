@@ -41,7 +41,7 @@ hulkfight::motion::ProjectileMissile* hulkfight::motion::ProjectileMissile::vfun
 } // namespace fn_ff485bc0
 
 // 0x0019e910 hulkfight::motion::ProjectileMissile::vfunc_4 (9093 B): equivalent/0x0019e910.cpp [wrapped: using-directive]
-// sym: ?vfunc_4@ProjectileMissile@motion@hulkfight@fn_0019e910@@UAEXM@Z @e63c33b27ef1 @wbd093512846c
+// sym: ?vfunc_4@ProjectileMissile@motion@hulkfight@fn_0019e910@@UAEXM@Z @e63c33b27ef1 @w5567c5826364 @v5a76dfdb2a26
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)
@@ -645,7 +645,7 @@ void ProjectileMissile::vfunc_4(float dt)
             fr.owner->FUN_001d8c70(target);
     }
 
-    float age = dt + fbc;
+    hulk_freg age = dt + fbc;               // fst: stored rounded, compared unrounded
     fbc = age;
     if (f8c < 0.0f && (fr.owner == 0 || fr.owner->f114 == 0))
         life = life - dt;
@@ -734,11 +734,13 @@ void ProjectileMissile::vfunc_4(float dt)
             fr.u0c.amt = fc4 = (float)fr.u24.i * fb8;
             if (side != 0) {
                 if (fr.u0c.amt > 0.0f) {
-                    f98 = fd4 + f98;
-                    fr.u0c.amt = fr.u0c.amt - f98;
+                    hulk_freg w98 = fd4 + f98;      // fst: f98 stored, the sum kept in st
+                    f98 = w98;
+                    fr.u0c.amt = fr.u0c.amt - w98;
                 } else if (fr.u0c.amt < 0.0f) {
-                    f98 = fd4 + f98;
-                    fr.u0c.amt = f98 + fr.u0c.amt;
+                    hulk_freg w98 = fd4 + f98;
+                    f98 = w98;
+                    fr.u0c.amt = w98 + fr.u0c.amt;
                 }
                 if (side > 0) {
                     if (fr.u0c.amt < 0.0f) {
@@ -792,7 +794,7 @@ void ProjectileMissile::vfunc_4(float dt)
 
         // fuel: once it runs out, gravity bends the flight
         if (f8c >= 0.0f) {
-            float fuel = f8c - dt * speed;
+            hulk_freg fuel = f8c - (hulk_freg)dt * speed;   // fst: stored rounded, compared unrounded
             f8c = fuel;
             if (fuel < 0.0f) {
                 float g = dt * 0.01f;
@@ -903,8 +905,8 @@ void ProjectileMissile::vfunc_4(float dt)
                 fr.hitPos.z = fr.hitPos.z - prev.z;
                 fr.hitPos.FUN_0022d110();
                 float t = fr.u70.h.t;
-                float hx = t * fr.hitPos.x;
-                float hy = t * fr.hitPos.y;
+                hulk_freg hx = t * fr.hitPos.x;     // hx, hy kept in st; the z product stored
+                hulk_freg hy = t * fr.hitPos.y;
                 *(volatile float *)&fr.hitPos.z = t * fr.hitPos.z;
                 fr.u04.f = 0.0f;
                 fr.hitPos.x = hx + prev.x;

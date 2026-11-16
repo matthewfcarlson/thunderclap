@@ -317,7 +317,7 @@ CHudMap_c87a0::~CHudMap_c87a0() {
 } // namespace fn_ff187fa7
 
 // 0x000c8850 FUN_000c8850 (1693 B): equivalent/0x000c8850.cpp [wrapped: macros]
-// sym: ?FUN_000c8850@Marker@fn_000c8850@@QAEXXZ @9a7808a48a7e @w3ce4cf4d4e38
+// sym: ?FUN_000c8850@Marker@fn_000c8850@@QAEXXZ @93a956e1014a @w32cc5638e073 @vaded97835bfb
 namespace fn_000c8850 {
 // STATUS: equivalent (tools/equiv.py level 3: 2139 inputs, branch coverage 28/28)
 // FUN_000c8850 @ 0x000c8850
@@ -507,7 +507,7 @@ void Marker::FUN_000c8850()
         return;
     V3 *dir = FUN_001c3d90()->FUN_001c39c0();
     V3 d0 = *dir;
-    float ang = (float)atan2(d0.z, d0.x) + 4.712389f;
+    float ang = (hulk_freg)atan2(d0.z, d0.x) + 4.712389f;   // fpatan + the constant, rounded once
     Mat4 m1;
     m1.FUN_0022b980();
     m1.FUN_0022bab0(ang);
@@ -516,10 +516,11 @@ void Marker::FUN_000c8850()
 
     volatile float tenth = DAT_004de600 * DAT_0049fbd8;
     V3 base;
-    volatile float hx = DAT_004de600 * -0.5f;
+    hulk_freg ky = DAT_004de604 * DAT_0049fbdc;     // ky, hx kept in st; tenth and hy stored
+    hulk_freg hx = DAT_004de600 * -0.5f;
     volatile float hy = DAT_004de604 * -0.5f;
     base.x = hx + tenth;
-    base.y = hy + DAT_004de604 * DAT_0049fbdc;
+    base.y = hy + ky;
     base.z = 0.0f;
     V3 p, q;
     p.z = 0.0f;
@@ -548,8 +549,8 @@ void Marker::FUN_000c8850()
         float qv = q.y;
 
         const V3 *r = &pts[c];
-        float tx = DAT_0049fbe0 * r->x;
-        float ty = DAT_0049fbe0 * r->y;
+        hulk_freg tx = DAT_0049fbe0 * r->x;     // tx, ty (ux, uy) kept in st; the z products stored
+        hulk_freg ty = DAT_0049fbe0 * r->y;
         volatile float tzs = DAT_0049fbe0 * r->z;
         V3 t;
         t.x = tx + base.x;
@@ -557,8 +558,8 @@ void Marker::FUN_000c8850()
         t.z = tzs + base.z;
 
         const V3 *s = &pts[k - 1];
-        float ux = DAT_0049fbe0 * s->x;
-        float uy = DAT_0049fbe0 * s->y;
+        hulk_freg ux = DAT_0049fbe0 * s->x;
+        hulk_freg uy = DAT_0049fbe0 * s->y;
         volatile float uzs = DAT_0049fbe0 * s->z;
         V3 u;
         u.x = ux + base.x;
@@ -593,7 +594,7 @@ void Marker::FUN_000c8850()
             Shot *sh = &shots[i];
             if (sh->id != *kp)
                 continue;
-            float inv = 1.0f / f210;
+            hulk_freg inv = 1.0f / f210;          // kept in st
             d.x = (sh->x - f38) * inv;
             d.y = (sh->y - f3c) * inv;
             if (!(d.y * d.y + d.x * d.x + d.z * d.z >= 1.0f)) {

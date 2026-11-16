@@ -4359,7 +4359,7 @@ void CCharacter_3dd00::FUN_0003dd00(bool enable)
 
 
 // 0x0003dd70 FUN_0003dd70 (1319 B): equivalent/0x0003dd70.cpp
-// sym: ?FUN_0003dd70@Host_3dd70@fn_f35f7bdf@@QAEXPAUArg0@2@M@Z @1f4f1e126ba9 @w8582197897cf
+// sym: ?FUN_0003dd70@Host_3dd70@fn_f35f7bdf@@QAEXPAUArg0@2@M@Z @1f4f1e126ba9 @w0e29401ef55a @v9a17d5874193
 // STATUS: equivalent (tools/equiv.py level 3: 20072 inputs, branch coverage 68/68)
 // FUN_0003dd70 @ 0x0003dd70
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
@@ -4400,7 +4400,7 @@ void Host_3dd70::FUN_0003dd70(Arg0 *a0, float dt)
         if (sumsq > 0.0f) {
             P11c *pc = p11c;
             float s0 = pc->f30;
-            float a;
+            hulk_freg a;                // kept in st (s0 + v.y stored)
             float s0v;
             if (mode > 0 && mode <= 2) {
                 a = f.v.y;
@@ -4420,7 +4420,7 @@ void Host_3dd70::FUN_0003dd70(Arg0 *a0, float dt)
                     f.d.z = last.z - f.v.z;
                     float c2 = pc->f30 + pc->f30;
                     f.sc = c2;
-                    float len = f.d.FUN_000111f0();
+                    hulk_freg len = f.d.FUN_000111f0();   // st0, compared unrounded (fcompp)
                     if ((double)f.sc * (double)f.sc < (double)len)
                         update = true;
                 }

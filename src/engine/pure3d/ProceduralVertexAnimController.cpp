@@ -711,7 +711,7 @@ void FUN_002a58e0(Target_2a58e0 *self, Target_2a58e0 *obj, int a, int b)
 
 
 // 0x002a5a20 FUN_002a5a20 (966 B): equivalent/0x002a5a20.cpp
-// sym: ?FUN_002a5a20@fn_fa65e9c0@@YAXMPAUMesh_2a5a20@1@0IPAUWaveParams@1@@Z @fda7fc2e3992 @wc6de533e971c
+// sym: ?FUN_002a5a20@fn_fa65e9c0@@YAXMPAUMesh_2a5a20@1@0IPAUWaveParams@1@@Z @fda7fc2e3992 @w00c44f6f0f81 @v444802682cf2
 // STATUS: equivalent (tools/equiv.py level 3: 5291 inputs, branch coverage 50/54, incomplete)
 // FUN_002a5a20 @ 0x002a5a20
 void FUN_002a5a20(float time, Mesh_2a5a20 *a, Mesh_2a5a20 *b, unsigned int flags, WaveParams *p)
@@ -740,23 +740,23 @@ void FUN_002a5a20(float time, Mesh_2a5a20 *a, Mesh_2a5a20 *b, unsigned int flags
     while (i != 0) {
         i--;
         Vec3_2a5a20 *v = &srcPos[i];
-        float dx = v->x - p->cx;
-        float dy = v->y - p->cy;
-        float dz = v->z - p->cz;
+        hulk_freg dx = v->x - p->cx;            // the differences kept in st, dot stored
+        hulk_freg dy = v->y - p->cy;
+        hulk_freg dz = v->z - p->cz;
         float dot = dx * p->dirx + (dy * p->diry + dz * p->dirz);
-        float t;
+        hulk_freg t;                    // t, x, falloff kept in st
         if (p->radius != 0.0f) {
             t = dot / p->radius;
         } else {
             t = 0.0f;
         }
         volatile float u = time * p->speed + t;
-        float falloff = 1.0f;
+        hulk_freg falloff = 1.0f;
         if (p->falloff > 0.0) {
             FloatBits_2a5a20 ab;
             ab.f = dot;
             ab.u &= 0x7fffffff;
-            float x = p->falloff - ab.f;
+            hulk_freg x = p->falloff - ab.f;
             if (!(0.0f < x)) {
                 x = 0.0f;
             }
@@ -767,7 +767,7 @@ void FUN_002a5a20(float time, Mesh_2a5a20 *a, Mesh_2a5a20 *b, unsigned int flags
             dstPos[i].y = w * p->displace + srcPos[i].y;
         }
         if ((flags & 0x40) && srcColor != 0) {
-            float s = w + p->k30;
+            hulk_freg s = w + p->k30;          // kept in st
             double m1 = p->k28 * 255.0f;
             int d1 = (int)(__int64)(m1 * s);
             double m2 = p->k2c * 255.0f;
@@ -781,29 +781,29 @@ void FUN_002a5a20(float time, Mesh_2a5a20 *a, Mesh_2a5a20 *b, unsigned int flags
         }
         for (c = 0; c < 4; c++) {
             if ((((unsigned int*)&DAT_0042d9c0)[c] & flags) && src[c] != 0 && dst[c] != 0) {
-                float du = src[c][i].u - p->cx;
-                float dv = src[c][i].v - p->cy;
+                hulk_freg du = src[c][i].u - p->cx;     // du, dv, w2 kept in st
+                hulk_freg dv = src[c][i].v - p->cy;
                 float dot2 = du * p->dirx + (dv * p->diry + p->dirz * 0.0f);
-                float t2;
+                hulk_freg t2;
                 if (p->radius != 0.0f) {
                     t2 = dot2 / p->radius;
                 } else {
                     t2 = 0.0f;
                 }
                 volatile float u2 = time * p->speed + t2;
-                float falloff2 = 1.0f;
+                hulk_freg falloff2 = 1.0f;
                 if (p->falloff > 0.0) {
                     FloatBits_2a5a20 ab2;
                     ab2.f = dot2;
                     ab2.u &= 0x7fffffff;
-                    float x2 = p->falloff - ab2.f;
+                    hulk_freg x2 = p->falloff - ab2.f;
                     if (!(0.0f < x2)) {
                         x2 = 0.0f;
                     }
                     falloff2 = x2 / p->falloff;
                 }
                 float amp = p->uvAmp;
-                float w2 = (float)(sin(u2 * 6.2831855f) * falloff2);
+                hulk_freg w2 = sin(u2 * 6.2831855f) * falloff2;
                 volatile float wy = w2 * p->diry;
                 dst[c][i].u = w2 * p->dirx * amp + src[c][i].u;
                 dst[c][i].v = wy * amp + src[c][i].v;

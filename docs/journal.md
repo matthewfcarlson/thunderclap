@@ -1118,3 +1118,36 @@ blocks fight::Action's whole family: the records come first there.
   once int / __int64 are loosened); named by their addresses they bind by their own address.
 - **The game's global operator delete** (0x00267090, as the Wine map binds `??3@YAXPAX@Z` / `??_V@YAXPAX@Z`) had no
   MS-mangled definition natively: every deleting destructor ran into a stub. Defined for the 64-bit builds only.
+
+## 2026-11-16 tri5: what kept the last float blocks from proving
+- **A copy the original makes with `mov` keeps a signalling NaN; one through st does not.** 0x002d6790 copies
+  `cols[0]` into the vertex with integer moves; the source's `hulk_freg u0` (double in the Wine build) quieted a fuzzed
+  sNaN (0x7f8b... became 0x7fcb...). A value the listing only moves is `float`, never `hulk_freg`.
+- **`fst` then compare: the comparison sees the unrounded value.** MSVC 7.1 compares the value it has just stored
+  without reloading it (`fst [m]; fcomp`), so `x = a + b; if (x < 0)` tests the unrounded sum. Four blocks hinged on it
+  (0x00318910's `sq > 0`, 0x0019e910's `fuel < 0` and `age > fd8`); a denormal that rounds to 0 is where it shows. In
+  the Wine build the spelling is a `hulk_freg` local stored to the member and compared itself; where MSVC 7.1 would then
+  spill and reload the local (0x00318910), the two spellings sit under `#if defined(__clang__)`.
+- **Under SSE a float product is rounded before it is added.** `x * 0.06f + s` is one rounding in the original (the
+  product stays in st at 53 bits; a product of two floats is exact there) and two in the Wine build's SSE code, so
+  every product feeding a sum the original keeps in st needs `(hulk_freg)x * c` (0x000d3170's 14 HUD constants,
+  0x002d2c40's `w.x * v + ax`). Products alone round the same either way.
+- **`x * -0.5f` is not exact for a denormal x in float.** 0x000d3170 and 0x000c8850 keep `DAT_004de600 * -0.5` in st
+  (exact in the extended format) and add it to `0.5 * x`: `+0` in the original, `-0` (or a denormal off by one) with
+  the product rounded first.
+- **`memfwd` misses an overlap that wraps around address 0** (`memcpy(dst=0, src=0xffffffe6, n=0x66)`: the source's
+  end wraps to 0x4c, inside the destination): the original's forward `rep movsd` reads what it has just written, ours
+  copies as if disjoint. 0x00277d60 and 0x0027e920 fail only on such inputs; a checker case for integ2.
+- **A callee's out pointer into the function's own parameter slot** (0x000c9720: `FUN_000c9460(&input, input)`, the
+  original passes `&input` = its incoming argument slot): the stub fill writes only word 0 there ("never into the
+  caller's argument slots"), while clang's copy of the expanded struct is a frame local and gets every word. Checker.
+- **Overlapping unaligned writes defeat `nanquiet`.** 0x002d6790's fuzzed vertex pointers (9, a, b, c) made the uv,
+  colour and position stores overlap; the compared word mixed bytes of several stores, so the quieted NaN no longer
+  looked like one and the input failed instead of being set aside. The source fix (no conversion of a moved value) was
+  the right one anyway.
+- **MSVC 7.1 keeps a float local in st where the original stored it.** 0x00079990's MSVC-only 1-ulp failures were three
+  locals the original spills and reloads (`p`, `x1`, `x2`) that our MSVC build kept unrounded; `volatile float` gives
+  the store/reload in both builds.
+- **A stub's return model depends on how soon eax is used.** 0x000a4450: after `FUN_0009fef0` the original stores a
+  constant and jumps to a shared copy tail before dereferencing eax; the checker gives its stub a scalar return (0x42)
+  and ours (dereferencing at once) the first argument. A checker case.

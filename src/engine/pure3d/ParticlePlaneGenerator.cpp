@@ -233,7 +233,7 @@ public:
     virtual void v11();
     virtual void v12();
     virtual void v13();
-    virtual bool v14(Vec3_2d2c40* dir, Vec3_2d2c40* pos, float t);
+    virtual char v14(Vec3_2d2c40* dir, Vec3_2d2c40* pos, float t);   // tested whole (test al, al)
 };
 struct Frame_2d2c40 {
     Vec3_2d2c40 tmp;
@@ -813,7 +813,7 @@ bool pure3d::ParticleSphereGenerator::vfunc_3() {
 namespace fn_fd7a7bd7 {
 
 // 0x002d2c40 pure3d::ParticleSphereGenerator::vfunc_6 (811 B): equivalent/0x002d2c40.cpp
-// sym: ?vfunc_6@ParticleSphereGenerator@fn_fd7a7bd7@@QAEIIPAUMat4_2d2c40@2@0MPAVEmitter_2d2c40@2@@Z @fa17896e4fe3 @w26a5b4ab11b5
+// sym: ?vfunc_6@ParticleSphereGenerator@fn_fd7a7bd7@@QAEIIPAUMat4_2d2c40@2@0MPAVEmitter_2d2c40@2@@Z @f93acaea3b0d @w0f8c5b29cd06 @v1e2b236c7e04
 // STATUS: equivalent (tools/equiv.py level 3: 105 inputs, branch coverage 16/18, incomplete)
 // pure3d::ParticleSphereGenerator::vfunc_6 @ 0x002d2c40
 unsigned int ParticleSphereGenerator::vfunc_6(unsigned int count, Mat4_2d2c40* from, Mat4_2d2c40* to, float step, Emitter_2d2c40* em)
@@ -824,10 +824,10 @@ unsigned int ParticleSphereGenerator::vfunc_6(unsigned int count, Mat4_2d2c40* f
     float jitter = f44 * f3c;
     Frame_2d2c40 fr;
     fr.p = from->pos;
-    float dx = fr.p.x - to->pos.x;
-    float dy = fr.p.y - to->pos.y;
+    hulk_freg dx = fr.p.x - to->pos.x;      // dx, dy kept in st; dz stored
+    hulk_freg dy = fr.p.y - to->pos.y;
     float dz = fr.p.z - to->pos.z;
-    volatile float inv = 1.0f / (float)count;
+    volatile float inv = 1.0f / (hulk_freg)count;   // fild: the count exact
     fr.d.x = dx * inv;
     fr.d.y = dy * inv;
     fr.d.z = dz * inv;
@@ -846,9 +846,12 @@ unsigned int ParticleSphereGenerator::vfunc_6(unsigned int count, Mat4_2d2c40* f
             Vec3_2d2c40& q = fr.q1;
             q = w;
             w.FUN_0022d110();
-            q.x = w.x * v + (q.x + fr.p.x);
-            q.y = w.y * v + (q.y + fr.p.y);
-            q.z = w.z * v + (q.z + fr.p.z);
+            hulk_freg ax = q.x + fr.p.x;          // ax, ay kept in st; q.z + p.z stored first
+            hulk_freg ay = q.y + fr.p.y;
+            q.z = q.z + fr.p.z;
+            q.x = (hulk_freg)w.x * v + ax;        // products in st too
+            q.y = (hulk_freg)w.y * v + ay;
+            q.z = (hulk_freg)w.z * v + q.z;
             if (!em->v14(&w, &q, t))
                 break;
             n++;

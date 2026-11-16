@@ -2073,7 +2073,7 @@ void CAgent::vfunc_7(int a) {
 namespace fn_f9399ba1 {
 
 // 0x00079990 FUN_00079990 (740 B): equivalent/0x00079990.cpp
-// sym: ?FUN_00079990@Stage_79990@fn_f9399ba1@@QAEXPAUEntry_79990@2@HHHHHHPAHHH@Z @b727b90f0aab @w13ed0b370428
+// sym: ?FUN_00079990@Stage_79990@fn_f9399ba1@@QAEXPAUEntry_79990@2@HHHHHHPAHHH@Z @2dc7c40cbfc8 @w9844c42a46cd @ve0a87720c24e
 // STATUS: equivalent (tools/equiv.py level 3: 66 inputs, branch coverage 16/16)
 // FUN_00079990 @ 0x00079990
 void Stage_79990::FUN_00079990(Entry_79990 *tab, int a2, int a3, int a4, int a5, int a6, int a7, int *counter, int a9, int a10)
@@ -2103,7 +2103,7 @@ void Stage_79990::FUN_00079990(Entry_79990 *tab, int a2, int a3, int a4, int a5,
 
     double na = (double)(-a5) * DAT_004dd048;
     float n = (float)na;
-    float p = (float)((double)l2 * m);
+    volatile float p = (float)((double)l2 * m);     // stored and reloaded rounded, as x1 and x2 below
     float q = (float)(na * m + l1);
     float r = (float)((double)p + l3);
 
@@ -2134,8 +2134,8 @@ void Stage_79990::FUN_00079990(Entry_79990 *tab, int a2, int a3, int a4, int a5,
     double t2 = (double)a->f4 + a->f8 + 3.0f;
     r2->f10 = 0;
     double d = m - t2 * prod;
-    float x1 = (float)(n * d);
-    float x2 = (float)(l2 * d);
+    volatile float x1 = (float)(n * d);     // stored and reloaded rounded (MSVC 7.1 would keep them in st)
+    volatile float x2 = (float)(l2 * d);
     r2->fc = x1 + l1;
     r2->f14 = x2 + l3;
     r2->f0 = r2->fc;

@@ -5394,3 +5394,51 @@ studio, play3 60000: GATE ok; whole-tree check with --relocs 86417-86432 (+ 8648
 re-proved at 3,000 compared inputs, MSVC + --wine: 0x002ea3c0, 0x002ec620, 0x002dc3e0; x64 gate ok (4 improved,
 dropped from the baseline); native unbound on the control's and the proof's own snapshots 12490 / 12470 / 12481 ->
 12407 / 12387 / 12398 (macOS / Linux / Android).
+
+## tri5 (2026-11-16): tri4's last three blocks landed; twelve float blocks proven
+
+Workspace build/tri5 (RESUME.md, scripts/, still_unproven.txt). Every proof: MSVC and `--wine` at 3,000 **compared**
+inputs (D62), recorded with `tree_tu.py hash --proven` against config/proof-ledger.jsonl (integ2 landed it in 238edce66:
+the hash jobs run on HEAD's ledger and the commit appends the lines they added).
+
+**From tri4.** 0x002a8bb0 (LightAnimationController, `_ftol`'s low word; proofs 86219/86220) and 0x00356fa0 (Perlin, fz1
+stored; proofs 85874/85875; its new crash64 accepted into the x64 baseline per D68: fuzzed permutation-table words
+index past the 256-entry table, the game's data holds 0-255). 0x002d6790 (SpriteParticleRenderer) failed tri4's
+`--wine` proof (86252) and tri5's first (86587): the original copies `cols[0]` and `cols[1]` into the vertex as words
+(`mov`, or `fld`/`fst` in the emulated x87), keeping a fuzzed signalling NaN, where `hulk_freg u0/u1` quieted it
+(cvtss2sd). Both are `float` now (loaded and stored, never computed); proofs 86586/86961.
+
+**Source causes fixed (tri5).** All in the Wine build's code; the MSVC 7.1 objects are unchanged unless noted.
+
+| cause | blocks |
+| --- | --- |
+| `fst`: a value stored rounded and then compared / used unrounded | 0x00318910 (`sq > 0`, under `#if defined(__clang__)`: MSVC 7.1 would spill the local), 0x0019e910 (`fuel`, `age`, `f98`), 0x00317700 (`d`, `d0`, `pB.z`), 0x0003dd70 (the callee's `len`) |
+| values the listing keeps in st across stores (`hulk_freg` locals) | 0x0019e910 (hx, hy), 0x002d2c40 (dx, dy, ax, ay), 0x000c8850 (hx, ky, tx, ty, ux, uy, inv), 0x000d3170 (x * -0.5, y * 0.5, 0.5 * x of the HUD constants), 0x002a5a20 (t, x, falloff, s, dx..dz, du, dv, w2), 0x00317700 (s, ac, root, inv, p, q, r, px..pz, da, za, zb, c, sa, sb), 0x0003dd70 (a) |
+| a float product rounded before a sum under SSE: `(hulk_freg)a * b` | 0x002d2c40, 0x000d3170, 0x00317700 (every product feeding a sum), 0x0019e910 (`dt * speed`) |
+| `(float)atan2(..) + c` rounded twice | 0x000c8850 |
+| `1.0f / (float)count`: the original divides by the exact count (`fild`) | 0x002d2c40 |
+| a bool-returning virtual tested whole (`test al, al`): `char` | 0x002d2c40 |
+| values the original stores and reloads that MSVC 7.1 kept in st (MSVC-only failure): `volatile float` | 0x00079990 (p, x1, x2) |
+| a `mov` copy declared `hulk_freg` (quiets an sNaN) | 0x002d6790 |
+
+**Gates.** tree_tu.py verify --relocs --x64 of the 11 TUs with the batch and its ledger lines shipped (87079): every changed
+block's code hash ok in both modes and proven in both modes, every match MATCH with relocations ok, 0 errors (the job's
+exit status counts 14 untouched blocks of these TUs that HEAD's ledger already lists as unproven, all in
+build/integ2/unproven.json); x64 gate ok (known: 0x0003dd70 and 0x002a8bb0 layout, 0x00356fa0 crash64 as accepted;
+0x000d3170 unsupported:no32). Wine proof on studio, play3 to 60000, private data TUs: control 86952 (238edce66), proof
+87080 seeded from it: GATE ok, 0 of 2,008 common frames differ (prng too).
+
+**Still unproven** (build/tri5/still_unproven.txt has the causes):
+- checker (integ2): 0x000c9720 (a callee's out pointer is the function's own parameter slot: the stub fill writes word 0
+  only, "never into the caller's argument slots", while clang's copy of the expanded struct gets every word);
+  0x00277d60 and 0x0027e920 (`memfwd` misses an overlap that wraps around address 0: `memcpy(dst=0, src=0xffffffe6,
+  n=0x66)`, the original's `rep movsd` reads what it wrote); 0x000a4450 (a stub's return: the original uses eax as a
+  pointer only after a store and a jump to the shared copy tail, so its stub returns a scalar, 0x42, while ours, which
+  dereferences eax right after the call, gets the sret pointer); 0x0011ce20 (this+0x28 differs with no hooked write;
+  unresolved).
+- frame layout / uninitialised frame words: 0x00318de0 0x000de9a0 0x00279630 0x0007bf80 0x00314f50 0x00203bb0 and tri4's
+  list.
+- NaN payloads (two NaN operands: x87 keeps the larger significand, SSE the first; D50): 0x001005c0 0x00229360.
+- coverage under 75%: 0x002142d0 0x000fd0f0 0x001f9810; input model (fill_readback on half the inputs): 0x0015f6b0.
+- 0x001fe380 (the inlined distance kept in st) is fixed in the working tree, its proof (timeouts over fuzzed list
+  counts) still running.
