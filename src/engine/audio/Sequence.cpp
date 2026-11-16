@@ -833,7 +833,7 @@ bool SeqTrackList::FUN_00257290(Archive_257290* ar)
 } // namespace fn_f06eb07d
 
 // 0x00257320 FUN_00257320 (226 B): equivalent/0x00257320.cpp [wrapped: conflict: Node]
-// sym: ?FUN_00257320@Owner_257320@fn_00257320@@QAE_NPCRAUOutput_257320@2@@Z @f887bf3b1c8a @wfbd1db47db27
+// sym: ?FUN_00257320@Owner_257320@fn_00257320@@QAE_NPCRAUOutput_257320@2@@Z @f887bf3b1c8a @wfbd1db47db27 @v9d9159164af2
 namespace fn_00257320 {
 // STATUS: equivalent (tools/equiv.py level 3: 88 inputs, branch coverage 28/28)
 // FUN_00257320 @ 0x00257320
@@ -897,7 +897,7 @@ bool audio::Sequence::vfunc_3(void* __p0) { Stream_257410 ** w = (Stream_257410 
 
 
 // 0x00257560 FUN_00257560 (451 B): equivalent/0x00257560.cpp [wrapped: conflict: Node]
-// sym: _FUN_00257560 @c7c7ca1bbb53 @we4f9ea90325d
+// sym: _FUN_00257560 @c7c7ca1bbb53 @we4f9ea90325d @v6dcad6b8e62f
 namespace fn_00257560 {
 // STATUS: equivalent (tools/equiv.py level 3: 193 inputs, branch coverage 39/40, incomplete)
 // FUN_00257560 @ 0x00257560
@@ -1041,7 +1041,7 @@ struct Node { Node* next; }; struct List { Node* head; Node sentinel; }; extern 
 
 
 // 0x00257780 FUN_00257780 (451 B): equivalent/0x00257780.cpp [wrapped: conflict: Node]
-// sym: _FUN_00257780 @3da1263fa036 @wf9b0fecdcda2
+// sym: _FUN_00257780 @3da1263fa036 @wf9b0fecdcda2 @vbfda01b85d6e
 namespace fn_00257780 {
 // STATUS: equivalent (tools/equiv.py level 3: 181 inputs, branch coverage 37/40, incomplete)
 // FUN_00257780 @ 0x00257780

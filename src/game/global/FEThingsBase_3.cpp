@@ -1527,7 +1527,7 @@ void* FEThingsBase::vfunc_56(int arg) {
 
 
 // 0x000f1e50 FUN_000f1e50 (233 B): equivalent/0x000f1e50.cpp [wrapped: conflict: FEThingsBase; FEThingsBase::ParseFunctor]
-// sym: ?FUN_000f1e50@Owner_f1e50@fn_000f1e50@@QAEXPAUContext@2@PAX1PAUNode@2@@Z @ac1a862b4806 @w5b6ee4081925
+// sym: ?FUN_000f1e50@Owner_f1e50@fn_000f1e50@@QAEXPAUContext@2@PAX1PAUNode@2@@Z @ac1a862b4806 @w5b6ee4081925 @v3e2b7381102a
 namespace fn_000f1e50 {
 // STATUS: equivalent (tools/equiv.py level 3: 3009 inputs, branch coverage 6/6)
 // FUN_000f1e50 @ 0x000f1e50
@@ -4543,7 +4543,7 @@ char FEThingsBase::vfunc_39(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2
 
 
 // 0x000f4960 FUN_000f4960 (1317 B): equivalent/0x000f4960.cpp [wrapped: macros]
-// sym: ?FUN_000f4960@FEThingsBase@fn_000f4960@@QAEXPAVTok@2@HPAVObj_f4960@2@PAVKey_f4960@2@@Z @5ad4780781f0 @we905cc3efaf2
+// sym: ?FUN_000f4960@FEThingsBase@fn_000f4960@@QAEXPAVTok@2@HPAVObj_f4960@2@PAVKey_f4960@2@@Z @5ad4780781f0 @we905cc3efaf2 @v8f075184abf3
 namespace fn_000f4960 {
 // STATUS: equivalent (tools/equiv.py level 3: 3121 inputs, branch coverage 84/84)
 // FUN_000f4960 @ 0x000f4960
@@ -6008,7 +6008,7 @@ void FEThingsBase::FUN_000f5b20(ParamSlot slot, Source *c, void *d, Args_f5b20 *
 namespace fn_f5892d97 {
 
 // 0x000f5fa0 FUN_000f5fa0 (418 B): equivalent/0x000f5fa0.cpp
-// sym: ?FUN_000f5fa0@Runner_f5fa0@fn_f5892d97@@QAEXPBDH@Z @b89e983e4945 @w0146dbd68b0d
+// sym: ?FUN_000f5fa0@Runner_f5fa0@fn_f5892d97@@QAEXPBDH@Z @b89e983e4945 @w0146dbd68b0d @vfb8ef9ee60e3
 // STATUS: equivalent (tools/equiv.py level 3: 12579 inputs, branch coverage 20/20)
 // FUN_000f5fa0 @ 0x000f5fa0
 void Runner_f5fa0::FUN_000f5fa0(const char *src, int arg)

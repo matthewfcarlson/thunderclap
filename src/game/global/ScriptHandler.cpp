@@ -837,7 +837,7 @@ Obj::Obj() {
 
 
 // 0x001d16a0 FUN_001d16a0 (109 B): equivalent/0x001d16a0.cpp
-// sym: ?FUN_001d16a0@Target_1d16a0@fn_f55829c3@@QAEXPBDM@Z @b1dc57abf6dd @w1c0abf2b2854
+// sym: ?FUN_001d16a0@Target_1d16a0@fn_f55829c3@@QAEXPBDM@Z @b1dc57abf6dd @w1c0abf2b2854 @v331d93ad4b74
 // STATUS: equivalent (tools/equiv.py level 3: 2999 inputs, branch coverage 6/6)
 // FUN_001d16a0 @ 0x001d16a0
 // ScriptHandler (include/decls/data/script.h): adds a watched number (dbg_AddWatch) while there is room and the

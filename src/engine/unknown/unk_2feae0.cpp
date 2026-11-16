@@ -601,7 +601,7 @@ void Manager_2ff0c0::target(int index) {
 } // namespace fn_fb493392
 
 // 0x002ff1b0 FUN_002ff1b0 (80 B): equivalent/0x002ff1b0.cpp [wrapped: merged class would differ: Owner: field entry: Field(+0x40 Entry entry) vs Field(+0x40 Entry entry)]
-// sym: ?FUN_002ff1b0@Controller@fn_002ff1b0@@QAEXI@Z @b6ef8a9a3c2d @we4ffcd241405
+// sym: ?FUN_002ff1b0@Controller@fn_002ff1b0@@QAEXI@Z @b6ef8a9a3c2d @we4ffcd241405 @vd6af1cab178c
 namespace fn_002ff1b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 798 inputs, branch coverage 6/6)
 // FUN_002ff1b0 @ 0x002ff1b0

@@ -237,7 +237,7 @@ DynAttrT_260e60* DynAttrT_260e60::Dtor(unsigned char flag) {
 } // namespace fn_f6df0856
 
 // 0x00260f10 FUN_00260f10 (451 B): equivalent/0x00260f10.cpp [wrapped: merged class would differ: Tree_260f10: field nil: Field(+0x4 Node nil) vs Field(+0x4 Node nil)]
-// sym: _FUN_00260f10 @63535a0d0efb @w0efe3539a2d2
+// sym: _FUN_00260f10 @63535a0d0efb @w0efe3539a2d2 @vf0992092c403
 namespace fn_00260f10 {
 // STATUS: equivalent (tools/equiv.py level 3: 169 inputs, branch coverage 39/40, incomplete)
 // FUN_00260f10 @ 0x00260f10
@@ -371,7 +371,7 @@ extern "C" char FUN_00260f10(void * tree_, void * nodeArg_, const unsigned* keyP
 namespace fn_f6df0856 {
 
 // 0x002610e0 FUN_002610e0 (54 B): equivalent/0x002610e0.cpp
-// sym: ?FUN_002610e0@fn_f6df0856@@YAPAXPAUTree@1@PBI@Z @7117333b1e3d @w66b99381d8b1
+// sym: ?FUN_002610e0@fn_f6df0856@@YAPAXPAUTree@1@PBI@Z @7117333b1e3d @w66b99381d8b1 @v4183dfc4610d
 // STATUS: equivalent (tools/equiv.py level 3: 702 inputs, branch coverage 10/10)
 // FUN_002610e0 @ 0x002610e0
 void* __cdecl FUN_002610e0(Tree* tree, const unsigned* key) { Node* node = tree->root; Node* end = &tree->sentinel; while (node != end) { if (*key < node->key) node = node->left; else if (*key > node->key) node = node->right; else { if (node == reinterpret_cast<Node*>(sizeof(Node*))) return 0; return &node->value; } } return 0; }

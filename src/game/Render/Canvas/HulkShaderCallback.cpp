@@ -2199,7 +2199,7 @@ Object* Object::FUN_001c2e10(Input* input) {
 namespace fn_ffffca36 {
 
 // 0x001c2e70 FUN_001c2e70 (446 B): equivalent/0x001c2e70.cpp
-// sym: ?FUN_001c2e70@Hull_1c2e70@fn_ffffca36@@QAE_NPBUPointList@2@@Z @2299f5c9422a @w9fc36f3a57d5
+// sym: ?FUN_001c2e70@Hull_1c2e70@fn_ffffca36@@QAE_NPBUPointList@2@@Z @2299f5c9422a @w9fc36f3a57d5 @v3d86418f6c66
 // STATUS: equivalent (tools/equiv.py level 3: 44 inputs, branch coverage 26/34, incomplete)
 // FUN_001c2e70 @ 0x001c2e70
 bool Hull_1c2e70::FUN_001c2e70(const PointList *pts)
@@ -2230,7 +2230,7 @@ bool Hull_1c2e70::FUN_001c2e70(const PointList *pts)
 
 
 // 0x001c3030 FUN_001c3030 (1064 B): equivalent/0x001c3030.cpp
-// sym: ?FUN_001c3030@Hull_1c3030@fn_ffffca36@@QAEPAUVec3_1c3030@2@PAU32@@Z @8d920eac29bd @wb3e4f1f68cb4
+// sym: ?FUN_001c3030@Hull_1c3030@fn_ffffca36@@QAEPAUVec3_1c3030@2@PAU32@@Z @8d920eac29bd @wb3e4f1f68cb4 @v306555883889
 // STATUS: equivalent (tools/equiv.py level 3: 2726 inputs, branch coverage 47/50, incomplete)
 // FUN_001c3030 @ 0x001c3030
 // Clips every pairwise plane-intersection line against all planes, then returns the centroid of the surviving
@@ -2472,7 +2472,7 @@ void owners::Thing_1c3770::FUN_001c3770(hulk_intptr x) {
 
 
 // 0x001c37a0 FUN_001c37a0 (68 B): equivalent/0x001c37a0.cpp [wrapped: conflict: Obj]
-// sym: ?FUN_001c37a0@Obj@fn_001c37a0@@QAEXIIIIID@Z @d201b3b04639 @wd7bf1fa102be
+// sym: ?FUN_001c37a0@Obj@fn_001c37a0@@QAEXIIIIID@Z @d201b3b04639 @wd7bf1fa102be @v8f594181981c
 namespace fn_001c37a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2987 inputs, branch coverage 2/2)
 // FUN_001c37a0 @ 0x001c37a0

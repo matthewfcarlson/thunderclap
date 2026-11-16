@@ -787,7 +787,7 @@ int Object::target(unsigned char flag, int value) {
 namespace fn_f9a0caab {
 
 // 0x000c8010 FUN_000c8010 (138 B): equivalent/0x000c8010.cpp
-// sym: ?Reset@SlotTable_c8010@fn_f9a0caab@@QAEXXZ @37afff6ea2a3 @w3fc22216fe7a
+// sym: ?Reset@SlotTable_c8010@fn_f9a0caab@@QAEXXZ @37afff6ea2a3 @w3fc22216fe7a @v09d46fb60277
 // STATUS: equivalent (tools/equiv.py level 3: 663 inputs, branch coverage 4/4)
 // FUN_000c8010 @ 0x000c8010
 void SlotTable_c8010::Reset() {

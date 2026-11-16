@@ -1148,7 +1148,7 @@ extern "C" void __cdecl FUN_002656a0(void) {
 
 
 // 0x002656b0 FUN_002656b0 (264 B): equivalent/0x002656b0.cpp
-// sym: ?FUN_002656b0@Object@fn_fa1126e6@@QAEPAU12@PAUConfig_2656b0@2@@Z @cec56271febd @w6f98310057fa
+// sym: ?FUN_002656b0@Object@fn_fa1126e6@@QAEPAU12@PAUConfig_2656b0@2@@Z @cec56271febd @w6f98310057fa @vdcb55796e93d
 // STATUS: equivalent (tools/equiv.py level 3: 3005 inputs, branch coverage 10/10)
 // FUN_002656b0 @ 0x002656b0
 Object* Object::FUN_002656b0(Config_2656b0* config) {

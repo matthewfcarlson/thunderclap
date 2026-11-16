@@ -758,7 +758,7 @@ void* pure3d::AnimationLoader::FUN_00288eb0(void* __p0, int ctx, void* __p2) { R
 namespace fn_f25f8e16 {
 
 // 0x00289070 FUN_00289070 (456 B): equivalent/0x00289070.cpp
-// sym: ?FUN_00289070@AnimationLoader_289070@fn_f25f8e16@@QAEPAVAnimationMemoryBlock@pure3d@@PAUReader_289070@2@@Z @daf3a195a216 @wda88eecb5aa6
+// sym: ?FUN_00289070@AnimationLoader_289070@fn_f25f8e16@@QAEPAVAnimationMemoryBlock@pure3d@@PAUReader_289070@2@@Z @daf3a195a216 @wda88eecb5aa6 @v911e2e94367e
 // STATUS: equivalent (tools/equiv.py level 3: 17174 inputs, branch coverage 20/20)
 // FUN_00289070 @ 0x00289070
 pure3d::AnimationMemoryBlock* AnimationLoader_289070::FUN_00289070(Reader_289070* r)

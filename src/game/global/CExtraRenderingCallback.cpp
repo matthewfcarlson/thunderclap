@@ -1377,7 +1377,7 @@ void Fx_1bcef0::FUN_001bcef0()
 
 
 // 0x001bdb90 FUN_001bdb90 (523 B): equivalent/0x001bdb90.cpp [wrapped: conflict: World]
-// sym: ?FUN_001bdb90@Widget_1bdb90@fn_001bdb90@@QAEXXZ @6f85a5a6b770 @wd166407f531f
+// sym: ?FUN_001bdb90@Widget_1bdb90@fn_001bdb90@@QAEXXZ @6f85a5a6b770 @wd166407f531f @vfb9a612a6279
 inline void *operator new(size_t, void *p) throw() { return p; }
 namespace fn_001bdb90 {
 // STATUS: equivalent (tools/equiv.py level 3: 19957 inputs, branch coverage 32/32)

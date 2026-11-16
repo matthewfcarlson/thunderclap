@@ -778,7 +778,7 @@ extern "C" void FUN_002c0450(int y0, int width, int height, void *src, unsigned 
 
 
 // 0x002c0590 FUN_002c0590 (488 B): equivalent/0x002c0590.cpp
-// sym: ?FUN_002c0590@Loader_2c0590@fn_fbf8e46b@@QAEPAUSprite@2@PAUReader@2@H@Z @434fdcd6048b @w246ef94b9661
+// sym: ?FUN_002c0590@Loader_2c0590@fn_fbf8e46b@@QAEPAUSprite@2@PAUReader@2@H@Z @434fdcd6048b @w246ef94b9661 @v49c2cca50ad3
 // STATUS: equivalent (tools/equiv.py level 3: 72 inputs, branch coverage 10/12, incomplete)
 // FUN_002c0590 @ 0x002c0590
 Sprite *Loader_2c0590::FUN_002c0590(Reader *r, int unused)

@@ -242,7 +242,7 @@ extern "C" void FUN_002ad820(void *info, void *png, void *sink)
 
 
 // 0x002ad9d0 FUN_002ad9d0 (305 B): equivalent/0x002ad9d0.cpp
-// sym: _FUN_002ad9d0 @58da65677cfb @w7d0665a49cd9
+// sym: _FUN_002ad9d0 @58da65677cfb @w7d0665a49cd9 @vb218891aa0d7
 // STATUS: equivalent (tools/equiv.py level 3: 20 inputs, branch coverage 14/14)
 // FUN_002ad9d0 @ 0x002ad9d0
 // FUN_002ad9d0 @ 0x002ad9d0
@@ -325,7 +325,7 @@ int FUN_002adb10(hulk_intptr index, void* source, Output_2adb10* output) {
 
 
 // 0x002adba0 pure3d::PNGHandler::vfunc_9 (497 B): equivalent/0x002adba0.cpp
-// sym: ?vfunc_9@PNGHandler@pure3d@@UAEXHH@Z @2b4a91310fce @wc63b49c3d4a6
+// sym: ?vfunc_9@PNGHandler@pure3d@@UAEXHH@Z @2b4a91310fce @wc63b49c3d4a6 @vacbdd4ac8b3e
 // STATUS: equivalent (tools/equiv.py level 3: 20085 inputs, branch coverage 32/32)
 // pure3d::PNGHandler::vfunc_9 @ 0x002adba0
 // pure3d::PNGHandler::vfunc_9 @ 0x002adba0

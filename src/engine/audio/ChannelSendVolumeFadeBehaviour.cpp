@@ -519,7 +519,7 @@ void SeqEventChannelSendVolumes::vfunc_2(int arg) {
 namespace fn_f983a9d8 {
 
 // 0x0024f280 FUN_0024f280 (451 B): equivalent/0x0024f280.cpp
-// sym: _FUN_0024f280 @a460e1f9d596 @we970f05d520a
+// sym: _FUN_0024f280 @a460e1f9d596 @we970f05d520a @v7b9d552d3a35
 // STATUS: equivalent (tools/equiv.py level 3: 169 inputs, branch coverage 39/40, incomplete)
 // FUN_0024f280 @ 0x0024f280
 // Red-black tree unique-key insert with rebalance. color: 1 = red, 0 = black.

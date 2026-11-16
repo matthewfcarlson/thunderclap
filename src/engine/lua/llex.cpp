@@ -293,7 +293,7 @@ extern "C" int FUN_0021b480(LuaVMLexState* ls) {
 
 
 // 0x0021b520 FUN_0021b520 (393 B): equivalent/0x0021b520.cpp
-// sym: _FUN_0021b520 @dfd61312ec5d @w7fd6076ca4d0
+// sym: _FUN_0021b520 @dfd61312ec5d @w7fd6076ca4d0 @vba3e6157c37f
 // STATUS: equivalent (tools/equiv.py level 3: 115 inputs, branch coverage 30/31, incomplete)
 // read_long_string: a long string or comment up to the matching closing bracket (nested ones counted); the string
 // (seminfo non-null) is interned and anchored in the function's constant table.

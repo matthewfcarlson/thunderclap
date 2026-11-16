@@ -41,7 +41,7 @@ extern "C" void __cdecl FUN_000fc000(char *buf, int size, const char *fmt, ...);
 
 
 // 0x000b51c0 FUN_000b51c0 (140 B): equivalent/0x000b51c0.cpp
-// sym: _FUN_000b51c0 @1b8bec9da421 @w5212cc2e233b
+// sym: _FUN_000b51c0 @1b8bec9da421 @w5212cc2e233b @v80dada65957e
 // STATUS: equivalent (tools/equiv.py level 3: 16411 inputs, branch coverage 8/8)
 // FUN_000b51c0 @ 0x000b51c0
 // FUN_000b51c0 @ 0x000b51c0
@@ -186,7 +186,7 @@ extern "C" void __stdcall FUN_000b5670(hulk_intptr amount)
 
 
 // 0x000b63a0 FUN_000b63a0 (336 B): equivalent/0x000b63a0.cpp [wrapped: conflict: FUN_000fc1b0; FUN_000fc260]
-// sym: ?FUN_000b63a0@Owner_b63a0@fn_000b63a0@@QAEXXZ @fc40e0077248 @wd4fd4eb26f22
+// sym: ?FUN_000b63a0@Owner_b63a0@fn_000b63a0@@QAEXXZ @fc40e0077248 @wd4fd4eb26f22 @v814ce23fc246
 namespace fn_000b63a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 1567 inputs, branch coverage 10/10)
 // FUN_000b63a0 @ 0x000b63a0
@@ -559,7 +559,7 @@ void CheatMenu::FUN_000b64f0()
 
 
 // 0x000b79a0 FUN_000b79a0 (813 B): equivalent/0x000b79a0.cpp [wrapped: conflict: FUN_000fc1b0; FUN_000fc260]
-// sym: ?FUN_000b79a0@Briefing@fn_000b79a0@@QAEXTSlot_b79a0@2@0@Z @f8e2edf690c5 @w2b79d960d7d2
+// sym: ?FUN_000b79a0@Briefing@fn_000b79a0@@QAEXTSlot_b79a0@2@0@Z @f8e2edf690c5 @w2b79d960d7d2 @v23e8cae6aafc
 namespace fn_000b79a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3066 inputs, branch coverage 35/36, incomplete)
 // FUN_000b79a0 @ 0x000b79a0
@@ -803,7 +803,7 @@ void Briefing::FUN_000b79a0(Slot_b79a0 a1, Slot_b79a0 a2)
 
 
 // 0x000b7cd0 FUN_000b7cd0 (800 B): equivalent/0x000b7cd0.cpp [wrapped: conflict: FEControl; FEObject; FUN_000964a0; FUN_000fc3d0 (+1)]
-// sym: ?FUN_000b7cd0@HintMenu_b7cd0@fn_000b7cd0@@QAEXXZ @0e4de9b54608 @w58cf47f0bad0
+// sym: ?FUN_000b7cd0@HintMenu_b7cd0@fn_000b7cd0@@QAEXXZ @0e4de9b54608 @w58cf47f0bad0 @vc6491f66437a
 namespace fn_000b7cd0 {
 // STATUS: equivalent (tools/equiv.py level 3: 282 inputs, branch coverage 75/76, incomplete)
 // FUN_000b7cd0 @ 0x000b7cd0
@@ -1355,7 +1355,7 @@ void MissionFailMenu::FUN_000b89e0()
 
 
 // 0x000b8f20 FUN_000b8f20 (364 B): equivalent/0x000b8f20.cpp [wrapped: conflict: FEObject; FUN_000fc1b0; TextLabel; TextSelector]
-// sym: ?FUN_000b8f20@TextHost@fn_000b8f20@@QAEXXZ @18fffc06c0cc @wda554c50c6da
+// sym: ?FUN_000b8f20@TextHost@fn_000b8f20@@QAEXXZ @18fffc06c0cc @wda554c50c6da @v5bbad45e4393
 namespace fn_000b8f20 {
 // STATUS: equivalent (tools/equiv.py level 3: 3003 inputs, branch coverage 16/16)
 // FUN_000b8f20 @ 0x000b8f20
@@ -1480,7 +1480,7 @@ void Hud_b9930::FUN_000b9930()
 
 
 // 0x000b9bf0 FUN_000b9bf0 (1090 B): equivalent/0x000b9bf0.cpp [wrapped: macros]
-// sym: ?FUN_000b9bf0@SideMissionMenu@fn_000b9bf0@@QAEXXZ @2d485c14e695 @we039c97b18d5
+// sym: ?FUN_000b9bf0@SideMissionMenu@fn_000b9bf0@@QAEXXZ @2d485c14e695 @we039c97b18d5 @vec921e816546
 namespace fn_000b9bf0 {
 // STATUS: equivalent (tools/equiv.py level 3: 609 inputs, branch coverage 40/40)
 // FUN_000b9bf0 @ 0x000b9bf0

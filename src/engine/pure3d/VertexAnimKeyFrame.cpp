@@ -242,7 +242,7 @@ void VertexAnimKeyFrame_2e5a70::f() {
 
 
 // 0x002e5b20 FUN_002e5b20 (1596 B): equivalent/0x002e5b20.cpp
-// sym: ?FUN_002e5b20@fn_f411a916@@YGPAVVertexAnimKeyFrame_2e5b20@1@PAUStream@1@H@Z @fb362280bffa @w78411bd7391c
+// sym: ?FUN_002e5b20@fn_f411a916@@YGPAVVertexAnimKeyFrame_2e5b20@1@PAUStream@1@H@Z @fb362280bffa @w78411bd7391c @vc060aca7a2cf
 // STATUS: equivalent (tools/equiv.py level 3: 223 inputs, branch coverage 60/62, incomplete)
 // FUN_002e5b20 @ 0x002e5b20
 VertexAnimKeyFrame_2e5b20 *__stdcall FUN_002e5b20(Stream *s, int unused)

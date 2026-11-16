@@ -385,7 +385,7 @@ void Object::FUN_001035f0(int v, unsigned char f, int o) { value=v; flag=f; othe
 
 
 // 0x00103640 FUN_00103640 (328 B): equivalent/0x00103640.cpp
-// sym: ?FUN_00103640@Marker_103640@fn_f34ce6e5@@QAEXTNameSlot_103640@2@MMM@Z @7937bc707f72 @w390def996463
+// sym: ?FUN_00103640@Marker_103640@fn_f34ce6e5@@QAEXTNameSlot_103640@2@MMM@Z @7937bc707f72 @w390def996463 @v1ab7d1a2f1c4
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // FUN_00103640 @ 0x00103640
 void Marker_103640::FUN_00103640(NameSlot_103640 name, float x, float y, float z)
@@ -703,7 +703,7 @@ void COccupationAgent_103a50::target() {
 
 
 // 0x00103b60 FUN_00103b60 (199 B): equivalent/0x00103b60.cpp
-// sym: ?target@COccupationAgent_103b60@fn_f34ce6e5@@QAEHPAUContext@2@PBDE@Z @a7bc7288a4b3 @w129b1f87c089
+// sym: ?target@COccupationAgent_103b60@fn_f34ce6e5@@QAEHPAUContext@2@PBDE@Z @a7bc7288a4b3 @w129b1f87c089 @v75a47f2916b8
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_00103b60 @ 0x00103b60
 int COccupationAgent_103b60::target(Context* context,const char* text,unsigned char mode) {

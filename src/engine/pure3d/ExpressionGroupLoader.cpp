@@ -491,7 +491,7 @@ struct Item { char pad[0x14]; float value; }; struct Entry { Item* item; int oth
 namespace fn_fd745641 {
 
 // 0x002b0870 FUN_002b0870 (436 B): equivalent/0x002b0870.cpp
-// sym: ?FUN_002b0870@Curves_2b0870@fn_fd745641@@QAEXXZ @8ffb0de07afb @wb6b8998dcb6b
+// sym: ?FUN_002b0870@Curves_2b0870@fn_fd745641@@QAEXXZ @8ffb0de07afb @wb6b8998dcb6b @v2c17014d3375
 // STATUS: equivalent (tools/equiv.py level 3: 12 inputs, branch coverage 18/20, incomplete)
 // FUN_002b0870 @ 0x002b0870
 void Curves_2b0870::FUN_002b0870()

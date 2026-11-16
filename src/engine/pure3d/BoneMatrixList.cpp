@@ -117,7 +117,7 @@ BoneMatrixList::BoneMatrixList(unsigned n) {
 
 
 // 0x002e17c0 FUN_002e17c0 (117 B): equivalent/0x002e17c0.cpp
-// sym: ??0BoneMatrixList@pure3d@fn_fa9c7cf4@@QAE@PAUMatVec@2@@Z @bada2f6a719c @w95fb3f2fe9f9
+// sym: ??0BoneMatrixList@pure3d@fn_fa9c7cf4@@QAE@PAUMatVec@2@@Z @bada2f6a719c @w95fb3f2fe9f9 @v9b56aefaa814
 // STATUS: equivalent (tools/equiv.py level 3: 54 inputs, branch coverage 8/8)
 // FUN_002e17c0 @ 0x002e17c0
 pure3d::BoneMatrixList::BoneMatrixList(MatVec *src)

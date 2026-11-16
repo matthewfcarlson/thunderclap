@@ -1195,7 +1195,7 @@ void FUN_000b5bf0(void* /*this, unused: callers pass it (unb4)*/)
 
 
 // 0x000b5ca0 FUN_000b5ca0 (1780 B): equivalent/0x000b5ca0.cpp [wrapped: macros]
-// sym: ?FUN_000b5ca0@Env@fn_000b5ca0@@QAEXXZ @bdd368ece318 @wa62148d6e130
+// sym: ?FUN_000b5ca0@Env@fn_000b5ca0@@QAEXXZ @bdd368ece318 @wa62148d6e130 @vaa060c7e2682
 namespace fn_000b5ca0 {
 // STATUS: equivalent (tools/equiv.py level 3: 274 inputs, branch coverage 92/98, incomplete)
 // FUN_000b5ca0 @ 0x000b5ca0
@@ -1591,7 +1591,7 @@ void Owner_b7660::update() {
 
 
 // 0x000b76c0 FUN_000b76c0 (153 B): equivalent/0x000b76c0.cpp [wrapped: conflict: FUN_000fc260]
-// sym: ?FUN_000b76c0@PauseScreen@fn_000b76c0@@QAEXXZ @1b10fdfe4f66 @w145f4ce8daf8
+// sym: ?FUN_000b76c0@PauseScreen@fn_000b76c0@@QAEXXZ @1b10fdfe4f66 @w145f4ce8daf8 @v482518d66fd6
 namespace fn_000b76c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 19939 inputs, branch coverage 10/10)
 // FUN_000b76c0 @ 0x000b76c0

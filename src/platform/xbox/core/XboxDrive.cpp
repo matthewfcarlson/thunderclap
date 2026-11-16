@@ -309,7 +309,7 @@ int core::XboxDrive::vfunc_10(void* __p0, int q) { void * p = (void *)__p0;
 
 
 // 0x0026f210 core::XboxDrive::vfunc_21 (126 B): equivalent/0x0026f210.cpp
-// sym: ?vfunc_21@XboxDrive_26f210@core@@QAEXPBD@Z @9f736051c2b8 @wa32c10f57378
+// sym: ?vfunc_21@XboxDrive_26f210@core@@QAEXPBD@Z @9f736051c2b8 @wa32c10f57378 @vd1154cc58965
 // STATUS: equivalent (tools/equiv.py level 3: 82 inputs, branch coverage 7/8, incomplete)
 // core::XboxDrive::vfunc_21 @ 0x0026f210
 namespace core {

@@ -355,7 +355,7 @@ struct SpriteParticleUpdater {
 } // namespace fn_fd69ca5d
 
 // 0x002d1090 FUN_002d1090 (196 B): equivalent/0x002d1090.cpp [wrapped: conflict: pure3d::VertexAnimObject]
-// sym: ?Initialize@VertexAnimObject@pure3d@fn_002d1090@@QAEPAV123@PAUSource_2d1090@3@@Z @deced7a979dc @w23fa2c7bcda8
+// sym: ?Initialize@VertexAnimObject@pure3d@fn_002d1090@@QAEPAV123@PAUSource_2d1090@3@@Z @deced7a979dc @w23fa2c7bcda8 @vbb7774864330
 namespace fn_002d1090 {
 // STATUS: equivalent (tools/equiv.py level 3: 51 inputs, branch coverage 12/12)
 // FUN_002d1090 @ 0x002d1090

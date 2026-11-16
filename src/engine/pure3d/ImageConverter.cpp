@@ -451,7 +451,7 @@ extern "C" void __stdcall FUN_002de5a0(void * src, void * info) {
 
 
 // 0x002de600 FUN_002de600 (190 B): equivalent/0x002de600.cpp
-// sym: _FUN_002de600 @00cf051f4d1e @wd4f77d3b59a9
+// sym: _FUN_002de600 @00cf051f4d1e @wd4f77d3b59a9 @ve1ca4dd8ea2a
 // STATUS: equivalent (tools/equiv.py level 3: 60 inputs, branch coverage 8/8)
 // FUN_002de600 @ 0x002de600
 // equiv-conv: FUN_002de600 eax ecx esi

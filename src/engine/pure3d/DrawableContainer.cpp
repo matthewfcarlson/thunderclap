@@ -534,7 +534,7 @@ void pure3d::DrawableContainer::vfunc_9() {
 namespace fn_f6d01fd6 {
 
 // 0x002a43c0 FUN_002a43c0 (66 B): equivalent/0x002a43c0.cpp
-// sym: ?FUN_002a43c0@Owner@fn_f6d01fd6@@QAEHHH@Z @44e023cf8ebe @w79837a905970
+// sym: ?FUN_002a43c0@Owner@fn_f6d01fd6@@QAEHHH@Z @44e023cf8ebe @w79837a905970 @vcc5b4978d597
 // STATUS: equivalent (tools/equiv.py level 3: 763 inputs, branch coverage 8/8)
 // FUN_002a43c0 @ 0x002a43c0
 int Owner::FUN_002a43c0(int key1, int key2) { unsigned count = (unsigned)(end - begin); for (unsigned i = 0; i < count; ++i) { int *object = begin[i].object; if (object[2] == key1 && object[3] == key2) return i; } return -1; }
@@ -800,7 +800,7 @@ CCollisionAction* CCollisionAction::vfunc_2(unsigned char flags) {
 
 
 // 0x002a4a50 FUN_002a4a50 (171 B): equivalent/0x002a4a50.cpp
-// sym: ?resizeArray@fn_f6d01fd6@@YGXPAUArray_2a4a50@1@I@Z @b8b3b96c2b6b @w4100c333ea1e
+// sym: ?resizeArray@fn_f6d01fd6@@YGXPAUArray_2a4a50@1@I@Z @b8b3b96c2b6b @w4100c333ea1e @vd0f5cf6ed0fd
 // STATUS: equivalent (tools/equiv.py level 3: 52 inputs, branch coverage 16/18, incomplete)
 // FUN_002a4a50 @ 0x002a4a50
 void __stdcall resizeArray(Array_2a4a50* a, unsigned int count) {
@@ -828,7 +828,7 @@ void __stdcall resizeArray(Array_2a4a50* a, unsigned int count) {
 
 
 // 0x002a4b00 FUN_002a4b00 (297 B): equivalent/0x002a4b00.cpp
-// sym: ?work@Target_2a4b00@fn_f6d01fd6@@QAEXPAUCollection_2a4b00@2@PAUReader@2@I@Z @3a96aa0c2ef8 @w817dac3703af
+// sym: ?work@Target_2a4b00@fn_f6d01fd6@@QAEXPAUCollection_2a4b00@2@PAUReader@2@I@Z @3a96aa0c2ef8 @w817dac3703af @v0e77463c8be4
 // STATUS: equivalent (tools/equiv.py level 3: 16697 inputs, branch coverage 10/10)
 // FUN_002a4b00 @ 0x002a4b00
 void Target_2a4b00::work(Collection_2a4b00* collection, Reader* reader, hulk_uintptr arg) {

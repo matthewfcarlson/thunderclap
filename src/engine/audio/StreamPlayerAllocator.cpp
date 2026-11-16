@@ -2280,7 +2280,7 @@ extern "C" void __cdecl FUN_00249c20(void * tree_, void * entry_) {
 
 
 // 0x00249ce0 FUN_00249ce0 (467 B): equivalent/0x00249ce0.cpp [wrapped: conflict: Node]
-// sym: ?FUN_00249ce0@fn_00249ce0@@YADPAUTree_249ce0@1@PAUNode@1@PBI@Z @53826b63519c @wfdf951794c10
+// sym: ?FUN_00249ce0@fn_00249ce0@@YADPAUTree_249ce0@1@PAUNode@1@PBI@Z @53826b63519c @wfdf951794c10 @v4ac1cae1d82f
 namespace fn_00249ce0 {
 // STATUS: equivalent (tools/equiv.py level 3: 178 inputs, branch coverage 35/40, incomplete)
 // FUN_00249ce0 @ 0x00249ce0
@@ -2466,7 +2466,7 @@ extern "C" void FUN_00249ec0(void * tree, void * node) {
 
 
 // 0x00249f80 FUN_00249f80 (49 B): equivalent/0x00249f80.cpp [wrapped: conflict: Tree]
-// sym: _FUN_00249f80 @424eadbca0c9 @w6612ff3a6d77
+// sym: _FUN_00249f80 @424eadbca0c9 @w6612ff3a6d77 @v21bd2f4c5708
 namespace fn_00249f80 {
 // STATUS: equivalent (tools/equiv.py level 3: 731 inputs, branch coverage 8/8)
 // FUN_00249f80 @ 0x00249f80
@@ -2476,7 +2476,7 @@ struct Entry { Entry* left; Entry* right; char pad[0x14]; struct Data* data; }; 
 
 
 // 0x00249fc0 FUN_00249fc0 (44 B): equivalent/0x00249fc0.cpp [wrapped: conflict: Node]
-// sym: _FUN_00249fc0 @ded505639a0e @w4261c46d710e
+// sym: _FUN_00249fc0 @ded505639a0e @w4261c46d710e @v396218334768
 namespace fn_00249fc0 {
 // STATUS: equivalent (tools/equiv.py level 3: 702 inputs, branch coverage 8/8)
 // FUN_00249fc0 @ 0x00249fc0
@@ -2486,7 +2486,7 @@ struct Node { Node *left; Node *right; char pad[8]; unsigned int key; }; struct 
 
 
 // 0x00249ff0 FUN_00249ff0 (451 B): equivalent/0x00249ff0.cpp [wrapped: conflict: Node]
-// sym: _FUN_00249ff0 @156002aed514 @w497b166f31fd
+// sym: _FUN_00249ff0 @156002aed514 @w497b166f31fd @v8e072be26bec
 namespace fn_00249ff0 {
 // STATUS: equivalent (tools/equiv.py level 3: 181 inputs, branch coverage 37/40, incomplete)
 // FUN_00249ff0 @ 0x00249ff0
@@ -2752,7 +2752,7 @@ extern "C" void* __cdecl FUN_0024a370(Object* object, const unsigned int* key) {
 
 
 // 0x0024a390 FUN_0024a390 (45 B): equivalent/0x0024a390.cpp [wrapped: conflict: Node; Tree]
-// sym: _FUN_0024a390 @db759bd67d18 @w7ad8eec847a5
+// sym: _FUN_0024a390 @db759bd67d18 @w7ad8eec847a5 @va7fd35d7a80b
 namespace fn_0024a390 {
 // STATUS: equivalent (tools/equiv.py level 3: 700 inputs, branch coverage 8/8)
 // FUN_0024a390 @ 0x0024a390
@@ -3109,7 +3109,7 @@ extern "C" void FUN_0024a800(Scene *scene, Context *ctx)
 
 
 // 0x0024a940 FUN_0024a940 (127 B): equivalent/0x0024a940.cpp [wrapped: conflict: Node]
-// sym: _FUN_0024a940 @b117bf0248c1 @w7834dd06faa0
+// sym: _FUN_0024a940 @b117bf0248c1 @w7834dd06faa0 @v9b39ce7e37f7
 namespace fn_0024a940 {
 // STATUS: equivalent (tools/equiv.py level 3: 717 inputs, branch coverage 12/12)
 // FUN_0024a940 @ 0x0024a940

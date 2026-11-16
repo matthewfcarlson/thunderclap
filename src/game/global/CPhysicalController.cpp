@@ -629,7 +629,7 @@ void Mapper_b2060::FUN_000b2060(int newMode)
 
 
 // 0x000b23c0 FUN_000b23c0 (625 B): equivalent/0x000b23c0.cpp [wrapped: conflict: CPhysicalController]
-// sym: ??0CPhysicalController@fn_000b23c0@@QAE@H@Z @bb79a5ae023d @w6e1c7b9e2a86
+// sym: ??0CPhysicalController@fn_000b23c0@@QAE@H@Z @bb79a5ae023d @w6e1c7b9e2a86 @v567c4daa8db4
 namespace fn_000b23c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 28/28)
 // FUN_000b23c0 @ 0x000b23c0
@@ -1049,7 +1049,7 @@ void Pad_b2810::FUN_000b2810()
 namespace fn_f3919bbe {
 
 // 0x000b30c0 FUN_000b30c0 (1099 B): equivalent/0x000b30c0.cpp
-// sym: ?FUN_000b30c0@Blender_b30c0@fn_f3919bbe@@QAEXHHPAHPAPAPAVItem_b30c0@2@PATCell_b30c0@2@PAV32@PAM44@Z @e4b63039c60e @w868be669f875
+// sym: ?FUN_000b30c0@Blender_b30c0@fn_f3919bbe@@QAEXHHPAHPAPAPAVItem_b30c0@2@PATCell_b30c0@2@PAV32@PAM44@Z @e4b63039c60e @w868be669f875 @v1d3b31089f69
 // STATUS: equivalent (tools/equiv.py level 3: 117 inputs, branch coverage 77/78, incomplete; Wine build 117 inputs, 77/78)
 // FUN_000b30c0 @ 0x000b30c0
 void Blender_b30c0::FUN_000b30c0(int groups, int pairs, int *counts, Item_b30c0 ***items, Cell_b30c0 *cells, Item_b30c0 *single,

@@ -62,7 +62,7 @@ public:
 
 
 // 0x000c8200 FUN_000c8200 (521 B): equivalent/0x000c8200.cpp
-// sym: ?FUN_000c8200@Obj_c8200@fn_f2af3f62@@QAEHHPAIMMMMMMMMM@Z @02d4457f3d6d @w2b07b6451976
+// sym: ?FUN_000c8200@Obj_c8200@fn_f2af3f62@@QAEHHPAIMMMMMMMMM@Z @02d4457f3d6d @w2b07b6451976 @v0a9175560bc2
 // STATUS: equivalent (tools/equiv.py level 3: 3004 inputs, branch coverage 6/6)
 // FUN_000c8200 @ 0x000c8200
 int Obj_c8200::FUN_000c8200(int a0, unsigned int *a1, float a2, float a3, float a4,

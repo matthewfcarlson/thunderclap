@@ -340,7 +340,7 @@ bool Owner_2c1cf0::Run(int a, int b, int c, int d, int e, int f, int g, int h) {
 
 
 // 0x002c1d70 FUN_002c1d70 (526 B): equivalent/0x002c1d70.cpp
-// sym: ?FUN_002c1d70@Loader_2c1d70@fn_f9a208e6@@QAEPAUSprite_2c1d70@2@PAUReader_2c1d70@2@PAVTextureBuilder@pure3d@@PAU32@H@Z @ff7d0a84bbb3 @wa0be06b7c6b5
+// sym: ?FUN_002c1d70@Loader_2c1d70@fn_f9a208e6@@QAEPAUSprite_2c1d70@2@PAUReader_2c1d70@2@PAVTextureBuilder@pure3d@@PAU32@H@Z @ff7d0a84bbb3 @wa0be06b7c6b5 @v4ce6f2881e27
 // STATUS: equivalent (tools/equiv.py level 3: 16754 inputs, branch coverage 16/16)
 // FUN_002c1d70 @ 0x002c1d70
 Sprite_2c1d70 *Loader_2c1d70::FUN_002c1d70(Reader_2c1d70 *r, pure3d::TextureBuilder *sd, Sprite_2c1d70 *existing, int arg)
@@ -399,7 +399,7 @@ Sprite_2c1d70 *Loader_2c1d70::FUN_002c1d70(Reader_2c1d70 *r, pure3d::TextureBuil
 
 
 // 0x002c1f80 FUN_002c1f80 (758 B): equivalent/0x002c1f80.cpp
-// sym: ?FUN_002c1f80@Loader_2c1f80@fn_f9a208e6@@QAEPAXPAUReader@2@PAUFactory_2c1f80@2@HHH@Z @7b3575889106 @we683bcb48451
+// sym: ?FUN_002c1f80@Loader_2c1f80@fn_f9a208e6@@QAEPAXPAUReader@2@PAUFactory_2c1f80@2@HHH@Z @7b3575889106 @we683bcb48451 @v7a52413d769b
 // STATUS: equivalent (tools/equiv.py level 3: 86 inputs, branch coverage 24/28, incomplete)
 // FUN_002c1f80 @ 0x002c1f80
 void *Loader_2c1f80::FUN_002c1f80(Reader *r, Factory_2c1f80 *factory, hulk_intptr a3, int a4, int a5)

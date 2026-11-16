@@ -183,7 +183,7 @@ template class Method1<CPlatformManager, void, const char *>; // (ren2) native o
 
 
 // 0x0008e1f0 MyDriveErrorCallback::vfunc_0 (1161 B): equivalent/0x0008e1f0.cpp [wrapped: conflict: FUN_0008e090; MyControllerCallback; MyDriveErrorCallback]
-// sym: ?vfunc_0@MyDriveErrorCallback@fn_0008e1f0@@UAEDIPAXHPBDI@Z @60a9a387765b @wfa58a7dd74a5
+// sym: ?vfunc_0@MyDriveErrorCallback@fn_0008e1f0@@UAEDIPAXHPBDI@Z @60a9a387765b @wfa58a7dd74a5 @v3ea361a0773e
 inline void *operator new(size_t, void *p) throw() { return p; }
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)

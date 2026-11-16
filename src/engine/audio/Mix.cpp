@@ -589,7 +589,7 @@ bool Mix::vfunc_4(int arg)
 
 
 // 0x0025a610 FUN_0025a610 (451 B): equivalent/0x0025a610.cpp [wrapped: conflict: Node]
-// sym: ?FUN_0025a610@fn_0025a610@@YADPAUTree_25a610@1@PAUHolder_25a610@1@PBI@Z @b001aa8b154d @wc8bbcb9e65e8
+// sym: ?FUN_0025a610@fn_0025a610@@YADPAUTree_25a610@1@PAUHolder_25a610@1@PBI@Z @b001aa8b154d @wc8bbcb9e65e8 @v003dcb982e58
 namespace fn_0025a610 {
 // STATUS: equivalent (tools/equiv.py level 3: 169 inputs, branch coverage 39/40, incomplete)
 // FUN_0025a610 @ 0x0025a610

@@ -212,7 +212,7 @@ bool pure3d::BMPHandler::vfunc_10(int , int ) {
 namespace fn_f24f7502 {
 
 // 0x002af510 FUN_002af510 (341 B): equivalent/0x002af510.cpp
-// sym: _FUN_002af510 @d9bb23ac1e24 @w135ea3e98c8d
+// sym: _FUN_002af510 @d9bb23ac1e24 @w135ea3e98c8d @v8b90119e8ab7
 // STATUS: equivalent (tools/equiv.py level 3: 144 inputs, branch coverage 16/16)
 // FUN_002af510 @ 0x002af510
 extern "C" void __cdecl FUN_002af510(void *reader, void *img, void *writer)
@@ -261,7 +261,7 @@ extern "C" void __cdecl FUN_002af510(void *reader, void *img, void *writer)
 
 
 // 0x002af670 FUN_002af670 (284 B): equivalent/0x002af670.cpp
-// sym: _FUN_002af670 @46fde2cde988 @w9d6d4be76372
+// sym: _FUN_002af670 @46fde2cde988 @w9d6d4be76372 @vab0d71c65125
 // STATUS: equivalent (tools/equiv.py level 3: 90 inputs, branch coverage 12/12)
 // FUN_002af670 @ 0x002af670
 // equiv-conv: FUN_002af670 esi ebx stack
@@ -289,7 +289,7 @@ extern "C" int __cdecl FUN_002af670(void * info, void * stream, void * image) {
 } // namespace fn_f24f7502
 
 // 0x002af790 FUN_002af790 (291 B): equivalent/0x002af790.cpp [wrapped: conflict: FUN_00266e00]
-// sym: _FUN_002af790 @4877b3ce62b1 @w13fc6d1baaa7
+// sym: _FUN_002af790 @4877b3ce62b1 @w13fc6d1baaa7 @vce2cee2b238c
 namespace fn_002af790 {
 // STATUS: equivalent (tools/equiv.py level 3: 95 inputs, branch coverage 10/10)
 // FUN_002af790 @ 0x002af790
@@ -328,7 +328,7 @@ extern "C" int __cdecl FUN_002af790(void * reader, void * header, void * output)
 namespace fn_f24f7502 {
 
 // 0x002af8c0 FUN_002af8c0 (414 B): equivalent/0x002af8c0.cpp
-// sym: _FUN_002af8c0 @af8ebae87531 @w2c370d48e3da
+// sym: _FUN_002af8c0 @af8ebae87531 @w2c370d48e3da @v818d334358bd
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_002af8c0 @ 0x002af8c0
 // equiv-conv: FUN_002af8c0 esi edi

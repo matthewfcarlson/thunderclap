@@ -561,7 +561,7 @@ void Sequence::FUN_002322f0(int arg, float dt)
 } // namespace fn_f7416411
 
 // 0x002324b0 FUN_002324b0 (318 B): equivalent/0x002324b0.cpp [wrapped: conflict: FUN_00266da0]
-// sym: ?FUN_002324b0@NodeList_2324b0@fn_002324b0@@QAE_ND@Z @caee574e7f04 @w86650ca903a5
+// sym: ?FUN_002324b0@NodeList_2324b0@fn_002324b0@@QAE_ND@Z @caee574e7f04 @w86650ca903a5 @vc7147bbd9eb9
 namespace fn_002324b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 95 inputs, branch coverage 34/36, incomplete)
 // FUN_002324b0 @ 0x002324b0

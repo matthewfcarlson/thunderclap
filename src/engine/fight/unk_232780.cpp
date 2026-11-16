@@ -167,7 +167,7 @@ Entry *Collection::FUN_00232840(unsigned int first, unsigned int second) { for (
 } // namespace fn_f81ad613
 
 // 0x00232870 FUN_00232870 (359 B): equivalent/0x00232870.cpp [wrapped: conflict: FUN_00266da0]
-// sym: ?FUN_00232870@fn_00232870@@YGPAVChunk_232870@1@PBDHIH@Z @4f8361b72d2c @wd8e04a308a58
+// sym: ?FUN_00232870@fn_00232870@@YGPAVChunk_232870@1@PBDHIH@Z @4f8361b72d2c @wd8e04a308a58 @v9ba5f2fee7d2
 namespace fn_00232870 {
 // STATUS: equivalent (tools/equiv.py level 3: 77 inputs, branch coverage 18/18)
 // FUN_00232870 @ 0x00232870

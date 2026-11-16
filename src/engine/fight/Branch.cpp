@@ -558,7 +558,7 @@ int Branch_2333f0::Target(void* a, void* b) {
 
 
 // 0x002337c0 FUN_002337c0 (426 B): equivalent/0x002337c0.cpp
-// sym: ?ParseBlock@Branch_2337c0@fn_f3f1aadd@@QAEDHPAVLexer@2@H@Z @8086b6c364d4 @waef39cccf69a
+// sym: ?ParseBlock@Branch_2337c0@fn_f3f1aadd@@QAEDHPAVLexer@2@H@Z @8086b6c364d4 @waef39cccf69a @v63a8d56d1932
 // STATUS: equivalent (tools/equiv.py level 3: 13637 inputs, branch coverage 40/40)
 // FUN_002337c0 @ 0x002337c0
 char Branch_2337c0::ParseBlock(hulk_intptr a0, Lexer *lexer, int index)
@@ -816,7 +816,7 @@ void Holder_233ef0::Set(hulk_intptr unused, Obj_233ef0* x) {
 } // namespace fn_f3f1aadd
 
 // 0x00233f20 FUN_00233f20 (123 B): equivalent/0x00233f20.cpp [wrapped: conflict: FUN_00238190]
-// sym: ?FUN_00233f20@NameHolder_233f20@fn_00233f20@@QAE_NPBD@Z @3560526a3702 @w57b80b327b1a
+// sym: ?FUN_00233f20@NameHolder_233f20@fn_00233f20@@QAE_NPBD@Z @3560526a3702 @w57b80b327b1a @vc50ae846d01d
 namespace fn_00233f20 {
 // STATUS: equivalent (tools/equiv.py level 3: 2990 inputs, branch coverage 12/12)
 // FUN_00233f20 @ 0x00233f20

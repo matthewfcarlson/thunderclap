@@ -179,7 +179,7 @@ void Object::FUN_000894d0() {
 } // namespace fn_f25fffae
 
 // 0x00089f80 FUN_00089f80 (219 B): equivalent/0x00089f80.cpp [wrapped: conflict: FUN_000964a0]
-// sym: ?FUN_00089f80@Manager_89f80@fn_00089f80@@QAEXPBD@Z @057eb2d9a604 @we56ab6e82527
+// sym: ?FUN_00089f80@Manager_89f80@fn_00089f80@@QAEXPBD@Z @057eb2d9a604 @we56ab6e82527 @v567cfd37fc8c
 namespace fn_00089f80 {
 // STATUS: equivalent (tools/equiv.py level 3: 19998 inputs, branch coverage 13/14, incomplete)
 // FUN_00089f80 @ 0x00089f80

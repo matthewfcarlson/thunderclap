@@ -504,7 +504,7 @@ owners::Vec3_11250* owners::Vec3_11250::FUN_00011250(owners::Vec3_11250* out, ow
 
 
 // 0x00011330 FUN_00011330 (76 B): equivalent/0x00011330.cpp
-// sym: ?FUN_00011330@Random_11330@owners@@QAEII@Z @670120e0eeee @w3c346b6935a6
+// sym: ?FUN_00011330@Random_11330@owners@@QAEII@Z @670120e0eeee @w3c346b6935a6 @vaedfcfeab879
 // STATUS: equivalent (tools/equiv.py level 3: 2859 inputs, branch coverage 0/0)
 // FUN_00011330 @ 0x00011330
 unsigned int owners::Random_11330::FUN_00011330(unsigned int maximum) {
@@ -515,7 +515,7 @@ unsigned int owners::Random_11330::FUN_00011330(unsigned int maximum) {
 
 
 // 0x00011380 FUN_00011380 (84 B): equivalent/0x00011380.cpp
-// sym: ?FUN_00011380@Random_11380@owners@@QAEHHH@Z @e1c7a73d42a5 @wcbdc6cc76e77
+// sym: ?FUN_00011380@Random_11380@owners@@QAEHHH@Z @e1c7a73d42a5 @wcbdc6cc76e77 @v15cf1f091325
 // STATUS: equivalent (tools/equiv.py level 3: 2824 inputs, branch coverage 0/0)
 // FUN_00011380 @ 0x00011380
 int owners::Random_11380::FUN_00011380(int minimum, int maximum) { low = (low & 0xffffu) * 0x9069u + (low >> 16); high = (high & 0xffffu) * 0x4650u + (high >> 16); unsigned int value = (high & 0xffffu) + (low << 16); unsigned int range = (unsigned int)(maximum - minimum + 1); return minimum + value % range; }
@@ -1459,7 +1459,7 @@ float Obj_132d0::Get() {
 
 
 // 0x00013420 FUN_00013420 (49 B): equivalent/0x00013420.cpp
-// sym: ?FUN_00013420@fn_ff0a839e@@YGXPAUItem@1@HHP6IX0@Z@Z @d901ab808a2f @wbc6c5b736b8f
+// sym: ?FUN_00013420@fn_ff0a839e@@YGXPAUItem@1@HHP6IX0@Z@Z @d901ab808a2f @wbc6c5b736b8f @v0558106a77af
 // STATUS: equivalent (tools/equiv.py level 3: 2642 inputs, branch coverage 4/4)
 // FUN_00013420 @ 0x00013420
 void __stdcall FUN_00013420(Item *items, int stride, int count, ItemCallback callback)

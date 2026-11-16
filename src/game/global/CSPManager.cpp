@@ -3970,7 +3970,7 @@ void Owner_1de360::FUN_001de360(hulk_intptr a)
 
 
 // 0x001de3f0 FUN_001de3f0 (113 B): equivalent/0x001de3f0.cpp
-// sym: ?FUN_001de3f0@ObjList_1de3f0@fn_f75938cb@@QAEXPAVObj_1de3f0@2@@Z @8593a218ba94 @wb705647102d3
+// sym: ?FUN_001de3f0@ObjList_1de3f0@fn_f75938cb@@QAEXPAVObj_1de3f0@2@@Z @8593a218ba94 @wb705647102d3 @v376d04110905
 // STATUS: equivalent (tools/equiv.py level 3: 94 inputs, branch coverage 12/12)
 // FUN_001de3f0 @ 0x001de3f0
 // Removes target from the list, shifting the following entries down.
@@ -9599,7 +9599,7 @@ int CSPManager::FUN_001e4760(int a, int b, int c, int d, int e, int f, int g) {
 
 
 // 0x001e4e50 FUN_001e4e50 (357 B): equivalent/0x001e4e50.cpp [wrapped: conflict: World]
-// sym: ?target@CSPManager_1e4e50@fn_001e4e50@@QAEXHMMMMH@Z @59c00209ab47 @w0c3fb07718b2
+// sym: ?target@CSPManager_1e4e50@fn_001e4e50@@QAEXHMMMMH@Z @59c00209ab47 @w0c3fb07718b2 @vff143923aad6
 namespace fn_001e4e50 {
 // STATUS: equivalent (tools/equiv.py level 3: 406 inputs, branch coverage 20/20)
 // FUN_001e4e50 @ 0x001e4e50

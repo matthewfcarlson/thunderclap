@@ -1179,7 +1179,7 @@ bool __cdecl FUN_00244230(Tree_244230* tree, Item_244230* item, const Key_244230
 
 
 // 0x00244430 FUN_00244430 (470 B): equivalent/0x00244430.cpp [wrapped: conflict: Node]
-// sym: _FUN_00244430 @fad261faa7cf @w48b45eb4f3ad
+// sym: _FUN_00244430 @fad261faa7cf @w48b45eb4f3ad @v512682ae1753
 namespace fn_00244430 {
 // STATUS: equivalent (tools/equiv.py level 3: 169 inputs, branch coverage 39/40, incomplete)
 // FUN_00244430 @ 0x00244430

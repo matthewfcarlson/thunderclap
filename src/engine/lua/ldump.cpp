@@ -107,7 +107,7 @@ extern "C" void __cdecl FUN_0021a960(LuaVMDumpState* D, const LuaVMProto* f) {
 
 
 // 0x0021aa00 FUN_0021aa00 (291 B): equivalent/0x0021aa00.cpp
-// sym: _FUN_0021aa00 @ee0ddb44dd46 @wb25c8012feeb
+// sym: _FUN_0021aa00 @ee0ddb44dd46 @wb25c8012feeb @vcf1b09266f06
 // STATUS: equivalent (tools/equiv.py level 3: 644 inputs, branch coverage 15/15)
 // DumpConstants: the constants (a type byte, then a number's 4 bytes or a string) and the nested functions.
 // equiv-conv: FUN_0021aa00 esi stack

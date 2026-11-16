@@ -102,7 +102,7 @@ extern "C" void __cdecl FUN_002dd9e0(void *, void *, void *);
 
 
 // 0x002dd760 FUN_002dd760 (302 B): equivalent/0x002dd760.cpp
-// sym: _FUN_002dd760 @54ca8787c8a1 @wded08d7fe2ae
+// sym: _FUN_002dd760 @54ca8787c8a1 @wded08d7fe2ae @v1c22a4da56da
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_002dd760 @ 0x002dd760
 // equiv-conv: FUN_002dd760 esi edi
@@ -138,7 +138,7 @@ extern "C" void FUN_002dd760(void *out, void *s)
 
 
 // 0x002dd890 FUN_002dd890 (325 B): equivalent/0x002dd890.cpp
-// sym: _FUN_002dd890 @13ea46651b23 @wf53db958a4b6
+// sym: _FUN_002dd890 @13ea46651b23 @wf53db958a4b6 @vbf43392ddb92
 // STATUS: equivalent (tools/equiv.py level 3: 89 inputs, branch coverage 12/12)
 // FUN_002dd890 @ 0x002dd890
 // equiv-conv: FUN_002dd890 esi ebx stack
@@ -178,7 +178,7 @@ extern "C" void FUN_002dd890(void *info, void *r, void *dev)
 
 
 // 0x002dd9e0 FUN_002dd9e0 (327 B): equivalent/0x002dd9e0.cpp
-// sym: _FUN_002dd9e0 @3bd51b7ba4a6 @w3f433f0e9311
+// sym: _FUN_002dd9e0 @3bd51b7ba4a6 @w3f433f0e9311 @v6115f33b693d
 // STATUS: equivalent (tools/equiv.py level 3: 108 inputs, branch coverage 12/12)
 // FUN_002dd9e0 @ 0x002dd9e0
 // equiv-conv: FUN_002dd9e0 ebx edi stack

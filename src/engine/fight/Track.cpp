@@ -213,7 +213,7 @@ int fight::Track::vfunc_9(hulk_intptr , hulk_intptr , hulk_intptr ) {
 namespace fn_f5a78e74 {
 
 // 0x00236bc0 FUN_00236bc0 (136 B): equivalent/0x00236bc0.cpp
-// sym: ?FUN_00236bc0@Source_236bc0@fn_f5a78e74@@QAE_NHPAUSink_236bc0@2@H@Z @6682cb777e5f @w62c88618a91d
+// sym: ?FUN_00236bc0@Source_236bc0@fn_f5a78e74@@QAE_NHPAUSink_236bc0@2@H@Z @6682cb777e5f @w62c88618a91d @v979684a36001
 // STATUS: equivalent (tools/equiv.py level 3: 2986 inputs, branch coverage 2/2)
 // FUN_00236bc0 @ 0x00236bc0
 bool Source_236bc0::FUN_00236bc0(int a, Sink_236bc0 *sink, int c)

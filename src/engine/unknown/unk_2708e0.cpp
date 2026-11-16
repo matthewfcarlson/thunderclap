@@ -690,7 +690,7 @@ extern "C" void __cdecl FUN_00271530(A_271530* a, const char* b, int c, int d) {
 
 
 // 0x00271560 FUN_00271560 (290 B): equivalent/0x00271560.cpp
-// sym: _FUN_00271560 @33695a5bea87 @w8355c925567e
+// sym: _FUN_00271560 @33695a5bea87 @w8355c925567e @v41e2a3676956
 // STATUS: equivalent (tools/equiv.py level 3: 71 inputs, branch coverage 12/12)
 // FUN_00271560 @ 0x00271560
 // (x64t11) the output is the caller's file pointer (CPlatformManager's archive slot; 0x00277b70 stores a

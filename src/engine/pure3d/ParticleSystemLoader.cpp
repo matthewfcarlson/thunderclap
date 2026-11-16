@@ -1189,7 +1189,7 @@ void Container_2aafe0::Remove(unsigned i) {
 
 
 // 0x002ab030 pure3d::ParticleSystemLoader::vfunc_5 (1105 B): equivalent/0x002ab030.cpp
-// sym: ?FUN_002ab030@ParticleSystemLoader_2ab030@fn_f07ae39e@@QAEIPAPAVParticleSystem_2ab030@2@PA_KPAUReader@2@I@Z @02c0af997e56 @wc86fdc0b9542
+// sym: ?FUN_002ab030@ParticleSystemLoader_2ab030@fn_f07ae39e@@QAEIPAPAVParticleSystem_2ab030@2@PA_KPAUReader@2@I@Z @02c0af997e56 @wc86fdc0b9542 @v976c2a1743f6
 // STATUS: equivalent (tools/equiv.py level 3: 5724 inputs, branch coverage 43/44, incomplete)
 // pure3d::ParticleSystemLoader::vfunc_5 @ 0x002ab030
 // pure3d::ParticleSystemLoader::vfunc_5 @ 0x002ab030
@@ -1707,7 +1707,7 @@ unsigned char Buffer::FUN_002aba80(unsigned int count, const void* fill) {
 
 
 // 0x002abba0 FUN_002abba0 (481 B): equivalent/0x002abba0.cpp
-// sym: ?FUN_002abba0@fn_f07ae39e@@YGPAVParticlePointGenerator_2abba0@1@PAVReader_2abba0@1@H@Z @1950946819ff @wdead471cacde
+// sym: ?FUN_002abba0@fn_f07ae39e@@YGPAVParticlePointGenerator_2abba0@1@PAVReader_2abba0@1@H@Z @1950946819ff @wdead471cacde @ved4c3d9283a1
 // STATUS: equivalent (tools/equiv.py level 3: 15667 inputs, branch coverage 18/18)
 // FUN_002abba0 @ 0x002abba0
 ParticlePointGenerator_2abba0 *__stdcall FUN_002abba0(Reader_2abba0 *r, int arg)
@@ -1766,7 +1766,7 @@ ParticlePointGenerator_2abba0 *__stdcall FUN_002abba0(Reader_2abba0 *r, int arg)
 
 
 // 0x002abd90 FUN_002abd90 (543 B): equivalent/0x002abd90.cpp
-// sym: ?FUN_002abd90@fn_f07ae39e@@YGPAVParticlePlaneGenerator_2abd90@1@PAUReader_2abd90@1@H@Z @c6818c7e2e0e @wdd76bf600ef5
+// sym: ?FUN_002abd90@fn_f07ae39e@@YGPAVParticlePlaneGenerator_2abd90@1@PAUReader_2abd90@1@H@Z @c6818c7e2e0e @wdd76bf600ef5 @v29facfd4e2a1
 // STATUS: equivalent (tools/equiv.py level 3: 15652 inputs, branch coverage 18/18)
 // FUN_002abd90 @ 0x002abd90
 ParticlePlaneGenerator_2abd90 * __stdcall FUN_002abd90(Reader_2abd90 *r, int flag)
@@ -1833,7 +1833,7 @@ ParticlePlaneGenerator_2abd90 * __stdcall FUN_002abd90(Reader_2abd90 *r, int fla
 
 
 // 0x002abfb0 FUN_002abfb0 (457 B): equivalent/0x002abfb0.cpp
-// sym: ?FUN_002abfb0@fn_f07ae39e@@YGPAVParticleSphereGenerator_2abfb0@1@PAUReader_2abfb0@1@PAX@Z @b6059c8e9a31 @w31d642e99121
+// sym: ?FUN_002abfb0@fn_f07ae39e@@YGPAVParticleSphereGenerator_2abfb0@1@PAUReader_2abfb0@1@PAX@Z @b6059c8e9a31 @w31d642e99121 @v4a0849eb06df
 // STATUS: equivalent (tools/equiv.py level 3: 15709 inputs, branch coverage 18/18)
 // FUN_002abfb0 @ 0x002abfb0
 ParticleSphereGenerator_2abfb0* __stdcall FUN_002abfb0(Reader_2abfb0* r, void* arg)
@@ -1885,7 +1885,7 @@ ParticleSphereGenerator_2abfb0* __stdcall FUN_002abfb0(Reader_2abfb0* r, void* a
 } // namespace fn_f07ae39e
 
 // 0x002ac180 FUN_002ac180 (787 B): equivalent/0x002ac180.cpp [wrapped: conflict: Reader]
-// sym: ?FUN_002ac180@fn_002ac180@@YGPAVGenerator_2ac180@1@PAUReader@1@PAXH@Z @bbb8d6b1e846 @w3dd1cd8b9bd0
+// sym: ?FUN_002ac180@fn_002ac180@@YGPAVGenerator_2ac180@1@PAUReader@1@PAXH@Z @bbb8d6b1e846 @w3dd1cd8b9bd0 @v7bb76f9117c5
 namespace fn_002ac180 {
 // STATUS: equivalent (tools/equiv.py level 3: 168 inputs, branch coverage 49/52, incomplete)
 // FUN_002ac180 @ 0x002ac180

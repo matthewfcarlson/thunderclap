@@ -345,7 +345,7 @@ extern "C" void* __cdecl FUN_002d6dd0(Obj_2d6dd0* p) {   // (x64t16) png_get_io_
 
 
 // 0x002d6ea0 FUN_002d6ea0 (44 B): equivalent/0x002d6ea0.cpp
-// sym: _FUN_002d6ea0 @93e65479bd77 @we6d73391690e
+// sym: _FUN_002d6ea0 @93e65479bd77 @we6d73391690e @v6c0f948b7d9b
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_002d6ea0 @ 0x002d6ea0
 extern "C" PngInfo* __cdecl FUN_002d6ea0(PngStruct* object)   // (x64t16) png_create_info_struct
@@ -371,7 +371,7 @@ extern "C" void FUN_002d6ed0(Obj_2d6ed0* self, PngInfo** out) {
 } // namespace fn_fcd359fc
 
 // 0x002d6f10 FUN_002d6f10 (307 B): equivalent/0x002d6f10.cpp [wrapped: code differs from its standalone build]
-// sym: _FUN_002d6f10 @a1616325fc21 @w9563aae9ed67
+// sym: _FUN_002d6f10 @a1616325fc21 @w9563aae9ed67 @v8ddfcc27cccb
 namespace fn_002d6f10 {
 // STATUS: equivalent (tools/equiv.py level 3: 3107 inputs, branch coverage 21/21)
 // FUN_002d6f10 @ 0x002d6f10
@@ -445,7 +445,7 @@ extern "C" PngStruct_2d6f10 *FUN_002d6f10(const char *userVersion, void *errorPt
 
 
 // 0x002d7150 FUN_002d7150 (665 B): equivalent/0x002d7150.cpp [wrapped: code differs from its standalone build]
-// sym: ?FUN_002d7150@fn_002d7150@@YAXTPngArg@1@PAUPngInfo@@@Z @cf7c9e852bfc @wacfc2f0bba56
+// sym: ?FUN_002d7150@fn_002d7150@@YAXTPngArg@1@PAUPngInfo@@@Z @cf7c9e852bfc @wacfc2f0bba56 @v6b0bb20d91fa
 namespace fn_002d7150 {
 // STATUS: equivalent (tools/equiv.py level 3: 95 inputs, branch coverage 48/48)
 // FUN_002d7150 @ 0x002d7150
@@ -587,7 +587,7 @@ extern "C" void __cdecl FUN_002d73f0(Obj_2d73f0* p, PngInfo* a) {   // (x64t16) 
 } // namespace fn_fcd359fc
 
 // 0x002d7440 FUN_002d7440 (1084 B): equivalent/0x002d7440.cpp [wrapped: code differs from its standalone build]
-// sym: _FUN_002d7440 @6e851aafeeed @w8e82a2cc4bee
+// sym: _FUN_002d7440 @6e851aafeeed @w8e82a2cc4bee @v6f4697f464f1
 namespace fn_002d7440 {
 // STATUS: equivalent (tools/equiv.py level 3: 1832 inputs, branch coverage 92/95, incomplete)
 // FUN_002d7440 @ 0x002d7440

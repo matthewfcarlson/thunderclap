@@ -2068,7 +2068,7 @@ void Registry_87d50::FUN_00087d50(const char* name, CTimeManager* owner, float (
 
 
 // 0x00087dc0 FUN_00087dc0 (109 B): equivalent/0x00087dc0.cpp [wrapped: conflict: CGame; Closure0; Method0]
-// sym: ?FUN_00087dc0@Registry_87dc0@fn_00087dc0@@QAEXPBDPAVCGame@2@P832@AEXXZ@Z @da593595568c @w00791763eebb
+// sym: ?FUN_00087dc0@Registry_87dc0@fn_00087dc0@@QAEXPBDPAVCGame@2@P832@AEXXZ@Z @da593595568c @w00791763eebb @vc87561f91469
 namespace fn_00087dc0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_00087dc0 @ 0x00087dc0
@@ -2194,7 +2194,7 @@ Obj_87e30* __fastcall FUN_00087e30(Obj_87e30* p) {
 
 
 // 0x00087e80 FUN_00087e80 (407 B): equivalent/0x00087e80.cpp [wrapped: conflict: CGame; FUN_001d4c90; Function2]
-// sym: ??0CGame@fn_00087e80@@QAE@XZ @5694862b6c13 @w084c4e49510e
+// sym: ??0CGame@fn_00087e80@@QAE@XZ @5694862b6c13 @w084c4e49510e @vce512fd78e71
 namespace fn_00087e80 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 6/6)
 // FUN_00087e80 @ 0x00087e80

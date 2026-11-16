@@ -847,7 +847,7 @@ pure3d::Skeleton::Partition* Object::target(unsigned int key, unsigned int value
 
 
 // 0x0027c140 pure3d::SkeletonLoader::vfunc_5 (1491 B): equivalent/0x0027c140.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?F@SkeletonLoader@fn_0027c140@@QAEXPAPAUSkeleton@2@PA_KPAULoader_27c140@2@H@Z @6aa61d28780e @w340a48b7c9b5
+// sym: ?F@SkeletonLoader@fn_0027c140@@QAEXPAPAUSkeleton@2@PA_KPAULoader_27c140@2@H@Z @6aa61d28780e @w340a48b7c9b5 @ve9ea50e97b07
 namespace fn_0027c140 {
 // STATUS: equivalent (tools/equiv.py level 3: 174 inputs, branch coverage 48/48)
 // pure3d::SkeletonLoader::vfunc_5 @ 0x0027c140
@@ -1127,7 +1127,7 @@ void SkeletonLoader::F(Skeleton **out, unsigned __int64 *outId, Loader_27c140 *l
 
 
 // 0x0027c720 pure3d::LegacySkeletonLoader::vfunc_5 (599 B): equivalent/0x0027c720.cpp
-// sym: ?vfunc_5@LegacySkeletonLoader@pure3d@@UAEXPAX00H@Z @6ee8553bea12 @w12be7a9ed471
+// sym: ?vfunc_5@LegacySkeletonLoader@pure3d@@UAEXPAX00H@Z @6ee8553bea12 @w12be7a9ed471 @v50abd629484c
 // STATUS: equivalent (tools/equiv.py level 3: 68 inputs, branch coverage 10/10)
 // pure3d::LegacySkeletonLoader::vfunc_5 @ 0x0027c720
 void pure3d::LegacySkeletonLoader::vfunc_5(void* __p0, void* __p1, void* __p2, hulk_intptr unused) { Skeleton_27c720 ** out = (Skeleton_27c720 **)__p0; unsigned long long * outId = (unsigned long long *)__p1; Reader_27c720 * r = (Reader_27c720 *)__p2;

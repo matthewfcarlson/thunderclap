@@ -822,7 +822,7 @@ void CFEManager::FUN_000c1430()
 } // namespace fn_f71c7272
 
 // 0x000c1790 FUN_000c1790 (811 B): equivalent/0x000c1790.cpp [wrapped: conflict: FUN_000964a0; FUN_000fc1b0; FUN_000fc260]
-// sym: ?FUN_000c1790@FrontEnd_c1790@fn_000c1790@@QAE_NPBD@Z @b57ebaed9f8b @w8f4c7a0a0779
+// sym: ?FUN_000c1790@FrontEnd_c1790@fn_000c1790@@QAE_NPBD@Z @b57ebaed9f8b @w8f4c7a0a0779 @vbf23bbc80c5c
 namespace fn_000c1790 {
 // STATUS: equivalent (tools/equiv.py level 3: 6070 inputs, branch coverage 43/46, incomplete)
 // FUN_000c1790 @ 0x000c1790
@@ -1297,7 +1297,7 @@ void GalleryScreen::FUN_000c1b50(int kind, int first, int last)
 
 
 // 0x000c1f70 FUN_000c1f70 (573 B): equivalent/0x000c1f70.cpp [wrapped: conflict: FUN_000fc1b0; content::LoadInventory::DynamicCaster]
-// sym: ?FUN_000c1f70@BlonskyScreen@fn_000c1f70@@QAEXH@Z @c4200a4dc70c @w573db945596e
+// sym: ?FUN_000c1f70@BlonskyScreen@fn_000c1f70@@QAEXH@Z @c4200a4dc70c @w573db945596e @v8886afb2ed59
 namespace fn_000c1f70 {
 // STATUS: equivalent (tools/equiv.py level 3: 20026 inputs, branch coverage 18/18)
 // FUN_000c1f70 @ 0x000c1f70
@@ -1513,7 +1513,7 @@ void BlonskyScreen::FUN_000c1f70(int index)
 
 
 // 0x000c21b0 FUN_000c21b0 (2006 B): equivalent/0x000c21b0.cpp [wrapped: conflict: FUN_000964a0; FUN_000fb690; TextLabel; TextSelector]
-// sym: ?FUN_000c21b0@UnlockMenu@fn_000c21b0@@QAEXH@Z @4abeb9d90c6f @w0460a50e73ac
+// sym: ?FUN_000c21b0@UnlockMenu@fn_000c21b0@@QAEXH@Z @4abeb9d90c6f @w0460a50e73ac @vd6d6c22ad614
 namespace fn_000c21b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20092 inputs, branch coverage 135/136, incomplete)
 // FUN_000c21b0 @ 0x000c21b0
@@ -1975,7 +1975,7 @@ void Target_c2990::run(Output_c2990* out) {
 
 
 // 0x000c2c20 FUN_000c2c20 (1462 B): equivalent/0x000c2c20.cpp [wrapped: conflict: DAT_0049dab8; FUN_000fc1b0; FUN_000fc260; World]
-// sym: ?F@MovesMenu@fn_000c2c20@@QAEXXZ @6a848bf091c0 @w53c127cc8cae
+// sym: ?F@MovesMenu@fn_000c2c20@@QAEXXZ @6a848bf091c0 @w53c127cc8cae @v6cb81cdd146d
 namespace fn_000c2c20 {
 // STATUS: equivalent (tools/equiv.py level 3: 3124 inputs, branch coverage 66/66)
 // FUN_000c2c20 @ 0x000c2c20
@@ -2272,7 +2272,7 @@ void MovesMenu::F()
 
 
 // 0x000c31e0 FUN_000c31e0 (1814 B): equivalent/0x000c31e0.cpp [wrapped: macros]
-// sym: ?FUN_000c31e0@Env@fn_000c31e0@@QAEXPBD@Z @18010c589c55 @w63ec5548467d
+// sym: ?FUN_000c31e0@Env@fn_000c31e0@@QAEXPBD@Z @18010c589c55 @w63ec5548467d @v1a5943b1b07f
 namespace fn_000c31e0 {
 // STATUS: equivalent (tools/equiv.py level 3: 1585 inputs, branch coverage 147/148, incomplete)
 // FUN_000c31e0 @ 0x000c31e0
@@ -2683,7 +2683,7 @@ void Env::FUN_000c31e0(const char *name)
 
 
 // 0x000c3900 FUN_000c3900 (989 B): equivalent/0x000c3900.cpp [wrapped: macros]
-// sym: ?target@Game@fn_000c3900@@QAE_NPBDIIH0II@Z @10832da029fb @wbbe9a71ce634
+// sym: ?target@Game@fn_000c3900@@QAE_NPBDIIH0II@Z @10832da029fb @wbbe9a71ce634 @vfcd00cd2ddc1
 namespace fn_000c3900 {
 // STATUS: equivalent (tools/equiv.py level 3: 20037 inputs, branch coverage 62/62)
 // FUN_000c3900 @ 0x000c3900
@@ -2787,7 +2787,7 @@ if(((*(unsigned char*)&DAT_004dde2c) && (*(U*)&DAT_004dde28)<elapsed) || (mode==
 
 
 // 0x000c4020 FUN_000c4020 (511 B): equivalent/0x000c4020.cpp [wrapped: conflict: FUN_000fc1b0; FUN_000fc260; FUN_000fc3d0]
-// sym: ?FUN_000c4020@MissionMenu@fn_000c4020@@QAEXHH@Z @1b4533917c3a @wa4b76275f232
+// sym: ?FUN_000c4020@MissionMenu@fn_000c4020@@QAEXHH@Z @1b4533917c3a @wa4b76275f232 @vd9fc4be80634
 namespace fn_000c4020 {
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 16/16)
 // FUN_000c4020 @ 0x000c4020

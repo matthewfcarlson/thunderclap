@@ -1925,7 +1925,7 @@ void owners::ThisWrap_0008baf0::FUN_0008baf0(int* column, int* mode) {
 
 
 // 0x0008bb50 FUN_0008bb50 (109 B): equivalent/0x0008bb50.cpp [wrapped: conflict: Closure0; Method0]
-// sym: ?FUN_0008bb50@Registry_8bb50@fn_0008bb50@@QAEXPBDPAVCGameFlowManager@2@P832@AEHXZ@Z @27515ae330e1 @wc7b535ee8818
+// sym: ?FUN_0008bb50@Registry_8bb50@fn_0008bb50@@QAEXPBDPAVCGameFlowManager@2@P832@AEHXZ@Z @27515ae330e1 @wc7b535ee8818 @vfe1cdd1b0964
 inline void* operator new(hulk_uintptr, void* p) throw() { return p; }
 namespace fn_0008bb50 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)

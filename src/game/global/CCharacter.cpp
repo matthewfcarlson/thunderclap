@@ -7414,7 +7414,7 @@ EF("char_SetNPCParameter", 0003efb0, 000452e0)
 namespace fn_f35f7bdf {
 
 // 0x000437a0 FUN_000437a0 (824 B): equivalent/0x000437a0.cpp
-// sym: ?FUN_000437a0@Unit_437a0@fn_f35f7bdf@@QAEDMPAUParams_437a0@2@PAUVec3_437a0@2@PAUActor_437a0@2@D@Z @11cd0c660135 @w77276ca682d0
+// sym: ?FUN_000437a0@Unit_437a0@fn_f35f7bdf@@QAEDMPAUParams_437a0@2@PAUVec3_437a0@2@PAUActor_437a0@2@D@Z @11cd0c660135 @w77276ca682d0 @v953e725a8380
 // STATUS: equivalent (tools/equiv.py level 3: 20037 inputs, branch coverage 64/65, incomplete)
 // FUN_000437a0 @ 0x000437a0
 char Unit_437a0::FUN_000437a0(float dt, Params_437a0* p, Vec3_437a0* where, Actor_437a0* actor, char flag5)

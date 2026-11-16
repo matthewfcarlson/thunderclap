@@ -1653,7 +1653,7 @@ ActivePrimitiveList_299cd0::ActivePrimitiveList_299cd0(unsigned char n) throw() 
 } // namespace fn_f40ca5f7
 
 // 0x00299da0 FUN_00299da0 (512 B): equivalent/0x00299da0.cpp [wrapped: conflict: pure3d::CompositeDrawable::ActivePrimitiveList]
-// sym: ??0ActivePrimitiveList@CompositeDrawable@pure3d@fn_00299da0@@QAE@ABV0123@@Z @b09fa57c1a75 @w77af69ce1da9
+// sym: ??0ActivePrimitiveList@CompositeDrawable@pure3d@fn_00299da0@@QAE@ABV0123@@Z @b09fa57c1a75 @w77af69ce1da9 @v073f10fbc533
 namespace fn_00299da0 {
 // STATUS: equivalent (tools/equiv.py level 3: 26 inputs, branch coverage 24/24)
 // FUN_00299da0 @ 0x00299da0

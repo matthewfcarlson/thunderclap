@@ -1932,7 +1932,7 @@ void BillboardQuadGroup::vfunc_10()
 namespace fn_fff84c72 {
 
 // 0x002ba1a0 FUN_002ba1a0 (93 B): equivalent/0x002ba1a0.cpp
-// sym: ?FUN_002ba1a0@Target@fn_fff84c72@@QAEPAUEntry@2@HH@Z @8aff5f93480f @wf624b683306a
+// sym: ?FUN_002ba1a0@Target@fn_fff84c72@@QAEPAUEntry@2@HH@Z @8aff5f93480f @wf624b683306a @vda35e7a9377d
 // STATUS: equivalent (tools/equiv.py level 3: 757 inputs, branch coverage 8/8)
 // FUN_002ba1a0 @ 0x002ba1a0
 Entry *Target::FUN_002ba1a0(int first, int second) { unsigned index = 0; hulk_intptr count = ((hulk_intptr)end - (hulk_intptr)begin) >> 2; if (count != 0) { do { Entry *entry = begin[index]; if (entry->first == first && entry->second == second) return begin[index]; ++index; count = ((hulk_intptr)end - (hulk_intptr)begin) >> 2; } while (index < (unsigned)count); } return 0; }
@@ -2433,7 +2433,7 @@ OldBillboardQuadGroupLoader_2bb080* OldBillboardQuadGroupLoader_2bb080::vfunc_5(
 
 
 // 0x002bb0b0 FUN_002bb0b0 (1284 B): equivalent/0x002bb0b0.cpp
-// sym: ?FUN_002bb0b0@fn_fff84c72@@YGPAUBase@1@PAUStream@1@PAX@Z @7fe8a3cf63ea @w4849b772cad2
+// sym: ?FUN_002bb0b0@fn_fff84c72@@YGPAUBase@1@PAUStream@1@PAX@Z @7fe8a3cf63ea @w4849b772cad2 @vbc81ce11002a
 // STATUS: equivalent (tools/equiv.py level 3: 2639 inputs, branch coverage 39/48, incomplete)
 // FUN_002bb0b0 @ 0x002bb0b0
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
@@ -3458,7 +3458,7 @@ BillboardCutOffQuadGroup_2bc760* BillboardCutOffQuadGroup_2bc760::vfunc_5(signed
 
 
 // 0x002bc790 FUN_002bc790 (1816 B): equivalent/0x002bc790.cpp
-// sym: ?FUN_002bc790@Group_2bc790@fn_fff84c72@@QAEXPAUParent_2bc790@2@PAVReader_2bc790@2@PAVFactory_2bc790@2@@Z @1f3033f32efe @w6fe0554d4bd2
+// sym: ?FUN_002bc790@Group_2bc790@fn_fff84c72@@QAEXPAUParent_2bc790@2@PAVReader_2bc790@2@PAVFactory_2bc790@2@@Z @1f3033f32efe @w6fe0554d4bd2 @vecaab3bee06e
 // STATUS: equivalent (tools/equiv.py level 3: 15709 inputs, branch coverage 78/78)
 // FUN_002bc790 @ 0x002bc790
 void Group_2bc790::FUN_002bc790(Parent_2bc790 *parent, Reader_2bc790 *r, Factory_2bc790 *factory)
@@ -3637,7 +3637,7 @@ void pure3d::BillboardObjectLoader::vfunc_5(void* __p0, void* __p1, void* __p2, 
 namespace fn_fff84c72 {
 
 // 0x002bcf30 FUN_002bcf30 (973 B): equivalent/0x002bcf30.cpp
-// sym: ?FUN_002bcf30@Group_2bcf30@fn_fff84c72@@QAEXPAUParent_2bcf30@2@PAVReader_2bcf30@2@PAVFactory_2bcf30@2@@Z @3e07848dc5da @wd71bbb8aa30d
+// sym: ?FUN_002bcf30@Group_2bcf30@fn_fff84c72@@QAEXPAUParent_2bcf30@2@PAVReader_2bcf30@2@PAVFactory_2bcf30@2@@Z @3e07848dc5da @wd71bbb8aa30d @vc0c445a7c401
 // STATUS: equivalent (tools/equiv.py level 3: 15698 inputs, branch coverage 40/40)
 // FUN_002bcf30 @ 0x002bcf30
 void Group_2bcf30::FUN_002bcf30(Parent_2bcf30 *parent, Reader_2bcf30 *r, Factory_2bcf30 *factory)

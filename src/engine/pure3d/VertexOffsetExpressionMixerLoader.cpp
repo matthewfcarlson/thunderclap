@@ -455,7 +455,7 @@ pure3d::VertexOffsetExpressionMixer::~VertexOffsetExpressionMixer() {}
 
 
 // 0x002b16a0 pure3d::VertexOffsetExpressionMixerLoader::vfunc_5 (456 B): equivalent/0x002b16a0.cpp [wrapped: conflict: VertexOffsetExpressionMixerLoader; content::LoadInventory::DynamicCaster; content::LoadInventory::DynamicCasterBase]
-// sym: ?vfunc_5@VertexOffsetExpressionMixerLoader@fn_002b16a0@@UAEXPAPAUVertexOffsetExpressionMixer_2b16a0@2@PA_KPAUStream@2@PAVLoadContext_2b16a0@2@@Z @7dfef58b414d @wdc6e80082b31
+// sym: ?vfunc_5@VertexOffsetExpressionMixerLoader@fn_002b16a0@@UAEXPAPAUVertexOffsetExpressionMixer_2b16a0@2@PA_KPAUStream@2@PAVLoadContext_2b16a0@2@@Z @7dfef58b414d @wdc6e80082b31 @vcf389be1eecb
 inline void *operator new(size_t, void *p) throw() { return p; }
 namespace fn_002b16a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 8/8)

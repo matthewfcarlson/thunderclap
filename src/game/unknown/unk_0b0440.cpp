@@ -218,7 +218,7 @@ void Registry_b0440::FUN_000b0440(const char* name, CHapticControllerManager* ow
 } // namespace fn_f3cf613f
 
 // 0x000b0500 FUN_000b0500 (440 B): equivalent/0x000b0500.cpp [wrapped: conflict: Closure0; Method0]
-// sym: ??0CHapticControllerManager@fn_000b0500@@QAE@PAVSource_b0500@1@@Z @021097250cbc @wb659e66f440e
+// sym: ??0CHapticControllerManager@fn_000b0500@@QAE@PAVSource_b0500@1@@Z @021097250cbc @wb659e66f440e @v3e16c341bca9
 namespace fn_000b0500 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/12)
 // FUN_000b0500 @ 0x000b0500
@@ -593,7 +593,7 @@ float* __cdecl FUN_000b0a00(int x, int y, int z) {
 
 
 // 0x000b0a50 FUN_000b0a50 (671 B): equivalent/0x000b0a50.cpp
-// sym: ?FUN_000b0a50@fn_f3cf613f@@YAXPAVFactory_b0a50@1@HHPAURec_b0a50@1@11PAPAPAVControl_b0a50@1@PAURow_b0a50@1@PAPAV41@@Z @540864a12ca7 @waa4bab2cf77d
+// sym: ?FUN_000b0a50@fn_f3cf613f@@YAXPAVFactory_b0a50@1@HHPAURec_b0a50@1@11PAPAPAVControl_b0a50@1@PAURow_b0a50@1@PAPAV41@@Z @540864a12ca7 @waa4bab2cf77d @vdfcdbe11829e
 // STATUS: equivalent (tools/equiv.py level 3: 36 inputs, branch coverage 49/50, incomplete)
 // FUN_000b0a50 @ 0x000b0a50
 void FUN_000b0a50(Factory_b0a50 *factory, int na, int nb, Rec_b0a50 *a, Rec_b0a50 *b, Rec_b0a50 *c, Control_b0a50 ***outA, Row_b0a50 *outB, Control_b0a50 **outC)
@@ -666,7 +666,7 @@ void FUN_000b0a50(Factory_b0a50 *factory, int na, int nb, Rec_b0a50 *a, Rec_b0a5
 
 
 // 0x000b0cf0 FUN_000b0cf0 (191 B): equivalent/0x000b0cf0.cpp
-// sym: ?FUN_000b0cf0@fn_f3cf613f@@YAXHHPAPAUGroup_b0cf0@1@PAURecord_b0cf0@1@PAPAUResource_b0cf0@1@@Z @9cb2620bfc0b @w771e694eaf72
+// sym: ?FUN_000b0cf0@fn_f3cf613f@@YAXHHPAPAUGroup_b0cf0@1@PAURecord_b0cf0@1@PAPAUResource_b0cf0@1@@Z @9cb2620bfc0b @w771e694eaf72 @v9853581e2bd9
 // STATUS: equivalent (tools/equiv.py level 3: 50 inputs, branch coverage 22/22)
 // FUN_000b0cf0 @ 0x000b0cf0
 void __cdecl FUN_000b0cf0(int groupCount, int recordCount, Group_b0cf0** groups, Record_b0cf0* records, Resource_b0cf0** single)

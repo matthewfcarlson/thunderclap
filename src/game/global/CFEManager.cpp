@@ -1213,7 +1213,7 @@ template <> void content::LoadInventory::DynamicCaster<pure3d::Texture>::vfunc_0
 
 
 // 0x000becd0 FUN_000becd0 (647 B): equivalent/0x000becd0.cpp [wrapped: conflict: DAT_0049dba4]
-// sym: ?run@Target_becd0@fn_000becd0@@QAEHHPAPBD@Z @c58837230c1c @w173af38a2961
+// sym: ?run@Target_becd0@fn_000becd0@@QAEHHPAPBD@Z @c58837230c1c @w173af38a2961 @v0d8692ae38a2
 namespace fn_000becd0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3153 inputs, branch coverage 32/32)
 // FUN_000becd0 @ 0x000becd0

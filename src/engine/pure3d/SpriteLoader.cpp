@@ -609,7 +609,7 @@ int Mosaic::FUN_002bd570(Tile_2bd570 **tiles, int *rows, int *cols)
 namespace fn_f43dee86 {
 
 // 0x002bd790 FUN_002bd790 (855 B): equivalent/0x002bd790.cpp
-// sym: ?FUN_002bd790@Frame9@fn_f43dee86@@QAEXHPAURect_2bd790@2@HHHPAVSurface_2bd790@2@PAVFactory_2bd790@2@@Z @23f281d72377 @wf5cc594eca22
+// sym: ?FUN_002bd790@Frame9@fn_f43dee86@@QAEXHPAURect_2bd790@2@HHHPAVSurface_2bd790@2@PAVFactory_2bd790@2@@Z @23f281d72377 @wf5cc594eca22 @v9d1307a5c3fb
 // STATUS: equivalent (tools/equiv.py level 3: 138 inputs, branch coverage 73/80, incomplete)
 // FUN_002bd790 @ 0x002bd790
 void Frame9::FUN_002bd790(int index, Rect_2bd790 *r, int a2, int a3, hulk_intptr src, Surface_2bd790 *s, Factory_2bd790 *f)
@@ -877,7 +877,7 @@ CCollisionAction* CCollisionAction::vfunc_2(unsigned char flags) {
 
 
 // 0x002bdfc0 pure3d::SpriteLoader::vfunc_8 (488 B): equivalent/0x002bdfc0.cpp
-// sym: ?vfunc_8@SpriteLoader@fn_f43dee86@@UAEPAUSprite@2@PAUReader@2@H@Z @01dead05ab17 @wb6a65f9c8d37
+// sym: ?vfunc_8@SpriteLoader@fn_f43dee86@@UAEPAUSprite@2@PAUReader@2@H@Z @01dead05ab17 @wb6a65f9c8d37 @v0d47d0c93334
 // STATUS: equivalent (tools/equiv.py level 3: 72 inputs, branch coverage 10/12, incomplete)
 // pure3d::SpriteLoader::vfunc_8 @ 0x002bdfc0
 Sprite *SpriteLoader::vfunc_8(Reader *r, int unused)

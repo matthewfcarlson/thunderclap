@@ -208,7 +208,7 @@ TreeNode *__cdecl FUN_00242130(TreeNode *head, TreeNode *current)
 
 
 // 0x002422e0 FUN_002422e0 (434 B): equivalent/0x002422e0.cpp
-// sym: _FUN_002422e0 @732d44cc54ec @w6044d9e1dce9
+// sym: _FUN_002422e0 @732d44cc54ec @w6044d9e1dce9 @va9d68af85e05
 // STATUS: equivalent (tools/equiv.py level 3: 181 inputs, branch coverage 38/40, incomplete)
 // FUN_002422e0 @ 0x002422e0
 extern "C" bool __cdecl FUN_002422e0(void * t_, void * node_, int *keyPtr)
@@ -464,7 +464,7 @@ void FUN_00242860(Tree_242860 *tree)
 } // namespace fn_f215d331
 
 // 0x00242a00 FUN_00242a00 (451 B): equivalent/0x00242a00.cpp [wrapped: merged class would differ: Tree_242a00: field nil: Field(+0x4 Node nil) vs Field(+0x4 Node nil)]
-// sym: _FUN_00242a00 @82049d332491 @wbd3a186af45c
+// sym: _FUN_00242a00 @82049d332491 @wbd3a186af45c @v2dc264380571
 namespace fn_00242a00 {
 // STATUS: equivalent (tools/equiv.py level 3: 183 inputs, branch coverage 37/40, incomplete)
 // FUN_00242a00 @ 0x00242a00
@@ -666,7 +666,7 @@ void target(void* param1, Item_242ca0** param2) {
 } // namespace fn_f215d331
 
 // 0x00242ce0 FUN_00242ce0 (139 B): equivalent/0x00242ce0.cpp [wrapped: conflict: FUN_00247530]
-// sym: ?FindOrInsert@fn_00242ce0@@YAPAUNode@1@PAUMap_242ce0@1@PBI@Z @999d2a1fd650 @w8301a1985ac3
+// sym: ?FindOrInsert@fn_00242ce0@@YAPAUNode@1@PAUMap_242ce0@1@PBI@Z @999d2a1fd650 @w8301a1985ac3 @v6587acb8ca38
 namespace fn_00242ce0 {
 // STATUS: equivalent (tools/equiv.py level 3: 54 inputs, branch coverage 12/12)
 // FUN_00242ce0 @ 0x00242ce0

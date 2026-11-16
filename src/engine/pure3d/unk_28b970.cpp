@@ -1218,7 +1218,7 @@ void ColourChannel_28c4f0::F() {
 
 
 // 0x0028c580 FUN_0028c580 (300 B): equivalent/0x0028c580.cpp
-// sym: ?FUN_0028c580@fn_f8c9e634@@YGPAUIntChannel_28c580@1@PAUReader@1@IPAUParent_28c580@1@@Z @1e751bb5778e @wb8398d7821b2
+// sym: ?FUN_0028c580@fn_f8c9e634@@YGPAUIntChannel_28c580@1@PAUReader@1@IPAUParent_28c580@1@@Z @1e751bb5778e @wb8398d7821b2 @v2933ac1cbd73
 // STATUS: equivalent (tools/equiv.py level 3: 142 inputs, branch coverage 12/12)
 // FUN_0028c580 @ 0x0028c580
 IntChannel_28c580 * __stdcall FUN_0028c580(Reader *r, unsigned unused, Parent_28c580 *parent)
@@ -1260,7 +1260,7 @@ IntChannel_28c580 * __stdcall FUN_0028c580(Reader *r, unsigned unused, Parent_28
 
 
 // 0x0028c6b0 FUN_0028c6b0 (300 B): equivalent/0x0028c6b0.cpp
-// sym: ?FUN_0028c6b0@fn_f8c9e634@@YGPAUFloat1Channel_28c6b0@1@PAUReader@1@IPAUParent_28c6b0@1@@Z @97413ebf2aef @w9b93d9d6949e
+// sym: ?FUN_0028c6b0@fn_f8c9e634@@YGPAUFloat1Channel_28c6b0@1@PAUReader@1@IPAUParent_28c6b0@1@@Z @97413ebf2aef @w9b93d9d6949e @vce370788a85a
 // STATUS: equivalent (tools/equiv.py level 3: 142 inputs, branch coverage 12/12)
 // FUN_0028c6b0 @ 0x0028c6b0
 Float1Channel_28c6b0 * __stdcall FUN_0028c6b0(Reader *r, unsigned unused, Parent_28c6b0 *parent)
@@ -1302,7 +1302,7 @@ Float1Channel_28c6b0 * __stdcall FUN_0028c6b0(Reader *r, unsigned unused, Parent
 
 
 // 0x0028c7e0 FUN_0028c7e0 (300 B): equivalent/0x0028c7e0.cpp
-// sym: ?FUN_0028c7e0@fn_f8c9e634@@YGPAUFloat2Channel_28c7e0@1@PAUReader@1@IPAUParent_28c7e0@1@@Z @70ee799d65e0 @wb07886d18268
+// sym: ?FUN_0028c7e0@fn_f8c9e634@@YGPAUFloat2Channel_28c7e0@1@PAUReader@1@IPAUParent_28c7e0@1@@Z @70ee799d65e0 @wb07886d18268 @vc494a5ec9d29
 // STATUS: equivalent (tools/equiv.py level 3: 142 inputs, branch coverage 12/12)
 // FUN_0028c7e0 @ 0x0028c7e0
 Float2Channel_28c7e0 * __stdcall FUN_0028c7e0(Reader *r, unsigned unused, Parent_28c7e0 *parent)
@@ -1344,7 +1344,7 @@ Float2Channel_28c7e0 * __stdcall FUN_0028c7e0(Reader *r, unsigned unused, Parent
 
 
 // 0x0028c910 FUN_0028c910 (1135 B): equivalent/0x0028c910.cpp
-// sym: ?FUN_0028c910@fn_f8c9e634@@YGPAUObj_28c910@1@TArg1_28c910@1@HTArg3_28c910@1@@Z @9faf4dd57fac @wdfd6ee311c5e
+// sym: ?FUN_0028c910@fn_f8c9e634@@YGPAUObj_28c910@1@TArg1_28c910@1@HTArg3_28c910@1@@Z @9faf4dd57fac @wdfd6ee311c5e @vd1c4ca3ac903
 // STATUS: equivalent (tools/equiv.py level 3: 3054 inputs, branch coverage 42/42)
 // FUN_0028c910 @ 0x0028c910
 Obj_28c910 *__stdcall FUN_0028c910(Arg1_28c910 a1, int a2, Arg3_28c910 a3) {
@@ -1479,7 +1479,7 @@ Result_28cd80* __stdcall FUN_0028cd80(Context* context, unsigned unused, Pool_28
 
 
 // 0x0028ceb0 FUN_0028ceb0 (288 B): equivalent/0x0028ceb0.cpp
-// sym: ?FUN_0028ceb0@fn_f8c9e634@@YGPAUBoolChannel_28ceb0@1@PAUOwner_28ceb0@1@IPAUPool_28ceb0@1@@Z @2763adcc6244 @w5e4f629e961e
+// sym: ?FUN_0028ceb0@fn_f8c9e634@@YGPAUBoolChannel_28ceb0@1@PAUOwner_28ceb0@1@IPAUPool_28ceb0@1@@Z @2763adcc6244 @w5e4f629e961e @v26f1c039b954
 // STATUS: equivalent (tools/equiv.py level 3: 95 inputs, branch coverage 18/18)
 // FUN_0028ceb0 @ 0x0028ceb0
 BoolChannel_28ceb0* __stdcall FUN_0028ceb0(Owner_28ceb0* owner, unsigned unused, Pool_28ceb0* pool) {

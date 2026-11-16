@@ -725,7 +725,7 @@ pure3d::prop::StateData::~StateData() {}
 
 
 // 0x00290910 FUN_00290910 (176 B): equivalent/0x00290910.cpp [wrapped: conflict: pure3d::prop::StatePropData]
-// sym: ??1StatePropData@prop@pure3d@fn_00290910@@UAE@XZ @42919a2991d8 @w6d4217936901
+// sym: ??1StatePropData@prop@pure3d@fn_00290910@@UAE@XZ @42919a2991d8 @w6d4217936901 @v3133b67f47db
 namespace fn_00290910 {
 // STATUS: equivalent (tools/equiv.py level 3: 51 inputs, branch coverage 16/16)
 // FUN_00290910 @ 0x00290910

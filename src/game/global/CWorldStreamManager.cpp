@@ -926,7 +926,7 @@ short* owners::Owner_204060::FUN_00204060(int a, int b) {
 namespace fn_f49dcb8d {
 
 // 0x00204180 FUN_00204180 (122 B): equivalent/0x00204180.cpp
-// sym: ?FUN_00204180@ItemSet@fn_f49dcb8d@@QAEXH@Z @232fe2c03850 @w41a45b819eae
+// sym: ?FUN_00204180@ItemSet@fn_f49dcb8d@@QAEXH@Z @232fe2c03850 @w41a45b819eae @vea25fbb14505
 // STATUS: equivalent (tools/equiv.py level 3: 383 inputs, branch coverage 6/6)
 // FUN_00204180 @ 0x00204180
 void ItemSet::FUN_00204180(int n) {
@@ -1226,7 +1226,7 @@ void owners::Thing_204760::FUN_00204760(int value) {
 namespace fn_f49dcb8d {
 
 // 0x002047c0 FUN_002047c0 (187 B): equivalent/0x002047c0.cpp
-// sym: ?FUN_002047c0@Object_2047c0@fn_f49dcb8d@@QAEXPBDHHH@Z @9dfc930d970d @wc3d9afee575e
+// sym: ?FUN_002047c0@Object_2047c0@fn_f49dcb8d@@QAEXPBDHHH@Z @9dfc930d970d @wc3d9afee575e @v6e2231ea4777
 // STATUS: equivalent (tools/equiv.py level 3: 20011 inputs, branch coverage 8/8)
 // FUN_002047c0 @ 0x002047c0
 void Object_2047c0::FUN_002047c0(const char* text, int identifier, int mode, int amount) {
@@ -1924,7 +1924,7 @@ template class Method3<CWorldStreamManager, void, const char *, int, bool>; // (
 namespace fn_f49dcb8d {
 
 // 0x00205910 FUN_00205910 (188 B): equivalent/0x00205910.cpp
-// sym: ?target@Object_205910@fn_f49dcb8d@@QAEXXZ @1642b471b5d4 @wb99d331257ad
+// sym: ?target@Object_205910@fn_f49dcb8d@@QAEXXZ @1642b471b5d4 @wb99d331257ad @vb49c0e843edd
 // STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 14/14)
 // FUN_00205910 @ 0x00205910
 void Object_205910::target() {
@@ -2996,7 +2996,7 @@ bool owners::C_207150::FUN_00207150() {
 namespace fn_f49dcb8d {
 
 // 0x002071e0 FUN_002071e0 (548 B): equivalent/0x002071e0.cpp
-// sym: ?FUN_002071e0@Mixer@fn_f49dcb8d@@QAEXH@Z @0d7d933b2332 @w149160aa25b7
+// sym: ?FUN_002071e0@Mixer@fn_f49dcb8d@@QAEXH@Z @0d7d933b2332 @w149160aa25b7 @vaafaf4e9c125
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 48/48)
 // FUN_002071e0 @ 0x002071e0
 void Mixer::FUN_002071e0(int n)

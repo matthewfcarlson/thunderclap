@@ -66,7 +66,7 @@ class QueuedNodeAction_23a320 : public Action_23a320 {
 } // namespace fn_fb73e034
 
 // 0x0023a0f0 fight::QueuedNodeAction::vfunc_3 (273 B): equivalent/0x0023a0f0.cpp [wrapped: conflict: fight::QueuedNodeAction]
-// sym: ?vfunc_3@QueuedNodeAction@fight@fn_0023a0f0@@UAE_NII@Z @3fb18933d542 @w933e02cd414f
+// sym: ?vfunc_3@QueuedNodeAction@fight@fn_0023a0f0@@UAE_NII@Z @3fb18933d542 @w933e02cd414f @vea81114e86a4
 namespace fn_0023a0f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // fight::QueuedNodeAction::vfunc_3 @ 0x0023a0f0

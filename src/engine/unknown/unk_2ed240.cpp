@@ -1008,7 +1008,7 @@ unsigned char owners::ThisWrap_002edc00::FUN_002edc00(hulk_uintptr value) {
 namespace fn_f671dae7 {
 
 // 0x002edc20 FUN_002edc20 (184 B): equivalent/0x002edc20.cpp
-// sym: ?FUN_002edc20@Collection_2edc20@fn_f671dae7@@QAEXIIIIPAID@Z @05c08dce6576 @w7351f50c9ccf
+// sym: ?FUN_002edc20@Collection_2edc20@fn_f671dae7@@QAEXIIIIPAID@Z @05c08dce6576 @w7351f50c9ccf @v67c9d0d900fb
 // STATUS: equivalent (tools/equiv.py level 3: 50 inputs, branch coverage 12/12)
 // FUN_002edc20 @ 0x002edc20
 void Collection_2edc20::FUN_002edc20(Word_2edc20 output,Word_2edc20 query,Word_2edc20 a,Word_2edc20 b,Word_2edc20* result,char onlySelected)

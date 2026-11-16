@@ -882,7 +882,7 @@ void Hdr_2e1960::Load(int a1, Reader* R, int a3, PalList_2e1960* a4, unsigned in
 
 
 // 0x002e2a70 FUN_002e2a70 (1577 B): equivalent/0x002e2a70.cpp
-// sym: ?FUN_002e2a70@PrimLoader@fn_fcb4ee90@@QAEXHTSlot2@2@HPAURefObj_2e2a70@2@TSlot5_2e2a70@2@@Z @73fb26f78a3b @w7eb61fa2b446
+// sym: ?FUN_002e2a70@PrimLoader@fn_fcb4ee90@@QAEXHTSlot2@2@HPAURefObj_2e2a70@2@TSlot5_2e2a70@2@@Z @73fb26f78a3b @w7eb61fa2b446 @v8a1d4b493bb7
 // STATUS: equivalent (tools/equiv.py level 3: 2670 inputs, branch coverage 119/124, incomplete)
 // FUN_002e2a70 @ 0x002e2a70
 // FUN_002e2a70 @ 0x002e2a70

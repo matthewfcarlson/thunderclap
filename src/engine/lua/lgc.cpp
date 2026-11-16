@@ -133,7 +133,7 @@ extern "C" unsigned int __cdecl FUN_002165c0(LuaVMState* L, int all) {
 
 
 // 0x00216670 FUN_00216670 (414 B): equivalent/0x00216670.cpp
-// sym: _FUN_00216670 @d1e781117df2 @w0e178b64f3b0
+// sym: _FUN_00216670 @d1e781117df2 @w0e178b64f3b0 @v8ff1db289c81
 // STATUS: equivalent (tools/equiv.py level 3: 77 inputs, branch coverage 44/54, incomplete)
 // traversetable: mark a table's metatable, keys and values (weak tables by __mode go onto g->weak); 1 when weak.
 // equiv-conv: FUN_00216670 edi stack
@@ -786,7 +786,7 @@ extern "C" void __cdecl FUN_00217440(LuaVMState* L) {
 
 
 // 0x00217490 FUN_00217490 (131 B): equivalent/0x00217490.cpp
-// sym: _FUN_00217490 @7c21c2359afc @w68cd3e76e8e4
+// sym: _FUN_00217490 @7c21c2359afc @w68cd3e76e8e4 @vfb1e2e9d57fb
 // STATUS: equivalent (tools/equiv.py level 3: 8 inputs, branch coverage 11/12, incomplete)
 // luaC_fullgc: finish the current cycle, run a whole one, set the threshold and call the finalizers.
 // equiv-conv: FUN_00217350 eax stack

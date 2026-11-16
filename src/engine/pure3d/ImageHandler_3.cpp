@@ -344,7 +344,7 @@ Item* Collection::FUN_002ae9d0(void* value) { for (int i = 0; i < count; ++i) { 
 
 
 // 0x002aea70 pure3d::ImageHandler::vfunc_3 (575 B): equivalent/0x002aea70.cpp
-// sym: ?vfunc_3@ImageHandler@pure3d@fn_fee005c0@@UAEXPAURequest@3@PAUContext@3@@Z @95ff84ed5f2d @w75736fd2503b
+// sym: ?vfunc_3@ImageHandler@pure3d@fn_fee005c0@@UAEXPAURequest@3@PAUContext@3@@Z @95ff84ed5f2d @w75736fd2503b @v9992cc7ee0f0
 // STATUS: equivalent (tools/equiv.py level 3: 61 inputs, branch coverage 18/24, incomplete)
 // pure3d::ImageHandler::vfunc_3 @ 0x002aea70
 void pure3d::ImageHandler::vfunc_3(Request* req, Context* ctx)

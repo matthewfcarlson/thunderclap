@@ -1416,7 +1416,7 @@ void Obj_cda90::FUN_000cda90()
 
 
 // 0x000ce0d0 FUN_000ce0d0 (431 B): equivalent/0x000ce0d0.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?Update@Target_ce0d0@fn_000ce0d0@@QAEXM@Z @9fa1e1c5257b @we98e1e5c43c8
+// sym: ?Update@Target_ce0d0@fn_000ce0d0@@QAEXM@Z @9fa1e1c5257b @we98e1e5c43c8 @v4b18bc57f66d
 namespace fn_000ce0d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 27/32, incomplete)
 // FUN_000ce0d0 @ 0x000ce0d0
@@ -3649,7 +3649,7 @@ void HUDOverlay::vfunc_3(float dt)
 
 
 // 0x000d05f0 HUDOverlay::vfunc_4 (2754 B): equivalent/0x000d05f0.cpp [wrapped: conflict: Gfx; HUDOverlay; World]
-// sym: ?vfunc_4@HUDOverlay@fn_000d05f0@@UAEXXZ @c425a2cebb0c @w6c5151344659
+// sym: ?vfunc_4@HUDOverlay@fn_000d05f0@@UAEXXZ @c425a2cebb0c @w6c5151344659 @v9d1df6c3a10f
 namespace fn_000d05f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 171 inputs, branch coverage 76/76)
 // HUDOverlay::vfunc_4 @ 0x000d05f0

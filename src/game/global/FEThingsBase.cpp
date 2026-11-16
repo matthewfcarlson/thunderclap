@@ -3536,7 +3536,7 @@ char FEScreenBase::vfunc_3(int key, Arg2_e5710 a2)
 
 
 // 0x000e5b70 FEDialog::vfunc_1 (131 B): equivalent/0x000e5b70.cpp [wrapped: conflict: FEDialog]
-// sym: ?vfunc_1@FEDialog@fn_000e5b70@@UAE_NHH@Z @e5aa001cfd88 @w54ad9ffb2e62
+// sym: ?vfunc_1@FEDialog@fn_000e5b70@@UAE_NHH@Z @e5aa001cfd88 @w54ad9ffb2e62 @vccf0b55f15c6
 namespace fn_000e5b70 {
 // STATUS: equivalent (tools/equiv.py level 3: 3026 inputs, branch coverage 15/16, incomplete)
 // FEDialog::vfunc_1 @ 0x000e5b70

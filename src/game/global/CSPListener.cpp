@@ -2694,7 +2694,7 @@ char Entity::FUN_001da350(RefCounted_1da350 *a1, Raw3_1da350 *a2, Raw3_1da350 *a
 
 
 // 0x001da540 FUN_001da540 (2961 B): equivalent/0x001da540.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?FUN_001da540@Entity@fn_001da540@@QAEHPAURef_1da540@2@PAUV3_1da540@2@1M@Z @be9ff124b40f @w123957620070
+// sym: ?FUN_001da540@Entity@fn_001da540@@QAEHPAURef_1da540@2@PAUV3_1da540@2@1M@Z @be9ff124b40f @w123957620070 @v7b9f0b603d81
 namespace fn_001da540 {
 // STATUS: equivalent (tools/equiv.py level 3: 20147 inputs, branch coverage 155/162, incomplete)
 // FUN_001da540 @ 0x001da540
