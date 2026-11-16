@@ -69,6 +69,8 @@ A function only a 64-bit branch defines is named `FUN_<addr>`; native_mac and na
 address, and 64-bit-only thunks call their targets by the targets' own names (D35).
 `regress.py --jobq` ships every dirty file (read a failure's cause before blaming your own change) and submits 2-slot
 jobs, which starve behind low-priority 1-slot work.
+An interactive zsh does not word-split `$VAR`: build `jobq.py submit --files $F` lists inside `sh` scripts (an unsplit
+list fails remotely as `ssh/remote exit 1` showing the file list).
 
 ## Builds and proofs
 
