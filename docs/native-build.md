@@ -5456,6 +5456,9 @@ Whole-tree verify on the result (86644): 22,704 matches, 4,735 equivalents' code
 4,362 / wine 4,249; **unproven msvc 373 / wine 486 (509 blocks)**: by the harvested reports at the current code and view,
 165 block-modes fail, 409 compared fewer than 3,000, 279 had no run at that code and view (rerun at HEAD with the
 committed D69 checker: build/integ2/rerun), 6 ran short of the --wine gate.
+HEAD-side pass (959ece324): the short and unrun block-modes rerun at HEAD with 6662b5e3a's checker, then `hash
+--proven` at 4a5522012: 384 more ledger lines, @v on 226 more blocks. About 470 block-modes (313 blocks) of 86644's list
+are still unproven (build/integ2/unproven_after_s2.json); ~35 rerun jobs were still running then.
 
 **`defnan` (D65, user option b).** See docs/equivalence.md "Preconditions". 9c82fb4cc (checker, pre.h, cases);
 the four matrix blocks proven at 3,000 both modes and --x64 equivalent (86741-86748, 86941-86944; ~750 inputs of 3,000
