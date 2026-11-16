@@ -79,7 +79,8 @@ jobs, which starve behind low-priority 1-slot work.
 - **Proving a change to shared code** (headers, records, renames, anything beyond one checked block): a control (HEAD
   without the change) and a proof (with it) on the same host and the same local inputs, `--gfx --replay play3 --frames 60000`;
   seed the proof from its control with `--state seed:CONTROL`; gate with `tools/ckpt_gate.py CONTROL PROOF` (the proof
-  must be ok wherever the control is). Commit messages name the control, the proof and the gate result.
+  must be ok wherever the control is). Commit messages name the control, the proof and the gate result. Pin control and
+  proof to one host, and don't run your own 1-slot jobs while your 8-slot proof is queued (they count against your share).
 - **64-bit gate**: a change may not make a block newly differ in layout, ptrtrunc or crash64 under `equiv.py --x64`
   (`tools/x64_gate.py`, `docs/equivalence.md` "64-bit gate"); `config/x64-baseline.json` lists the known ones. Run
   `verify ... --x64` (or `x64_gate.py check`) before committing source or header changes; only changed blocks run (queue
