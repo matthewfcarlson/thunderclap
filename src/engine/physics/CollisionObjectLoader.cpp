@@ -694,7 +694,7 @@ void __cdecl target(A_307810* p1, hulk_intptr p2) {
 
 
 // 0x003078a0 FUN_003078a0 (1600 B): equivalent/0x003078a0.cpp
-// sym: ?FUN_003078a0@fn_fa930a40@@YAPAVCollisionMesh@physics@@TSlot_3078a0@1@@Z @a444d7a09ca9 @w1a2a335f5f30
+// sym: ?FUN_003078a0@fn_fa930a40@@YAPAVCollisionMesh@physics@@TSlot_3078a0@1@@Z @a444d7a09ca9 @w6a42aa1e34e6 @v15570f539021
 // STATUS: equivalent (tools/equiv.py level 3: 16463 inputs, branch coverage 56/56)
 // FUN_003078a0 @ 0x003078a0
 physics::CollisionMesh *FUN_003078a0(Slot_3078a0 a1)
@@ -712,7 +712,7 @@ physics::CollisionMesh *FUN_003078a0(Slot_3078a0 a1)
     ((owners::X_2647e0 *)(stream->reader))->FUN_002647e0((hulk_intptr)(&a1.u), (hulk_intptr)1, 4, (hulk_intptr)1);
     ((owners::X_2647e0 *)(stream->reader))->FUN_002647e0((hulk_intptr)(g->lo), (hulk_intptr)3, 4, (hulk_intptr)1);
     ((owners::X_2647e0 *)(stream->reader))->FUN_002647e0((hulk_intptr)(g->hi), (hulk_intptr)3, 4, (hulk_intptr)1);
-    float dx = g->hi[0] - g->lo[0];
+    hulk_freg dx = g->hi[0] - g->lo[0];       // kept in st (dy, dz are stored)
     f.dy = g->hi[1] - g->lo[1];
     f.dz = g->hi[2] - g->lo[2];
     *(float *)&a1.u = dx;

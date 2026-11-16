@@ -5187,3 +5187,17 @@ src/link-order.txt keeps every entry in place (renamed), so the link order is un
   build/gx5/scripts/gxcount.py); the 20 skipped Condition stubs.
 - `/GX` TUs: 304 (gxcount.py: 100 parameter-template `??_G` in 8 TUs, 663 Method/Closure in 160, 191 non-template in
   147; plus dynamic_initializers and GrappleThrowAction.iso_00148f40).
+
+**tri4 2.** 10 more blocks in 9 TUs (FETextInput.GS, CollisionObjectLoader, HUDOverlay_2, FEMemCardControl.GS,
+unk_2d6bb0, CCharacter.GS, OpportunityTrack, d3dRefractVertexShader, unk_301650): bool -> char (0x000dc230
+0x000dd350 0x00237050), a char parameter and MSVC argument order (0x00042b40), _ftol low words (0x000cda90 0x002dc3e0),
+st-kept values (0x003078a0 0x0032f3b0 0x00301790), a literal for a static array (0x000da930). Gates: verify 86250,
+Wine proof 86253 against control 86249: GATE ok, 0 of 2,022 common frames differ (prng too). 0x00356fa0 is proven in both modes but held back by a new x64-gate
+crash64 (fuzzed permutation-table words): accept into the baseline or not is the user's call.
+
+**D65 evidence (the NaN preconditions).** The trap is FUN_0022ca90's `notnan(a->m[0][0..3])` at play3 frame 37080,
+called from pddiBaseContext::vfunc_17 (MultMatrix) for slot 24 of FUN_0027f2a0's 100-slot render table (a live slot,
+no bone). HEAD without any tri4 change traps there too (86240). The logged matrix (86247) is a real transform: valid
+translation (-1921.5, 10.12, -961.3), w = 1, the whole 3x3 rotation the default NaN 0xffc00000 (an invalid operation:
+0/0, a zero-length direction). x87 and SSE both produce that same default NaN, so the original computes the same NaN
+rotation and only renders it.

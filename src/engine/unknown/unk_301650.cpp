@@ -430,7 +430,7 @@ void Contact_301650::FUN_00301650(Shape_301650 *b, Shape_301650 *a)
 
 
 // 0x00301790 FUN_00301790 (1599 B): equivalent/0x00301790.cpp
-// sym: ?FUN_00301790@Solver@fn_f617c19c@@QAEXPAVPlane_301790@2@PAVShape@2@@Z @c99c320ad4e2 @w252b0510615f
+// sym: ?FUN_00301790@Solver@fn_f617c19c@@QAEXPAVPlane_301790@2@PAVShape@2@@Z @c99c320ad4e2 @w8b3b1f3e917d @v5494f3d809b2
 // STATUS: equivalent (tools/equiv.py level 3: 3041 inputs, branch coverage 47/48, incomplete)
 // FUN_00301790 @ 0x00301790
 // equiv-map: ?thunk_FUN_002fb860@Shape@@QAEXPAUVec3@@H@Z = 0x002fb940
@@ -443,8 +443,9 @@ void Solver::FUN_00301790(Plane_301790 *a0, Shape *shape)
     rel.y = sc->y - pc->y;
     rel.z = sc->z - pc->z;
     const Vec3 *n = &a0->normal;
-    f.d0 = n->z * rel.z + n->y * rel.y + n->x * rel.x;
-    if (f.d0 > shape->radius + margin)
+    hulk_freg d0 = n->z * rel.z + n->y * rel.y + n->x * rel.x;
+    f.d0 = (float)d0;                   // fst: the first test is on the unrounded value
+    if (d0 > shape->radius + margin)
         return;
 
     if (shape->span && ((shape->span->end - shape->span->begin) & 0xfffffffc)) {

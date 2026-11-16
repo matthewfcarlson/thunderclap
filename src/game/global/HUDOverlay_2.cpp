@@ -1006,7 +1006,7 @@ void ProgressGauge::FUN_000cc7e0()
 } // namespace fn_f3fdf6d3
 
 // 0x000cda90 FUN_000cda90 (1592 B): equivalent/0x000cda90.cpp [wrapped: conflict: Gfx]
-// sym: ?FUN_000cda90@Obj_cda90@fn_000cda90@@QAEXXZ @4534d983a0f3 @wa8ebbed18463
+// sym: ?FUN_000cda90@Obj_cda90@fn_000cda90@@QAEXXZ @80686b708e99 @wafa5e7137f72 @v60e2660e65be
 namespace fn_000cda90 {
 // STATUS: equivalent (tools/equiv.py level 3: 19593 inputs, branch coverage 39/40, incomplete)
 // FUN_000cda90 @ 0x000cda90
@@ -1207,17 +1207,18 @@ void Obj_cda90::FUN_000cda90()
     int idx = f498;
     int cnt = idx + 1;
     if (idx == -1) {
-        cnt = 1 - (int)(T / (float)f.s2c.i * -5.0f);
+        cnt = 1 - (int)(__int64)(T / (float)f.s2c.i * -5.0f);     // _ftol: the low word of the 64-bit result
         if (cnt > 6)
             cnt = 6;
     }
-    f.s1c.f = 1.0f / (T / cnt + 1.0f);
-    f.A = (int)(f.s1c.f * f480);
-    f.s24.i = (int)(f.s1c.f * f484);
-    int D = (int)(T / cnt + 1.0f);
-    f.s2c.i = (int)f480 % D;
+    hulk_freg s1c = 1.0f / (T / cnt + 1.0f);
+    f.s1c.f = (float)s1c;                          // fst: A uses the unrounded value, the rest the stored one
+    f.A = (int)(__int64)(s1c * f480);
+    f.s24.i = (int)(__int64)(f.s1c.f * f484);
+    int D = (int)(__int64)(T / cnt + 1.0f);
+    f.s2c.i = (int)(__int64)f480 % D;
     f.g1 = (float)f.s2c.i * f.s1c.f;
-    f.s2c.i = (int)f484 % D;
+    f.s2c.i = (int)(__int64)f484 % D;
     f.s2c.f = (float)f.s2c.i * f.s1c.f;
     (*(Renderer_cda90**)&DAT_0052c2ac)->cam->Push(0);
     (*(Renderer_cda90**)&DAT_0052c2ac)->FUN_00293d00(((Vec3f*)&DAT_004ddef4));

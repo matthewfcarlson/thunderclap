@@ -1068,3 +1068,10 @@ blocks fight::Action's whole family: the records come first there.
 - config/proof-ledger.jsonl does not exist in HEAD: `hash --proven` creates it in the job tree, and committing it would
   switch the ledger checks on for every block (all unproven). The two ledger lines of 0x00147db0 are kept in
   build/gx5/ledger-lines.jsonl for when the ledger is started.
+
+## 2026-11-16 tri4 (2): the NaN precondition trap
+- play3 frame 37080: slot 24 of FUN_0027f2a0's render table hands FUN_0022ca90 a transform whose rotation is the
+  default NaN 0xffc00000 (translation valid): the game itself computes it (HEAD traps too). The notnan contract does
+  not hold for the matrix product; a NaN that is the default NaN on both sides is not a payload difference.
+- A frame address stored into memory (0x00265cd0's &f.reader) cannot be placed by clang -O0 where the original's
+  frame-pointer-less layout puts it (ebp, saved registers and the this spill sit above every local).

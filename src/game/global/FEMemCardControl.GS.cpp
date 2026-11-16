@@ -2163,7 +2163,7 @@ void FEMemCardControl_da830::run(int index) { char buffer[1024]; Manager_da830* 
 
 
 // 0x000da930 FEMemCardControl::vfunc_4 (5290 B): equivalent/0x000da930.cpp [wrapped: conflict: DAT_004a0c88; FEMemCardControl; FUN_000fc3d0; Singleton_4dd6ec]
-// sym: ?vfunc_4@FEMemCardControl@fn_000da930@@UAEXXZ @2054c1ac4712 @wd4d85e8745cd
+// sym: ?vfunc_4@FEMemCardControl@fn_000da930@@UAEXXZ @3cce113b52c8 @w93a49b16a5a5 @v5fcb8c6317ea
 namespace fn_000da930 {
 // STATUS: equivalent (tools/equiv.py level 3: 3442 inputs, branch coverage 314/320, incomplete)
 // FEMemCardControl::vfunc_4 @ 0x000da930
@@ -2206,7 +2206,6 @@ extern "C" double sin(double);
 extern float (__cdecl *DAT_004de948)();
 extern unsigned char DAT_004dd841;
 extern void* DAT_004a0c88;
-static const char kLabel[] = "DynamicControlButtonLabel";
 
 class FEMemCardControl;
 struct Fn1_da930 {
@@ -2525,16 +2524,16 @@ void FEMemCardControl::vfunc_4()
         if (p && p->busy)
             break;
         if (sel2 < 0) {
-            label->FUN_000bc9f0(kLabel, 2);
+            label->FUN_000bc9f0("DynamicControlButtonLabel", 2);
             break;
         }
         if (entries[sel2].active) {
             if (f3a8)
-                label->FUN_000bc9f0(kLabel, 6);
+                label->FUN_000bc9f0("DynamicControlButtonLabel", 6);
             else
-                label->FUN_000bc9f0(kLabel, 9);
+                label->FUN_000bc9f0("DynamicControlButtonLabel", 9);
         } else {
-            label->FUN_000bc9f0(kLabel, 8);
+            label->FUN_000bc9f0("DynamicControlButtonLabel", 8);
         }
         break;
     }
@@ -2744,7 +2743,7 @@ void FEMemCardControl::vfunc_4()
         state = f3eb ? 0xf : 0x1f;
         break;
     case 0xf:
-        label->FUN_000bc9f0(kLabel, 0);
+        label->FUN_000bc9f0("DynamicControlButtonLabel", 0);
         if (FUN_000d7f30())
             break;
         slots[0].flag = 0;
@@ -2815,7 +2814,7 @@ void FEMemCardControl::vfunc_4()
         if (!FUN_000d7f30())
             break;
         parent->child->flag = 1;
-        label->FUN_000bc9f0(kLabel, 3);
+        label->FUN_000bc9f0("DynamicControlButtonLabel", 3);
         break;
     }
     case 0x11:

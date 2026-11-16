@@ -590,7 +590,7 @@ d3dRefractVertexShader_32f360* d3dRefractVertexShader_32f360::vfunc_3(unsigned i
 } // namespace fn_f721c355
 
 // 0x0032f3b0 pure3d::d3dRefractVertexShader::vfunc_24 (1360 B): equivalent/0x0032f3b0.cpp [wrapped: conflict: pure3d::d3dRefractVertexShader]
-// sym: ?vfunc_24@d3dRefractVertexShader@pure3d@fn_0032f3b0@@UAEXXZ @8c3a107cc06e @w75c23c71ef16
+// sym: ?vfunc_24@d3dRefractVertexShader@pure3d@fn_0032f3b0@@UAEXXZ @8c3a107cc06e @w1bf8e1201a21 @v84b1e184a0f8
 namespace fn_0032f3b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 91 inputs, branch coverage 26/26)
 // pure3d::d3dRefractVertexShader::vfunc_24 @ 0x0032f3b0
@@ -612,7 +612,7 @@ void pure3d::d3dRefractVertexShader::vfunc_24() {
  float uv[4]; uv[0]=width/sw*scale;
  scratch.height=(float)context->surface->height; scratch.surfaceHeight=context->surface->v6(); uv[1]=scratch.height/scratch.surfaceHeight*scale; uv[2]=uv[3]=0;
  float half[4]={0.5f,0.5f,0.5f,0.5f}; float one[4]={1,1,1,1};
- scratch.packed=255-alpha; intensity=(float)scratch.packed*intensity*0.003921568859368563f; one[3]=intensity-0.3f;
+ scratch.packed=255-alpha; hulk_freg in=(hulk_freg)scratch.packed*intensity*0.003921568859368563f; intensity=(float)in; one[3]=in-0.3f; /* fst: one[3] from the unrounded product */
  if(flag) { D3D8::D3DDevice_SetVertexShaderConstant1(188,uv); D3D8::D3DDevice_SetVertexShaderConstant1(189,half); D3D8::D3DDevice_SetVertexShaderConstant1(190,viewport); D3D8::D3DDevice_SetVertexShaderConstant1(191,one); return; }
  Matrix projection,world,view,pw,pwv,inverse,invproj;
  D3D8::D3DDevice_GetTransform(6,&projection); D3D8::D3DDevice_GetTransform(0,&world); D3D8::D3DDevice_GetTransform(1,&view);

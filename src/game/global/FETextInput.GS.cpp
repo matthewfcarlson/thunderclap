@@ -28,7 +28,7 @@ struct Slot_dc230 {
 };
 class Parser_dc230 {
 public:
-    bool FUN_000f9ef0();
+    char FUN_000f9ef0();     // tested as a whole byte
     void FUN_000f9f30();
     char FUN_000f9e50();
     Node *FUN_000fb110();
@@ -65,9 +65,9 @@ public:
     virtual void v24(); virtual void v25(); virtual void v26(); virtual void v27();
     virtual void v28(); virtual void v29(); virtual void v30(); virtual void v31();
     virtual void v32(); virtual void v33();
-    virtual bool Handle34(Parser_dc230 *p, Node *node, int flag);
-    virtual bool Handle35(Parser_dc230 *p, Sink_dc230 *sink, void *owner, Node *node);
-    virtual bool Handle36(Parser_dc230 *p, Sink_dc230 *sink, void *owner, Node *node);
+    virtual char Handle34(Parser_dc230 *p, Node *node, int flag);
+    virtual char Handle35(Parser_dc230 *p, Sink_dc230 *sink, void *owner, Node *node);
+    virtual char Handle36(Parser_dc230 *p, Sink_dc230 *sink, void *owner, Node *node);
 };
 void FUN_000964a0(char *buf, int size, const char *fmt, ...);
 class Config_dc230 {
@@ -90,7 +90,7 @@ public:
 
 
 // 0x000dc230 FUN_000dc230 (741 B): equivalent/0x000dc230.cpp
-// sym: ?FUN_000dc230@Config_dc230@fn_f0ffd6c9@@QAE_NPAVParser_dc230@2@PAVHandler_dc230@2@PAVSink_dc230@2@@Z @48840ed200be @w41254c5e9acc
+// sym: ?FUN_000dc230@Config_dc230@fn_f0ffd6c9@@QAE_NPAVParser_dc230@2@PAVHandler_dc230@2@PAVSink_dc230@2@@Z @48840ed200be @w82c022e2e09d @v3b75f0ec728e
 // STATUS: equivalent (tools/equiv.py level 3: 1893 inputs, branch coverage 52/52)
 // FUN_000dc230 @ 0x000dc230
 bool Config_dc230::FUN_000dc230(Parser_dc230 *parser, Handler_dc230 *handler, Sink_dc230 *sink)
@@ -157,7 +157,7 @@ bool Config_dc230::FUN_000dc230(Parser_dc230 *parser, Handler_dc230 *handler, Si
 } // namespace fn_f0ffd6c9
 
 // 0x000dd350 FUN_000dd350 (825 B): equivalent/0x000dd350.cpp [wrapped: conflict: FUN_000964a0]
-// sym: ?FUN_000dd350@Config_dd350@fn_000dd350@@QAE_NPAVParser_dd350@2@PAVHandler_dd350@2@PAVSink_dd350@2@@Z @ccf148283394 @w3a1c50912136
+// sym: ?FUN_000dd350@Config_dd350@fn_000dd350@@QAE_NPAVParser_dd350@2@PAVHandler_dd350@2@PAVSink_dd350@2@@Z @ccf148283394 @w1a5031f6e0e2 @v5a7af7db92a8
 namespace fn_000dd350 {
 // STATUS: equivalent (tools/equiv.py level 3: 1771 inputs, branch coverage 52/52)
 // FUN_000dd350 @ 0x000dd350
@@ -177,7 +177,7 @@ struct Node {
 
 class Parser_dd350 {
 public:
-    bool FUN_000f9ef0();
+    char FUN_000f9ef0();     // tested as a whole byte
     void FUN_000f9f30();
     char FUN_000f9e50();
     Node* FUN_000fb110();
@@ -275,10 +275,10 @@ public:
     virtual void v31();
     virtual void v32();
     virtual void v33();
-    virtual bool Handle34(Parser_dd350* p, Node* node, int flag);
-    virtual bool Handle35(Parser_dd350* p, Sink_dd350* sink, void* owner, Node* node);
-    virtual bool Handle36(Parser_dd350* p, Sink_dd350* sink, void* owner, Node* node);
-    virtual bool Handle37(Parser_dd350* p, Sink_dd350* sink, Node* node);
+    virtual char Handle34(Parser_dd350* p, Node* node, int flag);
+    virtual char Handle35(Parser_dd350* p, Sink_dd350* sink, void* owner, Node* node);
+    virtual char Handle36(Parser_dd350* p, Sink_dd350* sink, void* owner, Node* node);
+    virtual char Handle37(Parser_dd350* p, Sink_dd350* sink, Node* node);
 };
 
 struct Slot_dd350 {

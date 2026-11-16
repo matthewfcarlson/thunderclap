@@ -1319,7 +1319,7 @@ void Actor_40970::FUN_00040970(World *w, float dt)
 
 
 // 0x00042b40 FUN_00042b40 (2051 B): equivalent/0x00042b40.cpp [wrapped: conflict: World]
-// sym: ?Setup@Chara_42b40@fn_00042b40@@QAEDPAVRig_42b40@2@@Z @3e43ca9cdbe7 @w8b918347fc9f
+// sym: ?Setup@Chara_42b40@fn_00042b40@@QAEDPAVRig_42b40@2@@Z @1cce2ca64a20 @w697c7f12ea31 @v1d46b05b36a3
 namespace fn_00042b40 {
 // STATUS: equivalent (tools/equiv.py level 3: 1716 inputs, branch coverage 74/74)
 // FUN_00042b40 @ 0x00042b40
@@ -1466,7 +1466,7 @@ struct Entry_42b40 {
 
 struct Obj2f0 { Obj2f0 *FUN_00222620(hulk_intptr a); };
 struct Obj48 { Obj48 *FUN_002efe50(V3_42b40 *a, float b); };
-struct Obj8c_42b40 { Obj8c_42b40 *FUN_002f3070(V3_42b40 *a, V3_42b40 *b, float c, float d, int e); };
+struct Obj8c_42b40 { Obj8c_42b40 *FUN_002f3070(V3_42b40 *a, V3_42b40 *b, float c, float d, char e); };
 
 struct Link10 {
     void FUN_00059d00(Obj2f0 *o);
@@ -1680,7 +1680,7 @@ char Chara_42b40::Setup(Rig_42b40 *r)
                 up.x = 0;
                 up.y = 1.0f;
                 up.z = 0;
-                made = o8c->FUN_002f3070(&vA, &up, rr, f34, bu.i);
+                made = o8c->FUN_002f3070(&vA, &up, rr, f34, bu.c);
             } else {
                 made = 0;
             }
@@ -1719,8 +1719,10 @@ char Chara_42b40::Setup(Rig_42b40 *r)
         FUN_001b6580()->FUN_001b4060(this);
         if (f128) {
             f128->f148 = this;
-            FUN_001b6580()->FUN_001b4540(f128);
-            FUN_001b6580()->FUN_001b4450(f128, 0);
+            Obj128_42b40 *o = f128;             // the arguments before the object call (MSVC order)
+            FUN_001b6580()->FUN_001b4540(o);
+            o = f128;
+            FUN_001b6580()->FUN_001b4450(o, 0);
         }
     }
 

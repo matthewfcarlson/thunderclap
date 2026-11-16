@@ -3223,7 +3223,7 @@ void FUN_002dbd90(Gamma *g)
 
 
 // 0x002dc3e0 FUN_002dc3e0 (2429 B): equivalent/0x002dc3e0.cpp
-// sym: ?FUN_002dc3e0@fn_fcd359fc@@YAXPAUPal_2dc3e0@1@@Z @b026280774ab @wb7e20331dee0
+// sym: ?FUN_002dc3e0@fn_fcd359fc@@YAXPAUPal_2dc3e0@1@@Z @b026280774ab @w5578472f3a18 @v3b57d5aaa9bd
 // STATUS: equivalent (tools/equiv.py level 3: 3046 inputs, branch coverage 90/95, incomplete)
 // FUN_002dc3e0 @ 0x002dc3e0
 void FUN_002dc3e0(Pal_2dc3e0 *p)
@@ -3377,18 +3377,18 @@ void FUN_002dc3e0(Pal_2dc3e0 *p)
                 if (mode & 2) {
                     double inv = 1.0 / M;
                     double v1 = p->cur.r * inv;
-                    p->out.r = (unsigned short)(int)(pow(v1, C0) * M + 0.5);
+                    p->out.r = (unsigned short)(int)(__int64)(pow(v1, C0) * M + 0.5);
                     double v2 = p->cur.g * inv;
-                    p->out.g = (unsigned short)(int)(pow(v2, C0) * M + 0.5);
+                    p->out.g = (unsigned short)(int)(__int64)(pow(v2, C0) * M + 0.5);
                     double v3 = p->cur.b * inv;
-                    p->out.b = (unsigned short)(int)(pow(v3, C0) * M + 0.5);
-                    p->cur.r = (unsigned short)(int)(pow(v1, C1) * M + 0.5);
-                    p->cur.g = (unsigned short)(int)(pow(v2, C1) * M + 0.5);
-                    p->cur.b = (unsigned short)(int)(pow(v3, C1) * M + 0.5);
+                    p->out.b = (unsigned short)(int)(__int64)(pow(v3, C0) * M + 0.5);
+                    p->cur.r = (unsigned short)(int)(__int64)(pow(v1, C1) * M + 0.5);
+                    p->cur.g = (unsigned short)(int)(__int64)(pow(v2, C1) * M + 0.5);
+                    p->cur.b = (unsigned short)(int)(__int64)(pow(v3, C1) * M + 0.5);
                 } else {
                     double v = p->cur.gray / M;
-                    p->out.gray = (unsigned short)(int)(pow(v, C0) * M + 0.5);
-                    p->cur.gray = (unsigned short)(int)(pow(v, C1) * M + 0.5);
+                    p->out.gray = (unsigned short)(int)(__int64)(pow(v, C0) * M + 0.5);
+                    p->cur.gray = (unsigned short)(int)(__int64)(pow(v, C1) * M + 0.5);
                 }
             }
         } else if (mode == 3) {

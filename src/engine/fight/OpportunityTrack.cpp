@@ -93,9 +93,9 @@ class List {
     int Add(fight::OpportunityAction* n);
 };
 typedef unsigned __int64 Token_237050;
-struct Stream { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11(); virtual void v12(); virtual bool ready(); virtual Token_237050 token(); void FUN_00232c90(); };
+struct Stream { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11(); virtual void v12(); virtual char ready(); virtual Token_237050 token(); void FUN_00232c90(); };
 struct Registry_237050;
-struct OpportunityAction_237050 { OpportunityAction_237050* next; virtual void v0(); virtual void v1(); virtual void v2(); virtual bool parse(Token_237050, Registry_237050*, Stream*); void FUN_002344a0(OpportunityAction_237050*); };
+struct OpportunityAction_237050 { OpportunityAction_237050* next; virtual void v0(); virtual void v1(); virtual void v2(); virtual char parse(Token_237050, Registry_237050*, Stream*); void FUN_002344a0(OpportunityAction_237050*); };
 struct Factory_237050 { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual OpportunityAction_237050* create(); };
 struct Registry_237050 { Factory_237050* FUN_00236790(Token_237050); };
 void __cdecl FUN_00232cc0(Stream*, const char*, ...);
@@ -404,7 +404,7 @@ int List::Add(fight::OpportunityAction* n) {
 
 
 // 0x00237050 FUN_00237050 (267 B): equivalent/0x00237050.cpp
-// sym: ?FUN_00237050@List_237050@fn_f6c81acf@@QAE_NPAURegistry_237050@2@PAUStream@2@H@Z @49880a58c742 @wd360de17a055
+// sym: ?FUN_00237050@List_237050@fn_f6c81acf@@QAE_NPAURegistry_237050@2@PAUStream@2@H@Z @49880a58c742 @we912df891e6f @vf41d9f58a4f6
 // STATUS: equivalent (tools/equiv.py level 3: 9801 inputs, branch coverage 21/22, incomplete)
 // FUN_00237050 @ 0x00237050
 bool List_237050::FUN_00237050(Registry_237050* registry, Stream* stream, int index) {
