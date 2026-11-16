@@ -8,6 +8,7 @@
 #include "decls/data/engine/pure3d.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/global.h"
+#include "decls/libpng.h"
 #include "gen/owners.h"
 #define TREE_TU_BEGIN namespace fn_fb0f1f83 {
 #define TREE_TU_END }
@@ -25,126 +26,53 @@ extern "C" int __cdecl fprintf(void*, const char*, ...);
 extern "C" void* __cdecl memcpy(void*, const void*, unsigned int);
 #endif
 namespace fn_fb0f1f83 {
-struct png_struct_2e68a0 {
-    char pad[0x114];
-    unsigned char chunk_name[4];
-};
+typedef PngStruct png_struct_2e68a0;   // (x64t16) decls/libpng.h
 struct FILE_TYPE { char unused; };
 } // namespace fn_fb0f1f83
 extern "C" int __cdecl _fwprintf(FILE_TYPE *, const char *);
 extern "C" void __cdecl _longjmp(void *, int);
 namespace fn_fb0f1f83 {
 typedef unsigned int U32_2e6970;
-struct S_2e6970 {
-    char pad[0x40];
-    U32_2e6970 a;
-    U32_2e6970 b;
-    U32_2e6970 c;
-};
-typedef void*(__cdecl* Callback)(Object*, void*);
-struct Object {
-    char pad[0x44];
-    Callback callback;
-};
+typedef PngStruct S_2e6970;   // (x64t16) decls/libpng.h
 void* FUN_002e6950();
 extern "C" void __cdecl FUN_002e68a0(char *, void *, const char *);
 void __cdecl FUN_002e69a0(void *source, void *result);
 struct Data { char bytes[80]; };
 void __cdecl FUN_002e69d0(void* object, Data* result);
-typedef void* (__cdecl *Allocator)(int, unsigned int);
-typedef void(__cdecl* Callback_2e6ab0)(void*, int);
+typedef PngMallocFn Allocator;
+typedef PngFreeFn Callback_2e6ab0;
 void __cdecl FUN_003479bc(int);
-extern "C" void FUN_002e69a0(unsigned int, const char*);
-extern "C" void FUN_003479bc(unsigned int);
-struct Obj_2e6ba0 {
-    char pad[0x20c];
-    int a;
-    int b;
-    int c;
-};
+extern "C" void FUN_002e69a0(PngStruct*, const char*);
+extern "C" void FUN_003479bc(void*);
+
 typedef unsigned int u32_2e6bf0;
-void FUN_002e6ab0(u32_2e6bf0, int);
+void FUN_002e6ab0(hulk_uintptr, PngFreeFn);   // (x64t16) the definition takes the block as void*
 typedef unsigned int u32_2e6c00;
-typedef u32_2e6c00(__cdecl* Callback_2e6c00)(void*, void*);
-extern u32_2e6c00 __cdecl fallback_002e6af0(void*, void*);
-struct Obj_2e6c00 {
-    char pad[0x210];
-    Callback_2e6c00 fn;
-};
-struct Inner_2e6db0 {
-    int v0;
-    int v1;
-    int v2;
-    int flag;
-    char pad[4];
-    int arg;
-};
-struct Obj_2e6db0 {
-    char pad0[8];
-    int a;
-    char pad1[8];
-    int b;
-    int c;
-    Inner_2e6db0* inner;
-};
-int __cdecl helper_002ea2a0(int, Obj_2e6db0*, int);
+extern void* __cdecl fallback_002e6af0(PngStruct*, unsigned int);
+typedef ZInflateState Inner_2e6db0;   // (x64t16) decls/libpng.h
+typedef ZStream Obj_2e6db0;
+void __cdecl helper_002ea2a0(ZInflateBlocks*, ZStream*, unsigned int*);   // (x64t16) as defined: no result
 typedef unsigned int u32_2e6e00;
-struct Obj_2e6e00 {
-    char pad0[0x1c];
-    hulk_intptr field1c;
-    char pad20[4];
-    int(__cdecl* callback)(int, int);
-    int field28;
-};
+typedef ZStream Obj_2e6e00;
 extern "C" int __cdecl FUN_002eaf30(void *, void *);
-struct State_2e6e50 {
-    char pad[12];
-    int raw;
-    int bits;
-    void* table;
-};
+typedef ZInflateState State_2e6e50;   // (x64t16) decls/libpng.h
 typedef void*(__cdecl* Alloc_2e6e50)(void*, unsigned, unsigned);
 typedef void(__cdecl* Free)(void*, void*);
-typedef unsigned(__cdecl* Lookup_2e6e50)(unsigned);
+typedef unsigned(__cdecl* Lookup_2e6e50)(unsigned, const unsigned char*, unsigned);   // (x64t16) adler32's own type
 extern void* __cdecl FUN_002eb120(void*, unsigned, unsigned);
 extern void __cdecl FUN_002eb140(void*, void*);
-extern unsigned __cdecl FUN_002eafc0(unsigned);
-struct Stream {
-    char pad[24];
-    int status;
-    State_2e6e50* state;
-    Alloc_2e6e50 allocate;
-    Free release;
-    void* context;
-};
-extern void* __cdecl FUN_002ea320(Stream*, Lookup_2e6e50, unsigned);
+unsigned int __cdecl FUN_002eafc0(unsigned int checksum, const unsigned char* data, unsigned int length);
+typedef ZStream Stream_2e6e50;
+extern void* __cdecl FUN_002ea320(Stream_2e6e50*, Lookup_2e6e50, unsigned);
 extern "C" int __cdecl FUN_002e6e00(void *);
-extern int __cdecl FUN_002e6db0(Stream*);
+extern int __cdecl FUN_002e6db0(Stream_2e6e50*);
 typedef unsigned int u32_2e6f50;
 extern "C" int __cdecl FUN_002e6e50(void *, int, const char *, int);
-void FUN_002dd690(int, int, int);
-void FUN_002d6cb0(int, int, int);
-class Obj_2e75b0 {
-  public:
-    char pad0[0x64];
-    int flags;
-    char pad68[0x108 - 0x68];
-    int value;
-    char pad10c[0x114 - 0x10c];
-    unsigned char mode;
-};
-extern void __cdecl FUN_002dd690(Obj_2e75b0*, int*, int);
+void FUN_002dd690(PngStruct*, unsigned char*, unsigned int);   // (x64t16) as defined
+void FUN_002d6cb0(PngStruct*, unsigned char*, unsigned int);
+typedef PngStruct Obj_2e75b0;   // (x64t16) decls/libpng.h
 extern int __cdecl FUN_002e7500(int*);
-struct PngStruct_2e7680 {
-    char pad0[0x68];
-    unsigned int transformations;
-    char pad6c[0xc0 - 0x6c];
-    unsigned int width;
-    char padc4[0xe4 - 0xc4];
-    unsigned char *row_buf;
-    char pade8[0x103 - 0xe8];
-    unsigned char pixel_depth;
-};
+typedef PngStruct PngStruct_2e7680;   // (x64t16) decls/libpng.h
 struct Image {
   public:
     unsigned int width;
@@ -163,123 +91,37 @@ struct Image {
     char _m_pad_1f[0x41];
     unsigned int flags;
 };
-struct png_struct_2e7fb0 {
-    char pad0[0x64];
-    unsigned int flags;                 // 0x64
-    unsigned int transformations;       // 0x68
-    char pad6c[4];
-    unsigned int avail_in;              // 0x70
-    char pad74[0xc0 - 0x74];
-    unsigned int width;                 // 0xc0
-    unsigned int height;                // 0xc4
-    unsigned int num_rows;              // 0xc8
-    char padcc[4];
-    unsigned int rowbytes;              // 0xd0
-    unsigned int irowbytes;             // 0xd4
-    unsigned int iwidth;                // 0xd8
-    char paddc[4];
-    unsigned char *row_buf;             // 0xe0
-    unsigned char *big_row_buf;         // 0xe4
-    char pade8[0x112 - 0xe8];
-    unsigned short num_trans;           // 0x112
-    char pad114[0x11b - 0x114];
-    unsigned char interlaced;           // 0x11b
-    unsigned char pass;                 // 0x11c
-    char pad11d;
-    unsigned char color_type;           // 0x11e
-    unsigned char bit_depth;            // 0x11f
-    char pad120;
-    unsigned char pixel_depth;          // 0x121
-};
+typedef PngStruct png_struct_2e7fb0;   // (x64t16) decls/libpng.h
 extern "C" void __cdecl FUN_002dc3e0(png_struct_2e7fb0 *png_ptr);
-unsigned char *__cdecl FUN_002e6c00(png_struct_2e7fb0 *png_ptr, unsigned int size);
 void __cdecl FUN_002e6b60(png_struct_2e7fb0 *png_ptr, unsigned char *ptr, int value, unsigned int size);
-struct png_color_2e84e0 {
-    unsigned char red, green, blue;
-};
-struct png_info_2e84e0 {
-    char pad0[8];
-    unsigned int valid;
-};
-struct png_struct_2e84e0 {
-    char pad0[0x60];
-    unsigned int mode;
-    unsigned int flags;
-    char pad68[0x10c - 0x68];
-    png_color_2e84e0 *palette;
-    unsigned short num_palette;
-    unsigned short num_trans;
-    char pad114[0x11e - 0x114];
-    unsigned char color_type;
-};
+typedef PngColor png_color_2e84e0;   // (x64t16) decls/libpng.h
+typedef PngInfo png_info_2e84e0;   // (x64t16) decls/libpng.h
+typedef PngStruct png_struct_2e84e0;   // (x64t16) decls/libpng.h
 void FUN_002e69a0(png_struct_2e84e0 *png_ptr, const char *msg);
 void FUN_002e69d0(png_struct_2e84e0 *png_ptr, const char *msg);
-void FUN_002e81e0(png_struct_2e84e0 *png_ptr, unsigned int skip);
+int FUN_002e81e0(png_struct_2e84e0 *png_ptr, unsigned int skip);
 void *FUN_002d6c20(png_struct_2e84e0 *png_ptr, unsigned int num, unsigned int size);
 void FUN_002e7580(png_struct_2e84e0 *png_ptr, unsigned char *buf, unsigned int length);
-void FUN_002eb4c0(png_struct_2e84e0 *png_ptr, png_info_2e84e0 *info_ptr, png_color_2e84e0 *palette, int num);
-void Missing_002e69a0(Image*, const char*);
-void BadLength_002e69d0(Image*, const char*);
-void Finish_002e81e0(Image*, int);
-struct png_info_2e87e0 {
-    char pad00[8];
-    unsigned int valid;
-};
-struct png_struct_2e87e0 {
-    char pad000[0x60];
-    unsigned int mode;
-    char pad064[0x11e - 0x64];
-    unsigned char color_type;
-    char pad11f[3];
-    unsigned char channels;
-    char pad123[0x174 - 0x123];
-    unsigned char sig_red;
-    unsigned char sig_green;
-    unsigned char sig_blue;
-    unsigned char sig_gray;
-    unsigned char sig_alpha;
-};
+// (x64t16, D71) the count is a 16-bit word in the definition
+void FUN_002eb4c0(png_struct_2e84e0 *png_ptr, png_info_2e84e0 *info_ptr, png_color_2e84e0 *palette, HULK_TYPE64(int, unsigned short) num);
+void Missing_002e69a0(PngStruct*, const char*);
+void BadLength_002e69d0(PngStruct*, const char*);
+void Finish_002e81e0(PngStruct*, int);
+typedef PngInfo png_info_2e87e0;   // (x64t16) decls/libpng.h
+typedef PngStruct png_struct_2e87e0;   // (x64t16) decls/libpng.h
 void __cdecl FUN_002e69a0(png_struct_2e87e0* png_ptr, const char* msg);
 void __cdecl FUN_002e69d0(png_struct_2e87e0* png_ptr, const char* msg);
 int __cdecl FUN_002e81e0(png_struct_2e87e0* png_ptr, unsigned int skip);
 void __cdecl FUN_002e7580(png_struct_2e87e0* png_ptr, unsigned char* buf, unsigned int length);
 void __cdecl FUN_002eb4f0(png_struct_2e87e0* png_ptr, png_info_2e87e0* info_ptr, unsigned char* sig_bit);
-class Thing_2e9bb0 {
-    char pad[0x60];
-
-  public:
-    unsigned int flags;
-};
+typedef PngStruct Thing_2e9bb0;   // (x64t16) decls/libpng.h
 extern void FUN_002e69a0(Thing_2e9bb0*, const char*);
-extern char* FUN_002e6c00(Thing_2e9bb0*, unsigned int);
 extern void FUN_002e7580(Thing_2e9bb0*, char*, unsigned int);
 extern int FUN_002e81e0(Thing_2e9bb0*, int);
 extern void FUN_002e6c40(Thing_2e9bb0*, char*);
 extern void FUN_002eb5e0(Thing_2e9bb0*, void*, void*, int);
-struct ZStream_2e9c60 {
-    unsigned char *next_in;
-    unsigned avail_in;
-    unsigned total_in;
-    unsigned char *next_out;
-    unsigned avail_out;
-    unsigned total_out;
-    const char *msg;
-};
-struct PngStruct_2e9c60 {
-    char pad0[0x60];
-    unsigned mode;
-    char pad1[8];
-    ZStream_2e9c60 zstream;
-    char pad2[0xa4 - 0x6c - sizeof(ZStream_2e9c60)];
-    unsigned char *zbuf;
-    unsigned zbuf_size;
-};
-struct PngText {
-    int compression;
-    char *key;
-    char *text;
-    unsigned text_length;
-};
+typedef ZStream ZStream_2e9c60;   // (x64t16) decls/libpng.h
+typedef PngStruct PngStruct_2e9c60;   // (x64t16) decls/libpng.h
 } // namespace fn_fb0f1f83
 extern "C" int __cdecl _sprintf(char *buf, const char *fmt, ...);
 namespace fn_fb0f1f83 {
@@ -290,90 +132,26 @@ void *__cdecl FUN_002e6c00(PngStruct_2e9c60 *png, unsigned size);
 void __cdecl FUN_002e6c40(PngStruct_2e9c60 *png, void *ptr);
 void __cdecl FUN_002e7580(PngStruct_2e9c60 *png, void *buf, unsigned length);
 int __cdecl FUN_002e6f70(ZStream_2e9c60 *z, int flush);
-void __cdecl FUN_002e6db0(ZStream_2e9c60 *z);
+int __cdecl FUN_002e6db0(ZStream_2e9c60 *z);
 void __cdecl FUN_002eb5e0(PngStruct_2e9c60 *png, void *info, PngText *text, int n);
-struct Ctx_2ea2a0 {
-    char pad[0x24];
-    void(__cdecl* fn)(int, int);
-    int x28;
-    char p2c[4];
-    int m30;
-};
-extern void __cdecl FUN_002ebed0(int, Ctx_2ea2a0*);
-class Obj_2ea2a0 {
-  public:
-    int type;
-    int a4;
-    int a8;
-    int aC;
-    char p10[0x0c];
-    int m1c;
-    int m20;
-    char p24[4];
-    int m28;
-    int m2c;
-    int m30;
-    int m34;
-    int(__cdecl* m38)(int, int, int);
-    int m3c;
-};
+typedef ZStream Ctx_2ea2a0;   // (x64t16) decls/libpng.h
+extern void __cdecl FUN_002ebed0(void*, Ctx_2ea2a0*);
+typedef ZInflateBlocks Obj_2ea2a0;
 typedef void*(__cdecl* AllocFn)(void*, int, int);
 typedef void(__cdecl* FreeFn)(void*, void*);
-struct Manager_2ea320 {
-    char pad[0x20];
-    AllocFn alloc;
-    FreeFn freefn;
-    void* heap;
-};
-extern void* __cdecl FUN_002ea2a0(void*, void*, int);
+typedef ZStream Manager_2ea320;   // (x64t16) decls/libpng.h
+extern void __cdecl FUN_002ea2a0(void*, void*, unsigned int*);   // (x64t16) as defined: no result
 typedef unsigned int u32_2eaf30;
-struct Obj_2eaf30 {
-    char pad[0x24];
-    void(__cdecl* fn)(u32_2eaf30, u32_2eaf30);
-    u32_2eaf30 value;
-};
-void __cdecl FUN_002ea2a0(Obj_2eaf30*, Obj_2eaf30*, int);
-struct Buf {
-    char pad[0x28];
-    char* data;
-    char pad2[4];
-    char* a;
-    char* b;
-};
-void FUN_00347aa0(int, int);
-struct Obj {
-    char pad[8];
-    unsigned flags;
-    char data[0x56];
-};
-struct Obj_2eb180 {
-    char pad0[8];
-    unsigned int flags;
-    char pad1[0x74];
-    float a[8];
-};
-struct Obj_2eb1f0 {
-    char pad[8];
-    uint flags;
-    char pad2[0x1c];
-    float value;
-};
+void __cdecl FUN_002ea2a0(void*, ZStream*, unsigned int*);
+typedef ZInflateBlocks Buf;   // (x64t16) decls/libpng.h
+void* FUN_00347aa0(unsigned int, unsigned int);   // (x64t16) calloc
+typedef PngInfo Obj;   // (x64t16) decls/libpng.h
+typedef PngInfo Obj_2eb180;   // (x64t16) decls/libpng.h
+typedef PngInfo Obj_2eb1f0;   // (x64t16) decls/libpng.h
 typedef unsigned int uint_2eb220;
-struct Thing_2eb220 {
-    char pad[8];
-    uint_2eb220 flags;
-    char pad2[0x70];
-    uint_2eb220 value;
-};
+typedef PngInfo Thing_2eb220;   // (x64t16) decls/libpng.h
 extern "C" void __cdecl FUN_002e69d0(void *, void *);
-struct Obj_2eb2f0 {
-    char pad0[8];
-    unsigned int flags;
-    char pad1[0x64 - 12];
-    int a;
-    int b;
-    unsigned char c;
-};
+typedef PngInfo Obj_2eb2f0;   // (x64t16) decls/libpng.h
 static inline unsigned int Len(const char *p) { const char *q = p; while (*q) q++; return (unsigned int)(q - p); }
 static inline void Copy(char *d, const char *p, unsigned int n) {
     // rep movsd for the whole dwords, then rep movsb for the rest (the order matters when the ranges overlap)
@@ -381,80 +159,26 @@ static inline void Copy(char *d, const char *p, unsigned int n) {
     while (w--) { *(unsigned int *)d = *(const unsigned int *)p; d += 4; p += 4; }
     for (unsigned int k = n & 3; k; k--) *d++ = *p++;
 }
-void *FUN_002e6c00(Pool *pool, hulk_uintptr size);
-struct Entry_2eb330 {
-    char pad0[8];
-    unsigned int flags;
-    char padc[0xa0 - 0xc];
-    char *name;
-    int a4;
-    int a8;
-    char *text;
-    char **list;
-    unsigned char flagA;
-    unsigned char count;
-};
+typedef PngInfo Entry_2eb330;   // (x64t16) decls/libpng.h
 typedef unsigned int u32_2eb480;
 typedef unsigned char u8_2eb480;
 typedef unsigned short u16_2eb4c0;
 typedef unsigned int u32_2eb4c0;
-struct Obj_2eb4c0 {
-    char pad0[8];
-    u32_2eb4c0 flags;
-    char padc[4];
-    u32_2eb4c0 field10;
-    u16_2eb4c0 field14;
-};
-struct Src {
-    int a;
-    char b;
-};
-struct Dst {
-    char pad[8];
-    int flags;
-    char pad2[0x38];
-    Src value;
-};
-struct Entry_2eb5e0 { int id; int value; const char* text; int length; };
-struct List_2eb5e0 { char pad[0x30]; int count; int capacity; Entry_2eb5e0* entries; };
+typedef PngInfo Obj_2eb4c0;   // (x64t16) decls/libpng.h
+typedef PngColor8 Src;   // (x64t16) decls/libpng.h
+typedef PngInfo Dst;   // (x64t16) decls/libpng.h
+typedef PngText Entry_2eb5e0;   // (x64t16) decls/libpng.h
+typedef PngInfo List_2eb5e0;   // (x64t16) decls/libpng.h
 extern void* __cdecl FUN_002e6c00(void*, unsigned int);
 extern void __cdecl FUN_002e6c40(void*, void*);
 typedef unsigned int u32_2eb6f0;
-struct Data_2eb6f0 {
-    u32_2eb6f0 a;
-    u32_2eb6f0 b;
-};
-struct Obj_2eb6f0 {
-    char pad[8];
-    u32_2eb6f0 flags;
-    char pad2[0x30];
-    u32_2eb6f0 x;
-    u32_2eb6f0 y;
-};
-struct Val_2eb720 {
-    char bytes[10];
-};
-struct Obj_2eb720 {
-    char p0[8];
-    int flags;
-    char p1[10];
-    short count;
-    char p2[0x34];
-    int data;
-    Val_2eb720 val;
-};
-struct Manager_2eb780 {
-    char pad[0x20];
-    AllocFn alloc;
-    char pad24[4];
-    void* context;
-};
+typedef PngTime Data_2eb6f0;   // (x64t16) decls/libpng.h
+typedef PngInfo Obj_2eb6f0;   // (x64t16) decls/libpng.h
+typedef PngColor16 Val_2eb720;   // (x64t16) decls/libpng.h
+typedef PngInfo Obj_2eb720;   // (x64t16) decls/libpng.h
+typedef ZStream Manager_2eb780;   // (x64t16) decls/libpng.h
 typedef unsigned int U32_2ebed0;
-struct Obj_2ebed0 {
-    char pad[0x24];
-    void(__cdecl* fn)(U32_2ebed0, U32_2ebed0);
-    U32_2ebed0 arg;
-};
+typedef ZStream Obj_2ebed0;   // (x64t16) decls/libpng.h
 typedef unsigned char Byte;
 typedef unsigned int uInt;
 struct inflate_huft {
@@ -468,68 +192,17 @@ struct inflate_huft {
     uInt base;
 };
 struct Huft;
-struct ZStream_2ec3e0 {
-    char pad0[0x18];
-    const char *msg;
-    char pad1c[4];
-    void *(*zalloc)(void *opaque, unsigned int items, unsigned int size);
-    void (*zfree)(void *opaque, void *address);
-    void *opaque;
-};
+typedef ZStream ZStream_2ec3e0;   // (x64t16) decls/libpng.h
 int FUN_002ebef0(unsigned int *c, unsigned int *bits, unsigned int n, unsigned int s,
                  unsigned int *base, unsigned int *extra, Huft **t, Huft *hp,
                  unsigned int *hn, unsigned int *v);
-struct ZStream_2ec490 {
-    char pad0[0x18];
-    const char *msg;
-    char pad1c[4];
-    void *(*zalloc)(void *opaque, unsigned int items, unsigned int size);
-    void (*zfree)(void *opaque, void *address);
-    void *opaque;
-};
-struct z_stream_2ec650 {
-    unsigned char *next_in;
-    unsigned avail_in;
-    unsigned total_in;
-    unsigned char *next_out;
-    unsigned avail_out;
-    unsigned total_out;
-    char pad[0x30 - 0x18];
-    unsigned adler;
-};
+typedef ZStream ZStream_2ec490;   // (x64t16) decls/libpng.h
+typedef ZStream z_stream_2ec650;   // (x64t16) decls/libpng.h
 typedef unsigned (*check_fn)(unsigned, const unsigned char *, unsigned);
-struct inflate_blocks_state_2ec650 {
-    char pad[0x28];
-    unsigned char *window;
-    unsigned char *end;
-    unsigned char *read;
-    unsigned char *write;
-    check_fn checkfn;
-    unsigned check;
-};
-struct inflate_huft_2ec780 {
-    unsigned char exop;
-    unsigned char bits;
-    unsigned short pad2;
-    unsigned int base;
-};
-struct inflate_blocks_state_2ec780 {
-    char pad00[0x1c];
-    unsigned int bitk;
-    unsigned int bitb;
-    char pad24[4];
-    unsigned char *window;
-    unsigned char *end;
-    unsigned char *read;
-    unsigned char *write;
-};
-struct z_stream_2ec780 {
-    unsigned char *next_in;
-    unsigned int avail_in;
-    unsigned int total_in;
-    char pad0c[0x18 - 0x0c];
-    const char *msg;
-};
+typedef ZInflateBlocks inflate_blocks_state_2ec650;   // (x64t16) decls/libpng.h
+typedef ZInflateHuft inflate_huft_2ec780;   // (x64t16) decls/libpng.h
+typedef ZInflateBlocks inflate_blocks_state_2ec780;   // (x64t16) decls/libpng.h
+typedef ZStream z_stream_2ec780;   // (x64t16) decls/libpng.h
 extern void* hulk_at_0043117c;
 struct Sub2_2eccd0 {
     void Do_002f7a60();
@@ -648,35 +321,37 @@ void FUN_002e6950(const char *message)
 
 // 0x002e6970 FUN_002e6970 (26 B): matches/0x002e6970.cpp
 // sym: _FUN_002e6970
-extern "C" void FUN_002e6970(S_2e6970* p, U32_2e6970 x, U32_2e6970 y, U32_2e6970 z) {
-    p->c = x;
-    p->a = y;
-    p->b = z;
+extern "C" void FUN_002e6970(PngStruct* p, void* error_ptr, PngErrorFn error_fn, PngErrorFn warning_fn) {
+    p->error_ptr = error_ptr;
+    p->error_fn = error_fn;
+    p->warning_fn = warning_fn;
 }
 
 } // namespace fn_fb0f1f83
 
 // 0x002e69a0 FUN_002e69a0 (38 B): equivalent/0x002e69a0.cpp [wrapped: code differs from its standalone build]
-// sym: ?FUN_002e69a0@fn_002e69a0@@YAXPAUItem@1@PAX@Z @36c98b6a27e9 @wd4a4e7394527
+// sym: ?FUN_002e69a0@fn_002e69a0@@YAXPAUPngStruct@@PAX@Z @36c98b6a27e9 @wd4a4e7394527
 namespace fn_002e69a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 18799 inputs, branch coverage 2/2)
 // FUN_002e69a0 @ 0x002e69a0
 // FUN_002e69a0 @ 0x002e69a0
-struct Item { char pad[0x40]; void (__cdecl *callback)(Item *, void *); };
 extern "C++" void __cdecl FUN_002e6930(void *);
-void __cdecl FUN_002e69a0(Item *item, void *context) {
-    if (item->callback) item->callback(item, context);
-    FUN_002e6930((Item *)item);
+// (x64t16) png_error: the png's error callback (records.h PngStruct), then the jump back through its jmpbuf
+void __cdecl FUN_002e69a0(PngStruct *png, void *context) {
+    if (png->error_fn) png->error_fn(png, (const char *)context);
+    FUN_002e6930((PngStruct *)png);
 }
 } // namespace fn_002e69a0
 
 namespace fn_fb0f1f83 {
 
 // 0x002e69d0 FUN_002e69d0 (26 B): matches/0x002e69d0.cpp
-// sym: ?FUN_002e69d0@fn_fb0f1f83@@YAPAXPAUObject@1@PAX@Z
-void* __cdecl FUN_002e69d0(Object* object, void* argument) {
-    if (object->callback)
-        return object->callback(object, argument);
+// sym: ?FUN_002e69d0@fn_fb0f1f83@@YAPAXPAUPngStruct@@PAX@Z
+// (x64t16) png_warning: the png's warning callback (records.h PngStruct; this source passes its eax on)
+typedef void*(__cdecl* WarnFn_2e69d0)(PngStruct*, void*);
+void* __cdecl FUN_002e69d0(PngStruct* object, void* argument) {
+    if (object->warning_fn)
+        return ((WarnFn_2e69d0)object->warning_fn)(object, argument);
     void* volatile* p = &argument;
     *p;
     return FUN_002e6950();
@@ -710,14 +385,16 @@ extern "C" void __cdecl FUN_002e6a20(void* object, void* value)
 
 
 // 0x002e6a50 FUN_002e6a50 (87 B): equivalent/0x002e6a50.cpp
-// sym: ?FUN_002e6a50@fn_fb0f1f83@@YAPAXHP6APAXHI@Z@Z @e18a8ceca698 @wfc2f61d02bea
+// sym: ?FUN_002e6a50@fn_fb0f1f83@@YAPAXHP6APAXPAUPngStruct@@I@Z@Z @e18a8ceca698 @wfc2f61d02bea
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_002e6a50 @ 0x002e6a50
 void* __cdecl FUN_002e6a50(int type, Allocator allocator)
 {
     unsigned int size;
-    if (type == 2) size = 0xb8;
-    else if (type == 1) size = 0x21c;
+    HULK_SIZE32(PngInfo, 0xb8);
+    HULK_SIZE32(PngStruct, 0x21c);
+    if (type == 2) size = sizeof(PngInfo);
+    else if (type == 1) size = sizeof(PngStruct);
     else return 0;
     void* result = allocator ? allocator(0, size) : malloc(size);
     if (result) {
@@ -729,12 +406,12 @@ void* __cdecl FUN_002e6a50(int type, Allocator allocator)
 
 
 // 0x002e6ab0 FUN_002e6ab0 (58 B): matches/0x002e6ab0.cpp
-// sym: ?FUN_002e6ab0@fn_fb0f1f83@@YAXHP6AXPAXH@Z@Z
-void __cdecl FUN_002e6ab0(int ptr, Callback_2e6ab0 callback) {
-    char local[0x21c];
+// sym: ?FUN_002e6ab0@fn_fb0f1f83@@YAXPAXP6AXPAUPngStruct@@0@Z@Z
+void __cdecl FUN_002e6ab0(void* ptr, Callback_2e6ab0 callback) {
+    PngStruct local;   // (x64t16) the free callback's dummy png
     if (ptr != 0) {
         if (callback != 0)
-            callback(local, ptr);
+            callback(&local, ptr);
         else
             FUN_003479bc(ptr);
     }
@@ -742,8 +419,8 @@ void __cdecl FUN_002e6ab0(int ptr, Callback_2e6ab0 callback) {
 
 
 // 0x002e6af0 FUN_002e6af0 (42 B): matches/0x002e6af0.cpp
-// sym: ?FUN_002e6af0@fn_fb0f1f83@@YAPAXII@Z
-void* FUN_002e6af0(unsigned int context, unsigned int size) {
+// sym: ?FUN_002e6af0@fn_fb0f1f83@@YAPAXPAUPngStruct@@I@Z
+void* FUN_002e6af0(PngStruct* context, unsigned int size) {
     void* p = malloc(size);
     if (!p)
         FUN_002e69a0(context, "Out of Memory");
@@ -753,7 +430,7 @@ void* FUN_002e6af0(unsigned int context, unsigned int size) {
 
 // 0x002e6b20 FUN_002e6b20 (12 B): matches/0x002e6b20.cpp
 // sym: _FUN_002e6b20
-extern "C" void FUN_002e6b20(unsigned int unused, unsigned int ptr) {
+extern "C" void FUN_002e6b20(PngStruct* unused, void* ptr) {
     FUN_003479bc(ptr);
 }
 
@@ -767,52 +444,49 @@ extern "C" void* __cdecl FUN_002e6b30(void* unused, void* dst, const void* src, 
 
 // 0x002e6b60 FUN_002e6b60 (49 B): matches/0x002e6b60.cpp
 // sym: ?FUN_002e6b60@fn_fb0f1f83@@YAPAXHPAXHI@Z
-void* __cdecl FUN_002e6b60(int unused, void* dst, int value, unsigned int n) {
+void* __cdecl FUN_002e6b60(hulk_intptr unused, void* dst, int value, unsigned int n) {   // (x64t16) the png: pointer-sized
     return memset(dst, value, n);
 }
 
 
 // 0x002e6ba0 FUN_002e6ba0 (35 B): matches/0x002e6ba0.cpp
 // sym: _FUN_002e6ba0
-extern "C" void FUN_002e6ba0(Obj_2e6ba0* self, int a, int b, int c) {
-    self->a = a;
-    self->b = b;
-    self->c = c;
+extern "C" void FUN_002e6ba0(PngStruct* self, void* mem_ptr, PngMallocFn malloc_fn, PngFreeFn free_fn) {
+    self->mem_ptr = mem_ptr;
+    self->malloc_fn = malloc_fn;
+    self->free_fn = free_fn;
 }
 
 
 // 0x002e6bf0 FUN_002e6bf0 (16 B): matches/0x002e6bf0.cpp
 // sym: _FUN_002e6bf0
-extern "C" void FUN_002e6bf0(u32_2e6bf0 a) {
-    FUN_002e6ab0(a, 0);
+extern "C" void FUN_002e6bf0(PngStruct* a) {
+    FUN_002e6ab0((hulk_uintptr)a, 0);
 }
 
 
 // 0x002e6c00 FUN_002e6c00 (52 B): matches/0x002e6c00.cpp
-// sym: ?target@fn_fb0f1f83@@YAIPAUObj_2e6c00@1@PAX@Z
-hulk_uintptr __cdecl target(Obj_2e6c00* a, void* b) {
+// sym: ?target@fn_fb0f1f83@@YAPAXPAUPngStruct@@I@Z
+// (x64t16) png_malloc (png, size): the png's allocation callback (records.h PngStruct), else 0x002e6af0
+void* __cdecl target(PngStruct* a, unsigned int b) {
     if (!a || !b)
         return 0;
-    if (a->fn)
-        return a->fn(a, b);
+    if (a->malloc_fn)
+        return a->malloc_fn(a, b);
     return fallback_002e6af0(a, b);
 }
 
 } // namespace fn_fb0f1f83
 
 // 0x002e6c40 FUN_002e6c40 (42 B): matches/0x002e6c40.cpp [wrapped: conflict: FUN_002e6b20]
-// sym: ?target@fn_002e6c40@@YAXPAUObj_2e6c40@1@PAX@Z
+// sym: ?target@fn_002e6c40@@YAXPAUPngStruct@@PAX@Z
 namespace fn_002e6c40 {
-typedef void(__cdecl* Fn_2e6c40)(void*, void*);
-struct Obj_2e6c40 {
-    char pad[0x214];
-    Fn_2e6c40 fn;
-};
 void __cdecl FUN_002e6b20(void*, void*);
-void __cdecl target(Obj_2e6c40* a, void* b) {
+// (x64t16) png_free (png, block): the png's free callback (records.h PngStruct), else 0x002e6b20
+void __cdecl target(PngStruct* a, void* b) {
     if (a && b) {
-        if (a->fn)
-            a->fn(a, b);
+        if (a->free_fn)
+            a->free_fn(a, b);
         else
             FUN_002e6b20(a, b);
     }
@@ -839,15 +513,15 @@ extern "C" unsigned int __cdecl FUN_002e6c80(unsigned int crc, const unsigned ch
 
 
 // 0x002e6db0 FUN_002e6db0 (66 B): matches/0x002e6db0.cpp
-// sym: ?target@fn_fb0f1f83@@YAHPAUObj_2e6db0@1@@Z
+// sym: ?target@fn_fb0f1f83@@YAHPAUZStream@@@Z
 int __cdecl target(Obj_2e6db0* p) {
-    if (p && p->inner) {
-        p->b = 0;
-        p->a = 0;
-        p->c = 0;
-        Inner_2e6db0* q = p->inner;
-        q->v0 = q->flag ? 7 : 0;
-        helper_002ea2a0(p->inner->arg, p, 0);
+    if (p && p->state) {
+        p->total_out = 0;
+        p->total_in = 0;
+        p->msg = 0;
+        Inner_2e6db0* q = p->state;
+        q->mode = q->nowrap ? 7 : 0;
+        helper_002ea2a0(p->state->blocks, p, 0);
         return 0;
     }
     return -2;
@@ -857,12 +531,12 @@ int __cdecl target(Obj_2e6db0* p) {
 // 0x002e6e00 FUN_002e6e00 (72 B): matches/0x002e6e00.cpp
 // sym: _FUN_002e6e00
 extern "C" int __cdecl FUN_002e6e00(void * p) {
-    if (((Obj_2e6e00 *)p) && ((Obj_2e6e00 *)p)->field1c && ((Obj_2e6e00 *)p)->callback) {
-        int v = *(int*)(((Obj_2e6e00 *)p)->field1c + 0x14);
+    if (((Obj_2e6e00 *)p) && ((Obj_2e6e00 *)p)->state && ((Obj_2e6e00 *)p)->zfree) {
+        ZInflateBlocks* v = ((Obj_2e6e00 *)p)->state->blocks;
         if (v)
-            FUN_002eaf30((void *)(hulk_uintptr)(int)v, (Obj_2e6e00 *)((Obj_2e6e00 *)p));
-        ((Obj_2e6e00 *)p)->callback(((Obj_2e6e00 *)p)->field28, ((Obj_2e6e00 *)p)->field1c);
-        ((Obj_2e6e00 *)p)->field1c = 0;
+            FUN_002eaf30(v, (Obj_2e6e00 *)((Obj_2e6e00 *)p));
+        ((Obj_2e6e00 *)p)->zfree(((Obj_2e6e00 *)p)->opaque, ((Obj_2e6e00 *)p)->state);
+        ((Obj_2e6e00 *)p)->state = 0;
         return 0;
     }
     return -2;
@@ -872,88 +546,60 @@ extern "C" int __cdecl FUN_002e6e00(void * p) {
 // 0x002e6e50 FUN_002e6e50 (250 B): matches/0x002e6e50.cpp
 // sym: _FUN_002e6e50
 extern "C" int __cdecl FUN_002e6e50(void * s, int bits, const char* version, int size) {
-    if (!version || version[0] != '1' || size != 56)
+    if (!version || version[0] != '1' || size != sizeof(ZStream))
         return -6;
-    if (!((Stream *)s))
+    if (!((Stream_2e6e50 *)s))
         return -2;
-    ((Stream *)s)->status = 0;
-    if (!((Stream *)s)->allocate) {
-        ((Stream *)s)->allocate = FUN_002eb120;
-        ((Stream *)s)->context = 0;
+    ((Stream_2e6e50 *)s)->msg = 0;
+    if (!((Stream_2e6e50 *)s)->zalloc) {
+        ((Stream_2e6e50 *)s)->zalloc = FUN_002eb120;
+        ((Stream_2e6e50 *)s)->opaque = 0;
     }
-    if (!((Stream *)s)->release)
-        ((Stream *)s)->release = FUN_002eb140;
-    ((Stream *)s)->state = (State_2e6e50*)((Stream *)s)->allocate(((Stream *)s)->context, 1, 24);
-    if (!((Stream *)s)->state)
+    if (!((Stream_2e6e50 *)s)->zfree)
+        ((Stream_2e6e50 *)s)->zfree = FUN_002eb140;
+    ((Stream_2e6e50 *)s)->state = (State_2e6e50*)((Stream_2e6e50 *)s)->zalloc(((Stream_2e6e50 *)s)->opaque, 1, sizeof(ZInflateState));
+    if (!((Stream_2e6e50 *)s)->state)
         return -4;
-    ((Stream *)s)->state->table = 0;
-    ((Stream *)s)->state->raw = 0;
+    ((Stream_2e6e50 *)s)->state->blocks = 0;
+    ((Stream_2e6e50 *)s)->state->nowrap = 0;
     if (bits < 0) {
         bits = -bits;
-        ((Stream *)s)->state->raw = 1;
+        ((Stream_2e6e50 *)s)->state->nowrap = 1;
     }
     if (bits < 8 || bits > 15) {
-        FUN_002e6e00((Stream *)((Stream *)s));
+        FUN_002e6e00((Stream_2e6e50 *)((Stream_2e6e50 *)s));
         return -2;
     }
-    ((Stream *)s)->state->bits = bits;
-    ((Stream *)s)->state->table = FUN_002ea320(((Stream *)s), ((Stream *)s)->state->raw ? 0 : FUN_002eafc0, 1u << bits);
-    if (!((Stream *)s)->state->table) {
-        FUN_002e6e00((Stream *)((Stream *)s));
+    ((Stream_2e6e50 *)s)->state->wbits = bits;
+    ((Stream_2e6e50 *)s)->state->blocks = (ZInflateBlocks*)FUN_002ea320(((Stream_2e6e50 *)s), ((Stream_2e6e50 *)s)->state->nowrap ? 0 : FUN_002eafc0, 1u << bits);
+    if (!((Stream_2e6e50 *)s)->state->blocks) {
+        FUN_002e6e00((Stream_2e6e50 *)((Stream_2e6e50 *)s));
         return -4;
     }
-    FUN_002e6db0(((Stream *)s));
+    FUN_002e6db0(((Stream_2e6e50 *)s));
     return 0;
 }
 
 
 // 0x002e6f50 FUN_002e6f50 (26 B): matches/0x002e6f50.cpp
 // sym: _FUN_002e6f50
-extern "C" int FUN_002e6f50(u32_2e6f50 a, u32_2e6f50 b, u32_2e6f50 c) {
-    return FUN_002e6e50((void *)(hulk_uintptr)(unsigned int)a, 0xf, (const char *)(hulk_uintptr)(unsigned int)b, (unsigned int)c);
+extern "C" int FUN_002e6f50(ZStream* a, const char* b, int c) {   // (x64t16) inflateInit_ (stream, version, its size)
+    return FUN_002e6e50(a, 0xf, b, c);
 }
 
 } // namespace fn_fb0f1f83
 
 // 0x002e6f70 FUN_002e6f70 (962 B): equivalent/0x002e6f70.cpp [wrapped: macros]
-// sym: ?FUN_002e6f70@fn_002e6f70@@YAHPAUz_stream_2e6f70@1@H@Z @20231421467e @w6015261ff0f4
+// sym: ?FUN_002e6f70@fn_002e6f70@@YAHPAUZStream@@H@Z @20231421467e @w6015261ff0f4
 namespace fn_002e6f70 {
 // STATUS: equivalent (tools/equiv.py level 3: 3038 inputs, branch coverage 62/64, incomplete)
 // FUN_002e6f70 @ 0x002e6f70
 // zlib 1.1.x inflate()
-struct inflate_blocks_state;
+typedef ZInflateBlocks inflate_blocks_state;   // (x64t16) decls/libpng.h
 
-struct inflate_state {
-    int mode;
-    union {
-        unsigned int method;
-        struct {
-            unsigned long was;
-            unsigned long need;
-        } check;
-        unsigned int marker;
-    } sub;
-    int nowrap;
-    unsigned int wbits;
-    inflate_blocks_state *blocks;
-};
+typedef ZInflateState inflate_state;   // (x64t16) decls/libpng.h
 
-struct z_stream_2e6f70 {
-    unsigned char *next_in;
-    unsigned int avail_in;
-    unsigned long total_in;
-    unsigned char *next_out;
-    unsigned int avail_out;
-    unsigned long total_out;
-    char *msg;
-    inflate_state *state;
-    void *zalloc;
-    void *zfree;
-    void *opaque;
-    int data_type;
-    unsigned long adler;
-    unsigned long reserved;
-};
+typedef ZStream z_stream_2e6f70;   // (x64t16) decls/libpng.h
 
 enum {
     METHOD = 0, FLAG, DICT4, DICT3, DICT2, DICT1, DICT0, BLOCKS,
@@ -961,7 +607,7 @@ enum {
 };
 
 int FUN_002ea3c0(inflate_blocks_state *s, z_stream_2e6f70 *z, int r);
-void FUN_002ea2a0(inflate_blocks_state *s, z_stream_2e6f70 *z, unsigned long *c);
+void FUN_002ea2a0(inflate_blocks_state *s, z_stream_2e6f70 *z, unsigned int *c);
 
 #define NEEDBYTE { if (z->avail_in == 0) return r; r = f; }
 #define NEXTBYTE (z->avail_in--, z->total_in++, *z->next_in++)
@@ -1122,8 +768,9 @@ extern "C" unsigned short __cdecl FUN_002e7560(const unsigned char * data) {
 
 
 // 0x002e7580 FUN_002e7580 (38 B): matches/0x002e7580.cpp
-// sym: ?target@fn_fb0f1f83@@YAXHHH@Z
-void target(hulk_intptr a, hulk_intptr b, int c) {
+// sym: ?target@fn_fb0f1f83@@YAXPAUPngStruct@@PAEI@Z
+// (x64t16) png_crc_read (png, buffer, length)
+void target(PngStruct* a, unsigned char* b, unsigned int c) {
     FUN_002dd690(a, b, c);
     FUN_002d6cb0(a, b, c);
 }
@@ -1134,14 +781,14 @@ void target(hulk_intptr a, hulk_intptr b, int c) {
 extern "C" int __cdecl FUN_002e75b0(void * p) {
     int q;
     int b = 1;
-    if (((Obj_2e75b0 *)p)->mode & 0x20) {
+    if (((Obj_2e75b0 *)p)->chunk_name[0] & 0x20) {
         if ((((Obj_2e75b0 *)p)->flags & 0x300) == 0x300)
             b = 0;
     } else if (((Obj_2e75b0 *)p)->flags & 0x800)
         b = 0;
-    FUN_002dd690(((Obj_2e75b0 *)p), &q, 4);
+    FUN_002dd690(((Obj_2e75b0 *)p), (unsigned char*)&q, 4);
     if (b) {
-        return FUN_002e7500(&q) != ((Obj_2e75b0 *)p)->value;
+        return FUN_002e7500(&q) != (int)((Obj_2e75b0 *)p)->crc;
     }
     return 0;
 }
@@ -1152,7 +799,7 @@ extern "C" int __cdecl FUN_002e75b0(void * p) {
 // sym: ?Check@fn_002e7620@@YAXIPBD@Z
 namespace fn_002e7620 {
 extern "C++" void __cdecl FUN_002e69f0(void *, void *);
-void Check(unsigned int unused, const char* s) {
+void Check(hulk_uintptr unused, const char* s) {   // (x64t16) the png: pointer-sized
     unsigned char c;
     c = (unsigned char)s[0];
     if (c < 0x29 || c > 0x7a || (c > 0x5a && c < 0x61)) {
@@ -1185,12 +832,12 @@ namespace fn_fb0f1f83 {
 extern "C" void __cdecl FUN_002e7680(PngStruct_2e7680 *png_ptr, unsigned char *row, int mask)
 {
     if (mask == 0xff) {
-        unsigned int rowbytes = (png_ptr->pixel_depth * png_ptr->width + 7) >> 3;
+        unsigned int rowbytes = (png_ptr->row_info.pixel_depth * png_ptr->width + 7) >> 3;
         memcpy(row, png_ptr->row_buf + 1, rowbytes);
         return;
     }
 
-    switch (png_ptr->pixel_depth) {
+    switch (png_ptr->row_info.pixel_depth) {
     case 1: {
         unsigned char *sp = png_ptr->row_buf + 1;
         unsigned char *dp = row;
@@ -1305,7 +952,7 @@ extern "C" void __cdecl FUN_002e7680(PngStruct_2e7680 *png_ptr, unsigned char *r
     default: {
         unsigned char *sp = png_ptr->row_buf + 1;
         unsigned char *dp = row;
-        unsigned int pixel_bytes = (png_ptr->pixel_depth >> 3);
+        unsigned int pixel_bytes = (png_ptr->row_info.pixel_depth >> 3);
         unsigned int row_width = png_ptr->width;
         unsigned char m = 0x80;
         for (unsigned int i = 0; i < row_width; i++) {
@@ -1544,7 +1191,7 @@ extern "C" void __cdecl FUN_002e7fb0(png_struct_2e7fb0 *png_ptr)
     int max_pixel_depth;
     unsigned int row_bytes;
 
-    png_ptr->avail_in = 0;
+    png_ptr->zstream.avail_in = 0;
     FUN_002dc3e0(png_ptr);
 
     if (png_ptr->interlaced) {
@@ -1604,41 +1251,33 @@ extern "C" void __cdecl FUN_002e7fb0(png_struct_2e7fb0 *png_ptr)
     unsigned int bytes = (w * max_pixel_depth + 7) >> 3;
     bytes = bytes + (((max_pixel_depth + 7) >> 3) + 1);
 
-    png_ptr->big_row_buf = FUN_002e6c00(png_ptr, bytes);
-    png_ptr->row_buf = FUN_002e6c00(png_ptr, png_ptr->rowbytes + 1);
-    FUN_002e6b60(png_ptr, png_ptr->row_buf, 0, png_ptr->rowbytes + 1);
+    png_ptr->row_buf = (unsigned char *)FUN_002e6c00(png_ptr, bytes);
+    png_ptr->prev_row = (unsigned char *)FUN_002e6c00(png_ptr, png_ptr->rowbytes + 1);
+    FUN_002e6b60(png_ptr, png_ptr->prev_row, 0, png_ptr->rowbytes + 1);
     png_ptr->flags |= 0x40;
 }
 
 } // namespace fn_fb0f1f83
 
 // 0x002e81e0 FUN_002e81e0 (177 B): equivalent/0x002e81e0.cpp [wrapped: code differs from its standalone build]
-// sym: ?FUN_002e81e0@fn_002e81e0@@YAHPAUContext@1@I@Z @6c67b4a36930 @w56bfc8840dbf
+// sym: ?FUN_002e81e0@fn_002e81e0@@YAHPAUPngStruct@@I@Z @6c67b4a36930 @w56bfc8840dbf
 namespace fn_002e81e0 {
 // STATUS: equivalent (tools/equiv.py level 3: 134 inputs, branch coverage 16/16)
 // FUN_002e81e0 @ 0x002e81e0
-struct Context {
- char pad0[0x64];
- unsigned int flags;
- char pad1[0x3c];
- void* buffer;
- unsigned int chunkSize;
- char pad2[0x68];
- unsigned char mode;
-};
+typedef PngStruct Context;   // (x64t16) decls/libpng.h
 extern void __cdecl FUN_002e7580(Context*, void*, unsigned int);
 extern "C++" int __cdecl FUN_002e75b0(void *);
 extern "C++" void __cdecl FUN_002e6a20(void *, void *);
 extern "C++" void __cdecl FUN_002e69f0(void *, void *);
 int __cdecl FUN_002e81e0(Context* context, unsigned int count) {
- unsigned int chunk = context->chunkSize;
+ unsigned int chunk = context->zbuf_size;
  while (count > chunk) {
-  FUN_002e7580(context, context->buffer, context->chunkSize);
+  FUN_002e7580(context, context->zbuf, context->zbuf_size);
   count -= chunk;
  }
- if (count) FUN_002e7580(context, context->buffer, count);
+ if (count) FUN_002e7580(context, context->zbuf, count);
  if (!FUN_002e75b0((Context *)context)) return 0;
- if ((context->mode & 0x20) ? !(context->flags & 0x200) : (context->flags & 0x400) != 0)
+ if ((context->chunk_name[0] & 0x20) ? !(context->flags & 0x200) : (context->flags & 0x400) != 0)
   FUN_002e6a20((Context *)context, (void *)(const char *)"CRC error");
  else
   FUN_002e69f0((Context *)context, (void *)(const char *)"CRC error");
@@ -1652,32 +1291,18 @@ int __cdecl FUN_002e81e0(Context* context, unsigned int count) {
 namespace fn_002e82a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3071 inputs, branch coverage 50/55, incomplete)
 // FUN_002e82a0 @ 0x002e82a0
-struct png_info;
-
-struct png_struct_2e82a0 {
-    char pad0[0x60];
-    unsigned int mode;
-    char pad64[0xc0 - 0x64];
-    unsigned int width;                 // 0xc0
-    unsigned int height;                // 0xc4
-    char padc8[0xd0 - 0xc8];
-    unsigned int rowbytes;              // 0xd0
-    char padd4[0x11b - 0xd4];
-    unsigned char interlaced;           // 0x11b
-    char pad11c[0x11e - 0x11c];
-    unsigned char color_type;           // 0x11e
-    unsigned char bit_depth;            // 0x11f
-    char pad120;
-    unsigned char pixel_depth;          // 0x121
-    unsigned char channels;             // 0x122
-};
+typedef PngInfo png_info;   // (x64t16) decls/libpng.h
+typedef PngStruct png_struct_2e82a0;
 
 void FUN_002e69a0(png_struct_2e82a0 *png_ptr, const char *msg);
 void FUN_002e7580(png_struct_2e82a0 *png_ptr, unsigned char *buf, unsigned int length);
 void FUN_002e81e0(png_struct_2e82a0 *png_ptr, unsigned int skip);
 unsigned int FUN_002e7500(unsigned char *buf);
+// (x64t16, D71) the definition takes the byte fields as bytes
 void FUN_002eb240(png_struct_2e82a0 *png_ptr, png_info *info_ptr, unsigned int width, unsigned int height,
-                  int bit_depth, int color_type, int interlace, int compression, int filter);
+                  HULK_TYPE64(int, char) bit_depth, HULK_TYPE64(int, unsigned char) color_type,
+                  HULK_TYPE64(int, unsigned char) interlace, HULK_TYPE64(int, unsigned char) compression,
+                  HULK_TYPE64(int, unsigned char) filter);
 
 // libpng png_handle_IHDR
 extern "C" void FUN_002e82a0(png_struct_2e82a0 *png_ptr, png_info *info_ptr, unsigned int length)
@@ -1744,7 +1369,7 @@ extern "C" void FUN_002e82a0(png_struct_2e82a0 *png_ptr, png_info *info_ptr, uns
 namespace fn_fb0f1f83 {
 
 // 0x002e84e0 FUN_002e84e0 (351 B): equivalent/0x002e84e0.cpp
-// sym: ?FUN_002e84e0@fn_fb0f1f83@@YAXPAUpng_struct_2e84e0@1@PAUpng_info_2e84e0@1@I@Z @6cf509bc611f @w21043057eac9
+// sym: ?FUN_002e84e0@fn_fb0f1f83@@YAXPAUPngStruct@@PAUPngInfo@@I@Z @6cf509bc611f @w21043057eac9
 // STATUS: equivalent (tools/equiv.py level 3: 107 inputs, branch coverage 21/22, incomplete)
 // FUN_002e84e0 @ 0x002e84e0
 // libpng png_handle_PLTE
@@ -1801,10 +1426,10 @@ void FUN_002e84e0(png_struct_2e84e0 *png_ptr, png_info_2e84e0 *info_ptr, unsigne
 
 // 0x002e8640 FUN_002e8640 (83 B): matches/0x002e8640.cpp
 // sym: _FUN_002e8640
-extern "C" void FUN_002e8640(Image* self, hulk_intptr p2, int p3) {
-    if (((self->flags & 1) == 0 || (self->flags & 4) == 0) && (Missing_002e69a0(self, "No image in file"), p2 == 0))
+extern "C" void FUN_002e8640(PngStruct* self, hulk_intptr p2, int p3) {   // (x64t16) png_handle_IEND
+    if (((self->mode & 1) == 0 || (self->mode & 4) == 0) && (Missing_002e69a0(self, "No image in file"), p2 == 0))
         return;
-    self->flags |= 0x18;
+    self->mode |= 0x18;
     if (p3 != 0)
         BadLength_002e69d0(self, "Incorrect IEND chunk length");
     Finish_002e81e0(self, p3);
@@ -1817,17 +1442,9 @@ extern "C" void FUN_002e8640(Image* self, hulk_intptr p2, int p3) {
 namespace fn_002e86a0 {
 // FUN_002e86a0 @ 0x002e86a0
 
-struct png_struct_2e86a0 {
-    char pad[0x60];
-    unsigned int mode;
-    char pad2[0x154 - 0x64];
-    float gamma;
-};
+typedef PngStruct png_struct_2e86a0;   // (x64t16) decls/libpng.h
 
-struct png_info_2e86a0 {
-    char pad[8];
-    unsigned int valid;
-};
+typedef PngInfo png_info_2e86a0;   // (x64t16) decls/libpng.h
 
 
 void FUN_002e69a0(png_struct_2e86a0* png, const char* msg);
@@ -1928,18 +1545,18 @@ extern "C" void __cdecl FUN_002e87e0(png_struct_2e87e0* png_ptr, png_info_2e87e0
         return;
 
     if (png_ptr->color_type & 2) {
-        png_ptr->sig_red = buf[0];
-        png_ptr->sig_green = buf[1];
-        png_ptr->sig_blue = buf[2];
-        png_ptr->sig_alpha = buf[3];
+        png_ptr->sig_bit.red = buf[0];
+        png_ptr->sig_bit.green = buf[1];
+        png_ptr->sig_bit.blue = buf[2];
+        png_ptr->sig_bit.alpha = buf[3];
     } else {
-        png_ptr->sig_gray = buf[0];
-        png_ptr->sig_red = buf[0];
-        png_ptr->sig_green = buf[0];
-        png_ptr->sig_blue = buf[0];
-        png_ptr->sig_alpha = buf[1];
+        png_ptr->sig_bit.gray = buf[0];
+        png_ptr->sig_bit.red = buf[0];
+        png_ptr->sig_bit.green = buf[0];
+        png_ptr->sig_bit.blue = buf[0];
+        png_ptr->sig_bit.alpha = buf[1];
     }
-    FUN_002eb4f0(png_ptr, info_ptr, &png_ptr->sig_red);
+    FUN_002eb4f0(png_ptr, info_ptr, &png_ptr->sig_bit.red);
 }
 
 } // namespace fn_fb0f1f83
@@ -1954,15 +1571,9 @@ extern "C" double __cdecl fabs(double);
 #endif
 
 
-struct PngStruct_2e8940 {
-    char pad00[0x60];
-    unsigned int mode;
-};
+typedef PngStruct PngStruct_2e8940;   // (x64t16) decls/libpng.h
 
-struct PngInfo_2e8940 {
-    char pad00[8];
-    unsigned int valid;
-};
+typedef PngInfo PngInfo_2e8940;   // (x64t16) decls/libpng.h
 
 void __cdecl FUN_002e69a0(PngStruct_2e8940* p, const char* msg);
 void __cdecl FUN_002e69d0(PngStruct_2e8940* p, const char* msg);
@@ -2055,7 +1666,7 @@ extern "C" void FUN_002e8940(PngStruct_2e8940* png_ptr, PngInfo_2e8940* info_ptr
 
 
 // 0x002e8f80 FUN_002e8f80 (556 B): equivalent/0x002e8f80.cpp [wrapped: conflict: _fwprintf]
-// sym: ?png_handle_sRGB@fn_002e8f80@@YAXPAUpng_struct@1@PAUpng_info@1@I@Z @60318132d671 @wd113aaab3db4
+// sym: ?png_handle_sRGB@fn_002e8f80@@YAXPAUPngStruct@@PAUPngInfo@@I@Z @60318132d671 @wd113aaab3db4
 namespace fn_002e8f80 {
 // STATUS: equivalent (tools/equiv.py level 3: 3059 inputs, branch coverage 38/38)
 // FUN_002e8f80 @ 0x002e8f80
@@ -2066,22 +1677,9 @@ extern "C" double fabs(double);
 #endif
 
 
-struct png_struct {
-    char pad0[0x60];
-    unsigned int mode;
-    char pad64[0x154 - 0x64];
-    float gamma;
-};
+typedef PngStruct png_struct;   // (x64t16) decls/libpng.h
 
-struct png_info {
-    char pad0[8];
-    unsigned int valid;
-    char pad0c[0x80 - 0x0c];
-    float whiteX, whiteY;
-    float redX, redY;
-    float greenX, greenY;
-    float blueX, blueY;
-};
+typedef PngInfo png_info;   // (x64t16) decls/libpng.h
 
 
 void __cdecl FUN_002e69a0(png_struct *png_ptr, const char *msg);
@@ -2137,14 +1735,14 @@ void png_handle_sRGB(png_struct *png_ptr_arg, png_info *info_ptr, unsigned int l
     }
 
     if (info_ptr->valid & 4) {
-        if (fabs(info_ptr->whiteX - 0.3127f) > 0.001 ||
-            fabs(info_ptr->whiteY - 0.329f) > 0.001 ||
-            fabs(info_ptr->redX - 0.64f) > 0.001 ||
-            fabs(info_ptr->redY - 0.33f) > 0.001 ||
-            fabs(info_ptr->greenX - 0.3f) > 0.001 ||
-            fabs(info_ptr->greenY - 0.6f) > 0.001 ||
-            fabs(info_ptr->blueX - 0.15f) > 0.001 ||
-            fabs(info_ptr->blueY - 0.06f) > 0.001) {
+        if (fabs(info_ptr->x_white - 0.3127f) > 0.001 ||
+            fabs(info_ptr->y_white - 0.329f) > 0.001 ||
+            fabs(info_ptr->x_red - 0.64f) > 0.001 ||
+            fabs(info_ptr->y_red - 0.33f) > 0.001 ||
+            fabs(info_ptr->x_green - 0.3f) > 0.001 ||
+            fabs(info_ptr->y_green - 0.6f) > 0.001 ||
+            fabs(info_ptr->x_blue - 0.15f) > 0.001 ||
+            fabs(info_ptr->y_blue - 0.06f) > 0.001) {
             FUN_002e69d0(png_ptr, "Ignoring incorrect cHRM value when sRGB is also present");
         }
     }
@@ -2155,36 +1753,14 @@ void png_handle_sRGB(png_struct *png_ptr_arg, png_info *info_ptr, unsigned int l
 
 
 // 0x002e91b0 FUN_002e91b0 (509 B): matches/0x002e91b0.cpp [wrapped: lost its match in the tree (a call became inline code (callee now defined in the same TU))]
-// sym: ?png_handle_tRNS@fn_002e91b0@@YAXPAUpng_struct_2e91b0@1@PAUpng_info_2e91b0@1@I@Z
+// sym: ?png_handle_tRNS@fn_002e91b0@@YAXPAUPngStruct@@PAUPngInfo@@I@Z
 namespace fn_002e91b0 {
 // FUN_002e91b0 @ 0x002e91b0
-struct png_color_16_2e91b0 {
-    unsigned char index;
-    unsigned char pad1;
-    unsigned short red;
-    unsigned short green;
-    unsigned short blue;
-    unsigned short gray;
-};
+typedef PngColor16 png_color_16_2e91b0;   // (x64t16) decls/libpng.h
 
-struct png_info_2e91b0 {
-    char pad0[8];
-    unsigned int valid;
-};
+typedef PngInfo png_info_2e91b0;   // (x64t16) decls/libpng.h
 
-struct png_struct_2e91b0 {
-    char pad0[0x60];
-    unsigned int mode;
-    unsigned int flags;
-    char pad68[0x110 - 0x68];
-    unsigned short num_palette;
-    unsigned short num_trans;
-    char pad114[0x11e - 0x114];
-    unsigned char color_type;
-    char pad11f[0x180 - 0x11f];
-    unsigned char *trans;
-    png_color_16_2e91b0 trans_values;
-};
+typedef PngStruct png_struct_2e91b0;   // (x64t16) decls/libpng.h
 
 void __cdecl FUN_002e69a0(png_struct_2e91b0 *png_ptr, const char *msg);
 void __cdecl FUN_002e69d0(png_struct_2e91b0 *png_ptr, const char *msg);
@@ -2263,39 +1839,16 @@ void png_handle_tRNS(png_struct_2e91b0 *png_ptr, png_info_2e91b0 *info_ptr, unsi
 
 
 // 0x002e93b0 FUN_002e93b0 (440 B): matches/0x002e93b0.cpp [wrapped: lost its match in the tree (a call became inline code (callee now defined in the same TU))]
-// sym: ?png_handle_bKGD@fn_002e93b0@@YAXPAUpng_struct_2e93b0@1@PAUpng_info_2e93b0@1@I@Z
+// sym: ?png_handle_bKGD@fn_002e93b0@@YAXPAUPngStruct@@PAUPngInfo@@I@Z
 namespace fn_002e93b0 {
 // FUN_002e93b0 @ 0x002e93b0
-struct png_color_16_2e93b0 {
-    unsigned char index;
-    unsigned char pad1;
-    unsigned short red;
-    unsigned short green;
-    unsigned short blue;
-    unsigned short gray;
-};
+typedef PngColor16 png_color_16_2e93b0;   // (x64t16) decls/libpng.h
 
-struct png_color_2e93b0 {
-    unsigned char red;
-    unsigned char green;
-    unsigned char blue;
-};
+typedef PngColor png_color_2e93b0;   // (x64t16) decls/libpng.h
 
-struct png_info_2e93b0 {
-    char pad0[8];
-    unsigned int valid;
-};
+typedef PngInfo png_info_2e93b0;   // (x64t16) decls/libpng.h
 
-struct png_struct_2e93b0 {
-    char pad0[0x60];
-    unsigned int mode;
-    char pad64[0x10c - 0x64];
-    png_color_2e93b0 *palette;
-    char pad110[0x11e - 0x110];
-    unsigned char color_type;
-    char pad11f[0x130 - 0x11f];
-    png_color_16_2e93b0 background;
-};
+typedef PngStruct png_struct_2e93b0;   // (x64t16) decls/libpng.h
 
 void __cdecl FUN_002e69a0(png_struct_2e93b0 *png_ptr, const char *msg);
 void __cdecl FUN_002e69d0(png_struct_2e93b0 *png_ptr, const char *msg);
@@ -2363,20 +1916,9 @@ void png_handle_bKGD(png_struct_2e93b0 *png_ptr, png_info_2e93b0 *info_ptr, unsi
 // sym: _FUN_002e9570
 namespace fn_002e9570 {
 // FUN_002e9570 @ 0x002e9570
-struct png_info_2e9570 {
-    char pad0[8];
-    unsigned int valid;
-};
+typedef PngInfo png_info_2e9570;   // (x64t16) decls/libpng.h
 
-struct png_struct_2e9570 {
-    char pad0[0x60];
-    unsigned int mode;
-    unsigned int flags;
-    char pad1[0x110 - 0x68];
-    unsigned short num_palette;
-    char pad2[0x1ec - 0x112];
-    unsigned short *hist;
-};
+typedef PngStruct png_struct_2e9570;   // (x64t16) decls/libpng.h
 
 void FUN_002e69a0(png_struct_2e9570 *png, const char *msg);
 void FUN_002e69d0(png_struct_2e9570 *png, const char *msg);
@@ -2433,8 +1975,8 @@ extern "C" void FUN_002e9570(png_struct_2e9570 *png, png_info_2e9570 *info, int 
 namespace fn_002e96a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3003 inputs, branch coverage 12/12)
 // FUN_002e96a0 @ 0x002e96a0
-struct Png_2e96a0 { char pad[0x60]; unsigned flags; };
-struct Info_2e96a0 { char pad[8]; signed char flags; };
+typedef PngStruct Png_2e96a0;   // (x64t16) decls/libpng.h
+typedef PngInfo Info_2e96a0;   // (x64t16) decls/libpng.h
 struct PhysData { unsigned char x[4]; unsigned char y[4]; unsigned char unit; };
 extern "C++" void __cdecl FUN_002e69a0(Png_2e96a0*, const char*);
 extern "C++" void __cdecl FUN_002e69d0(Png_2e96a0*, const char*);
@@ -2443,13 +1985,13 @@ extern "C++" void __cdecl FUN_002e7580(Png_2e96a0*, void*, unsigned);
 extern "C++" unsigned __cdecl FUN_002e7500(unsigned char*);
 extern "C" int __cdecl FUN_002eb480(Png_2e96a0*, Info_2e96a0*, unsigned, unsigned, unsigned);
 extern "C" int __cdecl FUN_002e96a0(Png_2e96a0* png, Info_2e96a0* info, unsigned length) {
-    unsigned flags = png->flags;
+    unsigned flags = png->mode;
     if (!(flags & 1)) {
         FUN_002e69a0(png, "Missing IHDR before pHYS");
     } else if (flags & 4) {
         FUN_002e69d0(png, "Invalid pHYS after IDAT");
         return FUN_002e81e0(png, length);
-    } else if (info && info->flags < 0) {
+    } else if (info && *(signed char*)&info->valid < 0) {
         FUN_002e69d0(png, "Duplicate pHYS chunk");
         return FUN_002e81e0(png, length);
     }
@@ -2474,8 +2016,8 @@ extern "C" int __cdecl FUN_002e96a0(Png_2e96a0* png, Info_2e96a0* info, unsigned
 namespace fn_002e9790 {
 // STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 12/12)
 // FUN_002e9790 @ 0x002e9790
-struct State_2e9790 { char pad[0x60]; unsigned flags; };
-struct Info_2e9790 { char pad[8]; unsigned flags; };
+typedef PngStruct State_2e9790;   // (x64t16) decls/libpng.h
+typedef PngInfo Info_2e9790;   // (x64t16) decls/libpng.h
 extern "C++" void __cdecl FUN_002e69a0(State_2e9790*, const char*);
 extern "C++" void __cdecl FUN_002e69d0(State_2e9790*, const char*);
 extern "C++" int __cdecl FUN_002e81e0(State_2e9790*, unsigned);
@@ -2483,9 +2025,9 @@ extern "C++" void __cdecl FUN_002e7580(State_2e9790*, void*, unsigned);
 extern "C++" unsigned __cdecl FUN_002e7500(const void*);
 extern "C" int __cdecl FUN_002eb2f0(State_2e9790*, Info_2e9790*, unsigned, unsigned, unsigned);
 extern "C" int __cdecl FUN_002e9790(State_2e9790* s, Info_2e9790* info, unsigned length) {
- if (!(s->flags & 1)) FUN_002e69a0(s, "Missing IHDR before oFFs");
- else if (s->flags & 4) { FUN_002e69d0(s, "Invalid oFFs after IDAT"); return FUN_002e81e0(s,length); }
- else if (info && (info->flags & 0x100)) { FUN_002e69d0(s, "Duplicate oFFs chunk"); return FUN_002e81e0(s,length); }
+ if (!(s->mode & 1)) FUN_002e69a0(s, "Missing IHDR before oFFs");
+ else if (s->mode & 4) { FUN_002e69d0(s, "Invalid oFFs after IDAT"); return FUN_002e81e0(s,length); }
+ else if (info && (info->valid & 0x100)) { FUN_002e69d0(s, "Duplicate oFFs chunk"); return FUN_002e81e0(s,length); }
  if (length != 9) { FUN_002e69d0(s, "Incorrect oFFs chunk length"); return FUN_002e81e0(s,length); }
  unsigned char data[12];
  FUN_002e7580(s,data,9);
@@ -2502,19 +2044,13 @@ extern "C" int __cdecl FUN_002e9790(State_2e9790* s, Info_2e9790* info, unsigned
 
 
 // 0x002e9880 FUN_002e9880 (561 B): equivalent/0x002e9880.cpp [wrapped: code differs from its standalone build]
-// sym: ?png_handle_pCAL@fn_002e9880@@YAXPAUpng_struct_2e9880@1@PAUpng_info_2e9880@1@I@Z @d5275c8bfc6d @w15b8b49bed7b
+// sym: ?png_handle_pCAL@fn_002e9880@@YAXPAUPngStruct@@PAUPngInfo@@I@Z @d5275c8bfc6d @w15b8b49bed7b
 namespace fn_002e9880 {
 // STATUS: equivalent (tools/equiv.py level 3: 130 inputs, branch coverage 46/50, incomplete)
 // FUN_002e9880 @ 0x002e9880
-struct png_struct_2e9880 {
-    char pad0[0x60];
-    unsigned int mode;
-};
+typedef PngStruct png_struct_2e9880;   // (x64t16) decls/libpng.h
 
-struct png_info_2e9880 {
-    char pad0[8];
-    unsigned int valid;
-};
+typedef PngInfo png_info_2e9880;   // (x64t16) decls/libpng.h
 
 void __cdecl FUN_002e69a0(png_struct_2e9880 *png_ptr, const char *msg);
 void __cdecl FUN_002e69d0(png_struct_2e9880 *png_ptr, const char *msg);
@@ -2524,7 +2060,7 @@ void __cdecl FUN_002e6c40(png_struct_2e9880 *png_ptr, void *ptr);
 void __cdecl FUN_002e7580(png_struct_2e9880 *png_ptr, unsigned char *buf, unsigned int length);
 extern "C++" unsigned int __cdecl FUN_002e7530(unsigned char *);
 void __cdecl FUN_002eb330(png_struct_2e9880 *png_ptr, png_info_2e9880 *info_ptr, char *purpose, int X0, int X1,
-                          int type, int nparams, char *units, char **params);
+                          HULK_TYPE64(int, char) type, int nparams, char *units, char **params);   // (x64t16, D71)
 
 // libpng png_handle_pCAL
 void png_handle_pCAL(png_struct_2e9880 *png_ptr, png_info_2e9880 *info_ptr, unsigned int length)
@@ -2617,9 +2153,9 @@ void png_handle_pCAL(png_struct_2e9880 *png_ptr, png_info_2e9880 *info_ptr, unsi
 namespace fn_002e9ac0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_002e9ac0 @ 0x002e9ac0
-struct Png_2e9ac0 { char pad[0x60]; unsigned flags; };
-struct Info_2e9ac0 { char pad[8]; unsigned flags; };
-struct Time { unsigned short year; unsigned char month, day, hour, minute, second; };
+typedef PngStruct Png_2e9ac0;   // (x64t16) decls/libpng.h
+typedef PngInfo Info_2e9ac0;   // (x64t16) decls/libpng.h
+typedef PngTime Time;   // (x64t16) decls/libpng.h
 extern void __cdecl FUN_002e69a0(Png_2e9ac0*, const char*);
 extern void __cdecl FUN_002e69d0(Png_2e9ac0*, const char*);
 extern int __cdecl FUN_002e81e0(Png_2e9ac0*, unsigned);
@@ -2627,12 +2163,12 @@ extern void __cdecl FUN_002e7580(Png_2e9ac0*, unsigned char*, unsigned);
 extern "C++" unsigned short __cdecl FUN_002e7560(const unsigned char *);
 extern int __cdecl FUN_002eb6f0(Png_2e9ac0*, Info_2e9ac0*, Time*);
 extern "C" int __cdecl FUN_002e9ac0(Png_2e9ac0* png, Info_2e9ac0* info, unsigned length) {
- if (!(png->flags & 1)) FUN_002e69a0(png, "Out of place tIME chunk");
- else if (info && (info->flags & 0x200)) {
+ if (!(png->mode & 1)) FUN_002e69a0(png, "Out of place tIME chunk");
+ else if (info && (info->valid & 0x200)) {
   FUN_002e69d0(png, "Duplicate tIME chunk");
   return FUN_002e81e0(png,length);
  }
- if (png->flags & 4) png->flags |= 8;
+ if (png->mode & 4) png->mode |= 8;
  if (length != 7) {
   FUN_002e69d0(png,"Incorrect tIME chunk length");
   return FUN_002e81e0(png,length);
@@ -2654,11 +2190,11 @@ namespace fn_fb0f1f83 {
 // 0x002e9bb0 FUN_002e9bb0 (176 B): matches/0x002e9bb0.cpp
 // sym: _FUN_002e9bb0
 extern "C" void FUN_002e9bb0(Thing_2e9bb0* a, void* x, unsigned int n) {
-    if (!(a->flags & 1))
+    if (!(a->mode & 1))
         FUN_002e69a0(a, "Missing IHDR before tEXt");
-    if (a->flags & 4)
-        a->flags |= 8;
-    char* b = FUN_002e6c00(a, n + 1);
+    if (a->mode & 4)
+        a->mode |= 8;
+    char* b = (char*)FUN_002e6c00(a, n + 1);
     FUN_002e7580(a, b, n);
     if (FUN_002e81e0(a, 0)) {
         FUN_002e6c40(a, b);
@@ -2670,17 +2206,17 @@ extern "C" void FUN_002e9bb0(Thing_2e9bb0* a, void* x, unsigned int n) {
         ++e;
     if (e != b + n)
         ++e;
-    void* q = FUN_002e6c00(a, 16);
-    ((int*)q)[0] = -1;
-    ((char**)q)[1] = b;
-    ((char**)q)[2] = e;
+    PngText* q = (PngText*)FUN_002e6c00(a, sizeof(PngText));   // (x64t16) decls/libpng.h
+    q->compression = -1;
+    q->key = b;
+    q->text = e;
     FUN_002eb5e0(a, x, q, 1);
     FUN_002e6c40(a, (char*)q);
 }
 
 
 // 0x002e9c60 FUN_002e9c60 (861 B): equivalent/0x002e9c60.cpp
-// sym: ?png_handle_zTXt@fn_fb0f1f83@@YAXPAUPngStruct_2e9c60@1@PAXI@Z @0ecaf1575fff @w07c38831191b
+// sym: ?png_handle_zTXt@fn_fb0f1f83@@YAXPAUPngStruct@@PAXI@Z @0ecaf1575fff @w07c38831191b
 // STATUS: equivalent (tools/equiv.py level 3: 1068 inputs, branch coverage 36/38, incomplete)
 // FUN_002e9c60 @ 0x002e9c60
 // libpng png_handle_zTXt (with png_decompress_chunk inlined)
@@ -2793,7 +2329,7 @@ void png_handle_zTXt(PngStruct_2e9c60 *png, void *info, unsigned length)
     }
 
     {
-        PngText *tp = (PngText *)FUN_002e6c00(png, 0x10);
+        PngText *tp = (PngText *)FUN_002e6c00(png, sizeof(PngText));
         tp->compression = comp_type;
         tp->key = chunkdata;
         tp->text = text;
@@ -2813,11 +2349,11 @@ extern void Parse_002e7620(void*, u8*);
 extern "C++" void __cdecl FUN_002e69f0(void *, void *);
 extern void Continue_002e81e0(void*, u32_2e9fc0);
 extern "C" void FUN_002e9fc0(void* self, hulk_uintptr param2, u32_2e9fc0 param3) {
-    u8* flag = (u8*)self + 0x114;
+    u8* flag = ((PngStruct*)self)->chunk_name;   // (x64t16) decls/libpng.h
     Parse_002e7620(self, flag);
     if ((*flag & 0x20) == 0 && (FUN_002e69f0(self, (void *)(const char *)"unknown critical chunk"), param2 == 0))
         return;
-    u32_2e9fc0* state = (u32_2e9fc0*)((char*)self + 0x60);
+    u32_2e9fc0* state = &((PngStruct*)self)->mode;
     if ((*state & 4) != 0)
         *state |= 8;
     Continue_002e81e0(self, param3);
@@ -2826,50 +2362,14 @@ extern "C" void FUN_002e9fc0(void* self, hulk_uintptr param2, u32_2e9fc0 param3)
 
 
 // 0x002ea010 FUN_002ea010 (653 B): equivalent/0x002ea010.cpp [wrapped: code differs from its standalone build]
-// sym: ?FUN_002ea010@fn_002ea010@@YAXPAUPngStruct_2ea010@1@@Z @0663fdae1386 @wca218f1c0d14
+// sym: ?FUN_002ea010@fn_002ea010@@YAXPAUPngStruct@@@Z @0663fdae1386 @wca218f1c0d14
 namespace fn_002ea010 {
 // STATUS: equivalent (tools/equiv.py level 3: 86 inputs, branch coverage 40/42, incomplete)
 // FUN_002ea010 @ 0x002ea010
 
-struct ZStream_2ea010 {
-    unsigned char *next_in;
-    unsigned avail_in;
-    unsigned total_in;
-    unsigned char *next_out;
-    unsigned avail_out;
-    unsigned total_out;
-    const char *msg;
-};
+typedef ZStream ZStream_2ea010;   // (x64t16) decls/libpng.h
 
-struct PngStruct_2ea010 {
-    char pad0[0x60];
-    unsigned mode;
-    unsigned flags;
-    unsigned transformations;
-    ZStream_2ea010 zstream;
-    char pad1[0xa4 - 0x6c - sizeof(ZStream_2ea010)];
-    unsigned char *zbuf;
-    unsigned zbuf_size;
-    char pad2[0xc0 - 0xac];
-    unsigned width;
-    unsigned height;
-    unsigned num_rows;
-    char pad3[0xd0 - 0xcc];
-    unsigned rowbytes;
-    unsigned irowbytes;
-    unsigned iwidth;
-    unsigned row_number;
-    unsigned char *prev_row;
-    char pad4[0x104 - 0xe4];
-    unsigned idat_size;
-    char pad5[0x114 - 0x108];
-    unsigned char chunk_name[4];
-    char pad6[0x11b - 0x118];
-    unsigned char interlaced;
-    unsigned char pass;
-    char pad7[0x121 - 0x11d];
-    unsigned char pixel_depth;
-};
+typedef PngStruct PngStruct_2ea010;   // (x64t16) decls/libpng.h
 
 
 void __cdecl FUN_002e6b60(PngStruct_2ea010 *png, void *s, int c, unsigned n);
@@ -2954,59 +2454,61 @@ void FUN_002ea010(PngStruct_2ea010 *png)
 namespace fn_fb0f1f83 {
 
 // 0x002ea2a0 FUN_002ea2a0 (123 B): matches/0x002ea2a0.cpp
-// sym: ?FUN_002ea2a0@fn_fb0f1f83@@YAXPAVObj_2ea2a0@1@PAUCtx_2ea2a0@1@PAH@Z
-void __cdecl FUN_002ea2a0(Obj_2ea2a0* self, Ctx_2ea2a0* ctx, int* out) {
+// sym: ?FUN_002ea2a0@fn_fb0f1f83@@YAXPAUZInflateBlocks@@PAUZStream@@PAI@Z
+// (x64t16) inflate_blocks_reset (blocks, stream, check out) on decls/libpng.h's records
+void __cdecl FUN_002ea2a0(Obj_2ea2a0* self, Ctx_2ea2a0* ctx, unsigned int* out) {
     if (out)
-        *out = self->m3c;
-    if (self->type == 4 || self->type == 5) {
-        int v = ctx->x28;
-        int a = self->aC;
-        ctx->fn(v, a);
+        *out = self->check;
+    if (self->mode == 4 || self->mode == 5) {
+        void* v = ctx->opaque;
+        unsigned int* a = self->sub.trees.blens;
+        ctx->zfree(v, a);
     }
-    if (self->type == 6)
-        FUN_002ebed0(self->a4, ctx);
-    self->m34 = self->m28;
-    self->m30 = self->m28;
-    int(__cdecl * f)(int, int, int) = self->m38;
-    self->type = 0;
-    self->m1c = 0;
-    self->m20 = 0;
+    if (self->mode == 6)
+        FUN_002ebed0(self->sub.decode.codes, ctx);
+    self->write = self->window;
+    self->read = self->window;
+    unsigned int(__cdecl * f)(unsigned int, const unsigned char*, unsigned int) = self->checkfn;
+    self->mode = 0;
+    self->bitk = 0;
+    self->bitb = 0;
     if (f) {
-        int r = f(0, 0, 0);
-        self->m3c = r;
-        ctx->m30 = r;
+        unsigned int r = f(0, 0, 0);
+        self->check = r;
+        ctx->adler = r;
     }
 }
 
 
 // 0x002ea320 FUN_002ea320 (155 B): matches/0x002ea320.cpp
-// sym: ?FUN_002ea320@fn_fb0f1f83@@YAPAXPAUManager_2ea320@1@HH@Z
+// sym: ?FUN_002ea320@fn_fb0f1f83@@YAPAXPAUZStream@@HH@Z
 void* __cdecl FUN_002ea320(Manager_2ea320* m, hulk_intptr param2, int param3) {
-    void* a = m->alloc(m->heap, 1, 0x40);
+    // (x64t16) inflate_blocks_new on decls/libpng.h's records (param2: the check function)
+    ZInflateBlocks* a = (ZInflateBlocks*)m->zalloc(m->opaque, 1, sizeof(ZInflateBlocks));
     if (!a)
         return 0;
-    *(void**)((char*)a + 0x24) = m->alloc(m->heap, 8, 0x5a0);
-    if (!*(void**)((char*)a + 0x24)) {
-        m->freefn(m->heap, a);
+    a->hufts = (ZInflateHuft*)m->zalloc(m->opaque, sizeof(ZInflateHuft), 0x5a0);
+    if (!a->hufts) {
+        m->zfree(m->opaque, a);
         return 0;
     }
-    *(void**)((char*)a + 0x28) = m->alloc(m->heap, 1, param3);
-    if (!*(void**)((char*)a + 0x28)) {
-        m->freefn(m->heap, *(void**)((char*)a + 0x24));
-        m->freefn(m->heap, a);
+    a->window = (unsigned char*)m->zalloc(m->opaque, 1, param3);
+    if (!a->window) {
+        m->zfree(m->opaque, a->hufts);
+        m->zfree(m->opaque, a);
         return 0;
     }
-    *(void**)((char*)a + 0x2c) = (char*)*(void**)((char*)a + 0x28) + param3;
-    *(int*)((char*)a + 0x38) = param2;
-    *(int*)a = 0;
-    FUN_002ea2a0(a, m, 0);
+    a->end = a->window + param3;
+    a->checkfn = (unsigned int(__cdecl*)(unsigned int, const unsigned char*, unsigned int))param2;
+    a->mode = 0;
+    FUN_002ea2a0((void*)a, (void*)m, 0);   // (the declaration: a call, as in the original)
     return a;
 }
 
 } // namespace fn_fb0f1f83
 
 // 0x002ea3c0 FUN_002ea3c0 (2870 B): equivalent/0x002ea3c0.cpp [wrapped: macros]
-// sym: ?FUN_002ea3c0@fn_002ea3c0@@YAHPAUinflate_blocks_state@1@PAUz_stream@1@H@Z @f76878f230af @w99b685128fb5 @v04eb91f859e4
+// sym: ?FUN_002ea3c0@fn_002ea3c0@@YAHPAUZInflateBlocks@@PAUZStream@@H@Z @a290fa3b15be @w99b685128fb5 @v172021351f54
 namespace fn_002ea3c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 19923 inputs, branch coverage 133/142, incomplete)
 // FUN_002ea3c0 @ 0x002ea3c0
@@ -3016,57 +2518,16 @@ typedef unsigned char Byte;
 typedef unsigned int uInt;
 typedef unsigned long uLong;
 
-struct z_stream;
 typedef void *(__cdecl *alloc_func)(void *opaque, uInt items, uInt size);
 typedef void (__cdecl *free_func)(void *opaque, void *address);
 
-struct inflate_huft {
-    Byte exop;
-    Byte bits;
-    unsigned short pad;
-    uInt base;
-};
+typedef ZInflateHuft inflate_huft;   // (x64t16) decls/libpng.h
+typedef ZInflateCodes inflate_codes_state;
 
-struct z_stream {
-    Byte *next_in;
-    uInt avail_in;
-    uLong total_in;
-    Byte *next_out;
-    uInt avail_out;
-    uLong total_out;
-    char *msg;
-    void *state;
-    alloc_func zalloc;
-    free_func zfree;
-    void *opaque;
-};
+typedef ZStream z_stream;   // (x64t16) decls/libpng.h
 
-struct inflate_codes_state;
 
-struct inflate_blocks_state {
-    uInt mode;
-    union {
-        uInt left;
-        struct {
-            uInt table;
-            uInt index;
-            uInt *blens;
-            uInt bb;
-            inflate_huft *tb;
-        } trees;
-        struct {
-            inflate_codes_state *codes;
-        } decode;
-    } sub;
-    uInt last;
-    uInt bitk;
-    uLong bitb;
-    inflate_huft *hufts;
-    Byte *window;
-    Byte *end;
-    Byte *read;
-    Byte *write;
-};
+typedef ZInflateBlocks inflate_blocks_state;   // (x64t16) decls/libpng.h
 
 
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
@@ -3076,7 +2537,9 @@ extern "C" void *memcpy(void *, const void *, unsigned int);
 
 extern int __cdecl FUN_002ec650(inflate_blocks_state *s, z_stream *z, int r);
 extern int __cdecl FUN_002ec620(uInt *bl, uInt *bd, inflate_huft **tl, inflate_huft **td, z_stream *z);
-extern inflate_codes_state *__cdecl FUN_002eb780(uInt bl, uInt bd, inflate_huft *tl, inflate_huft *td, z_stream *z);
+// (x64t16) the bit counts are bytes in the definition (D71: the 64-bit builds bind to its type)
+extern inflate_codes_state *__cdecl FUN_002eb780(HULK_TYPE64(uInt, unsigned char) bl, HULK_TYPE64(uInt, unsigned char) bd,
+                                                 inflate_huft *tl, inflate_huft *td, z_stream *z);
 extern int __cdecl FUN_002ec3e0(uInt *c, uInt *bb, inflate_huft **tb, inflate_huft *hp, z_stream *z);
 extern int __cdecl FUN_002ec490(uInt nl, uInt nd, uInt *c, uInt *bl, uInt *bd, inflate_huft **tl, inflate_huft **td, inflate_huft *hp, z_stream *z);
 extern int __cdecl FUN_002eb7c0(inflate_blocks_state *s, z_stream *z, int r);
@@ -3324,19 +2787,20 @@ namespace fn_fb0f1f83 {
 // 0x002eaf30 FUN_002eaf30 (57 B): matches/0x002eaf30.cpp
 // sym: _FUN_002eaf30
 extern "C" int __cdecl FUN_002eaf30(void * a, void * b) {
-    FUN_002ea2a0(((Obj_2eaf30 *)a), ((Obj_2eaf30 *)b), 0);
-    ((Obj_2eaf30 *)b)->fn(((Obj_2eaf30 *)b)->value, ((Obj_2eaf30 *)a)->value);
-    ((Obj_2eaf30 *)b)->fn(((Obj_2eaf30 *)b)->value, *((u32_2eaf30*)((char*)&((Obj_2eaf30 *)a)->fn)));
-    ((Obj_2eaf30 *)b)->fn(((Obj_2eaf30 *)b)->value, (hulk_uintptr)((Obj_2eaf30 *)a));
+    // (x64t16) inflate_blocks_free (blocks, stream) on decls/libpng.h's records
+    FUN_002ea2a0(a, ((ZStream *)b), 0);   // (the declaration: a call, as in the original)
+    ((ZStream *)b)->zfree(((ZStream *)b)->opaque, ((ZInflateBlocks *)a)->window);
+    ((ZStream *)b)->zfree(((ZStream *)b)->opaque, ((ZInflateBlocks *)a)->hufts);
+    ((ZStream *)b)->zfree(((ZStream *)b)->opaque, ((ZInflateBlocks *)a));
     return 0;
 }
 
 
 // 0x002eaf70 FUN_002eaf70 (49 B): matches/0x002eaf70.cpp
-// sym: ?FUN_002eaf70@fn_fb0f1f83@@YAXPAUBuf@1@PBXI@Z
+// sym: ?FUN_002eaf70@fn_fb0f1f83@@YAXPAUZInflateBlocks@@PBXI@Z
 void __cdecl FUN_002eaf70(Buf* p, const void* src, unsigned int n) {
-    memcpy(p->data, src, n);
-    p->a = p->b = p->data + n;
+    memcpy(p->window, src, n);
+    p->read = p->write = p->window + n;
 }
 
 
@@ -3364,89 +2828,90 @@ unsigned int __cdecl FUN_002eafc0(unsigned int checksum, const unsigned char* da
 
 
 // 0x002eb120 FUN_002eb120 (19 B): matches/0x002eb120.cpp
-// sym: ?FUN_002eb120@fn_fb0f1f83@@YAXHHH@Z
-void FUN_002eb120(int a, int b, int c) {
-    FUN_00347aa0(b, c);
+// sym: ?FUN_002eb120@fn_fb0f1f83@@YAPAXPAXII@Z
+void* FUN_002eb120(void* a, unsigned int b, unsigned int c) {   // (x64t16) zcalloc: calloc's block
+    return FUN_00347aa0(b, c);
 }
 
 
 // 0x002eb140 FUN_002eb140 (12 B): matches/0x002eb140.cpp
-// sym: ?FUN_002eb140@fn_fb0f1f83@@YAXHH@Z
-void __cdecl FUN_002eb140(int a, int b) {
+// sym: ?FUN_002eb140@fn_fb0f1f83@@YAXPAX0@Z
+void __cdecl FUN_002eb140(void* a, void* b) {   // (x64t16) zcfree
     FUN_003479bc(b);
 }
 
 
 // 0x002eb150 FUN_002eb150 (48 B): matches/0x002eb150.cpp
-// sym: ?Set@fn_fb0f1f83@@YAXHPAUObj@1@PBX@Z
-void Set(int ok, Obj* obj, const void* src) {
+// sym: ?Set@fn_fb0f1f83@@YAXHPAUPngInfo@@PBX@Z
+void Set(hulk_intptr ok, Obj* obj, const void* src) {
     if (ok && obj) {
-        memcpy(&obj->data[0x4e], src, 10);
-        obj->flags |= 0x20;
+        memcpy(&obj->background, src, 10);
+        obj->valid |= 0x20;
     }
 }
 
 
 // 0x002eb180 FUN_002eb180 (106 B): matches/0x002eb180.cpp
-// sym: ?target@fn_fb0f1f83@@YAXHPAUObj_2eb180@1@NNNNNNNN@Z
-void target(hulk_intptr p1, Obj_2eb180* p2, double a, double b, double c, double d, double e, double f, double g, double h) {
+// sym: ?FUN_002eb180@fn_fb0f1f83@@YAXHPAUPngInfo@@NNNNNNNN@Z
+void FUN_002eb180(hulk_intptr p1, Obj_2eb180* p2, double a, double b, double c, double d, double e, double f, double g, double h) {
     if (!p1)
         return;
     if (!p2)
         return;
-    p2->flags |= 4;
-    p2->a[0] = (float)a;
-    p2->a[1] = (float)b;
-    p2->a[2] = (float)c;
-    p2->a[3] = (float)d;
-    p2->a[4] = (float)e;
-    p2->a[5] = (float)f;
-    p2->a[6] = (float)g;
-    p2->a[7] = (float)h;
+    p2->valid |= 4;
+    p2->x_white = (float)a;
+    p2->y_white = (float)b;
+    p2->x_red = (float)c;
+    p2->y_red = (float)d;
+    p2->x_green = (float)e;
+    p2->y_green = (float)f;
+    p2->x_blue = (float)g;
+    p2->y_blue = (float)h;
 }
 
 
 // 0x002eb1f0 FUN_002eb1f0 (33 B): matches/0x002eb1f0.cpp
-// sym: ?FUN_002eb1f0@fn_fb0f1f83@@YAXHPAUObj_2eb1f0@1@N@Z
+// sym: ?FUN_002eb1f0@fn_fb0f1f83@@YAXHPAUPngInfo@@N@Z
 void FUN_002eb1f0(hulk_intptr a, Obj_2eb1f0* b, double c) {
     if (a && b) {
-        b->value = (float)c;
-        b->flags |= 1;
+        b->gamma = (float)c;
+        b->valid |= 1;
     }
 }
 
 
 // 0x002eb220 FUN_002eb220 (28 B): matches/0x002eb220.cpp
-// sym: ?FUN_002eb220@fn_fb0f1f83@@YAXHPAUThing_2eb220@1@I@Z
-void FUN_002eb220(hulk_intptr handle, Thing_2eb220* object, hulk_uintptr newValue) {
+// sym: ?FUN_002eb220@fn_fb0f1f83@@YAXHPAUPngInfo@@PAG@Z
+void FUN_002eb220(hulk_intptr handle, Thing_2eb220* object, unsigned short* newValue) {
     if (handle && object) {
-        object->value = newValue;
-        object->flags |= 0x40;
+        object->hist = newValue;
+        object->valid |= 0x40;
     }
 }
 
 
 // 0x002eb240 FUN_002eb240 (173 B): matches/0x002eb240.cpp
-// sym: ?FUN_002eb240@fn_fb0f1f83@@YAXHPAUImage@1@IIDEEEE@Z
-void FUN_002eb240(int a, Image* p, unsigned int width, unsigned int p4, char channels, unsigned char type,
+// sym: ?FUN_002eb240@fn_fb0f1f83@@YAXHPAUPngInfo@@IIDEEEE@Z
+// (x64t16) png_set_IHDR on records.h PngInfo
+void FUN_002eb240(hulk_intptr a, PngInfo* p, unsigned int width, unsigned int p4, char channels, unsigned char type,
                   unsigned char b7, unsigned char b8, unsigned char b9) {
     if (!a || !p)
         return;
     p->width = width;
-    p->channels = channels;
-    p->p4 = p4;
-    p->b8 = b8;
-    p->type = type;
-    p->b9 = b9;
-    p->b7 = b7;
+    p->bit_depth = channels;
+    p->height = p4;
+    p->compression_type = b8;
+    p->color_type = type;
+    p->filter_type = b9;
+    p->interlace_type = b7;
     if (type == 3 || (type & 2) == 0)
-        p->row = 1;
+        p->channels = 1;
     else
-        p->row = 3;
+        p->channels = 3;
     if (type & 4)
-        ++p->row;
-    unsigned char bits = p->row * channels;
-    p->bits = bits;
+        ++p->channels;
+    unsigned char bits = p->channels * channels;
+    p->pixel_depth = bits;
     unsigned int divisor = (bits + 7) >> 3;
     if (width > 0x7fffffff / divisor) {
         FUN_002e69d0((void *)(hulk_uintptr)(int)a, (void *)(const char *)"Width too large to process image data; rowbytes will overflow.");
@@ -3458,23 +2923,23 @@ void FUN_002eb240(int a, Image* p, unsigned int width, unsigned int p4, char cha
 
 
 // 0x002eb2f0 FUN_002eb2f0 (50 B): matches/0x002eb2f0.cpp
-// sym: ?target@fn_fb0f1f83@@YAXHPAUObj_2eb2f0@1@HHE@Z
-void target(int p1, Obj_2eb2f0* p2, int p3, int p4, unsigned char p5) {
+// sym: ?FUN_002eb2f0@fn_fb0f1f83@@YAXHPAUPngInfo@@HHE@Z
+void FUN_002eb2f0(hulk_intptr p1, Obj_2eb2f0* p2, int p3, int p4, unsigned char p5) {
     if (p1 != 0 && p2 != 0) {
-        p2->a = p3;
-        p2->b = p4;
-        p2->c = p5;
-        p2->flags |= 0x100;
+        p2->x_offset = p3;
+        p2->y_offset = p4;
+        p2->offset_unit_type = p5;
+        p2->valid |= 0x100;
     }
 }
 
 
 // 0x002eb330 FUN_002eb330 (328 B): equivalent/0x002eb330.cpp
-// sym: ?FUN_002eb330@fn_fb0f1f83@@YAXPAUPool@1@PAUEntry_2eb330@1@PBDHHDH2PAPBD@Z @046ed051afd6 @w5e94cbe73676
+// sym: ?FUN_002eb330@fn_fb0f1f83@@YAXPAUPngStruct@@PAUPngInfo@@PBDHHDH2PAPBD@Z @046ed051afd6 @w5e94cbe73676
 // STATUS: equivalent (tools/equiv.py level 3: 168 inputs, branch coverage 14/14)
 // FUN_002eb330 @ 0x002eb330
 // the original scans and copies with inline repne scasb / rep movs; plain forward loops keep clang from emitting calls
-void FUN_002eb330(Pool *pool, Entry_2eb330 *e, const char *name, int a4, int a8,
+void FUN_002eb330(PngStruct *pool, Entry_2eb330 *e, const char *name, int a4, int a8,
                   char flagA, int count, const char *text, const char **list)
 {
     if (pool == 0)
@@ -3484,69 +2949,69 @@ void FUN_002eb330(Pool *pool, Entry_2eb330 *e, const char *name, int a4, int a8,
 
     hulk_uintptr n = Len(name) + 1;
     char *copy = (char *)FUN_002e6c00(pool, n);
-    e->name = copy;
+    e->pcal_purpose = copy;
     Copy(copy, name, n);
-    e->flagA = flagA;
-    e->a4 = a4;
-    e->a8 = a8;
-    e->count = (unsigned char)count;
+    e->pcal_type = flagA;
+    e->pcal_X0 = a4;
+    e->pcal_X1 = a8;
+    e->pcal_nparams = (unsigned char)count;
 
     n = Len(text) + 1;
     copy = (char *)FUN_002e6c00(pool, n);
-    e->text = copy;
+    e->pcal_units = copy;
     Copy(copy, text, n);
 
-    e->list = (char **)FUN_002e6c00(pool, count * 4 + 4);
-    e->list[count] = 0;
+    e->pcal_params = (char **)FUN_002e6c00(pool, count * sizeof(char *) + sizeof(char *));
+    e->pcal_params[count] = 0;
     for (int i = 0; i < count; i++) {
         n = Len(list[i]) + 1;
         char *s = (char *)FUN_002e6c00(pool, n);
-        e->list[i] = s;
-        Copy(e->list[i], list[i], n);
+        e->pcal_params[i] = s;
+        Copy(e->pcal_params[i], list[i], n);
     }
-    e->flags |= 0x400;
+    e->valid |= 0x400;
 }
 
 
 // 0x002eb480 FUN_002eb480 (50 B): matches/0x002eb480.cpp
-// sym: ?target@fn_fb0f1f83@@YAXHPADIIE@Z
-void target(int a, char* b, u32_2eb480 c, u32_2eb480 d, u8_2eb480 e) {
+// sym: ?FUN_002eb480@fn_fb0f1f83@@YAXHPAUPngInfo@@IIE@Z
+void FUN_002eb480(hulk_intptr a, PngInfo* b, u32_2eb480 c, u32_2eb480 d, u8_2eb480 e) {
     if (a && b) {
-        *(u32_2eb480*)(b + 0x70) = c;
-        *(u32_2eb480*)(b + 0x74) = d;
-        *(u8_2eb480*)(b + 0x78) = e;
-        *(u32_2eb480*)(b + 8) |= 0x80;
+        b->x_pixels_per_unit = c;
+        b->y_pixels_per_unit = d;
+        b->phys_unit_type = e;
+        b->valid |= 0x80;
     }
 }
 
 
 // 0x002eb4c0 FUN_002eb4c0 (42 B): matches/0x002eb4c0.cpp
-// sym: ?FUN_002eb4c0@fn_fb0f1f83@@YAXHPAUObj_2eb4c0@1@IG@Z
-void FUN_002eb4c0(int a, Obj_2eb4c0* b, u32_2eb4c0 c, u16_2eb4c0 d) {
+// sym: ?FUN_002eb4c0@fn_fb0f1f83@@YAXHPAUPngInfo@@PAUPngColor@@G@Z
+void FUN_002eb4c0(hulk_intptr a, Obj_2eb4c0* b, PngColor* c, u16_2eb4c0 d) {
     if (a && b) {
-        b->field10 = c;
-        b->field14 = d;
-        b->flags |= 8;
+        b->palette = c;
+        b->num_palette = d;
+        b->valid |= 8;
     }
 }
 
 
 // 0x002eb4f0 FUN_002eb4f0 (40 B): matches/0x002eb4f0.cpp
-// sym: ?FUN_002eb4f0@fn_fb0f1f83@@YAXPAXPAUDst@1@PAUSrc@1@@Z
+// sym: ?FUN_002eb4f0@fn_fb0f1f83@@YAXPAXPAUPngInfo@@PAUPngColor8@@@Z
 void __cdecl FUN_002eb4f0(void* p, Dst* d, Src* s) {
     if (p && d) {
-        memcpy(&d->value, s, 5);
-        d->flags |= 2;
+        memcpy(&d->sig_bit, s, 5);
+        d->valid |= 2;
     }
 }
 
 
 // 0x002eb520 FUN_002eb520 (31 B): matches/0x002eb520.cpp
-// sym: ?FUN_002eb520@fn_fb0f1f83@@YAXHPAXE@Z
-void FUN_002eb520(int a, void* b, unsigned char c) {
+// sym: ?FUN_002eb520@fn_fb0f1f83@@YAXHPAUPngInfo@@E@Z
+void FUN_002eb520(hulk_intptr a, PngInfo* b, unsigned char c) {
     if (a && b) {
-        ((unsigned char*)b)[0x2c] = c;
-        *(unsigned*)((char*)b + 8) |= 0x800;
+        b->srgb_intent = c;
+        b->valid |= 0x800;
     }
 }
 
@@ -3561,7 +3026,7 @@ namespace fn_002eb540 {
 struct png_struct;
 struct png_info;
 
-void __cdecl FUN_002eb520(png_struct *png_ptr, png_info *info_ptr, int intent);                  // png_set_sRGB
+void __cdecl FUN_002eb520(png_struct *png_ptr, png_info *info_ptr, HULK_TYPE64(int, unsigned char) intent);   // png_set_sRGB (x64t16, D71)
 void __cdecl FUN_002eb1f0(png_struct *png_ptr, png_info *info_ptr, double file_gamma);           // png_set_gAMA
 void __cdecl FUN_002eb180(png_struct *png_ptr, png_info *info_ptr,
                           double white_x, double white_y, double red_x, double red_y,
@@ -3581,80 +3046,80 @@ extern "C" void __cdecl FUN_002eb540(png_struct *png_ptr, png_info *info_ptr, in
 namespace fn_fb0f1f83 {
 
 // 0x002eb5e0 FUN_002eb5e0 (257 B): equivalent/0x002eb5e0.cpp
-// sym: ?FUN_002eb5e0@fn_fb0f1f83@@YAXPAXPAUList_2eb5e0@1@PAUEntry_2eb5e0@1@H@Z @29d75ab1fe91 @w33b2261a5314
+// sym: ?FUN_002eb5e0@fn_fb0f1f83@@YAXPAXPAUPngInfo@@PAUPngText@@H@Z @29d75ab1fe91 @w33b2261a5314
 // STATUS: equivalent (tools/equiv.py level 3: 80 inputs, branch coverage 20/20)
 // FUN_002eb5e0 @ 0x002eb5e0
 void __cdecl FUN_002eb5e0(void* allocator, List_2eb5e0* list, Entry_2eb5e0* source, int count) {
  if (!allocator || !list || !count) return;
- int needed = list->count + count;
- int oldCapacity = list->capacity;
+ int needed = list->num_text + count;
+ int oldCapacity = list->max_text;
  if (needed > oldCapacity) {
-  Entry_2eb5e0* old = list->entries;
+  Entry_2eb5e0* old = list->text;
   if (old) {
-   list->capacity = needed + 8;
-   Entry_2eb5e0* fresh = (Entry_2eb5e0*)FUN_002e6c00(allocator, (unsigned int)list->capacity * 16);
-   list->entries = fresh;
-   unsigned int words = ((unsigned int)oldCapacity * 16) / 4;
+   list->max_text = needed + 8;
+   Entry_2eb5e0* fresh = (Entry_2eb5e0*)FUN_002e6c00(allocator, (unsigned int)list->max_text * sizeof(PngText));
+   list->text = fresh;
+   unsigned int words = ((unsigned int)oldCapacity * sizeof(PngText)) / 4;
    unsigned int* dst = (unsigned int*)fresh;
    unsigned int* src = (unsigned int*)old;
    for (unsigned int j=0; j<words; ++j) dst[j]=src[j];
    FUN_002e6c40(allocator, old);
   } else {
-   list->capacity = count + 8;
-   list->count = 0;
-   list->entries = (Entry_2eb5e0*)FUN_002e6c00(allocator, (unsigned int)list->capacity * 16);
+   list->max_text = count + 8;
+   list->num_text = 0;
+   list->text = (Entry_2eb5e0*)FUN_002e6c00(allocator, (unsigned int)list->max_text * sizeof(PngText));
   }
  }
  for (int i=0; i<count; ++i) {
-  Entry_2eb5e0* dest = list->entries + list->count;
-  if (!source[i].text) source[i].text = ((const char*)&DAT_003f335c);
+  Entry_2eb5e0* dest = list->text + list->num_text;
+  if (!source[i].text) source[i].text = ((char*)&DAT_003f335c);
   const char* text = source[i].text;
-  if (!*text) { dest->length=0; dest->id=-1; }
-  else { int len=0; while (text[len]) ++len; dest->length=len; dest->id=source[i].id; }
+  if (!*text) { dest->text_length=0; dest->compression=-1; }
+  else { int len=0; while (text[len]) ++len; dest->text_length=len; dest->compression=source[i].compression; }
   dest->text=source[i].text;
-  dest->value=source[i].value;
-  ++list->count;
+  dest->key=source[i].key;
+  ++list->num_text;
  }
 }
 
 
 // 0x002eb6f0 FUN_002eb6f0 (39 B): matches/0x002eb6f0.cpp
-// sym: ?FUN_002eb6f0@fn_fb0f1f83@@YAXHPAUObj_2eb6f0@1@PAUData_2eb6f0@1@@Z
-void FUN_002eb6f0(int p1, Obj_2eb6f0* p2, Data_2eb6f0* p3) {
+// sym: ?FUN_002eb6f0@fn_fb0f1f83@@YAXHPAUPngInfo@@PAUPngTime@@@Z
+void FUN_002eb6f0(hulk_intptr p1, Obj_2eb6f0* p2, Data_2eb6f0* p3) {
     if (p1 && p2) {
-        p2->x = p3->a;
-        p2->y = p3->b;
-        p2->flags |= 0x200;
+        p2->mod_time = *p3;
+        p2->valid |= 0x200;
     }
 }
 
 
 // 0x002eb720 FUN_002eb720 (93 B): matches/0x002eb720.cpp
-// sym: ?F@fn_fb0f1f83@@YAXPAXPAUObj_2eb720@1@HHPAUVal_2eb720@1@@Z
-void F(void* p, Obj_2eb720* o, hulk_intptr data, int count, Val_2eb720* v) {
+// sym: ?F@fn_fb0f1f83@@YAXPAXPAUPngInfo@@PAEHPAUPngColor16@@@Z
+void F(void* p, Obj_2eb720* o, unsigned char* data, int count, Val_2eb720* v) {
     if (!p || !o)
         return;
     if (data)
-        o->data = data;
+        o->trans = data;
     if (v)
-        o->val = *v;
+        o->trans_values = *v;
     if (v && !count)
         count = 1;
-    o->count = count;
-    o->flags |= 0x10;
+    o->num_trans = count;
+    o->valid |= 0x10;
 }
 
 
 // 0x002eb780 FUN_002eb780 (57 B): matches/0x002eb780.cpp
-// sym: ?FUN_002eb780@fn_fb0f1f83@@YAPADEEHHPAUManager_2eb780@1@@Z
-char* __cdecl FUN_002eb780(unsigned char a, unsigned char b, int c, int d, Manager_2eb780* m) {
-    char* p = (char*)m->alloc(m->context, 1, 0x1c);
+// sym: ?FUN_002eb780@fn_fb0f1f83@@YAPAUZInflateCodes@@EEPAUZInflateHuft@@0PAUZStream@@@Z
+// (x64t16) inflate_codes_new (bl, bd, tl, td, stream) on decls/libpng.h's records
+ZInflateCodes* __cdecl FUN_002eb780(unsigned char a, unsigned char b, ZInflateHuft* c, ZInflateHuft* d, Manager_2eb780* m) {
+    ZInflateCodes* p = (ZInflateCodes*)m->zalloc(m->opaque, 1, sizeof(ZInflateCodes));
     if (p) {
-        p[0x10] = a;
-        p[0x11] = b;
-        *(int*)p = 0;
-        *(int*)(p + 0x14) = c;
-        *(int*)(p + 0x18) = d;
+        p->lbits = a;
+        p->dbits = b;
+        p->mode = 0;
+        p->ltree = c;
+        p->dtree = d;
     }
     return p;
 }
@@ -3672,53 +3137,13 @@ typedef Byte Bytef;
 typedef unsigned int uInt;
 typedef unsigned long uLong;
 
-struct inflate_huft {
-    Byte exop;
-    Byte bits;
-    unsigned short pad;
-    uInt base;
-};
+typedef ZInflateHuft inflate_huft;   // (x64t16) decls/libpng.h
 
-struct inflate_codes_state {
-    int mode;                        // 0
-    uInt len;                        // 4
-    union {
-        struct {
-            inflate_huft *tree;      // 8
-            uInt need;               // 0xc
-        } code;
-        uInt lit;
-        struct {
-            uInt get;
-            uInt dist;
-        } copy;
-    } sub;
-    Byte lbits;                      // 0x10
-    Byte dbits;                      // 0x11
-    inflate_huft *ltree;             // 0x14
-    inflate_huft *dtree;             // 0x18
-};
+typedef ZInflateCodes inflate_codes_state;   // (x64t16) decls/libpng.h
 
-struct z_stream {
-    Bytef *next_in;                  // 0
-    uInt avail_in;                   // 4
-    uLong total_in;                  // 8
-    char pad_c[0x18 - 0xc];
-    char *msg;                       // 0x18
-};
+typedef ZStream z_stream;   // (x64t16) decls/libpng.h
 
-struct inflate_blocks_state {
-    int mode;                        // 0
-    inflate_codes_state *codes;      // 4
-    char pad8[0x1c - 8];
-    uInt bitk;                       // 0x1c
-    uLong bitb;                      // 0x20
-    char pad24[4];
-    Bytef *window;                   // 0x28
-    Bytef *end;                      // 0x2c
-    Bytef *read;                     // 0x30
-    Bytef *write;                    // 0x34
-};
+typedef ZInflateBlocks inflate_blocks_state;   // (x64t16) decls/libpng.h
 
         // inflate_mask
 int __cdecl FUN_002ec780(uInt bl, uInt bd, inflate_huft *tl, inflate_huft *td, inflate_blocks_state *s, z_stream *z);
@@ -3746,7 +3171,7 @@ extern "C" int __cdecl FUN_002eb7c0(inflate_blocks_state *s, z_stream *z, int r)
     Bytef *q;
     uInt m;
     Bytef *f;
-    inflate_codes_state *c = s->codes;
+    inflate_codes_state *c = s->sub.decode.codes;
 
     LOAD
 
@@ -3882,9 +3307,9 @@ extern "C" int __cdecl FUN_002eb7c0(inflate_blocks_state *s, z_stream *z, int r)
 namespace fn_fb0f1f83 {
 
 // 0x002ebed0 FUN_002ebed0 (20 B): matches/0x002ebed0.cpp
-// sym: ?FUN_002ebed0@fn_fb0f1f83@@YAXIPAUObj_2ebed0@1@@Z
-void __cdecl FUN_002ebed0(U32_2ebed0 value, Obj_2ebed0* object) {
-    object->fn(object->arg, value);
+// sym: ?FUN_002ebed0@fn_fb0f1f83@@YAXPAUZInflateCodes@@PAUZStream@@@Z
+void __cdecl FUN_002ebed0(ZInflateCodes* value, Obj_2ebed0* object) {   // (x64t16) inflate_codes_free
+    object->zfree(object->opaque, value);
 }
 
 
@@ -4041,7 +3466,7 @@ int FUN_002ebef0(uInt *b, uInt *m, uInt n, uInt s, const uInt *d, const uInt *e,
 
 
 // 0x002ec3e0 FUN_002ec3e0 (163 B): equivalent/0x002ec3e0.cpp
-// sym: ?FUN_002ec3e0@fn_fb0f1f83@@YAHPAI0PAPAUHuft@1@PAU21@PAUZStream_2ec3e0@1@@Z @811c32bc137d @w87fd475f18a9
+// sym: ?FUN_002ec3e0@fn_fb0f1f83@@YAHPAI0PAPAUHuft@1@PAU21@PAUZStream@@@Z @811c32bc137d @w87fd475f18a9
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_002ec3e0 @ 0x002ec3e0
 // equiv-conv: FUN_002ebef0 ecx eax stack stack stack stack stack stack stack stack
@@ -4066,7 +3491,7 @@ int FUN_002ec3e0(unsigned int *c, unsigned int *bb, Huft **tb, Huft *hp, ZStream
 
 
 // 0x002ec490 FUN_002ec490 (387 B): equivalent/0x002ec490.cpp
-// sym: ?FUN_002ec490@fn_fb0f1f83@@YAHIIPAI00PAPAUHuft@1@1PAU21@PAUZStream_2ec490@1@@Z @48e01babd639 @w3e49a5d59f39
+// sym: ?FUN_002ec490@fn_fb0f1f83@@YAHIIPAI00PAPAUHuft@1@1PAU21@PAUZStream@@@Z @48e01babd639 @w3e49a5d59f39
 // STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 22/22)
 // FUN_002ec490 @ 0x002ec490
 // equiv-conv: FUN_002ebef0 ecx eax stack stack stack stack stack stack stack stack
@@ -4112,10 +3537,10 @@ int FUN_002ec490(unsigned int nl, unsigned int nd, unsigned int *c, unsigned int
 
 
 // 0x002ec620 FUN_002ec620 (46 B): equivalent/0x002ec620.cpp
-// sym: ?FUN_002ec620@fn_fb0f1f83@@YAHPAH0PAPAH1@Z @c5d1d207d504 @w8b29200b3707
+// sym: ?FUN_002ec620@fn_fb0f1f83@@YAHPAH0PAPAH1PAUZStream@@@Z @c5d1d207d504 @w855e8332a308 @v571cc540277c
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_002ec620 @ 0x002ec620
-int __cdecl FUN_002ec620(int* first, int* second, int** third, int** fourth)
+int __cdecl FUN_002ec620(int* first, int* second, int** third, int** fourth, ZStream* z)   // (x64t16) inflate_trees_fixed (bl, bd, tl, td, z: unused)
 {
     *first = DAT_004d1730;
     *second = DAT_004d1734;
@@ -4126,7 +3551,7 @@ int __cdecl FUN_002ec620(int* first, int* second, int** third, int** fourth)
 
 
 // 0x002ec650 FUN_002ec650 (300 B): matches/0x002ec650.cpp
-// sym: ?FUN_002ec650@fn_fb0f1f83@@YAHPAUinflate_blocks_state_2ec650@1@PAUz_stream_2ec650@1@H@Z
+// sym: ?FUN_002ec650@fn_fb0f1f83@@YAHPAUZInflateBlocks@@PAUZStream@@H@Z
 // FUN_002ec650 @ 0x002ec650
 int FUN_002ec650(inflate_blocks_state_2ec650 *s, z_stream_2ec650 *z, int r)
 {
@@ -4172,7 +3597,7 @@ int FUN_002ec650(inflate_blocks_state_2ec650 *s, z_stream_2ec650 *z, int r)
 
 
 // 0x002ec780 FUN_002ec780 (869 B): matches/0x002ec780.cpp
-// sym: ?inflate_fast@fn_fb0f1f83@@YAHIIPAUinflate_huft_2ec780@1@0PAUinflate_blocks_state_2ec780@1@PAUz_stream_2ec780@1@@Z
+// sym: ?inflate_fast@fn_fb0f1f83@@YAHIIPAUZInflateHuft@@0PAUZInflateBlocks@@PAUZStream@@@Z
 // FUN_002ec780 @ 0x002ec780
 // zlib inflate_fast
 int __cdecl inflate_fast(unsigned int bl, unsigned int bd, inflate_huft_2ec780 *tl, inflate_huft_2ec780 *td,

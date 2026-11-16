@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "gen/owners.h"
 #include "gen/pure3d.h"
+#include "decls/libpng.h"
 #define TREE_TU_BEGIN namespace fn_f4f469f6 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CAction
@@ -78,7 +79,7 @@ unsigned int FUN_002d7e90(png_struct *png, png_info *info, unsigned int mask);
 unsigned int FUN_002d8630(png_struct *png, png_info *info, unsigned char **trans, int *numTrans, void *transValues);
 unsigned int FUN_002d7eb0(png_struct *png, png_info *info);
 void *FUN_00266e00(int tag, unsigned int size);
-void FUN_002d7440(png_struct *png, void *row, int zero);
+void FUN_002d7440(png_struct *png, void *row, unsigned char *zero);   // (x64t16) the display row, as defined
 class ImageSink_2ad9d0 {
 public:
     virtual void begin(unsigned int width, unsigned int height, int bitDepth, int flags, unsigned int *palette);
@@ -110,10 +111,7 @@ public:
     virtual void v1();
     virtual void writeRow(void *row);
 };
-struct PngInfoView {
-    char pad0[0x1e];
-    unsigned char pixelDepth;
-};
+typedef ::PngInfo PngInfoView;   // (x64t16) decls/libpng.h (the png_info's pixel depth, +0x1e on the 32-bit builds)
 void __cdecl FUN_002ad790(hulk_intptr png, hulk_intptr data, int length);   // (x64t15) as defined (Target)
 void FUN_002ad7c0();
 void FUN_002ad7d0();
@@ -131,7 +129,7 @@ char __cdecl FUN_002d7f70(png_struct *png, png_info *info);
 void __cdecl FUN_002d8830(png_struct *png);
 void __cdecl FUN_002d8820(png_struct *png);
 void __cdecl FUN_002dd1a0(png_struct *png);
-void __cdecl FUN_002dd250(png_struct *png, int filler, int where);
+void __cdecl FUN_002dd250(png_struct *png, unsigned char filler, int where);   // (x64t16) as defined
 void __cdecl FUN_002d9060(png_struct *png);
 void __cdecl FUN_002d73f0(png_struct *png, png_info *info);
 void __cdecl FUN_002d6ed0(png_struct *png, png_info **info);
@@ -298,12 +296,13 @@ struct Output_2adb10 {
  virtual void slot2(); virtual void slot3(); virtual void slot4(); virtual void slot5(); virtual void slot6(); virtual void slot7(); virtual void slot8(); virtual void slot9();
  virtual int finish();
 };
-extern unsigned char __cdecl FUN_002d7f30(void*, int);
-extern int __cdecl FUN_002d7ed0(void*, int);
-extern int __cdecl FUN_002d7ef0(void*, int);
-extern int __cdecl FUN_002d7eb0(void*, int);
+// (x64t16) the info is a pointer (hulk_intptr: `int` on the 32-bit builds), as the getters take it
+extern unsigned char __cdecl FUN_002d7f30(void*, hulk_intptr);
+extern int __cdecl FUN_002d7ed0(void*, hulk_intptr);
+extern int __cdecl FUN_002d7ef0(void*, hulk_intptr);
+extern int __cdecl FUN_002d7eb0(void*, hulk_intptr);
 extern void* __cdecl FUN_00266e00(int, int);
-extern void __cdecl FUN_002d7440(void*, void*, int);
+extern void __cdecl FUN_002d7440(void*, void*, hulk_intptr);
 extern void __cdecl FUN_00266f00(int, void*);
 // equiv-conv: FUN_002adb10 eax esi edi
 int FUN_002adb10(hulk_intptr index, void* source, Output_2adb10* output) {
@@ -340,7 +339,8 @@ void pure3d::PNGHandler::vfunc_9(hulk_intptr __p0, hulk_intptr __p1) { void * io
         png_info *info;
     } f;
 
-    f.png = FUN_002d6f10("1.0.3", 0, FUN_002ad7c0, FUN_002ad7d0, 0, (void (*)())FUN_002ad7e0, FUN_002ad7f0);
+    f.png = FUN_002d6f10("1.0.3", 0, FUN_002ad7c0, FUN_002ad7d0, 0, (void (*)())FUN_002ad7e0,
+                         (void (*)())(void (__cdecl *)(void *, void *))FUN_002ad7f0);   // (x64t16) the definition
     if (f.png == 0)
         return;
     f.info = FUN_002d6ea0(f.png);
@@ -362,7 +362,7 @@ void pure3d::PNGHandler::vfunc_9(hulk_intptr __p0, hulk_intptr __p1) { void * io
         if (bitDepth == 16)
             FUN_002d8820(f.png);
         FUN_002dd1a0(f.png);
-        if (((PngInfoView *)f.info)->pixelDepth != 0x20)
+        if (((PngInfoView *)f.info)->pixel_depth != 0x20)
             FUN_002dd250(f.png, 0xff, 1);
         if (colorType == 3 && bitDepth != 4 && bitDepth != 8)
             FUN_002d9060(f.png);

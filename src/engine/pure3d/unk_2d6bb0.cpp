@@ -3,6 +3,7 @@
 #include "tree_prelude.h"
 #include "compat/ptr.h"
 #include "decls/data/engine/pure3d.h"
+#include "decls/libpng.h"
 #define TREE_TU_BEGIN namespace fn_fcd359fc {
 #define TREE_TU_END }
 #define TREE_LOCAL_CAction
@@ -18,127 +19,42 @@ namespace fn_fcd359fc {} using namespace fn_fcd359fc;
 extern "C" int memcmp(const void*, const void*, unsigned int);
 #endif
 namespace fn_fcd359fc {
-extern "C" void* __cdecl FUN_002e6c00(unsigned int, unsigned int);
 } // namespace fn_fcd359fc
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" void* __cdecl memset(void*, int, unsigned int);
 #endif
 namespace fn_fcd359fc {
-struct Obj_2d6c90 {
-    char pad[0x108];
-    int value;
-};
-extern "C" int __cdecl FUN_002e6c80(int, int, int);
-class Obj_2d6cb0 {
-  public:
-    char pad[0x64];
-    unsigned int flags;
-    char p68[0xA0];
-    char p108[12];
-    unsigned char flag114;
-};
-extern "C" unsigned int __cdecl helper(hulk_uintptr, unsigned int, unsigned int);
+typedef PngStruct Obj_2d6c90;   // (x64t16) decls/libpng.h
+extern "C" unsigned int __cdecl FUN_002e6c80(unsigned int, const unsigned char*, unsigned int);   // (x64t16) crc32
+typedef PngStruct Obj_2d6cb0;
 typedef unsigned int u32_2d6d00;
-struct Item_2d6d10 {
-    int a;
-    void* p;
-    int c, d;
-};
-struct Obj_2d6d10 {
-    char pad[0x30];
-    int count;
-    char pad34[4];
-    Item_2d6d10* items;
-    char pad3c[0x64];
-    void* a0;
-    char pada4[8];
-    void* ac;
-    void** b0;
-    char padb4;
-    unsigned char b5;
-};
+typedef PngText Item_2d6d10;   // (x64t16) decls/libpng.h
+typedef PngInfo Obj_2d6d10;
 extern void __cdecl Process_002e6c40(void* ctx, void* p);
 extern void __cdecl Finish_002d6d00(Obj_2d6d10*);
-typedef unsigned int U32_2d6dd0;
-struct Obj_2d6dd0 {
-    char pad[0x5c];
-    U32_2d6dd0 value;
-};
-struct Object { char pad[0x210]; int value; };
-int __cdecl FUN_002e6a50(int, int);
-void __cdecl FUN_002d6d00(int);
-typedef unsigned int u32_2d6ed0;
-struct Obj_2d6ed0 {
-    char pad[0x214];
-    u32_2d6ed0 value;
-};
-void FUN_002d6d10(Obj_2d6ed0*, int*);
-void FUN_002e6ab0(int*, u32_2d6ed0);
+typedef PngStruct Obj_2d6dd0;
+void* __cdecl FUN_002e6a50(int, PngMallocFn);
+void __cdecl FUN_002d6d00(PngInfo*);
+typedef PngStruct Obj_2d6ed0;
+void FUN_002d6d10(PngStruct*, PngInfo*);
+void FUN_002e6ab0(void*, PngFreeFn);
 extern "C" void __cdecl FUN_002e7fb0(void *);
 extern "C" void __cdecl FUN_002d9170(void *, void *);
-struct Obj_2d73f0 {
-    char pad[0x64];
-    u8 flags;
-};
+typedef PngStruct Obj_2d73f0;   // (x64t16) decls/libpng.h
 struct Head_2d7b60 {
     int w[16];
 };
-struct PngInfo_2d7b60 {
-    Head_2d7b60 head;                 // 0x00 .. 0x40 (jmp_buf), preserved
-    int keep40;                // 0x40
-    int keep44;                // 0x44
-    int keep48;                // 0x48
-    char pad4c[0x64 - 0x4c];
-    unsigned int flags;        // 0x64
-    char pad68[4];
-    char zstream[0xa4 - 0x6c]; // 0x6c
-    void* f0a4;
-    char pada8[0xe0 - 0xa8];
-    void* f0e0;
-    void* f0e4;
-    char pad0e8[0x10c - 0xe8];
-    void* f10c;
-    char pad110[0x150 - 0x110];
-    int bitDepthShift;         // 0x150
-    char pad154[0x15c - 0x154];
-    void* f15c;
-    void* f160;
-    void* f164;
-    void** table168;
-    void** table16c;
-    void** table170;
-    char pad174[0x180 - 0x174];
-    void* f180;
-    char pad184[0x1a8 - 0x184];
-    void* f1a8;
-    char pad1ac[0x1e4 - 0x1ac];
-    void* f1e4;
-    void* f1e8;
-    void* f1ec;
-    char pad1f0[0x208 - 0x1f0];
-    void* f208;
-    char pad20c[0x214 - 0x20c];
-    int keep214;               // 0x214
-    char pad218[4];
-};
-void FUN_002d6d10(PngInfo_2d7b60* png, int extra);
-void FUN_002e6c40(PngInfo_2d7b60* png, void* ptr);
+struct PngInfo_2d7b60;   // (x64t16) only the thunk's symbol spells it (the png is decls/libpng.h's PngStruct)
+void FUN_002d6d10(PngStruct* png, PngInfo* extra);
+void FUN_002e6c40(PngStruct* png, void* ptr);
 void thunk_FUN_002e6c40(PngInfo_2d7b60* png, void* ptr);
 extern "C" void FUN_002e6e00(void* zstream);
-struct Obj_2d7df0 {
-    char pad[0x38];
-    int field38;
-    char rest[0x214 - 0x3c];
-    int field214;
-};
-void F1_002d7b60(Obj_2d7df0*, Obj_2d7df0*, Obj_2d7df0*);
-void F2_002e6c40(Obj_2d7df0*, int);
-void F3_002e6ab0(Obj_2d7df0*, int);
+typedef PngStruct Obj_2d7df0;   // (x64t16) decls/libpng.h
+void F1_002d7b60(PngStruct*, PngInfo*, PngInfo*);
+void F2_002e6c40(PngStruct*, void*);
+void F3_002e6ab0(void*, PngFreeFn);
 typedef unsigned int uint_2d7e90;
-struct Obj_2d7e90 {
-    char pad[8];
-    uint_2d7e90 value;
-};
+typedef PngInfo Obj_2d7e90;   // (x64t16) decls/libpng.h
 typedef unsigned int u32_2d7eb0;
 typedef unsigned char u8_2d7f10;
 typedef unsigned char u8_2d7f30;
@@ -146,57 +62,12 @@ typedef int i32_2d7f30;
 typedef unsigned char u8_2d7f70;
 typedef unsigned int u32_2d7f70;
 typedef unsigned int uint_2d8550;
-struct Data_2d8550 {
-    char pad0[8];
-    unsigned char flags;
-    char pad9[7];
-    unsigned int value;
-    unsigned short size;
-};
-struct S_2d8630 {
-    char p0[8];
-    unsigned char f8;
-    char p1[0xd];
-    unsigned short f16;
-    char p2[1];
-    unsigned char f19;
-    char p3[0x32];
-    int f4c;
-    int f50;
-};
+typedef PngInfo Data_2d8550;   // (x64t16) decls/libpng.h
+typedef PngInfo S_2d8630;   // (x64t16) decls/libpng.h
 typedef unsigned int u32_2d8820;
-struct Thing_2d8820 {
-    char pad[0x68];
-    u32_2d8820 flags;
-};
-struct Source_2d9170 {
-    char pad0[0x68];
-    unsigned int flags;
-    char pad6c[0x112 - 0x6c];
-    unsigned short count;
-    char pad114[0x130 - 0x114];
-    unsigned char tag[10];
-    char pad13a[0x154 - 0x13a];
-    unsigned int value154;
-    char pad158[0x1e4 - 0x158];
-    void *link;
-};
-struct Format_2d9170 {
-    unsigned int width;
-    char pad4[0xc - 4];
-    unsigned int rowBytes;
-    char pad10[0x16 - 0x10];
-    unsigned short w16;
-    unsigned char depth;
-    unsigned char mode;
-    char pad1a[0x1d - 0x1a];
-    unsigned char channels;
-    unsigned char bits;
-    char pad1f[0x28 - 0x1f];
-    unsigned int value28;
-    char pad2c[0x5a - 0x2c];
-    unsigned char tag[10];
-};
+typedef PngStruct Thing_2d8820;   // (x64t16) decls/libpng.h
+typedef PngStruct Source_2d9170;   // (x64t16) decls/libpng.h
+typedef PngInfo Format_2d9170;   // (x64t16) decls/libpng.h
 struct RowInfo_2d92c0 {
  unsigned int width;
  unsigned int rowBytes;
@@ -263,20 +134,7 @@ struct png_row_info_2d9c30 {
     png_byte_2d9c30 channels;
     png_byte_2d9c30 pixel_depth;
 };
-struct png_struct_2d9c30 {
-    char pad0[0x150];
-    png_uint_16 gamma_shift;           // 0x150
-    char pad152[0x160 - 0x152];
-    png_byte_2d9c30 *gamma_from_1;            // 0x160
-    png_byte_2d9c30 *gamma_to_1;              // 0x164
-    char pad168[4];
-    png_uint_16 **gamma_16_from_1;     // 0x16c
-    png_uint_16 **gamma_16_to_1;       // 0x170
-    char pad174[0x219 - 0x174];
-    png_byte_2d9c30 rgb_to_gray_red_coeff;    // 0x219
-    png_byte_2d9c30 rgb_to_gray_green_coeff;
-    png_byte_2d9c30 rgb_to_gray_blue_coeff;
-};
+typedef PngStruct png_struct_2d9c30;   // (x64t16) decls/libpng.h
 struct RowInfo_2db320 {
     unsigned int width;
     unsigned int rowbytes;
@@ -317,124 +175,15 @@ struct ImageInfo_2dbc50 {
     unsigned char flag;
     unsigned char bitsCopy;
 };
-struct Gamma {
-    char pad00[0x68];
-    unsigned int flags;
-    char pad6c[0x11e - 0x6c];
-    unsigned char b11e;
-    unsigned char mode;
-    char pad120[0x150 - 0x120];
-    unsigned int bits;
-    float gamma;
-    float scale;
-    unsigned char *tab0;
-    unsigned char *tab1;
-    unsigned char *tab2;
-    unsigned short **ptabA;
-    unsigned short **ptabB;
-    unsigned short **ptabC;
-    unsigned char c0;
-    unsigned char c1;
-    unsigned char c2;
-    unsigned char c3;
-};
+typedef PngStruct Gamma;   // (x64t16) decls/libpng.h
 unsigned char *__cdecl FUN_002e6c00(Gamma *g, unsigned int size);
-struct Col {
-    unsigned char idx;
-    unsigned char pad;
-    unsigned short r;
-    unsigned short g;
-    unsigned short b;
-    unsigned short gray;
-};
-struct Pal_2dc3e0 {
-    char pad00[0x68];
-    unsigned int flags;             // 0x68
-    char pad6c[0x10c - 0x6c];
-    unsigned char *entries;         // 0x10c, 3 bytes per entry
-    unsigned short count;           // 0x110
-    unsigned short alphaCount;      // 0x112
-    char pad114[0x11e - 0x114];
-    unsigned char mode;             // 0x11e
-    unsigned char bits;             // 0x11f
-    char pad120[0x128 - 0x120];
-    unsigned char kind;             // 0x128
-    char pad129[3];
-    float f12c;
-    Col cur;                        // 0x130
-    Col out;                        // 0x13a
-    char pad144[0x154 - 0x144];
-    float f154;
-    float f158;
-    unsigned char *tab15c;
-    unsigned char *tab160;
-    unsigned char *tab164;
-    char pad168[0x174 - 0x168];
-    unsigned char sh0;              // 0x174
-    unsigned char sh1;
-    unsigned char sh2;
-    char pad177[0x180 - 0x177];
-    unsigned char *alpha;           // 0x180
-};
-void __cdecl FUN_002dbd90(Pal_2dc3e0 *p);
-struct png_struct_2dcd90;
+typedef PngColor16 Col;   // (x64t16) decls/libpng.h
+typedef PngStruct Pal_2dc3e0;   // (x64t16) decls/libpng.h
+void __cdecl FUN_002dbd90(void *p);   // (x64t16) a call (not the definition below: MSVC would inline it)
 typedef unsigned char png_byte;
-struct png_row_info_2dcd90 {
-    unsigned int width;
-    unsigned int rowbytes;
-    png_byte color_type;
-    png_byte bit_depth;
-    png_byte channels;
-    png_byte pixel_depth;
-};
-struct png_color_16_2dcd90 {
-    unsigned short v[5];
-};
-struct png_struct_2dcd90 {
-    char pad000[0x54];
-    void (__cdecl *read_user_transform_fn)(png_struct_2dcd90 *, png_row_info_2dcd90 *, png_byte *);
-    char pad058[0x64 - 0x58];
-    unsigned int flags;
-    unsigned int transformations;
-    char pad06c[0xdc - 0x6c];
-    unsigned long row_number;
-    char pade0[4];
-    png_byte *row_buf;
-    char pade8[0xf8 - 0xe8];
-    png_row_info_2dcd90 row_info;
-    char pad104[0x10c - 0x104];
-    void *palette;
-    char pad110[2];
-    unsigned short num_trans;
-    char pad114[0x11c - 0x114];
-    png_byte pass;
-    png_byte pad11d;
-    png_byte color_type;
-    char pad11f[0x126 - 0x11f];
-    unsigned short filler;
-    char pad128[0x130 - 0x128];
-    png_color_16_2dcd90 background;
-    png_color_16_2dcd90 background_1;
-    char pad144[0x150 - 0x144];
-    int gamma_shift;
-    char pad154[0x15c - 0x154];
-    void *gamma_table;
-    void *gamma_from_1;
-    void *gamma_to_1;
-    void *gamma_16_table;
-    void *gamma_16_from_1;
-    void *gamma_16_to_1;
-    char pad174[0x179 - 0x174];
-    png_byte shift[5];
-    char pad17e[0x180 - 0x17e];
-    void *trans;
-    png_color_16_2dcd90 trans_values;
-    char pad18e[0x1e4 - 0x18e];
-    void *palette_lookup;
-    void *dither_index;
-    char pad1ec[0x218 - 0x1ec];
-    png_byte rgb_to_gray_status;
-};
+typedef PngRowInfo png_row_info_2dcd90;   // (x64t16) decls/libpng.h
+typedef PngColor16 png_color_16_2dcd90;   // (x64t16) decls/libpng.h
+typedef PngStruct png_struct_2dcd90;   // (x64t16) decls/libpng.h
 extern "C" void __cdecl FUN_002e69a0(void *, void *);
 extern "C" void * __cdecl FUN_002e69d0(void *, void *);
 extern "C" void __cdecl FUN_002db6b0(void *, unsigned char *, void *, unsigned char *, int);
@@ -455,21 +204,8 @@ extern "C" void __cdecl FUN_002d9840(void *, unsigned char *, unsigned, unsigned
 extern "C" void __cdecl FUN_002d9720(const void *, unsigned char *);
 extern "C" void __cdecl FUN_002d9610(const void *, unsigned char *);
 void __cdecl FUN_002dd310(png_row_info_2dcd90 *ri, png_byte *row);
-struct Obj_2dd1a0 {
-    char pad[0x68];
-    unsigned int flags;
-};
-struct Obj_2dd250 {
-    char pad0[0x64];
-    unsigned int flags64;
-    char pad68[0x11e - 0x68];
-    unsigned char state;
-    unsigned char level;
-    char pad120[3];
-    unsigned char result;
-    char pad124[2];
-    unsigned short value;
-};
+typedef PngStruct Obj_2dd1a0;   // (x64t16) decls/libpng.h
+typedef PngStruct Obj_2dd250;   // (x64t16) decls/libpng.h
 struct Data { char pad[4]; unsigned int length; unsigned char flag; unsigned char mode; };
 struct Info {
     int n;
@@ -500,29 +236,15 @@ struct png_row_info_2dd5c0 {
     unsigned char channels;
     unsigned char pixel_depth;
 };
-typedef void(__cdecl* ReadFn_2dd690)(void*, void*, unsigned int);
+typedef PngRwFn ReadFn_2dd690;
 extern "C" void __cdecl Fail_002e69a0(void*, const char*);
-struct Obj_2dd690 {
-    char pad[0x50];
-    ReadFn_2dd690 fn;
-};
-struct File {
-    char pad[0x5c];
-    void* handle;
-};
+typedef PngStruct Obj_2dd690;   // (x64t16) decls/libpng.h
+typedef PngStruct File_2dd6b0;   // (x64t16) decls/libpng.h
 extern "C" size_t __cdecl fread(void*, size_t, size_t, void*);
-extern "C" void __cdecl report(File*, const char*);
+extern "C" void __cdecl report(File_2dd6b0*, const char*);
 extern "C" void __cdecl FUN_002dd6b0();
 typedef unsigned int u32_2dd6f0;
-struct Obj_2dd6f0 {
-    char pad0[0x4c];
-    u32_2dd6f0 field4c;
-    hulk_uintptr field50;
-    char pad54[8];
-    u32_2dd6f0 field5c;
-    char pad60[0xe4];
-    u32_2dd6f0 field144;
-};
+typedef PngStruct Obj_2dd6f0;   // (x64t16) decls/libpng.h
 
 
 // 0x002d6bb0 FUN_002d6bb0 (77 B): matches/0x002d6bb0.cpp
@@ -541,10 +263,11 @@ extern "C" int FUN_002d6bb0(const char* p, unsigned int offset, unsigned int cou
 
 
 // 0x002d6c20 FUN_002d6c20 (96 B): matches/0x002d6c20.cpp
-// sym: ?FUN_002d6c20@fn_fcd359fc@@YAPAIIII@Z
-unsigned int* __cdecl FUN_002d6c20(unsigned int a, unsigned int b, unsigned int c) {
+// sym: ?FUN_002d6c20@fn_fcd359fc@@YAPAIPAXII@Z
+// (x64t16) png_zalloc (the png as zlib's opaque, items, size)
+unsigned int* __cdecl FUN_002d6c20(void* a, unsigned int b, unsigned int c) {
     unsigned int n = b * c;
-    unsigned int* p = (unsigned int*)FUN_002e6c00(a, n);
+    unsigned int* p = (unsigned int*)FUN_002e6c00((PngStruct*)a, n);
     if (n > 0x8000) {
         memset(p, 0, 0x8000);
         memset((char*)p + 0x8000, 0, n - 0x8000);
@@ -558,14 +281,14 @@ unsigned int* __cdecl FUN_002d6c20(unsigned int a, unsigned int b, unsigned int 
 // 0x002d6c90 FUN_002d6c90 (25 B): matches/0x002d6c90.cpp
 // sym: _FUN_002d6c90
 extern "C" void __cdecl FUN_002d6c90(void * self) {
-    ((Obj_2d6c90 *)self)->value = FUN_002e6c80(0, 0, 0);
+    ((Obj_2d6c90 *)self)->crc = FUN_002e6c80(0, 0, 0);
 }
 
 
 // 0x002d6cb0 FUN_002d6cb0 (72 B): matches/0x002d6cb0.cpp
 // sym: _FUN_002d6cb0
-extern "C" void __cdecl FUN_002d6cb0(Obj_2d6cb0* self, unsigned int a, unsigned int b) {
-    if (self->flag114 & 32) {
+extern "C" void __cdecl FUN_002d6cb0(Obj_2d6cb0* self, unsigned char* a, unsigned int b) {
+    if (self->chunk_name[0] & 32) {
         if ((self->flags & 0x300) != 0x300)
             goto work;
         return;
@@ -573,42 +296,42 @@ extern "C" void __cdecl FUN_002d6cb0(Obj_2d6cb0* self, unsigned int a, unsigned 
     if (self->flags & 0x800)
         return;
 work:
-    *(unsigned int*)((char*)self + 0x108) = helper(*(unsigned int*)((char*)self + 0x108), a, b);
+    self->crc = FUN_002e6c80(self->crc, a, b);
 }
 
 
 // 0x002d6d00 FUN_002d6d00 (16 B): matches/0x002d6d00.cpp
 // sym: ?FUN_002d6d00@fn_fcd359fc@@YAXPAI@Z
 void __cdecl FUN_002d6d00(u32_2d6d00* p) {
-    for (int i = 0x2e; i != 0; --i)
+    for (int i = sizeof(PngInfo) / 4; i != 0; --i)   // (x64t16) 0x2e words on the 32-bit builds
         *p++ = 0;
 }
 
 
 // 0x002d6d10 FUN_002d6d10 (188 B): matches/0x002d6d10.cpp
-// sym: ?Target@fn_fcd359fc@@YAXPAXPAUObj_2d6d10@1@@Z
+// sym: ?Target@fn_fcd359fc@@YAXPAXPAUPngInfo@@@Z
 void __cdecl Target(void* ctx, Obj_2d6d10* s) {
-    if (s->items) {
+    if (s->text) {
         int i = 0;
-        if (s->count > 0) {
+        if (s->num_text > 0) {
             do {
-                Process_002e6c40(ctx, s->items[i].p);
+                Process_002e6c40(ctx, s->text[i].key);
                 ++i;
-            } while (i < s->count);
+            } while (i < s->num_text);
         }
-        Process_002e6c40(ctx, s->items);
+        Process_002e6c40(ctx, s->text);
     }
-    Process_002e6c40(ctx, s->a0);
-    Process_002e6c40(ctx, s->ac);
-    if (s->b0) {
+    Process_002e6c40(ctx, s->pcal_purpose);
+    Process_002e6c40(ctx, s->pcal_units);
+    if (s->pcal_params) {
         int i = 0;
-        if (s->b5 > 0) {
+        if (s->pcal_nparams > 0) {
             do {
-                Process_002e6c40(ctx, s->b0[i]);
+                Process_002e6c40(ctx, s->pcal_params[i]);
                 ++i;
-            } while (i < (int)s->b5);
+            } while (i < (int)s->pcal_nparams);
         }
-        Process_002e6c40(ctx, s->b0);
+        Process_002e6c40(ctx, s->pcal_params);
     }
     Finish_002d6d00(s);
 }
@@ -616,8 +339,8 @@ void __cdecl Target(void* ctx, Obj_2d6d10* s) {
 
 // 0x002d6dd0 FUN_002d6dd0 (8 B): matches/0x002d6dd0.cpp
 // sym: _FUN_002d6dd0
-extern "C" U32_2d6dd0 __cdecl FUN_002d6dd0(Obj_2d6dd0* p) {
-    return p->value;
+extern "C" void* __cdecl FUN_002d6dd0(Obj_2d6dd0* p) {   // (x64t16) png_get_io_ptr
+    return p->io_ptr;
 }
 
 
@@ -625,10 +348,10 @@ extern "C" U32_2d6dd0 __cdecl FUN_002d6dd0(Obj_2d6dd0* p) {
 // sym: _FUN_002d6ea0 @93e65479bd77 @we6d73391690e
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_002d6ea0 @ 0x002d6ea0
-extern "C" hulk_intptr __cdecl FUN_002d6ea0(Object* object)
+extern "C" PngInfo* __cdecl FUN_002d6ea0(PngStruct* object)   // (x64t16) png_create_info_struct
 {
     if (!object) return 0;
-    int result = FUN_002e6a50(2, object->value);
+    PngInfo* result = (PngInfo*)FUN_002e6a50(2, object->malloc_fn);
     if (result) FUN_002d6d00(result);
     return result;
 }
@@ -636,11 +359,11 @@ extern "C" hulk_intptr __cdecl FUN_002d6ea0(Object* object)
 
 // 0x002d6ed0 FUN_002d6ed0 (54 B): matches/0x002d6ed0.cpp
 // sym: _FUN_002d6ed0
-extern "C" void FUN_002d6ed0(Obj_2d6ed0* self, int** out) {
+extern "C" void FUN_002d6ed0(Obj_2d6ed0* self, PngInfo** out) {
     if (out && *out) {
-        int* p = *out;
+        PngInfo* p = *out;
         FUN_002d6d10(self, p);
-        FUN_002e6ab0(p, self->value);
+        FUN_002e6ab0(p, self->free_fn);
         *out = 0;
     }
 }
@@ -653,27 +376,9 @@ namespace fn_002d6f10 {
 // STATUS: equivalent (tools/equiv.py level 3: 3107 inputs, branch coverage 21/21)
 // FUN_002d6f10 @ 0x002d6f10
 
-struct ZStream_2d6f10 {
-    void *next_in;
-    unsigned int avail_in;
-    unsigned int total_in;
-    void *next_out;
-    unsigned int avail_out;
-    unsigned int total_out;
-    char *msg;
-    void *state;
-    void (*zalloc)();
-    void (*zfree)();
-    void *opaque;
-    char pad2c[0x38 - 0x2c];
-};
+typedef ZStream ZStream_2d6f10;   // (x64t16) decls/libpng.h
 
-struct PngStruct_2d6f10 {
-    char jmpbuf[0x6c];
-    ZStream_2d6f10 zstream;
-    void *zbuf;
-    unsigned int zbufSize;
-};
+typedef PngStruct PngStruct_2d6f10;   // (x64t16) decls/libpng.h
 
 
 // the CRT setjmp helper (_setjmp3), named by address
@@ -686,8 +391,8 @@ extern "C" void FUN_002e6970(PngStruct_2d6f10 *png, void *errorPtr, void *errorF
 extern "C" void __cdecl FUN_002e69a0(void *, void *);
 void *FUN_002e6c00(PngStruct_2d6f10 *png, unsigned int size);
 extern "C" int FUN_002e6f50(ZStream_2d6f10 *strm, const char *version, int streamSize);
-extern "C++" void __cdecl FUN_002dd6f0(void *, unsigned int, void *);
-void FUN_002d6c20();
+extern "C++" void __cdecl FUN_002dd6f0(void *, void *, void *);
+void* FUN_002d6c20(void*, unsigned int, unsigned int);   // (x64t16) png_zalloc, as zlib calls it
 void FUN_002d6c80(void*, void*); /* (unb4) as defined; address taken only */
 
 extern "C" PngStruct_2d6f10 *FUN_002d6f10(const char *userVersion, void *errorPtr, void *errorFn, void *warnFn,
@@ -710,13 +415,13 @@ extern "C" PngStruct_2d6f10 *FUN_002d6f10(const char *userVersion, void *errorPt
         (userVersion[0] == '0' && userVersion[2] < '9'))
         FUN_002e69a0((PngStruct_2d6f10 *)png, (void *)(const char *)"Incompatible libpng version in application and library");
 
-    png->zbufSize = 0x2000;
-    png->zbuf = FUN_002e6c00(png, 0x2000);
+    png->zbuf_size = 0x2000;
+    png->zbuf = (unsigned char *)FUN_002e6c00(png, 0x2000);
     png->zstream.zalloc = &FUN_002d6c20;
-    png->zstream.zfree = (void (*)())&FUN_002d6c80;
+    png->zstream.zfree = &FUN_002d6c80;
     png->zstream.opaque = png;
 
-    switch (FUN_002e6f50(&png->zstream, "1.1.3", 0x38)) {
+    switch (FUN_002e6f50(&png->zstream, "1.1.3", sizeof(ZStream))) {
     case 0:
         break;
     case -4:
@@ -732,7 +437,7 @@ extern "C" PngStruct_2d6f10 *FUN_002d6f10(const char *userVersion, void *errorPt
     }
 
     png->zstream.next_out = png->zbuf;
-    png->zstream.avail_out = png->zbufSize;
+    png->zstream.avail_out = png->zbuf_size;
     FUN_002dd6f0((PngStruct_2d6f10 *)png, 0, (void *)(hulk_uintptr)(int)0);
     return png;
 }
@@ -740,29 +445,15 @@ extern "C" PngStruct_2d6f10 *FUN_002d6f10(const char *userVersion, void *errorPt
 
 
 // 0x002d7150 FUN_002d7150 (665 B): equivalent/0x002d7150.cpp [wrapped: code differs from its standalone build]
-// sym: ?FUN_002d7150@fn_002d7150@@YAXTPngArg@1@PAUPngInfo_2d7150@1@@Z @cf7c9e852bfc @wacfc2f0bba56
+// sym: ?FUN_002d7150@fn_002d7150@@YAXTPngArg@1@PAUPngInfo@@@Z @cf7c9e852bfc @wacfc2f0bba56
 namespace fn_002d7150 {
 // STATUS: equivalent (tools/equiv.py level 3: 95 inputs, branch coverage 48/48)
 // FUN_002d7150 @ 0x002d7150
 // libpng png_read_info
 
-struct PngStruct_2d7150 {
-    char pad0[0x60];
-    unsigned int mode;
-    char pad64[0x104 - 0x64];
-    unsigned int idatSize;
-    char pad108[0x114 - 0x108];
-    unsigned int chunk_name;
-    char pad118[0x11e - 0x118];
-    unsigned char colorType;
-    char pad11f[0x124 - 0x11f];
-    unsigned char sigBytes;
-};
+typedef PngStruct PngStruct_2d7150;   // (x64t16) decls/libpng.h
 
-struct PngInfo_2d7150 {
-    char pad0[0x20];
-    unsigned char signature[8];
-};
+typedef PngInfo PngInfo_2d7150;   // (x64t16) decls/libpng.h
 
 union PngArg {
     PngStruct_2d7150* png;
@@ -817,11 +508,11 @@ void FUN_002d7150(PngArg arg, PngInfo_2d7150* info)
     PngStruct_2d7150* png = arg.png;
     unsigned int length;
 
-    if (png->sigBytes < 8) {
-        unsigned int numChecked = png->sigBytes;
+    if (png->sig_bytes < 8) {
+        unsigned int numChecked = png->sig_bytes;
         unsigned int numToCheck = 8 - numChecked;
         FUN_002dd690((PngStruct_2d7150 *)png, info->signature + numChecked, numToCheck);
-        png->sigBytes = 8;
+        png->sig_bytes = 8;
         if (FUN_002d6bb0((const char *)(const unsigned char *)(info->signature), numChecked, numToCheck)) {
             if (numChecked < 4 && FUN_002d6bb0((const char *)(const unsigned char *)(info->signature), numChecked, numToCheck - 4))
                 FUN_002e69a0((PngStruct_2d7150 *)png, (void *)(const char *)"Not a PNG file");
@@ -833,48 +524,48 @@ void FUN_002d7150(PngArg arg, PngInfo_2d7150* info)
         FUN_002dd690((PngStruct_2d7150 *)png, arg.buf, 4);
         length = FUN_002e7500((unsigned char *)(const void *)(arg.buf));
         FUN_002d6c90((PngStruct_2d7150 *)png);
-        FUN_002e7580(png, &png->chunk_name, 4);
+        FUN_002e7580(png, png->chunk_name, 4);
 
-        if (png->chunk_name == (*(const unsigned int*)&DAT_004d1034)) {
+        if (*(unsigned int *)png->chunk_name == (*(const unsigned int*)&DAT_004d1034)) {
             FUN_002e82a0((PngStruct_2d7150 *)png, (PngInfo_2d7150 *)info, length);
-        } else if (png->chunk_name == (*(const unsigned int*)&DAT_004d104c)) {
+        } else if (*(unsigned int *)png->chunk_name == (*(const unsigned int*)&DAT_004d104c)) {
             FUN_002e84e0((PngStruct_2d7150 *)png, (PngInfo_2d7150 *)info, length);
-        } else if (png->chunk_name == (*(const unsigned int*)&DAT_004d1044)) {
+        } else if (*(unsigned int *)png->chunk_name == (*(const unsigned int*)&DAT_004d1044)) {
             FUN_002e8640(png, info, length);
-        } else if (png->chunk_name == (*(const unsigned int*)&DAT_004d103c)) {
+        } else if (*(unsigned int *)png->chunk_name == (*(const unsigned int*)&DAT_004d103c)) {
             if ((png->mode & 1) == 0) {
                 FUN_002e69a0((PngStruct_2d7150 *)png, (void *)(const char *)"Missing IHDR before IDAT");
-            } else if (png->colorType == 3 && (png->mode & 2) == 0) {
+            } else if (png->color_type == 3 && (png->mode & 2) == 0) {
                 FUN_002e69a0((PngStruct_2d7150 *)png, (void *)(const char *)"Missing PLTE before IDAT");
             }
-            png->idatSize = length;
+            png->idat_size = length;
             png->mode |= 4;
             return;
-        } else if (png->chunk_name == (*(const unsigned int*)&DAT_004d1054)) {
+        } else if (*(unsigned int *)png->chunk_name == (*(const unsigned int*)&DAT_004d1054)) {
             FUN_002e93b0((PngStruct_2d7150 *)png, (PngInfo_2d7150 *)info, length);
-        } else if (png->chunk_name == (*(const unsigned int*)&DAT_004d105c)) {
+        } else if (*(unsigned int *)png->chunk_name == (*(const unsigned int*)&DAT_004d105c)) {
             FUN_002e8940((PngStruct_2d7150 *)png, (PngInfo_2d7150 *)info, length);
-        } else if (png->chunk_name == (*(const unsigned int*)&DAT_004d1064)) {
+        } else if (*(unsigned int *)png->chunk_name == (*(const unsigned int*)&DAT_004d1064)) {
             FUN_002e86a0((PngStruct_2d7150 *)png, (PngInfo_2d7150 *)info, length);
-        } else if (png->chunk_name == (*(const unsigned int*)&DAT_004d106c)) {
+        } else if (*(unsigned int *)png->chunk_name == (*(const unsigned int*)&DAT_004d106c)) {
             FUN_002e9570((PngStruct_2d7150 *)png, (PngInfo_2d7150 *)info, (unsigned int)length);
-        } else if (png->chunk_name == (*(const unsigned int*)&DAT_004d1074)) {
+        } else if (*(unsigned int *)png->chunk_name == (*(const unsigned int*)&DAT_004d1074)) {
             FUN_002e9790((PngStruct_2d7150 *)png, (PngInfo_2d7150 *)info, (unsigned int)length);
-        } else if (png->chunk_name == (*(const unsigned int*)&DAT_004d107c)) {
+        } else if (*(unsigned int *)png->chunk_name == (*(const unsigned int*)&DAT_004d107c)) {
             FUN_002e9880((PngStruct_2d7150 *)png, (PngInfo_2d7150 *)info, length);
-        } else if (png->chunk_name == (*(const unsigned int*)&DAT_004d1084)) {
+        } else if (*(unsigned int *)png->chunk_name == (*(const unsigned int*)&DAT_004d1084)) {
             FUN_002e96a0((PngStruct_2d7150 *)png, (PngInfo_2d7150 *)info, (unsigned int)length);
-        } else if (png->chunk_name == (*(const unsigned int*)&DAT_004d108c)) {
+        } else if (*(unsigned int *)png->chunk_name == (*(const unsigned int*)&DAT_004d108c)) {
             FUN_002e87e0((PngStruct_2d7150 *)png, (PngInfo_2d7150 *)info, length);
-        } else if (png->chunk_name == (*(const unsigned int*)&DAT_004d1094)) {
+        } else if (*(unsigned int *)png->chunk_name == (*(const unsigned int*)&DAT_004d1094)) {
             FUN_002e8f80((PngStruct_2d7150 *)png, (PngInfo_2d7150 *)info, length);
-        } else if (png->chunk_name == (*(const unsigned int*)&DAT_004d109c)) {
+        } else if (*(unsigned int *)png->chunk_name == (*(const unsigned int*)&DAT_004d109c)) {
             FUN_002e9bb0((PngStruct_2d7150 *)png, (PngInfo_2d7150 *)info, length);
-        } else if (png->chunk_name == (*(const unsigned int*)&DAT_004d10a4)) {
+        } else if (*(unsigned int *)png->chunk_name == (*(const unsigned int*)&DAT_004d10a4)) {
             FUN_002e9ac0((PngStruct_2d7150 *)png, (PngInfo_2d7150 *)info, (unsigned int)length);
-        } else if (png->chunk_name == (*(const unsigned int*)&DAT_004d10ac)) {
+        } else if (*(unsigned int *)png->chunk_name == (*(const unsigned int*)&DAT_004d10ac)) {
             FUN_002e91b0((PngStruct_2d7150 *)png, (PngInfo_2d7150 *)info, length);
-        } else if (png->chunk_name == (*(const unsigned int*)&DAT_004d10b4)) {
+        } else if (*(unsigned int *)png->chunk_name == (*(const unsigned int*)&DAT_004d10b4)) {
             FUN_002e9c60((PngStruct_2d7150 *)png, (PngInfo_2d7150 *)info, (unsigned int)length);
         } else {
             FUN_002e9fc0(png, info, length);
@@ -887,10 +578,10 @@ namespace fn_fcd359fc {
 
 // 0x002d73f0 FUN_002d73f0 (36 B): matches/0x002d73f0.cpp
 // sym: _FUN_002d73f0
-extern "C" void __cdecl FUN_002d73f0(Obj_2d73f0* p, hulk_intptr a) {
+extern "C" void __cdecl FUN_002d73f0(Obj_2d73f0* p, PngInfo* a) {   // (x64t16) png_read_update_info
     if ((p->flags & 0x40) == 0)
         FUN_002e7fb0(p);
-    FUN_002d9170(p, (void *)(hulk_uintptr)(int)a);
+    FUN_002d9170(p, a);
 }
 
 } // namespace fn_fcd359fc
@@ -902,69 +593,13 @@ namespace fn_002d7440 {
 // FUN_002d7440 @ 0x002d7440
 // libpng 1.2.x png_read_row, as compiled into the game (zlib 1.2 inflate, Adam7 interlace handling).
 
-struct ZStream_2d7440 {
-    unsigned char *next_in;          // 0x00
-    unsigned int avail_in;           // 0x04
-    unsigned int total_in;
-    unsigned char *next_out;         // 0x0c
-    unsigned int avail_out;          // 0x10
-    unsigned int total_out;
-    const char *msg;                 // 0x18
-    void *state;
-    void *zalloc;
-    void *zfree;
-    void *opaque;
-    int data_type;
-    unsigned int adler;
-    unsigned int reserved;
-};
+typedef ZStream ZStream_2d7440;   // (x64t16) decls/libpng.h
 
-struct RowInfo_2d7440 {
-    unsigned int width;              // 0x00
-    unsigned int rowbytes;           // 0x04
-    unsigned char color_type;        // 0x08
-    unsigned char bit_depth;         // 0x09
-    unsigned char channels;          // 0x0a
-    unsigned char pixel_depth;       // 0x0b
-};
+typedef PngRowInfo RowInfo_2d7440;   // (x64t16) decls/libpng.h
 
-struct PngStruct_2d7440;
-typedef void (*ReadRowFn)(PngStruct_2d7440 *png, unsigned int row, int pass);
+typedef void (*ReadRowFn)(PngStruct *png, unsigned int row, int pass);
 
-struct PngStruct_2d7440 {
-    char pad00[0x60];
-    unsigned int mode;               // 0x60
-    unsigned int flags;              // 0x64
-    unsigned int transformations;    // 0x68
-    ZStream_2d7440 zstream;                 // 0x6c
-    unsigned char *zbuf;             // 0xa4
-    unsigned int zbuf_size;          // 0xa8
-    char padac[0xc0 - 0xac];
-    unsigned int width;              // 0xc0
-    char padc4[0xd0 - 0xc4];
-    unsigned int rowbytes;           // 0xd0
-    unsigned int irowbytes;          // 0xd4
-    unsigned int iwidth;             // 0xd8
-    unsigned int row_number;         // 0xdc
-    unsigned char *prev_row;         // 0xe0
-    unsigned char *row_buf;          // 0xe4
-    char pade8[0xf8 - 0xe8];
-    RowInfo_2d7440 row_info;                // 0xf8
-    unsigned int idat_size;          // 0x104
-    char pad108[0x114 - 0x108];
-    unsigned char chunk_name[4];     // 0x114
-    char pad118[0x11b - 0x118];
-    unsigned char interlaced;        // 0x11b
-    unsigned char pass;              // 0x11c
-    char pad11d[1];
-    unsigned char color_type;        // 0x11e
-    unsigned char bit_depth;         // 0x11f
-    char pad120[1];
-    unsigned char pixel_depth;       // 0x121
-    unsigned char channels;          // 0x122
-    char pad123[0x190 - 0x123];
-    ReadRowFn read_row_fn;           // 0x190
-};
+typedef PngStruct PngStruct_2d7440;   // (x64t16) decls/libpng.h
 
            // png_pass_mask
            // png_pass_dsp_mask
@@ -1120,20 +755,14 @@ extern "C" void __cdecl FUN_002d7440(PngStruct_2d7440 *png, unsigned char *row, 
 
 
 // 0x002d7980 FUN_002d7980 (477 B): equivalent/0x002d7980.cpp [wrapped: code differs from its standalone build]
-// sym: ?FUN_002d7980@fn_002d7980@@YAXPAUPngStruct_2d7980@1@PAUPngInfo@1@@Z @43561fe2da22 @wde15f237f3e7
+// sym: ?FUN_002d7980@fn_002d7980@@YAXPAUPngStruct@@PAUPngInfo@@@Z @43561fe2da22 @wde15f237f3e7
 namespace fn_002d7980 {
 // STATUS: equivalent (tools/equiv.py level 3: 100 inputs, branch coverage 40/40)
 // FUN_002d7980 @ 0x002d7980
 // libpng png_read_info
 
-struct PngStruct_2d7980 {
-    char pad0[0x60];
-    unsigned int mode;
-    char pad64[0x114 - 0x64];
-    unsigned int chunk_name;
-};
+typedef PngStruct PngStruct_2d7980;   // (x64t16) decls/libpng.h
 
-struct PngInfo;
 
  // "IHDR"
  // "IDAT"
@@ -1187,45 +816,45 @@ void FUN_002d7980(PngStruct_2d7980* png, PngInfo* info)
         FUN_002dd690((PngStruct_2d7980 *)png, buf, 4);
         length = FUN_002e7500((unsigned char *)(const void *)buf);
         FUN_002d6c90((PngStruct_2d7980 *)png);
-        FUN_002e7580(png, &png->chunk_name, 4);
+        FUN_002e7580(png, png->chunk_name, 4);
 
-        if (png->chunk_name == (*(const unsigned int*)&DAT_004d1034)) {
+        if (*(unsigned int *)png->chunk_name == (*(const unsigned int*)&DAT_004d1034)) {
             FUN_002e82a0((PngStruct_2d7980 *)png, (PngInfo *)info, length);
-        } else if (png->chunk_name == (*(const unsigned int*)&DAT_004d103c)) {
+        } else if (*(unsigned int *)png->chunk_name == (*(const unsigned int*)&DAT_004d103c)) {
             if (length > 0 || (png->mode & 8) != 0) {
                 FUN_002e69a0((PngStruct_2d7980 *)png, (void *)(const char *)"Too many IDAT's found");
             } else {
                 FUN_002e81e0((PngStruct_2d7980 *)png, 0);
             }
-        } else if (png->chunk_name == (*(const unsigned int*)&DAT_004d104c)) {
+        } else if (*(unsigned int *)png->chunk_name == (*(const unsigned int*)&DAT_004d104c)) {
             FUN_002e84e0((PngStruct_2d7980 *)png, (PngInfo *)info, length);
-        } else if (png->chunk_name == (*(const unsigned int*)&DAT_004d1044)) {
+        } else if (*(unsigned int *)png->chunk_name == (*(const unsigned int*)&DAT_004d1044)) {
             FUN_002e8640(png, info, length);
-        } else if (png->chunk_name == (*(const unsigned int*)&DAT_004d1054)) {
+        } else if (*(unsigned int *)png->chunk_name == (*(const unsigned int*)&DAT_004d1054)) {
             FUN_002e93b0((PngStruct_2d7980 *)png, (PngInfo *)info, length);
-        } else if (png->chunk_name == (*(const unsigned int*)&DAT_004d105c)) {
+        } else if (*(unsigned int *)png->chunk_name == (*(const unsigned int*)&DAT_004d105c)) {
             FUN_002e8940((PngStruct_2d7980 *)png, (PngInfo *)info, length);
-        } else if (png->chunk_name == (*(const unsigned int*)&DAT_004d1064)) {
+        } else if (*(unsigned int *)png->chunk_name == (*(const unsigned int*)&DAT_004d1064)) {
             FUN_002e86a0((PngStruct_2d7980 *)png, (PngInfo *)info, length);
-        } else if (png->chunk_name == (*(const unsigned int*)&DAT_004d106c)) {
+        } else if (*(unsigned int *)png->chunk_name == (*(const unsigned int*)&DAT_004d106c)) {
             FUN_002e9570((PngStruct_2d7980 *)png, (PngInfo *)info, (unsigned int)length);
-        } else if (png->chunk_name == (*(const unsigned int*)&DAT_004d1074)) {
+        } else if (*(unsigned int *)png->chunk_name == (*(const unsigned int*)&DAT_004d1074)) {
             FUN_002e9790((PngStruct_2d7980 *)png, (PngInfo *)info, (unsigned int)length);
-        } else if (png->chunk_name == (*(const unsigned int*)&DAT_004d107c)) {
+        } else if (*(unsigned int *)png->chunk_name == (*(const unsigned int*)&DAT_004d107c)) {
             FUN_002e9880((PngStruct_2d7980 *)png, (PngInfo *)info, length);
-        } else if (png->chunk_name == (*(const unsigned int*)&DAT_004d1084)) {
+        } else if (*(unsigned int *)png->chunk_name == (*(const unsigned int*)&DAT_004d1084)) {
             FUN_002e96a0((PngStruct_2d7980 *)png, (PngInfo *)info, (unsigned int)length);
-        } else if (png->chunk_name == (*(const unsigned int*)&DAT_004d108c)) {
+        } else if (*(unsigned int *)png->chunk_name == (*(const unsigned int*)&DAT_004d108c)) {
             FUN_002e87e0((PngStruct_2d7980 *)png, (PngInfo *)info, length);
-        } else if (png->chunk_name == (*(const unsigned int*)&DAT_004d1094)) {
+        } else if (*(unsigned int *)png->chunk_name == (*(const unsigned int*)&DAT_004d1094)) {
             FUN_002e8f80((PngStruct_2d7980 *)png, (PngInfo *)info, length);
-        } else if (png->chunk_name == (*(const unsigned int*)&DAT_004d109c)) {
+        } else if (*(unsigned int *)png->chunk_name == (*(const unsigned int*)&DAT_004d109c)) {
             FUN_002e9bb0((PngStruct_2d7980 *)png, (PngInfo *)info, length);
-        } else if (png->chunk_name == (*(const unsigned int*)&DAT_004d10a4)) {
+        } else if (*(unsigned int *)png->chunk_name == (*(const unsigned int*)&DAT_004d10a4)) {
             FUN_002e9ac0((PngStruct_2d7980 *)png, (PngInfo *)info, (unsigned int)length);
-        } else if (png->chunk_name == (*(const unsigned int*)&DAT_004d10ac)) {
+        } else if (*(unsigned int *)png->chunk_name == (*(const unsigned int*)&DAT_004d10ac)) {
             FUN_002e91b0((PngStruct_2d7980 *)png, (PngInfo *)info, length);
-        } else if (png->chunk_name == (*(const unsigned int*)&DAT_004d10b4)) {
+        } else if (*(unsigned int *)png->chunk_name == (*(const unsigned int*)&DAT_004d10b4)) {
             FUN_002e9c60((PngStruct_2d7980 *)png, (PngInfo *)info, (unsigned int)length);
         } else {
             FUN_002e9fc0(png, info, length);
@@ -1242,89 +871,89 @@ namespace fn_fcd359fc {
 // FUN_002d7b60 @ 0x002d7b60
 // libpng png_read_destroy-style teardown: free every owned buffer, then wipe the struct
 // while preserving the jmpbuf header and a few fields.
-extern "C" void FUN_002d7b60(PngInfo_2d7b60* png, int a, int b)
+extern "C" void FUN_002d7b60(PngStruct* png, PngInfo* a, PngInfo* b)
 {
     if (a)
         FUN_002d6d10(png, a);
     if (b)
         FUN_002d6d10(png, b);
 
-    FUN_002e6c40(png, png->f0a4);
-    FUN_002e6c40(png, png->f0e4);
-    FUN_002e6c40(png, png->f0e0);
-    FUN_002e6c40(png, png->f1e4);
-    FUN_002e6c40(png, png->f1e8);
-    FUN_002e6c40(png, png->f15c);
-    FUN_002e6c40(png, png->f160);
-    FUN_002e6c40(png, png->f164);
+    FUN_002e6c40(png, png->zbuf);
+    FUN_002e6c40(png, png->row_buf);
+    FUN_002e6c40(png, png->prev_row);
+    FUN_002e6c40(png, png->palette_lookup);
+    FUN_002e6c40(png, png->dither_index);
+    FUN_002e6c40(png, png->gamma_table);
+    FUN_002e6c40(png, png->gamma_from_1);
+    FUN_002e6c40(png, png->gamma_to_1);
 
     if (png->flags & 0x1000)
-        thunk_FUN_002e6c40(png, png->f10c);
+        thunk_FUN_002e6c40((PngInfo_2d7b60*)png, png->palette);
     if (png->flags & 0x2000)
-        FUN_002e6c40(png, png->f180);
+        FUN_002e6c40(png, png->trans);
     if (png->flags & 0x4000)
-        FUN_002e6c40(png, png->f1ec);
+        FUN_002e6c40(png, png->hist);
 
-    if (png->table168) {
-        int n = 1 << (8 - png->bitDepthShift);
+    if (png->gamma_16_table) {
+        int n = 1 << (8 - png->gamma_shift);
         for (int i = 0; i < n; i++)
-            FUN_002e6c40(png, png->table168[i]);
-        FUN_002e6c40(png, png->table168);
+            FUN_002e6c40(png, png->gamma_16_table[i]);
+        FUN_002e6c40(png, png->gamma_16_table);
     }
-    if (png->table16c) {
-        int n = 1 << (8 - png->bitDepthShift);
+    if (png->gamma_16_from_1) {
+        int n = 1 << (8 - png->gamma_shift);
         for (int i = 0; i < n; i++)
-            FUN_002e6c40(png, png->table16c[i]);
-        FUN_002e6c40(png, png->table16c);
+            FUN_002e6c40(png, png->gamma_16_from_1[i]);
+        FUN_002e6c40(png, png->gamma_16_from_1);
     }
-    if (png->table170) {
-        int n = 1 << (8 - png->bitDepthShift);
+    if (png->gamma_16_to_1) {
+        int n = 1 << (8 - png->gamma_shift);
         for (int i = 0; i < n; i++)
-            FUN_002e6c40(png, png->table170[i]);
-        FUN_002e6c40(png, png->table170);
+            FUN_002e6c40(png, png->gamma_16_to_1[i]);
+        FUN_002e6c40(png, png->gamma_16_to_1);
     }
 
-    FUN_002e6c40(png, png->f208);
-    FUN_002e6e00(png->zstream);
-    FUN_002e6c40(png, png->f1a8);
+    FUN_002e6c40(png, png->time_buffer);
+    FUN_002e6e00(&png->zstream);
+    FUN_002e6c40(png, png->save_buffer);
 
-    int k214 = png->keep214;
-    int k48 = png->keep48;
-    int k40 = png->keep40;
-    Head_2d7b60 head = png->head;
-    int k44 = png->keep44;
+    PngFreeFn k214 = png->free_fn;
+    void* k48 = png->error_ptr;
+    PngErrorFn k40 = png->error_fn;
+    Head_2d7b60 head = *(Head_2d7b60*)png->jmpbuf;
+    PngErrorFn k44 = png->warning_fn;
     unsigned int* p = (unsigned int*)png;
-    for (int i = 0; i < 0x87; i++)
+    for (int i = 0; i < (int)(sizeof(PngStruct) / 4); i++)   // (x64t16) 0x87 words on the 32-bit builds
         p[i] = 0;
-    png->keep44 = k44;
-    png->keep214 = k214;
-    png->head = head;
-    png->keep48 = k48;
-    png->keep40 = k40;
+    png->warning_fn = k44;
+    png->free_fn = k214;
+    *(Head_2d7b60*)png->jmpbuf = head;
+    png->error_ptr = k48;
+    png->error_fn = k40;
 }
 
 
 // 0x002d7df0 FUN_002d7df0 (150 B): matches/0x002d7df0.cpp
-// sym: ?FUN_002d7df0@fn_fcd359fc@@YAXPAPAUObj_2d7df0@1@00@Z
-void FUN_002d7df0(Obj_2d7df0** a, Obj_2d7df0** b, Obj_2d7df0** c) {
-    Obj_2d7df0* x = 0;
-    Obj_2d7df0* y = 0;
-    Obj_2d7df0* z = 0;
+// sym: ?FUN_002d7df0@fn_fcd359fc@@YAXPAPAUPngStruct@@PAPAUPngInfo@@1@Z
+void FUN_002d7df0(PngStruct** a, PngInfo** b, PngInfo** c) {   // (x64t16) png_destroy_read_struct
+    PngStruct* x = 0;
+    PngInfo* y = 0;
+    PngInfo* z = 0;
     if (a)
         x = *a;
     if (b)
         y = *b;
     if (c)
         z = *c;
-    int q = x->field214;
+    PngFreeFn q = x->free_fn;
     F1_002d7b60(x, y, z);
     if (y) {
-        F2_002e6c40(x, y->field38);
+        F2_002e6c40(x, y->text);
         F3_002e6ab0(y, q);
         *b = 0;
     }
     if (z) {
-        F2_002e6c40(x, z->field38);
+        F2_002e6c40(x, z->text);
         F3_002e6ab0(z, q);
         *c = 0;
     }
@@ -1337,7 +966,7 @@ void FUN_002d7df0(Obj_2d7df0** a, Obj_2d7df0** b, Obj_2d7df0** c) {
 // sym: _FUN_002d7e90
 extern "C" uint_2d7e90 FUN_002d7e90(hulk_intptr handle, Obj_2d7e90* object, uint_2d7e90 mask) {
     if (handle != 0 && object != 0)
-        return object->value & mask;
+        return object->valid & mask;
     return 0;
 }
 
@@ -1346,16 +975,16 @@ extern "C" uint_2d7e90 FUN_002d7e90(hulk_intptr handle, Obj_2d7e90* object, uint
 // sym: _FUN_002d7eb0
 extern "C" u32_2d7eb0 FUN_002d7eb0(void* a, void* b) {
     if (a && b)
-        return *(u32_2d7eb0*)((char*)b + 0xc);
+        return ((PngInfo*)b)->rowbytes;
     return 0;
 }
 
 
 // 0x002d7ed0 FUN_002d7ed0 (22 B): matches/0x002d7ed0.cpp
 // sym: _FUN_002d7ed0
-extern "C" int FUN_002d7ed0(hulk_intptr a, int* b) {
+extern "C" int FUN_002d7ed0(hulk_intptr a, PngInfo* b) {
     if (a && b)
-        return *b;
+        return b->width;
     return 0;
 }
 
@@ -1364,7 +993,7 @@ extern "C" int FUN_002d7ed0(hulk_intptr a, int* b) {
 // sym: _FUN_002d7ef0
 extern "C" int FUN_002d7ef0(hulk_intptr a, hulk_intptr b) {
     if (a && b)
-        return *(int*)(b + 4);
+        return ((PngInfo*)b)->height;
     return 0;
 }
 
@@ -1373,7 +1002,7 @@ extern "C" int FUN_002d7ef0(hulk_intptr a, hulk_intptr b) {
 // sym: _FUN_002d7f10
 extern "C" u8_2d7f10 __cdecl FUN_002d7f10(void* handle, void* object) {
     if (handle != 0 && object != 0)
-        return *((u8_2d7f10*)object + 0x18);
+        return ((PngInfo*)object)->bit_depth;
     return 0;
 }
 
@@ -1382,26 +1011,26 @@ extern "C" u8_2d7f10 __cdecl FUN_002d7f10(void* handle, void* object) {
 // sym: _FUN_002d7f30
 extern "C" u8_2d7f30 __cdecl FUN_002d7f30(hulk_intptr a, hulk_intptr b) {
     if (a && b)
-        return *(u8_2d7f30*)(b + 0x19);
+        return ((PngInfo*)b)->color_type;
     return 0;
 }
 
 
 // 0x002d7f70 FUN_002d7f70 (23 B): matches/0x002d7f70.cpp
 // sym: _FUN_002d7f70
-extern "C" u8_2d7f70 FUN_002d7f70(hulk_uintptr handle, u8_2d7f70* object) {
+extern "C" u8_2d7f70 FUN_002d7f70(hulk_uintptr handle, PngInfo* object) {
     if (handle != 0 && object != 0)
-        return object[0x1c];
+        return object->interlace_type;
     return 0;
 }
 
 
 // 0x002d8550 FUN_002d8550 (54 B): matches/0x002d8550.cpp
 // sym: _FUN_002d8550
-extern "C" int __cdecl FUN_002d8550(hulk_intptr a, Data_2d8550* b, unsigned int* out, uint_2d8550* out2) {
-    if (a && b && (b->flags & 8) && out) {
-        *out = b->value;
-        *out2 = (uint_2d8550)b->size;
+extern "C" int __cdecl FUN_002d8550(hulk_intptr a, Data_2d8550* b, PngColor** out, uint_2d8550* out2) {
+    if (a && b && (b->valid & 8) && out) {
+        *out = b->palette;
+        *out2 = (uint_2d8550)b->num_palette;
         return 8;
     }
     return 0;
@@ -1410,20 +1039,20 @@ extern "C" int __cdecl FUN_002d8550(hulk_intptr a, Data_2d8550* b, unsigned int*
 
 // 0x002d8630 FUN_002d8630 (115 B): matches/0x002d8630.cpp
 // sym: _FUN_002d8630
-extern "C" int FUN_002d8630(hulk_intptr a, S_2d8630* s, int* o1, unsigned* o2, int* o3) {
+extern "C" int FUN_002d8630(hulk_intptr a, S_2d8630* s, unsigned char** o1, unsigned* o2, PngColor16** o3) {
     int r = 0;
-    if (a != 0 && s != 0 && (s->f8 & 0x10) != 0) {
-        if (s->f19 == 3) {
+    if (a != 0 && s != 0 && (s->valid & 0x10) != 0) {
+        if (s->color_type == 3) {
             if (o1 != 0) {
-                *o1 = s->f4c;
+                *o1 = s->trans;
                 r = 0x10;
             }
             if (o3 != 0) {
-                *(hulk_intptr*)o3 = (hulk_intptr)&s->f50;
+                *o3 = &s->trans_values;
             }
         } else {
             if (o3 != 0) {
-                *(hulk_intptr*)o3 = (hulk_intptr)&s->f50;
+                *o3 = &s->trans_values;
                 r = 0x10;
             }
             if (o1 != 0) {
@@ -1431,7 +1060,7 @@ extern "C" int FUN_002d8630(hulk_intptr a, S_2d8630* s, int* o1, unsigned* o2, i
             }
         }
         if (o2 != 0) {
-            *o2 = s->f16;
+            *o2 = s->num_trans;
             r |= 0x10;
         }
     }
@@ -1442,21 +1071,21 @@ extern "C" int FUN_002d8630(hulk_intptr a, S_2d8630* s, int* o1, unsigned* o2, i
 // 0x002d8820 FUN_002d8820 (12 B): matches/0x002d8820.cpp
 // sym: _FUN_002d8820
 extern "C" void __cdecl FUN_002d8820(Thing_2d8820* p) {
-    p->flags |= 0x400;
+    p->transformations |= 0x400;
 }
 
 
 // 0x002d8830 FUN_002d8830 (12 B): matches/0x002d8830.cpp
 // sym: _FUN_002d8830
 extern "C" void FUN_002d8830(void* object) {
-    *(uint*)((char*)object + 0x68) |= 0x40000;
+    ((PngStruct*)object)->transformations |= 0x40000;
 }
 
 
 // 0x002d9060 FUN_002d9060 (12 B): matches/0x002d9060.cpp
 // sym: _FUN_002d9060
 extern "C" void FUN_002d9060(void* p) {
-    *(unsigned int*)((char*)p + 0x68) |= 0x1000;
+    ((PngStruct*)p)->transformations |= 0x1000;
 }
 
 
@@ -1469,62 +1098,62 @@ extern "C" void FUN_002d9170(void *src, void * fmt_)
     Format_2d9170 * fmt = (Format_2d9170 *)fmt_;
     unsigned char bl = 8;
 
-    if (((Source_2d9170 *)src)->flags & 0x1000) {
-        if (fmt->mode == 3) {
-            fmt->mode = (((Source_2d9170 *)src)->count != 0) * 4 + 2;
-            fmt->depth = bl;
+    if (((Source_2d9170 *)src)->transformations & 0x1000) {
+        if (fmt->color_type == 3) {
+            fmt->color_type = (((Source_2d9170 *)src)->num_trans != 0) * 4 + 2;
+            fmt->bit_depth = bl;
         } else {
-            if (((Source_2d9170 *)src)->count != 0)
-                fmt->mode = fmt->mode | 4;
-            if (fmt->depth < bl)
-                fmt->depth = bl;
+            if (((Source_2d9170 *)src)->num_trans != 0)
+                fmt->color_type = fmt->color_type | 4;
+            if (fmt->bit_depth < bl)
+                fmt->bit_depth = bl;
         }
-        fmt->w16 = 0;
+        fmt->num_trans = 0;
     }
-    if (((Source_2d9170 *)src)->flags & 0x80) {
-        fmt->mode &= 0xfb;
-        fmt->w16 = 0;
+    if (((Source_2d9170 *)src)->transformations & 0x80) {
+        fmt->color_type &= 0xfb;
+        fmt->num_trans = 0;
         for (int i = 0; i < 10; i++)
-            fmt->tag[i] = ((Source_2d9170 *)src)->tag[i];
+            ((unsigned char *)&fmt->background)[i] = ((unsigned char *)&((Source_2d9170 *)src)->background)[i];
     }
-    if (((Source_2d9170 *)src)->flags & 0x2000)
-        fmt->value28 = ((Source_2d9170 *)src)->value154;
-    if (((Source_2d9170 *)src)->flags & 0x400) {
-        if (fmt->depth == 0x10)
-            fmt->depth = bl;
+    if (((Source_2d9170 *)src)->transformations & 0x2000)
+        *(unsigned int *)&fmt->gamma = *(unsigned int *)&((Source_2d9170 *)src)->gamma;
+    if (((Source_2d9170 *)src)->transformations & 0x400) {
+        if (fmt->bit_depth == 0x10)
+            fmt->bit_depth = bl;
     }
-    if (((Source_2d9170 *)src)->flags & 0x40) {
-        unsigned char m = fmt->mode;
-        if ((m == 2 || m == 6) && ((Source_2d9170 *)src)->link != 0 && fmt->depth == bl)
-            fmt->mode = 3;
+    if (((Source_2d9170 *)src)->transformations & 0x40) {
+        unsigned char m = fmt->color_type;
+        if ((m == 2 || m == 6) && ((Source_2d9170 *)src)->palette_lookup != 0 && fmt->bit_depth == bl)
+            fmt->color_type = 3;
     }
-    if (((Source_2d9170 *)src)->flags & 4) {
-        if (fmt->depth < bl)
-            fmt->depth = bl;
+    if (((Source_2d9170 *)src)->transformations & 4) {
+        if (fmt->bit_depth < bl)
+            fmt->bit_depth = bl;
     }
-    if (((Source_2d9170 *)src)->flags & 0x4000)
-        fmt->mode |= 2;
-    if (((Source_2d9170 *)src)->flags & 0x600000)
-        fmt->mode &= 0xfd;
-    unsigned char m = fmt->mode;
+    if (((Source_2d9170 *)src)->transformations & 0x4000)
+        fmt->color_type |= 2;
+    if (((Source_2d9170 *)src)->transformations & 0x600000)
+        fmt->color_type &= 0xfd;
+    unsigned char m = fmt->color_type;
     if (m != 3 && (m & 2))
         fmt->channels = 3;
     else
         fmt->channels = 1;
-    if (((Source_2d9170 *)src)->flags & 0x40000) {
+    if (((Source_2d9170 *)src)->transformations & 0x40000) {
         m &= 0xfb;
-        fmt->mode = m;
+        fmt->color_type = m;
     }
-    m = fmt->mode;
+    m = fmt->color_type;
     if (m & 4)
         fmt->channels++;
-    if (((Source_2d9170 *)src)->flags & 0x8000) {
+    if (((Source_2d9170 *)src)->transformations & 0x8000) {
         if (m == 2 || m == 0)
             fmt->channels++;
     }
-    unsigned char bits = (unsigned char)(fmt->depth * fmt->channels);
-    fmt->bits = bits;
-    fmt->rowBytes = (bits * fmt->width + 7) >> 3;
+    unsigned char bits = (unsigned char)(fmt->bit_depth * fmt->channels);
+    fmt->pixel_depth = bits;
+    fmt->rowbytes = (bits * fmt->width + 7) >> 3;
 }
 
 
@@ -2000,11 +1629,11 @@ extern "C" int __cdecl FUN_002d9c30(void *png_ptr, void * row_info_, unsigned ch
                         if (red == green && red == blue) {
                             w = red;
                         } else {
-                            png_uint_16 red_1 = ((png_struct_2d9c30 *)png_ptr)->gamma_16_to_1[(red & 0xff) >> ((png_struct_2d9c30 *)png_ptr)->gamma_shift][red >> 8];
-                            png_uint_16 green_1 = ((png_struct_2d9c30 *)png_ptr)->gamma_16_to_1[(green & 0xff) >> ((png_struct_2d9c30 *)png_ptr)->gamma_shift][green >> 8];
-                            png_uint_16 blue_1 = ((png_struct_2d9c30 *)png_ptr)->gamma_16_to_1[(blue & 0xff) >> ((png_struct_2d9c30 *)png_ptr)->gamma_shift][blue >> 8];
+                            png_uint_16 red_1 = ((png_struct_2d9c30 *)png_ptr)->gamma_16_to_1[(red & 0xff) >> (*(png_uint_16 *)&((png_struct_2d9c30 *)png_ptr)->gamma_shift)][red >> 8];
+                            png_uint_16 green_1 = ((png_struct_2d9c30 *)png_ptr)->gamma_16_to_1[(green & 0xff) >> (*(png_uint_16 *)&((png_struct_2d9c30 *)png_ptr)->gamma_shift)][green >> 8];
+                            png_uint_16 blue_1 = ((png_struct_2d9c30 *)png_ptr)->gamma_16_to_1[(blue & 0xff) >> (*(png_uint_16 *)&((png_struct_2d9c30 *)png_ptr)->gamma_shift)][blue >> 8];
                             png_uint_16 gray16 = (png_uint_16)((rc * red_1 + gc * green_1 + bc * blue_1) >> 8);
-                            w = ((png_struct_2d9c30 *)png_ptr)->gamma_16_from_1[(gray16 & 0xff) >> ((png_struct_2d9c30 *)png_ptr)->gamma_shift][gray16 >> 8];
+                            w = ((png_struct_2d9c30 *)png_ptr)->gamma_16_from_1[(gray16 & 0xff) >> (*(png_uint_16 *)&((png_struct_2d9c30 *)png_ptr)->gamma_shift)][gray16 >> 8];
                             rgb_error |= 1;
                         }
                         *(dp++) = (png_byte_2d9c30)((w >> 8) & 0xff);
@@ -2066,11 +1695,11 @@ extern "C" int __cdecl FUN_002d9c30(void *png_ptr, void * row_info_, unsigned ch
                         if (red == green && red == blue) {
                             w = red;
                         } else {
-                            png_uint_16 red_1 = ((png_struct_2d9c30 *)png_ptr)->gamma_16_to_1[(red & 0xff) >> ((png_struct_2d9c30 *)png_ptr)->gamma_shift][red >> 8];
-                            png_uint_16 green_1 = ((png_struct_2d9c30 *)png_ptr)->gamma_16_to_1[(green & 0xff) >> ((png_struct_2d9c30 *)png_ptr)->gamma_shift][green >> 8];
-                            png_uint_16 blue_1 = ((png_struct_2d9c30 *)png_ptr)->gamma_16_to_1[(blue & 0xff) >> ((png_struct_2d9c30 *)png_ptr)->gamma_shift][blue >> 8];
+                            png_uint_16 red_1 = ((png_struct_2d9c30 *)png_ptr)->gamma_16_to_1[(red & 0xff) >> (*(png_uint_16 *)&((png_struct_2d9c30 *)png_ptr)->gamma_shift)][red >> 8];
+                            png_uint_16 green_1 = ((png_struct_2d9c30 *)png_ptr)->gamma_16_to_1[(green & 0xff) >> (*(png_uint_16 *)&((png_struct_2d9c30 *)png_ptr)->gamma_shift)][green >> 8];
+                            png_uint_16 blue_1 = ((png_struct_2d9c30 *)png_ptr)->gamma_16_to_1[(blue & 0xff) >> (*(png_uint_16 *)&((png_struct_2d9c30 *)png_ptr)->gamma_shift)][blue >> 8];
                             png_uint_16 gray16 = (png_uint_16)((rc * red_1 + gc * green_1 + bc * blue_1) >> 8);
-                            w = ((png_struct_2d9c30 *)png_ptr)->gamma_16_from_1[(gray16 & 0xff) >> ((png_struct_2d9c30 *)png_ptr)->gamma_shift][gray16 >> 8];
+                            w = ((png_struct_2d9c30 *)png_ptr)->gamma_16_from_1[(gray16 & 0xff) >> (*(png_uint_16 *)&((png_struct_2d9c30 *)png_ptr)->gamma_shift)][gray16 >> 8];
                             rgb_error |= 1;
                         }
                         *(dp++) = (png_byte_2d9c30)((w >> 8) & 0xff);
@@ -3076,73 +2705,73 @@ extern "C" void FUN_002dbc50(void *info, unsigned char *data, unsigned char *rgb
 
 
 // 0x002dbd90 FUN_002dbd90 (1615 B): equivalent/0x002dbd90.cpp
-// sym: ?FUN_002dbd90@fn_fcd359fc@@YAXPAUGamma@1@@Z @fc728c88a8a1 @w5cbbc353a908
+// sym: ?FUN_002dbd90@fn_fcd359fc@@YAXPAUPngStruct@@@Z @fc728c88a8a1 @w5cbbc353a908
 // STATUS: equivalent (tools/equiv.py level 3: 106 inputs, branch coverage 62/80, incomplete)
 // FUN_002dbd90 @ 0x002dbd90
 void FUN_002dbd90(Gamma *g)
 {
     if (g->gamma == 0.0)
         return;
-    if (g->mode <= 8) {
+    if (g->bit_depth <= 8) {
         double e;
-        if (g->scale > 1e-6)
-            e = 1.0 / (g->scale * g->gamma);
+        if (g->screen_gamma > 1e-6)
+            e = 1.0 / (g->screen_gamma * g->gamma);
         else
             e = 1.0;
-        g->tab0 = FUN_002e6c00(g, 0x100);
+        g->gamma_table = FUN_002e6c00(g, 0x100);
         for (int i = 0; i < 0x100; i++)
-            g->tab0[i] = (unsigned char)(int)(pow(i * 0.00392156862745098, e) * 255.0 + 0.5);
-        if (!(g->flags & 0x600080))
+            g->gamma_table[i] = (unsigned char)(int)(pow(i * 0.00392156862745098, e) * 255.0 + 0.5);
+        if (!(g->transformations & 0x600080))
             return;
         double e2 = 1.0 / g->gamma;
-        g->tab2 = FUN_002e6c00(g, 0x100);
+        g->gamma_to_1 = FUN_002e6c00(g, 0x100);
         for (int i = 0; i < 0x100; i++)
-            g->tab2[i] = (unsigned char)(int)(pow(i * 0.00392156862745098, e2) * 255.0 + 0.5);
-        g->tab1 = FUN_002e6c00(g, 0x100);
+            g->gamma_to_1[i] = (unsigned char)(int)(pow(i * 0.00392156862745098, e2) * 255.0 + 0.5);
+        g->gamma_from_1 = FUN_002e6c00(g, 0x100);
         double e3;
-        if (g->scale > 1e-6)
-            e3 = 1.0 / g->scale;
+        if (g->screen_gamma > 1e-6)
+            e3 = 1.0 / g->screen_gamma;
         else
             e3 = g->gamma;
         for (int i = 0; i < 0x100; i++)
-            g->tab1[i] = (unsigned char)(int)(pow(i * 0.00392156862745098, e3) * 255.0 + 0.5);
+            g->gamma_from_1[i] = (unsigned char)(int)(pow(i * 0.00392156862745098, e3) * 255.0 + 0.5);
         return;
     }
 
     int c;
-    if (g->b11e & 2) {
-        c = g->c0;
-        if (g->c1 > c)
-            c = g->c1;
-        if (g->c2 > c)
-            c = g->c2;
+    if (g->color_type & 2) {
+        c = g->sig_bit.red;
+        if (g->sig_bit.green > c)
+            c = g->sig_bit.green;
+        if (g->sig_bit.blue > c)
+            c = g->sig_bit.blue;
     } else {
-        c = g->c3;
+        c = g->sig_bit.gray;
     }
     int bits;
     if (c > 0)
         bits = 0x10 - c;
     else
         bits = 0;
-    if ((g->flags & 0x400) && bits < 5)
+    if ((g->transformations & 0x400) && bits < 5)
         bits = 5;
     else if (bits > 8)
         bits = 8;
     else if (bits < 0)
         bits = 0;
-    g->bits = (unsigned char)bits;
+    g->gamma_shift = (unsigned char)bits;
     int shift = 8 - bits;
     int count = 1 << shift;
     double d;
-    if (g->scale > 1e-6)
-        d = 1.0 / (g->scale * g->gamma);
+    if (g->screen_gamma > 1e-6)
+        d = 1.0 / (g->screen_gamma * g->gamma);
     else
         d = 1.0;
-    g->ptabA = (unsigned short **)FUN_002e6c00(g, count * 4);
+    g->gamma_16_table = (unsigned short **)FUN_002e6c00(g, count * sizeof(unsigned short *));
     unsigned int edi = 0;
-    if (g->flags & 0x480) {
+    if (g->transformations & 0x480) {
         for (int i = 0; i < count; i++)
-            g->ptabA[i] = (unsigned short *)FUN_002e6c00(g, 0x200);
+            g->gamma_16_table[i] = (unsigned short *)FUN_002e6c00(g, 0x200);
         double invd = 1.0 / d;
         unsigned int n = count << 8;
         double dn = (double)n;
@@ -3153,7 +2782,7 @@ void FUN_002dbd90(Gamma *g)
                 unsigned short v = (unsigned short)((j << 8) | j);
                 int mask = 0xff >> bits;
                 do {
-                    g->ptabA[mask & edi][edi >> shift] = v;
+                    g->gamma_16_table[mask & edi][edi >> shift] = v;
                     edi++;
                 } while (edi <= end);
             }
@@ -3161,7 +2790,7 @@ void FUN_002dbd90(Gamma *g)
         if (edi < n) {
             int mask = 0xff >> bits;
             do {
-                g->ptabA[mask & edi][edi >> shift] = 0xffff;
+                g->gamma_16_table[mask & edi][edi >> shift] = 0xffff;
                 edi++;
             } while (edi < n);
         }
@@ -3169,11 +2798,11 @@ void FUN_002dbd90(Gamma *g)
         if (count > 0) {
             int i = 0;
             do {
-                g->ptabA[i] = (unsigned short *)FUN_002e6c00(g, 0x200);
+                g->gamma_16_table[i] = (unsigned short *)FUN_002e6c00(g, 0x200);
                 unsigned int base = (((unsigned int*)&DAT_004d1164)[bits] * i) >> 4;
                 unsigned int k = 0;
                 do {
-                    g->ptabA[i][k / 2] = (unsigned short)(int)(pow((double)base * 1.5259021896696422e-05, d) * 65535.0 + 0.5);
+                    g->gamma_16_table[i][k / 2] = (unsigned short)(int)(pow((double)base * 1.5259021896696422e-05, d) * 65535.0 + 0.5);
                     k += 2;
                     base += 0x100;
                 } while (k < 0x200);
@@ -3181,18 +2810,18 @@ void FUN_002dbd90(Gamma *g)
             } while (i < count);
         }
     }
-    if (!(g->flags & 0x600080))
+    if (!(g->transformations & 0x600080))
         return;
     double e4 = 1.0 / g->gamma;
-    g->ptabC = (unsigned short **)FUN_002e6c00(g, count * 4);
+    g->gamma_16_to_1 = (unsigned short **)FUN_002e6c00(g, count * sizeof(unsigned short *));
     if (count > 0) {
         int i = 0;
         do {
-            g->ptabC[i] = (unsigned short *)FUN_002e6c00(g, 0x200);
+            g->gamma_16_to_1[i] = (unsigned short *)FUN_002e6c00(g, 0x200);
             unsigned int base = (((unsigned int*)&DAT_004d1164)[bits] * i) >> 4;
             unsigned int k = 0;
             do {
-                g->ptabC[i][k / 2] = (unsigned short)(int)(pow((double)base * 1.5259021896696422e-05, e4) * 65535.0 + 0.5);
+                g->gamma_16_to_1[i][k / 2] = (unsigned short)(int)(pow((double)base * 1.5259021896696422e-05, e4) * 65535.0 + 0.5);
                 k += 2;
                 base += 0x100;
             } while (k < 0x200);
@@ -3200,19 +2829,19 @@ void FUN_002dbd90(Gamma *g)
         } while (i < count);
     }
     double e5;
-    if (g->scale > 1e-6)
-        e5 = 1.0 / g->scale;
+    if (g->screen_gamma > 1e-6)
+        e5 = 1.0 / g->screen_gamma;
     else
         e5 = g->gamma;
-    g->ptabB = (unsigned short **)FUN_002e6c00(g, count * 4);
+    g->gamma_16_from_1 = (unsigned short **)FUN_002e6c00(g, count * sizeof(unsigned short *));
     if (count > 0) {
         int i = 0;
         do {
-            g->ptabB[i] = (unsigned short *)FUN_002e6c00(g, 0x200);
+            g->gamma_16_from_1[i] = (unsigned short *)FUN_002e6c00(g, 0x200);
             unsigned int base = (((unsigned int*)&DAT_004d1164)[bits] * i) >> 4;
             unsigned int k = 0;
             do {
-                g->ptabB[i][k / 2] = (unsigned short)(int)(pow((double)base * 1.5259021896696422e-05, e5) * 65535.0 + 0.5);
+                g->gamma_16_from_1[i][k / 2] = (unsigned short)(int)(pow((double)base * 1.5259021896696422e-05, e5) * 65535.0 + 0.5);
                 k += 2;
                 base += 0x100;
             } while (k < 0x200);
@@ -3223,96 +2852,96 @@ void FUN_002dbd90(Gamma *g)
 
 
 // 0x002dc3e0 FUN_002dc3e0 (2429 B): equivalent/0x002dc3e0.cpp
-// sym: ?FUN_002dc3e0@fn_fcd359fc@@YAXPAUPal_2dc3e0@1@@Z @b026280774ab @w5578472f3a18 @v3b57d5aaa9bd
+// sym: ?FUN_002dc3e0@fn_fcd359fc@@YAXPAUPngStruct@@@Z @b026280774ab @w5578472f3a18 @ved186d695045
 // STATUS: equivalent (tools/equiv.py level 3: 3046 inputs, branch coverage 90/95, incomplete)
 // FUN_002dc3e0 @ 0x002dc3e0
 void FUN_002dc3e0(Pal_2dc3e0 *p)
 {
-    unsigned int mode = p->mode;
-    unsigned int flags = p->flags;
+    unsigned int mode = p->color_type;
+    unsigned int flags = p->transformations;
     int i;
 
     if (flags & 0x100) {
         if (!(mode & 2)) {
-            switch (p->bits) {
+            switch (p->bit_depth) {
             case 1: {
-                unsigned short g = (unsigned short)(p->cur.gray * 0xff);
-                p->cur.gray = g;
-                p->cur.b = g;
-                p->cur.g = g;
-                p->cur.r = g;
+                unsigned short g = (unsigned short)(p->background.gray * 0xff);
+                p->background.gray = g;
+                p->background.blue = g;
+                p->background.green = g;
+                p->background.red = g;
                 break;
             }
             case 2: {
-                unsigned short g = (unsigned short)(p->cur.gray * 0x55);
-                p->cur.gray = g;
-                p->cur.b = g;
-                p->cur.g = g;
-                p->cur.r = g;
+                unsigned short g = (unsigned short)(p->background.gray * 0x55);
+                p->background.gray = g;
+                p->background.blue = g;
+                p->background.green = g;
+                p->background.red = g;
                 break;
             }
             case 4: {
-                unsigned short g = (unsigned short)(p->cur.gray * 0x11);
-                p->cur.gray = g;
-                p->cur.b = g;
-                p->cur.g = g;
-                p->cur.r = g;
+                unsigned short g = (unsigned short)(p->background.gray * 0x11);
+                p->background.gray = g;
+                p->background.blue = g;
+                p->background.green = g;
+                p->background.red = g;
                 break;
             }
             case 8:
             case 16: {
-                unsigned short g = p->cur.gray;
-                p->cur.b = g;
-                p->cur.g = g;
-                p->cur.r = g;
+                unsigned short g = p->background.gray;
+                p->background.blue = g;
+                p->background.green = g;
+                p->background.red = g;
                 break;
             }
             }
         } else if (mode == 3) {
-            unsigned char *e = p->entries + p->cur.idx * 3;
-            p->cur.r = e[0];
-            p->cur.g = e[1];
-            p->cur.b = e[2];
+            unsigned char *e = ((unsigned char *)p->palette) + p->background.index * 3;
+            p->background.red = e[0];
+            p->background.green = e[1];
+            p->background.blue = e[2];
             if ((flags & 0x80000) && !(flags & 0x1000)) {
-                int n = p->alphaCount;
+                int n = p->num_trans;
                 for (i = 0; i < n; i++)
-                    p->alpha[i] = 0xff - p->alpha[i];
+                    p->trans[i] = 0xff - p->trans[i];
             }
         }
     }
 
-    p->out = p->cur;
+    p->background_1 = p->background;
 
-    flags = p->flags;
+    flags = p->transformations;
     if (flags & 0x602000) {
-        FUN_002dbd90(p);
-        if (p->flags & 0x80) {
+        FUN_002dbd90((void *)p);
+        if (p->transformations & 0x80) {
             if (mode == 3) {
-                int count = p->count;
+                int count = p->num_palette;
                 double A, B;
                 unsigned char c0, c1, c2, d0, d1, d2;
-                if (p->kind == 2) {
-                    unsigned char *t = p->tab15c;
-                    c0 = t[p->cur.r];
-                    c1 = t[p->cur.g];
-                    c2 = t[p->cur.b];
-                    unsigned char *u = p->tab164;
-                    d0 = u[p->cur.r];
-                    d1 = u[p->cur.g];
-                    d2 = u[p->cur.b];
+                if (p->background_gamma_type == 2) {
+                    unsigned char *t = p->gamma_table;
+                    c0 = t[p->background.red];
+                    c1 = t[p->background.green];
+                    c2 = t[p->background.blue];
+                    unsigned char *u = p->gamma_to_1;
+                    d0 = u[p->background.red];
+                    d1 = u[p->background.green];
+                    d2 = u[p->background.blue];
                 } else {
-                    switch (p->kind) {
+                    switch (p->background_gamma_type) {
                     case 1:
-                        A = p->f158;
+                        A = p->screen_gamma;
                         B = 1.0;
                         break;
                     case 2:
-                        A = 1.0 / p->f154;
-                        B = 1.0 / ((double)p->f158 * p->f154);
+                        A = 1.0 / p->gamma;
+                        B = 1.0 / ((double)p->screen_gamma * p->gamma);
                         break;
                     case 3:
-                        A = 1.0 / p->f12c;
-                        B = 1.0 / ((double)p->f158 * p->f12c);
+                        A = 1.0 / p->background_gamma;
+                        B = 1.0 / ((double)p->screen_gamma * p->background_gamma);
                         break;
                     default:
                         A = 1.0;
@@ -3320,98 +2949,98 @@ void FUN_002dc3e0(Pal_2dc3e0 *p)
                         break;
                     }
                     if (fabs(B - 1.0) < 0.05) {
-                        c0 = (unsigned char)p->cur.r;
-                        c1 = (unsigned char)p->cur.g;
-                        c2 = (unsigned char)p->cur.b;
+                        c0 = (unsigned char)p->background.red;
+                        c1 = (unsigned char)p->background.green;
+                        c2 = (unsigned char)p->background.blue;
                     } else {
-                        c0 = (unsigned char)(int)(pow(p->cur.r * 0.00392156862745098, B) * 255.0 + 0.5);
-                        c1 = (unsigned char)(int)(pow(p->cur.g * 0.00392156862745098, B) * 255.0 + 0.5);
-                        c2 = (unsigned char)(int)(pow(p->cur.b * 0.00392156862745098, B) * 255.0 + 0.5);
+                        c0 = (unsigned char)(int)(pow(p->background.red * 0.00392156862745098, B) * 255.0 + 0.5);
+                        c1 = (unsigned char)(int)(pow(p->background.green * 0.00392156862745098, B) * 255.0 + 0.5);
+                        c2 = (unsigned char)(int)(pow(p->background.blue * 0.00392156862745098, B) * 255.0 + 0.5);
                     }
-                    d0 = (unsigned char)(int)(pow(p->cur.r * 0.00392156862745098, A) * 255.0 + 0.5);
-                    d1 = (unsigned char)(int)(pow(p->cur.g * 0.00392156862745098, A) * 255.0 + 0.5);
-                    d2 = (unsigned char)(int)(pow(p->cur.b * 0.00392156862745098, A) * 255.0 + 0.5);
+                    d0 = (unsigned char)(int)(pow(p->background.red * 0.00392156862745098, A) * 255.0 + 0.5);
+                    d1 = (unsigned char)(int)(pow(p->background.green * 0.00392156862745098, A) * 255.0 + 0.5);
+                    d2 = (unsigned char)(int)(pow(p->background.blue * 0.00392156862745098, A) * 255.0 + 0.5);
                 }
-                unsigned char *pal = p->entries;
+                unsigned char *pal = ((unsigned char *)p->palette);
                 for (i = 0; i < count; i++) {
                     unsigned char *e = pal + i * 3;
-                    if (i >= p->alphaCount || p->alpha[i] == 0xff) {
-                        e[0] = p->tab15c[e[0]];
-                        e[1] = p->tab15c[e[1]];
-                        e[2] = p->tab15c[e[2]];
-                    } else if (p->alpha[i] == 0) {
+                    if (i >= p->num_trans || p->trans[i] == 0xff) {
+                        e[0] = p->gamma_table[e[0]];
+                        e[1] = p->gamma_table[e[1]];
+                        e[2] = p->gamma_table[e[2]];
+                    } else if (p->trans[i] == 0) {
                         e[0] = c0;
                         e[1] = c1;
                         e[2] = c2;
                     } else {
-                        unsigned int a = p->alpha[i];
-                        unsigned int s = (unsigned short)(p->tab164[e[0]] * a + (0xff - a) * d0 + 0x80);
-                        e[0] = p->tab160[(unsigned char)(((s >> 8) + s) >> 8)];
-                        a = p->alpha[i];
-                        s = (unsigned short)(p->tab164[e[1]] * a + (0xff - a) * d1 + 0x80);
-                        e[1] = p->tab160[(unsigned char)(((s >> 8) + s) >> 8)];
-                        a = p->alpha[i];
-                        s = (unsigned short)(p->tab164[e[2]] * a + (0xff - a) * d2 + 0x80);
-                        e[2] = p->tab160[(unsigned char)(((s >> 8) + s) >> 8)];
+                        unsigned int a = p->trans[i];
+                        unsigned int s = (unsigned short)(p->gamma_to_1[e[0]] * a + (0xff - a) * d0 + 0x80);
+                        e[0] = p->gamma_from_1[(unsigned char)(((s >> 8) + s) >> 8)];
+                        a = p->trans[i];
+                        s = (unsigned short)(p->gamma_to_1[e[1]] * a + (0xff - a) * d1 + 0x80);
+                        e[1] = p->gamma_from_1[(unsigned char)(((s >> 8) + s) >> 8)];
+                        a = p->trans[i];
+                        s = (unsigned short)(p->gamma_to_1[e[2]] * a + (0xff - a) * d2 + 0x80);
+                        e[2] = p->gamma_from_1[(unsigned char)(((s >> 8) + s) >> 8)];
                     }
                 }
             } else {
-                unsigned int m = (1u << p->bits) - 1;
+                unsigned int m = (1u << p->bit_depth) - 1;
                 double M = (double)m;
                 double C0 = 1.0;
                 double C1 = 1.0;
-                switch (p->kind) {
+                switch (p->background_gamma_type) {
                 case 1:
-                    C0 = p->f158;
+                    C0 = p->screen_gamma;
                     C1 = 1.0;
                     break;
                 case 2:
-                    C0 = 1.0 / p->f154;
-                    C1 = 1.0 / ((double)p->f158 * p->f154);
+                    C0 = 1.0 / p->gamma;
+                    C1 = 1.0 / ((double)p->screen_gamma * p->gamma);
                     break;
                 case 3:
-                    C0 = 1.0 / p->f12c;
-                    C1 = 1.0 / ((double)p->f158 * p->f12c);
+                    C0 = 1.0 / p->background_gamma;
+                    C1 = 1.0 / ((double)p->screen_gamma * p->background_gamma);
                     break;
                 }
                 if (mode & 2) {
                     double inv = 1.0 / M;
-                    double v1 = p->cur.r * inv;
-                    p->out.r = (unsigned short)(int)(__int64)(pow(v1, C0) * M + 0.5);
-                    double v2 = p->cur.g * inv;
-                    p->out.g = (unsigned short)(int)(__int64)(pow(v2, C0) * M + 0.5);
-                    double v3 = p->cur.b * inv;
-                    p->out.b = (unsigned short)(int)(__int64)(pow(v3, C0) * M + 0.5);
-                    p->cur.r = (unsigned short)(int)(__int64)(pow(v1, C1) * M + 0.5);
-                    p->cur.g = (unsigned short)(int)(__int64)(pow(v2, C1) * M + 0.5);
-                    p->cur.b = (unsigned short)(int)(__int64)(pow(v3, C1) * M + 0.5);
+                    double v1 = p->background.red * inv;
+                    p->background_1.red = (unsigned short)(int)(__int64)(pow(v1, C0) * M + 0.5);
+                    double v2 = p->background.green * inv;
+                    p->background_1.green = (unsigned short)(int)(__int64)(pow(v2, C0) * M + 0.5);
+                    double v3 = p->background.blue * inv;
+                    p->background_1.blue = (unsigned short)(int)(__int64)(pow(v3, C0) * M + 0.5);
+                    p->background.red = (unsigned short)(int)(__int64)(pow(v1, C1) * M + 0.5);
+                    p->background.green = (unsigned short)(int)(__int64)(pow(v2, C1) * M + 0.5);
+                    p->background.blue = (unsigned short)(int)(__int64)(pow(v3, C1) * M + 0.5);
                 } else {
-                    double v = p->cur.gray / M;
-                    p->out.gray = (unsigned short)(int)(__int64)(pow(v, C0) * M + 0.5);
-                    p->cur.gray = (unsigned short)(int)(__int64)(pow(v, C1) * M + 0.5);
+                    double v = p->background.gray / M;
+                    p->background_1.gray = (unsigned short)(int)(__int64)(pow(v, C0) * M + 0.5);
+                    p->background.gray = (unsigned short)(int)(__int64)(pow(v, C1) * M + 0.5);
                 }
             }
         } else if (mode == 3) {
-            int n = p->count;
+            int n = p->num_palette;
             if (n > 0) {
-                unsigned char *e = p->entries;
+                unsigned char *e = ((unsigned char *)p->palette);
                 for (i = 0; i < n; i++) {
-                    e[0] = p->tab15c[e[0]];
-                    e[1] = p->tab15c[e[1]];
-                    e[2] = p->tab15c[e[2]];
+                    e[0] = p->gamma_table[e[0]];
+                    e[1] = p->gamma_table[e[1]];
+                    e[2] = p->gamma_table[e[2]];
                     e += 3;
                 }
             }
         }
     } else if ((flags & 0x80) && mode == 3) {
-        int n = p->alphaCount;
-        unsigned char r = (unsigned char)p->cur.r;
-        unsigned char g = (unsigned char)p->cur.g;
-        unsigned char b = (unsigned char)p->cur.b;
+        int n = p->num_trans;
+        unsigned char r = (unsigned char)p->background.red;
+        unsigned char g = (unsigned char)p->background.green;
+        unsigned char b = (unsigned char)p->background.blue;
         if (n > 0) {
-            unsigned char *e = p->entries;
+            unsigned char *e = ((unsigned char *)p->palette);
             for (i = 0; i < n; i++) {
-                unsigned int a = p->alpha[i];
+                unsigned int a = p->trans[i];
                 if (a == 0) {
                     e[0] = r;
                     e[1] = g;
@@ -3419,10 +3048,10 @@ void FUN_002dc3e0(Pal_2dc3e0 *p)
                 } else if (a != 0xff) {
                     unsigned int s = (unsigned short)((0xff - a) * r + e[0] * a + 0x80);
                     e[0] = (unsigned char)(((s >> 8) + s) >> 8);
-                    a = p->alpha[i];
+                    a = p->trans[i];
                     s = (unsigned short)((0xff - a) * g + e[1] * a + 0x80);
                     e[1] = (unsigned char)(((s >> 8) + s) >> 8);
-                    a = p->alpha[i];
+                    a = p->trans[i];
                     s = (unsigned short)((0xff - a) * b + e[2] * a + 0x80);
                     e[2] = (unsigned char)(((s >> 8) + s) >> 8);
                 }
@@ -3431,25 +3060,25 @@ void FUN_002dc3e0(Pal_2dc3e0 *p)
         }
     }
 
-    if ((p->flags & 8) && mode == 3) {
-        int s0 = 8 - p->sh0;
-        int s1 = 8 - p->sh1;
-        int s2 = 8 - p->sh2;
-        unsigned short n = p->count;
+    if ((p->transformations & 8) && mode == 3) {
+        int s0 = 8 - p->sig_bit.red;
+        int s1 = 8 - p->sig_bit.green;
+        int s2 = 8 - p->sig_bit.blue;
+        unsigned short n = p->num_palette;
         if (s0 < 0 || s0 > 8) s0 = 0;
         if (s1 < 0 || s1 > 8) s1 = 0;
         if (s2 < 0 || s2 > 8) s2 = 0;
         for (i = 0; i < n; i++) {
-            p->entries[i * 3] >>= s0;
-            p->entries[i * 3 + 1] >>= s1;
-            p->entries[i * 3 + 2] >>= s2;
+            ((unsigned char *)p->palette)[i * 3] >>= s0;
+            ((unsigned char *)p->palette)[i * 3 + 1] >>= s1;
+            ((unsigned char *)p->palette)[i * 3 + 2] >>= s2;
         }
     }
 }
 
 
 // 0x002dcd90 FUN_002dcd90 (1025 B): matches/0x002dcd90.cpp
-// sym: ?FUN_002dcd90@fn_fcd359fc@@YAXPAUpng_struct_2dcd90@1@@Z
+// sym: ?FUN_002dcd90@fn_fcd359fc@@YAXPAUPngStruct@@@Z
 // FUN_002dcd90 @ 0x002dcd90
 void __cdecl FUN_002dcd90(png_struct_2dcd90 *png_ptr)
 {
@@ -3460,7 +3089,7 @@ void __cdecl FUN_002dcd90(png_struct_2dcd90 *png_ptr)
     }
     if (png_ptr->transformations & 0x1000) {
         if (png_ptr->row_info.color_type == 3) {
-            FUN_002db6b0((png_row_info_2dcd90 *)(&png_ptr->row_info), png_ptr->row_buf + 1, png_ptr->palette, (unsigned char *)(void *)(png_ptr->trans), png_ptr->num_trans);
+            FUN_002db6b0((png_row_info_2dcd90 *)(&png_ptr->row_info), png_ptr->row_buf + 1, (void *)png_ptr->palette, (unsigned char *)(void *)(png_ptr->trans), png_ptr->num_trans);
         } else if (png_ptr->num_trans != 0) {
             FUN_002db8d0((png_row_info_2dcd90 *)(&png_ptr->row_info), png_ptr->row_buf + 1, (png_color_16_2dcd90 *)(&png_ptr->trans_values));
         } else {
@@ -3496,7 +3125,7 @@ void __cdecl FUN_002dcd90(png_struct_2dcd90 *png_ptr)
     if (png_ptr->transformations & 0x20)
         FUN_002dd2e0((png_row_info_2dcd90 *)(&png_ptr->row_info), png_ptr->row_buf + 1);
     if (png_ptr->transformations & 0x8)
-        FUN_002d93f0((png_row_info_2dcd90 *)(&png_ptr->row_info), png_ptr->row_buf + 1, (unsigned char *)(png_ptr->shift));
+        FUN_002d93f0((png_row_info_2dcd90 *)(&png_ptr->row_info), png_ptr->row_buf + 1, (unsigned char *)(&png_ptr->shift));
     if (png_ptr->transformations & 0x4)
         FUN_002d92c0((png_row_info_2dcd90 *)(&png_ptr->row_info), png_ptr->row_buf + 1);
     if (png_ptr->transformations & 0x1)
@@ -3523,15 +3152,15 @@ void __cdecl FUN_002dcd90(png_struct_2dcd90 *png_ptr)
 // 0x002dd1a0 FUN_002dd1a0 (9 B): matches/0x002dd1a0.cpp
 // sym: _FUN_002dd1a0
 extern "C" void FUN_002dd1a0(Obj_2dd1a0* object) {
-    object->flags |= 1;
+    object->transformations |= 1;
 }
 
 
 // 0x002dd230 FUN_002dd230 (30 B): matches/0x002dd230.cpp
 // sym: ?FUN_002dd230@fn_fcd359fc@@YAHPAX@Z
 int __cdecl FUN_002dd230(void* p) {
-    if (((char*)p)[0x11b]) {
-        *(int*)((char*)p + 0x68) |= 2;
+    if (((PngStruct*)p)->interlaced) {
+        ((PngStruct*)p)->transformations |= 2;
         return 7;
     }
     return 1;
@@ -3541,17 +3170,17 @@ int __cdecl FUN_002dd230(void* p) {
 // 0x002dd250 FUN_002dd250 (90 B): matches/0x002dd250.cpp
 // sym: _FUN_002dd250
 extern "C" void FUN_002dd250(Obj_2dd250* p, unsigned char b, int mode) {
-    unsigned int* q = (unsigned int*)((char*)p + 0x68);
+    unsigned int* q = &p->transformations;
     *q |= 0x8000;
-    p->value = b;
+    p->filler = b;
     if (mode == 1)
-        p->flags64 |= 0x80;
+        p->flags |= 0x80;
     else
-        p->flags64 &= 0xffffff7f;
-    if (p->state == 2)
-        p->result = 4;
-    if (p->state == 0 && p->level >= 8)
-        p->result = 2;
+        p->flags &= 0xffffff7f;
+    if (p->color_type == 2)
+        p->usr_channels = 4;
+    if (p->color_type == 0 && p->bit_depth >= 8)
+        p->usr_channels = 2;
 }
 
 
@@ -3755,36 +3384,36 @@ extern "C" void __cdecl FUN_002dd5c0(void *row_info, unsigned char *row)
 // 0x002dd690 FUN_002dd690 (32 B): matches/0x002dd690.cpp
 // sym: _FUN_002dd690
 extern "C" void __cdecl FUN_002dd690(void * p, void* data, unsigned int length) {
-    ReadFn_2dd690 fn = ((Obj_2dd690 *)p)->fn;
+    ReadFn_2dd690 fn = ((Obj_2dd690 *)p)->read_data_fn;
     if (fn)
-        fn(((Obj_2dd690 *)p), data, length);
+        fn(((Obj_2dd690 *)p), (unsigned char *)data, length);
     else
         Fail_002e69a0(((Obj_2dd690 *)p), "Call to NULL read function");
 }
 
 
 // 0x002dd6b0 FUN_002dd6b0 (51 B): matches/0x002dd6b0.cpp
-// sym: ?readFile@fn_fcd359fc@@YAXPAUFile@1@PAXI@Z
-void __cdecl readFile(File* file, void* dest, unsigned int count) {
-    if (fread(dest, 1, count, file->handle) != count)
+// sym: ?readFile@fn_fcd359fc@@YAXPAUPngStruct@@PAXI@Z
+void __cdecl readFile(File_2dd6b0* file, void* dest, unsigned int count) {
+    if (fread(dest, 1, count, file->io_ptr) != count)
         report(file, "Read Error");
 }
 
 
 // 0x002dd6f0 FUN_002dd6f0 (83 B): matches/0x002dd6f0.cpp
 // sym: _FUN_002dd6f0
-extern "C" void FUN_002dd6f0(void * p, unsigned int value, void* fn) {
-    ((Obj_2dd6f0 *)p)->field5c = value;
+extern "C" void FUN_002dd6f0(void * p, void* value, void* fn) {   // (x64t16) png_set_read_fn (png, io_ptr, read_data_fn)
+    ((Obj_2dd6f0 *)p)->io_ptr = value;
     if (fn)
-        ((Obj_2dd6f0 *)p)->field50 = (hulk_uintptr)fn;
+        ((Obj_2dd6f0 *)p)->read_data_fn = (PngRwFn)fn;
     else
-        ((Obj_2dd6f0 *)p)->field50 = ((hulk_intptr)(void (__cdecl*)())&FUN_002dd6b0);
-    if (((Obj_2dd6f0 *)p)->field4c) {
-        ((Obj_2dd6f0 *)p)->field4c = 0;
+        ((Obj_2dd6f0 *)p)->read_data_fn = (PngRwFn)&readFile;   // (x64t16) png_default_read_data (0x002dd6b0) itself
+    if (((Obj_2dd6f0 *)p)->write_data_fn) {
+        ((Obj_2dd6f0 *)p)->write_data_fn = 0;
         FUN_002e69d0((Obj_2dd6f0 *)((Obj_2dd6f0 *)p), (void *)(const char *)"It's an error to set both read_data_fn and write_data_fn in the ");
         FUN_002e69d0((Obj_2dd6f0 *)((Obj_2dd6f0 *)p), (void *)(const char *)"same structure.  Resetting write_data_fn to NULL.");
     }
-    ((Obj_2dd6f0 *)p)->field144 = 0;
+    ((Obj_2dd6f0 *)p)->output_flush_fn = 0;
 }
 
 } // namespace fn_fcd359fc
