@@ -2935,7 +2935,7 @@ void FUN_002eb2f0(hulk_intptr p1, Obj_2eb2f0* p2, int p3, int p4, unsigned char 
 
 
 // 0x002eb330 FUN_002eb330 (328 B): equivalent/0x002eb330.cpp
-// sym: ?FUN_002eb330@fn_fb0f1f83@@YAXPAUPngStruct@@PAUPngInfo@@PBDHHDH2PAPBD@Z @046ed051afd6 @w5e94cbe73676
+// sym: ?FUN_002eb330@fn_fb0f1f83@@YAXPAUPngStruct@@PAUPngInfo@@PBDHHDH2PAPBD@Z @046ed051afd6 @w5e94cbe73676 @vf5dbc011a535
 // STATUS: equivalent (tools/equiv.py level 3: 168 inputs, branch coverage 14/14)
 // FUN_002eb330 @ 0x002eb330
 // the original scans and copies with inline repne scasb / rep movs; plain forward loops keep clang from emitting calls
@@ -3046,7 +3046,7 @@ extern "C" void __cdecl FUN_002eb540(png_struct *png_ptr, png_info *info_ptr, in
 namespace fn_fb0f1f83 {
 
 // 0x002eb5e0 FUN_002eb5e0 (257 B): equivalent/0x002eb5e0.cpp
-// sym: ?FUN_002eb5e0@fn_fb0f1f83@@YAXPAXPAUPngInfo@@PAUPngText@@H@Z @29d75ab1fe91 @w33b2261a5314
+// sym: ?FUN_002eb5e0@fn_fb0f1f83@@YAXPAXPAUPngInfo@@PAUPngText@@H@Z @29d75ab1fe91 @w33b2261a5314 @vd424f6f70494
 // STATUS: equivalent (tools/equiv.py level 3: 80 inputs, branch coverage 20/20)
 // FUN_002eb5e0 @ 0x002eb5e0
 void __cdecl FUN_002eb5e0(void* allocator, List_2eb5e0* list, Entry_2eb5e0* source, int count) {
@@ -3127,7 +3127,7 @@ ZInflateCodes* __cdecl FUN_002eb780(unsigned char a, unsigned char b, ZInflateHu
 } // namespace fn_fb0f1f83
 
 // 0x002eb7c0 FUN_002eb7c0 (1761 B): equivalent/0x002eb7c0.cpp [wrapped: macros]
-// sym: _FUN_002eb7c0 @033a0dcf2df3 @w32bd0e0d1c66
+// sym: _FUN_002eb7c0 @033a0dcf2df3 @w32bd0e0d1c66 @v1e5822302008
 namespace fn_002eb7c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 220 inputs, branch coverage 100/114, incomplete)
 // FUN_002eb7c0 @ 0x002eb7c0

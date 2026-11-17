@@ -157,7 +157,7 @@ void* Registry_e70d0::FUN_000e70d0(const char* name) {
 
 
 // 0x000e7260 FUN_000e7260 (408 B): equivalent/0x000e7260.cpp
-// sym: ?FUN_000e7260@Registry_e7260@fn_fcae020b@@QAEHPBD@Z @631d465665ff @wdda7d434beb1
+// sym: ?FUN_000e7260@Registry_e7260@fn_fcae020b@@QAEHPBD@Z @631d465665ff @wdda7d434beb1 @v46543a98672f
 // STATUS: equivalent (tools/equiv.py level 3: 120 inputs, branch coverage 44/44)
 // FUN_000e7260 @ 0x000e7260
 int Registry_e7260::FUN_000e7260(const char *name)

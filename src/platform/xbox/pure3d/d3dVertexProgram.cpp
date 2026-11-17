@@ -379,7 +379,7 @@ extern "C" void* __fastcall FUN_003290a0(Obj_3290a0* self) {
 namespace fn_f967e045 {
 
 // 0x003290e0 FUN_003290e0 (572 B): equivalent/0x003290e0.cpp
-// sym: ?Get@ShaderCache_3290e0@fn_f967e045@@QAEPAUShaderEntry@2@PBDIIH@Z @134c99deb6b4 @wa18e7278dc4a
+// sym: ?Get@ShaderCache_3290e0@fn_f967e045@@QAEPAUShaderEntry@2@PBDIIH@Z @134c99deb6b4 @wa18e7278dc4a @vebd1b1549ac6
 // STATUS: equivalent (tools/equiv.py level 3: 42 inputs, branch coverage 43/44, incomplete)
 // FUN_003290e0 @ 0x003290e0
 ShaderEntry* ShaderCache_3290e0::Get(const char* name, unsigned int a, unsigned int flags, int c) {

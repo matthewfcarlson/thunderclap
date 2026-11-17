@@ -449,7 +449,7 @@ void owners::C_895c0::FUN_000895c0(int x) {
 
 
 // 0x000895e0 FUN_000895e0 (511 B): equivalent/0x000895e0.cpp
-// sym: ?FUN_000895e0@LevelName_895e0@owners@@QAEXPBD@Z @e23a2e9aab25 @w9357d13655f7
+// sym: ?FUN_000895e0@LevelName_895e0@owners@@QAEXPBD@Z @e23a2e9aab25 @w9357d13655f7 @vebdfeb35d754
 // STATUS: equivalent (tools/equiv.py level 3: 2056 inputs, branch coverage 18/20, incomplete)
 // FUN_000895e0 @ 0x000895e0
 void owners::LevelName_895e0::FUN_000895e0(const char* levelName) {
@@ -741,7 +741,7 @@ State_89bf0* State_89bf0::FUN_00089bf0() {
 } // namespace fn_f53af43c
 
 // 0x00089d30 FUN_00089d30 (213 B): equivalent/0x00089d30.cpp [wrapped: conflict: FUN_00267760; World]
-// sym: ?FUN_00089d30@Target_89d30@fn_00089d30@@QAEXXZ @c5dc6fef404e @w9702627d1d86
+// sym: ?FUN_00089d30@Target_89d30@fn_00089d30@@QAEXXZ @c5dc6fef404e @w9702627d1d86 @v82de2eb407a2
 namespace fn_00089d30 {
 // STATUS: equivalent (tools/equiv.py level 3: 141 inputs, branch coverage 4/4)
 // FUN_00089d30 @ 0x00089d30
@@ -895,7 +895,7 @@ bool Holder_8a090::Run(void *item)
 
 
 // 0x0008a120 FUN_0008a120 (398 B): equivalent/0x0008a120.cpp
-// sym: ?FUN_0008a120@LevelRegistry@fn_f53af43c@@QAEXXZ @ba83d6f176ac @wbb3b64fd78d9
+// sym: ?FUN_0008a120@LevelRegistry@fn_f53af43c@@QAEXXZ @ba83d6f176ac @wbb3b64fd78d9 @v0f28d520ed01
 // STATUS: equivalent (tools/equiv.py level 3: 7048 inputs, branch coverage 34/38, incomplete)
 // FUN_0008a120 @ 0x0008a120
 // MSVC expands memcmp against a string literal inline (repe cmpsb)

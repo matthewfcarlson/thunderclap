@@ -582,7 +582,7 @@ Drive_272d90* Drive_272d90::Dtor(unsigned char flag) {
 } // namespace fn_f59a9783
 
 // 0x00272df0 core::Drive::vfunc_3 (259 B): equivalent/0x00272df0.cpp
-// sym: ?vfunc_3@Drive_272df0@core@@QAEXXZ @2ce2da8fc6b1 @w8f35b1edd1be
+// sym: ?vfunc_3@Drive_272df0@core@@QAEXXZ @2ce2da8fc6b1 @w8f35b1edd1be @v85c6d60349a8
 // STATUS: equivalent (tools/equiv.py level 3: 20026 inputs, branch coverage 12/12)
 // core::Drive::vfunc_3 @ 0x00272df0
 // core::Drive::vfunc_3 (records.h CoreDrive): runs the pending requests that belong to the calling thread, then the

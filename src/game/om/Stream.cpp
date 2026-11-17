@@ -569,7 +569,7 @@ void Mgr_1e6390::FUN_001e6390()
 } // namespace fn_fb8261dc
 
 // 0x001e6f10 FUN_001e6f10 (895 B): equivalent/0x001e6f10.cpp
-// sym: ?FUN_001e6f10@World@@QAEXHM@Z @e5866f8b7cf7 @wf4cd6bb4adf3
+// sym: ?FUN_001e6f10@World@@QAEXHM@Z @e5866f8b7cf7 @wf4cd6bb4adf3 @v7539a7010208
 // STATUS: equivalent (tools/equiv.py level 3: 796 inputs, branch coverage 61/62, incomplete)
 // FUN_001e6f10 @ 0x001e6f10
 void World::FUN_001e6f10(int unused, float dt)

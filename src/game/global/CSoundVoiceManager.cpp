@@ -2150,7 +2150,7 @@ void State_1f4f00::reset(){
 
 
 // 0x001f54c0 FUN_001f54c0 (380 B): equivalent/0x001f54c0.cpp [wrapped: conflict: CSoundSequenceVoice]
-// sym: ?FUN_001f54c0@SoundMgr@fn_001f54c0@@QAEXXZ @3dc8012e7f7a @w06cf7e069b94
+// sym: ?FUN_001f54c0@SoundMgr@fn_001f54c0@@QAEXXZ @3dc8012e7f7a @w06cf7e069b94 @vc50eb7ade043
 namespace fn_001f54c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 26/26)
 // FUN_001f54c0 @ 0x001f54c0

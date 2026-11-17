@@ -1354,7 +1354,7 @@ Range_227a10 FUN_00227a10(Elem_227a10 *first, Elem_227a10 *last)
 
 
 // 0x00227e20 FUN_00227e20 (124 B): equivalent/0x00227e20.cpp
-// sym: _FUN_00227e20 @5a3286e1c233 @w4ad1a66c2401
+// sym: _FUN_00227e20 @5a3286e1c233 @w4ad1a66c2401 @v6e4ea4495757
 // STATUS: equivalent (tools/equiv.py level 3: 68 inputs, branch coverage 15/18, incomplete)
 // FUN_00227e20 @ 0x00227e20
 // Insertion sort of [first, last) by descending key.

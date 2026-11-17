@@ -6656,7 +6656,7 @@ void owners::C_f7050::FUN_000f7050(hulk_intptr value) {
 namespace fn_f5892d97 {
 
 // 0x000f7080 FUN_000f7080 (139 B): equivalent/0x000f7080.cpp
-// sym: ?FUN_000f7080@fn_f5892d97@@YGPAGTBufferSlot@1@HPAVStream@1@@Z @86139628d5d0 @wce7355370a19
+// sym: ?FUN_000f7080@fn_f5892d97@@YGPAGTBufferSlot@1@HPAVStream@1@@Z @86139628d5d0 @wce7355370a19 @v5c356a60bebd
 // STATUS: equivalent (tools/equiv.py level 3: 3003 inputs, branch coverage 14/14)
 // FUN_000f7080 @ 0x000f7080
 // Read one line of UTF-16 text (up to and including '\n') from a stream into a buffer of `count` characters.

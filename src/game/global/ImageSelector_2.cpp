@@ -698,7 +698,7 @@ void ImageSelector::vfunc_3()
 
 
 // 0x000ee340 ImageSelector::vfunc_5 (1644 B): equivalent/0x000ee340.cpp
-// sym: ?vfunc_5@ImageSelector@@UAEXXZ @74e609eb4cc8 @w83c0f583c541
+// sym: ?vfunc_5@ImageSelector@@UAEXXZ @74e609eb4cc8 @w83c0f583c541 @v980b2a49e611
 // STATUS: equivalent (tools/equiv.py level 3: 4231 inputs, branch coverage 28/28)
 // ImageSelector::vfunc_5 @ 0x000ee340
 // ImageSelector::vfunc_5: draw the image grid, selection highlight and captions.

@@ -1505,7 +1505,7 @@ BoolChannel_28ceb0* __stdcall FUN_0028ceb0(Owner_28ceb0* owner, unsigned unused,
 
 
 // 0x0028cfd0 FUN_0028cfd0 (300 B): equivalent/0x0028cfd0.cpp
-// sym: ?FUN_0028cfd0@fn_f8c9e634@@YGPAUColourChannel_28cfd0@1@PAUReader@1@IPAUParent_28cfd0@1@@Z @1b3f51412d7f @w1d1d4fa5533c
+// sym: ?FUN_0028cfd0@fn_f8c9e634@@YGPAUColourChannel_28cfd0@1@PAUReader@1@IPAUParent_28cfd0@1@@Z @1b3f51412d7f @w1d1d4fa5533c @vff14371da1be
 // STATUS: equivalent (tools/equiv.py level 3: 142 inputs, branch coverage 12/12)
 // FUN_0028cfd0 @ 0x0028cfd0
 ColourChannel_28cfd0 * __stdcall FUN_0028cfd0(Reader *r, unsigned unused, Parent_28cfd0 *parent)

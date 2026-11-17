@@ -2348,7 +2348,7 @@ pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
 
 
 // 0x002f70a0 physics::PhysicsObjectLoader::vfunc_5 (1088 B): equivalent/0x002f70a0.cpp
-// sym: ?vfunc_5@PhysicsObjectLoader@physics@@UAEXPAX00H@Z @2d44a90e2176 @w4990d370eefe
+// sym: ?vfunc_5@PhysicsObjectLoader@physics@@UAEXPAX00H@Z @2d44a90e2176 @w4990d370eefe @v390efca9f9f8
 // STATUS: equivalent (tools/equiv.py level 3: 236 inputs, branch coverage 44/44)
 // physics::PhysicsObjectLoader::vfunc_5 @ 0x002f70a0
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0

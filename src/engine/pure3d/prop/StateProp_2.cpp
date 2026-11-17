@@ -734,7 +734,7 @@ void* __fastcall FUN_0027cf70(C_27cf70* self) {
 } // namespace fn_f03c5b48
 
 // 0x0027d0f0 FUN_0027d0f0 (747 B): equivalent/0x0027d0f0.cpp [wrapped: conflict: pure3d::DrawableHierarchy; pure3d::prop::StateProp]
-// sym: ??0StateProp@prop@pure3d@fn_0027d0f0@@QAE@PAV0123@@Z @a799619cd784 @w196e3b0974b4
+// sym: ??0StateProp@prop@pure3d@fn_0027d0f0@@QAE@PAV0123@@Z @a799619cd784 @w196e3b0974b4 @v3ca7703e57da
 namespace fn_0027d0f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 99 inputs, branch coverage 40/40)
 // FUN_0027d0f0 @ 0x0027d0f0

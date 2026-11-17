@@ -443,7 +443,7 @@ extern "C" int __stdcall FUN_00334fa0(State_334fa0* state,unsigned int arg,unsig
 } // namespace fn_f8921c09
 
 // 0x00335010 movie::BinkCallback::vfunc_3_adj8 (217 B): equivalent/0x00335010.cpp [wrapped: conflict: FUN_00368660]
-// sym: ?OnReadComplete@BinkCallback@fn_00335010@@QAEXPAUBinkRequest@2@@Z @8ba10708f5ce @wfd10afdee475
+// sym: ?OnReadComplete@BinkCallback@fn_00335010@@QAEXPAUBinkRequest@2@@Z @8ba10708f5ce @wfd10afdee475 @vddb2b39f3586
 namespace fn_00335010 {
 // STATUS: equivalent (tools/equiv.py level 3: 13434 inputs, branch coverage 12/12)
 // movie::BinkCallback::vfunc_3_adj8 @ 0x00335010

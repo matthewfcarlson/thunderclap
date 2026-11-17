@@ -755,7 +755,7 @@ extern "C" void __cdecl FUN_002d7440(PngStruct_2d7440 *png, unsigned char *row, 
 
 
 // 0x002d7980 FUN_002d7980 (477 B): equivalent/0x002d7980.cpp [wrapped: code differs from its standalone build]
-// sym: ?FUN_002d7980@fn_002d7980@@YAXPAUPngStruct@@PAUPngInfo@@@Z @43561fe2da22 @wde15f237f3e7
+// sym: ?FUN_002d7980@fn_002d7980@@YAXPAUPngStruct@@PAUPngInfo@@@Z @43561fe2da22 @wde15f237f3e7 @v9c70299f6045
 namespace fn_002d7980 {
 // STATUS: equivalent (tools/equiv.py level 3: 100 inputs, branch coverage 40/40)
 // FUN_002d7980 @ 0x002d7980
@@ -866,7 +866,7 @@ void FUN_002d7980(PngStruct_2d7980* png, PngInfo* info)
 namespace fn_fcd359fc {
 
 // 0x002d7b60 FUN_002d7b60 (577 B): equivalent/0x002d7b60.cpp
-// sym: _FUN_002d7b60 @bf1f3012fd4b @wb6536110d50e
+// sym: _FUN_002d7b60 @bf1f3012fd4b @wb6536110d50e @v0ec37ec24d79
 // STATUS: equivalent (tools/equiv.py level 3: 28 inputs, branch coverage 25/28, incomplete)
 // FUN_002d7b60 @ 0x002d7b60
 // libpng png_read_destroy-style teardown: free every owned buffer, then wipe the struct
@@ -2705,7 +2705,7 @@ extern "C" void FUN_002dbc50(void *info, unsigned char *data, unsigned char *rgb
 
 
 // 0x002dbd90 FUN_002dbd90 (1615 B): equivalent/0x002dbd90.cpp
-// sym: ?FUN_002dbd90@fn_fcd359fc@@YAXPAUPngStruct@@@Z @fc728c88a8a1 @w5cbbc353a908
+// sym: ?FUN_002dbd90@fn_fcd359fc@@YAXPAUPngStruct@@@Z @fc728c88a8a1 @w5cbbc353a908 @v265c5af0c2b1
 // STATUS: equivalent (tools/equiv.py level 3: 106 inputs, branch coverage 62/80, incomplete)
 // FUN_002dbd90 @ 0x002dbd90
 void FUN_002dbd90(Gamma *g)

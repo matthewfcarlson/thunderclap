@@ -987,7 +987,7 @@ pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
 namespace fn_fa930a40 {
 
 // 0x003080a0 FUN_003080a0 (785 B): equivalent/0x003080a0.cpp
-// sym: ?FUN_003080a0@fn_fa930a40@@YAPAUNode@1@PAUReader@1@@Z @6ac40485a546 @w3f53e394ad60
+// sym: ?FUN_003080a0@fn_fa930a40@@YAPAUNode@1@PAUReader@1@@Z @6ac40485a546 @w3f53e394ad60 @v32548a6747ec
 // STATUS: equivalent (tools/equiv.py level 3: 1853 inputs, branch coverage 30/31, incomplete)
 // FUN_003080a0 @ 0x003080a0
 Node* __cdecl FUN_003080a0(Reader* r)
@@ -1111,7 +1111,7 @@ Item_3083e0* Container_3083e0::add() {
 } // namespace fn_fa930a40
 
 // 0x00308410 physics::CollisionObjectLoader::vfunc_5 (1157 B): equivalent/0x00308410.cpp
-// sym: ?vfunc_5@CollisionObjectLoader@physics@@UAEXPAX00H@Z @d414aa8a756c @w850f295c6f83
+// sym: ?vfunc_5@CollisionObjectLoader@physics@@UAEXPAX00H@Z @d414aa8a756c @w850f295c6f83 @v8bda889421ab
 // STATUS: equivalent (tools/equiv.py level 3: 233 inputs, branch coverage 42/47, incomplete)
 // physics::CollisionObjectLoader::vfunc_5 @ 0x00308410
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0

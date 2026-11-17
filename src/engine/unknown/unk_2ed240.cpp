@@ -1187,7 +1187,7 @@ void Tracker_2ee260::FUN_002ee260(Obj_2ee260 *obj)
 
 
 // 0x002ee510 FUN_002ee510 (92 B): equivalent/0x002ee510.cpp
-// sym: ?FUN_002ee510@Container@fn_f671dae7@@QAEXPAUItem@2@@Z @b3ec4426e495 @w5e6149fbf3f8
+// sym: ?FUN_002ee510@Container@fn_f671dae7@@QAEXPAUItem@2@@Z @b3ec4426e495 @w5e6149fbf3f8 @v4119f77b26ab
 // STATUS: equivalent (tools/equiv.py level 3: 783 inputs, branch coverage 8/8)
 // FUN_002ee510 @ 0x002ee510
 void Container::FUN_002ee510(Item *item) {
@@ -1205,7 +1205,7 @@ void Container::FUN_002ee510(Item *item) {
 
 
 // 0x002ee570 FUN_002ee570 (136 B): equivalent/0x002ee570.cpp
-// sym: ?FUN_002ee570@Graph_2ee570@fn_f671dae7@@QAEXPAUItem_2ee570@2@0@Z @fd2dfe32d7bb @w17629570943c
+// sym: ?FUN_002ee570@Graph_2ee570@fn_f671dae7@@QAEXPAUItem_2ee570@2@0@Z @fd2dfe32d7bb @w17629570943c @vbd76003eb501
 // STATUS: equivalent (tools/equiv.py level 3: 51 inputs, branch coverage 18/18)
 // FUN_002ee570 @ 0x002ee570
 // Adds an edge between x and y unless one already connects them.

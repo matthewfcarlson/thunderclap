@@ -708,7 +708,7 @@ void FUN_002c7690(Mesh *m, VertexSink *out, char useB)
 
 
 // 0x002c7a50 FUN_002c7a50 (943 B): equivalent/0x002c7a50.cpp
-// sym: ?FUN_002c7a50@fn_f3d8c80d@@YAXEPAUSource_2c7a50@1@PAUEmitter_2c7a50@1@@Z @55768c6093aa @w1f8c2dbc3bc1
+// sym: ?FUN_002c7a50@fn_f3d8c80d@@YAXEPAUSource_2c7a50@1@PAUEmitter_2c7a50@1@@Z @55768c6093aa @w1f8c2dbc3bc1 @vd91a6ffa627e
 // STATUS: equivalent (tools/equiv.py level 3: 107 inputs, branch coverage 46/46)
 // FUN_002c7a50 @ 0x002c7a50
 // equiv-conv: FUN_002c7a50 ecx eax esi

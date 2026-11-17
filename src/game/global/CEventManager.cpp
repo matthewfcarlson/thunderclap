@@ -1672,7 +1672,7 @@ void Registry_1cc2c0::FUN_001cc2c0(const char* a1, Owner* a2, Fn_1cc2c0 a3) {
 } // namespace fn_ffd7287e
 
 // 0x001cc360 FUN_001cc360 (462 B): equivalent/0x001cc360.cpp [wrapped: conflict: CEventManager; Closure1; FUN_001d4c90; Method1]
-// sym: ??0CEventManager@fn_001cc360@@QAE@XZ @2794076606d3 @w2a783f2bd06f
+// sym: ??0CEventManager@fn_001cc360@@QAE@XZ @2794076606d3 @w2a783f2bd06f @vc0aad6efad6c
 namespace fn_001cc360 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/12)
 // FUN_001cc360 @ 0x001cc360

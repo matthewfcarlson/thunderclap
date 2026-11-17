@@ -146,7 +146,7 @@ hulk_freg __cdecl FUN_002f2950(V* a, V* b) {
 } // namespace fn_f6d70462
 
 // 0x002f2970 physics::PhysicsPropertiesLoader::vfunc_5 (271 B): equivalent/0x002f2970.cpp
-// sym: ?vfunc_5@PhysicsPropertiesLoader@physics@@UAEXPAX00H@Z @2acdb39c37f1 @wa784e1ccd3ba
+// sym: ?vfunc_5@PhysicsPropertiesLoader@physics@@UAEXPAX00H@Z @2acdb39c37f1 @wa784e1ccd3ba @v76c09b6f3a6b
 // STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 0/0)
 // physics::PhysicsPropertiesLoader::vfunc_5 @ 0x002f2970
 void physics::PhysicsPropertiesLoader::vfunc_5(void* __p0, void* __p1, void* __p2, hulk_intptr __p3) { Context_2f2970 * context = (Context_2f2970 *)__p2;
