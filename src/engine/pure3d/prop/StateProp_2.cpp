@@ -2144,7 +2144,7 @@ pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
 
 
 // 0x0027e920 pure3d::prop::StateProp::vfunc_6 (1131 B): equivalent/0x0027e920.cpp [wrapped: conflict: StateProp]
-// sym: ?v6@StateProp@fn_0027e920@@UAEXMTArg2_27e920@2@@Z @a9adc0f9fc02 @we8ecd35031e1
+// sym: ?v6@StateProp@fn_0027e920@@UAEXMTArg2_27e920@2@@Z @a9adc0f9fc02 @we8ecd35031e1 @va9050babada0
 namespace fn_0027e920 {
 // STATUS: equivalent (tools/equiv.py level 3: 16356 inputs, branch coverage 66/66)
 // pure3d::prop::StateProp::vfunc_6 @ 0x0027e920

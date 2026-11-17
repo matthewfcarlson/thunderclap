@@ -493,11 +493,11 @@ void __fastcall FUN_002a21c0(TranslucentTraversal* self) {
 } // namespace fn_f7803771
 
 // 0x002a2200 FUN_002a2200 (408 B): equivalent/0x002a2200.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?FUN_002a2200@fn_002a2200@@YAPAURange_2a2200@1@PAU21@PAH1P6A_NHH@Z@Z @469184f11bf2 @wbb1888ababab
+// sym: ?FUN_002a2200@fn_002a2200@@YAPAURange_2a2200@1@PAU21@PAH1P6ADHH@Z@Z @469184f11bf2 @w179fafd489a5 @vfa11339495a0
 namespace fn_002a2200 {
 // STATUS: equivalent (tools/equiv.py level 3: 10 inputs, branch coverage 37/42, incomplete)
 // FUN_002a2200 @ 0x002a2200
-typedef bool (*Less_2a2200)(int a, int b);
+typedef char (*Less_2a2200)(int a, int b);     // its result is tested as a whole byte (test al, al)
 
 struct Range_2a2200 {
     int *first;

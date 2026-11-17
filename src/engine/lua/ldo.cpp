@@ -180,7 +180,7 @@ extern "C" void __cdecl FUN_00215460(LuaVMState* L, int n) {
 } // namespace fn_ffc5dd1e
 
 // 0x002155f0 FUN_002155f0 (288 B): equivalent/0x002155f0.cpp [wrapped: code differs from its standalone build]
-// sym: _FUN_002155f0 @5f7e00d0f20e @w329dec5f7aab
+// sym: _FUN_002155f0 @a6fa29d99b54 @w7d810d546a5e @v76d406362f0e
 namespace fn_002155f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 56 inputs, branch coverage 12/12)
 // adjust_varargs: pad missing fixed arguments with nil and move the extra ones into a new `arg' table (with the
@@ -216,9 +216,10 @@ extern "C" LuaVMTObject* __cdecl FUN_002155f0(LuaVMTObject* base, LuaVMState* L,
     LuaVMTObject* slot = FUN_0021a500(L, htab, FUN_00219430(L, "n", 1));
     slot->tt = LUAVM_TNUMBER;
     slot->value.n = (float)actual;
-    L->top -= actual;
-    L->top->value.gc = (LuaVMGCObject*)htab;
-    L->top->tt = LUAVM_TTABLE;
+    LuaVMTObject* t = L->top - actual;      // stored once: the slot is written through this pointer, L->top not re-read
+    L->top = t;
+    t->value.gc = (LuaVMGCObject*)htab;
+    t->tt = LUAVM_TTABLE;
     if ((char*)L->stack_last - (char*)L->top <= (int)sizeof(LuaVMTObject))
         FUN_00215460(L, 1);
     L->top++;

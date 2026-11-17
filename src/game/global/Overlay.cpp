@@ -130,7 +130,7 @@ extern "C" __int64 FUN_0027b020(void*);
 namespace fn_fd3ccc71 {
 
 // 0x000c9720 FUN_000c9720 (189 B): equivalent/0x000c9720.cpp
-// sym: ?target@Object@fn_fd3ccc71@@QAEXUVec3_c9720@2@@Z @e09560ed15cf @wcc9cbaa0c760
+// sym: ?target@Object@fn_fd3ccc71@@QAEXUVec3_c9720@2@@Z @e09560ed15cf @wcc9cbaa0c760 @veb7acc509d4f
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_000c9720 @ 0x000c9720
 void Object::target(Vec3_c9720 input) {

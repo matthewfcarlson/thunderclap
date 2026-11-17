@@ -2,6 +2,7 @@
 // object 0x0022baf0..0x00230800 (kind game, layer engine, confidence low)
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "compat/pre.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/global.h"
 #include "gen/owners.h"
@@ -384,7 +385,7 @@ class X {
 } // namespace fn_f0c6a717
 
 // 0x0022bc20 FUN_0022bc20 (174 B): equivalent/0x0022bc20.cpp
-// sym: ?FUN_0022bc20@Matrix_22bc20@owners@@QAEXMMM@Z @6378b2984061 @wb8379dc1753e
+// sym: ?FUN_0022bc20@Matrix_22bc20@owners@@QAEXMMM@Z @6378b2984061 @wb8379dc1753e @v4e655070323f
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_0022bc20 @ 0x0022bc20
 void owners::Matrix_22bc20::FUN_0022bc20(float x,float y,float z) {
@@ -419,7 +420,7 @@ void owners::Matrix_22bcd0::FUN_0022bcd0(float x, float y, float z) {
 
 
 // 0x0022bda0 FUN_0022bda0 (153 B): equivalent/0x0022bda0.cpp
-// sym: ?FUN_0022bda0@Matrix_22bda0@owners@@QAEXMMM@Z @c3e8240179ec @w7ce5040cf25e
+// sym: ?FUN_0022bda0@Matrix_22bda0@owners@@QAEXMMM@Z @c3e8240179ec @w7ce5040cf25e @v0a025112b40f
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0022bda0 @ 0x0022bda0
 // Builds the 3x3 rotation block from three Euler angles.
@@ -471,7 +472,7 @@ void owners::C_22be60::FUN_0022be60(int p, int q, int r) {
 namespace fn_f0c6a717 {
 
 // 0x0022bec0 FUN_0022bec0 (277 B): equivalent/0x0022bec0.cpp
-// sym: ?FUN_0022bec0@Basis_22bec0@fn_f0c6a717@@QAEXPAUVec_22bec0@2@0@Z @efd380f2bd65 @w7ea761a9f5ed
+// sym: ?FUN_0022bec0@Basis_22bec0@fn_f0c6a717@@QAEXPAUVec_22bec0@2@0@Z @efd380f2bd65 @w7ea761a9f5ed @v347fd4be3b42
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_0022bec0 @ 0x0022bec0
 void Basis_22bec0::FUN_0022bec0(Vec_22bec0* u, Vec_22bec0* v) {
@@ -517,7 +518,7 @@ void owners::M_22c0b0::FUN_0022c0b0() {
 
 
 // 0x0022c120 FUN_0022c120 (136 B): equivalent/0x0022c120.cpp
-// sym: ?FUN_0022c120@Matrix_22c120@owners@@QAEXXZ @883e90ece2dd @wd9c9e0f64243
+// sym: ?FUN_0022c120@Matrix_22c120@owners@@QAEXXZ @883e90ece2dd @wd9c9e0f64243 @v767141ce704d
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0022c120 @ 0x0022c120
 // Inverts a rigid transform in place: transposes the rotation, then maps the negated translation through it.
@@ -539,7 +540,7 @@ void owners::Matrix_22c120::FUN_0022c120()
 namespace fn_f0c6a717 {
 
 // 0x0022c1b0 FUN_0022c1b0 (250 B): equivalent/0x0022c1b0.cpp
-// sym: ?target@Matrix@fn_f0c6a717@@QAEXXZ @9d0d147d6b11 @w620f3ce21074
+// sym: ?target@Matrix@fn_f0c6a717@@QAEXXZ @9d0d147d6b11 @w620f3ce21074 @v7fcee38889a3
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0022c1b0 @ 0x0022c1b0
 void Matrix::target() {
@@ -601,7 +602,7 @@ void owners::M_22c3b0::FUN_0022c3b0(float* p, float* out) {
 
 
 // 0x0022c410 FUN_0022c410 (517 B): equivalent/0x0022c410.cpp [wrapped: conflict: Matrix]
-// sym: ?FUN_0022c410@Matrix@fn_0022c410@@QAEXHPBUVec3_22c410@2@PAU32@@Z @ce1b6a4545bb @weac4d6023396
+// sym: ?FUN_0022c410@Matrix@fn_0022c410@@QAEXHPBUVec3_22c410@2@PAU32@@Z @ce1b6a4545bb @weac4d6023396 @v8aa6de634070
 namespace fn_0022c410 {
 // STATUS: equivalent (tools/equiv.py level 3: 10208 inputs, branch coverage 8/8)
 // FUN_0022c410 @ 0x0022c410
@@ -631,7 +632,7 @@ void Matrix::FUN_0022c410(int n, const Vec3_22c410* src, Vec3_22c410* dst)
 
 
 // 0x0022c6c0 FUN_0022c6c0 (429 B): equivalent/0x0022c6c0.cpp [wrapped: conflict: Matrix]
-// sym: ?LookAt@Matrix@fn_0022c6c0@@QAEXPBUV3_22c6c0@2@00@Z @f1c8ff7280d3 @w3028c51247ad
+// sym: ?LookAt@Matrix@fn_0022c6c0@@QAEXPBUV3_22c6c0@2@00@Z @f1c8ff7280d3 @w3028c51247ad @v3a3b288dbcb2
 namespace fn_0022c6c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_0022c6c0 @ 0x0022c6c0
@@ -679,7 +680,7 @@ void Matrix::LookAt(const V3_22c6c0* at, const V3_22c6c0* eye, const V3_22c6c0* 
 namespace fn_f0c6a717 {
 
 // 0x0022c8e0 FUN_0022c8e0 (425 B): equivalent/0x0022c8e0.cpp
-// sym: ?LookAt@Mat_22c8e0@fn_f0c6a717@@QAEXPBUVec3_22c8e0@2@00@Z @b2767677ca5f @w8cb1944439a8
+// sym: ?LookAt@Mat_22c8e0@fn_f0c6a717@@QAEXPBUVec3_22c8e0@2@00@Z @b2767677ca5f @w8cb1944439a8 @v9bf6b33e8d54
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 0/0; --wine 606 inputs)
 // FUN_0022c8e0 @ 0x0022c8e0
 void Mat_22c8e0::LookAt(const Vec3_22c8e0 *center, const Vec3_22c8e0 *eye, const Vec3_22c8e0 *up)
@@ -732,10 +733,15 @@ void Mat_22c8e0::LookAt(const Vec3_22c8e0 *center, const Vec3_22c8e0 *eye, const
 } // namespace fn_f0c6a717
 
 // 0x0022ca90 FUN_0022ca90 (380 B): equivalent/0x0022ca90.cpp
-// sym: ?FUN_0022ca90@Matrix_22ca90@owners@@QAEXPBU12@0@Z @447f21597577 @wcc38af0bdc02
+// sym: ?FUN_0022ca90@Matrix_22ca90@owners@@QAEXPBU12@0@Z @447f21597577 @we6fa2f6eb7d5 @v52f6cb822832
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_0022ca90 @ 0x0022ca90
+// (the floats it reads: columns 0-2 of every row of both)
+// pre: defnan(*arg1+0x0..0xc) defnan(*arg1+0x10..0x1c) defnan(*arg1+0x20..0x2c) defnan(*arg1+0x30..0x3c)
+// pre: defnan(*arg2+0x0..0xc) defnan(*arg2+0x10..0x1c) defnan(*arg2+0x20..0x2c) defnan(*arg2+0x30..0x3c)
 void owners::Matrix_22ca90::FUN_0022ca90(const owners::Matrix_22ca90* a, const owners::Matrix_22ca90* b) {
+ HULK_PRE_DEFNAN_N(a->m[0], 3); HULK_PRE_DEFNAN_N(a->m[1], 3); HULK_PRE_DEFNAN_N(a->m[2], 3); HULK_PRE_DEFNAN_N(a->m[3], 3);
+ HULK_PRE_DEFNAN_N(b->m[0], 3); HULK_PRE_DEFNAN_N(b->m[1], 3); HULK_PRE_DEFNAN_N(b->m[2], 3); HULK_PRE_DEFNAN_N(b->m[3], 3);
  owners::Matrix_22ca90 r;
  r.m[0][0]=(a->m[0][0]*b->m[0][0]+a->m[0][2]*b->m[2][0])+b->m[1][0]*a->m[0][1];
  r.m[0][1]=(b->m[0][1]*a->m[0][0]+a->m[0][2]*b->m[2][1])+b->m[1][1]*a->m[0][1];
@@ -758,11 +764,14 @@ void owners::Matrix_22ca90::FUN_0022ca90(const owners::Matrix_22ca90* a, const o
 
 
 // 0x0022cc10 FUN_0022cc10 (116 B): equivalent/0x0022cc10.cpp
-// sym: ?FUN_0022cc10@Matrix_22cc10@owners@@QAEXPBU12@0@Z @560217a1c807 @wa5836bf6c562
+// sym: ?FUN_0022cc10@Matrix_22cc10@owners@@QAEXPBU12@0@Z @560217a1c807 @w975dc5d90805 @v3d516eceb745
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // FUN_0022cc10 @ 0x0022cc10
+// pre: defnan(*arg1+0x0..0x40) defnan(*arg2+0x0..0x40)
 void owners::Matrix_22cc10::FUN_0022cc10(const owners::Matrix_22cc10* a, const owners::Matrix_22cc10* b)
 {
+    HULK_PRE_DEFNAN_N(&a->m[0][0], 16);
+    HULK_PRE_DEFNAN_N(&b->m[0][0], 16);
     owners::Matrix_22cc10 result;
     for (int row = 3; row >= 0; --row) {
         for (int col = 3; col >= 0; --col) {
@@ -842,13 +851,16 @@ void Mat::Init(const Vec* v) {
 } // namespace fn_f0c6a717
 
 // 0x0022cdb0 FUN_0022cdb0 (473 B): equivalent/0x0022cdb0.cpp
-// sym: ?FUN_0022cdb0@Matrix_22cdb0@owners@@QAEXXZ @fa8eb2369c37 @wfe9bd5afc779
+// sym: ?FUN_0022cdb0@Matrix_22cdb0@owners@@QAEXXZ @fa8eb2369c37 @wef3b1aa37b6b @vcdaaad42256f
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // FUN_0022cdb0 @ 0x0022cdb0
 // x87: the determinant and its reciprocal stay in registers (53 bits); the products p1-p5 and the result go
 // through the frame (rounded)
+// (the floats it computes with: m[3], m[7], m[11] are not read, m[15] is copied)
+// pre: defnan(*this+0x0..0xc) defnan(*this+0x10..0x1c) defnan(*this+0x20..0x2c) defnan(*this+0x30..0x3c)
 void owners::Matrix_22cdb0::FUN_0022cdb0()
 {
+    HULK_PRE_DEFNAN_N(m, 3); HULK_PRE_DEFNAN_N(m + 4, 3); HULK_PRE_DEFNAN_N(m + 8, 3); HULK_PRE_DEFNAN_N(m + 12, 3);
     float t[16];
     volatile float p1 = m[6] * m[8];
     volatile float p2 = m[9] * m[4];
@@ -897,7 +909,7 @@ void owners::Matrix_22cdb0::FUN_0022cdb0()
 
 
 // 0x0022cf90 FUN_0022cf90 (371 B): equivalent/0x0022cf90.cpp [wrapped: helper definitions (5 out-of-line function bodies)]
-// sym: ?FUN_0022cf90@Mat3@fn_0022cf90@@QAE_NXZ @da6466141410 @wb3fad1665885
+// sym: ?FUN_0022cf90@Mat3@fn_0022cf90@@QAE_NXZ @da6466141410 @wb3fad1665885 @vfe50acd6edb4
 namespace fn_0022cf90 {
 // STATUS: equivalent (tools/equiv.py level 3: 20026 inputs, branch coverage 11/12, incomplete)
 // FUN_0022cf90 @ 0x0022cf90
@@ -1051,7 +1063,7 @@ unsigned V3_22d330::IsSmall() {
 
 
 // 0x0022d3a0 FUN_0022d3a0 (141 B): equivalent/0x0022d3a0.cpp
-// sym: _FUN_0022d3a0 @3a97d80c151f @w753561835220
+// sym: _FUN_0022d3a0 @3a97d80c151f @w753561835220 @vd1d8b8a2df97
 // STATUS: equivalent (tools/equiv.py level 3: 20017 inputs, branch coverage 6/6)
 // FUN_0022d3a0 @ 0x0022d3a0
 // Distance along `dir` from point `b` to point `a`, clamped to [0, limit]; 0 when limit is 0.
@@ -1075,7 +1087,7 @@ extern "C" void FUN_0022d3a0(const Vec3_22d3a0* a, const Vec3_22d3a0* b, const V
 
 
 // 0x0022d550 FUN_0022d550 (465 B): equivalent/0x0022d550.cpp
-// sym: _FUN_0022d550 @8fd10640f390 @wea387130c780
+// sym: _FUN_0022d550 @8fd10640f390 @wea387130c780 @v06237debb9f1
 // STATUS: equivalent (tools/equiv.py level 3: 20019 inputs, branch coverage 10/10)
 // FUN_0022d550 @ 0x0022d550
 // Closest approach between a line (point P + t * dir ...) and a segment, see out parameters.
@@ -1121,7 +1133,7 @@ extern "C" char FUN_0022d550(const V3_22d550 *s, const V3_22d550 *dir, const V3_
 
 
 // 0x0022d730 FUN_0022d730 (1065 B): equivalent/0x0022d730.cpp
-// sym: _FUN_0022d730 @9e607b5414af @wd21a1cdac70a
+// sym: _FUN_0022d730 @9e607b5414af @wd21a1cdac70a @ve5a88207f6a5
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 50/50)
 // FUN_0022d730 @ 0x0022d730
 extern "C" bool FUN_0022d730(const V3_22d730 *p1, const V3_22d730 *d1, float smax, const V3_22d730 *p2, const V3_22d730 *d2,
@@ -1220,7 +1232,7 @@ extern "C" bool FUN_0022d730(const V3_22d730 *p1, const V3_22d730 *d1, float sma
 
 
 // 0x0022db60 FUN_0022db60 (779 B): equivalent/0x0022db60.cpp
-// sym: ?FUN_0022db60@fn_f0c6a717@@YA_NTSlot_22db60@1@00PAUV3_22db60@1@M0PAM@Z @04de11224171 @w8249f57e067d
+// sym: ?FUN_0022db60@fn_f0c6a717@@YA_NTSlot_22db60@1@00PAUV3_22db60@1@M0PAM@Z @04de11224171 @w8249f57e067d @v768f64ed8f21
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 16/16)
 // FUN_0022db60 @ 0x0022db60
 bool __cdecl FUN_0022db60(Slot_22db60 a1, Slot_22db60 a2, Slot_22db60 a3, V3_22db60 *a4, float a5, Slot_22db60 a6, float *a7)
@@ -1333,7 +1345,7 @@ bool __cdecl FUN_0022db60(Slot_22db60 a1, Slot_22db60 a2, Slot_22db60 a3, V3_22d
 
 
 // 0x0022de70 FUN_0022de70 (291 B): equivalent/0x0022de70.cpp
-// sym: _FUN_0022de70 @3d613220a376 @wfe765a04c743
+// sym: _FUN_0022de70 @3d613220a376 @wfe765a04c743 @v10564955e554
 // STATUS: equivalent (tools/equiv.py level 3: 20017 inputs, branch coverage 2/2)
 // FUN_0022de70 @ 0x0022de70
 extern "C" bool __cdecl FUN_0022de70(const Vec3_22de70* point, const Vec3_22de70* direction, const Vec3_22de70* planePoint, const Vec3_22de70* normal, Vec3_22de70* result, float* parameter) {
@@ -1368,7 +1380,7 @@ extern "C" bool __cdecl FUN_0022de70(const Vec3_22de70* point, const Vec3_22de70
 
 
 // 0x0022dfe0 FUN_0022dfe0 (147 B): equivalent/0x0022dfe0.cpp
-// sym: ?FUN_0022dfe0@Plane_22dfe0@fn_f0c6a717@@QAEXPBUVec3_22dfe0@2@00@Z @7bf7b97b9036 @wa7ebb3c2f7e9
+// sym: ?FUN_0022dfe0@Plane_22dfe0@fn_f0c6a717@@QAEXPBUVec3_22dfe0@2@00@Z @7bf7b97b9036 @wa7ebb3c2f7e9 @vede33962cb67
 // STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 0/0)
 // FUN_0022dfe0 @ 0x0022dfe0
 // Plane through three points: normal = (b - a) x (c - a), d = -dot(a, normal).
@@ -1390,7 +1402,7 @@ void Plane_22dfe0::FUN_0022dfe0(const Vec3_22dfe0 *a, const Vec3_22dfe0 *b, cons
 } // namespace fn_f0c6a717
 
 // 0x0022e080 FUN_0022e080 (115 B): equivalent/0x0022e080.cpp
-// sym: ?FUN_0022e080@Plane_22e080@owners@@QAE_NPBM@Z @c1f1b02de214 @w7aa4de3d3771
+// sym: ?FUN_0022e080@Plane_22e080@owners@@QAE_NPBM@Z @c1f1b02de214 @w7aa4de3d3771 @vb07cee131f6b
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_0022e080 @ 0x0022e080
 bool owners::Plane_22e080::FUN_0022e080(const float *box)
@@ -1404,7 +1416,7 @@ bool owners::Plane_22e080::FUN_0022e080(const float *box)
 namespace fn_f0c6a717 {
 
 // 0x0022e100 FUN_0022e100 (115 B): equivalent/0x0022e100.cpp
-// sym: ?FUN_0022e100@Plane_22e100@fn_f0c6a717@@QAE_NPBM@Z @a25ac1ef4dd9 @w6925c755bd43
+// sym: ?FUN_0022e100@Plane_22e100@fn_f0c6a717@@QAE_NPBM@Z @a25ac1ef4dd9 @w6925c755bd43 @v7c2b89cc5a41
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_0022e100 @ 0x0022e100
 bool Plane_22e100::FUN_0022e100(const float *box)
@@ -1417,7 +1429,7 @@ bool Plane_22e100::FUN_0022e100(const float *box)
 
 
 // 0x0022e1f0 FUN_0022e1f0 (136 B): equivalent/0x0022e1f0.cpp
-// sym: ?FUN_0022e1f0@Plane_22e1f0@fn_f0c6a717@@QAE_NPBUVec3_22e1f0@2@0PAM@Z @39c86fc7eeab @wb6baff4b705b
+// sym: ?FUN_0022e1f0@Plane_22e1f0@fn_f0c6a717@@QAE_NPBUVec3_22e1f0@2@0PAM@Z @39c86fc7eeab @wb6baff4b705b @v2e860f3c2a89
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_0022e1f0 @ 0x0022e1f0
 // Segment a-b against the plane: true (and the crossing fraction in *t) when the endpoints lie on opposite sides.
@@ -1469,7 +1481,7 @@ Foo_22e470& Foo_22e470::Copy(const Foo_22e470& o) {
 
 
 // 0x0022e500 FUN_0022e500 (330 B): equivalent/0x0022e500.cpp
-// sym: ?FUN_0022e500@Curve_22e500@fn_f0c6a717@@QAEXHPBUVec3_22e500@2@000@Z @34f9270aeeea @w0f7708b6819c
+// sym: ?FUN_0022e500@Curve_22e500@fn_f0c6a717@@QAEXHPBUVec3_22e500@2@000@Z @34f9270aeeea @w0f7708b6819c @va9bb4aa807ab
 // STATUS: equivalent (tools/equiv.py level 3: 72 inputs, branch coverage 11/11)
 // FUN_0022e500 @ 0x0022e500
 void Curve_22e500::FUN_0022e500(int type, const Vec3_22e500 *p0, const Vec3_22e500 *p1, const Vec3_22e500 *p2, const Vec3_22e500 *p3)
@@ -1524,7 +1536,7 @@ void Curve_22e500::FUN_0022e500(int type, const Vec3_22e500 *p0, const Vec3_22e5
 
 
 // 0x0022e670 FUN_0022e670 (326 B): equivalent/0x0022e670.cpp
-// sym: ?FUN_0022e670@Curve_22e670@fn_f0c6a717@@QAEXHPBUVec4_22e670@2@000@Z @d44e3b70d003 @wfb69971675e8
+// sym: ?FUN_0022e670@Curve_22e670@fn_f0c6a717@@QAEXHPBUVec4_22e670@2@000@Z @d44e3b70d003 @wfb69971675e8 @v41d785e61e5d
 // STATUS: equivalent (tools/equiv.py level 3: 72 inputs, branch coverage 11/11)
 // FUN_0022e670 @ 0x0022e670
 void Curve_22e670::FUN_0022e670(int type, const Vec4_22e670 *p0, const Vec4_22e670 *p1, const Vec4_22e670 *p2, const Vec4_22e670 *p3)
@@ -1567,7 +1579,7 @@ void Curve_22e670::FUN_0022e670(int type, const Vec4_22e670 *p0, const Vec4_22e6
 
 
 // 0x0022eb00 FUN_0022eb00 (131 B): equivalent/0x0022eb00.cpp
-// sym: ?FUN_0022eb00@Integrator@fn_f0c6a717@@QAEXPAUVec3_22eb00@2@@Z @b747ec3f296e @w98948cc928e0
+// sym: ?FUN_0022eb00@Integrator@fn_f0c6a717@@QAEXPAUVec3_22eb00@2@@Z @b747ec3f296e @w98948cc928e0 @v174ea873201b
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0022eb00 @ 0x0022eb00
 void Integrator::FUN_0022eb00(Vec3_22eb00 *out)
@@ -1637,7 +1649,7 @@ char owners::Obj_22ef20::FUN_0022ef20(int index, float value) {
 namespace fn_f0c6a717 {
 
 // 0x0022efb0 FUN_0022efb0 (161 B): equivalent/0x0022efb0.cpp
-// sym: ?FUN_0022efb0@Track@fn_f0c6a717@@QAEHHM@Z @824777df0400 @w538579847705
+// sym: ?FUN_0022efb0@Track@fn_f0c6a717@@QAEHHM@Z @824777df0400 @w538579847705 @v902a8b4b228c
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 11/12, incomplete)
 // FUN_0022efb0 @ 0x0022efb0
 // FUN_0022efb0 @ 0x0022efb0: clamps a fractional position into [0, count], then moves the cursor there
@@ -1655,7 +1667,7 @@ int Track::FUN_0022efb0(int target, float position)
 
 
 // 0x0022f060 FUN_0022f060 (186 B): equivalent/0x0022f060.cpp
-// sym: ?FUN_0022f060@Object@fn_f0c6a717@@QAEPAXPAXII@Z @65691faf19a1 @w18fa06d50b82
+// sym: ?FUN_0022f060@Object@fn_f0c6a717@@QAEPAXPAXII@Z @65691faf19a1 @w18fa06d50b82 @vbfe9031ae2f9
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // FUN_0022f060 @ 0x0022f060
 void* Object::FUN_0022f060(void* destination, unsigned int step, unsigned int requested) {
@@ -1676,7 +1688,7 @@ void* Object::FUN_0022f060(void* destination, unsigned int step, unsigned int re
 
 
 // 0x0022f120 FUN_0022f120 (262 B): equivalent/0x0022f120.cpp
-// sym: ?FUN_0022f120@Animator_22f120@fn_f0c6a717@@QAEPAXPAX@Z @4dee2c1c4668 @wd4464c9b988f
+// sym: ?FUN_0022f120@Animator_22f120@fn_f0c6a717@@QAEPAXPAX@Z @4dee2c1c4668 @wd4464c9b988f @v64e4b356e5ba
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 20/20)
 // FUN_0022f120 @ 0x0022f120
 void* Animator_22f120::FUN_0022f120(void* output) {
@@ -1702,7 +1714,7 @@ void* Animator_22f120::FUN_0022f120(void* output) {
 
 
 // 0x0022f230 FUN_0022f230 (456 B): equivalent/0x0022f230.cpp
-// sym: ?FUN_0022f230@Shape_22f230@fn_f0c6a717@@QAEPAU12@PBU12@@Z @393b9728d232 @w692cde685c0f
+// sym: ?FUN_0022f230@Shape_22f230@fn_f0c6a717@@QAEPAU12@PBU12@@Z @393b9728d232 @w692cde685c0f @v08e139b6acf5
 // STATUS: equivalent (tools/equiv.py level 3: 48 inputs, branch coverage 24/24)
 // FUN_0022f230 @ 0x0022f230
 Shape_22f230* Shape_22f230::FUN_0022f230(const Shape_22f230* src)
@@ -1750,7 +1762,7 @@ Shape_22f230* Shape_22f230::FUN_0022f230(const Shape_22f230* src)
 
 
 // 0x0022f400 FUN_0022f400 (472 B): equivalent/0x0022f400.cpp
-// sym: ?FUN_0022f400@Shape_22f400@fn_f0c6a717@@QAEPAU12@PBU12@@Z @fd1f6ef5b304 @w656c5b42fa7b
+// sym: ?FUN_0022f400@Shape_22f400@fn_f0c6a717@@QAEPAU12@PBU12@@Z @fd1f6ef5b304 @w656c5b42fa7b @vfa587b787b50
 // STATUS: equivalent (tools/equiv.py level 3: 43 inputs, branch coverage 24/24)
 // FUN_0022f400 @ 0x0022f400
 Shape_22f400* Shape_22f400::FUN_0022f400(const Shape_22f400* src)
@@ -1799,7 +1811,7 @@ Shape_22f400* Shape_22f400::FUN_0022f400(const Shape_22f400* src)
 
 
 // 0x0022f760 FUN_0022f760 (126 B): equivalent/0x0022f760.cpp
-// sym: ?FUN_0022f760@fn_f0c6a717@@YAMPAUSampler_22f760@1@M@Z @a6b62ce31f00 @w9c890a13a988
+// sym: ?FUN_0022f760@fn_f0c6a717@@YAMPAUSampler_22f760@1@M@Z @a6b62ce31f00 @w9c890a13a988 @vb48fe1cfa5a7
 // STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 2/2)
 // FUN_0022f760 @ 0x0022f760
 // equiv-conv: FUN_0022f760 edi stack
@@ -1817,7 +1829,7 @@ hulk_freg FUN_0022f760(Sampler_22f760* s, float t)
 
 
 // 0x0022f7e0 FUN_0022f7e0 (370 B): equivalent/0x0022f7e0.cpp
-// sym: ?FUN_0022f7e0@Curve_22f7e0@fn_f0c6a717@@QAEMI@Z @ef2393e2869c @we524fe1d23ff
+// sym: ?FUN_0022f7e0@Curve_22f7e0@fn_f0c6a717@@QAEMI@Z @ef2393e2869c @we524fe1d23ff @ve208a6e20af3
 // STATUS: equivalent (tools/equiv.py level 3: 341 inputs, branch coverage 21/22, incomplete)
 // FUN_0022f7e0 @ 0x0022f7e0
 // equiv-conv: FUN_0022f760 edi stack
@@ -1842,7 +1854,7 @@ float Curve_22f7e0::FUN_0022f7e0(uint_22f7e0 index) {
 } // namespace fn_f0c6a717
 
 // 0x0022f960 FUN_0022f960 (251 B): equivalent/0x0022f960.cpp [wrapped: conflict: Object]
-// sym: ?target@Object@fn_0022f960@@QAEMXZ @43978d3237d6 @w6fe9f703410c
+// sym: ?target@Object@fn_0022f960@@QAEMXZ @43978d3237d6 @w6fe9f703410c @v405809a85cdc
 namespace fn_0022f960 {
 // STATUS: equivalent (tools/equiv.py level 3: 2518 inputs, branch coverage 24/24)
 // FUN_0022f960 @ 0x0022f960
@@ -1887,7 +1899,7 @@ float Object::target() {
 namespace fn_f0c6a717 {
 
 // 0x0022fa60 FUN_0022fa60 (331 B): equivalent/0x0022fa60.cpp
-// sym: ?FUN_0022fa60@Curve_22fa60@fn_f0c6a717@@QAEMM@Z @83f6c67eb129 @wc2e9e6b54d44
+// sym: ?FUN_0022fa60@Curve_22fa60@fn_f0c6a717@@QAEMM@Z @83f6c67eb129 @wc2e9e6b54d44 @vce73befa504b
 // STATUS: equivalent (tools/equiv.py level 3: 15368 inputs, branch coverage 16/18, incomplete)
 // FUN_0022fa60 @ 0x0022fa60
 // equiv-conv: FUN_0022f760 edi stack
@@ -1909,7 +1921,7 @@ hulk_freg Curve_22fa60::FUN_0022fa60(float t) {
 } // namespace fn_f0c6a717
 
 // 0x0022fe40 FUN_0022fe40 (128 B): equivalent/0x0022fe40.cpp
-// sym: ?FUN_0022fe40@Box_22fe40@owners@@QAEPAU12@PAU12@@Z @43f3f4a696a3 @w775ea9b9af15
+// sym: ?FUN_0022fe40@Box_22fe40@owners@@QAEPAU12@PAU12@@Z @43f3f4a696a3 @w775ea9b9af15 @v1b7a97cf4394
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_0022fe40 @ 0x0022fe40
 // 0x0022fe40: write the component-wise normalised (min, max) corners of an axis aligned box
@@ -1940,7 +1952,7 @@ owners::Box_22fe40* owners::Box_22fe40::FUN_0022fe40(owners::Box_22fe40* out)
 namespace fn_f0c6a717 {
 
 // 0x0022fec0 FUN_0022fec0 (134 B): equivalent/0x0022fec0.cpp
-// sym: ?GetCenter@Bounds_22fec0@fn_f0c6a717@@QAEXPAUCenterRadius@2@@Z @8ad2c8b7e813 @wc17280bc26b6
+// sym: ?GetCenter@Bounds_22fec0@fn_f0c6a717@@QAEXPAUCenterRadius@2@@Z @8ad2c8b7e813 @wc17280bc26b6 @v1e4fc93e9e17
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 0/0)
 // FUN_0022fec0 @ 0x0022fec0
 void Bounds_22fec0::GetCenter(CenterRadius *out)
@@ -1959,7 +1971,7 @@ void Bounds_22fec0::GetCenter(CenterRadius *out)
 
 
 // 0x0022ff50 FUN_0022ff50 (333 B): equivalent/0x0022ff50.cpp
-// sym: ?FUN_0022ff50@Segment_22ff50@fn_f0c6a717@@QAEMPAUVec3_22ff50@2@@Z @844b98866539 @w37da17a84c2e
+// sym: ?FUN_0022ff50@Segment_22ff50@fn_f0c6a717@@QAEMPAUVec3_22ff50@2@@Z @844b98866539 @w37da17a84c2e @v0e88c5d64258
 // STATUS: equivalent (tools/equiv.py level 3: 20003 inputs, branch coverage 4/4)
 // FUN_0022ff50 @ 0x0022ff50
 // x87: the segment's deltas go through the frame (rounded); the point's x delta stays in a register, its y and z
@@ -2022,7 +2034,7 @@ hulk_freg Segment_22ff50::FUN_0022ff50(Vec3_22ff50 *p)
 
 
 // 0x002300a0 FUN_002300a0 (178 B): equivalent/0x002300a0.cpp
-// sym: ?distance@Line@fn_f0c6a717@@QAENPBUVec_2300a0@2@@Z @22e0f027c374 @wb17ff611175f
+// sym: ?distance@Line@fn_f0c6a717@@QAENPBUVec_2300a0@2@@Z @22e0f027c374 @wb17ff611175f @vc702fd5f77b2
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_002300a0 @ 0x002300a0
 double Line::distance(const Vec_2300a0* p) {
@@ -2039,7 +2051,7 @@ double Line::distance(const Vec_2300a0* p) {
 
 
 // 0x00230160 FUN_00230160 (834 B): equivalent/0x00230160.cpp
-// sym: ?FUN_00230160@Segment_230160@fn_f0c6a717@@QAEMPAV12@@Z @5af86f5e5267 @w12cbc5f074c8
+// sym: ?FUN_00230160@Segment_230160@fn_f0c6a717@@QAEMPAV12@@Z @5af86f5e5267 @w12cbc5f074c8 @v324d26f99455
 // STATUS: equivalent (tools/equiv.py level 3: 20005 inputs, branch coverage 22/22)
 // FUN_00230160 @ 0x00230160
 hulk_freg Segment_230160::FUN_00230160(Segment_230160* other) {
@@ -2117,7 +2129,7 @@ hulk_freg Segment_230160::FUN_00230160(Segment_230160* other) {
 
 
 // 0x002304b0 FUN_002304b0 (514 B): equivalent/0x002304b0.cpp
-// sym: ?FUN_002304b0@Segment_2304b0@fn_f0c6a717@@QAEMPBU12@@Z @8aa0eb52a22a @wd11ea1e6d0db
+// sym: ?FUN_002304b0@Segment_2304b0@fn_f0c6a717@@QAEMPBU12@@Z @8aa0eb52a22a @wd11ea1e6d0db @vececdb5f430b
 // STATUS: equivalent (tools/equiv.py level 3: 20003 inputs, branch coverage 4/4)
 // FUN_002304b0 @ 0x002304b0
 hulk_freg Segment_2304b0::FUN_002304b0(const Segment_2304b0* o)

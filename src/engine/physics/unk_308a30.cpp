@@ -2,6 +2,7 @@
 // object 0x00308a30..0x00308dd0 (kind game, layer engine, confidence low)
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "compat/pre.h"
 #include "decls/data/engine/physics.h"
 #include "gen/owners.h"
 #define TREE_TU_BEGIN namespace fn_f05f0e87 {
@@ -158,7 +159,7 @@ void owners::C_308a70::FUN_00308a70(hulk_intptr x) {
 namespace fn_f05f0e87 {
 
 // 0x00308a80 FUN_00308a80 (157 B): equivalent/0x00308a80.cpp
-// sym: ?FUN_00308a80@Trigger_308a80@fn_f05f0e87@@QAEXH@Z @a13800de8b6d @wf3fb1497dc4e
+// sym: ?FUN_00308a80@Trigger_308a80@fn_f05f0e87@@QAEXH@Z @a13800de8b6d @wf3fb1497dc4e @vf711cfb41fc8
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // FUN_00308a80 @ 0x00308a80
 // FUN_00308a80: arm the trigger once the tracked point is inside 1.5x the radius
@@ -179,7 +180,7 @@ void Trigger_308a80::FUN_00308a80(int unused)
 
 
 // 0x00308b20 FUN_00308b20 (120 B): equivalent/0x00308b20.cpp
-// sym: ?FUN_00308b20@Mover_308b20@fn_f05f0e87@@QAE_NXZ @002949a357e3 @w6d5687db3807
+// sym: ?FUN_00308b20@Mover_308b20@fn_f05f0e87@@QAE_NXZ @002949a357e3 @w6d5687db3807 @v9ba27e7f382b
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // FUN_00308b20 @ 0x00308b20
 bool Mover_308b20::FUN_00308b20() {
@@ -198,10 +199,15 @@ bool Mover_308b20::FUN_00308b20() {
 
 
 // 0x00308ba0 FUN_00308ba0 (276 B): equivalent/0x00308ba0.cpp
-// sym: ?update@Target_308ba0@fn_f05f0e87@@QAE_NM@Z @645eaa5381b0 @w2338a4e50657
+// sym: ?update@Target_308ba0@fn_f05f0e87@@QAE_NM@Z @645eaa5381b0 @w9d0d3c87110c @v42b6902a6735
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // FUN_00308ba0 @ 0x00308ba0
+// periodScale, dampingScale: x87 and SSE hand on different NaNs when two different NaNs meet (the default NaN of sqrt of a
+// negative ratio and another); with the zero-payload quiet NaN of either sign the only one allowed (D65, D85) both hand on
+// the same bits up to the sign
+// pre: defnan(*this+0x50..0x58)
 bool Target_308ba0::update(float dt) {
+ HULK_PRE_DEFNAN_N(&periodScale, 2);
  if(dirty) {
   Properties_308ba0* p=owner->properties;
   if(p && p->mass>0.0f) {

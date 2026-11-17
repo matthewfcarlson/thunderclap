@@ -281,7 +281,7 @@ int Object::FUN_00277d00(Interface_277d00* target, unsigned int a, const char* b
 
 
 // 0x00277d60 FUN_00277d60 (683 B): equivalent/0x00277d60.cpp
-// sym: ?target@State_277d60@fn_fad5a458@@QAEHPAUReader@2@IPBDIIPADIPAII@Z @2ff50b72b51d @w22a5f48e02a1
+// sym: ?target@State_277d60@fn_fad5a458@@QAEHPAUReader@2@IPBDIIPADIPAII@Z @2ff50b72b51d @w22a5f48e02a1 @v56feeb69dd0f
 // STATUS: equivalent (tools/equiv.py level 3: 526 inputs, branch coverage 38/40, incomplete; run with --inputs 12000)
 // FUN_00277d60 @ 0x00277d60
 int State_277d60::target(Reader* reader,U_277d60 a2,const char* a3,U_277d60 a4,U_277d60 start,char* dest,U_277d60 requested,U_277d60* result,U_277d60 a9) {
