@@ -1167,6 +1167,14 @@ blocks fight::Action's whole family: the records come first there.
 - **selfnarrow**: natnarrow skipped the function's own recursive calls (the self-call is not among our relocations'
   callees); 0x0030a9d0 now passes --wine at 3,000.
 
+## 2026-11-17 integ2: defnan of either sign; proofs past 10,000 with small counts
+- arm64 makes 0x7fc00000 where x87/SSE make 0xffc00000; the contract allows both, and a NaN's sign is not behaviour.
+  A fixed sample of bad NaNs let a macro blind to even payloads pass (rev5's _oddpay): sample by the seed too.
+- Proofs that draw past --inputs starved because small counts had used their time share; giving them rounds while
+  drawing proves 0x002a2200 / 0x002155f0 / 0x002b07d0 in ~3,000 draws instead of failing at 30,000.
+- A view must not depend on a host's local files (D91: build/xbsymbols.txt is laptop-only); rev5 showed that dropping
+  the file loses a real check (0x00320d30 calling the wrong D3D export passes): the fix is the user's call (D101).
+
 ## 2026-11-16 x64t17: TextureBuilder and d3dTexture on records (D76)
 
 - **A source-local polymorphic stand-in for a game object the code constructs gets clang's vftable natively, sized

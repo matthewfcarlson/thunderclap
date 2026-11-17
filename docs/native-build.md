@@ -5497,6 +5497,15 @@ view of four recursive blocks with narrow parameters (0x0030a9d0, 0x00306190, 0x
   is ecx of the reader calls before the store, so it is paired; 0x002ea010's `&extra` is not passed before it is
   stored (needs the pairing at the use instead). Not written.
 
+**integ2, 2026-11-17 (after rev5's re-review).** 3e8df8a85: the last reruns into the ledger (75 lines). 960768c89 and
+3b4cfd029: defnan of either sign with bad-NaN sampling (D85-D87, rev5's F1/F2), PROOF_DRAW_CAP 40,000 (D81),
+proofsmall (D82, compared counts reported apart), memwrap (D78), argfill (D78), and D91 (no xbsymbols.txt binding;
+rev5 rejected it as done, it stays pending the user's D101). ff8c2fd2a: the four matrix blocks with defnan, tri4's
+0x002a2200 / 0x002155f0, and 0x002b07d0, 0x00277d60, 0x0027e920, 0x000c9720 proven (Wine control 87844 / proof 87845,
+GATE ok). No 0x7fc00000 reaches the matrix blocks in play3 (diagnostic build 87710). Still open: 0x0024a280 (a tree
+walk: small counts don't reach it, D100), 0x001fe380 (new crash64 under tri5's patch, D99), 0x000a4450 (stub return vs
+sret: not small).
+
 ## x64t17: pure3d::TextureBuilder and pure3d::d3dTexture as records, their game vftables by address (2026-11-16)
 
 D76 (x64t16's stop) and the next stop it led to. Kit: build/x64t17/nat-b = a full mac compile of HEAD's clang-probe
