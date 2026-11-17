@@ -65,6 +65,10 @@ until 3,000 inputs are compared, so give big blocks a generous `--time-budget`),
 which also appends config/proof-ledger.jsonl (never write a hash or a ledger line by hand). Runs made with any
 `EQUIV_ON`/`EQUIV_OFF`/`EQ64_OFF` switch prove nothing. A 64-bit fix changes the source, never the 32-bit proof:
 re-check both sides.
+config/proof-ledger.jsonl is appended only by `hash --proven` (or `tree_tu.ledger_append` of a hash job's lines) and merges
+with `merge=union`; to seed many blocks, harvest committed checkers' reports and run hash --proven in queue jobs at a
+fixed commit (build/integ2/scripts/seed.py) (D84). Build a Wine proof workspace only after the last `hash --proven`:
+materialize fails on a stale code hash, and only after ~20 minutes (D92).
 A function only a 64-bit branch defines is named `FUN_<addr>`; native_mac and native_unbound bind callers to it by that
 address, and 64-bit-only thunks call their targets by the targets' own names (D35).
 `regress.py --jobq` ships every dirty file (read a failure's cause before blaming your own change) and submits 2-slot
@@ -78,6 +82,10 @@ a distinct overload, e.g. a `void *` or hulk_intptr parameter, which binds nativ
 A float local the listing only loads and stores (`mov`, or `fld`/`fst` with no arithmetic) stays `float`; `hulk_freg` is
 only for values computed in st. Under the Wine build's SSE code, write a product that feeds a sum the original keeps in st
 as `(hulk_freg)a * b` (D80).
+A source-local polymorphic stand-in for an object the code constructs gets clang's own (shorter) vftable natively:
+construct a non-polymorphic record, store the game's vftable by address, and define the slots as plain members of
+record-derived structs. A gen edit that changes a class's 32-bit size is recorded with `gen_headers.py --update-sizes`;
+an anonymous struct keeps a nested pointer struct's native alignment in gen (D92).
 
 ## Builds and proofs
 

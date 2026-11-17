@@ -94,3 +94,6 @@ Kept by `tools/tech_debt.py` as written (everything from this heading on).
   without exceptions; their failure had been the checker's environment, not the flag. Left: 0x0026e650 (a destructor's
   second base vptr at this+4: dtorvptr covers this+0 only), 0x00297ba0, 0x0001fe60, 0x00117480, 0x00322990 (fail the
   same with and without exceptions; build/tri2), and tri1's 0x00224540, 0x000396a0, 0x001c82c0.
+- 0x00079990 (CAmbientsManager, tri5, D79): three `volatile float` locals spell the original's store-and-reload
+  (rounding to 32 bits between x87 uses), which MSVC 7.1 otherwise keeps in st. Proven both modes (fd7caecd5). If more
+  blocks need this, introduce a `HULK_SPILL` macro (volatile under MSVC only) and convert them together, re-proving --wine.
