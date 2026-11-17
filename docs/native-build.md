@@ -5547,3 +5547,81 @@ GATE ok; whole-tree check --relocs 87358-87373; 17 blocks re-proved at 3,000 MSV
 improved, dropped from the baseline); native unbound 12407 / 12387 / 12398 -> 12395 / 12375 / 12386 (macOS / Linux /
 Android). A checker finding on the way: 0x00320d30's checker view depends on the host (its D3D callees bind `xdk` on
 the laptop and `paired` on mac2), so its `@v` reads "changed" on one host and ok on another with the same code.
+
+## x64t18: the D3D shim's textures, pure3d::ImageBuilder as a record, start-up into the sprite loader (2026-11-17)
+
+D89 (x64t17's stop) and D90, then the start-up's next stops. Kit as x64t17's (build/x64t18/scripts: a full mac
+compile of HEAD's clang-probe snapshot on the queue, local incremental compile + link + headless run, lldb for a
+backtrace in the loader fiber).
+
+**XDK shim: real textures (D89).** src/platform/sdl/xdk/graphics_d3d8.cpp makes the D3D objects the game's pddi D3D
+layer asks for, in host memory, written from Direct3D 8's public interface and the game's call sites (never the
+library's code): D3DDevice_CreateTexture2 makes a 2D, volume or cube texture with its levels (0: the full chain), the
+level sizes from the game's own format tables (FUN_0031c180's bits a pixel, the DXT codes of FUN_00325fd0 /
+FUN_0031c290); D3DTexture_GetLevelDesc (new row 0x003821c0) and the volume textures' description (row 0x0038acb0, as
+0x003265f0 / 0x00326900 call it) fill D3DSURFACE_DESC / D3DVOLUME_DESC; D3DTexture_LockRect / D3DVolumeTexture_LockBox
+/ D3DSurface_LockRect return the level's pitch and bits (D3DLOCKED_RECT / BOX with the pointer at its natural
+alignment, as include/decls/pddi_texture.h lays them out); D3DTexture_GetSurfaceLevel2, D3DSurface_GetDesc,
+D3DResource_AddRef / Release (counts; a surface holds its texture), D3DDevice_CreatePalette2 / D3DPalette_Lock2. The
+device keeps a back buffer and a depth buffer the size and formats of the game's present parameters
+(Direct3D_CreateDevice / Reset), so GetRenderTarget2 / GetBackBuffer2 / GetDepthStencilSurface2 / SetRenderTarget
+return real surfaces: d3dDisplay 0x0031ae70 sizes the display from the render target's description, which the stand-in
+left uninitialised. Every level is linear; XGSwizzleRect / XGSwizzleBox (graphics_xgraphics.cpp) copy. Each texture
+carries a dirty mask set by its locks, for a renderer: nothing draws yet (the native image has no graphics device; the
+Wine build replaces pure3d's d3d layer with the pddi/bgfx backend and never calls these). tests/native_host/
+d3d_texture_test.cpp checks them (ASan + UBSan). hulk_sdl.lib does not contain src/platform/sdl/xdk (platform_libs.py:
+audio, input, replay): the Wine build compiles the shim from its workspace, so no generated input went stale.
+
+The game calls 0x003821c0 by its own name, Get2DSurfaceDesc, which is also the name of the row at 0x0038abf0
+(NAME_RULE_EXCEPT). tools/native_bind.py GAME_NAME_ROWS binds such a game name to the row at the address the Wine
+build's map gives it (`Get2DSurfaceDesc` -> 0x003821c0); xdk_bind_test.py tests it (`map_check` against the Wine map
+binds it there; the test's link currently fails on snapshot.cpp's hulk_host_memcmp / hulk_io_post_count /
+hulk_native_frame_no, as shim_test.py's does, before this change).
+
+**pure3d::ImageBuilder (D90).** include/decls/image_builder.h HulkImageBuilder (0x1c bytes on the 32-bit builds: the
+vftable, the image, the palette, the row pointer, rows, the stride, the bit depth asked for), as x64t17's
+HulkTextureBuilder: the image factory's modes 0 and 2 (0x002aea70) and the registry's loaders 0x002aecb0 and 0x002aed60
+construct it with the game's vftable 0x0042e184 by address (0x002aed60 stores it last, as the original); slot 0
+0x002adf20 and slot 1 0x002ae020 are members of record-derived structs (`Q`, pinned), slot 2 0x002ae060 (gen's member)
+reads through the record. The image's words are gen's Image8 / Image32 fields (f_10 width, f_18 bits, f_20 format,
+f_24 pixels, f_28 flag: the same offsets in both). Native bugs the views hid: slot 1 read the width 4 bytes short and
+added the stride as an unsigned word (4 GB past the row for a bottom-up image), slot 2 read the width and bits 4 bytes
+short.
+
+**The image registry's words.** loaders.h HulkImageRegistry (0x002af2d0's) has the bit depth at +0x8c and the texture
+parameters at +0x94 .. +0xa0 behind 32 handler pointers; seven views reached them through a 0x8c / 0x94-byte pad,
+which natively is inside the pointers (the factories 0x002aedd0 / 0x002aeec0 created textures with halves of handler
+pointers as their mip count and format; 0x002ae950 wrote the DXT parameters over the handlers). They derive from the
+record now: Owner_2aecb0, Owner_2aedd0, ImageRegistry_2aeec0, SpriteLoader's SpriteData_2be1b0, and 0x002ae950 /
+0x002aed60 as TU-local `Registry_2ae950` / `Registry_2aed60` (owners:: views sized the x64 checker's `this` by the pad:
+two new layout classes; on the record they pass).
+
+**Past the textures, crash by crash:**
+- d3dTexture's Create 0x00326330 and lock 0x00326900 declared FUN_0031c570 / FUN_0031c600 with `int` for the
+  surface pointer and the flipped flag (the definition: a pointer and `char`): HULK_TYPE64 (D71) gives the natively
+  bound spelling.
+- pure3d::DrawablePrimitive's constructor 0x002a5060 (match) derived from a local stand-in whose constructor had no
+  definition natively: a record whose base constructor is pure3d::Entity's by its address name (FUN_0027b070).
+- SpriteLoader's sprite chunk 0x002bed90 placement-constructed the shader caster
+  (content::LoadInventory::DynamicCaster<pure3d::Shader>) in a 4-byte word of its frame: natively the 8-byte vftable
+  overwrote the image array's pointer, and the local stand-in's vftable slot had no definition. It constructs gen's
+  class (the game's vftable 0x003f3e88; Shader.cpp defines the slot) in a word that is pointer-sized natively.
+- Views of pure3d::Entity-derived objects with a pad where Entity's words are (natively 0x14 bytes, not 0x10):
+  pure3d::Texture's pddi texture and pure3d::Shader's pddi shader (`int words[3]` after the vftable: +0x18 natively),
+  Image8 / Image32's words in 0x002beb20, the texture's name in 0x002be1b0 / 0x002aedd0 (+0xc natively). 0x002aecb0's
+  Result view keeps its pad (D93).
+
+**Where macOS start-up stops now**: in the copyright p3d's sprite: pure3d::Sprite's own functions in SpriteLoader.cpp
+(QuadBatch 0x002bdaf0 crashes; Frame9 0x002bd790, Mosaic 0x002bd570, Loader_2be720 0x002be720, the draw 0x002bdd40 and
+the constructors) each read the sprite through another 32-bit pad view (`char pad0[0x40]; int count; ...`), several
+allocate its pointer arrays as `count * 4`. Next: a pure3d::Sprite record (0xa8 bytes on the 32-bit builds) for the TU's
+sprite views (D94).
+
+**Landed** (two commits, proved together):
+Wine control 87387 (HEAD 192a6524e) / proof 87421 seeded from it, both on studio, play3 to 60510 / 60630:
+`ckpt_gate.py` GATE ok (only the known transients diverge on both); whole-tree check --relocs 87397-87412 with the
+edits shipped (only the three re-proved blocks flagged, before their hashes) and the five changed TUs again with the
+ledger lines shipped (87420: 86 blocks clean); re-proved at 3,000 compared inputs, MSVC + `--wine`: 0x002aea70,
+0x002adf20, 0x002bed90 (`--x64`: int / unsupported / call, not gating); x64 gate ok on the changed TUs (no new entry,
+nothing accepted); native unbound on the control's and the proof's own snapshots 12395 / 12375 / 12386 -> 12382 /
+12362 / 12373 (macOS / Linux / Android).

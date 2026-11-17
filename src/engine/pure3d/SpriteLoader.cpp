@@ -933,14 +933,15 @@ struct StrField_2be1b0 {
     void FUN_0027b040(const char *s);
 };
 
-struct Sprite {
-    char pad0[8];
+struct Sprite {                    // (x64t18) a pure3d::Texture: Entity's words, the name after the reference count
+    void *vftable;
+    int refs;
     StrField_2be1b0 name;
 };
 
-struct SpriteData_2be1b0 {
-    char pad0[0x8c];
-    int field8c;
+// (x64t18) the image registry (decls/loaders.h HulkImageRegistry: the word at +0x8c is the bit depth; a pad put it
+// inside the handler pointers natively)
+struct SpriteData_2be1b0 : HulkImageRegistry {
     void FUN_002ae950(int a, int b, int c, int d);
     Sprite *FUN_002aedd0(const char *name);
     Sprite *FUN_002aeec0(hulk_intptr a, int b, int c);   // (x64t16) the stream: pointer-sized
@@ -1008,7 +1009,7 @@ Sprite *pure3d::SpriteLoader::vfunc_9(Reader *r, int unused)
     r->stream->FUN_002647e0(&fr.b, 1, 4, 1);
     r->stream->FUN_002647e0(&fr.b, 1, 4, 1);
 
-    data->field8c = fr.a;
+    data->f8c = fr.a;
     switch (fr.b) {
     case 0xb:
         data->FUN_002ae950(8, 0, 0xd, 0);
@@ -1142,9 +1143,9 @@ public:
     virtual void m6(int tag, int flag);
 };
 
-struct Shader_2be440 {
-    virtual void h0();
-    char pad04[0xc];
+struct Shader_2be440 {             // (x64t18) a pure3d::Shader: Entity's words, then the pddi shader (gen's f_10:
+    virtual void h0();             // natively at +0x18; a pad of 0xc put it at +0x14)
+    int words[3];
     Mode_2be440 *mode;             // 0x10
     Shader_2be440 *FUN_0028edb0();
 };
@@ -1154,8 +1155,9 @@ struct Gfx {
     virtual int v84();
 };
 
-struct Item_2be440 {
-    char pad0[0x10];
+struct Item_2be440 {               // (x64t18) a pure3d::Texture: Entity's words, then the pddi texture (gen's f_10:
+    void *vftable;                 // natively at +0x18; a pad of 0x10 put it at +0x10)
+    int words[3];
     Tile_2be440 *tile;             // 0x10
 };
 
@@ -1525,20 +1527,22 @@ public:
     virtual void v6(unsigned int tag, int value);
 };
 
-class Shader_2beb20 {
-public:
+class Shader_2beb20 {              // (x64t18) a pure3d::Shader: Entity's words, then the pddi shader (gen's f_10;
+public:                            // natively at +0x18)
     virtual void v0();
-    char pad04[0xc];
+    int words[3];
     Attr_2beb20 *attr;
     char pad14[0xc];
     Shader_2beb20 *FUN_0028edb0();
 };
 
-struct Desc_2beb20 {
-    char pad0[0x10];
+struct Desc_2beb20 {               // (x64t18) a pure3d::Image8 / Image32 (gen's f_10 width, f_14 height, f_24 the pixels,
+    void *vftable;                 // f_28 the flag: natively after Entity's 0x14 bytes and a pointer)
+    int words[3];
     int width;
     int height;
-    char pad18[0x10];
+    int f18, f1c, f20;
+    void *pixels;
     unsigned char flag;
 };
 
@@ -1636,7 +1640,10 @@ namespace pure3d {
 class __declspec(novtable) SpriteBase_2beb20 {
 public:
     virtual void v0_00038290();
-    char pad04[0x48];
+    char pad04[0x3c];              // (x64t18) DrawablePrimitive's words, then Sprite's count and two pointers (gen's
+    int count;                     // f_40 .. f_48: natively the shader pointer is at +0x58)
+    void *buf;
+    void *items;
     void FUN_002a5060();
     SpriteBase_2beb20() { FUN_002a5060(); }
 };
@@ -1793,7 +1800,7 @@ SpriteLoader_2bed30* SpriteLoader_2bed30::vfunc2(unsigned char f) {
 } // namespace fn_f43dee86
 
 // 0x002bed90 pure3d::SpriteLoader::vfunc_5 (828 B): equivalent/0x002bed90.cpp [wrapped: conflict: Reader; content::LoadInventory::DynamicCaster; pure3d::SpriteLoader; pure3d::SpriteObject]
-// sym: ?vfunc_5@SpriteLoader@pure3d@fn_002bed90@@UAEHPAPAVSpriteObject@23@PA_KPAUReader@3@PAVCtx_2bed90@3@@Z @310585fd49eb @wb1de98fcca12 @v86a6ec1dd0d0
+// sym: ?vfunc_5@SpriteLoader@pure3d@fn_002bed90@@UAEHPAPAVSpriteObject@23@PA_KPAUReader@3@PAVCtx_2bed90@3@@Z @7f8484a1db7b @wdb24f3e1bad2 @ved5fc8abd880
 namespace fn_002bed90 {
 // STATUS: equivalent (tools/equiv.py level 3: 183 inputs, branch coverage 26/26)
 // pure3d::SpriteLoader::vfunc_5 @ 0x002bed90
@@ -1882,7 +1889,7 @@ public:
     virtual void v0();
     virtual void v1();
     virtual void v2();
-    virtual pure3d::Shader* v3(content::LoadInventory::DynamicCaster<pure3d::Shader>* caster, unsigned __int64 hash);
+    virtual pure3d::Shader* v3(::content::LoadInventory::DynamicCaster< ::pure3d::Shader>* caster, unsigned __int64 hash);
 };
 
 class __declspec(novtable) DrawableContainer_2bed90 {
@@ -1947,7 +1954,10 @@ int pure3d::SpriteLoader::vfunc_5(pure3d::SpriteObject** out, unsigned __int64* 
     struct Frame {
         char pad10[3];
         char n;
-        int r6;
+        union {                 // (x64t18) the shader caster is constructed in r6's word: natively it is 8 bytes
+            int r6;             // (its vftable), which overlapped `arr`
+            void* casterWord;
+        };
         Image** arr;
         int r1;
         int r5;
@@ -1997,7 +2007,9 @@ int pure3d::SpriteLoader::vfunc_5(pure3d::SpriteObject** out, unsigned __int64* 
     Sprite* sprite;
     if (image != 0) {
         unsigned __int64 hash = FUN_0027b020(f.nameB);
-        content::LoadInventory::DynamicCaster<pure3d::Shader>* caster = new (&f.r6) content::LoadInventory::DynamicCaster<pure3d::Shader>();
+        // (x64t18) gen's content::LoadInventory::DynamicCaster<pure3d::Shader>, the game's class: its vftable is the
+        // game's 0x003f3e88 (the local stand-in's slot had no definition natively)
+        ::content::LoadInventory::DynamicCaster< ::pure3d::Shader>* caster = new (&f.r6) ::content::LoadInventory::DynamicCaster< ::pure3d::Shader>();
         pure3d::Shader* shader = ctx->v3(caster, hash);
         void* mem = FUN_00263ea0(0xa8);
         if (mem)
@@ -2006,7 +2018,9 @@ int pure3d::SpriteLoader::vfunc_5(pure3d::SpriteObject** out, unsigned __int64* 
             sprite = 0;
     } else if (f.arr != 0) {
         unsigned __int64 hash = FUN_0027b020(f.nameB);
-        content::LoadInventory::DynamicCaster<pure3d::Shader>* caster = new (&f.r6) content::LoadInventory::DynamicCaster<pure3d::Shader>();
+        // (x64t18) gen's content::LoadInventory::DynamicCaster<pure3d::Shader>, the game's class: its vftable is the
+        // game's 0x003f3e88 (the local stand-in's slot had no definition natively)
+        ::content::LoadInventory::DynamicCaster< ::pure3d::Shader>* caster = new (&f.r6) ::content::LoadInventory::DynamicCaster< ::pure3d::Shader>();
         pure3d::Shader* shader = ctx->v3(caster, hash);
         void* mem = FUN_00263ea0(0xa8);
         if (mem)

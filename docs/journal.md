@@ -1186,3 +1186,27 @@ blocks fight::Action's whole family: the records come first there.
   whole-tree check lists them).
 - 0x003821c0 is the next missing XDK function (the game's Get2DSurfaceDesc, D3DTexture_GetLevelDesc); the native D3D
   shim creates no textures (CreateTexture2 returns 0), so the native image's textures are empty until it does.
+
+## 2026-11-17 x64t18: the D3D shim's textures, ImageBuilder on a record (D89, D90)
+
+- **The native image runs the game's own pddi D3D layer, so the XDK D3D shim is its graphics device for now.** The
+  Wine build swaps pure3d's d3d layer for the pddi/bgfx backend at d3dCreateDevice; the native link has no bgfx, so
+  the tree's d3dTexture / d3dDisplay call the shim's D3D8 functions. Textures, surfaces, palettes and the device's
+  back and depth buffers are now real host-memory objects there (linear levels, the game's own format tables for
+  their sizes); nothing draws them until the native image gets a renderer.
+- **A game name that is another row's name** (Get2DSurfaceDesc: the game's name for 0x003821c0, the shim row's name at
+  0x0038abf0) binds natively only through an explicit table (native_bind.GAME_NAME_ROWS), as the Wine map binds it.
+- **Pads over the image registry hide 64-bit bugs in seven places.** Its handler array is 32 pointers, so every word
+  behind it moves by 0x88 natively; views that reached +0x8c / +0x94 through a pad read and wrote the handler
+  pointers (texture parameters made of pointer halves, DXT parameters written over handlers).
+- **pure3d::Entity is 0x14 bytes natively** (vftable, count, the two name words): `char pad[0x10]; T* p;` puts `p` 8
+  bytes off (natively +0x18), `char pad[8]; name` 4 bytes off. `void* vftable; int words[3];` is right on both builds.
+- **A placement-new into a 4-byte word of a frame** (`new (&f.r6) DynamicCaster<...>`) writes 8 bytes natively: the
+  following pointer is overwritten. A union with a `void*` keeps the 32-bit frame and gives the object room natively.
+- **The x64 gate's cache is keyed by the code**: moving a member function from an owners:: view to a record-derived
+  class leaves the code (and the cached `layout` result, which sized `this` by the old class) unchanged; the cached
+  result has to be dropped to re-run (the result's type fingerprints cover the classes it used, not the method's
+  class change).
+- **The equivalence checker sizes an object returned through a stub by the declared pointee**, so a view that moves a
+  field to its native offset (0x002aecb0: Entity's name at +0xc) can read as a new `layout` difference although the
+  native code is the one that matches the tree's own Entity constructor (D93).

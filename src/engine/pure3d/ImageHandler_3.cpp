@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "decls/loaders.h"
 #include "decls/texture_builder.h"
+#include "decls/image_builder.h"
 #include "decls/data/records.h"
 #include "decls/data/game/global.h"
 #include "gen/owners.h"
@@ -149,19 +150,6 @@ struct LoadInventory_2aea70 {
     virtual void add(unsigned int keyLo, unsigned int keyHi, void* obj);
     LoadInventory_2aea70* FUN_00266480(int size);
 };
-namespace pure3d {
-class ImageBuilder {
-public:
-    virtual bool vfunc_0_002adf20(int, int, int, int, void*);
-    Resource_2aea70* image;
-    int f08;
-    int f0c;
-    int f10;
-    int f14;
-    int f18;
-    ImageBuilder() : image(0), f08(0), f0c(0), f10(0), f14(0), f18(0) {}
-};
-}
 extern "C" void* FUN_00263ed0(int size, int tag);
 void* FUN_00263ea0(unsigned int size);
 extern "C" void FUN_0028fb20(char* dst, const char* src);
@@ -174,17 +162,9 @@ struct LoadStream_2aecb0 {
 struct Sub_2aecb0 {
 };
 struct Result_2aecb0 {
-    char pad[8];
+    char pad[8];                // (x64t18) natively the name is at +0xc (pure3d::Entity's words): left as it was, D93
     Sub_2aecb0 sub;
 };
-namespace pure3d {
-struct ImageBuilder_2aecb0 {
-    virtual bool slot0_002adf20(int, int, int, int, void*);
-    Result_2aecb0* result;
-    int a, b, c, d;
-    int context;
-};
-}
 struct Container_2aecb0 {
     virtual void s0() = 0;
     virtual void s1() = 0;
@@ -195,15 +175,15 @@ struct Container_2aecb0 {
     virtual void s6() = 0;
     virtual void s7() = 0;
     virtual void s8() = 0;
-    virtual void s9(LoadStream_2aecb0*, pure3d::ImageBuilder_2aecb0*) = 0;
+    virtual void s9(LoadStream_2aecb0*, HulkImageBuilder*) = 0;   // (x64t18) decls/image_builder.h
 };
-struct Owner_2aecb0 {
-    char pad[0x8c];
-    int context;
+// (x64t18) the image registry (decls/loaders.h HulkImageRegistry): its +0x8c word is the bit depth the builder asks
+// for (a 32-bit pad put it at +0x8c natively, inside the handler pointers)
+struct Owner_2aecb0 : HulkImageRegistry {
     Container_2aecb0* FUN_002ae980(Input*);
     Result_2aecb0* target(Input*);
 };
-extern "C" char DAT_0042e184[];
+// (x64t18) DAT_0042e184, pure3d::ImageBuilder's vftable: decls/image_builder.h
 class ImageBuilder {
   public:
     virtual ~ImageBuilder() {}
@@ -294,12 +274,17 @@ extern "C" void __fastcall FUN_002ae910(Container_2ae910* p) {
 } // namespace fn_fee005c0
 
 // 0x002ae950 FUN_002ae950 (43 B): matches/0x002ae950.cpp
-// sym: ?FUN_002ae950@C_2ae950@owners@@QAEXHHHH@Z
-void owners::C_2ae950::FUN_002ae950(int x, int y, int z, int w) {
-    a = x;
-    b = y;
-    c = z;
-    d = w;
+// sym: ?FUN_002ae950@Registry_2ae950@@QAEXHHHH@Z
+// (x64t18) the image registry's texture parameters (decls/loaders.h HulkImageRegistry: alpha depth, mips, pddi format,
+// usage; owners::C_2ae950's 0x94-byte pad put them inside the handler pointers natively)
+struct Registry_2ae950 : HulkImageRegistry {
+    void FUN_002ae950(int x, int y, int z, int w);
+};
+void Registry_2ae950::FUN_002ae950(int x, int y, int z, int w) {
+    f94 = x;
+    f98 = y;
+    f9c = z;
+    fa0 = w;
 }
 
 namespace fn_fee005c0 {
@@ -326,7 +311,7 @@ Item* Collection::FUN_002ae9d0(void* value) { for (int i = 0; i < count; ++i) { 
 
 
 // 0x002aea70 pure3d::ImageHandler::vfunc_3 (575 B): equivalent/0x002aea70.cpp
-// sym: ?vfunc_3@ImageHandler@pure3d@fn_fee005c0@@UAEXPAURequest@3@PAUContext@3@@Z @ef56564aa2bf @w2cbc811350cb @v219b18bdc952
+// sym: ?vfunc_3@ImageHandler@pure3d@fn_fee005c0@@UAEXPAURequest@3@PAUContext@3@@Z @85f261a5b4da @wa4d8c49e5271 @v237e07763098
 // STATUS: equivalent (tools/equiv.py level 3: 61 inputs, branch coverage 18/24, incomplete)
 // pure3d::ImageHandler::vfunc_3 @ 0x002aea70
 void pure3d::ImageHandler::vfunc_3(Request* req, Context* ctx)
@@ -374,17 +359,19 @@ void pure3d::ImageHandler::vfunc_3(Request* req, Context* ctx)
             loader->add(tex->name.keyLo, tex->name.keyHi, tex);
         }
     } else if (mode == 0) {
-        pure3d::ImageBuilder builder;
+        HulkImageBuilder builder;     // (x64t18) decls/image_builder.h, the game's vftable by address
+        builder.init(0);
         load(file, &builder);
-        Resource_2aea70* image = builder.image;
+        Resource_2aea70* image = (Resource_2aea70*)builder.image;
         if (image != 0) {
             image->name.FUN_0027b040(name);
             loader->add(image->name.keyLo, image->name.keyHi, image);
         }
     } else if (mode == 2) {
-        pure3d::ImageBuilder builder;
+        HulkImageBuilder builder;     // (x64t18) as mode 0
+        builder.init(0);
         load(file, &builder);
-        Resource_2aea70* image = builder.image;
+        Resource_2aea70* image = (Resource_2aea70*)builder.image;
         if (image != 0) {
             void* smem = FUN_00263ea0(0xa8);
             Sprite* sprite = 0;
@@ -417,15 +404,10 @@ Result_2aecb0* Owner_2aecb0::target(Input* input) {
         r->slot1();
         return 0;
     }
-    pure3d::ImageBuilder_2aecb0 builder;
-    builder.result = 0;
-    builder.a = 0;
-    builder.b = 0;
-    builder.c = 0;
-    builder.d = 0;
-    builder.context = context;
+    HulkImageBuilder builder;         // (x64t18) decls/image_builder.h, the game's vftable by address
+    builder.init(f8c);
     c->s9(r, &builder);
-    Result_2aecb0* result = builder.result;
+    Result_2aecb0* result = (Result_2aecb0*)builder.image;
     if (result)
         ((owners::Target_27b040 *)&(result->sub))->FUN_0027b040((hulk_uintptr)(Input *)input);
     r->slot1();
@@ -435,35 +417,31 @@ Result_2aecb0* Owner_2aecb0::target(Input* input) {
 } // namespace fn_fee005c0
 
 // 0x002aed60 FUN_002aed60 (97 B): matches/0x002aed60.cpp
-// sym: ?FUN_002aed60@SomeClass_2aed60@owners@@QAEHPAX0@Z
-hulk_intptr owners::SomeClass_2aed60::FUN_002aed60(void* param2, void* param3) {
+// sym: ?FUN_002aed60@Registry_2aed60@@QAEHPAX0@Z
+// (x64t18) the image registry (decls/loaders.h HulkImageRegistry; owners::SomeClass_2aed60's pad put the bit depth
+// inside the handler pointers natively)
+struct Registry_2aed60 : HulkImageRegistry {
+    hulk_intptr FUN_002aed60(void* param2, void* param3);
+};
+hulk_intptr Registry_2aed60::FUN_002aed60(void* param2, void* param3) {
     Iface_2aed60* iface = ((ThisCall_002ae9d0*)(this))->FUN_002ae9d0(param3);
     if (!iface)
         return 0;
 
-    struct ParamBlock {
-        void* vptr;
-        int zero1;
-        int zero2;
-        int zero3;
-        int zero4;
-        int zero5;
-        int field_8C;
-    } pb;
+    // (x64t18) pure3d::ImageBuilder (decls/image_builder.h; the image came back in a 32-bit word): the words, then
+    // the game's vftable by address (the original stores it last: mov [esp+8], 0x42e184)
+    HulkImageBuilder pb;
+    pb.image = 0;
+    pb.palette = 0;
+    pb.row = 0;
+    pb.rows = 0;
+    pb.stride = 0;
+    pb.depth = f8c;
+    pb.vftable = (void*)DAT_0042e184;
 
-    pb.zero1 = 0;
-    pb.zero2 = 0;
-    pb.zero3 = 0;
-    pb.zero4 = 0;
-    pb.zero5 = 0;
-    pb.field_8C = this->field_8C;
+    iface->Process(param2, (ImageBuilder*)&pb);
 
-    // Direct immediate assignment to match target's mov [esp+8], 0x42e184
-    pb.vptr = (void*)((hulk_intptr)DAT_0042e184);
-
-    iface->Process(param2, (ImageBuilder*)&pb.vptr);
-
-    return pb.zero1;
+    return (hulk_intptr)pb.image;
 }
 
 
@@ -475,9 +453,11 @@ namespace fn_002aedd0 {
 void* __cdecl FUN_00263ea0(unsigned int);
 struct LoadStream_2aedd0 { virtual void slot0(); virtual void slot1(); LoadStream_2aedd0* FUN_00264430(void*, int, int); void FUN_00263fb0(); };
 struct Link_2aedd0 {  };
-struct Texture { char pad[8]; Link_2aedd0 link; };
+struct Texture { void* vftable; int refs; Link_2aedd0 link; };   // (x64t18) Entity's words: the name after the count
 struct Loader_2aedd0 { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(LoadStream_2aedd0*, HulkTextureBuilder*); };
-struct Owner_2aedd0 { char pad[0x8c]; unsigned int f8c,f90,f94,f98,f9c,fa0; Loader_2aedd0* FUN_002ae980(void*); Texture* target(void*); };
+// (x64t18) the image registry (decls/loaders.h HulkImageRegistry; a 32-bit pad put the texture parameters inside the
+// handler pointers natively)
+struct Owner_2aedd0 : HulkImageRegistry { Loader_2aedd0* FUN_002ae980(void*); Texture* target(void*); };
 Texture* Owner_2aedd0::target(void* arg) {
  LoadStream_2aedd0* raw=(LoadStream_2aedd0*)FUN_00263ea0(sizeof(ContentLoadStream));
  LoadStream_2aedd0* resource=raw ? raw->FUN_00264430(arg,0,1) : 0;
@@ -515,15 +495,10 @@ public:
     virtual void v9(hulk_intptr stream, HulkTextureBuilder *tb);   // (x64t16) the stream: pointer-sized
 };
 
-class ImageRegistry_2aeec0 {
+// (x64t18) the image registry (decls/loaders.h HulkImageRegistry; the pad put the texture parameters inside the handler
+// pointers natively)
+class ImageRegistry_2aeec0 : public HulkImageRegistry {
 public:
-    char pad0[0x8c];
-    int p8c;
-    int p90;
-    int p94;
-    int p98;
-    int p9c;
-    int pa0;
 
     ImageHandler *FUN_002ae9d0(hulk_intptr type);   // (x64t15) the key pointer-sized, as defined (void*)
     hulk_intptr FUN_002aeec0(hulk_intptr stream, int unused, int type);
@@ -535,7 +510,7 @@ hulk_intptr ImageRegistry_2aeec0::FUN_002aeec0(hulk_intptr stream, int unused, i
     if (h == 0)
         return 0;
     HulkTextureBuilder tb;   // (x64t17) decls/texture_builder.h, the game's vftable by address
-    tb.init(0, 0, p94, p98, p9c, pa0, p8c);
+    tb.init(0, 0, f94, f98, f9c, fa0, f8c);
     h->v9(stream, &tb);
     return (hulk_intptr)tb.texture;
 }

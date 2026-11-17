@@ -18,17 +18,17 @@ namespace fn_fdccf8a8 { extern "C" char DAT_0042d978[]; }   // (x64t7) the game 
 
 // ---- declarations shared by the functions below
 namespace fn_fdccf8a8 {
-class Entity_2a5060 {
-  public:
-    virtual void B();
+// (x64t18) pure3d::Entity's words and pure3d::DrawablePrimitive's (0x40 bytes on the 32-bit builds), non-polymorphic:
+// the constructors are the game's, Entity's 0x0027b070 called by its address name (the local stand-in base's
+// constructor had no definition natively), and store the game's vftables by address
+struct Entity_2a5060 {
+    void* vftable;
     int b[3];
-    Entity_2a5060();
+    Entity_2a5060* FUN_0027b070();   // pure3d::Entity's constructor
 };
-class DrawablePrimitive : public Entity_2a5060 {
-  public:
-    virtual void B();
+struct DrawablePrimitive : Entity_2a5060 {
     int a[11];
-    DrawablePrimitive();
+    DrawablePrimitive* FUN_002a5060();
 };
 extern int hulk_at_0042d978;
 class Obj_2a50b0 {
@@ -49,8 +49,9 @@ class DrawablePrimitive_2a5120 : public Entity_2a5120 {
 
 
 // 0x002a5060 FUN_002a5060 (53 B): matches/0x002a5060.cpp
-// sym: ??0DrawablePrimitive@fn_fdccf8a8@@QAE@XZ
-DrawablePrimitive::DrawablePrimitive() : Entity_2a5060() {
+// sym: ?FUN_002a5060@DrawablePrimitive@fn_fdccf8a8@@QAEPAU12@XZ
+DrawablePrimitive* DrawablePrimitive::FUN_002a5060() {
+    FUN_0027b070();
     a[0] = 0;
     *((hulk_intptr*)this) = (hulk_intptr)&hulk_at_0042d978;
     _ReadWriteBarrier();
@@ -64,6 +65,7 @@ DrawablePrimitive::DrawablePrimitive() : Entity_2a5060() {
     a[8] = 0;
     a[9] = 0;
     a[10] = 0;
+    return this;
 }
 
 
