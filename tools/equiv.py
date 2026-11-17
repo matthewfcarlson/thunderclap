@@ -153,11 +153,10 @@ class Program:
                     self.vt_slots.append(v.get("slots") or [])
                     self.virtual_funcs.update(v.get("slots") or ())
         self.xbsyms = {}
-        if os.path.exists(XBSYMS):
-            for line in open(XBSYMS):
-                m = re.match(r"\s*(\w+)__(\w+)\s*=\s*0x([0-9a-fA-F]+)", line)
-                if m:
-                    self.xbsyms.setdefault(m.group(2), int(m.group(3), 16))
+        # (integ2, D91) build/xbsymbols.txt is a laptop-only file (no queue host has it): binding names through it made
+        # a check differ by host (0x00320d30's D3D callees: `xdk` on the laptop; `paired` / `ordered` on the hosts, at
+        # the same addresses, so the checker view and its proof ledger entry differed). The proofs are the hosts', so
+        # every host binds the same way: by the code, never by this file (it is not read; xbsyms stays empty)
         self.md = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
         self.md.detail = True
         self._page_cache = {}
@@ -4333,8 +4332,10 @@ class Run:
         eax, fres, fext = 0, None, None
         dbl = lambda i: struct.unpack("<d", struct.pack("<II", w[i], w[i + 1]))[0]
         if n in ("memcpy", "memmove"):
+            # (integ2, D78) the ranges overlap on the 32-bit address circle: a copy that wraps around address 0
+            # (memcpy(0, 0xffffffe6, 0x66), fuzzed pointers) overlaps as much as any other, and `rep movsd` wraps too
             ovl_ = n == "memcpy" and w[2] and w[0] != w[1] and NATIVE_MODE and \
-                w[0] < (w[1] + w[2]) & M32 and w[1] < (w[0] + w[2]) & M32
+                (((w[0] - w[1]) & M32) < w[2] or ((w[1] - w[0]) & M32) < w[2])
             if ovl_ and "memfwd" not in EQUIV_OFF and w[2] <= 1 << 20:
                 # (integ1, rev4, memfwd) our memcpy over overlapping ranges runs as the original's inline copy does: forward,
                 # dword by dword, then the remaining bytes (MSVC 7.1's `rep movsd; rep movsb`, and its unrolled struct
@@ -7901,7 +7902,18 @@ _NAN_EQ = [0]
 
 
 _PRE_ITEM = re.compile(r"(notnan64|notnan|defnan)\(([^()]*)\)")
-DEFAULT_NAN = 0xFFC00000     # (integ2, D65) the x87 indefinite / SSE default NaN: what `defnan` allows
+DEFAULT_NAN = 0xFFC00000     # (integ2, D65) the x87 indefinite / SSE default NaN
+# (integ2, D85) what `defnan` allows: the zero-payload quiet NaN of either sign (arm64 generates 0x7fc00000, and a
+# negation flips the sign of 0xffc00000); every other NaN is outside the contract
+DEFNAN_ALLOWED = (0xFFC00000, 0x7FC00000)
+# (integ2, D86) NaNs outside both contracts the trap check plants per word (each must trap); notnan also the allowed two
+PRE_BAD_NANS = (0xFFFFFFFF, 0xFFC00001, 0x7F800001, 0xFF800001, 0x7FC00001)
+PRE_BAD_NANS64 = (0x7FF8000000000000, 0xFFFFFFFFFFFFFFFF, 0x7FF0000000000001, 0xFFF8000000000001)
+
+
+def _defnan_ok(u):
+    """(integ2, D85) a float word inside the defnan contract: not a NaN, or the zero-payload quiet NaN of either sign."""
+    return (u & 0x7F800000) != 0x7F800000 or (u & 0x7FFFFF) == 0 or (u & 0x7FFFFFFF) == 0x7FC00000
 _PRE_LOC = re.compile(r"^(?:(arg)(\d+)|\*(arg)(\d+)|\*(this))(?:\+0x([0-9a-fA-F]+))?(?:\.\.0x([0-9a-fA-F]+))?$")
 
 
@@ -9859,7 +9871,7 @@ def _canon(x):
 
 VIEW_VERSION = 1
 PROOF_DRAW_LIMIT = 10000    # (integ1, D62) inputs a proof-sized run may draw to compare --inputs of them
-PROOF_DRAW_CAP = 30000      # (integ2, D69) ... and past it, for a block whose inputs time out, at most this many
+PROOF_DRAW_CAP = 40000      # (integ2, D69, D81: was 30,000) past it, for inputs that time out, at most this many
 
 
 def _checker_digest():
@@ -11012,16 +11024,28 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
         return out
 
     def _pre_fix(seed, inp, mach, plant=True):
-        """The overlay and stack patch that give every word of the contract a value the contract allows (and whether a
-        default NaN was planted): notnan: a NaN word gets a finite value; (integ2, D65) defnan: a NaN other than the
-        default NaN gets a finite value or the default NaN (by the seed), and with PLANT one input in four gets the
-        default NaN in one defnan word (by the seed), so the inputs the contract allows include its NaN."""
+        """The overlay and stack patch that give every word of the contract a value the contract allows (and whether an
+        allowed NaN was planted): notnan: a NaN word gets a finite value; (integ2, D65/D85) defnan: a NaN outside the
+        contract gets a finite value or an allowed NaN (0xffc00000 / 0x7fc00000, by the seed), and with PLANT one input
+        in four gets allowed NaNs planted (by the seed) in one defnan word, all the words of one item, every defnan
+        word, or a random subset of them, so the inputs the contract allows include its NaNs, alone and together."""
         ov, sp = {}, {}
-        dn = struct.pack("<I", DEFAULT_NAN)
         planted = False
         conds = _pre_conds(inp)
         dwords = sorted(wx for wx, (w, c) in conds.items() if c == "defnan" and w == 4)
-        pick = dwords[mix(seed, 0xD65, 2) % len(dwords)] if plant and dwords and mix(seed, 0xD65, 1) % 4 == 0 else None
+        picks = set()
+        if plant and dwords and mix(seed, 0xD65, 1) % 4 == 0:
+            how_ = mix(seed, 0xD65, 3) % 4
+            if how_ == 0:
+                picks = {dwords[mix(seed, 0xD65, 2) % len(dwords)]}
+            elif how_ == 1:
+                items_ = [i_ for i_, it_ in enumerate(pre or ()) if it_[5] == "defnan"]
+                it_ = items_[mix(seed, 0xD65, 4) % len(items_)]
+                picks = {wx for wx, w, c in _pre_words(inp, it_) if w == 4} & set(dwords)
+            elif how_ == 2:
+                picks = set(dwords)
+            else:
+                picks = {wx for wx in dwords if mix(seed, 0xD65, wx[1]) % 3 == 0}
         for (where, x), (w, cond) in sorted(conds.items()):
             if where == "stack":
                 b = b"".join(struct.pack("<I", inp["stack"][x + i] & M32) for i in range(w // 4) if x + i < len(inp["stack"]))
@@ -11029,12 +11053,14 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                 b = bytes(mach.byte(x + i, 0) for i in range(w))
             if len(b) != w:
                 continue
-            if (where, x) == pick and b != dn:
-                nb, planted = dn, True
-            elif not _is_nan_bits(b, w) or (cond == "defnan" and b == dn):
+            u_ = int.from_bytes(b, "little")
+            allowed_ = struct.pack("<I", DEFNAN_ALLOWED[mix(seed, x, 0xD7) % 2])
+            if (where, x) in picks and not (w == 4 and _is_nan_bits(b, w) and _defnan_ok(u_)):
+                nb, planted = allowed_, True
+            elif not _is_nan_bits(b, w) or (cond == "defnan" and w == 4 and _defnan_ok(u_)):
                 continue
-            elif cond == "defnan" and mix(seed, x, 0xD6) % 2:
-                nb = dn
+            elif cond == "defnan" and w == 4 and mix(seed, x, 0xD6) % 2:
+                nb = allowed_
             else:
                 fv = FLOATS[mix(seed, x, 0x9E) % len(FLOATS)]
                 nb = struct.pack("<f", fv) if w == 4 else struct.pack("<d", fv)
@@ -11077,13 +11103,15 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                 continue
             ov0, sp0, _ = _pre_fix(seed0, inp0, mach0, plant=False)
 
-            def one(where, x, w, nan, label):
+            def one(words, label):
+                """Run seed0 with the other contract words repaired and WORDS ({(where, x): bytes}) planted, uncounted."""
                 ov, sp = dict(ov0), dict(sp0)
-                if where == "stack":
-                    for i in range(w // 4):
-                        sp[("sbyte", x + i, 0, 4)] = struct.unpack_from("<I", nan, 4 * i)[0]
-                else:
-                    ov[(0, x)] = nan
+                for (where, x), nan in words.items():
+                    if where == "stack":
+                        for i in range(len(nan) // 4):
+                            sp[("sbyte", x + i, 0, 4)] = struct.unpack_from("<I", nan, 4 * i)[0]
+                    else:
+                        ov[(0, x)] = nan
                 saved = (copy.deepcopy(res), set(edges), Counter(hits), set(edges_any))
                 pre_off[0] = True
                 try:
@@ -11103,22 +11131,71 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                 if out_of_time():
                     missing.append("item %d: the time budget ran out before every word was checked" % (i_ + 1))
                     break
-                # (a quiet NaN that is not the default NaN: it breaks notnan and defnan alike)
-                nan = b"\x00\x00\xc0\x7f" if w == 4 else b"\x00\x00\x00\x00\x00\x00\xf8\x7f"
-                d_, stat_ = one(where, x, w, nan, "pre-trap")
-                checked += 1
-                if not any("ours fault:Invalid_instruction" in x_ for x_ in d_):
-                    missing.append("item %d %s 0x%x: %s" % (i_ + 1, where, x, ("; ".join(d_)[:120] if d_ else
-                                   "no difference (%s)" % ", ".join("%s %d" % kv for kv in stat_.items())[:80])))
-                if cond == "defnan":
-                    # (integ2, D65) the default NaN is inside the contract: our code must not trap on it and must
-                    # compute what the original does (a macro that traps on every NaN, or code that treats the NaN
-                    # differently, fails here on every word, not only on the inputs that happen to plant it)
-                    d_, stat_ = one(where, x, w, struct.pack("<I", DEFAULT_NAN), "pre-defnan")
-                    res["pre_defnan_words"] = res.get("pre_defnan_words", 0) + 1
-                    if d_:
-                        missing.append("item %d %s 0x%x holding the default NaN: %s" % (
-                            i_ + 1, where, x, "; ".join(d_)[:120]))
+                # (integ2, D86) several NaNs outside the contract, each of which must trap: a fuzzed -1, payload and
+                # signalling NaNs of both signs (a macro blind to the sign, or to signalling NaNs, fails here); for
+                # notnan the two quiet NaNs defnan allows too
+                if w == 4:
+                    bad_ = list(PRE_BAD_NANS) + (list(DEFNAN_ALLOWED) if cond == "notnan" else [])
+                    bad_ = [struct.pack("<I", v_) for v_ in bad_]
+                else:
+                    bad_ = [struct.pack("<Q", v_) for v_ in PRE_BAD_NANS64]
+                for nan in bad_:
+                    d_, stat_ = one({(where, x): nan}, "pre-trap")
+                    checked += 1
+                    if not any("ours fault:Invalid_instruction" in x_ for x_ in d_):
+                        missing.append("item %d %s 0x%x holding 0x%s: %s" % (
+                            i_ + 1, where, x, nan[::-1].hex(), ("; ".join(d_)[:120] if d_ else "no difference (%s)" %
+                                                                ", ".join("%s %d" % kv for kv in stat_.items())[:80])))
+                        break
+                if cond == "defnan" and w == 4:
+                    # (integ2, D65/D85) the allowed NaNs are inside the contract: our code must not trap on either and
+                    # must compute what the original does
+                    for v_ in DEFNAN_ALLOWED:
+                        d_, stat_ = one({(where, x): struct.pack("<I", v_)}, "pre-defnan")
+                        res["pre_defnan_words"] = res.get("pre_defnan_words", 0) + 1
+                        if d_:
+                            missing.append("item %d %s 0x%x holding 0x%08x: %s" % (i_ + 1, where, x, v_,
+                                                                                 "; ".join(d_)[:120]))
+                            break
+        # (integ2, D86) every defnan word of every item at once holding an allowed NaN (signs by word), on the first
+        # input that reaches all the items: must not trap and must compute as the original (a difference that needs
+        # several NaN operands at once, rev5's pairnan / rotnan)
+        dall_ = None
+        for seed1 in range(32):
+            inp1, _, mach1 = build(seed1, None, None)
+            ws1_ = [(wx, w) for wx, w, c in _pre_words(inp1) if c == "defnan" and w == 4]
+            if ws1_ and all(_pre_words(inp1, i_) for i_, it_ in enumerate(pre or ()) if it_[5] == "defnan"):
+                dall_ = (seed1, inp1, mach1, ws1_)
+                break
+        if any(it_[5] == "defnan" for it_ in (pre or ())) and not out_of_time():
+            if dall_ is None:
+                missing.append("no input of seeds 0-31 reaches every defnan item at once")
+            else:
+                seed0, inp0, mach0, ws1_ = dall_
+                ov0, sp0, _ = _pre_fix(seed0, inp0, mach0, plant=False)
+                words_ = {wx: struct.pack("<I", DEFNAN_ALLOWED[k_ % 2]) for k_, (wx, w) in enumerate(ws1_)}
+                saved_ = (copy.deepcopy(res), set(edges), Counter(hits), set(edges_any))
+                pre_off[0] = True
+                try:
+                    ov, sp = dict(ov0), dict(sp0)
+                    for (where, x), nan in words_.items():
+                        if where == "stack":
+                            sp[("sbyte", x, 0, 4)] = struct.unpack_from("<I", nan)[0]
+                        else:
+                            ov[(0, x)] = nan
+                    run_input(seed0, ov, sp, label="pre-defnan-all")
+                    mm_ = [m_ for m_ in res["mismatches"] if m_.get("input") == "pre-defnan-all"]
+                finally:
+                    pre_off[0] = False
+                    res.clear()
+                    res.update(saved_[0])
+                    edges.clear(); edges.update(saved_[1])
+                    hits.clear(); hits.update(saved_[2])
+                    edges_any.clear(); edges_any.update(saved_[3])
+                res["pre_defnan_all"] = len(words_)
+                if mm_:
+                    missing.append("every defnan word holding an allowed NaN (%d words, seed %d): %s" % (
+                        len(words_), seed0, "; ".join(mm_[0]["diffs"])[:120]))
         res["pre_trap_words"] = checked
         res["pre_trap"] = "fired" if not missing else \
             "missing: %d problem(s) over %d contract words (%s)" % (len(missing), total, "; ".join(missing[:3]))
@@ -11715,7 +11792,13 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
         # (stops when it costs a quarter of the time budget without getting an input through, a tenth of it
         # while fewer than 1 in 4 rounds do, or 35% of it in all: the directed inputs need their share)
         budget_ = time_budget * (3 if steps[0] >= LONG_STEPS else 1)
-        if not count_pcs or small_left[0] <= 0 or (not small_left[2] and small_left[4] > 0.25 * budget_) or \
+        if proof_draw[0] and small_left[2] and "proofsmall" not in EQUIV_OFF:
+            # (integ2, D82) drawing past --inputs for a proof: the directed inputs have had their share, so small counts
+            # stop only on their own rounds and when fewer than 1 in 20 rounds get an input through (the time shares
+            # below would starve them: past 10,000 draws nothing of 0x002a2200 compared). Inputs only, compared as ever
+            if not count_pcs or small_left[0] <= 0 or (small_left[1] >= 64 and small_left[2] * 20 < small_left[1]):
+                return None
+        elif not count_pcs or small_left[0] <= 0 or (not small_left[2] and small_left[4] > 0.25 * budget_) or \
                 (small_left[1] >= 16 and small_left[2] * 4 < small_left[1] and small_left[4] > 0.1 * budget_) or \
                 small_left[4] > 0.35 * budget_:
             return None
@@ -12296,6 +12379,8 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
         res["proofcap"] = rs["seed"]
         max_inputs = max(max_inputs, PROOF_DRAW_LIMIT)
         proof_draw[0] = True
+        if small_left[2] and "proofsmall" not in EQUIV_OFF:
+            small_left[0] += 8 * PROOF_DRAW_CAP      # (integ2, D82) rounds for the small-count inputs of the draws
         try:
             random_phase(soft=False, nocap=True, until_run=n_inputs)
             drawn_ = rs["seed"]

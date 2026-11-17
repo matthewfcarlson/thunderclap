@@ -810,6 +810,17 @@ CASES = {
     "0x0030a9d0_native_selfnarrow_wrong": ("fail", "argument 7", 0, {"native": True, "n_inputs": 600}),
     "0x0030a9d0_native_selfnarrow_off": ("fail", "argument 7", 0, {"src": "0x0030a9d0_native_selfnarrow", "native": True,
                                                                    "n_inputs": 600, "equiv_off": "selfnarrow"}),
+    # (integ2, D85/D86; rev5's mutants) _signblind: a macro that traps only on positive quiet NaNs (another NaN with the
+    # sign set computes on; 0x7fc00000, allowed, traps); _onlyneg: D65's first test, allowing only 0xffc00000;
+    # _rotnan / _pairnan: ours differs only when several contract words hold NaNs at once (the all-words run)
+    "0x0022ca90_native_defnan_signblind": ("fail", "pre_trap_missing", 0, {"native": True, "n_inputs": 300}),
+    "0x0022ca90_native_defnan_onlyneg": ("fail", "pre_trap_missing", 0, {"native": True, "n_inputs": 300}),
+    "0x0022ca90_native_defnan_rotnan": ("fail", None, 0, {"native": True, "n_inputs": 300}),
+    "0x0022ca90_native_defnan_pairnan": ("fail", None, 0, {"native": True, "n_inputs": 300}),
+    # (integ2, D78, memwrap) an overlap that wraps around address 0 is copied forward like any other (memfwd); _memmove: a
+    # backward-capable copy where the original copies forward must still fail
+    "0x00277d60_native_memwrap": ("equivalent", None, 0, {"native": True, "n_inputs": 1500}),
+    "0x00277d60_native_memwrap_memmove": ("fail", None, 0, {"native": True, "n_inputs": 1500}),
     "0x0022ca90_native_defnan_off": ("fail", "ours fault", 0, {"src": "0x0022ca90_native_defnan", "native": True,
                                                                "n_inputs": 1000, "equiv_off": "pre"}),
     # (rev3, D39 review) an int -2 where the original stores -1 (both qNaN-shaped as floats): a difference

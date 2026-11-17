@@ -1382,12 +1382,35 @@ whose fuzzed tables time out on about 1 input in 6: 535 drawn and 442 compared b
 compare ran out of steps (a `timeout` status, or a runaway the loop repair set aside; inconclusive inputs of other kinds
 count against it), it draws on in stages, each sized from the previous stage's own compare rate (the shortfall over
 the rate, plus a tenth: later draws compare less often than the first 10,000, whose directed and small-count inputs
-compare more), until it has compared enough, a stage compares nothing, or `PROOF_DRAW_CAP` (30,000) inputs are
+compare more), until it has compared enough, a stage compares nothing, or `PROOF_DRAW_CAP` (40,000 since D81; 30,000 before) inputs are
 drawn. `level3.proofdraw` reports where it started, the compared count then, each stage's limit and count, and the
 last limit. Only more inputs: every input
 is compared as before, and a proof still needs 3,000 COMPARED. First runs (one stage of drawn * needed / compared):
 0x002ee9a0 2,327 -> 2,973 at 14,182 drawn, 0x00300080 2,446 -> 2,985 at 13,492, 0x002b07d0 1,250 -> 2,275 at 26,400,
 0x002a2200 631 -> 631 at 30,000 (nothing past 10,000 compares: drawing does not help it). `EQUIV_OFF=proofdraw` stops at 10,000.
+
+(integ2, `proofsmall`; user decision D82) **Small counts while a proof draws on.** The small-count inputs (round 9,
+`small_retry`: the loads that feed runaway loops planted with small counts, both sides alike) stop on time shares of
+the budget (a quarter without success, a tenth while under 1 in 4 rounds succeed, 35% in all) that leave room for the
+directed inputs. Past --inputs, drawing for a proof, those shares had long run out: the draws ran away and nothing
+compared (0x002a2200: 631 compared at 10,000 and at 30,000). During the proof draws, once small counts have got an
+input through, they get 8 x PROOF_DRAW_CAP more rounds and stop only on those or when fewer than 1 in 20 rounds get an
+input through. Inputs only; each is compared in full. 0x002a2200 and 0x002155f0 now compare 3,000 (3,048 / 3,186 drawn),
+0x002b07d0 too; 0x0024a280 (a tree walk, no count loads to plant) stays at 430. `EQUIV_OFF=proofsmall` restores the
+shares.
+
+(integ2, `memwrap`; D78) **An overlap that wraps around address 0.** memfwd's overlap test compared the ranges as
+plain intervals, so `memcpy(0, 0xffffffe6, 0x66)` (fuzzed pointers) did not count as overlapping, and ours copied it
+as plain memcpy where the original's `rep movsd` (which wraps too) reads what it wrote. The test is now on the 32-bit
+address circle: `(dst - src) mod 2^32 < n` or `(src - dst) mod 2^32 < n` (the same as before for ranges that don't
+wrap). memub's set-aside of copies over 1 MB keeps the interval test. 0x00277d60 and 0x0027e920 (tri5) pass. Cases
+`0x00277d60_native_memwrap` (equivalent) and must-fail `_memmove` (a backward-capable copy where the original copies
+forward).
+
+(integ2, D91) **No local-only binding input.** equiv.py bound callee names through `build/xbsymbols.txt` (`xdk`), a
+file only the laptop has: there 0x00320d30's D3D callees bound `xdk`, on the queue hosts `paired` / `ordered` (the same
+addresses), so its checker view (`@v`) differed by host and a laptop check reported a proven block unproven. The
+checker no longer reads the file; every host binds by the code alone, as the hosts (where proofs run) always did.
 
 (integ1, D54) **Preconditions: `// pre:` and HULK_PRE_NOTNAN.** NOT ADOPTED until the review's changes are re-reviewed
 (rev5 signed off with changes on 2ed1ec7e6; the changes below are its items).
@@ -1427,21 +1450,37 @@ checked in part). Refused at level 2: an annotation without HULK_PRE_NOTNAN in t
   `_nopre`, `_wrong`, `_off`, and rev5's `_partial` (element 0 checked of 16: pre_trap_missing) and `_msvc_hidden`
   (`_msvc_hidden_off` shows the difference is reachable), `_over64` (b's words past the first 64).
 - Not done: other conditions (finite, range).
-- (integ2, D65, user decision: option b) **`defnan`: any NaN is the default NaN 0xffc00000.** The game does pass NaNs to
-  the matrix blocks (play3 frame 37080: slot 24 of FUN_0027f2a0's render table hands FUN_0022ca90 a matrix whose 3x3
-  rotation is all 0xffc00000, the x87 indefinite), so `notnan` trapped the Wine build there. With the default NaN as the
-  only NaN, x87 and SSE hand on the same bits (a NaN meeting the same NaN, or a generated NaN, which both make
-  0xffc00000). `HULK_PRE_DEFNAN(x)` / `HULK_PRE_DEFNAN_N(p, n)` trap only on another NaN (a test on the bits: no float
-  load); MSVC 7.1: nothing. Annotation `defnan(LOC)` (floats only). The checker (`--wine`): a contract word holding another
-  NaN gets a finite value or the default NaN (by the seed), and one input in four gets the default NaN in one contract
-  word (`level3.inputs_defnan_planted`), so the contract's NaN is compared, not only repaired away. The trap check plants
-  another NaN (0x7fc00000) in every word (must trap), and also the default NaN (must not trap and must compute as the
-  original: `pre_defnan_words`); either failing fails the block (`pre_trap_missing`). Level 2 wants, per condition named,
-  its own macro: a notnan macro under a defnan contract traps on the allowed NaN (`pre_without_trap`, and
-  `trap_without_pre` for the stray macro). Cases `0x0022ca90_native_defnan` (equivalent, `_msvc`), must-fail
-  `_notnanmacro`, `_overtrap` (a hand trap on any NaN in a->m[1][1]), `_nanbranch` (ours stores 1.0 on a NaN),
-  `_partial`, `_off`. Used by 0x0022ca90, 0x0022cc10, 0x0022cdb0, 0x00308ba0 (NOT ADOPTED until an independent review
-  signs it off).
+- (integ2, D65, user decision: option b; D85-D87 after rev5's review) **`defnan`: any NaN is the zero-payload quiet NaN
+  of either sign**, `(u & 0x7fffffff) == 0x7fc00000`: 0xffc00000 (the x87 indefinite, SSE's default NaN) or 0x7fc00000
+  (arm64's default NaN for 0/0, inf-inf, sqrt(-1), and the negation of 0xffc00000). The game does pass NaNs to the
+  matrix blocks (play3 frame 37080: slot 24 of FUN_0027f2a0's render table hands FUN_0022ca90 a matrix whose 3x3
+  rotation is all 0xffc00000), so `notnan` trapped the Wine build there. With these as the only NaNs, x87, SSE and arm64
+  hand on the same bits up to the sign (a NaN meeting the same NaN, or a generated NaN; a NaN's sign is unspecified, and
+  sign-only NaN differences are inconclusive natively, `nansign`). `HULK_PRE_DEFNAN(x)` / `HULK_PRE_DEFNAN_N(p, n)` trap
+  only on another NaN (a test on the bits: no float load); MSVC 7.1: nothing. Annotation `defnan(LOC)` (floats only).
+  The checker (`--wine`):
+  - a contract word holding another NaN gets a finite value or an allowed NaN (sign by the seed);
+  - one input in four plants allowed NaNs (`level3.inputs_defnan_planted`) in one contract word, all words of one item,
+    every contract word, or a random third of them, so the contract's NaNs are compared alone and together;
+  - the trap check plants, per word, five NaNs outside the contract (0xffffffff, 0xffc00001, 0x7f800001, 0xff800001,
+    0x7fc00001; under `notnan` also the two allowed ones; doubles four) and wants a trap on each (D86: a macro blind to
+    the sign or to signalling NaNs fails); each allowed NaN per word must not trap and must compute as the original
+    (`pre_defnan_words`); and one run with every defnan word holding an allowed NaN (signs alternating) must not trap
+    and must compute as the original (`pre_defnan_all`: differences that need several NaN operands at once). Any of
+    these failing fails the block (`pre_trap_missing`).
+  Level 2 wants, per condition named, its own macro: a notnan macro under a defnan contract traps on the allowed NaNs
+  (`pre_without_trap`, and `trap_without_pre` for the stray macro). Cases `0x0022ca90_native_defnan` (equivalent,
+  `_msvc`), must-fail `_notnanmacro`, `_overtrap` (a hand trap on any NaN in a->m[1][1]), `_nanbranch` (ours stores 1.0
+  on a NaN), `_partial`, `_off`, and rev5's `_signblind` (traps only on positive quiet NaNs), `_rotnan` (differs only
+  when a's three diagonal words are NaN, the frame-37080 shape), `_pairnan` (only when a->m[0][0] and b->m[1][1] both
+  are), plus `_onlyneg` (D65's first test, allowing only 0xffc00000). Used by 0x0022ca90, 0x0022cc10, 0x0022cdb0,
+  0x00308ba0.
+  - (D87) **0x00308ba0's trap is wider than its use.** `HULK_PRE_DEFNAN_N(&periodScale, 2)` runs at entry on every
+    call, but periodScale and dampingScale are read only when `dirty` is set and `owner->properties` has a positive
+    mass; a NaN outside the contract in a call that never reads them traps the builds where the original returns
+    normally. The checker trap-checks the words on an input that reaches them, so it does not see the extra width.
+    Accepted as the contract (the game's values stay inside it in play3); a check placed at the reads would follow the
+    use exactly (not built).
 
 (integ1, D39, `nanpayload`) **Dropped (user decision D50, 2026-11-15).** A rule to set aside quiet-NaN words that differ
 only in payload (x87 hands on the larger significand when two NaNs meet, SSE the first operand) was written (a07ba065a),
