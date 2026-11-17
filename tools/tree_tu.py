@@ -824,6 +824,9 @@ def ledger_entry(addr, mode, code, view, rep, tu):
             "coverage": "%s/%s" % (cov.get("edges_covered"), cov.get("edges_total")) if cov else None,
             "status": rep.get("status"), "promotable": rep.get("promotable"), "checker": tc.get("checker"),
             "memfwd": l3.get("inputs_memfwd", 0), "pre": rep.get("pre"), "pre_repaired": l3.get("inputs_pre_repaired", 0),
+            # (integ2, rev5's re-review of D82) compared inputs with small_retry's planted counts / as drawn (or directed)
+            "compared_small": l3.get("inputs_compared_small", 0),
+            "compared_drawn": (l3.get("inputs_run") or 0) - l3.get("inputs_compared_small", 0),
             "job": tc.get("job"), "date": datetime.date.today().isoformat()}
 
 

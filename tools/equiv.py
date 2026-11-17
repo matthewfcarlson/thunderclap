@@ -4312,6 +4312,23 @@ class Run:
             return False
         return s_ < d + ld + ls and d < s_ + ls
 
+    def _own_struct_param(self, v):
+        """(integ2, argfill) Is V the first stack word of one of the function's own by-value class parameters, by its
+        signature (counted from the first stack argument, the hidden struct-return pointer first; only while every
+        parameter before it is a scalar of known width)?"""
+        sig = self.sig or {}
+        params = sig.get("params")
+        if not params:
+            return False
+        wi = 1 if sig.get("ret") == "struct" else 0
+        for k in params:
+            if k == "struct":
+                return v == ENTRY_ESP + 4 + 4 * wi
+            if k not in ("i32", "ptr", "f32", "b8", "i8", "i16", "f64", "i64"):
+                return False
+            wi += 2 if k in ("f64", "i64") else 1
+        return False
+
     def _note_stack_write(self, dst, n):
         """(round 25, nf5, intrwrite) bytes an inlined CRT routine (memcpy, memset) wrote into the frame count as written, as the
         original's `rep movsd` does through the write hook: a local the function filled that way is not free room a later
@@ -5096,8 +5113,14 @@ class Run:
                     # a directed input can have the callee write it, on both sides alike (below)
                     self.prefill_src[v] = (k, j)
             for j, v, hi, exact_size in outs:
+                # (integ2, D78, argfill; rev5's re-review) a class object that IS one of the function's own by-value
+                # parameters, `f(&input)` for `T input`: the callee fills its whole sizeof there, as it does the frame
+                # copy clang makes of it (0x000c9720). Only where the signature puts a by-value class parameter's
+                # first word at v (every parameter before it a scalar), and never past that parameter's end: hi is
+                # already v + the class's sizeof (exact_size: the pointee is that class object), at most the arguments'
+                own_ = exact_size and v >= ENTRY_ESP and "argfill" not in EQUIV_OFF and self._own_struct_param(v)
                 for w in range(v + 4, hi - 3, 4):
-                    if w >= ENTRY_ESP:
+                    if w >= ENTRY_ESP and not own_:
                         break                                   # never into the caller's argument slots
                     # free words: never written, or filled earlier for this same pointer (not the function's
                     # data, not another out-parameter's), so the result doesn't depend on the frame layout
@@ -7907,7 +7930,9 @@ DEFAULT_NAN = 0xFFC00000     # (integ2, D65) the x87 indefinite / SSE default Na
 # negation flips the sign of 0xffc00000); every other NaN is outside the contract
 DEFNAN_ALLOWED = (0xFFC00000, 0x7FC00000)
 # (integ2, D86) NaNs outside both contracts the trap check plants per word (each must trap); notnan also the allowed two
-PRE_BAD_NANS = (0xFFFFFFFF, 0xFFC00001, 0x7F800001, 0xFF800001, 0x7FC00001)
+PRE_BAD_NANS = (0xFFFFFFFF, 0xFFC00001, 0x7F800001, 0xFF800001, 0x7FC00001,
+                # (rev5 re-review) even payloads too: a test on bit 0 alone (rev5's _oddpay) traps on none above
+                0x7FC00002, 0xFFE00000, 0x7FA00000)
 PRE_BAD_NANS64 = (0x7FF8000000000000, 0xFFFFFFFFFFFFFFFF, 0x7FF0000000000001, 0xFFF8000000000001)
 
 
@@ -11135,7 +11160,14 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                 # signalling NaNs of both signs (a macro blind to the sign, or to signalling NaNs, fails here); for
                 # notnan the two quiet NaNs defnan allows too
                 if w == 4:
-                    bad_ = list(PRE_BAD_NANS) + (list(DEFNAN_ALLOWED) if cond == "notnan" else [])
+                    # (rev5 re-review) plus one bad NaN per word drawn from the seed: any sign, any nonzero payload
+                    # other than the allowed zero payload with the quiet bit
+                    r_ = mix(seed0, x, 0xBAD)
+                    pay_ = r_ & 0x7FFFFF
+                    if pay_ in (0, 0x400000):
+                        pay_ ^= 1
+                    drawn_ = (r_ >> 23 & 1) << 31 | 0x7F800000 | pay_
+                    bad_ = list(PRE_BAD_NANS) + [drawn_] + (list(DEFNAN_ALLOWED) if cond == "notnan" else [])
                     bad_ = [struct.pack("<I", v_) for v_ in bad_]
                 else:
                     bad_ = [struct.pack("<Q", v_) for v_ in PRE_BAD_NANS64]
@@ -11167,35 +11199,45 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             if ws1_ and all(_pre_words(inp1, i_) for i_, it_ in enumerate(pre or ()) if it_[5] == "defnan"):
                 dall_ = (seed1, inp1, mach1, ws1_)
                 break
-        if any(it_[5] == "defnan" for it_ in (pre or ())) and not out_of_time():
-            if dall_ is None:
+        if any(it_[5] == "defnan" for it_ in (pre or ())):
+            if out_of_time():
+                # (rev5 re-review, F2) a skipped check is a missing check, as in the per-word loop
+                missing.append("the time budget ran out before the all-words runs")
+            elif dall_ is None:
                 missing.append("no input of seeds 0-31 reaches every defnan item at once")
             else:
                 seed0, inp0, mach0, ws1_ = dall_
                 ov0, sp0, _ = _pre_fix(seed0, inp0, mach0, plant=False)
-                words_ = {wx: struct.pack("<I", DEFNAN_ALLOWED[k_ % 2]) for k_, (wx, w) in enumerate(ws1_)}
-                saved_ = (copy.deepcopy(res), set(edges), Counter(hits), set(edges_any))
-                pre_off[0] = True
-                try:
-                    ov, sp = dict(ov0), dict(sp0)
-                    for (where, x), nan in words_.items():
-                        if where == "stack":
-                            sp[("sbyte", x, 0, 4)] = struct.unpack_from("<I", nan)[0]
-                        else:
-                            ov[(0, x)] = nan
-                    run_input(seed0, ov, sp, label="pre-defnan-all")
-                    mm_ = [m_ for m_ in res["mismatches"] if m_.get("input") == "pre-defnan-all"]
-                finally:
-                    pre_off[0] = False
-                    res.clear()
-                    res.update(saved_[0])
-                    edges.clear(); edges.update(saved_[1])
-                    hits.clear(); hits.update(saved_[2])
-                    edges_any.clear(); edges_any.update(saved_[3])
-                res["pre_defnan_all"] = len(words_)
-                if mm_:
-                    missing.append("every defnan word holding an allowed NaN (%d words, seed %d): %s" % (
-                        len(words_), seed0, "; ".join(mm_[0]["diffs"])[:120]))
+                # alternating signs, then (rev5 re-review) every word 0xffc00000 and every word 0x7fc00000
+                fills_ = [("alternating", lambda k_: DEFNAN_ALLOWED[k_ % 2]),
+                          ("0xffc00000", lambda k_: DEFNAN_ALLOWED[0]), ("0x7fc00000", lambda k_: DEFNAN_ALLOWED[1])]
+                for name_, fill_ in fills_:
+                    if out_of_time():
+                        missing.append("the time budget ran out before the all-words run (%s)" % name_)
+                        break
+                    words_ = {wx: struct.pack("<I", fill_(k_)) for k_, (wx, w) in enumerate(ws1_)}
+                    saved_ = (copy.deepcopy(res), set(edges), Counter(hits), set(edges_any))
+                    pre_off[0] = True
+                    try:
+                        ov, sp = dict(ov0), dict(sp0)
+                        for (where, x), nan in words_.items():
+                            if where == "stack":
+                                sp[("sbyte", x, 0, 4)] = struct.unpack_from("<I", nan)[0]
+                            else:
+                                ov[(0, x)] = nan
+                        run_input(seed0, ov, sp, label="pre-defnan-all")
+                        mm_ = [m_ for m_ in res["mismatches"] if m_.get("input") == "pre-defnan-all"]
+                    finally:
+                        pre_off[0] = False
+                        res.clear()
+                        res.update(saved_[0])
+                        edges.clear(); edges.update(saved_[1])
+                        hits.clear(); hits.update(saved_[2])
+                        edges_any.clear(); edges_any.update(saved_[3])
+                    res["pre_defnan_all"] = res.get("pre_defnan_all", 0) + 1
+                    if mm_:
+                        missing.append("every defnan word holding an allowed NaN (%s, %d words, seed %d): %s" % (
+                            name_, len(words_), seed0, "; ".join(mm_[0]["diffs"])[:120]))
         res["pre_trap_words"] = checked
         res["pre_trap"] = "fired" if not missing else \
             "missing: %d problem(s) over %d contract words (%s)" % (len(missing), total, "; ".join(missing[:3]))
@@ -11702,6 +11744,10 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             return None
         if o["status"] == "ret":
             res["inputs_run"] += 1
+            if label and str(label).endswith("+small"):
+                # (rev5 re-review of D82) compared inputs whose loop counts small_retry planted, apart from the inputs
+                # compared as drawn (inputs_small counts small-count attempts, not comparisons)
+                res["inputs_compared_small"] = res.get("inputs_compared_small", 0) + 1
             if not diffs and r.get("nan_eq") and not r.get("nan_sign"):
                 # (integ1, measure only) a passing input on which _feq took two different NaNs as equal (rev3's question:
                 # how many proofs rest on NaN == NaN). Reported, never a verdict

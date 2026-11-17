@@ -821,6 +821,16 @@ CASES = {
     # backward-capable copy where the original copies forward must still fail
     "0x00277d60_native_memwrap": ("equivalent", None, 0, {"native": True, "n_inputs": 1500}),
     "0x00277d60_native_memwrap_memmove": ("fail", None, 0, {"native": True, "n_inputs": 1500}),
+    # (integ2, D78, argfill) a callee's out pointer to the function's own by-value class parameter is filled over its
+    # sizeof, as clang's frame copy of it is; _off: without it the original's slot gets word 0 only (a difference)
+    "0x000c9720_native_argfill": ("equivalent", None, 0, {"native": True, "n_inputs": 1000}),
+    "0x000c9720_native_argfill_msvc": ("equivalent", None, 0, {"src": "0x000c9720_native_argfill", "n_inputs": 1000}),
+    "0x000c9720_native_argfill_off": ("fail", None, 0, {"src": "0x000c9720_native_argfill", "native": True,
+                                                        "n_inputs": 1000, "equiv_off": "argfill"}),
+    # (rev5 re-review) _oddpay: a macro that misses NaNs with an even payload (the fixed sample had only odd ones);
+    # _rotneg: differs only when a's diagonal words all hold 0xffc00000 (the fixed all-0xffc00000 run)
+    "0x0022ca90_native_defnan_oddpay": ("fail", "pre_trap_missing", 0, {"native": True, "n_inputs": 300}),
+    "0x0022ca90_native_defnan_rotneg": ("fail", None, 0, {"native": True, "n_inputs": 300}),
     "0x0022ca90_native_defnan_off": ("fail", "ours fault", 0, {"src": "0x0022ca90_native_defnan", "native": True,
                                                                "n_inputs": 1000, "equiv_off": "pre"}),
     # (rev3, D39 review) an int -2 where the original stores -1 (both qNaN-shaped as floats): a difference
@@ -906,7 +916,9 @@ CASES = {
     "0x0033b8d0_native_fyl2x_wrong": ("fail", "argument 2", 0, {"native": True, "n_inputs": 60}),
     # nofill: FUN_002f0080 only reads the vectors it gets: no speculative out-parameter fill
     "0x002f0780_native_nofill": ("equivalent", None, 0, {"native": True, "n_inputs": 60}),
-    "0x002f0780_native_nofill_off": ("fail", "local passed as argument 1", 0, {"src": "0x002f0780_native_nofill", "native": True, "n_inputs": 60, "equiv_off": "nofill"}),
+    # (integ2, argfill) &p is the function's own by-value parameter: since argfill the speculative fill covers it on both
+    # sides alike, so without nofill the first difference is argument 2's frame local (&d)
+    "0x002f0780_native_nofill_off": ("fail", "local passed as argument 2", 0, {"src": "0x002f0780_native_nofill", "native": True, "n_inputs": 60, "equiv_off": "nofill"}),
     "0x002f0780_native_nofill_wrong": ("fail", None, 0, {"native": True, "n_inputs": 60}),
     # fillsame: snprintf(buf, ...) twice: the stub's fill of `char buf[32]` depended on the buffer's alignment
     "0x001ca430_native_fillsame": ("equivalent", None, 0, {"native": True, "n_inputs": 60}),

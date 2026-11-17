@@ -1398,6 +1398,17 @@ input through, they get 8 x PROOF_DRAW_CAP more rounds and stop only on those or
 input through. Inputs only; each is compared in full. 0x002a2200 and 0x002155f0 now compare 3,000 (3,048 / 3,186 drawn),
 0x002b07d0 too; 0x0024a280 (a tree walk, no count loads to plant) stays at 430. `EQUIV_OFF=proofsmall` restores the
 shares.
+Reports keep the two apart (rev5's re-review): `level3.inputs_compared_small` counts compared inputs whose counts
+small_retry planted (`inputs_small` counts attempts), and the proof ledger line carries `compared_small` and
+`compared_drawn` (the rest of `inputs_run`).
+
+(integ2, `argfill`; D78) **A callee's out pointer to the function's own by-value parameter.** `FUN_000c9460(&input,
+input)` (0x000c9720): the original passes the address of its own argument slot, clang the address of the frame copy
+it makes of the parameter. The out-parameter fill stopped at the caller's argument slots (`never into the caller's
+argument slots`), so the original's slot got word 0 and clang's copy every word. Where the signature puts a by-value
+class parameter's first word at the pointer (every parameter before it a scalar) and the pointee is that class
+(`exact_size`), the fill covers its sizeof on both sides, never past it. Cases `0x000c9720_native_argfill`
+(`_msvc`), must-fail `_off`.
 
 (integ2, `memwrap`; D78) **An overlap that wraps around address 0.** memfwd's overlap test compared the ranges as
 plain intervals, so `memcpy(0, 0xffffffe6, 0x66)` (fuzzed pointers) did not count as overlapping, and ours copied it
@@ -1463,15 +1474,18 @@ checked in part). Refused at level 2: an annotation without HULK_PRE_NOTNAN in t
   - one input in four plants allowed NaNs (`level3.inputs_defnan_planted`) in one contract word, all words of one item,
     every contract word, or a random third of them, so the contract's NaNs are compared alone and together;
   - the trap check plants, per word, five NaNs outside the contract (0xffffffff, 0xffc00001, 0x7f800001, 0xff800001,
-    0x7fc00001; under `notnan` also the two allowed ones; doubles four) and wants a trap on each (D86: a macro blind to
-    the sign or to signalling NaNs fails); each allowed NaN per word must not trap and must compute as the original
-    (`pre_defnan_words`); and one run with every defnan word holding an allowed NaN (signs alternating) must not trap
-    and must compute as the original (`pre_defnan_all`: differences that need several NaN operands at once). Any of
-    these failing fails the block (`pre_trap_missing`).
+    0x7fc00001, and (rev5's re-review) the even payloads 0x7fc00002, 0xffe00000, 0x7fa00000 plus one NaN per word drawn
+    from the seed; under `notnan` also the two allowed ones; doubles four) and wants a trap on each (D86: a macro blind
+    to the sign, to signalling NaNs or to even payloads fails); each allowed NaN per word must not trap and must compute
+    as the original (`pre_defnan_words`); and three runs with every defnan word holding an allowed NaN (signs
+    alternating; all 0xffc00000; all 0x7fc00000) must not trap and must compute as the original (`pre_defnan_all`:
+    differences that need several NaN operands at once). Any of these failing, or skipped because the time budget ran
+    out, fails the block (`pre_trap_missing`).
   Level 2 wants, per condition named, its own macro: a notnan macro under a defnan contract traps on the allowed NaNs
   (`pre_without_trap`, and `trap_without_pre` for the stray macro). Cases `0x0022ca90_native_defnan` (equivalent,
   `_msvc`), must-fail `_notnanmacro`, `_overtrap` (a hand trap on any NaN in a->m[1][1]), `_nanbranch` (ours stores 1.0
-  on a NaN), `_partial`, `_off`, and rev5's `_signblind` (traps only on positive quiet NaNs), `_rotnan` (differs only
+  on a NaN), `_partial`, `_off`, and rev5's `_signblind` (traps only on positive quiet NaNs), `_oddpay` (misses
+  even-payload NaNs), `_rotneg` (differs only when a's diagonal is all 0xffc00000), `_rotnan` (differs only
   when a's three diagonal words are NaN, the frame-37080 shape), `_pairnan` (only when a->m[0][0] and b->m[1][1] both
   are), plus `_onlyneg` (D65's first test, allowing only 0xffc00000). Used by 0x0022ca90, 0x0022cc10, 0x0022cdb0,
   0x00308ba0.
