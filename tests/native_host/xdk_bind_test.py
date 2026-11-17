@@ -56,6 +56,9 @@ def cases(x):
     for a, (tgt, _k, n) in sorted(x.funcs.items()):
         if n not in nb.NAME_RULE_EXCEPT:
             first.setdefault(n, tgt)
+    for n, a in nb.GAME_NAME_ROWS.items():      # (x64t18) the game's name of another row binds that row
+        if a in x.funcs:
+            first[n] = x.funcs[a][0]
     for n, tgt in sorted(first.items()):
         out.append(("c", n, tgt, 0))
         out.append(("ns-fn", n, tgt, 0))
@@ -66,7 +69,7 @@ def cases(x):
     return out
 
 
-NEGATIVE = sorted(nb.NAME_RULE_EXCEPT) + ["?Sleep@Obj@@QEAAXH@Z", "?XInputGetState@@3HA", "?CreateFiber@?$Box@H@@YAXXZ",
+NEGATIVE = sorted(set(nb.NAME_RULE_EXCEPT) - set(nb.GAME_NAME_ROWS)) + ["?Sleep@Obj@@QEAAXH@Z", "?XInputGetState@@3HA", "?CreateFiber@?$Box@H@@YAXXZ",
             "?DAT_0020c14b@fn_bindtest@@3HA", "?DAT_0039db04@fn_bindtest@@3PEBXEB", "FUN_00100000", "DAT_00100000", "XInputGetStateX"]
 
 

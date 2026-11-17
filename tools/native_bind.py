@@ -75,6 +75,11 @@ NAME_RULE_EXCEPT = {
     "Get2DSurfaceDesc": "the game's name for 0x003821c0 (row 0x0038abf0)",
     "XInitDevices": "the game's name for 0x003eba7c (row 0x003eac33)",
 }
+# (x64t18) A name of NAME_RULE_EXCEPT whose own address has a row of its own: the rule binds the game's name to that
+# row (as the Wine build's binding map does), never to the row the name belongs to.
+GAME_NAME_ROWS = {
+    "Get2DSurfaceDesc": 0x003821c0,     # D3DTexture_GetLevelDesc (pure3d's d3dTexture / d3dExt* call it by this name)
+}
 
 
 class XdkTable:
@@ -88,7 +93,8 @@ class XdkTable:
         `thunk_FUN_0038acb0`), or
       * it is a function row's name: the C name itself (`XInputGetState`) or an MS free function whose leaf is the
         name, in any namespace (`?ConvertThreadToFiber@XAPILIB@fn_0026d990@@YA...`, `?D3DDevice_SetTexture@D3D8@...`);
-        never a member function or a variable of that name, nor a name of NAME_RULE_EXCEPT, or
+        never a member function or a variable of that name, nor a name of NAME_RULE_EXCEPT (but GAME_NAME_ROWS: the
+        game's name of another row), or
       * it is a data name (DAT_ / PTR_ / hulk_at_) whose address lies inside a data row: offset 0 binds the row's
         symbol, any other offset `hulk_xlib_<address>` (the symbol + the offset), an alias the link defines next to the storage
         (alias_asm()); a pointer-typed MS variable past a row's start is not bound (8 bytes over 4-byte words).
@@ -103,6 +109,9 @@ class XdkTable:
                 self.funcs[int(a, 16)] = (pre + n, kind, n)
                 if n not in NAME_RULE_EXCEPT:
                     self.by_name.setdefault(n, pre + n)
+        for n, a in GAME_NAME_ROWS.items():
+            if a in self.funcs:
+                self.by_name[n] = self.funcs[a][0]
         self.data = [(int(a, 16), s.lstrip("_"), int(n)) for a, s, n in
                      re.findall(r"^\s*D\((0x[0-9a-f]+), (\w+), (\d+)\)", open(XDK_LIBRARY).read(), re.M)]
         self.kind = {t: k for t, k, _n in self.funcs.values()}

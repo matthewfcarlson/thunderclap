@@ -45,6 +45,7 @@
     X(0x00380010, D3DDevice_SetIndices, "graphics: Direct3D 8 (Xbox)") \
     X(0x00381df0, D3DDevice_Swap, "graphics: Direct3D 8 (Xbox)") \
     X(0x00382100, D3DDevice_CreateTexture2, "graphics: Direct3D 8 (Xbox)") \
+    X(0x003821c0, D3DTexture_GetLevelDesc, "graphics: Direct3D 8 (Xbox); the game's sources call it Get2DSurfaceDesc (x64t18)") \
     X(0x003821d0, D3DTexture_GetSurfaceLevel2, "graphics: Direct3D 8 (Xbox)") \
     X(0x00382220, D3DTexture_LockRect, "graphics: Direct3D 8 (Xbox)") \
     X(0x00382320, D3DVolumeTexture_LockBox, "graphics: Direct3D 8 (Xbox)") \
@@ -216,6 +217,7 @@ hulk_u32 HULK_STDCALL hulk_xdk_D3DDevice_SetPalette(hulk_u32, hulk_uptr);  // 0x
 hulk_u32 HULK_STDCALL hulk_xdk_D3DDevice_SetIndices(hulk_uptr, hulk_u32);  // 0x00380010
 hulk_u32 HULK_STDCALL hulk_xdk_D3DDevice_Swap(hulk_u32);  // 0x00381df0
 hulk_uptr HULK_STDCALL hulk_xdk_D3DDevice_CreateTexture2(hulk_u32, hulk_u32, hulk_u32, hulk_u32, hulk_u32, hulk_u32, hulk_u32);  // 0x00382100
+hulk_u32 HULK_STDCALL hulk_xdk_D3DTexture_GetLevelDesc(hulk_uptr, hulk_u32, hulk_uptr);  // 0x003821c0
 hulk_uptr HULK_STDCALL hulk_xdk_D3DTexture_GetSurfaceLevel2(hulk_uptr, hulk_u32);  // 0x003821d0
 hulk_u32 HULK_STDCALL hulk_xdk_D3DTexture_LockRect(hulk_uptr, hulk_u32, hulk_uptr, hulk_uptr, hulk_u32);  // 0x00382220
 hulk_u32 HULK_STDCALL hulk_xdk_D3DVolumeTexture_LockBox(hulk_uptr, hulk_u32, hulk_uptr, hulk_uptr, hulk_u32);  // 0x00382320

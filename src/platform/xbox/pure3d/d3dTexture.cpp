@@ -447,7 +447,7 @@ public:
     virtual int GetMaxTextureSize();
 };
 void __cdecl FUN_0031c230(unsigned long code);
-void __cdecl FUN_0031c570(SurfaceDesc_326330* desc, int a, void* out, int b);
+void __cdecl FUN_0031c570(SurfaceDesc_326330* desc, HULK_TYPE64(int, const void*) a, void* out, HULK_TYPE64(int, char) b);   // (x64t18) natively the definition's types (D71)
 void __cdecl FUN_0031e1f0(void* tex, int bytes);   // (x64t17) the texture a pointer
 int __fastcall FUN_00325fb0(int ignored, int field);
 // equiv-conv: FUN_00325fd0 ecx edx eax stack
@@ -575,7 +575,7 @@ void __stdcall thunk_FUN_0038acb0(Texture* tex, DWORD level, SurfaceDesc_3265f0*
 void FUN_0031c230(long hr);
 int __fastcall FUN_00325fb0(int ignored, int mask);
 void FUN_0031e1f0(Texture* tex, int size);
-void FUN_0031c600(SurfaceDesc_3265f0* desc, int a, HulkPixelLock* out, int b);   // (x64t17) the lock record
+void FUN_0031c600(SurfaceDesc_3265f0* desc, HULK_TYPE64(int, const void*) a, HulkPixelLock* out, HULK_TYPE64(int, char) b);   // (x64t17) the lock record; (x64t18) natively the definition's types (D71)
 struct Ctx_3265f0 {
     virtual void v0();
     virtual void v1();
@@ -802,8 +802,8 @@ void __stdcall D3DVolumeTexture_LockBox(void* tex, unsigned int level, void* loc
 }
 void __stdcall thunk_FUN_0038acb0(void* tex, unsigned int level, void* desc);
 void FUN_0031c230(int arg);
-void FUN_0031c570(void* desc, void* locked, HulkPixelLock* info, int flag);
-void FUN_0031c600(void* desc, void* locked, HulkPixelLock* info, int flag);
+void FUN_0031c570(void* desc, void* locked, HulkPixelLock* info, HULK_TYPE64(int, char) flag);   // (x64t18) natively
+void FUN_0031c600(void* desc, void* locked, HulkPixelLock* info, HULK_TYPE64(int, char) flag);   // the definition's (D71)
 extern "C" void* FUN_0008d690(int size);
 
 namespace pure3d {
