@@ -6,7 +6,11 @@
 //     the native builds have no lockstep I/O yet (src/platform/sdl/host/native_hooks.h: the drive hooks need the
 //     drive's 64-bit layout), so the drive threads run free, as the Wine build without HULK_SYNCIO;
 //   * the platform's event pump the shim's main-thread sleeps call: nothing to pump in a headless image (a graphics
-//     build links platform_events.cpp, whose definition takes the place of this weak one).
+//     build links platform_events.cpp, whose definition takes the place of this weak one);
+//   * (x64t19, D96) what the rollback snapshots (xdk/snapshot.cpp) read besides the C runtime: the frame number
+//     (startup.cpp's on the Wine build; natively replay_native.cpp's GameClock::Update hook advances it) and the count
+//     of drive requests posted (replay_hooks.cpp counts them in its drive-post hook; the native builds have no drive
+//     hook yet, as above, so none is seen and the count stays 0: a snapshot window never reports drive I/O natively).
 #if !defined(_WIN32)
 typedef unsigned int hulk_u32;
 typedef __UINTPTR_TYPE__ hulk_uptr;
@@ -31,5 +35,9 @@ int hulk_io_main_wait(hulk_uptr handle, hulk_u32* result) {
     return 0;
 }
 __attribute__((weak)) void hulk_platform_pump(void) {}
+hulk_u32 hulk_native_frame_no;
+hulk_u32 hulk_io_post_count(void) {
+    return 0;
+}
 }
 #endif

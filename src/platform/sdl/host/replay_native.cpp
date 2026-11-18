@@ -101,7 +101,9 @@ static void log_line(const char* fmt, ...) {
 static hulk_u32 g_snd_calls;   // sound-rng draws served from the private state (the Wine build's "sound rng" count)
 
 // One frame: the checkpoint (when this frame is one) and its trace lines, as replay_hooks.cpp's hulk_native_frame.
+extern "C" hulk_u32 hulk_native_frame_no;   // (shim_posix.cpp: the frame number xdk/snapshot.cpp reads)
 extern "C" void hulk_nreplay_frame(const void* clock) {
+    hulk_native_frame_no++;                  // (x64t19) as replay_hooks.cpp's hulk_native_frame, at the frame's start
     HulkCkptImage img;
     HulkCkptState st;
     const void* view = *(const void* const*)DAT_004e231c;

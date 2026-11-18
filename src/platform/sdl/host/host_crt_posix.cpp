@@ -36,6 +36,7 @@ hulk_u32 hulk_host__msize(void* p) {
 }
 void* hulk_host_memset(void* p, int c, hulk_u32 n) { return memset(p, c, n); }
 void* hulk_host_memcpy(void* d, const void* s, hulk_u32 n) { return memcpy(d, s, n); }
+int hulk_host_memcmp(const void* a, const void* b, hulk_u32 n) { return memcmp(a, b, n); }
 hulk_u32 hulk_host_strlen(const char* s) { return (hulk_u32)strlen(s); }
 int hulk_host_strcmp(const char* a, const char* b) { return strcmp(a, b); }
 char* hulk_host_getenv(const char* name) { return getenv(name); }

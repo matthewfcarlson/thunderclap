@@ -54,6 +54,7 @@ void HULK_HOST_CDECL hulk_host_free(void* p);
 hulk_u32 HULK_HOST_CDECL hulk_host__msize(void* p);
 void* HULK_HOST_CDECL hulk_host_memset(void* p, int c, hulk_u32 n);
 void* HULK_HOST_CDECL hulk_host_memcpy(void* d, const void* s, hulk_u32 n);
+int HULK_HOST_CDECL hulk_host_memcmp(const void* a, const void* b, hulk_u32 n);   // (xdk/snapshot.cpp)
 hulk_u32 HULK_HOST_CDECL hulk_host_strlen(const char* s);
 int HULK_HOST_CDECL hulk_host_strcmp(const char* a, const char* b);
 char* HULK_HOST_CDECL hulk_host_getenv(const char* name);
