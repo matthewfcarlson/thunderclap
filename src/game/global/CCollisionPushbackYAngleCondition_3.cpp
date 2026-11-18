@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/global.h"
 #define TREE_TU_BEGIN namespace fn_ff4b9afe {
 #define TREE_TU_END }
 namespace fn_ff4b9afe {} using namespace fn_ff4b9afe;
@@ -68,7 +69,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<CCollisionPushbackYAngle
 // 0x00057c10 fight::ConditionFactoryTemplate<CCollisionPushbackYAngleCondition>::vfunc_5 (54 B): matches/0x00057c10.cpp
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VCCollisionPushbackYAngleCondition@@@fight@@UAEPAXXZ
 template <> void* fight::ConditionFactoryTemplate<CCollisionPushbackYAngleCondition>::vfunc_5() {
-    CCollisionPushbackYAngleCondition_57c10* p = (CCollisionPushbackYAngleCondition_57c10*)Alloc(0x14);
+    CCollisionPushbackYAngleCondition_57c10* p = (CCollisionPushbackYAngleCondition_57c10*)Alloc(sizeof(::CCollisionPushbackYAngleCondition));
     if (p) {
         p->Init_00234590(0);
         p->vptr = (hulk_uintptr)&hulk_at_003f70c4;

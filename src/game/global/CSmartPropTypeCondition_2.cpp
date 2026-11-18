@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/global.h"
 #define TREE_TU_BEGIN namespace fn_f3bc6b16 {
 #define TREE_TU_END }
 namespace fn_f3bc6b16 {} using namespace fn_f3bc6b16;
@@ -73,7 +74,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<CSmartPropTypeCondition>
 // 0x00058a00 fight::ConditionFactoryTemplate<CSmartPropTypeCondition>::vfunc_5 (54 B): matches/0x00058a00.cpp
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VCSmartPropTypeCondition@@@fight@@UAEPAXXZ
 template <> void* fight::ConditionFactoryTemplate<CSmartPropTypeCondition>::vfunc_5() {
-    CSmartPropTypeCondition_58a00* p = Alloc(0x14);
+    CSmartPropTypeCondition_58a00* p = Alloc(sizeof(::CSmartPropTypeCondition));
     if (p) {
         p->Init_00234590(0);
         *(hulk_intptr*)p = ((hulk_intptr)DAT_003f7178);

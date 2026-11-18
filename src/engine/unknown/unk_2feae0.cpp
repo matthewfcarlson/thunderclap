@@ -1169,7 +1169,7 @@ void Obj_300400::Copy() {
 // FUN_00300410 @ 0x00300410
 void Owner_300410::FUN_00300410(hulk_uintptr flags) {
  previous = current;
- unsigned int count = (unsigned int)(((char*)end-(char*)begin)/20);
+ unsigned int count = (unsigned int)(end-begin);
  if (!count) return;
  unsigned int i=0;
  do {
@@ -1181,7 +1181,7 @@ void Owner_300410::FUN_00300410(hulk_uintptr flags) {
   }
   begin[i].FUN_002f8e80();
   ++i;
- } while(i < (unsigned int)(((char*)end-(char*)begin)/20));
+ } while(i < (unsigned int)(end-begin));
 }
 
 
@@ -1329,7 +1329,7 @@ void Owner_300930::target(Input_300930* input,int arg) {
  entry->first->v10();
  entry->second->v10();
  ((owners::Obj_302ed0 *)&worker)->FUN_00302ed0((hulk_intptr)(Item_300930 *)(entry->first), (hulk_intptr)(Item_300930 *)(entry->second), (hulk_intptr)(Buffer_300930 *)(&buffer));
- offset+=20;
+ offset+=sizeof(Entry_300930);
  }
  if ((buffer.end-buffer.begin)/68 != 0) receiver.FUN_002f8020(&buffer,arg,0);
  if(buffer.begin) FUN_0008d340(buffer.begin);

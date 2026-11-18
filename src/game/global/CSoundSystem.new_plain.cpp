@@ -44,7 +44,7 @@ struct Target_1f2c00 {
 void Target_1f2c00::FUN_001f2c00(int arg) {
  init->FUN_001ea8b0(arg);
  owner->FUN_001f6990();
- void* storage=FUN_0008d750(0xfa4,6);
+ void* storage=FUN_0008d750(sizeof(int)+100*sizeof(CSoundTriggerExecutionState_1f2c00),6);
  CSoundTriggerExecutionState_1f2c00* result=0;
  if(storage) {
   *((int*)storage)=100;

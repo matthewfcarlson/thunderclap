@@ -579,7 +579,7 @@ Container_31a6b0 *Container_31a6b0::FUN_0031a6b0(const Container_31a6b0 *other)
         state = 2;
     end = begin;
 
-    for (unsigned int i = 0; i < (unsigned int)(((hulk_intptr)other->end - (hulk_intptr)other->begin) / 100); i++) {
+    for (unsigned int i = 0; i < (unsigned int)(other->end - other->begin); i++) {
         Elem_31a6b0 tmp;
         const Elem_31a6b0 *s = &other->begin[i];
         tmp.first = s->first;

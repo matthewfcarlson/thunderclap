@@ -388,7 +388,7 @@ hulk_freg CMotionTrailTrack::vfunc_7() {
 // sym: ?vfunc_12@CMotionTrailTrack@@UAEHH@Z
 // Same code shape as 0x0005dd70 (propagated; names are from that function)
 hulk_intptr CMotionTrailTrack::vfunc_12(hulk_intptr param) {
-    Helper_605b0* p = (Helper_605b0*)FUN_0008d690(0x28);
+    Helper_605b0* p = (Helper_605b0*)FUN_0008d690((unsigned int)sizeof(::CMotionTrailAction));
     if (p)
         return p->FUN_0001f640(this, param);
     return 0;

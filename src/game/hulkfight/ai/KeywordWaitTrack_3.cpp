@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/hulkfight.h"
 #define TREE_TU_BEGIN namespace fn_f01c5110 {
 #define TREE_TU_END }
 namespace fn_f01c5110 {} using namespace fn_f01c5110;
@@ -77,8 +78,12 @@ namespace fn_f01c5110 {
 
 // 0x00114b30 fight::TrackFactoryTemplate<hulkfight::ai::KeywordWaitTrack>::vfunc_5 (71 B): matches/0x00114b30.cpp
 // sym: ?target@fn_f01c5110@@YAPAUKeywordWaitTrack@1@XZ
+struct AllocWords_114b30 : ::hulkfight::ai::KeywordWaitTrack {   // (sweep-allocsize) gen's words and the allocation's last word (gen's size is its
+    int last;                                                   // last field's end, 4 short of the 0x28-byte allocation)
+};
+typedef char AllocWords_114b30_size32[(sizeof(void*) != 4 || sizeof(AllocWords_114b30) == 0x28) ? 1 : -1];
 KeywordWaitTrack* __cdecl target() {
-    KeywordWaitTrack* p = (KeywordWaitTrack*)FUN_0008d690(0x28);
+    KeywordWaitTrack* p = (KeywordWaitTrack*)FUN_0008d690(sizeof(AllocWords_114b30));
     if (p) {
         ((Helper_114b30*)p)->Init_00236d40();
         p->vptr = (hulk_uintptr)&hulk_at_0040dc44;

@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/hulkfight.h"
 #define TREE_TU_BEGIN namespace fn_f5aaf014 {
 #define TREE_TU_END }
 namespace fn_f5aaf014 {} using namespace fn_f5aaf014;
@@ -64,7 +65,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::ShieldArc
 // 0x0018c1b0 fight::TrackFactoryTemplate<hulkfight::motion::ShieldArcTrack>::vfunc_5 (59 B): matches/0x0018c1b0.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VShieldArcTrack@motion@hulkfight@@@fight@@UAEPAXXZ
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::ShieldArcTrack>::vfunc_5() {
-    ShieldArcTrack_18c1b0* p = (ShieldArcTrack_18c1b0*)FUN_0008d690(0x14);
+    ShieldArcTrack_18c1b0* p = (ShieldArcTrack_18c1b0*)FUN_0008d690(sizeof(::hulkfight::motion::ShieldArcTrack));
     if (p) {
         p->Init_00236d40();
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_004194dc);

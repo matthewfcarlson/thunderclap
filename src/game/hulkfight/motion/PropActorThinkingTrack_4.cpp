@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x0018be10..0x0018bec0 (kind game, layer game, confidence high), dominant class hulkfight::motion::PropActorThinkingTrack
 #include "tree_prelude.h"
+#include "gen/hulkfight.h"   // (allocsize1)
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
@@ -57,7 +58,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::PropActor
 // 0x0018be50 fight::TrackFactoryTemplate<hulkfight::motion::PropActorThinkingTrack>::vfunc_5 (49 B): matches/0x0018be50.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VPropActorThinkingTrack@motion@hulkfight@@@fight@@UAEPAXXZ
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::PropActorThinkingTrack>::vfunc_5() {
-    Track_18be50* p = (Track_18be50*)Alloc(0x14);
+    Track_18be50* p = (Track_18be50*)Alloc((int)sizeof(::hulkfight::motion::PropActorThinkingTrack));   // (allocsize1) the size by gen's record
     if (p) {
         p->Init_00236d40();
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_0041932c);

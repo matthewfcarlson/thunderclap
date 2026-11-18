@@ -106,7 +106,7 @@ bool X::Fn(void* p) {
 // sym: ?vfunc_12@CComboMessageTrack@@UAEHH@Z
 // Same code shape as 0x0005aad0 (propagated; names are from that function)
 hulk_intptr CComboMessageTrack::vfunc_12(hulk_intptr param) {
-    R_69850* p = FUN_0008d690(0x24);
+    R_69850* p = FUN_0008d690((int)sizeof(::CComboMessageAction));   // (allocsize1) the size by gen's record
     if (p)
         return p->invoke_0001d210(this, param);
     return 0;

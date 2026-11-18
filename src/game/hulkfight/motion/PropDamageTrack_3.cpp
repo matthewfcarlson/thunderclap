@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/hulkfight.h"
 #define TREE_TU_BEGIN namespace fn_f18335cb {
 #define TREE_TU_END }
 namespace fn_f18335cb {} using namespace fn_f18335cb;
@@ -68,7 +69,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::PropDamag
 // 0x0018c3d0 fight::TrackFactoryTemplate<hulkfight::motion::PropDamageTrack>::vfunc_5 (66 B): matches/0x0018c3d0.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VPropDamageTrack@motion@hulkfight@@@fight@@UAEPAXXZ
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::PropDamageTrack>::vfunc_5() {
-    PropDamageTrack_18c3d0* p = (PropDamageTrack_18c3d0*)Alloc(0x18);
+    PropDamageTrack_18c3d0* p = (PropDamageTrack_18c3d0*)Alloc(sizeof(::hulkfight::motion::PropDamageTrack));
     if (p) {
         p->Track_18c3d0::Track_18c3d0();
         *(volatile hulk_uintptr*)p = ((hulk_intptr)DAT_0041956c);

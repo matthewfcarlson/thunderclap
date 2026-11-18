@@ -2,6 +2,7 @@
 // object 0x00051480..0x00056af0 (kind game, layer game, confidence high), merged by D32: global/CStageCondition_params_factory.cpp
 // piece 0x00052540..0x000525e0 (kind game, layer game, confidence high, dominant class CIsGrappledCondition); was game/global/CIsGrappledCondition.cpp until D46
 #include "tree_prelude.h"
+#include "gen/global.h"   // (allocsize1)
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #define TREE_TU_BEGIN namespace fn_f886958e {
@@ -63,7 +64,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<CIsGrappledCondition>::v
 // 0x00052580 fight::ConditionFactoryTemplate<CIsGrappledCondition>::vfunc_5 (40 B): matches/0x00052580.cpp
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VCIsGrappledCondition@@@fight@@UAEPAXXZ
 template <> void* fight::ConditionFactoryTemplate<CIsGrappledCondition>::vfunc_5() {
-    CIsGrappledCondition_52580* p = (CIsGrappledCondition_52580*)operator new(0x0c);
+    CIsGrappledCondition_52580* p = (CIsGrappledCondition_52580*)operator new((int)sizeof(::CIsGrappledCondition));   // (allocsize1) the size by gen's record
     if (p) {
         p->init_00234590(0);
         *(void**)p = &hulk_at_003f72bc;

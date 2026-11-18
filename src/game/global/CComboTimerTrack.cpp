@@ -105,7 +105,7 @@ hulk_freg CComboTimerTrack::vfunc_7() {
 // sym: ?vfunc_12@CComboTimerTrack@@UAEHH@Z
 hulk_intptr CComboTimerTrack::vfunc_12(hulk_intptr __p0) { unsigned int param = (unsigned int)__p0;
 
-    void* p = FUN_0008d690(0x24);
+    void* p = FUN_0008d690(sizeof(::CComboTimerAction));
     if (p)
         return ((Worker_6a010*)p)->go_0001dbc0(param, this->comboTimer);
     return 0;

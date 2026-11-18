@@ -26,7 +26,7 @@ hulkfight::motion::CriticalMassDrainAction* __cdecl Alloc_0008d690(int);
 hulk_intptr hulkfight::motion::CriticalMassDrainTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     int result = ((int)(hulk_uintptr)__RTDynamicCast((void*)c, 0, (void*)(&hulk_at_00494b44), (void*)(&hulk_at_00494b60), 0));
     if (result) {
-        hulkfight::motion::CriticalMassDrainAction* p = Alloc_0008d690(0x24);
+        hulkfight::motion::CriticalMassDrainAction* p = Alloc_0008d690((int)sizeof(::hulkfight::motion::CriticalMassDrainAction));   // (allocsize1) the size by gen's record
         if (p)
             return ((CriticalMassDrainAction_nv_17bdc0*)(((hulkfight::motion::CriticalMassDrainAction*)(p))))->Init_00177430(this, c);
     }

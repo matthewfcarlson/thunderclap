@@ -154,6 +154,17 @@ struct HulkSoundRealTimeManager {
 };
 HULK_MGR_SIZE32(HulkSoundRealTimeManager, 28);
 
+// (sweep-allocsize) CSoundResourceManager (0x001f1270, CSoundSystem.cpp; 0x001eb220 allocates it, 20 bytes, no
+// vftable): its sound engine and sound bank (both allocated there), two words, and the allocation's last word
+struct HulkSoundResourceManager {
+    void* engine;
+    void* bank;
+    int f08;
+    int f0c;
+    int f10;
+};
+HULK_MGR_SIZE32(HulkSoundResourceManager, 20);
+
 // COverlayManager (0x000d6970, 48 bytes): the vftable, its view (0x000d6a20 allocates it; 0x000d6e70 releases it),
 // the state, eight overlay items (0x000d6c70's items) and its camera (0x000d6a20; 0x000d6e70 releases it)
 struct HulkOverlayManager {

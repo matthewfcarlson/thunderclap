@@ -5,6 +5,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/global.h"
 #define TREE_TU_BEGIN namespace fn_f834f864 {
 #define TREE_TU_END }
 namespace fn_f834f864 {} using namespace fn_f834f864;
@@ -64,7 +65,7 @@ template <> void* fight::TrackFactoryCasterTemplate<CHeliDeathSpiralTrack>::vfun
 // 0x0006fac0 fight::TrackFactoryTemplate<CHeliDeathSpiralTrack>::vfunc_5 (24 B): matches/0x0006fac0.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VCHeliDeathSpiralTrack@@@fight@@UAEPAXXZ
 template <> void* fight::TrackFactoryTemplate<CHeliDeathSpiralTrack>::vfunc_5() {
-    Track_6fac0* p = (Track_6fac0*)FUN_0008d690(0x38);
+    Track_6fac0* p = (Track_6fac0*)FUN_0008d690(sizeof(::CHeliDeathSpiralTrack));
     if (p)
         return (void*)(p->method_00078080());
     return (void*)(0);

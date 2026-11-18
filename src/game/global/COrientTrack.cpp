@@ -122,7 +122,7 @@ hulk_freg COrientTrack::vfunc_7() {
 // sym: ?vfunc_12@COrientTrack@@UAEHH@Z
 // Same code shape as 0x0005dd70 (propagated; names are from that function)
 hulk_intptr COrientTrack::vfunc_12(hulk_intptr param) {
-    Helper_6a730* p = (Helper_6a730*)FUN_0008d690(0x28);
+    Helper_6a730* p = (Helper_6a730*)FUN_0008d690(sizeof(::COrientAction));
     if (p)
         return p->FUN_0001fa20(this, param);
     return 0;

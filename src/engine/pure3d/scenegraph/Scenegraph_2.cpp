@@ -2448,7 +2448,7 @@ namespace fn_f9b7dd8c {
 BranchNode::BranchNode(unsigned int n) {
     m18 = 0;
     if (n > 0) {
-        m1c = (int**)operator new(n * 4);
+        m1c = (int**)operator new(n * sizeof(int*));   // (allocsize1) the child array by its element (pointers)
         if (m1c)
             m20 = m1c + n;
         else {

@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/global.h"
 #define TREE_TU_BEGIN namespace fn_f05c4ed8 {
 #define TREE_TU_END }
 namespace fn_f05c4ed8 {} using namespace fn_f05c4ed8;
@@ -62,7 +63,7 @@ template <> void* fight::TrackFactoryCasterTemplate<CAutoTargetTrack>::vfunc_1(v
 // 0x00075d20 fight::TrackFactoryTemplate<CAutoTargetTrack>::vfunc_5 (24 B): matches/0x00075d20.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VCAutoTargetTrack@@@fight@@UAEPAXXZ
 template <> void* fight::TrackFactoryTemplate<CAutoTargetTrack>::vfunc_5() {
-    CAutoTargetTrack_75d20* p = (CAutoTargetTrack_75d20*)FUN_0008d690(0x3c);
+    CAutoTargetTrack_75d20* p = (CAutoTargetTrack_75d20*)FUN_0008d690(sizeof(::CAutoTargetTrack));
     if (p)
         return (void*)(p->initialize_00069c50());
     return (void*)(0);

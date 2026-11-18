@@ -18,7 +18,7 @@ struct GameStateCondition_nv_132740 {
 extern int AIHistoryNameCondition_vftable;
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::MissionProgressCondition>::vfunc_5() {
-    hulkfight::GameStateCondition* p = (hulkfight::GameStateCondition*)Alloc_0008d690(0x18);
+    hulkfight::GameStateCondition* p = (hulkfight::GameStateCondition*)Alloc_0008d690((int)sizeof(::hulkfight::MissionProgressCondition));   // (allocsize1) the size by gen's record
     void* result;
     if (p) {
         ((GameStateCondition_nv_132740*)(p))->Init_00234590(0);

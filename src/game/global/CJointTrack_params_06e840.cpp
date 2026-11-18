@@ -5,6 +5,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/global.h"
 #define TREE_TU_BEGIN namespace fn_f05fd2cd {
 #define TREE_TU_END }
 namespace fn_f05fd2cd {} using namespace fn_f05fd2cd;
@@ -63,7 +64,7 @@ template <> void* fight::TrackFactoryCasterTemplate<CClearHitRecordsTrack>::vfun
 // 0x0006f100 fight::TrackFactoryTemplate<CClearHitRecordsTrack>::vfunc_5 (24 B): matches/0x0006f100.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VCClearHitRecordsTrack@@@fight@@UAEPAXXZ
 template <> void* fight::TrackFactoryTemplate<CClearHitRecordsTrack>::vfunc_5() {
-    Allocated_6f100* p = (Allocated_6f100*)FUN_0008d690(0x10);
+    Allocated_6f100* p = (Allocated_6f100*)FUN_0008d690(sizeof(::CClearHitRecordsTrack));
     if (p)
         return (void*)(p->Finish_0005dff0());
     return (void*)(0);

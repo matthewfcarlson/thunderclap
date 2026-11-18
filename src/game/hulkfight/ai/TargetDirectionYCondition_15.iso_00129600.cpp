@@ -26,7 +26,7 @@ hulkfight::ai::ClearProjectileDistanceAction* __cdecl Alloc_0008d690(int);
 hulk_intptr hulkfight::ai::ClearProjectileDistanceTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     int result = ((int)(hulk_uintptr)__RTDynamicCast((void*)c, 0, (void*)(&hulk_at_00494b44), (void*)(&hulk_at_00494b60), 0));
     if (result) {
-        hulkfight::ai::ClearProjectileDistanceAction* p = Alloc_0008d690(0x24);
+        hulkfight::ai::ClearProjectileDistanceAction* p = Alloc_0008d690((int)sizeof(::hulkfight::ai::ClearProjectileDistanceAction));   // (allocsize1) the size by gen's record
         if (p)
             return ((ClearProjectileDistanceAction_nv_129600*)(((hulkfight::ai::ClearProjectileDistanceAction*)(p))))->Init_00126810(this, c);
     }

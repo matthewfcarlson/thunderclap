@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x00075d70..0x00075e30 (kind game, layer game, confidence high), dominant class CCameraHintTrack
 #include "tree_prelude.h"
+#include "gen/global.h"   // (allocsize1)
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
@@ -92,7 +93,7 @@ struct InternalHelper {
 };
 
 void* TrackFactoryTemplate_CCameraHintTrack::vfunc_5() {
-    void* ptr = FUN_0008d690(0x18);
+    void* ptr = FUN_0008d690((int)sizeof(::CCameraHintTrack));   // (allocsize1) the size by gen's record
     if (ptr != 0) {
         static_cast<InternalHelper*>(ptr)->CallFunc_00236d40();
         *(hulk_uintptr*)ptr = ((hulk_intptr)DAT_003fbef4);

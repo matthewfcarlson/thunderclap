@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x000b0440..0x000b0f20 (kind game, layer game, confidence low)
 #include "tree_prelude.h"
+#include "gen/global.h"   // (allocsize1)
 #include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
@@ -370,7 +371,7 @@ CHapticControllerManager::CHapticControllerManager(Source_b0500* source) {
     field_05 = 1;
     device = 0;
 
-    CHapticController_b0500* dev = (CHapticController_b0500*)FUN_0008d690(0x1c);
+    CHapticController_b0500* dev = (CHapticController_b0500*)FUN_0008d690((int)sizeof(::CHapticController));   // (allocsize1) gen's record
     if (dev != 0)
         dev = dev->FUN_000afbf0(source->FUN_000ae640(0));
     if (dev != 0)

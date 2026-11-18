@@ -5,6 +5,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/global.h"
 #define TREE_TU_BEGIN namespace fn_f1773d85 {
 #define TREE_TU_END }
 namespace fn_f1773d85 {} using namespace fn_f1773d85;
@@ -64,7 +65,7 @@ template <> void* fight::TrackFactoryCasterTemplate<CExplosionTrack>::vfunc_1(vo
 // 0x0006f340 fight::TrackFactoryTemplate<CExplosionTrack>::vfunc_5 (24 B): matches/0x0006f340.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VCExplosionTrack@@@fight@@UAEPAXXZ
 template <> void* fight::TrackFactoryTemplate<CExplosionTrack>::vfunc_5() {
-    void* p = FUN_0008d690(0x20);
+    void* p = FUN_0008d690(sizeof(::CExplosionTrack));
     if (p)
         return (void*)(((Helper_6f340*)p)->run_00077fe0());
     return (void*)(0);

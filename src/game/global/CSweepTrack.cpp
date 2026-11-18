@@ -96,7 +96,7 @@ hulk_freg CSweepTrack::vfunc_7() {
 // sym: ?vfunc_12@CSweepTrack@@UAEHH@Z
 // Same code shape as 0x00062300 (propagated; names are from that function)
 hulk_intptr CSweepTrack::vfunc_12(hulk_intptr a) {
-    Helper_69bf0* p = FUN_0008d690(0x2c);
+    Helper_69bf0* p = FUN_0008d690(sizeof(::CSweepAction));
     if (p)
         return p->Fnf_0001d420(this, a);
     return 0;

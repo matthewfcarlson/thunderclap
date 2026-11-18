@@ -4,6 +4,7 @@
 #include "tree_prelude.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/global.h"
 #define TREE_TU_BEGIN namespace fn_fd242b13 {
 #define TREE_TU_END }
 namespace fn_fd242b13 {} using namespace fn_fd242b13;
@@ -61,9 +62,13 @@ template <> void* fight::TrackFactoryCasterTemplate<CStunAnimationTrack>::vfunc_
 
 // 0x00070540 fight::TrackFactoryTemplate<CStunAnimationTrack>::vfunc_5 (24 B): matches/0x00070540.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VCStunAnimationTrack@@@fight@@UAEPAXXZ
+struct AllocWords_70540 : ::CStunAnimationTrack {   // (sweep-allocsize) gen's words and the allocation's last word (gen's size is its
+    int last;                                      // last field's end, 4 short of the 0x48-byte allocation)
+};
+typedef char AllocWords_70540_size32[(sizeof(void*) != 4 || sizeof(AllocWords_70540) == 0x48) ? 1 : -1];
 // Same code shape as 0x00070420 (propagated; names are from that function)
 template <> void* fight::TrackFactoryTemplate<CStunAnimationTrack>::vfunc_5() {
-    void* p = FUN_0008d690(0x48);
+    void* p = FUN_0008d690(sizeof(AllocWords_70540));
     if (p)
         return (void*)(((Track_70540*)p)->Init_0005de00());
     return (void*)(0);

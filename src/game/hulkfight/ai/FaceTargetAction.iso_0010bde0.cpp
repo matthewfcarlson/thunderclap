@@ -25,7 +25,7 @@ hulkfight::ai::FaceMotionAction* __cdecl Alloc_0008d690(int);
 hulk_intptr hulkfight::ai::FaceMotionTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     int result = ((int)(hulk_uintptr)__RTDynamicCast((void*)c, 0, (void*)(&hulk_at_00494b44), (void*)(&hulk_at_00494b60), 0));
     if (result) {
-        hulkfight::ai::FaceMotionAction* p = Alloc_0008d690(0x24);
+        hulkfight::ai::FaceMotionAction* p = Alloc_0008d690((int)sizeof(::hulkfight::ai::FaceMotionAction));   // (allocsize1) the size by gen's record
         if (p)
             return ((FaceMotionAction_nv_10bde0*)(((hulkfight::ai::FaceMotionAction*)(p))))->Init_0010ba10(this, c);
     }

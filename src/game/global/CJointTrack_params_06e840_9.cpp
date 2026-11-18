@@ -80,8 +80,12 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
 
 // 0x0006f5b0 fight::TrackFactoryTemplate<CGrappleEffectTrack>::vfunc_5 (38 B): matches/0x0006f5b0.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VCGrappleEffectTrack@@@fight@@UAEPAXXZ
+struct AllocWords_6f5b0 : ::CGrappleEffectTrack {   // (sweep-allocsize) gen's words and the allocation's last word (gen's size is its
+    int last;                                      // last field's end, 4 short of the 0x60-byte allocation)
+};
+typedef char AllocWords_6f5b0_size32[(sizeof(void*) != 4 || sizeof(AllocWords_6f5b0) == 0x60) ? 1 : -1];
 template <> void* fight::TrackFactoryTemplate<CGrappleEffectTrack>::vfunc_5() {
-    CGrappleEffectTrack_6f5b0* p = (CGrappleEffectTrack_6f5b0*)FUN_0008d690(0x60);
+    CGrappleEffectTrack_6f5b0* p = (CGrappleEffectTrack_6f5b0*)FUN_0008d690(sizeof(AllocWords_6f5b0));
     if (p != 0) {
         p->Init_00060660();
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_003fd044);

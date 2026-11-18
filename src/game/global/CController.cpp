@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x000ad990..0x000ae9a0 (kind game, layer game, confidence medium), dominant class CController
 #include "tree_prelude.h"
+#include "gen/global.h"   // (allocsize1)
 #include "compat/ptr.h"
 #include "decls/data/game/global.h"
 #include "gen/owners.h"
@@ -620,10 +621,10 @@ void CController_ae090::Alloc(int n) {
     if (mCount)
         Clear_000add70();
     mCount = n;
-    mItems = (CPhysicalController_ae090**)FUN_0008d750(n * 4, 4);
+    mItems = (CPhysicalController_ae090**)FUN_0008d750(n * (int)sizeof(CPhysicalController_ae090*), 4);   // (allocsize1) the pointer array by its element
     for (int i = 0; i < n; i++) {
         mItems[i] = 0;
-        void* mem = FUN_0008d710(0x4b0, 4);
+        void* mem = FUN_0008d710((int)sizeof(::CPhysicalController), 4);   // (allocsize1) the size by gen's record
         CPhysicalController_ae090* o;
         if (mem)
             o = ((CPhysicalController_ae090*)mem)->Ctor_000b23c0(i);

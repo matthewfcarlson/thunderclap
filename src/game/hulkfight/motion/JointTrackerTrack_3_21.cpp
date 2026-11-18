@@ -957,7 +957,7 @@ extern "C" void FUN_0017aee0()
 hulk_intptr hulkfight::motion::LocomotionStateTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     int result = ((int)(hulk_uintptr)__RTDynamicCast((void*)c, 0, (void*)(&hulk_at_00494b44), (void*)(&hulk_at_00494b60), 0));
     if (result) {
-        Object_17af80* p = Alloc_0008d690(0x24);
+        Object_17af80* p = Alloc_0008d690(sizeof(::hulkfight::motion::LocomotionStateAction));
         if (p)
             return p->Init_001732f0(this, c);
     }

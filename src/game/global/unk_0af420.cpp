@@ -415,7 +415,7 @@ CHapticController::CHapticController(Source_afbf0* s) {
     src = s;
     int n = s->count;
     count = n;
-    int* raw = (int*)FUN_0008d690(n * 0x30 + 4);
+    int* raw = (int*)FUN_0008d690(n * (int)sizeof(Elem_afbf0) + 4);   // (sweep-allocsize) unresolved natively: the element holds a refcounted pointer at +0x2c (0x000afd00 releases it)
     if (!raw) {
         items = 0;
         return;

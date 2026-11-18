@@ -3,6 +3,7 @@
 // piece 0x00052680..0x00052720 (kind game, layer game, confidence high, dominant class CIsInvincibleCondition); was game/global/CIsInvincibleCondition.cpp until D46
 #include "tree_prelude.h"
 #include "gen/fight.h"
+#include "gen/global.h"
 #define TREE_TU_BEGIN namespace fn_fbd5c058 {
 #define TREE_TU_END }
 namespace fn_fbd5c058 {} using namespace fn_fbd5c058;
@@ -80,7 +81,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<CIsInvincibleCondition>:
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VCIsInvincibleCondition@@@fight@@UAEPAXXZ
 // Same code shape as 0x00052580 (propagated; names are from that function)
 template <> void* fight::ConditionFactoryTemplate<CIsInvincibleCondition>::vfunc_5() {
-    CIsGrappledCondition_526c0* p = (CIsGrappledCondition_526c0*)operator new(0x0c);
+    CIsGrappledCondition_526c0* p = (CIsGrappledCondition_526c0*)operator new(sizeof(::CIsInvincibleCondition));
     if (p) {
         p->init_00234590(0);
         *(void**)p = &hulk_at_003f7298;

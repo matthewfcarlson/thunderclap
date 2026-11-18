@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x00077d50..0x00077df0 (kind game, layer game, confidence high), dominant class CScrubberTrack
 #include "tree_prelude.h"
+#include "gen/global.h"   // (allocsize1)
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
@@ -66,7 +67,7 @@ template <> void* fight::TrackFactoryCasterTemplate<CScrubberTrack>::vfunc_1(voi
 // 0x00077d90 fight::TrackFactoryTemplate<CScrubberTrack>::vfunc_5 (38 B): matches/0x00077d90.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VCScrubberTrack@@@fight@@UAEPAXXZ
 template <> void* fight::TrackFactoryTemplate<CScrubberTrack>::vfunc_5() {
-    CScrubberTrack_77d90* p = (CScrubberTrack_77d90*)FUN_0008d690(0x0c);
+    CScrubberTrack_77d90* p = (CScrubberTrack_77d90*)FUN_0008d690((int)sizeof(::CScrubberTrack));   // (allocsize1) the size by gen's record
     if (p) {
         p->Ctor_00236d40();
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_003fba00);

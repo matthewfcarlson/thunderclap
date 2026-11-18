@@ -158,7 +158,7 @@ float owners::Thing_69620::FUN_00069620(int i) {
 // sym: ?vfunc_12@CKeyPoseTrack@@UAEHH@Z
 // Same code shape as 0x000694c0 (propagated; names are from that function)
 hulk_intptr CKeyPoseTrack::vfunc_12(hulk_intptr param) {
-    void* p = FUN_0008d690(0x30);
+    void* p = FUN_0008d690((int)sizeof(::CKeyPoseAction));   // (allocsize1) the size by gen's record
     if (p)
         return ((Helper_69660*)p)->FUN_0001d100(this, param);
     return 0;

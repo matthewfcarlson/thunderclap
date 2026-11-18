@@ -3,6 +3,7 @@
 #include "tree_prelude.h"
 #include "compat/ptr.h"
 #include "gen/owners.h"
+#include "gen/physics.h"
 #define TREE_TU_BEGIN namespace fn_fc07f3fa {
 #define TREE_TU_END }
 #define TREE_LOCAL_CAction
@@ -383,7 +384,7 @@ void C_2fe420::Run(hulk_intptr x) {
 // FUN_002fe480 @ 0x002fe480
 extern "C" SimStateHairclub_2fe480 *__cdecl FUN_002fe480(int a, Owner_2fe480 *owner, Provider_2fe480 *provider)
 {
-    SimStateHairclub_2fe480 *mem = (SimStateHairclub_2fe480 *)FUN_0008d690(0x8c);
+    SimStateHairclub_2fe480 *mem = (SimStateHairclub_2fe480 *)FUN_0008d690(sizeof(::physics::SimStateHairclub));
     SimStateHairclub_2fe480 *e = 0;
     if (mem)
         e = mem->FUN_002fe3a0(a, 0);

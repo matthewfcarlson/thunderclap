@@ -7,6 +7,7 @@
 // 0x001aabf0 fight::ConditionFactoryTemplate<hulkfight::scenario::Event_PropNameCondition>::vfunc_5 (48 B): matches/0x001aabf0.cpp [isolated: conflict: alloc; on include/gen/ and not mergeable]
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VEvent_PropNameCondition@scenario@hulkfight@@@fight@@UAEPAXXZ
 #include "gen/fight.h"
+#include "gen/hulkfight.h"   // (allocsize1)
 
 extern "C" char DAT_0041c5d0[];
 class Base_1aabf0 {
@@ -41,7 +42,7 @@ class Sub_1aabf0 {
 };
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::scenario::Event_PropNameCondition>::vfunc_5() {
-    Obj_1aabf0* p = (Obj_1aabf0*)alloc(0x18);
+    Obj_1aabf0* p = (Obj_1aabf0*)alloc((int)sizeof(::hulkfight::scenario::Event_PropNameCondition));   // (allocsize1) the size by gen's record
     if (p) {
         p->init_00234590(0);
         *((hulk_intptr*)p) = ((hulk_intptr)DAT_0041c5d0);

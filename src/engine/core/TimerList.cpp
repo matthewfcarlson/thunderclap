@@ -667,7 +667,7 @@ TimerList::TimerList(unsigned size, unsigned tag) {
     count = size;
     FUN_002705f0();
     FUN_002702a0(entries, 0x24, size, 0, tag, "TimerList", 4);
-    items = (void **)FUN_00266e00(tag, size * 4);
+    items = (void **)FUN_00266e00(tag, size * sizeof(void *));   // (allocsize1) the item array by its element (pointers)
     FUN_002705f0();
     for (unsigned i = 0; i < size; ++i)
         items[i] = 0;

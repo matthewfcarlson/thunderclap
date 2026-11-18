@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x0012a9f0..0x0012aaa0 (kind game, layer game, confidence high), dominant class hulkfight::ai::TargetDistanceXZCondition
 #include "tree_prelude.h"
+#include "gen/hulkfight.h"   // (allocsize1)
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
@@ -70,7 +71,7 @@ namespace fn_f06bc341 {
 // sym: ?target@fn_f06bc341@@YAPAVTDC_12aa30@1@XZ
 // Same code shape as 0x0012a410 (propagated; names are from that function)
 TDC_12aa30* __cdecl target() {
-    TDC_12aa30* p = (TDC_12aa30*)alloc(0x18);
+    TDC_12aa30* p = (TDC_12aa30*)alloc((int)sizeof(::hulkfight::ai::TargetDistanceXZCondition));   // (allocsize1) the size by gen's record
     int z = 0;
     if (p) {
         p->init_00234590(z);

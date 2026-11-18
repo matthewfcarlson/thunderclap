@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/hulkfight.h"
 #define TREE_TU_BEGIN namespace fn_f3f355e9 {
 #define TREE_TU_END }
 namespace fn_f3f355e9 {} using namespace fn_f3f355e9;
@@ -55,9 +56,13 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::BallAndCh
 
 // 0x0018c940 fight::TrackFactoryTemplate<hulkfight::motion::BallAndChainReturnTrack>::vfunc_5 (24 B): matches/0x0018c940.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VBallAndChainReturnTrack@motion@hulkfight@@@fight@@UAEPAXXZ
+struct AllocWords_18c940 : ::hulkfight::motion::BallAndChainReturnTrack {   // (sweep-allocsize) gen's words and the allocation's last word (gen's size is its
+    int last;                                                              // last field's end, 4 short of the 0x78-byte allocation)
+};
+typedef char AllocWords_18c940_size32[(sizeof(void*) != 4 || sizeof(AllocWords_18c940) == 0x78) ? 1 : -1];
 // Same code shape as 0x00077d00 (propagated; names are from that function)
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::BallAndChainReturnTrack>::vfunc_5() {
-    void* p = FUN_0008d690(0x78);
+    void* p = FUN_0008d690(sizeof(AllocWords_18c940));
     if (p)
         return (void*)(((CKeyPoseTrack_18c940*)p)->init_00181020());
     return (void*)(0);

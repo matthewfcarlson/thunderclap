@@ -152,7 +152,7 @@ hulk_freg CHeliDeathSpiralTrack::vfunc_7() {
 // sym: ?vfunc_12@CHeliDeathSpiralTrack@@UAEHH@Z
 hulk_intptr CHeliDeathSpiralTrack::vfunc_12(hulk_intptr __p0) { unsigned int x = (unsigned int)__p0;
 
-    void* p = FUN_0008d690(0x48);
+    void* p = FUN_0008d690((int)sizeof(::CHeliDeathSpiralAction));   // (allocsize1) the size by gen's record
     if (p)
         return (int)(((Helper_77f80*)p)->call_00021430(this, x));
     return (int)(0);
@@ -237,7 +237,7 @@ hulk_freg CExplosionTrack::vfunc_7() {
 // sym: ?vfunc_12@CExplosionTrack@@UAEHH@Z
 // Same code shape as 0x0005aad0 (propagated; names are from that function)
 hulk_intptr CExplosionTrack::vfunc_12(hulk_intptr param) {
-    R_78050* p = FUN_0008d690(0x24);
+    R_78050* p = FUN_0008d690((int)sizeof(::CExplosionAction));   // (allocsize1) the size by gen's record
     if (p)
         return p->invoke_000214d0(this, param);
     return 0;

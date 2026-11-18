@@ -130,7 +130,7 @@ PropAddToCollisionAction_188ab0* PropAddToCollisionAction_188ab0::vfunc_2(int fl
 hulk_intptr hulkfight::motion::PropSetStateByIndexTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     int result = ((int)(hulk_uintptr)__RTDynamicCast((void*)c, 0, (void*)(&hulk_at_00494b44), (void*)(&hulk_at_00494b60), 0));
     if (result) {
-        Object_188b00* p = FUN_0008d690(0x24);
+        Object_188b00* p = FUN_0008d690((int)sizeof(::hulkfight::motion::PropSetStateByIndexAction));   // (allocsize1) the size by gen's record
         if (p)
             return p->Init_00183ca0(this, c);
     }
@@ -168,7 +168,7 @@ PropSetStateByIndexAction_188b50* PropSetStateByIndexAction_188b50::vfunc_2(int 
 hulk_intptr hulkfight::motion::PropSetStateByNameTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     int result = ((int)(hulk_uintptr)__RTDynamicCast((void*)c, 0, (void*)(&TypeA_188ba0), (void*)(&TypeB_188ba0), 0));
     if (result) {
-        hulkfight::motion::PropSetStateByNameAction* p = Alloc_0008d690(0x24);
+        hulkfight::motion::PropSetStateByNameAction* p = Alloc_0008d690((int)sizeof(::hulkfight::motion::PropSetStateByNameAction));   // (allocsize1) the size by gen's record
         if (p)
             return ((PropSetStateByNameAction_nv_188ba0*)(((hulkfight::motion::PropSetStateByNameAction*)(p))))->Init_00183db0(this, c);
     }

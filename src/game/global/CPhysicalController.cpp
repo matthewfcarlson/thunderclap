@@ -426,13 +426,13 @@ void Object::FUN_000b1b90(Result_b1b90* result) {
 
 
 // 0x000b1c90 FUN_000b1c90 (286 B): equivalent/0x000b1c90.cpp [wrapped: conflict: sControllerInputPointCallback]
-// sym: ?FUN_000b1c90@Controller_b1c90@fn_000b1c90@@QAEXPAUState_b1c90@2@H@Z @8465ce0bb9e4 @w35ef5301bb18 @v0ac5aaaa1288
+// sym: ?FUN_000b1c90@Controller_b1c90@fn_000b1c90@@QAEXPAUState_b1c90@2@H@Z @8465ce0bb9e4 @w35ef5301bb18 @vbadbe8a2f877
 inline void* operator new(size_t, void* p) { return p; }
 namespace fn_000b1c90 {
 // STATUS: equivalent (tools/equiv.py level 3: 1691 inputs, branch coverage 22/22)
 // FUN_000b1c90 @ 0x000b1c90
 extern "C" void* __cdecl FUN_0008d710(unsigned size, int alignment);
-void* __cdecl FUN_0008d750(unsigned size, int alignment);
+extern "C" void* __cdecl FUN_0008d750(hulk_intptr size, int heap);   // (sweep-allocsize) as defined (unk_08ceb0.cpp): the C++ spelling did not bind natively
 void __cdecl FUN_0008d330(void*);
 
 struct Controller_b1c90;
@@ -476,11 +476,11 @@ void Controller_b1c90::FUN_000b1c90(State_b1c90* state, int requested) {
   FUN_0008d330(callbacks);
   callbacks = 0;
  }
- callbacks = (sControllerInputPointCallback**)FUN_0008d750((unsigned)n*4,4);
+ callbacks = (sControllerInputPointCallback**)FUN_0008d750((unsigned)n*sizeof(sControllerInputPointCallback*),4);
  for (int i=0; i<n; ++i) {
   Point_b1c90* p = device->point("Button",i);
   if (p) {
-   void* storage = FUN_0008d710(16,4);
+   void* storage = FUN_0008d710(sizeof(sControllerInputPointCallback),4);
    sControllerInputPointCallback* c = 0;
    if (storage) {
     c = new(storage) sControllerInputPointCallback;
@@ -628,13 +628,13 @@ void Mapper_b2060::FUN_000b2060(int newMode)
 
 
 // 0x000b23c0 FUN_000b23c0 (625 B): equivalent/0x000b23c0.cpp [wrapped: conflict: CPhysicalController]
-// sym: ??0CPhysicalController@fn_000b23c0@@QAE@H@Z @bb79a5ae023d @w6e1c7b9e2a86 @v567c4daa8db4
+// sym: ??0CPhysicalController@fn_000b23c0@@QAE@H@Z @bb79a5ae023d @w6e1c7b9e2a86 @va656a73d1132
 namespace fn_000b23c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 28/28)
 // FUN_000b23c0 @ 0x000b23c0
 extern "C" int __cdecl _sprintf(char *, const char *, ...);
 void __cdecl FUN_00267830(char *dst, const char *src, int n);
-void *__cdecl FUN_0008d750(int size, int align);
+extern "C" void* __cdecl FUN_0008d750(hulk_intptr size, int heap);   // (sweep-allocsize) as defined (unk_08ceb0.cpp): the C++ spelling did not bind natively
 
 struct Cell_b23c0 {
     int a;

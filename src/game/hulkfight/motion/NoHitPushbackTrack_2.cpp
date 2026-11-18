@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/hulkfight.h"
 #define TREE_TU_BEGIN namespace fn_fd8b40d2 {
 #define TREE_TU_END }
 namespace fn_fd8b40d2 {} using namespace fn_fd8b40d2;
@@ -68,7 +69,7 @@ namespace fn_fd8b40d2 {
 // 0x0015a480 fight::TrackFactoryTemplate<hulkfight::motion::NoHitPushbackTrack>::vfunc_5 (59 B): matches/0x0015a480.cpp
 // sym: ?F@Obj_15a480@fn_fd8b40d2@@UAEPAXXZ
 void* Obj_15a480::F() {
-    Obj_15a480* p = (Obj_15a480*)Alloc(0x14);
+    Obj_15a480* p = (Obj_15a480*)Alloc(sizeof(::hulkfight::motion::NoHitPushbackTrack));
     if (p) {
         p->Init_00236d40();
         *(hulk_intptr*)p = ((hulk_intptr)DAT_004144e0);

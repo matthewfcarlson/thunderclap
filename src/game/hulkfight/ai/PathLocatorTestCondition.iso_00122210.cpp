@@ -10,6 +10,10 @@ extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 // sym: ?vfunc_10@StrafeCircleHBTrack@ai@hulkfight@@UAEHHHH@Z
 // Same code shape as 0x001131c0 (propagated; names are from that function)
 #include "gen/hulkfight.h"
+struct AllocWords_122210 : ::hulkfight::ai::StrafeCircleHBAction {   // (sweep-allocsize) gen's words and the allocation's last word (gen's size is its
+    int last;                                                       // last field's end, 4 short of the 0x28-byte allocation)
+};
+typedef char AllocWords_122210_size32[(sizeof(void*) != 4 || sizeof(AllocWords_122210) == 0x28) ? 1 : -1];
 
 typedef unsigned int u32_122210;
 extern int hulk_at_00494b44;
@@ -22,7 +26,7 @@ extern hulkfight::ai::StrafeCircleHBAction* Alloc_0008d690(int);
 hulk_intptr hulkfight::ai::StrafeCircleHBTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_122210 a = (u32_122210)__p0; u32_122210 b = (u32_122210)__p1; void * p = (void *)__p2;
 
     if (((int)(hulk_uintptr)__RTDynamicCast(p, 0, (void*)(&hulk_at_00494b44), (void*)(&hulk_at_00494b60), 0))) {
-        hulkfight::ai::StrafeCircleHBAction* q = Alloc_0008d690(0x28);
+        hulkfight::ai::StrafeCircleHBAction* q = Alloc_0008d690(sizeof(AllocWords_122210));
         if (q)
             return (int)(((StrafeCircleHBAction_nv_122210*)(((hulkfight::ai::StrafeCircleHBAction*)(q))))->Init_0011dd10(this, p));
     }

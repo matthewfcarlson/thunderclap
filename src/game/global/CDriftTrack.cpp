@@ -61,7 +61,7 @@ hulk_intptr COrientTargetTrack::vfunc_12(hulk_intptr __p0) { void * p = (void *)
     if (!v)
         v = *(int*)((char*)a + 0x330);
     if (v) {
-        D* d = (D*)FUN_0008d690(0x2c);
+        D* d = (D*)FUN_0008d690((int)sizeof(::COrientTargetAction));   // (allocsize1) the size by gen's record
         if (d)
             return d->Run_0001fc60(this, p, v);
     }
@@ -145,7 +145,7 @@ hulk_freg CDriftTrack::vfunc_7() {
 // sym: ?vfunc_12@CDriftTrack@@UAEHH@Z
 // Same code shape as 0x0005aad0 (propagated; names are from that function)
 hulk_intptr CDriftTrack::vfunc_12(hulk_intptr param) {
-    R_6a860* p = FUN_0008d690(0x24);
+    R_6a860* p = FUN_0008d690((int)sizeof(::CDriftAction));   // (allocsize1) the size by gen's record
     if (p)
         return p->invoke_0001fde0(this, param);
     return 0;

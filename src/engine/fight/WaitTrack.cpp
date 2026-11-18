@@ -454,7 +454,7 @@ void FUN_0023e250()
 // sym: ?vfunc_10@WaitTrack@fight@@UAEHHHH@Z
 hulk_intptr fight::WaitTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { void * p2 = (void *)__p0; void * p3 = (void *)__p1; Ref_23e330 * p4 = (Ref_23e330 *)__p2;
 
-    Action_23e330* r = (Action_23e330*)Alloc_0008d690(0x28);
+    Action_23e330* r = (Action_23e330*)Alloc_0008d690((int)sizeof(::fight::WaitAction));   // (allocsize1) the size by gen's record
     if (r) {
         r->Init_00232660();
         *(void**)((char*)r + 0x1c) = this;

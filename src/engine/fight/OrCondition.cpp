@@ -245,7 +245,7 @@ ConditionFactoryCasterTemplate* ConditionFactoryCasterTemplate::V1(int x) {
 // 0x0023d0e0 fight::ConditionFactoryTemplate<fight::NotCondition>::vfunc_5 (40 B): matches/0x0023d0e0.cpp
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VNotCondition@fight@@@fight@@UAEPAXXZ
 template <> void* fight::ConditionFactoryTemplate<fight::NotCondition>::vfunc_5() {
-    NotCondition_23d0e0* p = (NotCondition_23d0e0*)FUN_0008d690(0xc);
+    NotCondition_23d0e0* p = (NotCondition_23d0e0*)FUN_0008d690(sizeof(::fight::NotCondition));
     if (p) {
         ((Helper_23d0e0*)p)->Fnf_00234590(2);
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_00428a24);
@@ -276,7 +276,7 @@ ConditionFactoryTemplate_23d110* ConditionFactoryTemplate_23d110::vfunc_5(signed
 // sym: ?vfunc_1@?$ConditionFactoryCasterTemplate@VOrCondition@fight@@@fight@@UAEPAXPAX@Z
 template <> void* fight::ConditionFactoryCasterTemplate<fight::OrCondition>::vfunc_1(void* __p0) { void * p = (void *)__p0;
 
-    void* q = alloc(0x10);
+    void* q = alloc(sizeof(::fight::ConditionFactoryTemplate< ::fight::OrCondition>));
     if (q) {
         ((Helper_23d140*)q)->Init_002343b0();
         *(hulk_uintptr*)q = ((hulk_intptr)DAT_00428a98);
@@ -290,7 +290,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<fight::OrCondition>::vfu
 // 0x0023d180 fight::ConditionFactoryTemplate<fight::OrCondition>::vfunc_5 (40 B): matches/0x0023d180.cpp
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VOrCondition@fight@@@fight@@UAEPAXXZ
 template <> void* fight::ConditionFactoryTemplate<fight::OrCondition>::vfunc_5() {
-    Init_23d180* p = (Init_23d180*)FUN_0008d690(12);
+    Init_23d180* p = (Init_23d180*)FUN_0008d690(sizeof(::fight::OrCondition));
     if (p) {
         p->init_00234590(1);
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_00428a44);

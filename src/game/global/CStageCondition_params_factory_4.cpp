@@ -89,7 +89,7 @@ void* ConditionFactoryTemplate_52090::scalar_dtor(unsigned char flags) {
 // 0x000520c0 fight::ConditionFactoryTemplate<CFightNodeParentCondition>::vfunc_5 (38 B): matches/0x000520c0.cpp
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VCFightNodeParentCondition@@@fight@@UAEPAXXZ
 template <> void* fight::ConditionFactoryTemplate<CFightNodeParentCondition>::vfunc_5() {
-    CFightNodeParentCondition_520c0* p = (CFightNodeParentCondition_520c0*)FUN_0008d690(0x20);
+    CFightNodeParentCondition_520c0* p = (CFightNodeParentCondition_520c0*)FUN_0008d690(sizeof(::CFightNodeParentCondition));
     if (p) {
         ((fight::FightNodeParentCondition *)p)->FUN_00235b00();
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_003f8504);

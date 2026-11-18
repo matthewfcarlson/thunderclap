@@ -505,7 +505,7 @@ void FEContainer::vfunc_50(const char* name, unsigned int arg) {
  }
  Entries_ee9b0* list=children[i]->entries;
  Entry_ee9b0* start=list->begin;
- unsigned char count=(unsigned char)(((int)((char*)list->end-(char*)start))/12);
+ unsigned char count=(unsigned char)(list->end-start);   // (sweep-allocsize) the entries by their type
  for(int n=0;n<count;++n) {
   Entry_ee9b0* entry=&start[(unsigned char)n];
   if(entry->key==key) {

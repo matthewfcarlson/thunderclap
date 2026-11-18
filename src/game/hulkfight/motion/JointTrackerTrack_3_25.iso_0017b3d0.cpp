@@ -26,7 +26,7 @@ hulkfight::motion::ChargeClearAction* __cdecl Alloc_0008d690(int);
 hulk_intptr hulkfight::motion::ChargeClearTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     int result = ((int)(hulk_uintptr)__RTDynamicCast((void*)c, 0, (void*)(&hulk_at_00494b44), (void*)(&hulk_at_00494b60), 0));
     if (result) {
-        hulkfight::motion::ChargeClearAction* p = Alloc_0008d690(0x24);
+        hulkfight::motion::ChargeClearAction* p = Alloc_0008d690((int)sizeof(::hulkfight::motion::ChargeClearAction));   // (allocsize1) the size by gen's record
         if (p)
             return ((ChargeClearAction_nv_17b3d0*)(((hulkfight::motion::ChargeClearAction*)(p))))->Init_00174820(this, c);
     }

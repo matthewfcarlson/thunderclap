@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x0018b820..0x0018b8c0 (kind game, layer game, confidence high), dominant class hulkfight::motion::PropGrabbableIsThrownCondition
 #include "tree_prelude.h"
+#include "gen/hulkfight.h"   // (allocsize1)
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
@@ -69,7 +70,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::motion::PropG
 // 0x0018b860 fight::ConditionFactoryTemplate<hulkfight::motion::PropGrabbableIsThrownCondition>::vfunc_5 (44 B): matches/0x0018b860.cpp
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VPropGrabbableIsThrownCondition@motion@hulkfight@@@fight@@UAEPAXXZ
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::PropGrabbableIsThrownCondition>::vfunc_5() {
-    PropGrabbableIsThrownCondition_18b860* p = (PropGrabbableIsThrownCondition_18b860*)FUN_0008d690(16);
+    PropGrabbableIsThrownCondition_18b860* p = (PropGrabbableIsThrownCondition_18b860*)FUN_0008d690((int)sizeof(::hulkfight::motion::PropGrabbableIsThrownCondition));   // (allocsize1) the size by gen's record
     if (p) {
         p->PropGrabbableIsThrownCondition_18b860::PropGrabbableIsThrownCondition_18b860(0);
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_0041918c);

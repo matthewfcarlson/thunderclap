@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/hulkfight.h"
 #define TREE_TU_BEGIN namespace fn_ff836d80 {
 #define TREE_TU_END }
 namespace fn_ff836d80 {} using namespace fn_ff836d80;
@@ -55,9 +56,13 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::Locomotio
 
 // 0x001652a0 fight::TrackFactoryTemplate<hulkfight::motion::LocomotionSprintTrack>::vfunc_5 (24 B): matches/0x001652a0.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VLocomotionSprintTrack@motion@hulkfight@@@fight@@UAEPAXXZ
+struct AllocWords_1652a0 : ::hulkfight::motion::LocomotionSprintTrack {   // (sweep-allocsize) gen's words and the allocation's last word (gen's size is its
+    int last;                                                            // last field's end, 4 short of the 0x68-byte allocation)
+};
+typedef char AllocWords_1652a0_size32[(sizeof(void*) != 4 || sizeof(AllocWords_1652a0) == 0x68) ? 1 : -1];
 // Same code shape as 0x0006f460 (propagated; names are from that function)
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::LocomotionSprintTrack>::vfunc_5() {
-    void* p = FUN_0008d690(0x68);
+    void* p = FUN_0008d690(sizeof(AllocWords_1652a0));
     if (p)
         return (void*)(((Dummy_1652a0*)p)->FUN_0015bf40());
     return (void*)(0);

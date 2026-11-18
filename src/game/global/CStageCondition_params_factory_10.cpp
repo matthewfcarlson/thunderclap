@@ -2,6 +2,7 @@
 // object 0x00051480..0x00056af0 (kind game, layer game, confidence high), merged by D32: global/CStageCondition_params_factory.cpp
 // piece 0x000525e0..0x00052680 (kind game, layer game, confidence high, dominant class CIsHelicopterCondition); was game/global/CIsHelicopterCondition.cpp until D46
 #include "tree_prelude.h"
+#include "gen/global.h"   // (allocsize1)
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
@@ -72,7 +73,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<CIsHelicopterCondition>:
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VCIsHelicopterCondition@@@fight@@UAEPAXXZ
 // Same code shape as 0x00052580 (propagated; names are from that function)
 template <> void* fight::ConditionFactoryTemplate<CIsHelicopterCondition>::vfunc_5() {
-    CIsGrappledCondition_52620* p = (CIsGrappledCondition_52620*)operator new(0x0c);
+    CIsGrappledCondition_52620* p = (CIsGrappledCondition_52620*)operator new((int)sizeof(::CIsHelicopterCondition));   // (allocsize1) the size by gen's record
     if (p) {
         p->init_00234590(0);
         *(void**)p = &hulk_at_003f7574;

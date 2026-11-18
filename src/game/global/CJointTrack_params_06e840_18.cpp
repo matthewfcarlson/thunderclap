@@ -79,7 +79,7 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
 // 0x0006fb80 fight::TrackFactoryTemplate<CHitAnimationTrack>::vfunc_5 (38 B): matches/0x0006fb80.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VCHitAnimationTrack@@@fight@@UAEPAXXZ
 template <> void* fight::TrackFactoryTemplate<CHitAnimationTrack>::vfunc_5() {
-    CHitAnimationTrack_6fb80* p = (CHitAnimationTrack_6fb80*)FUN_0008d690(0x50);
+    CHitAnimationTrack_6fb80* p = (CHitAnimationTrack_6fb80*)FUN_0008d690((int)sizeof(::CHitAnimationTrack));   // (allocsize1) the size by gen's record
     if (p) {
         p->init_0005dcb0();
         p->vf = (unsigned int*)((int*)DAT_003fd230);

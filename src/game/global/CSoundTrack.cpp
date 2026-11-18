@@ -128,7 +128,7 @@ unsigned char Obj_69750::FUN_00069750(unsigned char v) {
 // sym: ?vfunc_12@CSoundTrack@@UAEHH@Z
 // Same code shape as 0x0005aad0 (propagated; names are from that function)
 hulk_intptr CSoundTrack::vfunc_12(hulk_intptr param) {
-    R_69760* p = FUN_0008d690(0x24);
+    R_69760* p = FUN_0008d690(sizeof(::CSoundAction));
     if (p)
         return p->invoke_0001d190(this, param);
     return 0;

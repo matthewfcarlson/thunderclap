@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/hulkfight.h"
 #define TREE_TU_BEGIN namespace fn_fe990455 {
 #define TREE_TU_END }
 namespace fn_fe990455 {} using namespace fn_fe990455;
@@ -56,7 +57,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::FlyingAtt
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VFlyingAttackTrack@motion@hulkfight@@@fight@@UAEPAXXZ
 // Same code shape as 0x0006fa30 (propagated; names are from that function)
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::FlyingAttackTrack>::vfunc_5() {
-    Grapple_139980* p = (Grapple_139980*)operator new(0x40);
+    Grapple_139980* p = (Grapple_139980*)operator new(sizeof(::hulkfight::motion::FlyingAttackTrack));
     if (p)
         return (void*)(p->BuildTrack_00133ef0());
     return (void*)(0);

@@ -37,7 +37,7 @@ void DataHandlerRawLoader::vfunc_5(void* __p0, void* __p1, void* __p2, hulk_intp
  stream->FUN_00266c40();
  void* data = FUN_0008d6d0(size);
  ((owners::X_2647e0 *)(stream->backend))->FUN_002647e0((void*)data, (hulk_intptr)size, 1, (hulk_intptr)1);
- CDataHandlerObject_1fb050* obj = (CDataHandlerObject_1fb050*)FUN_00263ea0(16);
+ CDataHandlerObject_1fb050* obj = (CDataHandlerObject_1fb050*)FUN_00263ea0((int)sizeof(CDataHandlerObject_1fb050));   // (allocsize1) the size by the record the code writes
  if(obj) { new (obj) CDataHandlerObject_1fb050; obj->refs=0; obj->size=size; obj->data=data; }
  char name[64]; unsigned n=(*(Counter_1fb050 * *)&this->f_14)->count++;
  FUN_000964a0(name,64,"GameDataHandlerRaw%d",n);

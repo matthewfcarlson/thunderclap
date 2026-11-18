@@ -468,15 +468,15 @@ struct ParticleController : SimpleFrameController_2a7410 {
 };
 ParticleController::ParticleController(const ParticleController& src) : SimpleFrameController_2a7410(src) {
  flag=src.flag; a=src.a; b=src.b; c=src.c;
- uint count=(uint)(((int)((char*)src.end-(char*)src.begin))>>2);
+ uint count=(uint)(src.end-src.begin);   // (allocsize1) element-typed: the items are pointers
  if(count) {
- uint bytes=count*4;
+ uint bytes=count*sizeof(RefObject_2a7410*);
  RefObject_2a7410** allocated=(RefObject_2a7410**)FUN_0008d6d0(bytes);
  begin=allocated;
  if(allocated) end=(RefObject_2a7410**)((char*)allocated+bytes);
  else { begin=0; end=0; }
  } else { begin=0; end=0; }
- for(uint i=0;i<(uint)(((int)((char*)end-(char*)begin))>>2);++i) {
+ for(uint i=0;i<(uint)(end-begin);++i) {
  begin[i]=0;
  RefObject_2a7410* obj=src.begin[i];
  RefObject_2a7410** slot=begin+i;

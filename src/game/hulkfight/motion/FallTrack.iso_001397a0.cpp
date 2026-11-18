@@ -24,7 +24,7 @@ extern "C" void* __cdecl Alloc(hulk_uintptr);
 void __fastcall Init_00236d40(HoverTrack_1397a0*);
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::HoverTrack>::vfunc_5() {
-    HoverTrack_1397a0* p = (HoverTrack_1397a0*)Alloc(0x18);
+    HoverTrack_1397a0* p = (HoverTrack_1397a0*)Alloc((int)sizeof(HoverTrack_1397a0));   // (allocsize1) the size by the record the code writes
     if (p) {
         Init_00236d40(p);
         *(hulk_intptr*)p = ((hulk_intptr)DAT_00411ca8);

@@ -1298,7 +1298,7 @@ PropActorThinkingAction_1888c0* PropActorThinkingAction_1888c0::vfunc_2(int flag
 // Same code shape as 0x001134e0 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::PropAnimationTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     if (FUN_00344e74(c, 0, &RTTI_Type1, &RTTI_Type2, 0)) {
-        AllocObj_188910* p = (AllocObj_188910*)FUN_0008d690(0x2c);
+        AllocObj_188910* p = (AllocObj_188910*)FUN_0008d690((unsigned int)sizeof(::hulkfight::motion::PropAnimationAction));
         if (p)
             return p->init_00183aa0(this, c);
     }

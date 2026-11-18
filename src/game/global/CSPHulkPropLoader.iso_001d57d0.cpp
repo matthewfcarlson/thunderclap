@@ -138,7 +138,7 @@ void CSPHulkPropLoader::vfunc_5(void* __p0, void* __p1, void* __p2, hulk_intptr 
     NameKey_1d57d0 id;
     ((CSPHulkPropLoader_1d57d0*)this)->FUN_00290bf0(&data, &id, r, unused);
 
-    CSPHulkProp_1d57d0 *obj = (CSPHulkProp_1d57d0 *)FUN_00263ea0(0xc8);
+    CSPHulkProp_1d57d0 *obj = (CSPHulkProp_1d57d0 *)FUN_00263ea0((int)sizeof(CSPHulkProp_1d57d0));   // (allocsize1) the size by the record the code writes
     CSPHulkProp_1d57d0 *n = 0;
     if (obj)
         n = obj->FUN_001d4d50();

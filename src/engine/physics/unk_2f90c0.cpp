@@ -360,7 +360,7 @@ Block_2f95f0* Copy(Block_2f95f0* src, hulk_intptr count, Block_2f95f0* dst) {
 // 0x002f9660 FUN_002f9660 (37 B): matches/0x002f9660.cpp
 // sym: ?target@fn_fe1b1ee9@@YIXPAUContainer_2f9660@1@@Z
 void __fastcall target(Container_2f9660* self) {
-    int n = (int)(((char*)self->end - (char*)self->begin) >> 3);
+    int n = (int)(self->end - self->begin);   // (allocsize1) element-typed
     while (n != 0) {
         --n;
         ++self->begin[n].b;

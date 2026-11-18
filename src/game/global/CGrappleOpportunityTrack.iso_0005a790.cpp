@@ -51,7 +51,7 @@ hulk_intptr CGrappleAutoTargetTrack::vfunc_12(hulk_intptr __p0) { Owner_5a790 * 
     Settings* settings = slot->settings;
     if (settings == 0)
         return (int)(0);
-    CAutoTargetAction* c = static_cast<CAutoTargetAction*>(FUN_0008d690(0x30));
+    CAutoTargetAction* c = static_cast<CAutoTargetAction*>(FUN_0008d690(sizeof(::CAutoTargetAction)));
     if (c == 0)
         return (int)(0);
     return (hulk_intptr)(((CAutoTargetAction_nv_5a790*)(((CAutoTargetAction*)(c))))->FUN_0001d4c0(this, settings));

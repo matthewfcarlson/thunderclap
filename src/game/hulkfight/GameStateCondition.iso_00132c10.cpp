@@ -8,6 +8,7 @@
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VNISSoundTrack@hulkfight@@@fight@@UAEPAXXZ
 // Same code shape as 0x00075e70 (propagated; names are from that function)
 #include "gen/fight.h"
+#include "gen/hulkfight.h"
 
 extern void* __cdecl Alloc_0008d690(unsigned int);
 extern int hulk_at_00411314;
@@ -29,7 +30,7 @@ class CCameraShakeTrack_132c10 {
 };
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::NISSoundTrack>::vfunc_5() {
-    CCameraShakeTrack_132c10* p = (CCameraShakeTrack_132c10*)Alloc_0008d690(0x1c);
+    CCameraShakeTrack_132c10* p = (CCameraShakeTrack_132c10*)Alloc_0008d690(sizeof(::hulkfight::NISSoundTrack));
     if (p) {
         p->Init_00236d40();
         p->x = 0;

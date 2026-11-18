@@ -46,7 +46,7 @@ char FUN_001d04d0(const void* typeInfo);                      // type_info test 
 
 
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
-struct Pool { Pool* FUN_0008c7f0(); void FUN_0008c470(int); };
+struct Pool { void* vftable; int f_04; void* state; Pool* FUN_0008c7f0(); void FUN_0008c470(int); };   // (allocsize1) CMemoryCardManager's words (gen's record): the card state 0x0008c470 allocates is a pointer
 namespace math { class Vector; }
 // CGameFlowManager (its 32-bit layout) and the members it binds to Lua, typed by the game's Closure<N> instantiations;
 // complete before any pointer to a member is formed (one code pointer on every build).
@@ -60,7 +60,7 @@ struct Registry { void FUN_0008bb50(const char*,CGameFlowManager*,int (CGameFlow
 extern "C" Registry* FUN_001d4c90();
 #define MAKE(R,A,name,cb,rt,at) { typedef Closure1<CGameFlowManager,R,A> AllocT; HULK_SIZE32(AllocT,0x24); void* mem=FUN_0008d690((unsigned int)sizeof(Closure1<CGameFlowManager,R,A>)); Closure1<CGameFlowManager,R,A>* b=0; if(mem) { Binding* base=(Binding*)mem; base->FUN_001d0480(name,1); Method1<CGameFlowManager,R,A>* m=new(mem) Method1<CGameFlowManager,R,A>; m->callback=&CGameFlowManager::FUN_##cb; m->retType=FUN_001d04d0(&rt); m->argTypes[0]=FUN_001d04d0(&at); b=new(mem) Closure1<CGameFlowManager,R,A>; b->owner=this; } reg->FUN_001d3b70(name,b); }
 void CGameFlowManager::FUN_0008bf80(void* first,void* second) {
- Pool* p=(Pool*)FUN_0008d690(12); if(p) p=p->FUN_0008c7f0(); pool=p; p->FUN_0008c470(0xbe8); other=second;
+ Pool* p=(Pool*)FUN_0008d690((unsigned int)sizeof(Pool)); /* (allocsize1) the manager by its record (12 B on 32-bit) */ if(p) p=p->FUN_0008c7f0(); pool=p; p->FUN_0008c470(0xbe8); other=second;
  Registry* reg=FUN_001d4c90(); if(!reg) return;
  reg->FUN_0008bb50("gfm_GetChapter",this,&CGameFlowManager::FUN_00023e50);
  reg->FUN_0008bb50("gfm_GetMission",this,&CGameFlowManager::FUN_00023e60);

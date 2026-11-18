@@ -103,7 +103,7 @@ hulk_freg CMotionHitGroundHeightTrack::vfunc_7() {
 // Same code shape as 0x0006a010 (propagated; names are from that function)
 hulk_intptr CMotionHitGroundHeightTrack::vfunc_12(hulk_intptr __p0) { unsigned int param = (unsigned int)__p0;
 
-    void* p = FUN_0008d690(0x24);
+    void* p = FUN_0008d690((int)sizeof(::CMotionHitGroundHeightAction));   // (allocsize1) the size by gen's record
     if (p)
         return ((Worker_6b110*)p)->go_00020cd0(param, this->height);
     return 0;

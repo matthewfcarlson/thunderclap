@@ -103,7 +103,7 @@ void __fastcall FUN_002c3690(Obj_2c3690* self) {
 void Holder::FUN_002c3770(char value) {
     Item** it = begin;
     unsigned int i = 0;
-    for (; i < (unsigned int)(((hulk_intptr)end - (hulk_intptr)begin) >> 2); ++i, ++it) {
+    for (; i < (unsigned int)(end - begin); ++i, ++it) {   // (allocsize1) element-typed: the items are pointers
         if ((*it)->value == value) {
             index = (unsigned short)i;
             return;

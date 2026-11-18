@@ -15,7 +15,7 @@ struct CSmartPropDropAction_nv_62af0 {
 extern CSmartPropDropAction* FUN_0008d690(int);
 
 hulk_intptr CSmartPropDropTrack::vfunc_12(hulk_intptr param) {
-    CSmartPropDropAction* p = FUN_0008d690(0x24);
+    CSmartPropDropAction* p = FUN_0008d690((int)sizeof(::CSmartPropDropAction));   // (allocsize1) the size by gen's record
     if (p)
         return ((CSmartPropDropAction_nv_62af0*)(((CSmartPropDropAction*)(p))))->invoke_0001f360(this, param);
     return 0;

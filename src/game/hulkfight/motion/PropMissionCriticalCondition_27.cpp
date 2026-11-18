@@ -92,7 +92,7 @@ class ParamBranch : public ParamValueBranch, public ParamValue {
 hulk_intptr hulkfight::motion::BallAndChainSpinTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_1890a0 a = (u32_1890a0)__p0; u32_1890a0 b = (u32_1890a0)__p1; void * p = (void *)__p2;
 
     if (((int)(hulk_uintptr)__RTDynamicCast(p, 0, (void*)(&hulk_at_00494b44), (void*)(&hulk_at_00494b60), 0))) {
-        Result_1890a0* q = Alloc_0008d690(0x28);
+        Result_1890a0* q = Alloc_0008d690((int)sizeof(::hulkfight::motion::BallAndChainSpinAction));   // (allocsize1) the size by gen's record
         if (q)
             return (int)(q->Init_001847e0(this, p));
     }
@@ -206,7 +206,7 @@ AnimationAction* AnimationAction::vfunc_2(unsigned char param) {
 hulk_intptr hulkfight::motion::BallAndChainReturnTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_1891f0 a = (u32_1891f0)__p0; u32_1891f0 b = (u32_1891f0)__p1; hulk_uintptr c = (u32_1891f0)__p2;
 
     if (((int)(hulk_uintptr)__RTDynamicCast((void*)c, 0, (void*)((hulk_intptr)&typeB), (void*)((hulk_intptr)&typeA_1891f0), 0))) {
-        Obj_1891f0* p = (Obj_1891f0*)Alloc_0008d690(0x48);
+        Obj_1891f0* p = (Obj_1891f0*)Alloc_0008d690((int)sizeof(::hulkfight::motion::BallAndChainReturnAction));   // (allocsize1) the size by gen's record
         if (p)
             return (int)(p->Init_00184ef0(this, c));
     }

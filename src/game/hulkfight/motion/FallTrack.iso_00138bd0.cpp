@@ -17,7 +17,7 @@ extern hulkfight::motion::HoverAction* __cdecl Alloc_0008d690(int);
 hulk_intptr hulkfight::motion::GrappleHoverTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     int x = Lookup_0005a470(c);
     if (x) {
-        hulkfight::motion::HoverAction* p = Alloc_0008d690(0x24);
+        hulkfight::motion::HoverAction* p = Alloc_0008d690((int)sizeof(::hulkfight::motion::HoverAction));   // (allocsize1) the size by gen's record
         if (p) {
             int f = this->groundFixup;
             return ((HoverAction_nv_138bd0*)(((hulkfight::motion::HoverAction*)(p))))->build_00134db0(f, x);

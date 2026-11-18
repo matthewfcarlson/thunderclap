@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x00058670..0x00058710 (kind game, layer game, confidence high), dominant class CRageModeCondition
 #include "tree_prelude.h"
+#include "gen/global.h"   // (allocsize1)
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
@@ -64,7 +65,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<CRageModeCondition>::vfu
 // 0x000586b0 fight::ConditionFactoryTemplate<CRageModeCondition>::vfunc_5 (44 B): matches/0x000586b0.cpp
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VCRageModeCondition@@@fight@@UAEPAXXZ
 template <> void* fight::ConditionFactoryTemplate<CRageModeCondition>::vfunc_5() {
-    CRageModeCondition_586b0* p = (CRageModeCondition_586b0*)Alloc(0x10);
+    CRageModeCondition_586b0* p = (CRageModeCondition_586b0*)Alloc((int)sizeof(::CRageModeCondition));   // (allocsize1) the size by gen's record
     if (p) {
         p->Init_00234590(0);
         *(hulk_intptr*)p = ((hulk_intptr)DAT_003f742c);

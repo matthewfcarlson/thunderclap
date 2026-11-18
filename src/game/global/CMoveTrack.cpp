@@ -96,7 +96,7 @@ hulk_freg CMoveTrack::vfunc_7() {
 // sym: ?vfunc_12@CMoveTrack@@UAEHH@Z
 // Same code shape as 0x0005dd70 (propagated; names are from that function)
 hulk_intptr CMoveTrack::vfunc_12(hulk_intptr param) {
-    Helper_69940* p = (Helper_69940*)FUN_0008d690(0x28);
+    Helper_69940* p = (Helper_69940*)FUN_0008d690(sizeof(::CMoveAction));
     if (p)
         return p->FUN_0001d290(this, param);
     return 0;

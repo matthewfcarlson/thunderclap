@@ -26,7 +26,7 @@ hulkfight::motion::HealthAction* __cdecl Alloc_0008d690(int);
 hulk_intptr hulkfight::motion::HealthTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     int result = ((int)(hulk_uintptr)__RTDynamicCast((void*)c, 0, (void*)(&hulk_at_00494b44), (void*)(&hulk_at_00494b60), 0));
     if (result) {
-        hulkfight::motion::HealthAction* p = Alloc_0008d690(0x24);
+        hulkfight::motion::HealthAction* p = Alloc_0008d690(sizeof(::hulkfight::motion::HealthAction));
         if (p)
             return ((HealthAction_nv_157500*)(((hulkfight::motion::HealthAction*)(p))))->Init_00152630(this, c);
     }

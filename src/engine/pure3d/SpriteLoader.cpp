@@ -8,6 +8,7 @@
 #include "decls/drawable_container.h"
 #include "decls/address.h"
 #include "decls/data/engine/pure3d.h"
+#include "decls/shader.h"
 #include "gen/owners.h"
 #include "gen/pure3d.h"
 #define TREE_TU_BEGIN namespace fn_f43dee86 {
@@ -1640,7 +1641,7 @@ Sprite::Sprite(Desc_2beb20 *d, Shader_2beb20 *r, int s, int a4, int a5, int a6)
     if (r != 0) {
         shader = (::pure3d::Shader *)r;
     } else {
-        Shader_2beb20 *m = (Shader_2beb20 *)FUN_00263ea0(0x20);
+        Shader_2beb20 *m = (Shader_2beb20 *)FUN_00263ea0(sizeof(HulkShader));
         if (m)
             shader = (::pure3d::Shader *)m->FUN_0028edb0();
         else

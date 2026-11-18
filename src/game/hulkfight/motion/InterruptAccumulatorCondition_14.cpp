@@ -1819,7 +1819,7 @@ HitWaitAction_156de0* HitWaitAction_156de0::vfunc_2(int flag) {
 // Same code shape as 0x001134e0 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::GroundSlideTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     if (FUN_00344e74(c, 0, &RTTI_Type1, &RTTI_Type2, 0)) {
-        AllocObj_156e30* p = (AllocObj_156e30*)FUN_0008d690(0x2c);
+        AllocObj_156e30* p = (AllocObj_156e30*)FUN_0008d690((unsigned int)sizeof(::hulkfight::motion::GroundSlideAction));
         if (p)
             return p->init_00151180(this, c);
     }

@@ -26,7 +26,7 @@ hulkfight::ai::HulkAction* __cdecl Alloc_0008d690(int);
 hulk_intptr hulkfight::ai::HulkActionTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     int result = ((int)(hulk_uintptr)__RTDynamicCast((void*)c, 0, (void*)(&hulk_at_00494b44), (void*)(&hulk_at_00494b60), 0));
     if (result) {
-        hulkfight::ai::HulkAction* p = Alloc_0008d690(0x24);
+        hulkfight::ai::HulkAction* p = Alloc_0008d690(sizeof(::hulkfight::ai::HulkAction));
         if (p)
             return ((HulkAction_nv_113120*)(((hulkfight::ai::HulkAction*)(p))))->Init_0010f310(this, c);
     }

@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x00058460..0x00058510 (kind game, layer game, confidence high), dominant class CMotionHitCondition
 #include "tree_prelude.h"
+#include "gen/global.h"   // (allocsize1)
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
@@ -68,7 +69,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<CMotionHitCondition>::vf
 // 0x000584a0 fight::ConditionFactoryTemplate<CMotionHitCondition>::vfunc_5 (54 B): matches/0x000584a0.cpp
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VCMotionHitCondition@@@fight@@UAEPAXXZ
 template <> void* fight::ConditionFactoryTemplate<CMotionHitCondition>::vfunc_5() {
-    CMotionHitCondition_584a0* p = (CMotionHitCondition_584a0*)Allocate(0x14);
+    CMotionHitCondition_584a0* p = (CMotionHitCondition_584a0*)Allocate((int)sizeof(::CMotionHitCondition));   // (allocsize1) the size by gen's record
     if (p) {
         p->Init_00234590(0);
         p->vtable = ((hulk_intptr)DAT_003f73bc);

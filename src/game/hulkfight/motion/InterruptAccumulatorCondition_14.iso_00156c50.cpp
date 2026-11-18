@@ -26,7 +26,7 @@ hulkfight::motion::InterruptAccumulatorSetAction* __cdecl Alloc_0008d690(int);
 hulk_intptr hulkfight::motion::InterruptAccumulatorSetTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     int result = ((int)(hulk_uintptr)__RTDynamicCast((void*)c, 0, (void*)(&hulk_at_00494b44), (void*)(&hulk_at_00494b60), 0));
     if (result) {
-        hulkfight::motion::InterruptAccumulatorSetAction* p = Alloc_0008d690(0x24);
+        hulkfight::motion::InterruptAccumulatorSetAction* p = Alloc_0008d690((int)sizeof(::hulkfight::motion::InterruptAccumulatorSetAction));   // (allocsize1) the size by gen's record
         if (p)
             return ((InterruptAccumulatorSetAction_nv_156c50*)(((hulkfight::motion::InterruptAccumulatorSetAction*)(p))))->Init_00150fd0(this, c);
     }

@@ -1106,7 +1106,7 @@ void Target_1b39f0::Run() {
 // 0x001b3c00 FUN_001b3c00 (65 B): matches/0x001b3c00.cpp
 // sym: ?FUN_001b3c00@Registry_1b3c00@fn_f5af65ff@@QAEXPBDPAUOwner@2@@Z
 void Registry_1b3c00::FUN_001b3c00(const char* a1, Owner* a2) {
-    Function5_1b3c00* e = new (FUN_0008d690(0x20)) Function5_1b3c00(a1, a2);
+    Function5_1b3c00* e = new (FUN_0008d690(sizeof(::Function5<void, int, int, float, float, float>))) Function5_1b3c00(a1, a2);
     ((owners::Obj_1d3b70 *)this)->FUN_001d3b70((hulk_uintptr)a1, (hulk_intptr)e);
 }
 
@@ -2266,7 +2266,7 @@ CCollisionManager::CCollisionManager() {
  Registry_1b6440* registry=FUN_001d4c90();
  if(registry) {
  registry->FUN_001b62d0("cm_SetGravity",this,FUN_001b46d0);
- Closure2_1b6440* command=(Closure2_1b6440*)FUN_0008d690(0x24);
+ Closure2_1b6440* command=(Closure2_1b6440*)FUN_0008d690(sizeof(::Closure2< ::CCollisionManager, bool, math::Vector, int>));
  if(command) command=command->FUN_001b61f0("cm_AddExplosion",this,FUN_001b4cd0);
  registry->FUN_001d3b70("cm_AddExplosion",command);
  for(int j=0;j<19;++j) { counters[j]=0; ids[j]=-1; }

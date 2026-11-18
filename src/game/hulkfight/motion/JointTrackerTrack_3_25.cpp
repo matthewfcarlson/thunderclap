@@ -312,7 +312,7 @@ class SurfAction_17bc10 {
 hulk_intptr hulkfight::motion::ChargeTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_17b330 a = (u32_17b330)__p0; u32_17b330 b = (u32_17b330)__p1; void * p = (void *)__p2;
 
     if (((int)(hulk_uintptr)__RTDynamicCast(p, 0, (void*)(&hulk_at_00494b44), (void*)(&hulk_at_00494b60), 0))) {
-        Result_17b330* q = Alloc_0008d690(0x28);
+        Result_17b330* q = Alloc_0008d690((int)sizeof(::hulkfight::motion::ChargeAction));   // (allocsize1) the size by gen's record
         if (q)
             return (int)(q->Init_00174790(this, p));
     }
@@ -393,7 +393,7 @@ PushOutAction_17b4c0* PushOutAction_17b4c0::vfunc_2(int flag) {
 // Same code shape as 0x001134e0 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::FootPivotTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     if (FUN_00344e74(c, 0, &RTTI_Type1, &RTTI_Type2, 0)) {
-        AllocObj_17b510* p = (AllocObj_17b510*)FUN_0008d690(0x2c);
+        AllocObj_17b510* p = (AllocObj_17b510*)FUN_0008d690((int)sizeof(::hulkfight::motion::FootPivotAction));   // (allocsize1) the size by gen's record
         if (p)
             return p->init_00174c10(this, c);
     }

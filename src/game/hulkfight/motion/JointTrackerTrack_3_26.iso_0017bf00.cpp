@@ -26,7 +26,7 @@ hulkfight::motion::VisibilityAction* __cdecl Alloc_0008d690(int);
 hulk_intptr hulkfight::motion::VisibilityTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     int result = ((int)(hulk_uintptr)__RTDynamicCast((void*)c, 0, (void*)(&hulk_at_00494b44), (void*)(&hulk_at_00494b60), 0));
     if (result) {
-        hulkfight::motion::VisibilityAction* p = Alloc_0008d690(0x24);
+        hulkfight::motion::VisibilityAction* p = Alloc_0008d690(sizeof(::hulkfight::motion::VisibilityAction));
         if (p)
             return ((VisibilityAction_nv_17bf00*)(((hulkfight::motion::VisibilityAction*)(p))))->Init_00177550(this, c);
     }

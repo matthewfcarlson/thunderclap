@@ -4017,7 +4017,7 @@ g->f_0c=a;a->retain();g->f_10=b;b->retain();
 unsigned* z=(unsigned*)&g->f_14;
 for(int j=0;j<(int)(((char*)&g->f_58+sizeof(g->f_58)-(char*)&g->f_14)/4);++j) z[j]=0;
 FUN_0031e610();FUN_0031f190();
-Helper_31f410* h=FUN_0008d690(4);g->f_144=h?h->FUN_00328250(g):0;
+Helper_31f410* h=FUN_0008d690(sizeof(void*));/* (sweep-allocsize) 0x00328250 keeps one pointer (the context) */g->f_144=h?h->FUN_00328250(g):0;
 g->f_bc=0;g->f_c0=0;unsigned* v=(unsigned*)(g->_pad_d4+0x28);for(int k=0;k<12;++k) v[k]=0;
 FUN_0031d300();
 }

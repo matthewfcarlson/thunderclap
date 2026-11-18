@@ -428,7 +428,7 @@ void ControllerPoller::vfunc_2() {
 // 0x000dda90 ControllerPoller::vfunc_5 (43 B): matches/0x000dda90.cpp
 // sym: ?vfunc_5@ControllerPoller@@UAEHH@Z
 int ControllerPoller::vfunc_5(int param) {
-    Helper_dda90* p = (Helper_dda90*)FUN_0008d690(0x14);
+    Helper_dda90* p = (Helper_dda90*)FUN_0008d690(sizeof(::ControllerState));
     if (p)
         return p->run_000dd710(this->f_38, param);
     return 0;

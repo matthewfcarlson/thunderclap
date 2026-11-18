@@ -1059,6 +1059,7 @@ public:
     virtual ~CCameraShakeAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_6(int); // overrides CAction slot 6
     void* f_1c;
+    void* f_20; // (allocsize1) the track that made it (constructor 0x0001f800; 0x24-byte allocation)
 };
 
 // .?AVCCameraShakeTrack@@  vftable 0x3fbe7c (14)
@@ -2116,6 +2117,7 @@ public:
     virtual ~CComboMessageAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_7(int); // overrides CAction slot 7
     void* f_1c;
+    void* f_20; // (allocsize1) the track that made it (constructor 0x0001d210)
 };
 
 // .?AVCComboMessageTrack@@  vftable 0x3fbbac (14)
@@ -2241,6 +2243,8 @@ public:
     virtual ~CDamageAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_7(int); // overrides CAction slot 7
     void* f_1c;
+    int f_20; // (allocsize1) the track's damage (constructor 0x0001d9b0)
+    int f_24; // (allocsize1) the track's damageMax
 };
 
 // .?AVCDamageTrack@@  vftable 0x3fbd14 (14)
@@ -2328,6 +2332,7 @@ public:
     virtual ~CDrainHealthAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_7(int); // overrides CAction slot 7
     void* f_1c;
+    float f_20; // (allocsize1) the track's rate f_14 (constructor 0x0001db40)
 };
 
 // .?AVCDrainHealthTrack@@  vftable 0x3fbd50 (14)
@@ -2367,6 +2372,7 @@ public:
     virtual ~CDriftAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_7(int); // overrides CAction slot 7
     void* f_1c;
+    void* f_20; // (allocsize1) the track that made it (constructor 0x0001fde0)
 };
 
 // .?AVCDriftTrack@@  vftable 0x3fbfa4 (14)
@@ -2394,6 +2400,7 @@ public:
     char _pad_20[0x4];
     void* f_24;
     float f_28;
+    int f_2c; // (allocsize1) zeroed by the constructor 0x000190a0 (type unknown; 0x30-byte allocation)
 };
 
 // .?AVCDropShadowDisplayEffect@@  vftable 0x40bf08 (1)
@@ -3771,6 +3778,7 @@ public:
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_6(int); // overrides CAction slot 6
     void* f_1c;
+    int f_20; // (allocsize1) the track's f_14 (constructor 0x0001f4e0)
 };
 
 // .?AVCInvulnerableAction@@  vftable 0x3f3bec (9)
@@ -4071,6 +4079,7 @@ public:
     virtual ~CMoveAddAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_7(int); // overrides CAction slot 7
     void* f_1c;
+    void* f_20; // (allocsize1) the track that made it (constructor 0x0001d320)
 };
 
 // .?AVCMoveAddTrack@@  vftable 0x3fbc24 (14)
@@ -4441,7 +4450,25 @@ public:
     int f_10;
     char _pad_14[0x40];
     int f_54;
-    char _pad_58[0x430];
+    // (allocsize1) the words the constructor 0x000b23c0 (CPhysicalController.cpp) writes, so the record has their native
+    // size (FUN_000ae090 allocates sizeof): four zeroed int blocks each followed by 2x6 two-word cells, two arrays of
+    // the 0x10-byte nodes it allocates (pointers), each followed by 2x(6+6) words, and two strings {capacity, text}
+    int f_58[22];
+    int f_b0[24];
+    int f_110[22];
+    int f_168[24];
+    int f_1c8[26];
+    int f_230[24];
+    int f_290[26];
+    int f_2f8[24];
+    void* f_358[11];
+    int f_384[24];
+    void* f_3e4[13];
+    int f_418[24];
+    int f_478;
+    char* f_47c;
+    int f_480;
+    char* f_484;
     int f_488;
     int f_48c;
     char _pad_490[0x18];
@@ -5030,6 +5057,7 @@ public:
     void* f_1c;
     void* f_20;
     void* f_24;
+    int f_28; // (allocsize1) zeroed by the constructor 0x0001ea30 (type unknown; 0x2c-byte allocation)
 };
 
 // .?AVCSmartPropAttachTrack@@  vftable 0x3faf60 (14)
@@ -5119,6 +5147,7 @@ public:
     virtual ~CSmartPropDropAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_6(int); // overrides CAction slot 6
     void* f_1c;
+    void* f_20; // (allocsize1) the track that made it (constructor 0x0001f360)
 };
 
 // .?AVCSmartPropEventAction@@  vftable 0x3f396c (9)
@@ -5215,6 +5244,8 @@ public:
     virtual bool vfunc_6(int); // overrides CAction slot 6
     virtual bool vfunc_7(int); // overrides CAction slot 7
     void* f_1c;
+    void* f_20; // (allocsize1) the track that made it (constructor 0x0001eff0)
+    int f_24; // (allocsize1) zeroed (type unknown)
 };
 
 // .?AVCSmartPropSpawnTrack@@  vftable 0x3fafd8 (14)
@@ -5325,6 +5356,7 @@ public:
     void* f_1c;
     void* f_20;
     void* f_24;
+    int f_28; // (allocsize1) zeroed by the constructor 0x0001ec50 (type unknown; 0x2c-byte allocation)
 };
 
 // .?AVCSmartPropUpdateAttachmentTrack@@  vftable 0x3faf9c (14)

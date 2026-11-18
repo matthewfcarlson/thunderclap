@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/global.h"
 #define TREE_TU_BEGIN namespace fn_fc7b27ca {
 #define TREE_TU_END }
 namespace fn_fc7b27ca {} using namespace fn_fc7b27ca;
@@ -61,8 +62,12 @@ template <> void* fight::TrackFactoryCasterTemplate<CKeyPoseTrack>::vfunc_1(void
 
 // 0x00077d00 fight::TrackFactoryTemplate<CKeyPoseTrack>::vfunc_5 (24 B): matches/0x00077d00.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VCKeyPoseTrack@@@fight@@UAEPAXXZ
+struct AllocWords_77d00 : ::CKeyPoseTrack {   // (sweep-allocsize) gen's words and the allocation's last word (gen's size is its
+    int last;                                // last field's end, 4 short of the 0x78-byte allocation)
+};
+typedef char AllocWords_77d00_size32[(sizeof(void*) != 4 || sizeof(AllocWords_77d00) == 0x78) ? 1 : -1];
 template <> void* fight::TrackFactoryTemplate<CKeyPoseTrack>::vfunc_5() {
-    void* p = FUN_0008d690(0x78);
+    void* p = FUN_0008d690(sizeof(AllocWords_77d00));
     if (p)
         return (void*)(((CKeyPoseTrack_77d00*)p)->init_00069520());
     return (void*)(0);

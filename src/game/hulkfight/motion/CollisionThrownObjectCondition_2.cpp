@@ -71,7 +71,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::motion::Colli
 // 0x0015a530 fight::ConditionFactoryTemplate<hulkfight::motion::CollisionThrownObjectCondition>::vfunc_5 (52 B): matches/0x0015a530.cpp
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VCollisionThrownObjectCondition@motion@hulkfight@@@fight@@UAEPAXXZ
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::CollisionThrownObjectCondition>::vfunc_5() {
-    Cond_15a530* p = (Cond_15a530*)alloc(0x18);
+    Cond_15a530* p = (Cond_15a530*)alloc((int)sizeof(Cond_15a530));   // (allocsize1) the size by the record the code writes
     if (p) {
         p->Init_00234590(0);
         p->vp = (void*)&hulk_at_004140f0;

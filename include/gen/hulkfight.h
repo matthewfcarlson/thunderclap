@@ -1702,6 +1702,7 @@ public:
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
     char _pad_1c[0x4];
     void* f_20;
+    int f_24; // (allocsize1) zeroed by the constructor 0x0011e100 (type unknown)
 };
 
 // .?AVStrafeLateralHBTrack@ai@hulkfight@@  vftable 0x40f500 (11)
@@ -2421,6 +2422,7 @@ public:
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
     int f_1c;
     void* f_20;
+    int f_24; // (allocsize1) copied from the held object's +0x20 by the constructor 0x001847e0 (type unknown)
 };
 
 // .?AVBallAndChainSpinTrack@motion@hulkfight@@  vftable 0x4194ac (11)
@@ -4239,6 +4241,7 @@ public:
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
     int f_1c;
     void* f_20;
+    int f_24; // (allocsize1) zeroed by the constructor 0x001510f0 (type unknown)
 };
 
 // .?AVHitWaitTrack@motion@hulkfight@@  vftable 0x414300 (11)

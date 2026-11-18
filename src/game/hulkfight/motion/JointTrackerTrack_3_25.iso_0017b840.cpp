@@ -23,7 +23,7 @@ extern const char hulk_at_00494b60[];
 hulk_intptr hulkfight::motion::TeleportToLocatorTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_17b840 a = (u32_17b840)__p0; u32_17b840 b = (u32_17b840)__p1; u32_17b840 c = (u32_17b840)__p2;
 
     if (((int)(hulk_uintptr)__RTDynamicCast((void*)(hulk_uintptr)(c), 0, (void*)(hulk_at_00494b44), (void*)(hulk_at_00494b60), 0))) {
-        hulkfight::motion::TeleportToLocatorAction* p = Alloc_0008d690(0x30);
+        hulkfight::motion::TeleportToLocatorAction* p = Alloc_0008d690((int)sizeof(::hulkfight::motion::TeleportToLocatorAction));   // (allocsize1) the size by gen's record
         if (p)
             return (int)(((TeleportToLocatorAction_nv_17b840*)(((hulkfight::motion::TeleportToLocatorAction*)(p))))->init_00175cc0(this, c));
     }

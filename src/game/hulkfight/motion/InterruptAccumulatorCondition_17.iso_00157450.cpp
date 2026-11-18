@@ -23,7 +23,7 @@ extern hulkfight::motion::HitOrientToPushbackAction* Alloc_0008d690(int);
 hulk_intptr hulkfight::motion::HitOrientToPushbackTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_157450 a = (u32_157450)__p0; u32_157450 b = (u32_157450)__p1; void * p = (void *)__p2;
 
     if (((int)(hulk_uintptr)__RTDynamicCast(p, 0, (void*)(&hulk_at_00494b44), (void*)(&hulk_at_00494b60), 0))) {
-        hulkfight::motion::HitOrientToPushbackAction* q = Alloc_0008d690(0x28);
+        hulkfight::motion::HitOrientToPushbackAction* q = Alloc_0008d690((int)sizeof(::hulkfight::motion::HitOrientToPushbackAction));   // (allocsize1) the size by gen's record
         if (q)
             return (int)(((HitOrientToPushbackAction_nv_157450*)(((hulkfight::motion::HitOrientToPushbackAction*)(q))))->Init_00152480(this, p));
     }

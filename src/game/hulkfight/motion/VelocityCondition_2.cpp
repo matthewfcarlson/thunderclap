@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/hulkfight.h"
 #define TREE_TU_BEGIN namespace fn_f9fa62c7 {
 #define TREE_TU_END }
 namespace fn_f9fa62c7 {} using namespace fn_f9fa62c7;
@@ -68,7 +69,7 @@ namespace fn_f9fa62c7 {
 // 0x0016d4f0 fight::ConditionFactoryTemplate<hulkfight::motion::VelocityCondition>::vfunc_5 (54 B): matches/0x0016d4f0.cpp
 // sym: ?target@fn_f9fa62c7@@YAPAXPAVTemplate_16d4f0@1@@Z
 void* target(Template_16d4f0* self) {
-    Condition* p = (Condition*)alloc(0x14);
+    Condition* p = (Condition*)alloc(sizeof(::hulkfight::motion::VelocityCondition));
     if (p) {
         p->init_00234590(0);
         *(hulk_intptr*)p = ((hulk_intptr)DAT_004166b8);

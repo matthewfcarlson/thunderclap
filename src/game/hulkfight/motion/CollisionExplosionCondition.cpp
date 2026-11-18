@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x001596f0..0x00159790 (kind game, layer game, confidence high), dominant class hulkfight::motion::CollisionExplosionCondition
 #include "tree_prelude.h"
+#include "gen/hulkfight.h"   // (allocsize1)
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
@@ -65,7 +66,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::motion::Colli
 // 0x00159730 fight::ConditionFactoryTemplate<hulkfight::motion::CollisionExplosionCondition>::vfunc_5 (44 B): matches/0x00159730.cpp
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VCollisionExplosionCondition@motion@hulkfight@@@fight@@UAEPAXXZ
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::CollisionExplosionCondition>::vfunc_5() {
-    Obj_159730* p = (Obj_159730*)alloc(0x10);
+    Obj_159730* p = (Obj_159730*)alloc((int)sizeof(::hulkfight::motion::CollisionExplosionCondition));   // (allocsize1) the size by gen's record
     if (p) {
         p->Init_00234590(0);
         p->vf = ((hulk_intptr)DAT_00414110);

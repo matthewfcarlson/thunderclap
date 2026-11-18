@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/global.h"
 #define TREE_TU_BEGIN namespace fn_f22fcc84 {
 #define TREE_TU_END }
 namespace fn_f22fcc84 {} using namespace fn_f22fcc84;
@@ -59,7 +60,7 @@ template <> void* fight::TrackFactoryCasterTemplate<CCameraDramaticTrack>::vfunc
 // 0x00077a90 fight::TrackFactoryTemplate<CCameraDramaticTrack>::vfunc_5 (27 B): matches/0x00077a90.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VCCameraDramaticTrack@@@fight@@UAEPAXXZ
 template <> void* fight::TrackFactoryTemplate<CCameraDramaticTrack>::vfunc_5() {
-    void* p = FUN_0008d690(0xa0);
+    void* p = FUN_0008d690(sizeof(::CCameraDramaticTrack));
     if (p)
         return (void*)(construct_camera(p));
     return (void*)(0);

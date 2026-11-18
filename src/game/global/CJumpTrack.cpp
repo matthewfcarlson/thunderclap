@@ -324,7 +324,7 @@ double __stdcall target(float a, float b) {
 // 0x000693d0 CJumpTrack::vfunc_12 (40 B): matches/0x000693d0.cpp
 // sym: ?vfunc_12@CJumpTrack@@UAEHH@Z
 hulk_intptr CJumpTrack::vfunc_12(hulk_intptr param) {
-    hulk_intptr x = FUN_0008d690(0x3c);
+    hulk_intptr x = FUN_0008d690(sizeof(::CJumpAction));
     if (x)
         return ((Alloc_693d0*)x)->call_00018ca0(this, param);
     return 0;

@@ -831,9 +831,9 @@ void CollisionVolume::vfunc_14(CollisionVolume* dest) {
   VolumeArray* a = (VolumeArray*)FUN_0008d690((int)sizeof(VolumeArray));
   if (a) { a->begin=0; a->end=0; a->limit=0; }
   dest->children=a;
-  dest->children->FUN_002ede00((int)((char*)children->end-(char*)children->begin)>>2);
+  dest->children->FUN_002ede00((int)(children->end-children->begin));
   unsigned int i=0;
-  while (i < (unsigned int)((int)((char*)children->end-(char*)children->begin)>>2)) {
+  while (i < (unsigned int)((int)(children->end-children->begin))) {
    CollisionVolume* child=children->begin[i]->FUN_00306c60();
    child->vfunc_0();
    VolumeArray* out=dest->children;

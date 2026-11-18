@@ -88,7 +88,7 @@ hulk_freg CAlertStatusTrack::vfunc_7() {
 // sym: ?vfunc_12@CAlertStatusTrack@@UAEHH@Z
 // Same code shape as 0x0006aaf0 (propagated; names are from that function)
 hulk_intptr CAlertStatusTrack::vfunc_12(hulk_intptr param) {
-    Other_6ae00* p = FUN_0008d690(0x24);
+    Other_6ae00* p = FUN_0008d690((int)sizeof(::CAlertStatusAction));   // (allocsize1) the size by gen's record
     if (p)
         return p->call_00020ad0(param, this->f_10);
     return 0;

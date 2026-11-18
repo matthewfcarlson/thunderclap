@@ -26,7 +26,7 @@ hulkfight::ai::AIHistorySetAction* __cdecl Alloc_0008d690(int);
 hulk_intptr hulkfight::ai::AIHistorySetTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     int result = ((int)(hulk_uintptr)__RTDynamicCast((void*)c, 0, (void*)(&hulk_at_00494b44), (void*)(&hulk_at_00494b60), 0));
     if (result) {
-        hulkfight::ai::AIHistorySetAction* p = Alloc_0008d690(0x24);
+        hulkfight::ai::AIHistorySetAction* p = Alloc_0008d690((int)sizeof(::hulkfight::ai::AIHistorySetAction));   // (allocsize1) the size by gen's record
         if (p)
             return ((AIHistorySetAction_nv_113300*)(((hulkfight::ai::AIHistorySetAction*)(p))))->Init_0010f8b0(this, c);
     }

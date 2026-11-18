@@ -166,7 +166,7 @@ void __fastcall Target(CCameraDramaticTrack_6a470* self) {
 // sym: ?vfunc_12@CCameraDramaticTrack@@UAEHH@Z
 // Same code shape as 0x0005dd70 (propagated; names are from that function)
 hulk_intptr CCameraDramaticTrack::vfunc_12(hulk_intptr param) {
-    Helper_6a4a0* p = (Helper_6a4a0*)FUN_0008d690(0x28);
+    Helper_6a4a0* p = (Helper_6a4a0*)FUN_0008d690((int)sizeof(::CCameraDramaticAction));   // (allocsize1) the size by gen's record
     if (p)
         return p->FUN_0001f880(this, param);
     return 0;

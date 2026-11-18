@@ -3,6 +3,7 @@
 #include "tree_prelude.h"
 #include "compat/ptr.h"
 #include "gen/owners.h"
+#include "gen/pure3d.h"
 #define TREE_TU_BEGIN namespace fn_f8c9e634 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CAction
@@ -1462,7 +1463,7 @@ Result_28cd80* __stdcall FUN_0028cd80(Context* context, unsigned unused, Pool_28
  context->reader->FUN_002647e0(&value,1,4,1);
  context->reader->FUN_002647e0(&value,1,4,1);
  context->reader->FUN_002647e0(&count,1,4,1);
- void* memory = pool ? pool->FUN_002888c0(0x1c,7) : FUN_0008d690(0x1c);
+ void* memory = pool ? pool->FUN_002888c0(0x1c,7) : FUN_0008d690(sizeof(::pure3d::StringChannel));
  Result_28cd80* result = memory ? ((Result_28cd80*)memory)->FUN_0028c1a0(count,pool) : 0;
  result->value = value;
  context->reader->FUN_002647e0(result->entries,count,2,1);

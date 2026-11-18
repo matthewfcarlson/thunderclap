@@ -1355,3 +1355,17 @@ blocks fight::Action's whole family: the records come first there.
 - **Dropping /GX after the rewrite.** In the TUs left with no empty-destructor `??_G` block after the rewrite, every matches
   block still matched under /GX-, and two equivalent blocks' code changed (0x00285f50, 0x00254760): those two TUs keep
   `// cl-flags: /GX`; 126 TUs lose it (304 -> 178).
+
+## 2026-11-18 sweep-allocsize: allocation sizes by record (landed)
+
+- Allocation sizes written as the 32-bit literal are now `sizeof` of the record the code constructs, in about 375
+  blocks (start-up census group "32-bit-literal allocation sizes"). Details and leftovers are in
+  docs/native-build.md "sweep-allocsize (2026-11-18)".
+- Natively `size_t` is neither `unsigned int` nor `int`. A TU that declares an allocator under both spellings (here
+  `FUN_0008d690(unsigned int)` and `FUN_0008d690(int)`) makes `FUN_0008d690(sizeof(X))` ambiguous under clang for
+  arm64 and x86-64, while MSVC 7.1 picks the `unsigned int` overload. Write `(unsigned int)sizeof(X)`. verify --x64 did
+  not catch this. A clang -fsyntax-only pass with native_mac's front-end flags (for both Windows triples) did.
+- In a TU that has its own stub of a gen class, `sizeof(::Gen)` gives the gen class's size, but a local stub with
+  the same name gives the stub's. Check which one a site resolves to.
+- A local `char data[N]` stand-in keeps its 32-bit size natively. Writing `n*sizeof(Stub)` changes nothing unless the
+  stub is the real record, so derive it from gen's class instead (0x001ff580's CEncounterGenerator).

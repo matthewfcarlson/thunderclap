@@ -5816,3 +5816,32 @@ the `??_G`), 144 sharing a pin with such a block, 16 isolated TUs' other shapes,
 tech-debt.md); DefaultFrameControllerHandler.cpp and SeqEventSilence.cpp keep it (an equivalent block's code changes
 under /GX-). HULK_REFCOUNT_INLINE_DTOR is untouched: the rewritten blocks call the destructor's body by address, so
 its inline-ness doesn't reach them.
+
+## sweep-allocsize (2026-11-18)
+
+Group "32-bit-literal allocation sizes and byte-count arithmetic" of the start-up crash census: allocation sizes written as
+the 32-bit literal (`FUN_0008d690(0x24)`, `FUN_00263ec0(n*0x40+4)`, `0xa0` for 20 entries of a count and a pointer)
+are too small natively wherever the object holds pointers. The sweep writes each size as `sizeof` of the record the code
+constructs: gen's class where gen has it, a block-local `AllocWords_<addr>` (gen's record plus the allocation's last word
+the constructor does not write) where gen is 4 short, and element records for arrays with a count word. Two fixers
+(fix1 and fix2), one landing pass. About 375 blocks changed (matches stay MATCH with relocations ok; equivalent blocks
+kept their code hashes, or were re-proven: 0x0030e0a0, 0x000b1c90 and 0x000b23c0). About 230 sites are left over (their
+own allocator views, sizes that are not one record, or records still unknown).
+
+- gen: 15 classes in gen/global.h and gen/hulkfight.h got their full 32-bit sizes (config/gen-sizes.json),
+  CPhysicalController's 0x430 pad is spelled out, decls/managers.h holds the managers 0x00088670 allocates, and
+  decls/shader.h is new (HulkShader).
+- The landing pass found three sites that did not compile natively. Natively `size_t` matches neither
+  `FUN_0008d690(unsigned int)` nor `FUN_0008d690(int)`, so where a TU declares both, `FUN_0008d690(sizeof(X))` is
+  ambiguous (0x000605b0, 0x00156e30, 0x00188910). They are now written `(unsigned int)sizeof(...)`, which is the overload
+  MSVC picks. verify --x64 does not catch this kind of error. Before landing, both patches went through a
+  clang -fsyntax-only pass with the native front-end flags, for aarch64 and x86_64 (332 TUs, clean).
+- Three "fixes" were no-ops natively. 0x001ff580's encounter groups are now gen's CEncounterGenerator (0xc70, natively
+  0xc78). Its 64-byte trigger-volume element is still unidentified: the element's constructor is CLocator's, which
+  is 0x24 B. 0x001aaa10 now uses gen's Event_StringCondition. 0x000afbf0's 48-byte haptic element holds a refcounted
+  pointer at +0x2c (0x000afd00 releases it), so it is left unresolved.
+- Proof: control 90511 (HEAD 21a1c9a02) / proof 90678 (seed:90511), both on studio and replaying play3 to 60000: GATE ok.
+  The whole-tree verify --relocs --x64 (90510) had 0 errors and the gen probe was ok. Every changed block is MATCH with
+  relocations ok, or proven. It exits 1 only because of blocks that are unproven tree-wide, none of which this change
+  touched. The x64 gate re-run with HEAD 56cdc3090's x64_gate.py (90679, 388 blocks, no cache) was ok. Native mac:
+  2520/2520 tree TUs compile, and the unbound count went from 12262 (control) to 12260 (proof).

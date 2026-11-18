@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/hulkfight.h"
 #define TREE_TU_BEGIN namespace fn_ff9138b1 {
 #define TREE_TU_END }
 namespace fn_ff9138b1 {} using namespace fn_ff9138b1;
@@ -77,7 +78,7 @@ namespace fn_ff9138b1 {
 // 0x0015a5e0 fight::ConditionFactoryTemplate<hulkfight::motion::CollisionTargetNameCondition>::vfunc_5 (55 B): matches/0x0015a5e0.cpp
 // sym: ?Factory_vfunc5@fn_ff9138b1@@YAPAXPAVObj_15a5e0@1@@Z
 void* Factory_vfunc5(Obj_15a5e0* self) {
-    Obj_15a5e0* p = (Obj_15a5e0*)alloc(0x18);
+    Obj_15a5e0* p = (Obj_15a5e0*)alloc(sizeof(::hulkfight::motion::CollisionTargetNameCondition));
     if (p) {
         ((Temp_15a5e0*)p)->Init_00234590(0);
         *(hulk_intptr*)p = ((hulk_intptr)DAT_00414170);

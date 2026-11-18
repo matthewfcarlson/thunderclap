@@ -5,6 +5,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/global.h"
 #define TREE_TU_BEGIN namespace fn_f908f418 {
 #define TREE_TU_END }
 namespace fn_f908f418 {} using namespace fn_f908f418;
@@ -63,7 +64,7 @@ template <> void* fight::TrackFactoryCasterTemplate<CSmartPropThrowTrack>::vfunc
 // 0x00070300 fight::TrackFactoryTemplate<CSmartPropThrowTrack>::vfunc_5 (24 B): matches/0x00070300.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VCSmartPropThrowTrack@@@fight@@UAEPAXXZ
 template <> void* fight::TrackFactoryTemplate<CSmartPropThrowTrack>::vfunc_5() {
-    void* p = FUN_0008d690(0x44);
+    void* p = FUN_0008d690(sizeof(::CSmartPropThrowTrack));
     if (p)
         return (void*)(((Thing_70300*)p)->go_000628b0());
     return (void*)(0);

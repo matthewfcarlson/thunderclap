@@ -5,6 +5,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/global.h"
 #define TREE_TU_BEGIN namespace fn_fc3736bb {
 #define TREE_TU_END }
 namespace fn_fc3736bb {} using namespace fn_fc3736bb;
@@ -63,7 +64,7 @@ template <> void* fight::TrackFactoryCasterTemplate<CPropActorSetStateTrack>::vf
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VCPropActorSetStateTrack@@@fight@@UAEPAXXZ
 // Same code shape as 0x0006f4f0 (propagated; names are from that function)
 template <> void* fight::TrackFactoryTemplate<CPropActorSetStateTrack>::vfunc_5() {
-    Thing_6fd30* p = (Thing_6fd30*)operator new(0x14);
+    Thing_6fd30* p = (Thing_6fd30*)operator new(sizeof(::CPropActorSetStateTrack));
     if (p)
         return (void*)(p->init_00062cd0());
     return (void*)(0);

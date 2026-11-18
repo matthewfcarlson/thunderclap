@@ -86,7 +86,7 @@ hulk_intptr CGrappleKeyPoseTrack::vfunc_12(hulk_intptr __p0) { Owner_5a6d0 * own
     Settings* settings = slot->settings;
     if (settings == 0)
         return (int)(0);
-    Created_5a6d0* c = static_cast<Created_5a6d0*>(FUN_0008d690(0x30));
+    Created_5a6d0* c = static_cast<Created_5a6d0*>(FUN_0008d690(sizeof(::CKeyPoseAction)));
     if (c == 0)
         return (int)(0);
     return (hulk_intptr)(c->FUN_0001d100(this, settings));

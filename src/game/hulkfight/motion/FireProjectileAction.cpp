@@ -2043,7 +2043,7 @@ void FUN_0019a8d0()
 hulk_intptr hulkfight::motion::FireProjectileTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_19ada0 a = (u32_19ada0)__p0; u32_19ada0 b = (u32_19ada0)__p1; void * p = (void *)__p2;
 
     if (IsKindOf(p, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0)) {
-        Params_19ada0* q = (Params_19ada0*)Alloc_0008d690(0x34);
+        Params_19ada0* q = (Params_19ada0*)Alloc_0008d690((int)sizeof(::hulkfight::motion::FireProjectileAction));   // (allocsize1) the size by gen's record
         if (q)
             return q->Init_00195100(this, p);
     }
@@ -2261,7 +2261,7 @@ ProjectileEffect* ProjectileEffect::vfunc_2(unsigned char flags) {
 hulk_intptr hulkfight::motion::FireMissileTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     int result = ((int)(hulk_uintptr)__RTDynamicCast((void*)c, 0, (void*)(&TypeA_19b3c0), (void*)(&TypeB_19b3c0), 0));
     if (result) {
-        Object_19b3c0* p = Alloc_0008d690(0x24);
+        Object_19b3c0* p = Alloc_0008d690((int)sizeof(::hulkfight::motion::FireMissileAction));   // (allocsize1) the size by gen's record
         if (p)
             return p->Init_00196220(this, c);
     }
@@ -2570,7 +2570,7 @@ BeamEffect_19b830* BeamEffect_19b830::f2(unsigned char flags) {
 hulk_intptr hulkfight::motion::AccuracyLatencyTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_19b870 a = (u32_19b870)__p0; u32_19b870 b = (u32_19b870)__p1; void * p = (void *)__p2;
 
     if (IsKindOf(p, 0, &TypeA_19b870, &hulk_at_00494b60, 0)) {
-        Params_19b870* q = (Params_19b870*)Alloc_0008d690(0x34);
+        Params_19b870* q = (Params_19b870*)Alloc_0008d690((int)sizeof(::hulkfight::motion::AccuracyLatencyAction));   // (allocsize1) the size by gen's record
         if (q)
             return q->Init_001984c0(this, p);
     }

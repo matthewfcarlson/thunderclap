@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/global.h"
 #define TREE_TU_BEGIN namespace fn_f662c1ee {
 #define TREE_TU_END }
 namespace fn_f662c1ee {} using namespace fn_f662c1ee;
@@ -69,7 +70,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<CSmartPropAttachedCondit
 // 0x00058800 fight::ConditionFactoryTemplate<CSmartPropAttachedCondition>::vfunc_5 (58 B): matches/0x00058800.cpp
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VCSmartPropAttachedCondition@@@fight@@UAEPAXXZ
 template <> void* fight::ConditionFactoryTemplate<CSmartPropAttachedCondition>::vfunc_5() {
-    Condition_58800* p = (Condition_58800*)Allocate(0x18);
+    Condition_58800* p = (Condition_58800*)Allocate(sizeof(::CSmartPropAttachedCondition));
     if (p) {
         p->Initialize_00234590(0);
         p->vptr = (void*)((hulk_intptr)DAT_003f710c);

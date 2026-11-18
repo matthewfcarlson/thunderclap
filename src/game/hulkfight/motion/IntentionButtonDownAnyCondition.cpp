@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/hulkfight.h"
 #define TREE_TU_BEGIN namespace fn_f6697388 {
 #define TREE_TU_END }
 namespace fn_f6697388 {} using namespace fn_f6697388;
@@ -72,7 +73,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::motion::Inten
 // 0x0016d450 fight::ConditionFactoryTemplate<hulkfight::motion::IntentionButtonDownAnyCondition>::vfunc_5 (44 B): matches/0x0016d450.cpp
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VIntentionButtonDownAnyCondition@motion@hulkfight@@@fight@@UAEPAXXZ
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::IntentionButtonDownAnyCondition>::vfunc_5() {
-    InitThing* p = (InitThing*)FUN_0008d690(0x10);
+    InitThing* p = (InitThing*)FUN_0008d690(sizeof(::hulkfight::motion::IntentionButtonDownAnyCondition));
     if (p) {
         p->Init_00234590(0);
         *(void**)p = (void*)((hulk_intptr)DAT_00416698);

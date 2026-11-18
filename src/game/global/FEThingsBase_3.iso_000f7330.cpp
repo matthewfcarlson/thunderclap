@@ -239,7 +239,7 @@ void GlyphRun::FUN_000f7330(unsigned short *text, int font, int unused, int mode
                 fonts[font]->v14(&f.u1c.color);
                 f.u14.alpha = f.u1c.color >> 24;
                 f.u14.fade = 1.0f - (float)f.u14.alpha * 0.003921569f;
-                void *mem = FUN_0008d690(0x10);
+                void *mem = FUN_0008d690((int)sizeof(::pure3d::ShaderFloatBroadcast));   // (allocsize1) the size by gen's record
                 pure3d::ShaderFloatBroadcast *fd = 0;
                 if (mem != 0)
                     fd = ((ShaderFloatBroadcast_nv_f7330*)(((pure3d::ShaderFloatBroadcast*)(((pure3d::ShaderFloatBroadcast *)mem)))))->FUN_0028ee60(0x45444146, f.u14.fade);

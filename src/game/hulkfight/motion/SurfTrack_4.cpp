@@ -3,6 +3,7 @@
 #include "tree_prelude.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/hulkfight.h"
 #define TREE_TU_BEGIN namespace fn_f90b3df3 {
 #define TREE_TU_END }
 namespace fn_f90b3df3 {} using namespace fn_f90b3df3;
@@ -55,7 +56,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::SurfTrack
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VSurfTrack@motion@hulkfight@@@fight@@UAEPAXXZ
 // Same code shape as 0x00070420 (propagated; names are from that function)
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::SurfTrack>::vfunc_5() {
-    void* p = FUN_0008d690(0x48);
+    void* p = FUN_0008d690(sizeof(::hulkfight::motion::SurfTrack));
     if (p)
         return (void*)(((Track_17e7c0*)p)->Init_001709a0());
     return (void*)(0);

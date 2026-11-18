@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x00057f80..0x00058030 (kind game, layer game, confidence high), dominant class CGrappleSizeCondition
 #include "tree_prelude.h"
+#include "gen/global.h"   // (allocsize1)
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
@@ -64,7 +65,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<CGrappleSizeCondition>::
 // 0x00057fc0 fight::ConditionFactoryTemplate<CGrappleSizeCondition>::vfunc_5 (54 B): matches/0x00057fc0.cpp
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VCGrappleSizeCondition@@@fight@@UAEPAXXZ
 template <> void* fight::ConditionFactoryTemplate<CGrappleSizeCondition>::vfunc_5() {
-    AllocObj_57fc0* p = (AllocObj_57fc0*)FUN_0008d690(0x14);
+    AllocObj_57fc0* p = (AllocObj_57fc0*)FUN_0008d690((int)sizeof(::CGrappleSizeCondition));   // (allocsize1) the size by gen's record
     if (p) {
         p->Init_00234590(0);
         *(void**)p = (void*)((hulk_intptr)DAT_003f72e0);

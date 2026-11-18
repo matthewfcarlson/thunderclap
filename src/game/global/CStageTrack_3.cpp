@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x000775e0..0x00077690 (kind game, layer game, confidence high), dominant class CStageTrack
 #include "tree_prelude.h"
+#include "gen/global.h"   // (allocsize1)
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
@@ -64,7 +65,7 @@ template <> void* fight::TrackFactoryCasterTemplate<CStageTrack>::vfunc_1(void* 
 // 0x00077620 fight::TrackFactoryTemplate<CStageTrack>::vfunc_5 (59 B): matches/0x00077620.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VCStageTrack@@@fight@@UAEPAXXZ
 template <> void* fight::TrackFactoryTemplate<CStageTrack>::vfunc_5() {
-    CStageTrack_77620* p = (CStageTrack_77620*)FUN_0008d690(0x14);
+    CStageTrack_77620* p = (CStageTrack_77620*)FUN_0008d690((int)sizeof(::CStageTrack));   // (allocsize1) the size by gen's record
     if (p) {
         p->Init_00236d40();
         *(hulk_intptr*)p = ((hulk_intptr)DAT_003fc094);

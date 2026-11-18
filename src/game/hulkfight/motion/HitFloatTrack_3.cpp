@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/hulkfight.h"
 #define TREE_TU_BEGIN namespace fn_fddba4d1 {
 #define TREE_TU_END }
 namespace fn_fddba4d1 {} using namespace fn_fddba4d1;
@@ -65,7 +66,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::HitFloatT
 // 0x00159fa0 fight::TrackFactoryTemplate<hulkfight::motion::HitFloatTrack>::vfunc_5 (72 B): matches/0x00159fa0.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VHitFloatTrack@motion@hulkfight@@@fight@@UAEPAXXZ
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::HitFloatTrack>::vfunc_5() {
-    HitFloatTrack_159fa0* p = (HitFloatTrack_159fa0*)FUN_0008d690(0x28);
+    HitFloatTrack_159fa0* p = (HitFloatTrack_159fa0*)FUN_0008d690(sizeof(::hulkfight::motion::HitFloatTrack));
     if (p) {
         ((Initializer_159fa0*)p)->Init_00236d40();
         *(int*)((char*)p + 12) = 0;

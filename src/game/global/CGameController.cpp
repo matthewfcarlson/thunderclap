@@ -201,7 +201,7 @@ void InputTracker::FUN_000af170(float dt)
 // sym: ?ctor@CGameControllerManager_af310@fn_fb9e703c@@QAEPAV12@PAVArg_af310@2@@Z
 CGameControllerManager_af310* CGameControllerManager_af310::ctor(Arg_af310* a) {
     vptr = hulk_at_00405e3c;
-    void* p = operator new(0xb0);
+    void* p = operator new(sizeof(CGameController_af110));   // (allocsize1) the controller by its record (the constructor 0x000af110 above)
     Controller_af310* c;
     if (p) {
         c = ((CGameController_af310*)p)->Build_000af110(((int)((owners::C_ae640 *)a)->FUN_000ae640(0)));

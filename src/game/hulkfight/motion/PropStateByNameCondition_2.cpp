@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x0018c670..0x0018c720 (kind game, layer game, confidence high), dominant class hulkfight::motion::PropStateByNameCondition
 #include "tree_prelude.h"
+#include "gen/hulkfight.h"   // (allocsize1)
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
@@ -73,7 +74,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::motion::PropS
 // 0x0018c6b0 fight::ConditionFactoryTemplate<hulkfight::motion::PropStateByNameCondition>::vfunc_5 (62 B): matches/0x0018c6b0.cpp
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VPropStateByNameCondition@motion@hulkfight@@@fight@@UAEPAXXZ
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::PropStateByNameCondition>::vfunc_5() {
-    PropStateByNameCondition_18c6b0* p = (PropStateByNameCondition_18c6b0*)FUN_0008d690(0x20);
+    PropStateByNameCondition_18c6b0* p = (PropStateByNameCondition_18c6b0*)FUN_0008d690((int)sizeof(::hulkfight::motion::PropStateByNameCondition));   // (allocsize1) the size by gen's record
     if (p) {
         p->Init_00234590(0);
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_0041920c);

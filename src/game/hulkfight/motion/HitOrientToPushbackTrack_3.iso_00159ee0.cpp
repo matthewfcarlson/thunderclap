@@ -6,6 +6,7 @@
 // 0x00159ee0 fight::TrackFactoryTemplate<hulkfight::motion::HitOrientToPushbackTrack>::vfunc_5 (69 B): matches/0x00159ee0.cpp [isolated: helper definitions (2 out-of-line function bodies); on include/gen/ and not mergeable]
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VHitOrientToPushbackTrack@motion@hulkfight@@@fight@@UAEPAXXZ
 #include "gen/fight.h"
+#include "gen/hulkfight.h"
 
 void* operator new(size_t);
 struct Base_159ee0 {
@@ -29,7 +30,7 @@ Track_159ee0::Track_159ee0() {
 }
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::HitOrientToPushbackTrack>::vfunc_5() {
-    Track_159ee0* p = (Track_159ee0*)::operator new(0x24);
+    Track_159ee0* p = (Track_159ee0*)::operator new(sizeof(::hulkfight::motion::HitOrientToPushbackTrack));
     if (p) {
         p->Track_159ee0::Track_159ee0();
         return (void*)(p);

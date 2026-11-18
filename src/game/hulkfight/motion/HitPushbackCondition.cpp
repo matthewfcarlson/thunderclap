@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x001593b0..0x00159450 (kind game, layer game, confidence high), dominant class hulkfight::motion::HitPushbackCondition
 #include "tree_prelude.h"
+#include "gen/hulkfight.h"   // (allocsize1)
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
@@ -71,7 +72,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::motion::HitPu
 // 0x001593f0 fight::ConditionFactoryTemplate<hulkfight::motion::HitPushbackCondition>::vfunc_5 (44 B): matches/0x001593f0.cpp
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VHitPushbackCondition@motion@hulkfight@@@fight@@UAEPAXXZ
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::HitPushbackCondition>::vfunc_5() {
-    HitPushbackCondition_1593f0* p = (HitPushbackCondition_1593f0*)Alloc(0x10);
+    HitPushbackCondition_1593f0* p = (HitPushbackCondition_1593f0*)Alloc((int)sizeof(::hulkfight::motion::HitPushbackCondition));   // (allocsize1) the size by gen's record
     if (p) {
         p->Init_00234590(0);
         *(hulk_intptr*)p = (hulk_intptr)&hulk_at_00414050;

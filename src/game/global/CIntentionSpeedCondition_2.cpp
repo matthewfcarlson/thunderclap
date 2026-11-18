@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/global.h"
 #define TREE_TU_BEGIN namespace fn_f8c6c731 {
 #define TREE_TU_END }
 namespace fn_f8c6c731 {} using namespace fn_f8c6c731;
@@ -69,7 +70,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<CIntentionSpeedCondition
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VCIntentionSpeedCondition@@@fight@@UAEPAXXZ
 // Same code shape as 0x00057c10 (propagated; names are from that function)
 template <> void* fight::ConditionFactoryTemplate<CIntentionSpeedCondition>::vfunc_5() {
-    CCollisionPushbackYAngleCondition_58290* p = (CCollisionPushbackYAngleCondition_58290*)Alloc(0x14);
+    CCollisionPushbackYAngleCondition_58290* p = (CCollisionPushbackYAngleCondition_58290*)Alloc(sizeof(::CIntentionSpeedCondition));
     if (p) {
         p->Init_00234590(0);
         p->vptr = (hulk_uintptr)&hulk_at_003f7504;

@@ -1144,12 +1144,12 @@ CFMVManager::CFMVManager() {
 
     Registry_1b84f0* reg = FUN_001d4c90();
 
-    Closure2* playMovie = (Closure2*)FUN_0008d690(0x24);
+    Closure2* playMovie = (Closure2*)FUN_0008d690(sizeof(::Closure2< ::CFMVManager, void, const char*, int>));
     if (playMovie != 0)
         playMovie = playMovie->FUN_001b81a0("fmvm_PlayMovie", this, &CFMVManager::FUN_001b7960);
     reg->FUN_001d3b70("fmvm_PlayMovie", playMovie);
 
-    Closure2* playMovieAudio = (Closure2*)FUN_0008d690(0x24);
+    Closure2* playMovieAudio = (Closure2*)FUN_0008d690(sizeof(::Closure2< ::CFMVManager, void, const char*, int>));
     if (playMovieAudio != 0)
         playMovieAudio = playMovieAudio->FUN_001b81a0("fmvm_PlayMovieWithAudio", this, &CFMVManager::FUN_001b7960);
     reg->FUN_001d3b70("fmvm_PlayMovieWithAudio", playMovieAudio);

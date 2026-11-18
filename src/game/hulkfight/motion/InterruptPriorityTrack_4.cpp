@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/hulkfight.h"
 #define TREE_TU_BEGIN namespace fn_f4b23336 {
 #define TREE_TU_END }
 namespace fn_f4b23336 {} using namespace fn_f4b23336;
@@ -56,8 +57,12 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::Interrupt
 
 // 0x00159e20 fight::TrackFactoryTemplate<hulkfight::motion::InterruptPriorityTrack>::vfunc_5 (66 B): matches/0x00159e20.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VInterruptPriorityTrack@motion@hulkfight@@@fight@@UAEPAXXZ
+struct AllocWords_159e20 : ::hulkfight::motion::InterruptPriorityTrack {   // (sweep-allocsize) gen's words and the allocation's last word (gen's size is its
+    int last;                                                             // last field's end, 4 short of the 0x18-byte allocation)
+};
+typedef char AllocWords_159e20_size32[(sizeof(void*) != 4 || sizeof(AllocWords_159e20) == 0x18) ? 1 : -1];
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::InterruptPriorityTrack>::vfunc_5() {
-    char* p = (char*)Alloc(0x18);
+    char* p = (char*)Alloc(sizeof(AllocWords_159e20));
     if (p) {
         ((TrackBase_159e20*)p)->Init_00236d40();
         *(hulk_intptr*)p = ((hulk_intptr)DAT_00414330);

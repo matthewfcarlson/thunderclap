@@ -8,6 +8,8 @@
 #include "decls/data/game/Render.h"
 #include "decls/data/game/Render/Canvas.h"
 #include "decls/data/game/global.h"
+#include "decls/shader.h"
+#include "decls/loaders.h"
 #include "gen/Render.h"
 #include "gen/owners.h"
 #define TREE_TU_BEGIN namespace fn_f9d12736 {
@@ -424,6 +426,12 @@ struct RoomLoader_1c8f60 {
     RoomLoader_1c8f60* Init_001c6d10(unsigned p);
 };
 extern RoomLoader_1c8f60* __cdecl Alloc_00263ea0(unsigned n);
+// (sweep-allocsize) Render::RoomLoader's words, as its constructor 0x001c6d10 writes them: a simple chunk handler's
+// (decls/loaders.h) and its argument; allocated by this record's size (0x18 on the 32-bit builds)
+struct RoomLoaderWords_1c8f60 : HulkChunkHandler {
+    int arg;
+};
+HULK_LOADER_SIZE32(RoomLoaderWords_1c8f60, 0x18);
 class LevelLoader {
   public:
     hulk_uintptr vptr;
@@ -1191,7 +1199,7 @@ LevelLoader::LevelLoader(hulk_uintptr a, hulk_uintptr b) {
     vptr = ((hulk_intptr)DAT_00421abc);
     m14 = a;
     m18 = b;
-    RoomLoader_1c8f60* t = Alloc_00263ea0(0x18);
+    RoomLoader_1c8f60* t = Alloc_00263ea0(sizeof(RoomLoaderWords_1c8f60));
     RoomLoader_1c8f60* r;
     if (t)
         r = t->Init_001c6d10(m14);
@@ -1246,7 +1254,7 @@ for(int j=0;j<4;++j) fields53c[j]=0;
 last.FUN_0027af00();
 for(int k=0;k<4;++k) fields53c[k]=0;
 field538=0; field54c=0; field8=0; fieldC=0;
-Shader_1c9030* r=(Shader_1c9030*)FUN_00263ea0(32); if(r) r=r->FUN_0028edb0(); resource=r; r->init(); resource->stream->s6(0x444d4c42,4);
+Shader_1c9030* r=(Shader_1c9030*)FUN_00263ea0(sizeof(HulkShader)); if(r) r=r->FUN_0028edb0(); resource=r; r->init(); resource->stream->s6(0x444d4c42,4);
 pure3d::ShadowGenerator* s=(pure3d::ShadowGenerator*)FUN_0008d690((int)sizeof(pure3d::ShadowGenerator));
 if(s) { s->value=0; new(s) pure3d::ShadowGenerator; s->data.FUN_002a30a0(); }
 shadow=s; s->init_00018b30();

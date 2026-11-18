@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x000580f0..0x000581a0 (kind game, layer game, confidence high), dominant class CGroundDistanceCondition
 #include "tree_prelude.h"
+#include "gen/global.h"   // (allocsize1)
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
@@ -64,7 +65,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<CGroundDistanceCondition
 // 0x00058130 fight::ConditionFactoryTemplate<CGroundDistanceCondition>::vfunc_5 (54 B): matches/0x00058130.cpp
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VCGroundDistanceCondition@@@fight@@UAEPAXXZ
 template <> void* fight::ConditionFactoryTemplate<CGroundDistanceCondition>::vfunc_5() {
-    GroundCondition* p = (GroundCondition*)Alloc(0x14);
+    GroundCondition* p = (GroundCondition*)Alloc((int)sizeof(::CGroundDistanceCondition));   // (allocsize1) the size by gen's record
     if (p) {
         p->Init_00234590(0);
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_003f6f5c);

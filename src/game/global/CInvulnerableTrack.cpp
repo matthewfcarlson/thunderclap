@@ -121,7 +121,7 @@ struct CInvulnerableTrack {
 };
 CInvulnerableAction_6aa10* CInvulnerableTrack::vfunc_12(void* argument)
 {
-    CInvulnerableAction_6aa10* object = (CInvulnerableAction_6aa10*)FUN_0008d690(0x24);
+    CInvulnerableAction_6aa10* object = (CInvulnerableAction_6aa10*)FUN_0008d690(sizeof(::CInvulnerableAction));
     if (object != 0)
         return object->FUN_000200a0(argument, source);
     return 0;

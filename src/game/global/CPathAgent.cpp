@@ -199,7 +199,7 @@ CPathAgent::CPathAgent(Arg_1047b0* arg) : FUN_000fc760(arg) {
  f88=0; f89=1; f90=0; f91=0; f9c=0;
  f8c=1.0f; f94=1.0f; f98=1.0f;
  fc4=0; fc0=0; fbc=0; fe0=0; fdc=0; fd8=0; fe4=0; ff0=0; fec=0; fe8=0; ff4=0; ff8=999.0f;
- Obj_1047b0* p=(Obj_1047b0*)FUN_0008d690(0x38);
+ Obj_1047b0* p=(Obj_1047b0*)FUN_0008d690((int)sizeof(::CAvoidBehaviour));   // (allocsize1) the size by gen's record
  fc8=p ? p->FUN_00109ba0() : 0;
  fc8->retain();
 }

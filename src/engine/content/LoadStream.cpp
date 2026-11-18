@@ -194,10 +194,11 @@ struct Item_265280 {
 };
 struct Owner_265280 {  };
 struct Entry_265280 { Item_265280* item; unsigned value; };
-struct Queue_265280 {
+struct Queue_265280 {            // (sweep-allocsize) the registry (decls/loaders.h HulkContentRegistry): its request ring
     char pad0[8];
     Owner_265280* owner;
-    char padC[8];
+    void* first;                 // (natively the two blocks are pointers: the ring's words start at +0x20, not +0x18)
+    void* second;
     Entry_265280* read;
     Entry_265280* write;
     Entry_265280* begin;
@@ -328,12 +329,13 @@ struct W_2659a0 {
   char pad[0xc]; void* first; Pool_2659a0* pool;   // (x64t7) the registry's words: the first table (0xc) a pointer, so the second at 0x18 natively
   void FUN_002659a0(int);
 };
-class Thing_265ad0 {
-  public:
+class Thing_265ad0 {               // (sweep-allocsize) the registry (decls/loaders.h HulkContentRegistry): its request
+  public:                          // ring's head, tail, start and end are entries (a pointer and a word), not ints
     char pad0[8];
-    int field8;
-    char padc[8];
-    unsigned int a, b, c, d;
+    void* field8;
+    void* first;
+    void* second;
+    HulkLoadEntry *a, *b, *c, *d;
     void step_002655b0();
 };
 struct Params {
@@ -953,9 +955,9 @@ void Queue_265280::clear() {
     for (;;) {
         unsigned count;
         if ((hulk_uintptr)read <= (hulk_uintptr)write)
-            count = ((int)((hulk_uintptr)write - (hulk_uintptr)read)) >> 3;
+            count = (int)(write - read);   // (sweep-allocsize) the entries by their type (a pointer and a word)
         else
-            count = (((int)((hulk_uintptr)write - (hulk_uintptr)begin)) >> 3) + (((int)((hulk_uintptr)end - (hulk_uintptr)read)) >> 3);
+            count = (int)(write - begin) + (int)(end - read);
         if (!count) break;
         Item_265280* item = read->item;
         unsigned value = read->value;
@@ -1301,12 +1303,13 @@ namespace fn_fa1126e6 {
 // sym: ?target@fn_fa1126e6@@YIXPAVThing_265ad0@1@@Z
 void __fastcall target(Thing_265ad0* self) {
     for (;;) {
-        unsigned int x = self->a, y = self->b;
+        HulkLoadEntry* x = self->a;
+        HulkLoadEntry* y = self->b;
         int n;
         if (x <= y)
-            n = (int)(y - x) >> 3;
+            n = (int)(y - x);
         else
-            n = ((int)(y - self->c) >> 3) + ((int)(self->d - x) >> 3);
+            n = (int)(y - self->c) + (int)(self->d - x);
         if ((unsigned int)n > 0 || self->field8 != 0)
             self->step_002655b0();
         else

@@ -158,6 +158,10 @@ Expression_2afb70::~Expression_2afb70() {
 
 // 0x002afba0 pure3d::ExpressionLoader::vfunc_5 (363 B): equivalent/0x002afba0.cpp
 // sym: ?vfunc_5@ExpressionLoader@pure3d@@UAEXPAX00H@Z @96b7947be2b8 @wf75b213495ce @v5bc11b1365f6
+struct AllocWords_2afba0 : pure3d::Expression_2afba0 {   // (sweep-allocsize) the object's words and the allocation's last word (the
+    int last;   // record's size is its last field's end, 4 short of the 0x20-byte allocation)
+};
+typedef char AllocWords_2afba0_size32[(sizeof(void*) != 4 || sizeof(AllocWords_2afba0) == 0x20) ? 1 : -1];
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 10/10)
 // pure3d::ExpressionLoader::vfunc_5 @ 0x002afba0
 void pure3d::ExpressionLoader::vfunc_5(void* __p0, void* __p1, void* __p2, hulk_intptr __p3) { pure3d::Expression_2afba0 ** out = (pure3d::Expression_2afba0 **)__p0; unsigned long long * outId = (unsigned long long *)__p1; Stream_2afba0 * s = (Stream_2afba0 *)__p2; void * ctx = (void *)__p3;
@@ -168,7 +172,7 @@ void pure3d::ExpressionLoader::vfunc_5(void* __p0, void* __p1, void* __p2, hulk_
     ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((void*)(f.name), (hulk_intptr)(f.len), 1, (hulk_intptr)1);
     f.name[f.len] = 0;
 
-    void *mem = FUN_00263ea0(0x20);
+    void *mem = FUN_00263ea0(sizeof(AllocWords_2afba0));
     pure3d::Expression_2afba0 *e = 0;
     if (mem)
         e = new (mem) pure3d::Expression_2afba0();

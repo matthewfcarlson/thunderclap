@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/hulkfight.h"
 #define TREE_TU_BEGIN namespace fn_fc49459c {
 #define TREE_TU_END }
 namespace fn_fc49459c {} using namespace fn_fc49459c;
@@ -56,7 +57,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::FireMissi
 // 0x001a11b0 fight::TrackFactoryTemplate<hulkfight::motion::FireMissileTrack>::vfunc_5 (27 B): matches/0x001a11b0.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VFireMissileTrack@motion@hulkfight@@@fight@@UAEPAXXZ
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::FireMissileTrack>::vfunc_5() {
-    Track_1a11b0* p = (Track_1a11b0*)::operator new(0x148);
+    Track_1a11b0* p = (Track_1a11b0*)::operator new(sizeof(::hulkfight::motion::FireMissileTrack));
     if (p)
         return (void*)(p->Init_00194290());
     return (void*)(0);

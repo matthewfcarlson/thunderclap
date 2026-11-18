@@ -479,12 +479,12 @@ hulk_intptr __fastcall FUN_00231640(C_231640* p) {
 // STATUS: equivalent (tools/equiv.py level 3: 39 inputs, branch coverage 11/12, incomplete)
 // FUN_00231690 @ 0x00231690
 void Table_231690::FUN_00231690() {
- void** savedEntries = (void**)FUN_00266e00(1, count * 4);
- Pair_231690* savedPairs = (Pair_231690*)FUN_00266e00(1, count * 8);
+ void** savedEntries = (void**)FUN_00266e00(1, count * sizeof(void*));   // (sweep-allocsize) the slots are pointers
+ Pair_231690* savedPairs = (Pair_231690*)FUN_00266e00(1, count * sizeof(Pair_231690));
  uint i;
- uint n = (count * 4) / 4;
+ uint n = (count * sizeof(void*)) / sizeof(void*);
  for (i=0; i<n; ++i) savedEntries[i] = entries[i];
- n = (count * 8) / 4;
+ n = (count * sizeof(Pair_231690)) / 4;
  uint* dst = (uint*)savedPairs;
  uint* src = (uint*)pairs;
  for (i=0; i<n; ++i) dst[i] = src[i];

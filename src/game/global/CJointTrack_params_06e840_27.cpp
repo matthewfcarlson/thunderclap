@@ -5,6 +5,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/global.h"
 #define TREE_TU_BEGIN namespace fn_f3ae5866 {
 #define TREE_TU_END }
 namespace fn_f3ae5866 {} using namespace fn_f3ae5866;
@@ -63,9 +64,13 @@ template <> void* fight::TrackFactoryCasterTemplate<CSmartPropEventTrack>::vfunc
 
 // 0x000700c0 fight::TrackFactoryTemplate<CSmartPropEventTrack>::vfunc_5 (24 B): matches/0x000700c0.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VCSmartPropEventTrack@@@fight@@UAEPAXXZ
+struct AllocWords_700c0 : ::CSmartPropEventTrack {   // (sweep-allocsize) gen's words and the allocation's last word (gen's size is its
+    int last;                                       // last field's end, 4 short of the 0x18-byte allocation)
+};
+typedef char AllocWords_700c0_size32[(sizeof(void*) != 4 || sizeof(AllocWords_700c0) == 0x18) ? 1 : -1];
 // Same code shape as 0x0006f2b0 (propagated; names are from that function)
 template <> void* fight::TrackFactoryTemplate<CSmartPropEventTrack>::vfunc_5() {
-    void* p = FUN_0008d690(0x18);
+    void* p = FUN_0008d690(sizeof(AllocWords_700c0));
     if (p)
         return (void*)(((Effect_700c0*)p)->Init_00062b50());
     return (void*)(0);

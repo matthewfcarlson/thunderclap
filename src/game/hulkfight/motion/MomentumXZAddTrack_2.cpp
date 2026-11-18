@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x0017e560..0x0017e610 (kind game, layer game, confidence high), dominant class hulkfight::motion::MomentumXZAddTrack
 #include "tree_prelude.h"
+#include "gen/hulkfight.h"   // (allocsize1)
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
@@ -66,7 +67,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::MomentumX
 // 0x0017e5a0 fight::TrackFactoryTemplate<hulkfight::motion::MomentumXZAddTrack>::vfunc_5 (63 B): matches/0x0017e5a0.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VMomentumXZAddTrack@motion@hulkfight@@@fight@@UAEPAXXZ
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::MomentumXZAddTrack>::vfunc_5() {
-    MomentumXZAddTrack_17e5a0* p = (MomentumXZAddTrack_17e5a0*)Alloc(0x18);
+    MomentumXZAddTrack_17e5a0* p = (MomentumXZAddTrack_17e5a0*)Alloc((int)sizeof(::hulkfight::motion::MomentumXZAddTrack));   // (allocsize1) the size by gen's record
     if (p) {
         p->Init_00236d40();
         p->x = -1.0f;

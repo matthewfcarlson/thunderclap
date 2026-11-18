@@ -3074,8 +3074,10 @@ namespace fn_001ff580 {
 
 extern void* __cdecl FUN_00263ec0(unsigned);
 extern "C" void* __cdecl FUN_0008d6d0(unsigned);
-struct CLocator_1ff580 { char data[64]; void FUN_001fbf40(); };
-struct CEncounterGenerator_1ff580 { char data[0xc70]; void FUN_001fa630(); };
+struct CLocator_1ff580 { char data[64]; void FUN_001fbf40(); };   // (sweep-allocsize) unidentified: a 64-byte element whose
+                                                                  // constructor is CLocator's (0x24 B); its native size is unknown
+struct CEncounterGenerator_1ff580 : ::CEncounterGenerator { void FUN_001fa630(); };   // (sweep-allocsize) gen's record (0xc70 B)
+typedef char CEncounterGenerator_1ff580_size32[(sizeof(void*) != 4 || sizeof(CEncounterGenerator_1ff580) == 0xc70) ? 1 : -1];
 struct Entry_1ff580 { unsigned count; CLocator_1ff580* volumes; };
 struct CTriggerVolumeManager {
  virtual void* slot0_001ff750(char);
@@ -3094,7 +3096,7 @@ struct CTriggerVolumeManager {
 CTriggerVolumeManager::CTriggerVolumeManager() {
  for(int i=0;i<128;++i) table[i]=0;
  count=0;
- unsigned* allocation=(unsigned*)FUN_00263ec0(0x4004);
+ unsigned* allocation=(unsigned*)FUN_00263ec0(256*sizeof(CLocator_1ff580)+4);   // (allocsize1) the elements by their records, after the count word
  CLocator_1ff580* first=0;
  if(allocation) {
   first=(CLocator_1ff580*)(allocation+1); *allocation=256;
@@ -3102,10 +3104,10 @@ CTriggerVolumeManager::CTriggerVolumeManager() {
  }
  volumes=first;
  for(int type=0;type<6;++type) {
-  entries[type]=(Entry_1ff580*)FUN_0008d6d0(0xa0);
+  entries[type]=(Entry_1ff580*)FUN_0008d6d0(20*sizeof(Entry_1ff580));   // (allocsize1) count + volumes pointer: 0xa0 on 32-bit
   for(int j=0;j<20;++j) {
    unsigned n=((unsigned*)&DAT_00425168)[type];
-   unsigned* block=(unsigned*)(n ? FUN_00263ec0((n<<6)+4) : FUN_0008d6d0(4));
+   unsigned* block=(unsigned*)(n ? FUN_00263ec0(n*sizeof(CLocator_1ff580)+4) : FUN_0008d6d0(4));
    CLocator_1ff580* result=0;
    if(block) {
     result=(CLocator_1ff580*)(block+1); *block=n;
@@ -3118,10 +3120,10 @@ CTriggerVolumeManager::CTriggerVolumeManager() {
    entries[type][j].count=0;
   }
  }
- indices=(int*)FUN_0008d6d0(0x50);
+ indices=(int*)FUN_0008d6d0(20*sizeof(int));
  for(int k=0;k<20;++k) indices[k]=-1;
  selected=-1; active=0;
- unsigned* block=(unsigned*)FUN_00263ec0(0x6384);
+ unsigned* block=(unsigned*)FUN_00263ec0(8*sizeof(CEncounterGenerator_1ff580)+4);
  CEncounterGenerator_1ff580* result=0;
  if(block) {
   result=(CEncounterGenerator_1ff580*)(block+1); *block=8;

@@ -25,7 +25,7 @@ hulkfight::motion::VarAssignAction* __cdecl Alloc_0008d690(int);
 hulk_intptr hulkfight::motion::VarAssignTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     int result = ((int)(hulk_uintptr)__RTDynamicCast((void*)c, 0, (void*)(&hulk_at_00494b44), (void*)(&hulk_at_00494b60), 0));
     if (result) {
-        hulkfight::motion::VarAssignAction* p = Alloc_0008d690(0x24);
+        hulkfight::motion::VarAssignAction* p = Alloc_0008d690((int)sizeof(::hulkfight::motion::VarAssignAction));   // (allocsize1) the size by gen's record
         if (p)
             return ((VarAssignAction_nv_18e140*)(((hulkfight::motion::VarAssignAction*)(p))))->Init_0018d3f0(this, c);
     }

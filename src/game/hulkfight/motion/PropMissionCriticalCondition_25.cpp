@@ -108,7 +108,7 @@ class PropThrowAction_188fb0 {
 hulk_intptr hulkfight::motion::PropDamageTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     int result = ((int)(hulk_uintptr)__RTDynamicCast((void*)c, 0, (void*)(&hulk_at_00494b44), (void*)(&hulk_at_00494b60), 0));
     if (result) {
-        Object_188d80* p = FUN_0008d690(0x24);
+        Object_188d80* p = FUN_0008d690(sizeof(::hulkfight::motion::PropDamageAction));
         if (p)
             return p->Init_00183f60(this, c);
     }
@@ -146,7 +146,7 @@ PropDamageAction_188dd0* PropDamageAction_188dd0::vfunc_2(int flag) {
 hulk_intptr hulkfight::motion::GrapplePropDamageTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     int result = ((int)(hulk_uintptr)__RTDynamicCast((void*)c, 0, (void*)(&TypeA_188e20), (void*)(&TypeB_188e20), 0));
     if (result) {
-        hulkfight::motion::GrapplePropDamageAction* p = Alloc_0008d690(0x24);
+        hulkfight::motion::GrapplePropDamageAction* p = Alloc_0008d690(sizeof(::hulkfight::motion::GrapplePropDamageAction));
         if (p)
             return ((GrapplePropDamageAction_nv_188e20*)(((hulkfight::motion::GrapplePropDamageAction*)(p))))->Init_00183ff0(this, c);
     }

@@ -68,7 +68,7 @@ namespace fn_f06dc002 {
 // 0x0012aed0 fight::TrackFactoryTemplate<hulkfight::ai::TargetClearTrack>::vfunc_5 (56 B): matches/0x0012aed0.cpp
 // sym: ?factory@fn_f06dc002@@YAPAUObj_12aed0@1@XZ
 Obj_12aed0* factory() {
-    Obj_12aed0* p = (Obj_12aed0*)alloc(0x14);
+    Obj_12aed0* p = (Obj_12aed0*)alloc((int)sizeof(Obj_12aed0));   // (allocsize1) the size by the record the code writes
     if (p) {
         p->initBase_00236d40();
         p->vptr = &hulk_at_0040ff74;

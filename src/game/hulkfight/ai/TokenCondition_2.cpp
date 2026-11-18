@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x001146d0..0x00114770 (kind game, layer game, confidence high), dominant class hulkfight::ai::TokenCondition
 #include "tree_prelude.h"
+#include "gen/hulkfight.h"   // (allocsize1)
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
@@ -63,7 +64,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::ai::TokenCond
 // 0x00114710 fight::ConditionFactoryTemplate<hulkfight::ai::TokenCondition>::vfunc_5 (48 B): matches/0x00114710.cpp
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VTokenCondition@ai@hulkfight@@@fight@@UAEPAXXZ
 template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::TokenCondition>::vfunc_5() {
-    void* p = FUN_0008d690(0x10);
+    void* p = FUN_0008d690((int)sizeof(::hulkfight::ai::TokenCondition));   // (allocsize1) the size by gen's record
     if (p) {
         ((InitObj_114710*)p)->Init_00234590(0);
         ((u8*)p)[0xc] = 1;

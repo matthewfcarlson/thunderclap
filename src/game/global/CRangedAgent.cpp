@@ -596,7 +596,7 @@ public:
 CRangedAgent::CRangedAgent(hulk_intptr arg) : CCharacterAgent_1076f0(arg)
 {
     CAvoidBehaviour_1076f0 *w = 0;
-    void *mem = FUN_0008d690(0x38);
+    void *mem = FUN_0008d690(sizeof(::CAvoidBehaviour));
     if (mem != 0)
         w = ((CAvoidBehaviour_1076f0 *)mem)->FUN_00109ba0();
     f5c = w;

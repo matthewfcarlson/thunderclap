@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x00159b00..0x00159bb0 (kind game, layer game, confidence high), dominant class hulkfight::motion::InterruptAccumulatorSetTrack
 #include "tree_prelude.h"
+#include "gen/hulkfight.h"   // (allocsize1)
 #include "gen/fight.h"
 #include "gen/owners.h"
 #define TREE_TU_BEGIN namespace fn_fb5b8e43 {
@@ -66,7 +67,7 @@ namespace fn_fb5b8e43 {
 // 0x00159b40 fight::TrackFactoryTemplate<hulkfight::motion::InterruptAccumulatorSetTrack>::vfunc_5 (59 B): matches/0x00159b40.cpp
 // sym: ?vfunc_5@Track@fn_fb5b8e43@@UAEPAXXZ
 void* Track::vfunc_5() {
-    Track* p = (Track*)malloc(0x14);
+    Track* p = (Track*)malloc((int)sizeof(::hulkfight::motion::InterruptAccumulatorSetTrack));   // (allocsize1) the size by gen's record
     if (p) {
         p->init_00236d40();
         *(int**)p = &hulk_at_00414210;

@@ -142,7 +142,7 @@ unsigned char Obj::Set(const Vec* v) {
 // sym: ?vfunc_12@CJointTrack@@UAEHH@Z
 // Same code shape as 0x0005dd70 (propagated; names are from that function)
 hulk_intptr CJointTrack::vfunc_12(hulk_intptr param) {
-    Helper_68dc0* p = (Helper_68dc0*)FUN_0008d690(0x28);
+    Helper_68dc0* p = (Helper_68dc0*)FUN_0008d690((int)sizeof(::CJointAction));   // (allocsize1) the size by gen's record
     if (p)
         return p->FUN_00018b90(this, param);
     return 0;

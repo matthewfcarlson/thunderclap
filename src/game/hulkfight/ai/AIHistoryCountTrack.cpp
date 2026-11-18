@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/hulkfight.h"
 #define TREE_TU_BEGIN namespace fn_f496d4dd {
 #define TREE_TU_END }
 namespace fn_f496d4dd {} using namespace fn_f496d4dd;
@@ -66,7 +67,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::ai::AIHistoryCoun
 // 0x001149d0 fight::TrackFactoryTemplate<hulkfight::ai::AIHistoryCountTrack>::vfunc_5 (45 B): matches/0x001149d0.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VAIHistoryCountTrack@ai@hulkfight@@@fight@@UAEPAXXZ
 template <> void* fight::TrackFactoryTemplate<hulkfight::ai::AIHistoryCountTrack>::vfunc_5() {
-    AIHistoryCountTrack_1149d0* p = (AIHistoryCountTrack_1149d0*)Alloc(16);
+    AIHistoryCountTrack_1149d0* p = (AIHistoryCountTrack_1149d0*)Alloc(sizeof(::hulkfight::ai::AIHistoryCountTrack));
     if (p) {
         p->AIHistoryCountTrack_1149d0::AIHistoryCountTrack_1149d0();
         p->vptr = ((hulk_intptr)DAT_0040dbe4);

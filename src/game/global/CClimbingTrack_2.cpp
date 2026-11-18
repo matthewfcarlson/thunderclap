@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x00075f90..0x00076040 (kind game, layer game, confidence high), dominant class CClimbingTrack
 #include "tree_prelude.h"
+#include "gen/global.h"   // (allocsize1)
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
@@ -64,7 +65,7 @@ template <> void* fight::TrackFactoryCasterTemplate<CClimbingTrack>::vfunc_1(voi
 // 0x00075fd0 fight::TrackFactoryTemplate<CClimbingTrack>::vfunc_5 (59 B): matches/0x00075fd0.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VCClimbingTrack@@@fight@@UAEPAXXZ
 template <> void* fight::TrackFactoryTemplate<CClimbingTrack>::vfunc_5() {
-    void* p = Allocate(0x14);
+    void* p = Allocate((int)sizeof(::CClimbingTrack));   // (allocsize1) the size by gen's record
     if (p) {
         ((Init_75fd0*)p)->InitFn_00236d40();
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_003fba38);

@@ -26,7 +26,7 @@ hulkfight::motion::ClearFightParamsHitRecordAction* __cdecl Alloc_0008d690(int);
 hulk_intptr hulkfight::motion::ClearFightParamsHitRecordTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     int result = ((int)(hulk_uintptr)__RTDynamicCast((void*)c, 0, (void*)(&hulk_at_00494b44), (void*)(&hulk_at_00494b60), 0));
     if (result) {
-        hulkfight::motion::ClearFightParamsHitRecordAction* p = Alloc_0008d690(0x24);
+        hulkfight::motion::ClearFightParamsHitRecordAction* p = Alloc_0008d690((int)sizeof(::hulkfight::motion::ClearFightParamsHitRecordAction));   // (allocsize1) the size by gen's record
         if (p)
             return ((ClearFightParamsHitRecordAction_nv_1575a0*)(((hulkfight::motion::ClearFightParamsHitRecordAction*)(p))))->Init_001526c0(this, c);
     }

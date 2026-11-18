@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x0016e380..0x0016e430 (kind game, layer game, confidence high), dominant class hulkfight::motion::VelocityAnimatedCondition
 #include "tree_prelude.h"
+#include "gen/hulkfight.h"   // (allocsize1)
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
@@ -62,7 +63,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::motion::Veloc
 // 0x0016e3c0 fight::ConditionFactoryTemplate<hulkfight::motion::VelocityAnimatedCondition>::vfunc_5 (54 B): matches/0x0016e3c0.cpp
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VVelocityAnimatedCondition@motion@hulkfight@@@fight@@UAEPAXXZ
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::VelocityAnimatedCondition>::vfunc_5() {
-    fight::ConditionFactoryTemplate<hulkfight::motion::VelocityAnimatedCondition>* p = (fight::ConditionFactoryTemplate<hulkfight::motion::VelocityAnimatedCondition>*)FUN_0008d690(0x14);
+    fight::ConditionFactoryTemplate<hulkfight::motion::VelocityAnimatedCondition>* p = (fight::ConditionFactoryTemplate<hulkfight::motion::VelocityAnimatedCondition>*)FUN_0008d690((int)sizeof(::hulkfight::motion::VelocityAnimatedCondition));   // (allocsize1) the size by gen's record
     if (p) {
         ((ConditionFactoryTemplate_nv_16e3c0*)(p))->Init_00234590(0);
         *(hulk_intptr*)p = ((hulk_intptr)DAT_004169d8);

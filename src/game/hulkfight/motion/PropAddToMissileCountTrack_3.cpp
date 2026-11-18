@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x0018c2d0..0x0018c390 (kind game, layer game, confidence high), dominant class hulkfight::motion::PropAddToMissileCountTrack
 #include "tree_prelude.h"
+#include "gen/hulkfight.h"   // (allocsize1)
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
@@ -63,7 +64,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::PropAddTo
 // 0x0018c310 fight::TrackFactoryTemplate<hulkfight::motion::PropAddToMissileCountTrack>::vfunc_5 (66 B): matches/0x0018c310.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VPropAddToMissileCountTrack@motion@hulkfight@@@fight@@UAEPAXXZ
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::PropAddToMissileCountTrack>::vfunc_5() {
-    Prop_18c310* p = (Prop_18c310*)alloc(0x18);
+    Prop_18c310* p = (Prop_18c310*)alloc((int)sizeof(::hulkfight::motion::PropAddToMissileCountTrack));   // (allocsize1) the size by gen's record
     if (p) {
         p->Init_00236d40();
         p->vptr = (hulk_intptr)&hulk_at_0041953c;

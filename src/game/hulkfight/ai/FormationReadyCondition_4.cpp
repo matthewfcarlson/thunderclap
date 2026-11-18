@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/hulkfight.h"
 #define TREE_TU_BEGIN namespace fn_fc50ae1d {
 #define TREE_TU_END }
 namespace fn_fc50ae1d {} using namespace fn_fc50ae1d;
@@ -64,7 +65,7 @@ namespace fn_fc50ae1d {
 // 0x00114390 fight::ConditionFactoryTemplate<hulkfight::ai::FormationReadyCondition>::vfunc_5 (54 B): matches/0x00114390.cpp
 // sym: ?ConditionFactory_vfunc5@fn_fc50ae1d@@YAPAXXZ
 void* ConditionFactory_vfunc5() {
-    FormationReadyCondition* p = (FormationReadyCondition*)FUN_0008d690(0x14);
+    FormationReadyCondition* p = (FormationReadyCondition*)FUN_0008d690(sizeof(::hulkfight::ai::FormationReadyCondition));
     if (p) {
         p->Init_00234590(0);
         *(hulk_intptr*)p = ((hulk_intptr)DAT_0040daa4);

@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x001efb80..0x001f0290 (kind game, layer game, confidence low)
 #include "tree_prelude.h"
+#include "gen/global.h"   // (allocsize1)
 #include "compat/ptr.h"
 #include "decls/data/game/unknown.h"
 #include "decls/data/records.h"
@@ -206,7 +207,7 @@ Node *NodeTree::Find(KeyList_1efb80 *path)
 void __stdcall FUN_001efca0(int eventId) {
     SoundQueue* queue = (*(SoundQueue**)&DAT_004e3710);
     if (queue) {
-        void* memory = FUN_0008d710(16, 6);
+        void* memory = FUN_0008d710((int)sizeof(::CSoundCommand_PlayCuedNISEvent), 6);   // (allocsize1) the size by gen's record
         CSoundCommand_PlayCuedNISEvent* command = 0;
         if (memory) {
             command = new (memory) CSoundCommand_PlayCuedNISEvent;
@@ -245,7 +246,7 @@ void __stdcall FUN_001efd60(int a, int b, int c) { if (a != 0 && (*(Manager**)&D
 void __stdcall FUN_001efdc0(int value, int unused) {
     SoundManager* manager = (*(SoundManager**)&DAT_004e3710);
     if (manager) {
-        CSoundCommand_ReturnToDefaultMix* command = (CSoundCommand_ReturnToDefaultMix*)FUN_0008d710(20, 6);
+        CSoundCommand_ReturnToDefaultMix* command = (CSoundCommand_ReturnToDefaultMix*)FUN_0008d710((int)sizeof(CSoundCommand_ReturnToDefaultMix), 6);   // (allocsize1) the size by the record the code writes
         if (command) {
             CSoundCommand_ReturnToDefaultMix fresh;
             *(void**)command = *(void**)&fresh;

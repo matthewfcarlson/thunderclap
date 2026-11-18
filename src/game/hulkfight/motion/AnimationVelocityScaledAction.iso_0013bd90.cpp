@@ -22,7 +22,7 @@ extern hulkfight::motion::AnimationAction* Alloc_0008d690(int);
 hulk_intptr hulkfight::motion::AnimationTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_13bd90 a = (u32_13bd90)__p0; u32_13bd90 b = (u32_13bd90)__p1; void * p = (void *)__p2;
 
     if (((int)(hulk_uintptr)__RTDynamicCast(p, 0, (void*)(&hulk_at_00494b44), (void*)(&hulk_at_00494b60), 0))) {
-        hulkfight::motion::AnimationAction* q = Alloc_0008d690(0x28);
+        hulkfight::motion::AnimationAction* q = Alloc_0008d690(sizeof(::hulkfight::motion::AnimationAction));
         if (q)
             return (int)(((AnimationAction_nv_13bd90*)(((hulkfight::motion::AnimationAction*)(q))))->Init_0013ad20(this, p));
     }

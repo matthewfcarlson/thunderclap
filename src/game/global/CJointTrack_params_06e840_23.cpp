@@ -5,6 +5,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/global.h"
 #define TREE_TU_BEGIN namespace fn_fb05d217 {
 #define TREE_TU_END }
 namespace fn_fb05d217 {} using namespace fn_fb05d217;
@@ -65,7 +66,7 @@ template <> void* fight::TrackFactoryCasterTemplate<CHapticTrack>::vfunc_1(void*
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VCHapticTrack@@@fight@@UAEPAXXZ
 // Same code shape as 0x0006f340 (propagated; names are from that function)
 template <> void* fight::TrackFactoryTemplate<CHapticTrack>::vfunc_5() {
-    void* p = FUN_0008d690(0x20);
+    void* p = FUN_0008d690(sizeof(::CHapticTrack));
     if (p)
         return (void*)(((Helper_6fe80*)p)->run_0005d230());
     return (void*)(0);

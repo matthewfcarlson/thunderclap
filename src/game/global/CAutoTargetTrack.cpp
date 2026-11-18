@@ -179,7 +179,7 @@ hulk_freg Obj_69d30::Get()
 // sym: ?vfunc_12@CAutoTargetTrack@@UAEHH@Z
 // Same code shape as 0x000694c0 (propagated; names are from that function)
 hulk_intptr CAutoTargetTrack::vfunc_12(hulk_intptr param) {
-    void* p = FUN_0008d690(0x30);
+    void* p = FUN_0008d690((int)sizeof(::CAutoTargetAction));   // (allocsize1) the size by gen's record
     if (p)
         return ((Helper_69d70*)p)->FUN_0001d4c0(this, param);
     return 0;

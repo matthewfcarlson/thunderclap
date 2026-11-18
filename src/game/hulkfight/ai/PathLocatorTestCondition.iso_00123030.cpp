@@ -7,6 +7,7 @@
 // 0x00123030 fight::TrackFactoryTemplate<hulkfight::ai::StrafeCircleHBTrack>::vfunc_5 (72 B): matches/0x00123030.cpp [isolated: conflict: Alloc; on include/gen/ and not mergeable]
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VStrafeCircleHBTrack@ai@hulkfight@@@fight@@UAEPAXXZ
 #include "gen/fight.h"
+#include "gen/hulkfight.h"
 
 extern "C" char DAT_0040f530[];
 extern "C" void* __cdecl Alloc(hulk_uintptr);
@@ -23,7 +24,7 @@ class StrafeCircleHBTrack_123030 {
 };
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::ai::StrafeCircleHBTrack>::vfunc_5() {
-    StrafeCircleHBTrack_123030* p = (StrafeCircleHBTrack_123030*)Alloc(0x28);
+    StrafeCircleHBTrack_123030* p = (StrafeCircleHBTrack_123030*)Alloc(sizeof(::hulkfight::ai::StrafeCircleHBTrack));
     if (p) {
         p->StrafeCircleHBTrack_123030::StrafeCircleHBTrack_123030();
         int* q = (int*)p;

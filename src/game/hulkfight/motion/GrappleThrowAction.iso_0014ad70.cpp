@@ -17,7 +17,7 @@ extern void* __cdecl Alloc_0008d690(int);
 hulk_intptr hulkfight::motion::GrappleThrowTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     int x = GetThing_0005a470(c);
     if (x) {
-        hulkfight::motion::GrappleThrowAction* p = (hulkfight::motion::GrappleThrowAction*)Alloc_0008d690(0x54);
+        hulkfight::motion::GrappleThrowAction* p = (hulkfight::motion::GrappleThrowAction*)Alloc_0008d690(sizeof(::hulkfight::motion::GrappleThrowAction));
         if (p)
             return ((GrappleThrowAction_nv_14ad70*)(((hulkfight::motion::GrappleThrowAction*)(p))))->Init_00148a60(this, x);
     }

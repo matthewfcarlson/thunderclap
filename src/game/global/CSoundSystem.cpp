@@ -1066,7 +1066,7 @@ void Object::FUN_001f13b0(void* value, void* source) {
     key.FUN_001f0090(source);
     Bucket_1f13b0* bucket = FUN_001efb80(&key);
     if (bucket) {
-        Node* node = (Node*)FUN_0008d710(24, 6);
+        Node* node = (Node*)FUN_0008d710((int)sizeof(Node), 6);   // (allocsize1) the size by the record the code writes
         if (node) {
             node->a = 0;
             node->b = 0;
@@ -1107,7 +1107,7 @@ void Owner_1f1480::FUN_001f1480(void* value, void* key, float weight) {
  temporary.FUN_001f0090(key);
  Group_1f1480* group = FUN_001efb80(&temporary);
  if(group) {
-  Node* node = (Node*)FUN_0008d710(32,6);
+  Node* node = (Node*)FUN_0008d710((int)sizeof(Node),6);   // (allocsize1) the size by the record the code writes
   if(node) {
    node->FUN_0027af00();
    node->group=0; node->next=0; node->a=0; node->b=0; node->weight=100.0f;
@@ -1217,7 +1217,7 @@ namespace fn_001f1c30 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_001f1c30 @ 0x001f1c30
 
-struct CSoundCommand_InstallEffect_1f1c30 { int FUN_001f09d0(int, int); }; struct Manager { void FUN_001ef260(int); };  extern CSoundCommand_InstallEffect_1f1c30* __cdecl FUN_0008d710(int,int); void __stdcall FUN_001f1c30(int value, int extra) { if (value != 0) { Manager* manager = (*(Manager**)&DAT_004e3710); if (manager != 0) { CSoundCommand_InstallEffect_1f1c30* item = FUN_0008d710(0x18,6); int result = 0; if (item != 0) result = item->FUN_001f09d0(value,extra); manager->FUN_001ef260(result); } } }
+struct CSoundCommand_InstallEffect_1f1c30 { int FUN_001f09d0(int, int); }; struct Manager { void FUN_001ef260(int); };  extern CSoundCommand_InstallEffect_1f1c30* __cdecl FUN_0008d710(int,int); void __stdcall FUN_001f1c30(int value, int extra) { if (value != 0) { Manager* manager = (*(Manager**)&DAT_004e3710); if (manager != 0) { CSoundCommand_InstallEffect_1f1c30* item = FUN_0008d710((int)sizeof(::CSoundCommand_InstallEffect),6); int result = 0; if (item != 0) result = item->FUN_001f09d0(value,extra); manager->FUN_001ef260(result); } } }   // (allocsize1) the size by gen's record
 } // namespace fn_001f1c30
 
 namespace fn_ffeee61e {

@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/global.h"
 #define TREE_TU_BEGIN namespace fn_fb5b56c3 {
 #define TREE_TU_END }
 namespace fn_fb5b56c3 {} using namespace fn_fb5b56c3;
@@ -64,7 +65,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<CAlertStatusCondition>::
 // 0x00056b30 fight::ConditionFactoryTemplate<CAlertStatusCondition>::vfunc_5 (54 B): matches/0x00056b30.cpp
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VCAlertStatusCondition@@@fight@@UAEPAXXZ
 template <> void* fight::ConditionFactoryTemplate<CAlertStatusCondition>::vfunc_5() {
-    CAlertStatusCondition_56b30* p = (CAlertStatusCondition_56b30*)Alloc(0x14);
+    CAlertStatusCondition_56b30* p = (CAlertStatusCondition_56b30*)Alloc(sizeof(::CAlertStatusCondition));
     if (p != 0) {
         ((InitObj_56b30*)p)->Init_00234590(0);
         p->a = ((hulk_intptr)DAT_003f7404);

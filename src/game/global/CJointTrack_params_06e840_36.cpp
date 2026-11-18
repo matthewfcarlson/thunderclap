@@ -5,6 +5,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/global.h"
 #define TREE_TU_BEGIN namespace fn_f263f977 {
 #define TREE_TU_END }
 namespace fn_f263f977 {} using namespace fn_f263f977;
@@ -64,8 +65,12 @@ template <> void* fight::TrackFactoryCasterTemplate<CWeaponCollisionTrack>::vfun
 
 // 0x000705d0 fight::TrackFactoryTemplate<CWeaponCollisionTrack>::vfunc_5 (27 B): matches/0x000705d0.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VCWeaponCollisionTrack@@@fight@@UAEPAXXZ
+struct AllocWords_705d0 : ::CWeaponCollisionTrack {   // (sweep-allocsize) gen's words and the allocation's last word (gen's size is its
+    int last;                                        // last field's end, 4 short of the 0x100-byte allocation)
+};
+typedef char AllocWords_705d0_size32[(sizeof(void*) != 4 || sizeof(AllocWords_705d0) == 0x100) ? 1 : -1];
 template <> void* fight::TrackFactoryTemplate<CWeaponCollisionTrack>::vfunc_5() {
-    CWeaponCollisionTrack_705d0* p = (CWeaponCollisionTrack_705d0*)alloc(0x100);
+    CWeaponCollisionTrack_705d0* p = (CWeaponCollisionTrack_705d0*)alloc(sizeof(AllocWords_705d0));
     if (p)
         return (void*)(p->Init_00062010());
     return (void*)(0);

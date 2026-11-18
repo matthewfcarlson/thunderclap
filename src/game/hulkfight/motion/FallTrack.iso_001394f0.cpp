@@ -7,6 +7,7 @@
 // 0x001394f0 fight::TrackFactoryTemplate<hulkfight::motion::GrappleHoverTrack>::vfunc_5 (66 B): matches/0x001394f0.cpp [isolated: conflict: Alloc; on include/gen/ and not mergeable]
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VGrappleHoverTrack@motion@hulkfight@@@fight@@UAEPAXXZ
 #include "gen/fight.h"
+#include "gen/hulkfight.h"
 
 extern "C" char DAT_00411be8[];
 extern "C" void* __cdecl Alloc(hulk_uintptr);
@@ -23,7 +24,7 @@ class FallTrack_1394f0 {
 class GrappleHoverTrack_1394f0 : public FallTrack_1394f0 {};
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::GrappleHoverTrack>::vfunc_5() {
-    GrappleHoverTrack_1394f0* p = (GrappleHoverTrack_1394f0*)Alloc(0x18);
+    GrappleHoverTrack_1394f0* p = (GrappleHoverTrack_1394f0*)Alloc(sizeof(::hulkfight::motion::GrappleHoverTrack));
     if (p) {
         p->Init_00236d40();
         p->vptr = ((hulk_intptr)DAT_00411be8);

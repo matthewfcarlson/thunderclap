@@ -1,6 +1,8 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x002b87d0..0x002bd430 (kind game, layer engine, confidence high), dominant class pure3d::BillboardQuad
 #include "tree_prelude.h"
+#include "compat/ptr.h"
+#include "decls/loaders.h"
 
 
 // 0x002bc470 FUN_002bc470 (96 B): equivalent/0x002bc470.cpp [isolated: compile error C2084: function 'void *operator new(size_t,void *)' already has a body]
@@ -20,7 +22,7 @@ struct QuadBase { virtual void AddRef(); virtual void Release(); void FUN_002a3e
 struct OldBillboardQuadGroupLoader : QuadBase { virtual void AddRef(); virtual void Release(); OldBillboardQuadGroupLoader() {} };
 struct OldBillboardObjectLoader { virtual void AddRef_00038290(); virtual void Release_000382a0(); unsigned int count; unsigned int type; unsigned int fieldC; unsigned int field10; QuadBase* loader; OldBillboardObjectLoader(); };
 OldBillboardObjectLoader::OldBillboardObjectLoader() : count(0), type(0x17002), fieldC(0), field10(0), loader(0) {
- OldBillboardQuadGroupLoader* quad = (OldBillboardQuadGroupLoader*)FUN_0008d690(8);
+ OldBillboardQuadGroupLoader* quad = (OldBillboardQuadGroupLoader*)FUN_0008d690(sizeof(HulkRenderObjectLoader));   // (sweep-allocsize) RenderObjectLoader's words (decls/loaders.h)
  if (quad) {
   quad->FUN_002a3e80();
   new(quad) OldBillboardQuadGroupLoader;

@@ -77,7 +77,7 @@ hulk_freg CJumpAttackTrack::vfunc_7() {
 // 0x0006a650 CJumpAttackTrack::vfunc_12 (40 B): matches/0x0006a650.cpp
 // sym: ?vfunc_12@CJumpAttackTrack@@UAEHH@Z
 hulk_intptr CJumpAttackTrack::vfunc_12(hulk_intptr param) {
-    Alloc_6a650* p = FUN_0008d690(0x34);
+    Alloc_6a650* p = FUN_0008d690((int)sizeof(::CJumpAttackAction));   // (allocsize1) the size by gen's record
     if (p)
         return p->method_0001f980(this, param);
     return 0;

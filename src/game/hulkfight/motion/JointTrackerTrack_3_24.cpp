@@ -121,7 +121,7 @@ class IntentionClearAction_17b2e0 {
 hulk_intptr hulkfight::motion::JointTrackerTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr __p2) { void * p = (void *)__p2;
 
     if (((int)(hulk_uintptr)__RTDynamicCast(p, 0, (void*)(&hulk_at_00494b44), (void*)(&hulk_at_00494b60), 0))) {
-        void* q = FUN_0008d690(0x78);
+        void* q = FUN_0008d690(sizeof(::hulkfight::motion::JointTrackerAction));
         if (q)
             return ((Obj_17b0c0*)q)->Init_00173410(this, p);
     }
@@ -242,7 +242,7 @@ void* JointRelativeAction_17b230::vfunc_2(unsigned char flag) {
 hulk_intptr hulkfight::motion::IntentionClearTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     int result = ((int)(hulk_uintptr)__RTDynamicCast((void*)c, 0, (void*)(&TypeA_17b290), (void*)(&TypeB_17b290), 0));
     if (result) {
-        hulkfight::motion::IntentionClearAction* p = Alloc_0008d690(0x24);
+        hulkfight::motion::IntentionClearAction* p = Alloc_0008d690(sizeof(::hulkfight::motion::IntentionClearAction));
         if (p)
             return ((IntentionClearAction_nv_17b290*)(((hulkfight::motion::IntentionClearAction*)(p))))->Init_00174700(this, c);
     }

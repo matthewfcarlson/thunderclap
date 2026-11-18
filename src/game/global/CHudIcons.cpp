@@ -208,7 +208,7 @@ void Self_c72e0::FUN_000c72e0()
         if (d > 60.0f)
             d = 60.0f;
         float f = (float)(d / 60.0f * 0.6f);
-        void *mem = FUN_0008d690(0x10);
+        void *mem = FUN_0008d690(sizeof(::pure3d::ShaderFloatBroadcast));
         ShaderFloatBroadcast_c72e0 *fd = 0;
         if (mem != 0)
             fd = ((ShaderFloatBroadcast_c72e0 *)mem)->FUN_0028ee60(0x45444146, f);

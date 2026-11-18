@@ -94,7 +94,7 @@ hulk_intptr CGrappleDrainHealthTrack::vfunc_12(hulk_intptr __p0) { Owner_5a5e0 *
     if (cfg == 0)
         return (int)(0);
     float r = this->f_14;
-    Effect_5a5e0 *fx = (Effect_5a5e0 *)FUN_0008d690(0x24);
+    Effect_5a5e0 *fx = (Effect_5a5e0 *)FUN_0008d690((int)sizeof(::CDrainHealthAction));   // (allocsize1) the size by gen's record
     if (fx == 0)
         return (int)(0);
     return (hulk_intptr)(fx->FUN_0001db40(cfg, r / duration));

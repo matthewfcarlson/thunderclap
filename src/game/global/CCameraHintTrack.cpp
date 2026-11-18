@@ -111,7 +111,7 @@ hulk_freg CCameraHintTrack::vfunc_7() {
 // sym: ?vfunc_12@CCameraHintTrack@@UAEHH@Z
 // Same code shape as 0x0005aad0 (propagated; names are from that function)
 hulk_intptr CCameraHintTrack::vfunc_12(hulk_intptr param) {
-    R_6a570* p = FUN_0008d690(0x24);
+    R_6a570* p = FUN_0008d690(sizeof(::CCameraHintAction));
     if (p)
         return p->invoke_0001f900(this, param);
     return 0;

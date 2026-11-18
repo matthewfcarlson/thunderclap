@@ -474,7 +474,7 @@ hulk_intptr CollisionAnalyser_30df50::FUN_0030df50()
 
 
 // 0x0030e0a0 FUN_0030e0a0 (237 B): equivalent/0x0030e0a0.cpp
-// sym: ?target@Manager_30e0a0@fn_f910b875@@QAEXXZ @41508ee1a5b4 @wfe72acdc62a4 @v219254aaa12b
+// sym: ?target@Manager_30e0a0@fn_f910b875@@QAEXXZ @41508ee1a5b4 @wa9260955bb9f @v219254aaa12b
 // STATUS: equivalent (tools/equiv.py level 3: 79 inputs, branch coverage 15/16, incomplete)
 // FUN_0030e0a0 @ 0x0030e0a0
 // FUN_0030e0a0 @ 0x0030e0a0
@@ -485,21 +485,21 @@ void Manager_30e0a0::target() {
   if(((owners::Obj_319d20 *)(p->item))->FUN_00319d20()) {
    p->item->FUN_0031a400();
    Item_30e0a0** dest=out;
-   if((hulk_uintptr)dest<(hulk_uintptr)outEnd) { out=(Item_30e0a0**)((hulk_uintptr)dest+4); if(dest) *dest=p->item; }
-   int index=((int)((hulk_uintptr)p-(hulk_uintptr)first))/20;
+   if((hulk_uintptr)dest<(hulk_uintptr)outEnd) { out=dest+1; if(dest) *dest=p->item; }
+   int index=(int)(p-first);   // (allocsize1) element-typed: an entry holds a pointer (20 B on 32-bit)
    Entry_30e0a0* e=storage+index;
    FUN_0030dbd0(e+1,end,e);
-   end=(Entry_30e0a0*)((hulk_uintptr)end-20);
+   end=end-1;
   }
-  Entry_30e0a0* prev=p; p=(Entry_30e0a0*)((hulk_uintptr)p-20);
+  Entry_30e0a0* prev=p; p=p-1;
   if(prev==first) break;
  }
- int count=((int)((hulk_uintptr)end-(hulk_uintptr)storage))/20;
+ int count=(int)(end-storage);
  if(!count) { last=0; first=(Entry_30e0a0*)20; return; }
  p=storage; first=p; last=p+count-1;
  for(;;) {
   if((double)p->item->time+(double)(*(float*)&DAT_003f5d00) < (double)cutoff) ((owners::Thing_319ef0 *)(p->item))->FUN_00319ef0();
-  Entry_30e0a0* prev=p; p=(Entry_30e0a0*)((hulk_uintptr)p+20);
+  Entry_30e0a0* prev=p; p=p+1;
   if(prev==last) break;
  }
 }
@@ -546,7 +546,7 @@ Item* CollisionAnalyser_30e280::FUN_0030e280() {
   result = end - 1;
  }
  first = begin;
- last = (Item*)((char*)begin + (((int)((char*)end-(char*)begin)/20)*20) - 20);
+ last = begin + (int)(end - begin) - 1;   // (allocsize1) element-typed: an item is five pointer-sized words
  return result;
 }
 

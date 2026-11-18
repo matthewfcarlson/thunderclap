@@ -81,7 +81,7 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VCPushBackAnimationTrack@@@fight@@UAEPAXXZ
 // Same code shape as 0x0006fb80 (propagated; names are from that function)
 template <> void* fight::TrackFactoryTemplate<CPushBackAnimationTrack>::vfunc_5() {
-    CHitAnimationTrack_6fdf0* p = (CHitAnimationTrack_6fdf0*)FUN_0008d690(0x50);
+    CHitAnimationTrack_6fdf0* p = (CHitAnimationTrack_6fdf0*)FUN_0008d690((int)sizeof(::CPushBackAnimationTrack));   // (allocsize1) the size by gen's record
     if (p) {
         p->init_0005dcb0();
         p->vf = (unsigned int*)((int*)DAT_003fd2dc);

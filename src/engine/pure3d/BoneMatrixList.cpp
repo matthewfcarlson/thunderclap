@@ -88,7 +88,7 @@ bool owners::Buffer_2e16f0::FUN_002e16f0(unsigned int count, void* arg) {
     if (begin != 0)
         return false;
     if (count > 0) {
-        int* p = (int*)Alloc_0008d6d0(count * 4);
+        int* p = (int*)Alloc_0008d6d0(count * sizeof(int));   // (allocsize1) the words by their element (ints: the fill copies an int)
         begin = p;
         if (p != 0) {
             end = p + count;

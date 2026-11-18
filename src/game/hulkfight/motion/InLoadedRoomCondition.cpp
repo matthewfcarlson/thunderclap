@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x0016dee0..0x0016df80 (kind game, layer game, confidence high), dominant class hulkfight::motion::InLoadedRoomCondition
 #include "tree_prelude.h"
+#include "gen/hulkfight.h"   // (allocsize1)
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
@@ -63,7 +64,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::motion::InLoa
 // 0x0016df20 fight::ConditionFactoryTemplate<hulkfight::motion::InLoadedRoomCondition>::vfunc_5 (44 B): matches/0x0016df20.cpp
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VInLoadedRoomCondition@motion@hulkfight@@@fight@@UAEPAXXZ
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::InLoadedRoomCondition>::vfunc_5() {
-    Obj_16df20* p = (Obj_16df20*)FUN_0008d690(0x10);
+    Obj_16df20* p = (Obj_16df20*)FUN_0008d690((int)sizeof(::hulkfight::motion::InLoadedRoomCondition));   // (allocsize1) the size by gen's record
     if (p) {
         p->Init_00234590(0);
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_004168f8);

@@ -1267,7 +1267,7 @@ void __cdecl FUN_000fe940(AgentHost_fe940 *host, CAgent_fe940 **slot)
     }
     if (*slot == 0) {
         int mark = FUN_00266da0(0xc);
-        CRangedAgent_fe940 *agent = (CRangedAgent_fe940 *)FUN_0008d690(0xb0);
+        CRangedAgent_fe940 *agent = (CRangedAgent_fe940 *)FUN_0008d690(sizeof(::CRangedAgent));
         if (agent)
             agent = agent->FUN_001076f0(host);
         if (agent)
@@ -1329,7 +1329,7 @@ void __cdecl FUN_000fea80(AgentHost_fea80 *host, CAgent_fea80 **slot)
     }
     if (*slot == 0) {
         int mark = FUN_00266da0(0xc);
-        CChaseAgent_fea80 *agent = (CChaseAgent_fea80 *)FUN_0008d690(0x74);
+        CChaseAgent_fea80 *agent = (CChaseAgent_fea80 *)FUN_0008d690(sizeof(::CChaseAgent));
         if (agent)
             agent = agent->FUN_000fcb10(host);
         if (agent)
@@ -1360,7 +1360,7 @@ void __cdecl FUN_000feb20(AgentHost_feb20 *host, CAgent_feb20 **slot)
     }
     if (*slot == 0) {
         int mark = FUN_00266da0(0xc);
-        CMoveAgent_feb20 *agent = (CMoveAgent_feb20 *)FUN_0008d690(0x78);
+        CMoveAgent_feb20 *agent = (CMoveAgent_feb20 *)FUN_0008d690(sizeof(::CMoveAgent));
         if (agent)
             agent = agent->FUN_00102ac0(host);
         if (agent)
@@ -1391,7 +1391,7 @@ void __cdecl FUN_000fec60(AgentHost_fec60 *host, CAgent_fec60 **slot)
     }
     if (*slot == 0) {
         int mark = FUN_00266da0(0xc);
-        CPathGraphAgent_fec60 *agent = (CPathGraphAgent_fec60 *)FUN_0008d690(0xf4);
+        CPathGraphAgent_fec60 *agent = (CPathGraphAgent_fec60 *)FUN_0008d690(sizeof(::CPathGraphAgent));
         if (agent)
             agent = agent->FUN_00105f50(host);
         if (agent)
@@ -1712,7 +1712,7 @@ public:
 CHand2HandAgent::CHand2HandAgent(hulk_intptr arg) : CCharacterAgent_ff180(arg)
 {
     CAvoidBehaviour_ff180 *w = 0;
-    void *mem = FUN_0008d690(0x38);
+    void *mem = FUN_0008d690(sizeof(::CAvoidBehaviour));
     if (mem != 0)
         w = ((CAvoidBehaviour_ff180 *)mem)->FUN_00109ba0();
     f5c = w;

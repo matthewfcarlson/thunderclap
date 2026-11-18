@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/hulkfight.h"
 #define TREE_TU_BEGIN namespace fn_f782cc80 {
 #define TREE_TU_END }
 namespace fn_f782cc80 {} using namespace fn_f782cc80;
@@ -67,7 +68,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::motion::Turni
 // 0x0016d700 fight::ConditionFactoryTemplate<hulkfight::motion::TurningVelocityCondition>::vfunc_5 (54 B): matches/0x0016d700.cpp
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VTurningVelocityCondition@motion@hulkfight@@@fight@@UAEPAXXZ
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::TurningVelocityCondition>::vfunc_5() {
-    Turning* p = (Turning*)Alloc(0x14);
+    Turning* p = (Turning*)Alloc(sizeof(::hulkfight::motion::TurningVelocityCondition));
     if (p) {
         p->Init_00234590(0);
         p->vptr = (hulk_intptr)&hulk_at_00416738;

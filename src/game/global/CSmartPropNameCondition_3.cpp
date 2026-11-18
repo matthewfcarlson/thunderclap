@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x000591b0..0x00059260 (kind game, layer game, confidence high), dominant class CSmartPropNameCondition
 #include "tree_prelude.h"
+#include "gen/global.h"   // (allocsize1)
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
@@ -86,7 +87,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<CSmartPropNameCondition>
 // 0x000591f0 fight::ConditionFactoryTemplate<CSmartPropNameCondition>::vfunc_5 (62 B): matches/0x000591f0.cpp
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VCSmartPropNameCondition@@@fight@@UAEPAXXZ
 template <> void* fight::ConditionFactoryTemplate<CSmartPropNameCondition>::vfunc_5() {
-    Derived* p = (Derived*)FUN_0008d690(0x20);
+    Derived* p = (Derived*)FUN_0008d690((int)sizeof(::CSmartPropNameCondition));   // (allocsize1) the size by gen's record
     if (p) {
         p->Derived::Derived();
         return (void*)(p);

@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/hulkfight.h"
 #define TREE_TU_BEGIN namespace fn_fee6b466 {
 #define TREE_TU_END }
 namespace fn_fee6b466 {} using namespace fn_fee6b466;
@@ -57,7 +58,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::PropDestr
 // 0x0018c490 fight::TrackFactoryTemplate<hulkfight::motion::PropDestroyTrack>::vfunc_5 (59 B): matches/0x0018c490.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VPropDestroyTrack@motion@hulkfight@@@fight@@UAEPAXXZ
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::PropDestroyTrack>::vfunc_5() {
-    Track_18c490* p = (Track_18c490*)FUN_0008d690(0x14);
+    Track_18c490* p = (Track_18c490*)FUN_0008d690(sizeof(::hulkfight::motion::PropDestroyTrack));
     if (p) {
         p->Init_00236d40();
         *(hulk_intptr*)p = ((hulk_intptr)DAT_004195cc);

@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/hulkfight.h"
 #define TREE_TU_BEGIN namespace fn_ff307066 {
 #define TREE_TU_END }
 namespace fn_ff307066 {} using namespace fn_ff307066;
@@ -71,7 +72,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::motion::CSMPr
 // 0x0018bd00 fight::ConditionFactoryTemplate<hulkfight::motion::CSMPropIsCharacterCondition>::vfunc_5 (44 B): matches/0x0018bd00.cpp
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VCSMPropIsCharacterCondition@motion@hulkfight@@@fight@@UAEPAXXZ
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::CSMPropIsCharacterCondition>::vfunc_5() {
-    Obj_18bd00* p = (Obj_18bd00*)alloc(16);
+    Obj_18bd00* p = (Obj_18bd00*)alloc(sizeof(::hulkfight::motion::CSMPropIsCharacterCondition));
     if (p) {
         p->init_00234590(0);
         *(hulk_intptr*)p = (hulk_intptr)&hulk_at_004192ac;

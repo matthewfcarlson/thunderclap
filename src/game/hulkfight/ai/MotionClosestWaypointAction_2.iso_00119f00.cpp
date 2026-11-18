@@ -22,7 +22,7 @@ extern hulkfight::ai::MotionChaseAction* Alloc_0008d690(int);
 hulk_intptr hulkfight::ai::MotionChaseTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_119f00 a = (u32_119f00)__p0; u32_119f00 b = (u32_119f00)__p1; void * p = (void *)__p2;
 
     if (((int)(hulk_uintptr)__RTDynamicCast(p, 0, (void*)(&hulk_at_00494b44), (void*)(&hulk_at_00494b60), 0))) {
-        hulkfight::ai::MotionChaseAction* q = Alloc_0008d690(0x28);
+        hulkfight::ai::MotionChaseAction* q = Alloc_0008d690((int)sizeof(::hulkfight::ai::MotionChaseAction));   // (allocsize1) the size by gen's record
         if (q)
             return (int)(((MotionChaseAction_nv_119f00*)(((hulkfight::ai::MotionChaseAction*)(q))))->Init_00116c10(this, p));
     }

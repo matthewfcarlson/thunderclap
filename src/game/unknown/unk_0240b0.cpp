@@ -3190,7 +3190,7 @@ Thing_25a90 *Thing_25a90::FUN_00025a90()
     for (int i = 0; i < 16; i++)
         zeros[i] = 0;
 
-    void *mem = FUN_0008d690(0x14);
+    void *mem = FUN_0008d690(sizeof(::CCharacterTemplateManager));
     if (mem)
         f04 = ((CCharacterTemplateManager_25a90 *)mem)->FUN_00047890(this, 0x20);
     else
@@ -8717,7 +8717,7 @@ public:
 
 static Comp_2b970 *MakeComp1(Ent_2b970 *e)
 {
-    void *m = FUN_0008d690(0xb0);
+    void *m = FUN_0008d690(sizeof(::CRangedAgent));
     return m ? ((Comp_2b970 *)m)->FUN_001076f0(e) : 0;
 }
 static Comp_2b970 *MakeComp2(Ent_2b970 *e)
@@ -8727,12 +8727,12 @@ static Comp_2b970 *MakeComp2(Ent_2b970 *e)
 }
 static Comp_2b970 *MakeComp3(Ent_2b970 *e)
 {
-    void *m = FUN_0008d690(0x74);
+    void *m = FUN_0008d690(sizeof(::CChaseAgent));
     return m ? ((Comp_2b970 *)m)->FUN_000fcb10(e) : 0;
 }
 static Comp_2b970 *MakeComp4(Ent_2b970 *e)
 {
-    void *m = FUN_0008d690(0xf4);
+    void *m = FUN_0008d690(sizeof(::CPathGraphAgent));
     return m ? ((Comp_2b970 *)m)->FUN_00105f50(e) : 0;
 }
 static Comp_2b970 *MakeComp5(Ent_2b970 *e)
@@ -8785,7 +8785,7 @@ char Spawner_2b970::F(const char *defName, V3_2b970 pos, float angle, const char
     }
     Factory_2b970 *fac = p0->p44;
     int *fx = fac->FUN_00059b60();
-    void *mem = thunk_FUN_0008d690(0x2300);
+    void *mem = thunk_FUN_0008d690(sizeof(::CCharacter));
     CCharacter_2b970 *ch;
     if (mem)
         ch = ((CCharacter_2b970 *)mem)->FUN_00037860(fx);

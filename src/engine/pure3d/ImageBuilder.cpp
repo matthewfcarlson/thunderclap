@@ -43,13 +43,13 @@ struct ImageBuilder_2adf20 : HulkImageBuilder {
 bool ImageBuilder_2adf20::vfunc_0(int width,int height,int bits,int direction,void* pal) {
  int bytes=1;
  if(depth<=8 && bits<=8) {
-  Image* p=(Image*)FUN_00263ea0(0x438);
+  Image* p=(Image*)FUN_00263ea0((sizeof(::pure3d::Image8)+7)/8*8);   // (allocsize1) gen's Image8 (0x434) as the game allocates it, 8-rounded: 0x438
   img()=p ? p->FUN_002bfcb0() : 0;
   unsigned n=1u << (bits & 31);
   img()->palette(pal,n);
   img()->count(n);
  } else {
-  Image* p=(Image*)FUN_00263ea0(0x30);
+  Image* p=(Image*)FUN_00263ea0((sizeof(::pure3d::Image32)+7)/8*8);   // (allocsize1) gen's Image32 (0x2c), 8-rounded: 0x30
   img()=p ? p->FUN_002bffc0() : 0;
   bytes=4;
  }

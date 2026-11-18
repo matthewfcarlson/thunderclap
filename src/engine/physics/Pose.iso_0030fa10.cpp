@@ -103,11 +103,11 @@ void Pose::FUN_0030fa10(Source_30fa10 *src)
         elems = arr;
         return;
     }
-    int *mem = (int *)FUN_0008d6d0(count * 0xc0 + 4);
+    int *mem = (int *)FUN_0008d6d0(count * (int)sizeof(Elem_30fa10) + 4);   // (allocsize1) the joints by their record (it holds the parent pointer), after the count word
     if (mem) {
         *mem = count;
         arr = (Elem_30fa10 *)(mem + 1);
-        FUN_00011520(arr, 0xc0, count, (void *)FUN_0030eba0);
+        FUN_00011520(arr, sizeof(Elem_30fa10), count, (void *)FUN_0030eba0);
     }
     elems = arr;
     void * tmp2 = f.tmp.FUN_0030f070(src->data);

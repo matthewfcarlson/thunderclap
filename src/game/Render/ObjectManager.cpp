@@ -241,7 +241,7 @@ void B_1c5c00::run() {
 // sym: ?Run@Owner_1c5c20@fn_fb16b970@@QAEPAXH@Z
 void* Owner_1c5c20::Run(int arg) {
     int n = provider->Get();
-    void* p = FUN_0008d690(0xb0);
+    void* p = FUN_0008d690((int)sizeof(::Render::Object));   // (allocsize1) the size by gen's record
     void* r;
     if (p)
         r = ((Builder*)p)->Create_001c4eb0(arg, n);

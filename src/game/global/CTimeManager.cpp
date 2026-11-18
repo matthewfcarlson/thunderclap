@@ -2480,13 +2480,13 @@ void Sim_88670::FUN_00088670(Ctx_88670 *arg0, hulk_intptr arg1)
     p58 = arg0->FUN_00086320();
     cfg50 = arg0->FUN_00086380();
 
-    CSimControllerManager *ta = (CSimControllerManager *)FUN_0008d690(0xc);
+    CSimControllerManager *ta = (CSimControllerManager *)FUN_0008d690((int)sizeof(::CSimControllerManager));   // (allocsize1) gen's record
     if (ta)
         ta = ((CSimControllerManager_nv_88670*)(ta))->FUN_000b3c90(arg1);
     a = ta;
     ((CSimControllerManager_nv_88670*)(ta))->FUN_000b3d00();
 
-    CCameraManager *tb = (CCameraManager *)FUN_0008d690(0xc8);
+    CCameraManager *tb = (CCameraManager *)FUN_0008d690((int)sizeof(::CCameraManager));   // (allocsize1) gen's record
     if (tb)
         tb = ((CCameraManager_nv_88670*)(tb))->FUN_0009dd20();
     b = tb;
@@ -2495,7 +2495,7 @@ void Sim_88670::FUN_00088670(Ctx_88670 *arg0, hulk_intptr arg1)
     s10 = FUN_001b6580();
     s10->FUN_001b3fc0();
 
-    CSPManager *tc = (CSPManager *)FUN_0008d690(0x1eee8);
+    CSPManager *tc = (CSPManager *)FUN_0008d690((int)sizeof(::CSPManager));   // (allocsize1) gen's record
     if (tc)
         tc = ((CSPManager_nv_88670*)(tc))->FUN_001e7470();
     c = tc;
@@ -2503,7 +2503,7 @@ void Sim_88670::FUN_00088670(Ctx_88670 *arg0, hulk_intptr arg1)
 
     s14 = FUN_001b6990();
 
-    CPatrolPathManager *td = (CPatrolPathManager *)FUN_0008d690(0x10);
+    CPatrolPathManager *td = (CPatrolPathManager *)FUN_0008d690((int)sizeof(::CPatrolPathManager));   // (allocsize1) gen's record
     if (td)
         td = ((CPatrolPathManager_nv_88670*)(td))->FUN_00106e90(0x100);
     d = td;
@@ -2533,13 +2533,13 @@ void Sim_88670::FUN_00088670(Ctx_88670 *arg0, hulk_intptr arg1)
     h = th;
     ((CTriggerVolumeManager_nv_88670*)(th))->FUN_00200c10(this);
 
-    CScenarioManager *ti = (CScenarioManager *)FUN_0008d690(0x14ac);
+    CScenarioManager *ti = (CScenarioManager *)FUN_0008d690((int)sizeof(::CScenarioManager));   // (allocsize1) gen's record
     if (ti)
         ti = ((CScenarioManager_nv_88670*)(ti))->FUN_001cd150();
     i = ti;
     ((CScenarioManager_nv_88670*)(ti))->FUN_001cfb20(this);
 
-    CEventManager *tj = (CEventManager *)FUN_0008d690(0x404);
+    CEventManager *tj = (CEventManager *)FUN_0008d690((int)sizeof(::CEventManager));   // (allocsize1) gen's record
     if (tj)
         tj = ((CEventManager_nv_88670*)(tj))->FUN_001cc360();
     j = tj;
@@ -2557,7 +2557,7 @@ void Sim_88670::FUN_00088670(Ctx_88670 *arg0, hulk_intptr arg1)
     l = tl;
     tl->FUN_001f81c0();
 
-    CSimOverlayManager *tm = (CSimOverlayManager *)FUN_0008d690(0x10);
+    CSimOverlayManager *tm = (CSimOverlayManager *)FUN_0008d690((int)sizeof(::CSimOverlayManager));   // (allocsize1) gen's record
     if (tm)
         tm = ((CSimOverlayManager_nv_88670*)(tm))->FUN_000d75c0();
     m = tm;
@@ -2574,7 +2574,7 @@ void Sim_88670::FUN_00088670(Ctx_88670 *arg0, hulk_intptr arg1)
         to = to->FUN_00059ad0();
     o = to;
 
-    CGameDataHandler *tp = (CGameDataHandler *)FUN_0008d690(0x34);
+    CGameDataHandler *tp = (CGameDataHandler *)FUN_0008d690((int)sizeof(::CGameDataHandler));   // (allocsize1) gen's record
     if (tp)
         tp = ((CGameDataHandler_nv_88670*)(tp))->FUN_001fae80();
     p = tp;

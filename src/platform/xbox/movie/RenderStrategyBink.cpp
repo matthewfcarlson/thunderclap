@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "decls/data/engine/core.h"
 #include "decls/data/game/global.h"
+#include "decls/shader.h"
 #include "gen/movie.h"
 #define TREE_TU_BEGIN namespace fn_f9e99c55 {
 #define TREE_TU_END }
@@ -330,7 +331,7 @@ movie::RenderStrategyBink* movie::RenderStrategyBink::FUN_00334540() {
  resource=0; f14=0; f18=0; f1c=0; f20=0; f2c=0; f30=0; f48=0;
  f24=1.0f; f28=1.0f;
  f34=0; f38=0; f3c=0; f40=0; f44=0;
- Shader_334540* p=(Shader_334540*)FUN_00263ea0(32);
+ Shader_334540* p=(Shader_334540*)FUN_00263ea0(sizeof(HulkShader));
  if(p) p=p->FUN_0028edb0();
  resource=p;
  p->slot0();

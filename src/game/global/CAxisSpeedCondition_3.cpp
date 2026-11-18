@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/global.h"
 #define TREE_TU_BEGIN namespace fn_f38214e1 {
 #define TREE_TU_END }
 namespace fn_f38214e1 {} using namespace fn_f38214e1;
@@ -69,7 +70,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<CAxisSpeedCondition>::vf
 // 0x00057080 fight::ConditionFactoryTemplate<CAxisSpeedCondition>::vfunc_5 (61 B): matches/0x00057080.cpp
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VCAxisSpeedCondition@@@fight@@UAEPAXXZ
 template <> void* fight::ConditionFactoryTemplate<CAxisSpeedCondition>::vfunc_5() {
-    CAxisSpeedCondition_57080* p = (CAxisSpeedCondition_57080*)Allocate(0x18);
+    CAxisSpeedCondition_57080* p = (CAxisSpeedCondition_57080*)Allocate(sizeof(::CAxisSpeedCondition));
     if (p) {
         p->Initialize_00234590(0);
         p->c = 0;

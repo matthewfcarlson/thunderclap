@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x00058c80..0x00058d30 (kind game, layer game, confidence high), dominant class CCharacterTemplateCondition
 #include "tree_prelude.h"
+#include "gen/global.h"   // (allocsize1)
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
@@ -69,7 +70,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<CCharacterTemplateCondit
 // 0x00058cc0 fight::ConditionFactoryTemplate<CCharacterTemplateCondition>::vfunc_5 (55 B): matches/0x00058cc0.cpp
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VCCharacterTemplateCondition@@@fight@@UAEPAXXZ
 template <> void* fight::ConditionFactoryTemplate<CCharacterTemplateCondition>::vfunc_5() {
-    CCharacterTemplateCondition_58cc0* p = (CCharacterTemplateCondition_58cc0*)Alloc(0x18);
+    CCharacterTemplateCondition_58cc0* p = (CCharacterTemplateCondition_58cc0*)Alloc((int)sizeof(::CCharacterTemplateCondition));   // (allocsize1) the size by gen's record
     if (p) {
         ((Obj_58cc0*)p)->Init_00234590(0);
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_003f7328);

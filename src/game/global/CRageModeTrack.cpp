@@ -86,7 +86,7 @@ hulk_freg CRageModeTrack::vfunc_7() {
 // 0x0006aaf0 CRageModeTrack::vfunc_12 (43 B): matches/0x0006aaf0.cpp
 // sym: ?vfunc_12@CRageModeTrack@@UAEHH@Z
 hulk_intptr CRageModeTrack::vfunc_12(hulk_intptr param) {
-    Other_6aaf0* p = FUN_0008d690(0x24);
+    Other_6aaf0* p = FUN_0008d690(sizeof(::CRageModeAction));
     if (p)
         return p->call_00020120(param, this->f_10);
     return 0;

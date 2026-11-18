@@ -25,7 +25,7 @@ hulkfight::ai::ThreatDodgeAction* __cdecl Alloc_0008d690(int);
 hulk_intptr hulkfight::ai::ThreatDodgeTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     int result = ((int)(hulk_uintptr)__RTDynamicCast((void*)c, 0, (void*)(&hulk_at_00494b44), (void*)(&hulk_at_00494b60), 0));
     if (result) {
-        hulkfight::ai::ThreatDodgeAction* p = Alloc_0008d690(0x24);
+        hulkfight::ai::ThreatDodgeAction* p = Alloc_0008d690((int)sizeof(::hulkfight::ai::ThreatDodgeAction));   // (allocsize1) the size by gen's record
         if (p)
             return ((ThreatDodgeAction_nv_12ca10*)(((hulkfight::ai::ThreatDodgeAction*)(p))))->Init_0012c080(this, c);
     }

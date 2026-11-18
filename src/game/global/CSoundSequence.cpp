@@ -428,7 +428,7 @@ class Owner_1e97f0 {
 CSoundSequence* Owner_1e97f0::Add() {
     if (count >= 100)
         return 0;
-    CSoundSequence* r0 = (CSoundSequence*)FUN_0008d710(0x130, 6);
+    CSoundSequence* r0 = (CSoundSequence*)FUN_0008d710((int)sizeof(CSoundSequence), 6);   // (allocsize1) the size by the record the code writes
     CSoundSequence* p;
     if (r0) {
         r0->vt = ((hulk_intptr)DAT_00423f38);

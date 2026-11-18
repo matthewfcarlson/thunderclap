@@ -94,7 +94,7 @@ hulk_freg CMoveAddTrack::vfunc_7() {
 // sym: ?vfunc_12@CMoveAddTrack@@UAEHH@Z
 // Same code shape as 0x0005aad0 (propagated; names are from that function)
 hulk_intptr CMoveAddTrack::vfunc_12(hulk_intptr param) {
-    R_69a20* p = FUN_0008d690(0x24);
+    R_69a20* p = FUN_0008d690((int)sizeof(::CMoveAddAction));   // (allocsize1) the size by gen's record
     if (p)
         return p->invoke_0001d320(this, param);
     return 0;

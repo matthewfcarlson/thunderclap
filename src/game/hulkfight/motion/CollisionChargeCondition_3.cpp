@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/hulkfight.h"
 #define TREE_TU_BEGIN namespace fn_fd954afd {
 #define TREE_TU_END }
 namespace fn_fd954afd {} using namespace fn_fd954afd;
@@ -73,7 +74,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::motion::Colli
 // 0x00159880 fight::ConditionFactoryTemplate<hulkfight::motion::CollisionChargeCondition>::vfunc_5 (58 B): matches/0x00159880.cpp
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VCollisionChargeCondition@motion@hulkfight@@@fight@@UAEPAXXZ
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::CollisionChargeCondition>::vfunc_5() {
-    CollisionChargeCondition_159880* p = (CollisionChargeCondition_159880*)Alloc(0x18);
+    CollisionChargeCondition_159880* p = (CollisionChargeCondition_159880*)Alloc(sizeof(::hulkfight::motion::CollisionChargeCondition));
     if (p) {
         p->Init_00234590(0);
         *(hulk_ulongptr*)p = ((hulk_intptr)DAT_00414150);

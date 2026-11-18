@@ -123,7 +123,7 @@ void* GroundSlideAction_156e80::vfunc_2(unsigned char flag) {
 hulk_intptr hulkfight::motion::HitPauseTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     int result = ((int)(hulk_uintptr)__RTDynamicCast((void*)c, 0, (void*)(&hulk_at_00494b44), (void*)(&hulk_at_00494b60), 0));
     if (result) {
-        Object_156ee0* p = Alloc_0008d690(0x24);
+        Object_156ee0* p = Alloc_0008d690((int)sizeof(::hulkfight::motion::HitPauseAction));   // (allocsize1) the size by gen's record
         if (p)
             return p->Init_00151720(this, c);
     }
@@ -161,7 +161,7 @@ HitPauseAction_156f30* HitPauseAction_156f30::vfunc_2(int flag) {
 hulk_intptr hulkfight::motion::HitReactionTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_156f80 a = (u32_156f80)__p0; u32_156f80 b = (u32_156f80)__p1; u32_156f80 c = (u32_156f80)__p2;
 
     if (FUN_00344e74(c, 0, RTTI1_156f80, RTTI2_156f80, 0)) {
-        void* p = FUN_0008d690(0x58);
+        void* p = FUN_0008d690((int)sizeof(::hulkfight::motion::HitReactionAction));   // (allocsize1) the size by gen's record
         if (p)
             return ((Helper_156f80*)p)->run_001517b0(this, c);
     }
@@ -198,7 +198,7 @@ hulkfight::motion::HitReactionAction::~HitReactionAction() {}
 hulk_intptr hulkfight::motion::HitReactionFloatTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_156ff0 a = (u32_156ff0)__p0; u32_156ff0 b = (u32_156ff0)__p1; u32_156ff0 c = (u32_156ff0)__p2;
 
     if (FUN_00344e74(c, 0, RTTI1_156ff0, RTTI2_156ff0, 0)) {
-        void* p = FUN_0008d690(0x58);
+        void* p = FUN_0008d690((int)sizeof(::hulkfight::motion::HitReactionFloatAction));   // (allocsize1) the size by gen's record
         if (p)
             return ((Helper_156ff0*)p)->run_001518f0(this, c);
     }

@@ -91,7 +91,7 @@ hulk_freg CCameraShakeTrack::vfunc_7() {
 // sym: ?vfunc_12@CCameraShakeTrack@@UAEHH@Z
 // Same code shape as 0x0005aad0 (propagated; names are from that function)
 hulk_intptr CCameraShakeTrack::vfunc_12(hulk_intptr param) {
-    R_6a340* p = FUN_0008d690(0x24);
+    R_6a340* p = FUN_0008d690((int)sizeof(::CCameraShakeAction));   // (allocsize1) the size by gen's record
     if (p)
         return p->invoke_0001f800(this, param);
     return 0;

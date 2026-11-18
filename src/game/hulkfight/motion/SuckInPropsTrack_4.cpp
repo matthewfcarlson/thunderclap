@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/hulkfight.h"
 #define TREE_TU_BEGIN namespace fn_f047e9f1 {
 #define TREE_TU_END }
 namespace fn_f047e9f1 {} using namespace fn_f047e9f1;
@@ -66,7 +67,7 @@ namespace fn_f047e9f1 {
 // 0x0017e9c0 fight::TrackFactoryTemplate<hulkfight::motion::SuckInPropsTrack>::vfunc_5 (80 B): matches/0x0017e9c0.cpp
 // sym: ?target@fn_f047e9f1@@YAPAVS_17e9c0@1@XZ
 S_17e9c0* __cdecl target() {
-    S_17e9c0* p = (S_17e9c0*)alloc(0x20);
+    S_17e9c0* p = (S_17e9c0*)alloc(sizeof(::hulkfight::motion::SuckInPropsTrack));
     if (p) {
         p->Init_00236d40();
         p->vp = ((hulk_intptr)DAT_00417c58);

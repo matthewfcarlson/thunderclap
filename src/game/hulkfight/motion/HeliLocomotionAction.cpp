@@ -3919,7 +3919,7 @@ void* LocomotionStrafeAction::vfunc_2(unsigned char flag) {
 // 0x00161470 hulkfight::motion::LocomotionStrafe4Track::vfunc_10 (40 B): matches/0x00161470.cpp
 // sym: ?vfunc_10@LocomotionStrafe4Track@motion@hulkfight@@UAEHHHH@Z
 hulk_intptr hulkfight::motion::LocomotionStrafe4Track::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    void* p = FUN_0008d690(0x48);
+    void* p = FUN_0008d690((int)sizeof(::hulkfight::motion::LocomotionStrafe4Action));
     if (p)
         return ((Helper_161470*)p)->run_0015e100(this, c);
     return 0;
@@ -4063,7 +4063,7 @@ void* GrappleLocomotionSteerAction_161660::vfunc_2(unsigned char flag) {
 // 0x00161720 hulkfight::motion::ClimbLocomotion4Track::vfunc_10 (40 B): matches/0x00161720.cpp
 // sym: ?vfunc_10@ClimbLocomotion4Track@motion@hulkfight@@UAEHHHH@Z
 hulk_intptr hulkfight::motion::ClimbLocomotion4Track::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    Helper_161720* p = FUN_0008d690(0x4c);
+    Helper_161720* p = FUN_0008d690((int)sizeof(::hulkfight::motion::ClimbLocomotion4Action));
     if (p)
         return p->Fnf_0015f580(this, c);
     return 0;

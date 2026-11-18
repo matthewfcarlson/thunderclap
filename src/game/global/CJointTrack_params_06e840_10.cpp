@@ -80,7 +80,7 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
 // 0x0006f670 fight::TrackFactoryTemplate<CGrappleEffectStopTrack>::vfunc_5 (38 B): matches/0x0006f670.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VCGrappleEffectStopTrack@@@fight@@UAEPAXXZ
 template <> void* fight::TrackFactoryTemplate<CGrappleEffectStopTrack>::vfunc_5() {
-    StopTrack_6f670* p = (StopTrack_6f670*)FUN_0008d690(0x18);
+    StopTrack_6f670* p = (StopTrack_6f670*)FUN_0008d690(sizeof(::CEffectStopTrack));
     if (p) {
         p->Init_000608d0();
         *(hulk_intptr*)p = ((hulk_intptr)DAT_003fd094);

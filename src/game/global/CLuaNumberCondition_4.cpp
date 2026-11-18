@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/global.h"
 #define TREE_TU_BEGIN namespace fn_ff8b2601 {
 #define TREE_TU_END }
 namespace fn_ff8b2601 {} using namespace fn_ff8b2601;
@@ -69,7 +70,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<CLuaNumberCondition>::vf
 // 0x00058340 fight::ConditionFactoryTemplate<CLuaNumberCondition>::vfunc_5 (58 B): matches/0x00058340.cpp
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VCLuaNumberCondition@@@fight@@UAEPAXXZ
 template <> void* fight::ConditionFactoryTemplate<CLuaNumberCondition>::vfunc_5() {
-    CLuaNumberCondition_58340* p = (CLuaNumberCondition_58340*)FUN_0008d690(0x54);
+    CLuaNumberCondition_58340* p = (CLuaNumberCondition_58340*)FUN_0008d690(sizeof(::CLuaNumberCondition));
     if (p) {
         p->init_00234590(0);
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_003f7304);

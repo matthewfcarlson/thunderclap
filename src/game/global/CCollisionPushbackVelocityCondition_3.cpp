@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x00057a70..0x00057b20 (kind game, layer game, confidence high), dominant class CCollisionPushbackVelocityCondition
 #include "tree_prelude.h"
+#include "gen/global.h"   // (allocsize1)
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
@@ -84,7 +85,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<CCollisionPushbackVeloci
 // 0x00057ab0 fight::ConditionFactoryTemplate<CCollisionPushbackVelocityCondition>::vfunc_5 (54 B): matches/0x00057ab0.cpp
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VCCollisionPushbackVelocityCondition@@@fight@@UAEPAXXZ
 template <> void* fight::ConditionFactoryTemplate<CCollisionPushbackVelocityCondition>::vfunc_5() {
-    CCollisionPushbackVelocityCondition_57ab0* p = (CCollisionPushbackVelocityCondition_57ab0*)FUN_0008d690(0x14);
+    CCollisionPushbackVelocityCondition_57ab0* p = (CCollisionPushbackVelocityCondition_57ab0*)FUN_0008d690((int)sizeof(::CCollisionPushbackVelocityCondition));   // (allocsize1) the size by gen's record
     if (p) {
         p->Init_00234590(0);
         ((hulk_intptr*)p)[0] = (hulk_intptr)&hulk_at_003f707c;

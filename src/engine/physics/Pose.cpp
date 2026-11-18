@@ -1068,9 +1068,9 @@ physics::Pose::Pose(Source_30f6b0* s) {
  if (!s) {source=0;nodes=0;return;}
  source=s; source->retain();
  int n=source->count;
- unsigned int* memory=(unsigned int*)FUN_0008d6d0((unsigned int)n*192+4);
+ unsigned int* memory=(unsigned int*)FUN_0008d6d0((unsigned int)n*sizeof(Node)+sizeof(unsigned int));   // (sweep-allocsize) the count, then the nodes
  Node* array=0;
- if(memory) {memory[0]=n;array=(Node*)(memory+1);FUN_00011520(array,192,n,&FUN_0030eba0);}
+ if(memory) {memory[0]=n;array=(Node*)(memory+1);FUN_00011520(array,sizeof(Node),n,&FUN_0030eba0);}
  nodes=array;
  for(int i=1;i<n;++i) {
  nodes[i].index=i;
@@ -1280,7 +1280,7 @@ PoseEngine_310080* PoseEngine_310080::ctor(Res_310080* a0, int a1, int a2) {
     vptr = ((void**)DAT_00432148);
     m10 = a1;
     m14 = a2;
-    physics::Pose* h = (physics::Pose*)operator new(0x10);
+    physics::Pose* h = (physics::Pose*)operator new(sizeof(fn_0030f6b0::physics::Pose));   // (sweep-allocsize) the pose's words (0x0030f6b0's record)
     if (h)
         h = ((Pose_nv_310080*)(((physics::Pose*)(h))))->Init_0030fc50(a0);
     else
@@ -1289,8 +1289,8 @@ PoseEngine_310080* PoseEngine_310080::ctor(Res_310080* a0, int a1, int a2) {
     h->vfunc_0();
     m8 = a0;
     a0->F0();
-    m18 = (int**)operator new[](m10 * 4);
-    m1c = (int**)operator new[](m10 * 4);
+    m18 = (int**)operator new[](m10 * sizeof(int*));
+    m1c = (int**)operator new[](m10 * sizeof(int*));
     for (int i = 0; i < m10; i++) {
         m18[i] = 0;
         m1c[i] = (int*)operator new[](m14 * 4);

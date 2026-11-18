@@ -3,6 +3,7 @@
 #include "tree_prelude.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/hulkfight.h"
 #define TREE_TU_BEGIN namespace fn_f399d1fe {
 #define TREE_TU_END }
 namespace fn_f399d1fe {} using namespace fn_f399d1fe;
@@ -66,7 +67,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::ai::TargetArc
 // 0x0012b100 fight::ConditionFactoryTemplate<hulkfight::ai::TargetArcCondition>::vfunc_5 (81 B): matches/0x0012b100.cpp
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VTargetArcCondition@ai@hulkfight@@@fight@@UAEPAXXZ
 template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::TargetArcCondition>::vfunc_5() {
-    Child* p = (Child*)FUN_0008d690(0x30);
+    Child* p = (Child*)FUN_0008d690(sizeof(::hulkfight::ai::TargetArcCondition));
     if (p) {
         p->Child::Child(0);
         *(void**)p = hulk_at_0040fd34;

@@ -6,6 +6,7 @@
 #include "decls/data/engine/pure3d/prop.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
+#include "decls/shader.h"
 #include "gen/pure3d.h"
 #define TREE_TU_BEGIN namespace fn_ff9d56b0 {
 #define TREE_TU_END }
@@ -194,7 +195,7 @@ extern "C" int __cdecl FUN_00096670(const char* s1, const char* s2, unsigned int
 // data: gEnabled_966f0 = DAT_004dd8e4, gObject_966f0 = DAT_004dd930
 extern "C" void FUN_000966f0() {
     if ((*(unsigned char*)&DAT_004dd8e4) && (*(pure3d::Shader**)&DAT_004dd930) == 0) {
-        pure3d::Shader* p = (pure3d::Shader*)Alloc(0x20);
+        pure3d::Shader* p = (pure3d::Shader*)Alloc(sizeof(HulkShader));
         if (p)
             p = ((Shader_nv_966f0*)(p))->Init();
         else

@@ -22,7 +22,7 @@ extern const char hulk_at_00494b60[];
 hulk_intptr hulkfight::ai::StrafeRunTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_121f40 a = (u32_121f40)__p0; u32_121f40 b = (u32_121f40)__p1; u32_121f40 c = (u32_121f40)__p2;
 
     if (((int)(hulk_uintptr)__RTDynamicCast((void*)(hulk_uintptr)(c), 0, (void*)(hulk_at_00494b44), (void*)(hulk_at_00494b60), 0))) {
-        hulkfight::ai::StrafeRunAction* p = Alloc_0008d690(0x30);
+        hulkfight::ai::StrafeRunAction* p = Alloc_0008d690((int)sizeof(::hulkfight::ai::StrafeRunAction));   // (allocsize1) the size by gen's record
         if (p)
             return (int)(((StrafeRunAction_nv_121f40*)(((hulkfight::ai::StrafeRunAction*)(p))))->init_0011cd70(this, c));
     }

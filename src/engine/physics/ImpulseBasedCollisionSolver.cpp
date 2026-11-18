@@ -800,7 +800,7 @@ namespace fn_f524d977 {
 // sym: ?FUN_002f7e50@fn_f524d977@@YIXPAUObj_2f7e50@1@@Z
 void __fastcall FUN_002f7e50(Obj_2f7e50* self) {
     if (self->member == 0) {
-        void* p = FUN_0008d690(0x6c);
+        void* p = FUN_0008d690((int)sizeof(::physics::CollisionAnalyser));   // (allocsize1) the size by gen's record
         void* r;
         if (p != 0) {
             r = ((CollisionAnalyser_nv_2f7e50*)(((physics::CollisionAnalyser*)(((physics::CollisionAnalyser*)p)))))->init_0030e480();

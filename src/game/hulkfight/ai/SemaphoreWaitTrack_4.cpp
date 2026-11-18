@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/hulkfight.h"
 #define TREE_TU_BEGIN namespace fn_f9e09596 {
 #define TREE_TU_END }
 namespace fn_f9e09596 {} using namespace fn_f9e09596;
@@ -74,7 +75,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::ai::SemaphoreWait
 // 0x00114e20 fight::TrackFactoryTemplate<hulkfight::ai::SemaphoreWaitTrack>::vfunc_5 (75 B): matches/0x00114e20.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VSemaphoreWaitTrack@ai@hulkfight@@@fight@@UAEPAXXZ
 template <> void* fight::TrackFactoryTemplate<hulkfight::ai::SemaphoreWaitTrack>::vfunc_5() {
-    SemaphoreWaitTrack_114e20* p = (SemaphoreWaitTrack_114e20*)alloc(0x28);
+    SemaphoreWaitTrack_114e20* p = (SemaphoreWaitTrack_114e20*)alloc(sizeof(::hulkfight::ai::SemaphoreWaitTrack));
     if (p != 0) {
         ((BaseInit*)p)->go_00236d40();
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_0040dd04);

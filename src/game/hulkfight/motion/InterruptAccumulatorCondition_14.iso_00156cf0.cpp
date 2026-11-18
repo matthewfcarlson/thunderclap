@@ -26,7 +26,7 @@ hulkfight::motion::InterruptPriorityAction* __cdecl Alloc_0008d690(int);
 hulk_intptr hulkfight::motion::InterruptPriorityTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     int result = ((int)(hulk_uintptr)__RTDynamicCast((void*)c, 0, (void*)(&hulk_at_00494b44), (void*)(&hulk_at_00494b60), 0));
     if (result) {
-        hulkfight::motion::InterruptPriorityAction* p = Alloc_0008d690(0x24);
+        hulkfight::motion::InterruptPriorityAction* p = Alloc_0008d690(sizeof(::hulkfight::motion::InterruptPriorityAction));
         if (p)
             return ((InterruptPriorityAction_nv_156cf0*)(((hulkfight::motion::InterruptPriorityAction*)(p))))->Init_00151060(this, c);
     }

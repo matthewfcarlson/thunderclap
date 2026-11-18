@@ -2343,7 +2343,7 @@ unsigned char Obj::Set(Vec const* v) {
 // 0x00062300 CSmartPropAttachTrack::vfunc_12 (40 B): matches/0x00062300.cpp
 // sym: ?vfunc_12@CSmartPropAttachTrack@@UAEHH@Z
 hulk_intptr CSmartPropAttachTrack::vfunc_12(hulk_intptr a) {
-    Helper_62300* p = FUN_0008d690(0x2c);
+    Helper_62300* p = FUN_0008d690((int)sizeof(::CSmartPropAttachAction));   // (allocsize1) the size by gen's record
     if (p)
         return p->Fnf_0001ea30(this, a);
     return 0;
@@ -2673,7 +2673,7 @@ char owners::X_626c0::FUN_000626c0(const char* s) {
 // sym: ?vfunc_12@CSmartPropSpawnTrack@@UAEHH@Z
 // Same code shape as 0x0005dd70 (propagated; names are from that function)
 hulk_intptr CSmartPropSpawnTrack::vfunc_12(hulk_intptr param) {
-    Helper_626e0* p = (Helper_626e0*)FUN_0008d690(0x28);
+    Helper_626e0* p = (Helper_626e0*)FUN_0008d690((int)sizeof(::CSmartPropSpawnAction));   // (allocsize1) the size by gen's record
     if (p)
         return p->FUN_0001eff0(this, param);
     return 0;
@@ -3131,7 +3131,7 @@ struct CSmartPropEventTrack {
 };
 extern void* __cdecl FUN_0008d690(int);
 u32_62bb0 CSmartPropEventTrack::vfunc_12(u32_62bb0 arg) {
-    void* p = FUN_0008d690(0x28);
+    void* p = FUN_0008d690((int)sizeof(::CSmartPropEventAction));   // (allocsize1) the size by gen's record
     if (p)
         return ((CSmartPropEventAction_62bb0*)p)->call_0001f3e0(arg, d, c);
     return 0;

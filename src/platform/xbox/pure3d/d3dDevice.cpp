@@ -299,7 +299,7 @@ void* pure3d::d3dDevice::vfunc_9(hulk_intptr __p0) { Params_31b8a0 * p = (Params
 // sym: ?vfunc_10@d3dDevice@pure3d@@UAEPAXPAX@Z
 void* pure3d::d3dDevice::vfunc_10(void* __p0) { Params_31b960 * p = (Params_31b960 *)__p0;
 
-    void* m = Alloc(0x40);
+    void* m = Alloc((int)sizeof(::pure3d::d3dPrimBuffer));   // (allocsize1) the size by gen's record
     Impl_31b960* o;
     if (m)
         o = new (m) Impl_31b960(this->f_0c);

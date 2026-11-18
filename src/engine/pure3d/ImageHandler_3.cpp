@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x002ae8a0..0x002af160 (kind game, layer engine, confidence high), dominant class pure3d::ImageHandler
 #include "tree_prelude.h"
+#include "decls/load_inventory.h"   // (allocsize1)
 #include "compat/ptr.h"
 #include "decls/loaders.h"
 #include "decls/texture_builder.h"
@@ -346,7 +347,7 @@ void pure3d::ImageHandler::vfunc_3(Request* req, Context* ctx)
         FUN_0028fb20(name, req->path);
     }
 
-    void* lmem = FUN_00263ed0(0x14, req->kind);
+    void* lmem = FUN_00263ed0(HULK_LOADINVENTORY_SIZE, req->kind);   // (allocsize1) decls/load_inventory.h
     LoadInventory_2aea70* loader = 0;
     if (lmem)
         loader = ((LoadInventory_2aea70*)lmem)->FUN_00266480(0x400);

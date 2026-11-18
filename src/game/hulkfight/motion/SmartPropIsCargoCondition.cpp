@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x0018bc20..0x0018bcc0 (kind game, layer game, confidence high), dominant class hulkfight::motion::SmartPropIsCargoCondition
 #include "tree_prelude.h"
+#include "gen/hulkfight.h"   // (allocsize1)
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
@@ -70,7 +71,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::motion::Smart
 // 0x0018bc60 fight::ConditionFactoryTemplate<hulkfight::motion::SmartPropIsCargoCondition>::vfunc_5 (47 B): matches/0x0018bc60.cpp
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VSmartPropIsCargoCondition@motion@hulkfight@@@fight@@UAEPAXXZ
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::SmartPropIsCargoCondition>::vfunc_5() {
-    SmartPropIsCargoCondition_18bc60* p = (SmartPropIsCargoCondition_18bc60*)FUN_0008d690(0x10);
+    SmartPropIsCargoCondition_18bc60* p = (SmartPropIsCargoCondition_18bc60*)FUN_0008d690((int)sizeof(::hulkfight::motion::SmartPropIsCargoCondition));   // (allocsize1) the size by gen's record
     if (p) {
         p->Init_00234590(0);
         *(hulk_intptr*)p = ((hulk_intptr)DAT_0041928c);

@@ -163,7 +163,7 @@ bool JointTrackerAction::vfunc_3(int a, int b)
             id = 0;
     }
 
-    JointDriver *d = (JointDriver *)FUN_00263ea0(0x70);
+    JointDriver *d = (JointDriver *)FUN_00263ea0((int)sizeof(JointDriver));   // (allocsize1) the size by the record the code writes
     if (d)
         d = d->FUN_002248a0();
     driver = d;

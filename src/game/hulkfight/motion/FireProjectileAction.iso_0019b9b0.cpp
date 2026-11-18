@@ -26,7 +26,7 @@ hulkfight::motion::FireGroundShockwaveAction* __cdecl Alloc_0008d690(int);
 hulk_intptr hulkfight::motion::FireGroundShockwaveTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     int result = ((int)(hulk_uintptr)__RTDynamicCast((void*)c, 0, (void*)(&hulk_at_00494b44), (void*)(&hulk_at_00494b60), 0));
     if (result) {
-        hulkfight::motion::FireGroundShockwaveAction* p = Alloc_0008d690(0x24);
+        hulkfight::motion::FireGroundShockwaveAction* p = Alloc_0008d690(sizeof(::hulkfight::motion::FireGroundShockwaveAction));
         if (p)
             return ((FireGroundShockwaveAction_nv_19b9b0*)(((hulkfight::motion::FireGroundShockwaveAction*)(p))))->Init_00198900(this, c);
     }

@@ -6,6 +6,7 @@
 #include "decls/data/game/unknown.h"
 #include "decls/data/records.h"
 #include "decls/data/script.h"
+#include "decls/shader.h"
 
 
 // 0x000d6640 FUN_000d6640 (657 B): equivalent/0x000d6640.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
@@ -82,7 +83,7 @@ struct Manager_d6640 { void FUN_001d3b70(const char*,void*);
 extern "C" Manager_d6640* FUN_001d4c90();
 MessageOverlay::MessageOverlay() {
  busy=1; f248=0; f484=0; a.FUN_000dee40(); b.FUN_000dee10(); f8=0; fc=0; f7b0=0;
- Shader_d6640* r=(Shader_d6640*)FUN_00263ea0(32); resource=r?r->FUN_0028edb0():0; resource->v0(); resource->inner->v6(0x444d4c42,1);
+ Shader_d6640* r=(Shader_d6640*)FUN_00263ea0(sizeof(HulkShader)); resource=r?r->FUN_0028edb0():0; resource->v0(); resource->inner->v6(0x444d4c42,1);
  f7c4=0; f10=0; f7c8=0; f7cc=0; f80c=1;
  Manager_d6640* m=FUN_001d4c90(); if(m) {
  typedef Closure1<MessageOverlay,void,const char*> ClosureS;

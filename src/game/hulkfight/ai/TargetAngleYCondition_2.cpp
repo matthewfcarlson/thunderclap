@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x0012a480..0x0012a530 (kind game, layer game, confidence high), dominant class hulkfight::ai::TargetAngleYCondition
 #include "tree_prelude.h"
+#include "gen/hulkfight.h"   // (allocsize1)
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
@@ -63,7 +64,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::ai::TargetAng
 // 0x0012a4c0 fight::ConditionFactoryTemplate<hulkfight::ai::TargetAngleYCondition>::vfunc_5 (54 B): matches/0x0012a4c0.cpp
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VTargetAngleYCondition@ai@hulkfight@@@fight@@UAEPAXXZ
 template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::TargetAngleYCondition>::vfunc_5() {
-    void* p = FUN_0008d690(0x14);
+    void* p = FUN_0008d690((int)sizeof(::hulkfight::ai::TargetAngleYCondition));   // (allocsize1) the size by gen's record
     if (p) {
         ((InitObj_12a4c0*)p)->Init_00234590(0);
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_0040fd94);

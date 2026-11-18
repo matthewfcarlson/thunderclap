@@ -1143,6 +1143,10 @@ void SkeletonLoader::F(Skeleton **out, unsigned __int64 *outId, Loader_27c140 *l
 
 // 0x0027c720 pure3d::LegacySkeletonLoader::vfunc_5 (599 B): equivalent/0x0027c720.cpp
 // sym: ?vfunc_5@LegacySkeletonLoader@pure3d@@UAEXPAX00H@Z @6ee8553bea12 @w12be7a9ed471 @v50abd629484c
+struct AllocWords_27c720 : ::pure3d::Skeleton {   // (sweep-allocsize) the object's words and the allocation's last word (the
+    int last;   // record's size is its last field's end, 4 short of the 0x50-byte allocation)
+};
+typedef char AllocWords_27c720_size32[(sizeof(void*) != 4 || sizeof(AllocWords_27c720) == 0x50) ? 1 : -1];
 // STATUS: equivalent (tools/equiv.py level 3: 68 inputs, branch coverage 10/10)
 // pure3d::LegacySkeletonLoader::vfunc_5 @ 0x0027c720
 void pure3d::LegacySkeletonLoader::vfunc_5(void* __p0, void* __p1, void* __p2, hulk_intptr unused) { Skeleton_27c720 ** out = (Skeleton_27c720 **)__p0; unsigned long long * outId = (unsigned long long *)__p1; Reader_27c720 * r = (Reader_27c720 *)__p2;
@@ -1159,7 +1163,7 @@ void pure3d::LegacySkeletonLoader::vfunc_5(void* __p0, void* __p1, void* __p2, h
     if (nJoints < 1)
         FUN_0028fcc0("LegacySkeletonLoader - skipping skeleton: '%s' because nJoints < 1\n", f.name);
 
-    void* mem = FUN_00263ea0(0x50);
+    void* mem = FUN_00263ea0(sizeof(AllocWords_27c720));
     Skeleton_27c720* skel = 0;
     if (mem)
         skel = ((Skeleton_27c720*)mem)->FUN_0027bee0(nJoints, 0, 0);

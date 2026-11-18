@@ -5,6 +5,7 @@
 #include "decls/address.h"
 #include "decls/data/engine/pure3d/prop.h"
 #include "decls/data/game/global.h"
+#include "decls/shader.h"
 #include "gen/global.h"
 #include "gen/owners.h"
 #include "gen/pure3d.h"
@@ -709,7 +710,7 @@ CRadMovieRenderLoop_1b7740* __fastcall FUN_001b7740(CRadMovieRenderLoop_1b7740* 
     self->vptr = (hulk_uintptr)&hulk_at_0041dc30;
     self->state = -2;
     self->zero = 0;
-    hulk_intptr t = alloc(32);
+    hulk_intptr t = alloc(sizeof(HulkShader));
     Made_1b7740* m;
     if (t)
         m = ((Shader_nv_1b7740*)(((pure3d::Shader*)(((pure3d::Shader*)t)))))->make_0028edb0();
@@ -759,7 +760,7 @@ namespace fn_fbeebd58 {
 void Target_1b77e0::Run() {
     mMgr->Fn_002088a0();
     int saved = FUN_00266da0(7);
-    void* mem = Alloc_0008d710(0x10, 7);
+    void* mem = Alloc_0008d710(sizeof(::CRadMovieRenderLoop), 7);
     RC* s;
     if (mem)
         s = (RC*)((CRadMovieRenderLoop_nv_1b77e0*)(((CRadMovieRenderLoop*)(((CRadMovieRenderLoop*)mem)))))->Init_001b7740();

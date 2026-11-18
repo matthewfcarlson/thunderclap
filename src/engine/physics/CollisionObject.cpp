@@ -1550,10 +1550,10 @@ void Node::FUN_00306380() {
  f50=f90; f6c=fac; f70=fb0; f74=fb4;
  } else if(kind==8) f44=0;
  if(children) {
- unsigned int count=(unsigned int)(((hulk_intptr)children->end-(hulk_intptr)children->begin)>>2);
+ unsigned int count=(unsigned int)(children->end-children->begin);   // (allocsize1) element-typed: the children are pointers
  for(unsigned int i=0;i<count;++i) {
  children->begin[i]->FUN_00306380();
- count=(unsigned int)(((hulk_intptr)children->end-(hulk_intptr)children->begin)>>2);
+ count=(unsigned int)(children->end-children->begin);
  }
  }
 }

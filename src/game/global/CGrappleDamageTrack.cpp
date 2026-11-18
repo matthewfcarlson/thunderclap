@@ -90,7 +90,7 @@ hulk_intptr CGrappleDamageTrack::vfunc_12(hulk_intptr __p0) { Target_5a510 * tar
     if (anim == 0) {
         return (int)(0);
     }
-    Effect_5a510 *mem = (Effect_5a510 *)FUN_0008d690(0x28);
+    Effect_5a510 *mem = (Effect_5a510 *)FUN_0008d690((int)sizeof(::CDamageAction));   // (allocsize1) the size by gen's record
     if (mem == 0) {
         return (int)(0);
     }

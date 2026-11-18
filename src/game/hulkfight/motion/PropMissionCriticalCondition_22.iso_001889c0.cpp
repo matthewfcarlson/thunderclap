@@ -26,7 +26,7 @@ hulkfight::motion::PropAddToMissileCountAction* __cdecl Alloc_0008d690(int);
 hulk_intptr hulkfight::motion::PropAddToMissileCountTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     int result = ((int)(hulk_uintptr)__RTDynamicCast((void*)c, 0, (void*)(&hulk_at_00494b44), (void*)(&hulk_at_00494b60), 0));
     if (result) {
-        hulkfight::motion::PropAddToMissileCountAction* p = Alloc_0008d690(0x24);
+        hulkfight::motion::PropAddToMissileCountAction* p = Alloc_0008d690((int)sizeof(::hulkfight::motion::PropAddToMissileCountAction));   // (allocsize1) the size by gen's record
         if (p)
             return ((PropAddToMissileCountAction_nv_1889c0*)(((hulkfight::motion::PropAddToMissileCountAction*)(p))))->Init_00183b80(this, c);
     }

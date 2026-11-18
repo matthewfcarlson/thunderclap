@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/hulkfight.h"
 #define TREE_TU_BEGIN namespace fn_fe97ab9a {
 #define TREE_TU_END }
 namespace fn_fe97ab9a {} using namespace fn_fe97ab9a;
@@ -63,7 +64,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::motion::PropM
 // 0x0018b6f0 fight::ConditionFactoryTemplate<hulkfight::motion::PropMissionCriticalCondition>::vfunc_5 (51 B): matches/0x0018b6f0.cpp
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VPropMissionCriticalCondition@motion@hulkfight@@@fight@@UAEPAXXZ
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::PropMissionCriticalCondition>::vfunc_5() {
-    char* p = (char*)FUN_0008d690(0x14);
+    char* p = (char*)FUN_0008d690(sizeof(::hulkfight::motion::PropMissionCriticalCondition));
     if (p) {
         ((InitObj_18b6f0*)p)->init_00234590(0);
         *(hulk_uintptr*)p = (hulk_uintptr)&hulk_at_0041912c;

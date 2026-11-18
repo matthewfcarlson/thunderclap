@@ -92,7 +92,7 @@ hulk_freg CClimbingTrack::vfunc_7() {
 // sym: ?vfunc_12@CClimbingTrack@@UAEHH@Z
 // Same code shape as 0x0005aad0 (propagated; names are from that function)
 hulk_intptr CClimbingTrack::vfunc_12(hulk_intptr param) {
-    R_68f60* p = FUN_0008d690(0x24);
+    R_68f60* p = FUN_0008d690(sizeof(::CClimbingAction));
     if (p)
         return p->invoke_00018c20(this, param);
     return 0;

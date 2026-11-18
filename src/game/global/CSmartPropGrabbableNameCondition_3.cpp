@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/global.h"
 #define TREE_TU_BEGIN namespace fn_f40eb462 {
 #define TREE_TU_END }
 namespace fn_f40eb462 {} using namespace fn_f40eb462;
@@ -73,7 +74,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<CSmartPropGrabbableNameC
 // 0x00059140 fight::ConditionFactoryTemplate<CSmartPropGrabbableNameCondition>::vfunc_5 (55 B): matches/0x00059140.cpp
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VCSmartPropGrabbableNameCondition@@@fight@@UAEPAXXZ
 template <> void* fight::ConditionFactoryTemplate<CSmartPropGrabbableNameCondition>::vfunc_5() {
-    Cond_59140* p = (Cond_59140*)Allocate(0x18);
+    Cond_59140* p = (Cond_59140*)Allocate(sizeof(::CSmartPropGrabbableNameCondition));
     if (p) {
         p->Initialize_00234590(0);
         *(hulk_intptr*)p = (hulk_intptr)&hulk_at_003f7208;

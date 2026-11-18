@@ -370,13 +370,13 @@ class VertexAnimObject { public: virtual void v0_00018b30(); unsigned field4; Ob
 VertexAnimObject* VertexAnimObject::Initialize(Source_2d1090* source) {
  this->VertexAnimObject::VertexAnimObject();
  field4=0; animation=0; storage.data=0; storage.other=0;
- unsigned count=(unsigned)(((int)((char*)source->end-(char*)source->begin)) >> 4);
+ unsigned count=(unsigned)(source->end-source->begin);   // (sweep-allocsize) the entries by their type
  InitContext context; context.offset=0; context.owner=this;
  storage.FUN_002d0eb0(count,&context);
  VertexAnimObject* current=this;
  if(count) context.offset=0;
  for(unsigned i=0;i<count;++i) {
-  Object* obj=source->begin[context.offset/16].object;
+  Object* obj=source->begin[context.offset/sizeof(Entry_2d1090)].object;
   if(obj->Type()==0x40) {
    Object** slot=current->storage.data+i;
    obj->AddRef();
@@ -384,7 +384,7 @@ VertexAnimObject* VertexAnimObject::Initialize(Source_2d1090* source) {
    *slot=obj;
    current=context.owner;
   }
-  context.offset+=16;
+  context.offset+=sizeof(Entry_2d1090);
  }
  Object* obj=source->animation;
  if(obj) obj->AddRef();

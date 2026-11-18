@@ -178,7 +178,7 @@ void Object::target(unsigned c,hulk_uintptr v,void* d) { bool e=d && resource; b
 // 0x002d0c80 FUN_002d0c80 (44 B): matches/0x002d0c80.cpp
 // sym: ?FUN_002d0c80@X_2d0c80@owners@@QAEXXZ
 void owners::X_2d0c80::FUN_002d0c80() {
-    hulk_uintptr n = ((char*)end - (char*)begin) >> 2;
+    hulk_uintptr n = end - begin;   // (allocsize1) element-typed: the items are pointers
     for (unsigned int i = 0; i < n; ++i) {
         void* p = begin[i];
         if (p)

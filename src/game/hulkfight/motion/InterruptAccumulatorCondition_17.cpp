@@ -228,7 +228,7 @@ void* HitFloatAction_1572a0::vfunc_2(unsigned char flag) {
 hulk_intptr hulkfight::motion::HitDamageTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     int result = ((int)(hulk_uintptr)__RTDynamicCast((void*)c, 0, (void*)(&TypeA_157300), (void*)(&TypeB_157300), 0));
     if (result) {
-        Object_157300* p = Alloc_0008d690(0x24);
+        Object_157300* p = Alloc_0008d690(sizeof(::hulkfight::motion::HitDamageAction));
         if (p)
             return p->Init_00151e90(this, c);
     }

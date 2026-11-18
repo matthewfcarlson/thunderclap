@@ -3,6 +3,7 @@
 #include "tree_prelude.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/hulkfight.h"
 #define TREE_TU_BEGIN namespace fn_f92a9ee4 {
 #define TREE_TU_END }
 namespace fn_f92a9ee4 {} using namespace fn_f92a9ee4;
@@ -62,7 +63,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::ai::AcquireTarget
 // 0x0012af80 fight::TrackFactoryTemplate<hulkfight::ai::AcquireTargetTrack>::vfunc_5 (87 B): matches/0x0012af80.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VAcquireTargetTrack@ai@hulkfight@@@fight@@UAEPAXXZ
 template <> void* fight::TrackFactoryTemplate<hulkfight::ai::AcquireTargetTrack>::vfunc_5() {
-    Child* p = (Child*)FUN_0008d690(0x2c);
+    Child* p = (Child*)FUN_0008d690(sizeof(::hulkfight::ai::AcquireTargetTrack));
     if (p) {
         p->Child::Child();
         *(int*)((char*)p + 0xc) = 0;

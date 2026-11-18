@@ -103,7 +103,7 @@ class CMoveAgent : public CCharacterAgent_000fc760 {
 };
 CMoveAgent::CMoveAgent(void* arg) : CCharacterAgent_000fc760(arg) {
     *(hulk_uintptr*)this = ((hulk_intptr)DAT_0040d418);
-    CAvoidBehaviour_102ac0* h = (CAvoidBehaviour_102ac0*)FUN_0008d690(0x38);
+    CAvoidBehaviour_102ac0* h = (CAvoidBehaviour_102ac0*)FUN_0008d690((int)sizeof(::CAvoidBehaviour));   // (allocsize1) the size by gen's record
     Obj_102ac0* q;
     if (h)
         q = h->Make_00109ba0();

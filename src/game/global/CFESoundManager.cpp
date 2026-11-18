@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
+#include "decls/shader.h"
 #include "gen/global.h"
 #include "gen/owners.h"
 #define TREE_TU_BEGIN namespace fn_f49e96f9 {
@@ -229,7 +230,7 @@ void Frontend_c4ef0::FUN_000c4ef0(void *a1, void *a2, void *a3, Input_c4ef0 *a4,
         delete controllers;
         controllers = 0;
     }
-    p = FUN_0008d690(8);
+    p = FUN_0008d690(sizeof(::FEControllerSystem));
     FEControllerSystem_c4ef0 *ctl = p ? ((FEControllerSystem_c4ef0 *)p)->FUN_000b3de0() : 0;
     controllers = ctl;
     ctl->FUN_000b3e00(a1);
@@ -254,10 +255,10 @@ void Frontend_c4ef0::FUN_000c4ef0(void *a1, void *a2, void *a3, Input_c4ef0 *a4,
     timer.FUN_00095f70();
     FUN_000fc3d0()->registerCallback(FUN_000d3d80, this);
 
-    p = FUN_0008d690(8);
+    p = FUN_0008d690(sizeof(::CallbackHolderInt< ::CFrontEndCallback>));
     field_64 = p ? ((CFrontEndCallback_c4ef0 *)p)->FUN_000c43a0(this) : 0;
 
-    p = FUN_00263ea0(0x20);
+    p = FUN_00263ea0(sizeof(HulkShader));
     field_68 = p ? ((Shader_c4ef0 *)p)->FUN_0028edb0() : 0;
     field_68->v0();
 

@@ -7,6 +7,7 @@
 // 0x001aaa10 fight::ConditionFactoryTemplate<hulkfight::scenario::Event_StringCondition>::vfunc_5 (48 B): matches/0x001aaa10.cpp [isolated: conflict: Alloc; on include/gen/ and not mergeable]
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VEvent_StringCondition@scenario@hulkfight@@@fight@@UAEPAXXZ
 #include "gen/fight.h"
+#include "gen/hulkfight.h"   // (sweep-allocsize)
 
 extern "C" char DAT_0041c4f0[];
 extern void* __cdecl Alloc_0008d690(unsigned int);
@@ -19,7 +20,7 @@ struct Sub_1aaa10 {
 };
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::scenario::Event_StringCondition>::vfunc_5() {
-    Event_StringCondition_1aaa10* p = (Event_StringCondition_1aaa10*)Alloc_0008d690(0x18);
+    Event_StringCondition_1aaa10* p = (Event_StringCondition_1aaa10*)Alloc_0008d690((int)sizeof(::hulkfight::scenario::Event_StringCondition));   // (sweep-allocsize) the size by gen's record (a fight::Condition)
     if (p) {
         p->Initialize_00234590(0);
         p->x[0] = ((hulk_intptr)DAT_0041c4f0);

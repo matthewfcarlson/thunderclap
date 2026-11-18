@@ -1390,7 +1390,7 @@ extern "C" void FUN_00112f10()
 hulk_intptr hulkfight::ai::ButtonTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     int result = ((int)(hulk_uintptr)__RTDynamicCast((void*)c, 0, (void*)(&hulk_at_00494b44), (void*)(&hulk_at_00494b60), 0));
     if (result) {
-        Object_113080* p = Alloc_0008d690(0x24);
+        Object_113080* p = Alloc_0008d690((int)sizeof(::hulkfight::ai::ButtonAction));   // (allocsize1) the size by gen's record
         if (p)
             return p->Init_0010ec00(this, c);
     }

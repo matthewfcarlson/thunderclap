@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/hulkfight.h"
 #define TREE_TU_BEGIN namespace fn_fac1b2ca {
 #define TREE_TU_END }
 namespace fn_fac1b2ca {} using namespace fn_fac1b2ca;
@@ -69,7 +70,7 @@ namespace fn_fac1b2ca {
 // 0x0012a410 fight::ConditionFactoryTemplate<hulkfight::ai::TargetDistanceCondition>::vfunc_5 (56 B): matches/0x0012a410.cpp
 // sym: ?target@fn_fac1b2ca@@YAPAVTDC_12a410@1@XZ
 TDC_12a410* __cdecl target() {
-    TDC_12a410* p = (TDC_12a410*)alloc(0x18);
+    TDC_12a410* p = (TDC_12a410*)alloc(sizeof(::hulkfight::ai::TargetDistanceCondition));
     int z = 0;
     if (p) {
         p->init_00234590(z);

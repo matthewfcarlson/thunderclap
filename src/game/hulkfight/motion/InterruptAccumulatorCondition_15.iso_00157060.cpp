@@ -26,7 +26,7 @@ hulkfight::motion::HitPushbackAddAction* __cdecl Alloc_0008d690(int);
 hulk_intptr hulkfight::motion::HitPushbackAddTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     int result = ((int)(hulk_uintptr)__RTDynamicCast((void*)c, 0, (void*)(&hulk_at_00494b44), (void*)(&hulk_at_00494b60), 0));
     if (result) {
-        hulkfight::motion::HitPushbackAddAction* p = Alloc_0008d690(0x24);
+        hulkfight::motion::HitPushbackAddAction* p = Alloc_0008d690(sizeof(::hulkfight::motion::HitPushbackAddAction));
         if (p)
             return ((HitPushbackAddAction_nv_157060*)(((hulkfight::motion::HitPushbackAddAction*)(p))))->Init_00151a30(this, c);
     }

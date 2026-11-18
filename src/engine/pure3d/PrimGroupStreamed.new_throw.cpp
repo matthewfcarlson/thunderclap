@@ -1,6 +1,8 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x002df4d0..0x002e1610 (kind game, layer engine, confidence high), dominant class pure3d::PrimGroupStreamed
 #include "tree_prelude.h"
+#include "compat/ptr.h"
+#include "gen/pure3d.h"
 #define TREE_TU_BEGIN namespace fn_fd7377f4 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CAction
@@ -60,7 +62,7 @@ PrimGroupStreamed::PrimGroupStreamed(int a, int b, int c) : PrimGroupBase() {
     f4c = b;
     f50 = -1;
     f5c = 0;
-    void* mem = FUN_0008d690(0x5c);
+    void* mem = FUN_0008d690(sizeof(::pure3d::VertexList));
     VertexList_2e01d0* sub = 0;
     if (mem)
         sub = new (mem) VertexList_2e01d0(f48, b, c);

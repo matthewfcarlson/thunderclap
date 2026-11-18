@@ -53,7 +53,7 @@ class TrackFactory_132d80 {
 };
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::DebugPrintTrack>::vfunc_5() {
-    DebugPrintTrack_132d80* p = (DebugPrintTrack_132d80*)Allocate_0008d690(0x1c);
+    DebugPrintTrack_132d80* p = (DebugPrintTrack_132d80*)Allocate_0008d690((int)sizeof(DebugPrintTrack_132d80));   // (allocsize1) the size by the record the code writes
     if (p) {
         new (p) DebugPrintTrack_132d80();
         return (void*)(p);

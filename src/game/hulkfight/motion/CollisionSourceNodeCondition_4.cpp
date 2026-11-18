@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/hulkfight.h"
 #define TREE_TU_BEGIN namespace fn_f73fc4d4 {
 #define TREE_TU_END }
 namespace fn_f73fc4d4 {} using namespace fn_f73fc4d4;
@@ -78,7 +79,7 @@ namespace fn_f73fc4d4 {
 // 0x001597d0 fight::ConditionFactoryTemplate<hulkfight::motion::CollisionSourceNodeCondition>::vfunc_5 (59 B): matches/0x001597d0.cpp
 // sym: ?FactoryVfunc5@fn_f73fc4d4@@YAPAVCollisionSourceNodeCondition@1@XZ
 CollisionSourceNodeCondition* FactoryVfunc5() {
-    CollisionSourceNodeCondition* p = (CollisionSourceNodeCondition*)FUN_0008d690(0x20);
+    CollisionSourceNodeCondition* p = (CollisionSourceNodeCondition*)FUN_0008d690(sizeof(::hulkfight::motion::CollisionSourceNodeCondition));
     if (p) {
         p->Init_00234590(0);
         *(hulk_ulongptr*)p = ((hulk_intptr)DAT_00414130);

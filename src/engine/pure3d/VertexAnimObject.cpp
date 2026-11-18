@@ -93,7 +93,7 @@ pure3d::VertexAnimObject::VertexAnimObject(Source_2d0fa0* source) {
  extra=0;
  entries.data=0;
  entries.size=0;
- unsigned count=(unsigned)(((char*)source->end-(char*)source->begin)>>4);
+ unsigned count=(unsigned)(source->end-source->begin);   // (allocsize1) element-typed: an entry holds a pointer
  unsigned zero=0;
  entries.FUN_002d0eb0(count,&zero);
  for(unsigned i=0;i<count;++i) {

@@ -70,7 +70,7 @@ extern "C" void FUN_002f4df0(int arg, void* handler){
   FUN_002ef0b0();
   (*(G_2f4df0**)&DAT_00554c14)->sub.FUN_002f7a40();
   if (handler == 0) {
-    void* mem = FUN_0008d690(0xc);
+    void* mem = FUN_0008d690(sizeof(::physics::CollisionSolverAgent));
     if (mem) handler = ((Agent_2f4df0*)mem)->FUN_002f8800();
   }
   (*(G_2f4df0**)&DAT_00554c14)->sub.FUN_002f7a80(handler);

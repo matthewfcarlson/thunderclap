@@ -189,7 +189,7 @@ bool owners::Thing_6ad10::FUN_0006ad10(float degrees) {
 // 0x0006ad30 CHeadTrackerTrack::vfunc_12 (43 B): matches/0x0006ad30.cpp
 // sym: ?vfunc_12@CHeadTrackerTrack@@UAEHH@Z
 hulk_intptr CHeadTrackerTrack::vfunc_12(hulk_intptr param) {
-    Helper_6ad30* p = (Helper_6ad30*)FUN_0008d690(0x90);
+    Helper_6ad30* p = (Helper_6ad30*)FUN_0008d690(sizeof(::CHeadTrackerAction));
     if (p)
         return p->run_00020220(this, param);
     return 0;

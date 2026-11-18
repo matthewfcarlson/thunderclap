@@ -51,7 +51,7 @@ hulk_intptr CGrappleLocoStrafe4Track::vfunc_12(hulk_intptr __p0) { Owner_5a960 *
     Settings* settings = slot->settings;
     if (settings == 0)
         return (int)(0);
-    CGrappleLocoStrafe4Action* c = static_cast<CGrappleLocoStrafe4Action*>(FUN_0008d690(0x28));
+    CGrappleLocoStrafe4Action* c = static_cast<CGrappleLocoStrafe4Action*>(FUN_0008d690((int)sizeof(::CGrappleLocoStrafe4Action)));   // (allocsize1) the size by gen's record
     if (c == 0)
         return (int)(0);
     return (hulk_intptr)(((CGrappleLocoStrafe4Action_nv_5a960*)(((CGrappleLocoStrafe4Action*)(c))))->FUN_0001dc40(this, settings));

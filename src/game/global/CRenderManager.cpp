@@ -2,6 +2,7 @@
 // cl-flags: /GX
 // object 0x001b8690..0x001bc0c0 (kind game, layer game, confidence high), dominant class CRenderManager
 #include "tree_prelude.h"
+#include "decls/shader.h"   // (allocsize1)
 #include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
@@ -3557,7 +3558,7 @@ CRenderManager::CRenderManager()
 
     FUN_001c3d90();
 
-    Shader_1bb990* ov = (Shader_1bb990*)FUN_00263ea0(0x20);
+    Shader_1bb990* ov = (Shader_1bb990*)FUN_00263ea0(sizeof(HulkShader));   // (allocsize1) the shader's record (decls/shader.h)
     if (ov)
         ov = ov->FUN_0028edb0();
     overlay = ov;

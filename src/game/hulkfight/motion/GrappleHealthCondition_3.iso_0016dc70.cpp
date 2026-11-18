@@ -7,6 +7,7 @@
 // 0x0016dc70 fight::ConditionFactoryTemplate<hulkfight::motion::GrappleHealthCondition>::vfunc_5 (61 B): matches/0x0016dc70.cpp [isolated: helper definitions (2 out-of-line function bodies); on include/gen/ and not mergeable]
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VGrappleHealthCondition@motion@hulkfight@@@fight@@UAEPAXXZ
 #include "gen/fight.h"
+#include "gen/hulkfight.h"
 
 class GrappleHealthCondition_16dc70 {
   public:
@@ -34,7 +35,7 @@ GrappleHealthCondition_16dc70::GrappleHealthCondition_16dc70() {
 void* Alloc_0008d690(unsigned int);
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::GrappleHealthCondition>::vfunc_5() {
-    GrappleHealthCondition_16dc70* p = (GrappleHealthCondition_16dc70*)Alloc_0008d690(0x18);
+    GrappleHealthCondition_16dc70* p = (GrappleHealthCondition_16dc70*)Alloc_0008d690(sizeof(::hulkfight::motion::GrappleHealthCondition));
     if (p) {
         p->Init_00234590(0);
         p->GrappleHealthCondition_16dc70::GrappleHealthCondition_16dc70();

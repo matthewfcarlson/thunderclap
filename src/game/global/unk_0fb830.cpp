@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x000fb830..0x000fc460 (kind game, layer game, confidence low)
 #include "tree_prelude.h"
+#include "gen/global.h"   // (allocsize1)
 #include "compat/ptr.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
@@ -585,7 +586,7 @@ extern "C" void FUN_000fc060(int a1, int a2, int a3, int a4) {
         mgr = new (mem) FEThings_fc060(a4);
     (*(FEThings_fc060**)&DAT_004e0a60) = mgr;
     mgr->FUN_000dddc0(a1, a3);
-    void* mem2 = FUN_0008d690(0x3c);
+    void* mem2 = FUN_0008d690((int)sizeof(::ControllerPoller));   // (allocsize1) gen's record
     ControllerPoller_fc060* ov = 0;
     if (mem2)
         ov = new (mem2) ControllerPoller_fc060(a2, (*(FEThings_fc060**)&DAT_004e0a60));

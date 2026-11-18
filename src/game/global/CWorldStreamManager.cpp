@@ -4,6 +4,8 @@
 #include "compat/ptr.h"
 #include "compat/fixedint.h"
 #include "decls/address.h"
+#include "decls/loaders.h"
+#include "decls/load_inventory.h"
 #include "decls/data/engine/content.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
@@ -524,14 +526,10 @@ struct CWorldStreamManager_2061c0 {
 };
 extern "C" char DAT_00425c28[];
 extern void* __cdecl Alloc_00263ea0(unsigned int);
-struct Loader_2062d0 {
-    hulk_uintptr vptr;
-    int a;
-    int b;
-    int c;
-    int d;
-    void* owner;
+struct Loader_2062d0 : HulkChunkHandler {   // (sweep-allocsize) TransitionsLoader: the chunk handler's words (decls/loaders.h;
+    void* owner;                             // natively its reader on 8 at +0x18) and the owner (allocated by its sizeof)
 };
+HULK_LOADER_SIZE32(Loader_2062d0, 0x18);
 class Manager_2062d0 {
   public:
     void Register_00265210(Loader_2062d0*, unsigned int);
@@ -1240,7 +1238,7 @@ void Object_2047c0::FUN_002047c0(const char* text, int identifier, int mode, int
  resource->activate();
  FUN_002670b0(id, amount, resource);
  int old = FUN_00266da0(id);
- content::LoadInventory* p = (content::LoadInventory*)FUN_00263ea0(20);
+ content::LoadInventory* p = (content::LoadInventory*)FUN_00263ea0(HULK_LOADINVENTORY_SIZE);
  if(p) p = ((LoadInventory_nv_2047c0*)(((content::LoadInventory*)(p))))->FUN_00266480(config);
  helper = p;
  helper->vfunc_0();
@@ -2104,7 +2102,7 @@ namespace fn_f49dcb8d {
 // STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 14/14)
 // FUN_00205910 @ 0x00205910
 void Object_205910::target() {
- content::LoadInventory* memory = (content::LoadInventory*)FUN_00263ea0(0x14);
+ content::LoadInventory* memory = (content::LoadInventory*)FUN_00263ea0(HULK_LOADINVENTORY_SIZE);
  content::LoadInventory* replacement = memory ? ((LoadInventory_nv_205910*)(((content::LoadInventory*)(memory))))->FUN_00266480(0x400) : 0;
  if (replacement) replacement->vfunc_0();
  if (resource) resource->vfunc_1();
@@ -2786,13 +2784,13 @@ void Target_2061e0::Dtor() throw() {
 void owners::Owner_2062d0::FUN_002062d0(hulk_intptr value) {
     param = ((int)value);
     Loader_2062d0* r;
-    Loader_2062d0* p = (Loader_2062d0*)Alloc_00263ea0(0x18);
+    Loader_2062d0* p = (Loader_2062d0*)Alloc_00263ea0(sizeof(Loader_2062d0));
     if (p != 0) {
-        p->a = 0;
-        p->b = 0x60000722;
-        p->c = 0;
-        p->d = 0;
-        p->vptr = ((hulk_intptr)DAT_00425c28);
+        p->refs = 0;
+        p->id = 0x60000722;
+        p->f0c = 0;
+        p->f10 = 0;
+        p->vftable = (void*)DAT_00425c28;
         p->owner = this;
         r = p;
     } else {
@@ -3353,7 +3351,7 @@ void Mixer::FUN_002071e0(int n)
 
     for (int i = 0; i < 3; ++i) {
         Stream *st = 0;
-        void *mem = FUN_00263ea0(0x14);
+        void *mem = FUN_00263ea0(HULK_LOADINVENTORY_SIZE);
         if (mem) {
             st = (Stream *)((Stream *)mem)->FUN_00266480(0x400);
             if (st)

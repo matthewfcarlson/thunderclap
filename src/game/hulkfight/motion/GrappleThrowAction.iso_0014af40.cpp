@@ -25,7 +25,7 @@ hulkfight::motion::CivilianDetachAction* __cdecl Alloc_0008d690(int);
 hulk_intptr hulkfight::motion::CivilianDetachTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     int result = ((int)(hulk_uintptr)__RTDynamicCast((void*)c, 0, (void*)(&hulk_at_00494b44), (void*)(&hulk_at_00494b60), 0));
     if (result) {
-        hulkfight::motion::CivilianDetachAction* p = Alloc_0008d690(0x24);
+        hulkfight::motion::CivilianDetachAction* p = Alloc_0008d690((int)sizeof(::hulkfight::motion::CivilianDetachAction));   // (allocsize1) the size by gen's record
         if (p)
             return ((CivilianDetachAction_nv_14af40*)(((hulkfight::motion::CivilianDetachAction*)(p))))->Init_00149330(this, c);
     }

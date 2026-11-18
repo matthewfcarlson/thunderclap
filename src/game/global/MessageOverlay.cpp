@@ -2180,7 +2180,7 @@ namespace fn_f27eef39 {
 // FUN_000d6a20 @ 0x000d6a20
 void Target_d6a20::FUN_000d6a20(){
  Node* p=(Node*)FUN_0008d690(0x140); first=p?p->FUN_00294880():0; first->v0(); first->field20=0; ((owners::C_293e90 *)first)->FUN_00293e90(0xff282828); first->field2c=2;
- p=(Node*)FUN_00263ea0(0xf8); second=p?p->FUN_002939a0():0; second->v0(); second->v7(0.1f); second->v9(100.0f); ((owners::C_293af0 *)second)->FUN_00293af0((int *)(Data_d6a20 *)(((Data_d6a20*)&DAT_004a0a74))); ((owners::C_293a90 *)second)->FUN_00293a90((int *)(Data_d6a20 *)(((Data_d6a20*)&DAT_004a0a80)));
+ p=(Node*)FUN_00263ea0((sizeof(::pure3d::VectorCamera)+7)/8*8); /* (allocsize1) gen's VectorCamera (0xf4), 8-rounded: 0xf8 */ second=p?p->FUN_002939a0():0; second->v0(); second->v7(0.1f); second->v9(100.0f); ((owners::C_293af0 *)second)->FUN_00293af0((int *)(Data_d6a20 *)(((Data_d6a20*)&DAT_004a0a74))); ((owners::C_293a90 *)second)->FUN_00293a90((int *)(Data_d6a20 *)(((Data_d6a20*)&DAT_004a0a80)));
  float aspect=(*(Manager_d6a20**)&DAT_0052c2a4)->v16(); float a,b; FUN_0009f790(90.0f,aspect,&a,&b); second->v5(a*(*(float*)&DAT_003f32b8),1.0f); first->FUN_00294980(second);
 }
 

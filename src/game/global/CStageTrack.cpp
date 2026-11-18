@@ -117,7 +117,7 @@ hulk_freg CStageTrack::vfunc_7() {
 // sym: ?vfunc_12@CStageTrack@@UAEHH@Z
 // Same code shape as 0x0006aaf0 (propagated; names are from that function)
 hulk_intptr CStageTrack::vfunc_12(hulk_intptr param) {
-    Other_6abc0* p = FUN_0008d690(0x24);
+    Other_6abc0* p = FUN_0008d690(sizeof(::CStageAction));
     if (p)
         return p->call_000201a0(param, this->f_10);
     return 0;

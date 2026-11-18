@@ -101,7 +101,7 @@ hulk_freg CHapticTrack::vfunc_7() {
 // sym: ?vfunc_12@CHapticTrack@@UAEHH@Z
 // Same code shape as 0x0005aad0 (propagated; names are from that function)
 hulk_intptr CHapticTrack::vfunc_12(hulk_intptr param) {
-    R_5d200* p = FUN_0008d690(0x24);
+    R_5d200* p = FUN_0008d690((int)sizeof(::CHapticEventAction));   // (allocsize1) the size by gen's record
     if (p)
         return p->invoke_00020a40(this, param);
     return 0;

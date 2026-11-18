@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/hulkfight.h"
 #define TREE_TU_BEGIN namespace fn_f4f943b3 {
 #define TREE_TU_END }
 namespace fn_f4f943b3 {} using namespace fn_f4f943b3;
@@ -65,7 +66,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::motion::Grapp
 // 0x0018c540 fight::ConditionFactoryTemplate<hulkfight::motion::GrapplePropStateByNameCondition>::vfunc_5 (62 B): matches/0x0018c540.cpp
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VGrapplePropStateByNameCondition@motion@hulkfight@@@fight@@UAEPAXXZ
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::GrapplePropStateByNameCondition>::vfunc_5() {
-    Base_18c540* p = (Base_18c540*)FUN_0008d690(0x20);
+    Base_18c540* p = (Base_18c540*)FUN_0008d690(sizeof(::hulkfight::motion::GrapplePropStateByNameCondition));
     if (p) {
         p->Init_00234590(0);
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_0041916c);

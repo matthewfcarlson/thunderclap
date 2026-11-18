@@ -147,7 +147,7 @@ CAIHintTrack_6af70::~CAIHintTrack_6af70() {
 // sym: ?vfunc_12@CAIHintTrack@@UAEHH@Z
 // Same code shape as 0x0005aad0 (propagated; names are from that function)
 hulk_intptr CAIHintTrack::vfunc_12(hulk_intptr param) {
-    R_6af90* p = FUN_0008d690(0x24);
+    R_6af90* p = FUN_0008d690((int)sizeof(::CAIHintAction));   // (allocsize1) the size by gen's record
     if (p)
         return p->invoke_00020bc0(this, param);
     return 0;

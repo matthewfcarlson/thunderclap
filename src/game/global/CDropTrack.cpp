@@ -128,7 +128,7 @@ hulk_freg CDropTrack::vfunc_7() {
 // 0x000694c0 CDropTrack::vfunc_12 (40 B): matches/0x000694c0.cpp
 // sym: ?vfunc_12@CDropTrack@@UAEHH@Z
 hulk_intptr CDropTrack::vfunc_12(hulk_intptr param) {
-    void* p = FUN_0008d690(0x30);
+    void* p = FUN_0008d690((int)sizeof(::CDropAction));   // (allocsize1) the size by gen's record
     if (p)
         return ((Helper_694c0*)p)->FUN_000190a0(this, param);
     return 0;

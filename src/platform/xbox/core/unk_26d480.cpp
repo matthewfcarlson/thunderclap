@@ -137,7 +137,7 @@ namespace fn_fc974b3c {
 // sym: ?Make@fn_fc974b3c@@YAPAUMemoryTwoWayAllocator_26d540@1@HH@Z
 MemoryTwoWayAllocator_26d540* __cdecl Make(int n, int heap) {
     DAT_004cdbb0 = heap;
-    void* p = Alloc(heap, 44);
+    void* p = Alloc(heap, sizeof(MemoryTwoWayAllocator_26d540));   // (allocsize1) the allocator by its record (44 B on 32-bit)
     MemoryTwoWayAllocator_26d540* o = new (p) MemoryTwoWayAllocator_26d540;
     Other();
     char* q = (char*)Alloc(o->size, n);

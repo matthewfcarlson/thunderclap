@@ -15,7 +15,7 @@ struct CSmartPropUpdateAttachmentAction_nv_624b0 {
 extern "C" CSmartPropUpdateAttachmentAction* __cdecl FUN_0008d690(int);
 
 hulk_intptr CSmartPropUpdateAttachmentTrack::vfunc_12(hulk_intptr a) {
-    CSmartPropUpdateAttachmentAction* p = FUN_0008d690(0x2c);
+    CSmartPropUpdateAttachmentAction* p = FUN_0008d690((int)sizeof(::CSmartPropUpdateAttachmentAction));   // (allocsize1) the size by gen's record
     if (p)
         return ((CSmartPropUpdateAttachmentAction_nv_624b0*)(((CSmartPropUpdateAttachmentAction*)(p))))->Fnf_0001ec50(this, a);
     return 0;

@@ -5,6 +5,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/global.h"
 #define TREE_TU_BEGIN namespace fn_f36db68b {
 #define TREE_TU_END }
 namespace fn_f36db68b {} using namespace fn_f36db68b;
@@ -63,7 +64,7 @@ template <> void* fight::TrackFactoryCasterTemplate<CSmartPropRemoveInstanceTrac
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VCSmartPropRemoveInstanceTrack@@@fight@@UAEPAXXZ
 // Same code shape as 0x0006f4f0 (propagated; names are from that function)
 template <> void* fight::TrackFactoryTemplate<CSmartPropRemoveInstanceTrack>::vfunc_5() {
-    Thing_70150* p = (Thing_70150*)operator new(0x14);
+    Thing_70150* p = (Thing_70150*)operator new(sizeof(::CSmartPropRemoveInstanceTrack));
     if (p)
         return (void*)(p->init_00062c10());
     return (void*)(0);

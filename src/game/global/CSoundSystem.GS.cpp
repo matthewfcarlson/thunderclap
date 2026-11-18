@@ -89,7 +89,7 @@ void __stdcall FUN_001f1740(const char* name, void* value, unsigned a, unsigned 
  char buffer[64] = {0};
  unsigned i=0;
  do { buffer[i]=name[i]; } while(name[i++]);
- CSoundCommand_PlayDialogueEvent* p=(CSoundCommand_PlayDialogueEvent*)FUN_0008d710(32,6);
+ CSoundCommand_PlayDialogueEvent* p=(CSoundCommand_PlayDialogueEvent*)FUN_0008d710((int)sizeof(::CSoundCommand_PlayDialogueEvent),6);   // (allocsize1) the size by gen's record
  if(p) p=((CSoundCommand_PlayDialogueEvent_nv_1f1740*)(((CSoundCommand_PlayDialogueEvent*)(p))))->FUN_001f0630(name,value,a,b);
  manager->FUN_001ef260(p);
  }

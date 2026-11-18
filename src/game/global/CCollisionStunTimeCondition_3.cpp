@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x00057c80..0x00057d30 (kind game, layer game, confidence high), dominant class CCollisionStunTimeCondition
 #include "tree_prelude.h"
+#include "gen/global.h"   // (allocsize1)
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
@@ -69,7 +70,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<CCollisionStunTimeCondit
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VCCollisionStunTimeCondition@@@fight@@UAEPAXXZ
 // Same code shape as 0x00057c10 (propagated; names are from that function)
 template <> void* fight::ConditionFactoryTemplate<CCollisionStunTimeCondition>::vfunc_5() {
-    CCollisionPushbackYAngleCondition_57cc0* p = (CCollisionPushbackYAngleCondition_57cc0*)Alloc(0x14);
+    CCollisionPushbackYAngleCondition_57cc0* p = (CCollisionPushbackYAngleCondition_57cc0*)Alloc((int)sizeof(::CCollisionStunTimeCondition));   // (allocsize1) the size by gen's record
     if (p) {
         p->Init_00234590(0);
         p->vptr = (hulk_uintptr)&hulk_at_003f70e8;

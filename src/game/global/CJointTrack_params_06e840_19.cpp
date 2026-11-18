@@ -5,6 +5,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/global.h"
 #define TREE_TU_BEGIN namespace fn_ff5cc2a1 {
 #define TREE_TU_END }
 namespace fn_ff5cc2a1 {} using namespace fn_ff5cc2a1;
@@ -64,7 +65,7 @@ template <> void* fight::TrackFactoryCasterTemplate<CMotionTrailTrack>::vfunc_1(
 // 0x0006fc10 fight::TrackFactoryTemplate<CMotionTrailTrack>::vfunc_5 (27 B): matches/0x0006fc10.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VCMotionTrailTrack@@@fight@@UAEPAXXZ
 template <> void* fight::TrackFactoryTemplate<CMotionTrailTrack>::vfunc_5() {
-    Created_6fc10* p = (Created_6fc10*)Allocate(0xd0);
+    Created_6fc10* p = (Created_6fc10*)Allocate(sizeof(::CMotionTrailTrack));
     if (p)
         return (void*)(p->Initialize_00060a00());
     return (void*)(0);

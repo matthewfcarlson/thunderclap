@@ -51,7 +51,7 @@ hulk_intptr CGrappleSoundTrack::vfunc_12(hulk_intptr __p0) { Owner_5b5b0 * owner
     Settings* settings = slot->settings;
     if (settings == 0)
         return (int)(0);
-    CSoundAction* c = static_cast<CSoundAction*>(FUN_0008d690(0x24));
+    CSoundAction* c = static_cast<CSoundAction*>(FUN_0008d690((int)sizeof(::CSoundAction)));   // (allocsize1) the size by gen's record
     if (c == 0)
         return (int)(0);
     return (hulk_intptr)(((CSoundAction_nv_5b5b0*)(((CSoundAction*)(c))))->FUN_0001d190(this, settings));

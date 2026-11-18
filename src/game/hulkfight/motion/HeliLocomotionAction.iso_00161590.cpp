@@ -16,7 +16,7 @@ struct LocomotionSteerAction_nv_161590 {
 extern hulkfight::motion::LocomotionSteerAction* Alloc_0008d690(unsigned int);
 
 hulk_intptr hulkfight::motion::LocomotionSteerTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    hulkfight::motion::LocomotionSteerAction* p = Alloc_0008d690(0x30);
+    hulkfight::motion::LocomotionSteerAction* p = Alloc_0008d690((int)sizeof(::hulkfight::motion::LocomotionSteerAction));   // (allocsize1) the size by gen's record
     if (p)
         return ((LocomotionSteerAction_nv_161590*)(((hulkfight::motion::LocomotionSteerAction*)(p))))->Init_0015e730(this, c);
     return 0;

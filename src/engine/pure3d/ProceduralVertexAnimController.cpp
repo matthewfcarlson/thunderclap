@@ -1345,7 +1345,7 @@ ProceduralVertexAnimController_2a6910::~ProceduralVertexAnimController_2a6910() 
 void ProceduralVertexAnimController_2a6930::target(Source_2a6930* input) {
  FUN_002a68b0(); source=input;
  if (!input) return;
- count=(unsigned int)(((int)((char*)input->end-(char*)input->begin))>>4);
+ count=(unsigned int)(input->end-input->begin);   // (sweep-allocsize) the entries by their type
  items=(pure3d::VertexList **)FUN_0008d6d0(count * sizeof(pure3d::VertexList *));
  unsigned int index=0, offset=0;
  while(index<count) {
@@ -1359,7 +1359,7 @@ void ProceduralVertexAnimController_2a6930::target(Source_2a6930* input) {
    if(*slot) (*slot)->vfunc_1();
    *slot=obj;
   }
-  ++index; offset+=16;
+  ++index; offset+=sizeof(Entry_2a6930);
  }
 }
 
@@ -1439,14 +1439,14 @@ void ProceduralVertexAnimController_2a6a20::FUN_002a6a20(Source_2a6a20 *src)
         return;
 
     count = src->end - src->begin;
-    items = (RefCounted_2a6a20 **)FUN_0008d6d0(count * 4);
+    items = (RefCounted_2a6a20 **)FUN_0008d6d0(count * sizeof(RefCounted_2a6a20 *));
     for (unsigned int i = 0; i < count; i++) {
         items[i] = 0;
         pure3d::PrimGroupSkinnedPC *pc = dynamic_cast<pure3d::PrimGroupSkinnedPC *>(source->begin[i].group);
         RefCounted_2a6a20 *res;
         RefCounted_2a6a20 **slot;
         if (pc != 0) {
-            VertexList_2a6a20 *mem = (VertexList_2a6a20 *)FUN_0008d690(0x5c);
+            VertexList_2a6a20 *mem = (VertexList_2a6a20 *)FUN_0008d690(sizeof(::pure3d::VertexList));
             if (mem != 0)
                 res = mem->FUN_002c8730(pc->geometryHandle);
             else
@@ -1455,7 +1455,7 @@ void ProceduralVertexAnimController_2a6a20::FUN_002a6a20(Source_2a6a20 *src)
             pure3d::PrimGroupSkinnedStreamed *st = dynamic_cast<pure3d::PrimGroupSkinnedStreamed *>(source->begin[i].group);
             if (st == 0)
                 continue;
-            VertexList_2a6a20 *mem = (VertexList_2a6a20 *)FUN_0008d690(0x5c);
+            VertexList_2a6a20 *mem = (VertexList_2a6a20 *)FUN_0008d690(sizeof(::pure3d::VertexList));
             if (mem != 0)
                 res = mem->FUN_002c8730(st->streamHandle);
             else
