@@ -2197,6 +2197,13 @@ def _by_value_arg(call, arg):
     parameter is not a non-const reference or a pointer (a variadic argument is by value)? False when ARG is the
     callee itself or the callee's type can't be read."""
     args = list(call.get_arguments())
+    K = ci().CursorKind
+    ref = call.referenced
+    if ref is not None and ref.kind == K.CXX_METHOD and not ref.is_static_method() and \
+            len(args) == len([c for c in ref.get_children() if c.kind == K.PARM_DECL]) + 1:
+        # (rev5's spot-check) a member operator call (`b(index, 0)` for `operator()(int&, int)`): libclang counts the
+        # object as argument 0; the parameters match the arguments after it
+        args = args[1:]
     j = next((i for i, a in enumerate(args) if a.hash == arg.hash), None)
     if j is None:
         return False

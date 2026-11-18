@@ -1305,6 +1305,10 @@ X64_CASES = {
     "0x000ac780_x64_paramrange_ctorinit": ("unsupported", "tool", "can't be derived from its uses", 0,
                                            {"symbol": "??0Holder_ac780@@QAE@H@Z"}),
     "0x000ac780_x64_paramrange_refarg": ("unsupported", "tool", "can't be derived from its uses", 0),
+    # (rev5's d102d) a member operator call counts the object as argument 0: matched to the right parameter, the
+    # non-const reference refuses it (opcall2: `operator()(int& x, int y)` with `b(index, 0)`; opcall3: the other way)
+    "0x000ac780_x64_paramrange_opcall2": ("unsupported", "tool", "CALL_EXPR", 0),
+    "0x000ac780_x64_paramrange_opcall3": ("unsupported", "tool", "CALL_EXPR", 0),
     # (rev5, D61 review) HULK_RANGE whose declaration names no 0x address: unsupported (rangecheck), not drawn from the range
     "0x002775b0_x64_bucket_range_nocite": ("unsupported", None, "writer sites", 0),
 }
