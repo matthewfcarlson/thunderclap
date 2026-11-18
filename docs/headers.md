@@ -183,8 +183,8 @@ empty elsewhere). Without it, 104 `Method*`/`Closure*` sizes come out wrong.
   The retired `tools/legacy/rename_fields.py` rewrote the sources' references (libclang-resolved, so `f_10` of another class is
   never touched). See docs/consolidation-plan.md section 12.
 - **Function names** (clean2): the retired `tools/legacy/fn_names.py` named functions by address, with evidence
-  (`evidence-fnames.json`, removed at gen1); `tools/name_unify.py rename --names FILE` applies such a list to the definition and every `FUN_<addr>`
-  reference. Each name keeps its address as a suffix (`SetArc_000480a0`, tools/addr_names.py), which every tool
+  (`evidence-fnames.json`, removed at gen1); `tools/name_unify.py rename --names FILE` applied such a list to the definition and every `FUN_<addr>`
+  reference (removed 2026-11-18 with tools/legacy/; it needed matches/). Each name keeps its address as a suffix (`SetArc_000480a0`, tools/addr_names.py), which every tool
   that reads an address from a name understands. Members of include/gen/ headers (owners.h) are not renamed yet.
   See docs/consolidation-plan.md section 13.
 - **Fields of embedded objects**, arrays, and fields reached through raw `(char*)this + N`
@@ -225,7 +225,9 @@ out on purpose (consolidation-plan.md section 13); they are listed in native-bui
 
 Retired with the generator: `--mine`, `--swap-test` and the regeneration; tools/legacy/migrate_gen.py, rn_members.py,
 rn_sigs.py, rn_ptrfields.py, rn_fields.py, ptr_slots.py, param_fields.py, rename_fields.py, fn_names.py and
-owner_classes.py (they wrote the evidence files or rewrote matches/ onto the generated headers; they now refuse to run).
+owner_classes.py (they wrote the evidence files or rewrote matches/ onto the generated headers; they refused to run and
+were removed on 2026-11-18 with migrate_data.py, name_unify.py, rn_plan.py, rn_transform.py and rename_ids.py, which
+imported them; `git show 945b0e1ab:tools/legacy/NAME.py`).
 The clang helpers rn_transform.py used moved into it. Git history keeps the generator (`git show 9bbef387f:tools/gen_headers.py`).
 
 ## Hand matches on the headers

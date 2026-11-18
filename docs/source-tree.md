@@ -16,9 +16,7 @@ build/venv/bin/python tools/build_tree.py --equiv 300   # also run equiv.py on 3
 build/venv/bin/python tools/build_tree.py --only src/game/global/CAction.cpp  # one TU, current tree
 build/venv/bin/python tools/seam_inventory.py    # docs/seams.md: what game/engine call in platform/xbox (~30 s)
 build/venv/bin/python tools/reconcile_stubs.py [--apply]   # clone names in matches/ + equivalent/ (re-verify what it changes)
-build/venv/bin/python tools/legacy/migrate_gen.py [--family gen|pin|ns] [--equivalent] [--apply]   # sources onto include/gen/, include/decls/
 build/venv/bin/python tools/data_inventory.py && build/venv/bin/python tools/data_gen.py   # data inventory + data TUs (docs/data.md)
-build/venv/bin/python tools/migrate_data.py [--equivalent] [--apply]   # sources onto include/decls/data/ (docs/data.md)
 ```
 
 `build_tree.py` regenerates the tree itself (from an empty fallback state), so it is the one command to

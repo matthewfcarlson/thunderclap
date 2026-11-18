@@ -121,7 +121,7 @@ CLAUDE.md "Builds and proofs" is the rule; the details are in `docs/compute.md` 
   real types at callers), never by a link-time redirect of local vftables to the game's (`docs/native-unbound-plan.md`).
   Batches log under their own heading in `docs/native-build.md`; `tools/equiv64.py batch LIST OUT` checks a batch at 64 bits.
 - Per-function rewrite tools (`fix_relocs`, `fix_literals`, `fix_vptr`, `format_matches`/`format_equivalents`,
-  `clone_matches`/`clone_equivalent`, `ptr1`, `ptr_fields`, `name_unify`, `rename_ids`, `tech_debt`) were written for
+  `clone_matches`/`clone_equivalent`, `ptr1`, `ptr_fields`, `tech_debt`) were written for
   `matches/`/`equivalent/` and are not all retargeted to TU blocks: read a tool before running it, and never let one
   write into the frozen directories.
 

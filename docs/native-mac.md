@@ -282,7 +282,8 @@ with virtual bases).
 ## 8. Pointer-sized virtual slots (x64-5 batch 1, 2026-10-25)
 
 ptr1 (wine-build.md item 9) left the pointers that travel through `int` parameters and returns of virtual methods:
-every override of a slot shares the signature, so no single source can widen it. `tools/legacy/ptr_slots.py` widens the slot
+every override of a slot shares the signature, so no single source can widen it. `tools/legacy/ptr_slots.py` (removed
+2026-11-18; `git show 945b0e1ab:tools/legacy/ptr_slots.py`) widened the slot
 as a whole: from ptr1's per-source demands (`ptr1.py fix` without `--write`) it finds the include/gen/ slot
 (gen_headers' slot keys), writes the widened signature to include/gen/evidence-rn.json "sigs" (`hulk_intptr` /
 `hulk_uintptr` at the positions some override uses as a pointer, the return when some override returns one), and
@@ -290,6 +291,8 @@ rewrites the out-of-line definition of every override in every source on include
 the 64-bit MS target and reports new errors and `-Woverloaded-virtual` hits (an in-class override of a source's own
 that would stop overriding on 64-bit, silently). MSVC 7.1 and clang i686 see `int` / `unsigned int`: objects and
 mangled names unchanged.
+
+Historical commands (they ran on `matches/`/`equivalent/` and the generated headers, both gone):
 
 ```sh
 build/venv/bin/python tools/ptr1.py fix @files --out FIX.json                  # demands (no --write)

@@ -404,7 +404,7 @@ differs from its standalone build; link check 6,477 references, **4,238 by name*
   views of one TU now count once: hence 6,171 references, not 6,477).
 - **Other by-address references** (266 on 2026-10-17 night; were 256 + the pinned ones): sources refused or rejected by the migration (25 declarator is not
   `T NAME[...]`, 10 used in a preprocessor line, 1 in a namespace, 21 on batch lists, the 4 rejected) and farm
-  sources committed since. Re-run `tools/migrate_data.py --apply --equivalent` after promotions land.
+  sources committed since. (`tools/migrate_data.py` rewrote per-function sources; it was removed on 2026-11-18.)
 - Typed headers: BSS objects are `unsigned char[N]` in the headers, so most casts are `(*(Stub*)&DAT_x)`; a typed
   declaration (a stub class per global in include/decls/, like `World`) would remove them.
 - Interior references fail equiv.py's level 2 in one case (`0x001b3c50`): equiv.py reads `DAT_x + 64` as a
@@ -422,7 +422,7 @@ differs from its standalone build; link check 6,477 references, **4,238 by name*
   literal.
 - `DAT_004dd700`, `DAT_0052c2a8`, `DAT_004dd6ec` still come from `decls/address.h`. Code-owned addresses
   (vftables, RTTI) and library data (CRT/XDK) are not in these headers; keep your own declaration for those.
-- `tools/migrate_data.py --apply --equivalent` moves sources that didn't follow this (farm output) and verifies them.
+- `tools/migrate_data.py` (removed 2026-11-18, with the per-function sources it rewrote) moved farm output onto these headers.
 
 ### What the native (clang) build needs from data
 
