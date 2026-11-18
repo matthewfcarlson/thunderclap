@@ -45,7 +45,8 @@ struct HulkSprite {
                                      //       constructor 0x002a5060 runs)
     int refs;                        // +0x04 content::LoadObject's reference count
     unsigned int name[2];            // +0x08 pure3d::Entity's name (a 64-bit hash; natively at +0x0c)
-    int blended;                     // +0x10 DrawablePrimitive's word: slot 8 sets it for a blending shader
+    hulk_intptr blended;             // +0x10 DrawablePrimitive's word: slot 8 sets it for a blending shader
+                                     //       (x64t20, D105: pointer-sized natively, decls/drawable_container.h)
     int primitive[11];               // +0x14 DrawablePrimitive's other words
     int count;                       // +0x40 tiles
     HulkSpriteQuad* quads;           // +0x44 count quads

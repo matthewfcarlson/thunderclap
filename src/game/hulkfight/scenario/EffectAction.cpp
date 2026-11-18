@@ -14,6 +14,8 @@
 #include "gen/fight.h"
 #include "gen/hulkfight.h"
 #include "gen/owners.h"
+#include "decls/load_inventory.h"
+#include "decls/table_cursor.h"
 #define TREE_TU_BEGIN namespace fn_fc5dbd2a {
 #define TREE_TU_END }
 namespace fn_fc5dbd2a {} using namespace fn_fc5dbd2a;
@@ -7253,7 +7255,7 @@ hulkfight::scenario::NISAnimationAction::~NISAnimationAction() {}
 
 
 // 0x001aa150 FUN_001aa150 (327 B): equivalent/0x001aa150.cpp [wrapped: using-directive]
-// sym: ?FUN_001aa150@Controller_1aa150@fn_001aa150@@QAEXXZ @6542790abf19 @w4117c6ef06eb @vb3823819aed1
+// sym: ?FUN_001aa150@Controller_1aa150@fn_001aa150@@QAEXXZ @6542790abf19 @w4117c6ef06eb @v202da3aeac4a
 namespace fn_001aa150 {
 // STATUS: equivalent (tools/equiv.py level 3: 20021 inputs, branch coverage 12/12)
 // FUN_001aa150 @ 0x001aa150
@@ -7357,17 +7359,13 @@ public:
     virtual Node_1aa150 *q12(int a);
 };
 
-struct Cursor_1aa150 {
-    unsigned int a;
-    int b;
+struct Cursor_1aa150 : HulkTableCursor {   // (x64t20) the table's cursor and the inventory it walks
     void *c;
-    void FUN_002314a0(unsigned int v);
+    void FUN_002314a0(void* table);
     Entity *FUN_00231640();
 };
 
-struct Inner_1aa150 {
-    char pad0[0xc];
-    unsigned int f0c;
+struct Inner_1aa150 : HulkLoadInventory {   // (x64t20) a content::LoadInventory: its pool is the table
 };
 
 struct Registry_1aa150 {
@@ -7423,7 +7421,7 @@ void Controller_1aa150::FUN_001aa150()
     else
         idx = owner->f54;
     Inner_1aa150 *inner = ((Inner_1aa150 *)((owners::C_203d60 *)registry)->FUN_00203d60(idx));
-    fr.it.FUN_002314a0(inner->f0c);
+    fr.it.FUN_002314a0(inner->pool);
     fr.it.c = inner;
     Entity *e = fr.it.FUN_00231640();
     core::IRefCount_1aa150 *r = e;
@@ -7458,7 +7456,7 @@ void Controller_1aa150::FUN_001aa150()
 
 
 // 0x001aa2a0 FUN_001aa2a0 (342 B): equivalent/0x001aa2a0.cpp [wrapped: conflict: DAT_004dd700]
-// sym: ?FUN_001aa2a0@CameraRig@fn_001aa2a0@@QAEXXZ @fc86a1e61123 @w4183387694bd @vcb78d3f323a2
+// sym: ?FUN_001aa2a0@CameraRig@fn_001aa2a0@@QAEXXZ @fc86a1e61123 @w4183387694bd @ved6c50db67b3
 namespace fn_001aa2a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 85 inputs, branch coverage 14/14)
 // FUN_001aa2a0 @ 0x001aa2a0
@@ -7491,17 +7489,15 @@ class LoadInventory_1aa2a0 {
     virtual void l2();
     virtual void *Find(const DynamicCaster<pure3d::Camera_1aa2a0> &c, __int64 uid);
     char pad04[8];
-    unsigned int f0c;
+    void *pool;   // (x64t20) the table the cursor walks (a pointer)
 };
 }
 
 unsigned __int64 __cdecl FUN_002672f0(const char *s, unsigned __int64 seed);
 
-struct Cursor_1aa2a0 {
-    unsigned int a;
-    int b;
+struct Cursor_1aa2a0 : HulkTableCursor {   // (x64t20) the table's cursor and the inventory it walks
     content::LoadInventory_1aa2a0 *c;
-    void FUN_002314a0(unsigned int v);
+    void FUN_002314a0(void* table);
     core::IRefCount_1aa2a0 *FUN_00231640();
 };
 
@@ -7571,7 +7567,7 @@ void CameraRig::FUN_001aa2a0()
     content::LoadInventory_1aa2a0 *inv = ((content :: LoadInventory_1aa2a0 *)((owners::C_203d60 *)registry)->FUN_00203d60(idx));
 
     Cursor_1aa2a0 it;
-    it.FUN_002314a0(inv->f0c);
+    it.FUN_002314a0(inv->pool);
     it.c = inv;
     core::IRefCount_1aa2a0 *e = it.FUN_00231640();
     pure3d::CameraAnimationController_1aa2a0 *cc = dynamic_cast<pure3d::CameraAnimationController_1aa2a0 *>(e);
@@ -7588,7 +7584,7 @@ void CameraRig::FUN_001aa2a0()
         camera = (pure3d::Camera_1aa2a0 *)inv->Find(content::LoadInventory_1aa2a0::DynamicCaster<pure3d::Camera_1aa2a0>(), FUN_002672f0("nis_camera", 0));
         if (camera == 0) {
             Cursor_1aa2a0 it2;
-            it2.FUN_002314a0(inv->f0c);
+            it2.FUN_002314a0(inv->pool);
             it2.c = inv;
             camera = ((pure3d :: Camera_1aa2a0 *)((owners::Obj_1a92e0 *)&it2)->FUN_001a92e0());
         }

@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x0028fbc0..0x0028fe80 (kind game, layer engine, confidence low)
 #include "tree_prelude.h"
+#include "decls/table_cursor.h"
 #define TREE_TU_BEGIN namespace fn_f6be11fc {
 #define TREE_TU_END }
 #define TREE_LOCAL_CAction
@@ -32,8 +33,8 @@ extern int __cdecl FUN_00344e74(Obj_28fd30*, int, void*, void*, int);
 extern void* g1_28fd30;
 extern void* g2_28fd30;
 struct Node { char pad[12]; void* source; };
-struct Iterator_28fd70 {
- void* state; void* cursor; Node* node;
+struct Iterator_28fd70 : HulkTableCursor {   // (x64t20) the table's cursor and the node it walks
+ Node* node;
  void FUN_002314a0(void*);
  void* FUN_00231640();
  void* FUN_0028fcf0();

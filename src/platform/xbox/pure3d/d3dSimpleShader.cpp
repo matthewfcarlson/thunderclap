@@ -259,7 +259,7 @@ struct Ref_32aa30 {
     virtual void f1();
 };
 struct d3dSimpleShader_nv_32aa30 {
-    void run();
+    void FUN_00327930();   // (x64t20) the shader base's destructor body 0x00327930 (pddiBaseShader.cpp), by its address name ("run" had no native definition)
 };
 struct d3dSimpleShader_32aa30 {
     virtual void a0();
@@ -287,8 +287,8 @@ struct d3dSimpleShader_32aa30 {
     virtual void a22();
     virtual void a23();
     virtual void a24();
-    char pad[0x80 - sizeof(void*)];
-    Ref_32aa30* member;
+    // (x64t20) the object at +0x80 is gen's f_80 (HULK_SS: natively +0x88 after the words before it; a pad to 0x80
+    // read the wrong word natively and the release of the copyright sprite's shader crashed)
 };
 class Obj {
     char pad[0x88];
@@ -993,9 +993,9 @@ d3dSimpleShader_32a9f0* d3dSimpleShader_32a9f0::Init(::pure3d::d3dContext* x) {
 // sym: ?vfunc_3@d3dSimpleShader_32aa30@fn_f1389006@@UAEPAU12@E@Z
 d3dSimpleShader_32aa30* d3dSimpleShader_32aa30::vfunc_3(u8_32aa30 destroy) {
     *(int**)this = (int*)DAT_0043386c;
-    if (member)
-        member->f1();
-    ((d3dSimpleShader_nv_32aa30*)(((pure3d::d3dSimpleShader*)(((pure3d::d3dSimpleShader*)this)))))->run();
+    if ((*(Ref_32aa30**)&HULK_SS(f_80)))
+        (*(Ref_32aa30**)&HULK_SS(f_80))->f1();
+    ((d3dSimpleShader_nv_32aa30*)(((pure3d::d3dSimpleShader*)(((pure3d::d3dSimpleShader*)this)))))->FUN_00327930();
     if (destroy & 1)
         thunk_FUN_00267090(this);
     return this;

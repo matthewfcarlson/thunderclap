@@ -211,7 +211,9 @@ public:
     virtual void v8();
     virtual void v9();
     virtual void v10();
-    char pad[0x14 - 4];
+    int refs;                      // (x64t20, D105) Entity's words and the drawable's word (DrawablePrimitive's or
+    unsigned int name[2];          // DrawableHierarchy's: pointer-sized natively for both, decls/drawable_container.h),
+    hulk_intptr word;              // so the box is at +0x20 natively whichever kind the group's drawable is
     Box_2a4570 box;
 };
 struct Slot_2a4570 {              // (x64t19) a group (decls/drawable_container.h: 16 bytes here was 0x18 natively)
@@ -606,7 +608,7 @@ void DrawableContainer_2a4500::Set(int index, Item_2a4500* item) {
 } // namespace fn_f6d01fd6
 
 // 0x002a4570 pure3d::DrawableContainer::vfunc_12 (314 B): equivalent/0x002a4570.cpp
-// sym: ?vfunc_12@DrawableContainer@pure3d@@UAEXXZ @235dfcee9e2c @w8f5fba1868bf
+// sym: ?vfunc_12@DrawableContainer@pure3d@@UAEXXZ @235dfcee9e2c @w8f5fba1868bf @vf648fa986fcc
 // STATUS: equivalent (tools/equiv.py level 3: 8 inputs, branch coverage 6/6)
 // pure3d::DrawableContainer::vfunc_12 @ 0x002a4570
 void pure3d::DrawableContainer::vfunc_12() {
@@ -1065,39 +1067,37 @@ pure3d::DrawableContainer::DrawableContainer(const DrawableContainer &src)
 
 
 // 0x002a4ff0 FUN_002a4ff0 (68 B): matches/0x002a4ff0.cpp [wrapped: conflict: DrawableContainer]
-// sym: ??1DrawableContainer@fn_002a4ff0@@UAE@XZ
+// sym: ??1DrawableContainer@fn_002a4ff0@@QAE@XZ
+// (x64t20) on the record (decls/drawable_container.h), non-polymorphic: the game's vftable 0x0042d90c by address,
+// each group's destructor 0x002a4890, the free and DrawableHierarchy's destructor 0x002a35f0 by their address names
+// (the local stand-ins' destructors and `myfree` had no native definition, and a 0x44-byte pad put the groups at
+// +0x50 natively, not +0x58)
 namespace fn_002a4ff0 {
-struct E_2a4ff0 {
-    char d[0x10];
-    ~E_2a4ff0() throw();
+extern "C" char DAT_0042d90c[];
+struct Group_2a4ff0 : HulkDrawableGroup {
+    void FUN_002a4890();   // the group's destructor: releases the drawable and the children, frees the vector
 };
-extern "C++" __declspec(nothrow) void __cdecl myfree(void*) throw();
-template <class T> struct Vec_2a4ff0 {
-    T* mBegin;
-    T* mEnd;
-    ~Vec_2a4ff0() throw() {
-        T* p = mBegin;
-        if (p) {
-            T* e = mEnd;
-            while (p != e) {
-                p->~T();
-                ++p;
-            }
-            myfree(mBegin);
-        }
-    }
-};
+void __cdecl thunk_FUN_00267090(void*);
 struct DrawableHierarchy_2a4ff0 {
-    virtual ~DrawableHierarchy_2a4ff0() throw();
+    void FUN_002a35f0();   // pure3d::DrawableHierarchy's destructor
 };
-class DrawableContainer : public DrawableHierarchy_2a4ff0 {
-  public:
-    virtual ~DrawableContainer() throw();
-    virtual void Update_000382a0();
-    char pad[0x44];
-    Vec_2a4ff0<E_2a4ff0> items;
+struct DrawableContainer : HulkDrawableContainer {
+    ~DrawableContainer() throw();
 };
-DrawableContainer::~DrawableContainer() throw() {}
+DrawableContainer::~DrawableContainer() throw() {
+    vftable = (void*)DAT_0042d90c;
+    _ReadWriteBarrier();
+    Group_2a4ff0* p = (Group_2a4ff0*)groups;
+    if (p) {
+        Group_2a4ff0* e = (Group_2a4ff0*)groupsEnd;
+        while (p != e) {
+            p->FUN_002a4890();
+            ++p;
+        }
+        thunk_FUN_00267090(groups);
+    }
+    ((DrawableHierarchy_2a4ff0*)this)->FUN_002a35f0();
+}
 } // namespace fn_002a4ff0
 
 

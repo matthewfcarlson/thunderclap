@@ -612,7 +612,7 @@ public:
     virtual unsigned char vfunc_9(); // overrides pure3d::DrawablePrimitive slot 9
     virtual void vfunc_10(); // overrides pure3d::DrawablePrimitive slot 10
     virtual hulk_freg vfunc_11(int, int); // slot 11
-    int f_10;
+    hulk_intptr f_10;   // (x64t20, D105) DrawablePrimitive's word: pointer-sized natively (decls/drawable_container.h)
     char _pad_14[0x24];
     int f_38;
     char _pad_3c[0x48];
@@ -1860,7 +1860,7 @@ public:
     virtual unsigned int vfunc_30(); // slot 30
     virtual void vfunc_31(void*); // slot 31
     virtual hulk_uintptr vfunc_32(); // slot 32
-    int f_10;
+    hulk_intptr f_10;   // (x64t20, D105) DrawablePrimitive's word: pointer-sized natively (decls/drawable_container.h)
     float f_14;
     float f_18;
     float f_1c;
@@ -2153,7 +2153,7 @@ public:
     virtual hulk_uintptr vfunc_7(); // overrides pure3d::DrawablePrimitive slot 7
     virtual void vfunc_8(void*); // overrides pure3d::DrawablePrimitive slot 8
     virtual unsigned char vfunc_9(); // overrides pure3d::DrawablePrimitive slot 9
-    int f_10;
+    hulk_intptr f_10;   // (x64t20, D105) DrawablePrimitive's word: pointer-sized natively (decls/drawable_container.h)
     char _pad_14[0x24];
     float f_38;
     int f_3c;
@@ -2492,7 +2492,7 @@ public:
     virtual void vfunc_10(); // overrides pure3d::DrawablePrimitive slot 10
     ShadowMeshBufferImpl* FUN_002b4cf0(); // non-virtual
     ShadowMeshBufferImpl* FUN_002b4d60(int); // non-virtual
-    int f_10;
+    hulk_intptr f_10;   // (x64t20, D105) DrawablePrimitive's word: pointer-sized natively (decls/drawable_container.h)
     char _pad_14[0x2c];
     void* f_40;
 };
@@ -2699,7 +2699,7 @@ public:
     virtual void vfunc_10(); // overrides pure3d::DrawablePrimitive slot 10
     virtual void vfunc_11(void*); // slot 11
     virtual void vfunc_12(void*); // slot 12
-    int f_10;
+    hulk_intptr f_10;   // (x64t20, D105) DrawablePrimitive's word: pointer-sized natively (decls/drawable_container.h)
     char _pad_14[0x2c];
     int f_40;
     void* f_44;
@@ -2917,7 +2917,8 @@ public:
     virtual void vfunc_10(); // overrides pure3d::DrawablePrimitive slot 10
     virtual unsigned char vfunc_11(); // slot 11
     virtual unsigned char vfunc_12(); // slot 12
-    char _pad_10[0x30];
+    hulk_intptr f_10;   // (x64t20, D105) DrawablePrimitive's word: pointer-sized natively (decls/drawable_container.h)
+    char _pad_14[0x2c];
     void* f_40;
     int f_44;
     int f_48;
@@ -4824,7 +4825,7 @@ public:
     virtual void vfunc_11(float, int); // slot 11
     virtual int vfunc_12(); // slot 12
     virtual void vfunc_13(); // slot 13
-    int f_10;
+    hulk_intptr f_10;   // (x64t20, D105) DrawablePrimitive's word: pointer-sized natively (decls/drawable_container.h)
     char _pad_14[0x2c];
     void* f_40;
     void* f_44;

@@ -75,10 +75,11 @@ class pddiTexture_326260 {
 extern "C" char DAT_00433354[];
 extern "C" char DAT_004333ac[];
 // (x64t17) the texture's record (decls/pddi_texture.h HulkD3dTexture): the D3D handles are pointers
-extern void __stdcall Release(void*);
 extern "C" void __cdecl FUN_0031e210(hulk_intptr);
+// (x64t20) the XDK's D3DResource_Release and pddiObject's destructor body 0x0031bae0 as defined (d3dDevice.cpp), by
+// their names (a local `Release` and `BaseDestroy` had no native definition: the texture's release stopped there)
+extern "C" void __fastcall FUN_0031bae0(void* self);
 struct d3dTexture_326290 : HulkD3dTexture {
-    void BaseDestroy();
 };
 struct D3DResource {};
 void __stdcall D3DResource_AddRef(D3DResource*);
@@ -310,19 +311,19 @@ namespace fn_ff6ae8d9 {
 void __fastcall FUN_00326290(d3dTexture_326290* self) {
     self->vftable = (void*)DAT_004333ac;
     if (self->resource)
-        Release(self->resource);
+        D3DResource_Release((D3DResource*)self->resource);
     if (self->texture) {
-        Release(self->texture);
+        D3DResource_Release((D3DResource*)self->texture);
         FUN_0031e210((hulk_intptr)self->texture);
     }
     if (self->volume) {
-        Release(self->volume);
+        D3DResource_Release((D3DResource*)self->volume);
         FUN_0031e210((hulk_intptr)self->volume);
     }
     if (self->palette)
-        Release(self->palette);
+        D3DResource_Release((D3DResource*)self->palette);
     self->vftable = (void*)DAT_00433354;
-    self->BaseDestroy();
+    FUN_0031bae0(self);
 }
 
 
@@ -965,8 +966,21 @@ d3dTexture* d3dTexture::FUN_00326b40(void* ctx) {
 
 
 // 0x00326c40 pure3d::d3dTexture::vfunc_3 (30 B): matches/0x00326c40.cpp
-// sym: ??_Gd3dTexture@pure3d@@UAEPAXI@Z
-// Same code shape as 0x00021840 (propagated; names are from that function)
-// scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-pure3d::d3dTexture::~d3dTexture() {}
+// sym: ?vfunc_3@d3dTexture_326c40@fn_00326c40@@QAEPAU12@E@Z
+// scalar deleting destructor: the destructor's body 0x00326290, then (flags & 1) the free.
+// (x64t20) an explicit function: gen's `pure3d::d3dTexture::~d3dTexture() {}` stood for it, which natively defines
+// no function for the vftable slot (the release of the copyright sprite's texture reached `hulk_x_00326c40`)
+namespace fn_00326c40 {
+void __cdecl thunk_FUN_00267090(void*);
+struct d3dTexture_326c40 {
+    void FUN_00326290();   // the destructor's body
+    d3dTexture_326c40* vfunc_3(unsigned char flags);
+};
+d3dTexture_326c40* d3dTexture_326c40::vfunc_3(unsigned char flags) {
+    FUN_00326290();
+    if (flags & 1)
+        thunk_FUN_00267090(this);
+    return this;
+}
+} // namespace fn_00326c40
 

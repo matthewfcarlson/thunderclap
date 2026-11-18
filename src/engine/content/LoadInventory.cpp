@@ -5,6 +5,7 @@
 #include "gen/content.h"
 #include "gen/owners.h"
 #include "decls/load_inventory.h"
+#include "decls/table_cursor.h"
 #define TREE_TU_BEGIN namespace fn_fa919a6c {
 #define TREE_TU_END }
 namespace fn_fa919a6c {} using namespace fn_fa919a6c;
@@ -23,16 +24,13 @@ class Owner_2660a0 : public HulkLoadInventory {
     void Set(Item_2660a0* p);
 };
 typedef unsigned __int64 U64;
-struct Iter {
-    __int64 state;      // 8-byte local (forces the original's 8-byte stack alignment)
-    void FUN_002314a0(void* head);
+struct __declspec(align(8)) Iter : HulkTableCursor {   // (x64t20) the table's cursor (8-aligned: the original's frame)
+    void FUN_002314a0(void* table);
     Node* FUN_00231640();
     U64 FUN_00231530();
     Node* FUN_002314c0();
 };
-struct Source {
-    char pad[0xc];
-    void* head;
+struct Source : HulkLoadInventory {   // (x64t20) the inventory (its pool is the table; a 0xc pad put it 4 bytes short natively)
 };
 class Listener {
 public:
@@ -70,9 +68,7 @@ class Item_266440 {
 class Owner_266440 {
   public:
 };
-class Temp_266440 {
-    char pad[8];
-
+class Temp_266440 : public HulkTableCursor {   // (x64t20) the table's cursor (an 8-byte pad natively too short)
   public:
     void Init_002314a0(Owner_266440*);
     Item_266440* First_00231640();
@@ -192,7 +188,7 @@ namespace fn_fa919a6c {
 void Listener::FUN_00266220(Source* src)
 {
     Iter it;
-    it.FUN_002314a0(src->head);
+    it.FUN_002314a0(src->pool);
     Node* n = it.FUN_00231640();
     if (n) {
         do {

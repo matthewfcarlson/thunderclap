@@ -1250,3 +1250,24 @@ blocks fight::Action's whole family: the records come first there.
   proves both modes; x87_order reports no x87 at all here. Read a diff's byte positions before assuming rounding.
 - x64t19's caster patch (the game's vftable 0x003f6330 by address in a pointer-sized frame word) landed with it;
   `--x64` stays `unsupported:no32` (no 32-bit input completes: a fuzzed virtual call fetches at 0), as at HEAD.
+
+## 2026-11-18 x64t20: the content tables' cursor (D106), DrawablePrimitive's word (D105), the copyright's release
+
+- **A cursor initialiser declared with an unsigned parameter cuts the table pointer in every caller.** Ten iterators
+  of fight's hash table (LoadInventory, LoadStream, fight::Context, ParamValueInventoryEntity, unk_28fbc0,
+  CSoundRealTimeManager, EffectAction) kept the cursor as an 8-byte pad or `unsigned` words and the inventory's pool
+  as `unsigned f0c` behind a 0xc pad (+0x10 natively). One record (decls/table_cursor.h HulkTableCursor) and the
+  inventory's record (decls/load_inventory.h) for the owner views; MSVC bytes unchanged everywhere.
+- **A shared base's word size decides where every descendant's box lands.** DrawablePrimitive's +0x10 word is an int,
+  DrawableHierarchy's a pointer: natively their boxes were 4 bytes apart and 0x002a4570 can read only one offset.
+  Making the primitive's word pointer-sized moves every descendant view (gen f_10, HULK_SPE, HulkSprite) by the same
+  8 bytes; a raw `(char*)this + HULK_SPE(k)` inside a pad is what the x64 gate then reads as `layout`: give the view
+  a field at that offset.
+- **`pure3d::X::~X() {}` standing for a scalar deleting destructor defines nothing natively.** The pinned `??_G`
+  symbol is MSVC's; clang emits only the destructor variants, so the game vftable's slot binds to `hulk_x_<addr>`.
+  An explicit `X_addr* vfunc_N(unsigned char flags) { body(); if (flags & 1) free(this); return this; }` matches the
+  same bytes. 809 blocks of the tree have this shape.
+- **Free and release helpers named without an address** (`Free`, `Release`, `BaseDestroy`, `run`,
+  `SweepTrack_DeleteThis`, `thunk`) are unbound natively: call them by their address names or as defined (the XDK's
+  `D3DResource_Release`). A new `thunk_FUN_00267090` spelling needs a local map entry for the call's target thunk
+  (the Wine map binds such names by position).

@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "decls/table_cursor.h"
 #define TREE_TU_BEGIN namespace fn_f6bca062 {
 #define TREE_TU_END }
 namespace fn_f6bca062 {} using namespace fn_f6bca062;
@@ -96,11 +97,9 @@ public:
     unsigned int step;           // 0x14
     HashEntry *FUN_00231370();
 };
-class A_2314a0 {
+class A_2314a0 : public HulkTableCursor {   // (x64t20) the cursor's initialiser: the table is a pointer
   public:
-    unsigned int x;
-    unsigned int y;
-    A_2314a0(hulk_uintptr);
+    A_2314a0(void* table);
 };
 typedef unsigned int u32_2314c0;
 struct Owner_2314c0 {              // (x64t19) the table's slots are pointers, the entries' pointer before the sentinel
@@ -110,9 +109,7 @@ struct Owner_2314c0 {              // (x64t19) the table's slots are pointers, t
     void* entries;
     char tail[4];
 };
-struct Cursor_2314c0 {
-    Owner_2314c0* owner;
-    u32_2314c0 index;
+struct Cursor_2314c0 : HulkTableCursor {   // (x64t20) the cursor; its table is the Owner_2314c0 above
 };
 struct Entry_231530 {
     unsigned a, b;
@@ -122,9 +119,7 @@ struct Table_231530 {
     char pad[24];
     Entry_231530* entries;
 };
-struct Owner_231530 {
-    Table_231530* table;
-    int index;
+struct Owner_231530 : HulkTableCursor {    // (x64t20) the cursor; its table is the Table_231530 above
     unsigned long long get();
 };
 class Obj {
@@ -166,10 +161,7 @@ struct Table_231590 {
     void FUN_002310a0(unsigned int newCapacity);
     void FUN_00231590(unsigned int first, unsigned int second, void *item);
 };
-class C_231640 {                  // (x64t19) a cursor: the table (a pointer) and the index
-  public:
-    void* owner;
-    int x;
+class C_231640 : public HulkTableCursor {   // (x64t19) a cursor: the table (a pointer) and the index
 };
 hulk_uintptr __fastcall FUN_002314c0(C_231640*);   // (x64t19) as defined (an int result did not bind natively)
 extern "C" void* __cdecl FUN_00266e00(uint, hulk_uintptr);
@@ -398,17 +390,17 @@ HashEntry *HashProbe::FUN_00231370() {
 
 
 // 0x002314a0 FUN_002314a0 (18 B): matches/0x002314a0.cpp
-// sym: ??0A_2314a0@fn_f6bca062@@QAE@I@Z
-A_2314a0::A_2314a0(hulk_uintptr v) {
-    x = v;
-    y = 0;
+// sym: ??0A_2314a0@fn_f6bca062@@QAE@PAX@Z
+A_2314a0::A_2314a0(void* t) {
+    table = t;
+    index = 0;
 }
 
 
 // 0x002314c0 FUN_002314c0 (52 B): matches/0x002314c0.cpp
 // sym: ?FUN_002314c0@fn_f6bca062@@YIIPAUCursor_2314c0@1@@Z
 hulk_uintptr __fastcall FUN_002314c0(Cursor_2314c0* self) {
-    Owner_2314c0* o = self->owner;
+    Owner_2314c0* o = (Owner_2314c0*)self->table;
     u32_2314c0 i;
     void* p;
     do {
@@ -427,9 +419,9 @@ hulk_uintptr __fastcall FUN_002314c0(Cursor_2314c0* self) {
 // sym: ?get@Owner_231530@fn_f6bca062@@QAE_KXZ
 unsigned long long Owner_231530::get() {
     int i = index;
-    if (i < 0 || (unsigned)i >= table->count)
+    if (i < 0 || (unsigned)i >= ((Table_231530*)table)->count)
         return 0;
-    Entry_231530* e = table->entries + i;
+    Entry_231530* e = ((Table_231530*)table)->entries + i;
     return *(unsigned long long*)e;
 }
 
@@ -477,7 +469,7 @@ void Table_231590::FUN_00231590(unsigned int first, unsigned int second, void *i
 // 0x00231640 FUN_00231640 (12 B): matches/0x00231640.cpp
 // sym: ?FUN_00231640@fn_f6bca062@@YIHPAVC_231640@1@@Z
 hulk_intptr __fastcall FUN_00231640(C_231640* p) {
-    p->x = -1;
+    p->index = -1;
     return FUN_002314c0(p);
 }
 

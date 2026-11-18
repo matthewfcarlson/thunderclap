@@ -28,6 +28,23 @@ struct HulkDrawableGroup {
 };
 HULK_SIZE32(HulkDrawableGroup, 0x10);
 
+// (x64t20, D105) pure3d::DrawablePrimitive's words (its constructor 0x002a5060 zeroes +0x10 .. +0x38; 0x40 bytes on
+// the 32-bit builds): Entity's words, a word (pure3d::Sprite's slot 8 sets it for a blending shader), the bounding box
+// and sphere, a last word. The word is pointer-sized natively, as DrawableHierarchy's reference-counted pointer is, so
+// both drawable kinds keep the box at +0x20 natively (+0x14 on the 32-bit builds): the container's bounds 0x002a4570
+// read a group drawable's box at one offset whichever kind it is. The descendants' records and gen classes
+// (decls/sprite.h HulkSprite, decls/particle_emitter.h, gen/pure3d.h's f_10) follow it.
+struct HulkDrawablePrimitive {
+    void* vftable;               // +0x00
+    int refs;                    // +0x04 content::LoadObject's reference count
+    unsigned int name[2];        // +0x08 pure3d::Entity's name (natively at +0x0c)
+    hulk_intptr word;            // +0x10 (natively +0x18, pointer-sized)
+    float box[6];                // +0x14 the bounding box: min, max (natively +0x20)
+    float sphere[4];             // +0x2c the bounding sphere: centre, radius
+    int f3c;                     // +0x3c (the constructor leaves it)
+};
+HULK_SIZE32(HulkDrawablePrimitive, 0x40);
+
 // pure3d::DrawableHierarchy's words (0x002a3480 zeroes +0x10 .. +0x38)
 struct HulkDrawableHierarchy {
     void* vftable;               // +0x00

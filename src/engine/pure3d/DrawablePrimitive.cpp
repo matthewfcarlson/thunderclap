@@ -2,6 +2,7 @@
 // object 0x002a5060..0x002a5150 (kind game, layer engine, confidence medium), dominant class pure3d::DrawablePrimitive
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "decls/drawable_container.h"
 #define TREE_TU_BEGIN namespace fn_fdccf8a8 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CAction
@@ -26,8 +27,7 @@ struct Entity_2a5060 {
     int b[3];
     Entity_2a5060* FUN_0027b070();   // pure3d::Entity's constructor
 };
-struct DrawablePrimitive : Entity_2a5060 {
-    int a[11];
+struct DrawablePrimitive : HulkDrawablePrimitive {   // (x64t20, D105) the record: its word pointer-sized natively
     DrawablePrimitive* FUN_002a5060();
 };
 extern int hulk_at_0042d978;
@@ -51,20 +51,20 @@ class DrawablePrimitive_2a5120 : public Entity_2a5120 {
 // 0x002a5060 FUN_002a5060 (53 B): matches/0x002a5060.cpp
 // sym: ?FUN_002a5060@DrawablePrimitive@fn_fdccf8a8@@QAEPAU12@XZ
 DrawablePrimitive* DrawablePrimitive::FUN_002a5060() {
-    FUN_0027b070();
-    a[0] = 0;
+    ((Entity_2a5060*)this)->FUN_0027b070();
+    word = 0;
     *((hulk_intptr*)this) = (hulk_intptr)&hulk_at_0042d978;
     _ReadWriteBarrier();
-    a[1] = 0;
-    a[2] = 0;
-    a[3] = 0;
-    a[4] = 0;
-    a[5] = 0;
-    a[6] = 0;
-    a[7] = 0;
-    a[8] = 0;
-    a[9] = 0;
-    a[10] = 0;
+    ((int*)box)[0] = 0;
+    ((int*)box)[1] = 0;
+    ((int*)box)[2] = 0;
+    ((int*)box)[3] = 0;
+    ((int*)box)[4] = 0;
+    ((int*)box)[5] = 0;
+    ((int*)sphere)[0] = 0;
+    ((int*)sphere)[1] = 0;
+    ((int*)sphere)[2] = 0;
+    ((int*)sphere)[3] = 0;
     return this;
 }
 

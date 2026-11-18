@@ -52,8 +52,9 @@ class Entity_2a35f0 {
 };
 class DrawableHierarchy_2a35f0 : public Entity_2a35f0 {
   public:
-    char pad[12];
-    Ref_2a35f0* m;
+    int refs;                      // (x64t20) Entity's words, then the reference-counted pointer at +0x10 (natively
+    unsigned int name[2];          // +0x18, decls/drawable_container.h HulkDrawableHierarchy: a 12-byte pad put it
+    Ref_2a35f0* m;                 // at +0x14)
     ~DrawableHierarchy_2a35f0();
 };
 extern void* g_vftable_2a3620[];
@@ -72,8 +73,9 @@ class Entity_2a3620 {
 };
 class DrawableHierarchy_2a3620 : public Entity_2a3620 {
   public:
-    char pad[12];
-    Ref_2a3620* m;
+    int refs;                      // (x64t20) Entity's words, then the reference-counted pointer at +0x10 (natively
+    unsigned int name[2];          // +0x18, decls/drawable_container.h HulkDrawableHierarchy: a 12-byte pad put it
+    Ref_2a3620* m;                 // at +0x14)
     DrawableHierarchy_2a3620* f2(unsigned char flags);
 };
 

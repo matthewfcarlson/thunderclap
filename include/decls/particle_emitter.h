@@ -49,7 +49,7 @@ struct HulkSpriteParticleEmitter {
     void* vftable;
     int refs;               // 0x04 content::LoadObject's reference count
     unsigned int name[2];   // 0x08 pure3d::Entity's name (0x0027b040)
-    int f10;                // 0x10 (vfunc_8 0x002d5e00)
+    hulk_intptr f10;        // 0x10 (vfunc_8 0x002d5e00; x64t20, D105: DrawablePrimitive's word, pointer-sized natively)
     float bounds[10];       // 0x14 box, centre and radius (vfunc_10 0x002d4650)
     int f3c;
     float transform[16];    // 0x40 (vfunc_22 0x002d3f80)
@@ -73,10 +73,12 @@ struct HulkSpriteParticleEmitter {
     void** blendEnd;        // 0x1d8
     int f1dc;               // 0x1dc (not written by the code seen)
 };
-#define HULK_SPE(k) ((int)(sizeof(void*) == 4 ? (k) : (k) < 0x04 ? (k) : (k) < 0x80 ? (k) + 4 :               \
-                           (k) < 0x84 ? (k) + 8 : (k) < 0x88 ? (k) + 0xc : (k) < 0x8c ? (k) + 0x10 :            \
-                           (k) < 0x90 ? (k) + 0x14 : (k) < 0x94 ? (k) + 0x18 : (k) < 0xa8 ? (k) + 0x1c :         \
-                           (k) < 0x1bc ? 0xc8 + HULK_EST((k) - 0xa8) : (k) + 0x3c + ((k) - 0x1bc)))
+// (x64t20, D105) natively the word at 0x10 is pointer-sized (at +0x18; HULK_SPE(0x10) is the name's end, +0x14), so
+// every word from 0x14 on is 8 bytes later than before
+#define HULK_SPE(k) ((int)(sizeof(void*) == 4 ? (k) : (k) < 0x04 ? (k) : (k) < 0x14 ? (k) + 4 : (k) < 0x80 ? (k) + 0xc :  \
+                           (k) < 0x84 ? (k) + 0x10 : (k) < 0x88 ? (k) + 0x14 : (k) < 0x8c ? (k) + 0x18 :           \
+                           (k) < 0x90 ? (k) + 0x1c : (k) < 0x94 ? (k) + 0x20 : (k) < 0xa8 ? (k) + 0x24 :          \
+                           (k) < 0x1bc ? 0xd0 + HULK_EST((k) - 0xa8) : (k) + 0x44 + ((k) - 0x1bc)))
 HULK_LOADER_SIZE32(HulkSpriteParticleEmitter, 0x1e0);
 typedef char hulk_size64_spe_[(sizeof(void*) != 8 || sizeof(HulkSpriteParticleEmitter) == HULK_SPE(0x1e0)) ? 1 : -1];
 

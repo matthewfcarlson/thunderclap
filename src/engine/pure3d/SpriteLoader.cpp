@@ -24,7 +24,7 @@ struct Thing_2bd430 {
     virtual void A();
     virtual void B();
 };
-extern void Free(void*);
+extern void __cdecl thunk_FUN_00267090(void*);   // (x64t20) the free by its address name ("Free" had no native definition)
 class ParamValue_2bd4b0 {
   public:
     virtual void vfunc_0();
@@ -423,8 +423,8 @@ void Sprite::Destroy() {
     ((Thing_2bd430*)shader)->B();
     for (int i = 0; i < count; ++i)
         ((Thing_2bd430**)textures)[i]->B();
-    Free(textures);
-    Free(quads);
+    thunk_FUN_00267090(textures);
+    thunk_FUN_00267090(quads);
     Tail_002a50a0();
 }
 
@@ -1038,10 +1038,23 @@ hulk_intptr pure3d::SpriteObject::vfunc_21() {   // (x64t19) the group's drawabl
 
 
 // 0x002be420 pure3d::Sprite::vfunc_2 (30 B): matches/0x002be420.cpp
-// sym: ??_GSprite@pure3d@@UAEPAXI@Z
-// Same code shape as 0x00021840 (propagated; names are from that function)
-// scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
-pure3d::Sprite::~Sprite() {}
+// sym: ?vfunc_2@Sprite_2be420@fn_f43dee86@@QAEPAU12@E@Z
+// scalar deleting destructor: the destructor's body 0x002bd430, then (flags & 1) the free.
+// (x64t20) an explicit function on the record: gen's `pure3d::Sprite::~Sprite() {}` stood for it, which natively
+// defines no function for the vftable slot (the release of the copyright sprite reached `hulk_x_002be420`)
+namespace fn_f43dee86 {
+void __cdecl thunk_FUN_00267090(void*);
+struct Sprite_2be420 : HulkSprite {
+    void FUN_002bd430();   // the destructor's body (Sprite::Destroy above)
+    Sprite_2be420* vfunc_2(unsigned char flags);
+};
+Sprite_2be420* Sprite_2be420::vfunc_2(unsigned char flags) {
+    FUN_002bd430();
+    if (flags & 1)
+        thunk_FUN_00267090(this);
+    return this;
+}
+} // namespace fn_f43dee86
 
 
 // 0x002be440 FUN_002be440 (731 B): equivalent/0x002be440.cpp [wrapped: conflict: Gfx; pure3d::Sprite]
@@ -1364,7 +1377,7 @@ SpriteObject_2bea70* SpriteObject_2bea70::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_0042e914;
     Destroy_002a4ff0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        thunk_FUN_00267090(this);   // (x64t20) the free by its address name
     }
     return this;
 }
@@ -1708,7 +1721,7 @@ SpriteLoader_2bed30* SpriteLoader_2bed30::vfunc2(unsigned char f) {
     }
     vftable = &hulk_at_003f6098;
     if (f & 1)
-        Free(this);
+        thunk_FUN_00267090(this);
     return this;
 }
 

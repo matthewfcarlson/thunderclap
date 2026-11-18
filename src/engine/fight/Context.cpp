@@ -4,6 +4,7 @@
 #include "tree_prelude.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "decls/table_cursor.h"
 #define TREE_TU_BEGIN namespace fn_feea6610 {
 #define TREE_TU_END }
 namespace fn_feea6610 {} using namespace fn_feea6610;
@@ -19,9 +20,7 @@ class Item_2366e0 {
 class Owner_2366e0 {
   public:
 };
-class Temp_2366e0 {
-    char pad[8];
-
+class Temp_2366e0 : public HulkTableCursor {   // (x64t20) the table's cursor (an 8-byte pad natively too short)
   public:
     void Init_002314a0(Owner_2366e0*);
     Item_2366e0* First_00231640();
@@ -35,9 +34,7 @@ class Item_236720 {
 class Owner_236720 {
   public:
 };
-class Temp_236720 {
-    char pad[8];
-
+class Temp_236720 : public HulkTableCursor {   // (x64t20) the table's cursor (an 8-byte pad natively too short)
   public:
     void Init_002314a0(Owner_236720*);
     Item_236720* First_00231640();

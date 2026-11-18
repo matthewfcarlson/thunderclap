@@ -9,6 +9,8 @@
 #include "decls/data/game/hulkfight.h"
 #include "decls/data/game/unknown.h"
 #include "gen/owners.h"
+#include "decls/load_inventory.h"
+#include "decls/table_cursor.h"
 #define TREE_TU_BEGIN namespace fn_f7674384 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CCollisionTrack
@@ -59,17 +61,13 @@ struct Handle_1eab10 {
     struct Group_1eab10 *FUN_00266700();
     void FUN_00263e90();
 };
-struct Cursor_1eab10 {
-    unsigned int a;
-    int b;
+struct Cursor_1eab10 : HulkTableCursor {   // (x64t20) the table's cursor and the inventory it walks
     struct Group_1eab10 *c;
-    void FUN_002314a0(unsigned int v);
+    void FUN_002314a0(void* table);
     core::IRefCount_1eab10 *FUN_00231640();
     core::IRefCount_1eab10 *FUN_002314c0();
 };
-struct Group_1eab10 {
-    char pad0[0xc];
-    unsigned int f0c;
+struct Group_1eab10 : HulkLoadInventory {   // (x64t20) the sound's content::LoadInventory: its pool is the table
 };
 struct Loader_1eab10 {
     void FUN_00265920(const char *path, Handle_1eab10 **out, int flag);
@@ -258,7 +256,7 @@ public:
 
 
 // 0x001eab10 FUN_001eab10 (733 B): equivalent/0x001eab10.cpp
-// sym: ?FUN_001eab10@Player_1eab10@fn_f7674384@@QAEXPBD@Z @d2db7f64b4fb @w7ce27daf4d08 @vdaecb49215f8
+// sym: ?FUN_001eab10@Player_1eab10@fn_f7674384@@QAEXPBD@Z @d2db7f64b4fb @w7ce27daf4d08 @v706c94ac4c88
 // STATUS: equivalent (tools/equiv.py level 3: 128 inputs, branch coverage 24/24)
 // FUN_001eab10 @ 0x001eab10
 void Player_1eab10::FUN_001eab10(const char *name)
@@ -280,7 +278,7 @@ void Player_1eab10::FUN_001eab10(const char *name)
         ((owners::A_266090 *)(h->FUN_00266700()))->FUN_00266090();
         Group_1eab10 *g = h->FUN_00266700();
         Cursor_1eab10 it;
-        it.FUN_002314a0(g->f0c);
+        it.FUN_002314a0(g->pool);
         it.c = g;
         core::IRefCount_1eab10 *e = it.FUN_00231640();
         while (e != 0) {

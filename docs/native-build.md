@@ -5723,3 +5723,57 @@ the ledger lines shipped (88711-88713): every block proven but seven unchanged o
 `gen_headers.py --probe` ok. Native unbound on the control's and the proof's own snapshots 12382 / 12362 / 12373 ->
 12355 / 12335 / 12346 (macOS / Linux / Android). Native host tests: shim_test mac / linux-x64 / android-arm64,
 xdk_bind_test mac.
+
+## x64t20: the content tables' cursor (D106), DrawablePrimitive's word (D105), the copyright's release (2026-11-18)
+
+Kit as x64t19's (build/x64t20/scripts; a full mac compile of a clang-probe snapshot on the queue, then local
+incremental compile + link + headless run). For a local run after a symbol change, refresh the snapshot's
+report.json (scripts/snaprep.py: TreeDefs binds vftable slots and callers by the address -> 32-bit symbol table there)
+and add the new address names to a private copy of the binding map (scripts/augmap2.py).
+
+**The table cursor (D106).** include/decls/table_cursor.h HulkTableCursor {table, index} (8 bytes on the 32-bit
+builds, 0x10 natively), included only by the TUs that walk fight's hash table. 0x002314a0 (the initialiser, now
+`A_2314a0(void* table)`, pin `??0A_2314a0@fn_f6bca062@@QAE@PAX@Z`), 0x002314c0, 0x00231640 and 0x00231530 on it
+(unk_2310a0.cpp). Every caller's cursor derives from it and passes the table as a pointer: LoadInventory 0x00266220
+(8-aligned as the original's frame) / 0x00266440, LoadStream 0x00264ff0 / 0x002650e0, fight::Context 0x002366e0 /
+0x00236720, ParamValueInventoryEntity 0x00235650 / 0x002356f0 / 0x00235760 (DAT_004e5bb8 is a content::LoadInventory:
+its views are decls/load_inventory.h's record; 0x00235650's items are hulk_intptr and its cursor is initialised by
+0x002314a0's address name, not a constructor with no definition), unk_28fbc0 0x0028fd70, CSoundRealTimeManager
+0x001eab10 and EffectAction 0x001aa150 / 0x001aa2a0 (their inventories' pool, `unsigned f0c` behind a 0xc pad, is
+HulkLoadInventory's pointer).
+
+**DrawablePrimitive's word (D105).** decls/drawable_container.h HulkDrawablePrimitive: Entity's words, the word
+(hulk_intptr: pointer-sized natively), the box, the sphere, a last word; the constructor 0x002a5060 is on it. The
+box is at +0x20 natively for primitives and hierarchies, so the container's bounds 0x002a4570 read a group drawable
+through one view (Entity's words and the hulk_intptr word). Followers: decls/sprite.h HulkSprite's word, gen/pure3d.h's
+f_10 of the seven DrawablePrimitive descendants (TextString's pad split), decls/particle_emitter.h's f10 and HULK_SPE
+(every word from 0x14 on 8 bytes later natively; SpriteParticleEmitter 0x240 -> 0x248 bytes), and 0x002d4610's view
+(a `transform` field instead of `(char*)this + HULK_SPE(0x40)` inside a pad, which the x64 gate read as `layout`).
+
+**The copyright's release.** With D106, the copyright request's release walks its inventory (0x00266440) and
+releases each object; the stops behind it, fixed: DrawableContainer's destructor 0x002a4ff0 (on the record, the
+game's vftable 0x0042d90c by address, the group destructor 0x002a4890, the free and DrawableHierarchy's destructor
+0x002a35f0 by address names; pin `QAE`), DrawableHierarchy's destructor views 0x002a35f0 / 0x002a3620 (the
+reference-counted pointer at +0x18 natively), pure3d::Sprite's scalar deleting destructor 0x002be420 and
+d3dTexture's 0x00326c40 (explicit functions: gen's `~X() {}` defines no native function for the slot:
+`hulk_x_<addr>`), d3dSimpleShader's 0x0032aa30 (its object at gen's f_80, +0x88 natively, not a pad's +0x80; the base
+body 0x00327930 by its address name), d3dTexture's destructor body 0x00326290 (the XDK's D3DResource_Release and
+0x0031bae0 as defined), the frees in SpriteLoader.cpp (`Free`, `SweepTrack_DeleteThis` -> thunk_FUN_00267090).
+
+**Where macOS start-up stops now** (this commit, with D107's held alloc patch applied locally; D108 landed in
+07bea3579): the copyright request is released and its sprite, shader and texture destroyed; then fight's hash table's
+destructor 0x00231050 (unk_230800.cpp, gen owners::C_231050) frees its slots and entries through `thunk(int)` (the
+engine headers' unaddressed `thunk`, no native definition; gen's view also keeps the two pointers as ints at
++0x18 / +0x1c, where natively the entries are at +0x20). Behind it (HULK_NATIVE_MISSING=continue survey):
+CPhysicalController's constructor (fn_000b23c0) calls the allocator 0x0008d750 by a C++ spelling `FUN_0008d750(int,
+int)` that does not bind to its extern "C" definition, then crashes on the null result.
+
+**Landed** (one commit): Wine control 89071 (studio, HEAD 07bea3579) / proof 89103 seeded from it (studio), play3 to
+60630 / 60720: `ckpt_gate.py` GATE ok (only the known transients 5880 / 5910 / 34260 diverge, on both; prng 0 of
+2022). Re-proved at 3,000 compared inputs, MSVC + `--wine` (hash --proven, 8 ledger lines): 0x001eab10, 0x001aa150,
+0x001aa2a0 (views changed) and 0x002a4570 (unrecorded before; its view changed) (`--x64`: int / untyped, not gating).
+Every other changed block MATCHes with relocations ok. Whole-tree check --relocs with the edits shipped (16 jobs):
+nothing flagged; my TUs again with the ledger lines shipped: every changed block proven (ten unchanged blocks are
+unrecorded at HEAD too). x64 gate ok on the 1,697 TUs that reach the changed headers (122 changed blocks; nothing new,
+nothing accepted). `gen_headers.py --probe` ok. Native unbound on the control's and the proof's own snapshots 12354 /
+12334 / 12345 -> 12339 / 12319 / 12330 (macOS / Linux / Android).

@@ -4,6 +4,8 @@
 #include "compat/ptr.h"
 #include "decls/data/engine/fight.h"
 #include "gen/content.h"
+#include "decls/load_inventory.h"
+#include "decls/table_cursor.h"
 #define TREE_TU_BEGIN namespace fn_f30d46c2 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CEffectStopTrack
@@ -64,36 +66,30 @@ class ParamValueInventoryEntity_235650 {
     virtual void f3();
     virtual void f4();
     virtual void f5();
-    virtual char f6(int, int);
-    virtual int f7(int, int);
+    virtual char f6(int, hulk_intptr);   // (x64t20) the item is a pointer (hulk_intptr: an int on the 32-bit builds)
+    virtual hulk_intptr f7(int, int);
 };
-struct Manager_235650 {
-    char pad[12];
-    int value;
+// (x64t20) DAT_004e5bb8 is a content::LoadInventory (0x002358c0 looks entities up through its slot 3); its pool is
+// the table the cursors walk (the 0xc pads put it 4 bytes short natively, the cursors were 8- / 12-byte pads)
+struct Manager_235650 : HulkLoadInventory {
 };
-class Iter_235650 {
+class Iter_235650 : public HulkTableCursor {
   public:
-    int pad[3];
-    Iter_235650(int);
-    int First_00231640();
-    int Next_002314c0();
+    Manager_235650* owner;
+    void FUN_002314a0(void* table);
+    hulk_intptr First_00231640();
+    hulk_intptr Next_002314c0();
 };
-struct Manager_2356f0 { char pad00[0xc]; void* list; };
-struct Iter_2356f0 {
-    void* list;
-    int index;
+struct Manager_2356f0 : HulkLoadInventory { };
+struct Iter_2356f0 : HulkTableCursor {
     Manager_2356f0* owner;
     void FUN_002314a0(void* list);
     Item* FUN_00231640();
     Item* FUN_002314c0();
 };
-struct Registry_235760 {
-    char pad0[0xc];
-    void *container;        // 0xc
+struct Registry_235760 : HulkLoadInventory {   // (x64t20) the inventory: its pool is the table
 };
-struct Iter_235760 {
-    void *container;
-    int index;
+struct Iter_235760 : HulkTableCursor {
     Registry_235760 *owner;
     void FUN_002314a0(void *container);
     Item *FUN_00231640();
@@ -293,16 +289,17 @@ ParamValueInventoryEntity* ParamValueInventoryEntity::vfunc_0(int flag) {
 // 0x00235650 fight::ParamValueInventoryEntity::vfunc_7 (146 B): matches/0x00235650.cpp
 // sym: ?f7@ParamValueInventoryEntity_235650@fn_f30d46c2@@UAEHHH@Z
 // data: gManager_235650 = DAT_004e5bb8
-int ParamValueInventoryEntity_235650::f7(int wanted, int limit) {
+hulk_intptr ParamValueInventoryEntity_235650::f7(int wanted, int limit) {
     if (limit <= 0)
         return 0;
     Manager_235650* m = (*(Manager_235650**)&DAT_004e5bb8);
     if (!m)
         return 0;
     int n = 1;
-    Iter_235650 it(m->value);
-    *(Manager_235650**)((char*)&it + 8) = m;
-    int item = it.First_00231640();
+    Iter_235650 it;
+    it.FUN_002314a0(m->pool);
+    it.owner = m;
+    hulk_intptr item = it.First_00231640();
     while (item) {
         if (f6(wanted, item)) {
             if (limit == n)
@@ -325,7 +322,7 @@ int ParamValueInventoryEntity::v8(int param)
         return 0;
     int count = 1;
     Iter_2356f0 it;
-    it.FUN_002314a0(mgr->list);
+    it.FUN_002314a0(mgr->pool);
     it.owner = mgr;
     Item* item = it.FUN_00231640();
     while (item != 0) {
@@ -352,7 +349,7 @@ int ParamValueInventoryEntity::vfunc_9(Entity *owner, Item *wanted)
 
     int pos = 1;
     Iter_235760 it;
-    it.FUN_002314a0(reg->container);
+    it.FUN_002314a0(reg->pool);
     it.owner = reg;
     for (Item *item = it.FUN_00231640(); item != 0; item = it.FUN_002314c0()) {
         if (Accepts(owner, item)) {

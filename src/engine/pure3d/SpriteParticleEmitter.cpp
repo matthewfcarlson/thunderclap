@@ -459,7 +459,8 @@ struct Palette_2d5a70 {
 class SpriteParticleEmitter {
   public:
     virtual V* vfunc_22(V* out);
-    char _m_pad_4[HULK_SPE(0x84) - sizeof(void*)];   // (x64t9-spe) decls/particle_emitter.h
+    char _m_pad_4[HULK_SPE(0x40) - sizeof(void*)];   // (x64t9-spe) decls/particle_emitter.h
+    char transform[HULK_SPE(0x84) - HULK_SPE(0x40)];   // (x64t20, D105) 0x40 the transform (and the word at 0x80)
     ParticlePool* pool;
     char _m_pad_88[HULK_SPE(0xf0) - HULK_SPE(0x88)];
     char x[64];
@@ -1092,7 +1093,7 @@ namespace fn_f0cbe20f {
 // 0x002d4610 pure3d::SpriteParticleEmitter::vfunc_22 (50 B): matches/0x002d4610.cpp
 // sym: ?vfunc_22@SpriteParticleEmitter@fn_f0cbe20f@@UAEPAUV@2@PAU32@@Z
 V* SpriteParticleEmitter::vfunc_22(V* out) {
-    V tmp((char*)this + HULK_SPE(0x40), x);
+    V tmp(transform, x);
     *out = tmp;
     return out;
 }

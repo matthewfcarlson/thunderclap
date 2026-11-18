@@ -7,6 +7,7 @@
 #include "decls/data/engine/content.h"
 #include "decls/data/records.h"
 #include "gen/owners.h"
+#include "decls/table_cursor.h"
 #define TREE_TU_BEGIN namespace fn_fa1126e6 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CSPHulkProp
@@ -129,9 +130,7 @@ class Item_264ff0 {
 class Owner_264ff0 {
   public:
 };
-class Temp_264ff0 {
-    char pad[8];
-
+class Temp_264ff0 : public HulkTableCursor {   // (x64t20) the table's cursor (an 8-byte pad natively too short)
   public:
     void Init_002314a0(Owner_264ff0*);
     Item_264ff0* First_00231640();
@@ -145,9 +144,7 @@ class Item_2650e0 {
 class Owner_2650e0 {
   public:
 };
-class Temp_2650e0 {
-    char pad[8];
-
+class Temp_2650e0 : public HulkTableCursor {   // (x64t20) the table's cursor (an 8-byte pad natively too short)
   public:
     void Init_002314a0(Owner_2650e0*);
     Item_2650e0* First_00231640();
