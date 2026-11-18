@@ -107,6 +107,12 @@ The game's free calls are `operator delete(p)` / `operator delete[](p)`: 0x0008d
 (unk_08ceb0.cpp); MSVC 7.1 predeclares only the scalar form, so declare `void __cdecl operator delete[](void*)` at global
 scope. Never add a new name for the free (D115). A `??_G` written as an explicit function keeps `X::~X() {}` (other TUs'
 native code references `??1X`) and has `??_G`'s signature, `void* vfunc_N(unsigned int flags)` (D114).
+All declarations of one C name in a TU are one function: write one `extern "C"` declaration per callee per TU, and when
+an include/ header declares the name, use its prototype exactly (clang rejects a differing redeclaration natively even
+where MSVC 7.1 sees `int` both times). An int that the definition receives as a pointer is retyped on the definition and
+on every caller in one change (`hulk_intptr`/`hulk_uintptr` keep the 32-bit type and mangling; a field that stores it is
+retyped too), or the callers still saying `int` stop binding. A binding fix can expose a 32-bit literal allocation
+size to the x64 gate: write `sizeof(record)` (decl1).
 
 ## Builds and proofs
 
