@@ -2657,7 +2657,7 @@ extern "C" void __cdecl FUN_0024a1c0(void * tree_, void * entry_) {
 
 
 // 0x0024a280 FUN_0024a280 (227 B): equivalent/0x0024a280.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?FUN_0024a280@Owner_24a280@fn_0024a280@@QAEXH@Z @c73cea3d4368 @w5e0b3365a29b
+// sym: ?FUN_0024a280@Owner_24a280@fn_0024a280@@QAEXH@Z @c73cea3d4368 @w65df5a8f0e65 @ve80b93cb0181
 namespace fn_0024a280 {
 // STATUS: equivalent (tools/equiv.py level 3: 129 inputs, branch coverage 41/42, incomplete)
 // FUN_0024a280 @ 0x0024a280
@@ -2678,7 +2678,7 @@ class Owner_24a280;
 class Entry_24a280 {
 public:
     virtual ~Entry_24a280();
-    virtual bool vfunc_1(Owner_24a280 *owner, int arg);
+    virtual char vfunc_1(Owner_24a280 *owner, int arg);    // tested as a whole byte (test al, al)
     Node node;
 };
 
@@ -2710,7 +2710,7 @@ void Owner_24a280::FUN_0024a280(int arg)
     if (!e)
         return;
     do {
-        bool remove = e->vfunc_1(this, arg);
+        char remove = e->vfunc_1(this, arg);
 
         // in-order successor of e->node
         Node *cur = &e->node;
