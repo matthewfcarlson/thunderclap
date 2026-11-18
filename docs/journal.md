@@ -1218,3 +1218,25 @@ blocks fight::Action's whole family: the records come first there.
 - **The equivalence checker sizes an object returned through a stub by the declared pointee**, so a view that moves a
   field to its native offset (0x002aecb0: Entity's name at +0xc) can read as a new `layout` difference although the
   native code is the one that matches the tree's own Entity constructor (D93).
+
+## 2026-11-17 x64t19: pure3d::Sprite, the drawable container and the content loader on records (D94, D96)
+
+- **A native hang can be a view writing a state word 4 bytes short.** The copyright p3d loaded, yet the game waited
+  for its request forever: the request's state setter (0x00266950) was a pad view that put the state at +0x14, where
+  the getters (on records.h ContentLoadRequest) read +0x18 natively. A hang sample (HULK_HANG) only shows the wait
+  loop; attaching lldb (`lldb -p PID --batch -s FILE`) and breaking in the loop's callees shows the words.
+- **A frame struct sized by a 32-bit pad is a stack overrun natively**: LoadInventory's lookup reserved 0x18 bytes for
+  the hash probe, which natively writes 0x20; the probe's last word landed on the caller's saved matcher pointer.
+  Spell such frames with the probe's own words (or `sizeof(record)`), never `char data[0x18]`.
+- **Ring and vector arithmetic on byte counts** (`(end - begin) >> 3`, `>> 4`, `count * 16`) is the 32-bit element
+  size: natively each count is doubled or halved. Pointer subtraction of the element type compiles to the same MSVC
+  bytes (sub / sar), so the views keep matching.
+- **A queue entry's "value" can be a pointer**: the content registry's ring entries {request, value} carry a task the
+  queue later calls (0x00265190 pushes one, 0x002655b0 pops and calls it); an `unsigned int` value truncated it.
+- **Local polymorphic stand-ins in constructors** (Sprite, DrawableHierarchy, DrawableContainer's copy, SpriteObject)
+  give the object clang's vftable natively, whose slots are the stand-ins' undefined declarations; the fix is the
+  same each time: a non-polymorphic record, the base constructor by its address name, the game's vftable by address,
+  and calls through a slots-only view that is never constructed.
+- **A callee declared with another signature than its definition does not bind natively** (IR signatures must agree:
+  int vs pointer, void vs a returned pointer, hulk_uintptr vs unsigned): `missing` at run time names the caller's
+  spelling; declare it as defined.

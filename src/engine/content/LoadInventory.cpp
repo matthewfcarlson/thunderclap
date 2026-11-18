@@ -49,8 +49,10 @@ public:
     virtual int Matches(Node_266280 *node);     // slot 0
 };
 struct Container;
-struct NodeIter {
-    char data[0x18];
+struct NodeIter {                  // (x64t19) the probe's words (decls/loaders.h FUN_00231160: the table a pointer; a
+    void *table;                   // 0x18-byte pad was 8 bytes short natively and the probe overwrote the caller's frame)
+    int pad04;
+    unsigned int first, second, index, step;
     void FUN_00231160(Container *c);
     Node_266280 *FUN_00231180(int a, int b);
     Node_266280 *FUN_00231230();
@@ -80,9 +82,9 @@ class Arg_266510 {
   public:
     virtual void run();
 };
-class Helper_266510 {
-  public:
-    void call_00231590(void*, void*, Arg_266510*);
+class Helper_266510 {              // (x64t19) the table's insert by its address name, the key halves as defined (32-bit
+  public:                          // words: void* parameters did not bind natively)
+    void FUN_00231590(unsigned int, unsigned int, Arg_266510*);
 };
 class Obj_266540 {
   public:
@@ -302,12 +304,12 @@ content::LoadInventory::LoadInventory(unsigned int capacity) {
 
 
 // 0x00266510 content::LoadInventory::vfunc_4 (38 B): matches/0x00266510.cpp
-// sym: ?vfunc_4@LoadInventory@content@@UAEXPAX00@Z
-void content::LoadInventory::vfunc_4(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void * b = (void *)__p1; Arg_266510 * arg = (Arg_266510 *)__p2;
+// sym: ?vfunc_4@LoadInventory@content@@UAEXIIPAX@Z
+void content::LoadInventory::vfunc_4(unsigned int a, unsigned int b, void* __p2) { Arg_266510 * arg = (Arg_266510 *)__p2;
 
     Helper_266510* h = (*(Helper_266510 * *)&this->f_0c);
     arg->run();
-    h->call_00231590(a, b, arg);
+    h->FUN_00231590(a, b, arg);
 }
 
 

@@ -320,8 +320,10 @@ struct Container_29f4d0 {
     char data[0x2c];
     void FUN_00231590(int key, int flags, Entry_29f4d0 *e);
 };
-struct Finder_29f4d0 {
-    char data[0x18];
+struct Finder_29f4d0 {             // (x64t19) the probe's words (decls/loaders.h FUN_00231160: the table a pointer; a
+    void *table;                   // 0x18-byte pad was 8 bytes short natively)
+    int pad04;
+    unsigned int first, second, index, step;
     void FUN_00231160(Container_29f4d0 *c);
     Entry_29f4d0 *FUN_00231180(int key, int flags);
 };

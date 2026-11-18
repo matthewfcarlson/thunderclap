@@ -5634,3 +5634,92 @@ ledger lines shipped (87420: 86 blocks clean); re-proved at 3,000 compared input
 0x002adf20, 0x002bed90 (`--x64`: int / unsupported / call, not gating); x64 gate ok on the changed TUs (no new entry,
 nothing accepted); native unbound on the control's and the proof's own snapshots 12395 / 12375 / 12386 -> 12382 /
 12362 / 12373 (macOS / Linux / Android).
+
+## x64t19: pure3d::Sprite and the drawable container on records, the content loader's rings and request state, the native host tests (2026-11-17)
+
+D94 (x64t18's stop), D96, then the start-up's next stops. Kit as x64t18's (build/x64t19/scripts: a full mac compile
+of HEAD's clang-probe snapshot on the queue, then local incremental compile + link + headless run; lldb for a
+backtrace, attached for a hang).
+
+**pure3d::Sprite (D94).** include/decls/sprite.h HulkSprite (0xa8 bytes on the 32-bit builds, HULK_SIZE32): Entity's
+words, DrawablePrimitive's, then the tile count, the quads (HulkSpriteQuad: four 0x18-byte corners), the textures, the
+shader, the colour, the image's height / width, the border, the scale, the largest / smallest tile, the bounding box
+and sphere, the no-border flag. gen/pure3d.h's Sprite has the same words natively; its size there (0xa4) is its last
+field's end. Every SpriteLoader.cpp view of the sprite is the record: the tile layout 0x002bd570, the tile copy
+0x002bd790, the quad 0x002bdaf0 (start-up's crash), the colour 0x002bdd00 (was gen owners::Thing_2bdd00, pinned to a
+TU-local struct), the loader 0x002be720, the destructor body 0x002bd430, slot 7 0x002bdce0 (returns the shader
+pointer-sized), slots 8 / 9 / 11 read the shader's and the box's words through gen / the record. The constructors
+0x002be440 / 0x002beb20 derived from local polymorphic stand-ins (natively clang's vftable, whose slots had no
+definition): non-polymorphic now, DrawablePrimitive's constructor by its address name, the game's vftable 0x0042e8d8
+by address. The pointer arrays are allocated by sizeof (`count * 4` was half natively), the quads by
+sizeof(HulkSpriteQuad), the sprite (0x002bed90 twice, 0x002aea70) by sizeof(HulkSprite). Also in the TU: the image
+views of 0x002be720 (Image8 / Image32: their pixels pointer before the flags, the images allocated by the views' sizes,
+0x30 / 0x438 on the 32-bit builds), the draw 0x002bdd40's texture / shader / primitive-stream views (Entity's words;
+the stream's pointers from +0x10 natively), the image chunk 0x002bdfc0's result (an Image8 / Image32: the name and
+the flag at their native offsets; the mixed `Sprite` view also served the loader's destructor 0x002beac0, now on
+HulkSpriteLoader), the loader's destructor 0x002bed30 on HulkSpriteLoader.
+
+**pure3d::DrawableContainer and SpriteObject.** include/decls/drawable_container.h: HulkDrawableGroup (a drawable and
+its children's vector, 0x10 bytes on the 32-bit builds, 0x20 natively), HulkDrawableHierarchy (0x3c: Entity's words,
+a reference-counted pointer, the bounding box and sphere), HulkDrawableContainer (0x50: a word, 0.5, the owner, the
+groups) and HulkSpriteObject (0x58, every allocation). DrawableContainer.cpp's views (but the group array's allocation 0x002a4cb0, below) count groups and children by
+element (byte counts `>> 4` / `>> 2` and `* 16` allocations were the 32-bit sizes), the group pointers are pointers
+(an int drawable, an int* children vector), and the callees with no native definition are called by their address
+names (Base / Second / Alloc / Init / Destroy / ReleaseBlock / Free / Copy). The constructor 0x002a4e10 and
+the copy 0x002a4e40 are on the record (the copy non-polymorphic, the game's vftable 0x0042d90c by address);
+DrawableHierarchy's constructor 0x002a3480 (unk_2a30a0.cpp) calls Entity's by its address name and stores the
+game's vftable 0x0042d82c (its local `Drawable()` had no native definition). SpriteLoader's SpriteObject
+constructors (0x002bdee0, and the inline one in 0x002bed90) are the record with the game's vftable 0x0042e914; the
+sprite chunk calls setSprite through a slots-only view of the game's vftable. gen's SpriteObject slots 21 / 22 pass
+the sprite as hulk_intptr (an int truncated it natively); 0x002bdf80 calls the group setter as defined (int, pointer).
+A finding left as is: the container's bounds 0x002a4570 read a group drawable's box at +0x14 (32-bit); natively
+DrawablePrimitive's box is at +0x18 (after an int) and DrawableHierarchy's at +0x20 (after a pointer) (D103).
+
+**The content loader.** The registry's request ring (decls/loaders.h HulkLoadEntry) carries a task to notify as its
+value (0x00265190 queues one, 0x002655b0 calls it): the value and the finished ring are pointer-sized now. The yield
+0x00264d20, the work test 0x00264c70 (gen owners:: pad views, moved to a TU-local record class, pinned), the ring push
+0x00264e10, the notify queue 0x00265190 and the task queue 0x002655b0 read the registry through the record (their pads
+put the ring 4 to 0x20 bytes off natively: the copyright p3d's load crashed in 0x002655b0, then hung: the yield never
+saw the queued request). The request's state setter 0x00266950 (unk_266950.cpp) wrote the state 4 bytes short
+natively (records.h ContentLoadRequest: it is at +0x18), so a waited-for load never finished. LoadInventory's insert
+0x00266510 takes the key halves as words (gen/content.h's slot 4 declared them `void*`: the x64 gate read the
+truncation as `ptrtrunc`; pinned) and calls the table's 0x00231590 by its address name; its lookup's probe frame (and 0x0029f4d0's) is
+the probe's words (a 0x18-byte pad was 8 bytes short natively: the probe overwrote the caller's matcher). The
+table iterator 0x002314c0 reads pointer slots, and 0x00231640 declares it as defined (unk_2310a0.cpp).
+
+**Native host tests (D96).** shim_test.py / xdk_bind_test.py linked the shim's xdk/snapshot.cpp, whose
+hulk_host_memcmp, hulk_io_post_count and hulk_native_frame_no had no native provider (the native image linked them as
+null stubs). host_crt_posix.cpp defines hulk_host_memcmp (host_crt.h declares it); shim_posix.cpp, the native side of
+replay_hooks.cpp's syncio interface, defines the frame number and the drive-post count (0: the native builds have no
+drive-post hook yet); replay_native.cpp's GameClock::Update hook advances the frame number, as replay_hooks.cpp does.
+shim_test mac (run), linux-x64 / android-arm64 (built and linked) and xdk_bind_test mac pass. xdk_bind_test --map
+with the Wine map still reports the XInitDevices thunk (`thunk_FUN_003eac33`: the rule binds the row 0x003eac33 by the
+address in the name, the Wine map the game's jmp thunk 0x003eba7c to it: both reach the same function; D102).
+
+**Where macOS start-up stops now** (this commit): DrawableContainer's group array 0x002a4cb0 calls the allocator by a
+name with no native definition (`alloc`): `missing alloc` while the copyright p3d's SpriteObject is built. The fix
+(the allocator by its C name, the groups by sizeof(HulkDrawableGroup)) MATCHes and runs natively, but the x64 gate
+reads it as a new `layout` difference (a 64-bit write past the end of the array the checker allocated; the original's
+version is `hang64` there): not landed, it waits for D105 (build/x64t19/pending/DrawableContainer-full.patch).
+With it (local run), start-up passes the copyright load's wait; the copyright's lookup 0x001bc0c0 then calls the
+inventory through a local DynamicCaster stand-in (clang's vftable natively, 8 bytes in a 4-byte frame word): fixed
+locally with the game's vftable 0x003f6330 by address, but the block has never been proven with `--wine` (it fails
+there on float rounding with HEAD's code too), so it is not landed either (D106, pending/1bc0c0-caster.patch). Past
+both, the next stop is the content tables' cursor: 0x002314c0 crashes because the cursor 0x002314a0 stores the table
+pointer in an unsigned word, and the ~10 TUs that iterate the tables (LoadInventory, LoadStream, fight Context,
+ParamValueInventoryEntity, EffectAction, CSoundRealTimeManager, ...) declare the cursor as an 8-byte pad and its
+initialiser with an unsigned parameter (D104).
+
+**Landed** (two commits, proved together): Wine control 88710 (studio, b52b8c7bc) / proof 88721 seeded from it
+(studio; its workspace HEAD 58df141e2, which differs from b52b8c7bc in tools, tests and four pin lines only), play3 to
+60570 / 60810: `ckpt_gate.py` GATE ok (only the known transients 5880 / 5910 / 34260 diverge, on both). Re-proved at
+3,000 compared inputs, MSVC + `--wine` (hash --proven, 22 ledger lines): 0x00264590, 0x00265190, 0x00265390,
+0x002655b0, 0x002a41e0, 0x002a4e40, 0x002bdfc0, 0x002be440, 0x002be720, 0x002beb20, 0x002bed90 (`--x64`: equivalent,
+or call / float / int / view_trusted, not gating; 0x00264590's `layout` is in the baseline). Whole-tree check --relocs
+with the edits shipped (16 jobs, 88567-88582): only those blocks flagged before their hashes; my nine TUs again with
+the ledger lines shipped (88711-88713): every block proven but seven unchanged ones that HEAD has unrecorded too
+(0x002a4440, 0x002a4570, 0x00264050, 0x00265280, 0x002310a0, 0x00231590, 0x00231690). x64 gate ok, nothing accepted;
+0x002a4060, 0x002a44b0, 0x002a4890 and 0x002be3d0 improved (layout -> equivalent) and left the baseline.
+`gen_headers.py --probe` ok. Native unbound on the control's and the proof's own snapshots 12382 / 12362 / 12373 ->
+12355 / 12335 / 12346 (macOS / Linux / Android). Native host tests: shim_test mac / linux-x64 / android-arm64,
+xdk_bind_test mac.

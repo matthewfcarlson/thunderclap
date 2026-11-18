@@ -4,6 +4,7 @@
 #include "tree_prelude.h"
 #include "compat/ptr.h"
 #include "decls/data/engine/content.h"
+#include "decls/drawable_container.h"
 #include "gen/owners.h"
 #include "gen/pure3d.h"
 #define TREE_TU_BEGIN namespace fn_f6d01fd6 {
@@ -158,19 +159,20 @@ struct Group_2a4350 {
     Child_2a4350** end;
     int pad2;
 };
-struct Entry { int *object; char padding[12]; };
-struct Owner { char padding[0x48]; Entry *begin; Entry *end; int FUN_002a43c0(int key1, int key2); };
+// (x64t19) the container's record: its groups (pads put them at +0x48 / 16 bytes natively, not +0x58 / 32) and the
+// group drawable's name (pure3d::Entity's: natively at +0x0c, not +8)
+struct Owner : HulkDrawableContainer { int FUN_002a43c0(int key1, int key2); };
 } // namespace fn_f6d01fd6
 namespace pure3d {
-struct Child {
+struct Child {            // (x64t19) a group: the children are pointers (an int* difference halved them natively)
     int a;
-    int* first;
-    int* last;
+    void** first;
+    void** last;
     int b;
 };
 }
 namespace pure3d {
-struct Entry_2a4440 { char padding[8]; int key1; int key2; };
+struct Entry_2a4440 { void* vftable; int refs; int key1; int key2; };   // (x64t19) Entity's name (natively at +0x0c)
 }
 namespace pure3d {
 struct Group_2a4440 { int unused; Entry_2a4440** begin; Entry_2a4440** end; Entry_2a4440** capacity; };
@@ -181,14 +183,8 @@ class Item_2a4500 {
     virtual void First();
     virtual void Release();
 };
-struct Slot_2a4500 {
-    Item_2a4500* item;
-    char pad[12];
-};
-class DrawableContainer_2a4500 {
+class DrawableContainer_2a4500 : public HulkDrawableContainer {   // (x64t19) the container's record (was a pad view)
   public:
-    char pad[0x48];
-    Slot_2a4500* slots;
     void Set(int index, Item_2a4500* item);
 };
 struct V3_2a4570 { float x, y, z; };
@@ -218,9 +214,11 @@ public:
     char pad[0x14 - 4];
     Box_2a4570 box;
 };
-struct Slot_2a4570 {
+struct Slot_2a4570 {              // (x64t19) a group (decls/drawable_container.h: 16 bytes here was 0x18 natively)
     Child_2a4570* child;
-    char pad[12];
+    void** begin;
+    void** end;
+    void** capacity;
 };
 class A_2a46d0 {
   public:
@@ -228,19 +226,18 @@ class A_2a46d0 {
     virtual void G();
 };
 void *FUN_0008d6d0(unsigned int size);
-struct IntVector_2a4760 {
-    int *first;
-    int *last;
+struct IntVector_2a4760 {          // (x64t19) a group's children: pointers (ints copied half of them natively)
+    void **first;
+    void **last;
     IntVector_2a4760(const IntVector_2a4760 &other) throw();
 };
 typedef unsigned int u32_2a47d0;
-void __cdecl thunk_FUN_00267090(u32_2a47d0);
-struct X_2a47d0 {
-    u32_2a47d0 a;
-    u32_2a47d0 b;
+void __cdecl thunk_FUN_00267090(void*);   // (x64t19) the block as a pointer (a u32 did not bind natively)
+struct X_2a47d0 {                 // (x64t19) a vector's two pointers (u32 words natively truncated them)
+    void* a;
+    void* b;
     void f();
 };
-extern void* Alloc(hulk_uintptr);
 extern "C" int * __cdecl FUN_002a4730(int *, int, const int *);
 class Buffer_2a4800 {
   public:
@@ -253,7 +250,7 @@ class Item_2a4890 {
     virtual void f0();
     virtual void Release();
 };
-extern void Free(void*);
+
 class Container_2a4890 {
   public:
     Item_2a4890* first;
@@ -278,12 +275,14 @@ struct Manager_2a4b00 {  };
 extern unsigned DAT_004ce770, DAT_0049c7dc;
 extern Factory_2a4b00* __cdecl FUN_00344e74(void*, unsigned, unsigned*, unsigned*, unsigned);
 struct Target_2a4b00 { void FUN_002a4a50(Collection_2a4b00*, unsigned); void work(Collection_2a4b00* collection, Reader* reader, hulk_uintptr arg); };
-struct Sub {
-    char pad[12];
-    void Copy(Sub*);
+struct Sub {                      // (x64t19) a group's children (0x002a4760 copies them): pointers
+    void** begin;
+    void** end;
+    void** capacity;
+    Sub* FUN_002a4760(const Sub*);   // (x64t19) the children's copy (IntVector_2a4760's) by its address name
 };
-struct Elem {
-    int x;
+struct Elem {                     // (x64t19) a group: its drawable is a pointer
+    void* x;
     Sub sub;
 };
 extern "C" void* alloc(hulk_uintptr) throw();
@@ -296,26 +295,22 @@ struct Buffer_2a4cb0 {
     Buffer_2a4cb0* target(unsigned int count, int unused);
 };
 typedef unsigned int u32_2a4da0;
-struct Item_2a4da0 {
-    void Destroy();
+struct Item_2a4da0 {              // (x64t19) the group's clear (Container_2a4890::Clear) by its address name
+    void FUN_002a4890();
 };
-extern void __cdecl ReleaseBlock(void*);
+
 struct Container_2a4da0 {
     Item_2a4da0* begin;
     Item_2a4da0* end;
 };
 extern "C" char DAT_0042d90c[];
-class DrawableContainer_2a4e10 {
+class DrawableContainer_2a4e10 {   // (x64t19) the callees by their address names (natively Base / Second had no definition)
   public:
-    void Base();
-    void Second(unsigned int, unsigned int*);
+    void FUN_002a3480();           // pure3d::DrawableHierarchy's constructor
+    Buffer_2a4cb0* FUN_002a4cb0(unsigned int, int);   // the group array's allocation (Buffer_2a4cb0::target, as defined)
 };
-class DrawableContainer {
+class DrawableContainer : public HulkDrawableContainer {   // (x64t19) the container's record (was a 32-bit pad view)
   public:
-    void* vftable;
-    char pad[0x3c];
-    unsigned int half;
-    void* owner;
     void* Init(unsigned int arg);
 };
 
@@ -349,7 +344,7 @@ void __fastcall FUN_002a3e90(void* self) {
 // 0x002a4060 FUN_002a4060 (54 B): matches/0x002a4060.cpp
 // sym: ?Clear@Container_2a4060@fn_f6d01fd6@@QAEXXZ
 void Container_2a4060::Clear() {
-    int n = ((int)((char*)end - (char*)begin)) >> 2;
+    int n = (int)(end - begin);   // (x64t19) pointers (a byte count >> 2 was twice the count natively)
     for (unsigned int i = 0; i < (unsigned int)n; ++i) {
         Item_2a4060* p = begin[i];
         if (p)
@@ -380,10 +375,11 @@ void pure3d::DrawableContainer::vfunc_6(int a, int b) {
 // sym: ?vfunc_7@DrawableContainer@pure3d@@UAEDXZ
  // namespace pure3d
 char pure3d::DrawableContainer::vfunc_7() {
-    unsigned count = (unsigned)(((hulk_intptr)(*(Group_2a4150 * *)&this->f_4c) - (hulk_intptr)(*(Group_2a4150 * *)&this->f_48)) >> 4);
+    // (x64t19) element counts (byte counts >> 4 / >> 2 counted 32-bit groups and pointers natively)
+    unsigned count = (unsigned)((*(Group_2a4150 * *)&this->f_4c) - (*(Group_2a4150 * *)&this->f_48));
     for (unsigned i = 0; i < count; ++i) {
         Group_2a4150* group = (*(Group_2a4150 * *)&this->f_48) + i;
-        unsigned items = (unsigned)(((hulk_intptr)group->end - (hulk_intptr)group->begin) >> 2);
+        unsigned items = (unsigned)(group->end - group->begin);
         for (unsigned j = 0; j < items; ++j) {
             Item_2a4150* item = group->begin[j];
             if (item && !item->slot22())
@@ -395,7 +391,7 @@ char pure3d::DrawableContainer::vfunc_7() {
 
 
 // 0x002a41e0 FUN_002a41e0 (368 B): equivalent/0x002a41e0.cpp [wrapped: macros]
-// sym: ?FUN_002a41e0@Group_2a41e0@fn_002a41e0@@QAEXPAVParent_2a41e0@2@H@Z @8ed859dccd65 @w8d920481ec05 @vea069234764c
+// sym: ?FUN_002a41e0@Group_2a41e0@fn_002a41e0@@QAEXPAVParent_2a41e0@2@H@Z @543b25973a2a @w7ae7531aca8e @v3c19dc40de00
 namespace fn_002a41e0 {
 // STATUS: equivalent (tools/equiv.py level 3: 19720 inputs, branch coverage 24/24)
 // FUN_002a41e0 @ 0x002a41e0
@@ -445,13 +441,12 @@ class Parent_2a41e0 {
 public:
     void FUN_0029b750(Group_2a41e0* g, int zero, int arg);
 };
-class Group_2a41e0 {
+// (x64t19) the container's record (decls/drawable_container.h): its +0x10 object and its groups (pads put them at
+// +0x14 / +0x4c natively, not +0x18 / +0x58)
+class Group_2a41e0 : public HulkDrawableContainer {
 public:
-    char pad0[0x10];
-    Source_2a41e0* source;
-    char pad14[0x48 - 0x14];
-    Entry_2a41e0* entries;
-    Entry_2a41e0* entriesEnd;
+    Source_2a41e0* source() { return (Source_2a41e0*)f10; }
+    Entry_2a41e0* entries() { return (Entry_2a41e0*)groups; }
     void FUN_002a41e0(Parent_2a41e0* parent, int arg);
 };
 
@@ -461,24 +456,24 @@ void Group_2a41e0::FUN_002a41e0(Parent_2a41e0* parent, int arg)
         parent->FUN_0029b750(this, 0, arg);
         return;
     }
-    unsigned int count = (unsigned int)(entriesEnd - entries);
-    if (source != 0) {
+    unsigned int count = (unsigned int)((Entry_2a41e0*)groupsEnd - entries());
+    if (source() != 0) {
         for (unsigned int k = 0; k < count; k++) {
-            Owner_2a41e0* o = entries[k].owner;
+            Owner_2a41e0* o = entries()[k].owner;
 #if defined(__clang__)
             {
                 // the original loads both vptrs before the first call and reads the slots after it
                 void** ovt = *(void***)o;
-                Source_2a41e0* s = source;
+                Source_2a41e0* s = source();
                 void** svt = *(void***)s;
                 int a = ((Fn0)ovt[7])(o, 0);
                 int b = ((Fn1r)svt[3])(s, 0, a);
                 ((Fn1)ovt[8])(o, 0, b);
             }
 #else
-            o->v8(source->v3(o->v7()));
+            o->v8(source()->v3(o->v7()));
 #endif
-            Entry_2a41e0* e = &entries[k];
+            Entry_2a41e0* e = &entries()[k];
             unsigned int n = (unsigned int)(e->end - e->begin);
             for (unsigned int i = 0; i < n; i++) {
                 Child_2a41e0* c = e->begin[i];
@@ -490,19 +485,19 @@ void Group_2a41e0::FUN_002a41e0(Parent_2a41e0* parent, int arg)
             {
                 // the original loads both vptrs before the first call and reads the slots after it
                 void** ovt = *(void***)o;
-                Source_2a41e0* s = source;
+                Source_2a41e0* s = source();
                 void** svt = *(void***)s;
                 int a = ((Fn0)ovt[7])(o, 0);
                 int b = ((Fn1r)svt[4])(s, 0, a);
                 ((Fn1)ovt[8])(o, 0, b);
             }
 #else
-            o->v8(source->v4(o->v7()));
+            o->v8(source()->v4(o->v7()));
 #endif
         }
     } else {
         for (unsigned int k = 0; k < count; k++) {
-            Entry_2a41e0* e = &entries[k];
+            Entry_2a41e0* e = &entries()[k];
             unsigned int n = (unsigned int)(e->end - e->begin);
             for (unsigned int i = 0; i < n; i++) {
                 Child_2a41e0* c = e->begin[i];
@@ -537,7 +532,7 @@ namespace fn_f6d01fd6 {
 // sym: ?FUN_002a43c0@Owner@fn_f6d01fd6@@QAEHHH@Z @44e023cf8ebe @w79837a905970 @vcc5b4978d597
 // STATUS: equivalent (tools/equiv.py level 3: 763 inputs, branch coverage 8/8)
 // FUN_002a43c0 @ 0x002a43c0
-int Owner::FUN_002a43c0(int key1, int key2) { unsigned count = (unsigned)(end - begin); for (unsigned i = 0; i < count; ++i) { int *object = begin[i].object; if (object[2] == key1 && object[3] == key2) return i; } return -1; }
+int Owner::FUN_002a43c0(int key1, int key2) { unsigned count = (unsigned)(groupsEnd - groups); for (unsigned i = 0; i < count; ++i) { HulkDrawableHierarchy *object = (HulkDrawableHierarchy *)groups[i].drawable; if ((int)object->name[0] == key1 && (int)object->name[1] == key2) return i; } return -1; }
 
 } // namespace fn_f6d01fd6
 
@@ -578,18 +573,14 @@ namespace fn_002a44b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 632 inputs, branch coverage 6/6)
 // pure3d::DrawableContainer::vfunc_18 @ 0x002a44b0
 namespace pure3d {
-struct DrawableContainer {
-    char pad[0x48];
-    struct Group { unsigned unknown; void **begin; void **end; unsigned spare; };
-    Group *groupsBegin;
-    Group *groupsEnd;
+struct DrawableContainer : HulkDrawableContainer {   // (x64t19) the container's record (was a 32-bit pad view)
     void *vfunc_18(unsigned index);
 };
 void *DrawableContainer::vfunc_18(unsigned index) {
-    unsigned groupCount = (unsigned)(((hulk_intptr)groupsEnd - (hulk_intptr)groupsBegin) >> 4);
-    Group *group = groupsBegin;
+    unsigned groupCount = (unsigned)(groupsEnd - groups);
+    HulkDrawableGroup *group = groups;
     for (unsigned i = 0; i < groupCount; ++i, ++group) {
-        unsigned count = (unsigned)(((hulk_intptr)group->end - (hulk_intptr)group->begin) >> 2);
+        unsigned count = (unsigned)(group->end - group->begin);
         if (index < count) return group->begin[index];
         index -= count;
     }
@@ -603,13 +594,13 @@ namespace fn_f6d01fd6 {
 // 0x002a4500 FUN_002a4500 (46 B): matches/0x002a4500.cpp
 // sym: ?Set@DrawableContainer_2a4500@fn_f6d01fd6@@QAEXHPAVItem_2a4500@2@@Z
 void DrawableContainer_2a4500::Set(int index, Item_2a4500* item) {
-    Slot_2a4500* s = slots + index;
+    HulkDrawableGroup* s = groups + index;
     if (item)
         item->First();
-    Item_2a4500* old = s->item;
+    Item_2a4500* old = (Item_2a4500*)s->drawable;
     if (old)
         old->Release();
-    s->item = item;
+    s->drawable = item;
 }
 
 } // namespace fn_f6d01fd6
@@ -714,11 +705,11 @@ IntVector_2a4760::IntVector_2a4760(const IntVector_2a4760 &other) throw()
 {
     hulk_intptr count = other.last - other.first;
     if (count != 0) {
-        first = (int *)FUN_0008d6d0(count * 4);
+        first = (void **)FUN_0008d6d0(count * (int)sizeof(void *));
         if (first != 0) {
             last = first + count;
-            int *dst = first;
-            const int *src = other.first;
+            void **dst = first;
+            void *const *src = other.first;
             for (count = other.last - src; count != 0; count--) {
                 if (dst != 0)
                     *dst = *src;
@@ -750,7 +741,7 @@ bool Buffer_2a4800::Create(unsigned int count, void* arg) {
     if (begin != 0)
         return false;
     if (count > 0) {
-        int* p = (int*)Alloc(count * 4);
+        int* p = (int*)FUN_0008d6d0(count * 4);   // (x64t19) by its address name ("Alloc" had no definition natively)
         begin = p;
         if (p != 0) {
             end = p + count;
@@ -771,7 +762,7 @@ void Container_2a4890::Clear() {
         first->Release();
         first = 0;
     }
-    unsigned int n = (unsigned int)(((char*)end - (char*)begin) >> 2);
+    unsigned int n = (unsigned int)(end - begin);   // (x64t19) pointers (a byte count >> 2 doubled it natively)
     unsigned int i = 0;
     if (n <= 0) {
     } else
@@ -784,7 +775,7 @@ void Container_2a4890::Clear() {
             ++i;
         } while (i < n);
     if (begin)
-        Free(begin);
+        thunk_FUN_00267090(begin);   // (x64t19) by its address name ("Free" had no definition natively)
 }
 
 
@@ -817,7 +808,7 @@ void __stdcall resizeArray(Array_2a4a50* a, unsigned int count) {
         Element_2a4a50** p=(Element_2a4a50 **)FUN_0008d6d0(count * sizeof(Element_2a4a50 *));
         a->begin=p;
         if(p) {
-            a->end=(Element_2a4a50**)((char*)p+count*4);
+            a->end=p+count;   // (x64t19) pointers (count * 4 bytes was half the array natively)
             for(unsigned int j=0;j<count;++j,++p) if(p) *p=0;
             return;
         }
@@ -868,7 +859,7 @@ Elem* __cdecl FUN_002a4c60(Elem* dst, int n, Elem* src) {
         do {
             if (dst) {
                 dst->x = src->x;
-                dst->sub.Copy(&src->sub);
+                dst->sub.FUN_002a4760(&src->sub);
             }
             ++dst;
         } while (--i);
@@ -906,11 +897,11 @@ Buffer_2a4cb0* Buffer_2a4cb0::target(unsigned int count, int unused) {
 // 0x002a4d10 FUN_002a4d10 (93 B): matches/0x002a4d10.cpp [wrapped: conflict: Alloc]
 // sym: ?Create@Buffer_2a4d10@fn_002a4d10@@QAEDIPAX@Z
 namespace fn_002a4d10 {
-struct E_2a4d10 {
-    char b[16];
+struct E_2a4d10 : HulkDrawableGroup {   // (x64t19) a group (was 16 bytes on both builds)
 };
-extern "C++" __declspec(nothrow) void* __cdecl Alloc(hulk_uintptr);
-extern "C++" __declspec(nothrow) void __cdecl Init(void*, unsigned int, void*);
+// (x64t19) the callees by their address names (Alloc / Init had no definition natively)
+extern "C" void* __cdecl FUN_0008d6d0(int);   // the game's allocator, as defined (unk_08ceb0.cpp)
+extern "C++" __declspec(nothrow) void* __cdecl FUN_002a4c60(void*, unsigned int, void*);
 class Buffer_2a4d10 {
   public:
     E_2a4d10* data;
@@ -921,10 +912,10 @@ char Buffer_2a4d10::Create(unsigned int count, void* arg) {
     if (data)
         return 0;
     if (count > 0) {
-        data = (E_2a4d10*)Alloc(count * sizeof(E_2a4d10));
+        data = (E_2a4d10*)FUN_0008d6d0(count * sizeof(E_2a4d10));
         if (data) {
             end = data + count;
-            Init(data, count, arg);
+            FUN_002a4c60(data, count, arg);
             return 1;
         }
     }
@@ -942,9 +933,9 @@ void __fastcall Target(Container_2a4da0* self) {
     Item_2a4da0* p = self->begin;
     if (p) {
         Item_2a4da0* end = self->end;
-        for (; p != end; p = (Item_2a4da0*)((char*)p + 16))
-            p->Destroy();
-        ReleaseBlock(self->begin);
+        for (; p != end; p = (Item_2a4da0*)((char*)p + sizeof(HulkDrawableGroup)))   // (x64t19) a group
+            p->FUN_002a4890();
+        thunk_FUN_00267090(self->begin);   // (x64t19) by its address name
     }
 }
 
@@ -952,10 +943,10 @@ void __fastcall Target(Container_2a4da0* self) {
 // 0x002a4e10 FUN_002a4e10 (48 B): matches/0x002a4e10.cpp
 // sym: ?Init@DrawableContainer@fn_f6d01fd6@@QAEPAXI@Z
 void* DrawableContainer::Init(unsigned int arg) {
-    ((DrawableContainer_2a4e10*)this)->Base();
+    ((DrawableContainer_2a4e10*)this)->FUN_002a3480();
     vftable = (void*)((hulk_intptr)DAT_0042d90c);
     half = 0x3f000000;
-    ((DrawableContainer_2a4e10*)((char*)this + 0x48))->Second(arg, &arg);
+    ((DrawableContainer_2a4e10*)&groups)->FUN_002a4cb0(arg, (int)(hulk_intptr)&arg);   // (its second word is unused)
     owner = this;
     return this;
 }
@@ -963,7 +954,7 @@ void* DrawableContainer::Init(unsigned int arg) {
 } // namespace fn_f6d01fd6
 
 // 0x002a4e40 FUN_002a4e40 (428 B): equivalent/0x002a4e40.cpp [wrapped: conflict: pure3d::DrawableContainer]
-// sym: ??0DrawableContainer@pure3d@fn_002a4e40@@QAE@ABV012@@Z @f03d2da46880 @w9c94e0195a47
+// sym: ??0DrawableContainer@pure3d@fn_002a4e40@@QAE@ABV012@@Z @bbd7982c428a @we5d9a237ad2c @v88650bf35ba4
 namespace fn_002a4e40 {
 // STATUS: equivalent (tools/equiv.py level 3: 157 inputs, branch coverage 22/24, incomplete)
 // FUN_002a4e40 @ 0x002a4e40
@@ -990,13 +981,14 @@ struct Elem_2a4e40 {
 struct ElemVec_2a4e40 {
     Elem_2a4e40 *begin;
     Elem_2a4e40 *end;
-    bool FUN_002a4d10(hulk_uintptr count, Elem_2a4e40 *fill);
+    char FUN_002a4d10(unsigned int count, Elem_2a4e40 *fill);   // (x64t19) as defined (Buffer_2a4d10::Create)
 };
 
-class __declspec(novtable) DrawableHierarchy_2a4e40 {
+// (x64t19) the container's record (decls/drawable_container.h), not polymorphic: DrawableHierarchy's copy 0x002a3530 by
+// its address name, then the game's vftable 0x0042d90c by address (the local polymorphic stand-in got clang's own
+// vftable natively, and its pads put the words 8 to 0x10 bytes off); the groups through the vector's view
+class DrawableHierarchy_2a4e40 : public HulkDrawableContainer {
 public:
-    virtual void b0_00038290();
-    char pad04[0x3c];
     void FUN_002a3530(const DrawableHierarchy_2a4e40 *src);
     DrawableHierarchy_2a4e40(const DrawableHierarchy_2a4e40 &src) { FUN_002a3530(&src); }
 };
@@ -1004,12 +996,8 @@ public:
 namespace pure3d {
 class DrawableContainer : public DrawableHierarchy_2a4e40 {
 public:
-    virtual void vfunc_1_000382a0();
-    virtual void vfunc_2();
-    virtual void vfunc_3() HULK_PURE64;
-    int f40;
-    DrawableContainer *self;   // 0x44
-    ElemVec_2a4e40 elems;             // 0x48
+    ElemVec_2a4e40 &elems() { return *(ElemVec_2a4e40 *)&groups; }
+    const ElemVec_2a4e40 &elems() const { return *(const ElemVec_2a4e40 *)&groups; }
     DrawableContainer(const DrawableContainer &src);
 };
 }
@@ -1017,34 +1005,35 @@ public:
 pure3d::DrawableContainer::DrawableContainer(const DrawableContainer &src)
     : DrawableHierarchy_2a4e40(src)
 {
-    f40 = src.f40;
-    elems.begin = 0;
-    elems.end = 0;
+    vftable = (void *)DAT_0042d90c;
+    half = src.half;
+    elems().begin = 0;
+    elems().end = 0;
 
     Elem_2a4e40 fill;
     fill.obj = 0;
     fill.begin = 0;
     fill.end = 0;
-    elems.FUN_002a4d10(src.elems.end - src.elems.begin, &fill);
+    elems().FUN_002a4d10(src.elems().end - src.elems().begin, &fill);
     fill.FUN_002a4890();
-    self = this;
+    owner = this;
 
-    hulk_uintptr count = src.elems.end - src.elems.begin;
+    hulk_uintptr count = src.elems().end - src.elems().begin;
     if (count != 0) {
         unsigned int offset = 0;
         do {
-            Drawable *clone = ((Elem_2a4e40 *)((char *)src.elems.begin + offset))->obj->Clone();
-            Elem_2a4e40 *dst = (Elem_2a4e40 *)((char *)elems.begin + offset);
+            Drawable *clone = ((Elem_2a4e40 *)((char *)src.elems().begin + offset))->obj->Clone();
+            Elem_2a4e40 *dst = (Elem_2a4e40 *)((char *)elems().begin + offset);
             if (clone != 0)
                 clone->AddRef();
             if (dst->obj != 0)
                 dst->obj->Release();
             dst->obj = clone;
 
-            Elem_2a4e40 *se = (Elem_2a4e40 *)((char *)src.elems.begin + offset);
+            Elem_2a4e40 *se = (Elem_2a4e40 *)((char *)src.elems().begin + offset);
             hulk_uintptr m = se->end - se->begin;
             if (m != 0) {
-                Elem_2a4e40 *de = (Elem_2a4e40 *)((char *)elems.begin + offset);
+                Elem_2a4e40 *de = (Elem_2a4e40 *)((char *)elems().begin + offset);
                 if (de->begin == 0) {
                     Drawable **p = (Drawable **)FUN_0008d6d0(m * sizeof(Drawable *));
                     de->begin = p;
@@ -1058,16 +1047,16 @@ pure3d::DrawableContainer::DrawableContainer(const DrawableContainer &src)
                     }
                 }
                 for (unsigned int j = 0; j < m; j++) {
-                    Drawable *c2 = ((Elem_2a4e40 *)((char *)src.elems.begin + offset))->begin[j]->Clone();
+                    Drawable *c2 = ((Elem_2a4e40 *)((char *)src.elems().begin + offset))->begin[j]->Clone();
                     c2->SetParent(clone);
-                    Drawable **slot = &((Elem_2a4e40 *)((char *)elems.begin + offset))->begin[j];
+                    Drawable **slot = &((Elem_2a4e40 *)((char *)elems().begin + offset))->begin[j];
                     c2->AddRef();
                     if (*slot != 0)
                         (*slot)->Release();
                     *slot = c2;
                 }
             }
-            offset += 0x10;
+            offset += sizeof(Elem_2a4e40);   // (x64t19) a group (0x20 bytes natively)
             count--;
         } while (count != 0);
     }

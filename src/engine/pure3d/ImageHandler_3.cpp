@@ -5,6 +5,8 @@
 #include "decls/loaders.h"
 #include "decls/texture_builder.h"
 #include "decls/image_builder.h"
+#include "decls/sprite.h"
+#include "decls/drawable_container.h"
 #include "decls/data/records.h"
 #include "decls/data/game/global.h"
 #include "gen/owners.h"
@@ -373,11 +375,11 @@ void pure3d::ImageHandler::vfunc_3(Request* req, Context* ctx)
         load(file, &builder);
         Resource_2aea70* image = (Resource_2aea70*)builder.image;
         if (image != 0) {
-            void* smem = FUN_00263ea0(0xa8);
+            void* smem = FUN_00263ea0(sizeof(HulkSprite));   // (x64t19) pure3d::Sprite (decls/sprite.h)
             Sprite* sprite = 0;
             if (smem)
                 sprite = ((Sprite*)smem)->FUN_002beb20(image, 0, 1, f10, f14, vfunc_15());
-            void* omem = FUN_00263ea0(0x58);
+            void* omem = FUN_00263ea0(sizeof(HulkSpriteObject));   // (x64t19) pure3d::SpriteObject (natively 0x70)
             SpriteObject* obj = 0;
             if (omem)
                 obj = ((SpriteObject*)omem)->FUN_002bdee0();

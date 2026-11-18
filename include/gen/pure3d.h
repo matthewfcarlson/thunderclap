@@ -2754,8 +2754,8 @@ public:
     virtual int vfunc_15(); // overrides pure3d::DrawableContainer slot 15
     virtual void vfunc_19(); // slot 19
     virtual void vfunc_20(); // slot 20
-    virtual int vfunc_21(); // slot 21
-    virtual void vfunc_22(int); // slot 22
+    virtual hulk_intptr vfunc_21(); // slot 21 (x64t19: the group's drawable, the sprite: pointer-sized)
+    virtual void vfunc_22(hulk_intptr); // slot 22 (x64t19: setSprite, the sprite: pointer-sized)
 };
 
 // .?AVSpriteParticleEmitter@pure3d@@  vftable 0x42f28c (33)

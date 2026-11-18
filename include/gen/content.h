@@ -110,7 +110,7 @@ public:
     template <class T0> class DynamicCaster;
     virtual ~LoadInventory(); // overrides core::IRefCount slot 2
     virtual void* vfunc_3(hulk_intptr, int, int); // slot 3
-    virtual void vfunc_4(void*, void*, void*); // slot 4
+    virtual void vfunc_4(unsigned int, unsigned int, void*); // slot 4 (x64t19: the key's halves, as vfunc_3's; the object)
     virtual void vfunc_5(void*); // slot 5
     char f_08;
     char f_09;

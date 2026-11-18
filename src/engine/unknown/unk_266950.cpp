@@ -21,14 +21,10 @@ class Ref_266950 {
     virtual void B();
 };
 extern "C" int FUN_00267f80();
-class Obj_266950 {
+// (x64t19) the load request's record (records.h ContentLoadRequest; was a pad view: natively the state went to +0x14,
+// f10, where its getters read +0x18, so a waited-for load never finished, and the context was read 8 bytes short)
+class Obj_266950 : public ContentLoadRequest {
   public:
-    char pad0[12];
-    int a;
-    int b;
-    int mode;
-    char pad18[4];
-    Ref_266950* ref;
     void F(int mode);
 };
 class Inner_2669c0 {
@@ -198,16 +194,16 @@ struct Node {
 void Obj_266950::F(int mode) {
     switch (mode) {
     case 2:
-        a = FUN_00267f80();
+        f0c = FUN_00267f80();   // started
         break;
     case 3:
-        b = FUN_00267f80();
-        if (ref)
-            ref->B();
-        ref = 0;
+        f10 = FUN_00267f80();   // finished
+        if (context)
+            ((Ref_266950*)context)->B();
+        context = 0;
         break;
     }
-    this->mode = mode;
+    this->state = mode;
 }
 
 

@@ -103,11 +103,11 @@ class A_2314a0 {
     A_2314a0(hulk_uintptr);
 };
 typedef unsigned int u32_2314c0;
-struct Owner_2314c0 {
-    u32_2314c0 count;
+struct Owner_2314c0 {              // (x64t19) the table's slots are pointers, the entries' pointer before the sentinel
+    u32_2314c0 count;              // (natively the u32 slots and a 4-byte gap put the sentinel at +0x24, not +0x28)
     char pad[20];
-    u32_2314c0* items;
-    char gap[4];
+    void** items;
+    void* entries;
     char tail[4];
 };
 struct Cursor_2314c0 {
@@ -166,12 +166,12 @@ struct Table_231590 {
     void FUN_002310a0(unsigned int newCapacity);
     void FUN_00231590(unsigned int first, unsigned int second, void *item);
 };
-class C_231640 {
+class C_231640 {                  // (x64t19) a cursor: the table (a pointer) and the index
   public:
-    char pad[4];
+    void* owner;
     int x;
 };
-int __fastcall FUN_002314c0(C_231640*);
+hulk_uintptr __fastcall FUN_002314c0(C_231640*);   // (x64t19) as defined (an int result did not bind natively)
 extern "C" void* __cdecl FUN_00266e00(uint, hulk_uintptr);
 extern "C" void __cdecl FUN_00267090(void*);
 struct Pair_231690 { uint first, second; };
@@ -410,16 +410,16 @@ A_2314a0::A_2314a0(hulk_uintptr v) {
 hulk_uintptr __fastcall FUN_002314c0(Cursor_2314c0* self) {
     Owner_2314c0* o = self->owner;
     u32_2314c0 i;
-    u32_2314c0* p;
+    void* p;
     do {
         i = ++self->index;
         if (i >= o->count)
             break;
-        p = (u32_2314c0*)o->items[i];
+        p = o->items[i];
     } while (p == 0 || (char*)p == o->tail);
     if (i >= o->count)
         return 0;
-    return o->items[i];
+    return (hulk_uintptr)o->items[i];
 }
 
 

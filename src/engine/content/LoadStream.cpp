@@ -103,17 +103,23 @@ struct X_264870 {
 extern "C" CoreFiber* __cdecl FUN_0026dbf0();
 extern "C" int __cdecl FUN_00266da0(int);   // (x64t15) the heap id, as defined (unk_266950.cpp)
 extern "C" void __cdecl FUN_0026dc00(CoreFiber*);
-struct Pair_264e10 {
-    unsigned a;
-    unsigned b;
+// (x64t19) the registry's ring of pending requests (decls/loaders.h: head, tail, start, end of HulkLoadEntry; the
+// head was an unsigned word and the entries two words, 8 bytes, natively 16)
+struct Pair_264e10 : HulkLoadEntry {
 };
 class Queue_264e10 {
   public:
-    unsigned mBegin;
+    Pair_264e10* mBegin;
     Pair_264e10* mNext;
     Pair_264e10* mEndQueue;
     Pair_264e10* mLimit;
     bool Push(Pair_264e10* value);
+};
+// (x64t19) the registry's record (was gen's owners::X_264c70 / Q_264d20, 32-bit pad views): the pending ring by
+// entries, the running request a pointer
+struct Registry_264c70 : HulkContentRegistry {
+    int FUN_00264c70();
+    void FUN_00264d20();
 };
 class Item_264ff0 {
   public:
@@ -154,10 +160,8 @@ public:
     virtual void v2();
     virtual void v3();
 };
-struct Entry_265190 {
-    int tag;
-    Releasable_265190* obj;
-};
+struct Entry_265190 : HulkLoadEntry {   // (x64t19) a pending entry: no request, the object as its value (natively the
+};                                     // int tag left the request pointer's high word unset)
 struct Ring_265190 {
     Entry_265190* head;
     Entry_265190* tail;
@@ -165,12 +169,9 @@ struct Ring_265190 {
     Entry_265190* end;
     void FUN_00264e10(Entry_265190* e);
 };
-class Queue_265190 {
+class Queue_265190 : public HulkContentRegistry {   // (x64t19) the registry's record (was a pad view)
 public:
-    char pad0[8];
-    int pending;
-    char pad1[8];
-    Ring_265190 ring;
+    Ring_265190 &ring() { return *(Ring_265190 *)&head; }
     void FUN_00265190(Releasable_265190* obj);
 };
 class Obj {
@@ -680,7 +681,7 @@ void owners::S_264510::FUN_00264510(unsigned n) {
 
 
 // 0x00264590 FUN_00264590 (390 B): equivalent/0x00264590.cpp [wrapped: conflict: Stream]
-// sym: ?FUN_00264590@Stream@fn_00264590@@QAE_NPBXHHH@Z @898fe5807097 @w57d277de22da @v01f278a22cb3
+// sym: ?FUN_00264590@Stream@fn_00264590@@QAE_NPBXHHH@Z @898fe5807097 @w57d277de22da @v455d9d67e857
 namespace fn_00264590 {
 // STATUS: equivalent (tools/equiv.py level 3: 2949 inputs, branch coverage 28/28)
 // FUN_00264590 @ 0x00264590
@@ -783,38 +784,41 @@ unsigned int __fastcall FUN_00264870(X_264870* p) {
 } // namespace fn_fa1126e6
 
 // 0x00264c70 FUN_00264c70 (55 B): matches/0x00264c70.cpp
-// sym: ?FUN_00264c70@X_264c70@owners@@QAEHXZ
-int owners::X_264c70::FUN_00264c70() {
-    unsigned int edx = f14;
-    unsigned int eax = f18;
+// sym: ?FUN_00264c70@Registry_264c70@fn_fa1126e6@@QAEHXZ
+namespace fn_fa1126e6 {
+int Registry_264c70::FUN_00264c70() {
+    HulkLoadEntry* edx = head;
+    HulkLoadEntry* eax = tail;
     int count;
     if (edx <= eax) {
-        count = (int)(eax - edx) >> 3;
+        count = (int)(eax - edx);
     } else {
-        count = ((int)(eax - f1c) >> 3) + ((int)(f20 - edx) >> 3);
+        count = (int)(eax - begin) + (int)(end - edx);
     }
-    if ((unsigned int)count > 0u || f8 != 0)
+    if ((unsigned int)count > 0u || current != 0)
         return 1;
     return 0;
 }
+} // namespace fn_fa1126e6
 
 
 // 0x00264d20 FUN_00264d20 (125 B): matches/0x00264d20.cpp
-// sym: ?FUN_00264d20@Q_264d20@owners@@QAEXXZ
+// sym: ?FUN_00264d20@Registry_264c70@fn_fa1126e6@@QAEXXZ
 // data: g_cur_264d20 = DAT_00527c4c, g_obj_264d20 = DAT_00527c28
 // the content loader's yield: from the game's fiber (0x00527c4c) to the loader's fiber when there is work, and back
 // from the loader's; each side keeps its current heap (0x00527c50 / 0x00527c54)
-void owners::Q_264d20::FUN_00264d20() {
+namespace fn_fa1126e6 {
+void Registry_264c70::FUN_00264d20() {
     if (FUN_0026dbf0() == (*(CoreFiber**)&DAT_00527c4c)) {
-        unsigned s = m14;
-        unsigned e = m18;
+        HulkLoadEntry* s = head;
+        HulkLoadEntry* e = tail;
         int n;
         if (s <= e) {
-            n = (int)(e - s) >> 3;
+            n = (int)(e - s);
         } else {
-            n = ((int)(e - m1c) >> 3) + ((int)(m20 - s) >> 3);
+            n = (int)(e - begin) + (int)(end - s);
         }
-        if ((unsigned)n > 0 || m8 != 0) {
+        if ((unsigned)n > 0 || current != 0) {
             DAT_00527c54 = FUN_00266da0(DAT_00527c50);
             FUN_0026dc00(&DAT_00527c28);
         }
@@ -823,6 +827,7 @@ void owners::Q_264d20::FUN_00264d20() {
         FUN_0026dc00((*(CoreFiber**)&DAT_00527c4c));
     }
 }
+} // namespace fn_fa1126e6
 
 namespace fn_fa1126e6 {
 
@@ -832,14 +837,14 @@ bool Queue_264e10::Push(Pair_264e10* value) {
     Pair_264e10* p = mNext;
     if (p < mLimit) {
         if (p != 0) {
-            p->a = value->a;
-            p->b = value->b;
+            p->task = value->task;
+            p->value = value->value;
         }
-        mNext = (Pair_264e10*)((char*)mNext + 8);
+        mNext = mNext + 1;
         if (mNext == mLimit)
             mNext = mEndQueue;
-        if (mBegin == (hulk_uintptr)mNext)
-            mNext = (Pair_264e10*)((char*)mNext + (((char*)mLimit - (char*)mEndQueue) >> 3) * 8);
+        if (mBegin == mNext)
+            mNext = mNext + (mLimit - mEndQueue);
         return true;
     }
     return false;
@@ -877,27 +882,27 @@ void __fastcall FUN_002650e0(Owner_2650e0* self) {
 
 
 // 0x00265190 FUN_00265190 (122 B): equivalent/0x00265190.cpp
-// sym: ?FUN_00265190@Queue_265190@fn_fa1126e6@@QAEXPAVReleasable_265190@2@@Z @e029440ee375 @wdf3594bc1747 @v7a2ea95550b2
+// sym: ?FUN_00265190@Queue_265190@fn_fa1126e6@@QAEXPAVReleasable_265190@2@@Z @e029440ee375 @w6827aed81182 @v25f101ec1515
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_00265190 @ 0x00265190
 void Queue_265190::FUN_00265190(Releasable_265190* obj) {
     if (!obj)
         return;
     hulk_uintptr count;
-    if (ring.head <= ring.tail)
-        count = ring.tail - ring.head;
+    if (ring().head <= ring().tail)
+        count = ring().tail - ring().head;
     else
-        count = (ring.tail - ring.start) + (ring.end - ring.head);
-    if (count == 0 && pending == 0) {
+        count = (ring().tail - ring().start) + (ring().end - ring().head);
+    if (count == 0 && current == 0) {
         obj->v3();
         obj->v1();
         return;
     }
     Entry_265190 e;
     obj->v0();
-    e.tag = 0;
-    e.obj = obj;
-    ring.FUN_00264e10(&e);
+    e.task = 0;
+    e.value = (hulk_uintptr)obj;
+    ring().FUN_00264e10(&e);
 }
 
 } // namespace fn_fa1126e6
@@ -991,7 +996,7 @@ hulk_intptr owners::Thing_265340::FUN_00265340(char* text) {
 namespace fn_fa1126e6 {
 
 // 0x00265390 FUN_00265390 (390 B): equivalent/0x00265390.cpp
-// sym: ?FUN_00265390@Queue_265390@fn_fa1126e6@@QAEXXZ @207b6f25a6c3 @wc01adbc99001 @v9732585bd646
+// sym: ?FUN_00265390@Queue_265390@fn_fa1126e6@@QAEXXZ @207b6f25a6c3 @wc01adbc99001 @v08609b03e395
 // STATUS: equivalent (tools/equiv.py level 3: 124 inputs, branch coverage 30/30)
 // FUN_00265390 @ 0x00265390
 void Queue_265390::FUN_00265390()
@@ -1006,7 +1011,7 @@ void Queue_265390::FUN_00265390()
             ((owners::Q_264d20 *)this)->FUN_00264d20();
         } else {
             Job_265390 *job = (Job_265390 *)head->task;
-            int arg = (int)head->value;
+            hulk_intptr arg = (hulk_intptr)head->value;   // (x64t19) a task pointer natively
             if (tail >= end)
                 tail = head;
             head = head + 1;
@@ -1076,7 +1081,7 @@ void A_265590::Run() {
 } // namespace fn_fa1126e6
 
 // 0x002655b0 FUN_002655b0 (162 B): equivalent/0x002655b0.cpp [wrapped: helper definitions (3 out-of-line function bodies)]
-// sym: ?FUN_002655b0@TaskQueue@fn_002655b0@@QAEXXZ @10e9f9dae208 @we27ad86a0afb @v17038e02d8e0
+// sym: ?FUN_002655b0@TaskQueue@fn_002655b0@@QAEXXZ @d13277cca01d @w8a93d35f8459 @vd7258cdb6e0b
 namespace fn_002655b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 107 inputs, branch coverage 14/14)
 // FUN_002655b0 @ 0x002655b0
@@ -1088,28 +1093,23 @@ public:
     virtual void v3();
 };
 
-class TaskQueue {
+// (x64t19) the content registry's record (decls/loaders.h HulkContentRegistry; was a pad view: natively the running
+// request is a pointer and the rings 8 to 0x20 bytes further on): the pending requests' ring (8-byte entries on the
+// 32-bit builds, counted by entry) and the finished tasks' ring
+class TaskQueue : public HulkContentRegistry {
 public:
-    char pad0[8];
-    int busy;                 // 0x08
-    char pad1[8];
-    char *ring1Cur;           // 0x14
-    char *ring1End;           // 0x18
-    char *ring1Base;          // 0x1c
-    char *ring1Limit;         // 0x20
-    char pad2[4];
-    Task_2655b0 **ring2Cur;          // 0x28
-    Task_2655b0 **ring2End;          // 0x2c
-    Task_2655b0 **ring2Base;         // 0x30
-    Task_2655b0 **ring2Limit;        // 0x34
+    Task_2655b0 **&ring2Cur() { return *(Task_2655b0 ***)&ringHead; }
+    Task_2655b0 **&ring2End() { return *(Task_2655b0 ***)&ringTail; }
+    Task_2655b0 **ring2Base() { return (Task_2655b0 **)ringBegin; }
+    Task_2655b0 **ring2Limit() { return (Task_2655b0 **)ringEnd; }
     void FUN_002655b0();
 };
 
-static hulk_intptr Ring1Count(char *cur, char *end, char *base, char *limit)
+static hulk_intptr Ring1Count(HulkLoadEntry *cur, HulkLoadEntry *end, HulkLoadEntry *base, HulkLoadEntry *limit)
 {
     if (cur <= end)
-        return (end - cur) >> 3;
-    return ((end - base) >> 3) + ((limit - cur) >> 3);
+        return end - cur;
+    return (end - base) + (limit - cur);
 }
 
 static hulk_intptr Ring2Count(Task_2655b0 **cur, Task_2655b0 **end, Task_2655b0 **base, Task_2655b0 **limit)
@@ -1121,15 +1121,15 @@ static hulk_intptr Ring2Count(Task_2655b0 **cur, Task_2655b0 **end, Task_2655b0 
 
 void TaskQueue::FUN_002655b0()
 {
-    if (Ring1Count(ring1Cur, ring1End, ring1Base, ring1Limit) != 0 || busy != 0)
+    if (Ring1Count(head, tail, begin, end) != 0 || current != 0)
         ((owners::Q_264d20 *)this)->FUN_00264d20();
-    while (Ring2Count(ring2Cur, ring2End, ring2Base, ring2Limit) != 0) {
-        Task_2655b0 *t = *ring2Cur;
-        if (ring2End >= ring2Limit)
-            ring2End = ring2Cur;
-        ring2Cur++;
-        if (ring2Cur == ring2Limit)
-            ring2Cur = ring2Base;
+    while (Ring2Count(ring2Cur(), ring2End(), ring2Base(), ring2Limit()) != 0) {
+        Task_2655b0 *t = *ring2Cur();
+        if (ring2End() >= ring2Limit())
+            ring2End() = ring2Cur();
+        ring2Cur()++;
+        if (ring2Cur() == ring2Limit())
+            ring2Cur() = ring2Base();
         t->v3();
         t->v1();
     }
@@ -1163,8 +1163,8 @@ Object* Object::FUN_002656b0(Config_2656b0* config) {
  // (x64t8) the request ring's entries by their size (8 bytes on the 32-bit builds; each holds a pointer)
  if(n) { unsigned bytes=n*(unsigned)sizeof(HulkLoadEntry); HulkLoadEntry* data=(HulkLoadEntry*)FUN_0008d6d0(bytes); head=data; if(data) { tail=data; begin=data; end=(HulkLoadEntry*)((char*)data+bytes); } else tail=0; }
  else { head=0; tail=0; }
- int* data=(int*)FUN_0008d6d0(256); ringHead=data;
- if(data) { ringTail=data; ringBegin=data; ringEnd=(int*)((char*)data+256); } else ringTail=0;
+ hulk_intptr* data=(hulk_intptr*)FUN_0008d6d0(256); ringHead=data;
+ if(data) { ringTail=data; ringBegin=data; ringEnd=(hulk_intptr*)((char*)data+256); } else ringTail=0;
  (*(CoreFiber**)&DAT_00527c4c)=FUN_0026dbf0();
  unsigned v=config->value; (*(unsigned*)&DAT_004cd504)=v;
  FUN_0026dd70(&DAT_00527c28,(void*)&FUN_00265520,this,v,0);   // (x64t13) the fiber entry by its definition

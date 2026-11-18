@@ -4,6 +4,8 @@
 #include "tree_prelude.h"
 #include "compat/ptr.h"
 #include "decls/loaders.h"
+#include "decls/sprite.h"
+#include "decls/drawable_container.h"
 #include "decls/address.h"
 #include "decls/data/engine/pure3d.h"
 #include "gen/owners.h"
@@ -18,7 +20,6 @@ namespace fn_f43dee86 {} using namespace fn_f43dee86;
 
 // ---- declarations shared by the functions below
 namespace fn_f43dee86 {
-extern "C" char DAT_0042e8d8[];
 struct Thing_2bd430 {
     virtual void A();
     virtual void B();
@@ -73,25 +74,9 @@ public:
     virtual void v0();
     virtual Image *create(Surface_2bd790 *s, int flag);
 };
-class Frame9 {
+class Frame9 : public HulkSprite {   // (x64t19, D94) the sprite (decls/sprite.h; was a 32-bit pad view)
 public:
-    char pad0[0x48];
-    Image **images;        // 0x48
-    char pad4c[0x54 - 0x4c];
-    int width;             // 0x54
-    int height;            // 0x58
-    int border;            // 0x5c
-    char pad60[0xa0 - 0x60];
-    unsigned char flagA0;
     void FUN_002bd790(int index, Rect_2bd790 *r, int a2, int a3, hulk_intptr src, Surface_2bd790 *s, Factory_2bd790 *f);
-};
-struct QuadVertex {
-    float x, y, z;
-    int color;
-    float u, v;
-};
-struct Quad_2bdaf0 {
-    QuadVertex v[4];
 };
 struct RectInts {
     int i0;
@@ -101,27 +86,14 @@ struct RectInts {
     int i10;
     int i14;
 };
-class QuadBatch {
+class QuadBatch : public HulkSprite {   // (x64t19, D94) the sprite (decls/sprite.h; was a 32-bit pad view)
 public:
-    char pad00[0x44];
-    Quad_2bdaf0 *quads;          // 0x44
-    char pad48[0x54 - 0x48];
-    int height;           // 0x54
-    char pad58[0x5c - 0x58];
-    int border;           // 0x5c
-    char pad60[0x70 - 0x60];
-    float scaleX;         // 0x70
-    float scaleY;         // 0x74
-    char pad78[0xa0 - 0x78];
-    unsigned char noBorder; // 0xa0
-
     void FUN_002bdaf0(int index, const RectInts *r, int w, int h);
 };
-class A_2bdce0 {
-    char pad[0x4c];
-
-  public:
-    unsigned int value;
+struct Sprite_2bdd00 : HulkSprite {   // (x64t19, D94) the sprite: 0x002bdd00 sets its quads' colour (was gen owners::
+    void FUN_002bdd00(int color);      // Thing_2bdd00, a pad view: natively the count, quads and colour were elsewhere)
+};
+class A_2bdce0 : public HulkSprite {   // (x64t19, D94) the sprite: slot 7 returns its shader
 };
 struct Vec3_2bdd40 {
     float x, y, z;
@@ -130,8 +102,9 @@ struct Shader_2bdd40 {
     virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3(); virtual void s4();
     virtual void SetTexture(int id, void *tex);
 };
-struct Material_2bdd40 {
-    char pad0[0x10];
+struct Material_2bdd40 {           // (x64t19) a pure3d::Shader: Entity's words, then the pddi shader (gen's f_10:
+    void *vftable;                 // natively at +0x18; a pad of 0x10 put it at +0x10)
+    int words[3];
     Shader_2bdd40 *shader;
 };
 struct Quad_2bdd40 {
@@ -139,11 +112,12 @@ struct Quad_2bdd40 {
     float w;
     float uv[2];
 };
-struct Batch_2bdd40 {
-    void FUN_0008ef00();
-    char pad0[8];
+struct Batch_2bdd40 {               // (x64t19) the pddi primitive stream (unk_08ed50.cpp's Stream: the vftable, the
+    void FUN_0008ef00();           // stride, then the current vertex and the three auxiliary pointers; natively the
+    void *vftable;                 // pointers are 8 bytes from +0x10, where pads put them at +8)
+    unsigned int stride;
     Vec3_2bdd40 *pos;
-    char pad1[4];
+    void *aux1;
     float *w;
     float *uv;
 };
@@ -184,22 +158,25 @@ public:
     virtual void Submit(Batch_2bdd40 *b);
 };
 namespace fn_f43dee86 {
-struct Texture_2bdd40 {
-    char pad0[0x10];
+struct Texture_2bdd40 {             // (x64t19) a pure3d::Texture: Entity's words, then the pddi texture (gen's f_10:
+    void *vftable;                 // natively at +0x18)
+    int words[3];
     void *tex;
 };
 struct Verts {
     Quad_2bdd40 corner[4];
 };
-class DrawableContainer_2bdee0 {
+// (x64t19) pure3d::SpriteObject's record (decls/drawable_container.h), not polymorphic: the container's constructor
+// 0x002a4e10 by its address name, then the game's vftable 0x0042e914 by address (the local polymorphic stand-ins got
+// clang's own vftable natively)
+class DrawableContainer_2bdee0 : public HulkSpriteObject {
   public:
-    DrawableContainer_2bdee0(int);
-    virtual void V();
+    void* FUN_002a4e10(unsigned int);
+    DrawableContainer_2bdee0(int one) { FUN_002a4e10(one); }
 };
 class SpriteObject : public DrawableContainer_2bdee0 {
   public:
     SpriteObject();
-    virtual void V();
 };
 extern "C" char DAT_0042e914[];
 typedef unsigned int u32_2bdf50;
@@ -213,7 +190,7 @@ class Builder_2bdf50 {
 }
 namespace fn_f43dee86 {
 struct ThisCall_002a4500 {
-    void FUN_002a4500(int, int);
+    void FUN_002a4500(int, void*);   // (x64t19) the drawable as a pointer (as defined: an int did not bind natively)
 };
 extern void __fastcall FUN_002ae910(void*);
 extern void thunk_FUN_00267090(CCollisionAction*);
@@ -267,11 +244,11 @@ public:
     virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
     virtual void v16(); virtual void v17();
     virtual int v18(int arg);
-    char pad04[0x14];
-    int kind;
+    char pad04[0x14];              // (x64t19) a pure3d::Image8 / Image32: Entity's words, gen's f_10 .. f_20; the
+    int kind;                      // pixels pointer before the flags (a pad of 4 put f28 at +0x2c natively, not +0x30)
     char pad1c[4];
     int f20;
-    char pad24[4];
+    void *pixels;
     char f28;
     char f29;
 };
@@ -284,39 +261,30 @@ public:
     virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13();
     virtual void v14(); virtual void v15();
     virtual void v16(int arg);
-    char pad04[0x1c];
+    char pad04[0x1c];              // (x64t19) as Source_2be720: an Image8 / Image32 with its pixels pointer
     int f20;
-    char pad24[4];
+    void *pixels;
     char f28;
     char f29;
 };
-class ObjSmall : public Obj_2be720 {
+class ObjSmall : public Obj_2be720 {   // pure3d::Image32 (0x30 bytes on the 32-bit builds)
 public:
     ObjSmall *FUN_002bffc0();
-    char pad2a[0x6];
+    char pad2c[0x4];
 };
-class ObjBig : public Obj_2be720 {
+HULK_SIZE32(ObjSmall, 0x30);
+class ObjBig : public Obj_2be720 {     // pure3d::Image8 (0x438)
 public:
     ObjBig *FUN_002bfcb0();
-    char pad2a[0x40e];
+    char pad2c[0x40c];
 };
+HULK_SIZE32(ObjBig, 0x438);
 extern "C" void *FUN_00266e00(int pool, int size);
 void *FUN_0008d6d0(unsigned int size);
 int FUN_00267090(void *p);
 extern "C" void FUN_003647b0();
-class Loader_2be720 {
+class Loader_2be720 : public HulkSprite {   // (x64t19, D94) the sprite (decls/sprite.h; was a 32-bit pad view)
 public:
-    char pad0[0x40];
-    int count;
-    void *f44;
-    void *f48;
-    char pad4c[0x10];
-    int f5c;
-    char pad60[0xc];
-    int f6c;
-    char pad70[0x30];
-    char useSmall;
-
     int FUN_002bd570(Row_2be720 **rows, int *rowCount, int *recCount);
     void FUN_002bd790(int idx, Rec_2be720 *rec, int lo, int hi, Source_2be720 *src, Obj_2be720 *obj, pure3d::ImageConverter *aux);
     void FUN_002bdaf0(int idx, Rec_2be720 *rec, int lo, int hi);
@@ -388,30 +356,29 @@ class C_2beac0 {
   public:
     void run_002ae910();
 };
-struct Sprite {
-  public:
-    union { void* vf; void* vt; };
-    char _m_pad_4[0x4];
-    Name_2bdfc0 name;
-    char _m_pad_10[0x4];
-    B_2beac0* b;
-    A_2beac0* a;
-    C_2beac0* p;
-    char _m_pad_20[0x8];
-    char flag;
-    char _m_pad_29[0x17];
-    int count;
-    void* p44;
-    Thing_2bd430** items;
-    Thing_2bd430* p4c;
+struct Sprite : HulkSprite {       // (x64t19, D94) the sprite (decls/sprite.h): 0x002bd430 is its destructor's body
     void Tail_002a50a0();
     void Destroy();
+};
+// (x64t19) pure3d::SpriteLoader's destructor body 0x002beac0 (was a field of the same mixed view): the loader's record
+struct SpriteLoader_2beac0 : HulkSpriteLoader {
     void target();
+};
+// (x64t19) a pure3d::Image8 / Image32 (what the image registry's 0x002aed60 / 0x002aecb0 return): Entity's words, gen's
+// f_10 .. f_20, the pixels, the flag f_28 (natively the name at +0x0c and the flag at +0x30: the mixed view had them
+// at +0x08 / +0x28)
+struct Image_2bdfc0 {
+    void *vftable;
+    int refs;
+    Name_2bdfc0 name;
+    int words[5];
+    void *pixels;
+    char flag;
 };
 struct Factory_2bdfc0 {
     char pad0[0x8c];
     int f8c;
-    Sprite *FUN_002aecb0(char *name);
+    Image_2bdfc0 *FUN_002aecb0(char *name);
 };
 class SpriteLoader {
 public:
@@ -423,7 +390,7 @@ public:
     virtual void v5();
     virtual void v6();
     virtual void v7();
-    virtual Sprite *vfunc_8(Reader *r, int unused);
+    virtual Image_2bdfc0 *vfunc_8(Reader *r, int unused);
     virtual void v9();
     HULK_SPRITELOADER_WORDS     // (x64t15) decls/loaders.h (a 0x18-byte pad put the factory at +0x20 natively)
     Factory_2bdfc0 *factory;
@@ -443,13 +410,8 @@ class Ref2 {
   public:
     virtual void Del(int);
 };
-class SpriteLoader_2bed30 {
+class SpriteLoader_2bed30 : public HulkSpriteLoader {   // (x64t19) the loader's record (was a 32-bit pad view)
   public:
-    void* vptr;
-    char p[0x10];
-    Ref2* a14;
-    Ref_2bed30* a18;
-    Obj_2bed30* a1c;
     SpriteLoader_2bed30* vfunc2(unsigned char f);
 };
 
@@ -457,12 +419,12 @@ class SpriteLoader_2bed30 {
 // 0x002bd430 FUN_002bd430 (81 B): matches/0x002bd430.cpp
 // sym: ?Destroy@Sprite@fn_f43dee86@@QAEXXZ
 void Sprite::Destroy() {
-    vf = (void*)((hulk_intptr)DAT_0042e8d8);
-    p4c->B();
+    vftable = (void*)((hulk_intptr)DAT_0042e8d8);
+    ((Thing_2bd430*)shader)->B();
     for (int i = 0; i < count; ++i)
-        items[i]->B();
-    Free(items);
-    Free(p44);
+        ((Thing_2bd430**)textures)[i]->B();
+    Free(textures);
+    Free(quads);
     Tail_002a50a0();
 }
 
@@ -516,26 +478,19 @@ struct Tile_2bd570 {
 
 extern "C" int __cdecl FUN_00356c30(int value);
 
-struct Mosaic {
-    char pad0[0x54];
-    int width;
-    int height;
-    int border;
-    char pad60[0x68 - 0x60];
-    int maxSize;
-    int minSize;
-    char pad70[0xa0 - 0x70];
-    char single;
+// (x64t19, D94) the sprite (decls/sprite.h; was a 32-bit pad view). The tiles' x runs along the record's height
+// (+0x54), their y along its width (+0x58), as 0x002bd790 copies them.
+struct Mosaic : HulkSprite {
     int FUN_002bd570(Tile_2bd570 **tiles, int *rows, int *cols);
     int Chunk(int remaining);
 };
 
 int Mosaic::Chunk(int rem)
 {
-    int c = maxSize;
-    if (rem >= maxSize)
+    int c = maxTile;
+    if (rem >= maxTile)
         return c;
-    if (rem <= minSize)
+    if (rem <= minTile)
         return rem;
     if (rem != 0 && (rem & (rem - 1)) == 0)
         c = rem;
@@ -546,26 +501,26 @@ int Mosaic::Chunk(int rem)
 
 int Mosaic::FUN_002bd570(Tile_2bd570 **tiles, int *rows, int *cols)
 {
-    if (single) {
+    if (noBorder) {
         if (tiles == 0) {
             *rows = 1;
             *cols = 1;
             return 1;
         }
         (*tiles)->y0 = 0;
-        (*tiles)->y1 = height;
-        (*tiles)->h = height;
+        (*tiles)->y1 = width;
+        (*tiles)->h = width;
         (*tiles)->x0 = 0;
-        (*tiles)->x1 = width;
-        (*tiles)->w = width;
+        (*tiles)->x1 = height;
+        (*tiles)->w = height;
         return 1;
     }
 
     int rowCount = 0;
     int y = 0;
     Tile_2bd570 **row = tiles;
-    while (y < height) {
-        int h = Chunk(height - y);
+    while (y < width) {
+        int h = Chunk(width - y);
         int y1 = y + h;
         if (tiles != 0) {
             for (int j = 0; j < *cols; j++) {
@@ -582,8 +537,8 @@ int Mosaic::FUN_002bd570(Tile_2bd570 **tiles, int *rows, int *cols)
     int colCount = 0;
     int x = 0;
     int offset = 0;
-    while (x < width) {
-        int w = Chunk(width - x);
+    while (x < height) {
+        int w = Chunk(height - x);
         int x1 = x + w;
         if (tiles != 0) {
             for (rowCount = 0; rowCount < *rows; rowCount++) {
@@ -617,15 +572,16 @@ void Frame9::FUN_002bd790(int index, Rect_2bd790 *r, int a2, int a3, hulk_intptr
     s->setSize(a2, a3);
     s->begin(0);
 
+    // (x64t19) the tile's left / right run along the sprite's +0x54 (the record's height), top / bottom along +0x58
     int b = border;
     int top = r->top;
     int t0 = top > b ? top - b : 0;
     int bot = r->bottom;
-    int b1 = (height - bot > b) ? bot + b : height;
+    int b1 = (width - bot > b) ? bot + b : width;
     int left = r->left;
     int l0 = left > b ? left - b : 0;
     int right = r->right;
-    int r1 = (width - right > b) ? right + b : width;
+    int r1 = (height - right > b) ? right + b : height;
 
     int h1 = b1 - t0;
     int w1 = r1 - l0;
@@ -683,8 +639,8 @@ void Frame9::FUN_002bd790(int index, Rect_2bd790 *r, int a2, int a3, hulk_intptr
                     s->setPixel(row, col, color);
         }
     }
-    images[index] = f->create(s, flagA0);
-    images[index]->AddRef();
+    ((Image **)textures)[index] = f->create(s, noBorder);
+    ((Image **)textures)[index]->AddRef();
 }
 
 
@@ -723,12 +679,12 @@ void QuadBatch::FUN_002bdaf0(int index, const RectInts *r, int w, int h)
     quads[index].v[2].color = -1;
     quads[index].v[3].color = -1;
 
-    QuadVertex *v;
+    HulkSpriteVertex *v;
     float x, y;
 
     v = &quads[index].v[0];
-    y = (float)(height - r->i8) * scaleY;
-    x = (float)r->ic * scaleX;
+    y = (float)(height - r->i8) * invScaleY;
+    x = (float)r->ic * invScaleX;
     v->z = 0;
     v->x = x;
     v->y = y;
@@ -736,8 +692,8 @@ void QuadBatch::FUN_002bdaf0(int index, const RectInts *r, int w, int h)
     quads[index].v[0].v = s0;
 
     v = &quads[index].v[1];
-    y = (float)(height - r->i8) * scaleY;
-    x = (float)r->i4 * scaleX;
+    y = (float)(height - r->i8) * invScaleY;
+    x = (float)r->i4 * invScaleX;
     v->z = 0;
     v->x = x;
     v->y = y;
@@ -745,8 +701,8 @@ void QuadBatch::FUN_002bdaf0(int index, const RectInts *r, int w, int h)
     quads[index].v[1].v = s0;
 
     v = &quads[index].v[2];
-    y = (float)(height - r->i0) * scaleY;
-    x = (float)r->ic * scaleX;
+    y = (float)(height - r->i0) * invScaleY;
+    x = (float)r->ic * invScaleX;
     v->z = 0;
     v->x = x;
     v->y = y;
@@ -754,8 +710,8 @@ void QuadBatch::FUN_002bdaf0(int index, const RectInts *r, int w, int h)
     quads[index].v[2].v = bottomV;
 
     v = &quads[index].v[3];
-    y = (float)(height - r->i0) * scaleY;
-    x = (float)r->i4 * scaleX;
+    y = (float)(height - r->i0) * invScaleY;
+    x = (float)r->i4 * invScaleX;
     v->z = 0;
     v->x = x;
     v->y = y;
@@ -767,30 +723,32 @@ void QuadBatch::FUN_002bdaf0(int index, const RectInts *r, int w, int h)
 // 0x002bdce0 pure3d::Sprite::vfunc_7 (4 B): matches/0x002bdce0.cpp
 // sym: ?target@fn_f43dee86@@YIIPAVA_2bdce0@1@@Z
 // Same code shape as 0x00086380 (propagated; names are from that function)
-unsigned int __fastcall target(A_2bdce0* self) {
-    return self->value;
+hulk_uintptr __fastcall target(A_2bdce0* self) {   // (x64t19) the shader, pointer-sized (gen's slot 7)
+    return (hulk_uintptr)self->shader;
 }
 
 } // namespace fn_f43dee86
 
 // 0x002bdcf0 pure3d::Sprite::vfunc_9 (14 B): matches/0x002bdcf0.cpp
 // sym: ?vfunc_9@Sprite@pure3d@@UAEEXZ
-unsigned char pure3d::Sprite::vfunc_9() {
+unsigned char pure3d::Sprite::vfunc_9() {   // (x64t19) the shader's flag (gen's _pad_14: natively +0x20, not +0x14)
     if ((*(void * *)&this->f_4c))
-        return *((unsigned char*)(*(void * *)&this->f_4c) + 0x14);
+        return *(unsigned char*)((::pure3d::Shader *)this->f_4c)->_pad_14;
     return 0;
 }
 
 
 // 0x002bdd00 FUN_002bdd00 (61 B): matches/0x002bdd00.cpp
-// sym: ?FUN_002bdd00@Thing_2bdd00@owners@@QAEXPAX@Z
-void owners::Thing_2bdd00::FUN_002bdd00(void* p) {
-    value = p;
+// sym: ?FUN_002bdd00@Sprite_2bdd00@fn_f43dee86@@QAEXH@Z
+namespace fn_f43dee86 {
+void Sprite_2bdd00::FUN_002bdd00(int c) {
+    this->color = c;
     for (int i = 0; i < count * 4; ++i) {
-        hulk_intptr off = i * 0x18;
-        *(void**)((char*)off + (hulk_intptr)base + 0xc) = value;
+        hulk_intptr off = i * 0x18;   // each corner (HulkSpriteVertex) its colour word
+        *(int*)((char*)off + (hulk_intptr)quads + 0xc) = this->color;
     }
 }
+} // namespace fn_f43dee86
 
 
 // 0x002bdd40 pure3d::Sprite::vfunc_6 (405 B): equivalent/0x002bdd40.cpp
@@ -822,7 +780,7 @@ namespace fn_f43dee86 {
 
 // 0x002bdee0 FUN_002bdee0 (20 B): matches/0x002bdee0.cpp
 // sym: ??0SpriteObject@fn_f43dee86@@QAE@XZ
-SpriteObject::SpriteObject() : DrawableContainer_2bdee0(1) {}
+SpriteObject::SpriteObject() : DrawableContainer_2bdee0(1) { vftable = (void*)DAT_0042e914; }
 
 } // namespace fn_f43dee86
 
@@ -846,7 +804,7 @@ int pure3d::SpriteObject::vfunc_15() {
 // sym: ?vfunc_4@SpriteObject@pure3d@@UAEPAXXZ
  // namespace pure3d
 void* pure3d::SpriteObject::vfunc_4() {
-    pure3d::SpriteObject* p = (pure3d::SpriteObject*)alloc_00263ea0(0x58);
+    pure3d::SpriteObject* p = (pure3d::SpriteObject*)alloc_00263ea0(sizeof(HulkSpriteObject));   // (x64t19) natively 0x70
     if (p) {
         ((Builder_2bdf50*)p)->init_002a4e40(this);
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_0042e914);
@@ -858,8 +816,8 @@ void* pure3d::SpriteObject::vfunc_4() {
 
 // 0x002bdf80 pure3d::SpriteObject::vfunc_22 (15 B): matches/0x002bdf80.cpp
 // sym: ?vfunc_22@SpriteObject@pure3d@@UAEXH@Z
-void pure3d::SpriteObject::vfunc_22(int p) {
-    ((ThisCall_002a4500*)(this))->FUN_002a4500(0, p);
+void pure3d::SpriteObject::vfunc_22(hulk_intptr p) {
+    ((ThisCall_002a4500*)(this))->FUN_002a4500(0, (void*)p);
 }
 
 // 0x002bdf90 pure3d::SpriteObject::vfunc_8 (5 B): not yet verified
@@ -877,13 +835,13 @@ CCollisionAction* CCollisionAction::vfunc_2(unsigned char flags) {
 
 
 // 0x002bdfc0 pure3d::SpriteLoader::vfunc_8 (488 B): equivalent/0x002bdfc0.cpp
-// sym: ?vfunc_8@SpriteLoader@fn_f43dee86@@UAEPAUSprite@2@PAUReader@2@H@Z @01dead05ab17 @wb6a65f9c8d37 @v0d47d0c93334
+// sym: ?vfunc_8@SpriteLoader@fn_f43dee86@@UAEPAUImage_2bdfc0@2@PAUReader@2@H@Z @01dead05ab17 @wb6a65f9c8d37 @v33ae22b6a54d
 // STATUS: equivalent (tools/equiv.py level 3: 72 inputs, branch coverage 10/12, incomplete)
 // pure3d::SpriteLoader::vfunc_8 @ 0x002bdfc0
-Sprite *SpriteLoader::vfunc_8(Reader *r, int unused)
+Image_2bdfc0 *SpriteLoader::vfunc_8(Reader *r, int unused)
 {
     Frame_2bdfc0 f;
-    Sprite *result = 0;
+    Image_2bdfc0 *result = 0;
     ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.len), (hulk_intptr)1, 1, (hulk_intptr)1);
     int len = f.len;
     ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(f.buf1), (hulk_intptr)len, 1, (hulk_intptr)1);
@@ -903,7 +861,7 @@ Sprite *SpriteLoader::vfunc_8(Reader *r, int unused)
         if (id == 0x19002) {
             ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.a), (hulk_intptr)1, 4, (hulk_intptr)1);
             hulk_intptr v = ((hulk_intptr)((owners::Target_266c90 *)r)->FUN_00266c90());   // (x64t16) the stream
-            result = ((Sprite *)((owners::SomeClass_2aed60 *)factory)->FUN_002aed60((void *)v, (void *)(hulk_uintptr)(int)(f.b)));
+            result = ((Image_2bdfc0 *)((owners::SomeClass_2aed60 *)factory)->FUN_002aed60((void *)v, (void *)(hulk_uintptr)(int)(f.b)));
             r->FUN_00266ca0((int)v);
         } else if (id == 0x19003) {
             ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.len), (hulk_intptr)1, 1, (hulk_intptr)1);
@@ -1057,7 +1015,7 @@ Sprite *pure3d::SpriteLoader::vfunc_9(Reader *r, int unused)
 // sym: ?vfunc_11@Sprite@pure3d@@UAEXPAX@Z
 void pure3d::Sprite::vfunc_11(void* __p0) { Other_2be3d0 * obj = (Other_2be3d0 *)__p0;
 
-    obj->call_000f6e90((char*)this + 0x78);
+    obj->call_000f6e90(&((HulkSprite *)this)->minX);   // (x64t19) the bounding box (natively not at +0x78)
 }
 
 
@@ -1074,8 +1032,8 @@ void pure3d::Sprite::vfunc_12(void* __p0) { unsigned int * out = (unsigned int *
 
 // 0x002be410 pure3d::SpriteObject::vfunc_21 (6 B): matches/0x002be410.cpp
 // sym: ?vfunc_21@SpriteObject@pure3d@@UAEHXZ
-int pure3d::SpriteObject::vfunc_21() {
-    return *(*(int * *)&this->f_48);
+hulk_intptr pure3d::SpriteObject::vfunc_21() {   // (x64t19) the group's drawable, pointer-sized
+    return *(*(hulk_intptr * *)&this->f_48);
 }
 
 
@@ -1087,7 +1045,7 @@ pure3d::Sprite::~Sprite() {}
 
 
 // 0x002be440 FUN_002be440 (731 B): equivalent/0x002be440.cpp [wrapped: conflict: Gfx; pure3d::Sprite]
-// sym: ??0Sprite@pure3d@fn_002be440@@QAE@PAPAUItem_2be440@2@HHHPAUShader_2be440@2@HHHH@Z @fe6a55f874a3 @w7dec16739390 @v3c06eb451426
+// sym: ??0Sprite@pure3d@fn_002be440@@QAE@PAPAUItem_2be440@2@HHHPAUShader_2be440@2@HHHH@Z @b698a168cd56 @w55de26632eab @v7794094fca0a
 inline void *operator new(size_t, void *p) throw() { return p; }
 namespace fn_002be440 {
 // STATUS: equivalent (tools/equiv.py level 3: 15363 inputs, branch coverage 24/24)
@@ -1170,10 +1128,11 @@ struct Rect_2be440 {
     int x0, y0, x1, y1, extra;
 };
 
-class __declspec(novtable) SpriteBase_2be440 {
+// (x64t19, D94) the sprite record (decls/sprite.h), not polymorphic: DrawablePrimitive's constructor 0x002a5060 by its
+// address name, then the game's vftable 0x0042e8d8 by address (the local polymorphic stand-in got clang's own vftable
+// natively, whose slots had no definition)
+class SpriteBase_2be440 : public HulkSprite {
 public:
-    virtual void b0_00038290();
-    char pad04[0x3c];
     void FUN_002a5060();
     SpriteBase_2be440() { FUN_002a5060(); }
 };
@@ -1181,26 +1140,6 @@ public:
 class Sprite : public SpriteBase_2be440 {
 public:
     Sprite(Item_2be440 **items, int w, int h, int count, Shader_2be440 *mgr, int margin, int a7, int a8, int a9);
-    virtual void a1_000382a0(); virtual void a2(); virtual void a3_002bd490(); virtual void a4_002bd4a0(); virtual void a5_002bd4b0();
-    virtual void a6_002bdd40(); virtual void a7_002bdce0(); virtual void a8_002bea10(void*); virtual void a9_002bdcf0(); virtual void a10();
-    virtual void a11_002be3d0(void*); virtual void a12_002be3e0(void*);
-    int count;              // 0x40
-    void *buf;              // 0x44
-    Item_2be440 **items;           // 0x48
-    Shader_2be440 *holder;         // 0x4c
-    char pad50[4];
-    int h;                  // 0x54
-    int w;                  // 0x58
-    int margin;             // 0x5c
-    int f60, f64, f68, f6c;
-    float f70, f74;
-    int f78, f7c, f80;
-    float f84, f88;
-    int f8c;
-    float f90, f94;
-    int f98;
-    float f9c;
-    char fa0;
     void FUN_002bdaf0(int index, Rect_2be440 *r, int w, int h);
     void FUN_002bdd00(int v);
 };
@@ -1209,34 +1148,35 @@ public:
 
 pure3d::Sprite::Sprite(Item_2be440 **items_, int w_, int h_, int count_, Shader_2be440 *mgr, int margin_, int a7, int a8, int a9)
 {
-    fa0 = 0;
+    vftable = (void *)DAT_0042e8d8;
+    noBorder = 0;
     DAT_004d0898 = 0x20;
     int m = margin_;
     if (!(margin_ >= 0))
-        m = margin;
-    margin = m;
+        m = border;
+    border = m;
     int span = m * 2;
     int dispv = DAT_0052c2a8->v84();
     double r = 1.0f / (double)a7;
-    f68 = dispv - span;
-    f6c = DAT_004d0898 - span;
-    f60 = a7;
-    f64 = a8;
-    f8c = 0;
-    f80 = 0;
-    f7c = 0;
-    f78 = 0;
-    f70 = (float)r;
-    f74 = (float)r;
+    maxTile = dispv - span;
+    minTile = DAT_004d0898 - span;
+    scale = a7;
+    scaleArg = a8;
+    maxZ = 0;
+    minZ = 0;
+    minY = 0;
+    minX = 0;
+    invScaleX = (float)r;
+    invScaleY = (float)r;
     double t = (double)w_ * r;
-    volatile float tf = (float)t; // rounded frame copy (the original reuses it for f90 and f9c)
-    f84 = tf;
+    volatile float tf = (float)t; // rounded frame copy (the original reuses it for centerX and radius)
+    maxX = tf;
     double u = r * h_;
-    f88 = (float)u;
-    f98 = 0;
-    f94 = (float)(u * 0.5f);
-    f90 = tf * 0.5f;
-    f9c = (float)sqrt(*(volatile float *)&f84 * *(volatile float *)&f84 + *(volatile float *)&f88 * *(volatile float *)&f88);
+    maxY = (float)u;
+    centerZ = 0;
+    centerY = (float)(u * 0.5f);
+    centerX = tf * 0.5f;
+    radius = (float)sqrt(*(volatile float *)&maxX * *(volatile float *)&maxX + *(volatile float *)&maxY * *(volatile float *)&maxY);
     Shader_2be440 *mm;
     if (mgr == 0) {
         void *mem = thunk_FUN_0008d690(0x20);
@@ -1247,42 +1187,42 @@ pure3d::Sprite::Sprite(Item_2be440 **items_, int w_, int h_, int count_, Shader_
     } else {
         mm = mgr;
     }
-    holder = mm;
+    shader = (::pure3d::Shader *)mm;
     mm->h0();
     if (mgr == 0) {
-        holder->mode->m6(0x54494c, 0);
-        holder->mode->m6(0x444d4c42, 1);
-        holder->mode->m6(0x444d5655, 1);
+        ((Shader_2be440 *)shader)->mode->m6(0x54494c, 0);
+        ((Shader_2be440 *)shader)->mode->m6(0x444d4c42, 1);
+        ((Shader_2be440 *)shader)->mode->m6(0x444d5655, 1);
     }
-    h = h_;
-    w = w_;
-    items = items_;
-    buf = FUN_0008d6d0(count_ * 0x60);
+    height = h_;
+    width = w_;
+    textures = (::pure3d::Texture **)items_;
+    quads = (HulkSpriteQuad *)FUN_0008d6d0(count_ * sizeof(HulkSpriteQuad));   // (x64t19) by size (0x60 a quad)
     count = count_;
-    if (items[0]->tile->v6() == h_ && items[0]->tile->v5() == w_)
-        margin = 0;
-    int x = -margin;
+    if (((Item_2be440 **)textures)[0]->tile->v6() == h_ && ((Item_2be440 **)textures)[0]->tile->v5() == w_)
+        border = 0;
+    int x = -border;
     int hh = 0;
     int idx = 0;
     if (x < h_ - 1) {
         do {
-            int pos = -margin;
+            int pos = -border;
             if (pos < w_ - 1) {
                 do {
-                    int ww = items[idx]->tile->v5();
-                    hh = items[idx]->tile->v6();
-                    int a = margin + x;
-                    int b = margin + pos;
+                    int ww = ((Item_2be440 **)textures)[idx]->tile->v5();
+                    hh = ((Item_2be440 **)textures)[idx]->tile->v6();
+                    int a = border + x;
+                    int b = border + pos;
                     int p;
-                    if (items[idx]->tile->v5() > w_)
+                    if (((Item_2be440 **)textures)[idx]->tile->v5() > w_)
                         p = w_;
                     else
-                        p = ww - margin * 2;
+                        p = ww - border * 2;
                     int q;
-                    if (items[idx]->tile->v6() > h_)
+                    if (((Item_2be440 **)textures)[idx]->tile->v6() > h_)
                         q = h_;
                     else
-                        q = hh - margin * 2;
+                        q = hh - border * 2;
                     Rect_2be440 rc;
                     rc.x0 = a;
                     rc.y0 = b;
@@ -1290,11 +1230,11 @@ pure3d::Sprite::Sprite(Item_2be440 **items_, int w_, int h_, int count_, Shader_
                     rc.y1 = p + b;
                     rc.extra = q;
                     FUN_002bdaf0(idx, &rc, ww, hh);
-                    pos += ww - margin * 2;
+                    pos += ww - border * 2;
                     idx++;
                 } while (pos < w_ - 1);
             }
-            x += hh - margin * 2;
+            x += hh - border * 2;
         } while (x < h_ - 1);
     }
     FUN_002bdd00(-1);
@@ -1307,7 +1247,7 @@ pure3d::Sprite::Sprite(Item_2be440 **items_, int w_, int h_, int count_, Shader_
 namespace fn_f43dee86 {
 
 // 0x002be720 FUN_002be720 (740 B): equivalent/0x002be720.cpp
-// sym: ?Load@Loader_2be720@fn_f43dee86@@QAEHPAVSource_2be720@2@PAVImageConverter@pure3d@@@Z @750a8750f25f @w0ab9e4a448b9 @vbbfd1b2cac8c
+// sym: ?Load@Loader_2be720@fn_f43dee86@@QAEHPAVSource_2be720@2@PAVImageConverter@pure3d@@@Z @750a8750f25f @w463ed3f8836d @vbbfd1b2cac8c
 // STATUS: equivalent (tools/equiv.py level 3: 107 inputs, branch coverage 36/36)
 // FUN_002be720 @ 0x002be720
 // FUN_002be720 @ 0x002be720
@@ -1323,13 +1263,14 @@ int Loader_2be720::Load(Source_2be720 *src, pure3d::ImageConverter *aux)
     fr.rows = 0;
 
     count = FUN_002bd570(0, &rowCount, &recCount);
-    fr.rows = (Row_2be720 **)FUN_00266e00(1, rowCount * 4);
+    fr.rows = (Row_2be720 **)FUN_00266e00(1, rowCount * (int)sizeof(Row_2be720 *));
     for (int i = 0; i < rowCount; i++)
         fr.rows[i] = (Row_2be720 *)FUN_00266e00(1, recCount * 24);
     FUN_002bd570(fr.rows, &rowCount, &recCount);
 
-    f48 = FUN_0008d6d0(count * 4);
-    f44 = FUN_0008d6d0(count * 4 * 3 * 8);
+    // (x64t19) the texture pointers and the quads by their sizes (the pointers were count * 4 bytes natively)
+    textures = (::pure3d::Texture **)FUN_0008d6d0(count * (int)sizeof(::pure3d::Texture *));
+    quads = (HulkSpriteQuad *)FUN_0008d6d0(count * (int)sizeof(HulkSpriteQuad));
 
     if (aux == 0) {
         if ((DAT_00554bd4 & 1) == 0) {
@@ -1341,20 +1282,20 @@ int Loader_2be720::Load(Source_2be720 *src, pure3d::ImageConverter *aux)
     }
 
     Obj_2be720 *obj = 0;
-    if (useSmall) {
-        ObjSmall *mem = (ObjSmall *)thunk_FUN_0008d690(0x30);
+    if (noBorder) {
+        ObjSmall *mem = (ObjSmall *)thunk_FUN_0008d690(sizeof(ObjSmall));   // (x64t19) by size: natively 0x38
         if (mem)
             obj = mem->FUN_002bffc0();
         obj->f29 = src->f29;
     } else if (src->kind == 8) {
-        ObjBig *mem = (ObjBig *)thunk_FUN_0008d690(0x438);
+        ObjBig *mem = (ObjBig *)thunk_FUN_0008d690(sizeof(ObjBig));       // natively 0x440
         if (mem)
             obj = mem->FUN_002bfcb0();
         Source_2be720 *s = src;
         Obj_2be720 *o = obj;
         o->v16(s->v18(0x100));
     } else if (src->kind == 0x20) {
-        ObjSmall *mem = (ObjSmall *)thunk_FUN_0008d690(0x30);
+        ObjSmall *mem = (ObjSmall *)thunk_FUN_0008d690(sizeof(ObjSmall));
         if (mem)
             obj = mem->FUN_002bffc0();
         obj->f29 = src->f29;
@@ -1364,7 +1305,7 @@ int Loader_2be720::Load(Source_2be720 *src, pure3d::ImageConverter *aux)
     obj->f20 = src->f20;
     obj->v0();
 
-    int step = f5c * 2;
+    int step = border * 2;
     int index = 0;
     Row_2be720 **row = fr.rows;
     for (int r = rowCount; r > 0; r--) {
@@ -1372,7 +1313,7 @@ int Loader_2be720::Load(Source_2be720 *src, pure3d::ImageConverter *aux)
         for (int c = recCount; c > 0; c--) {
             Rec_2be720 *rec = (Rec_2be720 *)((char *)*row + off);
             int lo = rec->hi;
-            int limit = f6c;
+            int limit = minTile;
             if (lo > limit)
                 lo += step;
             else
@@ -1407,7 +1348,7 @@ void pure3d::Sprite::vfunc_8(void* __p0) { Obj_2bea10 * p = (Obj_2bea10 *)__p0;
     if ((*(Obj_2bea10 * *)&this->f_4c))
         (*(Obj_2bea10 * *)&this->f_4c)->f1();
     (*(Obj_2bea10 * *)&this->f_4c) = p;
-    int x = *(int*)((char*)p + 0x18);
+    int x = ((::pure3d::Shader *)p)->f_18;   // (x64t19) the shader's word (natively +0x24)
     if (x == 2 || x == 4 || x == 5 || x == 6 || x == 1 || x == 3 || x == 7)
         this->f_10 = 1;
 }
@@ -1446,18 +1387,18 @@ void pure3d::SpriteObject::vfunc_20() {
 namespace fn_f43dee86 {
 
 // 0x002beac0 FUN_002beac0 (63 B): matches/0x002beac0.cpp
-// sym: ?target@Sprite@fn_f43dee86@@QAEXXZ
-void Sprite::target() {
-    vt = (void*)((hulk_intptr)DAT_0042e974);
-    a->g();
-    if (b)
-        b->f(1);
-    C_2beac0* q = p;
+// sym: ?target@SpriteLoader_2beac0@fn_f43dee86@@QAEXXZ
+void SpriteLoader_2beac0::target() {
+    vftable = (void*)((hulk_intptr)DAT_0042e974);
+    ((A_2beac0*)images)->g();
+    if (converter)
+        ((B_2beac0*)converter)->f(1);
+    C_2beac0* q = (C_2beac0*)registry;
     if (q) {
         q->run_002ae910();
         thunk(q);
     }
-    vt = (void*)((hulk_intptr)DAT_003f6098);
+    vftable = (void*)((hulk_intptr)DAT_003f6098);
 }
 
 } // namespace fn_f43dee86
@@ -1477,7 +1418,7 @@ bool pure3d::SpriteLoader::vfunc_7() {
 
 
 // 0x002beb20 FUN_002beb20 (381 B): equivalent/0x002beb20.cpp [wrapped: conflict: Gfx; pure3d::Sprite]
-// sym: ??0Sprite@pure3d@fn_002beb20@@QAE@PAUDesc_2beb20@2@PAVShader_2beb20@2@HHHH@Z @0b672566308f @w49fc0945679b @v9d7f50ba5147
+// sym: ??0Sprite@pure3d@fn_002beb20@@QAE@PAUDesc_2beb20@2@PAVShader_2beb20@2@HHHH@Z @abc71c5eb10a @wee405a72b7c2 @v12e5e01a222c
 namespace fn_002beb20 {
 // STATUS: equivalent (tools/equiv.py level 3: 20029 inputs, branch coverage 10/10)
 // FUN_002beb20 @ 0x002beb20
@@ -1637,43 +1578,16 @@ public:
 
 namespace pure3d {
 
-class __declspec(novtable) SpriteBase_2beb20 {
+// (x64t19, D94) the sprite record (decls/sprite.h), not polymorphic: DrawablePrimitive's constructor 0x002a5060 by its
+// address name, then the game's vftable 0x0042e8d8 by address (as 0x002be440)
+class SpriteBase_2beb20 : public HulkSprite {
 public:
-    virtual void v0_00038290();
-    char pad04[0x3c];              // (x64t18) DrawablePrimitive's words, then Sprite's count and two pointers (gen's
-    int count;                     // f_40 .. f_48: natively the shader pointer is at +0x58)
-    void *buf;
-    void *items;
     void FUN_002a5060();
     SpriteBase_2beb20() { FUN_002a5060(); }
 };
 
 class Sprite : public SpriteBase_2beb20 {
 public:
-    Shader_2beb20 *res;
-    int pad50;
-    int height;
-    int width;
-    int slot;
-    int arg4;
-    int arg5;
-    int off68;
-    int off6c;
-    float inv70;
-    float inv74;
-    int z78;
-    int z7c;
-    int z80;
-    float w84;
-    float h88;
-    int z8c;
-    float halfW;
-    float halfH;
-    int z98;
-    float diag;
-    char flagA0;
-    virtual void v1_000382a0();
-    virtual void v2();
     void FUN_002be720(Desc_2beb20 *d, int a);
     void FUN_002bdd00(int a);
     Sprite(Desc_2beb20 *d, Shader_2beb20 *r, int s, int a4, int a5, int a6);
@@ -1681,48 +1595,49 @@ public:
 
 Sprite::Sprite(Desc_2beb20 *d, Shader_2beb20 *r, int s, int a4, int a5, int a6)
 {
-    flagA0 = (*(char*)&DAT_004d0894);
+    vftable = (void *)DAT_0042e8d8;
+    noBorder = (*(char*)&DAT_004d0894);
     if ((*(char*)&DAT_004d0894) != 0) {
-        slot = 0;
+        border = 0;
     } else {
         if (s >= 0)
-            slot = s;
+            border = s;
         else
-            slot = slot;
+            border = border;
     }
-    int two = slot * 2;
+    int two = border * 2;
     int base = DAT_0052c2a8->v84();
-    off68 = base - two;
-    off6c = DAT_004d0898 - two;
-    arg4 = a4;
-    arg5 = a5;
-    z8c = 0;
-    z80 = 0;
-    z7c = 0;
-    z78 = 0;
+    maxTile = base - two;
+    minTile = DAT_004d0898 - two;
+    scale = a4;
+    scaleArg = a5;
+    maxZ = 0;
+    minZ = 0;
+    minY = 0;
+    minX = 0;
     hulk_freg inv = 1.0f / (float)a4;
-    inv70 = inv;
-    inv74 = inv;
-    w84 = d->width * inv;
-    h88 = d->height * inv;
-    halfH = h88 * 0.5f;
-    z98 = 0;
-    halfW = w84 * 0.5f;
-    diag = (float)sqrt((double)w84 * w84 + (double)h88 * h88);
+    invScaleX = inv;
+    invScaleY = inv;
+    maxX = d->width * inv;
+    maxY = d->height * inv;
+    centerY = maxY * 0.5f;
+    centerZ = 0;
+    centerX = maxX * 0.5f;
+    radius = (float)sqrt((double)maxX * maxX + (double)maxY * maxY);
     if (r != 0) {
-        res = r;
+        shader = (::pure3d::Shader *)r;
     } else {
         Shader_2beb20 *m = (Shader_2beb20 *)FUN_00263ea0(0x20);
         if (m)
-            res = m->FUN_0028edb0();
+            shader = (::pure3d::Shader *)m->FUN_0028edb0();
         else
-            res = 0;
+            shader = 0;
     }
-    res->v0();
+    ((Shader_2beb20 *)shader)->v0();
     if (r == 0) {
-        res->attr->v6(0x54494c, 0);
-        res->attr->v6(0x444d4c42, d->flag);
-        res->attr->v6(0x444d5655, 1);
+        ((Shader_2beb20 *)shader)->attr->v6(0x54494c, 0);
+        ((Shader_2beb20 *)shader)->attr->v6(0x444d4c42, d->flag);
+        ((Shader_2beb20 *)shader)->attr->v6(0x444d5655, 1);
     }
     height = d->height;
     width = d->width;
@@ -1781,17 +1696,17 @@ namespace fn_f43dee86 {
 // 0x002bed30 pure3d::SpriteLoader::vfunc_2 (83 B): matches/0x002bed30.cpp
 // sym: ?vfunc2@SpriteLoader_2bed30@fn_f43dee86@@QAEPAV12@E@Z
 SpriteLoader_2bed30* SpriteLoader_2bed30::vfunc2(unsigned char f) {
-    Ref_2bed30* r = a18;
-    vptr = &hulk_at_0042e974;
+    Ref_2bed30* r = (Ref_2bed30*)images;
+    vftable = &hulk_at_0042e974;
     r->Rel();
-    if (a14)
-        a14->Del(1);
-    Obj_2bed30* o = a1c;
+    if (converter)
+        ((Ref2*)converter)->Del(1);
+    Obj_2bed30* o = (Obj_2bed30*)registry;
     if (o) {
         o->Fini_002ae910();
         Free2_0008d330(o);
     }
-    vptr = &hulk_at_003f6098;
+    vftable = &hulk_at_003f6098;
     if (f & 1)
         Free(this);
     return this;
@@ -1800,7 +1715,7 @@ SpriteLoader_2bed30* SpriteLoader_2bed30::vfunc2(unsigned char f) {
 } // namespace fn_f43dee86
 
 // 0x002bed90 pure3d::SpriteLoader::vfunc_5 (828 B): equivalent/0x002bed90.cpp [wrapped: conflict: Reader; content::LoadInventory::DynamicCaster; pure3d::SpriteLoader; pure3d::SpriteObject]
-// sym: ?vfunc_5@SpriteLoader@pure3d@fn_002bed90@@UAEHPAPAVSpriteObject@23@PA_KPAUReader@3@PAVCtx_2bed90@3@@Z @7f8484a1db7b @wdb24f3e1bad2 @ved5fc8abd880
+// sym: ?vfunc_5@SpriteLoader@pure3d@fn_002bed90@@UAEHPAPAVSpriteObject@23@PA_KPAUReader@3@PAVCtx_2bed90@3@@Z @455ce4fd0e5e @wde0be347166e @v94cc3696f55b
 namespace fn_002bed90 {
 // STATUS: equivalent (tools/equiv.py level 3: 183 inputs, branch coverage 26/26)
 // pure3d::SpriteLoader::vfunc_5 @ 0x002bed90
@@ -1892,11 +1807,13 @@ public:
     virtual pure3d::Shader* v3(::content::LoadInventory::DynamicCaster< ::pure3d::Shader>* caster, unsigned __int64 hash);
 };
 
-class __declspec(novtable) DrawableContainer_2bed90 {
+// (x64t19) pure3d::SpriteObject's record (decls/drawable_container.h), not polymorphic: the container's constructor
+// 0x002a4e10 by its address name, then the game's vftable 0x0042e914 by address (the local polymorphic stand-in got
+// clang's own vftable natively, whose setSprite slot had no definition); its slots through a view of the game's
+extern "C" char DAT_0042e914[];
+class DrawableContainer_2bed90 : public HulkSpriteObject {
 public:
-    virtual void v0_00038290();
-    char pad04[4];
-    NameField_2bed90 name;
+    NameField_2bed90 &nameField() { return *(NameField_2bed90 *)name; }
     void FUN_002a4e10(int one);
     DrawableContainer_2bed90(int one) { FUN_002a4e10(one); }
 };
@@ -1904,7 +1821,11 @@ public:
 namespace pure3d {
 class SpriteObject : public DrawableContainer_2bed90 {
 public:
-    SpriteObject() : DrawableContainer_2bed90(1) {}
+    SpriteObject() : DrawableContainer_2bed90(1) { vftable = (void *)DAT_0042e914; }
+};
+class SpriteObjectSlots {          // the game's vftable 0x0042e914 (never constructed: calls through the object's own)
+public:
+    virtual void v0_00038290();
     virtual void v1_000382a0();
     virtual void* v2_002bea70(char);
     virtual void v3_002bdf00();
@@ -2011,7 +1932,7 @@ int pure3d::SpriteLoader::vfunc_5(pure3d::SpriteObject** out, unsigned __int64* 
         // game's 0x003f3e88 (the local stand-in's slot had no definition natively)
         ::content::LoadInventory::DynamicCaster< ::pure3d::Shader>* caster = new (&f.r6) ::content::LoadInventory::DynamicCaster< ::pure3d::Shader>();
         pure3d::Shader* shader = ctx->v3(caster, hash);
-        void* mem = FUN_00263ea0(0xa8);
+        void* mem = FUN_00263ea0(sizeof(HulkSprite));   // (x64t19) pure3d::Sprite (decls/sprite.h)
         if (mem)
             sprite = ((Sprite*)mem)->FUN_002beb20(image, shader, 1, f.r1, f.r2, f14);
         else
@@ -2022,7 +1943,7 @@ int pure3d::SpriteLoader::vfunc_5(pure3d::SpriteObject** out, unsigned __int64* 
         // game's 0x003f3e88 (the local stand-in's slot had no definition natively)
         ::content::LoadInventory::DynamicCaster< ::pure3d::Shader>* caster = new (&f.r6) ::content::LoadInventory::DynamicCaster< ::pure3d::Shader>();
         pure3d::Shader* shader = ctx->v3(caster, hash);
-        void* mem = FUN_00263ea0(0xa8);
+        void* mem = FUN_00263ea0(sizeof(HulkSprite));   // (x64t19) pure3d::Sprite (decls/sprite.h)
         if (mem)
             sprite = ((Sprite*)mem)->FUN_002be440(f.arr, f.r3, f.r4, f.r5, shader, 1, f.r1, f.r2, f14);
         else
@@ -2030,14 +1951,14 @@ int pure3d::SpriteLoader::vfunc_5(pure3d::SpriteObject** out, unsigned __int64* 
     } else {
         return more;
     }
-    void* omem = FUN_00263ea0(0x58);
+    void* omem = FUN_00263ea0(sizeof(HulkSpriteObject));   // (x64t19) natively 0x70
     pure3d::SpriteObject* obj;
     if (omem)
         obj = new (omem) pure3d::SpriteObject();
     else
         obj = 0;
-    obj->name.FUN_0027b040(f.nameA);
-    obj->setSprite(sprite);
+    obj->nameField().FUN_0027b040(f.nameA);
+    ((pure3d::SpriteObjectSlots *)obj)->setSprite(sprite);
     if (image != 0)
         image->Release();
     *out = obj;

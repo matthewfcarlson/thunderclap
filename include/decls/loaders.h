@@ -147,7 +147,7 @@ HULK_LOADER_SIZE32(FUN_00231160, 0x18);
 // one: the head, tail, start and end of an array of {request, value} entries) and a 256-byte name buffer.
 struct HulkLoadEntry {
     void* task;
-    unsigned int value;
+    hulk_uintptr value;   // (x64t19) pointer-sized: the ring below hands it to 0x002655b0, which calls it as a task
 };
 struct HulkContentRegistry {
     unsigned char a, b, c, pad3;
@@ -160,11 +160,12 @@ struct HulkContentRegistry {
     HulkLoadEntry* begin;
     HulkLoadEntry* end;
     unsigned int reserved;
-    // (x64t13) the 256-byte buffer is a ring of the finished requests' values (0x00265390: head, tail, start, end)
-    int* ringHead;
-    int* ringTail;
-    int* ringBegin;
-    int* ringEnd;
+    // (x64t13) the 256-byte buffer is a ring of the finished requests' values (0x00265390: head, tail, start, end);
+    // (x64t19) each a task 0x002655b0 calls: pointer-sized
+    hulk_intptr* ringHead;
+    hulk_intptr* ringTail;
+    hulk_intptr* ringBegin;
+    hulk_intptr* ringEnd;
 };
 HULK_LOADER_SIZE32(HulkContentRegistry, 0x38);
 

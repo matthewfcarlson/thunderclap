@@ -7,6 +7,7 @@
 #include "decls/data/engine/pure3d/prop.h"
 #include "decls/data/game/global.h"
 #include "gen/owners.h"
+#include "decls/drawable_container.h"
 #define TREE_TU_BEGIN namespace fn_f3e6e6aa {
 #define TREE_TU_END }
 #define TREE_LOCAL_CAction
@@ -231,28 +232,16 @@ class Obj_2a3460 {
     virtual void f();
     virtual void g();
 };
+// (x64t19) pure3d::DrawableHierarchy's record (decls/drawable_container.h), not polymorphic: pure3d::Entity's
+// constructor 0x0027b070 by its address name, then the game's vftable 0x0042d82c by address (the local stand-ins'
+// Drawable() had no definition natively, and their vftable was clang's)
+extern "C" char DAT_0042d82c[];
 namespace pure3d {
-class Drawable {
-  public:
-    virtual void f();
-    char pad[12];
-    Drawable();
+struct Entity_2a3480 {
+    Entity_2a3480* FUN_0027b070();
 };
-}
-namespace pure3d {
-struct First {
-    int a;
-    First() {
-        a = 0;
-        _ReadWriteBarrier();
-    }
-};
-}
-namespace pure3d {
-class DrawableHierarchy : public Drawable, public First {
+class DrawableHierarchy : public HulkDrawableHierarchy {
   public:
-    virtual void f();
-    int b, c, d, e, g, h, i, j, k, l;
     DrawableHierarchy();
 };
 }
@@ -383,17 +372,23 @@ void target() {
 // sym: ??0DrawableHierarchy@pure3d@fn_f3e6e6aa@@QAE@XZ
 namespace pure3d {
 DrawableHierarchy::DrawableHierarchy() {
+    ((Entity_2a3480*)this)->FUN_0027b070();
+    f10 = 0;
     _ReadWriteBarrier();
-    b = 0;
-    c = 0;
-    d = 0;
-    e = 0;
-    g = 0;
-    h = 0;
-    i = 0;
-    j = 0;
-    k = 0;
-    l = 0;
+    vftable = (void*)DAT_0042d82c;
+    _ReadWriteBarrier();
+    int* w = (int*)box;   // the box and the sphere, zeroed as words
+    w[0] = 0;
+    w[1] = 0;
+    w[2] = 0;
+    w[3] = 0;
+    w[4] = 0;
+    w[5] = 0;
+    int* r = (int*)sphere;
+    r[0] = 0;
+    r[1] = 0;
+    r[2] = 0;
+    r[3] = 0;
 }
 }
 
