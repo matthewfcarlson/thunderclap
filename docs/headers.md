@@ -232,7 +232,7 @@ The clang helpers rn_transform.py used moved into it. Git history keeps the gene
 
 ## Hand matches on the headers
 
-`experiments/first-matches/*_gen.cpp` are the original experiments rewritten on `#include <gen/…>`.
+`experiments/first-matches/*_gen.cpp` were the original experiments rewritten on `#include <gen/…>` (removed 2026-11-18, last in `945b0e1ab`).
 They define `X::vfunc_N` against the generated declarations and use `f_XX` fields, and all 5
 functions still MATCH:
 
