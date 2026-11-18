@@ -31,7 +31,7 @@ typedef unsigned int u32_18c8b0;
 struct Prop_18c8b0 {
     hulk_uintptr init_00180f00();
 };
-extern "C" void* __cdecl operator_new(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 extern int hulk_at_0041a95c;
 
 } // namespace fn_fde74312
@@ -56,7 +56,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::PropThrow
 // 0x0018c8b0 fight::TrackFactoryTemplate<hulkfight::motion::PropThrowTrack>::vfunc_5 (27 B): matches/0x0018c8b0.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VPropThrowTrack@motion@hulkfight@@@fight@@UAEPAXXZ
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::PropThrowTrack>::vfunc_5() {
-    Prop_18c8b0* p = (Prop_18c8b0*)operator_new(0x88);
+    Prop_18c8b0* p = (Prop_18c8b0*)FUN_0008d690(0x88);
     if (p)
         return (void*)(p->init_00180f00());
     return (void*)(0);

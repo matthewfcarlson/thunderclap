@@ -13,7 +13,7 @@ namespace fn_f76db007 {} using namespace fn_f76db007;
 
 // ---- declarations shared by the functions below
 namespace fn_f76db007 {
-extern "C" void InitOther_002705f0();
+extern "C" int* __cdecl FUN_002705f0(void);   // (decl1) as defined (MemorySpaceAsyncRequest_Copy.cpp)
 } // namespace fn_f76db007
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" char* __cdecl strncpy(char*, const char*, unsigned int);
@@ -61,7 +61,7 @@ struct DriveDestroyDirectoryRequest {
 // 0x00275930 FUN_00275930 (53 B): matches/0x00275930.cpp
 // sym: ??0DriveDestroyDirectoryRequest@fn_f76db007@@QAE@PAUHulkInstanceDrive@@PBD@Z
 DriveDestroyDirectoryRequest::DriveDestroyDirectoryRequest(HulkInstanceDrive* a, const char* s) : DriveRequest_275930(a) {
-    InitOther_002705f0();
+    FUN_002705f0();
     strncpy(name, s, 16);
     tail = 0;
 }

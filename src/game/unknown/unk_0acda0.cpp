@@ -98,7 +98,7 @@ struct Item_ad580 {
     int id;
     int Do_000b0810(int a, int b);
 };
-int Fallback_000b08a0(int a, int b);
+extern "C" hulk_intptr __cdecl FUN_000b08a0(int, int);   // (decl1) as defined (unk_0b0440.cpp)
 class Manager_ad580 {
     char pad[0x10];
     int count;
@@ -114,7 +114,7 @@ class Item_ad7b0 {
     int key;
     int action_000b0930(int a, int b);
 };
-int fallback_000b09c0(int a, int b);
+extern "C" hulk_intptr __cdecl FUN_000b09c0(int, hulk_intptr);   // (decl1) as defined (unk_0b0440.cpp)
 class Owner_ad7b0 {
     char pad[0x10];
     int count;
@@ -299,7 +299,7 @@ hulk_intptr Manager_ad580::Run(int id, int a, int b) {
             ++cur;
         } while (i < n);
     }
-    return Fallback_000b08a0(a, b);
+    return FUN_000b08a0(a, b);
 }
 
 
@@ -311,7 +311,7 @@ hulk_intptr Owner_ad7b0::run(int key, int a, int b) {
             return items[i]->action_000b0930(a, b);
         }
     }
-    return fallback_000b09c0(a, b);
+    return FUN_000b09c0(a, b);
 }
 
 

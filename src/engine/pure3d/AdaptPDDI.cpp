@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x002c31b0..0x002c3230 (kind game, layer engine, confidence high), dominant class pure3d::AdaptPDDI
 #include "tree_prelude.h"
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 #define TREE_TU_BEGIN namespace fn_f9b33d3e {
 #define TREE_TU_END }
@@ -19,7 +20,7 @@ extern "C" void FUN_002b53f0();
 extern "C" void FUN_002a3460();
 extern "C" void FUN_0029c3b0();
 extern "C" void FUN_0028fcb0(void*);
-void Helper_002726e0(int a, int b, int c);
+extern "C" char __cdecl FUN_002726e0(hulk_intptr, hulk_intptr, int);   // (decl1) as defined (unk_2719a0.cpp)
 
 
 // 0x002c31b0 FUN_002c31b0 (15 B): matches/0x002c31b0.cpp
@@ -63,6 +64,6 @@ void pure3d::AdaptPDDI::vfunc_1(void* __p0) { void * p = (void *)__p0;
 // 0x002c3210 pure3d::AdaptPDDI::vfunc_2 (26 B): matches/0x002c3210.cpp
 // sym: ?vfunc_2@AdaptPDDI@pure3d@@UAEXHHH@Z
 void pure3d::AdaptPDDI::vfunc_2(int a, int b, int c) {
-    Helper_002726e0(a, b, c);
+    FUN_002726e0(a, b, c);
 }
 

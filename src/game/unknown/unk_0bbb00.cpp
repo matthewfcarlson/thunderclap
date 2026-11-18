@@ -525,7 +525,7 @@ void Object::FUN_000bbc50(float input) {
 // 0x000bbc90 FUN_000bbc90 (26 B): matches/0x000bbc90.cpp [wrapped: compile error in a shared declaration (C2143)]
 // sym: ?Check@Obj@fn_000bbc90@@QAEXPAX@Z
 namespace fn_000bbc90 {
-void __cdecl Fn_00035db0(char);
+extern "C" unsigned char __cdecl FUN_00035db0(unsigned char);   // (decl1) as defined (unk_034ca0.cpp)
 class Obj {
   public:
     int pad;
@@ -534,7 +534,7 @@ class Obj {
 };
 void Obj::Check(void* p) {
     if (ptr)
-        Fn_00035db0(p == 0);
+        FUN_00035db0(p == 0);
 }
 } // namespace fn_000bbc90
 

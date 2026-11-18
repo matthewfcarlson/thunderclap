@@ -84,7 +84,7 @@ class Obj_e1ad0 {
   public:
     void Set(int index, int value);
 };
-extern int __cdecl Make_000f6610(int value);
+extern "C" hulk_intptr __cdecl FUN_000f6610(hulk_intptr);   // (decl1) as defined (FEThingsBase_3.cpp)
 class FEDoAction_e1b00 {
   public:
     virtual void v0();
@@ -273,7 +273,7 @@ namespace fn_f701c7df {
 // sym: ?Set@Obj_e1ad0@fn_f701c7df@@QAEXHH@Z
 void Obj_e1ad0::Set(int index, int value) {
     if (items)
-        items[index] = Make_000f6610(value);
+        items[index] = FUN_000f6610(value);
 }
 
 } // namespace fn_f701c7df

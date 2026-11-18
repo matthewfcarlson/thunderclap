@@ -42,7 +42,7 @@ struct Obj_2670b0 {
 };
 struct Object { virtual void unused(); virtual void FUN_00000000(); };
 extern char hulk_at_0042af2c;
-void InitAllocator_002705f0();
+extern "C" int* __cdecl FUN_002705f0(void);   // (decl1) as defined (MemorySpaceAsyncRequest_Copy.cpp)
 struct MemoryAllocatorMalloc {
     void* vptr;
     MemoryAllocatorMalloc* Init();
@@ -147,7 +147,7 @@ extern "C" void __cdecl FUN_00267110(unsigned int index) {
 // sym: ?Init@MemoryAllocatorMalloc@fn_f03133a3@@QAEPAU12@XZ
 MemoryAllocatorMalloc* MemoryAllocatorMalloc::Init() {
     vptr = &hulk_at_0042af2c;
-    InitAllocator_002705f0();
+    FUN_002705f0();
     return this;
 }
 

@@ -31,7 +31,7 @@ typedef unsigned int u32_18ca60;
 struct CGrabTrack_18ca60 {
     hulk_uintptr init_001815d0();
 };
-extern "C" void* __cdecl operator_new(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 extern int hulk_at_0041a9b0;
 
 } // namespace fn_ff0b2ada
@@ -57,7 +57,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::PropSpawn
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VPropSpawnTrack@motion@hulkfight@@@fight@@UAEPAXXZ
 // Same code shape as 0x0006f3d0 (propagated; names are from that function)
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::PropSpawnTrack>::vfunc_5() {
-    CGrabTrack_18ca60* p = (CGrabTrack_18ca60*)operator_new(0x50);
+    CGrabTrack_18ca60* p = (CGrabTrack_18ca60*)FUN_0008d690(0x50);
     if (p)
         return (void*)(p->init_001815d0());
     return (void*)(0);

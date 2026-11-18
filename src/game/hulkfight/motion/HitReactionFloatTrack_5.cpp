@@ -34,7 +34,7 @@ struct TrackFactory_15a740 {
     virtual void e();
     virtual void f();
 };
-extern "C" void* __cdecl Allocate(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 struct Built_15a740 {
     void* init_0014dca0();
 };
@@ -63,7 +63,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::HitReacti
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VHitReactionFloatTrack@motion@hulkfight@@@fight@@UAEPAXXZ
 // Same code shape as 0x0013e710 (propagated; names are from that function)
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::HitReactionFloatTrack>::vfunc_5() {
-    void* p = Allocate(0x58);
+    void* p = FUN_0008d690(0x58);
     if (p)
         return (void*)(((Built_15a740*)p)->init_0014dca0());
     return (void*)(0);

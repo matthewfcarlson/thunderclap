@@ -2,6 +2,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x001be0e0..0x001c1200 (kind game, layer game, confidence high), dominant class CSubtitleManager
 #include "tree_prelude.h"
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/engine/pure3d/prop.h"
 #include "decls/data/game/global.h"
@@ -196,7 +197,7 @@ struct Frame_1bec90 {
     char buf[32];
 };
 extern "C" int __cdecl FUN_00266da0(int id);
-int __cdecl FUN_000f7120(int handle);
+extern "C" hulk_intptr __cdecl FUN_000f7120(int);   // (decl1) as defined (FEThingsBase_3.cpp)
 extern "C" int __cdecl FUN_000964a0(char*, int, const char*, ...);   // (x64t14) as defined (CUnlockablesManager.cpp)
 struct Label_1c0ab0 {
     void FUN_000f7110();

@@ -14,7 +14,7 @@ namespace fn_f269dc74 {
 struct T3 {
     char c[3];
 };
-void* __cdecl FUN_0008d690(unsigned int n);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 class O_3388d0 {
   public:
     void* vptr;

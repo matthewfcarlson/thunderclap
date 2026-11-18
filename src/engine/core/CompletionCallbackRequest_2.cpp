@@ -13,7 +13,7 @@ namespace fn_fb5aa021 { extern "C" char DAT_0042b914[]; }   // (x64t7) the game 
 
 // ---- declarations shared by the functions below
 namespace fn_fb5aa021 {
-void init_002705f0();
+extern "C" int* __cdecl FUN_002705f0(void);   // (decl1) as defined (MemorySpaceAsyncRequest_Copy.cpp)
 class Request {
   public:
     hulk_intptr v;
@@ -44,10 +44,10 @@ struct CompletionCallbackRequest {
 CompletionCallbackRequest::CompletionCallbackRequest(int arg) {
     v = ((hulk_intptr)DAT_0042b914);
     a = 0;
-    init_002705f0();
+    FUN_002705f0();
     v = ((hulk_intptr)DAT_0042b9dc);
     b = arg;
-    init_002705f0();
+    FUN_002705f0();
 }
 
 

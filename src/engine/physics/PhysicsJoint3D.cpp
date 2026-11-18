@@ -208,7 +208,7 @@ class Thing_309b80 {
     virtual void Apply(int);
 };
 extern "C" void FUN_00305800(int*, int, float);
-extern "C" void* alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d6d0(int);   // (decl1) as defined (unk_08ceb0.cpp)
 struct ThisCall_003099d0 {
     void called_003099d0();
 };
@@ -1425,7 +1425,7 @@ void physics::PhysicsJoint3D::vfunc_21(void* __p0) { float * p = (float *)__p0;
 // sym: ?FUN_0030a130@Buffer_30a130@owners@@QAE_NH@Z
 bool owners::Buffer_30a130::FUN_0030a130(int n) {
     if (n != 0) {
-        int* p = (int*)alloc(n * 4);
+        int* p = (int*)FUN_0008d6d0(n * 4);
         begin = p;
         if (p != 0) {
             limit = (int*)((char*)p + n * 4);

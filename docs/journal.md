@@ -1369,3 +1369,23 @@ blocks fight::Action's whole family: the records come first there.
   the same name gives the stub's. Check which one a site resolves to.
 - A local `char data[N]` stand-in keeps its 32-bit size natively. Writing `n*sizeof(Stub)` changes nothing unless the
   stub is the real record, so derive it from gen's class instead (0x001ff580's CEncounterGenerator).
+
+## 2026-11-18 decl1: callers declare extern "C" callees as defined (batch 1)
+
+- **Callee by the original's target, not by spelling.** build/decl1/scripts/relmap.py records, per tree TU, every
+  matched block's referenced symbols with the address the original's bytes reach (verify_relocs.check_object); joined
+  with the tree's definitions by address, 3,209 call sites in 725 TUs name an extern "C" definition with a C++ spelling
+  (2,327 names: `Alloc_0008d690`, `operator_new`, `?FUN_0008d750@fn_f3919bbe@@...`) and 260 with another C name
+  (`_malloc`, `_alloc`, `_snprintf` for the game's 0x0008d690 / 0x000964a0).
+- **C linkage makes one function of all a TU's declarations.** Declarations of the same C name in different block
+  namespaces of one TU must agree (C2733 "second C linkage of overloaded function"); the existing `extern "C++"`
+  declarations were there to dodge that. The generator writes one canonical `extern "C"` declaration per TU and
+  callee; when an include/ header already declares the C name, the header's prototype is the canonical one (clang
+  rejects a TU declaration that differs from a header's natively even where MSVC 7.1, seeing `int` both times, does not).
+- **Natively most C++ spellings were already bound by the address in the name** (plan_link, verified by the Wine map):
+  batch 1's 95 callees in 79 TUs took 53 references off "bound by the address in the name" and 16 names off unbound. The
+  bindings that changed silently are the invented C names with no address (`malloc`, `snprintf`, `operator_new`,
+  `alloc`): natively they bound to the host's libc or to nothing.
+- **A binding exposes literal sizes to the x64 gate.** Three `operator_new(0x14)` sites (0x000592c0, 0x0016e070,
+  0x0017e910) became `layout` once the allocator bound: they now allocate `sizeof` of the record they construct (0x14
+  on 32-bit). 0x00159cb0's record view is shorter than its 0x18 allocation, so its TU stays out (deferred).

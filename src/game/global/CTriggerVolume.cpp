@@ -94,7 +94,7 @@ public:
     void FUN_001fbb80(V3_1fbd00 *origin, V3_1fbd00 *dir, float angle);
     void FUN_001fbd00(Element_1fbd00 *elem);
 };
-extern "C" void __cdecl Format(char*, unsigned int, const char*, void*);
+extern "C" int __cdecl FUN_000964a0(char*, int, const char*, ...);   // (decl1) as defined (CUnlockablesManager.cpp)
 class Inner_1fbfd0 {
   public:
 };
@@ -595,7 +595,7 @@ extern int CEffectStopTrack_vftable;
 class CEffectStopTrack {
   public:
 };
-void __fastcall FUN_0027afd0(CEffectStopTrack*);
+extern "C" void __fastcall FUN_0027afd0(CEffectStopTrack*);   // (decl1) as defined (unk_27aec0.cpp)
 void __fastcall FUN_001fbfa0(CEffectStopTrack* self) {
     *(hulk_intptr*)self = (hulk_intptr)((int*)DAT_00425120);
     FUN_0027afd0(self);
@@ -607,7 +607,7 @@ namespace fn_f9414999 {
 // 0x001fbfd0 FUN_001fbfd0 (42 B): matches/0x001fbfd0.cpp
 // sym: ?Run@Obj_1fbfd0@fn_f9414999@@QAEXPAX@Z
 void Obj_1fbfd0::Run(void* arg) {
-    Format((char*)this + 0x20, 0x20, "%s", arg);
+    FUN_000964a0((char*)this + 0x20, 0x20, "%s", arg);
     ((owners::Target_27b040 *)&inner)->FUN_0027b040((hulk_uintptr)arg);
 }
 

@@ -5845,3 +5845,20 @@ own allocator views, sizes that are not one record, or records still unknown).
   relocations ok, or proven. It exits 1 only because of blocks that are unproven tree-wide, none of which this change
   touched. The x64 gate re-run with HEAD 56cdc3090's x64_gate.py (90679, 388 blocks, no cache) was ok. Native mac:
   2520/2520 tree TUs compile, and the unbound count went from 12262 (control) to 12260 (proof).
+
+## decl1 (2026-11-18): callers' declarations as the callee's definition
+
+Generator: build/decl1/scripts/gen_decl.py (on a `git archive HEAD` snapshot; callee = the original's call target from
+relmap.py, never the spelling). Pass 1 rewrites a caller's C++ (or other C) spelling of an extern "C" definition into
+one canonical `extern "C"` declaration per TU and callee (same name, calling convention, parameter and result types:
+the caller's own spelling where it is the same native class, else the definition's, `hulk_intptr` for an int the
+definition passes as a pointer, `void*` for a pointer type the caller can't name), and renames the TU's uses.
+Skipped and listed: definitions in the same TU (MSVC would inline), names an equivalent block references (re-proof),
+members, operators, declarations in headers, TUs with other agents' uncommitted edits.
+
+- Batch 1: 79 TUs, 95 callees (59 renamed to the definition's name). 29 more TUs were generated but other agents
+  were editing them (src/engine/audio/, the script binding family) and are left for a later batch. Every matches block MATCH with relocations ok,
+  equivalent blocks unchanged (code and view hashes). Three literal `0x14` allocations the binding exposed to the x64
+  gate are now `sizeof` of their record.
+- Native mac (control snapshot + the control's binding map): unbound 12260 -> 12244, no new names; "bound by the
+  address in the name" 26629 -> 26576 (those references now name the definition exactly).

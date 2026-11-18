@@ -151,7 +151,7 @@ extern "C" int __stdcall GetBackBuffer2(int);
 extern "C" void __stdcall GetDesc(int, Desc_330de0*);
 extern "C" void __stdcall Release(int);
 extern "C" int __stdcall CreateTexture2(int, int, int, int, int, int, int);
-extern "C" hulk_intptr Alloc(hulk_intptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 struct Obj_330de0 {
     virtual void Fn();
 };
@@ -410,7 +410,7 @@ void d3dToonVertexShader_330de0::Update() {
         GetDesc(s, &d);
         Release(s);
         int t = CreateTexture2(0x40, 1, 1, 1, 0, d.format, 3);
-        Obj_330de0* o = (Obj_330de0*)Alloc(sizeof(HulkD3dTexture));   // (x64t17) the texture's record
+        Obj_330de0* o = (Obj_330de0*)FUN_0008d690(sizeof(HulkD3dTexture));   // (x64t17) the texture's record
         if (o)
             o = ((d3dTexture_nv_330de0*)(((pure3d::d3dTexture*)(((pure3d::d3dTexture*)o)))))->Build(m, t);
         else

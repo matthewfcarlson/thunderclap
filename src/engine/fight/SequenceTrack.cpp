@@ -135,7 +135,7 @@ class TrackFactoryTemplate_2380d0 {
 extern "C" void FUN_00237f40();
 extern "C" char DAT_00428100[];
 typedef unsigned int u32_238110;
-void* __cdecl operator_new(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 struct Obj_238110 {
     void Ctor_00236d40();
 };
@@ -470,7 +470,7 @@ extern "C" void FUN_00237f40()
 // sym: ?vfunc_10@SequenceTrack@fn_00238020@@QAEIIII@Z
 namespace fn_00238020 {
 typedef unsigned int u32_238020;
-extern void* Alloc_0008d690(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 class Builder {
   public:
     u32_238020 Run_00237c90(u32_238020, hulk_uintptr, u32_238020, u32_238020, void*, u32_238020, u32_238020);
@@ -498,7 +498,7 @@ class SequenceTrack : public Track {
     u32_238020 vfunc_10(u32_238020, u32_238020, u32_238020);
 };
 u32_238020 SequenceTrack::vfunc_10(u32_238020 a, u32_238020 b, u32_238020 c) {
-    Builder* p = (Builder*)Alloc_0008d690(0x3c);
+    Builder* p = (Builder*)FUN_0008d690(0x3c);
     if (p) {
         u32_238020 x = field0c;
         return p->Run_00237c90(a, (hulk_uintptr)this, x, field18, &pad1c, b, c);
@@ -546,7 +546,7 @@ template <> void* fight::TrackFactoryCasterTemplate<fight::SequenceTrack>::vfunc
 // 0x00238110 fight::TrackFactoryTemplate<fight::SequenceTrack>::vfunc_5 (68 B): matches/0x00238110.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VSequenceTrack@fight@@@fight@@UAEPAXXZ
 template <> void* fight::TrackFactoryTemplate<fight::SequenceTrack>::vfunc_5() {
-    Obj_238110* p = (Obj_238110*)operator_new(0x20);
+    Obj_238110* p = (Obj_238110*)FUN_0008d690(0x20);
     if (p) {
         p->Ctor_00236d40();
         Sub1_238110* s1 = (Sub1_238110*)((char*)p + 0xc);

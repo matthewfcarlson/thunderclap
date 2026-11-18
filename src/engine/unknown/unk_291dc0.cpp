@@ -150,7 +150,7 @@ struct Object : owners::X_28f9a0 {
 extern "C" void __cdecl FUN_0028fcc0(const char*, ...);
 extern void __cdecl FUN_0031ba60(int, int, Device_292560**);
 extern "C" void __cdecl FUN_002c3230(Device_292560*);
-extern void __cdecl FUN_002c31b0();
+extern "C" void __cdecl FUN_002c31b0(void);   // (decl1) as defined (AdaptPDDI.cpp)
 } // namespace fn_f19264ac
 extern "C" { extern void* DAT_0052c2a8; }
 namespace fn_f19264ac {
@@ -170,7 +170,7 @@ struct T_292670 {
     int value;
     void run(H*);
 };
-void __fastcall FUN_0027afd0(CEffectStopTrack*);
+extern "C" void __fastcall FUN_0027afd0(CEffectStopTrack*);   // (decl1) as defined (unk_27aec0.cpp)
 
 
 // 0x00291dc0 FUN_00291dc0 (1377 B): equivalent/0x00291dc0.cpp

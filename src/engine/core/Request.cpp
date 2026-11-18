@@ -35,7 +35,7 @@ class Request_274b40 {
     int value;
     Request_274b40();
 };
-void FUN_002705f0();
+extern "C" int* __cdecl FUN_002705f0(void);   // (decl1) as defined (MemorySpaceAsyncRequest_Copy.cpp)
 struct Manager_274b60 {
     virtual void a();
     virtual void b();

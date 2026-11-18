@@ -83,7 +83,7 @@ class PathFormationTrack_11c450 : public Track_11c450 {
     ~PathFormationTrack_11c450();
 };
 extern "C" void __cdecl release(void*);
-extern "C" void* __cdecl alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d6d0(int);   // (decl1) as defined (unk_08ceb0.cpp)
 } // namespace fn_fbabf3f2
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" unsigned int __cdecl strlen(const char*);
@@ -515,7 +515,7 @@ char owners::Obj_11c470::FUN_0011c470(const char* s) {
         str = (char*)s;
         return 1;
     }
-    str = (char*)alloc(strlen(s) + 1);
+    str = (char*)FUN_0008d6d0(strlen(s) + 1);
     strcpy(str, s);
     return 1;
 }

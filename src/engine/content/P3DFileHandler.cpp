@@ -15,7 +15,7 @@ namespace fn_f638de75 {} using namespace fn_f638de75;
 
 // ---- declarations shared by the functions below
 namespace fn_f638de75 {
-extern "C" void Init(void*);
+extern "C" void __cdecl FUN_0026d7a0(void*);   // (decl1) as defined (unk_26d480.cpp)
 extern "C" void AddRef_0008d340(void*);
 extern "C" void Release(void*);
 struct Obj_265bf0 {
@@ -156,7 +156,7 @@ public:
 // data: gData_265bf0 = DAT_00527c28
 void __fastcall Target(Obj_265bf0* self) {
     self->flag = 1;
-    Init(&DAT_00527c28);
+    FUN_0026d7a0(&DAT_00527c28);
     void* p = self->m30;
     self->m28 = p;
     self->m2c = p;

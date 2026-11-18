@@ -563,7 +563,7 @@ inline void* operator new(size_t, void* p) {
     return p;
 }
 namespace fn_000592c0 {
-extern void* Alloc_0008d690(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 
 class Params_592c0 {
   public:
@@ -587,7 +587,7 @@ class CFightParams : public Params_592c0 {
     int field10;
 };
 CFightParams* CFightParams::vfunc_4() {
-    void* mem = Alloc_0008d690(0x14);
+    void* mem = FUN_0008d690(sizeof(CFightParams));   // (decl1) the record's size (0x14 on 32-bit)
     if (mem) {
         int x = field8;
         return new (mem) CFightParams(x);

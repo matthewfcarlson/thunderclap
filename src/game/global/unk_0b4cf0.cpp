@@ -366,7 +366,7 @@ struct Obj_b8c90 {
     virtual const char* Name();
 };
 Obj_b8c90* GetObj_000fc310();
-extern "C" void __cdecl CallA_000fc170(int);
+extern "C" void __cdecl FUN_000fc170(int);   // (decl1) as defined (unk_0fb830.cpp)
 extern "C" int __cdecl CallB_000fc310();
 extern "C" int __cdecl CallC_000fc320();
 class Renderer_b90c0 {
@@ -2168,7 +2168,7 @@ void JumpMarkers::FUN_000b8e70(int unused)
 // 0x000b9090 FUN_000b9090 (45 B): matches/0x000b9090.cpp
 // sym: ?FUN_000b9090@Target_b9090@owners@@QAEXH@Z
 void owners::Target_b9090::FUN_000b9090(int value) {
-    CallA_000fc170(value);
+    FUN_000fc170(value);
     if (CallB_000fc310() == 0) {
         if (CallC_000fc320() == 0) {
             state = 4;

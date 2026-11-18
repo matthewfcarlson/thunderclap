@@ -155,8 +155,8 @@ const char* __cdecl FUN_002611b0(Parser* p);
 hulk_freg __cdecl FUN_00260d00(const char* text);
 extern "C++" char* __cdecl FUN_002611b0(char*);
 extern "C++" hulk_freg __cdecl FUN_00260d00(char*);
-extern "C" void __cdecl FUN_00260be0(char*, float);
-void __cdecl FUN_00260be0(const char *s, float v);
+extern "C" int __cdecl FUN_00260be0(const void*, float);   // (decl1) as defined (DynAttr.cpp)
+extern "C" int __cdecl FUN_00260be0(const void*, float);   // (decl1) as defined (DynAttr.cpp)
 typedef unsigned int U_261980;
 extern char* GetText_002611b0(U_261980);
 extern "C" U_261980 FUN_00260b60(U_261980);
@@ -613,7 +613,7 @@ extern "C" void __cdecl FUN_00261770(char* s) {
 namespace fn_002617d0 {
 extern "C++" char* __cdecl FUN_002611b0(const char*);
 extern "C++" hulk_freg __cdecl FUN_00260d00(const char*);
-extern "C++" void __cdecl FUN_00260be0(const char*, float);
+extern "C" int __cdecl FUN_00260be0(const void*, float);   // (decl1) as defined (DynAttr.cpp)
 extern "C" void __cdecl FUN_002617d0(const char* s) {
     float v = FUN_00260d00(FUN_002611b0(s));
     char* p = FUN_002611b0(s);
@@ -660,7 +660,7 @@ struct Node {
 };
 extern "C++" Node* __cdecl FUN_002611b0(void* owner);
 extern "C++" hulk_freg __cdecl FUN_00260d00(void* node);
-extern "C++" void __cdecl FUN_00260be0(void* owner, float value);
+extern "C" int __cdecl FUN_00260be0(const void*, float);   // (decl1) as defined (DynAttr.cpp)
 
 extern "C" void FUN_002618a0(void* owner) {
     float result = FUN_00260d00(FUN_002611b0(owner));

@@ -34,7 +34,7 @@ struct X {
     unsigned int a, b;
     X(hulk_intptr n);
 };
-extern "C" unsigned __int64 __cdecl make_002672f0(int, int, hulk_intptr);
+extern "C" unsigned __int64 __cdecl FUN_002672f0(hulk_intptr, int, int);   // (decl1) as defined (unk_267280.cpp)
 extern void __cdecl release_0008d330(void*);
 struct Entry { unsigned int first; unsigned int second; };
 struct Table { char pad0[0x10]; unsigned int count; char pad1[0x10]; Entry *entries; unsigned int FUN_0027b200(unsigned int first, unsigned int second); };
@@ -69,7 +69,7 @@ X::X(hulk_intptr n) {
     unsigned __int64 v = 0;
     a = (unsigned int)v;
     b = (unsigned int)(v >> 32);
-    v = n ? make_002672f0(n, 0, 0) : 0;
+    v = n ? FUN_002672f0(n, 0, 0) : 0;
     a = (unsigned int)v;
     b = (unsigned int)(v >> 32);
 }

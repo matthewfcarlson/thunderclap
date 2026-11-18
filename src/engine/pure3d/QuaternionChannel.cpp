@@ -155,7 +155,7 @@ public:
     virtual void vfunc_4(int key, Vec3_28b200* out);
 };
 struct Source_28b2f0 { void FUN_0028ad20(int index, unsigned int* result); };
-extern "C" void* __cdecl AllocA_0008d6d0(unsigned int);
+extern "C" void* __cdecl FUN_0008d6d0(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 } // namespace fn_f66a22d3
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" void* __cdecl memset(void*, int, unsigned int);
@@ -598,7 +598,7 @@ extern "C" unsigned int* __cdecl FUN_0028b2f0(unsigned int* output, Source_28b2f
 // sym: ??0SimpleChannel@fn_f66a22d3@@QAE@HPAVOwner_28b420@1@@Z
 SimpleChannel::SimpleChannel(int size, Owner_28b420* owner) : c(owner), d(size), e(0) {
     if (owner == 0)
-        e = (char*)AllocA_0008d6d0(size * 2);
+        e = (char*)FUN_0008d6d0(size * 2);
     else {
         e = (char*)((void *)((owners::C_2888c0 *)owner)->FUN_002888c0((unsigned)(size * 2), 3));
         Owner_28b420* o = c;

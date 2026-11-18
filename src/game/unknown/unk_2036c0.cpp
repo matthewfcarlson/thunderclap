@@ -14,7 +14,7 @@ namespace fn_f46f06fe {} using namespace fn_f46f06fe;
 
 // ---- declarations shared by the functions below
 namespace fn_f46f06fe {
-extern "C" int __cdecl snprintf(char*, unsigned int, const char*, ...);
+extern "C" int __cdecl FUN_000964a0(char*, unsigned int, const char*, ...);   // (decl1) as defined (CUnlockablesManager.cpp)
 struct Item {
     char pad[0x54];
     short id;
@@ -65,7 +65,7 @@ namespace fn_f46f06fe {
 // data: buffer = DAT_004e5950, counter = DAT_004e5a54
 char* FUN_00203740() {
     int n = (*(int*)&DAT_004e5a54)++;
-    snprintf(((char*)((char*)&DAT_004e5948 + 8)), 256, "unique%d", n);
+    FUN_000964a0(((char*)((char*)&DAT_004e5948 + 8)), 256, "unique%d", n);
     return ((char*)((char*)&DAT_004e5948 + 8));
 }
 

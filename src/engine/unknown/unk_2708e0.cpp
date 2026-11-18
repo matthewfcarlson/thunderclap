@@ -41,7 +41,7 @@ class ControllerBuffer {
     ControllerBuffer(int);
 };
 typedef char hulk_controller_buffer_size_[(sizeof(ControllerBuffer) == sizeof(::core::ControllerBuffer)) ? 1 : -1];
-void InitBase_002705f0();
+extern "C" int* __cdecl FUN_002705f0(void);   // (decl1) as defined (MemorySpaceAsyncRequest_Copy.cpp)
 enum GameMemoryAllocator { GMA_DEFAULT };
 extern "C" void* FUN_00266e00(GameMemoryAllocator heap, hulk_uintptr size);
 } // namespace fn_f44852ae
@@ -69,7 +69,7 @@ extern "C" void __cdecl FUN_0026d850(char*);
 extern "C" void __cdecl FUN_0026d840(char*);
 typedef CoreDriveRegistryEntry CacheEntry;
 extern "C" int __cdecl FUN_00270c10(const char *);
-extern "C" bool __cdecl FUN_002771b0(const char* path);
+extern "C" bool __cdecl FUN_002771b0(const void*);   // (decl1) as defined (CementLibrary.cpp)
 extern "C" void __cdecl FUN_00277260(void** result, const char* name, unsigned int options, char* details);
 struct Resource_270f90 {
     virtual void unused();
@@ -164,7 +164,7 @@ ControllerBuffer::ControllerBuffer(int value) {
     vptr = ((hulk_intptr)DAT_0042b6b0);
     object.vptr4 = ((hulk_intptr)DAT_0042afa8);
     object.ref = *(int*)((hulk_intptr)((char*)&DAT_004cdbb0));
-    InitBase_002705f0();
+    FUN_002705f0();
     vptr = ((hulk_intptr)DAT_0042b688);
     object.vptr4 = ((hulk_intptr)DAT_0042b680);
     enabled = 1;
@@ -175,7 +175,7 @@ ControllerBuffer::ControllerBuffer(int value) {
     e = 0;
     pad = 0;
     f = (void*)(hulk_intptr)value;
-    InitBase_002705f0();
+    FUN_002705f0();
 }
 
 
@@ -262,7 +262,7 @@ extern "C" char* __cdecl strncpy(char*, const char*, unsigned int);
 #endif
 
 extern "C++" char __cdecl FUN_00345b90(int);
-extern "C++" char __cdecl FUN_002771b0(char*);
+extern "C" bool __cdecl FUN_002771b0(const void*);   // (decl1) as defined (CementLibrary.cpp)
 extern "C++" void __cdecl FUN_0026d850(void*);
 extern "C++" void __cdecl FUN_0026d840(void*);
 extern "C" char __cdecl FUN_00270ad0(char* param) {
@@ -384,7 +384,7 @@ int __cdecl FUN_00345b90(int);
 void __cdecl FUN_0026d850(void*);
 void __cdecl FUN_0026d840(void*);
 extern "C++" int __cdecl FUN_00270c10(const char *);
-unsigned char __cdecl FUN_002771b0(const char*);
+extern "C" bool __cdecl FUN_002771b0(const void*);   // (decl1) as defined (CementLibrary.cpp)
 struct Receiver_270d40 {
     virtual void slot0();
     virtual void slot1();

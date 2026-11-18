@@ -20,7 +20,7 @@ class DriveCancelRequest {
     DriveCancelRequest(HulkInstanceDrive*);
     void Init_00275600(HulkInstanceDrive*);   // (x64t10) DriveRequest's constructor takes the InstanceDrive (was an int)
 };
-extern void Helper_002705f0();
+extern "C" int* __cdecl FUN_002705f0(void);   // (decl1) as defined (MemorySpaceAsyncRequest_Copy.cpp)
 struct Lock_275ca0 {
     virtual void lock();
     virtual void unlock();
@@ -61,7 +61,7 @@ struct DriveRequest : Request {
 DriveCancelRequest::DriveCancelRequest(HulkInstanceDrive* arg) {
     Init_00275600(arg);
     value = ((hulk_intptr)DAT_0042bc80);
-    Helper_002705f0();
+    FUN_002705f0();
 }
 
 

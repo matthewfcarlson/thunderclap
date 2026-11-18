@@ -11,8 +11,8 @@ namespace fn_f3dfd5e8 {} using namespace fn_f3dfd5e8;
 
 // ---- declarations shared by the functions below
 namespace fn_f3dfd5e8 {
-void __cdecl FUN_00214a90(LuaVMState* L, const char* fmt, ...);
-LuaVMState* __cdecl FUN_002152b0(LuaVMState* L, int errcode);
+extern "C" void __cdecl FUN_00214a90(LuaVMState*, const char*, ...);   // (decl1) as defined (ldebug.cpp)
+extern "C" LuaVMState* __cdecl FUN_002152b0(LuaVMState*, int);   // (decl1) as defined (ldo.cpp)
 extern "C" void* __cdecl FUN_0021add0(LuaVMState* L, void* block, unsigned int osize, unsigned int nsize);
 
 

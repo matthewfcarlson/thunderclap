@@ -4114,7 +4114,7 @@ class CCollisionAction : public CAction {
   public:
     CCollisionAction* vfunc_2(unsigned char);
 };
-extern void __fastcall FUN_000f8bd0(void*);
+extern "C" void __fastcall FUN_000f8bd0(void*);   // (decl1) as defined (unk_0f86f0.cpp)
 extern void thunk_FUN_00267090(CCollisionAction*);
 CCollisionAction* CCollisionAction::vfunc_2(unsigned char flags) {
     FUN_000f8bd0((void*)(this));
@@ -5919,7 +5919,7 @@ class CCollisionAction : public CAction {
   public:
     CCollisionAction* vfunc_2(unsigned char);
 };
-extern void __fastcall FUN_000f9a80(void*);
+extern "C" void __fastcall FUN_000f9a80(void*);   // (decl1) as defined (CTokenString.cpp)
 extern void thunk_FUN_00267090(CCollisionAction*);
 CCollisionAction* CCollisionAction::vfunc_2(unsigned char flags) {
     FUN_000f9a80((void*)(this));

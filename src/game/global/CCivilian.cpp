@@ -49,7 +49,7 @@ struct Sub_81340 {
 struct Tmp_81340 {
     void F1c3b80_001c3b80(void*);
 };
-extern "C" Tmp_81340* __stdcall FUN_001c3d90();
+extern "C" Tmp_81340* __cdecl FUN_001c3d90(void);   // (decl1) as defined (HulkShaderCallback.cpp)
 extern Mgr_81340* hulk_at_004dd700;
 class CCivilian_81340 : public Entity_81340 {
   public:

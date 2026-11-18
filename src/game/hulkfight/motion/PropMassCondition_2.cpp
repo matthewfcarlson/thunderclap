@@ -26,7 +26,7 @@ class TrackFactoryTemplate_18c5b0 {
     TrackImpl mTrack;
 };
 extern "C" void FUN_00189ba0();
-extern "C" void* __cdecl operator_new(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 struct Condition_18c5f0 {
     virtual void f0();
     Condition_18c5f0(int);
@@ -81,7 +81,7 @@ namespace fn_ffe1b429 {
 // 0x0018c5f0 fight::ConditionFactoryTemplate<hulkfight::motion::PropMassCondition>::vfunc_5 (69 B): matches/0x0018c5f0.cpp
 // sym: ?factory_vfunc_5@fn_ffe1b429@@YAPAUPropMassCondition_18c5f0@1@XZ
 PropMassCondition_18c5f0* factory_vfunc_5() {
-    PropMassCondition_18c5f0* p = (PropMassCondition_18c5f0*)operator_new(0x28);
+    PropMassCondition_18c5f0* p = (PropMassCondition_18c5f0*)FUN_0008d690(0x28);
     if (p) {
         p = new (p) PropMassCondition_18c5f0();
     } else

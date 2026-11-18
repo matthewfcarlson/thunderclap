@@ -72,9 +72,9 @@ struct X_2a7fd0 {
     u32_2a7fd0 b;
     void f();
 };
-extern void* Alloc_0008d6d0(unsigned int);
+extern "C" void* __cdecl FUN_0008d6d0(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 extern "C" int * __cdecl FUN_002a7f30(int *, int, const int *);
-extern "C" void* __cdecl FUN_0008d6d0(unsigned int);
+extern "C" void* __cdecl FUN_0008d6d0(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 extern "C" char * __cdecl FUN_002a7f60(char *, int, const char *);
 extern void* hulk_at_0042dc94[];
 class SimpleFrameController_2a80c0 {
@@ -471,7 +471,7 @@ bool owners::Buffer_2a8000::FUN_002a8000(unsigned int count, void* arg) {
     if (begin != 0)
         return false;
     if (count > 0) {
-        int* p = (int*)Alloc_0008d6d0(count * 4);
+        int* p = (int*)FUN_0008d6d0(count * 4);
         begin = p;
         if (p != 0) {
             end = p + count;

@@ -29,8 +29,8 @@ class ConditionFactory : public Entity_2343b0 {
 };
 typedef unsigned int U_2343e0;
 typedef unsigned __int64 U64_2343e0;
-U_2343e0 __cdecl FUN_00238190(U_2343e0);
-U_2343e0 __cdecl FUN_00266da0(U_2343e0);
+extern "C" U_2343e0 __cdecl FUN_00238190(U_2343e0);   // (decl1) as defined (MaybeCondition.cpp)
+extern "C" U_2343e0 __cdecl FUN_00266da0(U_2343e0);   // (decl1) as defined (unk_266950.cpp)
 } // namespace fn_fc77ac82
 U64_2343e0 __cdecl FUN_002672f0(U_2343e0,U_2343e0,U_2343e0);
 namespace fn_fc77ac82 {

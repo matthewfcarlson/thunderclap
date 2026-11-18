@@ -97,7 +97,7 @@ class MemoryPool_270130 {
     virtual void f12();
 };
 extern "C" char DAT_0042b5f4[];
-void FUN_002705f0();
+extern "C" int* __cdecl FUN_002705f0(void);   // (decl1) as defined (MemorySpaceAsyncRequest_Copy.cpp)
 class MemoryPool_270170 : public CoreMemoryPool {
   public:
     MemoryPool_270170();

@@ -74,7 +74,7 @@ struct Owner_bc9f0 {
     char pad0[0x18];
     Label_bc9f0 label;
 };
-Owner_bc9f0* FUN_000fc260(int id);
+extern "C" Owner_bc9f0* __cdecl FUN_000fc260(hulk_uintptr);   // (decl1) as defined (unk_0fb830.cpp)
 } // namespace fn_ff542b10
 class Gfx {
   public:

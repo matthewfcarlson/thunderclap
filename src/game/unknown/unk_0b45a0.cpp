@@ -74,7 +74,7 @@ struct Object {
 };
 extern char DAT_0049dba4;
 extern char DAT_0049f454;
-extern void* __cdecl FUN_000fc260(const char*);
+extern "C" void* __cdecl FUN_000fc260(const char*);   // (decl1) as defined (unk_0fb830.cpp)
 extern Object* __cdecl FUN_00344e74(void*, int, void*, void*, int);
 extern "C" char* __cdecl FUN_00096450(const char*);
 

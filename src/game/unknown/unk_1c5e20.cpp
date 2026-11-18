@@ -58,7 +58,7 @@ class Thing {
 };
 typedef unsigned int u32_1c5f20;
 void __cdecl thunk_FUN_00267090(u32_1c5f20);
-extern "C" void* Alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d6d0(int);   // (decl1) as defined (unk_08ceb0.cpp)
 extern "C" void Free(void*);
 class Item_1c5fb0 {
   public:
@@ -199,7 +199,7 @@ void owners::Thing_1c5f30::FUN_001c5f30(hulk_uintptr value) {
         if (capacity == 0)
             capacity = 0x32;
         capacity = capacity * 2;
-        p = (unsigned int*)Alloc(capacity * 4);
+        p = (unsigned int*)FUN_0008d6d0(capacity * 4);
         if (data != 0) {
             n = 0;
             while (n < count) {

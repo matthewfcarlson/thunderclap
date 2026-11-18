@@ -23,7 +23,7 @@ class DriveFindCloseRequest : public DriveRequest_275b40 {
     DriveFindCloseRequest(HulkInstanceDrive*);
     virtual void Fn();
 };
-extern void FUN_002705f0();
+extern "C" int* __cdecl FUN_002705f0(void);   // (decl1) as defined (MemorySpaceAsyncRequest_Copy.cpp)
 typedef unsigned char byte_275b60;
 struct O_275b60 {
     virtual void a();

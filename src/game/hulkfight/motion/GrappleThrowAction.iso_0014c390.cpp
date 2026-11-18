@@ -17,13 +17,13 @@ struct TrackFactory_14c390 {
     virtual void e();
     virtual void f();
 };
-extern "C" void* __cdecl Allocate(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 struct GrappleHitReactionTrack_nv_14c390 {
     void* init_001476d0();
 };
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::GrappleHitReactionTrack>::vfunc_5() {
-    void* p = Allocate(0x58);
+    void* p = FUN_0008d690(0x58);
     if (p)
         return (void*)(((GrappleHitReactionTrack_nv_14c390*)(((hulkfight::motion::GrappleHitReactionTrack*)(((hulkfight::motion::GrappleHitReactionTrack*)p)))))->init_001476d0());
     return (void*)(0);

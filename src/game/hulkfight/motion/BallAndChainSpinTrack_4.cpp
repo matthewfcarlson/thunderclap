@@ -27,7 +27,7 @@ class TrackFactoryTemplate_18c0e0 {
     TrackImpl mTrack;
 };
 extern "C" void FUN_00188220();
-extern "C" void* __cdecl operator_new(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 extern int hulk_at_0041a828;
 
 } // namespace fn_f733270e
@@ -53,7 +53,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::BallAndCh
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VBallAndChainSpinTrack@motion@hulkfight@@@fight@@UAEPAXXZ
 // Same code shape as 0x000704b0 (propagated; names are from that function)
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::BallAndChainSpinTrack>::vfunc_5() {
-    void* p = operator_new(0x34);
+    void* p = FUN_0008d690(0x34);
     if (p)
         return (void*)(Construct(p));
     return (void*)(0);

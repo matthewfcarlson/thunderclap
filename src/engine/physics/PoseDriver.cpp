@@ -44,7 +44,7 @@ extern "C" char DAT_0043209c[];
 struct PoseDriver_nv_30eb10 {
     void InitBase_0027b070();
 };
-void __fastcall FUN_0027afd0(CEffectStopTrack*);
+extern "C" void __fastcall FUN_0027afd0(CEffectStopTrack*);   // (decl1) as defined (unk_27aec0.cpp)
 extern void* hulk_at_0043209c[];
 class Entity_30eb60 {
   public:

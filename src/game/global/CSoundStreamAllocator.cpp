@@ -23,7 +23,7 @@ class StreamPlayerAllocator_1f2db0 {
     virtual int vfunc_1();
 };
 extern int __cdecl FUN_0024b030(int);
-extern int __cdecl FUN_0024c590(int, int);
+extern "C" int __cdecl FUN_0024c590(hulk_intptr, int);   // (decl1) as defined (unk_24c1c0.cpp)
 struct Receiver_1f2e00 {
     void run_001e87c0(int);
 };

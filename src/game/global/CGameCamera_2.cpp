@@ -440,7 +440,7 @@ extern int CEffectStopTrack_vftable;
 class CEffectStopTrack {
   public:
 };
-void __fastcall FUN_002926c0(CEffectStopTrack*);
+extern "C" void __fastcall FUN_002926c0(CEffectStopTrack*);   // (decl1) as defined (unk_291dc0.cpp)
 extern "C" void __fastcall FUN_000a9620(CEffectStopTrack* self) {
     *(hulk_intptr*)self = (hulk_intptr)((int*)DAT_00405894);
     FUN_002926c0(self);

@@ -22,7 +22,7 @@ class Elem_274d80 {
     virtual void A();
     virtual void B();
 };
-extern void FUN_002705f0();
+extern "C" int* __cdecl FUN_002705f0(void);   // (decl1) as defined (MemorySpaceAsyncRequest_Copy.cpp)
 struct DriveCompletionRequest_274d80 {
     hulk_intptr vf, p4, p8;
     Obj_274d80* pC;

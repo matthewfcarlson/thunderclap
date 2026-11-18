@@ -43,7 +43,7 @@ struct CriticalMassDrainTrack_17e910 : Base_17e910 {
     int m10;
     void Init_00236d40();
 };
-extern "C" void* __cdecl operator_new(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 extern int hulk_at_00418f30;
 
 } // namespace fn_ff12b9e5
@@ -68,7 +68,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::CriticalM
 // 0x0017e910 fight::TrackFactoryTemplate<hulkfight::motion::CriticalMassDrainTrack>::vfunc_5 (59 B): matches/0x0017e910.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VCriticalMassDrainTrack@motion@hulkfight@@@fight@@UAEPAXXZ
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::CriticalMassDrainTrack>::vfunc_5() {
-    CriticalMassDrainTrack_17e910* p = (CriticalMassDrainTrack_17e910*)operator_new(0x14);
+    CriticalMassDrainTrack_17e910* p = (CriticalMassDrainTrack_17e910*)FUN_0008d690(sizeof(CriticalMassDrainTrack_17e910));   // (decl1) the record's size (0x14 on 32-bit)
     if (p) {
         p->Init_00236d40();
         *(hulk_intptr*)p = ((hulk_intptr)DAT_00417c28);

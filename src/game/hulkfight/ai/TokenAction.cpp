@@ -55,7 +55,7 @@ struct State_10e000 {
     char pad[0x14];
     u8 flag;
 };
-Ret_10e000* FUN_678d0_000678d0();
+extern "C" Ret_10e000* __cdecl FUN_000678d0(void);   // (decl1) as defined (CWeaponCollisionTrack.cpp)
 
 } // namespace fn_f83e04cb
 
@@ -102,7 +102,7 @@ void hulkfight::ai::TokenAction::vfunc_4() {
         Mid_10e000* b = a->getB_00059a30();
         *((u8*)b + 0x1b84) = 0;
         if ((*(State_10e000 * *)&this->f_1c)->flag) {
-            FUN_678d0_000678d0()->last_000661f0();
+            FUN_000678d0()->last_000661f0();
         }
     }
 }

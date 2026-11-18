@@ -13,7 +13,7 @@ namespace fn_f0e089ff {} using namespace fn_f0e089ff;
 namespace fn_f0e089ff {
 extern void* __fastcall FUN_000592a0(void*);
 extern "C" void __fastcall FUN_00059a30(void*);
-extern void* FUN_000678d0();
+extern "C" void* __cdecl FUN_000678d0(void);   // (decl1) as defined (CWeaponCollisionTrack.cpp)
 extern void __fastcall FUN_00067730(void*);
 extern void* __cdecl FUN_00344e74(void*, int, const void*, const void*, int);
 extern const int hulk_at_00494b44;

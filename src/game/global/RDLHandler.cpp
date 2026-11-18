@@ -68,7 +68,7 @@ class RDLHandler_44a80 : public CAction {
   public:
     RDLHandler_44a80* vfunc_2(unsigned char);
 };
-extern void __fastcall FUN_0027a560(void*);
+extern "C" void __fastcall FUN_0027a560(void*);   // (decl1) as defined (unk_27a560.cpp)
 extern void thunk_FUN_00267090(RDLHandler_44a80*);
 typedef unsigned int U32_44ad0;
 struct Pair_44ad0 {

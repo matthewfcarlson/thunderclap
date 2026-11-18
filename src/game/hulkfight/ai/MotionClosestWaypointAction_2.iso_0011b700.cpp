@@ -10,11 +10,11 @@
 #include "gen/fight.h"
 
 typedef unsigned int uint;
-extern "C" void* __cdecl operator_new(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 extern "C" hulk_intptr __fastcall Construct(void*);
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::ai::MotionClosestWaypointTrack>::vfunc_5() {
-    void* p = operator_new(0x34);
+    void* p = FUN_0008d690(0x34);
     if (p)
         return (void*)(Construct(p));
     return (void*)(0);

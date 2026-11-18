@@ -18,7 +18,7 @@ extern "C" int __cdecl fprintf(void*, const char*, ...);
 namespace fn_f1b96001 {
 extern "C" void __cdecl FUN_00338d90(LuaVMState* L, int level);
 extern "C" const char* __cdecl FUN_00213440(LuaVMState* L, const char* fmt, char* argp);
-extern "C" void __cdecl FUN_00213c90(LuaVMState* L, int n);
+extern "C" void __cdecl FUN_00213c90(LuaVMState*, int);   // (decl1) as defined (lapi.cpp)
 extern "C" int __cdecl FUN_00213c40(LuaVMState* L);
 extern "C" void __cdecl FUN_002135a0(LuaVMState* L, int idx, const char* k);
 extern "C" int __cdecl FUN_00212f00(LuaVMState* L, int idx);
@@ -50,7 +50,7 @@ extern "C" void __cdecl FUN_00213360(LuaVMState*, int);
 extern "C" void __cdecl FUN_00213600(LuaVMState*,int);
 extern "C" int __cdecl FUN_00213120(LuaVMState*,int);
 extern "C++" void __cdecl FUN_003393f0(LuaVMLBuffer* B);
-extern "C" unsigned int __cdecl FUN_002131f0(LuaVMState *L, int idx);
+extern "C" unsigned int __cdecl FUN_002131f0(void*, int);   // (decl1) as defined (lapi.cpp)
 extern "C" const char *__cdecl FUN_00213190(LuaVMState *L, int idx);
 extern "C" {
 int __cdecl FUN_003392c0(LuaVMState* L, int a);
@@ -282,8 +282,8 @@ namespace fn_003393f0 {
 // FUN_003393f0 @ 0x003393f0
 // Lua 5.0 lauxlib adjuststack: concatenates the buffer's pending strings on the stack.
 
-extern "C++" unsigned int __cdecl FUN_002131f0(LuaVMState* L, int idx);   // lua_strlen
-extern "C++" void __cdecl FUN_00213c90(LuaVMState* L, int n);             // lua_concat
+extern "C" unsigned int __cdecl FUN_002131f0(void*, int);   // lua_strlen
+extern "C" void __cdecl FUN_00213c90(LuaVMState*, int);   // lua_concat
 
 #define LIMIT 10
 

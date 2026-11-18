@@ -225,9 +225,9 @@ struct ScriptReader_23acc0 {
 extern "C" void __cdecl FUN_00267880(char*, hulk_intptr, int);
 struct B_23ada0 {
 };
-extern "C" void* F238190_00238190(int a);
-extern "C" void* F266e00_00266e00(void* a, int n);
-extern "C" void F267090_00267090(void* p);
+extern "C" int __cdecl FUN_00238190(int);   // (decl1) as defined (MaybeCondition.cpp)
+extern "C" void* FUN_00266e00(int heap, int size);   // (decl1) as defined (unk_266950.cpp)
+extern "C" void __cdecl FUN_00267090(void*);   // (decl1) as defined (MemoryAllocatorMalloc.cpp)
 struct ScriptReader_nv_23ada0 {
     bool Size_0023acc0(int a, int* n);
 };
@@ -736,12 +736,12 @@ bool fight::ScriptReader::FUN_0023ada0(int a, void* __p1) { B_23ada0 * b = (B_23
     if (!((ScriptReader_nv_23ada0*)this)->Size_0023acc0(a, &n))
         return false;
     int len = n + 1;
-    void* p = F266e00_00266e00(F238190_00238190(1), len);
+    void* p = FUN_00266e00(FUN_00238190(1), len);
     bool r = ((fight::ScriptReader *)(((ScriptReader_nv_23ada0*)this)))->FUN_0023ad30(a, (char *)p, len);
     if (!r)
         return false;
     ((owners::Target_27b040 *)b)->FUN_0027b040((hulk_uintptr)p);
-    F267090_00267090(p);
+    FUN_00267090(p);
     return r;
 }
 

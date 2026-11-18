@@ -16,13 +16,13 @@ struct TrackFactory_13e710 {
     virtual void e();
     virtual void f();
 };
-extern "C" void* __cdecl Allocate(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 struct AnimationVelocityScaledTrack_nv_13e710 {
     void* init_0013a4a0();
 };
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::AnimationVelocityScaledTrack>::vfunc_5() {
-    void* p = Allocate(0x58);
+    void* p = FUN_0008d690(0x58);
     if (p)
         return (void*)(((AnimationVelocityScaledTrack_nv_13e710*)(((hulkfight::motion::AnimationVelocityScaledTrack*)(((hulkfight::motion::AnimationVelocityScaledTrack*)p)))))->init_0013a4a0());
     return (void*)(0);

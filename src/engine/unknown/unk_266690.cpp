@@ -32,7 +32,7 @@ class Thing_266760 : public ContentLoadRequest {
     void Wait();
 };
 void thunk_002696a0();
-void step_002656a0();
+extern "C" void __cdecl FUN_002656a0(void);   // (decl1) as defined (LoadStream.cpp)
 class Sub_266790 {
   public:
     int Fnf_00263fc0();
@@ -131,7 +131,7 @@ bool __fastcall target(C_266750* self) {
 void Thing_266760::Wait() {
     while (state != 3) {
         thunk_002696a0();
-        step_002656a0();
+        FUN_002656a0();
     }
 }
 

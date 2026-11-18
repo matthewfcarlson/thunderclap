@@ -472,7 +472,7 @@ class Y_1d7510 {
   public:
     void Go_00065ee0(float* v);
 };
-Y_1d7510* __stdcall GetY_000678d0();
+extern "C" Y_1d7510* __cdecl FUN_000678d0(void);   // (decl1) as defined (CWeaponCollisionTrack.cpp)
 class Fn_1d7510 {
   public:
     virtual void v0();
@@ -1724,7 +1724,7 @@ void W_1d7510::F() {
             float t[2];
             t[0] = x;
             t[1] = y;
-            GetY_000678d0()->Go_00065ee0(t);
+            FUN_000678d0()->Go_00065ee0(t);
         }
     }
 }

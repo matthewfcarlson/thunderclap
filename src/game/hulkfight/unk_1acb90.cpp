@@ -63,7 +63,7 @@ struct Buffer_1ad5c0 {
     Rec_1ad5c0* cur;
     Rec_1ad5c0* end;
 };
-extern "C" void* Alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d6d0(int);   // (decl1) as defined (unk_08ceb0.cpp)
 typedef unsigned int u32_1ad6d0;
 struct Obj_1ad6d0 {
     u32_1ad6d0 a;
@@ -154,7 +154,7 @@ struct Entry {
 };
 struct Group { char pad[0x10]; Item *item; void *unused; };
 extern void* DAT_0041d800[];
-void* FUN_0008d6d0(int);
+extern "C" void* __cdecl FUN_0008d6d0(int);   // (decl1) as defined (unk_08ceb0.cpp)
 class CPathManager_1aec00 {
   public:
     void* vptr;
@@ -179,7 +179,7 @@ struct Out_1aecb0 {
     Obj_1aecb0* o;
     void* t;
 };
-extern void* __cdecl FUN_0008d6d0(unsigned int);
+extern "C" void* __cdecl FUN_0008d6d0(int);   // (decl1) as defined (unk_08ceb0.cpp)
 void FUN_001aeae0();
 void FUN_001aea70();
 class T_1aecb0 {
@@ -345,7 +345,7 @@ extern "C" char FUN_001ad5c0(Buffer_1ad5c0* b, Node* n) {
     Rec_1ad5c0* old = b->begin;
     b->cur = old;
     if (b->end - old == 0) {
-        Rec_1ad5c0* q = (Rec_1ad5c0*)Alloc(0x1400);
+        Rec_1ad5c0* q = (Rec_1ad5c0*)FUN_0008d6d0(0x1400);
         b->begin = q;
         if (q) {
             b->cur = q;
@@ -950,7 +950,7 @@ struct Pair_1ae9e0 {
 struct This_FUN_00230be0 {
     void* FUN_00230be0(void* a, const Src_1ae9e0* b);
 };
-void* FUN_0008d6d0(unsigned n);
+extern "C" void* __cdecl FUN_0008d6d0(int);   // (decl1) as defined (unk_08ceb0.cpp)
 struct O_1ae9e0 {
     Pair_1ae9e0* F(Pair_1ae9e0* out, const Src_1ae9e0* s);
     void FnG_00230c30(Node* n, void* a, void* b);

@@ -55,10 +55,10 @@ namespace core {
 extern int hulk_at_0052a1c8;
 }
 namespace core {
-void __cdecl Lock_0026d850(void* p);
+extern "C" void __cdecl FUN_0026d850(void*);   // (decl1) as defined (unk_26d480.cpp)
 }
 namespace core {
-void __cdecl Unlock_0026d840(void* p);
+extern "C" void __cdecl FUN_0026d840(void*);   // (decl1) as defined (unk_26d480.cpp)
 }
 namespace core {
 extern void* hulk_at_0042b9bc[];
@@ -100,9 +100,9 @@ void* DriveFileDestroyRequest::vfunc_0(unsigned flags) {
     mObj->g1();
     *(void***)this = hulk_at_0042b914;
     if (flags & 1) {
-        Lock_0026d850(&hulk_at_0052a1c8);
+        FUN_0026d850(&hulk_at_0052a1c8);
         hulk_at_0052a1e4->Free(this);
-        Unlock_0026d840(&hulk_at_0052a1c8);
+        FUN_0026d840(&hulk_at_0052a1c8);
     }
     return this;
 }

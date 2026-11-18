@@ -20,7 +20,7 @@ struct Inner_274e60 {
 struct File {
     virtual void a();
 };
-extern "C" int* FUN_002705f0();
+extern "C" int* __cdecl FUN_002705f0(void);   // (decl1) as defined (MemorySpaceAsyncRequest_Copy.cpp)
 struct FileRequest_274e60 : CoreRequest {
     CoreRequest* run(hulk_uintptr arg);
 };
@@ -91,7 +91,7 @@ class FileOpenByKeyRequest_274fc0 {
     void Init_00274e60(int);
     FileOpenByKeyRequest_274fc0(hulk_intptr, int, hulk_intptr);
 };
-extern void Finish_002705f0();
+extern "C" int* __cdecl FUN_002705f0(void);   // (decl1) as defined (MemorySpaceAsyncRequest_Copy.cpp)
 class Alloc_274ff0 {
   public:
     virtual void a();
@@ -121,7 +121,7 @@ class FileOpenByKeyRequest_274ff0 {
     FileOpenByKeyRequest_274ff0* Dtor(unsigned char flag);
 };
 extern "C" char DAT_0042ba40[];
-void FreeFinish_002705f0();
+extern "C" int* __cdecl FUN_002705f0(void);   // (decl1) as defined (MemorySpaceAsyncRequest_Copy.cpp)
 class SaveGameOpenRequest {
   public:
     hulk_intptr vptr;
@@ -267,7 +267,7 @@ FileOpenByKeyRequest_274fc0::FileOpenByKeyRequest_274fc0(hulk_intptr x, int yy, 
     *(hulk_intptr*)this = ((hulk_intptr)DAT_0042ba20);
     y = yy;
     z = zz;
-    Finish_002705f0();
+    FUN_002705f0();
 }
 
 
@@ -299,7 +299,7 @@ SaveGameOpenRequest* SaveGameOpenRequest::FUN_00275060(int a, int b, unsigned ch
     field10 = c;
     field14 = d;
     field18 = e;
-    FreeFinish_002705f0();
+    FUN_002705f0();
     return this;
 }
 

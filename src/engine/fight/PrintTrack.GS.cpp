@@ -15,7 +15,7 @@ namespace fn_f6c6e304 {} using namespace fn_f6c6e304;
 // ---- declarations shared by the functions below
 namespace fn_f6c6e304 {
 typedef int (__cdecl *SinkFn)(int, int, const char*, int);
-int __cdecl FUN_00267730(char* buf, int size, const char* fmt, char* args);
+extern "C" int __cdecl FUN_00267730(char*, int, const char*, char*);   // (decl1) as defined (unk_267280.cpp)
 
 
 // 0x00238bb0 FUN_00238bb0 (135 B): matches/0x00238bb0.cpp

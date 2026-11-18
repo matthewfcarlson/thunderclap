@@ -45,7 +45,7 @@ class CGrappleInvulnerableTrack_769a0 {
     virtual void f();
     CGrappleInvulnerableTrack_769a0();
 };
-extern "C" void* __cdecl Alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 extern int hulk_at_003fe880;
 extern void* hulk_at_003f98d0[];
 class CInvulnerableTrack_769d0 {
@@ -94,7 +94,7 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
 // 0x000769a0 fight::TrackFactoryTemplate<CGrappleInvulnerableTrack>::vfunc_5 (38 B): matches/0x000769a0.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VCGrappleInvulnerableTrack@@@fight@@UAEPAXXZ
 template <> void* fight::TrackFactoryTemplate<CGrappleInvulnerableTrack>::vfunc_5() {
-    CGrappleInvulnerableTrack_769a0* p = (CGrappleInvulnerableTrack_769a0*)Alloc(0x18);
+    CGrappleInvulnerableTrack_769a0* p = (CGrappleInvulnerableTrack_769a0*)FUN_0008d690(0x18);
     if (p) {
         p->CGrappleInvulnerableTrack_769a0::CGrappleInvulnerableTrack_769a0();
         *(hulk_intptr*)p = (hulk_intptr)&hulk_at_003fe880;

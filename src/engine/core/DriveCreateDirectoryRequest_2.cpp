@@ -23,7 +23,7 @@ typedef unsigned int u32_275880;
 struct ThisCall_00275600 {
     void FUN_00275600(HulkInstanceDrive*);
 };
-extern void FUN_002705f0();
+extern "C" int* __cdecl FUN_002705f0(void);   // (decl1) as defined (MemorySpaceAsyncRequest_Copy.cpp)
 class DriveCreateDirectoryRequest {
   public:
     void* vptr;

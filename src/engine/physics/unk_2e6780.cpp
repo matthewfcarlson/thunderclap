@@ -69,7 +69,7 @@ extern int __cdecl FUN_002e6db0(Stream_2e6e50*);
 typedef unsigned int u32_2e6f50;
 extern "C" int __cdecl FUN_002e6e50(void *, int, const char *, int);
 void FUN_002dd690(PngStruct*, unsigned char*, unsigned int);   // (x64t16) as defined
-void FUN_002d6cb0(PngStruct*, unsigned char*, unsigned int);
+extern "C" void __cdecl FUN_002d6cb0(PngStruct*, unsigned char*, unsigned int);   // (decl1) as defined (unk_2d6bb0.cpp)
 typedef PngStruct Obj_2e75b0;   // (x64t16) decls/libpng.h
 extern int __cdecl FUN_002e7500(int*);
 typedef PngStruct PngStruct_2e7680;   // (x64t16) decls/libpng.h

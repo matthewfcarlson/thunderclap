@@ -22,7 +22,7 @@ void thunk_FUN_00270f10(const char*, void*);
 extern "C" void FUN_00265b70(int);
 extern "C" void FUN_0008fca0();
 extern "C" void* FUN_0008d690(int);
-void FUN_00333b80();
+extern "C" void __cdecl FUN_00333b80(void);   // (decl1) as defined (PlayerBink.cpp)
 extern "C" void FUN_00268490();
 extern "C" void FUN_00265c40();
 extern "C" bool __cdecl thunk_FUN_00270f90(const char*);

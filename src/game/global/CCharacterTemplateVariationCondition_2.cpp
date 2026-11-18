@@ -29,7 +29,7 @@ class TrackFactoryTemplate_58d30 {
 };
 extern "C" void FUN_00056990();
 extern "C" char DAT_003f734c[];
-extern "C" void* __cdecl Alloc(hulk_intptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 struct Entity_58d70 {
     void Init_0027af00();
 };
@@ -69,7 +69,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<CCharacterTemplateVariat
 // 0x00058d70 fight::ConditionFactoryTemplate<CCharacterTemplateVariationCondition>::vfunc_5 (55 B): matches/0x00058d70.cpp
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VCCharacterTemplateVariationCondition@@@fight@@UAEPAXXZ
 template <> void* fight::ConditionFactoryTemplate<CCharacterTemplateVariationCondition>::vfunc_5() {
-    Condition_58d70* p = (Condition_58d70*)Alloc(0x18);
+    Condition_58d70* p = (Condition_58d70*)FUN_0008d690(0x18);
     if (p) {
         p->Ctor_00234590(0);
         *(void**)p = (void*)((hulk_intptr)DAT_003f734c);

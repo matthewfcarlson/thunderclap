@@ -30,7 +30,7 @@ class PropSpawnTrack {
     void run();
 };
 extern "C" void __cdecl Free(void*);
-extern "C" void* __cdecl Alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d6d0(int);   // (decl1) as defined (unk_08ceb0.cpp)
 extern int* hulk_at_004e14e8;
 class CCondition_1816f0 {
   public:
@@ -67,7 +67,7 @@ unsigned char owners::X_181670::FUN_00181670(const char* s) {
         p = 0;
         return 1;
     }
-    p = (char*)Alloc(strlen(s) + 1);
+    p = (char*)FUN_0008d6d0(strlen(s) + 1);
     strcpy(p, s);
     return 1;
 }

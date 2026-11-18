@@ -164,7 +164,7 @@ class Node {
     Node* next;
     int mode;
 };
-extern int __cdecl FUN_00238190(int);
+extern "C" int __cdecl FUN_00238190(int);   // (decl1) as defined (MaybeCondition.cpp)
 extern "C" int __cdecl FUN_00266da0(int);
 class Owner_231a40 {
   public:

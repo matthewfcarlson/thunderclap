@@ -28,7 +28,7 @@ class TrackFactoryTemplate_16e030 {
 };
 extern "C" void FUN_0016bb80();
 extern "C" char DAT_00416938[];
-extern "C" void* __cdecl operator_new(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 class Obj {
   public:
     Obj(int);
@@ -68,7 +68,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::motion::Veloc
 // 0x0016e070 fight::ConditionFactoryTemplate<hulkfight::motion::VelocityAnimatedXZAngleCondition>::vfunc_5 (54 B): matches/0x0016e070.cpp
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VVelocityAnimatedXZAngleCondition@motion@hulkfight@@@fight@@UAEPAXXZ
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::VelocityAnimatedXZAngleCondition>::vfunc_5() {
-    Obj* p = (Obj*)operator_new(0x14);
+    Obj* p = (Obj*)FUN_0008d690(sizeof(Obj));   // (decl1) the record's size (0x14 on 32-bit)
     if (p) {
         p->Obj::Obj(0);
         p->vf = ((hulk_intptr)DAT_00416938);

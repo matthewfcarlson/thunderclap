@@ -23,7 +23,7 @@ class DriftToPositionTrack {
     void tail_00236d60();
 };
 extern "C" void __cdecl Free(void*);
-extern "C" void* __cdecl Alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d6d0(int);   // (decl1) as defined (unk_08ceb0.cpp)
 inline void Copy(char* dst, const char* src) {
     char c;
     do {
@@ -76,7 +76,7 @@ unsigned char Obj::Set(const char* p) {
         s = 0;
         return 1;
     }
-    char* dst = (char*)Alloc(strlen(p) + 1);
+    char* dst = (char*)FUN_0008d6d0(strlen(p) + 1);
     s = dst;
     Copy(dst, p);
     return 1;

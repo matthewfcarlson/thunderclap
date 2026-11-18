@@ -69,7 +69,7 @@ struct Entry_df7b0 {
     int key;
     int value;
 };
-int __cdecl FUN_000f6610(int a);
+extern "C" hulk_intptr __cdecl FUN_000f6610(hulk_intptr);   // (decl1) as defined (FEThingsBase_3.cpp)
 class Table_df7b0 {
 public:
     Entry_df7b0 entries[0x40];
@@ -84,7 +84,7 @@ class C_df820 {
         int b;
     } e[64];
 };
-int Dup_000f6610(int a);
+extern "C" hulk_intptr __cdecl FUN_000f6610(hulk_intptr);   // (decl1) as defined (FEThingsBase_3.cpp)
 struct Slot_df890 {
     int a;
     int b;
@@ -94,7 +94,7 @@ struct S_df890 {
     Slot_df890 s[64];
     void Add(int a, int b);
 };
-int Conv_000f6610(int);
+extern "C" hulk_intptr __cdecl FUN_000f6610(hulk_intptr);   // (decl1) as defined (FEThingsBase_3.cpp)
 class C_df900 {
   public:
     char pad[0x600];
@@ -264,7 +264,7 @@ void S_df890::Add(int a, int b) {
         p += 8;
     } while (i < 64);
     if (i < 64) {
-        s[i].a = Dup_000f6610(a);
+        s[i].a = FUN_000f6610(a);
         s[i].b = b;
     }
 }
@@ -295,7 +295,7 @@ void C_df900::F(int a, int b) {
         p = p + 8;
     } while (i < 0x40);
     if (i < 0x40) {
-        e[i * 2] = Conv_000f6610(a);
+        e[i * 2] = FUN_000f6610(a);
         e[i * 2 + 1] = b;
     }
 }

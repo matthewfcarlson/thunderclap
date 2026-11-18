@@ -36,7 +36,7 @@ struct ConditionFactoryTemplate_56fb0 {
     void* scalar_dtor(unsigned char flags);
 };
 extern "C" char DAT_003f9130[];
-extern "C" void* __cdecl Allocate(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 class CAxisReleaseCondition_56fe0 {
   public:
     virtual void v0();
@@ -94,7 +94,7 @@ void* ConditionFactoryTemplate_56fb0::scalar_dtor(unsigned char flags) {
 // 0x00056fe0 fight::ConditionFactoryTemplate<CAxisReleaseCondition>::vfunc_5 (38 B): matches/0x00056fe0.cpp
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VCAxisReleaseCondition@@@fight@@UAEPAXXZ
 template <> void* fight::ConditionFactoryTemplate<CAxisReleaseCondition>::vfunc_5() {
-    CAxisReleaseCondition_56fe0* p = (CAxisReleaseCondition_56fe0*)Allocate(0x18);
+    CAxisReleaseCondition_56fe0* p = (CAxisReleaseCondition_56fe0*)FUN_0008d690(0x18);
     if (p) {
         p->Init_000486b0();
         *(void**)p = (void*)((hulk_intptr)DAT_003f9130);
