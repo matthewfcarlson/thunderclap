@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""Hybrid build: redirect original XBE functions to our compiled code (docs/hybrid-build.md).
+"""Hybrid build: redirect original XBE functions to our compiled code. Function patching is retired; the image surgery,
+tweaks and hooks build the recording build (docs/tasks/record-replay.md, "The recording build").
 
   tools/patch_xbe.py [--matches N|all] [--equivalent] [--only 0xADDR,...] [--exclude FILE]
                      [--set FILE] [--out build/hybrid/default.xbe] [--jobs 8] [--empty-section]

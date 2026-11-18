@@ -1,5 +1,5 @@
 {
- "comment": "Byte ranges of .data/.bss hashed as zeros in the wide checkpoint (tools/hybrid_test.py --wide): words that differed between runs of the unmodified game with the vclock/sound-rng hooks, word-by-word diffs of dumps halted at the same frames (docs/hybrid-build.md, 'Determinism after the new-game load'). [va, length, what]. 'pages' (whole 4 KB pages, index = (va - 0x48ca80) / 0x1000) is still honoured but empty.",
+ "comment": "Byte ranges of .data/.bss hashed as zeros in the wide checkpoint (tools/hybrid_test.py --wide): words that differed between runs of the unmodified game with the vclock/sound-rng hooks, word-by-word diffs of dumps halted at the same frames (docs/tasks/record-replay.md, 'Determinism after the new-game load'). [va, length, what]. 'pages' (whole 4 KB pages, index = (va - 0x48ca80) / 0x1000) is still honoured but empty.",
  "pages": [],
  "skip": [
   ["0x4d9968", 4, "/GS security cookie (rdtsc at CRT start)"],

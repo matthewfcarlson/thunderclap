@@ -1,4 +1,4 @@
-// Determinism and test hooks for the hybrid build (docs/tasks/10-hybrid-test-plan.md, docs/hybrid-build.md).
+// Determinism and test hooks for the hybrid build (docs/tasks/10-hybrid-test-plan.md, docs/tasks/record-replay.md).
 // Compiled with MSVC 7.1 like everything else and linked into the .hybrid section by tools/patch_xbe.py,
 // which also redirects the original call sites listed in HOOK_SITES there:
 //

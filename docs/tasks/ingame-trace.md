@@ -128,7 +128,7 @@ host wants them.
 - **Per-call cost is unchanged** (profile, 3 min): about half Python co-simulation (equiv.py's Run hooks), a
   quarter stop round trips (~0.65 ms each), 15% memory-read packets (2 per page).
 - **Determinism:** the gate run's checkpoints equal a hooks-only replay's through frame 570, and differ from
-  frame 600 on (the residual leak `docs/hybrid-build.md` describes, or the gate stops). **Neither stays on the
+  frame 600 on (the residual leak [record-replay.md](record-replay.md) "Determinism after the new-game load" describes, or the gate stops). **Neither stays on the
   recording:** a hooks-only `hybrid_test.py replay` of play2 leaves the recorded checkpoints at frame 90.
   Suspect: in record mode `hybrid_xinput_get_state` returns the real `XInputGetState` result, and polls where
   the pad wasn't ready returned an error to the game and were not recorded; replay returns success on every

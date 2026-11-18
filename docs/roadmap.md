@@ -23,7 +23,7 @@ XDK, CRT and Bink library code is **replaced, never decompiled**. Everything els
 ### 1. Map the platform boundary *(done)*
 - Every call from game code into XDK/kernel/D3D8/DirectSound (XbSymbolDatabase already identifies these): that list is the port's shim surface.
 - Subsystem map for render setup, camera, HUD, game loop and timestep ([task 07](tasks/07-subsystem-map.md)). It sets the farm's priority order.
-- *Done:* [`platform-boundary.md`](platform-boundary.md) (182 platform functions; four seams plus 8 leak functions contain every platform call), [`subsystems.md`](subsystems.md) (QoL locations), and [`port-priority.txt`](port-priority.txt) (2,011 functions, seams first; `build/farm/priority.txt` for the farm).
+- *Done:* [`platform-boundary.md`](platform-boundary.md) (182 platform functions; four seams plus 8 leak functions contain every platform call), [`subsystems.md`](subsystems.md) (QoL locations), and the port priority list (2,011 functions, seams first; `tools/platform_map.py --priority` writes `build/farm/priority.txt`).
 
 ### 2. Shared headers and real types *(highest leverage)*
 - One definition per class, replacing per-function stubs ([task 02](tasks/02-rtti-headers.md)). RTTI gives names, inheritance and vtables; field layouts come from usage across functions.
@@ -64,7 +64,7 @@ Status 2026-11-11: the Wine build is the development and verification build: it 
 3. **x86-64 (SteamOS), arm64 (macOS) and arm64 (Android handhelds)** builds. Watch x87 → SSE/NEON float differences in physics and animation; replays from step 5 catch drift.
 
 ### 7. Make it better
-Mostly ordinary code changes once step 6 lands; many can ship earlier as hybrid-build patches.
+Mostly ordinary code changes once step 6 lands.
 - Widescreen (projection and HUD layout), FOV slider, camera options.
 - Unlocked frame rate: needs the game loop and timestep code (physics and animation are usually tied to frame time).
 - Native high resolution, MSAA, anisotropic filtering, draw distance and LOD bias.

@@ -287,7 +287,7 @@ source reach every backend we need?
 ## 4. Test strategy
 
 Ground truth is the original game in xemu, run through the hybrid build's deterministic replays
-([hybrid-build.md](hybrid-build.md): fixed dt, virtual clock, seeded RNG, pad replay keyed by polls, checkpoints).
+([record-replay.md](tasks/record-replay.md#the-recording-build): fixed dt, virtual clock, seeded RNG, pad replay keyed by polls, checkpoints).
 
 1. **Per-draw pddi records (the main oracle).** Add a hybrid-build hook flag `drawlog` at the pddi level: in our
    verified `d3dContext`/`d3dPrimBuffer`/`d3dPrimStream` draw entry points (they are already our objects in the
@@ -439,7 +439,7 @@ screenshot four frames from the end is checked at two pixels. Result: `renderer 
 
 **drawlog** (hybrid build; `hybrid/hooks.cpp` `HYBRID_DRAWLOG`, `tools/patch_xbe.py --drawlog` / `hooks["drawlog"]`,
 `tools/hybrid_test.py replay --drawlog`, `hybrid_run.read_drawlog`, `tools/drawlog_diff.py`; details in
-[hybrid-build.md](hybrid-build.md#drawlog-per-draw-pddi-state-graphics-backend-g0)): the 11 call sites of the D3D draw
+[record-replay.md](tasks/record-replay.md#drawlog-per-draw-pddi-state-graphics-backend-g0)): the 11 call sites of the D3D draw
 functions in the pure3d backend go through a logger that records, in selected frames, 24 words per draw: frame, draw
 index and site, primitive type and count, the active shader's class (vftable) and id, the four stage textures as
 first-seen ordinals, the context's render-state and stencil blocks, the fog flag, and a hash of the top matrices. The

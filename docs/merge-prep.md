@@ -5,7 +5,7 @@ This page is the prep list for making the merged tree (`tools/gen_tree.py` / `to
 build4's ([merge-once.md](merge-once.md)). This page covers four things. Section 1 reviews the object splits that
 become committed file names. Section 2 lists every tool that writes per-function sources, with what to do with each.
 Section 3 gives the merge rate on HEAD and the scripted renames that are left. Section 4 summarises what the hybrid
-build still needs; the full write-up is in [hybrid-build.md](hybrid-build.md), "After merge-once".
+build still needs; the full write-up was in docs/hybrid-build.md, "After merge-once" (removed 2026-11-18: `git show ffc528942:docs/hybrid-build.md`).
 
 ## 1. Splits review (`config/splits.json`)
 
@@ -170,4 +170,4 @@ churn.
 Recording needs only the hook-only XBE (`patch_xbe.build([])`: hooks.cpp, tweaks, pins). It needs no compiled
 sources, only an address list of trace targets that comes from the `matches/` / `equivalent/` directories. Function
 patching (`compare`, `bisect_hybrid.py`) is superseded by Wine proofs. Details and the retirement proposal:
-[hybrid-build.md](hybrid-build.md), "After merge-once".
+docs/hybrid-build.md, "After merge-once" (removed 2026-11-18: `git show ffc528942:docs/hybrid-build.md`).

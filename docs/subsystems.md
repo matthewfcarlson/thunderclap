@@ -231,7 +231,8 @@ display, level select).
 
 ## Priority list
 
-`docs/port-priority.txt` (= `build/farm/priority.txt`), 2,011 functions, 228 KB, in order:
+`build/farm/priority.txt` (`tools/platform_map.py --priority`; committed as `docs/port-priority.txt` until 2026-11-18), 2,011
+functions, 228 KB, in order:
 
 | Group | Functions | Bytes | Already matched (when generated; every one has verified source now) |
 |---|---|---|---|

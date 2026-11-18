@@ -1313,3 +1313,19 @@ blocks fight::Action's whole family: the records come first there.
   a local input each queue host keeps its own copy of. integ2's census needs nothing either: the comment on
   DAT_0056bfc8 cites the loads 0x00356dfe and 0x00356e0b and also 0x00356de0, so it holds whether or not the function
   is listed.
+
+## 2026-11-18 clean2: dataset lane and retired-workflow docs removed (D122-D125)
+
+- **Removed:** the fine-tuning lane (export_dataset, train_sft_unsloth, import_external_trainingdata, export_merged,
+  profile_experts, docs/dataset-plan.md; last state b365e7087), docs/farm.md, docs/hybrid-build.md,
+  docs/port-priority.txt, docs/agents/ and tools/equiv_next.py, plus the untracked junk clean1 listed (backed up under
+  build/lead/discarded/clean2-2026-11-18/).
+- **Kept:** the live half of docs/hybrid-build.md (the hook-only recording build: what you need, image surgery,
+  tweaks, hooks and flags, determinism pins, recording, drawlog, driving xemu) is now the first part of
+  docs/tasks/record-replay.md. match-brief.md's register-allocation and vptr studies are in docs/msvc71-pitfalls.md.
+  `tools/platform_map.py --priority` writes only build/farm/priority.txt.
+- **A stale shared index undid a commit.** 961047f97 (data4) was committed while the shared index still held the six
+  files af1790d44 had just removed (that commit was made through a temporary index; the shared entries were synced a
+  moment later), so it restored them and the old skill lines; a05fae211 reapplied the removal. Sync the shared
+  index entries of committed paths right after the commit, and check `git show --stat` of your own commit for paths
+  that aren't yours before pushing.

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Disc image + xemu driver for the hybrid build (docs/hybrid-build.md).
+"""Disc image + xemu driver for the hybrid build (docs/tasks/record-replay.md, "The recording build").
 
   tools/hybrid_run.py iso                     # once: pack build/hybrid/hulk-hybrid.iso from isos/extracted
   tools/hybrid_run.py install XBE             # write a (padded) XBE into the packed image, in place
@@ -43,7 +43,8 @@ CFG = os.path.join(OUT_DIR, "xemu%s.toml" % _SFX)
 QMP = os.path.join(OUT_DIR, "qmp%s.sock" % _SFX)
 SHOTS = os.path.join(OUT_DIR, "shots")
 GDB_PORT = 1234 + INSTANCE
-# HULK_XEMU_DISPLAY: extra -display argument (e.g. "none"); see docs/hybrid-build.md for what works headless
+# HULK_XEMU_DISPLAY: extra -display argument (e.g. "none"); see docs/tasks/record-replay.md
+# ("Driving xemu") for what works headless
 DISPLAY = os.environ.get("HULK_XEMU_DISPLAY")
 
 

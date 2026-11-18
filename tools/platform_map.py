@@ -632,7 +632,7 @@ def main():
     ap.add_argument("--out", default=B("port/platform_calls.json"))
     ap.add_argument("--summary", action="store_true")
     ap.add_argument("--priority", action="store_true",
-                    help="write build/farm/priority.txt and docs/port-priority.txt")
+                    help="write build/farm/priority.txt")
     ap.add_argument("--labels", default=B("port/labels.json"), help="Ghidra label JSON to write")
     args = ap.parse_args()
     img = Image()
@@ -720,7 +720,7 @@ def main():
     print("wrote %s: %d labels" % (args.labels, nl))
     if args.priority:
         text = "".join("0x%08x\n" % va for va, why in order)
-        for path in (B("farm/priority.txt"), os.path.join(ROOT, "docs/port-priority.txt")):
+        for path in (B("farm/priority.txt"),):
             with open(path, "w") as f:
                 f.write(text)
             print("wrote %s: %d functions" % (path, len(order)))

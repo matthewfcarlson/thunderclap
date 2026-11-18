@@ -14,7 +14,7 @@ Build a modified `default.xbe` where selected original functions are redirected 
    - a new executable section holding our code, linked (resolving externals to original VAs);
    - a `jmp` written at each original function entry to our version;
    - corrected header, section table and image size. Output goes to `build/` only.
-2. A smoke test: patch a handful of matched leaf functions (byte-identical, so behaviour can't change), boot in xemu to the main menu, and document the steps in `docs/hybrid-build.md`.
+2. A smoke test: patch a handful of matched leaf functions (byte-identical, so behaviour can't change), boot in xemu to the main menu, and document the steps in `docs/hybrid-build.md` (removed 2026-11-18; the recording build is in `docs/tasks/record-replay.md`).
 3. A first deliberate behaviour change behind a flag, e.g. one QoL tweak from task 07, to prove the path for mods.
 
 ## Done when

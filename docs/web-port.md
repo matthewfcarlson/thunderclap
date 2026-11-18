@@ -139,7 +139,7 @@ Positive side: wasm float semantics are deterministic across browsers for non-Na
 mixed hosts, so replays are repeatable between machines.
 
 **Testing with our tools.** Same strategy as roadmap 6.3, and no new tooling is required:
-- Run the existing deterministic input replays (`tools/hybrid_test.py`, [hybrid-build.md](hybrid-build.md)) against the
+- Run the existing deterministic input replays (`tools/hybrid_test.py`, [record-replay.md](tasks/record-replay.md#the-recording-build)) against the
   web build with the original's checkpoints; the bisect tool names the guilty function.
 - Re-run `tools/equiv.py`-style differential checks with a **float tolerance** per function class, using wasm
   compiled objects run under a wasm runtime (node or wasmtime) in place of the x86 emulator; `equiv.py` already

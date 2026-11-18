@@ -13,7 +13,7 @@ build/venv/bin/python tools/platform_map.py --summary --priority   # ~20 s
 Outputs (all under `build/`, not in git): `build/port/platform_calls.json` (every target with its
 callers and call counts, the seams, the leaks, the priority list with match status),
 `build/port/labels.json` (Ghidra labels, applied by `ApplyPortLabels.java`),
-`build/farm/priority.txt`. The priority list is also committed as `docs/port-priority.txt`.
+`build/farm/priority.txt` (the priority list; it was also committed as `docs/port-priority.txt` until 2026-11-18).
 
 ## Summary
 

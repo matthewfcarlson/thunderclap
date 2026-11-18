@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Hybrid-build test harness (docs/tasks/10-hybrid-test-plan.md, docs/hybrid-build.md).
+"""Hybrid-build test harness (docs/tasks/10-hybrid-test-plan.md, docs/tasks/record-replay.md).
 
   tools/hybrid_test.py determinism [--replay R] [--seconds 60] [--runs 2]
         two runs of the *unmodified* game with only the test hooks patched in (fixed dt, constant seed,
@@ -18,7 +18,7 @@
         replay a recording on the same build and compare its checkpoints with the recorded ones.
   tools/hybrid_test.py replay NAME.json --drawlog EVERY[:FIRST[:LAST]] [--drawlog-out PATH]
         the same, on a build that also logs the pddi state of every draw in those frames (tools/drawlog_diff.py;
-        docs/hybrid-build.md "drawlog").
+        docs/tasks/record-replay.md "drawlog").
   tools/hybrid_test.py replay NAME.json --from-snapshot K | --from-frame F
         start from one of the recording's VM snapshots (record --snap-every, default every 5 min).
   tools/hybrid_test.py salvage OLD.json NEW.json

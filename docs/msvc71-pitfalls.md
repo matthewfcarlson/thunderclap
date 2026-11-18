@@ -138,6 +138,48 @@ class RefCounted { public: virtual void AddRef(); virtual void Release(); virtua
 void RefCounted::Release() { if (--mRefCount < 1) delete this; }
 ```
 
+## Register allocation and vptr studies
+
+From the matching lanes' brief (docs/agents/match-brief.md, removed 2026-11-18): a study of 113 near-misses whose
+diffs were register-only, plus the vptr-store experiments. Most register-only diffs were not allocator quirks but a
+wrong signature, a callee missing from the declarations, or a hand-written hack; fix the structure first. Addresses
+are examples to read in the tree.
+
+- **Temp in ecx/edx where ours uses eax.** A later call whose `ecx` is never loaded is a thiscall on the tested value:
+  declare it a member (`m38->H(9)`, not `__stdcall H(9)`; 0x000bc750, 0x00232290). eax may still hold a return value
+  the function returns later (`return v;`, often dropped by Ghidra; 0x00212d30). When the target reuses eax for a
+  vtable and ours gets edx, copy the member pointer to a local first (`Node* q = m18; q->c->v6(..)`; 0x001be170).
+  Hacks such as `cur = (Node*)count` or `*(volatile*)` move registers; the plain loop fixed 0x00233160.
+- **A zero held in a register** (`push edi; xor edi,edi; cmp eax,edi`) appears only when at least one compare against
+  0/NULL shares the region with the stores. With no such compare, zero stores after a call stay `mov [m],0` (even 7 of
+  them). With one compare it depends on the number k of later zero stores: k=1 immediate, k=2 register, k=3 immediate,
+  k>=4 register; with two compares, k<=3 immediate, k=4 register. Flip it by moving a store into or out of an inline
+  helper, or by dropping or adding a re-test (0x0028c240/0x0028c310 vs 0x0028c130; siblings 0x0028beb0, 0x0028c4f0).
+- **Base/index order** (`[eax+ecx+0x10]` vs `[ecx+eax+0x10]`) follows the order in which the two values were defined;
+  pure copies don't count, and `p[i]`/`i[p]`/`*(p+i)`/casts all encode the same. Put the pointer in a real computed
+  local and declare it before or after the index (0x0008c710).
+- **Strength-reduced pointer** (`mov eax,[x]; lea edi,[eax+8]`, then `add edi,4` per iteration): cache the struct
+  pointer and index the array (`D* d = data; d->c[i] = 0;`); a hand-written walking pointer gives `mov edi,[x]; add
+  edi,8` (0x00321280).
+- **strlen/strcpy**: `mov eax,esi; lea edx,[eax+1]; loop; sub eax,edx; inc eax` is the intrinsic `strlen(src)+1`;
+  declare `extern "C" unsigned strlen(const char*);` and call it. It also fixed an esi/edi swap in 0x001a4560
+  (0x000f9ab0).
+- **vptr store order in constructors and destructors** (beyond the three recipes above): constructor zero-inits the
+  target emits after the vptr store go in a member type with an inline constructor (`Vec v; ... : v(0.0f,0.0f,0.0f)`;
+  plain `a(0),b(0),c(0)` initializers sink the vptr; physics::PhysicsJoint 0x0030ca30 and its subclasses). Destructor
+  body stores go in an inline method of a member struct (`sb.Reset()`; 0x002579f0, 0x00257c90). Multiple inheritance:
+  a second base with an inline virtual destructor plus a vector member with `clear()` reproduced the two-vptr
+  TextBible destructor (0x002c3a20). An immediate store that sinks below a run of register stores stays ahead of them
+  when the run is a loop or inline `Set()` calls on member structs (0x000ed820). The member-destructor recipe did not
+  help when the body starts with `if (member)` (0x00105060, 0x001d3410: use the barrier); the volatile pair moved
+  registers less than the barrier in 0x00105060.
+- **Ruled out** (no effect where tried): the `register` keyword, `const`, signedness or pointer-vs-int type of the
+  temporary, `a+b` vs `b+a`, `if (a&&b)` vs nested or early-return forms, statement order inside a run of independent
+  stores, and `/O1`, `/Os`, `/Ob1`, `/Ox` for the vptr-store problem.
+- **Unsolved**: ebx vs ebp for a local (0x0019b460), a redundant re-test of a register parameter kept after a call
+  (0x001b4c40), the tail-merge choice of a duplicate return block (0x00299540), and `cmp reg,[param]` vs
+  `cmp [field],reg` operand roles (0x0027d580).
+
 ## Writing an equivalent function
 
 The equivalence bar is behaviour (`tools/equiv.py`): level 1 compiles, level 2 the same references (calls, globals,

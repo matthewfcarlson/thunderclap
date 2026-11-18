@@ -11,7 +11,7 @@ Self-contained briefs for work alongside the matching farm. Each brief has a goa
 | 03 | [RCF archive tool](03-rcf-tool.md) | ISO only | S–M | *done: exact names via game hash, byte-identical repack (branch `task/rcf-hash`)* |
 | 04 | [Pure3D `.p3d` reader](04-p3d-reader.md) | 03 | M–L | *done: verified on all 1,436 files; textures → PNG, meshes/skins/animations → glTF, whole cities (branches `task/p3d-verify`, `task/p3d-anim`). Open: collision, state props* |
 | 05 | [Translation-unit / split recovery](05-split-recovery.md) | Ghidra, 01 | L | *done: `tools/infer_splits.py`, [splits.md](../splits.md), the merged tree ([source-tree.md](../source-tree.md))* |
-| 06 | [Hybrid patch build in xemu](06-hybrid-patch-build.md) | matches/ | L | *done: 14,614 functions patched boot into gameplay cutscene ([hybrid-build.md](../hybrid-build.md)); open: `equiv-conv` adapters* |
+| 06 | [Hybrid patch build in xemu](06-hybrid-patch-build.md) | matches/ | L | *done: 14,614 functions patched boot into gameplay cutscene (docs/hybrid-build.md, removed 2026-11-18; the recording build is in [record-replay.md](record-replay.md)); open: `equiv-conv` adapters* |
 | 07 | [Subsystem map for QoL (render/camera/HUD/game loop)](07-subsystem-map.md) | Ghidra, RTTI | M | *done: [platform-boundary.md](../platform-boundary.md), [subsystems.md](../subsystems.md), [port-priority.txt](../port-priority.txt)* |
 | 08 | [Farm: large-function strategies](08-large-functions.md) | farm | M | *farm session: aligned diffs, attempt history, similar-function examples built; A/B pending credits* |
 | 09 | [Equivalent decomp for large functions (behaviour verifier + farm mode)](09-equivalent-decomp.md) | 01, 02 | L | *verifier and farm mode done ([equivalence.md](../equivalence.md)); scaling up* |

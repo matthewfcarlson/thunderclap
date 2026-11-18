@@ -97,7 +97,7 @@ the original's bytes with correct references; an edited `equivalent` block needs
 
 - How it was done: recon from RTTI and link order, matching small functions at scale, proving the large ones
   equivalent, then merging everything into one tree ([`docs/journal.md`](docs/journal.md),
-  [`docs/toolchain.md`](docs/toolchain.md), [`docs/farm.md`](docs/farm.md), [`docs/prior-art.md`](docs/prior-art.md)).
+  [`docs/toolchain.md`](docs/toolchain.md), [`docs/msvc71-pitfalls.md`](docs/msvc71-pitfalls.md), [`docs/prior-art.md`](docs/prior-art.md)).
 - Platform boundary: what the game calls in the Xbox and how the port replaces it
   ([`docs/platform-boundary.md`](docs/platform-boundary.md), [`docs/graphics-backend.md`](docs/graphics-backend.md)).
 - MSVC 7.1 matching recipes: [`docs/msvc71-pitfalls.md`](docs/msvc71-pitfalls.md).

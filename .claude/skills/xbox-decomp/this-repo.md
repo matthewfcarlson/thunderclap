@@ -86,8 +86,8 @@ $J tests/equiv/regress.py --jobq --name ME               # after ANY change to t
   objects are `/O1` or `/Oy-`. `_ftol` is `FUN_0034483c`; the XBE's own CRT routines are identified by behaviour in
   `tools/equiv.py`.
 - Best MSVC 7.1 reading: `docs/msvc71-pitfalls.md` (the farm prompt's recipes: symptom table; Pure3D idioms such as `p3d::find<T>(name)`,
-  `new(allocator) T(...)`, `DynamicCaster<T>`) and `docs/agents/match-brief.md` (vptr and register-allocation studies).
-  The briefs predate the flip: their file paths and install steps are historical.
+  `new(allocator) T(...)`, `DynamicCaster<T>`; its "Register allocation and vptr studies" section holds the matching
+  lanes' studies of register-only diffs and vptr-store order).
 - `hulk_freg` (`include/compat/ptr.h`): `float` under MSVC, `double` under clang, for locals and returns the original
   keeps in x87 registers. Recurring Wine-build fixes: `hulk_freg` toggling, dropping elided `(float)` casts, hoisting
   argument calls ahead of the receiver, `(int)(__int64)f` for `__ftol2`, dword-then-byte inline loops for the
@@ -145,7 +145,8 @@ CLAUDE.md "Compute" and `docs/compute.md` are the rules. Lessons:
 - Only on the designated hosts, never on the laptop; one instance at a time (`HULK_XEMU_INSTANCE=N` picks ports);
   always `-snapshot`, or a per-recording qcow2 overlay over the read-only base HDD. The queue refuses backup/mirror
   commands and the xemu settings folder.
-- xemu now only records: `hybrid/` is the hook-only XBE (determinism hooks, no game code patched in). Record with
+- xemu now only records: `hybrid/` is the hook-only XBE (determinism hooks, no game code patched in;
+  `docs/tasks/record-replay.md` "The recording build"). Record with
   `tools/hybrid_test.py record`; capture and replay traces with `tools/trace_gate.py`, `tools/trace_capture.py`,
   `tools/equiv_replay.py` (absolute `--src-dir`), `tools/equiv_confidence.py`. Captures (`build/traces/*/trace.sqlite`)
   hold game memory: never commit. Recordings: `build/replays/*.json` (play3 is the reference run; `tools/replay_pack.py`).
@@ -159,7 +160,7 @@ CLAUDE.md "Compute" and `docs/compute.md` are the rules. Lessons:
 | Model farm (`farm/`, `tools/batch_run.py` and the farm's report tools, fine-tuned `ulk-*` and ChatGPT lanes, the dataset/fine-tuning tools) | done; farm/ and its tools are in git history (removed 2026-11-13 and 2026-11-18; the dataset lane's last commit is b365e7087) |
 | Hybrid function patching (`patch_xbe.py` source selection, `hybrid_test.py compare`, bisect) | Wine-build replays gated by `ckpt_gate.py` |
 | CPU permuter (`tools/permute.py`, removed 2026-11-18) | nothing: the matching campaign is over |
-| Per-function briefs (`docs/agents/`, most of `docs/tasks/`) | CLAUDE.md, `docs/merge-once.md`, the current docs |
+| Per-function briefs (`docs/agents/`, removed 2026-11-18; most of `docs/tasks/`) | CLAUDE.md, `docs/merge-once.md`, the current docs |
 
 ## Agents and commits
 
