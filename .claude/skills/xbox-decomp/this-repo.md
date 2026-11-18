@@ -85,7 +85,7 @@ $J tests/equiv/regress.py --jobq --name ME               # after ANY change to t
   `char buf[N]`). The CRT/XAPI region around 0x34xxxx-0x35xxxx is `/O1 /Oy-` (library code: not decompiled); a few game
   objects are `/O1` or `/Oy-`. `_ftol` is `FUN_0034483c`; the XBE's own CRT routines are identified by behaviour in
   `tools/equiv.py`.
-- Best MSVC 7.1 reading: `farm/src/prompt.ts` (symptom table; Pure3D idioms such as `p3d::find<T>(name)`,
+- Best MSVC 7.1 reading: `docs/msvc71-pitfalls.md` (the farm prompt's recipes: symptom table; Pure3D idioms such as `p3d::find<T>(name)`,
   `new(allocator) T(...)`, `DynamicCaster<T>`) and `docs/agents/match-brief.md` (vptr and register-allocation studies).
   The briefs predate the flip: their file paths and install steps are historical.
 - `hulk_freg` (`include/compat/ptr.h`): `float` under MSVC, `double` under clang, for locals and returns the original
@@ -120,7 +120,7 @@ CLAUDE.md "Builds and proofs" is the rule; the details are in `docs/compute.md` 
   classify --dir build/native-mac`; fix them in source by root cause (renames at the definition or in shared headers,
   real types at callers), never by a link-time redirect of local vftables to the game's (`docs/native-unbound-plan.md`).
   Batches log under their own heading in `docs/native-build.md`; `tools/equiv64.py batch LIST OUT` checks a batch at 64 bits.
-- Per-function rewrite tools (`fix_relocs`, `fix_literals`, `fix_vptr`, `format_matches`/`format_equivalents`,
+- Per-function rewrite tools (`fix_relocs`, `format_matches`,
   `clone_matches`/`clone_equivalent`, `ptr1`, `ptr_fields`, `tech_debt`) were written for
   `matches/`/`equivalent/` and are not all retargeted to TU blocks: read a tool before running it, and never let one
   write into the frozen directories.
@@ -156,9 +156,9 @@ CLAUDE.md "Compute" and `docs/compute.md` are the rules. Lessons:
 | --- | --- |
 | Per-function sources as the source of truth (`matches/`, `equivalent/`) | blocks in tree TUs (frozen at F) |
 | `tools/build_tree.py` / `gen_tree.py` rounds as the build's source | `tree_tu.py materialize` (`HULK_TREE_SOURCE=0` for history) |
-| Model farm (`farm/`, `tools/batch_run.py`, fine-tuned `ulk-*` and ChatGPT lanes) | done; `farm/src/prompt.ts` stays as reading |
+| Model farm (`farm/`, `tools/batch_run.py` and the farm's report tools, fine-tuned `ulk-*` and ChatGPT lanes) | done; farm/ and its tools are in git history (removed 2026-11-13 and 2026-11-18) |
 | Hybrid function patching (`patch_xbe.py` source selection, `hybrid_test.py compare`, bisect) | Wine-build replays gated by `ckpt_gate.py` |
-| CPU permuter (`tools/permute.py`) | nothing: the matching campaign is over |
+| CPU permuter (`tools/permute.py`, removed 2026-11-18) | nothing: the matching campaign is over |
 | Per-function briefs (`docs/agents/`, most of `docs/tasks/`) | CLAUDE.md, `docs/merge-once.md`, the current docs |
 
 ## Agents and commits
