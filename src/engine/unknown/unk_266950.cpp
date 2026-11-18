@@ -386,7 +386,10 @@ extern "C" void FUN_00266db0(int a, int b) {
 // 0x00266e00 FUN_00266e00 (65 B): matches/0x00266e00.cpp
 // sym: _FUN_00266e00
 // data: gCallback_266e00 = DAT_00527f64, gContext = DAT_00527f68
-extern "C" void* FUN_00266e00(int a, int b) {
+// (integ2, D102) a: a heap id, an index into DAT_00527c60's 46 slots (0x00527c60, records.h MemoryHeapSlot[46]). Its 71
+// call sites push a constant (29: 0, 1, 6, ...; 0x8d4ec, 0x1e8e50, 0x20197a) or a register holding the current heap
+// (0x004cdbb0), a parameter or a field (42; 0x8d6c4, 0x1d09b6, 0x204807): HULK_RANGE(0, 45)
+extern "C" void* FUN_00266e00(int a HULK_RANGE(0, 45), int b) {
     void* r = ((Item_266e00*)DAT_00527c60[a].allocator)->Get(b);
     if (!r && (*(Callback_266e00*)&DAT_00527f64))
         (*(Callback_266e00*)&DAT_00527f64)((*(int*)&DAT_00527f68), a, b, 1);
@@ -407,14 +410,20 @@ extern "C" void* FUN_00266eb0(int a, int b, int c) {
 
 // 0x00266f00 FUN_00266f00 (24 B): matches/0x00266f00.cpp
 // sym: _FUN_00266f00
-extern "C" int __cdecl FUN_00266f00(int a, void* b) {
+// (integ2, D102) a: a heap id, an index into DAT_00527c60's 46 slots (0x00527c60, records.h MemoryHeapSlot[46]). Its 27
+// call sites push 1 (0x201b78, 0x2adb8c) or a register holding a heap id the caller has (25; 0x267ef0, 0x269576,
+// 0x26d200): HULK_RANGE(0, 45)
+extern "C" int __cdecl FUN_00266f00(int a HULK_RANGE(0, 45), void* b) {
     return ((C_266f00*)DAT_00527c60[a].allocator)->f4(b);
 }
 
 
 // 0x00266f20 FUN_00266f20 (24 B): matches/0x00266f20.cpp
 // sym: _FUN_00266f20
-extern "C" int FUN_00266f20(int index, void* value) {
+// (integ2, D102) index: a heap id, an index into DAT_00527c60's 46 slots (0x00527c60, records.h MemoryHeapSlot[46]). Its
+// 6 call sites: 0x26ffbf, 0x2704aa, 0x277681, 0x277715, 0x277752 (registers holding the caller's heap id) and
+// 0x2474e7 (one of them rejects negative ids first): HULK_RANGE(0, 45)
+extern "C" int FUN_00266f20(int index HULK_RANGE(0, 45), void* value) {
     return ((Item_266f20*)DAT_00527c60[index].allocator)->g(value);
 }
 
