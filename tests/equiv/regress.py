@@ -1300,6 +1300,11 @@ X64_CASES = {
     "0x00266f20_x64_paramrange_ptradd": ("unsupported", "tool", "can't be derived from its uses", 0),
     "0x00266f20_x64_paramrange_addr0": ("unsupported", "tool", "can't be derived from its uses", 0),
     "0x00266f20_x64_paramrange_ptrlocal": ("unsupported", "tool", "can't be derived from its uses", 0),
+    # (rev5's d102d) a constructor's member initializer is a use too (index + 1 there); a whole argument bound to a
+    # non-const reference (rev5_bump(int&)) can change it: both refused
+    "0x000ac780_x64_paramrange_ctorinit": ("unsupported", "tool", "can't be derived from its uses", 0,
+                                           {"symbol": "??0Holder_ac780@@QAE@H@Z"}),
+    "0x000ac780_x64_paramrange_refarg": ("unsupported", "tool", "can't be derived from its uses", 0),
     # (rev5, D61 review) HULK_RANGE whose declaration names no 0x address: unsupported (rangecheck), not drawn from the range
     "0x002775b0_x64_bucket_range_nocite": ("unsupported", None, "writer sites", 0),
 }
@@ -1314,8 +1319,9 @@ MIN_RUN = {"0x0028c2a0_rep_count": 50, "0x000e36c0_small_counts": 50, "0x002155f
 def x64_job(name):
     """(eq64) one X64_CASES case: (ok, status, class, difference or error)."""
     import equiv64
-    want, cls, text, min_done = X64_CASES[name]
-    r = equiv64.verify64(os.path.join(CASES_DIR, name + ".cpp"), int(name.split("_")[0], 16), n_inputs=100)
+    want, cls, text, min_done = X64_CASES[name][:4]
+    kw = X64_CASES[name][4] if len(X64_CASES[name]) > 4 else {}     # (integ2) e.g. {"symbol": "??0C@@QAE@H@Z"}
+    r = equiv64.verify64(os.path.join(CASES_DIR, name + ".cpp"), int(name.split("_")[0], 16), n_inputs=100, **kw)
     got = r.get("diff") or r.get("error") or ""
     ok = r["status"] == want and (cls is None or r.get("class") == cls) and (text is None or text in got) and \
         r.get("completed", 0) >= min_done

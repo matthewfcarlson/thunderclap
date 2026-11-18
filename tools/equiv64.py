@@ -2169,8 +2169,8 @@ def _range_uses(fn, p):
                     raise Unsupported("HULK_RANGE: the bound on %s can't be derived from its uses (a subscript on "
                                       "something that is no constant array)" % p.spelling)
                 out.append(b_)
-            elif par is not None and par.kind == K.CALL_EXPR and kids and kids[0].hash != child.hash:
-                pass        # (ii) a whole call argument
+            elif par is not None and par.kind == K.CALL_EXPR and _by_value_arg(par, child):
+                pass        # (ii) a whole call argument, passed by value (a non-const reference could change it)
             elif par is not None and par.kind == K.BINARY_OPERATOR and \
                     getattr(getattr(par, "binary_operator", None), "name", "") in CMP:
                 pass        # (iii) a comparison operand
@@ -2184,10 +2184,40 @@ def _range_uses(fn, p):
         for ch in c.get_children():
             visit(ch, stack, depth + 1)
         stack.pop()
+    # (rev5's spot-check) every child but the parameters' declarations: the body and a constructor's member
+    # initializers (`: v(DAT_00527c60[index + 1].allocator)`)
     for ch in fn.get_children():
-        if ch.kind == K.COMPOUND_STMT:
+        if ch.kind != K.PARM_DECL:
             visit(ch, [])
     return out
+
+
+def _by_value_arg(call, arg):
+    """(integ2, D102; rev5's spot-check) Is ARG (a cursor among CALL's arguments) passed by value: the callee's matching
+    parameter is not a non-const reference or a pointer (a variadic argument is by value)? False when ARG is the
+    callee itself or the callee's type can't be read."""
+    args = list(call.get_arguments())
+    j = next((i for i, a in enumerate(args) if a.hash == arg.hash), None)
+    if j is None:
+        return False
+    ft = None
+    if call.referenced is not None and call.referenced.type is not None:
+        ft = call.referenced.type.get_canonical()
+    if ft is None or ft.kind.name not in ("FUNCTIONPROTO", "FUNCTIONNOPROTO"):
+        kids = list(call.get_children())
+        t = kids[0].type.get_canonical() if kids else None
+        if t is not None and t.kind.name in ("POINTER", "MEMBERPOINTER"):
+            t = t.get_pointee().get_canonical()
+        ft = t
+    if ft is None or ft.kind.name not in ("FUNCTIONPROTO", "FUNCTIONNOPROTO"):
+        return False
+    pts = list(ft.argument_types()) if ft.kind.name == "FUNCTIONPROTO" else []
+    if j >= len(pts):
+        return ft.kind.name == "FUNCTIONNOPROTO" or ft.is_function_variadic()
+    pt = pts[j].get_canonical()
+    if pt.kind.name in ("LVALUEREFERENCE", "RVALUEREFERENCE"):
+        return pt.get_pointee().is_const_qualified()
+    return pt.kind.name != "POINTER"
 
 
 def _subscript_tables(fn, p):

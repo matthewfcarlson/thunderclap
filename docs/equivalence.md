@@ -2223,7 +2223,8 @@ address that names an array the TU declares (`MemoryHeapSlot DAT_00527c60[46]`, 
 the declaration) bounds the range: lo >= 0 and hi < the element count, else unsupported (rev5's review; case
 `_pasttable`). Every use of the parameter in the body must be (i) the whole index of a subscript on a constant array
 the TU declares (through parentheses, casts and implicit conversions only), which bounds the range by its count, (ii) a
-whole call argument or (iii) a comparison or switch operand; anything else (a copy, index + 1, index * 2, pointer
+whole call argument passed by value (not to a non-const reference: `_refarg`) or (iii) a comparison or switch operand,
+everywhere in the function including a constructor's member initializers (`_ctorinit`); anything else (a copy, index + 1, index * 2, pointer
 arithmetic, `&T[0] + index`, a pointer local) is refused, and without a use of kind (i) a cited table must bound it
 (rev5's design after his spot-checks: cases `_nocitetable`, `_local`, `_plus1`, `_times2`, `_ptradd`, `_addr0`,
 `_ptrlocal` must be refused). Each function cites its own call sites. Used by
