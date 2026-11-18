@@ -1240,3 +1240,13 @@ blocks fight::Action's whole family: the records come first there.
 - **A callee declared with another signature than its definition does not bind natively** (IR signatures must agree:
   int vs pointer, void vs a returned pointer, hulk_uintptr vs unsigned): `missing` at run time names the caller's
   spelling; declare it as defined.
+
+## 2026-11-18 tri6: 0x001bc0c0, the copyright content lookup (D108)
+
+- **A `--wine` failure whose numbers look like float bits was a bool byte.** SetFlag's argument differed only in its
+  low byte (0x3aaec201 vs 0x3aaec294): the original stores GetFlag's `al` as returned into the low byte of the float
+  slot it later passes whole; `bool GetFlag()` let clang normalise the byte to 0/1, which the `bool_ub` counterfactual
+  does not explain (it reads the original's byte as a value, not a bool test). Declaring the slot `unsigned char`
+  proves both modes; x87_order reports no x87 at all here. Read a diff's byte positions before assuming rounding.
+- x64t19's caster patch (the game's vftable 0x003f6330 by address in a pointer-sized frame word) landed with it;
+  `--x64` stays `unsupported:no32` (no 32-bit input completes: a fuzzed virtual call fetches at 0), as at HEAD.

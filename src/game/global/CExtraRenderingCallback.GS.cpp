@@ -137,7 +137,9 @@ struct Gfx {
     virtual void v56();
     virtual void v57();
     virtual void SetFlag(int f);
-    virtual bool GetFlag();
+    // (tri6) the original stores al as returned (`mov byte ptr [esp+0x14], al`) into the low byte of the word it later
+    // passes to SetFlag whole; a `bool` return let clang normalise the byte (`and al, 1`), so it is read as a byte
+    virtual unsigned char GetFlag();
 };
 namespace fn_fbe20c43 {
 struct Context {
@@ -175,10 +177,14 @@ union Slot_1bc0c0 {
     unsigned char b;
     unsigned int w;
 };
+extern "C" char DAT_003f6330[];   // content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy>'s vftable
 struct Frame_1bc0c0 {
     Slot_1bc0c0 slot;              // 0x00
     Handle_1bc0c0 *handle;         // 0x04
-    char caster[4];         // 0x08
+    union {                        // 0x08 (x64t19) the caster: its vftable, pointer-sized natively
+        char caster[4];
+        void *casterWord;
+    };
     LoadArgs args;          // 0x0c
     char buf1[0x100];       // 0x11c
     char buf2[0x100];       // 0x21c
@@ -186,7 +192,7 @@ struct Frame_1bc0c0 {
 
 
 // 0x001bc0c0 FUN_001bc0c0 (687 B): equivalent/0x001bc0c0.cpp
-// sym: _FUN_001bc0c0 @c28f957f9f96 @wf1abb2539ccd
+// sym: _FUN_001bc0c0 @e874b6b2a2b8 @w6a84f0782154 @vcb3a63f8eb8e
 // STATUS: equivalent (tools/equiv.py level 3: 104 inputs, branch coverage 14/14)
 // FUN_001bc0c0 @ 0x001bc0c0
 extern "C" void FUN_001bc0c0(const char *name, int count, const char *dir)
@@ -212,7 +218,11 @@ extern "C" void FUN_001bc0c0(const char *name, int count, const char *dir)
     FUN_000964a0(f.buf2, 0x100, "%s.png", name);
     Resource_1bc0c0 *res = f.handle->FUN_00266700();
     ID id = FUN_0027b020(f.buf2);
-    content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy> *caster = new (f.caster) content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy>;
+    // (x64t19) the game's content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy>: its vftable 0x003f6330 by
+    // address (the local polymorphic stand-in's was clang's natively, whose slot had no definition, and its 8 bytes
+    // overran the frame's 4-byte word)
+    f.casterWord = (void *)DAT_003f6330;
+    content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy> *caster = (content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy> *)&f.casterWord;
     Drawable *dr = res->Load(caster, (unsigned int)id, (unsigned int)(id >> 32));
     f.slot.f = (*(Display_1bc0c0**)&DAT_0052c2a4)->Aspect();
     if (dr != 0) {
