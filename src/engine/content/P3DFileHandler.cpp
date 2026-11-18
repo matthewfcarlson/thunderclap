@@ -167,7 +167,7 @@ void __fastcall Target(Obj_265bf0* self) {
     self->m18 = p;
     if (p)
         AddRef_0008d340(p);
-    Release(self);
+    ::operator delete(self);
 }
 
 

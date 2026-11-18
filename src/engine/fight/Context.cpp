@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x002366e0..0x00236940 (kind game, layer engine, confidence medium), dominant class fight::Context
 #include "tree_prelude.h"
 #include "gen/fight.h"
@@ -304,8 +303,24 @@ Context::~Context() {
 } // namespace fn_feea6610
 
 // 0x00236920 fight::Context::vfunc_2 (30 B): matches/0x00236920.cpp
-// sym: ??_GContext@fight@@UAEPAXI@Z
+// sym: ?vfunc_2@Context_236920@fn_00236920@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `fight::Context::~Context() {}` stood for it, which natively defines no function
+// for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's body 0x002368d0,
+// then (flags & 1) content::LoadObject::operator delete.
+namespace fn_00236920 {
+struct Context_236920 {
+    void FUN_002368d0();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* Context_236920::vfunc_2(unsigned int flags) {
+    FUN_002368d0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_00236920
+// (x64t21) the destructor itself, which other objects' code references:
 fight::Context::~Context() {}
 

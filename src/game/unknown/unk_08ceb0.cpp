@@ -236,8 +236,27 @@ extern "C" void FUN_0008d320() {
     }
 }
 
-// 0x0008d330 thunk_FUN_00267090 (5 B): not yet verified
-// 0x0008d340 thunk_FUN_00267090 (5 B): not yet verified
+} // namespace fn_fe5d7f9e
+
+// 0x0008d330 operator delete (5 B): matches/0x0008d330.cpp
+// sym: ??3@YAXPAX@Z
+// (x64t21, D115) the game's global operator delete: the game heap's free 0x00267090 (MemoryAllocatorMalloc.cpp), as
+// a tail call. 1,819 of the game's 1,891 scalar deleting destructors call it; content::LoadObject's operator delete
+// 0x00263f30 is a jmp to it. Defined here for every build (the Wine build bound the name to 0x00267090; natively
+// MemoryAllocatorMalloc.cpp defined it under HULK_PTR64), so callers write `operator delete(p)` and bind by the name.
+extern "C" void FUN_00267090(void* ptr);
+void __cdecl operator delete(void* p) {
+    FUN_00267090(p);
+}
+
+// 0x0008d340 operator delete[] (5 B): matches/0x0008d340.cpp
+// sym: ??_V@YAXPAX@Z
+// (x64t21, D115) the game's global operator delete[] (delete[] expressions, the array frees): the same free
+void __cdecl operator delete[](void* p) {
+    FUN_00267090(p);
+}
+
+namespace fn_fe5d7f9e {
 
 // 0x0008d350 FUN_0008d350 (36 B): matches/0x0008d350.cpp
 // sym: ?Set@fn_fe5d7f9e@@YAXPAPAVObj@1@PAV21@@Z

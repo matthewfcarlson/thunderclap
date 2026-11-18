@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x0006e840..0x00075ce0 (kind game, layer game, confidence high), merged by D32: global/CJointTrack_params_06e840.cpp
 // piece 0x0006f750..0x0006f810 (kind game, layer game, confidence high, dominant class CGrappleMotionTrailTrack); was game/global/CGrappleMotionTrailTrack.cpp until D46
 #include "tree_prelude.h"
@@ -95,8 +94,24 @@ template <> void* fight::TrackFactoryTemplate<CGrappleMotionTrailTrack>::vfunc_5
 
 
 // 0x0006f7f0 CGrappleMotionTrailTrack::vfunc_5 (30 B): matches/0x0006f7f0.cpp
-// sym: ??_GCGrappleMotionTrailTrack@@UAEPAXI@Z
+// sym: ?vfunc_5@CGrappleMotionTrailTrack_6f7f0@fn_0006f7f0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `CGrappleMotionTrailTrack::~CGrappleMotionTrailTrack() {}` stood for it, which
+// natively defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The
+// destructor's body 0x00060530, then (flags & 1) operator delete.
+namespace fn_0006f7f0 {
+struct CGrappleMotionTrailTrack_6f7f0 {
+    void FUN_00060530();   // the destructor's body
+    void* vfunc_5(unsigned int flags);
+};
+void* CGrappleMotionTrailTrack_6f7f0::vfunc_5(unsigned int flags) {
+    FUN_00060530();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0006f7f0
+// (x64t21) the destructor itself, which other objects' code references:
 CGrappleMotionTrailTrack::~CGrappleMotionTrailTrack() {}
 

@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x002c89b0..0x002d0930 (kind game, layer engine, confidence medium), dominant class pure3d::VertexList
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -1842,12 +1841,12 @@ extern "C" void FUN_002cec10(Source_2cec10* src, unsigned char flag, VertexSink_
 void VertexOffsetList::Clear() {
 atexit:;
     vptr = &hulk_at_0042efb0;
-    ReleaseThing((void*)a);
-    ReleaseThing((void*)b);
+    ::operator delete[]((void*)a);
+    ::operator delete[]((void*)b);
     int* p = c;
     int n = 4;
     do {
-        ReleaseThing((void*)*(hulk_intptr*)p);
+        ::operator delete[]((void*)*(hulk_intptr*)p);
         ++p;
         --n;
     } while (n);
@@ -1855,7 +1854,7 @@ atexit:;
     n = 2;
     do {
         if (*q)
-            ReleaseThing((char*)*q - 4);
+            ::operator delete[]((char*)*q - 4);
         ++q;
         --n;
     } while (n);
@@ -1865,8 +1864,24 @@ atexit:;
 } // namespace fn_f7aa76dc
 
 // 0x002d0870 pure3d::VertexList::vfunc_2 (30 B): matches/0x002d0870.cpp
-// sym: ??_GVertexList@pure3d@@UAEPAXI@Z
+// sym: ?vfunc_2@VertexList_2d0870@fn_002d0870@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `pure3d::VertexList::~VertexList() {}` stood for it, which natively defines no
+// function for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's body
+// 0x002c89b0, then (flags & 1) operator delete.
+namespace fn_002d0870 {
+struct VertexList_2d0870 {
+    void FUN_002c89b0();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* VertexList_2d0870::vfunc_2(unsigned int flags) {
+    FUN_002c89b0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_002d0870
+// (x64t21) the destructor itself, which other objects' code references:
 pure3d::VertexList::~VertexList() {}
 

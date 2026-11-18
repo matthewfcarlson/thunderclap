@@ -14,6 +14,7 @@
 #define TREE_TU_BEGIN namespace fn_f587a2cf {
 #define TREE_TU_END }
 namespace fn_f587a2cf {} using namespace fn_f587a2cf;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 namespace fn_f587a2cf {
 void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
 void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
@@ -1918,7 +1919,7 @@ namespace fn_f587a2cf {
 // 0x0012e470 FUN_0012e470 (82 B): matches/0x0012e470.cpp
 // sym: ?SetMission_0012e470@Obj@fn_f587a2cf@@QAEDPBD@Z
 char Obj::SetMission_0012e470(const char* s) {
-    Free(name);
+    ::operator delete[](name);
     if (!s) {
         name = 0;
         return 1;

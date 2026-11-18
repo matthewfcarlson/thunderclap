@@ -117,7 +117,7 @@ PropAddToCollisionAction_188ab0* PropAddToCollisionAction_188ab0::vfunc_2(int fl
     }
     ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1) {
-        opdel(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -155,7 +155,7 @@ PropSetStateByIndexAction_188b50* PropSetStateByIndexAction_188b50::vfunc_2(int 
     }
     ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1) {
-        opdel(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -193,7 +193,7 @@ PropSetStateByNameAction_188bf0* PropSetStateByNameAction_188bf0::vfunc_2(int fl
     }
     ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1) {
-        opdel(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -215,7 +215,7 @@ PropSpawnAction_188c90* PropSpawnAction_188c90::vfunc_2(int flag) {
     }
     ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1) {
-        opdel(this);
+        ::operator delete(this);
     }
     return this;
 }

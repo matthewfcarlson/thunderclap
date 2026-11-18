@@ -185,7 +185,7 @@ CollisionAABB_3129b0* CollisionAABB_3129b0::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_00432274;
     Destroy_00306ac0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        ::operator delete(this);
     }
     return this;
 }

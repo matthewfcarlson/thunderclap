@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x00288820..0x00289ed0 (kind game, layer engine, confidence high), dominant class pure3d::AnimationLoader
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -1338,9 +1337,25 @@ void AnimationGroup_289d70::Target() {
 
 
 // 0x00289d90 pure3d::Animation::vfunc_2 (30 B): matches/0x00289d90.cpp
-// sym: ??_GAnimation@pure3d@@UAEPAXI@Z
+// sym: ?vfunc_2@Animation_289d90@fn_00289d90@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `pure3d::Animation::~Animation() {}` stood for it, which natively defines no
+// function for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's body
+// 0x002893b0, then (flags & 1) content::LoadObject::operator delete.
+namespace fn_00289d90 {
+struct Animation_289d90 {
+    void FUN_002893b0();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* Animation_289d90::vfunc_2(unsigned int flags) {
+    FUN_002893b0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_00289d90
+// (x64t21) the destructor itself, which other objects' code references:
 pure3d::Animation::~Animation() {}
 
 namespace fn_f25f8e16 {

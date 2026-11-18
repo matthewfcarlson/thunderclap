@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x000d7010..0x000d7890 (kind game, layer game, confidence high), dominant class CSimOverlayManager
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -158,9 +157,25 @@ void Target_d7030::Run(uint_d7030 value) {
 } // namespace fn_f34eeb08
 
 // 0x000d70b0 Method1<CSimOverlayManager,void,bool>::vfunc_0 (30 B): matches/0x000d70b0.cpp
-// sym: ??_G?$Method1@VCSimOverlayManager@@X_N@@UAEPAXI@Z
+// sym: ?vfunc_0@Method1_d70b0@fn_000d70b0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method1<CSimOverlayManager, void, bool>::~Method1() {}` stood for
+// it, which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the
+// slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_000d70b0 {
+struct Method1_d70b0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method1_d70b0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_000d70b0
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method1<CSimOverlayManager, void, bool>::~Method1() {}
 
 
@@ -177,9 +192,25 @@ template class Method1<CSimOverlayManager, void, bool>; // (ren2) native only: c
 
 
 // 0x000d7130 Method1<CSimOverlayManager,void,int>::vfunc_0 (30 B): matches/0x000d7130.cpp
-// sym: ??_G?$Method1@VCSimOverlayManager@@XH@@UAEPAXI@Z
+// sym: ?vfunc_0@Method1_d7130@fn_000d7130@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method1<CSimOverlayManager, void, int>::~Method1() {}` stood for
+// it, which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the
+// slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_000d7130 {
+struct Method1_d7130 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method1_d7130::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_000d7130
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method1<CSimOverlayManager, void, int>::~Method1() {}
 
 
@@ -197,9 +228,25 @@ template class Method1<CSimOverlayManager, void, int>; // (ren2) native only: cl
 
 
 // 0x000d71b0 Method0<CSimOverlayManager,int>::vfunc_0 (30 B): matches/0x000d71b0.cpp
-// sym: ??_G?$Method0@VCSimOverlayManager@@H@@UAEPAXI@Z
+// sym: ?vfunc_0@Method0_d71b0@fn_000d71b0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method0<CSimOverlayManager, int>::~Method0() {}` stood for it,
+// which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the slot).
+// The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_000d71b0 {
+struct Method0_d71b0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method0_d71b0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_000d71b0
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method0<CSimOverlayManager, int>::~Method0() {}
 
 
@@ -302,9 +349,25 @@ Closure1::Closure1(const char* p, void* e, ScriptMemberFn c) : Closure1_d7310(p,
 
 
 // 0x000d7360 Closure1<CSimOverlayManager,void,bool>::vfunc_0 (30 B): matches/0x000d7360.cpp
-// sym: ??_G?$Method1@VCSimOverlayManager@@XH@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure1_d7360@fn_000d7360@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Closure1<CSimOverlayManager, void, bool>::~Closure1() {}` stood for
+// it, which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the
+// slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_000d7360 {
+struct Closure1_d7360 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure1_d7360::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_000d7360
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Closure1<CSimOverlayManager, void, bool>::~Closure1() {}
 
 

@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x002a0b00..0x002a1230 (kind game, layer engine, confidence high), dominant class pure3d::LightGroup
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -372,8 +371,24 @@ LightGroup_2a11b0::~LightGroup_2a11b0() throw() {
 } // namespace fn_fe79e145
 
 // 0x002a1210 pure3d::LightGroup::vfunc_2 (30 B): matches/0x002a1210.cpp
-// sym: ??_GLightGroup@pure3d@@UAEPAXI@Z
+// sym: ?vfunc_2@LightGroup_2a1210@fn_002a1210@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `pure3d::LightGroup::~LightGroup() {}` stood for it, which natively defines no
+// function for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's body
+// 0x002a11b0, then (flags & 1) content::LoadObject::operator delete.
+namespace fn_002a1210 {
+struct LightGroup_2a1210 {
+    void FUN_002a11b0();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* LightGroup_2a1210::vfunc_2(unsigned int flags) {
+    FUN_002a11b0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_002a1210
+// (x64t21) the destructor itself, which other objects' code references:
 pure3d::LightGroup::~LightGroup() {}
 

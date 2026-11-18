@@ -861,7 +861,7 @@ class LightsChooserCache {
 };
 
 LightsChooserCache::~LightsChooserCache() {
-    destroyChooser(mPtr);
+    ::operator delete[](mPtr);
     baseDtor_0027afd0();
 }
 } // namespace pure3d
@@ -913,7 +913,7 @@ class LightsChooserCache {
 };
 
 LightsChooserCache::~LightsChooserCache() {
-    destroyChooser(mPtr);
+    ::operator delete[](mPtr);
     baseDtor_0027afd0();
 }
 } // namespace pure3d

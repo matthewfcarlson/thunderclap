@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x00021780..0x00021940 (kind game, layer game, confidence medium), dominant class CHitAnimationAction
 #include "tree_prelude.h"
 #include "gen/fight.h"
@@ -130,8 +129,24 @@ CDropAction_217e0* CDropAction_217e0::f2(unsigned char flags) {
 } // namespace fn_fb6e77e3
 
 // 0x00021840 CCollisionAction::vfunc_2 (30 B): matches/0x00021840.cpp
-// sym: ??_GCCollisionAction@@UAEPAXI@Z
+// sym: ?vfunc_2@CCollisionAction_21840@fn_00021840@@QAEPAXI@Z
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `CCollisionAction::~CCollisionAction() {}` stood for it, which natively defines
+// no function for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's body
+// 0x00019420, then (flags & 1) operator delete.
+namespace fn_00021840 {
+struct CCollisionAction_21840 {
+    void FUN_00019420();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* CCollisionAction_21840::vfunc_2(unsigned int flags) {
+    FUN_00019420();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_00021840
+// (x64t21) the destructor itself, which other objects' code references:
 CCollisionAction::~CCollisionAction() {}
 
 namespace fn_fb6e77e3 {
@@ -154,9 +169,25 @@ COpportunityBallAction_21860* COpportunityBallAction_21860::f2(unsigned char fla
 } // namespace fn_fb6e77e3
 
 // 0x000218a0 CWeaponCollisionAction::vfunc_2 (30 B): matches/0x000218a0.cpp
-// sym: ??_GCWeaponCollisionAction@@UAEPAXI@Z
+// sym: ?vfunc_2@CWeaponCollisionAction_218a0@fn_000218a0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `CWeaponCollisionAction::~CWeaponCollisionAction() {}` stood for it, which
+// natively defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The
+// destructor's body 0x0001b120, then (flags & 1) operator delete.
+namespace fn_000218a0 {
+struct CWeaponCollisionAction_218a0 {
+    void FUN_0001b120();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* CWeaponCollisionAction_218a0::vfunc_2(unsigned int flags) {
+    FUN_0001b120();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_000218a0
+// (x64t21) the destructor itself, which other objects' code references:
 CWeaponCollisionAction::~CWeaponCollisionAction() {}
 
 namespace fn_fb6e77e3 {
@@ -185,8 +216,24 @@ CProceduralDurationAnimationAction_218c0* CProceduralDurationAnimationAction_218
 } // namespace fn_fb6e77e3
 
 // 0x00021920 CHitAnimationAction::vfunc_2 (30 B): matches/0x00021920.cpp
-// sym: ??_GCHitAnimationAction@@UAEPAXI@Z
+// sym: ?vfunc_2@CHitAnimationAction_21920@fn_00021920@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `CHitAnimationAction::~CHitAnimationAction() {}` stood for it, which natively
+// defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's
+// body 0x0001cf90, then (flags & 1) operator delete.
+namespace fn_00021920 {
+struct CHitAnimationAction_21920 {
+    void FUN_0001cf90();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* CHitAnimationAction_21920::vfunc_2(unsigned int flags) {
+    FUN_0001cf90();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_00021920
+// (x64t21) the destructor itself, which other objects' code references:
 CHitAnimationAction::~CHitAnimationAction() {}
 

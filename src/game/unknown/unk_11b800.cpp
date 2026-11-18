@@ -9,6 +9,7 @@
 #define TREE_TU_BEGIN namespace fn_f18cc536 {
 #define TREE_TU_END }
 namespace fn_f18cc536 {} using namespace fn_f18cc536;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "game/unknown.h"
 
 // ---- declarations shared by the functions below
@@ -104,7 +105,7 @@ class PathLocatorTestCondition {
   public:
     int a, b;
     virtual ~PathLocatorTestCondition();
-    int d;
+    void* d;   // (x64t21) a block of the game heap (the destructor frees it)
     virtual bool hulk_slot_F_00234270(void*); void FnF_002345b0();
 };
 extern "C" unsigned int __cdecl FUN_0008d340(void *);
@@ -934,7 +935,7 @@ namespace fn_f18cc536 {
 // 0x0011c270 FUN_0011c270 (29 B): matches/0x0011c270.cpp
 // sym: ??1PathLocatorTestCondition@fn_f18cc536@@UAE@XZ
 PathLocatorTestCondition::~PathLocatorTestCondition() {
-    Cleanup(d);
+    ::operator delete[](d);   // (x64t21, D115) the game's operator delete[] 0x0008d340 (`Cleanup(int)` was bound nowhere)
     FnF_002345b0();
 }
 

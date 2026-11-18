@@ -939,7 +939,7 @@ d3dPrimBuffer* d3dPrimBuffer::f3(unsigned char flag) {
     *(int**)this = vtp;
     cleanup();
     if (flag & 1)
-        destroy(this);
+        ::operator delete(this);
     return this;
 }
 

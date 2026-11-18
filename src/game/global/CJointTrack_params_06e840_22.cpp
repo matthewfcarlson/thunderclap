@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x0006e840..0x00075ce0 (kind game, layer game, confidence high), merged by D32: global/CJointTrack_params_06e840.cpp
 // piece 0x0006fd80..0x0006fe40 (kind game, layer game, confidence high, dominant class CPushBackAnimationTrack); was game/global/CPushBackAnimationTrack.cpp until D46
 #include "tree_prelude.h"
@@ -93,8 +92,24 @@ template <> void* fight::TrackFactoryTemplate<CPushBackAnimationTrack>::vfunc_5(
 
 
 // 0x0006fe20 CPushBackAnimationTrack::vfunc_5 (30 B): matches/0x0006fe20.cpp
-// sym: ??_GCPushBackAnimationTrack@@UAEPAXI@Z
+// sym: ?vfunc_5@CPushBackAnimationTrack_6fe20@fn_0006fe20@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `CPushBackAnimationTrack::~CPushBackAnimationTrack() {}` stood for it, which
+// natively defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The
+// destructor's body 0x0005dd40, then (flags & 1) operator delete.
+namespace fn_0006fe20 {
+struct CPushBackAnimationTrack_6fe20 {
+    void FUN_0005dd40();   // the destructor's body
+    void* vfunc_5(unsigned int flags);
+};
+void* CPushBackAnimationTrack_6fe20::vfunc_5(unsigned int flags) {
+    FUN_0005dd40();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0006fe20
+// (x64t21) the destructor itself, which other objects' code references:
 CPushBackAnimationTrack::~CPushBackAnimationTrack() {}
 

@@ -121,7 +121,7 @@ SemaphoreWaitAction_1133f0* SemaphoreWaitAction_1133f0::vfunc_2(int flag) {
     }
     ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1) {
-        opdel(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -159,7 +159,7 @@ SemaphoreClearAction_113490* SemaphoreClearAction_113490::vfunc_2(int flag) {
     }
     ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1) {
-        opdel(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -195,7 +195,7 @@ KeywordWaitAction_113530* KeywordWaitAction_113530::vfunc_2(int flag) {
     }
     ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1) {
-        opdel(this);
+        ::operator delete(this);
     }
     return this;
 }

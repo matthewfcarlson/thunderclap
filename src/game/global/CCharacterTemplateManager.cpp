@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x00045820..0x00047970 (kind game, layer game, confidence high), dominant class CCharacterTemplateManager
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -904,9 +903,25 @@ template <> void content::LoadInventory::DynamicCaster<CSPHulkProp>::vfunc_0(voi
 
 
 // 0x00046340 Method1<CCharacterTemplateManager,void,const_char_*>::vfunc_0 (30 B): matches/0x00046340.cpp
-// sym: ??_G?$Method1@VCCharacterTemplateManager@@XPBD@@UAEPAXI@Z
+// sym: ?vfunc_0@Method1_46340@fn_00046340@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method1<CCharacterTemplateManager, void, const char *>::~Method1()
+// {}` stood for it, which natively defines no function for the vftable slot (with the `??_G` signature, as other views
+// call the slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_00046340 {
+struct Method1_46340 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method1_46340::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_00046340
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method1<CCharacterTemplateManager, void, const char *>::~Method1() {}
 
 
@@ -924,9 +939,25 @@ template class Method1<CCharacterTemplateManager, void, const char *>; // (ren2)
 
 
 // 0x00046380 CCharacterTemplate::vfunc_2 (30 B): matches/0x00046380.cpp
-// sym: ??_GCCharacterTemplate@@UAEPAXI@Z
+// sym: ?vfunc_2@CCharacterTemplate_46380@fn_00046380@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `CCharacterTemplate::~CCharacterTemplate() {}` stood for it, which natively
+// defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's
+// body 0x00045ce0, then (flags & 1) operator delete.
+namespace fn_00046380 {
+struct CCharacterTemplate_46380 {
+    void FUN_00045ce0();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* CCharacterTemplate_46380::vfunc_2(unsigned int flags) {
+    FUN_00045ce0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_00046380
+// (x64t21) the destructor itself, which other objects' code references:
 CCharacterTemplate::~CCharacterTemplate() {}
 
 namespace fn_f8b6a7cf {

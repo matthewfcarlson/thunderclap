@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x002980b0..0x0029b100 (kind game, layer engine, confidence high), dominant class pure3d::OldCompositeDrawableLoader
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -15,6 +14,7 @@
 #define TREE_LOCAL_CCollisionAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_f40ca5f7 {} using namespace fn_f40ca5f7;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 namespace fn_f40ca5f7 { extern "C" char DAT_003f6098[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "engine/pure3d.h"
 
@@ -594,9 +594,9 @@ struct Item_299ac0 {
     char pad[8];
     X_299ac0* p;
 };
-struct Obj_299ba0 {
-    int a;
-    int b;
+struct Obj_299ba0 {   // (x64t21) the item array (begin, end) on the game heap
+    Item_299ac0* a;
+    Item_299ac0* b;
 };
 class DynamicCaster_299bc0 {
   public:
@@ -1428,9 +1428,25 @@ ActiveControllerList_299830::~ActiveControllerList_299830() {
 } // namespace fn_f40ca5f7
 
 // 0x002998b0 pure3d::CompositeDrawable::vfunc_2 (30 B): matches/0x002998b0.cpp
-// sym: ??_GCompositeDrawable@pure3d@@UAEPAXI@Z
+// sym: ?vfunc_2@CompositeDrawable_2998b0@fn_002998b0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `pure3d::CompositeDrawable::~CompositeDrawable() {}` stood for it, which
+// natively defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The
+// destructor's body 0x00299250, then (flags & 1) content::LoadObject::operator delete.
+namespace fn_002998b0 {
+struct CompositeDrawable_2998b0 {
+    void FUN_00299250();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* CompositeDrawable_2998b0::vfunc_2(unsigned int flags) {
+    FUN_00299250();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_002998b0
+// (x64t21) the destructor itself, which other objects' code references:
 pure3d::CompositeDrawable::~CompositeDrawable() {}
 
 namespace fn_f40ca5f7 {
@@ -1532,9 +1548,25 @@ void FUN_00299ac0(Item_299ac0* first, Item_299ac0* last) {
 } // namespace fn_f40ca5f7
 
 // 0x00299b80 pure3d::CompositeDrawable::ActiveControllerList::vfunc_2 (30 B): matches/0x00299b80.cpp
-// sym: ??_GActiveControllerList@CompositeDrawable@pure3d@@UAEPAXI@Z
+// sym: ?vfunc_2@ActiveControllerList_299b80@fn_00299b80@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `pure3d::CompositeDrawable::ActiveControllerList::~ActiveControllerList() {}`
+// stood for it, which natively defines no function for the vftable slot (with the `??_G` signature, as other views call
+// the slot). The destructor's body 0x00299830, then (flags & 1) operator delete.
+namespace fn_00299b80 {
+struct ActiveControllerList_299b80 {
+    void FUN_00299830();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* ActiveControllerList_299b80::vfunc_2(unsigned int flags) {
+    FUN_00299830();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_00299b80
+// (x64t21) the destructor itself, which other objects' code references:
 pure3d::CompositeDrawable::ActiveControllerList::~ActiveControllerList() {}
 
 namespace fn_f40ca5f7 {
@@ -1544,8 +1576,8 @@ namespace fn_f40ca5f7 {
 // Same code shape as 0x002907f0 (propagated; names are from that function)
 void __fastcall target(Obj_299ba0* self) {
     if (self->a) {
-        f(self->a, self->b);
-        g(self->a);
+        FUN_00299ac0(self->a, self->b);   // (x64t21, D115) the items' release and the game's operator delete[]
+        ::operator delete[](self->a);     // (`f` / `g(int)` were bound nowhere natively)
     }
 }
 

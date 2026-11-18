@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x00253a90..0x00254620 (kind game, layer engine, confidence high), dominant class audio::SeqActionStream
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -501,9 +500,25 @@ SeqEventStreamType::SeqEventStreamType() : FUN_002605e0(FUN_00240060().FUN_0023f
 } // namespace fn_f902c78b
 
 // 0x00254100 audio::SeqEventStreamType::vfunc_2 (30 B): matches/0x00254100.cpp
-// sym: ??_GSeqEventStreamType@audio@@UAEPAXI@Z
+// sym: ?vfunc_2@SeqEventStreamType_254100@fn_00254100@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `audio::SeqEventStreamType::~SeqEventStreamType() {}` stood for it, which
+// natively defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The
+// destructor's body 0x00260680, then (flags & 1) operator delete.
+namespace fn_00254100 {
+struct SeqEventStreamType_254100 {
+    void FUN_00260680();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* SeqEventStreamType_254100::vfunc_2(unsigned int flags) {
+    FUN_00260680();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_00254100
+// (x64t21) the destructor itself, which other objects' code references:
 audio::SeqEventStreamType::~SeqEventStreamType() {}
 
 

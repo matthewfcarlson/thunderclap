@@ -1409,7 +1409,7 @@ void SpriteLoader_2beac0::target() {
     C_2beac0* q = (C_2beac0*)registry;
     if (q) {
         q->run_002ae910();
-        thunk(q);
+        ::operator delete(q);
     }
     vftable = (void*)((hulk_intptr)DAT_003f6098);
 }

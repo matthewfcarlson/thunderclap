@@ -161,7 +161,7 @@ TargetClearAction_1296f0* TargetClearAction_1296f0::vfunc_2(int flag) {
     }
     ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1) {
-        opdel(this);
+        ::operator delete(this);
     }
     return this;
 }

@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x0008de70..0x0008ed50 (kind game, layer game, confidence high), dominant class MyDriveErrorCallback
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -110,9 +109,25 @@ pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
 
 
 // 0x0008e070 CSPHulkPropLoader::vfunc_2 (30 B): matches/0x0008e070.cpp
-// sym: ??_GCSPHulkPropLoader@@UAEPAXI@Z
+// sym: ?vfunc_2@CSPHulkPropLoader_8e070@fn_0008e070@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `CSPHulkPropLoader::~CSPHulkPropLoader() {}` stood for it, which natively
+// defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's
+// body 0x002904b0, then (flags & 1) content::LoadObject::operator delete.
+namespace fn_0008e070 {
+struct CSPHulkPropLoader_8e070 {
+    void FUN_002904b0();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* CSPHulkPropLoader_8e070::vfunc_2(unsigned int flags) {
+    FUN_002904b0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0008e070
+// (x64t21) the destructor itself, which other objects' code references:
 CSPHulkPropLoader::~CSPHulkPropLoader() {}
 
 namespace fn_f294a1a9 {
@@ -141,9 +156,25 @@ hulk_intptr FUN_0008e090() {
 } // namespace fn_f294a1a9
 
 // 0x0008e130 Method2<CPlatformManager,void,const_char_*,const_char_*>::vfunc_0 (30 B): matches/0x0008e130.cpp
-// sym: ??_G?$Method2@VCPlatformManager@@XPBDPBD@@UAEPAXI@Z
+// sym: ?vfunc_0@Method2_8e130@fn_0008e130@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method2<CPlatformManager, void, const char *, const char
+// *>::~Method2() {}` stood for it, which natively defines no function for the vftable slot (with the `??_G` signature,
+// as other views call the slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_0008e130 {
+struct Method2_8e130 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method2_8e130::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0008e130
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method2<CPlatformManager, void, const char *, const char *>::~Method2() {}
 
 
@@ -163,9 +194,25 @@ template class Method2<CPlatformManager, void, const char *, const char *>; // (
 
 
 // 0x0008e1b0 Method1<CPlatformManager,void,const_char_*>::vfunc_0 (30 B): matches/0x0008e1b0.cpp
-// sym: ??_G?$Method1@VCPlatformManager@@XPBD@@UAEPAXI@Z
+// sym: ?vfunc_0@Method1_8e1b0@fn_0008e1b0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method1<CPlatformManager, void, const char *>::~Method1() {}` stood
+// for it, which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the
+// slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_0008e1b0 {
+struct Method1_8e1b0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method1_8e1b0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0008e1b0
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method1<CPlatformManager, void, const char *>::~Method1() {}
 
 

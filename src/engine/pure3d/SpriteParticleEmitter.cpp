@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x002d3dc0..0x002d6720 (kind game, layer engine, confidence high), dominant class pure3d::SpriteParticleEmitter
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -1547,7 +1546,7 @@ void __fastcall target(Obj_2d5090* self) {
         self->p->f1();
         self->p = 0;
     }
-    thunk(self->x);
+    ::operator delete(self->x);
 }
 
 
@@ -1679,9 +1678,25 @@ void Emitter_2d53d0::FUN_002d53d0(Stream* s, Desc_2d53d0* d, Matrix* parent)
 } // namespace fn_f0cbe20f
 
 // 0x002d5620 pure3d::SpriteParticleEmitter::OverLifeAttributes::vfunc_2 (30 B): matches/0x002d5620.cpp
-// sym: ??_GOverLifeAttributes@SpriteParticleEmitter@pure3d@@UAEPAXI@Z
+// sym: ?vfunc_2@OverLifeAttributes_2d5620@fn_002d5620@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `pure3d::SpriteParticleEmitter::OverLifeAttributes::~OverLifeAttributes() {}`
+// stood for it, which natively defines no function for the vftable slot (with the `??_G` signature, as other views call
+// the slot). The destructor's body 0x002d4350, then (flags & 1) operator delete.
+namespace fn_002d5620 {
+struct OverLifeAttributes_2d5620 {
+    void FUN_002d4350();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* OverLifeAttributes_2d5620::vfunc_2(unsigned int flags) {
+    FUN_002d4350();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_002d5620
+// (x64t21) the destructor itself, which other objects' code references:
 pure3d::SpriteParticleEmitter::OverLifeAttributes::~OverLifeAttributes() {}
 
 
@@ -2077,9 +2092,25 @@ void pure3d::SpriteParticleEmitter::FUN_002d5fe0(float dt) {
 
 
 // 0x002d60e0 pure3d::ParticleEmitter::vfunc_2 (30 B): matches/0x002d60e0.cpp
-// sym: ??_GParticleEmitter@pure3d@@UAEPAXI@Z
+// sym: ?vfunc_2@ParticleEmitter_2d60e0@fn_002d60e0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `pure3d::ParticleEmitter::~ParticleEmitter() {}` stood for it, which natively
+// defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's
+// body 0x002d4b50, then (flags & 1) content::LoadObject::operator delete.
+namespace fn_002d60e0 {
+struct ParticleEmitter_2d60e0 {
+    void FUN_002d4b50();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* ParticleEmitter_2d60e0::vfunc_2(unsigned int flags) {
+    FUN_002d4b50();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_002d60e0
+// (x64t21) the destructor itself, which other objects' code references:
 pure3d::ParticleEmitter::~ParticleEmitter() {}
 
 namespace fn_f0cbe20f {

@@ -9,6 +9,7 @@
 #define TREE_TU_BEGIN namespace fn_f5579237 {
 #define TREE_TU_END }
 namespace fn_f5579237 {} using namespace fn_f5579237;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "game/unknown.h"
 
 // ---- declarations shared by the functions below
@@ -347,7 +348,7 @@ class TargetCharacterTemplateCondition_166210 {
   public:
     int a, b;
     virtual ~TargetCharacterTemplateCondition_166210();
-    int d;
+    void* d;   // (x64t21) a block of the game heap (the destructor frees it)
     virtual bool hulk_slot_F_00234270(void*); void FnF_002345b0();
 };
 extern "C" void __cdecl FUN_0008d340(void *);
@@ -1369,7 +1370,7 @@ namespace fn_f5579237 {
 // sym: ??1TargetCharacterTemplateCondition_166210@fn_f5579237@@UAE@XZ
 // Same code shape as 0x0011c270 (propagated; names are from that function)
 TargetCharacterTemplateCondition_166210::~TargetCharacterTemplateCondition_166210() {
-    Cleanup(d);
+    ::operator delete[](d);   // (x64t21, D115) the game's operator delete[] 0x0008d340 (`Cleanup(int)` was bound nowhere)
     FnF_002345b0();
 }
 

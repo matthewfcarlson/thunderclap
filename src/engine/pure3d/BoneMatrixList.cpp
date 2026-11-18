@@ -11,6 +11,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_fa9c7cf4 {} using namespace fn_fa9c7cf4;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 namespace fn_fa9c7cf4 { extern "C" char DAT_0042fcd4[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 namespace fn_fa9c7cf4 { extern "C" char DAT_003f6098[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "engine/pure3d.h"
@@ -175,7 +176,7 @@ void MatrixPaletteList::Destroy() {
     *(volatile hulk_ulongptr*)this = ((hulk_intptr)DAT_0042fce4);
     void* q = p;
     if (q)
-        Release(q);
+        ::operator delete[](q);
     *(volatile hulk_ulongptr*)this = ((hulk_intptr)DAT_003f6098);
 }
 

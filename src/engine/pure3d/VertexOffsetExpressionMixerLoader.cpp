@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x002b0f40..0x002b1870 (kind game, layer engine, confidence high), dominant class pure3d::VertexOffsetExpressionMixerLoader
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -12,6 +11,7 @@
 #define TREE_LOCAL_CCollisionAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_f8d4917d {} using namespace fn_f8d4917d;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "engine/pure3d.h"
 
 // ---- declarations shared by the functions below
@@ -68,9 +68,9 @@ struct Entry_2b1390 {
     u32_2b1390 value;
     char pad[12];
 };
-struct Obj_2b13c0 {
-    int a;
-    int b;
+struct Obj_2b13c0 {   // (x64t21) the entry array (begin, end) on the game heap
+    Entry_2b1390* a;
+    Entry_2b1390* b;
 };
 class V {
   public:
@@ -352,8 +352,8 @@ void __cdecl FUN_002b1390(Entry_2b1390* begin, Entry_2b1390* end) {
 // Same code shape as 0x002907f0 (propagated; names are from that function)
 void __fastcall target(Obj_2b13c0* self) {
     if (self->a) {
-        f(self->a, self->b);
-        g(self->a);
+        FUN_002b1390(self->a, self->b);   // (x64t21, D115) the entries' release and the game's operator delete[]
+        ::operator delete[](self->a);     // (`f` / `g(int)` were bound nowhere natively)
     }
 }
 
@@ -448,9 +448,25 @@ pure3d::VertexOffsetExpressionMixer::VertexOffsetExpressionMixer(Source_2b15d0 *
 
 
 // 0x002b1680 pure3d::VertexOffsetExpressionMixer::vfunc_2 (30 B): matches/0x002b1680.cpp
-// sym: ??_GVertexOffsetExpressionMixer@pure3d@@UAEPAXI@Z
+// sym: ?vfunc_2@VertexOffsetExpressionMixer_2b1680@fn_002b1680@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `pure3d::VertexOffsetExpressionMixer::~VertexOffsetExpressionMixer() {}` stood
+// for it, which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the
+// slot). The destructor's body 0x002b1400, then (flags & 1) content::LoadObject::operator delete.
+namespace fn_002b1680 {
+struct VertexOffsetExpressionMixer_2b1680 {
+    void FUN_002b1400();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* VertexOffsetExpressionMixer_2b1680::vfunc_2(unsigned int flags) {
+    FUN_002b1400();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_002b1680
+// (x64t21) the destructor itself, which other objects' code references:
 pure3d::VertexOffsetExpressionMixer::~VertexOffsetExpressionMixer() {}
 
 

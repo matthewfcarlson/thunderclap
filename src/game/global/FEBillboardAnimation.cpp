@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x000f10c0..0x000f11f0 (kind game, layer game, confidence medium), dominant class FEBillboardAnimation
 #include "tree_prelude.h"
 #include "gen/global.h"
@@ -111,15 +110,47 @@ FEAnimation* FEAnimation::vfunc_0(unsigned char param) {
 
 
 // 0x000f11b0 FEPoseAnimation::vfunc_0 (30 B): matches/0x000f11b0.cpp
-// sym: ??_GFEPoseAnimation@@UAEPAXI@Z
+// sym: ?vfunc_0@FEPoseAnimation_f11b0@fn_000f11b0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `FEPoseAnimation::~FEPoseAnimation() {}` stood for it, which natively defines no
+// function for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's body
+// 0x000e8730, then (flags & 1) operator delete.
+namespace fn_000f11b0 {
+struct FEPoseAnimation_f11b0 {
+    void FUN_000e8730();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* FEPoseAnimation_f11b0::vfunc_0(unsigned int flags) {
+    FUN_000e8730();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_000f11b0
+// (x64t21) the destructor itself, which other objects' code references:
 FEPoseAnimation::~FEPoseAnimation() {}
 
 
 // 0x000f11d0 FEBillboardAnimation::vfunc_0 (30 B): matches/0x000f11d0.cpp
-// sym: ??_GFEBillboardAnimation@@UAEPAXI@Z
+// sym: ?vfunc_0@FEBillboardAnimation_f11d0@fn_000f11d0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `FEBillboardAnimation::~FEBillboardAnimation() {}` stood for it, which natively
+// defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's
+// body 0x000e8980, then (flags & 1) operator delete.
+namespace fn_000f11d0 {
+struct FEBillboardAnimation_f11d0 {
+    void FUN_000e8980();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* FEBillboardAnimation_f11d0::vfunc_0(unsigned int flags) {
+    FUN_000e8980();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_000f11d0
+// (x64t21) the destructor itself, which other objects' code references:
 FEBillboardAnimation::~FEBillboardAnimation() {}
 

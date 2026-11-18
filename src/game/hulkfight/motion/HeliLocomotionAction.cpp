@@ -1279,16 +1279,48 @@ LocomotingTrack_15cd70* LocomotingTrack_15cd70::vfunc_5(signed char flags) {
 } // namespace fn_f94adb62
 
 // 0x0015cda0 hulkfight::motion::ClimbLocomotion4Track::vfunc_5 (30 B): matches/0x0015cda0.cpp
-// sym: ??_GClimbLocomotion4Track@motion@hulkfight@@UAEPAXI@Z
+// sym: ?vfunc_5@ClimbLocomotion4Track_15cda0@fn_0015cda0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `hulkfight::motion::ClimbLocomotion4Track::~ClimbLocomotion4Track() {}` stood
+// for it, which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the
+// slot). The destructor's body 0x0015ba50, then (flags & 1) operator delete.
+namespace fn_0015cda0 {
+struct ClimbLocomotion4Track_15cda0 {
+    void FUN_0015ba50();   // the destructor's body
+    void* vfunc_5(unsigned int flags);
+};
+void* ClimbLocomotion4Track_15cda0::vfunc_5(unsigned int flags) {
+    FUN_0015ba50();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0015cda0
+// (x64t21) the destructor itself, which other objects' code references:
 hulkfight::motion::ClimbLocomotion4Track::~ClimbLocomotion4Track() {}
 
 
 // 0x0015cdc0 hulkfight::motion::LocomotionStrafe4Track::vfunc_5 (30 B): matches/0x0015cdc0.cpp
-// sym: ??_GLocomotionStrafe4Track@motion@hulkfight@@UAEPAXI@Z
+// sym: ?vfunc_5@LocomotionStrafe4Track_15cdc0@fn_0015cdc0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `hulkfight::motion::LocomotionStrafe4Track::~LocomotionStrafe4Track() {}` stood
+// for it, which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the
+// slot). The destructor's body 0x0015bbe0, then (flags & 1) operator delete.
+namespace fn_0015cdc0 {
+struct LocomotionStrafe4Track_15cdc0 {
+    void FUN_0015bbe0();   // the destructor's body
+    void* vfunc_5(unsigned int flags);
+};
+void* LocomotionStrafe4Track_15cdc0::vfunc_5(unsigned int flags) {
+    FUN_0015bbe0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0015cdc0
+// (x64t21) the destructor itself, which other objects' code references:
 hulkfight::motion::LocomotionStrafe4Track::~LocomotionStrafe4Track() {}
 
 namespace fn_f94adb62 {
@@ -3953,7 +3985,7 @@ void* LocomotionSprintAction_161530::vfunc_2(unsigned char flag) {
     }
     BaseDtor(this);
     if (flag & 1)
-        operator_delete(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -3980,7 +4012,7 @@ void* LocomotionSteerAction_1615c0::vfunc_2(unsigned char flag) {
     }
     BaseDtor(this);
     if (flag & 1)
-        operator_delete(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -4022,7 +4054,7 @@ void* GrappleLocomotionSteerAction_161660::vfunc_2(unsigned char flag) {
     }
     BaseDtor(this);
     if (flag & 1)
-        operator_delete(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -4039,9 +4071,25 @@ hulk_intptr hulkfight::motion::ClimbLocomotion4Track::vfunc_10(hulk_intptr a, hu
 
 
 // 0x00161750 hulkfight::motion::ClimbLocomotion4Action::vfunc_2 (30 B): matches/0x00161750.cpp
-// sym: ??_GClimbLocomotion4Action@motion@hulkfight@@UAEPAXI@Z
+// sym: ?vfunc_2@ClimbLocomotion4Action_161750@fn_00161750@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `hulkfight::motion::ClimbLocomotion4Action::~ClimbLocomotion4Action() {}` stood
+// for it, which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the
+// slot). The destructor's body 0x0015f5d0, then (flags & 1) operator delete.
+namespace fn_00161750 {
+struct ClimbLocomotion4Action_161750 {
+    void FUN_0015f5d0();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* ClimbLocomotion4Action_161750::vfunc_2(unsigned int flags) {
+    FUN_0015f5d0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_00161750
+// (x64t21) the destructor itself, which other objects' code references:
 hulkfight::motion::ClimbLocomotion4Action::~ClimbLocomotion4Action() {}
 
 namespace fn_f94adb62 {

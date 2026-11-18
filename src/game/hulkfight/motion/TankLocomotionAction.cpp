@@ -2401,7 +2401,7 @@ void* TankLocomotionAction_1916c0::vfunc_2(unsigned char flag) {
     }
     BaseDtor(this);
     if (flag & 1)
-        operator_delete(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -2438,7 +2438,7 @@ SimulationAction_191770* SimulationAction_191770::vfunc_2(int flag) {
     }
     ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1) {
-        opdel(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -2460,7 +2460,7 @@ ImpulseVelocityAction_191810* ImpulseVelocityAction_191810::vfunc_2(int flag) {
     }
     ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1) {
-        opdel(this);
+        ::operator delete(this);
     }
     return this;
 }

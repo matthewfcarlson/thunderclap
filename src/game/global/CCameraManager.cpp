@@ -3126,9 +3126,25 @@ Method6_9a6e0* Method6_9a6e0::Run(const char* a, Fn_9a6e0 b) {
 } // namespace fn_f5ef2b3f
 
 // 0x0009a760 Method6<CCameraManager,void,float,float,float,float,float,float>::vfunc_0 (30 B): matches/0x0009a760.cpp
-// sym: ??_G?$Method6@VCCameraManager@@XMMMMMM@@UAEPAXI@Z
+// sym: ?vfunc_0@Method6_9a760@fn_0009a760@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method6<CCameraManager, void, float, float, float, float, float,
+// float>::~Method6() {}` stood for it, which natively defines no function for the vftable slot (with the `??_G`
+// signature, as other views call the slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_0009a760 {
+struct Method6_9a760 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method6_9a760::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0009a760
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method6<CCameraManager, void, float, float, float, float, float, float>::~Method6() {}
 
 
@@ -3170,9 +3186,25 @@ Method4_9a800::Method4_9a800(const char* a, Fn_9a800 b) : FUN_001d0480(a, 4) {
 } // namespace fn_f5ef2b3f
 
 // 0x0009a870 Method4<CCameraManager,void,float,float,math::Vector,float>::vfunc_0 (30 B): matches/0x0009a870.cpp
-// sym: ??_G?$Method4@VCCameraManager@@XMMVVector@math@@M@@UAEPAXI@Z
+// sym: ?vfunc_0@Vector_float_9a870@fn_0009a870@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method4<CCameraManager, void, float, float,math::Vector,
+// float>::~Method4() {}` stood for it, which natively defines no function for the vftable slot (with the `??_G`
+// signature, as other views call the slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_0009a870 {
+struct Vector_float_9a870 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Vector_float_9a870::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0009a870
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method4<CCameraManager, void, float, float,math::Vector, float>::~Method4() {}
 
 
@@ -3215,9 +3247,25 @@ template class Method3<CCameraManager, void, float, float, bool>; // (ren2) nati
 
 
 // 0x0009a9e0 Method2<CCameraManager,void,float,float>::vfunc_0 (30 B): matches/0x0009a9e0.cpp
-// sym: ??_G?$Method2@VCCameraManager@@XMM@@UAEPAXI@Z
+// sym: ?vfunc_0@Method2_9a9e0@fn_0009a9e0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method2<CCameraManager, void, float, float>::~Method2() {}` stood
+// for it, which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the
+// slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_0009a9e0 {
+struct Method2_9a9e0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method2_9a9e0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0009a9e0
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method2<CCameraManager, void, float, float>::~Method2() {}
 
 
@@ -3507,9 +3555,25 @@ template<> Method4<CCameraManager, void, bool, bool, bool, bool>::Method4(const 
 
 
 // 0x0009ace0 Method4<CCameraManager,void,bool,bool,bool,bool>::vfunc_0 (30 B): matches/0x0009ace0.cpp
-// sym: ??_G?$Method4@VCCameraManager@@X_N_N_N_N@@UAEPAXI@Z
+// sym: ?vfunc_0@Method4_9ace0@fn_0009ace0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method4<CCameraManager, void, bool, bool, bool, bool>::~Method4()
+// {}` stood for it, which natively defines no function for the vftable slot (with the `??_G` signature, as other views
+// call the slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_0009ace0 {
+struct Method4_9ace0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method4_9ace0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0009ace0
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method4<CCameraManager, void, bool, bool, bool, bool>::~Method4() {}
 
 
@@ -3548,9 +3612,25 @@ Method5_9ad40* Method5_9ad40::Init(const char* arg, Fn_9ad40 value) {
 } // namespace fn_f5ef2b3f
 
 // 0x0009adc0 Method5<CCameraManager,void,bool,bool,bool,bool,float>::vfunc_0 (30 B): matches/0x0009adc0.cpp
-// sym: ??_G?$Method5@VCCameraManager@@X_N_N_N_NM@@UAEPAXI@Z
+// sym: ?vfunc_0@Method5_9adc0@fn_0009adc0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method5<CCameraManager, void, bool, bool, bool, bool,
+// float>::~Method5() {}` stood for it, which natively defines no function for the vftable slot (with the `??_G`
+// signature, as other views call the slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_0009adc0 {
+struct Method5_9adc0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method5_9adc0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0009adc0
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method5<CCameraManager, void, bool, bool, bool, bool, float>::~Method5() {}
 
 
@@ -3605,9 +3685,25 @@ Method7_9ae50* Method7_9ae50::Init(const char* name, Fn_9ae50 value) {
 } // namespace fn_f5ef2b3f
 
 // 0x0009aee0 Method7<CCameraManager,void,bool,bool,bool,bool,bool,bool,float>::vfunc_0 (30 B): matches/0x0009aee0.cpp
-// sym: ??_G?$Method7@VCCameraManager@@X_N_N_N_N_N_NM@@UAEPAXI@Z
+// sym: ?vfunc_0@Method7_9aee0@fn_0009aee0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method7<CCameraManager, void, bool, bool, bool, bool, bool, bool,
+// float>::~Method7() {}` stood for it, which natively defines no function for the vftable slot (with the `??_G`
+// signature, as other views call the slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_0009aee0 {
+struct Method7_9aee0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method7_9aee0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0009aee0
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method7<CCameraManager, void, bool, bool, bool, bool, bool, bool, float>::~Method7() {}
 
 
@@ -3634,9 +3730,25 @@ void f(Obj_9af20* obj, Rec_9af20* r, int unused2, CB cb) {
 } // namespace fn_f5ef2b3f
 
 // 0x0009afd0 Method0<CCameraManager,void>::vfunc_0 (30 B): matches/0x0009afd0.cpp
-// sym: ??_G?$Method0@VCCameraManager@@X@@UAEPAXI@Z
+// sym: ?vfunc_0@Method0_9afd0@fn_0009afd0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method0<CCameraManager, void>::~Method0() {}` stood for it, which
+// natively defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The
+// destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_0009afd0 {
+struct Method0_9afd0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method0_9afd0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0009afd0
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method0<CCameraManager, void>::~Method0() {}
 
 
@@ -3697,9 +3809,25 @@ Method6_9b080* Method6_9b080::Init(const char* arg, Fn_9b080 value)
 } // namespace fn_f5ef2b3f
 
 // 0x0009b100 Method6<CCameraManager,void,int,int,float,int,int,float>::vfunc_0 (30 B): matches/0x0009b100.cpp
-// sym: ??_G?$Method6@VCCameraManager@@XHHMHHM@@UAEPAXI@Z
+// sym: ?vfunc_0@Method6_9b100@fn_0009b100@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method6<CCameraManager, void, int, int, float, int, int,
+// float>::~Method6() {}` stood for it, which natively defines no function for the vftable slot (with the `??_G`
+// signature, as other views call the slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_0009b100 {
+struct Method6_9b100 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method6_9b100::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0009b100
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method6<CCameraManager, void, int, int, float, int, int, float>::~Method6() {}
 
 
@@ -3732,9 +3860,25 @@ void __cdecl FUN_0009b140(Receiver *receiver, unsigned *values, unsigned unused,
 
 
 // 0x0009b1c0 Method1<CCameraManager,void,float>::vfunc_0 (30 B): matches/0x0009b1c0.cpp
-// sym: ??_G?$Method1@VCCameraManager@@XM@@UAEPAXI@Z
+// sym: ?vfunc_0@Method1_9b1c0@fn_0009b1c0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method1<CCameraManager, void, float>::~Method1() {}` stood for it,
+// which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the slot).
+// The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_0009b1c0 {
+struct Method1_9b1c0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method1_9b1c0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0009b1c0
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method1<CCameraManager, void, float>::~Method1() {}
 
 
@@ -3752,9 +3896,25 @@ template class Method1<CCameraManager, void, float>; // (ren2) native only: clan
 
 
 // 0x0009b250 Method2<CCameraManager,void,math::Vector,math::Vector>::vfunc_0 (30 B): matches/0x0009b250.cpp
-// sym: ??_G?$Method2@VCCameraManager@@XVVector@math@@V23@@@UAEPAXI@Z
+// sym: ?vfunc_0@Vector_9b250@fn_0009b250@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method2<CCameraManager, void,math::Vector,math::Vector>::~Method2()
+// {}` stood for it, which natively defines no function for the vftable slot (with the `??_G` signature, as other views
+// call the slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_0009b250 {
+struct Vector_9b250 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Vector_9b250::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0009b250
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method2<CCameraManager, void,math::Vector,math::Vector>::~Method2() {}
 
 
@@ -3772,9 +3932,25 @@ template class Method2<CCameraManager, void,math::Vector,math::Vector>; // (ren2
 
 
 // 0x0009b2f0 Method1<CCameraManager,void,bool>::vfunc_0 (30 B): matches/0x0009b2f0.cpp
-// sym: ??_G?$Method1@VCCameraManager@@X_N@@UAEPAXI@Z
+// sym: ?vfunc_0@Method1_9b2f0@fn_0009b2f0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method1<CCameraManager, void, bool>::~Method1() {}` stood for it,
+// which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the slot).
+// The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_0009b2f0 {
+struct Method1_9b2f0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method1_9b2f0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0009b2f0
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method1<CCameraManager, void, bool>::~Method1() {}
 
 
@@ -3838,9 +4014,25 @@ void Method4::vfunc_2(CCameraManager *manager, Args *args, float unused) {
 
 
 // 0x0009b430 Method0<CCameraManager,math::Vector>::vfunc_0 (30 B): matches/0x0009b430.cpp
-// sym: ??_G?$Method0@VCCameraManager@@VVector@math@@@@UAEPAXI@Z
+// sym: ?vfunc_0@Vector_9b430@fn_0009b430@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method0<CCameraManager,math::Vector>::~Method0() {}` stood for it,
+// which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the slot).
+// The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_0009b430 {
+struct Vector_9b430 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Vector_9b430::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0009b430
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method0<CCameraManager,math::Vector>::~Method0() {}
 
 
@@ -3887,9 +4079,25 @@ Method6_9b4a0* Method6_9b4a0::Run(const char* arg, Fn_9b4a0 value) {
 } // namespace fn_f5ef2b3f
 
 // 0x0009b520 Method6<CCameraManager,bool,float,float,float,float,float,float>::vfunc_0 (30 B): matches/0x0009b520.cpp
-// sym: ??_G?$Method6@VCCameraManager@@_NMMMMMM@@UAEPAXI@Z
+// sym: ?vfunc_0@Method6_9b520@fn_0009b520@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method6<CCameraManager, bool, float, float, float, float, float,
+// float>::~Method6() {}` stood for it, which natively defines no function for the vftable slot (with the `??_G`
+// signature, as other views call the slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_0009b520 {
+struct Method6_9b520 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method6_9b520::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0009b520
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method6<CCameraManager, bool, float, float, float, float, float, float>::~Method6() {}
 
 
@@ -3921,9 +4129,25 @@ void __cdecl FUN_0009b560(Target_9b560* obj, int* args, char* result, unsigned i
 } // namespace fn_f5ef2b3f
 
 // 0x0009b610 Method1<CCameraManager,void,const_char_*>::vfunc_0 (30 B): matches/0x0009b610.cpp
-// sym: ??_G?$Method1@VCCameraManager@@XPBD@@UAEPAXI@Z
+// sym: ?vfunc_0@Method1_9b610@fn_0009b610@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method1<CCameraManager, void, const char *>::~Method1() {}` stood
+// for it, which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the
+// slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_0009b610 {
+struct Method1_9b610 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method1_9b610::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0009b610
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method1<CCameraManager, void, const char *>::~Method1() {}
 
 
@@ -3963,9 +4187,25 @@ template class Method0<CCameraManager, const char *>; // (ren2) native only: cla
 
 
 // 0x0009b720 Method2<CCameraManager,void,math::Vector,bool>::vfunc_0 (30 B): matches/0x0009b720.cpp
-// sym: ??_G?$Method2@VCCameraManager@@XVVector@math@@_N@@UAEPAXI@Z
+// sym: ?vfunc_0@Vector_bool_9b720@fn_0009b720@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method2<CCameraManager, void,math::Vector, bool>::~Method2() {}`
+// stood for it, which natively defines no function for the vftable slot (with the `??_G` signature, as other views call
+// the slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_0009b720 {
+struct Vector_bool_9b720 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Vector_bool_9b720::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0009b720
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method2<CCameraManager, void,math::Vector, bool>::~Method2() {}
 
 
@@ -3997,9 +4237,25 @@ Method5_9b770::Method5_9b770(const char* x, Fn_9b770 y) : FUN_001d0480(x, 5) {
 } // namespace fn_f5ef2b3f
 
 // 0x0009b7f0 Method5<CCameraManager,bool,float,float,float,float,bool>::vfunc_0 (30 B): matches/0x0009b7f0.cpp
-// sym: ??_G?$Method5@VCCameraManager@@_NMMMM_N@@UAEPAXI@Z
+// sym: ?vfunc_0@Method5_9b7f0@fn_0009b7f0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method5<CCameraManager, bool, float, float, float, float,
+// bool>::~Method5() {}` stood for it, which natively defines no function for the vftable slot (with the `??_G`
+// signature, as other views call the slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_0009b7f0 {
+struct Method5_9b7f0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method5_9b7f0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0009b7f0
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method5<CCameraManager, bool, float, float, float, float, bool>::~Method5() {}
 
 
@@ -4107,9 +4363,25 @@ Method4_9b930* Method4_9b930::FUN_0009b930(const char* name, Fn_9b930 fp) {
 } // namespace fn_f5ef2b3f
 
 // 0x0009b9a0 Method4<CCameraManager,void,char_*,char_*,char_*,char_*>::vfunc_0 (30 B): matches/0x0009b9a0.cpp
-// sym: ??_G?$Method4@VCCameraManager@@XPADPADPADPAD@@UAEPAXI@Z
+// sym: ?vfunc_0@Method4_9b9a0@fn_0009b9a0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method4<CCameraManager, void, char *, char *, char *, char
+// *>::~Method4() {}` stood for it, which natively defines no function for the vftable slot (with the `??_G` signature,
+// as other views call the slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_0009b9a0 {
+struct Method4_9b9a0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method4_9b9a0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0009b9a0
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method4<CCameraManager, void, char *, char *, char *, char *>::~Method4() {}
 
 
@@ -4724,9 +4996,25 @@ Closure2::Closure2(const char* a, Owner_9c440* b, Fn_9c440 c) : Method2(a, c) {
 
 
 // 0x0009c4a0 Closure2<CCameraManager,void,float,float>::vfunc_0 (30 B): matches/0x0009c4a0.cpp
-// sym: ??_G?$Method4@VCCameraManager@@X_N_N_N_N@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure2_9c4a0@fn_0009c4a0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Closure2<CCameraManager, void, float, float>::~Closure2() {}` stood
+// for it, which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the
+// slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_0009c4a0 {
+struct Closure2_9c4a0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure2_9c4a0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0009c4a0
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Closure2<CCameraManager, void, float, float>::~Closure2() {}
 
 
@@ -4786,9 +5074,25 @@ void Closure4::vfunc_2(int, float* p, int) {
 
 
 // 0x0009c5a0 Closure3<CCameraManager,void,bool,bool,bool>::vfunc_0 (30 B): matches/0x0009c5a0.cpp
-// sym: ??_G?$Method6@VCCameraManager@@XHHMHHM@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure3_9c5a0@fn_0009c5a0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Closure3<CCameraManager, void, bool, bool, bool>::~Closure3() {}`
+// stood for it, which natively defines no function for the vftable slot (with the `??_G` signature, as other views call
+// the slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_0009c5a0 {
+struct Closure3_9c5a0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure3_9c5a0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0009c5a0
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Closure3<CCameraManager, void, bool, bool, bool>::~Closure3() {}
 
 
@@ -4806,9 +5110,25 @@ template class Closure3<CCameraManager, void, bool, bool, bool>; // (ren2) nativ
 
 
 // 0x0009c620 Closure4<CCameraManager,void,bool,bool,bool,float>::vfunc_0 (30 B): matches/0x0009c620.cpp
-// sym: ??_G?$Method2@VCCameraManager@@XVVector@math@@V23@@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure4_9c620@fn_0009c620@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Closure4<CCameraManager, void, bool, bool, bool,
+// float>::~Closure4() {}` stood for it, which natively defines no function for the vftable slot (with the `??_G`
+// signature, as other views call the slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_0009c620 {
+struct Closure4_9c620 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure4_9c620::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0009c620
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Closure4<CCameraManager, void, bool, bool, bool, float>::~Closure4() {}
 
 
@@ -4828,9 +5148,25 @@ template class Closure4<CCameraManager, void, bool, bool, bool, float>; // (ren2
 
 
 // 0x0009c6b0 Closure4<CCameraManager,void,bool,bool,bool,bool>::vfunc_0 (30 B): matches/0x0009c6b0.cpp
-// sym: ??_G?$Method1@VCCameraManager@@X_N@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure4_9c6b0@fn_0009c6b0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Closure4<CCameraManager, void, bool, bool, bool, bool>::~Closure4()
+// {}` stood for it, which natively defines no function for the vftable slot (with the `??_G` signature, as other views
+// call the slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_0009c6b0 {
+struct Closure4_9c6b0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure4_9c6b0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0009c6b0
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Closure4<CCameraManager, void, bool, bool, bool, bool>::~Closure4() {}
 
 
@@ -4860,9 +5196,25 @@ template class Closure5<CCameraManager, void, bool, bool, bool, bool, float>; //
 
 
 // 0x0009c7e0 Closure7<CCameraManager,void,bool,bool,bool,bool,bool,bool,float>::vfunc_0 (30 B): matches/0x0009c7e0.cpp
-// sym: ??_G?$Method0@VCCameraManager@@VVector@math@@@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure7_9c7e0@fn_0009c7e0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Closure7<CCameraManager, void, bool, bool, bool, bool, bool, bool,
+// float>::~Closure7() {}` stood for it, which natively defines no function for the vftable slot (with the `??_G`
+// signature, as other views call the slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_0009c7e0 {
+struct Closure7_9c7e0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure7_9c7e0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0009c7e0
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Closure7<CCameraManager, void, bool, bool, bool, bool, bool, bool, float>::~Closure7() {}
 
 
@@ -4879,9 +5231,25 @@ template class Closure7<CCameraManager, void, bool, bool, bool, bool, bool, bool
 
 
 // 0x0009c860 Closure0<CCameraManager,void>::vfunc_0 (30 B): matches/0x0009c860.cpp
-// sym: ??_G?$Method6@VCCameraManager@@_NMMMMMM@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure0_9c860@fn_0009c860@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Closure0<CCameraManager, void>::~Closure0() {}` stood for it, which
+// natively defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The
+// destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_0009c860 {
+struct Closure0_9c860 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure0_9c860::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0009c860
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Closure0<CCameraManager, void>::~Closure0() {}
 
 
@@ -4897,9 +5265,25 @@ template class Closure0<CCameraManager, void>; // (ren2) native only: clang emit
 
 
 // 0x0009c8d0 Closure0<CCameraManager,bool>::vfunc_0 (30 B): matches/0x0009c8d0.cpp
-// sym: ??_G?$Method1@VCCameraManager@@XPBD@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure0_9c8d0@fn_0009c8d0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Closure0<CCameraManager, bool>::~Closure0() {}` stood for it, which
+// natively defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The
+// destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_0009c8d0 {
+struct Closure0_9c8d0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure0_9c8d0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0009c8d0
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Closure0<CCameraManager, bool>::~Closure0() {}
 
 
@@ -4970,9 +5354,25 @@ Closure1::Closure1(const char* p, Owner_9c9a0* w, Fn_9c9a0 v) : Method1(p, v) {
 
 
 // 0x0009c9f0 Closure1<CCameraManager,void,float>::vfunc_0 (30 B): matches/0x0009c9f0.cpp
-// sym: ??_G?$Method2@VCCameraManager@@XVVector@math@@_N@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure1_9c9f0@fn_0009c9f0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Closure1<CCameraManager, void, float>::~Closure1() {}` stood for
+// it, which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the
+// slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_0009c9f0 {
+struct Closure1_9c9f0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure1_9c9f0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0009c9f0
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Closure1<CCameraManager, void, float>::~Closure1() {}
 
 
@@ -5060,9 +5460,26 @@ Closure2::Closure2(const char* a, CCameraManager* p, Fn_9ca30 m) : Closure2_9ca3
 
 
 // 0x0009ca90 Closure2<CCameraManager,void,math::Vector,math::Vector>::vfunc_0 (30 B): matches/0x0009ca90.cpp
-// sym: ??_G?$Method5@VCCameraManager@@_NMMMM_N@@UAEPAXI@Z
+// sym: ?vfunc_0@Vector_9ca90@fn_0009ca90@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Closure2<CCameraManager,
+// void,math::Vector,math::Vector>::~Closure2() {}` stood for it, which natively defines no function for the vftable
+// slot (with the `??_G` signature, as other views call the slot). The destructor's body 0x001d04a0, then (flags & 1)
+// operator delete.
+namespace fn_0009ca90 {
+struct Vector_9ca90 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Vector_9ca90::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0009ca90
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Closure2<CCameraManager, void,math::Vector,math::Vector>::~Closure2() {}
 
 
@@ -5138,9 +5555,25 @@ template class Closure1<CCameraManager, void, bool>; // (ren2) native only: clan
 
 
 // 0x0009cbb0 Closure4<CCameraManager,void,int,float,float,float>::vfunc_0 (30 B): matches/0x0009cbb0.cpp
-// sym: ??_G?$Method4@VCCameraManager@@XPADPADPADPAD@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure4_9cbb0@fn_0009cbb0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Closure4<CCameraManager, void, int, float, float,
+// float>::~Closure4() {}` stood for it, which natively defines no function for the vftable slot (with the `??_G`
+// signature, as other views call the slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_0009cbb0 {
+struct Closure4_9cbb0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure4_9cbb0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0009cbb0
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Closure4<CCameraManager, void, int, float, float, float>::~Closure4() {}
 
 

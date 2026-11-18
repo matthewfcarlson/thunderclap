@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x0027b570..0x0027ca80 (kind game, layer engine, confidence high), dominant class pure3d::SkeletonLoader
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -610,9 +609,25 @@ bool owners::Buffer_27be00::FUN_0027be00(hulk_uintptr count, hulk_intptr value) 
 
 
 // 0x0027be60 pure3d::Skeleton::vfunc_2 (30 B): matches/0x0027be60.cpp
-// sym: ??_GSkeleton@pure3d@@UAEPAXI@Z
+// sym: ?vfunc_2@Skeleton_27be60@fn_0027be60@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `pure3d::Skeleton::~Skeleton() {}` stood for it, which natively defines no
+// function for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's body
+// 0x0027bc90, then (flags & 1) content::LoadObject::operator delete.
+namespace fn_0027be60 {
+struct Skeleton_27be60 {
+    void FUN_0027bc90();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* Skeleton_27be60::vfunc_2(unsigned int flags) {
+    FUN_0027bc90();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0027be60
+// (x64t21) the destructor itself, which other objects' code references:
 pure3d::Skeleton::~Skeleton() {}
 
 

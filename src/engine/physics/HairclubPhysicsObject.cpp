@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x00308dd0..0x003097b0 (kind game, layer engine, confidence high), dominant class physics::HairclubPhysicsObject
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -412,9 +411,25 @@ void* physics::HairclubPhysicsObject::vfunc_28(unsigned int arg) {
 
 
 // 0x00309500 physics::HairclubPhysicsObject::vfunc_2 (30 B): matches/0x00309500.cpp
-// sym: ??_GHairclubPhysicsObject@physics@@UAEPAXI@Z
+// sym: ?vfunc_2@HairclubPhysicsObject_309500@fn_00309500@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `physics::HairclubPhysicsObject::~HairclubPhysicsObject() {}` stood for it,
+// which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the slot).
+// The destructor's body 0x003093b0, then (flags & 1) content::LoadObject::operator delete.
+namespace fn_00309500 {
+struct HairclubPhysicsObject_309500 {
+    void FUN_003093b0();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* HairclubPhysicsObject_309500::vfunc_2(unsigned int flags) {
+    FUN_003093b0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_00309500
+// (x64t21) the destructor itself, which other objects' code references:
 physics::HairclubPhysicsObject::~HairclubPhysicsObject() {}
 
 

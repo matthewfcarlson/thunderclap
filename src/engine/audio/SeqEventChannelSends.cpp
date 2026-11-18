@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x0024f7f0..0x0024fbe0 (kind game, layer engine, confidence high), dominant class audio::SeqEventChannelSends
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -215,9 +214,25 @@ SeqEventChannelSendsType_24f950::SeqEventChannelSendsType_24f950()
 } // namespace fn_f2b964a3
 
 // 0x0024f9b0 audio::SeqEventChannelSendsType::vfunc_2 (30 B): matches/0x0024f9b0.cpp
-// sym: ??_GSeqEventChannelSendsType@audio@@UAEPAXI@Z
+// sym: ?vfunc_2@SeqEventChannelSendsType_24f9b0@fn_0024f9b0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `audio::SeqEventChannelSendsType::~SeqEventChannelSendsType() {}` stood for it,
+// which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the slot).
+// The destructor's body 0x00260680, then (flags & 1) operator delete.
+namespace fn_0024f9b0 {
+struct SeqEventChannelSendsType_24f9b0 {
+    void FUN_00260680();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* SeqEventChannelSendsType_24f9b0::vfunc_2(unsigned int flags) {
+    FUN_00260680();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0024f9b0
+// (x64t21) the destructor itself, which other objects' code references:
 audio::SeqEventChannelSendsType::~SeqEventChannelSendsType() {}
 
 namespace fn_f2b964a3 {

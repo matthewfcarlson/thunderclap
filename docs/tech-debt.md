@@ -51,9 +51,11 @@ Kept by `tools/tech_debt.py` as written (everything from this heading on).
   an `unsigned int`) still read pointers as 32-bit words. (The projectile pool's views are on the record since x64t12.)
 - **TUs still compiled with /GX (`// cl-flags: /GX`; gx1 D17, accepted as the interim state by the user's D23,
   2026-11-14).** The game was built without C++ exceptions and the tree compiles with /GX- by default
-  (tools/compare.py DEFAULT_FLAGS; clang with -fno-exceptions everywhere since gx2). 304 TUs still say `// cl-flags: /GX`
-  (457 at D23; gx2 2 took nine src/engine/fight TUs off, gx3 2 another 49, gx4 1 another 90, gx5 2 another 4):
-  - 301 hold the scalar deleting destructors (`??_G`; 1,873 blocks at D23, 954 now: build/gx5/scripts/gxcount.py) written as empty user destructors
+  (tools/compare.py DEFAULT_FLAGS; clang with -fno-exceptions everywhere since gx2). 178 TUs still say `// cl-flags: /GX`
+  (457 at D23; gx2 2 took nine src/engine/fight TUs off, gx3 2 another 49, gx4 1 another 90, gx5 2 another 4, x64t21
+  (D114) another 126):
+  - 172 hold the scalar deleting destructors (`??_G`; 1,873 blocks at D23, 954 before x64t21, 407 now: build/gx5/scripts/gxcount.py;
+    x64t21's D114 generator rewrote 546 non-template ones as explicit functions, build/x64t21/scripts/gen_gdtor.py) written as empty user destructors
     (`template <> ParamX<T>::~ParamX() {}`, `Method2<...>::~Method2() {}`, `C::~C() {}`). In the game these
     destructors are implicit and their `??_G` is emitted next to the vftable by the code that constructs the class:
     the fight parameter registration functions (100 blocks in 8 TUs; 40 of the game's 434 registrations still

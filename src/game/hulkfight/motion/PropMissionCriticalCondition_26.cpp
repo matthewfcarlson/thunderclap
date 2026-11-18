@@ -49,7 +49,7 @@ hulkfight::motion::ShieldArcAction* hulkfight::motion::ShieldArcAction::vfunc_2(
     }
     Cleanup_002326a0();
     if (flag & 1) {
-        opdel(this);
+        ::operator delete(this);
     }
     return this;
 }

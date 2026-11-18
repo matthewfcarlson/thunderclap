@@ -401,7 +401,7 @@ d3dReflShader_32c4d0* d3dReflShader_32c4d0::vfunc_3(unsigned int x) {
         b->f1();
     cleanup();
     if (x & 1)
-        destroy(this);
+        ::operator delete(this);
     return this;
 }
 

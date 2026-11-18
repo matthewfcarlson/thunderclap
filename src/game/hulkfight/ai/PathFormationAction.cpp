@@ -10,6 +10,7 @@
 #define TREE_TU_BEGIN namespace fn_fbabf3f2 {
 #define TREE_TU_END }
 namespace fn_fbabf3f2 {} using namespace fn_fbabf3f2;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 namespace fn_fbabf3f2 {
 void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
 }
@@ -500,7 +501,7 @@ namespace fn_fbabf3f2 {
 PathFormationTrack_11c450::~PathFormationTrack_11c450() {
     void* t = m34;
     vptr = hulk_at_0040f4a0;
-    Free(t);
+    ::operator delete[](t);
     Fin_00236d60();
 }
 
@@ -509,7 +510,7 @@ PathFormationTrack_11c450::~PathFormationTrack_11c450() {
 // 0x0011c470 FUN_0011c470 (82 B): matches/0x0011c470.cpp
 // sym: ?FUN_0011c470@Obj_11c470@owners@@QAEDPBD@Z
 char owners::Obj_11c470::FUN_0011c470(const char* s) {
-    release(str);
+    ::operator delete[](str);
     if (!s) {
         str = (char*)s;
         return 1;
@@ -916,10 +917,10 @@ namespace fn_fbabf3f2 {
 // sym: ?vfunc_5@PathLocatorTestCondition@fn_fbabf3f2@@QAEPAXE@Z
 void* PathLocatorTestCondition::vfunc_5(unsigned char flag) {
     *(const VFT**)this = &PathLocatorTestCondition_vftable;
-    ai_free(m_p);
+    ::operator delete[](m_p);
     Cleanup_002345b0();
     if (flag & 1) {
-        ai_delete(this);
+        ::operator delete(this);
     }
     return this;
 }

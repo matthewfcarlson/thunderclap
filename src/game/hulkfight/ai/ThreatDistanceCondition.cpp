@@ -2251,7 +2251,7 @@ ThreatBallAction_12c9c0* ThreatBallAction_12c9c0::vfunc_2(int flag) {
     }
     ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1) {
-        opdel(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -2273,7 +2273,7 @@ ThreatDodgeAction_12ca60* ThreatDodgeAction_12ca60::vfunc_2(int flag) {
     }
     ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1) {
-        opdel(this);
+        ::operator delete(this);
     }
     return this;
 }

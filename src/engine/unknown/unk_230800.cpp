@@ -588,8 +588,8 @@ void Container_230f50::Clear(Callback_230f50 cb, hulk_intptr arg) {
 // 0x00231050 FUN_00231050 (26 B): matches/0x00231050.cpp
 // sym: ?FUN_00231050@C_231050@owners@@QAEXXZ
 void owners::C_231050::FUN_00231050() {
-    thunk(a);
-    thunk(b);
+    operator delete(a);   // (x64t21, D115) the game's operator delete 0x0008d330 by its name (`thunk(int)` bound nowhere)
+    operator delete(b);
 }
 
 

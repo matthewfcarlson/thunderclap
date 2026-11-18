@@ -163,7 +163,7 @@ Locator_2c1900* Locator_2c1900::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_0042eb98;
     Destroy_0027afd0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        ::operator delete(this);
     }
     return this;
 }

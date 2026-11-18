@@ -522,7 +522,7 @@ d3dSpheremapVertexShader_331c80* d3dSpheremapVertexShader_331c80::vfunc_3(unsign
         b->f1();
     cleanup();
     if (x & 1)
-        destroy(this);
+        ::operator delete(this);
     return this;
 }
 

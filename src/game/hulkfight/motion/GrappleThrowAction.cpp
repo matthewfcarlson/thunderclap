@@ -5291,7 +5291,7 @@ GrappleStruggleAction_14acc0* GrappleStruggleAction_14acc0::vfunc_2(int flag) {
     }
     ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1) {
-        opdel(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -5353,7 +5353,7 @@ CivilianThrowAction_14ae50* CivilianThrowAction_14ae50::vfunc_2(int flag) {
     }
     ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1) {
-        opdel(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -5375,7 +5375,7 @@ CivilianAttachAction_14aef0* CivilianAttachAction_14aef0::vfunc_2(int flag) {
     }
     ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1) {
-        opdel(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -5397,7 +5397,7 @@ CivilianDetachAction_14af90* CivilianDetachAction_14af90::vfunc_2(int flag) {
     }
     ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1) {
-        opdel(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -5419,7 +5419,7 @@ CivilianAnimationAction_14b030* CivilianAnimationAction_14b030::vfunc_2(int flag
     }
     ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1) {
-        opdel(this);
+        ::operator delete(this);
     }
     return this;
 }

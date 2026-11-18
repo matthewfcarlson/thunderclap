@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x001eab10..0x001eecb0 (kind game, layer game, confidence high), dominant class CSoundRealTimeManager
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -2003,9 +2002,25 @@ void __stdcall FUN_001eda90(Triple_1eda90 a, Triple_1eda90 b, Triple_1eda90 c) {
 } // namespace fn_f014178b
 
 // 0x001edb40 Method1<CSoundRealTimeManager,void,const_char_*>::vfunc_0 (30 B): matches/0x001edb40.cpp
-// sym: ??_G?$Method1@VCSoundRealTimeManager@@XPBD@@UAEPAXI@Z
+// sym: ?vfunc_0@Method1_1edb40@fn_001edb40@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method1<CSoundRealTimeManager, void, const char *>::~Method1() {}`
+// stood for it, which natively defines no function for the vftable slot (with the `??_G` signature, as other views call
+// the slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_001edb40 {
+struct Method1_1edb40 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method1_1edb40::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_001edb40
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method1<CSoundRealTimeManager, void, const char *>::~Method1() {}
 
 
@@ -2023,9 +2038,25 @@ template class Method1<CSoundRealTimeManager, void, const char *>; // (ren2) nat
 
 
 // 0x001edbc0 Method0<CSoundRealTimeManager,void>::vfunc_0 (30 B): matches/0x001edbc0.cpp
-// sym: ??_G?$Method0@VCSoundRealTimeManager@@X@@UAEPAXI@Z
+// sym: ?vfunc_0@Method0_1edbc0@fn_001edbc0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method0<CSoundRealTimeManager, void>::~Method0() {}` stood for it,
+// which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the slot).
+// The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_001edbc0 {
+struct Method0_1edbc0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method0_1edbc0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_001edbc0
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method0<CSoundRealTimeManager, void>::~Method0() {}
 
 
@@ -2042,9 +2073,25 @@ template class Method0<CSoundRealTimeManager, void>; // (ren2) native only: clan
 
 
 // 0x001edc30 Method1<CSoundRealTimeManager,void,float>::vfunc_0 (30 B): matches/0x001edc30.cpp
-// sym: ??_G?$Method1@VCSoundRealTimeManager@@XM@@UAEPAXI@Z
+// sym: ?vfunc_0@Method1_1edc30@fn_001edc30@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method1<CSoundRealTimeManager, void, float>::~Method1() {}` stood
+// for it, which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the
+// slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_001edc30 {
+struct Method1_1edc30 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method1_1edc30::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_001edc30
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method1<CSoundRealTimeManager, void, float>::~Method1() {}
 
 
@@ -2062,9 +2109,25 @@ template class Method1<CSoundRealTimeManager, void, float>; // (ren2) native onl
 
 
 // 0x001edcb0 Method1<CSoundRealTimeManager,void,bool>::vfunc_0 (30 B): matches/0x001edcb0.cpp
-// sym: ??_G?$Method1@VCSoundRealTimeManager@@X_N@@UAEPAXI@Z
+// sym: ?vfunc_0@Method1_1edcb0@fn_001edcb0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method1<CSoundRealTimeManager, void, bool>::~Method1() {}` stood
+// for it, which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the
+// slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_001edcb0 {
+struct Method1_1edcb0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method1_1edcb0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_001edcb0
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method1<CSoundRealTimeManager, void, bool>::~Method1() {}
 
 
@@ -2098,9 +2161,25 @@ Method3_1edcf0* Method3_1edcf0::Fn(char* p, hulk_intptr x) {
 } // namespace fn_f014178b
 
 // 0x001edd50 Method3<CSoundRealTimeManager,void,char_*,char_*,char_*>::vfunc_0 (30 B): matches/0x001edd50.cpp
-// sym: ??_G?$Method3@VCSoundRealTimeManager@@XPADPADPAD@@UAEPAXI@Z
+// sym: ?vfunc_0@Method3_1edd50@fn_001edd50@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method3<CSoundRealTimeManager, void, char *, char *, char
+// *>::~Method3() {}` stood for it, which natively defines no function for the vftable slot (with the `??_G` signature,
+// as other views call the slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_001edd50 {
+struct Method3_1edd50 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method3_1edd50::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_001edd50
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method3<CSoundRealTimeManager, void, char *, char *, char *>::~Method3() {}
 
 
@@ -2118,9 +2197,25 @@ template class Method3<CSoundRealTimeManager, void, char *, char *, char *>; // 
 
 
 // 0x001eddd0 Method1<CSoundRealTimeManager,void,char_*>::vfunc_0 (30 B): matches/0x001eddd0.cpp
-// sym: ??_G?$Method1@VCSoundRealTimeManager@@XPAD@@UAEPAXI@Z
+// sym: ?vfunc_0@Method1_1eddd0@fn_001eddd0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method1<CSoundRealTimeManager, void, char *>::~Method1() {}` stood
+// for it, which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the
+// slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_001eddd0 {
+struct Method1_1eddd0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method1_1eddd0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_001eddd0
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method1<CSoundRealTimeManager, void, char *>::~Method1() {}
 
 
@@ -2153,9 +2248,25 @@ Method4_1ede10::Method4_1ede10(const char* a, ScriptMemberFn b) : FUN_001d0480(a
 } // namespace fn_f014178b
 
 // 0x001ede80 Method4<CSoundSimManager,void,const_char_*,const_char_*,const_char_*,const_char_*>::vfunc_0 (30 B): matches/0x001ede80.cpp
-// sym: ??_G?$Method4@VCSoundSimManager@@XPBDPBDPBDPBD@@UAEPAXI@Z
+// sym: ?vfunc_0@Method4_1ede80@fn_001ede80@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method4<CSoundSimManager, void, const char *, const char *, const
+// char *, const char *>::~Method4() {}` stood for it, which natively defines no function for the vftable slot (with the
+// `??_G` signature, as other views call the slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_001ede80 {
+struct Method4_1ede80 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method4_1ede80::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_001ede80
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method4<CSoundSimManager, void, const char *, const char *, const char *, const char *>::~Method4() {}
 
 
@@ -2173,9 +2284,25 @@ template class Method4<CSoundSimManager, void, const char *, const char *, const
 
 
 // 0x001edf20 Method2<CSoundSimManager,void,const_char_*,const_char_*>::vfunc_0 (30 B): matches/0x001edf20.cpp
-// sym: ??_G?$Method2@VCSoundSimManager@@XPBDPBD@@UAEPAXI@Z
+// sym: ?vfunc_0@Method2_1edf20@fn_001edf20@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method2<CSoundSimManager, void, const char *, const char
+// *>::~Method2() {}` stood for it, which natively defines no function for the vftable slot (with the `??_G` signature,
+// as other views call the slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_001edf20 {
+struct Method2_1edf20 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method2_1edf20::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_001edf20
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method2<CSoundSimManager, void, const char *, const char *>::~Method2() {}
 
 
@@ -2282,9 +2409,25 @@ Closure1::Closure1(int v, void* r0, void* q) : Method1(v, q), r(r0) {}
 
 
 // 0x001ee170 Closure1<CSoundRealTimeManager,void,const_char_*>::vfunc_0 (30 B): matches/0x001ee170.cpp
-// sym: ??_G?$Method1@VCSoundRealTimeManager@@XM@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure1_1ee170@fn_001ee170@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Closure1<CSoundRealTimeManager, void, const char *>::~Closure1()
+// {}` stood for it, which natively defines no function for the vftable slot (with the `??_G` signature, as other views
+// call the slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_001ee170 {
+struct Closure1_1ee170 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure1_1ee170::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_001ee170
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Closure1<CSoundRealTimeManager, void, const char *>::~Closure1() {}
 
 
@@ -2301,9 +2444,25 @@ template class Closure1<CSoundRealTimeManager, void, const char *>; // (ren2) na
 
 
 // 0x001ee1f0 Closure0<CSoundRealTimeManager,void>::vfunc_0 (30 B): matches/0x001ee1f0.cpp
-// sym: ??_G?$Method1@VCSoundRealTimeManager@@X_N@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure0_1ee1f0@fn_001ee1f0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Closure0<CSoundRealTimeManager, void>::~Closure0() {}` stood for
+// it, which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the
+// slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_001ee1f0 {
+struct Closure0_1ee1f0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure0_1ee1f0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_001ee1f0
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Closure0<CSoundRealTimeManager, void>::~Closure0() {}
 
 
@@ -2356,9 +2515,25 @@ Closure1::Closure1(void* x, void* y, void* z) : Method1(x, z) {
 
 
 // 0x001ee270 Closure1<CSoundRealTimeManager,void,float>::vfunc_0 (30 B): matches/0x001ee270.cpp
-// sym: ??_G?$Method1@VCSoundRealTimeManager@@XPAD@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure1_1ee270@fn_001ee270@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Closure1<CSoundRealTimeManager, void, float>::~Closure1() {}` stood
+// for it, which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the
+// slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_001ee270 {
+struct Closure1_1ee270 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure1_1ee270::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_001ee270
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Closure1<CSoundRealTimeManager, void, float>::~Closure1() {}
 
 

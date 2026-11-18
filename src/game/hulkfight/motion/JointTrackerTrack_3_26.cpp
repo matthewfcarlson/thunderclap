@@ -1066,7 +1066,7 @@ void* RestPoseAction_17bcc0::vfunc_2(unsigned char flag) {
     }
     BaseDtor(this);
     if (flag & 1)
-        operator_delete(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -1087,7 +1087,7 @@ SuckAction_17bd70* SuckAction_17bd70::vfunc_2(int flag) {
     }
     ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1) {
-        opdel(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -1109,7 +1109,7 @@ CriticalMassDrainAction_17be10* CriticalMassDrainAction_17be10::vfunc_2(int flag
     }
     ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1) {
-        opdel(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -1147,7 +1147,7 @@ MomentumXZAddAction_17beb0* MomentumXZAddAction_17beb0::vfunc_2(int flag) {
     }
     ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1) {
-        opdel(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -1169,7 +1169,7 @@ VisibilityAction_17bf50* VisibilityAction_17bf50::vfunc_2(int flag) {
     }
     ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1) {
-        opdel(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -1191,7 +1191,7 @@ SnapToGroundAction_17bff0* SnapToGroundAction_17bff0::vfunc_2(int flag) {
     }
     ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1) {
-        opdel(this);
+        ::operator delete(this);
     }
     return this;
 }

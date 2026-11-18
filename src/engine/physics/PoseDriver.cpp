@@ -142,7 +142,7 @@ PoseDriver_30eb60* PoseDriver_30eb60::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_0043209c;
     Destroy_0027afd0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        ::operator delete(this);
     }
     return this;
 }

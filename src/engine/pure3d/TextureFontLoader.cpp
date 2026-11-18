@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x00294b00..0x00295c40 (kind game, layer engine, confidence high), dominant class pure3d::TextureFontLoader
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -209,9 +208,25 @@ Font::Font() {}
 
 
 // 0x00294de0 pure3d::Font::vfunc_2 (30 B): matches/0x00294de0.cpp
-// sym: ??_GFont@pure3d@@UAEPAXI@Z
+// sym: ?vfunc_2@Font_294de0@fn_00294de0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `pure3d::Font::~Font() {}` stood for it, which natively defines no function for
+// the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's body 0x0027afd0, then
+// (flags & 1) content::LoadObject::operator delete.
+namespace fn_00294de0 {
+struct Font_294de0 {
+    void FUN_0027afd0();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* Font_294de0::vfunc_2(unsigned int flags) {
+    FUN_0027afd0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_00294de0
+// (x64t21) the destructor itself, which other objects' code references:
 pure3d::Font::~Font() {}
 
 

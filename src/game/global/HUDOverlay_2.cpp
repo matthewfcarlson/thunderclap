@@ -1824,9 +1824,25 @@ void Obj_ce850::reset() {
 } // namespace fn_f3fdf6d3
 
 // 0x000ce8f0 Method0<HUDOverlay,void>::vfunc_0 (30 B): matches/0x000ce8f0.cpp
-// sym: ??_G?$Method0@VHUDOverlay@@X@@UAEPAXI@Z
+// sym: ?vfunc_0@Method0_ce8f0@fn_000ce8f0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method0<HUDOverlay, void>::~Method0() {}` stood for it, which
+// natively defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The
+// destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_000ce8f0 {
+struct Method0_ce8f0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method0_ce8f0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_000ce8f0
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method0<HUDOverlay, void>::~Method0() {}
 
 
@@ -1843,9 +1859,25 @@ template class Method0<HUDOverlay, void>; // (ren2) native only: clang emits the
 
 
 // 0x000ce960 Method1<HUDOverlay,void,const_char_*>::vfunc_0 (30 B): matches/0x000ce960.cpp
-// sym: ??_G?$Method1@VHUDOverlay@@XPBD@@UAEPAXI@Z
+// sym: ?vfunc_0@Method1_ce960@fn_000ce960@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method1<HUDOverlay, void, const char *>::~Method1() {}` stood for
+// it, which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the
+// slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_000ce960 {
+struct Method1_ce960 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method1_ce960::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_000ce960
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method1<HUDOverlay, void, const char *>::~Method1() {}
 
 
@@ -1863,9 +1895,25 @@ template class Method1<HUDOverlay, void, const char *>; // (ren2) native only: c
 
 
 // 0x000ce9e0 Method1<HUDOverlay,void,int>::vfunc_0 (30 B): matches/0x000ce9e0.cpp
-// sym: ??_G?$Method1@VHUDOverlay@@XH@@UAEPAXI@Z
+// sym: ?vfunc_0@Method1_ce9e0@fn_000ce9e0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method1<HUDOverlay, void, int>::~Method1() {}` stood for it, which
+// natively defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The
+// destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_000ce9e0 {
+struct Method1_ce9e0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method1_ce9e0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_000ce9e0
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method1<HUDOverlay, void, int>::~Method1() {}
 
 
@@ -1883,9 +1931,25 @@ template class Method1<HUDOverlay, void, int>; // (ren2) native only: clang emit
 
 
 // 0x000cea60 Method1<HUDOverlay,void,float>::vfunc_0 (30 B): matches/0x000cea60.cpp
-// sym: ??_G?$Method1@VHUDOverlay@@XM@@UAEPAXI@Z
+// sym: ?vfunc_0@Method1_cea60@fn_000cea60@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method1<HUDOverlay, void, float>::~Method1() {}` stood for it,
+// which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the slot).
+// The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_000cea60 {
+struct Method1_cea60 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method1_cea60::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_000cea60
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method1<HUDOverlay, void, float>::~Method1() {}
 
 
@@ -1921,9 +1985,25 @@ Method4_ceaa0* Method4_ceaa0::FUN_000ceaa0(const char* name, Fn_ceaa0 fp) {
 } // namespace fn_f3fdf6d3
 
 // 0x000ceb10 Method4<HUDOverlay,void,const_char_*,float,float,math::Vector>::vfunc_0 (30 B): matches/0x000ceb10.cpp
-// sym: ??_G?$Method4@VHUDOverlay@@XPBDMMVVector@math@@@@UAEPAXI@Z
+// sym: ?vfunc_0@Vector_ceb10@fn_000ceb10@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method4<HUDOverlay, void, const char *, float,
+// float,math::Vector>::~Method4() {}` stood for it, which natively defines no function for the vftable slot (with the
+// `??_G` signature, as other views call the slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_000ceb10 {
+struct Vector_ceb10 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Vector_ceb10::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_000ceb10
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method4<HUDOverlay, void, const char *, float, float,math::Vector>::~Method4() {}
 
 
@@ -2007,9 +2087,25 @@ Method3<HUDOverlay, int, const char*, const char*, float>::Method3(const char* x
 
 
 // 0x000cebe0 Method3<HUDOverlay,int,const_char_*,const_char_*,float>::vfunc_0 (30 B): matches/0x000cebe0.cpp
-// sym: ??_G?$Method3@VHUDOverlay@@HPBDPBDM@@UAEPAXI@Z
+// sym: ?vfunc_0@Method3_cebe0@fn_000cebe0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method3<HUDOverlay, int, const char *, const char *,
+// float>::~Method3() {}` stood for it, which natively defines no function for the vftable slot (with the `??_G`
+// signature, as other views call the slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_000cebe0 {
+struct Method3_cebe0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method3_cebe0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_000cebe0
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method3<HUDOverlay, int, const char *, const char *, float>::~Method3() {}
 
 
@@ -2028,9 +2124,25 @@ template class Method3<HUDOverlay, int, const char *, const char *, float>; // (
 
 
 // 0x000cec70 Method0<HUDOverlay,int>::vfunc_0 (30 B): matches/0x000cec70.cpp
-// sym: ??_G?$Method0@VHUDOverlay@@H@@UAEPAXI@Z
+// sym: ?vfunc_0@Method0_cec70@fn_000cec70@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method0<HUDOverlay, int>::~Method0() {}` stood for it, which
+// natively defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The
+// destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_000cec70 {
+struct Method0_cec70 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method0_cec70::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_000cec70
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method0<HUDOverlay, int>::~Method0() {}
 
 
@@ -2050,9 +2162,25 @@ template class Method0<HUDOverlay, int>; // (ren2) native only: clang emits the 
 
 
 // 0x000cecf0 Method1<HUDOverlay,void,math::Vector>::vfunc_0 (30 B): matches/0x000cecf0.cpp
-// sym: ??_G?$Method1@VHUDOverlay@@XVVector@math@@@@UAEPAXI@Z
+// sym: ?vfunc_0@Vector_cecf0@fn_000cecf0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method1<HUDOverlay, void,math::Vector>::~Method1() {}` stood for
+// it, which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the
+// slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_000cecf0 {
+struct Vector_cecf0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Vector_cecf0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_000cecf0
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method1<HUDOverlay, void,math::Vector>::~Method1() {}
 
 
@@ -2068,9 +2196,25 @@ template class Method1<HUDOverlay, void,math::Vector>; // (ren2) native only: cl
 
 
 // 0x000ced90 Method2<HUDOverlay,int,int,math::Vector>::vfunc_0 (30 B): matches/0x000ced90.cpp
-// sym: ??_G?$Method2@VHUDOverlay@@HHVVector@math@@@@UAEPAXI@Z
+// sym: ?vfunc_0@Vector_ced90@fn_000ced90@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method2<HUDOverlay, int, int,math::Vector>::~Method2() {}` stood
+// for it, which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the
+// slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_000ced90 {
+struct Vector_ced90 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Vector_ced90::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_000ced90
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method2<HUDOverlay, int, int,math::Vector>::~Method2() {}
 
 
@@ -2091,9 +2235,25 @@ template class Method2<HUDOverlay, int, int,math::Vector>; // (ren2) native only
 
 
 // 0x000cee40 Method2<HUDOverlay,void,int,math::Vector>::vfunc_0 (30 B): matches/0x000cee40.cpp
-// sym: ??_G?$Method2@VHUDOverlay@@XHVVector@math@@@@UAEPAXI@Z
+// sym: ?vfunc_0@Vector_cee40@fn_000cee40@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method2<HUDOverlay, void, int,math::Vector>::~Method2() {}` stood
+// for it, which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the
+// slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_000cee40 {
+struct Vector_cee40 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Vector_cee40::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_000cee40
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method2<HUDOverlay, void, int,math::Vector>::~Method2() {}
 
 
@@ -2134,9 +2294,25 @@ template class Method2<HUDOverlay, int, int, const char *>; // (ren2) native onl
 
 
 // 0x000cef80 Method2<HUDOverlay,void,bool,float>::vfunc_0 (30 B): matches/0x000cef80.cpp
-// sym: ??_G?$Method2@VHUDOverlay@@X_NM@@UAEPAXI@Z
+// sym: ?vfunc_0@Method2_cef80@fn_000cef80@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method2<HUDOverlay, void, bool, float>::~Method2() {}` stood for
+// it, which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the
+// slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_000cef80 {
+struct Method2_cef80 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method2_cef80::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_000cef80
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method2<HUDOverlay, void, bool, float>::~Method2() {}
 
 
@@ -2153,9 +2329,25 @@ template class Method2<HUDOverlay, void, bool, float>; // (ren2) native only: cl
 
 
 // 0x000cf010 Method2<HUDOverlay,void,int,bool>::vfunc_0 (30 B): matches/0x000cf010.cpp
-// sym: ??_G?$Method2@VHUDOverlay@@XH_N@@UAEPAXI@Z
+// sym: ?vfunc_0@Method2_cf010@fn_000cf010@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method2<HUDOverlay, void, int, bool>::~Method2() {}` stood for it,
+// which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the slot).
+// The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_000cf010 {
+struct Method2_cf010 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method2_cf010::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_000cf010
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method2<HUDOverlay, void, int, bool>::~Method2() {}
 
 
@@ -2317,9 +2509,26 @@ Method5_cf2b0* Method5_cf2b0::Init(const char* arg, Fn_cf2b0 value) {
 } // namespace fn_f3fdf6d3
 
 // 0x000cf330 Method5<HUDOverlay,int,int,const_char_*,math::Vector,math::Vector,math::Vector>::vfunc_0 (30 B): matches/0x000cf330.cpp
-// sym: ??_G?$Method5@VHUDOverlay@@HHPBDVVector@math@@V23@V23@@@UAEPAXI@Z
+// sym: ?vfunc_0@Vector_cf330@fn_000cf330@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method5<HUDOverlay, int, int, const char
+// *,math::Vector,math::Vector,math::Vector>::~Method5() {}` stood for it, which natively defines no function for the
+// vftable slot (with the `??_G` signature, as other views call the slot). The destructor's body 0x001d04a0, then (flags
+// & 1) operator delete.
+namespace fn_000cf330 {
+struct Vector_cf330 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Vector_cf330::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_000cf330
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method5<HUDOverlay, int, int, const char *,math::Vector,math::Vector,math::Vector>::~Method5() {}
 
 
@@ -2340,9 +2549,25 @@ template class Method5<HUDOverlay, int, int, const char *,math::Vector,math::Vec
 
 
 // 0x000cf440 Method1<HUDOverlay,void,bool>::vfunc_0 (30 B): matches/0x000cf440.cpp
-// sym: ??_G?$Method1@VHUDOverlay@@X_N@@UAEPAXI@Z
+// sym: ?vfunc_0@Method1_cf440@fn_000cf440@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method1<HUDOverlay, void, bool>::~Method1() {}` stood for it, which
+// natively defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The
+// destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_000cf440 {
+struct Method1_cf440 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method1_cf440::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_000cf440
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method1<HUDOverlay, void, bool>::~Method1() {}
 
 
@@ -2470,9 +2695,25 @@ void Effect_cf740::FUN_000cf740()
 } // namespace fn_f3fdf6d3
 
 // 0x000cf810 Closure0<HUDOverlay,void>::vfunc_0 (30 B): matches/0x000cf810.cpp
-// sym: ??_G?$Method1@VHUDOverlay@@XH@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure0_cf810@fn_000cf810@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Closure0<HUDOverlay, void>::~Closure0() {}` stood for it, which
+// natively defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The
+// destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_000cf810 {
+struct Closure0_cf810 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure0_cf810::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_000cf810
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Closure0<HUDOverlay, void>::~Closure0() {}
 
 
@@ -2554,9 +2795,25 @@ Closure1_cf840::Closure1_cf840(const char* s, Owner_cf840* obj, Fn_cf840 p) : Ba
 
 
 // 0x000cf890 Closure1<HUDOverlay,void,const_char_*>::vfunc_0 (30 B): matches/0x000cf890.cpp
-// sym: ??_G?$Method1@VHUDOverlay@@XM@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure1_cf890@fn_000cf890@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Closure1<HUDOverlay, void, const char *>::~Closure1() {}` stood for
+// it, which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the
+// slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_000cf890 {
+struct Closure1_cf890 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure1_cf890::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_000cf890
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Closure1<HUDOverlay, void, const char *>::~Closure1() {}
 
 
@@ -2611,9 +2868,25 @@ Closure1::Closure1(int a, int b, int z) : Method1(a, z) {
 
 
 // 0x000cf920 Closure1<HUDOverlay,void,int>::vfunc_0 (30 B): matches/0x000cf920.cpp
-// sym: ??_G?$Method0@VHUDOverlay@@H@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure1_cf920@fn_000cf920@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Closure1<HUDOverlay, void, int>::~Closure1() {}` stood for it,
+// which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the slot).
+// The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_000cf920 {
+struct Closure1_cf920 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure1_cf920::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_000cf920
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Closure1<HUDOverlay, void, int>::~Closure1() {}
 
 
@@ -2695,9 +2968,25 @@ Closure1::Closure1(const char* x, Owner_cf960* y, Fn_cf960 z) : Method1(x, z) {
 
 
 // 0x000cf9b0 Closure1<HUDOverlay,void,float>::vfunc_0 (30 B): matches/0x000cf9b0.cpp
-// sym: ??_G?$Method1@VHUDOverlay@@XVVector@math@@@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure1_cf9b0@fn_000cf9b0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Closure1<HUDOverlay, void, float>::~Closure1() {}` stood for it,
+// which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the slot).
+// The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_000cf9b0 {
+struct Closure1_cf9b0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure1_cf9b0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_000cf9b0
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Closure1<HUDOverlay, void, float>::~Closure1() {}
 
 
@@ -2714,9 +3003,25 @@ template class Closure1<HUDOverlay, void, float>; // (ren2) native only: clang e
 
 
 // 0x000cfa20 Closure4<HUDOverlay,void,const_char_*,float,float,math::Vector>::vfunc_0 (30 B): matches/0x000cfa20.cpp
-// sym: ??_G?$Method2@VHUDOverlay@@XHVVector@math@@@@UAEPAXI@Z
+// sym: ?vfunc_0@Vector_cfa20@fn_000cfa20@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Closure4<HUDOverlay, void, const char *, float,
+// float,math::Vector>::~Closure4() {}` stood for it, which natively defines no function for the vftable slot (with the
+// `??_G` signature, as other views call the slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_000cfa20 {
+struct Vector_cfa20 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Vector_cfa20::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_000cfa20
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Closure4<HUDOverlay, void, const char *, float, float,math::Vector>::~Closure4() {}
 
 
@@ -2750,9 +3055,25 @@ template class Closure3<HUDOverlay, int, const char *, const char *, float>; // 
 
 
 // 0x000cfb50 Closure0<HUDOverlay,int>::vfunc_0 (30 B): matches/0x000cfb50.cpp
-// sym: ??_G?$Method2@VHUDOverlay@@X_NM@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure0_cfb50@fn_000cfb50@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Closure0<HUDOverlay, int>::~Closure0() {}` stood for it, which
+// natively defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The
+// destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_000cfb50 {
+struct Closure0_cfb50 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure0_cfb50::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_000cfb50
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Closure0<HUDOverlay, int>::~Closure0() {}
 
 
@@ -2839,9 +3160,25 @@ Closure1::Closure1(const char* a, Owner_cfb90* b, Fn_cfb90 c) : Method1(a, c) {
 
 
 // 0x000cfbe0 Closure1<HUDOverlay,void,math::Vector>::vfunc_0 (30 B): matches/0x000cfbe0.cpp
-// sym: ??_G?$Method2@VHUDOverlay@@XH_N@@UAEPAXI@Z
+// sym: ?vfunc_0@Vector_cfbe0@fn_000cfbe0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Closure1<HUDOverlay, void,math::Vector>::~Closure1() {}` stood for
+// it, which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the
+// slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_000cfbe0 {
+struct Vector_cfbe0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Vector_cfbe0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_000cfbe0
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Closure1<HUDOverlay, void,math::Vector>::~Closure1() {}
 
 
@@ -3114,9 +3451,25 @@ Closure2::Closure2(const char* p, Owner_cfe50* q, Fn_cfe50 r) : Method2(p, r) {
 
 
 // 0x000cfeb0 Closure2<HUDOverlay,void,bool,float>::vfunc_0 (30 B): matches/0x000cfeb0.cpp
-// sym: ??_G?$Method1@VHUDOverlay@@X_N@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure2_cfeb0@fn_000cfeb0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Closure2<HUDOverlay, void, bool, float>::~Closure2() {}` stood for
+// it, which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the
+// slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_000cfeb0 {
+struct Closure2_cfeb0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure2_cfeb0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_000cfeb0
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Closure2<HUDOverlay, void, bool, float>::~Closure2() {}
 
 

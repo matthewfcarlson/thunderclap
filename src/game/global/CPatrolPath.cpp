@@ -8,6 +8,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_f9481d31 {} using namespace fn_f9481d31;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -32,7 +33,7 @@ class CPatrolPath {
 // sym: ?vfunc_2@CPatrolPath@fn_f9481d31@@UAEPAV12@E@Z
 CPatrolPath* CPatrolPath::vfunc_2(unsigned char flag) {
     *(hulk_intptr*)this = ((hulk_intptr)DAT_0040d564);
-    ReleaseThing(field10);
+    ::operator delete[](field10);
     this->field14 = 0;
     this->InitMember_0027afd0();
     if (flag & 1)

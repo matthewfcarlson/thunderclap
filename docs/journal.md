@@ -1329,3 +1329,29 @@ blocks fight::Action's whole family: the records come first there.
   moment later), so it restored them and the old skill lines; a05fae211 reapplied the removal. Sync the shared
   index entries of committed paths right after the commit, and check `git show --stat` of your own commit for paths
   that aren't yours before pushing.
+
+
+## 2026-11-18 x64t21: the game's operator delete by its name (D115), the scalar deleting destructors as functions (D114)
+
+- **Almost every "free" in the tree is the game's `operator delete`.** The game's free 0x00267090 has four one-`jmp`
+  forwarders: the global `operator delete` 0x0008d330 (3,038 calls; 1,819 of the 1,891 compiler-generated `??_G`
+  call it), `operator delete[]` 0x0008d340 (708), `content::LoadObject::operator delete` 0x00263f30 (689: every
+  class whose `??_G` calls it derives from content::LoadObject, by RTTI 62/62, and none of the 145 that call
+  0x0008d330 does; 0x00263ea0, a `jmp` to the game's operator new, is the class's `operator new`) and 0x00263f40 (2).
+  Only 45 calls reach 0x00267090 directly. The tree spelled these ~2,000 calls with ~1,300 different names
+  (`thunk_FUN_00267090` overloads, `X_0008d330` suffixes, `thunk`, `SweepTrack_DeleteThis`, `Free`, `opdel`, ...),
+  each in its TU's namespace; natively the ones without an address bound to nothing.
+- **MSVC 7.1 predeclares only the scalar `operator delete`.** `::operator delete[](p)` needs a declaration at global
+  scope (C2039 otherwise); the scalar one needs none. Both forwarders compile to the original's 5-byte `jmp` when
+  defined as `void __cdecl operator delete(void* p) { FUN_00267090(p); }` at global scope (inside a TU namespace
+  MSVC mangles a namespace-scope `??3fn_x@@`).
+- **The native tree's operator delete can't meet the host's.** The native front end is MS-ABI: the tree's
+  `??3@YAXPEAX@Z` and the host runtime's Itanium `_ZdlPv` are different names. A missing tree definition is an
+  unbound name, never the host's free. (The tree's global `operator new` natively is an `inline` definition in
+  CActorManager.cpp, weak, that the linker happens to keep; it should become a strong one.)
+- **A `??_G` pin can be shared.** 144 empty-destructor `??_G` blocks pin a symbol another block of the TU also pins
+  (identical template instances: Closure/Method pairs); removing the destructor that emits it leaves the other
+  block's pin missing. The D114 generator rewrites such a group only when every block of it is rewritable.
+- **Dropping /GX after the rewrite.** In the TUs left with no empty-destructor `??_G` block after the rewrite, every matches
+  block still matched under /GX-, and two equivalent blocks' code changed (0x00285f50, 0x00254760): those two TUs keep
+  `// cl-flags: /GX`; 126 TUs lose it (304 -> 178).

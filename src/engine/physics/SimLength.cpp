@@ -183,7 +183,7 @@ Environment_2ece00* Environment_2ece00::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_00431184;
     Destroy_0027afd0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        ::operator delete(this);
     }
     return this;
 }

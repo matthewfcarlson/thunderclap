@@ -2583,9 +2583,25 @@ void hulkfight::motion::AnimationAction::vfunc_4() { if ((*(AnimationClip * *)&t
 
 
 // 0x0013ae20 hulkfight::motion::GrappleAnimationTrack::vfunc_5 (30 B): matches/0x0013ae20.cpp
-// sym: ??_GGrappleAnimationTrack@motion@hulkfight@@UAEPAXI@Z
+// sym: ?vfunc_5@GrappleAnimationTrack_13ae20@fn_0013ae20@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `hulkfight::motion::GrappleAnimationTrack::~GrappleAnimationTrack() {}` stood
+// for it, which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the
+// slot). The destructor's body 0x0013a1b0, then (flags & 1) operator delete.
+namespace fn_0013ae20 {
+struct GrappleAnimationTrack_13ae20 {
+    void FUN_0013a1b0();   // the destructor's body
+    void* vfunc_5(unsigned int flags);
+};
+void* GrappleAnimationTrack_13ae20::vfunc_5(unsigned int flags) {
+    FUN_0013a1b0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0013ae20
+// (x64t21) the destructor itself, which other objects' code references:
 hulkfight::motion::GrappleAnimationTrack::~GrappleAnimationTrack() {}
 
 
@@ -3840,7 +3856,7 @@ AnimationAction* AnimationAction::vfunc_2(unsigned char param) {
     }
     this->Cleanup_002326a0();
     if (param & 1) {
-        opdel(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -3905,7 +3921,7 @@ AnimationAction* AnimationAction::vfunc_2(unsigned char param) {
     }
     this->Cleanup_002326a0();
     if (param & 1) {
-        opdel(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -3970,7 +3986,7 @@ AnimationAction* AnimationAction::vfunc_2(unsigned char param) {
     }
     this->Cleanup_002326a0();
     if (param & 1) {
-        opdel(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -4035,7 +4051,7 @@ AnimationAction* AnimationAction::vfunc_2(unsigned char param) {
     }
     this->Cleanup_002326a0();
     if (param & 1) {
-        opdel(this);
+        ::operator delete(this);
     }
     return this;
 }

@@ -2286,7 +2286,7 @@ FireMissileAction_19b410* FireMissileAction_19b410::vfunc_2(int flag) {
     }
     ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1) {
-        opdel(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -2450,9 +2450,25 @@ FireBeamAction::FireBeamAction(int o,Ref_19b500* r) {
 
 
 // 0x0019b5d0 hulkfight::motion::FireBeamAction::vfunc_2 (30 B): matches/0x0019b5d0.cpp
-// sym: ??_GFireBeamAction@motion@hulkfight@@UAEPAXI@Z
+// sym: ?vfunc_2@FireBeamAction_19b5d0@fn_0019b5d0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `hulkfight::motion::FireBeamAction::~FireBeamAction() {}` stood for it, which
+// natively defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The
+// destructor's body 0x00196670, then (flags & 1) operator delete.
+namespace fn_0019b5d0 {
+struct FireBeamAction_19b5d0 {
+    void FUN_00196670();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* FireBeamAction_19b5d0::vfunc_2(unsigned int flags) {
+    FUN_00196670();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0019b5d0
+// (x64t21) the destructor itself, which other objects' code references:
 hulkfight::motion::FireBeamAction::~FireBeamAction() {}
 
 namespace fn_f740ace1 {
@@ -2579,7 +2595,7 @@ AccuracyLatencyAction_19b8c0* AccuracyLatencyAction_19b8c0::vfunc_2(int flag) {
     }
     ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1) {
-        opdel(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -2601,7 +2617,7 @@ MissileThrowAction_19b960* MissileThrowAction_19b960::vfunc_2(int flag) {
     }
     ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1) {
-        opdel(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -2623,7 +2639,7 @@ FireGroundShockwaveAction_19ba00* FireGroundShockwaveAction_19ba00::vfunc_2(int 
     }
     ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1) {
-        opdel(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -2676,7 +2692,7 @@ MissilePunchAction_19bc50* MissilePunchAction_19bc50::vfunc_2(int flag) {
     }
     ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1) {
-        opdel(this);
+        ::operator delete(this);
     }
     return this;
 }

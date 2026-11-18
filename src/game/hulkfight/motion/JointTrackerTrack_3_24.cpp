@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x00178d00..0x0017e1a0 (kind game, layer game, confidence high), merged by D32: hulkfight/motion/JointTrackerTrack_3.cpp
 // piece 0x0017b0c0..0x0017b330 (kind game, layer game, confidence medium, dominant class hulkfight::motion::IntentionClearAction); was game/hulkfight/motion/IntentionClearAction.cpp until D46
 #include "tree_prelude.h"
@@ -173,9 +172,25 @@ hulk_intptr hulkfight::motion::JointPivotTrackerTrack::vfunc_10(hulk_intptr __p0
 
 
 // 0x0017b1c0 hulkfight::motion::JointPivotTrackerAction::vfunc_2 (30 B): matches/0x0017b1c0.cpp
-// sym: ??_GJointPivotTrackerAction@motion@hulkfight@@UAEPAXI@Z
+// sym: ?vfunc_2@JointPivotTrackerAction_17b1c0@fn_0017b1c0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `hulkfight::motion::JointPivotTrackerAction::~JointPivotTrackerAction() {}`
+// stood for it, which natively defines no function for the vftable slot (with the `??_G` signature, as other views call
+// the slot). The destructor's body 0x00173c50, then (flags & 1) operator delete.
+namespace fn_0017b1c0 {
+struct JointPivotTrackerAction_17b1c0 {
+    void FUN_00173c50();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* JointPivotTrackerAction_17b1c0::vfunc_2(unsigned int flags) {
+    FUN_00173c50();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0017b1c0
+// (x64t21) the destructor itself, which other objects' code references:
 hulkfight::motion::JointPivotTrackerAction::~JointPivotTrackerAction() {}
 
 
@@ -215,7 +230,7 @@ void* JointRelativeAction_17b230::vfunc_2(unsigned char flag) {
     }
     BaseDtor(this);
     if (flag & 1)
-        operator_delete(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -252,7 +267,7 @@ IntentionClearAction_17b2e0* IntentionClearAction_17b2e0::vfunc_2(int flag) {
     }
     ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1) {
-        opdel(this);
+        ::operator delete(this);
     }
     return this;
 }

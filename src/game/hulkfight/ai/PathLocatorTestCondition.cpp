@@ -1876,7 +1876,7 @@ void* StrafeRunAction_121f90::vfunc_2(unsigned char flag) {
     }
     BaseDtor(this);
     if (flag & 1)
-        operator_delete(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -2103,7 +2103,7 @@ void* StrafeCircleAction_1221b0::vfunc_2(unsigned char flag) {
     }
     BaseDtor(this);
     if (flag & 1)
-        operator_delete(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -2130,7 +2130,7 @@ void* StrafeCircleHBAction_122260::vfunc_2(unsigned char flag) {
     }
     BaseDtor(this);
     if (flag & 1)
-        operator_delete(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -2157,7 +2157,7 @@ void* StrafeLateralHBAction_122310::vfunc_2(unsigned char flag) {
     }
     BaseDtor(this);
     if (flag & 1)
-        operator_delete(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -2327,9 +2327,25 @@ hulk_intptr hulkfight::ai::RoutTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p
 
 
 // 0x00122500 hulkfight::ai::RoutAction::vfunc_2 (30 B): matches/0x00122500.cpp
-// sym: ??_GRoutAction@ai@hulkfight@@UAEPAXI@Z
+// sym: ?vfunc_2@RoutAction_122500@fn_00122500@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `hulkfight::ai::RoutAction::~RoutAction() {}` stood for it, which natively
+// defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's
+// body 0x0011ff60, then (flags & 1) operator delete.
+namespace fn_00122500 {
+struct RoutAction_122500 {
+    void FUN_0011ff60();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* RoutAction_122500::vfunc_2(unsigned int flags) {
+    FUN_0011ff60();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_00122500
+// (x64t21) the destructor itself, which other objects' code references:
 hulkfight::ai::RoutAction::~RoutAction() {}
 
 
@@ -3362,9 +3378,25 @@ hulkfight::ai::PathFormationAction* hulkfight::ai::PathFormationAction::FUN_0012
 
 
 // 0x00123430 hulkfight::ai::PathFormationAction::vfunc_2 (30 B): matches/0x00123430.cpp
-// sym: ??_GPathFormationAction@ai@hulkfight@@UAEPAXI@Z
+// sym: ?vfunc_2@PathFormationAction_123430@fn_00123430@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `hulkfight::ai::PathFormationAction::~PathFormationAction() {}` stood for it,
+// which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the slot).
+// The destructor's body 0x001231d0, then (flags & 1) operator delete.
+namespace fn_00123430 {
+struct PathFormationAction_123430 {
+    void FUN_001231d0();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* PathFormationAction_123430::vfunc_2(unsigned int flags) {
+    FUN_001231d0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_00123430
+// (x64t21) the destructor itself, which other objects' code references:
 hulkfight::ai::PathFormationAction::~PathFormationAction() {}
 
 
@@ -3382,8 +3414,24 @@ hulk_intptr hulkfight::ai::PathTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hul
 
 
 // 0x001234a0 hulkfight::ai::PathAction::vfunc_2 (30 B): matches/0x001234a0.cpp
-// sym: ??_GPathAction@ai@hulkfight@@UAEPAXI@Z
+// sym: ?vfunc_2@PathAction_1234a0@fn_001234a0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `hulkfight::ai::PathAction::~PathAction() {}` stood for it, which natively
+// defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's
+// body 0x00123310, then (flags & 1) operator delete.
+namespace fn_001234a0 {
+struct PathAction_1234a0 {
+    void FUN_00123310();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* PathAction_1234a0::vfunc_2(unsigned int flags) {
+    FUN_00123310();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_001234a0
+// (x64t21) the destructor itself, which other objects' code references:
 hulkfight::ai::PathAction::~PathAction() {}
 

@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x00228590..0x0022a5d0 (kind game, layer engine, confidence high), dominant class choreo2::LocomotionSteerDriver
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -445,9 +444,25 @@ void __cdecl FUN_00228990(Item_228990* first, Item_228990* middle, Item_228990* 
 } // namespace fn_fb966b0a
 
 // 0x00228aa0 choreo2::LocomotionSteerDriver::vfunc_2 (30 B): matches/0x00228aa0.cpp
-// sym: ??_GLocomotionSteerDriver@choreo2@@UAEPAXI@Z
+// sym: ?vfunc_2@LocomotionSteerDriver_228aa0@fn_00228aa0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `choreo2::LocomotionSteerDriver::~LocomotionSteerDriver() {}` stood for it,
+// which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the slot).
+// The destructor's body 0x00228590, then (flags & 1) content::LoadObject::operator delete.
+namespace fn_00228aa0 {
+struct LocomotionSteerDriver_228aa0 {
+    void FUN_00228590();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* LocomotionSteerDriver_228aa0::vfunc_2(unsigned int flags) {
+    FUN_00228590();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_00228aa0
+// (x64t21) the destructor itself, which other objects' code references:
 choreo2::LocomotionSteerDriver::~LocomotionSteerDriver() {}
 
 namespace fn_fb966b0a {

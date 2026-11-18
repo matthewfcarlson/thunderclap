@@ -292,7 +292,7 @@ Target_232a50* Target_232a50::f(unsigned char flags) {
         m = 0;
     }
     if (flags & 1)
-        thunk(this);
+        ::operator delete(this);
     return this;
 }
 

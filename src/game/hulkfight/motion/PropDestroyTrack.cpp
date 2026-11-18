@@ -10,6 +10,7 @@
 #define TREE_TU_BEGIN namespace fn_f1f16d33 {
 #define TREE_TU_END }
 namespace fn_f1f16d33 {} using namespace fn_f1f16d33;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "game/hulkfight/motion.h"
 
 // ---- declarations shared by the functions below
@@ -61,7 +62,7 @@ void PropSpawnTrack::run() {
 // 0x00181670 FUN_00181670 (82 B): matches/0x00181670.cpp
 // sym: ?FUN_00181670@X_181670@owners@@QAEEPBD@Z
 unsigned char owners::X_181670::FUN_00181670(const char* s) {
-    Free(p);
+    ::operator delete[](p);
     if (!s) {
         p = 0;
         return 1;

@@ -788,9 +788,25 @@ CMotionTrailTrack *CMotionTrailTrack::FUN_00060a00()
 
 
 // 0x00060af0 CMotionTrailTrack::vfunc_5 (30 B): matches/0x00060af0.cpp
-// sym: ??_GCMotionTrailTrack@@UAEPAXI@Z
+// sym: ?vfunc_5@CMotionTrailTrack_60af0@fn_00060af0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `CMotionTrailTrack::~CMotionTrailTrack() {}` stood for it, which natively
+// defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's
+// body 0x00060530, then (flags & 1) operator delete.
+namespace fn_00060af0 {
+struct CMotionTrailTrack_60af0 {
+    void FUN_00060530();   // the destructor's body
+    void* vfunc_5(unsigned int flags);
+};
+void* CMotionTrailTrack_60af0::vfunc_5(unsigned int flags) {
+    FUN_00060530();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_00060af0
+// (x64t21) the destructor itself, which other objects' code references:
 CMotionTrailTrack::~CMotionTrailTrack() {}
 
 

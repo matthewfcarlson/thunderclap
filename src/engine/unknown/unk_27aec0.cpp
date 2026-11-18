@@ -60,7 +60,7 @@ void RDLReader::Close() {
         member->f1();
         member = 0;
         if (data)
-            thunk(data);
+            ::operator delete(data);
     }
 }
 

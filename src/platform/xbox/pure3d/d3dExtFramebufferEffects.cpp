@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x00320160..0x00325ee0 (kind game, layer platform/xbox, confidence high), dominant class pure3d::d3dExtFramebufferEffects
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -3400,9 +3399,25 @@ bool pure3d::d3dExtGlobalProjectedTexture::vfunc_2(int index, void* __p1, void* 
 
 
 // 0x00322130 pure3d::d3dExtGlobalProjectedTexture::vfunc_0 (30 B): matches/0x00322130.cpp
-// sym: ??_Gd3dExtGlobalProjectedTexture@pure3d@@UAEPAXI@Z
+// sym: ?vfunc_0@d3dExtGlobalProjectedTexture_322130@fn_00322130@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `pure3d::d3dExtGlobalProjectedTexture::~d3dExtGlobalProjectedTexture() {}` stood
+// for it, which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the
+// slot). The destructor's body 0x00322150, then (flags & 1) operator delete.
+namespace fn_00322130 {
+struct d3dExtGlobalProjectedTexture_322130 {
+    void FUN_00322150();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* d3dExtGlobalProjectedTexture_322130::vfunc_0(unsigned int flags) {
+    FUN_00322150();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_00322130
+// (x64t21) the destructor itself, which other objects' code references:
 pure3d::d3dExtGlobalProjectedTexture::~d3dExtGlobalProjectedTexture() {}
 
 namespace fn_f57e27cb {
@@ -3776,9 +3791,25 @@ void pure3d::d3dExtFramebufferEffects::vfunc_10(int a) {
 
 
 // 0x003225f0 pure3d::d3dExtFramebufferEffects::vfunc_0 (30 B): matches/0x003225f0.cpp
-// sym: ??_Gd3dExtFramebufferEffects@pure3d@@UAEPAXI@Z
+// sym: ?vfunc_0@d3dExtFramebufferEffects_3225f0@fn_003225f0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `pure3d::d3dExtFramebufferEffects::~d3dExtFramebufferEffects() {}` stood for it,
+// which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the slot).
+// The destructor's body 0x00322610, then (flags & 1) operator delete.
+namespace fn_003225f0 {
+struct d3dExtFramebufferEffects_3225f0 {
+    void FUN_00322610();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* d3dExtFramebufferEffects_3225f0::vfunc_0(unsigned int flags) {
+    FUN_00322610();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_003225f0
+// (x64t21) the destructor itself, which other objects' code references:
 pure3d::d3dExtFramebufferEffects::~d3dExtFramebufferEffects() {}
 
 namespace fn_f57e27cb {

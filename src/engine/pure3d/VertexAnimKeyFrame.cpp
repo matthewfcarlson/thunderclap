@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x002e5a70..0x002e6550 (kind game, layer engine, confidence medium), dominant class pure3d::VertexAnimKeyFrame
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -11,6 +10,7 @@
 #define TREE_LOCAL_CCollisionAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_f411a916 {} using namespace fn_f411a916;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "engine/pure3d.h"
 
 // ---- declarations shared by the functions below
@@ -134,9 +134,9 @@ struct Frame_2e5b20 {
 extern "C" void* __cdecl FUN_0008d6d0(unsigned int size);
 extern "C" void __cdecl FUN_002e59b0(void* data, unsigned int count, int value);
 void thunk_FUN_00267090(hulk_intptr);
-struct Obj_2e6210 {
-    int a;
-    int b;
+struct Obj_2e6210 {   // (x64t21) the array (begin, end) on the game heap
+    int* a;
+    int* b;
 };
 extern "C" void __cdecl FUN_002e61c0(int *, int *);
 } // namespace fn_f411a916
@@ -448,9 +448,25 @@ extern "C" void FUN_002e61c0(int* first, int* last) {
 } // namespace fn_f411a916
 
 // 0x002e61f0 pure3d::VertexAnimKeyFrame::vfunc_2 (30 B): matches/0x002e61f0.cpp
-// sym: ??_GVertexAnimKeyFrame@pure3d@@UAEPAXI@Z
+// sym: ?vfunc_2@VertexAnimKeyFrame_2e61f0@fn_002e61f0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `pure3d::VertexAnimKeyFrame::~VertexAnimKeyFrame() {}` stood for it, which
+// natively defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The
+// destructor's body 0x002e5a70, then (flags & 1) operator delete.
+namespace fn_002e61f0 {
+struct VertexAnimKeyFrame_2e61f0 {
+    void FUN_002e5a70();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* VertexAnimKeyFrame_2e61f0::vfunc_2(unsigned int flags) {
+    FUN_002e5a70();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_002e61f0
+// (x64t21) the destructor itself, which other objects' code references:
 pure3d::VertexAnimKeyFrame::~VertexAnimKeyFrame() {}
 
 namespace fn_f411a916 {
@@ -460,8 +476,8 @@ namespace fn_f411a916 {
 // Same code shape as 0x002907f0 (propagated; names are from that function)
 void __fastcall target(Obj_2e6210* self) {
     if (self->a) {
-        FUN_002e61c0((int *)(hulk_uintptr)(int)(self->a), (int *)(hulk_uintptr)(int)(self->b));
-        g(self->a);
+        FUN_002e61c0(self->a, self->b);
+        ::operator delete[](self->a);   // (x64t21, D115) the game's operator delete[] (`g(int)` was bound nowhere natively)
     }
 }
 

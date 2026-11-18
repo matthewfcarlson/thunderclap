@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x002fc420..0x002fca90 (kind game, layer engine, confidence medium), dominant class physics::PhysicsInstance
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -320,9 +319,25 @@ FUN_002fc420();
 
 
 // 0x002fc860 physics::PhysicsInstance::vfunc_2 (30 B): matches/0x002fc860.cpp
-// sym: ??_GPhysicsInstance@physics@@UAEPAXI@Z
+// sym: ?vfunc_2@PhysicsInstance_2fc860@fn_002fc860@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `physics::PhysicsInstance::~PhysicsInstance() {}` stood for it, which natively
+// defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's
+// body 0x002fc520, then (flags & 1) operator delete.
+namespace fn_002fc860 {
+struct PhysicsInstance_2fc860 {
+    void FUN_002fc520();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* PhysicsInstance_2fc860::vfunc_2(unsigned int flags) {
+    FUN_002fc520();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_002fc860
+// (x64t21) the destructor itself, which other objects' code references:
 physics::PhysicsInstance::~PhysicsInstance() {}
 
 

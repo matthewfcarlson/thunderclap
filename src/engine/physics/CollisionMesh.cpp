@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x002f32b0..0x002f4df0 (kind game, layer engine, confidence high), dominant class physics::CollisionMesh
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -651,7 +650,7 @@ WorldCollisionVolume_2f3bb0* WorldCollisionVolume_2f3bb0::vfunc_5(signed char fl
     *(void***)this = hulk_at_0043142c;
     Destroy_00306ac0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -659,9 +658,25 @@ WorldCollisionVolume_2f3bb0* WorldCollisionVolume_2f3bb0::vfunc_5(signed char fl
 } // namespace fn_f77c5fbc
 
 // 0x002f3be0 physics::CollisionMesh::SharedData::vfunc_2 (30 B): matches/0x002f3be0.cpp
-// sym: ??_GSharedData@CollisionMesh@physics@@UAEPAXI@Z
+// sym: ?vfunc_2@SharedData_2f3be0@fn_002f3be0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `physics::CollisionMesh::SharedData::~SharedData() {}` stood for it, which
+// natively defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The
+// destructor's body 0x002f3c00, then (flags & 1) operator delete.
+namespace fn_002f3be0 {
+struct SharedData_2f3be0 {
+    void FUN_002f3c00();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* SharedData_2f3be0::vfunc_2(unsigned int flags) {
+    FUN_002f3c00();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_002f3be0
+// (x64t21) the destructor itself, which other objects' code references:
 physics::CollisionMesh::SharedData::~SharedData() {}
 
 namespace fn_f77c5fbc {

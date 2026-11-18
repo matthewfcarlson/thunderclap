@@ -271,7 +271,7 @@ TrackFactory_236d10* TrackFactory_236d10::vfunc_5(signed char flags) {
     *(void***)this = ((void**)DAT_00427f54);
     Destroy();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        ::operator delete(this);
     }
     return this;
 }

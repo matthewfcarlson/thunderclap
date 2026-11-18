@@ -274,7 +274,7 @@ template <class T> struct Vec_2c3a20 {
     ~Vec_2c3a20() {
         e = b;
         if (b)
-            Free(b);
+            ::operator delete[](b);
     }
 };
 namespace pure3d {

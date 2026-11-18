@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x00306450..0x00306ef0 (kind game, layer engine, confidence high), dominant class physics::CollisionVolume
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -723,9 +722,25 @@ CollisionSphere::CollisionSphere() {
 } // namespace fn_fecd5d4c
 
 // 0x00306c40 physics::CollisionVolume::vfunc_2 (30 B): matches/0x00306c40.cpp
-// sym: ??_GCollisionVolume@physics@@UAEPAXI@Z
+// sym: ?vfunc_2@CollisionVolume_306c40@fn_00306c40@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `physics::CollisionVolume::~CollisionVolume() {}` stood for it, which natively
+// defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's
+// body 0x00306ac0, then (flags & 1) operator delete.
+namespace fn_00306c40 {
+struct CollisionVolume_306c40 {
+    void FUN_00306ac0();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* CollisionVolume_306c40::vfunc_2(unsigned int flags) {
+    FUN_00306ac0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_00306c40
+// (x64t21) the destructor itself, which other objects' code references:
 physics::CollisionVolume::~CollisionVolume() {}
 
 namespace fn_fecd5d4c {

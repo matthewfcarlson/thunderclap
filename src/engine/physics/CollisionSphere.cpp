@@ -530,7 +530,7 @@ CollisionSphere_2effd0* CollisionSphere_2effd0::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_004312dc;
     Destroy_00306ac0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        ::operator delete(this);
     }
     return this;
 }

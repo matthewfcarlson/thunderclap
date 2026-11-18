@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x0006e840..0x00075ce0 (kind game, layer game, confidence high), merged by D32: global/CJointTrack_params_06e840.cpp
 // piece 0x0006f930..0x0006f9f0 (kind game, layer game, confidence high, dominant class CGrappleSmartPropDropTrack); was game/global/CGrappleSmartPropDropTrack.cpp until D46
 #include "tree_prelude.h"
@@ -92,8 +91,24 @@ template <> void* fight::TrackFactoryTemplate<CGrappleSmartPropDropTrack>::vfunc
 
 
 // 0x0006f9d0 CGrappleSmartPropDropTrack::vfunc_5 (30 B): matches/0x0006f9d0.cpp
-// sym: ??_GCGrappleSmartPropDropTrack@@UAEPAXI@Z
+// sym: ?vfunc_5@CGrappleSmartPropDropTrack_6f9d0@fn_0006f9d0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `CGrappleSmartPropDropTrack::~CGrappleSmartPropDropTrack() {}` stood for it,
+// which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the slot).
+// The destructor's body 0x00062ae0, then (flags & 1) operator delete.
+namespace fn_0006f9d0 {
+struct CGrappleSmartPropDropTrack_6f9d0 {
+    void FUN_00062ae0();   // the destructor's body
+    void* vfunc_5(unsigned int flags);
+};
+void* CGrappleSmartPropDropTrack_6f9d0::vfunc_5(unsigned int flags) {
+    FUN_00062ae0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0006f9d0
+// (x64t21) the destructor itself, which other objects' code references:
 CGrappleSmartPropDropTrack::~CGrappleSmartPropDropTrack() {}
 

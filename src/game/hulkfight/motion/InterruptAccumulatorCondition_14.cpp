@@ -1763,7 +1763,7 @@ InterruptAccumulatorSetAction_156ca0* InterruptAccumulatorSetAction_156ca0::vfun
     }
     ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1) {
-        opdel(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -1785,7 +1785,7 @@ InterruptPriorityAction_156d40* InterruptPriorityAction_156d40::vfunc_2(int flag
     }
     ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1) {
-        opdel(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -1807,7 +1807,7 @@ HitWaitAction_156de0* HitWaitAction_156de0::vfunc_2(int flag) {
     }
     ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1) {
-        opdel(this);
+        ::operator delete(this);
     }
     return this;
 }

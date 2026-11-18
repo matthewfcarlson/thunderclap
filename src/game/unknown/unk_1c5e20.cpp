@@ -8,6 +8,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_f493c7ef {} using namespace fn_f493c7ef;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "game/unknown.h"
 
 // ---- declarations shared by the functions below
@@ -205,7 +206,7 @@ void owners::Thing_1c5f30::FUN_001c5f30(hulk_uintptr value) {
                 p[n] = data[n];
                 ++n;
             }
-            Free(data);
+            ::operator delete[](data);
         }
         data = p;
     }

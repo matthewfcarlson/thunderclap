@@ -516,7 +516,7 @@ extern "C" void __fastcall FUN_0031bcf0(d3dPrimStream* self) {
             ++i;
         } while (i < DAT_004d367c);
     }
-    FreeArray(self->resources);
+    ::operator delete(self->resources);
 }
 
 

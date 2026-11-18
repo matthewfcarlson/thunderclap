@@ -1628,9 +1628,25 @@ const char* Obj_1d3030::Run(const char* a, const char* b) {
 } // namespace fn_f55829c3
 
 // 0x001d3100 Method2<ScriptHandler,void,const_char_*,const_char_*>::vfunc_0 (30 B): matches/0x001d3100.cpp
-// sym: ??_G?$Method2@VScriptHandler@@XPBDPBD@@UAEPAXI@Z
+// sym: ?vfunc_0@Method2_1d3100@fn_001d3100@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method2<ScriptHandler, void, const char *, const char
+// *>::~Method2() {}` stood for it, which natively defines no function for the vftable slot (with the `??_G` signature,
+// as other views call the slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_001d3100 {
+struct Method2_1d3100 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method2_1d3100::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_001d3100
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method2<ScriptHandler, void, const char *, const char *>::~Method2() {}
 
 
@@ -1650,9 +1666,25 @@ template class Method2<ScriptHandler, void, const char *, const char *>; // (ren
 
 
 // 0x001d3180 Method1<ScriptHandler,float,const_char_*>::vfunc_0 (30 B): matches/0x001d3180.cpp
-// sym: ??_G?$Method1@VScriptHandler@@MPBD@@UAEPAXI@Z
+// sym: ?vfunc_0@Method1_1d3180@fn_001d3180@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method1<ScriptHandler, float, const char *>::~Method1() {}` stood
+// for it, which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the
+// slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_001d3180 {
+struct Method1_1d3180 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method1_1d3180::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_001d3180
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method1<ScriptHandler, float, const char *>::~Method1() {}
 
 
@@ -1673,9 +1705,25 @@ template class Method1<ScriptHandler, float, const char *>; // (ren2) native onl
 
 
 // 0x001d3210 Method1<ScriptHandler,const_char_*,const_char_*>::vfunc_0 (30 B): matches/0x001d3210.cpp
-// sym: ??_G?$Method1@VScriptHandler@@PBDPBD@@UAEPAXI@Z
+// sym: ?vfunc_0@Method1_1d3210@fn_001d3210@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method1<ScriptHandler, const char *, const char *>::~Method1() {}`
+// stood for it, which natively defines no function for the vftable slot (with the `??_G` signature, as other views call
+// the slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_001d3210 {
+struct Method1_1d3210 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method1_1d3210::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_001d3210
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method1<ScriptHandler, const char *, const char *>::~Method1() {}
 
 
@@ -1713,9 +1761,25 @@ Method4_1d3250* Method4_1d3250::FUN_001d3250(const char* a, Fn_1d3250 b) {
 } // namespace fn_f55829c3
 
 // 0x001d32c0 Method4<ScriptHandler,void,const_char_*,const_char_*,const_char_*,const_char_*>::vfunc_0 (30 B): matches/0x001d32c0.cpp
-// sym: ??_G?$Method4@VScriptHandler@@XPBDPBDPBDPBD@@UAEPAXI@Z
+// sym: ?vfunc_0@Method4_1d32c0@fn_001d32c0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method4<ScriptHandler, void, const char *, const char *, const char
+// *, const char *>::~Method4() {}` stood for it, which natively defines no function for the vftable slot (with the
+// `??_G` signature, as other views call the slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_001d32c0 {
+struct Method4_1d32c0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method4_1d32c0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_001d32c0
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method4<ScriptHandler, void, const char *, const char *, const char *, const char *>::~Method4() {}
 
 
@@ -1731,9 +1795,25 @@ template class Method4<ScriptHandler, void, const char *, const char *, const ch
 
 
 // 0x001d3350 Method1<ScriptHandler,ScriptHandler::script_state,const_char_*>::vfunc_0 (30 B): matches/0x001d3350.cpp
-// sym: ??_G?$Method1@VScriptHandler@@W4script_state@1@PBD@@UAEPAXI@Z
+// sym: ?vfunc_0@script_state_const_char_1d3350@fn_001d3350@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method1<ScriptHandler,ScriptHandler::script_state, const char
+// *>::~Method1() {}` stood for it, which natively defines no function for the vftable slot (with the `??_G` signature,
+// as other views call the slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_001d3350 {
+struct script_state_const_char_1d3350 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* script_state_const_char_1d3350::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_001d3350
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method1<ScriptHandler,ScriptHandler::script_state, const char *>::~Method1() {}
 
 
@@ -2070,9 +2150,25 @@ Closure2::Closure2(const char* a1, ScriptHandler_1d40d0* a2, Fn_1d40d0 a3) : FUN
 
 
 // 0x001d4130 Closure2<ScriptHandler,void,const_char_*,const_char_*>::vfunc_0 (30 B): matches/0x001d4130.cpp
-// sym: ??_G?$Method1@VScriptHandler@@PBDPBD@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure2_1d4130@fn_001d4130@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Closure2<ScriptHandler, void, const char *, const char
+// *>::~Closure2() {}` stood for it, which natively defines no function for the vftable slot (with the `??_G` signature,
+// as other views call the slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_001d4130 {
+struct Closure2_1d4130 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure2_1d4130::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_001d4130
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Closure2<ScriptHandler, void, const char *, const char *>::~Closure2() {}
 
 
@@ -2100,9 +2196,25 @@ Closure1_1d4170::Closure1_1d4170(const char* x, ScriptHandler_1d4170* y, Fn_1d41
 } // namespace fn_f55829c3
 
 // 0x001d41c0 Closure1<ScriptHandler,float,const_char_*>::vfunc_0 (30 B): matches/0x001d41c0.cpp
-// sym: ??_G?$Method1@VScriptHandler@@W4script_state@1@PBD@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure1_1d41c0@fn_001d41c0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Closure1<ScriptHandler, float, const char *>::~Closure1() {}` stood
+// for it, which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the
+// slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_001d41c0 {
+struct Closure1_1d41c0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure1_1d41c0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_001d41c0
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Closure1<ScriptHandler, float, const char *>::~Closure1() {}
 
 

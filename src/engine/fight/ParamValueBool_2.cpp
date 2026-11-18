@@ -8,6 +8,7 @@
 #define TREE_TU_BEGIN namespace fn_fff9a376 {
 #define TREE_TU_END }
 namespace fn_fff9a376 {} using namespace fn_fff9a376;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "engine/fight.h"
 
 // ---- declarations shared by the functions below
@@ -75,7 +76,7 @@ void __cdecl FUN_00234810(Item*** list, int* refs) {
                     p->Release(1);
             }
         }
-        Free(*list);
+        ::operator delete[](*list);
         *list = 0;
     }
 }

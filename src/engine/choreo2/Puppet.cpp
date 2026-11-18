@@ -1,6 +1,5 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // clang-flags: -fexceptions -fcxx-exceptions   (gx2, D22: kept until its --wine proof passes again; docs/native-build.md "gx2")
-// cl-flags: /GX
 // object 0x00222460..0x002248a0 (kind game, layer engine, confidence high), dominant class choreo2::Puppet
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -1051,9 +1050,25 @@ void __cdecl FUN_00223190(Item_223190* first, Item_223190* middle, Item_223190* 
 } // namespace fn_fe86d092
 
 // 0x002232b0 choreo2::Puppet::vfunc_2 (30 B): matches/0x002232b0.cpp
-// sym: ??_GPuppet@choreo2@@UAEPAXI@Z
+// sym: ?vfunc_2@Puppet_2232b0@fn_002232b0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `choreo2::Puppet::~Puppet() {}` stood for it, which natively defines no function
+// for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's body 0x00222660,
+// then (flags & 1) content::LoadObject::operator delete.
+namespace fn_002232b0 {
+struct Puppet_2232b0 {
+    void FUN_00222660();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* Puppet_2232b0::vfunc_2(unsigned int flags) {
+    FUN_00222660();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_002232b0
+// (x64t21) the destructor itself, which other objects' code references:
 choreo2::Puppet::~Puppet() {}
 
 namespace fn_fe86d092 {

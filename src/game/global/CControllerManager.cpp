@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x000ae9a0..0x000af110 (kind game, layer game, confidence high), dominant class CControllerManager
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -188,9 +187,25 @@ pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
 
 
 // 0x000aeb00 Method0<CControllerManager,bool>::vfunc_0 (30 B): matches/0x000aeb00.cpp
-// sym: ??_G?$Method0@VCControllerManager@@_N@@UAEPAXI@Z
+// sym: ?vfunc_0@Method0_aeb00@fn_000aeb00@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method0<CControllerManager, bool>::~Method0() {}` stood for it,
+// which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the slot).
+// The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_000aeb00 {
+struct Method0_aeb00 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method0_aeb00::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_000aeb00
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method0<CControllerManager, bool>::~Method0() {}
 
 
@@ -210,9 +225,25 @@ template class Method0<CControllerManager, bool>; // (ren2) native only: clang e
 
 
 // 0x000aeb90 Method2<CControllerManager,void,int,bool>::vfunc_0 (30 B): matches/0x000aeb90.cpp
-// sym: ??_G?$Method2@VCControllerManager@@XH_N@@UAEPAXI@Z
+// sym: ?vfunc_0@Method2_aeb90@fn_000aeb90@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method2<CControllerManager, void, int, bool>::~Method2() {}` stood
+// for it, which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the
+// slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_000aeb90 {
+struct Method2_aeb90 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method2_aeb90::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_000aeb90
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method2<CControllerManager, void, int, bool>::~Method2() {}
 
 
@@ -228,9 +259,25 @@ template class Method2<CControllerManager, void, int, bool>; // (ren2) native on
 
 
 // 0x000aec10 Method1<CControllerManager,void,bool>::vfunc_0 (30 B): matches/0x000aec10.cpp
-// sym: ??_G?$Method1@VCControllerManager@@X_N@@UAEPAXI@Z
+// sym: ?vfunc_0@Method1_aec10@fn_000aec10@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method1<CControllerManager, void, bool>::~Method1() {}` stood for
+// it, which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the
+// slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_000aec10 {
+struct Method1_aec10 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method1_aec10::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_000aec10
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method1<CControllerManager, void, bool>::~Method1() {}
 
 

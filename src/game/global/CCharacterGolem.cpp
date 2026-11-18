@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x000fdab0..0x000ff230 (kind game, layer game, confidence high), dominant class CCharacterGolem
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -1426,9 +1425,25 @@ CGolem_fed00::CGolem_fed00() throw() {
 } // namespace fn_f54027db
 
 // 0x000fed80 CGolem::vfunc_2 (30 B): matches/0x000fed80.cpp
-// sym: ??_GCGolem@@UAEPAXI@Z
+// sym: ?vfunc_2@CGolem_fed80@fn_000fed80@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `CGolem::~CGolem() {}` stood for it, which natively defines no function for the
+// vftable slot (with the `??_G` signature, as other views call the slot). The destructor's body 0x000fe1e0, then (flags
+// & 1) operator delete.
+namespace fn_000fed80 {
+struct CGolem_fed80 {
+    void FUN_000fe1e0();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* CGolem_fed80::vfunc_2(unsigned int flags) {
+    FUN_000fe1e0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_000fed80
+// (x64t21) the destructor itself, which other objects' code references:
 CGolem::~CGolem() {}
 
 namespace fn_f54027db {
@@ -1582,9 +1597,25 @@ CCharacterGolem *CCharacterGolem::FUN_000fee10(int arg)
 
 
 // 0x000fef20 CCharacterGolem::vfunc_2 (30 B): matches/0x000fef20.cpp
-// sym: ??_GCCharacterGolem@@UAEPAXI@Z
+// sym: ?vfunc_2@CCharacterGolem_fef20@fn_000fef20@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `CCharacterGolem::~CCharacterGolem() {}` stood for it, which natively defines no
+// function for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's body
+// 0x000fe540, then (flags & 1) operator delete.
+namespace fn_000fef20 {
+struct CCharacterGolem_fef20 {
+    void FUN_000fe540();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* CCharacterGolem_fef20::vfunc_2(unsigned int flags) {
+    FUN_000fe540();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_000fef20
+// (x64t21) the destructor itself, which other objects' code references:
 CCharacterGolem::~CCharacterGolem() {}
 
 

@@ -313,7 +313,7 @@ void Owner_28f920::cleanup() {
         device = 0;
         p->B();
     }
-    thunk(helper);
+    ::operator delete(helper);
 }
 
 

@@ -714,10 +714,10 @@ void pure3d::Float2Channel::vfunc_1() {
 // sym: ?vfunc_1@Vector1DOFChannel@pure3d@@UAEXXZ
 void pure3d::Vector1DOFChannel::vfunc_1() {
     if ((*(volatile int *)&this->f_0c) == 0)
-        thunk((*(void * *)&this->f_28));
+        ::operator delete[]((*(void * *)&this->f_28));
     (*(void * *)&this->f_28) = 0;
     if ((*(volatile int *)&this->f_0c) == 0) {
-        thunk((*(void * *)&this->f_14));
+        ::operator delete[]((*(void * *)&this->f_14));
         (*(void * *)&this->f_14) = 0;
         return;
     }
@@ -735,10 +735,10 @@ void pure3d::Vector1DOFChannel::vfunc_1() {
 // Same code shape as 0x0028b5c0 (propagated; names are from that function)
 void pure3d::Vector2DOFChannel::vfunc_1() {
     if ((*(volatile int *)&this->f_0c) == 0)
-        thunk((*(void * *)&this->f_28));
+        ::operator delete[]((*(void * *)&this->f_28));
     (*(void * *)&this->f_28) = 0;
     if ((*(volatile int *)&this->f_0c) == 0) {
-        thunk((*(void * *)&this->f_14));
+        ::operator delete[]((*(void * *)&this->f_14));
         (*(void * *)&this->f_14) = 0;
         return;
     }

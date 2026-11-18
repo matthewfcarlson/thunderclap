@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x002b37a0..0x002b78a0 (kind game, layer engine, confidence high), dominant class pure3d::ShadowSkinLoader
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -1467,9 +1466,9 @@ void Mover_2b4990::FUN_002b4990()
 // sym: ?Reset@ShadowSkinTopology@fn_f35954a7@@QAEXXZ
 void ShadowSkinTopology::Reset() {
     vptr = (void*)((hulk_intptr)DAT_0042e574);
-    ReleaseThing(a);
-    ReleaseThing(b);
-    ReleaseThing(c);
+    ::operator delete[](a);
+    ::operator delete[](b);
+    ::operator delete[](c);
     vptr = (void*)((hulk_intptr)DAT_003f6098);
 }
 
@@ -2620,9 +2619,25 @@ ShadowMeshImpl* ShadowMeshImpl::vfunc_2(unsigned char flags) {
 
 
 // 0x002b6f10 pure3d::ShadowSkinImpl::vfunc_2 (30 B): matches/0x002b6f10.cpp
-// sym: ??_GShadowSkinImpl@pure3d@@UAEPAXI@Z
+// sym: ?vfunc_2@ShadowSkinImpl_2b6f10@fn_002b6f10@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `pure3d::ShadowSkinImpl::~ShadowSkinImpl() {}` stood for it, which natively
+// defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's
+// body 0x002b56e0, then (flags & 1) content::LoadObject::operator delete.
+namespace fn_002b6f10 {
+struct ShadowSkinImpl_2b6f10 {
+    void FUN_002b56e0();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* ShadowSkinImpl_2b6f10::vfunc_2(unsigned int flags) {
+    FUN_002b56e0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_002b6f10
+// (x64t21) the destructor itself, which other objects' code references:
 pure3d::ShadowSkinImpl::~ShadowSkinImpl() {}
 
 

@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x0029f600..0x002a0720 (kind game, layer engine, confidence medium), dominant class pure3d::LightsChooser
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -1016,9 +1015,25 @@ void C_2a0650::f(int a, int b, int c) {
 } // namespace fn_f5bc90fd
 
 // 0x002a06b0 pure3d::LightsChooser::vfunc_2 (30 B): matches/0x002a06b0.cpp
-// sym: ??_GLightsChooser@pure3d@@UAEPAXI@Z
+// sym: ?vfunc_2@LightsChooser_2a06b0@fn_002a06b0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `pure3d::LightsChooser::~LightsChooser() {}` stood for it, which natively
+// defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's
+// body 0x0029fd40, then (flags & 1) content::LoadObject::operator delete.
+namespace fn_002a06b0 {
+struct LightsChooser_2a06b0 {
+    void FUN_0029fd40();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* LightsChooser_2a06b0::vfunc_2(unsigned int flags) {
+    FUN_0029fd40();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_002a06b0
+// (x64t21) the destructor itself, which other objects' code references:
 pure3d::LightsChooser::~LightsChooser() {}
 
 namespace fn_f5bc90fd {

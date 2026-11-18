@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x00021960..0x00021f20 (kind game, layer game, confidence low)
 #include "tree_prelude.h"
 #include "gen/fight.h"
@@ -453,9 +452,25 @@ CSweepAction_21b80* CSweepAction_21b80::f2(unsigned char flags) {
 } // namespace fn_fde8cdef
 
 // 0x00021be0 CAutoTargetAction::vfunc_2 (30 B): matches/0x00021be0.cpp
-// sym: ??_GCAutoTargetAction@@UAEPAXI@Z
+// sym: ?vfunc_2@CAutoTargetAction_21be0@fn_00021be0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `CAutoTargetAction::~CAutoTargetAction() {}` stood for it, which natively
+// defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's
+// body 0x0001d520, then (flags & 1) operator delete.
+namespace fn_00021be0 {
+struct CAutoTargetAction_21be0 {
+    void FUN_0001d520();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* CAutoTargetAction_21be0::vfunc_2(unsigned int flags) {
+    FUN_0001d520();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_00021be0
+// (x64t21) the destructor itself, which other objects' code references:
 CAutoTargetAction::~CAutoTargetAction() {}
 
 namespace fn_fde8cdef {
@@ -580,9 +595,25 @@ CGrappleDetachAction_21da0* CGrappleDetachAction_21da0::f2(unsigned char flags) 
 } // namespace fn_fde8cdef
 
 // 0x00021de0 CGrabAction::vfunc_2 (30 B): matches/0x00021de0.cpp
-// sym: ??_GCGrabAction@@UAEPAXI@Z
+// sym: ?vfunc_2@CGrabAction_21de0@fn_00021de0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `CGrabAction::~CGrabAction() {}` stood for it, which natively defines no
+// function for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's body
+// 0x0001ded0, then (flags & 1) operator delete.
+namespace fn_00021de0 {
+struct CGrabAction_21de0 {
+    void FUN_0001ded0();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* CGrabAction_21de0::vfunc_2(unsigned int flags) {
+    FUN_0001ded0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_00021de0
+// (x64t21) the destructor itself, which other objects' code references:
 CGrabAction::~CGrabAction() {}
 
 namespace fn_fde8cdef {

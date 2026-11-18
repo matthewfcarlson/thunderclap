@@ -135,9 +135,25 @@ class Raw_1f8050 { public: void FUN_001f78c0(const char*, Fn_1f8050); };
 } // namespace fn_f919337e
 
 // 0x001f76c0 Method2<CEffectManager,int,const_char_*,math::Vector>::vfunc_0 (30 B): matches/0x001f76c0.cpp
-// sym: ??_G?$Method2@VCEffectManager@@HPBDVVector@math@@@@UAEPAXI@Z
+// sym: ?vfunc_0@Vector_1f76c0@fn_001f76c0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method2<CEffectManager, int, const char *,math::Vector>::~Method2()
+// {}` stood for it, which natively defines no function for the vftable slot (with the `??_G` signature, as other views
+// call the slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_001f76c0 {
+struct Vector_1f76c0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Vector_1f76c0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_001f76c0
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method2<CEffectManager, int, const char *,math::Vector>::~Method2() {}
 
 
@@ -170,9 +186,26 @@ Method3_1f7720::Method3_1f7720(const char* a, ScriptMemberFn b) : Function_1f772
 } // namespace fn_f919337e
 
 // 0x001f7780 Method3<CEffectManager,int,const_char_*,math::Vector,math::Vector>::vfunc_0 (30 B): matches/0x001f7780.cpp
-// sym: ??_G?$Method3@VCEffectManager@@HPBDVVector@math@@V23@@@UAEPAXI@Z
+// sym: ?vfunc_0@Vector_1f7780@fn_001f7780@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method3<CEffectManager, int, const char
+// *,math::Vector,math::Vector>::~Method3() {}` stood for it, which natively defines no function for the vftable slot
+// (with the `??_G` signature, as other views call the slot). The destructor's body 0x001d04a0, then (flags & 1)
+// operator delete.
+namespace fn_001f7780 {
+struct Vector_1f7780 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Vector_1f7780::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_001f7780
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method3<CEffectManager, int, const char *,math::Vector,math::Vector>::~Method3() {}
 
 

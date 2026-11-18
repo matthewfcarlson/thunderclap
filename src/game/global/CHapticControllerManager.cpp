@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x000b0060..0x000b0440 (kind game, layer game, confidence high), dominant class CHapticControllerManager
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -156,9 +155,25 @@ Method4_b00b0::Method4_b00b0(hulk_intptr a, hulk_intptr b) {
 } // namespace fn_f8a35d46
 
 // 0x000b0120 Method4<CHapticControllerManager,void,int,float,float,float>::vfunc_0 (30 B): matches/0x000b0120.cpp
-// sym: ??_G?$Method4@VCHapticControllerManager@@XHMMM@@UAEPAXI@Z
+// sym: ?vfunc_0@Method4_b0120@fn_000b0120@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method4<CHapticControllerManager, void, int, float, float,
+// float>::~Method4() {}` stood for it, which natively defines no function for the vftable slot (with the `??_G`
+// signature, as other views call the slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_000b0120 {
+struct Method4_b0120 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method4_b0120::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_000b0120
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method4<CHapticControllerManager, void, int, float, float, float>::~Method4() {}
 
 
@@ -181,9 +196,25 @@ template class Method4<CHapticControllerManager, void, int, float, float, float>
 
 
 // 0x000b01b0 Method0<CHapticControllerManager,void>::vfunc_0 (30 B): matches/0x000b01b0.cpp
-// sym: ??_G?$Method0@VCHapticControllerManager@@X@@UAEPAXI@Z
+// sym: ?vfunc_0@Method0_b01b0@fn_000b01b0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method0<CHapticControllerManager, void>::~Method0() {}` stood for
+// it, which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the
+// slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_000b01b0 {
+struct Method0_b01b0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method0_b01b0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_000b01b0
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method0<CHapticControllerManager, void>::~Method0() {}
 
 
@@ -200,9 +231,25 @@ template class Method0<CHapticControllerManager, void>; // (ren2) native only: c
 
 
 // 0x000b0220 Method1<CHapticControllerManager,void,bool>::vfunc_0 (30 B): matches/0x000b0220.cpp
-// sym: ??_G?$Method1@VCHapticControllerManager@@X_N@@UAEPAXI@Z
+// sym: ?vfunc_0@Method1_b0220@fn_000b0220@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method1<CHapticControllerManager, void, bool>::~Method1() {}` stood
+// for it, which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the
+// slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_000b0220 {
+struct Method1_b0220 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method1_b0220::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_000b0220
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method1<CHapticControllerManager, void, bool>::~Method1() {}
 
 

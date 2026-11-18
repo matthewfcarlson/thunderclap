@@ -117,7 +117,7 @@ BallAndChainSpinAction_1890f0* BallAndChainSpinAction_1890f0::vfunc_2(int flag) 
     }
     ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1) {
-        opdel(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -231,7 +231,7 @@ BallAndChainReturnAction_189240* BallAndChainReturnAction_189240::vfunc_2(int fl
     }
     ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1) {
-        opdel(this);
+        ::operator delete(this);
     }
     return this;
 }

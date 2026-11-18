@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x001c49c0..0x001c5ae0 (kind game, layer game, confidence high), dominant class Render::Object
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -886,9 +885,25 @@ int Object_1c51b0::target(Context* context) {
 } // namespace fn_f4431f34
 
 // 0x001c52d0 Render::Object::vfunc_2 (30 B): matches/0x001c52d0.cpp
-// sym: ??_GObject@Render@@UAEPAXI@Z
+// sym: ?vfunc_2@Object_1c52d0@fn_001c52d0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `Render::Object::~Object() {}` stood for it, which natively defines no function
+// for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's body 0x001c4fb0,
+// then (flags & 1) operator delete.
+namespace fn_001c52d0 {
+struct Object_1c52d0 {
+    void FUN_001c4fb0();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* Object_1c52d0::vfunc_2(unsigned int flags) {
+    FUN_001c4fb0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_001c52d0
+// (x64t21) the destructor itself, which other objects' code references:
 Render::Object::~Object() {}
 
 

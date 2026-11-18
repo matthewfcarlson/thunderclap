@@ -431,7 +431,7 @@ d3dBuildingShader_332840::d3dBuildingShader_332840(unsigned char flag) {
         c->f1();
     cleanup();
     if (flag & 1)
-        destroy(this);
+        ::operator delete(this);
 }
 
 } // namespace fn_fd7d5ddc

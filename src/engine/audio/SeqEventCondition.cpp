@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x0024fc30..0x00250080 (kind game, layer engine, confidence high), dominant class audio::SeqEventCondition
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -147,9 +146,25 @@ audio::SeqEventConditionType::SeqEventConditionType() throw()
 
 
 // 0x0024fd70 audio::SeqEventConditionType::vfunc_2 (30 B): matches/0x0024fd70.cpp
-// sym: ??_GSeqEventConditionType@audio@@UAEPAXI@Z
+// sym: ?vfunc_2@SeqEventConditionType_24fd70@fn_0024fd70@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `audio::SeqEventConditionType::~SeqEventConditionType() {}` stood for it, which
+// natively defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The
+// destructor's body 0x00260680, then (flags & 1) operator delete.
+namespace fn_0024fd70 {
+struct SeqEventConditionType_24fd70 {
+    void FUN_00260680();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* SeqEventConditionType_24fd70::vfunc_2(unsigned int flags) {
+    FUN_00260680();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0024fd70
+// (x64t21) the destructor itself, which other objects' code references:
 audio::SeqEventConditionType::~SeqEventConditionType() {}
 
 
@@ -213,9 +228,25 @@ SeqEventContainer::SeqEventContainer() {
 } // namespace fn_f150b671
 
 // 0x0024fe90 audio::SeqEventContainer::vfunc_4 (30 B): matches/0x0024fe90.cpp
-// sym: ??_GSeqEventContainer@audio@@UAEPAXI@Z
+// sym: ?vfunc_4@SeqEventContainer_24fe90@fn_0024fe90@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `audio::SeqEventContainer::~SeqEventContainer() {}` stood for it, which natively
+// defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's
+// body 0x002607a0, then (flags & 1) operator delete.
+namespace fn_0024fe90 {
+struct SeqEventContainer_24fe90 {
+    void FUN_002607a0();   // the destructor's body
+    void* vfunc_4(unsigned int flags);
+};
+void* SeqEventContainer_24fe90::vfunc_4(unsigned int flags) {
+    FUN_002607a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0024fe90
+// (x64t21) the destructor itself, which other objects' code references:
 audio::SeqEventContainer::~SeqEventContainer() {}
 
 

@@ -14321,8 +14321,8 @@ struct X_230b60 {
 // matches/0x00231050.cpp (stub C_231050), size 0x20
 struct C_231050 {
     char pad[0x18]; // +0x00
-    int a; // +0x18
-    int b; // +0x1c
+    void* a; // +0x18 (x64t21) fight's hash table's slots (unk_2310a0.cpp Table_2310a0)
+    void* b; // +0x1c its entries (+0x20 natively, as the table's)
     void FUN_00231050();
 };
 // matches/0x00231070.cpp (stub X_231070), size 0x1c (0x20)

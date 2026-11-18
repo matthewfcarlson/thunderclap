@@ -412,7 +412,7 @@ d3dProjectedTextureShader_32cc00* d3dProjectedTextureShader_32cc00::vfunc_3(unsi
         b->f1();
     cleanup();
     if (x & 1)
-        destroy(this);
+        ::operator delete(this);
     return this;
 }
 

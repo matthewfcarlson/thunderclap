@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x002b78a0..0x002b8040 (kind game, layer engine, confidence high), dominant class pure3d::PolySkin
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -427,9 +426,25 @@ PolySkinLoader_2b7df0::~PolySkinLoader_2b7df0() throw() {
 } // namespace fn_f0d4c6f4
 
 // 0x002b7e30 pure3d::PolySkin::vfunc_2 (30 B): matches/0x002b7e30.cpp
-// sym: ??_GPolySkin@pure3d@@UAEPAXI@Z
+// sym: ?vfunc_2@PolySkin_2b7e30@fn_002b7e30@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `pure3d::PolySkin::~PolySkin() {}` stood for it, which natively defines no
+// function for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's body
+// 0x002b7c00, then (flags & 1) content::LoadObject::operator delete.
+namespace fn_002b7e30 {
+struct PolySkin_2b7e30 {
+    void FUN_002b7c00();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* PolySkin_2b7e30::vfunc_2(unsigned int flags) {
+    FUN_002b7c00();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_002b7e30
+// (x64t21) the destructor itself, which other objects' code references:
 pure3d::PolySkin::~PolySkin() {}
 
 

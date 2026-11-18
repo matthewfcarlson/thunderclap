@@ -11,6 +11,7 @@
 #define TREE_TU_BEGIN namespace fn_f40d2254 {
 #define TREE_TU_END }
 namespace fn_f40d2254 {} using namespace fn_f40d2254;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 namespace fn_f40d2254 {
 struct FactoryCtor { void init_002343b0(); void init_00236a90(); };   // (unb4) the factory constructors InitHelper::init stood for
 void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
@@ -30,7 +31,7 @@ class CommentCondition_23d860 {
   public:
     int a, b;
     virtual ~CommentCondition_23d860();
-    int d;
+    void* d;   // (x64t21) a block of the game heap (its destructor frees it)
     virtual bool hulk_slot_F_00234270(void*); void FnF_002345b0();
 };
 extern "C" void __cdecl FreeMem_0008d340(void*);
@@ -56,7 +57,7 @@ class CommentTrack_23d950 {
   public:
     int a, b;
     virtual ~CommentTrack_23d950();
-    int d;
+    void* d;   // (x64t21) a block of the game heap (its destructor frees it)
     virtual bool hulk_slot_F_00234270(void*); void FnF_00236d60();
 };
 extern "C" void __cdecl release(void*);
@@ -201,7 +202,7 @@ namespace fn_f40d2254 {
 // sym: ??1CommentCondition_23d860@fn_f40d2254@@UAE@XZ
 // Same code shape as 0x0011c270 (propagated; names are from that function)
 CommentCondition_23d860::~CommentCondition_23d860() {
-    Cleanup(d);
+    ::operator delete[](d);   // (x64t21, D115) the game's operator delete[] 0x0008d340 (`Cleanup(int)` bound nowhere)
     FnF_002345b0();
 }
 
@@ -271,7 +272,7 @@ namespace fn_f40d2254 {
 // sym: ??1CommentTrack_23d950@fn_f40d2254@@UAE@XZ
 // Same code shape as 0x0011c270 (propagated; names are from that function)
 CommentTrack_23d950::~CommentTrack_23d950() {
-    Cleanup(d);
+    ::operator delete[](d);
     FnF_00236d60();
 }
 
@@ -279,7 +280,7 @@ CommentTrack_23d950::~CommentTrack_23d950() {
 // 0x0023d970 FUN_0023d970 (82 B): matches/0x0023d970.cpp
 // sym: ?Set@Obj@fn_f40d2254@@QAEDPBD@Z
 char Obj::Set(const char* s) {
-    release(str);
+    ::operator delete[](str);
     if (!s) {
         str = (char*)s;
         return 1;
@@ -312,10 +313,10 @@ namespace fn_f40d2254 {
 // Same code shape as 0x0011cbc0 (propagated; names are from that function)
 void* CommentCondition_23dab0::vfunc_5(unsigned char flag) {
     *(const VFT**)this = &hulk_at_00428bf8;
-    ai_free(m_p);
+    ::operator delete[](m_p);
     Cleanup_002345b0();
     if (flag & 1) {
-        ai_delete(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -326,10 +327,10 @@ void* CommentCondition_23dab0::vfunc_5(unsigned char flag) {
 // Same code shape as 0x0011cbc0 (propagated; names are from that function)
 void* CommentTrack_23daf0::vfunc_5(unsigned char flag) {
     *(const VFT**)this = &hulk_at_00428c18;
-    ai_free(m_p);
+    ::operator delete[](m_p);
     Cleanup_00236d60();
     if (flag & 1) {
-        ai_delete(this);
+        ::operator delete(this);
     }
     return this;
 }

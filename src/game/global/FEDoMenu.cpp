@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x000e8ba0..0x000e8be0 (kind game, layer game, confidence medium), dominant class FEDoMenu
 #include "tree_prelude.h"
 #include "gen/global.h"
@@ -10,9 +9,25 @@ namespace fn_f811ea41 {} using namespace fn_f811ea41;
 
 
 // 0x000e8ba0 FEDoFunction::vfunc_0 (30 B): matches/0x000e8ba0.cpp
-// sym: ??_GFEDoFunction@@UAEPAXI@Z
+// sym: ?vfunc_0@FEDoFunction_e8ba0@fn_000e8ba0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `FEDoFunction::~FEDoFunction() {}` stood for it, which natively defines no
+// function for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's body
+// 0x000e1a60, then (flags & 1) operator delete.
+namespace fn_000e8ba0 {
+struct FEDoFunction_e8ba0 {
+    void FUN_000e1a60();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* FEDoFunction_e8ba0::vfunc_0(unsigned int flags) {
+    FUN_000e1a60();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_000e8ba0
+// (x64t21) the destructor itself, which other objects' code references:
 FEDoFunction::~FEDoFunction() {}
 
 

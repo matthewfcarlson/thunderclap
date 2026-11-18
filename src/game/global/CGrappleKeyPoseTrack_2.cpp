@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x00077ae0..0x00077ba0 (kind game, layer game, confidence high), dominant class CGrappleKeyPoseTrack
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -92,8 +91,24 @@ template <> void* fight::TrackFactoryTemplate<CGrappleKeyPoseTrack>::vfunc_5() {
 
 
 // 0x00077b80 CGrappleKeyPoseTrack::vfunc_5 (30 B): matches/0x00077b80.cpp
-// sym: ??_GCGrappleKeyPoseTrack@@UAEPAXI@Z
+// sym: ?vfunc_5@CGrappleKeyPoseTrack_77b80@fn_00077b80@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `CGrappleKeyPoseTrack::~CGrappleKeyPoseTrack() {}` stood for it, which natively
+// defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's
+// body 0x000695b0, then (flags & 1) operator delete.
+namespace fn_00077b80 {
+struct CGrappleKeyPoseTrack_77b80 {
+    void FUN_000695b0();   // the destructor's body
+    void* vfunc_5(unsigned int flags);
+};
+void* CGrappleKeyPoseTrack_77b80::vfunc_5(unsigned int flags) {
+    FUN_000695b0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_00077b80
+// (x64t21) the destructor itself, which other objects' code references:
 CGrappleKeyPoseTrack::~CGrappleKeyPoseTrack() {}
 

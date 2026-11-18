@@ -725,11 +725,11 @@ void __cdecl fn(Entry* first, Entry* last) {
         void* b = first->b;
         first->bCopy = b;
         if (b)
-            release(b);
+            ::operator delete[](b);
         void* a = first->a;
         first->aCopy = a;
         if (a)
-            release(a);
+            ::operator delete[](a);
     }
 }
 

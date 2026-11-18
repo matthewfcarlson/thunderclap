@@ -3095,7 +3095,7 @@ WorldDamageAction_145ba0* WorldDamageAction_145ba0::vfunc_2(int flag) {
     }
     ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1) {
-        opdel(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -3117,7 +3117,7 @@ WorldConeDamageAction_145bf0* WorldConeDamageAction_145bf0::vfunc_2(int flag) {
     }
     ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1) {
-        opdel(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -3184,7 +3184,7 @@ MotionTrailStopAction_145d50* MotionTrailStopAction_145d50::vfunc_2(int flag) {
     }
     ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1) {
-        opdel(this);
+        ::operator delete(this);
     }
     return this;
 }

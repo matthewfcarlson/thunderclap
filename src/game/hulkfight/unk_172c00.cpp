@@ -723,7 +723,7 @@ hulkfight::motion::DriftToPositionTrack* hulkfight::motion::DriftToPositionTrack
     ReleaseThing_0008d340(*(void**)((char*)this + 0x28));
     Finish_00236d60();
     if (flag & 1)
-        ReleaseSelf(this);
+        ::operator delete(this);
     return this;
 }
 

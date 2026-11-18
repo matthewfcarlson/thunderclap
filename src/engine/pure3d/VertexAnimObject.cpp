@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x002d0f10..0x002d1090 (kind game, layer engine, confidence medium), dominant class pure3d::VertexAnimObject
 #include "tree_prelude.h"
 #include "gen/pure3d.h"
@@ -9,6 +8,7 @@
 #define TREE_LOCAL_CCollisionAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_f740762b {} using namespace fn_f740762b;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "engine/pure3d.h"
 
 // ---- declarations shared by the functions below
@@ -25,7 +25,7 @@ template <class T> struct Vec_2d0f10 {
     unsigned size() const { return end - begin; }
     ~Vec_2d0f10() throw() {
         if (begin)
-            Free(begin);
+            ::operator delete[](begin);   // (x64t21, D115) the game's operator delete[] 0x0008d340
     }
 };
 class IRefCount {
@@ -114,8 +114,24 @@ pure3d::VertexAnimObject::VertexAnimObject(Source_2d0fa0* source) {
 
 
 // 0x002d1070 pure3d::VertexAnimObject::vfunc_2 (30 B): matches/0x002d1070.cpp
-// sym: ??_GVertexAnimObject@pure3d@@UAEPAXI@Z
+// sym: ?vfunc_2@VertexAnimObject_2d1070@fn_002d1070@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `pure3d::VertexAnimObject::~VertexAnimObject() {}` stood for it, which natively
+// defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's
+// body 0x002d0f10, then (flags & 1) operator delete.
+namespace fn_002d1070 {
+struct VertexAnimObject_2d1070 {
+    void FUN_002d0f10();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* VertexAnimObject_2d1070::vfunc_2(unsigned int flags) {
+    FUN_002d0f10();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_002d1070
+// (x64t21) the destructor itself, which other objects' code references:
 pure3d::VertexAnimObject::~VertexAnimObject() {}
 

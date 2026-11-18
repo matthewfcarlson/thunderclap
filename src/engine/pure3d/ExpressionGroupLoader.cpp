@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x002aff60..0x002b0f40 (kind game, layer engine, confidence high), dominant class pure3d::ExpressionGroupLoader
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -14,6 +13,7 @@
 #define TREE_LOCAL_CCollisionAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_fd745641 {} using namespace fn_fd745641;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 namespace fn_fd745641 { extern "C" char DAT_003f6098[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "engine/pure3d.h"
 
@@ -68,7 +68,7 @@ template <class T> struct Vec_2b0100 {
     T& operator[](unsigned i) { return begin[i]; }
     ~Vec_2b0100() throw() {
         if (begin)
-            FreeMem(begin);
+            ::operator delete[](begin);   // (x64t21, D115) the game's operator delete[] 0x0008d340
     }
 };
 template <int N> struct Buf_2b0100 {
@@ -76,7 +76,7 @@ template <int N> struct Buf_2b0100 {
     char pad[N - 4];
     ~Buf_2b0100() throw() {
         if (p)
-            FreeMem(p);
+            ::operator delete[](p);
     }
 };
 class ExpressionGroup_2b0100 : public pure3d::Entity {
@@ -462,9 +462,25 @@ unsigned __int64 ExpressionGroupLoader::vfunc_5(ExprGroup_2b0170 **out, unsigned
 
 
 // 0x002b0350 pure3d::ExpressionGroup::vfunc_2 (30 B): matches/0x002b0350.cpp
-// sym: ??_GExpressionGroup@pure3d@@UAEPAXI@Z
+// sym: ?vfunc_2@ExpressionGroup_2b0350@fn_002b0350@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `pure3d::ExpressionGroup::~ExpressionGroup() {}` stood for it, which natively
+// defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's
+// body 0x002b0100, then (flags & 1) content::LoadObject::operator delete.
+namespace fn_002b0350 {
+struct ExpressionGroup_2b0350 {
+    void FUN_002b0100();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* ExpressionGroup_2b0350::vfunc_2(unsigned int flags) {
+    FUN_002b0100();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_002b0350
+// (x64t21) the destructor itself, which other objects' code references:
 pure3d::ExpressionGroup::~ExpressionGroup() {}
 
 namespace fn_fd745641 {

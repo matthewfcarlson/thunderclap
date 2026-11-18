@@ -10,6 +10,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_fad6e2b1 {} using namespace fn_fad6e2b1;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 namespace fn_fad6e2b1 {
 void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
 }
@@ -226,7 +227,7 @@ class FormationReadyCondition {
     int pad4;
     int pad8;
     int padc;
-    int m10;
+    void* m10;   // (x64t21) a block of the game heap (as the other conditions' m10)
     FormationReadyCondition* vfunc_5(int);
     void Cleanup_002345b0();
 };
@@ -453,7 +454,7 @@ KeyWordWaitCondition_10e8a0* KeyWordWaitCondition_10e8a0::f5(unsigned char flags
 // sym: ?vfunc_5@FormationReadyCondition@fn_fad6e2b1@@QAEPAV12@H@Z
 FormationReadyCondition* FormationReadyCondition::vfunc_5(int flag) {
     *(volatile hulk_intptr*)this = (hulk_intptr)&hulk_at_0040daa4;
-    helper(m10);
+    ::operator delete[](m10);   // (x64t21, D115) the game's operator delete[] 0x0008d340 (`helper` was bound nowhere)
     Cleanup_002345b0();
     if (flag & 1)
         helper2_0008d330(this);

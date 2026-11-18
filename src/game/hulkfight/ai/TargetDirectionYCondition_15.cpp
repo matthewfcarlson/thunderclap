@@ -1246,7 +1246,7 @@ hulkfight::ai::ClearProjectileDistanceAction* hulkfight::ai::ClearProjectileDist
     }
     Cleanup_002326a0();
     if (flag & 1) {
-        opdel(this);
+        ::operator delete(this);
     }
     return this;
 }

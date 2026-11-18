@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x000f1570..0x000f8690 (kind game, layer game, confidence high), dominant class FEThingsBase
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -12,6 +11,7 @@
 #define TREE_TU_BEGIN namespace fn_f5892d97 {
 #define TREE_TU_END }
 namespace fn_f5892d97 {} using namespace fn_f5892d97;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 namespace fn_f5892d97 {
 void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
 }
@@ -1136,16 +1136,48 @@ void Player_f1ab0::FUN_000f1ab0(Source_f1ab0* src) {
 
 
 // 0x000f1b30 HSlider::vfunc_2 (30 B): matches/0x000f1b30.cpp
-// sym: ??_GHSlider@@UAEPAXI@Z
+// sym: ?vfunc_2@HSlider_f1b30@fn_000f1b30@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `HSlider::~HSlider() {}` stood for it, which natively defines no function for
+// the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's body 0x000e9ff0, then
+// (flags & 1) operator delete.
+namespace fn_000f1b30 {
+struct HSlider_f1b30 {
+    void FUN_000e9ff0();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* HSlider_f1b30::vfunc_2(unsigned int flags) {
+    FUN_000e9ff0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_000f1b30
+// (x64t21) the destructor itself, which other objects' code references:
 HSlider::~HSlider() {}
 
 
 // 0x000f1b50 TextSelector::vfunc_2 (30 B): matches/0x000f1b50.cpp
-// sym: ??_GTextSelector@@UAEPAXI@Z
+// sym: ?vfunc_2@TextSelector_f1b50@fn_000f1b50@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `TextSelector::~TextSelector() {}` stood for it, which natively defines no
+// function for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's body
+// 0x000ebca0, then (flags & 1) operator delete.
+namespace fn_000f1b50 {
+struct TextSelector_f1b50 {
+    void FUN_000ebca0();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* TextSelector_f1b50::vfunc_2(unsigned int flags) {
+    FUN_000ebca0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_000f1b50
+// (x64t21) the destructor itself, which other objects' code references:
 TextSelector::~TextSelector() {}
 
 namespace fn_f5892d97 {
@@ -1203,9 +1235,25 @@ void Widget_f1bd0::FUN_000f1bd0(ArgPair args, float c) {
 } // namespace fn_f5892d97
 
 // 0x000f1c60 TextWindow::vfunc_2 (30 B): matches/0x000f1c60.cpp
-// sym: ??_GTextWindow@@UAEPAXI@Z
+// sym: ?vfunc_2@TextWindow_f1c60@fn_000f1c60@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `TextWindow::~TextWindow() {}` stood for it, which natively defines no function
+// for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's body 0x000ece40,
+// then (flags & 1) operator delete.
+namespace fn_000f1c60 {
+struct TextWindow_f1c60 {
+    void FUN_000ece40();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* TextWindow_f1c60::vfunc_2(unsigned int flags) {
+    FUN_000ece40();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_000f1c60
+// (x64t21) the destructor itself, which other objects' code references:
 TextWindow::~TextWindow() {}
 
 
@@ -1267,9 +1315,25 @@ TextTable* TextTable::vfunc_2(unsigned char p) {
 
 
 // 0x000f1cd0 ImageSelector::vfunc_2 (30 B): matches/0x000f1cd0.cpp
-// sym: ??_GImageSelector@@UAEPAXI@Z
+// sym: ?vfunc_2@ImageSelector_f1cd0@fn_000f1cd0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `ImageSelector::~ImageSelector() {}` stood for it, which natively defines no
+// function for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's body
+// 0x000ee000, then (flags & 1) operator delete.
+namespace fn_000f1cd0 {
+struct ImageSelector_f1cd0 {
+    void FUN_000ee000();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* ImageSelector_f1cd0::vfunc_2(unsigned int flags) {
+    FUN_000ee000();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_000f1cd0
+// (x64t21) the destructor itself, which other objects' code references:
 ImageSelector::~ImageSelector() {}
 
 
@@ -1307,9 +1371,25 @@ FEContainer_f1cf0* FEContainer_f1cf0::vfunc_2(unsigned char flags) {
 
 
 // 0x000f1d10 FEScreenBase::vfunc_0 (30 B): matches/0x000f1d10.cpp
-// sym: ??_GFEScreenBase@@UAEPAXI@Z
+// sym: ?vfunc_0@FEScreenBase_f1d10@fn_000f1d10@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `FEScreenBase::~FEScreenBase() {}` stood for it, which natively defines no
+// function for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's body
+// 0x000ef400, then (flags & 1) operator delete.
+namespace fn_000f1d10 {
+struct FEScreenBase_f1d10 {
+    void FUN_000ef400();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* FEScreenBase_f1d10::vfunc_0(unsigned int flags) {
+    FUN_000ef400();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_000f1d10
+// (x64t21) the destructor itself, which other objects' code references:
 FEScreenBase::~FEScreenBase() {}
 
 namespace fn_f5892d97 {
@@ -1839,9 +1919,25 @@ void FUN_000f2530() {}
 } // namespace fn_f5892d97
 
 // 0x000f2540 FEPoseAnimationInvisible::vfunc_0 (30 B): matches/0x000f2540.cpp
-// sym: ??_GFEPoseAnimationInvisible@@UAEPAXI@Z
+// sym: ?vfunc_0@FEPoseAnimationInvisible_f2540@fn_000f2540@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `FEPoseAnimationInvisible::~FEPoseAnimationInvisible() {}` stood for it, which
+// natively defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The
+// destructor's body 0x000e86f0, then (flags & 1) operator delete.
+namespace fn_000f2540 {
+struct FEPoseAnimationInvisible_f2540 {
+    void FUN_000e86f0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* FEPoseAnimationInvisible_f2540::vfunc_0(unsigned int flags) {
+    FUN_000e86f0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_000f2540
+// (x64t21) the destructor itself, which other objects' code references:
 FEPoseAnimationInvisible::~FEPoseAnimationInvisible() {}
 
 
@@ -1903,9 +1999,25 @@ void FUN_000f25c0() {}
 } // namespace fn_f5892d97
 
 // 0x000f25d0 FEShaderAnimation::vfunc_0 (30 B): matches/0x000f25d0.cpp
-// sym: ??_GFEShaderAnimation@@UAEPAXI@Z
+// sym: ?vfunc_0@FEShaderAnimation_f25d0@fn_000f25d0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `FEShaderAnimation::~FEShaderAnimation() {}` stood for it, which natively
+// defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's
+// body 0x000e86f0, then (flags & 1) operator delete.
+namespace fn_000f25d0 {
+struct FEShaderAnimation_f25d0 {
+    void FUN_000e86f0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* FEShaderAnimation_f25d0::vfunc_0(unsigned int flags) {
+    FUN_000e86f0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_000f25d0
+// (x64t21) the destructor itself, which other objects' code references:
 FEShaderAnimation::~FEShaderAnimation() {}
 
 
@@ -6639,7 +6751,7 @@ void Buffer_f6ff0::Reserve(int n) {
         data = fresh;
         if (old) {
             memcpy(fresh, old, size * 2);
-            freebuf(old);
+            ::operator delete[](old);
         }
         capacity = n;
     }

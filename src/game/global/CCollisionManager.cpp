@@ -1856,9 +1856,25 @@ Method3_1b5bc0::Method3_1b5bc0(const char* a, ScriptMemberFn b) {
 } // namespace fn_f5af65ff
 
 // 0x001b5c20 Method3<CCollisionManager,void,float,float,float>::vfunc_0 (30 B): matches/0x001b5c20.cpp
-// sym: ??_G?$Method3@VCCollisionManager@@XMMM@@UAEPAXI@Z
+// sym: ?vfunc_0@Method3_1b5c20@fn_001b5c20@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method3<CCollisionManager, void, float, float, float>::~Method3()
+// {}` stood for it, which natively defines no function for the vftable slot (with the `??_G` signature, as other views
+// call the slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_001b5c20 {
+struct Method3_1b5c20 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method3_1b5c20::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_001b5c20
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method3<CCollisionManager, void, float, float, float>::~Method3() {}
 
 
@@ -1876,9 +1892,25 @@ template class Method3<CCollisionManager, void, float, float, float>; // (ren2) 
 
 
 // 0x001b5cc0 Method2<CCollisionManager,bool,math::Vector,int>::vfunc_0 (30 B): matches/0x001b5cc0.cpp
-// sym: ??_G?$Method2@VCCollisionManager@@_NVVector@math@@H@@UAEPAXI@Z
+// sym: ?vfunc_0@Vector_int_1b5cc0@fn_001b5cc0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method2<CCollisionManager, bool,math::Vector, int>::~Method2() {}`
+// stood for it, which natively defines no function for the vftable slot (with the `??_G` signature, as other views call
+// the slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_001b5cc0 {
+struct Vector_int_1b5cc0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Vector_int_1b5cc0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_001b5cc0
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method2<CCollisionManager, bool,math::Vector, int>::~Method2() {}
 
 
@@ -2280,9 +2312,25 @@ extern "C" void * FUN_001b6580() {
 } // namespace fn_f5af65ff
 
 // 0x001b65d0 CCollisionManager::vfunc_2 (30 B): matches/0x001b65d0.cpp
-// sym: ??_GCCollisionManager@@UAEPAXI@Z
+// sym: ?vfunc_2@CCollisionManager_1b65d0@fn_001b65d0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `CCollisionManager::~CCollisionManager() {}` stood for it, which natively
+// defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's
+// body 0x001b6530, then (flags & 1) operator delete.
+namespace fn_001b65d0 {
+struct CCollisionManager_1b65d0 {
+    void FUN_001b6530();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* CCollisionManager_1b65d0::vfunc_2(unsigned int flags) {
+    FUN_001b6530();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_001b65d0
+// (x64t21) the destructor itself, which other objects' code references:
 CCollisionManager::~CCollisionManager() {}
 
 namespace fn_f5af65ff {

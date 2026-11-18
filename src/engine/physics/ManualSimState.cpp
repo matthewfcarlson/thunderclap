@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x002efb70..0x002efca0 (kind game, layer engine, confidence high), dominant class physics::ManualSimState
 #include "tree_prelude.h"
 #include "decls/data/engine/physics.h"
@@ -67,8 +66,24 @@ void physics::ManualSimState::vfunc_6(int a, int b) {}
 
 
 // 0x002efba0 physics::ManualSimState::vfunc_2 (30 B): matches/0x002efba0.cpp
-// sym: ??_GManualSimState@physics@@UAEPAXI@Z
+// sym: ?vfunc_2@ManualSimState_2efba0@fn_002efba0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `physics::ManualSimState::~ManualSimState() {}` stood for it, which natively
+// defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's
+// body 0x002ef2c0, then (flags & 1) operator delete.
+namespace fn_002efba0 {
+struct ManualSimState_2efba0 {
+    void FUN_002ef2c0();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* ManualSimState_2efba0::vfunc_2(unsigned int flags) {
+    FUN_002ef2c0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_002efba0
+// (x64t21) the destructor itself, which other objects' code references:
 physics::ManualSimState::~ManualSimState() {}
 

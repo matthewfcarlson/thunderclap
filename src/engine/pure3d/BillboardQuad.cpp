@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x002b87d0..0x002bd430 (kind game, layer engine, confidence high), dominant class pure3d::BillboardQuad
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -1551,7 +1550,7 @@ BillboardQuad_2b98a0* BillboardQuad_2b98a0::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_0042e724;
     Destroy_0027afd0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -1715,7 +1714,7 @@ BillboardCutOffQuad_2b9cb0* BillboardCutOffQuad_2b9cb0::vfunc_5(signed char flag
     *(void***)this = ((void**)DAT_0042e724);
     Destroy_0027afd0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -2186,7 +2185,7 @@ BillboardObject_2ba810* BillboardObject_2ba810::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_0042e764;
     Destroy_002a4ff0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -2215,7 +2214,7 @@ BillboardQuadGroupLoader_2ba8a0* BillboardQuadGroupLoader_2ba8a0::vfunc_5(signed
     *(void***)this = hulk_at_0042e7b4;
     Destroy_002a3e90();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -2426,7 +2425,7 @@ OldBillboardQuadGroupLoader_2bb080* OldBillboardQuadGroupLoader_2bb080::vfunc_5(
     *(void***)this = hulk_at_0042e7c4;
     Destroy_002a3e90();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -3435,9 +3434,25 @@ BillboardCutOffQuadGroup::BillboardCutOffQuadGroup()
 
 
 // 0x002bc740 pure3d::BillboardQuadGroup::vfunc_2 (30 B): matches/0x002bc740.cpp
-// sym: ??_GBillboardQuadGroup@pure3d@@UAEPAXI@Z
+// sym: ?vfunc_2@BillboardQuadGroup_2bc740@fn_002bc740@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `pure3d::BillboardQuadGroup::~BillboardQuadGroup() {}` stood for it, which
+// natively defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The
+// destructor's body 0x002bc5d0, then (flags & 1) content::LoadObject::operator delete.
+namespace fn_002bc740 {
+struct BillboardQuadGroup_2bc740 {
+    void FUN_002bc5d0();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* BillboardQuadGroup_2bc740::vfunc_2(unsigned int flags) {
+    FUN_002bc5d0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_002bc740
+// (x64t21) the destructor itself, which other objects' code references:
 pure3d::BillboardQuadGroup::~BillboardQuadGroup() {}
 
 namespace fn_fff84c72 {
@@ -3451,7 +3466,7 @@ BillboardCutOffQuadGroup_2bc760* BillboardCutOffQuadGroup_2bc760::vfunc_5(signed
     *(void***)this = hulk_at_0042e840;
     Destroy_002bc5d0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        ::operator delete(this);
     }
     return this;
 }

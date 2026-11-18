@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x00252350..0x00252780 (kind game, layer engine, confidence high), dominant class audio::SeqEventVarVolumeRand
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -317,9 +316,25 @@ void* audio::SeqEventVarVolumeRandType::FUN_002524e0() { HULK_SIZE32(AudioSeqEve
 
 
 // 0x00252540 audio::SeqEventVarVolumeRandType::vfunc_2 (30 B): matches/0x00252540.cpp
-// sym: ??_GSeqEventVarVolumeRandType@audio@@UAEPAXI@Z
+// sym: ?vfunc_2@SeqEventVarVolumeRandType_252540@fn_00252540@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `audio::SeqEventVarVolumeRandType::~SeqEventVarVolumeRandType() {}` stood for
+// it, which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the
+// slot). The destructor's body 0x00260680, then (flags & 1) operator delete.
+namespace fn_00252540 {
+struct SeqEventVarVolumeRandType_252540 {
+    void FUN_00260680();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* SeqEventVarVolumeRandType_252540::vfunc_2(unsigned int flags) {
+    FUN_00260680();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_00252540
+// (x64t21) the destructor itself, which other objects' code references:
 audio::SeqEventVarVolumeRandType::~SeqEventVarVolumeRandType() {}
 
 

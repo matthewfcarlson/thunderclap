@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x002df4d0..0x002e1610 (kind game, layer engine, confidence high), dominant class pure3d::PrimGroupStreamed
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -2162,9 +2161,25 @@ PrimGroupOptimized_2e14b0* PrimGroupOptimized_2e14b0::vfunc2(unsigned char f) {
 } // namespace fn_f1455a33
 
 // 0x002e1510 pure3d::PrimGroupSkinnedOptimized::vfunc_2 (30 B): matches/0x002e1510.cpp
-// sym: ??_GPrimGroupSkinnedOptimized@pure3d@@UAEPAXI@Z
+// sym: ?vfunc_2@PrimGroupSkinnedOptimized_2e1510@fn_002e1510@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `pure3d::PrimGroupSkinnedOptimized::~PrimGroupSkinnedOptimized() {}` stood for
+// it, which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the
+// slot). The destructor's body 0x002e0090, then (flags & 1) content::LoadObject::operator delete.
+namespace fn_002e1510 {
+struct PrimGroupSkinnedOptimized_2e1510 {
+    void FUN_002e0090();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* PrimGroupSkinnedOptimized_2e1510::vfunc_2(unsigned int flags) {
+    FUN_002e0090();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_002e1510
+// (x64t21) the destructor itself, which other objects' code references:
 pure3d::PrimGroupSkinnedOptimized::~PrimGroupSkinnedOptimized() {}
 
 namespace fn_f1455a33 {
@@ -2193,9 +2208,25 @@ PrimGroupStreamed_2e1530* PrimGroupStreamed_2e1530::vfunc_2(unsigned char f) thr
 } // namespace fn_f1455a33
 
 // 0x002e1590 pure3d::PrimGroupSkinnedStreamed::vfunc_2 (30 B): matches/0x002e1590.cpp
-// sym: ??_GPrimGroupSkinnedStreamed@pure3d@@UAEPAXI@Z
+// sym: ?vfunc_2@PrimGroupSkinnedStreamed_2e1590@fn_002e1590@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `pure3d::PrimGroupSkinnedStreamed::~PrimGroupSkinnedStreamed() {}` stood for it,
+// which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the slot).
+// The destructor's body 0x002e04e0, then (flags & 1) content::LoadObject::operator delete.
+namespace fn_002e1590 {
+struct PrimGroupSkinnedStreamed_2e1590 {
+    void FUN_002e04e0();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* PrimGroupSkinnedStreamed_2e1590::vfunc_2(unsigned int flags) {
+    FUN_002e04e0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_002e1590
+// (x64t21) the destructor itself, which other objects' code references:
 pure3d::PrimGroupSkinnedStreamed::~PrimGroupSkinnedStreamed() {}
 
 namespace fn_f1455a33 {
@@ -2218,8 +2249,24 @@ PrimGroupSkinnedPC_2e15b0* PrimGroupSkinnedPC_2e15b0::f2(unsigned char flags) {
 } // namespace fn_f1455a33
 
 // 0x002e15f0 pure3d::VertexAnimPrimGroup::vfunc_2 (30 B): matches/0x002e15f0.cpp
-// sym: ??_GVertexAnimPrimGroup@pure3d@@UAEPAXI@Z
+// sym: ?vfunc_2@VertexAnimPrimGroup_2e15f0@fn_002e15f0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `pure3d::VertexAnimPrimGroup::~VertexAnimPrimGroup() {}` stood for it, which
+// natively defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The
+// destructor's body 0x002e09e0, then (flags & 1) content::LoadObject::operator delete.
+namespace fn_002e15f0 {
+struct VertexAnimPrimGroup_2e15f0 {
+    void FUN_002e09e0();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* VertexAnimPrimGroup_2e15f0::vfunc_2(unsigned int flags) {
+    FUN_002e09e0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_002e15f0
+// (x64t21) the destructor itself, which other objects' code references:
 pure3d::VertexAnimPrimGroup::~VertexAnimPrimGroup() {}
 

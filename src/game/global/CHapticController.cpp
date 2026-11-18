@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x000afd00..0x000afdf0 (kind game, layer game, confidence medium), dominant class CHapticController
 #include "tree_prelude.h"
 #include "gen/global.h"
@@ -73,8 +72,24 @@ void CHapticController_afd00::f() {
 } // namespace fn_fbbf50ac
 
 // 0x000afdb0 CHapticController::vfunc_2 (30 B): matches/0x000afdb0.cpp
-// sym: ??_GCHapticController@@UAEPAXI@Z
+// sym: ?vfunc_2@CHapticController_afdb0@fn_000afdb0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `CHapticController::~CHapticController() {}` stood for it, which natively
+// defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's
+// body 0x000afd00, then (flags & 1) operator delete.
+namespace fn_000afdb0 {
+struct CHapticController_afdb0 {
+    void FUN_000afd00();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* CHapticController_afdb0::vfunc_2(unsigned int flags) {
+    FUN_000afd00();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_000afdb0
+// (x64t21) the destructor itself, which other objects' code references:
 CHapticController::~CHapticController() {}
 

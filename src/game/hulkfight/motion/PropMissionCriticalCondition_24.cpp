@@ -49,7 +49,7 @@ hulkfight::motion::PropDropAction* hulkfight::motion::PropDropAction::vfunc_2(in
     }
     Cleanup_002326a0();
     if (flag & 1) {
-        opdel(this);
+        ::operator delete(this);
     }
     return this;
 }

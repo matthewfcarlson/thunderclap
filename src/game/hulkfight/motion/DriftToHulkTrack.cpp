@@ -8,6 +8,7 @@
 #define TREE_TU_BEGIN namespace fn_f659ad5b {
 #define TREE_TU_END }
 namespace fn_f659ad5b {} using namespace fn_f659ad5b;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "game/hulkfight/motion.h"
 
 // ---- declarations shared by the functions below
@@ -70,7 +71,7 @@ void DriftToPositionTrack::f() {
 // 0x00170480 FUN_00170480 (82 B): matches/0x00170480.cpp
 // sym: ?Set@Obj@fn_f659ad5b@@QAEEPBD@Z
 unsigned char Obj::Set(const char* p) {
-    Free(s);
+    ::operator delete[](s);
     if (!p) {
         s = 0;
         return 1;

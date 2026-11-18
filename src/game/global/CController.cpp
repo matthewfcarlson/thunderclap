@@ -518,7 +518,7 @@ void CController_add70::Clear() {
             } while (i < self->count);
         }
         if (self->items) {
-            Free(self->items);
+            ::operator delete(self->items);
             self->items = 0;
         }
         self->count = 0;

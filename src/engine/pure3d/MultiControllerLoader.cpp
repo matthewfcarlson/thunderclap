@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x002b23c0..0x002b37a0 (kind game, layer engine, confidence high), dominant class pure3d::MultiControllerLoader
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -270,9 +269,25 @@ void* pure3d::MultiController::vfunc_4() {
 
 
 // 0x002b2be0 pure3d::MultiController::vfunc_2 (30 B): matches/0x002b2be0.cpp
-// sym: ??_GMultiController@pure3d@@UAEPAXI@Z
+// sym: ?vfunc_2@MultiController_2b2be0@fn_002b2be0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `pure3d::MultiController::~MultiController() {}` stood for it, which natively
+// defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's
+// body 0x002b28d0, then (flags & 1) content::LoadObject::operator delete.
+namespace fn_002b2be0 {
+struct MultiController_2b2be0 {
+    void FUN_002b28d0();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* MultiController_2b2be0::vfunc_2(unsigned int flags) {
+    FUN_002b28d0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_002b2be0
+// (x64t21) the destructor itself, which other objects' code references:
 pure3d::MultiController::~MultiController() {}
 
 namespace fn_f35e48b8 {

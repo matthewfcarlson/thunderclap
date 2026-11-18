@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x002fd360..0x002fdf40 (kind game, layer engine, confidence high), dominant class physics::SimStateArticulated
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -11,6 +10,7 @@
 #define TREE_LOCAL_CAction
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_f0657c79 {} using namespace fn_f0657c79;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "engine/physics.h"
 
 // ---- declarations shared by the functions below
@@ -623,7 +623,7 @@ namespace fn_f0657c79 {
 void SimStateArticulated_2fd840::run() {
     vptr = (void*)((hulk_intptr)DAT_004318f4);
     if (m8c)
-        release((char*)m8c - 4);
+        ::operator delete[]((char*)m8c - 4);
     if (m70)
         m70->cleanup_00312240(0);
     if (m88) {
@@ -844,9 +844,25 @@ physics::SimStateArticulated::SimStateArticulated(Source_2fdc90* source, int mod
 
 
 // 0x002fdd60 physics::SimStateArticulated::vfunc_2 (30 B): matches/0x002fdd60.cpp
-// sym: ??_GSimStateArticulated@physics@@UAEPAXI@Z
+// sym: ?vfunc_2@SimStateArticulated_2fdd60@fn_002fdd60@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `physics::SimStateArticulated::~SimStateArticulated() {}` stood for it, which
+// natively defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The
+// destructor's body 0x002fd840, then (flags & 1) operator delete.
+namespace fn_002fdd60 {
+struct SimStateArticulated_2fdd60 {
+    void FUN_002fd840();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* SimStateArticulated_2fdd60::vfunc_2(unsigned int flags) {
+    FUN_002fd840();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_002fdd60
+// (x64t21) the destructor itself, which other objects' code references:
 physics::SimStateArticulated::~SimStateArticulated() {}
 
 namespace fn_f0657c79 {

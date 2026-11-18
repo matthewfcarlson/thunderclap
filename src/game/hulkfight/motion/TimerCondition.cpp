@@ -2013,7 +2013,7 @@ VarAssignAction_18e190* VarAssignAction_18e190::vfunc_2(int flag) {
     }
     ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1) {
-        opdel(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -2035,7 +2035,7 @@ TimerSetAction_18e230* TimerSetAction_18e230::vfunc_2(int flag) {
     }
     ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1) {
-        opdel(this);
+        ::operator delete(this);
     }
     return this;
 }

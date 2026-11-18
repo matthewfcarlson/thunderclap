@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x000dc230..0x000dd6c0 (kind game, layer game, confidence high), dominant class FETextInput
 #include "tree_prelude.h"
 #include "decls/address.h"
@@ -375,9 +374,25 @@ bool FETextInput::FUN_000dca40() {
 
 
 // 0x000dcac0 FETextInput::vfunc_2 (30 B): matches/0x000dcac0.cpp
-// sym: ??_GFETextInput@@UAEPAXI@Z
+// sym: ?vfunc_2@FETextInput_dcac0@fn_000dcac0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `FETextInput::~FETextInput() {}` stood for it, which natively defines no
+// function for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's body
+// 0x000dc600, then (flags & 1) operator delete.
+namespace fn_000dcac0 {
+struct FETextInput_dcac0 {
+    void FUN_000dc600();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* FETextInput_dcac0::vfunc_2(unsigned int flags) {
+    FUN_000dc600();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_000dcac0
+// (x64t21) the destructor itself, which other objects' code references:
 FETextInput::~FETextInput() {}
 
 

@@ -74,14 +74,8 @@ class NonCopyable_267260 : public ::core::IMemoryAllocator {
 }
 void thunk_FUN_00267090(pure3d::NonCopyable_267260*);
 } // namespace fn_f03133a3
-#if defined(HULK_PTR64)
-// (x64t16) The game's global operator delete and delete[] are 0x00267090 (below): the Wine build binds
-// `??3@YAXPAX@Z` / `??_V@YAXPAX@Z` there (every deleting destructor's call). Natively nothing defined the MS-mangled
-// names (the host's C++ runtime has its own, Itanium-mangled), so each deleting destructor ran into an unbound stub.
-extern "C" void FUN_00267090(void* ptr);
-void __cdecl operator delete(void* p) { FUN_00267090(p); }
-void __cdecl operator delete[](void* p) { FUN_00267090(p); }
-#endif
+// (x64t21, D115) the game's global operator delete / delete[] (calls of this free) are defined where the game has them,
+// 0x0008d330 / 0x0008d340 (src/game/unknown/unk_08ceb0.cpp), for every build.
 namespace fn_f03133a3 {
 
 

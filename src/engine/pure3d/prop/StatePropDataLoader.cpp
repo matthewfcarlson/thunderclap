@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x0028fe80..0x00291bc0 (kind game, layer engine, confidence high), dominant class pure3d::prop::StatePropDataLoader
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -257,7 +256,7 @@ Obj_290070* Obj_290070::Run(unsigned char flag) {
     }
     Reset_0027af50();
     if (flag & 1) {
-        ReleaseSelf((void*)this);
+        ::operator delete((void*)this);
     }
     return this;
 }
@@ -718,9 +717,25 @@ extern "C" void * __cdecl FUN_00290810(void * p, int count, void * arg) {
 } // namespace fn_f5d7895e
 
 // 0x002908f0 pure3d::prop::StateData::vfunc_2 (30 B): matches/0x002908f0.cpp
-// sym: ??_GStateData@prop@pure3d@@UAEPAXI@Z
+// sym: ?vfunc_2@StateData_2908f0@fn_002908f0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `pure3d::prop::StateData::~StateData() {}` stood for it, which natively defines
+// no function for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's body
+// 0x002905e0, then (flags & 1) content::LoadObject::operator delete.
+namespace fn_002908f0 {
+struct StateData_2908f0 {
+    void FUN_002905e0();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* StateData_2908f0::vfunc_2(unsigned int flags) {
+    FUN_002905e0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_002908f0
+// (x64t21) the destructor itself, which other objects' code references:
 pure3d::prop::StateData::~StateData() {}
 
 
@@ -776,9 +791,25 @@ bool owners::Buffer_2909c0::FUN_002909c0(unsigned count, hulk_uintptr value) {
 
 
 // 0x00290ab0 pure3d::prop::StatePropData::vfunc_2 (30 B): matches/0x00290ab0.cpp
-// sym: ??_GStatePropData@prop@pure3d@@UAEPAXI@Z
+// sym: ?vfunc_2@StatePropData_290ab0@fn_00290ab0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `pure3d::prop::StatePropData::~StatePropData() {}` stood for it, which natively
+// defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's
+// body 0x00290910, then (flags & 1) content::LoadObject::operator delete.
+namespace fn_00290ab0 {
+struct StatePropData_290ab0 {
+    void FUN_00290910();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* StatePropData_290ab0::vfunc_2(unsigned int flags) {
+    FUN_00290910();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_00290ab0
+// (x64t21) the destructor itself, which other objects' code references:
 pure3d::prop::StatePropData::~StatePropData() {}
 
 namespace fn_f5d7895e {

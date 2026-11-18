@@ -32,7 +32,7 @@ CollisionDetector_301620* CollisionDetector_301620::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_00431ac0;
     Destroy_00313530();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        ::operator delete(this);
     }
     return this;
 }

@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x000225a0..0x00022650 (kind game, layer game, confidence medium), dominant class CAlertStatusAction
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -53,9 +52,25 @@ class CAlertStatusAction_22610 : public CAction_22610 {
 } // namespace fn_faa66039
 
 // 0x000225a0 CHeadTrackerAction::vfunc_2 (30 B): matches/0x000225a0.cpp
-// sym: ??_GCHeadTrackerAction@@UAEPAXI@Z
+// sym: ?vfunc_2@CHeadTrackerAction_225a0@fn_000225a0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `CHeadTrackerAction::~CHeadTrackerAction() {}` stood for it, which natively
+// defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's
+// body 0x00020290, then (flags & 1) operator delete.
+namespace fn_000225a0 {
+struct CHeadTrackerAction_225a0 {
+    void FUN_00020290();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* CHeadTrackerAction_225a0::vfunc_2(unsigned int flags) {
+    FUN_00020290();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_000225a0
+// (x64t21) the destructor itself, which other objects' code references:
 CHeadTrackerAction::~CHeadTrackerAction() {}
 
 namespace fn_faa66039 {

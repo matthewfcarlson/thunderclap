@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x00051480..0x00056af0 (kind game, layer game, confidence high), merged by D32: global/CStageCondition_params_factory.cpp
 // piece 0x00052320..0x00052430 (kind game, layer game, confidence high, dominant class CGrappleFightNodeParentCondition); was game/global/CGrappleFightNodeParentCondition.cpp until D46
 #include "tree_prelude.h"
@@ -107,8 +106,24 @@ hulk_intptr CGrappleFightNodeParentCondition::vfunc_7(void* __p0) { Input * inpu
 
 
 // 0x00052410 CGrappleFightNodeParentCondition::vfunc_5 (30 B): matches/0x00052410.cpp
-// sym: ??_GCGrappleFightNodeParentCondition@@UAEPAXI@Z
+// sym: ?vfunc_5@CGrappleFightNodeParentCondition_52410@fn_00052410@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `CGrappleFightNodeParentCondition::~CGrappleFightNodeParentCondition() {}` stood
+// for it, which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the
+// slot). The destructor's body 0x00235b30, then (flags & 1) operator delete.
+namespace fn_00052410 {
+struct CGrappleFightNodeParentCondition_52410 {
+    void FUN_00235b30();   // the destructor's body
+    void* vfunc_5(unsigned int flags);
+};
+void* CGrappleFightNodeParentCondition_52410::vfunc_5(unsigned int flags) {
+    FUN_00235b30();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_00052410
+// (x64t21) the destructor itself, which other objects' code references:
 CGrappleFightNodeParentCondition::~CGrappleFightNodeParentCondition() {}
 

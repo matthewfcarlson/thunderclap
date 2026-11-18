@@ -1326,7 +1326,7 @@ FrameController_285720* FrameController_285720::vfunc_5(signed char flags) {
     *(void***)this = ((void**)DAT_0042c5bc);
     Destroy_0027afd0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -1341,7 +1341,7 @@ AnimationFrameController_285750* AnimationFrameController_285750::vfunc_5(signed
     *(void***)this = ((void**)DAT_0042c5bc);
     Destroy_0027afd0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -2379,9 +2379,25 @@ FrameControllerLoader::FrameControllerLoader() {
 
 
 // 0x002865a0 pure3d::FrameControllerLoader::vfunc_2 (30 B): matches/0x002865a0.cpp
-// sym: ??_GFrameControllerLoader@pure3d@@UAEPAXI@Z
+// sym: ?vfunc_2@FrameControllerLoader_2865a0@fn_002865a0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `pure3d::FrameControllerLoader::~FrameControllerLoader() {}` stood for it, which
+// natively defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The
+// destructor's body 0x002863d0, then (flags & 1) content::LoadObject::operator delete.
+namespace fn_002865a0 {
+struct FrameControllerLoader_2865a0 {
+    void FUN_002863d0();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* FrameControllerLoader_2865a0::vfunc_2(unsigned int flags) {
+    FUN_002863d0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_002865a0
+// (x64t21) the destructor itself, which other objects' code references:
 pure3d::FrameControllerLoader::~FrameControllerLoader() {}
 
 

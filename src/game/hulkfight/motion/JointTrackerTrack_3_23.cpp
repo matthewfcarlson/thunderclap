@@ -75,7 +75,7 @@ MotionStateAction_17b070* MotionStateAction_17b070::vfunc_2(int flag) {
     }
     ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1) {
-        opdel(this);
+        ::operator delete(this);
     }
     return this;
 }

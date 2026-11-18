@@ -6,6 +6,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_fb3274a2 {} using namespace fn_fb3274a2;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 namespace fn_fb3274a2 {
 void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
 }
@@ -310,10 +311,10 @@ hulkfight::motion::GrappleHealthCondition* hulkfight::motion::GrappleHealthCondi
 // Same code shape as 0x0011cbc0 (propagated; names are from that function)
 void* hulkfight::motion::TargetCharacterTemplateCondition::vfunc_5(unsigned char flag) {
     *(const VFT**)this = ((const VFT*)DAT_00416878);
-    ai_free(m_p);
+    ::operator delete[](m_p);
     Cleanup_002345b0();
     if (flag & 1) {
-        ai_delete(this);
+        ::operator delete(this);
     }
     return this;
 }

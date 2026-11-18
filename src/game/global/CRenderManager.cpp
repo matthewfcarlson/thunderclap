@@ -1835,9 +1835,25 @@ int __stdcall SetColor(int r, int g, int b) {
 
 
 // 0x001b9c10 Method1<CRenderManager,void,bool>::vfunc_0 (30 B): matches/0x001b9c10.cpp
-// sym: ??_G?$Method1@VCRenderManager@@X_N@@UAEPAXI@Z
+// sym: ?vfunc_0@Method1_1b9c10@fn_001b9c10@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method1<CRenderManager, void, bool>::~Method1() {}` stood for it,
+// which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the slot).
+// The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_001b9c10 {
+struct Method1_1b9c10 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method1_1b9c10::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_001b9c10
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method1<CRenderManager, void, bool>::~Method1() {}
 
 
@@ -1871,9 +1887,25 @@ Method3_1b9c50::Method3_1b9c50(const char* p, ScriptMemberFn x) {
 } // namespace fn_ff10b020
 
 // 0x001b9cb0 Method3<CRenderManager,void,int,int,int>::vfunc_0 (30 B): matches/0x001b9cb0.cpp
-// sym: ??_G?$Method3@VCRenderManager@@XHHH@@UAEPAXI@Z
+// sym: ?vfunc_0@Method3_1b9cb0@fn_001b9cb0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method3<CRenderManager, void, int, int, int>::~Method3() {}` stood
+// for it, which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the
+// slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_001b9cb0 {
+struct Method3_1b9cb0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method3_1b9cb0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_001b9cb0
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method3<CRenderManager, void, int, int, int>::~Method3() {}
 
 
@@ -1891,9 +1923,25 @@ template class Method3<CRenderManager, void, int, int, int>; // (ren2) native on
 
 
 // 0x001b9d40 Method2<CRenderManager,void,float,float>::vfunc_0 (30 B): matches/0x001b9d40.cpp
-// sym: ??_G?$Method2@VCRenderManager@@XMM@@UAEPAXI@Z
+// sym: ?vfunc_0@Method2_1b9d40@fn_001b9d40@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method2<CRenderManager, void, float, float>::~Method2() {}` stood
+// for it, which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the
+// slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_001b9d40 {
+struct Method2_1b9d40 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method2_1b9d40::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_001b9d40
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method2<CRenderManager, void, float, float>::~Method2() {}
 
 
@@ -1931,9 +1979,25 @@ Method6_1b9d80::Method6_1b9d80(hulk_intptr x, hulk_intptr y) {
 } // namespace fn_ff10b020
 
 // 0x001b9e00 Method6<CRenderManager,void,float,float,float,float,float,float>::vfunc_0 (30 B): matches/0x001b9e00.cpp
-// sym: ??_G?$Method6@VCRenderManager@@XMMMMMM@@UAEPAXI@Z
+// sym: ?vfunc_0@Method6_1b9e00@fn_001b9e00@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method6<CRenderManager, void, float, float, float, float, float,
+// float>::~Method6() {}` stood for it, which natively defines no function for the vftable slot (with the `??_G`
+// signature, as other views call the slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_001b9e00 {
+struct Method6_1b9e00 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method6_1b9e00::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_001b9e00
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method6<CRenderManager, void, float, float, float, float, float, float>::~Method6() {}
 
 
@@ -1962,9 +2026,25 @@ void __cdecl FUN_001b9e40(void *context, const Values *values, int unused, Callb
 } // namespace fn_ff10b020
 
 // 0x001b9ee0 Method0<CRenderManager,void>::vfunc_0 (30 B): matches/0x001b9ee0.cpp
-// sym: ??_G?$Method0@VCRenderManager@@X@@UAEPAXI@Z
+// sym: ?vfunc_0@Method0_1b9ee0@fn_001b9ee0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method0<CRenderManager, void>::~Method0() {}` stood for it, which
+// natively defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The
+// destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_001b9ee0 {
+struct Method0_1b9ee0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method0_1b9ee0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_001b9ee0
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method0<CRenderManager, void>::~Method0() {}
 
 
@@ -1981,9 +2061,25 @@ template class Method0<CRenderManager, void>; // (ren2) native only: clang emits
 
 
 // 0x001b9f50 Method0<CRenderManager,bool>::vfunc_0 (30 B): matches/0x001b9f50.cpp
-// sym: ??_G?$Method0@VCRenderManager@@_N@@UAEPAXI@Z
+// sym: ?vfunc_0@Method0_1b9f50@fn_001b9f50@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method0<CRenderManager, bool>::~Method0() {}` stood for it, which
+// natively defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The
+// destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_001b9f50 {
+struct Method0_1b9f50 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method0_1b9f50::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_001b9f50
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method0<CRenderManager, bool>::~Method0() {}
 
 
@@ -2020,9 +2116,25 @@ Method4_1b9f90::Method4_1b9f90(const char* a, ScriptMemberFn b) : FUN_001d0480(a
 } // namespace fn_ff10b020
 
 // 0x001ba000 Method4<CRenderManager,unsigned_int,const_char_*,float,float,float>::vfunc_0 (30 B): matches/0x001ba000.cpp
-// sym: ??_G?$Method4@VCRenderManager@@IPBDMMM@@UAEPAXI@Z
+// sym: ?vfunc_0@Method4_1ba000@fn_001ba000@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method4<CRenderManager, unsigned int, const char *, float, float,
+// float>::~Method4() {}` stood for it, which natively defines no function for the vftable slot (with the `??_G`
+// signature, as other views call the slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_001ba000 {
+struct Method4_1ba000 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method4_1ba000::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_001ba000
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method4<CRenderManager, unsigned int, const char *, float, float, float>::~Method4() {}
 
 
@@ -2095,9 +2207,25 @@ template class Method4<CRenderManager, unsigned int, const char *,math::Vector,m
 
 
 // 0x001ba1d0 Method1<CRenderManager,void,unsigned_int>::vfunc_0 (30 B): matches/0x001ba1d0.cpp
-// sym: ??_G?$Method1@VCRenderManager@@XI@@UAEPAXI@Z
+// sym: ?vfunc_0@Method1_1ba1d0@fn_001ba1d0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method1<CRenderManager, void, unsigned int>::~Method1() {}` stood
+// for it, which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the
+// slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_001ba1d0 {
+struct Method1_1ba1d0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method1_1ba1d0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_001ba1d0
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method1<CRenderManager, void, unsigned int>::~Method1() {}
 
 
@@ -2115,9 +2243,25 @@ template class Method1<CRenderManager, void, unsigned int>; // (ren2) native onl
 
 
 // 0x001ba250 Method0<CRenderManager,math::Vector>::vfunc_0 (30 B): matches/0x001ba250.cpp
-// sym: ??_G?$Method0@VCRenderManager@@VVector@math@@@@UAEPAXI@Z
+// sym: ?vfunc_0@Vector_1ba250@fn_001ba250@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method0<CRenderManager,math::Vector>::~Method0() {}` stood for it,
+// which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the slot).
+// The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_001ba250 {
+struct Vector_1ba250 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Vector_1ba250::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_001ba250
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method0<CRenderManager,math::Vector>::~Method0() {}
 
 
@@ -2145,9 +2289,25 @@ template class Method0<CRenderManager,math::Vector>; // (ren2) native only: clan
 
 
 // 0x001ba310 Method2<CRenderManager,void,int,float>::vfunc_0 (30 B): matches/0x001ba310.cpp
-// sym: ??_G?$Method2@VCRenderManager@@XHM@@UAEPAXI@Z
+// sym: ?vfunc_0@Method2_1ba310@fn_001ba310@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method2<CRenderManager, void, int, float>::~Method2() {}` stood for
+// it, which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the
+// slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_001ba310 {
+struct Method2_1ba310 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method2_1ba310::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_001ba310
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method2<CRenderManager, void, int, float>::~Method2() {}
 
 
@@ -2167,9 +2327,25 @@ template class Method2<CRenderManager, void, int, float>; // (ren2) native only:
 
 
 // 0x001ba390 Method1<CRenderManager,void,float>::vfunc_0 (30 B): matches/0x001ba390.cpp
-// sym: ??_G?$Method1@VCRenderManager@@XM@@UAEPAXI@Z
+// sym: ?vfunc_0@Method1_1ba390@fn_001ba390@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method1<CRenderManager, void, float>::~Method1() {}` stood for it,
+// which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the slot).
+// The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_001ba390 {
+struct Method1_1ba390 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method1_1ba390::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_001ba390
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method1<CRenderManager, void, float>::~Method1() {}
 
 
@@ -2217,9 +2393,25 @@ Closure1::Closure1(int a, int b, int c) : Method1(a, c), y(b) {}
 
 
 // 0x001ba460 Closure1<CRenderManager,void,bool>::vfunc_0 (30 B): matches/0x001ba460.cpp
-// sym: ??_G?$Method0@VCRenderManager@@_N@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure1_1ba460@fn_001ba460@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Closure1<CRenderManager, void, bool>::~Closure1() {}` stood for it,
+// which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the slot).
+// The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_001ba460 {
+struct Closure1_1ba460 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure1_1ba460::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_001ba460
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Closure1<CRenderManager, void, bool>::~Closure1() {}
 
 
@@ -2315,9 +2507,25 @@ Closure2::Closure2(const char* a1, void* a2, ScriptMemberFn a3) : FUN_001d0480(a
 
 
 // 0x001ba570 Closure2<CRenderManager,void,float,float>::vfunc_0 (30 B): matches/0x001ba570.cpp
-// sym: ??_G?$Method1@VCRenderManager@@XI@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure2_1ba570@fn_001ba570@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Closure2<CRenderManager, void, float, float>::~Closure2() {}` stood
+// for it, which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the
+// slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_001ba570 {
+struct Closure2_1ba570 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure2_1ba570::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_001ba570
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Closure2<CRenderManager, void, float, float>::~Closure2() {}
 
 
@@ -2334,9 +2542,25 @@ template class Closure2<CRenderManager, void, float, float>; // (ren2) native on
 
 
 // 0x001ba5e0 Closure6<CRenderManager,void,float,float,float,float,float,float>::vfunc_0 (30 B): matches/0x001ba5e0.cpp
-// sym: ??_G?$Method0@VCRenderManager@@VVector@math@@@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure6_1ba5e0@fn_001ba5e0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Closure6<CRenderManager, void, float, float, float, float, float,
+// float>::~Closure6() {}` stood for it, which natively defines no function for the vftable slot (with the `??_G`
+// signature, as other views call the slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_001ba5e0 {
+struct Closure6_1ba5e0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure6_1ba5e0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_001ba5e0
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Closure6<CRenderManager, void, float, float, float, float, float, float>::~Closure6() {}
 
 
@@ -2354,9 +2578,25 @@ template class Closure6<CRenderManager, void, float, float, float, float, float,
 
 
 // 0x001ba6a0 Closure0<CRenderManager,void>::vfunc_0 (30 B): matches/0x001ba6a0.cpp
-// sym: ??_G?$Method2@VCRenderManager@@XHM@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure0_1ba6a0@fn_001ba6a0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Closure0<CRenderManager, void>::~Closure0() {}` stood for it, which
+// natively defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The
+// destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_001ba6a0 {
+struct Closure0_1ba6a0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure0_1ba6a0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_001ba6a0
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Closure0<CRenderManager, void>::~Closure0() {}
 
 
@@ -2372,9 +2612,25 @@ template class Closure0<CRenderManager, void>; // (ren2) native only: clang emit
 
 
 // 0x001ba710 Closure0<CRenderManager,bool>::vfunc_0 (30 B): matches/0x001ba710.cpp
-// sym: ??_G?$Method1@VCRenderManager@@XM@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure0_1ba710@fn_001ba710@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Closure0<CRenderManager, bool>::~Closure0() {}` stood for it, which
+// natively defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The
+// destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_001ba710 {
+struct Closure0_1ba710 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure0_1ba710::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_001ba710
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Closure0<CRenderManager, bool>::~Closure0() {}
 
 

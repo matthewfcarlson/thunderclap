@@ -700,9 +700,25 @@ CTrack_5a830::CTrack_5a830() {}
 } // namespace fn_f63372f2
 
 // 0x0005a850 CTrack::vfunc_5 (30 B): matches/0x0005a850.cpp
-// sym: ??_GCTrack@@UAEPAXI@Z
+// sym: ?vfunc_5@CTrack_5a850@fn_0005a850@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `CTrack::~CTrack() {}` stood for it, which natively defines no function for the
+// vftable slot (with the `??_G` signature, as other views call the slot). The destructor's body 0x00068c70, then (flags
+// & 1) operator delete.
+namespace fn_0005a850 {
+struct CTrack_5a850 {
+    void FUN_00068c70();   // the destructor's body
+    void* vfunc_5(unsigned int flags);
+};
+void* CTrack_5a850::vfunc_5(unsigned int flags) {
+    FUN_00068c70();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0005a850
+// (x64t21) the destructor itself, which other objects' code references:
 CTrack::~CTrack() {}
 
 

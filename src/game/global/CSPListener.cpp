@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x001d7b80..0x001db770 (kind game, layer game, confidence medium), dominant class CSPListener
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -3258,9 +3257,25 @@ int Entity::FUN_001da540(Ref_1da540 *a1, V3_1da540 *a2, V3_1da540 *a3, float a4)
 
 
 // 0x001db0e0 CSPHulkPropInstance::vfunc_2 (30 B): matches/0x001db0e0.cpp
-// sym: ??_GCSPHulkPropInstance@@UAEPAXI@Z
+// sym: ?vfunc_2@CSPHulkPropInstance_1db0e0@fn_001db0e0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `CSPHulkPropInstance::~CSPHulkPropInstance() {}` stood for it, which natively
+// defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's
+// body 0x001d8e90, then (flags & 1) content::LoadObject::operator delete.
+namespace fn_001db0e0 {
+struct CSPHulkPropInstance_1db0e0 {
+    void FUN_001d8e90();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* CSPHulkPropInstance_1db0e0::vfunc_2(unsigned int flags) {
+    FUN_001d8e90();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_001db0e0
+// (x64t21) the destructor itself, which other objects' code references:
 CSPHulkPropInstance::~CSPHulkPropInstance() {}
 
 
@@ -3323,7 +3338,7 @@ CSPListener_1db200* CSPListener_1db200::f(unsigned char flags) {
         p = 0;
     *p = (void*)((hulk_intptr)DAT_003f6098);
     if (flags & 1)
-        thunk(self);
+        ::operator delete(self);
     return self;
 }
 

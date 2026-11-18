@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x00225ef0..0x00228590 (kind game, layer engine, confidence high), dominant class choreo2::LocomotionStrafeDriver
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -471,9 +470,25 @@ void __cdecl FUN_002264b0(Item_2264b0* first, Item_2264b0* middle, Item_2264b0* 
 } // namespace fn_f9d100c9
 
 // 0x002265c0 choreo2::LocomotionStrafeDriver::vfunc_2 (30 B): matches/0x002265c0.cpp
-// sym: ??_GLocomotionStrafeDriver@choreo2@@UAEPAXI@Z
+// sym: ?vfunc_2@LocomotionStrafeDriver_2265c0@fn_002265c0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `choreo2::LocomotionStrafeDriver::~LocomotionStrafeDriver() {}` stood for it,
+// which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the slot).
+// The destructor's body 0x00225ef0, then (flags & 1) content::LoadObject::operator delete.
+namespace fn_002265c0 {
+struct LocomotionStrafeDriver_2265c0 {
+    void FUN_00225ef0();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* LocomotionStrafeDriver_2265c0::vfunc_2(unsigned int flags) {
+    FUN_00225ef0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_002265c0
+// (x64t21) the destructor itself, which other objects' code references:
 choreo2::LocomotionStrafeDriver::~LocomotionStrafeDriver() {}
 
 namespace fn_f9d100c9 {

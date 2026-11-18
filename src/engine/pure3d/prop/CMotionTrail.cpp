@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x0027f2a0..0x002843c0 (kind game, layer engine, confidence high), dominant class pure3d::prop::CMotionTrail
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -3904,9 +3903,25 @@ void* EffectQueue_283dc0::scalar_dtor(unsigned char flags) {
 } // namespace fn_f4890d4c
 
 // 0x00283df0 pure3d::prop::CDecalQueue::vfunc_2 (30 B): matches/0x00283df0.cpp
-// sym: ??_GCDecalQueue@prop@pure3d@@UAEPAXI@Z
+// sym: ?vfunc_2@CDecalQueue_283df0@fn_00283df0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `pure3d::prop::CDecalQueue::~CDecalQueue() {}` stood for it, which natively
+// defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's
+// body 0x002835a0, then (flags & 1) content::LoadObject::operator delete.
+namespace fn_00283df0 {
+struct CDecalQueue_283df0 {
+    void FUN_002835a0();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* CDecalQueue_283df0::vfunc_2(unsigned int flags) {
+    FUN_002835a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_00283df0
+// (x64t21) the destructor itself, which other objects' code references:
 pure3d::prop::CDecalQueue::~CDecalQueue() {}
 
 
@@ -4176,16 +4191,48 @@ unsigned int Target_283e10::FUN_00283e10(Key_283e10 *key, int a1, World *world, 
 
 
 // 0x00284270 pure3d::prop::CLightQueue::vfunc_2 (30 B): matches/0x00284270.cpp
-// sym: ??_GCLightQueue@prop@pure3d@@UAEPAXI@Z
+// sym: ?vfunc_2@CLightQueue_284270@fn_00284270@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `pure3d::prop::CLightQueue::~CLightQueue() {}` stood for it, which natively
+// defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's
+// body 0x002835e0, then (flags & 1) content::LoadObject::operator delete.
+namespace fn_00284270 {
+struct CLightQueue_284270 {
+    void FUN_002835e0();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* CLightQueue_284270::vfunc_2(unsigned int flags) {
+    FUN_002835e0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_00284270
+// (x64t21) the destructor itself, which other objects' code references:
 pure3d::prop::CLightQueue::~CLightQueue() {}
 
 
 // 0x00284290 pure3d::prop::CMotionTrail::vfunc_2 (30 B): matches/0x00284290.cpp
-// sym: ??_GCMotionTrail@prop@pure3d@@UAEPAXI@Z
+// sym: ?vfunc_2@CMotionTrail_284290@fn_00284290@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `pure3d::prop::CMotionTrail::~CMotionTrail() {}` stood for it, which natively
+// defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's
+// body 0x00283870, then (flags & 1) content::LoadObject::operator delete.
+namespace fn_00284290 {
+struct CMotionTrail_284290 {
+    void FUN_00283870();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* CMotionTrail_284290::vfunc_2(unsigned int flags) {
+    FUN_00283870();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_00284290
+// (x64t21) the destructor itself, which other objects' code references:
 pure3d::prop::CMotionTrail::~CMotionTrail() {}
 
 namespace fn_f4890d4c {

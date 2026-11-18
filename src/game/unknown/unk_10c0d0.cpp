@@ -9,6 +9,7 @@
 #define TREE_TU_BEGIN namespace fn_f15aa14c {
 #define TREE_TU_END }
 namespace fn_f15aa14c {} using namespace fn_f15aa14c;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "game/unknown.h"
 
 // ---- declarations shared by the functions below
@@ -1147,7 +1148,7 @@ void CRawScript::run() {
 // 0x0010cb00 FUN_0010cb00 (82 B): matches/0x0010cb00.cpp
 // sym: ?FUN_0010cb00@Obj_10cb00@owners@@QAEDPBD@Z
 char owners::Obj_10cb00::FUN_0010cb00(const char* p) {
-    Free(s);
+    ::operator delete[](s);
     if (!p) {
         s = 0;
         return 1;

@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x002c26d0..0x002c31b0 (kind game, layer engine, confidence high), dominant class pure3d::GeometryLoader
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -816,9 +815,25 @@ u64_2c2ab0 GeometryLoader::vfunc_5(Geometry** out, u64_2c2ab0* hashOut, Loader_2
 
 
 // 0x002c3040 pure3d::Geometry::vfunc_2 (30 B): matches/0x002c3040.cpp
-// sym: ??_GGeometry@pure3d@@UAEPAXI@Z
+// sym: ?vfunc_2@Geometry_2c3040@fn_002c3040@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `pure3d::Geometry::~Geometry() {}` stood for it, which natively defines no
+// function for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's body
+// 0x002c28d0, then (flags & 1) content::LoadObject::operator delete.
+namespace fn_002c3040 {
+struct Geometry_2c3040 {
+    void FUN_002c28d0();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* Geometry_2c3040::vfunc_2(unsigned int flags) {
+    FUN_002c28d0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_002c3040
+// (x64t21) the destructor itself, which other objects' code references:
 pure3d::Geometry::~Geometry() {}
 
 

@@ -28,9 +28,9 @@ class Limb_27b540 {
 Limb_27b540* Limb_27b540::vfunc_0(byte_27b540 param) {
     *(void**)this = (void*)((hulk_intptr)DAT_0042c1b4);
     if (field10)
-        thunk(field10);
+        ::operator delete(field10);
     if (param & 1)
-        thunk(this);
+        ::operator delete(this);
     return this;
 }
 

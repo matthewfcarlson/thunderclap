@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x0031c290..0x0031ffc0 (kind game, layer engine, confidence high), dominant class pure3d::pddiBaseContext
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -489,7 +488,7 @@ class pddiStack_31e330 {
   public:
     void* vptr;
     char pad[8];
-    int value;
+    void* value;   // (x64t21) the stack's storage on the game heap
     void f();
 };
 struct pddiStack {
@@ -2963,9 +2962,9 @@ namespace fn_fc049dac {
 // 0x0031e330 FUN_0031e330 (17 B): matches/0x0031e330.cpp
 // sym: ?f@pddiStack_31e330@fn_fc049dac@@QAEXXZ
 void pddiStack_31e330::f() {
-    int x = value;
+    void* x = value;
     vptr = &stackVftable;
-    thunk(x);
+    ::operator delete(x);   // (x64t21, D115) the game's operator delete 0x0008d330 (`thunk(int)` was bound nowhere)
 }
 
 
@@ -3500,16 +3499,48 @@ void owners::Obj_31eb70::FUN_0031eb70(const owners::Obj_31eb70* s) {
 
 
 // 0x0031ecc0 pure3d::pddiMatrixStack::vfunc_0 (30 B): matches/0x0031ecc0.cpp
-// sym: ??_GpddiMatrixStack@pure3d@@UAEPAXI@Z
+// sym: ?vfunc_0@pddiMatrixStack_31ecc0@fn_0031ecc0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `pure3d::pddiMatrixStack::~pddiMatrixStack() {}` stood for it, which natively
+// defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's
+// body 0x0031e330, then (flags & 1) operator delete.
+namespace fn_0031ecc0 {
+struct pddiMatrixStack_31ecc0 {
+    void FUN_0031e330();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* pddiMatrixStack_31ecc0::vfunc_0(unsigned int flags) {
+    FUN_0031e330();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0031ecc0
+// (x64t21) the destructor itself, which other objects' code references:
 pure3d::pddiMatrixStack::~pddiMatrixStack() {}
 
 
 // 0x0031ece0 pure3d::pddiBaseContext::vfunc_3 (30 B): matches/0x0031ece0.cpp
-// sym: ??_GpddiBaseContext@pure3d@@UAEPAXI@Z
+// sym: ?vfunc_3@pddiBaseContext_31ece0@fn_0031ece0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `pure3d::pddiBaseContext::~pddiBaseContext() {}` stood for it, which natively
+// defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's
+// body 0x0031e500, then (flags & 1) operator delete.
+namespace fn_0031ece0 {
+struct pddiBaseContext_31ece0 {
+    void FUN_0031e500();   // the destructor's body
+    void* vfunc_3(unsigned int flags);
+};
+void* pddiBaseContext_31ece0::vfunc_3(unsigned int flags) {
+    FUN_0031e500();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0031ece0
+// (x64t21) the destructor itself, which other objects' code references:
 pure3d::pddiBaseContext::~pddiBaseContext() {}
 
 

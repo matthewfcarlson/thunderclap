@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x000a9e50..0x000ac2c0 (kind game, layer game, confidence high), dominant class CHypnoticCamera
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -585,9 +584,25 @@ hulk_freg __stdcall FUN_000aa2b0(Vec3_aa2b0 *v1, Vec3_aa2b0 *v2, float a3, float
 
 
 // 0x000aa430 CHypnoticCamera::vfunc_2 (30 B): matches/0x000aa430.cpp
-// sym: ??_GCHypnoticCamera@@UAEPAXI@Z
+// sym: ?vfunc_2@CHypnoticCamera_aa430@fn_000aa430@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `CHypnoticCamera::~CHypnoticCamera() {}` stood for it, which natively defines no
+// function for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's body
+// 0x000aa0d0, then (flags & 1) content::LoadObject::operator delete.
+namespace fn_000aa430 {
+struct CHypnoticCamera_aa430 {
+    void FUN_000aa0d0();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* CHypnoticCamera_aa430::vfunc_2(unsigned int flags) {
+    FUN_000aa0d0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_000aa430
+// (x64t21) the destructor itself, which other objects' code references:
 CHypnoticCamera::~CHypnoticCamera() {}
 
 namespace fn_f9c37f09 {

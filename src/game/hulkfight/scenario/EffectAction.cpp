@@ -19,6 +19,7 @@
 #define TREE_TU_BEGIN namespace fn_fc5dbd2a {
 #define TREE_TU_END }
 namespace fn_fc5dbd2a {} using namespace fn_fc5dbd2a;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 namespace fn_fc5dbd2a {
 struct FactoryCtor { void init_002343b0(); void init_00236a90(); };   // (unb4) the factory constructors InitHelper::init stood for
 void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
@@ -3723,7 +3724,7 @@ namespace fn_fc5dbd2a {
 // 0x001a3a70 FUN_001a3a70 (97 B): matches/0x001a3a70.cpp
 // sym: ?Set@Obj_1a3a70@fn_fc5dbd2a@@QAEDPBD@Z
 char Obj_1a3a70::Set(const char* s) {
-    release(text);
+    ::operator delete[](text);
     if (!s) {
         text = 0;
         return 1;
@@ -3785,7 +3786,7 @@ bool Obj_001a3b50::SetName(const char* s)
 // 0x001a3bc0 FUN_001a3bc0 (97 B): matches/0x001a3bc0.cpp
 // sym: ?Set@Obj_1a3bc0@fn_fc5dbd2a@@QAEDPBD@Z
 char Obj_1a3bc0::Set(const char* p) {
-    Free(s);
+    ::operator delete[](s);
     if (!p) {
         s = 0;
         return 1;
@@ -3943,7 +3944,7 @@ namespace fn_fc5dbd2a {
 // 0x001a3f40 FUN_001a3f40 (97 B): matches/0x001a3f40.cpp
 // sym: ?Set@Obj_1a3f40@fn_fc5dbd2a@@QAEEPBD@Z
 unsigned char Obj_1a3f40::Set(const char* s) {
-    Free(str);
+    ::operator delete[](str);
     if (!s) {
         str = 0;
         return 1;
@@ -3994,7 +3995,7 @@ namespace fn_fc5dbd2a {
 // 0x001a4020 FUN_001a4020 (97 B): matches/0x001a4020.cpp
 // sym: ?set@Obj_1a4020@fn_fc5dbd2a@@QAE_NPBD@Z
 bool Obj_1a4020::set(const char* s) {
-    release(text);
+    ::operator delete[](text);
     if (!s) {
         text = 0;
         return true;
@@ -4089,7 +4090,7 @@ unsigned char X_1a41e0::Set(const char* s) {
 // 0x001a4250 FUN_001a4250 (97 B): matches/0x001a4250.cpp
 // sym: ?Set@Obj_1a4250@fn_fc5dbd2a@@QAEEPBD@Z
 unsigned char Obj_1a4250::Set(const char* s) {
-    release(str);
+    ::operator delete[](str);
     if (!s) {
         str = 0;
         return 1;
@@ -4103,7 +4104,7 @@ unsigned char Obj_1a4250::Set(const char* s) {
 // 0x001a42c0 FUN_001a42c0 (97 B): matches/0x001a42c0.cpp
 // sym: ?Set@Obj_1a42c0@fn_fc5dbd2a@@QAEEPBD@Z
 unsigned char Obj_1a42c0::Set(const char* s) {
-    Free(str);
+    ::operator delete[](str);
     if (!s) {
         str = 0;
         return 1;
@@ -4133,7 +4134,7 @@ bool Obj_001a4330::SetName(const char* s)
 // 0x001a43a0 FUN_001a43a0 (97 B): matches/0x001a43a0.cpp
 // sym: ?Set@Obj_1a43a0@fn_fc5dbd2a@@QAEEPAD@Z
 unsigned char Obj_1a43a0::Set(char* s) {
-    release(text);
+    ::operator delete[](text);
     if (!s) {
         text = 0;
         return 1;
@@ -4186,7 +4187,7 @@ namespace fn_fc5dbd2a {
 // 0x001a44f0 FUN_001a44f0 (97 B): matches/0x001a44f0.cpp
 // sym: ?Set@Obj_1a44f0@fn_fc5dbd2a@@QAEEPBD@Z
 unsigned char Obj_1a44f0::Set(const char* s) {
-    release(text);
+    ::operator delete[](text);
     if (!s) {
         text = 0;
         return 1;
@@ -5090,9 +5091,25 @@ EffectTrack* EffectTrack::vfunc_5(unsigned char flag) {
 } // namespace fn_fc5dbd2a
 
 // 0x001a5ca0 hulkfight::scenario::NISAnimationTrack::vfunc_5 (30 B): matches/0x001a5ca0.cpp
-// sym: ??_GNISAnimationTrack@scenario@hulkfight@@UAEPAXI@Z
+// sym: ?vfunc_5@NISAnimationTrack_1a5ca0@fn_001a5ca0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `hulkfight::scenario::NISAnimationTrack::~NISAnimationTrack() {}` stood for it,
+// which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the slot).
+// The destructor's body 0x001a34f0, then (flags & 1) operator delete.
+namespace fn_001a5ca0 {
+struct NISAnimationTrack_1a5ca0 {
+    void FUN_001a34f0();   // the destructor's body
+    void* vfunc_5(unsigned int flags);
+};
+void* NISAnimationTrack_1a5ca0::vfunc_5(unsigned int flags) {
+    FUN_001a34f0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_001a5ca0
+// (x64t21) the destructor itself, which other objects' code references:
 hulkfight::scenario::NISAnimationTrack::~NISAnimationTrack() {}
 
 
@@ -7248,9 +7265,25 @@ hulk_intptr hulkfight::scenario::NISAnimationTrack::vfunc_10(hulk_intptr a, hulk
 
 
 // 0x001a9af0 hulkfight::scenario::NISAnimationAction::vfunc_2 (30 B): matches/0x001a9af0.cpp
-// sym: ??_GNISAnimationAction@scenario@hulkfight@@UAEPAXI@Z
+// sym: ?vfunc_2@NISAnimationAction_1a9af0@fn_001a9af0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `hulkfight::scenario::NISAnimationAction::~NISAnimationAction() {}` stood for
+// it, which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the
+// slot). The destructor's body 0x001a8db0, then (flags & 1) operator delete.
+namespace fn_001a9af0 {
+struct NISAnimationAction_1a9af0 {
+    void FUN_001a8db0();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* NISAnimationAction_1a9af0::vfunc_2(unsigned int flags) {
+    FUN_001a8db0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_001a9af0
+// (x64t21) the destructor itself, which other objects' code references:
 hulkfight::scenario::NISAnimationAction::~NISAnimationAction() {}
 
 

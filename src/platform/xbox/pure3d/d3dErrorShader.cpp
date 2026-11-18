@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x0032b0a0..0x0032b530 (kind game, layer platform/xbox, confidence high), dominant class pure3d::d3dErrorShader
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -88,9 +87,25 @@ Obj_32b0c0* Obj_32b0c0::Make(void* arg) {
 
 
 // 0x0032b100 pure3d::d3dErrorShader::vfunc_3 (30 B): matches/0x0032b100.cpp
-// sym: ??_Gd3dErrorShader@pure3d@@UAEPAXI@Z
+// sym: ?vfunc_3@d3dErrorShader_32b100@fn_0032b100@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `pure3d::d3dErrorShader::~d3dErrorShader() {}` stood for it, which natively
+// defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's
+// body 0x00327930, then (flags & 1) operator delete.
+namespace fn_0032b100 {
+struct d3dErrorShader_32b100 {
+    void FUN_00327930();   // the destructor's body
+    void* vfunc_3(unsigned int flags);
+};
+void* d3dErrorShader_32b100::vfunc_3(unsigned int flags) {
+    FUN_00327930();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0032b100
+// (x64t21) the destructor itself, which other objects' code references:
 pure3d::d3dErrorShader::~d3dErrorShader() {}
 
 

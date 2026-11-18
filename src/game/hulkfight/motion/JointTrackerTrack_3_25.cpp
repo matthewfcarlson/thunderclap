@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x00178d00..0x0017e1a0 (kind game, layer game, confidence high), merged by D32: hulkfight/motion/JointTrackerTrack_3.cpp
 // piece 0x0017b330..0x0017bc70 (kind game, layer game, confidence low); was game/unknown/unk_17b330.cpp until D46
 #include "tree_prelude.h"
@@ -338,7 +337,7 @@ ChargeAction_17b380* ChargeAction_17b380::vfunc_2(int flag) {
     }
     ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1) {
-        opdel(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -360,7 +359,7 @@ ChargeClearAction_17b420* ChargeClearAction_17b420::vfunc_2(int flag) {
     }
     ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1) {
-        opdel(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -382,7 +381,7 @@ PushOutAction_17b4c0* PushOutAction_17b4c0::vfunc_2(int flag) {
     }
     ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1) {
-        opdel(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -496,7 +495,7 @@ DriftToHulkAction_17b6b0* DriftToHulkAction_17b6b0::vfunc_2(int flag) {
     }
     ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1) {
-        opdel(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -518,7 +517,7 @@ TeleportAction_17b750* TeleportAction_17b750::vfunc_2(int flag) {
     }
     ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1) {
-        opdel(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -565,9 +564,25 @@ hulk_intptr hulkfight::motion::SyncToLocatorTrack::vfunc_10(hulk_intptr __p0, hu
 
 
 // 0x0017b930 hulkfight::motion::SyncToLocatorAction::vfunc_2 (30 B): matches/0x0017b930.cpp
-// sym: ??_GSyncToLocatorAction@motion@hulkfight@@UAEPAXI@Z
+// sym: ?vfunc_2@SyncToLocatorAction_17b930@fn_0017b930@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `hulkfight::motion::SyncToLocatorAction::~SyncToLocatorAction() {}` stood for
+// it, which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the
+// slot). The destructor's body 0x00175db0, then (flags & 1) operator delete.
+namespace fn_0017b930 {
+struct SyncToLocatorAction_17b930 {
+    void FUN_00175db0();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* SyncToLocatorAction_17b930::vfunc_2(unsigned int flags) {
+    FUN_00175db0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0017b930
+// (x64t21) the destructor itself, which other objects' code references:
 hulkfight::motion::SyncToLocatorAction::~SyncToLocatorAction() {}
 
 namespace fn_fbea2d00 {
@@ -588,7 +603,7 @@ SuckInPropsAction_17b9a0* SuckInPropsAction_17b9a0::vfunc_2(int flag) {
     }
     ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1) {
-        opdel(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -610,7 +625,7 @@ TargetIconDistanceAction_17ba40* TargetIconDistanceAction_17ba40::vfunc_2(int fl
     }
     ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1) {
-        opdel(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -714,7 +729,7 @@ void* SurfAction_17bc10::vfunc_2(unsigned char flag) {
     }
     BaseDtor(this);
     if (flag & 1)
-        operator_delete(this);
+        ::operator delete(this);
     return this;
 }
 

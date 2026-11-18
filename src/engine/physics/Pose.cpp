@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x0030eba0..0x00310130 (kind game, layer engine, confidence medium), dominant class physics::Pose
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -1111,9 +1110,25 @@ Pose_30f810::~Pose_30f810() throw() {
 } // namespace fn_f346547a
 
 // 0x0030fc00 physics::Pose::vfunc_2 (30 B): matches/0x0030fc00.cpp
-// sym: ??_GPose@physics@@UAEPAXI@Z
+// sym: ?vfunc_2@Pose_30fc00@fn_0030fc00@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `physics::Pose::~Pose() {}` stood for it, which natively defines no function for
+// the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's body 0x0030f810, then
+// (flags & 1) operator delete.
+namespace fn_0030fc00 {
+struct Pose_30fc00 {
+    void FUN_0030f810();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* Pose_30fc00::vfunc_2(unsigned int flags) {
+    FUN_0030f810();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0030fc00
+// (x64t21) the destructor itself, which other objects' code references:
 physics::Pose::~Pose() {}
 
 

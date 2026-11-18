@@ -295,7 +295,7 @@ CSoundSequence_1e9180* CSoundSequence_1e9180::f2(unsigned char flag) {
     }
     *(hulk_ulongptr*)this = (hulk_ulongptr)&hulk_at_003f6098;
     if (flag & 1)
-        thunk(this);
+        ::operator delete(this);
     return this;
 }
 

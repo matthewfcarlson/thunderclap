@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x00051480..0x00056af0 (kind game, layer game, confidence high), merged by D32: global/CStageCondition_params_factory.cpp
 // piece 0x00052130..0x00052210 (kind game, layer game, confidence high, dominant class CFightNodeTimeCondition); was game/global/CFightNodeTimeCondition.cpp until D46
 #include "tree_prelude.h"
@@ -106,8 +105,24 @@ hulk_intptr CFightNodeTimeCondition::vfunc_7(void* __p0) { void * arg = (void *)
 
 
 // 0x000521f0 CFightNodeTimeCondition::vfunc_5 (30 B): matches/0x000521f0.cpp
-// sym: ??_GCFightNodeTimeCondition@@UAEPAXI@Z
+// sym: ?vfunc_5@CFightNodeTimeCondition_521f0@fn_000521f0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `CFightNodeTimeCondition::~CFightNodeTimeCondition() {}` stood for it, which
+// natively defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The
+// destructor's body 0x00235c40, then (flags & 1) operator delete.
+namespace fn_000521f0 {
+struct CFightNodeTimeCondition_521f0 {
+    void FUN_00235c40();   // the destructor's body
+    void* vfunc_5(unsigned int flags);
+};
+void* CFightNodeTimeCondition_521f0::vfunc_5(unsigned int flags) {
+    FUN_00235c40();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_000521f0
+// (x64t21) the destructor itself, which other objects' code references:
 CFightNodeTimeCondition::~CFightNodeTimeCondition() {}
 

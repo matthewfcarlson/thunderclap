@@ -1264,7 +1264,7 @@ PropActorToPropAction_188820* PropActorToPropAction_188820::vfunc_2(int flag) {
     }
     ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1) {
-        opdel(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -1286,7 +1286,7 @@ PropActorThinkingAction_1888c0* PropActorThinkingAction_1888c0::vfunc_2(int flag
     }
     ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1) {
-        opdel(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -1349,7 +1349,7 @@ PropAddToMissileCountAction_188a10* PropAddToMissileCountAction_188a10::vfunc_2(
     }
     ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1) {
-        opdel(this);
+        ::operator delete(this);
     }
     return this;
 }

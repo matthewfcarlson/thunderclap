@@ -330,7 +330,7 @@ CollisionWall_30e930* CollisionWall_30e930::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_0043201c;
     Destroy_00306ac0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        ::operator delete(this);
     }
     return this;
 }

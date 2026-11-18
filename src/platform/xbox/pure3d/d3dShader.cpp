@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x00333370..0x003335e0 (kind game, layer platform/xbox, confidence high), dominant class pure3d::d3dShader
 #include "tree_prelude.h"
 #include "decls/data/platform/xbox/pure3d.h"
@@ -376,8 +375,24 @@ void d3dShader::vfunc_13() {
 
 
 // 0x003335c0 pure3d::d3dShader::vfunc_3 (30 B): matches/0x003335c0.cpp
-// sym: ??_Gd3dShader@pure3d@@UAEPAXI@Z
+// sym: ?vfunc_3@d3dShader_3335c0@fn_003335c0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `pure3d::d3dShader::~d3dShader() {}` stood for it, which natively defines no
+// function for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's body
+// 0x00327930, then (flags & 1) operator delete.
+namespace fn_003335c0 {
+struct d3dShader_3335c0 {
+    void FUN_00327930();   // the destructor's body
+    void* vfunc_3(unsigned int flags);
+};
+void* d3dShader_3335c0::vfunc_3(unsigned int flags) {
+    FUN_00327930();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_003335c0
+// (x64t21) the destructor itself, which other objects' code references:
 pure3d::d3dShader::~d3dShader() {}
 

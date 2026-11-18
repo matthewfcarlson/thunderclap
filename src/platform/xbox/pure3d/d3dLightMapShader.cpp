@@ -530,7 +530,7 @@ d3dLightMapShader_32ba70* d3dLightMapShader_32ba70::vfunc_3(unsigned int x) {
         b->f1();
     cleanup();
     if (x & 1)
-        destroy(this);
+        ::operator delete(this);
     return this;
 }
 

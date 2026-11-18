@@ -8,6 +8,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_f6003de1 {} using namespace fn_f6003de1;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -72,7 +73,7 @@ namespace fn_f6003de1 {
 // Same code shape as 0x000933a0 (propagated; names are from that function)
 CUnlockableJumpMarker_93530::~CUnlockableJumpMarker_93530() {
     if (data) {
-        FreeMem(data);
+        ::operator delete[](data);
         data = 0;
     }
     ((Inner_93530*)&this->id)->Reset_0027af50();

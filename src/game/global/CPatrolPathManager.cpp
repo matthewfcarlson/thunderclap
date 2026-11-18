@@ -490,9 +490,25 @@ bool Method3::f2(int x, Args_106a40* a, bool* out) {
 
 
 // 0x00106ab0 Method1<CPatrolPathManager,bool,const_char_*>::vfunc_0 (30 B): matches/0x00106ab0.cpp
-// sym: ??_G?$Method1@VCPatrolPathManager@@_NPBD@@UAEPAXI@Z
+// sym: ?vfunc_0@Method1_106ab0@fn_00106ab0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `template <> Method1<CPatrolPathManager, bool, const char *>::~Method1() {}`
+// stood for it, which natively defines no function for the vftable slot (with the `??_G` signature, as other views call
+// the slot). The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_00106ab0 {
+struct Method1_106ab0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method1_106ab0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_00106ab0
+// (x64t21) the destructor itself, which other objects' code references:
 template <> Method1<CPatrolPathManager, bool, const char *>::~Method1() {}
 
 

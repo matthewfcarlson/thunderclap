@@ -1,6 +1,5 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // clang-flags: -fexceptions -fcxx-exceptions   (gx2, D22: kept until its --wine proof passes again; docs/native-build.md "gx2")
-// cl-flags: /GX
 // object 0x00295c40..0x002980b0 (kind game, layer engine, confidence high), dominant class pure3d::scenegraph::Scenegraph
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -1520,7 +1519,7 @@ Node_296570* Node_296570::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_0042d1ec;
     Destroy_0027afd0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -1979,7 +1978,7 @@ LeafNode_296b20* LeafNode_296b20::vfunc_5(signed char flags) {
     *(void***)this = ((void**)DAT_0042d1ec);
     Destroy_0027afd0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -2701,9 +2700,25 @@ void* pure3d::scenegraph::VisibilityNode::vfunc_4() {
 
 
 // 0x002975e0 pure3d::scenegraph::BranchNode::vfunc_2 (30 B): matches/0x002975e0.cpp
-// sym: ??_GBranchNode@scenegraph@pure3d@@UAEPAXI@Z
+// sym: ?vfunc_2@BranchNode_2975e0@fn_002975e0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `pure3d::scenegraph::BranchNode::~BranchNode() {}` stood for it, which natively
+// defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's
+// body 0x00297350, then (flags & 1) content::LoadObject::operator delete.
+namespace fn_002975e0 {
+struct BranchNode_2975e0 {
+    void FUN_00297350();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* BranchNode_2975e0::vfunc_2(unsigned int flags) {
+    FUN_00297350();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_002975e0
+// (x64t21) the destructor itself, which other objects' code references:
 pure3d::scenegraph::BranchNode::~BranchNode() {}
 
 namespace fn_f9b7dd8c {

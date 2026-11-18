@@ -195,7 +195,7 @@ CollisionRay_307000* CollisionRay_307000::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_00431bec;
     Destroy_00306ac0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        ::operator delete(this);
     }
     return this;
 }

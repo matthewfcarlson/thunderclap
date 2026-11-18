@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x000c7280..0x000c7630 (kind game, layer game, confidence medium), dominant class CHudIcons
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -259,8 +258,24 @@ void __fastcall FUN_000c75b0(Obj_c75b0* p) {
 } // namespace fn_f198369f
 
 // 0x000c7610 CHudIcons::vfunc_2 (30 B): matches/0x000c7610.cpp
-// sym: ??_GCHudIcons@@UAEPAXI@Z
+// sym: ?vfunc_2@CHudIcons_c7610@fn_000c7610@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `CHudIcons::~CHudIcons() {}` stood for it, which natively defines no function
+// for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's body 0x000c7280,
+// then (flags & 1) content::LoadObject::operator delete.
+namespace fn_000c7610 {
+struct CHudIcons_c7610 {
+    void FUN_000c7280();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* CHudIcons_c7610::vfunc_2(unsigned int flags) {
+    FUN_000c7280();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_000c7610
+// (x64t21) the destructor itself, which other objects' code references:
 CHudIcons::~CHudIcons() {}
 

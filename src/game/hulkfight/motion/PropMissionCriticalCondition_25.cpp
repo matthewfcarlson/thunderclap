@@ -133,7 +133,7 @@ PropDamageAction_188dd0* PropDamageAction_188dd0::vfunc_2(int flag) {
     }
     ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1) {
-        opdel(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -171,7 +171,7 @@ GrapplePropDamageAction_188e70* GrapplePropDamageAction_188e70::vfunc_2(int flag
     }
     ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1) {
-        opdel(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -193,7 +193,7 @@ PropDestroyAction_188f10* PropDestroyAction_188f10::vfunc_2(int flag) {
     }
     ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1) {
-        opdel(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -215,7 +215,7 @@ PropThrowAction_188fb0* PropThrowAction_188fb0::vfunc_2(int flag) {
     }
     ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1) {
-        opdel(this);
+        ::operator delete(this);
     }
     return this;
 }

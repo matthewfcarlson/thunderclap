@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x002d2070..0x002d3d80 (kind game, layer engine, confidence high), dominant class pure3d::ParticlePlaneGenerator
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -932,7 +931,7 @@ ParticleGenerator_2d31b0* ParticleGenerator_2d31b0::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_0042f074;
     Destroy_0027afd0();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -1508,22 +1507,70 @@ void* pure3d::ParticleSphereGenerator::vfunc_4() {
 
 
 // 0x002d3d20 pure3d::ParticlePointGenerator::vfunc_2 (30 B): matches/0x002d3d20.cpp
-// sym: ??_GParticlePointGenerator@pure3d@@UAEPAXI@Z
+// sym: ?vfunc_2@ParticlePointGenerator_2d3d20@fn_002d3d20@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `pure3d::ParticlePointGenerator::~ParticlePointGenerator() {}` stood for it,
+// which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the slot).
+// The destructor's body 0x002d38a0, then (flags & 1) content::LoadObject::operator delete.
+namespace fn_002d3d20 {
+struct ParticlePointGenerator_2d3d20 {
+    void FUN_002d38a0();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* ParticlePointGenerator_2d3d20::vfunc_2(unsigned int flags) {
+    FUN_002d38a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_002d3d20
+// (x64t21) the destructor itself, which other objects' code references:
 pure3d::ParticlePointGenerator::~ParticlePointGenerator() {}
 
 
 // 0x002d3d40 pure3d::ParticlePlaneGenerator::vfunc_2 (30 B): matches/0x002d3d40.cpp
-// sym: ??_GParticlePlaneGenerator@pure3d@@UAEPAXI@Z
+// sym: ?vfunc_2@ParticlePlaneGenerator_2d3d40@fn_002d3d40@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `pure3d::ParticlePlaneGenerator::~ParticlePlaneGenerator() {}` stood for it,
+// which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the slot).
+// The destructor's body 0x002d3ab0, then (flags & 1) content::LoadObject::operator delete.
+namespace fn_002d3d40 {
+struct ParticlePlaneGenerator_2d3d40 {
+    void FUN_002d3ab0();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* ParticlePlaneGenerator_2d3d40::vfunc_2(unsigned int flags) {
+    FUN_002d3ab0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_002d3d40
+// (x64t21) the destructor itself, which other objects' code references:
 pure3d::ParticlePlaneGenerator::~ParticlePlaneGenerator() {}
 
 
 // 0x002d3d60 pure3d::ParticleSphereGenerator::vfunc_2 (30 B): matches/0x002d3d60.cpp
-// sym: ??_GParticleSphereGenerator@pure3d@@UAEPAXI@Z
+// sym: ?vfunc_2@ParticleSphereGenerator_2d3d60@fn_002d3d60@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `pure3d::ParticleSphereGenerator::~ParticleSphereGenerator() {}` stood for it,
+// which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the slot).
+// The destructor's body 0x002d3c90, then (flags & 1) content::LoadObject::operator delete.
+namespace fn_002d3d60 {
+struct ParticleSphereGenerator_2d3d60 {
+    void FUN_002d3c90();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* ParticleSphereGenerator_2d3d60::vfunc_2(unsigned int flags) {
+    FUN_002d3c90();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_002d3d60
+// (x64t21) the destructor itself, which other objects' code references:
 pure3d::ParticleSphereGenerator::~ParticleSphereGenerator() {}
 

@@ -7104,9 +7104,25 @@ void Registry_42ad0::FUN_00042ad0(const char* a1, Owner* a2) {
 } // namespace fn_f35f7bdf
 
 // 0x00042b20 CCharacter::vfunc_2 (30 B): matches/0x00042b20.cpp
-// sym: ??_GCCharacter@@UAEPAXI@Z
+// sym: ?vfunc_2@CCharacter_42b20@fn_00042b20@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `CCharacter::~CCharacter() {}` stood for it, which natively defines no function
+// for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's body 0x0003f090,
+// then (flags & 1) content::LoadObject::operator delete.
+namespace fn_00042b20 {
+struct CCharacter_42b20 {
+    void FUN_0003f090();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* CCharacter_42b20::vfunc_2(unsigned int flags) {
+    FUN_0003f090();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_00042b20
+// (x64t21) the destructor itself, which other objects' code references:
 CCharacter::~CCharacter() {}
 
 

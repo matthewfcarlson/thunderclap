@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x0028e0c0..0x0028edb0 (kind game, layer engine, confidence medium), dominant class pure3d::DefaultChannelHandler
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -105,37 +104,117 @@ struct DefaultChannelHandler_nv_28ec30 {
 
 
 // 0x0028e0c0 pure3d::QuaternionChannel::vfunc_0 (30 B): matches/0x0028e0c0.cpp
-// sym: ??_GQuaternionChannel@pure3d@@UAEPAXI@Z
+// sym: ?vfunc_0@QuaternionChannel_28e0c0@fn_0028e0c0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `pure3d::QuaternionChannel::~QuaternionChannel() {}` stood for it, which
+// natively defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The
+// destructor's body 0x0028c130, then (flags & 1) operator delete.
+namespace fn_0028e0c0 {
+struct QuaternionChannel_28e0c0 {
+    void FUN_0028c130();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* QuaternionChannel_28e0c0::vfunc_0(unsigned int flags) {
+    FUN_0028c130();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0028e0c0
+// (x64t21) the destructor itself, which other objects' code references:
 pure3d::QuaternionChannel::~QuaternionChannel() {}
 
 
 // 0x0028e0e0 pure3d::StringChannel::vfunc_0 (30 B): matches/0x0028e0e0.cpp
-// sym: ??_GStringChannel@pure3d@@UAEPAXI@Z
+// sym: ?vfunc_0@StringChannel_28e0e0@fn_0028e0e0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `pure3d::StringChannel::~StringChannel() {}` stood for it, which natively
+// defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's
+// body 0x0028c240, then (flags & 1) operator delete.
+namespace fn_0028e0e0 {
+struct StringChannel_28e0e0 {
+    void FUN_0028c240();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* StringChannel_28e0e0::vfunc_0(unsigned int flags) {
+    FUN_0028c240();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0028e0e0
+// (x64t21) the destructor itself, which other objects' code references:
 pure3d::StringChannel::~StringChannel() {}
 
 
 // 0x0028e100 pure3d::EntityChannel::vfunc_0 (30 B): matches/0x0028e100.cpp
-// sym: ??_GEntityChannel@pure3d@@UAEPAXI@Z
+// sym: ?vfunc_0@EntityChannel_28e100@fn_0028e100@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `pure3d::EntityChannel::~EntityChannel() {}` stood for it, which natively
+// defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's
+// body 0x0028c310, then (flags & 1) operator delete.
+namespace fn_0028e100 {
+struct EntityChannel_28e100 {
+    void FUN_0028c310();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* EntityChannel_28e100::vfunc_0(unsigned int flags) {
+    FUN_0028c310();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0028e100
+// (x64t21) the destructor itself, which other objects' code references:
 pure3d::EntityChannel::~EntityChannel() {}
 
 
 // 0x0028e120 pure3d::BoolChannel::vfunc_0 (30 B): matches/0x0028e120.cpp
-// sym: ??_GBoolChannel@pure3d@@UAEPAXI@Z
+// sym: ?vfunc_0@BoolChannel_28e120@fn_0028e120@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `pure3d::BoolChannel::~BoolChannel() {}` stood for it, which natively defines no
+// function for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's body
+// 0x0028c3e0, then (flags & 1) operator delete.
+namespace fn_0028e120 {
+struct BoolChannel_28e120 {
+    void FUN_0028c3e0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* BoolChannel_28e120::vfunc_0(unsigned int flags) {
+    FUN_0028c3e0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0028e120
+// (x64t21) the destructor itself, which other objects' code references:
 pure3d::BoolChannel::~BoolChannel() {}
 
 
 // 0x0028e140 pure3d::ColourChannel::vfunc_0 (30 B): matches/0x0028e140.cpp
-// sym: ??_GColourChannel@pure3d@@UAEPAXI@Z
+// sym: ?vfunc_0@ColourChannel_28e140@fn_0028e140@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `pure3d::ColourChannel::~ColourChannel() {}` stood for it, which natively
+// defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's
+// body 0x0028c4f0, then (flags & 1) operator delete.
+namespace fn_0028e140 {
+struct ColourChannel_28e140 {
+    void FUN_0028c4f0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* ColourChannel_28e140::vfunc_0(unsigned int flags) {
+    FUN_0028c4f0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0028e140
+// (x64t21) the destructor itself, which other objects' code references:
 pure3d::ColourChannel::~ColourChannel() {}
 
 namespace fn_fc71db16 {

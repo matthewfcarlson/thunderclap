@@ -484,7 +484,7 @@ void owners::Obj_f8c30::FUN_000f8c30(const char* name) {
         if (p) {
             const char* s = (const char*)((char*)p + 0x18);
             if (strcmp(s, name) == 0) {
-                ReleaseThing(items[i]);
+                ::operator delete(items[i]);
                 items[i] = 0;
                 return;
             }

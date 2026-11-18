@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x00193bc0..0x00195100 (kind game, layer game, confidence high), dominant class hulkfight::motion::AccuracyLatencyAction
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -1958,9 +1957,25 @@ FireBeamTrack* FireBeamTrack::vfunc_5(unsigned char flag) {
 
 
 // 0x00195090 hulkfight::motion::FireMissileTrack::vfunc_5 (30 B): matches/0x00195090.cpp
-// sym: ??_GFireMissileTrack@motion@hulkfight@@UAEPAXI@Z
+// sym: ?vfunc_5@FireMissileTrack_195090@fn_00195090@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `hulkfight::motion::FireMissileTrack::~FireMissileTrack() {}` stood for it,
+// which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the slot).
+// The destructor's body 0x00194490, then (flags & 1) operator delete.
+namespace fn_00195090 {
+struct FireMissileTrack_195090 {
+    void FUN_00194490();   // the destructor's body
+    void* vfunc_5(unsigned int flags);
+};
+void* FireMissileTrack_195090::vfunc_5(unsigned int flags) {
+    FUN_00194490();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_00195090
+// (x64t21) the destructor itself, which other objects' code references:
 hulkfight::motion::FireMissileTrack::~FireMissileTrack() {}
 
 namespace fn_fc8c1e47 {

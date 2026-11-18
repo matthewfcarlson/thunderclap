@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x002fbf20..0x002fc420 (kind game, layer engine, confidence high), dominant class physics::PhysicsJointMatrixModifier
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -356,15 +355,47 @@ Item_2fc3a0* Holder_2fc3a0::Set(Item_2fc3a0* item) {
 } // namespace fn_f55081c6
 
 // 0x002fc3e0 physics::PhysicsJointMatrixModifier::vfunc_2 (30 B): matches/0x002fc3e0.cpp
-// sym: ??_GPhysicsJointMatrixModifier@physics@@UAEPAXI@Z
+// sym: ?vfunc_2@PhysicsJointMatrixModifier_2fc3e0@fn_002fc3e0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `physics::PhysicsJointMatrixModifier::~PhysicsJointMatrixModifier() {}` stood
+// for it, which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the
+// slot). The destructor's body 0x0030eb50, then (flags & 1) content::LoadObject::operator delete.
+namespace fn_002fc3e0 {
+struct PhysicsJointMatrixModifier_2fc3e0 {
+    void FUN_0030eb50();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* PhysicsJointMatrixModifier_2fc3e0::vfunc_2(unsigned int flags) {
+    FUN_0030eb50();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_002fc3e0
+// (x64t21) the destructor itself, which other objects' code references:
 physics::PhysicsJointMatrixModifier::~PhysicsJointMatrixModifier() {}
 
 
 // 0x002fc400 physics::RootMatrixDriver::vfunc_2 (30 B): matches/0x002fc400.cpp
-// sym: ??_GRootMatrixDriver@physics@@UAEPAXI@Z
+// sym: ?vfunc_2@RootMatrixDriver_2fc400@fn_002fc400@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `physics::RootMatrixDriver::~RootMatrixDriver() {}` stood for it, which natively
+// defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's
+// body 0x0030eb50, then (flags & 1) content::LoadObject::operator delete.
+namespace fn_002fc400 {
+struct RootMatrixDriver_2fc400 {
+    void FUN_0030eb50();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* RootMatrixDriver_2fc400::vfunc_2(unsigned int flags) {
+    FUN_0030eb50();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_002fc400
+// (x64t21) the destructor itself, which other objects' code references:
 physics::RootMatrixDriver::~RootMatrixDriver() {}
 

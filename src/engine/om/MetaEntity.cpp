@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x0025e680..0x0025e900 (kind game, layer engine, confidence high), dominant class om::MetaEntity
 #include "tree_prelude.h"
 #include "gen/om.h"
@@ -187,9 +186,25 @@ void MetaEntityType::vfunc_0() {
 
 
 // 0x0025e760 om::MetaEntity::vfunc_2 (30 B): matches/0x0025e760.cpp
-// sym: ??_GMetaEntity@om@@UAEPAXI@Z
+// sym: ?vfunc_2@MetaEntity_25e760@fn_0025e760@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `om::MetaEntity::~MetaEntity() {}` stood for it, which natively defines no
+// function for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's body
+// 0x00244f70, then (flags & 1) operator delete.
+namespace fn_0025e760 {
+struct MetaEntity_25e760 {
+    void FUN_00244f70();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* MetaEntity_25e760::vfunc_2(unsigned int flags) {
+    FUN_00244f70();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0025e760
+// (x64t21) the destructor itself, which other objects' code references:
 om::MetaEntity::~MetaEntity() {}
 
 namespace fn_f87db03b {

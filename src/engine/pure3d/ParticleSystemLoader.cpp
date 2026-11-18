@@ -1039,9 +1039,26 @@ ParticleEmitterLoader::ParticleEmitterHandler::ParticleEmitterHandler() {}
 } // namespace fn_f07ae39e
 
 // 0x002aa7c0 pure3d::ParticleEmitterLoader::ParticleEmitterHandler::vfunc_2 (30 B): matches/0x002aa7c0.cpp
-// sym: ??_GParticleEmitterHandler@ParticleEmitterLoader@pure3d@@UAEPAXI@Z
+// sym: ?vfunc_2@ParticleEmitterHandler_2aa7c0@fn_002aa7c0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function:
+// `pure3d::ParticleEmitterLoader::ParticleEmitterHandler::~ParticleEmitterHandler() {}` stood for it, which natively
+// defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's
+// body 0x002a3e90, then (flags & 1) operator delete.
+namespace fn_002aa7c0 {
+struct ParticleEmitterHandler_2aa7c0 {
+    void FUN_002a3e90();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* ParticleEmitterHandler_2aa7c0::vfunc_2(unsigned int flags) {
+    FUN_002a3e90();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_002aa7c0
+// (x64t21) the destructor itself, which other objects' code references:
 pure3d::ParticleEmitterLoader::ParticleEmitterHandler::~ParticleEmitterHandler() {}
 
 namespace fn_f07ae39e {
@@ -1306,9 +1323,26 @@ unsigned ParticleSystemLoader_2ab030::FUN_002ab030(ParticleSystem_2ab030 **out, 
 } // namespace fn_f07ae39e
 
 // 0x002ab490 pure3d::OldParticleSystemLoader::OldParticleEmitterLoader::vfunc_2 (30 B): matches/0x002ab490.cpp
-// sym: ??_GOldParticleEmitterLoader@OldParticleSystemLoader@pure3d@@UAEPAXI@Z
+// sym: ?vfunc_2@OldParticleEmitterLoader_2ab490@fn_002ab490@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function:
+// `pure3d::OldParticleSystemLoader::OldParticleEmitterLoader::~OldParticleEmitterLoader() {}` stood for it, which
+// natively defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The
+// destructor's body 0x002a3e90, then (flags & 1) operator delete.
+namespace fn_002ab490 {
+struct OldParticleEmitterLoader_2ab490 {
+    void FUN_002a3e90();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* OldParticleEmitterLoader_2ab490::vfunc_2(unsigned int flags) {
+    FUN_002a3e90();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_002ab490
+// (x64t21) the destructor itself, which other objects' code references:
 pure3d::OldParticleSystemLoader::OldParticleEmitterLoader::~OldParticleEmitterLoader() {}
 
 namespace fn_f07ae39e {
@@ -1457,9 +1491,25 @@ extern "C" void * __cdecl FUN_002ab640(void * destination_, unsigned int count, 
 } // namespace fn_f07ae39e
 
 // 0x002ab680 pure3d::ParticleGeneratorLoader::vfunc_2 (30 B): matches/0x002ab680.cpp
-// sym: ??_GParticleGeneratorLoader@pure3d@@UAEPAXI@Z
+// sym: ?vfunc_2@ParticleGeneratorLoader_2ab680@fn_002ab680@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `pure3d::ParticleGeneratorLoader::~ParticleGeneratorLoader() {}` stood for it,
+// which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the slot).
+// The destructor's body 0x002aae10, then (flags & 1) operator delete.
+namespace fn_002ab680 {
+struct ParticleGeneratorLoader_2ab680 {
+    void FUN_002aae10();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* ParticleGeneratorLoader_2ab680::vfunc_2(unsigned int flags) {
+    FUN_002aae10();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_002ab680
+// (x64t21) the destructor itself, which other objects' code references:
 pure3d::ParticleGeneratorLoader::~ParticleGeneratorLoader() {}
 
 
@@ -1523,16 +1573,48 @@ ParticleEmitterLoader* ParticleEmitterLoader::init() {
 
 
 // 0x002ab780 pure3d::ParticleEmitterLoader::vfunc_2 (30 B): matches/0x002ab780.cpp
-// sym: ??_GParticleEmitterLoader@pure3d@@UAEPAXI@Z
+// sym: ?vfunc_2@ParticleEmitterLoader_2ab780@fn_002ab780@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `pure3d::ParticleEmitterLoader::~ParticleEmitterLoader() {}` stood for it, which
+// natively defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The
+// destructor's body 0x002aae80, then (flags & 1) operator delete.
+namespace fn_002ab780 {
+struct ParticleEmitterLoader_2ab780 {
+    void FUN_002aae80();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* ParticleEmitterLoader_2ab780::vfunc_2(unsigned int flags) {
+    FUN_002aae80();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_002ab780
+// (x64t21) the destructor itself, which other objects' code references:
 pure3d::ParticleEmitterLoader::~ParticleEmitterLoader() {}
 
 
 // 0x002ab7a0 pure3d::ParticleSystemLoader::vfunc_2 (30 B): matches/0x002ab7a0.cpp
-// sym: ??_GParticleSystemLoader@pure3d@@UAEPAXI@Z
+// sym: ?vfunc_2@ParticleSystemLoader_2ab7a0@fn_002ab7a0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `pure3d::ParticleSystemLoader::~ParticleSystemLoader() {}` stood for it, which
+// natively defines no function for the vftable slot (with the `??_G` signature, as other views call the slot). The
+// destructor's body 0x002aaf10, then (flags & 1) content::LoadObject::operator delete.
+namespace fn_002ab7a0 {
+struct ParticleSystemLoader_2ab7a0 {
+    void FUN_002aaf10();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* ParticleSystemLoader_2ab7a0::vfunc_2(unsigned int flags) {
+    FUN_002aaf10();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_002ab7a0
+// (x64t21) the destructor itself, which other objects' code references:
 pure3d::ParticleSystemLoader::~ParticleSystemLoader() {}
 
 namespace fn_f07ae39e {

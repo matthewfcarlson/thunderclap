@@ -8,6 +8,7 @@
 #define TREE_LOCAL_CSPHulkProp
 #define TREE_LOCAL_pure3d
 namespace fn_f0e6ff5d {} using namespace fn_f0e6ff5d;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "game/global.h"
 
 // ---- declarations shared by the functions below
@@ -27,7 +28,7 @@ class CUnlockableMovie_93570 : public HulkUnlockableWords {    // decls/unlockab
 // Same code shape as 0x000933a0 (propagated; names are from that function)
 CUnlockableMovie_93570::~CUnlockableMovie_93570() {
     if (data) {
-        FreeMem(data);
+        ::operator delete[](data);
         data = 0;
     }
     ((Inner_93570*)&this->id)->Reset_0027af50();

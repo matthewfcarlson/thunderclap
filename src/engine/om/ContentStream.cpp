@@ -35,7 +35,7 @@ om::ContentStream* om::ContentStream::vfunc_0(unsigned char p) {
     h->close();
     vt = hulk_at_00423f20;
     if (p & 1)
-        cleanup(this);
+        ::operator delete(this);
     return this;
 }
 

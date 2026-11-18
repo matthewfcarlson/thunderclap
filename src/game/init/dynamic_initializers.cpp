@@ -9149,7 +9149,7 @@ extern "C" void FUN_00363d10() {
     do {
         --it;
         if (it->data) {
-            release(it->data);
+            ::operator delete(it->data);
             it->count = 0;
             it->data = 0;
         }

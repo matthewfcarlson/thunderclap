@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x0023a3f0..0x0023b540 (kind game, layer engine, confidence high), dominant class fight::ScriptReader
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -1029,7 +1028,7 @@ IFileStringReader* IFileStringReader::vfunc_2(int flag) {
     p->f1();
     vt = ((hulk_intptr)DAT_003f6098);
     if (flag & 1)
-        thunk(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -1092,9 +1091,25 @@ StreamStringReader_23b350* StreamStringReader_23b350::vfunc_2(unsigned char flag
 } // namespace fn_f7afe597
 
 // 0x0023b390 fight::Reader::vfunc_2 (30 B): matches/0x0023b390.cpp
-// sym: ??_GReader@fight@@UAEPAXI@Z
+// sym: ?vfunc_2@Reader_23b390@fn_0023b390@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `fight::Reader::~Reader() {}` stood for it, which natively defines no function
+// for the vftable slot (with the `??_G` signature, as other views call the slot). The destructor's body 0x00232c30,
+// then (flags & 1) content::LoadObject::operator delete.
+namespace fn_0023b390 {
+struct Reader_23b390 {
+    void FUN_00232c30();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* Reader_23b390::vfunc_2(unsigned int flags) {
+    FUN_00232c30();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0023b390
+// (x64t21) the destructor itself, which other objects' code references:
 fight::Reader::~Reader() {}
 
 namespace fn_f7afe597 {

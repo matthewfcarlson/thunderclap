@@ -516,7 +516,7 @@ Target_29cc40* Target_29cc40::run(unsigned char flags) {
     mObj->b();
     thunk2_0008d340(mArg);
     if (flags & 1)
-        thunk(this);
+        ::operator delete(this);
     return this;
 }
 

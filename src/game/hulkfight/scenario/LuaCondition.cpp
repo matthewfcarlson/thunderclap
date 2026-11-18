@@ -11,6 +11,7 @@
 #define TREE_TU_BEGIN namespace fn_fd836fc7 {
 #define TREE_TU_END }
 namespace fn_fd836fc7 {} using namespace fn_fd836fc7;
+void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 namespace fn_fd836fc7 {
 struct FactoryCtor { void init_002343b0(); void init_00236a90(); };   // (unb4) the factory constructors InitHelper::init stood for
 void thunk_delete_00263f30(void*);   // (unb4) the `jmp` thunk to free this TU's thunk_delete reaches
@@ -42,7 +43,7 @@ class LuaCondition_1a1330 {
   public:
     int a, b;
     virtual ~LuaCondition_1a1330();
-    int d;
+    void* d;   // (x64t21) a block of the game heap (the destructor frees it)
     virtual bool hulk_slot_F_00234270(void*); void FnF_002345b0();
 };
 } // namespace fn_fd836fc7
@@ -379,7 +380,7 @@ namespace fn_fd836fc7 {
 // sym: ??1LuaCondition_1a1330@fn_fd836fc7@@UAE@XZ
 // Same code shape as 0x0011c270 (propagated; names are from that function)
 LuaCondition_1a1330::~LuaCondition_1a1330() {
-    Cleanup(d);
+    ::operator delete[](d);   // (x64t21, D115) the game's operator delete[] 0x0008d340 (`Cleanup(int)` was bound nowhere)
     FnF_002345b0();
 }
 
@@ -569,10 +570,10 @@ void FUN_001a17f0() {}
 // Same code shape as 0x0011cbc0 (propagated; names are from that function)
 void* LuaCondition_1a1800::vfunc_5(unsigned char flag) {
     *(const VFT**)this = &hulk_at_0041c2f8;
-    ai_free(m_p);
+    ::operator delete[](m_p);
     Cleanup_002345b0();
     if (flag & 1) {
-        ai_delete(this);
+        ::operator delete(this);
     }
     return this;
 }

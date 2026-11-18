@@ -584,7 +584,7 @@ d3dRefractVertexShader_32f360* d3dRefractVertexShader_32f360::vfunc_3(unsigned i
         b->f1();
     cleanup();
     if (x & 1)
-        destroy(this);
+        ::operator delete(this);
     return this;
 }
 

@@ -5777,3 +5777,42 @@ nothing flagged; my TUs again with the ledger lines shipped: every changed block
 unrecorded at HEAD too). x64 gate ok on the 1,697 TUs that reach the changed headers (122 changed blocks; nothing new,
 nothing accepted). `gen_headers.py --probe` ok. Native unbound on the control's and the proof's own snapshots 12354 /
 12334 / 12345 -> 12339 / 12319 / 12330 (macOS / Linux / Android).
+
+
+## x64t21: the game's operator delete by its name (D115 design B), the scalar deleting destructors as functions (D114) (2026-11-18)
+
+**The free calls (D115).** Design: build/x64t21/d115-design.md (three designs against the user's two concerns, binding
+by address and one shared header; B chosen). The calls are written as the original makes them: `operator delete(p)`
+where it calls 0x0008d330 (or 0x00263f30, content::LoadObject's `jmp` to it), `operator delete[](p)` for 0x0008d340.
+The two forwarders are tree source now, `matches` blocks in src/game/unknown/unk_08ceb0.cpp (`??3@YAXPAX@Z`,
+`??_V@YAXPAX@Z`: the 5-byte `jmp` to 0x00267090) for every build, replacing MemoryAllocatorMalloc.cpp's HULK_PTR64
+copies: no header declares anything (MSVC 7.1 predeclares the scalar form; a TU that calls the array form declares it
+at global scope), and nothing binds by an address. Converted:
+- by hand: fight's hash table destructor 0x00231050 (gen owners::C_231050's two words are `void*`: natively +0x18 /
+  +0x20, the table's slots and entries), and the integer-typed frees whose view could take a pointer without moving
+  any field: the conditions' `d` (0x0023d860, 0x0023d950, 0x001a1330, 0x0011c270, 0x00166210, 0x0010e8e0's m10),
+  pddiStack's storage 0x0031e330, the begin/end arrays of 0x00299ba0 / 0x002b13c0 / 0x002e6210 (now calling their
+  element releases 0x00299ac0 / 0x002b1390 / 0x002e61c0 by their defined names), the inline array frees of
+  ExpressionGroupLoader.cpp and VertexAnimObject.cpp;
+- by generator (scripts/gen_sites.py on a snapshot, keyed on each call's original target from the MSVC object's
+  relocations, re-checked in the same job): every call through a name that carries no address and takes a pointer,
+  C++ (`thunk`, `SweepTrack_DeleteThis`, `Free`, `release`, `FreeMem`, ...) and extern "C" (`opdel`,
+  `operator_delete`, `Free`, `ai_free`, ...).
+Deferred (build/x64t21/deferred.txt): the ~1,500 calls through names that carry an address (they bind natively
+today), every free call in an equivalent block (141 blocks: the code hash keys a callee without an address by its
+name, so each would need a re-proof), and eleven integer-typed frees in views whose field offsets would move
+natively (fight tracks' `mArg` / `value` behind a pad; 0x00170dc0, 0x00170460, 0x00181640, 0x0010c8b0, 0x0008f140,
+0x001b7590, 0x0022ec20, 0x0029c640, 0x0031a800, 0x000e8a10, 0x000e8980): they need the objects' records.
+
+**The scalar deleting destructors (D114).** scripts/gen_gdtor.py rewrites a `??_G` block written as an empty user
+destructor (`ns::X::~X() {}`) into x64t20's explicit form: namespace fn_<addr>, `void* X_<addr>::vfunc_N(unsigned int
+flags)` (the `??_G` signature, as other views call the slot), the destructor's body by its address name, then
+`if (flags & 1) operator delete(this)`, `return this`. The empty destructor `X::~X() {}` stays in the TU, unpinned,
+because other objects' code references it. A block is rewritten when the original is the 30-byte shape and every
+block pinning the same `??_G` symbol is rewritable. 546 blocks in 155 TUs (497 freeing through 0x0008d330, 49
+through 0x00263f30); skipped: 245 whose block also instantiates the template natively (ren2: clang already emits
+the `??_G`), 144 sharing a pin with such a block, 16 isolated TUs' other shapes, 1 in DrawableContainer.cpp
+(integ2's file). 126 TUs lose `// cl-flags: /GX` (304 -> 178 /GX TUs; user-written `??_G` blocks 954 -> 407;
+tech-debt.md); DefaultFrameControllerHandler.cpp and SeqEventSilence.cpp keep it (an equivalent block's code changes
+under /GX-). HULK_REFCOUNT_INLINE_DTOR is untouched: the rewritten blocks call the destructor's body by address, so
+its inline-ness doesn't reach them.

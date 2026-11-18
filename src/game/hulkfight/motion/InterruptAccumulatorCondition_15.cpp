@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x00153f40..0x00158f00 (kind game, layer game, confidence high), merged by D32: hulkfight/motion/InterruptAccumulatorCondition.cpp
 // piece 0x00156e80..0x00157150 (kind game, layer game, confidence low); was game/unknown/unk_156e80.cpp until D46
 #include "tree_prelude.h"
@@ -112,7 +111,7 @@ void* GroundSlideAction_156e80::vfunc_2(unsigned char flag) {
     }
     BaseDtor(this);
     if (flag & 1)
-        operator_delete(this);
+        ::operator delete(this);
     return this;
 }
 
@@ -149,7 +148,7 @@ HitPauseAction_156f30* HitPauseAction_156f30::vfunc_2(int flag) {
     }
     ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1) {
-        opdel(this);
+        ::operator delete(this);
     }
     return this;
 }
@@ -171,9 +170,25 @@ hulk_intptr hulkfight::motion::HitReactionTrack::vfunc_10(hulk_intptr __p0, hulk
 
 
 // 0x00156fd0 hulkfight::motion::HitReactionAction::vfunc_2 (30 B): matches/0x00156fd0.cpp
-// sym: ??_GHitReactionAction@motion@hulkfight@@UAEPAXI@Z
+// sym: ?vfunc_2@HitReactionAction_156fd0@fn_00156fd0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `hulkfight::motion::HitReactionAction::~HitReactionAction() {}` stood for it,
+// which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the slot).
+// The destructor's body 0x00151810, then (flags & 1) operator delete.
+namespace fn_00156fd0 {
+struct HitReactionAction_156fd0 {
+    void FUN_00151810();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* HitReactionAction_156fd0::vfunc_2(unsigned int flags) {
+    FUN_00151810();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_00156fd0
+// (x64t21) the destructor itself, which other objects' code references:
 hulkfight::motion::HitReactionAction::~HitReactionAction() {}
 
 
@@ -192,9 +207,25 @@ hulk_intptr hulkfight::motion::HitReactionFloatTrack::vfunc_10(hulk_intptr __p0,
 
 
 // 0x00157040 hulkfight::motion::HitReactionFloatAction::vfunc_2 (30 B): matches/0x00157040.cpp
-// sym: ??_GHitReactionFloatAction@motion@hulkfight@@UAEPAXI@Z
+// sym: ?vfunc_2@HitReactionFloatAction_157040@fn_00157040@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (x64t21, D114) an explicit function: `hulkfight::motion::HitReactionFloatAction::~HitReactionFloatAction() {}` stood
+// for it, which natively defines no function for the vftable slot (with the `??_G` signature, as other views call the
+// slot). The destructor's body 0x00151950, then (flags & 1) operator delete.
+namespace fn_00157040 {
+struct HitReactionFloatAction_157040 {
+    void FUN_00151950();   // the destructor's body
+    void* vfunc_2(unsigned int flags);
+};
+void* HitReactionFloatAction_157040::vfunc_2(unsigned int flags) {
+    FUN_00151950();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_00157040
+// (x64t21) the destructor itself, which other objects' code references:
 hulkfight::motion::HitReactionFloatAction::~HitReactionFloatAction() {}
 
 namespace fn_f203b23d {
@@ -215,7 +246,7 @@ HitPushbackAddAction_1570b0* HitPushbackAddAction_1570b0::vfunc_2(int flag) {
     }
     ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1) {
-        opdel(this);
+        ::operator delete(this);
     }
     return this;
 }
