@@ -127,6 +127,21 @@ class Helpers(unittest.TestCase):
             self.assertEqual(di.record_items(h), {0x500000: ("A[2]", 32), 0x500020: ("B", 8),
                                                   0x500028: ("C[3]", 24), 0x500040: ("void *", 4)})
 
+    @unittest.skipUnless(libclang(), "libclang not found (clang_probe.LLVM's lib/, or HULK_LIBCLANG)")
+    def test_record_pointers(self):
+        """(data4, D119) records whose layout holds a pointer (a field, a nested record's, a function or member
+        pointer) are reported, so an initialized one is a `struct`, not a scalar `table`."""
+        with tempfile.TemporaryDirectory() as d:
+            h = os.path.join(d, "records.h")
+            with open(h, "w") as f:
+                f.write('struct S { int id; const char* name; };\nstruct N { int a; int b; };\n'
+                        'struct O { N n[2]; S s; };\nstruct F { char k[8]; void (*fn)(); };\nstruct M { int (N::*pm); };\n'
+                        'extern "C" const S DAT_00500000[2];\nextern "C" N DAT_00500010[2];\n'
+                        'extern "C" O DAT_00500020;\nextern "C" F DAT_00500040;\nextern "C" M DAT_00500050;\n')
+            ptrs = set()
+            di.record_items(h, pointers=ptrs)
+            self.assertEqual(ptrs, {0x500000, 0x500020, 0x500040, 0x500050})
+
 
 @unittest.skipUnless(all(os.path.exists(os.path.join(ROOT, p)) for p in
                          ("build/rtti.json", "build/functions.csv", "isos/extracted/default.xbe")) and libclang(),

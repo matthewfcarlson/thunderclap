@@ -1291,3 +1291,25 @@ blocks fight::Action's whole family: the records come first there.
   - stale digests: a global read through a helper, an edited comment, a changed data.json.
 - **Lesson:** a table's data.json type says nothing about its words. 37 ".rdata int" items hold image addresses
   (SEH scope tables, {id, string} pairs). Read the image before trusting a scalar type.
+
+## 2026-11-18 data4: image addresses under scalar kinds in config/data.json (D119); Perlin's 1-D noise stays dead code (D120)
+
+- **42 of the 55 `.rdata` items of a scalar kind whose words fall in the image are pointers** (docs/data.md "Image
+  addresses under a scalar kind"). Three causes: typed records were always placed as `table` (an initialized
+  records.h item is now typed by its declaration and a `struct` when it holds a pointer: 0x0040cc74's {id, string}
+  pairs, plus 54 `.data` records), the carve takes a code word as a pointer only at a function start (the library's
+  SEH scope tables and C++ unwind maps: 39 `struct` pins), and pointer bytes that read as text (two XAPI
+  OBJECT_STRINGs: config/data-pointers.json). The data TUs change in comment lines only: data_gen already emitted
+  the records from records.h, and library data is not emitted.
+- **Still open, not of a scalar kind:** `unknown` runs of string pointers the text rule dropped (mission and
+  condition name lists next to `pointer_table` pieces) and three `.data` items the sources declare `int` that hold
+  string pointers (0x0048f6b4, 0x0049f3bc, 0x004c6028). Natively those are 4-byte integers where the code reads
+  8-byte pointers.
+- **0x00356de0 is already where the project keeps dead code.** The 2026-10-11 function-list pass put the 12,447
+  functions nothing references in `build/farm/dead-code.txt` (local) and left them out of `build/functions.csv` and
+  the progress denominator; 0x00356de0 is one of them, with 13 more in unk_356bf0's range. A fresh scan (rel32
+  E8/E9/0F 8x, short jumps and absolute words over every section) finds no reference. "Every game function has
+  verified source" counts the listed functions, so it needs no block. Listing it would change build/functions.csv,
+  a local input each queue host keeps its own copy of. integ2's census needs nothing either: the comment on
+  DAT_0056bfc8 cites the loads 0x00356dfe and 0x00356e0b and also 0x00356de0, so it holds whether or not the function
+  is listed.

@@ -151,6 +151,18 @@
     "0xc4"
    ],
    "why": "(x64t11) the pads' state table (records.h CoreControllerStateEntry[20]): each entry's name word points at a string (0x00406020 DPadLeft, 0x0040602c DPadRight, ...: bytes that also read as text); 0x002692c0 copies the entries into the input points, whose names 0x00268a10 compares"
+  },
+  "0x004260d4": {
+   "offsets": [
+    "0x4"
+   ],
+   "why": "data4 (2026-11-18, D119): an OBJECT_STRING {USHORT Length 6, USHORT MaximumLength 7, PCHAR Buffer} of the XAPI library (xapilib.obj; 0x00209132 and others pass its address); Buffer points at the string at 0x00426144 (bytes 44 61 42 00)"
+  },
+  "0x004260dc": {
+   "offsets": [
+    "0x4"
+   ],
+   "why": "data4 (2026-11-18, D119): an OBJECT_STRING {USHORT Length 6, USHORT MaximumLength 7, PCHAR Buffer} of the XAPI library (xapilib.obj; 0x002092c5 and others pass its address); Buffer points at the string at 0x0042613c (bytes 3c 61 42 00)"
   }
  }
 }

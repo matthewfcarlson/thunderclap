@@ -362,11 +362,31 @@ def load_pins(path=None):
 RECORDS_H = os.path.join(ROOT, "include/decls/data/records.h")
 
 
-def record_items(path=None):
+def _has_pointer(t, depth=0):
+    """Does a libclang type hold a pointer (data, function or member pointer) anywhere in its layout?"""
+    import clang.cindex as ci
+    t = t.get_canonical()
+    k = t.kind
+    if k in (ci.TypeKind.POINTER, ci.TypeKind.MEMBERPOINTER, ci.TypeKind.LVALUEREFERENCE):
+        return True
+    if k in (ci.TypeKind.CONSTANTARRAY, ci.TypeKind.INCOMPLETEARRAY):
+        return _has_pointer(t.element_type, depth + 1)
+    if k == ci.TypeKind.RECORD and depth < 16:
+        d = t.get_declaration()
+        for c in d.get_children():
+            if c.kind == ci.CursorKind.FIELD_DECL and _has_pointer(c.type, depth + 1):
+                return True
+            if c.kind == ci.CursorKind.CXX_BASE_SPECIFIER and _has_pointer(c.type, depth + 1):
+                return True
+    return False
+
+
+def record_items(path=None, pointers=None):
     """{addr: (declared type, 32-bit size)} of the items include/decls/data/records.h declares
     (`extern "C" T DAT_<addr>[N];`, docs/data.md "Typed records"): each is one inventory item spanning the
     declaration's 32-bit size, whatever the carve would make of its bytes. Sizes come from libclang
-    (i686-pc-windows-msvc, the MSVC layout; the data TUs assert them with MSVC)."""
+    (i686-pc-windows-msvc, the MSVC layout; the data TUs assert them with MSVC). `pointers` (a set), when given,
+    receives the addresses whose type holds a pointer field (data4, D119: such an initialized record is a `struct`)."""
     import clang.cindex as ci
     if not ci.Config.loaded:
         try:
@@ -395,6 +415,8 @@ def record_items(path=None):
             if size <= 0:
                 raise SystemExit("records.h: %s has no complete type" % c.spelling)
             out[int(m.group(1), 16)] = (c.type.spelling, size)
+            if pointers is not None and _has_pointer(c.type):
+                pointers.add(int(m.group(1), 16))
     return out
 
 
@@ -597,11 +619,18 @@ class Inventory:
                      vfptr_offset=v["offset"])
         self.vtables = {vt for vt, _, _ in vts}
         # typed records (include/decls/data/records.h): one item each, its declaration's span
-        self.records = record_items()
+        rec_ptrs = set()
+        self.records = record_items(pointers=rec_ptrs)
         for a, (t, size) in sorted(self.records.items()):
             if not self.lo <= a < self.hi:
                 continue
-            put(a, size, "bss" if a >= self.bss_lo else "table", record=t)
+            if a >= self.bss_lo:
+                put(a, size, "bss", record=t)
+            else:
+                # (data4, D119) an initialized record is typed by its declaration, and one whose layout holds a pointer
+                # is a `struct` (not a scalar `table`: natively its words move, and equiv64's HULK_RDATA refuses it);
+                # a type the sources vote becomes its source_type
+                put(a, size, "struct" if a in rec_ptrs else "table", record=t, type=canon_type(t))
         # item spans reviewed by hand (config/data-items.json)
         self.pins = load_pins()
         for a, p in sorted(self.pins.items()):

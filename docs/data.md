@@ -641,3 +641,30 @@ informational classes are listed (`info: overreach <kind>`). An item resized in 
 (the inventory is part of the verify cache's key).
 data_gen: an initialized typed record's pointer field is now cast to the field's records.h type (was `void*`, which
 only `void*` fields accept).
+
+**Image addresses under a scalar kind (data4, 2026-11-18, D119).** rev5's R7 review of equiv64's `HULK_RDATA` found
+`.rdata` items that config/data.json calls `table`/`scalar` (int) whose words are addresses of the XBE. A scan of every
+item of a scalar kind (`table`, `float_table`, `float`, `double`, `scalar`) for an aligned word inside the image (the
+R7 test: 0x10000 to the end of the last section) gives 55 `.rdata` items; 42 hold real pointers, and three causes put
+them there:
+- *Typed records were placed as `table`.* An initialized records.h item now takes its declaration's type and is a
+  `struct` when the record holds a pointer (a field, a nested record's, a function or member pointer;
+  `record_items(pointers=)`): 0x0040cc74 `const GameLanguageName[6]` ({id, string} pairs, was `int[]`), and in `.data`
+  0x004cc248 `AudioFormatEntry[6]`, 0x004cd6a8 `CoreControllerStateEntry[20]` and the 51 `ShaderParamEntry[]` tables
+  (a member-function-pointer field, zero in the image). data_gen already emitted them from records.h with their
+  pointers, so the data TUs change in their comment lines only and include/decls/data/ not at all.
+- *Code addresses inside a function.* The carve takes a word as a pointer only when it is a data address or a function
+  start, so the library's SEH scope tables ({enclosing level, filter or 0, handler}; libcmt, libcmt_eh, xapilib: 26)
+  and C++ EH unwind maps ({toState, action}, each pointed at by the FuncInfo 0x19930520 after it; xgrph: 13) were scalar
+  tables. They are `struct` pins in config/data-items.json (33 more scope tables whose handler is a function start
+  were `struct` already). Library: not emitted.
+- *Pointer bytes that read as text.* xapilib's two OBJECT_STRINGs 0x004260d4 / 0x004260dc ({6, 7, "\??\..."}) are in
+  config/data-pointers.json.
+Left as they are (the word only falls in the range): 0x0040cf14 (a wide-character table, L")" L":"), 0x00420520 (text
+with a Latin-1 byte), 0x00426944 (Lua's "..." read as an int), 0x0042f748 (a double's low word); in the library d3d's
+0x003f2fd8 / 0x003f30f0 (`int[]` runs stepping by 0x40 / 4 from 0x81b00 / 0x40260: register offsets, not code), Bink's
+byte table 0x004399a1, libcmt's DBL_MIN doubles 0x00439ff8 / 0x0043b204, its byte and ctype tables 0x0043a0e0 /
+0x0043a438 and the short pairs 0x0043a814 / 0x0043a830. Not of a scalar kind and so not changed here: `.rdata`
+`unknown` runs of string pointers the text rule dropped (0x003f6b4c, 0x003f6b78, 0x00406158, 0x004061d8, 0x00427748,
+0x00427750, 0x0042775c, CRadMovieRenderLoop's 0x004341a4..0x0043423c), and `.data` items the sources type as int that
+hold string pointers (0x0048f6b4 `int[6]`, read as `const char**`; 0x0049f3bc; 0x004c6028, passed as a 7-entry list).
