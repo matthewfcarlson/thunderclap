@@ -24,12 +24,17 @@
 // the field from the range); every compiled build gets nothing, so no code changes.
 // HULK_INTO(field), after a pointer parameter's name in a member function's definition: the pointer is into the
 // array this->field points to (a pool's block, from the pool's data); tools/equiv64.py generates it there.
+// (D103) On a TU's redeclaration of a global (`extern "C" int DAT_0056bfc8[514] HULK_RANGE(0, 255);`, its comment
+// citing the stores into it) HULK_RANGE bounds every integer word of the global. HULK_RDATA, after a const global's
+// declarator: a table in a read-only section of the XBE; tools/equiv64.py starts both runs from its bytes there.
 #if defined(HULK_EQ64_PARSE)
 #define HULK_RANGE(lo, hi) __attribute__((annotate("hulk_range " #lo " " #hi)))
 #define HULK_INTO(field) __attribute__((annotate("hulk_into " #field)))
+#define HULK_RDATA __attribute__((annotate("hulk_rdata")))
 #else
 #define HULK_RANGE(lo, hi)
 #define HULK_INTO(field)
+#define HULK_RDATA
 #endif
 
 // The memory allocator registry (core, 0x00266e00-0x00267280): one slot per heap id; the slots also form a tree

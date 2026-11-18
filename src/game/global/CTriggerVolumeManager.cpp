@@ -2081,7 +2081,7 @@ const char* Target_1fe280::FUN_001fe280(int arg) {
 
 
 // 0x001fe380 FUN_001fe380 (1292 B): equivalent/0x001fe380.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?FUN_001fe380@Finder@fn_001fe380@@QAEDPAUV3@2@0@Z @54b398f5f1cd @wddc6375888b4 @vb897169b40ad
+// sym: ?FUN_001fe380@Finder@fn_001fe380@@QAEDPAUV3@2@0@Z @54b398f5f1cd @wddc6375888b4 @v2d6e45092dca
 namespace fn_001fe380 {
 // STATUS: equivalent (tools/equiv.py level 3: 79 inputs, branch coverage 39/46, incomplete)
 // FUN_001fe380 @ 0x001fe380
@@ -2101,7 +2101,9 @@ struct V3 {
 };
 
 extern "C++" __declspec(nothrow) void __cdecl FUN_001fd640(V3 *o, V3 *p, V3 *q, V3 *res);
-extern int DAT_00425260[4];
+// (integ2, D103) the object classes it gathers, {2, 3, 4, 5}: a const table in the XBE's .rdata (read-only), which
+// only this function references (0x001fe389)
+extern "C" const int DAT_00425260[4] HULK_RDATA;
 
 class Obj {
 public:
@@ -2165,7 +2167,7 @@ char Finder::FUN_001fe380(V3 *o, V3 *out)
 {
     Frame f;
     f.n = 0;
-    for (int *tp = DAT_00425260; tp < DAT_00425260 + 4; tp++) {
+    for (const int *tp = DAT_00425260; tp < DAT_00425260 + 4; tp++) {
         int cls = *tp;
         for (int k = 0; k < 20; k++) {
             int count = lists[cls]->l[k].count;

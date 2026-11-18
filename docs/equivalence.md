@@ -2235,6 +2235,49 @@ allocator is read through a view). A wider range still crashes on 32-bit (no inp
 the annotation the crash64 stands (jobs 88358 / 88362 on the real TU). Cases `0x00266f20_x64_paramrange`,
 `_uncited` and `_pasttable` (refused). EQ64_OFF=paramrange ignores it. The report lists them (`hulk_range_params`); the gate's AST
 digest covers them (D97).
+(integ2, D103; rev5's review) **Data annotations on a global.** When the out-of-range index is a word of game data,
+not a parameter, the global's declaration carries the claim (a TU's redeclaration of a name its generated header
+declares, at global scope; every declaration is read, matched by linkage name). Both need the global's DAT_ address
+name and a config/data.json item that starts there with the declared size (R2), and both are refused when the global
+has no typed layout of its own (a pinned view), when the 32- and 64-bit parses disagree, or when two declarations
+carry different annotations:
+- `HULK_RANGE(lo, hi)` on a global: every word is drawn from lo..hi on both sides. Every leaf must be an `int`-kind
+  integer of one size on both targets and the range must fit it; the game's initial image (the section's file bytes,
+  zero fill past them) must lie in lo..hi (R1). As for a field (D61), the declaration's line or the one before cites
+  the writers, and the census is mandatory (R3): the annotated declaration's comment block must cite every reference
+  the XBE has from 0x40 below the table through its end (the one-past-the-end address too unless another item starts
+  there; the whole enclosing data.json item if there is one): a code word inside a listed function by that function's
+  start, a code word in no listed function by its own site (at most 0x10 before the word), a data word by its own
+  address. The census is a byte scan of every 64 KB page of the range (a coincidental word asks for one more citation,
+  never lets one through). The roles it cites (which references write, what they store) stay human-reviewed. Known
+  limit (rev5): a writer that reaches the table from a base more than 0x40 below it (another item's address plus an
+  index) is invisible to a byte scan; the window catches a base biased a little below the table, and case
+  `_grange_below` exercises it through the neighbouring items' own references (0x001fdd9c ... below 0x00425260), not
+  through a biased base.
+  0x00356fa0 (Perlin noise): `extern "C" int DAT_0056bfc8[514] HULK_RANGE(0, 255);` in unk_356bf0.cpp. The permutation
+  table is writable .data, filled by its only writer NoiseInit 0x003572b0 (a permutation of 0..255 and its copy; zero
+  before); the other references (0x00356e50, 0x00356fa0, and the loads 0x00356dfe / 0x00356e0b of the unreferenced
+  0x00356de0) only read it, and no data word points into it. Fuzzed words had indexed far past the table and crashed
+  the 64-bit run only.
+- `HULK_RDATA` after a const global's declarator: both runs start from the table's bytes in the player's XBE. Refused
+  unless the declaration is const, the data.json item is a plain scalar table (table, float_table, float, double or
+  scalar; no pointer type, no vftable), its address is file data of a non-executable XBE section without the WRITABLE
+  flag (.text and the BINK sections lack it too), and its leaves are scalars (i, f, d, b) at the same offsets and sizes
+  on both targets; no aligned word of its image may be an address of the image, its header (0x10000) through the end of the last
+  section (rev5's R7: data.json
+  types some pointer tables as int, e.g. 0x0040cc74's {id, string} pairs and SEH scope tables); a store into it by
+  either run refuses the check. 0x001fe380: `extern "C" const int DAT_00425260[4]
+  HULK_RDATA;` ({2, 3, 4, 5} in .rdata, read only by 0x001fe380), which had indexed `Finder::lists[64]` past its end
+  when fuzzed.
+They apply to `--x64` runs only (equiv.py's MSVC and Wine checks still fuzz the words). The report lists them
+(`hulk_data`); every block's AST digest covers every data-annotated global of its TU's parse, with the text of the
+annotated declarations' comment blocks, read from the parse's own tokens (R4: a global read through a helper, an
+edited citation), and a hash of the other inputs its checks read: the data.json items at the address, at its end and
+around it, and the census sites with the listed function holding each (R8: a changed data.json or function list). EQ64_OFF=gdata ignores
+them and EQ64_OFF=census skips the census: development switches, a run with them proves nothing. Cases
+`0x00356fa0_x64_grange{,_none,_uncited,_both,_float,_rdata,_wide,_census,_c30}`,
+`0x001fe380_x64_grange_{initial,below}` and `0x001fe380_x64_rdata{,_none,_nonconst,_store,_ptrs,_writable,_oneside,
+_vtable,_text,_addrs}`.
 
 (integ1, rev5's review, D61) Checks on the annotations: `HULK_RANGE` only on a scalar integer field whose declaration has a
 comment naming a 0x address, meant to be the field's writer sites; the checker only sees that an address is cited, not

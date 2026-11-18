@@ -329,6 +329,33 @@ class Keys(unittest.TestCase):
         k3, a3 = both(h2, b2 % "VB")
         self.assertEqual(k2, k3)
         self.assertNotEqual(a2, a3)
+        # (integ2, D103) a data annotation on a later redeclaration of a global the function reads (HULK_RANGE /
+        # HULK_RDATA) changes the digest, not the code key
+        h3 = ("#define HULK_RANGE(a, b) __attribute__((annotate(\"hulk_range \" #a \" \" #b)))\n"
+              "#define HULK_RDATA __attribute__((annotate(\"hulk_rdata\")))\nextern \"C\" int DAT_00500000[8];\n")
+        b3 = "// sym: ?f@@YAHH@Z\nint f(int i) {\n    return DAT_00500000[DAT_00500000[i & 7] & 7];\n}\n"
+        k4, a4 = both(h3, b3)
+        k5, a5 = both(h3 + "// writer 0x00011000\nextern \"C\" int DAT_00500000[8] HULK_RANGE(0, 7);\n", b3)
+        k6, a6 = both(h3 + "extern \"C\" int DAT_00500000[8] HULK_RDATA;\n", b3)
+        self.assertEqual(k4, k5)
+        self.assertEqual(k4, k6)
+        self.assertEqual(len({a4, a5, a6}), 3)
+        # (rev5's R4) through a helper the body doesn't name the global, and a comment-only edit of the citation: both
+        # change the digest too
+        h4 = h3 + "static inline int get(int i) { return DAT_00500000[i & 7]; }\n"
+        b4 = "// sym: ?f@@YAHH@Z\nint f(int i) {\n    return get(get(i));\n}\n"
+        k7, a7 = both(h4, b4)
+        k8, a8 = both(h4 + "// writer 0x00011000\nextern \"C\" int DAT_00500000[8] HULK_RANGE(0, 7);\n", b4)
+        self.assertEqual(k7, k8)
+        self.assertNotEqual(a7, a8)
+        k9, a9 = both(h3 + "// writer 0x00011000 0x00022000\nextern \"C\" int DAT_00500000[8] HULK_RANGE(0, 7);\n", b3)
+        self.assertEqual(k5, k9)
+        self.assertNotEqual(a5, a9)
+        # (rev5's R8) the checks' other inputs: another config/data.json item at the address changes the digest
+        with mock.patch.object(equiv64, "data_item", lambda addr: {"addr": hex(addr), "size": 32, "kind": "table"}):
+            k10, a10 = both(h3 + "// writer 0x00011000\nextern \"C\" int DAT_00500000[8] HULK_RANGE(0, 7);\n", b3)
+        self.assertEqual(k5, k10)
+        self.assertNotEqual(a5, a10)
 
     def test_type_fingerprints(self):
         """(x64t12) a field's type changes, the code reading the other field doesn't: the same code key, another

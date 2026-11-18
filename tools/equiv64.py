@@ -1090,7 +1090,7 @@ def ret_indirect(sig, bits):
 # ------------------------------------------------------------------------------------------------- the object graph
 class Obj:
     __slots__ = ("id", "rid", "ident", "kind", "lay", "count", "a32", "a64", "size32", "size64", "ptrs", "hint", "alloc",
-                 "init")
+                 "init", "grange", "rdata")
 
     def __init__(self, oid, ident, kind, lay, count, size32, size64):
         self.id, self.ident, self.kind, self.lay, self.count = oid, ident, kind, lay, count
@@ -1101,6 +1101,8 @@ class Obj:
         self.hint = None
         self.alloc = None       # (n32, n64) requested sizes of an allocation
         self.init = None        # fixed initial bytes per side (vtables), else generated
+        self.grange = None      # (integ2, D103) (lo, hi): a global's integer words (HULK_RANGE on its declaration)
+        self.rdata = None       # (integ2, D103) the name of a HULK_RDATA global (its XBE bytes; no store may reach it)
 
     def base(self, bits):
         return self.a32 if bits == 32 else self.a64
@@ -1249,6 +1251,8 @@ class Heap:
             return o.ptrs[key]
         if k == "i" and l.range is not None:
             return ("i", l.range[0] + r.below(l.range[1] - l.range[0] + 1))
+        if k in ("i", "u") and o.grange is not None:
+            return ("i", o.grange[0] + r.below(o.grange[1] - o.grange[0] + 1))
         if k == "i" or k == "u":
             return ("i", gen_int(r, min(l.s32, l.s64), l.signed))
         if k == "f":
@@ -1750,6 +1754,7 @@ class Checker:
             for k in a32:
                 if k in a64:
                     self.param_casts[k] = (a32[k], a64[k])
+        self.gdata_used = {}    # (integ2, D103) {global: model} of the HULK_RANGE / HULK_RDATA globals a run used
         self.param_range = {}
         if "paramrange" not in OFF:
             r32, r64 = param_range(c32.get_definition() or c32), param_range(c64.get_definition() or c64)
@@ -1917,6 +1922,126 @@ class Checker:
             if len(f.get(32, ())) == 1 and len(f.get(64, ())) == 1 and key in self.data_keys:
                 out[key] = (f[("t", 32)], f[("t", 64)])
         return out
+
+    def global_model(self, key):
+        """(integ2, D103) The data model (gdata_models) of the global with data key KEY: both parses must agree."""
+        cache = self.__dict__.setdefault("_gmodels", {})
+        if key in cache:
+            return cache[key]
+        ent = self.data_keys.get(key, {})
+        m = {}
+        for bits in (32, 64):
+            c = ent.get(bits, (None, None))[1]
+            m[bits] = global_model(self.tu[bits].tu, c) if c is not None else None
+        if m[32] != m[64]:
+            raise Unsupported("data annotation on %s: the 32- and 64-bit parses disagree (%s / %s)" % (key, m[32], m[64]))
+        mod = m[32]
+        if mod is not None and mod[0] == "unsupported":
+            raise Unsupported(mod[1])
+        cache[key] = mod
+        return mod
+
+    def _annotated_decls(self, c32):
+        """(integ2, D103) The declarations of C32's variable (32-bit parse) that carry a data annotation."""
+        if c32 is None:
+            return []
+        want = _var_id(c32)
+        K = ci().CursorKind
+        out = []
+        for c in self.tu[32].tu.cursor.walk_preorder():
+            if c.kind == K.VAR_DECL and any(a.kind == K.ANNOTATE_ATTR for a in c.get_children()):
+                try:
+                    if _var_id(c) == want:
+                        out.append(c)
+                except Exception:   # noqa: BLE001
+                    pass
+        return out
+
+    def apply_global_model(self, o, key, mod, lay, c32):
+        """(integ2, D103; rev5's review) Give the new global object O its annotated contents. Both annotations need the
+        global's DAT_ address name and a config/data.json item that starts there with the declared size (R2).
+        HULK_RANGE(lo, hi): every leaf an "i" integer of one size on both targets (a table of indices); the game's own
+        initial image (file bytes, zero fill past them) in lo..hi (R1); the annotated declaration's comment cites
+        every reference the XBE has into the table (range_census, R3); the generator then draws each word from lo..hi
+        on both sides, nothing compared changes.
+        HULK_RDATA: the declaration const; the item a plain scalar table (no pointers, no vftable); file data of a
+        non-executable XBE section without the WRITABLE flag; scalars (i/f/d/b) at the same offsets and sizes on both
+        targets: both sides start from the game's own bytes; a store into it refuses the check."""
+        import equiv
+        name = c32.spelling if c32 is not None else key
+        what = "HULK_RANGE" if mod[0] == "range" else "HULK_RDATA"
+        leaves = lay.leaves
+        m = re.search(r"DAT_([0-9a-fA-F]{8})$", name)
+        if not m:
+            raise Unsupported("%s on %s: no DAT_ address name" % (what, name))
+        addr, n = int(m.group(1), 16), lay.size32
+        if lay.size32 != lay.size64:
+            raise Unsupported("%s on %s: its size differs between the targets" % (what, name))
+        xbe = equiv.Program.get().xbe
+        sec = xbe.section_of(addr)
+        if mod[0] == "rdata":
+            # (R2) the section first: .text and the BINK sections have no WRITABLE flag either
+            if sec is None or sec.executable or (sec.flags & 1) or addr + n > sec.va + sec.rsize:
+                raise Unsupported("HULK_RDATA on %s: 0x%08x..+0x%x is not file data of a read-only data section of the "
+                                  "XBE (%s)" % (name, addr, n, "none" if sec is None else "%s flags 0x%x" % (
+                                      sec.name, sec.flags)))
+        it = data_item(addr)
+        if it is None or it.get("size") != n:
+            raise Unsupported("%s on %s: config/data.json has no item of %d bytes at 0x%08x (%s)" % (
+                what, name, n, addr, "none" if it is None else "%s, %s bytes" % (it.get("kind"), it.get("size"))))
+        if mod[0] == "range":
+            lo, hi = mod[1], mod[2]
+            if not mod[3]:
+                raise Unsupported("HULK_RANGE on the global %s without a comment citing the writer sites (0x addresses)"
+                                  % name)
+            for l in leaves:
+                if l.kind != "i" or l.s32 != l.s64:
+                    raise Unsupported("HULK_RANGE on the global %s: %s is not an integer of one size on both targets"
+                                      % (name, name + "".join("[%s]" % x for x in l.path)))
+                n_ = 8 * l.s32
+                lo_ok = lo >= (-(1 << (n_ - 1)) if l.signed else 0)
+                hi_ok = hi <= ((1 << (n_ - 1)) - 1 if l.signed else (1 << n_) - 1)
+                if lo > hi or not (lo_ok and hi_ok):
+                    raise Unsupported("HULK_RANGE(%d, %d) on the global %s does not fit its %d-byte %s words" % (
+                        lo, hi, name, l.s32, "signed" if l.signed else "unsigned"))
+            # (R1) the image the game starts from must hold the claim too
+            img = xbe_image(addr, n)
+            for l in leaves:
+                v = int.from_bytes(img[l.o32:l.o32 + l.s32], "little", signed=l.signed)
+                if not lo <= v <= hi:
+                    raise Unsupported("HULK_RANGE(%d, %d) on the global %s: the XBE's initial word at +0x%x is %d" % (
+                        lo, hi, name, l.o32, v))
+            if "census" not in OFF:     # (R3: mandatory; EQ64_OFF=census is a development switch, proves nothing)
+                txt_ = "\n".join(_comment_block(c) for c in self._annotated_decls(c32))
+                miss_ = range_census(addr, n, txt_)
+                if miss_:
+                    raise Unsupported("HULK_RANGE on the global %s: its comment doesn't cite the XBE's references %s"
+                                      % (name, ", ".join(miss_[:6]) + (" ..." if len(miss_) > 6 else "")))
+            o.grange = (lo, hi)
+            self.gdata_used[name] = ["range", lo, hi]
+            return
+        # rdata
+        if c32 is None or not _const_object(c32.type):
+            raise Unsupported("HULK_RDATA on %s, which is not declared const" % name)
+        if it.get("kind") not in RDATA_KINDS or "*" in (it.get("type") or ""):
+            raise Unsupported("HULK_RDATA on %s: the data.json item is no plain scalar table (%s %s)" % (
+                name, it.get("kind"), it.get("type")))
+        if any(l.kind not in ("i", "f", "d", "b") or l.o32 != l.o64 or l.s32 != l.s64 for l in leaves):
+            raise Unsupported("HULK_RDATA on %s: not all scalars at the same offsets on both targets" % name)
+        b = xbe_image(addr, n)
+        # (rev5's R7) a word that is an address of the image is a pointer however data.json types it (an SEH scope
+        # table, a table of {id, string} pairs): natively it would be 8 bytes elsewhere. The whole image counts, from
+        # its header (the base, 0x10000) to the end of the last section
+        img_hi = max(sc.va + sc.vsize for sc in xbe.sections)
+        for k_ in range(0, n - 3, 4):
+            v_ = int.from_bytes(b[k_:k_ + 4], "little")
+            if xbe.base <= v_ < img_hi:
+                sc = xbe.section_of(v_)
+                raise Unsupported("HULK_RDATA on %s: the word at +0x%x is 0x%08x, an address in the XBE's %s" % (
+                    name, k_, v_, sc.name if sc is not None else "image"))
+        o.init = {32: b, 64: b}
+        o.rdata = name
+        self.gdata_used[name] = ["rdata", sec.name]
 
     def new_stub(self, key, sig, kind, label=""):
         st = Stub(key, sig, kind, len(self.stubs), label)
@@ -2315,6 +2440,283 @@ def param_range(fn):
     return out
 
 
+RDATA_ATTR = re.compile(r"^hulk_rdata$")
+
+
+def _var_id(c):
+    """(integ2, D103) The identity of variable C across its declarations: its linkage name (an `extern "C"` global
+    redeclared inside a TU's namespace is the header's global; libclang gives the two different USRs), else its USR."""
+    try:
+        mn = c.mangled_name
+    except Exception:   # noqa: BLE001
+        mn = None
+    if mn:
+        return "m:" + mn
+    return "u:" + c.get_usr()
+
+
+def gdata_models(tu):
+    """(integ2, D103) {USR: model} of the variables TU declares (at namespace scope) with a data annotation on any of
+    their declarations (include/decls/data/records.h), the model one of
+      ("range", lo, hi, cited)  HULK_RANGE(lo, hi): every integer word of the global holds lo..hi (the game's stores
+                                into it, which the declaration's comment cites: 0x addresses, as for a field, D61)
+      ("rdata",)                HULK_RDATA: a const table in a read-only section of the XBE; the run gets its bytes
+      ("unsupported", why)      two annotations, or two declarations that disagree.
+    A tree TU redeclares a global its generated header declares (`extern "C" int DAT_0056bfc8[514] HULK_RANGE(0,
+    255);`), so the annotation is on one declaration of several: every declaration is read. Cached per parse."""
+    hit = getattr(tu, "_hulk_gdata", None)
+    if hit is not None:
+        return hit
+    K = ci().CursorKind
+    found = {}
+
+    def walk(c, depth=0):
+        for ch in c.get_children():
+            if ch.kind == K.VAR_DECL:
+                for a in ch.get_children():
+                    if a.kind != K.ANNOTATE_ATTR:
+                        continue
+                    sp_ = a.spelling or ""
+                    m = RANGE_ATTR.match(sp_)
+                    mod = ("range", int(m.group(1)), int(m.group(2))) if m else \
+                        (("rdata",) if RDATA_ATTR.match(sp_) else None)
+                    if mod is None:
+                        continue
+                    try:
+                        u = _var_id(ch)
+                    except Exception:   # noqa: BLE001
+                        continue
+                    found.setdefault(u, []).append((mod, ch))
+            elif ch.kind in (K.NAMESPACE, K.LINKAGE_SPEC, K.UNEXPOSED_DECL) and depth < 6:
+                walk(ch, depth + 1)
+    walk(tu.cursor)
+    out = {}
+    texts = {}
+    names = {}
+    for u, l in found.items():
+        texts[u] = "\n".join(_comment_block(c) for _, c in l)
+        names[u] = l[0][1].spelling
+        mods = {m for m, _ in l}
+        if len(mods) != 1:
+            out[u] = ("unsupported", "the declarations of %s carry different data annotations %s" % (
+                l[0][1].spelling, sorted(mods)))
+            continue
+        mod = l[0][0]
+        if mod[0] == "range":
+            # (as for a field, D61) the annotated declaration cites the stores that give the words their values
+            mod = mod + (any(_comment_block(c, near=True) for m, c in l),)
+        out[u] = mod
+    try:
+        tu._hulk_gdata = out
+        tu._hulk_gdata_text = texts
+        tu._hulk_gdata_names = names
+    except Exception:   # noqa: BLE001
+        pass
+    return out
+
+
+def gdata_digest_part(tu):
+    """(integ2, D103; rev5's R4) Every data-annotated global of the parse TU: its model and the text of its annotated
+    declarations' comment blocks (the citations the census reads). In every block's AST digest: a global read
+    through a helper, or a citation edited, runs the gate again."""
+    mods = gdata_models(tu)
+    texts = getattr(tu, "_hulk_gdata_text", {})
+    names = getattr(tu, "_hulk_gdata_names", {})
+    return sorted([u, list(m), texts.get(u, ""), gdata_inputs(names.get(u, ""), m)] for u, m in mods.items())
+
+
+def gdata_inputs(name, mod):
+    """(integ2, D103; rev5's R8) What a data annotation's checks read besides the source, for the digest: the
+    config/data.json items (at the address, at its end, the enclosing one) and, for HULK_RANGE, the census sites with
+    the listed function holding each (the function list). A changed data.json or function list runs the gate again."""
+    m = re.search(r"DAT_([0-9a-fA-F]{8})$", name or "")
+    if not m or mod[0] not in ("range", "rdata"):
+        return None
+    try:
+        import equiv
+        addr = int(m.group(1), 16)
+        it = data_item(addr)
+        n = int(it.get("size") or 0) if it else 0
+        out = {"item": it, "end": data_item(addr + n), "enclosing": _enclosing_item(addr, addr + n)}
+        if mod[0] == "range":
+            prog = equiv.Program.get()
+            starts = sorted(prog.funcs)
+            lo, hi = census_window(addr, n)
+            sites = []
+            for site, kind in xbe_refs(lo, hi):
+                i = bisect.bisect_right(starts, site) - 1
+                f = [starts[i], prog.funcs[starts[i]][0]] if i >= 0 and site < starts[i] + prog.funcs[starts[i]][0] else None
+                sites.append([site, kind, f])
+            out["census"] = sites
+        return hashlib.sha1(json.dumps(out, sort_keys=True, default=str).encode()).hexdigest()[:16]
+    except Exception as e:      # noqa: BLE001 - the digest still changes with the failure text
+        return "unavailable: %r" % e
+
+
+_XREFS = {}
+_ITEMS = []
+RDATA_KINDS = ("table", "float_table", "float", "double", "scalar")
+
+
+def _data_items():
+    """(integ2, D103) config/data.json's items as a sorted [(addr, item)] (cached)."""
+    if not _ITEMS:
+        with open(os.path.join(ROOT, "config", "data.json")) as f:
+            items = json.load(f)["items"]
+        _ITEMS.extend(sorted((int(x["addr"], 16), x) for x in items))
+    return _ITEMS
+
+
+def data_item(addr):
+    """(integ2, D103) The config/data.json item that starts at ADDR, or None."""
+    import bisect
+    its = _data_items()
+    i = bisect.bisect_left(its, (addr,), key=lambda t: (t[0],))
+    return its[i][1] if i < len(its) and its[i][0] == addr else None
+
+
+def _enclosing_item(lo, hi):
+    """(integ2, D103) (start, end) of a data.json item other than the one at LO that contains [LO, HI), or None."""
+    import bisect
+    its = _data_items()
+    i = bisect.bisect_right(its, (lo,), key=lambda t: (t[0],)) - 1
+    while i >= 0 and its[i][0] > lo - 0x100000:
+        a, x = its[i]
+        if a < lo and a + int(x.get("size") or 0) >= hi:
+            return a, a + int(x["size"])
+        i -= 1
+    return None
+
+
+def xbe_image(addr, n):
+    """(integ2, D103) The N bytes the game starts with at ADDR: the section's file bytes, zero fill past them."""
+    import equiv
+    xbe = equiv.Program.get().xbe
+    sec = xbe.section_of(addr)
+    out = bytearray(n)
+    if sec is None:
+        return bytes(out)
+    k = max(0, min(n, sec.va + sec.rsize - addr))
+    if k:
+        o = xbe.offset(addr)
+        out[:k] = xbe.data[o:o + k]
+    return bytes(out)
+
+
+def xbe_refs(lo, hi):
+    """(integ2, D103) [(site, kind)] of every 4-byte little-endian word of the XBE that holds an address in [lo, hi):
+    in a code section (an instruction's absolute operand, "code") or a data section (a pointer, "data"). A byte scan,
+    not a disassembly: a coincidental word is reported too (it can only ask for one more citation). Every 64 KB page
+    of the range is searched (rev5's R3c)."""
+    key = (lo, hi)
+    if key in _XREFS:
+        return _XREFS[key]
+    import equiv
+    xbe = equiv.Program.get().xbe
+    out = set()
+    for sec in xbe.sections:
+        d = xbe.data[sec.raw:sec.raw + sec.rsize]
+        kind = "code" if sec.executable else "data"
+        for t_ in range(lo >> 16, ((hi - 1) >> 16) + 1):
+            pat = t_.to_bytes(2, "little")
+            i = d.find(pat, 2)
+            while i >= 0:
+                v = int.from_bytes(d[i - 2:i + 2], "little")
+                if lo <= v < hi:
+                    out.add((sec.va + i - 2, kind))
+                i = d.find(pat, i + 1)
+    out = sorted(out)
+    _XREFS[key] = out
+    return out
+
+
+def _comment_block(c, near=False):
+    """(integ2, D103; rev5's R8) The text of declaration C and the comment block right above it, from the parse's own
+    tokens (the buffer the parse read, not the file as it is now). NEAR: whether its line or the line before carries
+    a comment citing a 0x address (D61's rule)."""
+    try:
+        tu = c.translation_unit
+        f = c.extent.start.file
+        l0, l1 = c.extent.start.line, c.extent.end.line
+        m = ci()
+        ext = m.SourceRange.from_locations(m.SourceLocation.from_position(tu, f, max(1, l0 - 200), 1),
+                                           m.SourceLocation.from_position(tu, f, l1, 1 << 12))
+        toks = [(t.kind.name, t.spelling, t.extent.start.line, t.extent.end.line) for t in tu.get_tokens(extent=ext)]
+    except Exception:   # noqa: BLE001
+        return False if near else ""
+    decl = [t for t in toks if l0 <= t[2] <= l1]
+    above = [t for t in toks if t[3] < l0]
+    block, line = [], l0
+    for t in reversed(above):
+        if t[0] != "COMMENT" or t[3] < line - 1:
+            break
+        block.insert(0, t)
+        line = t[2]
+    if near:
+        return any(t[0] == "COMMENT" and re.search(r"0x[0-9a-fA-F]{5,}", t[1]) and t[3] >= l0 - 1
+                   for t in block + decl)
+    return "\n".join(t[1] for t in block + decl)
+
+def census_window(addr, size):
+    """(integ2, D103) [lo, hi) the census searches for a table [addr, addr + size) (range_census)."""
+    lo, hi = addr - 0x40, addr + size + (0 if data_item(addr + size) is not None else 1)
+    enc = _enclosing_item(addr, addr + size)
+    if enc is not None:
+        lo, hi = min(lo, enc[0]), max(hi, enc[1])
+    return lo, hi
+
+
+def range_census(addr, size, text):
+    """(integ2, D103; rev5's R3) The XBE's references near a HULK_RANGE global [addr, addr + size) that its comment
+    block TEXT doesn't cite. Searched: from 0x40 below the table (a base biased below it) through its end, the
+    one-past-the-end address too unless another data.json item starts there, and the whole data.json item that
+    encloses the table, if one does. A code word inside a listed function is covered by citing that function's start;
+    a code word in no listed function only by citing its own site (an address at most 0x10 before the word: the
+    instruction); a data word pointing in only by citing that word. The roles (which reference writes) stay the
+    reviewer's to check. Returns the uncovered sites (empty: the census is complete)."""
+    import bisect
+    import equiv
+    prog = equiv.Program.get()
+    cited = sorted({int(x, 16) for x in re.findall(r"0x([0-9a-fA-F]{5,})", text)})
+    starts = sorted(prog.funcs)
+    lo, hi = census_window(addr, size)
+    missing = []
+    for site, kind in xbe_refs(lo, hi):
+        if kind == "data":
+            if site not in cited:
+                missing.append("data word 0x%08x" % site)
+            continue
+        i = bisect.bisect_right(starts, site) - 1
+        if i >= 0 and site < starts[i] + prog.funcs[starts[i]][0]:
+            if starts[i] not in cited:
+                missing.append("0x%08x (in 0x%08x)" % (site, starts[i]))
+            continue
+        if not any(site - 0x10 <= c <= site for c in cited):
+            missing.append("0x%08x (in no listed function)" % site)
+    return missing
+
+
+def global_model(tu, c):
+    """(integ2, D103) The data model of global C (a VAR_DECL of TU) from gdata_models, or None."""
+    if c is None:
+        return None
+    try:
+        u = _var_id(c)
+    except Exception:   # noqa: BLE001
+        return None
+    return gdata_models(tu).get(u)
+
+
+def _const_object(t):
+    """(integ2, D103) Is type T const (an array's elements, through every dimension)?"""
+    t = t.get_canonical()
+    while t.kind.name in ("CONSTANTARRAY", "INCOMPLETEARRAY"):
+        if t.is_const_qualified():
+            return True
+        t = t.element_type.get_canonical()
+    return t.is_const_qualified()
+
+
 def param_casts(fn):
     """{parameter index: T*} for the untyped parameters (void*, char*, pointer-width integers) that the body of FN
     casts to a pointer to something typed: `(LexState *)ls`, `{ T * x = (T *)__p0;`. The first such cast wins."""
@@ -2381,6 +2783,9 @@ def ast_digest(c32, c64):
         parts["rcasts" + n] = sorted([k, sp(v)] for k, v in return_casts(fn).items())
         parts["scasts" + n] = sorted([k, [sp(x) for x in v]] for k, v in return_casts(fn, True).items())
         parts["fcasts" + n] = sorted([list(k), sp(v)] for k, v in field_casts(fn).items())
+        # (integ2, D103; rev5's R4) the data annotations of every global of the parse (HULK_RANGE / HULK_RDATA on any
+        # declaration, with their comment blocks), not only of those the body names: a helper can read one
+        parts["gdata" + n] = gdata_digest_part(fn.translation_unit)
     return hashlib.sha1(json.dumps(parts, sort_keys=True, default=str).encode()).hexdigest()[:16]
 
 
@@ -2630,7 +3035,14 @@ class Side:
                 lay = self.chk.types.layout(c32.type, c64.type)
             except Unsupported:
                 lay = RAW
-        return h.get(("sym", key), "global", lay, count=1, glob=True)
+        mod = self.chk.global_model(key) if "gdata" not in OFF else None
+        if mod is not None and (view is not None or lay is RAW or lay.raw):
+            raise Unsupported("%s on %s: the global has no typed layout of its own (a view, or untyped)" % (
+                "HULK_RANGE" if mod[0] == "range" else "HULK_RDATA", key))
+        o = h.get(("sym", key), "global", lay, count=1, glob=True)
+        if mod is not None:
+            self.chk.apply_global_model(o, key, mod, lay, c32)
+        return o
 
     def _unmapped(self, uc, access, address, size, value, data):
         if access == UC_MEM_FETCH_UNMAPPED:
@@ -2703,7 +3115,7 @@ class Side:
         if o is None:
             self.oob = ("heap gap", address)
             return
-        if off + size > o.size(self.bits) and o.init is None:
+        if off + size > o.size(self.bits) and (o.init is None or o.rdata is not None):
             self.oob = (describe(o), off)
             return
         if self.bits == 64 and o.lay.raw and size == 8 and self.rawread is None and o.init is None:
@@ -2929,6 +3341,13 @@ class Side:
                     self.stop = ("crash", "access to 0x%x at %s: not an address (a pointer read from 32-bit data?)" % (self.fault, where))
                 else:
                     self.stop = ("crash", "%s at %s" % (e, where))
+        for o_ in self.heap.objs:
+            if o_.rdata is not None:
+                # (integ2, D103) HULK_RDATA says nothing stores into the table: a store that does refutes it
+                lo_, hi_ = o_.base(b), o_.base(b) + o_.size(b)
+                hit_ = next((a_ for a_, n_ in self.writes if a_ < hi_ and a_ + n_ > lo_), None)
+                if hit_ is not None:
+                    raise Unsupported("HULK_RDATA: the %d-bit run stored into %s at +0x%x" % (b, o_.rdata, hit_ - lo_))
         pc = self.reg(X.UC_X86_REG_EIP if b == 32 else X.UC_X86_REG_RIP)
         out = {"events": self.events, "cov": self.cov, "flags": self.flags, "side": self}
         nullw = next((a for a, n in self.writes if a < NULL_HI), None)
@@ -3916,6 +4335,8 @@ def _verify64(src, addr, symbol=None, n_inputs=200, seeds=None, time_budget=120,
         rep["hulk_into"] = {str(k): v for k, v in sorted(chk.param_into.items())}
     if getattr(chk, "param_range", None):
         rep["hulk_range_params"] = {str(k): list(v) for k, v in sorted(chk.param_range.items())}
+    if getattr(chk, "gdata_used", None):
+        rep["hulk_data"] = {k: v for k, v in sorted(chk.gdata_used.items())}
     rep["inputs"], rep["completed"], rep["skipped"] = res["inputs"], res["completed"], res["skipped"]
     if res.get("skip_first"):
         rep["skip_first"] = res["skip_first"]

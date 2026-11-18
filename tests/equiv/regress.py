@@ -1311,6 +1311,40 @@ X64_CASES = {
     "0x000ac780_x64_paramrange_opcall3": ("unsupported", "tool", "CALL_EXPR", 0),
     # (rev5, D61 review) HULK_RANGE whose declaration names no 0x address: unsupported (rangecheck), not drawn from the range
     "0x002775b0_x64_bucket_range_nocite": ("unsupported", None, "writer sites", 0),
+    # (integ2, D103) data annotations on a global's declaration. HULK_RANGE on the Perlin permutation table (cited writer
+    # 0x003572b0): its words drawn 0..255, equivalent; _none: the control crashes on 64-bit (seed 123); _uncited,
+    # _both (HULK_RANGE and HULK_RDATA on one global), _float (a float table), _rdata (HULK_RDATA on a writable
+    # .data table) refused; _wide (0..0x7fffffff): no input completes, the annotation is no bypass
+    "0x00356fa0_x64_grange": ("equivalent", None, None, 100),
+    "0x00356fa0_x64_grange_none": ("fail", "crash64", "not an address", 0, {"seeds": [123]}),
+    "0x00356fa0_x64_grange_uncited": ("unsupported", "tool", "citing the writer sites", 0),
+    "0x00356fa0_x64_grange_both": ("unsupported", "tool", "different data annotations", 0),
+    "0x00356fa0_x64_grange_float": ("unsupported", "tool", "not an integer", 0),
+    "0x00356fa0_x64_grange_rdata": ("unsupported", "tool", "read-only data section", 0),
+    "0x00356fa0_x64_grange_wide": ("unsupported", "tool", "no input completed", 0),
+    # (D103 census, rev5's R3: mandatory) the citation must name every XBE function referencing the table: the writer
+    # alone is refused; _c30: a site in no listed function (0x00356de0's loads) needs its own address, not an earlier
+    # listed function's (R3a); _below (0x001fe380's table, its reader cited): code words within 0x40 below the table
+    # (R3b). R1: _initial, the XBE's initial words outside the range. R2: _rdata_vtable ([8] reaching into the vftable
+    # at 0x00425270: no data.json item of that size), _rdata_text (code bytes: no read-only data section)
+    "0x00356fa0_x64_grange_census": ("unsupported", "tool", "doesn't cite the XBE's references", 0),
+    "0x00356fa0_x64_grange_c30": ("unsupported", "tool", "in no listed function", 0),
+    "0x001fe380_x64_grange_below": ("unsupported", "tool", "0x001fdd9c (in 0x001fdc90)", 0),
+    "0x001fe380_x64_grange_initial": ("unsupported", "tool", "initial word at +0x8 is 4", 0),
+    "0x001fe380_x64_rdata_vtable": ("unsupported", "tool", "no item of 32 bytes", 0),
+    "0x001fe380_x64_rdata_text": ("unsupported", "tool", "not file data of a read-only data section", 0),
+    # (rev5's R7) an "int" table whose words are image addresses (0x0040cc74): pointers natively, refused
+    "0x001fe380_x64_rdata_addrs": ("unsupported", "tool", "an address in the XBE's", 0),
+    # HULK_RDATA on 0x001fe380's const .rdata table {2, 3, 4, 5}: both runs start from the XBE's bytes, equivalent;
+    # _none: the control (fuzzed words index lists[] past its end) is inconclusive; refused: a declaration not const, a
+    # store into the table, a pointer table, a table in a writable section, an annotation on one parse only
+    "0x001fe380_x64_rdata": ("equivalent", None, None, 20),
+    "0x001fe380_x64_rdata_none": ("inconclusive", None, None, 0),
+    "0x001fe380_x64_rdata_nonconst": ("unsupported", "tool", "not declared const", 0),
+    "0x001fe380_x64_rdata_store": ("unsupported", "tool", "stored into DAT_00425260", 0),
+    "0x001fe380_x64_rdata_ptrs": ("unsupported", "tool", "size differs between the targets", 0),
+    "0x001fe380_x64_rdata_writable": ("unsupported", "tool", "read-only data section", 0),
+    "0x001fe380_x64_rdata_oneside": ("unsupported", "tool", "parses disagree", 0),
 }
 
 # cases that must also complete this many inputs (the promotion bar is 50)

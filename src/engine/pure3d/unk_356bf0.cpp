@@ -14,6 +14,12 @@
 namespace fn_f10b45e7 {} using namespace fn_f10b45e7;
 #include "engine/pure3d.h"
 
+// (integ2, D103) The permutation table's words are 0..255. Before NoiseInit runs the table is .data zero fill; the
+// XBE's other references to it (0x00356e50; 0x00356fa0; the unreferenced 1-D noise at 0x00356de0, which is in no
+// listed function: its loads 0x00356dfe and 0x00356e0b) only read it, and no data word points into it. Its one writer, NoiseInit 0x003572b0, stores p[i] = i (i < 0x100), swaps two entries 255 times and
+// copies p[0..0x101] to p[0x100..0x201]: writer 0x003572b0
+extern "C" int DAT_0056bfc8[514] HULK_RANGE(0, 255);
+
 // ---- declarations shared by the functions below
 namespace fn_f10b45e7 {
 struct Grad_356e50 {

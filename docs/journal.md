@@ -1271,3 +1271,23 @@ blocks fight::Action's whole family: the records come first there.
   `SweepTrack_DeleteThis`, `thunk`) are unbound natively: call them by their address names or as defined (the XDK's
   `D3DResource_Release`). A new `thunk_FUN_00267090` spelling needs a local map entry for the call's target thunk
   (the Wine map binds such names by position).
+
+## 2026-11-18 integ2: data annotations on globals, the last two data-driven crash64 accepts (D103)
+- Both baseline accepts took their bad index from a **word of game data**, not from a parameter, so D102's
+  parameter HULK_RANGE could not fix them:
+  - 0x00356fa0 (Perlin noise): the permutation table DAT_0056bfc8 is writable .data. Its only writer is NoiseInit
+    0x003572b0, which stores a permutation of 0..255 and a copy of it.
+  - 0x001fe380: DAT_00425260 is the const .rdata table {2, 3, 4, 5}, read only by this function.
+- **Dead code:** an XBE scan of every reference into the Perlin table also found 0x00356de0, a 1-D noise function
+  that nothing calls. It is linked but missing from the function list.
+- **The fix**, applied on `--x64` runs only:
+  - `HULK_RANGE` on a TU's redeclaration of a global, with a mandatory reference census. The citation must name
+    every function in the XBE that references the table.
+  - `HULK_RDATA` on a const table in a read-only data section: both runs start from the XBE's bytes.
+- **rev5's three rounds** found the gaps fixed here:
+  - an MSVC C2872: a redeclaration inside a namespace brought in with `using` is ambiguous with the global one;
+  - pointer tables that data.json types as int;
+  - the census window and the citation rule for dead code;
+  - stale digests: a global read through a helper, an edited comment, a changed data.json.
+- **Lesson:** a table's data.json type says nothing about its words. 37 ".rdata int" items hold image addresses
+  (SEH scope tables, {id, string} pairs). Read the image before trusting a scalar type.
