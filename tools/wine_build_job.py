@@ -397,9 +397,14 @@ def cmd_submit(a):
     seed = None
     if a.state.startswith("seed:"):
         seed = seed_files(a.state[5:])
-        if not a.host or a.host != seed[1]["host"]:
-            print("note: control %s ran on %s; pin the proof there (--host %s) so the gate compares like with like" % (
-                seed[1]["job"], seed[1]["host"], seed[1]["host"]), file=sys.stderr)
+        # (D130) a proof must run on its control's host (CLAUDE.md "Builds and proofs"): pin it there unless --host says
+        # otherwise on purpose, which needs --other-host
+        if not a.host:
+            a.host = seed[1]["host"]
+            print("pinned to %s, control %s's host (--state seed)" % (a.host, seed[1]["job"]), file=sys.stderr)
+        elif a.host != seed[1]["host"] and not a.other_host:
+            sys.exit("control %s ran on %s, not %s: a proof must run on its control's host (pass --other-host to mean it)" % (
+                seed[1]["job"], seed[1]["host"], a.host))
     if a.data_src:
         os.environ["HULK_NB_DATA_SRC"] = a.data_src
     if a.sdl_src:
@@ -643,6 +648,7 @@ def main():
     s.add_argument("--name", required=True)
     s.add_argument("--workspace", help="a private workspace (default: this checkout); only files differing from HEAD travel")
     s.add_argument("--host", help="pin to this host (a hosts.json name, or local); default: the queue picks a host when the job starts")
+    s.add_argument("--other-host", action="store_true", help="with --state seed: allow a --host other than the control's (D130)")
     s.add_argument("--affinity-wait", type=int, default=900,
                    help="seconds only the host with this lineage's state may take the job (0: any host at once)")
     s.add_argument("--live", nargs="*", metavar="PATH", help="paths (tools, src/platform...) taken from this checkout, not the workspace")
