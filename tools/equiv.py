@@ -41,6 +41,28 @@ XBE_PATH = os.path.join(ROOT, "isos/extracted/default.xbe")
 FUNCS_CSV = os.path.join(ROOT, "build/functions.csv")
 RTTI_JSON = os.path.join(ROOT, "build/rtti.json")
 XBSYMS = os.path.join(ROOT, "build/xbsymbols.txt")
+# (integ2, D101) the XDK name -> address list is a local input (made from the player's XBE): tools/jobq.py ships the
+# laptop's copy with every queue job as .inputs/xbsymbols.txt, so every host binds XDK names the same way
+XBSYMS_SHIPPED = os.path.join(ROOT, ".inputs/xbsymbols.txt")
+
+
+def xbsyms_path():
+    """(integ2, D101) The XDK symbol list this checker binds with: the shipped copy in a queue job, else the checkout's.
+    None when neither exists."""
+    for p in (XBSYMS_SHIPPED, XBSYMS):
+        if os.path.exists(p):
+            return p
+    return None
+
+
+def xbsyms_digest():
+    """(integ2, D101) A digest of the XDK symbol list (part of the checker's digest and of the views' and the 64-bit
+    gate's cache keys): a host with another list, or none, never shares a cached view or result."""
+    p = xbsyms_path()
+    if p is None:
+        return "none"
+    with open(p, "rb") as f:
+        return hashlib.sha1(f.read()).hexdigest()[:12]
 GHIDRA_C = os.path.join(ROOT, "build/farm/ghidra_c")
 
 M32 = 0xFFFFFFFF
@@ -157,6 +179,17 @@ class Program:
         # a check differ by host (0x00320d30's D3D callees: `xdk` on the laptop; `paired` / `ordered` on the hosts, at
         # the same addresses, so the checker view and its proof ledger entry differed). The proofs are the hosts', so
         # every host binds the same way: by the code, never by this file (it is not read; xbsyms stays empty)
+        # (integ2, D101; user decision c, replacing D91's removal) read again, from the copy every queue job ships
+        # (rev5: without it 0x00320d30 calling D3D_BlockOnTime for D3D_CheckDeviceFormat passed). A checker run with
+        # no list refuses rather than binding differently from the hosts that have one
+        xp_ = xbsyms_path()
+        if xp_ is None:
+            raise SystemExit("equiv: no XDK symbol list (build/xbsymbols.txt, or .inputs/xbsymbols.txt in a queue job): "
+                             "a checker without it binds XDK names differently (D101)")
+        for line in open(xp_):
+            m = re.match(r"\s*(\w+)__(\w+)\s*=\s*0x([0-9a-fA-F]+)", line)
+            if m:
+                self.xbsyms.setdefault(m.group(2), int(m.group(3), 16))
         self.md = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
         self.md.detail = True
         self._page_cache = {}
@@ -9901,7 +9934,9 @@ PROOF_DRAW_CAP = 40000      # (integ2, D69, D81: was 30,000) past it, for inputs
 
 def _checker_digest():
     with open(os.path.abspath(__file__), "rb") as f:
-        return hashlib.sha1(f.read()).hexdigest()[:12]
+        h = hashlib.sha1(f.read())
+    h.update(b"\0xbsyms " + xbsyms_digest().encode())      # (integ2, D101) the XDK list it binds with
+    return h.hexdigest()[:12]
 
 
 def checker_view(native, fsym, sig, ret_kind, void_eax, convs, rep, psizes, decls, issues):

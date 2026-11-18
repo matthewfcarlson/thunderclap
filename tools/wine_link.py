@@ -215,6 +215,10 @@ def _checker_key(unit):
         for f in ("equiv.py", "tree_tu.py", "tree_index.py"):
             with open(os.path.join(ROOT, "tools", f), "rb") as fh:
                 h.update(hashlib.sha1(fh.read()).digest())
+        # (integ2, D101) the XDK symbol list equiv.py binds names with (a missing list aborts the map build: equiv.py
+        # raises SystemExit, which _equiv_job does not catch)
+        import equiv
+        h.update(b"xbsyms " + equiv.xbsyms_digest().encode())
         _CHECKER["code"] = h.hexdigest()
     return hashlib.sha1(_CHECKER["code"].encode() + hashlib.sha1(unit.encode()).digest()).hexdigest()
 

@@ -835,6 +835,15 @@ CASES = {
     # _rotneg: differs only when a's diagonal words all hold 0xffc00000 (the fixed all-0xffc00000 run)
     "0x0022ca90_native_defnan_oddpay": ("fail", "pre_trap_missing", 0, {"native": True, "n_inputs": 300}),
     "0x0022ca90_native_defnan_rotneg": ("fail", None, 0, {"native": True, "n_inputs": 300}),
+    # (integ2, D101) rev5's mutant: D3D_BlockOnTime called where the original calls D3D_CheckDeviceFormat. The XDK symbol
+    # list (shipped with every job) binds each name to its own export: the wrong callee is a difference
+    # (rev5's review) _samepop: D3DDevice_Clear, which pops 24 bytes as D3D_CheckDeviceFormat does: no pop check can
+    # catch it, only the binding ("call #2 went to ...")
+    "0x00320d30_xdk_samepop": ("fail", "went to", 0, {"n_inputs": 200}),
+    "0x00320d30_xdk_samepop_wine": ("fail", "went to", 0, {"src": "0x00320d30_xdk_samepop", "native": True, "n_inputs": 200}),
+    "0x00320d30_xdk_wrongcallee": ("fail", None, 0, {"n_inputs": 200}),
+    "0x00320d30_xdk_wrongcallee_wine": ("fail", None, 0, {"src": "0x00320d30_xdk_wrongcallee", "native": True,
+                                                           "n_inputs": 200}),
     "0x0022ca90_native_defnan_off": ("fail", "ours fault", 0, {"src": "0x0022ca90_native_defnan", "native": True,
                                                                "n_inputs": 1000, "equiv_off": "pre"}),
     # (rev3, D39 review) an int -2 where the original stores -1 (both qNaN-shaped as floats): a difference
@@ -1274,6 +1283,12 @@ X64_CASES = {
     "0x000ac780_x64_fieldcast_wrongview": ("unsupported", "view_trusted", None, 0),
     "0x000ac780_x64_fieldcast_declwins": ("fail", None, None, 0),
     "0x000ac780_x64_fieldcast_realstraddle": ("unsupported", "view_straddle", None, 0),
+    # (integ2, D102) a heap-id parameter annotated HULK_RANGE(0, 45) (DAT_00527c60's 46 slots, cited): drawn in range, no
+    # 64-bit crash (the object it reaches is a view over a void* allocator: view_trusted); _uncited: refused
+    "0x00266f20_x64_paramrange": ("unsupported", "view_trusted", None, 0),
+    "0x00266f20_x64_paramrange_uncited": ("unsupported", "tool", "citing its evidence", 0),
+    # (rev5's review) a range past the cited table (DAT_00527c60[46]: HULK_RANGE(0, 46)) is refused
+    "0x00266f20_x64_paramrange_pasttable": ("unsupported", "tool", "reaches past the cited table", 0),
     # (rev5, D61 review) HULK_RANGE whose declaration names no 0x address: unsupported (rangecheck), not drawn from the range
     "0x002775b0_x64_bucket_range_nocite": ("unsupported", None, "writer sites", 0),
 }

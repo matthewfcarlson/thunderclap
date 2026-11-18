@@ -255,6 +255,11 @@ def make_job(name, cmd, needs="any", files=None, outs=None, limit=1800, slots=1,
         extra = tree_tu.submit_guard(cmd, files or {}, commit or head_commit())
         if extra:
             files = dict(files or {}, **extra)
+    xb_ = os.path.join(ROOT, "build", "xbsymbols.txt")
+    if os.path.exists(xb_) and ".inputs/xbsymbols.txt" not in (files or {}):
+        # (integ2, D101) every job gets the laptop's XDK symbol list (a local input made from the player's XBE, as the
+        # Wine build ships it): equiv.py binds XDK names with it and refuses to run without it
+        files = dict(files or {}, **{".inputs/xbsymbols.txt": [store_file(xb_), 0o644]})
     return dict(name=name, cmd=json.dumps(cmd), needs=needs, files=json.dumps(files or {}),
                 outs=json.dumps(outs or []), limit_s=int(limit), slots=max(1, int(slots)),
                 max_attempts=max(1, int(attempts)), prio=int(prio), base_commit=commit,

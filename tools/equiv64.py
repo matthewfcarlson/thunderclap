@@ -1533,6 +1533,7 @@ class Checker:
         self.ddtor = None
         self.param_casts = {}
         self.param_into = {}    # (pick() sets it; its deleting-destructor / early paths return before that)
+        self.param_range = {}   # (integ2, D102)
         if symbol is None:
             symbol = self._pick_by_original()
         if symbol and symbol.startswith("??_G") and symbol not in self.img[32].funcs:
@@ -1749,6 +1750,12 @@ class Checker:
             for k in a32:
                 if k in a64:
                     self.param_casts[k] = (a32[k], a64[k])
+        self.param_range = {}
+        if "paramrange" not in OFF:
+            r32, r64 = param_range(c32.get_definition() or c32), param_range(c64.get_definition() or c64)
+            if r32 != r64:
+                raise Unsupported("HULK_RANGE: the 32- and 64-bit parses disagree (%s / %s)" % (r32, r64))
+            self.param_range = r32
         self.param_into = {}
         a32, a64 = param_into(c32.get_definition() or c32), param_into(c64.get_definition() or c64)
         if a32 != a64 and "intocheck" not in OFF:
@@ -2090,6 +2097,73 @@ def param_into(fn):
     return out
 
 
+def _cited_tables(p, fn):
+    """(integ2, D102; rev5's review) [(address, element count)] of the 0x addresses cited on parameter P's lines (and the
+    line before) that name an array the translation unit declares, `DAT_00527c60[46]`."""
+    K = ci().CursorKind
+    try:
+        f = p.extent.start.file.name
+        lines = open(f, errors="replace").read().split("\n")
+        lo_ = p.extent.start.line - 1
+        while lo_ > 0 and lines[lo_ - 1].lstrip().startswith("//"):
+            lo_ -= 1            # (the whole comment block above the declaration)
+        txt = "\n".join(lines[lo_:p.extent.end.line])
+    except Exception:   # noqa: BLE001
+        return []
+    want = {int(x, 16) for x in re.findall(r"0x([0-9a-fA-F]{5,})", txt)}
+    if not want:
+        return []
+    out = []
+
+    def decls(c, depth=0):
+        for ch in c.get_children():
+            if ch.kind == K.VAR_DECL:
+                yield ch
+            elif ch.kind in (K.LINKAGE_SPEC, K.NAMESPACE, K.UNEXPOSED_DECL) and depth < 4:
+                yield from decls(ch, depth + 1)
+    for c in decls(fn.translation_unit.cursor):
+        m = re.match(r"^DAT_([0-9a-fA-F]{8})$", c.spelling or "")
+        if not m or int(m.group(1), 16) not in want:
+            continue
+        t = c.type.get_canonical()
+        if t.kind.name == "CONSTANTARRAY":
+            out.append((int(m.group(1), 16), t.get_array_size()))
+    return out
+
+
+def param_range(fn):
+    """(integ2, D102) {parameter index: (lo, hi)} for the integer parameters annotated HULK_RANGE(lo, hi) in FN's
+    definition (`void* FUN_00266e00(int a HULK_RANGE(0, 45), int b)`): the values its callers pass, where the code uses
+    the parameter as an index into a table of known size. As for a field (D61), the declaration must cite its evidence
+    (a comment on its lines or the line before naming a 0x address: the table, the call sites); the generator draws the
+    argument from the range on both sides, nothing compared changes. Raises Unsupported for an uncited annotation or
+    one on a parameter that is not an integer."""
+    K = ci().CursorKind
+    out = {}
+    params = [c for c in fn.get_children() if c.kind == K.PARM_DECL]
+    for i, p in enumerate(params):
+        for a in p.get_children():
+            if a.kind == K.ANNOTATE_ATTR:
+                m = RANGE_ATTR.match(a.spelling or "")
+                if not m:
+                    continue
+                t = p.type.get_canonical()
+                if t.kind.name not in INT_KINDS:
+                    raise Unsupported("HULK_RANGE on parameter %s of %s, not an integer" % (p.spelling, fn.spelling))
+                if not _cites_writers(p):
+                    raise Unsupported("HULK_RANGE on parameter %s of %s without a comment citing its evidence (0x "
+                                      "addresses)" % (p.spelling, fn.spelling))
+                lo, hi = int(m.group(1)), int(m.group(2))
+                # (rev5's review) a cited address that names a table of known size (`MemoryHeapSlot DAT_00527c60[46]`)
+                # bounds the range: an index range past the table is refused, not drawn
+                for a_, n_ in _cited_tables(p, fn):
+                    if lo < 0 or hi >= n_:
+                        raise Unsupported("HULK_RANGE(%d, %d) on parameter %s of %s reaches past the cited table "
+                                          "DAT_%08x[%d]" % (lo, hi, p.spelling, fn.spelling, a_, n_))
+                out[i] = (lo, hi)
+    return out
+
+
 def param_casts(fn):
     """{parameter index: T*} for the untyped parameters (void*, char*, pointer-width integers) that the body of FN
     casts to a pointer to something typed: `(LexState *)ls`, `{ T * x = (T *)__p0;`. The first such cast wins."""
@@ -2149,6 +2223,10 @@ def ast_digest(c32, c64):
         except Unsupported as e:
             parts["into" + n] = "unsupported: %s" % e
         parts["pcasts" + n] = sorted([str(k), sp(v)] for k, v in param_casts(fn).items())
+        try:
+            parts["prange" + n] = sorted([str(k), list(v)] for k, v in param_range(fn).items())
+        except Unsupported as e:
+            parts["prange" + n] = "unsupported: %s" % e
         parts["rcasts" + n] = sorted([k, sp(v)] for k, v in return_casts(fn).items())
         parts["scasts" + n] = sorted([k, [sp(x) for x in v]] for k, v in return_casts(fn, True).items())
         parts["fcasts" + n] = sorted([list(k), sp(v)] for k, v in field_casts(fn).items())
@@ -2661,7 +2739,13 @@ class Side:
                     # a void* / hulk_intptr parameter the function casts to T*: generated as a T*
                     pt = chk.param_casts[pi]
                 data = None
-                if pi in chk.param_into:
+                if pi in chk.param_range:
+                    # (integ2, D102) an integer parameter annotated HULK_RANGE: drawn from the range its callers pass
+                    lo_, hi_ = chk.param_range[pi]
+                    v_ = lo_ + Rng(self.seed, "arg", i).below(hi_ - lo_ + 1)
+                    sz_ = max(4, pt[0 if b == 32 else 1].get_canonical().get_size())
+                    data = (v_ & ((1 << (8 * sz_)) - 1)).to_bytes(sz_, "little")
+                if data is None and pi in chk.param_into:
                     data = self.arg_into(chk.param_into[pi], Rng(self.seed, "arg", i))
                 if data is None:
                     data = self.arg_data(pt, ("arg", i), Rng(self.seed, "arg", i))
@@ -3679,6 +3763,8 @@ def _verify64(src, addr, symbol=None, n_inputs=200, seeds=None, time_budget=120,
         rep["hulk_range"] = sorted(["%s::%s" % k, list(v)] for k, v in chk.types.ranges_used.items())
     if getattr(chk, "param_into", None):
         rep["hulk_into"] = {str(k): v for k, v in sorted(chk.param_into.items())}
+    if getattr(chk, "param_range", None):
+        rep["hulk_range_params"] = {str(k): list(v) for k, v in sorted(chk.param_range.items())}
     rep["inputs"], rep["completed"], rep["skipped"] = res["inputs"], res["completed"], res["skipped"]
     if res.get("skip_first"):
         rep["skip_first"] = res["skip_first"]

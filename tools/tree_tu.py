@@ -709,6 +709,8 @@ def _view_base_key():
     if not _VK:
         import importlib
         h = hashlib.sha1(b"view1\0" + os.environ.get("EQUIV_OFF", "").encode() + b"\0" + _code_key().encode())
+        import equiv
+        h.update(b"xbsyms " + equiv.xbsyms_digest().encode())     # (integ2, D101) the XDK list views bind with
         tools = os.path.dirname(os.path.abspath(__file__))
         for m in VIEW_MODULES:
             p = os.path.join(tools, m + ".py")

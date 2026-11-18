@@ -1432,6 +1432,16 @@ forward).
 file only the laptop has: there 0x00320d30's D3D callees bound `xdk`, on the queue hosts `paired` / `ordered` (the same
 addresses), so its checker view (`@v`) differed by host and a laptop check reported a proven block unproven. The
 checker no longer reads the file; every host binds by the code alone, as the hosts (where proofs run) always did.
+**Superseded by D101 (user decision c, rev5's review):** dropping the file lost a real check (rev5's mutant
+0x00320d30 calling D3D_BlockOnTime for D3D_CheckDeviceFormat passed: the name paired with the original's call). The
+list is a shipped input instead: tools/jobq.py's make_job adds the laptop's `build/xbsymbols.txt` to every queue job as
+`.inputs/xbsymbols.txt`, equiv.py reads that copy (else the checkout's) and refuses to run without one, and its digest
+enters the checker digest, the views' cache key (tree_tu `_view_base_key`), the 64-bit gate's `checker_key` and the
+Wine build's binding-map key (wine_link `_checker_key`: the map binds by the list too; a missing list aborts the map
+build, equiv.py's SystemExit is not caught there). Every host binds XDK names to their own exports (`xdk`) again.
+Cases (must fail, both modes) `0x00320d30_xdk_wrongcallee` and rev5's `_samepop` (D3DDevice_Clear, which pops 24 bytes
+as the right callee does: only the binding catches it). The blocks whose view the list changes (88438: 0x00259be0,
+0x002685a0, 0x002725e0, 0x00278500, 0x00320540, 0x00320d30) were proven again with it.
 
 (integ1, D54) **Preconditions: `// pre:` and HULK_PRE_NOTNAN.** NOT ADOPTED until the review's changes are re-reviewed
 (rev5 signed off with changes on 2ed1ec7e6; the changes below are its items).
@@ -2205,6 +2215,21 @@ from the annotated domain; nothing compared changes:
   two heaps place differently (0x0008ff00's `layout`).
 Regress: `0x002775b0_x64_bucket_range` (equivalent), `0x0008ff00_x64_into_pool` (equivalent) and
 `0x0008ff00_x64_into_none` (the same without the annotation: fail, layout).
+(integ2, D102) **`HULK_RANGE` on a parameter.** `void* FUN_00266e00(int a HULK_RANGE(0, 45), int b)`: an integer
+parameter the code uses as an index into a table of known size is drawn from the range on both sides
+(`param_range`), as a field is. The parameter's declaration (its line or the one before) must cite the evidence with a
+0x address (the table, the call sites), else the run is unsupported; the 32- and 64-bit parses must agree. A cited
+address that names an array the TU declares (`MemoryHeapSlot DAT_00527c60[46]`, anywhere in the comment block above
+the declaration) bounds the range: lo >= 0 and hi < the element count, else unsupported (rev5's review; case
+`_pasttable`). Each function cites its own call sites. Used by
+0x00266e00 / 0x00266f00 / 0x00266f20 (DAT_00527c60 has 46 slots; rev5 found the 98 call sites pass the constants
+a constant, the current heap 0x004cdbb0, a caller's parameter or an object field): a fuzzed negative heap id had crashed
+the 64-bit run only (non-canonical address); with the range they run without it (view_trusted: the slot's `void*`
+allocator is read through a view). A wider range still crashes on 32-bit (no input completes: never a pass); without
+the annotation the crash64 stands (jobs 88358 / 88362 on the real TU). Cases `0x00266f20_x64_paramrange`,
+`_uncited` and `_pasttable` (refused). EQ64_OFF=paramrange ignores it. The report lists them (`hulk_range_params`); the gate's AST
+digest covers them (D97).
+
 (integ1, rev5's review, D61) Checks on the annotations: `HULK_RANGE` only on a scalar integer field whose declaration has a
 comment naming a 0x address, meant to be the field's writer sites; the checker only sees that an address is cited, not
 that it is a writer (reviewers check that; the bucket case cites the constructor 0x00277a70, its only writer). `HULK_INTO`

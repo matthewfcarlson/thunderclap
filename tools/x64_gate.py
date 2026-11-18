@@ -543,6 +543,8 @@ def checker_key():
         h.update(os.environ.get("EQ64_OFF", "").encode() + b"\0")
         for m in ("equiv64.py", "equiv_batch.py", "compare.py", "clang_probe.py"):
             h.update(_sha_file(os.path.join(ROOT, "tools", m)).encode())
+        import equiv
+        h.update(b"xbsyms " + equiv.xbsyms_digest().encode() + b"\0")     # (integ2, D101)
         _, srcs, _ = equiv_closure()
         for n_ in sorted(srcs):
             h.update(n_.encode() + b"\0" + srcs[n_].encode())
