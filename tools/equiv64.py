@@ -2131,6 +2131,65 @@ def _cited_tables(p, fn):
     return out
 
 
+def _range_uses(fn, p):
+    """(integ2, D102; rev5's design) [(array name, element count)] of the subscripts FN's body indexes with parameter P
+    alone (through parentheses, casts and implicit conversions only). Every other reference to P must be a whole call
+    argument or an operand of a comparison or a switch; anything else raises Unsupported ("can't be derived from its
+    uses")."""
+    K = ci().CursorKind
+    THRU = (K.PAREN_EXPR, K.UNEXPOSED_EXPR, K.CSTYLE_CAST_EXPR, K.CXX_STATIC_CAST_EXPR, K.CXX_FUNCTIONAL_CAST_EXPR)
+    CMP = ("EQ", "NE", "LT", "GT", "LE", "GE")
+    out = []
+
+    def const_array(c):
+        while c.kind in THRU:
+            k = [x for x in c.get_children() if x.kind != K.TYPE_REF]
+            if len(k) != 1:
+                return None
+            c = k[0]
+        if c.kind == K.DECL_REF_EXPR and c.referenced is not None and c.referenced.kind == K.VAR_DECL:
+            t = c.referenced.type.get_canonical()
+            if t.kind.name == "CONSTANTARRAY":
+                return c.referenced.spelling, t.get_array_size()
+        return None
+
+    def visit(c, stack, depth=0):
+        if depth > 300:
+            raise Unsupported("HULK_RANGE: the body is too deep to check the uses of %s" % p.spelling)
+        if c.kind == K.DECL_REF_EXPR and c.referenced is not None and c.referenced.hash == p.hash:
+            # climb the transparent wrappers to the first real parent
+            child, i = c, len(stack) - 1
+            while i >= 0 and stack[i].kind in THRU:
+                child, i = stack[i], i - 1
+            par = stack[i] if i >= 0 else None
+            kids = list(par.get_children()) if par is not None else []
+            if par is not None and par.kind == K.ARRAY_SUBSCRIPT_EXPR and len(kids) == 2 and kids[1].hash == child.hash:
+                b_ = const_array(kids[0])
+                if b_ is None:
+                    raise Unsupported("HULK_RANGE: the bound on %s can't be derived from its uses (a subscript on "
+                                      "something that is no constant array)" % p.spelling)
+                out.append(b_)
+            elif par is not None and par.kind == K.CALL_EXPR and kids and kids[0].hash != child.hash:
+                pass        # (ii) a whole call argument
+            elif par is not None and par.kind == K.BINARY_OPERATOR and \
+                    getattr(getattr(par, "binary_operator", None), "name", "") in CMP:
+                pass        # (iii) a comparison operand
+            elif par is not None and par.kind == K.SWITCH_STMT and kids and kids[0].hash == child.hash:
+                pass        # (iii) a switch's condition
+            else:
+                raise Unsupported("HULK_RANGE: the bound on %s can't be derived from its uses (%s at line %d)" % (
+                    p.spelling, par.kind.name if par is not None else "?", c.location.line))
+            return
+        stack.append(c)
+        for ch in c.get_children():
+            visit(ch, stack, depth + 1)
+        stack.pop()
+    for ch in fn.get_children():
+        if ch.kind == K.COMPOUND_STMT:
+            visit(ch, [])
+    return out
+
+
 def _subscript_tables(fn, p):
     """(integ2, D102; rev5's spot-check) [(name, element count)] of the constant arrays FN's body subscripts with an
     index expression that refers to parameter P (`DAT_00527c60[a].allocator`, `t[i + 1]`)."""
@@ -2202,12 +2261,19 @@ def param_range(fn):
                     if lo < 0 or hi >= n_:
                         raise Unsupported("HULK_RANGE(%d, %d) on parameter %s of %s reaches past the cited table "
                                           "DAT_%08x[%d]" % (lo, hi, p.spelling, fn.spelling, a_, n_))
-                # (rev5's spot-check) and every table the body indexes with it, cited or not: the code, not the
-                # comment, says which tables the parameter indexes (rev5's _nocitetable left the table uncited)
-                for nm_, n_ in _subscript_tables(fn, p):
+                # (rev5's spot-checks, his design) every use of the parameter in the body must be one the bound can be
+                # read from or that can't widen it: (i) the whole index of a subscript on a constant array the TU
+                # declares (bounded by its count), (ii) a whole argument of a call, (iii) an operand of a comparison or
+                # a switch. Anything else (a copy, index + 1, index * 2, pointer arithmetic) is refused, and there must
+                # be a use of kind (i) unless a cited table bounds the range
+                tabs_ = _range_uses(fn, p)
+                for nm_, n_ in tabs_:
                     if lo < 0 or hi >= n_:
                         raise Unsupported("HULK_RANGE(%d, %d) on parameter %s of %s reaches past %s[%d], which the "
                                           "body indexes with it" % (lo, hi, p.spelling, fn.spelling, nm_, n_))
+                if not tabs_ and not _cited_tables(p, fn):
+                    raise Unsupported("HULK_RANGE: the bound on %s can't be derived from its uses (no table subscript "
+                                      "with it, none cited)" % p.spelling)
                 out[i] = (lo, hi)
     return out
 

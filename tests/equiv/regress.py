@@ -1291,6 +1291,15 @@ X64_CASES = {
     "0x00266f20_x64_paramrange_pasttable": ("unsupported", "tool", "reaches past the cited table", 0),
     # (rev5's spot-check) the table left out of the comment: the body's subscript DAT_00527c60[index] bounds it anyway
     "0x00266f20_x64_paramrange_nocitetable": ("unsupported", "tool", "which the body indexes with it", 0),
+    # (rev5's design) every use of the annotated parameter must be a constant-array subscript's whole index, a whole call
+    # argument or a comparison / switch operand: a copy, index + 1, index * 2, pointer arithmetic, &T[0] + index and a
+    # pointer local are refused ("can't be derived from its uses")
+    "0x00266f20_x64_paramrange_local": ("unsupported", "tool", "can't be derived from its uses", 0),
+    "0x00266f20_x64_paramrange_plus1": ("unsupported", "tool", "can't be derived from its uses", 0),
+    "0x00266f20_x64_paramrange_times2": ("unsupported", "tool", "can't be derived from its uses", 0),
+    "0x00266f20_x64_paramrange_ptradd": ("unsupported", "tool", "can't be derived from its uses", 0),
+    "0x00266f20_x64_paramrange_addr0": ("unsupported", "tool", "can't be derived from its uses", 0),
+    "0x00266f20_x64_paramrange_ptrlocal": ("unsupported", "tool", "can't be derived from its uses", 0),
     # (rev5, D61 review) HULK_RANGE whose declaration names no 0x address: unsupported (rangecheck), not drawn from the range
     "0x002775b0_x64_bucket_range_nocite": ("unsupported", None, "writer sites", 0),
 }
