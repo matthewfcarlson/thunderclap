@@ -2081,7 +2081,7 @@ const char* Target_1fe280::FUN_001fe280(int arg) {
 
 
 // 0x001fe380 FUN_001fe380 (1292 B): equivalent/0x001fe380.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?FUN_001fe380@Finder@fn_001fe380@@QAEDPAUV3@2@0@Z @54b398f5f1cd @wb2feb1d0eb6a
+// sym: ?FUN_001fe380@Finder@fn_001fe380@@QAEDPAUV3@2@0@Z @54b398f5f1cd @wddc6375888b4 @vb897169b40ad
 namespace fn_001fe380 {
 // STATUS: equivalent (tools/equiv.py level 3: 79 inputs, branch coverage 39/46, incomplete)
 // FUN_001fe380 @ 0x001fe380
@@ -2146,11 +2146,11 @@ struct Frame {
     V3 pts[160];
 };
 
-static float DistSq(const V3 &a, const V3 &b)
+static hulk_freg DistSq(const V3 &a, const V3 &b)   // (inlined: the differences and the sum kept in st)
 {
-    float dx = a.x - b.x;
-    float dy = a.y - b.y;
-    float dz = a.z - b.z;
+    hulk_freg dx = a.x - b.x;
+    hulk_freg dy = a.y - b.y;
+    hulk_freg dz = a.z - b.z;
     return dz * dz + dy * dy + dx * dx;
 }
 
@@ -2209,7 +2209,7 @@ char Finder::FUN_001fe380(V3 *o, V3 *out)
                     r.ix = rx;
                     r.iy = ry;
                     r.iz = rz;
-                    float d = DistSq(r, *o);
+                    hulk_freg d = DistSq(r, *o);
                     if (d < best) {
                         best = d;
                         found = true;
@@ -2226,7 +2226,7 @@ char Finder::FUN_001fe380(V3 *o, V3 *out)
 
     float best = 3.4028235e38f;
     for (int i = 0; i < n; i++) {
-        float d = DistSq(f.pts[i], *o);
+        hulk_freg d = DistSq(f.pts[i], *o);
         if (d < best) {
             best = d;
             out->ix = f.pts[i].ix;
