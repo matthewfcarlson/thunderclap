@@ -42,7 +42,8 @@ FRONT = ["--target=aarch64-pc-windows-msvc", "-fms-extensions", "-fms-compatibil
 SDL = os.path.join(ROOT, "build/third_party/out/sdl-host")
 HOST = ["src/platform/sdl/host/replay_native.cpp", "src/platform/sdl/input/hulk_input.cpp",
         "src/platform/sdl/xdk/timing.cpp", "src/platform/sdl/xdk/trace.cpp", "src/platform/sdl/host/host_crt_posix.cpp",
-        "src/platform/sdl/host/crt_posix.cpp", "src/platform/sdl/host/win32_posix.cpp", "src/platform/sdl/crt/softx87.cpp"]
+        "src/platform/sdl/host/crt_posix.cpp", "src/platform/sdl/host/win32_posix.cpp", "src/platform/sdl/crt/softx87.cpp",
+        "src/platform/sdl/host/shim_posix.cpp"]   # (test1, D127) hulk_native_frame_no, which the clock hook advances (6da158a2d)
 SDL_LINK = ["-framework", "CoreAudio", "-framework", "AudioToolbox", "-framework", "CoreFoundation", "-framework", "IOKit",
             "-framework", "GameController", "-framework", "CoreHaptics", "-framework", "ForceFeedback", "-framework",
             "Foundation", "-framework", "AVFoundation", "-framework", "CoreMotion", "-framework", "Carbon", "-framework",

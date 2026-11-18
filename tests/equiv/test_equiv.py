@@ -63,6 +63,7 @@ class Logic(unittest.TestCase):
             r = equiv.Run.__new__(equiv.Run)
             r.epoch, r.calls, r.prog, r.vp_havoc = len(calls), calls, prog, {}
             r._read_u32 = lambda a: 0x1234          # the word now (memory was replaced by the stub's havoc)
+            r._vp_read = r._read_u32                # (D43 vptrread, 3d44040ee) the tracker reads through _vp_read
             r._vptr_use((A, 0x5678, 0, 0, None))
             return r.vp_havoc
 
