@@ -468,7 +468,7 @@ def side_keys(root, rels, jobs):
     return out, errs
 
 
-def changed_blocks(ref, head=None, tus=None, jobs=2, workdir=None):
+def changed_blocks(ref, head=None, tus=None, jobs=2, workdir=None, baseline_path=None):
     """The blocks the gate checks: [(addr, rel path, head key record, why changed)], the blocks REF had in those TUs
     that HEAD doesn't, the HEAD-side root, and the key errors."""
     ref_c = rev(ref)
@@ -484,6 +484,7 @@ def changed_blocks(ref, head=None, tus=None, jobs=2, workdir=None):
             shutil.rmtree(tmp, ignore_errors=True)
         raise
     out = []
+    same = []
     for a, (rel, h) in sorted(hk.items()):
         r = rk.get(a)
         if r is None:
@@ -493,11 +494,101 @@ def changed_blocks(ref, head=None, tus=None, jobs=2, workdir=None):
         elif r[1]["key"] != h["key"]:
             why = "code changed" if r[1]["key"] else "keyed now"
         else:
+            same.append((a, rel, h, r[1]))
             continue
         out.append((a, rel, h, why))
+    if "astbase" not in os.environ.get("X64_GATE_OFF", ""):
+        # (integ2, D118) a baseline block whose code didn't change but whose run's AST digest did (a data annotation,
+        # a view, a HULK_INTO or HULK_RANGE: what the checker generates for it, not its bytes) runs again, so a fix
+        # that leaves the code alone can leave the baseline (--update-baseline), and a model change that makes a known
+        # block worse is seen
+        known = load_baseline(baseline_path or BASELINE).get("blocks", {})
+        out += ast_changed(rroot, hroot, [x for x in same if x[0] in known], jobs)
     gone = sorted(set(rk) - set(hk))
     return {"blocks": out, "gone": gone, "tus": len(rels), "head_root": hroot, "tmp": tmp,
             "errors": dict(list(e1.items()) + list(e2.items())), "keyed": len(hk)}
+
+
+def _ast_key_inputs():
+    """(integ2, D118; rev5) What every run's AST digest depends on besides the TU and its includes: equiv64.py (the
+    digest's code) and the inputs D103's gdata_inputs reads (config/data.json, the function list)."""
+    if not _AK:
+        import equiv
+        h = hashlib.sha1(b"astkey1\0")
+        for f in (os.path.join(ROOT, "tools", "equiv64.py"), os.path.join(ROOT, "config", "data.json"), equiv.FUNCS_CSV):
+            h.update((_sha_file(f) if os.path.exists(f) else "none").encode() + b"\0")
+        _AK.append(h.hexdigest())
+    return _AK[0]
+
+
+_AK = []
+
+
+def tu_ast_digests(path, syms):
+    """(integ2, D118) {32-bit symbol: AST digest or None} of SYMS in the tree TU PATH, cached by the TU's text and path,
+    its include closure and _ast_key_inputs() (as tu_keys is): the REF side is parsed once per commit."""
+    import equiv64
+    import include_keys
+    import tree_tu
+    ap = os.path.abspath(path)
+    root = tree_tu.find_root(ap)
+    inc = os.path.join(root, "include")
+    text = open(ap, "rb").read()
+    d = include_keys.digest(ap, [inc], root=root, force=["compat/native.h"])
+    if d is None:
+        import build_tree
+        d = "all " + build_tree.include_tree_digest(inc)
+    rel = os.path.relpath(ap, root)
+    k = hashlib.sha1((_ast_key_inputs() + "\0" + d + "\0" + rel + "\0" + "\0".join(sorted(syms)) + "\0").encode() +
+                     text).hexdigest()[:24]
+    cp_ = os.path.join(CACHE, "ast", k + ".json")
+    try:
+        with open(cp_) as f:
+            return json.load(f)
+    except (OSError, ValueError):
+        pass
+    out = equiv64.ast_digests(ap, sorted(syms))    # (a parse that fails raises: nothing cached)
+    os.makedirs(os.path.dirname(cp_), exist_ok=True)
+    with open(cp_ + ".%d.tmp" % os.getpid(), "w") as f:
+        json.dump(out, f)
+    os.replace(cp_ + ".%d.tmp" % os.getpid(), cp_)
+    return out
+
+
+def _ast_one(job):
+    p, syms = job
+    try:
+        return p, (tu_ast_digests(p, syms) if os.path.exists(p) else {})
+    except Exception:   # noqa: BLE001 - no digest: the block counts as changed
+        return p, {}
+
+
+def ast_changed(rroot, hroot, items, jobs=2):
+    """(integ2, D118) [(addr, rel, head key record, "ast changed")] of ITEMS [(addr, rel, head rec, ref rec)] whose
+    run's AST digest (equiv64.ast_digests) differs between the REF and HEAD roots. One cached parse of each TU per
+    side, over the --jobs pool; a block whose digest can't be computed on either side counts as changed."""
+    import multiprocessing
+    by = {}
+    for a, rel, h, r in items:
+        by.setdefault(rel, []).append((a, h, r))
+    work = []
+    for rel, its in sorted(by.items()):
+        work.append((os.path.join(rroot, rel), [x[2].get("s32") for x in its if x[2].get("s32")]))
+        work.append((os.path.join(hroot, rel), [x[1].get("s32") for x in its if x[1].get("s32")]))
+    if jobs <= 1 or len(work) <= 1:
+        res = map(_ast_one, work)
+    else:
+        pool = multiprocessing.get_context("fork").Pool(jobs)
+        res = pool.imap_unordered(_ast_one, work, chunksize=1)
+    dig = dict(res)
+    out = []
+    for rel, its in sorted(by.items()):
+        dr_, dh_ = dig.get(os.path.join(rroot, rel), {}), dig.get(os.path.join(hroot, rel), {})
+        for a, h, r in its:
+            dh, dr = dh_.get(h.get("s32")), dr_.get(r.get("s32"))
+            if dh is None or dr is None or dh != dr:
+                out.append((a, rel, h, "ast changed"))
+    return out
 
 
 # ------------------------------------------------------------------------------------------------------ runs
@@ -711,7 +802,7 @@ def gate(ref="HEAD", head=None, tus=None, mode="auto", jobs=2, name="x64gate", q
          baseline_path=BASELINE, prio=0):
     """Run the gate: {"rows": judge's rows, "summary", "gone", "errors", "failed": bool}."""
     base = load_baseline(baseline_path)
-    ch = changed_blocks(ref, head, tus, jobs, workdir)
+    ch = changed_blocks(ref, head, tus, jobs, workdir, baseline_path)
     try:
         results, todo, hits = {}, [], {}
         for a, rel, h, why in ch["blocks"]:

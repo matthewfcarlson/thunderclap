@@ -2840,13 +2840,15 @@ def ast_digests(src, symbols):
             w = write_wrapper(src, d)
             t32 = TU(w, d, "i686-pc-windows-msvc", 32)
             t64 = TU(w, d, "x86_64-pc-windows-msvc", 64)
+        idx = {}    # (integ2, D118; rev5) (kind, loc_key) -> the 64-bit cursors there, in by_mangled's order, once
+        for c in t64.by_mangled.values():
+            idx.setdefault((c.kind, loc_key(c)), []).append(c)
         for s32 in symbols:
             c32 = t32.by_mangled.get(s32)
             if c32 is None:
                 out[s32] = None
                 continue
-            k = loc_key(c32)
-            hit = [c for c in t64.by_mangled.values() if c.kind == c32.kind and loc_key(c) == k]
+            hit = idx.get((c32.kind, loc_key(c32)), [])
             try:
                 out[s32] = ast_digest(c32, hit[0]) if len(hit) == 1 else None
             except Exception:   # noqa: BLE001 - can't digest: the result is treated as stale

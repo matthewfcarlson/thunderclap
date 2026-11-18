@@ -2397,7 +2397,15 @@ conventions and `__ptr64` taken out), else the one function with its qualified n
 declaration pairing (equiv64's own); a block with no pair (MSVC `$L` funclets, `_$E` initializers) has no key and runs
 whenever its TU is a candidate. Candidate TUs are those whose text differs between REF and the working tree (or
 `--head C`), every TU when a header under src/ or include/ changed; REF's side is keyed from a `git archive`
-snapshot. Only blocks whose key differs, that are new, or that have no key are run. A header edit that only moves a
+snapshot. Only blocks whose key differs, that are new, or that have no key are run, and (integ2, D118) a baseline
+block of a candidate TU whose code key is the same but whose run's AST digest (equiv64.ast_digests, D97: its
+declaration, the casts and annotations its inputs are generated from, D103's data models, D111's global casts)
+differs between REF and the working tree (or `--head C`): an annotation or a view that fixes a block without
+touching its code can leave the baseline with `--update-baseline` (D103's two blocks needed a hand ratchet), and a
+model change that makes a known block worse is seen. A digest that can't be computed on either side counts as
+changed. The digests are cached per TU text, include closure and checker inputs (equiv64.py, config/data.json,
+the function list), so REF's side is parsed once per commit, and computed over the --jobs pool. X64_GATE_OFF=astbase
+turns it off. A header edit that only moves a
 field on x86-64 changes the 64-bit key, so it is seen even when the MSVC object and the `@`/`@w` hashes stay put.
 
 **Runs.** `equiv.py --x64` at the sweep's settings (200 inputs, 60 s budget), through the queue (jobq_equiv, 4 blocks

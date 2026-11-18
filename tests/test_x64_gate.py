@@ -143,7 +143,9 @@ class Flow(unittest.TestCase):
     def run_gate(self, blocks, results, gone=()):
         ran = []
 
-        def fake_changed(ref, head, tus, jobs, workdir):
+        def fake_changed(ref, head, tus, jobs, workdir, baseline_path=None):
+            # (rev5's D118 review) the gate's --baseline file chooses the AST-changed blocks too
+            self.assertEqual(baseline_path, self.path)
             return {"blocks": blocks, "gone": list(gone), "tus": 1, "head_root": self.tmp.name, "tmp": self.tmp.name + "/x",
                     "errors": {}, "keyed": len(blocks)}
 
@@ -216,6 +218,25 @@ class Flow(unittest.TestCase):
                 mock.patch.object(equiv64, "ast_digests", lambda path, syms: {"?a@@YAXXZ": "new", "?b@@YAXXZ": "same"}):
             res2, ran2 = self.run_gate(blocks, {"0x00000080": EQ, "0x000000a0": EQ})
         self.assertEqual(sorted(ran2), ["0x00000080", "0x000000a0"])
+
+    def test_ast_changed_baseline(self):
+        """(integ2, D118) a baseline block whose code key didn't change but whose AST digest did (a data annotation) is
+        selected to run; one whose digest is the same is not; one whose digest can't be computed runs."""
+        tmp = tempfile.TemporaryDirectory(dir=os.path.join(ROOT, "build") if os.path.isdir(os.path.join(ROOT, "build")) else None)
+        self.addCleanup(tmp.cleanup)
+        d = tmp.name
+        for side in ("ref", "head"):
+            os.makedirs(os.path.join(d, side, "src", "game"))
+            open(os.path.join(d, side, "src", "game", "T.cpp"), "w").write("// %s\n" % side)
+        dig = {"ref": {"?a@@YAXXZ": "1", "?b@@YAXXZ": "2"}, "head": {"?a@@YAXXZ": "1x", "?b@@YAXXZ": "2"}}
+        items = [("0x00000010", "src/game/T.cpp", {"s32": "?a@@YAXXZ"}, {"s32": "?a@@YAXXZ"}),
+                 ("0x00000020", "src/game/T.cpp", {"s32": "?b@@YAXXZ"}, {"s32": "?b@@YAXXZ"}),
+                 ("0x00000030", "src/game/T.cpp", {"s32": "?c@@YAXXZ"}, {"s32": "?c@@YAXXZ"})]
+        with mock.patch.object(g, "tu_ast_digests",
+                               lambda path, syms: dict(dig["head" if "/head/" in path else "ref"])):
+            out = g.ast_changed(os.path.join(d, "ref"), os.path.join(d, "head"), items, jobs=1)
+        self.assertEqual([x[0] for x in out], ["0x00000010", "0x00000030"])
+        self.assertTrue(all(x[3] == "ast changed" for x in out))
 
     def test_unchecked_fails(self):
         res, ran = self.run_gate([("0x00000040", "src/game/T.cpp", {"key": "c1"}, "new")], {})
