@@ -31,6 +31,8 @@ LANE_DBS = os.path.join(ROOT, "build/farm/lanes/*.sqlite")
 PACKETS = os.path.join(ROOT, "build/farm/packets")
 MATCH_PACKETS = os.path.join(ROOT, "build/farm/dataset/packets-matches")  # tools/packet.py build output
 PROMPT_TS = os.path.join(ROOT, "farm/src/prompt.ts")
+RATIONALES = os.path.join(ROOT, "build/farm/rationales")  # tools/rationale.py output
+CONDENSED = os.path.join(ROOT, "build/farm/condensed")    # tools/rationale.py condense output
 
 # Deltas are arrays of ops: ["s",path,val] set, ["a",path,val] append,
 # ["t",path,n] truncate string/list to n.
@@ -286,6 +288,29 @@ def winner_variant(path, code):
     return "curated_diff"
 
 
+def add_rationale(ex):
+    """Use a tools/rationale.py rationale as the matching turn's reasoning when it has none,
+    or a condensed version in place of reasoning too long to train on."""
+    cpath = os.path.join(CONDENSED, ex["id"].replace(":", "-") + ".md")
+    if os.path.exists(cpath):
+        head, _, text = open(cpath).read().partition("\n")
+        m = [m for m in ex["messages"] if m["role"] == "assistant" and m.get("tool_calls")][-1]
+        m["reasoning"] = text.strip()
+        ex["condensed"] = re.sub(r"<!-- model: (.*) -->", r"\1", head).strip()
+        return
+    path = os.path.join(RATIONALES, ex["id"].replace(":", "-") + ".md")
+    if not os.path.exists(path):
+        return
+    head, _, text = open(path).read().partition("\n")
+    for m in reversed(ex["messages"]):
+        if m["role"] == "assistant" and m.get("tool_calls"):
+            if not m.get("reasoning"):
+                m["reasoning"] = text.strip()
+                ex["has_thinking"] = True
+                ex["rationale"] = re.sub(r"<!-- model: (.*) -->", r"\1", head).strip()
+            return
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--db", nargs="*", default=None,
@@ -371,6 +396,7 @@ def main():
     sft_path = os.path.join(args.out, "hulk-sft-v1.jsonl")
     with open(sft_path, "w") as f:
         for ex in sft:
+            add_rationale(ex)
             f.write(json.dumps(ex) + "\n")
     grpo_path = os.path.join(args.out, "grpo-prompts-v1.jsonl")
     with open(grpo_path, "w") as f:
@@ -411,6 +437,7 @@ def main():
                                          {ex["addr"] for ex in have}, task)
             with open(os.path.join(args.out, name), "w") as f:
                 for ex in mex:
+                    add_rationale(ex)
                     f.write(json.dumps(ex) + "\n")
             stats_out[f"{task}_files_examples"] = len(mex)
             stats_out[f"{task}_files_split_counts"] = dict(Counter(ex["split"] for ex in mex))

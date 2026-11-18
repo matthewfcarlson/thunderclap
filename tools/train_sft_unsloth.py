@@ -22,7 +22,7 @@ import random
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 DEFAULT_DATA = os.path.join(ROOT, "build/farm/dataset/hulk-sft-v1.jsonl")
-DEFAULT_EXTRA = [os.path.join(ROOT, "build/farm/dataset", f) for f in ("hulk-matches-v1.jsonl", "hulk-equiv-v1.jsonl", "external-halo.jsonl")]
+DEFAULT_EXTRA = [os.path.join(ROOT, "build/farm/dataset", f) for f in ("hulk-matches-v1.jsonl", "hulk-equiv-v1.jsonl", "external-halo.jsonl", "hulk-rationales-v1.jsonl")]
 DEFAULT_OUT = os.path.join(ROOT, "build/dataset/ulk-1-lora")
 
 # submit_cpp schema, byte-matched to farm/src/farm.ts toolParameters.
@@ -79,13 +79,20 @@ def pairs_for_conversation(ex, tok):
     return out
 
 
-def load_pairs(paths, tok, split, thinking, turns):
-    pairs, n_conv = [], 0
+def n_tokens(tok, prompt, completion):
+    return len(tok(prompt + completion, add_special_tokens=False)["input_ids"])
+
+
+def load_pairs(paths, tok, split, thinking, turns, max_seq=0):
+    """(prompt, completion, meta) rows; meta = the example's model/size/attempts for --cap/--repeat."""
+    pairs, n_conv, stripped = [], 0, 0
+    # A written-rationale example (tools/rationales.py) supersedes the bare packet->code one.
+    rationale = {json.loads(l)["addr"] for p in paths if p.endswith("rationales-v1.jsonl") for l in open(p)}
     for path in paths:
         with open(path) as f:
             for line in f:
                 ex = json.loads(line)
-                if ex["split"] != split:
+                if ex["split"] != split or (ex["id"].endswith(":m") and ex["addr"] in rationale):
                     continue
                 if thinking == "with" and not ex["has_thinking"]:
                     continue
@@ -93,9 +100,66 @@ def load_pairs(paths, tok, split, thinking, turns):
                     for m in ex["messages"]:
                         m.pop("reasoning", None)
                 n_conv += 1
+                # rationale rows: "<model> +rationale:<writer>", so --repeat model:rationale matches them
+                model = (ex.get("model") or ex.get("source") or "") + (f" +rationale:{ex['rationale']}" if ex.get("rationale") else "")
+                meta = {"model": model,
+                        "size": ex.get("size_bytes") or 0, "attempts": ex.get("attempts") or 1}
                 got = pairs_for_conversation(ex, tok)
-                pairs.extend(got[-1:] if turns == "final" else got)
+                if turns == "final" and max_seq and n_tokens(tok, *got[-1]) > max_seq:
+                    # Over length: earlier attempts' reasoning (prompt context, not a target) goes first.
+                    last = max(i for i, m in enumerate(ex["messages"]) if m["role"] == "assistant")
+                    for i, m in enumerate(ex["messages"]):
+                        if i != last and m.pop("reasoning", None):
+                            stripped += 1
+                    got = pairs_for_conversation(ex, tok)
+                pairs.extend((p, c, meta) for p, c in (got[-1:] if turns == "final" else got))
+    if stripped:
+        print(f"{split}: dropped earlier-turn reasoning from {stripped} turns of over-length conversations")
     return pairs, n_conv
+
+
+def parse_rules(specs):
+    """["KEY=N", ...] -> [(KEY, N)]."""
+    out = []
+    for s in specs:
+        k, _, n = s.rpartition("=")
+        if not k:
+            raise SystemExit(f"bad rule {s!r}: want KEY=N")
+        out.append((k, float(n)))
+    return out
+
+
+def rule_hits(rule, meta):
+    """model:<substr> | size:<lo>-<hi> (bytes, hi exclusive) | attempts:<min>"""
+    kind, _, arg = rule.partition(":")
+    if kind == "model":
+        return arg in meta["model"]
+    if kind == "size":
+        lo, _, hi = arg.partition("-")
+        return int(lo or 0) <= meta["size"] < (int(hi) if hi else 1 << 30)
+    if kind == "attempts":
+        return meta["attempts"] >= int(arg)
+    raise SystemExit(f"bad rule {rule!r}: want model:, size: or attempts:")
+
+
+def rebalance(rows, caps, repeats, rng):
+    """Subsample rows matching a --cap rule, then repeat rows matching --repeat rules.
+
+    Repeats take the largest matching factor (not the product) so overlapping rules
+    don't compound; a fractional factor repeats that share of rows once more.
+    """
+    for rule, n in caps:
+        hit = [r for r in rows if rule_hits(rule, r[2])]
+        keep = set(map(id, rng.sample(hit, min(int(n), len(hit)))))
+        rows = [r for r in rows if not rule_hits(rule, r[2]) or id(r) in keep]
+        print(f"cap {rule}: {len(hit)} -> {len(keep)} rows")
+    out = []
+    for r in rows:
+        k = max([n for rule, n in repeats if rule_hits(rule, r[2])], default=1)
+        out.extend([r] * (int(k) + (rng.random() < k - int(k))))
+    for rule, n in repeats:
+        print(f"repeat {rule} x{n}: {sum(rule_hits(rule, r[2]) for r in rows)} rows")
+    return out
 
 
 def main():
@@ -115,7 +179,15 @@ def main():
     ap.add_argument("--rank", type=int, default=32)
     ap.add_argument("--batch", type=int, default=1)
     ap.add_argument("--accum", type=int, default=16)
-    ap.add_argument("--max-seq", type=int, default=8192)
+    ap.add_argument("--max-seq", type=int, default=12288,
+                    help="drop longer rows; keep in step with the serving endpoint's maxTokens")
+    ap.add_argument("--cap", action="append", default=[], metavar="RULE=N",
+                    help="keep at most N random train rows matching RULE (model:<substr>, size:<lo>-<hi>, "
+                         "attempts:<min>); matching val rows are dropped. e.g. --cap model:ulk-2=500")
+    ap.add_argument("--repeat", action="append", default=[], metavar="RULE=K",
+                    help="repeat train rows matching RULE K times (largest matching K wins). "
+                         "e.g. --repeat model:deepseek=3 --repeat size:64-256=2 --repeat attempts:3=1.5")
+    ap.add_argument("--val-rows", type=int, default=128, help="validation rows scored at each eval")
     ap.add_argument("--thinking", choices=["with", "without", "both"], default="both",
                     help="train on reasoning tokens: with-thinking examples only / strip all reasoning / keep as-is")
     ap.add_argument("--save-steps", type=int, default=200)
@@ -153,22 +225,30 @@ def main():
 
     files = [args.data] + list(args.extra)
     print("data:", ", ".join(os.path.basename(f) for f in files))
-    train, n_conv = load_pairs(files, tok, "train", args.thinking, args.turns)
+    train, n_conv = load_pairs(files, tok, "train", args.thinking, args.turns, args.max_seq)
     # val stays Hulk-transcript-only so loss is comparable with ulk-1
-    val, _ = load_pairs([args.data], tok, "val", args.thinking, args.turns)
-    random.Random(3407).shuffle(train)
+    val, _ = load_pairs([args.data], tok, "val", args.thinking, args.turns, args.max_seq)
     # Drop rather than truncate: truncation would cut the tool call mid-way.
-    fits = lambda rows: [r for r in rows if len(tok(r[0] + r[1], add_special_tokens=False)["input_ids"]) <= args.max_seq]
+    fits = lambda rows: [r for r in rows if n_tokens(tok, r[0], r[1]) <= args.max_seq]
     n_all = len(train)
     train, val = fits(train), fits(val)
-    print(f"train rows: {len(train)} from {n_conv} conversations ({n_all - len(train)} over --max-seq dropped); val rows: {len(val)}")
+    print(f"train rows: {len(train)} from {n_conv} conversations ({n_all - len(train)} over --max-seq dropped)")
+    rng = random.Random(3407)
+    caps = parse_rules(args.cap)
+    train = rebalance(train, caps, parse_rules(args.repeat), rng)
+    # Capped rows are the easy bulk; leaving them in val would hide progress on the rest.
+    val = [r for r in val if not any(rule_hits(rule, r[2]) for rule, _ in caps)]
+    rng.shuffle(val)
+    val = val[: args.val_rows]
+    rng.shuffle(train)
+    print(f"train rows after rebalance: {len(train)}; val rows: {len(val)}")
     if args.limit:
         train = train[: args.limit]
-    p, c = train[0]
+    p, c, _ = train[0]
     print("---- sample completion ----\n" + c[-600:] + "\n---------------------------")
 
     from datasets import Dataset
-    to_ds = lambda rows: Dataset.from_list([{"prompt": p, "completion": c} for p, c in rows])
+    to_ds = lambda rows: Dataset.from_list([{"prompt": p, "completion": c} for p, c, _ in rows])
 
     if mlx:
         from unsloth_zoo.mlx.trainer import MLXTrainer, MLXTrainingConfig
@@ -191,7 +271,7 @@ def main():
             seed=3407,
         )
         trainer = MLXTrainer(model=model, tokenizer=tok, train_dataset=to_ds(train),
-                             eval_dataset=to_ds(val[:64]) if val else None, args=cfg)
+                             eval_dataset=to_ds(val) if val else None, args=cfg)
     else:
         from trl import SFTConfig, SFTTrainer
         trainer = SFTTrainer(
