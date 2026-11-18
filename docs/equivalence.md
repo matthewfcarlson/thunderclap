@@ -2221,7 +2221,8 @@ parameter the code uses as an index into a table of known size is drawn from the
 0x address (the table, the call sites), else the run is unsupported; the 32- and 64-bit parses must agree. A cited
 address that names an array the TU declares (`MemoryHeapSlot DAT_00527c60[46]`, anywhere in the comment block above
 the declaration) bounds the range: lo >= 0 and hi < the element count, else unsupported (rev5's review; case
-`_pasttable`). Each function cites its own call sites. Used by
+`_pasttable`); so does every constant array the body subscripts with an index that refers to the parameter, cited or
+not (`DAT_00527c60[index]`; rev5's spot-check `_nocitetable`: the comment can't leave the table out). Each function cites its own call sites. Used by
 0x00266e00 / 0x00266f00 / 0x00266f20 (DAT_00527c60 has 46 slots; rev5 found the 98 call sites pass the constants
 a constant, the current heap 0x004cdbb0, a caller's parameter or an object field): a fuzzed negative heap id had crashed
 the 64-bit run only (non-canonical address); with the range they run without it (view_trusted: the slot's `void*`

@@ -2131,6 +2131,48 @@ def _cited_tables(p, fn):
     return out
 
 
+def _subscript_tables(fn, p):
+    """(integ2, D102; rev5's spot-check) [(name, element count)] of the constant arrays FN's body subscripts with an
+    index expression that refers to parameter P (`DAT_00527c60[a].allocator`, `t[i + 1]`)."""
+    K = ci().CursorKind
+    out = []
+
+    def refers(c, depth=0):
+        if depth > 60:
+            return False
+        if c.kind == K.DECL_REF_EXPR and c.referenced is not None and c.referenced.hash == p.hash:
+            return True
+        return any(refers(ch, depth + 1) for ch in c.get_children())
+
+    def base_array(c):
+        while c.kind in (K.PAREN_EXPR, K.UNEXPOSED_EXPR, K.CSTYLE_CAST_EXPR):
+            k = [x for x in c.get_children() if x.kind != K.TYPE_REF]
+            if len(k) != 1:
+                return None
+            c = k[0]
+        if c.kind == K.DECL_REF_EXPR and c.referenced is not None and c.referenced.kind == K.VAR_DECL:
+            t = c.referenced.type.get_canonical()
+            if t.kind.name == "CONSTANTARRAY":
+                return c.referenced.spelling, t.get_array_size()
+        return None
+
+    def walk(c, depth=0):
+        if depth > 200:
+            return
+        if c.kind == K.ARRAY_SUBSCRIPT_EXPR:
+            k = list(c.get_children())
+            if len(k) == 2:
+                b_ = base_array(k[0])
+                if b_ is not None and refers(k[1]):
+                    out.append(b_)
+        for ch in c.get_children():
+            walk(ch, depth + 1)
+    for ch in fn.get_children():
+        if ch.kind == K.COMPOUND_STMT:
+            walk(ch)
+    return out
+
+
 def param_range(fn):
     """(integ2, D102) {parameter index: (lo, hi)} for the integer parameters annotated HULK_RANGE(lo, hi) in FN's
     definition (`void* FUN_00266e00(int a HULK_RANGE(0, 45), int b)`): the values its callers pass, where the code uses
@@ -2160,6 +2202,12 @@ def param_range(fn):
                     if lo < 0 or hi >= n_:
                         raise Unsupported("HULK_RANGE(%d, %d) on parameter %s of %s reaches past the cited table "
                                           "DAT_%08x[%d]" % (lo, hi, p.spelling, fn.spelling, a_, n_))
+                # (rev5's spot-check) and every table the body indexes with it, cited or not: the code, not the
+                # comment, says which tables the parameter indexes (rev5's _nocitetable left the table uncited)
+                for nm_, n_ in _subscript_tables(fn, p):
+                    if lo < 0 or hi >= n_:
+                        raise Unsupported("HULK_RANGE(%d, %d) on parameter %s of %s reaches past %s[%d], which the "
+                                          "body indexes with it" % (lo, hi, p.spelling, fn.spelling, nm_, n_))
                 out[i] = (lo, hi)
     return out
 

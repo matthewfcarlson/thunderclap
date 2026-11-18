@@ -1289,6 +1289,8 @@ X64_CASES = {
     "0x00266f20_x64_paramrange_uncited": ("unsupported", "tool", "citing its evidence", 0),
     # (rev5's review) a range past the cited table (DAT_00527c60[46]: HULK_RANGE(0, 46)) is refused
     "0x00266f20_x64_paramrange_pasttable": ("unsupported", "tool", "reaches past the cited table", 0),
+    # (rev5's spot-check) the table left out of the comment: the body's subscript DAT_00527c60[index] bounds it anyway
+    "0x00266f20_x64_paramrange_nocitetable": ("unsupported", "tool", "which the body indexes with it", 0),
     # (rev5, D61 review) HULK_RANGE whose declaration names no 0x address: unsupported (rangecheck), not drawn from the range
     "0x002775b0_x64_bucket_range_nocite": ("unsupported", None, "writer sites", 0),
 }
