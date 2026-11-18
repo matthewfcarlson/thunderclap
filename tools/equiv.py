@@ -11819,7 +11819,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             stuck.extend(saved)     # (loop repair works from the plain run)
         if new is not None:
             sent_left[2] += 1
-            res["inputs_sentinel"] = res.get("inputs_sentinel", 0) + 1
+            res["inputs_sentinel"] = res.get("inputs_sentinel", 0) + 1     # (compared inputs with planted sentinels)
         return new
 
     def runaway():
@@ -12427,6 +12427,12 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
         proof_draw[0] = True
         if small_left[2] and "proofsmall" not in EQUIV_OFF:
             small_left[0] += 8 * PROOF_DRAW_CAP      # (integ2, D82) rounds for the small-count inputs of the draws
+        if sent_left[2] and "proofwalk" not in EQUIV_OFF:
+            # (integ2, D100) and for the walk-sentinel inputs (sentinel_retry: the values a runaway list or tree walk
+            # compared against, `&tree.nil`, planted in the input's data pages so the walk ends): their 512 runs were
+            # spent before the proof drew on (0x0024a280: 325 of 512 got through, then every draw ran away). They keep
+            # going while they work (the success-ratio stops stay); inputs only, each compared in full
+            sent_left[0] += 4 * PROOF_DRAW_CAP
         try:
             random_phase(soft=False, nocap=True, until_run=n_inputs)
             drawn_ = rs["seed"]

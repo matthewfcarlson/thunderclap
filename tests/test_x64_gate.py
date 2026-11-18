@@ -181,23 +181,41 @@ class Flow(unittest.TestCase):
         blocks = [("0x00000050", "src/game/T.cpp", {"key": "e1"}, "code changed"),
                   ("0x00000060", "src/game/T.cpp", {"key": "f1"}, "code changed"),
                   ("0x00000070", "src/game/T.cpp", {"key": "g1"}, "code changed")]
-        lay = dict(LAYOUT, types={"C": {"k64": "C", "fp": "old"}})
-        eq = dict(EQ, types={"D": {"k64": "D", "fp": "same"}})
+        lay = dict(LAYOUT, types={"C": {"k64": "C", "fp": "old"}}, ast="a", symbol32="?a@@YAXXZ")
+        eq = dict(EQ, types={"D": {"k64": "D", "fp": "same"}}, ast="b", symbol32="?b@@YAXXZ")
         res, ran = self.run_gate(blocks, {"0x00000050": lay, "0x00000060": eq, "0x00000070": INT})
         self.assertEqual(sorted(ran), ["0x00000050", "0x00000060", "0x00000070"])
         seen = []
 
-        def fps(path, keys):
+        def fps(path, keys, field_casts=None):
             seen.append(sorted(keys))
             return {"C": {"k64": "C", "fp": "new"}, "D": {"k64": "D", "fp": "same"}}
 
         import equiv64
-        with mock.patch.object(equiv64, "type_fingerprints", fps):
+        with mock.patch.object(equiv64, "type_fingerprints", fps), \
+                mock.patch.object(equiv64, "ast_digests", lambda path, syms: {"?a@@YAXXZ": "a", "?b@@YAXXZ": "b"}):
             res2, ran2 = self.run_gate(blocks, {"0x00000050": EQ})
         self.assertEqual(ran2, ["0x00000050"])
         self.assertEqual(seen, [["C", "D"]])            # one parse for the TU's hits
         v = {r["addr"]: (r["verdict"], r["cached"]) for r in res2["rows"]}
         self.assertEqual(v, {"0x00000050": ("ok", False), "0x00000060": ("ok", True), "0x00000070": ("other", True)})
+
+    def test_stale_ast_rerun(self):
+        """(integ2, D97) a cached result whose function's parsed inputs (declaration, HULK_INTO, casts) differ now runs
+        again; one with the same digest stays cached; one without a digest (before D97) runs again."""
+        blocks = [("0x00000080", "src/game/T.cpp", {"key": "h1"}, "code changed"),
+                  ("0x00000090", "src/game/T.cpp", {"key": "i1"}, "code changed"),
+                  ("0x000000a0", "src/game/T.cpp", {"key": "j1"}, "code changed")]
+        t = {"D": {"k64": "D", "fp": "same"}}
+        res, ran = self.run_gate(blocks, {"0x00000080": dict(EQ, types=t, ast="old", symbol32="?a@@YAXXZ"),
+                                          "0x00000090": dict(EQ, types=t, ast="same", symbol32="?b@@YAXXZ"),
+                                          "0x000000a0": dict(EQ, types=t)})
+        self.assertEqual(len(ran), 3)
+        import equiv64
+        with mock.patch.object(equiv64, "type_fingerprints", lambda path, keys, field_casts=None: {"D": {"k64": "D", "fp": "same"}}), \
+                mock.patch.object(equiv64, "ast_digests", lambda path, syms: {"?a@@YAXXZ": "new", "?b@@YAXXZ": "same"}):
+            res2, ran2 = self.run_gate(blocks, {"0x00000080": EQ, "0x000000a0": EQ})
+        self.assertEqual(sorted(ran2), ["0x00000080", "0x000000a0"])
 
     def test_unchecked_fails(self):
         res, ran = self.run_gate([("0x00000040", "src/game/T.cpp", {"key": "c1"}, "new")], {})
@@ -269,6 +287,48 @@ class Keys(unittest.TestCase):
         self.assertNotEqual(k2["0x00011000"], k0["0x00011000"])
         self.assertEqual(k2["0x00011010"], k0["0x00011010"])
         self.assertTrue(os.listdir(os.path.join(self.root, "cache", "keys")))
+
+    def test_class_move(self):
+        """(integ2, D97) a member function moved to another class with the same code: its key must change (the
+        checker types `this` by the new class; x64t18's stale `layout` result for 0x002aed60 came from the old key)."""
+        def key(cls):
+            with open(os.path.join(self.root, "include", "rec.h"), "w") as f:
+                f.write("#pragma once\nstruct A { int x; int f(); };\nstruct B { int x; void *extra; int f(); };\n")
+            with open(self.tu, "w") as f:
+                f.write('#include "tree_prelude.h"\n#include "rec.h"\n// 0x00011000 FUN_00011000 (10 B): matches\n'
+                        '// sym: ?f@%s@@QAEHXZ\nint %s::f() {\n    return x;\n}\n' % (cls, cls))
+            ks = g.tu_keys(self.tu)
+            self.assertTrue(ks["0x00011000"]["key"], ks)
+            return ks["0x00011000"]["key"]
+        self.assertNotEqual(key("A"), key("B"))
+        self.assertEqual(key("A"), key("A"))
+
+    def test_ast_digest(self):
+        """(integ2, D97; rev5's d97_probe) HULK_INTO added and a view type swapped keep the code key (the same bytes) but
+        change the run's AST digest, which the gate checks against a cached result (types_current)."""
+        import equiv64
+
+        def both(hdr, body):
+            with open(os.path.join(self.root, "include", "rec.h"), "w") as f:
+                f.write("#pragma once\n#define HULK_INTO(f) __attribute__((annotate(\"hulk_into \" #f)))\n" + hdr)
+            with open(self.tu, "w") as f:
+                f.write('#include "tree_prelude.h"\n#include "rec.h"\n// 0x00011000 FUN_00011000 (10 B): matches\n' + body)
+            ks = g.tu_keys(self.tu)["0x00011000"]
+            return ks["key"], equiv64.ast_digests(self.tu, [ks["s32"]])[ks["s32"]]
+        h = "struct Blk { int x; };\nstruct Pool { Blk* data; int n; void f(void* v, int u); };\n"
+        b = "// sym: ?f@Pool@@QAEXPAXH@Z\nvoid Pool::f(void* v%s, int u) {\n    n = u + (int)(v != 0);\n}\n"
+        k0, a0 = both(h, b % "")
+        k1, a1 = both(h, b % " HULK_INTO(data)")
+        self.assertTrue(a0 and a1)
+        self.assertEqual(k0, k1)
+        self.assertNotEqual(a0, a1)
+        h2 = ("struct Opaque;\nstruct VA { void* vt; int refs; int name; int other; };\n"
+              "struct VB { void* vt; int refs; int name; void* other; };\nstruct Hold { Opaque* obj; int r; int f(); };\n")
+        b2 = "// sym: ?f@Hold@@QAEHXZ\nint Hold::f() {\n    return ((%s*)obj)->name;\n}\n"
+        k2, a2 = both(h2, b2 % "VA")
+        k3, a3 = both(h2, b2 % "VB")
+        self.assertEqual(k2, k3)
+        self.assertNotEqual(a2, a3)
 
     def test_type_fingerprints(self):
         """(x64t12) a field's type changes, the code reading the other field doesn't: the same code key, another

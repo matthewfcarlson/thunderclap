@@ -1402,6 +1402,16 @@ Reports keep the two apart (rev5's re-review): `level3.inputs_compared_small` co
 small_retry planted (`inputs_small` counts attempts), and the proof ledger line carries `compared_small` and
 `compared_drawn` (the rest of `inputs_run`).
 
+(integ2, `proofwalk`; user decision D100) **Walk sentinels while a proof draws on.** `sentinel_retry` (round 7) runs an
+input whose original ran away walking fuzzed links again with the values the walk compared against (`&tree.nil`)
+planted in its data pages, so the walk ends; it had 512 runs per check, spent before a proof drew past --inputs, after
+which every draw ran away (0x0024a280's tree walk: 325 of its 512 runs got through, then 430 compared of 40,000
+drawn). Once sentinels have got an input through, the proof draws give them 4 x PROOF_DRAW_CAP more runs; their
+success-ratio stops are unchanged. Inputs only, each compared in full (`level3.inputs_sentinel` counts the compared
+ones; the proof ledger line `compared_sentinel`, taken out of `compared_drawn`). 0x0024a280 compares 3,000 of 4,419
+drawn (2,898 with planted sentinels). Cases `0x0024a280_native_proofwalk`
+(3,000 compared) and must-fail `_wrong`. `EQUIV_OFF=proofwalk` restores the 512.
+
 (integ2, `argfill`; D78) **A callee's out pointer to the function's own by-value parameter.** `FUN_000c9460(&input,
 input)` (0x000c9720): the original passes the address of its own argument slot, clang the address of the frame copy
 it makes of the parameter. The out-parameter fill stopped at the caller's argument slots (`never into the caller's
@@ -2221,6 +2231,34 @@ fixed parameters, member-function pointers in records (compared as raw words) ar
 SSE is exact; transcendental CRT functions are stubs (same value both sides), so they never differ here (the
 Wine/replay checks cover them).
 
+(integ2, `fieldcasts`; D93 with rev5's review) **A pointer field read through the record the code casts it to**
+(`(Result_2aecb0*)builder.image`): `field_casts()` collects the casts of a record's pointer field to another record
+in the function's body, and the object such a field points at is built from both types (`Types.extend`):
+- the cast record a record of include/gen (RTTI evidence, checked by gen_headers --probe) derived from a declared
+  pointee that lays out words (a real downcast with evidence of its own): that record, outright (rev5's re-review, F4:
+  "derived" alone is no evidence: a locally declared derived view, or one over an empty placeholder base, is a view
+  taken on trust, cases `_downcast`, `_wrongderived`, `_placeholderderived`; `_gendowncast` is the trusted one);
+- a field the body casts to more than one record (a tagged union, 0x0019e910's `f8`: a Node or an Actor by type;
+  F5): the object keeps its declared type and a run that reads it is `unsupported`, class `view_ambiguous` (case
+  `_ambiguous`; it had been built as the first cast's record, a false `layout`);
+- otherwise (the declared pointee void, incomplete, a placeholder, or an unrelated record): the declared layout
+  extended by the view's leaves and member starts past its end on both targets, and the view is listed in
+  `view_trusted`. The code's view is then the only description of those words, so any view passes (rev5's
+  _wrongview): an equivalent run is reported `unsupported`, class `view_trusted` (no clean --x64 equivalent, no
+  baseline removal); a difference found through it still fails;
+- a view word past the declared end on one target and inside it on the other: class `view_straddle` (inputs that
+  build such an object are skipped and named, never passed on the others).
+The view enters the declaring record's layout fingerprint (`cast`), the report's `field_casts`, and the x64 gate's
+fingerprint check (`type_fingerprints(..., field_casts)`). Cases `0x000ac780_x64_fieldcast_downcast` (equivalent),
+`_view` / `_wrongview` (view_trusted), `_declwins` (the declared type wins: fails), `_realstraddle` (view_straddle).
+`EQ64_OFF=fieldcasts` turns it off. rev5's sweep of the 419 blocks with such casts: 0x002aecb0's native view fix
+(Entity words at +0xc) checks as view_trusted instead of a false `layout`; 12 blocks that moved to equivalent are now
+view_trusted (no credit) or (0x002bdcf0) equivalent without fieldcasts at HEAD; new results: crash64 on 0x00266e00 /
+0x00266f00 / 0x00266f20 (a fuzzed heap id indexes DAT_00527c60[46] past its end, as D99's table; their callers pass
+constants, the current heap or fields: artifacts, baseline accepts pending the user's D102), layout on 0x0019e910
+(F5's first-cast-wins, now view_ambiguous), tool on 0x00283340 / 0x000bc750 (an interior pointer into a view object
+at an offset with no 64-bit counterpart: not modelled).
+
 
 ## 64-bit gate (`tools/x64_gate.py`, gate1)
 
@@ -2295,6 +2333,14 @@ declaration change that alters a stub's or callee's type without changing any co
 both targets return in the same register) isn't seen. The candidate list follows text changes under src/ and
 include/ only (a change to tools/gen_tree.py's native spelling or to clang flags changes every key through the
 base key, so everything is re-keyed). Like `--x64` itself: fuzzing, not proof.
+
+(integ2, D97 with rev5's review) **What a cached gate result rests on.** The code key (`KEYVER` x64key2) includes the
+block's 32- and 64-bit symbols (a member moved to another class keeps its bytes but not its `this` type; x64t18's
+stale 0x002aed60 result), and each result carries `ast`: a digest of the function's parsed inputs besides bytes and
+layouts (its declaration, HULK_INTO parameters, the parameter, return, call-site and field casts that type its
+objects; `equiv64.ast_digest`). `types_current` runs a cached result again when the digest of the current source
+differs or the result has none (results made before D97). Tests `Keys.test_class_move`, `Keys.test_ast_digest`
+(HULK_INTO added, a view type swapped: same key, another digest), `Flow.test_stale_ast_rerun`.
 
 ## Limits
 

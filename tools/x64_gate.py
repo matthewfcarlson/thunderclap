@@ -63,7 +63,7 @@ GATING = ("layout", "ptrtrunc", "crash64")
 # but an unsigned negative step (`p += (unsigned)-k`) is a real 64-bit bug of the same shape
 TRIAGE = ("wild64",)
 SETTINGS = {"inputs": 200, "time_budget": 60}
-KEYVER = "x64key1"
+KEYVER = "x64key2"      # (integ2, D97) x64key2: the block's 32- and 64-bit symbols are part of its code key
 LOCAL_MAX = 4
 
 
@@ -333,8 +333,12 @@ def _tu_keys(ap, root):
                 e64 = {n: a for n, a in ext64.items() if n != s64}
                 h32 = code_hash.function_hash(c32, f32[s32], e32, bl)
                 h64 = code_hash.function_hash(c64, f64[s64], e64, bl)
-                out[b["addr"]] = {"key": hashlib.sha1(("%s\0%s\0%s" % (KEYVER, h32, h64)).encode()).hexdigest()[:20],
-                                  "s32": s32, "s64": s64}
+                # (integ2, D97) the symbols too: the code hash leaves the function's own name out, and a member
+                # function moved to another class (`owners::SomeClass_2aed60::f` -> `Registry_2aed60::f`, x64t18) can
+                # keep its bytes while the checker types its `this` (and the parameters the name spells) by the new
+                # declaration: the cached result was the old class's `layout` difference
+                out[b["addr"]] = {"key": hashlib.sha1(("%s\0%s\0%s\0%s\0%s" % (KEYVER, h32, h64, s32, s64)).encode()
+                                                      ).hexdigest()[:20], "s32": s32, "s64": s64}
     finally:
         cp._X87_LIST = old
     return out
@@ -566,21 +570,39 @@ def types_current(path, recs):
     (gen's `f_24` an `int` -> `char**`: the same code key, another heap the checker builds) makes it stale. RECS:
     {addr: cached record}; returns the addresses whose types still agree. One libclang parse of the TU for all of
     them; a record without fingerprints (no checker was built: compile error) depends on the code alone."""
-    keys = {}
-    for r in recs.values():
-        for k, v in (r.get("types") or {}).items():
-            keys[k] = v.get("k64", k)
-    if not keys:
-        return set(recs)
     import equiv64
-    try:
-        now = equiv64.type_fingerprints(path, keys)
-    except Exception:   # noqa: BLE001 - can't parse: run them all
-        return set(a for a, r in recs.items() if not r.get("types"))
-    ok = set()
+    # (integ2, D93/F3) the fingerprints of runs that read pointer fields through views are taken with those views,
+    # one parse per distinct set of them
+    groups = {}
     for a, r in recs.items():
-        if all(now.get(k, {}).get("fp") == v.get("fp") for k, v in (r.get("types") or {}).items()):
-            ok.add(a)
+        if r.get("types"):
+            groups.setdefault(json.dumps(r.get("field_casts") or []), []).append(a)
+    ok = set(a for a, r in recs.items() if not r.get("types"))
+    for fc, addrs in groups.items():
+        keys = {}
+        for a in addrs:
+            for k, v in recs[a]["types"].items():
+                keys[k] = v.get("k64", k)
+        try:
+            now = equiv64.type_fingerprints(path, keys, json.loads(fc))
+        except Exception:   # noqa: BLE001 - can't parse: run them all
+            continue
+        for a in addrs:
+            if all(now.get(k, {}).get("fp") == v.get("fp") for k, v in recs[a]["types"].items()):
+                ok.add(a)
+    # (integ2, D97; rev5's review) what the parse gives the run besides bytes and layouts (its declaration, HULK_INTO,
+    # the casts that type its objects): a result without that digest, or with another one, runs again
+    typed = [a for a in ok if recs[a].get("types")]
+    if typed:
+        syms = {recs[a].get("symbol32") for a in typed if recs[a].get("symbol32")}
+        try:
+            dig = equiv64.ast_digests(path, sorted(syms)) if syms else {}
+        except Exception:   # noqa: BLE001
+            dig = {}
+        for a in typed:
+            r = recs[a]
+            if not r.get("ast") or not r.get("symbol32") or dig.get(r["symbol32"]) != r["ast"]:
+                ok.discard(a)
     return ok
 
 

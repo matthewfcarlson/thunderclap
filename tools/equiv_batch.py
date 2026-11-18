@@ -41,7 +41,9 @@ def run(item):
             "inconclusive": l3.get("inputs_inconclusive"), "statuses": l3.get("statuses"),
             "first_diff": _first_diff(rep), "decl_arity": rep.get("decl_arity") or [],
             "x87_decl": rep.get("x87_decl") or [],
-            **({"types": rep["types"]} if rep.get("types") is not None else {})}
+            **({"types": rep["types"]} if rep.get("types") is not None else {}),
+            # (integ2, D97/D93) what an --x64 verdict rests on besides bytes and layouts, and the views it trusted
+            **{k: rep[k] for k in ("ast", "symbol32", "field_casts", "view_trusted") if rep.get(k) is not None}}
 
 
 def _first_diff(rep):

@@ -826,7 +826,9 @@ def ledger_entry(addr, mode, code, view, rep, tu):
             "memfwd": l3.get("inputs_memfwd", 0), "pre": rep.get("pre"), "pre_repaired": l3.get("inputs_pre_repaired", 0),
             # (integ2, rev5's re-review of D82) compared inputs with small_retry's planted counts / as drawn (or directed)
             "compared_small": l3.get("inputs_compared_small", 0),
-            "compared_drawn": (l3.get("inputs_run") or 0) - l3.get("inputs_compared_small", 0),
+            # (integ2, D100; rev5's re-review) compared inputs with planted walk sentinels (sentinel_retry)
+            "compared_sentinel": l3.get("inputs_sentinel", 0),
+            "compared_drawn": (l3.get("inputs_run") or 0) - l3.get("inputs_compared_small", 0) - l3.get("inputs_sentinel", 0),
             "job": tc.get("job"), "date": datetime.date.today().isoformat()}
 
 

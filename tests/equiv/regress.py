@@ -753,6 +753,10 @@ CASES = {
     # (integ1, proofcap) luaH newkey: its fuzzed tables time out on 1 input in 6, and the random phase stopped at 32
     # inconclusive inputs (535 drawn, 442 compared): a proof-sized run now draws until 3,000 are compared (MIN_RUN 3,000)
     "0x0021a3e0_proofcap": ("equivalent", None, 0.9, {"n_inputs": 3000, "time_budget": 2400}),
+    # (integ2, D100, proofwalk) a tree walk over fuzzed nodes ending at &tree.nil: the walk-sentinel inputs keep going
+    # while a proof draws on (with EQUIV_OFF=proofwalk: 430 compared of 40,000 drawn); _wrong: those inputs are compared
+    "0x0024a280_native_proofwalk": ("equivalent", None, 0, {"native": True, "n_inputs": 3000, "time_budget": 2400}),
+    "0x0024a280_native_proofwalk_wrong": ("fail", None, 0, {"native": True, "n_inputs": 300}),
     # (integ1, D53, objkeep; NOT ADOPTED: EQUIV_ON=objkeep until reviewed) --wine: the original reads stream's vptr before the
     # call that computes v3's argument and re-reads this->stream for `this` after it; the stub's havoc fuzzed the re-read
     # word on one side only (input 10: this (ecx) is 3, expected 0). The pointer word is kept across the stub as the vptr is
@@ -1253,6 +1257,23 @@ X64_CASES = {
     # free: the block index is `value - base`); without the annotation the parameter is an unrelated object
     "0x0008ff00_x64_into_pool": ("equivalent", None, None, 40),
     "0x0008ff00_x64_into_none": ("fail", "layout", "].limit", 0),
+    # (integ2, D93, fieldcasts; rev5's review) a pointer field read through the record the code casts it to:
+    # _downcast: a complete record derived from the declared pointee, taken outright (equivalent); _view: an incomplete
+    # pointee, the view taken on trust (unsupported view_trusted: no clean equivalent; rev5's _wrongview shows any view
+    # passes there); _declwins: a complete declared type that lays out the read words wins over a wrong view (fails);
+    # _realstraddle (rev5): a view word past the declared end on one target only (unsupported view_straddle)
+    # (rev5's re-review, F4/F5) _gendowncast: a downcast to a gen record (RTTI evidence) is taken outright; _downcast and
+    # rev5's _wrongderived / _placeholderderived: a locally declared derived record is a view taken on trust;
+    # _ambiguous (0x0019e910's shape): a field cast to two records keeps its declared type, the run is view_ambiguous
+    "0x000ac780_x64_fieldcast_gendowncast": ("equivalent", None, None, 50),
+    "0x000ac780_x64_fieldcast_downcast": ("unsupported", "view_trusted", None, 0),
+    "0x000ac780_x64_fieldcast_wrongderived": ("unsupported", "view_trusted", None, 0),
+    "0x000ac780_x64_fieldcast_placeholderderived": ("unsupported", "view_trusted", None, 0),
+    "0x000ac780_x64_fieldcast_ambiguous": ("unsupported", "view_ambiguous", None, 0),
+    "0x000ac780_x64_fieldcast_view": ("unsupported", "view_trusted", None, 0),
+    "0x000ac780_x64_fieldcast_wrongview": ("unsupported", "view_trusted", None, 0),
+    "0x000ac780_x64_fieldcast_declwins": ("fail", None, None, 0),
+    "0x000ac780_x64_fieldcast_realstraddle": ("unsupported", "view_straddle", None, 0),
     # (rev5, D61 review) HULK_RANGE whose declaration names no 0x address: unsupported (rangecheck), not drawn from the range
     "0x002775b0_x64_bucket_range_nocite": ("unsupported", None, "writer sites", 0),
 }
@@ -1261,7 +1282,7 @@ X64_CASES = {
 MIN_RUN = {"0x0028c2a0_rep_count": 50, "0x000e36c0_small_counts": 50, "0x002155f0_diff_bound": 50,
            "0x0024a800_walk_end": 50, "0x001fe380_tiny_counts": 50, "0x002a4e40_static_count": 50,
            "0x00242da0_nil_addr_walk": 50, "0x002165c0_xlocal_ptr": 50,
-           "0x0021a3e0_proofcap": 3000}    # (integ1, D62) 442 before: the 32-inconclusive stop ended the proof run at 535 drawn
+           "0x0021a3e0_proofcap": 3000, "0x0024a280_native_proofwalk": 3000}    # (integ1, D62) 442 before: the 32-inconclusive stop ended the proof run at 535 drawn
 
 
 def x64_job(name):

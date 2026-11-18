@@ -104,7 +104,11 @@ def untree(name):
 
 
 class Unsupported(Exception):
-    """A construct this checker can't model (reported as status `unsupported`, class `tool`)."""
+    """A construct this checker can't model (reported as status `unsupported`, class `tool`, or CLS when given)."""
+
+    def __init__(self, msg="", cls="tool"):
+        super().__init__(msg)
+        self.cls = cls
 
 
 class CompileError(Exception):
@@ -487,12 +491,13 @@ SAME_WIDTH = ("i", "f", "d")
 
 
 class Leaf:
-    __slots__ = ("path", "o32", "o64", "kind", "s32", "s64", "extra", "signed", "range")
+    __slots__ = ("path", "o32", "o64", "kind", "s32", "s64", "extra", "signed", "range", "cast")
 
     def __init__(self, path, o32, o64, kind, s32, s64, extra=None, signed=False):
         self.path, self.o32, self.o64, self.kind, self.s32, self.s64 = path, o32, o64, kind, s32, s64
         self.extra, self.signed = extra, signed
         self.range = None       # (x64t13) (lo, hi): the values an integer field takes (HULK_RANGE, field_range)
+        self.cast = None        # (integ2, D93) a pointer field's pointee as the code casts it (field_casts)
 
     def off(self, bits):
         return self.o32 if bits == 32 else self.o64
@@ -613,6 +618,8 @@ def layout_fp(lay):
     for l in lay.by32:
         h.update(("%r %d %d %s %d %d %d %s\n" % (l.path, l.o32, l.o64, l.kind, l.s32, l.s64, l.signed,
                                                   _spell(l.extra) if l.extra is not None else "")).encode())
+        if l.cast is not None:
+            h.update(("cast %s\n" % _spell(l.cast)).encode())     # (integ2, D93/F3) the view the code reads it through
         if l.range is not None:
             h.update(("range %d %d\n" % l.range).encode())
     return h.hexdigest()[:16]
@@ -649,10 +656,11 @@ def _types_by_spelling(tu):
     return out
 
 
-def type_fingerprints(src, keys):
+def type_fingerprints(src, keys, field_casts=None):
     """(x64t12) {key: {"k64", "fp"}} of the layouts KEYS ({key: the 64-bit spelling}, as Types.fingerprints() gave
     them) in SRC's current text: the parse a Checker makes, without the objects. A key the source no longer has
-    gets fp "missing"."""
+    gets fp "missing". (integ2, D93/F3) FIELD_CASTS: the run's [[record, field], [T32, T64 spellings]] (its report's
+    `field_casts`), applied as the run applied them (a view the source no longer has: "missing")."""
     import tree_tu
     with tempfile.TemporaryDirectory(dir=os.path.join(ROOT, "build") if os.path.isdir(os.path.join(ROOT, "build")) else None) as d:
         ctx = tree_tu.active(src) if src and tree_tu.is_tree_tu(src) else contextlib.nullcontext()
@@ -663,6 +671,14 @@ def type_fingerprints(src, keys):
         by32, by64 = _types_by_spelling(t32), _types_by_spelling(t64)
         types = Types(t32, t64, {})
         out = {}
+        for (rec, fld), (v32, v64) in (field_casts or []):
+            if v32 == AMBIGUOUS:
+                types.field_casts[(rec, fld)] = (AMBIGUOUS, AMBIGUOUS)
+                continue
+            a, b = by32.get(v32), by64.get(v64)
+            if a is None or b is None:
+                return {k: {"k64": k64, "fp": "missing"} for k, k64 in keys.items()}
+            types.field_casts[(rec, fld)] = (a, b)
         for k, k64 in keys.items():
             a, b = by32.get(k), by64.get(k64)
             if a is None or b is None:
@@ -681,6 +697,9 @@ class Types:
 
     def __init__(self, tu32, tu64, vtables):
         self.ranges_used = {}    # (integ1, rev5) {(record, field): (lo, hi)} of the HULK_RANGE annotations used
+        self.field_casts = {}    # (integ2, D93) {(record, field): (T32, T64)}: the record the code casts a pointer field to
+        self.view_trusted = set()   # (integ2, D93) views taken on trust (Types.extend)
+        self.view_ambiguous = set()     # (integ2, F5) objects of fields cast to several records (kept as declared)
         self.t = {32: tu32, 64: tu64}
         self.cache = {}
         self.pairs = {}             # (x64t12) key -> (RAW, the 64-bit type's spelling): what fingerprints() reports
@@ -716,6 +735,74 @@ class Types:
         lay.record = a.kind == K.RECORD
         self.cache[k] = lay
         return lay
+
+    def _derives(self, cast32, decl32):
+        """Is the record CAST32 the record DECL32 or derived from it (its bases, transitively)?"""
+        K = ci().CursorKind
+        want = decl32.get_canonical().spelling
+        seen, todo = set(), [cast32.get_canonical()]
+        while todo:
+            t = todo.pop()
+            if t.spelling == want:
+                return True
+            if t.spelling in seen:
+                continue
+            seen.add(t.spelling)
+            d = rdecl(t)
+            if d is None or not d.is_definition():
+                continue
+            todo.extend(c.type.get_canonical() for c in d.get_children() if c.kind == K.CXX_BASE_SPECIFIER)
+        return False
+
+    @staticmethod
+    def _gen_record(t):
+        """(integ2, F4) Is T a record declared in include/gen/ (RTTI-derived, checked by gen_headers.py --probe)?"""
+        d = rdecl(t)
+        f = d.location.file.name if d is not None and d.location.file is not None else ""
+        return "/include/gen/" in f.replace("\\", "/")
+
+    def extend(self, lay, cast, decl=None):
+        """(integ2, D93, fieldcasts; rev5's review) The object a pointer field points at, when the code casts the field
+        to another record CAST (`(Result_2aecb0*)builder.image`). LAY: the field's declared pointee (types DECL).
+        - CAST a record of include/gen derived from the declared one, a base that lays out words (a real downcast with
+          independent evidence: RTTI and gen_headers --probe): CAST, outright.
+        - Otherwise (a void / incomplete / placeholder pointee, or an unrelated record): LAY extended by CAST's leaves
+          and member starts past LAY's end on both targets, and the view is recorded in `view_trusted`: what the code's
+          view says there is taken on trust (rev5's _wrongview: any such view passes), so such a run is no clean
+          equivalent (verify64 reports it unsupported, class view_trusted).
+        - A view word past LAY's end on one target and inside it on the other: unsupported, class view_straddle (the
+          declared type and the view disagree about which words exist; no fallback)."""
+        try:
+            lc = self.layout(cast[0], cast[1])
+        except Unsupported:
+            return lay
+        if lc.raw or lc is lay:
+            return lay
+        if decl is not None and not lay.raw and lay.record and lay.leaves and lay.size32 > 1 and \
+                self._gen_record(cast[0]) and self._gen_record(cast[1]) and \
+                self._derives(cast[0], decl[0]) and self._derives(cast[1], decl[1]):
+            # (rev5's re-review, F4) a downcast is taken outright only to a record with evidence of its own: a class of
+            # include/gen (RTTI and the probe check its vftables, slots and sizeof), from a base that lays out words
+            return lc
+        s32, s64 = (0, 0) if lay.raw else (lay.size32, lay.size64)
+        if any((l.o32 >= s32) != (l.o64 >= s64) for l in lc.leaves) or \
+                any((o32 >= s32) != (o64 >= s64) for o64, o32 in lc.m64.items()):
+            raise Unsupported("view_straddle: %s read through %s: a view word lies past the declared type's end on one "
+                              "target and inside it on the other" % (lay.key, lc.key), cls="view_straddle")
+        extra = [l for l in lc.leaves if l.o32 >= s32 and l.o64 >= s64]
+        # (the view's member starts too: an empty member or a struct of raw bytes has no scalar leaf of its own)
+        extra += [Leaf(("view", o64), o32, o64, "m", 0, 0) for o64, o32 in sorted(lc.m64.items())
+                  if o32 >= s32 and o64 >= s64]
+        if not [l for l in extra if l.kind != "m"] and not any(l.kind == "m" and l.o64 for l in extra):
+            return lay
+        self.view_trusted.add("%s as %s" % (lay.key, lc.key))
+        k = "%s+view(%s)" % (lay.key, lc.key)
+        if k in self.cache:
+            return self.cache[k]
+        nl = Layout(k, max(s32, lc.size32), max(s64, lc.size64), ([] if lay.raw else list(lay.leaves)) + extra)
+        nl.record = True
+        self.cache[k] = nl
+        return nl
 
     def _flatten(self, a, b, o32, o64, path, out, mdr):
         K = ci().TypeKind
@@ -806,6 +893,9 @@ class Types:
                 continue
             n0 = len(out)
             self._flatten(x.type, y.type, o32 + pa // 8, o64 + pb // 8, path + (x.spelling or "anon%d" % pa,), out, None)
+            fc_ = self.field_casts.get((a.spelling, x.spelling))
+            if fc_ is not None and len(out) == n0 + 1 and out[n0].kind == "p":
+                out[n0].cast = fc_          # (integ2, D93) the pointee the code casts this field to
             rng = field_range(x)
             if rng is not None and "rangecheck" not in OFF:
                 # (integ1, rev5/D61) only on a scalar integer field (one integer leaf: not a struct, array or pointer), and
@@ -1183,7 +1273,7 @@ class Heap:
                         k_ = r.below(t.count + 1)
                         v = ("p", t, k_ * t.lay.size32)
                 if v is None:
-                    v = self.choose_ptr(r, ("leaf", o.id, e, l.o32), l.extra)
+                    v = self.choose_ptr(r, ("leaf", o.id, e, l.o32), l.extra, cast=l.cast)
                 o.ptrs[key] = v
             return o.ptrs[key]
         if k == "fp":
@@ -1216,20 +1306,25 @@ class Heap:
         memo[l.path] = best
         return best
 
-    def choose_ptr(self, r, ident, types):
+    def choose_ptr(self, r, ident, types, cast=None):
         """A pointer value for IDENT: null, an existing object of the pointee type, or a new one. Decided once per
         input (the 64-bit run sees the 32-bit run's choice, whatever objects exist by then)."""
         if ident in self.choices:
             return self.choices[ident]
-        v = self._choose_ptr(r, ident, types)
+        v = self._choose_ptr(r, ident, types, cast)
         self.choices[ident] = v
         return v
 
-    def _choose_ptr(self, r, ident, types):
+    def _choose_ptr(self, r, ident, types, cast=None):
         x = r.below(100)
         if x < 20:
             return ("p", None, 0)
         lay = self.chk.types.layout(types[0], types[1]) if types else RAW
+        if cast is not None and cast[0] == AMBIGUOUS:
+            # (integ2, F5) a field cast to several records: the object keeps its declared type, the run says so
+            self.chk.types.view_ambiguous.add(str(ident[:2]))
+        elif cast is not None:
+            lay = self.chk.types.extend(lay, cast, types)
         if x < 35:
             same = self.by_type.get(lay.key) or []
             same = [s for s in same if s.kind == "heap"]
@@ -1274,7 +1369,7 @@ class Heap:
             return off32
         v = o.lay.to64(off32)
         if v is None:
-            raise Unsupported("interior pointer translation")
+            raise Unsupported("interior pointer translation (%s +0x%x)" % (o.lay.key, off32))
         return v
 
 
@@ -1662,6 +1757,13 @@ class Checker:
         for k in a32:
             if a64.get(k) == a32[k]:
                 self.param_into[k] = a32[k]
+        self.types.field_casts = {}
+        if "fieldcasts" not in OFF:
+            f32, f64 = field_casts(c32.get_definition() or c32), field_casts(c64.get_definition() or c64)
+            for k in f32:
+                if k in f64:
+                    amb_ = AMBIGUOUS in (f32[k], f64[k])
+                    self.types.field_casts[k] = (AMBIGUOUS, AMBIGUOUS) if amb_ else (f32[k], f64[k])
         self.ret_casts = {}
         self.site_casts = {}
         if "retcasts" not in OFF:
@@ -1683,6 +1785,7 @@ class Checker:
                         self.site_casts[k] = [None if a is None or b is None else (a.get_pointee(), b.get_pointee())
                                               for a, b in zip(l32, l64)]
         self.range32 = self.img[32].func_range(name32)
+        self.ast_digest = ast_digest(c32, c64)
 
     def _pick_by_original(self):
         """The MSVC 7.1 object of the source names the function (equiv.py's natmap); else the only external function."""
@@ -2028,6 +2131,106 @@ def param_casts(fn):
     return out
 
 
+def ast_digest(c32, c64):
+    """(integ2, D97; rev5's review) A digest of what a run of the function C32 / C64 takes from the parse besides its
+    bytes and its records' layouts: its own declaration (the signature it is called with), the HULK_INTO parameters
+    (param_into), and every cast that types an object it is given (param_casts, return_casts and site casts,
+    field_casts). The x64 gate keeps it with a cached result: a view type swapped or HULK_INTO added with the same
+    code bytes runs again."""
+    def sp(t):
+        return t if isinstance(t, str) or t is None else t.get_canonical().spelling
+    parts = {}
+    for n, c in (("32", c32), ("64", c64)):
+        fn = c.get_definition() or c
+        parts["decl" + n] = [sp(c.type), sp(c.semantic_parent.type) if c.semantic_parent is not None else None,
+                             c.spelling]
+        try:
+            parts["into" + n] = sorted([str(k), str(v)] for k, v in param_into(fn).items())
+        except Unsupported as e:
+            parts["into" + n] = "unsupported: %s" % e
+        parts["pcasts" + n] = sorted([str(k), sp(v)] for k, v in param_casts(fn).items())
+        parts["rcasts" + n] = sorted([k, sp(v)] for k, v in return_casts(fn).items())
+        parts["scasts" + n] = sorted([k, [sp(x) for x in v]] for k, v in return_casts(fn, True).items())
+        parts["fcasts" + n] = sorted([list(k), sp(v)] for k, v in field_casts(fn).items())
+    return hashlib.sha1(json.dumps(parts, sort_keys=True, default=str).encode()).hexdigest()[:16]
+
+
+def ast_digests(src, symbols):
+    """(integ2, D97) {32-bit symbol: ast_digest or None} for SRC's current text (one parse of each target), the 64-bit
+    declaration paired with the 32-bit one by its declaration's place (loc_key)."""
+    import tree_tu
+    out = {}
+    with tempfile.TemporaryDirectory(dir=os.path.join(ROOT, "build") if os.path.isdir(os.path.join(ROOT, "build")) else None) as d:
+        ctx = tree_tu.active(src) if src and tree_tu.is_tree_tu(src) else contextlib.nullcontext()
+        with ctx:
+            w = write_wrapper(src, d)
+            t32 = TU(w, d, "i686-pc-windows-msvc", 32)
+            t64 = TU(w, d, "x86_64-pc-windows-msvc", 64)
+        for s32 in symbols:
+            c32 = t32.by_mangled.get(s32)
+            if c32 is None:
+                out[s32] = None
+                continue
+            k = loc_key(c32)
+            hit = [c for c in t64.by_mangled.values() if c.kind == c32.kind and loc_key(c) == k]
+            try:
+                out[s32] = ast_digest(c32, hit[0]) if len(hit) == 1 else None
+            except Exception:   # noqa: BLE001 - can't digest: the result is treated as stale
+                out[s32] = None
+    return out
+
+
+AMBIGUOUS = "ambiguous"     # (integ2, F5) a field_casts entry with several cast targets
+
+
+def field_casts(fn):
+    """(integ2, D93, fieldcasts) {(record spelling, field name): T} for the casts in FN's body of a record's pointer
+    field straight to a pointer to another record, `(Result_2aecb0*)builder.image` (0x002aecb0): the object such a
+    field points at in the input (a stub's out-parameter, a fuzzed object) is generated as the type the code reads
+    it through, not the field's declared pointee, whose layout may not cover the words read (pure3d::Image has no
+    field where the Entity words sit; read through untyped bytes, a view right for 64-bit read as a layout
+    difference and the 32-bit-sized one passed). The first cast of a field wins."""
+    K = ci().CursorKind
+    out = {}
+
+    def strip(c):
+        while c.kind in (K.PAREN_EXPR, K.UNEXPOSED_EXPR):
+            k = list(c.get_children())
+            if len(k) != 1:
+                break
+            c = k[0]
+        return c
+
+    def walk(c, depth=0):
+        if depth > 200:
+            return
+        if c.kind in (K.CSTYLE_CAST_EXPR, K.CXX_STATIC_CAST_EXPR, K.CXX_REINTERPRET_CAST_EXPR):
+            t = c.type.get_canonical()
+            pk = t.get_pointee().get_canonical() if t.kind.name == "POINTER" else None
+            if pk is not None and pk.kind.name == "RECORD":
+                kids = [k for k in c.get_children() if k.kind != K.TYPE_REF]
+                inner = strip(kids[-1]) if kids else None
+                f = inner.referenced if inner is not None and inner.kind == K.MEMBER_REF_EXPR else None
+                if f is not None and f.kind == K.FIELD_DECL and f.type.get_canonical().kind.name == "POINTER":
+                    fp = f.type.get_canonical().get_pointee().get_canonical()
+                    par = f.semantic_parent
+                    if fp.kind.name in ("RECORD", "VOID") and fp.spelling != pk.spelling and par is not None:
+                        out.setdefault((par.type.get_canonical().spelling, f.spelling), []).append(t.get_pointee())
+        for ch in c.get_children():
+            walk(ch, depth + 1)
+    for ch in fn.get_children():
+        if ch.kind == K.COMPOUND_STMT:
+            walk(ch)
+    # (rev5's re-review, F5) a field the body casts to more than one record (a tagged union: `f8` is a Node or an
+    # Actor by type, 0x0019e910) has no one view: AMBIGUOUS (the object keeps its declared type; a run that reads it
+    # is reported view_ambiguous)
+    res = {}
+    for k, ts in out.items():
+        sp_ = {t.get_canonical().spelling for t in ts}
+        res[k] = ts[0] if len(sp_) == 1 else AMBIGUOUS
+    return res
+
+
 def return_casts(fn, want_sites=False):
     """{callee declaration key: T*} for the calls in FN's body whose `void*` result the body casts straight to a
     pointer to a record or to a pointer (`(CClosure *)FUN_00219520(L, n)`, `(Ref **)FUN_0008d6d0(bytes)`): the stub's
@@ -2207,7 +2410,7 @@ class Side:
         try:
             return self.map_page(address)
         except Exception as e:  # noqa: BLE001
-            self.stop = ("tool", "map: %r" % e)
+            self.stop = (getattr(e, "cls", "tool"), "map: %r" % e)     # (integ2: view_straddle keeps its class)
             return False
 
     def map_page(self, address):
@@ -2633,7 +2836,7 @@ class Side:
         except Stop:
             uc.emu_stop()
         except Unsupported as e:
-            self.stop = ("tool", str(e))
+            self.stop = (getattr(e, "cls", "tool"), str(e))
             uc.emu_stop()
         except UcError as e:
             self.stop = ("crash", "in stub: %s" % e)
@@ -3252,8 +3455,8 @@ def compare(chk, heap, r32, r64):
     if r64.get("stop"):
         st = r64["stop"]
         cls = {"crash": "crash64", "hang": "hang64", "tool": "tool"}.get(st[0], "tool")
-        if st[0] == "tool":
-            return "64-bit run: %s" % st[1], "tool"
+        if st[0] in ("tool", "view_straddle"):
+            return "64-bit run: %s" % st[1], st[0]
         return "64-bit run %s: %s (the 32-bit run returned)" % (st[0], st[1]), cls
     for o in heap.objs:
         if o.kind == "alloc" and o.hint is not None and o.alloc and o.alloc[0] >= o.hint.size32 and o.alloc[1] < o.hint.size64:
@@ -3465,8 +3668,10 @@ def _verify64(src, addr, symbol=None, n_inputs=200, seeds=None, time_budget=120,
     try:
         res = chk.run(n_inputs, seeds, time_budget)
     except Unsupported as e:
-        rep.update(status="unsupported", error="[tool] " + str(e), **{"class": "tool"}, time=round(time.time() - t0, 2))
+        cls_ = getattr(e, "cls", "tool")
+        rep.update(status="unsupported", error="[%s] %s" % (cls_, e), **{"class": cls_}, time=round(time.time() - t0, 2))
         rep["types"] = chk.types.fingerprints()
+        rep["ast"] = getattr(chk, "ast_digest", None)
         return rep
     rep["types"] = chk.types.fingerprints()     # (x64t12) the layouts the verdict rests on (tools/x64_gate.py's cache)
     # (integ1, rev5/D61) the input annotations the run used: a verdict that rests on them says so
@@ -3502,6 +3707,36 @@ def _verify64(src, addr, symbol=None, n_inputs=200, seeds=None, time_budget=120,
         rep["status"] = "inconclusive"
     else:
         rep["status"] = "equivalent"
+    if res["skipped"].get("view_straddle") and rep["status"] != "fail":
+        # (integ2, D93; rev5's review) inputs whose object a straddling view would type were skipped: say so, never
+        # pass on the others
+        rep["status"] = "unsupported"
+        rep["class"] = "view_straddle"
+        rep["error"] = "[view_straddle] %d inputs: %s" % (res["skipped"]["view_straddle"],
+                                                         (res.get("skip_first") or {}).get("view_straddle"))
+    rep["ast"] = getattr(chk, "ast_digest", None)     # (integ2, D97) the parsed inputs the verdict rests on besides the bytes and layouts
+    if chk.types.field_casts:
+        rep["field_casts"] = sorted([list(k), [v[0] if isinstance(v[0], str) else v[0].spelling,
+                                                v[1] if isinstance(v[1], str) else v[1].spelling]]
+                                    for k, v in chk.types.field_casts.items())
+    if chk.types.view_ambiguous and rep["status"] in ("equivalent", "inconclusive"):
+        # (integ2, F5; rev5's re-review) the run read a field the code casts to several records (a tagged union): no one
+        # view says what is there and the object kept its declared type, so the run earns no credit
+        rep["view_ambiguous"] = sorted(chk.types.view_ambiguous)
+        rep["status"] = "unsupported"
+        rep["class"] = "view_ambiguous"
+        rep["error"] = "[view_ambiguous] a field cast to several records was read: %s" % rep["view_ambiguous"][:3]
+    if chk.types.view_trusted:
+        # (integ2, D93; rev5's review) views over void / incomplete / placeholder pointees, taken on trust: any view
+        # passes there (rev5's _wrongview), so an equivalent run is no clean --x64 equivalent (no proof credit, no
+        # baseline removal); a difference found through it still stands
+        rep["view_trusted"] = sorted(chk.types.view_trusted)
+        if rep["status"] in ("equivalent", "inconclusive"):
+            rep["view_trusted_status"] = rep["status"]
+            rep["status"] = "unsupported"
+            rep["class"] = "view_trusted"
+            rep["error"] = "[view_trusted] %s with views taken on trust: %s" % (rep["view_trusted_status"],
+                                                                           "; ".join(rep["view_trusted"])[:300])
     rep["time"] = round(time.time() - t0, 2)
     # (the fields tools/equiv_batch.py reads from a level-3 report: batches keep the class and the first difference)
     rep["level3"] = {"inputs_run": rep.get("completed"), "coverage": rep.get("coverage"), "statuses": rep.get("skipped"),
