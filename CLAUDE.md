@@ -81,7 +81,8 @@ A caller's declaration must never become the same function as a definition in it
 a distinct overload, e.g. a `void *` or hulk_intptr parameter, which binds natively like the pointer.
 A float local the listing only loads and stores (`mov`, or `fld`/`fst` with no arithmetic) stays `float`; `hulk_freg` is
 only for values computed in st. Under the Wine build's SSE code, write a product that feeds a sum the original keeps in st
-as `(hulk_freg)a * b` (D80).
+as `(hulk_freg)a * b` (D80). Before calling a `--wine` difference float rounding, check whether only one byte differs:
+a `bool` return that the original passes on as a raw byte (`al`) must be declared `unsigned char` (D112).
 A source-local polymorphic stand-in for an object the code constructs gets clang's own (shorter) vftable natively:
 construct a non-polymorphic record, store the game's vftable by address, and define the slots as plain members of
 record-derived structs. A gen edit that changes a class's 32-bit size is recorded with `gen_headers.py --update-sizes`;
@@ -95,6 +96,11 @@ element-typed pointer arithmetic compiles to the same MSVC bytes. A callee decla
 definition (int vs pointer, void vs a returned pointer) does not bind natively and the run stops on `missing`: declare it
 as defined. A native hang: attach with `lldb -p PID --batch -s FILE` and break in the wait loop's callees (HULK_HANG
 samples show only the loop). `jobq.py cancel --name ME` cancels all your unfinished jobs and needs `--all`; cancel by id (D110).
+`pure3d::X::~X() {}` standing for a `??_G` scalar deleting destructor defines nothing natively; write it as an explicit
+function: the body by its address, then the free when `flags & 1`. A raw `(char*)this + HULK_SPE(k)` in a pad view reads
+as `layout` to the x64 gate when the record moves: give the view a field at that offset. After a symbol change, a local
+native run needs the snapshot's report.json refreshed (TreeDefs binds vftable slots and callers through its address ->
+32-bit symbol table) and the new address names added to a private copy of the binding map (D117).
 
 ## Builds and proofs
 

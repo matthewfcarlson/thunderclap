@@ -24,7 +24,9 @@ at a function row's address, and an address outside every row.
 --map: every name of a Wine build's binding map (`bindings`: 32-bit name -> address) that the XDK rule binds, made
 64-bit (the 32-bit MS name's `@@YG` / `@@YI` / `@@YA` free-function code and a C name's `_name@N` decoration), must be
 bound by the map to that row's address; and every map name bound to a row's address is either bound by the rule
-or listed (the game-source names the rule cannot know: the unb lineage's naming work). Exit 0 when all hold.
+or listed (the game-source names the rule cannot know: the unb lineage's naming work). A map name bound to the game's
+one-instruction `jmp rel32` thunk to the rule's row (read from the XBE's bytes) reaches the same function and is reported
+as a thunk, not a failure (D104: thunk_FUN_003eac33 -> 0x003eba7c, a jmp to 0x003eac33). Exit 0 when all hold.
 """
 import argparse
 import json
@@ -128,6 +130,23 @@ int main() {
     return "\n".join(L) + "\n"
 
 
+_XBE = []
+
+
+def jmp_target(va):
+    """(D104) The target of the game's one-instruction `jmp rel32` thunk at va (the XBE's own code), else None: a map name
+    bound to such a thunk reaches the rule's row through it, which the check reads from the bytes, not from a name list."""
+    if not _XBE:
+        import xbe
+        _XBE.append(xbe.Xbe(os.path.join(ROOT, "isos/extracted/default.xbe")))
+    x = _XBE[0]
+    o = x.offset(va)
+    if o is None or not x.is_code(va) or x.data[o] != 0xE9:
+        return None
+    rel = int.from_bytes(x.data[o + 1:o + 5], "little", signed=True)
+    return (va + 5 + rel) & 0xFFFFFFFF
+
+
 def map_check(path, x):
     """The rule on a real tree's names (a Wine build's binding map: its names are the 32-bit spellings)."""
     b = json.load(open(path))["bindings"]
@@ -136,7 +155,7 @@ def map_check(path, x):
         by_target[tgt] = a
     for da, ds, _n in x.data:
         by_target[ds] = da
-    wrong, bound, unnamed = [], 0, []
+    wrong, bound, unnamed, thunked = [], 0, [], []
     for s, v in sorted(b.items()):
         a = int(v["addr"], 16)
         s64 = re.sub(r"@@Y[GIA]", "@@YA", s) if s.startswith("?") else re.sub(r"^_(\w+?)(?:@\d+)?$", r"\1", s)
@@ -146,12 +165,14 @@ def map_check(path, x):
             base, off = x.aliases.get(tgt, (tgt, 0))
             at = by_target.get(base)
             bound += 1
-            if at is None or at + off != a:
+            if at is not None and at + off != a and jmp_target(a) == at + off:
+                thunked.append("%s: the map 0x%08x is a jmp to the rule's 0x%08x" % (s, a, at + off))
+            elif at is None or at + off != a:
                 wrong.append("%s: the rule binds %s (%s), the map 0x%08x" % (
                     s, tgt, "0x%08x" % (at + off) if at is not None else "?", a))
         elif row:
             unnamed.append((row[2], s))
-    return bound, wrong, unnamed
+    return bound, wrong, unnamed, thunked
 
 
 def main():
@@ -172,11 +193,13 @@ def main():
                                                                          for s in bad_neg))
         rc = 1
     if a.map:
-        bound, wrong, unnamed = map_check(a.map, nb.XdkTable())   # (its own aliases: not the link's)
+        bound, wrong, unnamed, thunked = map_check(a.map, nb.XdkTable())   # (its own aliases: not the link's)
         print("map %s: %d names the rule binds, %d bound elsewhere by the map; %d map names of import rows the rule "
               "does not bind (game-source names):" % (os.path.relpath(a.map, ROOT), bound, len(wrong), len(unnamed)))
         for w in wrong:
             print("  FAIL " + w)
+        for th in thunked:
+            print("  thunk " + th)
         for n, s in sorted(unnamed):
             print("  unnamed %-40s %s" % (n, s))
         rc = rc or (1 if wrong else 0)
