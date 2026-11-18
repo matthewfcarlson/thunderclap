@@ -2112,7 +2112,11 @@ gives original == x86-64 object, without ever comparing 4-byte-pointer memory wi
   overrun of the 64-bit allocation); EQ64_OFF=regrow turns it off. rev5's finding: a regrown object lies after the
   objects created since, so the 64-bit heap's allocation order can differ from the 32-bit one; code that compares
   two allocations' addresses then reads as a difference (his probe: class `int`), a loss of precision, never false
-  credit. Reserving the 64-bit region larger at creation would make regrow rarer; not done); it and any
+  credit. Reserving the 64-bit region larger at creation would make regrow rarer; not done). (D107 follow-up, rev5's
+  probes) The size is read at its parameter's declared width on each side (a `size_t` / `hulk_uintptr` is 8 bytes
+  natively: its upper half is part of the request), and the 64-bit request is bounded as the 32-bit one is: past
+  ALLOC_MAX, or above four times the 32-bit request plus 0x100, the run stops with class `layout` (gating), not a skip
+  (cases `0x002a4cb0_x64_alloc_wide`, `_alloc_big`; EQ64_OFF=alloc64); it and any
   other untyped object (a `void*` a stub returned) is typed after the run by the vftable the 32-bit run stored at +0
   or the largest type it was passed as. A pointer outside every object (an index from fuzzed data) is not compared
   (`wildptr`); one into a null object (`&((T*)0)->field`) compares as `nullrel`, since its value is the layout. The scalar deleting
@@ -2244,6 +2248,21 @@ allocator is read through a view). A wider range still crashes on 32-bit (no inp
 the annotation the crash64 stands (jobs 88358 / 88362 on the real TU). Cases `0x00266f20_x64_paramrange`,
 `_uncited` and `_pasttable` (refused). EQ64_OFF=paramrange ignores it. The report lists them (`hulk_range_params`); the gate's AST
 digest covers them (D97).
+(integ2, D111) **Untyped pointer-word globals read through a cast.** A generated declaration types a global the
+code reads as an object pointer as `void*` or `void*[1]`; the body reads it through `(*(T**)&DAT_x)` (253 TUs do).
+Without a type the word pointed at a raw object whose "vptr" was fuzz: a virtual call fetched at 0 and no 32-bit
+input completed (0x001bc0c0's `unsupported:no32`). Now (`global_casts`) such a global, read through casts to one
+T* only (every cast of its value counts too: `(U*)DAT[0]`, static_cast / reinterpret_cast<U*>(DAT[0]), `(U*)DAT`
+of a scalar `void*`; rev5's review), is generated as a T* on both sides: a class of include/gen outright (RTTI evidence, as a pinned view
+types it), a local stand-in as a view taken on trust (D93's rule: the run is no clean equivalent, class
+`view_trusted`). Cast to two different T*, it stays untyped (`view_ambiguous` when nothing else fails). A global
+with C++ linkage (declared inside a namespace) stays untyped: its 32- and 64-bit names don't pair (fails safe). Only
+pointer-word globals: a larger untyped array, an incomplete `DataLayout_*` record (0x001bc0c0's DAT_00527c58) or a
+typed global keep their model. The report lists them (`global_casts`), the AST digest covers them, EQ64_OFF=gcasts
+turns it off. 0x001bc0c0 now completes inputs: its globals are local stand-ins (view_trusted), and the Loader word in
+DAT_00527c58 (an incomplete DataLayout) still reads as raw bytes (class `int`, reported, never gating). Cases
+`0x001bc0c0_x64_gcast{,_local,_ambiguous,_array,_amb2,_valuecast}`.
+
 (integ2, D103; rev5's review) **Data annotations on a global.** When the out-of-range index is a word of game data,
 not a parameter, the global's declaration carries the claim (a TU's redeclaration of a name its generated header
 declares, at global scope; every declaration is read, matched by linkage name). Both need the global's DAT_ address

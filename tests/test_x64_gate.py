@@ -351,6 +351,12 @@ class Keys(unittest.TestCase):
         k9, a9 = both(h3 + "// writer 0x00011000 0x00022000\nextern \"C\" int DAT_00500000[8] HULK_RANGE(0, 7);\n", b3)
         self.assertEqual(k5, k9)
         self.assertNotEqual(a5, a9)
+        # (integ2, D111) the class an untyped pointer-word global is read as (`*(T**)&DAT`) changes the digest
+        h5 = "extern \"C\" void* DAT_00500010[1];\nstruct GA { int x; };\nstruct GB { int y; int x; };\n"
+        b5 = "// sym: ?g@@YAHXZ\nint g() {\n    return (*(%s**)&DAT_00500010)->x;\n}\n"
+        k11, a11 = both(h5, b5 % "GA")
+        k12, a12 = both(h5, b5 % "GB")
+        self.assertNotEqual(a11, a12)
         # (rev5's R8) the checks' other inputs: another config/data.json item at the address changes the digest
         with mock.patch.object(equiv64, "data_item", lambda addr: {"addr": hex(addr), "size": 32, "kind": "table"}):
             k10, a10 = both(h3 + "// writer 0x00011000\nextern \"C\" int DAT_00500000[8] HULK_RANGE(0, 7);\n", b3)

@@ -1467,6 +1467,8 @@ SKIP_CALLS = {"__security_check_cookie", "__chkstk", "_alloca_probe", "__alloca_
 ALLOCATORS = {"??2@YAPAXI@Z", "??_U@YAPAXI@Z", "??2@YAPEAX_K@Z", "??_U@YAPEAX_K@Z", "_malloc", "malloc",
               "FUN_0008d690", "_FUN_0008d690", "FUN_0008d6d0", "_FUN_0008d6d0", "thunk_FUN_0008d690", "_thunk_FUN_0008d690"}
 ALLOC_MAX = 16 << 20                # a larger 32-bit allocation sets the input aside (a fuzzed count)
+# (rev5, D107 follow-up) a new allocator entry needs review: its size is read as the declared parameter (a size passed
+# inside a struct would read the struct's first bytes as the request)
 # the game's allocators declared with C++ linkage (`void* __cdecl FUN_0008d690(unsigned)`: ?FUN_0008d690@@YAPAXI@Z)
 ALLOCATOR_CXX = re.compile(r"^\?(thunk_)?FUN_0008d6[9d]0@@YA")
 # member allocators whose first parameter is the size: pure3d's bump allocator (0x002888c0, `pool->Alloc(n, align)`)
@@ -1779,6 +1781,18 @@ class Checker:
                 if k in a64:
                     self.param_casts[k] = (a32[k], a64[k])
         self.gdata_used = {}    # (integ2, D103) {global: model} of the HULK_RANGE / HULK_RDATA globals a run used
+        self.gcasts = {}        # (integ2, D111) {32-bit var id: (T*32, T*64) or AMBIGUOUS} (global_casts)
+        self.gcasts_used = {}   # (integ2, D111) {global: "T" / "T (view)" / "ambiguous"} of the typed globals a run used
+        if "gcasts" not in OFF:
+            g32, g64 = global_casts(c32.get_definition() or c32), global_casts(c64.get_definition() or c64)
+            def nk_(k, bits):     # the 32-bit C name's leading underscore
+                return "m:" + k[3:] if bits == 32 and k.startswith("m:_") else k
+            k64 = {nk_(k, 64): v for k, v in g64.items()}
+            for k, v in g32.items():
+                w = k64.get(nk_(k, 32))
+                if w is None:
+                    continue
+                self.gcasts[k] = AMBIGUOUS if AMBIGUOUS in (v, w) else (v, w)
         self.param_range = {}
         if "paramrange" not in OFF:
             r32, r64 = param_range(c32.get_definition() or c32), param_range(c64.get_definition() or c64)
@@ -2810,6 +2824,8 @@ def ast_digest(c32, c64):
         # (integ2, D103; rev5's R4) the data annotations of every global of the parse (HULK_RANGE / HULK_RDATA on any
         # declaration, with their comment blocks), not only of those the body names: a helper can read one
         parts["gdata" + n] = gdata_digest_part(fn.translation_unit)
+        # (integ2, D111) the pointer-word globals it reads through a typed cast
+        parts["gcasts" + n] = sorted([k, v if v == AMBIGUOUS else sp(v)] for k, v in global_casts(fn).items())
     return hashlib.sha1(json.dumps(parts, sort_keys=True, default=str).encode()).hexdigest()[:16]
 
 
@@ -2882,6 +2898,86 @@ def field_casts(fn):
     # (rev5's re-review, F5) a field the body casts to more than one record (a tagged union: `f8` is a Node or an
     # Actor by type, 0x0019e910) has no one view: AMBIGUOUS (the object keeps its declared type; a run that reads it
     # is reported view_ambiguous)
+    res = {}
+    for k, ts in out.items():
+        sp_ = {t.get_canonical().spelling for t in ts}
+        res[k] = ts[0] if len(sp_) == 1 else AMBIGUOUS
+    return res
+
+
+def _pointer_word_global(v):
+    """(integ2, D111) Is variable V an untyped pointer-word global: `void*` or `void*[1]` (a generated declaration of
+    a word the code reads as a typed pointer)?"""
+    t = v.type.get_canonical()
+    if t.kind.name == "CONSTANTARRAY" and t.element_count == 1:
+        t = t.element_type.get_canonical()
+    return t.kind.name == "POINTER" and t.get_pointee().get_canonical().kind.name == "VOID"
+
+
+def global_casts(fn):
+    """(integ2, D111, gcasts) {variable id (_var_id): T*} for the untyped pointer-word globals (_pointer_word_global)
+    FN's body reads through `*(T**)&DAT_x` (or `*(T**)DAT_x` of a one-word array): the global's word is generated as
+    a T* on both sides, as a pinned view would type it. A global cast to two different T*: AMBIGUOUS (it stays
+    untyped; the run says so, class view_ambiguous)."""
+    K = ci().CursorKind
+    out = {}
+
+    def strip(c):
+        while c.kind in (K.PAREN_EXPR, K.UNEXPOSED_EXPR):
+            k = list(c.get_children())
+            if len(k) != 1:
+                break
+            c = k[0]
+        return c
+
+    def walk(c, depth=0):
+        if depth > 300:
+            return
+        if c.kind in (K.CSTYLE_CAST_EXPR, K.CXX_REINTERPRET_CAST_EXPR, K.CXX_STATIC_CAST_EXPR):
+            t = c.type.get_canonical()
+            pk = t.get_pointee().get_canonical() if t.kind.name == "POINTER" else None
+            if pk is not None and pk.kind.name == "POINTER" and c.kind != K.CXX_STATIC_CAST_EXPR:
+                kids = [k for k in c.get_children() if k.kind != K.TYPE_REF]
+                inner = strip(kids[-1]) if kids else None
+                v = None
+                if inner is not None and inner.kind == K.UNARY_OPERATOR:
+                    toks = [tk.spelling for tk in inner.get_tokens()]
+                    ik = [strip(k) for k in inner.get_children()]
+                    if toks and toks[0] == "&" and len(ik) == 1 and ik[0].kind == K.DECL_REF_EXPR:
+                        v = ik[0].referenced
+                elif inner is not None and inner.kind == K.DECL_REF_EXPR and inner.referenced is not None and \
+                        inner.referenced.type.get_canonical().kind.name == "CONSTANTARRAY":
+                    v = inner.referenced
+                if v is not None and v.kind == K.VAR_DECL and _pointer_word_global(v) and \
+                        pk.get_pointee().get_canonical().kind.name != "VOID":
+                    try:
+                        out.setdefault(_var_id(v), []).append(t.get_pointee())
+                    except Exception:   # noqa: BLE001
+                        pass
+            if pk is not None and pk.kind.name != "VOID":
+                # (rev5's review) every other cast of the global's value counts toward ambiguity: `(U*)DAT[0]`,
+                # static_cast / reinterpret_cast<U*>(DAT[0]), `(U*)DAT` of a scalar void*
+                kids = [k for k in c.get_children() if k.kind != K.TYPE_REF]
+                inner = strip(kids[-1]) if kids else None
+                v = None
+                if inner is not None and inner.kind == K.ARRAY_SUBSCRIPT_EXPR:
+                    ak = list(inner.get_children())
+                    base = strip(ak[0]) if ak else None
+                    if base is not None and base.kind == K.DECL_REF_EXPR:
+                        v = base.referenced
+                elif inner is not None and inner.kind == K.DECL_REF_EXPR and inner.referenced is not None and \
+                        inner.referenced.type.get_canonical().kind.name == "POINTER":
+                    v = inner.referenced
+                if v is not None and v.kind == K.VAR_DECL and _pointer_word_global(v):
+                    try:
+                        out.setdefault(_var_id(v), []).append(t)
+                    except Exception:   # noqa: BLE001
+                        pass
+        for ch in c.get_children():
+            walk(ch, depth + 1)
+    for ch in fn.get_children():
+        if ch.kind != K.PARM_DECL:
+            walk(ch)
     res = {}
     for k, ts in out.items():
         sp_ = {t.get_canonical().spelling for t in ts}
@@ -3049,7 +3145,32 @@ class Side:
         c32 = ent.get(32, (None, None))[1]
         c64 = ent.get(64, (None, None))[1]
         view = getattr(self.chk, "global_views", {}).get(key)
-        if view is not None:
+        gc_ = None
+        if view is None and c32 is not None and getattr(self.chk, "gcasts", None):
+            try:
+                gc_ = self.chk.gcasts.get(_var_id(ent.get(32, (None, None))[1]))
+            except Exception:   # noqa: BLE001
+                gc_ = None
+        if gc_ is not None:
+            # (integ2, D111) an untyped pointer word the body reads as a T*: generated as one (a record of include/gen
+            # outright, RTTI evidence; a local stand-in is a view taken on trust, as D93's); cast two ways, untyped
+            nm_ = ent.get(32, (None, None))[0] or key
+            if gc_ == AMBIGUOUS:
+                self.chk.types.view_ambiguous.add("global %s" % nm_)
+                self.chk.gcasts_used[nm_] = "ambiguous"
+            else:
+                try:
+                    lay = self.chk.types.layout(gc_[0], gc_[1])
+                except Unsupported:
+                    lay = RAW
+                if not lay.raw:
+                    pt = (gc_[0].get_pointee(), gc_[1].get_pointee())
+                    if self.chk.types._gen_record(pt[0]) and self.chk.types._gen_record(pt[1]):
+                        self.chk.gcasts_used[nm_] = pt[0].get_canonical().spelling
+                    else:
+                        self.chk.types.view_trusted.add("global %s as %s" % (nm_, pt[0].get_canonical().spelling))
+                        self.chk.gcasts_used[nm_] = pt[0].get_canonical().spelling + " (view)"
+        elif view is not None:
             try:
                 lay = self.chk.types.layout(view[0], view[1])
             except Unsupported:
@@ -3897,21 +4018,41 @@ class Side:
             at = allocator_at(nm, c_name(nm, bits_))
             if at is not None:
                 break
+        # (integ2, D107 follow-up (a); rev5) the size parameter at its declared width on this side (a size_t /
+        # hulk_uintptr is 8 bytes on x86-64: its upper half is part of the request), the pointer width without a
+        # declaration
+        w_ = self.ps
+        if isinstance(sig, Sig) and sig.params:
+            i_ = at or 0
+            if i_ < len(sig.params):
+                try:
+                    w_ = max(1, min(self.ps, sig.params[i_][0 if b == 32 else 1].get_canonical().get_size()))
+                except Exception:   # noqa: BLE001
+                    w_ = self.ps
         if isinstance(sig, Sig) and (sig.has_this and sig.params or at is not None):
             kinds, locs, _ = self.arg_locs(sig, False)
             loc = [lc for (k, _t), lc in zip(kinds, locs) if k == "param"][at or 0]
-            size = int.from_bytes(self.read_loc(loc, 4, sp), "little")
+            size = int.from_bytes(self.read_loc(loc, w_, sp), "little")
         else:
             size = self.int_args(sp, 1)[0] if self.bits == 64 or sig is None or sig.cc32 != CC_THIS else 0
         if b == 32 and sig is not None and sig.cc32 in (CC_FAST,):
             size = self.reg(X.UC_X86_REG_ECX)
-        size &= (1 << (8 * self.ps)) - 1
+        size &= (1 << (8 * w_)) - 1
         if b == 32 and size > ALLOC_MAX:
             # a size from a fuzzed count (`count * 4` of an unchecked count): no game state asks for this much
             self.stop = ("wild", "32-bit allocation of 0x%x bytes" % size)
             raise Stop()
         ident = ("new", repr(st.key), n)
         o = self.heap.by_ident.get(ident)
+        s32_ = o.alloc[0] if o is not None and o.alloc else 0
+        if b == 64 and (size > ALLOC_MAX or size > 4 * s32_ + 0x100) and "alloc64" not in OFF:
+            # (integ2, D107 follow-up (b); rev5) the 64-bit side's request, bounded as the 32-bit one is: past
+            # ALLOC_MAX, or more than four times the 32-bit request plus 0x100 (pointers double a record; padding
+            # doesn't make it four times), the native size computation is wrong: a gating layout difference, not a skip.
+            # An allocation only the 64-bit run makes (no 32-bit request: s32_ 0) gets the 0x100 bound and is labelled
+            # layout too; it is a real difference anyway (the runs' call events differ)
+            self.stop = ("alloc64", "allocation of 0x%x bytes where the 32-bit run asked for 0x%x" % (size, s32_))
+            raise Stop()
         if o is None:
             o = self.heap.get(ident, "alloc", RAW, alloc=(size, size))
             # (ptr1) the source casts the allocator's result: an array of that type (a later vftable or a larger
@@ -4135,7 +4276,7 @@ def compare(chk, heap, r32, r64):
                 r[k] = normalize(r[k], heap)
     if r64.get("stop"):
         st = r64["stop"]
-        cls = {"crash": "crash64", "hang": "hang64", "tool": "tool"}.get(st[0], "tool")
+        cls = {"crash": "crash64", "hang": "hang64", "tool": "tool", "alloc64": "layout"}.get(st[0], "tool")
         if st[0] in ("tool", "view_straddle"):
             return "64-bit run: %s" % st[1], st[0]
         return "64-bit run %s: %s (the 32-bit run returned)" % (st[0], st[1]), cls
@@ -4364,6 +4505,8 @@ def _verify64(src, addr, symbol=None, n_inputs=200, seeds=None, time_budget=120,
         rep["hulk_range_params"] = {str(k): list(v) for k, v in sorted(chk.param_range.items())}
     if getattr(chk, "gdata_used", None):
         rep["hulk_data"] = {k: v for k, v in sorted(chk.gdata_used.items())}
+    if getattr(chk, "gcasts_used", None):
+        rep["global_casts"] = {k: v for k, v in sorted(chk.gcasts_used.items())}
     rep["inputs"], rep["completed"], rep["skipped"] = res["inputs"], res["completed"], res["skipped"]
     if res.get("skip_first"):
         rep["skip_first"] = res["skip_first"]

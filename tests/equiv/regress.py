@@ -1340,6 +1340,21 @@ X64_CASES = {
     # is a real 64-bit overrun and still fails
     "0x002a4cb0_x64_regrow": ("equivalent", None, None, 50),
     "0x002a4cb0_x64_regrow_16": ("fail", "layout", "64-bit write past the end of alloc#", 0),
+    # (integ2, D111) an untyped pointer-word global (`void* DAT[1]`) read through `*(T**)&DAT` is generated as a T*: a
+    # class of include/gen outright (equivalent), a local stand-in as a view taken on trust (view_trusted); cast two ways
+    # it stays untyped (fails here); a larger untyped array is out of scope (stays raw: no input completes)
+    "0x001bc0c0_x64_gcast": ("equivalent", None, None, 50),
+    "0x001bc0c0_x64_gcast_local": ("unsupported", "view_trusted", "global _DAT_0052c2a4 as Agent_lc", 0),
+    "0x001bc0c0_x64_gcast_ambiguous": ("fail", None, None, 0),
+    "0x001bc0c0_x64_gcast_array": ("unsupported", "tool", "no input completed", 0),
+    # (rev5's review) two casts whose reads don't differ (null checks): view_ambiguous by the rule; a cast of the
+    # word's value ((U*)DAT[0]) counts toward ambiguity too
+    "0x001bc0c0_x64_gcast_amb2": ("unsupported", "view_ambiguous", None, 0),
+    "0x001bc0c0_x64_gcast_valuecast": ("unsupported", "view_ambiguous", None, 0),
+    # (integ2, D107 follow-up; rev5's probes) an allocator's size read at its declared width (a pointer-width
+    # parameter's upper half counts) and the 64-bit request bounded: past ALLOC_MAX or far above the 32-bit one, layout
+    "0x002a4cb0_x64_alloc_wide": ("fail", "layout", "allocation of 0xffff00000070 bytes", 0),
+    "0x002a4cb0_x64_alloc_big": ("fail", "layout", "allocation of 0x7ffffff0 bytes", 0),
     # HULK_RDATA on 0x001fe380's const .rdata table {2, 3, 4, 5}: both runs start from the XBE's bytes, equivalent;
     # _none: the control (fuzzed words index lists[] past its end) is inconclusive; refused: a declaration not const, a
     # store into the table, a pointer table, a table in a writable section, an annotation on one parse only
