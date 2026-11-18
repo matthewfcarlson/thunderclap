@@ -28,10 +28,11 @@ for the plan. Run everything from the repo root with `build/venv/bin/python`.
 - `docs/`: design notes (`docs/journal.md` is the findings log). `build/` and `isos/` are local and ignored (compilers, Ghidra,
   venv, extracted disc, generated data TUs).
 - Retired: the model farm (archived 2026-11-13, last commit with `farm/` ac307cc62; its MSVC 7.1 pitfall recipes are
-  `docs/msvc71-pitfalls.md`), `hybrid/` (now only hooks for recording sessions in xemu on the hook-only XBE; patching our
-  functions into the XBE is retired), build_tree's generation of the tree from per-function sources (its compile/check
-  code is still used), the per-function briefs in `docs/agents/` and most of `docs/tasks/` (historical: they describe the
-  pre-flip `matches/`/`equivalent/` workflow).
+  `docs/msvc71-pitfalls.md`), `hybrid/` (now only hooks for recording sessions in xemu on the hook-only XBE,
+  docs/tasks/record-replay.md "The recording build"; patching our functions into the XBE is retired), build_tree's
+  generation of the tree from per-function sources (its compile/check code is still used), the per-function briefs
+  (`docs/agents/`, removed 2026-11-18), most of `docs/tasks/` (historical: they describe the pre-flip
+  `matches/`/`equivalent/` workflow) and the fine-tuning/dataset lane (D124; last state b365e7087).
 
 ## Commands
 
@@ -159,7 +160,8 @@ Terms: the *Wine build* is the 32-bit clang image run under Wine (`tools/wine_*.
 - **Shared checkout.** Many agents work in `src/`, `include/`, `tools/` and `docs/` at once, uncommitted.
   Commit explicit paths only (`F=(a b); git commit -m MSG -- "${F[@]}"`, or `git add -- "${F[@]}"`); never `git add -A`
   or `git add .`; never `git checkout`, `restore`, `stash` or `reset` files you didn't write. Don't delete untracked files.
-  Before committing, check that the staged diff holds only your hunks. After a commit made with a temporary
+  Before committing, check that the staged diff holds only your hunks, and before pushing that `git show --stat HEAD`
+  lists only your paths (a stale index re-adds files others just deleted: 961047f97). After a commit made with a temporary
   `GIT_INDEX_FILE`, sync the shared index entries of the committed paths right away: a commit from a stale shared index
   reverts others' work. Generators that rewrite many TUs read a `git archive HEAD` snapshot, never the shared working copy.
 - Never relax a comparison in the checker to make something pass; a source that doesn't pass is not promoted.
