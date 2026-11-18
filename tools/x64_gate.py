@@ -670,7 +670,11 @@ def types_current(path, recs):
     for a, r in recs.items():
         if r.get("types"):
             groups.setdefault(json.dumps(r.get("field_casts") or []), []).append(a)
-    ok = set(a for a, r in recs.items() if not r.get("types"))
+    # (integ2; rev5) a record whose run built no layouts (types {}) still had a checker: its AST digest is checked
+    # below. One with neither (no checker was built: compile error, an early unsupported) is reused on its code only
+    # if it gives no credit; an `equivalent` without a digest runs again
+    ok = set(a for a, r in recs.items() if "types" in r and not r["types"])
+    ok |= set(a for a, r in recs.items() if "types" not in r and r.get("status") != "equivalent")
     for fc, addrs in groups.items():
         keys = {}
         for a in addrs:
@@ -685,7 +689,7 @@ def types_current(path, recs):
                 ok.add(a)
     # (integ2, D97; rev5's review) what the parse gives the run besides bytes and layouts (its declaration, HULK_INTO,
     # the casts that type its objects): a result without that digest, or with another one, runs again
-    typed = [a for a in ok if recs[a].get("types")]
+    typed = [a for a in ok if "types" in recs[a]]
     if typed:
         syms = {recs[a].get("symbol32") for a in typed if recs[a].get("symbol32")}
         try:
@@ -701,6 +705,11 @@ def types_current(path, recs):
 
 def store_result(key, rec):
     if not key or rec.get("status") in (None, "error"):
+        return
+    if "types" not in rec and "ast" not in rec:
+        # (integ2; rev5) no checker was built (a compile error, an early unsupported): the result depends on the TU's
+        # text, not only on the block's code, so it is not kept under the code key (another text with the same bytes
+        # would inherit it: x64t22's compile_error rows from a working copy, reused for a commit)
         return
     p = _res_path(key)
     os.makedirs(os.path.dirname(p), exist_ok=True)

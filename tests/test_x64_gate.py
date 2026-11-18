@@ -12,6 +12,7 @@
 
   build/venv/bin/python -m unittest tests/test_x64_gate.py
 """
+import contextlib
 import json
 import os
 import shutil
@@ -35,7 +36,9 @@ def have_clang():
 
 
 def rec(status, diff=""):
-    return {"status": status, "first_diff": diff}
+    # (integ2) a record of a run that built its checker: no layouts (types {}), an AST digest; the Flow tests' default
+    # ast_digests gives "A" for every symbol
+    return {"status": status, "first_diff": diff, "types": {}, "ast": "A", "symbol32": "?s@@YAXXZ"}
 
 
 LAYOUT = rec("fail", "input 3: [layout] memory heap#1(C) [0].f_28: 32-bit ('null',), 64-bit ('wildptr',)")
@@ -140,7 +143,7 @@ class Flow(unittest.TestCase):
         self.cache.stop()
         self.tmp.cleanup()
 
-    def run_gate(self, blocks, results, gone=()):
+    def run_gate(self, blocks, results, gone=(), ast=True):
         ran = []
 
         def fake_changed(ref, head, tus, jobs, workdir, baseline_path=None):
@@ -153,7 +156,10 @@ class Flow(unittest.TestCase):
             ran.extend(a_ for a_, _ in items)
             return {a_: dict(results[a_], addr=a_) for a_, _ in items if a_ in results}
 
-        with mock.patch.object(g, "changed_blocks", fake_changed), mock.patch.object(g, "run_blocks", fake_run):
+        import equiv64
+        dig = mock.patch.object(equiv64, "ast_digests", lambda path, syms: {s_: "A" for s_ in syms}) if ast else \
+            contextlib.nullcontext()
+        with mock.patch.object(g, "changed_blocks", fake_changed), mock.patch.object(g, "run_blocks", fake_run), dig:
             res = g.gate("HEAD", baseline_path=self.path, quiet=True)
         return res, ran
 
@@ -195,8 +201,9 @@ class Flow(unittest.TestCase):
 
         import equiv64
         with mock.patch.object(equiv64, "type_fingerprints", fps), \
-                mock.patch.object(equiv64, "ast_digests", lambda path, syms: {"?a@@YAXXZ": "a", "?b@@YAXXZ": "b"}):
-            res2, ran2 = self.run_gate(blocks, {"0x00000050": EQ})
+                mock.patch.object(equiv64, "ast_digests",
+                                  lambda path, syms: {"?a@@YAXXZ": "a", "?b@@YAXXZ": "b", "?s@@YAXXZ": "A"}):
+            res2, ran2 = self.run_gate(blocks, {"0x00000050": EQ}, ast=False)
         self.assertEqual(ran2, ["0x00000050"])
         self.assertEqual(seen, [["C", "D"]])            # one parse for the TU's hits
         v = {r["addr"]: (r["verdict"], r["cached"]) for r in res2["rows"]}
@@ -216,7 +223,7 @@ class Flow(unittest.TestCase):
         import equiv64
         with mock.patch.object(equiv64, "type_fingerprints", lambda path, keys, field_casts=None: {"D": {"k64": "D", "fp": "same"}}), \
                 mock.patch.object(equiv64, "ast_digests", lambda path, syms: {"?a@@YAXXZ": "new", "?b@@YAXXZ": "same"}):
-            res2, ran2 = self.run_gate(blocks, {"0x00000080": EQ, "0x000000a0": EQ})
+            res2, ran2 = self.run_gate(blocks, {"0x00000080": EQ, "0x000000a0": EQ}, ast=False)
         self.assertEqual(sorted(ran2), ["0x00000080", "0x000000a0"])
 
     def test_ast_changed_baseline(self):
@@ -237,6 +244,39 @@ class Flow(unittest.TestCase):
             out = g.ast_changed(os.path.join(d, "ref"), os.path.join(d, "head"), items, jobs=1)
         self.assertEqual([x[0] for x in out], ["0x00000010", "0x00000030"])
         self.assertTrue(all(x[3] == "ast changed" for x in out))
+
+    def test_scalar_equivalent_reruns_on_ast_change(self):
+        """(integ2; rev5) an `equivalent` whose run built no layouts (types {}: scalar inputs only) is reused only while
+        its AST digest holds: a HULK_RANGE widened on its parameter, the code bytes the same, runs again (it was
+        reused on its code alone: a narrower run's credit for the wider check)."""
+        import equiv64
+        blocks = [("0x000000b0", "src/game/T.cpp", {"key": "k1"}, "code changed")]
+        res, ran = self.run_gate(blocks, {"0x000000b0": EQ})
+        self.assertEqual(ran, ["0x000000b0"])
+        res2, ran2 = self.run_gate(blocks, {})
+        self.assertEqual(ran2, [])                      # the same digest: cached
+        with mock.patch.object(equiv64, "ast_digests", lambda path, syms: {s_: "B" for s_ in syms}):
+            res3, ran3 = self.run_gate(blocks, {"0x000000b0": EQ}, ast=False)
+        self.assertEqual(ran3, ["0x000000b0"])
+
+    def test_no_checker_not_cached(self):
+        """(integ2; rev5) a result produced before a checker was built (a compile error: no types, no ast) depends on
+        the TU's text, not only on the block's code: it is not kept under the code key (x64t22's compile_error rows
+        from a working copy, reused for a commit's text). A legacy cached `equivalent` without a digest runs again;
+        a legacy non-passing one without one is still reused (it gives no credit)."""
+        blocks = [("0x000000c0", "src/game/T.cpp", {"key": "m1"}, "code changed")]
+        ce = {"status": "compile_error", "first_diff": "call to FUN_0008d690 is ambiguous"}
+        self.run_gate(blocks, {"0x000000c0": ce})
+        res2, ran2 = self.run_gate(blocks, {"0x000000c0": EQ})
+        self.assertEqual(ran2, ["0x000000c0"])
+        for key, r_, again in (("n1", {"status": "equivalent"}, True), ("o1", {"status": "fail", "first_diff": "x"}, False)):
+            p = g._res_path(key)
+            os.makedirs(os.path.dirname(p), exist_ok=True)
+            with open(p, "w") as f:
+                json.dump(r_, f)
+            res_, ran_ = self.run_gate([("0x000000d0", "src/game/T.cpp", {"key": key}, "code changed")],
+                                       {"0x000000d0": EQ})
+            self.assertEqual(ran_ == ["0x000000d0"], again, key)
 
     def test_unchecked_fails(self):
         res, ran = self.run_gate([("0x00000040", "src/game/T.cpp", {"key": "c1"}, "new")], {})
@@ -372,6 +412,15 @@ class Keys(unittest.TestCase):
         k9, a9 = both(h3 + "// writer 0x00011000 0x00022000\nextern \"C\" int DAT_00500000[8] HULK_RANGE(0, 7);\n", b3)
         self.assertEqual(k5, k9)
         self.assertNotEqual(a5, a9)
+        # (integ2; rev5) a HULK_RANGE widened on a scalar parameter, the code the same: another digest
+        h6 = ("#define HULK_RANGE(a, b) __attribute__((annotate(\"hulk_range \" #a \" \" #b)))\n"
+              "extern \"C\" const int DAT_00500020[8];\n")
+        b6 = ("// sym: ?r@@YAHH@Z\n// the table 0x00500020\nint r(int i HULK_RANGE(0, %d)) {\n"
+              "    return DAT_00500020[i];\n}\n")
+        k13, a13 = both(h6, b6 % 3)
+        k14, a14 = both(h6, b6 % 7)
+        self.assertEqual(k13, k14)
+        self.assertNotEqual(a13, a14)
         # (integ2, D111) the class an untyped pointer-word global is read as (`*(T**)&DAT`) changes the digest
         h5 = "extern \"C\" void* DAT_00500010[1];\nstruct GA { int x; };\nstruct GB { int y; int x; };\n"
         b5 = "// sym: ?g@@YAHXZ\nint g() {\n    return (*(%s**)&DAT_00500010)->x;\n}\n"
