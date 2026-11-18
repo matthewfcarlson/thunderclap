@@ -156,7 +156,7 @@ CLAUDE.md "Compute" and `docs/compute.md` are the rules. Lessons:
 | --- | --- |
 | Per-function sources as the source of truth (`matches/`, `equivalent/`) | blocks in tree TUs (frozen at F) |
 | `tools/build_tree.py` / `gen_tree.py` rounds as the build's source | `tree_tu.py materialize` (`HULK_TREE_SOURCE=0` for history) |
-| Model farm (`farm/`, `tools/batch_run.py` and the farm's report tools, fine-tuned `ulk-*` and ChatGPT lanes) | done; farm/ and its tools are in git history (removed 2026-11-13 and 2026-11-18) |
+| Model farm (`farm/`, `tools/batch_run.py` and the farm's report tools, fine-tuned `ulk-*` and ChatGPT lanes, the dataset/fine-tuning tools) | done; farm/ and its tools are in git history (removed 2026-11-13 and 2026-11-18; the dataset lane's last commit is b365e7087) |
 | Hybrid function patching (`patch_xbe.py` source selection, `hybrid_test.py compare`, bisect) | Wine-build replays gated by `ckpt_gate.py` |
 | CPU permuter (`tools/permute.py`, removed 2026-11-18) | nothing: the matching campaign is over |
 | Per-function briefs (`docs/agents/`, most of `docs/tasks/`) | CLAUDE.md, `docs/merge-once.md`, the current docs |
@@ -167,9 +167,8 @@ CLAUDE.md "Compute" and `docs/compute.md` are the rules. Lessons:
   are now TUs and headers, not addresses. Use a private workspace and lineage per agent for builds, and delete your own
   large scratch under `build/<agent>/` at hand-back.
 - Don't touch unless it is your task: `tools/equiv*.py`, `tests/equiv/*`, `docs/journal.md`, `docs/game-functions.csv`,
-  `tools/export_dataset.py`, `tools/train_sft_unsloth.py`, `farm/tiers-*`, anything in another agent's
-  `files.txt`/`claimed.txt`; never `matches/`/`equivalent/`. Untracked files of other sessions stay untouched and
-  uncommitted.
+  `farm/tiers-*`, anything in another agent's `files.txt`/`claimed.txt`; never `matches/`/`equivalent/`. Untracked
+  files of other sessions stay untouched and uncommitted.
 - Commit explicit paths only: `F=(a b); git commit -m MSG -- "${F[@]}"` (zsh: `F=(${(f)"$(cat build/AGENT/files.txt)"})`);
   check the staged diff holds only your hunks (`git diff --cached --stat`). Partial hunks of a shared file: build a
   filtered patch, `git apply --cached --check`, then `git apply --cached`. Push as CLAUDE.md says.
