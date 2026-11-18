@@ -5862,3 +5862,47 @@ members, operators, declarations in headers, TUs with other agents' uncommitted 
   gate are now `sizeof` of their record.
 - Native mac (control snapshot + the control's binding map): unbound 12260 -> 12244, no new names; "bound by the
   address in the name" 26629 -> 26576 (those references now name the definition exactly).
+
+## script1: the script binding family on records (2026-11-18)
+
+Start-up census group "script binding family": Function (vftable 0x004223a0) and the Method<N> / Closure<N> templates
+that bind C++ to Lua. Function's constructor 0x001d0480 is called from 636 XBE sites in 397 tree blocks (49 TUs). The
+tree wrote these objects as source-local polymorphic stand-ins (`MethodBase_xxx { virtual void m0(); }`, `CtorV_001d0480`,
+placement-new of stand-in classes to store vftables), so natively they got clang's own vftables, whose slots name
+members nothing defines, and the managers' constructors called `HeapObj::operator new`, which had no definition
+(census S7).
+
+- **include/game/script_bind.h** (namespace hulk_script; only the binding TUs include it): records, no virtuals.
+  `FUN_001d0480` is an empty struct whose constructor is Function's 0x001d0480. `ScriptFunction` is that base plus the
+  vftable word and ScriptFunctionFields, and its operator new is the game heap's 0x0008d690 (inline, throw(), as a class
+  member: no global definition, D131). `ScriptMethod0..4<C, R, A...>` and `ScriptClosure<M, C>` take the instantiation's
+  game vftables by address, store the member-function pointer and the type codes (`ScriptType<T>::tag()`, the
+  type_info records 0x001d04d0 classifies), and for a Closure the object. `ScriptVftable` is the vftable word alone, for
+  views that derive from ScriptFunctionFields. Natively the vftables are the ones native_mac emits from the XBE, whose
+  slots are the tree's own definitions (the scalar deleting destructor, Function::vfunc_1, the instantiation's invoke).
+- MSVC 7.1 compiles these records to the game's code: 0x000b0440 (a registration helper), which was equivalent, now
+  byte-matches. The constructors are throw(): in a TU that keeps /GX for its `??_G` blocks (D24), a new-expression
+  would otherwise get an unwind frame.
+- Two generators work from the XBE listing and a HEAD snapshot (build/script1/scripts/ctorscan.py, genctor.py,
+  genreg.py). They only touch wrapped blocks in TUs that no other agent had edited.
+  - **genctor**: the out-of-line Method/Closure constructors (`Closure2<CActorManager,...>::Closure2`, 0x0002e4f0).
+    Each is Function's constructor, the vftable stores, the member-function pointer, the type codes and the object,
+    read from the listing. 91 blocks in 16 TUs, all MATCH with relocations ok.
+  - **genreg**: the registration helpers (allocation + an inlined Closure + 0x001d3b70). 36 equivalent blocks now
+    byte-match and are promoted to `matches`, so they need no re-proof.
+- By hand, on the start-up path: the controller (0x000aef10), haptic (0x000b0500), stats (0x00091630), game-flow
+  (0x0008bf80), sound real-time (0x001ee820), sound system (0x001f2730) and FE (0x000c0e40) managers' constructors.
+  They are re-proven at 3,000 inputs (MSVC and --wine). --x64 differs only in class `int`: the allocation is the
+  record's native size (0x38) where the 32-bit build asks for 0x24.
+- Not changed here:
+  - the invoke blocks (`ClosureN<...>::vfunc_2`). 78 of them read the member-function pointer through 32-bit pad views
+    (`char padding[0x18]`, `padding[0x1c - sizeof(Function)]`), which are wrong natively.
+  - the `??_G` blocks (D24). Records never make MSVC emit `??_G`, so their /GX stays.
+  - the bound callbacks whose definitions are not members. The FE's `fe_SetupSM*` callbacks are stdcall free functions
+    that take the Lua argument where the member call passes `this`. They bind by IR shape and are wrong at run time.
+  - the remaining manager constructors (render, world stream, FMV, unlockables, camera, actor, SP, trigger volumes,
+    HUD ...), and the TUs other agents had open (CFEManager.GS, CSPManager, CCameraManager, ...).
+- Batch 1 checks: tree_tu check --relocs on the 30 TUs (queue jobs 90990-90993) and the x64 gate (146 blocks) are ok.
+  The Wine control was 90828 (HEAD fd9b7c93a) and the proof 91104 (seed:90828, studio, play3 60000): GATE ok, with
+  0 of 2,021 common frames differing. Native unbound on the control and proof maps: mac 12260 -> 11949, linux-x64
+  12240 -> 11929, android-arm64 12251 -> 11940, with no new names. Of these, 1123 -> 838 are script-family names.

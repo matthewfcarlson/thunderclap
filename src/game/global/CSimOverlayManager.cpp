@@ -11,6 +11,7 @@
 #define TREE_TU_END }
 namespace fn_f34eeb08 {} using namespace fn_f34eeb08;
 #include "game/global.h"
+#include "game/script_bind.h"
 
 // ---- declarations shared by the functions below
 namespace fn_f34eeb08 {
@@ -312,39 +313,28 @@ void Obj_d72b0::Update(unsigned int mask) {
 } // namespace fn_f34eeb08
 
 // 0x000d7310 FUN_000d7310 (76 B): matches/0x000d7310.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ??0Closure1@fn_000d7310@@QAE@PBDPAXP8ScriptBoundClass@@AEXXZ@Z
+// sym: ??0Closure1@fn_000d7310@@QAE@PBDPAVOwner_d7310@1@P821@AEXXZ@Z
 namespace fn_000d7310 {
-// Closure1's constructor (name, object, member function): Function's fields (include/decls/data/script.h), then
-// Method1's member-function pointer and Closure1's object.
-
-typedef unsigned char byte;
-struct CtorV_001d0480 : public ScriptFunctionFields {
-    CtorV_001d0480(const char*, int);
-    virtual void v_001d0480();
+// (script1) Closure1<class CSimOverlayManager,void,bool>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftables by address,
+// the member-function pointer, the type codes (0x001d04d0), the object.
+extern "C" char DAT_0040b39c[];   // Method1<class CSimOverlayManager,void,bool>
+extern "C" char DAT_0040b3cc[];   // Closure1<class CSimOverlayManager,void,bool>
+class Owner_d7310 {};
+typedef void (Owner_d7310::*Fn_d7310)();
+struct Closure1 : hulk_script::ScriptFunction {
+    Fn_d7310 fn;
+    Owner_d7310* owner;
+    Closure1(const char* name, Owner_d7310* object, Fn_d7310 function);
 };
-extern "C++" __declspec(nothrow) byte __cdecl GetFlag_001d04d0(void*);
-class Base : public CtorV_001d0480 {
-  public:
-    Base(const char* p) : CtorV_001d0480(p, 1) { }
-};
-class Closure1_d7310 : public Base {
-  public:
-    virtual void Fn();
-    ScriptMemberFn obj;
-    Closure1_d7310(const char* p, ScriptMemberFn c);
-};
-class Closure1 : public Closure1_d7310 {
-  public:
-    virtual void Fn();
-    void* extra;
-    Closure1(const char* p, void* e, ScriptMemberFn c);
-};
-Closure1_d7310::Closure1_d7310(const char* p, ScriptMemberFn c) : Base(p) {
-    obj = c;
-    retType = GetFlag_001d04d0(((int*)&DAT_0048e100));
-    argTypes[0] = GetFlag_001d04d0(((int*)&DAT_0048e0e4));
+Closure1::Closure1(const char* name, Owner_d7310* object, Fn_d7310 function) : hulk_script::ScriptFunction(name, 1) {
+    vftable = DAT_0040b39c;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e100);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0e4);
+    vftable = DAT_0040b3cc;
+    owner = object;
 }
-Closure1::Closure1(const char* p, void* e, ScriptMemberFn c) : Closure1_d7310(p, c), extra(e) {}
 } // namespace fn_000d7310
 
 
@@ -384,38 +374,28 @@ template class Closure1<CSimOverlayManager, void, bool>; // (ren2) native only: 
 
 
 // 0x000d73a0 FUN_000d73a0 (76 B): matches/0x000d73a0.cpp [wrapped: conflict: Closure1; Method1]
-// sym: ??0Closure1@fn_000d73a0@@QAE@PBDPAXP8ScriptBoundClass@@AEXXZ@Z
+// sym: ??0Closure1@fn_000d73a0@@QAE@PBDPAVOwner_d73a0@1@P821@AEXXZ@Z
 namespace fn_000d73a0 {
-// data: keyA = DAT_0048e100, keyB = DAT_0048e134
-// Closure1's constructor (name, object, member function): Function's fields (include/decls/data/script.h), then
-// Method1's member-function pointer and Closure1's object.
-
-struct CtorV_001d0480 : public ScriptFunctionFields {
-    CtorV_001d0480(const char*, int);
-    virtual void v_001d0480();
+// (script1) Closure1<class CSimOverlayManager,void,int>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftables by address,
+// the member-function pointer, the type codes (0x001d04d0), the object.
+extern "C" char DAT_0040b3ac[];   // Method1<class CSimOverlayManager,void,int>
+extern "C" char DAT_0040b3dc[];   // Closure1<class CSimOverlayManager,void,int>
+class Owner_d73a0 {};
+typedef void (Owner_d73a0::*Fn_d73a0)();
+struct Closure1 : hulk_script::ScriptFunction {
+    Fn_d73a0 fn;
+    Owner_d73a0* owner;
+    Closure1(const char* name, Owner_d73a0* object, Fn_d73a0 function);
 };
-extern "C++" __declspec(nothrow) unsigned char __cdecl lookup_001d04d0(const char*);
-class Function_d73a0 : public CtorV_001d0480 {
-  public:
-    Function_d73a0(const char* a) : CtorV_001d0480(a, 1) { }
-};
-class Method1 : public Function_d73a0 {
-  public:
-    virtual void run();
-    ScriptMemberFn value;
-    Method1(const char* a, ScriptMemberFn c) : Function_d73a0(a) {
-        value = c;
-        retType = lookup_001d04d0(((const char*)&DAT_0048e100));
-        argTypes[0] = lookup_001d04d0(((const char*)&DAT_0048e134));
-    }
-};
-class Closure1 : public Method1 {
-  public:
-    virtual void run();
-    void* other;
-    Closure1(const char* a, void* b, ScriptMemberFn c);
-};
-Closure1::Closure1(const char* a, void* b, ScriptMemberFn c) : Method1(a, c), other(b) {}
+Closure1::Closure1(const char* name, Owner_d73a0* object, Fn_d73a0 function) : hulk_script::ScriptFunction(name, 1) {
+    vftable = DAT_0040b3ac;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e100);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e134);
+    vftable = DAT_0040b3dc;
+    owner = object;
+}
 } // namespace fn_000d73a0
 
 
@@ -441,87 +421,34 @@ template <> void Closure0<CSimOverlayManager, int>::vfunc_2(void* __p0, void* __
 }
 
 
-// 0x000d7550 FUN_000d7550 (109 B): equivalent/0x000d7550.cpp [wrapped: conflict: CSimOverlayManager; Closure0; Method0]
-// sym: ?FUN_000d7550@Registry_d7550@fn_000d7550@@QAEXPBDPAVCSimOverlayManager@2@P832@AEHXZ@Z @198efff9dffd @w1fb77e0b071b @v23c8953db218
-inline void* operator new(hulk_uintptr, void* p) throw() { return p; }
-extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
-extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
-extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)
+// 0x000d7550 FUN_000d7550 (109 B): matches/0x000d7550.cpp [wrapped: conflict: CSimOverlayManager; Closure0; Method0]
+// sym: ?FUN_000d7550@Registry_d7550@fn_000d7550@@QAEXPBDPAVOwner_d7550@2@P832@AEXXZ@Z
 namespace fn_000d7550 {
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
-// FUN_000d7550 @ 0x000d7550
-// FUN_000d7550 @ 0x000d7550  (generated by work/closure/gen.py)
-// Pinned prototypes of address-named globals and functions that many sources declare (docs/source-tree.md,
-// "Pinned address names"). A source includes this instead of declaring them itself; tools/migrate_gen.py
-// --family pin does the rewrite and keeps only what still verifies. Hand-maintained: one line per name.
-//
-// The pointed-to classes are declared, not defined: each source still defines the members it uses as its own
-// `struct World { ... };` stub, and tools/gen_tree.py merges those stubs into one class where the layouts agree.
-
-struct World;                     // the game world object (0x004dd700); was World*/Context*/Game*/Global_xxx* in sources
-extern "C" {
-
-#define DAT_004dd700 (*(World* *)&::DAT_004dd700)
-
-
-struct Gfx;                       // the graphics device / context object (0x0052c2a8); was Gfx*/Screen_xxx*/Renderer_xxx*
-
-#define DAT_0052c2a8 (*(Gfx* *)&::DAT_0052c2a8)
-
-
-struct Singleton_4dd6ec;          // object with getters FUN_00086280/FUN_000862e0 (0x004dd6ec); placeholder name
-
-#define DAT_004dd6ec (*(Singleton_4dd6ec* *)&::DAT_004dd6ec)
-
-}
-
-unsigned __int64 FUN_0027b020(const char* s);                 // string hash
-unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash with seed/length
-char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
-
-extern "C" void* __cdecl FUN_0008d690(unsigned int size);
-
-
-class CSimOverlayManager { public: float FUN_dummy(); };
-
-// Function's fields (include/decls/data/script.h) after the vftable.
-class __declspec(novtable) MethodBase_d7550 : public ScriptFunctionFields {
-  public:
-    virtual void m0();
-    MethodBase_d7550(const char* n, int k) { FUN_001d0480(n, k); }
-    void FUN_001d0480(const char*, int);
-};
-
-template <class T, class R>
-class Method0 : public MethodBase_d7550 {
-  public:
-    typedef R (T::*Fn)();
-    Method0(const char* name, Fn f) : MethodBase_d7550(name, 0) {
-        fn = f;
-        retType = FUN_001d04d0(((const char*)&DAT_0048e134));
+// (script1) ScriptHandler's registration of a Closure0<class CSimOverlayManager,int>:
+// include/game/script_bind.h's records (operator new 0x0008d690, Function's constructor 0x001d0480, the game's
+// vftables by address, the member-function pointer, the type codes, the object), then 0x001d3b70.
+// throw(): under a TU's /GX (D24) the new-expression would otherwise get an unwind frame the game has none of.
+extern "C" char DAT_0040b3bc[];   // Method0<class CSimOverlayManager,int>
+extern "C" char DAT_0040b3ec[];   // Closure0<class CSimOverlayManager,int>
+class Owner_d7550 {};
+typedef void (Owner_d7550::*Fn_d7550)();
+struct Closure_d7550 : hulk_script::ScriptFunction {
+    Fn_d7550 fn;
+    Owner_d7550* owner;
+    Closure_d7550(const char* name, Owner_d7550* object, Fn_d7550 function) throw() : hulk_script::ScriptFunction(name, 0) {
+        vftable = DAT_0040b3bc;
+        fn = function;
+        f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e134);
+        vftable = DAT_0040b3ec;
+        owner = object;
     }
-    Fn fn;
 };
-
-template <class T, class R>
-class Closure0 : public Method0<T, R> {
-  public:
-    Closure0(const char* name, T* o, typename Method0<T, R>::Fn f) : Method0<T, R>(name, f), owner(o) {}
-    T* owner;
-};
-
 struct Registry_d7550 {
-    void FUN_001d3b70(const char*, void*);
-    void FUN_000d7550(const char* name, CSimOverlayManager* owner, int (CSimOverlayManager::*fn)());
+    void FUN_001d3b70(const char* name, void* function);
+    void FUN_000d7550(const char* name, Owner_d7550* object, Fn_d7550 function);
 };
-
-void Registry_d7550::FUN_000d7550(const char* name, CSimOverlayManager* owner, int (CSimOverlayManager::*fn)()) {
-    typedef Closure0<CSimOverlayManager, int> Closure_t;
-    HULK_SIZE32(Closure_t, 0x24);
-    void* mem = FUN_0008d690((int)sizeof(Closure0<CSimOverlayManager, int>));
-    Closure0<CSimOverlayManager, int>* c = 0;
-    if (mem)
-        c = new (mem) Closure0<CSimOverlayManager, int>(name, owner, fn);
+void Registry_d7550::FUN_000d7550(const char* name, Owner_d7550* object, Fn_d7550 function) {
+    Closure_d7550* c = new Closure_d7550(name, object, function);
     FUN_001d3b70(name, c);
 }
 } // namespace fn_000d7550

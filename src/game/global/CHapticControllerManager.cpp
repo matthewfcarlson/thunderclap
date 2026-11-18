@@ -12,6 +12,7 @@
 #define TREE_TU_END }
 namespace fn_f8a35d46 {} using namespace fn_f8a35d46;
 #include "game/global.h"
+#include "game/script_bind.h"
 
 // ---- declarations shared by the functions below
 namespace fn_f8a35d46 {
@@ -287,75 +288,27 @@ template <> void Closure0<CHapticControllerManager, void>::vfunc_2(void* __p0, v
 
 
 // 0x000b0350 FUN_000b0350 (76 B): matches/0x000b0350.cpp [wrapped: conflict: Closure1; Method1]
-// sym: ??0Closure1@fn_000b0350@@QAE@PBDPAVOwner_b0350@1@P821@AEX_N@Z@Z
-extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
-extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
-extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)
+// sym: ??0Closure1@fn_000b0350@@QAE@PBDPAVOwner_b0350@1@P821@AEXXZ@Z
 namespace fn_000b0350 {
-// Pinned prototypes of address-named globals and functions that many sources declare (docs/source-tree.md,
-// "Pinned address names"). A source includes this instead of declaring them itself; tools/migrate_gen.py
-// --family pin does the rewrite and keeps only what still verifies. Hand-maintained: one line per name.
-//
-// The pointed-to classes are declared, not defined: each source still defines the members it uses as its own
-// `struct World { ... };` stub, and tools/gen_tree.py merges those stubs into one class where the layouts agree.
-
-struct World;                     // the game world object (0x004dd700); was World*/Context*/Game*/Global_xxx* in sources
-extern "C" {
-
-#define DAT_004dd700 (*(World* *)&::DAT_004dd700)
-
-
-struct Gfx;                       // the graphics device / context object (0x0052c2a8); was Gfx*/Screen_xxx*/Renderer_xxx*
-
-#define DAT_0052c2a8 (*(Gfx* *)&::DAT_0052c2a8)
-
-
-struct Singleton_4dd6ec;          // object with getters FUN_00086280/FUN_000862e0 (0x004dd6ec); placeholder name
-
-#define DAT_004dd6ec (*(Singleton_4dd6ec* *)&::DAT_004dd6ec)
-
-}
-
-unsigned __int64 FUN_0027b020(const char* s);                 // string hash
-unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash with seed/length
-char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
-
-// Closure1<Owner, void, bool>'s constructor (name, object, member function): Function's fields
-// (include/decls/data/script.h), then Method1's member-function pointer and Closure1's object.
+// (script1) Closure1<class CHapticControllerManager,void,bool>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftables by address,
+// the member-function pointer, the type codes (0x001d04d0), the object.
+extern "C" char DAT_00405ec8[];   // Method1<class CHapticControllerManager,void,bool>
+extern "C" char DAT_00405ef8[];   // Closure1<class CHapticControllerManager,void,bool>
 class Owner_b0350 {};
-typedef void (Owner_b0350::*Fn_b0350)(bool);
-struct CtorV_001d0480 : public ScriptFunctionFields {
-    CtorV_001d0480(const char*, int);
-    virtual void v_001d0480();
+typedef void (Owner_b0350::*Fn_b0350)();
+struct Closure1 : hulk_script::ScriptFunction {
+    Fn_b0350 fn;
+    Owner_b0350* owner;
+    Closure1(const char* name, Owner_b0350* object, Fn_b0350 function);
 };
-class Function_b0350 : public CtorV_001d0480 {
-  public:
-    Function_b0350(const char* n) : CtorV_001d0480(n, 1) { }
-};
-class Method1 : public Function_b0350 {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    Fn_b0350 arg;
-    Method1(const char* n, Fn_b0350 v) : Function_b0350(n) {
-        arg = v;
-        retType = FUN_001d04d0(((const char*)&DAT_0048e100));
-        argTypes[0] = FUN_001d04d0(((const char*)&DAT_0048e0e4));
-    }
-};
-class Closure1 : public Method1 {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    Owner_b0350* extra;
-    Closure1(const char* n, Owner_b0350* v, Fn_b0350 z);
-};
-Closure1::Closure1(const char* n, Owner_b0350* v, Fn_b0350 z) : Method1(n, z) {
-    extra = v;
+Closure1::Closure1(const char* name, Owner_b0350* object, Fn_b0350 function) : hulk_script::ScriptFunction(name, 1) {
+    vftable = DAT_00405ec8;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e100);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0e4);
+    vftable = DAT_00405ef8;
+    owner = object;
 }
 } // namespace fn_000b0350
 #undef DAT_004dd6ec

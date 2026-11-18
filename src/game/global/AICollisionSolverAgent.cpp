@@ -18,6 +18,7 @@ namespace fn_f7cf5713 {
 void __cdecl SweepTrack_DeleteThis_0008d330(void* p);   // (unb4) the thunk to free (or free) this TU's SweepTrack_DeleteThis reaches
 }
 #include "game/global.h"
+#include "game/script_bind.h"
 
 // ---- declarations shared by the functions below
 namespace fn_f7cf5713 {
@@ -2397,32 +2398,24 @@ char Owner::Run(hulk_intptr x, Item* p) {
 } // namespace fn_f7cf5713
 
 // 0x001b15f0 FUN_001b15f0 (76 B): matches/0x001b15f0.cpp [wrapped: conflict: Function2]
-// sym: ??0Function2@fn_001b15f0@@QAE@PBDP8ScriptBoundClass@@AEXXZ@Z
+// sym: ??0Function2@fn_001b15f0@@QAE@PBDP8Owner_1b15f0@1@AEXXZ@Z
 namespace fn_001b15f0 {
-// Method2's constructor (name, member function): Function's fields (include/decls/data/script.h), then the
-// member-function pointer.
-
-typedef unsigned char u8;
-struct CtorV_001d0480 : public ScriptFunctionFields {
-    CtorV_001d0480(const char*, int);
-    virtual void v_001d0480();
+// (script1) Function2<void,float,float>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftable by address,
+// the member-function pointer, the type codes (0x001d04d0).
+extern "C" char DAT_0041d88c[];   // Function2<void,float,float>
+class Owner_1b15f0 {};
+typedef void (Owner_1b15f0::*Fn_1b15f0)();
+struct Function2 : hulk_script::ScriptFunction {
+    Fn_1b15f0 fn;
+    Function2(const char* name, Fn_1b15f0 function);
 };
-u8 __cdecl query_001d04d0(const char*);
-class Function_1b15f0 : public CtorV_001d0480 {
-  public:
-    Function_1b15f0(const char* n) : CtorV_001d0480(n, 2) { }
-};
-class Function2 : public Function_1b15f0 {
-  public:
-    virtual bool Fnf_001d04c0(int, int);
-    ScriptMemberFn data;
-    Function2(const char*, ScriptMemberFn);
-};
-Function2::Function2(const char* n, ScriptMemberFn d) : Function_1b15f0(n) {
-    data = d;
-    retType = query_001d04d0(((const char*)&DAT_0048e100));
-    argTypes[0] = query_001d04d0(((const char*)&DAT_0048e128));
-    argTypes[1] = query_001d04d0(((const char*)&DAT_0048e128));
+Function2::Function2(const char* name, Fn_1b15f0 function) : hulk_script::ScriptFunction(name, 2) {
+    vftable = DAT_0041d88c;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e100);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e128);
+    f.argTypes[1] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e128);
 }
 } // namespace fn_001b15f0
 
@@ -2436,29 +2429,24 @@ template <> void Function2<void, float, float>::vfunc_2(void* __p0, void* __p1, 
 
 
 // 0x001b1660 FUN_001b1660 (76 B): matches/0x001b1660.cpp [wrapped: conflict: Function2]
-// sym: ??0Function2@fn_001b1660@@QAE@PAX0@Z
+// sym: ??0Function2@fn_001b1660@@QAE@PBDP8Owner_1b1660@1@AEXXZ@Z
 namespace fn_001b1660 {
-// data: strA = DAT_0048e100, strB = DAT_0048e0f0, strC = DAT_0048e128
-
-char __cdecl GetFlag_001d04d0(const char*);
-class Function_1b1660 {
-  public:
-    virtual void* Fnf_001b16f0(int);
-    Function_1b1660(void*, int);
-    char pad[20];
+// (script1) Function2<void,const char *,float>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftable by address,
+// the member-function pointer, the type codes (0x001d04d0).
+extern "C" char DAT_0041d89c[];   // Function2<void,const char *,float>
+class Owner_1b1660 {};
+typedef void (Owner_1b1660::*Fn_1b1660)();
+struct Function2 : hulk_script::ScriptFunction {
+    Fn_1b1660 fn;
+    Function2(const char* name, Fn_1b1660 function);
 };
-class Function2 : public Function_1b1660 {
-  public:
-    virtual bool Fng_001d04c0(int, int);
-    Function2(void*, void*);
-    char flag18[4];
-    void* target;
-};
-Function2::Function2(void* a, void* b) : Function_1b1660(a, 2) {
-    target = b;
-    flag18[0] = GetFlag_001d04d0(((const char*)&DAT_0048e100));
-    ((char*)this)[0x10] = GetFlag_001d04d0(((const char*)&DAT_0048e0f0));
-    ((char*)this)[0x11] = GetFlag_001d04d0(((const char*)&DAT_0048e128));
+Function2::Function2(const char* name, Fn_1b1660 function) : hulk_script::ScriptFunction(name, 2) {
+    vftable = DAT_0041d89c;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e100);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0f0);
+    f.argTypes[1] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e128);
 }
 } // namespace fn_001b1660
 

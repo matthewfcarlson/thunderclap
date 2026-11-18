@@ -14,6 +14,7 @@
 #define TREE_TU_END }
 namespace fn_f8b63219 {} using namespace fn_f8b63219;
 #include "game/global.h"
+#include "game/script_bind.h"
 
 // ---- declarations shared by the functions below
 namespace fn_f8b63219 {
@@ -786,41 +787,28 @@ void invoke(Obj* o, Args* p, int unused, Callback cb) {
 
 
 // 0x00094100 FUN_00094100 (128 B): matches/0x00094100.cpp [wrapped: helper definitions (3 out-of-line function bodies)]
-// sym: ??0Derived_94100@fn_00094100@@QAE@HH@Z
+// sym: ??0Method6@fn_00094100@@QAE@PBDP8Owner_94100@1@AEXXZ@Z
 namespace fn_00094100 {
-
-class Method6_94100 {
-  public:
-    Method6_94100(int a, int b);
-    virtual void f0();
-    char pad[0xc];
+// (script1) Method6<class CUnlockablesManager,void,int,const char *,const char *,const char *,const char *,int>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftable by address,
+// the member-function pointer, the type codes (0x001d04d0).
+extern "C" char DAT_004046cc[];   // Method6<class CUnlockablesManager,void,int,const char *,const char *,const char *,const char *,int>
+class Owner_94100 {};
+typedef void (Owner_94100::*Fn_94100)();
+struct Method6 : hulk_script::ScriptFunction {
+    Fn_94100 fn;
+    Method6(const char* name, Fn_94100 function);
 };
-
-extern "C++" __declspec(nothrow) char __cdecl Lookup_001d04d0(const char* s);
-
-class Derived_94100 : public Method6_94100 {
-  public:
-    Derived_94100(hulk_intptr a, hulk_intptr b);
-    virtual void f0();
-    char c10, c11, c12, c13, c14, c15;
-    char pad2[2];
-    char c18;
-    char pad3[3];
-    int m1c;
-};
-
-void Method6_94100::f0() {}
-void Derived_94100::f0() {}
-
-Derived_94100::Derived_94100(hulk_intptr a, hulk_intptr b) : Method6_94100(a, 6) {
-    m1c = b;
-    c18 = Lookup_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e100)));
-    c10 = Lookup_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e134)));
-    c11 = Lookup_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e0f0)));
-    c12 = Lookup_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e0f0)));
-    c13 = Lookup_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e0f0)));
-    c14 = Lookup_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e0f0)));
-    c15 = Lookup_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e134)));
+Method6::Method6(const char* name, Fn_94100 function) : hulk_script::ScriptFunction(name, 6) {
+    vftable = DAT_004046cc;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e100);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e134);
+    f.argTypes[1] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0f0);
+    f.argTypes[2] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0f0);
+    f.argTypes[3] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0f0);
+    f.argTypes[4] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0f0);
+    f.argTypes[5] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e134);
 }
 } // namespace fn_00094100
 
@@ -929,32 +917,25 @@ template class Method3<CUnlockablesManager, void, int, int, bool>; // (ren2) nat
 
 
 // 0x000942a0 FUN_000942a0 (89 B): matches/0x000942a0.cpp [wrapped: conflict: Method3]
-// sym: ??0Method3@fn_000942a0@@QAE@HH@Z
+// sym: ??0Method3@fn_000942a0@@QAE@PBDP8Owner_942a0@1@AEXXZ@Z
 namespace fn_000942a0 {
-
-extern "C++" __declspec(nothrow) unsigned char __cdecl check_001d04d0(const char*);
-class Function_942a0 {
-  public:
-    Function_942a0(int, int);
-    virtual void f();
-    char pad[9];
+// (script1) Method3<class CUnlockablesManager,void,int,const char *,const char *>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftable by address,
+// the member-function pointer, the type codes (0x001d04d0).
+extern "C" char DAT_004046ec[];   // Method3<class CUnlockablesManager,void,int,const char *,const char *>
+class Owner_942a0 {};
+typedef void (Owner_942a0::*Fn_942a0)();
+struct Method3 : hulk_script::ScriptFunction {
+    Fn_942a0 fn;
+    Method3(const char* name, Fn_942a0 function);
 };
-class Method3 : public Function_942a0 {
-  public:
-    Method3(hulk_intptr, hulk_intptr);
-    virtual void f();
-    unsigned char v1, v2, v3;
-    char pad3[5];
-    unsigned char v4;
-    char pad4[3];
-    int arg;
-};
-Method3::Method3(hulk_intptr x, hulk_intptr y) : Function_942a0(x, 3) {
-    arg = y;
-    v4 = check_001d04d0(((char*)&DAT_0048e100));
-    v1 = check_001d04d0(((char*)&DAT_0048e134));
-    v2 = check_001d04d0(((char*)&DAT_0048e0f0));
-    v3 = check_001d04d0(((char*)&DAT_0048e0f0));
+Method3::Method3(const char* name, Fn_942a0 function) : hulk_script::ScriptFunction(name, 3) {
+    vftable = DAT_004046ec;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e100);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e134);
+    f.argTypes[1] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0f0);
+    f.argTypes[2] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0f0);
 }
 } // namespace fn_000942a0
 
@@ -1092,59 +1073,26 @@ void __cdecl FUN_00094490(Obj_94490* a, int* p, int b, Fn_94490 fn) {
 } // namespace fn_f8b63219
 
 // 0x000944d0 FUN_000944d0 (102 B): matches/0x000944d0.cpp [wrapped: conflict: CUnlockablesManager; Method4]
-// sym: ??0?$Method4@VCUnlockablesManager@fn_000944d0@@XPBDHPBDPBD@fn_000944d0@@QAE@PBDP8CUnlockablesManager@1@AEX0H00@Z@Z
+// sym: ??0Method4@fn_000944d0@@QAE@PBDP8Owner_944d0@1@AEXXZ@Z
 namespace fn_000944d0 {
-// FUN_000944d0 @ 0x000944d0
-// Pinned prototypes of address-named globals and functions that many sources declare (docs/source-tree.md,
-// "Pinned address names"). A source includes this instead of declaring them itself; tools/migrate_gen.py
-// --family pin does the rewrite and keeps only what still verifies. Hand-maintained: one line per name.
-//
-// The pointed-to classes are declared, not defined: each source still defines the members it uses as its own
-// `struct World { ... };` stub, and tools/gen_tree.py merges those stubs into one class where the layouts agree.
-
-struct World;                     // the game world object (0x004dd700); was World*/Context*/Game*/Global_xxx* in sources
-extern "C" {
-
-#define DAT_004dd700 (*(World* *)&::DAT_004dd700)
-
-
-struct Gfx;                       // the graphics device / context object (0x0052c2a8); was Gfx*/Screen_xxx*/Renderer_xxx*
-
-#define DAT_0052c2a8 (*(Gfx* *)&::DAT_0052c2a8)
-
-
-struct Singleton_4dd6ec;          // object with getters FUN_00086280/FUN_000862e0 (0x004dd6ec); placeholder name
-
-#define DAT_004dd6ec (*(Singleton_4dd6ec* *)&::DAT_004dd6ec)
-
-}
-
-unsigned __int64 FUN_0027b020(const char* s);                 // string hash
-unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash with seed/length
-char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
-
-// Method4's constructor (name, member function): Function's fields (include/decls/data/script.h), then the
-// member-function pointer.
-class CUnlockablesManager {};
-class Base_944d0 : public ScriptFunctionFields {
-public:
-    virtual void v();
-    Base_944d0(const char*, int) throw();
+// (script1) Method4<class CUnlockablesManager,void,const char *,int,const char *,const char *>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftable by address,
+// the member-function pointer, the type codes (0x001d04d0).
+extern "C" char DAT_0040471c[];   // Method4<class CUnlockablesManager,void,const char *,int,const char *,const char *>
+class Owner_944d0 {};
+typedef void (Owner_944d0::*Fn_944d0)();
+struct Method4 : hulk_script::ScriptFunction {
+    Fn_944d0 fn;
+    Method4(const char* name, Fn_944d0 function);
 };
-template<class C, class R, class A1, class A2, class A3, class A4>
-class Method4 : public Base_944d0 {
-public:
-    R (C::*f)(A1, A2, A3, A4);
-    Method4(const char* n, R (C::*x)(A1, A2, A3, A4));
-    virtual void v();
-};
-template<> Method4<CUnlockablesManager, void, const char *, int, const char *, const char *>::Method4(const char* n, void (CUnlockablesManager::*x)(const char *, int, const char *, const char *)) : Base_944d0(n, 4) {
-    f = x;
-    retType = FUN_001d04d0(((char*)&DAT_0048e100));
-    argTypes[0] = FUN_001d04d0(((char*)&DAT_0048e0f0));
-    argTypes[1] = FUN_001d04d0(((char*)&DAT_0048e134));
-    argTypes[2] = FUN_001d04d0(((char*)&DAT_0048e0f0));
-    argTypes[3] = FUN_001d04d0(((char*)&DAT_0048e0f0));
+Method4::Method4(const char* name, Fn_944d0 function) : hulk_script::ScriptFunction(name, 4) {
+    vftable = DAT_0040471c;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e100);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0f0);
+    f.argTypes[1] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e134);
+    f.argTypes[2] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0f0);
+    f.argTypes[3] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0f0);
 }
 } // namespace fn_000944d0
 #undef DAT_004dd6ec
@@ -1203,39 +1151,27 @@ void owners::Obj_94590::FUN_00094590() {
 
 
 // 0x000945c0 FUN_000945c0 (76 B): matches/0x000945c0.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ??0Closure1@fn_000945c0@@QAE@HHH@Z
+// sym: ??0Closure1@fn_000945c0@@QAE@PBDPAVOwner_945c0@1@P821@AEXXZ@Z
 namespace fn_000945c0 {
-
-class Parent {
-  public:
-    Parent(int, int);
-    virtual void f();
-    char p[12];
+// (script1) Closure1<class CUnlockablesManager,bool,int>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftables by address,
+// the member-function pointer, the type codes (0x001d04d0), the object.
+extern "C" char DAT_0040467c[];   // Method1<class CUnlockablesManager,bool,int>
+extern "C" char DAT_0040472c[];   // Closure1<class CUnlockablesManager,bool,int>
+class Owner_945c0 {};
+typedef void (Owner_945c0::*Fn_945c0)();
+struct Closure1 : hulk_script::ScriptFunction {
+    Fn_945c0 fn;
+    Owner_945c0* owner;
+    Closure1(const char* name, Owner_945c0* object, Fn_945c0 function);
 };
-class Closure1_945c0 : public Parent {
-  public:
-    Closure1_945c0(int a, int b);
-    virtual void f();
-    char x;
-    char pad2[7];
-    char y;
-    char pad3[3];
-    int n;
-};
-class Closure1 : public Closure1_945c0 {
-  public:
-    Closure1(int a, int b, int c);
-    virtual void f();
-    int m;
-};
-extern char Get_001d04d0(const char*);
-Closure1_945c0::Closure1_945c0(int a, int b) : Parent(a, 1) {
-    n = b;
-    y = Get_001d04d0(((const char*)&DAT_0048e0e4));
-    x = Get_001d04d0(((const char*)&DAT_0048e134));
-}
-Closure1::Closure1(int a, int b, int c) : Closure1_945c0(a, c) {
-    m = b;
+Closure1::Closure1(const char* name, Owner_945c0* object, Fn_945c0 function) : hulk_script::ScriptFunction(name, 1) {
+    vftable = DAT_0040467c;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0e4);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e134);
+    vftable = DAT_0040472c;
+    owner = object;
 }
 } // namespace fn_000945c0
 
@@ -1275,67 +1211,28 @@ void Closure1::V2(void* a, const char** p, bool* out) {
 
 
 // 0x00094650 FUN_00094650 (89 B): matches/0x00094650.cpp [wrapped: conflict: Closure2]
-// sym: ??0Closure2@fn_00094650@@QAE@PBDPAVOwner_094650@1@P821@AEXH_N@Z@Z
+// sym: ??0Closure2@fn_00094650@@QAE@PBDPAVOwner_94650@1@P821@AEXXZ@Z
 namespace fn_00094650 {
-// Same code shape as 0x00090eb0 (propagated; names are from that function)
-// Pinned prototypes of address-named globals and functions that many sources declare (docs/source-tree.md,
-// "Pinned address names"). A source includes this instead of declaring them itself; tools/migrate_gen.py
-// --family pin does the rewrite and keeps only what still verifies. Hand-maintained: one line per name.
-//
-// The pointed-to classes are declared, not defined: each source still defines the members it uses as its own
-// `struct World { ... };` stub, and tools/gen_tree.py merges those stubs into one class where the layouts agree.
-
-struct World;                     // the game world object (0x004dd700); was World*/Context*/Game*/Global_xxx* in sources
-extern "C" {
-
-#define DAT_004dd700 (*(World* *)&::DAT_004dd700)
-
-
-struct Gfx;                       // the graphics device / context object (0x0052c2a8); was Gfx*/Screen_xxx*/Renderer_xxx*
-
-#define DAT_0052c2a8 (*(Gfx* *)&::DAT_0052c2a8)
-
-
-struct Singleton_4dd6ec;          // object with getters FUN_00086280/FUN_000862e0 (0x004dd6ec); placeholder name
-
-#define DAT_004dd6ec (*(Singleton_4dd6ec* *)&::DAT_004dd6ec)
-
-}
-
-unsigned __int64 FUN_0027b020(const char* s);                 // string hash
-unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash with seed/length
-char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
-
-
-extern void* hulk_at_0040468c[2];
-extern void* hulk_at_0040473c[2];
-
-// Closure2<Owner, void, int, bool>'s constructor (name, object, member function): Function's fields
-// (include/decls/data/script.h), then Method2's member-function pointer and Closure2's object.
-class Owner_094650 {};
-typedef void (Owner_094650::*Fn_094650)(int, bool);
-struct FUN_001d0480 {
-    FUN_001d0480(const char* a1, int b);
+// (script1) Closure2<class CUnlockablesManager,void,int,bool>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftables by address,
+// the member-function pointer, the type codes (0x001d04d0), the object.
+extern "C" char DAT_0040468c[];   // Method2<class CUnlockablesManager,void,int,bool>
+extern "C" char DAT_0040473c[];   // Closure2<class CUnlockablesManager,void,int,bool>
+class Owner_94650 {};
+typedef void (Owner_94650::*Fn_94650)();
+struct Closure2 : hulk_script::ScriptFunction {
+    Fn_94650 fn;
+    Owner_94650* owner;
+    Closure2(const char* name, Owner_94650* object, Fn_94650 function);
 };
-
-class Closure2 : public FUN_001d0480 {
-  public:
-    void* vfptr;             // 0x00
-    ScriptFunctionFields f;  // 0x04
-    Fn_094650 fn;            // 0x1c
-    Owner_094650* owner;     // 0x20
-
-    Closure2(const char* a1, Owner_094650* a2, Fn_094650 a3);
-};
-
-Closure2::Closure2(const char* a1, Owner_094650* a2, Fn_094650 a3) : FUN_001d0480(a1, 2) {
-    vfptr = (void*)hulk_at_0040468c;
-    fn = a3;
-    f.retType = FUN_001d04d0(((void**)&DAT_0048e100));
-    f.argTypes[0] = FUN_001d04d0(((void**)&DAT_0048e134));
-    f.argTypes[1] = FUN_001d04d0(((void**)&DAT_0048e0e4));
-    vfptr = (void*)hulk_at_0040473c;
-    owner = a2;
+Closure2::Closure2(const char* name, Owner_94650* object, Fn_94650 function) : hulk_script::ScriptFunction(name, 2) {
+    vftable = DAT_0040468c;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e100);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e134);
+    f.argTypes[1] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0e4);
+    vftable = DAT_0040473c;
+    owner = object;
 }
 } // namespace fn_00094650
 #undef DAT_004dd6ec
@@ -1379,67 +1276,28 @@ template class Closure2<CUnlockablesManager, void, int, bool>; // (ren2) native 
 
 
 // 0x000946f0 FUN_000946f0 (89 B): matches/0x000946f0.cpp [wrapped: conflict: Closure2]
-// sym: ??0Closure2@fn_000946f0@@QAE@PBDPAVOwner_0946f0@1@P821@AEXHH@Z@Z
+// sym: ??0Closure2@fn_000946f0@@QAE@PBDPAVOwner_946f0@1@P821@AEXXZ@Z
 namespace fn_000946f0 {
-// Same code shape as 0x00090eb0 (propagated; names are from that function)
-// Pinned prototypes of address-named globals and functions that many sources declare (docs/source-tree.md,
-// "Pinned address names"). A source includes this instead of declaring them itself; tools/migrate_gen.py
-// --family pin does the rewrite and keeps only what still verifies. Hand-maintained: one line per name.
-//
-// The pointed-to classes are declared, not defined: each source still defines the members it uses as its own
-// `struct World { ... };` stub, and tools/gen_tree.py merges those stubs into one class where the layouts agree.
-
-struct World;                     // the game world object (0x004dd700); was World*/Context*/Game*/Global_xxx* in sources
-extern "C" {
-
-#define DAT_004dd700 (*(World* *)&::DAT_004dd700)
-
-
-struct Gfx;                       // the graphics device / context object (0x0052c2a8); was Gfx*/Screen_xxx*/Renderer_xxx*
-
-#define DAT_0052c2a8 (*(Gfx* *)&::DAT_0052c2a8)
-
-
-struct Singleton_4dd6ec;          // object with getters FUN_00086280/FUN_000862e0 (0x004dd6ec); placeholder name
-
-#define DAT_004dd6ec (*(Singleton_4dd6ec* *)&::DAT_004dd6ec)
-
-}
-
-unsigned __int64 FUN_0027b020(const char* s);                 // string hash
-unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash with seed/length
-char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
-
-
-extern void* hulk_at_0040469c[2];
-extern void* hulk_at_0040474c[2];
-
-// Closure2<Owner, void, int, int>'s constructor (name, object, member function): Function's fields
-// (include/decls/data/script.h), then Method2's member-function pointer and Closure2's object.
-class Owner_0946f0 {};
-typedef void (Owner_0946f0::*Fn_0946f0)(int, int);
-struct FUN_001d0480 {
-    FUN_001d0480(const char* a1, int b);
+// (script1) Closure2<class CUnlockablesManager,void,int,int>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftables by address,
+// the member-function pointer, the type codes (0x001d04d0), the object.
+extern "C" char DAT_0040469c[];   // Method2<class CUnlockablesManager,void,int,int>
+extern "C" char DAT_0040474c[];   // Closure2<class CUnlockablesManager,void,int,int>
+class Owner_946f0 {};
+typedef void (Owner_946f0::*Fn_946f0)();
+struct Closure2 : hulk_script::ScriptFunction {
+    Fn_946f0 fn;
+    Owner_946f0* owner;
+    Closure2(const char* name, Owner_946f0* object, Fn_946f0 function);
 };
-
-class Closure2 : public FUN_001d0480 {
-  public:
-    void* vfptr;             // 0x00
-    ScriptFunctionFields f;  // 0x04
-    Fn_0946f0 fn;            // 0x1c
-    Owner_0946f0* owner;     // 0x20
-
-    Closure2(const char* a1, Owner_0946f0* a2, Fn_0946f0 a3);
-};
-
-Closure2::Closure2(const char* a1, Owner_0946f0* a2, Fn_0946f0 a3) : FUN_001d0480(a1, 2) {
-    vfptr = (void*)hulk_at_0040469c;
-    fn = a3;
-    f.retType = FUN_001d04d0(((void**)&DAT_0048e100));
-    f.argTypes[0] = FUN_001d04d0(((void**)&DAT_0048e134));
-    f.argTypes[1] = FUN_001d04d0(((void**)&DAT_0048e134));
-    vfptr = (void*)hulk_at_0040474c;
-    owner = a2;
+Closure2::Closure2(const char* name, Owner_946f0* object, Fn_946f0 function) : hulk_script::ScriptFunction(name, 2) {
+    vftable = DAT_0040469c;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e100);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e134);
+    f.argTypes[1] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e134);
+    vftable = DAT_0040474c;
+    owner = object;
 }
 } // namespace fn_000946f0
 #undef DAT_004dd6ec
@@ -1483,67 +1341,28 @@ template class Closure2<CUnlockablesManager, void, int, int>; // (ren2) native o
 
 
 // 0x00094790 FUN_00094790 (89 B): matches/0x00094790.cpp [wrapped: conflict: Closure2]
-// sym: ??0Closure2@fn_00094790@@QAE@PBDPAVOwner_094790@1@P821@AEX0H@Z@Z
+// sym: ??0Closure2@fn_00094790@@QAE@PBDPAVOwner_94790@1@P821@AEXXZ@Z
 namespace fn_00094790 {
-// Same code shape as 0x00090eb0 (propagated; names are from that function)
-// Pinned prototypes of address-named globals and functions that many sources declare (docs/source-tree.md,
-// "Pinned address names"). A source includes this instead of declaring them itself; tools/migrate_gen.py
-// --family pin does the rewrite and keeps only what still verifies. Hand-maintained: one line per name.
-//
-// The pointed-to classes are declared, not defined: each source still defines the members it uses as its own
-// `struct World { ... };` stub, and tools/gen_tree.py merges those stubs into one class where the layouts agree.
-
-struct World;                     // the game world object (0x004dd700); was World*/Context*/Game*/Global_xxx* in sources
-extern "C" {
-
-#define DAT_004dd700 (*(World* *)&::DAT_004dd700)
-
-
-struct Gfx;                       // the graphics device / context object (0x0052c2a8); was Gfx*/Screen_xxx*/Renderer_xxx*
-
-#define DAT_0052c2a8 (*(Gfx* *)&::DAT_0052c2a8)
-
-
-struct Singleton_4dd6ec;          // object with getters FUN_00086280/FUN_000862e0 (0x004dd6ec); placeholder name
-
-#define DAT_004dd6ec (*(Singleton_4dd6ec* *)&::DAT_004dd6ec)
-
-}
-
-unsigned __int64 FUN_0027b020(const char* s);                 // string hash
-unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash with seed/length
-char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
-
-
-extern void* hulk_at_004046ac[2];
-extern void* hulk_at_0040475c[2];
-
-// Closure2<Owner, void, const char*, int>'s constructor (name, object, member function): Function's fields
-// (include/decls/data/script.h), then Method2's member-function pointer and Closure2's object.
-class Owner_094790 {};
-typedef void (Owner_094790::*Fn_094790)(const char*, int);
-struct FUN_001d0480 {
-    FUN_001d0480(const char* a1, int b);
+// (script1) Closure2<class CUnlockablesManager,void,const char *,int>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftables by address,
+// the member-function pointer, the type codes (0x001d04d0), the object.
+extern "C" char DAT_004046ac[];   // Method2<class CUnlockablesManager,void,const char *,int>
+extern "C" char DAT_0040475c[];   // Closure2<class CUnlockablesManager,void,const char *,int>
+class Owner_94790 {};
+typedef void (Owner_94790::*Fn_94790)();
+struct Closure2 : hulk_script::ScriptFunction {
+    Fn_94790 fn;
+    Owner_94790* owner;
+    Closure2(const char* name, Owner_94790* object, Fn_94790 function);
 };
-
-class Closure2 : public FUN_001d0480 {
-  public:
-    void* vfptr;             // 0x00
-    ScriptFunctionFields f;  // 0x04
-    Fn_094790 fn;            // 0x1c
-    Owner_094790* owner;     // 0x20
-
-    Closure2(const char* a1, Owner_094790* a2, Fn_094790 a3);
-};
-
-Closure2::Closure2(const char* a1, Owner_094790* a2, Fn_094790 a3) : FUN_001d0480(a1, 2) {
-    vfptr = (void*)hulk_at_004046ac;
-    fn = a3;
-    f.retType = FUN_001d04d0(((void**)&DAT_0048e100));
-    f.argTypes[0] = FUN_001d04d0(((void**)&DAT_0048e0f0));
-    f.argTypes[1] = FUN_001d04d0(((void**)&DAT_0048e134));
-    vfptr = (void*)hulk_at_0040475c;
-    owner = a2;
+Closure2::Closure2(const char* name, Owner_94790* object, Fn_94790 function) : hulk_script::ScriptFunction(name, 2) {
+    vftable = DAT_004046ac;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e100);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0f0);
+    f.argTypes[1] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e134);
+    vftable = DAT_0040475c;
+    owner = object;
 }
 } // namespace fn_00094790
 #undef DAT_004dd6ec
@@ -1589,41 +1408,27 @@ template <> void Closure6<CUnlockablesManager, void, int, const char *, const ch
 
 
 // 0x00094a30 FUN_00094a30 (76 B): matches/0x00094a30.cpp [wrapped: conflict: Closure1; Method1]
-// sym: ??0Closure1@fn_00094a30@@QAE@PBDPAVOwner_94a30@1@P821@AEHH@Z@Z
+// sym: ??0Closure1@fn_00094a30@@QAE@PBDPAVOwner_94a30@1@P821@AEXXZ@Z
 namespace fn_00094a30 {
-// Closure1<Owner, R, A1>'s constructor (name, object, member function): Function's fields
-// (include/decls/data/script.h), then Method1's member-function pointer and Closure1's object.
+// (script1) Closure1<class CUnlockablesManager,const char *,int>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftables by address,
+// the member-function pointer, the type codes (0x001d04d0), the object.
+extern "C" char DAT_004046fc[];   // Method1<class CUnlockablesManager,const char *,int>
+extern "C" char DAT_004047ac[];   // Closure1<class CUnlockablesManager,const char *,int>
 class Owner_94a30 {};
-typedef int (Owner_94a30::*Fn_94a30)(int);
-struct CtorV_001d0480 : public ScriptFunctionFields {
-    CtorV_001d0480(const char*, int);
-    virtual void v_001d0480();
+typedef void (Owner_94a30::*Fn_94a30)();
+struct Closure1 : hulk_script::ScriptFunction {
+    Fn_94a30 fn;
+    Owner_94a30* owner;
+    Closure1(const char* name, Owner_94a30* object, Fn_94a30 function);
 };
-extern "C++" __declspec(nothrow) unsigned char readFlag_001d04d0(const char*);
-extern char hulk_at_0048e0f0[];
-extern char hulk_at_0048e134[];
-class Function_94a30 : public CtorV_001d0480 {
-  public:
-    Function_94a30(const char* s) : CtorV_001d0480(s, 1) { }
-};
-class Method1 : public Function_94a30 {
-  public:
-    virtual void run();
-    Fn_94a30 value;
-    Method1(const char* s, Fn_94a30 v) : Function_94a30(s) {
-        value = v;
-        retType = readFlag_001d04d0(hulk_at_0048e0f0);
-        argTypes[0] = readFlag_001d04d0(hulk_at_0048e134);
-    }
-};
-class Closure1 : public Method1 {
-  public:
-    virtual void run();
-    Owner_94a30* extra;
-    Closure1(const char* s, Owner_94a30* v, Fn_94a30 e);
-};
-Closure1::Closure1(const char* s, Owner_94a30* v, Fn_94a30 e) : Method1(s, e) {
-    extra = v;
+Closure1::Closure1(const char* name, Owner_94a30* object, Fn_94a30 function) : hulk_script::ScriptFunction(name, 1) {
+    vftable = DAT_004046fc;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0f0);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e134);
+    vftable = DAT_004047ac;
+    owner = object;
 }
 } // namespace fn_00094a30
 

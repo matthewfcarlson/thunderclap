@@ -5,10 +5,11 @@
 #include "decls/data/records.h"
 #include "decls/data/script.h"
 #include "decls/managers.h"
+#include "game/script_bind.h"
 
 
 // 0x000c0e40 FUN_000c0e40 (1514 B): equivalent/0x000c0e40.cpp [wrapped: macros]
-// sym: ??0CFEManager@fn_000c0e40@@QAE@XZ @9971a4f95ed2 @wf9ac5661b924 @v547a4d01dfc3
+// sym: ??0CFEManager@fn_000c0e40@@QAE@XZ @9b67cc5f6e4b @w51108bdbea97 @ve33295b4b160
 inline void* __cdecl operator new(hulk_uintptr,void* p) { return p; }
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
@@ -61,33 +62,36 @@ typedef void (CFEManager::*Callback)();
 // The static functions bound with Function0 / Function1 (0x000bfc50, 0x000bfcc0).
 typedef void (*StaticFn)();
 extern void FUN_000b45a0(int); /* (unb4) as defined; address taken only */ extern void FUN_000b45b0(); extern void FUN_000b45d0(void*); /* (unb4) as defined; address taken only */
-struct Binding : ScriptFunctionFields { virtual void slot(); Callback callback; CFEManager* owner; void FUN_001d0480(const char*,int); Binding* FUN_000c0030(const char*,CFEManager*,Callback); Binding* FUN_000c0200(const char*,CFEManager*,Callback); };
-template<class C,class R,class A> struct Method1: Binding { virtual void slot(); };
-template<class C,class R,class A> struct Closure1: Method1<C,R,A> { virtual void slot(); };
-struct Registry { void FUN_001d3b70(const char*,Binding*); void FUN_000c06e0(const char*,CFEManager*,Callback); void FUN_000c0740(const char*,CFEManager*,Callback); void FUN_000bfc50(const char*,StaticFn); void FUN_000bfcc0(const char*,StaticFn); void FUN_000c0850(const char*,CFEManager*,Callback); void FUN_000c08b0(const char*,CFEManager*,Callback); void FUN_000c0960(const char*,CFEManager*,Callback); };
+// The out-of-line Closure2 constructors 0x000c0030 / 0x000c0200 (CFEManager.cpp) build the two SIMPLE ones in place.
+struct Binding : ScriptFunctionFields { Binding* FUN_000c0030(const char*,CFEManager*,Callback); Binding* FUN_000c0200(const char*,CFEManager*,Callback); };
+// (script1) MAKE's Method1 / Closure1 are include/game/script_bind.h's records with the game's vftables by address.
+extern "C" char DAT_004090a8[], DAT_004090d8[], DAT_00409138[], DAT_004092a0[], DAT_004092d0[], DAT_00409330[];
+struct Registry { void FUN_001d3b70(const char*,void*); void FUN_000c06e0(const char*,CFEManager*,Callback); void FUN_000c0740(const char*,CFEManager*,Callback); void FUN_000bfc50(const char*,StaticFn); void FUN_000bfcc0(const char*,StaticFn); void FUN_000c0850(const char*,CFEManager*,Callback); void FUN_000c08b0(const char*,CFEManager*,Callback); void FUN_000c0960(const char*,CFEManager*,Callback); };
 extern "C" Registry* FUN_001d4c90();
-#define MAKE(T,N,F,D) b=(Binding*)FUN_0008d690((int)sizeof(Binding)); if(b) { b->FUN_001d0480(N,1); new(b) Method1<CFEManager,void,T>; b->callback=&CFEManager::FUN_##F; b->retType=FUN_001d04d0(DAT_0048e100); b->argTypes[0]=FUN_001d04d0(D); new(b) Closure1<CFEManager,void,T>; b->owner=this; } r->FUN_001d3b70(N,b)
-#define SIMPLE(F,N,C) b=(Binding*)FUN_0008d690((int)sizeof(Binding)); if(b) b=b->F(N,this,&CFEManager::FUN_##C); r->FUN_001d3b70(N,b)
+// MAKE: a Closure1<CFEManager,void,T> (the callbacks keep their `void ()` declarations, which is what their
+// definitions are bound by today: docs/native-build.md "script1", the bound callbacks)
+#define MAKE(T,N,F,MV,CV) r->FUN_001d3b70(N,new hulk_script::ScriptClosure<hulk_script::ScriptMethod1<CFEManager,void,T>,CFEManager>(N,this,reinterpret_cast<void (CFEManager::*)(T)>(&CFEManager::FUN_##F),MV,CV))
+#define SIMPLE(F,N,C) b=(Binding*)FUN_0008d690((int)sizeof(ScriptClosureView)); if(b) b=b->F(N,this,&CFEManager::FUN_##C); r->FUN_001d3b70(N,b)
 CFEManager::CFEManager() {
 int i; for(i=0;i<128;++i) { records[i].items[0].FUN_0027af00(); records[i].items[1].FUN_0027af00(); records[i].items[2].FUN_0027af00(); records[i].items[3].FUN_0027af00(); }
 f1cec=f1cf0=-1; f1d04=f1d08=f1d0c=255;
 f1c=0; f18=0; f14=0; f10=0; f8=0; f54=0; f48=0; f3c=0; f38=0; f34=0; f30=0; f68=0; f60=0; f24=0; f28=0; f1880=0; f5c=0; f4c=0; f58=0; f2c=0; f1a06=f1bc8=f1a04=f1a05=f1c8c=f1cac=0; f1cf4=f1cfc=0; f1d00=0; f1d10=f1d14=f1d18=128; f1d1c=0; f1d20=1.0f; f1d24=f1d28=f1d2c=f1d30=f1d34=0;
 for(i=0;i<128;++i) arrayA[i]=0; for(i=0;i<128;++i) arrayB[i]=0; for(i=0;i<128;++i) { for(int j=0;j<4;++j) records[i].items[j].words[0]=records[i].items[j].words[1]=0; records[i].tail[0]=records[i].tail[1]=0; }
-HULK_SIZE32(Binding, 0x24);
+typedef hulk_script::ScriptClosure<hulk_script::ScriptMethod1<CFEManager,void,int>,CFEManager> Closure1_t; HULK_SIZE32(Closure1_t, 0x24);
 Registry* r=FUN_001d4c90(); if(!r) return; Binding* b;
-MAKE(char*,"fe_SetMissionFailureHint",000b89c0,DAT_0049cad8);
+MAKE(char*,"fe_SetMissionFailureHint",000b89c0,DAT_004090a8,DAT_004092a0);
 r->FUN_000c06e0("SetMissionInfo",this,&CFEManager::FUN_000b4e30); r->FUN_000c0740("fe_StartNextMission",this,&CFEManager::FUN_000bc750); r->FUN_000bfc50("fe_changeScreen",(void (*)())FUN_000b45a0); r->FUN_000bfcc0("fe_backScreen",FUN_000b45b0); r->FUN_000bfc50("fe_loadScript",(void (*)())FUN_000b45d0);
-MAKE(const char*,"fe_doScreen",000bc1e0,DAT_0048e0f0);
+MAKE(const char*,"fe_doScreen",000bc1e0,DAT_004090d8,DAT_004092d0);
 SIMPLE(FUN_000c0030,"fe_fullscreenMessage",000b47b0);
 r->FUN_000c0850("fe_fullscreenMessageEx",this,&CFEManager::FUN_000b4850); r->FUN_000c08b0("fe_fullscreenQuestion",this,&CFEManager::FUN_000bc230); r->FUN_000c0740("fe_unlockStory",this,&CFEManager::FUN_000bb5c0);
 SIMPLE(FUN_000c0200,"fe_exitSim",000bf450); r->FUN_000c0960("fe_GetSelectedMove",this,&CFEManager::FUN_000b43e0);
-MAKE(const char*,"fe_SetupSMSuccessName",000b5490,DAT_0048e0f0);
+MAKE(const char*,"fe_SetupSMSuccessName",000b5490,DAT_004090d8,DAT_004092d0);
 r->FUN_000c0850("fe_SetupSMSuccessResult",this,&CFEManager::FUN_000b54d0); r->FUN_000c0850("fe_SetupSMSuccessRecord",this,&CFEManager::FUN_000b5530);
-MAKE(int,"fe_SetupSMSuccessRanking",000b5590,DAT_0048e134);
-MAKE(int,"fe_SetupSMSuccessSmashPointsAward",000b5670,DAT_0048e134);
+MAKE(int,"fe_SetupSMSuccessRanking",000b5590,DAT_00409138,DAT_00409330);
+MAKE(int,"fe_SetupSMSuccessSmashPointsAward",000b5670,DAT_00409138,DAT_00409330);
 r->FUN_000c0850("fe_SetupSMSuccessNewRecord",this,&CFEManager::FUN_000b5710);
-MAKE(const char*,"fe_SetupSMFailName",000b5790,DAT_0048e0f0);
-MAKE(const char*,"fe_SetupSMFailHint",000b57d0,DAT_0048e0f0);
+MAKE(const char*,"fe_SetupSMFailName",000b5790,DAT_004090d8,DAT_004092d0);
+MAKE(const char*,"fe_SetupSMFailHint",000b57d0,DAT_004090d8,DAT_004092d0);
 r->FUN_000c0850("fe_SetupSMFailRecord",this,&CFEManager::FUN_000b5810);
 SIMPLE(FUN_000c0030,"AddValidMission",000b4b60);
 if(!DAT_004ddbd0) { DAT_004ddc08=0xffb72025; DAT_004ddc0c=0xff65b742; DAT_004ddbd0=1; }

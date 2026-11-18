@@ -6,10 +6,11 @@
 #include "decls/data/game/unknown.h"
 #include "decls/data/records.h"
 #include "decls/data/script.h"
+#include "game/script_bind.h"
 
 
 // 0x001ee820 FUN_001ee820 (924 B): equivalent/0x001ee820.cpp [wrapped: macros; helper definitions (2 out-of-line function bodies)]
-// sym: ?FUN_001ee820@CSoundRealTimeManager@fn_001ee820@@QAEXXZ @7ac337ceeb79 @w50db677a0da1 @v847e4acfb6ae
+// sym: ?FUN_001ee820@CSoundRealTimeManager@fn_001ee820@@QAEXXZ @e9ab6edc5143 @w3eb18e239fc6 @v19f2b956fc07
 HULK_NATIVE_INLINE void* __cdecl operator new(hulk_uintptr, void* p) { return p; }
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
@@ -55,48 +56,34 @@ class CSoundRealTimeManager { public:
  void FUN_001eb130(float); void FUN_001eb140(bool); void FUN_001eb150(float); void FUN_001eb160(float);
  void FUN_001eb740(char*,char*,char*); void FUN_001eb870(); void FUN_001eb890(); void FUN_001eb8d0(char*); void FUN_001eb950(char*);
 };
-// Function (include/decls/data/script.h): the vftable, then Function's fields.
-struct __declspec(novtable) Command : public ScriptFunctionFields {
- virtual void slot0();
- void FUN_001d0480(const char*,int);
- void FUN_001edcf0(const char*, void (CSoundRealTimeManager::*)(char*,char*,char*));
- Command(const char* name) { FUN_001d0480(name,1); }
- Command(const char* name,void(CSoundRealTimeManager::*fn)(char*,char*,char*)) { FUN_001edcf0(name,fn); }
-};
-template<class C,class R,class A> class Method1: public Command { public:
- void (C::*method)(A);
- virtual void slot0();
- Method1(const char* name,void(C::*fn)(A),const void* type):Command(name) {
- method=fn; retType=FUN_001d04d0(((int*)&DAT_0048e100)); argTypes[0]=FUN_001d04d0(type);
- }
-};
-template<class C,class R,class A> class Closure1: public Method1<C,R,A> { public:
- C* object; virtual void slot0();
- Closure1(const char* name,C* obj,void(C::*fn)(A),const void* type):Method1<C,R,A>(name,fn,type) {object=obj;}
-};
-template<class C,class R,class A,class B,class D> class Closure3: public Command { public:
- void(C::*method)(A,B,D); C* object; virtual void slot0();
- Closure3(const char* name,C* obj,void(C::*fn)(A,B,D)):Command(name,fn) {object=obj;}
-};
+// (script1) the bound functions are include/game/script_bind.h's records with the game's vftables by address; the
+// Closure3 is built in place by its out-of-line Method3 constructor 0x001edcf0, then the Closure3 vftable and the object.
+struct Command { void* vftable; ScriptFunctionFields f; void (CSoundRealTimeManager::*method)(char*,char*,char*); CSoundRealTimeManager* object;
+ void FUN_001edcf0(const char*, void (CSoundRealTimeManager::*)(char*,char*,char*)); };
+extern "C" char DAT_00424358[], DAT_004243fc[];   // Method1 / Closure1<CSoundRealTimeManager,void,const char*>
+extern "C" char DAT_00424378[], DAT_0042441c[];   // Method1 / Closure1<CSoundRealTimeManager,void,float>
+extern "C" char DAT_00424388[], DAT_0042442c[];   // Method1 / Closure1<CSoundRealTimeManager,void,bool>
+extern "C" char DAT_004243a8[], DAT_0042444c[];   // Method1 / Closure1<CSoundRealTimeManager,void,char*>
+extern "C" char DAT_0042443c[];                   // Closure3<CSoundRealTimeManager,void,char*,char*,char*>
 struct Registry {
- void FUN_001d3b70(const char*,Command*);
+ void FUN_001d3b70(const char*,void*);
  void FUN_001ee5b0(const char*,CSoundRealTimeManager*,void(CSoundRealTimeManager::*)());
 };
 extern "C" Registry* __cdecl FUN_001d4c90();
-#define ADD1(N,A,F,T) { typedef Closure1<CSoundRealTimeManager,void,A> Sized; HULK_SIZE32(Sized, 0x24); void* mem=FUN_0008d690((unsigned)sizeof(Sized)); Command* cmd=0; if(mem) cmd=new(mem) Closure1<CSoundRealTimeManager,void,A>(N,this,&CSoundRealTimeManager::F,&T); registry->FUN_001d3b70(N,cmd); }
+#define ADD1(N,A,F,MV,CV) { typedef hulk_script::ScriptClosure<hulk_script::ScriptMethod1<CSoundRealTimeManager,void,A>,CSoundRealTimeManager> Sized; HULK_SIZE32(Sized, 0x24); registry->FUN_001d3b70(N,new Sized(N,this,&CSoundRealTimeManager::F,MV,CV)); }
 void CSoundRealTimeManager::FUN_001ee820() {
  owner->FUN_001f2c00(id);
  Registry* registry=FUN_001d4c90();
- ADD1("snd_TriggerMusic",const char*,FUN_001eb560,(*(int*)&DAT_0048e0f0))
+ ADD1("snd_TriggerMusic",const char*,FUN_001eb560,DAT_00424358,DAT_004243fc)
  registry->FUN_001ee5b0("snd_StopMusic",this,&CSoundRealTimeManager::FUN_001eb550);
- ADD1("snd_TriggerAmbience",const char*,FUN_001eb6c0,(*(int*)&DAT_0048e0f0))
- ADD1("snd_SetMusicVolume",float,FUN_001eb130,(*(int*)&DAT_0048e128))
- ADD1("snd_LockTransitions",bool,FUN_001eb140,(*(int*)&DAT_0048e0e4))
- {typedef Closure3<CSoundRealTimeManager,void,char*,char*,char*> Sized; HULK_SIZE32(Sized, 0x24); void* mem=FUN_0008d690((unsigned)sizeof(Sized)); Command* cmd=0; if(mem) cmd=new(mem) Sized("snd_PlayDialogue",this,&CSoundRealTimeManager::FUN_001eb740); registry->FUN_001d3b70("snd_PlayDialogue",cmd);}
- ADD1("snd_InstallMix",char*,FUN_001eb8d0,(*(int*)&DAT_0049cad8))
- ADD1("snd_InstallEffect",char*,FUN_001eb950,(*(int*)&DAT_0049cad8))
- ADD1("snd_Set_UserHealthDown",float,FUN_001eb150,(*(int*)&DAT_0048e128))
- ADD1("snd_Set_UserHealthNearDeath",float,FUN_001eb160,(*(int*)&DAT_0048e128))
+ ADD1("snd_TriggerAmbience",const char*,FUN_001eb6c0,DAT_00424358,DAT_004243fc)
+ ADD1("snd_SetMusicVolume",float,FUN_001eb130,DAT_00424378,DAT_0042441c)
+ ADD1("snd_LockTransitions",bool,FUN_001eb140,DAT_00424388,DAT_0042442c)
+ {HULK_SIZE32(Command, 0x24); Command* cmd=(Command*)FUN_0008d690((unsigned)sizeof(Command)); if(cmd) { cmd->FUN_001edcf0("snd_PlayDialogue",&CSoundRealTimeManager::FUN_001eb740); cmd->vftable=DAT_0042443c; cmd->object=this; } registry->FUN_001d3b70("snd_PlayDialogue",cmd);}
+ ADD1("snd_InstallMix",char*,FUN_001eb8d0,DAT_004243a8,DAT_0042444c)
+ ADD1("snd_InstallEffect",char*,FUN_001eb950,DAT_004243a8,DAT_0042444c)
+ ADD1("snd_Set_UserHealthDown",float,FUN_001eb150,DAT_00424378,DAT_0042441c)
+ ADD1("snd_Set_UserHealthNearDeath",float,FUN_001eb160,DAT_00424378,DAT_0042441c)
  registry->FUN_001ee5b0("snd_Mute",this,&CSoundRealTimeManager::FUN_001eb870);
  registry->FUN_001ee5b0("snd_UnMute",this,&CSoundRealTimeManager::FUN_001eb890);
 }

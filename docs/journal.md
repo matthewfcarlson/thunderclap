@@ -1389,3 +1389,23 @@ blocks fight::Action's whole family: the records come first there.
 - **A binding exposes literal sizes to the x64 gate.** Three `operator_new(0x14)` sites (0x000592c0, 0x0016e070,
   0x0017e910) became `layout` once the allocator bound: they now allocate `sizeof` of the record they construct (0x14
   on 32-bit). 0x00159cb0's record view is shorter than its 0x18 allocation, so its TU stays out (deferred).
+
+## 2026-11-18 script1: the script binding family on records (include/game/script_bind.h)
+
+- MSVC 7.1 compiles the Method<N> / Closure<N> family to the game's own code from plain records: an empty base whose
+  constructor is Function's 0x001d0480, the vftable word, ScriptFunctionFields, the member-function pointer and the
+  object, with the game's vftables stored by address. A registration helper that had been equivalent (0x000b0440)
+  byte-matches on them, as do 36 more after a generator rewrote them, and 91 out-of-line constructors regenerated from
+  the listing. So the stand-in classes were never needed for the bytes.
+- In a TU that keeps /GX (D24), `new` of a record whose constructor may throw gets an unwind frame that the game's
+  code does not have. Declare the constructors throw(). The game was built without /GX, so this only undoes the
+  tree's /GX.
+- A second extern "C" declaration of a C name with another type is an error under clang and accepted by MSVC.
+  Several TUs declare `FUN_001d04d0` with their own types. A shared header therefore declares the callees under
+  C++ address names in its own namespace. The links bind them by address, and verify_relocs / equiv resolve
+  `DAT_` / `FUN_` names by name. `hulk_at_` data names in a namespace are only paired by position in equiv.
+- A local native estimate with an older Wine map counts new spellings as unbound. That covers renamed definitions
+  (the map's `def` is the old symbol) and special members such as `??0FUN_001d0480@hulk_script@@`. The proof's own
+  map is the measure.
+- The bound callbacks bind by IR shape only: a stdcall free definition `void (const char*)` binds to a caller's
+  `void ()` member declaration, and then reads the Lua argument from the `this` register (the FE's `fe_SetupSM*`).

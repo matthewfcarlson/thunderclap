@@ -10,6 +10,7 @@
 #define TREE_TU_END }
 namespace fn_f294a1a9 {} using namespace fn_f294a1a9;
 #include "game/global.h"
+#include "game/script_bind.h"
 
 // ---- declarations shared by the functions below
 namespace fn_f294a1a9 {
@@ -554,36 +555,26 @@ char MyDriveErrorCallback::vfunc_0(unsigned int code, void* a1, int a2, const ch
 // 0x0008e6b0 FUN_0008e6b0 (89 B): matches/0x0008e6b0.cpp [wrapped: conflict: Closure2]
 // sym: ??0Closure2@fn_0008e6b0@@QAE@PBDPAVOwner_8e6b0@1@P821@AEXXZ@Z
 namespace fn_0008e6b0 {
-// Same code shape as 0x00090eb0 (propagated; names are from that function)
-
-extern void* hulk_at_004008a0[2];
-extern void* hulk_at_004009f8[2];
-
-// Closure2's fields (include/decls/data/script.h): Function's fields, the bound member-function pointer, the object.
+// (script1) Closure2<class CPlatformManager,void,const char *,const char *>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftables by address,
+// the member-function pointer, the type codes (0x001d04d0), the object.
+extern "C" char DAT_004008a0[];   // Method2<class CPlatformManager,void,const char *,const char *>
+extern "C" char DAT_004009f8[];   // Closure2<class CPlatformManager,void,const char *,const char *>
 class Owner_8e6b0 {};
 typedef void (Owner_8e6b0::*Fn_8e6b0)();
-struct FUN_001d0480 {
-    FUN_001d0480(const char* a1, int b);
+struct Closure2 : hulk_script::ScriptFunction {
+    Fn_8e6b0 fn;
+    Owner_8e6b0* owner;
+    Closure2(const char* name, Owner_8e6b0* object, Fn_8e6b0 function);
 };
-extern "C" char __cdecl FUN_001d04d0(const void* tbl);
-
-class Closure2 : public FUN_001d0480 {
-  public:
-    void* vfptr;             // 0x00
-    ScriptFunctionFields f;  // 0x04
-    Fn_8e6b0 fn;            // 0x1c
-    Owner_8e6b0* owner;     // 0x20
-    Closure2(const char* a1, Owner_8e6b0* a2, Fn_8e6b0 a3);
-};
-
-Closure2::Closure2(const char* a1, Owner_8e6b0* a2, Fn_8e6b0 a3) : FUN_001d0480(a1, 2) {
-    vfptr = (void*)hulk_at_004008a0;
-    fn = a3;
-    f.retType = FUN_001d04d0(((void**)&DAT_0048e100));
-    f.argTypes[0] = FUN_001d04d0(((void**)&DAT_0048e0f0));
-    f.argTypes[1] = FUN_001d04d0(((void**)&DAT_0048e0f0));
-    vfptr = (void*)hulk_at_004009f8;
-    owner = a2;
+Closure2::Closure2(const char* name, Owner_8e6b0* object, Fn_8e6b0 function) : hulk_script::ScriptFunction(name, 2) {
+    vftable = DAT_004008a0;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e100);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0f0);
+    f.argTypes[1] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0f0);
+    vftable = DAT_004009f8;
+    owner = object;
 }
 } // namespace fn_0008e6b0
 
