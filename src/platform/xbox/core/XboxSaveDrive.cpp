@@ -663,7 +663,7 @@ unsigned char __stdcall compare(const unsigned short* a, const unsigned short* b
 } // namespace fn_fad5a458
 
 // 0x00278500 FUN_00278500 (407 B): equivalent/0x00278500.cpp
-// sym: ??0XboxSaveDrive_278500@core@@QAE@PBDH@Z @5ea07f6a48c8 @w91908c781550 @v8da2c2440598
+// sym: ??0XboxSaveDrive_278500@core@@QAE@PBDH@Z @5ea07f6a48c8 @w91908c781550 @v3ba5b94377e8
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 8/8)
 // FUN_00278500 @ 0x00278500
 core::XboxSaveDrive_278500::XboxSaveDrive_278500(const char* nameArg, int heap) {

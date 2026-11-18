@@ -358,7 +358,7 @@ extern "C" void __cdecl FUN_00259b40(Object* obj)
 namespace fn_f9813241 {
 
 // 0x00259be0 FUN_00259be0 (100 B): equivalent/0x00259be0.cpp
-// sym: _FUN_00259be0 @7a4aa01093fa @wbdd6aa47b3a4 @v027fbfe397ba
+// sym: _FUN_00259be0 @7a4aa01093fa @wbdd6aa47b3a4 @v9a79568e64fd
 // STATUS: equivalent (tools/equiv.py level 3: 79 inputs, branch coverage 8/8)
 // FUN_00259be0 @ 0x00259be0
 extern "C" bool __cdecl FUN_00259be0(Sound_259be0 *sound) { sound->playing = 1; FUN_00258f90(sound, 1); unsigned int count = (sound->info->flags >> 4) & 31; for (unsigned int i = 0; i < count; ++i) { if (DSOUND::IDirectSoundBuffer_Play(sound->buffers[i]->handle, 0, 0, sound->loop != 0) < 0) return false; } return true; }

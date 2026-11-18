@@ -710,7 +710,7 @@ void core::ControllerXBox::vfunc_1() {
 namespace fn_fc99ffef {
 
 // 0x002685a0 core::ControllerXBox::vfunc_17 (233 B): equivalent/0x002685a0.cpp
-// sym: ?vfunc_17@ControllerXBox@fn_fc99ffef@@UAEXH@Z @19c100d944fd @wfee701f9b2a9 @v5c3ae46287a1
+// sym: ?vfunc_17@ControllerXBox@fn_fc99ffef@@UAEXH@Z @19c100d944fd @wfee701f9b2a9 @v11ad862e9091
 // STATUS: equivalent (tools/equiv.py level 3: 20010 inputs, branch coverage 12/12)
 // core::ControllerXBox::vfunc_17 @ 0x002685a0
 void ControllerXBox::vfunc_17(int arg) {

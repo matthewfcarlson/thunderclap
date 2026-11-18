@@ -662,7 +662,7 @@ void FUN_00272560(void) {
 
 
 // 0x002725e0 FUN_002725e0 (193 B): equivalent/0x002725e0.cpp
-// sym: _FUN_002725e0 @95e3332cd792 @w3fde2d27ac50 @vb21dacc6d14a
+// sym: _FUN_002725e0 @95e3332cd792 @w3fde2d27ac50 @vfdb8d5ed707d
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 10/12, incomplete)
 // FUN_002725e0 @ 0x002725e0
 extern "C" void __cdecl FUN_002725e0(const char* text)
