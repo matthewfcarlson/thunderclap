@@ -6,7 +6,7 @@
   jobq.py submit-many FILE [same options]   FILE: jsonl ({"cmd": [...], "files": [...], "out": [...], ...}) or one
                                             shell command per line; prints one id per line
   jobq.py wait ID|A-B|--name AGENT [--timeout S]   exit 0 when all are done, 1 when any failed/gave up, 2 on timeout
-  jobq.py status [--name AGENT] [--all]   |  result ID [--json]  |  cancel ID... | --name AGENT
+  jobq.py status [--name AGENT] [--all]   |  result ID [--json]  |  cancel ID... | --name AGENT --all
   jobq.py hosts | daemon | ensure | gc | init-hosts
 
 A job runs on a host with the needed capability in a fresh clone of "git archive HEAD tools include tests config src"
@@ -454,6 +454,10 @@ def cmd_result(a, _c):
 
 
 def cmd_cancel(a, _c):
+    if a.name and not a.all:
+        # (D109) --name selects every unfinished job of that name: an agent meaning one batch lost its others
+        print("cancel --name %s cancels ALL its unfinished jobs; pass --all to mean that, or cancel by id" % a.name)
+        return 2
     c = conn()
     ids = select_ids(c, a)
     with c:
@@ -1137,6 +1141,7 @@ def main():
     s = sub.add_parser("cancel")
     s.add_argument("ids", nargs="*")
     s.add_argument("--name")
+    s.add_argument("--all", action="store_true", help="with --name: cancel every unfinished job of that name (D109)")
     s = sub.add_parser("gc")
     s.add_argument("--days", type=float, default=14)
     s = sub.add_parser("daemon")
