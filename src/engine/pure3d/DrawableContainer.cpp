@@ -287,14 +287,13 @@ struct Elem {                     // (x64t19) a group: its drawable is a pointer
     void* x;
     Sub sub;
 };
-extern "C" void* alloc(hulk_uintptr) throw();
-struct E_2a4cb0 {
-    int a, b, c, d;
-};
-struct Buffer_2a4cb0 {
-    E_2a4cb0* begin;
-    E_2a4cb0* end;
-    Buffer_2a4cb0* target(unsigned int count, int unused);
+} // namespace fn_f6d01fd6
+extern "C" void* __cdecl FUN_0008d6d0(int size);   // (x64t19) the game's allocator, as defined (unk_08ceb0.cpp)
+namespace fn_f6d01fd6 {
+struct Buffer_2a4cb0 {            // (x64t19) the container's groups (decls/drawable_container.h; 16-byte ints here)
+    HulkDrawableGroup* begin;
+    HulkDrawableGroup* end;
+    Buffer_2a4cb0* target(unsigned int count, const unsigned int* unused);   // (x64t19) the fill (ignored): a pointer
 };
 typedef unsigned int u32_2a4da0;
 struct Item_2a4da0 {              // (x64t19) the group's clear (Container_2a4890::Clear) by its address name
@@ -309,7 +308,7 @@ extern "C" char DAT_0042d90c[];
 class DrawableContainer_2a4e10 {   // (x64t19) the callees by their address names (natively Base / Second had no definition)
   public:
     void FUN_002a3480();           // pure3d::DrawableHierarchy's constructor
-    Buffer_2a4cb0* FUN_002a4cb0(unsigned int, int);   // the group array's allocation (Buffer_2a4cb0::target, as defined)
+    Buffer_2a4cb0* FUN_002a4cb0(unsigned int, const unsigned int*);   // the group array's allocation (Buffer_2a4cb0::target)
 };
 class DrawableContainer : public HulkDrawableContainer {   // (x64t19) the container's record (was a 32-bit pad view)
   public:
@@ -871,18 +870,18 @@ Elem* __cdecl FUN_002a4c60(Elem* dst, int n, Elem* src) {
 
 
 // 0x002a4cb0 FUN_002a4cb0 (88 B): matches/0x002a4cb0.cpp
-// sym: ?target@Buffer_2a4cb0@fn_f6d01fd6@@QAEPAU12@IH@Z
-Buffer_2a4cb0* Buffer_2a4cb0::target(unsigned int count, int unused) {
+// sym: ?target@Buffer_2a4cb0@fn_f6d01fd6@@QAEPAU12@IPBI@Z
+Buffer_2a4cb0* Buffer_2a4cb0::target(unsigned int count, const unsigned int* unused) {
     if (count > 0) {
-        begin = (E_2a4cb0*)alloc(count * 16);
+        begin = (HulkDrawableGroup*)::FUN_0008d6d0(count * sizeof(HulkDrawableGroup));   // (x64t19) the allocator by its C name ("alloc" had no definition natively)
         if (begin != 0) {
-            E_2a4cb0* e = begin + count;
+            HulkDrawableGroup* e = begin + count;
             end = e;
-            for (E_2a4cb0* p = begin; p != e; ++p) {
+            for (HulkDrawableGroup* p = begin; p != e; ++p) {
                 if (p != 0) {
-                    p->a = 0;
-                    p->b = 0;
-                    p->c = 0;
+                    p->drawable = 0;
+                    p->begin = 0;
+                    p->end = 0;
                 }
             }
             _ReadWriteBarrier();
@@ -948,7 +947,7 @@ void* DrawableContainer::Init(unsigned int arg) {
     ((DrawableContainer_2a4e10*)this)->FUN_002a3480();
     vftable = (void*)((hulk_intptr)DAT_0042d90c);
     half = 0x3f000000;
-    ((DrawableContainer_2a4e10*)&groups)->FUN_002a4cb0(arg, (int)(hulk_intptr)&arg);   // (its second word is unused)
+    ((DrawableContainer_2a4e10*)&groups)->FUN_002a4cb0(arg, &arg);
     owner = this;
     return this;
 }
