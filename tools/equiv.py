@@ -9194,10 +9194,11 @@ def deleting_wrapper_asm(sym, dtor):
     return "".join(l + "\\n" for l in lines)
 
 
-def compile_native(src, outdir, extra=(), tail_asm=None):
+def compile_native(src, outdir, extra=(), tail_asm=None, float_mode=None):
     """(round 18, native) SRC compiled the way the native build compiles it (tools/clang_probe.py's `msvc`
     configuration: i686-pc-windows-msvc, -O0, SSE2 or x87 (HULK_WINE_FLOAT), compat/native.h, the same dialect switches), to a COFF object in
-    OUTDIR. Raises CompileError. `hulk_freg` is `double` here (include/compat/ptr.h), `float` under MSVC 7.1."""
+    OUTDIR. Raises CompileError. `hulk_freg` is `double` here (include/compat/ptr.h), `float` under MSVC 7.1.
+    FLOAT_MODE "x87"/"sse" overrides HULK_WINE_FLOAT for this call (test1, D127: x87_order.py models x87 only)."""
     import clang_probe as cp
     clang = cp.tool("clang++")
     if not clang:
@@ -9209,7 +9210,7 @@ def compile_native(src, outdir, extra=(), tail_asm=None):
         raise CompileError("native mode needs LLVM's clang (Homebrew llvm, ~/llvm or $HULK_LLVM), not " + clang)
     flags = list(cp.CONFIGS["msvc"]["flags"]) + cp.COMMON + ["-Wno-everything"] + cp.tu_flags(src)   # (gx2) clang-flags
     # (perf1) the float code per call (HULK_WINE_FLOAT, `--float`; regress.py's per-case `float`): SSE2 by default
-    sse = os.environ.get("HULK_WINE_FLOAT", "sse") != "x87"
+    sse = (float_mode or os.environ.get("HULK_WINE_FLOAT", "sse")) != "x87"
     swap = {"-mno-sse": "-msse2", "-mfpmath=387": "-mfpmath=sse"} if sse else {"-msse2": "-mno-sse", "-mfpmath=sse": "-mfpmath=387"}
     flags = [swap.get(f, f) for f in flags]
     obj = os.path.join(outdir, "native.obj")

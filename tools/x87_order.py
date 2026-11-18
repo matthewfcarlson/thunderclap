@@ -30,6 +30,11 @@ A root with an unknown leaf is `unmatched`, never a finding; so is a root with s
 --json also reports `unmatched_why` (a count per reason), `unmatched_roots` (the first dozen, with the nearest root
 of the other side) and `orig_generic` (roots of generic loop iterations). See docs/equivalence.md ("x87 operation
 order check (cl7)") for the limits.
+
+The model is x87 only: (b) is always compiled as x87 (compile_native(float_mode="x87"); the Wine build's default is
+SSE2 since 5c114cf64, so the check concerns the Wine build's x87-keep functions and the order the source spells). A
+native object with no x87 arithmetic at all is reported loudly (status `native_no_x87`; synth cases raise) rather than
+as unmatched roots (test1, D127).
 """
 import argparse
 import bisect
@@ -1890,6 +1895,15 @@ def has_x87_arith(insns, minimum=2):
     return n >= minimum
 
 
+NATIVE_BLIND = "native object has no x87 float arithmetic"
+
+
+def native_blind(src):
+    """(test1, D127) The clang object has no x87 arithmetic at all (5c114cf64 made compile_native emit SSE2 by default and
+    this check silently found no native roots): say so rather than report every root unmatched."""
+    return "%s (%s): compiled as SSE? the comparison would see no native roots" % (NATIVE_BLIND, os.path.basename(src))
+
+
 def bind_names(bind):
     """address -> name for the original's call targets, from the object's symbols (better than FUN_xxxx)."""
     g = glob()
@@ -2290,7 +2304,7 @@ def analyze(src, addr, msvc=True, native=True, workdir=None):
             rep["orig_calls"] = osim.ncall
         if native:
             try:
-                nobj = equiv.compile_native(src, tmp)
+                nobj = equiv.compile_native(src, tmp, float_mode="x87")   # (test1, D127) the model is x87 only
                 ncoff = compare.Coff(nobj)
                 cands = []
                 local = {}
@@ -2299,6 +2313,10 @@ def analyze(src, addr, msvc=True, native=True, workdir=None):
                         local[sym[0]] = ObjFn(ncoff, sym)
                     except Exception:
                         pass
+                if not any(has_x87_arith(f.insns, 1) for f in local.values()):
+                    rep["native_error"] = native_blind(src)
+                    print("x87_order: " + rep["native_error"], file=sys.stderr)
+                    local = {}
                 for f in local.values():
                     if not f.insns:
                         continue
@@ -2318,7 +2336,7 @@ def analyze(src, addr, msvc=True, native=True, workdir=None):
                     rep["unmatched_why"] = dict(Counter(cands[0][5].values()))
                     rep["unmatched_roots"] = [["+0x%x" % at, w, show(n)[:240], cands[0][6].get(n)] for st_, n, _, at in cands[0][4]
                                               if st_ == "unmatched" for w in (cands[0][5].get(n, "?"),)][:12]
-                else:
+                elif "native_error" not in rep:
                     rep["native_error"] = "no function in the clang object"
             except compare.CompileError as e:
                 rep["native_error"] = str(e)[:200]
@@ -2356,6 +2374,8 @@ def analyze(src, addr, msvc=True, native=True, workdir=None):
     rep["findings"] = findings
     rep["status"] = "finding" if any(f["kind"] != "round" for f in findings) else (
         "round_only" if findings else ("clean" if stat.get("clean") else "unmatched"))
+    if rep.get("native_error", "").startswith(NATIVE_BLIND):
+        rep["status"] = "native_no_x87"
     return rep
 
 
@@ -2365,7 +2385,7 @@ def synth_compare(src, ref="ref", test="test", ref_msvc=False, workdir=None):
     import compare
     import equiv
     with tempfile.TemporaryDirectory(dir=workdir) as tmp:
-        nobj = equiv.compile_native(src, tmp)
+        nobj = equiv.compile_native(src, tmp, float_mode="x87")   # (test1, D127) the model is x87 only
         ncoff = compare.Coff(nobj)
         nfns = {}
         for sym in ncoff.function_symbols():
@@ -2373,6 +2393,8 @@ def synth_compare(src, ref="ref", test="test", ref_msvc=False, workdir=None):
                 nfns[sym[0]] = ObjFn(ncoff, sym)
             except Exception:
                 pass
+        if not any(has_x87_arith(f.insns, 1) for f in nfns.values()):
+            raise RuntimeError(native_blind(src))
         if ref_msvc:
             mcoff = compare.Coff(compare.compile_obj(src, compare.DEFAULT_FLAGS, tmp))
             rfns = {}
