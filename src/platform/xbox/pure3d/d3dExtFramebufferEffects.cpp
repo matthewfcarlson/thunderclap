@@ -1220,7 +1220,7 @@ void pure3d::d3dExtFramebufferEffects::vfunc_3(unsigned char value) {
 namespace fn_f57e27cb {
 
 // 0x00320540 FUN_00320540 (1199 B): equivalent/0x00320540.cpp
-// sym: ?FUN_00320540@ShaderCollection@fn_f57e27cb@@QAEEXZ @1efd85545c63 @wa9ce024a26c3 @vdb98d5247ee1
+// sym: ?FUN_00320540@ShaderCollection@fn_f57e27cb@@QAEEXZ @1efd85545c63 @wa9ce024a26c3 @v7aa190c16172
 // STATUS: equivalent (tools/equiv.py level 3: 60 inputs, branch coverage 73/74, incomplete)
 // FUN_00320540 @ 0x00320540
 unsigned char ShaderCollection::FUN_00320540() {
@@ -1551,7 +1551,7 @@ bool owners::Holder_320d00::FUN_00320d00(int value) {
 namespace fn_f57e27cb {
 
 // 0x00320d30 FUN_00320d30 (1359 B): equivalent/0x00320d30.cpp
-// sym: ?FUN_00320d30@Renderer_320d30@fn_f57e27cb@@QAEEXZ @63b29412881b @w14bc8bc889e3 @v232a6c643556
+// sym: ?FUN_00320d30@Renderer_320d30@fn_f57e27cb@@QAEEXZ @63b29412881b @w14bc8bc889e3 @v588f34910cc9
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 58/58)
 // FUN_00320d30 @ 0x00320d30
 unsigned char Renderer_320d30::FUN_00320d30() {
