@@ -1335,6 +1335,11 @@ X64_CASES = {
     "0x001fe380_x64_rdata_text": ("unsupported", "tool", "not file data of a read-only data section", 0),
     # (rev5's R7) an "int" table whose words are image addresses (0x0040cc74): pointers natively, refused
     "0x001fe380_x64_rdata_addrs": ("unsupported", "tool", "an address in the XBE's", 0),
+    # (integ2, D107) an allocation of count * sizeof(T) whose 64-bit request outgrows the region the 32-bit request
+    # reserved gets its own 64-bit region (no false `layout` on the object after it); a hard-coded 16-byte element size
+    # is a real 64-bit overrun and still fails
+    "0x002a4cb0_x64_regrow": ("equivalent", None, None, 50),
+    "0x002a4cb0_x64_regrow_16": ("fail", "layout", "64-bit write past the end of alloc#", 0),
     # HULK_RDATA on 0x001fe380's const .rdata table {2, 3, 4, 5}: both runs start from the XBE's bytes, equivalent;
     # _none: the control (fuzzed words index lists[] past its end) is inconclusive; refused: a declaration not const, a
     # store into the table, a pointer table, a table in a writable section, an annotation on one parse only

@@ -2103,7 +2103,16 @@ gives original == x86-64 object, without ever comparing 4-byte-pointer memory wi
   abstract return value (a float via st(0) / xmm0); a typed non-const local passed by pointer gets the same fresh
   contents (out-parameters). Virtual calls through input objects reach a stub per (class, slot); the slot's method
   comes from the vftable dump, its signature from libclang. The memory/string CRT routines run on each side's memory;
-  `operator new` / `malloc` / the game's allocators return a raw object of the size each side asked for; it and any
+  `operator new` / `malloc` / the game's allocators return a raw object of the size each side asked for (integ2,
+  D107: the 32-bit run comes first and reserves the object's region on both heaps at its size; when the 64-bit
+  request is larger, `count * sizeof(T)` with T twice as large natively, the 64-bit side gets a new region of its
+  own size (Heap.regrow; refused if a page of the old one was already mapped), so the allocation's tail no longer lies
+  under the objects placed after it, which had read as a 64-bit write past the next object: 0x002a4cb0's `layout`.
+  Cases `0x002a4cb0_x64_regrow` (sizeof: equivalent) and `_regrow_16` (a hard-coded 16: still `layout`, a real
+  overrun of the 64-bit allocation); EQ64_OFF=regrow turns it off. rev5's finding: a regrown object lies after the
+  objects created since, so the 64-bit heap's allocation order can differ from the 32-bit one; code that compares
+  two allocations' addresses then reads as a difference (his probe: class `int`), a loss of precision, never false
+  credit. Reserving the 64-bit region larger at creation would make regrow rarer; not done); it and any
   other untyped object (a `void*` a stub returned) is typed after the run by the vftable the 32-bit run stored at +0
   or the largest type it was passed as. A pointer outside every object (an index from fuzzed data) is not compared
   (`wildptr`); one into a null object (`&((T*)0)->field`) compares as `nullrel`, since its value is the layout. The scalar deleting

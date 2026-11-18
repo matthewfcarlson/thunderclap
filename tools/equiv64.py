@@ -1090,7 +1090,7 @@ def ret_indirect(sig, bits):
 # ------------------------------------------------------------------------------------------------- the object graph
 class Obj:
     __slots__ = ("id", "rid", "ident", "kind", "lay", "count", "a32", "a64", "size32", "size64", "ptrs", "hint", "alloc",
-                 "init", "grange", "rdata")
+                 "init", "grange", "rdata", "res")
 
     def __init__(self, oid, ident, kind, lay, count, size32, size64):
         self.id, self.ident, self.kind, self.lay, self.count = oid, ident, kind, lay, count
@@ -1103,6 +1103,7 @@ class Obj:
         self.init = None        # fixed initial bytes per side (vtables), else generated
         self.grange = None      # (integ2, D103) (lo, hi): a global's integer words (HULK_RANGE on its declaration)
         self.rdata = None       # (integ2, D103) the name of a HULK_RDATA global (its XBE bytes; no store may reach it)
+        self.res = {}           # (integ2, D107) {bits: bytes reserved for it in that heap} (a heap region's span)
 
     def base(self, bits):
         return self.a32 if bits == 32 else self.a64
@@ -1183,6 +1184,7 @@ class Heap:
         else:
             o.a32 = self._region(32, max(s32, PAGE))
             o.a64 = self._region(64, max(s64, PAGE))
+            o.res = {32: (max(s32, PAGE) + PAGE - 1) & ~(PAGE - 1), 64: (max(s64, PAGE) + PAGE - 1) & ~(PAGE - 1)}
         self.objs.append(o)
         self.by_ident[ident] = o
         for bits in (32, 64):
@@ -1191,6 +1193,28 @@ class Heap:
             self.order[bits].insert(i, o)
         self.by_type.setdefault(lay.key, []).append(o)
         return o
+
+    def regrow(self, o, bits, size, mapped):
+        """(integ2, D107) An allocation whose request on BITS outgrew the region the first run's request reserved (the
+        32-bit run comes first: `count * sizeof(T)` with T twice as large on x86-64): give it a new region of SIZE
+        on BITS, so its tail doesn't lie under the objects placed after it. Refused when a page of the old region is
+        already mapped on that side (its bytes would be lost)."""
+        old = o.base(bits)
+        if any(p in mapped for p in range(old, old + o.res.get(bits, PAGE), PAGE)):
+            raise Unsupported("an allocation grew on the %d-bit side after its region was mapped" % bits)
+        st, od = self.starts[bits], self.order[bits]
+        i = od.index(o)
+        del st[i]
+        del od[i]
+        a = self._region(bits, max(size, PAGE))
+        if bits == 32:
+            o.a32 = a
+        else:
+            o.a64 = a
+        o.res[bits] = (max(size, PAGE) + PAGE - 1) & ~(PAGE - 1)
+        j = bisect.bisect_right(st, a)
+        st.insert(j, a)
+        od.insert(j, o)
 
     def find(self, bits, a):
         """(obj, offset) for an address inside an object's region (its page-rounded span), else (None, 0)."""
@@ -3910,6 +3934,9 @@ class Side:
             o.alloc = (o.alloc[0], size) if b == 64 else (size, o.alloc[1])
             o.size64 = max(1, o.alloc[1])
             o.size32 = max(1, o.alloc[0])
+            if size > o.res.get(b, 0) and "regrow" not in OFF:
+                # (integ2, D107) the region was reserved at the other side's (first run's) size
+                self.heap.regrow(o, b, size, self.mapped)
         self.events.append(("new", repr(st.key)))
         pop = 0
         if b == 32 and sig is not None:
