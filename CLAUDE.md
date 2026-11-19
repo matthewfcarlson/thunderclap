@@ -105,6 +105,8 @@ A dynamic_cast / typeid compares RTTI names natively: the source and target type
 (`.?AVTextureLoader@pure3d@@`; gen classes or the game's namespaces), never a block-local stand-in (`@fn_ADDR@@`) or a
 `Class_<addr>` rename, or the cast always returns null natively. The Wine link's ??_R0 leaf/suffix mapping hides this (B4).
 Write `((T*)dynamic_cast<ns::G*>((ns::S*)(p)))->m`: without the outer parentheses `->` binds to the cast (sweep2).
+A virtual-slot view must declare the slot definition's parameters and return: a 64-bit key the definition takes as two
+32-bit words, or a pointer returned as int, binds natively with garbage, and no binding check sees calls through vftables.
 pure3d::Entity is 0x14 bytes natively (vftable, count, two name words): views write `void* vftable; int words[3];` or
 `void* vftable; int refs; name`, never `char pad[0x10]`/`pad[8]`; a view of the image registry derives from
 `HulkImageRegistry`. A game name that is another XDK row's name binds through `native_bind.GAME_NAME_ROWS` (D98).
