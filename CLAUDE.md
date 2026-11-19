@@ -148,7 +148,8 @@ Wine map: an older map reports renamed definitions as unbound (script1).
   (`tools/x64_gate.py`, `docs/equivalence.md` "64-bit gate"); `config/x64-baseline.json` lists the known ones. Run
   `verify ... --x64` (or `x64_gate.py check`) before committing source or header changes; only changed blocks run (queue
   past 4). Drop fixed blocks with `--update-baseline`; add one only by `x64_gate.py accept ADDR --why TEXT`. Other
-  classes (int, untyped, wild64, ...) are reported, not failing.
+  classes (int, untyped, wild64, ...) are reported, not failing. The gate also compiles every changed TU with the native
+  front ends (macos-arm64, linux-x64): a compile error, a missing toolchain or an `--x64` compile_error fails it (integ3).
 - **Unproven-code gate** (D126): materialize refuses an equivalent block whose (mode, code hash) has no promotable ledger
   line unless `config/unproven-baseline.json` lists exactly that hash. The list only shrinks (`hash --proven` removes
   entries); never hand-edit it, add only with `tree_tu.py unproven-accept ADDR --modes M --why TEXT`. verify and
