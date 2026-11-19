@@ -3,6 +3,7 @@
 #include "tree_prelude.h"
 #include "compat/ptr.h"
 #include "decls/loaders.h"
+#include "decls/shader.h"
 #include "decls/data/engine/content.h"
 #include "decls/data/engine/pure3d.h"
 #include "decls/data/engine/pure3d/prop.h"
@@ -887,7 +888,7 @@ pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
 
 
 // 0x00295620 pure3d::TextureFontLoader::vfunc_5 (1530 B): equivalent/0x00295620.cpp [wrapped: conflict: content::LoadInventory::DynamicCaster; content::LoadInventory::DynamicCasterBase; pure3d::Entity; pure3d::Shader (+1)]
-// sym: ?F@TextureFontLoader@fn_00295620@@QAEXPAPAVTextureFont@pure3d@2@PA_KPAUStream@2@PAVFactory_295620@2@@Z @2153c5843d07 @w589bf722d11e
+// sym: ?F@TextureFontLoader@fn_00295620@@QAEXPAPAVTextureFont@pure3d@2@PA_KPAUStream@2@PAVFactory_295620@2@@Z @d4c4eef5ad54 @wefb8d413856c @v932818c34fbd
 inline void *operator new(size_t, void *p) throw() { return p; }
 namespace fn_00295620 {
 // STATUS: equivalent (tools/equiv.py level 3: 120 inputs, branch coverage 46/50, incomplete)
@@ -932,22 +933,27 @@ void *thunk_FUN_0008d690(unsigned int size);
 void __cdecl thunk_FUN_00267090(void *p);
 
 
+namespace pure3d { class Shader; }
+// (sweep2) the caster as the word its inline constructor writes: the game's vftable by address (a local polymorphic
+// stand-in got clang's own vftable natively, whose slot had no definition)
+extern "C" char DAT_003f3e88[];   // content::LoadInventory::DynamicCaster<pure3d::Shader>'s vftable
 namespace content {
 namespace LoadInventory {
-class __declspec(novtable) DynamicCasterBase {
-public:
-    virtual void cast(void *p) = 0;
-};
-
 template <class T>
-class DynamicCaster : public DynamicCasterBase {
-public:
-    virtual void cast(void *p);
+struct DynamicCaster {
+    void *vftable;
+    DynamicCaster();
 };
+template <> inline DynamicCaster<pure3d::Shader>::DynamicCaster() { vftable = (void *)DAT_003f3e88; }
 }
 }
-
-namespace pure3d { class Shader; }
+// (sweep2) dynamic_cast<pure3d::TextureLoader*> as the game's call, with the game's type descriptors: natively a
+// dynamic_cast of the local views compared clang's type names (fn_00295620::TextureLoader) with the game's and came
+// back null (find2's B4: the texture chunk handler 0x19000 "not found")
+extern "C" void *__cdecl FUN_00344e74(void *obj, int vfDelta, const char *srcType, const char *dstType, int isRef);
+extern "C" char DAT_0049c7dc[];   // ??_R0.?AVObjectLoader@content@@@8
+extern "C" char DAT_004cf1a8[];   // ??_R0.?AVTextureLoader@pure3d@@@8
+extern "C" char DAT_0042d15c[];   // pure3d::TextureFont's vftable
 
 struct Name_295620 {
     char data[8];
@@ -998,13 +1004,19 @@ struct ShaderSlots {
 };
 
 namespace pure3d {
+// (sweep2) decls/shader.h's HulkShader with the pddi shader typed (+0x10, natively +0x18); the allocation is its size
 class Shader {
 public:
-    char pad0[0x10];
+    void *vftable;
+    int refs;
+    int name[2];
     ShaderSlots *slots;
-    char pad14[0x20 - 0x14];
+    unsigned char flag;
+    unsigned int value;
+    int last;
     Shader *FUN_0028edb0();
 };
+HULK_SIZE32(Shader, sizeof(HulkShader));
 }
 
 class Factory_295620 {
@@ -1027,17 +1039,51 @@ struct Glyph_295620 {
 };
 
 namespace pure3d {
-class __declspec(novtable) Entity {
-public:
-    virtual void e0_00038290();
-    char pad4[4];
+// (sweep2) the font as a record: the inline constructor is pure3d::Entity's 0x0027b070, then the game's vftable by
+// address and the fields (a local polymorphic stand-in got clang's own vftable natively). The virtual calls go
+// through FontSlots, a view of the vftable alone. 0x48 bytes: the constructor writes up to +0x40, and the
+// allocation keeps one more word.
+struct Entity {
+    void *vftable;
+    int refs;
     Name_295620 name;
     void FUN_0027b070();
-    Entity() throw() { FUN_0027b070(); }
 };
 
 class TextureFont : public Entity {
 public:
+    int f10, f14, f18, f1c, f20, f24, f28;
+    unsigned int pageCount;
+    Texture **pages;
+    int defIdx;
+    unsigned int glyphCount;
+    Glyph_295620 *glyphs;
+    unsigned short *codes;
+    int f44;
+    void init() throw()
+    {
+        FUN_0027b070();
+        vftable = (void *)DAT_0042d15c;
+        f10 = 0;
+        f14 = 0;
+        f18 = 0;
+        f1c = 0;
+        f20 = 0;
+        f24 = -1;
+        f28 = 0;
+        pageCount = 0;
+        pages = 0;
+        defIdx = 0;
+        glyphCount = 0;
+        glyphs = 0;
+        codes = 0;
+    }
+};
+HULK_SIZE32(TextureFont, 0x48);
+
+class FontSlots {
+public:
+    virtual void t0_00038290();
     virtual void t1_000382a0();
     virtual void t2();
     virtual void t3_0027afe0();
@@ -1055,29 +1101,6 @@ public:
     virtual void t15_00295190(int);
     virtual void t16_002951a0();
     virtual void setShader_00295220(pure3d::Shader *sh);
-    int f10, f14, f18, f1c, f20, f24, f28;
-    unsigned int pageCount;
-    Texture **pages;
-    int defIdx;
-    unsigned int glyphCount;
-    Glyph_295620 *glyphs;
-    unsigned short *codes;
-    TextureFont() throw()
-    {
-        f10 = 0;
-        f14 = 0;
-        f18 = 0;
-        f1c = 0;
-        f20 = 0;
-        f24 = -1;
-        f28 = 0;
-        pageCount = 0;
-        pages = 0;
-        defIdx = 0;
-        glyphCount = 0;
-        glyphs = 0;
-        codes = 0;
-    }
 };
 }
 
@@ -1091,16 +1114,30 @@ void TextureFontLoader::F(pure3d::TextureFont **out, unsigned __int64 *outId, St
     struct Frame {
         char pad10[3];
         unsigned char len;
-        int v14, v18, v1c, v20, v24, v28, v2c, v30, v34, v38, v3c, v40, v44, v48, v4c;
+        union {
+            int v14;
+            TextureLoader *tl;
+        };
+        union {
+            int v18;
+            int *raw;
+        };
+        int v1c, v20, v24, v28, v2c, v30, v34, v38, v3c, v40;
+        union {
+            int v44;
+            Glyph_295620 *arr;
+        };
+        int v48, v4c;
         char N[0x100];
         char N2[0x100];
     } fr;
 
     s->reader->FUN_002647e0(&fr.v20, 1, 4, 1);
-    void *mem = thunk_FUN_0008d690(0x48);
-    pure3d::TextureFont *font = 0;
-    if (mem)
-        font = new (mem) pure3d::TextureFont();
+    pure3d::TextureFont *font = (pure3d::TextureFont *)thunk_FUN_0008d690(sizeof(pure3d::TextureFont));
+    if (font)
+        font->init();
+    else
+        font = 0;
     s->reader->FUN_002647e0(&fr.len, 1, 1, 1);
     int n = fr.len;
     s->reader->FUN_002647e0(fr.N, n, 1, 1);
@@ -1115,7 +1152,7 @@ void TextureFontLoader::F(pure3d::TextureFont **out, unsigned __int64 *outId, St
     pure3d::Shader *sh = fac->f3((content::LoadInventory::DynamicCaster<pure3d::Shader> *)&fr.v14,
                                  (unsigned int)h, (unsigned int)(h >> 32));
     if (!sh) {
-        void *m2 = thunk_FUN_0008d690(0x20);
+        void *m2 = thunk_FUN_0008d690(sizeof(pure3d::Shader));
         if (m2)
             sh = ((pure3d::Shader *)m2)->FUN_0028edb0();
         else
@@ -1125,7 +1162,7 @@ void TextureFontLoader::F(pure3d::TextureFont **out, unsigned __int64 *outId, St
         sh->slots->set(0x444d4946, 1);
         sh->slots->set(0x54535441, 0);
     }
-    font->setShader_00295220(sh);
+    ((pure3d::FontSlots *)font)->setShader_00295220(sh);
     s->reader->FUN_002647e0(&fr.v14, 1, 4, 1);
     font->f10 = fr.v14;
     s->reader->FUN_002647e0(&fr.v14, 1, 4, 1);
@@ -1138,52 +1175,53 @@ void TextureFontLoader::F(pure3d::TextureFont **out, unsigned __int64 *outId, St
     unsigned int cnt = fr.v14;
     font->pageCount = cnt;
     font->pages = (Texture **)FUN_0008d6d0(cnt * sizeof(Texture *));
-    memset(font->pages, 0, font->pageCount * 4);
-    TextureLoader *tl = dynamic_cast<TextureLoader *>((*(Registry_295620**)&DAT_00527c58)->FUN_00265310(0x19000));
-    tl->v0();
+    memset(font->pages, 0, font->pageCount * sizeof(Texture *));
+    fr.tl = (TextureLoader *)FUN_00344e74((*(Registry_295620**)&DAT_00527c58)->FUN_00265310(0x19000), 0,
+                                                      DAT_0049c7dc, DAT_004cf1a8, 0);
+    fr.tl->v0();
     if (s->FUN_002669f0()) {
         fr.v1c = 0;
         do {
             int id = s->FUN_00266a30();
             if (id == 0x19000) {
-                Texture *tex = tl->FUN_002c2370(s);
+                Texture *tex = fr.tl->FUN_002c2370(s);
                 Texture **slot = (Texture **)((char *)font->pages + fr.v1c);
                 if (tex)
                     tex->v0();
                 if (*slot)
                     (*slot)->v1();
-                fr.v1c += 4;
+                fr.v1c += sizeof(Texture *);
                 *slot = tex;
             } else if (id == 0x22001) {
                 if (font->glyphs) {
-                    int *raw = (int *)font->glyphs - 1;
-                    int gc = *raw;
+                    fr.raw = (int *)font->glyphs - 1;
+                    int gc = *fr.raw;
                     Glyph_295620 *end = font->glyphs + gc;
                     for (int i = gc; i > 0; i--) {
                         end--;
                         end->FUN_002c3ac0();
                     }
-                    thunk_FUN_00267090(raw);
+                    thunk_FUN_00267090(fr.raw);
                     thunk_FUN_00267090(font->codes);
                 }
                 s->reader->FUN_002647e0(&fr.v4c, 1, 4, 1);
                 unsigned int g = fr.v4c;
                 font->glyphCount = g;
                 int *blk = (int *)FUN_0008d6d0(g * 40 + 4);
-                Glyph_295620 *arr = 0;
+                fr.arr = 0;
                 if (blk) {
                     *blk = g;
-                    arr = (Glyph_295620 *)(blk + 1);
+                    fr.arr = (Glyph_295620 *)(blk + 1);
                     for (int i = 0; i < (int)g; i++) {
-                        arr[i].FUN_002c3aa0();
-                        arr[i].f14 = 0;
-                        arr[i].f18 = 0;
-                        arr[i].f1c = 0;
-                        arr[i].f20 = 1.0f;
-                        arr[i].f24 = 1.0f;
+                        fr.arr[i].FUN_002c3aa0();
+                        fr.arr[i].f14 = 0;
+                        fr.arr[i].f18 = 0;
+                        fr.arr[i].f1c = 0;
+                        fr.arr[i].f20 = 1.0f;
+                        fr.arr[i].f24 = 1.0f;
                     }
                 }
-                font->glyphs = arr;
+                font->glyphs = fr.arr;
                 font->codes = (unsigned short *)FUN_0008d6d0(font->glyphCount * 2);
                 unsigned int k = 0;
                 unsigned int off = 0;
@@ -1225,7 +1263,7 @@ void TextureFontLoader::F(pure3d::TextureFont **out, unsigned __int64 *outId, St
             s->FUN_00266be0();
         } while (s->FUN_002669f0());
     }
-    tl->v1();
+    fr.tl->v1();
     int hi = (int)font->glyphCount - 1;
     int lo = 0;
     if (hi >= 0) {

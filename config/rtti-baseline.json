@@ -1,7 +1,7 @@
 {
  "comment": "integ3 9a: RTTI type descriptors referenced by the tree's code whose names are not the game's (native dynamic_cast/typeid fail on them). Only shrinks (x64_gate.py check --update-baseline lowers; rtti-accept adds, with a reason).",
  "seed_why": "integ3 9a: non-exact at 19ddec138 (cast sites: find2's castscan family, sweep2 fixing; complete object locators: rev5 R2)",
- "total": 3956,
+ "total": 3954,
  "tus": {
   "src/engine/audio/ChannelSendVolumeFadeBehaviour.cpp": {
    "col:?AUSeqActionChannelSendVolumes_24f230@fn_0024f230@@|?AUSeqActionChannelSendVolumes_24f230@fn_0024f230@@": 1,
@@ -883,8 +883,6 @@
    "0x002a9480|?AVTexture_2a9480@pure3d@@": 1
   },
   "src/engine/pure3d/TextureFontLoader.cpp": {
-   "0x00295620|?AVObjectLoader@fn_00295620@@": 1,
-   "0x00295620|?AVTextureLoader@fn_00295620@@": 1,
    "col:?AUTextureFont@pure3d@fn_00295520@@|?AUTextureFont@pure3d@fn_00295520@@": 1,
    "col:?AVFont@pure3d@fn_00294db0@@|?AVBase_294db0@pure3d@fn_00294db0@@": 1,
    "col:?AVFont_2950c0@fn_f54d8eff@@|?AVBase@fn_f54d8eff@@": 1,
