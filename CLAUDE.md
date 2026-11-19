@@ -106,6 +106,10 @@ A dynamic_cast / typeid compares RTTI names natively: the source and target type
 (`.?AVTextureLoader@pure3d@@`; gen classes or the game's namespaces), never a block-local stand-in (`@fn_ADDR@@`) or a
 `Class_<addr>` rename, or the cast always returns null natively. The Wine link's ??_R0 leaf/suffix mapping hides this (B4).
 Write `((T*)dynamic_cast<ns::G*>((ns::S*)(p)))->m`: without the outer parentheses `->` binds to the cast (sweep2).
+A TU that both calls a record's virtual slots and writes its words declares the words once as a macro list
+(`HULK_VIEW_WORDS`) used by the plain record and by the TU's slot view: a plain record plus a cast leaves `--x64` with
+`view_ambiguous` or every input crashing on a fuzzed vftable (recs1). `git apply` inside an untracked directory of the
+checkout silently skips every path: `git init -q` a private workspace before applying a patch there.
 A virtual-slot view must declare the slot definition's parameters and return: a 64-bit key the definition takes as two
 32-bit words, or a pointer returned as int, binds natively with garbage, and no binding check sees calls through vftables.
 pure3d::Entity is 0x14 bytes natively (vftable, count, two name words): views write `void* vftable; int words[3];` or
