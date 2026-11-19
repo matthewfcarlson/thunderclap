@@ -1897,13 +1897,15 @@ class pddiBaseContext {
 class d3dContext : public pddiBaseContext {
   public:
     virtual void vfunc_12(unsigned int flags);
-    char pad4[0x48 - 4];
+    // (find3) the fields at gen d3dContext's offsets (HULK_D3DCTX_PAD; were 32-bit pads: natively `source` read f_160
+    // and `hasTarget` a byte of another field, so the clear took the target path with a null source)
+    char pad4[HULK_D3DCTX_PAD(f_48, 0x48, sizeof(void*))];
     ClearInfo* clear;
-    char pad4c[0x154 - 0x4c];
+    char pad4c[HULK_D3DCTX_PAD(f_154, 0x154, HULK_D3DCTX_PAD(f_48, 0x48, 0) + sizeof(void*))];
     FlagSource* source;
-    char pad158[0x16c - 0x158];
+    char pad158[HULK_D3DCTX_PAD(f_16c, 0x16c, HULK_D3DCTX_PAD(f_154, 0x154, 0) + sizeof(void*))];
     unsigned int x, y, w, h;
-    char pad17c[0x44c - 0x17c];
+    char pad17c[HULK_D3DCTX_PAD(f_44c, 0x44c, HULK_D3DCTX_PAD(f_16c, 0x16c, 0) + 16)];
     unsigned char hasTarget;
 };
 void d3dContext::vfunc_12(unsigned int flags) {
