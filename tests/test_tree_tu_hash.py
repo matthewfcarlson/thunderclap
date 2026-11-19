@@ -292,5 +292,67 @@ class Hashes(unittest.TestCase):
         self.assertEqual(tree_tu.failing(c), 4 if self.wine else 2)
 
 
+
+class FromLedger(unittest.TestCase):
+    """(integ3, movers) `hash --from-ledger`: a block whose current code AND checker view have a ledger line in every mode
+    is re-pinned with no run (MSVC 7.1's header-sensitive spill orders); any other block stays unproven."""
+
+    def run_hash(self, ledger_lines, view_now=("vm", "vw"), extra=None):
+        import json as _j
+        from unittest import mock
+        with tempfile.TemporaryDirectory() as d:
+            led = os.path.join(d, "ledger.jsonl")
+            with open(led, "w") as f:
+                for a, m, c, v in ledger_lines:
+                    f.write(_j.dumps({"addr": a, "mode": m, "code": c, "view": v}) + "\n")
+                for e in extra or []:
+                    f.write(_j.dumps(e) + "\n")
+            rec = {"path": "src/game/T.cpp", "blocks": [{"addr": "0x00011000", "hash": "old000000000", "whash": "w00000000000",
+                                                         "vhash": "v"}]}
+            r = {"addr": "0x00011000", "kind": "equivalent", "symbol": "?f@@YAXXZ", "status": "compiled",
+                 "code_hash": "new000000000", "wine_code_hash": "w00000000000", "code": "changed", "wine_code": "ok"}
+            wrote = {}
+            with mock.patch.object(tree_tu, "scan", lambda p: rec), \
+                    mock.patch.object(tree_tu, "check_tu", lambda p, rec=None: [dict(r)]), \
+                    mock.patch.object(tree_tu, "with_wine", lambda *a, **k: None), \
+                    mock.patch.object(tree_tu, "views", lambda *a, **k: {"0x00011000": {"msvc": view_now[0], "wine": view_now[1]}}), \
+                    mock.patch.object(tree_tu, "find_root", lambda p: None), \
+                    mock.patch.object(tree_tu, "_write", lambda path, pins, hashes: wrote.update(hashes)):
+                out = tree_tu.hash_proven("T.cpp", {}, ledger=led)
+            return out[0], wrote
+
+    def test_indexes_agree(self):
+        """(rev5) ledger_index and code_ledger_index read a ledger line by one rule (ledger_line_proves)."""
+        import json as _j
+        with tempfile.TemporaryDirectory() as d:
+            led = os.path.join(d, "ledger.jsonl")
+            lines = [{"addr": "0x1", "mode": "wine", "code": "c1", "view": "v", "status": "equivalent", "promotable": False},
+                     {"addr": "0x2", "mode": "wine", "code": "c2", "view": "v", "status": "equivalent", "promotable": True},
+                     {"addr": "0x3", "mode": "msvc", "code": "c3", "view": "v", "status": "fail"},
+                     {"addr": "0x4", "mode": "msvc", "code": "c4", "view": "v"}]
+            with open(led, "w") as f:
+                f.write("".join(_j.dumps(e) + "\n" for e in lines))
+            a = {(x[0], x[1], x[2]) for x in tree_tu.ledger_index(led)}
+            b = tree_tu.code_ledger_index(led)
+            self.assertEqual(a, b)
+            self.assertEqual(b, {("0x2", "wine", "c2"), ("0x4", "msvc", "c4")})
+
+    def test_repins_only_when_every_mode_is_in_the_ledger(self):
+        o, wrote = self.run_hash([("0x00011000", "msvc", "new000000000", "vm"), ("0x00011000", "wine", "w00000000000", "vw")])
+        self.assertEqual(o["result"], "recorded")
+        self.assertEqual(wrote["0x00011000"][0], "new000000000")
+        o, wrote = self.run_hash([("0x00011000", "msvc", "new000000000", "vm")])              # wine not proven
+        self.assertTrue(o["result"].startswith("unproven"))
+        self.assertEqual(wrote, {})
+        o, wrote = self.run_hash([("0x00011000", "msvc", "new000000000", "vm")],              # (rev5) a failed line
+                                 extra=[{"addr": "0x00011000", "mode": "wine", "code": "w00000000000", "view": "vw",
+                                         "status": "equivalent", "promotable": False}])
+        self.assertTrue(o["result"].startswith("unproven"))
+        self.assertEqual(wrote, {})
+        o, wrote = self.run_hash([("0x00011000", "msvc", "new000000000", "other"),            # another checker view
+                                  ("0x00011000", "wine", "w00000000000", "vw")])
+        self.assertTrue(o["result"].startswith("unproven"))
+        self.assertEqual(wrote, {})
+
 if __name__ == "__main__":
     unittest.main()

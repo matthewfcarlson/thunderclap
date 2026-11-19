@@ -804,8 +804,18 @@ def views(path, recs, rec=None, wine=True):
 LEDGER = os.path.join(ROOT, "config", "proof-ledger.jsonl")
 
 
+def ledger_line_proves(e):
+    """(integ3, rev5) What a ledger line proves, one rule for every index (ledger_index, code_ledger_index) and the
+    unproven ratchet: status equivalent and not marked unpromotable. A --wine line that passed wine_gate.judge under D38
+    without equiv.py's coverage gate (promotable false) proves nothing until the lead rules on wine coverage (fails
+    closed: the materialize gate already refused those modes)."""
+    return e.get("promotable") is not False and e.get("status", "equivalent") == "equivalent"
+
+
 def ledger_index(path=None):
-    """{(addr, mode, code hash, view hash)} of the ledger, or None when it doesn't exist."""
+    """{(addr, mode, code hash, view hash)} of the ledger's passing lines, or None when it doesn't exist. (integ3, rev5)
+    Only a promotable `equivalent` line proves its code and view, as in code_ledger_index: a recorded failure or short run
+    is never a proof (hash --proven, verify's proof marks, hash --from-ledger)."""
     path = path or LEDGER
     if not os.path.exists(path):
         return None
@@ -815,6 +825,8 @@ def ledger_index(path=None):
             l = l.strip()
             if l.startswith("{"):
                 e = json.loads(l)
+                if not ledger_line_proves(e):
+                    continue
                 out.add((e["addr"], e["mode"], e["code"], e["view"]))
     return out
 
@@ -864,8 +876,7 @@ def unproven_baseline_drop(entries, path=None):
     removed = []
     for e in entries:
         ent = b["blocks"].get(e["addr"])
-        if ent and e["mode"] in ent.get("modes", {}) and e.get("promotable", True) is not False and \
-                e.get("status", "equivalent") == "equivalent":
+        if ent and e["mode"] in ent.get("modes", {}) and ledger_line_proves(e):
             del ent["modes"][e["mode"]]
             removed.append((e["addr"], e["mode"]))
             if not ent["modes"]:
@@ -1257,8 +1268,8 @@ def code_ledger_index(path=None):
                 l = l.strip()
                 if l.startswith("{"):
                     e = json.loads(l)
-                    # (rev5's R2) only a passing proof counts
-                    if e.get("promotable") is False or e.get("status", "equivalent") != "equivalent":
+                    # (rev5's R2) only a passing proof counts (ledger_line_proves: the one rule)
+                    if not ledger_line_proves(e):
                         continue
                     out.add((e["addr"], e["mode"], e["code"]))
     return out
@@ -2212,6 +2223,9 @@ def main(argv=None):
     p.add_argument("--why", required=True)
     p = sub.add_parser("hash", help="record equivalent blocks' code hashes (only from proofs)")
     p.add_argument("paths", nargs="+", help="TUs (--proven), or the tree root (--compute)")
+    p.add_argument("--from-ledger", action="store_true", help="(integ3, movers) re-pin equivalent blocks whose current "
+                   "code AND checker view already have a promotable ledger line in every mode (no new run: the line is the "
+                   "proof; MSVC 7.1's header-sensitive spill orders, 0x00027930 & co.); any other block is refused")
     p.add_argument("--proven", nargs="+", metavar="RESULT", help="equiv.py --json reports / jsonl: an MSVC run at "
                    "--inputs 3000 (promotable) and a --wine run (>= 3,000) of the code and checker view as they are now")
     p.add_argument("--addr", action="append", help="only these blocks (with --proven)")
@@ -2309,9 +2323,11 @@ def main(argv=None):
                     f.write(json.dumps(r) + "\n")
             print(json.dumps(compute_records.summary, indent=1))
             return 0
-        if not a.proven:
-            ap.error("hash: --proven RESULT... or --compute OUT")
-        res = _load_results(a.proven)
+        if a.from_ledger and a.proven:
+            ap.error("hash: --from-ledger takes no --proven (the ledger is the proof)")
+        if not a.proven and not a.from_ledger:
+            ap.error("hash: --proven RESULT... or --compute OUT or --from-ledger")
+        res = {} if a.from_ledger else _load_results(a.proven)
         addrs = {"0x%08x" % int(x, 16) for x in a.addr} if a.addr else None
         bad = 0
         for path in a.paths:
