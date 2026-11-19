@@ -132,7 +132,11 @@ size to the x64 gate: write `sizeof(record)` (decl1).
 Script bindings (Function / Method<N> / Closure<N>) use include/game/script_bind.h's records (`hulk_script::ScriptFunction`,
 `ScriptMethodN`, `ScriptClosure`, or a TU-local `VftOf` trait) with the game's vftables by address, never a local `virtual`
 stand-in; their constructors are `throw()` so /GX TUs add no unwind frame. Measure native unbound on the proof's own
-Wine map: an older map reports renamed definitions as unbound (script1).
+Wine map: an older map reports renamed definitions as unbound (script1). Bound callbacks are members: a Lua closure calls
+its member-function pointer with `this` in ecx, and a `__stdcall F(int)` that ignores `this` matches on 32-bit but natively
+reads `this` as its argument; define `R CB_<addr>::FUN_<addr>(RTTI types)` and declare the same at the binding site. Never
+name a helper `DAT_<addr>...`/`FUN_<addr>...` unless that is its own address: the checker resolves such names as
+addresses (script2).
 
 ## Builds and proofs
 
