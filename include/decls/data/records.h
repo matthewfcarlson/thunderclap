@@ -541,12 +541,8 @@ struct CoreDriveLibraryList {
     int heap;                               // +0x20 the heap id the buffer came from
 };
 
-// The label: a pointer to a constant name (0x0026f570, drive D:), the name in place ("Xbox Hard Disk", 0x0026f570)
-// or the memory unit's name (0x00278b50 converts 0x41 bytes into it; 0x00278500 clears its first byte).
-union CoreDriveLabel {
-    const char* text;                       // +0x00
-    char buffer[0x44];                      // +0x00 (0x41 bytes written, then 3 unused)
-};
+// CoreDriveLabel and CoreDriveMedia (core::Drive's media block): decls/drive_media.h
+#include "decls/drive_media.h"
 
 // core::Drive (0x00272d00 constructs it, 0x00272840 / 0x00272d90 destroy it; vftables 0x0042b884 / +4 0x0042b87c /
 // +0xc 0x0042b86c). Bases IRefCount (+0), Object/BaseObject (+4: the heap id), SafeRefCount/IMutable (+0xc: the
@@ -571,11 +567,9 @@ struct CoreDrive {
     unsigned char flag5c;                   // +0x5c (1 at construction; 0x00272b50 returns it)
     unsigned char busy;                     // +0x5d vfunc_3's re-entry guard
     char pad5e[2];                          // +0x5e
-    unsigned int result;                    // +0x60 (0x00278b50 / XboxSaveDrive::vfunc_7; 0x0026f570 clears; 0x002728d0 returns its address)
-    unsigned int size;                      // +0x64 the medium's size (0x0026f290, 0x00278b50)
-    unsigned int count;                     // +0x68 size / sectorSize
-    unsigned int sectorSize;                // +0x6c (0x200 by default)
-    CoreDriveLabel label;                   // +0x70
+    CoreDriveMedia media;                   // +0x60 the media block (decls/drive_media.h): result (0x00278b50 /
+                                            //       XboxSaveDrive::vfunc_7; 0x0026f570 clears), size, count, sector
+                                            //       size, label; 0x002728d0 returns its address
     int error;                              // +0xb4 the last error (3 at construction; every XboxDrive / XboxSaveDrive operation sets it; 0x00272880 reads)
     void* driveThread;                      // +0xb8 the CoreDriveThread (0x0026f570 / 0x00278500; 0x00272b60 / 0x00272b70 / 0x00272b80 call through it)
 };

@@ -5906,3 +5906,21 @@ members nothing defines, and the managers' constructors called `HeapObj::operato
   The Wine control was 90828 (HEAD fd9b7c93a) and the proof 91104 (seed:90828, studio, play3 60000): GATE ok, with
   0 of 2,021 common frames differing. Native unbound on the control and proof maps: mac 12260 -> 11949, linux-x64
   12240 -> 11929, android-arm64 12251 -> 11940, with no new names. Of these, 1123 -> 838 are script-family names.
+
+## drive1 (D139, blocker B1: the U: save drive, 2026-11-18)
+
+- Root cause: XboxSaveDrive.cpp's 32-bit pad views of the drive. 0x00278b50's media query wrote the sector size 0x200
+  and count 0 at +0x6c / +0x68, which is natively core::Drive's request list head, so it became 0x200_00000000.
+  core::Drive::vfunc_3 then read its `next` at the wild 0x200_00000008. Fixed with records (no size stopgaps):
+  CoreXboxSaveDrive / CoreDriveThread views, the block cache by fields, pointer-sized find handles, one C declaration
+  of FUN_0026fd50. Also fixed: the memory-card manager's U: slot (decls/drive_media.h GameMemoryCardSlot instead of
+  the 0xc8 literal and ten pad-stride views), core::Drive's media block (CoreDriveMedia, nested in CoreDrive) and its
+  copy (DriveMediaRequest 0x00274520 / 0x00275750), and InstanceDrive's slots 4 and 11 (a pointer, not an int).
+- Native mac, census1's private kit (patches 01-17 merged onto HEAD db0145469) without the mount skip: the U: mount
+  completes (the XboxSaveDrive is built, registered and opened, and the InstanceDrive is queued), XGetDevices runs, and
+  start-up continues to census1's S17 (0x001ea8b0 SoundConfig, outside this batch). Before the fix the same kit
+  crashed in 0x00272df0. vfunc_5's FUN_0026fd50 is now bound (unbound 12791 -> 12790 in the kit's link with the p2 map).
+- Not covered: the save read/write path. The drive thread runs the queued requests only after start-up, which stops at
+  S17 first. That path still has 32-bit views and int pointers: vfunc_9 0x00279630 (the title name and the data are
+  U32), SaveGameOpenRequest 0x00273cb0 (a pad view of core::File), 0x0027a370 / 0x0027a460 (destination as U32),
+  0x002786a0 / 0x002786c0 (the same), 0x00278180 / 0x00278ef0 / 0x00279490 (C++ spellings of C helpers).

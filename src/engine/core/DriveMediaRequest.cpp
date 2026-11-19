@@ -2,6 +2,7 @@
 // object 0x002744e0..0x00274590 (kind game, layer engine, confidence high), dominant class core::DriveMediaRequest
 #include "tree_prelude.h"
 #include "decls/instance_drive.h"
+#include "decls/drive_media.h"
 #include "compat/ptr.h"
 #include "gen/core.h"
 #include "gen/owners.h"
@@ -48,9 +49,8 @@ struct Drive_274520 {
     int pad2[2];
     int z;
 };
-struct Data_274520 {
-    unsigned int v[21];
-};
+// (drive1) the drive's media block (decls/drive_media.h; 21 words on the 32-bit build, 22 natively)
+typedef CoreDriveMedia Data_274520;
 class pddiObject_274570 {
   public:
     virtual void vfunc0();

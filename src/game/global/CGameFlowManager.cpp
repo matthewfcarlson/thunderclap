@@ -2354,7 +2354,7 @@ void __fastcall target(CMemoryCardManager* self) {
 
 
 // 0x0008c470 FUN_0008c470 (245 B): equivalent/0x0008c470.cpp [wrapped: conflict: FUN_0008d690]
-// sym: ?FUN_0008c470@Owner_8c470@fn_0008c470@@QAEXI@Z @25207046a8b0 @w8b9e7bf715f7 @vabbf645478c6
+// sym: ?FUN_0008c470@Owner_8c470@fn_0008c470@@QAEXI@Z @b404d72792da @w07e289a1a049 @v9e2bc0d59322
 namespace fn_0008c470 {
 // STATUS: equivalent (tools/equiv.py level 3: 2974 inputs, branch coverage 2/2)
 // FUN_0008c470 @ 0x0008c470
@@ -2366,31 +2366,36 @@ struct Interface_8c470 {
  virtual void v25(); virtual void v26(); virtual void v27(); virtual void v28(); virtual void v29(); virtual void v30(); virtual void v31(); virtual void v32(); virtual void v33(); virtual void v34(); virtual void v35(); virtual void v36(); virtual void v37(); virtual void v38(); virtual void v39();
  virtual unsigned open(Pair_8c470*, unsigned);
 };
-struct State_8c470 { Interface_8c470* object; unsigned zero; char pad[0x64]; unsigned char flag1,flag2; char pad2[0x42]; unsigned result; unsigned a,b,c,d,e; };
+// (drive1) the manager's U: slot is decls/drive_media.h GameMemoryCardSlot (0xc8 bytes on the 32-bit build: the
+// literal was that size, and the slot's pad view put its words at 32-bit offsets natively); the manager's words are
+// GameMemoryCardManager's. The view types the slot's drive as the interface this function calls (the record's words)
+struct State_8c470 { Interface_8c470* drive; void* file; CoreDriveMedia pending; CoreDriveMedia media; unsigned result; int status[5]; };
+typedef char hulk_state_8c470_same_[(sizeof(State_8c470) == sizeof(GameMemoryCardSlot)) ? 1 : -1];
 extern "C" State_8c470* __cdecl FUN_0008d6d0(unsigned);
 extern "C" unsigned __cdecl FUN_00266da0(unsigned);
 extern Pair_8c470* __cdecl FUN_0008d690(unsigned);
-extern void __cdecl thunk_FUN_00270f10(const char*,unsigned);
+// (drive1) the thunk's target 0x00270f10 takes the name and a pointer-sized argument and returns int
+extern int __cdecl thunk_FUN_00270f10(const char*,void*);
 extern void __cdecl thunk_FUN_00271530(State_8c470*,const char*,unsigned,unsigned);
 extern void __cdecl FUN_0008d330(Pair_8c470*);
-struct Owner_8c470 { unsigned unknown; unsigned parameter; State_8c470* state; void FUN_0008c470(unsigned); };
+struct Owner_8c470 { const void* vftable; unsigned parameter; State_8c470* slots; void FUN_0008c470(unsigned); };   // GameMemoryCardManager's words
 void Owner_8c470::FUN_0008c470(unsigned value) {
  parameter=value;
- state=FUN_0008d6d0(0xc8);
+ slots=FUN_0008d6d0((unsigned)sizeof(GameMemoryCardSlot));
  unsigned saved=FUN_00266da0(1);
  Pair_8c470* pair=FUN_0008d690((int)sizeof(Pair_8c470));
  pair->a=0; pair->b=0;
  FUN_00266da0(saved);
- state->zero=0;
+ slots->file=0;
  thunk_FUN_00270f10("U:",0);
- thunk_FUN_00271530(state,"U:",1,0);
- if(state->object) {
- state->object->attach(this,0);
- unsigned result=state->object->open(pair,parameter);
- state->result=result;
- state->flag1=0; state->flag2=0; state->zero=0;
- state->a=1; state->b=1; state->c=1; state->d=1; state->e=1;
- } else { state->object=0; }
+ thunk_FUN_00271530(slots,"U:",1,0);
+ if(slots->drive) {
+ slots->drive->attach(this,0);
+ unsigned result=slots->drive->open(pair,parameter);
+ slots->result=result;
+ slots->media.label.buffer[0]=0; slots->media.label.buffer[1]=0; slots->file=0;
+ slots->status[0]=1; slots->status[1]=1; slots->status[2]=1; slots->status[3]=1; slots->status[4]=1;
+ } else { slots->drive=0; }
  FUN_0008d330(pair);
 }
 } // namespace fn_0008c470

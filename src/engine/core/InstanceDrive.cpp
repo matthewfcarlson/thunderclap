@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "decls/data/engine/core.h"
 #include "decls/data/records.h"
+#include "decls/instance_drive.h"
 #include "gen/core.h"
 #define TREE_TU_BEGIN namespace fn_ff53bcc9 {
 #define TREE_TU_END }
@@ -502,34 +503,42 @@ void core::InstanceDrive::vfunc_3() {
 
 
 // 0x002767d0 core::InstanceDrive::vfunc_4 (69 B): equivalent/0x002767d0.cpp [wrapped: conflict: FUN_00273560; core::InstanceDrive]
-// sym: ?vfunc_4@InstanceDrive@core@fn_002767d0@@UAEII@Z @3855712a99df @w5b59a447f3c2 @v8735dd9b9f94
+// sym: ?vfunc_4@InstanceDrive@core@fn_002767d0@@UAEIPAX@Z @3855712a99df @w5b59a447f3c2 @vb56dafaf294a
 namespace fn_002767d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // core::InstanceDrive::vfunc_4 @ 0x002767d0
 namespace core { struct InstanceDrive; }
 struct DriveMediaRequest_2767d0 {
- DriveMediaRequest_2767d0* FUN_00275750(core::InstanceDrive*, unsigned int);
+ DriveMediaRequest_2767d0* FUN_00275750(core::InstanceDrive*, void*);
 };
 extern DriveMediaRequest_2767d0* __cdecl FUN_00273560(unsigned int);
 struct Registry_2767d0 {
  unsigned int FUN_00272b60(DriveMediaRequest_2767d0*, unsigned int, unsigned int);
 };
 namespace core {
+// (drive1) the drive's words are decls/instance_drive.h's (a 32-bit pad view put `registry` and `key` 8 bytes early
+// natively); the argument is the caller's media block (decls/drive_media.h), a pointer
 struct InstanceDrive {
  virtual void vfunc_0();
  virtual void vfunc_1();
  virtual void vfunc_2();
  virtual void vfunc_3();
- virtual unsigned int vfunc_4(unsigned int);
- char pad[8];
- Registry_2767d0* registry;
- unsigned int key;
+ virtual unsigned int vfunc_4(void*);
+ void* mutableVftable;
+ int refs;
+ Registry_2767d0* registry;   // the drive the requests run on (HulkInstanceDrive's source)
+ int key;                     // the queue priority
+ int pending;
+ int status;
+ unsigned int handle;
+ unsigned char active;
 };
-unsigned int InstanceDrive::vfunc_4(unsigned int argument) {
+HULK_INSTANCE_DRIVE_SAME(InstanceDrive);
+unsigned int InstanceDrive::vfunc_4(void* argument) {
  DriveMediaRequest_2767d0* memory = FUN_00273560(16);
  DriveMediaRequest_2767d0* object = 0;
  if (memory) object = memory->FUN_00275750(this, argument);
- return registry->FUN_00272b60(object, key, 0);
+ return registry->FUN_00272b60(object, (unsigned int)key, 0);
 }
 }
 } // namespace fn_002767d0
@@ -711,8 +720,9 @@ unsigned int InstanceDrive::vfunc_10(const char* name) {
 
 
 // 0x00276b00 core::InstanceDrive::vfunc_11 (26 B): matches/0x00276b00.cpp
-// sym: ?vfunc_11@InstanceDrive@core@@UAEXH@Z
-void core::InstanceDrive::vfunc_11(int x) {
+// sym: ?vfunc_11@InstanceDrive@core@@UAEXPAX@Z
+// (drive1) the caller's media block (a pointer: as an int the 64-bit builds truncated it)
+void core::InstanceDrive::vfunc_11(void* x) {
     vfunc_4(x);
     vfunc_22();
 }

@@ -4,6 +4,7 @@
 #include "tree_prelude.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
+#include "decls/drive_media.h"
 #define TREE_TU_BEGIN namespace fn_f8087876 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CCollisionTrack
@@ -22,7 +23,6 @@ struct Source_8c590 {
  virtual void slot17(); virtual void slot18(); virtual void slot19(); virtual void slot20(); virtual void slot21(); virtual void slot22();
  virtual int error();
 };
-struct Entry_8c590 { Source_8c590* source; char padding[196]; };
 struct Object {
   public:
     virtual void _m_vf0();
@@ -36,7 +36,7 @@ struct Object {
     virtual void _m_vf8();
     virtual void _m_vf9();
     virtual void _m_vf10();
-    virtual void getState(int*);
+    virtual void getState(void*);   // (drive1) the slot's media block (decls/drive_media.h)
     virtual void _m_vf12();
     virtual void _m_vf13();
     virtual void _m_vf14();
@@ -62,8 +62,10 @@ struct Object {
     virtual void _m_vf34();
     virtual void _m_vf35();
     virtual void query(Object**, char*, int,int,int,int,int);
-    char _m_pad_4[0x4];
-    Entry_8c590* entries;
+    // (drive1) the method runs on the manager: decls/drive_media.h GameMemoryCardManager's words (a 4-byte pad and
+    // the slots were a 32-bit view's)
+    int parameter;
+    GameMemoryCardSlot* slots;
     int target(int index, int selected, Record_8c590* output);
 };
 namespace XAPILIB {
@@ -75,11 +77,10 @@ virtual void f10(); virtual void f11(); virtual void f12(); virtual void f13(); 
 virtual void f20(); virtual void f21(); virtual void f22(); virtual void f23(); virtual void f24(); virtual void f25(); virtual void f26(); virtual void f27(); virtual void f28(); virtual void f29();
 virtual void f30(); virtual void f31(); virtual void f32(); virtual void f33(); virtual void f34(); virtual void f35(); virtual void f36(); virtual void f37(); virtual void f38(); virtual signed char *f39();
 };
-struct Entry_8c680 { Item_8c680 *item; char padding[196]; };
 struct LaunchData_8c680 { int mode; int reserved; int code; int size; char rest[0xbf0]; };
-struct Owner_8c680 { char padding[8]; Entry_8c680 *entries; void FUN_0008c680(int index); };
-struct State_8c920 { Object* object; char pad[0x58]; int state; char pad2[0x54]; int values[5]; };
-struct Manager_8c920 { char pad[8]; State_8c920* data; int FUN_0008c590(int, unsigned, int*); void target(); };
+// (drive1) the manager and its slots: decls/drive_media.h (were 32-bit pad views)
+struct Owner_8c680 : GameMemoryCardManager { void FUN_0008c680(int index); };
+struct Manager_8c920 : GameMemoryCardManager { int FUN_0008c590(int, unsigned, int*); void target(); };
 struct CreateParams_8ca70 {
     void* buffer;
     int a;
@@ -128,16 +129,9 @@ public:
     virtual void v8c();
     virtual void v90(Obj_8ca70** out, CreateParams_8ca70 p);
 };
-struct Slot_8ca70 {
-    Obj_8ca70* obj;
-    Obj_8ca70* aux;
-    char pad08[0xc0];
-};
 extern "C" int FUN_0026b800(int a, int b, char* buf, int c, int d, int e, int f);
-class Manager_8ca70 {
+class Manager_8ca70 : public GameMemoryCardManager {
 public:
-    char pad00[8];
-    Slot_8ca70* slots;
     int FUN_0008c590(int index, int a, int* status);
     int FUN_0008ca70(int index, int arg1, int arg2, int arg3, int arg4);
 };
@@ -195,18 +189,9 @@ public:
     virtual void v32(); virtual void v33(); virtual void v34(); virtual void v35();
     virtual void v36(SubObj_8cbe0 **out, char *buf, int a, int b, void *c, int d, int e);
 };
-struct Entry_8cbe0 {
-    Slot_8cbe0 *slot;
-    Stage_8cbe0 *stage;
-    char pad[0xc8 - 8];
-};
-class Loader_8cbe0 {
+class Loader_8cbe0 : public GameMemoryCardManager {
 public:
     void *FUN_0008cbe0(int index, int a, int b, int c, int d);
-
-    char pad0[4];
-    int param;
-    Entry_8cbe0 *entries;
 };
 
 
@@ -216,7 +201,7 @@ public:
 // FUN_0008c590 @ 0x0008c590
 int Object::target(int index,int selected,Record_8c590* output) {
  char gs_unused[16]; /* dead stack buffer: MSVC /GS protects only functions with a char array */
- Record_8c590 records[5]; Source_8c590* source=entries[index].source;
+ Record_8c590 records[5]; Source_8c590* source=(Source_8c590*)slots[index].drive;
  int result=0;
  for(unsigned int i=0;i<5;++i) {
   if(i==0) source->first(((const char*)&DAT_003f335c),&records[i]); else source->next(&records[i]);
@@ -234,7 +219,7 @@ int Object::target(int index,int selected,Record_8c590* output) {
 // FUN_0008c680 @ 0x0008c680
 void Owner_8c680::FUN_0008c680(int index) {
 LaunchData_8c680 data;
-signed char *value = entries[index].item->f39();
+signed char *value = ((Item_8c680*)slots[index].drive)->f39();
 data.mode = 2;
 data.reserved = 0;
 data.code = *value;
@@ -249,22 +234,22 @@ XAPILIB::XLaunchNewImageA(0, &data);
 // FUN_0008c920 @ 0x0008c920
 void Manager_8c920::target() {
  struct Workspace { Object* item; int status; char buffer[260];  } work;
- Object* root = data->object;
+ Object* root = (Object*)slots->drive;
  if(root) {
- root->getState(&data->state);
+ root->getState(&slots->media);
  root->update();
- if(data->state == 0) {
+ if(slots->media.result == 0) {
  for(unsigned i=0;i<5;++i) {
  work.item=0;
- data->values[i]=1;
+ slots->status[i]=1;
  int result=FUN_0008c590(0,i,&work.status);
- if(result) data->values[i]=result;
+ if(result) slots->status[i]=result;
  else {
- if(work.status==2) data->values[i]=1;
+ if(work.status==2) slots->status[i]=1;
  if(work.status==3) {
  root->query(&work.item,work.buffer,0,0,0,0,1);
  if(work.item) {
- data->values[i]=work.item->value();
+ slots->status[i]=work.item->value();
  work.item->update();
  if(work.item) work.item->release();
  }
@@ -288,11 +273,11 @@ int Manager_8ca70::FUN_0008ca70(int index, int arg1, int arg2, int arg3, int arg
         char buf[0x104];
     } f;
     int result;
-    Obj_8ca70* obj = slots[index].obj;
+    Obj_8ca70* obj = (Obj_8ca70*)slots[index].drive;
     obj->v58();
-    if (slots[index].aux) {
-        slots[index].aux->v54();
-        Obj_8ca70** auxSlot = &slots[index].aux;
+    if (slots[index].file) {
+        ((Obj_8ca70*)slots[index].file)->v54();
+        Obj_8ca70** auxSlot = (Obj_8ca70**)&slots[index].file;
         if (*auxSlot) {
             (*auxSlot)->v04();
             *auxSlot = 0;
@@ -342,11 +327,11 @@ void *Loader_8cbe0::FUN_0008cbe0(int index, int a, int b, int c, int d)
 {
     char buf[0x100];
     DAT_004dd6ec->FUN_000862e0()->FUN_001eb870();
-    Slot_8cbe0 *slot = entries[index].slot;
+    Slot_8cbe0 *slot = (Slot_8cbe0 *)slots[index].drive;
     slot->v22();
-    if (entries[index].stage) {
-        entries[index].stage->v21();
-        Stage_8cbe0 **slotStage = &entries[index].stage;
+    if (slots[index].file) {
+        ((Stage_8cbe0 *)slots[index].file)->v21();
+        Stage_8cbe0 **slotStage = (Stage_8cbe0 **)&slots[index].file;
         Stage_8cbe0 *stage = *slotStage;
         if (stage) {
             stage->Release();
@@ -360,7 +345,7 @@ void *Loader_8cbe0::FUN_0008cbe0(int index, int a, int b, int c, int d)
     FUN_00266da0(prev);
     FUN_0026b800(buf, 1, d, 2, 0x2e, 0x100, 0);
     SubObj_8cbe0 *sub = 0;
-    slot->v36(&sub, buf, 1, 3, state, param, 1);
+    slot->v36(&sub, buf, 1, 3, state, parameter, 1);
     void *result = slot->v23();
     FUN_0008d330(state);
     if (sub) {
@@ -395,20 +380,19 @@ namespace fn_0008cd80 {
 struct Object {
  virtual void v0(); virtual void release(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15(); virtual void v16(); virtual void apply(void*); virtual void v18(); virtual void v19(); virtual void v20(); virtual void stop(); virtual void begin(); virtual int finish();
 };
-struct Entry_8cd80 { Object* primary; Object* secondary; char padding[192]; };
 struct Output_8cd80 { int type; char data[260]; };
-struct Manager_8cd80 {
- char pad[8]; Entry_8cd80* entries;
+// (drive1) the manager and its slots: decls/drive_media.h (were 32-bit pad views)
+struct Manager_8cd80 : GameMemoryCardManager {
  int FUN_0008c590(int index, int arg, Output_8cd80* output);
  int FUN_0008cd80(int index,int arg);
 };
 int Manager_8cd80::FUN_0008cd80(int index,int arg) {
  Output_8cd80 output;
- Object* original = entries[index].primary;
+ Object* original = (Object*)slots[index].drive;
  original->begin();
- if(entries[index].secondary) {
- entries[index].secondary->stop();
- Object** slot = &entries[index].secondary;
+ if(slots[index].file) {
+ ((Object*)slots[index].file)->stop();
+ Object** slot = (Object**)&slots[index].file;
  if(*slot) { (*slot)->release(); *slot = 0; }
  }
  int result = FUN_0008c590(index,arg,&output);

@@ -3,6 +3,7 @@
 #include "tree_prelude.h"
 #include "compat/ptr.h"
 #include "gen/global.h"
+#include "decls/drive_media.h"
 #define TREE_TU_BEGIN namespace fn_f93cbeb5 {
 #define TREE_TU_END }
 namespace fn_f93cbeb5 {} using namespace fn_f93cbeb5;
@@ -14,20 +15,10 @@ struct S_8c710 {
     char pad[0x10];
     unsigned char b[0x20];
 };
-struct Slot_8c740 {
-    int owner;
-    unsigned int bits;
-    char rest[0xc0];
-};
-struct SlotTable_8c740 {
-    char pad0[0x5c];
-    Slot_8c740 slots[1];
-};
+// (drive1) the manager's slots (decls/drive_media.h GameMemoryCardSlot, GameMemoryCardManager); were 32-bit pad views
 extern "C" void __cdecl FUN_0008c710(void *, unsigned short *);
-class SlotSet {
+class SlotSet : public GameMemoryCardManager {
 public:
-    char pad0[8];
-    SlotTable_8c740* table;
     int FUN_0008c740(int index, unsigned int* outBits, hulk_intptr value);
 };
 class Entry_8c810 {
@@ -56,32 +47,13 @@ class Entry_8c810 {
     virtual void f21();
     virtual void f22();
 };
-struct Slot_8c810 {
-    Entry_8c810* first;
-    Entry_8c810* second;
-    char pad[192];
-};
-class Owner_8c810 {
+class Owner_8c810 : public GameMemoryCardManager {
   public:
-    char pad[8];
-    Slot_8c810* h;
     int target(int);
 };
 struct Resource_8c870 { virtual void slot0(); virtual void release(); };
 struct Owner_8c870 { virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual void reset(void*); };
-struct Entry_8c870 {
- Owner_8c870* owner;
- Resource_8c870* resource;
- char data[0x54];
- int state;
- char pad60[12];
- unsigned char flag6c, flag6d;
- char pad6e[0x46];
- int enabled[5];
-};
-struct Manager_8c870 {
- char pad[8];
- Entry_8c870* entries;
+struct Manager_8c870 : GameMemoryCardManager {
  void reset(int index);
 };
 class Item_8ca30 {
@@ -115,15 +87,8 @@ class BaseItem {
     virtual void v21();
     virtual void v22();
 };
-struct Record_8ca30 {
-    BaseItem* first;
-    Item_8ca30* second;
-    char pad[192];
-};
-class Owner_8ca30 {
+class Owner_8ca30 : public GameMemoryCardManager {
   public:
-    char pad[8];
-    Record_8ca30* items;
     void Run(int index);
 };
 
@@ -160,21 +125,21 @@ extern "C" void FUN_0008c710(void * a, unsigned short* d) {
 
 
 // 0x0008c740 FUN_0008c740 (121 B): equivalent/0x0008c740.cpp
-// sym: ?FUN_0008c740@SlotSet@fn_f93cbeb5@@QAEHHPAIH@Z @78bd4c8ea1d6 @w7205194c5dfd @v6bff6200724b
+// sym: ?FUN_0008c740@SlotSet@fn_f93cbeb5@@QAEHHPAIH@Z @78bd4c8ea1d6 @w549fded26c8a @v6bff6200724b
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 7/8, incomplete)
 // FUN_0008c740 @ 0x0008c740
 int SlotSet::FUN_0008c740(int index, unsigned int* outBits, hulk_intptr value) {
     if (value)
-        FUN_0008c710((Slot_8c740 *)(&table->slots[index]), (unsigned short *)(hulk_uintptr)(int)value);
+        FUN_0008c710(&slots[index].media, (unsigned short *)(hulk_uintptr)(int)value);
     if (outBits) {
-        Slot_8c740* s = (Slot_8c740*)((char*)table + 0x5c + index * sizeof(Slot_8c740));
-        if (s == 0 || s->owner != 0) {
+        CoreDriveMedia* s = &slots[index].media;
+        if (s == 0 || s->result != 0) {
             *outBits = 0;
-            return table->slots[index].owner;
+            return (int)slots[index].media.result;
         }
-        *outBits = s->bits >> 14;
+        *outBits = s->size >> 14;
     }
-    return table->slots[index].owner;
+    return (int)slots[index].media.result;
 }
 
 } // namespace fn_f93cbeb5
@@ -193,7 +158,7 @@ class CMemoryCardManager {
   public:
     virtual bool Fnf_0008c7c0(void*, void*, void*, void*, void*);
     int a;
-    int b;
+    GameMemoryCardSlot* b;   // (drive1) the slots (decls/drive_media.h GameMemoryCardManager; an int natively missed half)
     CMemoryCardManager();
 };
 CMemoryCardManager::CMemoryCardManager() {
@@ -207,10 +172,10 @@ namespace fn_f93cbeb5 {
 // 0x0008c810 FUN_0008c810 (83 B): matches/0x0008c810.cpp
 // sym: ?target@Owner_8c810@fn_f93cbeb5@@QAEHH@Z
 int Owner_8c810::target(int i) {
-    h[i].first->f22();
-    if (h[i].second) {
-        h[i].second->f21();
-        Entry_8c810** pp = &h[i].second;
+    ((Entry_8c810*)slots[i].drive)->f22();
+    if (slots[i].file) {
+        ((Entry_8c810*)slots[i].file)->f21();
+        Entry_8c810** pp = (Entry_8c810**)&slots[i].file;
         if (*pp) {
             (*pp)->f1();
             *pp = 0;
@@ -225,34 +190,34 @@ int Owner_8c810::target(int i) {
 // STATUS: equivalent (tools/equiv.py level 3: 2963 inputs, branch coverage 4/4)
 // FUN_0008c870 @ 0x0008c870
 void Manager_8c870::reset(int index) {
- entries[index].state = 4;
- entries[index].flag6c = 0;
- entries[index].flag6d = 0;
- Resource_8c870** resource = &entries[index].resource;
+ slots[index].media.result = 4;
+ slots[index].media.label.buffer[0] = 0;
+ slots[index].media.label.buffer[1] = 0;
+ Resource_8c870** resource = (Resource_8c870**)&slots[index].file;
  if (*resource) {
   (*resource)->release();
   *resource = 0;
  }
- entries[index].enabled[0] = 1;
- entries[index].enabled[1] = 1;
- entries[index].enabled[2] = 1;
- entries[index].enabled[3] = 1;
- entries[index].enabled[4] = 1;
- Entry_8c870* entry = &entries[index];
- if (entry->owner) entry->owner->reset(entry->data);
+ slots[index].status[0] = 1;
+ slots[index].status[1] = 1;
+ slots[index].status[2] = 1;
+ slots[index].status[3] = 1;
+ slots[index].status[4] = 1;
+ GameMemoryCardSlot* entry = &slots[index];
+ if (entry->drive) ((Owner_8c870*)entry->drive)->reset(&entry->pending);
 }
 
 
 // 0x0008ca30 FUN_0008ca30 (58 B): matches/0x0008ca30.cpp
 // sym: ?Run@Owner_8ca30@fn_f93cbeb5@@QAEXH@Z
 void Owner_8ca30::Run(int index) {
-    Item_8ca30** p = &items[index].second;
+    Item_8ca30** p = (Item_8ca30**)&slots[index].file;
     Item_8ca30* item = *p;
     if (item) {
         item->B();
         *p = 0;
     }
-    items[index].first->v22();
+    ((BaseItem*)slots[index].drive)->v22();
 }
 
 } // namespace fn_f93cbeb5

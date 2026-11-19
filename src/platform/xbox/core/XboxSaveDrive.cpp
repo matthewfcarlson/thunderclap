@@ -46,7 +46,9 @@ struct Object {
 };
 typedef unsigned int U_277d60;
 extern hulk_uintptr __cdecl FUN_0026fd80(hulk_uintptr,U_277d60);
-extern hulk_uintptr __cdecl FUN_0026fd50(hulk_uintptr,U_277d60);
+// (drive1) 0x0026fd50 (round up to an alignment) as defined (MemoryPool.cpp): one C declaration; the C++ overloads
+// (hulk_uintptr / int) bound nothing natively, so the save drive's size estimate vfunc_5 lost its rounding
+extern "C" hulk_uintptr __cdecl FUN_0026fd50(hulk_uintptr, unsigned int);
 extern void __cdecl FUN_00279d30(void*,U_277d60,void*,U_277d60,U_277d60);
 } // namespace fn_fad5a458
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
@@ -65,24 +67,19 @@ extern "C" int __stdcall XCalculateSignatureBegin(unsigned int);
 extern "C" void __stdcall FUN_002120f5(int, unsigned int, unsigned int);
 extern "C" void __stdcall FUN_00212143(int, unsigned int);
 extern "C" int __stdcall FUN_0020bbc2(int);
-extern "C" void __stdcall FUN_00356611(int);
-class Obj {
-  public:
-    char pad[0x2f4];
-    struct Slot {
-        int handle;
-        char pad[0x204];
-    } slots[1];
+extern "C" void __stdcall FUN_00356611(hulk_uintptr);   // (drive1) XFindClose: the find handle is a HANDLE (pointer-sized)
+// (drive1) records.h CoreXboxSaveDrive: the enumeration slots' find handles (were a 32-bit pad to +0x2f4)
+struct Obj : CoreXboxSaveDrive {
     int Do(int* idx);
 };
-extern int __cdecl FUN_0026fd50(hulk_intptr, int);
 namespace XAPILIB {
 void __stdcall XUnmountMU(int,int);
 }
-struct XboxSaveDrive_278410 { char pad0[0xcc]; char mode; char pad1[6]; signed char slot; signed char letter; char pad2[8]; char mounted; char kind; char pad3[0x215]; int handles[4][130]; void FUN_00278410(); };
+// (drive1) records.h CoreXboxSaveDrive (was a 32-bit pad view): the name's first byte ('U' the hard disk), its port
+// digit and slot letter (name[7], name[8]), the mounted flag, the drive letter and the enumeration slots
+struct XboxSaveDrive_278410 : CoreXboxSaveDrive { void FUN_00278410(); };
 extern "C" void __cdecl FUN_002705f0();
 extern "C" uint __stdcall XGetDevices(void*);
-extern "C" void* __cdecl FUN_0026fd50(void*,int);
 extern "C" void* __cdecl FUN_00266e00(int, int);
 struct DriveThread_278500 { virtual void action(); void* FUN_002733c0(hulk_uintptr, hulk_uintptr); };
 } // namespace fn_fad5a458
@@ -111,7 +108,7 @@ struct XboxSaveDrive_2786a0 : CoreXboxSaveDrive {
 };
 }
 namespace fn_fad5a458 {
-void __stdcall ReleaseThing(int);
+void __stdcall ReleaseThing(hulk_uintptr);   // (drive1) XFindClose (0x00356611): a HANDLE
 class Obj_278740 {
   public:
     virtual void V0();
@@ -126,14 +123,14 @@ extern int vt0_278740, vt4, vtc, vtbc, vtc0;
 extern "C" void FUN_0026d830(int*);
 struct Service_2787c0 { void FUN_00278060();  };
 struct XboxSaveDrive_2787c0 {  int FUN_002787c0(unsigned int); };
-struct XboxSaveDrive_2788c0 { char pad[0xb4]; unsigned int status; char pad2[0x10]; unsigned int mountedCount; char deviceType; char pad3[6]; signed char slot; signed char unit; char pad4[8]; unsigned char mounted; char drive;  void FUN_00278410(); unsigned int FUN_002787c0(unsigned int); bool FUN_002788c0(); };
+// (drive1) records.h CoreXboxSaveDrive (was a 32-bit pad view: natively its writes landed in core::Drive's fields)
+struct XboxSaveDrive_2788c0 : CoreXboxSaveDrive { void FUN_00278410(); unsigned int FUN_002787c0(unsigned int); bool FUN_002788c0(); };
 struct MountRegistry { void FUN_00278060(); unsigned char FUN_002780c0(unsigned int, unsigned int); };
 namespace XAPILIB {
 unsigned int __stdcall XMountMUA(int, int, char*);
 }
-struct Obj_2789e0 {
-    char pad[0xb4];
-    int value;
+// (drive1) records.h CoreXboxSaveDrive: the drive's last error (core::Drive +0xb4 on the 32-bit build)
+struct Obj_2789e0 : CoreXboxSaveDrive {
 };
 struct XboxSaveDrive_nv_2789e0 {
     int FUN_002787c0(int);
@@ -141,10 +138,9 @@ struct XboxSaveDrive_nv_2789e0 {
 typedef unsigned int DWORD;
 extern int __stdcall FUN_002109b6(DWORD, int);
 extern DWORD __stdcall GetLastError();
-class XboxSaveDrive_278a00 {
+// (drive1) records.h CoreXboxSaveDrive: the drive's last error
+class XboxSaveDrive_278a00 : public CoreXboxSaveDrive {
   public:
-    char pad[0xb4];
-    int error;
     int TranslateError(DWORD);
     bool Run(DWORD x, int* out);
 };
@@ -172,7 +168,10 @@ class XboxSaveDrive_278a80 {
 extern "C" void __cdecl FUN_0026b800(char *, int, const char *, int, int, int, int);
 extern "C" int __stdcall FUN_003564c0(const char *, char *);
 extern "C" void * __cdecl thunk_FUN_00271f20(void *, const void *, unsigned int);
-struct Slot_279220 { char path[0x204]; int handle; };
+// (drive1) the save drive's block cache DAT_0052c270 by its fields (the data TU's record: the signed 8 KiB block
+// buffer, the file it holds, its block, its state 0 empty / 1 valid / 2 dirty); as 32-bit byte offsets (+4 / +8 /
+// +0xc) the 64-bit builds read and wrote the buffer pointer's upper half
+struct SaveBlockCache { unsigned char* buffer; unsigned int file; unsigned int block; unsigned int state; };
 extern int __stdcall FUN_002109b6(const void *, int);
 struct AdjBC {
     int vfunc_0_adjbc(const void *name, unsigned int unused, unsigned int block, unsigned int offset, unsigned int size, void *destination, unsigned int extra);
@@ -201,14 +200,9 @@ class XboxSaveDrive {
     virtual int vfunc_19(int *, const char *);
     virtual void _m_vf20();
     virtual void _m_vf21();
-    char _m_pad_4[0xb0];
-    unsigned long error;
-    Obj_278740* mObj;
-    AdjBC reader;
-    char _m_pad_bd[0x21];
-    unsigned char driveLetter;
-    char _m_pad_df[0x11];
-    Slot_279220 slots[4];
+    // (drive1) no data members: the fields are records.h CoreXboxSaveDrive's (`self()`); a 32-bit pad view put them
+    // 4 bytes off after the 8-byte vftable pointer natively
+    CoreXboxSaveDrive* self() { return (CoreXboxSaveDrive*)this; }
     int vfunc_1_adjbc();
     void Run();
     void Init();
@@ -281,7 +275,7 @@ int Object::FUN_00277d00(Interface_277d00* target, unsigned int a, const char* b
 
 
 // 0x00277d60 FUN_00277d60 (683 B): equivalent/0x00277d60.cpp
-// sym: ?target@State_277d60@fn_fad5a458@@QAEHPAUReader@2@IPBDIIPADIPAII@Z @2ff50b72b51d @w22a5f48e02a1 @v56feeb69dd0f
+// sym: ?target@State_277d60@fn_fad5a458@@QAEHPAUReader@2@IPBDIIPADIPAII@Z @2ff50b72b51d @w22a5f48e02a1 @v63dbe39f1183
 // STATUS: equivalent (tools/equiv.py level 3: 526 inputs, branch coverage 38/40, incomplete; run with --inputs 12000)
 // FUN_00277d60 @ 0x00277d60
 int State_277d60::target(Reader* reader,U_277d60 a2,const char* a3,U_277d60 a4,U_277d60 start,char* dest,U_277d60 requested,U_277d60* result,U_277d60 a9) {
@@ -394,14 +388,15 @@ extern "C" unsigned char __cdecl FUN_00278180(unsigned int a, unsigned int b, un
 } // namespace fn_fad5a458
 
 // 0x002781c0 FUN_002781c0 (87 B): matches/0x002781c0.cpp [wrapped: conflict: XCalculateSignatureBegin]
-// sym: ?Target@fn_002781c0@@YA_NIH@Z
+// sym: ?Target@fn_002781c0@@YA_NIPAX@Z
 namespace fn_002781c0 {
 
 extern int __stdcall XCalculateSignatureBegin(int);
-extern void __stdcall FUN_002120f5(int, int, int);
-extern void __stdcall FUN_00212143(int, int);
-bool Target(unsigned int size, int arg) {
-    int base = (*(volatile int*)((char*)&DAT_0052c270 + 8));
+// (drive1) the block buffer and the signature's output are pointers (as ints the 64-bit builds truncated them)
+extern void __stdcall FUN_002120f5(int, void*, int);
+extern void __stdcall FUN_00212143(int, void*);
+bool Target(unsigned int size, void* arg) {
+    int base = (int)(*(volatile SaveBlockCache*)&DAT_0052c270).block;
     base = base << 13;
     unsigned int limit = base + 0x2000;
     if (limit >= size) {
@@ -409,7 +404,7 @@ bool Target(unsigned int size, int arg) {
     }
     if (!(limit < size))
         limit = size;
-    int buf = (*(volatile int*)&DAT_0052c270);
+    unsigned char* buf = (*(volatile SaveBlockCache*)&DAT_0052c270).buffer;
     int sig = XCalculateSignatureBegin(0);
     if (sig == -1)
         return false;
@@ -544,8 +539,8 @@ namespace fn_fad5a458 {
 // CloseHandle (the XDK row 0x0020bbc2)
 int XboxSaveDrive::f10(int a, int b) {
     f11(a, b);
-    if ((*(int*)((char*)&DAT_0052c270 + 4)) == a)
-        (*(int*)((char*)&DAT_0052c270 + 12)) = 0;
+    if ((*(SaveBlockCache*)&DAT_0052c270).file == (unsigned int)a)
+        (*(SaveBlockCache*)&DAT_0052c270).state = 0;
     FUN_0020bbc2(a);
     --((CoreXboxSaveDrive*)this)->openFiles;
     return 1;
@@ -601,10 +596,10 @@ namespace fn_fad5a458 {
 // 0x00278300 FUN_00278300 (63 B): matches/0x00278300.cpp
 // sym: ?Do@Obj@fn_fad5a458@@QAEHPAH@Z
 int Obj::Do(int* idx) {
-    int h = slots[*idx].handle;
-    if (h != -1) {
+    hulk_uintptr h = slots[*idx].handle;
+    if (h != (hulk_uintptr)-1) {
         FUN_00356611(h);
-        slots[*idx].handle = -1;
+        slots[*idx].handle = (hulk_uintptr)-1;
     }
     return 1;
 }
@@ -618,7 +613,7 @@ int core::XboxSaveDrive::vfunc_5(hulk_intptr __p0, int param3) { int * param2 = 
     hulk_intptr base = param3;
     uint q = (uint)(base + 0x1fef) / 0x1fec;
     int* p = (int*)((char*)base + q * 20 + 4);
-    int r = FUN_0026fd50((hulk_intptr)p, 0x4000);
+    int r = (int)FUN_0026fd50((hulk_uintptr)p, 0x4000);
     r += 0x8000;
     if (*param2)
         r += 0x4000;
@@ -628,23 +623,26 @@ int core::XboxSaveDrive::vfunc_5(hulk_intptr __p0, int param3) { int * param2 = 
 
 // 0x002783d0 FUN_002783d0 (63 B): matches/0x002783d0.cpp
 // sym: ?FUN_002783d0@Obj_2783d0@owners@@QAEXPAH0@Z
+// (drive1) the drive's name through records.h CoreXboxSaveDrive (owners.h's stub is a 32-bit pad view): 'U' the
+// hard disk, else the memory unit's port digit and slot letter
 void owners::Obj_2783d0::FUN_002783d0(int* a, int* b) {
-    if (flag == 0x55) {
+    const CoreXboxSaveDrive* drive = (const CoreXboxSaveDrive*)this;
+    if (drive->name[0] == 0x55) {
         *a = -1;
         *b = -1;
     } else {
-        *a = x - 0x31;
-        *b = y - 0x41;
+        *a = (signed char)drive->name[7] - 0x31;
+        *b = (signed char)drive->name[8] - 0x41;
     }
 }
 
 namespace fn_fad5a458 {
 
 // 0x00278410 FUN_00278410 (133 B): equivalent/0x00278410.cpp
-// sym: ?FUN_00278410@XboxSaveDrive_278410@fn_fad5a458@@QAEXXZ @b03583393748 @wa03f978dd4f2 @vc7fa84ff1227
+// sym: ?FUN_00278410@XboxSaveDrive_278410@fn_fad5a458@@QAEXXZ @b03583393748 @wb52378373369 @vc7fa84ff1227
 // STATUS: equivalent (tools/equiv.py level 3: 84 inputs, branch coverage 10/10)
 // FUN_00278410 @ 0x00278410
-void XboxSaveDrive_278410::FUN_00278410() { if(kind == 0x55 || !mounted) return; for(int i=0;i<4;++i) { if(handles[i][0] != -1) { FUN_00356611(handles[i][0]); handles[i][0]=-1; } } if(mode == 0x55) XAPILIB::XUnmountMU(-1,-1); else XAPILIB::XUnmountMU(slot-0x31,letter-0x41); mounted=0; }
+void XboxSaveDrive_278410::FUN_00278410() { if(driveLetter == 0x55 || !mounted) return; for(int i=0;i<4;++i) { if(slots[i].handle != (hulk_uintptr)-1) { FUN_00356611(slots[i].handle); slots[i].handle=(hulk_uintptr)-1; } } if(name[0] == 0x55) XAPILIB::XUnmountMU(-1,-1); else XAPILIB::XUnmountMU((signed char)name[7]-0x31,(signed char)name[8]-0x41); mounted=0; }
 
 
 // 0x002784c0 FUN_002784c0 (57 B): matches/0x002784c0.cpp
@@ -663,7 +661,7 @@ unsigned char __stdcall compare(const unsigned short* a, const unsigned short* b
 } // namespace fn_fad5a458
 
 // 0x00278500 FUN_00278500 (407 B): equivalent/0x00278500.cpp
-// sym: ??0XboxSaveDrive_278500@core@@QAE@PBDH@Z @5ea07f6a48c8 @w91908c781550 @v3ba5b94377e8
+// sym: ??0XboxSaveDrive_278500@core@@QAE@PBDH@Z @5ea07f6a48c8 @w91908c781550 @v4706332ce970
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 8/8)
 // FUN_00278500 @ 0x00278500
 core::XboxSaveDrive_278500::XboxSaveDrive_278500(const char* nameArg, int heap) {
@@ -677,7 +675,7 @@ core::XboxSaveDrive_278500::XboxSaveDrive_278500(const char* nameArg, int heap) 
   uint mask=XGetDevices(&DAT_003ea820);
   (*(unsigned char*)&DAT_0052a228)=(unsigned char)(((mask>>12)&0xf0) | (mask&15));
   (*(unsigned char*)&DAT_0052a229)=0;
-  (*(void**)&DAT_0052c270)=FUN_0026fd50(((char*)&DAT_0052a230),32);
+  (*(void**)&DAT_0052c270)=(void*)FUN_0026fd50((hulk_uintptr)((char*)&DAT_0052a230),32);
  }
  if (!(*(DriveThread_278500**)&DAT_0052c26c)) {
   FUN_0026d820(((char*)&DAT_0052c250));
@@ -686,7 +684,7 @@ core::XboxSaveDrive_278500::XboxSaveDrive_278500(const char* nameArg, int heap) 
   if(p) { drive.driveThread=p->FUN_002733c0((hulk_uintptr)&DAT_0052c250,(hulk_uintptr)(hulk_intptr)heap); (*(void**)&DAT_0052c26c)=drive.driveThread; }
   else {drive.driveThread=0;(*(void**)&DAT_0052c26c)=0;}
  } else { drive.driveThread=(*(void**)&DAT_0052c26c); ((DriveThread_278500*)drive.driveThread)->action(); }
- if(nameArg[0]==((char*)&DAT_004004f8)[0] && nameArg[1]==((char*)&DAT_004004f8)[1] && nameArg[2]==((char*)&DAT_004004f8)[2]) { type=0xc3;mounted=1;driveLetter=0x55; drive.label.buffer[0]=0; }
+ if(nameArg[0]==((char*)&DAT_004004f8)[0] && nameArg[1]==((char*)&DAT_004004f8)[1] && nameArg[2]==((char*)&DAT_004004f8)[2]) { type=0xc3;mounted=1;driveLetter=0x55; drive.media.label.buffer[0]=0; }
  else type=0xc7;
  _strncpy(name,nameArg,16);
  terminator=0;
@@ -810,10 +808,11 @@ void* Thunk_2786f0::FUN_002786f0(unsigned char flags) {
 // sym: ?vfunc_20@XboxSaveDrive@core@@UAEHH@Z
 int core::XboxSaveDrive::vfunc_20(hulk_intptr __p0) { int * p = (int *)__p0;
 
-    int v = *(int*)((char*)this + *p * 0x208 + 0x2f4);
-    if (v != -1) {
+    // (drive1) records.h CoreXboxSaveDrive: the slot's find handle (was this + 0x2f4 + i * 0x208, the 32-bit offsets)
+    hulk_uintptr v = ((CoreXboxSaveDrive*)this)->slots[*p].handle;
+    if (v != (hulk_uintptr)-1) {
         ReleaseThing(v);
-        *(int*)((char*)this + *p * 0x208 + 0x2f4) = -1;
+        ((CoreXboxSaveDrive*)this)->slots[*p].handle = (hulk_uintptr)-1;
     }
     return 1;
 }
@@ -823,19 +822,21 @@ namespace fn_fad5a458 {
 // 0x00278740 FUN_00278740 (115 B): matches/0x00278740.cpp
 // sym: ?Run@XboxSaveDrive@fn_fad5a458@@QAEXXZ
 void XboxSaveDrive::Run() {
-    *(hulk_intptr*)this = (hulk_intptr)&vt0_278740;
-    *(hulk_intptr*)((char*)this + 4) = (hulk_intptr)&vt4;
-    *(hulk_intptr*)((char*)this + 0xc) = (hulk_intptr)&vtc;
-    *(hulk_intptr*)((char*)this + 0xbc) = (hulk_intptr)&vtbc;
-    *(hulk_intptr*)((char*)this + 0xc0) = (hulk_intptr)&vtc0;
+    // (drive1) records.h CoreXboxSaveDrive's vftables and its drive thread (CoreDriveThread: the reference count),
+    // were 32-bit byte offsets
+    self()->drive.vftable = &vt0_278740;
+    self()->drive.vftableObject = &vt4;
+    self()->drive.vftableMutable = &vtc;
+    self()->vftableReader = &vtbc;
+    self()->vftableWriter = &vtc0;
     Init();
-    if (*(int*)((char*)mObj + 0x10) == 1) {
+    if (((CoreDriveThread*)self()->drive.driveThread)->refs == 1) {
         (*(GlobalObj_278740**)&DAT_0052c26c)->V1();
         (*(GlobalObj_278740**)&DAT_0052c26c) = 0;
         FUN_0026d830(((int*)&DAT_0052c250));
         return Finish();
     }
-    mObj->V1();
+    ((Obj_278740*)self()->drive.driveThread)->V1();
     return Finish();
 }
 
@@ -853,17 +854,17 @@ int XboxSaveDrive_2787c0::FUN_002787c0(unsigned int value) { if(value<=0x11) { s
 // FUN_002788c0 @ 0x002788c0
 bool XboxSaveDrive_2788c0::FUN_002788c0() {
  int port = -1, unit = -1;
- if (deviceType != 'U') { port = (int)slot - '1'; unit = (int)this->unit - 'A'; }
+ if (name[0] != 'U') { port = (int)(signed char)name[7] - '1'; unit = (int)(signed char)name[8] - 'A'; }
  (*(MountRegistry*)&DAT_0052a228).FUN_00278060();
  if (port >= 0 && unit >= 0) {
   unsigned int shift = (port + unit * 4) & 31;
   unsigned char bit = shift < 8 ? (unsigned char)(1 << shift) : 0;
   if ((*(unsigned char*)&DAT_0052a229) & bit) {
-   if (mountedCount > 0) {
+   if ((unsigned int)openFiles > 0) {
     (*(MountRegistry*)&DAT_0052a228).FUN_00278060();
     unsigned int first, second;
     ((owners::Obj_2783d0 *)this)->FUN_002783d0((int *)(&second), (int *)(&first));
-    status = (*(MountRegistry*)&DAT_0052a228).FUN_002780c0(second, first) ? 3 : 4;
+    drive.error = (*(MountRegistry*)&DAT_0052a228).FUN_002780c0(second, first) ? 3 : 4;
     return false;
    }
    (*(unsigned char*)&DAT_0052a229) &= (unsigned char)~bit;
@@ -871,15 +872,15 @@ bool XboxSaveDrive_2788c0::FUN_002788c0() {
   }
  }
  if (!mounted) {
-  unsigned int error = XAPILIB::XMountMUA(port, unit, &drive);
+  unsigned int error = XAPILIB::XMountMUA(port, unit, (char*)&driveLetter);
   if (error) {
-   if (error == 0x70) status = 13;
-   else status = FUN_002787c0(error);
+   if (error == 0x70) drive.error = 13;
+   else drive.error = FUN_002787c0(error);
    return false;
   }
  }
  mounted = 1;
- status = 0;
+ drive.error = 0;
  return true;
 }
 
@@ -888,7 +889,7 @@ bool XboxSaveDrive_2788c0::FUN_002788c0() {
 // sym: ?target@fn_fad5a458@@YI_NPAUObj_2789e0@1@PAXH@Z
 bool __fastcall target(Obj_2789e0* self, void*, int arg) {
     int result = ((XboxSaveDrive_nv_2789e0*)(((core::XboxSaveDrive*)(((core::XboxSaveDrive*)(self))))))->FUN_002787c0(arg);
-    self->value = result;
+    self->drive.error = result;
     return result == 0;
 }
 
@@ -899,7 +900,7 @@ bool XboxSaveDrive_278a00::Run(DWORD x, int* out) {
     int r = FUN_002109b6(x, 0);
     *out = r;
     if (r == -1) {
-        error = TranslateError(GetLastError());
+        drive.error = TranslateError(GetLastError());
         return false;
     }
     return true;
@@ -936,25 +937,26 @@ XboxSaveDrive_278a80* XboxSaveDrive_278a80::f2(u8_278a80 flag) {
 namespace fn_00278ab0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // core::XboxSaveDrive::vfunc_17 @ 0x00278ab0
-namespace core { struct XboxSaveDrive { char pad[0xb4]; int result; char more[0x26]; char letter; bool FUN_002788c0(); int FUN_002787c0(int); int vfunc_17(int); }; }
+// (drive1) records.h CoreXboxSaveDrive: the last error and the drive letter (was a 32-bit pad view)
+namespace core { struct XboxSaveDrive : CoreXboxSaveDrive { bool FUN_002788c0(); int FUN_002787c0(int); int vfunc_17(int); }; }
 extern "C++" void __cdecl FUN_0026b800(char *, int, int, int, int, int, int);
 extern "C" int __stdcall FUN_003563f0(char *, char *);
 int core::XboxSaveDrive::vfunc_17(int value) {
     if (!FUN_002788c0()) return 0;
     char path[4];
     char buffer[0x200];
-    path[0] = letter; path[1] = ':'; path[2] = '\\'; path[3] = 0;
+    path[0] = driveLetter; path[1] = ':'; path[2] = '\\'; path[3] = 0;
     FUN_0026b800(buffer, 2, value, 1, 0, 0x202, 0);
     int error = FUN_003563f0(path, buffer);
-    if (error) { result = FUN_002787c0(error); return 0; }
-    result = 0;
+    if (error) { drive.error = FUN_002787c0(error); return 0; }
+    drive.error = 0;
     return 1;
 }
 } // namespace fn_00278ab0
 
 
 // 0x00278b50 FUN_00278b50 (475 B): equivalent/0x00278b50.cpp [wrapped: compile error in a shared declaration (C2556)]
-// sym: ?FUN_00278b50@XboxSaveDrive_278b50@fn_00278b50@@QAEXXZ @13cb711d8ec6 @wd90cd4ca3d03 @vc00651678799
+// sym: ?FUN_00278b50@XboxSaveDrive_278b50@fn_00278b50@@QAEXXZ @13cb711d8ec6 @we3591f9bf88c @vc00651678799
 namespace fn_00278b50 {
 // STATUS: equivalent (tools/equiv.py level 3: 94 inputs, branch coverage 22/28, incomplete)
 // FUN_00278b50 @ 0x00278b50
@@ -965,50 +967,49 @@ namespace XAPILIB { extern "C++" char* __stdcall XMUNameFromDriveLetter(unsigned
 extern "C" int __stdcall FUN_00208b9c(char*, unsigned int*, unsigned int*, unsigned int*);
 extern "C" unsigned int __stdcall FUN_00209a8e(char*);
 extern "C++" void __cdecl FUN_0026b800(char*, int, char*, int, int, int, int);
-struct XboxSaveDrive_278b50 {
- char pad0[0x60]; unsigned int result, size, count, sector;
- char name[0x41]; char padB1[3]; unsigned int previous;
- char padB8[0x14]; char flagCC; char padCD[6]; char digit, letter;
- char padD5[9]; unsigned char drive;
+// (drive1) records.h CoreXboxSaveDrive (was a 32-bit pad view: natively its sector size and count landed on core::Drive's
+// request list, the wild node 0x200_00000000 the drive's vfunc_3 then walked): core::Drive's result, size, count,
+// sector size, label (the memory unit's name) and last error, the name's 'U' / port digit / slot letter, the letter
+struct XboxSaveDrive_278b50 : CoreXboxSaveDrive {
  void FUN_00278060(); void FUN_00278410(); bool FUN_002788c0();
  unsigned int FUN_002787c0(char*); void FUN_00278b50();
 };
 struct DiskInfo { char root[4]; unsigned int low, high, last, unused, other; };
 void XboxSaveDrive_278b50::FUN_00278b50() {
- sector = 512; size = 0; count = 0;
+ drive.media.sectorSize = 512; drive.media.size = 0; drive.media.count = 0;
  int row = 0, col = 0;
- if (drive != 'U') {
-  name[0] = 0;
-  if (flagCC == 'U') { row = -1; col = -1; }
-  else { row = (signed char)digit - '1'; col = (signed char)letter - 'A'; }
+ if (driveLetter != 'U') {
+  drive.media.label.buffer[0] = 0;
+  if (name[0] == 'U') { row = -1; col = -1; }
+  else { row = (signed char)name[7] - '1'; col = (signed char)name[8] - 'A'; }
   ((XboxSaveDrive_278b50*)&(*(unsigned char*)&DAT_0052a228))->FUN_00278060();
   if (row >= 0 && col >= 0) {
    unsigned int index = row + col * 4;
    unsigned char mask = (unsigned char)(1 << (index & 31));
    if ((*(unsigned char*)&DAT_0052a229) & mask) FUN_00278410();
-   if (!((*(unsigned char*)&DAT_0052a228) & mask)) { result = previous = 4; return; }
+   if (!((*(unsigned char*)&DAT_0052a228) & mask)) { drive.media.result = drive.error = 4; return; }
   }
-  if (!FUN_002788c0()) { result = previous; return; }
+  if (!FUN_002788c0()) { drive.media.result = drive.error; return; }
   char tmp[32];
-  char* path = XAPILIB::XMUNameFromDriveLetter(drive,tmp,32);
+  char* path = XAPILIB::XMUNameFromDriveLetter(driveLetter,tmp,32);
   unsigned int err = FUN_002787c0(path);
-  if (err) { result = err; name[0] = 0; return; }
-  for (int i=0;i<0x41;i++) name[i]=0;
-  FUN_0026b800(name,1,tmp,2,0,0x41,0);
+  if (err) { drive.media.result = err; drive.media.label.buffer[0] = 0; return; }
+  for (int i=0;i<0x41;i++) drive.media.label.buffer[i]=0;
+  FUN_0026b800(drive.media.label.buffer,1,tmp,2,0,0x41,0);
  }
  DiskInfo info;
- info.root[0]=drive; info.root[1]=':'; info.root[2]='\\'; info.root[3]=0;
+ info.root[0]=driveLetter; info.root[1]=':'; info.root[2]='\\'; info.root[3]=0;
  if (!FUN_00208b9c(info.root,&info.low,&info.other,&info.last)) {
-  name[0]=0;
+  drive.media.label.buffer[0]=0;
   unsigned int err=FUN_002787c0((char*)XAPILIB::GetLastError());
-  result=previous=err; return;
+  drive.media.result=drive.error=err; return;
  }
- result=previous=0;
- size=info.high ? 0xffffffff : info.low;
+ drive.media.result=drive.error=0;
+ drive.media.size=info.high ? 0xffffffff : info.low;
  unsigned int sec=FUN_00209a8e(info.root);
- if (sec) sector=sec;
- else sector=512;
- count=size/sector;
+ if (sec) drive.media.sectorSize=sec;
+ else drive.media.sectorSize=512;
+ drive.media.count=drive.media.size/drive.media.sectorSize;
 }
 } // namespace fn_00278b50
 
@@ -1022,8 +1023,8 @@ namespace XAPILIB { unsigned long __stdcall GetLastError(); }
 struct Result_278d30 { unsigned state; unsigned char status; };
 struct Source_278d30 { char reserved[0x244]; char data[1]; };
 extern "C++" void __cdecl FUN_0026b800(void *, int, void *, int, int, int, int);
-struct XboxSaveDrive_278d30 {
- char reserved[0xb4]; unsigned error;
+// (drive1) records.h CoreXboxSaveDrive: the last error (was a 32-bit pad view)
+struct XboxSaveDrive_278d30 : CoreXboxSaveDrive {
  unsigned FUN_002787c0(unsigned);
  bool FUN_002784c0(void *, unsigned);
  int FUN_00278d30(Result_278d30 *, Source_278d30 *, int, hulk_uintptr);
@@ -1034,17 +1035,17 @@ int XboxSaveDrive_278d30::FUN_00278d30(Result_278d30 *result, Source_278d30 *sou
   if (err == 0x12) {
    result->status = 0;
    result->state = 2;
-   error = 0;
+   drive.error = 0;
    return 0;
   }
-  error = FUN_002787c0(err);
+  drive.error = FUN_002787c0(err);
   return 1;
  }
  void *data = source->data;
  if (FUN_002784c0(data, value)) {
   FUN_0026b800(&result->status, 1, data, 2, 0, 0x101, 0);
   result->state = 3;
-  error = 0;
+  drive.error = 0;
   return 0;
  }
  return 2;
@@ -1066,35 +1067,34 @@ extern "C" int __stdcall FUN_0021007a(int, hulk_intptr, int, void *, int);
 namespace XAPILIB { extern "C++" hulk_intptr __stdcall GetLastError(); }
 struct DataBlock_278de0 { DWORD words[5]; };
 struct Scratch_278de0 { DWORD unused; DataBlock_278de0 block; };
-struct XboxSaveDrive_278de0 {
- char pad[0xb4];
- int error;
+// (drive1) records.h CoreXboxSaveDrive: the last error (was a 32-bit pad view); the block cache by its fields
+struct XboxSaveDrive_278de0 : CoreXboxSaveDrive {
  int FUN_002787c0(hulk_intptr);
  bool FUN_00278de0();
 };
 bool XboxSaveDrive_278de0::FUN_00278de0() {
- if ((*(int*)((char*)&DAT_0052c270 + 12)) != 2) return true;
- int length = FUN_002109b6((*(int*)((char*)&DAT_0052c270 + 4)), 0);
+ if ((*(SaveBlockCache*)&DAT_0052c270).state != 2) return true;
+ int length = FUN_002109b6((int)(*(SaveBlockCache*)&DAT_0052c270).file, 0);
  if (length == -1) {
-  error = FUN_002787c0(XAPILIB::GetLastError());
+  drive.error = FUN_002787c0(XAPILIB::GetLastError());
   return false;
  }
  Scratch_278de0 scratch;
  if (!FUN_002781c0(length, &scratch.block)) {
-  error = FUN_002787c0(XAPILIB::GetLastError());
+  drive.error = FUN_002787c0(XAPILIB::GetLastError());
   return false;
  }
- unsigned int offset = (*(unsigned int*)((char*)&DAT_0052c270 + 8)) << 13;
+ unsigned int offset = (*(SaveBlockCache*)&DAT_0052c270).block << 13;
  unsigned int end = offset + 8192;
  if (end > (unsigned int)length) end = length;
- DataBlock_278de0 *trailer = (DataBlock_278de0 *)((*(char**)&DAT_0052c270) + end - offset - 20);
+ DataBlock_278de0 *trailer = (DataBlock_278de0 *)((char*)(*(SaveBlockCache*)&DAT_0052c270).buffer + end - offset - 20);
  *trailer = scratch.block;
- if (FUN_002101d4((*(int*)((char*)&DAT_0052c270 + 4)), offset, 0, 0) == (int)offset &&
-     FUN_0021007a((*(int*)((char*)&DAT_0052c270 + 4)), (hulk_intptr)(*(char**)&DAT_0052c270), end - offset, &scratch, 0)) {
-  (*(int*)((char*)&DAT_0052c270 + 12)) = 1;
+ if (FUN_002101d4((int)(*(SaveBlockCache*)&DAT_0052c270).file, offset, 0, 0) == (int)offset &&
+     FUN_0021007a((int)(*(SaveBlockCache*)&DAT_0052c270).file, (hulk_intptr)(char*)(*(SaveBlockCache*)&DAT_0052c270).buffer, end - offset, &scratch, 0)) {
+  (*(SaveBlockCache*)&DAT_0052c270).state = 1;
   return true;
  }
- error = FUN_002787c0(XAPILIB::GetLastError());
+ drive.error = FUN_002787c0(XAPILIB::GetLastError());
  return false;
 }
 } // namespace fn_00278de0
@@ -1107,7 +1107,8 @@ namespace fn_00278ef0 {
 // FUN_00278ef0 @ 0x00278ef0
 
 typedef unsigned int uint_278ef0;
-struct XboxSaveDrive_278ef0 { char pad[0xb4]; uint_278ef0 error; bool FUN_00278de0(); uint_278ef0 FUN_002787c0(hulk_uintptr); void FUN_002789e0(hulk_uintptr); bool FUN_00278ef0(uint_278ef0 source, uint_278ef0 length, bool flag); };
+// (drive1) records.h CoreXboxSaveDrive: the last error (was a 32-bit pad view); the block cache by its fields
+struct XboxSaveDrive_278ef0 : CoreXboxSaveDrive { bool FUN_00278de0(); uint_278ef0 FUN_002787c0(hulk_uintptr); void FUN_002789e0(hulk_uintptr); bool FUN_00278ef0(uint_278ef0 source, uint_278ef0 length, bool flag); };
 namespace XAPILIB { extern "C++" uint_278ef0 __stdcall XCalculateSignatureBegin(uint_278ef0); extern "C++" hulk_uintptr __stdcall GetLastError(); }
 extern "C++" void __stdcall FUN_002120f5(uint_278ef0, void *, uint_278ef0);
 extern "C++" void __stdcall FUN_00212143(uint_278ef0, void *);
@@ -1117,91 +1118,81 @@ extern "C++" bool __cdecl FUN_00278180(void *, uint_278ef0, void *);
 struct Signature { uint_278ef0 word[5]; };
 bool XboxSaveDrive_278ef0::FUN_00278ef0(uint_278ef0 source, uint_278ef0 length, bool flag) {
  if (!FUN_00278de0()) return false;
- (*(uint_278ef0*)((char*)&DAT_0052c270 + 12)) = 0;
- unsigned char *buffer = (*(unsigned char**)&DAT_0052c270);
+ (*(SaveBlockCache*)&DAT_0052c270).state = 0;
+ unsigned char *buffer = (*(SaveBlockCache*)&DAT_0052c270).buffer;
  for (uint_278ef0 i=0;i<8192;++i) buffer[i]=0;
  uint_278ef0 remaining=length;
- if (flag) *(uint_278ef0 *)(*(unsigned char**)&DAT_0052c270)=length;
+ if (flag) *(uint_278ef0 *)(*(SaveBlockCache*)&DAT_0052c270).buffer=length;
  Signature sig;
  if (length>8192) {
-  unsigned char *signBuffer=(*(unsigned char**)&DAT_0052c270);
+  unsigned char *signBuffer=(*(SaveBlockCache*)&DAT_0052c270).buffer;
   uint_278ef0 h=XAPILIB::XCalculateSignatureBegin(0);
-  if(h==0xffffffff) { error=FUN_002787c0(XAPILIB::GetLastError()); return false; }
+  if(h==0xffffffff) { drive.error=FUN_002787c0(XAPILIB::GetLastError()); return false; }
   FUN_002120f5(h,signBuffer,8172);
   FUN_00212143(h,&sig);
-  for(int j=0;j<5;++j) ((uint_278ef0 *)((*(unsigned char**)&DAT_0052c270)+8172))[j]=sig.word[j];
+  for(int j=0;j<5;++j) ((uint_278ef0 *)((*(SaveBlockCache*)&DAT_0052c270).buffer+8172))[j]=sig.word[j];
  }
- if(FUN_002101d4(source,0,0,0)) { error=FUN_002787c0(XAPILIB::GetLastError()); return false; }
+ if(FUN_002101d4(source,0,0,0)) { drive.error=FUN_002787c0(XAPILIB::GetLastError()); return false; }
  uint_278ef0 count=0, read;
  while(remaining>8192) {
-  if(!FUN_0021007a(source,(*(unsigned char**)&DAT_0052c270),8192,&read,0)) { FUN_002789e0(XAPILIB::GetLastError()); return false; }
+  if(!FUN_0021007a(source,(*(SaveBlockCache*)&DAT_0052c270).buffer,8192,&read,0)) { FUN_002789e0(XAPILIB::GetLastError()); return false; }
   if(count==0 && flag) {
-   *(uint_278ef0 *)(*(unsigned char**)&DAT_0052c270)=0;
-   unsigned char *signBuffer=(*(unsigned char**)&DAT_0052c270);
+   *(uint_278ef0 *)(*(SaveBlockCache*)&DAT_0052c270).buffer=0;
+   unsigned char *signBuffer=(*(SaveBlockCache*)&DAT_0052c270).buffer;
    uint_278ef0 h=XAPILIB::XCalculateSignatureBegin(0);
    if(h==0xffffffff) { FUN_002789e0(XAPILIB::GetLastError()); return false; }
    FUN_002120f5(h,signBuffer,8172);
    FUN_00212143(h,&sig);
-   for(int j=0;j<5;++j) ((uint_278ef0 *)((*(unsigned char**)&DAT_0052c270)+8172))[j]=sig.word[j];
+   for(int j=0;j<5;++j) ((uint_278ef0 *)((*(SaveBlockCache*)&DAT_0052c270).buffer+8172))[j]=sig.word[j];
   }
   remaining-=8192;
   ++count;
  }
  if(remaining) {
-  *(uint_278ef0 *)(*(unsigned char**)&DAT_0052c270)=0;
-  if(!FUN_00278180((*(unsigned char**)&DAT_0052c270),remaining-20,&sig)) { FUN_002789e0(XAPILIB::GetLastError()); return false; }
-  for(int j=0;j<5;++j) ((uint_278ef0 *)((*(unsigned char**)&DAT_0052c270)+remaining-20))[j]=sig.word[j];
-  if(!FUN_0021007a(source,(*(unsigned char**)&DAT_0052c270),remaining,&read,0)) { FUN_002789e0(XAPILIB::GetLastError()); return false; }
+  *(uint_278ef0 *)(*(SaveBlockCache*)&DAT_0052c270).buffer=0;
+  if(!FUN_00278180((*(SaveBlockCache*)&DAT_0052c270).buffer,remaining-20,&sig)) { FUN_002789e0(XAPILIB::GetLastError()); return false; }
+  for(int j=0;j<5;++j) ((uint_278ef0 *)((*(SaveBlockCache*)&DAT_0052c270).buffer+remaining-20))[j]=sig.word[j];
+  if(!FUN_0021007a(source,(*(SaveBlockCache*)&DAT_0052c270).buffer,remaining,&read,0)) { FUN_002789e0(XAPILIB::GetLastError()); return false; }
   ++count;
  }
- (*(uint_278ef0*)((char*)&DAT_0052c270 + 4))=source;
- (*(uint_278ef0*)((char*)&DAT_0052c270 + 8))=count-1;
- (*(uint_278ef0*)((char*)&DAT_0052c270 + 12))=1;
+ (*(SaveBlockCache*)&DAT_0052c270).file=source;
+ (*(SaveBlockCache*)&DAT_0052c270).block=count-1;
+ (*(SaveBlockCache*)&DAT_0052c270).state=1;
  return true;
 }
 } // namespace fn_00278ef0
 
 
 // 0x00279160 core::XboxSaveDrive::vfunc_7 (181 B): equivalent/0x00279160.cpp [wrapped: conflict: core::XboxSaveDrive]
-// sym: ?vfunc_7@XboxSaveDrive@core@fn_00279160@@QAEHXZ @02402191afa8 @w6c85f774cc78 @ve0816fb67efb
+// sym: ?vfunc_7@XboxSaveDrive@core@fn_00279160@@QAEHXZ @02402191afa8 @w3fad8ebc734f @ve0816fb67efb
 namespace fn_00279160 {
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 24/24)
 // core::XboxSaveDrive::vfunc_7 @ 0x00279160
 
 namespace core {
-struct XboxSaveDrive {
- char reserved0[0x60];
- int state;
- char reserved64[0x50];
- int resultState;
- char reservedB8[0x10];
- int active;
- unsigned char marker;
- char reservedCD[6];
- signed char port;
- signed char unit;
- char reservedD5[9];
- unsigned char mode;
+// (drive1) records.h CoreXboxSaveDrive (was a 32-bit pad view): core::Drive's result and last error, the open files,
+// the name's 'U' / port digit / slot letter and the drive letter
+struct XboxSaveDrive : CoreXboxSaveDrive {
  void FUN_00278b50();
  int vfunc_7();
 };
 }
 int core::XboxSaveDrive::vfunc_7() {
  FUN_00278b50();
- if (mode != 0x55) {
+ if (driveLetter != 0x55) {
   int portIndex = -1;
   int unitIndex = -1;
-  if (marker != 0x55) {
-   portIndex = port - 0x31;
-   unitIndex = unit - 0x41;
+  if (name[0] != 0x55) {
+   portIndex = (signed char)name[7] - 0x31;
+   unitIndex = (signed char)name[8] - 0x41;
   }
   if (portIndex >= 0 && unitIndex >= 0) {
    unsigned char mask = (unsigned char)(1u << ((portIndex + 4 * unitIndex) & 31));
-   if (active != 0) {
+   if (openFiles != 0) {
     if (((*(unsigned char*)&DAT_0052a229) & mask) != 0) {
      int newState = ((*(unsigned char*)&DAT_0052a228) & mask) ? 3 : 4;
-     state = newState;
-     resultState = newState;
+     drive.media.result = newState;
+     drive.error = newState;
      return false;
     }
    } else {
@@ -1209,35 +1200,36 @@ int core::XboxSaveDrive::vfunc_7() {
    }
   }
  }
- return resultState == 0;
+ return drive.error == 0;
 }
 } // namespace fn_00279160
 
 namespace fn_fad5a458 {
 
 // 0x00279220 core::XboxSaveDrive::vfunc_18 (386 B): equivalent/0x00279220.cpp
-// sym: ?vfunc_18@XboxSaveDrive@fn_fad5a458@@UAEHPBD0PAHE@Z @0a268eeea4a3 @w228fdd37b97d @v27535107ba8f
+// sym: ?vfunc_18@XboxSaveDrive@fn_fad5a458@@UAEHPBD0PAHE@Z @22e535f746b6 @w82da6ffb064d @vb66ee5a7747b
 // STATUS: equivalent (tools/equiv.py level 3: 82 inputs, branch coverage 15/16, incomplete)
 // core::XboxSaveDrive::vfunc_18 @ 0x00279220
 int XboxSaveDrive::vfunc_18(const char *name, const char *source, int *index, unsigned char reuse) {
  if (!FUN_002788c0()) return 0;
  char path[0x208]; char output[0x308];
- path[0]=driveLetter; path[1]=':'; path[2]='\\'; path[3]=0;
+ path[0]=self()->driveLetter; path[1]=':'; path[2]='\\'; path[3]=0;
  FUN_0026b800(path+4,2,name,1,0,0x202,0);
  int slot=-1;
- if (!reuse && slots[*index].handle!=-1) {
+ CoreXboxSaveDriveSlot *slots=self()->slots;   // (drive1) records.h CoreXboxSaveDrive's slots (were a 32-bit pad view's)
+ if (!reuse && slots[*index].handle!=(hulk_uintptr)-1) {
   slot=*index;
-  if (slots[slot].handle!=-1) { FUN_00356611(slots[slot].handle); slots[slot].handle=-1; }
+  if (slots[slot].handle!=(hulk_uintptr)-1) { FUN_00356611(slots[slot].handle); slots[slot].handle=(hulk_uintptr)-1; }
  } else {
-  for (unsigned i=0;i<4;i++) if (slots[i].handle==-1) { slot=i; break; }
+  for (unsigned i=0;i<4;i++) if (slots[i].handle==(hulk_uintptr)-1) { slot=i; break; }
  }
- Slot_279220 *s=&slots[slot];
- s->handle=FUN_003564c0(path,output);
+ CoreXboxSaveDriveSlot *s=&slots[slot];
+ s->handle=(hulk_uintptr)(hulk_intptr)FUN_003564c0(path,output);
  thunk_FUN_00271f20(s->path,path+4,0x202);
  *index=slot;
- int result=FUN_00278d30(source,output,s->handle,s->path);
+ int result=FUN_00278d30(source,output,(int)s->handle,s->path);
  if (result==0) return 1;
- if (result==1) { s->handle=-1; return 0; }
+ if (result==1) { s->handle=(hulk_uintptr)-1; return 0; }
  return vfunc_19(index,source);
 }
 
@@ -1251,12 +1243,9 @@ namespace fn_002793b0 {
 namespace XAPILIB { unsigned long __stdcall GetLastError(); }
 extern "C" int __stdcall FUN_003565ca(int handle, void* data);
 namespace core {
-struct SaveSlot { char name[0x204]; int handle; };
-struct XboxSaveDrive {
-    char unused[0xb4];
-    int state;
-    char reserved[0x38];
-    SaveSlot slots[1];
+// (drive1) records.h CoreXboxSaveDrive: the last error and the enumeration slots (was a 32-bit pad view)
+typedef CoreXboxSaveDriveSlot SaveSlot;
+struct XboxSaveDrive : CoreXboxSaveDrive {
     bool FUN_002788c0();
     int FUN_00278d30(void* result, void* data, int handle, void* name);
     int FUN_002787c0(unsigned long error);
@@ -1264,28 +1253,28 @@ struct XboxSaveDrive {
 };
 int XboxSaveDrive::vfunc_19(int* index, void* result) {
     SaveSlot& slot = slots[*index];
-    if (slot.handle == -1) {
-        state = 1;
+    if (slot.handle == (hulk_uintptr)-1) {
+        drive.error = 1;
         return 0;
     }
     if (!FUN_002788c0()) return 0;
     char data[0x344];
     for (;;) {
-        if (FUN_003565ca(slot.handle, data)) {
-            int answer = FUN_00278d30(result, data, slot.handle, slot.name);
+        if (FUN_003565ca((int)slot.handle, data)) {
+            int answer = FUN_00278d30(result, data, (int)slot.handle, slot.path);
             if (answer == 2) continue;
             if (answer == 1) return 0;
-            if (answer != 0) state = 0;
+            if (answer != 0) drive.error = 0;
             return 1;
         }
         unsigned long error = XAPILIB::GetLastError();
         if (error == 0x12) {
             *(unsigned char*)((char*)result + 4) = 0;
             *(int*)result = 2;
-            state = 0;
+            drive.error = 0;
             return 1;
         }
-        state = FUN_002787c0(error);
+        drive.error = FUN_002787c0(error);
         return 0;
     }
 }
@@ -1301,9 +1290,8 @@ namespace fn_00279490 {
 
 typedef unsigned int uint_279490;
 struct Header_279490 { uint_279490 word[5]; };
-struct XboxSaveDrive_279490 {
- char pad[0xb4];
- uint_279490 error;
+// (drive1) records.h CoreXboxSaveDrive: the last error (was a 32-bit pad view)
+struct XboxSaveDrive_279490 : CoreXboxSaveDrive {
  unsigned char FUN_00278de0();
  uint_279490 FUN_002787c0(hulk_uintptr);
  void FUN_002789e0(hulk_uintptr);
@@ -1318,7 +1306,7 @@ namespace XAPILIB { extern "C++" hulk_uintptr __stdcall GetLastError(); }
 bool XboxSaveDrive_279490::FUN_00279490(hulk_uintptr file, uint_279490 block) {
  if ((*(Cache_279490*)&DAT_0052c270).valid && (*(Cache_279490*)&DAT_0052c270).file == file && (*(Cache_279490*)&DAT_0052c270).block == block) return true;
  uint_279490 length = FUN_002109b6(file, 0);
- if (length == 0xffffffff) { error = FUN_002787c0(XAPILIB::GetLastError()); return false; }
+ if (length == 0xffffffff) { drive.error = FUN_002787c0(XAPILIB::GetLastError()); return false; }
  if (!FUN_00278de0()) return false;
  hulk_uintptr offset = block << 13;
  hulk_uintptr end = offset + 0x2000;
@@ -1329,7 +1317,7 @@ bool XboxSaveDrive_279490::FUN_00279490(hulk_uintptr file, uint_279490 block) {
  uint_279490 bytesRead;
  if (FUN_002101d4(file, offset, 0, 0) != offset ||
      !FUN_0020ff8d(file, (*(Cache_279490*)&DAT_0052c270).buffer, amount, &bytesRead, 0)) {
-  error = FUN_002787c0(XAPILIB::GetLastError()); return false;
+  drive.error = FUN_002787c0(XAPILIB::GetLastError()); return false;
  }
  hulk_uintptr address = (hulk_uintptr)(*(Cache_279490*)&DAT_0052c270).buffer;
  Header_279490 expected = *(Header_279490 *)(address + footer - offset);
@@ -1337,7 +1325,7 @@ bool XboxSaveDrive_279490::FUN_00279490(hulk_uintptr file, uint_279490 block) {
  (*(Cache_279490*)&DAT_0052c270).file = file;
  (*(Cache_279490*)&DAT_0052c270).block = block;
  if (!FUN_002781c0(length, &actual)) { FUN_002789e0(XAPILIB::GetLastError()); return false; }
- for (int i = 0; i < 5; ++i) if (actual.word[i] != expected.word[i]) { error = 12; return false; }
+ for (int i = 0; i < 5; ++i) if (actual.word[i] != expected.word[i]) { drive.error = 12; return false; }
  (*(Cache_279490*)&DAT_0052c270).valid = 1;
  return true;
 }
@@ -1431,28 +1419,30 @@ int core::XboxSaveDrive::vfunc_9(U_279630 name,U_279630 mode,B_279630 writable,S
 
 
 // 0x00279af0 core::XboxSaveDrive::vfunc_11 (182 B): equivalent/0x00279af0.cpp [wrapped: conflict: XAPILIB::GetLastError; core::XboxSaveDrive]
-// sym: ?vfunc_11@XboxSaveDrive@core@fn_00279af0@@UAEHPAXH@Z @e4a5f3dba520 @wec23e7781f11 @vc06251ac854e
+// sym: ?vfunc_11@XboxSaveDrive@core@fn_00279af0@@UAEHPAXH@Z @e4a5f3dba520 @wffe077180671 @vc88d6192d9b7
 namespace fn_00279af0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3003 inputs, branch coverage 14/14)
 // core::XboxSaveDrive::vfunc_11 @ 0x00279af0
 
-namespace core { struct XboxSaveDrive { virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); virtual void vfunc_7(); virtual void vfunc_8(); virtual void vfunc_9(); virtual void vfunc_10(); virtual int vfunc_11(void*, int); char pad[0xb4-4]; int error; char pad2[0xe0-0xb8]; unsigned int slots[4]; bool FUN_002788c0(); bool FUN_00278de0(); bool FUN_00279490(void*, int); int FUN_002787c0(unsigned int); }; }
+namespace core { struct XboxSaveDrive { virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); virtual void vfunc_7(); virtual void vfunc_8(); virtual void vfunc_9(); virtual void vfunc_10(); virtual int vfunc_11(void*, int); CoreXboxSaveDrive* self() { return (CoreXboxSaveDrive*)this; } bool FUN_002788c0(); bool FUN_00278de0(); bool FUN_00279490(void*, int); int FUN_002787c0(unsigned int); }; }
 extern "C++" int __stdcall FUN_002109b6(void*, int);
 namespace XAPILIB { unsigned int __stdcall GetLastError(); }
 int core::XboxSaveDrive::vfunc_11(void* handle, int unused) {  // an int: 0 or 1 in all of eax (FileCommitRequest::vfunc_1 passes it on)
     if (!FUN_002788c0() || !FUN_00278de0()) return 0;
     unsigned int i;
-    for (i = 0; i < 4; ++i) if (slots[i] == (*(unsigned int*)((char*)&DAT_0052c270 + 4))) break;
+    // (drive1) records.h CoreXboxSaveDrive's open file handles and last error (a 32-bit pad view after the vftable
+    // pointer put them 4 bytes off natively); the block cache by its fields
+    for (i = 0; i < 4; ++i) if (self()->files[i] == (*(SaveBlockCache*)&DAT_0052c270).file) break;
     if (i < 4) {
         if (!FUN_00279490(handle, 0)) return 0;
         int result = FUN_002109b6(handle, 0);
-        if (result == -1) { error = FUN_002787c0(XAPILIB::GetLastError()); return 0; }
-        *(*(int**)&DAT_0052c270) = result;
-        (*(int*)((char*)&DAT_0052c270 + 12)) = 2;
+        if (result == -1) { self()->drive.error = FUN_002787c0(XAPILIB::GetLastError()); return 0; }
+        *(int*)(*(SaveBlockCache*)&DAT_0052c270).buffer = result;
+        (*(SaveBlockCache*)&DAT_0052c270).state = 2;
         if (!FUN_00278de0()) return 0;
-        slots[i] = -1;
+        self()->files[i] = (hulk_uintptr)-1;
     }
-    error = 0;
+    self()->drive.error = 0;
     return 1;
 }
 } // namespace fn_00279af0
@@ -1460,31 +1450,32 @@ int core::XboxSaveDrive::vfunc_11(void* handle, int unused) {  // an int: 0 or 1
 namespace fn_fad5a458 {
 
 // 0x00279bb0 core::XboxSaveDrive::vfunc_0_adjbc (152 B): equivalent/0x00279bb0.cpp
-// sym: ?vfunc_0_adjbc@AdjBC@fn_fad5a458@@QAEHPBXIIIIPAXI@Z @8a3261a81c49 @w0602b8ab673f @vb883877a7ef9
+// sym: ?vfunc_0_adjbc@AdjBC@fn_fad5a458@@QAEHPBXIIIIPAXI@Z @8a3261a81c49 @w38f99b4e955d @v36af04a6eaa7
 // STATUS: equivalent (tools/equiv.py level 3: 635 inputs, branch coverage 8/8)
 // core::XboxSaveDrive::vfunc_0_adjbc @ 0x00279bb0
 int AdjBC::vfunc_0_adjbc(const void *name, unsigned int unused, unsigned int block, unsigned int offset, unsigned int size, void *destination, unsigned int extra)
 {
-    XboxSaveDrive *drive = (XboxSaveDrive *)((char *)this - 0xbc);
+    // (drive1) the drive from its core::SignedReader base (records.h CoreXboxSaveDrive +0xbc on the 32-bit build)
+    XboxSaveDrive *drive = (XboxSaveDrive *)((char *)this - (hulk_uintptr)&((CoreXboxSaveDrive*)0)->vftableReader);
     if (!drive->FUN_002788c0()) return 0;
     int result = FUN_002109b6(name, 0);
     if (result == -1) {
-        drive->error = drive->FUN_002787c0(XAPILIB::GetLastError());
+        drive->self()->drive.error = drive->FUN_002787c0(XAPILIB::GetLastError());
         return 0;
     }
     if ((block << 13) < (unsigned int)result) {
         if (!drive->FUN_00279490(name, block)) return 0;
-        unsigned char *src = (*(unsigned char**)&DAT_0052c270) + offset;
+        unsigned char *src = (*(SaveBlockCache*)&DAT_0052c270).buffer + offset;
         memcpy(destination, src, size);
     }
-    drive->error = 0;
+    drive->self()->drive.error = 0;
     return 1;
 }
 
 } // namespace fn_fad5a458
 
 // 0x00279c50 core::XboxSaveDrive::vfunc_0_adjc0 (197 B): equivalent/0x00279c50.cpp [wrapped: conflict: XboxSaveDrive]
-// sym: ?vfunc_0_adjc0@SaveWriter@fn_00279c50@@QAEHPAXH0IIPBXPAHH@Z @eab393483749 @w27e7c56a8ca7 @vb6277b5036a6
+// sym: ?vfunc_0_adjc0@SaveWriter@fn_00279c50@@QAEHPAXH0IIPBXPAHH@Z @eab393483749 @w7260bf684b04 @vb6277b5036a6
 namespace fn_00279c50 {
 // STATUS: equivalent (tools/equiv.py level 3: 58 inputs, branch coverage 6/6)
 // core::XboxSaveDrive::vfunc_0_adjc0 @ 0x00279c50
@@ -1501,31 +1492,28 @@ struct XboxSaveDrive;
 struct SaveWriter {
     int vfunc_0_adjc0(void* path, int unused, void* data, unsigned offset, unsigned length, const void* source, int* result, int unused2);
 };
-struct XboxSaveDrive {
-    char pre[0xb4];
-    int error;
-    char middle[8];
-    SaveWriter writer;
+// (drive1) records.h CoreXboxSaveDrive: the last error, the core::SignedWriter base (was a 32-bit pad view)
+struct XboxSaveDrive : CoreXboxSaveDrive {
     bool FUN_002788c0();
     int FUN_002787c0(unsigned long);
     bool FUN_00279490(void*, void*);
 };
 int SaveWriter::vfunc_0_adjc0(void* path, int unused, void* data, unsigned offset, unsigned length, const void* source, int* result, int unused2) {
-    XboxSaveDrive* drive = (XboxSaveDrive*)((char*)this - 0xc0);
+    XboxSaveDrive* drive = (XboxSaveDrive*)((char*)this - (hulk_uintptr)&((CoreXboxSaveDrive*)0)->vftableWriter);
     if (!drive->FUN_002788c0()) return 0;
     int value = FUN_002109b6(path, 0);
     if (value == -1) {
-        drive->error = drive->FUN_002787c0(XAPILIB::GetLastError());
+        drive->drive.error = drive->FUN_002787c0(XAPILIB::GetLastError());
         return 0;
     }
     if (!drive->FUN_00279490(path, data)) return 0;
-    (*(int*)((char*)&DAT_0052c270 + 12)) = 0;
-    memcpy((*(unsigned char**)&DAT_0052c270) + offset, source, length);
+    (*(SaveBlockCache*)&DAT_0052c270).state = 0;
+    memcpy((*(SaveBlockCache*)&DAT_0052c270).buffer + offset, source, length);
     unsigned n = (unsigned)value + 0x2013;
     unsigned quotient = (unsigned)(((unsigned __int64)n * 0x7fb031e1) >> 44);
-    (*(int*)((char*)&DAT_0052c270 + 12)) = 2;
+    (*(SaveBlockCache*)&DAT_0052c270).state = 2;
     *result = value - quotient * 20;
-    drive->error = 0;
+    drive->drive.error = 0;
     return 1;
 }
 } // namespace fn_00279c50

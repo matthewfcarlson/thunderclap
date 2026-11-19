@@ -358,12 +358,12 @@ void XboxDrive_26f290::FUN_0026f290()
     out[0] = (char)((*(unsigned short*)&DAT_0042ab54) >> 8);
     FUN_00208b9c(local.path, &local.foundSize, local.second, local.first);
     if (local.error)
-        drive.size = 0xffffffff;
+        drive.media.size = 0xffffffff;
     else
-        drive.size = local.foundSize;
+        drive.media.size = local.foundSize;
     unsigned int n = FUN_00209a8e(local.path);
-    drive.sectorSize = n ? n : 0x200;
-    drive.count = drive.size / drive.sectorSize;
+    drive.media.sectorSize = n ? n : 0x200;
+    drive.media.count = drive.media.size / drive.media.sectorSize;
 }
 
 
@@ -576,7 +576,7 @@ core::XboxDrive_26f570::XboxDrive_26f570(const char* nameArg, int heap) {
  drive.vftable=DAT_0042b52c; drive.vftableObject=DAT_0042b524; drive.vftableMutable=DAT_0042b514;
  openFiles=0; path=0; pathLength=0; FUN_002705f0();
  if(nameArg[0]=='D' && nameArg[1]==':' && nameArg[2]==0) {
-  type=0x22; drive.label.text=DAT_00445644;
+  type=0x22; drive.media.label.text=DAT_00445644;
   if(!(*(DriveThread_26f570**)&DAT_00528408)) {
    FUN_0026d820(((char*)&DAT_005283e8)); DAT_004cdbb0=heap;
    DriveThread_26f570* p=(DriveThread_26f570*)FUN_00266e00(heap,(int)sizeof(CoreDriveThread));
@@ -588,7 +588,7 @@ core::XboxDrive_26f570::XboxDrive_26f570(const char* nameArg, int heap) {
   if(nameArg[0]=='Z' && nameArg[1]==':' && nameArg[2]==0) type=0x3b;
   else if(nameArg[0]=='W' && nameArg[1]==':' && nameArg[2]==0) type=0x20;
   const char* title="Xbox Hard Disk";
-  for(int i=0;i<15;++i) drive.label.buffer[i]=title[i];
+  for(int i=0;i<15;++i) drive.media.label.buffer[i]=title[i];
   if(!(*(DriveThread_26f570**)&DAT_0052840c)) {
    FUN_0026d820(((char*)&DAT_005283cc)); DAT_004cdbb0=heap;
    DriveThread_26f570* p=(DriveThread_26f570*)FUN_00266e00(heap,(int)sizeof(CoreDriveThread));
@@ -596,7 +596,7 @@ core::XboxDrive_26f570::XboxDrive_26f570(const char* nameArg, int heap) {
    lock=((char*)&DAT_005283cc); drive.driveThread=(*(DriveThread_26f570**)&DAT_0052840c);
   } else { lock=((char*)&DAT_005283cc); drive.driveThread=(*(DriveThread_26f570**)&DAT_0052840c); ((DriveThread_26f570*)drive.driveThread)->retain(); }
  }
- drive.result=0; _strncpy(name,nameArg,16); name[16]=0;
+ drive.media.result=0; _strncpy(name,nameArg,16); name[16]=0;
 }
 } // namespace fn_0026f570
 

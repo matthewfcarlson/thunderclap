@@ -2,6 +2,7 @@
 // object 0x00275750..0x002757f0 (kind game, layer engine, confidence medium), dominant class core::DriveMediaRequest
 #include "tree_prelude.h"
 #include "decls/instance_drive.h"
+#include "decls/drive_media.h"
 #include "compat/ptr.h"
 #include "decls/data/engine/core.h"
 #define TREE_TU_BEGIN namespace fn_ff8d14c6 {
@@ -14,15 +15,18 @@ namespace fn_ff8d14c6 { extern "C" char DAT_0042b914[]; }   // (x64t6) the game 
 
 // ---- declarations shared by the functions below
 namespace fn_ff8d14c6 {
+// (drive1) records.h CoreRequest's words: the queue link, then the drive (0x00275600 stores it); the media request's
+// own word is the caller's media block (decls/drive_media.h), which vfunc_1 0x00274520 fills. As ints (`dummy`, `b`,
+// `value`) the 64-bit builds stored the block's address over the drive pointer, truncated.
 struct DriveRequest_275750 {
     virtual void* Run_00275780(char);
-    int dummy;
+    void* next;
     DriveRequest_275750(HulkInstanceDrive* x);   // (x64t13) 0x00275600 takes the drive (was an int)
 };
 struct DriveMediaRequest_275750 : DriveRequest_275750 {
-    int b;
-    int value;
-    DriveMediaRequest_275750(HulkInstanceDrive* x, int y);
+    HulkInstanceDrive* drive;
+    CoreDriveMedia* value;
+    DriveMediaRequest_275750(HulkInstanceDrive* x, CoreDriveMedia* y);
 };
 extern void* hulk_at_0042b9bc[];
 class Pool_275780 {
@@ -54,9 +58,9 @@ class DriveMediaRequest_275780 {
 
 
 // 0x00275750 FUN_00275750 (37 B): matches/0x00275750.cpp
-// sym: ??0DriveMediaRequest_275750@fn_ff8d14c6@@QAE@PAUHulkInstanceDrive@@H@Z
+// sym: ??0DriveMediaRequest_275750@fn_ff8d14c6@@QAE@PAUHulkInstanceDrive@@PAUCoreDriveMedia@@@Z
 // Same code shape as 0x00275390 (propagated; names are from that function)
-DriveMediaRequest_275750::DriveMediaRequest_275750(HulkInstanceDrive* x, int y) : DriveRequest_275750(x) {
+DriveMediaRequest_275750::DriveMediaRequest_275750(HulkInstanceDrive* x, CoreDriveMedia* y) : DriveRequest_275750(x) {
     value = y;
     FinishInit();
 }

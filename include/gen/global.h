@@ -3998,7 +3998,7 @@ class CMemoryCardManager : public ::core::IDriveErrorCallback {
 public:
     virtual bool vfunc_0(void*, void*, void*, void*, void*); // overrides core::IDriveErrorCallback slot 0
     int f_04;
-    int f_08;
+    void* f_08; // (drive1) the memory-card slots (decls/drive_media.h GameMemoryCardManager)
 };
 
 // .?AVCMemorySystem@@  vftable 0x40d12c (1)

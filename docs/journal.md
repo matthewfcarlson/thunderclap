@@ -1409,3 +1409,26 @@ blocks fight::Action's whole family: the records come first there.
   map is the measure.
 - The bound callbacks bind by IR shape only: a stdcall free definition `void (const char*)` binds to a caller's
   `void ()` member declaration, and then reads the Lua argument from the `this` register (the FE's `fe_SetupSM*`).
+
+## drive1 (D139, 2026-11-18): blocker B1, the U: save drive's wild request node
+
+- **Root cause.** The save drive's own views of itself were 32-bit pad views (`char pad[0x60]; unsigned result, size,
+  count, sector; ...`, `pad[0xb4]`, `pad[0xcc]`). 0x00278b50 (the media query the mount runs) writes `sector = 512` at
+  +0x6c and `count = 0` at +0x68. Natively those 8 bytes are core::Drive's request list head (records.h
+  CoreDrive.requests is at +0x68 on arm64), so the head became 0x200_00000000 and core::Drive::vfunc_3 0x00272df0
+  read `node->next` at +8, the wild 0x200_00000008. The gate's three baseline blocks of the cluster (0x00270c80,
+  0x00270f10, 0x00270f90) were not the cause: as census1 noted, the gate does not see a cross-block view mismatch.
+- Every view in XboxSaveDrive.cpp is now records.h CoreXboxSaveDrive (or CoreDriveThread). The save block cache
+  DAT_0052c270 is read by its fields; as +4/+8/+0xc byte offsets the 64-bit builds hit the buffer pointer's upper half.
+  Find handles are pointer-sized. FUN_0026fd50 has one C declaration, the definition's; the C++ overloads bound
+  nothing, so vfunc_5's rounding was lost.
+- The memory-card manager's U: slot (0x0008c470: `FUN_0008d6d0(0xc8)`) is a record now. Its two 0x54-byte blocks are
+  copies of core::Drive's media block (+0x60: result, size, count, sector size, label), which
+  core::DriveMediaRequest::vfunc_1 copies in 21 words. decls/drive_media.h holds CoreDriveMedia (nested in CoreDrive,
+  so one copy is right on every target), GameMemoryCardSlot and GameMemoryCardManager. Ten memory-card blocks indexed
+  the slots with 0xc8-byte pad strides. The media request stored its target as an int over the drive pointer, and
+  InstanceDrive's slots 4 and 11 took that pointer as an int.
+- Lesson: a struct view `char pad[N]; T field;` of an object that has pointers before N is wrong natively even when
+  every sibling block uses the record. It writes into the record's fields at shifted offsets. The crash shows up later,
+  in another TU's walk of the field it hit (here the request list). Look for the writer through the field's 32-bit
+  offset.
