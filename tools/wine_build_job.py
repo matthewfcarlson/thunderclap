@@ -459,7 +459,7 @@ def cmd_submit(a):
         slots = a.slots or 8
     spec = {"lineage": lineage, "stages": stages, "gfx": bool(a.gfx), "state": "seed" if seed else a.state, "map": a.map, "jobs": slots,
             "inputs_stamp": stamp, "deletions": dele, "env": dict(OPT_ENV[a.opt], **dict(e.split("=", 1) for e in a.env or [])),
-            "fetch": a.fetch or [], "slots_low": a.slots_low,
+            "fetch": a.fetch or [], "slots_low": a.slots_low, "commit": jobq.head_commit(),
             "inputs_guard": [{k: r.get(k) for k in ("name", "state", "why", "private", "changed") if r.get(k) is not None}
                              for r in guard_res]}
     if a.allow_stale:

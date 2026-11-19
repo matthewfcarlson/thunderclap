@@ -538,7 +538,9 @@ def main():
         sys.path.pop(0)
     if input_guard is not None:
         try:
-            gres = input_guard.host_check(lin, inp)
+            import inspect     # (an input_guard from before the commit argument takes two)
+            gres = (input_guard.host_check(lin, inp, spec.get("commit"))
+                    if "job_commit" in inspect.signature(input_guard.host_check).parameters else input_guard.host_check(lin, inp))
         except Exception as e:      # noqa: BLE001 (a guard bug must not cost the build: say so in the summary)
             gres = [{"name": "?", "state": "error", "why": repr(e)[:300]}]
         summ["inputs_guard"] = gres

@@ -288,8 +288,37 @@ def read_files(path):
     return d.get("files") if d.get("hash") == read_stamp(path) else None
 
 
-def write_stamp(path, dg, per):
-    for p, text in ((path + ".files.json", json.dumps({"hash": dg, "files": per}, indent=0, sort_keys=True) + "\n"),
+def read_built_from(path):
+    """The commit a stamp's sources were at when the input was built ({"commit", "dirty"}), if recorded with it."""
+    try:
+        with open(path + ".files.json") as f:
+            d = json.load(f)
+    except (OSError, ValueError):
+        return None
+    return d.get("built_from") if d.get("hash") == read_stamp(path) else None
+
+
+def checkout_commit(root=ROOT, paths=()):
+    """{"commit": short HEAD of ROOT, "dirty": PATHS (or the whole checkout) have uncommitted edits}, or None outside git."""
+    top = git(["rev-parse", "--show-toplevel"], root).strip()
+    if not top or os.path.realpath(top) != os.path.realpath(root):
+        return None         # (a workspace below the checkout is not the checkout's HEAD)
+    c = git(["rev-parse", "--short=10", "HEAD"], root).strip()
+    if not c:
+        return None
+    st = git(["status", "--porcelain=v1", "--untracked-files=no", "--"] + list(paths or ["."]), root).strip()
+    return {"commit": c, "dirty": bool(st)}
+
+
+def commit_text(bf):
+    return "%s%s" % (bf["commit"], " + uncommitted edits" if bf.get("dirty") else "") if bf else "an unrecorded commit"
+
+
+def write_stamp(path, dg, per, built_from=None):
+    rec = {"hash": dg, "files": per}
+    if built_from:
+        rec["built_from"] = built_from
+    for p, text in ((path + ".files.json", json.dumps(rec, indent=0, sort_keys=True) + "\n"),
                     (path, dg + "\n")):
         tmp = p + ".%d.tmp" % os.getpid()
         with open(tmp, "w") as f:
@@ -299,8 +328,9 @@ def write_stamp(path, dg, per):
 
 def stamp(g, inp_dir, view=None, inp_root=ROOT):
     """Stamp INP_DIR (an input of guard G) as built from VIEW's sources (default: this checkout). Producers call this."""
-    dg, per = digest(g.files(view or View(ROOT), inp_root), g.base)
-    write_stamp(g.stamp_path(inp_dir), dg, per)
+    view = view or View(ROOT)
+    dg, per = digest(g.files(view, inp_root), g.base)
+    write_stamp(g.stamp_path(inp_dir), dg, per, checkout_commit(view.root, g.pathspecs))
     return dg
 
 
@@ -310,7 +340,7 @@ def source_stamp(name, root=ROOT):
     try:
         g = guard(name)
         dg, per = digest(g.files(View(root), root), g.base)
-        return g, dg, per
+        return g, dg, per, checkout_commit(root, g.pathspecs)
     except (OSError, KeyError) as e:
         print("input_guard: no source stamp for %s (%s)" % (name, e), file=sys.stderr)
         return None
@@ -318,8 +348,8 @@ def source_stamp(name, root=ROOT):
 
 def put_stamp(tok, inp_dir):
     if tok:
-        g, dg, per = tok
-        write_stamp(g.stamp_path(inp_dir), dg, per)
+        g, dg, per = tok[:3]
+        write_stamp(g.stamp_path(inp_dir), dg, per, tok[3] if len(tok) > 3 else None)
 
 
 def check(g, inp_dir, view, inp_root):
@@ -334,6 +364,9 @@ def check(g, inp_dir, view, inp_root):
     r["hash"] = dg
     if st:
         r["stamp"] = st
+        bf = read_built_from(sp)
+        if bf:
+            r["built_from"] = bf
         if st == dg:
             r.update(state="fresh", why="content hash")
             return r
@@ -399,7 +432,7 @@ def rmtree(p):
     shutil.rmtree(p, ignore_errors=True)
 
 
-def describe(g, r, root=ROOT):
+def describe(g, r, root=ROOT, job=None):
     ch = r.get("changed")
     if ch and "mtime" in r["why"]:
         what = "it is older than %s%s (no stamp; by mtime)" % (", ".join(ch[:6]), " and %d more" % (len(ch) - 6) if len(ch) > 6 else "")
@@ -412,8 +445,16 @@ def describe(g, r, root=ROOT):
     else:
         what = "it was built from other sources (content hash %s, the job's is %s)" % (r.get("stamp", "?")[:12], r["hash"][:12])
     nc = newest_commit(g, root)
-    return "%s [%s] is stale: %s%s" % (os.path.relpath(r["dir"], root) if r["dir"].startswith(root) else r["dir"], g.what,
-                                       what, "; newest commit touching its sources: " + nc if nc else "")
+    return "%s [%s] is stale: %s; %s%s" % (os.path.relpath(r["dir"], root) if r["dir"].startswith(root) else r["dir"], g.what,
+                                         what, compared_text(r, job), "; newest commit touching its sources: " + nc if nc else "")
+
+
+def compared_text(r, job):
+    """What a stale verdict compared: the commit the input was built from against the job's sources' commit."""
+    built = ("built from %s" % commit_text(r["built_from"])) if r.get("built_from") else (
+        "built from an unrecorded commit (stamp %s)" % r["stamp"][:12] if r.get("stamp") else "built without a stamp")
+    return "%s, compared against the job's sources at %s (content hash %s)" % (
+        built, commit_text(job) if job else "an unrecorded commit", r["hash"][:12])
 
 
 def check_submit(ws, live, local_dir, private, allow_stale=False, rebuild=True, log=None, root=ROOT):
@@ -445,7 +486,10 @@ def check_submit(ws, live, local_dir, private, allow_stale=False, rebuild=True, 
             r["why"] += "; stamped now"
         if r["state"] != "stale":
             continue
-        msg = describe(g, r, root)
+        job = checkout_commit(root, g.pathspecs)
+        if job and ws != root:
+            job = dict(job, commit=job["commit"] + " (workspace %s)" % os.path.relpath(ws, root))
+        msg = describe(g, r, root, job)
         if r["private"]:
             problems.append(msg + ". It is your private build (%s): rebuild it from the job's sources%s." % (
                 g.flag, ", or --allow-stale" if not allow_stale else ""))
@@ -508,7 +552,7 @@ class lock:
         self.f.close()
 
 
-def host_check(src_root, inp_root):
+def host_check(src_root, inp_root, job_commit=None):
     """On a build host: every guarded input under INP_ROOT against the job's sources under SRC_ROOT. Returns
     [result]; state "stale" means the job would link an input that does not fit its sources. Inputs without a
     stamp are reported ("unstamped") but not judged: mtimes mean nothing on a host."""
@@ -524,8 +568,10 @@ def host_check(src_root, inp_root):
         r = check(g, inp_dir, view, inp_root)
         r.pop("dir", None)
         if r["state"] == "stale":
-            r["message"] = "%s [%s] is stale: %s" % (g.input, g.what, ("sources changed: " + ", ".join(r["changed"][:6]))
-                                                     if r.get("changed") else "content hash %s, the job's %s" % (r["stamp"][:12], r["hash"][:12]))
+            r["message"] = "%s [%s] is stale: %s; %s" % (
+                g.input, g.what, ("sources changed: " + ", ".join(r["changed"][:6])) if r.get("changed") else
+                "content hash %s, the job's %s" % (r["stamp"][:12], r["hash"][:12]),
+                compared_text(r, {"commit": job_commit[:10]} if job_commit else None))
         out.append(r)
     return out
 
