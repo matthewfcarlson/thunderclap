@@ -16,6 +16,7 @@ A control without prng lines (an image older than div10) leaves
 that kind unchecked against it; the proof's own prng result is still reported. Exit 1 when a gate fails.
 """
 import argparse
+import json
 import os
 import re
 import sys
@@ -61,6 +62,18 @@ def main(argv):
     ap.add_argument("--known", default="", help="comma list of frames to mark as known transients in the listing")
     a = ap.parse_args(argv)
     known = {int(x) for x in a.known.split(",") if x}
+    # (integ2, D126; rev5's R4) a build made with a development switch (TREE_TU_OFF, EQUIV_OFF, ...) proves nothing
+    for name, x in (("control", a.control), ("proof", a.proof)):
+        for sub in ("nb-out", "wine-out"):
+            sp = os.path.join(ROOT, "build/jobs/out", str(x), sub, "summary.json")
+            if os.path.exists(sp):
+                try:
+                    off = (json.load(open(sp)) or {}).get("off")
+                except ValueError:
+                    off = None
+                if off:
+                    sys.exit("ckpt_gate: the %s %s was built with development switches %s: it proves nothing" % (
+                        name, x, off))
     c, p = load(a.control), load(a.proof)
     fail = 0
     for kind in ("ckpt", "prng"):

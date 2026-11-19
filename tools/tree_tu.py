@@ -850,7 +850,29 @@ def ledger_append(entries, path=None):
         with open(path, "a") as f:
             for e in new:
                 f.write(json.dumps(e, sort_keys=True) + "\n")
+    if os.path.abspath(path) == os.path.abspath(LEDGER) and entries:
+        unproven_baseline_drop(entries)
     return len(new)
+
+
+def unproven_baseline_drop(entries, path=None):
+    """(integ2, D126) The ratchet: a proven (addr, mode) leaves config/unproven-baseline.json. Returns the removed."""
+    path = path or UNPROVEN_BASELINE
+    if not os.path.exists(path):
+        return []
+    b = load_unproven_baseline(path)
+    removed = []
+    for e in entries:
+        ent = b["blocks"].get(e["addr"])
+        if ent and e["mode"] in ent.get("modes", {}) and e.get("promotable", True) is not False and \
+                e.get("status", "equivalent") == "equivalent":
+            del ent["modes"][e["mode"]]
+            removed.append((e["addr"], e["mode"]))
+            if not ent["modes"]:
+                del b["blocks"][e["addr"]]
+    if removed:
+        write_unproven_baseline(b, path)
+    return removed
 
 
 def mark_views(recs, rec, vs, ledger):
@@ -1017,11 +1039,112 @@ def count_codes(counts, r):
             counts["proof: %s (%s)" % (st, m)] += 1
 
 
+UNPROVEN_BASELINE = os.path.join(ROOT, "config", "unproven-baseline.json")
+
+
+def load_unproven_baseline(path=None):
+    """(integ2, D126) {"blocks": {addr: {"modes": {mode: {"code", "accepted", "by"}}, "why"}}} of config/unproven-baseline.json: the equivalent
+    blocks whose current code had no ledger line when the gate began (2026-11-11's bulk hash pass recorded hashes before
+    the ledger existed). It only shrinks: `hash --proven` removes a block's modes as they are proven, and a block is
+    added only by `tree_tu.py unproven-accept ADDR --why TEXT`."""
+    path = path or UNPROVEN_BASELINE
+    try:
+        with open(path) as f:
+            return json.load(f)
+    except (OSError, ValueError):
+        return {"blocks": {}}
+
+
+def write_unproven_baseline(b, path=None):
+    path = path or UNPROVEN_BASELINE
+    b["blocks"] = {k: b["blocks"][k] for k in sorted(b["blocks"])}
+    b["total"] = sum(len(v.get("modes", {})) for v in b["blocks"].values())
+    with open(path + ".tmp", "w") as f:
+        json.dump(b, f, indent=1)
+        f.write("\n")
+    os.replace(path + ".tmp", path)
+
+
+def unproven_baseline_growth(ref, root=None):
+    """(integ2, D126; rev5's R3) ["addr mode"] of the (addr, mode, code) entries config/unproven-baseline.json holds now
+    that REF's didn't (new or another hash), unless that mode's own stamp says `by: unproven-accept`, or `by:
+    unproven-seed` when REF had no list at all (the seed happens once); and ["(deleted)"] when REF had the list and
+    the tree doesn't. A determined hand-edit can still fake a stamp; review covers that, as for the x64 baseline."""
+    root = root or ROOT
+    r = subprocess.run(["git", "show", "%s:config/unproven-baseline.json" % ref], cwd=root, capture_output=True,
+                       text=True)
+    had = r.returncode == 0 and bool(r.stdout.strip())
+    before = json.loads(r.stdout).get("blocks", {}) if had else {}
+    path = os.path.join(root, "config", "unproven-baseline.json")
+    if had and not os.path.exists(path):
+        return ["(deleted)"]
+    now = load_unproven_baseline(path).get("blocks", {})
+    out = []
+    for addr, ent in now.items():
+        old = before.get(addr, {}).get("modes", {})
+        for mode, m in ent.get("modes", {}).items():
+            om = old.get(mode) or {}
+            if om.get("code") == m.get("code"):
+                continue
+            # (rev5) an accept stamp vouches for a changed code only when the stamp itself is new: REF had no such
+            # mode, or REF's stamp differs (a hash swapped by hand under last week's accept is reported)
+            if m.get("by") == "unproven-accept" and m.get("accepted") and \
+                    (not om or (om.get("by"), om.get("accepted")) != (m.get("by"), m.get("accepted"))):
+                continue
+            if m.get("by") == "unproven-seed" and m.get("accepted") and not had:
+                continue
+            out.append("%s %s" % (addr, mode))
+    return out
+
+
+def code_ledger_index(path=None):
+    """{(addr, mode, code hash)} of the ledger: a code a passing run proved, under any checker view."""
+    path = path or LEDGER
+    out = set()
+    if os.path.exists(path):
+        with open(path) as f:
+            for l in f:
+                l = l.strip()
+                if l.startswith("{"):
+                    e = json.loads(l)
+                    # (rev5's R2) only a passing proof counts
+                    if e.get("promotable") is False or e.get("status", "equivalent") != "equivalent":
+                        continue
+                    out.add((e["addr"], e["mode"], e["code"]))
+    return out
+
+
+def unproven_code(checks, base=None, ledger=None, wine=True):
+    """(integ2, D126) [(addr, mode)] of the equivalent blocks among CHECKS whose current code hash in a mode has no
+    passing ledger line under any view and that the unproven baseline doesn't list FOR THAT HASH (rev5's R1: an
+    exemption is pinned to the code it was granted for; edited code needs its own proof): what materialize refuses.
+    With WINE, an equivalent block without a clang code hash is unproven too (nothing says what runs)."""
+    base = base if base is not None else load_unproven_baseline()
+    led = ledger if ledger is not None else code_ledger_index()
+    known = base.get("blocks", {})
+    out = []
+    for r in checks:
+        if r.get("kind") != "equivalent":
+            continue
+        for mode, key in (("msvc", "code_hash"), ("wine", "wine_code_hash")):
+            if mode == "wine" and not wine:
+                continue
+            h = r.get(key)
+            if h and (r["addr"], mode, h) in led:
+                continue
+            if h and (known.get(r["addr"], {}).get("modes", {}).get(mode) or {}).get("code") == h:
+                continue
+            out.append((r["addr"], mode))
+    return out
+
+
 def failing(counts, unproven=True):
     """verify's failure count of a summary's counts (also materialize's, which passes UNPROVEN=False: the Wine build
     builds what the tree holds; the ledger's verdict is verify's)."""
-    return sum(n for k, n in counts.items() if k.split(" ")[0] in ("matches", "equivalent", "pinned", "ambiguous",
-                                                                    "overreach") + (("unproven",) if unproven else ())
+    return sum(n for k, n in counts.items() if (k.split(" ")[0] in ("matches", "equivalent", "pinned", "ambiguous",
+                                                                     "overreach") + (("unproven",) if unproven else ())
+                                                 or k in ("unproven code, not in baseline",
+                                                          "unproven baseline grew without accept"))
                and not k.endswith((" match", " compiled", ": same")))
 
 
@@ -1103,7 +1226,7 @@ def reach_files(paths):
 JOB_META = ".jobq/local-inputs.json"
 JOB_REF = ".jobq/ref"
 GEN_PREFIX = "include/gen/"
-CONFIG_READ = {"verify": ["config/data.json", "config/proof-ledger.jsonl"],
+CONFIG_READ = {"verify": ["config/data.json", "config/proof-ledger.jsonl", "config/unproven-baseline.json"],
                "check": ["config/data.json", "config/proof-ledger.jsonl"], "x64": ["config/x64-baseline.json"],
                "gen": ["config/gen-sizes.json"]}
 _META = []
@@ -1421,7 +1544,8 @@ def verify(paths, jobs=4, relocs=False, out=None, vs_standalone=False, wine=True
         f.close()
     return {"tus": len(paths), "cache_hits": hits, "counts": dict(sorted(counts.items())), "errors": errors[:20],
             "n_errors": len(errors), "inputs": inputs_digest(paths),
-            "ledger": None if not view else "none" if led is None else len(led)}
+            "ledger": None if not view else "none" if led is None else len(led),
+            "unproven_baseline": load_unproven_baseline().get("total", 0)}    # (D126) the list's size, for status
 
 
 # ------------------------------------------------------------------------------------------------------- materialize
@@ -1487,6 +1611,16 @@ def materialize(root, out, jobs=4, relocs=False, wine=True):
     recs_out = os.path.join(out, "checks.jsonl")
     s = verify(tus, jobs=jobs, relocs=relocs, out=recs_out, wine=wine, view=False)
     checks = [json.loads(l) for l in open(recs_out)]
+    # (integ2, D126) the Wine build runs only proven code: an equivalent block whose code hash in a mode has no ledger
+    # line (under any view) and that config/unproven-baseline.json doesn't list stops the materialize
+    if "unprovengate" not in os.environ.get("TREE_TU_OFF", ""):
+        bad = unproven_code(checks, wine=wine)
+        if bad:
+            s["counts"]["unproven code, not in baseline"] = len(bad)
+            s["unproven_refused"] = ["%s %s" % x for x in bad[:200]]
+    s["unproven_baseline"] = load_unproven_baseline().get("total", 0)
+    # (rev5's R4) a build materialized with a development switch proves nothing: it says so
+    s["off"] = sorted(x for x in os.environ.get("TREE_TU_OFF", "").split(",") if x)
     order = {p: i for i, p in enumerate(sorted(os.path.relpath(p, out) for p in tus))}
     checks.sort(key=lambda r: (order.get(r["tu"], 0), r["addr"]))
     # the link order (the order of the objects, which decides e.g. the order of clang's own dynamic initializers): the
@@ -1510,7 +1644,8 @@ def materialize(root, out, jobs=4, relocs=False, wine=True):
     gen = {"tu_files": len(paths), "verified_functions": sum(modes.values()), "modes": dict(modes),
            "source": "committed tree (tools/tree_tu.py materialize)"}
     for name, obj in (("manifest.json", man), ("report.json", {"generator": gen, "summary": s, "checks": checks}),
-                      ("state.json", {"wrap": {}, "isolate": {}, "local_only": [], "iso_plain": {}})):
+                      ("state.json", {"wrap": {}, "isolate": {}, "local_only": [], "iso_plain": {},
+                                      **({"off": s["off"]} if s["off"] else {})})):
         with open(os.path.join(out, name) + ".tmp", "w") as f:
             json.dump(obj, f)
         os.replace(os.path.join(out, name) + ".tmp", os.path.join(out, name))
@@ -1888,6 +2023,17 @@ def main(argv=None):
     p.add_argument("--jobs", type=int, default=4)
     p.add_argument("--relocs", action="store_true")
     p.add_argument("--no-wine-code", action="store_true", help="skip the clang code hashes (no clang here)")
+    p = sub.add_parser("unproven-accept", help="(D126) list an equivalent block's unproven modes in "
+                       "config/unproven-baseline.json, with a reason")
+    p.add_argument("addr")
+    p.add_argument("--tu", required=True, help="the block's tree TU (its hashes are taken from its check)")
+    p.add_argument("--modes", default="msvc,wine")
+    p.add_argument("--why", required=True)
+    p = sub.add_parser("unproven-seed", help="(D126) seed config/unproven-baseline.json from a verify/materialize "
+                       "checks.jsonl: every equivalent (addr, mode) whose code has no ledger line (once, when the gate "
+                       "begins)")
+    p.add_argument("checks")
+    p.add_argument("--why", required=True)
     p = sub.add_parser("hash", help="record equivalent blocks' code hashes (only from proofs)")
     p.add_argument("paths", nargs="+", help="TUs (--proven), or the tree root (--compute)")
     p.add_argument("--proven", nargs="+", metavar="RESULT", help="equiv.py --json reports / jsonl: an MSVC run at "
@@ -1902,6 +2048,49 @@ def main(argv=None):
                    "config/proof-ledger.jsonl)")
     p.add_argument("--json", action="store_true")
     a = ap.parse_args(argv)
+    if a.cmd in ("unproven-accept", "unproven-seed") and not (a.why or "").strip():
+        sys.exit("%s: --why must give a reason" % a.cmd)
+    if a.cmd == "unproven-accept":
+        # (rev5's R3) the hash comes from the block's check, the block must be an equivalent one and the mode unproven
+        recs = check_tu(a.tu)
+        with_wine(a.tu, recs)
+        r = next((x for x in recs if x["addr"] == a.addr), None)
+        if r is None or r.get("kind") != "equivalent":
+            sys.exit("unproven-accept: %s is no equivalent block of %s" % (a.addr, a.tu))
+        led = code_ledger_index()
+        b = load_unproven_baseline()
+        ent = b["blocks"].setdefault(a.addr, {"modes": {}, "why": a.why.strip()})
+        today = __import__("datetime").datetime.now().isoformat(timespec="seconds")   # (a full timestamp)
+        for mode in [m for m in a.modes.split(",") if m]:
+            h = r.get({"msvc": "code_hash", "wine": "wine_code_hash"}[mode])
+            if not h:
+                sys.exit("unproven-accept: %s has no %s code hash" % (a.addr, mode))
+            if (a.addr, mode, h) in led:
+                sys.exit("unproven-accept: %s %s is proven (a ledger line holds its code)" % (a.addr, mode))
+            ent["modes"][mode] = {"code": h, "accepted": today, "by": "unproven-accept", "why": a.why.strip()}
+        ent["why"] = a.why.strip()
+        write_unproven_baseline(b)
+        print(a.addr, ent)
+        return 0
+    if a.cmd == "unproven-seed":
+        if os.path.exists(UNPROVEN_BASELINE):
+            sys.exit("unproven-seed: config/unproven-baseline.json exists (the list only shrinks; add a block with "
+                     "unproven-accept)")
+        checks = [json.loads(l) for l in open(a.checks) if l.strip()]
+        bad = unproven_code(checks, base={"blocks": {}})
+        h_ = {(r["addr"], m): r.get(k) for r in checks for m, k in (("msvc", "code_hash"), ("wine", "wine_code_hash"))}
+        today = __import__("datetime").datetime.now().isoformat(timespec="seconds")
+        b = {"comment": "D126: equivalent blocks whose code had no passing proof-ledger line when the materialize gate "
+                        "began, each mode pinned to that code hash. Only shrinks (ledger_append removes proven modes; "
+                        "unproven-accept adds, with a reason).", "blocks": {}}
+        for addr, mode in bad:
+            if not h_.get((addr, mode)):
+                continue        # (no hash to pin: it stays refused)
+            ent = b["blocks"].setdefault(addr, {"modes": {}, "why": a.why.strip()})
+            ent["modes"][mode] = {"code": h_[(addr, mode)], "accepted": today, "by": "unproven-seed"}
+        write_unproven_baseline(b)
+        print(len(b["blocks"]), "blocks", b["total"], "modes")
+        return 0
     if a.cmd == "hash":
         if a.compute:
             root = os.path.abspath(a.paths[0])
@@ -2007,6 +2196,12 @@ def main(argv=None):
             return 0
         s = verify(paths, jobs=a.jobs, relocs=a.relocs, out=a.out, vs_standalone=a.vs_standalone,
                    wine=not a.no_wine_code, ref=a.changed_since, view=not a.no_view)
+        if a.changed_since:
+            # (rev5's R3) the unproven list may only grow through unproven-accept (its stamp on the entry)
+            grew = unproven_baseline_growth(a.changed_since, root)
+            if grew:
+                s["counts"]["unproven baseline grew without accept"] = len(grew)
+                s["unproven_baseline_growth"] = grew[:50]
         # (D10) in a queue job: the files checked against the checkout's at submit
         vl = inputs_vs_local("verify", (argv if argv is not None else sys.argv[1:])[1:], s["inputs"])
         if vl is not None:
