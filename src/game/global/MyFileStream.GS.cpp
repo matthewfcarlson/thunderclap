@@ -14,10 +14,12 @@ namespace fn_f428f7d4 {} using namespace fn_f428f7d4;
 // ---- declarations shared by the functions below
 inline void *operator new(size_t, void *p) throw() { return p; }
 namespace fn_f428f7d4 {
+extern "C" char DAT_0042505c[];   // (fix2) the game's caster vftables
 namespace content { namespace LoadInventory {
-template <class T>
-struct DynamicCaster {
-    virtual void v0();
+template <class T> struct DynamicCaster {   // (fix2) was polymorphic (virtual void v0();): clang's own vftable natively,
+  public:                          // the game's by address now, stored by each instantiation's constructor
+    void *vftable;
+    DynamicCaster();
 };
 } }
 class CDataHandlerObject;
@@ -26,6 +28,7 @@ struct HandlerObj {
     int f08;
     int f0c;
 };
+template <> inline content::LoadInventory::DynamicCaster<CDataHandlerObject>::DynamicCaster() { vftable = DAT_0042505c; }
 struct Inventory_1fb260 {
     virtual void v0();
     virtual void v1();
@@ -70,7 +73,7 @@ public:
 
 
 // 0x001fb260 FUN_001fb260 (153 B): equivalent/0x001fb260.cpp
-// sym: ?FUN_001fb260@DataLoader_1fb260@fn_f428f7d4@@QAE_NTInventoryArg_1fb260@2@@Z @574fed1393ab @w296b47dd35e4 @v0b8e55426191
+// sym: ?FUN_001fb260@DataLoader_1fb260@fn_f428f7d4@@QAE_NTInventoryArg_1fb260@2@@Z @5d5fa935de2f @w9a50056b1477 @vc4064f18cbcf
 // STATUS: equivalent (tools/equiv.py level 3: 4502 inputs, branch coverage 6/6)
 // FUN_001fb260 @ 0x001fb260
 bool DataLoader_1fb260::FUN_001fb260(InventoryArg_1fb260 arg)
@@ -96,7 +99,7 @@ bool DataLoader_1fb260::FUN_001fb260(InventoryArg_1fb260 arg)
 
 
 // 0x001fb300 FUN_001fb300 (153 B): equivalent/0x001fb300.cpp
-// sym: ?FUN_001fb300@DataLoader_1fb300@fn_f428f7d4@@QAE_NTInventoryArg_1fb300@2@@Z @b904fbdd8c2a @w31563c817535 @v58869007fd5e
+// sym: ?FUN_001fb300@DataLoader_1fb300@fn_f428f7d4@@QAE_NTInventoryArg_1fb300@2@@Z @fe8bf830e119 @w23863e7d3170 @vfb25e38c17c8
 // STATUS: equivalent (tools/equiv.py level 3: 4505 inputs, branch coverage 6/6)
 // FUN_001fb300 @ 0x001fb300
 bool DataLoader_1fb300::FUN_001fb300(InventoryArg_1fb300 arg)

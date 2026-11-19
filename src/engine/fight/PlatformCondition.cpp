@@ -79,9 +79,11 @@ struct Factory_23cde0 {
 };
 extern int hulk_at_004289c0;
 extern void __cdecl FUN_002343e0(PlatformCondition*, Factory_23cde0*);
-class ConditionFactoryCasterTemplate_23ce00 {
+extern "C" char DAT_004289c0[];   // (fix2) the game's caster vftable 0x4289c0
+class ConditionFactoryCasterTemplate_23ce00 {   // (fix2) was polymorphic (virtual bool Cast_0023cc90(void*);): clang's own vftable natively, the game's by address now
   public:
-    virtual bool Cast_0023cc90(void*);
+    void *vftable;
+    ConditionFactoryCasterTemplate_23ce00() { vftable = DAT_004289c0; }
 };
 void* Make_002343e0(void*, ConditionFactoryCasterTemplate_23ce00*);
 } // namespace fn_fe0f08cb

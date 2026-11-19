@@ -608,9 +608,9 @@ public:
 };
 }
 namespace fn_f45cd32f {
-class ConditionFactoryCasterTemplate_16c000 {
-  public:
-    virtual bool Fnf_0016a050(void*);
+extern "C" char DAT_004170c8[];   // fight::ConditionFactoryCasterTemplate<hulkfight::motion::ChargeCondition>::vftable
+struct ConditionFactoryCasterTemplate_16c000 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
+    void* vftable;   // clang's own vftable natively, whose slot had no definition)
 };
 extern "C" void __cdecl FUN_002343e0(void*, ConditionFactoryCasterTemplate_16c000*);
 class ParamBranch : public ParamValueBranch, public ParamValue {
@@ -1490,6 +1490,7 @@ namespace fn_f45cd32f {
 // sym: ?target@fn_f45cd32f@@YAXPAX@Z
 void __cdecl target(void* p) {
     ConditionFactoryCasterTemplate_16c000 c;
+    c.vftable = (void*)DAT_004170c8;   // (sweep-caster-fix1) the game's vftable by address
     FUN_002343e0(p, &c);
 }
 

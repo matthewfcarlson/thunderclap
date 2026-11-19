@@ -4753,7 +4753,7 @@ void Registry_d1640::FUN_000d1640(const char* a1, HUDOverlay_d1640* a2, Fn_d1640
 } // namespace fn_f3fdf6d3
 
 // 0x000d2c30 FUN_000d2c30 (1330 B): equivalent/0x000d2c30.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?FUN_000d2c30@HealthBar@fn_000d2c30@@QAEXXZ @03fff861fc42 @w9185900df052 @ve2e331a797ff
+// sym: ?FUN_000d2c30@HealthBar@fn_000d2c30@@QAEXXZ @8bd3eaf30e0a @w356da0c994a2 @v57f963231420
 namespace fn_000d2c30 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 62/62)
 // FUN_000d2c30 @ 0x000d2c30
@@ -4785,21 +4785,29 @@ unsigned __int64 FUN_0027b020(const char* s);                 // string hash
 unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash with seed/length
 char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
 
-namespace content {
-namespace LoadInventory {
-template <class T>
-struct DynamicCaster {
-    virtual void v0();
-};
-}
-}
-
 namespace pure3d {
 class CompositeDrawable_d2c30;
 class Locator_d2c30;
 }
 
+// (sweep-caster-fix1) the casters as the word their inline constructors write: the game's vftables by address (a local
+// polymorphic stand-in got clang's own vftable natively, whose slot had no definition)
+extern "C" char DAT_003fef7c[];   // content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable>'s vftable
+extern "C" char DAT_0040a5e0[];   // content::LoadInventory::DynamicCaster<pure3d::Locator>'s vftable
+namespace content {
+namespace LoadInventory {
+template <class T>
+struct DynamicCaster {
+    void *vftable;
+    DynamicCaster();
+};
+template <> inline DynamicCaster<pure3d::CompositeDrawable_d2c30>::DynamicCaster() { vftable = (void *)DAT_003fef7c; }
+template <> inline DynamicCaster<pure3d::Locator_d2c30>::DynamicCaster() { vftable = (void *)DAT_0040a5e0; }
+}
+}
+
 class Res_d2c30 {
+
 public:
     virtual void AddRef();
     virtual void Release();

@@ -18,9 +18,11 @@ struct Box_c6a90 { float x0, y0, z0, x1, y1, z1; };
 struct Shape_c6a90 { char pad[0x14]; Box_c6a90 box; };
 struct Size { unsigned x, y, z; };
 union FloatBits_c6a90 { float f; unsigned u; };
-class DynamicCaster {
+extern "C" char DAT_003fef7c[];   // (fix2) the game's caster vftable
+class DynamicCaster {   // (fix2) was polymorphic (virtual void Fnf_0007ce10(void*);): clang's vftable natively
   public:
-    virtual void Fnf_0007ce10(void*);
+    void *vftable;
+    DynamicCaster() { vftable = DAT_003fef7c; }
 };
 class Obj {
   public:
@@ -37,16 +39,16 @@ unsigned __int64 __cdecl FUN_002672f0(const char *name, int a, int b);
 unsigned __int64 __cdecl FUN_0027b020(const char *name);
 namespace fn_fcfef481 {
 namespace content { namespace LoadInventory {
-class __declspec(novtable) DynamicCasterBase {
+class DynamicCasterBase {   // (fix2) was polymorphic (virtual void cast(void *p);): a record holding the game's vftable word
 public:
-    virtual void cast(void *p);
+    void *vftable;
 };
 } }
+extern "C" char DAT_003fef7c[];   // (fix2) the game's caster vftables
 namespace content { namespace LoadInventory {
-template <class T>
-class DynamicCaster : public DynamicCasterBase {
-public:
-    virtual void cast(void *p);
+template <class T> class DynamicCaster : public DynamicCasterBase {   // (fix2) was polymorphic (virtual void cast(void *p);): clang's own vftable natively,
+  public:                          // the game's by address now, stored by each instantiation's constructor
+    DynamicCaster();
 };
 } }
 struct Sub;
@@ -64,6 +66,7 @@ struct Resource {
     virtual void v10();
     virtual Sub *v11();
 };
+template <> inline content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable>::DynamicCaster() { vftable = DAT_003fef7c; }
 struct Loader {
     virtual void v0();
     virtual void v1();
@@ -78,6 +81,7 @@ struct Result {
 namespace pure3d {
 class CompositeDrawable_c6bc0;
 }
+template <> inline content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable_c6bc0>::DynamicCaster() { vftable = DAT_003fef7c; }
 struct Sub_c6bc0 {
     int FUN_002843a0(unsigned __int64 key);
 };
@@ -257,7 +261,7 @@ hulk_intptr Obj::Fn(const char* name) {
 
 
 // 0x000c6b60 FUN_000c6b60 (89 B): equivalent/0x000c6b60.cpp
-// sym: _FUN_000c6b60 @36c38c02fce0 @w3d4bd4b6c7a5 @v0f2f09033fe7
+// sym: _FUN_000c6b60 @2c32573460be @wa4b354d96f46 @ve1416b34a932
 // STATUS: equivalent (tools/equiv.py level 3: 20010 inputs, branch coverage 2/2)
 // FUN_000c6b60 @ 0x000c6b60
 extern "C" void FUN_000c6b60(const char *name, const char *subName, Result *out)
@@ -277,7 +281,7 @@ extern "C" void FUN_000c6b60(const char *name, const char *subName, Result *out)
 
 
 // 0x000c6bc0 FUN_000c6bc0 (123 B): equivalent/0x000c6bc0.cpp
-// sym: _FUN_000c6bc0 @1080b414f18a @w5488879caff0 @v1b65c235cca5
+// sym: _FUN_000c6bc0 @8bf67470101d @w261ecce3f57d @v43f837357f55
 // STATUS: equivalent (tools/equiv.py level 3: 20014 inputs, branch coverage 2/2)
 // FUN_000c6bc0 @ 0x000c6bc0
 extern "C" void FUN_000c6bc0(const char *name, const char *sub, int value)
@@ -300,7 +304,7 @@ extern "C" void FUN_000c6bc0(const char *name, const char *sub, int value)
 
 
 // 0x000c6c40 FUN_000c6c40 (233 B): equivalent/0x000c6c40.cpp
-// sym: _FUN_000c6c40 @c68c6a4a0b74 @wf0c4aa08b18e @vbcb18b4deb29
+// sym: _FUN_000c6c40 @5c24eea0e09e @w436708d4c2da @vd9449f64ed7b
 // STATUS: equivalent (tools/equiv.py level 3: 20018 inputs, branch coverage 8/8)
 // FUN_000c6c40 @ 0x000c6c40
 extern "C" void FUN_000c6c40(const char *name, const char *key, int value)

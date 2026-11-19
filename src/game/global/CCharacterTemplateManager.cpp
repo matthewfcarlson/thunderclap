@@ -234,12 +234,9 @@ class Dummy_46360 {
   public:
     void Call(void*);
 };
-class DynamicCaster_463a0 {
-  public:
-    virtual void FnA_00046280(void*);
-    virtual void B();
-    virtual void FnC_000462b0(void*);
-    virtual void D(void*, int, int);
+extern "C" char DAT_003f6330[];   // content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy>::vftable
+struct DynamicCaster_463a0 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
+    void* vftable;   // clang's own vftable natively, whose slot had no definition)
 };
 class X_463a0 {
   public:
@@ -249,13 +246,9 @@ class X_463a0 {
     virtual void D(void*, int, int);
     void F(int a, int b);
 };
-class DynamicCaster_46400 {
-  public:
-    DynamicCaster_46400() {}
-    virtual void Fna_000462e0(void*);
-    virtual void b();
-    virtual void* Fnc_00046340(int);
-    virtual bool Fnd_001d04c0(int, int);
+extern "C" char DAT_003f6340[];   // content::LoadInventory::DynamicCaster<CSPHulkProp>::vftable
+struct DynamicCaster_46400 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
+    void* vftable;   // clang's own vftable natively, whose slot had no definition)
 };
 class Loader {
   public:
@@ -966,6 +959,7 @@ namespace fn_f8b6a7cf {
 // sym: ?F@X_463a0@fn_f8b6a7cf@@QAEXHH@Z
 void X_463a0::F(int a, int b) {
     DynamicCaster_463a0 o;
+    o.vftable = (void*)DAT_003f6330;   // (sweep-caster-fix1) the game's vftable by address
     D(&o, a, b);
 }
 
@@ -974,6 +968,7 @@ void X_463a0::F(int a, int b) {
 // sym: ?Go@Loader@fn_f8b6a7cf@@QAEHHH@Z
 hulk_intptr Loader::Go(int x, int y) {
     DynamicCaster_46400 caster;
+    caster.vftable = (void*)DAT_003f6340;   // (sweep-caster-fix1) the game's vftable by address
     return Load(&caster, x, y);
 }
 

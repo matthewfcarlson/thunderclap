@@ -822,7 +822,7 @@ void CFEManager::FUN_000c1430()
 } // namespace fn_f71c7272
 
 // 0x000c1790 FUN_000c1790 (811 B): equivalent/0x000c1790.cpp [wrapped: conflict: FUN_000964a0; FUN_000fc1b0; FUN_000fc260]
-// sym: ?FUN_000c1790@FrontEnd_c1790@fn_000c1790@@QAE_NPBD@Z @b57ebaed9f8b @w8f4c7a0a0779 @vbf23bbc80c5c
+// sym: ?FUN_000c1790@FrontEnd_c1790@fn_000c1790@@QAE_NPBD@Z @816f864c2e57 @wcd511ed67764 @v556bdff2ed4a
 namespace fn_000c1790 {
 // STATUS: equivalent (tools/equiv.py level 3: 6070 inputs, branch coverage 43/46, incomplete)
 // FUN_000c1790 @ 0x000c1790
@@ -878,12 +878,17 @@ namespace pure3d { class TextureFont_c1790; }
 struct Font {
 };
 
+// (sweep-caster-fix1) the caster as the word its inline constructor writes: the game's vftable by address (a local
+// polymorphic stand-in got clang's own vftable natively, whose slot had no definition)
+extern "C" char DAT_00408df4[];   // content::LoadInventory::DynamicCaster<pure3d::TextureFont>'s vftable
 namespace content {
 namespace LoadInventory {
 template <class T>
 struct DynamicCaster {
-    virtual void v0();
+    void *vftable;
+    DynamicCaster();
 };
+template <> inline DynamicCaster<pure3d::TextureFont_c1790>::DynamicCaster() { vftable = (void *)DAT_00408df4; }
 }
 }
 
@@ -1035,7 +1040,7 @@ bool FrontEnd_c1790::FUN_000c1790(const char* code)
 
 
 // 0x000c1b50 FUN_000c1b50 (887 B): equivalent/0x000c1b50.cpp [wrapped: conflict: Frame; content::LoadInventory::DynamicCaster]
-// sym: ?FUN_000c1b50@GalleryScreen@fn_000c1b50@@QAEXHHH@Z @d4ba45ad2859 @wa012bc044f6f @ve7040a1272e6
+// sym: ?FUN_000c1b50@GalleryScreen@fn_000c1b50@@QAEXHHH@Z @9a3ef5358a32 @w9f6621f57863 @vff5c84174054
 namespace fn_000c1b50 {
 // STATUS: equivalent (tools/equiv.py level 3: 1706 inputs, branch coverage 45/46, incomplete)
 // FUN_000c1b50 @ 0x000c1b50
@@ -1044,7 +1049,13 @@ namespace fn_000c1b50 {
 
 
 namespace pure3d { class Texture; }
-namespace content { namespace LoadInventory { template<class T> struct DynamicCaster { virtual void cast(); int pad4; }; } }
+// (sweep-caster-fix1) the caster as the word its inline constructor writes: the game's vftable by address (a local
+// polymorphic stand-in got clang's own vftable natively, whose slot had no definition)
+extern "C" char DAT_00409148[];   // content::LoadInventory::DynamicCaster<pure3d::Texture>'s vftable
+namespace content { namespace LoadInventory {
+template<class T> struct DynamicCaster { void *vftable; int pad4; DynamicCaster(); };
+template <> inline DynamicCaster<pure3d::Texture>::DynamicCaster() { vftable = (void *)DAT_00409148; }
+} }
 
 struct Pair {
     int a;
@@ -1297,7 +1308,7 @@ void GalleryScreen::FUN_000c1b50(int kind, int first, int last)
 
 
 // 0x000c1f70 FUN_000c1f70 (573 B): equivalent/0x000c1f70.cpp [wrapped: conflict: FUN_000fc1b0; content::LoadInventory::DynamicCaster]
-// sym: ?FUN_000c1f70@BlonskyScreen@fn_000c1f70@@QAEXH@Z @c4200a4dc70c @w573db945596e @v8886afb2ed59
+// sym: ?FUN_000c1f70@BlonskyScreen@fn_000c1f70@@QAEXH@Z @40a71b058d14 @we77940ab374b @vfcbc2586f00d
 namespace fn_000c1f70 {
 // STATUS: equivalent (tools/equiv.py level 3: 20026 inputs, branch coverage 18/18)
 // FUN_000c1f70 @ 0x000c1f70
@@ -1332,7 +1343,15 @@ char FUN_001d04d0(const void* typeInfo);                      // type_info test 
 
 
 namespace pure3d { class Texture; class Shader; }
-namespace content { namespace LoadInventory { template<class T> struct DynamicCaster { virtual void cast(); }; } }
+// (sweep-caster-fix1) the caster as the word its inline constructor writes: the game's vftable by address (a local
+// polymorphic stand-in got clang's own vftable natively, whose slot had no definition)
+extern "C" char DAT_003f3e88[];   // content::LoadInventory::DynamicCaster<pure3d::Shader>'s vftable
+extern "C" char DAT_00409148[];   // content::LoadInventory::DynamicCaster<pure3d::Texture>'s vftable
+namespace content { namespace LoadInventory {
+template<class T> struct DynamicCaster { void *vftable; DynamicCaster(); };
+template <> inline DynamicCaster<pure3d::Shader>::DynamicCaster() { vftable = (void *)DAT_003f3e88; }
+template <> inline DynamicCaster<pure3d::Texture>::DynamicCaster() { vftable = (void *)DAT_00409148; }
+} }
 
 struct Pair_c1f70 {
     int a;
@@ -2272,7 +2291,7 @@ void MovesMenu::F()
 
 
 // 0x000c31e0 FUN_000c31e0 (1814 B): equivalent/0x000c31e0.cpp [wrapped: macros]
-// sym: ?FUN_000c31e0@Env@fn_000c31e0@@QAEXPBD@Z @18010c589c55 @w63ec5548467d @v1a5943b1b07f
+// sym: ?FUN_000c31e0@Env@fn_000c31e0@@QAEXPBD@Z @3a284ed06b3b @wf299ef6191a4 @v959238b267a8
 namespace fn_000c31e0 {
 // STATUS: equivalent (tools/equiv.py level 3: 1585 inputs, branch coverage 147/148, incomplete)
 // FUN_000c31e0 @ 0x000c31e0
@@ -2318,7 +2337,13 @@ typedef unsigned short wchar_t;
 
 
 namespace pure3d { class CompositeDrawable; }
-namespace content { namespace LoadInventory { template<class T> struct DynamicCaster { virtual void cast(); }; } }
+// (sweep-caster-fix1) the caster as the word its inline constructor writes: the game's vftable by address (a local
+// polymorphic stand-in got clang's own vftable natively, whose slot had no definition)
+extern "C" char DAT_003fef7c[];   // content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable>'s vftable
+namespace content { namespace LoadInventory {
+template<class T> struct DynamicCaster { void *vftable; DynamicCaster(); };
+template <> inline DynamicCaster<pure3d::CompositeDrawable>::DynamicCaster() { vftable = (void *)DAT_003fef7c; }
+} }
 
 struct Inner {
     virtual void a0(); virtual void a1(); virtual void a2(); virtual void a3(); virtual void a4(); virtual void a5(); virtual void a6(); virtual void a7(); virtual void a8(); virtual void a9(); virtual void a10(); virtual void a11(); virtual void a12(); virtual void a13(); virtual void a14(); virtual void a15();
@@ -2445,7 +2470,11 @@ struct Frame {
     unsigned char pad0[3];
     unsigned char flag;              // E-0x14d
     int pad4;
-    int caster;                      // E-0x148
+    union {                          // E-0x148 (sweep-caster-fix1) the caster: its vftable, pointer-sized natively
+        int caster;
+        void *casterWord;
+    };
+
     char buf[0x40];                  // E-0x144
     wchar_t wide[0x80];              // E-0x104
 };

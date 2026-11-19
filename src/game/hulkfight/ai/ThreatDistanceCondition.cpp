@@ -758,9 +758,11 @@ struct Obj_12d0e0 {
 struct Factory_12d0e0 {
     hulk_uintptr vft;
 };
-class TrackFactoryCasterTemplate_12d110 {
+extern "C" char DAT_00410ecc[];   // (fix2) the game's caster vftable
+class TrackFactoryCasterTemplate_12d110 {   // (fix2) was polymorphic (virtual int cast_0012c7b0(void*);): clang's vftable natively
   public:
-    virtual int cast_0012c7b0(void*);
+    void *vftable;
+    TrackFactoryCasterTemplate_12d110() { vftable = DAT_00410ecc; }
 };
 extern "C" void* __cdecl FUN_00236ac0(void*, TrackFactoryCasterTemplate_12d110*);
 class Obj {
@@ -768,9 +770,11 @@ class Obj {
     void* finish_002367c0(void*);
     void apply_002367c0(int);
 };
-class TrackFactoryCasterTemplate_12d2e0 {
+extern "C" char DAT_00410ed8[];   // (fix2) the game's caster vftable
+class TrackFactoryCasterTemplate_12d2e0 {   // (fix2) was polymorphic (virtual bool Fnf_0012c850(void*);): clang's vftable natively
   public:
-    virtual bool Fnf_0012c850(void*);
+    void *vftable;
+    TrackFactoryCasterTemplate_12d2e0() { vftable = DAT_00410ed8; }
 };
 extern "C" int __cdecl find(void*, TrackFactoryCasterTemplate_12d2e0*);
 extern "C" char DAT_00410c34[];
@@ -2602,7 +2606,16 @@ void FUN_0012d310()
 namespace fn_0012d450 {
 // FUN_0012d450 @ 0x0012d450
 namespace hulkfight { namespace ai { class ThreatCondition; class ThreatDistanceCondition; class ThreatAngleCondition; class ShotFailCountCondition; } }
-namespace fight { template<class T> struct ConditionFactoryCasterTemplate { virtual void create(); }; }
+namespace fight { extern "C" char DAT_00410e9c[], DAT_00410eb4[], DAT_00410ea8[], DAT_00410ec0[];   // (fix2) the game's caster vftables
+template <class T> struct ConditionFactoryCasterTemplate {   // (fix2) was polymorphic (virtual void create();): clang's own vftable natively,
+  public:                          // the game's by address now, stored by each instantiation's constructor
+    void *vftable;
+    ConditionFactoryCasterTemplate();
+};
+template <> inline ConditionFactoryCasterTemplate<hulkfight::ai::ThreatCondition>::ConditionFactoryCasterTemplate() { vftable = DAT_00410e9c; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::ai::ThreatAngleCondition>::ConditionFactoryCasterTemplate() { vftable = DAT_00410eb4; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::ai::ThreatDistanceCondition>::ConditionFactoryCasterTemplate() { vftable = DAT_00410ea8; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::ai::ShotFailCountCondition>::ConditionFactoryCasterTemplate() { vftable = DAT_00410ec0; } }
 struct Registry_12d450 { void FUN_00236760(void*); };
 void* __cdecl FUN_002343e0(const char*, void*);
 extern "C" void __cdecl FUN_0012d450(Registry_12d450* r)

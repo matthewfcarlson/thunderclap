@@ -19,18 +19,18 @@ namespace fn_f1b16f90 {} using namespace fn_f1b16f90;
 // ---- declarations shared by the functions below
 inline void *operator new(size_t, void *p) throw() { return p; }
 namespace fn_f1b16f90 {
+// (sweep-caster-fix1) the caster as the word its inline constructor writes: the game's vftable by address (a local
+// polymorphic stand-in got clang's own vftable natively, whose slot had no definition)
+extern "C" char DAT_003fef7c[];   // content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable>'s vftable
 namespace content { namespace LoadInventory {
-class __declspec(novtable) DynamicCasterBase {
-public:
-    virtual void cast(void *p) = 0;
+struct DynamicCasterBase {
+    void *vftable;
 };
-} }
-namespace content { namespace LoadInventory {
 template <class T>
-class DynamicCaster : public DynamicCasterBase {
-public:
-    virtual void cast(void *p);
+struct DynamicCaster : DynamicCasterBase {
+    DynamicCaster();
 };
+template <> inline DynamicCaster<pure3d::CompositeDrawable>::DynamicCaster() { vftable = (void *)DAT_003fef7c; }
 } }
 } // namespace fn_f1b16f90
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
@@ -140,27 +140,30 @@ extern "C" void FUN_000fb740(short* dst, const char* src, hulk_intptr count);
 } // namespace fn_f1b16f90
 
 // 0x000f25f0 FUN_000f25f0 (139 B): equivalent/0x000f25f0.cpp [wrapped: conflict: FUN_0027b020]
-// sym: ??0FEBillboardAnimation@fn_000f25f0@@QAE@HPBD@Z @cf96fc34271c @w8b7da9de135a @vb54aa8e64282
+// sym: ??0FEBillboardAnimation@fn_000f25f0@@QAE@HPBD@Z @b7ea5d1b525e @w9956560160b3 @vaaf0befc6372
 namespace fn_000f25f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 17954 inputs, branch coverage 6/6)
 // FUN_000f25f0 @ 0x000f25f0
 // cl-flags: /GS
 // FEBillboardAnimation constructor: look the billboard object up by name when the name is short enough.
 
+namespace pure3d { class BillboardObject; }
+// (sweep-caster-fix1) the caster as the word its inline constructor writes: the game's vftable by address (a local
+// polymorphic stand-in got clang's own vftable natively, whose slot had no definition)
+extern "C" char DAT_0040cb1c[];   // content::LoadInventory::DynamicCaster<pure3d::BillboardObject>'s vftable
 namespace content {
 namespace LoadInventory {
-class __declspec(novtable) DynamicCasterBase {
-public:
-    virtual void cast(void *p) = 0;
+struct DynamicCasterBase {
+    void *vftable;
 };
 template <class T>
-class DynamicCaster : public DynamicCasterBase {
-public:
-    virtual void cast(void *p);
+struct DynamicCaster : DynamicCasterBase {
+    DynamicCaster();
 };
+template <> inline DynamicCaster<pure3d::BillboardObject>::DynamicCaster() { vftable = (void *)DAT_0040cb1c; }
 }
 }
-namespace pure3d { class BillboardObject; }
+
 
 
 class Ref_f25f0 {
@@ -217,7 +220,7 @@ FEBillboardAnimation::FEBillboardAnimation(int a, const char *name) : FEAnimatio
 namespace fn_f1b16f90 {
 
 // 0x000f2a80 FUN_000f2a80 (132 B): equivalent/0x000f2a80.cpp
-// sym: ?LoadDrawables@Owner_f2a80@fn_f1b16f90@@QAEXPBD@Z @3be221d6766e @w8213e3f5440a @v17d29d3978fb
+// sym: ?LoadDrawables@Owner_f2a80@fn_f1b16f90@@QAEXPBD@Z @aa69d0a1f61e @w0ebf96b4b2db @v3910009dd5a7
 // STATUS: equivalent (tools/equiv.py level 3: 4866 inputs, branch coverage 4/4)
 // FUN_000f2a80 @ 0x000f2a80
 void Owner_f2a80::LoadDrawables(const char *prefix)
@@ -237,7 +240,7 @@ void Owner_f2a80::LoadDrawables(const char *prefix)
 
 
 // 0x000f2b10 FUN_000f2b10 (132 B): equivalent/0x000f2b10.cpp
-// sym: ?LoadDrawables@Owner_f2b10@fn_f1b16f90@@QAEXPBD@Z @ceea9f6868cb @w124642dfee1b @v376c1b5961f2
+// sym: ?LoadDrawables@Owner_f2b10@fn_f1b16f90@@QAEXPBD@Z @523deaab0b4f @w03f64c77a2ce @v334571409119
 // STATUS: equivalent (tools/equiv.py level 3: 4957 inputs, branch coverage 4/4)
 // FUN_000f2b10 @ 0x000f2b10
 void Owner_f2b10::LoadDrawables(const char *prefix)

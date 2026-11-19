@@ -3723,12 +3723,18 @@ void A_283a10::Run(int x) {
 } // namespace fn_f4890d4c
 
 // 0x00283a40 FUN_00283a40 (195 B): equivalent/0x00283a40.cpp [wrapped: conflict: content::LoadInventory::DynamicCaster]
-// sym: ?FUN_00283a40@Target_283a40@fn_00283a40@@QAEIPAUKey_283a40@2@III@Z @95e737a07ec2 @w1d428ef4d55e @v808fc0a21060
+// sym: ?FUN_00283a40@Target_283a40@fn_00283a40@@QAEIPAUKey_283a40@2@III@Z @1df97d3df14f @wbd9220abc74d @v70096ffe28c7
 namespace fn_00283a40 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_00283a40 @ 0x00283a40
 namespace pure3d { class DrawableHierarchy; }
-namespace content { namespace LoadInventory { template<class T> struct DynamicCaster { virtual void cast(); }; } }
+extern "C" char DAT_003f6330[];   // (fix2) the game's caster vftables
+namespace content { namespace LoadInventory { template <class T> struct DynamicCaster {   // (fix2) was polymorphic (virtual void cast();): clang's own vftable natively,
+  public:                          // the game's by address now, stored by each instantiation's constructor
+    void *vftable;
+    DynamicCaster();
+}; } }
+template <> inline content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy>::DynamicCaster() { vftable = DAT_003f6330; }
 struct Key_283a40 { unsigned a,b; };
 struct Hierarchy_283a40 { virtual void acquire(); virtual void release(); };
 struct Item_283a40 { virtual void v0(); virtual void v1(); virtual void v2(); virtual Item_283a40* lookup(content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy>*,unsigned,unsigned); virtual Hierarchy_283a40* hierarchy(); };
@@ -3758,12 +3764,18 @@ hulk_uintptr Target_283a40::FUN_00283a40(Key_283a40* key,hulk_uintptr a,unsigned
 
 
 // 0x00283b10 FUN_00283b10 (201 B): equivalent/0x00283b10.cpp [wrapped: conflict: FUN_00266f40; content::LoadInventory::DynamicCaster; pure3d::DrawableHierarchy]
-// sym: ?run@Target_283b10@fn_00283b10@@QAEIPAUKey_283b10@2@IIIII@Z @2cd3a9d3d3fb @w602eb1faf5e5 @vf7a411db3d51
+// sym: ?run@Target_283b10@fn_00283b10@@QAEIPAUKey_283b10@2@IIIII@Z @0bded32631fd @w11dd8a97ed10 @v8ba3d48546d0
 namespace fn_00283b10 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_00283b10 @ 0x00283b10
 namespace pure3d { struct DrawableHierarchy { virtual void retain(); virtual void release(); }; }
-namespace content { namespace LoadInventory { template<class T> struct DynamicCaster { virtual void cast(); }; } }
+extern "C" char DAT_003f6330[];   // (fix2) the game's caster vftables
+namespace content { namespace LoadInventory { template <class T> struct DynamicCaster {   // (fix2) was polymorphic (virtual void cast();): clang's own vftable natively,
+  public:                          // the game's by address now, stored by each instantiation's constructor
+    void *vftable;
+    DynamicCaster();
+}; } }
+template <> inline content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy>::DynamicCaster() { vftable = DAT_003f6330; }
 struct Key_283b10 { unsigned first, second; };
 struct Item_283b10 { virtual void f0(); virtual void f1(); virtual void f2(); virtual void f3(); virtual pure3d::DrawableHierarchy* get(); };
 struct Inventory_283b10 { virtual void f0(); virtual void f1(); virtual void f2(); virtual Item_283b10* find(content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy>*, unsigned, unsigned); };
@@ -3793,14 +3805,20 @@ unsigned Target_283b10::run(Key_283b10* key,unsigned a,unsigned b,unsigned c,uns
 
 
 // 0x00283be0 FUN_00283be0 (191 B): equivalent/0x00283be0.cpp [wrapped: conflict: FUN_00266f40; content::LoadInventory::DynamicCaster]
-// sym: ?FUN_00283be0@Target_283be0@fn_00283be0@@QAEIPAUPair_283be0@2@III@Z @126b0589a92e @w2d7155e2a926 @vb64c6903259b
+// sym: ?FUN_00283be0@Target_283be0@fn_00283be0@@QAEIPAUPair_283be0@2@III@Z @2723f6ae64c9 @w578d9b1db409 @v47f2921765c2
 namespace fn_00283be0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_00283be0 @ 0x00283be0
 namespace pure3d { class DrawableHierarchy; }
+extern "C" char DAT_003f6330[];   // (fix2) the game's caster vftables
 namespace content { namespace LoadInventory {
-template<class T> struct DynamicCaster { virtual void Cast(); };
+template <class T> struct DynamicCaster {   // (fix2) was polymorphic (virtual void Cast();): clang's own vftable natively,
+  public:                          // the game's by address now, stored by each instantiation's constructor
+    void *vftable;
+    DynamicCaster();
+};
 } }
+template <> inline content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy>::DynamicCaster() { vftable = DAT_003f6330; }
 struct Pair_283be0 { unsigned first, second; };
 struct Item_283be0 {
  virtual void AddRef();
@@ -3847,12 +3865,18 @@ unsigned Target_283be0::FUN_00283be0(Pair_283be0* pair,unsigned a,unsigned b,uns
 
 
 // 0x00283ca0 FUN_00283ca0 (179 B): equivalent/0x00283ca0.cpp [wrapped: conflict: FUN_00266f40; content::LoadInventory; pure3d::DrawableHierarchy]
-// sym: ?FUN_00283ca0@Target_283ca0@fn_00283ca0@@QAEHPAUKey_283ca0@2@III@Z @7181eeada214 @w41ac377c9709 @v9d4859fa717d
+// sym: ?FUN_00283ca0@Target_283ca0@fn_00283ca0@@QAEHPAUKey_283ca0@2@III@Z @dad0464c6937 @wb55ce2ccb761 @v87709e0822f3
 namespace fn_00283ca0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_00283ca0 @ 0x00283ca0
 namespace pure3d { struct DrawableHierarchy { virtual void AddRef(); virtual void Release(); }; }
-namespace content { struct LoadInventory { template<class T> struct DynamicCaster { virtual T* Cast(void*); }; }; }
+extern "C" char DAT_003f6330[];   // (fix2) the game's caster vftables
+namespace content { struct LoadInventory { template <class T> struct DynamicCaster {   // (fix2) was polymorphic (virtual T* Cast(void*);): clang's own vftable natively,
+  public:                          // the game's by address now, stored by each instantiation's constructor
+    void *vftable;
+    DynamicCaster();
+}; }; }
+template <> inline content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy>::DynamicCaster() { vftable = DAT_003f6330; }
 struct Key_283ca0 { unsigned a,b; };
 struct Entry_283ca0 { virtual void m0(); virtual void m1(); virtual void m2(); virtual void m3(); virtual pure3d::DrawableHierarchy* m4(); };
 struct Inventory_283ca0 { virtual void m0(); virtual void m1(); virtual void m2(); virtual Entry_283ca0* Find(content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy>*,unsigned,unsigned); };

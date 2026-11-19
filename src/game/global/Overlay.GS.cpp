@@ -22,8 +22,13 @@ inline void *operator new(size_t, void *p) throw() { return p; }
 namespace fn_f0cc89ae {
 extern "C" int __cdecl FUN_000964a0(char*, int, const char*, ...);   // (x64t14) as defined (CUnlockablesManager.cpp)
 void *__cdecl FUN_00263ed0(unsigned int a, unsigned int b);
+// (sweep-caster-fix1) the caster as the word its inline constructor writes: the game's vftable by address (a local
+// polymorphic stand-in got clang's own vftable natively, whose slot had no definition, and its 8 bytes overran the
+// frame's 4-byte word)
+extern "C" char DAT_00409148[];   // content::LoadInventory::DynamicCaster<pure3d::Texture>'s vftable
 namespace content { namespace LoadInventory {
-template<class T> struct DynamicCaster { virtual void cast(); };
+template<class T> struct DynamicCaster { void *vftable; DynamicCaster(); };
+template <> inline DynamicCaster<pure3d::Texture>::DynamicCaster() { vftable = (void *)DAT_00409148; }
 } }
 struct TexImpl {
     virtual void a0(); virtual void a1(); virtual void a2(); virtual void a3(); virtual void a4();
@@ -67,7 +72,11 @@ struct Entry_c9bd0 {
     float v[5];
 };
 struct Frame_c9bd0 {
-    int caster;             // 0x00 (vptr of the stack DynamicCaster / fild spill)
+    union {                 // 0x00 (vptr of the stack DynamicCaster / fild spill; sweep-caster-fix1: pointer-sized natively)
+        int caster;
+        void *casterWord;
+    };
+
     int pad04;
     Entry_c9bd0 t[16];            // 0x08
     char png[0x40];         // 0x188
@@ -92,7 +101,7 @@ public:
 
 
 // 0x000c9bd0 FUN_000c9bd0 (1997 B): equivalent/0x000c9bd0.cpp
-// sym: ?FUN_000c9bd0@CHudMap@fn_f0cc89ae@@QAEXPAD@Z @168493859de1 @w8e1f1ffb3005 @vd4903a319748
+// sym: ?FUN_000c9bd0@CHudMap@fn_f0cc89ae@@QAEXPAD@Z @4cd22fd5027d @w0b96e6b2b2da @v8d00fd946a80
 // STATUS: equivalent (tools/equiv.py level 3: 20027 inputs, branch coverage 28/28)
 // FUN_000c9bd0 @ 0x000c9bd0
 void CHudMap::FUN_000c9bd0(char *name)

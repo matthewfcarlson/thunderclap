@@ -5,26 +5,31 @@
 
 
 // 0x0013d7b0 hulkfight::motion::AnimationPhaseMatchedAction::vfunc_3 (390 B): equivalent/0x0013d7b0.cpp [isolated: conflict: World; on include/gen/ and not mergeable]
-// sym: ?vfunc_3@AnimationPhaseMatchedAction@motion@hulkfight@@UAE_NHH@Z @f8b4dfa837be @w5554f4b3ee98 @va4c98d82a5fa
+// sym: ?vfunc_3@AnimationPhaseMatchedAction@motion@hulkfight@@UAE_NHH@Z @49949e3573bf @w6f0f0a142ec2 @v06d7d4ddb779
 // STATUS: equivalent (tools/equiv.py level 3: 3020 inputs, branch coverage 16/16)
 // hulkfight::motion::AnimationPhaseMatchedAction::vfunc_3 @ 0x0013d7b0
 #include "gen/hulkfight.h"
 #include "decls/address.h"
 
 namespace pure3d { class Animation_13d7b0; }
+// (sweep-caster-fix1) the caster as the word its inline constructor writes: the game's vftable by address (a local
+// polymorphic stand-in got clang's own vftable natively, whose slot had no definition)
+extern "C" char DAT_003f3e80[];   // content::LoadInventory::DynamicCaster<pure3d::Animation>'s vftable
 namespace content {
 class LoadInventory_13d7b0 {
   public:
-    template <class T> class DynamicCaster_13d7b0 {
-      public:
-        virtual T *Cast(void *p);
+    template <class T> struct DynamicCaster_13d7b0 {
+        void *vftable;
+        DynamicCaster_13d7b0();
     };
     virtual void l0();
     virtual void l1();
     virtual void l2();
     virtual void *Find(const DynamicCaster_13d7b0<pure3d::Animation_13d7b0> &c, __int64 uid);
 };
+template <> inline LoadInventory_13d7b0::DynamicCaster_13d7b0<pure3d::Animation_13d7b0>::DynamicCaster_13d7b0() { vftable = (void *)DAT_003f3e80; }
 }
+
 
 struct Name_13d7b0 {
     char pad[8];

@@ -55,9 +55,9 @@ namespace fn_f68d580d { struct X_15aa00 { struct fn_f68d580d::Inner_15aa00 * Fn(
 
 // ---- declarations shared by the functions below
 namespace fn_f95ed483 {
-class TrackFactoryCasterTemplate_161d20 {
-  public:
-    virtual bool Cast_00160ed0(void*);
+extern "C" char DAT_00415f10[];   // fight::TrackFactoryCasterTemplate<hulkfight::motion::LocomotingTrack>::vftable
+struct TrackFactoryCasterTemplate_161d20 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
+    void* vftable;   // clang's own vftable natively, whose slot had no definition)
 };
 class Owner {
   public:
@@ -65,8 +65,9 @@ class Owner {
     void add_002367c0(void*);
 };
 void* __cdecl Find_00236ac0(void*, TrackFactoryCasterTemplate_161d20*);
-struct TrackFactoryCasterTemplate_161d50 {
-    virtual bool cast_00160f30(void*);
+extern "C" char DAT_00415f1c[];   // fight::TrackFactoryCasterTemplate<hulkfight::motion::ClimbLocomotion4Track>::vftable
+struct TrackFactoryCasterTemplate_161d50 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
+    void* vftable;   // clang's own vftable natively, whose slot had no definition)
 };
 extern "C" void* __cdecl findTrack_00236ac0(void*, TrackFactoryCasterTemplate_161d50*);
 } // namespace fn_f95ed483
@@ -148,9 +149,9 @@ public:
 };
 }
 namespace fn_f95ed483 {
-class TrackFactoryCasterTemplate_162280 {
-  public:
-    virtual bool Fnf_00160fb0(void*);
+extern "C" char DAT_00415f28[];   // fight::TrackFactoryCasterTemplate<hulkfight::motion::LocomotionStrafe4Track>::vftable
+struct TrackFactoryCasterTemplate_162280 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
+    void* vftable;   // clang's own vftable natively, whose slot had no definition)
 };
 class Obj {
   public:
@@ -240,9 +241,9 @@ public:
 };
 }
 namespace fn_f95ed483 {
-class TrackFactoryCasterTemplate_162820 {
-  public:
-    virtual bool Fnf_00161050(void*);
+extern "C" char DAT_00415f34[];   // fight::TrackFactoryCasterTemplate<hulkfight::motion::HeliLocomotionTrack>::vftable
+struct TrackFactoryCasterTemplate_162820 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
+    void* vftable;   // clang's own vftable natively, whose slot had no definition)
 };
 void* Find_00236ac0(void*, TrackFactoryCasterTemplate_162820*);
 } // namespace fn_f95ed483
@@ -390,9 +391,9 @@ public:
 };
 }
 namespace fn_f95ed483 {
-class TrackFactoryCasterTemplate_1633c0 {
-  public:
-    virtual int Cast_00161190(void*);
+extern "C" char DAT_00415f4c[];   // fight::TrackFactoryCasterTemplate<hulkfight::motion::LocomotionSprintTrack>::vftable
+struct TrackFactoryCasterTemplate_1633c0 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
+    void* vftable;   // clang's own vftable natively, whose slot had no definition)
 };
 extern void* Find_00236ac0(void*, TrackFactoryCasterTemplate_1633c0*);
 } // namespace fn_f95ed483
@@ -448,9 +449,9 @@ public:
 };
 }
 namespace fn_f95ed483 {
-class TrackFactoryCasterTemplate_163760 {
-  public:
-    virtual bool Cast_00161210(void*);
+extern "C" char DAT_00415f58[];   // fight::TrackFactoryCasterTemplate<hulkfight::motion::GrappleLocomotionSteerTrack>::vftable
+struct TrackFactoryCasterTemplate_163760 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
+    void* vftable;   // clang's own vftable natively, whose slot had no definition)
 };
 class Receiver {
   public:
@@ -697,6 +698,7 @@ namespace fn_f95ed483 {
 // sym: _FUN_00161d20
 extern "C" void __cdecl FUN_00161d20(Owner* owner, void* source) {
     TrackFactoryCasterTemplate_161d20 caster;
+    caster.vftable = (void*)DAT_00415f10;   // (sweep-caster-fix1) the game's vftable by address
     owner->Apply_002367c0(Find_00236ac0(source, &caster));
 }
 
@@ -705,6 +707,7 @@ extern "C" void __cdecl FUN_00161d20(Owner* owner, void* source) {
 // sym: _FUN_00161d50
 extern "C" void FUN_00161d50(Owner* owner, void* value) {
     TrackFactoryCasterTemplate_161d50 caster;
+    caster.vftable = (void*)DAT_00415f1c;   // (sweep-caster-fix1) the game's vftable by address
     owner->add_002367c0(findTrack_00236ac0(value, &caster));
 }
 
@@ -755,6 +758,7 @@ namespace fn_f95ed483 {
 // sym: _FUN_00162280
 extern "C" void FUN_00162280(Obj* obj, void* p) {
     TrackFactoryCasterTemplate_162280 c;
+    c.vftable = (void*)DAT_00415f28;   // (sweep-caster-fix1) the game's vftable by address
     void* v = find(p, &c);
     obj->run_002367c0(v);
 }
@@ -808,6 +812,7 @@ namespace fn_f95ed483 {
 // sym: _FUN_00162820
 extern "C" void FUN_00162820(Obj* o, void* p) {
     TrackFactoryCasterTemplate_162820 c;
+    c.vftable = (void*)DAT_00415f34;   // (sweep-caster-fix1) the game's vftable by address
     o->use_002367c0(Find_00236ac0(p, &c));
 }
 
@@ -869,9 +874,9 @@ extern "C" void FUN_00162850()
 // 0x00163020 FUN_00163020 (38 B): matches/0x00163020.cpp [wrapped: conflict: Find]
 // sym: _FUN_00163020
 namespace fn_00163020 {
-class TrackFactoryCasterTemplate_163020 {
-  public:
-    virtual bool cast_001610f0(void*);
+extern "C" char DAT_00415f40[];   // fight::TrackFactoryCasterTemplate<hulkfight::motion::LocomotionSteerTrack>::vftable
+struct TrackFactoryCasterTemplate_163020 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
+    void* vftable;   // clang's own vftable natively, whose slot had no definition)
 };
 class Track {
   public:
@@ -880,6 +885,7 @@ class Track {
 extern "C++" void* __cdecl Find_00236ac0(const char*, TrackFactoryCasterTemplate_163020*);
 extern "C" void __cdecl FUN_00163020(Track* t, const char* name) {
     TrackFactoryCasterTemplate_163020 caster;
+    caster.vftable = (void*)DAT_00415f40;   // (sweep-caster-fix1) the game's vftable by address
     t->Set_002367c0(Find_00236ac0(name, &caster));
 }
 } // namespace fn_00163020
@@ -924,6 +930,7 @@ namespace fn_f95ed483 {
 // sym: _FUN_001633c0
 extern "C" void FUN_001633c0(Obj* obj, void* value) {
     TrackFactoryCasterTemplate_1633c0 c;
+    c.vftable = (void*)DAT_00415f4c;   // (sweep-caster-fix1) the game's vftable by address
     void* p = Find_00236ac0(value, &c);
     obj->Do_002367c0(p);
 }
@@ -967,6 +974,7 @@ namespace fn_f95ed483 {
 // sym: _FUN_00163760
 extern "C" void FUN_00163760(Receiver* receiver, void* value) {
     TrackFactoryCasterTemplate_163760 caster;
+    caster.vftable = (void*)DAT_00415f58;   // (sweep-caster-fix1) the game's vftable by address
     void* result = Find_00236ac0(value, &caster);
     receiver->Use_002367c0(result);
 }
@@ -1004,7 +1012,20 @@ extern "C" void FUN_00163790()
 namespace fn_00163a20 {
 // FUN_00163a20 @ 0x00163a20
 namespace hulkfight { namespace motion { class PhaseCondition; class JointPlantedCondition; class LocomotingCondition; } }
-namespace fight { template<class T> struct ConditionFactoryCasterTemplate { virtual void create(); }; }
+namespace fight {
+// (sweep-caster-fix1) the caster as the word its inline constructor writes: the game's vftable by address, per T
+// (a local polymorphic stand-in got clang's own vftable natively, whose slot had no definition)
+extern "C" char DAT_00415ef8[];   // ConditionFactoryCasterTemplate<hulkfight::motion::JointPlantedCondition>'s vftable
+extern "C" char DAT_00415eec[];   // ConditionFactoryCasterTemplate<hulkfight::motion::LocomotingCondition>'s vftable
+extern "C" char DAT_00415f04[];   // ConditionFactoryCasterTemplate<hulkfight::motion::PhaseCondition>'s vftable
+template <class T> struct ConditionFactoryCasterTemplate {
+    void* vftable;
+    ConditionFactoryCasterTemplate();
+};
+template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::JointPlantedCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_00415ef8; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::LocomotingCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_00415eec; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::PhaseCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_00415f04; }
+}
 struct Registry_163a20 { void FUN_00236760(void *factory); };
 extern "C" void *__cdecl FUN_002343e0(const char *name, void *caster);
 

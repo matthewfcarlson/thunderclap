@@ -14,18 +14,18 @@ namespace fn_f8d1195f {} using namespace fn_f8d1195f;
 inline void *operator new(size_t, void *p) { return p; }
 namespace fn_f8d1195f {
 struct Vec3_235f0 { int x, y, z; };
+// (sweep-caster-fix1) the caster as the word its inline constructor writes: the game's vftable by address (a local
+// polymorphic stand-in got clang's own vftable natively, whose slot had no definition)
+extern "C" char DAT_003f3e88[];   // content::LoadInventory::DynamicCaster<pure3d::Shader>'s vftable
 namespace content { namespace LoadInventory {
-class __declspec(novtable) DynamicCasterBase {
-public:
-    virtual void cast(void *p) = 0;
+struct DynamicCasterBase {
+    void *vftable;
 };
-} }
-namespace content { namespace LoadInventory {
 template <class T>
-class DynamicCaster : public DynamicCasterBase {
-public:
-    virtual void cast(void *p);
+struct DynamicCaster : DynamicCasterBase {
+    DynamicCaster();
 };
+template <> inline DynamicCaster<pure3d::Shader>::DynamicCaster() { vftable = (void *)DAT_003f3e88; }
 } }
 struct Handle_235f0 { char pad[4]; };
 class Factory_235f0 {
@@ -94,7 +94,7 @@ public:
 
 
 // 0x000235f0 CMotionTrailAction::vfunc_6 (322 B): equivalent/0x000235f0.cpp
-// sym: ?vfunc_6@CMotionTrailAction@fn_f8d1195f@@UAEDH@Z @4b1ba3b7e6d7 @wf6a8cc4be9b1 @v519684056dff
+// sym: ?vfunc_6@CMotionTrailAction@fn_f8d1195f@@UAEDH@Z @d2da88377359 @wb0d36e9a80f8 @vee4e37a2e0c1
 // STATUS: equivalent (tools/equiv.py level 3: 3020 inputs, branch coverage 2/2)
 // CMotionTrailAction::vfunc_6 @ 0x000235f0
 char CMotionTrailAction::vfunc_6(int arg)

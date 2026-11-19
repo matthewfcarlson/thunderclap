@@ -14,16 +14,16 @@ namespace fn_f3f630b8 {} using namespace fn_f3f630b8;
 inline void *operator new(size_t, void *p) throw() { return p; }
 namespace fn_f3f630b8 {
 namespace content { namespace LoadInventory {
-class __declspec(novtable) DynamicCasterBase {
+class DynamicCasterBase {   // (fix2) was polymorphic (virtual void cast(void *p) = 0;): a record holding the game's vftable word
 public:
-    virtual void cast(void *p) = 0;
+    void *vftable;
 };
 } }
+extern "C" char DAT_003f3e80[];   // (fix2) the game's caster vftables
 namespace content { namespace LoadInventory {
-template <class T>
-class DynamicCaster : public DynamicCasterBase {
-public:
-    virtual void cast(void *p);
+template <class T> class DynamicCaster : public DynamicCasterBase {   // (fix2) was polymorphic (virtual void cast(void *p);): clang's own vftable natively,
+  public:                          // the game's by address now, stored by each instantiation's constructor
+    DynamicCaster();
 };
 } }
 struct V3_163ed0 {
@@ -128,7 +128,10 @@ struct Frame_163ed0 {
     float best;                 // 0x10
     Slot14_163ed0 s14;                 // 0x14
     void *rig;                  // 0x18
-    char casterC[4];            // 0x1c
+    union {                     // 0x1c (fix2) the caster: its vftable, pointer-sized natively
+        char casterC[4];
+        void *casterWord;
+    };
     unsigned int *keyptr;       // 0x20
     unsigned int keyhi;         // 0x24
     LayerSet_163ed0 *layers;           // 0x28
@@ -153,10 +156,11 @@ public:
     float f28;
 };
 } }
+template <> inline content::LoadInventory::DynamicCaster<pure3d::Animation>::DynamicCaster() { vftable = DAT_003f3e80; }
 
 
 // 0x00163ed0 hulkfight::motion::LocomotionSprintAction::vfunc_3 (916 B): equivalent/0x00163ed0.cpp
-// sym: ?vfunc_3@LocomotionSprintAction@motion@hulkfight@fn_f3f630b8@@UAE_NHH@Z @3b6e277c07b7 @w929e606b759c @v52da53e444eb
+// sym: ?vfunc_3@LocomotionSprintAction@motion@hulkfight@fn_f3f630b8@@UAE_NHH@Z @6ae8ab4693d6 @wb7ccd36b035c @vab5838a3cf30
 // STATUS: equivalent (tools/equiv.py level 3: 445 inputs, branch coverage 42/42)
 // hulkfight::motion::LocomotionSprintAction::vfunc_3 @ 0x00163ed0
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0

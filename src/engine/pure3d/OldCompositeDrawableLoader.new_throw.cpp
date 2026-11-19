@@ -43,11 +43,19 @@ public:
     virtual void v1();
 };
 }
+// (sweep-caster-fix1) the casters as the word their inline constructors write: the game's vftables by address (a local
+// polymorphic stand-in got clang's own vftable natively, whose slot had no definition, and its 8 bytes overran the
+// frame's 4-byte words)
+extern "C" char DAT_0042d4c4[];   // content::LoadInventory::DynamicCaster<pure3d::DrawableContainer>'s vftable
+extern "C" char DAT_0041c8d0[];   // content::LoadInventory::DynamicCaster<pure3d::Skeleton>'s vftable
 namespace content { namespace LoadInventory {
 template <class T>
 struct DynamicCaster {
-    virtual void v0();
+    void *vftable;
+    DynamicCaster();
 };
+template <> inline DynamicCaster<pure3d::DrawableContainer>::DynamicCaster() { vftable = (void *)DAT_0042d4c4; }
+template <> inline DynamicCaster<pure3d::Skeleton>::DynamicCaster() { vftable = (void *)DAT_0041c8d0; }
 } }
 struct RefObj_29a190 {
     virtual void v0();
@@ -190,9 +198,16 @@ struct Frame_29a190 {
     unsigned char len;
     bool flag;
     pure3d::FrameController *fc;
-    char c1[4];
-    char c2[4];
+    union {                        // (sweep-caster-fix1) c1, c2: the casters (c2 also a controller pointer),
+        char c1[4];                // pointer-sized natively
+        void *c1Word;
+    };
+    union {
+        char c2[4];
+        void *c2Word;
+    };
     int k;
+
     int n;
     int d;
     int b;
@@ -206,7 +221,7 @@ struct Frame_29a190 {
 
 
 // 0x0029a190 pure3d::CompositeDrawableLoader::vfunc_5 (1180 B): equivalent/0x0029a190.cpp
-// sym: ?vfunc_5@CompositeDrawableLoader@fn_f0ae8a57@@QAEXPAPAVCompositeDrawable@pure3d@2@PA_KPAUReader@2@PAUInventory_29a190@2@@Z @6df3852a0f10 @w11d9a14c50e2 @v6272661165e4
+// sym: ?vfunc_5@CompositeDrawableLoader@fn_f0ae8a57@@QAEXPAPAVCompositeDrawable@pure3d@2@PA_KPAUReader@2@PAUInventory_29a190@2@@Z @4a459aa3eef5 @w0cb3d8624032 @vb608649951d9
 // STATUS: equivalent (tools/equiv.py level 3: 76 inputs, branch coverage 45/50, incomplete)
 // pure3d::CompositeDrawableLoader::vfunc_5 @ 0x0029a190
 // equiv-map: ??0DrawableBase@pure3d@@QAE@XZ = 0x002a3480

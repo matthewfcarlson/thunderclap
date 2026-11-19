@@ -643,13 +643,17 @@ class ParamBranch : public ParamValueBranch, public ParamValue {
     void(__fastcall* fn)(void*);
     virtual void vfunc_6(void*);
 };
-class VarCaster {
+extern "C" char DAT_0041ad50[];   // (fix2) the game's caster vftable
+class VarCaster {   // (fix2) was polymorphic (virtual bool Fnf_0018de50(void*);): clang's vftable natively
   public:
-    virtual bool Fnf_0018de50(void*);
+    void *vftable;
+    VarCaster() { vftable = DAT_0041ad50; }
 };
-class TrackFactoryCasterTemplate_18e8d0 {
+extern "C" char DAT_0041ad44[];   // (fix2) the game's caster vftable
+class TrackFactoryCasterTemplate_18e8d0 {   // (fix2) was polymorphic (virtual bool Fnf_0018ddd0(void*);): clang's vftable natively
   public:
-    virtual bool Fnf_0018ddd0(void*);
+    void *vftable;
+    TrackFactoryCasterTemplate_18e8d0() { vftable = DAT_0041ad44; }
 };
 extern "C" void* FUN_00236ac0(const char*, void*);
 class Factory {
@@ -2185,7 +2189,15 @@ void FUN_0018e6e0()
 namespace fn_0018e860 {
 // FUN_0018e860 @ 0x0018e860
 namespace hulkfight { namespace motion { class VarCompareCondition; class GrappleVarCompareCondition; class TimerCondition; } }
-namespace fight { template<class T> struct ConditionFactoryCasterTemplate { virtual void create(); }; }
+namespace fight { extern "C" char DAT_0041ad38[], DAT_0041ad2c[], DAT_0041ad20[];   // (fix2) the game's caster vftables
+template <class T> struct ConditionFactoryCasterTemplate {   // (fix2) was polymorphic (virtual void create();): clang's own vftable natively,
+  public:                          // the game's by address now, stored by each instantiation's constructor
+    void *vftable;
+    ConditionFactoryCasterTemplate();
+};
+template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::VarCompareCondition>::ConditionFactoryCasterTemplate() { vftable = DAT_0041ad38; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::GrappleVarCompareCondition>::ConditionFactoryCasterTemplate() { vftable = DAT_0041ad2c; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::TimerCondition>::ConditionFactoryCasterTemplate() { vftable = DAT_0041ad20; } }
 struct Registry_18e860 { void FUN_00236760(void *factory); };
 extern "C" void *__cdecl FUN_002343e0(const char *name, void *caster);
 

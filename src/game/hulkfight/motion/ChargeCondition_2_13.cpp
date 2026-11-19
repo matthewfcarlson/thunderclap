@@ -280,7 +280,74 @@ extern "C" void FUN_0016cb50()
 namespace fn_0016cea0 {
 // FUN_0016cea0 @ 0x0016cea0
 namespace hulkfight { namespace motion { class RayCastCondition; class RayCastConeCondition; class RayCastTargetCondition; class TargetCharacterTemplateCondition; class CharacterPropStatusCondition; class TargetHealthPercentCondition; class VelocityCondition; class VelocityYCondition; class VelocityXZCondition; class VelocityXZAngleCondition; class VelocityAnimatedCondition; class VelocityAnimatedYCondition; class VelocityAnimatedXZCondition; class VelocityAnimatedXZAngleCondition; class ChargeCondition; class TurningVelocityCondition; class IntentionButtonDownAnyCondition; class IntentionInputCondition; class TargetingCondition; class TargetMotionStateCondition; class LocomotionMotionStateCondition; class TargetLocomotionMotionStateCondition; class ThinkingCondition; class HealthCondition; class GrappleHealthCondition; class GrappleReactionTypeCondition; class HealthPercentCondition; class InLoadedRoomCondition; class ShoreNearCondition; class RageModeStateCondition; } }
-namespace fight { template<class T> struct ConditionFactoryCasterTemplate { virtual void create(); }; }
+namespace fight {
+// (sweep-caster-fix1) the caster as the word its inline constructor writes: the game's vftable by address, per T
+// (a local polymorphic stand-in got clang's own vftable natively, whose slot had no definition)
+extern "C" char DAT_004171a0[];   // ConditionFactoryCasterTemplate<hulkfight::motion::CharacterPropStatusCondition>'s vftable
+extern "C" char DAT_004170c8[];   // ConditionFactoryCasterTemplate<hulkfight::motion::ChargeCondition>'s vftable
+extern "C" char DAT_00417188[];   // ConditionFactoryCasterTemplate<hulkfight::motion::GrappleHealthCondition>'s vftable
+extern "C" char DAT_00417140[];   // ConditionFactoryCasterTemplate<hulkfight::motion::GrappleReactionTypeCondition>'s vftable
+extern "C" char DAT_00417224[];   // ConditionFactoryCasterTemplate<hulkfight::motion::HealthCondition>'s vftable
+extern "C" char DAT_00417200[];   // ConditionFactoryCasterTemplate<hulkfight::motion::HealthPercentCondition>'s vftable
+extern "C" char DAT_004171c4[];   // ConditionFactoryCasterTemplate<hulkfight::motion::InLoadedRoomCondition>'s vftable
+extern "C" char DAT_004170e0[];   // ConditionFactoryCasterTemplate<hulkfight::motion::IntentionButtonDownAnyCondition>'s vftable
+extern "C" char DAT_00417128[];   // ConditionFactoryCasterTemplate<hulkfight::motion::IntentionInputCondition>'s vftable
+extern "C" char DAT_00417134[];   // ConditionFactoryCasterTemplate<hulkfight::motion::LocomotionMotionStateCondition>'s vftable
+extern "C" char DAT_004171e8[];   // ConditionFactoryCasterTemplate<hulkfight::motion::RageModeStateCondition>'s vftable
+extern "C" char DAT_004171b8[];   // ConditionFactoryCasterTemplate<hulkfight::motion::RayCastCondition>'s vftable
+extern "C" char DAT_0041714c[];   // ConditionFactoryCasterTemplate<hulkfight::motion::RayCastConeCondition>'s vftable
+extern "C" char DAT_00417110[];   // ConditionFactoryCasterTemplate<hulkfight::motion::RayCastTargetCondition>'s vftable
+extern "C" char DAT_004171f4[];   // ConditionFactoryCasterTemplate<hulkfight::motion::ShoreNearCondition>'s vftable
+extern "C" char DAT_00417194[];   // ConditionFactoryCasterTemplate<hulkfight::motion::TargetCharacterTemplateCondition>'s vftable
+extern "C" char DAT_0041717c[];   // ConditionFactoryCasterTemplate<hulkfight::motion::TargetHealthPercentCondition>'s vftable
+extern "C" char DAT_00417170[];   // ConditionFactoryCasterTemplate<hulkfight::motion::TargetLocomotionMotionStateCondition>'s vftable
+extern "C" char DAT_004170d4[];   // ConditionFactoryCasterTemplate<hulkfight::motion::TargetMotionStateCondition>'s vftable
+extern "C" char DAT_00417158[];   // ConditionFactoryCasterTemplate<hulkfight::motion::TargetingCondition>'s vftable
+extern "C" char DAT_0041720c[];   // ConditionFactoryCasterTemplate<hulkfight::motion::ThinkingCondition>'s vftable
+extern "C" char DAT_0041711c[];   // ConditionFactoryCasterTemplate<hulkfight::motion::TurningVelocityCondition>'s vftable
+extern "C" char DAT_00417218[];   // ConditionFactoryCasterTemplate<hulkfight::motion::VelocityAnimatedCondition>'s vftable
+extern "C" char DAT_004171dc[];   // ConditionFactoryCasterTemplate<hulkfight::motion::VelocityAnimatedXZAngleCondition>'s vftable
+extern "C" char DAT_00417104[];   // ConditionFactoryCasterTemplate<hulkfight::motion::VelocityAnimatedXZCondition>'s vftable
+extern "C" char DAT_00417164[];   // ConditionFactoryCasterTemplate<hulkfight::motion::VelocityAnimatedYCondition>'s vftable
+extern "C" char DAT_004170ec[];   // ConditionFactoryCasterTemplate<hulkfight::motion::VelocityCondition>'s vftable
+extern "C" char DAT_004171ac[];   // ConditionFactoryCasterTemplate<hulkfight::motion::VelocityXZAngleCondition>'s vftable
+extern "C" char DAT_004171d0[];   // ConditionFactoryCasterTemplate<hulkfight::motion::VelocityXZCondition>'s vftable
+extern "C" char DAT_004170f8[];   // ConditionFactoryCasterTemplate<hulkfight::motion::VelocityYCondition>'s vftable
+template <class T> struct ConditionFactoryCasterTemplate {
+    void* vftable;
+    ConditionFactoryCasterTemplate();
+};
+template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::CharacterPropStatusCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_004171a0; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::ChargeCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_004170c8; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::GrappleHealthCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_00417188; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::GrappleReactionTypeCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_00417140; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::HealthCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_00417224; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::HealthPercentCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_00417200; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::InLoadedRoomCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_004171c4; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::IntentionButtonDownAnyCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_004170e0; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::IntentionInputCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_00417128; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::LocomotionMotionStateCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_00417134; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::RageModeStateCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_004171e8; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::RayCastCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_004171b8; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::RayCastConeCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_0041714c; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::RayCastTargetCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_00417110; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::ShoreNearCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_004171f4; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::TargetCharacterTemplateCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_00417194; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::TargetHealthPercentCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_0041717c; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::TargetLocomotionMotionStateCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_00417170; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::TargetMotionStateCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_004170d4; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::TargetingCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_00417158; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::ThinkingCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_0041720c; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::TurningVelocityCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_0041711c; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::VelocityAnimatedCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_00417218; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::VelocityAnimatedXZAngleCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_004171dc; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::VelocityAnimatedXZCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_00417104; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::VelocityAnimatedYCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_00417164; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::VelocityCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_004170ec; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::VelocityXZAngleCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_004171ac; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::VelocityXZCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_004171d0; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::VelocityYCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_004170f8; }
+}
 struct Registry_16cea0 { void FUN_00236760(void*); };
 extern "C" void* __cdecl FUN_002343e0(const char*, void*);
 extern "C" void __cdecl FUN_0016cea0(Registry_16cea0* r)

@@ -13,16 +13,16 @@ namespace fn_f372509d {} using namespace fn_f372509d;
 // ---- declarations shared by the functions below
 namespace fn_f372509d {
 namespace content { namespace LoadInventory {
-class __declspec(novtable) DynamicCasterBase {
+class DynamicCasterBase {   // (fix2) was polymorphic (virtual void cast(void *p) = 0;): a record holding the game's vftable word
 public:
-    virtual void cast(void *p) = 0;
+    void *vftable;
 };
 } }
+extern "C" char DAT_003f3e80[];   // (fix2) the game's caster vftables
 namespace content { namespace LoadInventory {
-template <class T>
-class DynamicCaster : public DynamicCasterBase {
-public:
-    virtual void cast(void *p);
+template <class T> class DynamicCaster : public DynamicCasterBase {   // (fix2) was polymorphic (virtual void cast(void *p);): clang's own vftable natively,
+  public:                          // the game's by address now, stored by each instantiation's constructor
+    DynamicCaster();
 };
 } }
 struct Id64_22ff0 {
@@ -59,6 +59,7 @@ struct LayerSet_22ff0 {
     void FUN_00222890(AnimationDriver_22ff0 *d, float a, float b, float c, float e, float f, float g);
 };
 extern "C" LayerSet_22ff0 *__fastcall FUN_00059a40(Context *ctx);
+template <> inline content::LoadInventory::DynamicCaster<pure3d::Animation>::DynamicCaster() { vftable = DAT_003f3e80; }
 class Factory_22ff0 {
 public:
     virtual void f0();
@@ -106,7 +107,7 @@ public:
 
 
 // 0x00022ff0 CKeyPoseAction::vfunc_6 (281 B): equivalent/0x00022ff0.cpp
-// sym: ?vfunc_6@CKeyPoseAction@fn_f372509d@@UAE_NH@Z @b86edcb0b625 @wd96c1a698c75 @vcb12b85d1946
+// sym: ?vfunc_6@CKeyPoseAction@fn_f372509d@@UAE_NH@Z @8f60853bf203 @w035b98b6b343 @v6836249c7e16
 // STATUS: equivalent (tools/equiv.py level 3: 3011 inputs, branch coverage 6/6)
 // CKeyPoseAction::vfunc_6 @ 0x00022ff0
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0

@@ -319,10 +319,11 @@ class Holder {
 };
 typedef unsigned int u32_286470;
 typedef unsigned int u32_2864a0;
-class DynamicCaster_286750 {
+extern "C" char DAT_0042c7cc[];   // (fix2) the game's caster vftable
+class DynamicCaster_286750 {   // (fix2) was polymorphic (virtual void Fnf_00286470(void*);): clang's vftable natively
   public:
-    virtual void Fnf_00286470(void*);
-    DynamicCaster_286750() {}
+    void *vftable;
+    DynamicCaster_286750() { vftable = DAT_0042c7cc; }
 };
 class Inventory {
   public:
@@ -331,8 +332,10 @@ class Inventory {
     virtual void c();
     virtual int load(DynamicCaster_286750*, U64);
 };
-struct DynamicCaster_286780 {
-    virtual void cast_002864a0(void*);
+extern "C" char DAT_0042c7d4[];   // (fix2) the game's caster vftable
+struct DynamicCaster_286780 {   // (fix2) was polymorphic (virtual void cast_002864a0(void*);): clang's vftable natively
+    void *vftable;
+    DynamicCaster_286780() { vftable = DAT_0042c7d4; }
 };
 struct Manager {
     virtual void f0();
@@ -2451,7 +2454,7 @@ hulk_intptr load(Manager* manager, const char* name) {
 } // namespace fn_ff70be84
 
 // 0x002867b0 pure3d::DefaultFrameControllerHandler::vfunc_4 (2325 B): equivalent/0x002867b0.cpp [wrapped: macros]
-// sym: ?FUN_002867b0@Handler@fn_002867b0@@QAEPAVFcBase@2@PBDIIPAVReader@2@PAVInv@2@@Z @399a2c49c1da @w6dbfa818a10c @v9f5de2dfebd4
+// sym: ?FUN_002867b0@Handler@fn_002867b0@@QAEPAVFcBase@2@PBDIIPAVReader@2@PAVInv@2@@Z @b00ce1fe3718 @w51052b303126 @v4c92e1082a41
 namespace fn_002867b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3215 inputs, branch coverage 106/106)
 // pure3d::DefaultFrameControllerHandler::vfunc_4 @ 0x002867b0
@@ -2488,11 +2491,13 @@ char FUN_001d04d0(const void* typeInfo);                      // type_info test 
 
 void *thunk_FUN_0008d690(unsigned int size);
 
+extern "C" char DAT_003f3e80[], DAT_003fef7c[], DAT_0040cb24[], DAT_0040a20c[];   // (fix2) the game's caster vftables
 namespace content {
 namespace LoadInventory {
-template <class T>
-struct DynamicCaster {
-    virtual void v0();
+template <class T> struct DynamicCaster {   // (fix2) was polymorphic (virtual void v0();): clang's own vftable natively,
+  public:                          // the game's by address now, stored by each instantiation's constructor
+    void *vftable;
+    DynamicCaster();
 };
 }
 }
@@ -2717,6 +2722,10 @@ public:
     FcBase *FUN_002867b0(const char *arg1, unsigned int type, unsigned int ver, Reader *R, Inv *inv);
 };
 
+template <> inline content::LoadInventory::DynamicCaster<pure3d::Animation>::DynamicCaster() { vftable = DAT_003f3e80; }
+template <> inline content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable>::DynamicCaster() { vftable = DAT_003fef7c; }
+template <> inline content::LoadInventory::DynamicCaster<pure3d::ParticleSystem>::DynamicCaster() { vftable = DAT_0040cb24; }
+template <> inline content::LoadInventory::DynamicCaster<pure3d::Geometry>::DynamicCaster() { vftable = DAT_0040a20c; }
 FcBase *Handler::FUN_002867b0(const char *arg1, unsigned int type, unsigned int ver, Reader *R, Inv *inv)
 {
     struct Frame {
@@ -2730,6 +2739,7 @@ FcBase *Handler::FUN_002867b0(const char *arg1, unsigned int type, unsigned int 
             float ff;
             int ebx;
             int fl;
+            void *casterWord;   // (fix2) the casters built here: their vftable, pointer-sized natively
         } t;
         char buf1[0x100];
         char buf2[0x100];

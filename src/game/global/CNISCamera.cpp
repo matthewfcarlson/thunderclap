@@ -27,9 +27,14 @@ extern void* __cdecl FUN_00263ea0(unsigned);
 namespace pure3d {
 struct DrawableHierarchy;
 }
+// (sweep-caster-fix1) the caster as the word its inline constructor writes: the game's vftable by address (a local
+// polymorphic stand-in got clang's own vftable natively, whose slot had no definition)
+extern "C" char DAT_003f6330[];   // content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy>'s vftable
 namespace content {
-struct LoadInventory { template<class T> struct DynamicCaster { virtual void cast(); }; };
+struct LoadInventory { template<class T> struct DynamicCaster { void *vftable; DynamicCaster(); }; };
+template <> inline LoadInventory::DynamicCaster<pure3d::DrawableHierarchy>::DynamicCaster() { vftable = (void *)DAT_003f6330; }
 }
+
 struct Inventory_ac2c0 { virtual void a(); virtual void b(); virtual void c(); virtual Ref_ac2c0* find(content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy>*,unsigned __int64); };
 struct FUN_000a9400 { FUN_000a9400(); virtual void dummy(); char pad4[4]; Property_ac2c0 property; char pad9[0xd0-9]; unsigned mode; char padD4[0x424-0xd4]; Filter_ac2c0* filter; Other_ac2c0* other; char pad42c[0x478-0x42c]; Ref_ac2c0* resource; };
 struct CHypnoticCamera : FUN_000a9400 { CHypnoticCamera(); virtual void dummy(); };
@@ -101,7 +106,7 @@ void __cdecl thunk_00263f30(CNISCamera*);
 
 
 // 0x000ac2c0 FUN_000ac2c0 (248 B): equivalent/0x000ac2c0.cpp
-// sym: ??0CHypnoticCamera@fn_fe577214@@QAE@XZ @ef92a6ab69b8 @wf7cb91c0b3d1 @v78401b671de2
+// sym: ??0CHypnoticCamera@fn_fe577214@@QAE@XZ @8e4cb17ca751 @w641d417f466e @vc72cd8d26569
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_000ac2c0 @ 0x000ac2c0
 CHypnoticCamera::CHypnoticCamera() {

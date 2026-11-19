@@ -5933,3 +5933,50 @@ members nothing defines, and the managers' constructors called `HeapObj::operato
   (0x00263ea0, sizeof(HulkShader)) and build it with 0x0028edb0 by address. The block still MATCHes, with relocations ok.
 - Batch 2 checks: control 91258 (HEAD a6720f3a3) / proof 91331: GATE ok. Native unbound mac 11933 -> 11901,
   linux-x64 11913 -> 11881, android-arm64 11924 -> 11892, with no new names.
+
+## sweep-caster (2026-11-18)
+
+Group "local polymorphic stand-ins" of the start-up crash census (census1, D121). A block that constructs one of the
+game's casters (`content::LoadInventory::DynamicCaster<T>`, `fight::TrackFactoryCasterTemplate<T>`,
+`fight::ConditionFactoryCasterTemplate<T>` and their local spellings) declared it as a local polymorphic class, so
+clang emitted its own vftable for it natively: a slot with no definition (an unbound name, or a jump to nowhere when
+the loader calls `cast`), and an 8-byte object where the frame or record keeps a 4-byte word. The fix, as in
+07bea3579: the caster is a record whose constructor stores the game's vftable by address (`extern "C" char
+DAT_<vftable>[]`, the vtable item's address + 4, from config/data.json); where a 32-bit frame keeps the caster in a
+4-byte word, that word is a union with a `void *` so the 32-bit offsets and code stay. Two fixers (fix1: 52 TUs,
+fix2: 51 TUs) and a landing pass.
+
+- About 500 caster vftable declarations by address (fix1 and fix2: 455; the landing pass: 47), in 102 TUs. Each one is
+  the vtable entry of the caster's class in config/data.json, and each constructing block is in that vtable's xrefs
+  (landing review).
+- The landing pass added 47 matches blocks that the census missed because their classes are not named `...Caster...`:
+  26 track factories in JointTrackerTrack_3_26.cpp (0x0017ca00..0x0017ddc0) and 21 condition and track factories in
+  unk_1133f0.cpp (0x001136e0..0x00113d20). All are still MATCH with relocations ok.
+- Four of fix2's blocks became NEW layout failures under the x64 gate. They already failed this way at HEAD, but fix2
+  changed their code: CHudMap's shader (0x000ca3a0, 0x20 bytes for a view that is 0x28 natively) and the prim group
+  loaders 0x002e1960, 0x002e2a70 and 0x002e30f0. These now allocate by the record they construct: decls/shader.h's
+  HulkShader, and block-local `AllocWords_<addr>` built from the view plus the allocation's last word. The palette
+  allocations in 0x002e1960 and 0x002e30f0 are now `sizeof` of the view as well (0x68 on 32-bit, 0x80 natively). The
+  32-bit code is unchanged, so no proof was needed: the MSVC and Wine code hashes and the views are the same. The
+  x64 gate passes for all four.
+- 0x000f8970 (FontSet_f8970, crash64/ptr32) is in config/x64-baseline.json with `x64_gate.py accept`. It fails the
+  same way at HEAD (equiv --x64 jobs 91207 and 91208), and the caster fix doesn't touch the pointer read in
+  FontSet's char-pad view.
+- Left out: 0x001e7290 (om/Stream.cpp). Its code changed, and MSVC proof 90536 passed with 3,010 inputs, but Wine
+  proof 90537 had not finished when this landed. Two of the working tree's hunks in SeqActionClip.cpp and
+  CSoundResourceManager.cpp belong to audio1 and are also left out.
+- Still open caster sites: 0x000835a0, 0x00295620, 0x000f6b50, 0x000f6bd0, 0x00081b20, 0x00283e10 (start-up path),
+  0x000464c0 (start-up path) and 0x002bc790. 0x00290bf0's caster is fixed, but its raw byte frame (`W()`/`PT()`)
+  still overlaps natively: the casters at f+0x0c and f+0x10 are each 8 bytes, so the second one overwrites the high
+  half of the first. 0x002e3bd0's palette allocation (0x68, 0x80 natively) is still the literal (in the layout
+  baseline).
+- Checks: verify --relocs --x64 on HEAD aaa0a1573 plus the patch (job 91445, --head-only, the patch's files
+  shipped): 0 errors and x64 gate ok. Every one of the 4,749 matches blocks is MATCH with relocations ok, and all
+  109 equivalent blocks whose code changed have promotable MSVC and Wine ledger lines at 3,000 or more inputs. The job
+  exits 1 only because of blocks that are unproven tree-wide (12 MSVC, 28 Wine), and this change touches none of them.
+  A clang -fsyntax-only pass with native_mac's front-end flags, for aarch64 and x86_64, was clean (102 TUs).
+- Wine control 91375 (HEAD a6720f3a3) and proof 91444 (seed:91375), both on studio, replaying play3 to 60,000:
+  ckpt_gate GATE ok (2,009 common frames, the known transients only). Wine unbound went from 719 to 710.
+- Native mac, from each lineage's own snapshot and binding map: 2520/2520 tree TUs compile. Unbound went from 11,933
+  to 11,419: C++ names from 5,004 to 4,495, and FUN_ by address from 6,318 to 6,313. The callers' `Find_00236ac0` /
+  `Find_002343e0` declarations now take the record types, so those names are unbound under their new spellings.

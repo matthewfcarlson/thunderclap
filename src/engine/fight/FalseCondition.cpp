@@ -12,18 +12,20 @@ namespace fn_f1fd5fb3 { extern "C" char DAT_00428ad0[]; }   // (x64t7) the game 
 
 // ---- declarations shared by the functions below
 namespace fn_f1fd5fb3 {
-class ConditionFactoryCasterTemplate_23d220 {
-  public:
-    virtual bool Cast_0023d030(void*);
+// (sweep-caster-fix1) the casters as the word their inline constructors write: the game's vftable by address (a
+// local polymorphic stand-in got clang's own vftable natively, whose slot had no definition)
+extern "C" char DAT_00428a64[];   // fight::ConditionFactoryCasterTemplate<fight::NotCondition>'s vftable
+extern "C" char DAT_00428a70[];   // fight::ConditionFactoryCasterTemplate<fight::OrCondition>'s vftable
+struct ConditionFactoryCasterTemplate_23d220 {
+    void* vftable;
 };
 class Obj {
   public:
     void Apply_00236760(void*);
 };
 extern "C" void* Get(void*, ConditionFactoryCasterTemplate_23d220*);
-class ConditionFactoryCasterTemplate_23d250 {
-  public:
-    virtual bool Cast_0023d070(void*);
+struct ConditionFactoryCasterTemplate_23d250 {
+    void* vftable;
 };
 class Handler {
   public:
@@ -99,6 +101,7 @@ class ConditionFactoryTemplate_23d3d0 : public ConditionFactory_23d3d0 {
 // sym: _FUN_0023d220
 extern "C" void FUN_0023d220(Obj* obj, void* x) {
     ConditionFactoryCasterTemplate_23d220 caster;
+    caster.vftable = (void*)DAT_00428a64;
     void* p = Get(x, &caster);
     obj->Apply_00236760(p);
 }
@@ -108,6 +111,7 @@ extern "C" void FUN_0023d220(Obj* obj, void* x) {
 // sym: _FUN_0023d250
 extern "C" void __cdecl FUN_0023d250(Handler* h, void* p) {
     ConditionFactoryCasterTemplate_23d250 caster;
+    caster.vftable = (void*)DAT_00428a70;
     void* v = FUN_002343e0(p, &caster);
     h->Set_00236760(v);
 }

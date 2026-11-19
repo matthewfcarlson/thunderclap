@@ -5935,7 +5935,7 @@ bool Target_9d100::FUN_0009d100(Key_9d100* key, float scale, float offset) { Inv
 
 
 // 0x0009d1b0 FUN_0009d1b0 (449 B): equivalent/0x0009d1b0.cpp [wrapped: conflict: World; content::LoadInventory::DynamicCaster]
-// sym: ?FUN_0009d1b0@CCameraManager_9d1b0@fn_0009d1b0@@QAEXPBD000@Z @63255e1190e8 @w35d4d7dad896 @v69404b4c2572
+// sym: ?FUN_0009d1b0@CCameraManager_9d1b0@fn_0009d1b0@@QAEXPBD000@Z @eea6ba29b83d @wedbc09c78d8d @vc90b126fefa4
 namespace fn_0009d1b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20026 inputs, branch coverage 32/34, incomplete)
 // FUN_0009d1b0 @ 0x0009d1b0
@@ -5970,15 +5970,21 @@ char FUN_001d04d0(const void* typeInfo);                      // type_info test 
 
 namespace pure3d { class Animation; }
 struct Loader_9d1b0;
+// (sweep-caster-fix1) the caster as the words its inline constructor writes: the game's vftable by address (a local
+// polymorphic stand-in got clang's own vftable natively, whose slot had no definition)
+extern "C" char DAT_003f3e80[];   // content::LoadInventory::DynamicCaster<pure3d::Animation>'s vftable
 namespace content {
 namespace LoadInventory {
 template <class T>
 struct DynamicCaster {
-    virtual void v0();
+    void *vftable;
     Loader_9d1b0 *pad4;
+    DynamicCaster();
 };
+template <> inline DynamicCaster<pure3d::Animation>::DynamicCaster() { vftable = (void *)DAT_003f3e80; }
 }
 }
+
 
 struct Anim {
     virtual void v0();

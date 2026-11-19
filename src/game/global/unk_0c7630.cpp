@@ -22,18 +22,18 @@ public:
     virtual void Release();
 };
 }
+// (sweep-caster-fix1) the caster as the word its inline constructor writes: the game's vftable by address (a local
+// polymorphic stand-in got clang's own vftable natively, whose slot had no definition)
+extern "C" char DAT_003f6330[];   // content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy>'s vftable
 namespace content { namespace LoadInventory {
-class __declspec(novtable) DynamicCasterBase {
-public:
-    virtual void cast(void *p) = 0;
+struct DynamicCasterBase {
+    void *vftable;
 };
-} }
-namespace content { namespace LoadInventory {
 template <class T>
-class DynamicCaster : public DynamicCasterBase {
-public:
-    virtual void cast(void *p);
+struct DynamicCaster : DynamicCasterBase {
+    DynamicCaster();
 };
+template <> inline DynamicCaster<pure3d::DrawableHierarchy>::DynamicCaster() { vftable = (void *)DAT_003f6330; }
 } }
 struct Key_c7630 {
     unsigned int lo;
@@ -254,7 +254,7 @@ struct SlotTable_c80a0 {
 
 
 // 0x000c7630 FUN_000c7630 (751 B): equivalent/0x000c7630.cpp
-// sym: ??0CHudIcons@fn_f9a0caab@@QAE@XZ @92ef8dc17464 @wc34e481f9e92 @v03d114d0ffbf
+// sym: ??0CHudIcons@fn_f9a0caab@@QAE@XZ @4b278a070f26 @w069c338bf77a @vc3790cdc3b26
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 42/42)
 // FUN_000c7630 @ 0x000c7630
 // equiv-map: ?FUN_0008d690@@YAPAXI@Z = 0x00263ea0

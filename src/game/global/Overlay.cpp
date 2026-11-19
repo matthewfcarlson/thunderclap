@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
+#include "decls/shader.h"   // (sweep-caster-land) HulkShader, the record 0x000ca3a0 allocates
 #include "gen/global.h"
 #include "gen/owners.h"
 #define TREE_TU_BEGIN namespace fn_fd3ccc71 {
@@ -113,9 +114,11 @@ struct Frame_c9810 {
     V3_c9810 p;                  // 0x28
     Mat4_c9810 mat;              // 0x34
 };
-class DynamicCaster_c9ba0 {
+extern "C" char DAT_0040a20c[];   // (fix2) the game's caster vftable
+class DynamicCaster_c9ba0 {   // (fix2) was polymorphic (virtual void cast_000c96e0(void*);): clang's vftable natively
   public:
-    virtual void cast_000c96e0(void*);
+    void *vftable;
+    DynamicCaster_c9ba0() { vftable = DAT_0040a20c; }
 };
 class Obj {
   public:
@@ -246,7 +249,7 @@ extern "C" hulk_intptr FUN_000c9ba0(Obj* obj, void* input) {
 } // namespace fn_fd3ccc71
 
 // 0x000ca3a0 FUN_000ca3a0 (914 B): equivalent/0x000ca3a0.cpp [wrapped: conflict: CHudMap; World; content::LoadInventory::DynamicCaster; pure3d::Entity]
-// sym: ??0CHudMap@fn_000ca3a0@@QAE@XZ @cb65cfcc8957 @wef27afd02d47 @v1c475d5899e4
+// sym: ??0CHudMap@fn_000ca3a0@@QAE@XZ @3926c5f5a465 @wf31c2155d33d @v2d7f652ee74f
 inline void *operator new(size_t, void *p) throw() { return p; }
 namespace fn_000ca3a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 566 inputs, branch coverage 29/30, incomplete)
@@ -288,7 +291,12 @@ extern "C" double sin(double);
 
 
 namespace pure3d { class DrawableHierarchy; class Geometry; }
-namespace content { namespace LoadInventory { template<class T> struct DynamicCaster { virtual void cast(); }; } }
+extern "C" char DAT_003f6330[], DAT_0040a20c[];   // (fix2) the game's caster vftables
+namespace content { namespace LoadInventory { template <class T> struct DynamicCaster {   // (fix2) was polymorphic (virtual void cast();): clang's own vftable natively,
+  public:                          // the game's by address now, stored by each instantiation's constructor
+    void *vftable;
+    DynamicCaster();
+}; } }
 
 struct V3_ca3a0 {
     float x, y, z;
@@ -378,7 +386,10 @@ struct Frame_ca3a0 {
         char buf[4];
         Loaded_ca3a0 **p;
     } u10;                      // 0x10
-    char buf14[4];              // 0x14
+    union {                     // 0x14 (fix2) the caster: its vftable, pointer-sized natively
+        char buf14[4];
+        void *casterWord;
+    };
     int pad18;
     const char *names[11];      // 0x1c
 };
@@ -412,6 +423,8 @@ public:
     void FUN_000c9bd0(char *name);
     int FUN_000c7d10(int a, const char *name);
 };
+template <> inline content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy>::DynamicCaster() { vftable = DAT_003f6330; }
+template <> inline content::LoadInventory::DynamicCaster<pure3d::Geometry>::DynamicCaster() { vftable = DAT_0040a20c; }
 
 CHudMap::CHudMap()
 {
@@ -467,7 +480,9 @@ CHudMap::CHudMap()
     }
     b2958 = 1;
     b2959 = 0;
-    Shader_ca3a0 *r = (Shader_ca3a0 *)thunk_FUN_0008d690(0x20);
+    // (sweep-caster-land) sized by the record the code constructs (decls/shader.h HulkShader: 0x20 on the 32-bit builds;
+    // the literal was 8 bytes short of this view natively)
+    Shader_ca3a0 *r = (Shader_ca3a0 *)thunk_FUN_0008d690((unsigned int)sizeof(HulkShader));
     if (r != 0)
         r = r->FUN_0028edb0();
     else

@@ -13,18 +13,18 @@ namespace fn_f605e37d {} using namespace fn_f605e37d;
 // ---- declarations shared by the functions below
 inline void *operator new(size_t, void *p) throw() { return p; }
 namespace fn_f605e37d {
+// (sweep-caster-fix1) the caster as the word its inline constructor writes: the game's vftable by address (a local
+// polymorphic stand-in got clang's own vftable natively, whose slot had no definition)
+extern "C" char DAT_003f3e80[];   // content::LoadInventory::DynamicCaster<pure3d::Animation>'s vftable
 namespace content { namespace LoadInventory {
-class __declspec(novtable) DynamicCasterBase {
-public:
-    virtual void cast(void *p) = 0;
+struct DynamicCasterBase {
+    void *vftable;
 };
-} }
-namespace content { namespace LoadInventory {
 template <class T>
-class DynamicCaster : public DynamicCasterBase {
-public:
-    virtual void cast(void *p);
+struct DynamicCaster : DynamicCasterBase {
+    DynamicCaster();
 };
+template <> inline DynamicCaster<pure3d::Animation>::DynamicCaster() { vftable = (void *)DAT_003f3e80; }
 } }
 struct V3_164270 {
     float x, y, z;
@@ -146,7 +146,7 @@ public:
 
 
 // 0x00164270 hulkfight::motion::LocomotionSteerAction::vfunc_3 (1042 B): equivalent/0x00164270.cpp
-// sym: ?vfunc_3@LocomotionSteerAction@motion@hulkfight@fn_f605e37d@@UAE_NHH@Z @118919f2bb0a @w12f2ce2c3984 @vd76efa8f3a3f
+// sym: ?vfunc_3@LocomotionSteerAction@motion@hulkfight@fn_f605e37d@@UAE_NHH@Z @04c2711735cc @w692026f72109 @vdb06b50b1434
 // STATUS: equivalent (tools/equiv.py level 3: 513 inputs, branch coverage 56/56)
 // hulkfight::motion::LocomotionSteerAction::vfunc_3 @ 0x00164270
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
@@ -156,8 +156,12 @@ bool hulkfight::motion::LocomotionSteerAction::vfunc_3(int a, int b)
         float best;
         Slot10 s10;
         void *rig;
-        char casterB[4];
+        union {                    // (sweep-caster-fix1) the caster: its vftable, pointer-sized natively
+            char casterB[4];
+            void *casterBWord;
+        };
         unsigned int *keyptr;
+
         unsigned int keyhi;
         LayerSet_164270 *layers;
         Slot28 s28;

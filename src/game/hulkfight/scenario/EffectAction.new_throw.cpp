@@ -393,7 +393,7 @@ void FUN_001a9800()
 } // namespace fn_fabb071b
 
 // 0x001a9b10 FUN_001a9b10 (1021 B): equivalent/0x001a9b10.cpp [wrapped: conflict: content::LoadInventory::DynamicCaster; pure3d::CompositeDrawable; pure3d::DrawableHierarchy; pure3d::Entity (+2)]
-// sym: ?FUN_001a9b10@AnimSetup@fn_001a9b10@@QAE_NPAUOut_1a9b10@2@PBD1_N2H2@Z @edf80f70a210 @w7d8d36c9e468 @vce4926ad33e1
+// sym: ?FUN_001a9b10@AnimSetup@fn_001a9b10@@QAE_NPAUOut_1a9b10@2@PBD1_N2H2@Z @340b42880eef @w2460212960d2 @v51cdef41ba14
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)
@@ -434,12 +434,13 @@ void *thunk_FUN_0008d690(unsigned int size);
 
 namespace pure3d { class Animation; }
 
+extern "C" char DAT_003f3e80[];   // (fix2) the game's caster vftables
 namespace content {
 namespace LoadInventory {
-template <class T>
-class DynamicCaster {
-public:
-    virtual void cast(void *p);
+template <class T> class DynamicCaster {   // (fix2) was polymorphic (virtual void cast(void *p);): clang's own vftable natively,
+  public:                          // the game's by address now, stored by each instantiation's constructor
+    void *vftable;
+    DynamicCaster();
 };
 }
 }
@@ -569,6 +570,7 @@ struct World {
     char pad0[0x20];
     ModeB_1a9b10 *modeB;
 };
+template <> inline content::LoadInventory::DynamicCaster<pure3d::Animation>::DynamicCaster() { vftable = DAT_003f3e80; }
 
 class Inventory_1a9b10 {
 public:

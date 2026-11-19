@@ -14,16 +14,16 @@ namespace fn_f089a1f8 {} using namespace fn_f089a1f8;
 // ---- declarations shared by the functions below
 namespace fn_f089a1f8 {
 namespace content { namespace LoadInventory {
-class __declspec(novtable) DynamicCasterBase {
+class DynamicCasterBase {   // (fix2) was polymorphic (virtual void cast(void *p) = 0;): a record holding the game's vftable word
 public:
-    virtual void cast(void *p) = 0;
+    void *vftable;
 };
 } }
+extern "C" char DAT_003f3e80[];   // (fix2) the game's caster vftables
 namespace content { namespace LoadInventory {
-template <class T>
-class DynamicCaster : public DynamicCasterBase {
-public:
-    virtual void cast(void *p);
+template <class T> class DynamicCaster : public DynamicCasterBase {   // (fix2) was polymorphic (virtual void cast(void *p);): clang's own vftable natively,
+  public:                          // the game's by address now, stored by each instantiation's constructor
+    DynamicCaster();
 };
 } }
 struct V3_22d00 {
@@ -90,6 +90,7 @@ struct LayerSet_22d00 {
     void FUN_00222890(choreo2::AnimationDriver *d, float r, float a, float b, float c, float e, float f);
 };
 extern "C" LayerSet_22d00 *__fastcall FUN_00059a40(Context *ctx);
+template <> inline content::LoadInventory::DynamicCaster<pure3d::Animation>::DynamicCaster() { vftable = DAT_003f3e80; }
 class Factory_22d00 {
 public:
     virtual void f0();
@@ -150,7 +151,7 @@ public:
 
 
 // 0x00022d00 CStunAnimationAction::vfunc_6 (751 B): equivalent/0x00022d00.cpp
-// sym: ?vfunc_6@CStunAnimationAction@fn_f089a1f8@@UAE_NH@Z @f550e9efa83f @w884cb44fef45 @v5bccb6b19bc2
+// sym: ?vfunc_6@CStunAnimationAction@fn_f089a1f8@@UAE_NH@Z @707c6aabf211 @wf648fbb0d600 @v3076d286cfa4
 // STATUS: equivalent (tools/equiv.py level 3: 3021 inputs, branch coverage 42/42; Wine build 631 inputs, 42/42)
 // CStunAnimationAction::vfunc_6 @ 0x00022d00
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0

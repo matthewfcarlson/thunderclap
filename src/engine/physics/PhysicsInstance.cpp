@@ -384,26 +384,35 @@ physics::PhysicsInstance::PhysicsInstance(Ref_2fc880* input, Input_2fc880* data)
 
 
 // 0x002fc990 FUN_002fc990 (150 B): equivalent/0x002fc990.cpp [wrapped: conflict: content::LoadInventory::DynamicCaster]
-// sym: ?FUN_002fc990@fn_002fc990@@YAPAUPhysicsInstance_2fc990@1@IIPAVInventory_2fc990@1@I@Z @a7d9602ecc29 @we874a87f7487 @v1f0b254a3260
+// sym: ?FUN_002fc990@fn_002fc990@@YAPAUPhysicsInstance_2fc990@1@IIPAVInventory_2fc990@1@I@Z @f8ff67ebb4f7 @w59b55eb0a231 @v3654cb978a6e
 namespace fn_002fc990 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_002fc990 @ 0x002fc990
-namespace content {
-namespace LoadInventory {
-template <class T>
-struct DynamicCaster {
-    virtual void v0();
-};
-}
-}
-
 namespace physics {
 class CollisionObject;
 class PhysicsObject;
 class ArticulatedPhysicsObject;
 }
+// (sweep-caster-fix1) the casters as the word their inline constructors write: the game's vftables by address (a local
+// polymorphic stand-in got clang's own vftable natively, whose slot had no definition)
+extern "C" char DAT_004318a8[];   // content::LoadInventory::DynamicCaster<physics::ArticulatedPhysicsObject>'s vftable
+extern "C" char DAT_0042cc90[];   // content::LoadInventory::DynamicCaster<physics::CollisionObject>'s vftable
+extern "C" char DAT_0042cc98[];   // content::LoadInventory::DynamicCaster<physics::PhysicsObject>'s vftable
+namespace content {
+namespace LoadInventory {
+template <class T>
+struct DynamicCaster {
+    void *vftable;
+    DynamicCaster();
+};
+template <> inline DynamicCaster<physics::ArticulatedPhysicsObject>::DynamicCaster() { vftable = (void *)DAT_004318a8; }
+template <> inline DynamicCaster<physics::CollisionObject>::DynamicCaster() { vftable = (void *)DAT_0042cc90; }
+template <> inline DynamicCaster<physics::PhysicsObject>::DynamicCaster() { vftable = (void *)DAT_0042cc98; }
+}
+}
 
 class Inventory_2fc990 {
+
 public:
     virtual void v0();
     virtual void v1();

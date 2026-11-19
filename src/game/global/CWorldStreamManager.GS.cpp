@@ -442,7 +442,7 @@ void W_206320::FUN_00206320(Ctx_206320* g){
 } // namespace fn_f43ea553
 
 // 0x002067d0 FUN_002067d0 (610 B): equivalent/0x002067d0.cpp [wrapped: conflict: World]
-// sym: ?FUN_002067d0@Loader_2067d0@fn_002067d0@@QAEXHD@Z @d7198c2358e4 @w5a12642ec708 @vf6a857813a7e
+// sym: ?FUN_002067d0@Loader_2067d0@fn_002067d0@@QAEXHD@Z @0c7cd3c7fc3e @w9ab4df0765fd @v8a6508ee3d65
 inline void *operator new(size_t, void *p) throw() { return p; }
 namespace fn_002067d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 7358 inputs, branch coverage 12/12)
@@ -488,12 +488,24 @@ typedef unsigned __int64 ID;
 namespace pure3d { class Geometry_2067d0; class Shadow_2067d0; class LightGroup_2067d0; }
 namespace physics { class WorldCollisionObject_2067d0; }
 
+// (sweep-caster-fix1) the casters as the word their inline constructors write: the game's vftables by address (a local
+// polymorphic stand-in got clang's own vftable natively, whose slot had no definition, and its 8 bytes overran the
+// frame's 4-byte words)
+extern "C" char DAT_00425b3c[];   // content::LoadInventory::DynamicCaster<physics::WorldCollisionObject>'s vftable
+extern "C" char DAT_0040a20c[];   // content::LoadInventory::DynamicCaster<pure3d::Geometry>'s vftable
+extern "C" char DAT_0040cb44[];   // content::LoadInventory::DynamicCaster<pure3d::LightGroup>'s vftable
+extern "C" char DAT_00425b34[];   // content::LoadInventory::DynamicCaster<pure3d::Shadow>'s vftable
 namespace content {
 namespace LoadInventory {
 template <class T>
 struct DynamicCaster {
-    virtual void v0();
+    void *vftable;
+    DynamicCaster();
 };
+template <> inline DynamicCaster<physics::WorldCollisionObject_2067d0>::DynamicCaster() { vftable = (void *)DAT_00425b3c; }
+template <> inline DynamicCaster<pure3d::Geometry_2067d0>::DynamicCaster() { vftable = (void *)DAT_0040a20c; }
+template <> inline DynamicCaster<pure3d::LightGroup_2067d0>::DynamicCaster() { vftable = (void *)DAT_0040cb44; }
+template <> inline DynamicCaster<pure3d::Shadow_2067d0>::DynamicCaster() { vftable = (void *)DAT_00425b34; }
 }
 }
 
@@ -588,7 +600,10 @@ struct Loader_2067d0 {
 };
 
 struct Frame_2067d0 {
-    char casters[8];        // 0x00, 0x04
+    union {                 // 0x00, 0x04 (sweep-caster-fix1) the casters: their vftables, pointer-sized natively
+        char casters[8];
+        void *casterWords[2];
+    };
     Name_2067d0 nm;                // 0x08
     Event_2067d0 ev;               // 0x10
     char name[0x100];
@@ -614,17 +629,17 @@ void Loader_2067d0::FUN_002067d0(int idx, char flag)
     sprintf(f.buf, "%sScene", f.name);
     ID sceneKey = FUN_002672f0(f.buf, 0, 0);
     {
-        content::LoadInventory::DynamicCaster<pure3d::Geometry_2067d0> *c = new (&f.casters[4]) content::LoadInventory::DynamicCaster<pure3d::Geometry_2067d0>;
+        content::LoadInventory::DynamicCaster<pure3d::Geometry_2067d0> *c = new (&f.casterWords[1]) content::LoadInventory::DynamicCaster<pure3d::Geometry_2067d0>;
         entry->FUN_001c6cb0(fac->f3(c, (unsigned int)sceneKey, (unsigned int)(sceneKey >> 32)));
     }
     sprintf(f.buf, "%sShadow", f.name);
     {
         ID k = FUN_002672f0(f.buf, 0, 0);
-        content::LoadInventory::DynamicCaster<pure3d::Shadow_2067d0> *c = new (&f.casters[0]) content::LoadInventory::DynamicCaster<pure3d::Shadow_2067d0>;
+        content::LoadInventory::DynamicCaster<pure3d::Shadow_2067d0> *c = new (&f.casterWords[0]) content::LoadInventory::DynamicCaster<pure3d::Shadow_2067d0>;
         entry->FUN_001c6ce0(fac->f3(c, (unsigned int)k, (unsigned int)(k >> 32)));
     }
     {
-        content::LoadInventory::DynamicCaster<pure3d::LightGroup_2067d0> *c = new (&f.casters[0]) content::LoadInventory::DynamicCaster<pure3d::LightGroup_2067d0>;
+        content::LoadInventory::DynamicCaster<pure3d::LightGroup_2067d0> *c = new (&f.casterWords[0]) content::LoadInventory::DynamicCaster<pure3d::LightGroup_2067d0>;
         entry->FUN_001c6950(fac->f3(c, (unsigned int)sceneKey, (unsigned int)(sceneKey >> 32)));
     }
     if (f590 && *f590 != 0 && !flag)
@@ -635,7 +650,7 @@ void Loader_2067d0::FUN_002067d0(int idx, char flag)
     sprintf(f.buf, "%sWorldCollision", f.name);
     {
         ID k = FUN_002672f0(f.buf, 0, 0);
-        content::LoadInventory::DynamicCaster<physics::WorldCollisionObject_2067d0> *c = new (&f.casters[0]) content::LoadInventory::DynamicCaster<physics::WorldCollisionObject_2067d0>;
+        content::LoadInventory::DynamicCaster<physics::WorldCollisionObject_2067d0> *c = new (&f.casterWords[0]) content::LoadInventory::DynamicCaster<physics::WorldCollisionObject_2067d0>;
         void *wc = fac->f3(c, (unsigned int)k, (unsigned int)(k >> 32));
         if (wc)
             mid->bank->e->FUN_001b5ec0(wc, idx);
@@ -652,7 +667,7 @@ void Loader_2067d0::FUN_002067d0(int idx, char flag)
 
 
 // 0x00206a40 FUN_00206a40 (454 B): equivalent/0x00206a40.cpp [wrapped: conflict: FUN_001c3d90; World]
-// sym: ?Load@Scene_206a40@fn_00206a40@@QAEXH@Z @e637b1a2cbac @w9444c3995062 @vf07344fde3e5
+// sym: ?Load@Scene_206a40@fn_00206a40@@QAEXH@Z @9cade2f10940 @w96e3c7fe74e0 @vba72ba4c09cb
 namespace fn_00206a40 {
 // STATUS: equivalent (tools/equiv.py level 3: 10099 inputs, branch coverage 16/16)
 // FUN_00206a40 @ 0x00206a40
@@ -693,14 +708,20 @@ extern "C" int sprintf(char *buf, const char *fmt, ...);
 
 
 namespace pure3d { class LightGroup; }
+// (sweep-caster-fix1) the caster as the word its inline constructor writes: the game's vftable by address (a local
+// polymorphic stand-in got clang's own vftable natively, whose slot had no definition)
+extern "C" char DAT_0040cb44[];   // content::LoadInventory::DynamicCaster<pure3d::LightGroup>'s vftable
 namespace content {
 namespace LoadInventory {
 template <class T>
 struct DynamicCaster {
-    virtual void v0();
+    void *vftable;
+    DynamicCaster();
 };
+template <> inline DynamicCaster<pure3d::LightGroup>::DynamicCaster() { vftable = (void *)DAT_0040cb44; }
 }
 }
+
 
 struct Slot_206a40 {
     char pad00[0x28];

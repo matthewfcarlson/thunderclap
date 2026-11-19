@@ -374,8 +374,11 @@ struct Obj_fb150 {
 } // namespace fn_fd8937bc
 extern "C" __int64 FUN_0027b020(hulk_intptr);
 namespace fn_fd8937bc {
+extern char DAT_0040ced4[];   // content::LoadInventory::DynamicCaster<DollyScript::CRawScript>'s vftable
+// (sweep-caster-fix1) the caster as the word its inline constructor writes: the game's vftable by address (a local
+// polymorphic stand-in got clang's own vftable natively, whose slot 0x000faf20 had no definition)
 struct DynamicCaster_fb1c0 {
-    virtual void cast_000faf20(void*);
+    void* vftable;
 };
 struct Inventory {
     virtual void a();
@@ -387,6 +390,7 @@ struct Inventory {
 };
 inline int find(Inventory* inv, __int64 key) {
     DynamicCaster_fb1c0 caster;
+    caster.vftable = (void*)DAT_0040ced4;
     return inv->get(&caster, key);
 }
 struct Loader {

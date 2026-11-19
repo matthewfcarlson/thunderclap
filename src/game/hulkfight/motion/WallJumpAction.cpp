@@ -567,10 +567,11 @@ class ParamBranch : public ParamValueBranch, public ParamValue {
     virtual void vfunc_6(void*);
 };
 class Track {};
-class TrackFactoryCasterTemplate_1424e0 {
+extern "C" char DAT_00412d0c[];   // (fix2) the game's caster vftable
+class TrackFactoryCasterTemplate_1424e0 {   // (fix2) was polymorphic (virtual bool Cast_00141930(void*);): clang's vftable natively
   public:
-    virtual bool Cast_00141930(void*);
-    TrackFactoryCasterTemplate_1424e0() {}
+    void *vftable;
+    TrackFactoryCasterTemplate_1424e0() { vftable = DAT_00412d0c; }
 };
 Track* __cdecl Find_00236ac0(const char*, TrackFactoryCasterTemplate_1424e0*);
 class Owner {
@@ -578,23 +579,29 @@ class Owner {
     void Set_002367c0(Track*);
     void Add_002367c0(void*);
 };
-class TrackFactoryCasterTemplate_1428b0 {
+extern "C" char DAT_00412d18[];   // (fix2) the game's caster vftable
+class TrackFactoryCasterTemplate_1428b0 {   // (fix2) was polymorphic (virtual bool Cast_001419d0(void*);): clang's vftable natively
   public:
-    virtual bool Cast_001419d0(void*);
+    void *vftable;
+    TrackFactoryCasterTemplate_1428b0() { vftable = DAT_00412d18; }
 };
 class Obj {
   public:
     void Apply_002367c0(void*);
 };
 void* __cdecl Find_00236ac0(void*, TrackFactoryCasterTemplate_1428b0*);
-class TrackFactoryCasterTemplate_1428e0 {
+extern "C" char DAT_00412d24[];   // (fix2) the game's caster vftable
+class TrackFactoryCasterTemplate_1428e0 {   // (fix2) was polymorphic (virtual bool Cast_00141a70(void*);): clang's vftable natively
   public:
-    virtual bool Cast_00141a70(void*);
+    void *vftable;
+    TrackFactoryCasterTemplate_1428e0() { vftable = DAT_00412d24; }
 };
 extern "C" void* __cdecl FUN_00236ac0(void*, TrackFactoryCasterTemplate_1428e0*);
-class ConditionFactoryCasterTemplate_142910 {
+extern "C" char DAT_00412d00[];   // (fix2) the game's caster vftable
+class ConditionFactoryCasterTemplate_142910 {   // (fix2) was polymorphic (virtual bool Cast_001418b0(void*);): clang's vftable natively
   public:
-    virtual bool Cast_001418b0(void*);
+    void *vftable;
+    ConditionFactoryCasterTemplate_142910() { vftable = DAT_00412d00; }
 };
 struct Result;
 extern "C" Result* FUN_002343e0(const char*, ConditionFactoryCasterTemplate_142910*);
@@ -3682,7 +3689,7 @@ extern "C" void FUN_00142910(Manager* mgr) {
 } // namespace fn_f8068520
 
 // 0x00142940 FUN_00142940 (67 B): equivalent/0x00142940.cpp [wrapped: conflict: World; content::LoadInventory::DynamicCaster]
-// sym: _FUN_00142940 @b66cccfdbc21 @w4c8f193d04b9 @vfde91bc03940
+// sym: _FUN_00142940 @654101bf7826 @wf1b21f3159a1 @v73bb3abddfb5
 namespace fn_00142940 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_00142940 @ 0x00142940
@@ -3715,9 +3722,15 @@ unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash wit
 char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
 
 namespace pure3d { struct Animation_142940 {}; }
+extern "C" char DAT_003f3e80[];   // (fix2) the game's caster vftables
 namespace content { namespace LoadInventory {
-template<class T> struct DynamicCaster { virtual void cast(); };
+template <class T> struct DynamicCaster {   // (fix2) was polymorphic (virtual void cast();): clang's own vftable natively,
+  public:                          // the game's by address now, stored by each instantiation's constructor
+    void *vftable;
+    DynamicCaster();
+};
 }}
+template <> inline content::LoadInventory::DynamicCaster<pure3d::Animation_142940>::DynamicCaster() { vftable = DAT_003f3e80; }
 struct Inventory {
     virtual void slot0();
     virtual void slot1();

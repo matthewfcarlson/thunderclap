@@ -187,9 +187,11 @@ class SpawnAction_23ef70 {
     Sub_23ef70 m28;
     SpawnAction_23ef70* f2(unsigned char flags);
 };
-class TrackFactoryCasterTemplate_23efe0 {
+extern "C" char DAT_00428f2c[];   // (fix2) the game's caster vftable 0x428f2c
+class TrackFactoryCasterTemplate_23efe0 {   // (fix2) was polymorphic (virtual bool Cast_0023edb0(void*);): clang's own vftable natively, the game's by address now
   public:
-    virtual bool Cast_0023edb0(void*);
+    void *vftable;
+    TrackFactoryCasterTemplate_23efe0() { vftable = DAT_00428f2c; }
 };
 extern "C" void* __cdecl Find(void*, TrackFactoryCasterTemplate_23efe0*);
 class Obj {

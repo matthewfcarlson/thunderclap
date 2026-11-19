@@ -1440,3 +1440,17 @@ blocks fight::Action's whole family: the records come first there.
   touching the call sites. MSVC inlines it to the same immediate store.
 - find1's F3 (snd_MapInstance, called by map.lua during registration) and F5 (subtitles' default shader) are fixed at
   the root: game vftables by address, HulkShader's size and its constructor by address.
+
+## 2026-11-18 sweep-caster: the game's casters by vftable address (landed)
+
+- Local polymorphic stand-ins for the game's casters (DynamicCaster, Track/ConditionFactoryCasterTemplate) got
+  clang's own vftable natively, with an undefined slot and an 8-byte object in a 4-byte frame word. They are now
+  records that store the game's vftable by address (`DAT_<vtable item + 4>`), in about 500 sites in 102 TUs. Details
+  and leftovers: docs/native-build.md "sweep-caster (2026-11-18)".
+- The census that finds caster sites by class name misses local spellings such as `Caster_17ca00` or `Caster`. Using
+  config/data.json's vtable xrefs (each caster vftable's referencing functions) found 47 more in two TUs. A sweep
+  should start from the xrefs, not from names.
+- A gate failure that only appears because a fix changed a block's code can already exist at HEAD. Run the same
+  `equiv.py --x64` on HEAD's source before blaming headers or other agents. Three of the four were allocation sizes,
+  and `sizeof` of the record fixes them without touching the 32-bit code (the code hashes stay the same, so no
+  re-proof).

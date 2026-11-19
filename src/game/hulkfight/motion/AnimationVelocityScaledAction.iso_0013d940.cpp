@@ -5,7 +5,7 @@
 
 
 // 0x0013d940 hulkfight::motion::AnimationVelocityScaledAction::vfunc_3 (1306 B): equivalent/0x0013d940.cpp [isolated: helper definitions (2 out-of-line function bodies); compile error C2027: use of undefined type 'fn_fa36bb23::Node']
-// sym: ?vfunc_3@AnimationVelocityScaledAction@motion@hulkfight@fn_f2ea2d39@@UAEDHH@Z @ef7be189dab2 @w3d04d712abc2 @v2370ff40eab9
+// sym: ?vfunc_3@AnimationVelocityScaledAction@motion@hulkfight@fn_f2ea2d39@@UAEDHH@Z @a07b4aeeffd7 @w6fec9f18230d @v158b812ac159
 #include "gen/owners.h"
 namespace fn_f2ea2d39 {} using namespace fn_f2ea2d39;
 namespace fn_f2ea2d39 {
@@ -41,11 +41,13 @@ namespace fn_f2ea2d39 {
 
 void *thunk_FUN_0008d690(unsigned int size);
 
+extern "C" char DAT_003f3e80[];   // (fix2) the game's caster vftables
 namespace content {
 namespace LoadInventory {
-template <class T>
-struct DynamicCaster {
-    virtual void v0();
+template <class T> struct DynamicCaster {   // (fix2) was polymorphic (virtual void v0();): clang's own vftable natively,
+  public:                          // the game's by address now, stored by each instantiation's constructor
+    void *vftable;
+    DynamicCaster();
 };
 }
 }
@@ -144,6 +146,7 @@ LayerSet_13d940 *__fastcall FUN_00059a40(Context *ctx);
 extern "C" hulk_freg __cdecl FUN_00225be0(float c30, int e0, int e1, int z);
 extern "C" hulk_freg __cdecl FUN_000964e0();
 extern "C" double sqrt(double);
+template <> inline content::LoadInventory::DynamicCaster<pure3d::Animation>::DynamicCaster() { vftable = DAT_003f3e80; }
 
 class Factory_13d940 {
 public:
@@ -206,7 +209,10 @@ public:
 };
 
 struct Frame_13d940 {
-    char caster[4];
+    union {             // (fix2) the caster: its vftable, pointer-sized natively
+        char caster[4];
+        void *casterWord;
+    };
     char pad4[28];
     V3_13d940 vec;
 };

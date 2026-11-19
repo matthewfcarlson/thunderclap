@@ -23,11 +23,17 @@ struct Mat4_1e4c40 {
     void FUN_0022b980();
     void FUN_0022be40(Vec3_1e4c40 *pos);
 };
+// (sweep-caster-fix1) the caster as the word its inline constructor writes: the game's vftable by address (a local
+// polymorphic stand-in got clang's own vftable natively, whose slot had no definition, and its 8 bytes overran the
+// frame's 4-byte word)
+extern "C" char DAT_003f6340[];   // content::LoadInventory::DynamicCaster<CSPHulkProp>'s vftable
 namespace content { namespace LoadInventory {
 template <class T>
 struct DynamicCaster {
-    virtual void v0();
+    void *vftable;
+    DynamicCaster();
 };
+template <> inline DynamicCaster<CSPHulkProp>::DynamicCaster() { vftable = (void *)DAT_003f6340; }
 } }
 struct Prop_1e4c40 {
     char pad[4];
@@ -81,14 +87,18 @@ extern "C" int __cdecl sprintf(char *, const char *, ...);
 namespace fn_f80c1c30 {
 
 // 0x001e4c40 FUN_001e4c40 (516 B): equivalent/0x001e4c40.cpp
-// sym: ?FUN_001e4c40@CSPManager_1e4c40@fn_f80c1c30@@QAEPAUNode@2@PBDPAUVec3_1e4c40@2@HPAD1H@Z @c163ec4badf1 @w83668d374ce8 @v7c3eddced37c
+// sym: ?FUN_001e4c40@CSPManager_1e4c40@fn_f80c1c30@@QAEPAUNode@2@PBDPAUVec3_1e4c40@2@HPAD1H@Z @f4a42d4c5ebb @wc48dca257cff @v0d5ac8de0a89
 // STATUS: equivalent (tools/equiv.py level 3: 13486 inputs, branch coverage 32/32)
 // FUN_001e4c40 @ 0x001e4c40
 Node *CSPManager_1e4c40::FUN_001e4c40(const char *key, Vec3_1e4c40 *pos, int type, char *name, Vec3_1e4c40 *dir, int c)
 {
     struct Frame {
-        char caster[4];
+        union {                    // 0x00 (sweep-caster-fix1) the caster: its vftable, pointer-sized natively
+            char caster[4];
+            void *casterWord;
+        };
         CSPManager_1e4c40 *self;
+
         Mat4_1e4c40 m;
         char buf[0x80];
     } f;

@@ -465,9 +465,11 @@ struct Obj_1abe80 {
 extern void Register_002347b0(int*, Obj_1abe80**, int);
 extern "C" char DAT_0041d5f4[];
 extern void __cdecl Init_002343e0(void*, void*);
-class ConditionFactoryCasterTemplate_1ac220 {
+extern "C" char DAT_0041d5f4[];   // (fix2) the game's caster vftable
+class ConditionFactoryCasterTemplate_1ac220 {   // (fix2) was polymorphic (virtual bool Cast_001abbb0(void*);): clang's vftable natively
   public:
-    virtual bool Cast_001abbb0(void*);
+    void *vftable;
+    ConditionFactoryCasterTemplate_1ac220() { vftable = DAT_0041d5f4; }
 };
 class Owner {
   public:
@@ -475,33 +477,43 @@ class Owner {
     void Apply_00236760(int);
 };
 void* __cdecl FUN_002343e0(const char*, ConditionFactoryCasterTemplate_1ac220*);
-class ConditionFactoryCasterTemplate_1ac2b0 {
+extern "C" char DAT_0041d600[];   // (fix2) the game's caster vftable
+class ConditionFactoryCasterTemplate_1ac2b0 {   // (fix2) was polymorphic (virtual bool Cast_001abbf0(void*);): clang's vftable natively
   public:
-    virtual bool Cast_001abbf0(void*);
+    void *vftable;
+    ConditionFactoryCasterTemplate_1ac2b0() { vftable = DAT_0041d600; }
 };
 class Arg {
   public:
     void Do_00236760(void*);
 };
 extern void* Search_002343e0(void*, ConditionFactoryCasterTemplate_1ac2b0*);
-class ConditionFactoryCasterTemplate_1ac2e0 {
+extern "C" char DAT_0041d60c[];   // (fix2) the game's caster vftable
+class ConditionFactoryCasterTemplate_1ac2e0 {   // (fix2) was polymorphic (virtual bool Fnf_001abc50(void*);): clang's vftable natively
   public:
-    virtual bool Fnf_001abc50(void*);
+    void *vftable;
+    ConditionFactoryCasterTemplate_1ac2e0() { vftable = DAT_0041d60c; }
 };
 int __cdecl FUN_002343e0(int, ConditionFactoryCasterTemplate_1ac2e0*);
-class ConditionFactoryCasterTemplate_1ac310 {
+extern "C" char DAT_0041d618[];   // (fix2) the game's caster vftable
+class ConditionFactoryCasterTemplate_1ac310 {   // (fix2) was polymorphic (virtual bool cast_001abcb0(void*);): clang's vftable natively
   public:
-    virtual bool cast_001abcb0(void*);
+    void *vftable;
+    ConditionFactoryCasterTemplate_1ac310() { vftable = DAT_0041d618; }
 };
 extern "C" void* __cdecl find(void*, ConditionFactoryCasterTemplate_1ac310*);
-class ConditionFactoryCasterTemplate_1ac460 {
+extern "C" char DAT_0041d630[];   // (fix2) the game's caster vftable
+class ConditionFactoryCasterTemplate_1ac460 {   // (fix2) was polymorphic (virtual bool cast_001abdb0(void*);): clang's vftable natively
   public:
-    virtual bool cast_001abdb0(void*);
+    void *vftable;
+    ConditionFactoryCasterTemplate_1ac460() { vftable = DAT_0041d630; }
 };
 void* __cdecl lookup_002343e0(const char*, ConditionFactoryCasterTemplate_1ac460*);
-class ConditionFactoryCasterTemplate_1ac580 {
+extern "C" char DAT_0041d63c[];   // (fix2) the game's caster vftable
+class ConditionFactoryCasterTemplate_1ac580 {   // (fix2) was polymorphic (virtual int Cast_001abe30(void*);): clang's vftable natively
   public:
-    virtual int Cast_001abe30(void*);
+    void *vftable;
+    ConditionFactoryCasterTemplate_1ac580() { vftable = DAT_0041d63c; }
 };
 class Target {
   public:
@@ -1978,9 +1990,11 @@ extern "C" void FUN_001ac310(Obj* obj, void* arg) {
 // 0x001ac340 FUN_001ac340 (38 B): matches/0x001ac340.cpp [wrapped: conflict: find]
 // sym: _FUN_001ac340
 namespace fn_001ac340 {
-class ConditionFactoryCasterTemplate_1ac340 {
+extern "C" char DAT_0041d624[];   // (fix2) the game's caster vftable
+class ConditionFactoryCasterTemplate_1ac340 {   // (fix2) was polymorphic (virtual bool cast_001abd30(void*);): clang's vftable natively
   public:
-    virtual bool cast_001abd30(void*);
+    void *vftable;
+    ConditionFactoryCasterTemplate_1ac340() { vftable = DAT_0041d624; }
 };
 class Factory {
   public:

@@ -3064,7 +3064,7 @@ hulk_intptr Obj_1c4160::target(unsigned char flag) {
 } // namespace fn_ffffca36
 
 // 0x001c4190 FUN_001c4190 (148 B): equivalent/0x001c4190.cpp [wrapped: conflict: World; content::LoadInventory::DynamicCaster]
-// sym: ?FUN_001c4190@Loader_1c4190@fn_001c4190@@QAEXPAUKey_1c4190@2@@Z @6b7ef8b416f3 @w6a207342e476 @vf02cfe746cbb
+// sym: ?FUN_001c4190@Loader_1c4190@fn_001c4190@@QAEXPAUKey_1c4190@2@@Z @85977bb8ff8a @wc303b1464ef1 @vc2c0846a5c32
 namespace fn_001c4190 {
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 6/6)
 // FUN_001c4190 @ 0x001c4190
@@ -3096,18 +3096,24 @@ unsigned __int64 FUN_0027b020(const char* s);                 // string hash
 unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash with seed/length
 char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
 
+namespace pure3d { class DrawableHierarchy; }
+
+// (sweep-caster-fix1) the caster as the word its inline constructor writes: the game's vftable by address (a local
+// polymorphic stand-in got clang's own vftable natively, whose slot had no definition)
+extern "C" char DAT_003f6330[];   // content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy>'s vftable
 namespace content {
 namespace LoadInventory {
 template <class T>
 struct DynamicCaster {
-    virtual void v0();
+    void *vftable;
+    DynamicCaster();
 };
+template <> inline DynamicCaster<pure3d::DrawableHierarchy>::DynamicCaster() { vftable = (void *)DAT_003f6330; }
 }
 }
-
-namespace pure3d { class DrawableHierarchy; }
 
 struct Key_1c4190 {
+
     unsigned int lo;
     unsigned int hi;
 };

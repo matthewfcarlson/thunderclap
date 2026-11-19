@@ -20,17 +20,16 @@ inline void *operator new(size_t, void *p) throw() { return p; }
 namespace fn_fc263da4 {
 extern "C" void *FUN_0008d690(unsigned int size);
 struct Ctx_2ac610;
+// (sweep-caster-fix1) the caster as the word its inline constructor writes: the game's vftable by address (a local
+// polymorphic stand-in got clang's own vftable natively, whose slot had no definition, and its 8 bytes overran the
+// frame's 4-byte word); specialised per T below
 namespace content { namespace LoadInventory {
-class __declspec(novtable) DynamicCasterBase {
-public:
-    virtual void cast(void *p) = 0;
+struct DynamicCasterBase {
+    void *vftable;
 };
-} }
-namespace content { namespace LoadInventory {
 template <class T>
-class DynamicCaster : public DynamicCasterBase {
-public:
-    virtual void cast(void *p);
+struct DynamicCaster : DynamicCasterBase {
+    DynamicCaster();
 };
 } }
 namespace content {
@@ -63,6 +62,10 @@ public:
     void FUN_00288e80(int v);
 };
 }
+extern "C" char DAT_003f3e88[];   // content::LoadInventory::DynamicCaster<pure3d::Shader>'s vftable
+namespace content { namespace LoadInventory {
+template <> inline DynamicCaster<pure3d::Shader>::DynamicCaster() { vftable = (void *)DAT_003f3e88; }
+} }
 struct Reader {
     void FUN_002647e0(void *dst, int count, int size, int flag);
 };
@@ -194,15 +197,19 @@ struct Frame_2ac610 {
     unsigned int s30;
     unsigned int s34;
     Loader *self;
-    unsigned int casterSlot;
+    union {                        // (sweep-caster-fix1) the caster: its vftable, pointer-sized natively
+        unsigned int casterSlot;
+        void *casterWord;
+    };
     unsigned int s40[2];
+
     char name1[0x100];
     char name2[0x100];
 };
 
 
 // 0x002ac610 FUN_002ac610 (1616 B): equivalent/0x002ac610.cpp
-// sym: ?FUN_002ac610@Loader@fn_fc263da4@@QAEXHPAUStream@2@PAVCtx_2ac610@2@PAUExtra@2@@Z @e5620cfef6ff @wf98022200394 @v21c490850f4a
+// sym: ?FUN_002ac610@Loader@fn_fc263da4@@QAEXHPAUStream@2@PAVCtx_2ac610@2@PAUExtra@2@@Z @3b3803e5f0f4 @wa35b0b71fa12 @va46fd2c2ce33
 // STATUS: equivalent (tools/equiv.py level 3: 196 inputs, branch coverage 54/64, incomplete)
 // FUN_002ac610 @ 0x002ac610
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0

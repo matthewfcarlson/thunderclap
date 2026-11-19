@@ -2289,7 +2289,7 @@ pure3d::ParticleSystemLoader::ParticleSystemLoader() {
 
 
 // 0x002acd70 FUN_002acd70 (1941 B): equivalent/0x002acd70.cpp [wrapped: conflict: Reader; content::LoadInventory::DynamicCaster; content::ObjectLoader; pure3d::AnimationLoader]
-// sym: ?FUN_002acd70@Loader_2acd70@fn_002acd70@@QAEPAVObj_2acd70@2@PAVReader@2@PAVInv_2acd70@2@@Z @e8d760d3c2fd @we17a3bc51d19 @v276038f09611
+// sym: ?FUN_002acd70@Loader_2acd70@fn_002acd70@@QAEPAVObj_2acd70@2@PAVReader@2@PAVInv_2acd70@2@@Z @f7a940d42f02 @wf8d1442dedfb @ve6cc4bed865b
 namespace fn_002acd70 {
 // STATUS: equivalent (tools/equiv.py level 3: 300 inputs, branch coverage 68/86, incomplete)
 // FUN_002acd70 @ 0x002acd70
@@ -2331,6 +2331,7 @@ public:
     virtual void Release();
 };
 
+extern "C" char DAT_003f3e88[];   // (fix2) the game's caster vftables
 namespace content {
 class ObjectLoader : public Ref_2acd70 {
 public:
@@ -2339,7 +2340,11 @@ public:
     virtual void o4();
 };
 namespace LoadInventory {
-template<class T> struct DynamicCaster { virtual void cast(); };
+template <class T> struct DynamicCaster {   // (fix2) was polymorphic (virtual void cast();): clang's own vftable natively,
+  public:                          // the game's by address now, stored by each instantiation's constructor
+    void *vftable;
+    DynamicCaster();
+};
 }
 }
 
@@ -2523,6 +2528,7 @@ struct Frame_2acd70 {
     char name2[0x100];  // 0x16c
     char name3[0x100];  // 0x26c
 };
+template <> inline content::LoadInventory::DynamicCaster<pure3d::Shader>::DynamicCaster() { vftable = DAT_003f3e88; }
 
 Obj_2acd70 *Loader_2acd70::FUN_002acd70(Reader *R, Inv_2acd70 *a1)
 {

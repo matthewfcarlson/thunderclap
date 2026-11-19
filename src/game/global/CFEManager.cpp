@@ -397,13 +397,14 @@ struct Obj_c0d80 {
     virtual int f3(void*, unsigned long long);
 };
 extern unsigned long long Get_0027b020(void*);
-class DynamicCasterBase_c0db0 {
+extern "C" char DAT_003f3e88[];   // (fix2) the game's caster vftables
+class DynamicCasterBase_c0db0 {   // (fix2) was polymorphic (virtual void cast();): clang's vftable natively
   public:
-    virtual void cast();
+    void *vftable;
 };
 class DynamicCaster_c0db0 : public DynamicCasterBase_c0db0 {
   public:
-    virtual void cast();
+    DynamicCaster_c0db0() { vftable = DAT_003f3e88; }
 };
 class Inventory {
   public:
@@ -413,9 +414,11 @@ class Inventory {
     virtual int load(DynamicCasterBase_c0db0*, unsigned __int64);
 };
 extern unsigned __int64 findShader_0027b020(const char*);
-class DynamicCaster_c0de0 {
+extern "C" char DAT_003f6330[];   // (fix2) the game's caster vftable
+class DynamicCaster_c0de0 {   // (fix2) was polymorphic (virtual void Cast_00046280(void*);): clang's vftable natively
   public:
-    virtual void Cast_00046280(void*);
+    void *vftable;
+    DynamicCaster_c0de0() { vftable = DAT_003f6330; }
 };
 struct Sub_c1f00 {
     void Fn_000c1790(int);
@@ -2690,16 +2693,18 @@ extern "C" hulk_intptr FUN_000c0de0(Obj* obj, Obj* value) {
 } // namespace fn_f53c52ab
 
 // 0x000c1ac0 FUN_000c1ac0 (138 B): equivalent/0x000c1ac0.cpp [wrapped: conflict: FUN_0027b020; content::LoadInventory::DynamicCaster; content::LoadInventory::DynamicCasterBase]
-// sym: ?ShowDecryptBar@fn_000c1ac0@@YAXXZ @d426c66ac12c @wb7c0c84a4cd4 @v5369f4858b9a
+// sym: ?ShowDecryptBar@fn_000c1ac0@@YAXXZ @e2628a7b2fe3 @wc7fe6df57cfd @vcd007eca65e0
 namespace fn_000c1ac0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3012 inputs, branch coverage 4/4)
 // FUN_000c1ac0 @ 0x000c1ac0
 
-namespace content { namespace LoadInventory {
-class __declspec(novtable) DynamicCasterBase { public: virtual void cast(void* p); };
-template <class T> class DynamicCaster : public DynamicCasterBase { public: virtual void cast(void* p); };
+extern "C" char DAT_003fef7c[];   // (fix2) the game's caster vftable
+namespace content { namespace LoadInventory {   // (fix2) was polymorphic (virtual void cast(void*)): clang's vftable natively
+class DynamicCasterBase { public: void *vftable; };
+template <class T> class DynamicCaster : public DynamicCasterBase { public: DynamicCaster(); };
 } }
 namespace pure3d { class CompositeDrawable; }
+template <> inline content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable>::DynamicCaster() { vftable = DAT_003fef7c; }
 extern char DAT_0049dba4[];
 extern char DAT_0049f48c[];
 void* __cdecl FUN_00344e74(void* obj, int vfDelta, char* srcType, char* dstType, int isRef);

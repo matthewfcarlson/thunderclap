@@ -377,19 +377,23 @@ union Slot5_2e2a70 {
 };
 void *__cdecl FUN_00263ea0(unsigned int size);
 extern "C" void __cdecl FUN_0028fcc0(const char *fmt, ...);
+// (fix2) the casters were polymorphic (virtual void cast(void *p)): natively clang's own vftable, whose slot had no
+// definition; a record now, each instantiation's constructor storing the game's vftable by address
+extern "C" char DAT_003f3e88[];
 namespace content { namespace LoadInventory {
-class __declspec(novtable) DynamicCasterBase {
+class DynamicCasterBase {
 public:
-    virtual void cast(void *p) = 0;
+    void *vftable;
 };
 } }
 namespace content { namespace LoadInventory {
 template <class T>
 class DynamicCaster : public DynamicCasterBase {
 public:
-    virtual void cast(void *p);
+    DynamicCaster();
 };
 } }
+template <> inline content::LoadInventory::DynamicCaster<pure3d::Shader>::DynamicCaster() { vftable = DAT_003f3e88; }
 class Shader_2e49a0 {
 public:
     virtual void v0();
@@ -405,7 +409,10 @@ public:
                               unsigned __int64 id);
 };
 struct Frame_2e49a0 {
-    int scratch;             // 0x08
+    union {                  // 0x08 (fix2) the scratch word, then the shader caster: pointer-sized natively
+        int scratch;
+        void *casterWord;
+    };
     char pad[3];
     unsigned char len;       // 0x0f
     char name[0x100];        // 0x10
@@ -600,6 +607,14 @@ public:
 };
 
 
+// (sweep-caster-land) the optimized prim group's allocation: the view's words and the allocation's last word (0x60 on the
+// 32-bit builds, as the literal was; gen's pure3d::PrimGroupOptimized agrees with the view natively, 0x68)
+struct AllocWords_2e1960 : pure3d::PrimGroupOptimized {
+    int last;
+};
+typedef char AllocWords_2e1960_size32[(sizeof(void*) != 4 || sizeof(AllocWords_2e1960) == 0x60) ? 1 : -1];
+
+
 // 0x002e1960 FUN_002e1960 (2315 B): equivalent/0x002e1960.cpp
 // sym: ?Load@Hdr_2e1960@fn_fcb4ee90@@QAEXHPAUReader@2@HPAVPalList_2e1960@2@PAI@Z @c0ddd16ec73d @w1f5ecd418e3a @v76a984aa9f5f
 // STATUS: equivalent (tools/equiv.py level 3: 2161 inputs, branch coverage 134/134)
@@ -620,7 +635,7 @@ void Hdr_2e1960::Load(int a1, Reader* R, int a3, PalList_2e1960* a4, unsigned in
     PrimGroup* obj;
     f.pal = 0;
     if (a4 != 0 && ((a4->end - a4->begin) >> 6) != 0) {
-        void* m = thunk_FUN_0008d690(0x68);
+        void* m = thunk_FUN_0008d690((unsigned int)sizeof(PrimGroupPalette_2e1960));   // (sweep-caster-land) the view's size (0x68 on the 32-bit builds)
         if (m) {
             f.pal = ((PrimGroupPalette_2e1960*)m)->FUN_002dffe0(f1c, f20);
             obj = f.pal;
@@ -629,7 +644,7 @@ void Hdr_2e1960::Load(int a1, Reader* R, int a3, PalList_2e1960* a4, unsigned in
             obj = 0;
         }
     } else {
-        void* m = thunk_FUN_0008d690(0x60);
+        void* m = thunk_FUN_0008d690((unsigned int)sizeof(AllocWords_2e1960));
         if (m)
             obj = new (m) pure3d::PrimGroupOptimized(f1c, f20);
         else
@@ -881,6 +896,14 @@ void Hdr_2e1960::Load(int a1, Reader* R, int a3, PalList_2e1960* a4, unsigned in
 }
 
 
+// (sweep-caster-land) the skinned prim group's allocation: the view's words and the allocation's last word (0x70 on the
+// 32-bit builds, as the literal was)
+struct AllocWords_2e2a70 : PrimGroupSkinnedPC_2e2a70 {
+    int last;
+};
+typedef char AllocWords_2e2a70_size32[(sizeof(void*) != 4 || sizeof(AllocWords_2e2a70) == 0x70) ? 1 : -1];
+
+
 // 0x002e2a70 FUN_002e2a70 (1577 B): equivalent/0x002e2a70.cpp
 // sym: ?FUN_002e2a70@PrimLoader@fn_fcb4ee90@@QAEXHTSlot2@2@HPAURefObj_2e2a70@2@TSlot5_2e2a70@2@@Z @73fb26f78a3b @w7eb61fa2b446 @v8a1d4b493bb7
 // STATUS: equivalent (tools/equiv.py level 3: 2670 inputs, branch coverage 119/124, incomplete)
@@ -901,7 +924,7 @@ void PrimLoader::FUN_002e2a70(int a1, Slot2 a2, int a3, RefObj_2e2a70 *a4, Slot5
         vA = 0;
     f.vA = vA;
     f.lim = fl & 0xf;
-    void *mem = thunk_FUN_0008d690(0x70);
+    void *mem = thunk_FUN_0008d690((unsigned int)sizeof(AllocWords_2e2a70));
     PrimGroupSkinnedPC_2e2a70 *obj = 0;
     if (mem != 0)
         obj = ((PrimGroupSkinnedPC_2e2a70 *)mem)->FUN_002e0620(flags, f20, f24);
@@ -1525,6 +1548,13 @@ struct Frame_2e30f0 {
 };
 
 
+// (sweep-caster-land) the optimized prim group's allocation: the view's words and the allocation's last word (0x60 on the
+// 32-bit builds, as the literal was; gen's pure3d::PrimGroupOptimized agrees with the view natively, 0x68)
+struct AllocWords_2e30f0 : pure3d::PrimGroupOptimized {
+    int last;
+};
+typedef char AllocWords_2e30f0_size32[(sizeof(void*) != 4 || sizeof(AllocWords_2e30f0) == 0x60) ? 1 : -1];
+
 void Hdr::Load(int a1, Reader *R, int a3, PalList_2e30f0 *a4)
 {
     Frame_2e30f0 f;
@@ -1540,7 +1570,7 @@ void Hdr::Load(int a1, Reader *R, int a3, PalList_2e30f0 *a4)
     PrimGroup *obj;
     f.pal = 0;
     if (a4 != 0 && ((a4->end - a4->begin) >> 6) != 0) {
-        void *m = thunk_FUN_0008d690(0x68);
+        void *m = thunk_FUN_0008d690((unsigned int)sizeof(PrimGroupPalette_2e30f0));   // (sweep-caster-land) the view's size (0x68 on the 32-bit builds)
         if (m) {
             f.pal = ((PrimGroupPalette_2e30f0 *)m)->FUN_002dffe0(flags, f18);
             obj = f.pal;
@@ -1549,7 +1579,7 @@ void Hdr::Load(int a1, Reader *R, int a3, PalList_2e30f0 *a4)
             obj = 0;
         }
     } else {
-        void *m = thunk_FUN_0008d690(0x60);
+        void *m = thunk_FUN_0008d690((unsigned int)sizeof(AllocWords_2e30f0));
         if (m) {
             f.u12.y12 = flags;
             obj = new (m) pure3d::PrimGroupOptimized(f.u12.y12, f18);
@@ -2335,7 +2365,7 @@ void Loader::FUN_002e3bd0(Slot1 a1, Slot2 a2, int a3, PalSrc *a4)
 namespace fn_fcb4ee90 {
 
 // 0x002e49a0 FUN_002e49a0 (545 B): equivalent/0x002e49a0.cpp
-// sym: ?FUN_002e49a0@ShaderLoader@fn_fcb4ee90@@QAEDPAUStream@2@PAVLoadContext_2e49a0@2@@Z @00bfc8c126b8 @w3f69425a3527 @ve03b1bea7af6
+// sym: ?FUN_002e49a0@ShaderLoader@fn_fcb4ee90@@QAEDPAUStream@2@PAVLoadContext_2e49a0@2@@Z @7e77447470bd @w951d9c3497b7 @v61fb14189079
 // STATUS: equivalent (tools/equiv.py level 3: 91 inputs, branch coverage 12/12)
 // FUN_002e49a0 @ 0x002e49a0
 char ShaderLoader::FUN_002e49a0(Stream *s, LoadContext_2e49a0 *ctx)
@@ -2392,7 +2422,7 @@ char ShaderLoader::FUN_002e49a0(Stream *s, LoadContext_2e49a0 *ctx)
 } // namespace fn_fcb4ee90
 
 // 0x002e4bd0 FUN_002e4bd0 (413 B): equivalent/0x002e4bd0.cpp [wrapped: conflict: ShaderLoader]
-// sym: ?FUN_002e4bd0@ShaderLoader@fn_002e4bd0@@QAEDPAUStream@2@PAVLoadContext_2e4bd0@2@@Z @dc6d7427eb9e @wcabe63468199 @v7d92b90bf338
+// sym: ?FUN_002e4bd0@ShaderLoader@fn_002e4bd0@@QAEDPAUStream@2@PAVLoadContext_2e4bd0@2@@Z @622f9ae05297 @wb6550d3560db @v4c9c1919d234
 namespace fn_002e4bd0 {
 // STATUS: equivalent (tools/equiv.py level 3: 81 inputs, branch coverage 8/8)
 // FUN_002e4bd0 @ 0x002e4bd0
@@ -2430,17 +2460,17 @@ extern "C" void __cdecl FUN_0028fcc0(const char *fmt, ...);
 
 namespace pure3d { class Shader; }
 
+extern "C" char DAT_003f3e88[];   // (fix2) the game's caster vftables
 namespace content {
 namespace LoadInventory {
-class __declspec(novtable) DynamicCasterBase {
+class DynamicCasterBase {   // (fix2) was polymorphic (virtual void cast(void *p) = 0;): a record holding the game's vftable word
 public:
-    virtual void cast(void *p) = 0;
+    void *vftable;
 };
 
-template <class T>
-class DynamicCaster : public DynamicCasterBase {
-public:
-    virtual void cast(void *p);
+template <class T> class DynamicCaster : public DynamicCasterBase {   // (fix2) was polymorphic (virtual void cast(void *p);): clang's own vftable natively,
+  public:                          // the game's by address now, stored by each instantiation's constructor
+    DynamicCaster();
 };
 }
 }
@@ -2451,6 +2481,7 @@ public:
     virtual void v1();
     Shader_2e4bd0 *FUN_0028edf0(const char *name, int flags);
 };
+template <> inline content::LoadInventory::DynamicCaster<pure3d::Shader>::DynamicCaster() { vftable = DAT_003f3e88; }
 
 class LoadContext_2e4bd0 {
 public:
@@ -2472,7 +2503,10 @@ struct Stream {
 };
 
 struct Frame_2e4bd0 {
-    int scratch;             // 0x08
+    union {                  // 0x08 (fix2) the scratch word, then the shader caster: pointer-sized natively
+        int scratch;
+        void *casterWord;
+    };
     char pad[3];
     unsigned char len;       // 0x0f
     char name[0x100];        // 0x10

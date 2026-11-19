@@ -44,9 +44,9 @@ class Allocated_2b2920 {
     hulk_intptr method_002b27d0(pure3d::MultiController*);
 };
 extern Allocated_2b2920* alloc_00263ea0(int);
-class DynamicCaster_2b2c00 {
-  public:
-    virtual void cast_002b2110(void*);
+extern "C" char DAT_0042e42c[];   // content::LoadInventory::DynamicCaster<pure3d::CameraAnimationController>::vftable
+struct DynamicCaster_2b2c00 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
+    void* vftable;   // clang's own vftable natively, whose slot had no definition)
 };
 class Inventory {
   public:
@@ -56,9 +56,9 @@ class Inventory {
     virtual void* find(DynamicCaster_2b2c00*, __int64);
 };
 extern __int64 __cdecl getKey_0027b020(void*);
-class DynamicCaster_2b2c30 {
-  public:
-    virtual void cast_002b2140(void*);
+extern "C" char DAT_0042e434[];   // content::LoadInventory::DynamicCaster<pure3d::ExpressionAnimationController>::vftable
+struct DynamicCaster_2b2c30 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
+    void* vftable;   // clang's own vftable natively, whose slot had no definition)
 };
 class Obj {
   public:
@@ -297,6 +297,7 @@ namespace fn_f35e48b8 {
 extern "C" void* __cdecl FUN_002b2c00(void * inv, void* name) {
     __int64 key = getKey_0027b020(name);
     DynamicCaster_2b2c00 caster;
+    caster.vftable = (void*)DAT_0042e42c;   // (sweep-caster-fix1) the game's vftable by address
     return ((Inventory *)inv)->find(&caster, key);
 }
 
@@ -306,13 +307,14 @@ extern "C" void* __cdecl FUN_002b2c00(void * inv, void* name) {
 extern "C" void* __cdecl FUN_002b2c30(void * obj, void* p) {
     U64 v = getValue(p);
     DynamicCaster_2b2c30 caster;
+    caster.vftable = (void*)DAT_0042e434;   // (sweep-caster-fix1) the game's vftable by address
     return ((Obj *)obj)->doIt(&caster, v);
 }
 
 } // namespace fn_f35e48b8
 
 // 0x002b2ea0 pure3d::MultiControllerLoader::vfunc_5 (1180 B): equivalent/0x002b2ea0.cpp [wrapped: macros]
-// sym: ?vfunc_5@MultiControllerLoader@fn_002b2ea0@@QAEXPAPAVMultiController_2b2ea0@pure3d@2@PA_KPAUReader@2@PAUInventory@2@@Z @f550cd6988d7 @w131af8fb8f9d @v141f04127a24
+// sym: ?vfunc_5@MultiControllerLoader@fn_002b2ea0@@QAEXPAPAVMultiController_2b2ea0@pure3d@2@PA_KPAUReader@2@PAUInventory@2@@Z @4ff9ac3077c5 @w455684bd9bda @v2a5c42b7ede7
 inline void *operator new(size_t, void *p) throw() { return p; }
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
@@ -379,12 +381,40 @@ class ShaderAnimationController_2b2ea0;
 class FrameController_2b2ea0;
 }
 
+// (sweep-caster-fix1) the casters as the word their inline constructors write: the game's vftables by address (a local
+// polymorphic stand-in got clang's own vftable natively, whose slot had no definition, and its 8 bytes overran the
+// frame's 4-byte word)
+extern "C" char DAT_0042e46c[];   // content::LoadInventory::DynamicCaster<pure3d::BillboardQuadGroupAnimationController>'s vftable
+extern "C" char DAT_0042e44c[];   // content::LoadInventory::DynamicCaster<pure3d::CompDrawVisibilityAnimationController>'s vftable
+extern "C" char DAT_0042e494[];   // content::LoadInventory::DynamicCaster<pure3d::FrameController>'s vftable
+extern "C" char DAT_0042e43c[];   // content::LoadInventory::DynamicCaster<pure3d::LightAnimationController>'s vftable
+extern "C" char DAT_0042e474[];   // content::LoadInventory::DynamicCaster<pure3d::ParticleController>'s vftable
+extern "C" char DAT_0042e444[];   // content::LoadInventory::DynamicCaster<pure3d::PoseAnimationController>'s vftable
+extern "C" char DAT_0042e484[];   // content::LoadInventory::DynamicCaster<pure3d::ProceduralVertexAnimController>'s vftable
+extern "C" char DAT_0042e454[];   // content::LoadInventory::DynamicCaster<pure3d::SceneGraphTransformAnimationController>'s vftable
+extern "C" char DAT_0042e45c[];   // content::LoadInventory::DynamicCaster<pure3d::SceneGraphVisibilityAnimationController>'s vftable
+extern "C" char DAT_0042e48c[];   // content::LoadInventory::DynamicCaster<pure3d::ShaderAnimationController>'s vftable
+extern "C" char DAT_0042e464[];   // content::LoadInventory::DynamicCaster<pure3d::TextureAnimationController>'s vftable
+extern "C" char DAT_0042e47c[];   // content::LoadInventory::DynamicCaster<pure3d::VertexAnimController>'s vftable
 namespace content {
 namespace LoadInventory {
 template <class T>
 struct DynamicCaster {
-    virtual void v0();
+    void *vftable;
+    DynamicCaster();
 };
+template <> inline DynamicCaster<pure3d::BillboardQuadGroupAnimationController_2b2ea0>::DynamicCaster() { vftable = (void *)DAT_0042e46c; }
+template <> inline DynamicCaster<pure3d::CompDrawVisibilityAnimationController_2b2ea0>::DynamicCaster() { vftable = (void *)DAT_0042e44c; }
+template <> inline DynamicCaster<pure3d::FrameController_2b2ea0>::DynamicCaster() { vftable = (void *)DAT_0042e494; }
+template <> inline DynamicCaster<pure3d::LightAnimationController_2b2ea0>::DynamicCaster() { vftable = (void *)DAT_0042e43c; }
+template <> inline DynamicCaster<pure3d::ParticleController_2b2ea0>::DynamicCaster() { vftable = (void *)DAT_0042e474; }
+template <> inline DynamicCaster<pure3d::PoseAnimationController_2b2ea0>::DynamicCaster() { vftable = (void *)DAT_0042e444; }
+template <> inline DynamicCaster<pure3d::ProceduralVertexAnimController_2b2ea0>::DynamicCaster() { vftable = (void *)DAT_0042e484; }
+template <> inline DynamicCaster<pure3d::SceneGraphTransformAnimationController_2b2ea0>::DynamicCaster() { vftable = (void *)DAT_0042e454; }
+template <> inline DynamicCaster<pure3d::SceneGraphVisibilityAnimationController_2b2ea0>::DynamicCaster() { vftable = (void *)DAT_0042e45c; }
+template <> inline DynamicCaster<pure3d::ShaderAnimationController_2b2ea0>::DynamicCaster() { vftable = (void *)DAT_0042e48c; }
+template <> inline DynamicCaster<pure3d::TextureAnimationController_2b2ea0>::DynamicCaster() { vftable = (void *)DAT_0042e464; }
+template <> inline DynamicCaster<pure3d::VertexAnimController_2b2ea0>::DynamicCaster() { vftable = (void *)DAT_0042e47c; }
 }
 }
 
@@ -436,7 +466,10 @@ public:
 };
 
 struct Frame {
-    int c;
+    union {                // 0x00 (sweep-caster-fix1) also the caster: its vftable, pointer-sized natively
+        int c;
+        void *cWord;
+    };
     char pad[3];
     unsigned char len;
     union {
@@ -582,7 +615,7 @@ void MultiControllerLoader::vfunc_5(pure3d::MultiController_2b2ea0 **out, unsign
 
 
 // 0x002b3340 pure3d::OldMultiControllerLoader::vfunc_5 (735 B): equivalent/0x002b3340.cpp [wrapped: conflict: content::LoadInventory::DynamicCaster; content::LoadInventory::DynamicCasterBase; pure3d::OldMultiControllerLoader]
-// sym: ?vfunc_5@OldMultiControllerLoader@pure3d@fn_002b3340@@UAE_KPAPAUMultiController_2b3340@3@PA_KPAUStream@3@PAUFactory_2b3340@3@@Z @7a7c4d735233 @wcc159a626f25 @ve3a4cc87989b
+// sym: ?vfunc_5@OldMultiControllerLoader@pure3d@fn_002b3340@@UAE_KPAPAUMultiController_2b3340@3@PA_KPAUStream@3@PAUFactory_2b3340@3@@Z @a4c622ce48e0 @w83841b1c86f5 @v4a4aece261e0
 namespace fn_002b3340 {
 // STATUS: equivalent (tools/equiv.py level 3: 75 inputs, branch coverage 14/14)
 // pure3d::OldMultiControllerLoader::vfunc_5 @ 0x002b3340
@@ -617,22 +650,25 @@ char FUN_001d04d0(const void* typeInfo);                      // type_info test 
 
 
 
+namespace pure3d { class FrameController; }
+
+// (sweep-caster-fix1) the caster as the word its inline constructor writes: the game's vftable by address (a local
+// polymorphic stand-in got clang's own vftable natively, whose slot had no definition, and its 8 bytes overran the
+// frame's 4-byte word)
+extern "C" char DAT_0042e494[];   // content::LoadInventory::DynamicCaster<pure3d::FrameController>'s vftable
 namespace content {
 namespace LoadInventory {
-class __declspec(novtable) DynamicCasterBase {
-public:
-    virtual void cast(void *p) = 0;
+struct DynamicCasterBase {
+    void *vftable;
 };
 
 template <class T>
-class DynamicCaster : public DynamicCasterBase {
-public:
-    virtual void cast(void *p);
+struct DynamicCaster : DynamicCasterBase {
+    DynamicCaster();
 };
+template <> inline DynamicCaster<pure3d::FrameController>::DynamicCaster() { vftable = (void *)DAT_0042e494; }
 }
 }
-
-namespace pure3d { class FrameController; }
 
 void *__cdecl thunk_FUN_0008d690(unsigned int size);
 
@@ -690,8 +726,12 @@ unsigned __int64 OldMultiControllerLoader::vfunc_5(MultiController_2b3340 **out,
         char pad0[2];
         unsigned char len;
         unsigned char len2;
-        int v10;
+        union {                // (sweep-caster-fix1) also the caster: its vftable, pointer-sized natively
+            int v10;
+            void *v10Word;
+        };
         int v14;
+
         int v18;
         int s1c;
         int s20;

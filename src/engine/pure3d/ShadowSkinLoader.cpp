@@ -2760,7 +2760,7 @@ ShadowMeshBufferLoader* ShadowMeshBufferLoader::f2(unsigned char flag) {
 
 
 // 0x002b7020 pure3d::ShadowSkinLoader::vfunc_5 (2176 B): equivalent/0x002b7020.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?v5@ShadowSkinLoader@pure3d@fn_002b7020@@UAE_KPAPAVTarget_2b7020@3@PA_KPAVReader@3@PAVInv_2b7020@3@@Z @262da5fdcb19 @wb96f0a25c375 @v4a1631a4beb1
+// sym: ?v5@ShadowSkinLoader@pure3d@fn_002b7020@@UAE_KPAPAVTarget_2b7020@3@PA_KPAVReader@3@PAVInv_2b7020@3@@Z @9f82dc1b1162 @w8bb263191933 @v97e68f25161c
 inline void *operator new(size_t, void *p) { return p; }
 namespace fn_002b7020 {
 // STATUS: equivalent (tools/equiv.py level 3: 119 inputs, branch coverage 99/99)
@@ -2809,7 +2809,10 @@ public:
     virtual void o4();
 };
 namespace LoadInventory {
-template<class T> struct DynamicCaster { virtual void cast(); };
+// (sweep-caster-fix1) the caster as the word its inline constructor writes: the game's vftable by address (a local
+// polymorphic stand-in got clang's own vftable natively, whose slot had no definition, and its 8 bytes overran the
+// frame's 4-byte word); specialised per T below
+template<class T> struct DynamicCaster { void *vftable; DynamicCaster(); };
 }
 }
 
@@ -2840,6 +2843,10 @@ public:
 };
 
 namespace pure3d { class Skeleton; }
+extern "C" char DAT_0041c8d0[];   // content::LoadInventory::DynamicCaster<pure3d::Skeleton>'s vftable
+namespace content { namespace LoadInventory {
+template <> inline DynamicCaster<pure3d::Skeleton>::DynamicCaster() { vftable = (void *)DAT_0041c8d0; }
+} }
 
 class Inv_2b7020 {
 public:
@@ -2993,7 +3000,11 @@ struct Frame_2b7020 {
     hulk_intptr A;                  // 0x08
     hulk_intptr vbuf;               // 0x0c
     int nv;                 // 0x10
-    int c14;                // 0x14 (caster slot / count for chunk 24)
+    union {                 // 0x14 (caster slot / count for chunk 24; sweep-caster-fix1: pointer-sized natively)
+        int c14;
+        void *c14Word;
+    };
+
     char pad18[0x30 - 0x18];
     hulk_intptr x30;                // 0x30 (read, then reused for obj)
     int cnt9;               // 0x34

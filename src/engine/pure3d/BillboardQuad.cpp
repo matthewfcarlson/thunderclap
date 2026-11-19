@@ -926,15 +926,20 @@ struct Vec3_2bcf30 {
 namespace pure3d {
 class Shader_2bcf30;
 }
+extern "C" char DAT_003f3e88[];   // (fix2) content::LoadInventory::DynamicCaster<pure3d::Shader>'s vftable
 namespace content {
 struct LoadInventory_2bcf30 {
+    // (fix2) was polymorphic (virtual void *v0() { return 0; }): natively clang's own vftable, whose slot returned
+    // 0, so the inventory found no shader; a record now, its constructor storing the game's vftable by address
     template <class T>
     class DynamicCaster {
     public:
-        virtual void *v0() { return 0; }
+        void *vftable;
+        DynamicCaster();
     };
 };
 }
+template <> inline content::LoadInventory_2bcf30::DynamicCaster<pure3d::Shader_2bcf30>::DynamicCaster() { vftable = DAT_003f3e88; }
 namespace fn_fff84c72 {
 class Stream_2bcf30 {
 public:
@@ -3652,7 +3657,7 @@ void pure3d::BillboardObjectLoader::vfunc_5(void* __p0, void* __p1, void* __p2, 
 namespace fn_fff84c72 {
 
 // 0x002bcf30 FUN_002bcf30 (973 B): equivalent/0x002bcf30.cpp
-// sym: ?FUN_002bcf30@Group_2bcf30@fn_fff84c72@@QAEXPAUParent_2bcf30@2@PAVReader_2bcf30@2@PAVFactory_2bcf30@2@@Z @3e07848dc5da @wd71bbb8aa30d @vc0c445a7c401
+// sym: ?FUN_002bcf30@Group_2bcf30@fn_fff84c72@@QAEXPAUParent_2bcf30@2@PAVReader_2bcf30@2@PAVFactory_2bcf30@2@@Z @3796843ab8b0 @wc93cc4929006 @v75d5d71ee5c5
 // STATUS: equivalent (tools/equiv.py level 3: 15698 inputs, branch coverage 40/40)
 // FUN_002bcf30 @ 0x002bcf30
 void Group_2bcf30::FUN_002bcf30(Parent_2bcf30 *parent, Reader_2bcf30 *r, Factory_2bcf30 *factory)

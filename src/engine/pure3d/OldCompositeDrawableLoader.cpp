@@ -1986,7 +1986,7 @@ void* pure3d::CompositeDrawable::vfunc_4() {
 
 
 // 0x0029a630 pure3d::OldCompositeDrawableLoader::vfunc_5 (2764 B): equivalent/0x0029a630.cpp [wrapped: macros]
-// sym: ?vfunc_5@OldCompositeDrawableLoader@pure3d@fn_0029a630@@UAEXPAPAUCompositeDrawable@23@PA_KPAUChunk@3@PAULoadInventory@content@3@@Z @564718e2222f @we08464febdcd @v15d4f1647a06
+// sym: ?vfunc_5@OldCompositeDrawableLoader@pure3d@fn_0029a630@@UAEXPAPAUCompositeDrawable@23@PA_KPAUChunk@3@PAULoadInventory@content@3@@Z @de52ec1b5966 @w1ecb9ff1cf19 @ve9156efc0064
 inline void* operator new(size_t,void* p) { return p; }
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
@@ -2026,15 +2026,25 @@ typedef unsigned __int64 UID;
 
 struct Reader { void FUN_002647e0(void*,int,int,int); }; struct Chunk { char pad[0x284]; Reader* reader; bool FUN_002669f0(); int FUN_00266a30(); void FUN_00266be0(); };
 namespace pure3d { class Geometry; class BillboardObject; class ParticleSystem; class Skeleton; class PolySkin; }
-namespace content { struct LoadInventory { template<class T> struct DynamicCaster { virtual void cast(); }; virtual void s0(); virtual void s1(); virtual void s2(); virtual void* find(void*,unsigned int,unsigned int); }; }
+extern "C" char DAT_0040cb24[], DAT_0040a20c[], DAT_0040cb1c[], DAT_0042d4cc[], DAT_0041c8d0[];   // (fix2) the game's caster vftables
+namespace content { struct LoadInventory { template <class T> struct DynamicCaster {   // (fix2) was polymorphic (virtual void cast();): clang's own vftable natively,
+  public:                          // the game's by address now, stored by each instantiation's constructor
+    void *vftable;
+    DynamicCaster();
+}; virtual void s0(); virtual void s1(); virtual void s2(); virtual void* find(void*,unsigned int,unsigned int); }; }
 struct Name { void FUN_0027b040(char*); char bytes[0x38]; };
 struct Object { virtual void add(); virtual void release(); virtual void s2(); virtual void s3(); virtual void s4(); virtual void s5(); virtual void s6(); virtual void s7(); virtual void s8(); virtual void s9(); virtual void attach(Object*); virtual void s11(); virtual void s12(); virtual void s13(); virtual void s14(); virtual int kind(); char pad[0x3c]; float visibility; void* owner; Object* FUN_0027b240(); };
 struct Entry { int unused; int joint; Object* object; }; struct Group { virtual void add(); char p4[4]; unsigned char* starts; char pc[8]; unsigned char* counts; char p18[0x24]; Entry* entries; Group* FUN_00299cd0(int); void FUN_00298870(); };
 namespace pure3d { struct CompositeDrawable { virtual void v0_00038290(); virtual void v1_000382a0(); virtual void v2(); virtual void v3_00298280(); virtual void v4_0029a170(); virtual void v5_00298270(); virtual void v6_00298b30(int, int); virtual void v7_00298c00(); virtual void v8_00298cb0(hulk_intptr, int); virtual void v9_00298e60(); virtual void v10_00298f00(void*); virtual void v11_00298260(); virtual void done_002992c0(); char p4[4]; Name name; Object* skeleton; Group* group; int a,b,c; void FUN_002a3480(); }; struct OldCompositeDrawableLoader { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void vfunc_5(CompositeDrawable**,UID*,Chunk*,content::LoadInventory*); }; }
 void* __cdecl FUN_00263ea0(int); void* __cdecl FUN_0008d690(int); void* __cdecl FUN_0008d6d0(int); void __cdecl FUN_0008d340(void*);  
+template <> inline content::LoadInventory::DynamicCaster<pure3d::ParticleSystem>::DynamicCaster() { vftable = DAT_0040cb24; }
+template <> inline content::LoadInventory::DynamicCaster<pure3d::Geometry>::DynamicCaster() { vftable = DAT_0040a20c; }
+template <> inline content::LoadInventory::DynamicCaster<pure3d::BillboardObject>::DynamicCaster() { vftable = DAT_0040cb1c; }
+template <> inline content::LoadInventory::DynamicCaster<pure3d::PolySkin>::DynamicCaster() { vftable = DAT_0042d4cc; }
+template <> inline content::LoadInventory::DynamicCaster<pure3d::Skeleton>::DynamicCaster() { vftable = DAT_0041c8d0; }
 void pure3d::OldCompositeDrawableLoader::vfunc_5(CompositeDrawable** result,UID* uid,Chunk* chunk,content::LoadInventory* inventory) {
- struct Workspace {
- char unused[3]; unsigned char length; int geometryJoint; int remaining; float skinVisibility; Object** skins; char unused24[2]; unsigned char skinLength, geometryLength; int temporary; unsigned ng,ns; int* geometryJoints; unsigned nb; Object** geometries; int* particleJoints; Object** particles; int* billboardJoints; Object** billboards; unsigned np; CompositeDrawable* composite; char caster[4]; int skinCaster; int particleCount,skinCount; float particleVisibility; char fallback[4]; float geometryVisibility; int geometryCount,particleJoint,offset; int particleIgnored,skinIgnored,geometryIgnored; char name[128],skeleton[128]; } w;
+ struct Workspace {   // (fix2) the four words the casters are built in are pointer-sized natively (unions)
+ char unused[3]; unsigned char length; int geometryJoint; int remaining; union { float skinVisibility; void* skeletonCasterWord; }; Object** skins; char unused24[2]; unsigned char skinLength, geometryLength; int temporary; unsigned ng,ns; int* geometryJoints; unsigned nb; Object** geometries; int* particleJoints; Object** particles; int* billboardJoints; Object** billboards; unsigned np; CompositeDrawable* composite; union { char caster[4]; void* casterWord; }; union { int skinCaster; void* skinCasterWord; }; int particleCount,skinCount; float particleVisibility; union { char fallback[4]; void* fallbackWord; }; float geometryVisibility; int geometryCount,particleJoint,offset; int particleIgnored,skinIgnored,geometryIgnored; char name[128],skeleton[128]; } w;
  #define READ(p,n,s) chunk->reader->FUN_002647e0(p,n,s,1)
  READ(&w.length,1,1); int n=w.length; READ(w.name,n,1); w.name[n]=0; READ(&w.length,1,1); n=w.length; READ(w.skeleton,n,1); w.skeleton[n]=0;
  CompositeDrawable* composite=(CompositeDrawable*)FUN_00263ea0(0x58); if(composite) { composite->FUN_002a3480(); new(composite) CompositeDrawable; composite->skeleton=0; composite->group=0; composite->a=0; composite->b=0; composite->c=0; } w.composite=composite;

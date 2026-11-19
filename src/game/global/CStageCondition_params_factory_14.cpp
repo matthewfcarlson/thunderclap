@@ -342,7 +342,142 @@ class CSmartPropTypeCondition;
 class CSmartPropWeaponTypeCondition;
 class CSmartPropWeaponizableTypeCondition;
 class CStageCondition;
-namespace fight { template<class T> struct ConditionFactoryCasterTemplate { virtual void create(); }; }
+namespace fight {
+// (sweep-caster-fix1) the caster as the word its inline constructor writes: the game's vftable by address, per T
+// (a local polymorphic stand-in got clang's own vftable natively, whose slot had no definition)
+extern "C" char DAT_003f81a8[];   // ConditionFactoryCasterTemplate<CAlertStatusCondition>'s vftable
+extern "C" char DAT_003f81b4[];   // ConditionFactoryCasterTemplate<CAxisArcCondition>'s vftable
+extern "C" char DAT_003f81c0[];   // ConditionFactoryCasterTemplate<CAxisDirectionCondition>'s vftable
+extern "C" char DAT_003f81cc[];   // ConditionFactoryCasterTemplate<CAxisDoubleTapCondition>'s vftable
+extern "C" char DAT_003f81d8[];   // ConditionFactoryCasterTemplate<CAxisDownCondition>'s vftable
+extern "C" char DAT_003f81e4[];   // ConditionFactoryCasterTemplate<CAxisPressCondition>'s vftable
+extern "C" char DAT_003f81f0[];   // ConditionFactoryCasterTemplate<CAxisReleaseCondition>'s vftable
+extern "C" char DAT_003f81fc[];   // ConditionFactoryCasterTemplate<CAxisSpeedCondition>'s vftable
+extern "C" char DAT_003f8208[];   // ConditionFactoryCasterTemplate<CAxisUpCondition>'s vftable
+extern "C" char DAT_003f8214[];   // ConditionFactoryCasterTemplate<CButtonDownCondition>'s vftable
+extern "C" char DAT_003f8220[];   // ConditionFactoryCasterTemplate<CButtonPressCondition>'s vftable
+extern "C" char DAT_003f822c[];   // ConditionFactoryCasterTemplate<CButtonReleaseCondition>'s vftable
+extern "C" char DAT_003f8238[];   // ConditionFactoryCasterTemplate<CButtonUpCondition>'s vftable
+extern "C" char DAT_003f8244[];   // ConditionFactoryCasterTemplate<CCharacterSizeCondition>'s vftable
+extern "C" char DAT_003f8250[];   // ConditionFactoryCasterTemplate<CCharacterTemplateCondition>'s vftable
+extern "C" char DAT_003f825c[];   // ConditionFactoryCasterTemplate<CCharacterTemplateVariationCondition>'s vftable
+extern "C" char DAT_003f8274[];   // ConditionFactoryCasterTemplate<CClimbEdgeCondition>'s vftable
+extern "C" char DAT_003f8268[];   // ConditionFactoryCasterTemplate<CClimbableCondition>'s vftable
+extern "C" char DAT_003f8280[];   // ConditionFactoryCasterTemplate<CCollisionDirectionCondition>'s vftable
+extern "C" char DAT_003f828c[];   // ConditionFactoryCasterTemplate<CCollisionFlagCondition>'s vftable
+extern "C" char DAT_003f8298[];   // ConditionFactoryCasterTemplate<CCollisionHeightCondition>'s vftable
+extern "C" char DAT_003f82a4[];   // ConditionFactoryCasterTemplate<CCollisionHitLocationCondition>'s vftable
+extern "C" char DAT_003f82b0[];   // ConditionFactoryCasterTemplate<CCollisionInterruptCondition>'s vftable
+extern "C" char DAT_003f82bc[];   // ConditionFactoryCasterTemplate<CCollisionPushbackDirectionCondition>'s vftable
+extern "C" char DAT_003f82c8[];   // ConditionFactoryCasterTemplate<CCollisionPushbackVelocityCondition>'s vftable
+extern "C" char DAT_003f82e0[];   // ConditionFactoryCasterTemplate<CCollisionPushbackYAngleCondition>'s vftable
+extern "C" char DAT_003f82d4[];   // ConditionFactoryCasterTemplate<CCollisionPushbackYCondition>'s vftable
+extern "C" char DAT_003f82ec[];   // ConditionFactoryCasterTemplate<CCollisionStunTimeCondition>'s vftable
+extern "C" char DAT_003f82f8[];   // ConditionFactoryCasterTemplate<CFightNodeCondition>'s vftable
+extern "C" char DAT_003f8304[];   // ConditionFactoryCasterTemplate<CFightNodeParentCondition>'s vftable
+extern "C" char DAT_003f8310[];   // ConditionFactoryCasterTemplate<CFightNodePrevCondition>'s vftable
+extern "C" char DAT_003f831c[];   // ConditionFactoryCasterTemplate<CFightNodeTimeCondition>'s vftable
+extern "C" char DAT_003f8328[];   // ConditionFactoryCasterTemplate<CGrappleAlertStatusCondition>'s vftable
+extern "C" char DAT_003f8334[];   // ConditionFactoryCasterTemplate<CGrappleCharacterTemplateCondition>'s vftable
+extern "C" char DAT_003f8340[];   // ConditionFactoryCasterTemplate<CGrappleFightNodeCondition>'s vftable
+extern "C" char DAT_003f834c[];   // ConditionFactoryCasterTemplate<CGrappleFightNodeParentCondition>'s vftable
+extern "C" char DAT_003f8358[];   // ConditionFactoryCasterTemplate<CGrappleFightNodeTimeCondition>'s vftable
+extern "C" char DAT_003f8364[];   // ConditionFactoryCasterTemplate<CGrappleMotionStateCondition>'s vftable
+extern "C" char DAT_003f8370[];   // ConditionFactoryCasterTemplate<CGrappleSizeCondition>'s vftable
+extern "C" char DAT_003f837c[];   // ConditionFactoryCasterTemplate<CGrappleTimerCondition>'s vftable
+extern "C" char DAT_003f8388[];   // ConditionFactoryCasterTemplate<CGroundDistanceCondition>'s vftable
+extern "C" char DAT_003f8394[];   // ConditionFactoryCasterTemplate<CInactivityTimerCondition>'s vftable
+extern "C" char DAT_003f83a0[];   // ConditionFactoryCasterTemplate<CIntentionSpeedCondition>'s vftable
+extern "C" char DAT_003f83ac[];   // ConditionFactoryCasterTemplate<CIsGrappledCondition>'s vftable
+extern "C" char DAT_003f83b8[];   // ConditionFactoryCasterTemplate<CIsHelicopterCondition>'s vftable
+extern "C" char DAT_003f83c4[];   // ConditionFactoryCasterTemplate<CIsInvincibleCondition>'s vftable
+extern "C" char DAT_003f83d0[];   // ConditionFactoryCasterTemplate<CLuaNumberCondition>'s vftable
+extern "C" char DAT_003f83dc[];   // ConditionFactoryCasterTemplate<CMotionClimbAngleCondition>'s vftable
+extern "C" char DAT_003f83e8[];   // ConditionFactoryCasterTemplate<CMotionHitCondition>'s vftable
+extern "C" char DAT_003f83f4[];   // ConditionFactoryCasterTemplate<CMotionStateCondition>'s vftable
+extern "C" char DAT_003f8400[];   // ConditionFactoryCasterTemplate<CNameFlagCondition>'s vftable
+extern "C" char DAT_003f840c[];   // ConditionFactoryCasterTemplate<CPropActorStateCondition>'s vftable
+extern "C" char DAT_003f8418[];   // ConditionFactoryCasterTemplate<CRageModeCondition>'s vftable
+extern "C" char DAT_003f8424[];   // ConditionFactoryCasterTemplate<CSmartPropAngleCondition>'s vftable
+extern "C" char DAT_003f8430[];   // ConditionFactoryCasterTemplate<CSmartPropAttachedCondition>'s vftable
+extern "C" char DAT_003f843c[];   // ConditionFactoryCasterTemplate<CSmartPropCSMableCondition>'s vftable
+extern "C" char DAT_003f8448[];   // ConditionFactoryCasterTemplate<CSmartPropDistanceCondition>'s vftable
+extern "C" char DAT_003f8454[];   // ConditionFactoryCasterTemplate<CSmartPropGrabbableNameCondition>'s vftable
+extern "C" char DAT_003f8460[];   // ConditionFactoryCasterTemplate<CSmartPropNameCondition>'s vftable
+extern "C" char DAT_003f846c[];   // ConditionFactoryCasterTemplate<CSmartPropStateCondition>'s vftable
+extern "C" char DAT_003f8478[];   // ConditionFactoryCasterTemplate<CSmartPropTypeCondition>'s vftable
+extern "C" char DAT_003f8490[];   // ConditionFactoryCasterTemplate<CSmartPropWeaponTypeCondition>'s vftable
+extern "C" char DAT_003f8484[];   // ConditionFactoryCasterTemplate<CSmartPropWeaponizableTypeCondition>'s vftable
+extern "C" char DAT_003f849c[];   // ConditionFactoryCasterTemplate<CStageCondition>'s vftable
+template <class T> struct ConditionFactoryCasterTemplate {
+    void* vftable;
+    ConditionFactoryCasterTemplate();
+};
+template <> inline ConditionFactoryCasterTemplate<CAlertStatusCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f81a8; }
+template <> inline ConditionFactoryCasterTemplate<CAxisArcCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f81b4; }
+template <> inline ConditionFactoryCasterTemplate<CAxisDirectionCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f81c0; }
+template <> inline ConditionFactoryCasterTemplate<CAxisDoubleTapCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f81cc; }
+template <> inline ConditionFactoryCasterTemplate<CAxisDownCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f81d8; }
+template <> inline ConditionFactoryCasterTemplate<CAxisPressCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f81e4; }
+template <> inline ConditionFactoryCasterTemplate<CAxisReleaseCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f81f0; }
+template <> inline ConditionFactoryCasterTemplate<CAxisSpeedCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f81fc; }
+template <> inline ConditionFactoryCasterTemplate<CAxisUpCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f8208; }
+template <> inline ConditionFactoryCasterTemplate<CButtonDownCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f8214; }
+template <> inline ConditionFactoryCasterTemplate<CButtonPressCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f8220; }
+template <> inline ConditionFactoryCasterTemplate<CButtonReleaseCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f822c; }
+template <> inline ConditionFactoryCasterTemplate<CButtonUpCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f8238; }
+template <> inline ConditionFactoryCasterTemplate<CCharacterSizeCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f8244; }
+template <> inline ConditionFactoryCasterTemplate<CCharacterTemplateCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f8250; }
+template <> inline ConditionFactoryCasterTemplate<CCharacterTemplateVariationCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f825c; }
+template <> inline ConditionFactoryCasterTemplate<CClimbEdgeCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f8274; }
+template <> inline ConditionFactoryCasterTemplate<CClimbableCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f8268; }
+template <> inline ConditionFactoryCasterTemplate<CCollisionDirectionCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f8280; }
+template <> inline ConditionFactoryCasterTemplate<CCollisionFlagCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f828c; }
+template <> inline ConditionFactoryCasterTemplate<CCollisionHeightCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f8298; }
+template <> inline ConditionFactoryCasterTemplate<CCollisionHitLocationCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f82a4; }
+template <> inline ConditionFactoryCasterTemplate<CCollisionInterruptCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f82b0; }
+template <> inline ConditionFactoryCasterTemplate<CCollisionPushbackDirectionCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f82bc; }
+template <> inline ConditionFactoryCasterTemplate<CCollisionPushbackVelocityCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f82c8; }
+template <> inline ConditionFactoryCasterTemplate<CCollisionPushbackYAngleCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f82e0; }
+template <> inline ConditionFactoryCasterTemplate<CCollisionPushbackYCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f82d4; }
+template <> inline ConditionFactoryCasterTemplate<CCollisionStunTimeCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f82ec; }
+template <> inline ConditionFactoryCasterTemplate<CFightNodeCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f82f8; }
+template <> inline ConditionFactoryCasterTemplate<CFightNodeParentCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f8304; }
+template <> inline ConditionFactoryCasterTemplate<CFightNodePrevCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f8310; }
+template <> inline ConditionFactoryCasterTemplate<CFightNodeTimeCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f831c; }
+template <> inline ConditionFactoryCasterTemplate<CGrappleAlertStatusCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f8328; }
+template <> inline ConditionFactoryCasterTemplate<CGrappleCharacterTemplateCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f8334; }
+template <> inline ConditionFactoryCasterTemplate<CGrappleFightNodeCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f8340; }
+template <> inline ConditionFactoryCasterTemplate<CGrappleFightNodeParentCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f834c; }
+template <> inline ConditionFactoryCasterTemplate<CGrappleFightNodeTimeCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f8358; }
+template <> inline ConditionFactoryCasterTemplate<CGrappleMotionStateCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f8364; }
+template <> inline ConditionFactoryCasterTemplate<CGrappleSizeCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f8370; }
+template <> inline ConditionFactoryCasterTemplate<CGrappleTimerCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f837c; }
+template <> inline ConditionFactoryCasterTemplate<CGroundDistanceCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f8388; }
+template <> inline ConditionFactoryCasterTemplate<CInactivityTimerCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f8394; }
+template <> inline ConditionFactoryCasterTemplate<CIntentionSpeedCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f83a0; }
+template <> inline ConditionFactoryCasterTemplate<CIsGrappledCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f83ac; }
+template <> inline ConditionFactoryCasterTemplate<CIsHelicopterCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f83b8; }
+template <> inline ConditionFactoryCasterTemplate<CIsInvincibleCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f83c4; }
+template <> inline ConditionFactoryCasterTemplate<CLuaNumberCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f83d0; }
+template <> inline ConditionFactoryCasterTemplate<CMotionClimbAngleCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f83dc; }
+template <> inline ConditionFactoryCasterTemplate<CMotionHitCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f83e8; }
+template <> inline ConditionFactoryCasterTemplate<CMotionStateCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f83f4; }
+template <> inline ConditionFactoryCasterTemplate<CNameFlagCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f8400; }
+template <> inline ConditionFactoryCasterTemplate<CPropActorStateCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f840c; }
+template <> inline ConditionFactoryCasterTemplate<CRageModeCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f8418; }
+template <> inline ConditionFactoryCasterTemplate<CSmartPropAngleCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f8424; }
+template <> inline ConditionFactoryCasterTemplate<CSmartPropAttachedCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f8430; }
+template <> inline ConditionFactoryCasterTemplate<CSmartPropCSMableCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f843c; }
+template <> inline ConditionFactoryCasterTemplate<CSmartPropDistanceCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f8448; }
+template <> inline ConditionFactoryCasterTemplate<CSmartPropGrabbableNameCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f8454; }
+template <> inline ConditionFactoryCasterTemplate<CSmartPropNameCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f8460; }
+template <> inline ConditionFactoryCasterTemplate<CSmartPropStateCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f846c; }
+template <> inline ConditionFactoryCasterTemplate<CSmartPropTypeCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f8478; }
+template <> inline ConditionFactoryCasterTemplate<CSmartPropWeaponTypeCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f8490; }
+template <> inline ConditionFactoryCasterTemplate<CSmartPropWeaponizableTypeCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f8484; }
+template <> inline ConditionFactoryCasterTemplate<CStageCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f849c; }
+}
 struct Registry_553d0 { void FUN_00236760(void*); void FUN_002363f0(); };
 void* __cdecl FUN_002343e0(const char*, void*);
 void __cdecl FUN_00236940(Registry_553d0*);
@@ -715,9 +850,97 @@ class CSmartPropWeaponTypeCondition;
 class CSmartPropWeaponizableTypeCondition;
 class CStageCondition;
 namespace fight {
+// (sweep-caster-fix1) the caster as the word its inline constructor writes: the game's vftable by address, per T
+// (a local polymorphic stand-in got clang's own vftable natively, whose slot had no definition)
+extern "C" char DAT_003f81a8[];   // ConditionFactoryCasterTemplate<CAlertStatusCondition>'s vftable
+extern "C" char DAT_003f8244[];   // ConditionFactoryCasterTemplate<CCharacterSizeCondition>'s vftable
+extern "C" char DAT_003f8250[];   // ConditionFactoryCasterTemplate<CCharacterTemplateCondition>'s vftable
+extern "C" char DAT_003f825c[];   // ConditionFactoryCasterTemplate<CCharacterTemplateVariationCondition>'s vftable
+extern "C" char DAT_003f8274[];   // ConditionFactoryCasterTemplate<CClimbEdgeCondition>'s vftable
+extern "C" char DAT_003f8268[];   // ConditionFactoryCasterTemplate<CClimbableCondition>'s vftable
+extern "C" char DAT_003f82f8[];   // ConditionFactoryCasterTemplate<CFightNodeCondition>'s vftable
+extern "C" char DAT_003f8304[];   // ConditionFactoryCasterTemplate<CFightNodeParentCondition>'s vftable
+extern "C" char DAT_003f8310[];   // ConditionFactoryCasterTemplate<CFightNodePrevCondition>'s vftable
+extern "C" char DAT_003f831c[];   // ConditionFactoryCasterTemplate<CFightNodeTimeCondition>'s vftable
+extern "C" char DAT_003f8328[];   // ConditionFactoryCasterTemplate<CGrappleAlertStatusCondition>'s vftable
+extern "C" char DAT_003f8334[];   // ConditionFactoryCasterTemplate<CGrappleCharacterTemplateCondition>'s vftable
+extern "C" char DAT_003f8340[];   // ConditionFactoryCasterTemplate<CGrappleFightNodeCondition>'s vftable
+extern "C" char DAT_003f834c[];   // ConditionFactoryCasterTemplate<CGrappleFightNodeParentCondition>'s vftable
+extern "C" char DAT_003f8358[];   // ConditionFactoryCasterTemplate<CGrappleFightNodeTimeCondition>'s vftable
+extern "C" char DAT_003f8364[];   // ConditionFactoryCasterTemplate<CGrappleMotionStateCondition>'s vftable
+extern "C" char DAT_003f8370[];   // ConditionFactoryCasterTemplate<CGrappleSizeCondition>'s vftable
+extern "C" char DAT_003f837c[];   // ConditionFactoryCasterTemplate<CGrappleTimerCondition>'s vftable
+extern "C" char DAT_003f8388[];   // ConditionFactoryCasterTemplate<CGroundDistanceCondition>'s vftable
+extern "C" char DAT_003f8394[];   // ConditionFactoryCasterTemplate<CInactivityTimerCondition>'s vftable
+extern "C" char DAT_003f83a0[];   // ConditionFactoryCasterTemplate<CIntentionSpeedCondition>'s vftable
+extern "C" char DAT_003f83ac[];   // ConditionFactoryCasterTemplate<CIsGrappledCondition>'s vftable
+extern "C" char DAT_003f83b8[];   // ConditionFactoryCasterTemplate<CIsHelicopterCondition>'s vftable
+extern "C" char DAT_003f83c4[];   // ConditionFactoryCasterTemplate<CIsInvincibleCondition>'s vftable
+extern "C" char DAT_003f83d0[];   // ConditionFactoryCasterTemplate<CLuaNumberCondition>'s vftable
+extern "C" char DAT_003f83dc[];   // ConditionFactoryCasterTemplate<CMotionClimbAngleCondition>'s vftable
+extern "C" char DAT_003f83e8[];   // ConditionFactoryCasterTemplate<CMotionHitCondition>'s vftable
+extern "C" char DAT_003f83f4[];   // ConditionFactoryCasterTemplate<CMotionStateCondition>'s vftable
+extern "C" char DAT_003f8400[];   // ConditionFactoryCasterTemplate<CNameFlagCondition>'s vftable
+extern "C" char DAT_003f840c[];   // ConditionFactoryCasterTemplate<CPropActorStateCondition>'s vftable
+extern "C" char DAT_003f8418[];   // ConditionFactoryCasterTemplate<CRageModeCondition>'s vftable
+extern "C" char DAT_003f8424[];   // ConditionFactoryCasterTemplate<CSmartPropAngleCondition>'s vftable
+extern "C" char DAT_003f8430[];   // ConditionFactoryCasterTemplate<CSmartPropAttachedCondition>'s vftable
+extern "C" char DAT_003f843c[];   // ConditionFactoryCasterTemplate<CSmartPropCSMableCondition>'s vftable
+extern "C" char DAT_003f8448[];   // ConditionFactoryCasterTemplate<CSmartPropDistanceCondition>'s vftable
+extern "C" char DAT_003f8454[];   // ConditionFactoryCasterTemplate<CSmartPropGrabbableNameCondition>'s vftable
+extern "C" char DAT_003f8460[];   // ConditionFactoryCasterTemplate<CSmartPropNameCondition>'s vftable
+extern "C" char DAT_003f846c[];   // ConditionFactoryCasterTemplate<CSmartPropStateCondition>'s vftable
+extern "C" char DAT_003f8478[];   // ConditionFactoryCasterTemplate<CSmartPropTypeCondition>'s vftable
+extern "C" char DAT_003f8490[];   // ConditionFactoryCasterTemplate<CSmartPropWeaponTypeCondition>'s vftable
+extern "C" char DAT_003f8484[];   // ConditionFactoryCasterTemplate<CSmartPropWeaponizableTypeCondition>'s vftable
+extern "C" char DAT_003f849c[];   // ConditionFactoryCasterTemplate<CStageCondition>'s vftable
 template <class T> struct ConditionFactoryCasterTemplate {
-    virtual void Create();
+    void* vftable;
+    ConditionFactoryCasterTemplate();
 };
+template <> inline ConditionFactoryCasterTemplate<CAlertStatusCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f81a8; }
+template <> inline ConditionFactoryCasterTemplate<CCharacterSizeCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f8244; }
+template <> inline ConditionFactoryCasterTemplate<CCharacterTemplateCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f8250; }
+template <> inline ConditionFactoryCasterTemplate<CCharacterTemplateVariationCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f825c; }
+template <> inline ConditionFactoryCasterTemplate<CClimbEdgeCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f8274; }
+template <> inline ConditionFactoryCasterTemplate<CClimbableCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f8268; }
+template <> inline ConditionFactoryCasterTemplate<CFightNodeCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f82f8; }
+template <> inline ConditionFactoryCasterTemplate<CFightNodeParentCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f8304; }
+template <> inline ConditionFactoryCasterTemplate<CFightNodePrevCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f8310; }
+template <> inline ConditionFactoryCasterTemplate<CFightNodeTimeCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f831c; }
+template <> inline ConditionFactoryCasterTemplate<CGrappleAlertStatusCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f8328; }
+template <> inline ConditionFactoryCasterTemplate<CGrappleCharacterTemplateCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f8334; }
+template <> inline ConditionFactoryCasterTemplate<CGrappleFightNodeCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f8340; }
+template <> inline ConditionFactoryCasterTemplate<CGrappleFightNodeParentCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f834c; }
+template <> inline ConditionFactoryCasterTemplate<CGrappleFightNodeTimeCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f8358; }
+template <> inline ConditionFactoryCasterTemplate<CGrappleMotionStateCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f8364; }
+template <> inline ConditionFactoryCasterTemplate<CGrappleSizeCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f8370; }
+template <> inline ConditionFactoryCasterTemplate<CGrappleTimerCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f837c; }
+template <> inline ConditionFactoryCasterTemplate<CGroundDistanceCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f8388; }
+template <> inline ConditionFactoryCasterTemplate<CInactivityTimerCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f8394; }
+template <> inline ConditionFactoryCasterTemplate<CIntentionSpeedCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f83a0; }
+template <> inline ConditionFactoryCasterTemplate<CIsGrappledCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f83ac; }
+template <> inline ConditionFactoryCasterTemplate<CIsHelicopterCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f83b8; }
+template <> inline ConditionFactoryCasterTemplate<CIsInvincibleCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f83c4; }
+template <> inline ConditionFactoryCasterTemplate<CLuaNumberCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f83d0; }
+template <> inline ConditionFactoryCasterTemplate<CMotionClimbAngleCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f83dc; }
+template <> inline ConditionFactoryCasterTemplate<CMotionHitCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f83e8; }
+template <> inline ConditionFactoryCasterTemplate<CMotionStateCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f83f4; }
+template <> inline ConditionFactoryCasterTemplate<CNameFlagCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f8400; }
+template <> inline ConditionFactoryCasterTemplate<CPropActorStateCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f840c; }
+template <> inline ConditionFactoryCasterTemplate<CRageModeCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f8418; }
+template <> inline ConditionFactoryCasterTemplate<CSmartPropAngleCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f8424; }
+template <> inline ConditionFactoryCasterTemplate<CSmartPropAttachedCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f8430; }
+template <> inline ConditionFactoryCasterTemplate<CSmartPropCSMableCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f843c; }
+template <> inline ConditionFactoryCasterTemplate<CSmartPropDistanceCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f8448; }
+template <> inline ConditionFactoryCasterTemplate<CSmartPropGrabbableNameCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f8454; }
+template <> inline ConditionFactoryCasterTemplate<CSmartPropNameCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f8460; }
+template <> inline ConditionFactoryCasterTemplate<CSmartPropStateCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f846c; }
+template <> inline ConditionFactoryCasterTemplate<CSmartPropTypeCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f8478; }
+template <> inline ConditionFactoryCasterTemplate<CSmartPropWeaponTypeCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f8490; }
+template <> inline ConditionFactoryCasterTemplate<CSmartPropWeaponizableTypeCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f8484; }
+template <> inline ConditionFactoryCasterTemplate<CStageCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f849c; }
+
 }
 struct Registry_55d80 {
     void FUN_00236760(void*);
@@ -1011,9 +1234,15 @@ extern "C" bool __cdecl FUN_00055d80(Registry_55d80* registry) {
 namespace fn_00056460 {
 class CLuaNumberCondition;
 namespace fight {
+// (sweep-caster-fix1) the caster as the word its inline constructor writes: the game's vftable by address, per T
+// (a local polymorphic stand-in got clang's own vftable natively, whose slot had no definition)
+extern "C" char DAT_003f83d0[];   // ConditionFactoryCasterTemplate<CLuaNumberCondition>'s vftable
 template <class T> struct ConditionFactoryCasterTemplate {
-    virtual void Create();
+    void* vftable;
+    ConditionFactoryCasterTemplate();
 };
+template <> inline ConditionFactoryCasterTemplate<CLuaNumberCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_003f83d0; }
+
 } // namespace fight
 struct Registry_56460 {
     void FUN_00236760(void*);

@@ -651,41 +651,51 @@ class AirToGroundTargetAction_1390c0 : public Action_1390c0 {
     Ref_1390c0* m28;
     AirToGroundTargetAction_1390c0* f2(unsigned char flags);
 };
-class TrackFactoryCasterTemplate_139240 {
+extern "C" char DAT_00412130[];   // (fix2) the game's caster vftable
+class TrackFactoryCasterTemplate_139240 {   // (fix2) was polymorphic (virtual bool cast_001374e0(void*);): clang's vftable natively
   public:
-    virtual bool cast_001374e0(void*);
+    void *vftable;
+    TrackFactoryCasterTemplate_139240() { vftable = DAT_00412130; }
 };
 class Manager {
   public:
     void* get_002367c0(void*);
 };
 extern void* find_00236ac0(const char*, TrackFactoryCasterTemplate_139240*);
-class TrackFactoryCasterTemplate_1392a0 {
+extern "C" char DAT_00412148[];   // (fix2) the game's caster vftable
+class TrackFactoryCasterTemplate_1392a0 {   // (fix2) was polymorphic (virtual bool Fnf_001375e0(void*);): clang's vftable natively
   public:
-    virtual bool Fnf_001375e0(void*);
+    void *vftable;
+    TrackFactoryCasterTemplate_1392a0() { vftable = DAT_00412148; }
 };
 extern void* __cdecl Cast_00236ac0(void*, TrackFactoryCasterTemplate_1392a0*);
-class TrackFactoryCasterTemplate_1392d0 {
+extern "C" char DAT_00412154[];   // (fix2) the game's caster vftable
+class TrackFactoryCasterTemplate_1392d0 {   // (fix2) was polymorphic (virtual bool cast_00137660(void*);): clang's vftable natively
   public:
-    virtual bool cast_00137660(void*);
+    void *vftable;
+    TrackFactoryCasterTemplate_1392d0() { vftable = DAT_00412154; }
 };
 class Recipient {
   public:
     void use_002367c0(void*);
 };
 extern void* lookup_00236ac0(void*, TrackFactoryCasterTemplate_1392d0*);
-class TrackFactoryCasterTemplate_139330 {
+extern "C" char DAT_0041216c[];   // (fix2) the game's caster vftable
+class TrackFactoryCasterTemplate_139330 {   // (fix2) was polymorphic (virtual bool Cast_00137760(void*);): clang's vftable natively
   public:
-    virtual bool Cast_00137760(void*);
+    void *vftable;
+    TrackFactoryCasterTemplate_139330() { vftable = DAT_0041216c; }
 };
 class Track {
   public:
     void* Make_002367c0(void*);
 };
 extern "C" void* GetTrack_00236ac0(void*, TrackFactoryCasterTemplate_139330*);
-class TrackFactoryCasterTemplate_139390 {
+extern "C" char DAT_00412184[];   // (fix2) the game's caster vftable
+class TrackFactoryCasterTemplate_139390 {   // (fix2) was polymorphic (virtual int cast_001378a0(void*);): clang's vftable natively
   public:
-    virtual int cast_001378a0(void*);
+    void *vftable;
+    TrackFactoryCasterTemplate_139390() { vftable = DAT_00412184; }
 };
 extern "C" int __cdecl first(int, TrackFactoryCasterTemplate_139390*);
 extern "C" char DAT_00411bb8[];
@@ -1929,10 +1939,11 @@ extern "C" void* FUN_00139240(Manager* m, const char* name) {
 // 0x00139270 FUN_00139270 (38 B): matches/0x00139270.cpp [wrapped: conflict: find]
 // sym: _FUN_00139270
 namespace fn_00139270 {
-class TrackFactoryCasterTemplate_139270 {
+extern "C" char DAT_0041213c[];   // (fix2) the game's caster vftable
+class TrackFactoryCasterTemplate_139270 {   // (fix2) was polymorphic (virtual bool Fnf_00137560(void*);): clang's vftable natively
   public:
-    virtual bool Fnf_00137560(void*);
-    TrackFactoryCasterTemplate_139270() {}
+    void *vftable;
+    TrackFactoryCasterTemplate_139270() { vftable = DAT_0041213c; }
 };
 class Owner {
   public:
@@ -1968,9 +1979,11 @@ extern "C" void FUN_001392d0(Recipient* r, void* name) {
 // 0x00139300 FUN_00139300 (38 B): matches/0x00139300.cpp [wrapped: conflict: Find]
 // sym: _FUN_00139300
 namespace fn_00139300 {
-class TrackFactoryCasterTemplate_139300 {
+extern "C" char DAT_00412160[];   // (fix2) the game's caster vftable
+class TrackFactoryCasterTemplate_139300 {   // (fix2) was polymorphic (virtual bool Cast_001376e0(void*);): clang's vftable natively
   public:
-    virtual bool Cast_001376e0(void*);
+    void *vftable;
+    TrackFactoryCasterTemplate_139300() { vftable = DAT_00412160; }
 };
 extern int __cdecl Find_00236ac0(int, TrackFactoryCasterTemplate_139300*);
 class Owner {
@@ -1999,9 +2012,11 @@ extern "C" void* FUN_00139330(Track* t, void* p) {
 // 0x00139360 FUN_00139360 (38 B): matches/0x00139360.cpp [wrapped: conflict: Find]
 // sym: _FUN_00139360
 namespace fn_00139360 {
-class TrackFactoryCasterTemplate_139360 {
+extern "C" char DAT_00412178[];   // (fix2) the game's caster vftable
+class TrackFactoryCasterTemplate_139360 {   // (fix2) was polymorphic (virtual bool Dummy_001377e0(void*);): clang's vftable natively
   public:
-    virtual bool Dummy_001377e0(void*);
+    void *vftable;
+    TrackFactoryCasterTemplate_139360() { vftable = DAT_00412178; }
 };
 class Owner {
   public:
@@ -2029,9 +2044,11 @@ extern "C" void FUN_00139390(Obj* o, int n) {
 // 0x001393c0 FUN_001393c0 (38 B): matches/0x001393c0.cpp [wrapped: conflict: Manager; first]
 // sym: _FUN_001393c0
 namespace fn_001393c0 {
-class TrackFactoryCasterTemplate_1393c0 {
+extern "C" char DAT_00412190[];   // (fix2) the game's caster vftable
+class TrackFactoryCasterTemplate_1393c0 {   // (fix2) was polymorphic (virtual bool cast_00137940(void*);): clang's vftable natively
   public:
-    virtual bool cast_00137940(void*);
+    void *vftable;
+    TrackFactoryCasterTemplate_1393c0() { vftable = DAT_00412190; }
 };
 class Manager {
   public:

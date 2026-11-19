@@ -1377,7 +1377,7 @@ void Fx_1bcef0::FUN_001bcef0()
 
 
 // 0x001bdb90 FUN_001bdb90 (523 B): equivalent/0x001bdb90.cpp [wrapped: conflict: World]
-// sym: ?FUN_001bdb90@Widget_1bdb90@fn_001bdb90@@QAEXXZ @6f85a5a6b770 @wd166407f531f @vfb9a612a6279
+// sym: ?FUN_001bdb90@Widget_1bdb90@fn_001bdb90@@QAEXXZ @4711838db64d @w75fdbd023612 @vf70dc3b1d169
 inline void *operator new(size_t, void *p) throw() { return p; }
 namespace fn_001bdb90 {
 // STATUS: equivalent (tools/equiv.py level 3: 19957 inputs, branch coverage 32/32)
@@ -1412,11 +1412,13 @@ char FUN_001d04d0(const void* typeInfo);                      // type_info test 
 
 
 
+extern "C" char DAT_003fef7c[], DAT_0040a5e0[];   // (fix2) the game's caster vftables
 namespace content {
 namespace LoadInventory {
-template <class T>
-struct DynamicCaster {
-    virtual void v0();
+template <class T> struct DynamicCaster {   // (fix2) was polymorphic (virtual void v0();): clang's own vftable natively,
+  public:                          // the game's by address now, stored by each instantiation's constructor
+    void *vftable;
+    DynamicCaster();
 };
 }
 }
@@ -1476,11 +1478,16 @@ public:
     Res_1bdb90 *r18;
     void FUN_001bdb90();
 };
+template <> inline content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable_1bdb90>::DynamicCaster() { vftable = DAT_003fef7c; }
+template <> inline content::LoadInventory::DynamicCaster<pure3d::Locator_1bdb90>::DynamicCaster() { vftable = DAT_0040a5e0; }
 
 void Widget_1bdb90::FUN_001bdb90()
 {
     struct Frame {
-        char caster[4];
+        union {             // (fix2) the caster: its vftable, pointer-sized natively
+            char caster[4];
+            void *casterWord;
+        };
         int saved;
     } f;
 

@@ -22,9 +22,11 @@ extern "C" void __cdecl FUN_002347b0(void* list, void* params, int count);   // 
 
 // ---- declarations shared by the functions below
 namespace fn_fd383094 {
-class ConditionFactoryCasterTemplate_23d420 {
+extern "C" char DAT_00428af0[];   // (fix2) the game's caster vftable 0x428af0
+class ConditionFactoryCasterTemplate_23d420 {   // (fix2) was polymorphic (virtual bool cast_0023d330(void*);): clang's own vftable natively, the game's by address now
   public:
-    virtual bool cast_0023d330(void*);
+    void *vftable;
+    ConditionFactoryCasterTemplate_23d420() { vftable = DAT_00428af0; }
 };
 extern "C" void* Find(const char*, ConditionFactoryCasterTemplate_23d420*);
 class Owner {
@@ -84,9 +86,11 @@ class ParamValueEnum_23d580 : public ParamValue_23d580 {
     virtual void f();
 };
 extern int hulk_at_00491ca8;
-class ConditionFactoryCasterTemplate_23d710 {
+extern "C" char DAT_00428bac[];   // (fix2) the game's caster vftable 0x428bac
+class ConditionFactoryCasterTemplate_23d710 {   // (fix2) was polymorphic (virtual bool Dummy_0023d5e0(void*);): clang's own vftable natively, the game's by address now
   public:
-    virtual bool Dummy_0023d5e0(void*);
+    void *vftable;
+    ConditionFactoryCasterTemplate_23d710() { vftable = DAT_00428bac; }
 };
 extern "C" void* FUN_002343e0(void*, ConditionFactoryCasterTemplate_23d710*);
 extern "C" char DAT_00428b64[];

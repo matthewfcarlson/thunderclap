@@ -271,9 +271,9 @@ public:
     int f24;
     Sub_2379e0 sub;
 };
-class TrackFactoryCasterTemplate_237ab0 {
-  public:
-    virtual bool Cast_002377c0(void*);
+extern "C" char DAT_004280bc[];   // fight::TrackFactoryCasterTemplate<fight::OpportunityTrack>::vftable
+struct TrackFactoryCasterTemplate_237ab0 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
+    void* vftable;   // clang's own vftable natively, whose slot had no definition)
 };
 class Target {
   public:
@@ -851,6 +851,7 @@ namespace fn_f6c81acf {
 // sym: _FUN_00237ab0
 extern "C" void FUN_00237ab0(Target* target, const char* name) {
     TrackFactoryCasterTemplate_237ab0 caster;
+    caster.vftable = (void*)DAT_004280bc;   // (sweep-caster-fix1) the game's vftable by address
     target->Method_002367c0(FUN_00236ac0(name, &caster));
 }
 

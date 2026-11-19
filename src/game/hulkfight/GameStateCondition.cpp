@@ -1461,33 +1461,43 @@ class DebugPrintAction_1321d0 : public Action_1321d0 {
     Ref_1321d0* m;
     DebugPrintAction_1321d0* f2(unsigned char flags);
 };
-class TrackFactoryCasterTemplate_1324d0 {
+extern "C" char DAT_004118e0[];   // (fix2) the game's caster vftable 0x4118e0
+class TrackFactoryCasterTemplate_1324d0 {   // (fix2) was polymorphic (virtual bool Cast_00130f40(void*);): clang's own vftable natively, the game's by address now
   public:
-    virtual bool Cast_00130f40(void*);
+    void *vftable;
+    TrackFactoryCasterTemplate_1324d0() { vftable = DAT_004118e0; }
 };
 extern void* __cdecl Find_00236ac0(const char*, TrackFactoryCasterTemplate_1324d0*);
 class Owner {
   public:
     void Set_002367c0(void*);
 };
-class TrackFactoryCasterTemplate_132530 {
+extern "C" char DAT_004118f8[];   // (fix2) the game's caster vftable 0x4118f8
+class TrackFactoryCasterTemplate_132530 {   // (fix2) was polymorphic (virtual bool Cast_00131040(void*);): clang's own vftable natively, the game's by address now
   public:
-    virtual bool Cast_00131040(void*);
+    void *vftable;
+    TrackFactoryCasterTemplate_132530() { vftable = DAT_004118f8; }
 };
 extern "C" void* __cdecl FUN_00236ac0(void*, TrackFactoryCasterTemplate_132530*);
-class TrackFactoryCasterTemplate_132560 {
+extern "C" char DAT_00411904[];   // (fix2) the game's caster vftable 0x411904
+class TrackFactoryCasterTemplate_132560 {   // (fix2) was polymorphic (virtual bool Fnf_00131100(void*);): clang's own vftable natively, the game's by address now
   public:
-    virtual bool Fnf_00131100(void*);
+    void *vftable;
+    TrackFactoryCasterTemplate_132560() { vftable = DAT_00411904; }
 };
 void* __cdecl find_00236ac0(const char*, TrackFactoryCasterTemplate_132560*);
-class TrackFactoryCasterTemplate_1325c0 {
+extern "C" char DAT_0041191c[];   // (fix2) the game's caster vftable 0x41191c
+class TrackFactoryCasterTemplate_1325c0 {   // (fix2) was polymorphic (virtual bool Cast_00131200(void*);): clang's own vftable natively, the game's by address now
   public:
-    virtual bool Cast_00131200(void*);
+    void *vftable;
+    TrackFactoryCasterTemplate_1325c0() { vftable = DAT_0041191c; }
 };
 extern "C++" __declspec(nothrow) void* FUN_00236ac0(const char*, TrackFactoryCasterTemplate_1325c0*);
-class TrackFactoryCasterTemplate_1325f0 {
+extern "C" char DAT_00411928[];   // (fix2) the game's caster vftable 0x411928
+class TrackFactoryCasterTemplate_1325f0 {   // (fix2) was polymorphic (virtual bool Cast_00131280(void*);): clang's own vftable natively, the game's by address now
   public:
-    virtual bool Cast_00131280(void*);
+    void *vftable;
+    TrackFactoryCasterTemplate_1325f0() { vftable = DAT_00411928; }
 };
 extern "C++" __declspec(nothrow) void* FUN_00236ac0(const char*, TrackFactoryCasterTemplate_1325f0*);
 extern int hulk_at_00411a20;
@@ -5224,10 +5234,13 @@ namespace hulkfight {
 class NISSoundTrack;
 }
 namespace fight {
-template <class T> class TrackFactoryCasterTemplate {
-  public:
-    virtual void Cast();
+extern "C" char DAT_004118ec[];   // (fix2) the game's caster vftables
+template <class T> class TrackFactoryCasterTemplate {   // (fix2) was polymorphic (virtual void Cast();): clang's own vftable natively,
+  public:                          // the game's by address now, stored by each instantiation's constructor
+    void *vftable;
+    TrackFactoryCasterTemplate();
 };
+template <> inline TrackFactoryCasterTemplate<hulkfight::NISSoundTrack>::TrackFactoryCasterTemplate() { vftable = DAT_004118ec; }
 } // namespace fight
 class TrackManager {
   public:
@@ -5263,9 +5276,11 @@ extern "C" void __cdecl FUN_00132560(Obj* obj, const char* name) {
 // 0x00132590 FUN_00132590 (38 B): matches/0x00132590.cpp [wrapped: conflict: Find]
 // sym: _FUN_00132590
 namespace fn_00132590 {
-class TrackFactoryCasterTemplate_132590 {
+extern "C" char DAT_00411910[];   // (fix2) the game's caster vftable 0x411910
+class TrackFactoryCasterTemplate_132590 {   // (fix2) was polymorphic (virtual bool Fnf_00131180(void*);): clang's own vftable natively, the game's by address now
   public:
-    virtual bool Fnf_00131180(void*);
+    void *vftable;
+    TrackFactoryCasterTemplate_132590() { vftable = DAT_00411910; }
 };
 extern "C++" __declspec(nothrow) void* __cdecl Find_00236ac0(char*, TrackFactoryCasterTemplate_132590*);
 class Owner {
@@ -5310,10 +5325,18 @@ class LocationCondition;
 class ChapterMissionCondition;
 } // namespace hulkfight
 namespace fight {
-template <class T> class ConditionFactoryCasterTemplate {
-  public:
-    virtual void Cast();
+extern "C" char DAT_004118a4[], DAT_004118bc[], DAT_004118d4[], DAT_004118c8[], DAT_004118b0[], DAT_00411898[];   // (fix2) the game's caster vftables
+template <class T> class ConditionFactoryCasterTemplate {   // (fix2) was polymorphic (virtual void Cast();): clang's own vftable natively,
+  public:                          // the game's by address now, stored by each instantiation's constructor
+    void *vftable;
+    ConditionFactoryCasterTemplate();
 };
+template <> inline ConditionFactoryCasterTemplate<hulkfight::UnlockableCondition>::ConditionFactoryCasterTemplate() { vftable = DAT_004118a4; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::DebugPrintCondition>::ConditionFactoryCasterTemplate() { vftable = DAT_004118bc; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::ChapterMissionCondition>::ConditionFactoryCasterTemplate() { vftable = DAT_004118d4; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::LocationCondition>::ConditionFactoryCasterTemplate() { vftable = DAT_004118c8; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::GameStateCondition>::ConditionFactoryCasterTemplate() { vftable = DAT_004118b0; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::MissionProgressCondition>::ConditionFactoryCasterTemplate() { vftable = DAT_00411898; }
 } // namespace fight
 extern "C" void* __cdecl FUN_002343e0(const char*, const void*);
 struct Registry_132620 {

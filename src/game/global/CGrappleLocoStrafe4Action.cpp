@@ -13,11 +13,16 @@ namespace fn_f698f5f9 {} using namespace fn_f698f5f9;
 // ---- declarations shared by the functions below
 inline void *operator new(size_t, void *p) throw() { return p; }
 namespace fn_f698f5f9 {
+// (sweep-caster-fix1) the caster as the word its inline constructor writes: the game's vftable by address (a local
+// polymorphic stand-in got clang's own vftable natively, whose slot had no definition)
+extern "C" char DAT_003f3e80[];   // content::LoadInventory::DynamicCaster<pure3d::Animation>'s vftable
 namespace content { namespace LoadInventory {
 template <class T>
 struct DynamicCaster {
-    virtual void v0();
+    void *vftable;
+    DynamicCaster();
 };
+template <> inline DynamicCaster<pure3d::Animation>::DynamicCaster() { vftable = (void *)DAT_003f3e80; }
 } }
 struct Id64_23160 {
     unsigned int lo;
@@ -124,8 +129,12 @@ struct Frame_23160 {
     void *a2;
     void *a3;
     void *a4;
-    int n;
+    union {                // (sweep-caster-fix1) also the casters' slot: pointer-sized natively
+        int n;
+        void *nWord;
+    };
     void *a0;
+
     LayerSet_23160 *layers;
     Id64_23160 *idPtr;
     unsigned int t30;
@@ -144,7 +153,7 @@ static __forceinline void *LoadAnim(StrafeData_23160 *sd, int idx, void *slot)
 
 
 // 0x00023160 CGrappleLocoStrafe4Action::vfunc_6 (1154 B): equivalent/0x00023160.cpp
-// sym: ?vfunc_6@CGrappleLocoStrafe4Action@fn_f698f5f9@@UAE_NH@Z @885583d57c37 @w111a31e0f235 @vd5ce3c5a7b45
+// sym: ?vfunc_6@CGrappleLocoStrafe4Action@fn_f698f5f9@@UAE_NH@Z @2d0e34f6c7f9 @w5b7a393784de @v581cff0062c6
 // STATUS: equivalent (tools/equiv.py level 3: 3046 inputs, branch coverage 52/54, incomplete)
 // CGrappleLocoStrafe4Action::vfunc_6 @ 0x00023160
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0

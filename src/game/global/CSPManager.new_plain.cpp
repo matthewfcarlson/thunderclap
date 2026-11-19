@@ -14,16 +14,16 @@ namespace fn_f6cc61e0 {} using namespace fn_f6cc61e0;
 inline void *operator new(size_t, void *p) { return p; }
 namespace fn_f6cc61e0 {
 namespace content { namespace LoadInventory {
-class __declspec(novtable) DynamicCasterBase {
+class DynamicCasterBase {   // (fix2) was polymorphic (virtual void cast(void *p) = 0;): a record holding the game's vftable word
 public:
-    virtual void cast(void *p) = 0;
+    void *vftable;
 };
 } }
+extern "C" char DAT_003f6340[];   // (fix2) the game's caster vftables
 namespace content { namespace LoadInventory {
-template <class T>
-class DynamicCaster : public DynamicCasterBase {
-public:
-    virtual void cast(void *p);
+template <class T> class DynamicCaster : public DynamicCasterBase {   // (fix2) was polymorphic (virtual void cast(void *p);): clang's own vftable natively,
+  public:                          // the game's by address now, stored by each instantiation's constructor
+    DynamicCaster();
 };
 } }
 struct Key_1e3410 {
@@ -57,6 +57,7 @@ struct Slot_1e3410 {
     unsigned char flags;
     char pad[0x13];
 };
+template <> inline content::LoadInventory::DynamicCaster<CSPHulkProp>::DynamicCaster() { vftable = DAT_003f6340; }
 class Factory_1e3410 {
 public:
     virtual void f0();
@@ -85,7 +86,7 @@ struct Inventory_1e3410 {
 
 
 // 0x001e3410 FUN_001e3410 (306 B): equivalent/0x001e3410.cpp
-// sym: ?FUN_001e3410@Inventory_1e3410@fn_f6cc61e0@@QAEHPAUKey_1e3410@2@@Z @a41b52fb0c38 @w395f7177acd8 @vdb939522071a
+// sym: ?FUN_001e3410@Inventory_1e3410@fn_f6cc61e0@@QAEHPAUKey_1e3410@2@@Z @8ed8299faa2e @wbd3e403aa744 @v0fa2fc3f453e
 // STATUS: equivalent (tools/equiv.py level 3: 77 inputs, branch coverage 29/30, incomplete)
 // FUN_001e3410 @ 0x001e3410
 int Inventory_1e3410::FUN_001e3410(Key_1e3410 *key)

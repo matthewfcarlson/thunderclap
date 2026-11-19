@@ -84,9 +84,11 @@ class ParamValueInt_2384e0 : public ParamValue_2384e0 {
 };
 extern int hulk_at_00491ca8;
 extern int gTypeA_238560;
-class ConditionFactoryCasterTemplate_2386b0 {
+extern "C" char DAT_00428270[];   // (fix2) the game's caster vftable 0x428270
+class ConditionFactoryCasterTemplate_2386b0 {   // (fix2) was polymorphic (virtual bool Fnf_00238500(void*);): clang's own vftable natively, the game's by address now
   public:
-    virtual bool Fnf_00238500(void*);
+    void *vftable;
+    ConditionFactoryCasterTemplate_2386b0() { vftable = DAT_00428270; }
 };
 class Owner {
   public:

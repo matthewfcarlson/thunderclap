@@ -53,7 +53,7 @@ PolySkinLoader_2b8040* PolySkinLoader_2b8040::vfunc2(unsigned char f) {
 } // namespace fn_f2d93049
 
 // 0x002b8090 pure3d::PolySkinLoader::vfunc_5 (1613 B): equivalent/0x002b8090.cpp [wrapped: using-directive]
-// sym: ?vfunc_5@PolySkinLoader@pure3d@fn_002b8090@@UAEXPAPAVPolySkin@23@PA_KPAUStream@3@PAUCtx@3@@Z @c59ac73469d9 @wc08c0e13d53e @vaa1d89f791d5
+// sym: ?vfunc_5@PolySkinLoader@pure3d@fn_002b8090@@UAEXPAPAVPolySkin@23@PA_KPAUStream@3@PAUCtx@3@@Z @fd57274b3a16 @wba3090c38faf @v8cae797f10dc
 inline void *operator new(size_t, void *p) throw() { return p; }
 namespace fn_002b8090 {
 // STATUS: equivalent (tools/equiv.py level 3: 15980 inputs, branch coverage 62/65, incomplete)
@@ -73,16 +73,16 @@ extern "C" unsigned __int64 __cdecl FUN_002672f0(const char *s, unsigned __int64
 
 struct Stream;
 struct Ctx;
+extern "C" char DAT_0041c8d0[];   // (fix2) the game's caster vftables
 namespace content {
 namespace LoadInventory {
-class __declspec(novtable) DynamicCasterBase {
+class DynamicCasterBase {   // (fix2) was polymorphic (virtual void cast(void *p) = 0;): a record holding the game's vftable word
 public:
-    virtual void cast(void *p) = 0;
+    void *vftable;
 };
-template <class T>
-class DynamicCaster : public DynamicCasterBase {
-public:
-    virtual void cast(void *p);
+template <class T> class DynamicCaster : public DynamicCasterBase {   // (fix2) was polymorphic (virtual void cast(void *p);): clang's own vftable natively,
+  public:                          // the game's by address now, stored by each instantiation's constructor
+    DynamicCaster();
 };
 }
 class ObjectLoader {
@@ -162,6 +162,7 @@ struct LinkedB : RefObj {
     virtual LinkedB *Clone();
     void FUN_002a6a20(void *owner);
 };
+template <> inline content::LoadInventory::DynamicCaster<pure3d::Skeleton>::DynamicCaster() { vftable = DAT_0041c8d0; }
 
 struct Ctx {
     virtual void c0();
@@ -279,7 +280,10 @@ void pure3d::PolySkinLoader::vfunc_5(PolySkin **out, unsigned __int64 *outId, St
     struct Frame {
         char pad10[3];
         unsigned char len;
-        unsigned int count;
+        union {                     // (fix2) the count, then the skeleton caster: pointer-sized natively
+            unsigned int count;
+            void *casterWord;
+        };
         pure3d::FrameController *ctl;
         char pad1c[3];
         bool notPlain;

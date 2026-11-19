@@ -35,7 +35,7 @@ struct World {
 
 
 // 0x001baab0 FUN_001baab0 (1531 B): equivalent/0x001baab0.cpp [wrapped: conflict: DAT_004dd700; DAT_0052c2a8]
-// sym: ?FUN_001baab0@Credits_1baab0@fn_001baab0@@QAEX_N@Z @3f2dbe2eb394 @wa83fe2097d39 @v5b29aae329d0
+// sym: ?FUN_001baab0@Credits_1baab0@fn_001baab0@@QAEX_N@Z @401ec5740692 @wd2b211e1f094 @v2436cbce5fee
 inline void *operator new(size_t, void *p) throw() { return p; }
 namespace fn_001baab0 {
 // STATUS: equivalent (tools/equiv.py level 3: 130 inputs, branch coverage 45/46, incomplete)
@@ -60,14 +60,17 @@ extern "C" int __cdecl FUN_001b8970(unsigned short *s, int n);
 extern "C" void __cdecl FUN_00294c70(const char *src, unsigned short *dst, int n);
 
 namespace pure3d { class TextureFont_1baab0; }
+extern "C" char DAT_00408df4[];   // (fix2) the game's caster vftables
 namespace content {
 namespace LoadInventory {
-template <class T>
-struct DynamicCaster {
-    virtual void v0();
+template <class T> struct DynamicCaster {   // (fix2) was polymorphic (virtual void v0();): clang's own vftable natively,
+  public:                          // the game's by address now, stored by each instantiation's constructor
+    void *vftable;
+    DynamicCaster();
 };
 }
 }
+template <> inline content::LoadInventory::DynamicCaster<pure3d::TextureFont_1baab0>::DynamicCaster() { vftable = DAT_00408df4; }
 
 struct Font {
     virtual void f0();
@@ -262,7 +265,10 @@ struct Frame_1baab0 {
     int saved;                     // 0x28
     float height;                  // 0x2c
     Credits_1baab0 *self;                 // 0x30
-    unsigned int casterSlot;       // 0x34
+    union {                        // 0x34 (fix2) the caster: its vftable, pointer-sized natively
+        unsigned int casterSlot;
+        void *casterWord;
+    };
     float width;                   // 0x38
     Font *font;                    // 0x3c
     unsigned short line[0x100];    // 0x40
@@ -403,7 +409,7 @@ void Credits_1baab0::FUN_001baab0(bool flag)
 
 
 // 0x001bb0b0 FUN_001bb0b0 (1150 B): equivalent/0x001bb0b0.cpp [wrapped: conflict: DAT_004dd700; DAT_0052c2a8; thunk_FUN_000fc1b0]
-// sym: _FUN_001bb0b0 @6f85bf21b3f2 @w085d4246fe29 @vb1ea7d23386a
+// sym: _FUN_001bb0b0 @0a58d809a83e @w222686a0a1b5 @v9346f6c6d97d
 namespace fn_001bb0b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3138 inputs, branch coverage 44/44)
 // FUN_001bb0b0 @ 0x001bb0b0
@@ -429,14 +435,17 @@ extern "C" const char *__cdecl FUN_001b8b60(const char *text);
 extern "C" void __cdecl FUN_002684c0();
 
 namespace pure3d { class TextureFont_1bb0b0; }
+extern "C" char DAT_00408df4[];   // (fix2) the game's caster vftables
 namespace content {
 namespace LoadInventory {
-template <class T>
-struct DynamicCaster {
-    virtual void v0();
+template <class T> struct DynamicCaster {   // (fix2) was polymorphic (virtual void v0();): clang's own vftable natively,
+  public:                          // the game's by address now, stored by each instantiation's constructor
+    void *vftable;
+    DynamicCaster();
 };
 }
 }
+template <> inline content::LoadInventory::DynamicCaster<pure3d::TextureFont_1bb0b0>::DynamicCaster() { vftable = DAT_00408df4; }
 
 struct Font {
     virtual void f0();

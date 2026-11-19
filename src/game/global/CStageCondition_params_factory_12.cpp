@@ -556,15 +556,18 @@ public:
 }
 class CCollisionHitLocationCondition {};
 namespace fn_f3623cd7 {
-class ConditionFactoryCasterTemplate_54c30 {
+extern "C" char DAT_003f82a4[];   // (fix2) the game's caster vftable
+class ConditionFactoryCasterTemplate_54c30 {   // (fix2) was polymorphic (virtual bool cast_00050a00(void*);): clang's vftable natively
   public:
-    virtual bool cast_00050a00(void*);
-    ConditionFactoryCasterTemplate_54c30() {}
+    void *vftable;
+    ConditionFactoryCasterTemplate_54c30() { vftable = DAT_003f82a4; }
 };
 void __cdecl findCondition_002343e0(void*, ConditionFactoryCasterTemplate_54c30*);
-class ConditionFactoryCasterTemplate_54c90 {
+extern "C" char DAT_003f82c8[];   // (fix2) the game's caster vftable
+class ConditionFactoryCasterTemplate_54c90 {   // (fix2) was polymorphic (virtual bool cast_00050ac0(void*);): clang's vftable natively
   public:
-    virtual bool cast_00050ac0(void*);
+    void *vftable;
+    ConditionFactoryCasterTemplate_54c90() { vftable = DAT_003f82c8; }
 };
 void __cdecl fun_002343e0(void*, ConditionFactoryCasterTemplate_54c90*);
 class ParamBranch : public ParamValueBranch, public ParamValue {
@@ -1839,9 +1842,11 @@ void target(void* p) {
 // 0x00055090 FUN_00055090 (27 B): matches/0x00055090.cpp [wrapped: same definition as 0x00054c90 in this TU]
 // sym: ?target@fn_00055090@@YAXPAX@Z
 namespace fn_00055090 {
-class ConditionFactoryCasterTemplate_55090 {
+extern "C" char DAT_003f8448[];   // (fix2) the game's caster vftable
+class ConditionFactoryCasterTemplate_55090 {   // (fix2) was polymorphic (virtual bool cast_000512c0(void*);): clang's vftable natively
   public:
-    virtual bool cast_000512c0(void*);
+    void *vftable;
+    ConditionFactoryCasterTemplate_55090() { vftable = DAT_003f8448; }
 };
 void __cdecl helper_002343e0(void*, ConditionFactoryCasterTemplate_55090*);
 void __cdecl target(void* p) {

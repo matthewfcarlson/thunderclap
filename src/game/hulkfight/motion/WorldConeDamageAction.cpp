@@ -908,18 +908,18 @@ class ParamBranch : public ParamValueBranch, public ParamValue {
     void(__fastcall* fn)(void*);
     virtual void vfunc_6(void*);
 };
-class TrackFactoryCasterTemplate_146130 {
-  public:
-    virtual bool Cast_00145290(void*);
+extern "C" char DAT_004132b8[];   // fight::TrackFactoryCasterTemplate<hulkfight::motion::SlowMotionTrack>::vftable
+struct TrackFactoryCasterTemplate_146130 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
+    void* vftable;   // clang's own vftable natively, whose slot had no definition)
 };
 extern void* __cdecl Find_00236ac0(const char*, TrackFactoryCasterTemplate_146130*);
 class Factory {
   public:
     void Add_002367c0(void*);
 };
-class TrackFactoryCasterTemplate_146370 {
-  public:
-    virtual bool Cast_001453b0(void*);
+extern "C" char DAT_004132d0[];   // fight::TrackFactoryCasterTemplate<hulkfight::motion::WorldConeDamageTrack>::vftable
+struct TrackFactoryCasterTemplate_146370 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
+    void* vftable;   // clang's own vftable natively, whose slot had no definition)
 };
 extern void* Find_00236ac0(const char*, TrackFactoryCasterTemplate_146370*);
 } // namespace fn_f3c8e3e3
@@ -3269,6 +3269,7 @@ namespace fn_f3c8e3e3 {
 // sym: _FUN_00146130
 extern "C" void __cdecl FUN_00146130(Factory* factory, const char* name) {
     TrackFactoryCasterTemplate_146130 caster;
+    caster.vftable = (void*)DAT_004132b8;   // (sweep-caster-fix1) the game's vftable by address
     factory->Add_002367c0(Find_00236ac0(name, &caster));
 }
 
@@ -3303,6 +3304,7 @@ namespace fn_f3c8e3e3 {
 // sym: ?FUN_00146370@fn_f3c8e3e3@@YAXPAVObj@1@PBD@Z
 void FUN_00146370(Obj* obj, const char* name) {
     TrackFactoryCasterTemplate_146370 caster;
+    caster.vftable = (void*)DAT_004132d0;   // (sweep-caster-fix1) the game's vftable by address
     obj->Set_002367c0(Find_00236ac0(name, &caster));
 }
 
@@ -3311,9 +3313,9 @@ void FUN_00146370(Obj* obj, const char* name) {
 // 0x001463a0 FUN_001463a0 (38 B): matches/0x001463a0.cpp [wrapped: conflict: Target]
 // sym: _FUN_001463a0
 namespace fn_001463a0 {
-class TrackFactoryCasterTemplate_1463a0 {
-  public:
-    virtual bool Cast_00145470(void*);
+extern "C" char DAT_004132dc[];   // fight::TrackFactoryCasterTemplate<hulkfight::motion::MotionBlurTrack>::vftable
+struct TrackFactoryCasterTemplate_1463a0 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
+    void* vftable;   // clang's own vftable natively, whose slot had no definition)
 };
 struct Target {
     int Get_002367c0(void*);
@@ -3321,6 +3323,7 @@ struct Target {
 extern "C" void* __cdecl FUN_00236ac0(void*, TrackFactoryCasterTemplate_1463a0*);
 extern "C" int FUN_001463a0(Target* t, void* x) {
     TrackFactoryCasterTemplate_1463a0 c;
+    c.vftable = (void*)DAT_004132dc;   // (sweep-caster-fix1) the game's vftable by address
     void* p = FUN_00236ac0(x, &c);
     return t->Get_002367c0(p);
 }
@@ -3328,13 +3331,31 @@ extern "C" int FUN_001463a0(Target* t, void* x) {
 
 
 // 0x00146400 FUN_00146400 (215 B): equivalent/0x00146400.cpp [wrapped: conflict: fight::TrackFactoryCasterTemplate]
-// sym: _FUN_00146400 @5f1e86489d52 @w65d7f3a29874 @v5036a54ba1bd
+// sym: _FUN_00146400 @ebb21bcdc9e5 @w503804bdaea7 @v08d28c1ee76d
 namespace fn_00146400 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00146400 @ 0x00146400
 namespace hulkfight { namespace motion { class HitEffectTrack; class SlowMotionTrack; class WorldDamageTrack; class WorldConeDamageTrack; class MotionBlurTrack; class MotionTrailStopTrack; } }
 namespace fight {
-template<class T> struct TrackFactoryCasterTemplate { virtual void cast(); };
+// (sweep-caster-fix1) the caster as the word its inline constructor writes: the game's vftable by address, per T
+// (a local polymorphic stand-in got clang's own vftable natively, whose slot had no definition)
+extern "C" char DAT_004132ac[];   // TrackFactoryCasterTemplate<hulkfight::motion::HitEffectTrack>'s vftable
+extern "C" char DAT_004132dc[];   // TrackFactoryCasterTemplate<hulkfight::motion::MotionBlurTrack>'s vftable
+extern "C" char DAT_004132e8[];   // TrackFactoryCasterTemplate<hulkfight::motion::MotionTrailStopTrack>'s vftable
+extern "C" char DAT_004132b8[];   // TrackFactoryCasterTemplate<hulkfight::motion::SlowMotionTrack>'s vftable
+extern "C" char DAT_004132d0[];   // TrackFactoryCasterTemplate<hulkfight::motion::WorldConeDamageTrack>'s vftable
+extern "C" char DAT_004132c4[];   // TrackFactoryCasterTemplate<hulkfight::motion::WorldDamageTrack>'s vftable
+template <class T> struct TrackFactoryCasterTemplate {
+    void* vftable;
+    TrackFactoryCasterTemplate();
+};
+template <> inline TrackFactoryCasterTemplate<hulkfight::motion::HitEffectTrack>::TrackFactoryCasterTemplate() { vftable = (void*)DAT_004132ac; }
+template <> inline TrackFactoryCasterTemplate<hulkfight::motion::MotionBlurTrack>::TrackFactoryCasterTemplate() { vftable = (void*)DAT_004132dc; }
+template <> inline TrackFactoryCasterTemplate<hulkfight::motion::MotionTrailStopTrack>::TrackFactoryCasterTemplate() { vftable = (void*)DAT_004132e8; }
+template <> inline TrackFactoryCasterTemplate<hulkfight::motion::SlowMotionTrack>::TrackFactoryCasterTemplate() { vftable = (void*)DAT_004132b8; }
+template <> inline TrackFactoryCasterTemplate<hulkfight::motion::WorldConeDamageTrack>::TrackFactoryCasterTemplate() { vftable = (void*)DAT_004132d0; }
+template <> inline TrackFactoryCasterTemplate<hulkfight::motion::WorldDamageTrack>::TrackFactoryCasterTemplate() { vftable = (void*)DAT_004132c4; }
+
 }
 extern void* __cdecl FUN_00236ac0(const char*, void*);
 struct Registry_146400 { void FUN_002367c0(void*); };

@@ -549,7 +549,7 @@ struct Caster { virtual void f0(); virtual void f1(); virtual void f2(); virtual
 
 
 // 0x001ea5a0 FUN_001ea5a0 (132 B): equivalent/0x001ea5a0.cpp [wrapped: conflict: content::LoadInventory::DynamicCaster; content::LoadInventory::DynamicCasterBase]
-// sym: ?Acquire@ClipUser@fn_001ea5a0@@QAEXUArg_1ea5a0@2@@Z @4a6de2db0fa6 @wd2fa1e53bebf @v29ae34b3e91f
+// sym: ?Acquire@ClipUser@fn_001ea5a0@@QAEXUArg_1ea5a0@2@@Z @ad6125810ac7 @w3ce1330ce164 @v95b4b0194f47
 inline void *operator new(size_t, void *p) throw() { return p; }
 namespace fn_001ea5a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2981 inputs, branch coverage 8/8)
@@ -559,18 +559,20 @@ namespace fn_001ea5a0 {
 
 namespace audio { class Clip; }
 
+// (sweep-caster-fix1) the caster as the word its inline constructor writes: the game's vftable by address (a local
+// polymorphic stand-in got clang's own vftable natively, whose slot had no definition)
+extern "C" char DAT_004240b8[];   // content::LoadInventory::DynamicCaster<audio::Clip>'s vftable
 namespace content {
 namespace LoadInventory {
-class __declspec(novtable) DynamicCasterBase {
-public:
-    virtual void cast(void *p) = 0;
+struct DynamicCasterBase {
+    void *vftable;
 };
 
 template <class T>
-class DynamicCaster : public DynamicCasterBase {
-public:
-    virtual void cast(void *p);
+struct DynamicCaster : DynamicCasterBase {
+    DynamicCaster();
 };
+template <> inline DynamicCaster<audio::Clip>::DynamicCaster() { vftable = (void *)DAT_004240b8; }
 }
 }
 
@@ -655,13 +657,18 @@ void Target::FUN_001ea6b0(Source* src, int unused) {
 } // namespace fn_f01d1853
 
 // 0x001ea700 FUN_001ea700 (179 B): equivalent/0x001ea700.cpp [wrapped: conflict: content::LoadInventory]
-// sym: ?FUN_001ea700@Request@fn_001ea700@@QAEXXZ @56d4de2073de @w8ac2c42cf5a6 @va7c133e0aa9d
+// sym: ?FUN_001ea700@Request@fn_001ea700@@QAEXXZ @8713857c6f66 @w9fbe312bf255 @v624a233897df
 namespace fn_001ea700 {
 // STATUS: equivalent (tools/equiv.py level 3: 3028 inputs, branch coverage 13/14, incomplete)
 // FUN_001ea700 @ 0x001ea700
 
 namespace audio { class Clip; }
-namespace content { class LoadInventory { public: template<class T> class DynamicCaster { public: virtual void cast(); }; }; }
+// (sweep-caster-fix1) the caster as the word its inline constructor writes: the game's vftable by address (a local
+// polymorphic stand-in got clang's own vftable natively, whose slot had no definition)
+extern "C" char DAT_004240b8[];   // content::LoadInventory::DynamicCaster<audio::Clip>'s vftable
+namespace content { class LoadInventory { public: template<class T> struct DynamicCaster { void* vftable; DynamicCaster(); }; };
+template <> inline LoadInventory::DynamicCaster<audio::Clip>::DynamicCaster() { vftable = (void*)DAT_004240b8; } }
+
 struct Resource_1ea700 { virtual void slot0(); virtual void release(); char pad[0x1e]; unsigned short refs; };
 struct Inventory_1ea700 { virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual Resource_1ea700* lookup(content::LoadInventory::DynamicCaster<audio::Clip>*, unsigned, unsigned); virtual void slot4(); virtual void remove(Resource_1ea700*); };
 struct System_1ea700 { char pad[0x518]; Inventory_1ea700* inventory; };

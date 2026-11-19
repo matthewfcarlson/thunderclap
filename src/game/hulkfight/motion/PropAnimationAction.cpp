@@ -13,13 +13,19 @@ namespace fn_f5669a8c {} using namespace fn_f5669a8c;
 // ---- declarations shared by the functions below
 inline void *operator new(size_t, void *p) throw() { return p; }
 namespace fn_f5669a8c {
+// (sweep-caster-fix1) the caster as the word its inline constructor writes: the game's vftable by address (a local
+// polymorphic stand-in got clang's own vftable natively, whose slot had no definition)
+extern "C" char DAT_003f3e80[];   // content::LoadInventory::DynamicCaster<pure3d::Animation>'s vftable
 namespace content { namespace LoadInventory {
 template <class T>
 struct DynamicCaster {
-    virtual void v0();
+    void *vftable;
+    DynamicCaster();
 };
+template <> inline DynamicCaster<pure3d::Animation>::DynamicCaster() { vftable = (void *)DAT_003f3e80; }
 } }
 struct Anim_18b4e0 {
+
     char pad00[0x10];
     float f10;
     char pad14[4];
@@ -116,7 +122,7 @@ public:
 
 
 // 0x0018b4e0 hulkfight::motion::PropAnimationAction::vfunc_3 (452 B): equivalent/0x0018b4e0.cpp
-// sym: ?vfunc_3@PropAnimationAction@fn_f5669a8c@@UAE_NHH@Z @4c0a3bba7667 @we1756976f878 @v5671f1a197de
+// sym: ?vfunc_3@PropAnimationAction@fn_f5669a8c@@UAE_NHH@Z @fd0d0eb53d9d @wba149edaa758 @v8b4d55f976e5
 // STATUS: equivalent (tools/equiv.py level 3: 20027 inputs, branch coverage 30/30)
 // hulkfight::motion::PropAnimationAction::vfunc_3 @ 0x0018b4e0
 bool PropAnimationAction::vfunc_3(int a, int b)

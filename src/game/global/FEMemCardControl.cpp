@@ -443,7 +443,7 @@ class FEMemCardControl_d9e40 {
 } // namespace fn_f70d8f3f
 
 // 0x000d7af0 FUN_000d7af0 (108 B): equivalent/0x000d7af0.cpp [wrapped: conflict: FEBackground; content::LoadInventory::DynamicCaster; content::LoadInventory::DynamicCasterBase]
-// sym: ??0FEBackground@fn_000d7af0@@QAE@HPBD@Z @9f5af12b49fd @w765acbe3f457 @v9a3fd2cd7f12
+// sym: ??0FEBackground@fn_000d7af0@@QAE@HPBD@Z @854451664140 @w9968dee2bb5a @v8f6f0a0da5a7
 inline void *operator new(size_t, void *p) { return p; }
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
@@ -481,17 +481,17 @@ char FUN_001d04d0(const void* typeInfo);                      // type_info test 
 
 
 
+extern "C" char DAT_003f6330[];   // (fix2) the game's caster vftables
 namespace content {
 namespace LoadInventory {
-class __declspec(novtable) DynamicCasterBase {
+class DynamicCasterBase {   // (fix2) was polymorphic (virtual void cast(void *p);): a record holding the game's vftable word
 public:
-    virtual void cast(void *p);
+    void *vftable;
 };
 
-template <class T>
-class DynamicCaster : public DynamicCasterBase {
-public:
-    virtual void cast(void *p);
+template <class T> class DynamicCaster : public DynamicCasterBase {   // (fix2) was polymorphic (virtual void cast(void *p);): clang's own vftable natively,
+  public:                          // the game's by address now, stored by each instantiation's constructor
+    DynamicCaster();
 };
 }
 }
@@ -501,6 +501,7 @@ struct Node {
     virtual void AddRef();
 };
 
+template <> inline content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy>::DynamicCaster() { vftable = DAT_003f6330; }
 struct Loader_d7af0 {
     virtual void v0();
     virtual void v1();
@@ -521,10 +522,12 @@ public:
     char flag141;
     char pad142[0xe];
     Node *drawable;
-    FEBackground(int arg, const char *name);
+    FEBackground(hulk_intptr arg, const char *name);
 };
 
-FEBackground::FEBackground(int arg, const char *name) : FUN_000e9240(arg)
+// (fix2) the original builds the caster in the argument's slot: the argument is pointer-sized natively (int on the
+// 32-bit builds), so the caster's vftable word fits it
+FEBackground::FEBackground(hulk_intptr arg, const char *name) : FUN_000e9240((int)arg)
 {
     drawable = 0;
     Loader_d7af0 *loader = (*(Loader_d7af0**)&DAT_004dd9cc);

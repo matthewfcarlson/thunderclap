@@ -19,18 +19,19 @@ namespace fn_fdd12815 {
 namespace pure3d {
 class Entity;
 }
+// (sweep-caster-fix1) the caster as the word its inline constructor writes: the game's vftable by address (a local
+// polymorphic stand-in got clang's own vftable natively, whose slot had no definition, and its 8 bytes overran the
+// frame's 4-byte word)
+extern "C" char DAT_00427ca8[];   // content::LoadInventory::DynamicCaster<pure3d::Entity>'s vftable
 namespace content { namespace LoadInventory {
-class __declspec(novtable) DynamicCasterBase {
-public:
-    virtual void cast(void *p) = 0;
+struct DynamicCasterBase {
+    void *vftable;
 };
-} }
-namespace content { namespace LoadInventory {
 template <class T>
-class DynamicCaster : public DynamicCasterBase {
-public:
-    virtual void cast(void *p);
+struct DynamicCaster : DynamicCasterBase {
+    DynamicCaster();
 };
+template <> inline DynamicCaster<pure3d::Entity>::DynamicCaster() { vftable = (void *)DAT_00427ca8; }
 } }
 class Entity {
 public:
@@ -71,14 +72,18 @@ extern "C" void *FUN_0008d690(unsigned size);
 struct Frame_28ea80 {
     char pad[3];
     unsigned char len;     // 0x0b
-    int a;                 // 0x0c, later reused as the caster object
+    union {                // 0x0c, later reused as the caster object (sweep-caster-fix1: pointer-sized natively)
+        int a;
+        void *aWord;
+    };
+
     unsigned x;            // 0x10
     char name[0x100];      // 0x14
 };
 
 
 // 0x0028ea80 FUN_0028ea80 (432 B): equivalent/0x0028ea80.cpp
-// sym: ?FUN_0028ea80@fn_fdd12815@@YGPAUEntityChannel_28ea80@1@PAUReader@1@PAVLoadContext_28ea80@1@PAVParent_28ea80@1@@Z @4a6b96aec07c @w1aa6e94c3896 @vf26dabbc3bce
+// sym: ?FUN_0028ea80@fn_fdd12815@@YGPAUEntityChannel_28ea80@1@PAUReader@1@PAVLoadContext_28ea80@1@PAVParent_28ea80@1@@Z @7dc7978f590b @w9c0fbe2b2c5b @vda3d1625c7a2
 // STATUS: equivalent (tools/equiv.py level 3: 78 inputs, branch coverage 18/18)
 // FUN_0028ea80 @ 0x0028ea80
 EntityChannel_28ea80 *__stdcall FUN_0028ea80(Reader *r, LoadContext_28ea80 *ctx, Parent_28ea80 *parent)

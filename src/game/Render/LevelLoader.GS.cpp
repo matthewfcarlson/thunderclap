@@ -22,8 +22,13 @@ namespace fn_fcbe5f6e {
 namespace pure3d {
 class LightGroup;
 }
+extern "C" char DAT_003f6330[], DAT_0040cb44[];   // (fix2) the game's caster vftables
 namespace content { namespace LoadInventory {
-template<class T> struct DynamicCaster { virtual void cast(); };
+template <class T> struct DynamicCaster {   // (fix2) was polymorphic (virtual void cast();): clang's own vftable natively,
+  public:                          // the game's by address now, stored by each instantiation's constructor
+    void *vftable;
+    DynamicCaster();
+};
 } }
 struct Id64_1c9160 {
     unsigned int lo;
@@ -102,10 +107,12 @@ public:
     Handler_1c9160 *handler;
 };
 }
+template <> inline content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy>::DynamicCaster() { vftable = DAT_003f6330; }
+template <> inline content::LoadInventory::DynamicCaster<pure3d::LightGroup>::DynamicCaster() { vftable = DAT_0040cb44; }
 
 
 // 0x001c9160 Render::LevelLoader::vfunc_5 (1001 B): equivalent/0x001c9160.cpp
-// sym: ?vfunc_5@LevelLoader@Render@fn_fcbe5f6e@@UAEXPAHPAUId64_1c9160@3@PAUReader@3@PAUInventory_1c9160@3@@Z @822d2be88f1c @w076db472f833 @v38b92d191038
+// sym: ?vfunc_5@LevelLoader@Render@fn_fcbe5f6e@@UAEXPAHPAUId64_1c9160@3@PAUReader@3@PAUInventory_1c9160@3@@Z @01948a1302d8 @w8952a8898217 @vfa0b0901b2e7
 // STATUS: equivalent (tools/equiv.py level 3: 1053 inputs, branch coverage 26/26)
 // Render::LevelLoader::vfunc_5 @ 0x001c9160
 namespace Render {
@@ -119,6 +126,7 @@ void LevelLoader::vfunc_5(int *out1, Id64_1c9160 *out2, Reader *rd, Inventory_1c
         union {
             int word;
             char caster[4];
+            void *casterWord;   // (fix2) the caster's vftable: pointer-sized natively
         } s14;
         union {
             Loaded_1c9160 *a;

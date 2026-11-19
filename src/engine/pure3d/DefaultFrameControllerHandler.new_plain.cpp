@@ -31,7 +31,9 @@ namespace pure3d { namespace scenegraph {
 class VisibilityNode : public Node { public: virtual void v0(); };
 } }
 namespace content { namespace LoadInventory {
-template<class T> struct DynamicCaster { virtual void cast(); };
+// (sweep-caster-fix1) the caster as the word its inline constructor writes: the game's vftable by address (a local
+// polymorphic stand-in got clang's own vftable natively, whose slot had no definition); specialised per T below
+template<class T> struct DynamicCaster { void *vftable; DynamicCaster(); };
 } }
 struct Stream {
     HULK_TYPE64(int, bool) FUN_002647e0(void *buf, int count, int size, int flag);
@@ -132,8 +134,19 @@ void *__cdecl FUN_000f2370(Reader *r, const char *name);
 SceneRes *__cdecl FUN_000c0d80(Reader *r, const char *name);
 SceneGraphObj *__cdecl FUN_000f23d0(Reader *r, const char *name);
 void *__cdecl FUN_000c9ba0(Reader *r, const char *name);
+extern "C" char DAT_003f3e80[];   // content::LoadInventory::DynamicCaster<pure3d::Animation>'s vftable
+extern "C" char DAT_0040a20c[];   // content::LoadInventory::DynamicCaster<pure3d::Geometry>'s vftable
+extern "C" char DAT_0042c7d4[];   // content::LoadInventory::DynamicCaster<pure3d::Light>'s vftable
+extern "C" char DAT_0040cb34[];   // content::LoadInventory::DynamicCaster<pure3d::scenegraph::Scenegraph>'s vftable
+namespace content { namespace LoadInventory {
+template <> inline DynamicCaster<pure3d::Animation>::DynamicCaster() { vftable = (void *)DAT_003f3e80; }
+template <> inline DynamicCaster<pure3d::Geometry>::DynamicCaster() { vftable = (void *)DAT_0040a20c; }
+template <> inline DynamicCaster<pure3d::Light>::DynamicCaster() { vftable = (void *)DAT_0042c7d4; }
+template <> inline DynamicCaster<pure3d::scenegraph::Scenegraph>::DynamicCaster() { vftable = (void *)DAT_0040cb34; }
+} }
 struct Frame_2870d0 {
     char pad0[3];
+
     char b3;                // 0x03
     void *caster;           // 0x04 (placement-new'd DynamicCaster)
     int x8;                 // 0x08
@@ -154,7 +167,7 @@ public:
 
 
 // 0x002870d0 pure3d::OldFrameControllerLoader::vfunc_7 (1841 B): equivalent/0x002870d0.cpp
-// sym: ?v7@OldFrameControllerLoader@fn_fca8c081@@UAEPAVBase_2870d0@2@PBDIPAVStreamHolder@2@PAVReader@2@@Z @95b6b07681e2 @w51ed9af9c0ae @v48dfac99f329
+// sym: ?v7@OldFrameControllerLoader@fn_fca8c081@@UAEPAVBase_2870d0@2@PBDIPAVStreamHolder@2@PAVReader@2@@Z @9d260e6fb04c @wd85e5483d787 @v28e947562caa
 // STATUS: equivalent (tools/equiv.py level 3: 3092 inputs, branch coverage 76/86, incomplete)
 // pure3d::OldFrameControllerLoader::vfunc_7 @ 0x002870d0
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0

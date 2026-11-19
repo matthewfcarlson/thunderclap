@@ -42,16 +42,16 @@ void thunk_FUN_00267090(pure3d::NonCopyable*);
 inline void *operator new(size_t, void *p) { return p; }
 namespace fn_fbf43e6a {
 namespace content { namespace LoadInventory {
-class __declspec(novtable) DynamicCasterBase {
+class DynamicCasterBase {   // (fix2) was polymorphic (virtual void cast(void *p) = 0;): a record holding the game's vftable word
 public:
-    virtual void cast(void *p) = 0;
+    void *vftable;
 };
 } }
+extern "C" char DAT_0042c7d4[];   // (fix2) the game's caster vftables
 namespace content { namespace LoadInventory {
-template <class T>
-class DynamicCaster : public DynamicCasterBase {
-public:
-    virtual void cast(void *p);
+template <class T> class DynamicCaster : public DynamicCasterBase {   // (fix2) was polymorphic (virtual void cast(void *p);): clang's own vftable natively,
+  public:                          // the game's by address now, stored by each instantiation's constructor
+    DynamicCaster();
 };
 } }
 struct Hash64 {
@@ -65,6 +65,7 @@ struct Reader {
     char pad0[0x284];
     Stream *stream;
 };
+template <> inline content::LoadInventory::DynamicCaster<pure3d::Light>::DynamicCaster() { vftable = DAT_0042c7d4; }
 class Factory_2c1520 {
 public:
     virtual void f0();
@@ -134,7 +135,7 @@ pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
 
 
 // 0x002c1520 pure3d::LightGroupLoader::vfunc_5 (428 B): equivalent/0x002c1520.cpp
-// sym: ?vfunc_5@LightGroupLoader@pure3d@fn_fbf43e6a@@UAEXPAPAULightGroup@3@PAUHash64@3@PAUReader@3@PAVFactory_2c1520@3@@Z @6ef81a22f0d2 @we249bf32fbad @ve37b4243bc58
+// sym: ?vfunc_5@LightGroupLoader@pure3d@fn_fbf43e6a@@UAEXPAPAULightGroup@3@PAUHash64@3@PAUReader@3@PAVFactory_2c1520@3@@Z @c80ffe3f594b @wbac029f0d469 @vf3186fccf9ef
 // STATUS: equivalent (tools/equiv.py level 3: 71 inputs, branch coverage 8/8)
 // pure3d::LightGroupLoader::vfunc_5 @ 0x002c1520
 namespace pure3d {
@@ -146,7 +147,10 @@ void LightGroupLoader::vfunc_5(LightGroup **out, Hash64 *id, Reader *rd, Factory
         int n;
         LightGroup *group;
         int index;
-        char caster[4];
+        union {             // (fix2) the caster: its vftable, pointer-sized natively
+            char caster[4];
+            void *casterWord;
+        };
         int pad24;
         unsigned int hashHi;
         char buf[0x100];

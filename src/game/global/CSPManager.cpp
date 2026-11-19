@@ -8695,22 +8695,22 @@ extern "C" void FUN_001e28a0(void * a, void * b, void * c) {
 } // namespace fn_f75938cb
 
 // 0x001e2940 FUN_001e2940 (1423 B): equivalent/0x001e2940.cpp [wrapped: conflict: DAT_004dd700; FUN_001c3d90; FUN_0027b020; Node (+2)]
-// sym: ?F@Mgr_1e2940@fn_001e2940@@QAEPAUProp_1e2940@2@H@Z @42f9e879af70 @w0656fa2118e4 @v407560af35a8
+// sym: ?F@Mgr_1e2940@fn_001e2940@@QAEPAUProp_1e2940@2@H@Z @03f17c5b1563 @w60b87867a7c4 @v8229b5e9f486
 namespace fn_001e2940 {
 // STATUS: equivalent (tools/equiv.py level 3: 19661 inputs, branch coverage 87/88, incomplete)
 // FUN_001e2940 @ 0x001e2940
 
+extern "C" char DAT_003f6340[];   // (fix2) the game's caster vftables
 namespace content {
 namespace LoadInventory {
-class __declspec(novtable) DynamicCasterBase {
+class DynamicCasterBase {   // (fix2) was polymorphic (virtual void cast(void *p) = 0;): a record holding the game's vftable word
 public:
-    virtual void cast(void *p) = 0;
+    void *vftable;
 };
 
-template <class T>
-class DynamicCaster : public DynamicCasterBase {
-public:
-    virtual void cast(void *p);
+template <class T> class DynamicCaster : public DynamicCasterBase {   // (fix2) was polymorphic (virtual void cast(void *p);): clang's own vftable natively,
+  public:                          // the game's by address now, stored by each instantiation's constructor
+    DynamicCaster();
 };
 }
 }
@@ -8735,6 +8735,7 @@ struct Mat4_1e2940 {
 
 struct Thing;
 
+template <> inline content::LoadInventory::DynamicCaster<CSPHulkProp>::DynamicCaster() { vftable = DAT_003f6340; }
 struct Factory_1e2940 {
     virtual void f0();
     virtual void f1();
@@ -9112,23 +9113,23 @@ Prop_1e2940 *Mgr_1e2940::F(int idx)
 
 
 // 0x001e2ed0 FUN_001e2ed0 (334 B): equivalent/0x001e2ed0.cpp [wrapped: conflict: Skeleton; content::LoadInventory::DynamicCaster; content::LoadInventory::DynamicCasterBase]
-// sym: ?FUN_001e2ed0@Inventory_1e2ed0@fn_001e2ed0@@QAEHHHH@Z @0e0a65120d1d @wec89070e395e @v63ec0f18bff2
+// sym: ?FUN_001e2ed0@Inventory_1e2ed0@fn_001e2ed0@@QAEHHHH@Z @257db679c1c6 @w6ffb68e3fec1 @v087628d0ffba
 namespace fn_001e2ed0 {
 // STATUS: equivalent (tools/equiv.py level 3: 84 inputs, branch coverage 20/24, incomplete)
 // FUN_001e2ed0 @ 0x001e2ed0
 class CSPHulkProp;
 
+extern "C" char DAT_003f6340[];   // (fix2) the game's caster vftables
 namespace content {
 namespace LoadInventory {
-class __declspec(novtable) DynamicCasterBase {
+class DynamicCasterBase {   // (fix2) was polymorphic (virtual void cast(void *p) = 0;): a record holding the game's vftable word
 public:
-    virtual void cast(void *p) = 0;
+    void *vftable;
 };
 
-template <class T>
-class DynamicCaster : public DynamicCasterBase {
-public:
-    virtual void cast(void *p);
+template <class T> class DynamicCaster : public DynamicCasterBase {   // (fix2) was polymorphic (virtual void cast(void *p);): clang's own vftable natively,
+  public:                          // the game's by address now, stored by each instantiation's constructor
+    DynamicCaster();
 };
 }
 }
@@ -9164,6 +9165,7 @@ public:
     void FUN_001d63b0(int count);
 };
 
+template <> inline content::LoadInventory::DynamicCaster<CSPHulkProp>::DynamicCaster() { vftable = DAT_003f6340; }
 class Factory_1e2ed0 {
 public:
     virtual void f0();
@@ -9297,17 +9299,23 @@ int Game_1e3020::FUN_001e3020(int index,int key1,int key2) {
 
 
 // 0x001e30f0 FUN_001e30f0 (261 B): equivalent/0x001e30f0.cpp [wrapped: conflict: content::LoadInventory::DynamicCaster]
-// sym: ?target@CSPManager_1e30f0@fn_001e30f0@@QAEXII@Z @bf26c60c3917 @wcd50b7f568c8 @veedce0b0be62
+// sym: ?target@CSPManager_1e30f0@fn_001e30f0@@QAEXII@Z @4d87b4b8a852 @w10446fa63184 @v52fcc3db64db
 namespace fn_001e30f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2230 inputs, branch coverage 20/20)
 // FUN_001e30f0 @ 0x001e30f0
 class CSPHulkProp;
-namespace content { namespace LoadInventory { template<class T> struct DynamicCaster { virtual void cast(); }; } }
+extern "C" char DAT_003f6340[];   // (fix2) the game's caster vftables
+namespace content { namespace LoadInventory { template <class T> struct DynamicCaster {   // (fix2) was polymorphic (virtual void cast();): clang's own vftable natively,
+  public:                          // the game's by address now, stored by each instantiation's constructor
+    void *vftable;
+    DynamicCaster();
+}; } }
 struct Object;
 struct Entry_1e30f0 { unsigned low, high; int unused; int index; };
 struct Table_1e30f0 { char pad[0x24]; int count; Entry_1e30f0* entries; };
 struct Info_1e30f0 { char pad[0x1c]; Table_1e30f0** tables; };
 struct Object { Info_1e30f0* FUN_001d4fc0(); void FUN_0027e760(unsigned); };
+template <> inline content::LoadInventory::DynamicCaster<CSPHulkProp>::DynamicCaster() { vftable = DAT_003f6340; }
 struct Inventory_1e30f0 { virtual void v0(); virtual void v1(); virtual void v2(); virtual Object* find(content::LoadInventory::DynamicCaster<CSPHulkProp>*, unsigned, unsigned); };
 struct Provider_1e30f0 { Inventory_1e30f0* FUN_00203d70(); };
 struct Context { Provider_1e30f0* FUN_000862a0(); };
@@ -9398,7 +9406,7 @@ void CSPManager_1e3230::FUN_001e3230(const char *name, const char *state) {
 
 
 // 0x001e32b0 FUN_001e32b0 (166 B): equivalent/0x001e32b0.cpp [wrapped: conflict: World; content::LoadInventory::DynamicCaster]
-// sym: ?FUN_001e32b0@CSPManager_1e32b0@fn_001e32b0@@QAEHH@Z @ea68abd1995b @w931a73c5b7b2 @v5cc2985b7186
+// sym: ?FUN_001e32b0@CSPManager_1e32b0@fn_001e32b0@@QAEHH@Z @8290009c269f @we28ee353803a @vfbbd28229316
 namespace fn_001e32b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_001e32b0 @ 0x001e32b0
@@ -9432,11 +9440,13 @@ char FUN_001d04d0(const void* typeInfo);                      // type_info test 
 
 
 
+extern "C" char DAT_003f6340[];   // (fix2) the game's caster vftables
 namespace content {
 namespace LoadInventory {
-template <class T>
-struct DynamicCaster {
-    virtual void v0();
+template <class T> struct DynamicCaster {   // (fix2) was polymorphic (virtual void v0();): clang's own vftable natively,
+  public:                          // the game's by address now, stored by each instantiation's constructor
+    void *vftable;
+    DynamicCaster();
 };
 }
 }
@@ -9454,6 +9464,7 @@ struct Part_1e32b0 {
     Item_1e32b0 *item;              // 0xec
 };
 
+template <> inline content::LoadInventory::DynamicCaster<CSPHulkProp>::DynamicCaster() { vftable = DAT_003f6340; }
 class Factory_1e32b0 {
 public:
     virtual void f0();
@@ -9517,7 +9528,7 @@ int CSPManager_1e32b0::FUN_001e32b0(int name)
 
 
 // 0x001e3360 FUN_001e3360 (166 B): equivalent/0x001e3360.cpp [wrapped: conflict: World; content::LoadInventory::DynamicCaster]
-// sym: ?FUN_001e3360@CSPManager_1e3360@fn_001e3360@@QAEHH@Z @ffa9056362d5 @wa0b35f2bbd10 @v633b9b729b23
+// sym: ?FUN_001e3360@CSPManager_1e3360@fn_001e3360@@QAEHH@Z @c5a278dfa470 @w2cc578038e3d @vd5f2b2e6e2e9
 namespace fn_001e3360 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_001e3360 @ 0x001e3360
@@ -9551,11 +9562,13 @@ char FUN_001d04d0(const void* typeInfo);                      // type_info test 
 
 
 
+extern "C" char DAT_003f6340[];   // (fix2) the game's caster vftables
 namespace content {
 namespace LoadInventory {
-template <class T>
-struct DynamicCaster {
-    virtual void v0();
+template <class T> struct DynamicCaster {   // (fix2) was polymorphic (virtual void v0();): clang's own vftable natively,
+  public:                          // the game's by address now, stored by each instantiation's constructor
+    void *vftable;
+    DynamicCaster();
 };
 }
 }
@@ -9573,6 +9586,7 @@ struct Part_1e3360 {
     Item_1e3360 *item;              // 0xec
 };
 
+template <> inline content::LoadInventory::DynamicCaster<CSPHulkProp>::DynamicCaster() { vftable = DAT_003f6340; }
 class Factory_1e3360 {
 public:
     virtual void f0();
@@ -10058,7 +10072,7 @@ int CSPManager_1e4310::FUN_001e4310(Info_1e4310 *info, const Key_1e4310 *key, in
 } // namespace fn_f75938cb
 
 // 0x001e43b0 FUN_001e43b0 (218 B): equivalent/0x001e43b0.cpp [wrapped: conflict: World; content::LoadInventory::DynamicCaster]
-// sym: ?FUN_001e43b0@CSPManager_1e43b0@fn_001e43b0@@QAEXHTKeyArg@2@HH@Z @0ba0a9d7e8e8 @waa535c5783a6 @v38dc9c12e705
+// sym: ?FUN_001e43b0@CSPManager_1e43b0@fn_001e43b0@@QAEXHTKeyArg@2@HH@Z @35bc6724693f @wca65b9bad7e5 @vd794fc4b95f3
 namespace fn_001e43b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3008 inputs, branch coverage 6/6)
 // FUN_001e43b0 @ 0x001e43b0
@@ -10095,7 +10109,12 @@ char FUN_001d04d0(const void* typeInfo);                      // type_info test 
 
 
 class CSPHulkProp;
-namespace content { namespace LoadInventory { template<class T> struct DynamicCaster { virtual void cast(); }; } }
+extern "C" char DAT_003f6340[];   // (fix2) the game's caster vftables
+namespace content { namespace LoadInventory { template <class T> struct DynamicCaster {   // (fix2) was polymorphic (virtual void cast();): clang's own vftable natively,
+  public:                          // the game's by address now, stored by each instantiation's constructor
+    void *vftable;
+    DynamicCaster();
+}; } }
 
 struct Key {
     unsigned int lo, hi;
@@ -10179,6 +10198,7 @@ struct CSPManager_1e43b0 {
     void FUN_001e43b0(int a, KeyArg key, int b, int c);
 };
 
+template <> inline content::LoadInventory::DynamicCaster<CSPHulkProp>::DynamicCaster() { vftable = DAT_003f6340; }
 void CSPManager_1e43b0::FUN_001e43b0(int a, KeyArg key, int b, int c)
 {
     Inventory_1e43b0 *inv = DAT_004dd700->f54->FUN_000862a0()->FUN_00203d70();

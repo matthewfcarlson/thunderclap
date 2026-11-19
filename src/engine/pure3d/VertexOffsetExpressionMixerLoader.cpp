@@ -471,7 +471,7 @@ pure3d::VertexOffsetExpressionMixer::~VertexOffsetExpressionMixer() {}
 
 
 // 0x002b16a0 pure3d::VertexOffsetExpressionMixerLoader::vfunc_5 (456 B): equivalent/0x002b16a0.cpp [wrapped: conflict: VertexOffsetExpressionMixerLoader; content::LoadInventory::DynamicCaster; content::LoadInventory::DynamicCasterBase]
-// sym: ?vfunc_5@VertexOffsetExpressionMixerLoader@fn_002b16a0@@UAEXPAPAUVertexOffsetExpressionMixer_2b16a0@2@PA_KPAUStream@2@PAVLoadContext_2b16a0@2@@Z @7dfef58b414d @wdc6e80082b31 @vcf389be1eecb
+// sym: ?vfunc_5@VertexOffsetExpressionMixerLoader@fn_002b16a0@@UAEXPAPAUVertexOffsetExpressionMixer_2b16a0@2@PA_KPAUStream@2@PAVLoadContext_2b16a0@2@@Z @28b62ec654d2 @w2dff6afdcfad @vdbc0d96ff169
 inline void *operator new(size_t, void *p) throw() { return p; }
 namespace fn_002b16a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 8/8)
@@ -484,18 +484,23 @@ extern "C" void __cdecl FUN_0028fcc0(const char *fmt, ...);
 
 namespace pure3d { class ExpressionGroup_2b16a0; class PolySkin_2b16a0; }
 
+// (sweep-caster-fix1) the casters as the word their inline constructors write: the game's vftables by address (a local
+// polymorphic stand-in got clang's own vftable natively, whose slot had no definition, and its 8 bytes overran the
+// frame's 4-byte word)
+extern "C" char DAT_0042e394[];   // content::LoadInventory::DynamicCaster<pure3d::ExpressionGroup>'s vftable
+extern "C" char DAT_0042d4cc[];   // content::LoadInventory::DynamicCaster<pure3d::PolySkin>'s vftable
 namespace content {
 namespace LoadInventory {
-class __declspec(novtable) DynamicCasterBase {
-public:
-    virtual void cast(void *p) = 0;
+struct DynamicCasterBase {
+    void *vftable;
 };
 
 template <class T>
-class DynamicCaster : public DynamicCasterBase {
-public:
-    virtual void cast(void *p);
+struct DynamicCaster : DynamicCasterBase {
+    DynamicCaster();
 };
+template <> inline DynamicCaster<pure3d::ExpressionGroup_2b16a0>::DynamicCaster() { vftable = (void *)DAT_0042e394; }
+template <> inline DynamicCaster<pure3d::PolySkin_2b16a0>::DynamicCaster() { vftable = (void *)DAT_0042d4cc; }
 }
 }
 
@@ -540,7 +545,11 @@ struct Stream {
 struct Frame_2b16a0 {
     char pad[3];
     unsigned char len;       // 0x0f
-    int cell;                // 0x10, reused as the caster object
+    union {                  // 0x10, reused as the caster object (sweep-caster-fix1: pointer-sized natively)
+        int cell;
+        void *cellWord;
+    };
+
     char mixerName[0x100];   // 0x14
     char groupName[0x100];   // 0x114
     char skinName[0x100];    // 0x214

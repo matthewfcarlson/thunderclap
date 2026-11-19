@@ -20,18 +20,22 @@ namespace fn_fb5eeb37 {
 namespace pure3d {
 class DrawableHierarchy_d3f10;
 }
+// (sweep-caster-fix1) the caster as the word its inline constructor writes: the game's vftable by address (a local
+// polymorphic stand-in got clang's own vftable natively, whose slot had no definition)
+extern "C" char DAT_003f6330[];   // content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy>'s vftable
 namespace content {
 class LoadInventory_d3f10 {
   public:
-    template <class T> class DynamicCaster {
-      public:
-        virtual T* Cast(void* p);
+    template <class T> struct DynamicCaster {
+        void* vftable;
+        DynamicCaster();
     };
     virtual void l0();
     virtual void l1();
     virtual void l2();
     virtual void* Find(const DynamicCaster<pure3d::DrawableHierarchy_d3f10>& c, __int64 uid);
 };
+template <> inline LoadInventory_d3f10::DynamicCaster<pure3d::DrawableHierarchy_d3f10>::DynamicCaster() { vftable = (void*)DAT_003f6330; }
 }
 struct Lookup_d3f10 {
     int idx;
@@ -60,7 +64,7 @@ struct Finder_d3f10 {
 } // namespace fn_fb5eeb37
 
 // 0x000d3170 FUN_000d3170 (3067 B): equivalent/0x000d3170.cpp [wrapped: helper definitions (5 out-of-line function bodies)]
-// sym: ?FUN_000d3170@Hud_d3170@fn_000d3170@@QAEXPAUA1@2@HPAUA3@2@@Z @176f54814cec @w0008d77948a6 @v000b04d9ebec
+// sym: ?FUN_000d3170@Hud_d3170@fn_000d3170@@QAEXPAUA1@2@HPAUA3@2@@Z @bd2e0f7d1cd0 @wef875f4d527e @vc88709b98bb8
 inline void *operator new(size_t, void *p) throw() { return p; }
 namespace fn_000d3170 {
 // STATUS: equivalent (tools/equiv.py level 3: 125 inputs, branch coverage 123/130, incomplete)
@@ -95,19 +99,28 @@ unsigned __int64 FUN_0027b020(const char* s);                 // string hash
 unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash with seed/length
 char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
 
-namespace content {
-namespace LoadInventory {
-template <class T>
-struct DynamicCaster {
-    virtual void v0();
-};
-}
-}
-
 namespace pure3d {
 class CompositeDrawable;
 class Locator;
 class Geometry;
+}
+// (sweep-caster-fix1) the casters as the word their inline constructors write: the game's vftables by address (a local
+// polymorphic stand-in got clang's own vftable natively, whose slot had no definition, and its 8 bytes overran the
+// frame's 4-byte words)
+extern "C" char DAT_003fef7c[];   // content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable>'s vftable
+extern "C" char DAT_0040a20c[];   // content::LoadInventory::DynamicCaster<pure3d::Geometry>'s vftable
+extern "C" char DAT_0040a5e0[];   // content::LoadInventory::DynamicCaster<pure3d::Locator>'s vftable
+namespace content {
+namespace LoadInventory {
+template <class T>
+struct DynamicCaster {
+    void *vftable;
+    DynamicCaster();
+};
+template <> inline DynamicCaster<pure3d::CompositeDrawable>::DynamicCaster() { vftable = (void *)DAT_003fef7c; }
+template <> inline DynamicCaster<pure3d::Geometry>::DynamicCaster() { vftable = (void *)DAT_0040a20c; }
+template <> inline DynamicCaster<pure3d::Locator>::DynamicCaster() { vftable = (void *)DAT_0040a5e0; }
+}
 }
 
 
@@ -348,10 +361,12 @@ static void Assign(Res_d3170 *&slot, Res_d3170 *v)
 }
 
 struct Frame_d3170 {
-    unsigned int c7c;
-    unsigned int c78;
+    // (sweep-caster-fix1) c7c, c78 and u70 also hold casters: their vftables, pointer-sized natively
+    union { unsigned int c7c; void *c7cWord; };
+    union { unsigned int c78; void *c78Word; };
     union { int i; volatile float s74; } u74;
-    union { int cnt; volatile float s70; unsigned int c70; } u70;
+    union { int cnt; volatile float s70; unsigned int c70; void *w70; } u70;
+
     V3_d3170 vec;
     volatile float s60;
     volatile float s5c;
@@ -637,7 +652,7 @@ void Hud_d3170::FUN_000d3170(A1 *a1, int a2, A3 *a3)
 namespace fn_fb5eeb37 {
 
 // 0x000d3f10 FUN_000d3f10 (392 B): equivalent/0x000d3f10.cpp
-// sym: ?FUN_000d3f10@Finder_d3f10@fn_fb5eeb37@@QAEPAXPBD@Z @508b5e43e8a9 @wf7c885beb8c6 @v55015b164bec
+// sym: ?FUN_000d3f10@Finder_d3f10@fn_fb5eeb37@@QAEPAXPBD@Z @6ab80b7de6a6 @wfa9edf597ce6 @v082fb11e07e5
 // STATUS: equivalent (tools/equiv.py level 3: 20136 inputs, branch coverage 33/34, incomplete)
 // FUN_000d3f10 @ 0x000d3f10
 void* Finder_d3f10::FUN_000d3f10(const char* name) {

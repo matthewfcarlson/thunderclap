@@ -270,7 +270,7 @@ void Entity::FUN_00081690(int a0, V3_81690* dir, float step, bool lock, int a4)
 } // namespace fn_fbd4e3f0
 
 // 0x000819f0 FUN_000819f0 (289 B): equivalent/0x000819f0.cpp [wrapped: conflict: World]
-// sym: ?FUN_000819f0@Object@fn_000819f0@@QAEXIIIMIII@Z @d320192098bb @wf6c39c5c3911 @v6ceeff27d4d8
+// sym: ?FUN_000819f0@Object@fn_000819f0@@QAEXIIIMIII@Z @191b83735cf8 @w534ff0bb1310 @v20c44c6c5220
 namespace fn_000819f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2994 inputs, branch coverage 8/8)
 // FUN_000819f0 @ 0x000819f0
@@ -303,9 +303,15 @@ unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash wit
 char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
 
 namespace pure3d { class Animation; }
-namespace content { struct LoadInventory { template<class T> struct DynamicCaster { virtual T* cast(void*); }; }; }
+extern "C" char DAT_003f3e80[];   // (fix2) the game's caster vftables
+namespace content { struct LoadInventory { template <class T> struct DynamicCaster {   // (fix2) was polymorphic (virtual T* cast(void*);): clang's own vftable natively,
+  public:                          // the game's by address now, stored by each instantiation's constructor
+    void *vftable;
+    DynamicCaster();
+}; }; }
 struct Track { void* FUN_00288960(unsigned, unsigned); };
 namespace pure3d { class Animation { public: Track* FUN_00288a20(int); }; }
+template <> inline content::LoadInventory::DynamicCaster<pure3d::Animation>::DynamicCaster() { vftable = DAT_003f3e80; }
 struct Inventory_819f0 { virtual void v0(); virtual void v1(); virtual void v2(); virtual pure3d::Animation* find(content::LoadInventory::DynamicCaster<pure3d::Animation>*, unsigned, unsigned); };
 struct Resource_819f0 { Inventory_819f0* FUN_00203d70(); };
 struct Manager_819f0 { Resource_819f0* FUN_000862a0(); };

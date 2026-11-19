@@ -21,15 +21,18 @@ struct V3_19e430 {
     hulk_freg FUN_0022d110();
     hulk_freg FUN_00018990();
 };
+extern "C" char DAT_003f6340[];   // (fix2) the game's caster vftables
 namespace content { namespace LoadInventory {
-template <class T>
-struct DynamicCaster {
-    virtual void v0();
+template <class T> struct DynamicCaster {   // (fix2) was polymorphic (virtual void v0();): clang's own vftable natively,
+  public:                          // the game's by address now, stored by each instantiation's constructor
+    void *vftable;
+    DynamicCaster();
 };
 } }
 struct Prop_19e430 {
     char pad[4];
 };
+template <> inline content::LoadInventory::DynamicCaster<CSPHulkProp>::DynamicCaster() { vftable = DAT_003f6340; }
 struct Inventory_19e430 {
     virtual void v0();
     virtual void v1();
@@ -166,7 +169,7 @@ public:
 
 
 // 0x0019e430 hulkfight::motion::FireMissileAction::vfunc_5 (1188 B): equivalent/0x0019e430.cpp
-// sym: ?vfunc_5@FireMissileAction@motion@hulkfight@fn_fac9c0e0@@UAEDHH@Z @e9ca4b658c1f @wac4a0d442811 @v217f867592a4
+// sym: ?vfunc_5@FireMissileAction@motion@hulkfight@fn_fac9c0e0@@UAEDHH@Z @088871db55d7 @w13a574c2b7be @v35d5927e1fb9
 // STATUS: equivalent (tools/equiv.py level 3: 20037 inputs, branch coverage 61/62, incomplete)
 // hulkfight::motion::FireMissileAction::vfunc_5 @ 0x0019e430
 // hulkfight::motion::FireMissileAction::vfunc_5 @ 0x0019e430

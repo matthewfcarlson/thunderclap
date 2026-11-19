@@ -308,12 +308,19 @@ class FaceMotionAction_10be30 {
     int m_1c;
     RefCounted_10be30* m_20;
 };
-class TrackFactoryCaster_10bf20 {
+extern "C" char DAT_0040d8fc[], DAT_0040d908[];   // (fix2) the game's caster vftables (faceTarget, faceMotion)
+class TrackFactoryCaster_10bf20 {   // (fix2) was polymorphic (virtual void f();): clang's vftables natively
   public:
-    virtual void f();
+    void *vftable;
 };
-class TargetCaster : public TrackFactoryCaster_10bf20 {};
-class TrackFactoryCasterTemplate_10bf20 : public TrackFactoryCaster_10bf20 {};
+class TargetCaster : public TrackFactoryCaster_10bf20 {
+  public:
+    TargetCaster() { vftable = DAT_0040d8fc; }
+};
+class TrackFactoryCasterTemplate_10bf20 : public TrackFactoryCaster_10bf20 {
+  public:
+    TrackFactoryCasterTemplate_10bf20() { vftable = DAT_0040d908; }
+};
 extern "C" int __cdecl FUN_00236ac0(const char*, TrackFactoryCaster_10bf20*);
 class Factory {
   public:

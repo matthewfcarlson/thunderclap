@@ -396,22 +396,22 @@ template <> void content::LoadInventory::DynamicCaster<pure3d::Entity>::vfunc_0(
 
 
 // 0x002358c0 fight::ParamValueInventoryEntity::vfunc_10 (141 B): equivalent/0x002358c0.cpp [wrapped: conflict: ParamValueInventoryEntity; content::LoadInventory::DynamicCaster; content::LoadInventory::DynamicCasterBase]
-// sym: ?FUN_002358c0@ParamValueInventoryEntity@fn_002358c0@@QAEPAVEntity@2@PAXII@Z @4348a74c610d @w67cb6b6b00f5 @v0f8ed67684ee
+// sym: ?FUN_002358c0@ParamValueInventoryEntity@fn_002358c0@@QAEPAVEntity@2@PAXII@Z @598556e442a9 @w38868b177f51 @v8ed079a54e9b
 namespace fn_002358c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 427 inputs, branch coverage 16/16)
 // fight::ParamValueInventoryEntity::vfunc_10 @ 0x002358c0
 // ParamValueInventoryEntity: find an entity by 64-bit id, first in the global inventory, then among our own entries.
 
+extern "C" char DAT_00427ca8[];   // (fix2) the game's caster vftables
 namespace content {
 namespace LoadInventory {
-class __declspec(novtable) DynamicCasterBase {
+class DynamicCasterBase {   // (fix2) was polymorphic (virtual void cast(void *p) = 0;): a record holding the game's vftable word
 public:
-    virtual void cast(void *p) = 0;
+    void *vftable;
 };
-template <class T>
-class DynamicCaster : public DynamicCasterBase {
-public:
-    virtual void cast(void *p);
+template <class T> class DynamicCaster : public DynamicCasterBase {   // (fix2) was polymorphic (virtual void cast(void *p);): clang's own vftable natively,
+  public:                          // the game's by address now, stored by each instantiation's constructor
+    DynamicCaster();
 };
 }
 }
@@ -424,6 +424,7 @@ public:
     unsigned int idHi;
 };
 
+template <> inline content::LoadInventory::DynamicCaster<pure3d::Entity>::DynamicCaster() { vftable = DAT_00427ca8; }
 class Loader_2358c0 {
 public:
     virtual void v0();

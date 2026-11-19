@@ -235,14 +235,14 @@ class PrintAction_239150 : public Action_239150 {
     Ref_239150* m;
     PrintAction_239150* f2(unsigned char flags);
 };
-class ConditionFactoryCasterTemplate_2391d0 {
-  public:
-    virtual bool Cast_00238ea0(void*);
+extern "C" char DAT_004283ac[];   // fight::ConditionFactoryCasterTemplate<fight::PrintCondition>::vftable
+struct ConditionFactoryCasterTemplate_2391d0 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
+    void* vftable;   // clang's own vftable natively, whose slot had no definition)
 };
 extern "C" void* Find(const char*, ConditionFactoryCasterTemplate_2391d0*);
-class TrackFactoryCasterTemplate_239200 {
-  public:
-    virtual bool cast_00238f00(void*);
+extern "C" char DAT_004283b8[];   // fight::TrackFactoryCasterTemplate<fight::PrintTrack>::vftable
+struct TrackFactoryCasterTemplate_239200 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
+    void* vftable;   // clang's own vftable natively, whose slot had no definition)
 };
 extern "C" void* FUN_00236ac0(const char*, TrackFactoryCasterTemplate_239200*);
 extern int hulk_at_004283c4;
@@ -716,6 +716,7 @@ PrintAction_239150* PrintAction_239150::f2(unsigned char flags) {
 // sym: _FUN_002391d0
 extern "C" void FUN_002391d0(Obj* obj, const char* name) {
     ConditionFactoryCasterTemplate_2391d0 caster;
+    caster.vftable = (void*)DAT_004283ac;   // (sweep-caster-fix1) the game's vftable by address
     obj->Set_00236760(Find(name, &caster));
 }
 
@@ -724,6 +725,7 @@ extern "C" void FUN_002391d0(Obj* obj, const char* name) {
 // sym: _FUN_00239200
 extern "C" void FUN_00239200(Obj* obj, const char* name) {
     TrackFactoryCasterTemplate_239200 caster;
+    caster.vftable = (void*)DAT_004283b8;   // (sweep-caster-fix1) the game's vftable by address
     void* p = FUN_00236ac0(name, &caster);
     obj->set_002367c0(p);
 }

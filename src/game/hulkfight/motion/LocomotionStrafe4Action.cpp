@@ -14,16 +14,16 @@ namespace fn_ff103e17 {} using namespace fn_ff103e17;
 inline void *operator new(size_t, void *p) throw() { return p; }
 namespace fn_ff103e17 {
 namespace content { namespace LoadInventory {
-class __declspec(novtable) DynamicCasterBase {
+class DynamicCasterBase {   // (fix2) was polymorphic (virtual void cast(void *p) = 0;): a record holding the game's vftable word
 public:
-    virtual void cast(void *p) = 0;
+    void *vftable;
 };
 } }
+extern "C" char DAT_003f3e80[];   // (fix2) the game's caster vftables
 namespace content { namespace LoadInventory {
-template <class T>
-class DynamicCaster : public DynamicCasterBase {
-public:
-    virtual void cast(void *p);
+template <class T> class DynamicCaster : public DynamicCasterBase {   // (fix2) was polymorphic (virtual void cast(void *p);): clang's own vftable natively,
+  public:                          // the game's by address now, stored by each instantiation's constructor
+    DynamicCaster();
 };
 } }
 struct Id64_163a90 {
@@ -126,10 +126,11 @@ public:
     StrafeData_163a90 *data;            // 0x44
 };
 } }
+template <> inline content::LoadInventory::DynamicCaster<pure3d::Animation>::DynamicCaster() { vftable = DAT_003f3e80; }
 
 
 // 0x00163a90 hulkfight::motion::LocomotionStrafe4Action::vfunc_7 (1081 B): equivalent/0x00163a90.cpp
-// sym: ?vfunc_7@LocomotionStrafe4Action@motion@hulkfight@fn_ff103e17@@UAEXPAXTSlotF_163a90@4@TSlotU_163a90@4@22222PAIPAUId64_163a90@4@333@Z @82ffd4e71987 @w407b10241917 @v84e3818eddc7
+// sym: ?vfunc_7@LocomotionStrafe4Action@motion@hulkfight@fn_ff103e17@@UAEXPAXTSlotF_163a90@4@TSlotU_163a90@4@22222PAIPAUId64_163a90@4@333@Z @43a2e4940f2c @w6c260f2b29e4 @v30fc67b5d178
 // STATUS: equivalent (tools/equiv.py level 3: 283 inputs, branch coverage 38/42, incomplete)
 // hulkfight::motion::LocomotionStrafe4Action::vfunc_7 @ 0x00163a90
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0

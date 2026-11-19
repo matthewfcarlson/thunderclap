@@ -6,7 +6,7 @@
 
 
 // 0x00290bf0 pure3d::prop::StatePropDataLoader::vfunc_5 (3691 B): equivalent/0x00290bf0.cpp [wrapped: macros]
-// sym: ?vfunc_5@StatePropDataLoader@fn_00290bf0@@QAEXPAPAUProp@2@PA_KPAUReader@2@PAUInventory@2@@Z @f3e4e54ca616 @wef972defce54 @v6bb85c2761c4
+// sym: ?vfunc_5@StatePropDataLoader@fn_00290bf0@@QAEXPAPAUProp@2@PA_KPAUReader@2@PAUInventory@2@@Z @4e49f7fcd99a @w230eb48f64c4 @v263d0b57c081
 inline void *operator new(size_t, void *p) throw() { return p; }
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
@@ -76,11 +76,13 @@ namespace pure3d {
 class CompositeDrawable;
 }
 
+extern "C" char DAT_003fef7c[], DAT_0042cc90[], DAT_0042cc98[], DAT_00425b3c[];   // (fix2) the game's caster vftables
 namespace content {
 namespace LoadInventory {
-template <class T>
-struct DynamicCaster {
-    virtual void v0();
+template <class T> struct DynamicCaster {   // (fix2) was polymorphic (virtual void v0();): clang's own vftable natively,
+  public:                          // the game's by address now, stored by each instantiation's constructor
+    void *vftable;
+    DynamicCaster();
 };
 }
 }
@@ -194,6 +196,10 @@ struct Prop {
 
 extern "C" int __cdecl FUN_00267760(char *buf, int size, const char *fmt, ...);
 void *FUN_00263ea0(unsigned int size);
+template <> inline content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable>::DynamicCaster() { vftable = DAT_003fef7c; }
+template <> inline content::LoadInventory::DynamicCaster<physics::CollisionObject>::DynamicCaster() { vftable = DAT_0042cc90; }
+template <> inline content::LoadInventory::DynamicCaster<physics::PhysicsObject>::DynamicCaster() { vftable = DAT_0042cc98; }
+template <> inline content::LoadInventory::DynamicCaster<physics::WorldCollisionObject>::DynamicCaster() { vftable = DAT_00425b3c; }
 
 typedef content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable> CasterComp;
 typedef content::LoadInventory::DynamicCaster<physics::CollisionObject> CasterColl;

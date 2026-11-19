@@ -101,16 +101,16 @@ static __forceinline int CountBackspaces(const unsigned short *p)
     return count;
 }
 namespace content { namespace LoadInventory {
-class __declspec(novtable) DynamicCasterBase {
+class DynamicCasterBase {   // (fix2) was polymorphic (virtual void cast(void *p) = 0;): a record holding the game's vftable word
 public:
-    virtual void cast(void *p) = 0;
+    void *vftable;
 };
 } }
+extern "C" char DAT_0040cd9c[];   // (fix2) the game's caster vftables
 namespace content { namespace LoadInventory {
-template <class T>
-class DynamicCaster : public DynamicCasterBase {
-public:
-    virtual void cast(void *p);
+template <class T> class DynamicCaster : public DynamicCasterBase {   // (fix2) was polymorphic (virtual void cast(void *p);): clang's own vftable natively,
+  public:                          // the game's by address now, stored by each instantiation's constructor
+    DynamicCaster();
 };
 } }
 namespace pure3d {
@@ -121,6 +121,7 @@ public:
     virtual void AddRef();
     virtual void Release();
 };
+template <> inline content::LoadInventory::DynamicCaster<pure3d::Font>::DynamicCaster() { vftable = DAT_0040cd9c; }
 class Loader_f8970 {
 public:
     virtual void v0();
@@ -320,7 +321,7 @@ hulk_freg Label_f88a0::FUN_000f88a0(Run_f88a0 *run)
 
 
 // 0x000f8970 FUN_000f8970 (100 B): equivalent/0x000f8970.cpp
-// sym: ?FUN_000f8970@FontSet_f8970@fn_fb8fef2d@@QAEXPBD@Z @a9668320084d @w0afc861d95f8 @vf9fb31f900ec
+// sym: ?FUN_000f8970@FontSet_f8970@fn_fb8fef2d@@QAEXPBD@Z @736e55f2d671 @wf1e0aea68fff @v29760f306e8e
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 2/2)
 // FUN_000f8970 @ 0x000f8970
 void FontSet_f8970::FUN_000f8970(const char *name)
@@ -339,7 +340,7 @@ void FontSet_f8970::FUN_000f8970(const char *name)
 
 
 // 0x000f89e0 FUN_000f89e0 (100 B): equivalent/0x000f89e0.cpp
-// sym: ?FUN_000f89e0@fn_fb8fef2d@@YIXPAVFontSet_f89e0@1@@Z @96c825b00c62 @wc93b371dbc6a @v4833e4bc364b
+// sym: ?FUN_000f89e0@fn_fb8fef2d@@YIXPAVFontSet_f89e0@1@@Z @39098fe52036 @w13ba10c85274 @vda3d7ca63974
 // STATUS: equivalent (tools/equiv.py level 3: 2167 inputs, branch coverage 4/4)
 // FUN_000f89e0 @ 0x000f89e0
 void __fastcall FUN_000f89e0(FontSet_f89e0 *set)

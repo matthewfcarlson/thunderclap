@@ -26,10 +26,11 @@ class ParamBranch : public ParamValueBranch, public ParamValue {
     void(__fastcall* fn)(void*);
     virtual void vfunc_6(void*);
 };
-class TrackFactoryCasterTemplate_157b10 {
+extern "C" char DAT_004150cc[];   // (fix2) the game's caster vftable
+class TrackFactoryCasterTemplate_157b10 {   // (fix2) was polymorphic (virtual bool cast_00154e00(void*);): clang's vftable natively
   public:
-    TrackFactoryCasterTemplate_157b10() {}
-    virtual bool cast_00154e00(void*);
+    void *vftable;
+    TrackFactoryCasterTemplate_157b10() { vftable = DAT_004150cc; }
 };
 extern "C" void __cdecl Use_00236ac0(void*, TrackFactoryCasterTemplate_157b10*);
 } // namespace fn_f4e72ed8
@@ -149,14 +150,18 @@ public:
 };
 }
 namespace fn_f4e72ed8 {
-class TrackFactoryCasterTemplate_158260 {
+extern "C" char DAT_00415054[];   // (fix2) the game's caster vftable
+class TrackFactoryCasterTemplate_158260 {   // (fix2) was polymorphic (virtual bool Cast_001548a0(void*);): clang's vftable natively
   public:
-    virtual bool Cast_001548a0(void*);
+    void *vftable;
+    TrackFactoryCasterTemplate_158260() { vftable = DAT_00415054; }
 };
 Track* FindTrack_00236ac0(const char*, TrackFactoryCasterTemplate_158260*);
-class TrackFactoryCasterTemplate_158290 {
+extern "C" char DAT_00415060[];   // (fix2) the game's caster vftable
+class TrackFactoryCasterTemplate_158290 {   // (fix2) was polymorphic (virtual void f() {}): clang's vftable natively
   public:
-    virtual void f() {}
+    void *vftable;
+    TrackFactoryCasterTemplate_158290() { vftable = DAT_00415060; }
 };
 class Obj {
   public:
@@ -168,9 +173,11 @@ class Obj {
     void set_002367c0(void*);
 };
 extern void* __cdecl find_00236ac0(void*, TrackFactoryCasterTemplate_158290*);
-class TrackFactoryCasterTemplate_1582c0 {
+extern "C" char DAT_0041506c[];   // (fix2) the game's caster vftable
+class TrackFactoryCasterTemplate_1582c0 {   // (fix2) was polymorphic (virtual bool cast_001549a0(void*);): clang's vftable natively
   public:
-    virtual bool cast_001549a0(void*);
+    void *vftable;
+    TrackFactoryCasterTemplate_1582c0() { vftable = DAT_0041506c; }
 };
 class Track {
   public:
@@ -269,18 +276,22 @@ public:
 };
 }
 namespace fn_f4e72ed8 {
-class TrackFactoryCasterTemplate_1586a0 {
+extern "C" char DAT_00415078[];   // (fix2) the game's caster vftable
+class TrackFactoryCasterTemplate_1586a0 {   // (fix2) was polymorphic (virtual bool Cast_00154a60(void*);): clang's vftable natively
   public:
-    virtual bool Cast_00154a60(void*);
+    void *vftable;
+    TrackFactoryCasterTemplate_1586a0() { vftable = DAT_00415078; }
 };
 class Receiver {
   public:
     void Set_002367c0(void*);
 };
 void* Find_00236ac0(void*, TrackFactoryCasterTemplate_1586a0*);
-class TrackFactoryCasterTemplate_1586d0 {
+extern "C" char DAT_00415084[];   // (fix2) the game's caster vftable
+class TrackFactoryCasterTemplate_1586d0 {   // (fix2) was polymorphic (virtual bool cast_00154ac0(void*);): clang's vftable natively
   public:
-    virtual bool cast_00154ac0(void*);
+    void *vftable;
+    TrackFactoryCasterTemplate_1586d0() { vftable = DAT_00415084; }
 };
 void* lookup_00236ac0(void*, TrackFactoryCasterTemplate_1586d0*);
 } // namespace fn_f4e72ed8
@@ -357,49 +368,67 @@ public:
 };
 }
 namespace fn_f4e72ed8 {
-class TrackFactoryCasterTemplate_158a10 {
+extern "C" char DAT_00415090[];   // (fix2) the game's caster vftable
+class TrackFactoryCasterTemplate_158a10 {   // (fix2) was polymorphic (virtual bool Cast_00154b80(void*);): clang's vftable natively
   public:
-    virtual bool Cast_00154b80(void*);
+    void *vftable;
+    TrackFactoryCasterTemplate_158a10() { vftable = DAT_00415090; }
 };
 extern "C++" __declspec(nothrow) void* __cdecl FUN_00236ac0(void*, TrackFactoryCasterTemplate_158a10*);
-class TrackFactoryCasterTemplate_158a40 {
+extern "C" char DAT_0041509c[];   // (fix2) the game's caster vftable
+class TrackFactoryCasterTemplate_158a40 {   // (fix2) was polymorphic (virtual bool Fnf_00154c00(void*);): clang's vftable natively
   public:
-    virtual bool Fnf_00154c00(void*);
+    void *vftable;
+    TrackFactoryCasterTemplate_158a40() { vftable = DAT_0041509c; }
 };
 void* __cdecl find_00236ac0(const char*, TrackFactoryCasterTemplate_158a40*);
-class TrackFactoryCasterTemplate_158aa0 {
+extern "C" char DAT_004150b4[];   // (fix2) the game's caster vftable
+class TrackFactoryCasterTemplate_158aa0 {   // (fix2) was polymorphic (virtual bool Dummy_00154d00(void*);): clang's vftable natively
   public:
-    virtual bool Dummy_00154d00(void*);
+    void *vftable;
+    TrackFactoryCasterTemplate_158aa0() { vftable = DAT_004150b4; }
 };
 Track* Find_00236ac0(const char*, TrackFactoryCasterTemplate_158aa0*);
-class TrackFactoryCasterTemplate_158ad0 {
+extern "C" char DAT_004150c0[];   // (fix2) the game's caster vftable
+class TrackFactoryCasterTemplate_158ad0 {   // (fix2) was polymorphic (virtual bool cast_00154da0(void*);): clang's vftable natively
   public:
-    virtual bool cast_00154da0(void*);
+    void *vftable;
+    TrackFactoryCasterTemplate_158ad0() { vftable = DAT_004150c0; }
 };
 Track* __cdecl lookup_00236ac0(void*, TrackFactoryCasterTemplate_158ad0*);
-class TrackFactoryCasterTemplate_158b00 {
+extern "C" char DAT_004150cc[];   // (fix2) the game's caster vftable
+class TrackFactoryCasterTemplate_158b00 {   // (fix2) was polymorphic (virtual bool Cast_00154e00(void*);): clang's vftable natively
   public:
-    virtual bool Cast_00154e00(void*);
+    void *vftable;
+    TrackFactoryCasterTemplate_158b00() { vftable = DAT_004150cc; }
 };
 void* __cdecl Find_00236ac0(void*, TrackFactoryCasterTemplate_158b00*);
-class TrackFactoryCasterTemplate_158b30 {
+extern "C" char DAT_004150d8[];   // (fix2) the game's caster vftable
+class TrackFactoryCasterTemplate_158b30 {   // (fix2) was polymorphic (virtual bool cast_00154e60(void*);): clang's vftable natively
   public:
-    virtual bool cast_00154e60(void*);
+    void *vftable;
+    TrackFactoryCasterTemplate_158b30() { vftable = DAT_004150d8; }
 };
 extern "C++" __declspec(nothrow) void* __cdecl FUN_00236ac0(const char*, TrackFactoryCasterTemplate_158b30*);
-class TrackFactoryCasterTemplate_158b60 {
+extern "C" char DAT_004150e4[];   // (fix2) the game's caster vftable
+class TrackFactoryCasterTemplate_158b60 {   // (fix2) was polymorphic (virtual bool Cast_00154ee0(void*);): clang's vftable natively
   public:
-    virtual bool Cast_00154ee0(void*);
+    void *vftable;
+    TrackFactoryCasterTemplate_158b60() { vftable = DAT_004150e4; }
 };
 extern "C++" __declspec(nothrow) void* __cdecl FUN_00236ac0(const char*, TrackFactoryCasterTemplate_158b60*);
-class TrackFactoryCasterTemplate_158b90 {
+extern "C" char DAT_004150f0[];   // (fix2) the game's caster vftable
+class TrackFactoryCasterTemplate_158b90 {   // (fix2) was polymorphic (virtual bool Cast_00154f40(void*);): clang's vftable natively
   public:
-    virtual bool Cast_00154f40(void*);
+    void *vftable;
+    TrackFactoryCasterTemplate_158b90() { vftable = DAT_004150f0; }
 };
 void* Find_00236ac0(void*, TrackFactoryCasterTemplate_158b90*);
-class TrackFactoryCasterTemplate_158bc0 {
+extern "C" char DAT_004150fc[];   // (fix2) the game's caster vftable
+class TrackFactoryCasterTemplate_158bc0 {   // (fix2) was polymorphic (virtual bool Cast_00154fc0(void*);): clang's vftable natively
   public:
-    virtual bool Cast_00154fc0(void*);
+    void *vftable;
+    TrackFactoryCasterTemplate_158bc0() { vftable = DAT_004150fc; }
 };
 extern void* Find_00236ac0(void*, TrackFactoryCasterTemplate_158bc0*);
 class Factory {
@@ -850,9 +879,11 @@ extern "C" void __cdecl FUN_00158a40(Obj* obj, const char* name) {
 // 0x00158a70 FUN_00158a70 (38 B): matches/0x00158a70.cpp [wrapped: conflict: find]
 // sym: _FUN_00158a70
 namespace fn_00158a70 {
-class TrackFactoryCasterTemplate_158a70 {
+extern "C" char DAT_004150a8[];   // (fix2) the game's caster vftable
+class TrackFactoryCasterTemplate_158a70 {   // (fix2) was polymorphic (virtual bool cast_00154c80(void*);): clang's vftable natively
   public:
-    virtual bool cast_00154c80(void*);
+    void *vftable;
+    TrackFactoryCasterTemplate_158a70() { vftable = DAT_004150a8; }
 };
 extern "C++" __declspec(nothrow) void* __cdecl find_00236ac0(void*, TrackFactoryCasterTemplate_158a70*);
 class Object {
@@ -931,9 +962,11 @@ extern "C" void FUN_00158bc0(Factory* f, void* name) {
 // 0x00158bf0 FUN_00158bf0 (38 B): matches/0x00158bf0.cpp [wrapped: conflict: Find]
 // sym: _FUN_00158bf0
 namespace fn_00158bf0 {
-class TrackFactoryCasterTemplate_158bf0 {
+extern "C" char DAT_00415108[];   // (fix2) the game's caster vftable
+class TrackFactoryCasterTemplate_158bf0 {   // (fix2) was polymorphic (virtual bool Cast_00155060(void*);): clang's vftable natively
   public:
-    virtual bool Cast_00155060(void*);
+    void *vftable;
+    TrackFactoryCasterTemplate_158bf0() { vftable = DAT_00415108; }
 };
 class Obj {
   public:
@@ -976,9 +1009,33 @@ class CollisionExplosionCondition;
 class CollisionDevastatorCondition;
 } }
 namespace fight {
-template <class T> struct ConditionFactoryCasterTemplate {
-    virtual void Create();
+extern "C" char DAT_00414f58[], DAT_0041503c[], DAT_00414f88[], DAT_00415048[], DAT_00415018[], DAT_00414fd0[], DAT_00415000[], DAT_00414f64[], DAT_00414f94[], DAT_00414fb8[], DAT_00415030[], DAT_00414f7c[], DAT_00414fc4[], DAT_00414fac[], DAT_00414fdc[], DAT_0041500c[], DAT_00415024[], DAT_00414f70[], DAT_00414fe8[], DAT_00414ff4[], DAT_00414fa0[];   // (fix2) the game's caster vftables
+template <class T> struct ConditionFactoryCasterTemplate {   // (fix2) was polymorphic (virtual void Create();): clang's own vftable natively,
+  public:                          // the game's by address now, stored by each instantiation's constructor
+    void *vftable;
+    ConditionFactoryCasterTemplate();
 };
+template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::InterruptAccumulatorCondition>::ConditionFactoryCasterTemplate() { vftable = DAT_00414f58; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::CollisionInterruptPriorityCondition>::ConditionFactoryCasterTemplate() { vftable = DAT_0041503c; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::CollisionSourceTypeCondition>::ConditionFactoryCasterTemplate() { vftable = DAT_00414f88; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::CollisionSourceNameCondition>::ConditionFactoryCasterTemplate() { vftable = DAT_00415048; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::CollisionTargetNameCondition>::ConditionFactoryCasterTemplate() { vftable = DAT_00415018; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::CollisionSourceIsMissileCondition>::ConditionFactoryCasterTemplate() { vftable = DAT_00414fd0; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::CollisionSourceNodeCondition>::ConditionFactoryCasterTemplate() { vftable = DAT_00415000; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::CollisionSourceForceMagnitudeCondition>::ConditionFactoryCasterTemplate() { vftable = DAT_00414f64; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::CollisionTargetPriorityCondition>::ConditionFactoryCasterTemplate() { vftable = DAT_00414f94; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::CollisionTargetIsTargetCondition>::ConditionFactoryCasterTemplate() { vftable = DAT_00414fb8; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::CollisionTargetTypeCondition>::ConditionFactoryCasterTemplate() { vftable = DAT_00415030; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::CollisionSourceSizeCondition>::ConditionFactoryCasterTemplate() { vftable = DAT_00414f7c; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::CollisionTargetSizeCondition>::ConditionFactoryCasterTemplate() { vftable = DAT_00414fc4; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::HitPushbackCondition>::ConditionFactoryCasterTemplate() { vftable = DAT_00414fac; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::HitPushbackVelocityCondition>::ConditionFactoryCasterTemplate() { vftable = DAT_00414fdc; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::CollisionChargeCondition>::ConditionFactoryCasterTemplate() { vftable = DAT_0041500c; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::CollisionDamageHealthCompareCondition>::ConditionFactoryCasterTemplate() { vftable = DAT_00415024; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::CollisionThrowCondition>::ConditionFactoryCasterTemplate() { vftable = DAT_00414f70; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::CollisionThrownObjectCondition>::ConditionFactoryCasterTemplate() { vftable = DAT_00414fe8; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::CollisionExplosionCondition>::ConditionFactoryCasterTemplate() { vftable = DAT_00414ff4; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::motion::CollisionDevastatorCondition>::ConditionFactoryCasterTemplate() { vftable = DAT_00414fa0; }
 }
 struct Registry_158c20 {
     void FUN_00236760(void*);

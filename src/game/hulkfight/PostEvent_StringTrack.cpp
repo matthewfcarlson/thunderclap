@@ -237,13 +237,13 @@ class ParamBranch : public ParamValueBranch, public ParamValue {
     void(__fastcall* fn)(void*);
     virtual void vfunc_6(void*);
 };
-class TrackFactoryCaster_12de00 {
-  public:
-    virtual void Cast();
+extern "C" char DAT_0041116c[];   // fight::TrackFactoryCasterTemplate<hulkfight::PostEvent_StringTrack>'s vftable
+// (sweep-caster-fix1) the caster as the word its inline constructor writes: the game's vftable by address (a local
+// polymorphic stand-in got clang's own vftable natively, whose slot had no definition)
+struct TrackFactoryCaster_12de00 {
+    void* vftable;
 };
-class TrackFactoryCasterTemplate_12de00 : public TrackFactoryCaster_12de00 {
-  public:
-    virtual void Cast();
+struct TrackFactoryCasterTemplate_12de00 : TrackFactoryCaster_12de00 {
 };
 extern "C" void* __cdecl FUN_00236ac0(void*, TrackFactoryCaster_12de00*);
 } // namespace fn_facdac2a
@@ -576,6 +576,7 @@ namespace fn_facdac2a {
 // sym: _FUN_0012de00
 extern "C" void __cdecl FUN_0012de00(Obj* obj, void* key) {
     TrackFactoryCasterTemplate_12de00 caster;
+    caster.vftable = (void*)DAT_0041116c;
     obj->Use_002367c0(FUN_00236ac0(key, &caster));
 }
 

@@ -134,9 +134,9 @@ class ParamValueInt_23dbc0 : public ParamValue_23dbc0 {
 };
 extern int hulk_at_00491ca8;
 extern int hulk_at_0049850c;
-class ConditionFactoryCasterTemplate_23dd90 {
-  public:
-    virtual bool cast_0023dbe0(void*);
+extern "C" char DAT_00428c88[];   // fight::ConditionFactoryCasterTemplate<fight::CommentCondition>::vftable
+struct ConditionFactoryCasterTemplate_23dd90 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
+    void* vftable;   // clang's own vftable natively, whose slot had no definition)
 };
 extern "C" void* lookup(void*, ConditionFactoryCasterTemplate_23dd90*);
 } // namespace fn_f40d2254
@@ -445,6 +445,7 @@ namespace fn_f40d2254 {
 // sym: _FUN_0023dd90
 extern "C" void FUN_0023dd90(Obj* a, void* b) {
     ConditionFactoryCasterTemplate_23dd90 caster;
+    caster.vftable = (void*)DAT_00428c88;   // (sweep-caster-fix1) the game's vftable by address
     a->use_00236760(lookup(b, &caster));
 }
 

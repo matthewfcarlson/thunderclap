@@ -261,18 +261,22 @@ class LuaAction_1a1c70 : public Action_1a1c70 {
     Ref_1a1c70* m;
     LuaAction_1a1c70* f2(unsigned char flags);
 };
-class ConditionFactoryCasterTemplate_1a1cf0 {
+extern "C" char DAT_0041c40c[];   // (fix2) the game's caster vftable
+class ConditionFactoryCasterTemplate_1a1cf0 {   // (fix2) was polymorphic (virtual bool cast_001a1a30(void*);): clang's vftable natively
   public:
-    virtual bool cast_001a1a30(void*);
+    void *vftable;
+    ConditionFactoryCasterTemplate_1a1cf0() { vftable = DAT_0041c40c; }
 };
 class Obj {
   public:
     void apply_00236760(void*);
 };
 extern "C" void* __cdecl lookup(const char*, ConditionFactoryCasterTemplate_1a1cf0*);
-class TrackFactoryCasterTemplate_1a1d20 {
+extern "C" char DAT_0041c418[];   // (fix2) the game's caster vftable
+class TrackFactoryCasterTemplate_1a1d20 {   // (fix2) was polymorphic (virtual bool cast_001a1a90(void*);): clang's vftable natively
   public:
-    virtual bool cast_001a1a90(void*);
+    void *vftable;
+    TrackFactoryCasterTemplate_1a1d20() { vftable = DAT_0041c418; }
 };
 class Track {
   public:

@@ -13,18 +13,18 @@ namespace fn_fac6d34f {} using namespace fn_fac6d34f;
 // ---- declarations shared by the functions below
 inline void *operator new(size_t, void *p) throw() { return p; }
 namespace fn_fac6d34f {
+// (sweep-caster-fix1) the caster as the word its inline constructor writes: the game's vftable by address (a local
+// polymorphic stand-in got clang's own vftable natively, whose slot had no definition)
+extern "C" char DAT_003f3e80[];   // content::LoadInventory::DynamicCaster<pure3d::Animation>'s vftable
 namespace content { namespace LoadInventory {
-class __declspec(novtable) DynamicCasterBase {
-public:
-    virtual void cast(void *p) = 0;
+struct DynamicCasterBase {
+    void *vftable;
 };
-} }
-namespace content { namespace LoadInventory {
 template <class T>
-class DynamicCaster : public DynamicCasterBase {
-public:
-    virtual void cast(void *p);
+struct DynamicCaster : DynamicCasterBase {
+    DynamicCaster();
 };
+template <> inline DynamicCaster<pure3d::Animation>::DynamicCaster() { vftable = (void *)DAT_003f3e80; }
 } }
 struct Id64_164930 {
     unsigned int lo;
@@ -129,7 +129,7 @@ public:
 
 
 // 0x00164930 hulkfight::motion::ClimbLocomotion4Action::vfunc_7 (1075 B): equivalent/0x00164930.cpp
-// sym: ?vfunc_7@ClimbLocomotion4Action@motion@hulkfight@fn_fac6d34f@@UAEXPAXTSlotF_164930@4@TSlotU_164930@4@22222PAIPAUId64_164930@4@333@Z @5b002747c98f @w1fa4d60f98f6 @v5840371f94ec
+// sym: ?vfunc_7@ClimbLocomotion4Action@motion@hulkfight@fn_fac6d34f@@UAEXPAXTSlotF_164930@4@TSlotU_164930@4@22222PAIPAUId64_164930@4@333@Z @8389e9fcea74 @w66e22cfb70df @vb29fbd27b21a
 // STATUS: equivalent (tools/equiv.py level 3: 3012 inputs, branch coverage 41/42, incomplete)
 // hulkfight::motion::ClimbLocomotion4Action::vfunc_7 @ 0x00164930
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0

@@ -2487,7 +2487,7 @@ bool Owner_27ed90::FUN_0027ed90(Object* object, void* data, unsigned flags) {
 } // namespace fn_f03c5b48
 
 // 0x0027eeb0 pure3d::prop::StatePropLoader::vfunc_5 (201 B): equivalent/0x0027eeb0.cpp [wrapped: conflict: content::LoadInventory::DynamicCaster; pure3d::prop::StateProp; pure3d::prop::StatePropLoader]
-// sym: ?vfunc_5@StatePropLoader@prop@pure3d@fn_0027eeb0@@UAEXPAPAUStateProp@234@PAIPAUReader@4@PAUInventory_27eeb0@4@@Z @46a3b9d42b39 @w599dd6d09baf @v3649723e7a46
+// sym: ?vfunc_5@StatePropLoader@prop@pure3d@fn_0027eeb0@@UAEXPAPAUStateProp@234@PAIPAUReader@4@PAUInventory_27eeb0@4@@Z @1320d6584689 @w74fd4109a968 @v5b05eed155b2
 namespace fn_0027eeb0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // pure3d::prop::StatePropLoader::vfunc_5 @ 0x0027eeb0
@@ -2523,8 +2523,15 @@ typedef unsigned __int64 U64_27eeb0;
 struct Stream { void FUN_002647e0(void*, unsigned, unsigned, unsigned); };
 struct Reader { char pad[0x284]; Stream* stream; };
 namespace pure3d { namespace prop { struct StatePropData; struct StateProp { char pad[8]; unsigned a,b; StateProp* FUN_0027def0(StatePropData*, int); }; } }
-namespace content { namespace LoadInventory { template<class T> struct DynamicCaster { virtual void vfunc_0(); }; } }
-struct Inventory_27eeb0 { virtual void v0(); virtual void v1(); virtual void v2(); virtual pure3d::prop::StatePropData* v3(content::LoadInventory::DynamicCaster<pure3d::prop::StatePropData>*, U64_27eeb0); };
+// (sweep-caster-fix1) the caster as the word its inline constructor writes: the game's vftable by address (a local
+// polymorphic stand-in got clang's own vftable natively, whose slot had no definition)
+extern "C" char DAT_0042c35c[];   // content::LoadInventory::DynamicCaster<pure3d::prop::StatePropData>'s vftable
+namespace content { namespace LoadInventory {
+template<class T> struct DynamicCaster { void* vftable; DynamicCaster(); };
+template <> inline DynamicCaster<pure3d::prop::StatePropData>::DynamicCaster() { vftable = (void*)DAT_0042c35c; }
+} }
+struct Inventory_27eeb0 {
+ virtual void v0(); virtual void v1(); virtual void v2(); virtual pure3d::prop::StatePropData* v3(content::LoadInventory::DynamicCaster<pure3d::prop::StatePropData>*, U64_27eeb0); };
 extern void* __cdecl FUN_00263ea0(unsigned);
 namespace pure3d { namespace prop { struct StatePropLoader { virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(StateProp**, unsigned*, Reader*, Inventory_27eeb0*); }; } }
 void pure3d::prop::StatePropLoader::vfunc_5(StateProp** out, unsigned* id, Reader* reader, Inventory_27eeb0* inventory) {

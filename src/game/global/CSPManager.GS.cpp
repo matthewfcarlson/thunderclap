@@ -83,18 +83,17 @@ public:
 } // namespace fn_f743a03c
 inline void *operator new(size_t, void *p) { return p; }
 namespace fn_f743a03c {
-namespace content { namespace LoadInventory {
-class __declspec(novtable) DynamicCasterBase {
-public:
-    virtual void cast(void *p) = 0;
-};
-} }
+// (sweep-caster-fix1) the caster as the word its inline constructor writes: the game's vftable by address (a local
+// polymorphic stand-in got clang's own vftable natively, whose slot had no definition, and its 8 bytes overran the
+// frame's 4-byte word)
+extern "C" char DAT_003f6340[];   // content::LoadInventory::DynamicCaster<CSPHulkProp>'s vftable
 namespace content { namespace LoadInventory {
 template <class T>
-class DynamicCaster : public DynamicCasterBase {
-public:
-    virtual void cast(void *p);
+struct DynamicCaster {
+    void *vftable;
+    DynamicCaster();
 };
+template <> inline DynamicCaster<CSPHulkProp>::DynamicCaster() { vftable = (void *)DAT_003f6340; }
 } }
 struct Handle_1e4ae0 { char pad[4]; };
 class Factory_1e4ae0 {
@@ -115,8 +114,12 @@ struct Mat_1e4ae0 {
 };
 extern "C" int __cdecl FUN_00267760(char *buf, int n, const char *fmt, ...);
 struct Frame_1e4ae0 {
-    char caster[4];
+    union {                    // 0x00 (sweep-caster-fix1) the caster: its vftable, pointer-sized natively
+        char caster[4];
+        void *casterWord;
+    };
     union {
+
         char name[0x80];
         Mat_1e4ae0 mat;
     } u;
@@ -222,7 +225,7 @@ Part_1e47e0 *CSPManager_1e47e0::FUN_001e47e0(Owner_1e47e0 *owner, Attach_1e47e0 
 
 
 // 0x001e4ae0 FUN_001e4ae0 (352 B): equivalent/0x001e4ae0.cpp
-// sym: ?FUN_001e4ae0@CSPManager_1e4ae0@fn_f743a03c@@QAEHPBD00HHH@Z @e4c81284ebd5 @w8f9c2ae5c571 @v70f953b211bb
+// sym: ?FUN_001e4ae0@CSPManager_1e4ae0@fn_f743a03c@@QAEHPBD00HHH@Z @e695512698e6 @w447c9a33bb8d @ve6e94eb22ad1
 // STATUS: equivalent (tools/equiv.py level 3: 16224 inputs, branch coverage 6/6)
 // FUN_001e4ae0 @ 0x001e4ae0
 int CSPManager_1e4ae0::FUN_001e4ae0(const char *key, const char *name, const char *prefix, int p3, int p4, int p5)

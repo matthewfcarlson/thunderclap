@@ -652,14 +652,14 @@ class ParamBranch : public ParamValueBranch, public ParamValue {
     void(__fastcall* fn)(void*);
     virtual void vfunc_6(void*);
 };
-class TrackFactoryCasterTemplate_191910 {
-  public:
-    virtual bool cast_00190f40(void*);
+extern "C" char DAT_0041b09c[];   // fight::TrackFactoryCasterTemplate<hulkfight::motion::ImpulseVelocityTrack>::vftable
+struct TrackFactoryCasterTemplate_191910 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
+    void* vftable;   // clang's own vftable natively, whose slot had no definition)
 };
 void* __cdecl Find_00236ac0(const char*, TrackFactoryCasterTemplate_191910*);
-class TrackFactoryCasterTemplate_191b10 {
-  public:
-    virtual bool Cast_00191040(void*);
+extern "C" char DAT_0041b0b4[];   // fight::TrackFactoryCasterTemplate<hulkfight::motion::TankLocomotionTrack>::vftable
+struct TrackFactoryCasterTemplate_191b10 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
+    void* vftable;   // clang's own vftable natively, whose slot had no definition)
 };
 class Owner {
   public:
@@ -2487,6 +2487,7 @@ namespace fn_fc171dfe {
 // sym: _FUN_00191910
 extern "C" void __cdecl FUN_00191910(Obj* obj, const char* name) {
     TrackFactoryCasterTemplate_191910 caster;
+    caster.vftable = (void*)DAT_0041b09c;   // (sweep-caster-fix1) the game's vftable by address
     obj->Set_002367c0(Find_00236ac0(name, &caster));
 }
 
@@ -2517,9 +2518,9 @@ void FUN_00191940()
 // 0x00191ae0 FUN_00191ae0 (38 B): matches/0x00191ae0.cpp [wrapped: conflict: Find]
 // sym: _FUN_00191ae0
 namespace fn_00191ae0 {
-class TrackFactoryCasterTemplate_191ae0 {
-  public:
-    virtual bool Cast_00190fe0(void*);
+extern "C" char DAT_0041b0a8[];   // fight::TrackFactoryCasterTemplate<hulkfight::motion::SimulationTrack>::vftable
+struct TrackFactoryCasterTemplate_191ae0 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
+    void* vftable;   // clang's own vftable natively, whose slot had no definition)
 };
 class Obj {
   public:
@@ -2528,6 +2529,7 @@ class Obj {
 extern "C++" __declspec(nothrow) void* __cdecl Find_00236ac0(const char*, TrackFactoryCasterTemplate_191ae0*);
 extern "C" void FUN_00191ae0(Obj* obj, const char* name) {
     TrackFactoryCasterTemplate_191ae0 caster;
+    caster.vftable = (void*)DAT_0041b0a8;   // (sweep-caster-fix1) the game's vftable by address
     void* p = Find_00236ac0(name, &caster);
     obj->Set_002367c0(p);
 }
@@ -2539,6 +2541,7 @@ namespace fn_fc171dfe {
 // sym: _FUN_00191b10
 extern "C" void FUN_00191b10(Owner* owner, const char* name) {
     TrackFactoryCasterTemplate_191b10 caster;
+    caster.vftable = (void*)DAT_0041b0b4;   // (sweep-caster-fix1) the game's vftable by address
     void* p = Find_00236ac0(name, &caster);
     owner->Set_002367c0(p);
 }

@@ -11,18 +11,18 @@ namespace fn_fabfed4f {} using namespace fn_fabfed4f;
 
 // ---- declarations shared by the functions below
 namespace fn_fabfed4f {
+// (sweep-caster-fix1) the caster as the word its inline constructor writes: the game's vftable by address (a local
+// polymorphic stand-in got clang's own vftable natively, whose slot had no definition)
+extern "C" char DAT_003f3e80[];   // content::LoadInventory::DynamicCaster<pure3d::Animation>'s vftable
 namespace content { namespace LoadInventory {
-class __declspec(novtable) DynamicCasterBase {
-public:
-    virtual void cast(void *p) = 0;
+struct DynamicCasterBase {
+    void *vftable;
 };
-} }
-namespace content { namespace LoadInventory {
 template <class T>
-class DynamicCaster : public DynamicCasterBase {
-public:
-    virtual void cast(void *p);
+struct DynamicCaster : DynamicCasterBase {
+    DynamicCaster();
 };
+template <> inline DynamicCaster<pure3d::Animation>::DynamicCaster() { vftable = (void *)DAT_003f3e80; }
 } }
 } // namespace fn_fabfed4f
 inline void *operator new(size_t, void *p) { return p; }
@@ -121,7 +121,7 @@ public:
 
 
 // 0x00164690 hulkfight::motion::GrappleLocomotionSteerAction::vfunc_3 (669 B): equivalent/0x00164690.cpp
-// sym: ?vfunc_3@GrappleLocomotionSteerAction@fn_fabfed4f@@UAE_NHH@Z @446916c4a492 @w9656989292b2 @v92704f302e24
+// sym: ?vfunc_3@GrappleLocomotionSteerAction@fn_fabfed4f@@UAE_NHH@Z @e8aab5c536e7 @w41af595600cd @vcec75384c37d
 // STATUS: equivalent (tools/equiv.py level 3: 70 inputs, branch coverage 38/38)
 // hulkfight::motion::GrappleLocomotionSteerAction::vfunc_3 @ 0x00164690
 bool GrappleLocomotionSteerAction::vfunc_3(int a, int b)

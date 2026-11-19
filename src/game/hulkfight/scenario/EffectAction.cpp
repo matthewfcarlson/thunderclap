@@ -1687,12 +1687,9 @@ extern void* hulk_at_004c26a4;
 extern int __cdecl FUN_00344e74(owners::Obj_1a92e0*, int, void*, void*, int);
 extern void* g1_1a92e0;
 extern void* g2_1a92e0;
-class DynamicCaster_1a9420 {
-  public:
-    virtual void Fna_001a6ee0(void*);
-    virtual void b();
-    virtual void Fnc_001a6f10(void*);
-    virtual int d();
+extern "C" char DAT_0041c8d0[];   // content::LoadInventory::DynamicCaster<pure3d::Skeleton>::vftable
+struct DynamicCaster_1a9420 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
+    void* vftable;   // clang's own vftable natively, whose slot had no definition)
 };
 extern "C" __int64 __cdecl lookup(void*, int, int);
 class LoadInventory {
@@ -1703,14 +1700,14 @@ class LoadInventory {
     virtual int d(DynamicCaster_1a9420*, __int64);
     hulk_intptr Load(void* p);
 };
-class ConditionFactoryCasterTemplate_1a94a0 {
-  public:
-    virtual bool Cast_001a69c0(void*);
+extern "C" char DAT_0041c84c[];   // fight::ConditionFactoryCasterTemplate<hulkfight::scenario::NodeIsNotRunningCondition>::vftable
+struct ConditionFactoryCasterTemplate_1a94a0 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
+    void* vftable;   // clang's own vftable natively, whose slot had no definition)
 };
 extern "C" void* find(void*, ConditionFactoryCasterTemplate_1a94a0*);
-class ConditionFactoryCasterTemplate_1a9560 {
-  public:
-    virtual bool Cast_001a6a60(void*);
+extern "C" char DAT_0041c864[];   // fight::ConditionFactoryCasterTemplate<hulkfight::scenario::NodeShouldRunImmediatelyCondition>::vftable
+struct ConditionFactoryCasterTemplate_1a9560 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
+    void* vftable;   // clang's own vftable natively, whose slot had no definition)
 };
 class Owner {
   public:
@@ -1719,33 +1716,33 @@ class Owner {
     void accept_002367c0(void*);
 };
 extern "C" void* __cdecl FUN_002343e0(void*, ConditionFactoryCasterTemplate_1a9560*);
-class ConditionFactoryCasterTemplate_1a9590 {
-  public:
-    virtual bool Cast_001a6ac0(void*);
+extern "C" char DAT_0041c870[];   // fight::ConditionFactoryCasterTemplate<hulkfight::scenario::Event_LocomotionStateNamePreviousCondition>::vftable
+struct ConditionFactoryCasterTemplate_1a9590 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
+    void* vftable;   // clang's own vftable natively, whose slot had no definition)
 };
 void* __cdecl Find_002343e0(void*, ConditionFactoryCasterTemplate_1a9590*);
-class ConditionFactoryCasterTemplate_1a95c0 {
-  public:
-    virtual bool Cast_001a6b20(void*);
+extern "C" char DAT_0041c87c[];   // fight::ConditionFactoryCasterTemplate<hulkfight::scenario::Event_LocomotionStateNameCondition>::vftable
+struct ConditionFactoryCasterTemplate_1a95c0 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
+    void* vftable;   // clang's own vftable natively, whose slot had no definition)
 };
 void* __cdecl Find_002343e0(void*, ConditionFactoryCasterTemplate_1a95c0*);
-class ConditionFactoryCasterTemplate_1a9620 {
-  public:
-    virtual bool FnF_001a6be0(void*);
+extern "C" char DAT_0041c894[];   // fight::ConditionFactoryCasterTemplate<hulkfight::scenario::Event_PropTypeCondition>::vftable
+struct ConditionFactoryCasterTemplate_1a9620 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
+    void* vftable;   // clang's own vftable natively, whose slot had no definition)
 };
 void* __cdecl Find_002343e0(char*, ConditionFactoryCasterTemplate_1a9620*);
-class ConditionFactoryCasterTemplate_1a96b0 {
-  public:
-    virtual bool Cast_001a6c20(void*);
+extern "C" char DAT_0041c8a0[];   // fight::ConditionFactoryCasterTemplate<hulkfight::scenario::Event_PropStateNameCondition>::vftable
+struct ConditionFactoryCasterTemplate_1a96b0 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
+    void* vftable;   // clang's own vftable natively, whose slot had no definition)
 };
 class Receiver {
   public:
     void Apply_00236760(void*);
 };
 extern "C++" __declspec(nothrow) void* FUN_002343e0(void*, ConditionFactoryCasterTemplate_1a96b0*);
-class ConditionFactoryCasterTemplate_1a9740 {
-  public:
-    virtual bool Cast_001a6c60(void*);
+extern "C" char DAT_0041c8ac[];   // fight::ConditionFactoryCasterTemplate<hulkfight::scenario::Event_PropNameCondition>::vftable
+struct ConditionFactoryCasterTemplate_1a9740 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
+    void* vftable;   // clang's own vftable natively, whose slot had no definition)
 };
 class Obj {
   public:
@@ -1767,14 +1764,14 @@ class Obj {
     void Find_002367c0(void*);
 };
 extern ConditionFactoryCasterTemplate_1a9740* __cdecl Lookup_002343e0(void*, ConditionFactoryCasterTemplate_1a9740*);
-class TrackFactoryCasterTemplate_1a97d0 {
-  public:
-    virtual bool Cast_001a6ca0(void*);
+extern "C" char DAT_0041c8b8[];   // fight::TrackFactoryCasterTemplate<hulkfight::scenario::EffectTrack>::vftable
+struct TrackFactoryCasterTemplate_1a97d0 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
+    void* vftable;   // clang's own vftable natively, whose slot had no definition)
 };
 extern "C" void* FindTrack(void*, TrackFactoryCasterTemplate_1a97d0*);
-class TrackFactoryCasterTemplate_1a9a90 {
-  public:
-    virtual bool dummy_001a6d40(void*);
+extern "C" char DAT_0041c8c4[];   // fight::TrackFactoryCasterTemplate<hulkfight::scenario::NISAnimationTrack>::vftable
+struct TrackFactoryCasterTemplate_1a9a90 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
+    void* vftable;   // clang's own vftable natively, whose slot had no definition)
 };
 extern "C" void* __cdecl FUN_00236ac0(const char*, TrackFactoryCasterTemplate_1a9a90*);
 class Track_1a9ac0 {
@@ -7129,6 +7126,7 @@ namespace fn_fc5dbd2a {
 // sym: ?Load@LoadInventory@fn_fc5dbd2a@@QAEHPAX@Z
 hulk_intptr LoadInventory::Load(void* p) {
     DynamicCaster_1a9420 caster;
+    caster.vftable = (void*)DAT_0041c8d0;   // (sweep-caster-fix1) the game's vftable by address
     return d(&caster, lookup(p, 0, 0));
 }
 
@@ -7137,6 +7135,7 @@ hulk_intptr LoadInventory::Load(void* p) {
 // sym: _FUN_001a94a0
 extern "C" void FUN_001a94a0(Obj* obj, void* value) {
     ConditionFactoryCasterTemplate_1a94a0 caster;
+    caster.vftable = (void*)DAT_0041c84c;   // (sweep-caster-fix1) the game's vftable by address
     void* p = find(value, &caster);
     obj->set_00236760(p);
 }
@@ -7146,9 +7145,9 @@ extern "C" void FUN_001a94a0(Obj* obj, void* value) {
 // 0x001a94d0 FUN_001a94d0 (38 B): matches/0x001a94d0.cpp [wrapped: conflict: Find]
 // sym: _FUN_001a94d0
 namespace fn_001a94d0 {
-class ConditionFactoryCasterTemplate_1a94d0 {
-  public:
-    virtual bool Cast_001a6a20(void*);
+extern "C" char DAT_0041c858[];   // fight::ConditionFactoryCasterTemplate<hulkfight::scenario::Event_StringCondition>::vftable
+struct ConditionFactoryCasterTemplate_1a94d0 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
+    void* vftable;   // clang's own vftable natively, whose slot had no definition)
 };
 extern "C++" __declspec(nothrow) void* __cdecl Find_002343e0(void*, ConditionFactoryCasterTemplate_1a94d0*);
 class Factory {
@@ -7157,6 +7156,7 @@ class Factory {
 };
 extern "C" void __cdecl FUN_001a94d0(Factory* factory, void* item) {
     ConditionFactoryCasterTemplate_1a94d0 caster;
+    caster.vftable = (void*)DAT_0041c858;   // (sweep-caster-fix1) the game's vftable by address
     factory->Use_00236760(Find_002343e0(item, &caster));
 }
 } // namespace fn_001a94d0
@@ -7167,6 +7167,7 @@ namespace fn_fc5dbd2a {
 // sym: _FUN_001a9560
 extern "C" void FUN_001a9560(Owner* owner, void* value) {
     ConditionFactoryCasterTemplate_1a9560 caster;
+    caster.vftable = (void*)DAT_0041c864;   // (sweep-caster-fix1) the game's vftable by address
     void* result = FUN_002343e0(value, &caster);
     owner->Apply_00236760(result);
 }
@@ -7176,6 +7177,7 @@ extern "C" void FUN_001a9560(Owner* owner, void* value) {
 // sym: _FUN_001a9590
 extern "C" void __cdecl FUN_001a9590(Obj* obj, void* value) {
     ConditionFactoryCasterTemplate_1a9590 caster;
+    caster.vftable = (void*)DAT_0041c870;   // (sweep-caster-fix1) the game's vftable by address
     void* p = Find_002343e0(value, &caster);
     obj->Apply_00236760(p);
 }
@@ -7185,6 +7187,7 @@ extern "C" void __cdecl FUN_001a9590(Obj* obj, void* value) {
 // sym: _FUN_001a95c0
 extern "C" void __cdecl FUN_001a95c0(Obj* obj, void* p) {
     ConditionFactoryCasterTemplate_1a95c0 caster;
+    caster.vftable = (void*)DAT_0041c87c;   // (sweep-caster-fix1) the game's vftable by address
     obj->Do_00236760(Find_002343e0(p, &caster));
 }
 
@@ -7193,9 +7196,9 @@ extern "C" void __cdecl FUN_001a95c0(Obj* obj, void* p) {
 // 0x001a95f0 FUN_001a95f0 (38 B): matches/0x001a95f0.cpp [wrapped: conflict: lookup]
 // sym: _FUN_001a95f0
 namespace fn_001a95f0 {
-class ConditionFactoryCasterTemplate_1a95f0 {
-  public:
-    virtual bool Fnf_001a6b80(void*);
+extern "C" char DAT_0041c888[];   // fight::ConditionFactoryCasterTemplate<hulkfight::scenario::Event_PropStateDescCondition>::vftable
+struct ConditionFactoryCasterTemplate_1a95f0 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
+    void* vftable;   // clang's own vftable natively, whose slot had no definition)
 };
 class Desc;
 extern Desc* __cdecl lookup_002343e0(const char*, ConditionFactoryCasterTemplate_1a95f0*);
@@ -7205,6 +7208,7 @@ class Owner {
 };
 extern "C" void FUN_001a95f0(Owner* p, const char* s) {
     ConditionFactoryCasterTemplate_1a95f0 c;
+    c.vftable = (void*)DAT_0041c888;   // (sweep-caster-fix1) the game's vftable by address
     Desc* d = lookup_002343e0(s, &c);
     p->use_00236760(d);
 }
@@ -7216,6 +7220,7 @@ namespace fn_fc5dbd2a {
 // sym: _FUN_001a9620
 extern "C" void __cdecl FUN_001a9620(Owner* owner, char* name) {
     ConditionFactoryCasterTemplate_1a9620 c;
+    c.vftable = (void*)DAT_0041c894;   // (sweep-caster-fix1) the game's vftable by address
     void* p = Find_002343e0(name, &c);
     owner->Use_00236760(p);
 }
@@ -7225,6 +7230,7 @@ extern "C" void __cdecl FUN_001a9620(Owner* owner, char* name) {
 // sym: _FUN_001a96b0
 extern "C" void FUN_001a96b0(Receiver* r, void* p) {
     ConditionFactoryCasterTemplate_1a96b0 c;
+    c.vftable = (void*)DAT_0041c8a0;   // (sweep-caster-fix1) the game's vftable by address
     r->Apply_00236760(FUN_002343e0(p, &c));
 }
 
@@ -7233,6 +7239,7 @@ extern "C" void FUN_001a96b0(Receiver* r, void* p) {
 // sym: _FUN_001a9740
 extern "C" void* FUN_001a9740(Obj* o, void* p) {
     ConditionFactoryCasterTemplate_1a9740 c;
+    c.vftable = (void*)DAT_0041c8ac;   // (sweep-caster-fix1) the game's vftable by address
     return o->Get_00236760(Lookup_002343e0(p, &c));
 }
 
@@ -7241,6 +7248,7 @@ extern "C" void* FUN_001a9740(Obj* o, void* p) {
 // sym: _FUN_001a97d0
 extern "C" void FUN_001a97d0(Obj* obj, void* name) {
     TrackFactoryCasterTemplate_1a97d0 caster;
+    caster.vftable = (void*)DAT_0041c8b8;   // (sweep-caster-fix1) the game's vftable by address
     obj->Find_002367c0(FindTrack(name, &caster));
 }
 
@@ -7249,6 +7257,7 @@ extern "C" void FUN_001a97d0(Obj* obj, void* name) {
 // sym: _FUN_001a9a90
 extern "C" void __cdecl FUN_001a9a90(Owner* owner, const char* name) {
     TrackFactoryCasterTemplate_1a9a90 caster;
+    caster.vftable = (void*)DAT_0041c8c4;   // (sweep-caster-fix1) the game's vftable by address
     owner->accept_002367c0(FUN_00236ac0(name, &caster));
 }
 
@@ -7489,7 +7498,7 @@ void Controller_1aa150::FUN_001aa150()
 
 
 // 0x001aa2a0 FUN_001aa2a0 (342 B): equivalent/0x001aa2a0.cpp [wrapped: conflict: DAT_004dd700]
-// sym: ?FUN_001aa2a0@CameraRig@fn_001aa2a0@@QAEXXZ @fc86a1e61123 @w4183387694bd @ved6c50db67b3
+// sym: ?FUN_001aa2a0@CameraRig@fn_001aa2a0@@QAEXXZ @8c445ad5e4c5 @w96ffd03527f7 @v0155449534d9
 namespace fn_001aa2a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 85 inputs, branch coverage 14/14)
 // FUN_001aa2a0 @ 0x001aa2a0
@@ -7510,12 +7519,15 @@ public:
 };
 }
 
+// (sweep-caster-fix1) the caster as the word its inline constructor writes: the game's vftable by address (a local
+// polymorphic stand-in got clang's own vftable natively, whose slot had no definition)
+extern "C" char DAT_0041c8d8[];   // content::LoadInventory::DynamicCaster<pure3d::Camera>'s vftable
 namespace content {
 class LoadInventory_1aa2a0 {
   public:
-    template <class T> class DynamicCaster {
-      public:
-        virtual T *Cast(void *p);
+    template <class T> struct DynamicCaster {
+        void *vftable;
+        DynamicCaster();
     };
     virtual void l0();
     virtual void l1();
@@ -7524,7 +7536,9 @@ class LoadInventory_1aa2a0 {
     char pad04[8];
     void *pool;   // (x64t20) the table the cursor walks (a pointer)
 };
+template <> inline LoadInventory_1aa2a0::DynamicCaster<pure3d::Camera_1aa2a0>::DynamicCaster() { vftable = (void *)DAT_0041c8d8; }
 }
+
 
 unsigned __int64 __cdecl FUN_002672f0(const char *s, unsigned __int64 seed);
 

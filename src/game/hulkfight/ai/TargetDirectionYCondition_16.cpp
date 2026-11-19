@@ -89,27 +89,27 @@ public:
     void (T::*setter)();
     int unused14;
 };
-class TrackFactoryCasterTemplate_129f50 {
-  public:
-    virtual bool Cast_00128360(void*);
+extern "C" char DAT_0041071c[];   // fight::TrackFactoryCasterTemplate<hulkfight::ai::TargetClearTrack>::vftable
+struct TrackFactoryCasterTemplate_129f50 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
+    void* vftable;   // clang's own vftable natively, whose slot had no definition)
 };
 class Object {
   public:
     void Use_002367c0(void*);
 };
 extern "C" void* Find(void*, TrackFactoryCasterTemplate_129f50*);
-class TrackFactoryCasterTemplate_129f80 {
-  public:
-    virtual bool Cast_001283e0(void*);
+extern "C" char DAT_00410728[];   // fight::TrackFactoryCasterTemplate<hulkfight::ai::AcquireTargetTrack>::vftable
+struct TrackFactoryCasterTemplate_129f80 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
+    void* vftable;   // clang's own vftable natively, whose slot had no definition)
 };
 class Track {
   public:
     void Add_002367c0(void*);
 };
 extern "C" void* FUN_00236ac0(const char*, TrackFactoryCasterTemplate_129f80*);
-class TrackFactoryCasterTemplate_129fb0 {
-  public:
-    virtual bool Fnf_00128480(void*);
+extern "C" char DAT_00410734[];   // fight::TrackFactoryCasterTemplate<hulkfight::ai::ClearProjectileDistanceTrack>::vftable
+struct TrackFactoryCasterTemplate_129fb0 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
+    void* vftable;   // clang's own vftable natively, whose slot had no definition)
 };
 class Target {
   public:
@@ -212,6 +212,7 @@ namespace fn_f63a58e9 {
 // sym: _FUN_00129f50
 extern "C" void FUN_00129f50(Object* obj, void* name) {
     TrackFactoryCasterTemplate_129f50 caster;
+    caster.vftable = (void*)DAT_0041071c;   // (sweep-caster-fix1) the game's vftable by address
     obj->Use_002367c0(Find(name, &caster));
 }
 
@@ -220,6 +221,7 @@ extern "C" void FUN_00129f50(Object* obj, void* name) {
 // sym: _FUN_00129f80
 extern "C" void FUN_00129f80(Track* track, const char* name) {
     TrackFactoryCasterTemplate_129f80 caster;
+    caster.vftable = (void*)DAT_00410728;   // (sweep-caster-fix1) the game's vftable by address
     track->Add_002367c0(FUN_00236ac0(name, &caster));
 }
 
@@ -228,6 +230,7 @@ extern "C" void FUN_00129f80(Track* track, const char* name) {
 // sym: _FUN_00129fb0
 extern "C" void FUN_00129fb0(Target* target, void* name) {
     TrackFactoryCasterTemplate_129fb0 caster;
+    caster.vftable = (void*)DAT_00410734;   // (sweep-caster-fix1) the game's vftable by address
     void* p = FUN_00236ac0(name, &caster);
     target->Run_002367c0(p);
 }
@@ -261,10 +264,51 @@ class ProjectileDistanceCondition;
 } // namespace ai
 } // namespace hulkfight
 namespace fight {
-template <class T> class ConditionFactoryCasterTemplate {
-  public:
-    virtual void create();
+// (sweep-caster-fix1) the caster as the word its inline constructor writes: the game's vftable by address, per T
+// (a local polymorphic stand-in got clang's own vftable natively, whose slot had no definition)
+extern "C" char DAT_004106d4[];   // ConditionFactoryCasterTemplate<hulkfight::ai::AcquireTargetCondition>'s vftable
+extern "C" char DAT_00410710[];   // ConditionFactoryCasterTemplate<hulkfight::ai::CanSeeTargetCondition>'s vftable
+extern "C" char DAT_004106a4[];   // ConditionFactoryCasterTemplate<hulkfight::ai::HasTargetCondition>'s vftable
+extern "C" char DAT_00410698[];   // ConditionFactoryCasterTemplate<hulkfight::ai::ProjectileDistanceCondition>'s vftable
+extern "C" char DAT_00410668[];   // ConditionFactoryCasterTemplate<hulkfight::ai::TargetAngleYCondition>'s vftable
+extern "C" char DAT_00410644[];   // ConditionFactoryCasterTemplate<hulkfight::ai::TargetArcCondition>'s vftable
+extern "C" char DAT_00410674[];   // ConditionFactoryCasterTemplate<hulkfight::ai::TargetDirectionCondition>'s vftable
+extern "C" char DAT_004106ec[];   // ConditionFactoryCasterTemplate<hulkfight::ai::TargetDirectionXZCondition>'s vftable
+extern "C" char DAT_00410638[];   // ConditionFactoryCasterTemplate<hulkfight::ai::TargetDirectionYCondition>'s vftable
+extern "C" char DAT_0041065c[];   // ConditionFactoryCasterTemplate<hulkfight::ai::TargetDistanceCondition>'s vftable
+extern "C" char DAT_004106c8[];   // ConditionFactoryCasterTemplate<hulkfight::ai::TargetDistanceXZCondition>'s vftable
+extern "C" char DAT_00410680[];   // ConditionFactoryCasterTemplate<hulkfight::ai::TargetDistanceYCondition>'s vftable
+extern "C" char DAT_004106f8[];   // ConditionFactoryCasterTemplate<hulkfight::ai::TargetFirstShotCondition>'s vftable
+extern "C" char DAT_00410704[];   // ConditionFactoryCasterTemplate<hulkfight::ai::TargetInvincibleCondition>'s vftable
+extern "C" char DAT_0041068c[];   // ConditionFactoryCasterTemplate<hulkfight::ai::TargetOrientationCondition>'s vftable
+extern "C" char DAT_00410650[];   // ConditionFactoryCasterTemplate<hulkfight::ai::TargetTypeCondition>'s vftable
+extern "C" char DAT_004106bc[];   // ConditionFactoryCasterTemplate<hulkfight::ai::TargetVelocityCondition>'s vftable
+extern "C" char DAT_004106e0[];   // ConditionFactoryCasterTemplate<hulkfight::ai::TargetVelocityXZCondition>'s vftable
+extern "C" char DAT_004106b0[];   // ConditionFactoryCasterTemplate<hulkfight::ai::TargetVelocityYCondition>'s vftable
+template <class T> struct ConditionFactoryCasterTemplate {
+    void* vftable;
+    ConditionFactoryCasterTemplate();
 };
+template <> inline ConditionFactoryCasterTemplate<hulkfight::ai::AcquireTargetCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_004106d4; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::ai::CanSeeTargetCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_00410710; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::ai::HasTargetCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_004106a4; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::ai::ProjectileDistanceCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_00410698; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::ai::TargetAngleYCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_00410668; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::ai::TargetArcCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_00410644; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::ai::TargetDirectionCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_00410674; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::ai::TargetDirectionXZCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_004106ec; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::ai::TargetDirectionYCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_00410638; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::ai::TargetDistanceCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_0041065c; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::ai::TargetDistanceXZCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_004106c8; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::ai::TargetDistanceYCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_00410680; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::ai::TargetFirstShotCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_004106f8; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::ai::TargetInvincibleCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_00410704; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::ai::TargetOrientationCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_0041068c; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::ai::TargetTypeCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_00410650; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::ai::TargetVelocityCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_004106bc; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::ai::TargetVelocityXZCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_004106e0; }
+template <> inline ConditionFactoryCasterTemplate<hulkfight::ai::TargetVelocityYCondition>::ConditionFactoryCasterTemplate() { vftable = (void*)DAT_004106b0; }
+
 } // namespace fight
 extern "C" void* __cdecl FUN_002343e0(const char*, void*);
 struct Registry {

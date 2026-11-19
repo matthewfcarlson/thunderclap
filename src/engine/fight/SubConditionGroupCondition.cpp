@@ -83,9 +83,9 @@ class ParamBranch : public ParamValueBranch, public ParamValue {
     virtual void vfunc_6(void*);
 };
 extern int hulk_at_00491ca8;
-class ConditionFactoryCasterTemplate_23ca70 {
-  public:
-    virtual bool dummy_0023c9a0(void*);
+extern "C" char DAT_0042893c[];   // fight::ConditionFactoryCasterTemplate<fight::SubConditionGroupCondition>::vftable
+struct ConditionFactoryCasterTemplate_23ca70 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
+    void* vftable;   // clang's own vftable natively, whose slot had no definition)
 };
 extern "C" void* __cdecl Find(void*, ConditionFactoryCasterTemplate_23ca70*);
 } // namespace fn_fe0ef8b4
@@ -255,6 +255,7 @@ namespace fn_fe0ef8b4 {
 // sym: _FUN_0023ca70
 extern "C" void FUN_0023ca70(Factory* f, void* p) {
     ConditionFactoryCasterTemplate_23ca70 c;
+    c.vftable = (void*)DAT_0042893c;   // (sweep-caster-fix1) the game's vftable by address
     f->Do(Find(p, &c));
 }
 

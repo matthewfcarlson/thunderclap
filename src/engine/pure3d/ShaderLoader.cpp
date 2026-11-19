@@ -43,18 +43,17 @@ inline void *operator new(size_t, void *p) throw() { return p; }
 namespace fn_f495b664 {
 extern "C" void *FUN_00266e00(int count, int size);
 extern "C" void FUN_00267090(void *p);
-namespace content { namespace LoadInventory {
-class __declspec(novtable) DynamicCasterBase {
-public:
-    virtual void cast(void *p) = 0;
-};
-} }
+// (sweep-caster-fix1) the caster as the word its inline constructor writes: the game's vftable by address (a local
+// polymorphic stand-in got clang's own vftable natively, whose slot had no definition, and its 8 bytes overran the
+// frame's 4-byte word)
+extern "C" char DAT_00409148[];   // content::LoadInventory::DynamicCaster<pure3d::Texture>'s vftable
 namespace content { namespace LoadInventory {
 template <class T>
-class DynamicCaster : public DynamicCasterBase {
-public:
-    virtual void cast(void *p);
+struct DynamicCaster {
+    void *vftable;
+    DynamicCaster();
 };
+template <> inline DynamicCaster<pure3d::Texture>::DynamicCaster() { vftable = (void *)DAT_00409148; }
 } }
 struct Pair_28f2c0 {
     unsigned int lo;
@@ -176,7 +175,7 @@ pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
 
 
 // 0x0028f2c0 pure3d::ShaderLoader::vfunc_5 (1313 B): equivalent/0x0028f2c0.cpp
-// sym: ?vfunc_5@ShaderLoader@pure3d@fn_f495b664@@UAEXPAPAVShader@23@PAUPair_28f2c0@3@PAUReader@3@PAVFactory_28f2c0@3@@Z @f481d138fad6 @wf32d327c07c9 @v7af43aee4bdf
+// sym: ?vfunc_5@ShaderLoader@pure3d@fn_f495b664@@UAEXPAPAVShader@23@PAUPair_28f2c0@3@PAUReader@3@PAVFactory_28f2c0@3@@Z @f20ef180ce0d @wa86c6f1a7d79 @v9dd03efc2cfc
 // STATUS: equivalent (tools/equiv.py level 3: 226 inputs, branch coverage 31/31)
 // pure3d::ShaderLoader::vfunc_5 @ 0x0028f2c0
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
@@ -191,8 +190,12 @@ void ShaderLoader::vfunc_5(Shader **out, Pair_28f2c0 *outId, Reader *r, Factory_
         int v8;
         int vC;
         int v10;
-        int v14;
+        union {                    // 0x14 (sweep-caster-fix1) also the caster: its vftable, pointer-sized natively
+            int v14;
+            void *v14Word;
+        };
         int v18;
+
         int v1c;
         int v20;
         int v24;

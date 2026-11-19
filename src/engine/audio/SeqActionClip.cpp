@@ -700,7 +700,7 @@ void audio::SeqActionClip_256370::vfunc_1(Event_256370* e)
 
 
 // 0x00256420 audio::SeqActionClip::vfunc_6 (430 B): equivalent/0x00256420.cpp [wrapped: conflict: content::LoadInventory::DynamicCaster; content::LoadInventory::DynamicCasterBase]
-// sym: ?vfunc_6@SeqActionClip@fn_00256420@@UAEHPAUCtx_256420@2@@Z @8c21d7a115ba @w4daeac21dbd7 @va0ba49859289
+// sym: ?vfunc_6@SeqActionClip@fn_00256420@@UAEHPAUCtx_256420@2@@Z @a9836b4960ac @w4c46f8d2be36 @vca14a256224b
 inline void *operator new(size_t, void *p) throw() { return p; }
 namespace fn_00256420 {
 // STATUS: equivalent (tools/equiv.py level 3: 125 inputs, branch coverage 29/29)
@@ -709,18 +709,21 @@ namespace fn_00256420 {
 
 namespace audio { class Clip; }
 
+// (sweep-caster-fix1) the caster as the word its inline constructor writes: the game's vftable by address (a local
+// polymorphic stand-in got clang's own vftable natively, whose slot had no definition, and its 8 bytes overran the
+// frame's 4-byte word)
+extern "C" char DAT_004240b8[];   // content::LoadInventory::DynamicCaster<audio::Clip>'s vftable
 namespace content {
 namespace LoadInventory {
-class __declspec(novtable) DynamicCasterBase {
-public:
-    virtual void cast(void *p) = 0;
+struct DynamicCasterBase {
+    void *vftable;
 };
 
 template <class T>
-class DynamicCaster : public DynamicCasterBase {
-public:
-    virtual void cast(void *p);
+struct DynamicCaster : DynamicCasterBase {
+    DynamicCaster();
 };
+template <> inline DynamicCaster<audio::Clip>::DynamicCaster() { vftable = (void *)DAT_004240b8; }
 }
 }
 
@@ -791,7 +794,11 @@ struct Frame_256420 {
     int saved;                  // 0x10
     Flag_256420 bit1;                  // 0x14
     Flag_256420 bit0;                  // 0x18
-    int caster;                 // 0x1c, holds a DynamicCaster
+    union {                     // 0x1c, holds a DynamicCaster (sweep-caster-fix1: its vftable, pointer-sized natively)
+        int caster;
+        void *casterWord;
+    };
+
     unsigned int buf[63];       // 0x20
 };
 
