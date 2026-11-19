@@ -113,6 +113,10 @@ where MSVC 7.1 sees `int` both times). An int that the definition receives as a 
 on every caller in one change (`hulk_intptr`/`hulk_uintptr` keep the 32-bit type and mangling; a field that stores it is
 retyped too), or the callers still saying `int` stop binding. A binding fix can expose a 32-bit literal allocation
 size to the x64 gate: write `sizeof(record)` (decl1).
+Script bindings (Function / Method<N> / Closure<N>) use include/game/script_bind.h's records (`hulk_script::ScriptFunction`,
+`ScriptMethodN`, `ScriptClosure`, or a TU-local `VftOf` trait) with the game's vftables by address, never a local `virtual`
+stand-in; their constructors are `throw()` so /GX TUs add no unwind frame. Measure native unbound on the proof's own
+Wine map: an older map reports renamed definitions as unbound (script1).
 
 ## Builds and proofs
 
