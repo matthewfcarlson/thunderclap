@@ -301,6 +301,55 @@ def check(src, addr):
     return check_object(coff, sym, addr)
 
 
+# (integ2, D132) the game's frees and the one name each may be called by: the global operator delete / delete[]
+# (unk_08ceb0.cpp), content::LoadObject's operator delete (a jmp to 0x0008d330) and the game heap's free
+# (MemoryAllocatorMalloc.cpp). A call reaching one under another name (`FUN_0008d340(p)`, a local `free_` wrapper)
+# binds natively to whatever that name is there, not to the free the 64-bit allocators pair with
+FREE_NAMES = {0x0008d330: re.compile(r"^\?\?3@YAXPAX@Z$"),
+              0x0008d340: re.compile(r"^\?\?_V@YAXPAX@Z$"),
+              0x00263f30: re.compile(r"^\?\?3LoadObject@content@(fn_f?[0-9a-f]{7,8}@)?@SAXPAX@Z$"),
+              0x00267090: re.compile(r"^_FUN_00267090$")}
+
+
+def jmp_target(xbe, a):
+    """(integ2, D132) The target of the one `jmp rel32` at A (a game thunk), else None."""
+    o = xbe.offset(a)
+    if o is None or xbe.data[o] != 0xE9:
+        return None
+    return (a + 5 + struct.unpack("<i", xbe.data[o + 1:o + 5])[0]) & 0xFFFFFFFF
+
+
+def free_reached(target, xbe=None):
+    """(integ2, D132) The free (a FREE_NAMES address) a call to TARGET reaches: TARGET itself, or the free a chain of
+    one-jmp thunks from it ends at (thunk_FUN_00267090 and the like); else None."""
+    if target in FREE_NAMES:
+        return target
+    xbe = xbe or state()["xbe"]
+    seen = set()
+    a = target
+    while a not in seen and len(seen) < 8:
+        seen.add(a)
+        t = jmp_target(xbe, a)
+        if t is None:
+            return None
+        if t in FREE_NAMES:
+            return t
+        a = t
+    return None
+
+
+def free_name_issue(name, target, xbe=None):
+    """(integ2, D132) ("free_by_other_name", name) when NAME, a call target, reaches one of the game's frees (directly
+    or through one-jmp thunks) under a name other than that free's own (FREE_NAMES); else None. Report-only (SOFT)
+    until the tree is converted (nat2, D134)."""
+    if "freename" in os.environ.get("RELOC_OFF", ""):     # (a development switch: a run with it proves nothing)
+        return None
+    f = free_reached(target, xbe)
+    if f is None or FREE_NAMES[f].match(name):
+        return None
+    return ("free_by_other_name", name)
+
+
 def check_object(coff, sym, addr):
     """The relocation checks of function SYM of COFF, which byte-matches the original at ADDR."""
     st = state()
@@ -324,6 +373,9 @@ def check_object(coff, sym, addr):
         kind = classify(name)
         if typ == REL32 and kind == "symbol":
             calls[name] = target
+            fi = free_name_issue(name, target, xbe)
+            if fi:
+                issues.append(fi)
         if mapping.get(name, target) != target:
             issues.append(("inconsistent", name))
         mapping[name] = target
@@ -406,7 +458,8 @@ def check_object(coff, sym, addr):
     for name, t in mapping.items():
         if targets[t] > 1 and classify(name) == "symbol":
             issues.append(("aliased_target", name))
-    SOFT = ("vftable_of_other_class", "aliased_target", "call_target_not_known_function", "function_address_as_data")
+    SOFT = ("vftable_of_other_class", "aliased_target", "call_target_not_known_function", "function_address_as_data",
+            "free_by_other_name")      # (D132: reported until nat2's conversion; then it gates)
     hard = [i for i in issues if i[0] not in SOFT]
     return {"addr": "0x%08x" % addr, "status": "ok" if not hard else "bad", "relocs": len(mapping),
             "issues": issues, "map": {k: "0x%08x" % v for k, v in mapping.items()},

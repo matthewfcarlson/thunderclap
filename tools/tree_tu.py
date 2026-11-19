@@ -470,6 +470,9 @@ def check_tu(path, relocs=False, rec=None, obj=None, vs_standalone=False):
                     r["relocs"] = rr["status"]
                     if rr["status"] != "ok":
                         r["reloc_issues"] = rr["issues"]
+                    fn_ = [i[1] for i in rr["issues"] if i[0] == "free_by_other_name"]
+                    if fn_:
+                        r["free_by_other_name"] = fn_     # (integ2, D132) reported, not failing (yet)
     return out
 
 

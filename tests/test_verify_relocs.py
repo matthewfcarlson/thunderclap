@@ -35,5 +35,39 @@ class LibName(unittest.TestCase):
         self.assertIsNone(f("?floor@Foo@@QAENN@Z"))
 
 
+
+@unittest.skipUnless(HAVE, "needs the extracted XBE and build/functions.csv")
+class FreeName(unittest.TestCase):
+    """(integ2, D132) a call reaching one of the game's frees must use that free's own name (reported, not failing)."""
+
+    def setUp(self):
+        os.environ.pop("RELOC_OFF", None)
+        import verify_relocs
+        self.v = verify_relocs
+
+    def test_names(self):
+        f = self.v.free_name_issue
+        self.assertIsNone(f("??3@YAXPAX@Z", 0x0008d330))
+        self.assertIsNone(f("??_V@YAXPAX@Z", 0x0008d340))
+        self.assertIsNone(f("??3LoadObject@content@@SAXPAX@Z", 0x00263f30))
+        self.assertIsNone(f("??3LoadObject@content@fn_f1234567@@SAXPAX@Z", 0x00263f30))
+        self.assertIsNone(f("_FUN_00267090", 0x00267090))
+        self.assertEqual(f("_FUN_0008d340", 0x0008d340), ("free_by_other_name", "_FUN_0008d340"))
+        self.assertEqual(f("??3@YAXPAX@Z", 0x0008d340), ("free_by_other_name", "??3@YAXPAX@Z"))   # delete for delete[]
+        self.assertEqual(f("?free_@@YAXPAX@Z", 0x00267090), ("free_by_other_name", "?free_@@YAXPAX@Z"))
+        self.assertIsNone(f("_FUN_00012345", 0x00012345))      # not a free
+        # through the game's one-jmp thunk 0x00263f40 (Ghidra's thunk_FUN_00267090) to operator delete 0x0008d330
+        self.assertEqual(self.v.free_reached(0x00263f40), 0x0008d330)
+        self.assertEqual(f("?thunk_FUN_00267090@@YAXPAX@Z", 0x00263f40),
+                         ("free_by_other_name", "?thunk_FUN_00267090@@YAXPAX@Z"))
+        self.assertIsNone(f("??3@YAXPAX@Z", 0x00263f40))
+        self.assertEqual(f("_thunk_FUN_00267090", 0x0008d330), ("free_by_other_name", "_thunk_FUN_00267090"))
+
+    def test_block_reported_soft(self):
+        r = self.v.check(os.path.join(ROOT, "tests/verify_relocs/0x0012e2c0_free_name.cpp"), 0x0012e2c0)
+        self.assertIn(["free_by_other_name", "_FUN_0008d340"], [list(i) for i in r["issues"]])
+        self.assertEqual(r["status"], "ok")                   # report-only until nat2's conversion
+
+
 if __name__ == "__main__":
     unittest.main()
