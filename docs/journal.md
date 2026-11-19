@@ -1622,3 +1622,27 @@ blocks fight::Action's whole family: the records come first there.
   didn't.
 - The code hash follows a block's references. 0x00283e10's hash changed with an uncommitted caster edit (sweep2's)
   in the same TU, so stage only your own hunks when proving a block in a TU with others' edits.
+
+## 2026-11-19 integ3: proof-integrity findings (allocty, arity, RTTI gate, D126 REF hole, input_guard)
+
+- 0x0008c470's crash64 was the harness, not the source, and not the stubs drive1 suspected (they write nothing). The
+  slot comes from FUN_0008d6d0 (an allocator stub): its region was raw bytes, the same byte for byte on both sides,
+  and the code reads `slot->drive` before writing it (the stubbed initializer would). The 32-bit run read a 4-byte 0,
+  the 64-bit run an 8-byte garbage pointer. equiv64's fix ("allocty", rev5-adopted, not landed yet) draws the
+  record's leaves over a fresh allocation the allocator returns as a record; more than element 0 only at
+  `n * sizeof(T)` sites; a header's payload stays raw, counted from the header's end. 46 -> 400/400 completed.
+- Arity attribution (de44977ea): MSVC hoists a call's own argument push above a conditional jump (0x00081b20); clang
+  functions without a reserved argument area open one per call, so "the next `sub esp`" is the next call's; a
+  virtual called with `this` in ecx is __thiscall and pops its own words, so a word released after a later direct
+  call is that call's (0x002b2040). The brute-force pop solver hit its cap at 622,080 combinations; the exact
+  solver agrees with it on all 30,559 functions it resolved.
+- RTTI exact names (46518a83a, D147): a TU-local polymorphic stand-in shows up twice, at its casts and in its
+  vftable's complete object locator (??_R4 -> R3 -> R2 -> R1 -> R0). The COL rows were 4,545 of 4,695 seed entries;
+  ScriptFunctionFields appeared in 512 TUs only as the base of local `virtual` Closure/Function stand-ins (script2
+  removed 848 entries in c7ef3a154). Exactness follows the runtime's unwrap (`(?<=@)fn_<8 hex>@`), not a looser regex.
+- D126's growth check failed open in queue jobs (19ddec138): with no git in the workspace, `git show REF:` failed and
+  read as "REF had no list", so seed stamps vouched for themselves. Any check that compares against REF's copy of a
+  config file must tell "absent at REF" from "unreadable".
+- input_guard (260c93696): a stale refusal now names the commit the input was built from (stamp files.json
+  built_from) and the job's commit; a workspace below the checkout is not the checkout's HEAD.
+- R5 (faac4ce73): 17 of 45 re-proofs promotable; unproven baseline 150/192 -> 146/183.
