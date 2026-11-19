@@ -447,7 +447,7 @@ void Mixer::FUN_002b1eb0(Child_2b1eb0 *child)
 } // namespace fn_f5757c83
 
 // 0x002b2040 pure3d::MultiController::vfunc_7 (147 B): equivalent/0x002b2040.cpp [wrapped: conflict: pure3d::MultiController]
-// sym: ?vfunc_7@MultiController@pure3d@fn_002b2040@@UAEXXZ @b30fb8682c93 @w3628c9192c4f
+// sym: ?vfunc_7@MultiController@pure3d@fn_002b2040@@UAEXXZ @6681f685d045 @wea47c9faacc8 @ve0a052610c6a
 namespace fn_002b2040 {
 // STATUS: equivalent (tools/equiv.py level 3: 18370 inputs, branch coverage 6/6)
 // pure3d::MultiController::vfunc_7 @ 0x002b2040
@@ -463,7 +463,8 @@ struct Blend_2b2040 {
     int mode;
 };
 
-float __cdecl FUN_002899e0(Blend_2b2040 *blend, void *target, float c, float d, float e, float f, bool g);
+// as defined (AnimationLoader.cpp): eight arguments, the last the blend mode, returned like the definition's
+hulk_freg __cdecl FUN_002899e0(Blend_2b2040 *blend, void *target, float c, float d, float e, float f, char g, int mode);
 
 namespace pure3d {
 class MultiController {
@@ -479,7 +480,7 @@ public:
     virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
     virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
     virtual void v16(); virtual void v17(); virtual void v18();
-    virtual int IsFrozen(int time);                 // slot 19
+    virtual int IsFrozen();                         // slot 19 (0x002b1c00: no argument)
 
     char pad4[0x14];
     float dt;               // 0x18
@@ -490,16 +491,17 @@ public:
     float rateB;            // 0x2c
     char pad30[4];
     Blend_2b2040 blend;            // 0x34
-    char pad40[0x44 - 0x40];
+    char pad40[0x44 - 0x40];   // 0x40: the blend's target, passed by address
     unsigned int childCount;    // 0x44
     Controller_2b2040 **children;      // 0x48
 };
 
 void MultiController::vfunc_7()
 {
-    bool active = IsFrozen(blend.mode) == 0;
-    phase = FUN_002899e0(&blend, (char *)this + 0x40, phase,
-                         (speed * dt) * 0.001f, rateA * speed, rateB * speed, active);
+    int mode = blend.mode;  // read before the virtual call (the original pushes it first)
+    char active = IsFrozen() == 0;
+    phase = FUN_002899e0(&blend, pad40, phase,
+                         (speed * dt) * 0.001f, rateA * speed, rateB * speed, active, mode);
     if (blend.weight > 0.0f) {
         for (unsigned int i = 0; i < childCount; i++)
             children[i]->Advance(dt, 1);

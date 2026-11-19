@@ -1888,7 +1888,7 @@ SpriteParticleEmitter::OverLifeAttributes::OverLifeAttributes(Source_2d5640 *src
 namespace fn_f0cbe20f {
 
 // 0x002d5a70 pure3d::SpriteParticleEmitter::vfunc_14 (574 B): equivalent/0x002d5a70.cpp
-// sym: ?vfunc_14@SpriteParticleEmitter@fn_f0cbe20f@@QAE_NPAUVec3_2d5a70@2@0H@Z @d428c0c1e982 @w935532213907
+// sym: ?vfunc_14@SpriteParticleEmitter@fn_f0cbe20f@@QAE_NPAUVec3_2d5a70@2@0H@Z @87870fb57137 @wfba2380c1e50 @vd16ee7ecd34d
 // STATUS: equivalent (tools/equiv.py level 3: 65 inputs, branch coverage 6/6)
 // pure3d::SpriteParticleEmitter::vfunc_14 @ 0x002d5a70
 bool SpriteParticleEmitter::vfunc_14(Vec3_2d5a70* dir, Vec3_2d5a70* pos, int arg2)
@@ -1908,7 +1908,10 @@ bool SpriteParticleEmitter::vfunc_14(Vec3_2d5a70* dir, Vec3_2d5a70* pos, int arg
     if (p == 0)
         return false;
 
-    p->pos = *pos;
+    // word by word, each read just before its store (as the original's copy; a fuzzed pos may overlap the particle)
+    ((int*)&p->pos)[0] = ((const int*)pos)[0];
+    ((int*)&p->pos)[1] = ((const int*)pos)[1];
+    ((int*)&p->pos)[2] = ((const int*)pos)[2];
     p->f38 = 0;
 
     // The original spills the range limits into its (dead) argument slots; the slot of "pos" is
@@ -1918,21 +1921,21 @@ bool SpriteParticleEmitter::vfunc_14(Vec3_2d5a70* dir, Vec3_2d5a70* pos, int arg
 
     float lo4 = f16c;
     *hi = f170;
-    float speed = (*(Rng_2d5a70*)&DAT_00554c04).FUN_00143100() * *hi + lo4;
+    hulk_freg speed = (*(Rng_2d5a70*)&DAT_00554c04).FUN_00143100() * *hi + lo4;
     p->vel.x = speed * dir->x;
     p->vel.y = speed * dir->y;
     p->vel.z = speed * dir->z;
 
     *hi = f19c;
     *lo = f198;
-    float a = (*(Rng_2d5a70*)&DAT_00554c04).FUN_00143100() * *hi + *lo;
-    p->s3c = (short)(int)(a * 256.0f);
+    hulk_freg a = (*(Rng_2d5a70*)&DAT_00554c04).FUN_00143100() * *hi + *lo;
+    p->s3c = (short)(__int64)(a * 256.0f);  // __ftol: the low word of the 64-bit result
 
     *hi = f17c;
     *lo = f178;
-    float b = (*(Rng_2d5a70*)&DAT_00554c04).FUN_00143100() * *hi + *lo;
+    hulk_freg b = (*(Rng_2d5a70*)&DAT_00554c04).FUN_00143100() * *hi + *lo;
     p->f10 = b;
-    p->s1a = (short)(int)(b * 256.0f);
+    p->s1a = (short)(__int64)(b * 256.0f);
 
     *hi = f190;
     *lo = f18c;

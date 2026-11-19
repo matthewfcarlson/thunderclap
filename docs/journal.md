@@ -1596,3 +1596,29 @@ blocks fight::Action's whole family: the records come first there.
   OmMetaType +0x30 is the base meta type (0x0025fb00 recurses into it, 0x0025fad0 searches it next), not flags.
 - 0x002407a0's x64 `int` class comes from DAT_00527c58 (the content registry) being an incomplete DataLayout to the
   checker, not from the String: typing that global (records.h HulkContentRegistry) is data5's.
+
+## 2026-11-19 fix126 (D126): the triage's real source bugs, re-proven
+
+- integ2's D126 triage found 15 blocks whose source was wrong, not the checker. They are fixed and re-proven at
+  3,000 inputs (MSVC and --wine, plus --x64), and recorded by `hash --proven` from queue jobs:
+  - luaK_concat 0x002207c0 passed -1 instead of the last list entry.
+  - 0x00107760 missed the store to f.z.z.
+  - 0x002eea80 tested the link count as signed.
+  - lua_pushcclosure 0x002134a0 read L->top once.
+  - LoadBlock / LoadConstants 0x0021f8c0 / 0x0021fe20 read the byte before storing p+1.
+  - 0x00281fd0 loaded before it stored.
+  - 0x001c82c0 and 0x002d5a70: `(int)(__int64)`, the low word of `__ftol`'s 64-bit result (clang's `(int)` of an
+    out-of-range float is 0x80000000).
+  - 0x002d5a70 also copies pos word by word.
+  - 0x000e8cf0 (w4) and 0x002d21c0 (v14): D112 `unsigned char` returns.
+  - 0x00201e00: a dword out-parameter declared `short`.
+  - 0x00148f40: Hit is 0x98 bytes, not 0x90; the TU's gx1 `/GX` line is dropped.
+  - 0x002b2040: slot 19 takes no argument, and FUN_002899e0 gets its 8th argument and its definition's return. This
+    needed integ3's prepushed-argument checker fix, de44977ea. Its `(char*)this + 0x40` became a field, which fixes
+    the --x64 `layout` result.
+  - The unproven baseline loses 18 modes.
+- 0x002d21c0's 1-ulp q.y came from dx/dy, not from the products: the original keeps `to - from` in st. The products'
+  `(hulk_freg)` changes nothing under `-ffp-eval-method=double`. tools/x87_order.py found it; the triage's sketch
+  didn't.
+- The code hash follows a block's references. 0x00283e10's hash changed with an uncommitted caster edit (sweep2's)
+  in the same TU, so stage only your own hunks when proving a block in a TU with others' edits.

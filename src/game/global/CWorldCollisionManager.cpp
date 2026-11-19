@@ -76,7 +76,7 @@ struct Triple_201e00 { unsigned x,y,z; };
 struct Triangle_201e00 { char pad[22]; unsigned short flags; };
 struct Mesh_201e00 { char pad[24]; Triangle_201e00* triangles; };
 struct Object { char pad[68]; Mesh_201e00* mesh; };
-struct Hit_201e00 { char pad0[24]; Triple_201e00 normal; char pad1[20]; Triple_201e00 point; void FUN_002f8e10(Object**, unsigned short*); };
+struct Hit_201e00 { char pad0[24]; Triple_201e00 normal; char pad1[20]; Triple_201e00 point; void FUN_002f8e10(Object**, unsigned int*); };  // stores a dword through its 2nd pointer
 struct Manager_201e00 { char pad[432]; Hit_201e00* begin; Hit_201e00* end; bool FUN_002edb20(Object*, void*, int); };
 struct Vec3_201f20 { int x, y, z; };
 struct Vec3f { float x, y, z; };
@@ -389,7 +389,7 @@ void Thing_201de0::f() {
 
 
 // 0x00201e00 FUN_00201e00 (287 B): equivalent/0x00201e00.cpp
-// sym: ?FUN_00201e00@fn_f0f2b8a0@@YG_NPAUObject@1@PAXIPAUTriple_201e00@1@2PAPAUTriangle_201e00@1@PAPAU21@@Z @ee210b18bb1e @wf264358287c1
+// sym: ?FUN_00201e00@fn_f0f2b8a0@@YG_NPAUObject@1@PAXIPAUTriple_201e00@1@2PAPAUTriangle_201e00@1@PAPAU21@@Z @1047ef88882c @w1c1ea9167201 @vd40aa04e73b2
 // STATUS: equivalent (tools/equiv.py level 3: 3007 inputs, branch coverage 16/16)
 // FUN_00201e00 @ 0x00201e00
 bool __stdcall FUN_00201e00(Object* object, void* query, unsigned mask, Triple_201e00* point, Triple_201e00* normal, Triangle_201e00** triangleOut, Object** objectOut) {
@@ -400,9 +400,9 @@ bool __stdcall FUN_00201e00(Object* object, void* query, unsigned mask, Triple_2
  hulk_uintptr count=(manager->end-manager->begin);
  if(!count) return false;
  for(unsigned i=0;i<count;++i) {
-  unsigned short index;
+  unsigned int index;  // the callee stores a dword; the triangle index is its low word
   manager->begin[i].FUN_002f8e10(&object,&index);
-  Triangle_201e00* triangle=&object->mesh->triangles[index];
+  Triangle_201e00* triangle=&object->mesh->triangles[(unsigned short)index];
   if(!(mask & (triangle->flags >> 3))) {
    Triple_201e00* src=&manager->begin[i].point;
    point->x=src->x; point->y=src->y; point->z=src->z;

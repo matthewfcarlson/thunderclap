@@ -1380,7 +1380,7 @@ void Graph_2ee9a0::FUN_002ee9a0(int a, int b)
 
 
 // 0x002eea80 FUN_002eea80 (550 B): equivalent/0x002eea80.cpp
-// sym: ?FUN_002eea80@Mgr@fn_f671dae7@@QAEXXZ @aac6fd504437 @w047996085034
+// sym: ?FUN_002eea80@Mgr@fn_f671dae7@@QAEXXZ @d7e5f8d05114 @w21ab9772c6b8 @v87d3c07f623d
 // STATUS: equivalent (tools/equiv.py level 3: 50 inputs, branch coverage 51/51)
 // FUN_002eea80 @ 0x002eea80
 void Mgr::FUN_002eea80()
@@ -1433,8 +1433,8 @@ void Mgr::FUN_002eea80()
         }
     }
 
-    hulk_intptr nlinks = linksEnd - linksBegin;
-    for (int i = 0; i < nlinks; ++i) {
+    hulk_uintptr nlinks = linksEnd - linksBegin;
+    for (hulk_uintptr i = 0; i < nlinks; ++i) {
         dirty = 0;
         Link *l = &linksBegin[i];
         ((owners::Obj_302ed0 *)&solver)->FUN_00302ed0((hulk_intptr)(l->a->ref), (hulk_intptr)(l->b->ref), (hulk_intptr)(&value));

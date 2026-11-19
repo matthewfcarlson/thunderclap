@@ -532,7 +532,7 @@ extern "C" const char* __cdecl FUN_00213470(LuaVMState* L, const char* fmt, ...)
 
 
 // 0x002134a0 FUN_002134a0 (125 B): equivalent/0x002134a0.cpp
-// sym: _FUN_002134a0 @16f55e234ec0 @we24af1af666d
+// sym: _FUN_002134a0 @99ae51335349 @w46586a107951 @v53772f581f3f
 // STATUS: equivalent (tools/equiv.py level 3: 79 inputs, branch coverage 6/6)
 // lua_pushcclosure: push a C closure of fn with the n top values as its upvalues (a GC step first when due).
 extern "C" void __cdecl FUN_002134a0(LuaVMState* L, LuaVMCFunction fn, int n) {
@@ -543,8 +543,9 @@ extern "C" void __cdecl FUN_002134a0(LuaVMState* L, LuaVMCFunction fn, int n) {
     L->top -= n;
     while (n--)
         cl->c.upvalue[n] = L->top[n];
-    L->top->value.gc = (LuaVMGCObject*)cl;
-    L->top->tt = LUAVM_TFUNCTION;
+    LuaVMTObject* o = L->top;
+    o->value.gc = (LuaVMGCObject*)cl;
+    o->tt = LUAVM_TFUNCTION;
     L->top++;
 }
 

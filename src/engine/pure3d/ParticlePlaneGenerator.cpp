@@ -462,7 +462,7 @@ bool pure3d::ParticlePointGenerator::vfunc_3() {
 
 
 // 0x002d21c0 pure3d::ParticlePointGenerator::vfunc_6 (791 B): equivalent/0x002d21c0.cpp [wrapped: helper definitions (4 out-of-line function bodies)]
-// sym: ?vfunc_6@ParticlePointGenerator@fn_002d21c0@@QAEIIPAUMat4_2d21c0@2@0MPAVEmitter_2d21c0@2@@Z @e1428e558e1e @wa2c98d23b6a1
+// sym: ?vfunc_6@ParticlePointGenerator@fn_002d21c0@@QAEIIPAUMat4_2d21c0@2@0MPAVEmitter_2d21c0@2@@Z @e1428e558e1e @w6816554ed39d @vd44388053ee9
 namespace fn_002d21c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 81 inputs, branch coverage 9/10, incomplete)
 // pure3d::ParticlePointGenerator::vfunc_6 @ 0x002d21c0
@@ -505,7 +505,7 @@ public:
     virtual void v11();
     virtual void v12();
     virtual void v13();
-    virtual bool v14(Vec3_2d21c0* dir, Vec3_2d21c0* pos, float t);
+    virtual unsigned char v14(Vec3_2d21c0* dir, Vec3_2d21c0* pos, float t);  // tested as the whole al byte (D112)
 };
 
 extern "C" void __cdecl FUN_00356bf0(float r, float az, float pol, float* x, float* y, float* z);
@@ -551,8 +551,8 @@ unsigned int ParticlePointGenerator::vfunc_6(unsigned int count, Mat4_2d21c0* fr
     float sb = f48 * f3c;
     float sc = f4c * f40;
     Vec3_2d21c0 p = from->pos;
-    float dx = to->pos.x - p.x;
-    float dy = to->pos.y - p.y;
+    hulk_freg dx = to->pos.x - p.x;  // dx, dy stay in st; dz is spilled to d.z's slot
+    hulk_freg dy = to->pos.y - p.y;
     float dz = to->pos.z - p.z;
     volatile float inv = 1.0f / (float)count;
     Vec3_2d21c0 d;
@@ -571,9 +571,9 @@ unsigned int ParticlePointGenerator::vfunc_6(unsigned int count, Mat4_2d21c0* fr
         ((owners::Obj_22d260 *)&dir)->FUN_0022d260((owners::Obj_22d260 *)(struct Mat4_2d21c0 *)from);
         dir.FUN_0022d110();
         Vec3_2d21c0 q;
-        q.x = dir.x * v3 + p.x;
-        q.y = dir.y * v3 + p.y;
-        q.z = dir.z * v3 + p.z;
+        q.x = (hulk_freg)dir.x * v3 + p.x;  // the product stays in st (D80)
+        q.y = (hulk_freg)dir.y * v3 + p.y;
+        q.z = (hulk_freg)dir.z * v3 + p.z;
         if (!em->v14(&dir, &q, t))
             break;
         n++;

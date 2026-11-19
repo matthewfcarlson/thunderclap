@@ -162,7 +162,7 @@ extern "C" void __cdecl FUN_00220790(LuaVMFuncState* fs) {
 
 
 // 0x002207c0 FUN_002207c0 (78 B): equivalent/0x002207c0.cpp
-// sym: _FUN_002207c0 @54e4abe18ba4 @we5e39e96fd1f
+// sym: _FUN_002207c0 @3729e7215dd0 @w560ce684fbc8 @vd0c0dbb09d07
 // STATUS: equivalent (tools/equiv.py level 3: 50 inputs, branch coverage 7/8, incomplete)
 // luaK_concat: append the jump list l2 to the list *l1.
 // equiv-conv: FUN_002204e0 eax ecx ebx
@@ -179,9 +179,10 @@ extern "C" void __cdecl FUN_002207c0(LuaVMFuncState* fs, int* l1, int l2) {
         int offset = ((code[list] >> 6) & 0x3ffff) - 0x1ffff;
         if (offset == -1)
             break;
-        list += offset + 1;
-        if (list == -1)
+        int next = list + offset + 1;
+        if (next == -1)
             break;
+        list = next;
     }
     FUN_002204e0(l2, list, fs);
     volatile int barrier = 0;

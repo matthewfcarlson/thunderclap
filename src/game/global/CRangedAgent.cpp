@@ -613,7 +613,7 @@ CRangedAgent::CRangedAgent(hulk_intptr arg) : CCharacterAgent_1076f0(arg)
 namespace fn_f4a19da2 {
 
 // 0x00107760 FUN_00107760 (1319 B): equivalent/0x00107760.cpp
-// sym: ?FUN_00107760@Brain_107760@fn_f4a19da2@@QAEDPAXPAUCtx_107760@2@PAUV3_107760@2@2@Z @82874273cd98 @wa0e934ed0efc
+// sym: ?FUN_00107760@Brain_107760@fn_f4a19da2@@QAEDPAXPAUCtx_107760@2@PAUV3_107760@2@2@Z @4295074971f4 @w91c89ce9cd8e @v5ed4401cffdd
 // STATUS: equivalent (tools/equiv.py level 3: 20012 inputs, branch coverage 22/22)
 // FUN_00107760 @ 0x00107760
 char Brain_107760::FUN_00107760(void *a0, Ctx_107760 *a1, V3_107760 *outB, V3_107760 *outA)
@@ -672,7 +672,8 @@ char Brain_107760::FUN_00107760(void *a0, Ctx_107760 *a1, V3_107760 *outB, V3_10
         hulk_freg A = f.dir.x * f.f;
         vz[1] = f.dir.y * f.f;
         vz[2] = f.dir.z * f.f;
-        outA->z = vz[2] + f.P.z;
+        vz[2] = vz[2] + f.P.z;
+        outA->iz = *(volatile int *)&vz[2];
         outA->x = A + f.P.x;
         outA->y = vz[1] + f.P.y;
     } else {
@@ -680,7 +681,8 @@ char Brain_107760::FUN_00107760(void *a0, Ctx_107760 *a1, V3_107760 *outB, V3_10
         hulk_freg A = f.n3.x * f.f;
         vz[1] = f.n3.y * f.f;
         vz[2] = f.n3.z * f.f;
-        outA->z = f.P.z - vz[2];
+        vz[2] = f.P.z - vz[2];
+        outA->iz = *(volatile int *)&vz[2];
         outA->x = f.P.x - A;
         outA->y = f.P.y - vz[1];
     }

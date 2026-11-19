@@ -1,14 +1,11 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
-// (gx1) /GX until 0x00148f40 is re-proven: its MSVC code changes with /GX- (equiv.py 3,000 inputs: promotable,
-// job 79886) but its --wine run fails under the current checker as it does on HEAD (job 79910)
 // object 0x00146900..0x0014c470 (kind game, layer game, confidence high), dominant class hulkfight::motion::GrappleThrowAction
 // (tree_prelude.h: not needed)
 #include "compat/ptr.h"
 
 
 // 0x00148f40 hulkfight::motion::CivilianThrowAction::vfunc_3 (849 B): equivalent/0x00148f40.cpp [isolated: conflict: World; on include/gen/ and not mergeable]
-// sym: ?vfunc_3@CivilianThrowAction@motion@hulkfight@@UAE_NHH@Z @454c5b3e34e4 @w0e6074cd9b08
+// sym: ?vfunc_3@CivilianThrowAction@motion@hulkfight@@UAE_NHH@Z @a11375cec944 @wba3e57756b0f @v353c7dd8c3a2
 // STATUS: equivalent (tools/equiv.py level 3: 3021 inputs, branch coverage 18/18)
 // hulkfight::motion::CivilianThrowAction::vfunc_3 @ 0x00148f40
 // hulkfight::motion::CivilianThrowAction::vfunc_3 @ 0x00148f40
@@ -71,6 +68,7 @@ struct Hit {
     Ref *r84;               // 0x84
     float f88;
     float f8c;
+    char pad90[8];          // flags 0x90/0x91 (FUN_00059510) and 0x94: the original frame gives the record 0x98
     Hit *FUN_00059820();
     void FUN_00059300();
 };

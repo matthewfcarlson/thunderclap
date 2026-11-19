@@ -156,7 +156,7 @@ pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
 
 
 // 0x000e8cf0 FUN_000e8cf0 (389 B): equivalent/0x000e8cf0.cpp [wrapped: conflict: FEControl; FEObject; VScroll]
-// sym: ?FUN_000e8cf0@VScroll@fn_000e8cf0@@QAEXHH@Z @36418bc99efb @w1bbe3e08ad8c
+// sym: ?FUN_000e8cf0@VScroll@fn_000e8cf0@@QAEXHH@Z @36418bc99efb @w73de4f50b254 @v880a12602eab
 namespace fn_000e8cf0 {
 // STATUS: equivalent (tools/equiv.py level 3: 82 inputs, branch coverage 31/34, incomplete)
 // FUN_000e8cf0 @ 0x000e8cf0
@@ -171,7 +171,7 @@ public:
     virtual void w1();
     virtual void w2();
     virtual void w3();
-    virtual bool w4(int a, int b, int c, int d);
+    virtual unsigned char w4(int a, int b, int c, int d);  // the caller tests the whole al byte (D112)
 };
 
 class FEControl : public FEObject {

@@ -341,16 +341,6 @@
    },
    "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
   },
-  "0x000e8cf0": {
-   "modes": {
-    "wine": {
-     "code": "1bbe3e08ad8c",
-     "accepted": "2026-11-18T23:06:13",
-     "by": "unproven-seed"
-    }
-   },
-   "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
-  },
   "0x000e98d0": {
    "modes": {
     "wine": {
@@ -456,21 +446,6 @@
    },
    "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
   },
-  "0x00107760": {
-   "modes": {
-    "msvc": {
-     "code": "82874273cd98",
-     "accepted": "2026-11-18T23:06:13",
-     "by": "unproven-seed"
-    },
-    "wine": {
-     "code": "a0e934ed0efc",
-     "accepted": "2026-11-18T23:06:13",
-     "by": "unproven-seed"
-    }
-   },
-   "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
-  },
   "0x0010a040": {
    "modes": {
     "wine": {
@@ -521,16 +496,6 @@
    },
    "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
   },
-  "0x00148f40": {
-   "modes": {
-    "wine": {
-     "code": "0e6074cd9b08",
-     "accepted": "2026-11-18T23:06:13",
-     "by": "unproven-seed"
-    }
-   },
-   "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
-  },
   "0x0015f6b0": {
    "modes": {
     "wine": {
@@ -555,16 +520,6 @@
    "modes": {
     "wine": {
      "code": "d3c7ebca4f7c",
-     "accepted": "2026-11-18T23:06:13",
-     "by": "unproven-seed"
-    }
-   },
-   "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
-  },
-  "0x001c82c0": {
-   "modes": {
-    "wine": {
-     "code": "336bcddbb6a4",
      "accepted": "2026-11-18T23:06:13",
      "by": "unproven-seed"
     }
@@ -781,16 +736,6 @@
    },
    "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
   },
-  "0x00201e00": {
-   "modes": {
-    "wine": {
-     "code": "f264358287c1",
-     "accepted": "2026-11-18T23:06:13",
-     "by": "unproven-seed"
-    }
-   },
-   "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
-  },
   "0x00203a80": {
    "modes": {
     "wine": {
@@ -815,21 +760,6 @@
    "modes": {
     "wine": {
      "code": "2c4989b03fb8",
-     "accepted": "2026-11-18T23:06:13",
-     "by": "unproven-seed"
-    }
-   },
-   "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
-  },
-  "0x002134a0": {
-   "modes": {
-    "msvc": {
-     "code": "16f55e234ec0",
-     "accepted": "2026-11-18T23:06:13",
-     "by": "unproven-seed"
-    },
-    "wine": {
-     "code": "e24af1af666d",
      "accepted": "2026-11-18T23:06:13",
      "by": "unproven-seed"
     }
@@ -875,41 +805,6 @@
    "modes": {
     "wine": {
      "code": "a5e4f8bec4cc",
-     "accepted": "2026-11-18T23:06:13",
-     "by": "unproven-seed"
-    }
-   },
-   "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
-  },
-  "0x0021f8c0": {
-   "modes": {
-    "wine": {
-     "code": "ae7d514e902a",
-     "accepted": "2026-11-18T23:06:13",
-     "by": "unproven-seed"
-    }
-   },
-   "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
-  },
-  "0x0021fe20": {
-   "modes": {
-    "wine": {
-     "code": "a43647f8e247",
-     "accepted": "2026-11-18T23:06:13",
-     "by": "unproven-seed"
-    }
-   },
-   "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
-  },
-  "0x002207c0": {
-   "modes": {
-    "msvc": {
-     "code": "54e4abe18ba4",
-     "accepted": "2026-11-18T23:06:13",
-     "by": "unproven-seed"
-    },
-    "wine": {
-     "code": "e5e39e96fd1f",
      "accepted": "2026-11-18T23:06:13",
      "by": "unproven-seed"
     }
@@ -1121,21 +1016,6 @@
    },
    "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
   },
-  "0x00281fd0": {
-   "modes": {
-    "msvc": {
-     "code": "ec7f61190b41",
-     "accepted": "2026-11-18T23:06:13",
-     "by": "unproven-seed"
-    },
-    "wine": {
-     "code": "89afb069baf9",
-     "accepted": "2026-11-18T23:06:13",
-     "by": "unproven-seed"
-    }
-   },
-   "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
-  },
   "0x00282d00": {
    "modes": {
     "wine": {
@@ -1240,16 +1120,6 @@
    "modes": {
     "wine": {
      "code": "21b5b194f296",
-     "accepted": "2026-11-18T23:06:13",
-     "by": "unproven-seed"
-    }
-   },
-   "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
-  },
-  "0x002b2040": {
-   "modes": {
-    "wine": {
-     "code": "3628c9192c4f",
      "accepted": "2026-11-18T23:06:13",
      "by": "unproven-seed"
     }
@@ -1391,26 +1261,6 @@
    },
    "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
   },
-  "0x002d21c0": {
-   "modes": {
-    "wine": {
-     "code": "a2c98d23b6a1",
-     "accepted": "2026-11-18T23:06:13",
-     "by": "unproven-seed"
-    }
-   },
-   "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
-  },
-  "0x002d5a70": {
-   "modes": {
-    "wine": {
-     "code": "935532213907",
-     "accepted": "2026-11-18T23:06:13",
-     "by": "unproven-seed"
-    }
-   },
-   "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
-  },
   "0x002de250": {
    "modes": {
     "wine": {
@@ -1500,16 +1350,6 @@
     },
     "wine": {
      "code": "5db5e4e46da3",
-     "accepted": "2026-11-18T23:06:13",
-     "by": "unproven-seed"
-    }
-   },
-   "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
-  },
-  "0x002eea80": {
-   "modes": {
-    "msvc": {
-     "code": "aac6fd504437",
      "accepted": "2026-11-18T23:06:13",
      "by": "unproven-seed"
     }
@@ -1647,5 +1487,5 @@
    "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
   }
  },
- "total": 183
+ "total": 165
 }

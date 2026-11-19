@@ -95,7 +95,7 @@ void __cdecl FUN_0021f800(LuaVMLoadState* S, const char* fmt, ...) {
 
 
 // 0x0021f8c0 FUN_0021f8c0 (125 B): equivalent/0x0021f8c0.cpp
-// sym: _FUN_0021f8c0 @82aeebd749dc @wae7d514e902a
+// sym: _FUN_0021f8c0 @82aeebd749dc @w541d5a654446 @v96a177ec04f5
 // STATUS: equivalent (tools/equiv.py level 3: 92 inputs, branch coverage 12/12)
 // LoadBlock: read size bytes into b, reversed when the chunk's byte order differs.
 // equiv-conv: FUN_0021f800 esi stack
@@ -109,9 +109,12 @@ extern "C" void __cdecl FUN_0021f8c0(char* b, unsigned int size, LuaVMLoadState*
     char* dst = b + size - 1;
     for (; size != 0; size--) {
         int c;
-        if (S->Z->n-- > 0)
-            c = *(const unsigned char*)S->Z->p++;
-        else
+        if (S->Z->n-- > 0) {
+            LuaVMZio* z = S->Z;
+            const unsigned char* p = (const unsigned char*)z->p;
+            c = *p;  // the byte before the pointer store (a fuzzed p may point at z->p)
+            z->p = (const char*)(p + 1);
+        } else
             c = FUN_0021a550(S->Z);
         if (c == -1)
             FUN_0021f800(S, "unexpected end of file");
@@ -310,7 +313,7 @@ extern "C" void __cdecl FUN_0021fd10(LuaVMLoadState* S, LuaVMProto* f) {
 
 
 // 0x0021fe20 FUN_0021fe20 (553 B): equivalent/0x0021fe20.cpp
-// sym: _FUN_0021fe20 @c3542f93bebe @wa43647f8e247
+// sym: _FUN_0021fe20 @c3542f93bebe @w84eb4186dfa2 @vd357a8b5260b
 // STATUS: equivalent (tools/equiv.py level 3: 122 inputs, branch coverage 34/34)
 // LoadConstants (nil, number, string constants), then the nested functions.
 // equiv-conv: FUN_0021f800 esi stack
@@ -341,9 +344,11 @@ extern "C" void __cdecl FUN_0021fe20(LuaVMLoadState* S, LuaVMProto* f) {
         z->n = left - 1;
         z = S->Z;
         int c;
-        if (left != 0)
-            c = *(const unsigned char*)z->p++;
-        else
+        if (left != 0) {
+            const unsigned char* p = (const unsigned char*)z->p;
+            c = *p;  // the byte before the pointer store (a fuzzed p may point at z->p)
+            z->p = (const char*)(p + 1);
+        } else
             c = FUN_0021a550(z);
         if (c == -1)
             FUN_0021f800(S, "unexpected end of file");

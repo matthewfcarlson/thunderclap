@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// clang-flags: -fexceptions -fcxx-exceptions   (gx2, D22: kept until its --wine proof passes again; docs/native-build.md "gx2")
 // object 0x001c7e90..0x001c96e0 (kind game, layer game, confidence high), dominant class Render::LevelLoader
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -652,7 +651,7 @@ void Target_1c8250::FUN_001c8250()
 } // namespace fn_f9d12736
 
 // 0x001c82c0 FUN_001c82c0 (533 B): equivalent/0x001c82c0.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?FUN_001c82c0@Renderer_1c82c0@fn_001c82c0@@QAEXPAUScene_1c82c0@2@PAUView@2@H@Z @6851a96601f2 @w336bcddbb6a4
+// sym: ?FUN_001c82c0@Renderer_1c82c0@fn_001c82c0@@QAEXPAUScene_1c82c0@2@PAUView@2@H@Z @6851a96601f2 @wbb905f878198 @vc0980d1ac4ea
 namespace fn_001c82c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20039 inputs, branch coverage 20/22, incomplete)
 // FUN_001c82c0 @ 0x001c82c0
@@ -793,7 +792,7 @@ void Renderer_1c82c0::FUN_001c82c0(Scene_1c82c0 *scene, View *view, int unused)
         double tb = t * view->scale;
         double base = (double)((light->color >> 16) & 0xff) * 1.0;
         int c0 = (int)base;
-        int c1 = (int)((255 - c0) * tb + c0);
+        int c1 = (int)(__int64)((255 - c0) * tb + c0);  // __ftol's 64-bit result, low word (a large scale overflows int)
         unsigned color = (((0xffffff00u | c1) << 8) | c1) << 8 | c1;
 
         host->inner.FUN_002a31d0();

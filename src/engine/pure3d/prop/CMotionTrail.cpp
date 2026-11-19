@@ -2266,7 +2266,7 @@ void __cdecl FUN_00281e60(const Plane_281e60* planes, const Vtx_281e60* tri, Vtx
 
 
 // 0x00281fd0 FUN_00281fd0 (367 B): equivalent/0x00281fd0.cpp
-// sym: ?FUN_00281fd0@fn_f4890d4c@@YAXPAUCtx_281fd0@1@PAUV2_281fd0@1@PAUXform_281fd0@1@HPAPAUTri_281fd0@1@PAUVtx_281fd0@1@@Z @ec7f61190b41 @w89afb069baf9
+// sym: ?FUN_00281fd0@fn_f4890d4c@@YAXPAUCtx_281fd0@1@PAUV2_281fd0@1@PAUXform_281fd0@1@HPAPAUTri_281fd0@1@PAUVtx_281fd0@1@@Z @56d9b6beb913 @w11376cc2ed95 @v07c23bebafd4
 // STATUS: equivalent (tools/equiv.py level 3: 55 inputs, branch coverage 8/8)
 // FUN_00281fd0 @ 0x00281fd0
 void FUN_00281fd0(Ctx_281fd0* ctx, V2_281fd0* scale, Xform_281fd0* xf, int n, Tri_281fd0** items, Vtx_281fd0* out)
@@ -2274,10 +2274,14 @@ void FUN_00281fd0(Ctx_281fd0* ctx, V2_281fd0* scale, Xform_281fd0* xf, int n, Tr
     for (; n > 0; n--, items++) {
         V3_281fd0 tmp;
         V3_281fd0* r = ctx->FUN_002f3830(&tmp, *items);
+        // r's three words are read before any store (a fuzzed out may overlap the callee's result)
+        float rx = r->x;
+        float ry = r->y;
+        float rz = r->z;
         V3_281fd0 off;
-        off.x = r->x * 0.1f;
-        off.y = r->y * 0.1f;
-        off.z = r->z * 0.1f;
+        off.x = rx * 0.1f;
+        off.y = ry * 0.1f;
+        off.z = rz * 0.1f;
         for (int j = 0; j < 3; j++) {
             V3_281fd0 p;
             V3_281fd0 q;
@@ -2295,8 +2299,11 @@ void FUN_00281fd0(Ctx_281fd0* ctx, V2_281fd0* scale, Xform_281fd0* xf, int n, Tr
                 color = 0xffff00ff;
             }
             out->color = color;
-            out->u = q.x / scale->x + 0.5f;
-            out->v = q.y / scale->y + 0.5f;
+            // both quotients before either store, v first (out may overlap scale)
+            hulk_freg v = q.y / scale->y + 0.5f;
+            hulk_freg u = q.x / scale->x + 0.5f;
+            out->u = u;
+            out->v = v;
             out++;
         }
     }
