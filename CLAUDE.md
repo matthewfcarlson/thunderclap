@@ -76,7 +76,8 @@ address, and 64-bit-only thunks call their targets by the targets' own names (D3
 `regress.py --jobq` ships every dirty file (read a failure's cause before blaming your own change) and submits 2-slot
 jobs, which starve behind low-priority 1-slot work.
 An interactive zsh does not word-split `$VAR`: build `jobq.py submit --files $F` lists inside `sh` scripts (an unsplit
-list fails remotely as `ssh/remote exit 1` showing the file list).
+list fails remotely as `ssh/remote exit 1` showing the file list). A queue job's `sh -c` command calls
+`build/venv/bin/python`: bare `python` exits 127 on the hosts.
 Large additions to a header most TUs reach (records.h, owners.h) can change MSVC 7.1's code in TUs that don't use them:
 run the whole-tree check before building on them, or put new records in a header only their TUs include (D74, D77).
 A records.h, owners.h or include/gen edit has not landed until a whole-tree `tree_tu.py verify . --relocs` (queue job, all
