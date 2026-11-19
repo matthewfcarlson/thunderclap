@@ -146,6 +146,11 @@ Wine map: an older map reports renamed definitions as unbound (script1).
   `verify ... --x64` (or `x64_gate.py check`) before committing source or header changes; only changed blocks run (queue
   past 4). Drop fixed blocks with `--update-baseline`; add one only by `x64_gate.py accept ADDR --why TEXT`. Other
   classes (int, untyped, wild64, ...) are reported, not failing.
+- **Unproven-code gate** (D126): materialize refuses an equivalent block whose (mode, code hash) has no promotable ledger
+  line unless `config/unproven-baseline.json` lists exactly that hash. The list only shrinks (`hash --proven` removes
+  entries); never hand-edit it, add only with `tree_tu.py unproven-accept ADDR --modes M --why TEXT`. verify and
+  materialize report its size as `unproven_baseline`. Cross-TU declaration / allocation / free-name report:
+  `tools/xtu_check.py run --jobq`, then `report build/xtu/facts` (report-only; build/xtu/summary.json).
 - **Verify jobs ship what they check.** `jobq.py` refuses a `tree_tu.py verify|check` / `x64_gate.py check` job whose
   TUs, reachable headers or read config files have unshipped local edits; ship them (`--dirty`; `--files config/data.json`,
   which `--dirty` skips at >8 MB) or pass `--head-only` to check the commit on purpose. `verify` also runs
