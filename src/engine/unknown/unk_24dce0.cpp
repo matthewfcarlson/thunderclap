@@ -231,7 +231,7 @@ class __declspec(novtable) AttribBase {
     virtual void v4();
     virtual void v5();
     char pad04[0x18];
-    void FUN_0025fba0(const void* reg, const char* name, int offset);
+    void FUN_0025fba0(const void* reg, const char* name, hulk_intptr offset);   // (decl1) passes as defined
     AttribBase(const void* reg, const char* name, int offset) { FUN_0025fba0(reg, name, offset); }
 };
 template <class T> class MetaTypeAttribScalar : public AttribBase {

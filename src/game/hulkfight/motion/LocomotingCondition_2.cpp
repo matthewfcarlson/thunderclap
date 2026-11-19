@@ -44,7 +44,7 @@ class Factory_164db0 : public Entity_164db0 {
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 class Init_164db0 {
   public:
-    void InitIt_00234590(int);
+    void InitIt_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 extern int hulk_at_00416494;
 struct ConditionFactoryTemplate_164de0 {

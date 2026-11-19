@@ -96,7 +96,7 @@ class Helper_2df210 {
 };
 class Helper_2df220 {
   public:
-    void run_002b46c0(int, int);
+    void run_002b46c0(int, hulk_intptr);   // (decl1) passes as defined
 };
 class Helper_2df230 {
   public:
@@ -104,7 +104,7 @@ class Helper_2df230 {
 };
 class Inner_2df240 {
   public:
-    void Fnf_002b57d0(int);
+    void Fnf_002b57d0(hulk_intptr);   // (decl1) passes as defined
 };
 class ShadowSkin_2df250 {
     char pad[0x48];
@@ -121,7 +121,7 @@ class Helper_2df290 {
 };
 class Helper_2df2a0 {
   public:
-    void run_002b46c0(int, int);
+    void run_002b46c0(int, hulk_intptr);   // (decl1) passes as defined
 };
 class Helper_2df2b0 {
   public:
@@ -482,7 +482,7 @@ struct ShadowSkin {
     char pad[0x48];
     struct Link {
         struct Value {
-            void FUN_002b57a0(int);
+            void FUN_002b57a0(hulk_intptr);   // (decl1) passes as defined
         }* value;
     }* link;
     void vfunc_10(int);

@@ -39,7 +39,7 @@ class CAxisArcCondition_56be0 {
     virtual void f4();
     virtual void f5();
     char pad[0x1c];
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 extern int hulk_at_003f9028;
 struct ConditionFactoryTemplate_56c30 {

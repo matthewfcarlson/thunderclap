@@ -11,7 +11,7 @@ namespace fn_f975d6ff {} using namespace fn_f975d6ff;
 // ---- declarations shared by the functions below
 namespace fn_f975d6ff {
 struct Helper1_1727f0 {
-    int Fnf_000592a0();
+    hulk_intptr Fnf_000592a0();   // (decl1) passes as defined
 };
 struct Helper2_1727f0 {
     int Fnf_00059a30();

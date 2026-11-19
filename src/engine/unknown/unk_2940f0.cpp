@@ -35,7 +35,7 @@ struct Buf_294500 {
     char pad[12];
 };
 struct Sub_294500 {
-    unsigned int getval_0028faa0();
+    hulk_uintptr getval_0028faa0();   // (decl1) passes as defined
 };
 struct Mgr_294500 {
     Sub_294500* sub;

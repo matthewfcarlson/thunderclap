@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x000d6f00..0x000d7010 (kind game, layer game, confidence low)
 #include "tree_prelude.h"
+#include "compat/ptr.h"
 #include "gen/owners.h"
 #define TREE_TU_BEGIN namespace fn_ff8b4e88 {
 #define TREE_TU_END }
@@ -14,7 +15,7 @@ namespace fn_ff8b4e88 {
 struct B_d6f10 {
 };
 struct C_d6f10 {
-    void Fny_000cb870(int);
+    void Fny_000cb870(hulk_intptr);   // (decl1) passes as defined
 };
 struct A_d6f10 {
     int pad;

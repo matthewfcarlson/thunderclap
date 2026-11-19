@@ -36,7 +36,7 @@ class SetupObj_525e0 {
 };
 struct CIsGrappledCondition_52620 {
     virtual ~CIsGrappledCondition_52620();
-    void init_00234590(int);
+    void init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 } // namespace fn_f3c7b72f
 void* operator new(size_t);

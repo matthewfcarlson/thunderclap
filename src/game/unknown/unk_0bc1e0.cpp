@@ -124,7 +124,7 @@ struct Mgr_bc4d0 {
     void Ff_002665a0();
 };
 struct Dev_bc4d0 {
-    void Fg_00294980(int);
+    void Fg_00294980(hulk_intptr);   // (decl1) passes as defined
 };
 struct Main_bc4d0 {
     char pad0[0x10];

@@ -39,7 +39,7 @@ struct CAxisDoubleTapCondition_56d50 {
     int x2;
     int x3;
     int x4;
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 extern int hulk_at_003f9060;
 struct ConditionFactoryTemplate_56da0 {

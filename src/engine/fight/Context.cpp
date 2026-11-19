@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x002366e0..0x00236940 (kind game, layer engine, confidence medium), dominant class fight::Context
 #include "tree_prelude.h"
+#include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
 #include "decls/table_cursor.h"
@@ -58,7 +59,7 @@ class Helper_236790 {
 
   public:
     Helper_236790(void*);
-    int Run_00231180(int, int);
+    hulk_intptr Run_00231180(int, int);   // (decl1) passes as defined
 };
 class Source_2367c0 {
   public:
@@ -81,7 +82,7 @@ struct Inner_2367f0 {};
 struct Tmp_2367f0 {
     char pad[0x18];
     Tmp_2367f0(Inner_2367f0*);
-    int Fnf_00231180(int, int);
+    hulk_intptr Fnf_00231180(int, int);   // (decl1) passes as defined
 };
 struct Obj_2367f0 {
     char pad[0x38];

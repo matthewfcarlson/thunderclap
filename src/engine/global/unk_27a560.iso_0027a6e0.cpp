@@ -17,12 +17,12 @@ extern "C" void __cdecl FUN_0008d330(void* p);
 
 struct Cursor_27a6e0 {
     int a, b;
-    void FUN_0027b0e0(int pos);
+    void FUN_0027b0e0(hulk_intptr pos);   // (decl1) passes as defined
     void FUN_0027af50();
 };
 class Reader {
   public:
-    Reader* FUN_0027ab90(int arg);
+    Reader* FUN_0027ab90(hulk_intptr arg);   // (decl1) passes as defined
     bool FUN_0027ac30(int* pos);
     void FUN_0027aec0();
 };

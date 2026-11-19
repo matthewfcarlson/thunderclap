@@ -41,7 +41,7 @@ class TrackFactoryTemplate_1a0cf0 {
 extern "C" char DAT_0041b248[];
 class Item_1a0d30 {
   public:
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 extern int hulk_at_0041c1e0;
 struct ConditionFactoryTemplate_1a0d60 {
@@ -67,7 +67,7 @@ class Prop_1a0dd0 {
     char pad[4];
     int mC;
     unsigned char m10;
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 extern int hulk_at_0041c1fc;
 struct ConditionFactoryTemplate_1a0e10 {

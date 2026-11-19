@@ -316,7 +316,7 @@ public:
 struct Lookup_b77c0 {
     char data[0x24];
     void FUN_000f8500(int key, int language, int flag);
-    const unsigned short *FUN_000f83f0(int language, int flag);
+    const unsigned short * FUN_000f83f0(hulk_intptr language, hulk_intptr flag);   // (decl1) passes as defined
 };
 Settings_b77c0 *__cdecl FUN_000fc3d0();
 extern "C" int __cdecl FUN_00294b80(const unsigned short *s);

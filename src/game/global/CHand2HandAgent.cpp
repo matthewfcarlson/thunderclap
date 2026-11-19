@@ -31,12 +31,12 @@ class Obj_ff260 {
 struct Status_ff2d0 {
     char pad[0x3a0];
     float value;
-    int FUN_000446c0(int);
+    hulk_intptr FUN_000446c0(int);   // (decl1) passes as defined
 };
 struct Actor_ff2d0 {
     char pad[0x11c];
     Status_ff2d0* status;
-    int FUN_00035ef0(int);
+    hulk_intptr FUN_00035ef0(hulk_intptr);   // (decl1) passes as defined
 };
 struct Context {
     virtual void slot0();
@@ -177,7 +177,7 @@ class CHand2HandAgent : public CCharacterAgent_ff650 {
     void go();
     void cleanup_000fc630();
     void vfunc_9();
-    float FUN_000fc4e0(int, int);
+    float FUN_000fc4e0(hulk_intptr, int);   // (decl1) passes as defined
     void vfunc_16();
 };
 union FloatBits_101fe0 {

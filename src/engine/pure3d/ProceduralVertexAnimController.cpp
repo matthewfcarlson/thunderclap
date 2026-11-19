@@ -238,7 +238,7 @@ class SimpleFrameController {
     virtual void f21();
     virtual void f22();
     virtual void f23();
-    virtual void vfunc_24(int, int, int);
+    virtual void vfunc_24(hulk_intptr, int, int);   // (decl1) passes as defined
 };
 struct VertexAnimData {
     char pad0[0x1c];

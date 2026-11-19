@@ -52,7 +52,7 @@ struct Obj_2286b0 {
     unsigned int value;
     Vec3_2286b0 Get();
 };
-float __cdecl Calc_00224f10(int x);
+float __cdecl Calc_00224f10(hulk_intptr x);   // (decl1) passes as defined
 struct V3_228720 {
     float x, y, z;
 };

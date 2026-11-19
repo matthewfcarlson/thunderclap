@@ -42,7 +42,7 @@ class Cond_59140 {
     int a, b, c;
     Sub_59140 s;
     int pad;
-    void Initialize_00234590(int);
+    void Initialize_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 extern int hulk_at_003f97f0;
 struct ConditionFactoryTemplate_59180 {

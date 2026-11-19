@@ -64,7 +64,7 @@ class ParticleGenerator : public Entity_2d20a0 {
 extern "C" char DAT_0042f0a8[];
 class Entry_2d2130 {
   public:
-    int Find_00288960(int, int);
+    hulk_intptr Find_00288960(int, int);   // (decl1) passes as defined
 };
 class GeneratorBlendState {
   public:
@@ -92,7 +92,7 @@ class ParticleGenerator_2d2510 {
 };
 class Chunk {
   public:
-    int Find_00288960(int a, int b);
+    hulk_intptr Find_00288960(int a, int b);   // (decl1) passes as defined
 };
 HULK_REFCOUNT_PACK   // (x64t7) pure3d::NonCopyable's stand-in: 12 bytes natively (compat/ptr.h)
 class NonCopyable_2d2570 {
@@ -195,7 +195,7 @@ class ParticleGenerator_2d2b90 {
 extern "C" char DAT_00444152[];
 struct Owner_2d2bd0 {
     int pad;
-    int Find_00288960(int, int);
+    hulk_intptr Find_00288960(int, int);   // (decl1) passes as defined
 };
 extern int hulk_at_0042f0c8;
 struct GeneratorBlendState_2d2bd0 {

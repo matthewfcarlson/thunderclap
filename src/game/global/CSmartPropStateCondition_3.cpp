@@ -41,7 +41,7 @@ class Factory_58950 {
 };
 class Init_58950 {
   public:
-    void InitFn_00234590(int);
+    void InitFn_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 extern int hulk_at_003f9674;

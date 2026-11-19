@@ -35,7 +35,7 @@ class Sink_1825f0 {
   public:
     char pad[0x20];
     void* ptr;
-    void send_00029c00(int);
+    void send_00029c00(hulk_intptr);   // (decl1) passes as defined
 };
 extern Sink_1825f0* hulk_at_004dd700;
 class End_1825f0 {

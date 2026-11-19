@@ -31,7 +31,7 @@ extern "C" void FUN_000539a0();
 extern "C" char DAT_003f7130[];
 class Condition_58ab0 {
   public:
-    void init_00234590(int);
+    void init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 class CSmartPropWeaponizableTypeCondition_58ab0 {
   public:

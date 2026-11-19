@@ -12,7 +12,7 @@
 class GrappleHealthCondition_16dc70 {
   public:
     GrappleHealthCondition_16dc70();
-    void Init_00234590(int x);
+    void Init_00234590(hulk_intptr x);   // (decl1) passes as defined
     virtual void f0() {}
     virtual void f1() {}
     virtual void f2() {}

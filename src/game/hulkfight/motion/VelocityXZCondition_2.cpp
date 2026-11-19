@@ -34,7 +34,7 @@ struct Obj_16dfc0 {
     int b;
     int c;
     int d;
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 extern "C" Obj_16dfc0* __cdecl FUN_0008d690(unsigned int);
 extern int hulk_at_0041770c;

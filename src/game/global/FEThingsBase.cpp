@@ -352,7 +352,7 @@ class Owner {
 };
 class Probe_e5f70 {
   public:
-    short* Find_000f83f0(int, int);
+    short* Find_000f83f0(hulk_intptr, hulk_intptr);   // (decl1) passes as defined
 };
 class Item_e5f70 {
     char pad[0x14];
@@ -821,7 +821,7 @@ class Callback_e7b90 {
 class Manager_e7b90 {
   public:
     bool IsActive_000f9e90();
-    int GetValueBits_000faeb0();
+    hulk_intptr GetValueBits_000faeb0();   // (decl1) passes as defined
     bool CheckFlag_000f9ef0();
     void Action1_000f9f30();
     int Action2();
@@ -835,7 +835,7 @@ class Callback_e7c30 {
 class Manager_e7c30 {
   public:
     bool IsActive_000f9e90();
-    int GetValueBits_000faeb0();
+    hulk_intptr GetValueBits_000faeb0();   // (decl1) passes as defined
     bool CheckFlag_000f9ef0();
     void Action1_000f9f30();
     int Action2();
@@ -845,7 +845,7 @@ class Manager_e7c30 {
 class Arg_e7cd0 {
   public:
     char F90_000f9e90();
-    unsigned int FAB_000faeb0();
+    hulk_uintptr FAB_000faeb0();   // (decl1) passes as defined
     char FEF_000f9ef0();
     void F30_000f9f30();
     char F50_000f9e50();

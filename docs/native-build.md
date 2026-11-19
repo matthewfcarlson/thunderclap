@@ -6000,3 +6000,18 @@ and the native unbound counts are in the commit message.
   ReleaseThing) and FUN_0026fd50's C++ spelling is gone. No new unbound name.
 - x64 gate: aaa0a1573 had 3 NEW blocks, fixed in db5209d1d (gate of the fix: ok). 0x0008c470 stays a baseline block
   (now crash64 where it was layout): the stubbed thunk calls scribble the slot pointer they are handed.
+
+## decl1 (2026-11-18): int parameters the definition passes as pointers (batch 2a)
+
+build/decl1/scripts/gen_sig.py: a caller's declaration that passes or returns a 32-bit int where the definition at the
+original call target passes a pointer or pointer-sized integer (native IR signatures from the compile's sidecars) is
+retyped to `hulk_intptr` / `hulk_uintptr` / `hulk_longptr` (the same 32-bit type, so MSVC's code and names don't
+change), when the whole signature then agrees.
+
+- Batch 2a: 118 TUs, 163 references (140 parameters, 42 results). MSVC: all matches blocks MATCH with relocations ok,
+  equivalent blocks unchanged. x64 gate ok. Wine: control 91814 / proof 91841 (studio): GATE ok.
+- Native mac, on the proof's binding map: unbound 11385 -> 11227 (168 names gone; 10 "new" names are respellings of
+  names without an address that were unbound before and after).
+- Left: 224 references whose signatures differ in other ways (a definition taking an int where callers pass a
+  pointer: the def-side class, defside.txt; bool / char results; float / int), 123 member / free or argument-count
+  differences, 120 C names (gen_decl's).

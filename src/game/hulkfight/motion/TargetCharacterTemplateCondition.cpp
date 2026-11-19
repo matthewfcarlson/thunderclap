@@ -32,7 +32,7 @@ extern "C" char DAT_00416878[];
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 class TargetCharacterTemplateCondition_16dd20 {
   public:
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
     int a;
     int b;
     int c;

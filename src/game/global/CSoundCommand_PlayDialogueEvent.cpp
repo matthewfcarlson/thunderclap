@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x001ef4f0..0x001ef530 (kind game, layer game, confidence medium), dominant class CSoundCommand_PlayDialogueEvent
 #include "tree_prelude.h"
+#include "compat/ptr.h"
 #include "decls/data/game/unknown.h"
 #include "gen/global.h"
 #define TREE_TU_BEGIN namespace fn_f7a186ee {
@@ -11,7 +12,7 @@ namespace fn_f7a186ee {} using namespace fn_f7a186ee;
 // ---- declarations shared by the functions below
 namespace fn_f7a186ee {
 struct Lookup {
-    int FUN_001e98b0(int*);
+    hulk_intptr FUN_001e98b0(int*);   // (decl1) passes as defined
 };
 struct Player {
     void FUN_001f3c00(int, int*, int, int, int, unsigned char);

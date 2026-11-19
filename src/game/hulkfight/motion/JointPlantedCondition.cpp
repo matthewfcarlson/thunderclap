@@ -29,7 +29,7 @@ class TrackFactoryTemplate_164f70 {
 extern "C" void FUN_00161c10();
 extern "C" char DAT_00415970[];
 struct InitBase_164fb0 {
-    void init_00234590(int);
+    void init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 struct Sub_164fb0 {
     void setup_0027af00();

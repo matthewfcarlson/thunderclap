@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x000934d0..0x00093570 (kind game, layer game, confidence medium), dominant class CUnlockableJumpMarker
 #include "tree_prelude.h"
+#include "compat/ptr.h"
 #include "decls/unlockables.h"
 #define TREE_TU_BEGIN namespace fn_f6003de1 {
 #define TREE_TU_END }
@@ -47,7 +48,7 @@ class CUnlockableMove : public CUnlockableMove_934d0 {
   public:
     CUnlockableMove(int x);
     virtual void g();
-    void Init_00091fe0(int x);
+    void Init_00091fe0(hulk_intptr x);   // (decl1) passes as defined
     char pad1c[4];
     char flag20;
     char pad21[3];

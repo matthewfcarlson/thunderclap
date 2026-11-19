@@ -41,7 +41,7 @@ class Obj_15a5e0 {
 extern "C" void* __cdecl alloc(hulk_uintptr);
 class Temp_15a5e0 {
   public:
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 class Tail_15a5e0 {
   public:

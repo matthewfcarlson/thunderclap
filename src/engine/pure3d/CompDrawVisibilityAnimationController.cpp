@@ -160,7 +160,7 @@ class SimpleFrameController {
     virtual void f21();
     virtual void f22();
     virtual void f23();
-    virtual void vfunc_24(int, int, int);
+    virtual void vfunc_24(hulk_intptr, int, int);   // (decl1) passes as defined
 };
 class CompDrawVisibilityAnimationController : public SimpleFrameController {
   public:
@@ -257,7 +257,7 @@ class SimpleFrameController {
     virtual void f21();
     virtual void f22();
     virtual void f23();
-    virtual void vfunc_24(int, int, int);
+    virtual void vfunc_24(hulk_intptr, int, int);   // (decl1) passes as defined
     virtual void f25();
     char pad[0x38];
 };

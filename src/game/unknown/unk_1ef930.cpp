@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x001ef930..0x001efb80 (kind game, layer game, confidence low)
 #include "tree_prelude.h"
+#include "compat/ptr.h"
 #include "gen/global.h"
 #include "gen/owners.h"
 #define TREE_TU_BEGIN namespace fn_f158e6c4 {
@@ -66,7 +67,7 @@ namespace fn_001ef930 {
 class Helper_1ef930 {
   public:
     void FnA_0027af00();
-    void FnB_0027b040(int);
+    void FnB_0027b040(hulk_intptr);   // (decl1) passes as defined
     char pad[8];
     float x;
     int y;

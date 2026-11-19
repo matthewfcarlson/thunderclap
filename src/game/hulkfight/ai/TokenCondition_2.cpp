@@ -32,7 +32,7 @@ extern "C" char DAT_0040db44[];
 typedef unsigned int u32_114710;
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 struct InitObj_114710 {
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 extern int hulk_at_0040e94c;
 struct ConditionFactoryTemplate_114740 {

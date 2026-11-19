@@ -28,7 +28,7 @@ class Obj_1aabf0 {
     virtual void d();
     virtual void e();
     virtual void f();
-    void init_00234590(int);
+    void init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 class Sub_1aabf0 {
   public:

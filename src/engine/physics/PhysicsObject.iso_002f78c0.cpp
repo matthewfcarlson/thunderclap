@@ -9,7 +9,7 @@
 #include "gen/physics.h"
 
 struct PhysicsObject_2f78c0 {
-    int call_002f5480();
+    hulk_intptr call_002f5480();   // (decl1) passes as defined
 };
 struct PhysicsObject_nv_2f78c0 {
     void work_002f75d0(hulk_intptr, int);

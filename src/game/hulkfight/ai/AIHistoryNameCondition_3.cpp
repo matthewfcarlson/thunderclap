@@ -37,7 +37,7 @@ class Condition_113f80 {
     virtual void d();
     virtual void e();
     virtual void f();
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
     int x;
     int y;
     int z;

@@ -30,7 +30,7 @@ extern "C" void FUN_001876f0();
 extern "C" char DAT_0041914c[];
 class SmartPropGrabbableCondition {
   public:
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
     void* vf;
     char pad0[0xc - 4];
     unsigned char b0c;

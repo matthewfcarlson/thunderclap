@@ -15,7 +15,7 @@ namespace fn_fdd8b6eb {
 extern int* hulk_at_004dcff8;
 class Other_6ae00 {
   public:
-    int call_00020ad0(hulk_intptr, int);
+    hulk_intptr call_00020ad0(hulk_intptr, int);   // (decl1) passes as defined
 };
 extern "C" Other_6ae00* __cdecl FUN_0008d690(int);
 

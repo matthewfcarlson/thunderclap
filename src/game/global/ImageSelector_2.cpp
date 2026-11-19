@@ -54,7 +54,7 @@ class ImageSelector_ee000 {
 };
 struct ImageSelector_nv_ee180 {
 };
-extern void FUN_000c8710(void*, int);
+extern void FUN_000c8710(void*, hulk_intptr);   // (decl1) passes as defined
 void* thunk_FUN_0008d690(unsigned int size);
 struct Vec3_ee340 {
     float x;

@@ -31,7 +31,7 @@ extern "C" char DAT_0040fe74[];
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 class Init_12a980 {
   public:
-    void Start_00234590(int);
+    void Start_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 struct Obj_12a980 {
     hulk_uintptr vt;

@@ -24,7 +24,7 @@ struct Owner_1c5ae0 {
     void Run(hulk_intptr x);
 };
 struct Inner_1c5b00 {
-    int Helper_001c75e0(int);
+    hulk_intptr Helper_001c75e0(hulk_intptr);   // (decl1) passes as defined
 };
 struct Outer_1c5b00 {
     char pad[0x128];
@@ -37,7 +37,7 @@ struct Part_1c5b10 {
 };
 struct Sub_1c5b10 {
     U_1c5b10 f75e0_001c75e0(U_1c5b10);
-    void f7550_001c7550(U_1c5b10);
+    void f7550_001c7550(hulk_uintptr);   // (decl1) passes as defined
 };
 extern void __cdecl thunk_0008d330(U_1c5b10);
 class ObjectManager_1c5b50 : public CAction {
@@ -78,11 +78,11 @@ class Provider_1c5c20 {
 };
 class Builder {
   public:
-    void* Create_001c4eb0(int, int);
+    void* Create_001c4eb0(hulk_intptr, hulk_intptr);   // (decl1) passes as defined
 };
 class Result_1c5c20 {
   public:
-    void Finish_001c5050(int);
+    void Finish_001c5050(hulk_intptr);   // (decl1) passes as defined
 };
 class Owner_1c5c20 {
   public:
@@ -117,7 +117,7 @@ class Obj_1c5cf0 {
     virtual void B();
 };
 struct ThisCall_0027af30 {
-    void Init_0027af30(int);
+    void Init_0027af30(hulk_intptr);   // (decl1) passes as defined
 };
 class Thing_1c5cf0 {
   public:

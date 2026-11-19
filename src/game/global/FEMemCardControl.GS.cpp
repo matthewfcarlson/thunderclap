@@ -688,8 +688,8 @@ unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash wit
 char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
 
 struct Locale {
-    int FUN_000f7d30(const char* key);
-    const char* FUN_000f7220(int id);
+    hulk_intptr FUN_000f7d30(const char* key);   // (decl1) passes as defined
+    const char* FUN_000f7220(hulk_intptr id);   // (decl1) passes as defined
 };
 
 struct TextOwner {
@@ -845,8 +845,8 @@ unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash wit
 char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
 
 struct Locale {
-    int FUN_000f7d30(const char* key);
-    const char* FUN_000f7220(int id);
+    hulk_intptr FUN_000f7d30(const char* key);   // (decl1) passes as defined
+    const char* FUN_000f7220(hulk_intptr id);   // (decl1) passes as defined
 };
 
 struct TextOwner {
@@ -1816,8 +1816,8 @@ unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash wit
 char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
 
 struct Locale {
-    int FUN_000f7d30(const char* key);
-    const char* FUN_000f7220(int id);
+    hulk_intptr FUN_000f7d30(const char* key);   // (decl1) passes as defined
+    const char* FUN_000f7220(hulk_intptr id);   // (decl1) passes as defined
 };
 
 struct TextOwner {
@@ -1869,7 +1869,7 @@ struct TextOwner {
 };
 
 struct Widget_da230 {
-    int FUN_000f83f0(Locale* loc, int arg);
+    hulk_intptr FUN_000f83f0(Locale* loc, hulk_intptr arg);   // (decl1) passes as defined
     char pad[0x38];
 };
 

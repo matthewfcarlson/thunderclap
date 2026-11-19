@@ -198,7 +198,7 @@ class Obj_221ee0 {
 class Obj2_221f70 {
   public:
     char pad[0x40];
-    void callee1_0022b4d0(int, int);
+    void callee1_0022b4d0(hulk_intptr, hulk_intptr);   // (decl1) passes as defined
 };
 struct MatrixData_221f90 {
     float matrix[4][4];

@@ -34,7 +34,7 @@ extern "C" void* __cdecl FUN_0008d690(unsigned int);
 struct CCollisionDirectionCondition_57750 {
     hulk_uintptr vptr;
     u32_57750 pad4, pad8, fieldC, field10;
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 extern int hulk_at_003f934c;
 struct ConditionFactoryTemplate_57790 {

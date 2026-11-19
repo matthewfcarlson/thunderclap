@@ -41,7 +41,7 @@ class Condition_18bbb0 {
     char pad[8];
     int fieldC;
     u8 flag10;
-    void init_00234590(int);
+    void init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 extern int hulk_at_0041a748;
 struct ConditionFactoryTemplate_18bbf0 {

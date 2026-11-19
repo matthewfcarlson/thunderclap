@@ -34,7 +34,7 @@ extern "C" void* __cdecl FUN_0008d690(unsigned int);
 struct CPropActorStateCondition_58600 {
     virtual void v0();
     U_58600 x[4];
-    void setup_00234590(int);
+    void setup_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 extern int hulk_at_003f95e8;
 struct ConditionFactoryTemplate_58640 {

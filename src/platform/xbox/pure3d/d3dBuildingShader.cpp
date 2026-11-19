@@ -134,7 +134,7 @@ class d3dBuildingShader_332800 {
     char pad[0x80 - 4];
     int a, b, c;
     unsigned char d;
-    void BaseCtor(int);
+    void BaseCtor(hulk_intptr);   // (decl1) passes as defined
     d3dBuildingShader_332800* Target(int);
 };
 class Ref_332840 {

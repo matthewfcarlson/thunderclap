@@ -31,7 +31,7 @@ extern "C" void FUN_000548b0();
 extern "C" char DAT_003f7550[];
 class CMotionClimbAngleCondition_583f0 {
   public:
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
     int w[6];
 };
 extern int hulk_at_003f9594;

@@ -10,7 +10,7 @@
 #include "gen/global.h"
 
 struct CSmartPropDropAction_nv_62af0 {
-    int invoke_0001f360(CSmartPropDropTrack*, hulk_intptr);
+    hulk_intptr invoke_0001f360(CSmartPropDropTrack*, hulk_intptr);   // (decl1) passes as defined
 };
 extern CSmartPropDropAction* FUN_0008d690(int);
 

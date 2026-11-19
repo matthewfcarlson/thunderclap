@@ -32,7 +32,7 @@ extern "C" void FUN_000568e0();
 extern "C" char DAT_003f7328[];
 extern "C" void* __cdecl Alloc(hulk_uintptr);
 struct Obj_58cc0 {
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 struct Sub_58cc0 {
     void Init_0027af00();

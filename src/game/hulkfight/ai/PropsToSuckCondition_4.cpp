@@ -28,7 +28,7 @@ class TrackFactoryTemplate_114560 {
 };
 extern "C" void FUN_001123a0();
 struct PropsToSuckCondition {
-    void InitBase_00234590(int flag);
+    void InitBase_00234590(hulk_intptr flag);   // (decl1) passes as defined
     char pad[0xc];
     int m_c;
     float m_f;

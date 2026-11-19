@@ -14,7 +14,7 @@ namespace fn_fd85930d {} using namespace fn_fd85930d;
 namespace fn_fd85930d {
 class Other_6aaf0 {
   public:
-    int call_00020120(hulk_intptr, int);
+    hulk_intptr call_00020120(hulk_intptr, int);   // (decl1) passes as defined
 };
 extern "C" Other_6aaf0* __cdecl FUN_0008d690(int);
 

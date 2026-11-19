@@ -41,7 +41,7 @@ struct NotCondition_23d0e0 {
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 struct Helper_23d0e0 {
-    void Fnf_00234590(int);
+    void Fnf_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 extern void* hulk_at_00428a7c[];
 class ConditionFactory_23d110 {
@@ -66,7 +66,7 @@ extern "C" void* __cdecl alloc(hulk_uintptr);
 extern "C" char DAT_00428a44[];
 typedef unsigned int u32_23d180;
 struct Init_23d180 {
-    void init_00234590(int);
+    void init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 extern void* hulk_at_00428a98[];
 class ConditionFactory_23d1b0 {

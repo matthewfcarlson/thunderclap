@@ -622,7 +622,7 @@ public:
     void Update(Arg1_3d350 *a1, float a2);
 };
 struct Receiver_3dc40 {
-    void FUN_002226e0(unsigned int);
+    void FUN_002226e0(hulk_uintptr);   // (decl1) passes as defined
 };
 struct Source_3dc40 {
     Receiver_3dc40* FUN_00059a40();
@@ -665,7 +665,7 @@ struct CCharacter_3dc40 {
     unsigned int cached;
     char pad4[0x2194];
     unsigned char flag;
-    void FUN_0003ba60(unsigned int, unsigned int);
+    void FUN_0003ba60(hulk_uintptr, unsigned int);   // (decl1) passes as defined
     void FUN_000365f0(unsigned int, unsigned int);
     void FUN_00035160(Matrix*);
     void FUN_0003dc40(unsigned int, unsigned int);

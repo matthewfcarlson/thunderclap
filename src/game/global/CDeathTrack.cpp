@@ -32,7 +32,7 @@ class CTrack_6ae80 {
 };
 class Helper_6aec0 {
   public:
-    int go_00020b50(hulk_intptr);
+    hulk_intptr go_00020b50(hulk_intptr);   // (decl1) passes as defined
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 

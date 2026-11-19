@@ -32,7 +32,7 @@ typedef unsigned int u32_12a620;
 extern "C" void* FUN_0008d690(unsigned int);
 class InitBase_12a620 {
   public:
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 struct TargetDistanceYCondition_12a620 : InitBase_12a620 {
     hulk_uintptr vptr;

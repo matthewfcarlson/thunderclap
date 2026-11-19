@@ -74,7 +74,7 @@ struct CButtonCondition {
     int x04, x08, x0c, x10, x14;
 };
 struct ThisCall_00234590 {
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 extern char hulk_at_003f6dc0;
 CButtonCondition* __fastcall FUN_00048480(CButtonCondition* self) {

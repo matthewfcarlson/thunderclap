@@ -32,7 +32,7 @@ extern "C" char DAT_0040fdb4[];
 extern "C" void* __cdecl FUN_0008d690(int);
 class Target_12a570 {
   public:
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 extern int hulk_at_004109c0;
 struct ConditionFactoryTemplate_12a5b0 {

@@ -152,7 +152,7 @@ struct Target_2fd690 {
     void Init(unsigned int arg);
 };
 struct Temp {
-    unsigned int FUN_0030f100();
+    hulk_uintptr FUN_0030f100();   // (decl1) passes as defined
 };
 void __cdecl FUN_002ef760(void* output, unsigned int result, float scale, unsigned int value, void* data);
 extern "C" char DAT_004318f4[];
@@ -162,7 +162,7 @@ struct Base_2fd840 {
 };
 class Obj_2fd840 {
   public:
-    void cleanup_00312240(int);
+    void cleanup_00312240(hulk_intptr);   // (decl1) passes as defined
 };
 class SimStateArticulated_2fd840 {
   public:
@@ -891,7 +891,7 @@ class SimState {
     virtual void f();
     virtual void g();
     virtual void h();
-    virtual void vfunc_8(int, int, int);
+    virtual void vfunc_8(hulk_intptr, hulk_intptr, int);   // (decl1) passes as defined
     char pad[0x88];
 };
 struct Part_2fdda0 {

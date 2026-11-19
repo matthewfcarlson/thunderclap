@@ -96,7 +96,7 @@ struct Owner_ad4a0 {
 struct Item_ad580 {
     char pad[0x54];
     int id;
-    int Do_000b0810(int a, int b);
+    hulk_intptr Do_000b0810(int a, int b);   // (decl1) passes as defined
 };
 extern "C" hulk_intptr __cdecl FUN_000b08a0(int, int);   // (decl1) as defined (unk_0b0440.cpp)
 class Manager_ad580 {
@@ -112,7 +112,7 @@ class Item_ad7b0 {
 
   public:
     int key;
-    int action_000b0930(int a, int b);
+    hulk_intptr action_000b0930(int a, int b);   // (decl1) passes as defined
 };
 extern "C" hulk_intptr __cdecl FUN_000b09c0(int, hulk_intptr);   // (decl1) as defined (unk_0b0440.cpp)
 class Owner_ad7b0 {
@@ -128,7 +128,7 @@ class Item {
 
   public:
     int key;
-    bool Invoke_000b19e0(int a, int b, int c);
+    bool Invoke_000b19e0(int a, hulk_intptr b, int c);   // (decl1) passes as defined
 };
 class Obj {
     char pad[0x10];

@@ -71,7 +71,7 @@ struct CCharacterAgent_fcb10 {
     void InitBase(u32_fcb10);
 };
 struct CChaseAgent_nv_fcb10 {
-    void InitBase_000fc760(u32_fcb10);
+    void InitBase_000fc760(hulk_uintptr);   // (decl1) passes as defined
 };
 extern char hulk_at_0040d034;
 extern void* CCharacterAgent_fcb40_vftable[];

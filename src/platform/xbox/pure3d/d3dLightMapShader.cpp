@@ -150,7 +150,7 @@ void __fastcall D3DDevice_SetVertexShaderConstant1(int, const unsigned int*);
 }
 extern int vtable_32ba30;
 struct d3dLightMapShader_nv_32ba30 {
-    void Init(int);
+    void Init(hulk_intptr);   // (decl1) passes as defined
 };
 class Ref_32ba70 {
   public:

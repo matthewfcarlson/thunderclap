@@ -27,7 +27,7 @@ struct CTrack_69ff0 {
 };
 extern "C" void* __cdecl FUN_0008d690(int);
 struct Worker_6a010 {
-    int go_0001dbc0(unsigned int, unsigned int);
+    hulk_intptr go_0001dbc0(hulk_uintptr, unsigned int);   // (decl1) passes as defined
 };
 
 

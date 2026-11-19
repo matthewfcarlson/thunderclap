@@ -332,7 +332,7 @@ extern int __cdecl lookup_0008d690(int);
 extern void* __cdecl FUN_0008d690(unsigned int);
 class Helper_efe00 {
   public:
-    int call_000ecd70(int);
+    hulk_intptr call_000ecd70(int);   // (decl1) passes as defined
 };
 typedef unsigned int uint_efe20;
 extern void* __cdecl FUN_0008d690(uint_efe20);
@@ -343,11 +343,11 @@ class TextTable_efe20 {
 extern void* __cdecl allocThing_0008d690(unsigned int);
 class Thing_efe40 {
   public:
-    int init_000edf60(int);
+    hulk_intptr init_000edf60(int);   // (decl1) passes as defined
 };
 class Thing_efe60 {
   public:
-    int init_000e9ec0(int);
+    hulk_intptr init_000e9ec0(int);   // (decl1) passes as defined
 };
 extern void* __cdecl alloc_0008d690(int);
 extern void* __cdecl GetThing_0008d690(int);
@@ -736,7 +736,7 @@ Item_eeba0* FEContainer::Target(Item_eeba0* a, Item_eeba0* id) {
 namespace fn_000eec20 {
 class Obj_eec20 {
   public:
-    void Use_000e3ac0(int);
+    void Use_000e3ac0(hulk_intptr);   // (decl1) passes as defined
 };
 class Child_eec20 {
   public:
@@ -864,7 +864,7 @@ int FEContainer::vfunc_26(int a, int b) {
 namespace fn_000eec80 {
 class Obj_eec80 {
   public:
-    void apply_000e3c70(int);
+    void apply_000e3c70(hulk_intptr);   // (decl1) passes as defined
 };
 class Child_eec80 {
   public:
@@ -923,7 +923,7 @@ class Child_eec80 {
     virtual void c52();
     virtual void c53();
     virtual Obj_eec80* get(int);
-    int fallback_000e7520(int);
+    hulk_intptr fallback_000e7520(int);   // (decl1) passes as defined
 };
 class FEContainer {
   public:
@@ -1286,7 +1286,7 @@ Item_eed40* FEContainer::v29(const char* a1, const char* a2)
 namespace fn_000eedb0 {
 class FEObj {
   public:
-    void Fn_000e2ec0(int);
+    void Fn_000e2ec0(hulk_intptr);   // (decl1) passes as defined
 };
 class FEChild_eedb0 {
   public:
@@ -1348,7 +1348,7 @@ class FEChild_eedb0 {
     virtual void f55();
     virtual void f56();
     virtual FEObj* f57(int);
-    int Fng_000e7460(int);
+    hulk_intptr Fng_000e7460(hulk_intptr);   // (decl1) passes as defined
 };
 class FEContainer {
   public:
@@ -1434,7 +1434,7 @@ class Widget {
             V(37) V(38) V(39) V(40) V(41) V(42) V(43) V(44) V(45) V(46) V(47) V(48) V(49) V(50) V(51) V(52)
                 V(53) V(54) V(55) V(56) V(57) virtual int get(int);
     int Fnh_000e75a0(int);
-    void h2_000ebe00(int);
+    void h2_000ebe00(hulk_intptr);   // (decl1) passes as defined
 };
 class FEContainer {
   public:
@@ -1468,7 +1468,7 @@ int FEContainer::f30(int b, int a) {
 namespace fn_000eee70 {
 class Item {
   public:
-    void Add_000ebe00(int);
+    void Add_000ebe00(hulk_intptr);   // (decl1) passes as defined
 };
 class Provider {
   public:

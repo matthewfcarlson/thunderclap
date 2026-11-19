@@ -67,11 +67,11 @@ extern void __fastcall FUN_000dd970(void*);
 extern void thunk_FUN_00267090(CCollisionAction*);
 typedef unsigned int u32_fc100;
 struct Obj_fc100 {
-    void F5_000f5fa0(u32_fc100, u32_fc100);
+    void F5_000f5fa0(hulk_uintptr, u32_fc100);   // (decl1) passes as defined
     void F0_000f0b30(u32_fc100);
 };
 struct Obj_fc130 {
-    void Fnf_000f0b90(unsigned int);
+    void Fnf_000f0b90(hulk_uintptr);   // (decl1) passes as defined
 };
 class C_fc150 {
   public:
@@ -122,7 +122,7 @@ struct Obj_fc220 {
     Inner_fc220* field;
 };
 struct Obj_fc260 {
-    int Fnf_000e7260(unsigned int);
+    int Fnf_000e7260(hulk_uintptr);   // (decl1) passes as defined
 };
 struct Global_fc280 {
     virtual void f0();

@@ -32,7 +32,7 @@ extern "C" char DAT_004166b8[];
 extern "C" void* alloc(hulk_uintptr);
 class Condition {
   public:
-    void init_00234590(int);
+    void init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 class Template_16d4f0 {
   public:

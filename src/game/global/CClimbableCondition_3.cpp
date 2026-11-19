@@ -31,7 +31,7 @@ extern "C" void FUN_00054160();
 class CClimbableCondition_575f0 {
   public:
     hulk_intptr vt;
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
     int a;
     int b;
     int c;

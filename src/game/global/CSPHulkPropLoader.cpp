@@ -183,7 +183,7 @@ class A_1d6270 {
     virtual unsigned int f11();
 };
 struct B_1d6270 {
-    void FUN_001c5010(unsigned int);
+    void FUN_001c5010(hulk_uintptr);   // (decl1) passes as defined
 };
 struct Obj_1d6270 {
     char pad[0x9c];

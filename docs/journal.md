@@ -1472,3 +1472,22 @@ blocks fight::Action's whole family: the records come first there.
   noted for 0x000b86b0 under data3). With this commit's records.h, 0x002e9c60 is back at its proven code; the other
   three are re-proven on MSVC at 3,000 (their clang code is unchanged). A records.h edit needs the whole-tree verify
   before landing.
+
+## 2026-11-18 decl1: int parameters the definition passes as pointers (batch 2)
+
+- **Native signatures per call site.** build/decl1/scripts/sigcmp.py compares, for each matched block's call (callee
+  by the original's target), the native IR signature of the caller's reference with the definition's (the native
+  compile's `.sig.json` sidecars). At HEAD e28b9f41b: 11,826 sites agree, 1,744 differ only by an ignored result, and
+  the rest differ: int / int64 (pointer) arguments 1,217, argument count 272, result i32 / i64 169, float / int 113,
+  i32 / i8 99, bool / int and bool / char ~170.
+- **The int / pointer case is MSVC-neutral.** Where the caller passes a 32-bit int and the definition a pointer or
+  pointer-sized integer, the caller's type becomes the pointer-sized integer of the same 32-bit type (`int` ->
+  `hulk_intptr`, `unsigned` -> `hulk_uintptr`, `long` -> `hulk_longptr`): MSVC's code and mangled names stay the same,
+  and natively the declaration passes 64 bits as the definition does. Call sites that cast a pointer to `(int)` still
+  truncate it natively (the native compile's `64bit-pointer-int-cast` diagnostics list them).
+- **Only rewrite when the whole signature then agrees.** A first pass also retyped references whose signatures differ
+  elsewhere too (a definition that takes an int where the caller passes a pointer, a bool / char result): their names
+  changed spelling and stayed unbound (52 "new" unbound names that were old ones respelled). gen_sig now rewrites a
+  reference only when, after the fix, it passes exactly as the definition does.
+- Names that carry no address (`Init`, `BaseCtor`, `vfunc_24` of a local stand-in) don't bind natively either way; the
+  pass respells 10 of them (old spelling unbound, new spelling unbound).

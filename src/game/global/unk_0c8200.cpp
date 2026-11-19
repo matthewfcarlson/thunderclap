@@ -112,7 +112,7 @@ struct Triple_c93e0 {
 struct Key {
     int a, b, c;
     ~Key();
-    int FUN_0027b0e0(int index);
+    hulk_intptr FUN_0027b0e0(hulk_intptr index);   // (decl1) passes as defined
 };
 class Host_c93e0 {
 public:

@@ -37,7 +37,7 @@ struct CCollisionInterruptCondition_57960 {
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 struct Initializer_57960 {
-    void init_00234590(int);
+    void init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 extern int hulk_at_003f93a0;
 struct ConditionFactoryTemplate_57990 {

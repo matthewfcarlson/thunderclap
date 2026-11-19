@@ -38,7 +38,7 @@ class TargetingCondition_16d9c0 {
     virtual void d();
     virtual void e();
     virtual void f();
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
     char pad[12];
     char flag;
 };

@@ -41,7 +41,7 @@ class Condition_113d90 {
 };
 class Base_113d90 {
   public:
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 extern int hulk_at_0040e7c4;
 struct ConditionFactoryTemplate_113dd0 {

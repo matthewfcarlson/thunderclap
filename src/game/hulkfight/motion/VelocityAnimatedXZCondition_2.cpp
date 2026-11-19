@@ -35,7 +35,7 @@ class VelocityCondition_16d650 {
     char pad[8];
     int a;
     int b;
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 extern int hulk_at_00417584;
 struct ConditionFactoryTemplate_16d690 {

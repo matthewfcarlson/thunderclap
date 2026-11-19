@@ -32,7 +32,7 @@ struct Input_5b4f0 {
     ObjA_5b4f0* GetA_000592a0();
 };
 struct CIntangibleAction_nv_5b4f0 {
-    CIntangibleAction* Init_0001f560(int);
+    CIntangibleAction* Init_0001f560(hulk_intptr);   // (decl1) passes as defined
 };
 void* __cdecl FUN_0008d690(int);
 

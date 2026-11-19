@@ -40,7 +40,7 @@ class Obj_18bd00 {
     virtual void* f();
     char x[8];
     char flag;
-    void init_00234590(int);
+    void init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 extern int hulk_at_0041a780;
 struct ConditionFactoryTemplate_18bd30 {

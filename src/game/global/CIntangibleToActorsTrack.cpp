@@ -27,7 +27,7 @@ struct CTrack_6a260 {
 };
 class Helper_6a280 {
   public:
-    int go_0001f5d0(hulk_intptr);
+    hulk_intptr go_0001f5d0(hulk_intptr);   // (decl1) passes as defined
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 

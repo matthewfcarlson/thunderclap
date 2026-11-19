@@ -34,7 +34,7 @@ struct Turning {
     int y;
     int z;
     int w;
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 extern "C" void* __cdecl Alloc(hulk_uintptr);
 extern int hulk_at_00416738;

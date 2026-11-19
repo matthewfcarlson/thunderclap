@@ -638,7 +638,7 @@ struct MyFileStream {
 };
 class Stream {
   public:
-    bool Try_00337700(MyFileStream* s, int x);
+    bool Try_00337700(MyFileStream* s, hulk_intptr x);   // (decl1) passes as defined
     void Close_003375a0();
 };
 class Owner_1faf20 {

@@ -84,7 +84,7 @@ namespace fn_f2bbfa1e {
 class Impl_31b960 {
   public:
     Impl_31b960(int ctx);
-    void Setup(int a, int b, int c, int d, int e, int f);
+    void Setup(int a, int b, int c, int d, int e, hulk_intptr f);   // (decl1) passes as defined
     virtual void v0();
     virtual void v1();
     virtual int v2();

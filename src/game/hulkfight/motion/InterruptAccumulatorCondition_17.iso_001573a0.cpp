@@ -13,7 +13,7 @@ extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 #include "gen/hulkfight.h"
 
 struct HitThrowAction_nv_1573a0 {
-    int Init_00151f20(hulkfight::motion::HitThrowTrack*, hulk_intptr);
+    hulk_intptr Init_00151f20(hulkfight::motion::HitThrowTrack*, hulk_intptr);   // (decl1) passes as defined
 };
 extern int hulk_at_00494b44;
 extern int hulk_at_00494b60;

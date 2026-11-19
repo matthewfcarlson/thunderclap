@@ -12,7 +12,7 @@
 extern int hulk_at_00494b44;
 extern int hulk_at_00494b60;
 struct LocomotingAction_nv_1617c0 {
-    int Make_001606d0(void*);
+    hulk_intptr Make_001606d0(void*);   // (decl1) passes as defined
 };
 extern int __cdecl FUN_00344e74(void*, int, const void*, const void*, int);
 extern hulkfight::motion::LocomotingAction* __cdecl FUN_0008d690(unsigned int);

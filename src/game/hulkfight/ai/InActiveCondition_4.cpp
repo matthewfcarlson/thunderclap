@@ -33,7 +33,7 @@ class InActiveCondition_114440 {
     char pad4[8];
     int fieldC;
     char field10;
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 extern int hulk_at_0040dac4;

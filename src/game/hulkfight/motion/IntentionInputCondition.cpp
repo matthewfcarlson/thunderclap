@@ -31,7 +31,7 @@ typedef unsigned int u32_16d7b0;
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 struct IntentionInputCondition_16d7b0 {
     u8 pad[16];
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 extern u32_16d7b0 hulk_at_00416758;
 extern int hulk_at_004175bc;

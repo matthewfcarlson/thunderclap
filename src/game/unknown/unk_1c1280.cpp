@@ -13,7 +13,7 @@ namespace fn_f0dc78b5 {} using namespace fn_f0dc78b5;
 namespace fn_f0dc78b5 {
 class B_1c1280 {
   public:
-    void FnF_00293e60(int, int, int, int);
+    void FnF_00293e60(hulk_intptr, hulk_intptr, hulk_intptr, hulk_intptr);   // (decl1) passes as defined
 };
 class A_1c1280 {
   public:
@@ -142,7 +142,7 @@ class Outer_1c1310 {
 };
 class D {
   public:
-    void Fnf_0029bc80(int);
+    void Fnf_0029bc80(hulk_intptr);   // (decl1) passes as defined
 };
 class C_1c1330 {
   public:
@@ -151,7 +151,7 @@ class C_1c1330 {
     void g(int);
 };
 struct Child_1c1340 {
-    void First_0029bc80(int);
+    void First_0029bc80(hulk_intptr);   // (decl1) passes as defined
     void Second_0029bb60();
 };
 struct Thing_1c1340 {
@@ -171,7 +171,7 @@ class Thing_1c1370 {
 };
 class Manager_1c1370 {
   public:
-    void Prep_0029bc80(int);
+    void Prep_0029bc80(hulk_intptr);   // (decl1) passes as defined
 };
 class Obj_1c1370 {
   public:
@@ -181,7 +181,7 @@ class Obj_1c1370 {
     void Target(char flag);
 };
 struct Child_1c13d0 {
-    void First_0029bc80(int);
+    void First_0029bc80(hulk_intptr);   // (decl1) passes as defined
     void Second_0029bb60();
 };
 struct Thing_1c13d0 {

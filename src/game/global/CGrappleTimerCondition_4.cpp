@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x00058030..0x000580f0 (kind game, layer game, confidence high), dominant class CGrappleTimerCondition
 #include "tree_prelude.h"
+#include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
 #define TREE_TU_BEGIN namespace fn_fa6d491a {
@@ -38,7 +39,7 @@ class CGrappleTimerCondition {
     unsigned char flag; // +0x14
     int unk18;          // +0x18
 
-    void Ctor_00234590(int flags);
+    void Ctor_00234590(hulk_intptr flags);   // (decl1) passes as defined
 };
 namespace fn_fa6d491a {
 extern char hulk_at_003f7450[];

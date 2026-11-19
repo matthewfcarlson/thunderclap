@@ -31,7 +31,7 @@ extern "C" void FUN_00187a20();
 typedef unsigned int u32_18b9a0;
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 struct InitObj_18b9a0 {
-    void init_00234590(int);
+    void init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 extern int hulk_at_004191ec;
 extern int hulk_at_0041a6f4;

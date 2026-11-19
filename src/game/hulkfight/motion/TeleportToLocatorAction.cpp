@@ -29,7 +29,7 @@ class Locator {
 };
 class Helper_171d70 {
   public:
-    int invoke_0027b040(int);
+    hulk_intptr invoke_0027b040(hulk_intptr);   // (decl1) passes as defined
 };
 class TeleportToLocatorAction {
   public:

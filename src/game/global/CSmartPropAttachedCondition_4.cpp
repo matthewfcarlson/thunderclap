@@ -38,7 +38,7 @@ struct Condition_58800 {
     unsigned char padD[3];
     int value;
     int last;
-    void Initialize_00234590(int);
+    void Initialize_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 extern int hulk_at_003f963c;
 struct ConditionFactoryTemplate_58840 {

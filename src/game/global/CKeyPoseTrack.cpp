@@ -29,7 +29,7 @@ class CTrack_695b0 {
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 class Helper_69660 {
   public:
-    int FUN_0001d100(CKeyPoseTrack*, hulk_intptr);
+    hulk_intptr FUN_0001d100(CKeyPoseTrack*, hulk_intptr);   // (decl1) passes as defined
 };
 
 

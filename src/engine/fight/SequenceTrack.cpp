@@ -303,7 +303,7 @@ class ResultObj {
   public:
     virtual void vfunc_0();
     virtual void vfunc_1();
-    void init_00231ad0(int a, int b, int c);
+    void init_00231ad0(hulk_intptr a, hulk_intptr b, int c);   // (decl1) passes as defined
 };
 
 class Creator {

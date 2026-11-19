@@ -28,7 +28,7 @@ class Init2 {
 };
 struct CIsGrappledCondition_52580 {
     virtual ~CIsGrappledCondition_52580();
-    void init_00234590(int);
+    void init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 } // namespace fn_f886958e
 void* operator new(size_t);

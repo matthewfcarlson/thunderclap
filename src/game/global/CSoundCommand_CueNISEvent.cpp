@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x001ef660..0x001ef6b0 (kind game, layer game, confidence medium), dominant class CSoundCommand_CueNISEvent
 #include "tree_prelude.h"
+#include "compat/ptr.h"
 #include "decls/data/game/unknown.h"
 #include "gen/global.h"
 #define TREE_TU_BEGIN namespace fn_f34f5748 {
@@ -15,7 +16,7 @@ struct Global_1ef660 {
     void* b;
 };
 struct Resolver_1ef660 {
-    int Run_001e98b0(void*);
+    hulk_intptr Run_001e98b0(void*);   // (decl1) passes as defined
 };
 struct Player_1ef660 {
     void Run_001f56b0(int, void*);

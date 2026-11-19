@@ -40,7 +40,7 @@ struct Prop_183d30 {
 struct Mgr_183d30 {
     char p[0x128];
     Prop_183d30* dflt;
-    Prop_183d30* Get_00035ef0(int i);
+    Prop_183d30* Get_00035ef0(hulk_intptr i);   // (decl1) passes as defined
 };
 struct Info_183d30 {
     char p[0x10];

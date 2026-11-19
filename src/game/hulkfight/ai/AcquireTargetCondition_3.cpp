@@ -40,7 +40,7 @@ struct AcquireTargetCondition_12aae0 {
     float a;
     float b;
     u8 c;
-    void Initialize_00234590(int);
+    void Initialize_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 extern int hulk_at_00410aa0;

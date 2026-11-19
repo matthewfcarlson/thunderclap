@@ -89,7 +89,7 @@ class T_330d30 {
 typedef unsigned int u32_330d40;
 class d3dShader_330d40 {
   public:
-    void Init(u32_330d40);
+    void Init(hulk_uintptr);   // (decl1) passes as defined
 };
 extern int vtableSymbol;
 class d3dToonVertexShader_330d40 : public d3dShader_330d40 {
@@ -156,7 +156,7 @@ struct Obj_330de0 {
     virtual void Fn();
 };
 struct d3dTexture_nv_330de0 {
-    Obj_330de0* Build(int, int);
+    Obj_330de0* Build(hulk_intptr, hulk_intptr);   // (decl1) passes as defined
 };
 class d3dToonVertexShader_330de0 {
     char pad[0x10];

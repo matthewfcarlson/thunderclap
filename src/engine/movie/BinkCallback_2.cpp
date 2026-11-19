@@ -110,7 +110,7 @@ class Thing_336490 {
   public:
     int pad;
     Helper_336490* member;
-    void consume_00335480(int x, int b);
+    void consume_00335480(int x, hulk_intptr b);   // (decl1) passes as defined
     void combine(hulk_intptr a, hulk_intptr b);
 };
 class Helper_3364c0 {
@@ -121,7 +121,7 @@ class Thing_3364c0 {
   public:
     int pad;
     Helper_3364c0* member;
-    void consume_003354c0(int x, int b);
+    void consume_003354c0(int x, hulk_intptr b);   // (decl1) passes as defined
     void combine(hulk_intptr a, hulk_intptr b);
 };
 class Helper_3364f0 {
@@ -132,7 +132,7 @@ class Thing_3364f0 {
   public:
     int pad;
     Helper_3364f0* member;
-    void consume_00335500(int x, int b);
+    void consume_00335500(int x, hulk_intptr b);   // (decl1) passes as defined
     void combine(hulk_intptr a, hulk_intptr b);
 };
 class B_3365b0 {
@@ -164,7 +164,7 @@ class Thing_336690 {
   public:
     int pad;
     Helper_336690* member;
-    void consume_003358a0(int x, int b);
+    void consume_003358a0(int x, hulk_intptr b);   // (decl1) passes as defined
     void combine(hulk_intptr a, hulk_intptr b);
 };
 class D {

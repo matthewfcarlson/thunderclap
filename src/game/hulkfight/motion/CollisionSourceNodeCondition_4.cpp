@@ -45,7 +45,7 @@ class CollisionSourceNodeCondition {
     int fieldC;
     Sub_1597d0* unused;
     char p14[8];
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 extern int hulk_at_00415688;

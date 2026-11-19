@@ -36,7 +36,7 @@ class CCollisionPushbackDirectionCondition_57a00 {
     int pad8;
     int mA;
     int mB;
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 extern int hulk_at_003f93bc;

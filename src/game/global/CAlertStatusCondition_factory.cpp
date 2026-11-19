@@ -30,7 +30,7 @@ class TrackFactoryTemplate_56af0 {
 };
 extern "C" void* __cdecl Alloc(hulk_uintptr);
 struct InitObj_56b30 {
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 struct CAlertStatusCondition_56b30 {
     hulk_intptr a, b, c, d, e;

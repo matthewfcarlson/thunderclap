@@ -13,7 +13,7 @@ extern "C" char DAT_00411264[];   // (x64t7) the game vftables the TU's placehol
 
 extern void* __cdecl Alloc_0008d690(unsigned int);
 struct GameStateCondition_nv_1328a0 {
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 extern int AIHistoryNameCondition_vftable;
 

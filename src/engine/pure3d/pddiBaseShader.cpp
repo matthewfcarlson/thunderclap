@@ -305,7 +305,7 @@ class Obj {
 void* __cdecl FUN_0008d690(int n);
 class O {
   public:
-    int M(int a);
+    hulk_intptr M(int a);   // (decl1) passes as defined
 };
 class d3dLayeredLMapShader_327fb0 {
     // (x64t5) gen's pure3d::d3dLayeredLMapShader (0xa0 bytes on 32-bit, as the XBE allocates): the object its constructor writes, larger natively

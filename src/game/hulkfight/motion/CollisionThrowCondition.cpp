@@ -35,7 +35,7 @@ class CollisionThrowCondition_1590a0 {
     int a;
     int b;
     unsigned char flag;
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 extern int hulk_at_00415554;
 struct ConditionFactoryTemplate_1590d0 {

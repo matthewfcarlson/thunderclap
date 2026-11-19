@@ -184,8 +184,8 @@ void FUN_001aeae0();
 void FUN_001aea70();
 class T_1aecb0 {
   public:
-    void Reg_00230c30(Obj_1aecb0*, void (*)(), int);
-    int Make_00230be0(void (*)(), Src_1aecb0*);
+    void Reg_00230c30(Obj_1aecb0*, void (*)(), hulk_intptr);   // (decl1) passes as defined
+    hulk_intptr Make_00230be0(void (*)(), Src_1aecb0*);   // (decl1) passes as defined
     void Run(Out_1aecb0* out, Src_1aecb0* s);
 };
 
