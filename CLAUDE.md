@@ -128,7 +128,9 @@ native run needs the snapshot's report.json refreshed (TreeDefs binds vftable sl
 32-bit symbol table) and the new address names added to a private copy of the binding map (D117).
 The game's free calls are `operator delete(p)` / `operator delete[](p)`: 0x0008d330 / 0x0008d340 are their definitions
 (unk_08ceb0.cpp); MSVC 7.1 predeclares only the scalar form, so declare `void __cdecl operator delete[](void*)` at global
-scope. Never add a new name for the free (D115). A `??_G` written as an explicit function keeps `X::~X() {}` (other TUs'
+scope. Never add a new name for the free (D115). When the checker pairs an
+unaddressed operator name to the wrong call (`??_V` paired with 0x0008d6d0), add `// equiv-map: NAME = 0xADDR` to the block:
+a mapping hint, not a relaxation (nat2). A `??_G` written as an explicit function keeps `X::~X() {}` (other TUs'
 native code references `??1X`) and has `??_G`'s signature, `void* vfunc_N(unsigned int flags)` (D114).
 All declarations of one C name in a TU are one function: write one `extern "C"` declaration per callee per TU, and when
 an include/ header declares the name, use its prototype exactly (clang rejects a differing redeclaration natively even
