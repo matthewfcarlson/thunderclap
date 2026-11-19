@@ -50,6 +50,7 @@ import os
 import re
 import shutil
 import subprocess
+import threading
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -556,8 +557,11 @@ def compile_one(cfg, rel, digest, clang):
     os.makedirs(d, exist_ok=True)
     res_p = os.path.join(d, key + ".json")
     if os.path.exists(res_p):
-        r = json.load(open(res_p))
-        if not spec["obj"] or r["rc"] != 0 or os.path.exists(r["obj"]):
+        try:
+            r = json.load(open(res_p))
+        except (ValueError, OSError):      # a truncated entry (a writer killed mid-write) is a miss, not a failure
+            r = None
+        if r is not None and (not spec["obj"] or r["rc"] != 0 or os.path.exists(r["obj"])):
             return r
     obj = os.path.join(d, key + ".obj")
     cmd = [clang] + flags + ["-I" + os.path.join(base, "include"), "-I" + os.path.join(base, "repo-include"), src]
@@ -586,8 +590,10 @@ def compile_one(cfg, rel, digest, clang):
     r = {"tu": rel, "rc": rc, "diags": diags, "obj": obj if spec["obj"] and rc == 0 else None}
     if rc != 0 and not any(x[2] != "warning" for x in diags):
         r["raw"] = out[-2000:]
-    with open(res_p, "w") as f:
+    tmp_res = res_p + ".%d.%d.tmp" % (os.getpid(), threading.get_ident())   # atomic: hosts share this cache, and a killed job left empty entries
+    with open(tmp_res, "w") as f:
         json.dump(r, f)
+    os.replace(tmp_res, res_p)
     return r
 
 
