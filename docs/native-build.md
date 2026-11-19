@@ -6176,3 +6176,33 @@ Continues script1 (build/script2/RESUME.md).
   byte-matched: the View constructor 0x00294880. Native unbound / a native start-up run: not measured in this batch
   (the queue's full mac compile did not fit the session); the stops' private patches in build/find1 / build/find2 are
   what this replaces.
+
+## find3: macOS start-up from HEAD, stop by stop (2026-11-19)
+
+Native mac from HEAD (509f9aa2e; snapshot and map of lineage sweep2-p1, fix126's 13 TUs overlaid), headless with
+HULK_NATIVE_MISSING=continue. Unbound at HEAD: 10,406 (native_unbound classify: 6,217 address-in-name unverified,
+1,851 virtual members of stub classes, 888 stub constructors/destructors, 541 stub members, 338 invented variables).
+
+HEAD does not reach the World init: the stops past find2's B4 that start-up met in find1/find2's private kits are
+mostly landed (recs1 ec0e69d62, sweep2 1f5b80223 / 517c82262, decl1), but these remain, in order:
+
+1. **0x00321580 d3dContext::vfunc_12** (the render manager's first clear, 0x001bc0c0 from 0x00088020): the block's
+   own 32-bit pad view read `source` at gen's f_160 and `hasTarget` from another field (null slot-12 call). Fixed
+   (e1727e26b): the pads are the TU's HULK_D3DCTX_PAD; 32-bit code unchanged, x64 gate ok.
+2. **0x000ae620 thunk_FUN_000b10d0** (controller set-up, from 0x00088020): a 5-byte jmp listed "not yet verified" with
+   no definition; the caller's `extern "C" __fastcall thunk_FUN_000b10d0(void*)` bound nowhere, the controllers were
+   never set up and 0x000af110 called a null device. Fixed (d75194c1b): the thunk is a C fastcall block calling
+   0x000b10d0 (MATCH 5/5, relocs ok, x64 gate ok).
+3. **0x00088020 → 0x001eb220** (sound real-time manager constructor): the caller declares `C9::FUN_001eb220(void*,
+   void*, int)`, the definition takes `(hulk_uintptr, hulk_uintptr, unsigned char)`: unbound, f30 null. Patch sent to
+   decl1 (CTimeManager.GS.cpp has another lane's open edit): declare and pass as defined.
+4. **0x000c4ef0 → FEThings slot 46**: 0x000ddbf0 constructs FEThings as a block-local polymorphic class, so natively
+   the object carries clang's short vftable (slot 46 null) instead of the game's 0x0040bd24 (find1 F9c, still open):
+   recs1's FEThings record.
+5. **World init 0x00088670 → 0x001f6c30 → 0x00283900 → CDecalQueue 0x00280690 → d3dDevice::vfunc_10 0x0031b960**
+   (reached under lldb with private stand-ins for 3 and 4): `Alloc(hulk_uintptr)` is an invented C++ name for the
+   heap 0x0008d690 (missing), `Impl_31b960::Setup(int x5, hulk_intptr)` vs 0x00327860's `(int, unsigned, int, int,
+   int, const char*)` (missing), and the prim buffer 0x003277b0 keeps the context as `int` (m38) and reads it at the
+   raw 32-bit offset +0x154: a d3dPrimBuffer record cluster (unowned; next stop to fix).
+6. Headless (not under lldb) start-up instead dies in FUN_002672f0 via X::X (0x0027b0e0) with a sub-4 GB name pointer
+   after stop 4's stand-in: the stops differ with memory layout, as the lead saw; not yet traced.
