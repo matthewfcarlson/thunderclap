@@ -802,12 +802,18 @@ def run_blocks(items, mode="auto", jobs=2, name="x64gate", commit=None, workdir=
 # output (-S -emit-llvm) is swapped for -fsyntax-only. A TU is compiled as the native compile reads it from the
 # snapshot (materialize copies it verbatim): -I the tree's include/ (the snapshot's include/ and repo-include/).
 SYNTAX_TARGETS = ("macos-arm64", "linux-x64")
-SYNTAX_VER = "x64syn2"     # x64syn2: error keys carry the line (rev5 R1)
+SYNTAX_VER = "x64syn4"     # x64syn2: error keys carry the line (rev5 R1); x64syn3: linux-x64 emits IR, RTTI sites;
+# x64syn4: the complete object locators' descriptors too (rtti_cols)
 SYNTAX_ERRLINES = 4
+# (integ3, 9a) the linux-x64 run goes on to LLVM IR (still the front end only: no object), with line tables, so codegen
+# errors are seen too and the RTTI type descriptors the code references are read from it (rtti_sites)
+RTTI_TARGET = "linux-x64"
+SYNTAX_MODE = {"macos-arm64": ["-fsyntax-only"], "linux-x64": ["-S", "-emit-llvm", "-gline-tables-only"]}
 
 
 def native_front(target):
-    """(clang++ argv prefix, front-end flags) of TARGET's native compile, as -fsyntax-only."""
+    """(clang++ argv prefix, front-end flags) of TARGET's native compile, in SYNTAX_MODE[TARGET] (-fsyntax-only, or IR
+    for the RTTI scan)."""
     import clang_probe as cp
     if target == "macos-arm64":
         import native_mac
@@ -817,7 +823,7 @@ def native_front(target):
         cxx, front = list(native_elf.Toolchain(target).cxx), list(native_elf.flags(target)[0])
     else:
         raise ValueError(target)
-    front = [f for f in front if f not in ("-S", "-emit-llvm", "-c")] + cp.common_native() + ["-fsyntax-only"]
+    front = [f for f in front if f not in ("-S", "-emit-llvm", "-c")] + cp.common_native() + SYNTAX_MODE[target]
     return cxx, front
 
 
@@ -863,7 +869,8 @@ def _errors(stderr, root):
 
 def native_syntax(path, target):
     """{"rc", "errors": [first error lines], "keys", "n_errors"} of TARGET's native front end over the tree TU PATH,
-    or {"unavailable": why}. Cached by the TU's text and path, its include closure, the target's flags and the
+    or {"unavailable": why}; for RTTI_TARGET also "rtti": [[file, line, descriptor name]] (rtti_sites) when it
+    compiled. Cached by the TU's text and path, its include closure, the target's flags and the
     compiler's version line (a failure is cached too: it gives no credit)."""
     import include_keys
     import tree_tu
@@ -893,16 +900,33 @@ def native_syntax(path, target):
     # (the native compile's -I snap/include -I snap/repo-include: the first is materialize's copy of the tree's own
     # headers under include/, the second all of include/, so the one include/ resolves every name to the same file)
     cmd = tc["cxx"] + tc["front"] + ["-I" + inc, ap]
+    ll = None
+    if "-emit-llvm" in tc["front"]:
+        os.makedirs(os.path.join(CACHE, "tmp"), exist_ok=True)
+        fd, ll = tempfile.mkstemp(suffix=".ll", dir=os.path.join(CACHE, "tmp"))
+        os.close(fd)
+        cmd += ["-o", ll]
     try:
-        p = subprocess.run(cmd, capture_output=True, text=True, errors="replace", timeout=600, cwd=root)
-        rc, err = p.returncode, p.stderr
-    except subprocess.TimeoutExpired:
-        return {"rc": -1, "errors": ["timeout"], "keys": [["", 0, "timeout"]], "n_errors": 1}     # (not cached)
+        try:
+            p = subprocess.run(cmd, capture_output=True, text=True, errors="replace", timeout=600, cwd=root)
+            rc, err = p.returncode, p.stderr
+        except subprocess.TimeoutExpired:
+            return {"rc": -1, "errors": ["timeout"], "keys": [["", 0, "timeout"]], "n_errors": 1}     # (not cached)
+        sites = cols = None
+        if ll and rc == 0:
+            with open(ll, errors="replace") as f:
+                ir = f.read()
+            sites, cols = rtti_sites(ir, root), rtti_cols(ir)
+    finally:
+        if ll and os.path.exists(ll):
+            os.unlink(ll)
     lines, keys = _errors(err, root)
     if rc and not lines:        # (a driver error, a crash: the tail of the output)
         lines = (err.strip().splitlines() or ["exit %d" % rc])[-SYNTAX_ERRLINES:]
         keys = [["", 0, l] for l in lines]
     r = {"rc": rc, "errors": lines[:SYNTAX_ERRLINES], "keys": keys, "n_errors": len(lines)}
+    if sites is not None:
+        r["rtti"], r["rtti_col"] = sites, cols
     os.makedirs(os.path.dirname(cp_), exist_ok=True)
     with open(cp_ + ".%d.tmp" % os.getpid(), "w") as f:
         json.dump(r, f)
@@ -968,6 +992,301 @@ def syntax_rows(hroot, rels, rroot=None, jobs=2, targets=SYNTAX_TARGETS):
                     v = "known"
         rows.append({"tu": r, "target": t, "verdict": v, "errors": h["errors"], "n_errors": h["n_errors"],
                      "cached": bool(h.get("_cached"))})
+        if "rtti" in h:
+            rows[-1]["rtti"], rows[-1]["rtti_col"] = h["rtti"], h.get("rtti_col", [])
+    return rows
+
+
+# ------------------------------------------------------------------------------------------------------ RTTI names
+# (integ3, 9a; find2) A dynamic_cast or typeid compiles to a reference to a ??_R0 type descriptor. Natively the runtime
+# (src/platform/sdl/host/rtti_msabi.cpp) compares descriptors by name with the game's own RTTI: the decorated name,
+# then the name without the tree's fn_<8 hex> wrapping namespaces. A descriptor that is not the name of one of the
+# game's descriptors (a local stand-in `?AVX@fn_ADDR@@`, a Class_<addr> rename, another namespace) makes the cast fail
+# natively; the Wine link hides it (tools/wine_link.py native9/native12 redirect clang's ??_R0 onto the game's by leaf
+# name or with the address suffix dropped). Every descriptor a function body of a candidate TU references (the
+# linux-x64 IR) must be exact; the known ones are config/rtti-baseline.json, which only shrinks.
+RTTI_BASELINE = os.path.join(ROOT, "config/rtti-baseline.json")
+_R0_REF = re.compile(r'@"?\?\?_R0\.?(\?A[UVTW][^"\s,()]*?)@8"?(?=[\s,)])')
+_DBG = re.compile(r"!dbg !(\d+)\s*$")
+_MD = re.compile(r"^!(\d+) = (?:distinct )?(.*)$", re.M)
+
+
+def rtti_sites(ir, root):
+    """[[file relative to ROOT, line, descriptor name (`?AVX@ns@@`)]] of every ??_R0 reference in a function body of
+    the LLVM IR text IR (a dynamic_cast's source and target, a typeid(T)); the place comes from the instruction's
+    debug location (line tables), its scope's file."""
+    md = {int(m.group(1)): m.group(2) for m in _MD.finditer(ir)}
+
+    def field(t, k):
+        m = re.search(r"\b%s: (!\d+|\d+|\"(?:[^\"\\]|\\.)*\")" % k, t or "")
+        return m.group(1) if m else None
+
+    def filename(scope):
+        seen = 0
+        while scope and seen < 50:
+            t = md.get(int(scope[1:]), "")
+            f = field(t, "file")
+            if f and f.startswith("!"):
+                ft = md.get(int(f[1:]), "")
+                fn, dn = (field(ft, "filename") or '""')[1:-1], (field(ft, "directory") or '""')[1:-1]
+                p = fn if os.path.isabs(fn) else os.path.join(dn, fn)
+                p = os.path.normpath(p if os.path.isabs(p) else os.path.join(root, p))
+                r = os.path.relpath(p, root)
+                return r if not r.startswith("..") else p
+            scope = field(t, "scope")
+            seen += 1
+        return ""
+
+    out = []
+    infn = False
+    for l in ir.splitlines():
+        if l.startswith("define "):
+            infn = True
+            continue
+        if infn and l.startswith("}"):
+            infn = False
+            continue
+        if not infn or "??_R0" not in l:
+            continue
+        m = _DBG.search(l)
+        line, f = 0, ""
+        if m:
+            loc = md.get(int(m.group(1)), "")
+            line = int(field(loc, "line") or 0)
+            f = filename(field(loc, "scope"))
+        for n in _R0_REF.findall(l):
+            out.append([f, line, n])
+    return out
+
+
+_GLOBAL_DEF = re.compile(r'^@"(\?\?_R[1-4][^"]*)" = (.*)$', re.M)
+_RTTI_REF = re.compile(r'@"(\?\?_R[0-4][^"]*)"')
+
+
+def rtti_cols(ir):
+    """(rev5 R2) [[owner, descriptor]] per complete object locator (??_R4, COMDAT or not) the IR text IR defines:
+    the descriptors reached from it through its class hierarchy (??_R3 -> ??_R2 -> ??_R1 -> ??_R0), its own class's
+    first; OWNER is that class's descriptor (the class whose vftable it is). Natively a dynamic_cast or typeid on an
+    object reads its vftable's locator, so a non-game name there fails as one at the cast does (rtti_msabi.cpp)."""
+    refs = {m.group(1): _RTTI_REF.findall(m.group(2)) for m in _GLOBAL_DEF.finditer(ir)}
+    out = []
+    for n, rs in sorted(refs.items()):
+        if not n.startswith("??_R4"):
+            continue
+        tds, seen, todo = [], set(), list(rs)
+        while todo:
+            x = todo.pop(0)
+            if x in seen:
+                continue
+            seen.add(x)
+            if x.startswith("??_R0"):
+                m = re.match(r"^\?\?_R0\.?(\?A[UVTW].*)@8$", x)
+                if m and m.group(1) not in tds:
+                    tds.append(m.group(1))
+            else:
+                todo += refs.get(x, [])
+        for td in tds:
+            out.append([tds[0], td])
+    return out
+
+
+def unwrap_rtti(n):
+    """A descriptor name without the tree's fn_<8 hex> wrapping namespaces, as the native runtime compares it:
+    src/platform/sdl/host/rtti_msabi.cpp `unwrapped()` (lines 77-91) drops `fn_` + 8 lowercase hex + `@` only where
+    the character before it (in the original name) is `@` (rev5 R1: `?AVX_fn_0123abcd@@` keeps it)."""
+    return re.sub(r"(?<=@)fn_[0-9a-f]{8}@", "", n)
+
+
+_GAME_RTTI = {}
+
+
+def game_rtti(path=None):
+    """{descriptor name `?AVX@ns@@`} of the game's RTTI type descriptors (config/data.json's rtti_td items: every
+    descriptor of the XBE, the same RTTI tools/rtti.py recovers for include/gen), and {leaf: names} for hints."""
+    path = path or os.path.join(ROOT, "config/data.json")
+    if path not in _GAME_RTTI:
+        names, leaf = set(), collections.defaultdict(set)
+        with open(path) as f:
+            items = json.load(f).get("items", [])
+        for it in items:
+            if it.get("kind") != "rtti_td":
+                continue
+            m = re.fullmatch(r"\?\?_R0\.(\?A[UVTW].*)@8", it.get("name", ""))
+            if m:
+                names.add(m.group(1))
+                lm = re.match(r"\?A[UVTW]([^@]+)@", m.group(1))
+                if lm:
+                    leaf[lm.group(1)].add(m.group(1))
+        _GAME_RTTI[path] = (names, dict(leaf))
+    return _GAME_RTTI[path]
+
+
+def rtti_hint(n, leaf):
+    """The game descriptors a non-exact name probably means: the same leaf, or the leaf without `_<address>`."""
+    lm = re.match(r"\?A[UVTW]([^@]+)@", unwrap_rtti(n))
+    if not lm:
+        return []
+    lf = lm.group(1)
+    return sorted(leaf.get(lf) or leaf.get(re.sub(r"_[0-9a-f]{5,6}$", "", lf)) or ())
+
+
+def rtti_groups(root, rel, sites, game, cols=()):
+    """{"addr|td": count} of the non-exact sites of the tree TU REL (under ROOT): addr is the block whose lines hold
+    the site, `-` for a line of the TU outside every block, or the header's path for a site in a header; for a
+    complete object locator's descriptor (COLS, rtti_cols) `col:<owner>`, the class whose vftable it is."""
+    import tree_tu
+    blocks = tree_tu.scan(os.path.join(root, rel))["blocks"]
+    out = collections.Counter()
+    for f, line, n in sites:
+        if unwrap_rtti(n) in game:
+            continue
+        if f == rel:
+            a = next((b["addr"] for b in blocks if b["lines"][0] <= line <= b["lines"][1]), "-")
+        else:
+            a = f or "-"
+        out["%s|%s" % (a, n)] += 1
+    for owner, n in cols:
+        if unwrap_rtti(n) not in game:
+            out["col:%s|%s" % (owner, n)] += 1
+    return dict(out)
+
+
+SEED_STAMP = {"by": "rtti-seed", "accepted": "seed"}
+
+
+def parse_rtti_baseline(text, where="config/rtti-baseline.json"):
+    """The file's shape -> the gate's: {"sites": {"TU|addr|descriptor": {"count", "by", "accepted"[, "why"]}}, ...}.
+    The file (rev5/lead, r3) is {"comment", "seed_why", "total", "tus": {TU: {"addr|descriptor": entry}}}, an entry a
+    bare count (seed-stamped: rtti-seed's) or {count, accepted, by, why} (rtti-accept's). The first, flat shape
+    (`"sites"`, never committed) is refused."""
+    b = json.loads(text)
+    if "tus" not in b or "sites" in b:
+        raise SystemExit("x64_gate: %s is not in the per-TU shape ({\"tus\": {TU: {...}}}); re-seed it" % where)
+    sites = {}
+    for tu, ents in b["tus"].items():
+        for k, e in ents.items():
+            sites["%s|%s" % (tu, k)] = dict(SEED_STAMP, count=e) if isinstance(e, int) else dict(e)
+    out = {k: v for k, v in b.items() if k != "tus"}
+    out["sites"] = sites
+    return out
+
+
+def load_rtti_baseline(path=None):
+    """{"sites": {"TU|addr|descriptor": {"count", "accepted", "by"[, "why"]}}, "total"} of config/rtti-baseline.json
+    (parse_rtti_baseline): the non-exact RTTI references known when the check began. Only shrinks: `check
+    --update-baseline` lowers an entry to what a fresh scan finds; an entry is added (or its count raised) only by
+    `x64_gate.py rtti-accept`."""
+    path = path or RTTI_BASELINE
+    try:
+        with open(path) as f:
+            text = f.read()
+    except OSError:
+        return {"sites": {}, "total": 0, "missing": True}
+    return parse_rtti_baseline(text, path)
+
+
+def rtti_counts(b):
+    """(sites, entries) of a baseline in the gate's shape."""
+    return sum(e.get("count", 1) for e in b.get("sites", {}).values()), len(b.get("sites", {}))
+
+
+def write_rtti_baseline(b, path=None):
+    """The gate's shape -> the file's (parse_rtti_baseline), one TU per block, keys sorted, one entry per line (a fix
+    diffs as a few lines in one place). A seed-stamped entry is written as its bare count."""
+    path = path or RTTI_BASELINE
+    b.pop("missing", None)
+    tus = {}
+    for k, e in b.get("sites", {}).items():
+        tu, rest = k.split("|", 1)
+        tus.setdefault(tu, {})[rest] = e["count"] if e.get("by") == "rtti-seed" else \
+            {x: e[x] for x in ("count", "accepted", "by", "why") if x in e}
+    b["total"] = rtti_counts(b)[0]
+    lines = ["{"]
+    for k in ("comment", "seed_why", "total"):
+        if k in b:
+            lines.append(" %s: %s," % (json.dumps(k), json.dumps(b[k])))
+    lines.append(' "tus": {')
+    tl = sorted(tus)
+    for i, tu in enumerate(tl):
+        lines.append("  %s: {" % json.dumps(tu))
+        el = sorted(tus[tu])
+        for j, k in enumerate(el):
+            lines.append("   %s: %s%s" % (json.dumps(k), json.dumps(tus[tu][k]), "," if j + 1 < len(el) else ""))
+        lines.append("  }%s" % ("," if i + 1 < len(tl) else ""))
+    lines.append(" }")
+    lines.append("}")
+    with open(path + ".tmp", "w") as f:
+        f.write("\n".join(lines) + "\n")
+    os.replace(path + ".tmp", path)
+
+
+def rtti_baseline_at(ref):
+    """The rtti baseline of commit REF ({} with "missing" when it had none). In a queue job the base commit's copy is
+    JOB_REF's (when shipped) or the workspace's."""
+    m = _job()
+    if m is not None:
+        import tree_tu
+        rel = os.path.relpath(RTTI_BASELINE, ROOT)
+        p = os.path.join(ROOT, tree_tu.JOB_REF, rel) if rel in m.get("shipped", []) else RTTI_BASELINE
+        if rel in m.get("shipped", []) and not os.path.exists(p):
+            return {"sites": {}, "missing": True}
+        return load_rtti_baseline(p)
+    # (fail closed, as tree_tu.file_at_ref: REF is a verified commit (rev), an absent file is "missing", any other git
+    # failure stops the gate rather than reading as "REF had no list")
+    rel = os.path.relpath(RTTI_BASELINE, ROOT)
+    r = _git("ls-tree", "--name-only", ref, "--", ":(top)" + rel)
+    if r.returncode:
+        raise SystemExit("x64_gate: git ls-tree %s: %s" % (ref, r.stderr.strip()[:200]))
+    if not r.stdout.strip():
+        return {"sites": {}, "missing": True}
+    r = _git("show", "%s:%s" % (ref, rel))
+    if r.returncode:
+        raise SystemExit("x64_gate: git show %s:%s: %s" % (ref, rel, r.stderr.strip()[:200]))
+    return parse_rtti_baseline(r.stdout, "%s:%s" % (ref, rel))
+
+
+def rtti_baseline_growth(before, now):
+    """["key"] of entries NOW holds that BEFORE didn't, or with a higher count, unless the entry's own stamp says
+    `by: rtti-accept` and the stamp is new (BEFORE had another), or `by: rtti-seed` when BEFORE had no list at all;
+    ["(deleted)"] when BEFORE had the list and NOW doesn't."""
+    if not before.get("missing") and now.get("missing"):
+        return ["(deleted)"]
+    out = []
+    for k, e in now.get("sites", {}).items():
+        o = before.get("sites", {}).get(k) or {}
+        if o and o.get("count", 1) >= e.get("count", 1):
+            continue
+        if e.get("by") == "rtti-accept" and e.get("accepted") and \
+                (not o or (o.get("by"), o.get("accepted")) != (e.get("by"), e.get("accepted"))):
+            continue
+        if e.get("by") == "rtti-seed" and e.get("accepted") and before.get("missing"):
+            continue
+        out.append(k)
+    return out
+
+
+def rtti_rows(native, base, root, game_leaf=None):
+    """The RTTI rows of the RTTI_TARGET rows of syntax_rows: `rtti_inexact` (a non-exact descriptor the baseline
+    doesn't hold that often: fails), `rtti_known` (in the baseline), `rtti_fixed` (the baseline holds more than the
+    TU has now: --update-baseline lowers it); a complete object locator's descriptor (addr `col:<owner>`) has the
+    same three as `rtti_col_*`. A TU that didn't compile has no scan (its native_syntax row fails)."""
+    names, leaf = game_rtti() if game_leaf is None else game_leaf
+    sites = base.get("sites", {})
+    rows = []
+    for r in native:
+        if r.get("target") != RTTI_TARGET or "rtti" not in r or not r.get("tu"):
+            continue
+        tu = r["tu"]
+        now = rtti_groups(root, tu, r["rtti"], names, r.get("rtti_col", []))
+        old = {k.split("|", 1)[1]: e.get("count", 1) for k, e in sites.items() if k.split("|", 1)[0] == tu}
+        for g_ in sorted(set(now) | set(old)):
+            n, b = now.get(g_, 0), old.get(g_, 0)
+            addr, td = g_.split("|", 1)
+            v = "rtti_inexact" if n > b else "rtti_fixed" if n < b else "rtti_known"
+            if addr.startswith("col:"):
+                v = v.replace("rtti_", "rtti_col_")
+            rows.append({"tu": tu, "addr": addr, "td": td, "count": n, "baseline": b, "verdict": v,
+                         "game": rtti_hint(td, leaf)})
     return rows
 
 
@@ -999,7 +1318,7 @@ def judge(blocks, results, baseline):
 
 
 def gate(ref="HEAD", head=None, tus=None, mode="auto", jobs=2, name="x64gate", quiet=False, workdir=None,
-         baseline_path=BASELINE, prio=0):
+         baseline_path=BASELINE, prio=0, rtti_path=None):
     """Run the gate: {"rows": judge's rows, "summary", "gone", "errors", "failed": bool}."""
     base = load_baseline(baseline_path)
     ch = changed_blocks(ref, head, tus, jobs, workdir, baseline_path)
@@ -1046,6 +1365,18 @@ def gate(ref="HEAD", head=None, tus=None, mode="auto", jobs=2, name="x64gate", q
         native = None
         if "native" not in os.environ.get("X64_GATE_OFF", ""):
             native = syntax_rows(ch["head_root"], ch.get("rels", []), ch.get("ref_root"), jobs)
+        # (integ3, 9a) the RTTI descriptors of the changed TUs (the linux-x64 IR) against the game's names and
+        # config/rtti-baseline.json, and the baseline against REF's (it grows only by rtti-accept)
+        rtti = None
+        if native is not None and "rtti" not in os.environ.get("X64_GATE_OFF", ""):
+            rbase = rtti_baseline_at(rev(head)) if head else load_rtti_baseline(rtti_path)
+            rtti = {"rows": rtti_rows(native, rbase, ch["head_root"]),
+                    "grew": rtti_baseline_growth(rtti_baseline_at(rev(ref)), rbase),
+                    "total": rtti_counts(rbase)[0], "entries": rtti_counts(rbase)[1],
+                    "missing": bool(rbase.get("missing"))}
+            for r in native:
+                r.pop("rtti", None)
+                r.pop("rtti_col", None)
     finally:
         if not workdir:
             shutil.rmtree(ch["tmp"], ignore_errors=True)
@@ -1067,10 +1398,20 @@ def gate(ref="HEAD", head=None, tus=None, mode="auto", jobs=2, name="x64gate", q
                                     "cached": sum(bool(r.get("cached")) for r in native),
                                     "unavailable": sorted(r["target"] for r in native
                                                           if r["verdict"] == "native_syntax_unavailable")}
+    if rtti is None:
+        summary["rtti"] = "off (X64_GATE_OFF=%s)" % ("native" if not native else "rtti")
+        rtti = {"rows": [], "grew": []}
+    else:
+        rv = collections.Counter(r["verdict"] for r in rtti["rows"])
+        summary["rtti"] = {"verdicts": dict(sorted(rv.items())), "baseline_grew": rtti["grew"][:50],
+                           "sites_inexact": sum(r["count"] for r in rtti["rows"])}
+        summary["rtti_baseline"] = rtti["total"] if not rtti["missing"] else "missing"
+        summary["rtti_baseline_entries"] = rtti["entries"] if not rtti["missing"] else "missing"
     failed = bool(vs.get("new") or vs.get("unchecked") or ch["errors"] or
-                  any(r["verdict"] in ("native_syntax", "native_syntax_unavailable") for r in native))
+                  any(r["verdict"] in ("native_syntax", "native_syntax_unavailable") for r in native) or
+                  any(r["verdict"] in ("rtti_inexact", "rtti_col_inexact") for r in rtti["rows"]) or rtti["grew"])
     return {"rows": rows, "summary": summary, "gone": ch["gone"], "errors": ch["errors"], "failed": failed,
-            "native": native}
+            "native": native, "rtti": rtti["rows"], "rtti_grew": rtti["grew"]}
 
 
 def update_baseline(res, base, why_gone="gone"):
@@ -1084,6 +1425,41 @@ def update_baseline(res, base, why_gone="gone"):
         base["blocks"].pop(a, None)
         base["why"].pop(a, None)
     return removed
+
+
+def update_rtti_baseline(res, b):
+    """(integ3, 9a) The RTTI ratchet: lower each entry the fresh scan found fewer sites for (rtti_fixed), drop it at
+    0. Returns the changed keys."""
+    out = []
+    for r in res.get("rtti", []):
+        if r["verdict"] not in ("rtti_fixed", "rtti_col_fixed"):
+            continue
+        k = "%s|%s|%s" % (r["tu"], r["addr"], r["td"])
+        if k not in b["sites"]:
+            continue
+        if r["count"]:
+            b["sites"][k]["count"] = r["count"]
+        else:
+            del b["sites"][k]
+        out.append(k)
+    return out
+
+
+def rtti_scan(root, rels, jobs=2):
+    """{"TU|addr|descriptor": count} of the non-exact RTTI sites of the tree TUs RELS under ROOT, and the TUs that
+    didn't compile for RTTI_TARGET (their sites are unknown)."""
+    rows = syntax_rows(root, rels, None, jobs, targets=(RTTI_TARGET,))
+    names, _ = game_rtti()
+    out, bad = {}, []
+    for r in rows:
+        if r["verdict"] == "native_syntax_unavailable":
+            raise SystemExit("x64_gate: %s toolchain unavailable: %s" % (RTTI_TARGET, r["errors"][0]))
+        if "rtti" not in r:
+            bad.append(r["tu"])
+            continue
+        for g_, n in rtti_groups(root, r["tu"], r["rtti"], names, r.get("rtti_col", [])).items():
+            out["%s|%s" % (r["tu"], g_)] = n
+    return out, bad
 
 
 def render(res):
@@ -1111,6 +1487,14 @@ def render(res):
                                                      "native-known", r["target"], r["tu"], r.get("n_errors", 0)))
         for e in r["errors"][:SYNTAX_ERRLINES if r["verdict"] == "native_syntax" else 1]:
             lines.append("    " + e[:200])
+    for r in sorted(res.get("rtti", []), key=lambda r: (not r["verdict"].endswith("_inexact"), r["tu"], r["addr"])):
+        if r["verdict"] in ("rtti_known", "rtti_col_known"):
+            continue
+        lines.append("%-13s %s %s %s (%d sites, baseline %d)%s" % (
+            r["verdict"].upper() if r["verdict"].endswith("_inexact") else r["verdict"], r["tu"], r["addr"], r["td"],
+            r["count"], r["baseline"], ("  game: " + ", ".join(r["game"][:3])) if r["game"] else ""))
+    for k in res.get("rtti_grew", []):
+        lines.append("RTTI_BASELINE_GREW %s (not by rtti-accept)" % k)
     lines.append(json.dumps(res["summary"]))
     lines.append("x64 gate: %s" % ("FAIL" if res["failed"] else "ok"))
     return "\n".join(lines)
@@ -1142,12 +1526,66 @@ def main(argv=None):
     p.add_argument("--class", dest="cls", help="its gate class (default: the last gate result for its current code)")
     p.add_argument("--tu", help="its TU (default: found by address)")
     p.add_argument("--baseline", default=BASELINE)
+    p = sub.add_parser("rtti-accept", help="(integ3, 9a) list a TU's non-exact RTTI descriptor in "
+                       "config/rtti-baseline.json, with a reason")
+    p.add_argument("tu")
+    p.add_argument("addr", help="the block holding the site, `-` (outside every block) or the header's path")
+    p.add_argument("td", help="the descriptor name as compiled (`?AVX@fn_0012abcd@@`)")
+    p.add_argument("--why", required=True)
+    p.add_argument("--rtti-baseline", default=None)
+    p = sub.add_parser("rtti-seed", help="(integ3, 9a) seed config/rtti-baseline.json with every non-exact RTTI "
+                       "site of the tree (once, when the check begins)")
+    p.add_argument("--why", required=True)
+    p.add_argument("--tus", metavar="FILE", help="only these TUs (default: every tree TU)")
+    p.add_argument("--jobs", type=int, default=2)
+    p.add_argument("--rtti-baseline", default=None)
     p = sub.add_parser("keys", help="the code keys of TUs")
     p.add_argument("tus", nargs="+")
     p = sub.add_parser("baseline", help="the baseline's counts")
     p.add_argument("--baseline", default=BASELINE)
     a = ap.parse_args(argv)
 
+    if a.cmd in ("rtti-accept", "rtti-seed"):
+        if not (a.why or "").strip():
+            raise SystemExit("x64_gate %s: --why must give a reason" % a.cmd)
+        now = datetime.datetime.now().isoformat(timespec="seconds")
+        if a.cmd == "rtti-seed":
+            import tree_tu
+            if os.path.exists(a.rtti_baseline or RTTI_BASELINE):
+                raise SystemExit("x64_gate rtti-seed: the baseline exists (it only shrinks; add with rtti-accept)")
+            rels = ([l.strip() for l in open(a.tus) if l.strip()] if a.tus else
+                    sorted(os.path.relpath(p_, ROOT) for p_ in tree_tu.tree_tus(ROOT)))
+            found, bad = rtti_scan(ROOT, rels, a.jobs)
+            if bad:
+                raise SystemExit("x64_gate rtti-seed: %d TUs don't compile for %s (fix or seed later): %s"
+                                 % (len(bad), RTTI_TARGET, ", ".join(bad[:10])))
+            b = {"comment": "integ3 9a: RTTI type descriptors referenced by the tree's code whose names are not the "
+                            "game's (native dynamic_cast/typeid fail on them). Only shrinks (x64_gate.py check "
+                            "--update-baseline lowers; rtti-accept adds, with a reason).",
+                 "seed_why": a.why.strip(),
+                 "sites": {k: dict(SEED_STAMP, count=n) for k, n in found.items()}}
+            write_rtti_baseline(b, a.rtti_baseline)
+            print("rtti-seed: %d entries, %d sites, %d TUs" % (len(b["sites"]), b["total"],
+                                                                len({k.split("|")[0] for k in b["sites"]})))
+            return 0
+        tu = os.path.relpath(a.tu if os.path.isabs(a.tu) else os.path.join(ROOT, a.tu), ROOT)
+        found, bad = rtti_scan(ROOT, [tu], 1)
+        if bad:
+            raise SystemExit("x64_gate rtti-accept: %s doesn't compile for %s" % (tu, RTTI_TARGET))
+        k = "%s|%s|%s" % (tu, a.addr if a.addr == "-" or not re.match(r"^0x[0-9a-f]+$", a.addr, re.I)
+                          else "0x%08x" % int(a.addr, 16), a.td)
+        if k not in found:
+            raise SystemExit("x64_gate rtti-accept: no non-exact site %s now (sites: %s)"
+                             % (k, ", ".join(sorted(found)) or "none"))
+        b = load_rtti_baseline(a.rtti_baseline)
+        if b.get("missing"):
+            b = {"comment": "integ3 9a: see x64_gate.py rtti-seed", "sites": {}}
+        if b["sites"].get(k, {}).get("count", 0) >= found[k]:
+            raise SystemExit("x64_gate rtti-accept: %s is in the baseline already (%d)" % (k, found[k]))
+        b["sites"][k] = {"count": found[k], "accepted": now, "by": "rtti-accept", "why": a.why.strip()}
+        write_rtti_baseline(b, a.rtti_baseline)
+        print("accepted %s x%d" % (k, found[k]))
+        return 0
     if a.cmd == "keys":
         for t in a.tus:
             for addr, k in sorted(tu_keys(t).items()):
@@ -1201,10 +1639,18 @@ def main(argv=None):
         if removed:
             write_baseline(b, a.baseline)
         res["summary"]["baseline_removed"] = removed
+        if not a.head:
+            rb = load_rtti_baseline()
+            ch_ = update_rtti_baseline(res, rb)
+            if ch_:
+                write_rtti_baseline(rb)
+            res["summary"]["rtti_baseline_lowered"] = ch_
     print(json.dumps({"summary": res["summary"], "failed": res["failed"],
                       "new": [r for r in res["rows"] if r["verdict"] in ("new", "unchecked")],
                       "triage": [r for r in res["rows"] if r["verdict"] == "triage"],
-                      "native_syntax": [r for r in res.get("native", []) if r["verdict"] != "ok"]}, indent=1)
+                      "native_syntax": [r for r in res.get("native", []) if r["verdict"] != "ok"],
+                      "rtti": [r for r in res.get("rtti", []) if r["verdict"] not in ("rtti_known", "rtti_col_known")],
+                      "rtti_grew": res.get("rtti_grew", [])}, indent=1)
           if a.json else render(res))
     return 1 if res["failed"] else 0
 

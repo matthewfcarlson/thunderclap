@@ -1272,7 +1272,7 @@ JOB_META = ".jobq/local-inputs.json"
 JOB_REF = ".jobq/ref"
 GEN_PREFIX = "include/gen/"
 CONFIG_READ = {"verify": ["config/data.json", "config/proof-ledger.jsonl", "config/unproven-baseline.json"],
-               "check": ["config/data.json", "config/proof-ledger.jsonl"], "x64": ["config/x64-baseline.json"],
+               "check": ["config/data.json", "config/proof-ledger.jsonl"], "x64": ["config/x64-baseline.json", "config/rtti-baseline.json", "config/data.json"],
                "gen": ["config/gen-sizes.json"]}
 _META = []
 

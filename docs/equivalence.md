@@ -2454,6 +2454,38 @@ for diagnosis only, and the summary says `native_syntax: off`. Cost: ~0.05-1 s p
 errors (`cannot compile this ... yet`, mangling) are not seen by `-fsyntax-only`; the native build's compile reports
 them.
 
+(integ3, 9a) **RTTI names.** The linux-x64 run of the native pass goes on to LLVM IR (`-S -emit-llvm
+-gline-tables-only`, still no object: codegen errors are seen too). Two things are read from that IR:
+
+- **Cast sites**: every `??_R0` type descriptor an instruction inside a function body references (a dynamic_cast's
+  source and target, a typeid(T)), with the instruction's debug line and file. Grouped by (TU, the block whose lines
+  hold it, `-` for a TU line outside every block, or the header's path, descriptor).
+- **Complete object locators** (rev5 R2): every `??_R4` the IR defines (COMDAT or not: each vftable clang emits), and
+  the `??_R0` descriptors reached from it through `??_R3` -> `??_R2` -> `??_R1` (its own class and every base).
+  Grouped by (TU, `col:<owner>`, descriptor), OWNER being the descriptor of the class whose vftable it is. Natively a
+  dynamic_cast or typeid on an object reads its vftable's locator, so a non-game name there fails the same way.
+
+Natively the runtime compares descriptors by name with the game's (src/platform/sdl/host/rtti_msabi.cpp
+`unwrapped()`): the decorated name, then the name without the tree's wrapping namespaces, `fn_` + 8 lowercase hex +
+`@` dropped only right after an `@` (rev5 R1: `?AVX_fn_0123abcd@@` keeps it; `Rtti.test_unwrap_matches_runtime` runs
+the runtime's own function on the table where a host compiler exists). A name is exact when that form is one of the
+game's descriptors (config/data.json's `rtti_td` items: every descriptor of the XBE). A non-exact one fails natively;
+the Wine link hides it (tools/wine_link.py native9/native12 map clang's ??_R0 onto the game's by leaf name or without
+the `_<address>` suffix; find2's castscan). Verdicts per group, against config/rtti-baseline.json:
+**rtti_inexact** / **rtti_col_inexact** (more than the baseline holds: **fails**), `rtti_known` / `rtti_col_known`,
+`rtti_fixed` / `rtti_col_fixed` (fewer: `check --update-baseline` lowers the entry, drops it at 0). The baseline only
+shrinks: the gate also **fails** when an entry is new or its count is higher than REF's file says
+(`rtti_baseline_grew`), unless the entry's own stamp is a new `by: rtti-accept` (or `by: rtti-seed` when REF had no
+file), and when the file was deleted. `x64_gate.py rtti-accept TU ADDR DESCRIPTOR --why TEXT` adds one (ADDR a block,
+`-`, a header path or `col:<owner>`; the site must exist and be non-exact now); `rtti-seed --why TEXT` wrote the first
+list (once). The file is `{"comment", "seed_why", "total", "tus": {TU: {"<addr or col:owner>|<descriptor>": entry}}}`,
+TUs and keys sorted, one TU per block and one entry per line (a fix diffs as a few lines in one place); an entry is a
+bare count (seed-stamped) or `{count, accepted, by, why}` (rtti-accept's); the first, flat shape is refused. The
+summary carries `rtti_baseline: N` (sites listed) and `rtti_baseline_entries`. Seeded at 19ddec138: 4,804 sites (4,695 entries) in
+945 TUs: cast sites 184 (150 entries) in 38 TUs, the same (TU, descriptor) multiset as find2's build/find2/casts-a.json;
+locator descriptors 4,620 (4,545 entries, 3,092 distinct names; `?AUScriptFunctionFields@@` alone in 512 TUs).
+`X64_GATE_OFF=rtti` leaves the check out (diagnosis only; the summary says so).
+
 **Cost.** Keys: one i686 and one x86-64 clang compile per candidate TU per side (~0.2 s per TU each on a quiet machine).
 A header edit makes every one of the ~2,700 TUs a candidate: the validation keyed the whole tree on both sides in ~12
 minutes from cold (the laptop at load ~100, 2 processes), ~6 minutes with one side cached, seconds once both are. Runs:

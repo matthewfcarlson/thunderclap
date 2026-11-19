@@ -15,7 +15,9 @@
 import contextlib
 import json
 import os
+import re
 import shutil
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -720,6 +722,265 @@ class NativeSyntax(unittest.TestCase):
                 res = g.gate("HEAD", baseline_path=bpath, quiet=True)
             self.assertFalse(res["failed"])
             self.assertTrue(str(res["summary"]["native_syntax"]).startswith("off"))
+
+
+RTTI_TU = """#include "tree_prelude.h"
+namespace ns { struct Base { virtual ~Base(); }; struct Game : Base { }; }
+namespace fn_00011010 { struct Local : ns::Base { }; }
+// 0x00011000 FUN_00011000 (10 B): matches
+// sym: ?FUN_00011000@@YAPAUGame@ns@@PAUBase@2@@Z
+ns::Game *FUN_00011000(ns::Base *b) {
+    return dynamic_cast<ns::Game *>(b);
+}
+
+// 0x00011010 FUN_00011010 (10 B): matches
+// sym: ?FUN_00011010@@YAPAXPAUBase@ns@@@Z
+void *FUN_00011010(ns::Base *b) {
+    return dynamic_cast<%(cast)s *>(b);
+}
+"""
+COL_TU = """#include "tree_prelude.h"
+namespace ns { struct Base { virtual ~Base(); }; struct Game : Base { }; }
+namespace fn_00011010 { struct Local : ns::Base { }; }
+// 0x00011000 FUN_00011000 (10 B): matches
+// sym: ?FUN_00011000@@YAPAXXZ
+void *FUN_00011000() {
+    return new fn_00011010::Local;
+}
+"""
+COL = "src/game/T.cpp|col:?AULocal@fn_00011010@@|?AULocal@fn_00011010@@"
+GAME_RTTI = ({"?AUBase@ns@@", "?AUGame@ns@@"}, {"Base": {"?AUBase@ns@@"}, "Game": {"?AUGame@ns@@"}})
+LOCAL = "src/game/T.cpp|0x00011010|?AULocal@fn_00011010@@"
+
+
+@unittest.skipUnless(have_clang(), "needs LLVM's clang++")
+class Rtti(unittest.TestCase):
+    """(integ3, 9a) Every ??_R0 type descriptor a changed TU's code references (dynamic_cast, typeid) must be one of
+    the game's RTTI names (natively the runtime compares names): a non-exact one fails unless
+    config/rtti-baseline.json holds it; the baseline only shrinks (--update-baseline) and grows only by rtti-accept."""
+
+    def setUp(self):
+        base = os.path.join(ROOT, "build") if os.path.isdir(os.path.join(ROOT, "build")) else None
+        self.tmp = tempfile.TemporaryDirectory(dir=base)
+        r = self.root = os.path.join(self.tmp.name, "root")
+        os.makedirs(os.path.join(r, "src", "game"))
+        shutil.copytree(os.path.join(ROOT, "include", "compat"), os.path.join(r, "include", "compat"))
+        shutil.copy(os.path.join(ROOT, "include", "tree_prelude.h"), os.path.join(r, "include"))
+        self.bpath = os.path.join(self.tmp.name, "rtti-baseline.json")
+        self.p = [mock.patch.object(g, "CACHE", os.path.join(self.tmp.name, "cache")),
+                  mock.patch.dict(g._SYN_TC, {}, clear=True), mock.patch.object(g, "game_rtti", lambda *a: GAME_RTTI)]
+        for p in self.p:
+            p.start()
+
+    def tearDown(self):
+        for p in self.p:
+            p.stop()
+        self.tmp.cleanup()
+
+    def tu(self, cast):
+        with open(os.path.join(self.root, "src/game/T.cpp"), "w") as f:
+            f.write(RTTI_TU % {"cast": cast})
+
+    def rows(self, base):
+        native = g.syntax_rows(self.root, ["src/game/T.cpp"], targets=(g.RTTI_TARGET,))
+        return {"%s|%s|%s" % (r["tu"], r["addr"], r["td"]): r["verdict"] for r in g.rtti_rows(native, base, self.root)}
+
+    def test_scan(self):
+        self.tu("fn_00011010::Local")
+        found, bad = g.rtti_scan(self.root, ["src/game/T.cpp"], 1)
+        self.assertEqual((found, bad), ({LOCAL: 1}, []))
+        self.tu("ns::Game")
+        self.assertEqual(g.rtti_scan(self.root, ["src/game/T.cpp"], 1), ({}, []))
+        sites = g.native_syntax(os.path.join(self.root, "src/game/T.cpp"), g.RTTI_TARGET)["rtti"]
+        self.assertIn(["src/game/T.cpp", 7, "?AUGame@ns@@"], sites)      # (the cast's line, its descriptors)
+        self.assertIn(["src/game/T.cpp", 7, "?AUBase@ns@@"], sites)
+
+    def test_unwrap_matches_runtime(self):
+        """(rev5 R1) the gate's unwrap is the native runtime's: src/platform/sdl/host/rtti_msabi.cpp `unwrapped()`
+        (lines 77-91) drops `fn_` + 8 lowercase hex + `@` only after an `@`. The table holds the runtime's results;
+        where a host C++ compiler can build it, the function itself (cut from rtti_msabi.cpp) is run on the table."""
+        table = [("?AVCAction@fn_0001d1e0@@", "?AVCAction@@"),
+                 ("?AVX_fn_0123abcd@@", "?AVX_fn_0123abcd@@"),            # not after `@`: stays, non-exact
+                 ("?AVfn_0123abcd@@", "?AVfn_0123abcd@@"),
+                 ("?AVX@fn_0123abcd@fn_89abcdef@ns@@", "?AVX@ns@@"),
+                 ("?AVX@fn_0123ABCD@@", "?AVX@fn_0123ABCD@@"),            # (lowercase hex only)
+                 ("?AVX@fn_0123abc@@", "?AVX@fn_0123abc@@"),
+                 ("?AVX@fn_0123abcde@@", "?AVX@fn_0123abcde@@"),
+                 ("?AVX@Yfn_0123abcd@@", "?AVX@Yfn_0123abcd@@")]
+        for n, want in table:
+            self.assertEqual(g.unwrap_rtti(n), want, n)
+        names = ({"?AVX@@"}, {})
+        self.tu("ns::Game")
+        self.assertEqual(g.rtti_groups(self.root, "src/game/T.cpp", [["x.h", 1, "?AVX_fn_0123abcd@@"]], names[0]),
+                         {"x.h|?AVX_fn_0123abcd@@": 1})
+        src = open(os.path.join(ROOT, "src/platform/sdl/host/rtti_msabi.cpp")).read()
+        m = re.search(r"^std::string unwrapped\(const char\* s\) \{\n.*?^\}\n", src, re.M | re.S)
+        self.assertTrue(m, "rtti_msabi.cpp's unwrapped() moved: update the gate's rule and this test")
+        cxx = shutil.which("xcrun") and ["xcrun", "clang++"] or ([shutil.which("c++")] if shutil.which("c++") else None)
+        if not cxx:
+            return
+        d = os.path.join(self.tmp.name, "rt")
+        os.makedirs(d)
+        with open(os.path.join(d, "u.cpp"), "w") as f:
+            f.write("#include <string>\n#include <cstring>\n#include <cstdio>\n" + m.group(0) +
+                    "int main(int c, char** v) { for (int i = 1; i < c; i++) puts(unwrapped(v[i]).c_str()); }\n")
+        b_ = subprocess.run(cxx + ["-std=c++17", os.path.join(d, "u.cpp"), "-o", os.path.join(d, "u")],
+                            capture_output=True, text=True)
+        if b_.returncode:
+            return      # (no host C++ toolchain here: the table stands alone)
+        out = subprocess.run([os.path.join(d, "u")] + ["." + n for n, _ in table], capture_output=True,
+                             text=True).stdout.splitlines()
+        self.assertEqual(out, ["." + w for _, w in table])
+
+    def test_cols(self):
+        """(rev5 R2) a vftable emitted under a non-game name: its complete object locator's descriptors are scanned
+        (rtti_cols), keyed by the class whose vftable it is (`col:<owner>`), their own row kind."""
+        with open(os.path.join(self.root, "src/game/T.cpp"), "w") as f:
+            f.write(COL_TU)
+        found, bad = g.rtti_scan(self.root, ["src/game/T.cpp"], 1)
+        self.assertEqual((found, bad), ({COL: 1}, []))
+        self.assertEqual(self.rows({"sites": {}}), {COL: "rtti_col_inexact"})
+        self.assertEqual(self.rows({"sites": {COL: {"count": 1}}}), {COL: "rtti_col_known"})
+        # (rev5) the walk reaches only descriptors the IR defines: every ??_R1/??_R2/??_R3 a locator leads to has a
+        # definition in the TU's own IR (clang emits the hierarchy with the locator), so no base is missed
+        tc = g.syntax_toolchain(g.RTTI_TARGET)
+        ll = os.path.join(self.tmp.name, "t.ll")
+        subprocess.run(tc["cxx"] + tc["front"] + ["-I" + os.path.join(self.root, "include"),
+                                                  os.path.join(self.root, "src/game/T.cpp"), "-o", ll],
+                       capture_output=True, check=True)
+        text = open(ll).read()
+        defs = {m.group(1): m.group(2) for m in g._GLOBAL_DEF.finditer(text)}
+        reached, todo = set(), [n for n in defs if n.startswith("??_R4")]
+        self.assertTrue(todo)
+        while todo:
+            n = todo.pop()
+            if n in reached or n.startswith("??_R0"):
+                continue
+            reached.add(n)
+            self.assertIn(n, defs, "the walk reached %s, which the IR doesn't define" % n)
+            todo += g._RTTI_REF.findall(defs[n])
+        self.assertTrue(any(n.startswith("??_R1") for n in reached))
+        ir = """@"??_R4D@fn_00011010@@6B@" = linkonce_odr constant %rtti.CompleteObjectLocator { i32 1, i32 0, i32 0, i32 trunc (i64 sub (i64 ptrtoint (ptr @"??_R0?AVD@fn_00011010@@@8" to i64), i64 0) to i32), i32 trunc (i64 sub (i64 ptrtoint (ptr @"??_R3D@fn_00011010@@8" to i64), i64 0) to i32) }
+@"??_R3D@fn_00011010@@8" = linkonce_odr constant %rtti.ClassHierarchyDescriptor { i32 0, i32 0, i32 2, i32 trunc (i64 sub (i64 ptrtoint (ptr @"??_R2D@fn_00011010@@8" to i64), i64 0) to i32) }, comdat
+@"??_R2D@fn_00011010@@8" = linkonce_odr constant [3 x i32] [i32 trunc (i64 sub (i64 ptrtoint (ptr @"??_R1A@?0A@EA@D@fn_00011010@@8" to i64), i64 0) to i32), i32 trunc (i64 sub (i64 ptrtoint (ptr @"??_R1A@?0A@EA@B_123@@8" to i64), i64 0) to i32), i32 0]
+@"??_R1A@?0A@EA@D@fn_00011010@@8" = linkonce_odr constant %rtti.BaseClassDescriptor { i32 trunc (i64 sub (i64 ptrtoint (ptr @"??_R0?AVD@fn_00011010@@@8" to i64), i64 0) to i32), i32 trunc (i64 sub (i64 ptrtoint (ptr @"??_R3D@fn_00011010@@8" to i64), i64 0) to i32) }
+@"??_R1A@?0A@EA@B_123@@8" = linkonce_odr constant %rtti.BaseClassDescriptor { i32 trunc (i64 sub (i64 ptrtoint (ptr @"??_R0?AVB_123@@@8" to i64), i64 0) to i32) }
+"""
+        self.assertEqual(g.rtti_cols(ir), [["?AVD@fn_00011010@@", "?AVD@fn_00011010@@"],
+                                           ["?AVD@fn_00011010@@", "?AVB_123@@"]])
+        self.assertEqual(g.rtti_groups(self.root, "src/game/T.cpp", [], {"?AVD@@"}, g.rtti_cols(ir)),
+                         {"col:?AVD@fn_00011010@@|?AVB_123@@": 1})     # (a base's non-game name, under its owner)
+
+    def test_file_shape(self):
+        """(lead, r3) the file: one TU per block, keys sorted, a seed entry a bare count, an accepted one its stamp;
+        it reads back to the gate's shape; the first (flat) shape is refused."""
+        acc = {"count": 2, "accepted": "2026-11-19T01:00:00", "by": "rtti-accept", "why": "on purpose"}
+        b = {"comment": "c", "seed_why": "w", "sites": {
+            "src/b.cpp|col:?AVO@@|?AVO@@": dict(g.SEED_STAMP, count=1),
+            "src/a.cpp|0x00011010|?AVL@fn_00011010@@": dict(acc),
+            "src/a.cpp|-|?AVM@@": dict(g.SEED_STAMP, count=3)}}
+        g.write_rtti_baseline(b, self.bpath)
+        text = open(self.bpath).read()
+        self.assertEqual(text, '{\n "comment": "c",\n "seed_why": "w",\n "total": 6,\n "tus": {\n'
+                         '  "src/a.cpp": {\n'
+                         '   "-|?AVM@@": 3,\n'
+                         '   "0x00011010|?AVL@fn_00011010@@": %s\n'
+                         '  },\n'
+                         '  "src/b.cpp": {\n'
+                         '   "col:?AVO@@|?AVO@@": 1\n'
+                         '  }\n }\n}\n' % json.dumps(acc))
+        r = g.load_rtti_baseline(self.bpath)
+        self.assertEqual(r["sites"]["src/a.cpp|0x00011010|?AVL@fn_00011010@@"], acc)
+        self.assertEqual(r["sites"]["src/b.cpp|col:?AVO@@|?AVO@@"], dict(g.SEED_STAMP, count=1))
+        self.assertEqual(g.rtti_counts(r), (6, 3))
+        self.assertEqual(json.loads(text)["total"], 6)
+        # growth on the file's shape: a bare count raised by hand, a bare entry added by hand
+        before = g.parse_rtti_baseline(text)
+        t2 = json.loads(text)
+        t2["tus"]["src/b.cpp"]["col:?AVO@@|?AVO@@"] = 2
+        t2["tus"]["src/b.cpp"]["-|?AVN@@"] = 1
+        self.assertEqual(sorted(g.rtti_baseline_growth(before, g.parse_rtti_baseline(json.dumps(t2)))),
+                         ["src/b.cpp|-|?AVN@@", "src/b.cpp|col:?AVO@@|?AVO@@"])
+        self.assertEqual(g.rtti_baseline_growth({"sites": {}, "missing": True}, before), [])     # the seed, once
+        with self.assertRaises(SystemExit):
+            g.parse_rtti_baseline(json.dumps({"sites": {"src/a.cpp|-|?AVM@@": {"count": 1}}}))
+
+    def test_verdicts_and_ratchet(self):
+        self.tu("fn_00011010::Local")
+        self.assertEqual(self.rows({"sites": {}}), {LOCAL: "rtti_inexact"})
+        base = {"sites": {LOCAL: {"count": 1, "by": "rtti-seed", "accepted": "t"}}}
+        self.assertEqual(self.rows(base), {LOCAL: "rtti_known"})
+        self.tu("ns::Game")                                         # fixed
+        native = g.syntax_rows(self.root, ["src/game/T.cpp"], targets=(g.RTTI_TARGET,))
+        res = {"rtti": g.rtti_rows(native, base, self.root)}
+        self.assertEqual([r["verdict"] for r in res["rtti"]], ["rtti_fixed"])
+        self.assertEqual(g.update_rtti_baseline(res, base), [LOCAL])
+        self.assertEqual(base["sites"], {})
+
+    def test_growth(self):
+        seed = {"sites": {LOCAL: {"count": 1, "by": "rtti-seed", "accepted": "t0"}}}
+        self.assertEqual(g.rtti_baseline_growth({"sites": {}, "missing": True}, seed), [])       # the seed, once
+        self.assertEqual(g.rtti_baseline_growth({"sites": {}}, seed), [LOCAL])                    # a second seed
+        hand = {"sites": {LOCAL: {"count": 2, "by": "rtti-seed", "accepted": "t0"}}}
+        self.assertEqual(g.rtti_baseline_growth(seed, hand), [LOCAL])                             # raised by hand
+        acc = {"sites": {LOCAL: {"count": 2, "by": "rtti-accept", "accepted": "t1"}}}
+        self.assertEqual(g.rtti_baseline_growth(seed, acc), [])
+        self.assertEqual(g.rtti_baseline_growth(acc, {"sites": {LOCAL: {"count": 3, "by": "rtti-accept",
+                                                                       "accepted": "t1"}}}), [LOCAL])  # an old stamp
+        self.assertEqual(g.rtti_baseline_growth(seed, {"sites": {}}), [])                          # shrinking
+        self.assertEqual(g.rtti_baseline_growth(seed, {"sites": {}, "missing": True}), ["(deleted)"])
+
+    def run_gate(self, before):
+        ch = {"blocks": [], "gone": [], "tus": 1, "head_root": self.root, "tmp": self.tmp.name + "/x",
+              "errors": {}, "keyed": 0, "rels": ["src/game/T.cpp"], "ref_root": None}
+        bpath = os.path.join(self.tmp.name, "b.json")
+        g.write_baseline({"blocks": {}, "why": {}}, bpath)
+        with mock.patch.object(g, "changed_blocks", lambda *a, **kw: dict(ch)), \
+                mock.patch.object(g, "run_blocks", lambda *a, **kw: {}), \
+                mock.patch.object(g, "rtti_baseline_at", lambda ref: before), mock.patch.object(g, "rev", lambda r: r):
+            return g.gate("HEAD", baseline_path=bpath, quiet=True, rtti_path=self.bpath)
+
+    def test_gate(self):
+        self.tu("fn_00011010::Local")
+        res = self.run_gate({"sites": {}, "missing": True})
+        self.assertTrue(res["failed"])
+        self.assertEqual(res["summary"]["rtti_baseline"], "missing")
+        self.assertRegex(g.render(res), r"RTTI_INEXACT +src/game/T.cpp 0x00011010 \?AULocal@fn_00011010@@")
+        seed = {"comment": "", "sites": {LOCAL: {"count": 1, "by": "rtti-seed", "accepted": "t0"}}}
+        g.write_rtti_baseline(json.loads(json.dumps(seed)), self.bpath)
+        res = self.run_gate({"sites": {}, "missing": True})
+        self.assertFalse(res["failed"], g.render(res))
+        self.assertEqual(res["summary"]["rtti_baseline"], 1)
+        res = self.run_gate(seed)                       # REF had it: no growth
+        self.assertFalse(res["failed"])
+        hand = json.loads(json.dumps(seed))
+        hand["sites"][LOCAL]["count"] = 2               # grown by hand
+        g.write_rtti_baseline(hand, self.bpath)
+        res = self.run_gate(seed)
+        self.assertTrue(res["failed"])
+        self.assertEqual(res["rtti_grew"], [LOCAL])
+        g.write_rtti_baseline(json.loads(json.dumps(seed)), self.bpath)
+        self.tu("ns::Game")
+        res = self.run_gate(seed)
+        self.assertFalse(res["failed"])
+        self.assertEqual([r["verdict"] for r in res["rtti"]], ["rtti_fixed"])
+
+    def test_accept(self):
+        self.tu("fn_00011010::Local")
+        with mock.patch.object(g, "ROOT", self.root):
+            with self.assertRaises(SystemExit):        # (--why is required)
+                with mock.patch("sys.stderr", new_callable=lambda: open(os.devnull, "w")):
+                    g.main(["rtti-accept", "src/game/T.cpp", "0x11010", "?AULocal@fn_00011010@@",
+                            "--rtti-baseline", self.bpath])
+            with self.assertRaises(SystemExit):        # (no such site)
+                g.main(["rtti-accept", "src/game/T.cpp", "0x11000", "?AULocal@fn_00011010@@", "--why", "x",
+                        "--rtti-baseline", self.bpath])
+            self.assertEqual(g.main(["rtti-accept", "src/game/T.cpp", "0x11010", "?AULocal@fn_00011010@@",
+                                     "--why", "a local stand-in on purpose", "--rtti-baseline", self.bpath]), 0)
+            b = g.load_rtti_baseline(self.bpath)
+            self.assertEqual(b["sites"][LOCAL]["by"], "rtti-accept")
+            self.assertEqual(b["total"], 1)
+            self.assertEqual(g.rtti_baseline_growth({"sites": {}, "missing": True}, b), [])
 
 
 class EquivClosure(unittest.TestCase):
