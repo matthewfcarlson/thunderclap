@@ -1003,38 +1003,13 @@ void Registry_1b8490::FUN_001b8490(const char* a1, CFMVManager_1b8490* a2, Fn_1b
 } // namespace fn_ff8e53b8
 
 // 0x001b84f0 FUN_001b84f0 (298 B): equivalent/0x001b84f0.cpp [wrapped: conflict: CFMVManager; Closure2; Closure4; Method4]
-// sym: ??0CFMVManager@fn_001b84f0@@QAE@XZ @62e6686c1612 @w7230c7dffa32 @v6cbdc13bb1ea
+// sym: ??0CFMVManager@fn_001b84f0@@QAE@XZ @ddc99796e563 @w42cf53cdf2f6 @v36221daddd24
 namespace fn_001b84f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 6/6)
 // FUN_001b84f0 @ 0x001b84f0
 class CFMVManager;
 
-struct HeapObj {
-    static void* operator new(size_t size) HULK_NEW_THROW;
-};
-
-class MethodBase_1b84f0 : public HeapObj {
-  public:
-    virtual void* m0_001b82f0(int);
-    char pad_04[0x1c - 4];
-};
-
-template <class T, class R, class A, class B, class C, class D>
-class Method4 : public MethodBase_1b84f0 {
-  public:
-    typedef R (T::*Fn)(A, B, C, D);
-    Method4(const char* name, Fn fn) throw();
-    Fn fn;
-};
-
-template <class T, class R, class A, class B, class C, class D>
-class Closure4 : public Method4<T, R, A, B, C, D> {
-  public:
-    typedef R (T::*Fn)(A, B, C, D);
-    Closure4(const char* name, T* owner, Fn f) throw() : Method4<T, R, A, B, C, D>(name, f), owner(owner) {}
-    T* owner;
-};
-
+class CFMVManager;
 struct Closure2 {
     Closure2* FUN_001b81a0(const char* name, CFMVManager* owner, void (CFMVManager::*fn)(const char*, int));
 };
@@ -1074,6 +1049,22 @@ class CFMVManager {
     bool FUN_001b6f00();
 };
 HULK_MGR_SAME(CFMVManager, HulkFMVManager);   // include/decls/managers.h
+// (script1) the Closure4 is a record (include/game/script_bind.h): operator new is the game heap's, its out-of-line
+// Method4 constructor 0x001b7c00 builds the Method part in place, then the Closure4's game vftable (by address) and the
+// object. No stand-in vftable.
+extern "C" char DAT_0041dce4[];   // Closure4<CFMVManager,void,float,float,float,float>
+struct Closure4_1b84f0 : hulk_script::ScriptVftable, ScriptFunctionFields {
+    typedef void (CFMVManager::*Fn)(float, float, float, float);
+    Fn fn;
+    CFMVManager* owner;
+    static void* operator new(hulk_uintptr size) throw() { return hulk_script::FUN_0008d690((unsigned int)size); }
+    void FUN_001b7c00(const char* name, Fn f);
+    Closure4_1b84f0(const char* name, CFMVManager* o, Fn f) throw() {
+        FUN_001b7c00(name, f);
+        vftable = DAT_0041dce4;
+        owner = o;
+    }
+};
 
 extern "C" Registry_1b84f0* FUN_001d4c90();
 extern "C" void* FUN_0008d690(unsigned size);
@@ -1108,8 +1099,8 @@ CFMVManager::CFMVManager() {
 
     reg->FUN_001b8420("fmvm_IsPlaying", this, &CFMVManager::FUN_001b7910);
 
-    Closure4<CFMVManager, void, float, float, float, float>* rumble =
-        new Closure4<CFMVManager, void, float, float, float, float>("fmvm_SetRumbleEvent", this, &CFMVManager::FUN_001b7290);
+    HULK_SIZE32(Closure4_1b84f0, 0x24);
+    Closure4_1b84f0* rumble = new Closure4_1b84f0("fmvm_SetRumbleEvent", this, &CFMVManager::FUN_001b7290);
     reg->FUN_001d3b70("fmvm_SetRumbleEvent", rumble);
 
     reg->FUN_001b8420("fmvm_GetUserSkippedLastTime", this, &CFMVManager::FUN_001b6f00);

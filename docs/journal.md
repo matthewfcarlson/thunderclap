@@ -1432,3 +1432,11 @@ blocks fight::Action's whole family: the records come first there.
   every sibling block uses the record. It writes into the record's fields at shifted offsets. The crash shows up later,
   in another TU's walk of the field it hit (here the request list). Look for the writer through the field's 32-bit
   offset.
+
+## 2026-11-18 script1 2: five more manager constructors on records; find1 F3 / F5
+
+- When the stand-in templates are kept, a per-instantiation trait (`template <class X> struct VftOf;` specialized per
+  Method/Closure instantiation, returning `DAT_<addr>`) gives each template constructor its game vftable without
+  touching the call sites. MSVC inlines it to the same immediate store.
+- find1's F3 (snd_MapInstance, called by map.lua during registration) and F5 (subtitles' default shader) are fixed at
+  the root: game vftables by address, HulkShader's size and its constructor by address.

@@ -5924,3 +5924,12 @@ members nothing defines, and the managers' constructors called `HeapObj::operato
   S17 first. That path still has 32-bit views and int pointers: vfunc_9 0x00279630 (the title name and the data are
   U32), SaveGameOpenRequest 0x00273cb0 (a pad view of core::File), 0x0027a370 / 0x0027a460 (destination as U32),
   0x002786a0 / 0x002786c0 (the same), 0x00278180 / 0x00278ef0 / 0x00279490 (C++ spellings of C helpers).
+- Batch 2 (script1 2) converts five more manager constructors onto the same records: render (0x001bb990), world stream
+  (0x00208210), FMV (0x001b84f0), actor (0x00031310, 12 instantiations) and sound voice (0x001f6990). The last one is
+  find1's stop F3: map.lua calls snd_MapInstance while the manager registers its functions, and the stand-in's clang
+  vftable had no invoke slot. Per-instantiation vftables come from a TU-local `VftOf<X>` trait, so the call sites stay
+  as they were.
+- Subtitles (0x001be170, find1's stop F5) allocate the default pure3d::Shader as decls/shader.h's HulkShader
+  (0x00263ea0, sizeof(HulkShader)) and build it with 0x0028edb0 by address. The block still MATCHes, with relocations ok.
+- Batch 2 checks: control 91258 (HEAD a6720f3a3) / proof 91331: GATE ok. Native unbound mac 11933 -> 11901,
+  linux-x64 11913 -> 11881, android-arm64 11924 -> 11892, with no new names.

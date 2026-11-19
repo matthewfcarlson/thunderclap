@@ -3149,7 +3149,7 @@ void Registry_1f6930::FUN_001f6930(const char* a1, CSoundVoiceManager_1f6930* a2
 } // namespace fn_f7fca51a
 
 // 0x001f6990 FUN_001f6990 (526 B): equivalent/0x001f6990.cpp [wrapped: conflict: CSoundSequenceVoice; CSoundVoiceManager; Closure0; Closure3 (+5)]
-// sym: ?FUN_001f6990@CSoundVoiceManager@fn_001f6990@@QAEXXZ @536a011cc326 @w8c19727daf4a @v9b44e0d432d1
+// sym: ?FUN_001f6990@CSoundVoiceManager@fn_001f6990@@QAEXXZ @9e7649a402e5 @w5f50f969d388 @v8fbd1ccb4927
 namespace fn_001f6990 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 14/14)
 // FUN_001f6990 @ 0x001f6990
@@ -3193,10 +3193,11 @@ template <> struct TypeName<char *> { static const char *get() { return ((const 
 template <> struct TypeName<int> { static const char *get() { return ((const char*)&DAT_0048e134); } };
 
 // Function (include/decls/data/script.h): the vftable, then Function's fields.
-class __declspec(novtable) Function : public ScriptFunctionFields {
+// (script1, find1 F3) records (include/game/script_bind.h): the game's vftables by address per instantiation (VftOf),
+// no stand-in vftable (clang's had no invoke slot: map.lua's snd_MapInstance jumped to 0).
+template <class X> struct VftOf;
+class Function : public hulk_script::ScriptVftable, public ScriptFunctionFields {
 public:
-    virtual void f0();
-    virtual void f1();
     void FUN_001d0480(const char *name, int arity);
     Function(const char *name, int arity) { FUN_001d0480(name, arity); }
 };
@@ -3207,7 +3208,8 @@ template <class T, class R>
 class Method0 : public Function {
 public:
     typedef R (T::*Fn)();
-    Method0(const char *name, Fn f) : Function(name, 0) {
+    Method0(const char *name, Fn f) throw() : Function(name, 0) {
+        vftable = VftOf<Method0>::get();
         fn = f;
         retType = FUN_001d04d0(TypeName<R>::get());
     }
@@ -3218,7 +3220,8 @@ template <class T, class R, class A, class B, class C>
 class Method3 : public Function {
 public:
     typedef R (T::*Fn)(A, B, C);
-    Method3(const char *name, Fn f) : Function(name, 3) {
+    Method3(const char *name, Fn f) throw() : Function(name, 3) {
+        vftable = VftOf<Method3>::get();
         fn = f;
         retType = FUN_001d04d0(TypeName<R>::get());
         argTypes[0] = FUN_001d04d0(TypeName<A>::get());
@@ -3232,7 +3235,8 @@ template <class T, class R, class A, class B, class C, class D>
 class Method4 : public Function {
 public:
     typedef R (T::*Fn)(A, B, C, D);
-    Method4(const char *name, Fn f) : Function(name, 4) {
+    Method4(const char *name, Fn f) throw() : Function(name, 4) {
+        vftable = VftOf<Method4>::get();
         fn = f;
         retType = FUN_001d04d0(TypeName<R>::get());
         argTypes[0] = FUN_001d04d0(TypeName<A>::get());
@@ -3246,24 +3250,42 @@ public:
 template <class T, class R>
 class Closure0 : public Method0<T, R> {
 public:
-    Closure0(const char *name, T *o, typename Method0<T, R>::Fn f) : Method0<T, R>(name, f), owner(o) {}
+    Closure0(const char *name, T *o, typename Method0<T, R>::Fn f) : Method0<T, R>(name, f) {
+        this->vftable = VftOf<Closure0>::get();
+        owner = o;
+    }
     T *owner;
 };
 
 template <class T, class R, class A, class B, class C>
 class Closure3 : public Method3<T, R, A, B, C> {
 public:
-    Closure3(const char *name, T *o, typename Method3<T, R, A, B, C>::Fn f) : Method3<T, R, A, B, C>(name, f), owner(o) {}
+    Closure3(const char *name, T *o, typename Method3<T, R, A, B, C>::Fn f) : Method3<T, R, A, B, C>(name, f) {
+        this->vftable = VftOf<Closure3>::get();
+        owner = o;
+    }
     T *owner;
 };
 
 template <class T, class R, class A, class B, class C, class D>
 class Closure4 : public Method4<T, R, A, B, C, D> {
 public:
-    Closure4(const char *name, T *o, typename Method4<T, R, A, B, C, D>::Fn f) : Method4<T, R, A, B, C, D>(name, f), owner(o) {}
+    Closure4(const char *name, T *o, typename Method4<T, R, A, B, C, D>::Fn f) : Method4<T, R, A, B, C, D>(name, f) {
+        this->vftable = VftOf<Closure4>::get();
+        owner = o;
+    }
     T *owner;
 };
 
+extern "C" char DAT_00424b0c[], DAT_00424b5c[];   // Method3 / Closure3<CSoundVoiceManager,void,bool,bool,bool>
+extern "C" char DAT_00424b1c[], DAT_00424b6c[];   // Method0 / Closure0<CSoundVoiceManager,void>
+extern "C" char DAT_00424b2c[], DAT_00424b7c[];   // Method4 / Closure4<CSoundVoiceManager,void,char*,char*,char*,int>
+template <> struct VftOf<Method3<CSoundVoiceManager, void, bool, bool, bool> > { static void* get() { return DAT_00424b0c; } };
+template <> struct VftOf<Closure3<CSoundVoiceManager, void, bool, bool, bool> > { static void* get() { return DAT_00424b5c; } };
+template <> struct VftOf<Method0<CSoundVoiceManager, void> > { static void* get() { return DAT_00424b1c; } };
+template <> struct VftOf<Closure0<CSoundVoiceManager, void> > { static void* get() { return DAT_00424b6c; } };
+template <> struct VftOf<Method4<CSoundVoiceManager, void, char *, char *, char *, int> > { static void* get() { return DAT_00424b2c; } };
+template <> struct VftOf<Closure4<CSoundVoiceManager, void, char *, char *, char *, int> > { static void* get() { return DAT_00424b7c; } };
 struct Registry_1f6990 {
     void FUN_001d3b70(const char *name, void *closure);
     void FUN_001d3600(const char *path, int flag);

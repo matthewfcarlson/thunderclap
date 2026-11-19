@@ -5747,7 +5747,7 @@ void Registry_312c0::FUN_000312c0(const char* a1, Owner* a2, Fn_312c0 a3) {
 } // namespace fn_f8e68f21
 
 // 0x00031310 FUN_00031310 (12490 B): equivalent/0x00031310.cpp [wrapped: macros]
-// sym: ?Register@CActorManager@fn_00031310@@QAEXXZ @d874a6e6706b @we4cdeea44aaa @v072c761f2c3f
+// sym: ?Register@CActorManager@fn_00031310@@QAEXXZ @d7a3e7541b12 @wfb224a77f298 @v2691680783d7
 namespace fn_00031310 {
 // STATUS: equivalent (tools/equiv.py level 3: 79 inputs, branch coverage 314/314)
 // FUN_00031310 @ 0x00031310
@@ -5756,10 +5756,48 @@ extern "C" void* FUN_0008d690(unsigned int);
 class CActorManager;
 extern char DAT_0048e128,DAT_0048e0e4,DAT_0048e0f0,DAT_0048e134,DAT_0048e100,DAT_0048e10c;
 char FUN_001d04d0(const void*) throw();
-class Base : public ScriptFunctionFields {public: virtual void v(); Base(const char*,int) throw();};
-template<class C,class R,class A> class Method1:public Base {public: R (C::*f)(A); Method1(const char*n,R (C::*x)(A),const void*r,const void*a):Base(n,1){f=x;retType=FUN_001d04d0(r);argTypes[0]=FUN_001d04d0(a);} virtual void v();};
-template<class C,class R,class A> class Closure1:public Method1<C,R,A> {public:C* owner; Closure1(const char*n,C*o,R (C::*f)(A),const void*r,const void*a):Method1<C,R,A>(n,f,r,a){owner=o;} virtual void v();};
+// (script1) records (include/game/script_bind.h): Function's constructor 0x001d0480, the game's vftables by address
+// per instantiation (VftOf), no stand-in vftable.
+template<class X> struct VftOf;
+template<class C,class R,class A> class Method1:public hulk_script::ScriptFunction {public: R (C::*fn)(A); Method1(const char*n,R (C::*x)(A),const void*r,const void*a) throw():hulk_script::ScriptFunction(n,1){vftable=VftOf<Method1>::get();fn=x;f.retType=FUN_001d04d0(r);f.argTypes[0]=FUN_001d04d0(a);}};
+template<class C,class R,class A> class Closure1:public Method1<C,R,A> {public:C* owner; Closure1(const char*n,C*o,R (C::*x)(A),const void*r,const void*a) throw():Method1<C,R,A>(n,x,r,a){this->vftable=VftOf<Closure1>::get();owner=o;}};
 typedef float Float; typedef bool Bool; typedef const char* String; typedef int Int; typedef void Void; struct Vector {float x,y,z;};
+extern "C" char DAT_003f406c[], DAT_003f438c[];   // Method1 / Closure1<CActorManager,Float,String>
+extern "C" char DAT_003f407c[], DAT_003f439c[];   // Method1 / Closure1<CActorManager,Bool,String>
+extern "C" char DAT_003f40ac[], DAT_003f43cc[];   // Method1 / Closure1<CActorManager,Int,String>
+extern "C" char DAT_003f40bc[], DAT_003f43dc[];   // Method1 / Closure1<CActorManager,String,String>
+extern "C" char DAT_003f410c[], DAT_003f442c[];   // Method1 / Closure1<CActorManager,Void,String>
+extern "C" char DAT_003f413c[], DAT_003f445c[];   // Method1 / Closure1<CActorManager,String,Int>
+extern "C" char DAT_003f416c[], DAT_003f448c[];   // Method1 / Closure1<CActorManager,Vector,String>
+extern "C" char DAT_003f417c[], DAT_003f449c[];   // Method1 / Closure1<CActorManager,Void,Int>
+extern "C" char DAT_003f418c[], DAT_003f44ac[];   // Method1 / Closure1<CActorManager,Bool,Vector>
+extern "C" char DAT_003f419c[], DAT_003f44bc[];   // Method1 / Closure1<CActorManager,String,Vector>
+extern "C" char DAT_003f41ec[], DAT_003f450c[];   // Method1 / Closure1<CActorManager,Bool,Int>
+extern "C" char DAT_003f42cc[], DAT_003f45ec[];   // Method1 / Closure1<CActorManager,Void,Float>
+template<> struct VftOf<Method1<CActorManager,Float,String> > { static void* get() { return DAT_003f406c; } };
+template<> struct VftOf<Closure1<CActorManager,Float,String> > { static void* get() { return DAT_003f438c; } };
+template<> struct VftOf<Method1<CActorManager,Bool,String> > { static void* get() { return DAT_003f407c; } };
+template<> struct VftOf<Closure1<CActorManager,Bool,String> > { static void* get() { return DAT_003f439c; } };
+template<> struct VftOf<Method1<CActorManager,Int,String> > { static void* get() { return DAT_003f40ac; } };
+template<> struct VftOf<Closure1<CActorManager,Int,String> > { static void* get() { return DAT_003f43cc; } };
+template<> struct VftOf<Method1<CActorManager,String,String> > { static void* get() { return DAT_003f40bc; } };
+template<> struct VftOf<Closure1<CActorManager,String,String> > { static void* get() { return DAT_003f43dc; } };
+template<> struct VftOf<Method1<CActorManager,Void,String> > { static void* get() { return DAT_003f410c; } };
+template<> struct VftOf<Closure1<CActorManager,Void,String> > { static void* get() { return DAT_003f442c; } };
+template<> struct VftOf<Method1<CActorManager,String,Int> > { static void* get() { return DAT_003f413c; } };
+template<> struct VftOf<Closure1<CActorManager,String,Int> > { static void* get() { return DAT_003f445c; } };
+template<> struct VftOf<Method1<CActorManager,Vector,String> > { static void* get() { return DAT_003f416c; } };
+template<> struct VftOf<Closure1<CActorManager,Vector,String> > { static void* get() { return DAT_003f448c; } };
+template<> struct VftOf<Method1<CActorManager,Void,Int> > { static void* get() { return DAT_003f417c; } };
+template<> struct VftOf<Closure1<CActorManager,Void,Int> > { static void* get() { return DAT_003f449c; } };
+template<> struct VftOf<Method1<CActorManager,Bool,Vector> > { static void* get() { return DAT_003f418c; } };
+template<> struct VftOf<Closure1<CActorManager,Bool,Vector> > { static void* get() { return DAT_003f44ac; } };
+template<> struct VftOf<Method1<CActorManager,String,Vector> > { static void* get() { return DAT_003f419c; } };
+template<> struct VftOf<Closure1<CActorManager,String,Vector> > { static void* get() { return DAT_003f44bc; } };
+template<> struct VftOf<Method1<CActorManager,Bool,Int> > { static void* get() { return DAT_003f41ec; } };
+template<> struct VftOf<Closure1<CActorManager,Bool,Int> > { static void* get() { return DAT_003f450c; } };
+template<> struct VftOf<Method1<CActorManager,Void,Float> > { static void* get() { return DAT_003f42cc; } };
+template<> struct VftOf<Closure1<CActorManager,Void,Float> > { static void* get() { return DAT_003f45ec; } };
 class CActorManager {
 public:
     void Register();

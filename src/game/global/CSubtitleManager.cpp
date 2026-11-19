@@ -16,6 +16,7 @@ namespace fn_fed79ca6 {} using namespace fn_fed79ca6;
 namespace fn_fed79ca6 { extern "C" char DAT_0040a47c[], DAT_0042147c[]; }   // (x64t7) the game vftables the TU's placeholder names stood for (verify_relocs)
 #include "game/global.h"
 #include "game/script_bind.h"
+#include "decls/shader.h"
 
 // ---- declarations shared by the functions below
 namespace fn_fed79ca6 {
@@ -671,13 +672,20 @@ struct Node2_1be170 {
     virtual void v5();
     virtual void v6(unsigned int, bool);
 };
+// (script1, find1 F5) pure3d::Shader as decls/shader.h's HulkShader lays it out (Entity's words, the pddi shader at
+// +0x10, natively +0x18): allocated as the game does (0x00263ea0, sizeof(HulkShader)) and built by its constructor
+// 0x0028edb0 by address. A view only: the object's vftable is the one 0x0028edb0 stores.
 struct Shader_1be170 {
-    int pad[3];
-    Node2_1be170* c;
-    int pad2[3];
     virtual void init();
-    Shader_1be170() throw();
+    int refs;
+    int name[2];
+    Node2_1be170* c;
+    unsigned char flag;
+    unsigned int value;
+    int last;
+    Shader_1be170* FUN_0028edb0();
 };
+void* FUN_00263ea0(unsigned size);
 class Overlay_1be170 {
   public:
     virtual void f0();
@@ -709,7 +717,9 @@ CSubtitleOverlay::CSubtitleOverlay() throw() {
     b11d = 0;
     sub.Init_000dee40();
     int old = Push_00266da0(0xe);
-    m18 = new Shader_1be170;
+    HULK_SIZE32(Shader_1be170, 0x20);
+    Shader_1be170* shader = (Shader_1be170*)FUN_00263ea0(sizeof(HulkShader));
+    m18 = shader ? shader->FUN_0028edb0() : 0;
     m18->init();
     Shader_1be170* q = m18;
     q->c->v6(0x444d4c42, true);

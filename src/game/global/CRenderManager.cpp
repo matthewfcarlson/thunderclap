@@ -3066,7 +3066,7 @@ void Registry_1bb880::FUN_001bb880(const char* name, Owner_1bb880* object, Fn_1b
 
 
 // 0x001bb990 FUN_001bb990 (1676 B): equivalent/0x001bb990.cpp [wrapped: conflict: CRenderManager; Closure1; Closure3; Closure4 (+6)]
-// sym: ??0CRenderManager@fn_001bb990@@QAE@XZ @ea2fcbb88dc9 @w84a4ea37ad9d @vc2f27994f4cb
+// sym: ??0CRenderManager@fn_001bb990@@QAE@XZ @16ff379d94d9 @wb96e5264ca53 @vce2466e0dd32
 namespace fn_001bb990 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 36/36)
 // FUN_001bb990 @ 0x001bb990
@@ -3136,9 +3136,11 @@ template <> struct TypeTag<float> { static const void* get() { return ((char*)&D
 template <> struct TypeTag<unsigned int> { static const void* get() { return ((char*)&DAT_0049b95c); } };
 
 // Function's fields (include/decls/data/script.h) after the vftable.
-class __declspec(novtable) MethodBase_1bb990 : public ScriptFunctionFields {
+// (script1) records (include/game/script_bind.h): the game's vftables by address, per instantiation (VftOf), no
+// stand-in vftable.
+template <class X> struct VftOf;
+class MethodBase_1bb990 : public hulk_script::ScriptVftable, public ScriptFunctionFields {
   public:
-    virtual void m0();
     void FUN_001d0480(const char*, int);
     MethodBase_1bb990() {}
     MethodBase_1bb990(const char* n, int k) { FUN_001d0480(n, k); }
@@ -3148,7 +3150,8 @@ template <class T, class R, class A>
 class Method1 : public MethodBase_1bb990 {
   public:
     typedef R (T::*Fn)(A);
-    Method1(const char* name, Fn f) : MethodBase_1bb990(name, 1) {
+    Method1(const char* name, Fn f) throw() : MethodBase_1bb990(name, 1) {
+        vftable = VftOf<Method1>::get();
         fn = f;
         retType = FUN_001d04d0(TypeTag<R>::get());
         argTypes[0] = FUN_001d04d0(TypeTag<A>::get());
@@ -3159,7 +3162,10 @@ class Method1 : public MethodBase_1bb990 {
 template <class T, class R, class A>
 class Closure1 : public Method1<T, R, A> {
   public:
-    Closure1(const char* name, T* o, typename Method1<T, R, A>::Fn f) : Method1<T, R, A>(name, f), owner(o) {}
+    Closure1(const char* name, T* o, typename Method1<T, R, A>::Fn f) throw() : Method1<T, R, A>(name, f) {
+        this->vftable = VftOf<Closure1>::get();
+        owner = o;
+    }
     T* owner;
 };
 
@@ -3176,7 +3182,10 @@ class __declspec(novtable) Method3 : public MethodBase_1bb990 {
 template <class T, class R, class A, class B, class C>
 class Closure3 : public Method3<T, R, A, B, C> {
   public:
-    Closure3(const char* name, T* o, typename Method3<T, R, A, B, C>::Fn f) : Method3<T, R, A, B, C>(name, f), owner(o) {}
+    Closure3(const char* name, T* o, typename Method3<T, R, A, B, C>::Fn f) throw() : Method3<T, R, A, B, C>(name, f) {
+        this->vftable = VftOf<Closure3>::get();
+        owner = o;
+    }
     T* owner;
 };
 
@@ -3193,7 +3202,10 @@ template <class T, class R, class A, class B, class C, class D, class E, class F
 class Closure6 : public Method6<T, R, A, B, C, D, E, F> {
   public:
     Closure6(const char* name, T* o, typename Method6<T, R, A, B, C, D, E, F>::Fn f)
-        : Method6<T, R, A, B, C, D, E, F>(name, f), owner(o) {}
+        throw() : Method6<T, R, A, B, C, D, E, F>(name, f) {
+        this->vftable = VftOf<Closure6>::get();
+        owner = o;
+    }
     T* owner;
 };
 
@@ -3269,10 +3281,30 @@ class __declspec(novtable) Method4<CRenderManager, unsigned int, const char*, ma
 template <class T, class R, class A, class B, class C, class D>
 class Closure4 : public Method4<T, R, A, B, C, D> {
   public:
-    Closure4(const char* name, T* o, typename Method4<T, R, A, B, C, D>::Fn f) : Method4<T, R, A, B, C, D>(name, f), owner(o) {}
+    Closure4(const char* name, T* o, typename Method4<T, R, A, B, C, D>::Fn f) throw() : Method4<T, R, A, B, C, D>(name, f) {
+        this->vftable = VftOf<Closure4>::get();
+        owner = o;
+    }
     T* owner;
 };
 
+extern "C" char DAT_00420e14[], DAT_00420ed4[];   // Method1 / Closure1<CRenderManager,void,bool>
+extern "C" char DAT_00420e94[], DAT_00420f54[];   // Method1 / Closure1<CRenderManager,void,unsigned int>
+extern "C" char DAT_00420ec4[], DAT_00420f84[];   // Method1 / Closure1<CRenderManager,void,float>
+extern "C" char DAT_00420ee4[];   // Closure3<CRenderManager,void,int,int,int>
+extern "C" char DAT_00420f04[];   // Closure6<CRenderManager,void,float,float,float,float,float,float>
+extern "C" char DAT_00420f34[];   // Closure4<CRenderManager,unsigned int,const char*,float,float,float>
+extern "C" char DAT_00420f44[];   // Closure4<CRenderManager,unsigned int,const char*,math::Vector,math::Vector,float>
+template <> struct VftOf<Method1<CRenderManager, void, bool> > { static void* get() { return DAT_00420e14; } };
+template <> struct VftOf<Closure1<CRenderManager, void, bool> > { static void* get() { return DAT_00420ed4; } };
+template <> struct VftOf<Method1<CRenderManager, void, unsigned int> > { static void* get() { return DAT_00420e94; } };
+template <> struct VftOf<Closure1<CRenderManager, void, unsigned int> > { static void* get() { return DAT_00420f54; } };
+template <> struct VftOf<Method1<CRenderManager, void, float> > { static void* get() { return DAT_00420ec4; } };
+template <> struct VftOf<Closure1<CRenderManager, void, float> > { static void* get() { return DAT_00420f84; } };
+template <> struct VftOf<Closure3<CRenderManager, void, int, int, int> > { static void* get() { return DAT_00420ee4; } };
+template <> struct VftOf<Closure6<CRenderManager, void, float, float, float, float, float, float> > { static void* get() { return DAT_00420f04; } };
+template <> struct VftOf<Closure4<CRenderManager, unsigned int, const char*, float, float, float> > { static void* get() { return DAT_00420f34; } };
+template <> struct VftOf<Closure4<CRenderManager, unsigned int, const char*, math::Vector, math::Vector, float> > { static void* get() { return DAT_00420f44; } };
 // Closure2 / Closure1 built by their out-of-line initializers (matches/0x001ba510.cpp, 0x001ba980.cpp): allocated as
 // ScriptClosureView.
 struct Closure2_1bb990 {

@@ -3562,7 +3562,7 @@ bool Table_208040::FUN_00208040(int a, int b)
 } // namespace fn_f49dcb8d
 
 // 0x00208210 FUN_00208210 (1544 B): equivalent/0x00208210.cpp [wrapped: conflict: CWorldStreamManager; Closure1; Method1]
-// sym: ??0CWorldStreamManager@fn_00208210@@QAE@XZ @bc124a750423 @w0dcafb160efe @v66eb513a22a6
+// sym: ??0CWorldStreamManager@fn_00208210@@QAE@XZ @db195b140561 @w47512810076e @v045d1b612c28
 namespace fn_00208210 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 24/24)
 // FUN_00208210 @ 0x00208210
@@ -3610,9 +3610,11 @@ template <> struct TypeTag<bool> { static const void* get() { return &DAT_0048e0
 template <> struct TypeTag<int> { static const void* get() { return ((char*)&DAT_0048e134); } };
 
 // Function (include/decls/data/script.h): the vftable, then Function's fields.
-class __declspec(novtable) MethodBase_208210 : public ScriptFunctionFields {
+// (script1) records (include/game/script_bind.h): the game's vftables by address, per instantiation (VftOf), no
+// stand-in vftable.
+template <class X> struct VftOf;
+class MethodBase_208210 : public hulk_script::ScriptVftable, public ScriptFunctionFields {
   public:
-    virtual void m0();
     void FUN_001d0480(const char*, int);
     MethodBase_208210(const char* n, int k) { FUN_001d0480(n, k); }
 };
@@ -3621,7 +3623,8 @@ template <class T, class R, class A>
 class Method1 : public MethodBase_208210 {
   public:
     typedef R (T::*Fn)(A);
-    Method1(const char* name, Fn f) : MethodBase_208210(name, 1) {
+    Method1(const char* name, Fn f) throw() : MethodBase_208210(name, 1) {
+        vftable = VftOf<Method1>::get();
         fn = f;
         retType = FUN_001d04d0(TypeTag<R>::get());
         argTypes[0] = FUN_001d04d0(TypeTag<A>::get());
@@ -3632,10 +3635,22 @@ class Method1 : public MethodBase_208210 {
 template <class T, class R, class A>
 class Closure1 : public Method1<T, R, A> {
   public:
-    Closure1(const char* name, T* o, typename Method1<T, R, A>::Fn f) : Method1<T, R, A>(name, f), owner(o) {}
+    Closure1(const char* name, T* o, typename Method1<T, R, A>::Fn f) throw() : Method1<T, R, A>(name, f) {
+        this->vftable = VftOf<Closure1>::get();
+        owner = o;
+    }
     T* owner;
 };
 
+extern "C" char DAT_00425b44[], DAT_00425c44[];   // Method1 / Closure1<CWorldStreamManager,void,int>
+extern "C" char DAT_00425b94[], DAT_00425c94[];   // Method1 / Closure1<CWorldStreamManager,int,int>
+extern "C" char DAT_00425bb4[], DAT_00425cb4[];   // Method1 / Closure1<CWorldStreamManager,bool,int>
+template <> struct VftOf<Method1<CWorldStreamManager, void, int> > { static void* get() { return DAT_00425b44; } };
+template <> struct VftOf<Closure1<CWorldStreamManager, void, int> > { static void* get() { return DAT_00425c44; } };
+template <> struct VftOf<Method1<CWorldStreamManager, int, int> > { static void* get() { return DAT_00425b94; } };
+template <> struct VftOf<Closure1<CWorldStreamManager, int, int> > { static void* get() { return DAT_00425c94; } };
+template <> struct VftOf<Method1<CWorldStreamManager, bool, int> > { static void* get() { return DAT_00425bb4; } };
+template <> struct VftOf<Closure1<CWorldStreamManager, bool, int> > { static void* get() { return DAT_00425cb4; } };
 struct Closure2_208210 {
     Closure2_208210* FUN_00205e30(const char* name, CWorldStreamManager* owner, int (CWorldStreamManager::*fn)(int, int));
 };
