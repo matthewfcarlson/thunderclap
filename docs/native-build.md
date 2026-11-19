@@ -5987,3 +5987,16 @@ aaa0a1573's gate had three NEW blocks (0x002728d0 / 0x002783d0 layout: owners st
 cache as untyped words). They are fixed with records (functions defined on CoreDrive / CoreXboxSaveDrive; records.h
 CoreSaveBlockCache), and 0x002787c0 / 0x002788c0 are re-proven because their callee's binding changed. The Wine proof
 and the native unbound counts are in the commit message.
+
+### drive1: checks of aaa0a1573 + db5209d1d
+
+- Wine: control 91377 (a6720f3a3, the last commit before drive1 that materializes; 545a9a89e cannot, the D74 break)
+  and proof 91790 (db5209d1d, seed:91377, studio, play3 60000, limit 14400): GATE ok, 0 of 2,017 common frames
+  differ. The images differ (hulk-strict.exe), so the change was built. The pair also spans script1 2 and sweep-caster,
+  which had their own pairs.
+- Native unbound (control a6720f3a3 against proof db5209d1d, lineage maps): mac 11933 -> 11385, linux-x64 11913 ->
+  11365, android-arm64 11924 -> 11376. The control's linux and android counts are script1's for the same commit. In
+  drive1's TUs, three still-unbound names changed spelling (0x002781c0's XCalculateSignature callees, XFindClose's
+  ReleaseThing) and FUN_0026fd50's C++ spelling is gone. No new unbound name.
+- x64 gate: aaa0a1573 had 3 NEW blocks, fixed in db5209d1d (gate of the fix: ok). 0x0008c470 stays a baseline block
+  (now crash64 where it was layout): the stubbed thunk calls scribble the slot pointer they are handed.
