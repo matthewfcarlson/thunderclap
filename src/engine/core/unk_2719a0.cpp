@@ -745,12 +745,18 @@ void Obj_2728a0::F(int x) {
 } // namespace fn_f484c341
 
 // 0x002728d0 FUN_002728d0 (4 B): matches/0x002728d0.cpp
-// sym: ?FUN_002728d0@ProjectileMissile_2728d0@owners@@QAEPAU12@XZ
+// sym: ?FUN_002728d0@Drive_2728d0@fn_f484c341@@QAEPAUCoreDriveMedia@@XZ
 // Same code shape as 0x00196630 (propagated; names are from that function)
-// (drive1) core::Drive's media block (records.h CoreDrive.media: +0x60 on the 32-bit build; the owners stub is a pad)
-owners::ProjectileMissile_2728d0* owners::ProjectileMissile_2728d0::FUN_002728d0() {
-    return (owners::ProjectileMissile_2728d0*)&((CoreDrive*)this)->media;
+// (drive1) core::Drive's media block (records.h CoreDrive.media: +0x60 on the 32-bit build, +0xb0 natively), on the
+// drive's record (owners.h's 0x60-byte ProjectileMissile_2728d0 stub, which the callers still name, is a pad)
+namespace fn_f484c341 {
+struct Drive_2728d0 : CoreDrive {
+    CoreDriveMedia* FUN_002728d0();
+};
+CoreDriveMedia* Drive_2728d0::FUN_002728d0() {
+    return &media;
 }
+} // namespace fn_f484c341
 
 namespace fn_f484c341 {
 

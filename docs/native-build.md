@@ -5980,3 +5980,10 @@ fix2: 51 TUs) and a landing pass.
 - Native mac, from each lineage's own snapshot and binding map: 2520/2520 tree TUs compile. Unbound went from 11,933
   to 11,419: C++ names from 5,004 to 4,495, and FUN_ by address from 6,318 to 6,313. The callers' `Find_00236ac0` /
   `Find_002343e0` declarations now take the record types, so those names are unbound under their new spellings.
+
+### drive1 follow-up (the 64-bit gate)
+
+aaa0a1573's gate had three NEW blocks (0x002728d0 / 0x002783d0 layout: owners stubs as `this`; 0x00278de0 crash64: the
+cache as untyped words). They are fixed with records (functions defined on CoreDrive / CoreXboxSaveDrive; records.h
+CoreSaveBlockCache), and 0x002787c0 / 0x002788c0 are re-proven because their callee's binding changed. The Wine proof
+and the native unbound counts are in the commit message.

@@ -17,7 +17,6 @@ typedef const void* const* hulk_vftable_ptr;  // a pointer to a vftable
 #endif
 #endif
 
-struct DataRec_0052c270;  // packed layout (bytes and pointers), defined in the data TU
 #include "decls/data/records.h"
 
 // core/ControllerXBox.cpp
@@ -85,7 +84,7 @@ extern "C" unsigned char DAT_0052a229[7];
 extern "C" unsigned char DAT_0052a230[8224];
 extern "C" unsigned char DAT_0052c250[28];
 extern "C" void* DAT_0052c26c[1];
-extern "C" DataRec_0052c270 DAT_0052c270[1];
+// DAT_0052c270: typed by decls/data/records.h (included above)
 extern "C" unsigned char DAT_0052c280[4];
 
 // core/unk_26d480.cpp

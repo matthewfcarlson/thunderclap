@@ -1454,3 +1454,21 @@ blocks fight::Action's whole family: the records come first there.
   `equiv.py --x64` on HEAD's source before blaming headers or other agents. Three of the four were allocation sizes,
   and `sizeof` of the record fixes them without touching the 32-bit code (the code hashes stay the same, so no
   re-proof).
+
+## drive1 follow-up (D139, 2026-11-18): the 64-bit gate on aaa0a1573
+
+- The gate on aaa0a1573 found three NEW blocks. 0x002728d0 and 0x002783d0 took `this` as an owners.h stub (a 0x60-byte
+  and a 0xd5-byte pad) and cast it to the record, so the checker allocated the stub and the native offsets read past it
+  (layout). 0x00278de0 read the cache DAT_0052c270 while the checker still modelled it as untyped words (crash64).
+  Fixes: the two functions are defined on the record (Drive_2728d0 : CoreDrive, XboxSaveDrive_2783d0 :
+  CoreXboxSaveDrive), and their callers keep the owners spelling, bound by the address in the name. The cache is now
+  a typed record, records.h CoreSaveBlockCache, regenerated with data_gen. All three are `equivalent` under --x64.
+- Lesson: when a block casts `this` to a record, declare the class as the record. The 64-bit check builds `this` from
+  the declared class, not from the cast.
+- aaa0a1573 was pushed by another agent's push before its message was final: its "PROOFLINE" line is a placeholder.
+  The proof for it and this follow-up is in this commit's message.
+- aaa0a1573 broke the Wine build's materialize on HEAD: its records.h edit moved MSVC 7.1's code in four equivalent
+  blocks of TUs that do not use the records (0x00027930, 0x000b86b0, 0x002e9c60, 0x002ea3c0; the records.h effect
+  noted for 0x000b86b0 under data3). With this commit's records.h, 0x002e9c60 is back at its proven code; the other
+  three are re-proven on MSVC at 3,000 (their clang code is unchanged). A records.h edit needs the whole-tree verify
+  before landing.

@@ -168,10 +168,8 @@ class XboxSaveDrive_278a80 {
 extern "C" void __cdecl FUN_0026b800(char *, int, const char *, int, int, int, int);
 extern "C" int __stdcall FUN_003564c0(const char *, char *);
 extern "C" void * __cdecl thunk_FUN_00271f20(void *, const void *, unsigned int);
-// (drive1) the save drive's block cache DAT_0052c270 by its fields (the data TU's record: the signed 8 KiB block
-// buffer, the file it holds, its block, its state 0 empty / 1 valid / 2 dirty); as 32-bit byte offsets (+4 / +8 /
-// +0xc) the 64-bit builds read and wrote the buffer pointer's upper half
-struct SaveBlockCache { unsigned char* buffer; unsigned int file; unsigned int block; unsigned int state; };
+// (drive1) the save drive's block cache DAT_0052c270 by its fields (records.h CoreSaveBlockCache)
+typedef CoreSaveBlockCache SaveBlockCache;
 extern int __stdcall FUN_002109b6(const void *, int);
 struct AdjBC {
     int vfunc_0_adjbc(const void *name, unsigned int unused, unsigned int block, unsigned int offset, unsigned int size, void *destination, unsigned int extra);
@@ -622,19 +620,23 @@ int core::XboxSaveDrive::vfunc_5(hulk_intptr __p0, int param3) { int * param2 = 
 
 
 // 0x002783d0 FUN_002783d0 (63 B): matches/0x002783d0.cpp
-// sym: ?FUN_002783d0@Obj_2783d0@owners@@QAEXPAH0@Z
-// (drive1) the drive's name through records.h CoreXboxSaveDrive (owners.h's stub is a 32-bit pad view): 'U' the
-// hard disk, else the memory unit's port digit and slot letter
-void owners::Obj_2783d0::FUN_002783d0(int* a, int* b) {
-    const CoreXboxSaveDrive* drive = (const CoreXboxSaveDrive*)this;
-    if (drive->name[0] == 0x55) {
+// sym: ?FUN_002783d0@XboxSaveDrive_2783d0@fn_fad5a458@@QAEXPAH0@Z
+// (drive1) on the drive's record (records.h CoreXboxSaveDrive; owners.h's Obj_2783d0 stub, which the callers still
+// name, is a 32-bit pad view): the name's 'U' (the hard disk), else the memory unit's port digit and slot letter
+namespace fn_fad5a458 {
+struct XboxSaveDrive_2783d0 : CoreXboxSaveDrive {
+    void FUN_002783d0(int* a, int* b);
+};
+void XboxSaveDrive_2783d0::FUN_002783d0(int* a, int* b) {
+    if (name[0] == 0x55) {
         *a = -1;
         *b = -1;
     } else {
-        *a = (signed char)drive->name[7] - 0x31;
-        *b = (signed char)drive->name[8] - 0x41;
+        *a = (signed char)name[7] - 0x31;
+        *b = (signed char)name[8] - 0x41;
     }
 }
+} // namespace fn_fad5a458
 
 namespace fn_fad5a458 {
 
@@ -842,14 +844,14 @@ void XboxSaveDrive::Run() {
 
 
 // 0x002787c0 FUN_002787c0 (203 B): equivalent/0x002787c0.cpp
-// sym: ?FUN_002787c0@XboxSaveDrive_2787c0@fn_fad5a458@@QAEHI@Z @d2138d0c0304 @w1881c6de4ccf @v78285ac6d7f7
+// sym: ?FUN_002787c0@XboxSaveDrive_2787c0@fn_fad5a458@@QAEHI@Z @d2138d0c0304 @w1881c6de4ccf @vc4a03dade26c
 // STATUS: equivalent (tools/equiv.py level 3: 20020 inputs, branch coverage 26/26)
 // FUN_002787c0 @ 0x002787c0
 int XboxSaveDrive_2787c0::FUN_002787c0(unsigned int value) { if(value<=0x11) { switch(value) {case 0:return 0;case 2:case 3:case 15:return 1;case 11:return 5;case 17:return 3;default:return 8;} } switch(value) { case 0x1a:return 11; case 0x1b:case 0x3ed:return 5; case 0x22:return 3; case 0x55:return 0; case 0x70:return 7; case 0x48f: { (*(Service_2787c0*)&DAT_0052a228).FUN_00278060(); unsigned int first; ((owners::Obj_2783d0 *)this)->FUN_002783d0((int *)(&first), (int *)(&value)); return ((owners::Bits_2780c0 *)&((*(Service_2787c0*)&DAT_0052a228)))->FUN_002780c0((int)first, (int)value)?3:4; } default:return 8; } }
 
 
 // 0x002788c0 FUN_002788c0 (286 B): equivalent/0x002788c0.cpp
-// sym: ?FUN_002788c0@XboxSaveDrive_2788c0@fn_fad5a458@@QAE_NXZ @9db53bd45c68 @w3c174c6717c2 @v448618ae2f29
+// sym: ?FUN_002788c0@XboxSaveDrive_2788c0@fn_fad5a458@@QAE_NXZ @9db53bd45c68 @w3c174c6717c2 @vdce99d77951f
 // STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 14/18, incomplete)
 // FUN_002788c0 @ 0x002788c0
 bool XboxSaveDrive_2788c0::FUN_002788c0() {

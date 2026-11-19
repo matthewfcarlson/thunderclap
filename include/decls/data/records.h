@@ -574,6 +574,18 @@ struct CoreDrive {
     void* driveThread;                      // +0xb8 the CoreDriveThread (0x0026f570 / 0x00278500; 0x00272b60 / 0x00272b70 / 0x00272b80 call through it)
 };
 
+// The save drive's block cache (src/platform/xbox/core/XboxSaveDrive.cpp: 0x00278500 points `buffer` at its 8 KiB
+// of DAT_0052a230, 0x00279490 fills it with one signed block of a save file, 0x00278de0 writes it back, 0x00278ef0
+// signs a new file through it). As 32-bit byte offsets (+4 / +8 / +0xc) the 64-bit builds read the buffer pointer's
+// upper half.
+struct CoreSaveBlockCache {
+    unsigned char* buffer;                  // +0x00 8 KiB (0x00278500)
+    unsigned int file;                      // +0x04 the file handle the block belongs to (0x00279490; vfunc_10 0x00278280 clears `state` when it closes)
+    unsigned int block;                     // +0x08 the block index (offset / 0x2000)
+    unsigned int state;                     // +0x0c 0 empty, 1 valid, 2 written and not yet saved (0x00278de0 saves it)
+};
+extern "C" CoreSaveBlockCache DAT_0052c270[1];
+
 // core::DriveThread (0x002733c0 constructs it; vftables 0x0042b8f8 / +4 0x0042b8f0 / +0xc 0x0042b8e0): the worker
 // that runs a drive's requests (0x002731d0 is its thread's entry). Each drive class shares one per device
 // (DAT_00528408 / DAT_0052840c for XboxDrive, DAT_0052c26c for XboxSaveDrive), allocated with 0x94 bytes.
