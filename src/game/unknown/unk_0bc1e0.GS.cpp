@@ -7,6 +7,7 @@
 #include "decls/data/engine/pure3d/prop.h"
 #include "decls/data/game/global.h"
 #include "gen/owners.h"
+#include "decls/content_load.h"   // (recs1) ContentLoadArgs
 #define TREE_TU_BEGIN namespace fn_ff542b10 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CSPHulkProp
@@ -24,24 +25,22 @@ class Request {
     virtual void v0();
     virtual void Release();
     bool FUN_00266750();
-    int FUN_00266700();
 };
+void* __fastcall FUN_00266700(Request*);   // (find2 G5) as defined: a free fastcall returning the stream (was a member returning int)
 class Target_bc3c0 {
   public:
-    void FUN_00266220(int value);
+    void FUN_00266220(void* source);   // (find2 G5) as defined: the source is a pointer (int did not bind)
 };
 class Manager_bc3c0 {
   public:
-    void FUN_00265810(const char* name, struct RequestState* state);
+    void FUN_00265810(ContentLoadArgs* args, struct RequestState* state);
     int FUN_00264870();
 };
+// (recs1) the request the loader 0x00265810 returns and the arguments it reads (decls/content_load.h; was the name
+// and four words at 32-bit offsets: natively the kind sat 8 bytes early, find1 F14)
 struct RequestState {
     Request* request;
-    char name[0x100];
-    int field104;
-    int field108;
-    int arg;
-    char field110;
+    ContentLoadArgs args;
 };
 extern "C" int __cdecl FUN_000964a0(char*, int, const char*, ...);   // (x64t14) as defined (CUnlockablesManager.cpp)
 struct Label_bc6a0 {
@@ -236,7 +235,7 @@ extern "C" TextManager_bd050* FUN_000fc3d0();
 
 
 // 0x000bc3c0 FUN_000bc3c0 (264 B): equivalent/0x000bc3c0.cpp
-// sym: ?FUN_000bc3c0@fn_ff542b10@@YGXPBDPAVTarget_bc3c0@1@H@Z @ebbee815681e @w834956468788 @vfed8cfb672c6
+// sym: ?FUN_000bc3c0@fn_ff542b10@@YGXPBDPAVTarget_bc3c0@1@H@Z @ebbee815681e @w834956468788 @v6e2694a55c98
 // STATUS: equivalent (tools/equiv.py level 3: 3566 inputs, branch coverage 8/8)
 // FUN_000bc3c0 @ 0x000bc3c0
 void __stdcall FUN_000bc3c0(const char* src, Target_bc3c0* target, int arg) {
@@ -245,16 +244,16 @@ void __stdcall FUN_000bc3c0(const char* src, Target_bc3c0* target, int arg) {
     } frame;
     RequestState& st = frame.st;
     st.request = 0;
-    st.name[0] = 0;
-    st.field104 = 0;
-    st.field108 = 0;
-    st.arg = 0;
-    st.field110 = 0;
+    st.args.path[0] = 0;
+    st.args.context = 0;
+    st.args.callback = 0;
+    st.args.kind = 0;
+    st.args.wait = 0;
     if (src != 0)
-        strncpy(st.name, src, 0xff);
-    st.arg = arg;
-    st.field110 = 0;
-    (*(Manager_bc3c0**)&DAT_00527c58)->FUN_00265810(st.name, &st);
+        strncpy(st.args.path, src, 0xff);
+    st.args.kind = arg;
+    st.args.wait = 0;
+    (*(Manager_bc3c0**)&DAT_00527c58)->FUN_00265810(&st.args, &st);
     int saved = (*(Manager_bc3c0**)&DAT_00527c58)->FUN_00264870();
     ((owners::C_264860 *)((*(Manager_bc3c0**)&DAT_00527c58)))->FUN_00264860(0x3d090);
     if (!st.request->FUN_00266750()) {
@@ -263,7 +262,7 @@ void __stdcall FUN_000bc3c0(const char* src, Target_bc3c0* target, int arg) {
         } while (!st.request->FUN_00266750());
     }
     ((owners::C_264860 *)((*(Manager_bc3c0**)&DAT_00527c58)))->FUN_00264860(saved);
-    target->FUN_00266220(st.request->FUN_00266700());
+    target->FUN_00266220(FUN_00266700(st.request));
     Request* r = st.request;
     if (r != 0)
         r->Release();

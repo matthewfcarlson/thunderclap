@@ -253,7 +253,9 @@ struct HulkFEManager {
     unsigned int f187c, f1880;
     char p1884[0x180];
     unsigned char f1a04, f1a05, f1a06;
-    char p1a07[0x1c1];
+    char p1a07;
+    unsigned int f1a08;     // (recs1) 0x000c4ef0 clears it
+    char p1a0c[0x1bc];
     unsigned char f1bc8, f1bc9;
     char p1bca[2];
     unsigned char f1bcc;
@@ -407,5 +409,34 @@ struct HulkManagerPair {
     void* b;
 };
 HULK_MGR_SIZE32(HulkManagerPair, 8);
+
+// (recs1) CGame (its constructor 0x00087e80, 0x54 bytes; 0x00088020 is its set-up; the World's +0x54 and
+// DAT_004dd6ec point at it): the vftable, the shared triple, then the managers 0x00088020 creates and stores, and a
+// flag. Its getters 0x00086270 .. 0x00086380 return one word each: on this record they read pointer-sized words
+// (find1 F6: their 32-bit pad views read the lower half of the next manager natively).
+struct HulkGame {
+    void* vftable;          // +0x00 (0x003ffab4)
+    void* triple;           // +0x04 HulkGameTriple (0x00086270)
+    void* time;             // +0x08 CTimeManager (0x00086320)
+    void* world;            // +0x0c the World
+    void* controllers;      // +0x10 CControllerManager (0x000862c0)
+    void* gameControllers;  // +0x14 CGameControllerManager (0x000862d0)
+    void* haptic;           // +0x18 CHapticControllerManager (0x00086330)
+    void* platform;         // +0x1c CPlatformManager
+    void* frontEnd;         // +0x20 CFEManager (0x00086280)
+    void* render;           // +0x24 CRenderManager (0x00086290)
+    void* worldStream;      // +0x28 CWorldStreamManager (0x000862a0)
+    void* overlay;          // +0x2c COverlayManager (0x000862b0)
+    void* sound;            // +0x30 CSoundRealTimeManager (0x000862e0)
+    void* fmv;              // +0x34 CFMVManager (0x00086300)
+    void* gameFlow;         // +0x38 CGameFlowManager (0x00086310)
+    void* unlockables;      // +0x3c CUnlockablesManager (0x00086340)
+    void* pair;             // +0x40 HulkManagerPair (0x00086350)
+    void* f44;              // +0x44 0x0010b2c0's object
+    void* stats;            // +0x48 CStatsManager (0x00086370)
+    void* subtitle;         // +0x4c CSubtitleManager (0x00086380)
+    unsigned char flag;     // +0x50
+};
+HULK_MGR_SIZE32(HulkGame, 0x54);
 
 #endif

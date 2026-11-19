@@ -16,6 +16,7 @@
 namespace fn_ff10b020 {} using namespace fn_ff10b020;
 #include "game/global.h"
 #include "decls/managers.h"
+#include "decls/view.h"   // (recs1) pure3d::View
 #include "game/script_bind.h"
 
 // ---- declarations shared by the functions below
@@ -24,12 +25,10 @@ struct View_nv_1b8690 {
     pure3d::View *FUN_00294880();
 };
 extern "C" void *__cdecl FUN_0008d690(unsigned int n);
-class Owner_1b8690 {
+// (recs1) CRenderManager on its record (decls/managers.h; was `int pad0; View* child; int v[4]`)
+class Owner_1b8690 : public HulkRenderManager {
 public:
     void FUN_001b8690();
-    int pad0;
-    pure3d::View *child;
-    int v[4];
 };
 struct Renderer_1b86f0 {
     void Setup_0023f720(int* out, const char* name);
@@ -602,15 +601,15 @@ class Raw_1bb7d0 { public: void FUN_001ba090(const char*, Fn_1bb7d0); };
 // FUN_001b8690 @ 0x001b8690
 void Owner_1b8690::FUN_001b8690()
 {
-    pure3d::View *c = (pure3d::View *)FUN_0008d690(0x140);
+    pure3d::View *c = (pure3d::View *)FUN_0008d690(sizeof(HulkView));   // (recs1) the View record (0x140 on the 32-bit builds)
     if (c)
         c = ((View_nv_1b8690*)(c))->FUN_00294880();
-    child = c;
+    view = c;
     c->vfunc_0();
-    ((owners::A_293e40 *)(((View_nv_1b8690*)(child))))->FUN_00293e40(v[0], v[1], v[2], v[3]);
-    (*(unsigned int *)&child->f_20) = 0xff000000;
-    (*(unsigned int *)&child->f_2c) = 0xffffffff;
-    ((owners::C_293e90 *)(((View_nv_1b8690*)(child))))->FUN_00293e90(0xff000000);
+    ((owners::A_293e40 *)view)->FUN_00293e40(f8, fc, *(int*)&f10, *(int*)&f14);
+    ((HulkView *)view)->clearColour = 0xff000000;
+    ((HulkView *)view)->clearMask = 0xffffffff;
+    ((owners::C_293e90 *)view)->FUN_00293e90(0xff000000);
 }
 
 

@@ -219,6 +219,11 @@ public:
     virtual int vfunc_1(int, int) = 0; // slot 1
     virtual void vfunc_2(int, int) = 0; // slot 2
     virtual void vfunc_3(hulk_intptr); // slot 3
+    // (recs1, D144) the words of decls/data/records.h OmMetaTypeAttribBase (0x0025fba0): the node in the meta type's
+    // tree of attributes, the member's offset in the object, the name (the tree's key)
+    struct { void* left; void* right; void* parent; int color; } f_04;
+    int f_14;
+    const char* f_18;
 };
 
 // template family om::MetaTypeAttrib: 2 instantiation(s), 0 with their own specialization
@@ -240,13 +245,15 @@ class MetaTypeAttribScalar : public ::om::MetaTypeAttrib< T0 > {
 public:
     virtual ~MetaTypeAttribScalar(); // overrides om::MetaTypeAttribBase slot 0
     virtual void vfunc_3(hulk_intptr); // overrides om::MetaTypeAttribBase slot 3
-    virtual unsigned int vfunc_4(); // slot 4
-    virtual unsigned int vfunc_5(); // slot 5
-    char _pad_04[0x10];
-    int f_14;
-    char _pad_18[0xc];
+    virtual hulk_uintptr vfunc_4(); // slot 4 (recs1: the label, a pointer)
+    virtual hulk_uintptr vfunc_5(); // slot 5 (recs1: the limit, a pointer)
+    // (recs1, D144) records.h OmMetaTypeAttribScalarInt / Float after the base's words: minimum, default, current (the
+    // scalar's bits), the label and the limit (0x30 bytes on the 32-bit builds, was the proven prefix 0x2c)
+    int f_1c;
+    int f_20;
     int f_24;
-    unsigned int f_28;
+    const char* f_28;
+    const void* f_2c;
 };
 
 // .?AVNullStream@om@@  vftable 0x42923c (1)

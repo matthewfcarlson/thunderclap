@@ -128,10 +128,9 @@ struct ThisCall_00240060 {
     void FUN_00240060();
 };
 extern void thunk_FUN_00267090(CCollisionAction*);
-struct Obj_240760 {
-};
-struct Str_2407a0 {
-};
+// (recs1) DAT_004e5ca0 holds the language String 0x002407a0 allocates (records.h OmString's words): read through the
+// String records of gen/owners.h (were the empty local views Obj_240760 / Str_2407a0, which the 64-bit check could
+// take only on trust, D111)
 // (audio1) a static audio om type as its init call reads it: om::EntityType's layout (records.h OmEntityType; a 32-bit
 // pad before `handle`, its flags). Only called through, never constructed: slot 0 is the game's (the type's
 // constructor stores the game's vftable).
@@ -781,7 +780,7 @@ extern "C" hulk_intptr FUN_00240750(void) {
 // Same code shape as 0x000fc130 (propagated; names are from that function)
 // data: gObject_240760 = DAT_004e5ca0
 extern "C" void __cdecl FUN_00240760(const void* text) {   // (audio1) the language String (a pointer, was unsigned int)
-    ((owners::Text_240190 *)((*(Obj_240760**)&DAT_004e5ca0)))->FUN_00240190((const owners::Text_240190 *)text);
+    (*(owners::Text_240190**)&DAT_004e5ca0)->FUN_00240190((const owners::Text_240190 *)text);
 }
 
 
@@ -799,14 +798,14 @@ extern "C" hulk_intptr FUN_00240780(void) {
 // FUN_002407a0 @ 0x002407a0
 extern "C" void FUN_002407a0(unsigned int flags)
 {
-    Str_2407a0 *str;
+    owners::String_23fc40 *str;
     DAT_004e5ca4 = flags;
     void *mem = FUN_0008d690((int)sizeof(OmString));   // (audio1) the language String (records.h; 0xc on 32-bit)
     if (mem != 0) {
-        str = ((Str_2407a0 *)((owners::String_23fc40 *)(((Str_2407a0 *)mem)))->FUN_0023fc40("english", (hulk_intptr)2));
-        (*(Str_2407a0**)&DAT_004e5ca0) = str;
+        str = ((owners::String_23fc40 *)mem)->FUN_0023fc40("english", (hulk_intptr)2);
+        (*(owners::String_23fc40**)&DAT_004e5ca0) = str;
     } else {
-        (*(Str_2407a0**)&DAT_004e5ca0) = 0;
+        (*(owners::String_23fc40**)&DAT_004e5ca0) = 0;
     }
     FUN_00256660()->init();
     FUN_00245330()->init();

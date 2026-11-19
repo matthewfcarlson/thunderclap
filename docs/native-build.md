@@ -6126,3 +6126,53 @@ Continues script1 (build/script2/RESUME.md).
     difference on arm64;
   - Init_001c3c90 (the bool-returning callback 0x001b88f0's callee), defined to return `unsigned char`. Declaring it
     as defined still MATCHes. That fix was left out of this batch because the Wine proof had already run without it.
+
+## recs1 (2026-11-19): records for find1's unowned start-up stops (View, CGame, ContentLoadArgs, D144)
+
+- **pure3d::View (find1 F4 / F7 / F9).** include/decls/view.h `HulkView` (0x140 on the 32-bit builds: the viewport,
+  the camera, ambient, clear colour / depth / stencil / mask, fog, 32 light slots, two matrices; 0x00294880 writes
+  every word, 0x00293ef0 reads them all). gen/pure3d.h's pure3d::View carries the same words (192 -> 320,
+  `--update-sizes`). The View's own functions (unk_293bd0.cpp, unk_2940f0.cpp, View.cpp) derive their views from the
+  record; the constructor 0x00294880 is a record constructor storing the game's vftable 0x0042d0bc by address (was a
+  local polymorphic stand-in; now a byte match). owners.h A_293e40 / Obj_293e60 / C_293e90 spell the View's words.
+  The four allocating sites (COverlayManager 0x000d6a20 on decls/managers.h's HulkOverlayManager, CRenderManager
+  0x001b8690 on HulkRenderManager, CFEManager 0x000c4ef0 on HulkFEManager, FEThings 0x000ddbf0, the HUD canvas
+  0x001c1a40) allocate `sizeof(HulkView)` and write its words.
+- **CGame (find1 F6 / F15).** decls/managers.h `HulkGame` (0x54): the vftable, the triple and the 18 managers
+  0x00088020 stores, a flag. The getters 0x00086270 .. 0x00086380 read pointer-sized words on it (0x00086300 returns
+  `hulk_uintptr`, was `unsigned int`); owners.h's getter stubs spell its words; 0x00088020's view checks
+  HULK_MGR_SAME against it; 0x000861f0 / 0x00086240 / 0x000865d0 on the record. The yield 0x00087990 reads the World
+  on HulkWorld by DAT_004dd700 (was `gObj_87990`, a C++ name) and calls 0x00086da0 / the loader thunk / 0x002656a0
+  by their address names (were `fn86`, `thunk`, `fnTail`).
+- **ContentLoadArgs (find1 F14).** Moved to include/decls/content_load.h (records.h includes it); the loader callers
+  0x000bc3c0, 0x000befc0, 0x00203e90, 0x000c9550 fill it instead of 32-bit name/word views.
+- **D144, the listener-effect meta-type attributes.** include/decls/listener_effect.h `AudioListenerEffectXBox`
+  (records.h OmEntity + the twelve I3DL2 settings; 0x58). 0x0024df00 builds the twelve attributes on records.h's
+  OmMetaTypeAttribScalarInt / Float with `HULK_LFX_AT(hal.x)` offsets and the game's vftables by address (still a
+  byte match); 0x0025fba0 / 0x0025f450 / 0x0025f670 / 0x0025f8f0 / 0x0025fad0 / 0x0025fb00 read the attribute tree
+  on OmMetaTypeAttribBase / OmMetaType (records.h: OmMetaType +0x30 is the base meta type, a pointer); the attribute
+  slots 0x0024d720 / 0x0024d790 / 0x0024d7b0 read the member offset at the record's word; 0x0024d840 stores
+  ListenerEffectXBox's vftable 0x004294a8 by address (was copied from a local stand-in); 0x0024d7d0 sizes instances by
+  the record; gen om::MetaTypeAttribBase / MetaTypeAttribScalar carry the records' words (vfunc_4 / vfunc_5 return
+  the label / limit pointer-sized).
+- **find2's G1 / G2 / G5 / G14.** G1 is D144 above. G2: 0x002c2370 / 0x002c2620 view pure3d::TextureLoader on decls/loaders.h
+  HulkTextureLoader (the registry at +0x20 natively, was a 32-bit pad), the registry itself on HulkImageRegistry. G5
+  (decl1's, folded in): 0x000bc3c0 calls 0x00266700 as the free fastcall it is and passes 0x00266220 a pointer. G14:
+  CGame's constructor 0x00087e80 and its allocation 0x0008ee30 on HulkGame (19 ints were 0x58 bytes natively, where
+  0x00088020 stores managers up to +0x98). 0x000c4020 takes CGame's pointers as hulk_intptr (its callers 0x000861f0 /
+  0x000865d0 passed the triple through an int: the gate's ptrtrunc).
+- **integ2's notes.** 0x00240760 / 0x002407a0 read DAT_004e5ca0 through gen/owners.h's String records: 0x00240760 is
+  equivalent under `--x64` (was view_trusted); 0x002407a0's `int` class is FUN_00265210's `this` read from
+  DAT_00527c58, an incomplete DataLayout the checker models as raw bytes (nullrel / wildptr): typing DAT_00527c58 as
+  records.h HulkContentRegistry (data5) clears it.
+- **Checks.** Wine control 94790 (517c82262, mac2) / proof 94900 (faac4ce73 + this change; the four commits between
+  touch no game code but two `@` hash lines; seeded from 94790, same host, data TUs regenerated from this records.h:
+  identical to the control's), play3 to 60000: ckpt_gate ok (transients 5880 / 5910 / 34260 only, prng 0 of 2013
+  frames differ). x64 gate ok (gate 3 on the whole change, 111 blocks: its four NEW blocks fixed and re-gated in gate 4,
+  16 blocks, ok; 0x00240760 improved). Whole-tree verify --relocs (job 94789): no code or view change but the
+  known movers 0x00027930 / 0x000b86b0 / 0x002e9c60, re-proved and hashed. Re-proved at 3,000 MSVC + `--wine`
+  (hash --proven): 0x000d6a20, 0x000c4ef0, 0x00087990, 0x000bc3c0, 0x00203e90, 0x000c9550, 0x0025f450, 0x0025f8f0,
+  0x0025fad0, 0x0025fb00, 0x0024d720, 0x0024d790, 0x0024d7b0, 0x0024d840, 0x002c2370 and the three movers. Newly
+  byte-matched: the View constructor 0x00294880. Native unbound / a native start-up run: not measured in this batch
+  (the queue's full mac compile did not fit the session); the stops' private patches in build/find1 / build/find2 are
+  what this replaces.

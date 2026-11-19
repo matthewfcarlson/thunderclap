@@ -5,6 +5,8 @@
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
 #include "decls/shader.h"
+#include "decls/view.h"   // (recs1) pure3d::View
+#include "decls/managers.h"   // (recs1) CFEManager
 #include "gen/global.h"
 #include "gen/owners.h"
 #define TREE_TU_BEGIN namespace fn_f49e96f9 {
@@ -43,14 +45,10 @@ class VectorCamera_c4ef0 {
 
     VectorCamera_c4ef0 *FUN_002939a0();
 };
-class View_c4ef0 {
+class View_c4ef0 {   // (recs1) the View's slots, then decls/view.h's words (HULK_VIEW_WORDS; was a view with 32-bit pads)
   public:
     virtual void v0();
-    char pad[0x20 - 4];
-    unsigned color;
-    char pad2[4];
-    int field_28;
-    int field_2c;
+    HULK_VIEW_WORDS
 
     View_c4ef0 *FUN_00294880();
     void FUN_00294980(VectorCamera_c4ef0 *cam);
@@ -148,32 +146,10 @@ struct Input_c4ef0 {
     char pad[0xd88];
     void *owner;
 };
-struct Frontend_c4ef0 {
-    char pad0[0x20];
-    View_c4ef0 *renderer;
-    VectorCamera_c4ef0 *camera;
-    char pad1[0x34 - 0x28];
-    void *field_34;
-    char pad2[0x40 - 0x38];
-    CFESoundManager_c4ef0 *sound;
-    void *field_44;
-    void *field_48;
-    Input_c4ef0 *input;
-    void *field_50;
-    char pad3[0x58 - 0x54];
-    void *field_58;
-    void *field_5c;
-    FEControllerSystem_c4ef0 *controllers;
-    CFrontEndCallback_c4ef0 *field_64;
-    Shader_c4ef0 *field_68;
-    char pad4[0x1880 - 0x6c];
-    int field_1880;
-    char text1[0x80];
-    char text2[0x80];
-    char text3[0x80];
-    char pad5[4];
-    int field_1a08;
-
+// (recs1) CFEManager on its record (decls/managers.h HulkFEManager; was a view with 32-bit pads): 0x20 its View,
+// 0x24 the camera, 0x40 the sound manager, 0x4c the input, 0x60 the controller system, 0x64 the callback, 0x68 the
+// shader, 0x1884 three texts of 0x80
+struct Frontend_c4ef0 : HulkFEManager {
     void FUN_000c1790(char *lang);
     void FUN_000c4ef0(void *a1, void *a2, void *a3, Input_c4ef0 *a4, void *a5, void *a6, void *a7);
 };
@@ -197,58 +173,58 @@ class Helper_c5840 {
 
 
 // 0x000c4ef0 FUN_000c4ef0 (644 B): equivalent/0x000c4ef0.cpp
-// sym: ?FUN_000c4ef0@Frontend_c4ef0@fn_f49e96f9@@QAEXPAX00PAUInput_c4ef0@2@000@Z @8deb17b27f1a @w3123c547175a @vaa603def9ca4
+// sym: ?FUN_000c4ef0@Frontend_c4ef0@fn_f49e96f9@@QAEXPAX00PAUInput_c4ef0@2@000@Z @8deb17b27f1a @w60cc948cc7f5 @vac3099748f04
 // STATUS: equivalent (tools/equiv.py level 3: 19785 inputs, branch coverage 14/14)
 // FUN_000c4ef0 @ 0x000c4ef0
 void Frontend_c4ef0::FUN_000c4ef0(void *a1, void *a2, void *a3, Input_c4ef0 *a4, void *a5, void *a6, void *a7)
 {
-    void *p = FUN_0008d690(0x140);
-    renderer = p ? ((View_c4ef0 *)p)->FUN_00294880() : 0;
-    renderer->v0();
-    renderer->field_28 = 0;
-    renderer->field_2c = 6;
-    renderer->color = 0xff000000;
-    ((owners::C_293e90 *)renderer)->FUN_00293e90(0xff505050);
+    void *p = FUN_0008d690(sizeof(HulkView));   // (recs1) the View record (0x140 on the 32-bit builds)
+    f20 = p ? ((View_c4ef0 *)p)->FUN_00294880() : 0;
+    ((View_c4ef0 *)f20)->v0();
+    ((View_c4ef0 *)f20)->clearStencil = 0;
+    ((View_c4ef0 *)f20)->clearMask = 6;
+    ((View_c4ef0 *)f20)->clearColour = 0xff000000;
+    ((owners::C_293e90 *)f20)->FUN_00293e90(0xff505050);
 
-    p = FUN_00263ea0(0xf8);
-    camera = p ? ((VectorCamera_c4ef0 *)p)->FUN_002939a0() : 0;
-    camera->v0();
-    camera->setNear(0.1f);
-    camera->setFar(100.0f);
+    p = FUN_00263ea0((sizeof(::pure3d::VectorCamera)+7)/8*8);   // (recs1) gen's VectorCamera (0xf4), 8-rounded: 0xf8
+    f24 = p ? ((VectorCamera_c4ef0 *)p)->FUN_002939a0() : 0;
+    ((VectorCamera_c4ef0 *)f24)->v0();
+    ((VectorCamera_c4ef0 *)f24)->setNear(0.1f);
+    ((VectorCamera_c4ef0 *)f24)->setFar(100.0f);
     Vec3_c4ef0 v;
     v.x = 0.0f;
     v.y = 0.0f;
     v.z = -13.0f;
-    ((owners::C_293af0 *)camera)->FUN_00293af0((int *)(Vec3_c4ef0 *)(&v));
+    ((owners::C_293af0 *)f24)->FUN_00293af0((int *)(Vec3_c4ef0 *)(&v));
     v.x = 0.0f;
     v.y = 0.0f;
     v.z = 1.0f;
-    ((owners::C_293a90 *)camera)->FUN_00293a90((int *)(Vec3_c4ef0 *)(&v));
-    renderer->FUN_00294980(camera);
+    ((owners::C_293a90 *)f24)->FUN_00293a90((int *)(Vec3_c4ef0 *)(&v));
+    ((View_c4ef0 *)f20)->FUN_00294980((VectorCamera_c4ef0 *)f24);
 
-    if (controllers != 0) {
-        delete controllers;
-        controllers = 0;
+    if (f60 != 0) {
+        delete (FEControllerSystem_c4ef0 *)f60;
+        f60 = 0;
     }
     p = FUN_0008d690(sizeof(::FEControllerSystem));
     FEControllerSystem_c4ef0 *ctl = p ? ((FEControllerSystem_c4ef0 *)p)->FUN_000b3de0() : 0;
-    controllers = ctl;
+    f60 = ctl;
     ctl->FUN_000b3e00(a1);
-    field_58 = a1;
+    f58 = a1;
 
     p = FUN_0008d690((int)sizeof(CFESoundManager_c4ef0));
     CFESoundManager_c4ef0 *snd = 0;
     if (p)
         snd = new (p) CFESoundManager_c4ef0();
-    field_5c = a6;
-    sound = snd;
+    f5c = a6;
+    f40 = snd;
 
     Timer timer;
     timer.FUN_00095f50();
     timer.FUN_00095f70();
 
-    FUN_000fc060("frontend/lang/str_en.txt", controllers, sound, renderer);
-    FUN_000fc3d0()->setLanguage(field_5c);
+    FUN_000fc060("frontend/lang/str_en.txt", (FEControllerSystem_c4ef0 *)f60, (CFESoundManager_c4ef0 *)f40, (View_c4ef0 *)f20);
+    FUN_000fc3d0()->setLanguage(f5c);
     char flag = DAT_004dd839;
     FUN_000fc3d0()->flag = flag;
     FUN_000c1790(DAT_004dd8d4);
@@ -256,23 +232,23 @@ void Frontend_c4ef0::FUN_000c4ef0(void *a1, void *a2, void *a3, Input_c4ef0 *a4,
     FUN_000fc3d0()->registerCallback(FUN_000d3d80, this);
 
     p = FUN_0008d690(sizeof(::CallbackHolderInt< ::CFrontEndCallback>));
-    field_64 = p ? ((CFrontEndCallback_c4ef0 *)p)->FUN_000c43a0(this) : 0;
+    f64 = p ? ((CFrontEndCallback_c4ef0 *)p)->FUN_000c43a0(this) : 0;
 
     p = FUN_00263ea0(sizeof(HulkShader));
-    field_68 = p ? ((Shader_c4ef0 *)p)->FUN_0028edb0() : 0;
-    field_68->v0();
+    f68 = p ? ((Shader_c4ef0 *)p)->FUN_0028edb0() : 0;
+    ((Shader_c4ef0 *)f68)->v0();
 
-    field_48 = a3;
-    field_44 = a2;
-    input = a4;
+    f48 = a3;
+    f44 = a2;
+    f4c = a4;
     ((owners::C_92bd0 *)a4)->FUN_00092bd0((hulk_intptr)this);
-    field_50 = a5;
-    field_1880 = 0;
-    FUN_00294c70(((char*)&DAT_00409f04), text1, 0x40);
-    FUN_00294c70(((char*)&DAT_00409f00), text2, 0x40);
-    FUN_00294c70(((char*)&DAT_00409efc), text3, 0x40);
-    field_34 = a7;
-    field_1a08 = 0;
+    f50 = a5;
+    f1880 = 0;
+    FUN_00294c70(((char*)&DAT_00409f04), p1884, 0x40);
+    FUN_00294c70(((char*)&DAT_00409f00), p1884 + 0x80, 0x40);
+    FUN_00294c70(((char*)&DAT_00409efc), p1884 + 0x100, 0x40);
+    f34 = a7;
+    f1a08 = 0;
 }
 
 

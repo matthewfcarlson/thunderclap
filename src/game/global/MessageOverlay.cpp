@@ -16,6 +16,7 @@ namespace fn_f27eef39 {} using namespace fn_f27eef39;
 namespace fn_f27eef39 { extern "C" char DAT_0040a47c[]; }   // (x64t6) the game vftables the placeholders stood for (verify_relocs)
 #include "game/global.h"
 #include "decls/managers.h"
+#include "decls/view.h"   // (recs1) pure3d::View
 #include "game/script_bind.h"
 // (ren2) __RTDynamicCast's own name (CRT, C linkage)
 extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
@@ -462,15 +463,19 @@ class NonCopyable_d6900 : public ::Overlay {
 namespace fn_f27eef39 {
 void thunk_FUN_00267090(pure3d::NonCopyable_d6900*);
 struct Data_d6a20 { float x,y,z; };
+// (recs1) the View and the camera this TU constructs: the slots it calls; a View's words after its vptr are
+// decls/view.h's (HULK_VIEW_WORDS, as HulkView lays them out)
 struct Node {
  virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(float,float); virtual void v6(); virtual void v7(float); virtual void v8(); virtual void v9(float);
- char pad[28]; int field20; char pad24[8]; int field2c;
+ HULK_VIEW_WORDS
  Node* FUN_00294880(); Node* FUN_002939a0();    void FUN_00294980(Node*);
+ void FUN_00293e90(int); void FUN_00293af0(int*); void FUN_00293a90(int*);
 };
 struct Manager_d6a20 {virtual void v0();virtual void v1();virtual void v2();virtual void v3();virtual void v4();virtual void v5();virtual void v6();virtual void v7();virtual void v8();virtual void v9();virtual void v10();virtual void v11();virtual void v12();virtual void v13();virtual void v14();virtual void v15();virtual float v16();};
 extern void* __cdecl FUN_00263ea0(unsigned);
 extern "C" void __cdecl FUN_0009f790(float,float,float*,float*);
-struct Target_d6a20 {char pad0[4]; Node* first; char pad8[36]; Node* second; void FUN_000d6a20();};
+// (recs1) COverlayManager on its record (decls/managers.h; was a view with 32-bit pads): its View and camera
+struct Target_d6a20 : HulkOverlayManager { void FUN_000d6a20(); };
 struct Clock_d6b20 {
  virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3();
  virtual void slot4(); virtual void slot5(); virtual void slot6(); virtual void slot7();
@@ -2125,13 +2130,13 @@ COverlayManager::COverlayManager() {
 namespace fn_f27eef39 {
 
 // 0x000d6a20 FUN_000d6a20 (253 B): equivalent/0x000d6a20.cpp
-// sym: ?FUN_000d6a20@Target_d6a20@fn_f27eef39@@QAEXXZ @6b5bbcd43f60 @wd7ccc883cc32 @v73e5fb5f692b
+// sym: ?FUN_000d6a20@Target_d6a20@fn_f27eef39@@QAEXXZ @6b5bbcd43f60 @wd7ccc883cc32 @vbd0f73941c03
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // FUN_000d6a20 @ 0x000d6a20
 void Target_d6a20::FUN_000d6a20(){
- Node* p=(Node*)FUN_0008d690(0x140); first=p?p->FUN_00294880():0; first->v0(); first->field20=0; ((owners::C_293e90 *)first)->FUN_00293e90(0xff282828); first->field2c=2;
- p=(Node*)FUN_00263ea0((sizeof(::pure3d::VectorCamera)+7)/8*8); /* (allocsize1) gen's VectorCamera (0xf4), 8-rounded: 0xf8 */ second=p?p->FUN_002939a0():0; second->v0(); second->v7(0.1f); second->v9(100.0f); ((owners::C_293af0 *)second)->FUN_00293af0((int *)(Data_d6a20 *)(((Data_d6a20*)&DAT_004a0a74))); ((owners::C_293a90 *)second)->FUN_00293a90((int *)(Data_d6a20 *)(((Data_d6a20*)&DAT_004a0a80)));
- float aspect=(*(Manager_d6a20**)&DAT_0052c2a4)->v16(); float a,b; FUN_0009f790(90.0f,aspect,&a,&b); second->v5(a*(*(float*)&DAT_003f32b8),1.0f); first->FUN_00294980(second);
+ Node* p=(Node*)FUN_0008d690(sizeof(HulkView)); /* (recs1) the View record (0x140 on the 32-bit builds) */ view=p?p->FUN_00294880():0; ((Node*)view)->v0(); ((Node*)view)->clearColour=0; ((Node*)view)->FUN_00293e90(0xff282828); ((Node*)view)->clearMask=2;
+ p=(Node*)FUN_00263ea0((sizeof(::pure3d::VectorCamera)+7)/8*8); /* (allocsize1) gen's VectorCamera (0xf4), 8-rounded: 0xf8 */ camera=p?p->FUN_002939a0():0; ((Node*)camera)->v0(); ((Node*)camera)->v7(0.1f); ((Node*)camera)->v9(100.0f); ((Node*)camera)->FUN_00293af0((int *)(Data_d6a20 *)(((Data_d6a20*)&DAT_004a0a74))); ((Node*)camera)->FUN_00293a90((int *)(Data_d6a20 *)(((Data_d6a20*)&DAT_004a0a80)));
+ float aspect=(*(Manager_d6a20**)&DAT_0052c2a4)->v16(); float a,b; FUN_0009f790(90.0f,aspect,&a,&b); ((Node*)camera)->v5(a*(*(float*)&DAT_003f32b8),1.0f); ((Node*)view)->FUN_00294980((Node*)camera);
 }
 
 

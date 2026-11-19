@@ -6,6 +6,7 @@
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/global.h"
 #include "decls/data/records.h"
+#include "decls/listener_effect.h"   // (recs1, D144)
 #include "gen/om.h"
 #define TREE_TU_BEGIN namespace fn_fb3c10a1 {
 #define TREE_TU_END }
@@ -27,8 +28,7 @@ struct MetaTypeAttribScalar {
 };
 extern "C" void __cdecl FUN_00247550(void*, void*);
 extern "C" void* hulk_at_00429420;
-struct TypeT_24de80 {
-    char pad[0x48];
+struct TypeT_24de80 : OmType {   // (recs1) an om::Type on its record (was char pad[0x48], the 32-bit size)
     void* Build_0024d690();
     void Destroy_002580e0();
 };
@@ -107,16 +107,16 @@ void* target() {
 // 0x0024ddd0 om::MetaTypeAttribScalar<int>::vfunc_4 (4 B): matches/0x0024ddd0.cpp
 // sym: ?vfunc_4@?$MetaTypeAttribScalar@H@om@@UAEIXZ
 // Same code shape as 0x000862a0 (propagated; names are from that function)
-template <> unsigned int om::MetaTypeAttribScalar<int>::vfunc_4() {
-    return this->f_28;
+template <> hulk_uintptr om::MetaTypeAttribScalar<int>::vfunc_4() {
+    return (hulk_uintptr)this->f_28;
 }
 
 
 // 0x0024dde0 om::MetaTypeAttribScalar<int>::vfunc_5 (4 B): matches/0x0024dde0.cpp
 // sym: ?vfunc_5@?$MetaTypeAttribScalar@H@om@@UAEIXZ
 // Same code shape as 0x000862b0 (propagated; names are from that function)
-template <> unsigned int om::MetaTypeAttribScalar<int>::vfunc_5() {
-    return *(unsigned int*)((char*)this + 0x2c);
+template <> hulk_uintptr om::MetaTypeAttribScalar<int>::vfunc_5() {
+    return (hulk_uintptr)this->f_2c;   // (recs1) the limit on gen's words (was a 32-bit offset)
 }
 
 
@@ -130,16 +130,16 @@ template <> void om::MetaTypeAttribScalar<int>::vfunc_3(hulk_intptr p) {
 // 0x0024de50 om::MetaTypeAttribScalar<float>::vfunc_4 (4 B): matches/0x0024de50.cpp
 // sym: ?vfunc_4@?$MetaTypeAttribScalar@H@om@@UAEIXZ
 // Same code shape as 0x000862a0 (propagated; names are from that function)
-template <> unsigned int om::MetaTypeAttribScalar<float>::vfunc_4() {
-    return this->f_28;
+template <> hulk_uintptr om::MetaTypeAttribScalar<float>::vfunc_4() {
+    return (hulk_uintptr)this->f_28;
 }
 
 
 // 0x0024de60 om::MetaTypeAttribScalar<float>::vfunc_5 (4 B): matches/0x0024de60.cpp
 // sym: ?vfunc_5@?$MetaTypeAttribScalar@H@om@@UAEIXZ
 // Same code shape as 0x000862b0 (propagated; names are from that function)
-template <> unsigned int om::MetaTypeAttribScalar<float>::vfunc_5() {
-    return *(unsigned int*)((char*)this + 0x2c);
+template <> hulk_uintptr om::MetaTypeAttribScalar<float>::vfunc_5() {
+    return (hulk_uintptr)this->f_2c;   // (recs1) the limit on gen's words (was a 32-bit offset)
 }
 
 
@@ -178,8 +178,7 @@ struct MetaTypeAttribScalar {
 extern "C" void __cdecl FUN_00247550(void*, void*);
 extern "C" char DAT_00429420[];   // (decl1) was `void* g_BaseVftable` (a C++ name bound nowhere natively)
 
-struct TypeT_24dec0 {
-    char pad[0x48];
+struct TypeT_24dec0 : OmType {   // (recs1) an om::Type on its record (was char pad[0x48], the 32-bit size)
     void* Build_0024d6b0();
     void Destroy_002580e0();
 };
@@ -203,178 +202,218 @@ inline void* operator new(size_t, void* p) throw() {
 }
 namespace fn_0024df00 {
 // FUN_0024df00 @ 0x0024df00
-
-
-namespace om {
-class __declspec(novtable) TypeBase {
-  public:
-    virtual void v0();
-    virtual void v1();
-    unsigned int reserved04; // records.h OmType
-    OmTypeBody body;
+// (recs1, D144) the listener effect's twelve scalar attributes on their records (records.h OmMetaTypeAttribScalarInt /
+// Float; decls/listener_effect.h): each built in the pool of its om::TypeT (a temporary om::Type, OmType, holding the
+// TypeT's vftable 0x00429434 / 0x00429440), then om::MetaTypeAttribBase's constructor 0x0025fba0 (the meta type
+// 0x004e6360, the name, the member's offset: offsetof() on AudioListenerEffectXBox, natively further in than the
+// 32-bit 0x28 .. 0x54) and the scalar's vftable 0x00429610 / 0x0042962c by address. Were local polymorphic stand-ins
+// (clang's own vftables natively) with 32-bit offsets.
+extern "C" char DAT_00429434[], DAT_00429440[], DAT_00429610[], DAT_0042962c[];
+struct TypeTemp_24df00 : OmType {
     void FUN_002580e0();
     void FUN_002584d0(const void* a, const void* b, int size, int align);
-    TypeBase(const void* a, const void* b, int size, int align) { FUN_002584d0(a, b, size, align); }
 };
-template <class T> class TypeT : public TypeBase {
-  public:
-    TypeT(const void* a, const void* b, int size, int align) : TypeBase(a, b, size, align) {}
-    virtual void v0();
-    virtual void v1();
-};
-class __declspec(novtable) AttribBase {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
-    char pad04[0x18];
+struct Attrib_24df00 : OmMetaTypeAttribBase {
     void FUN_0025fba0(const void* reg, const char* name, hulk_intptr offset);   // (decl1) passes as defined
-    AttribBase(const void* reg, const char* name, int offset) { FUN_0025fba0(reg, name, offset); }
 };
-template <class T> class MetaTypeAttribScalar : public AttribBase {
-  public:
-    MetaTypeAttribScalar(const void* reg, const char* name, int offset, T mn, T def, T cur, const char* label,
-                         const float* limit)
-        : AttribBase(reg, name, offset) {
-        lo = mn;
-        value = def;
-        hi = cur;
-        this->label = label;
-        this->limit = limit;
-    }
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
-    T lo;
-    T value;
-    T hi;
-    const char* label;
-    const float* limit;
-};
-} // namespace om
 struct Registry_24df00 {
     virtual void v0();
 };
-extern void* __cdecl FUN_00247530(om::TypeBase* temp);
+extern void* __cdecl FUN_00247530(OmType* temp);
 extern "C" void FUN_0024df00() {
-    HULK_SIZE32(om::MetaTypeAttribScalar<int>, 0x30);
-    HULK_SIZE32(om::MetaTypeAttribScalar<float>, 0x30);
+    HULK_SIZE32(OmMetaTypeAttribScalarInt, 0x30);
+    HULK_SIZE32(OmMetaTypeAttribScalarFloat, 0x30);
     {
-        om::TypeT<om::MetaTypeAttribScalar<int> > temp(((unsigned int*)&DAT_004e6328),
-                                                       ((unsigned int*)&DAT_004e6320), (int)sizeof(om::MetaTypeAttribScalar<int>), (int)__alignof(om::MetaTypeAttribScalar<int>));
-        void* p = FUN_00247530(&temp);
+        TypeTemp_24df00 temp;
+        temp.FUN_002584d0(((unsigned int*)&DAT_004e6328), ((unsigned int*)&DAT_004e6320), (int)sizeof(OmMetaTypeAttribScalarInt), (int)__alignof(OmMetaTypeAttribScalarInt));
+        temp.vftable = DAT_00429434;
+        OmMetaTypeAttribScalarInt* p = (OmMetaTypeAttribScalarInt*)FUN_00247530(&temp);
         temp.FUN_002580e0();
-        if (p)
-            new (p) om::MetaTypeAttribScalar<int>(((char*)&DAT_004e6360), "mHalListenerEffect.room", 0x28,
-                                                  -10000, 0, -10000, "Room", &DAT_003f335c);
+        if (p) {
+            ((Attrib_24df00*)p)->FUN_0025fba0(((char*)&DAT_004e6360), "mHalListenerEffect.room", HULK_LFX_AT(hal.room));
+            p->base.vftable = DAT_00429610;
+            p->minimum = -10000;
+            p->defaultValue = 0;
+            p->current = -10000;
+            p->label = "Room";
+            p->limit = &DAT_003f335c;
+        }
     }
     {
-        om::TypeT<om::MetaTypeAttribScalar<int> > temp(((unsigned int*)&DAT_004e6328),
-                                                       ((unsigned int*)&DAT_004e6320), (int)sizeof(om::MetaTypeAttribScalar<int>), (int)__alignof(om::MetaTypeAttribScalar<int>));
-        void* p = FUN_00247530(&temp);
+        TypeTemp_24df00 temp;
+        temp.FUN_002584d0(((unsigned int*)&DAT_004e6328), ((unsigned int*)&DAT_004e6320), (int)sizeof(OmMetaTypeAttribScalarInt), (int)__alignof(OmMetaTypeAttribScalarInt));
+        temp.vftable = DAT_00429434;
+        OmMetaTypeAttribScalarInt* p = (OmMetaTypeAttribScalarInt*)FUN_00247530(&temp);
         temp.FUN_002580e0();
-        if (p)
-            new (p) om::MetaTypeAttribScalar<int>(((char*)&DAT_004e6360), "mHalListenerEffect.roomHF", 0x2c,
-                                                  -10000, 0, -10000, "Room High Frequency", &DAT_003f335c);
+        if (p) {
+            ((Attrib_24df00*)p)->FUN_0025fba0(((char*)&DAT_004e6360), "mHalListenerEffect.roomHF", HULK_LFX_AT(hal.roomHF));
+            p->base.vftable = DAT_00429610;
+            p->minimum = -10000;
+            p->defaultValue = 0;
+            p->current = -10000;
+            p->label = "Room High Frequency";
+            p->limit = &DAT_003f335c;
+        }
     }
     {
-        om::TypeT<om::MetaTypeAttribScalar<float> > temp(((unsigned int*)&DAT_004e6338),
-                                                         ((unsigned int*)&DAT_004e6330), (int)sizeof(om::MetaTypeAttribScalar<float>), (int)__alignof(om::MetaTypeAttribScalar<float>));
-        void* p = FUN_00247530(&temp);
+        TypeTemp_24df00 temp;
+        temp.FUN_002584d0(((unsigned int*)&DAT_004e6338), ((unsigned int*)&DAT_004e6330), (int)sizeof(OmMetaTypeAttribScalarFloat), (int)__alignof(OmMetaTypeAttribScalarFloat));
+        temp.vftable = DAT_00429440;
+        OmMetaTypeAttribScalarFloat* p = (OmMetaTypeAttribScalarFloat*)FUN_00247530(&temp);
         temp.FUN_002580e0();
-        if (p)
-            new (p) om::MetaTypeAttribScalar<float>(((char*)&DAT_004e6360),
-                                                    "mHalListenerEffect.roomRolloffFactor", 0x30, 0.0f, 10.0f,
-                                                    0.0f, "Room Roll Off Factor", &DAT_003f335c);
+        if (p) {
+            ((Attrib_24df00*)p)->FUN_0025fba0(((char*)&DAT_004e6360), "mHalListenerEffect.roomRolloffFactor", HULK_LFX_AT(hal.roomRolloffFactor));
+            p->base.vftable = DAT_0042962c;
+            p->minimum = 0.0f;
+            p->defaultValue = 10.0f;
+            p->current = 0.0f;
+            p->label = "Room Roll Off Factor";
+            p->limit = &DAT_003f335c;
+        }
     }
     {
-        om::TypeT<om::MetaTypeAttribScalar<float> > temp(((unsigned int*)&DAT_004e6338),
-                                                         ((unsigned int*)&DAT_004e6330), (int)sizeof(om::MetaTypeAttribScalar<float>), (int)__alignof(om::MetaTypeAttribScalar<float>));
-        void* p = FUN_00247530(&temp);
+        TypeTemp_24df00 temp;
+        temp.FUN_002584d0(((unsigned int*)&DAT_004e6338), ((unsigned int*)&DAT_004e6330), (int)sizeof(OmMetaTypeAttribScalarFloat), (int)__alignof(OmMetaTypeAttribScalarFloat));
+        temp.vftable = DAT_00429440;
+        OmMetaTypeAttribScalarFloat* p = (OmMetaTypeAttribScalarFloat*)FUN_00247530(&temp);
         temp.FUN_002580e0();
-        if (p)
-            new (p) om::MetaTypeAttribScalar<float>(((char*)&DAT_004e6360), "mHalListenerEffect.decayTime",
-                                                    0x34, 0.1f, 20.0f, 0.1f, "Decay Time", &DAT_003f335c);
+        if (p) {
+            ((Attrib_24df00*)p)->FUN_0025fba0(((char*)&DAT_004e6360), "mHalListenerEffect.decayTime", HULK_LFX_AT(hal.decayTime));
+            p->base.vftable = DAT_0042962c;
+            p->minimum = 0.1f;
+            p->defaultValue = 20.0f;
+            p->current = 0.1f;
+            p->label = "Decay Time";
+            p->limit = &DAT_003f335c;
+        }
     }
     {
-        om::TypeT<om::MetaTypeAttribScalar<float> > temp(((unsigned int*)&DAT_004e6338),
-                                                         ((unsigned int*)&DAT_004e6330), (int)sizeof(om::MetaTypeAttribScalar<float>), (int)__alignof(om::MetaTypeAttribScalar<float>));
-        void* p = FUN_00247530(&temp);
+        TypeTemp_24df00 temp;
+        temp.FUN_002584d0(((unsigned int*)&DAT_004e6338), ((unsigned int*)&DAT_004e6330), (int)sizeof(OmMetaTypeAttribScalarFloat), (int)__alignof(OmMetaTypeAttribScalarFloat));
+        temp.vftable = DAT_00429440;
+        OmMetaTypeAttribScalarFloat* p = (OmMetaTypeAttribScalarFloat*)FUN_00247530(&temp);
         temp.FUN_002580e0();
-        if (p)
-            new (p) om::MetaTypeAttribScalar<float>(((char*)&DAT_004e6360), "mHalListenerEffect.decayHFRatio",
-                                                    0x38, 0.1f, 2.0f, 0.1f, "Decay HF Ratio", &DAT_003f335c);
+        if (p) {
+            ((Attrib_24df00*)p)->FUN_0025fba0(((char*)&DAT_004e6360), "mHalListenerEffect.decayHFRatio", HULK_LFX_AT(hal.decayHFRatio));
+            p->base.vftable = DAT_0042962c;
+            p->minimum = 0.1f;
+            p->defaultValue = 2.0f;
+            p->current = 0.1f;
+            p->label = "Decay HF Ratio";
+            p->limit = &DAT_003f335c;
+        }
     }
     {
-        om::TypeT<om::MetaTypeAttribScalar<int> > temp(((unsigned int*)&DAT_004e6328),
-                                                       ((unsigned int*)&DAT_004e6320), (int)sizeof(om::MetaTypeAttribScalar<int>), (int)__alignof(om::MetaTypeAttribScalar<int>));
-        void* p = FUN_00247530(&temp);
+        TypeTemp_24df00 temp;
+        temp.FUN_002584d0(((unsigned int*)&DAT_004e6328), ((unsigned int*)&DAT_004e6320), (int)sizeof(OmMetaTypeAttribScalarInt), (int)__alignof(OmMetaTypeAttribScalarInt));
+        temp.vftable = DAT_00429434;
+        OmMetaTypeAttribScalarInt* p = (OmMetaTypeAttribScalarInt*)FUN_00247530(&temp);
         temp.FUN_002580e0();
-        if (p)
-            new (p) om::MetaTypeAttribScalar<int>(((char*)&DAT_004e6360), "mHalListenerEffect.reflections",
-                                                  0x3c, -10000, 1000, -10000, "Reflections", &DAT_003f335c);
+        if (p) {
+            ((Attrib_24df00*)p)->FUN_0025fba0(((char*)&DAT_004e6360), "mHalListenerEffect.reflections", HULK_LFX_AT(hal.reflections));
+            p->base.vftable = DAT_00429610;
+            p->minimum = -10000;
+            p->defaultValue = 1000;
+            p->current = -10000;
+            p->label = "Reflections";
+            p->limit = &DAT_003f335c;
+        }
     }
     {
-        om::TypeT<om::MetaTypeAttribScalar<float> > temp(((unsigned int*)&DAT_004e6338),
-                                                         ((unsigned int*)&DAT_004e6330), (int)sizeof(om::MetaTypeAttribScalar<float>), (int)__alignof(om::MetaTypeAttribScalar<float>));
-        void* p = FUN_00247530(&temp);
+        TypeTemp_24df00 temp;
+        temp.FUN_002584d0(((unsigned int*)&DAT_004e6338), ((unsigned int*)&DAT_004e6330), (int)sizeof(OmMetaTypeAttribScalarFloat), (int)__alignof(OmMetaTypeAttribScalarFloat));
+        temp.vftable = DAT_00429440;
+        OmMetaTypeAttribScalarFloat* p = (OmMetaTypeAttribScalarFloat*)FUN_00247530(&temp);
         temp.FUN_002580e0();
-        if (p)
-            new (p)
-                om::MetaTypeAttribScalar<float>(((char*)&DAT_004e6360), "mHalListenerEffect.reflectionsDelay",
-                                                0x40, 0.0f, 0.3f, 0.0f, "Reflections Delay", &DAT_003f335c);
+        if (p) {
+            ((Attrib_24df00*)p)->FUN_0025fba0(((char*)&DAT_004e6360), "mHalListenerEffect.reflectionsDelay", HULK_LFX_AT(hal.reflectionsDelay));
+            p->base.vftable = DAT_0042962c;
+            p->minimum = 0.0f;
+            p->defaultValue = 0.3f;
+            p->current = 0.0f;
+            p->label = "Reflections Delay";
+            p->limit = &DAT_003f335c;
+        }
     }
     {
-        om::TypeT<om::MetaTypeAttribScalar<int> > temp(((unsigned int*)&DAT_004e6328),
-                                                       ((unsigned int*)&DAT_004e6320), (int)sizeof(om::MetaTypeAttribScalar<int>), (int)__alignof(om::MetaTypeAttribScalar<int>));
-        void* p = FUN_00247530(&temp);
+        TypeTemp_24df00 temp;
+        temp.FUN_002584d0(((unsigned int*)&DAT_004e6328), ((unsigned int*)&DAT_004e6320), (int)sizeof(OmMetaTypeAttribScalarInt), (int)__alignof(OmMetaTypeAttribScalarInt));
+        temp.vftable = DAT_00429434;
+        OmMetaTypeAttribScalarInt* p = (OmMetaTypeAttribScalarInt*)FUN_00247530(&temp);
         temp.FUN_002580e0();
-        if (p)
-            new (p) om::MetaTypeAttribScalar<int>(((char*)&DAT_004e6360), "mHalListenerEffect.reverb", 0x44,
-                                                  -10000, 2000, -10000, "Reverb", &DAT_003f335c);
+        if (p) {
+            ((Attrib_24df00*)p)->FUN_0025fba0(((char*)&DAT_004e6360), "mHalListenerEffect.reverb", HULK_LFX_AT(hal.reverb));
+            p->base.vftable = DAT_00429610;
+            p->minimum = -10000;
+            p->defaultValue = 2000;
+            p->current = -10000;
+            p->label = "Reverb";
+            p->limit = &DAT_003f335c;
+        }
     }
     {
-        om::TypeT<om::MetaTypeAttribScalar<float> > temp(((unsigned int*)&DAT_004e6338),
-                                                         ((unsigned int*)&DAT_004e6330), (int)sizeof(om::MetaTypeAttribScalar<float>), (int)__alignof(om::MetaTypeAttribScalar<float>));
-        void* p = FUN_00247530(&temp);
+        TypeTemp_24df00 temp;
+        temp.FUN_002584d0(((unsigned int*)&DAT_004e6338), ((unsigned int*)&DAT_004e6330), (int)sizeof(OmMetaTypeAttribScalarFloat), (int)__alignof(OmMetaTypeAttribScalarFloat));
+        temp.vftable = DAT_00429440;
+        OmMetaTypeAttribScalarFloat* p = (OmMetaTypeAttribScalarFloat*)FUN_00247530(&temp);
         temp.FUN_002580e0();
-        if (p)
-            new (p) om::MetaTypeAttribScalar<float>(((char*)&DAT_004e6360), "mHalListenerEffect.reverbDelay",
-                                                    0x48, 0.0f, 0.1f, 0.0f, "Reverb Delay", &DAT_003f335c);
+        if (p) {
+            ((Attrib_24df00*)p)->FUN_0025fba0(((char*)&DAT_004e6360), "mHalListenerEffect.reverbDelay", HULK_LFX_AT(hal.reverbDelay));
+            p->base.vftable = DAT_0042962c;
+            p->minimum = 0.0f;
+            p->defaultValue = 0.1f;
+            p->current = 0.0f;
+            p->label = "Reverb Delay";
+            p->limit = &DAT_003f335c;
+        }
     }
     {
-        om::TypeT<om::MetaTypeAttribScalar<float> > temp(((unsigned int*)&DAT_004e6338),
-                                                         ((unsigned int*)&DAT_004e6330), (int)sizeof(om::MetaTypeAttribScalar<float>), (int)__alignof(om::MetaTypeAttribScalar<float>));
-        void* p = FUN_00247530(&temp);
+        TypeTemp_24df00 temp;
+        temp.FUN_002584d0(((unsigned int*)&DAT_004e6338), ((unsigned int*)&DAT_004e6330), (int)sizeof(OmMetaTypeAttribScalarFloat), (int)__alignof(OmMetaTypeAttribScalarFloat));
+        temp.vftable = DAT_00429440;
+        OmMetaTypeAttribScalarFloat* p = (OmMetaTypeAttribScalarFloat*)FUN_00247530(&temp);
         temp.FUN_002580e0();
-        if (p)
-            new (p) om::MetaTypeAttribScalar<float>(((char*)&DAT_004e6360), "mHalListenerEffect.diffusion",
-                                                    0x4c, 0.0f, 100.0f, 0.0f, "Diffusion", &DAT_003f335c);
+        if (p) {
+            ((Attrib_24df00*)p)->FUN_0025fba0(((char*)&DAT_004e6360), "mHalListenerEffect.diffusion", HULK_LFX_AT(hal.diffusion));
+            p->base.vftable = DAT_0042962c;
+            p->minimum = 0.0f;
+            p->defaultValue = 100.0f;
+            p->current = 0.0f;
+            p->label = "Diffusion";
+            p->limit = &DAT_003f335c;
+        }
     }
     {
-        om::TypeT<om::MetaTypeAttribScalar<float> > temp(((unsigned int*)&DAT_004e6338),
-                                                         ((unsigned int*)&DAT_004e6330), (int)sizeof(om::MetaTypeAttribScalar<float>), (int)__alignof(om::MetaTypeAttribScalar<float>));
-        void* p = FUN_00247530(&temp);
+        TypeTemp_24df00 temp;
+        temp.FUN_002584d0(((unsigned int*)&DAT_004e6338), ((unsigned int*)&DAT_004e6330), (int)sizeof(OmMetaTypeAttribScalarFloat), (int)__alignof(OmMetaTypeAttribScalarFloat));
+        temp.vftable = DAT_00429440;
+        OmMetaTypeAttribScalarFloat* p = (OmMetaTypeAttribScalarFloat*)FUN_00247530(&temp);
         temp.FUN_002580e0();
-        if (p)
-            new (p) om::MetaTypeAttribScalar<float>(((char*)&DAT_004e6360), "mHalListenerEffect.density",
-                                                    0x50, 0.0f, 100.0f, 0.0f, "Density", &DAT_003f335c);
+        if (p) {
+            ((Attrib_24df00*)p)->FUN_0025fba0(((char*)&DAT_004e6360), "mHalListenerEffect.density", HULK_LFX_AT(hal.density));
+            p->base.vftable = DAT_0042962c;
+            p->minimum = 0.0f;
+            p->defaultValue = 100.0f;
+            p->current = 0.0f;
+            p->label = "Density";
+            p->limit = &DAT_003f335c;
+        }
     }
     {
-        om::TypeT<om::MetaTypeAttribScalar<float> > temp(((unsigned int*)&DAT_004e6338),
-                                                         ((unsigned int*)&DAT_004e6330), (int)sizeof(om::MetaTypeAttribScalar<float>), (int)__alignof(om::MetaTypeAttribScalar<float>));
-        void* p = FUN_00247530(&temp);
+        TypeTemp_24df00 temp;
+        temp.FUN_002584d0(((unsigned int*)&DAT_004e6338), ((unsigned int*)&DAT_004e6330), (int)sizeof(OmMetaTypeAttribScalarFloat), (int)__alignof(OmMetaTypeAttribScalarFloat));
+        temp.vftable = DAT_00429440;
+        OmMetaTypeAttribScalarFloat* p = (OmMetaTypeAttribScalarFloat*)FUN_00247530(&temp);
         temp.FUN_002580e0();
-        if (p)
-            new (p)
-                om::MetaTypeAttribScalar<float>(((char*)&DAT_004e6360), "mHalListenerEffect.hFReference",
-                                                0x54, 20.0f, 20000.0f, 20.0f, "HF Reference", &DAT_003f335c);
+        if (p) {
+            ((Attrib_24df00*)p)->FUN_0025fba0(((char*)&DAT_004e6360), "mHalListenerEffect.hFReference", HULK_LFX_AT(hal.hfReference));
+            p->base.vftable = DAT_0042962c;
+            p->minimum = 20.0f;
+            p->defaultValue = 20000.0f;
+            p->current = 20.0f;
+            p->label = "HF Reference";
+            p->limit = &DAT_003f335c;
+        }
     }
     Registry_24df00* reg = ((Registry_24df00*)&DAT_004e6468);
     reg->v0();

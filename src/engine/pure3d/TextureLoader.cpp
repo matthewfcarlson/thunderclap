@@ -34,12 +34,10 @@ class Ref_2c2620 {
   public:
     virtual void Del(int);
 };
-class TextureLoader_2c2620 {
+// (recs1, find2 G2) the loader's record (decls/loaders.h HulkTextureLoader; was `vptr; char p[0x10]; a14; a18`, 32-bit
+// offsets): the image registry and the image converter
+class TextureLoader_2c2620 : public HulkTextureLoader {
   public:
-    void* vptr;
-    char p[0x10];
-    Obj_2c2620* a14;
-    Ref_2c2620* a18;
     TextureLoader_2c2620* vfunc2(unsigned char f);
 };
 typedef unsigned int u32_2c2670;
@@ -69,15 +67,15 @@ TextureLoader::TextureLoader() {
 // 0x002c2620 pure3d::TextureLoader::vfunc_2 (75 B): matches/0x002c2620.cpp
 // sym: ?vfunc2@TextureLoader_2c2620@fn_f0efd7bc@@QAEPAV12@E@Z
 TextureLoader_2c2620* TextureLoader_2c2620::vfunc2(unsigned char f) {
-    Obj_2c2620* o = a14;
-    vptr = &hulk_at_0042ec44;
+    Obj_2c2620* o = (Obj_2c2620*)registry;
+    vftable = &hulk_at_0042ec44;
     if (o) {
         o->Fini_002ae910();
         Free2_0008d330(o);
     }
-    if (a18)
-        a18->Del(1);
-    vptr = &hulk_at_003f6098;
+    if (converter)
+        ((Ref_2c2620*)converter)->Del(1);
+    vftable = &hulk_at_003f6098;
     if (f & 1)
         Free_00263f30(this);
     return this;

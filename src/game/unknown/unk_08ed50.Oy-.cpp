@@ -4,6 +4,7 @@
 #include "tree_prelude.h"
 #include "decls/data/game/unknown.h"
 #include "gen/owners.h"
+#include "decls/managers.h"   // (recs1) HulkGame
 #define TREE_TU_BEGIN namespace fn_f7b5f211 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CSPHulkProp
@@ -39,9 +40,10 @@ class FUN_00087e80 {
   public:
     FUN_00087e80();
     virtual void Vfn(int);
-    int fields[19];
+    void* words[19];   // (recs1, find2 G14) CGame's words (decls/managers.h HulkGame; were ints: 0x58 bytes natively)
     unsigned char flag;
 };
+HULK_MGR_SAME(FUN_00087e80, HulkGame);
 
 
 // 0x0008ee30 FUN_0008ee30 (194 B): matches/0x0008ee30.cpp

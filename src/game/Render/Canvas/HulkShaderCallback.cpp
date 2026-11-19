@@ -7,6 +7,7 @@
 #include "decls/data/engine/pure3d/prop.h"
 #include "decls/data/game/Render/Canvas.h"
 #include "decls/data/game/global.h"
+#include "decls/view.h"   // (recs1) pure3d::View
 #include "gen/Render.h"
 #include "gen/owners.h"
 #include "gen/pure3d.h"
@@ -1371,9 +1372,7 @@ struct Owner_1c1a40 : public Base_1c1a40 {
     Owner_1c1a40* FUN_0029bea0(int a, int b);
     void FUN_0029b690(Base_1c1a40* child);
 };
-struct View_1c1a40 : public Base_1c1a40 {
-    char pad[0x2c - 4];
-    int field2c;
+struct View_1c1a40 : public Base_1c1a40 {   // (recs1) the View's slots; its words are decls/view.h HulkView's (was char pad[0x2c - 4])
     View_1c1a40* FUN_00294880();
     void FUN_00294980(Base_1c1a40* other);
 };
@@ -1613,7 +1612,7 @@ Hud_1c1a40* Hud_1c1a40::FUN_001c1a40() {
     objc0->FUN_0029f800(f);
     f->v1();
 
-    mem = FUN_0008d690(0x140);
+    mem = FUN_0008d690(sizeof(HulkView));   // (recs1) the View record (0x140 on the 32-bit builds)
     View_1c1a40* r = 0;
     if (mem)
         r = ((View_1c1a40*)mem)->FUN_00294880();
@@ -1629,7 +1628,7 @@ Hud_1c1a40* Hud_1c1a40::FUN_001c1a40() {
     root->FUN_00294980(objG);
     objG->v7(0.25f);
     objG->v9(200.0f);
-    root->field2c = 0;
+    ((HulkView*)root)->clearMask = 0;
     (*(pure3d::pddiExtFramebufferEffects**)&DAT_004e2318) = dynamic_cast<pure3d::pddiExtFramebufferEffects*>(DAT_0052c2a8->s89(0x103));
 
     mem = FUN_0008d690((int)sizeof(pure3d::GameDrawableInfo));

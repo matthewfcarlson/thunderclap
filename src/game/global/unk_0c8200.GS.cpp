@@ -5,6 +5,7 @@
 #include "decls/address.h"
 #include "decls/data/engine/content.h"
 #include "gen/owners.h"
+#include "decls/content_load.h"   // (recs1) ContentLoadArgs
 #define TREE_TU_BEGIN namespace fn_f2af3f62 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CCollisionTrack
@@ -119,7 +120,7 @@ int Obj_c8200::FUN_000c8200(int a0, unsigned int *a1, float a2, float a3, float 
 } // namespace fn_f2af3f62
 
 // 0x000c9550 FUN_000c9550 (381 B): equivalent/0x000c9550.cpp [wrapped: conflict: World]
-// sym: ?FUN_000c9550@fn_000c9550@@YGXPBDPAUTarget_c9550@1@H@Z @a59d82e60e34 @w3a65b8244bca @vc5a59fb29f03
+// sym: ?FUN_000c9550@fn_000c9550@@YGXPBDPAUTarget_c9550@1@H@Z @a59d82e60e34 @w3a65b8244bca @v4c48eb69df6c
 namespace fn_000c9550 {
 // STATUS: equivalent (tools/equiv.py level 3: 3020 inputs, branch coverage 14/14)
 // FUN_000c9550 @ 0x000c9550
@@ -172,19 +173,13 @@ public:
     int FUN_00266700();
 };
 
-struct Request {
-    char name[0x100];
-    int f100;
-    int f104;
-    int f108;
-    char f10c;
-    char pad10d[3];
-};
+// (recs1) the loader's arguments are decls/content_load.h ContentLoadArgs (was `struct Request`: the name and words
+// at 32-bit offsets)
 
 struct Mgr_c9550 {
     char pad00[4];
     int limit;
-    void FUN_00265810(Request* r, Handle_c9550** out);
+    void FUN_00265810(ContentLoadArgs* r, Handle_c9550** out);
     int FUN_00264870();
 };
 
@@ -195,9 +190,10 @@ struct Scene_c9550 {
     Item_c9550* FUN_000862e0();
 };
 
-struct World {
-    char pad00[0x54];
-    Scene_c9550* scene;
+struct World {   // (recs1) the World's words (decls/managers.h HulkWorld; was char pad00[0x54])
+    void* vftable;
+    void* parts[20];
+    Scene_c9550* scene;   // +0x54 CGame
 };
 
 struct Target_c9550 {
@@ -212,7 +208,7 @@ void __stdcall FUN_000c9550(const char* name, Target_c9550* target, int arg)
     struct Frame {
         Handle_c9550* l2;
         Handle_c9550* l1;
-        Request req;
+        ContentLoadArgs req;
     } f;
     thunk_FUN_00271230(&f.l1, name, 0, 0, 1, 0, 1, 1);
     if (!f.l1->v23()) {
@@ -225,15 +221,15 @@ void __stdcall FUN_000c9550(const char* name, Target_c9550* target, int arg)
         f.l1 = 0;
     }
     f.l2 = 0;
-    f.req.name[0] = 0;
-    f.req.f100 = 0;
-    f.req.f104 = 0;
-    f.req.f108 = 0;
-    f.req.f10c = 0;
+    f.req.path[0] = 0;
+    f.req.context = 0;
+    f.req.callback = 0;
+    f.req.kind = 0;
+    f.req.wait = 0;
     if (name)
-        strncpy(f.req.name, name, 0xff);
-    f.req.f108 = arg;
-    f.req.f10c = 0;
+        strncpy(f.req.path, name, 0xff);
+    f.req.kind = arg;
+    f.req.wait = 0;
     (*(Mgr_c9550**)&DAT_00527c58)->FUN_00265810(&f.req, &f.l2);
     int saved = (*(Mgr_c9550**)&DAT_00527c58)->FUN_00264870();
     ((owners::C_264860 *)((*(Mgr_c9550**)&DAT_00527c58)))->FUN_00264860(250000);

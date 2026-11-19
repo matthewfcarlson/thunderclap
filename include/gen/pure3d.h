@@ -3261,21 +3261,20 @@ public:
 class View : public ::pure3d::NonCopyable {
 public:
     virtual ~View(); // overrides core::IRefCount slot 2
-    int f_08;
-    int f_0c;
-    float f_10;
-    float f_14;
-    char _pad_18[0x4];
-    int f_1c;
-    int f_20;
-    float f_24;
-    int f_28;
-    int f_2c;
-    int f_30;
-    int f_34;
-    int f_38;
-    char _pad_3c[0x80];
-    char f_bc;
+    // (recs1) the words of decls/view.h HulkView (0x140 bytes on the 32-bit builds, was 0xc0: the constructor 0x00294880
+    // writes both matrices): the viewport, the camera, the ambient colour, the clear state, the fog, the 32 lights
+    float left, top, right, bottom;
+    void* camera;
+    unsigned int ambient;
+    unsigned int clearColour;
+    float clearDepth;
+    int clearStencil;
+    int clearMask;
+    unsigned int fogColour, fogStart, fogEnd;
+    void* lights[32];
+    unsigned char fogEnabled;
+    float matrix0[16];
+    float matrix1[16];
 };
 
 // .?AVpddiExtension@pure3d@@  vftable 0x43276c (1)

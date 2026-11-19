@@ -10,6 +10,7 @@
 #include "decls/data/game/unknown.h"
 #include "decls/data/script.h"
 #include "gen/owners.h"
+#include "decls/content_load.h"   // (recs1) ContentLoadArgs
 #define TREE_TU_BEGIN namespace fn_f71c7272 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CCollisionTrack
@@ -32,20 +33,18 @@ public:
 };
 class Streamer {
 public:
-    void FUN_00265810(char* name, Request** out);
+    void FUN_00265810(ContentLoadArgs* args, Request** out);
     int FUN_00264870();
 };
 class Inventory {
 public:
     void FUN_00266220(int value);
 };
+// (recs1) the request the loader 0x00265810 returns and its arguments (decls/content_load.h; was the name, then words
+// at 32-bit offsets): the inventory is the arguments' callback
 struct Frame {
     Request* request;
-    char name[0x100];
-    int pad104;
-    Inventory* inventory;
-    int param;
-    char flag;
+    ContentLoadArgs args;
 };
 class __declspec(novtable) MethodBase_bfd20 : public ScriptFunctionFields {
   public:
@@ -346,17 +345,17 @@ struct State_c4220 {
 void owners::Loader_befc0::FUN_000befc0(const char* name, int param, bool pump)
 {
     Frame fr;
-    fr.inventory = (*(Inventory**)&DAT_004dd9cc);
+    fr.args.callback = (*(Inventory**)&DAT_004dd9cc);
     fr.request = 0;
-    fr.name[0] = 0;
-    fr.pad104 = 0;
-    fr.param = 0;
-    fr.flag = 0;
+    fr.args.path[0] = 0;
+    fr.args.context = 0;
+    fr.args.kind = 0;
+    fr.args.wait = 0;
     if (name != 0)
-        _strncpy(fr.name, name, 0xff);
-    fr.flag = 0;
-    fr.param = param;
-    (*(Streamer**)&DAT_00527c58)->FUN_00265810(fr.name, &fr.request);
+        _strncpy(fr.args.path, name, 0xff);
+    fr.args.wait = 0;
+    fr.args.kind = param;
+    (*(Streamer**)&DAT_00527c58)->FUN_00265810(&fr.args, &fr.request);
     int saved = (*(Streamer**)&DAT_00527c58)->FUN_00264870();
     ((owners::C_264860 *)((*(Streamer**)&DAT_00527c58)))->FUN_00264860(250000);
     while (!fr.request->FUN_00266750()) {
@@ -2992,10 +2991,10 @@ class MissionMenu {
     void FUN_000b8f20();
     void FUN_000bb600();
     void FUN_000c3ea0();
-    void FUN_000c4020(int a, int b);
+    void FUN_000c4020(hulk_intptr a, hulk_intptr b);   // (recs1) CGame passes itself and its triple (pointers)
 };
 
-void MissionMenu::FUN_000c4020(int a, int b)
+void MissionMenu::FUN_000c4020(hulk_intptr a, hulk_intptr b)
 {
     struct Frame {
         int mission;

@@ -18,9 +18,10 @@ struct Node {
     union { Node* a; Node* left; };
     union { Node* b; Node* parent; };
     union { Node* c; Node* right; };
-    char _m_pad_c[0x8];
-    char item[0x1c];
-    Node* next;
+};
+// (recs1, D144) a meta type on its record (records.h OmMetaType; was the tree node view above with 32-bit pads): its
+// tree of attributes, then its base meta type
+struct MetaTypeFind_25fad0 : OmMetaType {
     void FUN_0025fad0(hulk_intptr value);
 };
 struct Tree_25e900 {
@@ -102,7 +103,7 @@ struct MetaTypeTree_25fa00 {
     static bool FUN_0025f170(OmTree*, OmMetaType*, const char**);
 };
 struct MetaType : OmMetaType {
-    MetaType* FUN_0025fa00(const char*, int);
+    MetaType* FUN_0025fa00(const char*, hulk_intptr);   // (recs1) the base meta type (pointer-sized)
 };
 extern "C++" void __cdecl FUN_0025f390(void *, void *);
 struct MetaType_25fa80 : OmMetaType {
@@ -111,11 +112,9 @@ struct MetaType_25fa80 : OmMetaType {
 extern "C++" void * __cdecl FUN_0025f670(void *, const char **);
 extern "C" char DAT_00429420[];
 typedef unsigned int U_25fba0;
-struct MetaTypeAttribBase {
-    void* vptr;
-    char pad[0x10];
-    U_25fba0 a;
-    U_25fba0 b;
+// (recs1, D144) om::MetaTypeAttribBase on its record (records.h OmMetaTypeAttribBase; was a view with a 32-bit pad: the
+// offset and the name at +0x14 / +0x18), added to its meta type's tree of attributes (OmMetaType.children)
+struct MetaTypeAttribBase : OmMetaTypeAttribBase {
     MetaTypeAttribBase* init(void*, hulk_uintptr, hulk_uintptr);
 };
 extern "C++" bool __cdecl FUN_0025f450(void *, void *, const char **);
@@ -857,7 +856,7 @@ extern "C" void __cdecl FUN_0025f390(void * tree_, void * entry_) {
 
 
 // 0x0025f450 FUN_0025f450 (530 B): equivalent/0x0025f450.cpp [wrapped: conflict: Node]
-// sym: _FUN_0025f450 @5558e777f593 @w27c879a6ae1e @v112a18838afe
+// sym: _FUN_0025f450 @5558e777f593 @wa79bf94ff741 @v0d74ea7701bb
 namespace fn_0025f450 {
 // STATUS: equivalent (tools/equiv.py level 3: 2578 inputs, branch coverage 55/56, incomplete)
 // FUN_0025f450 @ 0x0025f450
@@ -867,24 +866,13 @@ extern "C" int __cdecl strcmp(const char *a, const char *b);
 #endif
 
 
-struct Node {
-    Node *left;
-    Node *right;
-    Node *parent;
-    int color;
-    char pad10[4];
-    const char *key;
-};
-
-struct Item {
-    void *vptr;
-    Node node;
-};
-
-struct Tree {
-    Node *root;
-    Node nil;
-};
+// (recs1, D144) the meta type's tree of attributes (records.h OmTree) and its nodes, each an attribute's
+// (OmMetaTypeAttribBase.node), whose key is the attribute's name, read from the attribute that holds the node (was a
+// node view with the key at the 32-bit distance node + 0x14)
+typedef OmTreeNode Node;
+typedef OmMetaTypeAttribBase Item;
+typedef OmTree Tree;
+#define key_25f450(n) (((const Item*)((const char*)(n) - (hulk_uintptr) & (((Item*)0)->node)))->name)
 
 extern "C++" void __cdecl FUN_0025ec50(void *, void *);
 void __cdecl FUN_0025eca0(Tree *t, Node *n);
@@ -900,7 +888,7 @@ extern "C" bool FUN_0025f450(void * t_, void * item_, const char **pkey)
         const char *key = *pkey;
         do {
             y = x;
-            int c = strcmp(key, x->key);
+            int c = strcmp(key, key_25f450(x));
             if (c < 0)
                 x = x->left;
             else if (c == 0)
@@ -913,7 +901,7 @@ extern "C" bool FUN_0025f450(void * t_, void * item_, const char **pkey)
     if (y == &t->nil) {
         t->root = z;
     } else {
-        if (strcmp(*pkey, y->key) < 0)
+        if (strcmp(*pkey, key_25f450(y)) < 0)
             y->left = z;
         else
             y->right = z;
@@ -1003,24 +991,19 @@ namespace fn_0025f670 {
 extern "C" int strcmp(const char*, const char*);
 #endif
 
-struct Node {
-    Node* left;
-    Node* right;
-    int pad[3];
-    const char* key;
-};
-struct Tree_25f670 {
-    Node* root;
-};
+// (recs1, D144) a meta type's tree of attributes (records.h OmTree, OmMetaTypeAttribBase): the key is the name of the
+// attribute that holds the node, the result the attribute (was a node view with 32-bit distances)
+typedef OmTreeNode Node;
+#define item_25f670(n) ((OmMetaTypeAttribBase*)((char*)(n) - (hulk_uintptr) & (((OmMetaTypeAttribBase*)0)->node)))
 extern "C" void * FUN_0025f670(void * t, const char** key) {
-    Node* n = ((Tree_25f670 *)t)->root;
-    Node* end = (Node*)((char*)((Tree_25f670 *)t) + 4);
+    Node* n = ((OmTree *)t)->root;
+    Node* end = &((OmTree *)t)->nil;
     while (n != end) {
-        int c = strcmp(*key, n->key);
+        int c = strcmp(*key, item_25f670(n)->name);
         if (c < 0)
             n = n->left;
         else if (c <= 0)
-            return (Node *)((Node*)((char*)n - 4));
+            return item_25f670(n);
         else
             n = n->right;
     }
@@ -1109,7 +1092,7 @@ bool om::MetaType::vfunc_1(Output_25f7e0** out, void* context) {
 } // namespace fn_f98b1434
 
 // 0x0025f8f0 om::MetaType::vfunc_2 (151 B): equivalent/0x0025f8f0.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?vfunc_2@MetaType@om@fn_0025f8f0@@UAE_NHH@Z @274ab731bbd6 @w960d3327d992 @v6693a7b317ac
+// sym: ?vfunc_2@MetaType@om@fn_0025f8f0@@UAE_NHH@Z @274ab731bbd6 @w8cdaf9cb657d @v6693a7b317ac
 namespace fn_0025f8f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 50 inputs, branch coverage 26/26)
 // om::MetaType::vfunc_2 @ 0x0025f8f0
@@ -1134,14 +1117,18 @@ public:
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual bool vfunc_2(int a, int b);
-    char pad04[0x10];
+    // (recs1, D144) records.h OmMetaType's words (was char pad04[0x10]): its node in the tree of meta types, then its
+    // tree of attributes
+    void* nodeWords[3];
+    int nodeColor;
     Node *root;         // 0x14
     Node nil;           // 0x18
 };
 
+// the attribute that holds a node (OmMetaTypeAttribBase.node: 4 bytes in on the 32-bit builds, 8 natively)
 static Item_25f8f0 *ItemOf(Node *n, Node *nil)
 {
-    return n == nil ? 0 : (Item_25f8f0 *)((char *)n - 4);
+    return n == nil ? 0 : (Item_25f8f0 *)((char *)n - (hulk_uintptr) & (((Item_25f8f0 *)0)->node));
 }
 
 bool MetaType::vfunc_2(int a, int b)
@@ -1154,7 +1141,7 @@ bool MetaType::vfunc_2(int a, int b)
     } else {
         while (n->left != &nil)
             n = n->left;
-        it = (Item_25f8f0 *)((char *)n - 4);
+        it = (Item_25f8f0 *)((char *)n - (hulk_uintptr) & (((Item_25f8f0 *)0)->node));
     }
     while (it != 0) {
         if (!it->Visit(a, b))
@@ -1186,7 +1173,7 @@ namespace fn_f98b1434 {
 // sym: ?FUN_0025fa00@MetaType@fn_f98b1434@@QAEPAU12@PBDH@Z
 // om::MetaType's constructor: the vftable, an empty tree of its own, the key (the name), then the insertion into the
 // tree of meta types (0x004e79b8, set up on the first construction; 0x004cd360 points at it). records.h's OmMetaType.
-MetaType* MetaType::FUN_0025fa00(const char* n, int f) {
+MetaType* MetaType::FUN_0025fa00(const char* n, hulk_intptr f) {
     OmTreeNode* nil = &children.nil;
     vftable = DAT_0042aa40;
     nil->left = nil;
@@ -1196,7 +1183,7 @@ MetaType* MetaType::FUN_0025fa00(const char* n, int f) {
     children.nil.color = 0;
     const char** k = &name;
     *k = n;
-    flags = f;
+    base = (OmMetaType*)f;
     if (DAT_004e79b8.count == 0) {
         DAT_004e79b8.nil.left = &DAT_004e79b8.nil;
         DAT_004e79b8.nil.right = &DAT_004e79b8.nil;
@@ -1222,14 +1209,14 @@ void MetaType_25fa80::run() {
 
 
 // 0x0025fad0 FUN_0025fad0 (41 B): equivalent/0x0025fad0.cpp
-// sym: ?FUN_0025fad0@Node@fn_f98b1434@@QAEXH@Z @53a0ca6f3a57 @wc0cc8deb21db @v46bf1985bd24
+// sym: ?FUN_0025fad0@MetaTypeFind_25fad0@fn_f98b1434@@QAEXH@Z @53a0ca6f3a57 @wc0cc8deb21db @v0eaee9048e3b
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_0025fad0 @ 0x0025fad0
-void Node::FUN_0025fad0(hulk_intptr value) {
-    if (((int)(hulk_uintptr)FUN_0025f670(&item, (const char **)(&value)))) return;
-    Node* n = next;
+void MetaTypeFind_25fad0::FUN_0025fad0(hulk_intptr value) {
+    if (((int)(hulk_uintptr)FUN_0025f670(&children, (const char **)(&value)))) return;
+    MetaTypeFind_25fad0* n = (MetaTypeFind_25fad0*)base;
     if (n) {
-        void (Node::* volatile recurse)(hulk_intptr) = &Node::FUN_0025fad0;
+        void (MetaTypeFind_25fad0::* volatile recurse)(hulk_intptr) = &MetaTypeFind_25fad0::FUN_0025fad0;
         (n->*recurse)(value);
     }
 }
@@ -1237,7 +1224,7 @@ void Node::FUN_0025fad0(hulk_intptr value) {
 } // namespace fn_f98b1434
 
 // 0x0025fb00 FUN_0025fb00 (148 B): equivalent/0x0025fb00.cpp [wrapped: conflict: Node]
-// sym: ?FUN_0025fb00@ItemTree@fn_0025fb00@@QAEXH@Z @c6fa7f2a9d26 @wdf733bd81054 @v9f196bcfdb03
+// sym: ?FUN_0025fb00@ItemTree@fn_0025fb00@@QAEXH@Z @c6fa7f2a9d26 @we0bcad662b2e @v9f196bcfdb03
 namespace fn_0025fb00 {
 // STATUS: equivalent (tools/equiv.py level 3: 54 inputs, branch coverage 26/26)
 // FUN_0025fb00 @ 0x0025fb00
@@ -1256,30 +1243,29 @@ public:
     Node node;
 };
 
-class ItemTree {
+// (recs1, D144) a meta type on its record (records.h OmMetaType; was a view with 32-bit pads): its tree of attributes,
+// then its base meta type's; an attribute holds its node at OmMetaTypeAttribBase.node
+class ItemTree : public OmMetaType {
 public:
     void FUN_0025fb00(hulk_intptr arg);
-
-    char pad0[0x14];
-    Node *root;
-    Node nil;
-    char pad1[0x30 - 0x24];
-    ItemTree *child;
 };
+#define root_25fb00 ((Node *)children.root)
+#define nil_25fb00 ((Node *)&children.nil)
+#define item_25fb00(n) ((Item_25fb00 *)((char *)(n) - (hulk_uintptr) & (((Item_25fb00 *)0)->node)))
 
 void ItemTree::FUN_0025fb00(hulk_intptr arg)
 {
-    if (child)
-        child->FUN_0025fb00(arg);
+    if (base)
+        ((ItemTree *)base)->FUN_0025fb00(arg);
 
     Item_25fb00 *item;
-    if (root == &nil) {
+    if (root_25fb00 == nil_25fb00) {
         item = 0;
     } else {
-        Node *n = root;
-        while (n->left != &nil)
+        Node *n = root_25fb00;
+        while (n->left != nil_25fb00)
             n = n->left;
-        item = (Item_25fb00 *)((char *)n - 4);
+        item = item_25fb00(n);
     }
 
     while (item) {
@@ -1287,23 +1273,23 @@ void ItemTree::FUN_0025fb00(hulk_intptr arg)
 
         Node *n = item->node.right;
         Node *next;
-        if (n == &nil) {
+        if (n == nil_25fb00) {
             Node *cur = &item->node;
             next = cur->parent;
-            while (next != &nil && cur == next->right) {
+            while (next != nil_25fb00 && cur == next->right) {
                 cur = next;
                 next = next->parent;
             }
         } else {
             next = n;
-            while (next->left != &nil)
+            while (next->left != nil_25fb00)
                 next = next->left;
             // leftmost of right subtree
         }
-        if (next == &nil)
+        if (next == nil_25fb00)
             item = 0;
         else
-            item = (Item_25fb00 *)((char *)next - 4);
+            item = item_25fb00(next);
     }
 }
 } // namespace fn_0025fb00
@@ -1313,11 +1299,11 @@ namespace fn_f98b1434 {
 // 0x0025fba0 FUN_0025fba0 (55 B): matches/0x0025fba0.cpp
 // sym: ?init@MetaTypeAttribBase@fn_f98b1434@@QAEPAU12@PAXII@Z
 MetaTypeAttribBase* MetaTypeAttribBase::init(void* p, hulk_uintptr c, hulk_uintptr d) {
-    a = d;
-    vptr = (void*)((hulk_intptr)DAT_00429420);
-    b = c;
+    offset = (int)d;
+    vftable = (void*)((hulk_intptr)DAT_00429420);
+    name = (const char*)c;
     d = c;
-    FUN_0025f450((char*)p + 0x14, (MetaTypeAttribBase *)this, (const char **)(&d));
+    FUN_0025f450(&((OmMetaType*)p)->children, (MetaTypeAttribBase *)this, (const char **)(&d));
     return this;
 }
 

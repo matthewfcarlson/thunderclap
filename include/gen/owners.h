@@ -3427,37 +3427,38 @@ struct Thing_86100 {
 };
 // matches/0x00086290.cpp (stub Obj_86290), size 0x28
 struct Obj_86290 {
-    char pad[0x24]; // +0x00
-    int mValue; // +0x24
+    void* vftable; void* words[8]; // +0x00 (recs1) CGame's words (decls/managers.h HulkGame; was char pad[0x24])
+    hulk_intptr mValue; // +0x24 the render manager (pointer-sized)
     hulk_intptr FUN_00086290();
 };
 // matches/0x000862a0.cpp (stub Target_862a0), size 0x2c
 struct Target_862a0 {
-    char pad[0x28]; // +0x00
-    unsigned int value; // +0x28
+    void* vftable; void* words[9]; // +0x00 (recs1) CGame's words (decls/managers.h HulkGame; was char pad[0x28])
+    hulk_uintptr value; // +0x28 the world stream manager (pointer-sized)
     hulk_uintptr FUN_000862a0();
 };
 // matches/0x000862b0.cpp (stub C_862b0), size 0x2c
 struct C_862b0 {
-    char pad[0x2c]; // +0x00
+    void* vftable; void* words[10]; // +0x00 (recs1) CGame's words (decls/managers.h HulkGame; was char pad[0x2c])
+    hulk_uintptr overlay; // +0x2c the overlay manager (pointer-sized)
     hulk_uintptr FUN_000862b0();
 };
 // matches/0x00086310.cpp (stub C_86310), size 0x3c
 struct C_86310 {
-    char pad[0x38]; // +0x00
-    unsigned int value; // +0x38
+    void* vftable; void* words[13]; // +0x00 (recs1) CGame's words (decls/managers.h HulkGame; was char pad[0x38])
+    hulk_uintptr value; // +0x38 the game flow manager (pointer-sized)
     hulk_uintptr FUN_00086310();
 };
 // matches/0x00086340.cpp (stub A_86340), size 0x40
 struct A_86340 {
-    char pad[0x3c]; // +0x00
-    unsigned int value; // +0x3c
+    void* vftable; void* words[14]; // +0x00 (recs1) CGame's words (decls/managers.h HulkGame; was char pad[0x3c])
+    hulk_uintptr value; // +0x3c the unlockables manager (pointer-sized)
     hulk_uintptr FUN_00086340();
 };
 // matches/0x00086370.cpp (stub A_86370), size 0x4c
 struct A_86370 {
-    char pad[0x48]; // +0x00
-    int x; // +0x48
+    void* vftable; void* words[17]; // +0x00 (recs1) CGame's words (decls/managers.h HulkGame; was char pad[0x48])
+    hulk_intptr x; // +0x48 the stats manager (pointer-sized)
     hulk_intptr FUN_00086370();
 };
 // matches/0x000863e0.cpp (stub Target_863e0), size 0xc
@@ -15419,19 +15420,20 @@ struct C_293af0 {
 };
 // matches/0x00293e40.cpp (stub A_293e40), size 0x8
 struct A_293e40 {
-    char pad[8]; // +0x00
+    void* vftable; int refs; // +0x00 (recs1) pure3d::View's words (decls/view.h HulkView; was char pad[8])
+    int left, top, right, bottom; // +0x08 the viewport (floats, set as ints)
     void FUN_00293e40(int a, int b, int c, int d);
 };
 // matches/0x00293e60.cpp (stub Obj), size 0x18
 struct Obj_293e60 {
-    char pad[8]; // +0x00
+    void* vftable; int refs; // +0x00 (recs1) pure3d::View's words (decls/view.h HulkView; was char pad[8])
     int a, b, c, d; // +0x08
     void FUN_00293e60(int* x, int* y, int* z, int* w);
 };
 // matches/0x00293e90.cpp (stub C_293e90), size 0x20
 struct C_293e90 {
-    char pad[0x1c]; // +0x00
-    int value; // +0x1c
+    void* vftable; int refs; int viewport[4]; void* camera; // +0x00 (recs1) pure3d::View's words (decls/view.h HulkView; was char pad[0x1c])
+    int value; // +0x1c the ambient colour
     void FUN_00293e90(int x);
 };
 // matches/0x00294ed0.cpp (stub Search_294ed0), size 0x44 (0x48)

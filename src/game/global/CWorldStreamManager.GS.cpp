@@ -9,6 +9,7 @@
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
 #include "gen/owners.h"
+#include "decls/content_load.h"   // (recs1) ContentLoadArgs
 #define TREE_TU_BEGIN namespace fn_f43ea553 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CCollisionTrack
@@ -64,18 +65,11 @@ public:
     bool FUN_00266750();
     int FUN_00266700();
 };
-struct Request {
-    char name[0x100];
-    int f100;
-    int f104;
-    int f108;
-    char f10c;
-    char pad10d[3];
-};
+// (recs1) the loader's arguments are decls/content_load.h ContentLoadArgs (was `struct Request`: the name and words, 32-bit)
 struct Mgr_203e90 {
     char pad00[4];
     int limit;
-    void FUN_00265810(Request* r, Handle_203e90** out);
+    void FUN_00265810(ContentLoadArgs* r, Handle_203e90** out);
     int FUN_00264870();
 };
 struct Target_203e90 {
@@ -263,7 +257,7 @@ int Holder_203bb0::FUN_00203bb0()
 
 
 // 0x00203e90 FUN_00203e90 (452 B): equivalent/0x00203e90.cpp
-// sym: ?Run@Owner_203e90@fn_f43ea553@@QAEPAVHandle_203e90@2@PBD_N1PAUActor_203e90@2@PAUTarget_203e90@2@HH@Z @38bebf6837aa @w3bc73b346e87 @v64bee90b68dd
+// sym: ?Run@Owner_203e90@fn_f43ea553@@QAEPAVHandle_203e90@2@PBD_N1PAUActor_203e90@2@PAUTarget_203e90@2@HH@Z @38bebf6837aa @w3bc73b346e87 @v615fd4c678cb
 // STATUS: equivalent (tools/equiv.py level 3: 9174 inputs, branch coverage 30/30)
 // FUN_00203e90 @ 0x00203e90
 Handle_203e90* Owner_203e90::Run(const char* name, bool a2, bool a3, Actor_203e90* actor, Target_203e90* target, int a6, int a7)
@@ -272,23 +266,23 @@ Handle_203e90* Owner_203e90::Run(const char* name, bool a2, bool a3, Actor_203e9
         Handle_203e90* out;
         int saved;
         int prev;
-        Request req;
+        ContentLoadArgs req;
     } f;
     f.prev = FUN_00266da0(0xb);
     if (actor)
         actor->f04 = 1;
-    f.req.f108 = a7;
+    f.req.kind = a7;
     f.out = 0;
-    f.req.name[0] = 0;
-    f.req.f100 = 0;
-    f.req.f104 = 0;
-    f.req.f10c = 0;
+    f.req.path[0] = 0;
+    f.req.context = 0;
+    f.req.callback = 0;
+    f.req.wait = 0;
     if (name)
-        strncpy(f.req.name, name, 0xff);
-    f.req.f104 = a6;
-    f.req.f10c = 0;
+        strncpy(f.req.path, name, 0xff);
+    f.req.callback = (void*)(hulk_intptr)a6;   // (the callback arrives as an int: decl1)
+    f.req.wait = 0;
     if (actor)
-        f.req.f108 = actor->f26;
+        f.req.kind = actor->f26;
     (*(Mgr_203e90**)&DAT_00527c58)->FUN_00265810(&f.req, &f.out);
     if (!a2) {
         Item_203e90* item = f588->FUN_00086280();

@@ -47,60 +47,30 @@ class Obj_861f0;
 class A_861f0 {
   public:
     void F();
-    void G(Obj_861f0*, int);
+    void G(Obj_861f0*, hulk_intptr);   // 0x000c4020: the triple (a pointer)
 };
-class Obj_861f0 {
+class Obj_861f0 : public HulkGame {   // (recs1) CGame on its record (was char pad[4], int m4, char pad2[0x18], m20)
   public:
-    char pad[4];
-    int m4;
-    char pad2[0x18];
-    A_861f0* m20;
     void Target();
 };
 class Inner_86240 {
   public:
     void Step();
 };
-class Target_86240 {
+class Target_86240 : public HulkGame {   // (recs1) CGame on its record (was char pad[0x1c], then the platform manager)
   public:
-    char pad[0x1c];
-    Inner_86240* member;
     void Run();
 };
 extern bool FUN_0008db80();
 extern "C" void FUN_0008db90();
-struct X_86270 {
-    int pad;
-    unsigned int value;
-};
-class C_86280 {
-    char pad[0x20];
-
-  public:
-    unsigned int value;
-};
-class Obj_862c0 {
-    char pad[0x10];
-
-  public:
-    unsigned int value;
-};
-struct X_862d0 {
-    char pad[0x14];
-    unsigned value;
-};
-class C_862e0 {
-    char pad[0x30];
-
-  public:
-    unsigned int value;
-};
-class A_86380 {
-    char pad[0x4c];
-
-  public:
-    unsigned int value;
-};
+// (recs1) CGame's getters on its record (decls/managers.h HulkGame; the views were 32-bit pads, then the word as
+// `unsigned int`: natively the lower half of a pointer at a 32-bit offset)
+struct X_86270 : HulkGame {};
+class C_86280 : public HulkGame {};
+class Obj_862c0 : public HulkGame {};
+struct X_862d0 : HulkGame {};
+class C_862e0 : public HulkGame {};
+class A_86380 : public HulkGame {};
 struct Inner_863e0 {
     char pad[0x18];
     void f();
@@ -156,7 +126,7 @@ struct A_865d0 {
     void f2();
     void f4();
     void f6(int);
-    void f8(void*, int);
+    void f8(void*, hulk_intptr);   // 0x000c4020: the triple (a pointer)
 };
 struct B_865d0 {
     void f3(int);
@@ -164,15 +134,7 @@ struct B_865d0 {
 struct C_865d0 {
     void f5();
 };
-struct Obj_865d0 {
-    char pad0[4];
-    int v4;
-    char pad8[0x18];
-    A_865d0* p20;
-    char pad24[0xc];
-    C_865d0* p30;
-    char pad34[4];
-    B_865d0* p38;
+struct Obj_865d0 : HulkGame {   // (recs1) CGame on its record (was a view with 32-bit pads)
     A_865d0* init();
 };
 struct Target_86630;
@@ -654,18 +616,18 @@ void __stdcall Target(int a, int b, int c, int d) {
 // 0x000861f0 FUN_000861f0 (26 B): matches/0x000861f0.cpp
 // sym: ?Target@Obj_861f0@fn_f5b26912@@QAEXXZ
 void Obj_861f0::Target() {
-    m20->F();
-    m20->G(this, m4);
+    ((A_861f0*)frontEnd)->F();
+    ((A_861f0*)frontEnd)->G(this, (hulk_intptr)triple);
 }
 
 
 // 0x00086240 FUN_00086240 (43 B): matches/0x00086240.cpp
 // sym: ?Run@Target_86240@fn_f5b26912@@QAEXXZ
 void Target_86240::Run() {
-    if (member != 0) {
+    if (platform != 0) {
         while (FUN_0008db80()) {
             FUN_0008db90();
-            member->Step();
+            ((Inner_86240*)platform)->Step();
         }
     }
 }
@@ -674,14 +636,14 @@ void Target_86240::Run() {
 // 0x00086270 FUN_00086270 (4 B): matches/0x00086270.cpp
 // sym: ?FUN_00086270@fn_f5b26912@@YIIPAUX_86270@1@@Z
 hulk_uintptr __fastcall FUN_00086270(X_86270* p) {
-    return p->value;
+    return (hulk_uintptr)p->triple;
 }
 
 
 // 0x00086280 FUN_00086280 (4 B): matches/0x00086280.cpp
 // sym: ?target@fn_f5b26912@@YIIPAVC_86280@1@@Z
 hulk_uintptr __fastcall target(C_86280* self) {
-    return self->value;
+    return (hulk_uintptr)self->frontEnd;
 }
 
 } // namespace fn_f5b26912
@@ -703,7 +665,7 @@ hulk_uintptr owners::Target_862a0::FUN_000862a0() {
 // 0x000862b0 FUN_000862b0 (4 B): matches/0x000862b0.cpp
 // sym: ?FUN_000862b0@C_862b0@owners@@QAEIXZ
 hulk_uintptr owners::C_862b0::FUN_000862b0() {
-    return *(unsigned int*)((char*)this + 0x2c);
+    return overlay;
 }
 
 namespace fn_f5b26912 {
@@ -712,28 +674,29 @@ namespace fn_f5b26912 {
 // sym: @FUN_000862c0@4
 // Same code shape as 0x00059a30 (propagated; names are from that function)
 extern "C" hulk_uintptr __fastcall FUN_000862c0(Obj_862c0* self) {
-    return self->value;
+    return (hulk_uintptr)self->controllers;
 }
 
 
 // 0x000862d0 FUN_000862d0 (4 B): matches/0x000862d0.cpp
 // sym: ?target@fn_f5b26912@@YIIPAUX_862d0@1@@Z
 hulk_uintptr __fastcall target(X_862d0* self) {
-    return self->value;
+    return (hulk_uintptr)self->gameControllers;
 }
 
 
 // 0x000862e0 FUN_000862e0 (4 B): matches/0x000862e0.cpp
 // sym: @FUN_000862e0@4
 extern "C" hulk_uintptr __fastcall FUN_000862e0(C_862e0* self) {
-    return self->value;
+    return (hulk_uintptr)self->sound;
 }
 
 
 // 0x00086300 FUN_00086300 (4 B): matches/0x00086300.cpp
 // sym: @FUN_00086300@4
-extern "C" unsigned int __fastcall FUN_00086300(void* p) {
-    return *(unsigned int*)((char*)p + 0x34);
+// (recs1) the word is a pointer: pointer-sized (was `unsigned int`, a 32-bit offset)
+extern "C" hulk_uintptr __fastcall FUN_00086300(void* p) {
+    return (hulk_uintptr)((HulkGame*)p)->fmv;
 }
 
 } // namespace fn_f5b26912
@@ -749,7 +712,7 @@ namespace fn_f5b26912 {
 // 0x00086320 FUN_00086320 (4 B): matches/0x00086320.cpp
 // sym: ?FUN_00086320@fn_f5b26912@@YIHPAX@Z
 hulk_intptr __fastcall FUN_00086320(void* p) {
-    return *(int*)((char*)p + 8);
+    return (hulk_intptr)((HulkGame*)p)->time;
 }
 
 
@@ -757,7 +720,7 @@ hulk_intptr __fastcall FUN_00086320(void* p) {
 // sym: @FUN_00086330@4
 // Same code shape as 0x00059a40 (propagated; names are from that function)
 extern "C" hulk_intptr __fastcall FUN_00086330(hulk_intptr object) {
-    return *(int*)(object + 0x18);
+    return (hulk_intptr)((HulkGame*)object)->haptic;
 }
 
 } // namespace fn_f5b26912
@@ -807,11 +770,12 @@ class CJumpTrack {
     virtual void f29();
     virtual void f30();
     virtual void f31();
-    char pad[0x40 - 4];
-    unsigned int m;
+    // (recs1) CGame's words (decls/managers.h HulkGame; was char pad[0x40 - 4], then the word as `unsigned int`)
+    void* words[15];
+    void* m;   // +0x40 the manager pair
 };
 hulk_uintptr CJumpTrack::vfunc_26() {
-    return m;
+    return (hulk_uintptr)m;
 }
 } // namespace fn_00086350
 
@@ -827,7 +791,7 @@ namespace fn_f5b26912 {
 // 0x00086380 FUN_00086380 (4 B): matches/0x00086380.cpp
 // sym: ?target@fn_f5b26912@@YIIPAVA_86380@1@@Z
 hulk_uintptr __fastcall target(A_86380* self) {
-    return self->value;
+    return (hulk_uintptr)self->subtitle;
 }
 
 } // namespace fn_f5b26912
@@ -901,12 +865,12 @@ void __fastcall target(Obj_865d0* self) {
         edi->f2();
     else
         (*(unsigned char*)&DAT_004dd6f0) = 0;
-    self->p38->f3(0);
+    ((B_865d0*)self->gameFlow)->f3(0);
     edi->f4();
-    self->p30->f5();
+    ((C_865d0*)self->sound)->f5();
     edi->f6(1);
     ((owners::Thing_1d3c50 *)edi)->FUN_001d3c50();
-    self->p20->f8(self, self->v4);
+    ((A_865d0*)self->frontEnd)->f8(self, (hulk_intptr)self->triple);
 }
 
 
@@ -1919,30 +1883,26 @@ void owners::Thing_87940::FUN_00087940() {
 
 
 // 0x00087990 FUN_00087990 (41 B): equivalent/0x00087990.cpp [wrapped: conflict: thunk]
-// sym: ?target@fn_00087990@@YAXXZ @a7bec8500dc8 @w17976cdf05f9 @vf51254c247bc
+// sym: ?target@fn_00087990@@YAXXZ @65395a1bbbfc @w6564e7840b9a @v21a1832ee64b
 namespace fn_00087990 {
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 6/6)
 // FUN_00087990 @ 0x00087990
+// (recs1) the World on its record (decls/managers.h HulkWorld; was `char pad0[0x54]` .. `flag9d`, 32-bit offsets) by
+// its C name (was `gObj_87990`, a C++ name: natively a private stand-in variable, find1 F15); the callees by their
+// address names (were `fn86`, `thunk` and `fnTail`, names with no definition: F15 / F16)
 extern "C" {
-struct Run_87990 { void fn86(); };
-struct Obj_87990 {
-    char pad0[0x54];
-    hulk_intptr field54;
-    char pad58[0x9d - 0x58];
-    char flag9d;
-};
-extern "C++" { extern Obj_87990* gObj_87990; }
-extern "C++" { __declspec(nothrow) void __cdecl thunk(); }
-extern "C++" { __declspec(nothrow) void __cdecl fnTail(); }
+struct Run_87990 { void FUN_00086da0(); };
 }
+extern "C++" { __declspec(nothrow) void __cdecl thunk_FUN_00270a50(); }
+extern "C" { __declspec(nothrow) void __cdecl FUN_002656a0(void); }
 void target() {
-    Obj_87990* p = gObj_87990;
-    if (p && p->flag9d && p->field54) {
-        ((Run_87990*)p->field54)->fn86();
+    HulkWorld* p = (HulkWorld*)::DAT_004dd700;
+    if (p && p->ready && p->parts[20]) {
+        ((Run_87990*)p->parts[20])->FUN_00086da0();
         return;
     }
-    thunk();
-    fnTail();
+    thunk_FUN_00270a50();
+    FUN_002656a0();
 }
 } // namespace fn_00087990
 
@@ -2259,7 +2219,9 @@ namespace math { class Vector_87e80 { public: float x, y, z; }; }
 extern "C" char DAT_003ffab4[];  // CGame's vftable
 extern "C" char DAT_003ffb50[];  // Function2<float, float, float>'s
 extern "C" char DAT_003ffb70[];  // Function2<const char*, const char*, const char*>'s
-struct CGame { void* vftable; int a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s; unsigned char flag; CGame(); void FUN_00086a10(); void FUN_000861f0(); };
+// (recs1, find2 G14) CGame on its record (decls/managers.h HulkGame; was 19 ints: 0x58 bytes natively, where 0x00088020 stores
+// pointer-sized managers up to +0x98)
+struct CGame : HulkGame { CGame(); void FUN_00086a10(); void FUN_000861f0(); };
 // The free functions bound as Function<N> (0x00086fa0's Invoke calls them __cdecl): their real types are the game's
 // Function<N> instantiations.
 float __cdecl FUN_000964e0();
@@ -2275,7 +2237,7 @@ extern "C++" __declspec(nothrow) Registry_87e80* __cdecl FUN_001d4c90(); extern 
 struct FunctionBase_87e80 { void* vftable; ScriptFunctionFields f; void FUN_001d0480(const char*,int); };
 struct Function4_87e80 : FunctionBase_87e80 { bool (__cdecl* callback)(math::Vector_87e80, math::Vector_87e80, math::Vector_87e80, math::Vector_87e80); void* FUN_00086fc0(const char*, bool (__cdecl*)(math::Vector_87e80, math::Vector_87e80, math::Vector_87e80, math::Vector_87e80)); };
 template<class R,class A,class B> struct Function2 : FunctionBase_87e80 { R (__cdecl* callback)(A, B); };
-CGame::CGame() { vftable=(void*)DAT_003ffab4; a=b=0; d=e=f=g=h=i=j=k=l=m=n=o=p=q=r=s=0; flag=0; Registry_87e80* reg=FUN_001d4c90(); typedef Function2<float,float,float> Alloc1_87e80; HULK_SIZE32(Alloc1_87e80,0x20); typedef Function2<const char*,const char*,const char*> Alloc2_87e80; HULK_SIZE32(Alloc2_87e80,0x20); HULK_SIZE32(Function4_87e80,0x20); reg->FUN_00087dc0("Quit",this,&CGame::FUN_00086a10); reg->FUN_00087a90("util_GetRandomFloat",FUN_000964e0); Function2<float,float,float>* one=(Function2<float,float,float>*)FUN_0008d690((int)sizeof(Function2<float,float,float>)); if(one) { one->FUN_001d0480("util_GetWorldOrientation",2); one->vftable=(void*)DAT_003ffb50; one->callback=FUN_00096540; one->f.retType=FUN_001d04d0(((int*)&DAT_0048e128)); one->f.argTypes[0]=FUN_001d04d0(((int*)&DAT_0048e128)); one->f.argTypes[1]=FUN_001d04d0(((int*)&DAT_0048e128)); } reg->FUN_001d3b70("util_GetWorldOrientation",one); reg->FUN_00087b40("util_MakeUID",FUN_00096f10); Function2<const char*,const char*,const char*>* two=(Function2<const char*,const char*,const char*>*)FUN_0008d690((int)sizeof(Function2<const char*,const char*,const char*>)); if(two) { two->FUN_001d0480("util_AppendToUID",2); two->vftable=(void*)DAT_003ffb70; two->callback=FUN_00096ed0; two->f.retType=FUN_001d04d0(((int*)&DAT_0048e0f0)); two->f.argTypes[0]=FUN_001d04d0(((int*)&DAT_0048e0f0)); two->f.argTypes[1]=FUN_001d04d0(((int*)&DAT_0048e0f0)); } reg->FUN_001d3b70("util_AppendToUID",two); Function4_87e80* three=(Function4_87e80*)FUN_0008d690((int)sizeof(Function4_87e80)); void* result=0; if(three) result=three->FUN_00086fc0("hack_IsFieldGoal",FUN_00096f40); reg->FUN_001d3b70("hack_IsFieldGoal",result); reg->FUN_00087dc0("fe_restart",this,&CGame::FUN_000861f0); }
+CGame::CGame() { vftable=(void*)DAT_003ffab4; triple=time=0; controllers=gameControllers=haptic=platform=frontEnd=render=worldStream=overlay=sound=fmv=gameFlow=unlockables=pair=f44=stats=subtitle=0; flag=0; Registry_87e80* reg=FUN_001d4c90(); typedef Function2<float,float,float> Alloc1_87e80; HULK_SIZE32(Alloc1_87e80,0x20); typedef Function2<const char*,const char*,const char*> Alloc2_87e80; HULK_SIZE32(Alloc2_87e80,0x20); HULK_SIZE32(Function4_87e80,0x20); reg->FUN_00087dc0("Quit",this,&CGame::FUN_00086a10); reg->FUN_00087a90("util_GetRandomFloat",FUN_000964e0); Function2<float,float,float>* one=(Function2<float,float,float>*)FUN_0008d690((int)sizeof(Function2<float,float,float>)); if(one) { one->FUN_001d0480("util_GetWorldOrientation",2); one->vftable=(void*)DAT_003ffb50; one->callback=FUN_00096540; one->f.retType=FUN_001d04d0(((int*)&DAT_0048e128)); one->f.argTypes[0]=FUN_001d04d0(((int*)&DAT_0048e128)); one->f.argTypes[1]=FUN_001d04d0(((int*)&DAT_0048e128)); } reg->FUN_001d3b70("util_GetWorldOrientation",one); reg->FUN_00087b40("util_MakeUID",FUN_00096f10); Function2<const char*,const char*,const char*>* two=(Function2<const char*,const char*,const char*>*)FUN_0008d690((int)sizeof(Function2<const char*,const char*,const char*>)); if(two) { two->FUN_001d0480("util_AppendToUID",2); two->vftable=(void*)DAT_003ffb70; two->callback=FUN_00096ed0; two->f.retType=FUN_001d04d0(((int*)&DAT_0048e0f0)); two->f.argTypes[0]=FUN_001d04d0(((int*)&DAT_0048e0f0)); two->f.argTypes[1]=FUN_001d04d0(((int*)&DAT_0048e0f0)); } reg->FUN_001d3b70("util_AppendToUID",two); Function4_87e80* three=(Function4_87e80*)FUN_0008d690((int)sizeof(Function4_87e80)); void* result=0; if(three) result=three->FUN_00086fc0("hack_IsFieldGoal",FUN_00096f40); reg->FUN_001d3b70("hack_IsFieldGoal",result); reg->FUN_00087dc0("fe_restart",this,&CGame::FUN_000861f0); }
 } // namespace fn_00087e80
 #undef DAT_004dd6ec
 #undef DAT_004dd700

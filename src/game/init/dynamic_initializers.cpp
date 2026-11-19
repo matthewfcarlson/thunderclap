@@ -43,7 +43,7 @@ class Obj {
     void Run_002580e0();
     void FUN_003b17b0();
     void FUN_0023fc40(const char*, float);
-    void FUN_0025fa00(const char*, int);
+    void FUN_0025fa00(const char*, hulk_intptr);   // (recs1) as defined: the base meta type
     void FUN_0024e670();
     void FUN_002524e0();
     void Fn_002580e0();
@@ -261,7 +261,7 @@ typedef unsigned __int64 Key_35ec60;
 class Registry {
   public:
     void FUN_002584d0(__int64*, __int64*, int, int);
-    void FUN_0025fa00(const char* name, int flags);
+    void FUN_0025fa00(const char* name, hulk_intptr base);   // (recs1) as defined: the base meta type
 };
 extern Registry hulk_at_004e2778;
 extern void FUN_00364080();
@@ -328,7 +328,7 @@ class Holder {
 };
 class MetaType_35fa20 {
   public:
-    void FUN_0025fa00(const char*, int);
+    void FUN_0025fa00(const char*, hulk_intptr);   // (recs1) as defined: the base meta type
 };
 extern "C" void __cdecl FUN_003642b0();
 typedef void (*AtExitFn)();
@@ -339,7 +339,7 @@ extern void __cdecl FUN_003642c0();
 extern "C" void __cdecl FUN_003642e0();
 class MetaType_35faa0 {
   public:
-    void FUN_0025fa00(const char*, int);
+    void FUN_0025fa00(const char*, hulk_intptr);   // (recs1) as defined: the base meta type
 };
 extern "C" void __cdecl FUN_003642f0();
 class ListenerEffectXBoxType_35fac0 {
@@ -5313,7 +5313,7 @@ namespace fn_0035fa60 {
 
 class Effect {
   public:
-    void FUN_0025fa00(const char*, int);
+    void FUN_0025fa00(const char*, hulk_intptr);   // (recs1) as defined: the base meta type
     Effect(const char*, int);
 };
 

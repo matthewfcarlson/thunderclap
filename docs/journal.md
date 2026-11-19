@@ -1579,3 +1579,20 @@ blocks fight::Action's whole family: the records come first there.
   gen_block for those blocks; all 159 MATCH with relocations ok (28 TUs, including CSoundSystem's Method3/4/6,
   CFEManager's Method6/7 and CUnlockablesManager's Method6). 0x001f30e0 (CSoundVoiceManager), which the Closure4
   invoke calls as a member, is a member too.
+
+## 2026-11-19 recs1: records for find1's start-up stops
+
+- pure3d::View is 0x140 bytes (gen had 0xc0: the constructor 0x00294880 writes two matrices at 0xc0 / 0x100); its
+  words are the viewport, camera, ambient, clear colour / depth / stencil / mask, fog colour / start / end, 32 light
+  slots and the fog flag (0x00293ef0 reads them all). With the record the constructor is a byte match storing the
+  vftable by address. A TU that both calls a View's slots and writes its words gets the words through
+  `HULK_VIEW_WORDS` after its own vptr: a non-polymorphic record plus a cast for the slot call made the 64-bit checker
+  lose the object (a field cast to two records is `view_ambiguous`; a HulkView-typed result whose vftable word is
+  fuzz crashes every input).
+- CGame (0x54 bytes) holds the triple and 18 managers as pointers; its 15 getters read pointer-sized words now
+  (find1 F6). 0x00086350 (named CJumpTrack::vfunc_26 by a propagated shape) is CGame's pair getter.
+- The listener effects' attribute offsets 0x28 .. 0x54 are offsets into audio::ListenerEffectXBox (OmEntity, then
+  the twelve I3DL2 listener settings 0x00241280 copies to the device); natively they are offsetof() on the record.
+  OmMetaType +0x30 is the base meta type (0x0025fb00 recurses into it, 0x0025fad0 searches it next), not flags.
+- 0x002407a0's x64 `int` class comes from DAT_00527c58 (the content registry) being an incomplete DataLayout to the
+  checker, not from the String: typing that global (records.h HulkContentRegistry) is data5's.

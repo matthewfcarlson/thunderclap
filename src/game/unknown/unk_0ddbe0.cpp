@@ -5,6 +5,7 @@
 #include "decls/data/game/unknown.h"
 #include "gen/global.h"
 #include "gen/owners.h"
+#include "decls/view.h"   // (recs1) pure3d::View
 #define TREE_TU_BEGIN namespace fn_f683177d {
 #define TREE_TU_END }
 namespace fn_f683177d {} using namespace fn_f683177d;
@@ -190,12 +191,7 @@ public:
     View_ddbf0* FUN_00294880();
     void FUN_00293e90(unsigned int color);
     void FUN_00294980(Camera* cam);
-    char pad4[0x1c - 4];
-    unsigned int f1c;
-    unsigned int f20;
-    char pad24[4];
-    int f28;
-    int f2c;
+    // (recs1) the View's words are decls/view.h HulkView's (was char pad4[0x1c - 4], then 32-bit offsets)
 };
 
 class Widget_ddbf0 {
@@ -230,7 +226,7 @@ FEThings::FEThings(View_ddbf0* existing)
     if (existing != 0) {
         ownsScreen = 0;
     } else {
-        void* mem = FUN_0008d690(0x140);
+        void* mem = FUN_0008d690(sizeof(HulkView));   // (recs1) the View record (0x140 on the 32-bit builds)
         if (mem != 0)
             s = ((View_ddbf0*)mem)->FUN_00294880();
         else
@@ -240,9 +236,9 @@ FEThings::FEThings(View_ddbf0* existing)
     screen = s;
     s->AddRef();
     f222c = 0;
-    screen->f28 = 0;
-    screen->f2c = 6;
-    screen->f20 = 0xff000000;
+    ((HulkView*)screen)->clearStencil = 0;
+    ((HulkView*)screen)->clearMask = 6;
+    ((HulkView*)screen)->clearColour = 0xff000000;
     screen->FUN_00293e90(0xff505050);
     void* cmem = FUN_00263ea0(0xf8);
     Camera* cam;

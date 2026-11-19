@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "decls/data/engine/pure3d/prop.h"
 #include "gen/owners.h"
+#include "decls/loaders.h"   // (recs1) HulkTextureLoader
 #include "gen/pure3d.h"
 #define TREE_TU_BEGIN namespace fn_f9a208e6 {
 #define TREE_TU_END }
@@ -220,16 +221,13 @@ struct Created_2c2370 {
     char pad0[8];
     Name_2c2370 name;
 };
-struct Target_2c2370 {
-    char pad0[0x8c];
-    int f8c;
-    char pad90[4];
+struct Target_2c2370 : HulkImageRegistry {   // (recs1, find2 G2) the image registry on its record (was char pad0[0x8c])
     void FUN_002ae950(int a, int b, int c, int d);
 };
-class Loader_2c2370 {
+// (recs1, find2 G2) pure3d::TextureLoader on its record (decls/loaders.h HulkTextureLoader; was char pad0[0x14], then
+// the registry as `target`: natively the handler's f10 is a pointer and the registry sits at +0x20)
+class Loader_2c2370 : public HulkTextureLoader {
   public:
-    char pad0[0x14];
-    Target_2c2370* target;
     Created_2c2370* FUN_002c1f80(Reader* rd, Target_2c2370* t, Created_2c2370* prev, int index, int count);
     Created_2c2370* FUN_002c1d70(Reader* rd, Target_2c2370* t, Created_2c2370* prev, int index);
     Created_2c2370* FUN_002c2370(Reader* rd);
@@ -515,7 +513,7 @@ void __fastcall FUN_002c2330(TextureLoader* self) {
 
 
 // 0x002c2370 FUN_002c2370 (504 B): equivalent/0x002c2370.cpp
-// sym: ?FUN_002c2370@Loader_2c2370@fn_f9a208e6@@QAEPAUCreated_2c2370@2@PAUReader@2@@Z @21d7f1b3c386 @wf76cfc935d96 @vf2fa6e1f1245
+// sym: ?FUN_002c2370@Loader_2c2370@fn_f9a208e6@@QAEPAUCreated_2c2370@2@PAUReader@2@@Z @21d7f1b3c386 @wf76cfc935d96 @ve2dfcaacd081
 // STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 16/18, incomplete)
 // FUN_002c2370 @ 0x002c2370
 Created_2c2370* Loader_2c2370::FUN_002c2370(Reader* rd)
@@ -550,8 +548,8 @@ Created_2c2370* Loader_2c2370::FUN_002c2370(Reader* rd)
     rd->stream->FUN_002647e0(&fr.ve, 1, 4, 1);
     rd->stream->FUN_002647e0(&fr.vf, 1, 4, 1);
 
-    target->f8c = fr.vb;
-    target->FUN_002ae950(fr.va, fr.count, fr.vd, fr.ve);
+    ((Target_2c2370*)registry)->f8c = fr.vb;
+    ((Target_2c2370*)registry)->FUN_002ae950(fr.va, fr.count, fr.vd, fr.ve);
 
     Created_2c2370* made = 0;
     int index = 0;
@@ -564,14 +562,14 @@ Created_2c2370* Loader_2c2370::FUN_002c2370(Reader* rd)
         int id = rd->FUN_00266a30();
         if (id == 0x19001) {
             if (!fr.flagB) {
-                made = FUN_002c1d70(rd, target, made, index);
+                made = FUN_002c1d70(rd, ((Target_2c2370*)registry), made, index);
                 fr.flagB = 0;
                 flagA = 1;
                 index++;
             }
         } else if (id == 0x19004) {
             if (!flagA) {
-                made = FUN_002c1f80(rd, target, made, index, fr.count);
+                made = FUN_002c1f80(rd, ((Target_2c2370*)registry), made, index, fr.count);
                 fr.flagB = 1;
                 flagA = 0;
                 index++;

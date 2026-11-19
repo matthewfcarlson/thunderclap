@@ -3,6 +3,7 @@
 #include "tree_prelude.h"
 #include "compat/ptr.h"
 #include "gen/pure3d.h"
+#include "decls/view.h"   // (recs1) pure3d::View
 #define TREE_TU_BEGIN namespace fn_f58bed2c {
 #define TREE_TU_END }
 #define TREE_LOCAL_CAction
@@ -19,13 +20,8 @@ class IRefCount {
     virtual void A();
     virtual void Release();
 };
-class View {
+class View : public HulkView {   // (recs1) the record (decls/view.h; was a view with 32-bit pads)
   public:
-    char* v;
-    char pad[0x14];
-    IRefCount* mRef;
-    char pad2[0x20];
-    IRefCount* arr[32];
     void Cleanup();
 };
 
@@ -33,16 +29,16 @@ class View {
 // 0x00294a10 FUN_00294a10 (65 B): matches/0x00294a10.cpp
 // sym: ?Cleanup@View@fn_f58bed2c@@QAEXXZ
 void View::Cleanup() {
-    ((hulk_intptr*)this)[0] = (hulk_intptr)&hulk_at_0042d0bc;
-    if (mRef)
-        mRef->Release();
+    vftable = &hulk_at_0042d0bc;
+    if (camera)
+        ((IRefCount*)camera)->Release();
     for (int i = 0; i < 32; i++) {
-        if (arr[i]) {
-            arr[i]->Release();
-            arr[i] = 0;
+        if (lights[i]) {
+            ((IRefCount*)lights[i])->Release();
+            lights[i] = 0;
         }
     }
-    ((hulk_intptr*)this)[0] = (hulk_intptr)&hulk_at_003f6098;
+    vftable = &hulk_at_003f6098;
 }
 
 } // namespace fn_f58bed2c

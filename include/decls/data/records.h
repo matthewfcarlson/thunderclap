@@ -180,7 +180,9 @@ struct OmMetaType {
     OmTreeNode node;                        // +0x04 the node in the tree of meta types
     OmTree children;                        // +0x14 (the constructor leaves count alone)
     const char* name;                       // +0x2c the key
-    int flags;                              // +0x30
+    OmMetaType* base;                       // +0x30 (recs1) the base meta type, whose attributes 0x0025fb00 visits
+                                            //       first and 0x0025fad0 searches next (the constructor 0x0025fa00
+                                            //       stores its int argument here: 0 from every static meta type)
 };
 
 extern "C" OmTree DAT_004e79b8;             // the meta types by name (count: the number constructed)
@@ -1878,19 +1880,7 @@ struct GameLanguageName {
 };
 extern "C" const GameLanguageName DAT_0040cc74[6];
 
-// A load request's arguments (x64t13): what the caller fills on its stack (FUN_001bc0c0's frame) and hands to the
-// loader's 0x00265810, which copies them into the content::LoadRequest it allocates (its constructor 0x00266890 copies
-// the 0x110 bytes whole). The file's path, the context 0x00266850 stores in the request, the completion callback
-// (the constructor calls its slot 0, the destructor 0x00266690 releases it), the kind and the wait flag (0x00265810
-// polls the request until it is done when it is set).
-struct ContentLoadArgs {
-    char path[0x100];                       // +0x000
-    void* context;                          // +0x100
-    void* callback;                         // +0x104
-    int kind;                               // +0x108 (0xb from FUN_001bc0c0)
-    unsigned char wait;                     // +0x10c
-    char pad10d[3];                         // +0x10d
-};
+#include "decls/content_load.h"   // (recs1) ContentLoadArgs: in a header of its own, for the callers that fill it
 
 // content::LoadRequest (vftable 0x0042aee4; 0x130 bytes, 0x00265810 allocates it with 0x00263ed0): the flat view of
 // its words, as gen/content.h's class (content::LoadObject packs to 12 bytes natively, HULK_REFCOUNT_PACK) lays them

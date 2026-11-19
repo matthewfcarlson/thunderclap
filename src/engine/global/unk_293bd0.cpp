@@ -6,6 +6,7 @@
 #include "decls/data/engine/pure3d/prop.h"
 #include "decls/data/game/global.h"
 #include "gen/owners.h"
+#include "decls/view.h"   // (recs1) pure3d::View
 #define TREE_TU_BEGIN namespace fn_fd6a08a7 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CSPHulkProp
@@ -239,11 +240,9 @@ class Item_293ea0 {
   public:
     virtual void Use();
 };
-class Owner_293ea0 {
+// (recs1) a pure3d::View (decls/view.h): its light slots (was a local polymorphic stand-in with a 32-bit pad)
+class Owner_293ea0 : public HulkView {
   public:
-    virtual void V();
-    char pad[0x38];
-    Item_293ea0* volatile items[32];
     int Add(Item_293ea0* item);
 };
 struct Item {
@@ -259,9 +258,7 @@ struct State {
     char pad[8];
     int value;
 };
-struct Owner {
-    char pad[0x3c];
-    Item* items[32];
+struct Owner : HulkView {   // (recs1) a pure3d::View (decls/view.h; was char pad[0x3c])
     void func();
 };
 class Inner_2940d0 {
@@ -284,10 +281,8 @@ class Inner_2940d0 {
 class Helper_2940d0 {
   public:
 };
-class Owner_2940d0 {
+class Owner_2940d0 : public HulkView {   // (recs1) a pure3d::View (decls/view.h; was char pad[0x18])
   public:
-    char pad[0x18];
-    Inner_2940d0* ptr;
     void Target(void* out, Helper_2940d0* h);
 };
 
@@ -391,10 +386,10 @@ void T_293da0::f(int a, int b, int c) {
 // 0x00293e40 FUN_00293e40 (31 B): matches/0x00293e40.cpp
 // sym: ?FUN_00293e40@A_293e40@owners@@QAEXHHHH@Z
 void owners::A_293e40::FUN_00293e40(int a, int b, int c, int d) {
-    *(int*)((char*)this + 8) = a;
-    *(int*)((char*)this + 12) = b;
-    *(int*)((char*)this + 16) = c;
-    *(int*)((char*)this + 20) = d;
+    left = a;     // (recs1) the View's viewport words, not 32-bit byte offsets
+    top = b;
+    right = c;
+    bottom = d;
 }
 
 
@@ -422,9 +417,9 @@ namespace fn_fd6a08a7 {
 int Owner_293ea0::Add(Item_293ea0* item) {
     int i = 0;
     do {
-        if (items[i] == 0) {
+        if (((Item_293ea0* volatile*)lights)[i] == 0) {
             item->Use();
-            items[i] = item;
+            ((Item_293ea0* volatile*)lights)[i] = item;
             return i;
         }
         ++i;
@@ -476,29 +471,29 @@ struct Provider { V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7) V(8) V(9) V(10) V(11) 
 struct Gfx { V(0) V(1) V(2) V(3) V(4) V(5) virtual void set20(unsigned); V(7) virtual void set24(unsigned); V(9) virtual void set28(unsigned); V(11) virtual void set2c(unsigned); V(13) V(14) V(15) V(16) V(17) V(18) V(19) V(20) V(21) V(22) V(23) V(24) V(25) virtual void viewport(unsigned,unsigned,unsigned,unsigned); V(27) V(28) V(29) V(30) V(31) V(32) V(33) V(34) virtual void state(unsigned); V(36) V(37) V(38) V(39) V(40) V(41) V(42) V(43) V(44) V(45) V(46) V(47) V(48) V(49) V(50) V(51) V(52) V(53) V(54) V(55) V(56) V(57) V(58) V(59) V(60) V(61) V(62) V(63) V(64) V(65) V(66) V(67) V(68) V(69) V(70) V(71) V(72) V(73) V(74) V(75) V(76) V(77) virtual void enable(unsigned); V(79) virtual void values(unsigned,unsigned,unsigned); };
 struct Renderer { V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7) V(8) V(9) V(10) V(11) V(12) V(13) V(14) V(15) virtual void reset(unsigned); V(17) V(18) V(19) V(20) V(21) virtual void transform(unsigned,Matrix*); };
 struct Item { V(0) V(1) V(2) V(3) V(4) virtual void bind(unsigned); };
-struct Target;
-struct Context { char pad[8]; Target* current; void FUN_0028fa40(Matrix*,Matrix*); };
-struct Target { char pad[8]; unsigned x,y,w,h; Provider* provider; unsigned state; unsigned a,b,c,d; unsigned v0,v1,v2; Item* items[32]; unsigned char enabled; char padbd[3]; Matrix first,second; void run(); };
+struct Context { char pad[8]; HulkView* current; void FUN_0028fa40(Matrix*,Matrix*); };
+// (recs1) a pure3d::View (decls/view.h; was a view with 32-bit words: char pad[8], then the words as unsigned)
+struct Target : HulkView { void run(); };
 void Target::run() {
  (*(Context**)&DAT_0052c2b4)->current=this;
- provider->activate();
- DAT_0052c2a8->viewport(x,y,w,h);
- DAT_0052c2a8->state(state);
+ ((Provider*)camera)->activate();
+ DAT_0052c2a8->viewport(*(unsigned*)&left,*(unsigned*)&top,*(unsigned*)&right,*(unsigned*)&bottom);
+ DAT_0052c2a8->state(ambient);
  struct { Matrix inverse, original, next; } matrices;
- ((owners::Matrix_22ca90 *)&(matrices.original))->FUN_0022ca90((const owners::Matrix_22ca90 *)(Matrix *)(provider->matrix()), (const owners::Matrix_22ca90 *)(Matrix *)(&first));
+ ((owners::Matrix_22ca90 *)&(matrices.original))->FUN_0022ca90((const owners::Matrix_22ca90 *)(Matrix *)(((Provider*)camera)->matrix()), (const owners::Matrix_22ca90 *)(Matrix *)(matrix0));
  matrices.inverse=matrices.original;
  ((owners::Matrix_22cdb0 *)&(matrices.inverse))->FUN_0022cdb0();
  (*(Context**)&DAT_0052c2b4)->FUN_0028fa40(&matrices.inverse,&matrices.original);
- ((owners::Matrix_22ca90 *)&(matrices.next))->FUN_0022ca90((const owners::Matrix_22ca90 *)(Matrix *)(provider->matrix()), (const owners::Matrix_22ca90 *)(Matrix *)(&second));
+ ((owners::Matrix_22ca90 *)&(matrices.next))->FUN_0022ca90((const owners::Matrix_22ca90 *)(Matrix *)(((Provider*)camera)->matrix()), (const owners::Matrix_22ca90 *)(Matrix *)(matrix1));
  ((owners::Matrix_22cdb0 *)&(matrices.next))->FUN_0022cdb0();
  (*(*(Renderer***)&DAT_0052c2ac))->transform(0,&matrices.next);
  unsigned slot=0;
- Item** item=items;
+ Item** item=(Item**)lights;
  unsigned remaining=32;
  do { if(*item) { (*item)->bind(slot); ++slot; } ++item; } while(--remaining);
  (*(*(Renderer***)&DAT_0052c2ac))->reset(0);
- if(enabled) { DAT_0052c2a8->enable(1); DAT_0052c2a8->values(v0,v1,v2); } else DAT_0052c2a8->enable(0);
- if(d) { DAT_0052c2a8->set20(a); DAT_0052c2a8->set24(b); DAT_0052c2a8->set28(c); DAT_0052c2a8->set2c(d); }
+ if(fogEnabled) { DAT_0052c2a8->enable(1); DAT_0052c2a8->values(fogColour,fogStart,fogEnd); } else DAT_0052c2a8->enable(0);
+ if(clearMask) { DAT_0052c2a8->set20(clearColour); DAT_0052c2a8->set24(*(unsigned*)&clearDepth); DAT_0052c2a8->set28(clearStencil); DAT_0052c2a8->set2c(clearMask); }
 }
 } // namespace fn_00293ef0
 #undef V
@@ -514,8 +509,8 @@ namespace fn_fd6a08a7 {
 void Owner::func() {
     (*(State**)&DAT_0052c2b4)->value = 0;
     for (int i = 0; i < 32; ++i) {
-        if (items[i])
-            items[i]->slot();
+        if (lights[i])
+            ((Item*)lights[i])->slot();
     }
 }
 
@@ -523,8 +518,8 @@ void Owner::func() {
 // 0x002940d0 FUN_002940d0 (32 B): matches/0x002940d0.cpp
 // sym: ?Target@Owner_2940d0@fn_fd6a08a7@@QAEXPAXPAVHelper_2940d0@2@@Z
 void Owner_2940d0::Target(void* out, Helper_2940d0* h) {
-    if (ptr)
-        ((owners::C_22d240 *)h)->FUN_0022d240((hulk_intptr)out, (hulk_intptr)(ptr->Get()));
+    if (camera)
+        ((owners::C_22d240 *)h)->FUN_0022d240((hulk_intptr)out, (hulk_intptr)(((Inner_2940d0*)camera)->Get()));
 }
 
 } // namespace fn_fd6a08a7

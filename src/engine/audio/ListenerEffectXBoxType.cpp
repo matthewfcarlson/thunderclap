@@ -7,6 +7,7 @@
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/unknown.h"
 #include "decls/data/records.h"
+#include "decls/listener_effect.h"   // (recs1, D144)
 #include "gen/audio.h"
 #define TREE_TU_BEGIN namespace fn_f8a82533 {
 #define TREE_TU_END }
@@ -55,6 +56,7 @@ typedef unsigned __int64 U64_24d7d0;
 // OmEntityType); the type's constructor stores its vftable 0x00429474 by address (local polymorphic stand-ins got
 // clang's own vftables natively, whose slots had no definition).
 extern "C" char DAT_00429474[];
+extern "C" char DAT_004294a8[];   // (recs1) audio::ListenerEffectXBox's vftable
 class FUN_0025e6c0 : public OmEntityType {
   public:
     FUN_0025e6c0(const U64_24d7d0*, const U64_24d7d0*, unsigned int, int, int);
@@ -66,11 +68,10 @@ class ListenerEffectXBoxType : public FUN_0025e6c0 {
 struct EffectRegistry;
 } // namespace fn_f8a82533
 namespace audio {
+// (recs1) the new entity's words: its vftable is stored by address (was copied from a local polymorphic stand-in:
+// clang's own vftable natively)
 struct ListenerEffectXBox_24d840 {
-    virtual void vfunc_0_00243360();
-    virtual void vfunc_1_00243370();
-    virtual void* vfunc_2_0024d8a0(int);
-    virtual int vfunc_3_0025e680(void*);
+    void* vftable;
     void FUN_0025e6f0(EffectRegistry*);
     void FUN_0025fb00(ListenerEffectXBox_24d840*);
 };
@@ -105,7 +106,7 @@ extern "C" void FUN_0024d630() {
 // sym: ?vfunc_4@ListenerEffectXBox@fn_f8a82533@@UAE_NH@Z
 bool ListenerEffectXBox::vfunc_4(int x) {
     MetaEntity::vfunc_4(x);
-    FUN_00241280((char*)this + 0x28, 0, 0);
+    FUN_00241280(&((AudioListenerEffectXBox*)this)->hal, 0, 0);   // (recs1) mHalListenerEffect (was this + 0x28)
     return true;
 }
 
@@ -130,13 +131,14 @@ TypeT_24d6b0::TypeT_24d6b0() {
 } // namespace fn_f8a82533
 
 // 0x0024d720 om::MetaTypeAttrib<int>::vfunc_1 (27 B): equivalent/0x0024d720.cpp [wrapped: conflict: om::MetaTypeAttrib; om::MetaTypeAttribBase]
-// sym: ?vfunc_1@MetaTypeAttrib@om@fn_0024d720@@UAEXHH@Z @6ba68da91dee @w163cf1e5e15b @v2e1a81fcc79e
+// sym: ?vfunc_1@MetaTypeAttrib@om@fn_0024d720@@UAEXHH@Z @6ba68da91dee @w5ff19c03193a @v2e1a81fcc79e
 namespace fn_0024d720 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // om::MetaTypeAttrib<int>::vfunc_1 @ 0x0024d720
-namespace om { struct MetaTypeAttribBase { virtual void vfunc_0(); virtual void vfunc_1(int, int); virtual void vfunc_2(); virtual void vfunc_3(); char pad[16]; int* values; }; struct MetaTypeAttrib : MetaTypeAttribBase { void vfunc_1(int destination, int offset); }; }
+// (recs1, D144) the attribute's words are records.h OmMetaTypeAttribBase's (was char pad[16]: the offset at +0x14)
+namespace om { struct MetaTypeAttribBase { virtual void vfunc_0(); virtual void vfunc_1(int, int); virtual void vfunc_2(); virtual void vfunc_3(); void* nodeWords[3]; int nodeColor; int memberOffset; }; struct MetaTypeAttrib : MetaTypeAttribBase { void vfunc_1(int destination, int object); }; }
 extern "C" void __cdecl FUN_0025ab30(int, int);
-void om::MetaTypeAttrib::vfunc_1(int destination, int offset) { FUN_0025ab30(destination, *(int*)((char*)values + offset)); }
+void om::MetaTypeAttrib::vfunc_1(int destination, int object) { FUN_0025ab30(destination, *(int*)((char*)object + memberOffset)); }
 } // namespace fn_0024d720
 
 
@@ -152,7 +154,8 @@ struct MetaTypeAttribBase {
     virtual void vfunc_1();
     virtual void vfunc_2(void *, int);
     virtual void vfunc_3();
-    char pad[0x10];
+    void* nodeWords[3];   // (recs1, D144) records.h OmMetaTypeAttribBase's node (was char pad[0x10])
+    int nodeColor;
     int offset;
 };
 template<class T> struct MetaTypeAttrib : MetaTypeAttribBase {
@@ -166,18 +169,19 @@ template<> void MetaTypeAttrib<int>::vfunc_2(void *destination, int additionalOf
 
 
 // 0x0024d790 om::MetaTypeAttrib<float>::vfunc_1 (27 B): equivalent/0x0024d790.cpp [wrapped: conflict: om::MetaTypeAttribBase]
-// sym: ?vfunc_1@MetaTypeAttribFloat@om@fn_0024d790@@UAEHPAXH@Z @20509ecb8720 @wbea8ab986a53 @va2c9c52552b9
+// sym: ?vfunc_1@MetaTypeAttribFloat@om@fn_0024d790@@UAEHPAXH@Z @20509ecb8720 @w5d7a23a25b09 @va2c9c52552b9
 namespace fn_0024d790 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // om::MetaTypeAttrib<float>::vfunc_1 @ 0x0024d790
-namespace om { struct MetaTypeAttribBase { virtual void vfunc_0(); virtual int vfunc_1(void *, int); virtual void vfunc_2(); virtual void vfunc_3(); char pad[16]; char *values; }; struct MetaTypeAttribFloat : MetaTypeAttribBase { int vfunc_1(void *destination, int offset); }; }
+// (recs1, D144) the attribute's words are records.h OmMetaTypeAttribBase's (was char pad[16]: the offset at +0x14)
+namespace om { struct MetaTypeAttribBase { virtual void vfunc_0(); virtual int vfunc_1(void *, int); virtual void vfunc_2(); virtual void vfunc_3(); void* nodeWords[3]; int nodeColor; int memberOffset; }; struct MetaTypeAttribFloat : MetaTypeAttribBase { int vfunc_1(void *destination, int object); }; }
 extern "C" int __cdecl FUN_0025abf0(void *destination, unsigned int value);
-int om::MetaTypeAttribFloat::vfunc_1(void *destination, int offset) { return FUN_0025abf0(destination, *(unsigned int *)(values + offset)); }
+int om::MetaTypeAttribFloat::vfunc_1(void *destination, int object) { return FUN_0025abf0(destination, *(unsigned int *)((char *)object + memberOffset)); }
 } // namespace fn_0024d790
 
 
 // 0x0024d7b0 om::MetaTypeAttrib<float>::vfunc_2 (26 B): equivalent/0x0024d7b0.cpp [wrapped: conflict: om::MetaTypeAttrib; om::MetaTypeAttribBase]
-// sym: ?vfunc_2@?$MetaTypeAttrib@M@om@fn_0024d7b0@@UAEHPAX0@Z @f9bf3528673c @wc3de6ea39898 @v0db7d26c203a
+// sym: ?vfunc_2@?$MetaTypeAttrib@M@om@fn_0024d7b0@@UAEHPAX0@Z @f9bf3528673c @wf8b06ecc1be3 @v0db7d26c203a
 namespace fn_0024d7b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // om::MetaTypeAttrib<float>::vfunc_2 @ 0x0024d7b0
@@ -187,8 +191,9 @@ struct MetaTypeAttribBase {
     virtual void vfunc_1();
     virtual int vfunc_2(void* source, void* destination);
     virtual void vfunc_3();
-    char reserved[0x10];
-    char* data;
+    void* nodeWords[3];   // (recs1, D144) records.h OmMetaTypeAttribBase's node (was char reserved[0x10])
+    int nodeColor;
+    int memberOffset;
 };
 template <typename T> struct MetaTypeAttrib : MetaTypeAttribBase {
     virtual int vfunc_2(void* source, void* destination);
@@ -196,7 +201,7 @@ template <typename T> struct MetaTypeAttrib : MetaTypeAttribBase {
 }
 extern "C" int __cdecl FUN_0025ac10(void*, void*);
 template <> int om::MetaTypeAttrib<float>::vfunc_2(void* source, void* destination) {
-    return FUN_0025ac10(source, data + (hulk_uintptr)destination);
+    return FUN_0025ac10(source, (char*)destination + memberOffset);
 }
 } // namespace fn_0024d7b0
 
@@ -205,7 +210,8 @@ namespace fn_f8a82533 {
 // 0x0024d7d0 FUN_0024d7d0 (92 B): matches/0x0024d7d0.cpp
 // sym: ??0ListenerEffectXBoxType@fn_f8a82533@@QAE@XZ
 ListenerEffectXBoxType::ListenerEffectXBoxType()
-    : FUN_0025e6c0(&(const U64_24d7d0&)FUN_002672f0("Data_Effect", 0, 0), &(const U64_24d7d0&)FUN_002672f0("ListenerEffectXBox", 0, 0), 0x1000100, 0x58, 8) {
+    : FUN_0025e6c0(&(const U64_24d7d0&)FUN_002672f0("Data_Effect", 0, 0), &(const U64_24d7d0&)FUN_002672f0("ListenerEffectXBox", 0, 0), 0x1000100, sizeof(AudioListenerEffectXBox), 8) {   // (recs1) the instance's record (0x58 on the 32-bit builds)
+    HULK_SIZE32(AudioListenerEffectXBox, 0x58);
     type.vftable = DAT_00429474;
 }
 
@@ -221,15 +227,14 @@ extern "C" OmMetaType* FUN_0024d830() {
 } // namespace fn_f8a82533
 
 // 0x0024d840 audio::ListenerEffectXBoxType::vfunc_2 (76 B): equivalent/0x0024d840.cpp
-// sym: ?vfunc_2@ListenerEffectXBoxType@audio@@UAEPAXXZ @50b4b4d5a15c @w7a696f4cc0c7 @vc7c1b62835a5
+// sym: ?vfunc_2@ListenerEffectXBoxType@audio@@UAEPAXXZ @d3ea9483e2e9 @wa934200a372c @v2ba0b9d76d6b
 // STATUS: equivalent (tools/equiv.py level 3: 19942 inputs, branch coverage 2/2)
 // audio::ListenerEffectXBoxType::vfunc_2 @ 0x0024d840
 void* audio::ListenerEffectXBoxType::vfunc_2() {
     ListenerEffectXBox_24d840* result = FUN_00247530(DAT_004e6468);
     if (result) {
         result->FUN_0025e6f0((EffectRegistry*)DAT_004e6468);
-        ListenerEffectXBox_24d840 initial;
-        *(void**)result = *(void**)&initial;
+        result->vftable = DAT_004294a8;   // audio::ListenerEffectXBox's
         ((EffectRegistry*)DAT_004e6468)->vfunc_3()->FUN_0025fb00(result);
     }
     return (void*)(result);
