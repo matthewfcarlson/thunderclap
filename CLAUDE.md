@@ -91,7 +91,9 @@ the record view; MSVC 7.1 emits the jump), or the native vftable holds a `hulk_x
 words point into itself (a tree's sentinel) is one records.h record: separate items are not adjacent natively. One
 namespace-scope name standing for several objects (`gObj`) passes verify_relocs block by block but binds to one item:
 write each block's own DAT_ name. A private `--workspace` is built from the checkout's HEAD at submit time (older overlay
-files silently revert newer commits); record `hash --proven` from a queue job on the final files (audio1, D140).
+files silently revert newer commits); record `hash --proven` from a queue job on the final files (audio1, D140). A code hash follows a block's
+references: prove and hash a block from HEAD plus your own hunks only, never from a TU carrying another lane's uncommitted
+edits (fix126).
 A caller's declaration must never become the same function as a definition in its own TU (MSVC inlines the call); keep it
 a distinct overload, e.g. a `void *` or hulk_intptr parameter, which binds natively like the pointer.
 A float local the listing only loads and stores (`mov`, or `fld`/`fst` with no arithmetic) stays `float`; `hulk_freg` is
