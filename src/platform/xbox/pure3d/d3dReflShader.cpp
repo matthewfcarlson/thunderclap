@@ -146,7 +146,7 @@ class Ref_32c4d0 {
     virtual void f0();
     virtual void f1();
 };
-extern int vtable_32c4d0;
+extern "C" char DAT_00433a04[];   // (decl1) was `int vtable_32c4d0` (a C++ name bound nowhere natively)
 class d3dReflShader_32c4d0 {
   public:
     virtual void f0();
@@ -394,7 +394,7 @@ d3dReflShader_32c490::d3dReflShader_32c490(u32_32c490 x) : d3dShader_32c490(x) {
 // sym: ?vfunc_3@d3dReflShader_32c4d0@fn_fd5404cd@@UAEPAV12@I@Z
 // Same code shape as 0x0032ba70 (propagated; names are from that function)
 d3dReflShader_32c4d0* d3dReflShader_32c4d0::vfunc_3(unsigned int x) {
-    *(hulk_intptr*)this = (hulk_intptr)&vtable_32c4d0;
+    *(hulk_intptr*)this = (hulk_intptr)&(*(int*)&DAT_00433a04);
     if (a)
         a->f1();
     if (b)

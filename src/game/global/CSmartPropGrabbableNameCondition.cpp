@@ -115,7 +115,7 @@ hulk_intptr CSmartPropGrabbableNameCondition::vfunc_0(int index) {
 namespace fn_000498a0 {
 // Same code shape as 0x0004a030 (propagated; names are from that function)
 extern int hulk_at_003f7208;
-extern int vtableB;
+extern "C" char DAT_003f6d50[];   // (decl1) was `int vtableB` (a C++ name bound nowhere natively)
 class Part_498a0 {
   public:
     void Init_0027af50();
@@ -134,7 +134,7 @@ class CSmartPropGrabbableNameCondition_498a0 : public CCondition {
 void CSmartPropGrabbableNameCondition_498a0::Run() {
     *(hulk_intptr*)this = (hulk_intptr)&hulk_at_003f7208;
     part.Init_0027af50();
-    *(hulk_intptr*)this = (hulk_intptr)&vtableB;
+    *(hulk_intptr*)this = (hulk_intptr)&(*(int*)&DAT_003f6d50);
     Finish_002345b0();
 }
 } // namespace fn_000498a0

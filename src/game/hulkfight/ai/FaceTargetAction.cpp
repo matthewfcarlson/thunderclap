@@ -354,7 +354,7 @@ class FaceTargetTrack_10bfb0 {
     FaceTargetTrack_10bfb0();
 };
 extern void* __cdecl Allocate_0008d690(unsigned int);
-extern int FaceVtable;
+extern "C" char DAT_0040d824[];   // (decl1) was `int FaceVtable` (a C++ name bound nowhere natively)
 extern int hulk_at_0040d92c;
 struct TrackFactoryTemplate {
     void* m_vptr;
@@ -1048,7 +1048,7 @@ template <> void* fight::TrackFactoryTemplate<hulkfight::ai::FaceTargetTrack>::v
     FaceTargetTrack_10bfb0* p = (FaceTargetTrack_10bfb0*)Allocate_0008d690(0x14);
     if (p) {
         p->FaceTargetTrack_10bfb0::FaceTargetTrack_10bfb0();
-        *(hulk_intptr*)p = (hulk_intptr)&FaceVtable;
+        *(hulk_intptr*)p = (hulk_intptr)&(*(int*)&DAT_0040d824);
         p->mc = 0;
         p->m10 = -1.0f;
         p->m8 = 1;

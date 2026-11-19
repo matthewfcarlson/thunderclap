@@ -719,7 +719,7 @@ void __cdecl FUN_000fe0c0(Obj** slot, Obj* value) {
 // 0x000fe1e0 FUN_000fe1e0 (59 B): matches/0x000fe1e0.cpp [wrapped: conflict: CGolem]
 // sym: ?destroy@CGolem@fn_000fe1e0@@QAEXXZ
 namespace fn_000fe1e0 {
-extern int golemVtable;
+extern "C" char DAT_0040d134[];   // (decl1) was `int golemVtable` (a C++ name bound nowhere natively)
 extern int hulk_at_0040d12c;
 extern int hulk_at_003f6098;
 class IRefCount {
@@ -738,7 +738,7 @@ class CGolem {
 };
 void CGolem::destroy() {
     int i;
-    vf = (hulk_intptr)&golemVtable;
+    vf = (hulk_intptr)&(*(int*)&DAT_0040d134);
     for (i = 0; i < 16; ++i) {
         if (items[i]) {
             items[i]->Release();

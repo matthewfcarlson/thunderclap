@@ -245,8 +245,8 @@ class C_92f70 {
     char rest[0xbf4];
     void F(int c, int b, u8_92f70 d);
 };
-extern Desc_92f70 descA;
-extern Desc_92f70 descB;
+extern "C" char DAT_0049dab8[];   // (decl1) was `Desc_92f70 descA` (a C++ name bound nowhere natively)
+extern "C" char DAT_0049db1c[];   // (decl1) was `Desc_92f70 descB` (a C++ name bound nowhere natively)
 extern char gA, hulk_at_0049db3c;
 struct Inner {
 };
@@ -294,8 +294,8 @@ public:
 struct Owner_93260 {
     int values[0x2ca];
 };
-extern int typeA_93260;
-extern int typeB_93260;
+extern "C" char DAT_0049dab8[];   // (decl1) was `int typeA_93260` (a C++ name bound nowhere natively)
+extern "C" char DAT_0049db3c[];   // (decl1) was `int typeB_93260` (a C++ name bound nowhere natively)
 
 } // namespace fn_f9a5903c
 
@@ -766,7 +766,7 @@ void Table_92ef0::FUN_00092ef0(int index, const char* a, const char* b, const ch
 // sym: ?F@C_92f70@fn_f9a5903c@@QAEXHHE@Z
 void C_92f70::F(int c, int b, u8_92f70 d) {
     if (b < 100 && c >= 0x266 && c <= 0x2c9) {
-        Thing_92f70* t = ((Thing_92f70 *)__RTDynamicCast((void*)((Thing_92f70*)values[c]), 0, (void*)(&descA), (void*)(&descB), 0));
+        Thing_92f70* t = ((Thing_92f70 *)__RTDynamicCast((void*)((Thing_92f70*)values[c]), 0, (void*)(&(*(Desc_92f70*)&DAT_0049dab8)), (void*)(&(*(Desc_92f70*)&DAT_0049db1c)), 0));
         if (t) {
             *(int*)((char*)this + 0xbf8 + b * 4) = c;
             t->field = d;
@@ -916,7 +916,7 @@ namespace fn_f9a5903c {
 // sym: @FUN_00093260@12
 extern "C" int __fastcall FUN_00093260(Owner_93260* self, void*, int id) {
     if (id >= 0x2ca && id <= 0x2dd) {
-        CUnlockable* p = (CUnlockable*)__RTDynamicCast((void*)self->values[id], 0, &typeA_93260, &typeB_93260, 0);
+        CUnlockable* p = (CUnlockable*)__RTDynamicCast((void*)self->values[id], 0, &(*(int*)&DAT_0049dab8), &(*(int*)&DAT_0049db3c), 0);
         if (p)
             return p->value;
     }

@@ -45,8 +45,8 @@ class Params_188e20 {
   public:
     int x;
 };
-extern Params_188e20 TypeA_188e20;
-extern Params_188e20 TypeB_188e20;
+extern "C" char DAT_00494b44[];   // (decl1) was `Params_188e20 TypeA_188e20` (a C++ name bound nowhere natively)
+extern "C" char DAT_00494b60[];   // (decl1) was `Params_188e20 TypeB_188e20` (a C++ name bound nowhere natively)
 struct GrapplePropDamageAction_nv_188e20 {
     int Init_00183ff0(hulkfight::motion::GrapplePropDamageTrack*, hulk_intptr);
 };
@@ -144,7 +144,7 @@ PropDamageAction_188dd0* PropDamageAction_188dd0::vfunc_2(int flag) {
 // sym: ?vfunc_10@GrapplePropDamageTrack@motion@hulkfight@@UAEHHHH@Z
 // Same code shape as 0x0010bd40 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::GrapplePropDamageTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    int result = ((int)(hulk_uintptr)__RTDynamicCast((void*)c, 0, (void*)(&TypeA_188e20), (void*)(&TypeB_188e20), 0));
+    int result = ((int)(hulk_uintptr)__RTDynamicCast((void*)c, 0, (void*)(&(*(Params_188e20*)&DAT_00494b44)), (void*)(&(*(Params_188e20*)&DAT_00494b60)), 0));
     if (result) {
         hulkfight::motion::GrapplePropDamageAction* p = Alloc_0008d690(sizeof(::hulkfight::motion::GrapplePropDamageAction));
         if (p)

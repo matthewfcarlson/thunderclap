@@ -19,7 +19,7 @@ namespace fn_f4379f43 {
 struct Platform {
     virtual ~Platform();
 };
-extern Platform platformObject;
+extern "C" char DAT_0042b500[];   // (decl1) was `Platform platformObject` (a C++ name bound nowhere natively)
 extern "C" int* FUN_002705f0();
 class X_26f130 {
   public:
@@ -161,7 +161,7 @@ struct DriveSlots_26fcf0 {
 // sym: _FUN_0026f070
 // data: gPlatform = DAT_005283b4, gPlatformRef = DAT_005283c8, gReady = DAT_005283bc
 extern "C" void FUN_0026f070() {
-    (*(Platform**)&DAT_005283b4) = &platformObject;
+    (*(Platform**)&DAT_005283b4) = &(*(Platform*)&DAT_0042b500);
     (*(Platform***)&DAT_005283c8) = ((Platform**)&DAT_005283b4);
     FUN_002705f0();
     thunk_FUN_003eac33(0, 0);

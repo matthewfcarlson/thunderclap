@@ -166,7 +166,7 @@ class TrackFactoryTemplate_23e420 {
 };
 extern "C++" void FUN_0023e250();
 extern void __fastcall InitTrack_00236d40(void*);
-extern int WaitTrackVtable;
+extern "C" char DAT_00428cf4[];   // (decl1) was `int WaitTrackVtable` (a C++ name bound nowhere natively)
 struct WaitTrack_23e460 {
     int* vptr;
     int pad4[2];
@@ -523,7 +523,7 @@ template <> void* fight::TrackFactoryTemplate<fight::WaitTrack>::vfunc_5() {
     WaitTrack_23e460* p = (WaitTrack_23e460*)operator new(sizeof(WaitTrack_23e460));
     if (p) {
         InitTrack_00236d40(p);
-        p->vptr = (int*)&WaitTrackVtable;
+        p->vptr = (int*)&(*(int*)&DAT_00428cf4);
         p->x = 0;
         p->y = 0;
         p->z = 0;

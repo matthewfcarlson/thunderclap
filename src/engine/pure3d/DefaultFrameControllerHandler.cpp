@@ -382,7 +382,7 @@ FrameController* FrameController::reset() {
 // 0x00284a90 FUN_00284a90 (33 B): matches/0x00284a90.cpp [wrapped: lost its match in the tree (codegen differs (3 of 14 instructions))]
 // sym: ??0FrameController@fn_00284a90@@QAE@PAX@Z
 namespace fn_00284a90 {
-extern void* frameVtable;
+extern "C" char DAT_0042c5bc[];   // (decl1) was `void* frameVtable` (a C++ name bound nowhere natively)
 class Base_284a90 {
   public:
     void Init_0027b0b0(void*);
@@ -394,7 +394,7 @@ class FrameController {
 };
 FrameController::FrameController(void* p) {
     ((Base_284a90*)this)->Init_0027b0b0(p);
-    *(void**)this = &frameVtable;
+    *(void**)this = &(*(void**)&DAT_0042c5bc);
     ((char*)this)[0x10] = ((char*)p)[0x10];
 }
 } // namespace fn_00284a90
@@ -2283,8 +2283,8 @@ template <> void content::LoadInventory::DynamicCaster<pure3d::Light>::vfunc_0(v
 // sym: ?vfunc_2@SimpleFrameController@fn_002864c0@@UAEPAV12@E@Z
 namespace fn_002864c0 {
 extern "C" void _ReadWriteBarrier();
-extern char simpleVftable;
-extern char frameVftable;
+extern "C" char DAT_0042c694[];   // (decl1) was `char simpleVftable` (a C++ name bound nowhere natively)
+extern "C" char DAT_0042c5bc[];   // (decl1) was `char frameVftable` (a C++ name bound nowhere natively)
 class SimpleFrameController {
   public:
     virtual void a();
@@ -2299,13 +2299,13 @@ class SimpleFrameController {
 };
 extern void destroy_00263f30(SimpleFrameController*);
 SimpleFrameController* SimpleFrameController::vfunc_2(unsigned char flag) {
-    *(void**)this = &simpleVftable;
+    *(void**)this = &(*(char*)&DAT_0042c694);
     _ReadWriteBarrier();
     if (member) {
         member->b();
         member = 0;
     }
-    *(void**)this = &frameVftable;
+    *(void**)this = &(*(char*)&DAT_0042c5bc);
     cleanup_0027afd0();
     if (flag & 1)
         destroy_00263f30(this);

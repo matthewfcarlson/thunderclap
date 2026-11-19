@@ -2239,7 +2239,7 @@ extern "C" void FUN_0018e8d0(Factory* p) {
 // sym: ?factory_vfunc5@fn_0018e960@@YAPAUTimerCondition@1@XZ
 namespace fn_0018e960 {
 extern "C++" __declspec(nothrow) void* __cdecl Alloc_0008d690(unsigned int);
-extern void* timerVtable;
+extern "C" char DAT_0041aa48[];   // (decl1) was `void* timerVtable` (a C++ name bound nowhere natively)
 struct TimerCondition {
     void* vptr;
     char pad[8];
@@ -2260,7 +2260,7 @@ TimerCondition* factory_vfunc5() {
         p->c = 0;
         p->flag = 0;
         p->d = 0;
-        p->vptr = &timerVtable;
+        p->vptr = &(*(void**)&DAT_0041aa48);
         return p;
     }
     return 0;

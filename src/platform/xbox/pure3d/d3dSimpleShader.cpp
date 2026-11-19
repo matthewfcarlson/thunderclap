@@ -72,9 +72,9 @@ class Context {
 extern void __fastcall SetRenderState(unsigned int state, unsigned int value);
 extern unsigned int g0_32a0c0, g1, g2, g3;
 extern "C" void __fastcall D3DDevice_SetRenderState_Simple(int state, int value);
-extern int gStateA;
-extern int gStateB;
-extern int gStateC;
+extern "C" char DAT_0039de00[];   // (decl1) was `int gStateA` (a C++ name bound nowhere natively)
+extern "C" char DAT_0039ddf8[];   // (decl1) was `int gStateB` (a C++ name bound nowhere natively)
+extern "C" char DAT_0039de04[];   // (decl1) was `int gStateC` (a C++ name bound nowhere natively)
 struct Texture {
 };
 struct DeviceState_32a220 {
@@ -570,19 +570,19 @@ void owners::Obj_32a190::FUN_0032a190(unsigned char enabled, int mode, int value
     if (mEnabled != enabled) {
         mEnabled = enabled;
         D3DDevice_SetRenderState_Simple(0x40300, (unsigned char)enabled);
-        gStateA = (unsigned char)enabled;
+        (*(int*)&DAT_0039de00) = (unsigned char)enabled;
     }
     if (mEnabled != 0) {
         if (mMode != mode) {
             mMode = mode;
             int v = ((int*)&DAT_004d4f04)[mode];
             D3DDevice_SetRenderState_Simple(0x4033c, v);
-            gStateB = v;
+            (*(int*)&DAT_0039ddf8) = v;
         }
         if (mEnabled != 0 && mValue != value) {
             mValue = value;
             D3DDevice_SetRenderState_Simple(0x40340, value);
-            gStateC = value;
+            (*(int*)&DAT_0039de04) = value;
         }
     }
 }

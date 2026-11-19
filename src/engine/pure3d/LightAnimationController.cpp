@@ -201,7 +201,7 @@ struct LightAnimationController_2a9380 {
     void finish_002a8aa0(u32_2a9380);
 };
 extern "C" void* __cdecl alloc(hulk_uintptr);
-extern u32_2a9380 camera_vtable_2a9380;
+extern "C" char DAT_0042ddb4[];   // (decl1) was `u32_2a9380 camera_vtable_2a9380` (a C++ name bound nowhere natively)
 typedef unsigned int U_2a93e0;
 extern char hulk_at_0048f610;
 struct LightAnimationController_nv_2a93e0 {
@@ -692,7 +692,7 @@ LightAnimationController_2a9380* LightAnimationController_2a9380::f4() {
     LightAnimationController_2a9380* p = (LightAnimationController_2a9380*)alloc(0x118);
     if (p) {
         p->init_00285d70(this);
-        *(hulk_uintptr*)p = (hulk_uintptr)&camera_vtable_2a9380;
+        *(hulk_uintptr*)p = (hulk_uintptr)&(*(u32_2a9380*)&DAT_0042ddb4);
         p->field110 = 0xffffffff;
         p->field114 = 0;
         p->finish_002a8aa0(field114);

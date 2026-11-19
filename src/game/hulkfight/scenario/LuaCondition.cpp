@@ -485,7 +485,7 @@ hulk_freg LuaTrack_1a1430::GetExtent() {
 // sym: ?Run@LuaTrack@fn_001a1440@@QAEXXZ
 namespace fn_001a1440 {
 typedef unsigned int u32_1a1440;
-extern void* LuaTrack_vft;
+extern "C" char DAT_0041c318[];   // (decl1) was `void* LuaTrack_vft` (a C++ name bound nowhere natively)
 void __cdecl cleanup_0008d340(u32_1a1440);
 struct LuaTrack {
     void* vft;
@@ -495,7 +495,7 @@ struct LuaTrack {
     void Run();
 };
 void LuaTrack::Run() {
-    vft = &LuaTrack_vft;
+    vft = &(*(void**)&DAT_0041c318);
     cleanup_0008d340(field14);
     Tail_00236d60();
 }

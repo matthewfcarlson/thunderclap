@@ -829,8 +829,8 @@ class Params_19b3c0 {
   public:
     int x;
 };
-extern Params_19b3c0 TypeA_19b3c0;
-extern Params_19b3c0 TypeB_19b3c0;
+extern "C" char DAT_00494b44[];   // (decl1) was `Params_19b3c0 TypeA_19b3c0` (a C++ name bound nowhere natively)
+extern "C" char DAT_00494b60[];   // (decl1) was `Params_19b3c0 TypeB_19b3c0` (a C++ name bound nowhere natively)
 class Object_19b3c0 {
   public:
     int Init_00196220(hulkfight::motion::FireMissileTrack*, hulk_intptr);
@@ -2259,7 +2259,7 @@ ProjectileEffect* ProjectileEffect::vfunc_2(unsigned char flags) {
 // sym: ?vfunc_10@FireMissileTrack@motion@hulkfight@@UAEHHHH@Z
 // Same code shape as 0x0010bd40 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::FireMissileTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    int result = ((int)(hulk_uintptr)__RTDynamicCast((void*)c, 0, (void*)(&TypeA_19b3c0), (void*)(&TypeB_19b3c0), 0));
+    int result = ((int)(hulk_uintptr)__RTDynamicCast((void*)c, 0, (void*)(&(*(Params_19b3c0*)&DAT_00494b44)), (void*)(&(*(Params_19b3c0*)&DAT_00494b60)), 0));
     if (result) {
         Object_19b3c0* p = Alloc_0008d690((int)sizeof(::hulkfight::motion::FireMissileAction));   // (allocsize1) the size by gen's record
         if (p)

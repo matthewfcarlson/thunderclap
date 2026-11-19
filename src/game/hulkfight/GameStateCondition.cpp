@@ -1914,10 +1914,10 @@ struct MissionProgressCondition {
     void Init();
     void Tail_002345b0();
 };
-extern char missionVftable;
+extern "C" char DAT_00411264[];   // (decl1) was `char missionVftable` (a C++ name bound nowhere natively)
 void __cdecl thunk_0008d340(void*);
 void MissionProgressCondition::Init() {
-    vf = &missionVftable;
+    vf = &(*(char*)&DAT_00411264);
     thunk_0008d340((void*)a);
     thunk_0008d340((void*)b);
     Tail_002345b0();

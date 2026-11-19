@@ -75,8 +75,8 @@ struct CUnlockableCheat : CUnlockable {     // HulkUnlockableCheatWords past CUn
     u32_91da0 f24;
     char code[8];
 };
-extern int vtBase_91de0;
-extern int vtCheat_91de0;
+extern "C" char DAT_0040449c[];   // (decl1) was `int vtBase_91de0` (a C++ name bound nowhere natively)
+extern "C" char DAT_004044ac[];   // (decl1) was `int vtCheat_91de0` (a C++ name bound nowhere natively)
 struct Sub_91de0 {
     void Init_0027af00();
     char pad[8];
@@ -227,12 +227,12 @@ CUnlockableCheat* __fastcall FUN_00091da0(CUnlockableCheat* self) {
 // 0x00091de0 FUN_00091de0 (65 B): matches/0x00091de0.cpp
 // sym: ?ctor@CUnlockableCheat_91de0@fn_f9898967@@QAEPAU12@PBD@Z
 CUnlockableCheat_91de0* CUnlockableCheat_91de0::ctor(const char* arg) {
-    vptr = (int*)&vtBase_91de0;
+    vptr = (int*)&(*(int*)&DAT_0040449c);
     w.enabled = 1;
     ((Sub_91de0*)&w.id)->Init_0027af00();
     w.data = 0;
     w.flag20 = 0;
-    vptr = (int*)&vtCheat_91de0;
+    vptr = (int*)&(*(int*)&DAT_004044ac);
     FUN_00267760(w.code, 8, "%s", arg);
     return this;
 }

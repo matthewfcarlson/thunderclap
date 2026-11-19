@@ -94,7 +94,7 @@ class CompDrawVisibilityAnimationController_2a80c0 : public SimpleFrameControlle
     int m50;
     int m54;
 };
-extern int vt1_2a80f0;
+extern "C" char DAT_0042dc94[];   // (decl1) was `int vt1_2a80f0` (a C++ name bound nowhere natively)
 extern void Free_0008d340(void*);
 class SimpleFrameController_2a80f0 {
   public:
@@ -110,7 +110,7 @@ class CompDrawVisibilityAnimationController_2a80f0 : public SimpleFrameControlle
     void* a50;
     ~CompDrawVisibilityAnimationController_2a80f0();
 };
-extern int vt1_2a8170;
+extern "C" char DAT_0042dc94[];   // (decl1) was `int vt1_2a8170` (a C++ name bound nowhere natively)
 extern void Free2_00263f30(void*);
 class SimpleFrameController_2a8170 {
   public:
@@ -365,13 +365,13 @@ class SceneGraphVisibilityAnimationController {
     virtual void f26();
     char pad[0x44 - 4];
 };
-extern void* visibilityVtable;
+extern "C" char DAT_0042dc24[];   // (decl1) was `void* visibilityVtable` (a C++ name bound nowhere natively)
 struct ThisCall_00285800 {
     void FUN_00285800();
 };
 extern void thunk_FUN_00267090(SceneGraphVisibilityAnimationController*);
 SceneGraphVisibilityAnimationController* SceneGraphVisibilityAnimationController::f2(byte_2a7e60 param) {
-    *(void**)this = &visibilityVtable;
+    *(void**)this = &(*(void**)&DAT_0042dc24);
     *(int*)((char*)this + 0x44) = 0;
     ((ThisCall_00285800*)(this))->FUN_00285800();
     if (param & 1)
@@ -522,7 +522,7 @@ CompDrawVisibilityAnimationController_2a80c0::CompDrawVisibilityAnimationControl
 // 0x002a80f0 FUN_002a80f0 (56 B): matches/0x002a80f0.cpp
 // sym: ??1CompDrawVisibilityAnimationController_2a80f0@fn_fadd80aa@@QAE@XZ
 CompDrawVisibilityAnimationController_2a80f0::~CompDrawVisibilityAnimationController_2a80f0() {
-    vptr = &vt1_2a80f0;
+    vptr = &(*(int*)&DAT_0042dc94);
     a40 = 0;
     _ReadWriteBarrier();
     if (a50)
@@ -535,7 +535,7 @@ CompDrawVisibilityAnimationController_2a80f0::~CompDrawVisibilityAnimationContro
 // 0x002a8170 pure3d::CompDrawVisibilityAnimationController::vfunc_2 (77 B): matches/0x002a8170.cpp
 // sym: ?vfunc2@CompDrawVisibilityAnimationController_2a8170@fn_fadd80aa@@QAEPAV12@E@Z
 CompDrawVisibilityAnimationController_2a8170* CompDrawVisibilityAnimationController_2a8170::vfunc2(unsigned char f) {
-    vptr = &vt1_2a8170;
+    vptr = &(*(int*)&DAT_0042dc94);
     a40 = 0;
     _ReadWriteBarrier();
     if (a50)

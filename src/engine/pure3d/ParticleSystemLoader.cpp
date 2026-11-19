@@ -272,7 +272,7 @@ class DefaultParticleEmitterHandler : public ParticleEmitterHandler_2aaed0 {
     DefaultParticleEmitterHandler();
 };
 extern int hulk_at_0042e08c;
-extern int vtRef_2aaf10;
+extern "C" char DAT_003f6098[];   // (decl1) was `int vtRef_2aaf10` (a C++ name bound nowhere natively)
 class Ref_2aaf10 {
   public:
     virtual void V0();
@@ -1163,7 +1163,7 @@ void ParticleSystemLoader_2aaf10::Destroy() {
         items[8]->Release();
         items[8] = 0;
     }
-    *(hulk_intptr*)this = (hulk_intptr)&vtRef_2aaf10;
+    *(hulk_intptr*)this = (hulk_intptr)&(*(int*)&DAT_003f6098);
 }
 
 

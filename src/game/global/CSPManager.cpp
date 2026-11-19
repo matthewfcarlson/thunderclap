@@ -7867,7 +7867,7 @@ namespace fn_001e1d40 {
 
 extern void* hulk_at_004233b8[2];
 extern void* hulk_at_004235e8[2];
-extern void* TAB_48e134;
+extern "C" char DAT_0048e10c[];   // (decl1) was `void* TAB_48e134` (a C++ name bound nowhere natively)
 
 struct FUN_001d0480 {
     FUN_001d0480(const char* a1, int b);
@@ -7891,7 +7891,7 @@ Closure2::Closure2(const char* a1, void* a2, ScriptMemberFn a3) : FUN_001d0480(a
     fn = a3;
     f.retType = LookupFlag_001d04d0(((void**)&DAT_0048e0e4));
     f.argTypes[0] = LookupFlag_001d04d0(((void**)&DAT_0048e0f0));
-    f.argTypes[1] = LookupFlag_001d04d0(&TAB_48e134);
+    f.argTypes[1] = LookupFlag_001d04d0(&(*(void**)&DAT_0048e10c));
     vfptr = (void*)hulk_at_004235e8;
     owner = a2;
 }
@@ -8244,7 +8244,7 @@ namespace fn_001e2150 {
 
 extern void* hulk_at_00423428[2];
 extern void* hulk_at_00423658[2];
-extern void* TAB_48e0f0;
+extern "C" char DAT_0048e10c[];   // (decl1) was `void* TAB_48e0f0` (a C++ name bound nowhere natively)
 
 struct FUN_001d0480 {
     FUN_001d0480(const char* a1, int b);
@@ -8267,7 +8267,7 @@ Closure2::Closure2(const char* a1, void* a2, ScriptMemberFn a3) : FUN_001d0480(a
     vfptr = (void*)hulk_at_00423428;
     fn = a3;
     f.retType = LookupFlag_001d04d0(((void**)&DAT_0048e0e4));
-    f.argTypes[0] = LookupFlag_001d04d0(&TAB_48e0f0);
+    f.argTypes[0] = LookupFlag_001d04d0(&(*(void**)&DAT_0048e10c));
     f.argTypes[1] = LookupFlag_001d04d0(((void**)&DAT_0048e128));
     vfptr = (void*)hulk_at_00423658;
     owner = a2;

@@ -136,8 +136,8 @@ struct Created_17b660 {
     int init_001755e0(hulkfight::motion::DriftToHulkTrack*, u32_17b660);
 };
 extern void* __cdecl alloc(hulk_uintptr);
-extern const int typeA_17b660;
-extern const int typeB_17b660;
+extern "C" char DAT_00494b44[];   // (decl1) was `const int typeA_17b660` (a C++ name bound nowhere natively)
+extern "C" char DAT_00494b60[];   // (decl1) was `const int typeB_17b660` (a C++ name bound nowhere natively)
 struct RefCounted_17b6b0 {
   public:
     virtual void f0();
@@ -469,7 +469,7 @@ DriftToPositionAction* DriftToPositionAction::vfunc_2(unsigned char param) {
 // Same code shape as 0x00138c50 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::DriftToHulkTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_17b660 a = (u32_17b660)__p0; u32_17b660 b = (u32_17b660)__p1; u32_17b660 c = (u32_17b660)__p2;
 
-    if (((int)(hulk_uintptr)__RTDynamicCast((void*)(hulk_uintptr)(c), 0, (void*)(&typeA_17b660), (void*)(&typeB_17b660), 0))) {
+    if (((int)(hulk_uintptr)__RTDynamicCast((void*)(hulk_uintptr)(c), 0, (void*)(&(*(const int*)&DAT_00494b44)), (void*)(&(*(const int*)&DAT_00494b60)), 0))) {
         Created_17b660* p = (Created_17b660*)alloc_0008d690(0x38);
         if (p)
             return p->init_001755e0(this, c);

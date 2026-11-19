@@ -18,7 +18,7 @@ class Ref_332260 {
     virtual void f();
     virtual void Release();
 };
-extern int vtable_332260;
+extern "C" char DAT_00433eec[];   // (decl1) was `int vtable_332260` (a C++ name bound nowhere natively)
 class d3dBuildingShader_332260 {
   public:
     virtual void v();
@@ -83,9 +83,9 @@ struct Dev_3326d0 {
     char p2[0x14];
     int t;
 };
-extern unsigned int g_dirty;
+extern "C" char DAT_0039db08[];   // (decl1) was `unsigned int g_dirty` (a C++ name bound nowhere natively)
 extern int g_a_3326d0;
-extern int g_b_3326d0;
+extern "C" char DAT_0039dc64[];   // (decl1) was `int g_b_3326d0` (a C++ name bound nowhere natively)
 void __stdcall SetTC(int a, int b);
 class Sub_3326d0 {
   public:
@@ -181,7 +181,7 @@ void destroy(d3dBuildingShader_332840*);
 // 0x00332260 FUN_00332260 (62 B): matches/0x00332260.cpp
 // sym: ?init@d3dBuildingShader_332260@fn_fd7d5ddc@@QAEXXZ
 void d3dBuildingShader_332260::init() {
-    *(hulk_intptr*)this = (hulk_intptr)&vtable_332260;
+    *(hulk_intptr*)this = (hulk_intptr)&(*(int*)&DAT_00433eec);
     if (a)
         a->Release();
     if (b)
@@ -334,7 +334,7 @@ void pure3d::d3dBuildingShader::vfunc_12() {
 void pure3d::d3dBuildingShader::vfunc_13() {
     if ((*(Dev_3326d0 * *)&this->f_14)->s != 1) {
         (*(Dev_3326d0 * *)&this->f_14)->s = 1;
-        g_dirty |= 0x800;
+        (*(unsigned int*)&DAT_0039db08) |= 0x800;
         g_a_3326d0 = 1;
     }
     if ((*(Dev_3326d0 * *)&this->f_14)->tc != 2) {
@@ -343,8 +343,8 @@ void pure3d::d3dBuildingShader::vfunc_13() {
     }
     if ((*(Dev_3326d0 * *)&this->f_14)->t != 0) {
         (*(Dev_3326d0 * *)&this->f_14)->t = 0;
-        g_dirty |= 0x400;
-        g_b_3326d0 = 0;
+        (*(unsigned int*)&DAT_0039db08) |= 0x400;
+        (*(int*)&DAT_0039dc64) = 0;
     }
     (*(Sub_3326d0 * *)&this->f_10)->Set(3);
 }

@@ -139,7 +139,7 @@ class Ref_32dbf0 {
     virtual void f0();
     virtual void f1();
 };
-extern int vtable_32dbf0;
+extern "C" char DAT_00433b9c[];   // (decl1) was `int vtable_32dbf0` (a C++ name bound nowhere natively)
 class d3dLayeredShader_32dbf0 {
   public:
     virtual void f0();
@@ -438,7 +438,7 @@ d3dLayeredShader_32dba0::d3dLayeredShader_32dba0(int x) : d3dShader_32dba0(x), s
 // sym: ?vfunc_3@d3dLayeredShader_32dbf0@fn_ff7bd48b@@UAEPAV12@I@Z
 // Same code shape as 0x0032ba70 (propagated; names are from that function)
 d3dLayeredShader_32dbf0* d3dLayeredShader_32dbf0::vfunc_3(unsigned int x) {
-    *(hulk_intptr*)this = (hulk_intptr)&vtable_32dbf0;
+    *(hulk_intptr*)this = (hulk_intptr)&(*(int*)&DAT_00433b9c);
     if (a)
         a->f1();
     if (b)

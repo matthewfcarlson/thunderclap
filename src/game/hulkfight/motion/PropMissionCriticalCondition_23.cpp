@@ -61,8 +61,8 @@ class Params_188ba0 {
   public:
     int x;
 };
-extern Params_188ba0 TypeA_188ba0;
-extern Params_188ba0 TypeB_188ba0;
+extern "C" char DAT_00494b44[];   // (decl1) was `Params_188ba0 TypeA_188ba0` (a C++ name bound nowhere natively)
+extern "C" char DAT_00494b60[];   // (decl1) was `Params_188ba0 TypeB_188ba0` (a C++ name bound nowhere natively)
 struct PropSetStateByNameAction_nv_188ba0 {
     int Init_00183db0(hulkfight::motion::PropSetStateByNameTrack*, hulk_intptr);
 };
@@ -166,7 +166,7 @@ PropSetStateByIndexAction_188b50* PropSetStateByIndexAction_188b50::vfunc_2(int 
 // sym: ?vfunc_10@PropSetStateByNameTrack@motion@hulkfight@@UAEHHHH@Z
 // Same code shape as 0x0010bd40 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::PropSetStateByNameTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    int result = ((int)(hulk_uintptr)__RTDynamicCast((void*)c, 0, (void*)(&TypeA_188ba0), (void*)(&TypeB_188ba0), 0));
+    int result = ((int)(hulk_uintptr)__RTDynamicCast((void*)c, 0, (void*)(&(*(Params_188ba0*)&DAT_00494b44)), (void*)(&(*(Params_188ba0*)&DAT_00494b60)), 0));
     if (result) {
         hulkfight::motion::PropSetStateByNameAction* p = Alloc_0008d690((int)sizeof(::hulkfight::motion::PropSetStateByNameAction));   // (allocsize1) the size by gen's record
         if (p)

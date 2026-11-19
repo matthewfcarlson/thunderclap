@@ -521,8 +521,8 @@ class FallAction_138ca0 {
 struct Maker_138d00 {
     int Init_001353c0(hulkfight::motion::FlyingBrakeTrack*, hulk_intptr);
 };
-extern int TypeA_138d00;
-extern int TypeB_138d00;
+extern "C" char DAT_00494b44[];   // (decl1) was `int TypeA_138d00` (a C++ name bound nowhere natively)
+extern "C" char DAT_00494b60[];   // (decl1) was `int TypeB_138d00` (a C++ name bound nowhere natively)
 extern void* __cdecl Alloc_0008d690(int);
 extern int hulk_at_00411da8;
 class RefObj_138d50 {
@@ -564,8 +564,8 @@ class FlyingAttackAction_138e00 : public Action_138e00 {
 struct Maker_138e60 {
     int Init_00135be0(hulkfight::motion::FlyingDashTrack*, hulk_intptr);
 };
-extern int TypeA_138e60;
-extern int TypeB_138e60;
+extern "C" char DAT_00494b44[];   // (decl1) was `int TypeA_138e60` (a C++ name bound nowhere natively)
+extern "C" char DAT_00494b60[];   // (decl1) was `int TypeB_138e60` (a C++ name bound nowhere natively)
 extern int hulk_at_00411de0;
 class RefObj_138eb0 {
   public:
@@ -1682,7 +1682,7 @@ void* FallAction_138ca0::vfunc_2(unsigned char flag) {
 // 0x00138d00 hulkfight::motion::FlyingBrakeTrack::vfunc_10 (70 B): matches/0x00138d00.cpp
 // sym: ?vfunc_10@FlyingBrakeTrack@motion@hulkfight@@UAEHHHH@Z
 hulk_intptr hulkfight::motion::FlyingBrakeTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    if (IsType((void*)c, 0, &TypeA_138d00, &TypeB_138d00, 0)) {
+    if (IsType((void*)c, 0, &(*(int*)&DAT_00494b44), &(*(int*)&DAT_00494b60), 0)) {
         Maker_138d00* p = (Maker_138d00*)Alloc_0008d690(0x40);
         if (p)
             return p->Init_001353c0(this, c);
@@ -1764,7 +1764,7 @@ FlyingAttackAction_138e00* FlyingAttackAction_138e00::f2(unsigned char flags) {
 // sym: ?vfunc_10@FlyingDashTrack@motion@hulkfight@@UAEHHHH@Z
 // Same code shape as 0x00138d00 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::FlyingDashTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    if (IsType((void*)c, 0, &TypeA_138e60, &TypeB_138e60, 0)) {
+    if (IsType((void*)c, 0, &(*(int*)&DAT_00494b44), &(*(int*)&DAT_00494b60), 0)) {
         Maker_138e60* p = (Maker_138e60*)Alloc_0008d690(0x40);
         if (p)
             return p->Init_00135be0(this, c);

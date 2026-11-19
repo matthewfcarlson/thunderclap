@@ -679,8 +679,8 @@ extern char DAT_004a95a0;
 extern hulk_intptr __cdecl FUN_00344e74(hulk_intptr, int, hulk_intptr, hulk_intptr, int);
 extern int gTypeA_12c730;
 typedef unsigned int u32_12c970;
-extern int TypeA_12c970;
-extern int TypeB_12c970;
+extern "C" char DAT_00494b44[];   // (decl1) was `int TypeA_12c970` (a C++ name bound nowhere natively)
+extern "C" char DAT_00494b60[];   // (decl1) was `int TypeB_12c970` (a C++ name bound nowhere natively)
 struct Result_12c970 {
     u32_12c970 Init_0012bff0(void*, void*);
 };
@@ -2229,7 +2229,7 @@ void FUN_0012c8c0()
 // Same code shape as 0x001131c0 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::ThreatBallTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_12c970 a = (u32_12c970)__p0; u32_12c970 b = (u32_12c970)__p1; void * p = (void *)__p2;
 
-    if (((int)(hulk_uintptr)__RTDynamicCast(p, 0, (void*)(&TypeA_12c970), (void*)(&TypeB_12c970), 0))) {
+    if (((int)(hulk_uintptr)__RTDynamicCast(p, 0, (void*)(&(*(int*)&DAT_00494b44)), (void*)(&(*(int*)&DAT_00494b60)), 0))) {
         Result_12c970* q = Alloc_0008d690(0x28);
         if (q)
             return (int)(q->Init_0012bff0(this, p));

@@ -62,7 +62,7 @@ class Ref_1d100 {
     virtual void A();
     virtual void B();
 };
-extern int actionVftable;
+extern "C" char DAT_003f3390[];   // (decl1) was `int actionVftable` (a C++ name bound nowhere natively)
 extern int hulk_at_003f359c;
 class Action {
   public:
@@ -363,7 +363,7 @@ namespace fn_f6040229 {
 // 0x0001d100 FUN_0001d100 (80 B): matches/0x0001d100.cpp
 // sym: ??0CKeyPoseAction_1d100@fn_f6040229@@QAE@HPAVRef_1d100@1@@Z
 CKeyPoseAction_1d100::CKeyPoseAction_1d100(hulk_intptr value, Ref_1d100* ref) : Action() {
-    *(hulk_intptr*)this = (hulk_intptr)&actionVftable;
+    *(hulk_intptr*)this = (hulk_intptr)&(*(int*)&DAT_003f3390);
     mRef = 0;
     if (ref)
         ref->A();

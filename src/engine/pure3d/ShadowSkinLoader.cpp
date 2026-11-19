@@ -2138,7 +2138,7 @@ namespace fn_002b5560 {
 typedef unsigned char u8_2b5560;
 typedef unsigned int u32_2b5560;
 extern int hulk_at_0042e574;
-extern int ref_vtable;
+extern "C" char DAT_003f6098[];   // (decl1) was `int ref_vtable` (a C++ name bound nowhere natively)
 void release_0008d340(void*);
 void release_self_0008d330(void*);
 class ShadowSkinTopology {
@@ -2156,7 +2156,7 @@ ShadowSkinTopology* ShadowSkinTopology::vfunc_2(u8_2b5560 param) {
     release_0008d340((void*)b);
     release_0008d340((void*)c);
     release_0008d340((void*)d);
-    *(int**)this = &ref_vtable;
+    *(int**)this = &(*(int*)&DAT_003f6098);
     if (param & 1)
         release_self_0008d330((void*)this);
     return this;
@@ -2735,8 +2735,8 @@ ShadowMeshBufferImpl_2b6fb0* ShadowMeshBufferImpl_2b6fb0::f2(unsigned char flags
 // 0x002b6ff0 pure3d::ShadowMeshBufferLoader::vfunc_2 (45 B): matches/0x002b6ff0.cpp [wrapped: conflict: ShadowMeshBufferLoader]
 // sym: ?f2@ShadowMeshBufferLoader@fn_002b6ff0@@QAEPAU12@E@Z
 namespace fn_002b6ff0 {
-extern void* shadowVftable;
-extern void* refVftable;
+extern "C" char DAT_0042e654[];   // (decl1) was `void* shadowVftable` (a C++ name bound nowhere natively)
+extern "C" char DAT_003f6098[];   // (decl1) was `void* refVftable` (a C++ name bound nowhere natively)
 struct Interface_2b6ff0 {
     virtual void a();
     virtual void b();
@@ -2749,9 +2749,9 @@ struct ShadowMeshBufferLoader {
 };
 extern void cleanup_00263f30(ShadowMeshBufferLoader*);
 ShadowMeshBufferLoader* ShadowMeshBufferLoader::f2(unsigned char flag) {
-    vptr = &shadowVftable;
+    vptr = &(*(void**)&DAT_0042e654);
     member->b();
-    vptr = &refVftable;
+    vptr = &(*(void**)&DAT_003f6098);
     if (flag & 1)
         cleanup_00263f30(this);
     return this;

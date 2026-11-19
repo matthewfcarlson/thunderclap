@@ -176,7 +176,7 @@ struct MetaTypeAttribScalar {
 };
 
 extern "C" void __cdecl FUN_00247550(void*, void*);
-extern "C++" { extern void* g_BaseVftable; }
+extern "C" char DAT_00429420[];   // (decl1) was `void* g_BaseVftable` (a C++ name bound nowhere natively)
 
 struct TypeT_24dec0 {
     char pad[0x48];
@@ -185,7 +185,7 @@ struct TypeT_24dec0 {
 };
 
 MetaTypeAttribScalar* MetaTypeAttribScalar::vfunc_0(unsigned char flags) {
-    *(void**)this = &g_BaseVftable;
+    *(void**)this = &(*(void**)&DAT_00429420);
     if (flags & 1) {
         TypeT_24dec0 buf;
         FUN_00247550(buf.Build_0024d6b0(), this);

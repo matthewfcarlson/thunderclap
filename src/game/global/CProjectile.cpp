@@ -114,7 +114,7 @@ hulk_intptr owners::C_1b68e0::FUN_001b68e0(int index) {
 // sym: ?vfunc_2@CProjectile@fn_001b6960@@UAEPAV12@E@Z
 namespace fn_001b6960 {
 typedef unsigned char byte_1b6960;
-extern int gVtable_1b6960;
+extern "C" char DAT_003f6098[];   // (decl1) was `int gVtable_1b6960` (a C++ name bound nowhere natively)
 class Alloc_1b6960 {
   public:
     void Fnf_0008ff00(void*, unsigned int);
@@ -131,7 +131,7 @@ class CProjectile {
     virtual void vfunc_6();
 };
 CProjectile* CProjectile::vfunc_2(byte_1b6960 flags) {
-    *(hulk_intptr*)this = (hulk_intptr)&gVtable_1b6960;
+    *(hulk_intptr*)this = (hulk_intptr)&(*(int*)&DAT_003f6098);
     if ((flags & 1) != 0)
         hulk_at_004e2210.Fnf_0008ff00(this, 0x18);
     return this;

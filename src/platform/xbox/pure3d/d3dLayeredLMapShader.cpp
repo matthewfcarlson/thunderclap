@@ -68,7 +68,7 @@ struct Ref_32eb40 {
     virtual void f0();
     virtual void f1();
 };
-extern void* vtable_32eb40;
+extern "C" char DAT_00433c24[];   // (decl1) was `void* vtable_32eb40` (a C++ name bound nowhere natively)
 struct d3dLayeredLMapShader_32eb40 {
     virtual void v0();
     virtual void v1();
@@ -311,7 +311,7 @@ void Owner::Set(Obj* p) {
 // 0x0032eb40 pure3d::d3dLayeredLMapShader::vfunc_3 (53 B): matches/0x0032eb40.cpp
 // sym: ?vfunc_3@d3dLayeredLMapShader_32eb40@fn_ff3206d0@@UAEPAU12@I@Z
 d3dLayeredLMapShader_32eb40* d3dLayeredLMapShader_32eb40::vfunc_3(unsigned int flags) {
-    *(void**)this = &vtable_32eb40;
+    *(void**)this = &(*(void**)&DAT_00433c24);
     if (ref)
         ref->f1();
     helper();

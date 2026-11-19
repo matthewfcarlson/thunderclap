@@ -20,7 +20,7 @@ class Driver_22a8e0 {
   public:
     int* mVtable;
 };
-extern int vtable_22a910;
+extern "C" char DAT_004274d8[];   // (decl1) was `int vtable_22a910` (a C++ name bound nowhere natively)
 extern "C" void __fastcall FUN_0027afd0(void*);
 struct Driver {
     int* vptr;
@@ -58,7 +58,7 @@ extern "C" Driver_22a8e0* __fastcall FUN_0022a8e0(Driver_22a8e0* self) {
 // sym: ?target@fn_f92753c8@@YIXPAUDriver@1@@Z
 // data: g_count_22a910 = DAT_004e5abc
 void __fastcall target(Driver* self) {
-    self->vptr = &vtable_22a910;
+    self->vptr = &(*(int*)&DAT_004274d8);
     --(*(int*)&DAT_004e5abc);
     FUN_0027afd0((void*)(self));
 }

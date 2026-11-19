@@ -1101,7 +1101,7 @@ struct LocomotionStrafe4Action : LocomotionStrafeAction {
     virtual bool v0_0015d640(int, int);
     LocomotionStrafe4Action *FUN_0015e100(unsigned int initial, RefObject *replacement);
 };
-extern int g_vt_161420;
+extern "C" char DAT_00415b28[];   // (decl1) was `int g_vt_161420` (a C++ name bound nowhere natively)
 class Helper_161470 {
   public:
     int run_0015e100(hulkfight::motion::LocomotionStrafe4Track*, hulk_intptr);
@@ -3896,7 +3896,7 @@ extern "C" void FUN_00161380()
 // 0x00161420 hulkfight::motion::LocomotionStrafeAction::vfunc_2 (76 B): matches/0x00161420.cpp
 // sym: ?vfunc_2@LocomotionStrafeAction@fn_f94adb62@@UAEPAXE@Z
 void* LocomotionStrafeAction::vfunc_2(unsigned char flag) {
-    *(volatile hulk_intptr*)this = (hulk_intptr)&g_vt_161420;
+    *(volatile hulk_intptr*)this = (hulk_intptr)&(*(int*)&DAT_00415b28);
     RefObj_161420* p = m20;
     if (p) {
         p->Release();

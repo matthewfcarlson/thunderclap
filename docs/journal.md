@@ -1522,3 +1522,15 @@ blocks fight::Action's whole family: the records come first there.
   0x002ea3c0, 0x000b86b0, 0x00027930 and 0x001a9b10 re-proved at 3,000 MSVC + `--wine` (jobs 91794-91801) and recorded
   by `hash --proven` run on a queue host. A local `hash` in a private workspace once recorded the other code than the
   queue's verify compiled: record these from a queue job with the final files.
+
+## 2026-11-18 decl1: C++-named data globals as the data's C name (find1 F15)
+
+- 620 unbound native names are data variables declared in a TU namespace (`extern Obj_87990* gObj_87990;`,
+  `extern void* pvtable;`, `extern int gTypeA_23d070;`). Natively they bind to nothing; most are the game's vftables
+  stored by address and RTTI type descriptors passed to the dynamic cast. relmap gives each name's original
+  address, so build/decl1/scripts/gen_data.py declares the data's C name instead (`extern "C" char DAT_<addr>[];`)
+  and writes each use as `(*(T*)&DAT_<addr>)`. MSVC compiles that to the same access. Natively the name binds to the
+  data item, or to the vftable / RTTI label the link emits.
+- Not converted: 302 names whose declaration isn't a one-line scalar or pointer declaration in the TU (arrays, multi-line
+  `extern "C++" {}` blocks, declarations in headers). Also 36 names declared several times in one TU, 15 names that
+  reach several addresses (a stand-in reused for two vftables), and names an equivalent block references.

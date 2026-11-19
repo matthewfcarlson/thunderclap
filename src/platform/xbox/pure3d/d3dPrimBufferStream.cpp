@@ -340,7 +340,7 @@ struct d3dPrimBufferStream_nv_327750 {
 };
 }
 namespace fn_fd8cb2f6 {
-extern int vt_3277b0;
+extern "C" char DAT_004334b4[];   // (decl1) was `int vt_3277b0` (a C++ name bound nowhere natively)
 class d3dPrimBuffer_3277b0 {
   public:
     d3dPrimBuffer_3277b0(int arg);
@@ -919,7 +919,7 @@ d3dPrimBuffer_3277b0::d3dPrimBuffer_3277b0(int arg) {
     b35 = 0;
     b36 = 0;
     m38 = arg;
-    this->p0 = (hulk_intptr)&vt_3277b0;
+    this->p0 = (hulk_intptr)&(*(int*)&DAT_004334b4);
     m0c = *(int*)(*(hulk_intptr*)((char*)arg + 0x154) + 0x10);
 }
 

@@ -163,7 +163,7 @@ class B_28f9a0 {
     virtual void G12();
     virtual void G13(int);
 };
-extern A_28f9a0* gA_28f9a0;
+extern "C" char DAT_0052c2a8[];   // (decl1) was `A_28f9a0* gA_28f9a0` (a C++ name bound nowhere natively)
 class X_28fa40 {
   public:
     virtual void x0();
@@ -211,7 +211,7 @@ struct Holder_28fa40 {
 struct Blk_28fa40 {
     unsigned int d[16];
 };
-extern G_28fa40* gG_28fa40;
+extern "C" char DAT_0052c2a8[];   // (decl1) was `G_28fa40* gG_28fa40` (a C++ name bound nowhere natively)
 struct Obj_28fa40 : owners::X_28f9a0 {   // (x64t3) the context record: h = helper, buf1 / buf2 = world / view
     void f(unsigned int* a, unsigned int* b);
 };
@@ -236,7 +236,7 @@ class GlobalThing_28faf0 {
     virtual void f4();
     virtual void f5();
 };
-extern GlobalThing_28faf0* gThing_28faf0;
+extern "C" char DAT_0052c2a8[];   // (decl1) was `GlobalThing_28faf0* gThing_28faf0` (a C++ name bound nowhere natively)
 class Other_28faf0 {
   public:
     virtual void f0();
@@ -336,12 +336,12 @@ void FUN_0028f990() {}
 // sym: ?FUN_0028f9a0@X_28f9a0@owners@@QAEXXZ
 void owners::X_28f9a0::FUN_0028f9a0() {
     ++refs;
-    gA_28f9a0->F4();
+    (*(A_28f9a0**)&DAT_0052c2a8)->F4();
     if (d) {
-        gA_28f9a0->F6(a);
-        gA_28f9a0->F8(b);
-        gA_28f9a0->F10(c);
-        gA_28f9a0->F12(d);
+        (*(A_28f9a0**)&DAT_0052c2a8)->F6(a);
+        (*(A_28f9a0**)&DAT_0052c2a8)->F8(b);
+        (*(A_28f9a0**)&DAT_0052c2a8)->F10(c);
+        (*(A_28f9a0**)&DAT_0052c2a8)->F12(d);
     }
     (**(*(B_28f9a0***)&DAT_0052c2ac)).G13(0);
     flag = 1;
@@ -364,7 +364,7 @@ void Obj_28fa40::f(unsigned int* a, unsigned int* b) {
     Holder_28fa40* hh = (Holder_28fa40*)helper;
     X_28fa40* xx = hh->x;
     xx->x14(0, world);
-    gG_28fa40->y19(a);
+    (*(G_28fa40**)&DAT_0052c2a8)->y19(a);
 }
 
 
@@ -390,7 +390,7 @@ namespace fn_fab9a868 {
 // 0x0028faf0 FUN_0028faf0 (44 B): matches/0x0028faf0.cpp
 // sym: ?run@Target_28faf0@fn_fab9a868@@QAEX_N@Z
 void Target_28faf0::run(bool b) {
-    gThing_28faf0->f5();
+    (*(GlobalThing_28faf0**)&DAT_0052c2a8)->f5();
     flag = 0;
     if (b)
         ((Other_28faf0*)display)->f14();

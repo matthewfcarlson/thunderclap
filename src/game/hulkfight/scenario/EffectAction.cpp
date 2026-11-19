@@ -6104,12 +6104,12 @@ namespace scenario {
 class Event_LocomotionStateNameCondition {};
 } // namespace scenario
 } // namespace hulkfight
-extern void* g1;
+extern "C" char DAT_00491ca8[];   // (decl1) was `void* g1` (a C++ name bound nowhere natively)
 extern void* hulk_at_004c21b0;
 template <>
 bool fight::ConditionFactoryCasterTemplate<hulkfight::scenario::Event_LocomotionStateNameCondition>::vfunc_0(
     void* p) {
-    return FUN_00344e74(p, 0, &g1, &hulk_at_004c21b0, 0) != 0;
+    return FUN_00344e74(p, 0, &(*(void**)&DAT_00491ca8), &hulk_at_004c21b0, 0) != 0;
 }
 } // namespace fn_001a6b20
 

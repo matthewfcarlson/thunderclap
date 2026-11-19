@@ -127,7 +127,7 @@ struct d3dBumpMapVertexShader_333130 {
     unsigned int a, b, c;
     d3dBumpMapVertexShader_333130* Make(int);
 };
-extern unsigned int vtblBump;
+extern "C" char DAT_00433f74[];   // (decl1) was `unsigned int vtblBump` (a C++ name bound nowhere natively)
 void __stdcall CreatePixelShader(const float* src, unsigned int* out);
 typedef unsigned char byte_333170;
 struct Ref_333170 {
@@ -370,7 +370,7 @@ namespace fn_fad033e0 {
 // data: zeroF = DAT_004d93ec
 d3dBumpMapVertexShader_333130* d3dBumpMapVertexShader_333130::Make(int n) {
     ((d3dBumpMapVertexShader_nv_333130*)(((pure3d::d3dBumpMapVertexShader*)this)))->Init(n);
-    vptr = (unsigned int*)&vtblBump;
+    vptr = (unsigned int*)&(*(unsigned int*)&DAT_00433f74);
     a = 0;
     b = 0;
     c = 0;

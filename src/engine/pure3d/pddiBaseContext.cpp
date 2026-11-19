@@ -483,7 +483,7 @@ struct Obj_31e210 {
     virtual void f1(hulk_intptr);   // (x64t17) the texture
 };
 typedef unsigned int u32_31e230;
-extern void* stackVftable;
+extern "C" char DAT_004327b0[];   // (decl1) was `void* stackVftable` (a C++ name bound nowhere natively)
 class pddiStack_31e330 {
   public:
     void* vptr;
@@ -2963,7 +2963,7 @@ namespace fn_fc049dac {
 // sym: ?f@pddiStack_31e330@fn_fc049dac@@QAEXXZ
 void pddiStack_31e330::f() {
     void* x = value;
-    vptr = &stackVftable;
+    vptr = &(*(void**)&DAT_004327b0);
     ::operator delete(x);   // (x64t21, D115) the game's operator delete 0x0008d330 (`thunk(int)` was bound nowhere)
 }
 

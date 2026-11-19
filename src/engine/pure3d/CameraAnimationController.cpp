@@ -299,12 +299,12 @@ struct CameraAnimationController {
     void finish_00293100(u32_293910);
 };
 extern "C++" void* __cdecl alloc_00263ea0(unsigned int);
-extern u32_293910 camera_vtable_293910;
+extern "C" char DAT_0042cf7c[];   // (decl1) was `u32_293910 camera_vtable_293910` (a C++ name bound nowhere natively)
 CameraAnimationController* CameraAnimationController::f4() {
     CameraAnimationController* p = (CameraAnimationController*)alloc_00263ea0(0x118);
     if (p) {
         p->init_00285d70(this);
-        *(hulk_uintptr*)p = (hulk_uintptr)&camera_vtable_293910;
+        *(hulk_uintptr*)p = (hulk_uintptr)&(*(u32_293910*)&DAT_0042cf7c);
         p->field110 = 0xffffffff;
         p->field114 = 0;
         p->finish_00293100(field114);

@@ -525,10 +525,10 @@ class ControllerState {
     hulk_intptr p4, p8, mA, mB;
 };
 extern void __cdecl thunk_FUN_00267090(void*);
-extern void* cvtable_ddb80;
-extern void* ivtable;
+extern "C" char DAT_0040bcb4[];   // (decl1) was `void* cvtable_ddb80` (a C++ name bound nowhere natively)
+extern "C" char DAT_0040bc80[];   // (decl1) was `void* ivtable` (a C++ name bound nowhere natively)
 ControllerState* ControllerState::vfunc_0(unsigned char param) {
-    *(void**)this = &cvtable_ddb80;
+    *(void**)this = &(*(void**)&DAT_0040bcb4);
     if (mA) {
         thunk_FUN_00267090((void*)mA);
         mA = 0;
@@ -537,7 +537,7 @@ ControllerState* ControllerState::vfunc_0(unsigned char param) {
         thunk_FUN_00267090((void*)mB);
         mB = 0;
     }
-    *(void**)this = &ivtable;
+    *(void**)this = &(*(void**)&DAT_0040bc80);
     if (param & 1)
         thunk_FUN_00267090(this);
     return this;

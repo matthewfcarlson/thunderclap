@@ -543,8 +543,8 @@ struct Result_142330 {
     unsigned int init_00140590(hulkfight::motion::WallJumpTrack*, hulk_uintptr);
 };
 extern Result_142330* MakeResult_0008d690(void*);
-extern const int RT1;
-extern const int RT2;
+extern "C" char DAT_00494b44[];   // (decl1) was `const int RT1` (a C++ name bound nowhere natively)
+extern "C" char DAT_00494b60[];   // (decl1) was `const int RT2` (a C++ name bound nowhere natively)
 extern int g_vftable_142380;
 class RefObj_142380 {
   public:
@@ -3565,7 +3565,7 @@ void* WallExitAction_1422d0::vfunc_2(unsigned char flag) {
 // sym: ?vfunc_10@WallJumpTrack@motion@hulkfight@@UAEHHHH@Z
 hulk_intptr hulkfight::motion::WallJumpTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { unsigned int a = (unsigned int)__p0; unsigned int b = (unsigned int)__p1; hulk_uintptr c = (unsigned int)__p2;
 
-    if (IsType((void*)c, 0, &RT1, &RT2, 0)) {
+    if (IsType((void*)c, 0, &(*(const int*)&DAT_00494b44), &(*(const int*)&DAT_00494b60), 0)) {
         Result_142330* r = (Result_142330*)MakeResult_0008d690((void*)0x50);
         if (r)
             return (int)(r->init_00140590(this, c));

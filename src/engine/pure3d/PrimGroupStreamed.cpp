@@ -278,7 +278,7 @@ class PrimGroupOptimized : public PrimGroup_2dfde0 {
     virtual void f();
 };
 extern int hulk_at_0042fba4;
-extern int vt2_2dffa0;
+extern "C" char DAT_0042fb54[];   // (decl1) was `int vt2_2dffa0` (a C++ name bound nowhere natively)
 class Ref_2dffa0 {
   public:
     virtual void f0();
@@ -388,7 +388,7 @@ class Owner_2e01a0 {
     void Set(Thing_2e01a0* p);
 };
 extern int hulk_at_0042fc04;
-extern int vt2_2e02a0;
+extern "C" char DAT_0042fb54[];   // (decl1) was `int vt2_2e02a0` (a C++ name bound nowhere natively)
 class Ref_2e02a0 {
   public:
     virtual void f0();
@@ -436,8 +436,8 @@ public:
     void FUN_002e02e0();
 };
 extern int hulk_at_0042fc3c;
-extern int vt2_2e04e0;
-extern int vt3;
+extern "C" char DAT_0042fc04[];   // (decl1) was `int vt2_2e04e0` (a C++ name bound nowhere natively)
+extern "C" char DAT_0042fb54[];   // (decl1) was `int vt3` (a C++ name bound nowhere natively)
 class Ref_2e04e0 {
   public:
     virtual void f0();
@@ -531,7 +531,7 @@ struct PrimGroupSkinnedPC_nv_2e0710 {
 };
 extern void* alloc_00263ea0(unsigned int);
 extern int hulk_at_0042fca4;
-extern int vt2_2e09e0;
+extern "C" char DAT_0042fb54[];   // (decl1) was `int vt2_2e09e0` (a C++ name bound nowhere natively)
 class Ref_2e09e0 {
   public:
     virtual void f0();
@@ -1267,7 +1267,7 @@ PrimGroupOptimized_2dffa0::~PrimGroupOptimized_2dffa0() throw() {
         a58->Release();
         a58 = 0;
     }
-    vptr = &vt2_2dffa0;
+    vptr = &(*(int*)&DAT_0042fb54);
     _ReadWriteBarrier();
     if (a40) {
         a40->Release();
@@ -1420,7 +1420,7 @@ PrimGroupStreamed_2e02a0::~PrimGroupStreamed_2e02a0() throw() {
         a5c->Release();
         a5c = 0;
     }
-    vptr = &vt2_2e02a0;
+    vptr = &(*(int*)&DAT_0042fb54);
     _ReadWriteBarrier();
     if (a40) {
         a40->Release();
@@ -1527,13 +1527,13 @@ PrimGroupSkinnedStreamed_2e04e0::~PrimGroupSkinnedStreamed_2e04e0() throw() {
         a64->Release();
         a64 = 0;
     }
-    vptr = &vt2_2e04e0;
+    vptr = &(*(int*)&DAT_0042fc04);
     _ReadWriteBarrier();
     if (a5c) {
         a5c->Release();
         a5c = 0;
     }
-    vptr = &vt3;
+    vptr = &(*(int*)&DAT_0042fb54);
     _ReadWriteBarrier();
     if (a40) {
         a40->Release();
@@ -1829,7 +1829,7 @@ VertexAnimPrimGroup_2e09e0::~VertexAnimPrimGroup_2e09e0() throw() {
         a5c->Release();
         a5c = 0;
     }
-    vptr = &vt2_2e09e0;
+    vptr = &(*(int*)&DAT_0042fb54);
     _ReadWriteBarrier();
     if (a40) {
         a40->Release();

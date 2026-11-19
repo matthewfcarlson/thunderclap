@@ -362,7 +362,7 @@ class Ref_30fc90 {
     virtual void B();
 };
 extern void* hulk_at_00432148;
-extern void* vt2_30fc90;
+extern "C" char DAT_003f6098[];   // (decl1) was `void* vt2_30fc90` (a C++ name bound nowhere natively)
 class PoseEngine_30fc90 {
   public:
     virtual void V();
@@ -1176,7 +1176,7 @@ void PoseEngine_30fc90::V() {
     drop_0008d340(arr);
     obj8->B();
     objc->B();
-    *(void**)this = &vt2_30fc90;
+    *(void**)this = &(*(void**)&DAT_003f6098);
 }
 
 

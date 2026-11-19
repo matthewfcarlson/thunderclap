@@ -78,8 +78,8 @@ struct Token_f9b60 {
 };
 extern void Release_0008d340(void*);
 extern int hulk_at_0040ceac;
-extern int vtString;
-extern int vtToken;
+extern "C" char DAT_0040ce4c[];   // (decl1) was `int vtString` (a C++ name bound nowhere natively)
+extern "C" char DAT_0040ce3c[];   // (decl1) was `int vtToken` (a C++ name bound nowhere natively)
 struct Obj_f9bc0 {
     int* vf;
     char pad[12];
@@ -580,12 +580,12 @@ void __fastcall FUN_000f9bc0(Obj_f9bc0* o) {
         Release_0008d340(o->p);
         o->p = 0;
     }
-    o->vf = &vtString;
+    o->vf = &(*(int*)&DAT_0040ce4c);
     if (o->p) {
         Release_0008d340(o->p);
         o->p = 0;
     }
-    o->vf = &vtToken;
+    o->vf = &(*(int*)&DAT_0040ce3c);
 }
 
 
@@ -907,9 +907,9 @@ void __cdecl operator delete(void* p);
 namespace fn_000fa370 {
 extern "C++" void __cdecl thunk_FUN_00267090(void* p);
 
-extern const int g_vt_statement;
-extern const int g_vt_string;
-extern const int g_vt_scripttoken;
+extern "C" char DAT_0040ceac[];   // (decl1) was `const int g_vt_statement` (a C++ name bound nowhere natively)
+extern "C" char DAT_0040ce4c[];   // (decl1) was `const int g_vt_string` (a C++ name bound nowhere natively)
+extern "C" char DAT_0040ce3c[];   // (decl1) was `const int g_vt_scripttoken` (a C++ name bound nowhere natively)
 
 struct CTokenStatement {
     void* vptr;
@@ -919,17 +919,17 @@ struct CTokenStatement {
 };
 
 void* CTokenStatement::vfunc_0(unsigned int flags) {
-    this->vptr = (void*)&g_vt_statement;
+    this->vptr = (void*)&(*(const int*)&DAT_0040ceac);
     if (this->m0x10) {
         thunk_FUN_00267090(this->m0x10);
         this->m0x10 = 0;
     }
-    this->vptr = (void*)&g_vt_string;
+    this->vptr = (void*)&(*(const int*)&DAT_0040ce4c);
     if (this->m0x10) {
         thunk_FUN_00267090(this->m0x10);
         this->m0x10 = 0;
     }
-    this->vptr = (void*)&g_vt_scripttoken;
+    this->vptr = (void*)&(*(const int*)&DAT_0040ce3c);
     if (flags & 1) {
         operator delete(this);
     }
@@ -1448,7 +1448,7 @@ struct Node {
 struct Type {
     int x;
 };
-extern Type tokType;
+extern "C" char DAT_004a13e4[];   // (decl1) was `Type tokType` (a C++ name bound nowhere natively)
 extern Type hulk_at_004a13bc;
 class Obj_fad30 {
   public:
@@ -1478,7 +1478,7 @@ float Obj_fad30::run() {
     current = eax;
     if (!eax)
         done = 1;
-    Node* r = ((Node *)__RTDynamicCast((void*)(eax), 0, (void*)(&tokType), (void*)(&hulk_at_004a13bc), 0));
+    Node* r = ((Node *)__RTDynamicCast((void*)(eax), 0, (void*)(&(*(Type*)&DAT_004a13e4)), (void*)(&hulk_at_004a13bc), 0));
     return *(float*)((char*)r + 16);
 }
 } // namespace fn_000fad30

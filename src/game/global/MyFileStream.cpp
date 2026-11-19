@@ -605,8 +605,8 @@ class Ref_1faee0 {
   public:
     virtual void Release(int);
 };
-extern void* gGameVtable;
-extern void* gBaseVtable;
+extern "C" char DAT_00425008[];   // (decl1) was `void* gGameVtable` (a C++ name bound nowhere natively)
+extern "C" char DAT_003feefc[];   // (decl1) was `void* gBaseVtable` (a C++ name bound nowhere natively)
 class CGameDataHandler : public DataHandler::ObjectCreator {
   public:
     virtual CGameDataHandler* vfunc_0(unsigned char);
@@ -615,10 +615,10 @@ class CGameDataHandler : public DataHandler::ObjectCreator {
 };
 void thunk_FUN_00267090(CGameDataHandler*);
 CGameDataHandler* CGameDataHandler::vfunc_0(unsigned char flags) {
-    *(void**)this = &gGameVtable;
+    *(void**)this = &(*(void**)&DAT_00425008);
     if (mRef)
         mRef->Release(1);
-    *(void**)this = &gBaseVtable;
+    *(void**)this = &(*(void**)&DAT_003feefc);
     if (flags & 1)
         thunk_FUN_00267090(this);
     return this;

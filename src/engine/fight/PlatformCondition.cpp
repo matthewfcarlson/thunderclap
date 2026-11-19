@@ -102,7 +102,7 @@ class TrackFactoryTemplate_23ce30 {
 extern "C++" void FUN_0023cce0();
 typedef unsigned int u32_23ce70;
 extern "C" void* __cdecl Alloc(hulk_uintptr);
-extern u32_23ce70 PlatformVtable;
+extern "C" char DAT_00428980[];   // (decl1) was `u32_23ce70 PlatformVtable` (a C++ name bound nowhere natively)
 class PlatformCondition_23ce70 {
   public:
     virtual void a();
@@ -330,7 +330,7 @@ template <> void* fight::ConditionFactoryTemplate<fight::PlatformCondition>::vfu
         p->flags[1] = 1;
         p->flags[2] = 1;
         p->flags[3] = 1;
-        *(hulk_uintptr*)p = (hulk_uintptr)&PlatformVtable;
+        *(hulk_uintptr*)p = (hulk_uintptr)&(*(u32_23ce70*)&DAT_00428980);
         return (void*)(p);
     }
     return (void*)(0);

@@ -228,7 +228,7 @@ class Ref_32f360 {
     virtual void f0();
     virtual void f1();
 };
-extern int vtable_32f360;
+extern "C" char DAT_00433cac[];   // (decl1) was `int vtable_32f360` (a C++ name bound nowhere natively)
 class d3dRefractVertexShader_32f360 {
   public:
     virtual void f0();
@@ -577,7 +577,7 @@ namespace fn_f721c355 {
 // sym: ?vfunc_3@d3dRefractVertexShader_32f360@fn_f721c355@@UAEPAV12@I@Z
 // Same code shape as 0x0032ba70 (propagated; names are from that function)
 d3dRefractVertexShader_32f360* d3dRefractVertexShader_32f360::vfunc_3(unsigned int x) {
-    *(hulk_intptr*)this = (hulk_intptr)&vtable_32f360;
+    *(hulk_intptr*)this = (hulk_intptr)&(*(int*)&DAT_00433cac);
     if (a)
         a->f1();
     if (b)

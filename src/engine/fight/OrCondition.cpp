@@ -31,7 +31,7 @@ class OrCondition_23cff0 : public Condition_23cff0 {
     OrCondition_23cff0* vfunc_5(signed char flags);
 };
 extern int hulk_at_00491ca8;
-extern int gTypeA_23d070;
+extern "C" char DAT_00491ca8[];   // (decl1) was `int gTypeA_23d070` (a C++ name bound nowhere natively)
 extern "C" char DAT_00428a24[];
 typedef unsigned int u32_23d0e0;
 struct NotCondition_23d0e0 {
@@ -202,7 +202,7 @@ template <> bool fight::ConditionFactoryCasterTemplate<fight::NotCondition>::vfu
 // Same code shape as 0x000508c0 (propagated; names are from that function)
 template <> bool fight::ConditionFactoryCasterTemplate<fight::OrCondition>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return FUN_00344e74((hulk_intptr)p, 0, (hulk_intptr)&gTypeA_23d070, (hulk_intptr)&gTypeB, 0) != 0;
+    return FUN_00344e74((hulk_intptr)p, 0, (hulk_intptr)&(*(int*)&DAT_00491ca8), (hulk_intptr)&gTypeB, 0) != 0;
 }
 
 

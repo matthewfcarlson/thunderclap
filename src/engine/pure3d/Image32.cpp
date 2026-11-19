@@ -231,7 +231,7 @@ void* pure3d::Image::vfunc_4() {
 // 0x002bfb20 FUN_002bfb20 (79 B): matches/0x002bfb20.cpp [wrapped: conflict: Image]
 // sym: ??0Image@fn_002bfb20@@QAE@PBU01@@Z
 namespace fn_002bfb20 {
-extern int ImageVtable;
+extern "C" char DAT_0042ea40[];   // (decl1) was `int ImageVtable` (a C++ name bound nowhere natively)
 struct Entity_0027b070 {
     Entity_0027b070();
 };
@@ -253,7 +253,7 @@ struct Image : public Entity_0027b070 {
     Image(const Image*);
 };
 Image::Image(const Image* src) : Entity_0027b070() {
-    vt = &ImageVtable;
+    vt = &(*(int*)&DAT_0042ea40);
     if (src)
         ((Sub_2bfb20*)((char*)this + 8))->Copy_0027af70((const Sub_2bfb20*)((const char*)src + 8));
     m24 = 0;

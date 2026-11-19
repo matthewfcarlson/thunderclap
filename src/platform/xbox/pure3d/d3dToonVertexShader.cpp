@@ -29,7 +29,7 @@ struct Toon {
     Obj_330990* b;
     Obj_330990* a;
 };
-extern int toonVtable;
+extern "C" char DAT_00433dcc[];   // (decl1) was `int toonVtable` (a C++ name bound nowhere natively)
 class D {
   public:
     void f();
@@ -91,7 +91,7 @@ class d3dShader_330d40 {
   public:
     void Init(hulk_uintptr);   // (decl1) passes as defined
 };
-extern int vtableSymbol;
+extern "C" char DAT_00433dcc[];   // (decl1) was `int vtableSymbol` (a C++ name bound nowhere natively)
 class d3dToonVertexShader_330d40 : public d3dShader_330d40 {
   public:
     char p[0x94];
@@ -201,7 +201,7 @@ namespace fn_f44f442a {
 // 0x00330990 FUN_00330990 (47 B): matches/0x00330990.cpp
 // sym: ?target@fn_f44f442a@@YIXPAUToon@1@@Z
 void __fastcall target(Toon* self) {
-    self->vptr = &toonVtable;
+    self->vptr = &(*(int*)&DAT_00433dcc);
     if (self->a)
         self->a->release();
     if (self->b)
@@ -377,7 +377,7 @@ d3dToonVertexShader_330d40* d3dToonVertexShader_330d40::Run(u32_330d40 arg) {
     x98 = 0;
     xe0 = 0;
     x9c = 0;
-    *(int**)this = &vtableSymbol;
+    *(int**)this = &(*(int*)&DAT_00433dcc);
     xe4 = 4;
     xe8 = 0x3c03126f;
     return this;

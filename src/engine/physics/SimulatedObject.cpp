@@ -56,7 +56,7 @@ class SimulatedObject {
 struct SimulatedObject_2fe680 {
     void Tail_0027afd0();
 };
-extern int gVtable_2fe680;
+extern "C" char DAT_00431a04[];   // (decl1) was `int gVtable_2fe680` (a C++ name bound nowhere natively)
 class C_2fe6a0 {
   public:
     virtual void f0();
@@ -240,7 +240,7 @@ SimulatedObject::SimulatedObject() {
 // 0x002fe680 FUN_002fe680 (29 B): matches/0x002fe680.cpp
 // sym: ?Finish@SimulatedObject@fn_fa862d6d@@QAEXXZ
 void SimulatedObject::Finish() {
-    vftable = &gVtable_2fe680;
+    vftable = &(*(int*)&DAT_00431a04);
     if (member)
         member->f1();
     ((SimulatedObject_2fe680*)this)->Tail_0027afd0();

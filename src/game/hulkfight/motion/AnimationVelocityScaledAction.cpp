@@ -1140,7 +1140,7 @@ struct FrameReachedCondition_13e370 {
     hulk_uintptr vptr;
     char pad[0x1c];
 };
-extern u32_13e370 frame_vtable;
+extern "C" char DAT_00412410[];   // (decl1) was `u32_13e370 frame_vtable` (a C++ name bound nowhere natively)
 extern int hulk_at_004129a4;
 struct ConditionFactoryTemplate_13e3b0 {
     void* m_vptr;
@@ -2295,7 +2295,7 @@ struct Helper_13a9a0 {
 struct Main_13a9a0 {
     void run_00236d60();
 };
-extern int vf_13a9a0;
+extern "C" char DAT_00412510[];   // (decl1) was `int vf_13a9a0` (a C++ name bound nowhere natively)
 extern void cleanup_0008d330(void*);
 class AnimationVelocityScaledTrack {
   public:
@@ -2316,7 +2316,7 @@ class AnimationVelocityScaledTrack {
     Helper_13a9a0 h40;
 };
 AnimationVelocityScaledTrack* AnimationVelocityScaledTrack::v5(byte_13a9a0 x) {
-    *(hulk_intptr*)this = (hulk_intptr)&vf_13a9a0;
+    *(hulk_intptr*)this = (hulk_intptr)&(*(int*)&DAT_00412510);
     h40.run_0027af50();
     h18.run_0027af50();
     ((Main_13a9a0*)this)->run_00236d60();
@@ -5250,7 +5250,7 @@ template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::FrameReache
     FrameReachedCondition_13e370* p = (FrameReachedCondition_13e370*)alloc_0008d690(0x20);
     if (p) {
         ((Init_13e370*)p)->Fnf_00234590(0);
-        p->vptr = (hulk_uintptr)&frame_vtable;
+        p->vptr = (hulk_uintptr)&(*(u32_13e370*)&DAT_00412410);
         ((Sub_13e370*)((char*)p + 0x10))->Fnf_0027af00();
         *(u32_13e370*)((char*)p + 0x18) = 0;
         return (void*)(p);

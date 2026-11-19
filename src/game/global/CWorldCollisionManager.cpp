@@ -1613,7 +1613,7 @@ class SubObj_203150 {
     void Clear_0027af50();
 };
 
-extern void* worldVtable;
+extern "C" char DAT_004259f8[];   // (decl1) was `void* worldVtable` (a C++ name bound nowhere natively)
 
 class CWorldCollisionManager {
   public:
@@ -1629,7 +1629,7 @@ void FreeMemA_0008d340(void* p);
 void FreeMemB_0008d330(void* p);
 
 CWorldCollisionManager* CWorldCollisionManager::vfunc_0(unsigned char param) {
-    vptr = &worldVtable;
+    vptr = &(*(void**)&DAT_004259f8);
     mSub.Clear_0027af50();
     if (mCount) {
         FreeMemA_0008d340((void*)(mCount - 4));

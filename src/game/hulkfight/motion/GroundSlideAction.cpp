@@ -2383,7 +2383,7 @@ class Other_152480 {
     virtual void Fn();
     virtual void Fn2();
 };
-extern int vt_152480;
+extern "C" char DAT_0041467c[];   // (decl1) was `int vt_152480` (a C++ name bound nowhere natively)
 class HitOrientToPushbackAction_152480 : public Action_152480 {
   public:
     HitOrientToPushbackAction_152480(int a, Other_152480* b);
@@ -2395,7 +2395,7 @@ class HitOrientToPushbackAction_152480 : public Action_152480 {
 };
 void HitOrientToPushbackAction_152480::V0() {}
 HitOrientToPushbackAction_152480::HitOrientToPushbackAction_152480(int a, Other_152480* b) : Action_152480() {
-    *(hulk_intptr*)this = (hulk_intptr)&vt_152480;
+    *(hulk_intptr*)this = (hulk_intptr)&(*(int*)&DAT_0041467c);
     volatile int* p = &mValue;
     *p = 0;
     mOther = 0;

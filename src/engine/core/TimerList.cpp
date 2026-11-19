@@ -737,7 +737,7 @@ namespace fn_00268270 {
 typedef unsigned char u8;
 extern void thunk_FUN_00267090(void*);
 extern void* hulk_at_0042aff0;
-extern void* refVftable;
+extern "C" char DAT_003f6098[];   // (decl1) was `void* refVftable` (a C++ name bound nowhere natively)
 class Timer {
   public:
     virtual void f0();
@@ -761,7 +761,7 @@ Timer* Timer::vfunc_2(int flag) {
     *(void**)this = &hulk_at_0042aff0;
     if (active)
         Timer::vfunc_10();
-    *(void**)this = &refVftable;
+    *(void**)this = &(*(void**)&DAT_003f6098);
     if (flag & 1)
         thunk_FUN_00267090(this);
     return this;

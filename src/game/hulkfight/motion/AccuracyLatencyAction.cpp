@@ -362,7 +362,7 @@ struct Pa8 {
     ~Pa8();
     char pad[4];
 };
-extern int g_FireProjectileTrackVtable;
+extern "C" char DAT_0041b288[];   // (decl1) was `int g_FireProjectileTrackVtable` (a C++ name bound nowhere natively)
 void FUN_0008d330(void*);
 class FireProjectileTrack : public Track {
   public:
@@ -1837,7 +1837,7 @@ PropIsMissileCondition_194f10* PropIsMissileCondition_194f10::vfunc_5(signed cha
 // 0x00194f40 hulkfight::motion::FireProjectileTrack::vfunc_5 (87 B): matches/0x00194f40.cpp
 // sym: ?vfunc_5@FireProjectileTrack@fn_fc8c1e47@@UAEPAV12@E@Z
 FireProjectileTrack* FireProjectileTrack::vfunc_5(unsigned char flag) {
-    *(hulk_intptr*)this = (hulk_intptr)&g_FireProjectileTrackVtable;
+    *(hulk_intptr*)this = (hulk_intptr)&(*(int*)&DAT_0041b288);
     ma8.~Pa8();
     m9c.~P9c();
     m88.~P88();
@@ -1890,10 +1890,10 @@ class MissilePunchTrack {
     Sub_194fd0 sub;
     void Setup_00236d60();
 };
-extern int missileVftable;
+extern "C" char DAT_0041b2e8[];   // (decl1) was `int missileVftable` (a C++ name bound nowhere natively)
 extern void Cleanup_0008d330(MissilePunchTrack*);
 MissilePunchTrack* MissilePunchTrack::vfunc_5(int flag) {
-    *(hulk_intptr*)this = (hulk_intptr)&missileVftable;
+    *(hulk_intptr*)this = (hulk_intptr)&(*(int*)&DAT_0041b2e8);
     sub.Init_00234150();
     Setup_00236d60();
     if (flag & 1)

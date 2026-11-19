@@ -891,7 +891,7 @@ public:
 struct Chunk_2bceb0 {
     int Id_00266c30();
 };
-extern int g_vt_2bceb0;
+extern "C" char DAT_0042e764[];   // (decl1) was `int g_vt_2bceb0` (a C++ name bound nowhere natively)
 struct BO {
     void InitBase_002a4e10(int);
     virtual void v0();
@@ -3641,7 +3641,7 @@ void pure3d::BillboardObjectLoader::vfunc_5(void* __p0, void* __p1, void* __p2, 
         BO* o = (BO*)operator new(0x60);
         if (o) {
             o->InitBase_002a4e10(1);
-            *(int**)o = &g_vt_2bceb0;
+            *(int**)o = &(*(int*)&DAT_0042e764);
             o->f = 1.0f;
         } else {
             o = 0;

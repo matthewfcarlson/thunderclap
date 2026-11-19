@@ -79,7 +79,7 @@ class RestPoseDriver_22a800 : public PartitionDriver_22a800 {
     RestPoseDriver_22a800* vfunc_5(signed char flags);
 };
 void* __cdecl alloc_00263ea0(unsigned int);
-extern int vt_22a8a0;
+extern "C" char DAT_00427480[];   // (decl1) was `int vt_22a8a0` (a C++ name bound nowhere natively)
 struct RestPoseDriver_nv_22a8a0 {
     void InitA_00222590(choreo2::RestPoseDriver*);
     void InitB_00222460(choreo2::RestPoseDriver*);
@@ -188,7 +188,7 @@ void* choreo2::RestPoseDriver::vfunc_5() {
     choreo2::RestPoseDriver* p = (choreo2::RestPoseDriver*)alloc_00263ea0(0x20);
     if (p) {
         ((RestPoseDriver_nv_22a8a0*)(p))->InitA_00222590(this);
-        *(hulk_intptr*)p = (hulk_intptr)&vt_22a8a0;
+        *(hulk_intptr*)p = (hulk_intptr)&(*(int*)&DAT_00427480);
         ((RestPoseDriver_nv_22a8a0*)(p))->InitB_00222460(this);
         return (void*)(p);
     }

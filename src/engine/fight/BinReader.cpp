@@ -108,7 +108,7 @@ class Inner_23b8e0 {
     virtual void f21();
     virtual void f22();
 };
-extern void* refVtable_23b920;
+extern "C" char DAT_003f6098[];   // (decl1) was `void* refVtable_23b920` (a C++ name bound nowhere natively)
 struct Obj_23b920 {
     void** vf;
     char pad[4];
@@ -225,7 +225,7 @@ class IFileDataReader {
     Inner_23bad0* inner;
 };
 extern int hulk_at_00428744;
-extern int vtRef_23bad0;
+extern "C" char DAT_003f6098[];   // (decl1) was `int vtRef_23bad0` (a C++ name bound nowhere natively)
 extern void cleanup_00263f30(IFileDataReader*);
 class Arg_23bb00 {
   public:
@@ -421,7 +421,7 @@ void __fastcall target(Obj_23b920* self) {
     self->p;
     self->vf = (void**)&gameVtable;
     self->p->b();
-    self->vf = (void**)&refVtable_23b920;
+    self->vf = (void**)&(*(void**)&DAT_003f6098);
 }
 
 } // namespace fn_f1775e11
@@ -574,7 +574,7 @@ IFileDataReader* IFileDataReader::v2(unsigned int flags) {
     Inner_23bad0* p = inner;
     *(volatile hulk_intptr*)this = (hulk_intptr)&hulk_at_00428744;
     p->f1();
-    *(volatile hulk_intptr*)this = (hulk_intptr)&vtRef_23bad0;
+    *(volatile hulk_intptr*)this = (hulk_intptr)&(*(int*)&DAT_003f6098);
     if (flags & 1)
         cleanup_00263f30(this);
     return this;

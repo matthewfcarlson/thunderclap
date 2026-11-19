@@ -335,7 +335,7 @@ fight::FightNodeParentCondition* fight::FightNodeParentCondition::FUN_00235b00()
 namespace fn_00235b30 {
 // Same code shape as 0x0004a030 (propagated; names are from that function)
 extern int hulk_at_00427d14;
-extern int vtableB;
+extern "C" char DAT_00427ccc[];   // (decl1) was `int vtableB` (a C++ name bound nowhere natively)
 class Part_235b30 {
   public:
     void Init_00234150();
@@ -354,7 +354,7 @@ class CCharacterTemplateVariationCondition : public CCondition {
 void CCharacterTemplateVariationCondition::Run() {
     *(hulk_intptr*)this = (hulk_intptr)&hulk_at_00427d14;
     part.Init_00234150();
-    *(hulk_intptr*)this = (hulk_intptr)&vtableB;
+    *(hulk_intptr*)this = (hulk_intptr)&(*(int*)&DAT_00427ccc);
     Finish_002345b0();
 }
 } // namespace fn_00235b30

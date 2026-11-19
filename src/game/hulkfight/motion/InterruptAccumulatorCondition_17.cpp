@@ -40,8 +40,8 @@ struct Created_157250 {
     int init_00151de0(hulkfight::motion::HitFloatTrack*, u32_157250);
 };
 extern void* __cdecl alloc(hulk_uintptr);
-extern const int typeA_157250;
-extern const int typeB_157250;
+extern "C" char DAT_00494b44[];   // (decl1) was `const int typeA_157250` (a C++ name bound nowhere natively)
+extern "C" char DAT_00494b60[];   // (decl1) was `const int typeB_157250` (a C++ name bound nowhere natively)
 extern int hulk_at_00414628;
 class RefObj_1572a0 {
   public:
@@ -61,8 +61,8 @@ class Params_157300 {
   public:
     int x;
 };
-extern Params_157300 TypeA_157300;
-extern Params_157300 TypeB_157300;
+extern "C" char DAT_00494b44[];   // (decl1) was `Params_157300 TypeA_157300` (a C++ name bound nowhere natively)
+extern "C" char DAT_00494b60[];   // (decl1) was `Params_157300 TypeB_157300` (a C++ name bound nowhere natively)
 class Object_157300 {
   public:
     int Init_00151e90(hulkfight::motion::HitDamageTrack*, hulk_intptr);
@@ -184,7 +184,7 @@ void* HitPushbackAction_1571f0::vfunc_2(unsigned char flag) {
 // Same code shape as 0x00138c50 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::HitFloatTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_157250 a = (u32_157250)__p0; u32_157250 b = (u32_157250)__p1; u32_157250 c = (u32_157250)__p2;
 
-    if (((int)(hulk_uintptr)__RTDynamicCast((void*)(hulk_uintptr)(c), 0, (void*)(&typeA_157250), (void*)(&typeB_157250), 0))) {
+    if (((int)(hulk_uintptr)__RTDynamicCast((void*)(hulk_uintptr)(c), 0, (void*)(&(*(const int*)&DAT_00494b44)), (void*)(&(*(const int*)&DAT_00494b60)), 0))) {
         Created_157250* p = (Created_157250*)alloc_0008d690(0x38);
         if (p)
             return p->init_00151de0(this, c);
@@ -226,7 +226,7 @@ void* HitFloatAction_1572a0::vfunc_2(unsigned char flag) {
 // sym: ?vfunc_10@HitDamageTrack@motion@hulkfight@@UAEHHHH@Z
 // Same code shape as 0x0010bd40 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::HitDamageTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    int result = ((int)(hulk_uintptr)__RTDynamicCast((void*)c, 0, (void*)(&TypeA_157300), (void*)(&TypeB_157300), 0));
+    int result = ((int)(hulk_uintptr)__RTDynamicCast((void*)c, 0, (void*)(&(*(Params_157300*)&DAT_00494b44)), (void*)(&(*(Params_157300*)&DAT_00494b60)), 0));
     if (result) {
         Object_157300* p = Alloc_0008d690(sizeof(::hulkfight::motion::HitDamageAction));
         if (p)

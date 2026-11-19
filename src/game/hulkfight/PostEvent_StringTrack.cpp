@@ -261,7 +261,7 @@ class TrackFactoryTemplate_12df30 {
 };
 extern "C++" __declspec(nothrow) void FUN_0012de30();
 extern void* FUN_0008d690(unsigned int);
-extern void* PostEvent_StringTrack_vtable;
+extern "C" char DAT_004110e0[];   // (decl1) was `void* PostEvent_StringTrack_vtable` (a C++ name bound nowhere natively)
 struct Helper_12df70 {
     void FUN_00236d40();
 };
@@ -626,7 +626,7 @@ template <> void* fight::TrackFactoryTemplate<hulkfight::PostEvent_StringTrack>:
     char* p = (char*)FUN_0008d690(0x20);
     if (p) {
         ((Helper_12df70*)p)->FUN_00236d40();
-        *(void**)p = &PostEvent_StringTrack_vtable;
+        *(void**)p = &(*(void**)&DAT_004110e0);
         *(unsigned int*)(p + 0xc) = 0;
         ((SubHelper*)(p + 0x10))->FUN_0027af00();
         p[0x18] = 0;

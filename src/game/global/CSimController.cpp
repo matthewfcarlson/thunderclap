@@ -44,7 +44,7 @@ class C_b3660 {
     void Copy(B_b3660* dst);
 };
 extern int hulk_at_004060c4;
-extern int vtbl_refcount;
+extern "C" char DAT_003f6098[];   // (decl1) was `int vtbl_refcount` (a C++ name bound nowhere natively)
 class Sub_b36a0 {
   public:
     virtual void a();
@@ -195,7 +195,7 @@ CSimController* CSimController::vfunc_2(int flags) {
     CSimController* p = this;
     *((hulk_intptr*)p) = (hulk_intptr)&hulk_at_004060c4;
     sub->b();
-    *((hulk_intptr*)p) = (hulk_intptr)&vtbl_refcount;
+    *((hulk_intptr*)p) = (hulk_intptr)&(*(int*)&DAT_003f6098);
     if (flags & 1)
         thunk_0008d330(this);
     return this;
@@ -408,7 +408,7 @@ class Ref_b3b80 {
   public:
     virtual void F();
 };
-extern int vtable_b3b80;
+extern "C" char DAT_004060c4[];   // (decl1) was `int vtable_b3b80` (a C++ name bound nowhere natively)
 class CSimController {
   public:
     hulk_intptr vt;
@@ -420,7 +420,7 @@ class CSimController {
 };
 CSimController::CSimController(Ref_b3b80* q) {
     m = 0;
-    vt = (hulk_intptr)&vtable_b3b80;
+    vt = (hulk_intptr)&(*(int*)&DAT_004060c4);
     p = q;
     q->F();
     Init_000b35f0((char*)this + 0xc, 1);

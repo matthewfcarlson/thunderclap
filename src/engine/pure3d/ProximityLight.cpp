@@ -131,11 +131,11 @@ class ProximityLight {
     char pad[0x50];
     int value;
 };
-extern void* light_vtable;
+extern "C" char DAT_0042ee68[];   // (decl1) was `void* light_vtable` (a C++ name bound nowhere natively)
 extern "C" void __fastcall FUN_002a0720(void*);
 void destroy_00263f30(ProximityLight*);
 ProximityLight* ProximityLight::vfunc_2(unsigned char flag) {
-    *(void**)this = &light_vtable;
+    *(void**)this = &(*(void**)&DAT_0042ee68);
     value = 4;
     FUN_002a0720((void*)(this));
     if (flag & 1)

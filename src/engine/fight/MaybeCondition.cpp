@@ -83,7 +83,7 @@ class ParamValueInt_2384e0 : public ParamValue_2384e0 {
     int pad;
 };
 extern int hulk_at_00491ca8;
-extern int gTypeA_238560;
+extern "C" char DAT_00491ca8[];   // (decl1) was `int gTypeA_238560` (a C++ name bound nowhere natively)
 extern "C" char DAT_00428270[];   // (fix2) the game's caster vftable 0x428270
 class ConditionFactoryCasterTemplate_2386b0 {   // (fix2) was polymorphic (virtual bool Fnf_00238500(void*);): clang's own vftable natively, the game's by address now
   public:
@@ -384,7 +384,7 @@ template <> bool fight::ConditionFactoryCasterTemplate<fight::MaybeCondition>::v
 // Same code shape as 0x000508c0 (propagated; names are from that function)
 template <> bool fight::ConditionFactoryCasterTemplate<fight::RandomCondition>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return FUN_00344e74((hulk_intptr)p, 0, (hulk_intptr)&gTypeA_238560, (hulk_intptr)&gTypeB, 0) != 0;
+    return FUN_00344e74((hulk_intptr)p, 0, (hulk_intptr)&(*(int*)&DAT_00491ca8), (hulk_intptr)&gTypeB, 0) != 0;
 }
 
 

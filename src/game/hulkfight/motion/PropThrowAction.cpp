@@ -1830,7 +1830,7 @@ BallAndChainShootAction::BallAndChainShootAction(int a, Ref_184880* b) : Ctor_00
 // sym: ?Destroy@AnimationAction@motion@hulkfight@fn_001848f0@@QAEXXZ
 namespace fn_001848f0 {
 // Same code shape as 0x0013ad70 (propagated; names are from that function)
-extern char AnimAction_vt;
+extern "C" char DAT_004197ac[];   // (decl1) was `char AnimAction_vt` (a C++ name bound nowhere natively)
 
 namespace hulkfight {
 namespace motion {
@@ -1858,7 +1858,7 @@ class AnimationAction : public Base_1848f0 {
 
 void AnimationAction::Destroy() {
     volatile int* v = (volatile int*)this;
-    v[0] = (hulk_intptr)&AnimAction_vt;
+    v[0] = (hulk_intptr)&(*(char*)&DAT_004197ac);
     MemObj* a = (MemObj*)v[8];
     if (a) {
         a->Release();

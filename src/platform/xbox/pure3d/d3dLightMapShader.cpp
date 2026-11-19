@@ -148,7 +148,7 @@ class Obj_32b980 {
 namespace D3D8 {
 void __fastcall D3DDevice_SetVertexShaderConstant1(int, const unsigned int*);
 }
-extern int vtable_32ba30;
+extern "C" char DAT_0043397c[];   // (decl1) was `int vtable_32ba30` (a C++ name bound nowhere natively)
 struct d3dLightMapShader_nv_32ba30 {
     void Init(hulk_intptr);   // (decl1) passes as defined
 };
@@ -157,7 +157,7 @@ class Ref_32ba70 {
     virtual void f0();
     virtual void f1();
 };
-extern int vtable_32ba70;
+extern "C" char DAT_0043397c[];   // (decl1) was `int vtable_32ba70` (a C++ name bound nowhere natively)
 class d3dLightMapShader_32ba70 {
   public:
     virtual void f0();
@@ -514,7 +514,7 @@ pure3d::d3dLightMapShader* pure3d::d3dLightMapShader::FUN_0032ba30(int arg) {
     (*(char *)&this->f_89) = 0;
     this->f_8c = 0;
     this->f_90 = 0;
-    *(hulk_intptr*)this = (hulk_intptr)&vtable_32ba30;
+    *(hulk_intptr*)this = (hulk_intptr)&(*(int*)&DAT_0043397c);
     return (d3dLightMapShader*)(this);
 }
 
@@ -523,7 +523,7 @@ namespace fn_f4b94d0d {
 // 0x0032ba70 pure3d::d3dLightMapShader::vfunc_3 (68 B): matches/0x0032ba70.cpp
 // sym: ?vfunc_3@d3dLightMapShader_32ba70@fn_f4b94d0d@@UAEPAV12@I@Z
 d3dLightMapShader_32ba70* d3dLightMapShader_32ba70::vfunc_3(unsigned int x) {
-    *(hulk_intptr*)this = (hulk_intptr)&vtable_32ba70;
+    *(hulk_intptr*)this = (hulk_intptr)&(*(int*)&DAT_0043397c);
     if (a)
         a->f1();
     if (b)

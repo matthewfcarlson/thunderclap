@@ -488,8 +488,8 @@ class StrafeLateralHBAction_122310 {
     void* vfunc_2(unsigned char flag);
 };
 typedef unsigned int U_1224b0;
-extern int g1_1224b0;
-extern int g2_1224b0;
+extern "C" char DAT_00494b44[];   // (decl1) was `int g1_1224b0` (a C++ name bound nowhere natively)
+extern "C" char DAT_00494b60[];   // (decl1) was `int g2_1224b0` (a C++ name bound nowhere natively)
 struct NewObj_1224b0 {
     U_1224b0 Init_0011fef0(hulkfight::ai::RoutTrack*, hulk_uintptr);
 };
@@ -739,8 +739,8 @@ struct TypeDesc_123450 {
 struct NewTrack {
     int run_00123260(hulkfight::ai::PathTrack* t, void* p);
 };
-extern TypeDesc_123450 typeA_123450;
-extern TypeDesc_123450 typeB_123450;
+extern "C" char DAT_00494b44[];   // (decl1) was `TypeDesc_123450 typeA_123450` (a C++ name bound nowhere natively)
+extern "C" char DAT_00494b60[];   // (decl1) was `TypeDesc_123450 typeB_123450` (a C++ name bound nowhere natively)
 
 } // namespace fn_fff5b4af
 
@@ -2328,7 +2328,7 @@ bool PathAction::run(int a, int b)
 // sym: ?vfunc_10@RoutTrack@ai@hulkfight@@UAEHHHH@Z
 hulk_intptr hulkfight::ai::RoutTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { U_1224b0 a = (U_1224b0)__p0; U_1224b0 b = (U_1224b0)__p1; hulk_uintptr c = (U_1224b0)__p2;
 
-    if (IsType((void*)c, 0, &g1_1224b0, &g2_1224b0, 0)) {
+    if (IsType((void*)c, 0, &(*(int*)&DAT_00494b44), &(*(int*)&DAT_00494b60), 0)) {
         NewObj_1224b0* p = Allocate_0008d690(0xb8);
         if (p)
             return (int)(p->Init_0011fef0(this, c));
@@ -3421,7 +3421,7 @@ hulkfight::ai::PathFormationAction::~PathFormationAction() {}
 // sym: ?vfunc_10@PathTrack@ai@hulkfight@@UAEHHHH@Z
 hulk_intptr hulkfight::ai::PathTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr __p2) { void * p = (void *)__p2;
 
-    if (TypeCheck(p, 0, &typeA_123450, &typeB_123450, 0)) {
+    if (TypeCheck(p, 0, &(*(TypeDesc_123450*)&DAT_00494b44), &(*(TypeDesc_123450*)&DAT_00494b60), 0)) {
         NewTrack* q = (NewTrack*)Alloc_0008d690(0xf0);
         if (q)
             return q->run_00123260(this, p);

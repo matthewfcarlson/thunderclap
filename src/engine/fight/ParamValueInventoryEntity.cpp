@@ -234,7 +234,7 @@ ParamValueColour* ParamValueColour::vfunc_0(int flags) {
 // 0x002355f0 fight::ParamValueEntity::vfunc_0 (39 B): matches/0x002355f0.cpp [wrapped: lost its match in the tree (codegen differs (2 of 13 instructions))]
 // sym: ?v0@ParamValueEntity@fn_002355f0@@UAEPAV12@I@Z
 namespace fn_002355f0 {
-extern void* pvtable;
+extern "C" char DAT_004279fc[];   // (decl1) was `void* pvtable` (a C++ name bound nowhere natively)
 extern void thunk_FUN_00267090(void*);
 struct Sub_2355f0 {
     void Init_0027af50();
@@ -264,7 +264,7 @@ class ParamValueEntity : public ParamValue {
     Sub_2355f0 sub;
 };
 ParamValueEntity* ParamValueEntity::v0(unsigned int flags) {
-    *(void**)this = &pvtable;
+    *(void**)this = &(*(void**)&DAT_004279fc);
     sub.Init_0027af50();
     if (flags & 1)
         thunk_FUN_00267090(this);

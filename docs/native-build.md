@@ -6076,3 +6076,10 @@ ptrtrunc to view_trusted: left in the baseline). Whole-tree verify --relocs (job
 0x00241390, 0x001ea8b0, 0x00240190, 0x001e91c0 and the four declaration-count blocks. Native unbound (each side's own
 snapshot and map): 11,385 / 11,365 / 11,376 -> 11,348 / 11,328 / 11,339 (macOS / Linux / Android), no new names; the
 44 SeqEvent*Type jump slots are no longer `hulk_x_` stubs in the game's vftables.
+
+## decl1 (2026-11-18): data globals by their C names (find1 F15)
+
+- gen_data.py: 139 C++-named data globals in 80 TUs are now `DAT_<addr>` (from relmap's original targets), 144 uses
+  rewritten. MSVC: every matches block MATCH with relocations ok, equivalent blocks unchanged.
+- Native mac (proof map of the previous batch): unbound 11067 -> 10928, no new unbound names (5 new rows are XDK
+  library data the link binds to the shim).

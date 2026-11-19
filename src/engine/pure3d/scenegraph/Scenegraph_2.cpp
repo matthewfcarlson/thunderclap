@@ -2749,7 +2749,7 @@ class Ref_297640 {
     virtual void a();
     virtual void b();
 };
-extern int vt_297640;
+extern "C" char DAT_0042d414[];   // (decl1) was `int vt_297640` (a C++ name bound nowhere natively)
 class VisibilityNode {
   public:
     virtual void f0();
@@ -2761,7 +2761,7 @@ class VisibilityNode {
 };
 void thunk_00263f30(VisibilityNode*);
 VisibilityNode* VisibilityNode::vfunc_2(unsigned char flag) {
-    *(void**)this = &vt_297640;
+    *(void**)this = &(*(int*)&DAT_0042d414);
     _ReadWriteBarrier();
     if (member) {
         member->b();

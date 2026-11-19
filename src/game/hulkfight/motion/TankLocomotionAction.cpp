@@ -608,8 +608,8 @@ class Params_191720 {
   public:
     int x;
 };
-extern Params_191720 TypeA_191720;
-extern Params_191720 TypeB_191720;
+extern "C" char DAT_00494b44[];   // (decl1) was `Params_191720 TypeA_191720` (a C++ name bound nowhere natively)
+extern "C" char DAT_00494b60[];   // (decl1) was `Params_191720 TypeB_191720` (a C++ name bound nowhere natively)
 struct SimulationAction_nv_191720 {
     int Init_00190920(hulkfight::motion::SimulationTrack*, hulk_intptr);
 };
@@ -2411,7 +2411,7 @@ void* TankLocomotionAction_1916c0::vfunc_2(unsigned char flag) {
 // sym: ?vfunc_10@SimulationTrack@motion@hulkfight@@UAEHHHH@Z
 // Same code shape as 0x0010bd40 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::SimulationTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    int result = ((int)(hulk_uintptr)__RTDynamicCast((void*)c, 0, (void*)(&TypeA_191720), (void*)(&TypeB_191720), 0));
+    int result = ((int)(hulk_uintptr)__RTDynamicCast((void*)c, 0, (void*)(&(*(Params_191720*)&DAT_00494b44)), (void*)(&(*(Params_191720*)&DAT_00494b60)), 0));
     if (result) {
         hulkfight::motion::SimulationAction* p = Alloc_0008d690(0x24);
         if (p)

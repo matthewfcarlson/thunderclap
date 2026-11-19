@@ -74,7 +74,7 @@ struct CameraPose {
 };
 struct Ref { virtual void FUN_00000000(); virtual void FUN_00000004(); };
 struct Owner { char pad[0x170]; Ref* ref; void FUN_000ac560(Ref* value); };
-extern int vtable_ac5a0;
+extern "C" char DAT_00405b2c[];   // (decl1) was `int vtable_ac5a0` (a C++ name bound nowhere natively)
 class Ref_ac5a0 {
   public:
     virtual void f0();
@@ -188,7 +188,7 @@ void Owner::FUN_000ac560(Ref* value) { if (ref) { ref->FUN_00000004(); ref = 0; 
 // 0x000ac5a0 CNISCamera::vfunc_2 (63 B): matches/0x000ac5a0.cpp
 // sym: ?vfunc_2@CNISCamera@fn_fe577214@@UAEPAV12@E@Z
 CNISCamera* CNISCamera::vfunc_2(unsigned char flag) {
-    *(volatile hulk_intptr*)this = (hulk_intptr)&vtable_ac5a0;
+    *(volatile hulk_intptr*)this = (hulk_intptr)&(*(int*)&DAT_00405b2c);
     Ref_ac5a0* r = *(Ref_ac5a0* volatile*)&mRef;
     if (r) {
         r->f1();

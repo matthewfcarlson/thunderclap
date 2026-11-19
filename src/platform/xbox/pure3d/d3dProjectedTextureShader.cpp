@@ -165,7 +165,7 @@ class Ref_32cc00 {
     virtual void f0();
     virtual void f1();
 };
-extern int vtable_32cc00;
+extern "C" char DAT_00433a8c[];   // (decl1) was `int vtable_32cc00` (a C++ name bound nowhere natively)
 class d3dProjectedTextureShader_32cc00 {
   public:
     virtual void f0();
@@ -405,7 +405,7 @@ namespace fn_f81ca26d {
 // sym: ?vfunc_3@d3dProjectedTextureShader_32cc00@fn_f81ca26d@@UAEPAV12@I@Z
 // Same code shape as 0x0032ba70 (propagated; names are from that function)
 d3dProjectedTextureShader_32cc00* d3dProjectedTextureShader_32cc00::vfunc_3(unsigned int x) {
-    *(hulk_intptr*)this = (hulk_intptr)&vtable_32cc00;
+    *(hulk_intptr*)this = (hulk_intptr)&(*(int*)&DAT_00433a8c);
     if (a)
         a->f1();
     if (b)

@@ -731,7 +731,7 @@ class RenderThing_1b7790 {
     virtual void f0();
     virtual void f1();
 };
-extern int rad_vtable;
+extern "C" char DAT_0041dc30[];   // (decl1) was `int rad_vtable` (a C++ name bound nowhere natively)
 extern int hulk_at_003f6098;
 class CRadMovieRenderLoop {
   public:
@@ -744,7 +744,7 @@ class CRadMovieRenderLoop {
 };
 extern void destroy_0008d330(CRadMovieRenderLoop*);
 CRadMovieRenderLoop* CRadMovieRenderLoop::vfunc_2(unsigned char flags) {
-    *(hulk_intptr*)this = (hulk_intptr)&rad_vtable;
+    *(hulk_intptr*)this = (hulk_intptr)&(*(int*)&DAT_0041dc30);
     member->f1();
     *(hulk_intptr*)this = (hulk_intptr)&hulk_at_003f6098;
     if (flags & 1)

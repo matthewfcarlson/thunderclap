@@ -20,7 +20,7 @@ class Ref_32fc40 {
     virtual void A();
     virtual void Release();
 };
-extern int toonVftable;
+extern "C" char DAT_00433d3c[];   // (decl1) was `int toonVftable` (a C++ name bound nowhere natively)
 class d3dToon2VertexShader_32fc40 {
   public:
     virtual void A();
@@ -134,7 +134,7 @@ class Obj_32ffe0 {
     virtual void a();
     virtual void b();
 };
-extern int vtable_32ffe0;
+extern "C" char DAT_00433d3c[];   // (decl1) was `int vtable_32ffe0` (a C++ name bound nowhere natively)
 class d3dToon2VertexShader_32ffe0 {
   public:
     virtual void f0();
@@ -153,7 +153,7 @@ void thunk_FUN_00267090(d3dToon2VertexShader_32ffe0*);
 // 0x0032fc40 FUN_0032fc40 (62 B): matches/0x0032fc40.cpp
 // sym: ?Reset@d3dToon2VertexShader_32fc40@fn_f6ae905d@@QAEXXZ
 void d3dToon2VertexShader_32fc40::Reset() {
-    *(hulk_intptr*)this = (hulk_intptr)&toonVftable;
+    *(hulk_intptr*)this = (hulk_intptr)&(*(int*)&DAT_00433d3c);
     if (m88)
         m88->Release();
     if (m80)
@@ -344,7 +344,7 @@ d3dToon2VertexShader_32ff90::d3dToon2VertexShader_32ff90(int x) : d3dShader_32ff
 // 0x0032ffe0 pure3d::d3dToon2VertexShader::vfunc_3 (83 B): matches/0x0032ffe0.cpp
 // sym: ?vfunc_3@d3dToon2VertexShader_32ffe0@fn_f6ae905d@@UAEPAV12@E@Z
 d3dToon2VertexShader_32ffe0* d3dToon2VertexShader_32ffe0::vfunc_3(unsigned char flag) {
-    *(volatile hulk_intptr*)this = (hulk_intptr)&vtable_32ffe0;
+    *(volatile hulk_intptr*)this = (hulk_intptr)&(*(int*)&DAT_00433d3c);
     if (p88)
         p88->b();
     if (p80)

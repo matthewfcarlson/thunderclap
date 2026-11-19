@@ -608,8 +608,8 @@ class MotionFleeAction_11a150 {
 struct TypeInfo_11a1b0 {
     int x;
 };
-extern TypeInfo_11a1b0 CFightParamsType_11a1b0;
-extern TypeInfo_11a1b0 FightParamsType_11a1b0;
+extern "C" char DAT_00494b60[];   // (decl1) was `TypeInfo_11a1b0 CFightParamsType_11a1b0` (a C++ name bound nowhere natively)
+extern "C" char DAT_00494b44[];   // (decl1) was `TypeInfo_11a1b0 FightParamsType_11a1b0` (a C++ name bound nowhere natively)
 void* __cdecl Allocate_0008d690(int);
 class Allocated_11a1b0 {
   public:
@@ -2438,7 +2438,7 @@ void* MotionFleeAction_11a150::vfunc_2(unsigned char flag) {
 // sym: ?vfunc_10@MotionClosestWaypointTrack@ai@hulkfight@@UAEHHHH@Z
 hulk_intptr hulkfight::ai::MotionClosestWaypointTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { void * a = (void *)__p0; void * b = (void *)__p1; void * p = (void *)__p2;
 
-    int ok = ((int)(hulk_uintptr)__RTDynamicCast(p, 0, (void*)(&FightParamsType_11a1b0), (void*)(&CFightParamsType_11a1b0), 0));
+    int ok = ((int)(hulk_uintptr)__RTDynamicCast(p, 0, (void*)(&(*(TypeInfo_11a1b0*)&DAT_00494b44)), (void*)(&(*(TypeInfo_11a1b0*)&DAT_00494b60)), 0));
     if (ok) {
         Allocated_11a1b0* x = (Allocated_11a1b0*)Allocate_0008d690(0x68);
         if (x)

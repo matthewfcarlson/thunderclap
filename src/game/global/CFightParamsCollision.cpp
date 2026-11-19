@@ -858,7 +858,7 @@ class Res_59890 {
     virtual void Release();
 };
 
-extern int gVftable_59890;
+extern "C" char DAT_003f9844[];   // (decl1) was `int gVftable_59890` (a C++ name bound nowhere natively)
 void __cdecl MyDelete_0008d330(void*);
 
 class CFightParams {
@@ -869,7 +869,7 @@ class CFightParams {
 
 CFightParams* CFightParams::vfunc_2(unsigned char flag) {
     volatile void** vp = (volatile void**)this;
-    *vp = (void**)&gVftable_59890;
+    *vp = (void**)&(*(int*)&DAT_003f9844);
     volatile Res_59890** dp = (volatile Res_59890**)((char*)this + 0x10);
     Res_59890* d = (Res_59890*)*dp;
     if (d) {

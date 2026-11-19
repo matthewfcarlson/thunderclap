@@ -328,7 +328,7 @@ class RenderThing_23b350 {
     virtual void f1();
 };
 extern int hulk_at_004285b0;
-extern int ref_vtable;
+extern "C" char DAT_003f6098[];   // (decl1) was `int ref_vtable` (a C++ name bound nowhere natively)
 class StreamStringReader_23b350 {
   public:
     virtual void vfunc_0();
@@ -1082,7 +1082,7 @@ namespace fn_f7afe597 {
 StreamStringReader_23b350* StreamStringReader_23b350::vfunc_2(unsigned char flags) {
     *(hulk_intptr*)this = (hulk_intptr)&hulk_at_004285b0;
     member->f1();
-    *(hulk_intptr*)this = (hulk_intptr)&ref_vtable;
+    *(hulk_intptr*)this = (hulk_intptr)&(*(int*)&DAT_003f6098);
     if (flags & 1)
         destroy_00263f30(this);
     return this;

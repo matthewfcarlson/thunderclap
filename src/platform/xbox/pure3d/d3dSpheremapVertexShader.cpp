@@ -61,7 +61,7 @@ struct State_331b60 {
     char pad[0xe4];
     int value;
 };
-extern int globalFlags;
+extern "C" char DAT_0039db08[];   // (decl1) was `int globalFlags` (a C++ name bound nowhere natively)
 extern int globalState_331b60;
 class Owner {
   public:
@@ -90,7 +90,7 @@ class Ref_331c80 {
     virtual void f0();
     virtual void f1();
 };
-extern int vtable_331c80;
+extern "C" char DAT_00433e64[];   // (decl1) was `int vtable_331c80` (a C++ name bound nowhere natively)
 class d3dSpheremapVertexShader_331c80 {
   public:
     virtual void f0();
@@ -433,7 +433,7 @@ void pure3d_331910::d3dSpheremapVertexShader::vfunc_14(U_331910 unused) {
 void pure3d::d3dSpheremapVertexShader::vfunc_13() {
     if ((*(struct State_331b60 * *)&this->f_14)->value != 1) {
         (*(struct State_331b60 * *)&this->f_14)->value = 1;
-        globalFlags |= 0x800;
+        (*(int*)&DAT_0039db08) |= 0x800;
         globalState_331b60 = 1;
     }
 }
@@ -515,7 +515,7 @@ namespace fn_f045d6aa {
 // sym: ?vfunc_3@d3dSpheremapVertexShader_331c80@fn_f045d6aa@@UAEPAV12@I@Z
 // Same code shape as 0x0032ba70 (propagated; names are from that function)
 d3dSpheremapVertexShader_331c80* d3dSpheremapVertexShader_331c80::vfunc_3(unsigned int x) {
-    *(hulk_intptr*)this = (hulk_intptr)&vtable_331c80;
+    *(hulk_intptr*)this = (hulk_intptr)&(*(int*)&DAT_00433e64);
     if (a)
         a->f1();
     if (b)
