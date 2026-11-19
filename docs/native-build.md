@@ -6024,3 +6024,55 @@ change), when the whole signature then agrees.
   addressless names, `Fn`, `Init`, `vfunc_14` of local stand-ins, unbound before and after).
 - Left out: SemaphoreWaitTrack_4, fight/WaitTrack, fight/StopTrack (the allocator binding exposes a 32-bit stand-in
   layout to the x64 gate), unk_0b4cf0.GS (HEAD's code-hash breakage at the time).
+
+## audio1: the audio om::Type registry on records, census1's B2 and S12-S17 (D140, 2026-11-18)
+
+Kit: decl1's c1 clang-probe snapshot and map (HEAD 56cdc3090) with git archive HEAD (db0145469) plus census1's
+non-audio private fixes (S1-S11, B1's save-drive skip) under it, my files from a private workspace (HEAD + my hunks
+only); a full mac compile on the queue, local links and headless runs (HULK_NATIVE_MISSING=continue). New and renamed
+blocks go into the snapshot's tree report (scripts/snaprep_mine.py), which native_mac reads to bind game vftable slots.
+
+**The type objects.** 0x002407a0 calls slot 0 (init) of 25 static audio om types. Their constructors stored local
+stand-in vftables (clang's own natively), a 4-byte copy of one (0x00251b40: a null upper half), a memcpy of one
+(0x00250290), or ran on `gObj` (0x00360600, 0x0035fca0: one namespace-scope name for six objects). Every constructor
+of the chain is on the records.h record now and stores the game's vftable by address: om::Type 0x002584d0,
+om::EntityType 0x00243310, om::MetaEntityType 0x0025e6c0, audio::SeqEventType 0x002605e0, 21 SeqEvent*Type,
+SequenceType, ClipType, MixType, the five ListenerEffect*Type and om::Allocator 0x002475c0 (all MATCH; 0x00254760,
+0x00250290 and 0x00251b40 are matches now). Slots 0/1 of the 22 SeqEvent*Type classes, 5-byte jumps to om::Type's
+slots listed "not yet verified", are 44 matched blocks (natively `hulk_x_` stubs before). om::MetaEntityType's slots
+0x0025e740 / 0x0025e720 call om::EntityType's by its definition's name (0x00244d70 is defined under gen's class name).
+
+**Views at native offsets.** records.h OmEntityType: `reserved48[8]` is the two tree nodes (by key, by flags); the tree
+code 0x00244230 / 0x00244430 / 0x00244610 / 0x002446d0 / 0x00244d70 read keys by container-of, not 32-bit distances.
+0x002407a0 reads the flags on the record and allocates its String by sizeof(OmString). gen's om::Type, om::EntityType
+and audio::SeqEventType carry the records' words (config/gen-sizes.json: 36 classes, om::Type 64 -> 72).
+
+**Data.** The tree of om types 0x004cd1a8 (its words point at its own sentinel) was two items natively, so the first
+insert never met `&tree->nil` (a hang in 0x00258530): records.h OmTypeTree, and tools/data_gen.py writes a pointer into
+a typed record as the field (`&DAT_004cd1a8[0].nilLeft`) instead of a 32-bit byte offset. Also typed: om::Allocator
+0x004cc200 / 0x004e36c8 (12 bytes, 24 natively: the 16-byte .bss item overran) and the "sound/rsd" Strings
+0x004de738 / 0x004e0eb4. config/data.json and include/decls/data regenerated.
+
+**S12-S17 and the rest of the set-up.** 0x001e8800 / 0x001e8830 (S12/S13) read the type's size / alignment from the
+record and return the block; the om allocator 0x00247530 / 0x00247550 and its slots 0x002474c0 / 0x002474e0 (S14) pass
+pointers; 0x00241390 (S15) calls om::Type's constructor with an int size; 0x002411b0 (S16) gives the effects image
+description a pointer-sized word; 0x001ea8b0 (S17) calls the String constructor by its definition and 0x00240760 takes
+the String as a pointer; the aligned free 0x00267070 / 0x00266f90 take the block as a pointer; 0x00240190 copies by
+0x00240090's name; 0x001e91c0 calls the hash 0x002672f0 by its C spelling.
+
+**Where macOS start-up stops now** (kit: db0145469 with census1's private S1-S11 / B1 fixes; script1 2 since put the
+sound-voice registrations on records): past CSoundResourceManager's initialisation 0x001ea8b0 (the sound real-time
+manager's init continues): CSoundVoiceManager 0x001f6990 runs a script through ScriptHandler 0x001d2810 and the Lua VM
+0x001d22a0 calls a null C function (a script binding with no native definition: the script family). Still continued on
+the way: om::AttribBase's constructor 0x0025fba0 from 0x0024df00 (the listener effects' meta-type attributes: their
+records, 32-bit attribute offsets and the attribute tree 0x0025f450 are a cluster of their own).
+
+**Checks.** Wine control 91792 (db5209d1d, studio) / proof 91862 (f3e1318bd + this change, seeded from it), play3 to
+60000: ckpt_gate ok (transients 5880 / 5910 / 34260 only, prng 0 of 2003 frames differ). x64 gate ok (commit
+74bfdcac4, 129 changed blocks: no new layout / ptrtrunc / crash64; 0x002407a0 from layout to int, 0x00240760 from
+ptrtrunc to view_trusted: left in the baseline). Whole-tree verify --relocs (job 91935): no code or view change,
+22,790 matches (44 new jump slots, 0x00254760 / 0x00250290 / 0x00251b40 now matches), gen probe ok. Re-proved at
+3,000 MSVC + `--wine`: 0x002605e0, 0x00244d70, 0x00244230, 0x00244430, 0x00244610, 0x002407a0, 0x001e8800,
+0x00241390, 0x001ea8b0, 0x00240190, 0x001e91c0 and the four declaration-count blocks. Native unbound (each side's own
+snapshot and map): 11,385 / 11,365 / 11,376 -> 11,348 / 11,328 / 11,339 (macOS / Linux / Android), no new names; the
+44 SeqEvent*Type jump slots are no longer `hulk_x_` stubs in the game's vftables.

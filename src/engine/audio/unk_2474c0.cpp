@@ -13,13 +13,17 @@ namespace fn_f882a82e {} using namespace fn_f882a82e;
 
 // ---- declarations shared by the functions below
 namespace fn_f882a82e {
-extern "C" void FUN_00266eb0(int, int, int);
-extern "C" void __cdecl FUN_00266f20(int, int);
+// (audio1) as defined (unk_266950.cpp): the heap's allocate returns the block, its free takes it (pointers)
+extern "C" void* FUN_00266eb0(int, int, int);
+extern "C" int __cdecl FUN_00266f20(int, void*);
+// the om allocator (DAT_004cc1fc points at it: 0x004cc200's, or the sound resource manager's 0x004e36c8): its
+// allocate slot takes the om::Type and returns the instance, its free slot the type and the instance (pointers: int
+// truncated them)
 struct V {
     void* a;
-    int(__cdecl* b)(void*, int);
+    void*(__cdecl* b)(void*, void*);
 };
-typedef int(__cdecl* Fn_247550)(void*, int, int);
+typedef int(__cdecl* Fn_247550)(void*, void*, void*);
 struct T_247550 {
     void* x;
     void* y;
@@ -35,12 +39,15 @@ struct OutputSink {
     void *slot1;
     void (__cdecl *slot2)(OutputSink *, void *, const char *);
 };
+// (audio1) om::Allocator (0x002475c0 constructs one: its vftable 0x00429254 stored by address, then the allocate and
+// free functions the om allocator calls through DAT_004cc1fc): a local polymorphic stand-in got clang's own vftable
+// natively, whose slots had no definition. (The name is a propagated one.)
+extern "C" char DAT_00429254[];
 class CDisplayEffect {
   public:
     class DrawableText {
       public:
-        virtual void* f1_00247680(char);
-        virtual void f2();
+        const void* vftable;
         void* a;
         void* b;
         DrawableText(void* x, void* y);
@@ -62,15 +69,15 @@ struct Alloc_247610 {
 // sym: _FUN_002474c0
 // The om allocator's allocate slot (0x004cc200 +4): an instance of the type's size and alignment from heap 0
 // (the volatile read keeps MSVC's load order).
-extern "C" void FUN_002474c0(int unused, OmType* type) {
+extern "C" void* FUN_002474c0(void* unused, OmType* type) {   // (audio1) returns the block (was void)
     int size = *(volatile int*)&type->body.size;
-    FUN_00266eb0(0, size, type->body.align);
+    return FUN_00266eb0(0, size, type->body.align);
 }
 
 
 // 0x002474e0 FUN_002474e0 (16 B): matches/0x002474e0.cpp
 // sym: _FUN_002474e0
-extern "C" void __cdecl FUN_002474e0(int, int, int param3) {
+extern "C" void __cdecl FUN_002474e0(void*, void*, void* param3) {   // (audio1) the instance (a pointer, was int)
     FUN_00266f20(0, param3);
 }
 
@@ -87,14 +94,14 @@ extern "C" void* __cdecl FUN_002474f0(void* value) {
 
 // 0x00247530 FUN_00247530 (18 B): matches/0x00247530.cpp
 // sym: _FUN_00247530
-extern "C" hulk_intptr FUN_00247530(hulk_intptr x) {
+extern "C" void* FUN_00247530(void* x) {   // (audio1) the om::Type in, the instance out (pointers)
     return (*(V**)&DAT_004cc1fc)->b((*(V**)&DAT_004cc1fc), x);
 }
 
 
 // 0x00247550 FUN_00247550 (23 B): matches/0x00247550.cpp
 // sym: _FUN_00247550
-extern "C" int FUN_00247550(hulk_intptr a, hulk_intptr b) {
+extern "C" int FUN_00247550(void* a, void* b) {   // (audio1) the om::Type and the instance (pointers)
     return (*(T_247550**)&DAT_004cc1fc)->f((*(T_247550**)&DAT_004cc1fc), a, b);
 }
 
@@ -119,6 +126,7 @@ extern "C" void __cdecl FUN_00247570(const char *text) {
 // sym: ??0DrawableText@CDisplayEffect@fn_f882a82e@@QAE@PAX0@Z
 // Same code shape as 0x000ded90 (propagated; names are from that function)
 CDisplayEffect::DrawableText::DrawableText(void* x, void* y) {
+    vftable = DAT_00429254;
     a = x;
     b = y;
 }

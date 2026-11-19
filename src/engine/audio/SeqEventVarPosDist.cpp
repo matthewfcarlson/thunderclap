@@ -82,15 +82,17 @@ class FUN_00240060 {
     ~FUN_00240060() throw();
     char pad[12];
 };
-class FUN_002605e0 {
+// (audio1) audio::SeqEventType's constructor (0x002605e0, named by its address) on the record (records.h
+// SeqEventTypeHead); the type's constructor stores its vftable 0x0042a0e0 by address (local polymorphic stand-ins
+// got clang's own vftables natively, whose slots had no definition).
+extern "C" char DAT_0042a0e0[];
+class FUN_002605e0 : public SeqEventTypeHead {
   public:
     FUN_002605e0(FUN_00240060*, const __int64&, int, int) throw();
-    virtual void a();
 };
 class SeqEventVarPosDistType_253120 : public FUN_002605e0 {
   public:
     SeqEventVarPosDistType_253120() throw();
-    virtual void a();
 };
 } // namespace fn_fe1510ce
 namespace audio {
@@ -134,8 +136,22 @@ class SeqEventVarPosDist_253210 : public SeqEvent {
     int vfunc_1(Stm_253210**);
 };
 
-// 0x00252f90 audio::SeqEventVarPosDistType::vfunc_0 (5 B): not yet verified
-// 0x00252fa0 audio::SeqEventVarPosDistType::vfunc_1 (5 B): not yet verified
+// 0x00252f90 audio::SeqEventVarPosDistType::vfunc_0 (5 B): matches
+// sym: ?vfunc_0@SeqEventVarPosDistType_252f90@fn_fe1510ce@@QAEXXZ
+// (audio1) slot 0 of audio::SeqEventVarPosDistType: om::Type::vfunc_0 (0x002588d0), reached with a jump; a member of a
+// record view (records.h SeqEventTypeHead) called only through the game's vftable (natively a `hulk_x_` stub)
+struct SeqEventVarPosDistType_252f90 : SeqEventTypeHead { void vfunc_0(); };
+void SeqEventVarPosDistType_252f90::vfunc_0() { ((om::Type*)(void*)this)->om::Type::vfunc_0(); }
+
+
+// 0x00252fa0 audio::SeqEventVarPosDistType::vfunc_1 (5 B): matches
+// sym: ?vfunc_1@SeqEventVarPosDistType_252fa0@fn_fe1510ce@@QAEXXZ
+// (audio1) slot 1 of audio::SeqEventVarPosDistType: om::Type::vfunc_1 (0x002588f0), reached with a jump; a member of a
+// record view (records.h SeqEventTypeHead) called only through the game's vftable (natively a `hulk_x_` stub)
+struct SeqEventVarPosDistType_252fa0 : SeqEventTypeHead { void vfunc_1(); };
+void SeqEventVarPosDistType_252fa0::vfunc_1() { ((om::Type*)(void*)this)->om::Type::vfunc_1(); }
+
+
 
 // 0x00252fb0 FUN_00252fb0 (6 B): matches/0x00252fb0.cpp
 // sym: _FUN_00252fb0
@@ -252,7 +268,10 @@ char __cdecl target(Node* node, char* word, Checker* checker) {
 // 0x00253120 FUN_00253120 (86 B): matches/0x00253120.cpp
 // sym: ??0SeqEventVarPosDistType_253120@fn_fe1510ce@@QAE@XZ
 SeqEventVarPosDistType_253120::SeqEventVarPosDistType_253120() throw()
-    : FUN_002605e0(((FUN_00240060 *)((owners::String_23fc40 *)&(FUN_00240060()))->FUN_0023fc40("3d", (hulk_intptr)0)), FUN_002672f0("SeqEventVarPosDist", 0, 0), (int)sizeof(AudioSeqEventVarPosDist), (int)__alignof(AudioSeqEventVarPosDist)) { HULK_SIZE32(AudioSeqEventVarPosDist, 0x10); }
+    : FUN_002605e0(((FUN_00240060 *)((owners::String_23fc40 *)&(FUN_00240060()))->FUN_0023fc40("3d", (hulk_intptr)0)), FUN_002672f0("SeqEventVarPosDist", 0, 0), (int)sizeof(AudioSeqEventVarPosDist), (int)__alignof(AudioSeqEventVarPosDist)) {
+    HULK_SIZE32(AudioSeqEventVarPosDist, 0x10);
+    type.vftable = DAT_0042a0e0;
+}
 
 } // namespace fn_fe1510ce
 

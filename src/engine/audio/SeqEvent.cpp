@@ -680,7 +680,7 @@ extern "C" void FUN_00260590(List* list)
 } // namespace fn_f3ff1114
 
 // 0x002605e0 FUN_002605e0 (150 B): equivalent/0x002605e0.cpp [wrapped: conflict: audio::SeqEventType; om::Type]
-// sym: ?FUN_002605e0@SeqEventType@audio@fn_002605e0@@QAEPAV123@PBDPAXHH@Z @a51067cb3e5b @w5d2298630b2f @v78416110d0ab
+// sym: ?FUN_002605e0@SeqEventType@audio@fn_002605e0@@QAEPAU123@PBDPAXHH@Z @e2ecb9d62acf @waa93bcd91125 @vaf766373fdee
 inline void *operator new(size_t, void *p) { return p; }
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
@@ -731,15 +731,6 @@ struct String {
 extern "C++" char __cdecl FUN_002601d0(void *, void *, void *);
 
 
-namespace om {
-class Type {
-public:
-    virtual void v0();
-    unsigned int reserved04;   // records.h OmType
-    OmTypeBody body;
-    Type() {}
-};
-}
 // om::Type's constructor (0x002584d0), on a stand-in class named by its address for the native links.
 class FUN_002584d0 {
 public:
@@ -747,12 +738,9 @@ public:
 };
 
 namespace audio {
-class SeqEventType : public om::Type {
-public:
-    virtual void v0();
-    OmTreeNode node;   // records.h SeqEventTypeHead: the node, then the name
-    OmString name;
-    SeqEventType() {}
+// (audio1) the record (records.h SeqEventTypeHead: om::Type, the node, then the name), its vftable 0x0042aa7c stored by
+// address: a local polymorphic stand-in got clang's own vftable natively, whose slot had no definition.
+struct SeqEventType : SeqEventTypeHead {
     SeqEventType *FUN_002605e0(const char *name, void *b, int c, int d);
 };
 
@@ -763,7 +751,7 @@ SeqEventType *SeqEventType::FUN_002605e0(const char *name, void *b, int c, int d
     key.lo = (unsigned int)k;
     key.hi = (unsigned int)(k >> 32);
     new (this) FUN_002584d0(&key, b, c, d);
-    new (this) SeqEventType;
+    type.vftable = DAT_0042aa7c;
     ((String *)&this->name)->FUN_00240170(name);
     OmTree *tree = (*(OmTree**)&DAT_004cd380);
     if (DAT_004e7a18.count == 0 && tree) {

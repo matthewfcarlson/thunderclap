@@ -178,8 +178,22 @@ void* Target_250080::Get() {
     return (void*)((char*)this + 8);
 }
 
-// 0x002500b0 audio::SeqEventWaitType::vfunc_0 (5 B): not yet verified
-// 0x002500c0 audio::SeqEventWaitType::vfunc_1 (5 B): not yet verified
+// 0x002500b0 audio::SeqEventWaitType::vfunc_0 (5 B): matches
+// sym: ?vfunc_0@SeqEventWaitType_2500b0@fn_f0ad381b@@QAEXXZ
+// (audio1) slot 0 of audio::SeqEventWaitType: om::Type::vfunc_0 (0x002588d0), reached with a jump; a member of a
+// record view (records.h SeqEventTypeHead) called only through the game's vftable (natively a `hulk_x_` stub)
+struct SeqEventWaitType_2500b0 : SeqEventTypeHead { void vfunc_0(); };
+void SeqEventWaitType_2500b0::vfunc_0() { ((om::Type*)(void*)this)->om::Type::vfunc_0(); }
+
+
+// 0x002500c0 audio::SeqEventWaitType::vfunc_1 (5 B): matches
+// sym: ?vfunc_1@SeqEventWaitType_2500c0@fn_f0ad381b@@QAEXXZ
+// (audio1) slot 1 of audio::SeqEventWaitType: om::Type::vfunc_1 (0x002588f0), reached with a jump; a member of a
+// record view (records.h SeqEventTypeHead) called only through the game's vftable (natively a `hulk_x_` stub)
+struct SeqEventWaitType_2500c0 : SeqEventTypeHead { void vfunc_1(); };
+void SeqEventWaitType_2500c0::vfunc_1() { ((om::Type*)(void*)this)->om::Type::vfunc_1(); }
+
+
 
 // 0x002500d0 FUN_002500d0 (6 B): matches/0x002500d0.cpp
 // sym: _FUN_002500d0
@@ -289,13 +303,12 @@ int audio::SeqActionWait::vfunc_5(int ) {
 }
 
 
-// 0x00250290 FUN_00250290 (86 B): equivalent/0x00250290.cpp [wrapped: conflict: audio::SeqEventWaitType]
-// sym: ?FUN_00250290@SeqEventWaitType@audio@fn_00250290@@QAEXXZ @126891e15ac6 @w9f7899d44e64 @v0a4b37d45a86
+// 0x00250290 FUN_00250290 (86 B): matches/0x00250290.cpp [wrapped: conflict: audio::SeqEventWaitType]
+// sym: ?FUN_00250290@SeqEventWaitType@audio@fn_00250290@@QAEPAU123@XZ
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)
 namespace fn_00250290 {
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00250290 @ 0x00250290
 // Pinned prototypes of address-named globals and functions that many sources declare (docs/source-tree.md,
 // "Pinned address names"). A source includes this instead of declaring them itself; tools/migrate_gen.py
@@ -332,24 +345,27 @@ extern "C" void * __cdecl memcpy(void *, const void *, unsigned int);
 #endif
 
 struct WaitName {
-    char data[12];
+    OmString s;   // (audio1) a String (records.h OmString)
     WaitName *FUN_0023fc40(const char *, int);
     void FUN_00240060();
 };
+// (audio1) the game's vftable 0x00429b9c by address: the copy of a local polymorphic stand-in stored clang's own
+// vftable natively, whose slots had no definition.
+extern "C" char DAT_00429b9c[];
 namespace audio {
 struct SeqEventWaitType {
-    virtual void unused();
+    void* vftable;
     void FUN_002605e0(WaitName *, const U64 *, int, int);
-    void FUN_00250290();
+    SeqEventWaitType* FUN_00250290();
 };
-void SeqEventWaitType::FUN_00250290() {
+SeqEventWaitType* SeqEventWaitType::FUN_00250290() {
     HULK_SIZE32(AudioSeqEventWait, 0x14);
     U64 id = FUN_002672f0("SeqEventWait", 0, 0);
     WaitName name;
     FUN_002605e0(name.FUN_0023fc40("Wait", 0), &id, (int)sizeof(AudioSeqEventWait), (int)__alignof(AudioSeqEventWait));
     name.FUN_00240060();
-    SeqEventWaitType fresh;
-    memcpy(this, &fresh, sizeof fresh);
+    vftable = DAT_00429b9c;
+    return this;
 }
 }
 } // namespace fn_00250290

@@ -5428,7 +5428,8 @@ extern "C" const unsigned int DAT_0047aa10[1];  // zero_0047aa10
 extern "C" const unsigned int DAT_0047aa58[1];  // zero_0047aa58
 extern "C" int DAT_004c6f4c;
 extern "C" unsigned char DAT_004e36bc[12];
-extern "C" unsigned char DAT_004e36c8[16];
+// DAT_004e36c8: typed by decls/data/records.h (included above)
+extern "C" unsigned char DAT_004e36d4[4];  // unkBss_004e36d4
 
 // global/CSoundSequence.cpp
 extern "C" const char DAT_00423f44[6];  // s_d_s_00423f44
@@ -6990,7 +6991,8 @@ extern "C" unsigned char DAT_004de724[4];
 extern "C" unsigned char DAT_004de728[4];
 extern "C" unsigned char DAT_004de72c[4];
 extern "C" unsigned char DAT_004de730[8];
-extern "C" unsigned char DAT_004de738[16];
+// DAT_004de738: typed by decls/data/records.h (included above)
+extern "C" unsigned char DAT_004de744[4];  // unkBss_004de744
 extern "C" unsigned char DAT_004de748[4];
 extern "C" unsigned char DAT_004de74c[4];
 extern "C" unsigned char DAT_004de750[8];

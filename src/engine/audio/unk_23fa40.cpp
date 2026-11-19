@@ -2,6 +2,7 @@
 // object 0x0023fa40..0x00240c20 (kind game, layer engine, confidence low)
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "decls/data/records.h"
 #include "decls/data/engine/audio.h"
 #include "decls/data/engine/content.h"
 #include "decls/data/game/global.h"
@@ -131,9 +132,15 @@ struct Obj_240760 {
 };
 struct Str_2407a0 {
 };
+// (audio1) a static audio om type as its init call reads it: om::EntityType's layout (records.h OmEntityType; a 32-bit
+// pad before `handle`, its flags). Only called through, never constructed: slot 0 is the game's (the type's
+// constructor stores the game's vftable).
 struct Subsystem_2407a0 {
     virtual void init();
-    char pad04[0x68 - 4];
+    unsigned int reserved04;
+    OmTypeBody body;
+    OmTreeNode keyNode;
+    OmTreeNode flagsNode;
     int handle;
 };
 struct EntityLoader_nv_2407a0 {
@@ -539,10 +546,10 @@ owners::Thing_240170* owners::Thing_240170::FUN_00240170(hulk_intptr x) {
 
 
 // 0x00240190 FUN_00240190 (82 B): equivalent/0x00240190.cpp
-// sym: ?FUN_00240190@Text_240190@owners@@QAEPAU12@PBU12@@Z @8eeec57bd2af @w0b27987c4664 @ved6b3a28bc3e
+// sym: ?FUN_00240190@Text_240190@owners@@QAEPAU12@PBU12@@Z @8eeec57bd2af @w0b27987c4664 @vaeb7ac5ec166
 // STATUS: equivalent (tools/equiv.py level 3: 3011 inputs, branch coverage 8/8)
 // FUN_00240190 @ 0x00240190
-owners::Text_240190 *owners::Text_240190::FUN_00240190(const owners::Text_240190 *other) { if (other != this) { if (kind == 2) { short *count = (short *)(data - 4); if (*count == 1) { if (data != (*(char**)&DAT_004cc02c)) FUN_00247570(data - 8); } else --*count; } FUN_00240090(other); } return this; }
+owners::Text_240190 *owners::Text_240190::FUN_00240190(const owners::Text_240190 *other) { if (other != this) { if (kind == 2) { short *count = (short *)(data - 4); if (*count == 1) { if (data != (*(char**)&DAT_004cc02c)) FUN_00247570(data - 8); } else --*count; } ((owners::Handle_240090 *)this)->FUN_00240090((const owners::Handle_240090 *)other); } return this; }   // (audio1) the copy by its definition's name (0x00240090; Text_240190's own did not bind natively)
 
 
 // 0x002401f0 FUN_002401f0 (135 B): equivalent/0x002401f0.cpp
@@ -773,8 +780,8 @@ extern "C" hulk_intptr FUN_00240750(void) {
 // sym: _FUN_00240760
 // Same code shape as 0x000fc130 (propagated; names are from that function)
 // data: gObject_240760 = DAT_004e5ca0
-extern "C" void __cdecl FUN_00240760(unsigned int text) {
-    ((owners::Text_240190 *)((*(Obj_240760**)&DAT_004e5ca0)))->FUN_00240190((const owners::Text_240190 *)(hulk_uintptr)(unsigned int)text);
+extern "C" void __cdecl FUN_00240760(const void* text) {   // (audio1) the language String (a pointer, was unsigned int)
+    ((owners::Text_240190 *)((*(Obj_240760**)&DAT_004e5ca0)))->FUN_00240190((const owners::Text_240190 *)text);
 }
 
 
@@ -794,7 +801,7 @@ extern "C" void FUN_002407a0(unsigned int flags)
 {
     Str_2407a0 *str;
     DAT_004e5ca4 = flags;
-    void *mem = FUN_0008d690(0xc);
+    void *mem = FUN_0008d690((int)sizeof(OmString));   // (audio1) the language String (records.h; 0xc on 32-bit)
     if (mem != 0) {
         str = ((Str_2407a0 *)((owners::String_23fc40 *)(((Str_2407a0 *)mem)))->FUN_0023fc40("english", (hulk_intptr)2));
         (*(Str_2407a0**)&DAT_004e5ca0) = str;

@@ -1499,3 +1499,26 @@ blocks fight::Action's whole family: the records come first there.
 - **The allocator binding exposes the layouts of local stand-ins.** In three more TUs (SemaphoreWaitTrack_4,
   fight/WaitTrack, fight/StopTrack), calling the allocator by its C name makes the x64 gate see a 32-bit local stand-in
   inside a larger native allocation (`layout`). Those TUs stay out until their stand-ins are records.
+
+## 2026-11-18 audio1: the audio om::Type registry on records (D140, census1's B2 and S12-S17)
+- The ~25 static audio om types that 0x002407a0 initializes were built by constructors on local polymorphic
+  stand-ins: natively each stored clang's own vftable (slot 0 had no definition), one copied only 4 bytes of it
+  (null upper half: census1's "15th type"), one memcpy'd it, and two initializers constructed into `gObj`, one
+  namespace-scope name the TU used for six different objects (verify_relocs checks each block alone, so each use
+  verified against its own address). Now every constructor in the chain (om::Type 0x002584d0, om::EntityType
+  0x00243310, om::MetaEntityType 0x0025e6c0, audio::SeqEventType 0x002605e0 and 29 leaf types) works on the
+  records.h record and stores the game's vftable by address.
+- Slots 0 / 1 of the 22 audio::SeqEvent*Type classes were 5-byte `jmp om::Type::vfunc_0/1` thunks listed "not yet
+  verified": with no definition the native game vftable held `hulk_x_` stubs. They are 44 matched blocks now
+  (`void X::vfunc_0() { ((om::Type*)(void*)this)->om::Type::vfunc_0(); }`, MSVC 7.1 emits the jump).
+- om::EntityType's 32-bit `reserved48[8]` is two tree nodes (by key, by flags) whose keys the tree code read by
+  32-bit distances from the node (n - 0x18, node + 0x10); the views take the key from the record by container-of.
+- A static .data tree whose words point at its own sentinel (0x004cd1a8, the om types by key) was two items
+  natively, so `&tree->nil` was not where the links pointed and the first insert never ended. It is a records.h
+  record now, and data_gen points an initializer word into a typed record at the field (`&DAT_x[0].nilLeft`), not at
+  a 32-bit byte offset. Same for the om::Allocator objects (0x004cc200, 0x004e36c8: 12 bytes, 24 natively) and two
+  "sound/rsd" Strings.
+- The declaration-count blocks moved again with these headers (records.h, gen/om.h, the generated data headers):
+  0x002ea3c0, 0x000b86b0, 0x00027930 and 0x001a9b10 re-proved at 3,000 MSVC + `--wine` (jobs 91794-91801) and recorded
+  by `hash --proven` run on a queue host. A local `hash` in a private workspace once recorded the other code than the
+  queue's verify compiled: record these from a queue job with the final files.

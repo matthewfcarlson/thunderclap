@@ -170,8 +170,22 @@ namespace fn_fd3c3557 {
 extern void* DAT_0042a244;
 void* __cdecl FUN_00247530(void*);
 
-// 0x00253750 audio::SeqEventVarPitchType::vfunc_0 (5 B): not yet verified
-// 0x00253760 audio::SeqEventVarPitchType::vfunc_1 (5 B): not yet verified
+// 0x00253750 audio::SeqEventVarPitchType::vfunc_0 (5 B): matches
+// sym: ?vfunc_0@SeqEventVarPitchType_253750@fn_fd3c3557@@QAEXXZ
+// (audio1) slot 0 of audio::SeqEventVarPitchType: om::Type::vfunc_0 (0x002588d0), reached with a jump; a member of a
+// record view (records.h SeqEventTypeHead) called only through the game's vftable (natively a `hulk_x_` stub)
+struct SeqEventVarPitchType_253750 : SeqEventTypeHead { void vfunc_0(); };
+void SeqEventVarPitchType_253750::vfunc_0() { ((om::Type*)(void*)this)->om::Type::vfunc_0(); }
+
+
+// 0x00253760 audio::SeqEventVarPitchType::vfunc_1 (5 B): matches
+// sym: ?vfunc_1@SeqEventVarPitchType_253760@fn_fd3c3557@@QAEXXZ
+// (audio1) slot 1 of audio::SeqEventVarPitchType: om::Type::vfunc_1 (0x002588f0), reached with a jump; a member of a
+// record view (records.h SeqEventTypeHead) called only through the game's vftable (natively a `hulk_x_` stub)
+struct SeqEventVarPitchType_253760 : SeqEventTypeHead { void vfunc_1(); };
+void SeqEventVarPitchType_253760::vfunc_1() { ((om::Type*)(void*)this)->om::Type::vfunc_1(); }
+
+
 
 // 0x00253770 FUN_00253770 (6 B): matches/0x00253770.cpp
 // sym: _FUN_00253770

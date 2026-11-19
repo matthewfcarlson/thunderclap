@@ -76,15 +76,17 @@ struct RbTree_241cf0 {
     RbNode_241cf0* root;
     RbNode_241cf0 nil;
 };
-class FUN_00243310 {
+// (audio1) om::EntityType's constructor (0x00243310, named by its address) on the record (records.h OmEntityType);
+// the type's constructor stores its vftable 0x004290b8 by address (local polymorphic stand-ins got clang's own
+// vftables natively, whose slots had no definition).
+extern "C" char DAT_004290b8[];
+class FUN_00243310 : public OmEntityType {
   public:
-    virtual void f();
     FUN_00243310(const unsigned __int64*, const unsigned __int64*, int, int, int);
 };
 class MixType_242010 : public FUN_00243310 {
   public:
     MixType_242010();
-    virtual void f();
 };
 
 
@@ -599,6 +601,9 @@ extern "C" void FUN_00241cf0(RbTree_241cf0* tree, RbNode_241cf0* x)
 // sym: ??0MixType_242010@fn_f58f7e9f@@QAE@XZ
 // data: mixName = DAT_0042422c, otherName = DAT_004290c4
 // The base constructor is om::EntityType's (0x00243310), named by its address for the native links.
-MixType_242010::MixType_242010() : FUN_00243310(&(const unsigned __int64&)FUN_002672f0(((char*)&DAT_004290c4), 0, 0), &(const unsigned __int64&)FUN_002672f0(((char*)&DAT_0042422c), 0, 0), 0x1000002, (int)sizeof(AudioMix), 8) { HULK_SIZE32(AudioMix, 0x50); }
+MixType_242010::MixType_242010() : FUN_00243310(&(const unsigned __int64&)FUN_002672f0(((char*)&DAT_004290c4), 0, 0), &(const unsigned __int64&)FUN_002672f0(((char*)&DAT_0042422c), 0, 0), 0x1000002, (int)sizeof(AudioMix), 8) {
+    HULK_SIZE32(AudioMix, 0x50);
+    type.vftable = DAT_004290b8;
+}
 
 } // namespace fn_f58f7e9f

@@ -688,7 +688,7 @@ void Request::FUN_001ea700() {
 
 
 // 0x001ea8b0 FUN_001ea8b0 (603 B): equivalent/0x001ea8b0.cpp [wrapped: conflict: CSoundResourceManager; Closure1; Method1]
-// sym: ?FUN_001ea8b0@CSoundResourceManager@fn_001ea8b0@@QAEHH@Z @ad01fa1cb94d @w51f753705d8f @vd03db81ea7d5
+// sym: ?FUN_001ea8b0@CSoundResourceManager@fn_001ea8b0@@QAEHH@Z @ad01fa1cb94d @w51f753705d8f @v4b156265c9a3
 namespace fn_001ea8b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 1920 inputs, branch coverage 10/10)
 // FUN_001ea8b0 @ 0x001ea8b0
@@ -765,7 +765,6 @@ struct SoundConfig {
     int size;
     int chunk;
     char pad[0x20];
-    int FUN_0023fc40(const char *lang, int flags);
     void FUN_00240060();
 };
 
@@ -783,9 +782,9 @@ struct Fx_1ea8b0 {
 extern "C" void *FUN_00263ed0(unsigned int size, int kind);
 extern "C" void FUN_002474f0(void *p);
 extern "C" void FUN_002407a0(int v);
-extern "C" void FUN_00241390(SoundConfig *cfg, int zero);
+extern "C" void FUN_00241390(SoundConfig *cfg, void *message);   // (audio1) as defined: the message a pointer (int: garbage upper half natively)
 void FUN_00240e00(float v);
-void FUN_00240760(int v);
+extern "C" void FUN_00240760(const void* text);   // (audio1) as defined (unk_23fa40.cpp): the language String, a pointer
 extern "C" int FUN_001e91c0();
 
 class CSoundResourceManager {
@@ -814,7 +813,9 @@ int CSoundResourceManager::FUN_001ea8b0(int arg)
     FUN_00241390(&cfg, 0);
     FUN_00240e00(1.0f);
     DAT_004e36a4 = 2075528.0f;
-    FUN_00240760(cfg.FUN_0023fc40("english", 0));
+    // (audio1) the String's constructor as defined (owners::String_23fc40, 0x0023fc40): it returns the String (int
+    // truncated it and did not bind natively)
+    FUN_00240760(((owners::String_23fc40 *)&cfg)->FUN_0023fc40("english", 0));
     cfg.FUN_00240060();
 
     void *raw = FUN_00263ed0(HULK_LOADINVENTORY_SIZE, 6);

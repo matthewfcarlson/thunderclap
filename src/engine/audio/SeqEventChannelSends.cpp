@@ -52,15 +52,17 @@ class FUN_00240060 {
     ~FUN_00240060() throw();
     char pad[12];
 };
-class FUN_002605e0 {
+// (audio1) audio::SeqEventType's constructor (0x002605e0, named by its address) on the record (records.h
+// SeqEventTypeHead); the type's constructor stores its vftable 0x00429a2c by address (local polymorphic stand-ins
+// got clang's own vftables natively, whose slots had no definition).
+extern "C" char DAT_00429a2c[];
+class FUN_002605e0 : public SeqEventTypeHead {
   public:
     FUN_002605e0(FUN_00240060*, const __int64&, int, int) throw();
-    virtual void v0();
 };
 class SeqEventChannelSendsType_24f950 : public FUN_002605e0 {
   public:
     SeqEventChannelSendsType_24f950();
-    virtual void v0();
 };
 typedef unsigned int u32_24f9d0;
 extern "C" u32_24f9d0 __cdecl FUN_002673a0(const char*, int);
@@ -121,8 +123,22 @@ namespace fn_f2b964a3 {
 extern "C" void * __cdecl FUN_00247530(void *);
 struct Channel_24fb80 { void FUN_0025dc20(audio::SeqActionChannelSends_24fb80 *); };
 
-// 0x0024f7f0 audio::SeqEventChannelSendsType::vfunc_0 (5 B): not yet verified
-// 0x0024f800 audio::SeqEventChannelSendsType::vfunc_1 (5 B): not yet verified
+// 0x0024f7f0 audio::SeqEventChannelSendsType::vfunc_0 (5 B): matches
+// sym: ?vfunc_0@SeqEventChannelSendsType_24f7f0@fn_f2b964a3@@QAEXXZ
+// (audio1) slot 0 of audio::SeqEventChannelSendsType: om::Type::vfunc_0 (0x002588d0), reached with a jump; a member of a
+// record view (records.h SeqEventTypeHead) called only through the game's vftable (natively a `hulk_x_` stub)
+struct SeqEventChannelSendsType_24f7f0 : SeqEventTypeHead { void vfunc_0(); };
+void SeqEventChannelSendsType_24f7f0::vfunc_0() { ((om::Type*)(void*)this)->om::Type::vfunc_0(); }
+
+
+// 0x0024f800 audio::SeqEventChannelSendsType::vfunc_1 (5 B): matches
+// sym: ?vfunc_1@SeqEventChannelSendsType_24f800@fn_f2b964a3@@QAEXXZ
+// (audio1) slot 1 of audio::SeqEventChannelSendsType: om::Type::vfunc_1 (0x002588f0), reached with a jump; a member of a
+// record view (records.h SeqEventTypeHead) called only through the game's vftable (natively a `hulk_x_` stub)
+struct SeqEventChannelSendsType_24f800 : SeqEventTypeHead { void vfunc_1(); };
+void SeqEventChannelSendsType_24f800::vfunc_1() { ((om::Type*)(void*)this)->om::Type::vfunc_1(); }
+
+
 
 // 0x0024f810 FUN_0024f810 (6 B): matches/0x0024f810.cpp
 // sym: _FUN_0024f810
@@ -209,7 +225,10 @@ namespace fn_f2b964a3 {
 // 0x0024f950 FUN_0024f950 (89 B): matches/0x0024f950.cpp
 // sym: ??0SeqEventChannelSendsType_24f950@fn_f2b964a3@@QAE@XZ
 SeqEventChannelSendsType_24f950::SeqEventChannelSendsType_24f950()
-    : FUN_002605e0(FUN_00240060().FUN_0023fc40("ChSends", 0), FUN_002672f0("SeqEventChannelSends", 0, 0), (int)sizeof(AudioSeqEventChannelSends), (int)__alignof(AudioSeqEventChannelSends)) { HULK_SIZE32(AudioSeqEventChannelSends, 0x10c); }
+    : FUN_002605e0(FUN_00240060().FUN_0023fc40("ChSends", 0), FUN_002672f0("SeqEventChannelSends", 0, 0), (int)sizeof(AudioSeqEventChannelSends), (int)__alignof(AudioSeqEventChannelSends)) {
+    HULK_SIZE32(AudioSeqEventChannelSends, 0x10c);
+    type.vftable = DAT_00429a2c;
+}
 
 } // namespace fn_f2b964a3
 

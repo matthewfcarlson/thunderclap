@@ -711,6 +711,10 @@ class SeqEventType : public ::om::Type {
 public:
     virtual ~SeqEventType(); // slot 2
     virtual void* vfunc_3() = 0; // slot 3
+    // (audio1) the words of decls/data/records.h SeqEventTypeHead: the node in the tree of sequence event types by name,
+    // the name (a String)
+    struct { void* left; void* right; void* parent; int color; } f_48;
+    struct { char* data; unsigned short capacity, pad, length; } f_58;
 };
 
 // .?AVSeqEventChannelSendVolumesType@audio@@  vftable 0x42992c (4)

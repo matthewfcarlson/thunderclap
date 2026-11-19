@@ -220,11 +220,15 @@ struct OmType {
     OmTypeBody body;                        // +0x08
 };
 
-// om::EntityType (0x00243310; om::MetaEntityType 0x0025e6c0 adds nothing): om::Type, then the entity flags. The
-// static objects are 8-aligned (their .bss items keep the 4 bytes after the class).
+// om::EntityType (0x00243310; om::MetaEntityType 0x0025e6c0 adds nothing): om::Type, then its nodes in the two trees
+// of entity types and the entity flags. om::EntityType::vfunc_0 (0x00244d70) inserts the type in the tree by key
+// (0x004cc084 points at it: 0x00244230 inserts, 0x00244610 removes) and in the tree by flags (0x004cc088: 0x00244430 /
+// 0x002446d0); each tree's key is read from the type the node belongs to. The static objects are 8-aligned (their
+// .bss items keep the 4 bytes after the class).
 struct __declspec(align(8)) OmEntityType {
     OmType type;
-    unsigned int reserved48[8];             // +0x48 (no reference found)
+    OmTreeNode keyNode;                     // +0x48 the node in the tree by key (type.body.key)
+    OmTreeNode flagsNode;                   // +0x58 the node in the tree by flags
     int flags;                              // +0x68 (0x01000002 audio::MixType, 0x01000100 the listener effects)
 };
 
@@ -245,6 +249,34 @@ struct __declspec(align(8)) SeqEventTypeHead {  // (8-aligned as OmEntityType)
 };
 
 extern "C" OmTree DAT_004e7a18;             // the sequence event types by name (count: the number constructed)
+
+// (audio1) The tree of om types by key (0x004cd1a8; 0x00258530 inserts, 0x00258730 removes, 0x00258870 finds): an
+// OmTree without the count, empty in the image (the root and the sentinel's links point at the sentinel). Written as
+// flat words, OmTree's layout on both builds (data_gen lays out records of simple fields; it points the words at
+// the `nilLeft` field, the sentinel): as two items the native words pointed at an item the code did not reach as
+// `&tree->nil`, and the first insert never met the sentinel.
+struct OmTypeTree {
+    OmTreeNode* root;                       // +0x00
+    OmTreeNode* nilLeft;                    // +0x04 the sentinel node (OmTreeNode: left, right, parent, color)
+    OmTreeNode* nilRight;                   // +0x08
+    OmTreeNode* nilParent;                  // +0x0c
+    int nilColor;                           // +0x10
+};
+
+extern "C" OmTypeTree DAT_004cd1a8[1];
+
+// (audio1) om::Allocator (0x002475c0 constructs one): its vftable 0x00429254, then the allocate and free functions the
+// om allocator calls through DAT_004cc1fc (0x00247530 / 0x00247550: allocate(allocator, type), free(allocator, type,
+// instance)). The default one 0x004cc200 (0x002474c0 / 0x002474e0) and the sound resource manager's 0x004e36c8
+// (0x001e8800 / 0x001e8830). 12 bytes on the 32-bit builds, 24 on 64-bit (the 16-byte .bss item overran natively).
+struct OmAllocator {
+    const void* vftable;                    // +0x00
+    void (*allocate)();                     // +0x04
+    void (*release)();                      // +0x08
+};
+
+extern "C" OmAllocator DAT_004cc200[1];
+extern "C" OmAllocator DAT_004e36c8[1];
 
 // The static om types of the audio start-up (initializers 0x0035f300-0x00361700 construct them, the exit handlers
 // 0x00364150-0x00364760 destroy them; their pools hand out the instances). The .bss items that held several of them
@@ -1733,6 +1765,9 @@ struct StringRecord_23fc40 {
 extern "C" StringRecord_23fc40 DAT_004dd260[1];
 extern "C" StringRecord_23fc40 DAT_004dd6f4[1];
 extern "C" StringRecord_23fc40 DAT_004de608[1];
+// (audio1) two more "sound/rsd" Strings (0x0035dc10 / 0x0035e340 construct them, 0x00363e50 / 0x00363f30 free them)
+extern "C" StringRecord_23fc40 DAT_004de738[1];
+extern "C" StringRecord_23fc40 DAT_004e0eb4[1];
 
 // (x64t14) An event counter and a sound-bank path string: 0x001effc0 counts the events it fires in the word, the
 // start-up initializer 0x0035ee10 builds "sound/rsd" in the string at +4 (owners::String_23fc40) and its atexit handler

@@ -51,15 +51,17 @@ class TypeT_24d6b0 {
     TypeT_24d6b0();
 };
 typedef unsigned __int64 U64_24d7d0;
-class FUN_0025e6c0 {
+// (audio1) om::MetaEntityType's constructor (0x0025e6c0, named by its address) on the record (records.h
+// OmEntityType); the type's constructor stores its vftable 0x00429474 by address (local polymorphic stand-ins got
+// clang's own vftables natively, whose slots had no definition).
+extern "C" char DAT_00429474[];
+class FUN_0025e6c0 : public OmEntityType {
   public:
     FUN_0025e6c0(const U64_24d7d0*, const U64_24d7d0*, unsigned int, int, int);
-    virtual void f();
 };
 class ListenerEffectXBoxType : public FUN_0025e6c0 {
   public:
     ListenerEffectXBoxType();
-    virtual void f();
 };
 struct EffectRegistry;
 } // namespace fn_f8a82533
@@ -203,7 +205,9 @@ namespace fn_f8a82533 {
 // 0x0024d7d0 FUN_0024d7d0 (92 B): matches/0x0024d7d0.cpp
 // sym: ??0ListenerEffectXBoxType@fn_f8a82533@@QAE@XZ
 ListenerEffectXBoxType::ListenerEffectXBoxType()
-    : FUN_0025e6c0(&(const U64_24d7d0&)FUN_002672f0("Data_Effect", 0, 0), &(const U64_24d7d0&)FUN_002672f0("ListenerEffectXBox", 0, 0), 0x1000100, 0x58, 8) {}
+    : FUN_0025e6c0(&(const U64_24d7d0&)FUN_002672f0("Data_Effect", 0, 0), &(const U64_24d7d0&)FUN_002672f0("ListenerEffectXBox", 0, 0), 0x1000100, 0x58, 8) {
+    type.vftable = DAT_00429474;
+}
 
 
 // 0x0024d830 audio::ListenerEffectXBoxType::vfunc_3 (6 B): matches/0x0024d830.cpp

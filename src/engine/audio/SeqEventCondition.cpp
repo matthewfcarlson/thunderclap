@@ -82,8 +82,22 @@ class Receiver {
 };
 }
 
-// 0x0024fc30 audio::SeqEventConditionType::vfunc_0 (5 B): not yet verified
-// 0x0024fc40 audio::SeqEventConditionType::vfunc_1 (5 B): not yet verified
+// 0x0024fc30 audio::SeqEventConditionType::vfunc_0 (5 B): matches
+// sym: ?vfunc_0@SeqEventConditionType_24fc30@@QAEXXZ
+// (audio1) slot 0 of audio::SeqEventConditionType: om::Type::vfunc_0 (0x002588d0), reached with a jump; a member of a
+// record view (records.h SeqEventTypeHead) called only through the game's vftable (natively a `hulk_x_` stub)
+struct SeqEventConditionType_24fc30 : SeqEventTypeHead { void vfunc_0(); };
+void SeqEventConditionType_24fc30::vfunc_0() { ((om::Type*)(void*)this)->om::Type::vfunc_0(); }
+
+
+// 0x0024fc40 audio::SeqEventConditionType::vfunc_1 (5 B): matches
+// sym: ?vfunc_1@SeqEventConditionType_24fc40@@QAEXXZ
+// (audio1) slot 1 of audio::SeqEventConditionType: om::Type::vfunc_1 (0x002588f0), reached with a jump; a member of a
+// record view (records.h SeqEventTypeHead) called only through the game's vftable (natively a `hulk_x_` stub)
+struct SeqEventConditionType_24fc40 : SeqEventTypeHead { void vfunc_1(); };
+void SeqEventConditionType_24fc40::vfunc_1() { ((om::Type*)(void*)this)->om::Type::vfunc_1(); }
+
+
 namespace fn_f150b671 {
 
 // 0x0024fc50 FUN_0024fc50 (6 B): matches/0x0024fc50.cpp
@@ -128,20 +142,25 @@ class FUN_00240060 {
     FUN_00240060* FUN_0023fc40(const char*, int) throw();
     ~FUN_00240060() throw();
 };
+// (audio1) audio::SeqEventType's constructor (0x002605e0, named by its address) on the record (records.h
+// SeqEventTypeHead); the type's constructor stores its vftable 0x00429ad4 by address (local polymorphic stand-ins
+// got clang's own vftables natively, whose slots had no definition).
+extern "C" char DAT_00429ad4[];
 namespace audio {
-class FUN_002605e0 {
+class FUN_002605e0 : public SeqEventTypeHead {
   public:
-    virtual void V();
     FUN_002605e0(FUN_00240060*, const __int64*, int, int) throw();
 };
 class SeqEventConditionType : public FUN_002605e0 {
   public:
-    virtual void V();
     SeqEventConditionType() throw();
 };
 } // namespace audio
 audio::SeqEventConditionType::SeqEventConditionType() throw()
-    : FUN_002605e0(FUN_00240060().FUN_0023fc40(DAT_00429ae4, 0), &(__int64 const&)FUN_002672f0(DAT_00429aec, 0, 0), (int)sizeof(AudioSeqEventCondition), (int)__alignof(AudioSeqEventCondition)) { HULK_SIZE32(AudioSeqEventCondition, 0x20); }
+    : FUN_002605e0(FUN_00240060().FUN_0023fc40(DAT_00429ae4, 0), &(__int64 const&)FUN_002672f0(DAT_00429aec, 0, 0), (int)sizeof(AudioSeqEventCondition), (int)__alignof(AudioSeqEventCondition)) {
+    HULK_SIZE32(AudioSeqEventCondition, 0x20);
+    type.vftable = DAT_00429ad4;
+}
 } // namespace fn_0024fd10
 
 

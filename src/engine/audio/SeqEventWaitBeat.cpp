@@ -43,13 +43,15 @@ struct FUN_00240060 {
     FUN_00240060* FUN_0023fc40(const char*, int) throw();
     ~FUN_00240060() throw();
 };
-struct FUN_002605e0 {
-    virtual void vf();
+// (audio1) audio::SeqEventType's constructor (0x002605e0, named by its address) on the record (records.h
+// SeqEventTypeHead); the type's constructor stores its vftable 0x00429c0c by address (local polymorphic stand-ins
+// got clang's own vftables natively, whose slots had no definition).
+extern "C" char DAT_00429c0c[];
+struct FUN_002605e0 : SeqEventTypeHead {
     FUN_002605e0(FUN_00240060*, const __int64&, int, int) throw();
 };
 struct SeqEventWaitBeatType : FUN_002605e0 {
     SeqEventWaitBeatType();
-    virtual void vf();
 };
 } // namespace fn_f289a90f
 namespace audio {
@@ -101,8 +103,22 @@ void* Obj_2504e0::Get() {
     return (char*)this + 8;
 }
 
-// 0x00250520 audio::SeqEventWaitBeatType::vfunc_0 (5 B): not yet verified
-// 0x00250530 audio::SeqEventWaitBeatType::vfunc_1 (5 B): not yet verified
+// 0x00250520 audio::SeqEventWaitBeatType::vfunc_0 (5 B): matches
+// sym: ?vfunc_0@SeqEventWaitBeatType_250520@fn_f289a90f@@QAEXXZ
+// (audio1) slot 0 of audio::SeqEventWaitBeatType: om::Type::vfunc_0 (0x002588d0), reached with a jump; a member of a
+// record view (records.h SeqEventTypeHead) called only through the game's vftable (natively a `hulk_x_` stub)
+struct SeqEventWaitBeatType_250520 : SeqEventTypeHead { void vfunc_0(); };
+void SeqEventWaitBeatType_250520::vfunc_0() { ((om::Type*)(void*)this)->om::Type::vfunc_0(); }
+
+
+// 0x00250530 audio::SeqEventWaitBeatType::vfunc_1 (5 B): matches
+// sym: ?vfunc_1@SeqEventWaitBeatType_250530@fn_f289a90f@@QAEXXZ
+// (audio1) slot 1 of audio::SeqEventWaitBeatType: om::Type::vfunc_1 (0x002588f0), reached with a jump; a member of a
+// record view (records.h SeqEventTypeHead) called only through the game's vftable (natively a `hulk_x_` stub)
+struct SeqEventWaitBeatType_250530 : SeqEventTypeHead { void vfunc_1(); };
+void SeqEventWaitBeatType_250530::vfunc_1() { ((om::Type*)(void*)this)->om::Type::vfunc_1(); }
+
+
 
 // 0x00250540 FUN_00250540 (6 B): matches/0x00250540.cpp
 // sym: _FUN_00250540
@@ -241,7 +257,10 @@ extern "C" int __cdecl FUN_00250640(char **buffer, int value, Context *context) 
 // 0x002506d0 FUN_002506d0 (86 B): matches/0x002506d0.cpp
 // sym: ??0SeqEventWaitBeatType@fn_f289a90f@@QAE@XZ
 SeqEventWaitBeatType::SeqEventWaitBeatType()
-    : FUN_002605e0(FUN_00240060().FUN_0023fc40("Beat", 0), FUN_002672f0("SeqEventWaitBeat", 0, 0), (int)sizeof(AudioSeqEventWaitBeat), (int)__alignof(AudioSeqEventWaitBeat)) { HULK_SIZE32(AudioSeqEventWaitBeat, 0x14); }
+    : FUN_002605e0(FUN_00240060().FUN_0023fc40("Beat", 0), FUN_002672f0("SeqEventWaitBeat", 0, 0), (int)sizeof(AudioSeqEventWaitBeat), (int)__alignof(AudioSeqEventWaitBeat)) {
+    HULK_SIZE32(AudioSeqEventWaitBeat, 0x14);
+    type.vftable = DAT_00429c0c;
+}
 
 } // namespace fn_f289a90f
 

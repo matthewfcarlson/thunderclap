@@ -157,8 +157,22 @@ extern "C" void __cdecl FUN_002613b0(void *tree, Key *key, void *name) throw();
 extern "C" Index_24e870 *__cdecl FUN_00247810(Context *c) throw();
 unsigned int __cdecl FUN_002673a0(unsigned int v, int flags) throw();
 
-// 0x0024e520 audio::SeqEventNestTrackType::vfunc_0 (5 B): not yet verified
-// 0x0024e530 audio::SeqEventNestTrackType::vfunc_1 (5 B): not yet verified
+// 0x0024e520 audio::SeqEventNestTrackType::vfunc_0 (5 B): matches
+// sym: ?vfunc_0@SeqEventNestTrackType_24e520@fn_f724be52@@QAEXXZ
+// (audio1) slot 0 of audio::SeqEventNestTrackType: om::Type::vfunc_0 (0x002588d0), reached with a jump; a member of a
+// record view (records.h SeqEventTypeHead) called only through the game's vftable (natively a `hulk_x_` stub)
+struct SeqEventNestTrackType_24e520 : SeqEventTypeHead { void vfunc_0(); };
+void SeqEventNestTrackType_24e520::vfunc_0() { ((om::Type*)(void*)this)->om::Type::vfunc_0(); }
+
+
+// 0x0024e530 audio::SeqEventNestTrackType::vfunc_1 (5 B): matches
+// sym: ?vfunc_1@SeqEventNestTrackType_24e530@fn_f724be52@@QAEXXZ
+// (audio1) slot 1 of audio::SeqEventNestTrackType: om::Type::vfunc_1 (0x002588f0), reached with a jump; a member of a
+// record view (records.h SeqEventTypeHead) called only through the game's vftable (natively a `hulk_x_` stub)
+struct SeqEventNestTrackType_24e530 : SeqEventTypeHead { void vfunc_1(); };
+void SeqEventNestTrackType_24e530::vfunc_1() { ((om::Type*)(void*)this)->om::Type::vfunc_1(); }
+
+
 
 // 0x0024e540 FUN_0024e540 (6 B): matches/0x0024e540.cpp
 // sym: _FUN_0024e540

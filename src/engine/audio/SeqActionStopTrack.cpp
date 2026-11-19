@@ -97,15 +97,17 @@ class FUN_00240060 {
     FUN_00240060* FUN_0023fc40(const char*, int) throw();
     ~FUN_00240060() throw();
 };
-class FUN_002605e0 {
+// (audio1) audio::SeqEventType's constructor (0x002605e0, named by its address) on the record (records.h
+// SeqEventTypeHead); the type's constructor stores its vftable 0x00429d38 by address (local polymorphic stand-ins
+// got clang's own vftables natively, whose slots had no definition).
+extern "C" char DAT_00429d38[];
+class FUN_002605e0 : public SeqEventTypeHead {
   public:
     FUN_002605e0(FUN_00240060*, const Arg&, int, int) throw();
-    virtual void f();
 };
 class SeqEventStopTrackType_250f60 : public FUN_002605e0 {
   public:
     SeqEventStopTrackType_250f60();
-    virtual void f();
 };
 extern "C" char DAT_00429d1c[];
 typedef unsigned int u32_250fe0;
@@ -159,8 +161,22 @@ extern "C" Item* FUN_00249600(Node_251170* n, Item* it);
 extern "C" void FUN_00247b30(Mgr_251170* m, Item* it, Pair_251170* p, int z);
 Node_251170* FUN_002495e0(Mgr_251170* m, Node_251170* n);
 
-// 0x00250d90 audio::SeqEventStopTrackType::vfunc_0 (5 B): not yet verified
-// 0x00250da0 audio::SeqEventStopTrackType::vfunc_1 (5 B): not yet verified
+// 0x00250d90 audio::SeqEventStopTrackType::vfunc_0 (5 B): matches
+// sym: ?vfunc_0@SeqEventStopTrackType_250d90@fn_fe889925@@QAEXXZ
+// (audio1) slot 0 of audio::SeqEventStopTrackType: om::Type::vfunc_0 (0x002588d0), reached with a jump; a member of a
+// record view (records.h SeqEventTypeHead) called only through the game's vftable (natively a `hulk_x_` stub)
+struct SeqEventStopTrackType_250d90 : SeqEventTypeHead { void vfunc_0(); };
+void SeqEventStopTrackType_250d90::vfunc_0() { ((om::Type*)(void*)this)->om::Type::vfunc_0(); }
+
+
+// 0x00250da0 audio::SeqEventStopTrackType::vfunc_1 (5 B): matches
+// sym: ?vfunc_1@SeqEventStopTrackType_250da0@fn_fe889925@@QAEXXZ
+// (audio1) slot 1 of audio::SeqEventStopTrackType: om::Type::vfunc_1 (0x002588f0), reached with a jump; a member of a
+// record view (records.h SeqEventTypeHead) called only through the game's vftable (natively a `hulk_x_` stub)
+struct SeqEventStopTrackType_250da0 : SeqEventTypeHead { void vfunc_1(); };
+void SeqEventStopTrackType_250da0::vfunc_1() { ((om::Type*)(void*)this)->om::Type::vfunc_1(); }
+
+
 
 // 0x00250db0 FUN_00250db0 (6 B): matches/0x00250db0.cpp
 // sym: _FUN_00250db0
@@ -275,7 +291,10 @@ extern "C" bool FUN_00250ef0(Obj_250ef0* p, hulk_intptr arg, unsigned char* ch) 
 
 // 0x00250f60 FUN_00250f60 (86 B): matches/0x00250f60.cpp
 // sym: ??0SeqEventStopTrackType_250f60@fn_fe889925@@QAE@XZ
-SeqEventStopTrackType_250f60::SeqEventStopTrackType_250f60() : FUN_002605e0(FUN_00240060().FUN_0023fc40("Stop", 0), Arg(), (int)sizeof(AudioSeqEventStopTrack), (int)__alignof(AudioSeqEventStopTrack)) { HULK_SIZE32(AudioSeqEventStopTrack, 0x20); }
+SeqEventStopTrackType_250f60::SeqEventStopTrackType_250f60() : FUN_002605e0(FUN_00240060().FUN_0023fc40("Stop", 0), Arg(), (int)sizeof(AudioSeqEventStopTrack), (int)__alignof(AudioSeqEventStopTrack)) {
+    HULK_SIZE32(AudioSeqEventStopTrack, 0x20);
+    type.vftable = DAT_00429d38;
+}
 
 } // namespace fn_fe889925
 

@@ -67,7 +67,7 @@ class SeqAction_254730 {
     virtual void f6();
 };
 struct Id64 { unsigned int low, high; };
-struct Temp { char data[32];   };
+struct Temp { OmString s; };   // (audio1) the name, a String (records.h OmString; 32 bytes was a guess)
 } // namespace fn_f967ffb0
 extern "C" Id64 __cdecl FUN_002672f0(const char*, int, int);
 inline void* operator new(size_t, void* place) { return place; }
@@ -91,8 +91,22 @@ class SeqActionSilence_254920 {
     SeqActionSilence_254920* f0(unsigned char flags);
 };
 
-// 0x00254620 audio::SeqEventSilenceType::vfunc_0 (5 B): not yet verified
-// 0x00254630 audio::SeqEventSilenceType::vfunc_1 (5 B): not yet verified
+// 0x00254620 audio::SeqEventSilenceType::vfunc_0 (5 B): matches
+// sym: ?vfunc_0@SeqEventSilenceType_254620@fn_f967ffb0@@QAEXXZ
+// (audio1) slot 0 of audio::SeqEventSilenceType: om::Type::vfunc_0 (0x002588d0), reached with a jump; a member of a
+// record view (records.h SeqEventTypeHead) called only through the game's vftable (natively a `hulk_x_` stub)
+struct SeqEventSilenceType_254620 : SeqEventTypeHead { void vfunc_0(); };
+void SeqEventSilenceType_254620::vfunc_0() { ((om::Type*)(void*)this)->om::Type::vfunc_0(); }
+
+
+// 0x00254630 audio::SeqEventSilenceType::vfunc_1 (5 B): matches
+// sym: ?vfunc_1@SeqEventSilenceType_254630@fn_f967ffb0@@QAEXXZ
+// (audio1) slot 1 of audio::SeqEventSilenceType: om::Type::vfunc_1 (0x002588f0), reached with a jump; a member of a
+// record view (records.h SeqEventTypeHead) called only through the game's vftable (natively a `hulk_x_` stub)
+struct SeqEventSilenceType_254630 : SeqEventTypeHead { void vfunc_1(); };
+void SeqEventSilenceType_254630::vfunc_1() { ((om::Type*)(void*)this)->om::Type::vfunc_1(); }
+
+
 
 // 0x00254640 FUN_00254640 (6 B): matches/0x00254640.cpp
 // sym: _FUN_00254640
@@ -179,17 +193,18 @@ int audio::SeqActionSilence::vfunc_5(int ) {
 }
 
 
-// 0x00254760 FUN_00254760 (86 B): equivalent/0x00254760.cpp
-// sym: ?FUN_00254760@SeqEventSilenceType@audio@@QAEPAV12@XZ @b125f6c2118d @wb352b892ab25 @vdab25537cd9d
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// 0x00254760 FUN_00254760 (86 B): matches/0x00254760.cpp
+// sym: ?FUN_00254760@SeqEventSilenceType@audio@@QAEPAV12@XZ
 // FUN_00254760 @ 0x00254760
+extern "C" char DAT_0042a328[];   // (audio1) audio::SeqEventSilenceType's vftable
 audio::SeqEventSilenceType* audio::SeqEventSilenceType::FUN_00254760() {
     HULK_SIZE32(AudioSeqEventSilence, 0x10);
     Id64 id = FUN_002672f0("SeqEventSilence", 0, 0);
     Temp temp;
     ((SeqEventSilenceType_nv_254760*)this)->FUN_002605e0(((Temp *)((owners::String_23fc40 *)&temp)->FUN_0023fc40("Silnce", (hulk_intptr)0)), &id, (int)sizeof(AudioSeqEventSilence), (int)__alignof(AudioSeqEventSilence));
     ((owners::Str_240060 *)&temp)->FUN_00240060();
-    new (this) audio::SeqEventSilenceType;
+    *(const void**)this = DAT_0042a328;   // (audio1) the game's vftable by address (placement new of gen's class
+                                           // stored clang's own natively, whose slots had no definition)
     return (audio::SeqEventSilenceType*)(this);
 }
 

@@ -73,15 +73,17 @@ class FUN_00240060 {
   public:
     ~FUN_00240060() throw();
 };
-class FUN_002605e0 {
+// (audio1) audio::SeqEventType's constructor (0x002605e0, named by its address) on the record (records.h
+// SeqEventTypeHead); the type's constructor stores its vftable 0x00429fc8 by address (local polymorphic stand-ins
+// got clang's own vftables natively, whose slots had no definition).
+extern "C" char DAT_00429fc8[];
+class FUN_002605e0 : public SeqEventTypeHead {
   public:
     FUN_002605e0(FUN_00240060*, const U64&, int, int) throw();
-    virtual void v();
 };
 class SeqEventVarVolumeType_2528b0 : public FUN_002605e0 {
   public:
     SeqEventVarVolumeType_2528b0() throw();
-    virtual void v();
 };
 typedef unsigned int u32_252930;
 } // namespace fn_fa65be09
@@ -133,8 +135,22 @@ class SeqActionVarVolume_252a20 : public audio::SeqAction {
     SeqActionVarVolume_252a20* vfunc_0(int);
 };
 
-// 0x00252780 audio::SeqEventVarVolumeType::vfunc_0 (5 B): not yet verified
-// 0x00252790 audio::SeqEventVarVolumeType::vfunc_1 (5 B): not yet verified
+// 0x00252780 audio::SeqEventVarVolumeType::vfunc_0 (5 B): matches
+// sym: ?vfunc_0@SeqEventVarVolumeType_252780@fn_fa65be09@@QAEXXZ
+// (audio1) slot 0 of audio::SeqEventVarVolumeType: om::Type::vfunc_0 (0x002588d0), reached with a jump; a member of a
+// record view (records.h SeqEventTypeHead) called only through the game's vftable (natively a `hulk_x_` stub)
+struct SeqEventVarVolumeType_252780 : SeqEventTypeHead { void vfunc_0(); };
+void SeqEventVarVolumeType_252780::vfunc_0() { ((om::Type*)(void*)this)->om::Type::vfunc_0(); }
+
+
+// 0x00252790 audio::SeqEventVarVolumeType::vfunc_1 (5 B): matches
+// sym: ?vfunc_1@SeqEventVarVolumeType_252790@fn_fa65be09@@QAEXXZ
+// (audio1) slot 1 of audio::SeqEventVarVolumeType: om::Type::vfunc_1 (0x002588f0), reached with a jump; a member of a
+// record view (records.h SeqEventTypeHead) called only through the game's vftable (natively a `hulk_x_` stub)
+struct SeqEventVarVolumeType_252790 : SeqEventTypeHead { void vfunc_1(); };
+void SeqEventVarVolumeType_252790::vfunc_1() { ((om::Type*)(void*)this)->om::Type::vfunc_1(); }
+
+
 
 // 0x002527a0 FUN_002527a0 (6 B): matches/0x002527a0.cpp
 // sym: _FUN_002527a0
@@ -235,7 +251,10 @@ namespace fn_fa65be09 {
 // 0x002528b0 FUN_002528b0 (86 B): matches/0x002528b0.cpp
 // sym: ??0SeqEventVarVolumeType_2528b0@fn_fa65be09@@QAE@XZ
 SeqEventVarVolumeType_2528b0::SeqEventVarVolumeType_2528b0() throw()
-    : FUN_002605e0(((FUN_00240060 *)((owners::String_23fc40 *)&(FUN_00240060()))->FUN_0023fc40("Vol", (hulk_intptr)0)), FUN_002672f0("SeqEventVarVolume", 0, 0), (int)sizeof(AudioSeqEventVarVolume), (int)__alignof(AudioSeqEventVarVolume)) { HULK_SIZE32(AudioSeqEventVarVolume, 0xc); }
+    : FUN_002605e0(((FUN_00240060 *)((owners::String_23fc40 *)&(FUN_00240060()))->FUN_0023fc40("Vol", (hulk_intptr)0)), FUN_002672f0("SeqEventVarVolume", 0, 0), (int)sizeof(AudioSeqEventVarVolume), (int)__alignof(AudioSeqEventVarVolume)) {
+    HULK_SIZE32(AudioSeqEventVarVolume, 0xc);
+    type.vftable = DAT_00429fc8;
+}
 
 } // namespace fn_fa65be09
 

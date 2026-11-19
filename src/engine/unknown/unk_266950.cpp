@@ -180,7 +180,7 @@ class Item_266f90 {
     virtual void f5();
     virtual void f6();
     virtual void f7();
-    virtual bool Test(int);
+    virtual bool Test(void*);   // (audio1) slot 8: does the allocator own the block (a pointer, was int)
 };
 struct Node {
     Item_266f90* item;
@@ -455,7 +455,7 @@ extern "C" Node_266f50* FUN_00266f50(Node_266f50* node, void* arg) {
 
 // 0x00266f90 FUN_00266f90 (62 B): matches/0x00266f90.cpp
 // sym: _FUN_00266f90
-extern "C" Node* FUN_00266f90(Node* node, int arg) {
+extern "C" Node* FUN_00266f90(Node* node, void* arg) {   // (audio1) the block a pointer (int truncated it natively)
     while (node != 0) {
         if (node->item->Test(arg)) {
             Node* found = FUN_00266f90(node->child, arg);

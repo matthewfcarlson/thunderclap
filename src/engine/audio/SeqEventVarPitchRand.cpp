@@ -97,8 +97,22 @@ namespace audio {
 extern Rand* hulk_at_004e5acc;
 }
 
-// 0x00253370 audio::SeqEventVarPitchRandType::vfunc_0 (5 B): not yet verified
-// 0x00253380 audio::SeqEventVarPitchRandType::vfunc_1 (5 B): not yet verified
+// 0x00253370 audio::SeqEventVarPitchRandType::vfunc_0 (5 B): matches
+// sym: ?vfunc_0@SeqEventVarPitchRandType_253370@@QAEXXZ
+// (audio1) slot 0 of audio::SeqEventVarPitchRandType: om::Type::vfunc_0 (0x002588d0), reached with a jump; a member of a
+// record view (records.h SeqEventTypeHead) called only through the game's vftable (natively a `hulk_x_` stub)
+struct SeqEventVarPitchRandType_253370 : SeqEventTypeHead { void vfunc_0(); };
+void SeqEventVarPitchRandType_253370::vfunc_0() { ((om::Type*)(void*)this)->om::Type::vfunc_0(); }
+
+
+// 0x00253380 audio::SeqEventVarPitchRandType::vfunc_1 (5 B): matches
+// sym: ?vfunc_1@SeqEventVarPitchRandType_253380@@QAEXXZ
+// (audio1) slot 1 of audio::SeqEventVarPitchRandType: om::Type::vfunc_1 (0x002588f0), reached with a jump; a member of a
+// record view (records.h SeqEventTypeHead) called only through the game's vftable (natively a `hulk_x_` stub)
+struct SeqEventVarPitchRandType_253380 : SeqEventTypeHead { void vfunc_1(); };
+void SeqEventVarPitchRandType_253380::vfunc_1() { ((om::Type*)(void*)this)->om::Type::vfunc_1(); }
+
+
 namespace fn_f3b07bfc {
 
 // 0x00253390 FUN_00253390 (6 B): matches/0x00253390.cpp

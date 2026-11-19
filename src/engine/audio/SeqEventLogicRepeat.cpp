@@ -79,8 +79,22 @@ struct SeqEventLogicRepeat_254dd0 {
     void vfunc_2(Receiver* receiver);
 };
 
-// 0x00254a50 audio::SeqEventLogicRepeatType::vfunc_0 (5 B): not yet verified
-// 0x00254a60 audio::SeqEventLogicRepeatType::vfunc_1 (5 B): not yet verified
+// 0x00254a50 audio::SeqEventLogicRepeatType::vfunc_0 (5 B): matches
+// sym: ?vfunc_0@SeqEventLogicRepeatType_254a50@fn_f524576d@@QAEXXZ
+// (audio1) slot 0 of audio::SeqEventLogicRepeatType: om::Type::vfunc_0 (0x002588d0), reached with a jump; a member of a
+// record view (records.h SeqEventTypeHead) called only through the game's vftable (natively a `hulk_x_` stub)
+struct SeqEventLogicRepeatType_254a50 : SeqEventTypeHead { void vfunc_0(); };
+void SeqEventLogicRepeatType_254a50::vfunc_0() { ((om::Type*)(void*)this)->om::Type::vfunc_0(); }
+
+
+// 0x00254a60 audio::SeqEventLogicRepeatType::vfunc_1 (5 B): matches
+// sym: ?vfunc_1@SeqEventLogicRepeatType_254a60@fn_f524576d@@QAEXXZ
+// (audio1) slot 1 of audio::SeqEventLogicRepeatType: om::Type::vfunc_1 (0x002588f0), reached with a jump; a member of a
+// record view (records.h SeqEventTypeHead) called only through the game's vftable (natively a `hulk_x_` stub)
+struct SeqEventLogicRepeatType_254a60 : SeqEventTypeHead { void vfunc_1(); };
+void SeqEventLogicRepeatType_254a60::vfunc_1() { ((om::Type*)(void*)this)->om::Type::vfunc_1(); }
+
+
 
 // 0x00254a70 FUN_00254a70 (6 B): matches/0x00254a70.cpp
 // sym: _FUN_00254a70

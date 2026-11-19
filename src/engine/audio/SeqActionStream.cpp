@@ -171,13 +171,15 @@ struct FUN_00240060 {
     FUN_00240060* FUN_0023fc40(const char*, int) throw();
     ~FUN_00240060() throw();
 };
-struct FUN_002605e0 {
+// (audio1) audio::SeqEventType's constructor (0x002605e0, named by its address) on the record (records.h
+// SeqEventTypeHead); the type's constructor stores its vftable 0x0042a284 by address (local polymorphic stand-ins
+// got clang's own vftables natively, whose slots had no definition).
+extern "C" char DAT_0042a284[];
+struct FUN_002605e0 : SeqEventTypeHead {
     FUN_002605e0(FUN_00240060*, const __int64&, int, int) throw();
-    virtual void foo();
 };
 struct SeqEventStreamType : FUN_002605e0 {
     SeqEventStreamType();
-    virtual void foo();
 };
 class Helper_254160 {
   public:
@@ -296,8 +298,22 @@ Thing::Thing(char* s) {
     value = second_002672f0(buf, 0, 0);
 }
 
-// 0x00253c30 audio::SeqEventStreamType::vfunc_0 (5 B): not yet verified
-// 0x00253c40 audio::SeqEventStreamType::vfunc_1 (5 B): not yet verified
+// 0x00253c30 audio::SeqEventStreamType::vfunc_0 (5 B): matches
+// sym: ?vfunc_0@SeqEventStreamType_253c30@fn_f902c78b@@QAEXXZ
+// (audio1) slot 0 of audio::SeqEventStreamType: om::Type::vfunc_0 (0x002588d0), reached with a jump; a member of a
+// record view (records.h SeqEventTypeHead) called only through the game's vftable (natively a `hulk_x_` stub)
+struct SeqEventStreamType_253c30 : SeqEventTypeHead { void vfunc_0(); };
+void SeqEventStreamType_253c30::vfunc_0() { ((om::Type*)(void*)this)->om::Type::vfunc_0(); }
+
+
+// 0x00253c40 audio::SeqEventStreamType::vfunc_1 (5 B): matches
+// sym: ?vfunc_1@SeqEventStreamType_253c40@fn_f902c78b@@QAEXXZ
+// (audio1) slot 1 of audio::SeqEventStreamType: om::Type::vfunc_1 (0x002588f0), reached with a jump; a member of a
+// record view (records.h SeqEventTypeHead) called only through the game's vftable (natively a `hulk_x_` stub)
+struct SeqEventStreamType_253c40 : SeqEventTypeHead { void vfunc_1(); };
+void SeqEventStreamType_253c40::vfunc_1() { ((om::Type*)(void*)this)->om::Type::vfunc_1(); }
+
+
 
 // 0x00253c50 FUN_00253c50 (6 B): matches/0x00253c50.cpp
 // sym: _FUN_00253c50
@@ -495,7 +511,10 @@ char work(char** text, const char* value, Handler* handler) {
 
 // 0x002540a0 FUN_002540a0 (86 B): matches/0x002540a0.cpp
 // sym: ??0SeqEventStreamType@fn_f902c78b@@QAE@XZ
-SeqEventStreamType::SeqEventStreamType() : FUN_002605e0(FUN_00240060().FUN_0023fc40("Stream", 0), FUN_002672f0("SeqEventStream", 0, 0), (int)sizeof(AudioSeqEventStream), (int)__alignof(AudioSeqEventStream)) { HULK_SIZE32(AudioSeqEventStream, 0x20); }
+SeqEventStreamType::SeqEventStreamType() : FUN_002605e0(FUN_00240060().FUN_0023fc40("Stream", 0), FUN_002672f0("SeqEventStream", 0, 0), (int)sizeof(AudioSeqEventStream), (int)__alignof(AudioSeqEventStream)) {
+    HULK_SIZE32(AudioSeqEventStream, 0x20);
+    type.vftable = DAT_0042a284;
+}
 
 } // namespace fn_f902c78b
 

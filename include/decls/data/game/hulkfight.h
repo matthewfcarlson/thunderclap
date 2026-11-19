@@ -19,6 +19,7 @@ typedef const void* const* hulk_vftable_ptr;  // a pointer to a vftable
 
 struct DataLayout_004a9bb4;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_004c8098;  // packed layout (bytes and pointers), defined in the data TU
+#include "decls/data/records.h"
 
 // hulkfight/GameStateCondition.cpp
 extern "C" const char DAT_004111d0[4];  // s_day_004111d0
@@ -166,7 +167,7 @@ extern "C" unsigned char DAT_004e0ea4[4];
 extern "C" int DAT_004e0ea8;
 extern "C" unsigned char DAT_004e0eac[4];
 extern "C" int DAT_004e0eb0;
-extern "C" unsigned char DAT_004e0eb4[12];
+// DAT_004e0eb4: typed by decls/data/records.h (included above)
 
 // hulkfight/PostEvent_StringTrack.cpp
 extern "C" const char DAT_00411198[7];  // s_unique_00411198

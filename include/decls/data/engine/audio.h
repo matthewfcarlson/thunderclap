@@ -537,8 +537,7 @@ extern "C" const unsigned int DAT_004808fc[1];  // zero_004808fc
 
 // audio/unk_2474c0.cpp
 extern "C" const void* DAT_004cc1fc;  // PTR_004cc1fc
-extern "C" hulk_vftable_ptr DAT_004cc200;  // PTR_004cc200
-extern "C" hulk_code_ptr DAT_004cc204[2];  // ptrTbl_004cc204
+// DAT_004cc200: typed by decls/data/records.h (included above)
 extern "C" unsigned char DAT_004e5f88[8];
 extern "C" unsigned char DAT_004e5f90[8];
 

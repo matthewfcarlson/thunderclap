@@ -2,6 +2,7 @@
 // object 0x00243360..0x00245370 (kind game, layer engine, confidence high), dominant class om::EntityType
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "decls/data/records.h"
 #include "decls/data/engine/om.h"
 #include "decls/data/game/unknown.h"
 #include "gen/audio.h"
@@ -1034,7 +1035,7 @@ bool Object::FUN_00244110(Writer_244110* writer, Properties_244110* properties) 
 } // namespace fn_f7032cca
 
 // 0x00244230 FUN_00244230 (504 B): equivalent/0x00244230.cpp [wrapped: conflict: Node]
-// sym: ?FUN_00244230@fn_00244230@@YA_NPAUTree_244230@1@PAUItem_244230@1@PBUKey_244230@1@@Z @73e692255a6a @wbc48db87ff62
+// sym: ?FUN_00244230@fn_00244230@@YA_NPAUTree_244230@1@PAUItem_244230@1@PBUKey_244230@1@@Z @73e692255a6a @wa8881ee207ba @va6b14c43b8fc
 namespace fn_00244230 {
 // STATUS: equivalent (tools/equiv.py level 3: 106 inputs, branch coverage 51/52, incomplete)
 // FUN_00244230 @ 0x00244230
@@ -1050,12 +1051,9 @@ struct Key_244230 {
     unsigned hi;
 };
 
-struct Item_244230 {
-    char pad0[0x30];
-    Key_244230 key;
-    char pad38[0x48 - 0x38];
-    Node node;
-};
+// (audio1) the entity type (records.h OmEntityType): its node in the tree by key, the key in its om::Type (32-bit pads
+// and a node 0x18 bytes past the key before)
+struct Item_244230 : OmEntityType {};
 
 struct Tree_244230 {
     Node* root;
@@ -1067,14 +1065,15 @@ void __cdecl FUN_002435f0(Tree_244230* tree, Node* n);  // rotate right
 
 static inline const Key_244230* KeyOf(const Node* n)
 {
-    return (const Key_244230*)((const char*)n - 0x18);
+    const Item_244230* item = (const Item_244230*)((const char*)n - (hulk_intptr) & ((Item_244230*)0)->keyNode);
+    return (const Key_244230*)&item->type.body.key;
 }
 
 // Unique insert of item (keyed by a 64-bit key) into an intrusive red-black tree.
 bool __cdecl FUN_00244230(Tree_244230* tree, Item_244230* item, const Key_244230* key)
 {
     Node* nil = &tree->nil;
-    Node* added = &item->node;
+    Node* added = (Node*)&item->keyNode;
     Node* x = tree->root;
     Node* y = nil;
 
@@ -1179,7 +1178,7 @@ bool __cdecl FUN_00244230(Tree_244230* tree, Item_244230* item, const Key_244230
 
 
 // 0x00244430 FUN_00244430 (470 B): equivalent/0x00244430.cpp [wrapped: conflict: Node]
-// sym: _FUN_00244430 @fad261faa7cf @w48b45eb4f3ad @v512682ae1753
+// sym: _FUN_00244430 @fad261faa7cf @w4546be904cb2 @vcdb4e885db97
 namespace fn_00244430 {
 // STATUS: equivalent (tools/equiv.py level 3: 169 inputs, branch coverage 39/40, incomplete)
 // FUN_00244430 @ 0x00244430
@@ -1188,13 +1187,15 @@ struct Node {
     Node* right;
     Node* parent;
     int color;
-    int key;
 };
 
-struct Entry_244430 {
-    char pad[0x58];
-    Node link;
-};
+// (audio1) the entity type (records.h OmEntityType): its node in the tree by flags, the key its flags (a 32-bit pad
+// and a key word read as the node's fifth before)
+struct Entry_244430 : OmEntityType {};
+static inline int KeyOf(const Node* n)
+{
+    return ((const Entry_244430*)((const char*)n - (hulk_intptr) & ((Entry_244430*)0)->flagsNode))->flags;
+}
 
 struct Tree_244430 {
     Node* root;
@@ -1210,12 +1211,12 @@ extern "C" char FUN_00244430(void * tree_, void * entry_, const int* keyPtr)
     Tree_244430 * tree = (Tree_244430 *)tree_;
     Entry_244430 * entry = (Entry_244430 *)entry_;
     Node* nil = &tree->nil;
-    Node* node = &entry->link;
+    Node* node = (Node*)&entry->flagsNode;
     Node* cur = tree->root;
     Node* parent = nil;
 
     while (cur != nil) {
-        int diff = *keyPtr - cur->key;
+        int diff = *keyPtr - KeyOf(cur);
         parent = cur;
         if (diff < 0) {
             cur = cur->left;
@@ -1229,7 +1230,7 @@ extern "C" char FUN_00244430(void * tree_, void * entry_, const int* keyPtr)
     node->parent = parent;
     if (parent == nil) {
         tree->root = node;
-    } else if (*keyPtr - parent->key < 0) {
+    } else if (*keyPtr - KeyOf(parent) < 0) {
         parent->left = node;
     } else {
         parent->right = node;
@@ -1318,7 +1319,7 @@ namespace fn_00244610 {
 // FUN_00244610 @ 0x00244610
 struct Node { Node *left; Node *right; Node *parent; unsigned color; };
 struct Tree_244610 { Node *root; Node sentinel; };
-struct Object { char padding[0x48]; Node node; };
+struct Object : OmEntityType {};   // (audio1) records.h: its node in the tree by key (a 32-bit pad before)
 Node *__cdecl FUN_00243720(Tree_244610 *, Node *);
 extern "C++" void __cdecl FUN_00243760(void *, void *);
 extern "C" void __cdecl FUN_00244610(void * tree_, void * object_)
@@ -1326,7 +1327,7 @@ extern "C" void __cdecl FUN_00244610(void * tree_, void * object_)
     Tree_244610 * tree = (Tree_244610 *)tree_;
     Object * object = (Object *)object_;
     Node *nil = &tree->sentinel;
-    Node *removed = &object->node;
+    Node *removed = (Node *)&object->keyNode;
     Node *replacement = removed;
     if (removed->left != nil && removed->right != nil)
         replacement = FUN_00243720(tree, removed);
@@ -1375,7 +1376,7 @@ struct Node {
 Node* FUN_002439c0(Node*, Node*);
 extern "C++" void __cdecl FUN_00243a00(void *, void *);
 void FUN_002446d0(Node* n, Node* tree) {
-    Node *s = (Node*)((char*)&n->b), *base = (Node*)((char*)tree + 0x58), *x;
+    Node *s = (Node*)((char*)&n->b), *base = (Node*)&((OmEntityType*)tree)->flagsNode, *x;
     if (base->a != s && base->b != s)
         x = FUN_002439c0(n, base);
     else
@@ -1827,8 +1828,8 @@ unsigned char __cdecl Target(hulk_intptr a, unsigned long* out) {
 
 } // namespace fn_f7032cca
 
-// 0x00244d70 om::EntityType::vfunc_0 (105 B): equivalent/0x00244d70.cpp [wrapped: conflict: om::EntityType]
-// sym: ?vfunc_0@EntityType@om@fn_00244d70@@UAEXXZ @89ed12358803 @wa8bb89d13f45 @v61ad57fe25c5
+// 0x00244d70 om::EntityType::vfunc_0 (105 B): equivalent/0x00244d70.cpp
+// sym: ?vfunc_0@EntityType@om@@UAEXXZ @89ed12358803 @w60433ecb6383 @v57344c409393
 namespace fn_00244d70 {
 // STATUS: equivalent (tools/equiv.py level 3: 65 inputs, branch coverage 6/6)
 // om::EntityType::vfunc_0 @ 0x00244d70
@@ -1846,21 +1847,14 @@ struct ListHead_244d70 {
 };
 
 
-namespace om {
-class EntityType {
-public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-
-    char pad0[0x30 - 4];
-    char blockA[0x38];
-    char blockB[1];
-};
-}
-
-void FUN_00244230(ListHead_244d70 *head, om::EntityType *type, void *block);
+void FUN_00244230(ListHead_244d70 *head, void *type, void *block);
 extern "C++" char __cdecl FUN_00244430(void *, void *, const int *);
+} // namespace fn_00244d70
 
+// (audio1) gen's om::EntityType's slot, defined under its own name: om::MetaEntityType::vfunc_0 (0x0025e740) calls it
+// (a local stand-in class's name in its own namespace did not bind natively)
+using fn_00244d70::ListHead_244d70;
+using fn_00244d70::ListNode;
 void om::EntityType::vfunc_0()
 {
     ListHead_244d70 *a = (*(ListHead_244d70**)&DAT_004cc084);
@@ -1885,11 +1879,12 @@ void om::EntityType::vfunc_0()
         }
     }
 
-    FUN_00244230(a, this, blockA);
-    FUN_00244430((ListHead_244d70 *)b, (om :: EntityType *)this, (const int *)(void *)blockB);
+    // (audio1) the keys on the record (records.h OmEntityType): the type's own key and its flags (32-bit pads before)
+    OmEntityType *self = (OmEntityType *)(void *)this;
+    fn_00244d70::FUN_00244230(a, this, &self->type.body.key);
+    fn_00244d70::FUN_00244430((ListHead_244d70 *)b, this, &self->flags);
     (*(int*)&DAT_004e5f10)++;
 }
-} // namespace fn_00244d70
 
 
 // 0x00244de0 om::EntityType::vfunc_1 (44 B): matches/0x00244de0.cpp

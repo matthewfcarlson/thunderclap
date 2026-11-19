@@ -23,12 +23,12 @@ struct Obj_267070 {
     virtual void e();
     virtual void f();
     virtual void g();
-    virtual void h(int);
+    virtual void h(void*);   // (audio1) slot 7, the aligned free: the block (a pointer, was int)
 };
 struct Handle_267070 {
     Obj_267070* p;
 };
-extern "C" Handle_267070* __cdecl FUN_00266f90(void*, int);
+extern "C" Handle_267070* __cdecl FUN_00266f90(void*, void*);
 struct Obj_267090 {
     virtual void f0();
     virtual void f1();
@@ -81,7 +81,7 @@ namespace fn_f03133a3 {
 
 // 0x00267070 FUN_00267070 (29 B): matches/0x00267070.cpp
 // sym: _FUN_00267070
-extern "C" void __cdecl FUN_00267070(int x) {
+extern "C" void __cdecl FUN_00267070(void* x) {   // (audio1) the block a pointer (int truncated it natively)
     Handle_267070* h = FUN_00266f90((void*)((hulk_intptr)((char*)&DAT_00527f40)), x);
     h->p->h(x);
 }

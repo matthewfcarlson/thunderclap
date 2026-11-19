@@ -206,7 +206,6 @@ typedef unsigned long long U64_35db50;
 typedef unsigned long long U64_35dbd0;
 typedef unsigned __int64 int64_35dbf0;
 extern "C" void __cdecl FUN_00363e50();
-extern Obj gObj;
 extern int g_a;
 extern int g_b;
 struct Band {
@@ -2972,7 +2971,7 @@ void FUN_0035dbf0() {
 // 0x0035dc10 FUN_0035dc10 (29 B): matches/0x0035dc10.cpp
 // sym: ?initSound@fn_f1ddef39@@YAXXZ
 void initSound() {
-    ((owners::String_23fc40 *)&gObj)->FUN_0023fc40("sound/rsd", (hulk_intptr)0);
+    ((owners::String_23fc40 *)&DAT_004de738)->FUN_0023fc40("sound/rsd", (hulk_intptr)0);   // (audio1) the String at 0x4de738 (`gObj` named six objects)
     atexit(FUN_00363e50);
 }
 
@@ -3577,7 +3576,7 @@ namespace fn_f1ddef39 {
 // 0x0035e340 FUN_0035e340 (29 B): matches/0x0035e340.cpp
 // sym: ?FUN_0035e340@fn_f1ddef39@@YAXXZ
 void FUN_0035e340() {
-    ((owners::String_23fc40 *)&gObj)->FUN_0023fc40("sound/rsd", (hulk_intptr)0);
+    ((owners::String_23fc40 *)&DAT_004e0eb4)->FUN_0023fc40("sound/rsd", (hulk_intptr)0);   // (audio1) the String at 0x4e0eb4 (`gObj` named six objects)
     _atexit(FUN_00363f30);
 }
 
@@ -5495,7 +5494,7 @@ void FUN_0035fc70() {
 // 0x0035fca0 FUN_0035fca0 (22 B): matches/0x0035fca0.cpp
 // sym: ?FUN_0035fca0@fn_f1ddef39@@YAXXZ
 void FUN_0035fca0() {
-    gObj.FUN_0024e670();
+    (*(Obj*)&DAT_004e6698).FUN_0024e670();   // (audio1) audio::SeqEventNestTrackType's object (records.h; `gObj` named six objects)
     atexit(FUN_00364350);
 }
 
@@ -6066,7 +6065,7 @@ void __cdecl FUN_003605a0() {
 // 0x00360600 FUN_00360600 (22 B): matches/0x00360600.cpp
 // sym: ?FUN_00360600@fn_f1ddef39@@YAXXZ
 void __cdecl FUN_00360600() {
-    gObj.FUN_002524e0();
+    (*(Obj*)&DAT_004e6e28).FUN_002524e0();   // (audio1) audio::SeqEventVarVolumeRandType's object (records.h; `gObj` named six objects)
     atexit(FUN_003644b0);
 }
 
@@ -10400,7 +10399,7 @@ extern "C" void FUN_003645f0() {
 // 0x00364600 FUN_00364600 (10 B): matches/0x00364600.cpp
 // sym: ?FUN_00364600@fn_f1ddef39@@YAXXZ
 void FUN_00364600() {
-    gObj.Run_002580e0();
+    (*(Obj*)&DAT_004e7570).Run_002580e0();   // (audio1) the om type at 0x004e7570 (records.h; `gObj` named six objects)
 }
 
 
@@ -10472,7 +10471,7 @@ extern "C" void __cdecl FUN_00364690() {
 // 0x003646a0 FUN_003646a0 (10 B): matches/0x003646a0.cpp
 // sym: _FUN_003646a0
 extern "C" void FUN_003646a0() {
-    gObj.Run_002580e0();
+    (*(Obj*)&DAT_004e7850).Run_002580e0();   // (audio1) the om type at 0x004e7850 (records.h; `gObj` named six objects)
 }
 
 

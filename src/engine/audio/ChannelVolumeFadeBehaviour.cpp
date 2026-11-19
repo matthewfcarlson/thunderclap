@@ -109,8 +109,22 @@ void* __fastcall FUN_00251850(Sub_251850* self) {
     return (char*)self + 0x1c;
 }
 
-// 0x002518b0 audio::SeqEventChannelVolumesType::vfunc_0 (5 B): not yet verified
-// 0x002518c0 audio::SeqEventChannelVolumesType::vfunc_1 (5 B): not yet verified
+// 0x002518b0 audio::SeqEventChannelVolumesType::vfunc_0 (5 B): matches
+// sym: ?vfunc_0@SeqEventChannelVolumesType_2518b0@fn_f5ef859b@@QAEXXZ
+// (audio1) slot 0 of audio::SeqEventChannelVolumesType: om::Type::vfunc_0 (0x002588d0), reached with a jump; a member of a
+// record view (records.h SeqEventTypeHead) called only through the game's vftable (natively a `hulk_x_` stub)
+struct SeqEventChannelVolumesType_2518b0 : SeqEventTypeHead { void vfunc_0(); };
+void SeqEventChannelVolumesType_2518b0::vfunc_0() { ((om::Type*)(void*)this)->om::Type::vfunc_0(); }
+
+
+// 0x002518c0 audio::SeqEventChannelVolumesType::vfunc_1 (5 B): matches
+// sym: ?vfunc_1@SeqEventChannelVolumesType_2518c0@fn_f5ef859b@@QAEXXZ
+// (audio1) slot 1 of audio::SeqEventChannelVolumesType: om::Type::vfunc_1 (0x002588f0), reached with a jump; a member of a
+// record view (records.h SeqEventTypeHead) called only through the game's vftable (natively a `hulk_x_` stub)
+struct SeqEventChannelVolumesType_2518c0 : SeqEventTypeHead { void vfunc_1(); };
+void SeqEventChannelVolumesType_2518c0::vfunc_1() { ((om::Type*)(void*)this)->om::Type::vfunc_1(); }
+
+
 
 // 0x002518d0 FUN_002518d0 (6 B): matches/0x002518d0.cpp
 // sym: _FUN_002518d0
@@ -213,13 +227,12 @@ hulk_intptr Object::FUN_00251ad0() { Block *p = FUN_00247530(FUN_002477f0()); if
 
 } // namespace fn_f5ef859b
 
-// 0x00251b40 FUN_00251b40 (86 B): equivalent/0x00251b40.cpp [wrapped: conflict: audio::SeqEventChannelVolumesType]
-// sym: ?FUN_00251b40@SeqEventChannelVolumesType@audio@fn_00251b40@@QAEPAU123@XZ @d03d9587240c @wdfa61429e595 @v9c4fde35a350
+// 0x00251b40 FUN_00251b40 (86 B): matches/0x00251b40.cpp [wrapped: conflict: audio::SeqEventChannelVolumesType]
+// sym: ?FUN_00251b40@SeqEventChannelVolumesType@audio@fn_00251b40@@QAEPAU123@XZ
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)
 namespace fn_00251b40 {
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00251b40 @ 0x00251b40
 // FUN_00251b40 @ 0x00251b40
 // Pinned prototypes of address-named globals and functions that many sources declare (docs/source-tree.md,
@@ -252,14 +265,17 @@ char FUN_001d04d0(const void* typeInfo);                      // type_info test 
 
 typedef __int64 Int64;
 struct ChannelValue {
-    char data[12];
+    OmString s;   // (audio1) a String (records.h OmString)
     // equiv-conv: FUN_0023fc40 ecx stack stack
     ChannelValue *FUN_0023fc40(const char *, int);
     void FUN_00240060();
 };
+// (audio1) the game's vftable 0x00429e5c by address: a 4-byte copy of a local polymorphic stand-in's stored half of
+// clang's own vftable pointer natively.
+extern "C" char DAT_00429e5c[];
 namespace audio {
 struct SeqEventChannelVolumesType {
-    virtual void placeholder();
+    void* vftable;
     // equiv-conv: FUN_002605e0 ecx stack stack stack stack
     void FUN_002605e0(ChannelValue *, const Int64 *, int, int);
     SeqEventChannelVolumesType *FUN_00251b40();
@@ -269,11 +285,9 @@ audio::SeqEventChannelVolumesType *audio::SeqEventChannelVolumesType::FUN_00251b
     HULK_SIZE32(AudioSeqEventChannelVolumes, 0x20);
     Int64 value = FUN_002672f0("SeqEventChannelVolumes", 0, 0);
     ChannelValue channel;
-    ChannelValue *result = channel.FUN_0023fc40("ChVol", 0);
-    FUN_002605e0(result, &value, (int)sizeof(AudioSeqEventChannelVolumes), (int)__alignof(AudioSeqEventChannelVolumes));
+    FUN_002605e0(channel.FUN_0023fc40("ChVol", 0), &value, (int)sizeof(AudioSeqEventChannelVolumes), (int)__alignof(AudioSeqEventChannelVolumes));
     channel.FUN_00240060();
-    SeqEventChannelVolumesType marker;
-    *(unsigned int *)this = *(unsigned int *)&marker;
+    vftable = DAT_00429e5c;
     return this;
 }
 } // namespace fn_00251b40

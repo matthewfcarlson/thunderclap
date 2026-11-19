@@ -156,19 +156,17 @@ struct Pool_2431a0 {
     char *buf;
 };
 typedef unsigned __int64 U64_243310;
-class FUN_002584d0 {
-  public:
-    virtual void f();
-    unsigned int reserved04;
-    OmTypeBody body;
+// (audio1) om::Type's constructor (0x002584d0, named by its address) on the record (records.h OmType), and
+// om::EntityType's on OmEntityType's fields, its vftable 0x00429114 stored by address: local polymorphic stand-ins got
+// clang's own vftables natively, whose slots had no definition.
+struct FUN_002584d0 : OmType {
     FUN_002584d0(const OmKey*, const OmKey*, int, int);
 };
-class EntityType : public FUN_002584d0 {
-  public:
+struct EntityType : FUN_002584d0 {
     EntityType(const U64_243310*, const U64_243310*, int, int, int);
-    unsigned int reserved48[8];
+    OmTreeNode keyNode;     // records.h OmEntityType
+    OmTreeNode flagsNode;
     int value;
-    virtual void f();
 };
 void __fastcall FUN_002580e0(CEffectStopTrack*);
 
@@ -1067,7 +1065,10 @@ Pool_2431a0 *FUN_002431a0(Pool_2431a0 *p, char *buf, unsigned int total, unsigne
 // (records.h OmEntityType). The base class is named by its constructor's address so that the native links bind the
 // call by address; the two keys are passed by address (the callers' references).
 EntityType::EntityType(const U64_243310* a, const U64_243310* b, int c, int d, int e)
-    : FUN_002584d0((const OmKey*)a, (const OmKey*)b, d, e), value(c) {}
+    : FUN_002584d0((const OmKey*)a, (const OmKey*)b, d, e) {
+    vftable = DAT_00429114;
+    value = c;
+}
 
 
 // 0x00243350 FUN_00243350 (11 B): matches/0x00243350.cpp

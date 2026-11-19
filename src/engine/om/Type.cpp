@@ -39,11 +39,10 @@ struct RbTree_258230 {
     RbNode_258230* root;
     RbNode_258230 nil;
 };
-class Type {
-  public:
-    virtual void Fnf_002588d0();
-    unsigned int reserved04;
-    OmTypeBody body;
+// (audio1) om::Type's constructor on the record (records.h OmType), its vftable 0x0042a6ac stored by address: a local
+// polymorphic stand-in got clang's own vftable natively, whose slot had no definition.
+extern "C" char DAT_0042a6ac[];   // om::Type's vftable
+struct Type : OmType {
     Type(const OmKey* baseKey, const OmKey* key, int size, int align);
 };
 void __cdecl FUN_00258140(OmTree* tree, OmTreeNode* n);
@@ -301,6 +300,7 @@ extern "C" void FUN_00258230(void * tree_, void * x_)
 // om::Type's constructor: the two type keys, an instance's size and alignment (records.h OmType: the class has the
 // record's layout on both builds).
 Type::Type(const OmKey* baseKey, const OmKey* key, int size, int align) {
+    vftable = DAT_0042a6ac;
     body.baseKey = *baseKey;
     body.key = *key;
     body.size = size;

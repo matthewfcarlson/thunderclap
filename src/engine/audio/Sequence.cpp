@@ -483,20 +483,25 @@ namespace fn_00256c20 {
 
 typedef unsigned __int64 U64_256c20;
 extern "C" U64_256c20 __cdecl FUN_002672f0(const char*, int, int);
-class FUN_00243310 {
+// (audio1) om::EntityType's constructor (0x00243310, named by its address) on the record (records.h OmEntityType);
+// the type's constructor stores its vftable 0x0042a614 by address (local polymorphic stand-ins got clang's own
+// vftables natively, whose slots had no definition).
+extern "C" char DAT_0042a614[];
+class FUN_00243310 : public OmEntityType {
   public:
     FUN_00243310(const U64_256c20&, const U64_256c20&, int, int, int);
-    virtual void f();
 };
 namespace audio {
 class SequenceType : public FUN_00243310 {
   public:
     SequenceType();
-    virtual void f();
 };
 } // namespace audio
 audio::SequenceType::SequenceType()
-    : FUN_00243310(FUN_002672f0(DAT_0042a620, 0, 0), FUN_002672f0(DAT_0042a630, 0, 0), 0x1000001, (int)sizeof(AudioSequence), 8) { HULK_SIZE32(AudioSequence, 0x58); }
+    : FUN_00243310(FUN_002672f0(DAT_0042a620, 0, 0), FUN_002672f0(DAT_0042a630, 0, 0), 0x1000001, (int)sizeof(AudioSequence), 8) {
+    HULK_SIZE32(AudioSequence, 0x58);
+    type.vftable = DAT_0042a614;
+}
 } // namespace fn_00256c20
 
 namespace fn_f06eb07d {

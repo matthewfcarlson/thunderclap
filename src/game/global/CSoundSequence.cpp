@@ -77,7 +77,7 @@ struct LevelKeys {
 };
 extern "C" void *FUN_0008d6d0(unsigned int size);
 } // namespace fn_f9e85a4e
-unsigned __int64 FUN_002672f0(const char *s, unsigned __int64 seed);
+extern "C" unsigned __int64 __cdecl FUN_002672f0(const char *s, unsigned int low, unsigned int high);   // (audio1) as defined (unk_267280.cpp): the C spelling, the seed as two words (a C++ spelling did not bind natively)
 namespace fn_f9e85a4e {
 struct Counted_1e9680 {
     char pad0[0xc];
@@ -301,7 +301,7 @@ CSoundSequence_1e9180* CSoundSequence_1e9180::f2(unsigned char flag) {
 
 
 // 0x001e91c0 FUN_001e91c0 (1018 B): equivalent/0x001e91c0.cpp
-// sym: _FUN_001e91c0 @213cd0493c86 @wa39a811f1f89 @vcf349a3f076d
+// sym: _FUN_001e91c0 @213cd0493c86 @wa39a811f1f89 @vbbfef7f6c80e
 // STATUS: equivalent (tools/equiv.py level 3: 118 inputs, branch coverage 2/2)
 // FUN_001e91c0 @ 0x001e91c0
 extern "C" void FUN_001e91c0(void)
@@ -316,34 +316,34 @@ extern "C" void FUN_001e91c0(void)
         }
     }
     (*(LevelKeys**)&DAT_004e2788) = k;
-    (*(LevelKeys**)&DAT_004e2788)->keys[0] = FUN_002672f0("ghk", 0);
-    (*(LevelKeys**)&DAT_004e2788)->keys[1] = FUN_002672f0("ghk_sidemissions", 0);
-    (*(LevelKeys**)&DAT_004e2788)->keys[2] = FUN_002672f0("ghk_c0m1", 0);
-    (*(LevelKeys**)&DAT_004e2788)->keys[3] = FUN_002672f0("ghk_c0m2", 0);
-    (*(LevelKeys**)&DAT_004e2788)->keys[4] = FUN_002672f0("ghk_c1m1", 0);
-    (*(LevelKeys**)&DAT_004e2788)->keys[5] = FUN_002672f0("ghk_c1m2", 0);
-    (*(LevelKeys**)&DAT_004e2788)->keys[6] = FUN_002672f0("ghk_c1m3", 0);
-    (*(LevelKeys**)&DAT_004e2788)->keys[7] = FUN_002672f0("ghk_c1m4", 0);
-    (*(LevelKeys**)&DAT_004e2788)->keys[8] = FUN_002672f0("ghk_c1m5", 0);
-    (*(LevelKeys**)&DAT_004e2788)->keys[9] = FUN_002672f0("ghk_c2m1", 0);
-    (*(LevelKeys**)&DAT_004e2788)->keys[10] = FUN_002672f0("ghk_c2m2", 0);
-    (*(LevelKeys**)&DAT_004e2788)->keys[11] = FUN_002672f0("ghk_c2m3", 0);
-    (*(LevelKeys**)&DAT_004e2788)->keys[12] = FUN_002672f0("ghk_c2m4", 0);
-    (*(LevelKeys**)&DAT_004e2788)->keys[13] = FUN_002672f0("ghk_c3m2", 0);
-    (*(LevelKeys**)&DAT_004e2788)->keys[14] = FUN_002672f0("ghk_c3m3", 0);
-    (*(LevelKeys**)&DAT_004e2788)->keys[15] = FUN_002672f0("ghk_c3m4", 0);
-    (*(LevelKeys**)&DAT_004e2788)->keys[16] = FUN_002672f0("ghk_c4m1", 0);
-    (*(LevelKeys**)&DAT_004e2788)->keys[17] = FUN_002672f0("ghk_c4m3", 0);
-    (*(LevelKeys**)&DAT_004e2788)->keys[18] = FUN_002672f0("ghk_c4m4", 0);
-    (*(LevelKeys**)&DAT_004e2788)->keys[19] = FUN_002672f0("ghk_c4m5", 0);
-    (*(LevelKeys**)&DAT_004e2788)->keys[20] = FUN_002672f0("ghk_c5m1", 0);
-    (*(LevelKeys**)&DAT_004e2788)->keys[21] = FUN_002672f0("ghk_c5m4", 0);
-    (*(LevelKeys**)&DAT_004e2788)->keys[22] = FUN_002672f0("ghk_c6m1", 0);
-    (*(LevelKeys**)&DAT_004e2788)->keys[23] = FUN_002672f0("ghk_c6m2", 0);
-    (*(LevelKeys**)&DAT_004e2788)->keys[24] = FUN_002672f0("ghk_c6m3", 0);
-    (*(LevelKeys**)&DAT_004e2788)->keys[25] = FUN_002672f0("ghk_c7m2", 0);
-    (*(LevelKeys**)&DAT_004e2788)->keys[26] = FUN_002672f0("ghk_c7m3", 0);
-    (*(LevelKeys**)&DAT_004e2788)->keys[27] = FUN_002672f0("ghk_c10m30", 0);
+    (*(LevelKeys**)&DAT_004e2788)->keys[0] = FUN_002672f0("ghk", 0, 0);
+    (*(LevelKeys**)&DAT_004e2788)->keys[1] = FUN_002672f0("ghk_sidemissions", 0, 0);
+    (*(LevelKeys**)&DAT_004e2788)->keys[2] = FUN_002672f0("ghk_c0m1", 0, 0);
+    (*(LevelKeys**)&DAT_004e2788)->keys[3] = FUN_002672f0("ghk_c0m2", 0, 0);
+    (*(LevelKeys**)&DAT_004e2788)->keys[4] = FUN_002672f0("ghk_c1m1", 0, 0);
+    (*(LevelKeys**)&DAT_004e2788)->keys[5] = FUN_002672f0("ghk_c1m2", 0, 0);
+    (*(LevelKeys**)&DAT_004e2788)->keys[6] = FUN_002672f0("ghk_c1m3", 0, 0);
+    (*(LevelKeys**)&DAT_004e2788)->keys[7] = FUN_002672f0("ghk_c1m4", 0, 0);
+    (*(LevelKeys**)&DAT_004e2788)->keys[8] = FUN_002672f0("ghk_c1m5", 0, 0);
+    (*(LevelKeys**)&DAT_004e2788)->keys[9] = FUN_002672f0("ghk_c2m1", 0, 0);
+    (*(LevelKeys**)&DAT_004e2788)->keys[10] = FUN_002672f0("ghk_c2m2", 0, 0);
+    (*(LevelKeys**)&DAT_004e2788)->keys[11] = FUN_002672f0("ghk_c2m3", 0, 0);
+    (*(LevelKeys**)&DAT_004e2788)->keys[12] = FUN_002672f0("ghk_c2m4", 0, 0);
+    (*(LevelKeys**)&DAT_004e2788)->keys[13] = FUN_002672f0("ghk_c3m2", 0, 0);
+    (*(LevelKeys**)&DAT_004e2788)->keys[14] = FUN_002672f0("ghk_c3m3", 0, 0);
+    (*(LevelKeys**)&DAT_004e2788)->keys[15] = FUN_002672f0("ghk_c3m4", 0, 0);
+    (*(LevelKeys**)&DAT_004e2788)->keys[16] = FUN_002672f0("ghk_c4m1", 0, 0);
+    (*(LevelKeys**)&DAT_004e2788)->keys[17] = FUN_002672f0("ghk_c4m3", 0, 0);
+    (*(LevelKeys**)&DAT_004e2788)->keys[18] = FUN_002672f0("ghk_c4m4", 0, 0);
+    (*(LevelKeys**)&DAT_004e2788)->keys[19] = FUN_002672f0("ghk_c4m5", 0, 0);
+    (*(LevelKeys**)&DAT_004e2788)->keys[20] = FUN_002672f0("ghk_c5m1", 0, 0);
+    (*(LevelKeys**)&DAT_004e2788)->keys[21] = FUN_002672f0("ghk_c5m4", 0, 0);
+    (*(LevelKeys**)&DAT_004e2788)->keys[22] = FUN_002672f0("ghk_c6m1", 0, 0);
+    (*(LevelKeys**)&DAT_004e2788)->keys[23] = FUN_002672f0("ghk_c6m2", 0, 0);
+    (*(LevelKeys**)&DAT_004e2788)->keys[24] = FUN_002672f0("ghk_c6m3", 0, 0);
+    (*(LevelKeys**)&DAT_004e2788)->keys[25] = FUN_002672f0("ghk_c7m2", 0, 0);
+    (*(LevelKeys**)&DAT_004e2788)->keys[26] = FUN_002672f0("ghk_c7m3", 0, 0);
+    (*(LevelKeys**)&DAT_004e2788)->keys[27] = FUN_002672f0("ghk_c10m30", 0, 0);
 }
 
 

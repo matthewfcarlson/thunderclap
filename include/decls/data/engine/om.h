@@ -128,7 +128,6 @@ extern "C" const unsigned int DAT_00480ca8[1];  // zero_00480ca8
 extern "C" const unsigned int DAT_00480cf8[1];  // zero_00480cf8
 
 // om/Type.cpp
-extern "C" const void* DAT_004cd1a8;  // PTR_004cd1a8
-extern "C" const void* DAT_004cd1ac[4];  // ptrTbl_004cd1ac
+// DAT_004cd1a8: typed by decls/data/records.h (included above)
 
 #endif

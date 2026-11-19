@@ -134,13 +134,19 @@ class Type {
 public:
     virtual void vfunc_0(); // slot 0
     virtual void vfunc_1(); // slot 1
-    char _pad_04[0x24];
-    int f_28;
-    int f_2c;
-    int f_30;
-    int f_34;
+    // (audio1) the words of decls/data/records.h OmType (0x48 bytes on the 32-bit builds, was 0x40): reserved, the node
+    // in the tree of types, reserved, the type's data kind key and its own key (word pairs), an instance's size and
+    // alignment, reserved
+    unsigned int f_04;
+    struct { void* left; void* right; void* parent; int color; } f_08;
+    unsigned int f_18[4];
+    unsigned int f_28;
+    unsigned int f_2c;
+    unsigned int f_30;
+    unsigned int f_34;
     int f_38;
     int f_3c;
+    unsigned int f_40[2];
 };
 
 // .?AVEntityType@om@@  vftable 0x429114 (3)
@@ -149,6 +155,11 @@ public:
     virtual void vfunc_0(); // overrides om::Type slot 0
     virtual void vfunc_1(); // overrides om::Type slot 1
     virtual void* vfunc_2() = 0; // slot 2
+    // (audio1) the words of decls/data/records.h OmEntityType: the nodes in the trees of entity types by key and by
+    // flags, the flags
+    struct { void* left; void* right; void* parent; int color; } f_48;
+    struct { void* left; void* right; void* parent; int color; } f_58;
+    int f_68;
 };
 
 // .?AVLogStream@om@@  vftable 0x429234 (1)

@@ -193,8 +193,22 @@ class SeqEvent_2526f0 {
 namespace fn_f0c19b70 {
 extern "C" void* __cdecl FUN_00247530(void*);
 
-// 0x00252350 audio::SeqEventVarVolumeRandType::vfunc_0 (5 B): not yet verified
-// 0x00252360 audio::SeqEventVarVolumeRandType::vfunc_1 (5 B): not yet verified
+// 0x00252350 audio::SeqEventVarVolumeRandType::vfunc_0 (5 B): matches
+// sym: ?vfunc_0@SeqEventVarVolumeRandType_252350@fn_f0c19b70@@QAEXXZ
+// (audio1) slot 0 of audio::SeqEventVarVolumeRandType: om::Type::vfunc_0 (0x002588d0), reached with a jump; a member of a
+// record view (records.h SeqEventTypeHead) called only through the game's vftable (natively a `hulk_x_` stub)
+struct SeqEventVarVolumeRandType_252350 : SeqEventTypeHead { void vfunc_0(); };
+void SeqEventVarVolumeRandType_252350::vfunc_0() { ((om::Type*)(void*)this)->om::Type::vfunc_0(); }
+
+
+// 0x00252360 audio::SeqEventVarVolumeRandType::vfunc_1 (5 B): matches
+// sym: ?vfunc_1@SeqEventVarVolumeRandType_252360@fn_f0c19b70@@QAEXXZ
+// (audio1) slot 1 of audio::SeqEventVarVolumeRandType: om::Type::vfunc_1 (0x002588f0), reached with a jump; a member of a
+// record view (records.h SeqEventTypeHead) called only through the game's vftable (natively a `hulk_x_` stub)
+struct SeqEventVarVolumeRandType_252360 : SeqEventTypeHead { void vfunc_1(); };
+void SeqEventVarVolumeRandType_252360::vfunc_1() { ((om::Type*)(void*)this)->om::Type::vfunc_1(); }
+
+
 
 // 0x00252370 FUN_00252370 (6 B): matches/0x00252370.cpp
 // sym: _FUN_00252370

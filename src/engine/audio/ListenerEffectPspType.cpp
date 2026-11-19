@@ -18,14 +18,16 @@ struct Id_24dbe0 {
     __int64 value;
     Id_24dbe0(const char* s) : value(FUN_002672f0(s, 0, 0)) {}
 };
-class FUN_0025e6c0 {
+// (audio1) om::MetaEntityType's constructor (0x0025e6c0, named by its address) on the record (records.h
+// OmEntityType); the type's constructor stores its vftable 0x004295c0 by address (local polymorphic stand-ins got
+// clang's own vftables natively, whose slots had no definition).
+extern "C" char DAT_004295c0[];
+class FUN_0025e6c0 : public OmEntityType {
   public:
-    virtual void f();
     FUN_0025e6c0(const Id_24dbe0&, const Id_24dbe0&, int, int, int);
 };
 class ListenerEffectPspType : public FUN_0025e6c0 {
   public:
-    virtual void f();
     ListenerEffectPspType();
 };
 namespace audio {
@@ -50,7 +52,9 @@ struct ListenerEffectPspType : om::Type { virtual void* vfunc_2(); virtual Confi
 // 0x0024dbe0 FUN_0024dbe0 (92 B): matches/0x0024dbe0.cpp
 // sym: ??0ListenerEffectPspType@fn_f28ff79c@@QAE@XZ
 ListenerEffectPspType::ListenerEffectPspType()
-    : FUN_0025e6c0(Id_24dbe0("Data_Effect"), Id_24dbe0("ListenerEffectPsp"), 0x1000104, 0x38, 8) {}
+    : FUN_0025e6c0(Id_24dbe0("Data_Effect"), Id_24dbe0("ListenerEffectPsp"), 0x1000104, 0x38, 8) {
+    type.vftable = DAT_004295c0;
+}
 
 
 // 0x0024dc40 audio::ListenerEffectPspType::vfunc_3 (6 B): matches/0x0024dc40.cpp

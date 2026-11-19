@@ -14,14 +14,16 @@ namespace fn_f56426cf {} using namespace fn_f56426cf;
 // ---- declarations shared by the functions below
 namespace fn_f56426cf {
 typedef unsigned __int64 U64_24d9e0;
-class FUN_0025e6c0 {
+// (audio1) om::MetaEntityType's constructor (0x0025e6c0, named by its address) on the record (records.h
+// OmEntityType); the type's constructor stores its vftable 0x00429520 by address (local polymorphic stand-ins got
+// clang's own vftables natively, whose slots had no definition).
+extern "C" char DAT_00429520[];
+class FUN_0025e6c0 : public OmEntityType {
   public:
-    virtual void f();
     FUN_0025e6c0(const U64_24d9e0*, const U64_24d9e0*, int, int, int);
 };
 class ListenerEffectPs2Type : public FUN_0025e6c0 {
   public:
-    virtual void f();
     ListenerEffectPs2Type();
 };
 } // namespace fn_f56426cf
@@ -48,7 +50,9 @@ struct Returned { void FUN_0025fb00(ListenerEffectPs2_24da50*); };
 // 0x0024d9e0 FUN_0024d9e0 (92 B): matches/0x0024d9e0.cpp
 // sym: ??0ListenerEffectPs2Type@fn_f56426cf@@QAE@XZ
 ListenerEffectPs2Type::ListenerEffectPs2Type()
-    : FUN_0025e6c0(&(const U64_24d9e0&)FUN_002672f0("Data_Effect", 0, 0), &(const U64_24d9e0&)FUN_002672f0("ListenerEffectPs2", 0, 0), 0x1000101, 0x38, 8) {}
+    : FUN_0025e6c0(&(const U64_24d9e0&)FUN_002672f0("Data_Effect", 0, 0), &(const U64_24d9e0&)FUN_002672f0("ListenerEffectPs2", 0, 0), 0x1000101, 0x38, 8) {
+    type.vftable = DAT_00429520;
+}
 
 
 // 0x0024da40 audio::ListenerEffectPs2Type::vfunc_3 (6 B): matches/0x0024da40.cpp

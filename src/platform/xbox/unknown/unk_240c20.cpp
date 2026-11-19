@@ -171,7 +171,7 @@ namespace fn_f3c58e61 {
 // FUN_002411b0 @ 0x002411b0
 void __cdecl FUN_002411b0() {
  Image *image = 0;
- struct DownloadInfo { unsigned int first; unsigned int second; unsigned int third; } info;
+ struct DownloadInfo { unsigned int first; unsigned int second; void* third; } info;   // (audio1) third: the effects image description the call returns (LPDSEFFECTIMAGEDESC, a pointer)
  thunk_FUN_002710d0((void **)&image, "img\\dspimage.bin", 0, 0, 1, 0, 1, 1);
  image->reset();
  if (image->valid()) {
@@ -195,7 +195,7 @@ extern "C" void __cdecl FUN_00241280(const unsigned int *settings, float second,
 } // namespace fn_f3c58e61
 
 // 0x00241390 FUN_00241390 (567 B): equivalent/0x00241390.cpp [wrapped: conflict: FUN_00267f80]
-// sym: _FUN_00241390 @16502361c1e8 @w8355edffbd24 @v56aa8e3a32dd
+// sym: _FUN_00241390 @16502361c1e8 @w8355edffbd24 @vc49317e00a1e
 namespace fn_00241390 {
 // STATUS: equivalent (tools/equiv.py level 3: 2871 inputs, branch coverage 4/4)
 // FUN_00241390 @ 0x00241390
@@ -214,7 +214,7 @@ struct SoundState_241390 {
 struct Config_241390 { uint first, second; };
 extern "C" hulk_uintptr __cdecl FUN_0026fd50(hulk_uintptr, uint);
 struct Temporary_241390 { char data[sizeof(OmType)];  // an om::Type (records.h)
- void *FUN_002584d0(uint *, uint *, hulk_uintptr, int); void FUN_002580e0(); };
+ void *FUN_002584d0(uint *, uint *, int, int); void FUN_002580e0(); };   // (audio1) om::Type's constructor takes the size as int (as defined: hulk_uintptr did not bind natively)
 extern "C" SoundState_241390 *__cdecl FUN_00247530(void *);
 namespace DSOUND { int __stdcall DirectSoundCreate(void *, void *, void *); }
 extern "C++" void __cdecl FUN_002411b0(); extern "C" void __cdecl FUN_0024c9c0(); extern "C" void __cdecl FUN_0024c7f0(int);
@@ -226,7 +226,7 @@ extern "C" bool __cdecl FUN_00241390(Config_241390 *config, Message_241390 *mess
  uint first[2] = {((uint*)&DAT_004e5ce8)[0],((uint*)&DAT_004e5ce8)[1]};
  uint second[2] = {((uint*)&DAT_004e5ce8)[2],((uint*)&DAT_004e5ce8)[3]};
  Temporary_241390 temp;
- (*(SoundState_241390**)&DAT_004e5ce0) = FUN_00247530(temp.FUN_002584d0(second, first, size, 4));
+ (*(SoundState_241390**)&DAT_004e5ce0) = FUN_00247530(temp.FUN_002584d0(second, first, (int)size, 4));
  temp.FUN_002580e0();
  unsigned char *bytes = reinterpret_cast<unsigned char *>((*(SoundState_241390**)&DAT_004e5ce0));
  for (uint i=0;i<sizeof(SoundState_241390);++i) bytes[i]=0;

@@ -16,17 +16,19 @@ namespace fn_f7b972c5 {} using namespace fn_f7b972c5;
 namespace fn_f7b972c5 {
 typedef unsigned __int64 U64;
 namespace audio {
-class FUN_0025e6c0 {
+// (audio1) om::MetaEntityType's constructor (0x0025e6c0, named by its address) on the record (records.h
+// OmEntityType); the type's constructor stores its vftable 0x004294d0 by address (local polymorphic stand-ins got
+// clang's own vftables natively, whose slots had no definition).
+extern "C" char DAT_004294d0[];
+class FUN_0025e6c0 : public OmEntityType {
   public:
     FUN_0025e6c0(const U64*, const U64*, int, int, int);
-    virtual ~FUN_0025e6c0();
 };
 }
 namespace audio {
 class ListenerEffectGcType : public FUN_0025e6c0 {
   public:
     ListenerEffectGcType();
-    virtual ~ListenerEffectGcType();
 };
 }
 
@@ -36,7 +38,9 @@ class ListenerEffectGcType : public FUN_0025e6c0 {
 namespace audio {
 ListenerEffectGcType::ListenerEffectGcType()
     : FUN_0025e6c0(&(const U64&)FUN_002672f0("Data_Effect", 0, 0), &(const U64&)FUN_002672f0("ListenerEffectGc", 0, 0),
-                           0x1000102, 64, 8) {}
+                           0x1000102, 64, 8) {
+    type.vftable = DAT_004294d0;
+}
 }
 
 

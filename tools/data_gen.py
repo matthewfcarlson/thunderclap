@@ -399,6 +399,19 @@ class TUWriter:
             self.ext_func.add(name)
         elif name not in self.local:
             self.ext_data.add(name)
+        if off and kind != "func":
+            # (audio1) a pointer into a typed record (records.h): the field at that 32-bit offset by name, so the
+            # native build's pointer lands on the same field (a 32-bit byte offset is the middle of a word there;
+            # 0x004cd1a8, the tree of om types, whose words point at its own sentinel)
+            if not hasattr(self, "_typed_recs"):
+                self._typed_recs = typed_data_records()
+            rec = self._typed_recs.get(name)
+            if rec is not None:
+                _rname, count, size32, fields = rec
+                k, o = divmod(off, size32)
+                fld = [f for f in fields if f[0] == o and f[5] == 1]
+                if k < count and fld:
+                    return "(%s)&%s[%d].%s" % (ctype, name, k, fld[0][1])
         if off:
             return "(%s)((const char*)&%s + %d)" % (ctype, name, off)
         return "(%s)&%s" % (ctype, name)

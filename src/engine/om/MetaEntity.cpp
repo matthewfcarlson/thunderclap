@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x0025e680..0x0025e900 (kind game, layer engine, confidence high), dominant class om::MetaEntity
 #include "tree_prelude.h"
+#include "decls/data/records.h"
 #include "gen/om.h"
 #define TREE_TU_BEGIN namespace fn_f87db03b {
 #define TREE_TU_END }
@@ -27,15 +28,17 @@ class MetaEntity : public Entity {
     virtual int vfunc_3(void*);
 };
 typedef unsigned __int64 U64_25e6c0;
-class FUN_00243310 {
+// (audio1) om::EntityType's constructor (0x00243310, named by its address) on the record (records.h OmEntityType);
+// om::MetaEntityType's constructor stores its vftable 0x0042aa04 by address (local polymorphic stand-ins got clang's
+// own vftables natively, whose slots had no definition).
+extern "C" char DAT_0042aa04[];
+class FUN_00243310 : public OmEntityType {
   public:
     FUN_00243310(const U64_25e6c0*, const U64_25e6c0*, int, int, int);
-    virtual void f();
 };
 class MetaEntityType : public FUN_00243310 {
   public:
     MetaEntityType(const U64_25e6c0*, const U64_25e6c0*, int, int, int);
-    virtual void f();
 };
 class MetaEntity_25e6f0 {
   public:
@@ -110,7 +113,9 @@ namespace fn_f87db03b {
 // sym: ??0MetaEntityType@fn_f87db03b@@QAE@PB_K0HHH@Z
 // om::MetaEntityType's constructor: om::EntityType's (0x00243310), named by its address for the native links.
 MetaEntityType::MetaEntityType(const U64_25e6c0* a, const U64_25e6c0* b, int c, int d, int e)
-    : FUN_00243310(a, b, c, d, e) {}
+    : FUN_00243310(a, b, c, d, e) {
+    type.vftable = DAT_0042aa04;
+}
 
 
 // 0x0025e6f0 FUN_0025e6f0 (25 B): matches/0x0025e6f0.cpp
@@ -152,7 +157,9 @@ class MetaEntityType : public EntityType {
     virtual Result_25e720* vfunc_3();
 };
 void MetaEntityType::vfunc_0() {
-    EntityType::vfunc_0();
+    // (audio1) the base slot om::EntityType::vfunc_1 (0x00244de0) by its definition's name (gen's class): the local stand-in's name did
+    // not bind natively
+    ((::om::EntityType*)(void*)this)->::om::EntityType::vfunc_1();
     Result_25e720* r = vfunc_3();
     r->finish_0025fc80();
 }
@@ -178,7 +185,9 @@ class MetaEntityType : public EntityType {
     virtual Result_25e740* vfunc_3();
 };
 void MetaEntityType::vfunc_0() {
-    EntityType::vfunc_0();
+    // (audio1) the base slot om::EntityType::vfunc_0 (0x00244d70) by its definition's name (gen's class): the local stand-in's name did
+    // not bind natively
+    ((::om::EntityType*)(void*)this)->::om::EntityType::vfunc_0();
     Result_25e740* r = vfunc_3();
     r->finish_0025e850();
 }

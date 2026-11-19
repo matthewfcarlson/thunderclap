@@ -241,8 +241,22 @@ public:
 };
 }
 
-// 0x00255d00 audio::SeqEventClipType::vfunc_0 (5 B): not yet verified
-// 0x00255d10 audio::SeqEventClipType::vfunc_1 (5 B): not yet verified
+// 0x00255d00 audio::SeqEventClipType::vfunc_0 (5 B): matches
+// sym: ?vfunc_0@SeqEventClipType_255d00@@QAEXXZ
+// (audio1) slot 0 of audio::SeqEventClipType: om::Type::vfunc_0 (0x002588d0), reached with a jump; a member of a
+// record view (records.h SeqEventTypeHead) called only through the game's vftable (natively a `hulk_x_` stub)
+struct SeqEventClipType_255d00 : SeqEventTypeHead { void vfunc_0(); };
+void SeqEventClipType_255d00::vfunc_0() { ((om::Type*)(void*)this)->om::Type::vfunc_0(); }
+
+
+// 0x00255d10 audio::SeqEventClipType::vfunc_1 (5 B): matches
+// sym: ?vfunc_1@SeqEventClipType_255d10@@QAEXXZ
+// (audio1) slot 1 of audio::SeqEventClipType: om::Type::vfunc_1 (0x002588f0), reached with a jump; a member of a
+// record view (records.h SeqEventTypeHead) called only through the game's vftable (natively a `hulk_x_` stub)
+struct SeqEventClipType_255d10 : SeqEventTypeHead { void vfunc_1(); };
+void SeqEventClipType_255d10::vfunc_1() { ((om::Type*)(void*)this)->om::Type::vfunc_1(); }
+
+
 namespace fn_f91a83dc {
 
 // 0x00255d20 FUN_00255d20 (6 B): matches/0x00255d20.cpp

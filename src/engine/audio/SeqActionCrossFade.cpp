@@ -55,13 +55,15 @@ struct FUN_00240060 {
     int a, b, c;
     ~FUN_00240060() throw();
 };
-struct FUN_002605e0 {
+// (audio1) audio::SeqEventType's constructor (0x002605e0, named by its address) on the record (records.h
+// SeqEventTypeHead); the type's constructor stores its vftable 0x0042a48c by address (local polymorphic stand-ins
+// got clang's own vftables natively, whose slots had no definition).
+extern "C" char DAT_0042a48c[];
+struct FUN_002605e0 : SeqEventTypeHead {
     FUN_002605e0(FUN_00240060*, const U64*, int, int) throw();
-    virtual void f();
 };
 struct SeqEventCrossFadeType_2555c0 : FUN_002605e0 {
     SeqEventCrossFadeType_2555c0() throw();
-    virtual void f();
 };
 extern "C" void __cdecl FUN_00247550(void*, void*);
 class SeqActionCrossFade_255660 : public audio::SeqAction {
@@ -179,8 +181,22 @@ public:
     bool FUN_00255980(Group *g, Target_255b10 *t);
 };
 
-// 0x00255460 audio::SeqEventCrossFadeType::vfunc_0 (5 B): not yet verified
-// 0x00255470 audio::SeqEventCrossFadeType::vfunc_1 (5 B): not yet verified
+// 0x00255460 audio::SeqEventCrossFadeType::vfunc_0 (5 B): matches
+// sym: ?vfunc_0@SeqEventCrossFadeType_255460@fn_fa3ba6ee@@QAEXXZ
+// (audio1) slot 0 of audio::SeqEventCrossFadeType: om::Type::vfunc_0 (0x002588d0), reached with a jump; a member of a
+// record view (records.h SeqEventTypeHead) called only through the game's vftable (natively a `hulk_x_` stub)
+struct SeqEventCrossFadeType_255460 : SeqEventTypeHead { void vfunc_0(); };
+void SeqEventCrossFadeType_255460::vfunc_0() { ((om::Type*)(void*)this)->om::Type::vfunc_0(); }
+
+
+// 0x00255470 audio::SeqEventCrossFadeType::vfunc_1 (5 B): matches
+// sym: ?vfunc_1@SeqEventCrossFadeType_255470@fn_fa3ba6ee@@QAEXXZ
+// (audio1) slot 1 of audio::SeqEventCrossFadeType: om::Type::vfunc_1 (0x002588f0), reached with a jump; a member of a
+// record view (records.h SeqEventTypeHead) called only through the game's vftable (natively a `hulk_x_` stub)
+struct SeqEventCrossFadeType_255470 : SeqEventTypeHead { void vfunc_1(); };
+void SeqEventCrossFadeType_255470::vfunc_1() { ((om::Type*)(void*)this)->om::Type::vfunc_1(); }
+
+
 
 // 0x00255480 FUN_00255480 (6 B): matches/0x00255480.cpp
 // sym: _FUN_00255480
@@ -261,7 +277,10 @@ namespace fn_fa3ba6ee {
 
 // 0x002555c0 FUN_002555c0 (86 B): matches/0x002555c0.cpp
 // sym: ??0SeqEventCrossFadeType_2555c0@fn_fa3ba6ee@@QAE@XZ
-SeqEventCrossFadeType_2555c0::SeqEventCrossFadeType_2555c0() throw() : FUN_002605e0(((FUN_00240060 *)((owners::String_23fc40 *)&(FUN_00240060()))->FUN_0023fc40("X-Fade", (hulk_intptr)0)), &(U64 const&)(FUN_002672f0("SeqEventCrossFade", 0, 0)), (int)sizeof(AudioSeqEventCrossFade), (int)__alignof(AudioSeqEventCrossFade)) { HULK_SIZE32(AudioSeqEventCrossFade, 0x34); }
+SeqEventCrossFadeType_2555c0::SeqEventCrossFadeType_2555c0() throw() : FUN_002605e0(((FUN_00240060 *)((owners::String_23fc40 *)&(FUN_00240060()))->FUN_0023fc40("X-Fade", (hulk_intptr)0)), &(U64 const&)(FUN_002672f0("SeqEventCrossFade", 0, 0)), (int)sizeof(AudioSeqEventCrossFade), (int)__alignof(AudioSeqEventCrossFade)) {
+    HULK_SIZE32(AudioSeqEventCrossFade, 0x34);
+    type.vftable = DAT_0042a48c;
+}
 
 } // namespace fn_fa3ba6ee
 

@@ -2,6 +2,7 @@
 // object 0x001e8710..0x001e8c20 (kind game, layer game, confidence low)
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "decls/data/records.h"
 #include "decls/data/engine/content.h"
 #include "decls/data/game/unknown.h"
 #include "gen/owners.h"
@@ -21,13 +22,13 @@ struct Info {
 };
 extern "C" void FUN_00240ca0(Info*);
 extern "C" const float g_bias = 4294967296.0f;
-struct Data { char pad[0x38]; void *buffer; unsigned int count; };
-extern "C" int __cdecl FUN_00266eb0(int, void *, unsigned int);
-extern "C" int __cdecl FUN_00266e00(int, void *);
-struct Obj {
-    char pad[0x3c];
-    unsigned int n;
-};
+// (audio1) the sound heap's allocator slots read the om::Type (records.h OmType) whose instance they allocate: its size
+// and alignment (32-bit pads before), and hand out the block (a pointer: int truncated it), as the heap's allocators
+// 0x00266eb0 / 0x00266e00 are defined (unk_266950.cpp)
+struct Data : OmType {};
+extern "C" void* __cdecl FUN_00266eb0(int, int, int);
+extern "C" void* __cdecl FUN_00266e00(int, int);
+struct Obj : OmType {};
 extern "C" void __cdecl FUN_00267070(void*);
 extern "C" void __cdecl FUN_00267090(void*);
 class Item_1e8880 {
@@ -135,20 +136,20 @@ void __stdcall FUN_001e87c0(int amount) {
 
 
 // 0x001e8800 FUN_001e8800 (45 B): equivalent/0x001e8800.cpp
-// sym: _FUN_001e8800 @1558f6d9b5dc @w059a1feee1a7 @v2324bfd7a753
+// sym: _FUN_001e8800 @1558f6d9b5dc @w059a1feee1a7 @v093fa8dc8c4c
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_001e8800 @ 0x001e8800
-extern "C" int __cdecl FUN_001e8800(int unused, Data *data) {
-    if (data->count > 4)
-        return FUN_00266eb0(6, data->buffer, data->count);
-    return FUN_00266e00(6, data->buffer);
+extern "C" void* __cdecl FUN_001e8800(void* unused, Data *data) {
+    if ((unsigned int)data->body.align > 4)
+        return FUN_00266eb0(6, data->body.size, data->body.align);
+    return FUN_00266e00(6, data->body.size);
 }
 
 
 // 0x001e8830 FUN_001e8830 (36 B): matches/0x001e8830.cpp
 // sym: _FUN_001e8830
 extern "C" void __cdecl FUN_001e8830(void* unused, Obj* obj, void* arg) {
-    if (obj->n > 4)
+    if ((unsigned int)obj->body.align > 4)
         FUN_00267070(arg);
     else
         FUN_00267090(arg);

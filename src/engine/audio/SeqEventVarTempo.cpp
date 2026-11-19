@@ -73,14 +73,16 @@ class FUN_00240060 {
     ~FUN_00240060() throw();
     char pad[12];
 };
-class FUN_002605e0 {
+// (audio1) audio::SeqEventType's constructor (0x002605e0, named by its address) on the record (records.h
+// SeqEventTypeHead); the type's constructor stores its vftable 0x0042a04c by address (local polymorphic stand-ins
+// got clang's own vftables natively, whose slots had no definition).
+extern "C" char DAT_0042a04c[];
+class FUN_002605e0 : public SeqEventTypeHead {
   public:
-    virtual void f();
     FUN_002605e0(FUN_00240060*, const __int64&, int, int) throw();
 };
 class SeqEventVarTempoType_252d00 : public FUN_002605e0 {
   public:
-    virtual void f();
     SeqEventVarTempoType_252d00();
 };
 } // namespace fn_f0c0637a
@@ -129,8 +131,22 @@ class SeqActionVarTempo_252ea0 {
     SeqActionVarTempo_252ea0* f0(unsigned char flags);
 };
 
-// 0x00252b30 audio::SeqEventVarTempoType::vfunc_0 (5 B): not yet verified
-// 0x00252b40 audio::SeqEventVarTempoType::vfunc_1 (5 B): not yet verified
+// 0x00252b30 audio::SeqEventVarTempoType::vfunc_0 (5 B): matches
+// sym: ?vfunc_0@SeqEventVarTempoType_252b30@fn_f0c0637a@@QAEXXZ
+// (audio1) slot 0 of audio::SeqEventVarTempoType: om::Type::vfunc_0 (0x002588d0), reached with a jump; a member of a
+// record view (records.h SeqEventTypeHead) called only through the game's vftable (natively a `hulk_x_` stub)
+struct SeqEventVarTempoType_252b30 : SeqEventTypeHead { void vfunc_0(); };
+void SeqEventVarTempoType_252b30::vfunc_0() { ((om::Type*)(void*)this)->om::Type::vfunc_0(); }
+
+
+// 0x00252b40 audio::SeqEventVarTempoType::vfunc_1 (5 B): matches
+// sym: ?vfunc_1@SeqEventVarTempoType_252b40@fn_f0c0637a@@QAEXXZ
+// (audio1) slot 1 of audio::SeqEventVarTempoType: om::Type::vfunc_1 (0x002588f0), reached with a jump; a member of a
+// record view (records.h SeqEventTypeHead) called only through the game's vftable (natively a `hulk_x_` stub)
+struct SeqEventVarTempoType_252b40 : SeqEventTypeHead { void vfunc_1(); };
+void SeqEventVarTempoType_252b40::vfunc_1() { ((om::Type*)(void*)this)->om::Type::vfunc_1(); }
+
+
 
 // 0x00252b50 FUN_00252b50 (6 B): matches/0x00252b50.cpp
 // sym: _FUN_00252b50
@@ -265,7 +281,10 @@ extern "C" char FUN_00252c90(char** s, char* p, void * r) {
 // 0x00252d00 FUN_00252d00 (86 B): matches/0x00252d00.cpp
 // sym: ??0SeqEventVarTempoType_252d00@fn_f0c0637a@@QAE@XZ
 SeqEventVarTempoType_252d00::SeqEventVarTempoType_252d00()
-    : FUN_002605e0(FUN_00240060().FUN_0023fc40("4/4", 0), FUN_002672f0("SeqEventVarTempo", 0, 0), (int)sizeof(AudioSeqEventVarTempo), (int)__alignof(AudioSeqEventVarTempo)) { HULK_SIZE32(AudioSeqEventVarTempo, 0x14); }
+    : FUN_002605e0(FUN_00240060().FUN_0023fc40("4/4", 0), FUN_002672f0("SeqEventVarTempo", 0, 0), (int)sizeof(AudioSeqEventVarTempo), (int)__alignof(AudioSeqEventVarTempo)) {
+    HULK_SIZE32(AudioSeqEventVarTempo, 0x14);
+    type.vftable = DAT_0042a04c;
+}
 
 } // namespace fn_f0c0637a
 
