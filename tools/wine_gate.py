@@ -53,6 +53,12 @@ def judge(rep):
     if n < MIN_RUN:
         return False, "wine: only %d inputs completed (%d needed)" % (n, MIN_RUN)
     asked = (rep.get("tree_code") or {}).get("n_inputs") or rep.get("n_inputs_asked")
+    if asked and asked >= WINE_INPUTS and not rep.get("promotable"):
+        # (integ3, D151: the lead's tightening of D38) a proof-sized --wine run must pass equiv.py's own promotion gate
+        # too: branch coverage of the ORIGINAL's edges (coverage_of(oview, ...): the same measure as MSVC mode, not
+        # clang's edges), the wild / copy_overlap bars. A run whose compared inputs reached 85 of 120 of the original's
+        # edges left the rest of our code uncompared
+        return False, "wine: not promotable (%s)" % (rep.get("promotable_note") or rep.get("status"))
     if asked and asked >= WINE_INPUTS:
         # (integ1) a proof-sized run must have run: not cut by the time budget, every input drawn, 2,000 compared
         import tree_tu
