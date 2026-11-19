@@ -2428,7 +2428,31 @@ verdict) is re-checked (x64t12).
 `--update-baseline` drops it), `known-unclear` (in the baseline, now another class, unsupported or inconclusive: kept), `ok`, `other` (a
 non-gating class, reported), `triage` (a `wild64` failure: listed apart for a look, never failing; mostly fuzzed indexes
 wrapping at 2^32 on i386, but an unsigned negative step `p += (unsigned)-k` is a real bug of that shape). Key errors (a
-TU the gate couldn't key) fail too.
+TU the gate couldn't key) fail too. (integ3, rev5) An `equiv.py --x64` **compile_error** is a gating class too
+(`new` unless the baseline lists it; `accept ADDR --class compile_error --why TEXT` admits one): the block's 64-bit code
+was never checked. A cached compile_error without a checker record (stored before the no-checker rule) is run again,
+since it can come from another text with the same code (a `(unsigned int)sizeof` fix changes no byte).
+
+(integ3, x64syn) **Native front ends.** `equiv.py --x64` compiles an x86_64-pc-windows-msvc object with equiv64's
+own flags (`-w`, without the native builds' COMMON and W64 sets), so a TU that the real native builds refuse could
+pass every block. The gate therefore also runs each candidate TU (head side) through the native builds' own front
+ends with `-fsyntax-only`: **macos-arm64** (tools/native_mac.py `FRONT`, aarch64-pc-windows-msvc, which android-arm64
+shares) and **linux-x64** (tools/native_elf.py `flags("linux-x64")` with its Toolchain's clang++), plus
+clang_probe.common_native(); only `-S -emit-llvm` is swapped for `-fsyntax-only`, and the TU is compiled as the
+native compile reads it from the snapshot (verbatim, `-I` the tree's include/: the snapshot's include/ is
+materialize's copy of a subset of it and its repo-include/ all of it, so one directory resolves every name alike). The front ends use the Windows
+triples, so no sysroot or NDK is needed. android-arm64's front end is native_mac's (the same triple and
+flags, `NativeSyntax.test_android_front_is_the_macos_one`); only its compiler, the NDK's clang, differs. Rows: `native_syntax` (**fails**; names the TU, the target and its first
+error lines), `known` (reported: the TU's text is REF's and REF failed with these errors, as multisets, so no error's
+count grows (rev5 R1): an error in a file the change didn't touch is matched by file, line and message, one in a file
+it did by file and message; i.e. a header edit made every TU a candidate and the error isn't the change's; a TU whose own text changed, or a new one, fails on
+any error), `native_syntax_unavailable` (**fails**, one row per target: no clang++, or one that can't parse for the
+target's triple; like `unchecked`, the gate can't vouch for what it didn't check). Results are cached in
+build/tree-cache/x64gate/syntax/ by the TU's text and path, its include closure, the target's flags and the compiler's
+version line (failures too: they give no credit; a timeout isn't cached). `X64_GATE_OFF=native` leaves the pass out
+for diagnosis only, and the summary says `native_syntax: off`. Cost: ~0.05-1 s per TU per target. Codegen-only
+errors (`cannot compile this ... yet`, mangling) are not seen by `-fsyntax-only`; the native build's compile reports
+them.
 
 **Cost.** Keys: one i686 and one x86-64 clang compile per candidate TU per side (~0.2 s per TU each on a quiet machine).
 A header edit makes every one of the ~2,700 TUs a candidate: the validation keyed the whole tree on both sides in ~12

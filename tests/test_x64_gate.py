@@ -269,7 +269,8 @@ class Flow(unittest.TestCase):
         self.run_gate(blocks, {"0x000000c0": ce})
         res2, ran2 = self.run_gate(blocks, {"0x000000c0": EQ})
         self.assertEqual(ran2, ["0x000000c0"])
-        for key, r_, again in (("n1", {"status": "equivalent"}, True), ("o1", {"status": "fail", "first_diff": "x"}, False)):
+        for key, r_, again in (("n1", {"status": "equivalent"}, True), ("o1", {"status": "fail", "first_diff": "x"}, False),
+                               ("q1", {"status": "compile_error", "first_diff": "x"}, True)):     # (integ3: it fails)
             p = g._res_path(key)
             os.makedirs(os.path.dirname(p), exist_ok=True)
             with open(p, "w") as f:
@@ -277,6 +278,19 @@ class Flow(unittest.TestCase):
             res_, ran_ = self.run_gate([("0x000000d0", "src/game/T.cpp", {"key": key}, "code changed")],
                                        {"0x000000d0": EQ})
             self.assertEqual(ran_ == ["0x000000d0"], again, key)
+
+    def test_compile_error_fails(self):
+        """(integ3, rev5) an `equiv.py --x64` compile_error is a gating class: new fails, a baselined one is known,
+        and `accept` takes it (with a reason)."""
+        self.assertEqual(g.classify({"status": "compile_error"}), ("compile_error", "compile_error"))
+        ce = {"status": "compile_error", "first_diff": "call to FUN_0008d690 is ambiguous"}
+        res, _ = self.run_gate([("0x000000e0", "src/game/T.cpp", {"key": "e1"}, "code changed")], {"0x000000e0": ce})
+        self.assertTrue(res["failed"])
+        self.assertEqual(res["rows"][0]["verdict"], "new")
+        self.assertEqual(g.main(["accept", "0xe0", "--why", "known ambiguity", "--class", "compile_error",
+                                 "--baseline", self.path]), 0)
+        res, _ = self.run_gate([("0x000000e0", "src/game/T.cpp", {"key": "e2"}, "code changed")], {"0x000000e0": ce})
+        self.assertEqual(res["rows"][0]["verdict"], "known")
 
     def test_unchecked_fails(self):
         res, ran = self.run_gate([("0x00000040", "src/game/T.cpp", {"key": "c1"}, "new")], {})
@@ -520,8 +534,192 @@ class InJob(unittest.TestCase):
         self.assertIn("--no-jobq", run.call_args[0][0])
 
 
-if __name__ == "__main__":
-    unittest.main()
+SYN_TU = """#include "tree_prelude.h"
+#include "rec.h"
+// 0x00011000 FUN_00011000 (10 B): matches
+// sym: ?FUN_00011000@@YAHPAURec@@@Z
+int FUN_00011000(Rec *r) {
+    %(body)s
+    return r->a;
+}
+"""
+
+
+@unittest.skipUnless(have_clang(), "needs LLVM's clang++")
+class NativeSyntax(unittest.TestCase):
+    """(integ3, x64syn) The changed TUs through the native builds' own front ends (macOS arm64, linux-x64),
+    -fsyntax-only: an error fails the gate (`native_syntax`), a missing toolchain is a failing
+    `native_syntax_unavailable` row, an error a header-only change didn't bring (the TU's text and errors are REF's)
+    is `known`; results are cached by text, include closure, flags and compiler."""
+
+    def setUp(self):
+        base = os.path.join(ROOT, "build") if os.path.isdir(os.path.join(ROOT, "build")) else None
+        self.tmp = tempfile.TemporaryDirectory(dir=base)
+        self.roots = {}
+        for side in ("ref", "head"):
+            r = self.roots[side] = os.path.join(self.tmp.name, side)
+            os.makedirs(os.path.join(r, "src", "game"))
+            shutil.copytree(os.path.join(ROOT, "include", "compat"), os.path.join(r, "include", "compat"))
+            shutil.copy(os.path.join(ROOT, "include", "tree_prelude.h"), os.path.join(r, "include"))
+            self.write(side, "include/rec.h", "#pragma once\nstruct Rec { int a; };\n")
+        self.p = [mock.patch.object(g, "CACHE", os.path.join(self.tmp.name, "cache")),
+                  mock.patch.dict(g._SYN_TC, {}, clear=True)]
+        for p in self.p:
+            p.start()
+
+    def tearDown(self):
+        for p in self.p:
+            p.stop()
+        self.tmp.cleanup()
+
+    def write(self, side, rel, text):
+        with open(os.path.join(self.roots[side], rel), "w") as f:
+            f.write(text)
+
+    def tu(self, side, body, rel="src/game/T.cpp"):
+        self.write(side, rel, SYN_TU % {"body": body})
+        return os.path.join(self.roots[side], rel)
+
+    def verdicts(self, rows):
+        return {(r["tu"], r["target"]): r["verdict"] for r in rows}
+
+    def test_clean_passes_and_caches(self):
+        p = self.tu("head", "int v = r->a;")
+        rows = g.syntax_rows(self.roots["head"], ["src/game/T.cpp"])
+        self.assertEqual(self.verdicts(rows), {("src/game/T.cpp", t): "ok" for t in g.SYNTAX_TARGETS})
+        self.assertFalse(any(r["cached"] for r in rows))
+        self.assertTrue(all(r["cached"] for r in g.syntax_rows(self.roots["head"], ["src/game/T.cpp"])))
+        # a header the TU reaches changes: no cached credit
+        self.write("head", "include/rec.h", "#pragma once\nstruct Rec { int b; };\n")
+        rows = g.syntax_rows(self.roots["head"], ["src/game/T.cpp"])
+        self.assertFalse(any(r["cached"] for r in rows))
+        self.assertEqual({r["verdict"] for r in rows}, {"native_syntax"})
+        self.assertIn("no member named 'a'", rows[0]["errors"][0])
+        self.assertTrue(rows[0]["errors"][0].startswith("src/game/T.cpp:"), rows[0]["errors"][0])
+        self.assertTrue(os.path.exists(p))
+
+    def test_arm64_only_error(self):
+        """MS inline assembly: the x86-64 Windows front end equiv.py --x64 compiles with takes it, the arm64 native
+        front end refuses it."""
+        import equiv64
+        import tree_tu
+        p = self.tu("head", "__asm { mov eax, 1 }")
+        with tree_tu.active(p), tempfile.TemporaryDirectory(dir=self.tmp.name) as d:
+            equiv64.compile64(equiv64.write_wrapper(p, d), d)      # (no CompileError)
+        v = self.verdicts(g.syntax_rows(self.roots["head"], ["src/game/T.cpp"]))
+        self.assertEqual(v[("src/game/T.cpp", "macos-arm64")], "native_syntax")
+        self.assertEqual(v[("src/game/T.cpp", "linux-x64")], "ok")
+
+    def test_pointer_size(self):
+        """A 32-bit size assumption fails on both native targets."""
+        self.tu("head", "typedef char chk[sizeof(void *) == 4 ? 1 : -1];")
+        rows = g.syntax_rows(self.roots["head"], ["src/game/T.cpp"])
+        self.assertEqual({r["verdict"] for r in rows}, {"native_syntax"})
+        self.assertIn("negative size", rows[0]["errors"][0])
+
+    def test_size_t_overloads(self):
+        """(sweep-allocsize, docs/journal.md 2026-11-18) an allocator declared under both `unsigned int` and `int`:
+        MSVC 7.1 and the 32-bit clang build pick `unsigned int` for `sizeof(X)`, natively size_t is 64-bit and the
+        call is ambiguous on both targets."""
+        self.write("head", "include/rec.h", "#pragma once\nstruct Rec { int a; };\n"
+                   "void *FUN_0008d690(unsigned int);\nvoid *FUN_0008d690(int);\n")
+        self.tu("head", "void *m = FUN_0008d690(sizeof(Rec)); (void)m;")
+        rows = g.syntax_rows(self.roots["head"], ["src/game/T.cpp"])
+        self.assertEqual({r["verdict"] for r in rows}, {"native_syntax"})
+        self.assertIn("ambiguous", rows[0]["errors"][0])
+        self.tu("head", "void *m = FUN_0008d690((unsigned int)sizeof(Rec)); (void)m;")
+        self.assertEqual({r["verdict"] for r in g.syntax_rows(self.roots["head"], ["src/game/T.cpp"])}, {"ok"})
+
+    def test_known_only_for_header_changes(self):
+        bad = "typedef char chk[sizeof(void *) == 4 ? 1 : -1];"
+        self.tu("ref", bad)
+        self.tu("head", bad)                                   # the same text, the same errors: a header changed
+        self.tu("ref", bad, "src/game/U.cpp")
+        self.tu("head", bad + " (void)0;", "src/game/U.cpp")    # the TU itself changed: any error fails
+        self.tu("head", bad, "src/game/N.cpp")                 # new
+        rows = g.syntax_rows(self.roots["head"], ["src/game/T.cpp", "src/game/U.cpp", "src/game/N.cpp"],
+                             self.roots["ref"])
+        v = self.verdicts(rows)
+        for t in g.SYNTAX_TARGETS:
+            self.assertEqual(v[("src/game/T.cpp", t)], "known")
+            self.assertEqual(v[("src/game/U.cpp", t)], "native_syntax")
+            self.assertEqual(v[("src/game/N.cpp", t)], "native_syntax")
+        # the header brings a new error into the unchanged TU: not known
+        self.write("head", "include/rec.h", "#pragma once\nstruct Rec { int b; };\n")
+        v = self.verdicts(g.syntax_rows(self.roots["head"], ["src/game/T.cpp"], self.roots["ref"]))
+        self.assertEqual(set(v.values()), {"native_syntax"})
+
+    def test_known_counts(self):
+        """(rev5 R1) `known` compares multisets: a header that adds a second, identical error to a TU that already
+        failed is not known; one that only moves the error inside itself is."""
+        sa = 'static_assert(sizeof(void *) == 4, "p32");\n'
+        for side in ("ref", "head"):
+            self.tu(side, "int v = r->a; (void)v;")
+        self.write("ref", "include/rec.h", "#pragma once\nstruct Rec { int a; };\n" + sa)
+        self.write("head", "include/rec.h", "#pragma once\n\nstruct Rec { int a; };\n" + sa)     # moved a line
+        v = self.verdicts(g.syntax_rows(self.roots["head"], ["src/game/T.cpp"], self.roots["ref"]))
+        self.assertEqual(set(v.values()), {"known"})
+        self.write("head", "include/rec.h", "#pragma once\nstruct Rec { int a; };\n" + sa + sa)    # one more
+        v = self.verdicts(g.syntax_rows(self.roots["head"], ["src/game/T.cpp"], self.roots["ref"]))
+        self.assertEqual(set(v.values()), {"native_syntax"})
+        # in a file the change didn't touch, an error is matched with its line
+        self.assertFalse(g.known_errors([["a.h", 3, "m"]], [["a.h", 2, "m"]], set()))
+        self.assertTrue(g.known_errors([["a.h", 3, "m"]], [["a.h", 2, "m"]], {"a.h"}))
+        self.assertFalse(g.known_errors([["a.h", 3, "m"], ["a.h", 3, "m"]], [["a.h", 3, "m"]], set()))
+
+    def test_android_front_is_the_macos_one(self):
+        """(rev5 R2) android-arm64's front end is native_mac's (aarch64-pc-windows-msvc, the same flags), so the
+        macos-arm64 row covers it; only the compiler differs (the NDK's clang, not on every host)."""
+        import native_elf
+        import native_mac
+        out = ("-S", "-emit-llvm", "-c")
+        self.assertEqual([f for f in native_elf.flags("android-arm64")[0] if f not in out],
+                         [f for f in native_mac.FRONT if f not in out])
+        self.assertEqual(native_elf.TARGETS["android-arm64"]["front"], "aarch64-pc-windows-msvc")
+        self.assertEqual(native_elf.TARGETS["linux-x64"]["front"], "x86_64-pc-windows-msvc")
+        _, front = g.native_front("macos-arm64")
+        self.assertIn("--target=aarch64-pc-windows-msvc", front)
+
+    def test_unavailable(self):
+        real = g.native_front
+
+        def front(t):
+            cxx, f = real(t)
+            return ([os.path.join(self.tmp.name, "no-clang++")] if t == "linux-x64" else cxx), f
+
+        self.tu("head", "int v = r->a;")
+        with mock.patch.object(g, "native_front", front):
+            rows = g.syntax_rows(self.roots["head"], ["src/game/T.cpp"])
+        v = {(r["tu"], r["target"]): r["verdict"] for r in rows}
+        self.assertEqual(v, {(None, "linux-x64"): "native_syntax_unavailable", ("src/game/T.cpp", "macos-arm64"): "ok"})
+
+    def test_gate_fails(self):
+        """gate(): a native_syntax or native_syntax_unavailable row fails it; X64_GATE_OFF=native leaves the pass out
+        and says so."""
+        self.tu("head", "typedef char chk[sizeof(void *) == 4 ? 1 : -1];")
+        ch = {"blocks": [], "gone": [], "tus": 1, "head_root": self.roots["head"], "tmp": self.tmp.name + "/x",
+              "errors": {}, "keyed": 0, "rels": ["src/game/T.cpp"], "ref_root": None}
+        bpath = os.path.join(self.tmp.name, "b.json")
+        g.write_baseline({"blocks": {}, "why": {}}, bpath)
+        with mock.patch.object(g, "changed_blocks", lambda *a, **kw: dict(ch)), \
+                mock.patch.object(g, "run_blocks", lambda *a, **kw: {}):
+            res = g.gate("HEAD", baseline_path=bpath, quiet=True)
+            self.assertTrue(res["failed"])
+            self.assertEqual(res["summary"]["native_syntax"]["verdicts"], {"native_syntax": 2})
+            self.assertIn("NATIVE_SYNTAX", g.render(res))
+            self.tu("head", "int v = r->a;")
+            res = g.gate("HEAD", baseline_path=bpath, quiet=True)
+            self.assertFalse(res["failed"])
+            with mock.patch.dict(g._SYN_TC, {"linux-x64": {"unavailable": "no clang++"}}):
+                res = g.gate("HEAD", baseline_path=bpath, quiet=True)
+            self.assertTrue(res["failed"])
+            self.assertEqual(res["summary"]["native_syntax"]["unavailable"], ["linux-x64"])
+            self.assertIn("NATIVE_SYNTAX_UNAVAILABLE linux-x64", g.render(res))
+            with mock.patch.dict(os.environ, {"X64_GATE_OFF": "native"}):
+                self.tu("head", "typedef char chk[sizeof(void *) == 4 ? 1 : -1];")
+                res = g.gate("HEAD", baseline_path=bpath, quiet=True)
+            self.assertFalse(res["failed"])
+            self.assertTrue(str(res["summary"]["native_syntax"]).startswith("off"))
 
 
 class EquivClosure(unittest.TestCase):
@@ -541,3 +739,6 @@ class EquivClosure(unittest.TestCase):
         for n in ("_x87_value", "Obj", "Program", "pick_symbol", "compile_native"):
             self.assertIn(n, seen)
 
+
+if __name__ == "__main__":
+    unittest.main()

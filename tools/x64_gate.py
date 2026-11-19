@@ -9,6 +9,8 @@ the three classes that are real 64-bit bugs:
   ptrtrunc  a pointer truncated to 32 bits
   crash64   the 64-bit run faults where the 32-bit run returned (`crash64/ptr32`: through a pointer read from 32-bit data)
 
+and (integ3, rev5) `compile_error`: the run's compile failed, so the block's 64-bit code was never checked.
+
 Those blocks are the baseline, config/x64-baseline.json (addresses and class names only). The gate re-checks only the
 blocks whose code changed and fails when one of them is newly in a gating class. Every other class (intwidth, int,
 untyped, float, call, wild64, hang64, tool, inconclusive, unsupported) is reported, never fails: those are mostly the
@@ -36,6 +38,12 @@ code didn't) is run again (x64t12).
 Runs use x64eq's sweep settings (200 inputs, 60 s budget): through the queue (tools/jobq_equiv.py, libclang's Python
 binding shipped with each job) when more than --local-max blocks need a run, here otherwise (at most 2 processes).
 
+(integ3, x64syn) Every candidate TU is also run through the native builds' own front ends, -fsyntax-only, for macOS
+arm64 (native_mac.FRONT) and linux-x64 (native_elf.flags): an error is a failing `native_syntax` row (TU, target,
+first errors), a missing toolchain a failing `native_syntax_unavailable` row; an error a header-only change didn't
+bring (the TU's text and errors are REF's) is `known`. Cached in build/tree-cache/x64gate/syntax/; X64_GATE_OFF=native
+leaves the pass out (diagnosis only).
+
 The baseline only shrinks by itself: --update-baseline removes a block whose fresh result is equivalent or a
 that no longer exists; another failure class (often the same bug seen first elsewhere) or an unsupported /
 inconclusive / unfinished result keeps it. Adding one is
@@ -58,7 +66,8 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
 BASELINE = os.path.join(ROOT, "config/x64-baseline.json")
 CACHE = os.path.join(ROOT, "build/tree-cache/x64gate")
-GATING = ("layout", "ptrtrunc", "crash64")
+GATING = ("layout", "ptrtrunc", "crash64", "compile_error")    # (integ3, rev5) compile_error: the --x64 run's
+# compile failed, the block's 64-bit code was never checked
 # (rev1) non-failing classes listed apart for a human look: wild64 is mostly fuzzed indexes wrapping at 2^32 on i386,
 # but an unsigned negative step (`p += (unsigned)-k`) is a real 64-bit bug of the same shape
 TRIAGE = ("wild64",)
@@ -79,6 +88,8 @@ def classify(rec):
     fd = rec.get("first_diff") or ""
     if st == "equivalent":
         return "equivalent", None
+    if st == "compile_error":
+        return "compile_error", "compile_error"
     if st == "fail":
         m = re.search(r"\[(\w+)\]", fd)
         c = m.group(1) if m else "?"
@@ -505,7 +516,8 @@ def changed_blocks(ref, head=None, tus=None, jobs=2, workdir=None, baseline_path
         known = load_baseline(baseline_path or BASELINE).get("blocks", {})
         out += ast_changed(rroot, hroot, [x for x in same if x[0] in known], jobs)
     gone = sorted(set(rk) - set(hk))
-    return {"blocks": out, "gone": gone, "tus": len(rels), "head_root": hroot, "tmp": tmp,
+    return {"blocks": out, "gone": gone, "tus": len(rels), "head_root": hroot, "tmp": tmp, "rels": rels,
+            "ref_root": rroot,
             "errors": dict(list(e1.items()) + list(e2.items())), "keyed": len(hk)}
 
 
@@ -674,7 +686,9 @@ def types_current(path, recs):
     # below. One with neither (no checker was built: compile error, an early unsupported) is reused on its code only
     # if it gives no credit; an `equivalent` without a digest runs again
     ok = set(a for a, r in recs.items() if "types" in r and not r["types"])
-    ok |= set(a for a, r in recs.items() if "types" not in r and r.get("status") != "equivalent")
+    # (integ3, rev5) nor a compile_error: it fails the gate now, and one stored before the no-checker rule (store_result)
+    # came from another text with the same code (sweep-allocsize's `(unsigned int)sizeof` fix changes no byte)
+    ok |= set(a for a, r in recs.items() if "types" not in r and r.get("status") not in ("equivalent", "compile_error"))
     for fc, addrs in groups.items():
         keys = {}
         for a in addrs:
@@ -780,6 +794,183 @@ def run_blocks(items, mode="auto", jobs=2, name="x64gate", commit=None, workdir=
             shutil.rmtree(d, ignore_errors=True)
 
 
+# ------------------------------------------------------------------------------------------------------ native front ends
+# (integ3, x64syn) `equiv.py --x64` compiles x86_64-pc-windows-msvc objects with equiv64's flags (`-w`, no W64, no
+# COMMON), so a TU the real native builds refuse could pass the block gate. Every changed TU is also run through the
+# native builds' own front ends, -fsyntax-only: macOS arm64 (tools/native_mac.py FRONT, which android-arm64 shares)
+# and linux-x64 (tools/native_elf.py flags(), the x86-64 front end). The flags are those modules' own; only the IR
+# output (-S -emit-llvm) is swapped for -fsyntax-only. A TU is compiled as the native compile reads it from the
+# snapshot (materialize copies it verbatim): -I the tree's include/ (the snapshot's include/ and repo-include/).
+SYNTAX_TARGETS = ("macos-arm64", "linux-x64")
+SYNTAX_VER = "x64syn2"     # x64syn2: error keys carry the line (rev5 R1)
+SYNTAX_ERRLINES = 4
+
+
+def native_front(target):
+    """(clang++ argv prefix, front-end flags) of TARGET's native compile, as -fsyntax-only."""
+    import clang_probe as cp
+    if target == "macos-arm64":
+        import native_mac
+        cxx, front = [cp.tool("clang++")], list(native_mac.FRONT)
+    elif target == "linux-x64":
+        import native_elf
+        cxx, front = list(native_elf.Toolchain(target).cxx), list(native_elf.flags(target)[0])
+    else:
+        raise ValueError(target)
+    front = [f for f in front if f not in ("-S", "-emit-llvm", "-c")] + cp.common_native() + ["-fsyntax-only"]
+    return cxx, front
+
+
+_SYN_TC = {}
+
+
+def syntax_toolchain(target):
+    """{"cxx", "front", "version"} of TARGET, or {"unavailable": why}: no clang++, or one that can't parse an empty
+    TU for the target's front-end triple. Asked once per process."""
+    if target not in _SYN_TC:
+        try:
+            cxx, front = native_front(target)
+            if not cxx or not cxx[0] or not os.path.exists(cxx[0]):
+                raise RuntimeError("no clang++ for %s (%s)" % (target, cxx and cxx[0]))
+            tgt = [f for f in front if f.startswith("--target=")]
+            p = subprocess.run(cxx + tgt + ["-x", "c++", "-fsyntax-only", "-"], input="int x;\n", capture_output=True,
+                               text=True, timeout=120)
+            if p.returncode:
+                raise RuntimeError("%s %s: %s" % (cxx[0], " ".join(tgt), (p.stderr.strip().splitlines() or ["?"])[-1]))
+            v = subprocess.run(cxx[:1] + ["--version"], capture_output=True, text=True).stdout.splitlines()
+            _SYN_TC[target] = {"cxx": cxx, "front": front, "version": (v[0] if v else "?").strip()}
+        except Exception as e:      # noqa: BLE001 - a missing or broken toolchain is a row, not a crash
+            _SYN_TC[target] = {"unavailable": str(e)[:300]}
+    return _SYN_TC[target]
+
+
+def _errors(stderr, root):
+    """The error lines of a clang run (paths relative to ROOT), and [file, line, message] keys for comparing two
+    runs (known_errors)."""
+    import clang_probe as cp
+    lines, keys = [], []
+    for l in stderr.splitlines():
+        m = cp.DIAG_RE.match(l)
+        if not m or m.group(4) not in ("error", "fatal error"):
+            continue
+        f = m.group(1)
+        if os.path.isabs(f) and not os.path.relpath(f, root).startswith(".."):
+            f = os.path.relpath(f, root)
+        lines.append("%s:%s: %s" % (f, m.group(2), m.group(5)))
+        keys.append([f, int(m.group(2)), m.group(5)])
+    return lines, keys
+
+
+def native_syntax(path, target):
+    """{"rc", "errors": [first error lines], "keys", "n_errors"} of TARGET's native front end over the tree TU PATH,
+    or {"unavailable": why}. Cached by the TU's text and path, its include closure, the target's flags and the
+    compiler's version line (a failure is cached too: it gives no credit)."""
+    import include_keys
+    import tree_tu
+    tc = syntax_toolchain(target)
+    if "unavailable" in tc:
+        return {"unavailable": tc["unavailable"]}
+    ap = os.path.abspath(path)
+    root = tree_tu.find_root(ap)
+    inc = os.path.join(root, "include")
+    with open(ap, "rb") as f:
+        text = f.read()
+    d = include_keys.digest(ap, [inc], root=root, force=["compat/native.h"])
+    if d is None:
+        import build_tree
+        d = "all " + build_tree.include_tree_digest(inc)
+    rel = os.path.relpath(ap, root)
+    k = hashlib.sha1(("\0".join([SYNTAX_VER, target, tc["version"], repr(tc["front"]), d, rel]) + "\0").encode()
+                     + text).hexdigest()[:24]
+    cp_ = os.path.join(CACHE, "syntax", k + ".json")
+    try:
+        with open(cp_) as f:
+            r = json.load(f)
+        r["_cached"] = True
+        return r
+    except (OSError, ValueError):
+        pass
+    # (the native compile's -I snap/include -I snap/repo-include: the first is materialize's copy of the tree's own
+    # headers under include/, the second all of include/, so the one include/ resolves every name to the same file)
+    cmd = tc["cxx"] + tc["front"] + ["-I" + inc, ap]
+    try:
+        p = subprocess.run(cmd, capture_output=True, text=True, errors="replace", timeout=600, cwd=root)
+        rc, err = p.returncode, p.stderr
+    except subprocess.TimeoutExpired:
+        return {"rc": -1, "errors": ["timeout"], "keys": [["", 0, "timeout"]], "n_errors": 1}     # (not cached)
+    lines, keys = _errors(err, root)
+    if rc and not lines:        # (a driver error, a crash: the tail of the output)
+        lines = (err.strip().splitlines() or ["exit %d" % rc])[-SYNTAX_ERRLINES:]
+        keys = [["", 0, l] for l in lines]
+    r = {"rc": rc, "errors": lines[:SYNTAX_ERRLINES], "keys": keys, "n_errors": len(lines)}
+    os.makedirs(os.path.dirname(cp_), exist_ok=True)
+    with open(cp_ + ".%d.tmp" % os.getpid(), "w") as f:
+        json.dump(r, f)
+    os.replace(cp_ + ".%d.tmp" % os.getpid(), cp_)
+    return r
+
+
+def changed_files(rroot, hroot, keys):
+    """The files of KEYS (paths relative to the roots) whose text differs between RROOT and HROOT, or exists on one
+    side only."""
+    out = set()
+    for f in {k[0] for k in keys if k[0]}:
+        a, b = os.path.join(rroot, f), os.path.join(hroot, f)
+        if os.path.isabs(f) or not (os.path.exists(a) and os.path.exists(b)) or _sha_file(a) != _sha_file(b):
+            out.add(f)
+    return out
+
+
+def known_errors(head, ref, changed):
+    """(rev5 R1) Are HEAD's error keys [file, line, message] all REF's, as multisets (no key's count grows)? An error
+    in a file the change didn't touch is matched with its line; one in a CHANGED file (lines move) by file and
+    message, with counts."""
+    def ms(keys):
+        return collections.Counter((f, l if f not in changed else None, m) for f, l, m in keys)
+    h, r = ms(head), ms(ref)
+    return all(r[k] >= n for k, n in h.items())
+
+
+def syntax_rows(hroot, rels, rroot=None, jobs=2, targets=SYNTAX_TARGETS):
+    """One row per (tree TU of RELS under HROOT, target): verdict `ok`, `native_syntax` (fails the gate), `known`
+    (fails, but the TU's text is REF's and REF failed with every one of these errors: a header changed and every TU
+    is a candidate, the error isn't the change's) or `native_syntax_unavailable` (one row per target, no TU: the
+    toolchain is missing; fails the gate). A TU whose text changed (or is new) fails on any error."""
+    import concurrent.futures
+    import tree_tu
+    paths = [r for r in rels if os.path.exists(os.path.join(hroot, r)) and tree_tu.is_tree_tu(os.path.join(hroot, r))]
+    rows, live = [], []
+    for t in targets:
+        tc = syntax_toolchain(t)
+        if "unavailable" in tc:
+            rows.append({"tu": None, "target": t, "verdict": "native_syntax_unavailable",
+                         "errors": [tc["unavailable"]]})
+        else:
+            live.append(t)
+    work = [(r, t) for r in paths for t in live]
+    with concurrent.futures.ThreadPoolExecutor(max(1, jobs)) as ex:
+        res = dict(zip(work, ex.map(lambda w: native_syntax(os.path.join(hroot, w[0]), w[1]), work)))
+    same = set()
+    if rroot:
+        for r in {w[0] for w in work if res[w]["rc"]}:
+            rp = os.path.join(rroot, r)
+            if os.path.exists(rp) and _sha_file(rp) == _sha_file(os.path.join(hroot, r)):
+                same.add(r)
+    for (r, t) in work:
+        h = res[(r, t)]
+        v = "ok"
+        if h["rc"]:
+            v = "native_syntax"
+            if r in same:
+                ref = native_syntax(os.path.join(rroot, r), t)
+                if ref.get("rc") and known_errors(h["keys"], ref.get("keys", []),
+                                                  changed_files(rroot, hroot, h["keys"])):
+                    v = "known"
+        rows.append({"tu": r, "target": t, "verdict": v, "errors": h["errors"], "n_errors": h["n_errors"],
+                     "cached": bool(h.get("_cached"))})
+    return rows
+
+
 # ------------------------------------------------------------------------------------------------------ the gate
 def judge(blocks, results, baseline):
     """Per checked block: its status class, gate class and verdict: new (a failure), known (in the baseline),
@@ -850,6 +1041,11 @@ def gate(ref="HEAD", head=None, tus=None, mode="auto", jobs=2, name="x64gate", q
             r = {k: v for k, v in r.items() if k not in ("src", "host")}
             store_result(keyof.get(a), r)
             results[a] = r
+        # (integ3, x64syn) the changed TUs through the native builds' front ends (native_syntax); X64_GATE_OFF=native
+        # leaves it out (diagnosis only: the summary says so)
+        native = None
+        if "native" not in os.environ.get("X64_GATE_OFF", ""):
+            native = syntax_rows(ch["head_root"], ch.get("rels", []), ch.get("ref_root"), jobs)
     finally:
         if not workdir:
             shutil.rmtree(ch["tmp"], ignore_errors=True)
@@ -861,8 +1057,20 @@ def gate(ref="HEAD", head=None, tus=None, mode="auto", jobs=2, name="x64gate", q
                "changed": len(rows), "ran": len(fresh), "cached": sum(r["cached"] for r in rows),
                "verdicts": dict(sorted(vs.items())), "classes": dict(sorted(cs.items())), "gone": len(ch["gone"]),
                "gone_in_baseline": len(gone_known), "key_errors": len(ch["errors"])}
-    failed = bool(vs.get("new") or vs.get("unchecked") or ch["errors"])
-    return {"rows": rows, "summary": summary, "gone": ch["gone"], "errors": ch["errors"], "failed": failed}
+    if native is None:
+        summary["native_syntax"] = "off (X64_GATE_OFF=native)"
+        native = []
+    else:
+        nv = collections.Counter(r["verdict"] for r in native)
+        summary["native_syntax"] = {"tus": len({r["tu"] for r in native if r["tu"]}), "targets": list(SYNTAX_TARGETS),
+                                    "verdicts": dict(sorted(nv.items())),
+                                    "cached": sum(bool(r.get("cached")) for r in native),
+                                    "unavailable": sorted(r["target"] for r in native
+                                                          if r["verdict"] == "native_syntax_unavailable")}
+    failed = bool(vs.get("new") or vs.get("unchecked") or ch["errors"] or
+                  any(r["verdict"] in ("native_syntax", "native_syntax_unavailable") for r in native))
+    return {"rows": rows, "summary": summary, "gone": ch["gone"], "errors": ch["errors"], "failed": failed,
+            "native": native}
 
 
 def update_baseline(res, base, why_gone="gone"):
@@ -892,6 +1100,17 @@ def render(res):
             lines.append("    " + r["diff"][:200])
     for p, e in sorted(res["errors"].items()):
         lines.append("KEY ERROR %s: %s" % (p, e))
+    for r in sorted(res.get("native", []), key=lambda r: (r["verdict"] != "native_syntax_unavailable",
+                                                          r["verdict"] != "native_syntax", r["tu"] or "", r["target"])):
+        if r["verdict"] == "ok":
+            continue
+        if r["verdict"] == "native_syntax_unavailable":
+            lines.append("NATIVE_SYNTAX_UNAVAILABLE %s: %s" % (r["target"], r["errors"][0] if r["errors"] else ""))
+            continue
+        lines.append("%-13s %-11s %s (%d errors)" % ("NATIVE_SYNTAX" if r["verdict"] == "native_syntax" else
+                                                     "native-known", r["target"], r["tu"], r.get("n_errors", 0)))
+        for e in r["errors"][:SYNTAX_ERRLINES if r["verdict"] == "native_syntax" else 1]:
+            lines.append("    " + e[:200])
     lines.append(json.dumps(res["summary"]))
     lines.append("x64 gate: %s" % ("FAIL" if res["failed"] else "ok"))
     return "\n".join(lines)
@@ -984,7 +1203,8 @@ def main(argv=None):
         res["summary"]["baseline_removed"] = removed
     print(json.dumps({"summary": res["summary"], "failed": res["failed"],
                       "new": [r for r in res["rows"] if r["verdict"] in ("new", "unchecked")],
-                      "triage": [r for r in res["rows"] if r["verdict"] == "triage"]}, indent=1)
+                      "triage": [r for r in res["rows"] if r["verdict"] == "triage"],
+                      "native_syntax": [r for r in res.get("native", []) if r["verdict"] != "ok"]}, indent=1)
           if a.json else render(res))
     return 1 if res["failed"] else 0
 
