@@ -308,6 +308,9 @@ def check(src, addr):
 FREE_NAMES = {0x0008d330: re.compile(r"^\?\?3@YAXPAX@Z$"),
               0x0008d340: re.compile(r"^\?\?_V@YAXPAX@Z$"),
               0x00263f30: re.compile(r"^\?\?3LoadObject@content@(fn_f?[0-9a-f]{7,8}@)?@SAXPAX@Z$"),
+              # (nat2) content::LoadObject's operator delete[]: a jmp to 0x0008d330, called by name by the vector
+              # deleting destructors (CEncounterGenerator 0x001fc600, CLocator 0x001fc590)
+              0x00263f40: re.compile(r"^\?\?_VLoadObject@content@(fn_f?[0-9a-f]{7,8}@)?@SAXPAX@Z$"),
               0x00267090: re.compile(r"^_FUN_00267090$")}
 
 

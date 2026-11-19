@@ -56,11 +56,12 @@ class FreeName(unittest.TestCase):
         self.assertEqual(f("??3@YAXPAX@Z", 0x0008d340), ("free_by_other_name", "??3@YAXPAX@Z"))   # delete for delete[]
         self.assertEqual(f("?free_@@YAXPAX@Z", 0x00267090), ("free_by_other_name", "?free_@@YAXPAX@Z"))
         self.assertIsNone(f("_FUN_00012345", 0x00012345))      # not a free
-        # through the game's one-jmp thunk 0x00263f40 (Ghidra's thunk_FUN_00267090) to operator delete 0x0008d330
-        self.assertEqual(self.v.free_reached(0x00263f40), 0x0008d330)
+        # content::LoadObject's operator delete[] 0x00263f40 (a jmp to 0x0008d330) has a name of its own (nat2)
+        self.assertEqual(self.v.free_reached(0x00263f40), 0x00263f40)
+        self.assertIsNone(f("??_VLoadObject@content@@SAXPAX@Z", 0x00263f40))
         self.assertEqual(f("?thunk_FUN_00267090@@YAXPAX@Z", 0x00263f40),
                          ("free_by_other_name", "?thunk_FUN_00267090@@YAXPAX@Z"))
-        self.assertIsNone(f("??3@YAXPAX@Z", 0x00263f40))
+        self.assertEqual(f("??3@YAXPAX@Z", 0x00263f40), ("free_by_other_name", "??3@YAXPAX@Z"))
         self.assertEqual(f("_thunk_FUN_00267090", 0x0008d330), ("free_by_other_name", "_thunk_FUN_00267090"))
 
     def test_block_reported_soft(self):
