@@ -1142,6 +1142,111 @@ def unproven_baseline_growth(ref, root=None):
     return out
 
 
+FREE_BASELINE = os.path.join(ROOT, "config", "free-name-baseline.json")
+
+
+def load_free_baseline(path=None):
+    """(integ3, D149) {"tus": {TU: {addr: [names] | {"names", "accepted", "by", "why"}}}} of config/free-name-baseline.json:
+    the matches blocks that call one of the game's frees under another name (verify_relocs free_by_other_name) when the
+    gate began. A bare list is the seed's entry. Only shrinks: `verify --relocs --update-free-baseline` drops what a
+    fresh check no longer reports; an entry is added (or a name added to it) only by `tree_tu.py free-name-accept`."""
+    path = path or FREE_BASELINE
+    try:
+        with open(path) as f:
+            return json.load(f)
+    except (OSError, ValueError):
+        return {"tus": {}}
+
+
+def free_entry(e):
+    """(names set, stamp dict) of a baseline entry."""
+    if isinstance(e, list):
+        return set(e), {"by": "free-name-seed"}
+    return set(e.get("names", [])), e
+
+
+def write_free_baseline(b, path=None):
+    path = path or FREE_BASELINE
+    tus = {}
+    for tu in sorted(b.get("tus", {})):
+        ents = {a: b["tus"][tu][a] for a in sorted(b["tus"][tu]) if free_entry(b["tus"][tu][a])[0]}
+        for a, e in ents.items():
+            if isinstance(e, list):
+                ents[a] = sorted(e)
+            else:
+                e["names"] = sorted(e["names"])
+        if ents:
+            tus[tu] = ents
+    b["tus"] = tus
+    b["total"] = sum(len(free_entry(e)[0]) for t in tus.values() for e in t.values())
+    with open(path + ".tmp", "w") as f:
+        f.write("{\n")
+        head = [k for k in ("comment", "seed_why", "total") if k in b]
+        for k in head:
+            f.write(" %s: %s,\n" % (json.dumps(k), json.dumps(b[k])))
+        f.write(' "tus": {\n')
+        for i, tu in enumerate(tus):
+            f.write("  %s: {\n" % json.dumps(tu))
+            items = list(tus[tu].items())
+            for j, (a, e) in enumerate(items):
+                f.write("   %s: %s%s\n" % (json.dumps(a), json.dumps(e, sort_keys=True), "," if j + 1 < len(items) else ""))
+            f.write("  }%s\n" % ("," if i + 1 < len(tus) else ""))
+        f.write(" }\n}\n")
+    os.replace(path + ".tmp", path)
+
+
+def free_names_check(recs, base):
+    """(integ3, D149) verify's view of one TU's records against the free-name baseline: [(addr, "new"|"known"|"fixed",
+    names)]. new: a name not listed for the block (fails); fixed: listed names the block no longer calls (with relocs)."""
+    out = []
+    for r in recs:
+        if r.get("kind") != "matches" or r.get("status") != "match" or "relocs" not in r:
+            continue
+        tu = r.get("tu") or ""
+        have = set(r.get("free_by_other_name", []))
+        listed = free_entry(base.get("tus", {}).get(tu, {}).get(r["addr"], []))[0]
+        if have - listed:
+            out.append((r["addr"], "new", sorted(have - listed)))
+        if have & listed:
+            out.append((r["addr"], "known", sorted(have & listed)))
+        if listed - have:
+            out.append((r["addr"], "fixed", sorted(listed - have)))
+    return out
+
+
+def free_baseline_growth(ref, root=None):
+    """(integ3, D149) ["TU addr name"] the free-name baseline holds now that REF's didn't, unless the entry's own stamp is a
+    new `by: free-name-accept` (or the seed's, when REF had no file: once); ["(deleted)"] when REF had it and the tree
+    doesn't; a REF that can't be read fails closed (file_at_ref)."""
+    root = root or ROOT
+    rel = "config/free-name-baseline.json"
+    try:
+        text = file_at_ref(ref, rel, root)
+        had = text is not None and bool(text.strip())
+        before = json.loads(text).get("tus", {}) if had else {}
+    except (RefReadError, ValueError) as e:
+        return ["(REF unreadable: %s)" % str(e)[:200]]
+    path = os.path.join(root, rel)
+    if had and not os.path.exists(path):
+        return ["(deleted)"]
+    out = []
+    for tu, ents in load_free_baseline(path).get("tus", {}).items():
+        for addr, e in ents.items():
+            names, st = free_entry(e)
+            oe = before.get(tu, {}).get(addr)
+            onames, ost = free_entry(oe) if oe is not None else (set(), {})
+            extra = names - onames
+            if not extra:
+                continue
+            if st.get("by") == "free-name-accept" and st.get("accepted") and \
+                    (oe is None or (ost.get("by"), ost.get("accepted")) != (st.get("by"), st.get("accepted"))):
+                continue
+            if st.get("by") == "free-name-seed" and not had:
+                continue
+            out += ["%s %s %s" % (tu, addr, n) for n in sorted(extra)]
+    return out
+
+
 def code_ledger_index(path=None):
     """{(addr, mode, code hash)} of the ledger: a code a passing run proved, under any checker view."""
     path = path or LEDGER
@@ -1189,7 +1294,9 @@ def failing(counts, unproven=True):
     return sum(n for k, n in counts.items() if (k.split(" ")[0] in ("matches", "equivalent", "pinned", "ambiguous",
                                                                      "overreach") + (("unproven",) if unproven else ())
                                                  or k in ("unproven code, not in baseline",
-                                                          "unproven baseline grew without accept"))
+                                                          "unproven baseline grew without accept",
+                                                          "free_by_other_name new",
+                                                          "free-name baseline grew without accept"))
                and not k.endswith((" match", " compiled", ": same")))
 
 
@@ -1271,7 +1378,8 @@ def reach_files(paths):
 JOB_META = ".jobq/local-inputs.json"
 JOB_REF = ".jobq/ref"
 GEN_PREFIX = "include/gen/"
-CONFIG_READ = {"verify": ["config/data.json", "config/proof-ledger.jsonl", "config/unproven-baseline.json"],
+CONFIG_READ = {"verify": ["config/data.json", "config/proof-ledger.jsonl", "config/unproven-baseline.json",
+                          "config/free-name-baseline.json"],
                "check": ["config/data.json", "config/proof-ledger.jsonl"], "x64": ["config/x64-baseline.json", "config/rtti-baseline.json", "config/data.json"],
                "gen": ["config/gen-sizes.json"]}
 _META = []
@@ -1547,7 +1655,7 @@ def overreach(obj, out, pairs):
         r.setdefault("overreach" if h["kind"] in dor.REPORTED else "overreach_info", []).append(k)
 
 
-def verify(paths, jobs=4, relocs=False, out=None, vs_standalone=False, wine=True, ref=None, view=True):
+def verify(paths, jobs=4, relocs=False, out=None, vs_standalone=False, wine=True, ref=None, view=True, free_base=None):
     """Check every block of PATHS (cached); returns the summary. OUT: one JSON record per function. WINE: the clang
     code hashes too. REF (a git ref): a block that had a code hash there and has none now is a failure. VIEW: the
     checker views and the proof ledger's verdict (integ1, D37/D42)."""
@@ -1557,6 +1665,8 @@ def verify(paths, jobs=4, relocs=False, out=None, vs_standalone=False, wine=True
     led = ledger_index() if view else None
     _LEDGER[:] = [led]
     f = open(out, "w") if out else None
+    fb = (free_base if free_base is not None else load_free_baseline()) if relocs else None
+    free_rows = []
     ctx = multiprocessing.get_context("fork")
     with ctx.Pool(max(1, jobs)) as pool:
         for path, recs, hit, err in pool.imap_unordered(_verify_one, [(p, relocs, vs_standalone, wine, view)
@@ -1566,6 +1676,13 @@ def verify(paths, jobs=4, relocs=False, out=None, vs_standalone=False, wine=True
                 errors.append((path, err))
             if ref:
                 removed_hashes(path, recs, ref)
+            if fb is not None and "freegate" not in os.environ.get("TREE_TU_OFF", ""):
+                # (integ3, D149) a call to the game's free under another name fails unless the baseline lists it
+                for addr_, v_, names_ in free_names_check(recs, fb):
+                    counts["free_by_other_name new" if v_ == "new" else "info: free_by_other_name %s" % v_] += len(names_)
+                    if v_ != "known":
+                        free_rows.append({"tu": next((r_.get("tu") for r_ in recs if r_.get("tu")), ""), "addr": addr_,
+                                          "verdict": v_, "names": names_})
             for r in recs:
                 count_codes(counts, r)
                 counts["%s %s" % (r["kind"], r["status"])] += 1
@@ -1590,7 +1707,9 @@ def verify(paths, jobs=4, relocs=False, out=None, vs_standalone=False, wine=True
     return {"tus": len(paths), "cache_hits": hits, "counts": dict(sorted(counts.items())), "errors": errors[:20],
             "n_errors": len(errors), "inputs": inputs_digest(paths),
             "ledger": None if not view else "none" if led is None else len(led),
-            "unproven_baseline": load_unproven_baseline().get("total", 0)}    # (D126) the list's size, for status
+            "unproven_baseline": load_unproven_baseline().get("total", 0),    # (D126) the list's size, for status
+            "free_name_baseline": load_free_baseline().get("total", 0),       # (D149)
+            **({"free_names": free_rows} if free_rows else {})}
 
 
 # ------------------------------------------------------------------------------------------------------- materialize
@@ -2048,6 +2167,8 @@ def main(argv=None):
                    "header changed (by default it runs when one did: since --changed-since, uncommitted, or shipped)")
     p.add_argument("--head-only", action="store_true", help="as a queue job: verify the commit (plus what is shipped) "
                    "on purpose, though the checkout has unshipped edits the TUs read (jobq.py refuses the job otherwise)")
+    p.add_argument("--update-free-baseline", action="store_true", help="(D149, with --relocs) drop from "
+                   "config/free-name-baseline.json the free-by-other-name calls the checked blocks no longer make")
     p.add_argument("--x64", action="store_true", help="then the 64-bit gate (tools/x64_gate.py) over the blocks whose "
                    "code changed since --changed-since (default HEAD): a block newly in layout/ptrtrunc/crash64 fails")
     p = sub.add_parser("inputs", help="verify's `inputs` digests of the local files (no compile): compare with a "
@@ -2079,6 +2200,16 @@ def main(argv=None):
                        "begins)")
     p.add_argument("checks")
     p.add_argument("--why", required=True)
+    p = sub.add_parser("free-name-accept", help="(D149) list a matches block's call of a free under another name in "
+                       "config/free-name-baseline.json, with a reason")
+    p.add_argument("addr")
+    p.add_argument("--tu", required=True)
+    p.add_argument("--name", required=True, help="the callee's name as verify_relocs reports it")
+    p.add_argument("--why", required=True)
+    p = sub.add_parser("free-name-seed", help="(D149) seed config/free-name-baseline.json from a `verify --relocs --out` "
+                       "records file (once, when the gate begins)")
+    p.add_argument("records")
+    p.add_argument("--why", required=True)
     p = sub.add_parser("hash", help="record equivalent blocks' code hashes (only from proofs)")
     p.add_argument("paths", nargs="+", help="TUs (--proven), or the tree root (--compute)")
     p.add_argument("--proven", nargs="+", metavar="RESULT", help="equiv.py --json reports / jsonl: an MSVC run at "
@@ -2093,6 +2224,38 @@ def main(argv=None):
                    "config/proof-ledger.jsonl)")
     p.add_argument("--json", action="store_true")
     a = ap.parse_args(argv)
+    if a.cmd in ("free-name-accept", "free-name-seed") and not (a.why or "").strip():
+        sys.exit("%s: --why must give a reason" % a.cmd)
+    if a.cmd == "free-name-accept":
+        recs = check_tu(a.tu)
+        r = next((x for x in recs if x["addr"] == a.addr), None)
+        if r is None or r.get("kind") != "matches":
+            sys.exit("free-name-accept: %s is no matches block of %s" % (a.addr, a.tu))
+        b = load_free_baseline()
+        tu = os.path.relpath(os.path.abspath(a.tu), find_root(a.tu) or ROOT)
+        names, st = free_entry(b.setdefault("tus", {}).setdefault(tu, {}).get(a.addr, []))
+        today = __import__("datetime").datetime.now().isoformat(timespec="seconds")
+        b["tus"][tu][a.addr] = {"names": sorted(names | {a.name}), "accepted": today, "by": "free-name-accept",
+                                "why": a.why.strip()}
+        write_free_baseline(b)
+        print(tu, a.addr, b["tus"][tu][a.addr])
+        return 0
+    if a.cmd == "free-name-seed":
+        if os.path.exists(FREE_BASELINE):
+            sys.exit("free-name-seed: config/free-name-baseline.json exists (it only shrinks; add with free-name-accept)")
+        b = {"comment": "D149: matches blocks that call one of the game's frees (operator delete / delete[], FREE_NAMES) "
+                        "under another name, when the gate began. Only shrinks (verify --relocs --update-free-baseline); "
+                        "add with tree_tu.py free-name-accept --why. decl1 removes them.",
+             "seed_why": a.why.strip(), "tus": {}}
+        for l in open(a.records):
+            if not l.strip():
+                continue
+            r = json.loads(l)
+            if r.get("free_by_other_name"):
+                b["tus"].setdefault(r["tu"], {})[r["addr"]] = sorted(set(r["free_by_other_name"]))
+        write_free_baseline(b)
+        print(sum(len(v) for v in b["tus"].values()), "blocks", b["total"], "names")
+        return 0
     if a.cmd in ("unproven-accept", "unproven-seed") and not (a.why or "").strip():
         sys.exit("%s: --why must give a reason" % a.cmd)
     if a.cmd == "unproven-accept":
@@ -2247,6 +2410,32 @@ def main(argv=None):
             if grew:
                 s["counts"]["unproven baseline grew without accept"] = len(grew)
                 s["unproven_baseline_growth"] = grew[:50]
+            fgrew = free_baseline_growth(a.changed_since, root)     # (integ3, D149)
+            if fgrew:
+                s["counts"]["free-name baseline grew without accept"] = len(fgrew)
+                s["free_name_baseline_growth"] = fgrew[:50]
+        if a.update_free_baseline:
+            if not a.relocs:
+                sys.exit("verify --update-free-baseline needs --relocs")
+            fb_ = load_free_baseline()
+            n_ = 0
+            for row in s.get("free_names", []):
+                if row["verdict"] != "fixed":
+                    continue
+                ent = fb_.get("tus", {}).get(row["tu"], {})
+                if row["addr"] not in ent:
+                    continue
+                names_, st_ = free_entry(ent[row["addr"]])
+                left = names_ - set(row["names"])
+                if isinstance(ent[row["addr"]], list):
+                    ent[row["addr"]] = sorted(left)
+                else:
+                    ent[row["addr"]]["names"] = sorted(left)
+                n_ += len(names_) - len(left)
+            if n_:
+                write_free_baseline(fb_)
+            s["free_name_baseline_lowered"] = n_
+            s["free_name_baseline"] = load_free_baseline().get("total", 0)
         # (D10) in a queue job: the files checked against the checkout's at submit
         vl = inputs_vs_local("verify", (argv if argv is not None else sys.argv[1:])[1:], s["inputs"])
         if vl is not None:

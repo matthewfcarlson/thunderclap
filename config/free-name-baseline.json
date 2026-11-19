@@ -1,0 +1,3403 @@
+{
+ "comment": "D149: matches blocks that call one of the game's frees (operator delete / delete[], FREE_NAMES) under another name, when the gate began. Only shrinks (verify --relocs --update-free-baseline); add with tree_tu.py free-name-accept --why. decl1 removes them.",
+ "seed_why": "D149 (user, 2026-11-19): free-by-other-name gates as a shrink-only ratchet; the matches blocks calling a game free under another name at 509f9aa2e (whole-tree verify --relocs, job 95138); decl1 removes them",
+ "total": 1796,
+ "tus": {
+  "src/engine/audio/ChannelSendVolumeFadeBehaviour.cpp": {
+   "0x0024ece0": ["?thunk_FUN_00267090@fn_f983a9d8@@YAXPAVNonCopyable_24ece0@pure3d@@@Z"]
+  },
+  "src/engine/audio/OmHalStream.cpp": {
+   "0x0025b940": ["?FuncB_0008d330@fn_fd6abdd0@@YAXPAX@Z"],
+   "0x0025bbd0": ["?thunk_FUN_00267090@fn_fd6abdd0@@YAXI@Z"]
+  },
+  "src/engine/audio/SeqAction.cpp": {
+   "0x0024e920": ["?thunk_FUN_00267090@fn_f38391a1@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/engine/audio/SeqCommand.cpp": {
+   "0x0024fbe0": ["?thunk_FUN_00267090@fn_f84e08e8@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/engine/audio/SeqEvent.cpp": {
+   "0x00260120": ["?thunk_FUN_00267090@fn_f3ff1114@@YAXPAVNonCopyable@pure3d@@@Z"]
+  },
+  "src/engine/audio/SeqEventType.cpp": {
+   "0x00260950": ["?DestroySeq_0008d330@fn_fe02c6d2@@YAXPAX@Z"]
+  },
+  "src/engine/audio/unk_23fa40.cpp": {
+   "0x00240730": ["?thunk_FUN_00267090@fn_f2774db1@@YAXPAVCCollisionAction@1@@Z"]
+  },
+  "src/engine/choreo2/AnimationDriver.cpp": {
+   "0x002259e0": ["?thunk_00263f30@fn_002259e0@@YAXPAUAnimationDriver@1@@Z"]
+  },
+  "src/engine/choreo2/Driver.cpp": {
+   "0x0022a950": ["??3@YAXPAX@Z"]
+  },
+  "src/engine/choreo2/JointDriver.cpp": {
+   "0x00224bb0": ["?thunk_FUN_00267090@fn_00224bb0@@YAXPAVJointDriver@choreo2@1@@Z"]
+  },
+  "src/engine/choreo2/LocomotionDriver.cpp": {
+   "0x0022aa20": ["?thunk_FUN_00267090@fn_0022aa20@@YAXPAVLocomotionDriver@1@@Z"]
+  },
+  "src/engine/choreo2/LocomotionSteerDriver.cpp": {
+   "0x00228aa0": ["??3@YAXPAX@Z"]
+  },
+  "src/engine/choreo2/LocomotionStrafeDriver.cpp": {
+   "0x002265c0": ["??3@YAXPAX@Z"]
+  },
+  "src/engine/choreo2/PartitionDriver.cpp": {
+   "0x00222430": ["?destroy_00263f30@fn_f7ce353a@@YAXPAVPartitionDriver@1@@Z"]
+  },
+  "src/engine/choreo2/Puppet.cpp": {
+   "0x002232b0": ["??3@YAXPAX@Z"]
+  },
+  "src/engine/choreo2/RestPoseDriver.cpp": {
+   "0x0022a800": ["?SweepTrack_DeleteThis_00263f30@fn_f792b616@@YAXPAX@Z"]
+  },
+  "src/engine/content/LoadInventory.cpp": {
+   "0x002665c0": ["?Third_0008d330@fn_fa919a6c@@YAXPAVThing_2665c0@1@@Z"],
+   "0x002665f0": ["?thunk_0008d330@fn_fa919a6c@@YAXPAX@Z"],
+   "0x00266630": ["?thunk_FUN_00267090@fn_fa919a6c@@YAXPAVLoadInventory@1@@Z", "?thunk_FUN_00267090@fn_fa919a6c@@YAXPAX@Z"]
+  },
+  "src/engine/content/LoadRequest.cpp": {
+   "0x00266900": ["?thunk_00263f30@fn_f6a56b1c@@YAXPAVLoadRequest@content@1@@Z"]
+  },
+  "src/engine/content/LoadStream.cpp": {
+   "0x00264470": ["?Destroy_00263f30@fn_00264470@@YAXPAVLoadStream@1@@Z"]
+  },
+  "src/engine/content/P3DFileHandler.cpp": {
+   "0x00265bf0": ["_AddRef_0008d340"],
+   "0x00265c40": ["_thunk_FUN_00267090_a", "_thunk_FUN_00267090_b"]
+  },
+  "src/engine/core/Drive.cpp": {
+   "0x00272ce0": ["?thunk_FUN_00267090@fn_f59a9783@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/engine/core/IControllerBuffer.cpp": {
+   "0x002708c0": ["?thunk_FUN_00267090@fn_f1b6eebc@@YAXPAVNonCopyable_2708c0@pure3d@1@@Z"]
+  },
+  "src/engine/core/MemoryAllocatorMalloc.cpp": {
+   "0x00267260": ["?thunk_FUN_00267090@fn_f03133a3@@YAXPAVNonCopyable_267260@pure3d@1@@Z"]
+  },
+  "src/engine/core/MemorySpaceAsyncRequest_Copy.cpp": {
+   "0x002704f0": ["?thunk_FUN_00267090@fn_ff2c3197@@YAXPAVNonCopyable_2704f0@pure3d@1@@Z"]
+  },
+  "src/engine/core/Platform.cpp": {
+   "0x0026f050": ["?thunk_FUN_00267090@fn_fb3b39af@@YAXPAVNonCopyable_26f050@pure3d@1@@Z"]
+  },
+  "src/engine/core/TimerList.cpp": {
+   "0x00267e90": ["?thunk_FUN_00267090@fn_fc34aa1a@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x00268270": ["?thunk_FUN_00267090@fn_00268270@@YAXPAX@Z"]
+  },
+  "src/engine/fight/Bank.cpp": {
+   "0x0023c870": ["?SweepTrack_DeleteThis_00263f30@fn_f1f0ad99@@YAXPAX@Z"]
+  },
+  "src/engine/fight/BinReader.cpp": {
+   "0x0023ba80": ["?thunk_FUN_00267090@fn_0023ba80@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x0023bad0": ["?cleanup_00263f30@fn_f1775e11@@YAXPAVIFileDataReader@1@@Z"],
+   "0x0023bb30": ["?Destroy_00263f30@fn_0023bb30@@YAXPAVStreamDataReader@1@@Z"],
+   "0x0023bb60": ["??3@YAXPAX@Z"],
+   "0x0023c1d0": ["?thunk_FUN_00267090@fn_0023c1d0@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/engine/fight/Branch.cpp": {
+   "0x00233d90": ["?thunk_FUN_00267090@fight@fn_00233d90@@YAXPAVBranch@12@@Z"],
+   "0x00233fa0": ["?FUN_00267090@fn_f3f1aadd@@YAXH@Z"]
+  },
+  "src/engine/fight/BreakPointTrack.cpp": {
+   "0x0023f1f0": ["?thunk_FUN_00267090@fn_f27320e9@@YAXPAVBreakPointTrack@fight@@@Z"],
+   "0x0023f5b0": ["?thunk_delete_00263f30@fn_f27320e9@@YAXPAX@Z"]
+  },
+  "src/engine/fight/Chunk.cpp": {
+   "0x0023b7e0": ["?SweepTrack_DeleteThis_00263f30@fn_f9ad35a3@@YAXPAX@Z"]
+  },
+  "src/engine/fight/CommentTrack.cpp": {
+   "0x0023d880": ["_FreeMem_0008d340"],
+   "0x0023de60": ["?thunk_delete_00263f30@fn_f40d2254@@YAXPAX@Z"],
+   "0x0023df10": ["?thunk_delete_00263f30@fn_f40d2254@@YAXPAX@Z"]
+  },
+  "src/engine/fight/Condition.cpp": {
+   "0x00234560": ["?SweepTrack_DeleteThis_00263f30@fn_fc77ac82@@YAXPAX@Z"],
+   "0x002345e0": ["?Destroy_0008d330@fn_002345e0@@YAXPAUCondition@fight@1@@Z"]
+  },
+  "src/engine/fight/Context.cpp": {
+   "0x00236920": ["??3@YAXPAX@Z"]
+  },
+  "src/engine/fight/DebugCondition.cpp": {
+   "0x0023d510": ["?SweepTrack_DeleteThis_0008d330@fn_fd383094@@YAXPAX@Z"],
+   "0x0023d7c0": ["?thunk_delete_00263f30@fn_fd383094@@YAXPAX@Z"]
+  },
+  "src/engine/fight/ExecuteAction.cpp": {
+   "0x00239780": ["?thunk_FUN_00267090@fn_fd5a1171@@YAXPAVExecuteTrack@1@@Z"],
+   "0x00239d10": ["?thunk_delete_00263f30@fn_fd5a1171@@YAXPAX@Z"]
+  },
+  "src/engine/fight/FalseCondition.cpp": {
+   "0x0023d2f0": ["_FUN_0008d330"],
+   "0x0023d3d0": ["_FUN_00263f30"]
+  },
+  "src/engine/fight/FightNodeTimeCondition.cpp": {
+   "0x00235c50": ["?SweepTrack_DeleteThis_0008d330@fn_fac1015e@@YAXPAX@Z"],
+   "0x00235c80": ["?thunk_FUN_00267090@fn_fac1015e@@YAXPAX@Z"],
+   "0x00235cc0": ["?thunk_FUN_00267090@fn_00235cc0@@YAXPAX@Z"],
+   "0x00235d00": ["?SweepTrack_DeleteThis_0008d330@fn_fac1015e@@YAXPAX@Z"]
+  },
+  "src/engine/fight/MaybeCondition.cpp": {
+   "0x002383f0": ["?SweepTrack_DeleteThis_0008d330@fn_fc1ade79@@YAXPAX@Z"],
+   "0x00238420": ["?SweepTrack_DeleteThis_0008d330@fn_fc1ade79@@YAXPAX@Z"],
+   "0x00238780": ["?thunk_delete_00263f30@fn_fc1ade79@@YAXPAX@Z"],
+   "0x00238820": ["?thunk_delete_00263f30@fn_fc1ade79@@YAXPAX@Z"]
+  },
+  "src/engine/fight/Node.iso_00231d40.cpp": {
+   "0x00231d40": ["?third_00263f30@@YAXPAVNode@@@Z"]
+  },
+  "src/engine/fight/OpportunityTrack.cpp": {
+   "0x00237b40": ["?thunk_delete_00263f30@fn_f6c81acf@@YAXPAX@Z"]
+  },
+  "src/engine/fight/OrCondition.cpp": {
+   "0x0023cfc0": ["_FUN_0008d330"],
+   "0x0023cff0": ["_FUN_0008d330"],
+   "0x0023d110": ["_FUN_00263f30"],
+   "0x0023d1b0": ["_FUN_00263f30"]
+  },
+  "src/engine/fight/Param.cpp": {
+   "0x00234220": ["?thunk_FUN_00267090@fn_f350f41f@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/engine/fight/ParamValue.cpp": {
+   "0x002352d0": ["_thunk_FUN_00267090"]
+  },
+  "src/engine/fight/ParamValueInventoryEntity.cpp": {
+   "0x00235530": ["?thunk_FUN_00267090@fn_00235530@@YAXPAVParamValueScript@1@@Z"],
+   "0x00235560": ["_thunk_FUN_00267090"],
+   "0x00235590": ["?thunk_FUN_00267090@fn_f30d46c2@@YAXPAVParamValueVector_235590@1@@Z"],
+   "0x002355c0": ["?FUN_0008d330@fn_002355c0@@YAXPAVParamValueColour@1@@Z"],
+   "0x002355f0": ["?thunk_FUN_00267090@fn_002355f0@@YAXPAX@Z"],
+   "0x00235620": ["?thunk_FUN_00267090@fn_f30d46c2@@YAXPAVParamValueInventoryEntity@1@@Z"],
+   "0x00235800": ["?thunk_FUN_00267090@fn_f30d46c2@@YAXPAX@Z"],
+   "0x00235830": ["?FUN_0008d330@fn_f30d46c2@@YAXPAUParamValueConditionGroup@1@@Z"]
+  },
+  "src/engine/fight/ParamValueName.cpp": {
+   "0x00235300": ["_thunk_FUN_00267090"],
+   "0x00235330": ["?Cleanup_0008d330@fn_00235330@@YAXPAVParamValueInt@1@@Z"],
+   "0x00235360": ["?thunk_FUN_00267090@fn_00235360@@YAXPAVParamValueFloat@1@@Z"],
+   "0x00235390": ["?thunk_FUN_00267090@fn_00235390@@YAXPAVParamValueString@fight@1@@Z"],
+   "0x002353c0": ["?thunk_FUN_00267090@fn_ff9a771c@@YAXPAVParamValueName@fight@1@@Z"]
+  },
+  "src/engine/fight/ParamValueNameList.cpp": {
+   "0x00235460": ["_thunk_FUN_00267090"],
+   "0x00235490": ["?thunk_FUN_00267090@fn_faf04b50@@YAXPAVParamValueNameList@1@@Z"]
+  },
+  "src/engine/fight/Params.cpp": {
+   "0x00236a70": ["?thunk_FUN_00267090@fn_f44dc5d7@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/engine/fight/PlatformCondition.cpp": {
+   "0x0023cc00": ["?SweepTrack_DeleteThis_0008d330@fn_fe0f08cb@@YAXPAX@Z"],
+   "0x0023ceb0": ["?thunk_delete_00263f30@fn_fe0f08cb@@YAXPAX@Z"]
+  },
+  "src/engine/fight/PrintTrack.cpp": {
+   "0x00238970": ["?thunk_FUN_00267090@fn_fbe81dc2@@YAXPAX@Z"],
+   "0x002392b0": ["?thunk_delete_00263f30@fn_fbe81dc2@@YAXPAX@Z"],
+   "0x00239370": ["?thunk_delete_00263f30@fn_fbe81dc2@@YAXPAX@Z"]
+  },
+  "src/engine/fight/QueuedNodeAction.iso_0023a360.cpp": {
+   "0x0023a360": ["?opDelete_0008d330@@YAXPAX@Z"]
+  },
+  "src/engine/fight/Reference.cpp": {
+   "0x0023c4d0": ["?FUN_00263f30@fn_0023c4d0@@YAXPAVReference@fight@1@@Z"]
+  },
+  "src/engine/fight/ScriptReader.cpp": {
+   "0x0023ab40": ["?thunk_FUN_00267090@fn_f7afe597@@YAXPAUObj_23ab40@1@@Z"],
+   "0x0023b240": ["?thunk_FUN_00267090@fn_0023b240@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x0023b2a0": ["?thunk_FUN_00267090@fn_0023b2a0@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x0023b2f0": ["??3@YAXPAX@Z"],
+   "0x0023b350": ["?destroy_00263f30@fn_f7afe597@@YAXPAVStreamStringReader_23b350@1@@Z"],
+   "0x0023b390": ["??3@YAXPAX@Z"]
+  },
+  "src/engine/fight/ScriptReader.iso_0023b4f0.cpp": {
+   "0x0023b4f0": ["??3@YAXPAX@Z"]
+  },
+  "src/engine/fight/SequenceTrack.cpp": {
+   "0x00237c50": ["?thunk_FUN_00267090@fn_00237c50@@YAXPAVSequenceTrack@1@@Z"],
+   "0x00238160": ["?thunk_delete_00263f30@fn_f55fdae2@@YAXPAX@Z"]
+  },
+  "src/engine/fight/SpawnTrack.cpp": {
+   "0x0023ec10": ["?del_0008d330@fn_0023ec10@@YAXPAUSpawnTrack@fight@1@@Z"],
+   "0x0023f0a0": ["?thunk_delete_00263f30@fn_f7aacfaa@@YAXPAX@Z"]
+  },
+  "src/engine/fight/StopTrack.cpp": {
+   "0x0023e5e0": ["?destroy_0008d330@fn_0023e5e0@@YAXPAVStopTrack@1@@Z"],
+   "0x0023e8c0": ["?destroy_0008d330@fn_fe4accdf@@YAXPAVStopAction_23e8c0@1@@Z"],
+   "0x0023e9f0": ["?thunk_delete_00263f30@fn_fe4accdf@@YAXPAX@Z"]
+  },
+  "src/engine/fight/Store.cpp": {
+   "0x0023c5e0": ["?SweepTrack_DeleteThis_00263f30@fn_f0d621c3@@YAXPAX@Z"]
+  },
+  "src/engine/fight/SubConditionGroupCondition.cpp": {
+   "0x0023c930": ["?DestroySub_0008d330@fn_0023c930@@YAXPAVSubConditionGroupCondition@1@@Z"],
+   "0x0023cb10": ["?thunk_delete_00263f30@fn_fe0ef8b4@@YAXPAX@Z"]
+  },
+  "src/engine/fight/Track.cpp": {
+   "0x00236d10": ["??3@YAXPAX@Z"],
+   "0x00236d90": ["?thunk_FUN_00267090@fn_00236d90@@YAXPAVTrack@1@@Z"]
+  },
+  "src/engine/fight/WaitTrack.cpp": {
+   "0x0023e050": ["?SweepTrack_DeleteThis_0008d330@fn_f3d35335@@YAXPAX@Z"],
+   "0x0023e4a0": ["?thunk_delete_00263f30@fn_f3d35335@@YAXPAX@Z"]
+  },
+  "src/engine/fight/unk_232780.cpp": {
+   "0x00232ae0": ["?thunk_FUN_00267090@fn_f81ad613@@YAXPAX@Z"]
+  },
+  "src/engine/global/RDLObject.cpp": {
+   "0x0027ab50": ["?SweepTrack_DeleteThis_00263f30@fn_ffb1fb44@@YAXPAX@Z"]
+  },
+  "src/engine/global/RDLReader.cpp": {
+   "0x0027ae90": ["?thunk_FUN_00267090@fn_f3d8c179@@YAXPAX@Z"]
+  },
+  "src/engine/global/unk_27a560.cpp": {
+   "0x0027a5f0": ["?thunk_FUN_00267090@fn_ff5ed045@@YAXPAVCCollisionAction@1@@Z"]
+  },
+  "src/engine/global/unk_27a560.iso_0027a6e0.cpp": {
+   "0x0027a6e0": ["_FUN_0008d330"]
+  },
+  "src/engine/math/CompressedQuaternion3.cpp": {
+   "0x0028d130": ["?thunk_FUN_00267090@fn_0028d130@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x0028d440": ["?thunk_0008d340@fn_f5ce7ee6@@YAXPAH@Z"],
+   "0x0028d700": ["?thunk_0008d340@fn_0028d700@@YAXPAH@Z"],
+   "0x0028da90": ["?thunk_0008d340@fn_0028da90@@YAXPAH@Z"],
+   "0x0028de20": ["?thunk_0008d340@fn_0028de20@@YAXPAH@Z"],
+   "0x0028de70": ["?thunk_delete_0008d330@fn_f5ce7ee6@@YAXPAX@Z"],
+   "0x0028dea0": ["?thunk_delete_0008d330@fn_f5ce7ee6@@YAXPAX@Z"],
+   "0x0028ded0": ["?thunk_delete_0008d330@fn_f5ce7ee6@@YAXPAX@Z"],
+   "0x0028df00": ["?thunk_delete_0008d330@fn_f5ce7ee6@@YAXPAX@Z"]
+  },
+  "src/engine/movie/BinkCallback_2.cpp": {
+   "0x00336f10": ["?thunk_FUN_00267090@fn_f964084a@@YAXPAVBinkCallback@movie@@@Z"],
+   "0x00337330": ["?thunk_FUN_00267090@fn_f964084a@@YAXPAVCCollisionAction@1@@Z"],
+   "0x003376e0": ["?thunk_FUN_00267090@fn_003376e0@@YAXPAVCCollisionAction@1@@Z"],
+   "0x00337a10": ["?thunk_FUN_00267090@fn_00337a10@@YAXPAVCCollisionAction@1@@Z"],
+   "0x00337d00": ["?thunk_FUN_00267090@fn_00337d00@@YAXPAVCCollisionAction@1@@Z"],
+   "0x00337da0": ["?thunk_FUN_00267090@fn_00337da0@@YAXPAVCCollisionAction@1@@Z"],
+   "0x00338010": ["?thunk_FUN_00267090@fn_00338010@@YAXPAVCCollisionAction@1@@Z"],
+   "0x00338520": ["?thunk_FUN_00267090@fn_f964084a@@YAXPAX@Z"],
+   "0x003389d0": ["?thunk_FUN_00267090@fn_003389d0@@YAXPAVCCollisionAction@1@@Z"]
+  },
+  "src/engine/movie/RenderStrategy.cpp": {
+   "0x00334090": ["?thunk_FUN_00267090@fn_f542a006@@YAXPAVNonCopyable_334090@pure3d@1@@Z"]
+  },
+  "src/engine/om/Allocator.cpp": {
+   "0x00247680": ["?thunk_FUN_00267090@fn_f6cf1402@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/engine/om/CallbackStream.cpp": {
+   "0x00247410": ["?thunk_FUN_00267090@fn_f85ab0a5@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/engine/om/DynAttr.cpp": {
+   "0x00260ce0": ["?thunk_FUN_00267090@fn_fcce214a@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/engine/om/EntityType.cpp": {
+   "0x00245270": ["?thunk_FUN_00267090@fn_00245270@@YAXPAVEntity@om@1@@Z"]
+  },
+  "src/engine/om/LogStream.cpp": {
+   "0x00247360": ["?thunk_FUN_00267090@fn_f25a8610@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/engine/om/MemoryStream.cpp": {
+   "0x002472c0": ["?thunk_FUN_00267090@fn_f22e0a19@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/engine/om/MetaTypeAttribBase.cpp": {
+   "0x0024d3d0": ["?thunk_FUN_00267090@fn_fbe9f2e3@@YAXPAVNonCopyable_24d3d0@pure3d@@@Z"]
+  },
+  "src/engine/om/NullStream.cpp": {
+   "0x002473b0": ["?thunk_FUN_00267090@fn_f9c55764@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/engine/om/OmPrintfStream.cpp": {
+   "0x00247310": ["?thunk_FUN_00267090@fn_f67ef385@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/engine/om/StdStream.cpp": {
+   "0x00247080": ["_destroy_0008d330"]
+  },
+  "src/engine/om/TextOutStream.cpp": {
+   "0x00247470": ["?thunk_FUN_00267090@fn_f87dbe29@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/engine/physics/ArticulatedPhysicsObject.cpp": {
+   "0x003103e0": ["?Free_0008d340@fn_fec45b2c@@YAXPAX@Z"],
+   "0x00310e70": ["??3@YAXPAX@Z"]
+  },
+  "src/engine/physics/CollisionAnalyser.cpp": {
+   "0x0030dcd0": ["?thunk_FUN_00267090@fn_f910b875@@YAXPAVCCollisionAction@1@@Z"],
+   "0x0030e570": ["??3@YAXPAX@Z"],
+   "0x0030e610": ["?thunk_FUN_00267090@fn_f910b875@@YAXPAVCollisionAnalyser_30e610@1@@Z"]
+  },
+  "src/engine/physics/CollisionCylinder.cpp": {
+   "0x002f3030": ["?cleanup_0008d330@fn_002f3030@@YAXPAUCollisionCylinder@physics@1@@Z"]
+  },
+  "src/engine/physics/CollisionMesh.cpp": {
+   "0x002f3c00": ["?ReleaseThing_0008d340@fn_f77c5fbc@@YAXI@Z"],
+   "0x002f3c60": ["?Free2_0008d330@fn_f77c5fbc@@YAXPAX@Z", "?Free_0008d340@fn_f77c5fbc@@YAXPAX@Z"],
+   "0x002f41a0": ["?ReleaseMesh_0008d330@fn_002f41a0@@YAXPAVCollisionMesh@1@@Z"]
+  },
+  "src/engine/physics/CollisionOBB.cpp": {
+   "0x002fba40": ["?cleanup_0008d330@fn_002fba40@@YAXPAVCollisionOBB@physics@1@@Z"]
+  },
+  "src/engine/physics/CollisionObject.cpp": {
+   "0x003048a0": ["_FreeFunc_0008d340"],
+   "0x00304ff0": ["?thunk_0008d340@fn_00304ff0@@YAXPAX@Z"],
+   "0x00305320": ["?freeA_0008d340@fn_00305320@@YAXPAX@Z", "?freeB_00263f30@fn_00305320@@YAXPAX@Z"]
+  },
+  "src/engine/physics/CollisionObjectLoader.cpp": {
+   "0x00308040": ["?thunk_FUN_00267090@fn_00308040@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x00308080": ["?thunk_FUN_00267090@fn_00308080@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/engine/physics/CollisionVolume.cpp": {
+   "0x00306a90": ["?Free_0008d330@fn_fecd5d4c@@YAXPAX@Z", "?Ref_0008d340@fn_fecd5d4c@@YAXPAX@Z"],
+   "0x00306ac0": ["?FUN_0008d330@fn_fecd5d4c@@YAXPAX@Z", "?FUN_0008d340@fn_fecd5d4c@@YAXPAX@Z"]
+  },
+  "src/engine/physics/ExportInfoLoader.cpp": {
+   "0x002f5110": ["?thunk_FUN_00267090@fn_002f5110@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/engine/physics/HairclubPhysicsObject.cpp": {
+   "0x003093b0": ["?FreeArray_0008d340@fn_003093b0@@YAXPAX@Z"],
+   "0x00309500": ["??3@YAXPAX@Z"]
+  },
+  "src/engine/physics/ImpulseBasedCollisionSolver.cpp": {
+   "0x002f8d30": ["?thunk_0008d330@fn_002f8d30@@YAXPAVCollisionSolverAgent@1@@Z"]
+  },
+  "src/engine/physics/PhysicsJoint3D.cpp": {
+   "0x0030cbb0": ["?AddRef_0008d340@fn_fca90e00@@YAXPAX@Z"],
+   "0x0030cd60": ["?AddRef_0008d340@fn_0030cd60@@YAXPAX@Z"],
+   "0x0030d000": ["?AddRef_0008d340@fn_0030d000@@YAXPAX@Z"],
+   "0x0030d2f0": ["?AddRef_0008d340@fn_0030d2f0@@YAXPAX@Z"],
+   "0x0030d320": ["?DeleteObj_0008d330@fn_0030d320@@YAXPAX@Z", "?FreeBuf_0008d340@fn_0030d320@@YAXPAX@Z"],
+   "0x0030d3a0": ["_DeleteObj_0008d330", "_FreeBuf_0008d340"],
+   "0x0030d420": ["_DeleteObj_0008d330", "_FreeBuf_0008d340"],
+   "0x0030d4a0": ["_DeleteObj_0008d330", "_FreeBuf_0008d340"]
+  },
+  "src/engine/physics/PhysicsJointMatrixModifier.cpp": {
+   "0x002fc3e0": ["??3@YAXPAX@Z"],
+   "0x002fc400": ["??3@YAXPAX@Z"]
+  },
+  "src/engine/physics/PhysicsObject.cpp": {
+   "0x002f5460": ["?thunk_FUN_00267090@fn_ff237b18@@YAXPAVSymMatrix_2f5460@1@@Z"],
+   "0x002f61c0": ["?destroy_00263f30@fn_002f61c0@@YAXPAVPhysicsObject@1@@Z"],
+   "0x002f7080": ["?thunk_FUN_00267090@fn_002f7080@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/engine/physics/PhysicsPropertiesLoader.cpp": {
+   "0x002f2c90": ["?thunk_FUN_00267090@fn_002f2c90@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x002f2cf0": ["_thunk_FUN_00267090"]
+  },
+  "src/engine/physics/Pose.cpp": {
+   "0x0030ebd0": ["_thunk_FUN_00267090"],
+   "0x0030f810": ["?thunk_FUN_00267090@fn_f346547a@@YAXPAX@Z"],
+   "0x0030fc90": ["?drop_0008d340@fn_f346547a@@YAXPAX@Z"]
+  },
+  "src/engine/physics/PoseDriver.cpp": {
+   "0x0030eb60": ["??3@YAXPAX@Z"]
+  },
+  "src/engine/physics/SimLength.cpp": {
+   "0x002ecdc0": ["?thunk_FUN_00267090@fn_002ecdc0@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x002ecde0": ["?thunk_FUN_00267090@fn_002ecde0@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x002ece00": ["??3@YAXPAX@Z"],
+   "0x002ecfe0": ["?thunk_FUN_00267090@fn_002ecfe0@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x002ed000": ["?thunk_FUN_00267090@fn_002ed000@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/engine/physics/SimState.cpp": {
+   "0x002ef850": ["?freeit_0008d330@fn_f89b78b9@@YAXPAX@Z"]
+  },
+  "src/engine/physics/SimStateHairclub.cpp": {
+   "0x002fe530": ["?release_0008d330@fn_002fe530@@YAXPAVSimStateHairclub@1@@Z"]
+  },
+  "src/engine/physics/SimulatedObject.cpp": {
+   "0x002fe730": ["?thunk_00263f30@fn_002fe730@@YAXPAUSimulatedObject@1@@Z"]
+  },
+  "src/engine/physics/SkeletonInfo.cpp": {
+   "0x003128b0": ["??3@YAXPAX@Z"],
+   "0x003128d0": ["?thunk_0008d340@fn_f6834bb6@@YAXPAX@Z"]
+  },
+  "src/engine/physics/SubCollisionDetector.cpp": {
+   "0x003137d0": ["?thunk_FUN_00267090@fn_fa470ba2@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/engine/physics/WorldCollisionObject.cpp": {
+   "0x002fe210": ["?thunk_00263f30@fn_002fe210@@YAXPAVWorldCollisionObject@1@@Z"]
+  },
+  "src/engine/physics/unk_2f90c0.cpp": {
+   "0x002f9b30": ["?thunk_FUN_00267090@fn_fe1b1ee9@@YAXI@Z"],
+   "0x002f9cd0": ["?Release_0008d340@fn_fe1b1ee9@@YAXPAX@Z"],
+   "0x002fa030": ["?Fng_0008d340@fn_fe1b1ee9@@YAXH@Z"],
+   "0x002fa050": ["?Release_0008d340@fn_fe1b1ee9@@YAXPAX@Z"],
+   "0x002fa0f0": ["?ReleaseThing_0008d340@fn_fe1b1ee9@@YAXH@Z"]
+  },
+  "src/engine/pure3d/AmbientLight.cpp": {
+   "0x002a12a0": ["?SweepTrack_DeleteThis_00263f30@fn_f43aa70d@@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/AnimationLoader.cpp": {
+   "0x00288890": ["?thunk_0008d340@fn_f25f8e16@@YAXI@Z"],
+   "0x00288930": ["?thunk_FUN_00267090@fn_f25f8e16@@YAXPAVCCollisionAction@1@@Z"],
+   "0x00289330": ["?cleanup_0008d340@fn_00289330@@YAXPAX@Z"],
+   "0x00289d90": ["??3@YAXPAX@Z"],
+   "0x00289e60": ["?destroy_00263f30@fn_f25f8e16@@YAXPAUAnimationLoader@1@@Z"],
+   "0x00289ea0": ["?thunk_FUN_00267090@fn_00289ea0@@YAXPAVAnimationGroup@1@@Z"]
+  },
+  "src/engine/pure3d/BillboardQuad.cpp": {
+   "0x002b98a0": ["??3@YAXPAX@Z"],
+   "0x002b9cb0": ["??3@YAXPAX@Z"],
+   "0x002ba810": ["??3@YAXPAX@Z"],
+   "0x002bc430": ["??3@YAXPAX@Z"],
+   "0x002bc4d0": ["?thunk_00263f30@fn_fff84c72@@YAXPAVOldBillboardObjectLoader@1@@Z"],
+   "0x002bc5d0": ["??3@YAXPAX@Z"],
+   "0x002bc740": ["??3@YAXPAX@Z"],
+   "0x002bc760": ["??3@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/BillboardQuadGroupAnimationController.cpp": {
+   "0x002a9b80": ["??3@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/BoneMatrixList.cpp": {
+   "0x002e1840": ["?ReleaseThing_0008d340@fn_002e1840@@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/Camera.cpp": {
+   "0x00292dc0": ["?SweepTrack_DeleteThis_00263f30@fn_f91e2119@@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/CameraAnimationController.cpp": {
+   "0x00293890": ["??3@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/CameraLoader.cpp": {
+   "0x002c1b50": ["?thunk_FUN_00267090@fn_002c1b50@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/engine/pure3d/Channel.cpp": {
+   "0x0028b950": ["?thunk_FUN_00267090@fn_ffd25c71@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/engine/pure3d/ChannelHandler.cpp": {
+   "0x0028b8f0": ["?thunk_FUN_00267090@fn_f756026d@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/engine/pure3d/CompDrawVisibilityAnimationController.cpp": {
+   "0x002a7e60": ["?thunk_FUN_00267090@fn_002a7e60@@YAXPAVSceneGraphVisibilityAnimationController@1@@Z"],
+   "0x002a7fa0": ["?thunk_FUN_00267090@fn_fadd80aa@@YAXI@Z"],
+   "0x002a7fd0": ["?thunk_FUN_00267090@fn_fadd80aa@@YAXI@Z"],
+   "0x002a80f0": ["?Free_0008d340@fn_fadd80aa@@YAXPAX@Z"],
+   "0x002a8170": ["?Free2_00263f30@fn_fadd80aa@@YAXPAX@Z", "?Free_0008d340@fn_fadd80aa@@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/DXTNHandler.cpp": {
+   "0x002af2b0": ["?thunk_FUN_00267090@fn_002af2b0@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/engine/pure3d/DefaultFrameControllerHandler.cpp": {
+   "0x002853f0": ["?thunk_FUN_00267090@fn_002853f0@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x00285720": ["??3@YAXPAX@Z"],
+   "0x00285750": ["??3@YAXPAX@Z"],
+   "0x002863b0": ["?thunk_FUN_00267090@fn_002863b0@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x002864c0": ["?destroy_00263f30@fn_002864c0@@YAXPAVSimpleFrameController@1@@Z"],
+   "0x002865a0": ["??3@YAXPAX@Z"],
+   "0x002865e0": ["?thunk_FUN_00267090@fn_002865e0@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/engine/pure3d/DefaultFrameControllerHandler.iso_00286500.cpp": {
+   "0x00286500": ["??3@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/DirectionalLight.cpp": {
+   "0x002a2f90": ["?SweepTrack_DeleteThis_00263f30@fn_ff411229@@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/DisplayList.cpp": {
+   "0x0029bdc0": ["??3@YAXPAX@Z"],
+   "0x0029bf40": ["??3@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/DisplayTraversal.cpp": {
+   "0x002c6ad0": ["?Destroy_0008d330@fn_fa8bb1a6@@YAXPAVDisplayTraversal@1@@Z"]
+  },
+  "src/engine/pure3d/DrawableContainer.cpp": {
+   "0x002a46b0": ["?thunk_FUN_00267090@fn_002a46b0@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x002a47d0": ["?thunk_FUN_00267090@fn_f6d01fd6@@YAXPAX@Z"],
+   "0x002a4890": ["?thunk_FUN_00267090@fn_f6d01fd6@@YAXPAX@Z"],
+   "0x002a4950": ["?thunk_FUN_00267090@fn_f6d01fd6@@YAXPAVCCollisionAction@1@@Z"],
+   "0x002a4da0": ["?thunk_FUN_00267090@fn_f6d01fd6@@YAXPAX@Z"],
+   "0x002a4ff0": ["?thunk_FUN_00267090@fn_002a4ff0@@YAXPAX@Z"],
+   "0x002a5040": ["??3@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/DrawableDisplayList.cpp": {
+   "0x0029c050": ["?SweepTrack_DeleteThis_00263f30@fn_ff20f16b@@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/DrawableHierarchy.cpp": {
+   "0x002a3620": ["??3@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/DrawablePrimitive.cpp": {
+   "0x002a5120": ["?SweepTrack_DeleteThis_00263f30@fn_fdccf8a8@@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/Entity.cpp": {
+   "0x0027b090": ["?thunk_FUN_00267090@fn_0027b090@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/engine/pure3d/ExpressionAnimationController.cpp": {
+   "0x002aa000": ["?freefn_0008d340@fn_ff685ee7@@YAXPAX@Z", "?opdel_00263f30@fn_ff685ee7@@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/ExpressionGroupLoader.cpp": {
+   "0x002aff80": ["?thunk_FUN_00267090@fn_002aff80@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x002b0350": ["??3@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/ExpressionLoader.cpp": {
+   "0x002afb70": ["??3@YAXPAX@Z"],
+   "0x002afe40": ["?FreeObj_00263f30@fn_002afe40@@YAXPAX@Z"],
+   "0x002aff40": ["?thunk_FUN_00267090@fn_002aff40@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/engine/pure3d/GeometryLoader.cpp": {
+   "0x002c3040": ["??3@YAXPAX@Z"],
+   "0x002c3160": ["??3@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/IgnoreLoader.cpp": {
+   "0x00291d20": ["?thunk_FUN_00267090@fn_00291d20@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x00291da0": ["?thunk_FUN_00267090@fn_00291da0@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/engine/pure3d/Image32.cpp": {
+   "0x002bfb70": ["?thunk_FUN_00267090@fn_fbf8e46b@@YAXH@Z"],
+   "0x002bfd30": ["?Thunk_0008d340@fn_fbf8e46b@@YAXH@Z"],
+   "0x002bfdd0": ["?free_pixels_0008d340@fn_fbf8e46b@@YAXPAX@Z"],
+   "0x002c0010": ["?thunk_FUN_00267090@fn_002c0010@@YAXH@Z"],
+   "0x002c0070": ["?thunk_FUN_00267090@fn_fbf8e46b@@YAXPAX@Z"],
+   "0x002c0790": ["??3@YAXPAX@Z", "?destroyChooser_0008d340@fn_002c0790@@YAXPAX@Z"],
+   "0x002c07d0": ["??3@YAXPAX@Z"],
+   "0x002c09a0": ["??3@YAXPAX@Z"],
+   "0x002c09e0": ["?Free_0008d340@fn_002c09e0@@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/ImageConverter.cpp": {
+   "0x002dec80": ["?thunk_FUN_00267090@fn_002dec80@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/engine/pure3d/ImageFont.cpp": {
+   "0x002bfa50": ["?thunk_FUN_00267090@fn_002bfa50@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x002bfa70": ["?FUN_00263f30@fn_002bfa70@@YAXPAX@Z", "?thunk_FUN_00267090@fn_002bfa70@@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/ImageHandler_3.cpp": {
+   "0x002af100": ["?thunk_FUN_00267090@fn_fee005c0@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/engine/pure3d/ImageLoader.cpp": {
+   "0x002c0be0": ["?DropThing_0008d330@fn_f2c92ace@@YAXPAUObj_2c0be0@1@@Z"],
+   "0x002c0ca0": ["?destroyThis_00263f30@fn_002c0ca0@@YAXPAX@Z", "?destroy_0008d330@fn_002c0ca0@@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/Language.cpp": {
+   "0x002e6620": ["?Release_0008d340@fn_f6a40e3d@@YAXPAX@Z"],
+   "0x002e66c0": ["?destroy_00263f30@fn_f6a40e3d@@YAXPAX@Z", "?release_0008d340@fn_f6a40e3d@@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/Light.cpp": {
+   "0x002a0ad0": ["?SweepTrack_DeleteThis_00263f30@fn_fc62e156@@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/LightAnimationController.cpp": {
+   "0x002a9300": ["??3@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/LightGroupLoader.cpp": {
+   "0x002c14e0": ["?thunk_FUN_00267090@fn_fbf43e6a@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/engine/pure3d/LightGroup_2.cpp": {
+   "0x002a11b0": ["?Free_0008d340@fn_fe79e145@@YAXPAX@Z"],
+   "0x002a1210": ["??3@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/LightLoader.cpp": {
+   "0x002c14a0": ["?thunk_FUN_00267090@fn_002c14a0@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/engine/pure3d/LightsChooser.cpp": {
+   "0x0029f570": ["?thunk_FUN_00267090@fn_f0d14b71@@YAXPAVCacheManager_29f570@1@@Z"],
+   "0x0029f590": ["?Free2_0008d340@fn_f0d14b71@@YAXPAX@Z", "?Free3_0008d330@fn_f0d14b71@@YAXPAX@Z", "?Free_0008d340@fn_f0d14b71@@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/LightsChooserCache.cpp": {
+   "0x0029e7b0": ["??3@YAXPAX@Z", "_destroyChooser_0008d340"]
+  },
+  "src/engine/pure3d/LightsChooser_2.cpp": {
+   "0x0029fd40": ["?Free_0008d340@fn_f5bc90fd@@YAXPAX@Z"],
+   "0x002a06b0": ["??3@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/LocatorLoader.cpp": {
+   "0x002c1900": ["??3@YAXPAX@Z"],
+   "0x002c1950": ["?thunk_FUN_00267090@fn_002c1950@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/engine/pure3d/MultiControllerLoader.cpp": {
+   "0x002b23c0": ["?thunk_FUN_00267090@fn_002b23c0@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x002b2400": ["?thunk_FUN_00267090@fn_002b2400@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x002b28d0": ["?Free_0008d340@fn_002b28d0@@YAXPAX@Z"],
+   "0x002b2be0": ["??3@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/OldCompositeDrawableLoader.cpp": {
+   "0x00299170": ["?thunk_FUN_00267090@fn_f40ca5f7@@YAXPAVTarget_299170@1@@Z"],
+   "0x00299430": ["?thunk_FUN_00267090@fn_00299430@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x00299470": ["?thunk_FUN_00267090@fn_00299470@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x002998b0": ["??3@YAXPAX@Z"],
+   "0x00299fa0": ["?Release_0008d340@fn_f40ca5f7@@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/OpaqueTraversal.cpp": {
+   "0x002a2de0": ["??3@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/PNGHandler.cpp": {
+   "0x00291cc0": ["?thunk_FUN_00267090@fn_00291cc0@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x00291ce0": ["?thunk_FUN_00267090@fn_00291ce0@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/engine/pure3d/ParticleAllocator.cpp": {
+   "0x002d3da0": ["?thunk_FUN_00267090@fn_f16f11c1@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/engine/pure3d/ParticleController.cpp": {
+   "0x002a7340": ["?thunk_FUN_00267090@fn_fa907639@@YAXI@Z"],
+   "0x002a74e0": ["?Free@pure3d@fn_002a74e0@@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/ParticleController.iso_002a7580.cpp": {
+   "0x002a7580": ["??3@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/ParticlePlaneGenerator.cpp": {
+   "0x002d31b0": ["??3@YAXPAX@Z"],
+   "0x002d3320": ["?thunk_FUN_00267090@fn_002d3320@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x002d33f0": ["?thunk_FUN_00267090@fn_002d33f0@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x002d3510": ["?thunk_FUN_00267090@fn_002d3510@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x002d38a0": ["??3@YAXPAX@Z"],
+   "0x002d3ab0": ["??3@YAXPAX@Z"],
+   "0x002d3c90": ["??3@YAXPAX@Z"],
+   "0x002d3d20": ["??3@YAXPAX@Z"],
+   "0x002d3d40": ["??3@YAXPAX@Z"],
+   "0x002d3d60": ["??3@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/ParticleSystemLoader.cpp": {
+   "0x002aa620": ["?thunk_FUN_00267090@fn_002aa620@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x002aae60": ["?thunk_FUN_00267090@fn_002aae60@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x002ab7a0": ["??3@YAXPAX@Z"],
+   "0x002ab830": ["??3@YAXPAX@Z"],
+   "0x002ac570": ["_thunk_FUN_00267090"]
+  },
+  "src/engine/pure3d/ParticleSystem_2.cpp": {
+   "0x002a3d30": ["_FUN_00263f30"]
+  },
+  "src/engine/pure3d/PointCamera.cpp": {
+   "0x002c3460": ["?SweepTrack_DeleteThis_00263f30@fn_f8d4cfbc@@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/PointLight.cpp": {
+   "0x002c3f40": ["?SweepTrack_DeleteThis_00263f30@fn_f06f3165@@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/PolySkin.cpp": {
+   "0x002b7e30": ["??3@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/PolySkinLoader.cpp": {
+   "0x002b8040": ["?Free_00263f30@fn_f2d93049@@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/PoseAnimationController.cpp": {
+   "0x00287f40": ["??3@YAXPAX@Z"],
+   "0x002886a0": ["??3@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/PrimGroupStreamed.cpp": {
+   "0x002e1470": ["??3@YAXPAX@Z"],
+   "0x002e14b0": ["?Free_00263f30@fn_f1455a33@@YAXPAX@Z"],
+   "0x002e1510": ["??3@YAXPAX@Z"],
+   "0x002e1530": ["_thunk_FUN_00267090"],
+   "0x002e1590": ["??3@YAXPAX@Z"],
+   "0x002e15b0": ["??3@YAXPAX@Z"],
+   "0x002e15f0": ["??3@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/ProceduralVertexAnimController.cpp": {
+   "0x002a68b0": ["?Free_0008d340@fn_fa65e9c0@@YAXPAX@Z"],
+   "0x002a6b90": ["?thunk_delete_00263f30@fn_fa65e9c0@@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/ProximityLight.cpp": {
+   "0x002c3d30": ["?destroy_00263f30@fn_002c3d30@@YAXPAVProximityLight@1@@Z"]
+  },
+  "src/engine/pure3d/QuaternionChannel.cpp": {
+   "0x0028b4d0": ["?thunk_0008d340@fn_f66a22d3@@YAXPAH@Z"],
+   "0x0028b520": ["?thunk_0008d340@fn_f66a22d3@@YAXPAH@Z"],
+   "0x0028b570": ["?thunk_0008d340@fn_f66a22d3@@YAXPAH@Z"],
+   "0x0028b660": ["?thunk_0008d340@fn_f66a22d3@@YAXPAH@Z"],
+   "0x0028b6b0": ["?thunk_0008d340@fn_f66a22d3@@YAXPAH@Z"],
+   "0x0028b760": ["??3@YAXPAX@Z"],
+   "0x0028b7d0": ["?Free_0008d340@fn_f66a22d3@@YAXPAX@Z"],
+   "0x0028b840": ["?thunk_0008d340@fn_f66a22d3@@YAXPAH@Z"],
+   "0x0028b890": ["?thunk_0008d340@fn_f66a22d3@@YAXPAH@Z"]
+  },
+  "src/engine/pure3d/RawImageHandler.cpp": {
+   "0x002af220": ["?thunk_FUN_00267090@fn_002af220@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/engine/pure3d/SceneGraphTransformAnimationController.cpp": {
+   "0x002a7aa0": ["?destroy_00263f30@fn_f22c50ed@@YAXPAUSceneGraphTransformAnimationController@1@@Z"]
+  },
+  "src/engine/pure3d/ShaderAnimationController.cpp": {
+   "0x002a8680": ["??3@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/ShaderLoader.cpp": {
+   "0x0028f2a0": ["?thunk_FUN_00267090@fn_f495b664@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/engine/pure3d/ShaderVectorBroadcast.cpp": {
+   "0x0028f170": ["?thunk_FUN_00267090@fn_f4b93973@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x0028f190": ["?thunk_FUN_00267090@fn_0028f190@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x0028f1b0": ["?thunk_FUN_00267090@fn_0028f1b0@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x0028f1d0": ["?thunk_FUN_00267090@fn_0028f1d0@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x0028f1f0": ["?thunk_FUN_00267090@fn_0028f1f0@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x0028f210": ["?thunk_FUN_00267090@fn_0028f210@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/engine/pure3d/Shader_2.cpp": {
+   "0x0028f240": ["??3@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/Shadow.cpp": {
+   "0x002dee20": ["?SweepTrack_DeleteThis_00263f30@fn_f524fe64@@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/ShadowSkin.cpp": {
+   "0x002def20": ["?SweepTrack_DeleteThis_00263f30@fn_fb97e5a1@@YAXPAX@Z"],
+   "0x002df020": ["?SweepTrack_DeleteThis_00263f30@fn_fb97e5a1@@YAXPAX@Z"],
+   "0x002df140": ["?SweepTrack_DeleteThis_00263f30@fn_fb97e5a1@@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/ShadowSkinLoader.cpp": {
+   "0x002b37b0": ["?release_0008d340@fn_f35954a7@@YAXI@Z"],
+   "0x002b37e0": ["?ReleaseRef_0008d340@fn_002b37e0@@YAXH@Z"],
+   "0x002b50c0": ["?thunk_0008d330@fn_002b50c0@@YAXPAX@Z", "?thunk_val_0008d340@fn_002b50c0@@YAXI@Z"],
+   "0x002b5200": ["?thunk_0008d330@fn_002b5200@@YAXPAX@Z", "?thunk_val_0008d340@fn_002b5200@@YAXI@Z"],
+   "0x002b5560": ["?release_0008d340@fn_002b5560@@YAXPAX@Z", "?release_self_0008d330@fn_002b5560@@YAXPAX@Z"],
+   "0x002b56e0": ["??3@YAXPAX@Z"],
+   "0x002b6eb0": ["??3@YAXPAX@Z"],
+   "0x002b6f10": ["??3@YAXPAX@Z"],
+   "0x002b6f70": ["?thunk_FUN_00267090@fn_002b6f70@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x002b6f90": ["?thunk_FUN_00267090@fn_002b6f90@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x002b6fb0": ["??3@YAXPAX@Z"],
+   "0x002b6ff0": ["?cleanup_00263f30@fn_002b6ff0@@YAXPAUShadowMeshBufferLoader@1@@Z"]
+  },
+  "src/engine/pure3d/ShadowTraversal.cpp": {
+   "0x002a17c0": ["??3@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/SkeletonLoader.cpp": {
+   "0x0027b650": ["?thunk_FUN_00267090@fn_f8d8f61c@@YAXPAVCCollisionAction@1@@Z"],
+   "0x0027b9a0": ["?thunk_FUN_00267090@fn_0027b9a0@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x0027b9e0": ["?thunk_FUN_00267090@fn_0027b9e0@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x0027bc90": ["?Free2_0008d340@fn_f8d8f61c@@YAXPAX@Z", "?Free_0008d330@fn_f8d8f61c@@YAXPAX@Z"],
+   "0x0027be60": ["??3@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/SpotLight.cpp": {
+   "0x002c4220": ["?SweepTrack_DeleteThis_00263f30@fn_faaafd8b@@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/SpriteLoader.cpp": {
+   "0x002bd430": ["?thunk_FUN_00267090@fn_f43dee86@@YAXPAX@Z"],
+   "0x002bdfa0": ["?thunk_FUN_00267090@fn_f43dee86@@YAXPAVCCollisionAction@1@@Z"],
+   "0x002be420": ["?thunk_FUN_00267090@fn_f43dee86@@YAXPAX@Z"],
+   "0x002bea70": ["?thunk_FUN_00267090@fn_f43dee86@@YAXPAX@Z"],
+   "0x002bed30": ["?Free2_0008d330@fn_f43dee86@@YAXPAX@Z", "?thunk_FUN_00267090@fn_f43dee86@@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/SpriteParticleEmitter.cpp": {
+   "0x002d4350": ["?drop_0008d340@fn_f0cbe20f@@YAXI@Z"],
+   "0x002d4e60": ["?thunk_FUN_00267090@fn_002d4e60@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x002d60e0": ["??3@YAXPAX@Z"],
+   "0x002d6590": ["?FUN_0008d330@fn_002d6590@@YAXPAX@Z", "?FUN_0008d340@fn_002d6590@@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/SpriteParticleEmitter.iso_002d66e0.cpp": {
+   "0x002d66e0": ["??3@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/SpriteParticleRenderer.cpp": {
+   "0x002d6740": ["?thunk_FUN_00267090@fn_002d6740@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x002d6770": ["?thunk_FUN_00267090@fn_002d6770@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/engine/pure3d/SpriteParticleUpdater.cpp": {
+   "0x002d1d90": ["?thunk_FUN_00267090@fn_002d1d90@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x002d1ff0": ["?thunk_FUN_00267090@fn_002d1ff0@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/engine/pure3d/TargaHandler.cpp": {
+   "0x002af190": ["?thunk_FUN_00267090@fn_002af190@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/engine/pure3d/TextBible.iso_002c3a80.cpp": {
+   "0x002c3a80": ["??3@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/TextString.cpp": {
+   "0x0029b1d0": ["?cleanup_0008d340@fn_f9d9ed06@@YAXI@Z"],
+   "0x0029b330": ["?cleanup_0008d340@fn_f9d9ed06@@YAXH@Z"],
+   "0x0029b3a0": ["??3@YAXPAX@Z", "?ReleaseThing_0008d340@fn_0029b3a0@@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/Texture.cpp": {
+   "0x002c2330": ["?thunk_FUN_00267090@fn_f9a208e6@@YAXPAX@Z"],
+   "0x002c2570": ["??3@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/TextureAnimationController.cpp": {
+   "0x002a9570": ["??3@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/TextureFontLoader.cpp": {
+   "0x00294de0": ["??3@YAXPAX@Z"],
+   "0x002955e0": ["?thunk_FUN_00267090@fn_002955e0@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/engine/pure3d/TextureFontLoader.iso_00295600.cpp": {
+   "0x00295600": ["??3@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/TextureLoader.cpp": {
+   "0x002c2620": ["?Free2_0008d330@fn_f0efd7bc@@YAXPAX@Z", "?Free_00263f30@fn_f0efd7bc@@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/TranslucentTraversal.cpp": {
+   "0x002a21c0": ["?thunk_FUN_00267090@fn_f7803771@@YAXI@Z"]
+  },
+  "src/engine/pure3d/VectorCamera_2.cpp": {
+   "0x00293ba0": ["?SweepTrack_DeleteThis_00263f30@fn_f42720ef@@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/VertexAnimController.cpp": {
+   "0x002a6f00": ["??3@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/VertexAnimKeyFrame.cpp": {
+   "0x002e5a70": ["??3@YAXPAX@Z"],
+   "0x002e61c0": ["?thunk_FUN_00267090@fn_f411a916@@YAXH@Z"]
+  },
+  "src/engine/pure3d/VertexList.cpp": {
+   "0x002c89b0": ["?Free_0008d340@fn_f7aa76dc@@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/VertexOffsetExpressionMixerLoader.cpp": {
+   "0x002b0f60": ["?thunk_FUN_00267090@fn_002b0f60@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x002b1200": ["?FUN_0008d330@fn_f8d4917d@@YAXPAX@Z", "?FUN_0008d340@fn_f8d4917d@@YAXPAX@Z"],
+   "0x002b1390": ["?releaseThing_0008d340@fn_f8d4917d@@YAXI@Z"],
+   "0x002b1400": ["?thunk_FUN_00267090@fn_f8d4917d@@YAXPAX@Z"],
+   "0x002b1680": ["??3@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/pddiBaseContext.cpp": {
+   "0x0031c780": ["?SweepTrack_DeleteThis_0008d330@fn_fc049dac@@YAXPAX@Z"],
+   "0x0031c7c0": ["?thunk_FUN_00267090@fn_0031c7c0@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x0031cb40": ["?thunk_FUN_00267090@fn_fc049dac@@YAXPAVCCollisionAction@1@@Z"],
+   "0x0031e440": ["?thunk_FUN_00267090@fn_fc049dac@@YAXPAX@Z"],
+   "0x0031ea80": ["?thunk_FUN_00267090@fn_0031ea80@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x0031ed20": ["?thunk_FUN_00267090@fn_0031ed20@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x0031edb0": ["?thunk_FUN_00267090@fn_0031edb0@@YAXPAX@Z"],
+   "0x0031ee70": ["?thunk_FUN_00267090@fn_0031ee70@@YAXPAX@Z"],
+   "0x0031ef70": ["?thunk_FUN_00267090@fn_0031ef70@@YAXPAX@Z"],
+   "0x0031f040": ["?thunk_FUN_00267090@fn_0031f040@@YAXPAX@Z"],
+   "0x0031f110": ["?thunk_FUN_00267090@fn_0031f110@@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/pddiBaseShader.cpp": {
+   "0x00327e20": ["_thunk_FUN_00267090"]
+  },
+  "src/engine/pure3d/pddiDisplay.cpp": {
+   "0x0031ac90": ["?SweepTrack_DeleteThis_0008d330@fn_fad29cbd@@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/pddiExtAntialiasControl.cpp": {
+   "0x003200c0": ["?thunk_FUN_00267090@fn_f5eace43@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/engine/pure3d/pddiExtGlobalProjectedTexture.cpp": {
+   "0x00320100": ["?thunk_FUN_00267090@fn_f4b3d925@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/engine/pure3d/pddiExtReadPixels.cpp": {
+   "0x00320130": ["?thunk_FUN_00267090@fn_f27a3dfe@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/engine/pure3d/pddiPrimBuffer.cpp": {
+   "0x00326d90": ["?SweepTrack_DeleteThis_0008d330@fn_ff39715a@@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/pddiShader.cpp": {
+   "0x003278e0": ["?SweepTrack_DeleteThis_0008d330@fn_f8e4d6d5@@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/pddiTexture.cpp": {
+   "0x00325f00": ["?SweepTrack_DeleteThis_0008d330@fn_f93b2b86@@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/prop/CMotionTrail.cpp": {
+   "0x0027f830": ["?thunk_FUN_00267090@fn_f4890d4c@@YAXI@Z"],
+   "0x00282610": ["?objDelete_00263f30@fn_00282610@@YAXPAX@Z", "?subFree_0008d340@fn_00282610@@YAXPAX@Z"],
+   "0x00283320": ["?thunk_FUN_00267090@fn_f4890d4c@@YAXPAVCCollisionAction@1@@Z"],
+   "0x00283870": ["?thunk_FUN_00267090@fn_00283870@@YAXPAX@Z"],
+   "0x00283dc0": ["?thunk_delete_00263f30@fn_f4890d4c@@YAXPAX@Z"],
+   "0x00283df0": ["??3@YAXPAX@Z"],
+   "0x00284270": ["??3@YAXPAX@Z"],
+   "0x00284290": ["??3@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/prop/StatePropDataLoader.cpp": {
+   "0x0028fe80": ["_releaseMem_0008d340"],
+   "0x00290070": ["?ReleaseThing_0008d340@fn_f5d7895e@@YAXH@Z"],
+   "0x002903d0": ["?thunk_FUN_00267090@fn_f5d7895e@@YAXPAVCCollisionAction@1@@Z"],
+   "0x002903f0": ["?thunk_FUN_00267090@fn_002903f0@@YAXPAVCCollisionAction@1@@Z"],
+   "0x00290410": ["?thunk_FUN_00267090@fn_00290410@@YAXPAVCCollisionAction@1@@Z"],
+   "0x00290430": ["?thunk_FUN_00267090@fn_00290430@@YAXPAVCCollisionAction@1@@Z"],
+   "0x00290450": ["?thunk_FUN_00267090@fn_00290450@@YAXPAVCCollisionAction@1@@Z"],
+   "0x00290470": ["?Free_0008d330@fn_f5d7895e@@YAXPAVObj_290470@1@@Z"],
+   "0x00290500": ["?ReleaseHandle_0008d340@fn_f5d7895e@@YAXI@Z"],
+   "0x00290760": ["?thunk_FUN_00267090@fn_00290760@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x002907f0": ["?Fng_0008d340@fn_f5d7895e@@YAXH@Z"],
+   "0x002908f0": ["??3@YAXPAX@Z"],
+   "0x00290ab0": ["??3@YAXPAX@Z"],
+   "0x00290ad0": ["?Free_0008d340@fn_f5d7895e@@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/prop/StateProp_2.cpp": {
+   "0x0027e8b0": ["?thunk_FUN_00267090@fn_0027e8b0@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/engine/pure3d/prop/StateProp_2.iso_0027e900.cpp": {
+   "0x0027e900": ["??3@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/scenegraph/Scenegraph_2.cpp": {
+   "0x00296570": ["??3@YAXPAX@Z"],
+   "0x00296b20": ["??3@YAXPAX@Z"],
+   "0x00296de0": ["?thunk_FUN_00267090@fn_00296de0@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x00296e00": ["?thunk_FUN_00267090@scenegraph@pure3d@fn_00296e00@@YAXPAUShaderCallbackVisitor@123@@Z"],
+   "0x00296e30": ["?thunk_FUN_00267090@fn_00296e30@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x00296fd0": ["?Free_00263f30@fn_f9b7dd8c@@YAXPAX@Z"],
+   "0x002970a0": ["?thunk_00263f30@fn_002970a0@@YAXPAVScenegraph@1@@Z"],
+   "0x00297170": ["?thunk_FUN_00267090@fn_00297170@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x00297350": ["?Free_0008d340@fn_00297350@@YAXPAX@Z"],
+   "0x002975e0": ["??3@YAXPAX@Z"],
+   "0x00297600": ["?thunk_FUN_00267090@fn_f9b7dd8c@@YAXPAVTransformNode@1@@Z"],
+   "0x00297640": ["?thunk_00263f30@fn_00297640@@YAXPAVVisibilityNode@1@@Z"]
+  },
+  "src/engine/pure3d/unk_2843c0.cpp": {
+   "0x002847f0": ["?cleanup_0008d340@fn_fffbb65f@@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/unk_28b970.cpp": {
+   "0x0028ba20": ["?Drop_0008d340@fn_f8c9e634@@YAXPAX@Z"],
+   "0x0028bb10": ["??3@YAXPAX@Z"],
+   "0x0028bc20": ["?Drop_0008d340@fn_f8c9e634@@YAXPAX@Z"],
+   "0x0028beb0": ["?Drop_0008d340@fn_f8c9e634@@YAXPAX@Z"],
+   "0x0028c130": ["?Drop_0008d340@fn_f8c9e634@@YAXPAX@Z"],
+   "0x0028c240": ["?Drop_0008d340@fn_f8c9e634@@YAXPAX@Z"],
+   "0x0028c310": ["?Drop_0008d340@fn_f8c9e634@@YAXPAX@Z"],
+   "0x0028c3e0": ["?Drop_0008d340@fn_f8c9e634@@YAXPAX@Z"],
+   "0x0028c4f0": ["?Drop_0008d340@fn_f8c9e634@@YAXPAX@Z"]
+  },
+  "src/engine/pure3d/unk_28fbc0.cpp": {
+   "0x0028fe50": ["?thunk_FUN_00267090@fn_f6be11fc@@YAXI@Z"]
+  },
+  "src/engine/pure3d/unk_2e1960.cpp": {
+   "0x002e5280": ["?DeleteThing_0008d330@fn_fcb4ee90@@YAXPAVThing_2e5280@1@@Z"]
+  },
+  "src/engine/unknown/unk_22baf0.cpp": {
+   "0x0022ec20": ["?thunk@fn_f0c6a717@@YAXH@Z"],
+   "0x0022eda0": ["?ReleaseThing_0008d330@fn_f0c6a717@@YAXPAX@Z"]
+  },
+  "src/engine/unknown/unk_27b0b0.cpp": {
+   "0x0027b1d0": ["?release_0008d330@fn_fdc3a51a@@YAXPAX@Z"]
+  },
+  "src/engine/unknown/unk_291dc0.cpp": {
+   "0x00292470": ["?thunk_FUN_00267090@fn_f19264ac@@YAXPAVCCollisionAction@1@@Z"],
+   "0x00292530": ["?thunk_FUN_00267090@fn_f19264ac@@YAPAXPAX@Z"],
+   "0x00292670": ["?thunk_FUN_00267090@fn_f19264ac@@YAXPAUH@1@@Z"]
+  },
+  "src/engine/unknown/unk_29c240.cpp": {
+   "0x0029c530": ["?thunk_FUN_00267090@fn_f1c27eb1@@YAXH@Z"],
+   "0x0029c640": ["?thunk@fn_f1c27eb1@@YAXH@Z"]
+  },
+  "src/engine/unknown/unk_29c660.cpp": {
+   "0x0029cc40": ["?thunk2_0008d340@fn_f3bb83d9@@YAXPAX@Z"],
+   "0x0029cc70": ["?cleanup_0008d330@fn_f3bb83d9@@YAXPAVOwner_29cc70@1@@Z"]
+  },
+  "src/engine/unknown/unk_2c6d30.cpp": {
+   "0x002c7180": ["?thunk_FUN_00267090@fn_f3d8c80d@@YAXPAX@Z"],
+   "0x002c7210": ["?cleanup_0008d340@fn_f3d8c80d@@YAXPAX@Z"]
+  },
+  "src/engine/unknown/unk_2e5330.cpp": {
+   "0x002e5820": ["?FUN_0008d330@fn_f6f319cd@@YAXPAX@Z", "?FUN_0008d340@fn_f6f319cd@@YAXPAX@Z"],
+   "0x002e5920": ["?Finish_0008d340@fn_f6f319cd@@YAXPAUItem_2e5920@1@@Z"]
+  },
+  "src/engine/unknown/unk_2ed240.cpp": {
+   "0x002ef110": ["?destroy_0008d330@fn_f671dae7@@YAXPAUC_2ef110@1@@Z"],
+   "0x002ef150": ["_freeObj_0008d330"]
+  },
+  "src/engine/unknown/unk_2feae0.cpp": {
+   "0x00300b50": ["?Release_0008d340@fn_fb493392@@YAXPAX@Z"],
+   "0x00300e60": ["?FUN_0008d340@fn_00300e60@@YAXI@Z"],
+   "0x00300fa0": ["?relA_0008d340@fn_fb493392@@YAXPAX@Z", "?relB_0008d330@fn_fb493392@@YAXPAX@Z"]
+  },
+  "src/engine/unknown/unk_302fa0.cpp": {
+   "0x00304350": ["?thunk_FUN_00267090@fn_f0220b18@@YAXH@Z"]
+  },
+  "src/engine/unknown/unk_319c80.cpp": {
+   "0x0031a800": ["?thunk@fn_fdd3dec6@@YAXH@Z"]
+  },
+  "src/game/DollyScript/CScriptParser.cpp": {
+   "0x000dfd70": ["?thunk_FUN_00267090@fn_fdce5895@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/game/DollyScript/CScriptToken.cpp": {
+   "0x000f9820": ["?thunk_FUN_00267090@fn_f78bdd87@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/game/DollyScript/CTokenString.cpp": {
+   "0x000f99b0": ["?thunk_0008d340@fn_fd8937bc@@YAXH@Z"],
+   "0x000f9a80": ["?thunk_FUN_00267090@fn_fd8937bc@@YAXH@Z"],
+   "0x000f9ab0": ["_free__0008d340"],
+   "0x000f9b60": ["?thunk_FUN_00267090@fn_fd8937bc@@YAXPAX@Z"],
+   "0x000f9bc0": ["?Release_0008d340@fn_fd8937bc@@YAXPAX@Z"],
+   "0x000fa300": ["?thunk_FUN_00267090_a@fn_000fa300@@YAXPAX@Z", "?thunk_FUN_00267090_b@fn_000fa300@@YAXPAX@Z"],
+   "0x000fa370": ["?thunk_FUN_00267090@fn_000fa370@@YAXPAX@Z"],
+   "0x000fa3d0": ["?thunk_FUN_00267090@fn_fd8937bc@@YAXPAVNonCopyable_0fa3d0@pure3d@@@Z"],
+   "0x000fa430": ["?thunk_FUN_00267090@fn_fd8937bc@@YAXPAVNonCopyable_0fa430@pure3d@@@Z"],
+   "0x000fa490": ["?thunk_FUN_00267090@fn_fd8937bc@@YAXPAVNonCopyable_0fa490@pure3d@@@Z"],
+   "0x000fa8e0": ["?DeleteSelf_00263f30@fn_000fa8e0@@YAXPAX@Z", "?FreeBuffer_0008d340@fn_000fa8e0@@YAXPAX@Z"],
+   "0x000fa920": ["?thunk_FUN_00267090@fn_fd8937bc@@YAXPAVNonCopyable_0fa920@pure3d@@@Z"],
+   "0x000fa9a0": ["?thunk_FUN_00267090@fn_fd8937bc@@YAXPAVNonCopyable_0fa9a0@pure3d@@@Z"]
+  },
+  "src/game/Render/CRenderableCharacter.cpp": {
+   "0x001c60b0": ["_thunk_FUN_00267090"]
+  },
+  "src/game/Render/Canvas/HulkShaderCallback.cpp": {
+   "0x001c23a0": ["?thunk_FUN_00267090@fn_001c23a0@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x001c35d0": ["?thunk_FUN_00267090@fn_ffffca36@@YAXPAVCCollisionAction@1@@Z"],
+   "0x001c3710": ["?thunk_FUN_00267090@fn_001c3710@@YAXPAVCCollisionAction@1@@Z"],
+   "0x001c3dc0": ["?thunk_FUN_00267090@fn_ffffca36@@YAXPAVFirst_1c3dc0@1@@Z"],
+   "0x001c4160": ["?thunk_0008d330@fn_ffffca36@@YAXPAVObj_1c4160@1@@Z"],
+   "0x001c4230": ["?thunk_FUN_00267090@fn_ffffca36@@YAXPAX@Z"]
+  },
+  "src/game/Render/LevelLoader.cpp": {
+   "0x001c8fd0": ["??3@YAXPAX@Z"],
+   "0x001c9140": ["?thunk_FUN_00267090@fn_f9d12736@@YAXPAVWorld_1c9140@1@@Z"]
+  },
+  "src/game/Render/Object.cpp": {
+   "0x001c5600": ["?thunk_FUN_00267090@fn_f4431f34@@YAXPAVCCollisionAction@1@@Z"],
+   "0x001c5790": ["?ReleaseTemplate_0008d330@fn_f4431f34@@YAXPAVObjectTemplate_1c5790@1@@Z"],
+   "0x001c57c0": ["?thunk_delete_0008d330@fn_f4431f34@@YAXPAX@Z"],
+   "0x001c57f0": ["?thunk_delete_0008d330@fn_f4431f34@@YAXPAX@Z"]
+  },
+  "src/game/Render/ObjectManager.cpp": {
+   "0x001c5b10": ["?thunk_0008d330@fn_fb16b970@@YAXI@Z"],
+   "0x001c5b50": ["?thunk_FUN_00267090@fn_fb16b970@@YAXPAVObjectManager_1c5b50@1@@Z"]
+  },
+  "src/game/Render/Room.cpp": {
+   "0x001c7cb0": ["?ReleaseTemplate_0008d330@fn_f54b098e@@YAXPAVObjectTemplate_1c7cb0@1@@Z"],
+   "0x001c7dc0": ["?thunk_delete_0008d330@fn_f54b098e@@YAXPAX@Z"]
+  },
+  "src/game/Render/RoomLoader.cpp": {
+   "0x001c6d40": ["?thunk_FUN_00267090@fn_f74b9f55@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x001c6e20": ["?finish_0008d340@fn_f74b9f55@@YAXI@Z"],
+   "0x001c6f70": ["?thunk_FUN_00267090@fn_f74b9f55@@YAXPAVItem_1c6f70@1@@Z"]
+  },
+  "src/game/Render/StoreBase.cpp": {
+   "0x001c7500": ["?thunk_0008d330@fn_f6c5dfc0@@YAXH@Z"],
+   "0x001c7770": ["?thunk_FUN_00267090@fn_f6c5dfc0@@YAXPAX@Z"],
+   "0x001c7840": ["?helper_0008d330@fn_001c7840@@YAXPAX@Z"],
+   "0x001c7a20": ["?thunk_FUN_00267090@fn_f6c5dfc0@@YAXPAVCCollisionAction@1@@Z"]
+  },
+  "src/game/Tokenizer/Stream.cpp": {
+   "0x001fa960": ["?thunk_FUN_00267090@fn_fa7a8bfd@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/game/content/FileLoader.cpp": {
+   "0x001ef900": ["?thunk_FUN_00267090@fn_f8d97dfc@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/game/content/ObjectLoader.cpp": {
+   "0x001c6610": ["?thunk_FUN_00267090@fn_f793680e@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/game/content/SimpleChunkHandler.cpp": {
+   "0x001c6c90": ["?thunk_FUN_00267090@fn_f20d0d82@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/game/fight/ParamValueEnum.cpp": {
+   "0x0004ded0": ["?SweepTrack_DeleteThis_0008d330@fn_f9e0b99b@@YAXPAX@Z"]
+  },
+  "src/game/global/AICollisionSolverAgent.cpp": {
+   "0x001b02e0": ["?SweepTrack_DeleteThis_0008d330@fn_f7cf5713@@YAXPAX@Z"]
+  },
+  "src/game/global/CAIHintTrack_2.cpp": {
+   "0x00077a20": ["?thunk_delete_00263f30@fn_fab98861@@YAXPAX@Z"]
+  },
+  "src/game/global/CActorAgent.cpp": {
+   "0x000fc720": ["?thunk_0008d330@fn_f3c1ded9@@YAXPAUCActorAgent@1@@Z"]
+  },
+  "src/game/global/CAlertStatusAction.cpp": {
+   "0x000225c0": ["?thunk_0008d330@fn_faa66039@@YAXPAVCHapticEventAction_225c0@1@@Z"]
+  },
+  "src/game/global/CAlertStatusCondition_factory.cpp": {
+   "0x00056b70": ["?thunk_delete_00263f30@fn_fb5b56c3@@YAXPAX@Z"]
+  },
+  "src/game/global/CAmbientsManager.cpp": {
+   "0x0007af90": ["?thunk_FUN_00267090@fn_0007af90@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/game/global/CArriveBehaviour.cpp": {
+   "0x00109a70": ["?thunk_FUN_00267090@fn_00109a70@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/game/global/CAutoTargetTrack_4.cpp": {
+   "0x00075d40": ["?thunk_delete_00263f30@fn_f05c4ed8@@YAXPAX@Z"]
+  },
+  "src/game/global/CAvoidBehaviour.cpp": {
+   "0x00109be0": ["?thunk_FUN_00267090@fn_f710b797@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/game/global/CAxisArcCondition.cpp": {
+   "0x0004b600": ["?SweepTrack_DeleteThis_0008d330@fn_f9802d26@@YAXPAX@Z"]
+  },
+  "src/game/global/CAxisArcCondition_factory.cpp": {
+   "0x00056c30": ["?thunk_delete_00263f30@fn_faa38447@@YAXPAX@Z"]
+  },
+  "src/game/global/CAxisDirectionCondition.cpp": {
+   "0x0004b850": ["?SweepTrack_DeleteThis_0008d330@fn_fcf6c406@@YAXPAX@Z"]
+  },
+  "src/game/global/CAxisDirectionCondition_factory.cpp": {
+   "0x00056ce0": ["?thunk_delete_00263f30@fn_ff557179@@YAXPAX@Z"]
+  },
+  "src/game/global/CAxisDoubleTapCondition.cpp": {
+   "0x0004b6f0": ["?SweepTrack_DeleteThis_0008d330@fn_f92008b6@@YAXPAX@Z"]
+  },
+  "src/game/global/CAxisDoubleTapCondition_factory.cpp": {
+   "0x00056da0": ["?thunk_delete_00263f30@fn_fee895d5@@YAXPAX@Z"]
+  },
+  "src/game/global/CAxisDownCondition.cpp": {
+   "0x00056e10": ["?thunk_delete_00263f30@fn_fbb05a02@@YAXPAX@Z"],
+   "0x00056e70": ["?SweepTrack_DeleteThis_0008d330@fn_fbb05a02@@YAXPAX@Z"]
+  },
+  "src/game/global/CAxisPressCondition.cpp": {
+   "0x00056ee0": ["?thunk_delete_00263f30@fn_f85e45fc@@YAXPAX@Z"],
+   "0x00056f40": ["?SweepTrack_DeleteThis_0008d330@fn_f85e45fc@@YAXPAX@Z"]
+  },
+  "src/game/global/CAxisReleaseCondition.cpp": {
+   "0x00056fb0": ["?thunk_delete_00263f30@fn_f26d4621@@YAXPAX@Z"],
+   "0x00057010": ["?SweepTrack_DeleteThis_0008d330@fn_f26d4621@@YAXPAX@Z"]
+  },
+  "src/game/global/CAxisSpeedCondition.cpp": {
+   "0x0004b3f0": ["?SweepTrack_DeleteThis_0008d330@fn_f98a4a34@@YAXPAX@Z"]
+  },
+  "src/game/global/CAxisSpeedCondition_3.cpp": {
+   "0x000570c0": ["?thunk_delete_00263f30@fn_f38214e1@@YAXPAX@Z"]
+  },
+  "src/game/global/CAxisTimeCondition.cpp": {
+   "0x0004b2b0": ["?SweepTrack_DeleteThis_0008d330@fn_f022e3e8@@YAXPAX@Z"],
+   "0x0004b2e0": ["?SweepTrack_DeleteThis_0008d330@fn_f022e3e8@@YAXPAX@Z"]
+  },
+  "src/game/global/CAxisUpCondition.cpp": {
+   "0x00057130": ["?thunk_delete_00263f30@fn_f71d9e3d@@YAXPAX@Z"],
+   "0x00057190": ["?SweepTrack_DeleteThis_0008d330@fn_f71d9e3d@@YAXPAX@Z"]
+  },
+  "src/game/global/CAxisValueCondition.cpp": {
+   "0x0004b4f0": ["?SweepTrack_DeleteThis_0008d330@fn_f271ea75@@YAXPAX@Z"]
+  },
+  "src/game/global/CBlendCamera.cpp": {
+   "0x00098990": ["?thunk_FUN_00267090@fn_fb8d9fac@@YAXPAUCBlendCamera@1@@Z"]
+  },
+  "src/game/global/CButtonCondition.cpp": {
+   "0x0004b0a0": ["?SweepTrack_DeleteThis_0008d330@fn_f300332c@@YAXPAX@Z"]
+  },
+  "src/game/global/CButtonDownCondition.cpp": {
+   "0x00057200": ["?thunk_delete_00263f30@fn_f35c6cc2@@YAXPAX@Z"],
+   "0x00057260": ["?SweepTrack_DeleteThis_0008d330@fn_f35c6cc2@@YAXPAX@Z"]
+  },
+  "src/game/global/CButtonPressCondition.cpp": {
+   "0x000572d0": ["?thunk_delete_00263f30@fn_fafd18b7@@YAXPAX@Z"],
+   "0x00057330": ["?SweepTrack_DeleteThis_0008d330@fn_fafd18b7@@YAXPAX@Z"]
+  },
+  "src/game/global/CButtonReleaseCondition.cpp": {
+   "0x000573a0": ["?thunk_delete_00263f30@fn_f55977f3@@YAXPAX@Z"],
+   "0x00057400": ["?SweepTrack_DeleteThis_0008d330@fn_f55977f3@@YAXPAX@Z"]
+  },
+  "src/game/global/CButtonUpCondition.cpp": {
+   "0x00057470": ["?thunk_delete_00263f30@fn_f4fd780c@@YAXPAX@Z"],
+   "0x000574d0": ["?SweepTrack_DeleteThis_0008d330@fn_f4fd780c@@YAXPAX@Z"]
+  },
+  "src/game/global/CButtonValueCondition.cpp": {
+   "0x0004b1b0": ["?SweepTrack_DeleteThis_0008d330@fn_f662ff92@@YAXPAX@Z"]
+  },
+  "src/game/global/CCameraDramaticTrack_4.cpp": {
+   "0x00077ab0": ["?thunk_delete_00263f30@fn_f22fcc84@@YAXPAX@Z"]
+  },
+  "src/game/global/CCameraHintAction.cpp": {
+   "0x000221a0": ["?thunk_0008d330@fn_ffe756aa@@YAXPAVCMotionTrailAction@1@@Z"]
+  },
+  "src/game/global/CCameraHintTrack_3.cpp": {
+   "0x00075e00": ["?thunk_delete_00263f30@fn_ff6e009a@@YAXPAX@Z"]
+  },
+  "src/game/global/CCameraManager.cpp": {
+   "0x0009a070": ["?thunk_FUN_00267090@fn_0009a070@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/game/global/CCameraShakeTrack_2.cpp": {
+   "0x00075eb0": ["?thunk_delete_00263f30@fn_fd0ccaa0@@YAXPAX@Z"]
+  },
+  "src/game/global/CCharacter.cpp": {
+   "0x00042b20": ["??3@YAXPAX@Z"]
+  },
+  "src/game/global/CCharacterFloatCondition.cpp": {
+   "0x0004d970": ["?SweepTrack_DeleteThis_0008d330@fn_f995c03d@@YAXPAX@Z"]
+  },
+  "src/game/global/CCharacterGolem.cpp": {
+   "0x000fe2e0": ["?thunk_FUN_00267090@fn_000fe2e0@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x000fedc0": ["?thunk_FUN_00267090@fn_000fedc0@@YAXPAVCActorGolem@1@@Z"]
+  },
+  "src/game/global/CCharacterSizeCondition_2.cpp": {
+   "0x00057580": ["?thunk_delete_00263f30@fn_f8e3f2ed@@YAXPAX@Z"]
+  },
+  "src/game/global/CCharacterTemplateCondition_2.cpp": {
+   "0x00058d00": ["?thunk_delete_00263f30@fn_f5377be3@@YAXPAX@Z"]
+  },
+  "src/game/global/CCharacterTemplateManager.cpp": {
+   "0x00046110": ["?SweepTrack_DeleteThis_0008d330@fn_f8b6a7cf@@YAXPAX@Z"]
+  },
+  "src/game/global/CCharacterTemplateVariationCondition_2.cpp": {
+   "0x00058db0": ["?thunk_delete_00263f30@fn_f0389c66@@YAXPAX@Z"]
+  },
+  "src/game/global/CChaseAgent.cpp": {
+   "0x000fcb40": ["?SweepTrack_DeleteThis_0008d330@fn_f0405f54@@YAXPAX@Z"]
+  },
+  "src/game/global/CChaseCamera.cpp": {
+   "0x000a27b0": ["??3@YAXPAX@Z"]
+  },
+  "src/game/global/CCivilian.cpp": {
+   "0x00081670": ["??3@YAXPAX@Z"]
+  },
+  "src/game/global/CClearCollisionStun_2.cpp": {
+   "0x00075f60": ["?thunk_delete_00263f30@fn_fbb24f68@@YAXPAX@Z"]
+  },
+  "src/game/global/CClimbEdgeCondition_2.cpp": {
+   "0x000576e0": ["?thunk_delete_00263f30@fn_f190b021@@YAXPAX@Z"]
+  },
+  "src/game/global/CClimbableCondition.cpp": {
+   "0x0004cfe0": ["?thunk_FUN_00267090@fn_f4fa62f8@@YAXPAX@Z"],
+   "0x0004d020": ["?thunk_FUN_00267090@fn_f4fa62f8@@YAXPAX@Z"],
+   "0x0004d060": ["?thunk_FUN_00267090@fn_f4fa62f8@@YAXPAX@Z"],
+   "0x0004d0a0": ["?SweepTrack_DeleteThis_0008d330@fn_f4fa62f8@@YAXPAX@Z"],
+   "0x0004d0d0": ["?SweepTrack_DeleteThis_0008d330@fn_f4fa62f8@@YAXPAX@Z"],
+   "0x0004d100": ["?SweepTrack_DeleteThis_0008d330@fn_f4fa62f8@@YAXPAX@Z"]
+  },
+  "src/game/global/CClimbableCondition_3.cpp": {
+   "0x00057630": ["?thunk_delete_00263f30@fn_fbcd4bc2@@YAXPAX@Z"]
+  },
+  "src/game/global/CClimbingAction.cpp": {
+   "0x00021740": ["?thunk_FUN_00267090@fn_f420a0ef@@YAXPAVCClimbingAction@1@@Z"]
+  },
+  "src/game/global/CClimbingTrack_2.cpp": {
+   "0x00076010": ["?thunk_delete_00263f30@fn_f674bded@@YAXPAX@Z"]
+  },
+  "src/game/global/CCollisionDirectionCondition.cpp": {
+   "0x0004be00": ["?SweepTrack_DeleteThis_0008d330@fn_f777b6f1@@YAXPAX@Z"],
+   "0x0004be30": ["?SweepTrack_DeleteThis_0008d330@fn_f777b6f1@@YAXPAX@Z"],
+   "0x0004be60": ["?SweepTrack_DeleteThis_0008d330@fn_f777b6f1@@YAXPAX@Z"]
+  },
+  "src/game/global/CCollisionDirectionCondition_2.cpp": {
+   "0x00057790": ["?thunk_delete_00263f30@fn_ff1234ab@@YAXPAX@Z"]
+  },
+  "src/game/global/CCollisionFlagCondition.cpp": {
+   "0x00058e20": ["?thunk_delete_00263f30@fn_f9d74a4d@@YAXPAX@Z"],
+   "0x00058e80": ["?SweepTrack_DeleteThis_0008d330@fn_f9d74a4d@@YAXPAX@Z"]
+  },
+  "src/game/global/CCollisionHeightCondition.cpp": {
+   "0x0004c020": ["?thunk_FUN_00267090@fn_f685d77c@@YAXPAX@Z"],
+   "0x0004c060": ["?SweepTrack_DeleteThis_0008d330@fn_f685d77c@@YAXPAX@Z"],
+   "0x0004c090": ["?SweepTrack_DeleteThis_0008d330@fn_f685d77c@@YAXPAX@Z"]
+  },
+  "src/game/global/CCollisionHeightCondition_3.cpp": {
+   "0x00057840": ["?thunk_delete_00263f30@fn_fd594d6c@@YAXPAX@Z"]
+  },
+  "src/game/global/CCollisionHitLocationCondition_2.cpp": {
+   "0x000578f0": ["?thunk_delete_00263f30@fn_f52e0250@@YAXPAX@Z"]
+  },
+  "src/game/global/CCollisionInterruptCondition.cpp": {
+   "0x00057990": ["?thunk_delete_00263f30@fn_f0450c99@@YAXPAX@Z"]
+  },
+  "src/game/global/CCollisionManager.cpp": {
+   "0x001b6530": ["??3@YAXPAX@Z"]
+  },
+  "src/game/global/CCollisionPushbackDirectionCondition.cpp": {
+   "0x0004bf40": ["?SweepTrack_DeleteThis_0008d330@fn_f6628d26@@YAXPAX@Z"]
+  },
+  "src/game/global/CCollisionPushbackDirectionCondition_2.cpp": {
+   "0x00057a40": ["?thunk_delete_00263f30@fn_f8ff7609@@YAXPAX@Z"]
+  },
+  "src/game/global/CCollisionPushbackVelocityCondition.cpp": {
+   "0x0004c1c0": ["?SweepTrack_DeleteThis_0008d330@fn_f746edeb@@YAXPAX@Z"]
+  },
+  "src/game/global/CCollisionPushbackVelocityCondition_3.cpp": {
+   "0x00057af0": ["?thunk_delete_00263f30@fn_f4159269@@YAXPAX@Z"]
+  },
+  "src/game/global/CCollisionPushbackYAngleCondition.cpp": {
+   "0x0004c400": ["?SweepTrack_DeleteThis_0008d330@fn_fed636a2@@YAXPAX@Z"]
+  },
+  "src/game/global/CCollisionPushbackYAngleCondition_3.cpp": {
+   "0x00057c50": ["?thunk_delete_00263f30@fn_ff4b9afe@@YAXPAX@Z"]
+  },
+  "src/game/global/CCollisionPushbackYCondition.cpp": {
+   "0x0004c2f0": ["?SweepTrack_DeleteThis_0008d330@fn_f8dc77cd@@YAXPAX@Z"]
+  },
+  "src/game/global/CCollisionPushbackYCondition_3.cpp": {
+   "0x00057ba0": ["?thunk_delete_00263f30@fn_fac59c20@@YAXPAX@Z"]
+  },
+  "src/game/global/CCollisionStunTimeCondition.cpp": {
+   "0x0004c550": ["?SweepTrack_DeleteThis_0008d330@fn_fb02dbc9@@YAXPAX@Z"]
+  },
+  "src/game/global/CCollisionStunTimeCondition_3.cpp": {
+   "0x00057d00": ["?thunk_delete_00263f30@fn_ffd03ba6@@YAXPAX@Z"]
+  },
+  "src/game/global/CCollisionTrack.cpp": {
+   "0x0005e070": ["?thunk_FUN_00267090@fn_0005e070@@YAXPAUCCollisionTrack@1@@Z"],
+   "0x0005e120": ["?FreeTrack_0008d330@fn_0005e120@@YAXPAX@Z"],
+   "0x0005e160": ["?thunk_FUN_00267090@fn_0005e160@@YAXPAUCProceduralDurationAnimationTrack@1@@Z"],
+   "0x0005e1a0": ["?destroy_0008d330@fn_0005e1a0@@YAXPAX@Z"],
+   "0x0005e1e0": ["?SweepTrack_DeleteThis_0008d330@fn_0005e1e0@@YAXPAX@Z"],
+   "0x0005e210": ["?SweepTrack_DeleteThis_0008d330@fn_0005e210@@YAXPAX@Z"]
+  },
+  "src/game/global/CComboMessageTrack_4.cpp": {
+   "0x000760c0": ["?thunk_delete_00263f30@fn_fb2f54bd@@YAXPAX@Z"]
+  },
+  "src/game/global/CComboTimerTrack_2.cpp": {
+   "0x00076180": ["?thunk_delete_00263f30@fn_f8ea40da@@YAXPAX@Z"]
+  },
+  "src/game/global/CCondition.cpp": {
+   "0x0004b010": ["?SweepTrack_DeleteThis_0008d330@fn_0004b010@@YAXPAX@Z"]
+  },
+  "src/game/global/CController.cpp": {
+   "0x000ae560": ["?thunk_FUN_00267090@fn_fac5a26d@@YAXPAVCController@1@@Z"]
+  },
+  "src/game/global/CControllerAgent.cpp": {
+   "0x000fd0c0": ["?SweepTrack_DeleteThis_0008d330@fn_f8104e0e@@YAXPAX@Z"]
+  },
+  "src/game/global/CControllerCondition.cpp": {
+   "0x0004b040": ["?SweepTrack_DeleteThis_0008d330@fn_f63868ef@@YAXPAX@Z"],
+   "0x0004b070": ["?SweepTrack_DeleteThis_0008d330@fn_f63868ef@@YAXPAX@Z"]
+  },
+  "src/game/global/CControllerManager.cpp": {
+   "0x000aeaa0": ["?thunk_FUN_00267090@fn_000aeaa0@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/game/global/CCow.cpp": {
+   "0x000832e0": ["?thunk_FUN_00267090@fn_f6f327b7@@YAXPAX@Z"]
+  },
+  "src/game/global/CDamageTrack_2.cpp": {
+   "0x00076240": ["?thunk_delete_00263f30@fn_00076240@@YAXPAX@Z"]
+  },
+  "src/game/global/CDeathTrack_2.cpp": {
+   "0x000762e0": ["?thunk_delete_00263f30@fn_f55a049d@@YAXPAX@Z"]
+  },
+  "src/game/global/CDrainHealthTrack_2.cpp": {
+   "0x000763a0": ["?thunk_delete_00263f30@fn_f56f53b0@@YAXPAX@Z"]
+  },
+  "src/game/global/CDramaticCamera.cpp": {
+   "0x000a8fe0": ["?DeleteObj_00263f30@fn_000a8fe0@@YAXPAX@Z"]
+  },
+  "src/game/global/CDriftTrack_2.cpp": {
+   "0x00076460": ["?thunk_delete_00263f30@fn_f2b51e98@@YAXPAX@Z"]
+  },
+  "src/game/global/CDropTrack_4.cpp": {
+   "0x000764f0": ["?thunk_delete_00263f30@fn_f586c699@@YAXPAX@Z"]
+  },
+  "src/game/global/CEffectTrack.cpp": {
+   "0x00060b40": ["?cleanup_0008d330@fn_00060b40@@YAXPAUCEffectTrack@1@@Z"],
+   "0x00060b80": ["?SweepTrack_DeleteThis_0008d330@fn_00060b80@@YAXPAX@Z"]
+  },
+  "src/game/global/CEncounterGenerator_2.cpp": {
+   "0x001fc600": ["?BaseDestroyVec_00263f40@fn_f2961f61@@YAXPAX@Z", "?BaseDestroy_00263f30@fn_f2961f61@@YAXPAX@Z"]
+  },
+  "src/game/global/CEventManager.cpp": {
+   "0x001cc530": ["?ReleaseRef_0008d340@fn_001cc530@@YAXH@Z"],
+   "0x001cc570": ["?FUN_0008d330@fn_001cc570@@YAXPAX@Z", "?FUN_0008d340@fn_001cc570@@YAXPAX@Z"]
+  },
+  "src/game/global/CExplosionTrack_2.cpp": {
+   "0x000780d0": ["?SweepTrack_DeleteThis_0008d330@fn_000780d0@@YAXPAX@Z"],
+   "0x00078100": ["?SweepTrack_DeleteThis_0008d330@fn_00078100@@YAXPAX@Z"]
+  },
+  "src/game/global/CExplosionTrack_2_2.cpp": {
+   "0x000788b0": ["?thunk_FUN_00267090@fn_f3f3201f@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/game/global/CFEManager.cpp": {
+   "0x000c1f50": ["?thunk_FUN_00267090@fn_f53c52ab@@YAXPAVCFEManager_c1f50@1@@Z"]
+  },
+  "src/game/global/CFMVManager.cpp": {
+   "0x001b7970": ["?thunk_FUN_00267090@fn_ff8e53b8@@YAXPAX@Z"],
+   "0x001b7cd0": ["?Free_0008d330@fn_ff8e53b8@@YAXPAX@Z"]
+  },
+  "src/game/global/CFightNodePrevCondition_2.cpp": {
+   "0x00057db0": ["?thunk_delete_00263f30@fn_febbe3be@@YAXPAX@Z"]
+  },
+  "src/game/global/CFightParamsCollision.cpp": {
+   "0x00059890": ["?MyDelete_0008d330@fn_00059890@@YAXPAX@Z"],
+   "0x0005a010": ["?thunk_FUN_00267090@fn_f8b0a0f7@@YAXH@Z"]
+  },
+  "src/game/global/CFrontEndCallback_2.cpp": {
+   "0x000c4ed0": ["?thunk_FUN_00267090@fn_fa0fa6d3@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/game/global/CGameCamera_2.cpp": {
+   "0x000a97b0": ["?SweepTrack_DeleteThis_00263f30@fn_f19d3f35@@YAXPAX@Z"]
+  },
+  "src/game/global/CGameController.cpp": {
+   "0x000af140": ["?Destroy_0008d330@fn_fb9e703c@@YAXPAVCGameController@1@@Z"]
+  },
+  "src/game/global/CGameControllerManager.cpp": {
+   "0x000af3d0": ["?thunk_FUN_00267090@fn_faa012bb@@YAXPAUCGameControllerManager@1@@Z"]
+  },
+  "src/game/global/CGameFlowManager.cpp": {
+   "0x0008c400": ["?thunk_FUN_00267090@fn_0008c400@@YAXPAX@Z"]
+  },
+  "src/game/global/CGrappleAlertStatusCondition.cpp": {
+   "0x00057e20": ["?thunk_delete_00263f30@fn_f9b6de1e@@YAXPAX@Z"],
+   "0x00057e80": ["?SweepTrack_DeleteThis_0008d330@fn_f9b6de1e@@YAXPAX@Z"]
+  },
+  "src/game/global/CGrappleAutoTargetTrack.cpp": {
+   "0x00076560": ["?thunk_delete_00263f30@fn_f05850fe@@YAXPAX@Z"],
+   "0x000765c0": ["?SweepTrack_DeleteThis_0008d330@fn_f05850fe@@YAXPAX@Z"]
+  },
+  "src/game/global/CGrappleCharacterTemplateCondition_2.cpp": {
+   "0x00058f30": ["?thunk_delete_00263f30@fn_f6ad9474@@YAXPAX@Z"]
+  },
+  "src/game/global/CGrappleDamageTrack_2.cpp": {
+   "0x00076630": ["?thunk_delete_00263f30@fn_f40a0ef6@@YAXPAX@Z"],
+   "0x00076690": ["?SweepTrack_DeleteThis_0008d330@fn_f40a0ef6@@YAXPAX@Z"]
+  },
+  "src/game/global/CGrappleDrainHealthTrack_2.cpp": {
+   "0x00076700": ["?thunk_delete_00263f30@fn_fb1ec90b@@YAXPAX@Z"],
+   "0x00076760": ["?SweepTrack_DeleteThis_0008d330@fn_fb1ec90b@@YAXPAX@Z"]
+  },
+  "src/game/global/CGrappleIntangibleTrack.cpp": {
+   "0x000767d0": ["?thunk_delete_00263f30@fn_fbe768a4@@YAXPAX@Z"],
+   "0x00076830": ["?SweepTrack_DeleteThis_0008d330@fn_fbe768a4@@YAXPAX@Z"]
+  },
+  "src/game/global/CGrappleInvincibleTrack.cpp": {
+   "0x000768a0": ["?thunk_delete_00263f30@fn_fcb7e3d9@@YAXPAX@Z"],
+   "0x00076900": ["?SweepTrack_DeleteThis_0008d330@fn_fcb7e3d9@@YAXPAX@Z"]
+  },
+  "src/game/global/CGrappleInvulnerableTrack.cpp": {
+   "0x00076970": ["?thunk_delete_00263f30@fn_fd060a0f@@YAXPAX@Z"],
+   "0x000769d0": ["?SweepTrack_DeleteThis_0008d330@fn_fd060a0f@@YAXPAX@Z"]
+  },
+  "src/game/global/CGrappleKeyPoseTrack_2.cpp": {
+   "0x00077b20": ["?thunk_delete_00263f30@fn_feba9267@@YAXPAX@Z"]
+  },
+  "src/game/global/CGrappleMotionStateCondition.cpp": {
+   "0x00057ef0": ["?thunk_delete_00263f30@fn_fe1aa6b6@@YAXPAX@Z"],
+   "0x00057f50": ["?SweepTrack_DeleteThis_0008d330@fn_fe1aa6b6@@YAXPAX@Z"]
+  },
+  "src/game/global/CGrappleOpportunityTrack.cpp": {
+   "0x0005b790": ["?FUN_0008d330@fn_0005b790@@YAXPAVCGrappleAttachTrack@1@@Z"],
+   "0x0005b7d0": ["?FreeMem_0008d330@fn_0005b7d0@@YAXPAX@Z"],
+   "0x0005b810": ["?SweepTrack_DeleteThis_0008d330@fn_0005b810@@YAXPAX@Z"],
+   "0x0005b880": ["?thunk_FUN_00267090@fn_0005b880@@YAXPAVCGrappleSequenceTrack@1@@Z"],
+   "0x0005b8c0": ["?thunk_FUN_00267090@fn_0005b8c0@@YAXPAVCGrabTrack@1@@Z"]
+  },
+  "src/game/global/CGrappleSizeCondition_2.cpp": {
+   "0x00058000": ["?thunk_delete_00263f30@fn_f5af57eb@@YAXPAX@Z"]
+  },
+  "src/game/global/CGrappleSoundTrack.cpp": {
+   "0x00076a40": ["?thunk_delete_00263f30@fn_f15fc4c0@@YAXPAX@Z"],
+   "0x00076aa0": ["?SweepTrack_DeleteThis_0008d330@fn_f15fc4c0@@YAXPAX@Z"]
+  },
+  "src/game/global/CGrappleTimerCondition.cpp": {
+   "0x0004d680": ["?SweepTrack_DeleteThis_0008d330@fn_fc1bb4c1@@YAXPAX@Z"],
+   "0x0004d6b0": ["?SweepTrack_DeleteThis_0008d330@fn_fc1bb4c1@@YAXPAX@Z"],
+   "0x0004d6e0": ["?SweepTrack_DeleteThis_0008d330@fn_fc1bb4c1@@YAXPAX@Z"]
+  },
+  "src/game/global/CGrappleTimerCondition_4.cpp": {
+   "0x000580c0": ["?thunk_delete_00263f30@fn_fa6d491a@@YAXPAX@Z"]
+  },
+  "src/game/global/CGrappleUninterruptibleTrack.cpp": {
+   "0x00076b10": ["?thunk_delete_00263f30@fn_f77f55b0@@YAXPAX@Z"],
+   "0x00076b70": ["?SweepTrack_DeleteThis_0008d330@fn_f77f55b0@@YAXPAX@Z"]
+  },
+  "src/game/global/CGroundDistanceCondition.cpp": {
+   "0x0004bc70": ["?SweepTrack_DeleteThis_0008d330@fn_f0912206@@YAXPAX@Z"]
+  },
+  "src/game/global/CGroundDistanceCondition_3.cpp": {
+   "0x00058170": ["?thunk_delete_00263f30@fn_f5f5c4c9@@YAXPAX@Z"]
+  },
+  "src/game/global/CHand2HandAgent.cpp": {
+   "0x000ffeb0": ["?thunk_FUN_00267090@fn_f3aa029d@@YAXPAX@Z"]
+  },
+  "src/game/global/CHapticController.cpp": {
+   "0x000afd00": ["??_V@YAXPAX@Z"]
+  },
+  "src/game/global/CHapticControllerManager.cpp": {
+   "0x000b0060": ["?thunk_FUN_00267090@fn_000b0060@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/game/global/CHapticTrack.cpp": {
+   "0x0005d260": ["?SweepTrack_DeleteThis_0008d330@fn_0005d260@@YAXPAX@Z"]
+  },
+  "src/game/global/CHeadTrackerTrack_4.cpp": {
+   "0x00077c00": ["?thunk_delete_00263f30@fn_ff9c64fd@@YAXPAX@Z"]
+  },
+  "src/game/global/CHudIcons.cpp": {
+   "0x000c7610": ["??3@YAXPAX@Z"]
+  },
+  "src/game/global/CHudMap.cpp": {
+   "0x000c9700": ["??3@YAXPAX@Z"]
+  },
+  "src/game/global/CHypnoticCamera.cpp": {
+   "0x000aa430": ["??3@YAXPAX@Z"]
+  },
+  "src/game/global/CInactivityTimerCondition.cpp": {
+   "0x0004d860": ["?SweepTrack_DeleteThis_0008d330@fn_fa5db5a6@@YAXPAX@Z"]
+  },
+  "src/game/global/CInactivityTimerCondition_2.cpp": {
+   "0x00058220": ["?thunk_delete_00263f30@fn_fabb32d7@@YAXPAX@Z"]
+  },
+  "src/game/global/CIntangibleToActorsTrack_2.cpp": {
+   "0x00076cd0": ["?thunk_delete_00263f30@fn_f1b1ed82@@YAXPAX@Z"]
+  },
+  "src/game/global/CIntangibleTrack_2.cpp": {
+   "0x00076c20": ["?thunk_delete_00263f30@fn_f8f62026@@YAXPAX@Z"]
+  },
+  "src/game/global/CIntentionSpeedCondition.cpp": {
+   "0x0004da80": ["?SweepTrack_DeleteThis_0008d330@fn_ff117ca4@@YAXPAX@Z"],
+   "0x0004dab0": ["?thunk_FUN_00267090@fn_ff117ca4@@YAXPAX@Z"],
+   "0x0004daf0": ["?SweepTrack_DeleteThis_0008d330@fn_ff117ca4@@YAXPAX@Z"]
+  },
+  "src/game/global/CIntentionSpeedCondition_2.cpp": {
+   "0x000582d0": ["?thunk_delete_00263f30@fn_f8c6c731@@YAXPAX@Z"]
+  },
+  "src/game/global/CInvincibleTrack_2.cpp": {
+   "0x00076d90": ["?thunk_delete_00263f30@fn_fbdad5cf@@YAXPAX@Z"]
+  },
+  "src/game/global/CInvulnerableTrack_2.cpp": {
+   "0x00076e50": ["?thunk_delete_00263f30@fn_f5010e76@@YAXPAX@Z"]
+  },
+  "src/game/global/CJointTrack_4.cpp": {
+   "0x00077c70": ["?thunk_delete_00263f30@fn_f0575914@@YAXPAX@Z"]
+  },
+  "src/game/global/CJointTrack_params_06e840.cpp": {
+   "0x0006f120": ["?thunk_delete_00263f30@fn_f05fd2cd@@YAXPAX@Z"]
+  },
+  "src/game/global/CJointTrack_params_06e840_10.cpp": {
+   "0x0006f640": ["?thunk_delete_00263f30@fn_fd348dcb@@YAXPAX@Z"]
+  },
+  "src/game/global/CJointTrack_params_06e840_11.cpp": {
+   "0x0006f720": ["?thunk_delete_00263f30@fn_fe18d459@@YAXPAX@Z"]
+  },
+  "src/game/global/CJointTrack_params_06e840_12.cpp": {
+   "0x0006f790": ["?thunk_delete_00263f30@fn_f7c5defd@@YAXPAX@Z"]
+  },
+  "src/game/global/CJointTrack_params_06e840_13.cpp": {
+   "0x0006f870": ["?thunk_delete_00263f30@fn_f56dbf80@@YAXPAX@Z"]
+  },
+  "src/game/global/CJointTrack_params_06e840_14.cpp": {
+   "0x0006f900": ["?thunk_delete_00263f30@fn_f23caa2f@@YAXPAX@Z"]
+  },
+  "src/game/global/CJointTrack_params_06e840_15.cpp": {
+   "0x0006f970": ["?thunk_delete_00263f30@fn_fc2e3ce6@@YAXPAX@Z"]
+  },
+  "src/game/global/CJointTrack_params_06e840_16.cpp": {
+   "0x0006fa50": ["?thunk_delete_00263f30@fn_fd4eb0af@@YAXPAX@Z"]
+  },
+  "src/game/global/CJointTrack_params_06e840_17.cpp": {
+   "0x0006fae0": ["?thunk_delete_00263f30@fn_f834f864@@YAXPAX@Z"]
+  },
+  "src/game/global/CJointTrack_params_06e840_18.cpp": {
+   "0x0006fb50": ["?thunk_delete_00263f30@fn_fc227ff7@@YAXPAX@Z"]
+  },
+  "src/game/global/CJointTrack_params_06e840_19.cpp": {
+   "0x0006fc30": ["?thunk_delete_00263f30@fn_ff5cc2a1@@YAXPAX@Z"]
+  },
+  "src/game/global/CJointTrack_params_06e840_2.cpp": {
+   "0x0006f1b0": ["?thunk_delete_00263f30@fn_fc3acc0d@@YAXPAX@Z"]
+  },
+  "src/game/global/CJointTrack_params_06e840_20.cpp": {
+   "0x0006fcc0": ["?thunk_delete_00263f30@fn_f6b38101@@YAXPAX@Z"]
+  },
+  "src/game/global/CJointTrack_params_06e840_21.cpp": {
+   "0x0006fd50": ["?thunk_delete_00263f30@fn_fc3736bb@@YAXPAX@Z"]
+  },
+  "src/game/global/CJointTrack_params_06e840_22.cpp": {
+   "0x0006fdc0": ["?thunk_delete_00263f30@fn_f59455c9@@YAXPAX@Z"]
+  },
+  "src/game/global/CJointTrack_params_06e840_23.cpp": {
+   "0x0006fea0": ["?thunk_delete_00263f30@fn_fb05d217@@YAXPAX@Z"]
+  },
+  "src/game/global/CJointTrack_params_06e840_24.cpp": {
+   "0x0006ff30": ["?thunk_delete_00263f30@fn_fbe82a3f@@YAXPAX@Z"]
+  },
+  "src/game/global/CJointTrack_params_06e840_25.cpp": {
+   "0x0006ffc0": ["?thunk_delete_00263f30@fn_f506c233@@YAXPAX@Z"]
+  },
+  "src/game/global/CJointTrack_params_06e840_26.cpp": {
+   "0x00070050": ["?thunk_delete_00263f30@fn_f2bb1205@@YAXPAX@Z"]
+  },
+  "src/game/global/CJointTrack_params_06e840_27.cpp": {
+   "0x000700e0": ["?thunk_delete_00263f30@fn_f3ae5866@@YAXPAX@Z"]
+  },
+  "src/game/global/CJointTrack_params_06e840_28.cpp": {
+   "0x00070170": ["?thunk_delete_00263f30@fn_f36db68b@@YAXPAX@Z"]
+  },
+  "src/game/global/CJointTrack_params_06e840_29.cpp": {
+   "0x00070200": ["?thunk_delete_00263f30@fn_f8efba8b@@YAXPAX@Z"]
+  },
+  "src/game/global/CJointTrack_params_06e840_3.cpp": {
+   "0x0006f240": ["?thunk_delete_00263f30@fn_f59379d5@@YAXPAX@Z"]
+  },
+  "src/game/global/CJointTrack_params_06e840_30.cpp": {
+   "0x00070290": ["?thunk_delete_00263f30@fn_fe34659b@@YAXPAX@Z"]
+  },
+  "src/game/global/CJointTrack_params_06e840_31.cpp": {
+   "0x00070320": ["?thunk_delete_00263f30@fn_f908f418@@YAXPAX@Z"]
+  },
+  "src/game/global/CJointTrack_params_06e840_32.cpp": {
+   "0x000703b0": ["?thunk_delete_00263f30@fn_ff61d3b1@@YAXPAX@Z"]
+  },
+  "src/game/global/CJointTrack_params_06e840_33.cpp": {
+   "0x00070440": ["?thunk_delete_00263f30@fn_fcb33e3a@@YAXPAX@Z"]
+  },
+  "src/game/global/CJointTrack_params_06e840_34.cpp": {
+   "0x000704d0": ["?thunk_delete_00263f30@fn_f19ab246@@YAXPAX@Z"]
+  },
+  "src/game/global/CJointTrack_params_06e840_35.cpp": {
+   "0x00070560": ["?thunk_delete_00263f30@fn_fd242b13@@YAXPAX@Z"]
+  },
+  "src/game/global/CJointTrack_params_06e840_36.cpp": {
+   "0x000705f0": ["?thunk_delete_00263f30@fn_f263f977@@YAXPAX@Z"]
+  },
+  "src/game/global/CJointTrack_params_06e840_38.cpp": {
+   "0x00075cb0": ["?thunk_delete_00263f30@fn_f4b6f30b@@YAXPAX@Z"]
+  },
+  "src/game/global/CJointTrack_params_06e840_4.cpp": {
+   "0x0006f2d0": ["?thunk_delete_00263f30@fn_f5467fe9@@YAXPAX@Z"]
+  },
+  "src/game/global/CJointTrack_params_06e840_5.cpp": {
+   "0x0006f360": ["?thunk_delete_00263f30@fn_f1773d85@@YAXPAX@Z"]
+  },
+  "src/game/global/CJointTrack_params_06e840_6.cpp": {
+   "0x0006f3f0": ["?thunk_delete_00263f30@fn_fb7fd81f@@YAXPAX@Z"]
+  },
+  "src/game/global/CJointTrack_params_06e840_7.cpp": {
+   "0x0006f480": ["?thunk_delete_00263f30@fn_fdf74c47@@YAXPAX@Z"]
+  },
+  "src/game/global/CJointTrack_params_06e840_8.cpp": {
+   "0x0006f510": ["?thunk_delete_00263f30@fn_fc60230d@@YAXPAX@Z"]
+  },
+  "src/game/global/CJointTrack_params_06e840_9.cpp": {
+   "0x0006f580": ["?thunk_delete_00263f30@fn_f922f661@@YAXPAX@Z"]
+  },
+  "src/game/global/CJumpAttackTrack_4.cpp": {
+   "0x00076fb0": ["?thunk_delete_00263f30@fn_f18f8171@@YAXPAX@Z"]
+  },
+  "src/game/global/CJumpTrack_4.cpp": {
+   "0x00076ee0": ["?thunk_delete_00263f30@fn_f96b6f0d@@YAXPAX@Z"]
+  },
+  "src/game/global/CKeyPoseTrack_4.cpp": {
+   "0x00077d20": ["?thunk_delete_00263f30@fn_fc7b27ca@@YAXPAX@Z"]
+  },
+  "src/game/global/CLuaNumberCondition.cpp": {
+   "0x0004cde0": ["?SweepTrack_DeleteThis_0008d330@fn_ff23caa7@@YAXPAX@Z"],
+   "0x0004ce10": ["?SweepTrack_DeleteThis_0008d330@fn_ff23caa7@@YAXPAX@Z"],
+   "0x0004ce40": ["?SweepTrack_DeleteThis_0008d330@fn_ff23caa7@@YAXPAX@Z"],
+   "0x0004ce70": ["?SweepTrack_DeleteThis_0008d330@fn_ff23caa7@@YAXPAX@Z"],
+   "0x0004cea0": ["?SweepTrack_DeleteThis_0008d330@fn_ff23caa7@@YAXPAX@Z"],
+   "0x0004ced0": ["?SweepTrack_DeleteThis_0008d330@fn_ff23caa7@@YAXPAX@Z"]
+  },
+  "src/game/global/CLuaNumberCondition_4.cpp": {
+   "0x00058380": ["?thunk_delete_00263f30@fn_ff8b2601@@YAXPAX@Z"]
+  },
+  "src/game/global/CMotionClimbAngleCondition.cpp": {
+   "0x0004dc00": ["?SweepTrack_DeleteThis_0008d330@fn_f7347cb6@@YAXPAX@Z"],
+   "0x0004dc30": ["?SweepTrack_DeleteThis_0008d330@fn_f7347cb6@@YAXPAX@Z"]
+  },
+  "src/game/global/CMotionClimbAngleCondition_2.cpp": {
+   "0x00058430": ["?thunk_delete_00263f30@fn_fbf65e06@@YAXPAX@Z"]
+  },
+  "src/game/global/CMotionHitCondition_2.cpp": {
+   "0x000584e0": ["?thunk_delete_00263f30@fn_f4054f60@@YAXPAX@Z"]
+  },
+  "src/game/global/CMotionHitGroundHeightTrack_2.cpp": {
+   "0x00077070": ["?thunk_delete_00263f30@fn_ff714e11@@YAXPAX@Z"]
+  },
+  "src/game/global/CMotionStateCondition_3.cpp": {
+   "0x00058590": ["?thunk_delete_00263f30@fn_f56c52e2@@YAXPAX@Z"]
+  },
+  "src/game/global/CMoveAddTrack_2.cpp": {
+   "0x000771f0": ["?thunk_delete_00263f30@fn_f4a3352a@@YAXPAX@Z"]
+  },
+  "src/game/global/CMoveAddYTrack_2.cpp": {
+   "0x000772b0": ["?thunk_delete_00263f30@fn_fd7365db@@YAXPAX@Z"]
+  },
+  "src/game/global/CMoveAgent.iso_00102c90.cpp": {
+   "0x00102c90": ["?thunk_0008d330@fn_fcaa2eec@@YAXPAUCMoveAgent@1@@Z"]
+  },
+  "src/game/global/CMoveTrack_3.cpp": {
+   "0x00077130": ["?thunk_delete_00263f30@fn_f9897173@@YAXPAX@Z"]
+  },
+  "src/game/global/CNISCamera.cpp": {
+   "0x000ac5a0": ["?thunk_00263f30@fn_fe577214@@YAXPAVCNISCamera@1@@Z"]
+  },
+  "src/game/global/CNameFlagCondition.cpp": {
+   "0x00058fa0": ["?thunk_delete_00263f30@fn_f738f905@@YAXPAX@Z"],
+   "0x00059000": ["?SweepTrack_DeleteThis_0008d330@fn_f738f905@@YAXPAX@Z"]
+  },
+  "src/game/global/COccupationAgent.cpp": {
+   "0x001037f0": ["?thunk_FUN_00267090@fn_001037f0@@YAXPAX@Z"]
+  },
+  "src/game/global/COrientTargetTrack.cpp": {
+   "0x000773f0": ["?thunk_delete_00263f30@fn_fcb81868@@YAXPAX@Z"],
+   "0x00077450": ["?SweepTrack_DeleteThis_0008d330@fn_fcb81868@@YAXPAX@Z"]
+  },
+  "src/game/global/COrientTrack_4.cpp": {
+   "0x00077380": ["?thunk_delete_00263f30@fn_fed5cdd6@@YAXPAX@Z"]
+  },
+  "src/game/global/CPathAgent.cpp": {
+   "0x00104a70": ["?thunk_FUN_00267090@fn_f58850d5@@YAXI@Z"],
+   "0x00104b20": ["_thunk_FUN_00267090"],
+   "0x00105060": ["?thunk2_0008d330@fn_00105060@@YAXPAX@Z", "?thunk_0008d340@fn_00105060@@YAXI@Z"],
+   "0x00105ef0": ["?Ref_0008d340@fn_f58850d5@@YAXPAX@Z"],
+   "0x00106130": ["?thunk_FUN_00267090@fn_00106130@@YAXI@Z"]
+  },
+  "src/game/global/CPatrolPath.cpp": {
+   "0x00106550": ["?DeleteThing_00263f30@fn_f9481d31@@YAXPAX@Z"]
+  },
+  "src/game/global/CPatrolPathManager.cpp": {
+   "0x00106f80": ["?thunk_FUN_00267090@fn_00106f80@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/game/global/CPhysicalController.cpp": {
+   "0x000b0ff0": ["?ReleaseThing_0008d330@fn_f3919bbe@@YAXI@Z"]
+  },
+  "src/game/global/CPropActorStateCondition_3.cpp": {
+   "0x00058640": ["?thunk_delete_00263f30@fn_f1eed91f@@YAXPAX@Z"]
+  },
+  "src/game/global/CRadMovieRenderLoop.cpp": {
+   "0x001b7590": ["?thunk@fn_fbeebd58@@YAXI@Z"],
+   "0x001b7790": ["?destroy_0008d330@fn_001b7790@@YAXPAVCRadMovieRenderLoop@1@@Z"]
+  },
+  "src/game/global/CRageModeAction.cpp": {
+   "0x000223a0": ["?thunk_FUN_00267090@fn_f327212d@@YAXPAVCOrientAction@1@@Z"],
+   "0x000224a0": ["?thunk_FUN_00267090@fn_f327212d@@YAXPAVCUninterruptibleAction@1@@Z"]
+  },
+  "src/game/global/CRageModeCondition.cpp": {
+   "0x000586e0": ["?thunk_delete_00263f30@fn_ff2800b1@@YAXPAX@Z"]
+  },
+  "src/game/global/CRageModeTrack_3.cpp": {
+   "0x00077500": ["?thunk_delete_00263f30@fn_f702c0e2@@YAXPAX@Z"]
+  },
+  "src/game/global/CRangedAgent.cpp": {
+   "0x00107100": ["?thunk_FUN_00267090@fn_00107100@@YAXPAX@Z"]
+  },
+  "src/game/global/CRenderManager.cpp": {
+   "0x001bc020": ["?thunk_FUN_00267090@fn_001bc020@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/game/global/CSPHulkPropLoader.cpp": {
+   "0x001d55d0": ["?FUN_0008d340@fn_f590c0bf@@YAXPAX@Z"],
+   "0x001d5c50": ["??3@YAXPAX@Z"]
+  },
+  "src/game/global/CSPListener.cpp": {
+   "0x001db0e0": ["??3@YAXPAX@Z"]
+  },
+  "src/game/global/CScenarioManager.cpp": {
+   "0x001d0340": ["?thunk_FUN_00267090@fn_fdf9c5a9@@YAXPAVCScenarioManager_1d0340@1@@Z"]
+  },
+  "src/game/global/CScenarioParams.cpp": {
+   "0x001d0450": ["?SweepTrack_DeleteThis_0008d330@fn_f2d3e6ac@@YAXPAX@Z"]
+  },
+  "src/game/global/CScriptCamera.cpp": {
+   "0x000acd10": ["?SweepTrack_DeleteThis_00263f30@fn_f42ec421@@YAXPAX@Z"]
+  },
+  "src/game/global/CScrubberTrack_2.cpp": {
+   "0x00077dc0": ["?thunk_delete_00263f30@fn_fcd56763@@YAXPAX@Z"]
+  },
+  "src/game/global/CSeekBehaviour.cpp": {
+   "0x0010abc0": ["?thunk_FUN_00267090@fn_0010abc0@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/game/global/CSeparationBehaviour.cpp": {
+   "0x0010ac20": ["?thunk_FUN_00267090@fn_0010ac20@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/game/global/CSimController.cpp": {
+   "0x000b36a0": ["?thunk_0008d330@fn_f8cdf61b@@YAXPAVCSimController@1@@Z"]
+  },
+  "src/game/global/CSimDb.cpp": {
+   "0x00088e60": ["?thunk_FUN_00267090@fn_f0f5c5e4@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/game/global/CSimOverlayManager.cpp": {
+   "0x000d7010": ["?thunk_FUN_00267090@fn_000d7010@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/game/global/CSmartPropAngleCondition.cpp": {
+   "0x0004c660": ["?SweepTrack_DeleteThis_0008d330@fn_ff756602@@YAXPAX@Z"],
+   "0x0004c690": ["?SweepTrack_DeleteThis_0008d330@fn_ff756602@@YAXPAX@Z"],
+   "0x0004c6c0": ["?SweepTrack_DeleteThis_0008d330@fn_ff756602@@YAXPAX@Z"],
+   "0x0004c6f0": ["?SweepTrack_DeleteThis_0008d330@fn_ff756602@@YAXPAX@Z"],
+   "0x0004c720": ["?thunk_FUN_00267090@fn_ff756602@@YAXPAX@Z"],
+   "0x0004c760": ["?SweepTrack_DeleteThis_0008d330@fn_ff756602@@YAXPAX@Z"]
+  },
+  "src/game/global/CSmartPropAngleCondition_2.cpp": {
+   "0x00058790": ["?thunk_delete_00263f30@fn_f0c8ca41@@YAXPAX@Z"]
+  },
+  "src/game/global/CSmartPropAttachedCondition_4.cpp": {
+   "0x00058840": ["?thunk_delete_00263f30@fn_f662c1ee@@YAXPAX@Z"]
+  },
+  "src/game/global/CSmartPropCSMableCondition.cpp": {
+   "0x0004cb70": ["?thunk_FUN_00267090@fn_f5d3a323@@YAXPAX@Z"],
+   "0x0004cbb0": ["?SweepTrack_DeleteThis_0008d330@fn_f5d3a323@@YAXPAX@Z"]
+  },
+  "src/game/global/CSmartPropCSMableCondition_3.cpp": {
+   "0x000588e0": ["?thunk_delete_00263f30@fn_f76de4f7@@YAXPAX@Z"]
+  },
+  "src/game/global/CSmartPropDistanceCondition.cpp": {
+   "0x0004c940": ["?thunk_FUN_00267090@fn_f082f618@@YAXPAX@Z"]
+  },
+  "src/game/global/CSmartPropDistanceCondition_4.cpp": {
+   "0x000590d0": ["?thunk_delete_00263f30@fn_f0c31a8c@@YAXPAX@Z"]
+  },
+  "src/game/global/CSmartPropGrabbableNameCondition_3.cpp": {
+   "0x00059180": ["?thunk_delete_00263f30@fn_f40eb462@@YAXPAX@Z"]
+  },
+  "src/game/global/CSmartPropNameCondition_3.cpp": {
+   "0x00059230": ["?thunk_delete_00263f30@fn_f941d5f2@@YAXPAX@Z"]
+  },
+  "src/game/global/CSmartPropRemoveInstanceAction.cpp": {
+   "0x00022020": ["?thunk_FUN_00267090@fn_f513c711@@YAXPAVCSmartPropDropAction@1@@Z"]
+  },
+  "src/game/global/CSmartPropStateCondition_3.cpp": {
+   "0x00058990": ["?thunk_delete_00263f30@fn_f02c287b@@YAXPAX@Z"]
+  },
+  "src/game/global/CSmartPropThrowingAction.cpp": {
+   "0x00021fe0": ["?thunk_FUN_00267090@fn_f05d8adb@@YAXPAVCSmartPropThrowingAction@1@@Z"]
+  },
+  "src/game/global/CSmartPropTypeCondition_2.cpp": {
+   "0x00058a40": ["?thunk_delete_00263f30@fn_f3bc6b16@@YAXPAX@Z"]
+  },
+  "src/game/global/CSmartPropWeaponTypeCondition_3.cpp": {
+   "0x00058ba0": ["?thunk_delete_00263f30@fn_fb5c6613@@YAXPAX@Z"]
+  },
+  "src/game/global/CSmartPropWeaponizableTypeCondition_3.cpp": {
+   "0x00058af0": ["?thunk_delete_00263f30@fn_fba35ab2@@YAXPAX@Z"]
+  },
+  "src/game/global/CSoundCommand.cpp": {
+   "0x001eee70": ["?thunk_FUN_00267090@fn_f15f39d0@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/game/global/CSoundCommand_InstallEffect.cpp": {
+   "0x001f0a10": ["?thunk_FUN_00267090@fn_f12cce35@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/game/global/CSoundCommand_InstallMixer.cpp": {
+   "0x001ef770": ["?thunk_FUN_00267090@fn_f3b01e83@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/game/global/CSoundCommand_PlayCuedNISEvent.cpp": {
+   "0x001ef6b0": ["?thunk_FUN_00267090@fn_001ef6b0@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/game/global/CSoundCommand_PlayTunableEvent.cpp": {
+   "0x001f0290": ["?thunk_FUN_00267090@fn_f8678f71@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/game/global/CSoundCommand_ReturnToDefaultMix.cpp": {
+   "0x001ef7e0": ["?thunk_FUN_00267090@fn_feccf129@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/game/global/CSoundCommand_SetLoopPitchEvent.cpp": {
+   "0x001f0400": ["?thunk_FUN_00267090@fn_f43ad3f1@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/game/global/CSoundCommand_StopNISEvent.cpp": {
+   "0x001ef700": ["?thunk_FUN_00267090@fn_001ef700@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/game/global/CSoundCommand_StopTunableEvent.cpp": {
+   "0x001f0530": ["?thunk_FUN_00267090@fn_f622a04d@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/game/global/CSoundMix.cpp": {
+   "0x001e86d0": ["?thunk_FUN_00267090@fn_f9b4d5ee@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/game/global/CSoundSystem.cpp": {
+   "0x001f1250": ["?thunk_FUN_00267090@fn_001f1250@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x001f1310": ["?done_0008d330@fn_ffeee61e@@YAXPAX@Z"],
+   "0x001f1c80": ["?Destroy_0008d330@fn_ffeee61e@@YAXPAX@Z"]
+  },
+  "src/game/global/CSoundTrack_4.cpp": {
+   "0x000775b0": ["?thunk_delete_00263f30@fn_fe9702db@@YAXPAX@Z"]
+  },
+  "src/game/global/CSoundVoiceManager.cpp": {
+   "0x001f3830": ["?thunk_FUN_00267090@fn_f7fca51a@@YAXPAUThing_1f3830@1@@Z"],
+   "0x001f3860": ["?destroy_0008d330@fn_001f3860@@YAXPAX@Z"]
+  },
+  "src/game/global/CStageCondition_4.cpp": {
+   "0x00058c50": ["?thunk_delete_00263f30@fn_fbbe4521@@YAXPAX@Z"]
+  },
+  "src/game/global/CStageCondition_params_factory_10.cpp": {
+   "0x00052650": ["?SweepTrack_DeleteThis_00263f30@fn_f3c7b72f@@YAXPAX@Z"]
+  },
+  "src/game/global/CStageCondition_params_factory_11.cpp": {
+   "0x000526f0": ["?SweepTrack_DeleteThis_00263f30@fn_fbd5c058@@YAXPAX@Z"]
+  },
+  "src/game/global/CStageCondition_params_factory_3.cpp": {
+   "0x00051fb0": ["?thunk_delete_00263f30@fn_f43bcfc1@@YAXPAX@Z"]
+  },
+  "src/game/global/CStageCondition_params_factory_4.cpp": {
+   "0x00052090": ["?thunk_delete_00263f30@fn_f85aa0a8@@YAXPAX@Z"]
+  },
+  "src/game/global/CStageCondition_params_factory_5.cpp": {
+   "0x00052170": ["?thunk_delete_00263f30@fn_f006dedf@@YAXPAX@Z"]
+  },
+  "src/game/global/CStageCondition_params_factory_6.cpp": {
+   "0x00052250": ["?thunk_delete_00263f30@fn_f94403bb@@YAXPAX@Z"]
+  },
+  "src/game/global/CStageCondition_params_factory_7.cpp": {
+   "0x00052360": ["?thunk_delete_00263f30@fn_f165d3e7@@YAXPAX@Z"]
+  },
+  "src/game/global/CStageCondition_params_factory_8.cpp": {
+   "0x00052470": ["?thunk_delete_00263f30@fn_fcf73221@@YAXPAX@Z"]
+  },
+  "src/game/global/CStageCondition_params_factory_9.cpp": {
+   "0x000525b0": ["?SweepTrack_DeleteThis_00263f30@fn_f886958e@@YAXPAX@Z"]
+  },
+  "src/game/global/CStageTrack_3.cpp": {
+   "0x00077660": ["?thunk_delete_00263f30@fn_fbee1db8@@YAXPAX@Z"]
+  },
+  "src/game/global/CStaticAllocator.cpp": {
+   "0x0008ff70": ["?thunk_FUN_00267090@fn_faec65c3@@YAXPAX@Z"]
+  },
+  "src/game/global/CSteeringBehaviour.cpp": {
+   "0x00109a30": ["?thunk_FUN_00267090@fn_f7a37a23@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/game/global/CSubtitleManager.cpp": {
+   "0x001bfc80": ["?Free_0008d330@fn_fed79ca6@@YAXPAX@Z"]
+  },
+  "src/game/global/CSweepTrack_3.cpp": {
+   "0x00077720": ["?thunk_delete_00263f30@fn_fcf3eba1@@YAXPAX@Z"]
+  },
+  "src/game/global/CTargetTrack_2.cpp": {
+   "0x000777d0": ["?thunk_delete_00263f30@fn_f92c8711@@YAXPAX@Z"]
+  },
+  "src/game/global/CTestManager.cpp": {
+   "0x00091b90": ["?thunk_FUN_00267090@fn_00091b90@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/game/global/CTimeManager.cpp": {
+   "0x000865b0": ["?thunk_FUN_00267090@fn_000865b0@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/game/global/CTriggerVolume.cpp": {
+   "0x001fc000": ["?SweepTrack_DeleteThis_00263f30@fn_f9414999@@YAXPAX@Z"],
+   "0x001fc390": ["?SweepTrack_DeleteThis_00263f30@fn_f9414999@@YAXPAX@Z"]
+  },
+  "src/game/global/CTriggerVolumeManager.cpp": {
+   "0x001ff750": ["?thunk_FUN_00267090@fn_001ff750@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/game/global/CUninterruptibleTrack_2.cpp": {
+   "0x00077890": ["?thunk_delete_00263f30@fn_fbba5966@@YAXPAX@Z"]
+  },
+  "src/game/global/CUnlockableBlonskyFile.cpp": {
+   "0x000933e0": ["_Free1_0008d340", "_Free2_0008d330"]
+  },
+  "src/game/global/CUnlockableMove.cpp": {
+   "0x00093470": ["?FreeThis_0008d330@fn_fae5595d@@YAXPAX@Z", "?thunk_FUN_00267090@fn_fae5595d@@YAXPAX@Z"]
+  },
+  "src/game/global/CVehicle.cpp": {
+   "0x00083e30": ["?SweepTrack_DeleteThis_00263f30@fn_f50ba1e5@@YAXPAX@Z"]
+  },
+  "src/game/global/CWallSlideTrack_2.cpp": {
+   "0x00077960": ["?thunk_delete_00263f30@fn_f0c0ad92@@YAXPAX@Z"]
+  },
+  "src/game/global/CWeaponCollisionTrack.cpp": {
+   "0x00062d70": ["?destroy_0008d330@fn_00062d70@@YAXPAVCWeaponCollisionTrack@1@@Z"],
+   "0x00062e40": ["?FUN_0008d330@fn_00062e40@@YAXPAUCSmartPropAttachTrack@1@@Z"],
+   "0x00062e80": ["?Destroy_0008d330@fn_00062e80@@YAXPAUCSmartPropUpdateAttachmentTrack@1@@Z"],
+   "0x00062ec0": ["?FUN_0008d330@fn_00062ec0@@YAXPAVCSmartPropSpawnTrack@1@@Z"],
+   "0x00062f10": ["?SweepTrack_DeleteThis_0008d330@fn_00062f10@@YAXPAX@Z"],
+   "0x00062f40": ["?SweepTrack_DeleteThis_0008d330@fn_00062f40@@YAXPAX@Z"],
+   "0x00062f70": ["?SweepTrack_DeleteThis_0008d330@fn_00062f70@@YAXPAX@Z"],
+   "0x00062fa0": ["?SweepTrack_DeleteThis_0008d330@fn_00062fa0@@YAXPAX@Z"],
+   "0x00062fd0": ["?SweepTrack_DeleteThis_0008d330@fn_00062fd0@@YAXPAX@Z"],
+   "0x00063000": ["?SweepTrack_DeleteThis_0008d330@fn_00063000@@YAXPAX@Z"],
+   "0x00063030": ["?SweepTrack_DeleteThis_0008d330@fn_00063030@@YAXPAX@Z"],
+   "0x00063060": ["?SweepTrack_DeleteThis_0008d330@fn_00063060@@YAXPAX@Z"],
+   "0x00066930": ["_thunk_FUN_00267090"],
+   "0x00066a00": ["?thunk_FUN_00267090@fn_00066a00@@YAXH@Z"]
+  },
+  "src/game/global/CWorldCollisionManager.cpp": {
+   "0x00202430": ["?thunk_FUN_00267090@fn_00202430@@YAXPAX@Z"],
+   "0x00203150": ["?FreeMemA_0008d340@fn_00203150@@YAXPAX@Z", "?FreeMemB_0008d330@fn_00203150@@YAXPAX@Z"]
+  },
+  "src/game/global/CWorldStreamManager.cpp": {
+   "0x00204ea0": ["?fptr_00267090@fn_f49dcb8d@@YAXPAX@Z"],
+   "0x00205b20": ["?thunk_FUN_00267090@fn_00205b20@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x002061e0": ["?FUN_00267090@fn_002061e0@@YAXPAX@Z"],
+   "0x00206c10": ["?SweepTrack_DeleteThis_0008d330@fn_00206c10@@YAXPAX@Z"],
+   "0x00207060": ["?thunk_FUN_00267090@fn_f49dcb8d@@YAXPAVCWorldStreamManager_207060@1@@Z"]
+  },
+  "src/game/global/ControllerPoller.cpp": {
+   "0x000dd7a0": ["?Release_0008d330@fn_f09842b8@@YAXPAX@Z"],
+   "0x000ddb80": ["?thunk_FUN_00267090@fn_000ddb80@@YAXPAX@Z"]
+  },
+  "src/game/global/FEAnimation.cpp": {
+   "0x000e0020": ["?thunk_FUN_00267090@fn_000e0020@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/game/global/FEBillboardAnimation.cpp": {
+   "0x000f10c0": ["?SweepTrack_DeleteThis_0008d330@fn_f40d35a2@@YAXPAX@Z"],
+   "0x000f1130": ["?SweepTrack_DeleteThis_0008d330@fn_f40d35a2@@YAXPAX@Z"],
+   "0x000f1160": ["?freeA_0008d340@fn_000f1160@@YAXPAX@Z", "?freeB_0008d330@fn_000f1160@@YAXPAX@Z"]
+  },
+  "src/game/global/FEControl.cpp": {
+   "0x000f1350": ["?thunk_FUN_00267090@fn_f059af46@@YAXPAVFEObject@1@@Z"],
+   "0x000f1370": ["?SweepTrack_DeleteThis_0008d330@fn_f059af46@@YAXPAX@Z"]
+  },
+  "src/game/global/FEControllerSystem.cpp": {
+   "0x000b3ed0": ["?thunk_FUN_00267090@fn_f30893a2@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/game/global/FEDoBackMenu.cpp": {
+   "0x000e8c30": ["?thunk_FUN_00267090@fn_f39aad4b@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/game/global/FEDoFunction.cpp": {
+   "0x000e1a60": ["?thunk_FUN_00267090@fn_000e1a60@@YAXPAX@Z"]
+  },
+  "src/game/global/FEDoMenu.cpp": {
+   "0x000e8bc0": ["?thunk_FUN_00267090@fn_000e8bc0@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/game/global/FEDoPopDialog.cpp": {
+   "0x000e8be0": ["?thunk_FUN_00267090@fn_000e8be0@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x000e8c00": ["?thunk_FUN_00267090@fn_000e8c00@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/game/global/FEDoPushDialog.cpp": {
+   "0x000f1250": ["?cleanup_0008d330@fn_f2672b45@@YAXPAVFEParticleSystem@1@@Z"]
+  },
+  "src/game/global/FEDoScreen.cpp": {
+   "0x000e8c50": ["?thunk_FUN_00267090@fn_f3d69d15@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/game/global/FEDoSound.cpp": {
+   "0x000e8a10": ["?thunk@fn_ffdab178@@YAXI@Z"],
+   "0x000e8b20": ["?thunk_FUN_00267090@fn_ffdab178@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x000e8b40": ["?thunk_FUN_00267090@fn_000e8b40@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x000e8b60": ["?thunk_FUN_00267090@fn_000e8b60@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x000e8b80": ["?thunk_FUN_00267090@fn_000e8b80@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/game/global/FEObject.cpp": {
+   "0x000e9030": ["??_V@YAXPAX@Z"]
+  },
+  "src/game/global/FEPoseAnimation.cpp": {
+   "0x000e8980": ["?thunk@fn_f477ab1c@@YAXI@Z"]
+  },
+  "src/game/global/FETextInput.cpp": {
+   "0x000dc600": ["?Free_0008d340@fn_fb73efad@@YAXPAX@Z"],
+   "0x000dc810": ["?FUN_0008d340@fn_fb73efad@@YAXPAX@Z"]
+  },
+  "src/game/global/FETextureAnimation.cpp": {
+   "0x000f11f0": ["?Free_0008d330@fn_ff1486cd@@YAXPAX@Z"]
+  },
+  "src/game/global/FEThings.cpp": {
+   "0x000de110": ["?thunk_FUN_00267090@fn_f4042a89@@YAXPAVFEThings_de110@1@@Z"]
+  },
+  "src/game/global/FEThingsBase.cpp": {
+   "0x000e6240": ["?thunk_FUN_00267090@fn_000e6240@@YAXPAVCCollisionAction@1@@Z"],
+   "0x000e6260": ["?thunk_FUN_00267090@fn_000e6260@@YAXPAVCCollisionAction@1@@Z"],
+   "0x000e8250": ["?thunk_FUN_00267090@fn_000e8250@@YAXPAVCCollisionAction@1@@Z"]
+  },
+  "src/game/global/FEThingsBase_2.cpp": {
+   "0x000eeac0": ["?FreeThing_0008d330@fn_000eeac0@@YAXPAX@Z"],
+   "0x000ef920": ["?Free_0008d330@fn_f196c51b@@YAXPAX@Z"]
+  },
+  "src/game/global/FEThingsBase_3.cpp": {
+   "0x000f1b70": ["?SweepTrack_DeleteThis_0008d330@fn_f5892d97@@YAXPAX@Z"],
+   "0x000f1ba0": ["?SweepTrack_DeleteThis_0008d330@fn_f5892d97@@YAXPAX@Z"],
+   "0x000f1c80": ["?thunk_FUN_00267090@fn_000f1c80@@YAXPAX@Z"],
+   "0x000f1cf0": ["?thunk_FUN_00267090@fn_000f1cf0@@YAXPAVFEContainer_f1cf0@1@@Z"],
+   "0x000f1d30": ["?Free_0008d330@fn_f5892d97@@YAXPAX@Z"],
+   "0x000f1d70": ["?thunk_FUN_00267090@fn_000f1d70@@YAXPAVFEMenuBase@1@@Z"],
+   "0x000f6f60": ["?R0_0008d340@fn_f5892d97@@YAXPAX@Z", "?R1_0008d330@fn_f5892d97@@YAXPAX@Z", "?R2_0008d340@fn_f5892d97@@YAXPAX@Z", "?R3_0008d340@fn_f5892d97@@YAXPAX@Z"],
+   "0x000f7960": ["?ReleaseThing_0008d340@fn_f5892d97@@YAXI@Z"],
+   "0x000f79a0": ["?thunk_FUN_00267090@fn_f5892d97@@YAXH@Z"],
+   "0x000f7a10": ["?release_0008d340@fn_f5892d97@@YAXH@Z"]
+  },
+  "src/game/global/Function.cpp": {
+   "0x001d05a0": ["?thunk_FUN_00267090@fn_001d05a0@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/game/global/HUDOverlay.cpp": {
+   "0x000cb840": ["?thunk_FUN_00267090@fn_000cb840@@YAXPAVHUDOverlay@1@@Z"]
+  },
+  "src/game/global/IControllerManager.cpp": {
+   "0x000b3dc0": ["?thunk_FUN_00267090@fn_f61adc76@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/game/global/IDollyControllerState.cpp": {
+   "0x000dd6c0": ["?thunk_FUN_00267090@fn_f777e219@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/game/global/ISoundManager.cpp": {
+   "0x000b4410": ["?thunk_FUN_00267090@fn_fde9996c@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/game/global/MenuSelector.cpp": {
+   "0x000ebca0": ["??_V@YAXPAX@Z"]
+  },
+  "src/game/global/MessageOverlay.cpp": {
+   "0x000d6900": ["?thunk_FUN_00267090@fn_f27eef39@@YAXPAVNonCopyable_d6900@pure3d@@@Z"]
+  },
+  "src/game/global/MyDriveErrorCallback.cpp": {
+   "0x0008de70": ["?thunk_FUN_00267090@fn_0008de70@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x0008e070": ["??3@YAXPAX@Z"]
+  },
+  "src/game/global/MyFileStream.cpp": {
+   "0x001faca0": ["?DeleteObject_00263f30@fn_001faca0@@YAXPAX@Z", "?DestroyMember_0008d340@fn_001faca0@@YAXPAX@Z"],
+   "0x001fae40": ["?thunk_FUN_00267090@fn_001fae40@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x001faee0": ["?thunk_FUN_00267090@fn_001faee0@@YAXPAVCGameDataHandler@1@@Z"],
+   "0x001fb190": ["?thunk_FUN_00267090@fn_001fb190@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/game/global/Overlay.cpp": {
+   "0x000ca7a0": ["?thunk_FUN_00267090@fn_000ca7a0@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/game/global/RDLHandler.cpp": {
+   "0x00044a80": ["?thunk_FUN_00267090@fn_fe338dd9@@YAXPAVRDLHandler_44a80@1@@Z"]
+  },
+  "src/game/global/ScriptHandler.cpp": {
+   "0x001d4440": ["?thunk_FUN_00267090@fn_f55829c3@@YAXPAVScriptHandler_1d4440@1@@Z"]
+  },
+  "src/game/global/TextSelector_2.cpp": {
+   "0x000e9ff0": ["??_V@YAXPAX@Z"]
+  },
+  "src/game/global/TextWindow_2.cpp": {
+   "0x000ece40": ["?destroy_0008d340@fn_fc766a14@@YAXPAX@Z"]
+  },
+  "src/game/global/VScroll_2.cpp": {
+   "0x000e8c70": ["?thunk_FUN_00267090@fn_000e8c70@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x000e8c90": ["?thunk_FUN_00267090@fn_000e8c90@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x000e8cd0": ["?thunk_FUN_00267090@fn_000e8cd0@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/game/global/unk_0df5e0.cpp": {
+   "0x000df5e0": ["?Helper_0008d330@fn_f1bcb140@@YAXI@Z"],
+   "0x000df610": ["?Helper_0008d330@fn_f1bcb140@@YAXI@Z"],
+   "0x000df640": ["?Helper_0008d330@fn_f1bcb140@@YAXI@Z"],
+   "0x000df670": ["?Helper_0008d330@fn_f1bcb140@@YAXI@Z"]
+  },
+  "src/game/global/unk_0e2800.cpp": {
+   "0x000e2ac0": ["?ReleaseThing_0008d330@fn_fb20b5f7@@YAXH@Z"]
+  },
+  "src/game/global/unk_0f86f0.cpp": {
+   "0x000f8bd0": ["?thunk_FUN_00267090@fn_fb8fef2d@@YAXI@Z"]
+  },
+  "src/game/global/unk_0fb830.cpp": {
+   "0x000fc0e0": ["?thunk_FUN_00267090@fn_f5c759cd@@YAXPAVCCollisionAction@1@@Z"],
+   "0x000fc3e0": ["_FreeFirst_0008d330"]
+  },
+  "src/game/hulkfight/GameStateCondition.cpp": {
+   "0x0012e290": ["?thunk_0008d340@fn_f587a2cf@@YAXPAX@Z"],
+   "0x0012e2c0": ["_FUN_0008d340"],
+   "0x0012e440": ["?thunk_0008d340@fn_0012e440@@YAXPAX@Z"],
+   "0x0012e4d0": ["_thunk_FUN_00267090"],
+   "0x0012e6e0": ["?ReleaseThing_0008d340@fn_f587a2cf@@YAXI@Z"],
+   "0x0012e8b0": ["?thunk_0008d340@fn_f587a2cf@@YAXH@Z"],
+   "0x0012e8d0": ["_FUN_0008d340"],
+   "0x0012e9b0": ["?ReleaseThing_0008d340@fn_0012e9b0@@YAXI@Z"],
+   "0x0012ea40": ["_FUN_0008d340"],
+   "0x0012eb80": ["?release_0008d340@fn_f587a2cf@@YAXI@Z"],
+   "0x0012edc0": ["?ReleaseThing_0008d340@fn_0012edc0@@YAXI@Z"],
+   "0x0012edf0": ["?Free_0008d340@fn_0012edf0@@YAXPAX@Z"],
+   "0x0012ef20": ["?thunk_0008d340@fn_0012ef20@@YAXH@Z"],
+   "0x0012f030": ["_FUN_0008d340"],
+   "0x0012fbe0": ["?thunk_FUN_00267090@fn_0012fbe0@@YAXPAX@Z"],
+   "0x0012fc20": ["?SweepTrack_DeleteThis_0008d330@fn_f587a2cf@@YAXPAX@Z"],
+   "0x0012fc50": ["_thunk_FUN_00267090"],
+   "0x0012fcd0": ["_FUN_0008d340"],
+   "0x0012fd10": ["?SweepTrack_DeleteThis_0008d330@fn_f587a2cf@@YAXPAX@Z"],
+   "0x0012fd80": ["?free_a_0008d340@fn_0012fd80@@YAXPAX@Z", "?free_b_0008d330@fn_0012fd80@@YAXPAX@Z"],
+   "0x0012fdd0": ["_FUN_0008d340"],
+   "0x0012fe20": ["?thunk_FUN_00267090@fn_0012fe20@@YAXPAX@Z"],
+   "0x0012fe60": ["_thunk_FUN_00267090"],
+   "0x0012fee0": ["?SweepTrack_DeleteThis_0008d330@fn_f587a2cf@@YAXPAX@Z"],
+   "0x00131ea0": ["_opdel_0008d330"],
+   "0x00131f20": ["_opdel_0008d330"],
+   "0x00131fa0": ["_opdel_0008d330"],
+   "0x00132020": ["_opdel_0008d330"],
+   "0x001320a0": ["_opdel_0008d330"],
+   "0x00132120": ["_opdel_0008d330"],
+   "0x00132780": ["?thunk_delete_00263f30@fn_f587a2cf@@YAXPAX@Z"],
+   "0x00132830": ["?thunk_delete_00263f30@fn_f587a2cf@@YAXPAX@Z"],
+   "0x001328e0": ["?thunk_delete_00263f30@fn_f587a2cf@@YAXPAX@Z"],
+   "0x00132990": ["?thunk_delete_00263f30@fn_f587a2cf@@YAXPAX@Z"],
+   "0x00132a40": ["?thunk_delete_00263f30@fn_f587a2cf@@YAXPAX@Z"],
+   "0x00132af0": ["?thunk_delete_00263f30@fn_f587a2cf@@YAXPAX@Z"],
+   "0x00132ba0": ["?thunk_delete_00263f30@fn_00132ba0@@YAXPAX@Z"],
+   "0x00132c50": ["?thunk_delete_00263f30@fn_00132c50@@YAXPAX@Z"],
+   "0x00132d10": ["?thunk_delete_00263f30@fn_00132d10@@YAXPAX@Z"],
+   "0x00132dd0": ["?thunk_delete_00263f30@fn_00132dd0@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/PostEvent_StringTrack.cpp": {
+   "0x0012db20": ["?thunk_FUN_00267090@fn_facdac2a@@YAXPAVPostEvent_StringTrack@hulkfight@@@Z"],
+   "0x0012dfb0": ["?thunk_delete_00263f30@fn_facdac2a@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/StatEndTrialTrack.cpp": {
+   "0x00132e80": ["?thunk_delete_00263f30@fn_fd12af91@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/StatTrack.cpp": {
+   "0x00132f30": ["?thunk_delete_00263f30@fn_f24af925@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/XPTrack.cpp": {
+   "0x00132fe0": ["?thunk_delete_00263f30@fn_fa572e86@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/ai/AIFightNodeCondition.cpp": {
+   "0x00113e70": ["?thunk_delete_00263f30@fn_f0666ec3@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/ai/AIHistoryCountTrack.cpp": {
+   "0x00114a00": ["?thunk_delete_00263f30@fn_f496d4dd@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/ai/AIHistoryNameCondition_3.cpp": {
+   "0x00113fc0": ["?thunk_delete_00263f30@fn_fbe259a7@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/ai/AIHistorySetTrack_3.cpp": {
+   "0x00114d00": ["?thunk_delete_00263f30@fn_f38dd81c@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/ai/AcquireTargetAction.cpp": {
+   "0x00124dd0": ["?SweepTrack_DeleteThis_0008d330@fn_f712cb17@@YAXPAX@Z"],
+   "0x00124e30": ["?SweepTrack_DeleteThis_0008d330@fn_f712cb17@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/ai/AcquireTargetCondition_3.cpp": {
+   "0x0012ab20": ["?thunk_delete_00263f30@fn_fbf50673@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/ai/AcquireTargetTrack_3.cpp": {
+   "0x0012afe0": ["?thunk_delete_00263f30@fn_f92a9ee4@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/ai/ButtonTrack_3.cpp": {
+   "0x00114c40": ["?thunk_delete_00263f30@fn_f459dd82@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/ai/CanSeeTargetCondition.cpp": {
+   "0x0012ae60": ["?thunk_delete_00263f30@fn_ff34bed0@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/ai/ClearProjectileDistanceTrack_2.cpp": {
+   "0x0012b090": ["?thunk_delete_00263f30@fn_f9c9fc87@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/ai/ComputeDropZoneCondition.cpp": {
+   "0x001166d0": ["?SweepTrack_DeleteThis_0008d330@fn_fb4fb98f@@YAXPAX@Z"],
+   "0x00116700": ["?SweepTrack_DeleteThis_0008d330@fn_fb4fb98f@@YAXPAX@Z"],
+   "0x00116730": ["?SweepTrack_DeleteThis_0008d330@fn_fb4fb98f@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/ai/DefendingCondition.cpp": {
+   "0x00113f10": ["?thunk_delete_00263f30@fn_feed8707@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/ai/FaceTargetAction.cpp": {
+   "0x0010b920": ["?SweepTrack_DeleteThis_0008d330@fn_f8ed28bc@@YAXPAX@Z"],
+   "0x0010b950": ["?SweepTrack_DeleteThis_0008d330@fn_f8ed28bc@@YAXPAX@Z"],
+   "0x0010bff0": ["?thunk_delete_00263f30@fn_f8ed28bc@@YAXPAX@Z"],
+   "0x0010c0a0": ["?thunk_delete_00263f30@fn_0010c0a0@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/ai/FightingOtherNPCCondition_2.cpp": {
+   "0x001147e0": ["?thunk_delete_00263f30@fn_f4f2cc84@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/ai/FormationReadyCondition_4.cpp": {
+   "0x001143d0": ["?thunk_delete_00263f30@fn_fc50ae1d@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/ai/HasTargetCondition.cpp": {
+   "0x0012a860": ["?thunk_delete_00263f30@fn_f56221d5@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/ai/HulkActionCountCondition_4.cpp": {
+   "0x00114530": ["?thunk_delete_00263f30@fn_fc8eb1c1@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/ai/HulkActionLargestCondition_2.cpp": {
+   "0x00114070": ["?thunk_delete_00263f30@fn_f3343a7f@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/ai/HulkActionRecentCondition_2.cpp": {
+   "0x001141d0": ["?thunk_delete_00263f30@fn_f4bd8044@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/ai/HulkActionTrack_3.cpp": {
+   "0x00114ac0": ["?thunk_delete_00263f30@fn_f4a008a1@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/ai/InActiveCondition.cpp": {
+   "0x0010e6f0": ["?SweepTrack_DeleteThis_0008d330@fn_fad6e2b1@@YAXPAX@Z"],
+   "0x0010e720": ["?thunk_FUN_00267090@fn_fad6e2b1@@YAXPAVAIFightNodeCondition@1@@Z"],
+   "0x0010e750": ["?SweepTrack_DeleteThis_0008d330@fn_fad6e2b1@@YAXPAX@Z"],
+   "0x0010e780": ["_thunk_FUN_00267090"],
+   "0x0010e800": ["?SweepTrack_DeleteThis_0008d330@fn_fad6e2b1@@YAXPAX@Z"],
+   "0x0010e830": ["_thunk_FUN_00267090"],
+   "0x0010e870": ["?SweepTrack_DeleteThis_0008d330@fn_fad6e2b1@@YAXPAX@Z"],
+   "0x0010e8e0": ["_helper2_0008d330"],
+   "0x0010e920": ["?SweepTrack_DeleteThis_0008d330@fn_fad6e2b1@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/ai/InActiveCondition_4.cpp": {
+   "0x00114480": ["?thunk_delete_00263f30@fn_fc88775a@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/ai/KeyWordWaitCondition_2.cpp": {
+   "0x00114320": ["?thunk_delete_00263f30@fn_fbde9503@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/ai/KeywordWaitTrack_3.cpp": {
+   "0x00114b80": ["?thunk_delete_00263f30@fn_f01c5110@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/ai/LeashedCondition.cpp": {
+   "0x00114270": ["?thunk_delete_00263f30@fn_f0bba2c9@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/ai/MotionClosestWaypointAction_2.cpp": {
+   "0x0011aff0": ["?thunk_delete_00263f30@fn_ffc509e9@@YAXPAX@Z"],
+   "0x0011b0a0": ["?thunk_delete_00263f30@fn_ffc509e9@@YAXPAX@Z"],
+   "0x0011b160": ["?thunk_delete_00263f30@fn_ffc509e9@@YAXPAX@Z"],
+   "0x0011b230": ["?thunk_delete_00263f30@fn_ffc509e9@@YAXPAX@Z"],
+   "0x0011b2e0": ["?thunk_delete_00263f30@fn_ffc509e9@@YAXPAX@Z"],
+   "0x0011b390": ["?thunk_delete_00263f30@fn_0011b390@@YAXPAX@Z"],
+   "0x0011b450": ["?thunk_delete_00263f30@fn_0011b450@@YAXPAX@Z"],
+   "0x0011b510": ["?thunk_delete_00263f30@fn_0011b510@@YAXPAX@Z"],
+   "0x0011b5d0": ["?thunk_delete_00263f30@fn_0011b5d0@@YAXPAX@Z"],
+   "0x0011b690": ["?thunk_delete_00263f30@fn_0011b690@@YAXPAX@Z"],
+   "0x0011b720": ["?thunk_delete_00263f30@fn_0011b720@@YAXPAX@Z"],
+   "0x0011b7b0": ["?thunk_delete_00263f30@fn_0011b7b0@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/ai/OnBlockedTriangleCondition_3.cpp": {
+   "0x00113dd0": ["?thunk_delete_00263f30@fn_fe36cded@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/ai/PathFormationAction.cpp": {
+   "0x0011c840": ["?thunk_0008d340@fn_fbabf3f2@@YAXH@Z"],
+   "0x0011cc00": ["?SweepTrack_DeleteThis_0008d330@fn_fbabf3f2@@YAXPAX@Z"],
+   "0x0011cc30": ["?other_free_0008d330@fn_fbabf3f2@@YAXPAX@Z", "?thunk_FUN_00267090@fn_fbabf3f2@@YAXPAX@Z"],
+   "0x0011cc70": ["?SweepTrack_DeleteThis_0008d330@fn_fbabf3f2@@YAXPAX@Z"],
+   "0x0011cca0": ["?SweepTrack_DeleteThis_0008d330@fn_fbabf3f2@@YAXPAX@Z"],
+   "0x0011ccd0": ["?SweepTrack_DeleteThis_0008d330@fn_fbabf3f2@@YAXPAX@Z"],
+   "0x0011cd00": ["?SweepTrack_DeleteThis_0008d330@fn_fbabf3f2@@YAXPAX@Z"],
+   "0x0011cd30": ["?opdel1_0008d340@fn_0011cd30@@YAXPAX@Z", "?opdel2_0008d330@fn_0011cd30@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/ai/PathFormationAction.iso_0011c870.cpp": {
+   "0x0011c870": ["_FUN_0008d340"]
+  },
+  "src/game/hulkfight/ai/PathLocatorTestCondition.cpp": {
+   "0x00122d50": ["?thunk_delete_00263f30@fn_fff5b4af@@YAXPAX@Z"],
+   "0x00122de0": ["?thunk_delete_00263f30@fn_fff5b4af@@YAXPAX@Z"],
+   "0x00122e70": ["?thunk_delete_00263f30@fn_00122e70@@YAXPAX@Z"],
+   "0x00122f00": ["?thunk_delete_00263f30@fn_00122f00@@YAXPAX@Z"],
+   "0x00122fc0": ["?thunk_delete_00263f30@fn_00122fc0@@YAXPAX@Z"],
+   "0x00123080": ["?thunk_delete_00263f30@fn_00123080@@YAXPAX@Z"],
+   "0x00123110": ["?thunk_delete_00263f30@fn_00123110@@YAXPAX@Z"],
+   "0x001231a0": ["?thunk_delete_00263f30@fn_001231a0@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/ai/ProjectileDistanceCondition_2.cpp": {
+   "0x0012a7c0": ["?thunk_delete_00263f30@fn_fec170fd@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/ai/PropsToChuckCondition_3.cpp": {
+   "0x00114120": ["?thunk_delete_00263f30@fn_f1f98e59@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/ai/PropsToSuckCondition_4.cpp": {
+   "0x001145f0": ["?thunk_delete_00263f30@fn_f60a7f8c@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/ai/RandomKeyWordWaitCondition_4.cpp": {
+   "0x001146a0": ["?thunk_delete_00263f30@fn_f5d71f01@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/ai/SemaphoreClearTrack_4.cpp": {
+   "0x001148a0": ["?thunk_delete_00263f30@fn_f7e6d7b9@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/ai/SemaphoreWaitTrack_4.cpp": {
+   "0x00114e70": ["?thunk_delete_00263f30@fn_f9e09596@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/ai/TargetAngleYCondition_2.cpp": {
+   "0x0012a500": ["?thunk_delete_00263f30@fn_f6e5a698@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/ai/TargetArcCondition_3.cpp": {
+   "0x0012b160": ["?thunk_delete_00263f30@fn_f399d1fe@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/ai/TargetClearTrack_2.cpp": {
+   "0x0012af10": ["?thunk_delete_00263f30@fn_f06dc002@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/ai/TargetDirectionCondition_2.cpp": {
+   "0x0012a5b0": ["?thunk_delete_00263f30@fn_f27f3b52@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/ai/TargetDirectionXZCondition_3.cpp": {
+   "0x0012ac80": ["?thunk_delete_00263f30@fn_f5952644@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/ai/TargetDirectionYCondition_15.cpp": {
+   "0x001295b0": ["?opdel_0008d330@fn_001295b0@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/ai/TargetDirectionYCondition_2.cpp": {
+   "0x0012a2f0": ["?thunk_delete_00263f30@fn_f4ffcb1d@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/ai/TargetDistanceCondition.cpp": {
+   "0x00125010": ["?SweepTrack_DeleteThis_0008d330@fn_fd2212ac@@YAXPAX@Z"],
+   "0x00125040": ["?SweepTrack_DeleteThis_0008d330@fn_fd2212ac@@YAXPAX@Z"],
+   "0x00125070": ["?SweepTrack_DeleteThis_0008d330@fn_fd2212ac@@YAXPAX@Z"],
+   "0x001250a0": ["?SweepTrack_DeleteThis_0008d330@fn_fd2212ac@@YAXPAX@Z"],
+   "0x001250d0": ["?SweepTrack_DeleteThis_0008d330@fn_fd2212ac@@YAXPAX@Z"],
+   "0x00125100": ["?SweepTrack_DeleteThis_0008d330@fn_fd2212ac@@YAXPAX@Z"],
+   "0x00125130": ["?SweepTrack_DeleteThis_0008d330@fn_fd2212ac@@YAXPAX@Z"],
+   "0x00125160": ["?SweepTrack_DeleteThis_0008d330@fn_fd2212ac@@YAXPAX@Z"],
+   "0x00125190": ["?SweepTrack_DeleteThis_0008d330@fn_fd2212ac@@YAXPAX@Z"],
+   "0x001251c0": ["?SweepTrack_DeleteThis_0008d330@fn_fd2212ac@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/ai/TargetDistanceCondition_3.cpp": {
+   "0x0012a450": ["?thunk_delete_00263f30@fn_fac1b2ca@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/ai/TargetDistanceXZCondition_3.cpp": {
+   "0x0012aa70": ["?thunk_delete_00263f30@fn_f06bc341@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/ai/TargetDistanceYCondition_2.cpp": {
+   "0x0012a660": ["?thunk_delete_00263f30@fn_fa44f589@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/ai/TargetFirstShotCondition.cpp": {
+   "0x0012ad20": ["?thunk_delete_00263f30@fn_f31a095d@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/ai/TargetInvincibleCondition.cpp": {
+   "0x0012adc0": ["?thunk_delete_00263f30@fn_f89653d6@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/ai/TargetOrientationCondition.cpp": {
+   "0x0012a710": ["?thunk_delete_00263f30@fn_f31675a1@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/ai/TargetTypeCondition.cpp": {
+   "0x0012a3a0": ["?thunk_delete_00263f30@fn_f96db5a8@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/ai/TargetVelocityCondition_3.cpp": {
+   "0x0012a9c0": ["?thunk_delete_00263f30@fn_fcb2a3af@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/ai/TargetVelocityXZCondition_3.cpp": {
+   "0x0012abd0": ["?thunk_delete_00263f30@fn_f5ed8d52@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/ai/TargetVelocityYCondition_2.cpp": {
+   "0x0012a910": ["?thunk_delete_00263f30@fn_f85d66a1@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/ai/ThreatDistanceCondition.cpp": {
+   "0x0012bc00": ["?thunk_FUN_00267090@fn_f9c2e0ac@@YAXPAUThreatDistanceCondition_12bc00@1@@Z"],
+   "0x0012bc60": ["?Cleanup_0008d330@fn_f9c2e0ac@@YAXPAUThreatAngleCondition@1@@Z"],
+   "0x0012bc90": ["?SweepTrack_DeleteThis_0008d330@fn_f9c2e0ac@@YAXPAX@Z"],
+   "0x0012bcc0": ["?destroy_0008d330@fn_0012bcc0@@YAXPAUThreatBallTrack@1@@Z"],
+   "0x0012bd00": ["?FUN_0008d330@fn_f9c2e0ac@@YAXPAVThreatDodgeTrack@1@@Z"],
+   "0x0012d570": ["?thunk_delete_00263f30@fn_f9c2e0ac@@YAXPAX@Z"],
+   "0x0012d620": ["?thunk_delete_00263f30@fn_f9c2e0ac@@YAXPAX@Z"],
+   "0x0012d6e0": ["?thunk_delete_00263f30@fn_f9c2e0ac@@YAXPAX@Z"],
+   "0x0012d7a0": ["?thunk_delete_00263f30@fn_f9c2e0ac@@YAXPAX@Z"],
+   "0x0012d830": ["?thunk_delete_00263f30@fn_f9c2e0ac@@YAXPAX@Z"],
+   "0x0012d8f0": ["?thunk_delete_00263f30@fn_0012d8f0@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/ai/TokenCondition_2.cpp": {
+   "0x00114740": ["?thunk_delete_00263f30@fn_fcf8ca27@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/ai/TokenSupressTrack_2.cpp": {
+   "0x00114960": ["?thunk_delete_00263f30@fn_f25bec20@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/ai/TokenTrack_2.cpp": {
+   "0x00114db0": ["?DeallocateObject_00263f30@fn_fe1f4182@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/AccuracyLatencyAction.cpp": {
+   "0x00194ee0": ["?SweepTrack_DeleteThis_0008d330@fn_fc8c1e47@@YAXPAX@Z"],
+   "0x00194f10": ["?SweepTrack_DeleteThis_0008d330@fn_fc8c1e47@@YAXPAX@Z"],
+   "0x00194f40": ["?FUN_0008d330@fn_fc8c1e47@@YAXPAX@Z"],
+   "0x00194fa0": ["?SweepTrack_DeleteThis_0008d330@fn_fc8c1e47@@YAXPAX@Z"],
+   "0x00194fd0": ["?Cleanup_0008d330@fn_00194fd0@@YAXPAVMissilePunchTrack@1@@Z"],
+   "0x00195000": ["?SweepTrack_DeleteThis_0008d330@fn_fc8c1e47@@YAXPAX@Z"],
+   "0x00195030": ["?destroy_0008d330@fn_00195030@@YAXPAVFireBeamTrack@1@@Z"],
+   "0x001950b0": ["?destroy_0008d330@fn_fc8c1e47@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/AnimationVelocityScaledAction.cpp": {
+   "0x0013a840": ["?thunk_FUN_00267090@fn_f30d2d27@@YAXPAUObj_13a840@1@@Z"],
+   "0x0013a870": ["?thunk_FUN_00267090@fn_f30d2d27@@YAXPAUObj_13a870@1@@Z"],
+   "0x0013a8a0": ["?thunk_FUN_00267090@fn_f30d2d27@@YAXPAUAnimationTrack_13a8a0@1@@Z"],
+   "0x0013a8e0": ["?cdel_0008d330@fn_0013a8e0@@YAXPAX@Z"],
+   "0x0013a920": ["?destroy_0008d330@fn_f30d2d27@@YAXPAUAnimationLinkedTrack_13a920@1@@Z"],
+   "0x0013a960": ["?destroy_0008d330@fn_f30d2d27@@YAXPAUAnimationPhaseMatchedTrack_13a960@1@@Z"],
+   "0x0013a9a0": ["?cleanup_0008d330@fn_0013a9a0@@YAXPAX@Z"],
+   "0x0013bde0": ["?opdel_0008d330@fn_0013bde0@@YAXPAX@Z"],
+   "0x0013e3b0": ["?thunk_delete_00263f30@fn_f30d2d27@@YAXPAX@Z"],
+   "0x0013e460": ["?thunk_delete_00263f30@fn_f30d2d27@@YAXPAX@Z"],
+   "0x0013e4f0": ["?thunk_delete_00263f30@fn_f30d2d27@@YAXPAX@Z"],
+   "0x0013e580": ["?thunk_delete_00263f30@fn_0013e580@@YAXPAX@Z"],
+   "0x0013e610": ["?thunk_delete_00263f30@fn_0013e610@@YAXPAX@Z"],
+   "0x0013e6a0": ["?thunk_delete_00263f30@fn_0013e6a0@@YAXPAX@Z"],
+   "0x0013e730": ["?thunk_delete_00263f30@fn_0013e730@@YAXPAX@Z"],
+   "0x0013e7d0": ["?thunk_delete_00263f30@fn_0013e7d0@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/BallAndChainReturnTrack_4.cpp": {
+   "0x0018c960": ["?thunk_delete_00263f30@fn_f3f355e9@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/BallAndChainShootTrack_5.cpp": {
+   "0x0018c9f0": ["?thunk_delete_00263f30@fn_fca894c8@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/BallAndChainSpinTrack_4.cpp": {
+   "0x0018c140": ["?thunk_delete_00263f30@fn_f733270e@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/CSMPropIsCharacterCondition.cpp": {
+   "0x0018bd30": ["?thunk_delete_00263f30@fn_ff307066@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/CharacterPropStatusCondition_3.cpp": {
+   "0x0016de00": ["?thunk_delete_00263f30@fn_fb3e6666@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/ChargeClearTrack.cpp": {
+   "0x00170dc0": ["?thunk@fn_f18c5a89@@YAXH@Z"]
+  },
+  "src/game/hulkfight/motion/ChargeClearTrack_4.cpp": {
+   "0x0017ed00": ["?thunk_delete_00263f30@fn_f0814f05@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/ChargeCondition_2_13.cpp": {
+   "0x0016d330": ["?thunk_delete_00263f30@fn_f3263be4@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/ClearFightParamsHitRecordTrack_2.cpp": {
+   "0x0015a0a0": ["?thunk_delete_00263f30@fn_f210eeb7@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/ClimbLocomotion4Track.cpp": {
+   "0x00165080": ["?thunk_delete_00263f30@fn_fdc06d21@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/CollisionChargeCondition_3.cpp": {
+   "0x001598c0": ["?thunk_delete_00263f30@fn_fd954afd@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/CollisionDamageHealthCompareCondition_3.cpp": {
+   "0x00159980": ["?thunk_delete_00263f30@fn_f370be9d@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/CollisionDevastatorCondition.cpp": {
+   "0x00159380": ["?thunk_delete_00263f30@fn_f0fe9045@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/CollisionExplosionCondition.cpp": {
+   "0x00159760": ["?thunk_delete_00263f30@fn_fd3da653@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/CollisionInterruptPriorityCondition_3.cpp": {
+   "0x00159ad0": ["?thunk_delete_00263f30@fn_fdffb444@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/CollisionSourceForceMagnitudeCondition_factory.cpp": {
+   "0x00159030": ["?thunk_delete_00263f30@fn_fb46c098@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/CollisionSourceIsMissileCondition.cpp": {
+   "0x00159610": ["?thunk_delete_00263f30@fn_f966cbed@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/CollisionSourceNameCondition_3.cpp": {
+   "0x0015a6d0": ["?thunk_delete_00263f30@fn_f4aac511@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/CollisionSourceNodeCondition_4.cpp": {
+   "0x00159810": ["?thunk_delete_00263f30@fn_f73fc4d4@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/CollisionSourceSizeCondition_2.cpp": {
+   "0x00159180": ["?thunk_delete_00263f30@fn_fe47b234@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/CollisionSourceTypeCondition_2.cpp": {
+   "0x00159230": ["?thunk_delete_00263f30@fn_f8633f69@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/CollisionTargetIsTargetCondition.cpp": {
+   "0x001594c0": ["?thunk_delete_00263f30@fn_fc5343c3@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/CollisionTargetNameCondition_3.cpp": {
+   "0x0015a620": ["?thunk_delete_00263f30@fn_ff9138b1@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/CollisionTargetPriorityCondition_4.cpp": {
+   "0x001592e0": ["?thunk_delete_00263f30@fn_fc322d89@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/CollisionTargetSizeCondition_2.cpp": {
+   "0x00159570": ["?thunk_delete_00263f30@fn_f4c96b13@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/CollisionTargetTypeCondition_2.cpp": {
+   "0x00159a30": ["?thunk_delete_00263f30@fn_f4dd8c50@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/CollisionThrowCondition.cpp": {
+   "0x001590d0": ["?thunk_delete_00263f30@fn_f083ce94@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/CollisionThrownObjectCondition_2.cpp": {
+   "0x0015a570": ["?thunk_delete_00263f30@fn_fab280ce@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/CriticalMassDrainTrack_2.cpp": {
+   "0x0017e950": ["?thunk_delete_00263f30@fn_ff12b9e5@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/DriftToHulkTrack.cpp": {
+   "0x00170460": ["?thunk@fn_f659ad5b@@YAXH@Z"]
+  },
+  "src/game/hulkfight/motion/DriftToHulkTrack_4.cpp": {
+   "0x0017e470": ["?thunk_delete_00263f30@fn_ff877770@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/DriftToPositionTrack_4.cpp": {
+   "0x0017e3b0": ["?thunk_delete_00263f30@fn_f6d45618@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/FallTrack.cpp": {
+   "0x00139480": ["?thunk_delete_00263f30@fn_f0de5d41@@YAXPAX@Z"],
+   "0x00139540": ["?thunk_delete_00263f30@fn_00139540@@YAXPAX@Z"],
+   "0x00139610": ["?thunk_delete_00263f30@fn_00139610@@YAXPAX@Z"],
+   "0x001396a0": ["?thunk_delete_00263f30@fn_001396a0@@YAXPAX@Z"],
+   "0x00139730": ["?thunk_delete_00263f30@fn_00139730@@YAXPAX@Z"],
+   "0x001397f0": ["?thunk_delete_00263f30@fn_001397f0@@YAXPAX@Z"],
+   "0x00139880": ["?thunk_delete_00263f30@fn_00139880@@YAXPAX@Z"],
+   "0x00139910": ["?thunk_delete_00263f30@fn_00139910@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/FireBeamTrack.cpp": {
+   "0x001a0d60": ["?thunk_delete_00263f30@fn_f5715835@@YAXPAX@Z"],
+   "0x001a0e10": ["?thunk_delete_00263f30@fn_f5715835@@YAXPAX@Z"],
+   "0x001a0ea0": ["?thunk_delete_00263f30@fn_f5715835@@YAXPAX@Z"],
+   "0x001a0f60": ["?thunk_delete_00263f30@fn_001a0f60@@YAXPAX@Z"],
+   "0x001a1020": ["?thunk_delete_00263f30@fn_001a1020@@YAXPAX@Z"],
+   "0x001a10b0": ["?thunk_delete_00263f30@fn_001a10b0@@YAXPAX@Z"],
+   "0x001a1140": ["?thunk_delete_00263f30@fn_001a1140@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/FireGroundShockwaveTrack.cpp": {
+   "0x001a1260": ["?thunk_delete_00263f30@fn_ff2e6cc6@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/FireMissileTrack.cpp": {
+   "0x001a11d0": ["?thunk_delete_00263f30@fn_fc49459c@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/FireProjectileAction.cpp": {
+   "0x0019adf0": ["?Free_0008d330@fn_f740ace1@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/FlyingAttackTrack.cpp": {
+   "0x001399a0": ["?thunk_delete_00263f30@fn_fe990455@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/FlyingBrakeAction.cpp": {
+   "0x00134c00": ["?SweepTrack_DeleteThis_0008d330@fn_f414acda@@YAXPAX@Z"],
+   "0x00134c30": ["?SweepTrack_DeleteThis_0008d330@fn_f414acda@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/FootPivotTrack_4.cpp": {
+   "0x0017f270": ["?thunk_delete_00263f30@fn_fa9b8fa8@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/GrappleHealthCondition_3.cpp": {
+   "0x0016dcb0": ["?thunk_delete_00263f30@fn_fc21461e@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/GrappleLocomotionSteerTrack.cpp": {
+   "0x00165350": ["?thunk_delete_00263f30@fn_f738addc@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/GrapplePropDamageTrack_4.cpp": {
+   "0x0018bff0": ["?thunk_delete_00263f30@fn_f64057df@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/GrapplePropStateByNameCondition_2.cpp": {
+   "0x0018c580": ["?thunk_delete_00263f30@fn_f4f943b3@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/GrappleReactionTypeCondition_2.cpp": {
+   "0x0016d950": ["?thunk_delete_00263f30@fn_fcd127ab@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/GrappleThrowAction.cpp": {
+   "0x00148110": ["?thunk_FUN_00267090@fn_f1739f6f@@YAXPAUObj_148110@1@@Z"],
+   "0x00148140": ["?SweepTrack_DeleteThis_0008d330@fn_f1739f6f@@YAXPAX@Z"],
+   "0x00148170": ["?SweepTrack_DeleteThis_0008d330@fn_f1739f6f@@YAXPAX@Z"],
+   "0x001481a0": ["?SweepTrack_DeleteThis_0008d330@fn_f1739f6f@@YAXPAX@Z"],
+   "0x001481d0": ["?SweepTrack_DeleteThis_0008d330@fn_f1739f6f@@YAXPAX@Z"],
+   "0x00148200": ["?SweepTrack_DeleteThis_0008d330@fn_f1739f6f@@YAXPAX@Z"],
+   "0x00148230": ["?SweepTrack_DeleteThis_0008d330@fn_f1739f6f@@YAXPAX@Z"],
+   "0x00148260": ["?SweepTrack_DeleteThis_0008d330@fn_f1739f6f@@YAXPAX@Z"],
+   "0x00148290": ["?SweepTrack_DeleteThis_0008d330@fn_f1739f6f@@YAXPAX@Z"],
+   "0x001482c0": ["?SweepTrack_DeleteThis_0008d330@fn_f1739f6f@@YAXPAX@Z"],
+   "0x00148320": ["?destroyThing_0008d330@fn_f1739f6f@@YAXPAVGrappleExecuteTrack@1@@Z"],
+   "0x0014bc90": ["?thunk_delete_00263f30@fn_f1739f6f@@YAXPAX@Z"],
+   "0x0014bd30": ["?thunk_delete_00263f30@fn_f1739f6f@@YAXPAX@Z"],
+   "0x0014bdd0": ["?thunk_delete_00263f30@fn_f1739f6f@@YAXPAX@Z"],
+   "0x0014be80": ["?thunk_delete_00263f30@fn_f1739f6f@@YAXPAX@Z"],
+   "0x0014bf30": ["?thunk_delete_00263f30@fn_f1739f6f@@YAXPAX@Z"],
+   "0x0014bfc0": ["?thunk_delete_00263f30@fn_0014bfc0@@YAXPAX@Z"],
+   "0x0014c080": ["?thunk_delete_00263f30@fn_0014c080@@YAXPAX@Z"],
+   "0x0014c110": ["?thunk_delete_00263f30@fn_0014c110@@YAXPAX@Z"],
+   "0x0014c1b0": ["?thunk_delete_00263f30@fn_0014c1b0@@YAXPAX@Z"],
+   "0x0014c270": ["?thunk_delete_00263f30@fn_0014c270@@YAXPAX@Z"],
+   "0x0014c320": ["?thunk_delete_00263f30@fn_f1739f6f@@YAXPAX@Z"],
+   "0x0014c3b0": ["?thunk_delete_00263f30@fn_0014c3b0@@YAXPAX@Z"],
+   "0x0014c440": ["?thunk_delete_00263f30@fn_0014c440@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/GroundSlideTrack_3.cpp": {
+   "0x0015a340": ["?thunk_delete_00263f30@fn_f26a8aea@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/HealthCondition_2.cpp": {
+   "0x0016e4b0": ["?thunk_delete_00263f30@fn_fa61cb85@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/HealthPercentCondition_2.cpp": {
+   "0x0016e2b0": ["?thunk_delete_00263f30@fn_fe77683c@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/HealthTrack_3.cpp": {
+   "0x0015a200": ["?thunk_delete_00263f30@fn_f28f0564@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/HeliLocomotionAction.cpp": {
+   "0x0015cd10": ["?thunk_FUN_00267090@fn_f94adb62@@YAXPAUObj_15cd10@1@@Z"],
+   "0x0015cd40": ["?SweepTrack_DeleteThis_0008d330@fn_f94adb62@@YAXPAX@Z"],
+   "0x0015cd70": ["?SweepTrack_DeleteThis_0008d330@fn_f94adb62@@YAXPAX@Z"],
+   "0x0015cde0": ["?thunk_FUN_00267090@fn_f94adb62@@YAXPAVHeliLocomotionTrack@1@@Z"],
+   "0x0015cec0": ["?release_obj_0008d330@fn_f94adb62@@YAXPAX@Z"],
+   "0x001614a0": ["?Free_0008d330@fn_f94adb62@@YAXPAX@Z"],
+   "0x00161800": ["?thunk_0008d330@fn_f94adb62@@YAXPAVLocomotingAction@1@@Z"]
+  },
+  "src/game/hulkfight/motion/HeliLocomotionAction.iso_001616c0.cpp": {
+   "0x001616c0": ["?DeleteObj_0008d330@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/HeliLocomotionTrack.cpp": {
+   "0x001651a0": ["?thunk_delete_00263f30@fn_f9bc2ae8@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/HitDamageTrack_2.cpp": {
+   "0x0015a2b0": ["?thunk_delete_00263f30@fn_f59a8991@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/HitFloatTrack_3.cpp": {
+   "0x00159ff0": ["?thunk_delete_00263f30@fn_fddba4d1@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/HitOrientToPushbackTrack_3.cpp": {
+   "0x00159f30": ["?thunk_delete_00263f30@fn_f5b18566@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/HitPauseTrack_2.cpp": {
+   "0x00159d00": ["?thunk_delete_00263f30@fn_fceda07a@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/HitPushbackAddTrack_2.cpp": {
+   "0x0015a150": ["?thunk_delete_00263f30@fn_f921c9e0@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/HitPushbackCondition.cpp": {
+   "0x00159420": ["?thunk_delete_00263f30@fn_fb077a52@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/HitPushbackTrack_3.cpp": {
+   "0x0015a410": ["?thunk_delete_00263f30@fn_ffe3b679@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/HitPushbackVelocityCondition_3.cpp": {
+   "0x001596c0": ["?thunk_delete_00263f30@fn_f3d41fac@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/HitReactionFloatTrack_5.cpp": {
+   "0x0015a760": ["?thunk_delete_00263f30@fn_f7a21593@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/HitReactionTrack_5.cpp": {
+   "0x0015a7f0": ["?thunk_delete_00263f30@fn_f0f2ff97@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/HitThrowTrack_4.cpp": {
+   "0x00159c40": ["?thunk_delete_00263f30@fn_f81168ff@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/HitWaitTrack_4.cpp": {
+   "0x00159db0": ["?thunk_delete_00263f30@fn_fdcd66b6@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/InLoadedRoomCondition.cpp": {
+   "0x0016df50": ["?thunk_delete_00263f30@fn_f9bea351@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/IntentionButtonDownAnyCondition.cpp": {
+   "0x0016d480": ["?thunk_delete_00263f30@fn_f6697388@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/IntentionClearTrack_2.cpp": {
+   "0x0017eb90": ["?thunk_delete_00263f30@fn_fd336137@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/IntentionInputCondition.cpp": {
+   "0x0016d7f0": ["?thunk_delete_00263f30@fn_f28f7103@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/InterruptAccumulatorCondition_factory.cpp": {
+   "0x00158f80": ["?thunk_delete_00263f30@fn_fb2816f1@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/InterruptAccumulatorSetTrack_2.cpp": {
+   "0x00159b80": ["?thunk_delete_00263f30@fn_fb5b8e43@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/InterruptPriorityTrack_4.cpp": {
+   "0x00159e70": ["?thunk_delete_00263f30@fn_f4b23336@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/JointPivotTrackerTrack_4.cpp": {
+   "0x0017f1e0": ["?thunk_delete_00263f30@fn_f18716a5@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/JointPlantedCondition.cpp": {
+   "0x00164ff0": ["?thunk_delete_00263f30@fn_f26bd952@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/JointRelativeTrack_4.cpp": {
+   "0x0017efa0": ["?thunk_delete_00263f30@fn_f5ac7054@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/JointTrackerTrack_3_24.cpp": {
+   "0x0017b110": ["?delthis_0008d330@fn_fbf77592@@YAXPAVJointTrackerAction@1@@Z"]
+  },
+  "src/game/hulkfight/motion/JointTrackerTrack_3_25.cpp": {
+   "0x0017b560": ["?thunk_FUN_00267090@fn_fbea2d00@@YAXPAVFootPivotAction@1@@Z"],
+   "0x0017b610": ["?FUN_0008d330@fn_fbea2d00@@YAXPAX@Z"],
+   "0x0017b7f0": ["_opdelete_0008d330"],
+   "0x0017bae0": ["?destroy_0008d330@fn_fbea2d00@@YAXPAVMoveJointAction@1@@Z"]
+  },
+  "src/game/hulkfight/motion/JointTrackerTrack_3_25.iso_0017b890.cpp": {
+   "0x0017b890": ["_opdelete_0008d330"]
+  },
+  "src/game/hulkfight/motion/JointTrackerTrack_3_26.cpp": {
+   "0x0017e0c0": ["?thunk_delete_00263f30@fn_f05a6271@@YAXPAX@Z"],
+   "0x0017e170": ["?thunk_delete_00263f30@fn_0017e170@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/JointTrackerTrack_4.cpp": {
+   "0x0017ee40": ["?thunk_delete_00263f30@fn_fe97ef7f@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/LocomotingCondition.cpp": {
+   "0x0015cce0": ["?SweepTrack_DeleteThis_0008d330@fn_f7eb5c06@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/LocomotingCondition_2.cpp": {
+   "0x00164de0": ["?thunk_delete_00263f30@fn_fd5e66b9@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/LocomotingTrack.cpp": {
+   "0x00164f40": ["?thunk_delete_00263f30@fn_fdfc018a@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/LocomotionMotionStateCondition_2.cpp": {
+   "0x0016d8a0": ["?thunk_delete_00263f30@fn_f1bdf2cd@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/LocomotionSprintTrack.cpp": {
+   "0x001652c0": ["?thunk_delete_00263f30@fn_ff836d80@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/LocomotionStateTrack_4.cpp": {
+   "0x0017e2e0": ["?thunk_delete_00263f30@fn_f9c37d7e@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/LocomotionSteerTrack.cpp": {
+   "0x00165230": ["?thunk_delete_00263f30@fn_f0264869@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/LocomotionStrafe4Track.cpp": {
+   "0x00165110": ["?thunk_delete_00263f30@fn_fb2d9485@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/MomentumXZAddTrack_2.cpp": {
+   "0x0017e5e0": ["?thunk_delete_00263f30@fn_ffaa2cfd@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/MotionStateTrack_4.cpp": {
+   "0x0017e530": ["?thunk_delete_00263f30@fn_fb34bd6d@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/MoveJointTrack_4.cpp": {
+   "0x0017f0c0": ["?thunk_delete_00263f30@fn_f435d195@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/NoHitPushbackTrack_2.cpp": {
+   "0x0015a4c0": ["?thunk_delete_00263f30@fn_fd8b40d2@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/PhaseCondition.cpp": {
+   "0x00164e90": ["?thunk_delete_00263f30@fn_fe3cb10d@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/PropActorThinkingTrack_4.cpp": {
+   "0x0018be90": ["?thunk_delete_00263f30@fn_f4f57fbd@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/PropActorToPropTrack_4.cpp": {
+   "0x0018bde0": ["?thunk_delete_00263f30@fn_f85ca3d7@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/PropAddToCollisionTrack_4.cpp": {
+   "0x0018c2a0": ["?thunk_delete_00263f30@fn_f7c68681@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/PropAddToMissileCountTrack_3.cpp": {
+   "0x0018c360": ["?thunk_delete_00263f30@fn_f8452970@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/PropAnimationTrack_4.cpp": {
+   "0x0018c840": ["?thunk_delete_00263f30@fn_f0c97f94@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/PropAtRestCondition.cpp": {
+   "0x0018b930": ["?thunk_delete_00263f30@fn_f9b92d91@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/PropCollidedWithWorldCondition_3.cpp": {
+   "0x0018bbf0": ["?thunk_delete_00263f30@fn_f2d49a4e@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/PropDamageTrack_3.cpp": {
+   "0x0018c420": ["?thunk_delete_00263f30@fn_f18335cb@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/PropDestroyTrack.cpp": {
+   "0x00181640": ["?thunk@fn_f1f16d33@@YAXH@Z"]
+  },
+  "src/game/hulkfight/motion/PropDestroyTrack_3.cpp": {
+   "0x0018c4d0": ["?thunk_delete_00263f30@fn_fee6b466@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/PropDropTrack_4.cpp": {
+   "0x0018bf40": ["?thunk_delete_00263f30@fn_fd9a71ee@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/PropGrabbableIsThrownCondition.cpp": {
+   "0x0018b890": ["?thunk_delete_00263f30@fn_f5384944@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/PropIsAttachedCondition_2.cpp": {
+   "0x0018b9e0": ["?thunk_delete_00263f30@fn_f5ef234b@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/PropMassCondition_2.cpp": {
+   "0x0018c640": ["?thunk_delete_00263f30@fn_ffe1b429@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/PropMissileCountCondition_4.cpp": {
+   "0x0018bb40": ["?thunk_delete_00263f30@fn_fdbc4aa5@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/PropMissionCriticalCondition_2.cpp": {
+   "0x0018b730": ["?thunk_delete_00263f30@fn_fe97ab9a@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/PropMissionCriticalCondition_22.cpp": {
+   "0x00188960": ["?thunk_0008d330@fn_f5c5d2a1@@YAXPAVPropAnimationAction@1@@Z"]
+  },
+  "src/game/hulkfight/motion/PropMissionCriticalCondition_27.cpp": {
+   "0x00189190": ["?opdel_0008d330@fn_00189190@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/PropSetStateByIndexTrack_4.cpp": {
+   "0x0018c0b0": ["?thunk_delete_00263f30@fn_fb862f4a@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/PropSetStateByNameTrack_4.cpp": {
+   "0x0018c7b0": ["?thunk_delete_00263f30@fn_f5f77793@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/PropSpawnTrack_3.cpp": {
+   "0x0018ca80": ["?thunk_delete_00263f30@fn_ff0b2ada@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/PropStateByIndexCondition_4.cpp": {
+   "0x0018ba90": ["?thunk_delete_00263f30@fn_fddfd452@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/PropStateByNameCondition_2.cpp": {
+   "0x0018c6f0": ["?thunk_delete_00263f30@fn_fd0a5b33@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/PropThrowTrack_4.cpp": {
+   "0x0018c8d0": ["?thunk_delete_00263f30@fn_fde74312@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/PushOutTrack_4.cpp": {
+   "0x0017f150": ["?thunk_delete_00263f30@fn_f336ca6e@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/RageModeStateCondition_2.cpp": {
+   "0x0016e160": ["?thunk_delete_00263f30@fn_ff0ee82a@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/RayCastCondition.cpp": {
+   "0x001677b0": ["?SweepTrack_DeleteThis_0008d330@fn_f88f56f3@@YAXPAX@Z"],
+   "0x001677e0": ["?thunk_FUN_00267090@fn_f88f56f3@@YAXPAVRayCastCondition@motion@hulkfight@@@Z"],
+   "0x00167810": ["?SweepTrack_DeleteThis_0008d330@fn_f88f56f3@@YAXPAX@Z"],
+   "0x00167840": ["?SweepTrack_DeleteThis_0008d330@fn_f88f56f3@@YAXPAX@Z"],
+   "0x00167870": ["?SweepTrack_DeleteThis_0008d330@fn_f88f56f3@@YAXPAX@Z"],
+   "0x001678a0": ["?SweepTrack_DeleteThis_0008d330@fn_f88f56f3@@YAXPAX@Z"],
+   "0x001678d0": ["?SweepTrack_DeleteThis_0008d330@fn_f88f56f3@@YAXPAX@Z"],
+   "0x00167900": ["?SweepTrack_DeleteThis_0008d330@fn_f88f56f3@@YAXPAX@Z"],
+   "0x00167930": ["?SweepTrack_DeleteThis_0008d330@fn_f88f56f3@@YAXPAX@Z"],
+   "0x00167960": ["?SweepTrack_DeleteThis_0008d330@fn_f88f56f3@@YAXPAX@Z"],
+   "0x00167990": ["?SweepTrack_DeleteThis_0008d330@fn_f88f56f3@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/RayCastCondition_4.cpp": {
+   "0x0016e6d0": ["?thunk_delete_00263f30@fn_fb8e6264@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/RayCastConeCondition.cpp": {
+   "0x00167410": ["?SweepTrack_DeleteThis_0008d330@fn_fa2e0d0f@@YAXPAX@Z"],
+   "0x00167440": ["?SweepTrack_DeleteThis_0008d330@fn_fa2e0d0f@@YAXPAX@Z"],
+   "0x00167470": ["?SweepTrack_DeleteThis_0008d330@fn_fa2e0d0f@@YAXPAX@Z"],
+   "0x001674a0": ["?SweepTrack_DeleteThis_0008d330@fn_fa2e0d0f@@YAXPAX@Z"],
+   "0x001674d0": ["?SweepTrack_DeleteThis_0008d330@fn_fa2e0d0f@@YAXPAX@Z"],
+   "0x00167500": ["?SweepTrack_DeleteThis_0008d330@fn_fa2e0d0f@@YAXPAX@Z"],
+   "0x00167530": ["?thunk_FUN_00267090@fn_fa2e0d0f@@YAXPAVRayCastConeCondition@motion@hulkfight@@@Z"]
+  },
+  "src/game/hulkfight/motion/RayCastConeCondition_4.cpp": {
+   "0x0016e640": ["?thunk_delete_00263f30@fn_f7bcb175@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/RayCastTargetCondition_2.cpp": {
+   "0x0016e580": ["?thunk_delete_00263f30@fn_f930926e@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/RestPoseTrack_4.cpp": {
+   "0x0017ef10": ["?thunk_delete_00263f30@fn_fdd67982@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/ShieldArcTrack_2.cpp": {
+   "0x0018c1f0": ["?thunk_delete_00263f30@fn_f5aaf014@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/ShoreNearCondition.cpp": {
+   "0x0016e200": ["?thunk_delete_00263f30@fn_fde90977@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/SmartPropGrabbableCondition_2.cpp": {
+   "0x0018b7f0": ["?thunk_delete_00263f30@fn_fe0fc732@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/SmartPropIsCargoCondition.cpp": {
+   "0x0018bc90": ["?thunk_delete_00263f30@fn_fe26452e@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/SuckInPropsTrack_4.cpp": {
+   "0x0017ea10": ["?thunk_delete_00263f30@fn_f047e9f1@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/SuckTrack.cpp": {
+   "0x00170100": ["?thunk_FUN_00267090@fn_fefa0dcd@@YAXI@Z"],
+   "0x00170130": ["?thunk_FUN_00267090@fn_fefa0dcd@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/SuckTrack_2.cpp": {
+   "0x0017e230": ["?thunk_delete_00263f30@fn_feb0571f@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/SurfTrack_4.cpp": {
+   "0x0017e7e0": ["?thunk_delete_00263f30@fn_f90b3df3@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/SyncToLocatorTrack_4.cpp": {
+   "0x0017f030": ["?thunk_delete_00263f30@fn_f4961c7e@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/TankLocomotionAction.cpp": {
+   "0x0018f580": ["?thunk_FUN_00267090@fn_fc171dfe@@YAXPAUObj_18f580@1@@Z"],
+   "0x0018f5b0": ["?SweepTrack_DeleteThis_0008d330@fn_fc171dfe@@YAXPAX@Z"],
+   "0x0018f5e0": ["?SweepTrack_DeleteThis_0008d330@fn_fc171dfe@@YAXPAX@Z"],
+   "0x00191bc0": ["?thunk_delete_00263f30@fn_fc171dfe@@YAXPAX@Z"],
+   "0x00191c50": ["?thunk_delete_00263f30@fn_00191c50@@YAXPAX@Z"],
+   "0x00191ce0": ["?thunk_delete_00263f30@fn_00191ce0@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/TargetBreakTrack_2.cpp": {
+   "0x0017e690": ["?thunk_delete_00263f30@fn_ff7c7495@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/TargetCharacterTemplateCondition.cpp": {
+   "0x0016dd50": ["?thunk_delete_00263f30@fn_f068b9a4@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/TargetHealthPercentCondition_3.cpp": {
+   "0x0016dc00": ["?thunk_delete_00263f30@fn_f14fa03b@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/TargetIconDistanceTrack_2.cpp": {
+   "0x0017e8a0": ["?thunk_delete_00263f30@fn_f838e587@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/TargetLocomotionMotionStateCondition_2.cpp": {
+   "0x0016db50": ["?thunk_delete_00263f30@fn_faefdf3f@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/TargetMotionStateCondition.cpp": {
+   "0x0016d3e0": ["?thunk_delete_00263f30@fn_f6ea2069@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/TargetingCondition.cpp": {
+   "0x0016d9f0": ["?thunk_delete_00263f30@fn_fbe157e8@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/TeleportRelativeTrack_4.cpp": {
+   "0x0017eae0": ["?thunk_delete_00263f30@fn_fa4635ce@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/TeleportToLocatorTrack_4.cpp": {
+   "0x0017ec50": ["?thunk_delete_00263f30@fn_fee0a622@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/TeleportTrack_4.cpp": {
+   "0x0017e750": ["?thunk_delete_00263f30@fn_f6c39359@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/ThinkingCondition.cpp": {
+   "0x0016e350": ["?thunk_delete_00263f30@fn_f53a7970@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/TimerCondition.cpp": {
+   "0x0018d300": ["?SweepTrack_DeleteThis_0008d330@fn_f1f11990@@YAXPAX@Z"],
+   "0x0018d330": ["?thunk_FUN_00267090@fn_f1f11990@@YAXPAVTimerCondition@motion@hulkfight@@@Z"],
+   "0x0018d360": ["?thunk_FUN_00267090@fn_f1f11990@@YAXPAVTimerCondition@motion@hulkfight@@@Z"],
+   "0x0018d390": ["?SweepTrack_DeleteThis_0008d330@fn_f1f11990@@YAXPAX@Z"],
+   "0x0018d3c0": ["?thunk_FUN_00267090@fn_f1f11990@@YAXPAUObj_18d3c0@1@@Z"],
+   "0x0018e9a0": ["?thunk_delete_00263f30@fn_f1f11990@@YAXPAX@Z"],
+   "0x0018ea60": ["?thunk_delete_00263f30@fn_f1f11990@@YAXPAX@Z"],
+   "0x0018eb10": ["?thunk_delete_00263f30@fn_f1f11990@@YAXPAX@Z"],
+   "0x0018ebc0": ["?thunk_delete_00263f30@fn_f1f11990@@YAXPAX@Z"],
+   "0x0018ec80": ["?thunk_delete_00263f30@fn_0018ec80@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/TurningVelocityCondition_2.cpp": {
+   "0x0016d740": ["?thunk_delete_00263f30@fn_f782cc80@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/VelocityAnimatedCondition_2.cpp": {
+   "0x0016e400": ["?thunk_delete_00263f30@fn_f6db3ad8@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/VelocityAnimatedXZAngleCondition.cpp": {
+   "0x0016e0b0": ["?thunk_delete_00263f30@fn_ffe86028@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/VelocityAnimatedXZCondition_2.cpp": {
+   "0x0016d690": ["?thunk_delete_00263f30@fn_fa51ea81@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/VelocityAnimatedYCondition_4.cpp": {
+   "0x0016daa0": ["?thunk_delete_00263f30@fn_f808ce35@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/VelocityCondition_2.cpp": {
+   "0x0016d530": ["?thunk_delete_00263f30@fn_f9fa62c7@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/VelocityXZAngleCondition.cpp": {
+   "0x0016deb0": ["?thunk_delete_00263f30@fn_fcd8d6f8@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/VelocityXZCondition_2.cpp": {
+   "0x0016e000": ["?thunk_delete_00263f30@fn_f0d3a50f@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/VelocityYCondition_2.cpp": {
+   "0x0016d5e0": ["?thunk_delete_00263f30@fn_ffa13669@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/VisibilityTrack_4.cpp": {
+   "0x0017edb0": ["?thunk_delete_00263f30@fn_f50f90cf@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/WallJumpAction.cpp": {
+   "0x0013f720": ["?SweepTrack_DeleteThis_0008d330@fn_f8068520@@YAXPAX@Z"],
+   "0x0013f750": ["?thunk_0008d330@fn_0013f750@@YAXPAX@Z"],
+   "0x0013f790": ["?SweepTrack_DeleteThis_0008d330@fn_f8068520@@YAXPAX@Z"],
+   "0x0013f7c0": ["?SweepTrack_DeleteThis_0008d330@fn_f8068520@@YAXPAX@Z"],
+   "0x00142f20": ["?thunk_delete_00263f30@fn_f8068520@@YAXPAX@Z"],
+   "0x00142fb0": ["?thunk_delete_00263f30@fn_f8068520@@YAXPAX@Z"],
+   "0x00143040": ["?thunk_delete_00263f30@fn_00143040@@YAXPAX@Z"],
+   "0x001430d0": ["?thunk_delete_00263f30@fn_001430d0@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/WorldConeDamageAction.cpp": {
+   "0x001447b0": ["?cdel_0008d330@fn_f3c8e3e3@@YAXPAX@Z"],
+   "0x001447f0": ["?SweepTrack_DeleteThis_0008d330@fn_f3c8e3e3@@YAXPAX@Z"],
+   "0x00144820": ["?thunk_FUN_00267090@fn_f3c8e3e3@@YAXPAUObj_144820@1@@Z"],
+   "0x00144850": ["?SweepTrack_DeleteThis_0008d330@fn_f3c8e3e3@@YAXPAX@Z"],
+   "0x00144880": ["?SweepTrack_DeleteThis_0008d330@fn_f3c8e3e3@@YAXPAX@Z"],
+   "0x001448b0": ["?SweepTrack_DeleteThis_0008d330@fn_f3c8e3e3@@YAXPAX@Z"],
+   "0x00145c40": ["?destroy_0008d330@fn_f3c8e3e3@@YAXPAUSlowMotionAction@1@@Z"],
+   "0x00145cc0": ["?DeleteThunk_0008d330@fn_f3c8e3e3@@YAXPAVMotionBlurAction@1@@Z"],
+   "0x00146580": ["?thunk_delete_00263f30@fn_f3c8e3e3@@YAXPAX@Z"],
+   "0x00146610": ["?thunk_delete_00263f30@fn_00146610@@YAXPAX@Z"],
+   "0x001466e0": ["?thunk_delete_00263f30@fn_001466e0@@YAXPAX@Z"],
+   "0x00146790": ["?thunk_delete_00263f30@fn_00146790@@YAXPAX@Z"],
+   "0x00146820": ["?thunk_delete_00263f30@fn_00146820@@YAXPAX@Z"],
+   "0x001468b0": ["?thunk_delete_00263f30@fn_001468b0@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/motion/WorldConeDamageAction.iso_00145da0.cpp": {
+   "0x00145da0": ["?thunk_FUN_00267090@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/scenario/EffectAction.cpp": {
+   "0x001a34f0": ["?FUN_0008d340@fn_001a34f0@@YAXPAX@Z"],
+   "0x001a38d0": ["?FUN_0008d340@fn_001a38d0@@YAXPAX@Z"],
+   "0x001a3930": ["?release_0008d340@fn_001a3930@@YAXPAX@Z"],
+   "0x001a3990": ["?thunk_FUN_00267090@fn_fc5dbd2a@@YAXPAX@Z"],
+   "0x001a3b50": ["?thunk_FUN_00267090@fn_fc5dbd2a@@YAXPAX@Z"],
+   "0x001a3df0": ["_freeMem_0008d340"],
+   "0x001a3e60": ["?thunk_FUN_00267090@fn_fc5dbd2a@@YAXPAX@Z"],
+   "0x001a3fb0": ["?FUN_0008d340@fn_001a3fb0@@YAXPAX@Z"],
+   "0x001a41e0": ["_freeBuf_0008d340"],
+   "0x001a4330": ["?thunk_FUN_00267090@fn_fc5dbd2a@@YAXPAX@Z"],
+   "0x001a4410": ["?thunk_FUN_00267090@fn_fc5dbd2a@@YAXPAX@Z"],
+   "0x001a4560": ["?thunk_FUN_00267090@fn_001a4560@@YAXPAD@Z"],
+   "0x001a45d0": ["_FreeMem_0008d340"],
+   "0x001a46b0": ["?FUN_0008d340@fn_001a46b0@@YAXPAX@Z"],
+   "0x001a5aa0": ["?SweepTrack_DeleteThis_0008d330@fn_fc5dbd2a@@YAXPAX@Z"],
+   "0x001a5ad0": ["?thunk_FUN_00267090@fn_fc5dbd2a@@YAXPAUObj_1a5ad0@1@@Z"],
+   "0x001a5b00": ["?SweepTrack_DeleteThis_0008d330@fn_fc5dbd2a@@YAXPAX@Z"],
+   "0x001a5b30": ["?SweepTrack_DeleteThis_0008d330@fn_fc5dbd2a@@YAXPAX@Z"],
+   "0x001a5b60": ["?SweepTrack_DeleteThis_0008d330@fn_fc5dbd2a@@YAXPAX@Z"],
+   "0x001a5b90": ["?SweepTrack_DeleteThis_0008d330@fn_fc5dbd2a@@YAXPAX@Z"],
+   "0x001a5bc0": ["?thunk_FUN_00267090@fn_fc5dbd2a@@YAXPAUObj_1a5bc0@1@@Z"],
+   "0x001a5bf0": ["?thunk_FUN_00267090@fn_fc5dbd2a@@YAXPAUObj_1a5bf0@1@@Z"],
+   "0x001a5c20": ["?thunk_FUN_00267090@fn_fc5dbd2a@@YAXPAUObj_1a5c20@1@@Z"],
+   "0x001a5c50": ["?Destroy_0008d330@fn_fc5dbd2a@@YAXPAVEffectTrack@1@@Z"],
+   "0x001a8f80": ["?thunk_FUN_00267090@fn_fc5dbd2a@@YAXPAVEffectAction@1@@Z"],
+   "0x001aa470": ["?thunk_delete_00263f30@fn_fc5dbd2a@@YAXPAX@Z"],
+   "0x001aa510": ["?thunk_delete_00263f30@fn_fc5dbd2a@@YAXPAX@Z"],
+   "0x001aa5c0": ["?thunk_delete_00263f30@fn_fc5dbd2a@@YAXPAX@Z"],
+   "0x001aa670": ["?thunk_delete_00263f30@fn_fc5dbd2a@@YAXPAX@Z"],
+   "0x001aa710": ["?thunk_delete_00263f30@fn_fc5dbd2a@@YAXPAX@Z"],
+   "0x001aa7a0": ["?thunk_delete_00263f30@fn_fc5dbd2a@@YAXPAX@Z"],
+   "0x001aaa40": ["?thunk_delete_00263f30@fn_fc5dbd2a@@YAXPAX@Z"],
+   "0x001aaae0": ["?thunk_delete_00263f30@fn_fc5dbd2a@@YAXPAX@Z"],
+   "0x001aab80": ["?thunk_delete_00263f30@fn_fc5dbd2a@@YAXPAX@Z"],
+   "0x001aac20": ["?thunk_delete_00263f30@fn_fc5dbd2a@@YAXPAX@Z"],
+   "0x001aacb0": ["?thunk_delete_00263f30@fn_001aacb0@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/scenario/Event_PathNameCondition.cpp": {
+   "0x001ab640": ["?thunk_FUN_00267090@fn_fc09f66d@@YAXPAVEvent_PathNameCondition@scenario@hulkfight@@@Z"],
+   "0x001ab670": ["?SweepTrack_DeleteThis_0008d330@fn_fc09f66d@@YAXPAX@Z"],
+   "0x001ab6a0": ["?SweepTrack_DeleteThis_0008d330@fn_fc09f66d@@YAXPAX@Z"],
+   "0x001ab6d0": ["?SweepTrack_DeleteThis_0008d330@fn_fc09f66d@@YAXPAX@Z"],
+   "0x001ab730": ["?FUN_0008d330@fn_fc09f66d@@YAXPAVEvent_CharacterTemplateVariationCondition@1@@Z"],
+   "0x001ab760": ["?thunk_FUN_00267090@fn_fc09f66d@@YAXPAVEvent_PathNameCondition@scenario@hulkfight@@@Z"],
+   "0x001ac6d0": ["?thunk_delete_00263f30@fn_fc09f66d@@YAXPAX@Z"],
+   "0x001ac770": ["?thunk_delete_00263f30@fn_fc09f66d@@YAXPAX@Z"],
+   "0x001ac820": ["?thunk_delete_00263f30@fn_fc09f66d@@YAXPAX@Z"],
+   "0x001ac8c0": ["?thunk_delete_00263f30@fn_fc09f66d@@YAXPAX@Z"],
+   "0x001ac970": ["?thunk_delete_00263f30@fn_fc09f66d@@YAXPAX@Z"],
+   "0x001aca20": ["?thunk_delete_00263f30@fn_fc09f66d@@YAXPAX@Z"],
+   "0x001acad0": ["?thunk_delete_00263f30@fn_fc09f66d@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/scenario/LuaCondition.cpp": {
+   "0x001a1350": ["?thunk_FUN_00267090@fn_fd836fc7@@YAXPAX@Z"],
+   "0x001a1440": ["?cleanup_0008d340@fn_001a1440@@YAXI@Z"],
+   "0x001a1460": ["?thunk_FUN_00267090@fn_fd836fc7@@YAXPAX@Z"],
+   "0x001a1840": ["?ReleaseA_0008d340@fn_fd836fc7@@YAXPAX@Z", "?ReleaseB_0008d330@fn_fd836fc7@@YAXPAX@Z"],
+   "0x001a1dd0": ["?thunk_delete_00263f30@fn_fd836fc7@@YAXPAX@Z"],
+   "0x001a1e90": ["?thunk_delete_00263f30@fn_fd836fc7@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/unk_116760.cpp": {
+   "0x00116760": ["?opDelete_0008d330@fn_00116760@@YAXPAX@Z"],
+   "0x00116790": ["?SweepTrack_DeleteThis_0008d330@fn_f72f4502@@YAXPAX@Z"],
+   "0x001167c0": ["?SweepTrack_DeleteThis_0008d330@fn_f72f4502@@YAXPAX@Z"],
+   "0x001167f0": ["?SweepTrack_DeleteThis_0008d330@fn_f72f4502@@YAXPAX@Z"],
+   "0x00116820": ["?SweepTrack_DeleteThis_0008d330@fn_f72f4502@@YAXPAX@Z"],
+   "0x00116850": ["?Destroy_0008d330@fn_f72f4502@@YAXPAVMotionLocatorTrack@ai@hulkfight@@@Z"],
+   "0x00116880": ["?SweepTrack_DeleteThis_0008d330@fn_f72f4502@@YAXPAX@Z"],
+   "0x001168b0": ["?SweepTrack_DeleteThis_0008d330@fn_f72f4502@@YAXPAX@Z"],
+   "0x001168e0": ["?SweepTrack_DeleteThis_0008d330@fn_f72f4502@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/unk_134c60.cpp": {
+   "0x00134c60": ["?SweepTrack_DeleteThis_0008d330@fn_fea6dcf4@@YAXPAX@Z"],
+   "0x00134c90": ["?SweepTrack_DeleteThis_0008d330@fn_fea6dcf4@@YAXPAX@Z"],
+   "0x00134cc0": ["?SweepTrack_DeleteThis_0008d330@fn_fea6dcf4@@YAXPAX@Z"],
+   "0x00134cf0": ["?SweepTrack_DeleteThis_0008d330@fn_fea6dcf4@@YAXPAX@Z"],
+   "0x00134d20": ["?SweepTrack_DeleteThis_0008d330@fn_fea6dcf4@@YAXPAX@Z"],
+   "0x00134d50": ["?SweepTrack_DeleteThis_0008d330@fn_fea6dcf4@@YAXPAX@Z"],
+   "0x00134d80": ["?SweepTrack_DeleteThis_0008d330@fn_fea6dcf4@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/unk_172c00.cpp": {
+   "0x00172da0": ["?DestroyTrack_0008d330@fn_ff4cbdc8@@YAXPAX@Z"],
+   "0x00172dd0": ["?SweepTrack_DeleteThis_0008d330@fn_ff4cbdc8@@YAXPAX@Z"],
+   "0x00172e30": ["?SweepTrack_DeleteThis_0008d330@fn_ff4cbdc8@@YAXPAX@Z"],
+   "0x00172e60": ["?destroy_0008d330@fn_ff4cbdc8@@YAXPAVJointRelativeTrack@1@@Z"],
+   "0x00172e90": ["?cleanup_0008d340@fn_ff4cbdc8@@YAXPAX@Z", "?destroyObj_0008d330@fn_ff4cbdc8@@YAXPAVSyncToLocatorTrack@motion@hulkfight@@@Z"],
+   "0x00172ed0": ["?SweepTrack_DeleteThis_0008d330@fn_ff4cbdc8@@YAXPAX@Z"],
+   "0x00172f00": ["?SweepTrack_DeleteThis_0008d330@fn_ff4cbdc8@@YAXPAX@Z"],
+   "0x00172f70": ["?ReleaseThing_0008d340@fn_ff4cbdc8@@YAXPAX@Z"],
+   "0x00172fb0": ["?SweepTrack_DeleteThis_0008d330@fn_ff4cbdc8@@YAXPAX@Z"],
+   "0x00172fe0": ["?SweepTrack_DeleteThis_0008d330@fn_ff4cbdc8@@YAXPAX@Z"],
+   "0x00173010": ["?SweepTrack_DeleteThis_0008d330@fn_ff4cbdc8@@YAXPAX@Z"],
+   "0x00173040": ["?SweepTrack_DeleteThis_0008d330@fn_ff4cbdc8@@YAXPAX@Z"],
+   "0x00173070": ["?thunk_FUN_00267090@fn_ff4cbdc8@@YAXPAVPushOutTrack@motion@hulkfight@@@Z"],
+   "0x001730a0": ["?SweepTrack_DeleteThis_0008d330@fn_ff4cbdc8@@YAXPAX@Z"],
+   "0x00173100": ["?SweepTrack_DeleteThis_0008d330@fn_ff4cbdc8@@YAXPAX@Z"],
+   "0x00173130": ["?SweepTrack_DeleteThis_0008d330@fn_ff4cbdc8@@YAXPAX@Z"],
+   "0x00173160": ["?SweepTrack_DeleteThis_0008d330@fn_ff4cbdc8@@YAXPAX@Z"],
+   "0x00173190": ["?SweepTrack_DeleteThis_0008d330@fn_ff4cbdc8@@YAXPAX@Z"],
+   "0x001731c0": ["?SweepTrack_DeleteThis_0008d330@fn_ff4cbdc8@@YAXPAX@Z"],
+   "0x001731f0": ["?SweepTrack_DeleteThis_0008d330@fn_ff4cbdc8@@YAXPAX@Z"],
+   "0x00173220": ["?thunk_FUN_00267090@fn_ff4cbdc8@@YAXH@Z"],
+   "0x00173260": ["?SweepTrack_DeleteThis_0008d330@fn_ff4cbdc8@@YAXPAX@Z"],
+   "0x00173290": ["?SweepTrack_DeleteThis_0008d330@fn_ff4cbdc8@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/unk_1acb90.cpp": {
+   "0x001ad550": ["_thunk_FUN_00267090"],
+   "0x001ad560": ["?thunk_FUN_00267090@fn_f54565b1@@YADPAX@Z"]
+  },
+  "src/game/init/dynamic_initializers.cpp": {
+   "0x00363d50": ["?freeItem_0008d330@fn_00363d50@@YAXPAX@Z"],
+   "0x00364790": ["_thunk_FUN_00267090"],
+   "0x003647c0": ["_thunk_0008d340"]
+  },
+  "src/game/movie/RenderLoop.cpp": {
+   "0x001b6f70": ["?thunk_FUN_00267090@fn_f129244f@@YAXPAVNonCopyable_1b6f70@pure3d@1@@Z"]
+  },
+  "src/game/om/Stream.cpp": {
+   "0x001e85a0": ["?thunk_FUN_00267090@fn_fb8261dc@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/game/pure3d/GameDrawableInfo.cpp": {
+   "0x001c1200": ["?thunk_FUN_00267090@fn_f86079e0@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/game/pure3d/NonCopyable.cpp": {
+   "0x00045800": ["?thunk_FUN_00267090@fn_fd48bef5@@YAXPAVNonCopyable_45800@pure3d@1@@Z"]
+  },
+  "src/game/pure3d/ShaderCallback.cpp": {
+   "0x001c1440": ["?thunk_FUN_00267090@fn_ff5e343a@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/game/pure3d/ShadowGenerator.cpp": {
+   "0x001c7e60": ["?destroy_0008d330@fn_fa25ba40@@YAXPAX@Z"]
+  },
+  "src/game/unknown/unk_021960.cpp": {
+   "0x00021ec0": ["?DestroyAction_0008d330@fn_00021ec0@@YAXPAX@Z"]
+  },
+  "src/game/unknown/unk_0240b0.cpp": {
+   "0x00024170": ["?thunk_FUN_00267090@fn_00024170@@YAXPAVCCollisionAction@1@@Z"],
+   "0x0002b690": ["?dispose_0008d330@fn_f6d645d0@@YAXPAURef_2b690@1@@Z"]
+  },
+  "src/game/unknown/unk_06b300.cpp": {
+   "0x0006b470": ["?thunk_FUN_00267090@fn_fad3cf42@@YAXPAX@Z"],
+   "0x0006b4b0": ["?SweepTrack_DeleteThis_0008d330@fn_fad3cf42@@YAXPAX@Z"],
+   "0x0006b4e0": ["?SweepTrack_DeleteThis_0008d330@fn_fad3cf42@@YAXPAX@Z"],
+   "0x0006b510": ["?SweepTrack_DeleteThis_0008d330@fn_fad3cf42@@YAXPAX@Z"],
+   "0x0006b5f0": ["?SweepTrack_DeleteThis_0008d330@fn_fad3cf42@@YAXPAX@Z"],
+   "0x0006b620": ["?Final_0008d330@fn_fad3cf42@@YAXPAVCKeyPoseTrack@1@@Z"],
+   "0x0006b660": ["?SweepTrack_DeleteThis_0008d330@fn_fad3cf42@@YAXPAX@Z"],
+   "0x0006b690": ["?SweepTrack_DeleteThis_0008d330@fn_fad3cf42@@YAXPAX@Z"],
+   "0x0006b6c0": ["?SweepTrack_DeleteThis_0008d330@fn_fad3cf42@@YAXPAX@Z"],
+   "0x0006b720": ["?SweepTrack_DeleteThis_0008d330@fn_fad3cf42@@YAXPAX@Z"],
+   "0x0006b780": ["?SweepTrack_DeleteThis_0008d330@fn_fad3cf42@@YAXPAX@Z"],
+   "0x0006b7e0": ["?SweepTrack_DeleteThis_0008d330@fn_fad3cf42@@YAXPAX@Z"],
+   "0x0006b810": ["?SweepTrack_DeleteThis_0008d330@fn_fad3cf42@@YAXPAX@Z"],
+   "0x0006b840": ["?SweepTrack_DeleteThis_0008d330@fn_fad3cf42@@YAXPAX@Z"],
+   "0x0006b870": ["?SweepTrack_DeleteThis_0008d330@fn_fad3cf42@@YAXPAX@Z"],
+   "0x0006b8a0": ["?SweepTrack_DeleteThis_0008d330@fn_fad3cf42@@YAXPAX@Z"],
+   "0x0006b8d0": ["?SweepTrack_DeleteThis_0008d330@fn_fad3cf42@@YAXPAX@Z"],
+   "0x0006b900": ["?SweepTrack_DeleteThis_0008d330@fn_fad3cf42@@YAXPAX@Z"],
+   "0x0006b930": ["?SweepTrack_DeleteThis_0008d330@fn_fad3cf42@@YAXPAX@Z"],
+   "0x0006b960": ["?SweepTrack_DeleteThis_0008d330@fn_fad3cf42@@YAXPAX@Z"],
+   "0x0006b990": ["?thunk_FUN_00267090@fn_fad3cf42@@YAXPAVCCameraDramaticTrack@1@@Z"],
+   "0x0006b9e0": ["?SweepTrack_DeleteThis_0008d330@fn_fad3cf42@@YAXPAX@Z"],
+   "0x0006ba10": ["?SweepTrack_DeleteThis_0008d330@fn_fad3cf42@@YAXPAX@Z"],
+   "0x0006ba40": ["?SweepTrack_DeleteThis_0008d330@fn_fad3cf42@@YAXPAX@Z"],
+   "0x0006ba70": ["?SweepTrack_DeleteThis_0008d330@fn_fad3cf42@@YAXPAX@Z"],
+   "0x0006baa0": ["?SweepTrack_DeleteThis_0008d330@fn_fad3cf42@@YAXPAX@Z"],
+   "0x0006bad0": ["?SweepTrack_DeleteThis_0008d330@fn_fad3cf42@@YAXPAX@Z"],
+   "0x0006bb00": ["?SweepTrack_DeleteThis_0008d330@fn_fad3cf42@@YAXPAX@Z"],
+   "0x0006bb30": ["?SweepTrack_DeleteThis_0008d330@fn_fad3cf42@@YAXPAX@Z"],
+   "0x0006bb60": ["?thunk_FUN_00267090@fn_0006bb60@@YAXPAX@Z"],
+   "0x0006bba0": ["?SweepTrack_DeleteThis_0008d330@fn_fad3cf42@@YAXPAX@Z"],
+   "0x0006bbd0": ["?SweepTrack_DeleteThis_0008d330@fn_fad3cf42@@YAXPAX@Z"],
+   "0x0006bc00": ["?thunk_FUN_00267090@fn_0006bc00@@YAXPAX@Z"],
+   "0x0006bc40": ["?SweepTrack_DeleteThis_0008d330@fn_fad3cf42@@YAXPAX@Z"],
+   "0x0006bc70": ["?SweepTrack_DeleteThis_0008d330@fn_fad3cf42@@YAXPAX@Z"],
+   "0x0006bca0": ["?SweepTrack_DeleteThis_0008d330@fn_fad3cf42@@YAXPAX@Z"],
+   "0x0006bcd0": ["?SweepTrack_DeleteThis_0008d330@fn_fad3cf42@@YAXPAX@Z"]
+  },
+  "src/game/unknown/unk_08ed50.cpp": {
+   "0x0008f140": ["?thunk@fn_ff1b4d41@@YAXH@Z"],
+   "0x0008ff50": ["?thunk_FUN_00267090@fn_0008ff50@@YAXH@Z"]
+  },
+  "src/game/unknown/unk_091bc0.cpp": {
+   "0x00091be0": ["?thunk_FUN_00267090@fn_f9898967@@YAXPAX@Z"],
+   "0x00091c20": ["?freebuf_0008d340@fn_f9898967@@YAXPAX@Z"],
+   "0x00091cc0": ["?thunk_FUN_00267090@fn_f9898967@@YAXH@Z"],
+   "0x00091e30": ["?thunk_FUN_00267090@fn_00091e30@@YAXPAX@Z"],
+   "0x00091ef0": ["?rel_0008d340@fn_f9898967@@YAXPAX@Z"],
+   "0x000920f0": ["?thunk_FUN_00267090@fn_000920f0@@YAXPAX@Z"]
+  },
+  "src/game/unknown/unk_092120.cpp": {
+   "0x000921d0": ["?thunk_FUN_00267090@fn_f9a5903c@@YAXPAX@Z"],
+   "0x00092270": ["?ReleaseThing_0008d340@fn_00092270@@YAXPAX@Z"]
+  },
+  "src/game/unknown/unk_0b0440.cpp": {
+   "0x000b0710": ["?ReleaseThing_0008d330@fn_f3cf613f@@YAXI@Z"],
+   "0x000b0e20": ["?thunk_FUN_00267090@fn_f3cf613f@@YAXPAX@Z"]
+  },
+  "src/game/unknown/unk_0bbb00.cpp": {
+   "0x000bbb20": ["?thunk_FUN_00267090@fn_fc9dd2b5@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/game/unknown/unk_0bc1e0.cpp": {
+   "0x000bc4d0": ["?Release_0008d340@fn_f87c96cc@@YAXPAX@Z"]
+  },
+  "src/game/unknown/unk_0ddbe0.cpp": {
+   "0x000ddda0": ["?thunk_FUN_00267090@fn_000ddda0@@YAXPAVCCollisionAction@1@@Z"]
+  },
+  "src/game/unknown/unk_10c0d0.cpp": {
+   "0x0010c8b0": ["?thunk@fn_f15aa14c@@YAXH@Z"],
+   "0x0010c990": ["?thunk_0008d340@fn_0010c990@@YAXH@Z"],
+   "0x0010cae0": ["?thunk_0008d340@fn_0010cae0@@YAXH@Z"],
+   "0x0010cc20": ["?thunk_0008d340@fn_0010cc20@@YAXH@Z"],
+   "0x0010cc40": ["_FreeMem_0008d340"],
+   "0x0010cd00": ["?thunk_0008d340@fn_0010cd00@@YAXH@Z"],
+   "0x0010ce40": ["?thunk_0008d340@fn_0010ce40@@YAXH@Z"],
+   "0x0010ce60": ["_thunk_FUN_00267090"]
+  },
+  "src/game/unknown/unk_10e950.cpp": {
+   "0x0010e990": ["?SweepTrack_DeleteThis_0008d330@fn_f9459e3d@@YAXPAX@Z"],
+   "0x0010e9c0": ["?SweepTrack_DeleteThis_0008d330@fn_f9459e3d@@YAXPAX@Z"],
+   "0x0010e9f0": ["?SweepTrack_DeleteThis_0008d330@fn_f9459e3d@@YAXPAX@Z"],
+   "0x0010ea20": ["?SweepTrack_DeleteThis_0008d330@fn_f9459e3d@@YAXPAX@Z"],
+   "0x0010ea50": ["?Free_0008d330@fn_f9459e3d@@YAXPAX@Z"],
+   "0x0010ea80": ["?SweepTrack_DeleteThis_0008d330@fn_f9459e3d@@YAXPAX@Z"],
+   "0x0010eab0": ["?SweepTrack_DeleteThis_0008d330@fn_f9459e3d@@YAXPAX@Z"],
+   "0x0010eae0": ["?thunk_FUN_00267090@fn_f9459e3d@@YAXPAVHulkActionTrack@ai@hulkfight@@@Z"],
+   "0x0010eb40": ["?SweepTrack_DeleteThis_0008d330@fn_f9459e3d@@YAXPAX@Z"],
+   "0x0010eba0": ["?SweepTrack_DeleteThis_0008d330@fn_f9459e3d@@YAXPAX@Z"]
+  },
+  "src/game/unknown/unk_124e60.cpp": {
+   "0x00124e60": ["?SweepTrack_DeleteThis_0008d330@fn_f60bff30@@YAXPAX@Z"],
+   "0x00124e90": ["?SweepTrack_DeleteThis_0008d330@fn_f60bff30@@YAXPAX@Z"],
+   "0x00124ec0": ["?SweepTrack_DeleteThis_0008d330@fn_f60bff30@@YAXPAX@Z"],
+   "0x00124ef0": ["?SweepTrack_DeleteThis_0008d330@fn_f60bff30@@YAXPAX@Z"],
+   "0x00124f20": ["?SweepTrack_DeleteThis_0008d330@fn_f60bff30@@YAXPAX@Z"],
+   "0x00124f50": ["?SweepTrack_DeleteThis_0008d330@fn_f60bff30@@YAXPAX@Z"],
+   "0x00124f80": ["?SweepTrack_DeleteThis_0008d330@fn_f60bff30@@YAXPAX@Z"],
+   "0x00124fb0": ["?SweepTrack_DeleteThis_0008d330@fn_f60bff30@@YAXPAX@Z"],
+   "0x00124fe0": ["?SweepTrack_DeleteThis_0008d330@fn_f60bff30@@YAXPAX@Z"]
+  },
+  "src/game/unknown/unk_14ffc0.cpp": {
+   "0x001501e0": ["?SweepTrack_DeleteThis_0008d330@fn_fb14e9c5@@YAXPAX@Z"],
+   "0x00150210": ["?SweepTrack_DeleteThis_0008d330@fn_fb14e9c5@@YAXPAX@Z"],
+   "0x00150240": ["?SweepTrack_DeleteThis_0008d330@fn_fb14e9c5@@YAXPAX@Z"],
+   "0x00150270": ["?SweepTrack_DeleteThis_0008d330@fn_fb14e9c5@@YAXPAX@Z"],
+   "0x001502a0": ["?SweepTrack_DeleteThis_0008d330@fn_fb14e9c5@@YAXPAX@Z"],
+   "0x001502d0": ["?SweepTrack_DeleteThis_0008d330@fn_fb14e9c5@@YAXPAX@Z"],
+   "0x00150300": ["?SweepTrack_DeleteThis_0008d330@fn_fb14e9c5@@YAXPAX@Z"],
+   "0x00150330": ["?SweepTrack_DeleteThis_0008d330@fn_fb14e9c5@@YAXPAX@Z"],
+   "0x00150360": ["?SweepTrack_DeleteThis_0008d330@fn_fb14e9c5@@YAXPAX@Z"],
+   "0x00150390": ["?SweepTrack_DeleteThis_0008d330@fn_fb14e9c5@@YAXPAX@Z"],
+   "0x001503c0": ["?SweepTrack_DeleteThis_0008d330@fn_fb14e9c5@@YAXPAX@Z"],
+   "0x001503f0": ["?SweepTrack_DeleteThis_0008d330@fn_fb14e9c5@@YAXPAX@Z"],
+   "0x00150420": ["?thunk_FUN_00267090@fn_fb14e9c5@@YAXPAUObj_150420@1@@Z"],
+   "0x00150450": ["?SweepTrack_DeleteThis_0008d330@fn_fb14e9c5@@YAXPAX@Z"],
+   "0x00150480": ["?thunk_FUN_00267090@fn_fb14e9c5@@YAXPAUObj_150480@1@@Z"],
+   "0x001504b0": ["?SweepTrack_DeleteThis_0008d330@fn_fb14e9c5@@YAXPAX@Z"],
+   "0x001504e0": ["?thunk_FUN_00267090@fn_fb14e9c5@@YAXPAUObj_1504e0@1@@Z"],
+   "0x00150510": ["?SweepTrack_DeleteThis_0008d330@fn_fb14e9c5@@YAXPAX@Z"],
+   "0x00150540": ["?SweepTrack_DeleteThis_0008d330@fn_fb14e9c5@@YAXPAX@Z"],
+   "0x00150570": ["?SweepTrack_DeleteThis_0008d330@fn_fb14e9c5@@YAXPAX@Z"],
+   "0x001505a0": ["?thunk_FUN_00267090@fn_fb14e9c5@@YAXPAUObj_1505a0@1@@Z"],
+   "0x001505d0": ["?SweepTrack_DeleteThis_0008d330@fn_fb14e9c5@@YAXPAX@Z"],
+   "0x00150600": ["?SweepTrack_DeleteThis_0008d330@fn_fb14e9c5@@YAXPAX@Z"],
+   "0x00150660": ["?SweepTrack_DeleteThis_0008d330@fn_fb14e9c5@@YAXPAX@Z"],
+   "0x00150690": ["?thunk_FUN_00267090@fn_fb14e9c5@@YAXPAVHitReactionTrack@1@@Z"],
+   "0x001506c0": ["?SweepTrack_DeleteThis_0008d330@fn_fb14e9c5@@YAXPAX@Z"],
+   "0x001506f0": ["?SweepTrack_DeleteThis_0008d330@fn_fb14e9c5@@YAXPAX@Z"],
+   "0x00150720": ["?SweepTrack_DeleteThis_0008d330@fn_fb14e9c5@@YAXPAX@Z"],
+   "0x00150750": ["?SweepTrack_DeleteThis_0008d330@fn_fb14e9c5@@YAXPAX@Z"],
+   "0x00150780": ["?SweepTrack_DeleteThis_0008d330@fn_fb14e9c5@@YAXPAX@Z"],
+   "0x001507b0": ["?SweepTrack_DeleteThis_0008d330@fn_fb14e9c5@@YAXPAX@Z"],
+   "0x001507e0": ["?SweepTrack_DeleteThis_0008d330@fn_fb14e9c5@@YAXPAX@Z"],
+   "0x00150810": ["?SweepTrack_DeleteThis_0008d330@fn_fb14e9c5@@YAXPAX@Z"],
+   "0x00150840": ["?SweepTrack_DeleteThis_0008d330@fn_fb14e9c5@@YAXPAX@Z"],
+   "0x00150870": ["?SweepTrack_DeleteThis_0008d330@fn_fb14e9c5@@YAXPAX@Z"],
+   "0x001508a0": ["?SweepTrack_DeleteThis_0008d330@fn_fb14e9c5@@YAXPAX@Z"]
+  },
+  "src/game/unknown/unk_167560.cpp": {
+   "0x00167560": ["?SweepTrack_DeleteThis_0008d330@fn_fb3274a2@@YAXPAX@Z"],
+   "0x00167590": ["?SweepTrack_DeleteThis_0008d330@fn_fb3274a2@@YAXPAX@Z"],
+   "0x001675c0": ["?SweepTrack_DeleteThis_0008d330@fn_fb3274a2@@YAXPAX@Z"],
+   "0x001675f0": ["?SweepTrack_DeleteThis_0008d330@fn_fb3274a2@@YAXPAX@Z"],
+   "0x00167620": ["?thunk_FUN_00267090@fn_fb3274a2@@YAXPAUObj_167620@1@@Z"],
+   "0x00167650": ["?SweepTrack_DeleteThis_0008d330@fn_fb3274a2@@YAXPAX@Z"],
+   "0x00167680": ["?SweepTrack_DeleteThis_0008d330@fn_fb3274a2@@YAXPAX@Z"],
+   "0x001676b0": ["?SweepTrack_DeleteThis_0008d330@fn_fb3274a2@@YAXPAX@Z"],
+   "0x001676e0": ["?SweepTrack_DeleteThis_0008d330@fn_fb3274a2@@YAXPAX@Z"],
+   "0x00167710": ["?SweepTrack_DeleteThis_0008d330@fn_fb3274a2@@YAXPAX@Z"],
+   "0x00167780": ["?SweepTrack_DeleteThis_0008d330@fn_fb3274a2@@YAXPAX@Z"]
+  },
+  "src/game/unknown/unk_182f10.cpp": {
+   "0x00182f10": ["?SweepTrack_DeleteThis_0008d330@fn_f6fed9ea@@YAXPAX@Z"],
+   "0x00182f40": ["?SweepTrack_DeleteThis_0008d330@fn_f6fed9ea@@YAXPAX@Z"],
+   "0x00182f70": ["?thunk_0008d330@fn_f6fed9ea@@YAXPAVGrapplePropStateByNameCondition@motion@hulkfight@1@@Z"],
+   "0x00182fa0": ["?SweepTrack_DeleteThis_0008d330@fn_f6fed9ea@@YAXPAX@Z"],
+   "0x00182fd0": ["?Cleanup_0008d330@fn_f6fed9ea@@YAXPAVPropMassCondition@motion@hulkfight@1@@Z"],
+   "0x00183000": ["?SweepTrack_DeleteThis_0008d330@fn_f6fed9ea@@YAXPAX@Z"],
+   "0x00183030": ["?SweepTrack_DeleteThis_0008d330@fn_f6fed9ea@@YAXPAX@Z"],
+   "0x00183060": ["?thunk_FUN_00267090@fn_f6fed9ea@@YAXPAX@Z"],
+   "0x00183090": ["?SweepTrack_DeleteThis_0008d330@fn_f6fed9ea@@YAXPAX@Z"],
+   "0x001830c0": ["?SweepTrack_DeleteThis_0008d330@fn_f6fed9ea@@YAXPAX@Z"],
+   "0x001830f0": ["?SweepTrack_DeleteThis_0008d330@fn_f6fed9ea@@YAXPAX@Z"],
+   "0x00183120": ["?SweepTrack_DeleteThis_0008d330@fn_f6fed9ea@@YAXPAX@Z"],
+   "0x00183150": ["?SweepTrack_DeleteThis_0008d330@fn_f6fed9ea@@YAXPAX@Z"],
+   "0x00183180": ["?SweepTrack_DeleteThis_0008d330@fn_f6fed9ea@@YAXPAX@Z"],
+   "0x001831e0": ["?SweepTrack_DeleteThis_0008d330@fn_f6fed9ea@@YAXPAX@Z"],
+   "0x00183210": ["?SweepTrack_DeleteThis_0008d330@fn_f6fed9ea@@YAXPAX@Z"],
+   "0x00183270": ["?SweepTrack_DeleteThis_0008d330@fn_f6fed9ea@@YAXPAX@Z"],
+   "0x001832a0": ["?Free_0008d330@fn_f6fed9ea@@YAXPAX@Z"],
+   "0x001832e0": ["?cleanup_0008d330@fn_f6fed9ea@@YAXPAX@Z"],
+   "0x00183320": ["?SweepTrack_DeleteThis_0008d330@fn_f6fed9ea@@YAXPAX@Z"],
+   "0x00183350": ["?DeleteObj_0008d330@fn_f6fed9ea@@YAXPAX@Z"],
+   "0x00183390": ["?SweepTrack_DeleteThis_0008d330@fn_f6fed9ea@@YAXPAX@Z"],
+   "0x001833c0": ["?SweepTrack_DeleteThis_0008d330@fn_f6fed9ea@@YAXPAX@Z"],
+   "0x001833f0": ["?SweepTrack_DeleteThis_0008d330@fn_f6fed9ea@@YAXPAX@Z"],
+   "0x00183420": ["?SweepTrack_DeleteThis_0008d330@fn_f6fed9ea@@YAXPAX@Z"],
+   "0x00183450": ["?SweepTrack_DeleteThis_0008d330@fn_f6fed9ea@@YAXPAX@Z"],
+   "0x00183480": ["?thunk_FUN_00267090@fn_f6fed9ea@@YAXPAX@Z", "_thunk_FUN_00267090_2_0008d330"],
+   "0x001834c0": ["?SweepTrack_DeleteThis_0008d330@fn_f6fed9ea@@YAXPAX@Z"]
+  },
+  "src/game/unknown/unk_1c5e20.cpp": {
+   "0x001c5f20": ["?thunk_FUN_00267090@fn_f493c7ef@@YAXI@Z"]
+  },
+  "src/game/unknown/unk_1c60f0.cpp": {
+   "0x001c65d0": ["?thunk_FUN_00267090@fn_fb68dce8@@YAXPAVNonCopyable_1c65d0@pure3d@1@@Z"]
+  },
+  "src/game/unknown/unk_1c6660.cpp": {
+   "0x001c6c40": ["?DeleteThing_0008d330@fn_fe13ae73@@YAXPAVThing_1c6c40@1@@Z"]
+  },
+  "src/game/unknown/unk_1eef00.cpp": {
+   "0x001eef50": ["?thunk_FUN_00267090@fn_fcd387f7@@YAXPAVCCollisionAction@1@@Z"]
+  },
+  "src/game/unknown/unk_1ef930.cpp": {
+   "0x001ef990": ["?thunk_0008d330@fn_f158e6c4@@YAXPAVObj_1ef990@1@@Z"],
+   "0x001ef9c0": ["?thunk_FUN_00267090@fn_f158e6c4@@YAXPAX@Z"]
+  },
+  "src/game/unknown/unk_1efb80.cpp": {
+   "0x001eff50": ["?destroy_0008d330@fn_001eff50@@YAXPAVObj_1eff50@1@@Z"],
+   "0x001f01a0": ["?thunk_FUN_00267090@fn_f4b77e46@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x001f0210": ["?thunk_FUN_00267090@fn_001f0210@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/game/unknown/unk_1f0630.cpp": {
+   "0x001f06a0": ["?thunk_FUN_00267090@fn_f1aba5fa@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x001f0740": ["?thunk_FUN_00267090@fn_001f0740@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x001f07f0": ["?thunk_FUN_00267090@fn_001f07f0@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x001f0860": ["?thunk_FUN_00267090@fn_001f0860@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x001f08d0": ["?thunk_FUN_00267090@fn_001f08d0@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x001f0940": ["?thunk_FUN_00267090@fn_001f0940@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x001f09b0": ["?thunk_FUN_00267090@fn_001f09b0@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/game/unknown/unk_1f84d0.cpp": {
+   "0x001f8ed0": ["?thunk_FUN_00267090@fn_f6c21956@@YAXPAVCCollisionAction@1@@Z"],
+   "0x001f93b0": ["?destroy_0008d330@fn_f6c21956@@YAXPAX@Z"]
+  },
+  "src/game/unknown/unk_1f9530.cpp": {
+   "0x001fa7a0": ["?FUN_0008d330@fn_f80593ac@@YAXPAVObj_1fa7a0@1@@Z"],
+   "0x001fa920": ["?thunk_FUN_00267090@fn_f80593ac@@YAXPAVCCollisionAction@1@@Z"]
+  },
+  "src/platform/xbox/core/ControllerXBox.cpp": {
+   "0x00268500": ["?thunk_FUN_00267090@fn_fc99ffef@@YAXPAVNonCopyable_268500@pure3d@1@@Z"],
+   "0x00268ba0": ["?thunk_FUN_00267090@fn_fc99ffef@@YAXPAVNonCopyable_268ba0@pure3d@1@@Z"],
+   "0x00268c70": ["?thunk_FUN_00267090@fn_fc99ffef@@YAXPAVNonCopyable_268c70@pure3d@1@@Z"],
+   "0x00268f80": ["?thunk_FUN_00267090@fn_fc99ffef@@YAXPAVNonCopyable_268f80@pure3d@1@@Z"]
+  },
+  "src/platform/xbox/movie/PlayerBink.cpp": {
+   "0x00333c30": ["?thunk_FUN_00267090@fn_f1126c37@@YAXPAVNonCopyable_333c30@pure3d@1@@Z"]
+  },
+  "src/platform/xbox/pure3d/d3dBumpMapVertexShader.cpp": {
+   "0x00333170": ["?thunk_FUN_00267090@fn_fad033e0@@YAXPAUd3dBumpMapVertexShader_333170@1@@Z"]
+  },
+  "src/platform/xbox/pure3d/d3dDevice.cpp": {
+   "0x0031b760": ["?SweepTrack_DeleteThis_0008d330@fn_f2bbfa1e@@YAXPAX@Z"],
+   "0x0031ba30": ["?thunk_FUN_00267090@fn_0031ba30@@YAXPAX@Z"],
+   "0x0031bb30": ["?thunk_FUN_00267090@fn_0031bb30@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/platform/xbox/pure3d/d3dDisplay.cpp": {
+   "0x0031b5c0": ["?thunk_FUN_00267090@fn_f5e589ad@@YAXPAVd3dDisplay_31b5c0@1@@Z"]
+  },
+  "src/platform/xbox/pure3d/d3dExtFramebufferEffects.cpp": {
+   "0x003201b0": ["?thunk_FUN_00267090@fn_003201b0@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x003201e0": ["?thunk_FUN_00267090@fn_003201e0@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x00320210": ["?thunk_FUN_00267090@fn_00320210@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x00320240": ["?thunk_FUN_00267090@fn_00320240@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x00320b70": ["?thunk_FUN_00267090@fn_00320b70@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x00320b90": ["?thunk_FUN_00267090@fn_f57e27cb@@YAXPAVCCollisionAction@1@@Z"],
+   "0x00320bb0": ["?thunk_FUN_00267090@fn_00320bb0@@YAXPAVCCollisionAction@1@@Z"],
+   "0x00320bd0": ["?thunk_FUN_00267090@fn_00320bd0@@YAXPAVCCollisionAction@1@@Z"],
+   "0x00321fc0": ["?thunk_FUN_00267090@fn_00321fc0@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x00322040": ["?thunk_FUN_00267090@fn_00322040@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x003221a0": ["?thunk_FUN_00267090@fn_003221a0@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x00322280": ["?thunk_FUN_00267090@fn_00322280@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x00322320": ["?thunk_FUN_00267090@fn_f57e27cb@@YAXPAVNonCopyable_322320@pure3d@@@Z"],
+   "0x00322490": ["?thunk_FUN_00267090@fn_00322490@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x00323ca0": ["?thunk_FUN_00267090@pure3d@fn_00323ca0@@YAXPAUHelper_323ca0@12@@Z"],
+   "0x00323cd0": ["?thunk_FUN_00267090@fn_00323cd0@@YAXPAX@Z"],
+   "0x003245b0": ["?thunk_FUN_00267090@fn_003245b0@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/platform/xbox/pure3d/d3dFBEffectsShader.cpp": {
+   "0x00328770": ["?SweepTrack_DeleteThis_0008d330@fn_fb517155@@YAXPAX@Z"]
+  },
+  "src/platform/xbox/pure3d/d3dLayeredLMapShader.cpp": {
+   "0x0032eb40": ["?thunk_FUN_00267090@fn_ff3206d0@@YAXPAUd3dLayeredLMapShader_32eb40@1@@Z"]
+  },
+  "src/platform/xbox/pure3d/d3dPointSpriteShader.cpp": {
+   "0x0032d390": ["?thunk_FUN_00267090@fn_f3432927@@YAXPAX@Z"]
+  },
+  "src/platform/xbox/pure3d/d3dSimpleShader.cpp": {
+   "0x0032aa30": ["?thunk_FUN_00267090@fn_f1389006@@YAXPAX@Z"]
+  },
+  "src/platform/xbox/pure3d/d3dTexture.cpp": {
+   "0x00326c40": ["?thunk_FUN_00267090@fn_00326c40@@YAXPAX@Z"]
+  },
+  "src/platform/xbox/pure3d/d3dToon2VertexShader.cpp": {
+   "0x0032ffe0": ["?thunk_FUN_00267090@fn_f6ae905d@@YAXPAVd3dToon2VertexShader_32ffe0@1@@Z"]
+  },
+  "src/platform/xbox/pure3d/d3dToonVertexShader.cpp": {
+   "0x00330d90": ["?thunk_FUN_00267090@fn_f44f442a@@YAXPAVd3dToonVertexShader_330d90@1@@Z"]
+  }
+ }
+}
