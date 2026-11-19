@@ -105,9 +105,11 @@ class Parsing(unittest.TestCase):
                                         "0123456789ab")[0])
         self.assertFalse(tree_tu.proves(dict(good, tree_code={"n_inputs": 3000}), "msvc", "0123456789ab")[0])
         self.assertFalse(tree_tu.proves(good, "wine", "0123456789ab")[0])           # an MSVC run proves no clang code
-        wine = {"native": True, "status": "equivalent", "level3": {"inputs_run": 3000, "inputs_faulted": 100},
+        wine = {"native": True, "status": "equivalent", "promotable": True,
+                "level3": {"inputs_run": 3000, "inputs_faulted": 100},
                 "tree_code": {"wine": "aaaaaaaaaaaa", "n_inputs": 3000, "x87_keep": 0}}
         self.assertTrue(tree_tu.proves(wine, "wine", "aaaaaaaaaaaa")[0])
+        self.assertFalse(tree_tu.proves(dict(wine, promotable=False), "wine", "aaaaaaaaaaaa")[0])   # (D151)
         self.assertFalse(tree_tu.proves(dict(wine, tree_code=dict(wine["tree_code"], x87_keep=3)), "wine",
                                         "aaaaaaaaaaaa")[0])
         self.assertFalse(tree_tu.proves(dict(wine, status="mismatch"), "wine", "aaaaaaaaaaaa")[0])
