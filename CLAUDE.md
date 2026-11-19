@@ -85,6 +85,12 @@ Never leave an unchecked local commit on the shared main: another agent's push p
 (`git commit-tree` + `git update-ref refs/heads/<agent>`) and push `<sha>:refs/heads/main` once checked (in zsh write
 `${C}:refs/...`; `$C:r` is a history modifier). When a block casts `this` to a record, declare the class as that record:
 `--x64` builds `this` from the declared class, and an owners.h pad stub is read past its end natively.
+A 5-byte `jmp` vftable slot listed "not yet verified" is a real function: give it a block (`void X::f() { Base::f(); }` on
+the record view; MSVC 7.1 emits the jump), or the native vftable holds a `hulk_x_` stub there. A .data structure whose
+words point into itself (a tree's sentinel) is one records.h record: separate items are not adjacent natively. One
+namespace-scope name standing for several objects (`gObj`) passes verify_relocs block by block but binds to one item:
+write each block's own DAT_ name. A private `--workspace` is built from the checkout's HEAD at submit time (older overlay
+files silently revert newer commits); record `hash --proven` from a queue job on the final files (audio1, D140).
 A caller's declaration must never become the same function as a definition in its own TU (MSVC inlines the call); keep it
 a distinct overload, e.g. a `void *` or hulk_intptr parameter, which binds natively like the pointer.
 A float local the listing only loads and stores (`mov`, or `fld`/`fst` with no arithmetic) stays `float`; `hulk_freg` is
