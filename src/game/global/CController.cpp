@@ -803,8 +803,18 @@ void CController_ae5a0::Process() {
     }
 }
 
-// 0x000ae620 thunk_FUN_000b10d0 (5 B): not yet verified
 } // namespace fn_fac5a26d
+
+// 0x000ae620 thunk_FUN_000b10d0 (5 B): matches/0x000ae620.cpp
+// sym: @thunk_FUN_000b10d0@4
+// (find3) a jmp thunk to the controller set-up 0x000b10d0 (CPhysicalController.cpp). Its caller 0x00088020 passes the
+// controller manager in ecx (`extern "C" void __fastcall thunk_FUN_000b10d0(void*)`), which 0x000b10d0 does not read.
+// Natively the thunk had no definition, so the controllers were never set up (missing-continue, then a crash in the
+// game controller's constructor 0x000af110 calling the null device).
+namespace fn_000b10d0 { void FUN_000b10d0(); }
+extern "C" void __fastcall thunk_FUN_000b10d0(void*) {
+    ::fn_000b10d0::FUN_000b10d0();
+}
 
 // 0x000ae640 FUN_000ae640 (25 B): matches/0x000ae640.cpp
 // sym: ?FUN_000ae640@C_ae640@owners@@QAEHH@Z
