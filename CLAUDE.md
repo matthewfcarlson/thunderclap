@@ -79,6 +79,12 @@ An interactive zsh does not word-split `$VAR`: build `jobq.py submit --files $F`
 list fails remotely as `ssh/remote exit 1` showing the file list).
 Large additions to a header most TUs reach (records.h, owners.h) can change MSVC 7.1's code in TUs that don't use them:
 run the whole-tree check before building on them, or put new records in a header only their TUs include (D74, D77).
+A records.h, owners.h or include/gen edit has not landed until a whole-tree `tree_tu.py verify . --relocs` (queue job, all
+TUs) shows no `code_changed`; 0x00027930, 0x000b86b0, 0x002e9c60, 0x002ea3c0 and 0x001a9b10 are known to move (D139).
+Never leave an unchecked local commit on the shared main: another agent's push publishes it. Build it on a side ref
+(`git commit-tree` + `git update-ref refs/heads/<agent>`) and push `<sha>:refs/heads/main` once checked (in zsh write
+`${C}:refs/...`; `$C:r` is a history modifier). When a block casts `this` to a record, declare the class as that record:
+`--x64` builds `this` from the declared class, and an owners.h pad stub is read past its end natively.
 A caller's declaration must never become the same function as a definition in its own TU (MSVC inlines the call); keep it
 a distinct overload, e.g. a `void *` or hulk_intptr parameter, which binds natively like the pointer.
 A float local the listing only loads and stores (`mov`, or `fld`/`fst` with no arithmetic) stays `float`; `hulk_freg` is
