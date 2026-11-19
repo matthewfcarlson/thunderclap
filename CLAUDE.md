@@ -81,7 +81,10 @@ list fails remotely as `ssh/remote exit 1` showing the file list). A queue job's
 Large additions to a header most TUs reach (records.h, owners.h) can change MSVC 7.1's code in TUs that don't use them:
 run the whole-tree check before building on them, or put new records in a header only their TUs include (D74, D77).
 A records.h, owners.h or include/gen edit has not landed until a whole-tree `tree_tu.py verify . --relocs` (queue job, all
-TUs) shows no `code_changed`; 0x00027930, 0x000b86b0, 0x002e9c60, 0x002ea3c0 and 0x001a9b10 are known to move (D139).
+TUs) shows no `code_changed`. MSVC 7.1 orders two equal spill slots by the TU's symbol-table state, so 0x00027930,
+0x000b86b0, 0x001a9b10, 0x002e9c60 and 0x002ea3c0 flip between two proven variants when unrelated declarations change
+(D139, integ3): re-pin them with `tree_tu.py hash TU --from-ledger --addr A` (no run; it refuses unless the ledger proves
+that exact code and view in every mode).
 Never leave an unchecked local commit on the shared main: another agent's push publishes it. Build it on a side ref
 (`git commit-tree` + `git update-ref refs/heads/<agent>`) and push `<sha>:refs/heads/main` once checked (in zsh write
 `${C}:refs/...`; `$C:r` is a history modifier). When a block casts `this` to a record, declare the class as that record:
