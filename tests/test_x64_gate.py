@@ -13,6 +13,7 @@
   build/venv/bin/python -m unittest tests/test_x64_gate.py
 """
 import contextlib
+import io
 import json
 import os
 import re
@@ -916,6 +917,45 @@ class Rtti(unittest.TestCase):
         self.assertEqual([r["verdict"] for r in res["rtti"]], ["rtti_fixed"])
         self.assertEqual(g.update_rtti_baseline(res, base), [LOCAL])
         self.assertEqual(base["sites"], {})
+
+    def test_ratchet_head(self):
+        """(integ3) `check --head C --update-baseline` lowers C's copy of the RTTI baseline (the rows are against it)
+        and writes it only over a working-tree copy that is C's own; a dirty copy is refused, not merged."""
+        r = os.path.join(self.tmp.name, "repo")
+        os.makedirs(os.path.join(r, "config"))
+        sh = lambda *a: subprocess.run(["git"] + list(a), cwd=r, check=True, capture_output=True, text=True).stdout
+        sh("init", "-q")
+        sh("config", "user.email", "t@example.invalid")
+        sh("config", "user.name", "t")
+        bp = os.path.join(r, "config", "rtti-baseline.json")
+        two = {"sites": {LOCAL: {"count": 2, "by": "rtti-seed", "accepted": "t"},
+                         "src/b.cpp|-|?AVM@@": {"count": 1, "by": "rtti-seed", "accepted": "t"}}}
+        with mock.patch.object(g, "RTTI_BASELINE", bp):
+            g.write_rtti_baseline(json.loads(json.dumps(two)), bp)
+        sh("add", "-A")
+        sh("commit", "-qm", "seed")
+        res = {"rows": [], "failed": False, "summary": {}, "native": [],
+               "rtti": [{"key": LOCAL, "tu": "src/game/T.cpp", "addr": LOCAL.split("|")[1], "td": LOCAL.split("|")[2],
+                         "verdict": "rtti_fixed", "count": 1, "base": 2}]}
+        pats = [mock.patch.object(g, "ROOT", r), mock.patch.object(g, "RTTI_BASELINE", bp),
+                mock.patch.object(g, "gate", lambda *a, **k: res), mock.patch.object(g, "update_baseline", lambda *a, **k: []),
+                mock.patch.object(g, "load_baseline", lambda *a, **k: {}), mock.patch.object(g, "_job", lambda: None)]
+        for p_ in pats:
+            p_.start()
+        try:
+            with mock.patch("sys.stdout", new=io.StringIO()):
+                g.main(["check", "--head", "HEAD", "--changed-since", "HEAD", "--update-baseline", "--json"])
+            got = g.load_rtti_baseline(bp)["sites"]
+            self.assertEqual(got[LOCAL]["count"], 1)
+            self.assertIn("src/b.cpp|-|?AVM@@", got)
+            sh("checkout", "-q", "--", "config/rtti-baseline.json")            # back to HEAD's copy
+            with open(bp, "a") as f:
+                f.write("\n")                                                    # someone else's edit
+            with mock.patch("sys.stdout", new=io.StringIO()), self.assertRaises(SystemExit):
+                g.main(["check", "--head", "HEAD", "--changed-since", "HEAD", "--update-baseline", "--json"])
+        finally:
+            for p_ in pats:
+                p_.stop()
 
     def test_growth(self):
         seed = {"sites": {LOCAL: {"count": 1, "by": "rtti-seed", "accepted": "t0"}}}

@@ -1645,6 +1645,26 @@ def main(argv=None):
             if ch_:
                 write_rtti_baseline(rb)
             res["summary"]["rtti_baseline_lowered"] = ch_
+        else:
+            # (integ3) --head: the rows are against COMMIT's baseline, so COMMIT's copy is lowered; it is written over
+            # the working tree's only when that copy is COMMIT's own (a dirty or other copy is refused, not merged)
+            hd_ = rev(a.head)
+            rb = rtti_baseline_at(hd_)
+            if not rb.get("missing"):
+                ch_ = update_rtti_baseline(res, rb)
+                if ch_:
+                    rel_ = os.path.relpath(RTTI_BASELINE, ROOT)
+                    r_ = _git("show", "%s:%s" % (hd_, rel_))
+                    try:
+                        with open(RTTI_BASELINE) as f_:
+                            cur_ = f_.read()
+                    except OSError:
+                        cur_ = None
+                    if r_.returncode or cur_ != r_.stdout:
+                        raise SystemExit("x64_gate: --update-baseline --head: %s differs from %s's copy; not written "
+                                         "(restore it to %s's or run without --head)" % (rel_, hd_[:10], hd_[:10]))
+                    write_rtti_baseline(rb)
+                res["summary"]["rtti_baseline_lowered"] = ch_
     print(json.dumps({"summary": res["summary"], "failed": res["failed"],
                       "new": [r for r in res["rows"] if r["verdict"] in ("new", "unchecked")],
                       "triage": [r for r in res["rows"] if r["verdict"] == "triage"],
