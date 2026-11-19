@@ -74,6 +74,7 @@ TRIAGE = ("wild64",)
 SETTINGS = {"inputs": 200, "time_budget": 60}
 KEYVER = "x64key2"      # (integ2, D97) x64key2: the block's 32- and 64-bit symbols are part of its code key
 LOCAL_MAX = 4
+JOB_PER = 2         # blocks (= slots) per queue job (integ3: was 4; a 4-slot job waits for 4 free slots on one host)
 
 
 # ------------------------------------------------------------------------------------------------------ classes
@@ -786,7 +787,8 @@ def run_blocks(items, mode="auto", jobs=2, name="x64gate", commit=None, workdir=
         else:
             jobq.collect_files = lambda specs, dirty=False, **kw: {**orig_cf(specs, dirty, **kw), **jf}
         try:
-            return jobq_equiv.run_items(name, items, out, equiv_args(), per=4, dirty=not commit, quiet=quiet)
+            # (integ3, recs1) 2 blocks (2 slots) per job: 4-slot gate jobs starved behind 1-slot work in the queue
+            return jobq_equiv.run_items(name, items, out, equiv_args(), per=JOB_PER, dirty=not commit, quiet=quiet)
         finally:
             jobq.collect_files, jobq.head_commit, jobq.make_job = orig_cf, orig_hc, orig_mj
     finally:
