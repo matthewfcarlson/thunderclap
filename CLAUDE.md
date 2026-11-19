@@ -176,6 +176,8 @@ addresses (script2).
   TUs, reachable headers or read config files have unshipped local edits; ship them (`--dirty`; `--files config/data.json`,
   which `--dirty` skips at >8 MB) or pass `--head-only` to check the commit on purpose. `verify` also runs
   `gen_headers.py --probe` when include/gen/ changed and fails on data overreach (docs/merge-once.md "Checks beyond the blocks").
+- **Data inventory changes** are regenerated and verified on the HEAD they land on: sources feed the inventory, so a
+  rebase re-runs `data_inventory.py` (twice, for the source_type fixed point) and data_gen (data5).
 - **Stale inputs**: the data TUs (`build/data/src`), `hulk_sdl.lib`, `hulk_movies.lib` and the pddi-win32 objects are local,
   generated inputs; `submit` and the host refuse stale ones (`tools/input_guard.py status` shows what submit would decide).
   A control and its proof take the same inputs (`--data-src` / `--sdl-src` for private copies); `--allow-stale` is not a fix.
