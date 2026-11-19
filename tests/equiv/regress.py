@@ -904,7 +904,9 @@ CASES = {
     # round 22 (cl11)
     # crtarity: `push 0; push T; push S; push 0; call [vt+0x10]; push eax; call __RTDynamicCast`: the four words are the cast's
     "0x000f1ab0_native_crtarity": ("equivalent", None, 0, {"native": True, "n_inputs": 60}),
-    "0x000f1ab0_native_crtarity_off": ("fail", "argument 1", 0, {"src": "0x000f1ab0_native_crtarity", "native": True, "n_inputs": 60, "equiv_off": "crtarity,vsplit"}),
+    # (integ3 chk3) thiscallpend reaches the same split by itself (the virtual takes `this` in ecx, so the words the cast's
+    # `add esp` releases were the cast's): switched off too, or _off passes
+    "0x000f1ab0_native_crtarity_off": ("fail", "argument 1", 0, {"src": "0x000f1ab0_native_crtarity", "native": True, "n_inputs": 60, "equiv_off": "crtarity,vsplit,thiscallpend"}),
     "0x000f1ab0_native_crtarity_wrong": ("fail", None, 0, {"native": True, "n_inputs": 60}),
     # calleext: FUN_00356bf0(.., float *x, float *y, float *z) reads 4 bytes through each; the neighbours of &dir.z are other locals
     "0x002d21c0_native_calleext": ("equivalent", None, 0, {"native": True, "n_inputs": 60}),
@@ -1143,6 +1145,31 @@ CASES = {
     # header (a source fix, not a checker rule: the order the original has)
     "0x0021b230_wine_order": ("equivalent", None, 0, {"native": True, "seeds": [8, 24, 54]}),
     "0x0021b230_wine_order_wrong": ("fail", "write to", 0, {"native": True, "seeds": [8, 24, 54]}),
+    # (integ3 chk3, hoist) `push 2; je L; call [edx+0x40]; ... L: call [eax+0x40]`: MSVC hoists the word both calls take
+    # above the branch, and vcall_scan's stack-depth model gave each call only the words pushed in its own straight line
+    # (feasible pops {0}, so clang's `vf16(2)` was "4 bytes that belong to another call"). _wrong: slot 16 declared with a
+    # second (defaulted) word, 8 bytes where the hoisted push gives it at most 4
+    "0x00081b20_native_hoist": ("equivalent", None, 0, {"native": True, "n_inputs": 200}),
+    "0x00081b20_native_hoist_off": ("fail", "belong to another call", 0, {"src": "0x00081b20_native_hoist", "native": True,
+                                                                         "n_inputs": 20, "equiv_off": "hoist"}),
+    "0x00081b20_native_hoist_wrong": ("fail", "passes it 8 bytes", 0, {"native": True, "n_inputs": 20}),
+    # (integ3 chk3, thiscallpend) fix126's source for 0x002b2040: `push [esi+0x3c]; call [edx+0x4c]` (IsFrozen, a
+    # __thiscall virtual with no argument) pushes FUN_002899e0's 8th word early, and the `add esp, 0x20` after that cdecl
+    # call releases it. The word was taken for IsFrozen's (caller-cleaned) argument. _wrong: IsFrozen declared taking it
+    "0x002b2040_thiscallpend": ("equivalent", None, 0, {"n_inputs": 300}),
+    "0x002b2040_wine_thiscallpend": ("equivalent", None, 0, {"src": "0x002b2040_thiscallpend", "native": True, "n_inputs": 300}),
+    "0x002b2040_thiscallpend_off": ("fail", "argument 1 is", 0, {"src": "0x002b2040_thiscallpend", "n_inputs": 20,
+                                                                 "equiv_off": "thiscallpend"}),
+    "0x002b2040_thiscallpend_wrong": ("fail", "the original's call takes 0", 0, {"n_inputs": 20}),
+    "0x002b2040_wine_thiscallpend_wrong": ("fail", "the original's call takes 0", 0, {"src": "0x002b2040_thiscallpend_wrong",
+                                                                                      "native": True, "n_inputs": 20}),
+    # must-pass: a __thiscall virtual that pops its own word, then `push ...; call f; add esp, 4*k` releasing only f's
+    # (0x002de520 `push ebx; call [eax+0x38]`, then FUN_00344e74's five words and `add esp, 0x14`; 0x002de3f0's vcall at
+    # 0x2de4c4, pending_use ("callee", 3)): thiscallpend leaves the virtual its words, both modes stay equivalent
+    "0x002de520_thiscall_own": ("equivalent", None, 0, {"n_inputs": 200}),
+    # (0x002de520 --wine fails at HEAD too, `call #2 went to 0x00000000 instead of 0xc5bcba4c`: a source matter, no case)
+    "0x002de3f0_thiscall_own": ("equivalent", None, 0, {"src": "0x002de520_thiscall_own", "n_inputs": 200}),
+    "0x002de3f0_wine_thiscall_own": ("equivalent", None, 0, {"src": "0x002de520_thiscall_own", "native": True, "n_inputs": 200}),
 }
 
 # verify_relocs.py cases: name -> (expected status, issue kind it must report or None)

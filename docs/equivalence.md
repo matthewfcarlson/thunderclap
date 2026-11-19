@@ -438,6 +438,42 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
     unconstrained calls are not checked. `tools/vcall_scan.py` runs the same comparison statically over a Wine build's
     objects (all of HEAD on 2026-11-02: 5,411 paired indirect calls, no finding but 0x0013d7b0; two false positives, a
     helper not inlined by clang (0x001050d0) and an `equiv-conv` register argument (0x001e5720)).
+  - `hoist` (integ3 chk3, 2026-11-19): MSVC hoists a word that both sides of a branch pass to their own call above the
+    branch (0x00081b20: `push 2; je L; call [edx+0x40]; ...; L: call [eax+0x40]`). The model's pop variable only counted
+    the words pushed in the call's own straight line, so both calls got {0} and clang's `vf16(2)` failed as "4 bytes that
+    belong to another call". Now the words pushed after the last call before a conditional jump also count for the
+    straight line that falls through it and for the one that starts at its target (feasible pops of the two calls: {0, 4};
+    a declaration with 8 bytes still fails, case `0x00081b20_native_hoist_wrong`). The wider domains passed the 50,000
+    cap of the brute-force solver (622,080 combinations for 0x00081b20), which is replaced by an exact one: the equalities
+    are reduced to row echelon form and only the free variables are enumerated (the pivots follow and must lie in their
+    domains). With `hoist` off it gives the old model's feasible sets for every function the old one resolved (30,559 of
+    30,836 XBE functions, identical) and resolves 89 more. Cases `0x00081b20_native_hoist[_off,_wrong]`.
+  - `clangadj` (integ3 chk3): `clang_pop_after` reads clang's re-reserving `sub esp, N` after a callee-popped call, which
+    exists only where the prologue reserves the outgoing-argument area. A function that can't reserve it (a base-pointer
+    frame, `and esp, -8; sub esp, N; mov esi, esp`: 0x00081b20) opens an area before each call (`sub esp, 4; mov [esp],
+    x`) and, for a caller-popped one, releases it right after; the forward scan then took the NEXT call's `sub esp` for
+    this call's pop (0x00081b20's `call [eax+0x2c]` (no argument) as 4 bytes) and, for a call with arguments, missed its
+    own (with `hoist` alone, slot 16 declared with 8 bytes read as 4 and passed). Told apart by the function's own code
+    (some `sub esp` after the prologue's that does not follow a call): there, a call's pop is its own area (the `sub esp`
+    and pushes back to the previous call), 0 when an `add esp` follows it. The tree has 21 such functions (a by-value
+    struct argument copied onto the stack, `mov eax, esp; ...; mov esp, ecx`, is the usual reason); every caller-popped
+    call in them is a direct one, which `clang_pop_after` doesn't read, and the last call before an epilogue (`lea esp,
+    [ebp-N]`, `mov esp, ebp`) is read like any other (0x00081b20's `call [eax+0x18]`, 8 bytes, which the old scan left
+    unread at the `lea esp`). `tools/vcall_scan.py`'s solver is checked against the brute force it replaced, kept as
+    `_solve_brute`, by tests/test_vcall_scan.py (random systems, and the systems of 4,000 XBE functions).
+  - `thiscallpend` (integ3 chk3): a word pushed before a virtual call that a later `add esp` releases was taken for the
+    virtual's caller-cleaned argument (`pending_use` "caller"). A virtual called with `this` in ecx is `__thiscall`, whose
+    callee pops its own stack arguments (an MSVC member that leaves them to its caller is `__cdecl` and gets `this`
+    pushed): so when the release comes after a direct call, the words were that call's, pushed early (fix126's source
+    for 0x002b2040: `push [esi+0x3c]; call [edx+0x4c]` (IsFrozen, no argument); ...; `call FUN_002899e0; add esp, 0x20`
+    releases its 8 words, the early one included). The original's call then takes none, and an MSVC object whose k-th
+    call passes words (a declaration with an argument) fails with the `vcall` message too, which `vcall` itself leaves
+    out for an original call that takes none (above). Not applied when the last word pushed is the object the vtable was
+    read from (`mov eax, [esi]; push esi; call [eax+N]`: a `__cdecl` member, ecx holding the same object by chance).
+    Cases `0x002b2040_[wine_]thiscallpend[_off,_wrong]`; must-pass `0x002de520_thiscall_own` (its --wine run fails at HEAD on a call target, a source matter) and
+    `0x002de3f0_[wine_]thiscall_own` (a virtual that pops its own word before `push ...; call f; add esp, 4*k`: pending_use
+    gives None at 0x002de558 (the pops after the clean-up end its walk) and ("callee", 3) at 0x002de4c4; the rule needs
+    "caller" and leaves both alone).
 - (round 17, cl5) Three gaps native14 found, each switchable (`EQUIV_OFF=name`; `RELOC_OFF=thisdecl` / `COMPARE_OFF=thisdecl`
   for compare.py and verify_relocs). Old behaviour = `EQUIV_OFF=ftolexact,ptrext,thisdecl`.
   - `ptrext`: the bytes a callee reads through a pointer into the caller's frame. The extent of a scalar or unknown
@@ -2428,63 +2464,7 @@ verdict) is re-checked (x64t12).
 `--update-baseline` drops it), `known-unclear` (in the baseline, now another class, unsupported or inconclusive: kept), `ok`, `other` (a
 non-gating class, reported), `triage` (a `wild64` failure: listed apart for a look, never failing; mostly fuzzed indexes
 wrapping at 2^32 on i386, but an unsigned negative step `p += (unsigned)-k` is a real bug of that shape). Key errors (a
-TU the gate couldn't key) fail too. (integ3, rev5) An `equiv.py --x64` **compile_error** is a gating class too
-(`new` unless the baseline lists it; `accept ADDR --class compile_error --why TEXT` admits one): the block's 64-bit code
-was never checked. A cached compile_error without a checker record (stored before the no-checker rule) is run again,
-since it can come from another text with the same code (a `(unsigned int)sizeof` fix changes no byte).
-
-(integ3, x64syn) **Native front ends.** `equiv.py --x64` compiles an x86_64-pc-windows-msvc object with equiv64's
-own flags (`-w`, without the native builds' COMMON and W64 sets), so a TU that the real native builds refuse could
-pass every block. The gate therefore also runs each candidate TU (head side) through the native builds' own front
-ends with `-fsyntax-only`: **macos-arm64** (tools/native_mac.py `FRONT`, aarch64-pc-windows-msvc, which android-arm64
-shares) and **linux-x64** (tools/native_elf.py `flags("linux-x64")` with its Toolchain's clang++), plus
-clang_probe.common_native(); only `-S -emit-llvm` is swapped for `-fsyntax-only`, and the TU is compiled as the
-native compile reads it from the snapshot (verbatim, `-I` the tree's include/: the snapshot's include/ is
-materialize's copy of a subset of it and its repo-include/ all of it, so one directory resolves every name alike). The front ends use the Windows
-triples, so no sysroot or NDK is needed. android-arm64's front end is native_mac's (the same triple and
-flags, `NativeSyntax.test_android_front_is_the_macos_one`); only its compiler, the NDK's clang, differs. Rows: `native_syntax` (**fails**; names the TU, the target and its first
-error lines), `known` (reported: the TU's text is REF's and REF failed with these errors, as multisets, so no error's
-count grows (rev5 R1): an error in a file the change didn't touch is matched by file, line and message, one in a file
-it did by file and message; i.e. a header edit made every TU a candidate and the error isn't the change's; a TU whose own text changed, or a new one, fails on
-any error), `native_syntax_unavailable` (**fails**, one row per target: no clang++, or one that can't parse for the
-target's triple; like `unchecked`, the gate can't vouch for what it didn't check). Results are cached in
-build/tree-cache/x64gate/syntax/ by the TU's text and path, its include closure, the target's flags and the compiler's
-version line (failures too: they give no credit; a timeout isn't cached). `X64_GATE_OFF=native` leaves the pass out
-for diagnosis only, and the summary says `native_syntax: off`. Cost: ~0.05-1 s per TU per target. Codegen-only
-errors (`cannot compile this ... yet`, mangling) are not seen by `-fsyntax-only`; the native build's compile reports
-them.
-
-(integ3, 9a) **RTTI names.** The linux-x64 run of the native pass goes on to LLVM IR (`-S -emit-llvm
--gline-tables-only`, still no object: codegen errors are seen too). Two things are read from that IR:
-
-- **Cast sites**: every `??_R0` type descriptor an instruction inside a function body references (a dynamic_cast's
-  source and target, a typeid(T)), with the instruction's debug line and file. Grouped by (TU, the block whose lines
-  hold it, `-` for a TU line outside every block, or the header's path, descriptor).
-- **Complete object locators** (rev5 R2): every `??_R4` the IR defines (COMDAT or not: each vftable clang emits), and
-  the `??_R0` descriptors reached from it through `??_R3` -> `??_R2` -> `??_R1` (its own class and every base).
-  Grouped by (TU, `col:<owner>`, descriptor), OWNER being the descriptor of the class whose vftable it is. Natively a
-  dynamic_cast or typeid on an object reads its vftable's locator, so a non-game name there fails the same way.
-
-Natively the runtime compares descriptors by name with the game's (src/platform/sdl/host/rtti_msabi.cpp
-`unwrapped()`): the decorated name, then the name without the tree's wrapping namespaces, `fn_` + 8 lowercase hex +
-`@` dropped only right after an `@` (rev5 R1: `?AVX_fn_0123abcd@@` keeps it; `Rtti.test_unwrap_matches_runtime` runs
-the runtime's own function on the table where a host compiler exists). A name is exact when that form is one of the
-game's descriptors (config/data.json's `rtti_td` items: every descriptor of the XBE). A non-exact one fails natively;
-the Wine link hides it (tools/wine_link.py native9/native12 map clang's ??_R0 onto the game's by leaf name or without
-the `_<address>` suffix; find2's castscan). Verdicts per group, against config/rtti-baseline.json:
-**rtti_inexact** / **rtti_col_inexact** (more than the baseline holds: **fails**), `rtti_known` / `rtti_col_known`,
-`rtti_fixed` / `rtti_col_fixed` (fewer: `check --update-baseline` lowers the entry, drops it at 0). The baseline only
-shrinks: the gate also **fails** when an entry is new or its count is higher than REF's file says
-(`rtti_baseline_grew`), unless the entry's own stamp is a new `by: rtti-accept` (or `by: rtti-seed` when REF had no
-file), and when the file was deleted. `x64_gate.py rtti-accept TU ADDR DESCRIPTOR --why TEXT` adds one (ADDR a block,
-`-`, a header path or `col:<owner>`; the site must exist and be non-exact now); `rtti-seed --why TEXT` wrote the first
-list (once). The file is `{"comment", "seed_why", "total", "tus": {TU: {"<addr or col:owner>|<descriptor>": entry}}}`,
-TUs and keys sorted, one TU per block and one entry per line (a fix diffs as a few lines in one place); an entry is a
-bare count (seed-stamped) or `{count, accepted, by, why}` (rtti-accept's); the first, flat shape is refused. The
-summary carries `rtti_baseline: N` (sites listed) and `rtti_baseline_entries`. Seeded at 19ddec138: 4,804 sites (4,695 entries) in
-945 TUs: cast sites 184 (150 entries) in 38 TUs, the same (TU, descriptor) multiset as find2's build/find2/casts-a.json;
-locator descriptors 4,620 (4,545 entries, 3,092 distinct names; `?AUScriptFunctionFields@@` alone in 512 TUs).
-`X64_GATE_OFF=rtti` leaves the check out (diagnosis only; the summary says so).
+TU the gate couldn't key) fail too.
 
 **Cost.** Keys: one i686 and one x86-64 clang compile per candidate TU per side (~0.2 s per TU each on a quiet machine).
 A header edit makes every one of the ~2,700 TUs a candidate: the validation keyed the whole tree on both sides in ~12

@@ -96,6 +96,22 @@ class Original:
         vars_ = []                      # [(insn addr, domain)]
         var_at = {}
 
+        # (integ3, hoist) the conditional jumps into each instruction, for pushes hoisted above a branch
+        preds = collections.defaultdict(list)
+        for k_, i_ in enumerate(ins):
+            m_ = i_.mnemonic
+            if m_.startswith("j") and m_ != "jmp" and i_.operands and i_.operands[0].type == x86.X86_OP_IMM and \
+                    i_.operands[0].imm in by:
+                preds[by[i_.operands[0].imm]].append(k_)
+
+        def pending_before(j):
+            # pushes in the straight line that ends at ins[j], back to the last call (or jump) before them
+            n = 0
+            while j >= 0 and ins[j].mnemonic not in ("ret", "call") and not ins[j].mnemonic.startswith(("j", "loop")):
+                n += ins[j].mnemonic == "push"
+                j -= 1
+            return n
+
         def var_for(k):
             if ins[k].address in var_at:
                 return var_at[ins[k].address]
@@ -108,6 +124,15 @@ class Original:
                 if m == "push":
                     n += 1
                 j -= 1
+            if not _off("hoist"):
+                # (integ3, hoist) MSVC hoists a push that both sides of a branch pass to their own call above the
+                # branch (0x00081b20: `push 2; je L; call [edx+0x40]; ... L: call [eax+0x40]`): the words pushed after
+                # the last call before a conditional jump are pending on its fall-through and at its target too
+                ent_ = []
+                if j >= 0 and ins[j].mnemonic.startswith("j") and ins[j].mnemonic != "jmp":
+                    ent_.append(j - 1)                  # the walk stopped at a conditional jump it falls through
+                ent_ += [s_ - 1 for s_ in preds.get(j + 1, ())]     # the straight line starts at a branch target
+                n += max([pending_before(e_) for e_ in ent_], default=0)
             v = len(vars_)
             vars_.append((ins[k].address, list(range(0, 4 * n + 1, 4))))
             var_at[ins[k].address] = v
@@ -230,24 +255,16 @@ class Original:
                 k = nxt
                 if k >= len(ins):
                     break
-        # solve: the variables that appear in constraints, by brute force over their domains
+        # solve: the variables that appear in constraints. (integ3) The constraints are linear equalities: reduced to
+        # row echelon form, only the free variables are enumerated over their domains (the pivots follow from them and
+        # must land in theirs). The same feasible values as the brute force over every domain it replaces, which ran
+        # past its cap once hoisted pushes widened a few domains (0x00081b20: 622,080 combinations, 3 free variables)
         used = sorted({v for c in constraints for v, _ in c[1]})
-        doms = [vars_[v][1] for v in used]
-        n = 1
-        for dm in doms:
-            n *= len(dm)
-        if n > 50000:
+        if any(c[0] != 0 for c in constraints if not c[1]):
             return None
-        feas = {v: set() for v in used}
-        ok_any = False
-        cons = [c for c in constraints]
-        for vals in itertools.product(*doms) if used else [()]:
-            asg = dict(zip(used, vals))
-            if all(c[0] + sum(coef * asg[v] for v, coef in c[1]) == 0 for c in cons):
-                ok_any = True
-                for v in used:
-                    feas[v].add(asg[v])
-        if not ok_any:
+        self.last_system = (used, [vars_[v][1] for v in used], constraints)     # (for tests/test_vcall_scan.py)
+        feas = _solve(used, [vars_[v][1] for v in used], constraints)
+        if feas is None:
             return None
         out = []
         for a, disp, v in indirect:
@@ -259,6 +276,99 @@ class Original:
                 dm = vars_[v][1]
                 out.append((a, disp, dm if len(dm) == 1 else None))     # unconstrained: unknown unless forced
         return out
+
+
+def _off(name):
+    """(integ3) A switch of equiv.py's EQUIV_OFF (its set when equiv.py imported this module, else the environment)."""
+    eq = sys.modules.get("equiv")
+    return name in (eq.EQUIV_OFF if eq is not None and hasattr(eq, "EQUIV_OFF") else os.environ.get("EQUIV_OFF", "").split(","))
+
+
+def _solve_brute(used, doms, constraints, cap=None):
+    """The solver _solve replaced (every combination of the domains), kept as tests/test_vcall_scan.py's oracle: the
+    same {variable: feasible values} or None (no solution, or more than CAP combinations)."""
+    n = 1
+    for dm in doms:
+        n *= len(dm)
+    if cap is not None and n > cap:
+        return None
+    if any(c[0] != 0 for c in constraints if not c[1]):
+        return None
+    cons = [c for c in constraints if c[1]]
+    feas = {v: set() for v in used}
+    ok_any = False
+    for vals in itertools.product(*doms) if used else [()]:
+        asg = dict(zip(used, vals))
+        if all(c[0] + sum(coef * asg[v] for v, coef in c[1]) == 0 for c in cons):
+            ok_any = True
+            for v in used:
+                feas[v].add(asg[v])
+    return feas if ok_any else None
+
+
+def _solve(used, doms, constraints, cap=200000):
+    """(integ3) {variable: feasible values} of the equalities CONSTRAINTS ((const, ((var, coef), ...)): const + sum
+    coef * var == 0) over USED with domains DOMS; None when no assignment satisfies them all or the enumeration of the
+    free variables passes CAP."""
+    from fractions import Fraction
+    if any(c[0] != 0 for c in constraints if not c[1]):
+        return None             # a constant equality that fails: no assignment satisfies the system
+    if not used:
+        return {}
+    # pivots preferably on the variables with the widest domains: the free ones are enumerated
+    order = sorted(range(len(used)), key=lambda i: -len(doms[i]))
+    col = {used[i]: c for c, i in enumerate(order)}
+    rows = []
+    for c in constraints:
+        if not c[1]:
+            continue
+        r = [Fraction(0)] * (len(used) + 1)
+        for v, coef in c[1]:
+            r[col[v]] += coef
+        r[-1] = Fraction(-c[0])
+        rows.append(r)
+    piv, ri = [], 0
+    for c in range(len(used)):
+        p = next((k for k in range(ri, len(rows)) if rows[k][c] != 0), None)
+        if p is None:
+            continue
+        rows[ri], rows[p] = rows[p], rows[ri]
+        f = rows[ri][c]
+        rows[ri] = [x / f for x in rows[ri]]
+        for k in range(len(rows)):
+            if k != ri and rows[k][c] != 0:
+                g = rows[k][c]
+                rows[k] = [x - g * y for x, y in zip(rows[k], rows[ri])]
+        piv.append(c)
+        ri += 1
+    if any(all(x == 0 for x in r[:-1]) and r[-1] != 0 for r in rows[ri:]):
+        return None
+    free = [c for c in range(len(used)) if c not in piv]
+    cdom = [doms[i] for i in order]
+    n = 1
+    for c in free:
+        n *= len(cdom[c])
+    if n > cap:
+        return None
+    dset = [set(d) for d in cdom]
+    feas = [set() for _ in used]
+    ok_any = False
+    for vals in itertools.product(*[cdom[c] for c in free]):
+        asg = dict(zip(free, vals))
+        good = True
+        for k, c in enumerate(piv):
+            x = rows[k][-1] - sum(rows[k][f] * asg[f] for f in free)
+            if x.denominator != 1 or int(x) not in dset[c]:
+                good = False
+                break
+            asg[c] = int(x)
+        if good:
+            ok_any = True
+            for c, x in asg.items():
+                feas[c].add(x)
+    if not ok_any:
+        return None
+    return {used[i]: feas[c] for c, i in enumerate(order)}
 
 
 def _sub(a, b):

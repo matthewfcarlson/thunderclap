@@ -2461,6 +2461,42 @@ class CodeView:
             a += j.size
         return None
 
+    def pushes_vptr_object(self, call_addr):
+        """(integ3, thiscallpend) `mov eax, [esi]; push esi; call [eax+N]`: the last word pushed before the virtual
+        call is the object its vtable was read from (a __cdecl member, `this` on the stack; ecx may hold the same
+        object by chance). Read back along the call's straight line."""
+        i = self.decode(call_addr)
+        if i is None or i.mem is None or not i.mem[1]:
+            return True
+        prev = sorted(a for a in self.insns if call_addr - 0x80 <= a < call_addr)
+        push_r, obj_r = None, None
+        for a in reversed(prev):
+            j = self.decode(a)
+            if j is None or j.kind != "other":
+                break
+            if j.mnemonic == "push" and push_r is None:
+                push_r = j.regs[0] if j.regs and not j.mem else ""
+            if j.mnemonic == "mov" and j.ops and j.ops[0] == ("reg", i.mem[1]) and j.mem is not None and \
+                    j.mem[1] and not j.mem[2] and not j.mem[4] and obj_r is None:
+                obj_r = j.mem[1]
+        return push_r is None or (obj_r is not None and push_r == obj_r) or obj_r is None
+
+    def direct_call_before_cleanup(self, call_addr):
+        """(integ3, thiscallpend) A direct call comes after CALL_ADDR, in its straight line, before the first `add esp`
+        that releases stack words."""
+        i = self.decode(call_addr)
+        a, seen = call_addr + i.size, False
+        for _ in range(64):
+            j = self.decode(a)
+            if j is None or j.kind in ("jmp", "jcc", "ret", "stop"):
+                return False
+            if j.kind == "call" and j.target is not None:
+                seen = True
+            if j.mnemonic == "add" and j.ops and j.ops[0] == ("reg", "esp") and j.imms:
+                return seen
+            a += j.size
+        return False
+
     def pending_use(self, call_addr, npending, _depth=0):
         """Who takes the npending argument words pushed before a call of unknown arity, from what the
         caller does with the stack afterwards: ("caller", n) when a later `add esp` releases them (the
@@ -2771,6 +2807,35 @@ class CodeView:
             a += j.size
         return n
 
+    def clang_adjusted(self, call_addr):
+        """(integ3, clangadj) clang reserves the outgoing-argument area in the prologue unless the function can't (a
+        variable-sized object, an opaque esp adjustment: such frames address locals through a base pointer, `and esp,
+        -8; sub esp, N; mov esi, esp`). Then it opens and releases an area around each call instead. Told apart by the
+        function's own code: with a reserved area the only `sub esp` after the prologue's is the one right after a call
+        whose callee popped its words. Returns (the function's instructions, the index of CALL_ADDR) for a function
+        that adjusts esp around its calls, else None."""
+        starts = sorted(getattr(self, "fn_starts", ()))
+        lo = max([a_ for a_ in starts if a_ <= call_addr], default=self.entry)
+        cache = self.__dict__.setdefault("_clangadj", {})
+        if lo not in cache:
+            hi = min([a_ for a_ in starts if a_ > lo], default=None)
+            seq, a, adj = [], lo, False
+            while (hi is None or a < hi) and len(seq) < 40000:
+                j = self.decode(a)
+                if j is None or (hi is None and j.mnemonic == "int3"):
+                    break
+                seq.append(j)
+                a += j.size
+            subs = [k for k, j in enumerate(seq) if j.mnemonic == "sub" and j.ops and j.ops[0] == ("reg", "esp")]
+            if subs and subs[0] < 8:
+                subs = subs[1:]             # the prologue's frame
+            adj = any(seq[k - 1].kind != "call" for k in subs)
+            cache[lo] = (seq, {j.addr: k for k, j in enumerate(seq)}) if adj else None
+        c_ = cache[lo]
+        if c_ is None or call_addr not in c_[1]:
+            return None
+        return c_[0], c_[1][call_addr]
+
     def clang_pop_after(self, call_addr):
         """(round 18, native) clang -O0 reserves the outgoing-argument area in the prologue and stores arguments
         with `mov [esp+k], x`. A callee that pops its arguments (thiscall, stdcall) is followed by `sub esp, N`
@@ -2779,6 +2844,28 @@ class CodeView:
         arguments, a `leave`/`mov esp, ebp` epilogue)."""
         i = self.decode(call_addr)
         a = call_addr + i.size if i is not None else None
+        adj_ = self.clang_adjusted(call_addr) if a is not None and "clangadj" not in EQUIV_OFF else None
+        if adj_ is not None:
+            # (integ3, clangadj) a function without a reserved argument area (see clang_adjusted): each call opens its
+            # own with `sub esp, N` (or pushes) before it and, when the callee leaves them, releases them with
+            # `add esp, N` right after it. A `sub esp` after a call opens the NEXT call's area: 0x00081b20's
+            # `call [eax+0x2c]` (no arguments) then `sub esp, 4; mov [esp], eax; call FUN_00284820` had the virtual
+            # taken for popping 4 bytes
+            seq_, k_ = adj_
+            if k_ + 1 < len(seq_) and seq_[k_ + 1].mnemonic == "add" and seq_[k_ + 1].ops and \
+                    seq_[k_ + 1].ops[0] == ("reg", "esp"):
+                return None                 # the caller releases the words: the callee pops none
+            n_ = 0
+            for j in reversed(seq_[max(0, k_ - 64):k_]):
+                if j.kind != "other" or j.mnemonic in ("leave", "pop") or \
+                        (j.mnemonic == "add" and j.ops and j.ops[0] == ("reg", "esp")):
+                    break                   # the previous call (or its clean-up), a branch: no area of this call's
+                if j.mnemonic == "push":
+                    n_ += 4
+                elif j.mnemonic == "sub" and j.ops and j.ops[0] == ("reg", "esp") and j.imms:
+                    n_ += j.imms[0]
+                    break
+            return n_ if 0 < n_ <= 0x400 and n_ % 4 == 0 else None
         for _ in range(10 if a is not None else 0):
             j = self.decode(a)
             if j is None:
@@ -4654,6 +4741,17 @@ class Run:
             else:
                 nargs = len(tracked)
                 p = 4 * nargs
+                if pu is not None and pu[0] == "caller" and "thiscallpend" not in EQUIV_OFF and \
+                        self.coverage is not None and self._is_virtual_on_ecx(insn) and \
+                        not self.view.pushes_vptr_object(insn.addr) and self.view.direct_call_before_cleanup(insn.addr):
+                    # (integ3, thiscallpend) a virtual call with `this` in ecx is __thiscall, and a __thiscall callee
+                    # pops its own stack arguments (a member that leaves them to its caller is __cdecl and gets `this`
+                    # pushed, not in ecx). So the words a later `add esp` releases after a direct cdecl call were never
+                    # this call's: they were pushed early for that call (0x002b2040: `push [esi+0x3c]; call
+                    # [edx+0x4c]` (IsFrozen, no argument); ...; call FUN_002899e0; add esp, 0x20 releases the 8 words
+                    # FUN_002899e0 takes, the early one included). The call takes none
+                    nargs, p, pu = 0, 0, ("callee", 0)
+                    self.inp.setdefault("arity_none", {})[len(self.calls)] = True
                 if pu is not None:
                     if pu[0] == "caller":
                         p = 0
@@ -4699,6 +4797,11 @@ class Run:
                         # call's" or "popped by the callee, with the next call's words in preset slots": the two
                         # look the same in the original, 0x0013d7b0 vs 0x0024da50).
                         self.vcall_mismatch = self.vcall_mismatch or (len(self.calls), p, learned[k_call][0])
+                    elif "vcall" not in EQUIV_OFF and p > 0 and k_call in self.inp.get("arity_none", ()) and \
+                            not self.view.native:
+                        # (integ3, thiscallpend) the original's k-th call is a __thiscall virtual that takes no word
+                        # (the words pending at it were a later call's): ours passes it some
+                        self.vcall_mismatch = self.vcall_mismatch or (len(self.calls), p, 0)
             # a caller-cleaned callee takes only the words it reads: pushes above them are pending for a
             # later call (`push eax; call getter; push eax; ...; call snprintf; add esp, 0x14`)
             take = min(nargs, semantic) if semantic is not None and p == 0 else nargs
@@ -8507,7 +8610,8 @@ def _static_icall_pops(entry):
     tools/vcall_scan.py's stack-depth model ({} when it can't resolve the function or the XBE isn't there)."""
     if entry is None:
         return {}
-    if entry not in _ICALL_MODEL:
+    key_ = (entry, "hoist" in EQUIV_OFF)     # (integ3: the model reads the switch: a regress case may set it)
+    if key_ not in _ICALL_MODEL:
         res = {}
         try:
             import vcall_scan
@@ -8520,8 +8624,8 @@ def _static_icall_pops(entry):
                         res[a] = set(feas)
         except Exception:
             res = {}
-        _ICALL_MODEL[entry] = res
-    return _ICALL_MODEL[entry]
+        _ICALL_MODEL[key_] = res
+    return _ICALL_MODEL[key_]
 
 
 def _callee_ext(prog, call, loc):
