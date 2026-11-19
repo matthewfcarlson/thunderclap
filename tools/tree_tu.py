@@ -1065,17 +1065,62 @@ def write_unproven_baseline(b, path=None):
     os.replace(path + ".tmp", path)
 
 
+class RefReadError(Exception):
+    """REF's copy of a file could not be read (an unknown ref, a git failure, a job without the ref): not the same as
+    the file being absent at REF."""
+
+
+def file_at_ref(ref, rel, root=None):
+    """(integ3, D126 follow-up) The text of REL (a path relative to the tree root) at commit REF, None when REF has
+    no such file; raises RefError when REF's copy can't be read. In a queue job (no git in the workspace) REF must be
+    the job's base commit (or a name the submit recorded for it): the copy is JOB_REF's when REL was shipped (absent
+    there: new in the shipped files), else the workspace's own (the commit's). Outside a job REF is verified
+    (`rev-parse --verify`) before the file is looked up, so a mistyped REF is an error, not an empty list."""
+    root = root or ROOT
+    m = job_meta()
+    if m is not None and subprocess.run(["git", "rev-parse", "--git-dir"], cwd=root,
+                                        capture_output=True).returncode != 0:
+        if ref not in m.get("refs", []) and ref != m.get("commit"):
+            raise RefReadError("in a queue job only the base commit (%s) is known, not %s"
+                               % (str(m.get("commit", "?"))[:10], ref))
+        p = os.path.join(root, JOB_REF, rel) if rel in m.get("shipped", []) else os.path.join(root, rel)
+        if not os.path.exists(p):
+            return None
+        with open(p) as f:
+            return f.read()
+    r = subprocess.run(["git", "rev-parse", "--verify", "--quiet", ref + "^{commit}"], cwd=root, capture_output=True,
+                       text=True)
+    if r.returncode:
+        raise RefReadError("no commit %s" % ref)
+    c = r.stdout.strip()
+    r = subprocess.run(["git", "ls-tree", "--name-only", c, "--", ":(top)" + rel], cwd=root, capture_output=True,
+                       text=True)
+    if r.returncode:
+        raise RefReadError("git ls-tree %s: %s" % (c[:10], r.stderr.strip()[:200]))
+    if not r.stdout.strip():
+        return None
+    r = subprocess.run(["git", "show", "%s:%s" % (c, rel)], cwd=root, capture_output=True, text=True)
+    if r.returncode:
+        raise RefReadError("git show %s:%s: %s" % (c[:10], rel, r.stderr.strip()[:200]))
+    return r.stdout
+
+
 def unproven_baseline_growth(ref, root=None):
     """(integ2, D126; rev5's R3) ["addr mode"] of the (addr, mode, code) entries config/unproven-baseline.json holds now
     that REF's didn't (new or another hash), unless that mode's own stamp says `by: unproven-accept`, or `by:
     unproven-seed` when REF had no list at all (the seed happens once); and ["(deleted)"] when REF had the list and
-    the tree doesn't. A determined hand-edit can still fake a stamp; review covers that, as for the x64 baseline."""
+    the tree doesn't. A determined hand-edit can still fake a stamp; review covers that, as for the x64 baseline.
+    (integ3, D126 follow-up) REF's copy comes from file_at_ref: in a queue job from JOB_REF or the workspace, and a
+    REF that can't be read fails closed (["(REF unreadable: ...)"]), never as "REF had no list"."""
     root = root or ROOT
-    r = subprocess.run(["git", "show", "%s:config/unproven-baseline.json" % ref], cwd=root, capture_output=True,
-                       text=True)
-    had = r.returncode == 0 and bool(r.stdout.strip())
-    before = json.loads(r.stdout).get("blocks", {}) if had else {}
-    path = os.path.join(root, "config", "unproven-baseline.json")
+    rel = "config/unproven-baseline.json"
+    try:
+        text = file_at_ref(ref, rel, root)
+        had = text is not None and bool(text.strip())
+        before = json.loads(text).get("blocks", {}) if had else {}
+    except (RefReadError, ValueError) as e:
+        return ["(REF unreadable: %s)" % str(e)[:200]]
+    path = os.path.join(root, rel)
     if had and not os.path.exists(path):
         return ["(deleted)"]
     now = load_unproven_baseline(path).get("blocks", {})

@@ -123,5 +123,68 @@ class Unproven(unittest.TestCase):
         self.assertEqual(t.unproven_baseline_growth("HEAD", repo), ["(deleted)"])
         self.assertEqual(t.failing({"unproven baseline grew without accept": 1}, unproven=False), 1)
 
+    def test_ref_unreadable_fails_closed(self):
+        """(integ3, D126 follow-up) a REF git can't resolve is an error the growth check reports, not "REF had no
+        list" (under which every seed stamp would vouch); a REF without the file is still the one seed."""
+        import subprocess
+        repo = os.path.join(self.d.name, "repo2")
+        os.makedirs(os.path.join(repo, "config"))
+        g = lambda *a: subprocess.run(["git", "-C", repo] + list(a), capture_output=True, text=True, check=True)
+        g("init", "-q")
+        g("config", "user.email", "t@example.invalid")
+        g("config", "user.name", "t")
+        open(os.path.join(repo, "README"), "w").write("x\n")
+        g("add", "-A")
+        g("commit", "-qm", "empty")
+        bp = os.path.join(repo, "config", "unproven-baseline.json")
+        seed = {"code": "a", "accepted": "2026-11-19", "by": "unproven-seed"}
+        t.write_unproven_baseline({"blocks": {"0x1": {"modes": {"msvc": dict(seed)}, "why": "x"}}}, bp)
+        self.assertEqual(t.unproven_baseline_growth("HEAD", repo), [])
+        grew = t.unproven_baseline_growth("no-such-ref", repo)
+        self.assertEqual(len(grew), 1)
+        self.assertTrue(grew[0].startswith("(REF unreadable: no commit no-such-ref"), grew)
+        self.assertIsNone(t.file_at_ref("HEAD", "config/unproven-baseline.json", repo))
+        with self.assertRaises(t.RefReadError):
+            t.file_at_ref("no-such-ref", "config/unproven-baseline.json", repo)
+
+    def test_in_job(self):
+        """(integ3, D126 follow-up) in a queue job's workspace (no git) REF's list is JOB_REF's copy when the list was
+        shipped, else the workspace's (the commit's): a seed stamp no longer vouches there, a shipped deletion is
+        seen, and a REF other than the job's base commit fails closed."""
+        ws = os.path.join(self.d.name, "ws")
+        os.makedirs(os.path.join(ws, "config"))
+        os.makedirs(os.path.join(ws, t.JOB_REF, "config"))
+        os.makedirs(os.path.dirname(os.path.join(ws, t.JOB_META)), exist_ok=True)
+        rel = "config/unproven-baseline.json"
+        seed = {"code": "a", "accepted": "2026-11-19", "by": "unproven-seed"}
+        one = {"blocks": {"0x1": {"modes": {"msvc": dict(seed)}, "why": "x"}}}
+        two = {"blocks": {"0x1": {"modes": {"msvc": dict(seed)}, "why": "x"},
+                          "0x2": {"modes": {"wine": dict(seed, code="b")}, "why": "hand"}}}
+
+        def meta(shipped):
+            with open(os.path.join(ws, t.JOB_META), "w") as f:
+                json.dump({"commit": "c0ffee", "refs": ["HEAD", "origin/main", "c0ffee"], "shipped": shipped}, f)
+            t._META.clear()
+
+        with mock.patch.object(t, "ROOT", ws), mock.patch.dict(os.environ, {"JOBQ_JOB": "1"}):
+            try:
+                t.write_unproven_baseline(json.loads(json.dumps(one)), os.path.join(ws, t.JOB_REF, rel))
+                t.write_unproven_baseline(json.loads(json.dumps(two)), os.path.join(ws, rel))
+                meta([rel])
+                self.assertEqual(t.unproven_baseline_growth("origin/main", ws), ["0x2 wine"])   # (was: [])
+                os.unlink(os.path.join(ws, rel))
+                self.assertEqual(t.unproven_baseline_growth("origin/main", ws), ["(deleted)"])  # (was: unseen)
+                t.write_unproven_baseline(json.loads(json.dumps(one)), os.path.join(ws, rel))
+                meta([])                    # not shipped: the workspace's copy is the commit's
+                self.assertEqual(t.unproven_baseline_growth("HEAD", ws), [])
+                os.unlink(os.path.join(ws, t.JOB_REF, rel))
+                meta([rel])                 # shipped, new: REF had no list, the seed counts once
+                self.assertEqual(t.unproven_baseline_growth("HEAD", ws), [])
+                grew = t.unproven_baseline_growth("HEAD~3", ws)
+                self.assertTrue(grew and grew[0].startswith("(REF unreadable"), grew)
+            finally:
+                t._META.clear()
+
+
 if __name__ == "__main__":
     unittest.main()
