@@ -18,7 +18,7 @@ namespace fn_fc974b3c {
 extern "C" char DAT_0042b3ac[];
 extern "C" char DAT_0042b3b4[];
 extern "C" char DAT_0042b3fc[];
-void Init();
+extern "C" int* __cdecl FUN_002705f0(void);   // (decl1) as defined (MemorySpaceAsyncRequest_Copy.cpp)
 } // namespace fn_fc974b3c
 inline void* operator new(size_t, void* p) {
     return p;
@@ -35,8 +35,8 @@ struct MemoryTwoWayAllocator_26d540 {
     char pad2[12];
     MemoryTwoWayAllocator_26d540();
 };
-extern "C" void* __cdecl Alloc(hulk_intptr, int);
-extern "C" void __cdecl Other();
+extern "C" void* FUN_00266e00(int heap, int size);   // (decl1) as defined (unk_266950.cpp)
+extern "C" int* __cdecl FUN_002705f0(void);   // (decl1) as defined (MemorySpaceAsyncRequest_Copy.cpp)
 void __stdcall FUN_0020c723(int);
 struct Task { char pad[0x38]; char busy; char pad2[3]; int result; };
 extern void __stdcall DeleteFiber(void*);
@@ -114,10 +114,10 @@ int* core::MemoryTwoWayAllocator::FUN_0026d480() {
     *(hulk_intptr*)this = ((hulk_intptr)DAT_0042b3fc);
     ((hulk_intptr*)this)[1] = ((hulk_intptr)DAT_0042afa8);
     ((int*)this)[2] = DAT_004cdbb0;
-    Init();
+    FUN_002705f0();
     ((hulk_intptr*)this)[1] = ((hulk_intptr)DAT_0042b3a4);
     ((int*)this)[3] = 0;
-    Init();
+    FUN_002705f0();
     *(hulk_intptr*)this = ((hulk_intptr)DAT_0042b3b4);
     ((hulk_intptr*)this)[1] = ((hulk_intptr)DAT_0042b3ac);
     ((int*)this)[4] = 0;
@@ -127,7 +127,7 @@ int* core::MemoryTwoWayAllocator::FUN_0026d480() {
     ((int*)this)[8] = 0;
     ((int*)this)[9] = 0;
     ((int*)this)[10] = 0;
-    Init();
+    FUN_002705f0();
     return (int*)((int*)this);
 }
 
@@ -137,10 +137,10 @@ namespace fn_fc974b3c {
 // sym: ?Make@fn_fc974b3c@@YAPAUMemoryTwoWayAllocator_26d540@1@HH@Z
 MemoryTwoWayAllocator_26d540* __cdecl Make(int n, int heap) {
     DAT_004cdbb0 = heap;
-    void* p = Alloc(heap, sizeof(MemoryTwoWayAllocator_26d540));   // (allocsize1) the allocator by its record (44 B on 32-bit)
+    void* p = FUN_00266e00(heap, sizeof(MemoryTwoWayAllocator_26d540));   // (allocsize1) the allocator by its record (44 B on 32-bit)
     MemoryTwoWayAllocator_26d540* o = new (p) MemoryTwoWayAllocator_26d540;
-    Other();
-    char* q = (char*)Alloc(o->size, n);
+    FUN_002705f0();
+    char* q = (char*)FUN_00266e00(o->size, n);
     char* e = q + n;
     o->begin = q;
     o->cur = q;

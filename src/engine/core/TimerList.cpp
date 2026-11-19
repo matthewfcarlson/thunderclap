@@ -94,7 +94,7 @@ class Object_267ed0 : public core::BaseObject {
     int field;
     virtual Object_267ed0* vfunc_0(unsigned char);
 };
-extern void __cdecl FUN_00266f00(int, Object_267ed0*);
+extern "C" void __cdecl FUN_00266f00(int, void*);   // (decl1) as defined (unk_266950.cpp)
 typedef unsigned long DWORD;
 namespace XAPILIB {
 void __stdcall QueryPerformanceCounter(DWORD*);
@@ -107,7 +107,7 @@ struct Callback_267fd0 {
     virtual void A();
     virtual void B();
 };
-void Init_00267090(int);
+extern "C" void __cdecl FUN_00267090(hulk_intptr);   // (decl1) as defined (MemoryAllocatorMalloc.cpp)
 struct TimerList_267fd0 {
     void* v0;
     void* v1;
@@ -530,7 +530,7 @@ namespace fn_fc34aa1a {
 void TimerList_267fd0::F() {
     v0 = (void*)((hulk_intptr)DAT_0042afd4);
     v1 = (void*)((hulk_intptr)DAT_0042afcc);
-    Init_00267090(arg);
+    FUN_00267090(arg);
     cb->B();
     DAT_004cdbb0 = value;
     v1 = (void*)((hulk_intptr)DAT_0042af64);
@@ -683,8 +683,8 @@ namespace fn_002681c0 {
 
 typedef unsigned char byte_2681c0;
 typedef unsigned int u32_2681c0;
-extern void __cdecl FUN_00267090(u32_2681c0);
-extern void __cdecl FUN_00266f00(u32_2681c0, void*);
+extern "C" void __cdecl FUN_00267090(hulk_intptr);   // (decl1) as defined (MemoryAllocatorMalloc.cpp)
+extern "C" void __cdecl FUN_00266f00(int, void*);   // (decl1) as defined (unk_266950.cpp)
 extern int hulk_at_0042afd4, hulk_at_0042afcc, hulk_at_0042af64, hulk_at_003f6098;
 struct Helper_2681c0 {
     virtual void f0();

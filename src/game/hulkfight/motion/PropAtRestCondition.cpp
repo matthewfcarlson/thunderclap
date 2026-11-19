@@ -29,7 +29,7 @@ class TrackFactoryTemplate_18b8c0 {
 };
 extern "C" void FUN_001879c0();
 struct PropAtRestCondition_nv_18b900 {
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 extern int hulk_at_004191cc;

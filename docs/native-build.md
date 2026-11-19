@@ -6015,3 +6015,12 @@ change), when the whole signature then agrees.
 - Left: 224 references whose signatures differ in other ways (a definition taking an int where callers pass a
   pointer: the def-side class, defside.txt; bool / char results; float / int), 123 member / free or argument-count
   differences, 120 C names (gen_decl's).
+
+## decl1 (2026-11-18): batches 2b and 3
+
+- 2b: gen_sig (as 2a), 116 TUs, 164 references. 3: gen_decl (as batch 1) in 29 TUs other lanes had dirty earlier, 35
+  callees. MSVC clean, x64 gate ok, Wine control 91873 / proof 91894 GATE ok.
+- Native mac on the proof's map: unbound 11235 -> 11067 (178 names gone; the 10 "new" names are respellings of
+  addressless names, `Fn`, `Init`, `vfunc_14` of local stand-ins, unbound before and after).
+- Left out: SemaphoreWaitTrack_4, fight/WaitTrack, fight/StopTrack (the allocator binding exposes a 32-bit stand-in
+  layout to the x64 gate), unk_0b4cf0.GS (HEAD's code-hash breakage at the time).

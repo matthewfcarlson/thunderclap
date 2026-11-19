@@ -32,7 +32,7 @@ struct AIFightNodeCondition_113e40 {
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 struct InitObj_113e40 {
-    void InitCondition_00234590(int);
+    void InitCondition_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 struct EntityObj {
     void InitEntity_00233dd0();

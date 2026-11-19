@@ -536,7 +536,7 @@ namespace fn_002882a0 {
 namespace pure3d {
 struct Sub {
     float calc_00284f70();
-    int convert_00284f50();
+    hulk_intptr convert_00284f50();   // (decl1) passes as defined
 };
 class PoseAnimationController {
   public:

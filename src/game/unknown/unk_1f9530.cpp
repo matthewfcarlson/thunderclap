@@ -44,7 +44,7 @@ struct Obj_1f9670 {
     unsigned short value;
 };
 struct Sub_1f9670 {
-    int Find_00230ba0(int (*cb)(), void*);
+    hulk_intptr Find_00230ba0(int (*cb)(), void*);   // (decl1) passes as defined
 };
 struct Temp_1f9670 {
     void Cleanup_0027af50();

@@ -31,7 +31,7 @@ extern "C" void FUN_00189a50();
 extern "C" char DAT_0041916c[];
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 struct Base_18c540 {
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 struct Sub_18c540 {
     void Setup_0027af00();

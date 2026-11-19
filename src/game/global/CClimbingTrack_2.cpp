@@ -30,7 +30,7 @@ class TrackFactoryTemplate_75f90 {
 };
 extern "C" void FUN_00070620();
 extern "C" char DAT_003fba38[];
-extern "C" void* __cdecl Allocate(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 class Init_75fd0 {
   public:
     void InitFn_00236d40();
@@ -65,7 +65,7 @@ template <> void* fight::TrackFactoryCasterTemplate<CClimbingTrack>::vfunc_1(voi
 // 0x00075fd0 fight::TrackFactoryTemplate<CClimbingTrack>::vfunc_5 (59 B): matches/0x00075fd0.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VCClimbingTrack@@@fight@@UAEPAXXZ
 template <> void* fight::TrackFactoryTemplate<CClimbingTrack>::vfunc_5() {
-    void* p = Allocate((int)sizeof(::CClimbingTrack));   // (allocsize1) the size by gen's record
+    void* p = FUN_0008d690((int)sizeof(::CClimbingTrack));   // (allocsize1) the size by gen's record
     if (p) {
         ((Init_75fd0*)p)->InitFn_00236d40();
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_003fba38);

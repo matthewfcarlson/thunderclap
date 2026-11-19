@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x000c5900..0x000c6a90 (kind game, layer game, confidence low)
 #include "tree_prelude.h"
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/engine/pure3d/prop.h"
 #include "decls/data/game/unknown.h"
@@ -205,7 +206,7 @@ void FUN_000c6330(Vec3_c6840 c0, Vec3_c6840 c1, Vec3_c6840 c2, Vec3_c6840 c3, Ve
 class Arg_c6a20 {
   public:
     virtual void F();
-    int FnG_002961d0();
+    hulk_intptr FnG_002961d0();   // (decl1) passes as defined
 };
 class Obj_c6a20 {
   public:

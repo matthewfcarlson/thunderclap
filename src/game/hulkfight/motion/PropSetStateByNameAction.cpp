@@ -17,7 +17,7 @@ struct B_182070 {
     int Fnf_00059a30();
 };
 struct C_182070 {
-    int Fnf_00035ef0(int);
+    hulk_intptr Fnf_00035ef0(hulk_intptr);   // (decl1) passes as defined
 };
 struct D {
     int Fnf_001d6630(int*);

@@ -29,7 +29,7 @@ class TrackFactoryTemplate_17e980 {
 };
 extern "C" void FUN_0017aa40();
 extern "C" char DAT_00417c58[];
-extern "C" void* __cdecl alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 class S_17e9c0 {
   public:
     void Init_00236d40();
@@ -67,7 +67,7 @@ namespace fn_f047e9f1 {
 // 0x0017e9c0 fight::TrackFactoryTemplate<hulkfight::motion::SuckInPropsTrack>::vfunc_5 (80 B): matches/0x0017e9c0.cpp
 // sym: ?target@fn_f047e9f1@@YAPAVS_17e9c0@1@XZ
 S_17e9c0* __cdecl target() {
-    S_17e9c0* p = (S_17e9c0*)alloc(sizeof(::hulkfight::motion::SuckInPropsTrack));
+    S_17e9c0* p = (S_17e9c0*)FUN_0008d690(sizeof(::hulkfight::motion::SuckInPropsTrack));
     if (p) {
         p->Init_00236d40();
         p->vp = ((hulk_intptr)DAT_00417c58);

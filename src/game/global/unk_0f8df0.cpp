@@ -13,7 +13,7 @@ namespace fn_f696183f {} using namespace fn_f696183f;
 namespace fn_f696183f {
 class Mgr_f8df0 {
   public:
-    int Check_000dfa60(int x);
+    int Check_000dfa60(hulk_intptr x);   // (decl1) passes as defined
 };
 class Inner_f8df0 {
   public:
@@ -21,7 +21,7 @@ class Inner_f8df0 {
     Mgr_f8df0* mMgr;
 };
 struct NamedValueFloat_nv_f8df0 {
-    NamedValueFloat* Init_000f8a90(Inner_f8df0* a, int b, int c, int d);
+    NamedValueFloat* Init_000f8a90(Inner_f8df0* a, hulk_intptr b, int c, int d);   // (decl1) passes as defined
 };
 } // namespace fn_f696183f
 void* operator new(size_t n);
@@ -33,7 +33,7 @@ class Owner_f8df0 {
 };
 class Mgr_f8e70 {
   public:
-    int Check_000df9e0(int x);
+    int Check_000df9e0(hulk_intptr x);   // (decl1) passes as defined
 };
 class Inner_f8e70 {
   public:
@@ -41,7 +41,7 @@ class Inner_f8e70 {
     Mgr_f8e70* mMgr;
 };
 struct NamedValueInt_nv_f8e70 {
-    NamedValueInt* Init_000f8b20(Inner_f8e70* a, int b, int c, int d);
+    NamedValueInt* Init_000f8b20(Inner_f8e70* a, hulk_intptr b, int c, hulk_intptr d);   // (decl1) passes as defined
 };
 class Owner_f8e70 {
   public:

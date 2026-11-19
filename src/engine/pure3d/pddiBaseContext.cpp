@@ -1461,7 +1461,7 @@ namespace fn_0031d5d0 {
 namespace pure3d {
 struct Vec_31d5d0 {
     unsigned int x[16];
-    void fill(int, hulk_uintptr);
+    void fill(hulk_intptr, hulk_uintptr);   // (decl1) passes as defined
 };
 struct Item_31d5d0 {
     char a[8];

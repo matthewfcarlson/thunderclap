@@ -119,7 +119,7 @@ struct Device_333110 {
 };
 void __stdcall D3DDevice_SetPixelShader(unsigned int);
 struct d3dBumpMapVertexShader_nv_333130 {
-    void Init(int);
+    void Init(hulk_intptr);   // (decl1) passes as defined
 };
 struct d3dBumpMapVertexShader_333130 {
     unsigned int* vptr;

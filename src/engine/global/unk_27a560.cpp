@@ -23,7 +23,7 @@ struct E_27a570 {
 };
 struct Temp_27a590 {
     char data[8];
-    void Build_0027b0e0(int);
+    void Build_0027b0e0(hulk_intptr);   // (decl1) passes as defined
     void Finish_0027af50();
 };
 struct Item_27a590 {

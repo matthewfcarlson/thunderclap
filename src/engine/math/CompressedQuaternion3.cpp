@@ -45,7 +45,7 @@ class QuaternionChannel {
     void vfunc_4(int a, int b, int c);
 };
 struct Helper_28d2a0 {
-    void call_0022b650(int);
+    void call_0022b650(hulk_intptr);   // (decl1) passes as defined
 };
 struct Quat_28d2d0 {
     float x, y, z, w;
@@ -311,7 +311,7 @@ namespace fn_0028d410 {
 typedef unsigned int u32_28d410;
 struct Buf_28d410 {
     char d[16];
-    void Fn_0022b650(u32_28d410);
+    void Fn_0022b650(hulk_uintptr);   // (decl1) passes as defined
 };
 struct RotationChannel {
     virtual void f0();
@@ -409,7 +409,7 @@ class QuaternionChannel {
     void vfunc_4(int a, int b, int c);
 };
 struct Helper_28d560 {
-    void call_0022b650(int);
+    void call_0022b650(hulk_intptr);   // (decl1) passes as defined
 };
 void QuaternionChannel::vfunc_4(int a, int b, int c) {
     char local[16];
@@ -489,7 +489,7 @@ namespace fn_0028d6d0 {
 typedef unsigned int u32_28d6d0;
 struct Buf_28d6d0 {
     char d[16];
-    void Fn_0022b650(u32_28d6d0);
+    void Fn_0022b650(hulk_uintptr);   // (decl1) passes as defined
 };
 struct RotationChannel {
     virtual void f0();
@@ -610,7 +610,7 @@ class QuaternionChannel {
     void vfunc_4(int a, int b, int c);
 };
 struct Helper_28d8f0 {
-    void call_0022b650(int);
+    void call_0022b650(hulk_intptr);   // (decl1) passes as defined
 };
 void QuaternionChannel::vfunc_4(int a, int b, int c) {
     char local[16];
@@ -690,7 +690,7 @@ namespace fn_0028da60 {
 typedef unsigned int u32_28da60;
 struct Buf_28da60 {
     char d[16];
-    void Fn_0022b650(u32_28da60);
+    void Fn_0022b650(hulk_uintptr);   // (decl1) passes as defined
 };
 struct RotationChannel {
     virtual void f0();
@@ -848,7 +848,7 @@ class QuaternionChannel {
     void vfunc_4(int a, int b, int c);
 };
 struct Helper_28dc60 {
-    void call_0022b650(int);
+    void call_0022b650(hulk_intptr);   // (decl1) passes as defined
 };
 void QuaternionChannel::vfunc_4(int a, int b, int c) {
     char local[16];
@@ -928,7 +928,7 @@ namespace fn_0028ddf0 {
 typedef unsigned int u32_28ddf0;
 struct Buf_28ddf0 {
     char d[16];
-    void Fn_0022b650(u32_28ddf0);
+    void Fn_0022b650(hulk_uintptr);   // (decl1) passes as defined
 };
 struct RotationChannel {
     virtual void f0();

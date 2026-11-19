@@ -29,7 +29,7 @@ class TrackFactoryTemplate_114990 {
 };
 extern "C" void FUN_00112940();
 extern "C" char DAT_0040dbe4[];
-extern "C" void* __cdecl Alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 class AIHistoryCountTrack_1149d0 {
   public:
     hulk_intptr vptr;
@@ -67,7 +67,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::ai::AIHistoryCoun
 // 0x001149d0 fight::TrackFactoryTemplate<hulkfight::ai::AIHistoryCountTrack>::vfunc_5 (45 B): matches/0x001149d0.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VAIHistoryCountTrack@ai@hulkfight@@@fight@@UAEPAXXZ
 template <> void* fight::TrackFactoryTemplate<hulkfight::ai::AIHistoryCountTrack>::vfunc_5() {
-    AIHistoryCountTrack_1149d0* p = (AIHistoryCountTrack_1149d0*)Alloc(sizeof(::hulkfight::ai::AIHistoryCountTrack));
+    AIHistoryCountTrack_1149d0* p = (AIHistoryCountTrack_1149d0*)FUN_0008d690(sizeof(::hulkfight::ai::AIHistoryCountTrack));
     if (p) {
         p->AIHistoryCountTrack_1149d0::AIHistoryCountTrack_1149d0();
         p->vptr = ((hulk_intptr)DAT_0040dbe4);

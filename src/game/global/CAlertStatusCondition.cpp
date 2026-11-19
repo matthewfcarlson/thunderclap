@@ -57,7 +57,7 @@ class CAlertStatusCondition_4a4a0 {
     int m10;
 };
 struct CAlertStatusCondition_nv_4a4a0 {
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 class CCondition_4a4e0 {
   public:

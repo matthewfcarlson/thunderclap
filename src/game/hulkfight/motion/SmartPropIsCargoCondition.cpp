@@ -38,7 +38,7 @@ class SmartPropIsCargoCondition_18bc60 {
     virtual void V4();
     virtual void V5();
     int a, b, c, d;
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 extern int hulk_at_0041a764;

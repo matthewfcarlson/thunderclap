@@ -61,7 +61,7 @@ struct C_350c0 {
     bool F(float* p);
 };
 struct Callee_35140 {
-    int Run_0027b040(int);
+    hulk_intptr Run_0027b040(hulk_intptr);   // (decl1) passes as defined
 };
 struct Obj_35140 {
     char pad[0x1d68];
@@ -221,7 +221,7 @@ struct Cache_35630 {
     void* get_00059a40();
 };
 struct Result_35630 {
-    void run_00221f20(unsigned int, unsigned int);
+    void run_00221f20(hulk_uintptr, hulk_uintptr);   // (decl1) passes as defined
 };
 struct Owner_35630 {
     char pad[16];

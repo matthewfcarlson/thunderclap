@@ -34,7 +34,7 @@ struct Obj_159730 {
     hulk_intptr vf;
     char pad[8];
     char flag;
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 extern int hulk_at_0041566c;
 struct ConditionFactoryTemplate_159760 {

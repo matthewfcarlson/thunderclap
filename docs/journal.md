@@ -1491,3 +1491,11 @@ blocks fight::Action's whole family: the records come first there.
   reference only when, after the fix, it passes exactly as the definition does.
 - Names that carry no address (`Init`, `BaseCtor`, `vfunc_24` of a local stand-in) don't bind natively either way; the
   pass respells 10 of them (old spelling unbound, new spelling unbound).
+
+## 2026-11-18 decl1: batches 2b and 3 (pointer-sized int declarations; extern "C" spellings)
+
+- Batch 2b continues 2a's int -> `hulk_intptr` retyping: 164 references in 116 TUs. Batch 3 is gen_decl's
+  extern "C" spellings in the TUs other lanes had dirty during batch 1: 35 callees in 29 TUs.
+- **The allocator binding exposes the layouts of local stand-ins.** In three more TUs (SemaphoreWaitTrack_4,
+  fight/WaitTrack, fight/StopTrack), calling the allocator by its C name makes the x64 gate see a 32-bit local stand-in
+  inside a larger native allocation (`layout`). Those TUs stay out until their stand-ins are records.

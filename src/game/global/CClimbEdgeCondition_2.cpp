@@ -37,7 +37,7 @@ struct CClimbEdgeCondition_576a0 {
     char pad[8];
     u32_576a0 f0c;
     char f10;
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 extern int hulk_at_003f9330;
 struct ConditionFactoryTemplate_576e0 {

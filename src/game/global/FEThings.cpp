@@ -13,7 +13,7 @@ namespace fn_f4042a89 {} using namespace fn_f4042a89;
 namespace fn_f4042a89 {
 class Receiver_ddef0 {
   public:
-    void go_00294980(int);
+    void go_00294980(hulk_intptr);   // (decl1) passes as defined
 };
 class FEThingsBase_ddef0 {
   public:

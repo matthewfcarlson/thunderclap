@@ -27,7 +27,7 @@ class TrackFactoryTemplate_12ae90 {
     TrackImpl mTrack;
 };
 extern "C" void FUN_00129270();
-extern "C" void* __cdecl alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 extern "C" void* hulk_at_0040ff74;
 struct Obj_12aed0 {
     void* vptr;
@@ -68,7 +68,7 @@ namespace fn_f06dc002 {
 // 0x0012aed0 fight::TrackFactoryTemplate<hulkfight::ai::TargetClearTrack>::vfunc_5 (56 B): matches/0x0012aed0.cpp
 // sym: ?factory@fn_f06dc002@@YAPAUObj_12aed0@1@XZ
 Obj_12aed0* factory() {
-    Obj_12aed0* p = (Obj_12aed0*)alloc((int)sizeof(Obj_12aed0));   // (allocsize1) the size by the record the code writes
+    Obj_12aed0* p = (Obj_12aed0*)FUN_0008d690((int)sizeof(Obj_12aed0));   // (allocsize1) the size by the record the code writes
     if (p) {
         p->initBase_00236d40();
         p->vptr = &hulk_at_0040ff74;

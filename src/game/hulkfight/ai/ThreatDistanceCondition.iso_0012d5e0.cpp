@@ -28,7 +28,7 @@ struct ThreatDistanceCondition_12d5e0 {
     char padD[3];
     Sub_12d5e0 sub;
     u8 flag18;
-    void init_00234590(int);
+    void init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::ThreatCondition>::vfunc_5() {

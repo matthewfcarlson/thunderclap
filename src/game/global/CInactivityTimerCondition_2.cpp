@@ -36,7 +36,7 @@ struct CCollisionPushbackYAngleCondition_581e0 {
     char pad[8];
     int fieldC;
     int field10;
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 extern u32_581e0 hulk_at_003f7474;
 extern int hulk_at_003f9540;

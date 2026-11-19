@@ -32,7 +32,7 @@ struct Obj_16e320 {
     hulk_intptr vf;
     char pad[8];
     unsigned char flag;
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 extern int hulk_at_00417798;

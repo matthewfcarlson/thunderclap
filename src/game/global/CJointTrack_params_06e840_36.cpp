@@ -31,7 +31,7 @@ class TrackFactoryTemplate_70590 {
 };
 extern "C" void FUN_00064a70();
 typedef unsigned int u32_705d0;
-extern "C" void* __cdecl alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 class CWeaponCollisionTrack_705d0 {
   public:
     hulk_uintptr Init_00062010();
@@ -70,7 +70,7 @@ struct AllocWords_705d0 : ::CWeaponCollisionTrack {   // (sweep-allocsize) gen's
 };
 typedef char AllocWords_705d0_size32[(sizeof(void*) != 4 || sizeof(AllocWords_705d0) == 0x100) ? 1 : -1];
 template <> void* fight::TrackFactoryTemplate<CWeaponCollisionTrack>::vfunc_5() {
-    CWeaponCollisionTrack_705d0* p = (CWeaponCollisionTrack_705d0*)alloc(sizeof(AllocWords_705d0));
+    CWeaponCollisionTrack_705d0* p = (CWeaponCollisionTrack_705d0*)FUN_0008d690(sizeof(AllocWords_705d0));
     if (p)
         return (void*)(p->Init_00062010());
     return (void*)(0);

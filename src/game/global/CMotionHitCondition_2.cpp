@@ -37,7 +37,7 @@ struct CMotionHitCondition_584a0 {
     unsigned int pad2;
     unsigned int value;
     unsigned int value2;
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 extern int hulk_at_003f95b0;
 struct ConditionFactoryTemplate_584e0 {

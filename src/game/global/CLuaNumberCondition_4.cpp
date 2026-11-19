@@ -37,7 +37,7 @@ struct CLuaNumberCondition_58340 {
     virtual void v3();
     virtual void v4();
     virtual void v5();
-    void init_00234590(int);
+    void init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 extern int hulk_at_003f9578;

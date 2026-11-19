@@ -9,7 +9,7 @@
 #include "gen/hulkfight.h"
 
 struct HoverAction_nv_138bd0 {
-    int build_00134db0(int, int);
+    hulk_intptr build_00134db0(int, hulk_intptr);   // (decl1) passes as defined
 };
 extern int __cdecl Lookup_0005a470(int);
 extern hulkfight::motion::HoverAction* __cdecl Alloc_0008d690(int);

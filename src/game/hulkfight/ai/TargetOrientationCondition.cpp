@@ -37,7 +37,7 @@ struct Target_12a6d0 {
     float angle;
 };
 struct Init_12a6d0 {
-    void initialize_00234590(int);
+    void initialize_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 extern int hulk_at_004109f8;
 struct ConditionFactoryTemplate_12a710 {

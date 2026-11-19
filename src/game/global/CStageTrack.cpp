@@ -32,7 +32,7 @@ class CTrack_6ab40 {
 extern int* hulk_at_004dcfe8;
 class Other_6abc0 {
   public:
-    int call_000201a0(hulk_intptr, int);
+    hulk_intptr call_000201a0(hulk_intptr, int);   // (decl1) passes as defined
 };
 extern "C" Other_6abc0* __cdecl FUN_0008d690(int);
 

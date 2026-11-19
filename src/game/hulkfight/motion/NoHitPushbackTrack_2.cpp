@@ -29,7 +29,7 @@ class TrackFactoryTemplate_15a440 {
 };
 extern "C" void FUN_00156bb0();
 extern "C" char DAT_004144e0[];
-extern "C" void* __cdecl Alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 class Obj_15a480 {
   public:
     virtual void* A();
@@ -69,7 +69,7 @@ namespace fn_fd8b40d2 {
 // 0x0015a480 fight::TrackFactoryTemplate<hulkfight::motion::NoHitPushbackTrack>::vfunc_5 (59 B): matches/0x0015a480.cpp
 // sym: ?F@Obj_15a480@fn_fd8b40d2@@UAEPAXXZ
 void* Obj_15a480::F() {
-    Obj_15a480* p = (Obj_15a480*)Alloc(sizeof(::hulkfight::motion::NoHitPushbackTrack));
+    Obj_15a480* p = (Obj_15a480*)FUN_0008d690(sizeof(::hulkfight::motion::NoHitPushbackTrack));
     if (p) {
         p->Init_00236d40();
         *(hulk_intptr*)p = ((hulk_intptr)DAT_004144e0);

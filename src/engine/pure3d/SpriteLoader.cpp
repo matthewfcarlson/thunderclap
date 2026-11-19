@@ -193,7 +193,7 @@ namespace fn_f43dee86 {
 struct ThisCall_002a4500 {
     void FUN_002a4500(int, void*);   // (x64t19) the drawable as a pointer (as defined: an int did not bind natively)
 };
-extern void __fastcall FUN_002ae910(void*);
+extern "C" void __fastcall FUN_002ae910(void*);   // (decl1) as defined (ImageHandler_3.cpp)
 extern void thunk_FUN_00267090(CCollisionAction*);
 struct Name_2bdfc0 {
     unsigned int lo, hi;

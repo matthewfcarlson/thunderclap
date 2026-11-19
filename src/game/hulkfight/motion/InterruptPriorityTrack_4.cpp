@@ -29,7 +29,7 @@ class TrackFactoryTemplate_159de0 {
 };
 extern "C" void FUN_00156030();
 extern "C" char DAT_00414330[];
-extern "C" void* __cdecl Alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 class TrackBase_159e20 {
   public:
     void Init_00236d40();
@@ -62,7 +62,7 @@ struct AllocWords_159e20 : ::hulkfight::motion::InterruptPriorityTrack {   // (s
 };
 typedef char AllocWords_159e20_size32[(sizeof(void*) != 4 || sizeof(AllocWords_159e20) == 0x18) ? 1 : -1];
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::InterruptPriorityTrack>::vfunc_5() {
-    char* p = (char*)Alloc(sizeof(AllocWords_159e20));
+    char* p = (char*)FUN_0008d690(sizeof(AllocWords_159e20));
     if (p) {
         ((TrackBase_159e20*)p)->Init_00236d40();
         *(hulk_intptr*)p = ((hulk_intptr)DAT_00414330);

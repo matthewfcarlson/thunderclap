@@ -13,7 +13,7 @@ extern "C" char DAT_0041c4f0[];
 extern void* __cdecl Alloc_0008d690(unsigned int);
 struct Event_StringCondition_1aaa10 {
     int x[6];
-    void Initialize_00234590(int);
+    void Initialize_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 struct Sub_1aaa10 {
     void Init_0027af00();

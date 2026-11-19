@@ -28,8 +28,8 @@ class Plr {
   public:
     char pad[0x328];
     Ref_81340* m328;
-    void F3b160_0003b160(int);
-    void F3b190_0003b190(int);
+    void F3b160_0003b160(hulk_intptr);   // (decl1) passes as defined
+    void F3b190_0003b190(hulk_intptr);   // (decl1) passes as defined
     void F3ffa0_0003ffa0(int, int);
 };
 class Mgr_81340 {

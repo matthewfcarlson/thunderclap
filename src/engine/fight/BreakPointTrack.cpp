@@ -241,7 +241,7 @@ struct Obj_23f570 {
     int c;
 };
 extern int breakpoint_vftable;
-extern "C" void* __cdecl alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 extern int hulk_at_00429008;
 
 } // namespace fn_f27320e9
@@ -511,7 +511,7 @@ struct AllocWords_23f570 : ::fight::BreakPointTrack {   // (sweep-allocsize) gen
 };
 typedef char AllocWords_23f570_size32[(sizeof(void*) != 4 || sizeof(AllocWords_23f570) == 0x14) ? 1 : -1];
 template <> void* fight::TrackFactoryTemplate<fight::BreakPointTrack>::vfunc_5() {
-    Obj_23f570* p = (Obj_23f570*)alloc(sizeof(AllocWords_23f570));
+    Obj_23f570* p = (Obj_23f570*)FUN_0008d690(sizeof(AllocWords_23f570));
     if (p) {
         ((Base_23f570*)p)->init_00236d40();
         p->vf = (hulk_intptr)((int*)DAT_00428f70);

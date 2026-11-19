@@ -32,7 +32,7 @@ class LocomotionStrafe4Track_1650f0 {
   public:
     hulk_intptr Init_0015baf0();
 };
-extern "C" void* __cdecl Alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 extern int hulk_at_00416520;
 
 } // namespace fn_fb2d9485
@@ -61,7 +61,7 @@ struct AllocWords_1650f0 : ::hulkfight::motion::LocomotionStrafe4Track {   // (s
 };
 typedef char AllocWords_1650f0_size32[(sizeof(void*) != 4 || sizeof(AllocWords_1650f0) == 0xa8) ? 1 : -1];
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::LocomotionStrafe4Track>::vfunc_5() {
-    LocomotionStrafe4Track_1650f0* p = (LocomotionStrafe4Track_1650f0*)Alloc(sizeof(AllocWords_1650f0));
+    LocomotionStrafe4Track_1650f0* p = (LocomotionStrafe4Track_1650f0*)FUN_0008d690(sizeof(AllocWords_1650f0));
     if (p)
         return (void*)(p->Init_0015baf0());
     return (void*)(0);

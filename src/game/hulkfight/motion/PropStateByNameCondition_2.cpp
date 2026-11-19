@@ -36,7 +36,7 @@ class Sub_18c6b0 {
 };
 class PropStateByNameCondition_18c6b0 {
   public:
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
     char vptr[4];
     char pad04[8];
     int x;

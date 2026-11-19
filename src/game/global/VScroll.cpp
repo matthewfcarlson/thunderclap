@@ -286,7 +286,7 @@ namespace fn_000e21e0 {
 extern int hulk_at_0040c1ac;
 class VScroll {
   public:
-    void init_000e1f10(int, int);
+    void init_000e1f10(hulk_intptr, int);   // (decl1) passes as defined
     VScroll(int a, int q);
     hulk_uintptr vf;
     char pre[0x3c];

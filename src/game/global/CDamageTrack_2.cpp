@@ -47,7 +47,7 @@ struct CDamageTrack {
     void ctor_00236d40();
 };
 namespace fn_fed05365 {
-extern "C" void* __cdecl alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 
 } // namespace fn_fed05365
 
@@ -72,7 +72,7 @@ namespace fn_fed05365 {
 // 0x000761f0 fight::TrackFactoryTemplate<CDamageTrack>::vfunc_5 (66 B): matches/0x000761f0.cpp
 // sym: ?target@fn_fed05365@@YAPAXXZ
 void* __cdecl target() {
-    CDamageTrack* p = (CDamageTrack*)alloc((int)sizeof(CDamageTrack));   // (allocsize1) the size by the record the constructor writes
+    CDamageTrack* p = (CDamageTrack*)FUN_0008d690((int)sizeof(CDamageTrack));   // (allocsize1) the size by the record the constructor writes
     if (p) {
         p->ctor_00236d40();
         p->vptr = ((hulk_intptr)DAT_003fbd14);

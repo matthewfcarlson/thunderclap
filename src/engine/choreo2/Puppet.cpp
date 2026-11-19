@@ -49,7 +49,7 @@ class Inner_222550 {
   public:
     char pad[16];
     int value;
-    int make_0027b670(int, int);
+    hulk_intptr make_0027b670(int, int);   // (decl1) passes as defined
 };
 class Base_222550 {
   public:
@@ -101,7 +101,7 @@ class Target_2226b0 {
 };
 class Inner_2226e0 {
   public:
-    void call_00221c60(int);
+    void call_00221c60(hulk_intptr);   // (decl1) passes as defined
 };
 class Obj_2226e0 {
   public:
@@ -127,7 +127,7 @@ class Obj_222700 {
 };
 class Inner_222710 {
   public:
-    void call_00222180(int);
+    void call_00222180(hulk_intptr);   // (decl1) passes as defined
 };
 class Obj_222710 {
   public:
@@ -136,7 +136,7 @@ class Obj_222710 {
 };
 class Inner_222720 {
   public:
-    void call_00221cf0(int);
+    void call_00221cf0(hulk_intptr);   // (decl1) passes as defined
 };
 class Obj_222720 {
   public:
@@ -348,7 +348,7 @@ struct Manager_222f40 {
 };
 class A_223060 {
   public:
-    int Fnf_00221c40();
+    hulk_intptr Fnf_00221c40();   // (decl1) passes as defined
 };
 class B_223060 {
   public:

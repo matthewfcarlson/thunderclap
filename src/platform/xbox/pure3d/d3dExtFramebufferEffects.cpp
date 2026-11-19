@@ -423,7 +423,7 @@ class pddiRenderContext_321d90 {};
 }
 namespace fn_f57e27cb {
 struct Dest_321da0 {
-    int go(int, int, int, int);
+    hulk_intptr go(hulk_intptr, int, int, int);   // (decl1) passes as defined
 };
 struct Obj_321da0 {
     char pad[0x208];
@@ -510,7 +510,7 @@ struct Device_322200 {
 namespace pure3d {
 struct Matrix_322200 {
     float m[16];
-    void FUN_0022ca90(unsigned int, unsigned int);
+    void FUN_0022ca90(hulk_uintptr, hulk_uintptr);   // (decl1) passes as defined
     void FUN_0022c0b0();
 };
 }
@@ -832,7 +832,7 @@ class d3dExtFramebufferEffects_323910 {
 class Obj_323be0 {
   public:
     virtual void Init();
-    Obj_323be0* Create(void*, int);
+    Obj_323be0* Create(void*, hulk_intptr);   // (decl1) passes as defined
     void Attach(unsigned int*);
 };
 unsigned int* __stdcall GetBackBuffer(int);

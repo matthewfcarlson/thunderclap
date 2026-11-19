@@ -30,7 +30,7 @@ class TrackFactoryTemplate_16e380 {
 extern "C" void FUN_0016be50();
 extern "C" char DAT_004169d8[];
 struct ConditionFactoryTemplate_nv_16e3c0 {
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 extern int hulk_at_004177b4;

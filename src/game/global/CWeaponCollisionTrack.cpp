@@ -216,7 +216,7 @@ class CCondition_627f0 {
 };
 class Helper_62860 {
   public:
-    int go_0001f1f0(hulk_intptr);
+    hulk_intptr go_0001f1f0(hulk_intptr);   // (decl1) passes as defined
 };
 extern int* hulk_at_004dc648;
 class CCondition_628a0 {
@@ -1134,7 +1134,7 @@ struct Root_65c10 {
 extern Root_65c10* gRoot_65c10;
 class Finder_65c50 {
   public:
-    int Find_00024280(int, int);
+    hulk_intptr Find_00024280(int, int);   // (decl1) passes as defined
 };
 class Manager_65c50 {
   public:
@@ -1315,7 +1315,7 @@ struct S_670a0 {
 };
 class H {
   public:
-    void* lookup_00230ba0(hulk_uintptr, unsigned int);
+    void* lookup_00230ba0(hulk_uintptr, hulk_uintptr);   // (decl1) passes as defined
 };
 struct Rec_67110 { char pad[0x18]; float v18; };
 struct Inner_67110 { float FUN_00086080(); };

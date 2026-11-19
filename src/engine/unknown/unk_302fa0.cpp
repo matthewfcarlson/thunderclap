@@ -115,7 +115,7 @@ struct Record_304530 {
     unsigned int extra;
 };
 struct Renderer_304530 {
-    void FUN_00314be0(unsigned int, unsigned int, Object*, unsigned int, unsigned int, unsigned int);
+    void FUN_00314be0(unsigned int, hulk_uintptr, Object*, hulk_uintptr, unsigned int, hulk_uintptr);   // (decl1) passes as defined
 };
 struct Global_304530 {
     char pad[HULK_WORLD_AT(detector)];  // (x64t4, x64t9-pw) decls/physics_world.h

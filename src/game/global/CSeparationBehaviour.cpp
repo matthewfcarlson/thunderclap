@@ -31,7 +31,7 @@ struct Vec3_10ad90 {
 struct List_10ad90 {
     char pad[0xc];
     int count;
-    int GetItem_00024190(int i);
+    hulk_intptr GetItem_00024190(int i);   // (decl1) passes as defined
     bool IsSkipped_00025d30(int id);
 };
 struct Agent_10ad90 {

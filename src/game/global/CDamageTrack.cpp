@@ -18,7 +18,7 @@ class CCondition_69dc0 {
     virtual int vfunc_0(int);
 };
 struct Helper_69e40 {
-    int run_0001d9b0(hulk_intptr, int, int);
+    hulk_intptr run_0001d9b0(hulk_intptr, int, int);   // (decl1) passes as defined
 };
 extern "C" void* FUN_0008d690(int);
 

@@ -38,7 +38,7 @@ class CSmartPropTypeCondition_58a00 {
     virtual void V3();
     virtual void V4();
     virtual void V5();
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
     char pad[8];
     int a;
     int b;

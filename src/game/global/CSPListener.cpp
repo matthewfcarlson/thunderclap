@@ -164,7 +164,7 @@ class Item_1d8100 {
     virtual void A();
     virtual void B();
     int Get();
-    void Act_0003ee70(int);
+    void Act_0003ee70(hulk_intptr);   // (decl1) passes as defined
 };
 struct Box_1d8100 {
     char pad[0x10];
@@ -192,7 +192,7 @@ struct Pose {
 struct Child_1d81b0 {
     char pad[0xc0];
     unsigned x, y, z;
-    void FUN_002f5a20(unsigned arg);
+    void FUN_002f5a20(hulk_uintptr arg);   // (decl1) passes as defined
 };
 struct Body_1d81b0 {
     char pad[0x5c];
@@ -278,7 +278,7 @@ class Item_1d8c70 {
 };
 class Child_1d8c70 {
   public:
-    void Run_0003ee70(int);
+    void Run_0003ee70(hulk_intptr);   // (decl1) passes as defined
 };
 class Old_1d8c70 {
   public:
@@ -1393,7 +1393,7 @@ struct Object {
     char pad3[0x70];
     Component_1d8d90 component;
     void FUN_001d8cd0();
-    void FUN_001d71e0(int);
+    void FUN_001d71e0(hulk_intptr);   // (decl1) passes as defined
     unsigned char FUN_001d7360(Bounds_1d8d90*);
     void FUN_001d8d90(unsigned char enabled);
 };
@@ -1470,7 +1470,7 @@ struct Controller_1d8e90 {
     unsigned int field8, fieldC;
     char pad10[0x74];
     unsigned char active;
-    void FUN_002fd8a0(int);
+    void FUN_002fd8a0(hulk_intptr);   // (decl1) passes as defined
 };
 struct Link_1d8e90 {
     char pad[0x10];

@@ -41,7 +41,7 @@ class VelocityXZAngleCondition_16de70 {
     int y;
     int z;
     float angle;
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 extern int hulk_at_004176d4;
 struct ConditionFactoryTemplate_16deb0 {

@@ -500,7 +500,7 @@ struct ShaderState_32f280 {
     int mode;
 };
 struct Texture {
-    void FUN_00326300(int);
+    void FUN_00326300(hulk_intptr);   // (decl1) passes as defined
 };
 struct d3dRefractVertexShader {
     char pad0[0x14];

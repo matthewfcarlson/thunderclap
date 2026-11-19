@@ -41,7 +41,7 @@ class CSmartPropWeaponTypeCondition_58b60 {
     int x8;
     int value;
     int type;
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 extern int hulk_at_003f96c8;

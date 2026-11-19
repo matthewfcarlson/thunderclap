@@ -378,7 +378,7 @@ struct RayCastCondition {
     volatile int a[5];
     volatile float b;
     char padc[8];
-    void BaseInit_00234590(int);
+    void BaseInit_00234590(hulk_intptr);   // (decl1) passes as defined
     RayCastCondition();
 };
 extern void* hulk_at_004168d8[];

@@ -41,7 +41,7 @@ class ConditionFactory_16da60 {
 namespace hulkfight { namespace motion {
 class VelocityAnimatedYCondition_16da60 {
   public:
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
     hulk_intptr vptr;
     int m4;
     int m8;

@@ -20,7 +20,7 @@ class Obj_1c5e20 {
     struct Sub_1c5e20* m;
 };
 struct Sub_1c5e20 {
-    void Helper_001c5010(int a);
+    void Helper_001c5010(hulk_intptr a);   // (decl1) passes as defined
 };
 struct Result { char pad[0x30]; };
 struct Registry {
@@ -102,7 +102,7 @@ struct Obj_1c6050 {
 struct Sub_1c6050 {
     char pad[8];
     void Init_0027af00();
-    void Set_0027af70(int);
+    void Set_0027af70(hulk_intptr);   // (decl1) passes as defined
 };
 Obj_1c6050* __stdcall Make2_001c3d90();
 Obj_1c6050* __stdcall Make0_001c3d90();

@@ -31,7 +31,7 @@ extern "C" char DAT_00416838[];
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 class TargetHealthPercentCondition_16dbc0 {
   public:
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
     hulk_uintptr vt;
     int pad[2];
     int a, b;

@@ -30,7 +30,7 @@ class TrackFactoryTemplate_6fbd0 {
     TrackImpl mTrack;
 };
 typedef unsigned int u32_6fc10;
-extern "C" void* __cdecl Allocate(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 class Created_6fc10 {
   public:
     hulk_uintptr Initialize_00060a00();
@@ -65,7 +65,7 @@ template <> void* fight::TrackFactoryCasterTemplate<CMotionTrailTrack>::vfunc_1(
 // 0x0006fc10 fight::TrackFactoryTemplate<CMotionTrailTrack>::vfunc_5 (27 B): matches/0x0006fc10.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VCMotionTrailTrack@@@fight@@UAEPAXXZ
 template <> void* fight::TrackFactoryTemplate<CMotionTrailTrack>::vfunc_5() {
-    Created_6fc10* p = (Created_6fc10*)Allocate(sizeof(::CMotionTrailTrack));
+    Created_6fc10* p = (Created_6fc10*)FUN_0008d690(sizeof(::CMotionTrailTrack));
     if (p)
         return (void*)(p->Initialize_00060a00());
     return (void*)(0);

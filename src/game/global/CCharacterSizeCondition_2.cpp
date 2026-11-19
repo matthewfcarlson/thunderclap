@@ -35,7 +35,7 @@ class CCharacterSizeCondition_57540 {
     int b;
     int c;
     int d;
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 extern "C" void* FUN_0008d690(unsigned int);
 extern int hulk_at_003f6f80[];

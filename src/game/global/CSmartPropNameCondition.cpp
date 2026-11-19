@@ -32,7 +32,7 @@ struct Pad_494c0 {
 struct Player_494c0 {
     char pad00[0x3a4];
     Item_494c0 *fallbackItem;     // 0x3a4
-    Pad_494c0 *FUN_00035ef0(int index);
+    Pad_494c0 * FUN_00035ef0(hulk_intptr index);   // (decl1) passes as defined
 };
 struct PlayerRef_494c0 {
     Player_494c0 *FUN_00059a30();

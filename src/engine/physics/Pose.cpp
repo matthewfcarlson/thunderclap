@@ -414,7 +414,7 @@ class Container_30fea0 {
 struct Pose_nv_30ff80 {
     void f650_0030f650();
     void f4c0_0030f4c0();
-    void fa10_0030fa10(int);
+    void fa10_0030fa10(hulk_intptr);   // (decl1) passes as defined
 };
 class C_30ff80 {
     char pad0[8];
@@ -1140,7 +1140,7 @@ class Pose {
   public:
     void* vf;
     int a, b, c;
-    void Init_0030fa10(int);
+    void Init_0030fa10(hulk_intptr);   // (decl1) passes as defined
     Pose* Make(int);
 };
 Pose* Pose::Make(int arg) {

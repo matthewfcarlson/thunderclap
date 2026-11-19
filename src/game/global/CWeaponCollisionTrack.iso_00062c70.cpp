@@ -9,7 +9,7 @@
 #include "gen/global.h"
 
 struct CSmartPropRemoveInstanceAction_nv_62c70 {
-    int run_0001f460(hulk_intptr, int);
+    hulk_intptr run_0001f460(hulk_intptr, int);   // (decl1) passes as defined
 };
 extern CSmartPropRemoveInstanceAction* __cdecl FUN_0008d690(int);
 

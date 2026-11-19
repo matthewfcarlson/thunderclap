@@ -1041,7 +1041,7 @@ class Elem_311270 {
     unsigned char enabled;
 
   public:
-    void second_0030a270(int, int);
+    void second_0030a270(hulk_intptr, hulk_intptr);   // (decl1) passes as defined
 };
 } // namespace physics
 void physics::ArticulatedPhysicsObject::vfunc_17(int a1, int a2, int a3, int a4, int a5) {
@@ -1115,7 +1115,7 @@ public:
     virtual void vfunc_17();
     virtual void vfunc_18();
     virtual void vfunc_19();
-    virtual void vfunc_20(int a, Mat_311300 *m, int c, int d, int e);
+    virtual void vfunc_20(hulk_intptr a, Mat_311300 *m, int c, int d, int e);   // (decl1) passes as defined
 };
 
 class ArticulatedPhysicsObject : public PhysicsObject {

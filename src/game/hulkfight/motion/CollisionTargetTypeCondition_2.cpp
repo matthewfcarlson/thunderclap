@@ -29,7 +29,7 @@ class TrackFactoryTemplate_1599b0 {
 };
 extern "C" void FUN_00155af0();
 extern "C" char DAT_004141b0[];
-extern "C" void* __cdecl Alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 class Cond {
   public:
     Cond(int);
@@ -64,7 +64,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::motion::Colli
 // 0x001599f0 fight::ConditionFactoryTemplate<hulkfight::motion::CollisionTargetTypeCondition>::vfunc_5 (54 B): matches/0x001599f0.cpp
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VCollisionTargetTypeCondition@motion@hulkfight@@@fight@@UAEPAXXZ
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::CollisionTargetTypeCondition>::vfunc_5() {
-    Cond* p = (Cond*)Alloc(sizeof(::hulkfight::motion::CollisionTargetTypeCondition));
+    Cond* p = (Cond*)FUN_0008d690(sizeof(::hulkfight::motion::CollisionTargetTypeCondition));
     if (p) {
         p->Cond::Cond(0);
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_004141b0);

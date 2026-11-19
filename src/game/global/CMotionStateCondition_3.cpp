@@ -35,7 +35,7 @@ struct CMotionStateCondition_58550 {
     u32_58550 pad8;
     u32_58550 fieldC;
     u32_58550 field10;
-    void Initialize_00234590(int);
+    void Initialize_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 extern int hulk_at_003f95cc;
 struct ConditionFactoryTemplate_58590 {

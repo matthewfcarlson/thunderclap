@@ -270,7 +270,7 @@ struct V3 {
 };
 class Item {
   public:
-    int Fn_000c7d10(int, int);
+    int Fn_000c7d10(int, hulk_intptr);   // (decl1) passes as defined
 };
 class Sub_cb050 {
   public:
@@ -1161,7 +1161,7 @@ class Obj {
   public:
     char pad[0x8c];
     Obj* p;
-    int action_000c6fe0(int, int);
+    int action_000c6fe0(int, hulk_intptr);   // (decl1) passes as defined
     int fn(int, int);
 };
 int Obj::fn(int a, int b) {

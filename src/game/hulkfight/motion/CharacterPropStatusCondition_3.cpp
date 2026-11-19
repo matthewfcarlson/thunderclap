@@ -42,7 +42,7 @@ class Character {
     int y;
     Character(int);
 };
-extern "C" void* Alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 extern int hulk_at_004176b8;
 struct ConditionFactoryTemplate_16de00 {
     void* m_vptr;
@@ -73,7 +73,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::motion::Chara
 // 0x0016ddc0 fight::ConditionFactoryTemplate<hulkfight::motion::CharacterPropStatusCondition>::vfunc_5 (54 B): matches/0x0016ddc0.cpp
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VCharacterPropStatusCondition@motion@hulkfight@@@fight@@UAEPAXXZ
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::CharacterPropStatusCondition>::vfunc_5() {
-    Character* p = (Character*)Alloc((int)sizeof(::hulkfight::motion::CharacterPropStatusCondition));   // (allocsize1) the size by gen's record
+    Character* p = (Character*)FUN_0008d690((int)sizeof(::hulkfight::motion::CharacterPropStatusCondition));   // (allocsize1) the size by gen's record
     if (p) {
         p->Character::Character(0);
         *(hulk_intptr*)p = ((hulk_intptr)DAT_00416898);

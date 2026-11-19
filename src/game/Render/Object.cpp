@@ -109,7 +109,7 @@ class ResultThing {
     virtual int f5();
 };
 struct B_1c4ea0 {
-    void Fn_0027af70(int);
+    void Fn_0027af70(hulk_intptr);   // (decl1) passes as defined
 };
 struct A_1c4ea0 {
     char pad[8];
@@ -278,7 +278,7 @@ class Obj_1c56d0 {
 };
 class Arg {
   public:
-    int convert_001c5b70();
+    hulk_intptr convert_001c5b70();   // (decl1) passes as defined
 };
 class X {
   public:
@@ -333,7 +333,7 @@ struct Obj_1c5900 {
     bool Check_001c4af0();
 };
 struct Finder_1c5900 {
-    Obj_1c5900* Find_001c75e0(u32_1c5900);
+    Obj_1c5900* Find_001c75e0(hulk_uintptr);   // (decl1) passes as defined
 };
 struct Registry_1c5900 {
     void Register_001c7870(void*, Obj_1c5900*);
@@ -372,7 +372,7 @@ struct A_1c59d0 {
     char pad[8];
 };
 struct B_1c59d0 {
-    int FnF_001c75e0(int);
+    hulk_intptr FnF_001c75e0(hulk_intptr);   // (decl1) passes as defined
 };
 struct X_1c59d0 : A_1c59d0, B_1c59d0 {
     int G(hulk_intptr);
@@ -387,8 +387,8 @@ class Ref_1c5a20 {
 };
 class Sub_1c5a20 {
   public:
-    Ref_1c5a20* Get_001c75e0(int);
-    void Other_001c7550(int);
+    Ref_1c5a20* Get_001c75e0(hulk_intptr);   // (decl1) passes as defined
+    void Other_001c7550(hulk_intptr);   // (decl1) passes as defined
     char pad[0x240];
 };
 class Owner_1c5a20 {
@@ -403,8 +403,8 @@ struct Object_nv_1c5a70 {
 };
 class Container {
   public:
-    Render::Object* Find_001c75e0(int);
-    void Remove_001c7550(int);
+    Render::Object* Find_001c75e0(hulk_intptr);   // (decl1) passes as defined
+    void Remove_001c7550(hulk_intptr);   // (decl1) passes as defined
     void Erase_001c7870(void*, Render::Object*);
 };
 class Owner {

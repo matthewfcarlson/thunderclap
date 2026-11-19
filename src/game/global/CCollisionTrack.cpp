@@ -197,7 +197,7 @@ class CCondition_5dfe0 {
 };
 class Helper_5e050 {
   public:
-    int go_000215d0(hulk_intptr);
+    hulk_intptr go_000215d0(hulk_intptr);   // (decl1) passes as defined
 };
 class CStageCondition_5e280;
 class ParamValue_5e280 {

@@ -20,7 +20,7 @@ class Chunk {
   public:
     char pad[0x28];
     int field;
-    void Init_0023c640(int);
+    void Init_0023c640(hulk_intptr);   // (decl1) passes as defined
 };
 extern int hulk_at_004286dc;
 extern void* Bank_23b7e0_vftable[];

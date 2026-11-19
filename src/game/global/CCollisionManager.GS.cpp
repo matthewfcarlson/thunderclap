@@ -53,7 +53,7 @@ namespace fn_fde88daa {
 class Physics_1b5da0 {
 public:
     void FUN_001b5da0(hulk_intptr a, hulk_intptr b);
-    void FUN_001b4d00(int a, int b);
+    void FUN_001b4d00(hulk_intptr a, int b);   // (decl1) passes as defined
 
     char pad0[8];
     Anim_1b5da0 *anim;

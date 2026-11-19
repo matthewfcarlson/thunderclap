@@ -340,7 +340,7 @@ class FELayout_e2160 {
 };
 class Helper_e2160 {
   public:
-    void call_000f6370(int);
+    void call_000f6370(hulk_intptr);   // (decl1) passes as defined
 };
 class FELayout_e21a0 {
   public:

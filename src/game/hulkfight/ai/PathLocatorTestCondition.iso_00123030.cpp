@@ -10,7 +10,7 @@
 #include "gen/hulkfight.h"
 
 extern "C" char DAT_0040f530[];
-extern "C" void* __cdecl Alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 class StrafeCircleHBTrack_123030 {
   public:
     virtual void v0();
@@ -24,7 +24,7 @@ class StrafeCircleHBTrack_123030 {
 };
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::ai::StrafeCircleHBTrack>::vfunc_5() {
-    StrafeCircleHBTrack_123030* p = (StrafeCircleHBTrack_123030*)Alloc(sizeof(::hulkfight::ai::StrafeCircleHBTrack));
+    StrafeCircleHBTrack_123030* p = (StrafeCircleHBTrack_123030*)FUN_0008d690(sizeof(::hulkfight::ai::StrafeCircleHBTrack));
     if (p) {
         p->StrafeCircleHBTrack_123030::StrafeCircleHBTrack_123030();
         int* q = (int*)p;

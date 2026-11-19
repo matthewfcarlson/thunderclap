@@ -149,7 +149,7 @@ class NoHitPushbackTrack_155060 {};
 } }
 inline void* operator new(size_t, void* p) throw() { return p; }
 namespace fn_ff72ca8e {
-void* FUN_0008d690(unsigned int size);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 } // namespace fn_ff72ca8e
 namespace hulkfight { namespace motion {
 class InterruptAccumulatorCondition_1550b0 {
@@ -657,7 +657,7 @@ class HitWaitAction_156de0 {
     RefCounted_156de0* m_20;
 };
 extern int FUN_00344e74(int, int, const void*, const void*, int);
-extern void* FUN_0008d690(int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 class AllocObj_156e30 {
   public:
     int init_00151180(hulkfight::motion::GroundSlideTrack*, hulk_intptr);

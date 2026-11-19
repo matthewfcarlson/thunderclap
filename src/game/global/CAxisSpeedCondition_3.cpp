@@ -38,7 +38,7 @@ class CAxisSpeedCondition_57080 {
     virtual void V2();
     virtual void V3();
     int a, b, c, d, e;
-    void Initialize_00234590(int);
+    void Initialize_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 extern int hulk_at_003f9160;
 struct ConditionFactoryTemplate_570c0 {

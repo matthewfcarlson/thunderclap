@@ -29,7 +29,7 @@ class TrackFactoryTemplate_18c390 {
 };
 extern "C" void FUN_00188650();
 extern "C" char DAT_0041956c[];
-extern "C" void* Alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 class Track_18c3d0 {
   public:
     Track_18c3d0();
@@ -69,7 +69,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::PropDamag
 // 0x0018c3d0 fight::TrackFactoryTemplate<hulkfight::motion::PropDamageTrack>::vfunc_5 (66 B): matches/0x0018c3d0.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VPropDamageTrack@motion@hulkfight@@@fight@@UAEPAXXZ
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::PropDamageTrack>::vfunc_5() {
-    PropDamageTrack_18c3d0* p = (PropDamageTrack_18c3d0*)Alloc(sizeof(::hulkfight::motion::PropDamageTrack));
+    PropDamageTrack_18c3d0* p = (PropDamageTrack_18c3d0*)FUN_0008d690(sizeof(::hulkfight::motion::PropDamageTrack));
     if (p) {
         p->Track_18c3d0::Track_18c3d0();
         *(volatile hulk_uintptr*)p = ((hulk_intptr)DAT_0041956c);

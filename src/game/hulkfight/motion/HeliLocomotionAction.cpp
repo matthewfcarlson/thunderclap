@@ -594,7 +594,7 @@ extern TypeInfo_15f630 hulk_at_00494b44;
 void* __cdecl Allocate_0008d690(int);
 class Allocated_15f630 {
   public:
-    int Init_0015c9c0(hulkfight::motion::HeliLocomotionTrack*, void*);
+    hulk_intptr Init_0015c9c0(hulkfight::motion::HeliLocomotionTrack*, void*);   // (decl1) passes as defined
 };
 extern "C" char DAT_00415b00[];
 class Base_15f680 {

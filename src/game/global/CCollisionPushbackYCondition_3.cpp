@@ -42,7 +42,7 @@ struct CCollisionPushbackYCondition_57b60 {
     int b;
 };
 struct Initializer_57b60 {
-    void init_00234590(int);
+    void init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 extern int hulk_at_003f93f4;
 struct ConditionFactoryTemplate_57ba0 {

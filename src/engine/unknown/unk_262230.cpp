@@ -30,7 +30,7 @@ struct Local {
     char data[12];
 };
 struct Result {
-    unsigned char FUN_00240310(int);
+    unsigned char FUN_00240310(hulk_intptr);   // (decl1) passes as defined
 };
 extern "C" void * __cdecl FUN_00262400(void *, void *);
 struct Str_2625a0 {

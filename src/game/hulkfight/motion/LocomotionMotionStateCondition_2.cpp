@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x0016d820..0x0016d8d0 (kind game, layer game, confidence high), dominant class hulkfight::motion::LocomotionMotionStateCondition
 #include "tree_prelude.h"
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"   // (allocsize1)
 #include "gen/fight.h"
 #include "gen/owners.h"
@@ -35,7 +36,7 @@ class Condition_16d860 {
     virtual void D();
     virtual void E();
     virtual void F();
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 extern int hulk_at_00416778;

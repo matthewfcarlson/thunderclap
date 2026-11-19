@@ -33,7 +33,7 @@ extern "C" void* __cdecl Alloc(hulk_intptr);
 struct Obj_159140 {
     hulk_intptr vf;
     int pad[4];
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 extern int hulk_at_00415570;
 struct ConditionFactoryTemplate_159180 {

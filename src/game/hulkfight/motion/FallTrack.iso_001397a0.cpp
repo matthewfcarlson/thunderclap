@@ -20,11 +20,11 @@ class HoverTrack_1397a0 {
     int b;
     int c;
 };
-extern "C" void* __cdecl Alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 void __fastcall Init_00236d40(HoverTrack_1397a0*);
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::HoverTrack>::vfunc_5() {
-    HoverTrack_1397a0* p = (HoverTrack_1397a0*)Alloc((int)sizeof(HoverTrack_1397a0));   // (allocsize1) the size by the record the code writes
+    HoverTrack_1397a0* p = (HoverTrack_1397a0*)FUN_0008d690((int)sizeof(HoverTrack_1397a0));   // (allocsize1) the size by the record the code writes
     if (p) {
         Init_00236d40(p);
         *(hulk_intptr*)p = ((hulk_intptr)DAT_00411ca8);

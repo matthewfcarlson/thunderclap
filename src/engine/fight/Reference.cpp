@@ -57,7 +57,7 @@ class Reference : public Branch {
 };
 }
 struct Helper_23c330 {
-    void Fnf_00233fa0(int, int);
+    void Fnf_00233fa0(int, hulk_intptr);   // (decl1) passes as defined
 };
 namespace fight {
 extern Reference *DAT_004e5c40;

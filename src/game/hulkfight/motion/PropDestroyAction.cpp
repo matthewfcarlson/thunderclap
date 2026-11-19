@@ -19,7 +19,7 @@ struct Hit_182420 {
     void Go_001d6770();
 };
 struct Mgr_182420 {
-    void Play_0003acf0(int i, int a, int b, int c, int d, int e);
+    void Play_0003acf0(int i, hulk_intptr a, int b, int c, int d, hulk_intptr e);   // (decl1) passes as defined
     char p[0x128];
     Hit_182420* def;
 };

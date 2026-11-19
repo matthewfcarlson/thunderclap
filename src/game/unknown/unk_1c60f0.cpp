@@ -16,7 +16,7 @@ namespace fn_fb68dce8 { extern "C" char DAT_003f6098[]; }   // (x64t6) the game 
 
 // ---- declarations shared by the functions below
 namespace fn_fb68dce8 {
-extern "C" void* __cdecl alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 class CRenderableCharacter_1c60f0 {
   public:
     CRenderableCharacter_1c60f0* Init_001c6050(int, int);
@@ -105,7 +105,7 @@ struct AllocWords_1c60f0 : ::Render::CRenderableCharacter {   // (sweep-allocsiz
 };
 typedef char AllocWords_1c60f0_size32[(sizeof(void*) != 4 || sizeof(AllocWords_1c60f0) == 0x18) ? 1 : -1];
 CRenderableCharacter_1c60f0* Owner::Create(int a, int b) {
-    CRenderableCharacter_1c60f0* p = (CRenderableCharacter_1c60f0*)alloc(sizeof(AllocWords_1c60f0));
+    CRenderableCharacter_1c60f0* p = (CRenderableCharacter_1c60f0*)FUN_0008d690(sizeof(AllocWords_1c60f0));
     if (p) {
         CRenderableCharacter_1c60f0* q = p->Init_001c6050(a, b);
         if (q) {

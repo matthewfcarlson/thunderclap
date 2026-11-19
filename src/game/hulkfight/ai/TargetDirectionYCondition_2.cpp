@@ -39,7 +39,7 @@ class TargetDirectionYCondition_12a2b0 {
 };
 class Base_12a2b0 {
   public:
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 extern int hulk_at_00410950;
 struct ConditionFactoryTemplate_12a2f0 {

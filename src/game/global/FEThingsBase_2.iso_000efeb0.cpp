@@ -10,7 +10,7 @@
 
 extern "C" int __cdecl lookup(int);
 struct MenuSelector_nv_efeb0 {
-    int call_000ebef0(int, int);
+    hulk_intptr call_000ebef0(int, int);   // (decl1) passes as defined
 };
 
 int FEThingsBase::vfunc_59(int arg) {

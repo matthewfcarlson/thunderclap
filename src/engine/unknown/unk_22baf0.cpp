@@ -127,7 +127,7 @@ struct Plane_22e1f0 {
 };
 typedef unsigned int u32_22e320;
 struct This_FUN_0022e180 {
-    void FUN_0022e180(u32_22e320, hulk_uintptr);
+    void FUN_0022e180(hulk_uintptr, hulk_uintptr);   // (decl1) passes as defined
 };
 struct M16 {
     float m[16];

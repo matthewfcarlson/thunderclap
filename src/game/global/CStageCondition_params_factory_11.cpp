@@ -2,6 +2,7 @@
 // object 0x00051480..0x00056af0 (kind game, layer game, confidence high), merged by D32: global/CStageCondition_params_factory.cpp
 // piece 0x00052680..0x00052720 (kind game, layer game, confidence high, dominant class CIsInvincibleCondition); was game/global/CIsInvincibleCondition.cpp until D46
 #include "tree_prelude.h"
+#include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/global.h"
 #define TREE_TU_BEGIN namespace fn_fbd5c058 {
@@ -50,7 +51,7 @@ class ConditionFactoryCaster_52680 {
 namespace fn_fbd5c058 {
 struct CIsGrappledCondition_526c0 {
     virtual ~CIsGrappledCondition_526c0();
-    void init_00234590(int);
+    void init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 } // namespace fn_fbd5c058
 void* operator new(size_t);

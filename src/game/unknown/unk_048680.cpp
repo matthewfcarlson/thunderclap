@@ -167,7 +167,7 @@ struct CAxisTimeCondition {
     CAxisTimeCondition();
 };
 struct ThisCall_00234590 {
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 CAxisTimeCondition::CAxisTimeCondition() {
     ((ThisCall_00234590*)(this))->Init_00234590(0);

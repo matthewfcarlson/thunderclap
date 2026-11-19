@@ -142,7 +142,7 @@ struct Obj_1b7290 {
     Buf_1b7290* buf;
     void Add(float, float, float, float);
 };
-extern void* __cdecl Alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 struct State_1b7310 {
     int value;
 };
@@ -276,10 +276,10 @@ class Target_1b77e0 {
     char pad2[4];
     RC* mSub;
 };
-void* __cdecl Alloc_0008d710(int size, int tag);
+extern "C" void* __cdecl FUN_0008d710(hulk_intptr, int);   // (decl1) as defined (unk_08ceb0.cpp)
 extern "C" int __cdecl FUN_00266da0(int a);
 extern "C" RC* __cdecl FUN_00334910(int a);
-Obj3_1b77e0* __cdecl GetB_00334010(int a);
+extern "C" Obj3_1b77e0* __cdecl FUN_00334010(int);   // (decl1) as defined (PlayerBink.cpp)
 struct Obj {
     virtual void slot0();
     virtual void slot1();
@@ -552,7 +552,7 @@ namespace fn_fbeebd58 {
 // sym: ?Add@Obj_1b7290@fn_fbeebd58@@QAEXMMMM@Z
 void Obj_1b7290::Add(float a, float b, float c, float d) {
     if (!buf) {
-        void* m = Alloc(0x504);
+        void* m = FUN_0008d690(0x504);
         buf = m ? ((Buf_1b7290*)m)->Init_001b6ed0() : 0;
     }
     Buf_1b7290* p = buf;
@@ -760,7 +760,7 @@ namespace fn_fbeebd58 {
 void Target_1b77e0::Run() {
     mMgr->Fn_002088a0();
     int saved = FUN_00266da0(7);
-    void* mem = Alloc_0008d710(sizeof(::CRadMovieRenderLoop), 7);
+    void* mem = FUN_0008d710(sizeof(::CRadMovieRenderLoop), 7);
     RC* s;
     if (mem)
         s = (RC*)((CRadMovieRenderLoop_nv_1b77e0*)(((CRadMovieRenderLoop*)(((CRadMovieRenderLoop*)mem)))))->Init_001b7740();
@@ -772,7 +772,7 @@ void Target_1b77e0::Run() {
     RC* a = FUN_00334910(7);
     if (a)
         a->AddRef();
-    Obj3_1b77e0* nw = GetB_00334010(7);
+    Obj3_1b77e0* nw = FUN_00334010(7);
     Obj3_1b77e0* old = mObj;
     if (old != nw) {
         mObj = nw;

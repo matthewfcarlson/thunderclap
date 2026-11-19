@@ -133,7 +133,7 @@ extern char DAT_004be7d0;
 } // namespace fn_f5c5d2a1
 inline void* operator new(size_t, void* p) throw() { return p; }
 namespace fn_f5c5d2a1 {
-void* FUN_0008d690(unsigned int size);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 } // namespace fn_f5c5d2a1
 namespace hulkfight { namespace motion {
 class PropMissionCriticalCondition_187650 {
@@ -475,7 +475,7 @@ class PropActorThinkingAction_1888c0 {
     RefCounted_1888c0* m_20;
 };
 extern int FUN_00344e74(int, int, const void*, const void*, int);
-extern void* FUN_0008d690(int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 class AllocObj_188910 {
   public:
     int init_00183aa0(hulkfight::motion::PropAnimationTrack*, hulk_intptr);

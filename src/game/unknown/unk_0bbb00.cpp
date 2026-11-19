@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x000bbb00..0x000bc1e0 (kind game, layer game, confidence low)
 #include "tree_prelude.h"
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
 #include "gen/owners.h"
@@ -154,7 +155,7 @@ class C_bbf20 {
 };
 class Dest {
   public:
-    void Fn_000b78e0(int);
+    void Fn_000b78e0(hulk_intptr);   // (decl1) passes as defined
 };
 class Obj {
   public:
@@ -838,7 +839,7 @@ int C_bbf20::F(int p, char** q) {
 namespace fn_000bbf60 {
 class Obj {
   public:
-    void Do_000b7860(int);
+    void Do_000b7860(hulk_intptr);   // (decl1) passes as defined
 };
 class Wrap {
   public:

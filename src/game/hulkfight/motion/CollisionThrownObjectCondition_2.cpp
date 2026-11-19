@@ -39,7 +39,7 @@ struct Cond_15a530 {
     char flag;
     char pad2[3];
     Helper_15a530 h;
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 extern int hulk_at_0041589c;
 struct ConditionFactoryTemplate_15a570 {

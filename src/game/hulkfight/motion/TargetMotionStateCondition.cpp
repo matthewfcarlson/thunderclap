@@ -35,7 +35,7 @@ class Temp_16d3a0 {
     char pad[8];
     int x;
     int y;
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 extern int hulk_at_00417514;
 struct ConditionFactoryTemplate_16d3e0 {

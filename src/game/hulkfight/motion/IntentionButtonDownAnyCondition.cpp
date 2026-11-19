@@ -41,7 +41,7 @@ class AllocThing {
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 class InitThing {
   public:
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 extern int hulk_at_00417530;
 struct ConditionFactoryTemplate_16d480 {

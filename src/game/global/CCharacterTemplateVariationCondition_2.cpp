@@ -37,7 +37,7 @@ struct Condition_58d70 {
     char pad[0xc];
     int value;
     Entity_58d70 ent;
-    void Ctor_00234590(int);
+    void Ctor_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 extern int hulk_at_003f971c;
 struct ConditionFactoryTemplate_58db0 {

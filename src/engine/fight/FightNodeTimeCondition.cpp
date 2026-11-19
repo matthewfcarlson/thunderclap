@@ -74,7 +74,7 @@ class CCondition_235af0 {
 };
 extern "C" char DAT_00427d14[];
 struct FightNodeTimeCondition_235b00 {
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 struct Part_235b00 {
     void Init_00233dd0();

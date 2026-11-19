@@ -55,7 +55,7 @@ class Thing_29f800 {
 class Item_29f800 {
   public:
     Thing_29f800* owner;
-    void Apply_0029eda0(int, int);
+    void Apply_0029eda0(int, hulk_intptr);   // (decl1) passes as defined
 };
 class Manager_29f800 {
     char pad[0x24];
@@ -116,7 +116,7 @@ struct Owner_29f8c0 {
 struct Container_29fa30 {
     char pad[0x14];
     int count;
-    void FUN_002a0fc0(int index, int value);
+    void FUN_002a0fc0(int index, hulk_intptr value);   // (decl1) passes as defined
 };
 struct Entry_29fa30 {
     unsigned int value;
@@ -184,7 +184,7 @@ struct N_29fca0 {
     char m28[0x14];
     int m3c;
     int m40;
-    void Do_0029ea40(int a);
+    void Do_0029ea40(hulk_intptr a);   // (decl1) passes as defined
 };
 struct X_29fca0 {
     char p[0x24];
@@ -320,8 +320,8 @@ public:
 };
 class Obj_2a0580 {
   public:
-    int get_0029f2e0();
-    void last_0029f0b0(int, void*);
+    hulk_intptr get_0029f2e0();   // (decl1) passes as defined
+    void last_0029f0b0(hulk_intptr, void*);   // (decl1) passes as defined
 };
 class A_2a0580 {
     char pad[0x10];
@@ -362,7 +362,7 @@ struct Obj_2a05c0 {
     int field_14;
 };
 struct H {
-    int get_0029f340();
+    hulk_intptr get_0029f340();   // (decl1) passes as defined
 };
 struct C_2a0650 {
     char pad[0x44];

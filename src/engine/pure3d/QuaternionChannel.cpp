@@ -44,7 +44,7 @@ class QuaternionChannel {
     void vfunc_4(int a, int b, int c);
 };
 struct Helper_28a9f0 {
-    void call_0022b650(int);
+    void call_0022b650(hulk_intptr);   // (decl1) passes as defined
 };
 } // namespace fn_f66a22d3
 namespace pure3d {
@@ -330,7 +330,7 @@ namespace fn_0028ab20 {
 typedef unsigned int u32_28ab20;
 struct Buf_28ab20 {
     char d[16];
-    void Fn_0022b650(u32_28ab20);
+    void Fn_0022b650(hulk_uintptr);   // (decl1) passes as defined
 };
 struct RotationChannel {
     virtual void f0();

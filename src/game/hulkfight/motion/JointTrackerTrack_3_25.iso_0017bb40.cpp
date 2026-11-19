@@ -13,7 +13,7 @@
 extern int hulk_at_00494b44;
 extern int hulk_at_00494b60;
 struct TargetBreakAction_nv_17bb40 {
-    int Make_001764d0(void*);
+    hulk_intptr Make_001764d0(void*);   // (decl1) passes as defined
 };
 extern int __cdecl FUN_00344e74(void*, int, const void*, const void*, int);
 extern hulkfight::motion::TargetBreakAction* __cdecl FUN_0008d690(unsigned int);

@@ -961,7 +961,7 @@ class BeamEffect_19b830 {
 typedef unsigned int u32_19b870;
 extern int TypeA_19b870, hulk_at_00494b60;
 struct Params_19b870 {
-    int Init_001984c0(hulkfight::motion::AccuracyLatencyTrack*, void*);
+    hulk_intptr Init_001984c0(hulkfight::motion::AccuracyLatencyTrack*, void*);   // (decl1) passes as defined
 };
 struct RefCounted_19b8c0 {
   public:

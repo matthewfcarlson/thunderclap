@@ -439,7 +439,7 @@ typedef char hulk_detector_view_[(sizeof(CollisionDetector) == sizeof(HulkCollis
     HULK_AT_(CollisionDetector, z) == HULK_AT_(HulkCollisionDetector, flags) &&
     HULK_AT_(CollisionDetector, f3c) == HULK_AT_(HulkCollisionDetector, m3c)) ? 1 : -1];
 #undef HULK_AT_
-void __fastcall FUN_00313530(CEffectStopTrack*);
+extern "C" void __fastcall FUN_00313530(CEffectStopTrack*);   // (decl1) as defined (unk_312d50.cpp)
 struct Vec3_301310 { float x,y,z; };
 struct Shape_301310 {
  virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual Vec3_301310* position();

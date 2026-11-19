@@ -26,7 +26,7 @@ struct CTrack_6a630 {
 };
 class Alloc_6a650 {
   public:
-    int method_0001f980(CJumpAttackTrack*, hulk_intptr);
+    hulk_intptr method_0001f980(CJumpAttackTrack*, hulk_intptr);   // (decl1) passes as defined
 };
 extern "C" Alloc_6a650* FUN_0008d690(int);
 

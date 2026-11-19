@@ -29,7 +29,7 @@ class TrackFactoryTemplate_18be10 {
 };
 extern "C" void FUN_00187f00();
 extern "C" char DAT_0041932c[];
-extern "C" void* __cdecl Alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 struct Track_18be50 {
     unsigned char pad[0x14];
     void Init_00236d40();
@@ -58,7 +58,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::PropActor
 // 0x0018be50 fight::TrackFactoryTemplate<hulkfight::motion::PropActorThinkingTrack>::vfunc_5 (49 B): matches/0x0018be50.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VPropActorThinkingTrack@motion@hulkfight@@@fight@@UAEPAXXZ
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::PropActorThinkingTrack>::vfunc_5() {
-    Track_18be50* p = (Track_18be50*)Alloc((int)sizeof(::hulkfight::motion::PropActorThinkingTrack));   // (allocsize1) the size by gen's record
+    Track_18be50* p = (Track_18be50*)FUN_0008d690((int)sizeof(::hulkfight::motion::PropActorThinkingTrack));   // (allocsize1) the size by gen's record
     if (p) {
         p->Init_00236d40();
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_0041932c);

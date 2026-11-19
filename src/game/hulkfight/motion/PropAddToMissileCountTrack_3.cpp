@@ -28,7 +28,7 @@ class TrackFactoryTemplate_18c2d0 {
     TrackImpl mTrack;
 };
 extern "C" void FUN_00188570();
-extern "C" void* __cdecl alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 extern int hulk_at_0041953c;
 class Prop_18c310 {
   public:
@@ -64,7 +64,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::PropAddTo
 // 0x0018c310 fight::TrackFactoryTemplate<hulkfight::motion::PropAddToMissileCountTrack>::vfunc_5 (66 B): matches/0x0018c310.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VPropAddToMissileCountTrack@motion@hulkfight@@@fight@@UAEPAXXZ
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::PropAddToMissileCountTrack>::vfunc_5() {
-    Prop_18c310* p = (Prop_18c310*)alloc((int)sizeof(::hulkfight::motion::PropAddToMissileCountTrack));   // (allocsize1) the size by gen's record
+    Prop_18c310* p = (Prop_18c310*)FUN_0008d690((int)sizeof(::hulkfight::motion::PropAddToMissileCountTrack));   // (allocsize1) the size by gen's record
     if (p) {
         p->Init_00236d40();
         p->vptr = (hulk_intptr)&hulk_at_0041953c;

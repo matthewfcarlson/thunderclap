@@ -1553,7 +1553,7 @@ extern char DAT_00494b44, DAT_00494b60, DAT_004bfe10, DAT_004bfe2c;
 extern "C" void* __cdecl FUN_00344e74(void*, int, void*, void*, int);
 struct Prop_194ac0 {};
 struct Lookup_194ac0 {
-    Prop_194ac0* FUN_00035ef0(int);
+    Prop_194ac0* FUN_00035ef0(hulk_intptr);   // (decl1) passes as defined
 };
 struct Context {
     Lookup_194ac0* FUN_00059a30();

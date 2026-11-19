@@ -32,7 +32,7 @@ class Obj_69750 {
 };
 class R_69760 {
   public:
-    int invoke_0001d190(CSoundTrack*, hulk_intptr);
+    hulk_intptr invoke_0001d190(CSoundTrack*, hulk_intptr);   // (decl1) passes as defined
 };
 extern "C" R_69760* FUN_0008d690(int);
 

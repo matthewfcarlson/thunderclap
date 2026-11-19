@@ -113,7 +113,7 @@ class A_e37f0 {
 };
 class Item_e37f0 {
   public:
-    int FnM_000f83f0(int a, int b);
+    hulk_intptr FnM_000f83f0(hulk_intptr a, hulk_intptr b);   // (decl1) passes as defined
     char pad[0x38];
 };
 extern "C" void f7810_000f7810(int a, int b, int c);
@@ -186,7 +186,7 @@ class Elem {
     char pad[0x38];
 
   public:
-    int get_000f83f0(int, int);
+    hulk_intptr get_000f83f0(hulk_intptr, hulk_intptr);   // (decl1) passes as defined
 };
 extern "C" void __cdecl finish_000f7810(int, int, int);
 class Obj {

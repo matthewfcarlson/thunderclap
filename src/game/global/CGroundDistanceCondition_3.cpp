@@ -32,7 +32,7 @@ extern "C" void FUN_00053170();
 extern "C" char DAT_003f6f5c[];
 class GroundCondition {
   public:
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 extern "C" void* Alloc(hulk_uintptr);
 extern int hulk_at_003f9524;

@@ -36,7 +36,7 @@ class Condition_159490 {
     virtual void f3();
     virtual void f4();
     virtual void f5();
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
     char pad[8];
     char flag;
 };

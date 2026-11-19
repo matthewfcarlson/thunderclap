@@ -71,7 +71,7 @@ struct Base_11980 {
     void* GetVtable();
 };
 struct Base_11c10 {
-    void Fn(int);
+    void Fn(hulk_intptr);   // (decl1) passes as defined
 };
 struct Obj_11c10 : Base_11c10 {
     char pad[0x1b50];
@@ -357,7 +357,7 @@ class O_13840 {
 };
 class Sub_13880 {
   public:
-    void Fn(int);
+    void Fn(hulk_intptr);   // (decl1) passes as defined
 };
 class Obj_13880 {
   public:
@@ -367,7 +367,7 @@ class Obj_13880 {
 };
 class Sub_13890 {
   public:
-    void G(int);
+    void G(hulk_intptr);   // (decl1) passes as defined
 };
 class Obj_13890 {
   public:

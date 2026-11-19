@@ -34,7 +34,7 @@ struct CollisionTargetPriorityCondition {
     int pad8;
     int mC;
     int m10;
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 extern "C" void* __cdecl FUN_0008d690(int);
 extern int hulk_at_004155a8;

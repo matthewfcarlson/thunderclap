@@ -42,7 +42,7 @@ class CollisionChargeCondition_159880 {
     int a;
     int b;
     char c;
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 extern int hulk_at_004156a4;
 struct ConditionFactoryTemplate_1598c0 {

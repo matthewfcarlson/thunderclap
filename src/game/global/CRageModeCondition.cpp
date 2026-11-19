@@ -33,7 +33,7 @@ extern "C" char DAT_003f742c[];
 extern "C" void* __cdecl Alloc(hulk_uintptr);
 class CRageModeCondition_586b0 {
   public:
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 extern int hulk_at_003f9604;
 struct ConditionFactoryTemplate_586e0 {

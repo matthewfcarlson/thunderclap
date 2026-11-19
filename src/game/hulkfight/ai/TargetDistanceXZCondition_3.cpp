@@ -37,7 +37,7 @@ class TDC_12aa30 {
     int y;
     unsigned char a;
     unsigned char b;
-    void init_00234590(int);
+    void init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 extern int hulk_at_00410a84;
 struct ConditionFactoryTemplate_12aa70 {

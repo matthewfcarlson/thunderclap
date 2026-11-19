@@ -31,7 +31,7 @@ class SimState {
     virtual void a11();
     virtual void a12();
     virtual void a13();
-    virtual void vfunc_14(int);
+    virtual void vfunc_14(hulk_intptr);   // (decl1) passes as defined
 };
 class Inner_2fe270 {
   public:
@@ -269,7 +269,7 @@ namespace fn_002fe310 {
 struct HairMap {
     char padding[0x20];
     int handle;
-    int FUN_00304cb0(int handle, int index);
+    int FUN_00304cb0(hulk_intptr handle, hulk_intptr index);   // (decl1) passes as defined
 };
 struct HairData {
     char padding[0x1c];
@@ -311,7 +311,7 @@ struct HairStorage {
 struct HairLookup {
     char pad[0x20];
     void* value;
-    int FUN_00304cb0(void*, int);
+    int FUN_00304cb0(void*, hulk_intptr);   // (decl1) passes as defined
 };
 namespace physics {
 struct SimStateHairclub {

@@ -30,7 +30,7 @@ extern "C" void FUN_0016c830();
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 extern char hulk_at_004167b8[];
 struct Sub0_16e5f0 {
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 struct Sub1_16e5f0 {
     void Init_0027af00();

@@ -32,7 +32,7 @@ extern "C" char DAT_003f6f34[];
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 struct CAxisDirectionCondition_56ca0 {
     hulk_intptr vt;
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
     char pad[8];
     int a;
     int b;

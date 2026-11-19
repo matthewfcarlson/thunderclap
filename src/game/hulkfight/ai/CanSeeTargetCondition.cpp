@@ -34,7 +34,7 @@ class CanSeeTargetCondition_12ae30 {
     char pad[8];
     u8 a;
     u8 b;
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 extern int hulk_at_00410b2c;

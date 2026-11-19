@@ -283,7 +283,7 @@ class Ref_2f7dc0 {
     virtual void f3();
     virtual void f4(void*, int, void*, int, int, int, int);
 };
-extern "C" void* __cdecl FUN_0008d690(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 struct CollisionAnalyser_nv_2f7e50 {
     void* init_0030e480();
 };
@@ -877,7 +877,7 @@ struct Ref_2f7ee0 {
 };
 struct Name_2f7ee0 {
 };
-void* __cdecl FUN_0008d690(unsigned);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 void* __cdecl thunk_FUN_0008d690(unsigned);
 extern "C" Ref_2f7ee0* __cdecl FUN_002efa90(CollisionObject_2f7ee0*, int, int);
 class ImpulseBasedCollisionSolver_2f7ee0 {

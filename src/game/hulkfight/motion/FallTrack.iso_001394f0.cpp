@@ -10,7 +10,7 @@
 #include "gen/hulkfight.h"
 
 extern "C" char DAT_00411be8[];
-extern "C" void* __cdecl Alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 class FallTrack_1394f0 {
   public:
     hulk_intptr vptr;
@@ -24,7 +24,7 @@ class FallTrack_1394f0 {
 class GrappleHoverTrack_1394f0 : public FallTrack_1394f0 {};
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::GrappleHoverTrack>::vfunc_5() {
-    GrappleHoverTrack_1394f0* p = (GrappleHoverTrack_1394f0*)Alloc(sizeof(::hulkfight::motion::GrappleHoverTrack));
+    GrappleHoverTrack_1394f0* p = (GrappleHoverTrack_1394f0*)FUN_0008d690(sizeof(::hulkfight::motion::GrappleHoverTrack));
     if (p) {
         p->Init_00236d40();
         p->vptr = ((hulk_intptr)DAT_00411be8);
