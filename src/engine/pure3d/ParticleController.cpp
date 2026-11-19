@@ -547,7 +547,7 @@ void* pure3d::ParticleController::vfunc_4() {
 namespace fn_fa907639 {
 
 // 0x002a75a0 FUN_002a75a0 (340 B): equivalent/0x002a75a0.cpp
-// sym: ?FUN_002a75a0@Holder_2a75a0@fn_fa907639@@QAEXPBUSource_2a75a0@2@@Z @d0f761b50a98 @wce4032f9f209
+// sym: ?FUN_002a75a0@Holder_2a75a0@fn_fa907639@@QAEXPBUSource_2a75a0@2@@Z @d0f761b50a98 @wce4032f9f209 @v67cc2125b3a6
 // STATUS: equivalent (tools/equiv.py level 3: 34 inputs, branch coverage 25/30, incomplete)
 // FUN_002a75a0 @ 0x002a75a0
 void Holder_2a75a0::FUN_002a75a0(const Source_2a75a0 *src)

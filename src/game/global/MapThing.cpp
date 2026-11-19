@@ -260,7 +260,7 @@ X_e36a0* X_e36a0::Target() {
 
 
 // 0x000e36c0 FUN_000e36c0 (138 B): equivalent/0x000e36c0.cpp
-// sym: ?FUN_000e36c0@HintList@fn_ffa3e06c@@QAEXXZ @708a1535d368 @wfb54019b1388
+// sym: ?FUN_000e36c0@HintList@fn_ffa3e06c@@QAEXXZ @708a1535d368 @wfb54019b1388 @vdaddc7ec8bd7
 // STATUS: equivalent (tools/equiv.py level 3: 77 inputs, branch coverage 8/8)
 // FUN_000e36c0 @ 0x000e36c0
 // equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d340

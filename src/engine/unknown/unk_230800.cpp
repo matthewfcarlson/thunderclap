@@ -78,7 +78,7 @@ class Container_230f50 {
 } // namespace fn_f39652ec
 
 // 0x00230800 FUN_00230800 (75 B): equivalent/0x00230800.cpp [wrapped: conflict: Node]
-// sym: ?FUN_00230800@Tree@fn_00230800@@QAEPAUNode@2@PAU32@@Z @f62b42597f6c @wbd029f23cc48
+// sym: ?FUN_00230800@Tree@fn_00230800@@QAEPAUNode@2@PAU32@@Z @f62b42597f6c @wbd029f23cc48 @v0e92e8576f45
 namespace fn_00230800 {
 // STATUS: equivalent (tools/equiv.py level 3: 471 inputs, branch coverage 15/16, incomplete)
 // FUN_00230800 @ 0x00230800
@@ -483,7 +483,7 @@ extern "C" Node* __fastcall FUN_00230ea0(Node* p) {
 
 
 // 0x00230ec0 FUN_00230ec0 (141 B): equivalent/0x00230ec0.cpp [wrapped: merged class would differ: Tree_230ec0: field nil: Field(+0x4 Node nil) vs Field(+0x4 Node nil)]
-// sym: ?FUN_00230ec0@Tree_230ec0@fn_00230ec0@@QAE_NP6ADPAUNode@2@H@ZH@Z @987db732c67e @wb8ea86b8c62c
+// sym: ?FUN_00230ec0@Tree_230ec0@fn_00230ec0@@QAE_NP6ADPAUNode@2@H@ZH@Z @987db732c67e @wb8ea86b8c62c @v4d726f367101
 namespace fn_00230ec0 {
 // STATUS: equivalent (tools/equiv.py level 3: 76 inputs, branch coverage 27/28, incomplete)
 // FUN_00230ec0 @ 0x00230ec0

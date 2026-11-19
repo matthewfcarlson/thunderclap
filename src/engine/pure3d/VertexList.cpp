@@ -633,7 +633,7 @@ void Skin::Apply(Pal *a, Map *b)
 namespace fn_f7aa76dc {
 
 // 0x002c92f0 FUN_002c92f0 (1000 B): equivalent/0x002c92f0.cpp
-// sym: ?FUN_002c92f0@Skin@fn_f7aa76dc@@QAEXPAUMatSet@2@PAURemap@2@@Z @344b76e7d0a8 @w1878cee0a124
+// sym: ?FUN_002c92f0@Skin@fn_f7aa76dc@@QAEXPAUMatSet@2@PAURemap@2@@Z @344b76e7d0a8 @w1878cee0a124 @va1fda3991846
 // STATUS: equivalent (tools/equiv.py level 3: 56 inputs, branch coverage 14/14)
 // FUN_002c92f0 @ 0x002c92f0
 void Skin::FUN_002c92f0(MatSet *ms, Remap *rm)

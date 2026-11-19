@@ -596,7 +596,7 @@ Entry* __cdecl FUN_002604d0(Head* head, Entry* entry) {
 } // namespace fn_f3ff1114
 
 // 0x00260520 FUN_00260520 (111 B): equivalent/0x00260520.cpp [wrapped: conflict: Node]
-// sym: ?FUN_00260520@fn_00260520@@YAPAUItem_260520@1@PAUTree_260520@1@H@Z @4b6e750e6107 @wa5f6cbf7d27a
+// sym: ?FUN_00260520@fn_00260520@@YAPAUItem_260520@1@PAUTree_260520@1@H@Z @4b6e750e6107 @wa5f6cbf7d27a @v3edbadb95238
 namespace fn_00260520 {
 // STATUS: equivalent (tools/equiv.py level 3: 77 inputs, branch coverage 24/24)
 // FUN_00260520 @ 0x00260520

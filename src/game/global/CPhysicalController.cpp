@@ -497,7 +497,7 @@ void Controller_b1c90::FUN_000b1c90(State_b1c90* state, int requested) {
 
 
 // 0x000b1db0 FUN_000b1db0 (688 B): equivalent/0x000b1db0.cpp [wrapped: conflict: CPhysicalController; DAT_003f335c]
-// sym: ?FUN_000b1db0@CPhysicalController@fn_000b1db0@@QAEXXZ @e86fcf59f4e3 @w1ee6bc5e63c8
+// sym: ?FUN_000b1db0@CPhysicalController@fn_000b1db0@@QAEXXZ @e86fcf59f4e3 @w1ee6bc5e63c8 @vb9ac86785828
 namespace fn_000b1db0 {
 // STATUS: equivalent (tools/equiv.py level 3: 219 inputs, branch coverage 52/56, incomplete)
 // FUN_000b1db0 @ 0x000b1db0

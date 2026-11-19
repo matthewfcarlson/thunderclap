@@ -2068,7 +2068,7 @@ void Walker_2809b0::FUN_002809b0(Mesh_2809b0 *mesh, int arg2, int arg3, Face_280
 
 
 // 0x00280be0 FUN_00280be0 (356 B): equivalent/0x00280be0.cpp
-// sym: ?FUN_00280be0@fn_f4890d4c@@YAXPAUPlane_280be0@1@PAUVtx_280be0@1@H1PAH@Z @53e9c4286caf @we238712c73eb
+// sym: ?FUN_00280be0@fn_f4890d4c@@YAXPAUPlane_280be0@1@PAUVtx_280be0@1@H1PAH@Z @53e9c4286caf @we238712c73eb @v28c1dff82adf
 // STATUS: equivalent (tools/equiv.py level 3: 17260 inputs, branch coverage 14/14)
 // FUN_00280be0 @ 0x00280be0
 // Sutherland-Hodgman clip of a closed polygon against one plane.

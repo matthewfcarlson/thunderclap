@@ -1815,7 +1815,7 @@ void pure3d::BillboardQuadGroup::vfunc_8(void* __p0) { Ref_2b9ee0 * value = (Ref
 
 
 // 0x002b9f50 pure3d::BillboardQuadGroup::vfunc_10 (589 B): equivalent/0x002b9f50.cpp [wrapped: conflict: pure3d::BillboardQuadGroup]
-// sym: ?vfunc_10@BillboardQuadGroup@pure3d@fn_002b9f50@@UAEXXZ @6107278bb8c2 @we4d876182878
+// sym: ?vfunc_10@BillboardQuadGroup@pure3d@fn_002b9f50@@UAEXXZ @6107278bb8c2 @we4d876182878 @v45a0a0eaf57c
 namespace fn_002b9f50 {
 // STATUS: equivalent (tools/equiv.py level 3: 58 inputs, branch coverage 22/28, incomplete)
 // pure3d::BillboardQuadGroup::vfunc_10 @ 0x002b9f50

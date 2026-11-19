@@ -579,7 +579,7 @@ void MeshBuffers_2c7340::FUN_002c7340(unsigned int flags, unsigned int n, unsign
 
 
 // 0x002c7690 FUN_002c7690 (893 B): equivalent/0x002c7690.cpp
-// sym: ?FUN_002c7690@fn_f3d8c80d@@YAXPAUMesh@1@PAUVertexSink@1@D@Z @dffd3b64f80a @we82971e66918
+// sym: ?FUN_002c7690@fn_f3d8c80d@@YAXPAUMesh@1@PAUVertexSink@1@D@Z @dffd3b64f80a @we82971e66918 @v14f926624bec
 // STATUS: equivalent (tools/equiv.py level 3: 113 inputs, branch coverage 46/46)
 // FUN_002c7690 @ 0x002c7690
 // Emit every indexed vertex of a mesh; the mesh arrives in eax, the sink in esi.

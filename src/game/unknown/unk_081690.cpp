@@ -156,7 +156,7 @@ class CCow_832b0 : public Entity_832b0 {
 
 
 // 0x00081690 FUN_00081690 (797 B): equivalent/0x00081690.cpp
-// sym: ?FUN_00081690@Entity@fn_fbd4e3f0@@QAEXHPAUV3_81690@2@M_NH@Z @312c31029e17 @w6ab5b29780d2
+// sym: ?FUN_00081690@Entity@fn_fbd4e3f0@@QAEXHPAUV3_81690@2@M_NH@Z @312c31029e17 @w6ab5b29780d2 @v3e1d19abdfe0
 // STATUS: equivalent (tools/equiv.py level 3: 3032 inputs, branch coverage 40/40)
 // FUN_00081690 @ 0x00081690
 void Entity::FUN_00081690(int a0, V3_81690* dir, float step, bool lock, int a4)

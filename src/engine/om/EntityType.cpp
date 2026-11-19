@@ -1424,7 +1424,7 @@ void FUN_002446d0(Node* n, Node* tree) {
 namespace fn_f7032cca {
 
 // 0x002447c0 FUN_002447c0 (74 B): equivalent/0x002447c0.cpp
-// sym: ?FUN_002447c0@fn_f7032cca@@YAPAUNode@1@PAUBoundary@1@PAUCollection@1@@Z @0ef663a46c28 @webc26cfe7249
+// sym: ?FUN_002447c0@fn_f7032cca@@YAPAUNode@1@PAUBoundary@1@PAUCollection@1@@Z @0ef663a46c28 @webc26cfe7249 @v523562bd642a
 // STATUS: equivalent (tools/equiv.py level 3: 534 inputs, branch coverage 14/14)
 // FUN_002447c0 @ 0x002447c0
 Node *__cdecl FUN_002447c0(Boundary *boundary, Collection *collection) { Link *end = &boundary->sentinel; Link *prior = &collection->header; Link *current = prior->parent; if (current != end) { Link *previous = current->previous; while (previous != end) { current = previous; previous = current->previous; } } else { current = prior->next; while (current != end && current->parent == prior) { prior = current; current = current->next; } } if (current == end) return 0; return (Node *)((char *)current - 0x48); }
@@ -1432,7 +1432,7 @@ Node *__cdecl FUN_002447c0(Boundary *boundary, Collection *collection) { Link *e
 } // namespace fn_f7032cca
 
 // 0x00244810 FUN_00244810 (82 B): equivalent/0x00244810.cpp [wrapped: conflict: Node]
-// sym: ?FUN_00244810@fn_00244810@@YAPAUNode@1@PAUList@1@PBUKey@1@@Z @e93550922d29 @wee7a984be2ce
+// sym: ?FUN_00244810@fn_00244810@@YAPAUNode@1@PAUList@1@PBUKey@1@@Z @e93550922d29 @wee7a984be2ce @v6444d6529682
 namespace fn_00244810 {
 // STATUS: equivalent (tools/equiv.py level 3: 490 inputs, branch coverage 15/16, incomplete)
 // FUN_00244810 @ 0x00244810
@@ -1490,7 +1490,7 @@ extern "C" int* FUN_00244870(void * tree, int* key) {
 
 
 // 0x002448b0 FUN_002448b0 (609 B): equivalent/0x002448b0.cpp [wrapped: conflict: Node]
-// sym: _FUN_002448b0 @746f19e1c0c3 @w25854181b595
+// sym: _FUN_002448b0 @746f19e1c0c3 @w25854181b595 @v725a0bf69ad5
 namespace fn_002448b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 314 inputs, branch coverage 51/64, incomplete)
 // FUN_002448b0 @ 0x002448b0
@@ -1712,7 +1712,7 @@ extern "C" void * __cdecl FUN_00244b20(void * tree_, void * entry_) {
 
 
 // 0x00244be0 FUN_00244be0 (167 B): equivalent/0x00244be0.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: _FUN_00244be0 @f1907dfe8209 @wf348ca223ae9
+// sym: _FUN_00244be0 @f1907dfe8209 @wf348ca223ae9 @ve3bb116cb049
 namespace fn_00244be0 {
 // STATUS: equivalent (tools/equiv.py level 3: 100 inputs, branch coverage 28/32, incomplete)
 // FUN_00244be0 @ 0x00244be0
@@ -1789,7 +1789,7 @@ extern "C" void *__cdecl FUN_00244be0(void * tree_, void *query)
 namespace fn_f7032cca {
 
 // 0x00244cc0 FUN_00244cc0 (74 B): equivalent/0x00244cc0.cpp
-// sym: ?FUN_00244cc0@fn_f7032cca@@YAPAXPAUContainer@1@PAUIterator@1@@Z @e7a09e8c2dcd @wdd47ce1d4469
+// sym: ?FUN_00244cc0@fn_f7032cca@@YAPAXPAUContainer@1@PAUIterator@1@@Z @e7a09e8c2dcd @wdd47ce1d4469 @v95d1fc1523d0
 // STATUS: equivalent (tools/equiv.py level 3: 539 inputs, branch coverage 14/14)
 // FUN_00244cc0 @ 0x00244cc0
 void* __cdecl FUN_00244cc0(Container* container, Iterator* iterator)

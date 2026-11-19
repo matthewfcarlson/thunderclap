@@ -254,7 +254,7 @@ extern "C" void __cdecl FUN_0026b970(void * heap_) {
 
 
 // 0x0026bac0 FUN_0026bac0 (281 B): equivalent/0x0026bac0.cpp
-// sym: ?FUN_0026bac0@fn_f2ae9c07@@YA?AUHeapStats@1@XZ @1146fb595f45 @w6e2c50b78595
+// sym: ?FUN_0026bac0@fn_f2ae9c07@@YA?AUHeapStats@1@XZ @1146fb595f45 @w6e2c50b78595 @v27f09ad97825
 // STATUS: equivalent (tools/equiv.py level 3: 50 inputs, branch coverage 14/14)
 // FUN_0026bac0 @ 0x0026bac0
 HeapStats FUN_0026bac0()

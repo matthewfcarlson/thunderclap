@@ -2048,7 +2048,7 @@ Object* Object::FUN_001f4ba0(hulk_uintptr arg) {
 namespace fn_f7fca51a {
 
 // 0x001f4c50 FUN_001f4c50 (649 B): equivalent/0x001f4c50.cpp
-// sym: ?FUN_001f4c50@Sound_1f4c50@fn_f7fca51a@@QAEXXZ @c63ca2436e60 @w4e99ea9a660b
+// sym: ?FUN_001f4c50@Sound_1f4c50@fn_f7fca51a@@QAEXXZ @c63ca2436e60 @w4e99ea9a660b @v2a1deaf54cdf
 // STATUS: equivalent (tools/equiv.py level 3: 19813 inputs, branch coverage 12/12)
 // FUN_001f4c50 @ 0x001f4c50
 void Sound_1f4c50::FUN_001f4c50()

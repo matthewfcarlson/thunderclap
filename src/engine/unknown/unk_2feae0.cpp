@@ -663,7 +663,7 @@ char Tracer_2ff200::FUN_002ff200(Query_2ff200 *q, V3_2ff200 *from, V3_2ff200 *to
 
 
 // 0x002ff3f0 FUN_002ff3f0 (318 B): equivalent/0x002ff3f0.cpp
-// sym: ?FUN_002ff3f0@ActorSet@fn_fb493392@@QAEXE@Z @4450e168c792 @w5eb7b44ad88a
+// sym: ?FUN_002ff3f0@ActorSet@fn_fb493392@@QAEXE@Z @4450e168c792 @w5eb7b44ad88a @v10944476bb41
 // STATUS: equivalent (tools/equiv.py level 3: 48 inputs, branch coverage 26/26)
 // FUN_002ff3f0 @ 0x002ff3f0
 void ActorSet::FUN_002ff3f0(unsigned char flags)
@@ -775,7 +775,7 @@ void Container::FUN_002ff910() { for (unsigned int i=0; i<(unsigned int)((int)((
 
 
 // 0x002ff9c0 FUN_002ff9c0 (57 B): equivalent/0x002ff9c0.cpp
-// sym: ?FUN_002ff9c0@Object@fn_fb493392@@QAEXXZ @8fec92570bec @weca632bdd3e7
+// sym: ?FUN_002ff9c0@Object@fn_fb493392@@QAEXXZ @8fec92570bec @weca632bdd3e7 @v4171e0eae110
 // STATUS: equivalent (tools/equiv.py level 3: 144 inputs, branch coverage 4/4)
 // FUN_002ff9c0 @ 0x002ff9c0
 void Object::FUN_002ff9c0() {
@@ -915,7 +915,7 @@ unsigned FUN_002ffee0(Search *self, unsigned originalEax, int key) {
 } // namespace fn_fb493392
 
 // 0x002fffa0 FUN_002fffa0 (217 B): equivalent/0x002fffa0.cpp [wrapped: conflict: Object]
-// sym: ?remove@Manager_2fffa0@fn_002fffa0@@QAE_NPAUObject@2@I@Z @9f5864b6df3f @wec323d1c190c
+// sym: ?remove@Manager_2fffa0@fn_002fffa0@@QAE_NPAUObject@2@I@Z @9f5864b6df3f @wec323d1c190c @va5c2bacbd13a
 namespace fn_002fffa0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20 inputs, branch coverage 28/30, incomplete)
 // FUN_002fffa0 @ 0x002fffa0
@@ -997,7 +997,7 @@ void Graph_300080::FUN_00300080(int a, int b)
 
 
 // 0x00300100 FUN_00300100 (310 B): equivalent/0x00300100.cpp
-// sym: _FUN_00300100 @3c358e9fd704 @w15d1eaaf86a9
+// sym: _FUN_00300100 @3c358e9fd704 @w15d1eaaf86a9 @v5ad97fe1d38e
 // STATUS: equivalent (tools/equiv.py level 3: 26 inputs, branch coverage 36/42, incomplete)
 // FUN_00300100 @ 0x00300100
 // std::_Unguarded_partition for unsigned int* (three-way split around a median pivot).

@@ -496,7 +496,7 @@ template <> void content::LoadInventory::DynamicCaster<physics::PhysicsObject>::
 
 
 // 0x002905e0 FUN_002905e0 (345 B): equivalent/0x002905e0.cpp [wrapped: conflict: core::IRefCount; pure3d::prop::StateData]
-// sym: ?FUN_002905e0@StateData@prop@pure3d@fn_002905e0@@QAEXXZ @71d3e9ccd2fe @weaf4092cf7dd
+// sym: ?FUN_002905e0@StateData@prop@pure3d@fn_002905e0@@QAEXXZ @71d3e9ccd2fe @weaf4092cf7dd @vcdd90b043d8a
 inline void *operator new(size_t, void *p) { return p; }
 namespace fn_002905e0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 32/32)

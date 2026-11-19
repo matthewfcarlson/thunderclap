@@ -4388,7 +4388,7 @@ void Pool_1dec10::FUN_001dec10()
 
 
 // 0x001deda0 FUN_001deda0 (155 B): equivalent/0x001deda0.cpp
-// sym: ?FUN_001deda0@Manager_1deda0@fn_f75938cb@@QAEXPAUKey_1deda0@2@@Z @513de6aa4c11 @w31540dab5f66
+// sym: ?FUN_001deda0@Manager_1deda0@fn_f75938cb@@QAEXPAUKey_1deda0@2@@Z @513de6aa4c11 @w31540dab5f66 @vffedcc8a8c8d
 // STATUS: equivalent (tools/equiv.py level 3: 1047 inputs, branch coverage 14/16, incomplete)
 // FUN_001deda0 @ 0x001deda0
 // FUN_001deda0: find the entry with the given 64-bit key and notify its owner about the slot's flags
@@ -10008,7 +10008,7 @@ void Registry_1e40f0::FUN_001e40f0(const char* a1, CSPManager_1e40f0* a2, Fn_1e4
 
 
 // 0x001e4190 FUN_001e4190 (124 B): equivalent/0x001e4190.cpp
-// sym: _FUN_001e4190 @228fa3b3d3ae @w2adf13d268a9
+// sym: _FUN_001e4190 @228fa3b3d3ae @w2adf13d268a9 @v0202dae8a554
 // STATUS: equivalent (tools/equiv.py level 3: 70 inputs, branch coverage 15/18, incomplete)
 // FUN_001e4190 @ 0x001e4190
 // Insertion sort of [first, last) by ascending key.
@@ -10229,7 +10229,7 @@ void CSPManager_1e43b0::FUN_001e43b0(int a, KeyArg key, int b, int c)
 namespace fn_f75938cb {
 
 // 0x001e4490 FUN_001e4490 (565 B): equivalent/0x001e4490.cpp
-// sym: ?FUN_001e4490@fn_f75938cb@@YAPAUElemPair_1e4490@1@PAU21@PAUElem_1e4490@1@1@Z @89359e72841b @wef988a5629b7
+// sym: ?FUN_001e4490@fn_f75938cb@@YAPAUElemPair_1e4490@1@PAU21@PAUElem_1e4490@1@1@Z @89359e72841b @wef988a5629b7 @v66c092cb74b4
 // STATUS: equivalent (tools/equiv.py level 3: 62 inputs, branch coverage 60/62, incomplete)
 // FUN_001e4490 @ 0x001e4490
 ElemPair_1e4490* FUN_001e4490(ElemPair_1e4490* out, Elem_1e4490* first, Elem_1e4490* last)

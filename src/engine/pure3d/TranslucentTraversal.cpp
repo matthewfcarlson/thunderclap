@@ -579,7 +579,7 @@ Range_2a2200 *FUN_002a2200(Range_2a2200 *out, int *first, int *last, Less_2a2200
 namespace fn_f7803771 {
 
 // 0x002a23d0 FUN_002a23d0 (166 B): equivalent/0x002a23d0.cpp
-// sym: ?FUN_002a23d0@fn_f7803771@@YAXPAH0P6A_NHH@Z@Z @f81f0341f58e @wa6f27e8e2832
+// sym: ?FUN_002a23d0@fn_f7803771@@YAXPAH0P6A_NHH@Z@Z @f81f0341f58e @wa6f27e8e2832 @v389421655574
 // STATUS: equivalent (tools/equiv.py level 3: 117 inputs, branch coverage 16/20, incomplete)
 // FUN_002a23d0 @ 0x002a23d0
 // Insertion sort of [first, last) of 4-byte elements with a comparison callback.

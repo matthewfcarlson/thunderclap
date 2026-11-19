@@ -1036,7 +1036,7 @@ extern "C" char FUN_00257560(void * tree_, void * nodeArg_, const unsigned* keyP
 
 
 // 0x00257730 FUN_00257730 (67 B): equivalent/0x00257730.cpp [wrapped: conflict: List]
-// sym: ?FUN_00257730@fn_00257730@@YAXPAUList@1@@Z @a809ed1d4652 @wfc2092ed5934
+// sym: ?FUN_00257730@fn_00257730@@YAXPAUList@1@@Z @a809ed1d4652 @wfc2092ed5934 @v082dd480884e
 namespace fn_00257730 {
 // STATUS: equivalent (tools/equiv.py level 3: 53 inputs, branch coverage 6/6)
 // FUN_00257730 @ 0x00257730

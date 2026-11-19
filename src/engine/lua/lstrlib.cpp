@@ -523,7 +523,7 @@ extern "C" const char *__cdecl FUN_0033c7e0(LuaVMMatchState *ms, const char *s, 
 
 
 // 0x0033caa0 FUN_0033caa0 (109 B): equivalent/0x0033caa0.cpp
-// sym: ?FUN_0033caa0@fn_f0814e11@@YAPBDPBDI0I@Z @9cbcc53f07de @w29e507045a73
+// sym: ?FUN_0033caa0@fn_f0814e11@@YAPBDPBDI0I@Z @9cbcc53f07de @w29e507045a73 @v6aef3311778d
 // STATUS: equivalent (tools/equiv.py level 3: 2528 inputs, branch coverage 10/12, incomplete)
 // FUN_0033caa0 @ 0x0033caa0
 // equiv-conv: FUN_0033caa0 eax stack stack stack

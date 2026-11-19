@@ -386,7 +386,7 @@ extern "C" void __cdecl FUN_0025a160(void * tree_, void * entry_) {
 
 
 // 0x0025a220 FUN_0025a220 (78 B): equivalent/0x0025a220.cpp [wrapped: merged class would differ: List: field sentinel: Field(+0x4 Node sentinel) vs Field(+0x4 Node sentinel)]
-// sym: _FUN_0025a220 @f1b1366e490a @w7ee3e07896e2
+// sym: _FUN_0025a220 @f1b1366e490a @w7ee3e07896e2 @v0604184aeede
 namespace fn_0025a220 {
 // STATUS: equivalent (tools/equiv.py level 3: 96 inputs, branch coverage 8/8)
 // FUN_0025a220 @ 0x0025a220

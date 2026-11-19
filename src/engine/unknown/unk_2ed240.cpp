@@ -1251,7 +1251,7 @@ void Container_2ee6d0::Add(Item_2ee6d0* item) {
 // 0x002ee700 thunk_FUN_002ee510 (5 B): not yet verified
 
 // 0x002ee710 FUN_002ee710 (646 B): equivalent/0x002ee710.cpp
-// sym: ?FUN_002ee710@Registry_2ee710@fn_f671dae7@@QAEXPAUItem_2ee710@2@@Z @34683b3547ce @w2038d0552b62
+// sym: ?FUN_002ee710@Registry_2ee710@fn_f671dae7@@QAEXPAUItem_2ee710@2@@Z @34683b3547ce @w2038d0552b62 @v2785db412989
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 65/66, incomplete)
 // FUN_002ee710 @ 0x002ee710
 void Registry_2ee710::FUN_002ee710(Item_2ee710 *obj)
@@ -1452,7 +1452,7 @@ void Mgr::FUN_002eea80()
 // 0x002eecb0 thunk_FUN_002ee710 (5 B): not yet verified
 
 // 0x002eecc0 FUN_002eecc0 (228 B): equivalent/0x002eecc0.cpp
-// sym: ?reset@State_2eecc0@fn_f671dae7@@QAEXXZ @312a3fdbd699 @w1c2f1536feb2
+// sym: ?reset@State_2eecc0@fn_f671dae7@@QAEXXZ @312a3fdbd699 @w1c2f1536feb2 @v8bc7b6477c3b
 // STATUS: equivalent (tools/equiv.py level 3: 27 inputs, branch coverage 18/18)
 // FUN_002eecc0 @ 0x002eecc0
 void State_2eecc0::reset() {

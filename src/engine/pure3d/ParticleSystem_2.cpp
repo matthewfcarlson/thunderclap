@@ -393,7 +393,7 @@ ParticleSystem_2a3950::~ParticleSystem_2a3950() {
 } // namespace fn_f1899950
 
 // 0x002a39a0 pure3d::ParticleSystem::vfunc_8 (312 B): equivalent/0x002a39a0.cpp [wrapped: macros]
-// sym: ?run@ParticleSystem@fn_002a39a0@@QAEXPAURenderer_2a39a0@2@H@Z @20dbfe4b85dd @w7b17b3df77ea
+// sym: ?run@ParticleSystem@fn_002a39a0@@QAEXPAURenderer_2a39a0@2@H@Z @20dbfe4b85dd @w7b17b3df77ea @v2f73bf44f2e7
 namespace fn_002a39a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 112 inputs, branch coverage 18/18)
 // pure3d::ParticleSystem::vfunc_8 @ 0x002a39a0

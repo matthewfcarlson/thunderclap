@@ -5099,7 +5099,7 @@ hulk_intptr owners::ThisWrap_000e7520::FUN_000e7520(int x) {
 namespace fn_f26f242d {
 
 // 0x000e7620 FUN_000e7620 (121 B): equivalent/0x000e7620.cpp
-// sym: ?FUN_000e7620@Registry_e7620@fn_f26f242d@@QAEPAVNamed_e7620@2@PBD@Z @b3127a3b5bcb @w0d93eb660f80
+// sym: ?FUN_000e7620@Registry_e7620@fn_f26f242d@@QAEPAVNamed_e7620@2@PBD@Z @b3127a3b5bcb @w0d93eb660f80 @v9f4e0d3b5f78
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // FUN_000e7620 @ 0x000e7620
 Named_e7620* Registry_e7620::FUN_000e7620(const char* name) {

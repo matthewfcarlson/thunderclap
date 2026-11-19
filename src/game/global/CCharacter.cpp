@@ -3507,7 +3507,7 @@ bool Host_3aaf0::Select(Ent_3aaf0* e)
 
 
 // 0x0003acf0 FUN_0003acf0 (501 B): equivalent/0x0003acf0.cpp [wrapped: conflict: World]
-// sym: ?FUN_0003acf0@CCharacter_3acf0@fn_0003acf0@@QAEDHPAUObj_3acf0@2@HHHPAUMatrix@2@@Z @54b90e0f5ad5 @w1ce54d67738e
+// sym: ?FUN_0003acf0@CCharacter_3acf0@fn_0003acf0@@QAEDHPAUObj_3acf0@2@HHHPAUMatrix@2@@Z @54b90e0f5ad5 @w1ce54d67738e @vd57865fb9fd8
 namespace fn_0003acf0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3054 inputs, branch coverage 39/40, incomplete)
 // FUN_0003acf0 @ 0x0003acf0

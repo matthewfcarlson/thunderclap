@@ -236,7 +236,7 @@ struct Node_231960 {
 
 
 // 0x002310a0 FUN_002310a0 (184 B): equivalent/0x002310a0.cpp
-// sym: ?FUN_002310a0@Table_2310a0@fn_f6bca062@@QAEXI@Z @2334e003f56b @w2c18ddaa7973
+// sym: ?FUN_002310a0@Table_2310a0@fn_f6bca062@@QAEXI@Z @2334e003f56b @w2c18ddaa7973 @v1b8832c9dd56
 // STATUS: equivalent (tools/equiv.py level 3: 58 inputs, branch coverage 14/14)
 // FUN_002310a0 @ 0x002310a0
 void Table_2310a0::FUN_002310a0(unsigned int newCapacity) {

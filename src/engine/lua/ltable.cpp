@@ -554,7 +554,7 @@ extern "C" void __cdecl FUN_0021a3a0(LuaVMTable* t, LuaVMState* L) {
 
 
 // 0x0021a3e0 FUN_0021a3e0 (277 B): equivalent/0x0021a3e0.cpp
-// sym: _FUN_0021a3e0 @0bbe879e9cff @wc8d1d1dc31d1
+// sym: _FUN_0021a3e0 @0bbe879e9cff @wc8d1d1dc31d1 @v1617c050952f
 // STATUS: equivalent (tools/equiv.py level 3: 441 inputs, branch coverage 20/20)
 // newkey: insert a key into its main position (moving a colliding node that is not in its own main position to
 // a free node), with the barrier; when no free node is left, rehash and look the key up again.

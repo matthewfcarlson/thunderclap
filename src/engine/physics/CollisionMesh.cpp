@@ -974,7 +974,7 @@ void FUN_002f4350(u16_2f4350* first, u16_2f4350* last) {
 } // namespace fn_f77c5fbc
 
 // 0x002f43f0 FUN_002f43f0 (355 B): equivalent/0x002f43f0.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: _FUN_002f43f0 @34eae4eedd76 @w9596cdac4fc3
+// sym: _FUN_002f43f0 @34eae4eedd76 @w9596cdac4fc3 @v24236187db81
 namespace fn_002f43f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 28 inputs, branch coverage 37/42, incomplete)
 // FUN_002f43f0 @ 0x002f43f0

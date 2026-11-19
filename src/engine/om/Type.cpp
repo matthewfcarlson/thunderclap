@@ -309,7 +309,7 @@ Type::Type(const OmKey* baseKey, const OmKey* key, int size, int align) {
 
 
 // 0x00258530 FUN_00258530 (504 B): equivalent/0x00258530.cpp
-// sym: ?FUN_00258530@fn_ff0fd322@@YA_NPAUOmTree@@PAUOmType@@PBUOmKey@@@Z @cddf20613386 @we0fdcac3f421
+// sym: ?FUN_00258530@fn_ff0fd322@@YA_NPAUOmTree@@PAUOmType@@PBUOmKey@@@Z @cddf20613386 @we0fdcac3f421 @v80c2df22a44d
 // STATUS: equivalent (tools/equiv.py level 3: 1132 inputs, branch coverage 51/52, incomplete)
 // FUN_00258530 @ 0x00258530
 // The tree of om types by key (records.h OmType: the type's node, keyed by its own key; the tree is the OmTree layout,
@@ -471,7 +471,7 @@ Node* FUN_002587f0(Node* head) {
 } // namespace fn_ff0fd322
 
 // 0x00258820 FUN_00258820 (74 B): equivalent/0x00258820.cpp [wrapped: conflict: Node]
-// sym: ?FUN_00258820@fn_00258820@@YAPAUNode@1@PAUTree@1@PAU21@@Z @f391ea3141c6 @wd0235b4445e7
+// sym: ?FUN_00258820@fn_00258820@@YAPAUNode@1@PAUTree@1@PAU21@@Z @f391ea3141c6 @wd0235b4445e7 @v01bae79dda23
 namespace fn_00258820 {
 // STATUS: equivalent (tools/equiv.py level 3: 527 inputs, branch coverage 14/14)
 // FUN_00258820 @ 0x00258820
@@ -503,7 +503,7 @@ Node* __cdecl FUN_00258820(Tree* tree, Node* node)
 namespace fn_ff0fd322 {
 
 // 0x00258870 FUN_00258870 (82 B): equivalent/0x00258870.cpp
-// sym: _FUN_00258870 @2275fff2b4a1 @w77ce938d083e
+// sym: _FUN_00258870 @2275fff2b4a1 @w77ce938d083e @v6eb131b42802
 // STATUS: equivalent (tools/equiv.py level 3: 641 inputs, branch coverage 15/16, incomplete)
 // FUN_00258870 @ 0x00258870
 // The tree of om types by key: the type with this key, or 0 (records.h OmType: the type's node, keyed by its own key).

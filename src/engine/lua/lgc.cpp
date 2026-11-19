@@ -191,7 +191,7 @@ extern "C" int __cdecl FUN_00216670(LuaVMTable* h, LuaVMGlobal* g) {
 
 
 // 0x00216810 FUN_00216810 (191 B): equivalent/0x00216810.cpp
-// sym: _FUN_00216810 @35b6df2fb0f7 @w2880c096d6a5
+// sym: _FUN_00216810 @35b6df2fb0f7 @w2880c096d6a5 @vef29c4da4c0c
 // STATUS: equivalent (tools/equiv.py level 3: 122 inputs, branch coverage 30/30)
 // traverseproto: mark a prototype's source, constants, upvalue names, nested prototypes and local names.
 // equiv-conv: FUN_00216810 esi stack

@@ -2495,7 +2495,7 @@ void FEThingsBase::vfunc_48(int a) {
 
 
 // 0x000efaf0 FEThingsBase::vfunc_4 (388 B): equivalent/0x000efaf0.cpp [wrapped: conflict: FEThingsBase]
-// sym: ?vfunc_4@FEThingsBase@fn_000efaf0@@UAEXXZ @87290f87a0c2 @w86e2d7951bf6
+// sym: ?vfunc_4@FEThingsBase@fn_000efaf0@@UAEXXZ @87290f87a0c2 @w86e2d7951bf6 @v64f0a0d4aa88
 namespace fn_000efaf0 {
 // STATUS: equivalent (tools/equiv.py level 3: 26 inputs, branch coverage 36/36)
 // FEThingsBase::vfunc_4 @ 0x000efaf0
@@ -4215,7 +4215,7 @@ void __stdcall FUN_000f0b30(int value)
 
 
 // 0x000f0b90 FUN_000f0b90 (714 B): equivalent/0x000f0b90.cpp
-// sym: ?FUN_000f0b90@Mgr_f0b90@fn_f196c51b@@QAEXPBD@Z @a3d68c208720 @w8a1cbeb3c48a
+// sym: ?FUN_000f0b90@Mgr_f0b90@fn_f196c51b@@QAEXPBD@Z @a3d68c208720 @w8a1cbeb3c48a @vcf2644ec4353
 // STATUS: equivalent (tools/equiv.py level 3: 98 inputs, branch coverage 84/92, incomplete)
 // FUN_000f0b90 @ 0x000f0b90
 // equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d330

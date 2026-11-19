@@ -1112,7 +1112,7 @@ void Owner_1fc890::run(void* a, void* b) {
 
 
 // 0x001fc8c0 FUN_001fc8c0 (185 B): equivalent/0x001fc8c0.cpp
-// sym: ?FUN_001fc8c0@CTriggerVolumeManager_1fc8c0@fn_f3d6a774@@QAEPAUEntry_1fc8c0@2@II@Z @2deb760b9542 @wb1ea42e3e8ef
+// sym: ?FUN_001fc8c0@CTriggerVolumeManager_1fc8c0@fn_f3d6a774@@QAEPAUEntry_1fc8c0@2@II@Z @2deb760b9542 @wb1ea42e3e8ef @v7f706201db1a
 // STATUS: equivalent (tools/equiv.py level 3: 178 inputs, branch coverage 22/22)
 // FUN_001fc8c0 @ 0x001fc8c0
 Entry_1fc8c0 *CTriggerVolumeManager_1fc8c0::FUN_001fc8c0(unsigned int key1, unsigned int key2) {
@@ -3068,7 +3068,7 @@ template class Method1<CTriggerVolumeManager, void, float>; // (ren2) native onl
 
 
 // 0x001ff580 FUN_001ff580 (416 B): equivalent/0x001ff580.cpp [wrapped: conflict: CTriggerVolumeManager]
-// sym: ??0CTriggerVolumeManager@fn_001ff580@@QAE@XZ @6c6402386526 @wda299ae5b1c8
+// sym: ??0CTriggerVolumeManager@fn_001ff580@@QAE@XZ @6c6402386526 @wda299ae5b1c8 @v63ca263318fd
 namespace fn_001ff580 {
 // STATUS: equivalent (tools/equiv.py level 3: 15 inputs, branch coverage 21/22, incomplete)
 // FUN_001ff580 @ 0x001ff580

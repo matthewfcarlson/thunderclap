@@ -1112,7 +1112,7 @@ Puppet_2232d0* Puppet_2232d0::assign(Puppet_2232d0* source) {
 
 
 // 0x002233e0 FUN_002233e0 (232 B): equivalent/0x002233e0.cpp
-// sym: ?FUN_002233e0@fn_fe86d092@@YAPAUItem_2233e0@1@PAU21@00@Z @4772ad6f87c6 @wf3775b281d7b
+// sym: ?FUN_002233e0@fn_fe86d092@@YAPAUItem_2233e0@1@PAU21@00@Z @4772ad6f87c6 @wf3775b281d7b @vde9707ea9ec9
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 30/30)
 // FUN_002233e0 @ 0x002233e0
 Item_2233e0* __cdecl FUN_002233e0(Item_2233e0* first, Item_2233e0* second, Item_2233e0* third) {

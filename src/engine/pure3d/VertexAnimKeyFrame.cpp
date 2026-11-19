@@ -484,7 +484,7 @@ void __fastcall target(Obj_2e6210* self) {
 } // namespace fn_f411a916
 
 // 0x002e6270 FUN_002e6270 (208 B): equivalent/0x002e6270.cpp [wrapped: conflict: core::IRefCount; pure3d::VertexAnimKeyFrameList]
-// sym: ??1VertexAnimKeyFrameList@pure3d@fn_002e6270@@QAE@XZ @20f1b7da7cc3 @w83a324895167
+// sym: ??1VertexAnimKeyFrameList@pure3d@fn_002e6270@@QAE@XZ @20f1b7da7cc3 @w83a324895167 @vac98942c2d76
 namespace fn_002e6270 {
 // STATUS: equivalent (tools/equiv.py level 3: 37 inputs, branch coverage 18/20, incomplete)
 // FUN_002e6270 @ 0x002e6270

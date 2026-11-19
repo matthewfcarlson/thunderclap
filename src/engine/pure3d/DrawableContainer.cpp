@@ -550,7 +550,7 @@ int pure3d::DrawableContainer::vfunc_16() {
 
 
 // 0x002a4440 pure3d::DrawableContainer::vfunc_17 (111 B): equivalent/0x002a4440.cpp
-// sym: ?vfunc_17@DrawableContainer@pure3d@@UAEPAXHH@Z @45f561c15947 @w1c2af3e11f7c
+// sym: ?vfunc_17@DrawableContainer@pure3d@@UAEPAXHH@Z @45f561c15947 @w1c2af3e11f7c @v1475361413be
 // STATUS: equivalent (tools/equiv.py level 3: 50 inputs, branch coverage 12/12)
 // pure3d::DrawableContainer::vfunc_17 @ 0x002a4440
 void* pure3d::DrawableContainer::vfunc_17(int key1, int key2) {

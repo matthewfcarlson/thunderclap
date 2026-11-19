@@ -110,7 +110,7 @@ extern int FUN_0026b740(void* a, int mode, void* c, int toMode, int g, int f, in
 
 
 // 0x002699f0 FUN_002699f0 (141 B): equivalent/0x002699f0.cpp
-// sym: ?FUN_002699f0@fn_fcad8d96@@YAHPBDPADI@Z @e58f54ef897a @w1d5810ed3f50
+// sym: ?FUN_002699f0@fn_fcad8d96@@YAHPBDPADI@Z @e58f54ef897a @w1d5810ed3f50 @v58ea12b20255
 // STATUS: equivalent (tools/equiv.py level 3: 228 inputs, branch coverage 8/8)
 // FUN_002699f0 @ 0x002699f0
 // Copies whole UTF-8-like characters from source into dest while they fit in capacity-1 bytes,
@@ -316,7 +316,7 @@ extern "C" int __cdecl FUN_00269d70(const char* input, char* output, void* value
 
 
 // 0x00269e00 FUN_00269e00 (141 B): equivalent/0x00269e00.cpp
-// sym: ?FUN_00269e00@fn_fcad8d96@@YAHPBDPADI@Z @975b56fff67a @we6d04c17bb6b
+// sym: ?FUN_00269e00@fn_fcad8d96@@YAHPBDPADI@Z @975b56fff67a @we6d04c17bb6b @v8cd37a6f393f
 // STATUS: equivalent (tools/equiv.py level 3: 228 inputs, branch coverage 8/8)
 // FUN_00269e00 @ 0x00269e00
 // equiv-conv: FUN_00269e00 eax stack stack
@@ -915,7 +915,7 @@ extern "C" int __cdecl FUN_0026aab0(const char *source, char *destination, int m
 
 
 // 0x0026ab60 FUN_0026ab60 (141 B): equivalent/0x0026ab60.cpp
-// sym: ?FUN_0026ab60@fn_fcad8d96@@YAHPBDPADI@Z @21f3cc9776bb @w59140cc71d80
+// sym: ?FUN_0026ab60@fn_fcad8d96@@YAHPBDPADI@Z @21f3cc9776bb @w59140cc71d80 @v6edd21c3eab5
 // STATUS: equivalent (tools/equiv.py level 3: 228 inputs, branch coverage 8/8)
 // FUN_0026ab60 @ 0x0026ab60
 // Copies whole UTF-8-like characters from source into dest while they fit in capacity-1 bytes,
@@ -1125,7 +1125,7 @@ extern "C" int __cdecl FUN_0026aee0(const char* input, char* output, void* value
 
 
 // 0x0026af70 FUN_0026af70 (141 B): equivalent/0x0026af70.cpp
-// sym: ?FUN_0026af70@fn_fcad8d96@@YAHPBDPADI@Z @cf1fe763dbbb @w6b2a89474092
+// sym: ?FUN_0026af70@fn_fcad8d96@@YAHPBDPADI@Z @cf1fe763dbbb @w6b2a89474092 @vff9ee4c887a0
 // STATUS: equivalent (tools/equiv.py level 3: 228 inputs, branch coverage 8/8)
 // FUN_0026af70 @ 0x0026af70
 // equiv-conv: FUN_0026af70 eax stack stack

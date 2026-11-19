@@ -1040,7 +1040,7 @@ void Obj_25b730::Target(void* a, u32_25b730 b) {
 } // namespace fn_fd6abdd0
 
 // 0x0025b7d0 FUN_0025b7d0 (118 B): equivalent/0x0025b7d0.cpp [wrapped: conflict: Node]
-// sym: _FUN_0025b7d0 @c6a9a0630125 @w79a889fe7ed0
+// sym: _FUN_0025b7d0 @c6a9a0630125 @w79a889fe7ed0 @vdcbb31c4d9b6
 namespace fn_0025b7d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 97 inputs, branch coverage 8/8)
 // FUN_0025b7d0 @ 0x0025b7d0
@@ -1105,7 +1105,7 @@ void __cdecl target(void* p, Obj* o) {
 } // namespace fn_fd6abdd0
 
 // 0x0025b8e0 FUN_0025b8e0 (91 B): equivalent/0x0025b8e0.cpp [wrapped: helper definitions (3 out-of-line function bodies)]
-// sym: ?FUN_0025b8e0@fn_0025b8e0@@YAHPAUTree@1@@Z @10869e878e6a @w614263bb9e88
+// sym: ?FUN_0025b8e0@fn_0025b8e0@@YAHPAUTree@1@@Z @10869e878e6a @w614263bb9e88 @v22be9a1c2ed5
 namespace fn_0025b8e0 {
 // STATUS: equivalent (tools/equiv.py level 3: 99 inputs, branch coverage 18/22, incomplete)
 // FUN_0025b8e0 @ 0x0025b8e0
@@ -1178,7 +1178,7 @@ void Target_25b940::run() {
 } // namespace fn_fd6abdd0
 
 // 0x0025b970 FUN_0025b970 (517 B): equivalent/0x0025b970.cpp [wrapped: conflict: Node]
-// sym: ?FUN_0025b970@Section_25b970@fn_0025b970@@QAEDPAUWriter_25b970@2@@Z @18859160671b @wb2d1a14f1925
+// sym: ?FUN_0025b970@Section_25b970@fn_0025b970@@QAEDPAUWriter_25b970@2@@Z @18859160671b @wb2d1a14f1925 @v8f3a2f32dfea
 namespace fn_0025b970 {
 // STATUS: equivalent (tools/equiv.py level 3: 430 inputs, branch coverage 60/60)
 // FUN_0025b970 @ 0x0025b970

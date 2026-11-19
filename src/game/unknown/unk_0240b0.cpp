@@ -2906,7 +2906,7 @@ int Obj_25580::GetX() {
 
 
 // 0x00025590 FUN_00025590 (390 B): equivalent/0x00025590.cpp
-// sym: ?FUN_00025590@Mgr_25590@fn_f6d645d0@@QAEXPAURecord_25590@2@HHHHPBUMat4_25590@2@HI@Z @3bbfc5882583 @wf65002d1d0f9
+// sym: ?FUN_00025590@Mgr_25590@fn_f6d645d0@@QAEXPAURecord_25590@2@HHHHPBUMat4_25590@2@HI@Z @3bbfc5882583 @wf65002d1d0f9 @v58aec9bc049e
 // STATUS: equivalent (tools/equiv.py level 3: 63 inputs, branch coverage 13/14, incomplete)
 // FUN_00025590 @ 0x00025590
 void Mgr_25590::FUN_00025590(Record_25590 *rec, int a1, int a2, int a3, int a4, const Mat4_25590 *mat, int a6, unsigned int stamp)

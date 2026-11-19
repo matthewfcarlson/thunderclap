@@ -614,7 +614,7 @@ extern "C" void FUN_0025ed40(void * tree_, void * x_)
 
 
 // 0x0025f030 FUN_0025f030 (74 B): equivalent/0x0025f030.cpp
-// sym: ?FUN_0025f030@fn_f98b1434@@YAPAXPAUHead@1@PAURange@1@@Z @423c22cef9ca @w7915036d4138
+// sym: ?FUN_0025f030@fn_f98b1434@@YAPAXPAUHead@1@PAURange@1@@Z @423c22cef9ca @w7915036d4138 @v4afdcaf6cb8e
 // STATUS: equivalent (tools/equiv.py level 3: 539 inputs, branch coverage 14/14)
 // FUN_0025f030 @ 0x0025f030
 void * __cdecl FUN_0025f030(Head *head, Range *range)
@@ -675,7 +675,7 @@ Entry_25f080* FUN_0025f080(Tree_25f080* tree, Key_25f080* name)
 
 
 // 0x0025f120 FUN_0025f120 (74 B): equivalent/0x0025f120.cpp
-// sym: ?FUN_0025f120@fn_f98b1434@@YAPAUEntry@1@PAU21@PAUIterator@1@@Z @dab976b38ac3 @wa66716d02a3e
+// sym: ?FUN_0025f120@fn_f98b1434@@YAPAUEntry@1@PAU21@PAUIterator@1@@Z @dab976b38ac3 @wa66716d02a3e @v3c8615d51fe2
 // STATUS: equivalent (tools/equiv.py level 3: 539 inputs, branch coverage 14/14)
 // FUN_0025f120 @ 0x0025f120
 Entry* __cdecl FUN_0025f120(Entry *end, Iterator *it)
@@ -1072,7 +1072,7 @@ extern "C" void __cdecl FUN_0025f6e0(void * tree_, void * entry_) {
 namespace fn_f98b1434 {
 
 // 0x0025f7e0 om::MetaType::vfunc_1 (272 B): equivalent/0x0025f7e0.cpp
-// sym: ?vfunc_1@MetaType@om@fn_f98b1434@@UAE_NPAPAUOutput_25f7e0@3@PAX@Z @1cfe7347851e @w0d43788b2cd1
+// sym: ?vfunc_1@MetaType@om@fn_f98b1434@@UAE_NPAPAUOutput_25f7e0@3@PAX@Z @1cfe7347851e @w0d43788b2cd1 @ve4d6ec89a310
 // STATUS: equivalent (tools/equiv.py level 3: 51 inputs, branch coverage 30/34, incomplete)
 // om::MetaType::vfunc_1 @ 0x0025f7e0
 bool om::MetaType::vfunc_1(Output_25f7e0** out, void* context) {
@@ -1109,7 +1109,7 @@ bool om::MetaType::vfunc_1(Output_25f7e0** out, void* context) {
 } // namespace fn_f98b1434
 
 // 0x0025f8f0 om::MetaType::vfunc_2 (151 B): equivalent/0x0025f8f0.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?vfunc_2@MetaType@om@fn_0025f8f0@@UAE_NHH@Z @274ab731bbd6 @w960d3327d992
+// sym: ?vfunc_2@MetaType@om@fn_0025f8f0@@UAE_NHH@Z @274ab731bbd6 @w960d3327d992 @v6693a7b317ac
 namespace fn_0025f8f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 50 inputs, branch coverage 26/26)
 // om::MetaType::vfunc_2 @ 0x0025f8f0
@@ -1237,7 +1237,7 @@ void Node::FUN_0025fad0(hulk_intptr value) {
 } // namespace fn_f98b1434
 
 // 0x0025fb00 FUN_0025fb00 (148 B): equivalent/0x0025fb00.cpp [wrapped: conflict: Node]
-// sym: ?FUN_0025fb00@ItemTree@fn_0025fb00@@QAEXH@Z @c6fa7f2a9d26 @wdf733bd81054
+// sym: ?FUN_0025fb00@ItemTree@fn_0025fb00@@QAEXH@Z @c6fa7f2a9d26 @wdf733bd81054 @v9f196bcfdb03
 namespace fn_0025fb00 {
 // STATUS: equivalent (tools/equiv.py level 3: 54 inputs, branch coverage 26/26)
 // FUN_0025fb00 @ 0x0025fb00
@@ -1324,7 +1324,7 @@ MetaTypeAttribBase* MetaTypeAttribBase::init(void* p, hulk_uintptr c, hulk_uintp
 } // namespace fn_f98b1434
 
 // 0x0025fbe0 FUN_0025fbe0 (71 B): equivalent/0x0025fbe0.cpp [wrapped: conflict: Node]
-// sym: _FUN_0025fbe0 @e8d4ba2a9b56 @we3c8b8a54ccc
+// sym: _FUN_0025fbe0 @e8d4ba2a9b56 @we3c8b8a54ccc @ved1f57fbdd4c
 namespace fn_0025fbe0 {
 // STATUS: equivalent (tools/equiv.py level 3: 89 inputs, branch coverage 7/8, incomplete)
 // FUN_0025fbe0 @ 0x0025fbe0

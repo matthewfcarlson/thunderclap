@@ -357,7 +357,7 @@ extern "C" void FUN_00263690(void * tree_, void * x_)
 } // namespace fn_f551a4d0
 
 // 0x00263970 FUN_00263970 (75 B): equivalent/0x00263970.cpp [wrapped: conflict: Node]
-// sym: _FUN_00263970 @e439e04b5352 @wfe951715613b
+// sym: _FUN_00263970 @e439e04b5352 @wfe951715613b @v3c5e778ff526
 namespace fn_00263970 {
 // STATUS: equivalent (tools/equiv.py level 3: 615 inputs, branch coverage 15/16, incomplete)
 // FUN_00263970 @ 0x00263970
@@ -383,7 +383,7 @@ extern "C" void * __cdecl FUN_00263970(void * tree_, const void * key) {
 
 
 // 0x002639c0 FUN_002639c0 (489 B): equivalent/0x002639c0.cpp [wrapped: conflict: Node; Tree]
-// sym: ?FUN_002639c0@fn_002639c0@@YADPAUTree@1@PAUNode@1@PAUKey@1@@Z @741e4ca8fdc1 @w35452d1b56ed
+// sym: ?FUN_002639c0@fn_002639c0@@YADPAUTree@1@PAUNode@1@PAUKey@1@@Z @741e4ca8fdc1 @w35452d1b56ed @vf6cf8c5e7666
 namespace fn_002639c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 1180 inputs, branch coverage 39/52, incomplete)
 // FUN_002639c0 @ 0x002639c0

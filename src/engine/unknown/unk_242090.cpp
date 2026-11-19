@@ -179,7 +179,7 @@ void FUN_00242090() {
 
 
 // 0x00242130 FUN_00242130 (74 B): equivalent/0x00242130.cpp
-// sym: ?FUN_00242130@fn_f215d331@@YAPAUTreeNode@1@PAU21@0@Z @f937dbdd3b94 @w109f8f8dd6d8
+// sym: ?FUN_00242130@fn_f215d331@@YAPAUTreeNode@1@PAU21@0@Z @f937dbdd3b94 @w109f8f8dd6d8 @v9d20c4e135e4
 // STATUS: equivalent (tools/equiv.py level 3: 539 inputs, branch coverage 14/14)
 // FUN_00242130 @ 0x00242130
 TreeNode *__cdecl FUN_00242130(TreeNode *head, TreeNode *current)
@@ -404,7 +404,7 @@ extern "C" void FUN_00242680(void * tree, void * node) {
 
 
 // 0x00242860 FUN_00242860 (305 B): equivalent/0x00242860.cpp
-// sym: ?FUN_00242860@fn_f215d331@@YAXPAUTree_242860@1@@Z @88ca765a5f94 @w80a1fd5ded18
+// sym: ?FUN_00242860@fn_f215d331@@YAXPAUTree_242860@1@@Z @88ca765a5f94 @w80a1fd5ded18 @v58531b10d87e
 // STATUS: equivalent (tools/equiv.py level 3: 145 inputs, branch coverage 30/34, incomplete)
 // FUN_00242860 @ 0x00242860
 void FUN_00242860(Tree_242860 *tree)
@@ -734,7 +734,7 @@ extern "C" void __cdecl FUN_00242d70(void* a, Obj_242d70* b) {
 } // namespace fn_f215d331
 
 // 0x00242da0 FUN_00242da0 (279 B): equivalent/0x00242da0.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: _FUN_00242da0 @3abc14821b7a @wa2cb20dc01b0
+// sym: _FUN_00242da0 @3abc14821b7a @wa2cb20dc01b0 @v6950ba28c596
 inline void *operator new(size_t, void *p) throw() { return p; }
 namespace fn_00242da0 {
 // STATUS: equivalent (tools/equiv.py level 3: 50 inputs, branch coverage 30/30)
@@ -931,7 +931,7 @@ extern "C" void FUN_00242f60(int a, Obj_242f60* b, int c) {
 
 
 // 0x00242f90 FUN_00242f90 (242 B): equivalent/0x00242f90.cpp
-// sym: ?FUN_00242f90@fn_f215d331@@YAXPAUOwner_242f90@1@M@Z @6ca12c3b9bd5 @w5fdb33ca54d2
+// sym: ?FUN_00242f90@fn_f215d331@@YAXPAUOwner_242f90@1@M@Z @6ca12c3b9bd5 @w5fdb33ca54d2 @v280db9c19005
 // STATUS: equivalent (tools/equiv.py level 3: 126 inputs, branch coverage 34/34)
 // FUN_00242f90 @ 0x00242f90
 // Advances every node's fade: state 1 ramps progress up to 1 (then state 2), state 3 ramps it

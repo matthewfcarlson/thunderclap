@@ -1444,7 +1444,7 @@ extern "C" N_248bf0* __cdecl FUN_00248bf0(N_248bf0* s, N_248bf0* n) {
 } // namespace fn_f9a518a5
 
 // 0x00248c50 FUN_00248c50 (75 B): equivalent/0x00248c50.cpp [wrapped: merged class would differ: Tree: field sentinel: Field(+0x4 Node sentinel) vs Field(+0x4 Node sentinel)]
-// sym: ?FUN_00248c50@fn_00248c50@@YAPAUNode@1@PAUTree@1@PAU21@@Z @853b28fe7849 @we7802cd32f96
+// sym: ?FUN_00248c50@fn_00248c50@@YAPAUNode@1@PAUTree@1@PAU21@@Z @853b28fe7849 @we7802cd32f96 @v3810b0bf29f2
 namespace fn_00248c50 {
 // STATUS: equivalent (tools/equiv.py level 3: 195 inputs, branch coverage 15/16, incomplete)
 // FUN_00248c50 @ 0x00248c50
@@ -1994,7 +1994,7 @@ void __cdecl target(Object* self, hulk_intptr delta) {
 } // namespace fn_f9a518a5
 
 // 0x00249750 FUN_00249750 (143 B): equivalent/0x00249750.cpp [wrapped: conflict: FUN_00247550]
-// sym: ?FUN_00249750@fn_00249750@@YAHPAUNode@1@@Z @f999e417849e @wcb32f4b955f9
+// sym: ?FUN_00249750@fn_00249750@@YAHPAUNode@1@@Z @f999e417849e @wcb32f4b955f9 @vbc9cbe3c859e
 namespace fn_00249750 {
 // STATUS: equivalent (tools/equiv.py level 3: 171 inputs, branch coverage 14/14)
 // FUN_00249750 @ 0x00249750
@@ -2117,7 +2117,7 @@ void run(Item_2498d0* self) {
 } // namespace fn_f9a518a5
 
 // 0x00249a90 FUN_00249a90 (168 B): equivalent/0x00249a90.cpp [wrapped: conflict: Node]
-// sym: _FUN_00249a90 @fccb18b450ae @w89e795285847
+// sym: _FUN_00249a90 @fccb18b450ae @w89e795285847 @v547286ed2716
 namespace fn_00249a90 {
 // STATUS: equivalent (tools/equiv.py level 3: 108 inputs, branch coverage 31/32, incomplete)
 // FUN_00249a90 @ 0x00249a90
@@ -2186,7 +2186,7 @@ extern "C" void __cdecl FUN_00249a90(Tree_249a90* tree, const Values_249a90* val
 namespace fn_f9a518a5 {
 
 // 0x00249b40 FUN_00249b40 (132 B): equivalent/0x00249b40.cpp
-// sym: _FUN_00249b40 @d9a400817e62 @w6f12f0684428
+// sym: _FUN_00249b40 @d9a400817e62 @w6f12f0684428 @v8351c871d565
 // STATUS: equivalent (tools/equiv.py level 3: 115 inputs, branch coverage 29/30, incomplete)
 // FUN_00249b40 @ 0x00249b40
 extern "C" int FUN_00249b40(Tree_249b40 *tree)
@@ -2798,7 +2798,7 @@ bool FUN_0024a3c0(Obj_24a3c0 *o, int x, int unused, int a)
 } // namespace fn_f9a518a5
 
 // 0x0024a450 FUN_0024a450 (71 B): equivalent/0x0024a450.cpp [wrapped: conflict: Node]
-// sym: _FUN_0024a450 @3061e5b0fc19 @w00f640629fa2
+// sym: _FUN_0024a450 @3061e5b0fc19 @w00f640629fa2 @v36d3ea1b3643
 namespace fn_0024a450 {
 // STATUS: equivalent (tools/equiv.py level 3: 68 inputs, branch coverage 7/8, incomplete)
 // FUN_0024a450 @ 0x0024a450
@@ -2808,7 +2808,7 @@ struct Link { Link* next; }; struct Node { virtual void destroy(unsigned int); L
 
 
 // 0x0024a4a0 FUN_0024a4a0 (71 B): equivalent/0x0024a4a0.cpp [wrapped: conflict: List; Node]
-// sym: _FUN_0024a4a0 @9543bc28db08 @w0f40728dbf17
+// sym: _FUN_0024a4a0 @9543bc28db08 @w0f40728dbf17 @v28397e3ee4f2
 namespace fn_0024a4a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 66 inputs, branch coverage 8/8)
 // FUN_0024a4a0 @ 0x0024a4a0
@@ -2987,7 +2987,7 @@ Obj_24a7a0* Obj_24a7a0::Update(u8_24a7a0 flag) {
 } // namespace fn_f9a518a5
 
 // 0x0024a800 FUN_0024a800 (307 B): equivalent/0x0024a800.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: _FUN_0024a800 @2678ef061a0c @w88a26fab74f6
+// sym: _FUN_0024a800 @2678ef061a0c @w88a26fab74f6 @v9c924eb21cce
 namespace fn_0024a800 {
 // STATUS: equivalent (tools/equiv.py level 3: 99 inputs, branch coverage 55/56, incomplete)
 // FUN_0024a800 @ 0x0024a800
@@ -3450,7 +3450,7 @@ extern "C" int __cdecl FUN_0024ace0(int a, hulk_intptr b, int c, int d, int e, h
 
 
 // 0x0024ad20 FUN_0024ad20 (301 B): equivalent/0x0024ad20.cpp
-// sym: ?FUN_0024ad20@Registry@fn_f9a518a5@@QAEXXZ @f80037c6239d @w679296e95814
+// sym: ?FUN_0024ad20@Registry@fn_f9a518a5@@QAEXXZ @f80037c6239d @w679296e95814 @va0795f132da6
 // STATUS: equivalent (tools/equiv.py level 3: 109 inputs, branch coverage 24/24)
 // FUN_0024ad20 @ 0x0024ad20
 // equiv-conv: FUN_00249750 esi
