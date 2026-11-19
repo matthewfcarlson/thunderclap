@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x000cc7e0..0x000d40e0 (kind game, layer game, confidence high), dominant class HUDOverlay
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -16,6 +15,7 @@
 #define TREE_TU_END }
 namespace fn_f3fdf6d3 {} using namespace fn_f3fdf6d3;
 #include "game/global.h"
+#include "game/script_bind.h"
 // (ren2) __RTDynamicCast's own name (CRT, C linkage)
 extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
@@ -2025,60 +2025,25 @@ template class Method4<HUDOverlay, void, const char *, float, float,math::Vector
 
 
 // 0x000ceb80 FUN_000ceb80 (89 B): matches/0x000ceb80.cpp [wrapped: conflict: HUDOverlay; Method3]
-// sym: ??0?$Method3@VHUDOverlay@fn_000ceb80@@HPBDPBDM@fn_000ceb80@@QAE@PBDP8HUDOverlay@1@AEH00M@Z@Z
+// sym: ??0Method3@fn_000ceb80@@QAE@PBDP8Owner_ceb80@1@AEXXZ@Z
 namespace fn_000ceb80 {
-
-// Pinned prototypes of address-named globals and functions that many sources declare (docs/source-tree.md,
-// "Pinned address names"). A source includes this instead of declaring them itself; tools/migrate_gen.py
-// --family pin does the rewrite and keeps only what still verifies. Hand-maintained: one line per name.
-//
-// The pointed-to classes are declared, not defined: each source still defines the members it uses as its own
-// `struct World { ... };` stub, and tools/gen_tree.py merges those stubs into one class where the layouts agree.
-
-struct World;                     // the game world object (0x004dd700); was World*/Context*/Game*/Global_xxx* in sources
-extern "C" {
-
-#define DAT_004dd700 (*(World* *)&::DAT_004dd700)
-
-
-struct Gfx;                       // the graphics device / context object (0x0052c2a8); was Gfx*/Screen_xxx*/Renderer_xxx*
-
-#define DAT_0052c2a8 (*(Gfx* *)&::DAT_0052c2a8)
-
-
-struct Singleton_4dd6ec;          // object with getters FUN_00086280/FUN_000862e0 (0x004dd6ec); placeholder name
-
-#define DAT_004dd6ec (*(Singleton_4dd6ec* *)&::DAT_004dd6ec)
-
-}
-
-unsigned __int64 FUN_0027b020(const char* s);                 // string hash
-unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash with seed/length
-char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
-
-// Method3<HUDOverlay, int, const char*, const char*, float>'s constructor (name, member function): Function's fields
-// (include/decls/data/script.h), then the member-function pointer.
-class HUDOverlay {};
-class Function_ceb80 : public ScriptFunctionFields {
-  public:
-    Function_ceb80(const char*, int);
-    virtual void f();
+// (script1) Method3<class HUDOverlay,int,const char *,const char *,float>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftable by address,
+// the member-function pointer, the type codes (0x001d04d0).
+extern "C" char DAT_0040a510[];   // Method3<class HUDOverlay,int,const char *,const char *,float>
+class Owner_ceb80 {};
+typedef void (Owner_ceb80::*Fn_ceb80)();
+struct Method3 : hulk_script::ScriptFunction {
+    Fn_ceb80 fn;
+    Method3(const char* name, Fn_ceb80 function);
 };
-template <class T, class U, class V, class W, class X> class Method3 : public Function_ceb80 {
-  public:
-    Method3(const char*, U (T::*)(V, W, X));
-    virtual void f();
-    U (T::*id)(V, W, X);
-};
-template <>
-Method3<HUDOverlay, int, const char*, const char*, float>::Method3(const char* x,
-                                                                   int (HUDOverlay::*y)(const char*, const char*, float))
-    : Function_ceb80(x, 3) {
-    id = y;
-    retType = FUN_001d04d0(((const char*)&DAT_0048e134));
-    argTypes[0] = FUN_001d04d0(((const char*)&DAT_0048e0f0));
-    argTypes[1] = FUN_001d04d0(((const char*)&DAT_0048e0f0));
-    argTypes[2] = FUN_001d04d0(((const char*)&DAT_0048e128));
+Method3::Method3(const char* name, Fn_ceb80 function) : hulk_script::ScriptFunction(name, 3) {
+    vftable = DAT_0040a510;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e134);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0f0);
+    f.argTypes[1] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0f0);
+    f.argTypes[2] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e128);
 }
 } // namespace fn_000ceb80
 #undef DAT_004dd6ec
@@ -2271,9 +2236,25 @@ template class Method2<HUDOverlay, void, int,math::Vector>; // (ren2) native onl
 
 
 // 0x000ceee0 Method2<HUDOverlay,int,int,const_char_*>::vfunc_0 (30 B): matches/0x000ceee0.cpp
-// sym: ??_G?$Method2@VHUDOverlay@@HHPBD@@UAEPAXI@Z
+// sym: ?vfunc_0@Method2_ceee0@fn_000ceee0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Method2<HUDOverlay, int, int, const char
+// *>::~Method2() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then
+// (flags & 1) operator delete.
+namespace fn_000ceee0 {
+struct Method2_ceee0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method2_ceee0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_000ceee0
+// the destructor itself, which other objects' code references natively:
 template <> Method2<HUDOverlay, int, int, const char *>::~Method2() {}
 
 
@@ -2369,24 +2350,51 @@ template class Method2<HUDOverlay, void, int, bool>; // (ren2) native only: clan
 namespace fn_f3fdf6d3 {
 
 // 0x000cf050 FUN_000cf050 (102 B): matches/0x000cf050.cpp
-// sym: ??0Method4_cf050@fn_f3fdf6d3@@QAE@HH@Z
-Method4_cf050::Method4_cf050(hulk_intptr a, hulk_intptr b) {
-    Init_001d0480(a, 4);
-    v = ((hulk_intptr)DAT_0040a590);
-    n = b;
-    m18 = GetFlag_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e134)));
-    *((char*)this + 0x10) = GetFlag_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e134)));
-    *((char*)this + 0x11) = GetFlag_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e134)));
-    *((char*)this + 0x12) = GetFlag_001d04d0((const char*)((hulk_intptr)DAT_0048e10c));
-    *((char*)this + 0x13) = GetFlag_001d04d0((const char*)((hulk_intptr)DAT_0048e10c));
+// sym: ??0Method4@fn_000cf050@fn_f3fdf6d3@@QAE@PBDP8Owner_cf050@12@AEXXZ@Z
+namespace fn_000cf050 {
+// (script1) Method4<class HUDOverlay,int,int,int,class math::Vector,class math::Vector>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftable by address,
+// the member-function pointer, the type codes (0x001d04d0).
+extern "C" char DAT_0040a590[];   // Method4<class HUDOverlay,int,int,int,class math::Vector,class math::Vector>
+class Owner_cf050 {};
+typedef void (Owner_cf050::*Fn_cf050)();
+struct Method4 : hulk_script::ScriptFunction {
+    Fn_cf050 fn;
+    Method4(const char* name, Fn_cf050 function);
+};
+Method4::Method4(const char* name, Fn_cf050 function) : hulk_script::ScriptFunction(name, 4) {
+    vftable = DAT_0040a590;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e134);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e134);
+    f.argTypes[1] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e134);
+    f.argTypes[2] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e10c);
+    f.argTypes[3] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e10c);
 }
+} // namespace fn_000cf050
 
 } // namespace fn_f3fdf6d3
 
 // 0x000cf0c0 Method4<HUDOverlay,int,int,int,math::Vector,math::Vector>::vfunc_0 (30 B): matches/0x000cf0c0.cpp
-// sym: ??_G?$Method4@VHUDOverlay@@HHHVVector@math@@V23@@@UAEPAXI@Z
+// sym: ?vfunc_0@Method4_cf0c0@fn_000cf0c0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Method4<HUDOverlay, int, int,
+// int,math::Vector,math::Vector>::~Method4() {}` stood for it, whose MSVC `??_G` matched only under /GX. The
+// destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_000cf0c0 {
+struct Method4_cf0c0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method4_cf0c0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_000cf0c0
+// the destructor itself, which other objects' code references natively:
 template <> Method4<HUDOverlay, int, int, int,math::Vector,math::Vector>::~Method4() {}
 
 
@@ -2411,21 +2419,50 @@ template class Method4<HUDOverlay, int, int, int,math::Vector,math::Vector>; // 
 namespace fn_f3fdf6d3 {
 
 // 0x000cf160 FUN_000cf160 (89 B): matches/0x000cf160.cpp
-// sym: ??0Method3_cf160@fn_f3fdf6d3@@QAE@HH@Z
-Method3_cf160::Method3_cf160(hulk_intptr a, hulk_intptr c) : Function_cf160(a, 3) {
-    m1c = c;
-    b18 = Lookup_001d04d0(((char*)&DAT_0048e100));
-    b10 = Lookup_001d04d0(((char*)&DAT_0048e134));
-    b11 = Lookup_001d04d0(((char*)&DAT_0048e134));
-    b12 = Lookup_001d04d0(hulk_at_0048e10c);
+// sym: ??0Method3@fn_000cf160@fn_f3fdf6d3@@QAE@PBDP8Owner_cf160@12@AEXXZ@Z
+namespace fn_000cf160 {
+// (script1) Method3<class HUDOverlay,void,int,int,class math::Vector>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftable by address,
+// the member-function pointer, the type codes (0x001d04d0).
+extern "C" char DAT_0040a5a0[];   // Method3<class HUDOverlay,void,int,int,class math::Vector>
+class Owner_cf160 {};
+typedef void (Owner_cf160::*Fn_cf160)();
+struct Method3 : hulk_script::ScriptFunction {
+    Fn_cf160 fn;
+    Method3(const char* name, Fn_cf160 function);
+};
+Method3::Method3(const char* name, Fn_cf160 function) : hulk_script::ScriptFunction(name, 3) {
+    vftable = DAT_0040a5a0;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e100);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e134);
+    f.argTypes[1] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e134);
+    f.argTypes[2] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e10c);
 }
+} // namespace fn_000cf160
 
 } // namespace fn_f3fdf6d3
 
 // 0x000cf1c0 Method3<HUDOverlay,void,int,int,math::Vector>::vfunc_0 (30 B): matches/0x000cf1c0.cpp
-// sym: ??_G?$Method3@VHUDOverlay@@XHHVVector@math@@@@UAEPAXI@Z
+// sym: ?vfunc_0@Method3_cf1c0@fn_000cf1c0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Method3<HUDOverlay, void, int,
+// int,math::Vector>::~Method3() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body
+// 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_000cf1c0 {
+struct Method3_cf1c0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method3_cf1c0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_000cf1c0
+// the destructor itself, which other objects' code references natively:
 template <> Method3<HUDOverlay, void, int, int,math::Vector>::~Method3() {}
 #if defined(HULK_PTR64)
 template class Method3<HUDOverlay, void, int, int,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xcf1c0)
@@ -2468,9 +2505,25 @@ void Method3::vfunc_2(HUDOverlay* object, Arguments* args, void* unused) {
 
 
 // 0x000cf270 Method2<HUDOverlay,void,int,int>::vfunc_0 (30 B): matches/0x000cf270.cpp
-// sym: ??_G?$Method2@VHUDOverlay@@XHH@@UAEPAXI@Z
+// sym: ?vfunc_0@Method2_cf270@fn_000cf270@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Method2<HUDOverlay, void, int, int>::~Method2() {}`
+// stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then (flags & 1) operator
+// delete.
+namespace fn_000cf270 {
+struct Method2_cf270 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method2_cf270::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_000cf270
+// the destructor itself, which other objects' code references natively:
 template <> Method2<HUDOverlay, void, int, int>::~Method2() {}
 
 
@@ -2729,64 +2782,27 @@ template class Closure0<HUDOverlay, void>; // (ren2) native only: clang emits th
 
 
 // 0x000cf840 FUN_000cf840 (76 B): matches/0x000cf840.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ??0Closure1@fn_000cf840@@QAE@PBDPAVOwner_cf840@1@P821@AEX0@Z@Z
+// sym: ??0Closure1@fn_000cf840@@QAE@PBDPAVOwner_cf840@1@P821@AEXXZ@Z
 namespace fn_000cf840 {
-// Pinned prototypes of address-named globals and functions that many sources declare (docs/source-tree.md,
-// "Pinned address names"). A source includes this instead of declaring them itself; tools/migrate_gen.py
-// --family pin does the rewrite and keeps only what still verifies. Hand-maintained: one line per name.
-//
-// The pointed-to classes are declared, not defined: each source still defines the members it uses as its own
-// `struct World { ... };` stub, and tools/gen_tree.py merges those stubs into one class where the layouts agree.
-
-struct World;                     // the game world object (0x004dd700); was World*/Context*/Game*/Global_xxx* in sources
-extern "C" {
-
-#define DAT_004dd700 (*(World* *)&::DAT_004dd700)
-
-
-struct Gfx;                       // the graphics device / context object (0x0052c2a8); was Gfx*/Screen_xxx*/Renderer_xxx*
-
-#define DAT_0052c2a8 (*(Gfx* *)&::DAT_0052c2a8)
-
-
-struct Singleton_4dd6ec;          // object with getters FUN_00086280/FUN_000862e0 (0x004dd6ec); placeholder name
-
-#define DAT_004dd6ec (*(Singleton_4dd6ec* *)&::DAT_004dd6ec)
-
-}
-
-unsigned __int64 FUN_0027b020(const char* s);                 // string hash
-unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash with seed/length
-char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
-
-// Closure1<Owner, void, const char*>'s constructor (name, object, member function): Function's fields
-// (include/decls/data/script.h), then Method1's member-function pointer and Closure1's object.
+// (script1) Closure1<class HUDOverlay,void,const char *>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftables by address,
+// the member-function pointer, the type codes (0x001d04d0), the object.
+extern "C" char DAT_0040a4d0[];   // Method1<class HUDOverlay,void,const char *>
+extern "C" char DAT_0040a5fc[];   // Closure1<class HUDOverlay,void,const char *>
 class Owner_cf840 {};
-typedef void (Owner_cf840::*Fn_cf840)(const char*);
-class Base : public ScriptFunctionFields {
-  public:
-    virtual void invoke();
-    Base(const char*, int);
+typedef void (Owner_cf840::*Fn_cf840)();
+struct Closure1 : hulk_script::ScriptFunction {
+    Fn_cf840 fn;
+    Owner_cf840* owner;
+    Closure1(const char* name, Owner_cf840* object, Fn_cf840 function);
 };
-class Closure1_cf840 : public Base {
-  public:
-    virtual void invoke();
-    Fn_cf840 object;
-    Closure1_cf840(const char*, Owner_cf840*, Fn_cf840);
-};
-class Closure1 : public Closure1_cf840 {
-  public:
-    virtual void invoke();
-    Owner_cf840* other;
-    Closure1(const char*, Owner_cf840*, Fn_cf840);
-};
-Closure1::Closure1(const char* s, Owner_cf840* obj, Fn_cf840 p) : Closure1_cf840(s, obj, p) {
-    other = obj;
-}
-Closure1_cf840::Closure1_cf840(const char* s, Owner_cf840* obj, Fn_cf840 p) : Base(s, 1) {
-    object = p;
-    retType = FUN_001d04d0(((const char*)&DAT_0048e100));
-    argTypes[0] = FUN_001d04d0(((const char*)&DAT_0048e0f0));
+Closure1::Closure1(const char* name, Owner_cf840* object, Fn_cf840 function) : hulk_script::ScriptFunction(name, 1) {
+    vftable = DAT_0040a4d0;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e100);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0f0);
+    vftable = DAT_0040a5fc;
+    owner = object;
 }
 } // namespace fn_000cf840
 #undef DAT_004dd6ec
@@ -2830,39 +2846,27 @@ template class Closure1<HUDOverlay, void, const char *>; // (ren2) native only: 
 
 
 // 0x000cf8d0 FUN_000cf8d0 (76 B): matches/0x000cf8d0.cpp [wrapped: conflict: Closure1; Method1]
-// sym: ??0Closure1@fn_000cf8d0@@QAE@HHH@Z
+// sym: ??0Closure1@fn_000cf8d0@@QAE@PBDPAVOwner_cf8d0@1@P821@AEXXZ@Z
 namespace fn_000cf8d0 {
-// data: str1 = DAT_0048e100, str2 = DAT_0048e134
-
-class Function_cf8d0 {
-  public:
-    Function_cf8d0(int, int);
-    virtual void f();
-    char pad[12];
+// (script1) Closure1<class HUDOverlay,void,int>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftables by address,
+// the member-function pointer, the type codes (0x001d04d0), the object.
+extern "C" char DAT_0040a4e0[];   // Method1<class HUDOverlay,void,int>
+extern "C" char DAT_0040a60c[];   // Closure1<class HUDOverlay,void,int>
+class Owner_cf8d0 {};
+typedef void (Owner_cf8d0::*Fn_cf8d0)();
+struct Closure1 : hulk_script::ScriptFunction {
+    Fn_cf8d0 fn;
+    Owner_cf8d0* owner;
+    Closure1(const char* name, Owner_cf8d0* object, Fn_cf8d0 function);
 };
-char __cdecl query_001d04d0(const char*);
-class Method1 : public Function_cf8d0 {
-  public:
-    Method1(int a, int b) : Function_cf8d0(a, 1) {
-        v = b;
-        c = query_001d04d0(((const char*)&DAT_0048e100));
-        d = query_001d04d0(((const char*)&DAT_0048e134));
-    }
-    virtual void f();
-    char d;
-    char x[7];
-    char c;
-    char y[3];
-    int v;
-};
-class Closure1 : public Method1 {
-  public:
-    Closure1(int a, int b, int z);
-    virtual void f();
-    int w;
-};
-Closure1::Closure1(int a, int b, int z) : Method1(a, z) {
-    w = b;
+Closure1::Closure1(const char* name, Owner_cf8d0* object, Fn_cf8d0 function) : hulk_script::ScriptFunction(name, 1) {
+    vftable = DAT_0040a4e0;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e100);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e134);
+    vftable = DAT_0040a60c;
+    owner = object;
 }
 } // namespace fn_000cf8d0
 
@@ -2903,63 +2907,27 @@ template class Closure1<HUDOverlay, void, int>; // (ren2) native only: clang emi
 
 
 // 0x000cf960 FUN_000cf960 (76 B): matches/0x000cf960.cpp [wrapped: conflict: Closure1; Method1]
-// sym: ??0Closure1@fn_000cf960@@QAE@PBDPAVOwner_cf960@1@P821@AEXM@Z@Z
+// sym: ??0Closure1@fn_000cf960@@QAE@PBDPAVOwner_cf960@1@P821@AEXXZ@Z
 namespace fn_000cf960 {
-// Pinned prototypes of address-named globals and functions that many sources declare (docs/source-tree.md,
-// "Pinned address names"). A source includes this instead of declaring them itself; tools/migrate_gen.py
-// --family pin does the rewrite and keeps only what still verifies. Hand-maintained: one line per name.
-//
-// The pointed-to classes are declared, not defined: each source still defines the members it uses as its own
-// `struct World { ... };` stub, and tools/gen_tree.py merges those stubs into one class where the layouts agree.
-
-struct World;                     // the game world object (0x004dd700); was World*/Context*/Game*/Global_xxx* in sources
-extern "C" {
-
-#define DAT_004dd700 (*(World* *)&::DAT_004dd700)
-
-
-struct Gfx;                       // the graphics device / context object (0x0052c2a8); was Gfx*/Screen_xxx*/Renderer_xxx*
-
-#define DAT_0052c2a8 (*(Gfx* *)&::DAT_0052c2a8)
-
-
-struct Singleton_4dd6ec;          // object with getters FUN_00086280/FUN_000862e0 (0x004dd6ec); placeholder name
-
-#define DAT_004dd6ec (*(Singleton_4dd6ec* *)&::DAT_004dd6ec)
-
-}
-
-unsigned __int64 FUN_0027b020(const char* s);                 // string hash
-unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash with seed/length
-char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
-
-// Closure1<Owner, void, float>'s constructor (name, object, member function): Function's fields
-// (include/decls/data/script.h), then Method1's member-function pointer and Closure1's object.
+// (script1) Closure1<class HUDOverlay,void,float>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftables by address,
+// the member-function pointer, the type codes (0x001d04d0), the object.
+extern "C" char DAT_0040a4f0[];   // Method1<class HUDOverlay,void,float>
+extern "C" char DAT_0040a61c[];   // Closure1<class HUDOverlay,void,float>
 class Owner_cf960 {};
-typedef void (Owner_cf960::*Fn_cf960)(float);
-class Function_cf960 : public ScriptFunctionFields {
-  public:
-    virtual void Invoke(float);
-    Function_cf960(const char*, int);
+typedef void (Owner_cf960::*Fn_cf960)();
+struct Closure1 : hulk_script::ScriptFunction {
+    Fn_cf960 fn;
+    Owner_cf960* owner;
+    Closure1(const char* name, Owner_cf960* object, Fn_cf960 function);
 };
-class Method1 : public Function_cf960 {
-  public:
-    virtual void Invoke(float);
-    Fn_cf960 obj;
-    Method1(const char* x, Fn_cf960 y) : Function_cf960(x, 1) {
-        obj = y;
-        retType = FUN_001d04d0(((const char*)&DAT_0048e100));
-        argTypes[0] = FUN_001d04d0(((const char*)&DAT_0048e128));
-    }
-};
-class Closure1 : public Method1 {
-  public:
-    virtual void Invoke(float);
-    Owner_cf960* extra;
-    Closure1(const char*, Owner_cf960*, Fn_cf960);
-};
-Closure1::Closure1(const char* x, Owner_cf960* y, Fn_cf960 z) : Method1(x, z) {
-    extra = y;
+Closure1::Closure1(const char* name, Owner_cf960* object, Fn_cf960 function) : hulk_script::ScriptFunction(name, 1) {
+    vftable = DAT_0040a4f0;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e100);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e128);
+    vftable = DAT_0040a61c;
+    owner = object;
 }
 } // namespace fn_000cf960
 #undef DAT_004dd6ec
@@ -3045,9 +3013,25 @@ template class Closure4<HUDOverlay, void, const char *, float, float,math::Vecto
 
 
 // 0x000cfac0 Closure3<HUDOverlay,int,const_char_*,const_char_*,float>::vfunc_0 (30 B): matches/0x000cfac0.cpp
-// sym: ??_G?$Method2@VHUDOverlay@@HHPBD@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure3_cfac0@fn_000cfac0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Closure3<HUDOverlay, int, const char *, const char
+// *, float>::~Closure3() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0,
+// then (flags & 1) operator delete.
+namespace fn_000cfac0 {
+struct Closure3_cfac0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure3_cfac0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_000cfac0
+// the destructor itself, which other objects' code references natively:
 template <> Closure3<HUDOverlay, int, const char *, const char *, float>::~Closure3() {}
 #if defined(HULK_PTR64)
 template class Closure3<HUDOverlay, int, const char *, const char *, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xcfac0)
@@ -3094,64 +3078,27 @@ template class Closure0<HUDOverlay, int>; // (ren2) native only: clang emits the
 
 
 // 0x000cfb90 FUN_000cfb90 (76 B): matches/0x000cfb90.cpp [wrapped: conflict: Closure1; DAT_0048e10c; Method1]
-// sym: ??0Closure1@fn_000cfb90@@QAE@PBDPAVOwner_cfb90@1@P821@AEXH@Z@Z
+// sym: ??0Closure1@fn_000cfb90@@QAE@PBDPAVOwner_cfb90@1@P821@AEXXZ@Z
 namespace fn_000cfb90 {
-// Pinned prototypes of address-named globals and functions that many sources declare (docs/source-tree.md,
-// "Pinned address names"). A source includes this instead of declaring them itself; tools/migrate_gen.py
-// --family pin does the rewrite and keeps only what still verifies. Hand-maintained: one line per name.
-//
-// The pointed-to classes are declared, not defined: each source still defines the members it uses as its own
-// `struct World { ... };` stub, and tools/gen_tree.py merges those stubs into one class where the layouts agree.
-
-struct World;                     // the game world object (0x004dd700); was World*/Context*/Game*/Global_xxx* in sources
-extern "C" {
-
-#define DAT_004dd700 (*(World* *)&::DAT_004dd700)
-
-
-struct Gfx;                       // the graphics device / context object (0x0052c2a8); was Gfx*/Screen_xxx*/Renderer_xxx*
-
-#define DAT_0052c2a8 (*(Gfx* *)&::DAT_0052c2a8)
-
-
-struct Singleton_4dd6ec;          // object with getters FUN_00086280/FUN_000862e0 (0x004dd6ec); placeholder name
-
-#define DAT_004dd6ec (*(Singleton_4dd6ec* *)&::DAT_004dd6ec)
-
-}
-
-unsigned __int64 FUN_0027b020(const char* s);                 // string hash
-unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash with seed/length
-char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
-
-extern const char DAT_0048e10c[];
-// Closure1<Owner, void, A1>'s constructor (name, object, member function): Function's fields
-// (include/decls/data/script.h), then Method1's member-function pointer and Closure1's object.
+// (script1) Closure1<class HUDOverlay,void,class math::Vector>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftables by address,
+// the member-function pointer, the type codes (0x001d04d0), the object.
+extern "C" char DAT_0040a530[];   // Method1<class HUDOverlay,void,class math::Vector>
+extern "C" char DAT_0040a65c[];   // Closure1<class HUDOverlay,void,class math::Vector>
 class Owner_cfb90 {};
-typedef void (Owner_cfb90::*Fn_cfb90)(int);
-class Function_cfb90 : public ScriptFunctionFields {
-  public:
-    Function_cfb90(const char*, int);
-    virtual void f();
+typedef void (Owner_cfb90::*Fn_cfb90)();
+struct Closure1 : hulk_script::ScriptFunction {
+    Fn_cfb90 fn;
+    Owner_cfb90* owner;
+    Closure1(const char* name, Owner_cfb90* object, Fn_cfb90 function);
 };
-class Method1 : public Function_cfb90 {
-  public:
-    Method1(const char* a, Fn_cfb90 c) : Function_cfb90(a, 1) {
-        p = c;
-        retType = FUN_001d04d0(((const char*)&DAT_0048e100));
-        argTypes[0] = FUN_001d04d0(DAT_0048e10c);
-    }
-    virtual void g();
-    Fn_cfb90 p;
-};
-class Closure1 : public Method1 {
-  public:
-    Closure1(const char*, Owner_cfb90*, Fn_cfb90);
-    virtual void g();
-    Owner_cfb90* q;
-};
-Closure1::Closure1(const char* a, Owner_cfb90* b, Fn_cfb90 c) : Method1(a, c) {
-    q = b;
+Closure1::Closure1(const char* name, Owner_cfb90* object, Fn_cfb90 function) : hulk_script::ScriptFunction(name, 1) {
+    vftable = DAT_0040a530;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e100);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e10c);
+    vftable = DAT_0040a65c;
+    owner = object;
 }
 } // namespace fn_000cfb90
 #undef DAT_004dd6ec
@@ -3194,51 +3141,52 @@ template class Closure1<HUDOverlay, void,math::Vector>; // (ren2) native only: c
 
 
 // 0x000cfc30 FUN_000cfc30 (89 B): matches/0x000cfc30.cpp [wrapped: conflict: Closure2; Method2]
-// sym: ??0Closure2@fn_000cfc30@@QAE@HHH@Z
+// sym: ??0Closure2@fn_000cfc30@@QAE@PBDPAVOwner_cfc30@1@P821@AEXXZ@Z
 namespace fn_000cfc30 {
-// data: gA_cfc30 = DAT_0048e134
-
-extern char gB_cfc30[];
-extern "C++" __declspec(nothrow) char Get_001d04d0(char const*);
-class Function_cfc30 {
-  public:
-    Function_cfc30(int, int);
-    virtual void f();
-    char pad[12];
+// (script1) Closure2<class HUDOverlay,int,int,class math::Vector>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftables by address,
+// the member-function pointer, the type codes (0x001d04d0), the object.
+extern "C" char DAT_0040a540[];   // Method2<class HUDOverlay,int,int,class math::Vector>
+extern "C" char DAT_0040a66c[];   // Closure2<class HUDOverlay,int,int,class math::Vector>
+class Owner_cfc30 {};
+typedef void (Owner_cfc30::*Fn_cfc30)();
+struct Closure2 : hulk_script::ScriptFunction {
+    Fn_cfc30 fn;
+    Owner_cfc30* owner;
+    Closure2(const char* name, Owner_cfc30* object, Fn_cfc30 function);
 };
-class Method2 : public Function_cfc30 {
-  public:
-    Method2(int a, int c);
-    virtual void f();
-    char x;
-    char y;
-    char pad2[6];
-    char z;
-    char pad3[3];
-    int value;
-};
-class Closure2 : public Method2 {
-  public:
-    Closure2(int a, int b, int c);
-    virtual void f();
-    int other;
-};
-inline Method2::Method2(int a, int c) : Function_cfc30(a, 2) {
-    value = c;
-    z = Get_001d04d0(((char*)&DAT_0048e134));
-    x = Get_001d04d0(((char*)&DAT_0048e134));
-    y = Get_001d04d0(gB_cfc30);
-}
-Closure2::Closure2(int a, int b, int c) : Method2(a, c) {
-    other = b;
+Closure2::Closure2(const char* name, Owner_cfc30* object, Fn_cfc30 function) : hulk_script::ScriptFunction(name, 2) {
+    vftable = DAT_0040a540;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e134);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e134);
+    f.argTypes[1] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e10c);
+    vftable = DAT_0040a66c;
+    owner = object;
 }
 } // namespace fn_000cfc30
 
 
 // 0x000cfc90 Closure2<HUDOverlay,int,int,math::Vector>::vfunc_0 (30 B): matches/0x000cfc90.cpp
-// sym: ??_G?$Method4@VHUDOverlay@@HHHVVector@math@@V23@@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure2_cfc90@fn_000cfc90@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Closure2<HUDOverlay, int,
+// int,math::Vector>::~Closure2() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body
+// 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_000cfc90 {
+struct Closure2_cfc90 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure2_cfc90::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_000cfc90
+// the destructor itself, which other objects' code references natively:
 template <> Closure2<HUDOverlay, int, int,math::Vector>::~Closure2() {}
 #if defined(HULK_PTR64)
 template class Closure2<HUDOverlay, int, int,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xcfc90)
@@ -3257,7 +3205,7 @@ struct Closure2 {
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2(int ignored, Args* arguments, int* result);
-    char padding[0x18];
+    ScriptFunctionFields fields;   // (script2) Function's fields (was char padding[0x18])
     int (HUDOverlay::*method)(int, math::Vector);
     HUDOverlay* object;
 };
@@ -3269,68 +3217,28 @@ void Closure2::vfunc_2(int ignored, Args* arguments, int* result) {
 
 
 // 0x000cfcf0 FUN_000cfcf0 (89 B): matches/0x000cfcf0.cpp [wrapped: conflict: Closure2; Method2]
-// sym: ??0Closure2@fn_000cfcf0@@QAE@PBDPAVOwner_cfcf0@1@P821@AEXHH@Z@Z
+// sym: ??0Closure2@fn_000cfcf0@@QAE@PBDPAVOwner_cfcf0@1@P821@AEXXZ@Z
 namespace fn_000cfcf0 {
-// Pinned prototypes of address-named globals and functions that many sources declare (docs/source-tree.md,
-// "Pinned address names"). A source includes this instead of declaring them itself; tools/migrate_gen.py
-// --family pin does the rewrite and keeps only what still verifies. Hand-maintained: one line per name.
-//
-// The pointed-to classes are declared, not defined: each source still defines the members it uses as its own
-// `struct World { ... };` stub, and tools/gen_tree.py merges those stubs into one class where the layouts agree.
-
-struct World;                     // the game world object (0x004dd700); was World*/Context*/Game*/Global_xxx* in sources
-extern "C" {
-
-#define DAT_004dd700 (*(World* *)&::DAT_004dd700)
-
-
-struct Gfx;                       // the graphics device / context object (0x0052c2a8); was Gfx*/Screen_xxx*/Renderer_xxx*
-
-#define DAT_0052c2a8 (*(Gfx* *)&::DAT_0052c2a8)
-
-
-struct Singleton_4dd6ec;          // object with getters FUN_00086280/FUN_000862e0 (0x004dd6ec); placeholder name
-
-#define DAT_004dd6ec (*(Singleton_4dd6ec* *)&::DAT_004dd6ec)
-
-}
-
-unsigned __int64 FUN_0027b020(const char* s);                 // string hash
-unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash with seed/length
-char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
-
-// Closure2<Owner, void, int, A2>'s constructor (name, object, member function): Function's fields
-// (include/decls/data/script.h), then Method2's member-function pointer and Closure2's object.
+// (script1) Closure2<class HUDOverlay,void,int,class math::Vector>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftables by address,
+// the member-function pointer, the type codes (0x001d04d0), the object.
+extern "C" char DAT_0040a550[];   // Method2<class HUDOverlay,void,int,class math::Vector>
+extern "C" char DAT_0040a67c[];   // Closure2<class HUDOverlay,void,int,class math::Vector>
 class Owner_cfcf0 {};
-typedef void (Owner_cfcf0::*Fn_cfcf0)(int, int);
-struct CtorV_001d0480 : public ScriptFunctionFields {
-    CtorV_001d0480(const char*, int);
-    virtual void v_001d0480();
+typedef void (Owner_cfcf0::*Fn_cfcf0)();
+struct Closure2 : hulk_script::ScriptFunction {
+    Fn_cfcf0 fn;
+    Owner_cfcf0* owner;
+    Closure2(const char* name, Owner_cfcf0* object, Fn_cfcf0 function);
 };
-extern char DAT_0048e10c[];
-class Function_cfcf0 : public CtorV_001d0480 {
-  public:
-    Function_cfcf0(const char* x) : CtorV_001d0480(x, 2) { }
-};
-class Method2 : public Function_cfcf0 {
-  public:
-    virtual void f();
-    Fn_cfcf0 d;
-    Method2(const char* x, Fn_cfcf0 y) : Function_cfcf0(x) {
-        d = y;
-        retType = FUN_001d04d0(((char*)&DAT_0048e100));
-        argTypes[0] = FUN_001d04d0(((char*)&DAT_0048e134));
-        argTypes[1] = FUN_001d04d0(DAT_0048e10c);
-    }
-};
-class Closure2 : public Method2 {
-  public:
-    virtual void f();
-    Owner_cfcf0* e;
-    Closure2(const char*, Owner_cfcf0*, Fn_cfcf0);
-};
-Closure2::Closure2(const char* x, Owner_cfcf0* y, Fn_cfcf0 z) : Method2(x, z) {
-    e = y;
+Closure2::Closure2(const char* name, Owner_cfcf0* object, Fn_cfcf0 function) : hulk_script::ScriptFunction(name, 2) {
+    vftable = DAT_0040a550;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e100);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e134);
+    f.argTypes[1] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e10c);
+    vftable = DAT_0040a67c;
+    owner = object;
 }
 } // namespace fn_000cfcf0
 #undef DAT_004dd6ec
@@ -3339,9 +3247,25 @@ Closure2::Closure2(const char* x, Owner_cfcf0* y, Fn_cfcf0 z) : Method2(x, z) {
 
 
 // 0x000cfd50 Closure2<HUDOverlay,void,int,math::Vector>::vfunc_0 (30 B): matches/0x000cfd50.cpp
-// sym: ??_G?$Method3@VHUDOverlay@@XHHVVector@math@@@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure2_cfd50@fn_000cfd50@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Closure2<HUDOverlay, void,
+// int,math::Vector>::~Closure2() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body
+// 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_000cfd50 {
+struct Closure2_cfd50 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure2_cfd50::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_000cfd50
+// the destructor itself, which other objects' code references natively:
 template <> Closure2<HUDOverlay, void, int,math::Vector>::~Closure2() {}
 
 
@@ -3365,18 +3289,53 @@ template class Closure2<HUDOverlay, void, int,math::Vector>; // (ren2) native on
 namespace fn_f3fdf6d3 {
 
 // 0x000cfda0 FUN_000cfda0 (89 B): matches/0x000cfda0.cpp
-// sym: ??0Closure2_cfda0@fn_f3fdf6d3@@QAE@HHH@Z
-// data: gA_cfda0 = DAT_0048e134
-Closure2_cfda0::Closure2_cfda0(int x, int y, int z) : Method2_cfda0(x, z) {
-    n = y;
+// sym: ??0Closure2@fn_000cfda0@fn_f3fdf6d3@@QAE@PBDPAVOwner_cfda0@12@P8312@AEXXZ@Z
+namespace fn_000cfda0 {
+// (script1) Closure2<class HUDOverlay,int,int,const char *>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftables by address,
+// the member-function pointer, the type codes (0x001d04d0), the object.
+extern "C" char DAT_0040a560[];   // Method2<class HUDOverlay,int,int,const char *>
+extern "C" char DAT_0040a68c[];   // Closure2<class HUDOverlay,int,int,const char *>
+class Owner_cfda0 {};
+typedef void (Owner_cfda0::*Fn_cfda0)();
+struct Closure2 : hulk_script::ScriptFunction {
+    Fn_cfda0 fn;
+    Owner_cfda0* owner;
+    Closure2(const char* name, Owner_cfda0* object, Fn_cfda0 function);
+};
+Closure2::Closure2(const char* name, Owner_cfda0* object, Fn_cfda0 function) : hulk_script::ScriptFunction(name, 2) {
+    vftable = DAT_0040a560;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e134);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e134);
+    f.argTypes[1] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0f0);
+    vftable = DAT_0040a68c;
+    owner = object;
 }
+} // namespace fn_000cfda0
 
 } // namespace fn_f3fdf6d3
 
 // 0x000cfe00 Closure2<HUDOverlay,int,int,const_char_*>::vfunc_0 (30 B): matches/0x000cfe00.cpp
-// sym: ??_G?$Method2@VHUDOverlay@@XHH@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure2_cfe00@fn_000cfe00@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Closure2<HUDOverlay, int, int, const char
+// *>::~Closure2() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then
+// (flags & 1) operator delete.
+namespace fn_000cfe00 {
+struct Closure2_cfe00 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure2_cfe00::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_000cfe00
+// the destructor itself, which other objects' code references natively:
 template <> Closure2<HUDOverlay, int, int, const char *>::~Closure2() {}
 #if defined(HULK_PTR64)
 template class Closure2<HUDOverlay, int, int, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xcfe00)
@@ -3384,65 +3343,28 @@ template class Closure2<HUDOverlay, int, int, const char *>; // (ren2) native on
 
 
 // 0x000cfe50 FUN_000cfe50 (89 B): matches/0x000cfe50.cpp [wrapped: conflict: Closure2; Method2]
-// sym: ??0Closure2@fn_000cfe50@@QAE@PBDPAVOwner_cfe50@1@P821@AEX_NM@Z@Z
+// sym: ??0Closure2@fn_000cfe50@@QAE@PBDPAVOwner_cfe50@1@P821@AEXXZ@Z
 namespace fn_000cfe50 {
-// Pinned prototypes of address-named globals and functions that many sources declare (docs/source-tree.md,
-// "Pinned address names"). A source includes this instead of declaring them itself; tools/migrate_gen.py
-// --family pin does the rewrite and keeps only what still verifies. Hand-maintained: one line per name.
-//
-// The pointed-to classes are declared, not defined: each source still defines the members it uses as its own
-// `struct World { ... };` stub, and tools/gen_tree.py merges those stubs into one class where the layouts agree.
-
-struct World;                     // the game world object (0x004dd700); was World*/Context*/Game*/Global_xxx* in sources
-extern "C" {
-
-#define DAT_004dd700 (*(World* *)&::DAT_004dd700)
-
-
-struct Gfx;                       // the graphics device / context object (0x0052c2a8); was Gfx*/Screen_xxx*/Renderer_xxx*
-
-#define DAT_0052c2a8 (*(Gfx* *)&::DAT_0052c2a8)
-
-
-struct Singleton_4dd6ec;          // object with getters FUN_00086280/FUN_000862e0 (0x004dd6ec); placeholder name
-
-#define DAT_004dd6ec (*(Singleton_4dd6ec* *)&::DAT_004dd6ec)
-
-}
-
-unsigned __int64 FUN_0027b020(const char* s);                 // string hash
-unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash with seed/length
-char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
-
-// data: a_cfe50 = DAT_0048e100
-// Closure2<Owner, void, bool, float>'s constructor (name, object, member function): Function's fields
-// (include/decls/data/script.h), then Method2's member-function pointer and Closure2's object.
+// (script1) Closure2<class HUDOverlay,void,bool,float>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftables by address,
+// the member-function pointer, the type codes (0x001d04d0), the object.
+extern "C" char DAT_0040a570[];   // Method2<class HUDOverlay,void,bool,float>
+extern "C" char DAT_0040a69c[];   // Closure2<class HUDOverlay,void,bool,float>
 class Owner_cfe50 {};
-typedef void (Owner_cfe50::*Fn_cfe50)(bool, float);
-class Function_cfe50 : public ScriptFunctionFields {
-  public:
-    virtual void f();
-    Function_cfe50(const char*, int);
+typedef void (Owner_cfe50::*Fn_cfe50)();
+struct Closure2 : hulk_script::ScriptFunction {
+    Fn_cfe50 fn;
+    Owner_cfe50* owner;
+    Closure2(const char* name, Owner_cfe50* object, Fn_cfe50 function);
 };
-class Method2 : public Function_cfe50 {
-  public:
-    virtual bool Fng_001d04c0(int, int);
-    Fn_cfe50 obj;
-    Method2(const char* p, Fn_cfe50 q) : Function_cfe50(p, 2) {
-        obj = q;
-        retType = FUN_001d04d0(((char*)&DAT_0048e100));
-        argTypes[0] = FUN_001d04d0(&DAT_0048e0e4);
-        argTypes[1] = FUN_001d04d0(((char*)&DAT_0048e128));
-    }
-};
-class Closure2 : public Method2 {
-  public:
-    virtual void Fnh_000cfed0(void*, void*, void*);
-    Owner_cfe50* extra;
-    Closure2(const char* p, Owner_cfe50* q, Fn_cfe50 r);
-};
-Closure2::Closure2(const char* p, Owner_cfe50* q, Fn_cfe50 r) : Method2(p, r) {
-    extra = q;
+Closure2::Closure2(const char* name, Owner_cfe50* object, Fn_cfe50 function) : hulk_script::ScriptFunction(name, 2) {
+    vftable = DAT_0040a570;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e100);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0e4);
+    f.argTypes[1] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e128);
+    vftable = DAT_0040a69c;
+    owner = object;
 }
 } // namespace fn_000cfe50
 #undef DAT_004dd6ec
@@ -3485,68 +3407,28 @@ template class Closure2<HUDOverlay, void, bool, float>; // (ren2) native only: c
 
 
 // 0x000cfef0 FUN_000cfef0 (89 B): matches/0x000cfef0.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ??0Closure2@fn_000cfef0@@QAE@PBDPAVHUDOverlay@1@P821@AEXH_N@Z@Z
+// sym: ??0Closure2@fn_000cfef0@@QAE@PBDPAVOwner_cfef0@1@P821@AEXXZ@Z
 namespace fn_000cfef0 {
-// Pinned prototypes of address-named globals and functions that many sources declare (docs/source-tree.md,
-// "Pinned address names"). A source includes this instead of declaring them itself; tools/migrate_gen.py
-// --family pin does the rewrite and keeps only what still verifies. Hand-maintained: one line per name.
-//
-// The pointed-to classes are declared, not defined: each source still defines the members it uses as its own
-// `struct World { ... };` stub, and tools/gen_tree.py merges those stubs into one class where the layouts agree.
-
-struct World;                     // the game world object (0x004dd700); was World*/Context*/Game*/Global_xxx* in sources
-extern "C" {
-
-#define DAT_004dd700 (*(World* *)&::DAT_004dd700)
-
-
-struct Gfx;                       // the graphics device / context object (0x0052c2a8); was Gfx*/Screen_xxx*/Renderer_xxx*
-
-#define DAT_0052c2a8 (*(Gfx* *)&::DAT_0052c2a8)
-
-
-struct Singleton_4dd6ec;          // object with getters FUN_00086280/FUN_000862e0 (0x004dd6ec); placeholder name
-
-#define DAT_004dd6ec (*(Singleton_4dd6ec* *)&::DAT_004dd6ec)
-
-}
-
-unsigned __int64 FUN_0027b020(const char* s);                 // string hash
-unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash with seed/length
-char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
-
-// data: a_cfef0 = DAT_0048e100
-// Closure2<HUDOverlay, void, int, bool>'s constructor (name, object, member function): Function's fields
-// (include/decls/data/script.h), then Method2's member-function pointer and Closure2's object.
-class HUDOverlay {};
-typedef void (HUDOverlay::*Fn_cfef0)(int, bool);
-struct CtorV_001d0480 : public ScriptFunctionFields {
-    CtorV_001d0480(const char*, int);
-    virtual void v_001d0480();
+// (script1) Closure2<class HUDOverlay,void,int,bool>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftables by address,
+// the member-function pointer, the type codes (0x001d04d0), the object.
+extern "C" char DAT_0040a580[];   // Method2<class HUDOverlay,void,int,bool>
+extern "C" char DAT_0040a6ac[];   // Closure2<class HUDOverlay,void,int,bool>
+class Owner_cfef0 {};
+typedef void (Owner_cfef0::*Fn_cfef0)();
+struct Closure2 : hulk_script::ScriptFunction {
+    Fn_cfef0 fn;
+    Owner_cfef0* owner;
+    Closure2(const char* name, Owner_cfef0* object, Fn_cfef0 function);
 };
-class Base_cfef0 : public CtorV_001d0480 {
-  public:
-    Base_cfef0(const char* n) : CtorV_001d0480(n, 2) { }
-};
-class Closure2_cfef0 : public Base_cfef0 {
-  public:
-    virtual bool Fnf_001d04c0(int, int);
-    Fn_cfef0 arg;
-    Closure2_cfef0(const char*, Fn_cfef0);
-};
-Closure2_cfef0::Closure2_cfef0(const char* n, Fn_cfef0 v) : Base_cfef0(n) {
-    arg = v;
-    retType = FUN_001d04d0(((const char*)&DAT_0048e100));
-    argTypes[0] = FUN_001d04d0(((const char*)&DAT_0048e134));
-    argTypes[1] = FUN_001d04d0(((const char*)&DAT_0048e0e4));
-}
-class Closure2 : public Closure2_cfef0 {
-  public:
-    HUDOverlay* val;
-    Closure2(const char*, HUDOverlay*, Fn_cfef0);
-};
-Closure2::Closure2(const char* n, HUDOverlay* v, Fn_cfef0 w) : Closure2_cfef0(n, w) {
-    val = v;
+Closure2::Closure2(const char* name, Owner_cfef0* object, Fn_cfef0 function) : hulk_script::ScriptFunction(name, 2) {
+    vftable = DAT_0040a580;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e100);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e134);
+    f.argTypes[1] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0e4);
+    vftable = DAT_0040a6ac;
+    owner = object;
 }
 } // namespace fn_000cfef0
 #undef DAT_004dd6ec
@@ -3576,7 +3458,7 @@ class Method2 {
     virtual void f0();
     virtual void f1();
     virtual void vfunc_2(int, int, int);
-    char pad[0x18];
+    ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
 };
 class Function {
   public:
@@ -3607,68 +3489,28 @@ template <> void Closure3<HUDOverlay, void, int, int,math::Vector>::vfunc_2(void
 
 
 // 0x000d0080 FUN_000d0080 (89 B): matches/0x000d0080.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ??0Closure2@fn_000d0080@@QAE@PBDPAVOwner_d0080@1@P821@AEXHH@Z@Z
+// sym: ??0Closure2@fn_000d0080@@QAE@PBDPAVOwner_d0080@1@P821@AEXXZ@Z
 namespace fn_000d0080 {
-// Pinned prototypes of address-named globals and functions that many sources declare (docs/source-tree.md,
-// "Pinned address names"). A source includes this instead of declaring them itself; tools/migrate_gen.py
-// --family pin does the rewrite and keeps only what still verifies. Hand-maintained: one line per name.
-//
-// The pointed-to classes are declared, not defined: each source still defines the members it uses as its own
-// `struct World { ... };` stub, and tools/gen_tree.py merges those stubs into one class where the layouts agree.
-
-struct World;                     // the game world object (0x004dd700); was World*/Context*/Game*/Global_xxx* in sources
-extern "C" {
-
-#define DAT_004dd700 (*(World* *)&::DAT_004dd700)
-
-
-struct Gfx;                       // the graphics device / context object (0x0052c2a8); was Gfx*/Screen_xxx*/Renderer_xxx*
-
-#define DAT_0052c2a8 (*(Gfx* *)&::DAT_0052c2a8)
-
-
-struct Singleton_4dd6ec;          // object with getters FUN_00086280/FUN_000862e0 (0x004dd6ec); placeholder name
-
-#define DAT_004dd6ec (*(Singleton_4dd6ec* *)&::DAT_004dd6ec)
-
-}
-
-unsigned __int64 FUN_0027b020(const char* s);                 // string hash
-unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash with seed/length
-char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
-
-// Closure2<Owner, void, int, int>'s constructor (name, object, member function): Function's fields
-// (include/decls/data/script.h), then Method2's member-function pointer and Closure2's object.
+// (script1) Closure2<class HUDOverlay,void,int,int>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftables by address,
+// the member-function pointer, the type codes (0x001d04d0), the object.
+extern "C" char DAT_0040a5b0[];   // Method2<class HUDOverlay,void,int,int>
+extern "C" char DAT_0040a6dc[];   // Closure2<class HUDOverlay,void,int,int>
 class Owner_d0080 {};
-typedef void (Owner_d0080::*Fn_d0080)(int, int);
-struct CtorV_001d0480 : public ScriptFunctionFields {
-    CtorV_001d0480(const char*, int);
-    virtual void v_001d0480();
+typedef void (Owner_d0080::*Fn_d0080)();
+struct Closure2 : hulk_script::ScriptFunction {
+    Fn_d0080 fn;
+    Owner_d0080* owner;
+    Closure2(const char* name, Owner_d0080* object, Fn_d0080 function);
 };
-class Base_d0080 : public CtorV_001d0480 {
-  public:
-    Base_d0080(const char* p) : CtorV_001d0480(p, 2) { }
-};
-class Closure2_d0080 : public Base_d0080 {
-  public:
-    virtual void f();
-    Fn_d0080 m1;
-    Closure2_d0080(const char*, Owner_d0080*, Fn_d0080);
-};
-Closure2_d0080::Closure2_d0080(const char* p, Owner_d0080* a, Fn_d0080 b) : Base_d0080(p) {
-    m1 = b;
-    retType = FUN_001d04d0(((int*)&DAT_0048e100));
-    argTypes[0] = FUN_001d04d0(((int*)&DAT_0048e134));
-    argTypes[1] = FUN_001d04d0(((int*)&DAT_0048e134));
-}
-class Closure2 : public Closure2_d0080 {
-  public:
-    virtual void f();
-    Owner_d0080* m2;
-    Closure2(const char*, Owner_d0080*, Fn_d0080);
-};
-Closure2::Closure2(const char* p, Owner_d0080* a, Fn_d0080 b) : Closure2_d0080(p, a, b) {
-    m2 = a;
+Closure2::Closure2(const char* name, Owner_d0080* object, Fn_d0080 function) : hulk_script::ScriptFunction(name, 2) {
+    vftable = DAT_0040a5b0;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e100);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e134);
+    f.argTypes[1] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e134);
+    vftable = DAT_0040a6dc;
+    owner = object;
 }
 } // namespace fn_000d0080
 #undef DAT_004dd6ec
@@ -3698,7 +3540,7 @@ class Method2 {
     virtual void f0();
     virtual void f1();
     virtual void vfunc_2(int, int, int);
-    char pad[0x18];
+    ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
 };
 class Function {
   public:
@@ -3716,39 +3558,27 @@ void Closure2::vfunc_2(int x, int a2, int a3) {
 
 
 // 0x000d0180 FUN_000d0180 (76 B): matches/0x000d0180.cpp [wrapped: conflict: Closure1; Method1]
-// sym: ??0Closure1@fn_000d0180@@QAE@PAX00@Z
+// sym: ??0Closure1@fn_000d0180@@QAE@PBDPAVOwner_d0180@1@P821@AEXXZ@Z
 namespace fn_000d0180 {
-class Function_d0180 {
-  public:
-    Function_d0180(void*, int);
-    virtual void run();
-    char pad[12];
-    unsigned char a;
-    char pad2[7];
-    unsigned char b;
-    char pad3[3];
-    void* p;
+// (script1) Closure1<class HUDOverlay,void,bool>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftables by address,
+// the member-function pointer, the type codes (0x001d04d0), the object.
+extern "C" char DAT_0040a5d0[];   // Method1<class HUDOverlay,void,bool>
+extern "C" char DAT_0040a6fc[];   // Closure1<class HUDOverlay,void,bool>
+class Owner_d0180 {};
+typedef void (Owner_d0180::*Fn_d0180)();
+struct Closure1 : hulk_script::ScriptFunction {
+    Fn_d0180 fn;
+    Owner_d0180* owner;
+    Closure1(const char* name, Owner_d0180* object, Fn_d0180 function);
 };
-extern "C++" __declspec(nothrow) unsigned char fn_001d04d0(void*);
-extern void* hulk_at_0048e100;
-extern void* hulk_at_0048e0e4;
-class Method1 : public Function_d0180 {
-  public:
-    Method1(void* x, void* y) : Function_d0180(x, 1) {
-        p = y;
-        b = fn_001d04d0(&hulk_at_0048e100);
-        a = fn_001d04d0(&hulk_at_0048e0e4);
-    }
-    virtual void run();
-};
-class Closure1 : public Method1 {
-  public:
-    Closure1(void*, void*, void*);
-    virtual void run();
-    void* q;
-};
-Closure1::Closure1(void* x, void* y, void* z) : Method1(x, z) {
-    q = y;
+Closure1::Closure1(const char* name, Owner_d0180* object, Fn_d0180 function) : hulk_script::ScriptFunction(name, 1) {
+    vftable = DAT_0040a5d0;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e100);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0e4);
+    vftable = DAT_0040a6fc;
+    owner = object;
 }
 } // namespace fn_000d0180
 

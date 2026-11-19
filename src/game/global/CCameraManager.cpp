@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x000989d0..0x0009f760 (kind game, layer game, confidence high), dominant class CCameraManager
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -15,6 +14,7 @@
 #define TREE_TU_END }
 namespace fn_f5ef2b3f {} using namespace fn_f5ef2b3f;
 #include "game/global.h"
+#include "game/script_bind.h"
 
 // ---- declarations shared by the functions below
 namespace fn_f5ef2b3f {
@@ -3172,16 +3172,28 @@ void __cdecl FUN_0009a7a0(unsigned unused, const unsigned *values, unsigned unus
 
 
 // 0x0009a800 FUN_0009a800 (102 B): matches/0x0009a800.cpp
-// sym: ??0Method4_9a800@fn_f5ef2b3f@@QAE@PBDP8Owner_9a800@1@AEXMMHM@Z@Z
-Method4_9a800::Method4_9a800(const char* a, Fn_9a800 b) : FUN_001d0480(a, 4) {
-    *(void**)this = (void*)DAT_00404c10;
-    value1c = b;
-    f.retType = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e100)));
-    f.argTypes[0] = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e128)));
-    f.argTypes[1] = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e128)));
-    f.argTypes[2] = FUN_001d04d0((const char*)((hulk_intptr)DAT_0048e10c));
-    f.argTypes[3] = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e128)));
+// sym: ??0Method4@fn_0009a800@fn_f5ef2b3f@@QAE@PBDP8Owner_9a800@12@AEXXZ@Z
+namespace fn_0009a800 {
+// (script1) Method4<class CCameraManager,void,float,float,class math::Vector,float>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftable by address,
+// the member-function pointer, the type codes (0x001d04d0).
+extern "C" char DAT_00404c10[];   // Method4<class CCameraManager,void,float,float,class math::Vector,float>
+class Owner_9a800 {};
+typedef void (Owner_9a800::*Fn_9a800)();
+struct Method4 : hulk_script::ScriptFunction {
+    Fn_9a800 fn;
+    Method4(const char* name, Fn_9a800 function);
+};
+Method4::Method4(const char* name, Fn_9a800 function) : hulk_script::ScriptFunction(name, 4) {
+    vftable = DAT_00404c10;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e100);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e128);
+    f.argTypes[1] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e128);
+    f.argTypes[2] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e10c);
+    f.argTypes[3] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e128);
 }
+} // namespace fn_0009a800
 
 } // namespace fn_f5ef2b3f
 
@@ -3223,23 +3235,50 @@ template class Method4<CCameraManager, void, float, float,math::Vector, float>; 
 namespace fn_f5ef2b3f {
 
 // 0x0009a8e0 FUN_0009a8e0 (89 B): matches/0x0009a8e0.cpp
-// sym: ??0Method3_9a8e0@fn_f5ef2b3f@@QAE@PAXH@Z
-Method3_9a8e0::Method3_9a8e0(void* p, hulk_intptr value) {
-    Init_001d0480(p, 3);
-    *(hulk_intptr*)this = ((hulk_intptr)DAT_00404c20);
-    field1c = value;
-    b18 = Convert_001d04d0(((char*)&DAT_0048e100));
-    b10 = Convert_001d04d0(((char*)&DAT_0048e128));
-    b11 = Convert_001d04d0(((char*)&DAT_0048e128));
-    b12 = Convert_001d04d0(((char*)&DAT_0048e0e4));
+// sym: ??0Method3@fn_0009a8e0@fn_f5ef2b3f@@QAE@PBDP8Owner_9a8e0@12@AEXXZ@Z
+namespace fn_0009a8e0 {
+// (script1) Method3<class CCameraManager,void,float,float,bool>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftable by address,
+// the member-function pointer, the type codes (0x001d04d0).
+extern "C" char DAT_00404c20[];   // Method3<class CCameraManager,void,float,float,bool>
+class Owner_9a8e0 {};
+typedef void (Owner_9a8e0::*Fn_9a8e0)();
+struct Method3 : hulk_script::ScriptFunction {
+    Fn_9a8e0 fn;
+    Method3(const char* name, Fn_9a8e0 function);
+};
+Method3::Method3(const char* name, Fn_9a8e0 function) : hulk_script::ScriptFunction(name, 3) {
+    vftable = DAT_00404c20;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e100);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e128);
+    f.argTypes[1] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e128);
+    f.argTypes[2] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0e4);
 }
+} // namespace fn_0009a8e0
 
 } // namespace fn_f5ef2b3f
 
 // 0x0009a940 Method3<CCameraManager,void,float,float,bool>::vfunc_0 (30 B): matches/0x0009a940.cpp
-// sym: ??_G?$Method3@VCCameraManager@@XMM_N@@UAEPAXI@Z
+// sym: ?vfunc_0@Method3_9a940@fn_0009a940@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Method3<CCameraManager, void, float, float,
+// bool>::~Method3() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then
+// (flags & 1) operator delete.
+namespace fn_0009a940 {
+struct Method3_9a940 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method3_9a940::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0009a940
+// the destructor itself, which other objects' code references natively:
 template <> Method3<CCameraManager, void, float, float, bool>::~Method3() {}
 #if defined(HULK_PTR64)
 template class Method3<CCameraManager, void, float, float, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9a940)
@@ -3285,59 +3324,26 @@ template class Method2<CCameraManager, void, float, float>; // (ren2) native onl
 
 
 // 0x0009aa20 FUN_0009aa20 (102 B): matches/0x0009aa20.cpp [wrapped: conflict: CCameraManager; Method4]
-// sym: ??0?$Method4@VCCameraManager@fn_0009aa20@@XMMMM@fn_0009aa20@@QAE@PBDP8CCameraManager@1@AEXMMMM@Z@Z
+// sym: ??0Method4@fn_0009aa20@@QAE@PBDP8Owner_9aa20@1@AEXXZ@Z
 namespace fn_0009aa20 {
-// FUN_0009aa20 @ 0x0009aa20
-// Pinned prototypes of address-named globals and functions that many sources declare (docs/source-tree.md,
-// "Pinned address names"). A source includes this instead of declaring them itself; tools/migrate_gen.py
-// --family pin does the rewrite and keeps only what still verifies. Hand-maintained: one line per name.
-//
-// The pointed-to classes are declared, not defined: each source still defines the members it uses as its own
-// `struct World { ... };` stub, and tools/gen_tree.py merges those stubs into one class where the layouts agree.
-
-struct World;                     // the game world object (0x004dd700); was World*/Context*/Game*/Global_xxx* in sources
-extern "C" {
-
-#define DAT_004dd700 (*(World* *)&::DAT_004dd700)
-
-
-struct Gfx;                       // the graphics device / context object (0x0052c2a8); was Gfx*/Screen_xxx*/Renderer_xxx*
-
-#define DAT_0052c2a8 (*(Gfx* *)&::DAT_0052c2a8)
-
-
-struct Singleton_4dd6ec;          // object with getters FUN_00086280/FUN_000862e0 (0x004dd6ec); placeholder name
-
-#define DAT_004dd6ec (*(Singleton_4dd6ec* *)&::DAT_004dd6ec)
-
-}
-
-unsigned __int64 FUN_0027b020(const char* s);                 // string hash
-unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash with seed/length
-char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
-
-// Method4's constructor (name, member function): Function's fields (include/decls/data/script.h), then the
-// member-function pointer.
-class CCameraManager {};
-class Base_9aa20 : public ScriptFunctionFields {
-public:
-    virtual void v();
-    Base_9aa20(const char*, int) throw();
+// (script1) Method4<class CCameraManager,void,float,float,float,float>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftable by address,
+// the member-function pointer, the type codes (0x001d04d0).
+extern "C" char DAT_00404c40[];   // Method4<class CCameraManager,void,float,float,float,float>
+class Owner_9aa20 {};
+typedef void (Owner_9aa20::*Fn_9aa20)();
+struct Method4 : hulk_script::ScriptFunction {
+    Fn_9aa20 fn;
+    Method4(const char* name, Fn_9aa20 function);
 };
-template<class C, class R, class A1, class A2, class A3, class A4>
-class Method4 : public Base_9aa20 {
-public:
-    R (C::*f)(A1, A2, A3, A4);
-    Method4(const char* n, R (C::*x)(A1, A2, A3, A4));
-    virtual void v();
-};
-template<> Method4<CCameraManager, void, float, float, float, float>::Method4(const char* n, void (CCameraManager::*x)(float, float, float, float)) : Base_9aa20(n, 4) {
-    f = x;
-    retType = FUN_001d04d0(((char*)&DAT_0048e100));
-    argTypes[0] = FUN_001d04d0(((char*)&DAT_0048e128));
-    argTypes[1] = FUN_001d04d0(((char*)&DAT_0048e128));
-    argTypes[2] = FUN_001d04d0(((char*)&DAT_0048e128));
-    argTypes[3] = FUN_001d04d0(((char*)&DAT_0048e128));
+Method4::Method4(const char* name, Fn_9aa20 function) : hulk_script::ScriptFunction(name, 4) {
+    vftable = DAT_00404c40;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e100);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e128);
+    f.argTypes[1] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e128);
+    f.argTypes[2] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e128);
+    f.argTypes[3] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e128);
 }
 } // namespace fn_0009aa20
 #undef DAT_004dd6ec
@@ -3346,9 +3352,25 @@ template<> Method4<CCameraManager, void, float, float, float, float>::Method4(co
 
 
 // 0x0009aa90 Method4<CCameraManager,void,float,float,float,float>::vfunc_0 (30 B): matches/0x0009aa90.cpp
-// sym: ??_G?$Method4@VCCameraManager@@XMMMM@@UAEPAXI@Z
+// sym: ?vfunc_0@Method4_9aa90@fn_0009aa90@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Method4<CCameraManager, void, float, float, float,
+// float>::~Method4() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then
+// (flags & 1) operator delete.
+namespace fn_0009aa90 {
+struct Method4_9aa90 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method4_9aa90::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0009aa90
+// the destructor itself, which other objects' code references natively:
 template <> Method4<CCameraManager, void, float, float, float, float>::~Method4() {}
 #if defined(HULK_PTR64)
 template class Method4<CCameraManager, void, float, float, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9aa90)
@@ -3371,7 +3393,7 @@ class Method4 : public Function {
   public:
     virtual void f0();
     virtual void f2(CCameraManager*, float*, int);
-    char pad[24];
+    ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[24])
     typedef void (CCameraManager::*M)(float, float, float, float);
     M method;
 };
@@ -3387,23 +3409,50 @@ void Method4::f2(CCameraManager* obj, float* p, int unused) {
 namespace fn_f5ef2b3f {
 
 // 0x0009aaf0 FUN_0009aaf0 (89 B): matches/0x0009aaf0.cpp
-// sym: ??0Method3_9aaf0@fn_f5ef2b3f@@QAE@HH@Z
-Method3_9aaf0::Method3_9aaf0(hulk_intptr a, hulk_intptr b) {
-    Init_001d0480(a, 3);
-    vt = ((hulk_intptr)DAT_00404c50);
-    field1c = b;
-    b18 = GetValue_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e100)));
-    b10 = GetValue_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e0e4)));
-    b11 = GetValue_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e0e4)));
-    b12 = GetValue_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e0e4)));
+// sym: ??0Method3@fn_0009aaf0@fn_f5ef2b3f@@QAE@PBDP8Owner_9aaf0@12@AEXXZ@Z
+namespace fn_0009aaf0 {
+// (script1) Method3<class CCameraManager,void,bool,bool,bool>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftable by address,
+// the member-function pointer, the type codes (0x001d04d0).
+extern "C" char DAT_00404c50[];   // Method3<class CCameraManager,void,bool,bool,bool>
+class Owner_9aaf0 {};
+typedef void (Owner_9aaf0::*Fn_9aaf0)();
+struct Method3 : hulk_script::ScriptFunction {
+    Fn_9aaf0 fn;
+    Method3(const char* name, Fn_9aaf0 function);
+};
+Method3::Method3(const char* name, Fn_9aaf0 function) : hulk_script::ScriptFunction(name, 3) {
+    vftable = DAT_00404c50;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e100);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0e4);
+    f.argTypes[1] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0e4);
+    f.argTypes[2] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0e4);
 }
+} // namespace fn_0009aaf0
 
 } // namespace fn_f5ef2b3f
 
 // 0x0009ab50 Method3<CCameraManager,void,bool,bool,bool>::vfunc_0 (30 B): matches/0x0009ab50.cpp
-// sym: ??_G?$Method3@VCCameraManager@@X_N_N_N@@UAEPAXI@Z
+// sym: ?vfunc_0@Method3_9ab50@fn_0009ab50@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Method3<CCameraManager, void, bool, bool,
+// bool>::~Method3() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then
+// (flags & 1) operator delete.
+namespace fn_0009ab50 {
+struct Method3_9ab50 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method3_9ab50::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0009ab50
+// the destructor itself, which other objects' code references natively:
 template <> Method3<CCameraManager, void, bool, bool, bool>::~Method3() {}
 #if defined(HULK_PTR64)
 template class Method3<CCameraManager, void, bool, bool, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9ab50)
@@ -3417,7 +3466,7 @@ namespace fn_0009ab70 {
 // Method3<CCameraManager,void,bool,bool,bool>::vfunc_2 @ 0x0009ab70
 struct CCameraManager;
 struct Method3 {
-    char pad[0x1c];
+    void* vftable; ScriptFunctionFields fields;   // (script2) Function (was char pad[0x1c])
     void (__fastcall *callback)(CCameraManager *, Method3 *, unsigned int, unsigned int, unsigned int);
     void vfunc_2(CCameraManager *camera, const unsigned char *arguments, void *unused);
 };
@@ -3446,9 +3495,25 @@ Method4_9aba0* Method4_9aba0::Init(const char* a, Fn_9aba0 p) {
 } // namespace fn_f5ef2b3f
 
 // 0x0009ac10 Method4<CCameraManager,void,bool,bool,bool,float>::vfunc_0 (30 B): matches/0x0009ac10.cpp
-// sym: ??_G?$Method4@VCCameraManager@@X_N_N_NM@@UAEPAXI@Z
+// sym: ?vfunc_0@Method4_9ac10@fn_0009ac10@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Method4<CCameraManager, void, bool, bool, bool,
+// float>::~Method4() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then
+// (flags & 1) operator delete.
+namespace fn_0009ac10 {
+struct Method4_9ac10 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method4_9ac10::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0009ac10
+// the destructor itself, which other objects' code references natively:
 template <> Method4<CCameraManager, void, bool, bool, bool, float>::~Method4() {}
 #if defined(HULK_PTR64)
 template class Method4<CCameraManager, void, bool, bool, bool, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9ac10)
@@ -3478,7 +3543,7 @@ class Function {
 class Method4 : public Function {
   public:
     virtual void vfunc_2(CCameraManager*, Arg*, int);
-    char pad[24];
+    ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[24])
     typedef void (CCameraManager::*Fn)(unsigned int, unsigned int, unsigned int, float);
     Fn fn;
 };
@@ -3494,59 +3559,26 @@ void Method4::vfunc_2(CCameraManager* obj, Arg* p, int) {
 
 
 // 0x0009ac70 FUN_0009ac70 (102 B): matches/0x0009ac70.cpp [wrapped: conflict: CCameraManager; Method4]
-// sym: ??0?$Method4@VCCameraManager@fn_0009ac70@@X_N_N_N_N@fn_0009ac70@@QAE@PBDP8CCameraManager@1@AEX_N111@Z@Z
+// sym: ??0Method4@fn_0009ac70@@QAE@PBDP8Owner_9ac70@1@AEXXZ@Z
 namespace fn_0009ac70 {
-// FUN_0009ac70 @ 0x0009ac70
-// Pinned prototypes of address-named globals and functions that many sources declare (docs/source-tree.md,
-// "Pinned address names"). A source includes this instead of declaring them itself; tools/migrate_gen.py
-// --family pin does the rewrite and keeps only what still verifies. Hand-maintained: one line per name.
-//
-// The pointed-to classes are declared, not defined: each source still defines the members it uses as its own
-// `struct World { ... };` stub, and tools/gen_tree.py merges those stubs into one class where the layouts agree.
-
-struct World;                     // the game world object (0x004dd700); was World*/Context*/Game*/Global_xxx* in sources
-extern "C" {
-
-#define DAT_004dd700 (*(World* *)&::DAT_004dd700)
-
-
-struct Gfx;                       // the graphics device / context object (0x0052c2a8); was Gfx*/Screen_xxx*/Renderer_xxx*
-
-#define DAT_0052c2a8 (*(Gfx* *)&::DAT_0052c2a8)
-
-
-struct Singleton_4dd6ec;          // object with getters FUN_00086280/FUN_000862e0 (0x004dd6ec); placeholder name
-
-#define DAT_004dd6ec (*(Singleton_4dd6ec* *)&::DAT_004dd6ec)
-
-}
-
-unsigned __int64 FUN_0027b020(const char* s);                 // string hash
-unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash with seed/length
-char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
-
-// Method4's constructor (name, member function): Function's fields (include/decls/data/script.h), then the
-// member-function pointer.
-class CCameraManager {};
-class Base_9ac70 : public ScriptFunctionFields {
-public:
-    virtual void v();
-    Base_9ac70(const char*, int) throw();
+// (script1) Method4<class CCameraManager,void,bool,bool,bool,bool>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftable by address,
+// the member-function pointer, the type codes (0x001d04d0).
+extern "C" char DAT_00404c70[];   // Method4<class CCameraManager,void,bool,bool,bool,bool>
+class Owner_9ac70 {};
+typedef void (Owner_9ac70::*Fn_9ac70)();
+struct Method4 : hulk_script::ScriptFunction {
+    Fn_9ac70 fn;
+    Method4(const char* name, Fn_9ac70 function);
 };
-template<class C, class R, class A1, class A2, class A3, class A4>
-class Method4 : public Base_9ac70 {
-public:
-    R (C::*f)(A1, A2, A3, A4);
-    Method4(const char* n, R (C::*x)(A1, A2, A3, A4));
-    virtual void v();
-};
-template<> Method4<CCameraManager, void, bool, bool, bool, bool>::Method4(const char* n, void (CCameraManager::*x)(bool, bool, bool, bool)) : Base_9ac70(n, 4) {
-    f = x;
-    retType = FUN_001d04d0(((char*)&DAT_0048e100));
-    argTypes[0] = FUN_001d04d0(&DAT_0048e0e4);
-    argTypes[1] = FUN_001d04d0(&DAT_0048e0e4);
-    argTypes[2] = FUN_001d04d0(&DAT_0048e0e4);
-    argTypes[3] = FUN_001d04d0(&DAT_0048e0e4);
+Method4::Method4(const char* name, Fn_9ac70 function) : hulk_script::ScriptFunction(name, 4) {
+    vftable = DAT_00404c70;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e100);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0e4);
+    f.argTypes[1] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0e4);
+    f.argTypes[2] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0e4);
+    f.argTypes[3] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0e4);
 }
 } // namespace fn_0009ac70
 #undef DAT_004dd6ec
@@ -3765,9 +3797,24 @@ template class Method0<CCameraManager, void>; // (ren2) native only: clang emits
 
 
 // 0x0009b040 Method0<CCameraManager,bool>::vfunc_0 (30 B): matches/0x0009b040.cpp
-// sym: ??_G?$Method0@VCCameraManager@@_N@@UAEPAXI@Z
+// sym: ?vfunc_0@Method0_9b040@fn_0009b040@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Method0<CCameraManager, bool>::~Method0() {}` stood
+// for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_0009b040 {
+struct Method0_9b040 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method0_9b040::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0009b040
+// the destructor itself, which other objects' code references natively:
 template <> Method0<CCameraManager, bool>::~Method0() {}
 
 
@@ -3984,9 +4031,25 @@ Method4_9b330* Method4_9b330::Fn(const char* a, Fn_9b330 b) {
 } // namespace fn_f5ef2b3f
 
 // 0x0009b3a0 Method4<CCameraManager,void,int,float,float,float>::vfunc_0 (30 B): matches/0x0009b3a0.cpp
-// sym: ??_G?$Method4@VCCameraManager@@XHMMM@@UAEPAXI@Z
+// sym: ?vfunc_0@Method4_9b3a0@fn_0009b3a0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Method4<CCameraManager, void, int, float, float,
+// float>::~Method4() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then
+// (flags & 1) operator delete.
+namespace fn_0009b3a0 {
+struct Method4_9b3a0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method4_9b3a0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0009b3a0
+// the destructor itself, which other objects' code references natively:
 template <> Method4<CCameraManager, void, int, float, float, float>::~Method4() {}
 #if defined(HULK_PTR64)
 template class Method4<CCameraManager, void, int, float, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9b3a0)
@@ -4004,7 +4067,7 @@ struct Function { virtual void vfunc_0(); virtual void vfunc_1(); };
 struct Args { int mode; float a, b, c; };
 struct Method4 : Function {
     virtual void vfunc_2(CCameraManager *, Args *, float);
-    char padding[0x18];
+    ScriptFunctionFields fields;   // (script2) Function's fields (was char padding[0x18])
     CameraMethod method;
 };
 void Method4::vfunc_2(CCameraManager *manager, Args *args, float unused) {
@@ -4165,9 +4228,25 @@ template class Method1<CCameraManager, void, const char *>; // (ren2) native onl
 
 
 // 0x0009b690 Method0<CCameraManager,const_char_*>::vfunc_0 (30 B): matches/0x0009b690.cpp
-// sym: ??_G?$Method0@VCCameraManager@@PBD@@UAEPAXI@Z
+// sym: ?vfunc_0@Method0_9b690@fn_0009b690@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Method0<CCameraManager, const char *>::~Method0()
+// {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then (flags & 1)
+// operator delete.
+namespace fn_0009b690 {
+struct Method0_9b690 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method0_9b690::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0009b690
+// the destructor itself, which other objects' code references natively:
 template <> Method0<CCameraManager, const char *>::~Method0() {}
 
 
@@ -4222,17 +4301,29 @@ template class Method2<CCameraManager, void,math::Vector, bool>; // (ren2) nativ
 namespace fn_f5ef2b3f {
 
 // 0x0009b770 FUN_0009b770 (115 B): matches/0x0009b770.cpp
-// sym: ??0Method5_9b770@fn_f5ef2b3f@@QAE@PBDP8Owner_9b770@1@AE_NMMMM_N@Z@Z
-Method5_9b770::Method5_9b770(const char* x, Fn_9b770 y) : FUN_001d0480(x, 5) {
-    *(void**)this = &hulk_at_00404d60;
-    n = y;
-    fields.retType = FUN_001d04d0(typeid(bool));
-    fields.argTypes[0] = FUN_001d04d0(typeid(float));
-    fields.argTypes[1] = FUN_001d04d0(typeid(float));
-    fields.argTypes[2] = FUN_001d04d0(typeid(float));
-    fields.argTypes[3] = FUN_001d04d0(typeid(float));
-    fields.argTypes[4] = FUN_001d04d0(typeid(bool));
+// sym: ??0Method5@fn_0009b770@fn_f5ef2b3f@@QAE@PBDP8Owner_9b770@12@AEXXZ@Z
+namespace fn_0009b770 {
+// (script1) Method5<class CCameraManager,bool,float,float,float,float,bool>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftable by address,
+// the member-function pointer, the type codes (0x001d04d0).
+extern "C" char DAT_00404d60[];   // Method5<class CCameraManager,bool,float,float,float,float,bool>
+class Owner_9b770 {};
+typedef void (Owner_9b770::*Fn_9b770)();
+struct Method5 : hulk_script::ScriptFunction {
+    Fn_9b770 fn;
+    Method5(const char* name, Fn_9b770 function);
+};
+Method5::Method5(const char* name, Fn_9b770 function) : hulk_script::ScriptFunction(name, 5) {
+    vftable = DAT_00404d60;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0e4);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e128);
+    f.argTypes[1] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e128);
+    f.argTypes[2] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e128);
+    f.argTypes[3] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e128);
+    f.argTypes[4] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0e4);
 }
+} // namespace fn_0009b770
 
 } // namespace fn_f5ef2b3f
 
@@ -4301,9 +4392,25 @@ void __cdecl FUN_0009b830(Callback* object, Data* data, unsigned char* result, u
 
 
 // 0x0009b8e0 Method2<CCameraManager,void,math::Vector,float>::vfunc_0 (30 B): matches/0x0009b8e0.cpp
-// sym: ??_G?$Method2@VCCameraManager@@XVVector@math@@M@@UAEPAXI@Z
+// sym: ?vfunc_0@Method2_9b8e0@fn_0009b8e0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Method2<CCameraManager, void,math::Vector,
+// float>::~Method2() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then
+// (flags & 1) operator delete.
+namespace fn_0009b8e0 {
+struct Method2_9b8e0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method2_9b8e0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0009b8e0
+// the destructor itself, which other objects' code references natively:
 template <> Method2<CCameraManager, void,math::Vector, float>::~Method2() {}
 #if defined(HULK_PTR64)
 template class Method2<CCameraManager, void,math::Vector, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9b8e0)
@@ -4334,7 +4441,7 @@ class Function {
 };
 class Method2 : public Function {
   public:
-    char pad[0x18];
+    ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
     void (CCameraManager::*fn)(math::Vector, float);
     virtual void f2(CCameraManager*, const Args*, int);
 };
@@ -4402,19 +4509,46 @@ template class Method4<CCameraManager, void, char *, char *, char *, char *>; //
 namespace fn_f5ef2b3f {
 
 // 0x0009b9f0 FUN_0009b9f0 (50 B): matches/0x0009b9f0.cpp
-// sym: ??0Method0_9b9f0@fn_f5ef2b3f@@QAE@HH@Z
-// data: hulk_at_0048e128 = DAT_0048e128
-Method0_9b9f0::Method0_9b9f0(int a, int b) : Function_9b9f0(a, 0) {
-    value = b;
-    flag = fun2_001d04d0(((hulk_intptr)((char*)&DAT_0048e128)));
+// sym: ??0Method0@fn_0009b9f0@fn_f5ef2b3f@@QAE@PBDP8Owner_9b9f0@12@AEXXZ@Z
+namespace fn_0009b9f0 {
+// (script1) Method0<class CCameraManager,float>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftable by address,
+// the member-function pointer, the type codes (0x001d04d0).
+extern "C" char DAT_00404d90[];   // Method0<class CCameraManager,float>
+class Owner_9b9f0 {};
+typedef void (Owner_9b9f0::*Fn_9b9f0)();
+struct Method0 : hulk_script::ScriptFunction {
+    Fn_9b9f0 fn;
+    Method0(const char* name, Fn_9b9f0 function);
+};
+Method0::Method0(const char* name, Fn_9b9f0 function) : hulk_script::ScriptFunction(name, 0) {
+    vftable = DAT_00404d90;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e128);
 }
+} // namespace fn_0009b9f0
 
 } // namespace fn_f5ef2b3f
 
 // 0x0009ba30 Method0<CCameraManager,float>::vfunc_0 (30 B): matches/0x0009ba30.cpp
-// sym: ??_G?$Method0@VCCameraManager@@M@@UAEPAXI@Z
+// sym: ?vfunc_0@Method0_9ba30@fn_0009ba30@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Method0<CCameraManager, float>::~Method0() {}` stood
+// for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_0009ba30 {
+struct Method0_9ba30 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method0_9ba30::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0009ba30
+// the destructor itself, which other objects' code references natively:
 template <> Method0<CCameraManager, float>::~Method0() {}
 #if defined(HULK_PTR64)
 template class Method0<CCameraManager, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9ba30)
@@ -4432,7 +4566,7 @@ class Function {
 };
 class Method0Base_9ba50 : public Function {
   public:
-    char pad[0x18];
+    ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
     float(__fastcall* fn)(void*);
     virtual void f2(void* a, void* b, float* out);
 };
@@ -4858,9 +4992,25 @@ void X::target(int a, int b, int c, int d, int e, int f, int h) {
 } // namespace fn_f5ef2b3f
 
 // 0x0009c2a0 Closure6<CCameraManager,void,float,float,float,float,float,float>::vfunc_0 (30 B): matches/0x0009c2a0.cpp
-// sym: ??_G?$Method4@VCCameraManager@@XMMMM@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure6_9c2a0@fn_0009c2a0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Closure6<CCameraManager, void, float, float, float,
+// float, float, float>::~Closure6() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body
+// 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_0009c2a0 {
+struct Closure6_9c2a0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure6_9c2a0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0009c2a0
+// the destructor itself, which other objects' code references natively:
 template <> Closure6<CCameraManager, void, float, float, float, float, float, float>::~Closure6() {}
 
 
@@ -4882,9 +5032,25 @@ template class Closure6<CCameraManager, void, float, float, float, float, float,
 
 
 // 0x0009c350 Closure4<CCameraManager,void,float,float,math::Vector,float>::vfunc_0 (30 B): matches/0x0009c350.cpp
-// sym: ??_G?$Method3@VCCameraManager@@X_N_N_N@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure4_9c350@fn_0009c350@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Closure4<CCameraManager, void, float,
+// float,math::Vector, float>::~Closure4() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's
+// body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_0009c350 {
+struct Closure4_9c350 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure4_9c350::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0009c350
+// the destructor itself, which other objects' code references natively:
 template <> Closure4<CCameraManager, void, float, float,math::Vector, float>::~Closure4() {}
 
 
@@ -4905,9 +5071,25 @@ template class Closure4<CCameraManager, void, float, float,math::Vector, float>;
 
 
 // 0x0009c3f0 Closure3<CCameraManager,void,float,float,bool>::vfunc_0 (30 B): matches/0x0009c3f0.cpp
-// sym: ??_G?$Method4@VCCameraManager@@X_N_N_NM@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure3_9c3f0@fn_0009c3f0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Closure3<CCameraManager, void, float, float,
+// bool>::~Closure3() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then
+// (flags & 1) operator delete.
+namespace fn_0009c3f0 {
+struct Closure3_9c3f0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure3_9c3f0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0009c3f0
+// the destructor itself, which other objects' code references natively:
 template <> Closure3<CCameraManager, void, float, float, bool>::~Closure3() {}
 
 
@@ -4926,68 +5108,28 @@ template class Closure3<CCameraManager, void, float, float, bool>; // (ren2) nat
 
 
 // 0x0009c440 FUN_0009c440 (89 B): matches/0x0009c440.cpp [wrapped: conflict: Closure2; Method2]
-// sym: ??0Closure2@fn_0009c440@@QAE@PBDPAVOwner_9c440@1@P821@AEXMM@Z@Z
+// sym: ??0Closure2@fn_0009c440@@QAE@PBDPAVOwner_9c440@1@P821@AEXXZ@Z
 namespace fn_0009c440 {
-// Pinned prototypes of address-named globals and functions that many sources declare (docs/source-tree.md,
-// "Pinned address names"). A source includes this instead of declaring them itself; tools/migrate_gen.py
-// --family pin does the rewrite and keeps only what still verifies. Hand-maintained: one line per name.
-//
-// The pointed-to classes are declared, not defined: each source still defines the members it uses as its own
-// `struct World { ... };` stub, and tools/gen_tree.py merges those stubs into one class where the layouts agree.
-
-struct World;                     // the game world object (0x004dd700); was World*/Context*/Game*/Global_xxx* in sources
-extern "C" {
-
-#define DAT_004dd700 (*(World* *)&::DAT_004dd700)
-
-
-struct Gfx;                       // the graphics device / context object (0x0052c2a8); was Gfx*/Screen_xxx*/Renderer_xxx*
-
-#define DAT_0052c2a8 (*(Gfx* *)&::DAT_0052c2a8)
-
-
-struct Singleton_4dd6ec;          // object with getters FUN_00086280/FUN_000862e0 (0x004dd6ec); placeholder name
-
-#define DAT_004dd6ec (*(Singleton_4dd6ec* *)&::DAT_004dd6ec)
-
-}
-
-unsigned __int64 FUN_0027b020(const char* s);                 // string hash
-unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash with seed/length
-char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
-
-typedef unsigned char u8;
-// Closure2<Owner, void, float, float>'s constructor (name, object, member function): Function's fields
-// (include/decls/data/script.h), then Method2's member-function pointer and Closure2's object.
+// (script1) Closure2<class CCameraManager,void,float,float>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftables by address,
+// the member-function pointer, the type codes (0x001d04d0), the object.
+extern "C" char DAT_00404c30[];   // Method2<class CCameraManager,void,float,float>
+extern "C" char DAT_00404dd0[];   // Closure2<class CCameraManager,void,float,float>
 class Owner_9c440 {};
-typedef void (Owner_9c440::*Fn_9c440)(float, float);
-struct CtorV_001d0480 : public ScriptFunctionFields {
-    CtorV_001d0480(const char*, int);
-    virtual void v_001d0480();
+typedef void (Owner_9c440::*Fn_9c440)();
+struct Closure2 : hulk_script::ScriptFunction {
+    Fn_9c440 fn;
+    Owner_9c440* owner;
+    Closure2(const char* name, Owner_9c440* object, Fn_9c440 function);
 };
-class Function_9c440 : public CtorV_001d0480 {
-  public:
-    Function_9c440(const char* a) : CtorV_001d0480(a, 2) { }
-};
-class Method2 : public Function_9c440 {
-  public:
-    virtual void Fn();
-    Fn_9c440 p1;
-    Owner_9c440* p2;
-    Method2(const char* a, Fn_9c440 b) : Function_9c440(a) {
-        p1 = b;
-        retType = FUN_001d04d0(((int*)&DAT_0048e100));
-        argTypes[0] = FUN_001d04d0(((int*)&DAT_0048e128));
-        argTypes[1] = FUN_001d04d0(((int*)&DAT_0048e128));
-    }
-};
-class Closure2 : public Method2 {
-  public:
-    virtual void Fn();
-    Closure2(const char*, Owner_9c440*, Fn_9c440);
-};
-Closure2::Closure2(const char* a, Owner_9c440* b, Fn_9c440 c) : Method2(a, c) {
-    p2 = b;
+Closure2::Closure2(const char* name, Owner_9c440* object, Fn_9c440 function) : hulk_script::ScriptFunction(name, 2) {
+    vftable = DAT_00404c30;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e100);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e128);
+    f.argTypes[1] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e128);
+    vftable = DAT_00404dd0;
+    owner = object;
 }
 } // namespace fn_0009c440
 #undef DAT_004dd6ec
@@ -5031,9 +5173,25 @@ template class Closure2<CCameraManager, void, float, float>; // (ren2) native on
 
 
 // 0x0009c510 Closure4<CCameraManager,void,float,float,float,float>::vfunc_0 (30 B): matches/0x0009c510.cpp
-// sym: ??_G?$Method0@VCCameraManager@@_N@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure4_9c510@fn_0009c510@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Closure4<CCameraManager, void, float, float, float,
+// float>::~Closure4() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0,
+// then (flags & 1) operator delete.
+namespace fn_0009c510 {
+struct Closure4_9c510 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure4_9c510::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0009c510
+// the destructor itself, which other objects' code references natively:
 template <> Closure4<CCameraManager, void, float, float, float, float>::~Closure4() {}
 #if defined(HULK_PTR64)
 template class Closure4<CCameraManager, void, float, float, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9c510)
@@ -5054,7 +5212,7 @@ class Function {
 };
 class Method4 : public Function {
   public:
-    char pad[24];
+    ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[24])
 };
 class Closure4 : public Method4 {
   public:
@@ -5186,9 +5344,25 @@ template class Closure4<CCameraManager, void, bool, bool, bool, bool>; // (ren2)
 
 
 // 0x0009c740 Closure5<CCameraManager,void,bool,bool,bool,bool,float>::vfunc_0 (30 B): matches/0x0009c740.cpp
-// sym: ??_G?$Method4@VCCameraManager@@XHMMM@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure5_9c740@fn_0009c740@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Closure5<CCameraManager, void, bool, bool, bool,
+// bool, float>::~Closure5() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body
+// 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_0009c740 {
+struct Closure5_9c740 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure5_9c740::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0009c740
+// the destructor itself, which other objects' code references natively:
 template <> Closure5<CCameraManager, void, bool, bool, bool, bool, float>::~Closure5() {}
 #if defined(HULK_PTR64)
 template class Closure5<CCameraManager, void, bool, bool, bool, bool, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9c740)
@@ -5304,9 +5478,25 @@ template class Closure0<CCameraManager, bool>; // (ren2) native only: clang emit
 
 
 // 0x0009c940 Closure6<CCameraManager,void,int,int,float,int,int,float>::vfunc_0 (30 B): matches/0x0009c940.cpp
-// sym: ??_G?$Method0@VCCameraManager@@PBD@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure6_9c940@fn_0009c940@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Closure6<CCameraManager, void, int, int, float, int,
+// int, float>::~Closure6() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body
+// 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_0009c940 {
+struct Closure6_9c940 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure6_9c940::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0009c940
+// the destructor itself, which other objects' code references natively:
 template <> Closure6<CCameraManager, void, int, int, float, int, int, float>::~Closure6() {}
 #if defined(HULK_PTR64)
 template class Closure6<CCameraManager, void, int, int, float, int, int, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9c940)
@@ -5314,41 +5504,27 @@ template class Closure6<CCameraManager, void, int, int, float, int, int, float>;
 
 
 // 0x0009c9a0 FUN_0009c9a0 (76 B): matches/0x0009c9a0.cpp [wrapped: conflict: Closure1; Method1]
-// sym: ??0Closure1@fn_0009c9a0@@QAE@PBDPAVOwner_9c9a0@1@P821@AEXM@Z@Z
+// sym: ??0Closure1@fn_0009c9a0@@QAE@PBDPAVOwner_9c9a0@1@P821@AEXXZ@Z
 namespace fn_0009c9a0 {
-// Closure1<Owner, R, A1>'s constructor (name, object, member function): Function's fields
-// (include/decls/data/script.h), then Method1's member-function pointer and Closure1's object.
+// (script1) Closure1<class CCameraManager,void,float>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftables by address,
+// the member-function pointer, the type codes (0x001d04d0), the object.
+extern "C" char DAT_00404cd0[];   // Method1<class CCameraManager,void,float>
+extern "C" char DAT_00404e70[];   // Closure1<class CCameraManager,void,float>
 class Owner_9c9a0 {};
-typedef void (Owner_9c9a0::*Fn_9c9a0)(float);
-struct CtorV_001d0480 : public ScriptFunctionFields {
-    CtorV_001d0480(const char*, int);
-    virtual void v_001d0480();
+typedef void (Owner_9c9a0::*Fn_9c9a0)();
+struct Closure1 : hulk_script::ScriptFunction {
+    Fn_9c9a0 fn;
+    Owner_9c9a0* owner;
+    Closure1(const char* name, Owner_9c9a0* object, Fn_9c9a0 function);
 };
-extern "C++" __declspec(nothrow) unsigned char Check_001d04d0(const void*);
-extern char hulk_at_0048e128[];
-extern char hulk_at_0048e100[];
-class Function_9c9a0 : public CtorV_001d0480 {
-  public:
-    Function_9c9a0(const char* p) : CtorV_001d0480(p, 1) { }
-};
-class Method1 : public Function_9c9a0 {
-  public:
-    virtual void invoke(float);
-    Fn_9c9a0 x;
-    Method1(const char* p, Fn_9c9a0 v) : Function_9c9a0(p) {
-        x = v;
-        retType = Check_001d04d0(hulk_at_0048e100);
-        argTypes[0] = Check_001d04d0(hulk_at_0048e128);
-    }
-};
-class Closure1 : public Method1 {
-  public:
-    virtual void invoke(float);
-    Owner_9c9a0* y;
-    Closure1(const char* p, Owner_9c9a0* w, Fn_9c9a0 v);
-};
-Closure1::Closure1(const char* p, Owner_9c9a0* w, Fn_9c9a0 v) : Method1(p, v) {
-    y = w;
+Closure1::Closure1(const char* name, Owner_9c9a0* object, Fn_9c9a0 function) : hulk_script::ScriptFunction(name, 1) {
+    vftable = DAT_00404cd0;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e100);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e128);
+    vftable = DAT_00404e70;
+    owner = object;
 }
 } // namespace fn_0009c9a0
 
@@ -5389,69 +5565,28 @@ template class Closure1<CCameraManager, void, float>; // (ren2) native only: cla
 
 
 // 0x0009ca30 FUN_0009ca30 (89 B): matches/0x0009ca30.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ??0Closure2@fn_0009ca30@@QAE@PBDPAVCCameraManager@1@P821@AEXHH@Z@Z
+// sym: ??0Closure2@fn_0009ca30@@QAE@PBDPAVOwner_9ca30@1@P821@AEXXZ@Z
 namespace fn_0009ca30 {
-// Pinned prototypes of address-named globals and functions that many sources declare (docs/source-tree.md,
-// "Pinned address names"). A source includes this instead of declaring them itself; tools/migrate_gen.py
-// --family pin does the rewrite and keeps only what still verifies. Hand-maintained: one line per name.
-//
-// The pointed-to classes are declared, not defined: each source still defines the members it uses as its own
-// `struct World { ... };` stub, and tools/gen_tree.py merges those stubs into one class where the layouts agree.
-
-struct World;                     // the game world object (0x004dd700); was World*/Context*/Game*/Global_xxx* in sources
-extern "C" {
-
-#define DAT_004dd700 (*(World* *)&::DAT_004dd700)
-
-
-struct Gfx;                       // the graphics device / context object (0x0052c2a8); was Gfx*/Screen_xxx*/Renderer_xxx*
-
-#define DAT_0052c2a8 (*(Gfx* *)&::DAT_0052c2a8)
-
-
-struct Singleton_4dd6ec;          // object with getters FUN_00086280/FUN_000862e0 (0x004dd6ec); placeholder name
-
-#define DAT_004dd6ec (*(Singleton_4dd6ec* *)&::DAT_004dd6ec)
-
-}
-
-unsigned __int64 FUN_0027b020(const char* s);                 // string hash
-unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash with seed/length
-char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
-
-// Closure2<CCameraManager, void, A1, A1>'s constructor (name, object, member function): Function's fields
-// (include/decls/data/script.h), then Method2's member-function pointer and Closure2's object.
-class CCameraManager {};
-typedef void (CCameraManager::*Fn_9ca30)(int, int);
-struct CtorV_001d0480 : public ScriptFunctionFields {
-    CtorV_001d0480(const char*, int);
-    virtual void v_001d0480();
+// (script1) Closure2<class CCameraManager,void,class math::Vector,class math::Vector>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftables by address,
+// the member-function pointer, the type codes (0x001d04d0), the object.
+extern "C" char DAT_00404ce0[];   // Method2<class CCameraManager,void,class math::Vector,class math::Vector>
+extern "C" char DAT_00404e80[];   // Closure2<class CCameraManager,void,class math::Vector,class math::Vector>
+class Owner_9ca30 {};
+typedef void (Owner_9ca30::*Fn_9ca30)();
+struct Closure2 : hulk_script::ScriptFunction {
+    Fn_9ca30 fn;
+    Owner_9ca30* owner;
+    Closure2(const char* name, Owner_9ca30* object, Fn_9ca30 function);
 };
-extern int hulk_at_0048e10c;
-class Base_9ca30 : public CtorV_001d0480 {
-  public:
-    Base_9ca30(const char* a) : CtorV_001d0480(a, 2) { }
-};
-class Closure2_9ca30 : public Base_9ca30 {
-  public:
-    virtual void invoke();
-    Fn_9ca30 mgr;
-    Closure2_9ca30(const char*, CCameraManager*, Fn_9ca30);
-};
-Closure2_9ca30::Closure2_9ca30(const char* a, CCameraManager* p, Fn_9ca30 m) : Base_9ca30(a) {
-    mgr = m;
-    retType = FUN_001d04d0(((int*)&DAT_0048e100));
-    argTypes[0] = FUN_001d04d0(&hulk_at_0048e10c);
-    argTypes[1] = FUN_001d04d0(&hulk_at_0048e10c);
-}
-class Closure2 : public Closure2_9ca30 {
-  public:
-    CCameraManager* extra;
-    Closure2(const char*, CCameraManager*, Fn_9ca30);
-    virtual void invoke();
-};
-Closure2::Closure2(const char* a, CCameraManager* p, Fn_9ca30 m) : Closure2_9ca30(a, p, m) {
-    extra = p;
+Closure2::Closure2(const char* name, Owner_9ca30* object, Fn_9ca30 function) : hulk_script::ScriptFunction(name, 2) {
+    vftable = DAT_00404ce0;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e100);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e10c);
+    f.argTypes[1] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e10c);
+    vftable = DAT_00404e80;
+    owner = object;
 }
 } // namespace fn_0009ca30
 #undef DAT_004dd6ec
@@ -5497,48 +5632,51 @@ template class Closure2<CCameraManager, void,math::Vector,math::Vector>; // (ren
 
 
 // 0x0009caf0 FUN_0009caf0 (76 B): matches/0x0009caf0.cpp [wrapped: conflict: Closure1; Method1]
-// sym: ??0Closure1@fn_0009caf0@@QAE@PBDPAVOwner_9caf0@1@P821@AEX_N@Z@Z
+// sym: ??0Closure1@fn_0009caf0@@QAE@PBDPAVOwner_9caf0@1@P821@AEXXZ@Z
 namespace fn_0009caf0 {
-
-// Closure1<Owner, void, bool>'s constructor (name, object, member function): Function's fields
-// (include/decls/data/script.h), then Method1's member-function pointer and Closure1's object.
+// (script1) Closure1<class CCameraManager,void,bool>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftables by address,
+// the member-function pointer, the type codes (0x001d04d0), the object.
+extern "C" char DAT_00404cf0[];   // Method1<class CCameraManager,void,bool>
+extern "C" char DAT_00404e90[];   // Closure1<class CCameraManager,void,bool>
 class Owner_9caf0 {};
-typedef void (Owner_9caf0::*Fn_9caf0)(bool);
-struct CtorV_001d0480 : public ScriptFunctionFields {
-    CtorV_001d0480(const char*, int);
-    virtual void v_001d0480();
+typedef void (Owner_9caf0::*Fn_9caf0)();
+struct Closure1 : hulk_script::ScriptFunction {
+    Fn_9caf0 fn;
+    Owner_9caf0* owner;
+    Closure1(const char* name, Owner_9caf0* object, Fn_9caf0 function);
 };
-extern "C++" __declspec(nothrow) unsigned char query_001d04d0(void*);
-class Function_9caf0 : public CtorV_001d0480 {
-  public:
-    Function_9caf0(const char* p) : CtorV_001d0480(p, 1) { }
-};
-class Method1 : public Function_9caf0 {
-  public:
-    virtual void invoke();
-    Fn_9caf0 owner;
-    Owner_9caf0* extra;
-    Method1(const char* p, Fn_9caf0 o) : Function_9caf0(p) {
-        owner = o;
-        retType = query_001d04d0(((void**)&DAT_0048e100));
-        argTypes[0] = query_001d04d0(((void**)&DAT_0048e0e4));
-    }
-};
-class Closure1 : public Method1 {
-  public:
-    virtual void invoke();
-    Closure1(const char* p, Owner_9caf0* x, Fn_9caf0 o);
-};
-Closure1::Closure1(const char* p, Owner_9caf0* x, Fn_9caf0 o) : Method1(p, o) {
-    extra = x;
+Closure1::Closure1(const char* name, Owner_9caf0* object, Fn_9caf0 function) : hulk_script::ScriptFunction(name, 1) {
+    vftable = DAT_00404cf0;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e100);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0e4);
+    vftable = DAT_00404e90;
+    owner = object;
 }
 } // namespace fn_0009caf0
 
 
 // 0x0009cb40 Closure1<CCameraManager,void,bool>::vfunc_0 (30 B): matches/0x0009cb40.cpp
-// sym: ??_G?$Method2@VCCameraManager@@XVVector@math@@M@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure1_9cb40@fn_0009cb40@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Closure1<CCameraManager, void, bool>::~Closure1()
+// {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then (flags & 1)
+// operator delete.
+namespace fn_0009cb40 {
+struct Closure1_9cb40 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure1_9cb40::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0009cb40
+// the destructor itself, which other objects' code references natively:
 template <> Closure1<CCameraManager, void, bool>::~Closure1() {}
 
 
@@ -5593,43 +5731,50 @@ template class Closure4<CCameraManager, void, int, float, float, float>; // (ren
 
 
 // 0x0009cc00 FUN_0009cc00 (63 B): matches/0x0009cc00.cpp [wrapped: conflict: Check; Closure0; Method0]
-// sym: ??0Closure0@fn_0009cc00@@QAE@PAX00@Z
+// sym: ??0Closure0@fn_0009cc00@@QAE@PBDPAVOwner_9cc00@1@P821@AEXXZ@Z
 namespace fn_0009cc00 {
-extern float gFloat;
-extern "C++" __declspec(nothrow) unsigned char __cdecl Check_001d04d0(const float*);
-class Function_9cc00 {
-  public:
-    Function_9cc00(void*, int);
-    virtual void Invoke();
+// (script1) Closure0<class CCameraManager,class math::Vector>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftables by address,
+// the member-function pointer, the type codes (0x001d04d0), the object.
+extern "C" char DAT_00404d10[];   // Method0<class CCameraManager,class math::Vector>
+extern "C" char DAT_00404eb0[];   // Closure0<class CCameraManager,class math::Vector>
+class Owner_9cc00 {};
+typedef void (Owner_9cc00::*Fn_9cc00)();
+struct Closure0 : hulk_script::ScriptFunction {
+    Fn_9cc00 fn;
+    Owner_9cc00* owner;
+    Closure0(const char* name, Owner_9cc00* object, Fn_9cc00 function);
 };
-class Method0 : public Function_9cc00 {
-  public:
-    Method0(void* p, void* q) : Function_9cc00(p, 0) {
-        first = q;
-        flag = Check_001d04d0(&gFloat);
-    }
-    virtual void Invoke();
-    char pad[20];
-    unsigned char flag;
-    char pad2[3];
-    void* first;
-};
-class Closure0 : public Method0 {
-  public:
-    Closure0(void* p, void* v, void* q);
-    virtual void Invoke();
-    void* second;
-};
-Closure0::Closure0(void* p, void* v, void* q) : Method0(p, q) {
-    second = v;
+Closure0::Closure0(const char* name, Owner_9cc00* object, Fn_9cc00 function) : hulk_script::ScriptFunction(name, 0) {
+    vftable = DAT_00404d10;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e10c);
+    vftable = DAT_00404eb0;
+    owner = object;
 }
 } // namespace fn_0009cc00
 
 
 // 0x0009cc40 Closure0<CCameraManager,math::Vector>::vfunc_0 (30 B): matches/0x0009cc40.cpp
-// sym: ??_G?$Method0@VCCameraManager@@M@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure0_9cc40@fn_0009cc40@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Closure0<CCameraManager,math::Vector>::~Closure0()
+// {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then (flags & 1)
+// operator delete.
+namespace fn_0009cc40 {
+struct Closure0_9cc40 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure0_9cc40::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0009cc40
+// the destructor itself, which other objects' code references natively:
 template <> Closure0<CCameraManager,math::Vector>::~Closure0() {}
 
 
@@ -5659,39 +5804,27 @@ template <> void Closure6<CCameraManager, bool, float, float, float, float, floa
 
 
 // 0x0009cd10 FUN_0009cd10 (76 B): matches/0x0009cd10.cpp [wrapped: conflict: Closure1; Method1]
-// sym: ??0Closure1@fn_0009cd10@@QAE@PBDHH@Z
+// sym: ??0Closure1@fn_0009cd10@@QAE@PBDPAVOwner_9cd10@1@P821@AEXXZ@Z
 namespace fn_0009cd10 {
-// data: nameA = DAT_0048e100, nameB = DAT_0048e0f0
-
-extern char __cdecl lookup_001d04d0(const char*);
-class Function_9cd10 {
-  public:
-    Function_9cd10(const char*, int);
-    virtual void f();
-    char pad[12];
-    char a;
-    char pad2[7];
-    char b;
-    char pad3[3];
-    int p;
+// (script1) Closure1<class CCameraManager,void,const char *>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftables by address,
+// the member-function pointer, the type codes (0x001d04d0), the object.
+extern "C" char DAT_00404d30[];   // Method1<class CCameraManager,void,const char *>
+extern "C" char DAT_00404ed0[];   // Closure1<class CCameraManager,void,const char *>
+class Owner_9cd10 {};
+typedef void (Owner_9cd10::*Fn_9cd10)();
+struct Closure1 : hulk_script::ScriptFunction {
+    Fn_9cd10 fn;
+    Owner_9cd10* owner;
+    Closure1(const char* name, Owner_9cd10* object, Fn_9cd10 function);
 };
-class Method1 : public Function_9cd10 {
-  public:
-    Method1(const char* n, int p) : Function_9cd10(n, 1) {
-        this->p = p;
-        b = lookup_001d04d0(((char*)&DAT_0048e100));
-        a = lookup_001d04d0(((char*)&DAT_0048e0f0));
-    }
-    virtual void f();
-};
-class Closure1 : public Method1 {
-  public:
-    Closure1(const char*, int, int);
-    virtual void f();
-    int q;
-};
-Closure1::Closure1(const char* n, int q, int p) : Method1(n, p) {
-    this->q = q;
+Closure1::Closure1(const char* name, Owner_9cd10* object, Fn_9cd10 function) : hulk_script::ScriptFunction(name, 1) {
+    vftable = DAT_00404d30;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e100);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0f0);
+    vftable = DAT_00404ed0;
+    owner = object;
 }
 } // namespace fn_0009cd10
 
@@ -5719,65 +5852,28 @@ template <> void Closure0<CCameraManager, const char *>::vfunc_2(void* __p0, voi
 
 
 // 0x0009ce20 FUN_0009ce20 (89 B): matches/0x0009ce20.cpp [wrapped: conflict: Closure2; Method2]
-// sym: ??0Closure2@fn_0009ce20@@QAE@PBDPAVOwner_9ce20@1@P821@AEXH_N@Z@Z
+// sym: ??0Closure2@fn_0009ce20@@QAE@PBDPAVOwner_9ce20@1@P821@AEXXZ@Z
 namespace fn_0009ce20 {
-// Pinned prototypes of address-named globals and functions that many sources declare (docs/source-tree.md,
-// "Pinned address names"). A source includes this instead of declaring them itself; tools/migrate_gen.py
-// --family pin does the rewrite and keeps only what still verifies. Hand-maintained: one line per name.
-//
-// The pointed-to classes are declared, not defined: each source still defines the members it uses as its own
-// `struct World { ... };` stub, and tools/gen_tree.py merges those stubs into one class where the layouts agree.
-
-struct World;                     // the game world object (0x004dd700); was World*/Context*/Game*/Global_xxx* in sources
-extern "C" {
-
-#define DAT_004dd700 (*(World* *)&::DAT_004dd700)
-
-
-struct Gfx;                       // the graphics device / context object (0x0052c2a8); was Gfx*/Screen_xxx*/Renderer_xxx*
-
-#define DAT_0052c2a8 (*(Gfx* *)&::DAT_0052c2a8)
-
-
-struct Singleton_4dd6ec;          // object with getters FUN_00086280/FUN_000862e0 (0x004dd6ec); placeholder name
-
-#define DAT_004dd6ec (*(Singleton_4dd6ec* *)&::DAT_004dd6ec)
-
-}
-
-unsigned __int64 FUN_0027b020(const char* s);                 // string hash
-unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash with seed/length
-char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
-
-extern int b;
-// Closure2<Owner, void, A1, bool>'s constructor (name, object, member function): Function's fields
-// (include/decls/data/script.h), then Method2's member-function pointer and Closure2's object.
+// (script1) Closure2<class CCameraManager,void,class math::Vector,bool>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftables by address,
+// the member-function pointer, the type codes (0x001d04d0), the object.
+extern "C" char DAT_00404d50[];   // Method2<class CCameraManager,void,class math::Vector,bool>
+extern "C" char DAT_00404ef0[];   // Closure2<class CCameraManager,void,class math::Vector,bool>
 class Owner_9ce20 {};
-typedef void (Owner_9ce20::*Fn_9ce20)(int, bool);
-class Function_9ce20 : public ScriptFunctionFields {
-  public:
-    Function_9ce20(const char*, int) throw();
-    virtual void f();
-    Fn_9ce20 p;
+typedef void (Owner_9ce20::*Fn_9ce20)();
+struct Closure2 : hulk_script::ScriptFunction {
+    Fn_9ce20 fn;
+    Owner_9ce20* owner;
+    Closure2(const char* name, Owner_9ce20* object, Fn_9ce20 function);
 };
-class Method2 : public Function_9ce20 {
-  public:
-    Method2(const char* arg1, Fn_9ce20 arg3) throw() : Function_9ce20(arg1, 2) {
-        p = arg3;
-        retType = FUN_001d04d0(((int*)&DAT_0048e100));
-        argTypes[0] = FUN_001d04d0(&b);
-        argTypes[1] = FUN_001d04d0(((int*)&DAT_0048e0e4));
-    }
-    virtual void f();
-};
-class Closure2 : public Method2 {
-  public:
-    Closure2(const char*, Owner_9ce20*, Fn_9ce20) throw();
-    virtual void f();
-    Owner_9ce20* q;
-};
-Closure2::Closure2(const char* arg1, Owner_9ce20* arg2, Fn_9ce20 arg3) throw() : Method2(arg1, arg3) {
-    q = arg2;
+Closure2::Closure2(const char* name, Owner_9ce20* object, Fn_9ce20 function) : hulk_script::ScriptFunction(name, 2) {
+    vftable = DAT_00404d50;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e100);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e10c);
+    f.argTypes[1] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0e4);
+    vftable = DAT_00404ef0;
+    owner = object;
 }
 } // namespace fn_0009ce20
 #undef DAT_004dd6ec
@@ -5803,41 +5899,28 @@ template <> void Closure5<CCameraManager, bool, float, float, float, float, bool
 
 
 // 0x0009cf40 FUN_0009cf40 (89 B): matches/0x0009cf40.cpp [wrapped: conflict: Closure2; Method2]
-// sym: ??0Closure2@fn_0009cf40@@QAE@PAX00@Z
+// sym: ??0Closure2@fn_0009cf40@@QAE@PBDPAVOwner_9cf40@1@P821@AEXXZ@Z
 namespace fn_0009cf40 {
-
-extern char gB[];
-char __cdecl check_001d04d0(const char*);
-class Function_9cf40 {
-  public:
-    virtual void f();
-    Function_9cf40(void*, int);
-    char pad[12];
-    char b10;
-    char b11;
-    char pad2[6];
-    char b18;
-    char pad3[3];
-    void* p1;
-    void* p2;
+// (script1) Closure2<class CCameraManager,void,class math::Vector,float>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftables by address,
+// the member-function pointer, the type codes (0x001d04d0), the object.
+extern "C" char DAT_00404d70[];   // Method2<class CCameraManager,void,class math::Vector,float>
+extern "C" char DAT_00404f10[];   // Closure2<class CCameraManager,void,class math::Vector,float>
+class Owner_9cf40 {};
+typedef void (Owner_9cf40::*Fn_9cf40)();
+struct Closure2 : hulk_script::ScriptFunction {
+    Fn_9cf40 fn;
+    Owner_9cf40* owner;
+    Closure2(const char* name, Owner_9cf40* object, Fn_9cf40 function);
 };
-class Method2 : public Function_9cf40 {
-  public:
-    virtual void f();
-    Method2(void* p, void* c) : Function_9cf40(p, 2) {
-        p1 = c;
-        b18 = check_001d04d0(((char*)&DAT_0048e100));
-        b10 = check_001d04d0(gB);
-        b11 = check_001d04d0(((char*)&DAT_0048e128));
-    }
-};
-class Closure2 : public Method2 {
-  public:
-    virtual void f();
-    Closure2(void*, void*, void*);
-};
-Closure2::Closure2(void* a, void* b, void* c) : Method2(a, c) {
-    p2 = b;
+Closure2::Closure2(const char* name, Owner_9cf40* object, Fn_9cf40 function) : hulk_script::ScriptFunction(name, 2) {
+    vftable = DAT_00404d70;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e100);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e10c);
+    f.argTypes[1] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e128);
+    vftable = DAT_00404f10;
+    owner = object;
 }
 } // namespace fn_0009cf40
 
@@ -5852,7 +5935,7 @@ struct Vector {
 class CActorManager;
 class Closure2 {
   public:
-    char pad[0x1c];
+    void* vftable; ScriptFunctionFields fields;   // (script2) Function (was char pad[0x1c])
     void(__fastcall* fn)(CActorManager*, Closure2*, Vector, float);
     CActorManager* object;
     void vfunc_2(void* unused, int* p, void* unused2);

@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x001aedb0..0x001b3020 (kind game, layer game, confidence high), dominant class AICollisionSolverAgent
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -2461,9 +2460,25 @@ template <> void Function2<void, const char *, float>::vfunc_2(void* __p0, void*
 
 
 // 0x001b16d0 Function2<void,float,float>::vfunc_0 (30 B): matches/0x001b16d0.cpp
-// sym: ??_G?$Function2@XMM@@UAEPAXI@Z
+// sym: ?vfunc_0@Function2_1b16d0@fn_001b16d0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Function2<void, float, float>::~Function2() {}`
+// stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then (flags & 1) operator
+// delete.
+namespace fn_001b16d0 {
+struct Function2_1b16d0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Function2_1b16d0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_001b16d0
+// the destructor itself, which other objects' code references natively:
 template <> Function2<void, float, float>::~Function2() {}
 #if defined(HULK_PTR64)
 template class Function2<void, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1b16d0)
@@ -2471,9 +2486,25 @@ template class Function2<void, float, float>; // (ren2) native only: clang emits
 
 
 // 0x001b16f0 Function2<void,const_char_*,float>::vfunc_0 (30 B): matches/0x001b16f0.cpp
-// sym: ??_G?$Function2@XPBDM@@UAEPAXI@Z
+// sym: ?vfunc_0@Function2_1b16f0@fn_001b16f0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Function2<void, const char *, float>::~Function2()
+// {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then (flags & 1)
+// operator delete.
+namespace fn_001b16f0 {
+struct Function2_1b16f0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Function2_1b16f0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_001b16f0
+// the destructor itself, which other objects' code references natively:
 template <> Function2<void, const char *, float>::~Function2() {}
 #if defined(HULK_PTR64)
 template class Function2<void, const char *, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1b16f0)

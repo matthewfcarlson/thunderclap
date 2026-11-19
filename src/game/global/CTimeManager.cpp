@@ -1417,7 +1417,7 @@ class Function0 : public Function {
     virtual void a();
     virtual void b();
     virtual void f2(void*, void*, float*);
-    char pad[0x18];
+    ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
     Fn_86e40 mFn;
 };
 void Function0::f2(void*, void*, float* out) {
@@ -1430,29 +1430,24 @@ void Function0::f2(void*, void*, float* out) {
 
 
 // 0x00086e60 FUN_00086e60 (76 B): matches/0x00086e60.cpp [wrapped: conflict: Function2]
-// sym: ??0Function2@fn_00086e60@@QAE@PBDP6AMMM@Z@Z
+// sym: ??0Function2@fn_00086e60@@QAE@PBDP8Owner_86e60@1@AEXXZ@Z
 namespace fn_00086e60 {
-// data: gName = DAT_0048e128
-extern "C++" __declspec(nothrow) unsigned char __cdecl FUN_001d04d0(const char*);
-// Function2's constructor (name, function): Function's fields (include/decls/data/script.h), then the bound
-// function pointer.
-typedef float (*Fn_86e60)(float, float);
-class Function_86e60 : public ScriptFunctionFields {
-  public:
-    Function_86e60(const char*, int);
-    virtual void f();
+// (script1) Function2<float,float,float>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftable by address,
+// the member-function pointer, the type codes (0x001d04d0).
+extern "C" char DAT_003ffb50[];   // Function2<float,float,float>
+class Owner_86e60 {};
+typedef void (Owner_86e60::*Fn_86e60)();
+struct Function2 : hulk_script::ScriptFunction {
+    Fn_86e60 fn;
+    Function2(const char* name, Fn_86e60 function);
 };
-class Function2 : public Function_86e60 {
-  public:
-    Function2(const char*, Fn_86e60);
-    virtual void f();
-    Fn_86e60 value;
-};
-Function2::Function2(const char* a, Fn_86e60 b) : Function_86e60(a, 2) {
-    value = b;
-    retType = FUN_001d04d0(((char*)&DAT_0048e128));
-    argTypes[0] = FUN_001d04d0(((char*)&DAT_0048e128));
-    argTypes[1] = FUN_001d04d0(((char*)&DAT_0048e128));
+Function2::Function2(const char* name, Fn_86e60 function) : hulk_script::ScriptFunction(name, 2) {
+    vftable = DAT_003ffb50;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e128);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e128);
+    f.argTypes[1] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e128);
 }
 } // namespace fn_00086e60
 
@@ -1474,7 +1469,7 @@ struct Function {
     virtual void f1();
 };
 struct Function1 : Function {
-    char pad[0x1c - sizeof(Function)];
+    ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x1c - sizeof(Function)])
     Fn_86f30 mFn;
     virtual void f0();
     virtual void f1();
@@ -1491,55 +1486,24 @@ void Function1::f2(void*, const char** arg, const char** out) {
 
 
 // 0x00086f50 FUN_00086f50 (76 B): matches/0x00086f50.cpp [wrapped: conflict: Function2]
-// sym: ??0Function2@fn_00086f50@@QAE@PBDP6APBD00@Z@Z
+// sym: ??0Function2@fn_00086f50@@QAE@PBDP8Owner_86f50@1@AEXXZ@Z
 namespace fn_00086f50 {
-// Pinned prototypes of address-named globals and functions that many sources declare (docs/source-tree.md,
-// "Pinned address names"). A source includes this instead of declaring them itself; tools/migrate_gen.py
-// --family pin does the rewrite and keeps only what still verifies. Hand-maintained: one line per name.
-//
-// The pointed-to classes are declared, not defined: each source still defines the members it uses as its own
-// `struct World { ... };` stub, and tools/gen_tree.py merges those stubs into one class where the layouts agree.
-
-struct World;                     // the game world object (0x004dd700); was World*/Context*/Game*/Global_xxx* in sources
-extern "C" {
-
-#define DAT_004dd700 (*(World* *)&::DAT_004dd700)
-
-
-struct Gfx;                       // the graphics device / context object (0x0052c2a8); was Gfx*/Screen_xxx*/Renderer_xxx*
-
-#define DAT_0052c2a8 (*(Gfx* *)&::DAT_0052c2a8)
-
-
-struct Singleton_4dd6ec;          // object with getters FUN_00086280/FUN_000862e0 (0x004dd6ec); placeholder name
-
-#define DAT_004dd6ec (*(Singleton_4dd6ec* *)&::DAT_004dd6ec)
-
-}
-
-unsigned __int64 FUN_0027b020(const char* s);                 // string hash
-unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash with seed/length
-char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
-
-// Function2's constructor (name, function): Function's fields (include/decls/data/script.h), then the bound
-// function pointer.
-typedef const char* (*Fn_86f50)(const char*, const char*);
-class Function_86f50 : public ScriptFunctionFields {
-  public:
-    virtual void f();
-    Function_86f50(const char*, int);
+// (script1) Function2<const char *,const char *,const char *>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftable by address,
+// the member-function pointer, the type codes (0x001d04d0).
+extern "C" char DAT_003ffb70[];   // Function2<const char *,const char *,const char *>
+class Owner_86f50 {};
+typedef void (Owner_86f50::*Fn_86f50)();
+struct Function2 : hulk_script::ScriptFunction {
+    Fn_86f50 fn;
+    Function2(const char* name, Fn_86f50 function);
 };
-class Function2 : public Function_86f50 {
-  public:
-    virtual void f();
-    Fn_86f50 d;
-    Function2(const char*, Fn_86f50);
-};
-Function2::Function2(const char* s, Fn_86f50 v) : Function_86f50(s, 2) {
-    d = v;
-    retType = FUN_001d04d0(((const char*)&DAT_0048e0f0));
-    argTypes[0] = FUN_001d04d0(((const char*)&DAT_0048e0f0));
-    argTypes[1] = FUN_001d04d0(((const char*)&DAT_0048e0f0));
+Function2::Function2(const char* name, Fn_86f50 function) : hulk_script::ScriptFunction(name, 2) {
+    vftable = DAT_003ffb70;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0f0);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0f0);
+    f.argTypes[1] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0f0);
 }
 } // namespace fn_00086f50
 #undef DAT_004dd6ec
@@ -1562,16 +1526,28 @@ template <> void Function2<const char *, const char *, const char *>::vfunc_2(vo
 namespace fn_f5b26912 {
 
 // 0x00086fc0 FUN_00086fc0 (102 B): matches/0x00086fc0.cpp
-// sym: ??0Function4_86fc0@fn_f5b26912@@QAE@PBDP6A_NXZ@Z
-Function4_86fc0::Function4_86fc0(const char* a, Fn_86fc0 b) : FUN_001d0480(a, 4) {
-    vt = (void*)DAT_003ffb80;
-    member1c = b;
-    f.retType = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e0e4)));
-    f.argTypes[0] = FUN_001d04d0((const char*)((hulk_intptr)DAT_0048e10c));
-    f.argTypes[1] = FUN_001d04d0((const char*)((hulk_intptr)DAT_0048e10c));
-    f.argTypes[2] = FUN_001d04d0((const char*)((hulk_intptr)DAT_0048e10c));
-    f.argTypes[3] = FUN_001d04d0((const char*)((hulk_intptr)DAT_0048e10c));
+// sym: ??0Function4@fn_00086fc0@fn_f5b26912@@QAE@PBDP8Owner_86fc0@12@AEXXZ@Z
+namespace fn_00086fc0 {
+// (script1) Function4<bool,class math::Vector,class math::Vector,class math::Vector,class math::Vector>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftable by address,
+// the member-function pointer, the type codes (0x001d04d0).
+extern "C" char DAT_003ffb80[];   // Function4<bool,class math::Vector,class math::Vector,class math::Vector,class math::Vector>
+class Owner_86fc0 {};
+typedef void (Owner_86fc0::*Fn_86fc0)();
+struct Function4 : hulk_script::ScriptFunction {
+    Fn_86fc0 fn;
+    Function4(const char* name, Fn_86fc0 function);
+};
+Function4::Function4(const char* name, Fn_86fc0 function) : hulk_script::ScriptFunction(name, 4) {
+    vftable = DAT_003ffb80;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0e4);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e10c);
+    f.argTypes[1] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e10c);
+    f.argTypes[2] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e10c);
+    f.argTypes[3] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e10c);
 }
+} // namespace fn_00086fc0
 
 } // namespace fn_f5b26912
 
@@ -1584,7 +1560,7 @@ namespace math { struct Vector { float x,y,z; }; }
 struct Function { virtual void vfunc_0(); virtual void vfunc_1(); };
 template<class R,class A,class B,class C,class D> struct Function4 : Function {
  virtual void vfunc_2(unsigned unused, const math::Vector* args, bool* result);
- char padding[24];
+ ScriptFunctionFields fields;   // (script2) Function's fields (was char padding[24])
  R (__cdecl *callback)(A,B,C,D);
 };
 template<> void Function4<bool,math::Vector,math::Vector,math::Vector,math::Vector>::vfunc_2(unsigned unused, const math::Vector* args, bool* result) {
@@ -1744,7 +1720,7 @@ class Function {
 };
 class Method0Base_871e0 : public Function {
   public:
-    char pad[0x18];
+    ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
     float(__fastcall* fn)(void*);
     virtual void f2(void* a, void* b, float* out);
 };

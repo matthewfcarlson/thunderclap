@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x0002c4f0..0x00034400 (kind game, layer game, confidence high), dominant class CActorManager
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -944,9 +943,25 @@ template class Method2<CActorManager, bool, const char *, bool>; // (ren2) nativ
 
 
 // 0x0002c590 Method2<CActorManager,void,const_char_*,math::Vector>::vfunc_0 (30 B): matches/0x0002c590.cpp
-// sym: ??_G?$Method2@UCActorManager@@XPBDVVector@math@@@@UAEPAXI@Z
+// sym: ?vfunc_0@Method2_2c590@fn_0002c590@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Method2<CActorManager, void, const char
+// *,math::Vector>::~Method2() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body
+// 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_0002c590 {
+struct Method2_2c590 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method2_2c590::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0002c590
+// the destructor itself, which other objects' code references natively:
 template <> Method2<CActorManager, void, const char *,math::Vector>::~Method2() {}
 #if defined(HULK_PTR64)
 template class Method2<CActorManager, void, const char *,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2c590)
@@ -965,7 +980,7 @@ struct Method2 : Function {
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2(CActorManager *actor, const void *args, int unused);
-    char padding[0x18];
+    ScriptFunctionFields fields;   // (script2) Function's fields (was char padding[0x18])
     void (CActorManager::*method)(const char *, math::Vector);
 };
 struct Args { const char *name; math::Vector position; };
@@ -977,9 +992,25 @@ void Method2::vfunc_2(CActorManager *actor, const void *data, int) {
 
 
 // 0x0002c630 Method2<CActorManager,void,const_char_*,float>::vfunc_0 (30 B): matches/0x0002c630.cpp
-// sym: ??_G?$Method2@UCActorManager@@XPBDM@@UAEPAXI@Z
+// sym: ?vfunc_0@Method2_2c630@fn_0002c630@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Method2<CActorManager, void, const char *,
+// float>::~Method2() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then
+// (flags & 1) operator delete.
+namespace fn_0002c630 {
+struct Method2_2c630 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method2_2c630::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0002c630
+// the destructor itself, which other objects' code references natively:
 template <> Method2<CActorManager, void, const char *, float>::~Method2() {}
 
 
@@ -1244,9 +1275,25 @@ Method3::Method3(const char* name, Fn_2c8b0 function) : hulk_script::ScriptFunct
 
 
 // 0x0002c910 Method3<CActorManager,void,const_char_*,float,const_char_*>::vfunc_0 (30 B): matches/0x0002c910.cpp
-// sym: ??_G?$Method3@UCActorManager@@XPBDMPBD@@UAEPAXI@Z
+// sym: ?vfunc_0@Method3_2c910@fn_0002c910@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Method3<CActorManager, void, const char *, float,
+// const char *>::~Method3() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body
+// 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_0002c910 {
+struct Method3_2c910 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method3_2c910::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0002c910
+// the destructor itself, which other objects' code references natively:
 template <> Method3<CActorManager, void, const char *, float, const char *>::~Method3() {}
 #if defined(HULK_PTR64)
 template class Method3<CActorManager, void, const char *, float, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2c910)
@@ -1266,7 +1313,7 @@ struct Function {
     virtual void vfunc_2(CActorManager *, const Args *, void *);
 };
 struct Method3 : Function {
-    char padding[0x1c - sizeof(Function)];
+    ScriptFunctionFields fields;   // (script2) Function's fields (was char padding[0x1c - sizeof(Function)])
     void (CActorManager::*callback)(const char *, float, const char *);
     virtual void vfunc_2(CActorManager *, const Args *, void *);
 };
@@ -1277,9 +1324,25 @@ void Method3::vfunc_2(CActorManager *actor, const Args *args, void *) {
 
 
 // 0x0002c990 Method1<CActorManager,int,const_char_*>::vfunc_0 (30 B): matches/0x0002c990.cpp
-// sym: ??_G?$Method1@UCActorManager@@HPBD@@UAEPAXI@Z
+// sym: ?vfunc_0@Method1_2c990@fn_0002c990@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Method1<CActorManager, int, const char
+// *>::~Method1() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then
+// (flags & 1) operator delete.
+namespace fn_0002c990 {
+struct Method1_2c990 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method1_2c990::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0002c990
+// the destructor itself, which other objects' code references natively:
 template <> Method1<CActorManager, int, const char *>::~Method1() {}
 
 
@@ -1298,9 +1361,25 @@ template class Method1<CActorManager, int, const char *>; // (ren2) native only:
 
 
 // 0x0002ca10 Method1<CActorManager,const_char_*,const_char_*>::vfunc_0 (30 B): matches/0x0002ca10.cpp
-// sym: ??_G?$Method1@UCActorManager@@PBDPBD@@UAEPAXI@Z
+// sym: ?vfunc_0@Method1_2ca10@fn_0002ca10@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Method1<CActorManager, const char *, const char
+// *>::~Method1() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then
+// (flags & 1) operator delete.
+namespace fn_0002ca10 {
+struct Method1_2ca10 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method1_2ca10::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0002ca10
+// the destructor itself, which other objects' code references natively:
 template <> Method1<CActorManager, const char *, const char *>::~Method1() {}
 
 
@@ -1478,9 +1557,25 @@ void FUN_0002cc30(Target_2cc30* self, BlockArg arg, unsigned char* out, Fn_2cc30
 } // namespace fn_f8e68f21
 
 // 0x0002cd00 Method2<CActorManager,void,const_char_*,bool>::vfunc_0 (30 B): matches/0x0002cd00.cpp
-// sym: ??_G?$Method2@UCActorManager@@XPBD_N@@UAEPAXI@Z
+// sym: ?vfunc_0@Method2_2cd00@fn_0002cd00@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Method2<CActorManager, void, const char *,
+// bool>::~Method2() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then
+// (flags & 1) operator delete.
+namespace fn_0002cd00 {
+struct Method2_2cd00 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method2_2cd00::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0002cd00
+// the destructor itself, which other objects' code references natively:
 template <> Method2<CActorManager, void, const char *, bool>::~Method2() {}
 #if defined(HULK_PTR64)
 template class Method2<CActorManager, void, const char *, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2cd00)
@@ -1506,7 +1601,7 @@ class Function {
 };
 class Method2 : public Function {
   public:
-    char pad[0x18];
+    ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
     void (CActorManager::*method)(const char*, bool);
     virtual void v2(CActorManager* obj, Args* args, void* unused);
 };
@@ -1517,9 +1612,25 @@ void Method2::v2(CActorManager* obj, Args* args, void* unused) {
 
 
 // 0x0002cd90 Method2<CActorManager,void,float,float>::vfunc_0 (30 B): matches/0x0002cd90.cpp
-// sym: ??_G?$Method2@UCActorManager@@XMM@@UAEPAXI@Z
+// sym: ?vfunc_0@Method2_2cd90@fn_0002cd90@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Method2<CActorManager, void, float,
+// float>::~Method2() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then
+// (flags & 1) operator delete.
+namespace fn_0002cd90 {
+struct Method2_2cd90 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method2_2cd90::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0002cd90
+// the destructor itself, which other objects' code references natively:
 template <> Method2<CActorManager, void, float, float>::~Method2() {}
 
 
@@ -1539,9 +1650,25 @@ template class Method2<CActorManager, void, float, float>; // (ren2) native only
 
 
 // 0x0002ce10 Method1<CActorManager,void,const_char_*>::vfunc_0 (30 B): matches/0x0002ce10.cpp
-// sym: ??_G?$Method1@UCActorManager@@XPBD@@UAEPAXI@Z
+// sym: ?vfunc_0@Method1_2ce10@fn_0002ce10@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Method1<CActorManager, void, const char
+// *>::~Method1() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then
+// (flags & 1) operator delete.
+namespace fn_0002ce10 {
+struct Method1_2ce10 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method1_2ce10::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0002ce10
+// the destructor itself, which other objects' code references natively:
 template <> Method1<CActorManager, void, const char *>::~Method1() {}
 
 
@@ -1595,9 +1722,24 @@ template class Method0<CActorManager, const char *>; // (ren2) native only: clan
 
 
 // 0x0002cf10 Method0<CActorManager,int>::vfunc_0 (30 B): matches/0x0002cf10.cpp
-// sym: ??_G?$Method0@UCActorManager@@H@@UAEPAXI@Z
+// sym: ?vfunc_0@Method0_2cf10@fn_0002cf10@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Method0<CActorManager, int>::~Method0() {}` stood
+// for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_0002cf10 {
+struct Method0_2cf10 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method0_2cf10::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0002cf10
+// the destructor itself, which other objects' code references natively:
 template <> Method0<CActorManager, int>::~Method0() {}
 
 
@@ -1732,9 +1874,25 @@ template class Method2<CActorManager, void, const char *, const char *>; // (ren
 
 
 // 0x0002d140 Method1<CActorManager,math::Vector,const_char_*>::vfunc_0 (30 B): matches/0x0002d140.cpp
-// sym: ??_G?$Method1@UCActorManager@@VVector@math@@PBD@@UAEPAXI@Z
+// sym: ?vfunc_0@Method1_2d140@fn_0002d140@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Method1<CActorManager,math::Vector, const char
+// *>::~Method1() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then
+// (flags & 1) operator delete.
+namespace fn_0002d140 {
+struct Method1_2d140 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method1_2d140::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0002d140
+// the destructor itself, which other objects' code references natively:
 template <> Method1<CActorManager,math::Vector, const char *>::~Method1() {}
 #if defined(HULK_PTR64)
 template class Method1<CActorManager,math::Vector, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2d140)
@@ -1754,7 +1912,7 @@ struct Method1 {
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2(CActorManager* manager, const char** name, Vector* output);
-    char padding[0x18];
+    ScriptFunctionFields fields;   // (script2) Function's fields (was char padding[0x18])
     Vector* (CActorManager::*method)(Vector*, const char*);
 };
 void Method1::vfunc_2(CActorManager* manager, const char** name, Vector* output)
@@ -1840,9 +1998,25 @@ template class Method1<CActorManager, bool,math::Vector>; // (ren2) native only:
 
 
 // 0x0002d310 Method1<CActorManager,const_char_*,math::Vector>::vfunc_0 (30 B): matches/0x0002d310.cpp
-// sym: ??_G?$Method1@UCActorManager@@PBDVVector@math@@@@UAEPAXI@Z
+// sym: ?vfunc_0@Method1_2d310@fn_0002d310@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Method1<CActorManager, const char
+// *,math::Vector>::~Method1() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body
+// 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_0002d310 {
+struct Method1_2d310 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method1_2d310::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0002d310
+// the destructor itself, which other objects' code references natively:
 template <> Method1<CActorManager, const char *,math::Vector>::~Method1() {}
 
 
@@ -1971,9 +2145,25 @@ template class Method2<CActorManager, void, int, const char *>; // (ren2) native
 
 
 // 0x0002d580 Method2<CActorManager,void,math::Vector,float>::vfunc_0 (30 B): matches/0x0002d580.cpp
-// sym: ??_G?$Method2@UCActorManager@@XVVector@math@@M@@UAEPAXI@Z
+// sym: ?vfunc_0@Method2_2d580@fn_0002d580@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Method2<CActorManager, void,math::Vector,
+// float>::~Method2() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then
+// (flags & 1) operator delete.
+namespace fn_0002d580 {
+struct Method2_2d580 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method2_2d580::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0002d580
+// the destructor itself, which other objects' code references natively:
 template <> Method2<CActorManager, void,math::Vector, float>::~Method2() {}
 #if defined(HULK_PTR64)
 template class Method2<CActorManager, void,math::Vector, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2d580)
@@ -2003,7 +2193,7 @@ struct Args {
     float f;
 };
 class Method2 : public Function {
-    char pad[0x18];
+    ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
 
   public:
     void (CActorManager::*fn)(math::Vector, float);
@@ -2061,9 +2251,25 @@ template class Method2<CActorManager, bool, const char *, int>; // (ren2) native
 
 
 // 0x0002d6b0 Method1<CActorManager,bool,int>::vfunc_0 (30 B): matches/0x0002d6b0.cpp
-// sym: ??_G?$Method1@UCActorManager@@_NH@@UAEPAXI@Z
+// sym: ?vfunc_0@Method1_2d6b0@fn_0002d6b0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Method1<CActorManager, bool, int>::~Method1() {}`
+// stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then (flags & 1) operator
+// delete.
+namespace fn_0002d6b0 {
+struct Method1_2d6b0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method1_2d6b0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0002d6b0
+// the destructor itself, which other objects' code references natively:
 template <> Method1<CActorManager, bool, int>::~Method1() {}
 
 
@@ -2083,9 +2289,24 @@ template class Method1<CActorManager, bool, int>; // (ren2) native only: clang e
 
 
 // 0x0002d730 Method0<CActorManager,bool>::vfunc_0 (30 B): matches/0x0002d730.cpp
-// sym: ??_G?$Method0@UCActorManager@@_N@@UAEPAXI@Z
+// sym: ?vfunc_0@Method0_2d730@fn_0002d730@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Method0<CActorManager, bool>::~Method0() {}` stood
+// for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_0002d730 {
+struct Method0_2d730 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method0_2d730::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0002d730
+// the destructor itself, which other objects' code references natively:
 template <> Method0<CActorManager, bool>::~Method0() {}
 
 
@@ -2105,17 +2326,28 @@ template class Method0<CActorManager, bool>; // (ren2) native only: clang emits 
 namespace fn_f8e68f21 {
 
 // 0x0002d770 FUN_0002d770 (102 B): matches/0x0002d770.cpp
-// sym: ??0Method4_2d770@fn_f8e68f21@@QAE@PBDP8Owner_2d770@1@AEXXZ@Z
-Method4_2d770::Method4_2d770(const char* p, Fn_2d770 q) {
-    ((ThisCall_001d0480*)(this))->FUN_001d0480(p, 4);
-    vt = (void*)DAT_003f420c;
-    m1c = q;
-    f.retType = FUN_001d04d0(((const char*)&DAT_0048e100));
-    f.argTypes[0] = FUN_001d04d0(((const char*)&DAT_0048e0f0));
-    f.argTypes[1] = FUN_001d04d0(((const char*)&DAT_0048e128));
-    f.argTypes[2] = FUN_001d04d0(((const char*)&DAT_0048e134));
-    f.argTypes[3] = FUN_001d04d0(((const char*)&DAT_0048e128));
+// sym: ??0Method4@fn_0002d770@fn_f8e68f21@@QAE@PBDP8Owner_2d770@12@AEXXZ@Z
+namespace fn_0002d770 {
+// (script1) Method4<class CActorManager,void,const char *,float,int,float>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftable by address,
+// the member-function pointer, the type codes (0x001d04d0).
+extern "C" char DAT_003f420c[];   // Method4<class CActorManager,void,const char *,float,int,float>
+class Owner_2d770 {};
+typedef void (Owner_2d770::*Fn_2d770)();
+struct Method4 : hulk_script::ScriptFunction {
+    Fn_2d770 fn;
+    Method4(const char* name, Fn_2d770 function);
+};
+Method4::Method4(const char* name, Fn_2d770 function) : hulk_script::ScriptFunction(name, 4) {
+    vftable = DAT_003f420c;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e100);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0f0);
+    f.argTypes[1] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e128);
+    f.argTypes[2] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e134);
+    f.argTypes[3] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e128);
 }
+} // namespace fn_0002d770
 
 } // namespace fn_f8e68f21
 
@@ -2162,23 +2394,51 @@ template class Method4<CActorManager, void, const char *, float, int, float>; //
 namespace fn_f8e68f21 {
 
 // 0x0002d830 FUN_0002d830 (102 B): matches/0x0002d830.cpp
-// sym: ??0Method4_2d830@fn_f8e68f21@@QAE@PBDP8Owner_2d830@1@AEXXZ@Z
-Method4_2d830::Method4_2d830(const char* a, Fn_2d830 b) : FUN_001d0480(a, 4) {
-    vptr = (void*)DAT_003f421c;
-    m1c = b;
-    f.retType = FUN_001d04d0(((const char*)&DAT_0048e100));
-    f.argTypes[0] = FUN_001d04d0(((const char*)&DAT_0048e0f0));
-    f.argTypes[1] = FUN_001d04d0(((const char*)&DAT_0048e128));
-    f.argTypes[2] = FUN_001d04d0(((const char*)&DAT_0048e128));
-    f.argTypes[3] = FUN_001d04d0(((const char*)&DAT_0048e128));
+// sym: ??0Method4@fn_0002d830@fn_f8e68f21@@QAE@PBDP8Owner_2d830@12@AEXXZ@Z
+namespace fn_0002d830 {
+// (script1) Method4<class CActorManager,void,const char *,float,float,float>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftable by address,
+// the member-function pointer, the type codes (0x001d04d0).
+extern "C" char DAT_003f421c[];   // Method4<class CActorManager,void,const char *,float,float,float>
+class Owner_2d830 {};
+typedef void (Owner_2d830::*Fn_2d830)();
+struct Method4 : hulk_script::ScriptFunction {
+    Fn_2d830 fn;
+    Method4(const char* name, Fn_2d830 function);
+};
+Method4::Method4(const char* name, Fn_2d830 function) : hulk_script::ScriptFunction(name, 4) {
+    vftable = DAT_003f421c;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e100);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0f0);
+    f.argTypes[1] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e128);
+    f.argTypes[2] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e128);
+    f.argTypes[3] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e128);
 }
+} // namespace fn_0002d830
 
 } // namespace fn_f8e68f21
 
 // 0x0002d8a0 Method4<CActorManager,void,const_char_*,float,float,float>::vfunc_0 (30 B): matches/0x0002d8a0.cpp
-// sym: ??_G?$Method4@UCActorManager@@XPBDMMM@@UAEPAXI@Z
+// sym: ?vfunc_0@Method4_2d8a0@fn_0002d8a0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Method4<CActorManager, void, const char *, float,
+// float, float>::~Method4() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body
+// 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_0002d8a0 {
+struct Method4_2d8a0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method4_2d8a0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0002d8a0
+// the destructor itself, which other objects' code references natively:
 template <> Method4<CActorManager, void, const char *, float, float, float>::~Method4() {}
 #if defined(HULK_PTR64)
 template class Method4<CActorManager, void, const char *, float, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2d8a0)
@@ -2192,7 +2452,7 @@ namespace fn_0002d8c0 {
 // Method4<CActorManager,void,const_char_*,float,float,float>::vfunc_2 @ 0x0002d8c0
 struct CActorManager { void FUN_0002d8c0(const char *, float, float, float); };
 struct Method4 {
-    char padding[0x1c];
+    void* vftable; ScriptFunctionFields fields;   // (script2) Function (was char padding[0x1c])
     void (CActorManager::*method)(const char *, float, float, float);
     void target(CActorManager *manager, const unsigned *arguments, unsigned unused);
 };
@@ -2319,23 +2579,50 @@ void __cdecl FUN_0002da20(Callback* object, const unsigned* volatile values, uns
 namespace fn_f8e68f21 {
 
 // 0x0002da60 FUN_0002da60 (89 B): matches/0x0002da60.cpp
-// sym: ??0Method3_2da60@fn_f8e68f21@@QAE@PBDP8Owner_2da60@1@AEXXZ@Z
-Method3_2da60::Method3_2da60(const char* p, Fn_2da60 x) {
-    Init_001d0480(p, 3);
-    vf = (void*)DAT_003f424c;
-    m1c = x;
-    f.retType = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e0e4)));
-    f.argTypes[0] = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e0f0)));
-    f.argTypes[1] = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e128)));
-    f.argTypes[2] = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e128)));
+// sym: ??0Method3@fn_0002da60@fn_f8e68f21@@QAE@PBDP8Owner_2da60@12@AEXXZ@Z
+namespace fn_0002da60 {
+// (script1) Method3<class CActorManager,bool,const char *,float,float>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftable by address,
+// the member-function pointer, the type codes (0x001d04d0).
+extern "C" char DAT_003f424c[];   // Method3<class CActorManager,bool,const char *,float,float>
+class Owner_2da60 {};
+typedef void (Owner_2da60::*Fn_2da60)();
+struct Method3 : hulk_script::ScriptFunction {
+    Fn_2da60 fn;
+    Method3(const char* name, Fn_2da60 function);
+};
+Method3::Method3(const char* name, Fn_2da60 function) : hulk_script::ScriptFunction(name, 3) {
+    vftable = DAT_003f424c;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0e4);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0f0);
+    f.argTypes[1] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e128);
+    f.argTypes[2] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e128);
 }
+} // namespace fn_0002da60
 
 } // namespace fn_f8e68f21
 
 // 0x0002dac0 Method3<CActorManager,bool,const_char_*,float,float>::vfunc_0 (30 B): matches/0x0002dac0.cpp
-// sym: ??_G?$Method3@UCActorManager@@_NPBDMM@@UAEPAXI@Z
+// sym: ?vfunc_0@Method3_2dac0@fn_0002dac0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Method3<CActorManager, bool, const char *, float,
+// float>::~Method3() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then
+// (flags & 1) operator delete.
+namespace fn_0002dac0 {
+struct Method3_2dac0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method3_2dac0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0002dac0
+// the destructor itself, which other objects' code references natively:
 template <> Method3<CActorManager, bool, const char *, float, float>::~Method3() {}
 #if defined(HULK_PTR64)
 template class Method3<CActorManager, bool, const char *, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2dac0)
@@ -2361,7 +2648,7 @@ struct Args {
     float x, y;
 };
 class Method3 : public Function {
-    char pad[24];
+    ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[24])
     Fn fn;
 
   public:
@@ -2396,9 +2683,25 @@ Method3_2db20* Method3_2db20::Init(const char* arg1, Fn_2db20 arg2) {
 } // namespace fn_f8e68f21
 
 // 0x0002db80 Method3<CActorManager,void,const_char_*,float,float>::vfunc_0 (30 B): matches/0x0002db80.cpp
-// sym: ??_G?$Method3@UCActorManager@@XPBDMM@@UAEPAXI@Z
+// sym: ?vfunc_0@Method3_2db80@fn_0002db80@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Method3<CActorManager, void, const char *, float,
+// float>::~Method3() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then
+// (flags & 1) operator delete.
+namespace fn_0002db80 {
+struct Method3_2db80 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method3_2db80::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0002db80
+// the destructor itself, which other objects' code references natively:
 template <> Method3<CActorManager, void, const char *, float, float>::~Method3() {}
 #if defined(HULK_PTR64)
 template class Method3<CActorManager, void, const char *, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2db80)
@@ -2417,7 +2720,7 @@ struct Method3 : Function {
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2(CActorManager* actor, ActorArgs* args, void* unused);
-    char pad[0x18];
+    ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
     void (CActorManager::*callback)(const char*, float, float);
 };
 void Method3::vfunc_2(CActorManager* actor, ActorArgs* args, void* unused) {
@@ -2427,9 +2730,25 @@ void Method3::vfunc_2(CActorManager* actor, ActorArgs* args, void* unused) {
 
 
 // 0x0002dc10 Method2<CActorManager,bool,const_char_*,float>::vfunc_0 (30 B): matches/0x0002dc10.cpp
-// sym: ??_G?$Method2@UCActorManager@@_NPBDM@@UAEPAXI@Z
+// sym: ?vfunc_0@Method2_2dc10@fn_0002dc10@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Method2<CActorManager, bool, const char *,
+// float>::~Method2() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then
+// (flags & 1) operator delete.
+namespace fn_0002dc10 {
+struct Method2_2dc10 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method2_2dc10::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0002dc10
+// the destructor itself, which other objects' code references natively:
 template <> Method2<CActorManager, bool, const char *, float>::~Method2() {}
 #if defined(HULK_PTR64)
 template class Method2<CActorManager, bool, const char *, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2dc10)
@@ -2454,7 +2773,7 @@ struct Args {
     float f;
 };
 class Method2 : public Function {
-    char pad[0x18];
+    ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
 
   public:
     typedef bool (CActorManager::*Fn)(const char*, float);
@@ -2474,22 +2793,50 @@ void Method2::v2(CActorManager* obj, Args* args, char* out) {
 namespace fn_f8e68f21 {
 
 // 0x0002dc60 FUN_0002dc60 (89 B): matches/0x0002dc60.cpp
-// sym: ??0Method3_2dc60@fn_f8e68f21@@QAE@PBDP8Owner_2dc60@1@AEXXZ@Z
-Method3_2dc60::Method3_2dc60(const char* a, Fn_2dc60 x) : Function_2dc60(a, 3) {
-    *(void**)this = (void*)&hulk_at_003f427c;
-    field1c = x;
-    f.retType = FUN_001d04d0(((const char*)&DAT_0048e100));
-    f.argTypes[0] = FUN_001d04d0(((const char*)&DAT_0048e0f0));
-    f.argTypes[1] = FUN_001d04d0(((const char*)&DAT_0048e0f0));
-    f.argTypes[2] = FUN_001d04d0(((const char*)&DAT_0048e128));
+// sym: ??0Method3@fn_0002dc60@fn_f8e68f21@@QAE@PBDP8Owner_2dc60@12@AEXXZ@Z
+namespace fn_0002dc60 {
+// (script1) Method3<class CActorManager,void,const char *,const char *,float>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftable by address,
+// the member-function pointer, the type codes (0x001d04d0).
+extern "C" char DAT_003f427c[];   // Method3<class CActorManager,void,const char *,const char *,float>
+class Owner_2dc60 {};
+typedef void (Owner_2dc60::*Fn_2dc60)();
+struct Method3 : hulk_script::ScriptFunction {
+    Fn_2dc60 fn;
+    Method3(const char* name, Fn_2dc60 function);
+};
+Method3::Method3(const char* name, Fn_2dc60 function) : hulk_script::ScriptFunction(name, 3) {
+    vftable = DAT_003f427c;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e100);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0f0);
+    f.argTypes[1] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0f0);
+    f.argTypes[2] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e128);
 }
+} // namespace fn_0002dc60
 
 } // namespace fn_f8e68f21
 
 // 0x0002dcc0 Method3<CActorManager,void,const_char_*,const_char_*,float>::vfunc_0 (30 B): matches/0x0002dcc0.cpp
-// sym: ??_G?$Method3@UCActorManager@@XPBDPBDM@@UAEPAXI@Z
+// sym: ?vfunc_0@Method3_2dcc0@fn_0002dcc0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Method3<CActorManager, void, const char *, const
+// char *, float>::~Method3() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body
+// 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_0002dcc0 {
+struct Method3_2dcc0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method3_2dcc0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0002dcc0
+// the destructor itself, which other objects' code references natively:
 template <> Method3<CActorManager, void, const char *, const char *, float>::~Method3() {}
 #if defined(HULK_PTR64)
 template class Method3<CActorManager, void, const char *, const char *, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2dcc0)
@@ -2508,7 +2855,7 @@ struct Method3 : Function {
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2(CActorManager *manager, const ActorArguments *arguments, void *unused);
-    char padding[0x18];
+    ScriptFunctionFields fields;   // (script2) Function's fields (was char padding[0x18])
     void (CActorManager::*callback)(const char *, const char *, float);
 };
 void Method3::vfunc_2(CActorManager *manager, const ActorArguments *arguments, void *unused) {
@@ -2519,23 +2866,51 @@ void Method3::vfunc_2(CActorManager *manager, const ActorArguments *arguments, v
 namespace fn_f8e68f21 {
 
 // 0x0002dd00 FUN_0002dd00 (102 B): matches/0x0002dd00.cpp
-// sym: ??0Method4_2dd00@fn_f8e68f21@@QAE@PBDP8Owner_2dd00@1@AEXXZ@Z
-Method4_2dd00::Method4_2dd00(const char* a, Fn_2dd00 b) : FUN_001d0480(a, 4) {
-    vptr = (void*)DAT_003f428c;
-    m1c = b;
-    f.retType = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e100)));
-    f.argTypes[0] = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e0f0)));
-    f.argTypes[1] = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e0f0)));
-    f.argTypes[2] = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e128)));
-    f.argTypes[3] = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e128)));
+// sym: ??0Method4@fn_0002dd00@fn_f8e68f21@@QAE@PBDP8Owner_2dd00@12@AEXXZ@Z
+namespace fn_0002dd00 {
+// (script1) Method4<class CActorManager,void,const char *,const char *,float,float>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftable by address,
+// the member-function pointer, the type codes (0x001d04d0).
+extern "C" char DAT_003f428c[];   // Method4<class CActorManager,void,const char *,const char *,float,float>
+class Owner_2dd00 {};
+typedef void (Owner_2dd00::*Fn_2dd00)();
+struct Method4 : hulk_script::ScriptFunction {
+    Fn_2dd00 fn;
+    Method4(const char* name, Fn_2dd00 function);
+};
+Method4::Method4(const char* name, Fn_2dd00 function) : hulk_script::ScriptFunction(name, 4) {
+    vftable = DAT_003f428c;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e100);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0f0);
+    f.argTypes[1] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0f0);
+    f.argTypes[2] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e128);
+    f.argTypes[3] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e128);
 }
+} // namespace fn_0002dd00
 
 } // namespace fn_f8e68f21
 
 // 0x0002dd70 Method4<CActorManager,void,const_char_*,const_char_*,float,float>::vfunc_0 (30 B): matches/0x0002dd70.cpp
-// sym: ??_G?$Method4@UCActorManager@@XPBDPBDMM@@UAEPAXI@Z
+// sym: ?vfunc_0@Method4_2dd70@fn_0002dd70@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Method4<CActorManager, void, const char *, const
+// char *, float, float>::~Method4() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body
+// 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_0002dd70 {
+struct Method4_2dd70 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method4_2dd70::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0002dd70
+// the destructor itself, which other objects' code references natively:
 template <> Method4<CActorManager, void, const char *, const char *, float, float>::~Method4() {}
 #if defined(HULK_PTR64)
 template class Method4<CActorManager, void, const char *, const char *, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2dd70)
@@ -2553,7 +2928,7 @@ struct Method4 {
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2(CActorManager* manager, const Arguments* arguments, void* unused);
-    char padding[0x18];
+    ScriptFunctionFields fields;   // (script2) Function's fields (was char padding[0x18])
     void (CActorManager::*callback)(const char*, const char*, float, float);
 };
 void Method4::vfunc_2(CActorManager* manager, const Arguments* arguments, void* unused) {
@@ -2563,9 +2938,25 @@ void Method4::vfunc_2(CActorManager* manager, const Arguments* arguments, void* 
 
 
 // 0x0002de10 Method2<CActorManager,const_char_*,const_char_*,int>::vfunc_0 (30 B): matches/0x0002de10.cpp
-// sym: ??_G?$Method2@UCActorManager@@PBDPBDH@@UAEPAXI@Z
+// sym: ?vfunc_0@Method2_2de10@fn_0002de10@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Method2<CActorManager, const char *, const char *,
+// int>::~Method2() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then
+// (flags & 1) operator delete.
+namespace fn_0002de10 {
+struct Method2_2de10 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method2_2de10::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0002de10
+// the destructor itself, which other objects' code references natively:
 template <> Method2<CActorManager, const char *, const char *, int>::~Method2() {}
 #if defined(HULK_PTR64)
 template class Method2<CActorManager, const char *, const char *, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2de10)
@@ -2590,7 +2981,7 @@ class Function {
     virtual void v2(CActorManager*, Args*, int*);
 };
 class Method2 : public Function {
-    char pad[0x18];
+    ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
 
   public:
     typedef int (CActorManager::*Fn)(const char*, const char*);
@@ -2648,9 +3039,25 @@ template class Method2<CActorManager, int, const char *, const char *>; // (ren2
 
 
 // 0x0002df50 Method2<CActorManager,const_char_*,const_char_*,const_char_*>::vfunc_0 (30 B): matches/0x0002df50.cpp
-// sym: ??_G?$Method2@UCActorManager@@PBDPBDPBD@@UAEPAXI@Z
+// sym: ?vfunc_0@Method2_2df50@fn_0002df50@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Method2<CActorManager, const char *, const char *,
+// const char *>::~Method2() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body
+// 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_0002df50 {
+struct Method2_2df50 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method2_2df50::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0002df50
+// the destructor itself, which other objects' code references natively:
 template <> Method2<CActorManager, const char *, const char *, const char *>::~Method2() {}
 #if defined(HULK_PTR64)
 template class Method2<CActorManager, const char *, const char *, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2df50)
@@ -2676,7 +3083,7 @@ class Function {
 };
 class Method2 : public Function {
   public:
-    char pad[24];
+    ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[24])
     typedef int (CActorManager::*MemFn)(const char*, const char*);
     MemFn fn;
     virtual void vfunc_2(CActorManager*, Args*, int*);
@@ -2693,9 +3100,25 @@ void Method2::vfunc_2(CActorManager* obj, Args* args, int* out) {
 
 
 // 0x0002dfe0 Method1<CActorManager,void,float>::vfunc_0 (30 B): matches/0x0002dfe0.cpp
-// sym: ??_G?$Method1@UCActorManager@@XM@@UAEPAXI@Z
+// sym: ?vfunc_0@Method1_2dfe0@fn_0002dfe0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Method1<CActorManager, void, float>::~Method1() {}`
+// stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then (flags & 1) operator
+// delete.
+namespace fn_0002dfe0 {
+struct Method1_2dfe0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method1_2dfe0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0002dfe0
+// the destructor itself, which other objects' code references natively:
 template <> Method1<CActorManager, void, float>::~Method1() {}
 
 
@@ -2713,9 +3136,24 @@ template class Method1<CActorManager, void, float>; // (ren2) native only: clang
 
 
 // 0x0002e060 Method0<CActorManager,float>::vfunc_0 (30 B): matches/0x0002e060.cpp
-// sym: ??_G?$Method0@UCActorManager@@M@@UAEPAXI@Z
+// sym: ?vfunc_0@Method0_2e060@fn_0002e060@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Method0<CActorManager, float>::~Method0() {}` stood
+// for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_0002e060 {
+struct Method0_2e060 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method0_2e060::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0002e060
+// the destructor itself, which other objects' code references natively:
 template <> Method0<CActorManager, float>::~Method0() {}
 #if defined(HULK_PTR64)
 template class Method0<CActorManager, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2e060)
@@ -2732,7 +3170,7 @@ class Function {
 };
 class Method0Base_2e080 : public Function {
   public:
-    char pad[0x18];
+    ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
     float(__fastcall* fn)(void*);
     virtual void f2(void* a, void* b, float* out);
 };
@@ -2784,9 +3222,25 @@ template class Method2<CActorManager,math::Vector,math::Vector, float>; // (ren2
 
 
 // 0x0002e1e0 Method2<CActorManager,float,const_char_*,const_char_*>::vfunc_0 (30 B): matches/0x0002e1e0.cpp
-// sym: ??_G?$Method2@UCActorManager@@MPBDPBD@@UAEPAXI@Z
+// sym: ?vfunc_0@Method2_2e1e0@fn_0002e1e0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Method2<CActorManager, float, const char *, const
+// char *>::~Method2() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0,
+// then (flags & 1) operator delete.
+namespace fn_0002e1e0 {
+struct Method2_2e1e0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method2_2e1e0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0002e1e0
+// the destructor itself, which other objects' code references natively:
 template <> Method2<CActorManager, float, const char *, const char *>::~Method2() {}
 
 
@@ -2842,22 +3296,50 @@ template class Method1<CActorManager, void, bool>; // (ren2) native only: clang 
 namespace fn_f8e68f21 {
 
 // 0x0002e2b0 FUN_0002e2b0 (89 B): matches/0x0002e2b0.cpp
-// sym: ??0Method3_2e2b0@fn_f8e68f21@@QAE@HH@Z
-Method3_2e2b0::Method3_2e2b0(hulk_intptr a, hulk_intptr b) : Function_2e2b0(a, 3) {
-    v = ((hulk_intptr)DAT_003f431c);
-    m1c = b;
-    *((char*)this + 0x18) = ReadValue((const char*)((hulk_intptr)((char*)&DAT_0048e100)));
-    *((char*)this + 0x10) = ReadValue((const char*)((hulk_intptr)((char*)&DAT_0048e134)));
-    *((char*)this + 0x11) = ReadValue((const char*)((hulk_intptr)((char*)&DAT_0048e134)));
-    *((char*)this + 0x12) = ReadValue((const char*)((hulk_intptr)((char*)&DAT_0048e134)));
+// sym: ??0Method3@fn_0002e2b0@fn_f8e68f21@@QAE@PBDP8Owner_2e2b0@12@AEXXZ@Z
+namespace fn_0002e2b0 {
+// (script1) Method3<class CActorManager,void,int,int,int>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftable by address,
+// the member-function pointer, the type codes (0x001d04d0).
+extern "C" char DAT_003f431c[];   // Method3<class CActorManager,void,int,int,int>
+class Owner_2e2b0 {};
+typedef void (Owner_2e2b0::*Fn_2e2b0)();
+struct Method3 : hulk_script::ScriptFunction {
+    Fn_2e2b0 fn;
+    Method3(const char* name, Fn_2e2b0 function);
+};
+Method3::Method3(const char* name, Fn_2e2b0 function) : hulk_script::ScriptFunction(name, 3) {
+    vftable = DAT_003f431c;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e100);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e134);
+    f.argTypes[1] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e134);
+    f.argTypes[2] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e134);
 }
+} // namespace fn_0002e2b0
 
 } // namespace fn_f8e68f21
 
 // 0x0002e310 Method3<CActorManager,void,int,int,int>::vfunc_0 (30 B): matches/0x0002e310.cpp
-// sym: ??_G?$Method3@UCActorManager@@XHHH@@UAEPAXI@Z
+// sym: ?vfunc_0@Method3_2e310@fn_0002e310@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Method3<CActorManager, void, int, int,
+// int>::~Method3() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then
+// (flags & 1) operator delete.
+namespace fn_0002e310 {
+struct Method3_2e310 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method3_2e310::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0002e310
+// the destructor itself, which other objects' code references natively:
 template <> Method3<CActorManager, void, int, int, int>::~Method3() {}
 #if defined(HULK_PTR64)
 template class Method3<CActorManager, void, int, int, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2e310)
@@ -2874,7 +3356,7 @@ struct Args { int first, second, third; };
 struct Function { virtual void vfunc_0(); virtual void vfunc_1(); };
 struct Method3 : Function {
     virtual void vfunc_2(CActorManager* actor, Args* args, int unused);
-    char pad[0x18];
+    ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
     void (CActorManager::*callback)(int,int,int);
 };
 void Method3::vfunc_2(CActorManager* actor, Args* args, int unused) {
@@ -2911,9 +3393,25 @@ Method3::Method3(const char* name, Fn_2e350 function) : hulk_script::ScriptFunct
 
 
 // 0x0002e3b0 Method3<CActorManager,bool,const_char_*,math::Vector,math::Vector>::vfunc_0 (30 B): matches/0x0002e3b0.cpp
-// sym: ??_G?$Method3@UCActorManager@@_NPBDVVector@math@@V23@@@UAEPAXI@Z
+// sym: ?vfunc_0@Method3_2e3b0@fn_0002e3b0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Method3<CActorManager, bool, const char
+// *,math::Vector,math::Vector>::~Method3() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's
+// body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_0002e3b0 {
+struct Method3_2e3b0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method3_2e3b0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0002e3b0
+// the destructor itself, which other objects' code references natively:
 template <> Method3<CActorManager, bool, const char *,math::Vector,math::Vector>::~Method3() {}
 
 
@@ -2933,9 +3431,25 @@ template class Method3<CActorManager, bool, const char *,math::Vector,math::Vect
 
 
 // 0x0002e490 Method2<CActorManager,bool,const_char_*,math::Vector>::vfunc_0 (30 B): matches/0x0002e490.cpp
-// sym: ??_G?$Method2@UCActorManager@@_NPBDVVector@math@@@@UAEPAXI@Z
+// sym: ?vfunc_0@Method2_2e490@fn_0002e490@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Method2<CActorManager, bool, const char
+// *,math::Vector>::~Method2() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body
+// 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_0002e490 {
+struct Method2_2e490 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method2_2e490::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0002e490
+// the destructor itself, which other objects' code references natively:
 template <> Method2<CActorManager, bool, const char *,math::Vector>::~Method2() {}
 #if defined(HULK_PTR64)
 template class Method2<CActorManager, bool, const char *,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2e490)
@@ -2970,9 +3484,25 @@ Closure2::Closure2(const char* name, Owner_2e4f0* object, Fn_2e4f0 function) : h
 
 
 // 0x0002e550 Closure2<CActorManager,bool,const_char_*,bool>::vfunc_0 (30 B): matches/0x0002e550.cpp
-// sym: ??_G?$Method2@UCActorManager@@XPBDVVector@math@@@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure2_2e550@fn_0002e550@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Closure2<CActorManager, bool, const char *,
+// bool>::~Closure2() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then
+// (flags & 1) operator delete.
+namespace fn_0002e550 {
+struct Closure2_2e550 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure2_2e550::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0002e550
+// the destructor itself, which other objects' code references natively:
 template <> Closure2<CActorManager, bool, const char *, bool>::~Closure2() {}
 #if defined(HULK_PTR64)
 template class Closure2<CActorManager, bool, const char *, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2e550)
@@ -2992,7 +3522,7 @@ public:
     virtual void vfunc_1();
     virtual void vfunc_2(void *unused, Arguments *arguments, bool *result);
 private:
-    char padding[0x18];
+    ScriptFunctionFields fields;   // (script2) Function's fields (was char padding[0x18])
     bool (CActorManager::*method)(const char *, bool);
     CActorManager *object;
 };
@@ -3032,9 +3562,25 @@ Closure2::Closure2(const char* name, Owner_2e5a0* object, Fn_2e5a0 function) : h
 
 
 // 0x0002e600 Closure2<CActorManager,void,const_char_*,math::Vector>::vfunc_0 (30 B): matches/0x0002e600.cpp
-// sym: ??_G?$Method2@UCActorManager@@XPBDM@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure2_2e600@fn_0002e600@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Closure2<CActorManager, void, const char
+// *,math::Vector>::~Closure2() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body
+// 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_0002e600 {
+struct Closure2_2e600 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure2_2e600::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0002e600
+// the destructor itself, which other objects' code references natively:
 template <> Closure2<CActorManager, void, const char *,math::Vector>::~Closure2() {}
 #if defined(HULK_PTR64)
 template class Closure2<CActorManager, void, const char *,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2e600)
@@ -3216,9 +3762,25 @@ Closure1::Closure1(const char* name, Owner_2e790* object, Fn_2e790 function) : h
 
 
 // 0x0002e7e0 Closure1<CActorManager,float,const_char_*>::vfunc_0 (30 B): matches/0x0002e7e0.cpp
-// sym: ??_G?$Method3@UCActorManager@@XPBDMPBD@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure1_2e7e0@fn_0002e7e0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Closure1<CActorManager, float, const char
+// *>::~Closure1() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then
+// (flags & 1) operator delete.
+namespace fn_0002e7e0 {
+struct Closure1_2e7e0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure1_2e7e0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0002e7e0
+// the destructor itself, which other objects' code references natively:
 template <> Closure1<CActorManager, float, const char *>::~Closure1() {}
 
 
@@ -3254,9 +3816,25 @@ Closure1_2e830* Closure1_2e830::Build(const char* a, Owner_2e830* b, Fn_2e830 c)
 } // namespace fn_f8e68f21
 
 // 0x0002e880 Closure1<CActorManager,bool,const_char_*>::vfunc_0 (30 B): matches/0x0002e880.cpp
-// sym: ??_G?$Method1@UCActorManager@@HPBD@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure1_2e880@fn_0002e880@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Closure1<CActorManager, bool, const char
+// *>::~Closure1() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then
+// (flags & 1) operator delete.
+namespace fn_0002e880 {
+struct Closure1_2e880 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure1_2e880::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0002e880
+// the destructor itself, which other objects' code references natively:
 template <> Closure1<CActorManager, bool, const char *>::~Closure1() {}
 #if defined(HULK_PTR64)
 template class Closure1<CActorManager, bool, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2e880)
@@ -3272,7 +3850,7 @@ class Closure1 {
     virtual void V0();
     virtual void V1();
     virtual void V2(void*, const char**, bool*);
-    char pad[0x18];
+    ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
     typedef bool(__fastcall* Fn)(void*, const char*, const char*);
     Fn mFn;
     void* mObj;
@@ -3288,9 +3866,25 @@ void Closure1::V2(void* a, const char** p, bool* out) {
 
 
 // 0x0002e8f0 Closure3<CActorManager,void,const_char_*,float,bool>::vfunc_0 (30 B): matches/0x0002e8f0.cpp
-// sym: ??_G?$Method1@UCActorManager@@PBDPBD@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure3_2e8f0@fn_0002e8f0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Closure3<CActorManager, void, const char *, float,
+// bool>::~Closure3() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then
+// (flags & 1) operator delete.
+namespace fn_0002e8f0 {
+struct Closure3_2e8f0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure3_2e8f0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0002e8f0
+// the destructor itself, which other objects' code references natively:
 template <> Closure3<CActorManager, void, const char *, float, bool>::~Closure3() {}
 #if defined(HULK_PTR64)
 template class Closure3<CActorManager, void, const char *, float, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2e8f0)
@@ -3298,9 +3892,25 @@ template class Closure3<CActorManager, void, const char *, float, bool>; // (ren
 
 
 // 0x0002e960 Closure3<CActorManager,void,const_char_*,float,const_char_*>::vfunc_0 (30 B): matches/0x0002e960.cpp
-// sym: ??_G?$Method2@UCActorManager@@XPBD_N@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure3_2e960@fn_0002e960@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Closure3<CActorManager, void, const char *, float,
+// const char *>::~Closure3() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body
+// 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_0002e960 {
+struct Closure3_2e960 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure3_2e960::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0002e960
+// the destructor itself, which other objects' code references natively:
 template <> Closure3<CActorManager, void, const char *, float, const char *>::~Closure3() {}
 
 
@@ -3350,9 +3960,25 @@ Closure1::Closure1(const char* name, Owner_2e9a0* object, Fn_2e9a0 function) : h
 
 
 // 0x0002e9f0 Closure1<CActorManager,int,const_char_*>::vfunc_0 (30 B): matches/0x0002e9f0.cpp
-// sym: ??_G?$Method2@UCActorManager@@XMM@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure1_2e9f0@fn_0002e9f0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Closure1<CActorManager, int, const char
+// *>::~Closure1() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then
+// (flags & 1) operator delete.
+namespace fn_0002e9f0 {
+struct Closure1_2e9f0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure1_2e9f0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0002e9f0
+// the destructor itself, which other objects' code references natively:
 template <> Closure1<CActorManager, int, const char *>::~Closure1() {}
 #if defined(HULK_PTR64)
 template class Closure1<CActorManager, int, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2e9f0)
@@ -3367,7 +3993,7 @@ struct CActorManager {
 };
 typedef int (CActorManager::*ActorMethod)(const char*);
 struct Closure1_CActorManager_int_const_char {
-    char padding[0x1c];
+    void* vftable; ScriptFunctionFields fields;   // (script2) Function (was char padding[0x1c])
     ActorMethod method;
     CActorManager* actor;
     void vfunc_2(void* unused, const char** argument, int* result);
@@ -3409,9 +4035,25 @@ Closure1::Closure1(const char* name, Owner_2ea30* object, Fn_2ea30 function) : h
 
 
 // 0x0002ea80 Closure1<CActorManager,const_char_*,const_char_*>::vfunc_0 (30 B): matches/0x0002ea80.cpp
-// sym: ??_G?$Method1@UCActorManager@@XPBD@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure1_2ea80@fn_0002ea80@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Closure1<CActorManager, const char *, const char
+// *>::~Closure1() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then
+// (flags & 1) operator delete.
+namespace fn_0002ea80 {
+struct Closure1_2ea80 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure1_2ea80::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0002ea80
+// the destructor itself, which other objects' code references natively:
 template <> Closure1<CActorManager, const char *, const char *>::~Closure1() {}
 #if defined(HULK_PTR64)
 template class Closure1<CActorManager, const char *, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2ea80)
@@ -3431,7 +4073,7 @@ class Closure1 {
     virtual void v0();
     virtual void v1();
     virtual int v2(int a, const char** b, int* out);
-    char pad[0x18];
+    ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
     int (CActorManager::*mFn)(const char*);
     CActorManager* mObj;
 };
@@ -3449,9 +4091,25 @@ int Closure1::v2(int a, const char** b, int* out) {
 
 
 // 0x0002eaf0 Closure6<CActorManager,bool,const_char_*,const_char_*,const_char_*,const_char_*,bool,const_char_*>::vfunc_0 (30 B): matches/0x0002eaf0.cpp
-// sym: ??_G?$Method0@UCActorManager@@H@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure6_2eaf0@fn_0002eaf0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Closure6<CActorManager, bool, const char *, const
+// char *, const char *, const char *, bool, const char *>::~Closure6() {}` stood for it, whose MSVC `??_G` matched only
+// under /GX. The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_0002eaf0 {
+struct Closure6_2eaf0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure6_2eaf0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0002eaf0
+// the destructor itself, which other objects' code references natively:
 template <> Closure6<CActorManager, bool, const char *, const char *, const char *, const char *, bool, const char *>::~Closure6() {}
 #if defined(HULK_PTR64)
 template class Closure6<CActorManager, bool, const char *, const char *, const char *, const char *, bool, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2eaf0)
@@ -3618,23 +4276,52 @@ template class Closure2<CActorManager, void, float, float>; // (ren2) native onl
 namespace fn_f8e68f21 {
 
 // 0x0002ed20 FUN_0002ed20 (76 B): matches/0x0002ed20.cpp
-// sym: ??0Closure1_2ed20@fn_f8e68f21@@QAE@PBDPAXPAUCActorManager@@@Z
-Closure1_2ed20::Closure1_2ed20(const char* arg, void* p, CActorManager* cm) {
-    Init_001d0480(arg, 1);
-    vt = ((hulk_intptr)DAT_003f410c);
-    p1c = cm;
-    b18 = GetName_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e100)));
-    b10 = GetName_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e0f0)));
-    vt = ((hulk_intptr)DAT_003f442c);
-    p20 = p;
+// sym: ??0Closure1@fn_0002ed20@fn_f8e68f21@@QAE@PBDPAVOwner_2ed20@12@P8312@AEXXZ@Z
+namespace fn_0002ed20 {
+// (script1) Closure1<class CActorManager,void,const char *>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftables by address,
+// the member-function pointer, the type codes (0x001d04d0), the object.
+extern "C" char DAT_003f410c[];   // Method1<class CActorManager,void,const char *>
+extern "C" char DAT_003f442c[];   // Closure1<class CActorManager,void,const char *>
+class Owner_2ed20 {};
+typedef void (Owner_2ed20::*Fn_2ed20)();
+struct Closure1 : hulk_script::ScriptFunction {
+    Fn_2ed20 fn;
+    Owner_2ed20* owner;
+    Closure1(const char* name, Owner_2ed20* object, Fn_2ed20 function);
+};
+Closure1::Closure1(const char* name, Owner_2ed20* object, Fn_2ed20 function) : hulk_script::ScriptFunction(name, 1) {
+    vftable = DAT_003f410c;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e100);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0f0);
+    vftable = DAT_003f442c;
+    owner = object;
 }
+} // namespace fn_0002ed20
 
 } // namespace fn_f8e68f21
 
 // 0x0002ed70 Closure1<CActorManager,void,const_char_*>::vfunc_0 (30 B): matches/0x0002ed70.cpp
-// sym: ??_G?$Method1@UCActorManager@@VVector@math@@PBD@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure1_2ed70@fn_0002ed70@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Closure1<CActorManager, void, const char
+// *>::~Closure1() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then
+// (flags & 1) operator delete.
+namespace fn_0002ed70 {
+struct Closure1_2ed70 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure1_2ed70::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0002ed70
+// the destructor itself, which other objects' code references natively:
 template <> Closure1<CActorManager, void, const char *>::~Closure1() {}
 
 
@@ -3753,9 +4440,25 @@ Closure1::Closure1(const char* name, Owner_2eeb0* object, Fn_2eeb0 function) : h
 
 
 // 0x0002ef00 Closure1<CActorManager,const_char_*,int>::vfunc_0 (30 B): matches/0x0002ef00.cpp
-// sym: ??_G?$Method1@UCActorManager@@PBDVVector@math@@@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure1_2ef00@fn_0002ef00@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Closure1<CActorManager, const char *,
+// int>::~Closure1() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then
+// (flags & 1) operator delete.
+namespace fn_0002ef00 {
+struct Closure1_2ef00 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure1_2ef00::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0002ef00
+// the destructor itself, which other objects' code references natively:
 template <> Closure1<CActorManager, const char *, int>::~Closure1() {}
 #if defined(HULK_PTR64)
 template class Closure1<CActorManager, const char *, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2ef00)
@@ -3773,7 +4476,7 @@ template <class T, class A, class R> class Closure1 {
     virtual void vfunc_2(void* unused, const char** argument, int* result);
 
   private:
-    char padding[0x18];
+    ScriptFunctionFields fields;   // (script2) Function's fields (was char padding[0x18])
     int (CActorManager::*method)(const char*);
     CActorManager* object;
 };
@@ -3941,9 +4644,25 @@ Closure1::Closure1(const char* name, Owner_2f090* object, Fn_2f090 function) : h
 
 
 // 0x0002f0e0 Closure1<CActorManager,math::Vector,const_char_*>::vfunc_0 (30 B): matches/0x0002f0e0.cpp
-// sym: ??_G?$Method2@UCActorManager@@XVVector@math@@M@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure1_2f0e0@fn_0002f0e0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Closure1<CActorManager,math::Vector, const char
+// *>::~Closure1() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then
+// (flags & 1) operator delete.
+namespace fn_0002f0e0 {
+struct Closure1_2f0e0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure1_2f0e0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0002f0e0
+// the destructor itself, which other objects' code references natively:
 template <> Closure1<CActorManager,math::Vector, const char *>::~Closure1() {}
 #if defined(HULK_PTR64)
 template class Closure1<CActorManager,math::Vector, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2f0e0)
@@ -3961,7 +4680,7 @@ struct Closure {
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2(void *unused, const char **name, Vector *result);
-    char pad[0x18];
+    ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
     Vector (CActorManager::*method)(const char *);
     CActorManager *actorManager;
 };
@@ -4063,9 +4782,25 @@ Closure1::Closure1(const char* name, Owner_2f1e0* object, Fn_2f1e0 function) : h
 
 
 // 0x0002f230 Closure1<CActorManager,bool,math::Vector>::vfunc_0 (30 B): matches/0x0002f230.cpp
-// sym: ??_G?$Method1@UCActorManager@@_NH@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure1_2f230@fn_0002f230@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Closure1<CActorManager,
+// bool,math::Vector>::~Closure1() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body
+// 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_0002f230 {
+struct Closure1_2f230 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure1_2f230::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0002f230
+// the destructor itself, which other objects' code references natively:
 template <> Closure1<CActorManager, bool,math::Vector>::~Closure1() {}
 #if defined(HULK_PTR64)
 template class Closure1<CActorManager, bool,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2f230)
@@ -4092,7 +4827,7 @@ class Function {
 };
 class Closure1 : public Function {
   public:
-    char pad[0x18];
+    ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
     bool (CActorManager::*method)(math::Vector);
     CActorManager* obj;
     virtual void vfunc_2(int unused, const math::Vector* v, bool* out);
@@ -4113,17 +4848,52 @@ void Closure1::vfunc_2(int unused, const math::Vector* v, bool* out) {
 namespace fn_f8e68f21 {
 
 // 0x0002f290 FUN_0002f290 (76 B): matches/0x0002f290.cpp
-// sym: ??0Closure1_2f290@fn_f8e68f21@@QAE@PBDPAVOwner_2f290@1@P821@AEXXZ@Z
-Closure1_2f290::Closure1_2f290(const char* s, Owner_2f290* x, Fn_2f290 y) : Method1_2f290(s, y) {
-    d = x;
+// sym: ??0Closure1@fn_0002f290@fn_f8e68f21@@QAE@PBDPAVOwner_2f290@12@P8312@AEXXZ@Z
+namespace fn_0002f290 {
+// (script1) Closure1<class CActorManager,const char *,class math::Vector>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftables by address,
+// the member-function pointer, the type codes (0x001d04d0), the object.
+extern "C" char DAT_003f419c[];   // Method1<class CActorManager,const char *,class math::Vector>
+extern "C" char DAT_003f44bc[];   // Closure1<class CActorManager,const char *,class math::Vector>
+class Owner_2f290 {};
+typedef void (Owner_2f290::*Fn_2f290)();
+struct Closure1 : hulk_script::ScriptFunction {
+    Fn_2f290 fn;
+    Owner_2f290* owner;
+    Closure1(const char* name, Owner_2f290* object, Fn_2f290 function);
+};
+Closure1::Closure1(const char* name, Owner_2f290* object, Fn_2f290 function) : hulk_script::ScriptFunction(name, 1) {
+    vftable = DAT_003f419c;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0f0);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e10c);
+    vftable = DAT_003f44bc;
+    owner = object;
 }
+} // namespace fn_0002f290
 
 } // namespace fn_f8e68f21
 
 // 0x0002f2e0 Closure1<CActorManager,const_char_*,math::Vector>::vfunc_0 (30 B): matches/0x0002f2e0.cpp
-// sym: ??_G?$Method0@UCActorManager@@_N@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure1_2f2e0@fn_0002f2e0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Closure1<CActorManager, const char
+// *,math::Vector>::~Closure1() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body
+// 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_0002f2e0 {
+struct Closure1_2f2e0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure1_2f2e0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0002f2e0
+// the destructor itself, which other objects' code references natively:
 template <> Closure1<CActorManager, const char *,math::Vector>::~Closure1() {}
 #if defined(HULK_PTR64)
 template class Closure1<CActorManager, const char *,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2f2e0)
@@ -4158,9 +4928,25 @@ void Closure1::vfunc_2(void *unused, const Vector *value, unsigned int *result)
 
 
 // 0x0002f370 Closure7<CActorManager,void,const_char_*,float,float,float,float,float,const_char_*>::vfunc_0 (30 B): matches/0x0002f370.cpp
-// sym: ??_G?$Method4@UCActorManager@@XPBDMMM@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure7_2f370@fn_0002f370@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Closure7<CActorManager, void, const char *, float,
+// float, float, float, float, const char *>::~Closure7() {}` stood for it, whose MSVC `??_G` matched only under /GX.
+// The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_0002f370 {
+struct Closure7_2f370 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure7_2f370::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0002f370
+// the destructor itself, which other objects' code references natively:
 template <> Closure7<CActorManager, void, const char *, float, float, float, float, float, const char *>::~Closure7() {}
 
 
@@ -4266,9 +5052,25 @@ Closure2::Closure2(const char* name, Owner_2f450* object, Fn_2f450 function) : h
 
 
 // 0x0002f4b0 Closure2<CActorManager,void,math::Vector,float>::vfunc_0 (30 B): matches/0x0002f4b0.cpp
-// sym: ??_G?$Method3@UCActorManager@@_NPBDMM@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure2_2f4b0@fn_0002f4b0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Closure2<CActorManager, void,math::Vector,
+// float>::~Closure2() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0,
+// then (flags & 1) operator delete.
+namespace fn_0002f4b0 {
+struct Closure2_2f4b0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure2_2f4b0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0002f4b0
+// the destructor itself, which other objects' code references natively:
 template <> Closure2<CActorManager, void,math::Vector, float>::~Closure2() {}
 #if defined(HULK_PTR64)
 template class Closure2<CActorManager, void,math::Vector, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2f4b0)
@@ -4284,7 +5086,7 @@ struct Vector {
 class CActorManager;
 class Closure2 {
   public:
-    char pad[0x1c];
+    void* vftable; ScriptFunctionFields fields;   // (script2) Function (was char pad[0x1c])
     void(__fastcall* fn)(CActorManager*, Closure2*, Vector, float);
     CActorManager* object;
     void vfunc_2(void* unused, int* p, void* unused2);
@@ -4323,9 +5125,25 @@ Closure2::Closure2(const char* name, Owner_2f500* object, Fn_2f500 function) : h
 
 
 // 0x0002f560 Closure2<CActorManager,bool,const_char_*,int>::vfunc_0 (30 B): matches/0x0002f560.cpp
-// sym: ??_G?$Method3@UCActorManager@@XPBDMM@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure2_2f560@fn_0002f560@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Closure2<CActorManager, bool, const char *,
+// int>::~Closure2() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then
+// (flags & 1) operator delete.
+namespace fn_0002f560 {
+struct Closure2_2f560 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure2_2f560::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0002f560
+// the destructor itself, which other objects' code references natively:
 template <> Closure2<CActorManager, bool, const char *, int>::~Closure2() {}
 
 
@@ -4373,9 +5191,25 @@ Closure1::Closure1(const char* name, Owner_2f5b0* object, Fn_2f5b0 function) : h
 
 
 // 0x0002f600 Closure1<CActorManager,bool,int>::vfunc_0 (30 B): matches/0x0002f600.cpp
-// sym: ??_G?$Method2@UCActorManager@@_NPBDM@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure1_2f600@fn_0002f600@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Closure1<CActorManager, bool, int>::~Closure1() {}`
+// stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then (flags & 1) operator
+// delete.
+namespace fn_0002f600 {
+struct Closure1_2f600 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure1_2f600::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0002f600
+// the destructor itself, which other objects' code references natively:
 template <> Closure1<CActorManager, bool, int>::~Closure1() {}
 #if defined(HULK_PTR64)
 template class Closure1<CActorManager, bool, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2f600)
@@ -4391,7 +5225,7 @@ class Closure1 {
     virtual void V0();
     virtual void V1();
     virtual void V2(void*, const char**, bool*);
-    char pad[0x18];
+    ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
     typedef bool(__fastcall* Fn)(void*, const char*, const char*);
     Fn mFn;
     void* mObj;
@@ -4407,9 +5241,24 @@ void Closure1::V2(void* a, const char** p, bool* out) {
 
 
 // 0x0002f680 Closure0<CActorManager,bool>::vfunc_0 (30 B): matches/0x0002f680.cpp
-// sym: ??_G?$Method3@UCActorManager@@XPBDPBDM@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure0_2f680@fn_0002f680@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Closure0<CActorManager, bool>::~Closure0() {}` stood
+// for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_0002f680 {
+struct Closure0_2f680 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure0_2f680::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0002f680
+// the destructor itself, which other objects' code references natively:
 template <> Closure0<CActorManager, bool>::~Closure0() {}
 
 
@@ -4429,9 +5278,25 @@ template class Closure0<CActorManager, bool>; // (ren2) native only: clang emits
 
 
 // 0x0002f6f0 Closure4<CActorManager,void,const_char_*,float,int,float>::vfunc_0 (30 B): matches/0x0002f6f0.cpp
-// sym: ??_G?$Method4@UCActorManager@@XPBDPBDMM@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure4_2f6f0@fn_0002f6f0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Closure4<CActorManager, void, const char *, float,
+// int, float>::~Closure4() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body
+// 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_0002f6f0 {
+struct Closure4_2f6f0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure4_2f6f0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0002f6f0
+// the destructor itself, which other objects' code references natively:
 template <> Closure4<CActorManager, void, const char *, float, int, float>::~Closure4() {}
 #if defined(HULK_PTR64)
 template class Closure4<CActorManager, void, const char *, float, int, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2f6f0)
@@ -4449,7 +5314,7 @@ public:
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2(int unused, const void *arguments, int other);
-    char padding[0x18];
+    ScriptFunctionFields fields;   // (script2) Function's fields (was char padding[0x18])
     typedef void (CActorManager::*Method)(const char *, float, int, float);
     Method method;
     CActorManager *actor;
@@ -4464,9 +5329,25 @@ void Closure4::vfunc_2(int unused, const void *arguments, int other)
 
 
 // 0x0002f770 Closure4<CActorManager,void,const_char_*,float,float,float>::vfunc_0 (30 B): matches/0x0002f770.cpp
-// sym: ??_G?$Method2@UCActorManager@@PBDPBDH@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure4_2f770@fn_0002f770@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Closure4<CActorManager, void, const char *, float,
+// float, float>::~Closure4() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body
+// 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_0002f770 {
+struct Closure4_2f770 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure4_2f770::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0002f770
+// the destructor itself, which other objects' code references natively:
 template <> Closure4<CActorManager, void, const char *, float, float, float>::~Closure4() {}
 
 
@@ -4517,9 +5398,25 @@ template class Closure0<CActorManager, void>; // (ren2) native only: clang emits
 
 
 // 0x0002f860 Closure5<CActorManager,void,const_char_*,const_char_*,float,float,float>::vfunc_0 (30 B): matches/0x0002f860.cpp
-// sym: ??_G?$Method2@UCActorManager@@PBDPBDPBD@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure5_2f860@fn_0002f860@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Closure5<CActorManager, void, const char *, const
+// char *, float, float, float>::~Closure5() {}` stood for it, whose MSVC `??_G` matched only under /GX. The
+// destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_0002f860 {
+struct Closure5_2f860 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure5_2f860::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0002f860
+// the destructor itself, which other objects' code references natively:
 template <> Closure5<CActorManager, void, const char *, const char *, float, float, float>::~Closure5() {}
 
 
@@ -4537,9 +5434,25 @@ template class Closure5<CActorManager, void, const char *, const char *, float, 
 
 
 // 0x0002f8f0 Closure3<CActorManager,bool,const_char_*,float,float>::vfunc_0 (30 B): matches/0x0002f8f0.cpp
-// sym: ??_G?$Method1@UCActorManager@@XM@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure3_2f8f0@fn_0002f8f0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Closure3<CActorManager, bool, const char *, float,
+// float>::~Closure3() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0,
+// then (flags & 1) operator delete.
+namespace fn_0002f8f0 {
+struct Closure3_2f8f0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure3_2f8f0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0002f8f0
+// the destructor itself, which other objects' code references natively:
 template <> Closure3<CActorManager, bool, const char *, float, float>::~Closure3() {}
 #if defined(HULK_PTR64)
 template class Closure3<CActorManager, bool, const char *, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2f8f0)
@@ -4547,9 +5460,25 @@ template class Closure3<CActorManager, bool, const char *, float, float>; // (re
 
 
 // 0x0002f980 Closure3<CActorManager,void,const_char_*,float,float>::vfunc_0 (30 B): matches/0x0002f980.cpp
-// sym: ??_G?$Method0@UCActorManager@@M@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure3_2f980@fn_0002f980@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Closure3<CActorManager, void, const char *, float,
+// float>::~Closure3() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0,
+// then (flags & 1) operator delete.
+namespace fn_0002f980 {
+struct Closure3_2f980 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure3_2f980::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0002f980
+// the destructor itself, which other objects' code references natively:
 template <> Closure3<CActorManager, void, const char *, float, float>::~Closure3() {}
 #if defined(HULK_PTR64)
 template class Closure3<CActorManager, void, const char *, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2f980)
@@ -4621,9 +5550,25 @@ template class Closure2<CActorManager, bool, const char *, float>; // (ren2) nat
 
 
 // 0x0002faa0 Closure3<CActorManager,void,const_char_*,const_char_*,float>::vfunc_0 (30 B): matches/0x0002faa0.cpp
-// sym: ??_G?$Method2@UCActorManager@@MPBDPBD@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure3_2faa0@fn_0002faa0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Closure3<CActorManager, void, const char *, const
+// char *, float>::~Closure3() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body
+// 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_0002faa0 {
+struct Closure3_2faa0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure3_2faa0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0002faa0
+// the destructor itself, which other objects' code references natively:
 template <> Closure3<CActorManager, void, const char *, const char *, float>::~Closure3() {}
 #if defined(HULK_PTR64)
 template class Closure3<CActorManager, void, const char *, const char *, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2faa0)
@@ -4701,9 +5646,25 @@ Closure2::Closure2(const char* name, Owner_2fb60* object, Fn_2fb60 function) : h
 
 
 // 0x0002fbc0 Closure2<CActorManager,const_char_*,const_char_*,int>::vfunc_0 (30 B): matches/0x0002fbc0.cpp
-// sym: ??_G?$Method3@UCActorManager@@XHHH@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure2_2fbc0@fn_0002fbc0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Closure2<CActorManager, const char *, const char *,
+// int>::~Closure2() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then
+// (flags & 1) operator delete.
+namespace fn_0002fbc0 {
+struct Closure2_2fbc0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure2_2fbc0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0002fbc0
+// the destructor itself, which other objects' code references natively:
 template <> Closure2<CActorManager, const char *, const char *, int>::~Closure2() {}
 #if defined(HULK_PTR64)
 template class Closure2<CActorManager, const char *, const char *, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2fbc0)
@@ -4721,7 +5682,7 @@ struct Closure2 {
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2(void *unused, const char **arguments, int *result);
-    char padding[0x18];
+    ScriptFunctionFields fields;   // (script2) Function's fields (was char padding[0x18])
     ActorMethod method;
     CActorManager *actorManager;
 };
@@ -4762,9 +5723,25 @@ Closure2::Closure2(const char* name, Owner_2fc10* object, Fn_2fc10 function) : h
 
 
 // 0x0002fc70 Closure2<CActorManager,int,const_char_*,const_char_*>::vfunc_0 (30 B): matches/0x0002fc70.cpp
-// sym: ??_G?$Method3@UCActorManager@@_NPBDVVector@math@@V23@@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure2_2fc70@fn_0002fc70@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Closure2<CActorManager, int, const char *, const
+// char *>::~Closure2() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0,
+// then (flags & 1) operator delete.
+namespace fn_0002fc70 {
+struct Closure2_2fc70 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure2_2fc70::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0002fc70
+// the destructor itself, which other objects' code references natively:
 template <> Closure2<CActorManager, int, const char *, const char *>::~Closure2() {}
 #if defined(HULK_PTR64)
 template class Closure2<CActorManager, int, const char *, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2fc70)
@@ -4782,7 +5759,7 @@ struct Closure2_CActorManager_int_const_char_const_char {
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2(int unused, const Arguments *arguments, int *result);
-    char padding[0x18];
+    ScriptFunctionFields fields;   // (script2) Function's fields (was char padding[0x18])
     int (CActorManager::*method)(const char *, const char *);
     CActorManager *object;
 };
@@ -4822,9 +5799,25 @@ Closure2::Closure2(const char* name, Owner_2fcc0* object, Fn_2fcc0 function) : h
 
 
 // 0x0002fd20 Closure2<CActorManager,const_char_*,const_char_*,const_char_*>::vfunc_0 (30 B): matches/0x0002fd20.cpp
-// sym: ??_G?$Method2@UCActorManager@@_NPBDVVector@math@@@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure2_2fd20@fn_0002fd20@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Closure2<CActorManager, const char *, const char *,
+// const char *>::~Closure2() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body
+// 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_0002fd20 {
+struct Closure2_2fd20 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure2_2fd20::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0002fd20
+// the destructor itself, which other objects' code references natively:
 template <> Closure2<CActorManager, const char *, const char *, const char *>::~Closure2() {}
 
 
@@ -4919,7 +5912,7 @@ class Method2 {
     virtual void f0();
     virtual void f1();
     virtual void vfunc_2(int, int, int);
-    char pad[0x18];
+    ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
 };
 class Function {
   public:
@@ -5027,7 +6020,7 @@ class Method2 {
     virtual void f0();
     virtual void f1();
     virtual void vfunc_2(int, int, int);
-    char pad[0x18];
+    ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
 };
 class Function {
   public:

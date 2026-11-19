@@ -37,9 +37,11 @@ extern "C" int __fastcall FUN_002666f0(void*);
 
 
 // 0x002036c0 FUN_002036c0 (17 B): matches/0x002036c0.cpp
-// sym: ?FUN_002036c0@fn_f46f06fe@@YGXPAX@Z
+// sym: ?FUN_002036c0@CB_002036c0@fn_f46f06fe@@QAEXH@Z
 // data: g_flag_2036c0 = DAT_004e5a50
-void __stdcall FUN_002036c0(void* p) {
+// (script2) bound as a member (Closure/Method; this unused): the site's types; was `void __stdcall FUN_002036c0(void* p)`
+struct CB_002036c0 { void FUN_002036c0(int); };
+void CB_002036c0::FUN_002036c0(int p) {
     (*(unsigned char*)&DAT_004e5a50) = (unsigned char)(p != 0);
 }
 
@@ -61,9 +63,12 @@ int owners::Obj_2036f0::FUN_002036f0() {
 namespace fn_f46f06fe {
 
 // 0x00203740 FUN_00203740 (43 B): matches/0x00203740.cpp
-// sym: ?FUN_00203740@fn_f46f06fe@@YAPADXZ
+// sym: ?FUN_00203740@CB_00203740@fn_f46f06fe@@QAEPBDXZ
 // data: buffer = DAT_004e5950, counter = DAT_004e5a54
-char* FUN_00203740() {
+// (script2) bound as CWorldStreamManager's member (Closure0<CWorldStreamManager,const char*>; this unused); was
+// `char* FUN_00203740()`
+struct CB_00203740 { const char* FUN_00203740(); };
+const char* CB_00203740::FUN_00203740() {
     int n = (*(int*)&DAT_004e5a54)++;
     FUN_000964a0(((char*)((char*)&DAT_004e5948 + 8)), 256, "unique%d", n);
     return ((char*)((char*)&DAT_004e5948 + 8));

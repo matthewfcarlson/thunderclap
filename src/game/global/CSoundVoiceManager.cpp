@@ -890,8 +890,12 @@ extern "C" void __cdecl FUN_001f3040(void *d, void *k)
 
 
 // 0x001f30e0 FUN_001f30e0 (180 B): matches/0x001f30e0.cpp
-// sym: ?FUN_001f30e0@fn_f7fca51a@@YGXPBD00I@Z
-void __stdcall FUN_001f30e0(const char* first, const char* second, const char* third, unsigned value) {
+// sym: ?FUN_001f30e0@CB_001f30e0@fn_f7fca51a@@QAEXPAD00H@Z
+// (script2) bound as CSoundVoiceManager's member (Closure4<CSoundVoiceManager,void,char*,char*,char*,int>; this
+// unused), declared so by its invoke 0x001f6990; was `void __stdcall FUN_001f30e0(const char*, const char*, const char*,
+// unsigned)`
+struct CB_001f30e0 { void FUN_001f30e0(char*, char*, char*, int); };
+void CB_001f30e0::FUN_001f30e0(char* first, char* second, char* third, int value) {
     if (DAT_004e3764 < 264) {
         StringValue_1f30e0 temporary;
         StringValue_1f30e0* source = temporary.FUN_0027b0e0(first);
@@ -1933,17 +1937,28 @@ template class Method0<CSoundVoiceManager, void>; // (ren2) native only: clang e
 namespace fn_f7fca51a {
 
 // 0x001f4aa0 FUN_001f4aa0 (102 B): matches/0x001f4aa0.cpp
-// sym: ??0Method4_1f4aa0@fn_f7fca51a@@QAE@PBDP8ScriptBoundClass@@AEXXZ@Z
-Method4_1f4aa0::Method4_1f4aa0(const char* a, ScriptMemberFn b) {
-    ((ThisCall_001d0480*)(this))->Init_001d0480(a, 4);
-    vptr = ((hulk_intptr)DAT_00424b2c);
-    m1c = b;
-    f.retType = Get((void*)((hulk_intptr)((char*)&DAT_0048e100)));
-    f.argTypes[0] = Get((void*)((hulk_intptr)((char*)&DAT_0049cad8)));
-    f.argTypes[1] = Get((void*)((hulk_intptr)((char*)&DAT_0049cad8)));
-    f.argTypes[2] = Get((void*)((hulk_intptr)((char*)&DAT_0049cad8)));
-    f.argTypes[3] = Get((void*)((hulk_intptr)((char*)&DAT_0048e134)));
+// sym: ??0Method4@fn_001f4aa0@fn_f7fca51a@@QAE@PBDP8Owner_1f4aa0@12@AEXXZ@Z
+namespace fn_001f4aa0 {
+// (script1) Method4<class CSoundVoiceManager,void,char *,char *,char *,int>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftable by address,
+// the member-function pointer, the type codes (0x001d04d0).
+extern "C" char DAT_00424b2c[];   // Method4<class CSoundVoiceManager,void,char *,char *,char *,int>
+class Owner_1f4aa0 {};
+typedef void (Owner_1f4aa0::*Fn_1f4aa0)();
+struct Method4 : hulk_script::ScriptFunction {
+    Fn_1f4aa0 fn;
+    Method4(const char* name, Fn_1f4aa0 function);
+};
+Method4::Method4(const char* name, Fn_1f4aa0 function) : hulk_script::ScriptFunction(name, 4) {
+    vftable = DAT_00424b2c;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e100);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0049cad8);
+    f.argTypes[1] = hulk_script::FUN_001d04d0(hulk_script::DAT_0049cad8);
+    f.argTypes[2] = hulk_script::FUN_001d04d0(hulk_script::DAT_0049cad8);
+    f.argTypes[3] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e134);
 }
+} // namespace fn_001f4aa0
 
 } // namespace fn_f7fca51a
 

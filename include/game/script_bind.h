@@ -128,6 +128,19 @@ struct ScriptMethod4 : ScriptMethodBase<C, R (C::*)(A0, A1, A2, A3)> {
     }
 };
 
+template <class C, class R, class A0, class A1, class A2, class A3, class A4>
+struct ScriptMethod5 : ScriptMethodBase<C, R (C::*)(A0, A1, A2, A3, A4)> {
+    typedef R (C::*Fn)(A0, A1, A2, A3, A4);
+    ScriptMethod5(const char* name, const void* vft, Fn f) throw() : ScriptMethodBase<C, Fn>(name, 5, vft, f) {
+        this->f.retType = FUN_001d04d0(ScriptType<R>::tag());
+        this->f.argTypes[0] = FUN_001d04d0(ScriptType<A0>::tag());
+        this->f.argTypes[1] = FUN_001d04d0(ScriptType<A1>::tag());
+        this->f.argTypes[2] = FUN_001d04d0(ScriptType<A2>::tag());
+        this->f.argTypes[3] = FUN_001d04d0(ScriptType<A3>::tag());
+        this->f.argTypes[4] = FUN_001d04d0(ScriptType<A4>::tag());
+    }
+};
+
 // Closure<N> (0x24 bytes on 32-bit): Method<N>, then the object the member function is called on. mvft / cvft are the
 // instantiation's Method<N> and Closure<N> game vftables (the game's inlined constructors store both, in that order).
 template <class M, class C>

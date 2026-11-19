@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x001cc5e0..0x001d0360 (kind game, layer game, confidence high), dominant class CScenarioManager
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -1222,9 +1221,25 @@ template class Method0<CScenarioManager, int>; // (ren2) native only: clang emit
 
 
 // 0x001cd8f0 Method0<CScenarioManager,float>::vfunc_0 (30 B): matches/0x001cd8f0.cpp
-// sym: ??_G?$Method0@VCScenarioManager@@M@@UAEPAXI@Z
+// sym: ?vfunc_0@Method0_1cd8f0@fn_001cd8f0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Method0<CScenarioManager, float>::~Method0() {}`
+// stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then (flags & 1) operator
+// delete.
+namespace fn_001cd8f0 {
+struct Method0_1cd8f0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method0_1cd8f0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_001cd8f0
+// the destructor itself, which other objects' code references natively:
 template <> Method0<CScenarioManager, float>::~Method0() {}
 #if defined(HULK_PTR64)
 template class Method0<CScenarioManager, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1cd8f0)
@@ -1242,7 +1257,7 @@ class Function {
 };
 class Method0Base_1cd910 : public Function {
   public:
-    char pad[0x18];
+    ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
     float(__fastcall* fn)(void*);
     virtual void f2(void* a, void* b, float* out);
 };
@@ -1780,9 +1795,25 @@ Closure1::Closure1(const char* name, Owner_1ce060* object, Fn_1ce060 function) :
 
 
 // 0x001ce0b0 Closure1<CScenarioManager,void,int>::vfunc_0 (30 B): matches/0x001ce0b0.cpp
-// sym: ??_G?$Method0@VCScenarioManager@@M@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure1_1ce0b0@fn_001ce0b0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Closure1<CScenarioManager, void, int>::~Closure1()
+// {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then (flags & 1)
+// operator delete.
+namespace fn_001ce0b0 {
+struct Closure1_1ce0b0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure1_1ce0b0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_001ce0b0
+// the destructor itself, which other objects' code references natively:
 template <> Closure1<CScenarioManager, void, int>::~Closure1() {}
 
 
@@ -2341,10 +2372,29 @@ template class Closure0<CScenarioManager, void>; // (ren2) native only: clang em
 namespace fn_fdf9c5a9 {
 
 // 0x001ce6a0 FUN_001ce6a0 (76 B): matches/0x001ce6a0.cpp
-// sym: ??0Closure1_1ce6a0@fn_fdf9c5a9@@QAE@PBDPAX1@Z
-Closure1_1ce6a0::Closure1_1ce6a0(const char* name, void* p, void* a) : Method1_1ce6a0(name, a) {
-    arg = p;
+// sym: ??0Closure1@fn_001ce6a0@fn_fdf9c5a9@@QAE@PBDPAVOwner_1ce6a0@12@P8312@AEXXZ@Z
+namespace fn_001ce6a0 {
+// (script1) Closure1<class CScenarioManager,void,const char *>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftables by address,
+// the member-function pointer, the type codes (0x001d04d0), the object.
+extern "C" char DAT_00421f5c[];   // Method1<class CScenarioManager,void,const char *>
+extern "C" char DAT_0042205c[];   // Closure1<class CScenarioManager,void,const char *>
+class Owner_1ce6a0 {};
+typedef void (Owner_1ce6a0::*Fn_1ce6a0)();
+struct Closure1 : hulk_script::ScriptFunction {
+    Fn_1ce6a0 fn;
+    Owner_1ce6a0* owner;
+    Closure1(const char* name, Owner_1ce6a0* object, Fn_1ce6a0 function);
+};
+Closure1::Closure1(const char* name, Owner_1ce6a0* object, Fn_1ce6a0 function) : hulk_script::ScriptFunction(name, 1) {
+    vftable = DAT_00421f5c;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e100);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0f0);
+    vftable = DAT_0042205c;
+    owner = object;
 }
+} // namespace fn_001ce6a0
 
 } // namespace fn_fdf9c5a9
 
@@ -2535,7 +2585,7 @@ class Function {
 };
 class Closure1 : public Function {
   public:
-    char pad[0x18];
+    ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
     int (CScenarioManager::*method)(eMissionObjectiveState);
     CScenarioManager* object;
     virtual void vfunc_2(void*, eMissionObjectiveState*, int*);
@@ -2755,7 +2805,7 @@ void Registry_1cf500::FUN_001cf500(const char* a1, Owner* a2, Fn_1cf500 a3) {
 } // namespace fn_fdf9c5a9
 
 // 0x001cfb20 FUN_001cfb20 (2080 B): equivalent/0x001cfb20.cpp [wrapped: conflict: CScenarioManager; Closure1; FUN_001d4c90; Method1 (+1)]
-// sym: ?FUN_001cfb20@CScenarioManager@fn_001cfb20@@QAEXH@Z @338f5aa0fd1e @w6704f0fb56c7 @vf0055a2c2219
+// sym: ?FUN_001cfb20@CScenarioManager@fn_001cfb20@@QAEXH@Z @9e34a37c5dd5 @w8de076da8212 @v5de0762bdcd0
 namespace fn_001cfb20 {
 // STATUS: equivalent (tools/equiv.py level 3: 581 inputs, branch coverage 44/44)
 // FUN_001cfb20 @ 0x001cfb20
@@ -2799,32 +2849,15 @@ template <> struct TypeTag<float> { static const void *get() { return ((char*)&D
 template <> struct TypeTag<bool> { static const void *get() { return &DAT_0048e0e4; } };
 template <> struct TypeTag<const char *> { static const void *get() { return ((char*)&DAT_0048e0f0); } };
 template <> struct TypeTag<eMissionObjectiveState> { static const void *get() { return &DAT_004c55f0; } };
+inline const void* MissionObjectiveStateTag() { return &DAT_004c55f0; }
 
-// Function's fields (include/decls/data/script.h) after the vftable.
-class __declspec(novtable) MethodBase_1cfb20 : public ScriptFunctionFields {
-  public:
-    virtual void m0();
-    void FUN_001d0480(const char *, int);
-    MethodBase_1cfb20(const char *n, int k) { FUN_001d0480(n, k); }
-};
-
+// (script2) Closure1 is include/game/script_bind.h's record: Method1<T,R,A>'s and Closure1<T,R,A>'s game vftables by
+// address (Vft1), as the game's inlined constructors store them; no stand-in vftable.
+template <class T, class R, class A> struct Vft1;
 template <class T, class R, class A>
-class Method1 : public MethodBase_1cfb20 {
-  public:
-    typedef R (T::*Fn)(A);
-    Method1(const char *name, Fn f) : MethodBase_1cfb20(name, 1) {
-        fn = f;
-        retType = FUN_001d04d0(TypeTag<R>::get());
-        argTypes[0] = FUN_001d04d0(TypeTag<A>::get());
-    }
-    Fn fn;
-};
-
-template <class T, class R, class A>
-class Closure1 : public Method1<T, R, A> {
-  public:
-    Closure1(const char *name, T *o, typename Method1<T, R, A>::Fn f) : Method1<T, R, A>(name, f), owner(o) {}
-    T *owner;
+struct Closure1 : hulk_script::ScriptClosure<hulk_script::ScriptMethod1<T, R, A>, T> {
+    Closure1(const char *name, T *o, R (T::*f)(A)) throw()
+        : hulk_script::ScriptClosure<hulk_script::ScriptMethod1<T, R, A>, T>(name, o, f, Vft1<T, R, A>::mv(), Vft1<T, R, A>::cv()) {}
 };
 
 class CScenarioManager {
@@ -2867,6 +2900,21 @@ class CScenarioManager {
     void FUN_001cd5b0(float);
     void FUN_001cfb20(int arg);
 };
+extern "C" char DAT_00421eac[], DAT_00421edc[], DAT_00421eec[], DAT_00421f0c[], DAT_00421f5c[], DAT_00421f6c[], DAT_00421f8c[];
+extern "C" char DAT_00421fac[], DAT_00421fdc[], DAT_00421fec[], DAT_0042200c[], DAT_0042205c[], DAT_0042206c[], DAT_0042208c[];
+#define VFT1(R, A, M, C) template <> struct Vft1<CScenarioManager, R, A> { static const void* mv() { return M; } static const void* cv() { return C; } };
+VFT1(void, int, DAT_00421eac, DAT_00421fac)
+VFT1(void, float, DAT_00421edc, DAT_00421fdc)
+VFT1(void, bool, DAT_00421eec, DAT_00421fec)
+VFT1(float, int, DAT_00421f0c, DAT_0042200c)
+VFT1(void, const char *, DAT_00421f5c, DAT_0042205c)
+VFT1(const char *, int, DAT_00421f6c, DAT_0042206c)
+VFT1(eMissionObjectiveState, int, DAT_00421f8c, DAT_0042208c)
+#undef VFT1
+} // namespace fn_001cfb20
+// (script2) eMissionObjectiveState's type_info 0x004c55f0 for the records' type codes
+template <> struct hulk_script::ScriptType<fn_001cfb20::eMissionObjectiveState> { static const void* tag() { return fn_001cfb20::MissionObjectiveStateTag(); } };
+namespace fn_001cfb20 {
 
 // The out-of-line Closure2 initializers (matches/0x001ce440.cpp ...): allocated as ScriptClosureView.
 struct Raw_1cfb20 {

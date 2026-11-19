@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x001f76c0..0x001f84d0 (kind game, layer game, confidence high), dominant class CEffectManager
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -174,15 +173,27 @@ template class Method2<CEffectManager, int, const char *,math::Vector>; // (ren2
 namespace fn_f919337e {
 
 // 0x001f7720 FUN_001f7720 (89 B): matches/0x001f7720.cpp
-// sym: ??0Method3_1f7720@fn_f919337e@@QAE@PBDP8ScriptBoundClass@@AEXXZ@Z
-Method3_1f7720::Method3_1f7720(const char* a, ScriptMemberFn b) : Function_1f7720(a, 3) {
-    *(hulk_intptr*)this = ((hulk_intptr)DAT_00424d4c);
-    m1c = b;
-    f.retType = FUN_001d04d0(((char*)&DAT_0048e134));
-    f.argTypes[0] = FUN_001d04d0(((char*)&DAT_0048e0f0));
-    f.argTypes[1] = FUN_001d04d0(hulk_at_0048e10c);
-    f.argTypes[2] = FUN_001d04d0(hulk_at_0048e10c);
+// sym: ??0Method3@fn_001f7720@fn_f919337e@@QAE@PBDP8Owner_1f7720@12@AEXXZ@Z
+namespace fn_001f7720 {
+// (script1) Method3<class CEffectManager,int,const char *,class math::Vector,class math::Vector>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftable by address,
+// the member-function pointer, the type codes (0x001d04d0).
+extern "C" char DAT_00424d4c[];   // Method3<class CEffectManager,int,const char *,class math::Vector,class math::Vector>
+class Owner_1f7720 {};
+typedef void (Owner_1f7720::*Fn_1f7720)();
+struct Method3 : hulk_script::ScriptFunction {
+    Fn_1f7720 fn;
+    Method3(const char* name, Fn_1f7720 function);
+};
+Method3::Method3(const char* name, Fn_1f7720 function) : hulk_script::ScriptFunction(name, 3) {
+    vftable = DAT_00424d4c;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e134);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0f0);
+    f.argTypes[1] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e10c);
+    f.argTypes[2] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e10c);
 }
+} // namespace fn_001f7720
 
 } // namespace fn_f919337e
 
@@ -226,9 +237,25 @@ template class Method3<CEffectManager, int, const char *,math::Vector,math::Vect
 
 
 // 0x001f7860 Method2<CEffectManager,bool,int,math::Vector>::vfunc_0 (30 B): matches/0x001f7860.cpp
-// sym: ??_G?$Method2@VCEffectManager@@_NHVVector@math@@@@UAEPAXI@Z
+// sym: ?vfunc_0@Method2_1f7860@fn_001f7860@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Method2<CEffectManager, bool,
+// int,math::Vector>::~Method2() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body
+// 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_001f7860 {
+struct Method2_1f7860 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method2_1f7860::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_001f7860
+// the destructor itself, which other objects' code references natively:
 template <> Method2<CEffectManager, bool, int,math::Vector>::~Method2() {}
 
 
@@ -263,9 +290,25 @@ Method3_1f78c0* Method3_1f78c0::Build(const char* a, ScriptMemberFn b) {
 } // namespace fn_f919337e
 
 // 0x001f7920 Method3<CEffectManager,unsigned_int,char_*,float,float>::vfunc_0 (30 B): matches/0x001f7920.cpp
-// sym: ??_G?$Method3@VCEffectManager@@IPADMM@@UAEPAXI@Z
+// sym: ?vfunc_0@Method3_1f7920@fn_001f7920@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Method3<CEffectManager, unsigned int, char *, float,
+// float>::~Method3() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then
+// (flags & 1) operator delete.
+namespace fn_001f7920 {
+struct Method3_1f7920 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method3_1f7920::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_001f7920
+// the destructor itself, which other objects' code references natively:
 template <> Method3<CEffectManager, unsigned int, char *, float, float>::~Method3() {}
 
 
@@ -293,9 +336,24 @@ template class Method3<CEffectManager, unsigned int, char *, float, float>; // (
 
 
 // 0x001f79c0 Method0<CEffectManager,float>::vfunc_0 (30 B): matches/0x001f79c0.cpp
-// sym: ??_G?$Method0@VCEffectManager@@M@@UAEPAXI@Z
+// sym: ?vfunc_0@Method0_1f79c0@fn_001f79c0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Method0<CEffectManager, float>::~Method0() {}` stood
+// for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_001f79c0 {
+struct Method0_1f79c0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method0_1f79c0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_001f79c0
+// the destructor itself, which other objects' code references natively:
 template <> Method0<CEffectManager, float>::~Method0() {}
 #if defined(HULK_PTR64)
 template class Method0<CEffectManager, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1f79c0)
@@ -313,7 +371,7 @@ class Function {
 };
 class Method0Base_1f79e0 : public Function {
   public:
-    char pad[0x18];
+    ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
     float(__fastcall* fn)(void*);
     virtual void f2(void* a, void* b, float* out);
 };
@@ -327,9 +385,25 @@ void Method0Base_1f79e0::f2(void* a, void* b, float* out) {
 
 
 // 0x001f7a50 Method1<CEffectManager,unsigned_int,char_*>::vfunc_0 (30 B): matches/0x001f7a50.cpp
-// sym: ??_G?$Method1@VCEffectManager@@IPAD@@UAEPAXI@Z
+// sym: ?vfunc_0@Method1_1f7a50@fn_001f7a50@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Method1<CEffectManager, unsigned int, char
+// *>::~Method1() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then
+// (flags & 1) operator delete.
+namespace fn_001f7a50 {
+struct Method1_1f7a50 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method1_1f7a50::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_001f7a50
+// the destructor itself, which other objects' code references natively:
 template <> Method1<CEffectManager, unsigned int, char *>::~Method1() {}
 #if defined(HULK_PTR64)
 template class Method1<CEffectManager, unsigned int, char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1f7a50)
@@ -354,7 +428,7 @@ class Function {
 };
 class Method1 : public Function {
   public:
-    char pad[0x18];
+    ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
     typedef unsigned int (CEffectManager::*Fn)(unsigned int);
     Fn fn;
     virtual void f2(CEffectManager*, Arg*, unsigned int*);
@@ -372,9 +446,25 @@ void Method1::f2(CEffectManager* obj, Arg* arg, unsigned int* out) {
 
 
 // 0x001f7ad0 Method1<CEffectManager,bool,bool>::vfunc_0 (30 B): matches/0x001f7ad0.cpp
-// sym: ??_G?$Method1@VCEffectManager@@_N_N@@UAEPAXI@Z
+// sym: ?vfunc_0@Method1_1f7ad0@fn_001f7ad0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Method1<CEffectManager, bool, bool>::~Method1() {}`
+// stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then (flags & 1) operator
+// delete.
+namespace fn_001f7ad0 {
+struct Method1_1f7ad0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method1_1f7ad0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_001f7ad0
+// the destructor itself, which other objects' code references natively:
 template <> Method1<CEffectManager, bool, bool>::~Method1() {}
 
 
@@ -421,9 +511,25 @@ Closure2::Closure2(const char* name, Owner_1f7b20* object, Fn_1f7b20 function) :
 
 
 // 0x001f7b80 Closure2<CEffectManager,int,const_char_*,math::Vector>::vfunc_0 (30 B): matches/0x001f7b80.cpp
-// sym: ??_G?$Method2@VCEffectManager@@_NHVVector@math@@@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure2_1f7b80@fn_001f7b80@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Closure2<CEffectManager, int, const char
+// *,math::Vector>::~Closure2() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body
+// 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_001f7b80 {
+struct Closure2_1f7b80 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure2_1f7b80::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_001f7b80
+// the destructor itself, which other objects' code references natively:
 template <> Closure2<CEffectManager, int, const char *,math::Vector>::~Closure2() {}
 #if defined(HULK_PTR64)
 template class Closure2<CEffectManager, int, const char *,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1f7b80)
@@ -442,7 +548,7 @@ struct Closure2 {
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2(void* unused, Arguments* args, int* result);
-    char padding[0x18];
+    ScriptFunctionFields fields;   // (script2) Function's fields (was char padding[0x18])
     int (CEffectManager::*method)(int, math::Vector);
     CEffectManager* manager;
 };
@@ -454,9 +560,25 @@ void Closure2::vfunc_2(void* unused, Arguments* args, int* result) {
 
 
 // 0x001f7c10 Closure3<CEffectManager,int,const_char_*,math::Vector,math::Vector>::vfunc_0 (30 B): matches/0x001f7c10.cpp
-// sym: ??_G?$Method3@VCEffectManager@@IPADMM@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure3_1f7c10@fn_001f7c10@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Closure3<CEffectManager, int, const char
+// *,math::Vector,math::Vector>::~Closure3() {}` stood for it, whose MSVC `??_G` matched only under /GX. The
+// destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_001f7c10 {
+struct Closure3_1f7c10 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure3_1f7c10::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_001f7c10
+// the destructor itself, which other objects' code references natively:
 template <> Closure3<CEffectManager, int, const char *,math::Vector,math::Vector>::~Closure3() {}
 #if defined(HULK_PTR64)
 template class Closure3<CEffectManager, int, const char *,math::Vector,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1f7c10)
@@ -476,7 +598,7 @@ class Method2 {
     virtual void f0();
     virtual void f1();
     virtual void vfunc_2(int, int, int);
-    char pad[0x18];
+    ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
 };
 class Function {
   public:
@@ -521,9 +643,25 @@ Closure2::Closure2(const char* name, Owner_1f7c40* object, Fn_1f7c40 function) :
 
 
 // 0x001f7ca0 Closure2<CEffectManager,bool,int,math::Vector>::vfunc_0 (30 B): matches/0x001f7ca0.cpp
-// sym: ??_G?$Method1@VCEffectManager@@_N_N@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure2_1f7ca0@fn_001f7ca0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Closure2<CEffectManager, bool,
+// int,math::Vector>::~Closure2() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body
+// 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_001f7ca0 {
+struct Closure2_1f7ca0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure2_1f7ca0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_001f7ca0
+// the destructor itself, which other objects' code references natively:
 template <> Closure2<CEffectManager, bool, int,math::Vector>::~Closure2() {}
 #if defined(HULK_PTR64)
 template class Closure2<CEffectManager, bool, int,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1f7ca0)
@@ -543,7 +681,7 @@ public:
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2(void *unused, const EffectArguments *args, bool *result);
-    char padding[0x18];
+    ScriptFunctionFields fields;   // (script2) Function's fields (was char padding[0x18])
     bool (CEffectManager::*method)(int, math::Vector);
     CEffectManager *manager;
 };
@@ -570,7 +708,7 @@ public:
     virtual void vfunc_1();
     virtual unsigned int vfunc_2(void *unused, Arguments *arguments, unsigned int *result);
 private:
-    char padding[0x18];
+    ScriptFunctionFields fields;   // (script2) Function's fields (was char padding[0x18])
     unsigned int (CEffectManager::*method)(unsigned int, char *, float);
     CEffectManager *manager;
 };

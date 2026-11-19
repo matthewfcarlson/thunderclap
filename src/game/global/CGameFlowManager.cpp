@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x00089400..0x0008c570 (kind game, layer game, confidence high), dominant class CGameFlowManager
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -1223,9 +1222,25 @@ template class Method0<CGameFlowManager,math::Vector>; // (ren2) native only: cl
 
 
 // 0x0008a6a0 Method0<CGameFlowManager,float>::vfunc_0 (30 B): matches/0x0008a6a0.cpp
-// sym: ??_G?$Method0@VCGameFlowManager@@M@@UAEPAXI@Z
+// sym: ?vfunc_0@Method0_8a6a0@fn_0008a6a0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Method0<CGameFlowManager, float>::~Method0() {}`
+// stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then (flags & 1) operator
+// delete.
+namespace fn_0008a6a0 {
+struct Method0_8a6a0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method0_8a6a0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0008a6a0
+// the destructor itself, which other objects' code references natively:
 template <> Method0<CGameFlowManager, float>::~Method0() {}
 #if defined(HULK_PTR64)
 template class Method0<CGameFlowManager, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x8a6a0)
@@ -1243,7 +1258,7 @@ class Function {
 };
 class Method0Base_8a6c0 : public Function {
   public:
-    char pad[0x18];
+    ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
     float(__fastcall* fn)(void*);
     virtual void f2(void* a, void* b, float* out);
 };
@@ -1371,9 +1386,25 @@ template class Method1<CGameFlowManager, const char *, const char *>; // (ren2) 
 
 
 // 0x0008a8c0 Method0<CGameFlowManager,void>::vfunc_0 (30 B): matches/0x0008a8c0.cpp
-// sym: ??_G?$Method0@VCGameFlowManager@@X@@UAEPAXI@Z
+// sym: ?vfunc_0@Method0_8a8c0@fn_0008a8c0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Method0<CGameFlowManager, void>::~Method0() {}`
+// stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then (flags & 1) operator
+// delete.
+namespace fn_0008a8c0 {
+struct Method0_8a8c0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method0_8a8c0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0008a8c0
+// the destructor itself, which other objects' code references natively:
 template <> Method0<CGameFlowManager, void>::~Method0() {}
 
 
@@ -1856,9 +1887,25 @@ Closure1::Closure1(const char* name, Owner_8b0c0* object, Fn_8b0c0 function) : h
 
 
 // 0x0008b110 Closure1<CGameFlowManager,void,const_char_*>::vfunc_0 (30 B): matches/0x0008b110.cpp
-// sym: ??_G?$Method0@VCGameFlowManager@@M@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure1_8b110@fn_0008b110@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Closure1<CGameFlowManager, void, const char
+// *>::~Closure1() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then
+// (flags & 1) operator delete.
+namespace fn_0008b110 {
+struct Closure1_8b110 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure1_8b110::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0008b110
+// the destructor itself, which other objects' code references natively:
 template <> Closure1<CGameFlowManager, void, const char *>::~Closure1() {}
 
 
@@ -1953,18 +2000,52 @@ template class Closure0<CGameFlowManager, float>; // (ren2) native only: clang e
 namespace fn_f53af43c {
 
 // 0x0008b280 FUN_0008b280 (76 B): matches/0x0008b280.cpp
-// sym: ??0Closure1_8b280@fn_f53af43c@@QAE@PBDPAX1@Z
-// data: gName1 = DAT_0048e0e4, gName2 = DAT_0048e0f0
-Closure1_8b280::Closure1_8b280(const char* name, void* ctx, void* method) : Method1_8b280(name, method) {
-    extra = ctx;
+// sym: ??0Closure1@fn_0008b280@fn_f53af43c@@QAE@PBDPAVOwner_8b280@12@P8312@AEXXZ@Z
+namespace fn_0008b280 {
+// (script1) Closure1<class CGameFlowManager,bool,const char *>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftables by address,
+// the member-function pointer, the type codes (0x001d04d0), the object.
+extern "C" char DAT_00400158[];   // Method1<class CGameFlowManager,bool,const char *>
+extern "C" char DAT_00400208[];   // Closure1<class CGameFlowManager,bool,const char *>
+class Owner_8b280 {};
+typedef void (Owner_8b280::*Fn_8b280)();
+struct Closure1 : hulk_script::ScriptFunction {
+    Fn_8b280 fn;
+    Owner_8b280* owner;
+    Closure1(const char* name, Owner_8b280* object, Fn_8b280 function);
+};
+Closure1::Closure1(const char* name, Owner_8b280* object, Fn_8b280 function) : hulk_script::ScriptFunction(name, 1) {
+    vftable = DAT_00400158;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0e4);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0f0);
+    vftable = DAT_00400208;
+    owner = object;
 }
+} // namespace fn_0008b280
 
 } // namespace fn_f53af43c
 
 // 0x0008b2d0 Closure1<CGameFlowManager,bool,const_char_*>::vfunc_0 (30 B): matches/0x0008b2d0.cpp
-// sym: ??_G?$Method0@VCGameFlowManager@@X@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure1_8b2d0@fn_0008b2d0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Closure1<CGameFlowManager, bool, const char
+// *>::~Closure1() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then
+// (flags & 1) operator delete.
+namespace fn_0008b2d0 {
+struct Closure1_8b2d0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure1_8b2d0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0008b2d0
+// the destructor itself, which other objects' code references natively:
 template <> Closure1<CGameFlowManager, bool, const char *>::~Closure1() {}
 #if defined(HULK_PTR64)
 template class Closure1<CGameFlowManager, bool, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x8b2d0)
@@ -1980,7 +2061,7 @@ class Closure1 {
     virtual void V0();
     virtual void V1();
     virtual void V2(void*, const char**, bool*);
-    char pad[0x18];
+    ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
     typedef bool(__fastcall* Fn)(void*, const char*, const char*);
     Fn mFn;
     void* mObj;

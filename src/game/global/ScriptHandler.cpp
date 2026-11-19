@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x001d0620..0x001d4d50 (kind game, layer game, confidence high), dominant class ScriptHandler
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -621,16 +620,20 @@ const char* __stdcall FUN_001d10e0(const char* name, LuaVMState* L) {
 
 
 // 0x001d1140 FUN_001d1140 (5 B): matches/0x001d1140.cpp
-// sym: ?FUN_001d1140@fn_f55829c3@@YG_NH@Z
-bool __stdcall FUN_001d1140(int a) {
+// sym: ?FUN_001d1140@CB_001d1140@fn_f55829c3@@QAE_NPBD@Z
+// (script2) bound as a member (Closure/Method; this unused): the site's types; was `bool __stdcall FUN_001d1140(int a)`
+struct CB_001d1140 { bool FUN_001d1140(const char *); };
+bool CB_001d1140::FUN_001d1140(const char * a) {
     bool result = false;
     return result;
 }
 
 
 // 0x001d1150 FUN_001d1150 (5 B): matches/0x001d1150.cpp
-// sym: ?FUN_001d1150@fn_f55829c3@@YGDH@Z
-char __stdcall FUN_001d1150(int x) {
+// sym: ?FUN_001d1150@CB_001d1150@fn_f55829c3@@QAE_NPBD@Z
+// (script2) bound as a member (Closure/Method; this unused): the site's types; was `char __stdcall FUN_001d1150(int x)`
+struct CB_001d1150 { bool FUN_001d1150(const char *); };
+bool CB_001d1150::FUN_001d1150(const char * x) {
     return false;
 }
 
@@ -1834,9 +1837,25 @@ template class Method1<ScriptHandler,ScriptHandler::script_state, const char *>;
 
 
 // 0x001d33d0 Method1<ScriptHandler,bool,const_char_*>::vfunc_0 (30 B): matches/0x001d33d0.cpp
-// sym: ??_G?$Method1@VScriptHandler@@_NPBD@@UAEPAXI@Z
+// sym: ?vfunc_0@Method1_1d33d0@fn_001d33d0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Method1<ScriptHandler, bool, const char
+// *>::~Method1() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then
+// (flags & 1) operator delete.
+namespace fn_001d33d0 {
+struct Method1_1d33d0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method1_1d33d0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_001d33d0
+// the destructor itself, which other objects' code references natively:
 template <> Method1<ScriptHandler, bool, const char *>::~Method1() {}
 #if defined(HULK_PTR64)
 template class Method1<ScriptHandler, bool, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1d33d0)
@@ -2148,12 +2167,29 @@ template class Closure2<ScriptHandler, void, const char *, const char *>; // (re
 namespace fn_f55829c3 {
 
 // 0x001d4170 FUN_001d4170 (76 B): matches/0x001d4170.cpp
-// sym: ??0Closure1_1d4170@fn_f55829c3@@QAE@PBDPAVScriptHandler_1d4170@1@P821@AEM0@Z@Z
-// Closure1<ScriptHandler, float, const char*>'s constructor (name, object, member function): Function's fields
-// (include/decls/data/script.h), then Method1's member-function pointer and Closure1's object.
-Closure1_1d4170::Closure1_1d4170(const char* x, ScriptHandler_1d4170* y, Fn_1d4170 z) : Method1_1d4170(x, z) {
-    val = y;
+// sym: ??0Closure1@fn_001d4170@fn_f55829c3@@QAE@PBDPAVOwner_1d4170@12@P8312@AEXXZ@Z
+namespace fn_001d4170 {
+// (script1) Closure1<class ScriptHandler,float,const char *>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftables by address,
+// the member-function pointer, the type codes (0x001d04d0), the object.
+extern "C" char DAT_00422634[];   // Method1<class ScriptHandler,float,const char *>
+extern "C" char DAT_004227f0[];   // Closure1<class ScriptHandler,float,const char *>
+class Owner_1d4170 {};
+typedef void (Owner_1d4170::*Fn_1d4170)();
+struct Closure1 : hulk_script::ScriptFunction {
+    Fn_1d4170 fn;
+    Owner_1d4170* owner;
+    Closure1(const char* name, Owner_1d4170* object, Fn_1d4170 function);
+};
+Closure1::Closure1(const char* name, Owner_1d4170* object, Fn_1d4170 function) : hulk_script::ScriptFunction(name, 1) {
+    vftable = DAT_00422634;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e128);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0f0);
+    vftable = DAT_004227f0;
+    owner = object;
 }
+} // namespace fn_001d4170
 
 } // namespace fn_f55829c3
 
@@ -2213,9 +2249,25 @@ Closure1_1d4210* Closure1_1d4210::Run(const char* a, ScriptHandler_1d4210* b, Fn
 } // namespace fn_f55829c3
 
 // 0x001d4260 Closure1<ScriptHandler,const_char_*,const_char_*>::vfunc_0 (30 B): matches/0x001d4260.cpp
-// sym: ??_G?$Method1@VScriptHandler@@_NPBD@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure1_1d4260@fn_001d4260@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Closure1<ScriptHandler, const char *, const char
+// *>::~Closure1() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then
+// (flags & 1) operator delete.
+namespace fn_001d4260 {
+struct Closure1_1d4260 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure1_1d4260::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_001d4260
+// the destructor itself, which other objects' code references natively:
 template <> Closure1<ScriptHandler, const char *, const char *>::~Closure1() {}
 #if defined(HULK_PTR64)
 template class Closure1<ScriptHandler, const char *, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1d4260)

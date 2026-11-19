@@ -1534,3 +1534,48 @@ blocks fight::Action's whole family: the records come first there.
 - Not converted: 302 names whose declaration isn't a one-line scalar or pointer declaration in the TU (arrays, multi-line
   `extern "C++" {}` blocks, declarations in headers). Also 36 names declared several times in one TU, 15 names that
   reach several addresses (a stand-in reused for two vftables), and names an equivalent block references.
+
+## 2026-11-19 script2: D24 retired; the invoke blocks' pad views on Function's fields
+
+- **D24 is done: no Method / Closure / Function `??_G` is an empty user destructor any more.** The 288 script-binding
+  scalar deleting destructors of 146 TUs (x64t21's D114 generator had skipped them: template instantiations with a
+  `template class` line, and 144 blocks pinning a `??_G` symbol another block also pins) are explicit functions in
+  D114's form, `void* vfunc_N(unsigned int flags)`: Function's destructor 0x001d04a0, then `operator delete(this)` when
+  flags & 1 (every one of them calls 0x0008d330, D115). Each block now pins its own symbol, so the shared-pin groups
+  disappear. The template destructor specializations (`template <> Closure1<...>::~Closure1() {}`) and the native-only
+  `template class` lines stay: other TUs' native code references `??1`. All 146 TUs compile with /GX- and every
+  block MATCHes with relocations ok, except one equivalent block whose MSVC code changed with the flag (0x00040550,
+  CCharacter.cpp), re-proven at 3,000 inputs. Generator: build/script2/scripts/gen_mc.py (reads a HEAD snapshot).
+- **/GX left: 32 TUs** (178 before): the 8 parameter-registration TUs (100 `??_G` blocks, D18), 19 TUs with one
+  non-template `??_G` each, 4 with no `??_G` block whose equivalent code changes without /GX, dynamic_initializers.cpp
+  and GrappleThrowAction.iso_00148f40.cpp (docs/tech-debt.md).
+- **Invoke blocks' pad views (script1's Q2).** 89 `Closure<N>` / `Method<N>` / `Function<N>` `vfunc_2` blocks in 21 TUs
+  read the member-function pointer after a `char pad[0x18]` (or `[0x1c]`, `[0x1c - sizeof(Function)]`, `[0x1c - 4]`):
+  natively that put the pointer at +0x20 instead of after Function's 0x28 bytes. They now say `ScriptFunctionFields
+  fields;` (after the vftable) or `void* vftable; ScriptFunctionFields fields;` (a view without virtuals). The 32-bit
+  code is unchanged in all 89 (the 29 equivalent blocks keep their code and view hashes: no re-proof). Two small pads
+  (0x0007ced0, 0x0009ac30) are not Function views and stay.
+- **Bound callbacks defined as free functions are members now (script1's Q1, first TUs).** A Lua closure calls its
+  member-function pointer with `this` in ecx. A callback written `void __stdcall F(int)` matches the same bytes when
+  `this` is unused, but natively (x64 / arm64, where thiscall and stdcall are one convention) the member call puts
+  `this` in the first register and the argument in the second, so the free definition read `this` as its argument.
+  The 29 definitions in CRenderManager, CWorldStreamManager, unk_2036c0, ScriptHandler, CSoundResourceManager and
+  CEventManager are `R CB_<addr>::FUN_<addr>(the RTTI instantiation's types)` (a block-local record), and their binding
+  sites declare the same signatures (Vector getters return `math::Vector` by value: MSVC's thiscall hidden-return code
+  is the stdcall `V f()` code). Every one still MATCHes. Its other callers in the tree already call them as members,
+  with their own (often wrong) parameter types: 0x00204200 has 9 such callers in 9 TUs, 0x001b8780 / 0x001b8900 are
+  called from the replay pin 0x00086630 with `int` for `bool`. Those callers are decl1's list.
+- **A helper whose name starts with `DAT_<addr>` is read as that data address by the checker.** An inline function
+  `DAT_004c55f0_1cfb20()` that clang did not inline became a call to 0x004c55f0 in the `--wine` run. Never give a
+  function a `DAT_` / `FUN_` prefix that is not its own address.
+- **Manager constructors on records (script1's list).** HUD 0x000d1720 (44 closures, incl. a Method5 now in
+  include/game/script_bind.h), scenario 0x001cfb20 (Closure1s) and 0x001cf690 (stack Closure2s), trigger volumes
+  0x00200c10 (Closure1s): records with the game's vftables by address. HUDOverlay's and CScenarioManager's own vftable
+  words are stored by address too (they were placement-new stand-ins with clang's vftable natively).
+- **159 more out-of-line Method/Closure constructors on records (find2's start-up stops).** script1's genctor skipped
+  blocks that were merged into their TU's namespace, and wrapped blocks in TUs that were dirty at the time. Their
+  base constructors were local names (`Function_1f0c00(const char*, int)`, `Base`, `CheckString_001d04d0`,
+  `Lookup` / `GetValue`), which bind to nothing natively. build/script2/scripts/genctor2.py reuses genctor's
+  gen_block for those blocks; all 159 MATCH with relocations ok (28 TUs, including CSoundSystem's Method3/4/6,
+  CFEManager's Method6/7 and CUnlockablesManager's Method6). 0x001f30e0 (CSoundVoiceManager), which the Closure4
+  invoke calls as a member, is a member too.

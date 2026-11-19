@@ -141,17 +141,28 @@ void Thing_b0080::target(int arg) {
 
 
 // 0x000b00b0 FUN_000b00b0 (102 B): matches/0x000b00b0.cpp
-// sym: ??0Method4_b00b0@fn_f8a35d46@@QAE@HH@Z
-Method4_b00b0::Method4_b00b0(hulk_intptr a, hulk_intptr b) {
-    Init_001d0480(a, 4);
-    *(hulk_intptr*)this = ((hulk_intptr)DAT_00405ea8);
-    *(int*)((char*)this + 0x1c) = b;
-    *(char*)((char*)this + 0x18) = Read_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e100)));
-    *(char*)((char*)this + 0x10) = Read_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e134)));
-    *(char*)((char*)this + 0x11) = Read_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e128)));
-    *(char*)((char*)this + 0x12) = Read_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e128)));
-    *(char*)((char*)this + 0x13) = Read_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e128)));
+// sym: ??0Method4@fn_000b00b0@fn_f8a35d46@@QAE@PBDP8Owner_b00b0@12@AEXXZ@Z
+namespace fn_000b00b0 {
+// (script1) Method4<class CHapticControllerManager,void,int,float,float,float>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftable by address,
+// the member-function pointer, the type codes (0x001d04d0).
+extern "C" char DAT_00405ea8[];   // Method4<class CHapticControllerManager,void,int,float,float,float>
+class Owner_b00b0 {};
+typedef void (Owner_b00b0::*Fn_b00b0)();
+struct Method4 : hulk_script::ScriptFunction {
+    Fn_b00b0 fn;
+    Method4(const char* name, Fn_b00b0 function);
+};
+Method4::Method4(const char* name, Fn_b00b0 function) : hulk_script::ScriptFunction(name, 4) {
+    vftable = DAT_00405ea8;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e100);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e134);
+    f.argTypes[1] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e128);
+    f.argTypes[2] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e128);
+    f.argTypes[3] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e128);
 }
+} // namespace fn_000b00b0
 
 } // namespace fn_f8a35d46
 

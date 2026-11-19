@@ -1461,7 +1461,7 @@ struct Closure1 {
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2(void *, const char **value, int *result);
-    char pad[0x18];
+    ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
     int (CStatsManager::*method)(const char *);
     CStatsManager *object;
 };

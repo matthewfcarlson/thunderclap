@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x000788e0..0x00081340 (kind game, layer game, confidence high), dominant class CAmbientsManager
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -16,6 +15,7 @@
 #define TREE_TU_END }
 namespace fn_f9399ba1 {} using namespace fn_f9399ba1;
 #include "game/global.h"
+#include "game/script_bind.h"
 // (ren2) __RTDynamicCast's own name (CRT, C linkage)
 extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
@@ -3714,49 +3714,51 @@ template <> void content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable
 
 
 // 0x0007ce30 FUN_0007ce30 (115 B): matches/0x0007ce30.cpp [wrapped: helper definitions (3 out-of-line function bodies)]
-// sym: ??0Method5@fn_0007ce30@@QAE@HH@Z
+// sym: ??0Method5@fn_0007ce30@@QAE@PBDP8Owner_7ce30@1@AEXXZ@Z
 namespace fn_0007ce30 {
-
-extern "C" char DAT_0048e10c[];
-class Base_7ce30 {
-  public:
-    Base_7ce30(int a, int b);
-    virtual void f0();
-    int pad4[3];
+// (script1) Method5<class CAmbientsManager,void,const char *,int,bool,class math::Vector,class math::Vector>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftable by address,
+// the member-function pointer, the type codes (0x001d04d0).
+extern "C" char DAT_003fef84[];   // Method5<class CAmbientsManager,void,const char *,int,bool,class math::Vector,class math::Vector>
+class Owner_7ce30 {};
+typedef void (Owner_7ce30::*Fn_7ce30)();
+struct Method5 : hulk_script::ScriptFunction {
+    Fn_7ce30 fn;
+    Method5(const char* name, Fn_7ce30 function);
 };
-
-extern "C++" __declspec(nothrow) char GetFlag_001d04d0(const char* name);
-
-class Method5 : public Base_7ce30 {
-  public:
-    Method5(hulk_intptr a, hulk_intptr b);
-    virtual void f0();
-    char m10, m11, m12, m13, m14;
-    char pad15[3];
-    char m18;
-    char pad19[3];
-    int m1c;
-};
-
-void Base_7ce30::f0() {}
-void Method5::f0() {}
-
-Method5::Method5(hulk_intptr a, hulk_intptr b) : Base_7ce30(a, 5) {
-    m1c = b;
-    m18 = GetFlag_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e100)));
-    m10 = GetFlag_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e0f0)));
-    m11 = GetFlag_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e134)));
-    m12 = GetFlag_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e0e4)));
-    m13 = GetFlag_001d04d0((const char*)((hulk_intptr)DAT_0048e10c));
-    m14 = GetFlag_001d04d0((const char*)((hulk_intptr)DAT_0048e10c));
+Method5::Method5(const char* name, Fn_7ce30 function) : hulk_script::ScriptFunction(name, 5) {
+    vftable = DAT_003fef84;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e100);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0f0);
+    f.argTypes[1] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e134);
+    f.argTypes[2] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0e4);
+    f.argTypes[3] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e10c);
+    f.argTypes[4] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e10c);
 }
 } // namespace fn_0007ce30
 
 
 // 0x0007ceb0 Method5<CAmbientsManager,void,const_char_*,int,bool,math::Vector,math::Vector>::vfunc_0 (30 B): matches/0x0007ceb0.cpp
-// sym: ??_G?$Method5@VCAmbientsManager@@XPBDH_NVVector@math@@V23@@@UAEPAXI@Z
+// sym: ?vfunc_0@Method5_7ceb0@fn_0007ceb0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Method5<CAmbientsManager, void, const char *, int,
+// bool,math::Vector,math::Vector>::~Method5() {}` stood for it, whose MSVC `??_G` matched only under /GX. The
+// destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_0007ceb0 {
+struct Method5_7ceb0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method5_7ceb0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0007ceb0
+// the destructor itself, which other objects' code references natively:
 template <> Method5<CAmbientsManager, void, const char *, int, bool,math::Vector,math::Vector>::~Method5() {}
 #if defined(HULK_PTR64)
 template class Method5<CAmbientsManager, void, const char *, int, bool,math::Vector,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x7ceb0)
@@ -3800,7 +3802,7 @@ public:
 };
 class Method5 : public Function {
 public:
-    char pad04[0x18];
+    ScriptFunctionFields fields;   // (script2) Function's fields (was char pad04[0x18])
     AmbientFn fn;
     virtual void vfunc_2(CAmbientsManager* owner, ArgsSlot slot, void* result);
 };
@@ -3889,32 +3891,25 @@ template class Method0<CAmbientsManager, void>; // (ren2) native only: clang emi
 
 
 // 0x0007d050 FUN_0007d050 (89 B): matches/0x0007d050.cpp [wrapped: conflict: Method3]
-// sym: ??0Method3@fn_0007d050@@QAE@PBDH@Z
+// sym: ??0Method3@fn_0007d050@@QAE@PBDP8Owner_7d050@1@AEXXZ@Z
 namespace fn_0007d050 {
-
-class Function_7d050 {
-  public:
-    Function_7d050(const char*, int);
-    virtual void f();
+// (script1) Method3<class CAmbientsManager,void,const char *,int,bool>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftable by address,
+// the member-function pointer, the type codes (0x001d04d0).
+extern "C" char DAT_003fefb4[];   // Method3<class CAmbientsManager,void,const char *,int,bool>
+class Owner_7d050 {};
+typedef void (Owner_7d050::*Fn_7d050)();
+struct Method3 : hulk_script::ScriptFunction {
+    Fn_7d050 fn;
+    Method3(const char* name, Fn_7d050 function);
 };
-extern "C++" __declspec(nothrow) unsigned char __cdecl check_001d04d0(const char*);
-class Method3 : public Function_7d050 {
-  public:
-    Method3(const char*, hulk_intptr);
-    virtual void f();
-    char pad[12];
-    unsigned char x, y, z;
-    char pad2[5];
-    unsigned char w;
-    char pad3[3];
-    int n;
-};
-Method3::Method3(const char* s, hulk_intptr k) : Function_7d050(s, 3) {
-    n = k;
-    w = check_001d04d0(((const char*)&DAT_0048e100));
-    x = check_001d04d0(((const char*)&DAT_0048e0f0));
-    y = check_001d04d0(((const char*)&DAT_0048e134));
-    z = check_001d04d0(((const char*)&DAT_0048e0e4));
+Method3::Method3(const char* name, Fn_7d050 function) : hulk_script::ScriptFunction(name, 3) {
+    vftable = DAT_003fefb4;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e100);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0f0);
+    f.argTypes[1] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e134);
+    f.argTypes[2] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0e4);
 }
 } // namespace fn_0007d050
 
@@ -3992,9 +3987,25 @@ template class Method1<CAmbientsManager, void, const char *>; // (ren2) native o
 
 
 // 0x0007d1b0 Method1<CAmbientsManager,void,int>::vfunc_0 (30 B): matches/0x0007d1b0.cpp
-// sym: ??_G?$Method1@VCAmbientsManager@@XH@@UAEPAXI@Z
+// sym: ?vfunc_0@Method1_7d1b0@fn_0007d1b0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Method1<CAmbientsManager, void, int>::~Method1() {}`
+// stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then (flags & 1) operator
+// delete.
+namespace fn_0007d1b0 {
+struct Method1_7d1b0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method1_7d1b0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0007d1b0
+// the destructor itself, which other objects' code references natively:
 template <> Method1<CAmbientsManager, void, int>::~Method1() {}
 
 
@@ -4086,9 +4097,25 @@ template class Method2<CAmbientsManager, void, float, float>; // (ren2) native o
 
 
 // 0x0007d340 Method1<CAmbientsManager,void,bool>::vfunc_0 (30 B): matches/0x0007d340.cpp
-// sym: ??_G?$Method1@VCAmbientsManager@@X_N@@UAEPAXI@Z
+// sym: ?vfunc_0@Method1_7d340@fn_0007d340@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Method1<CAmbientsManager, void, bool>::~Method1()
+// {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then (flags & 1)
+// operator delete.
+namespace fn_0007d340 {
+struct Method1_7d340 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method1_7d340::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0007d340
+// the destructor itself, which other objects' code references natively:
 template <> Method1<CAmbientsManager, void, bool>::~Method1() {}
 
 
@@ -4106,17 +4133,28 @@ template class Method1<CAmbientsManager, void, bool>; // (ren2) native only: cla
 namespace fn_f9399ba1 {
 
 // 0x0007d380 FUN_0007d380 (102 B): matches/0x0007d380.cpp
-// sym: ??0Method4_7d380@fn_f9399ba1@@QAE@PBDP8Owner_7d380@1@AEXXZ@Z
-Method4_7d380::Method4_7d380(const char* p, Fn_7d380 x) {
-    Init_001d0480(p, 4);
-    vptr = (void*)DAT_003ff014;
-    member1c = x;
-    f.retType = FUN_001d04d0(((const char*)&DAT_0048e100));
-    f.argTypes[0] = FUN_001d04d0(((const char*)&DAT_0048e0f0));
-    f.argTypes[1] = FUN_001d04d0(((const char*)&DAT_0048e134));
-    f.argTypes[2] = FUN_001d04d0(hulk_at_0048e10c);
-    f.argTypes[3] = FUN_001d04d0(hulk_at_0048e10c);
+// sym: ??0Method4@fn_0007d380@fn_f9399ba1@@QAE@PBDP8Owner_7d380@12@AEXXZ@Z
+namespace fn_0007d380 {
+// (script1) Method4<class CAmbientsManager,void,const char *,int,const class math::Vector,const class math::Vector>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftable by address,
+// the member-function pointer, the type codes (0x001d04d0).
+extern "C" char DAT_003ff014[];   // Method4<class CAmbientsManager,void,const char *,int,const class math::Vector,const class math::Vector>
+class Owner_7d380 {};
+typedef void (Owner_7d380::*Fn_7d380)();
+struct Method4 : hulk_script::ScriptFunction {
+    Fn_7d380 fn;
+    Method4(const char* name, Fn_7d380 function);
+};
+Method4::Method4(const char* name, Fn_7d380 function) : hulk_script::ScriptFunction(name, 4) {
+    vftable = DAT_003ff014;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e100);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0f0);
+    f.argTypes[1] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e134);
+    f.argTypes[2] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e10c);
+    f.argTypes[3] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e10c);
 }
+} // namespace fn_0007d380
 
 } // namespace fn_f9399ba1
 
@@ -4726,9 +4764,25 @@ void owners::C_7def0::FUN_0007def0(hulk_intptr p) {
 
 
 // 0x0007df70 Closure5<CAmbientsManager,void,const_char_*,int,bool,math::Vector,math::Vector>::vfunc_0 (30 B): matches/0x0007df70.cpp
-// sym: ??_G?$Method1@VCAmbientsManager@@XH@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure5_7df70@fn_0007df70@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Closure5<CAmbientsManager, void, const char *, int,
+// bool,math::Vector,math::Vector>::~Closure5() {}` stood for it, whose MSVC `??_G` matched only under /GX. The
+// destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_0007df70 {
+struct Closure5_7df70 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure5_7df70::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0007df70
+// the destructor itself, which other objects' code references natively:
 template <> Closure5<CAmbientsManager, void, const char *, int, bool,math::Vector,math::Vector>::~Closure5() {}
 #if defined(HULK_PTR64)
 template class Closure5<CAmbientsManager, void, const char *, int, bool,math::Vector,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x7df70)
@@ -4748,7 +4802,7 @@ class Method2 {
     virtual void f0();
     virtual void f1();
     virtual void vfunc_2(int, int, int);
-    char pad[0x18];
+    ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
 };
 class Function {
   public:
@@ -4767,13 +4821,30 @@ void Closure2::vfunc_2(int x, int a2, int a3) {
 namespace fn_f9399ba1 {
 
 // 0x0007dfa0 FUN_0007dfa0 (89 B): matches/0x0007dfa0.cpp
-// sym: ??0Closure2_7dfa0@fn_f9399ba1@@QAE@PBDPAVOwner_7dfa0@1@P821@AEXXZ@Z
-// data: a_7dfa0 = DAT_0048e100
-// Closure2's constructor (name, object, member function): Function's fields (include/decls/data/script.h), then
-// Method2's member-function pointer and Closure2's object.
-Closure2_7dfa0::Closure2_7dfa0(const char* s, Owner_7dfa0* v, Fn_7dfa0 w) : Method2_7dfa0(s, w) {
-    extra = v;
+// sym: ??0Closure2@fn_0007dfa0@fn_f9399ba1@@QAE@PBDPAVOwner_7dfa0@12@P8312@AEXXZ@Z
+namespace fn_0007dfa0 {
+// (script1) Closure2<class CAmbientsManager,void,const char *,bool>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftables by address,
+// the member-function pointer, the type codes (0x001d04d0), the object.
+extern "C" char DAT_003fef94[];   // Method2<class CAmbientsManager,void,const char *,bool>
+extern "C" char DAT_003ff080[];   // Closure2<class CAmbientsManager,void,const char *,bool>
+class Owner_7dfa0 {};
+typedef void (Owner_7dfa0::*Fn_7dfa0)();
+struct Closure2 : hulk_script::ScriptFunction {
+    Fn_7dfa0 fn;
+    Owner_7dfa0* owner;
+    Closure2(const char* name, Owner_7dfa0* object, Fn_7dfa0 function);
+};
+Closure2::Closure2(const char* name, Owner_7dfa0* object, Fn_7dfa0 function) : hulk_script::ScriptFunction(name, 2) {
+    vftable = DAT_003fef94;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e100);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0f0);
+    f.argTypes[1] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0e4);
+    vftable = DAT_003ff080;
+    owner = object;
 }
+} // namespace fn_0007dfa0
 
 } // namespace fn_f9399ba1
 
@@ -4847,9 +4918,25 @@ template class Closure0<CAmbientsManager, void>; // (ren2) native only: clang em
 
 
 // 0x0007e0e0 Closure3<CAmbientsManager,void,const_char_*,int,bool>::vfunc_0 (30 B): matches/0x0007e0e0.cpp
-// sym: ??_G?$Method1@VCAmbientsManager@@X_N@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure3_7e0e0@fn_0007e0e0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Closure3<CAmbientsManager, void, const char *, int,
+// bool>::~Closure3() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then
+// (flags & 1) operator delete.
+namespace fn_0007e0e0 {
+struct Closure3_7e0e0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure3_7e0e0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0007e0e0
+// the destructor itself, which other objects' code references natively:
 template <> Closure3<CAmbientsManager, void, const char *, int, bool>::~Closure3() {}
 #if defined(HULK_PTR64)
 template class Closure3<CAmbientsManager, void, const char *, int, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x7e0e0)
@@ -4859,65 +4946,25 @@ template class Closure3<CAmbientsManager, void, const char *, int, bool>; // (re
 // 0x0007e120 FUN_0007e120 (76 B): matches/0x0007e120.cpp [wrapped: conflict: Closure1; Method1]
 // sym: ??0Closure1@fn_0007e120@@QAE@PBDPAVOwner_7e120@1@P821@AEXXZ@Z
 namespace fn_0007e120 {
-// Pinned prototypes of address-named globals and functions that many sources declare (docs/source-tree.md,
-// "Pinned address names"). A source includes this instead of declaring them itself; tools/migrate_gen.py
-// --family pin does the rewrite and keeps only what still verifies. Hand-maintained: one line per name.
-//
-// The pointed-to classes are declared, not defined: each source still defines the members it uses as its own
-// `struct World { ... };` stub, and tools/gen_tree.py merges those stubs into one class where the layouts agree.
-
-struct World;                     // the game world object (0x004dd700); was World*/Context*/Game*/Global_xxx* in sources
-extern "C" {
-
-#define DAT_004dd700 (*(World* *)&::DAT_004dd700)
-
-
-struct Gfx;                       // the graphics device / context object (0x0052c2a8); was Gfx*/Screen_xxx*/Renderer_xxx*
-
-#define DAT_0052c2a8 (*(Gfx* *)&::DAT_0052c2a8)
-
-
-struct Singleton_4dd6ec;          // object with getters FUN_00086280/FUN_000862e0 (0x004dd6ec); placeholder name
-
-#define DAT_004dd6ec (*(Singleton_4dd6ec* *)&::DAT_004dd6ec)
-
-}
-
-unsigned __int64 FUN_0027b020(const char* s);                 // string hash
-unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash with seed/length
-char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
-
-// Closure1's constructor (name, object, member function): Function's fields (include/decls/data/script.h), then
-// Method1's member-function pointer and Closure1's object.
-struct CtorV_001d0480 : public ScriptFunctionFields {
-    CtorV_001d0480(const char*, int);
-    virtual void v_001d0480();
-};
-extern const char hulk_at_0048e100[], hulk_at_0048e0f0[];
-class Function_7e120 : public CtorV_001d0480 {
-  public:
-    Function_7e120(const char* s) : CtorV_001d0480(s, 1) { }
-};
+// (script1) Closure1<class CAmbientsManager,void,const char *>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftables by address,
+// the member-function pointer, the type codes (0x001d04d0), the object.
+extern "C" char DAT_003fefc4[];   // Method1<class CAmbientsManager,void,const char *>
+extern "C" char DAT_003ff0b0[];   // Closure1<class CAmbientsManager,void,const char *>
 class Owner_7e120 {};
 typedef void (Owner_7e120::*Fn_7e120)();
-class Method1 : public Function_7e120 {
-  public:
-    virtual void f();
-    Fn_7e120 name;
-    Method1(const char* s, Fn_7e120 p) : Function_7e120(s) {
-        name = p;
-        retType = FUN_001d04d0(hulk_at_0048e100);
-        argTypes[0] = FUN_001d04d0(hulk_at_0048e0f0);
-    }
+struct Closure1 : hulk_script::ScriptFunction {
+    Fn_7e120 fn;
+    Owner_7e120* owner;
+    Closure1(const char* name, Owner_7e120* object, Fn_7e120 function);
 };
-class Closure1 : public Method1 {
-  public:
-    virtual void f();
-    Owner_7e120* obj;
-    Closure1(const char*, Owner_7e120*, Fn_7e120);
-};
-Closure1::Closure1(const char* s, Owner_7e120* o, Fn_7e120 p) : Method1(s, p) {
-    obj = o;
+Closure1::Closure1(const char* name, Owner_7e120* object, Fn_7e120 function) : hulk_script::ScriptFunction(name, 1) {
+    vftable = DAT_003fefc4;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e100);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0f0);
+    vftable = DAT_003ff0b0;
+    owner = object;
 }
 } // namespace fn_0007e120
 #undef DAT_004dd6ec
@@ -4961,40 +5008,27 @@ template class Closure1<CAmbientsManager, void, const char *>; // (ren2) native 
 
 
 // 0x0007e1b0 FUN_0007e1b0 (76 B): matches/0x0007e1b0.cpp [wrapped: conflict: Closure1; Method1]
-// sym: ??0Closure1@fn_0007e1b0@@QAE@PBDPAVOwner_7e1b0@1@P821@AEXH@Z@Z
+// sym: ??0Closure1@fn_0007e1b0@@QAE@PBDPAVOwner_7e1b0@1@P821@AEXXZ@Z
 namespace fn_0007e1b0 {
-// data: key1 = DAT_0048e100, key2 = DAT_0048e134
-// Closure1's constructor (name, object, member function): Function's fields (include/decls/data/script.h), then
-// Method1's member-function pointer and Closure1's object.
-struct CtorV_001d0480 : public ScriptFunctionFields {
-    CtorV_001d0480(const char*, int);
-    virtual void v_001d0480();
-};
-extern "C++" __declspec(nothrow) unsigned char Decode_001d04d0(const void*);
-class Function_7e1b0 : public CtorV_001d0480 {
-  public:
-    Function_7e1b0(const char* p) : CtorV_001d0480(p, 1) { }
-};
+// (script1) Closure1<class CAmbientsManager,void,int>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftables by address,
+// the member-function pointer, the type codes (0x001d04d0), the object.
+extern "C" char DAT_003fefd4[];   // Method1<class CAmbientsManager,void,int>
+extern "C" char DAT_003ff0c0[];   // Closure1<class CAmbientsManager,void,int>
 class Owner_7e1b0 {};
-typedef void (Owner_7e1b0::*Fn_7e1b0)(int);
-class Method1 : public Function_7e1b0 {
-  public:
-    virtual void Invoke(int);
-    Fn_7e1b0 arg;
-    Method1(const char* p, Fn_7e1b0 x) : Function_7e1b0(p) {
-        arg = x;
-        retType = Decode_001d04d0(((int*)&DAT_0048e100));
-        argTypes[0] = Decode_001d04d0(((int*)&DAT_0048e134));
-    }
+typedef void (Owner_7e1b0::*Fn_7e1b0)();
+struct Closure1 : hulk_script::ScriptFunction {
+    Fn_7e1b0 fn;
+    Owner_7e1b0* owner;
+    Closure1(const char* name, Owner_7e1b0* object, Fn_7e1b0 function);
 };
-class Closure1 : public Method1 {
-  public:
-    virtual void Invoke(int);
-    Owner_7e1b0* data;
-    Closure1(const char*, Owner_7e1b0*, Fn_7e1b0);
-};
-Closure1::Closure1(const char* p, Owner_7e1b0* x, Fn_7e1b0 y) : Method1(p, y) {
-    data = x;
+Closure1::Closure1(const char* name, Owner_7e1b0* object, Fn_7e1b0 function) : hulk_script::ScriptFunction(name, 1) {
+    vftable = DAT_003fefd4;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e100);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e134);
+    vftable = DAT_003ff0c0;
+    owner = object;
 }
 } // namespace fn_0007e1b0
 
@@ -5035,66 +5069,27 @@ template class Closure1<CAmbientsManager, void, int>; // (ren2) native only: cla
 
 
 // 0x0007e240 FUN_0007e240 (76 B): matches/0x0007e240.cpp [wrapped: conflict: Closure1; Method1]
-// sym: ??0Closure1@fn_0007e240@@QAE@PBDPAVCAmbientsManager_7e240@1@P821@AEXM@Z@Z
+// sym: ??0Closure1@fn_0007e240@@QAE@PBDPAVOwner_7e240@1@P821@AEXXZ@Z
 namespace fn_0007e240 {
-// Pinned prototypes of address-named globals and functions that many sources declare (docs/source-tree.md,
-// "Pinned address names"). A source includes this instead of declaring them itself; tools/migrate_gen.py
-// --family pin does the rewrite and keeps only what still verifies. Hand-maintained: one line per name.
-//
-// The pointed-to classes are declared, not defined: each source still defines the members it uses as its own
-// `struct World { ... };` stub, and tools/gen_tree.py merges those stubs into one class where the layouts agree.
-
-struct World;                     // the game world object (0x004dd700); was World*/Context*/Game*/Global_xxx* in sources
-extern "C" {
-
-#define DAT_004dd700 (*(World* *)&::DAT_004dd700)
-
-
-struct Gfx;                       // the graphics device / context object (0x0052c2a8); was Gfx*/Screen_xxx*/Renderer_xxx*
-
-#define DAT_0052c2a8 (*(Gfx* *)&::DAT_0052c2a8)
-
-
-struct Singleton_4dd6ec;          // object with getters FUN_00086280/FUN_000862e0 (0x004dd6ec); placeholder name
-
-#define DAT_004dd6ec (*(Singleton_4dd6ec* *)&::DAT_004dd6ec)
-
-}
-
-unsigned __int64 FUN_0027b020(const char* s);                 // string hash
-unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash with seed/length
-char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
-
-// Closure1<CAmbientsManager, void, float>'s constructor (name, object, member function): Function's fields
-// (include/decls/data/script.h), then Method1's member-function pointer and Closure1's object.
-class CAmbientsManager_7e240 {};
-typedef void (CAmbientsManager_7e240::*Fn_7e240)(float);
-struct CtorV_001d0480 : public ScriptFunctionFields {
-    CtorV_001d0480(const char*, int);
-    virtual void v_001d0480();
+// (script1) Closure1<class CAmbientsManager,void,float>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftables by address,
+// the member-function pointer, the type codes (0x001d04d0), the object.
+extern "C" char DAT_003fefe4[];   // Method1<class CAmbientsManager,void,float>
+extern "C" char DAT_003ff0d0[];   // Closure1<class CAmbientsManager,void,float>
+class Owner_7e240 {};
+typedef void (Owner_7e240::*Fn_7e240)();
+struct Closure1 : hulk_script::ScriptFunction {
+    Fn_7e240 fn;
+    Owner_7e240* owner;
+    Closure1(const char* name, Owner_7e240* object, Fn_7e240 function);
 };
-class Function_7e240 : public CtorV_001d0480 {
-  public:
-    Function_7e240(const char* x) : CtorV_001d0480(x, 1) { }
-};
-class Method1 : public Function_7e240 {
-  public:
-    virtual void Invoke(float);
-    Fn_7e240 obj;
-    Method1(const char* x, Fn_7e240 z) : Function_7e240(x) {
-        obj = z;
-        retType = FUN_001d04d0(((const char*)&DAT_0048e100));
-        argTypes[0] = FUN_001d04d0(((const char*)&DAT_0048e128));
-    }
-};
-class Closure1 : public Method1 {
-  public:
-    virtual void Invoke(float);
-    CAmbientsManager_7e240* extra;
-    Closure1(const char*, CAmbientsManager_7e240*, Fn_7e240);
-};
-Closure1::Closure1(const char* x, CAmbientsManager_7e240* y, Fn_7e240 z) : Method1(x, z) {
-    extra = y;
+Closure1::Closure1(const char* name, Owner_7e240* object, Fn_7e240 function) : hulk_script::ScriptFunction(name, 1) {
+    vftable = DAT_003fefe4;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e100);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e128);
+    vftable = DAT_003ff0d0;
+    owner = object;
 }
 } // namespace fn_0007e240
 #undef DAT_004dd6ec
@@ -5112,73 +5107,28 @@ template <> void Closure1<CAmbientsManager, void, float>::vfunc_2(void* __p0, vo
 
 
 // 0x0007e2d0 FUN_0007e2d0 (89 B): matches/0x0007e2d0.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ??0?$Closure2@VCAmbientsManager_7e2d0@fn_0007e2d0@@XMM@fn_0007e2d0@@QAE@PBDPAVCAmbientsManager_7e2d0@1@P821@AEXMM@Z@Z
+// sym: ??0Closure2@fn_0007e2d0@@QAE@PBDPAVOwner_7e2d0@1@P821@AEXXZ@Z
 namespace fn_0007e2d0 {
-// Pinned prototypes of address-named globals and functions that many sources declare (docs/source-tree.md,
-// "Pinned address names"). A source includes this instead of declaring them itself; tools/migrate_gen.py
-// --family pin does the rewrite and keeps only what still verifies. Hand-maintained: one line per name.
-//
-// The pointed-to classes are declared, not defined: each source still defines the members it uses as its own
-// `struct World { ... };` stub, and tools/gen_tree.py merges those stubs into one class where the layouts agree.
-
-struct World;                     // the game world object (0x004dd700); was World*/Context*/Game*/Global_xxx* in sources
-extern "C" {
-
-#define DAT_004dd700 (*(World* *)&::DAT_004dd700)
-
-
-struct Gfx;                       // the graphics device / context object (0x0052c2a8); was Gfx*/Screen_xxx*/Renderer_xxx*
-
-#define DAT_0052c2a8 (*(Gfx* *)&::DAT_0052c2a8)
-
-
-struct Singleton_4dd6ec;          // object with getters FUN_00086280/FUN_000862e0 (0x004dd6ec); placeholder name
-
-#define DAT_004dd6ec (*(Singleton_4dd6ec* *)&::DAT_004dd6ec)
-
-}
-
-unsigned __int64 FUN_0027b020(const char* s);                 // string hash
-unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash with seed/length
-char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
-
-// Closure2<CAmbientsManager, void, float, float>'s constructor (name, object, member function): Function's fields
-// (include/decls/data/script.h), then Method2's member-function pointer and Closure2's object.
-class CAmbientsManager_7e2d0 {};
-struct CtorV_001d0480 : public ScriptFunctionFields {
-    CtorV_001d0480(const char*, int);
-    virtual void v_001d0480();
+// (script1) Closure2<class CAmbientsManager,void,float,float>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftables by address,
+// the member-function pointer, the type codes (0x001d04d0), the object.
+extern "C" char DAT_003feff4[];   // Method2<class CAmbientsManager,void,float,float>
+extern "C" char DAT_003ff0e0[];   // Closure2<class CAmbientsManager,void,float,float>
+class Owner_7e2d0 {};
+typedef void (Owner_7e2d0::*Fn_7e2d0)();
+struct Closure2 : hulk_script::ScriptFunction {
+    Fn_7e2d0 fn;
+    Owner_7e2d0* owner;
+    Closure2(const char* name, Owner_7e2d0* object, Fn_7e2d0 function);
 };
-class MethodBase_7e2d0 : public CtorV_001d0480 {
-  public:
-    MethodBase_7e2d0(const char* a) : CtorV_001d0480(a, 2) { }
-};
-template <class T, class R, class A, class B> class Method2 : public MethodBase_7e2d0 {
-  public:
-    typedef R (T::*Fn)(A, B);
-    virtual void Invoke();
-    Fn obj;
-    T* fn;
-    Method2(const char*, T*, Fn);
-};
-template <class T, class R, class A, class B> class Closure2 : public Method2<T, R, A, B> {
-  public:
-    virtual void Extra();
-    Closure2(const char*, T*, typename Method2<T, R, A, B>::Fn);
-};
-template <>
-Method2<CAmbientsManager_7e2d0, void, float, float>::Method2(const char* a, CAmbientsManager_7e2d0* b, Fn c)
-    : MethodBase_7e2d0(a) {
-    obj = c;
-    retType = FUN_001d04d0(((int*)&DAT_0048e100));
-    argTypes[0] = FUN_001d04d0(((int*)&DAT_0048e128));
-    argTypes[1] = FUN_001d04d0(((int*)&DAT_0048e128));
-}
-template <>
-Closure2<CAmbientsManager_7e2d0, void, float, float>::Closure2(const char* a, CAmbientsManager_7e2d0* b,
-                                                              Method2<CAmbientsManager_7e2d0, void, float, float>::Fn c)
-    : Method2<CAmbientsManager_7e2d0, void, float, float>(a, b, c) {
-    fn = b;
+Closure2::Closure2(const char* name, Owner_7e2d0* object, Fn_7e2d0 function) : hulk_script::ScriptFunction(name, 2) {
+    vftable = DAT_003feff4;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e100);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e128);
+    f.argTypes[1] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e128);
+    vftable = DAT_003ff0e0;
+    owner = object;
 }
 } // namespace fn_0007e2d0
 #undef DAT_004dd6ec
@@ -5196,39 +5146,27 @@ template <> void Closure2<CAmbientsManager, void, float, float>::vfunc_2(void* _
 
 
 // 0x0007e370 FUN_0007e370 (76 B): matches/0x0007e370.cpp [wrapped: conflict: Closure1; Method1]
-// sym: ??0Closure1@fn_0007e370@@QAE@HHH@Z
+// sym: ??0Closure1@fn_0007e370@@QAE@PBDPAVOwner_7e370@1@P821@AEXXZ@Z
 namespace fn_0007e370 {
-// data: keyA = DAT_0048e100, keyB = DAT_0048e0e4
-
-extern "C++" __declspec(nothrow) unsigned char __cdecl Query_001d04d0(const void*);
-class Function_7e370 {
-  public:
-    Function_7e370(int, int);
-    virtual void f();
-    char pad[12];
-    unsigned char b;
-    char pad2[7];
-    unsigned char a;
-    char pad3[3];
-    int x;
-    int y;
+// (script1) Closure1<class CAmbientsManager,void,bool>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftables by address,
+// the member-function pointer, the type codes (0x001d04d0), the object.
+extern "C" char DAT_003ff004[];   // Method1<class CAmbientsManager,void,bool>
+extern "C" char DAT_003ff0f0[];   // Closure1<class CAmbientsManager,void,bool>
+class Owner_7e370 {};
+typedef void (Owner_7e370::*Fn_7e370)();
+struct Closure1 : hulk_script::ScriptFunction {
+    Fn_7e370 fn;
+    Owner_7e370* owner;
+    Closure1(const char* name, Owner_7e370* object, Fn_7e370 function);
 };
-class Method1 : public Function_7e370 {
-  public:
-    Method1(int n, int xx) : Function_7e370(n, 1) {
-        x = xx;
-        a = Query_001d04d0(((int*)&DAT_0048e100));
-        b = Query_001d04d0(((int*)&DAT_0048e0e4));
-    }
-    virtual void f();
-};
-class Closure1 : public Method1 {
-  public:
-    Closure1(int n, int xx, int yy);
-    virtual void f();
-};
-Closure1::Closure1(int n, int xx, int yy) : Method1(n, yy) {
-    y = xx;
+Closure1::Closure1(const char* name, Owner_7e370* object, Fn_7e370 function) : hulk_script::ScriptFunction(name, 1) {
+    vftable = DAT_003ff004;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e100);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0e4);
+    vftable = DAT_003ff0f0;
+    owner = object;
 }
 } // namespace fn_0007e370
 
@@ -5255,7 +5193,7 @@ class Method2 {
     virtual void f0();
     virtual void f1();
     virtual void vfunc_2(int, int, int);
-    char pad[0x18];
+    ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
 };
 class Function {
   public:
@@ -5285,62 +5223,26 @@ template <> void Closure3<CAmbientsManager, void, const char *, unsigned int, fl
 // 0x0007e4d0 FUN_0007e4d0 (89 B): matches/0x0007e4d0.cpp [wrapped: conflict: Closure2; Method2]
 // sym: ??0Closure2@fn_0007e4d0@@QAE@PBDPAVOwner_7e4d0@1@P821@AEXXZ@Z
 namespace fn_0007e4d0 {
-// Pinned prototypes of address-named globals and functions that many sources declare (docs/source-tree.md,
-// "Pinned address names"). A source includes this instead of declaring them itself; tools/migrate_gen.py
-// --family pin does the rewrite and keeps only what still verifies. Hand-maintained: one line per name.
-//
-// The pointed-to classes are declared, not defined: each source still defines the members it uses as its own
-// `struct World { ... };` stub, and tools/gen_tree.py merges those stubs into one class where the layouts agree.
-
-struct World;                     // the game world object (0x004dd700); was World*/Context*/Game*/Global_xxx* in sources
-extern "C" {
-
-#define DAT_004dd700 (*(World* *)&::DAT_004dd700)
-
-
-struct Gfx;                       // the graphics device / context object (0x0052c2a8); was Gfx*/Screen_xxx*/Renderer_xxx*
-
-#define DAT_0052c2a8 (*(Gfx* *)&::DAT_0052c2a8)
-
-
-struct Singleton_4dd6ec;          // object with getters FUN_00086280/FUN_000862e0 (0x004dd6ec); placeholder name
-
-#define DAT_004dd6ec (*(Singleton_4dd6ec* *)&::DAT_004dd6ec)
-
-}
-
-unsigned __int64 FUN_0027b020(const char* s);                 // string hash
-unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash with seed/length
-char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
-
-// Closure2's constructor (name, object, member function): Function's fields (include/decls/data/script.h), then
-// Method2's member-function pointer and Closure2's object.
+// (script1) Closure2<class CAmbientsManager,void,const char *,float>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftables by address,
+// the member-function pointer, the type codes (0x001d04d0), the object.
+extern "C" char DAT_003ff034[];   // Method2<class CAmbientsManager,void,const char *,float>
+extern "C" char DAT_003ff120[];   // Closure2<class CAmbientsManager,void,const char *,float>
 class Owner_7e4d0 {};
 typedef void (Owner_7e4d0::*Fn_7e4d0)();
-class Function_7e4d0 : public ScriptFunctionFields {
-  public:
-    virtual void fn();
-    Function_7e4d0(const char*, int);
-    Fn_7e4d0 u;
+struct Closure2 : hulk_script::ScriptFunction {
+    Fn_7e4d0 fn;
+    Owner_7e4d0* owner;
+    Closure2(const char* name, Owner_7e4d0* object, Fn_7e4d0 function);
 };
-class Method2 : public Function_7e4d0 {
-  public:
-    virtual void fn();
-    Method2(const char* p, Fn_7e4d0 r) : Function_7e4d0(p, 2) {
-        u = r;
-        retType = FUN_001d04d0(((const char*)&DAT_0048e100));
-        argTypes[0] = FUN_001d04d0(((const char*)&DAT_0048e0f0));
-        argTypes[1] = FUN_001d04d0(((const char*)&DAT_0048e128));
-    }
-};
-class Closure2 : public Method2 {
-  public:
-    virtual void fn();
-    Owner_7e4d0* v;
-    Closure2(const char*, Owner_7e4d0*, Fn_7e4d0);
-};
-Closure2::Closure2(const char* p, Owner_7e4d0* q, Fn_7e4d0 r) : Method2(p, r) {
-    v = q;
+Closure2::Closure2(const char* name, Owner_7e4d0* object, Fn_7e4d0 function) : hulk_script::ScriptFunction(name, 2) {
+    vftable = DAT_003ff034;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e100);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0f0);
+    f.argTypes[1] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e128);
+    vftable = DAT_003ff120;
+    owner = object;
 }
 } // namespace fn_0007e4d0
 #undef DAT_004dd6ec

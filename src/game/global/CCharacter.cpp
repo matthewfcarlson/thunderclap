@@ -1,6 +1,5 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // clang-flags: -fexceptions -fcxx-exceptions   (gx2, D22: kept until its --wine proof passes again; docs/native-build.md "gx2")
-// cl-flags: /GX
 // object 0x000382c0..0x00044910 (kind game, layer game, confidence medium), dominant class CCharacter
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -18,6 +17,7 @@
 #define TREE_TU_END }
 namespace fn_f35f7bdf {} using namespace fn_f35f7bdf;
 #include "game/global.h"
+#include "game/script_bind.h"
 
 // ---- declarations shared by the functions below
 namespace fn_f35f7bdf {
@@ -4956,15 +4956,27 @@ void __cdecl FUN_0003ef50(DWORD unused, const DWORD* args, DWORD unused2, Callba
 
 
 // 0x0003efb0 FUN_0003efb0 (89 B): matches/0x0003efb0.cpp
-// sym: ??0Function3_3efb0@fn_f35f7bdf@@QAE@PBDP8Owner_3efb0@1@AEXXZ@Z
-Function3_3efb0::Function3_3efb0(const char* a, Fn_3efb0 b) : FUN_001d0480(a, 3) {
-    vptr = (void*)DAT_003f5d4c;
-    m1c = b;
-    f.retType = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e100)));
-    f.argTypes[0] = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e0f0)));
-    f.argTypes[1] = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e0f0)));
-    f.argTypes[2] = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e128)));
+// sym: ??0Function3@fn_0003efb0@fn_f35f7bdf@@QAE@PBDP8Owner_3efb0@12@AEXXZ@Z
+namespace fn_0003efb0 {
+// (script1) Function3<void,const char *,const char *,float>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftable by address,
+// the member-function pointer, the type codes (0x001d04d0).
+extern "C" char DAT_003f5d4c[];   // Function3<void,const char *,const char *,float>
+class Owner_3efb0 {};
+typedef void (Owner_3efb0::*Fn_3efb0)();
+struct Function3 : hulk_script::ScriptFunction {
+    Fn_3efb0 fn;
+    Function3(const char* name, Fn_3efb0 function);
+};
+Function3::Function3(const char* name, Fn_3efb0 function) : hulk_script::ScriptFunction(name, 3) {
+    vftable = DAT_003f5d4c;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e100);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0f0);
+    f.argTypes[1] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0f0);
+    f.argTypes[2] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e128);
 }
+} // namespace fn_0003efb0
 
 } // namespace fn_f35f7bdf
 
@@ -4973,7 +4985,7 @@ Function3_3efb0::Function3_3efb0(const char* a, Fn_3efb0 b) : FUN_001d0480(a, 3)
 namespace fn_0003f010 {
 class Function {
   public:
-    char pad[0x18];
+    ScriptFunctionFields fields;   // (script2) Function's fields after Function3's vftable (was char pad[0x18])
     void(__cdecl* mFn)(const char*, const char*, float);
 };
 class Function3 : public Function {
@@ -4993,9 +5005,25 @@ void Function3::vfunc_2(int, void* arg, int) {
 
 
 // 0x0003f030 Function7<void,int,float,float,float,float,float,float>::vfunc_0 (30 B): matches/0x0003f030.cpp
-// sym: ??_G?$Function7@XHMMMMMM@@UAEPAXI@Z
+// sym: ?vfunc_0@Function7_3f030@fn_0003f030@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Function7<void, int, float, float, float, float,
+// float, float>::~Function7() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body
+// 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_0003f030 {
+struct Function7_3f030 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Function7_3f030::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0003f030
+// the destructor itself, which other objects' code references natively:
 template <> Function7<void, int, float, float, float, float, float, float>::~Function7() {}
 #if defined(HULK_PTR64)
 template class Function7<void, int, float, float, float, float, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x3f030)
@@ -5003,9 +5031,25 @@ template class Function7<void, int, float, float, float, float, float, float>; /
 
 
 // 0x0003f050 Function3<void,const_char_*,const_char_*,float>::vfunc_0 (30 B): matches/0x0003f050.cpp
-// sym: ??_G?$Function3@XPBDPBDM@@UAEPAXI@Z
+// sym: ?vfunc_0@Function3_3f050@fn_0003f050@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Function3<void, const char *, const char *,
+// float>::~Function3() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0,
+// then (flags & 1) operator delete.
+namespace fn_0003f050 {
+struct Function3_3f050 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Function3_3f050::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_0003f050
+// the destructor itself, which other objects' code references natively:
 template <> Function3<void, const char *, const char *, float>::~Function3() {}
 #if defined(HULK_PTR64)
 template class Function3<void, const char *, const char *, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x3f050)
@@ -5868,7 +5912,7 @@ void CCharacter_403f0::FUN_000403f0()
 
 
 // 0x00040550 FUN_00040550 (1049 B): equivalent/0x00040550.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?FUN_00040550@Fighter_40550@fn_00040550@@QAEXM@Z @b5375edd928d @w1206cb58d73f @v9632ebef7f37
+// sym: ?FUN_00040550@Fighter_40550@fn_00040550@@QAEXM@Z @97bcd8c168a6 @w1206cb58d73f @v9632ebef7f37
 namespace fn_00040550 {
 // STATUS: equivalent (tools/equiv.py level 3: 3061 inputs, branch coverage 57/60, incomplete)
 // FUN_00040550 @ 0x00040550

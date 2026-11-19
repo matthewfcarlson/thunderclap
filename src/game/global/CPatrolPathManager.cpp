@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x001065b0..0x00107000 (kind game, layer game, confidence high), dominant class CPatrolPathManager
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -435,9 +434,25 @@ Method3::Method3(const char* name, Fn_1069c0 function) : hulk_script::ScriptFunc
 
 
 // 0x00106a20 Method3<CPatrolPathManager,bool,const_char_*,bool,int>::vfunc_0 (30 B): matches/0x00106a20.cpp
-// sym: ??_G?$Method3@VCPatrolPathManager@@_NPBD_NH@@UAEPAXI@Z
+// sym: ?vfunc_0@Method3_106a20@fn_00106a20@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Method3<CPatrolPathManager, bool, const char *,
+// bool, int>::~Method3() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0,
+// then (flags & 1) operator delete.
+namespace fn_00106a20 {
+struct Method3_106a20 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method3_106a20::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_00106a20
+// the destructor itself, which other objects' code references natively:
 template <> Method3<CPatrolPathManager, bool, const char *, bool, int>::~Method3() {}
 #if defined(HULK_PTR64)
 template class Method3<CPatrolPathManager, bool, const char *, bool, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x106a20)
@@ -467,7 +482,7 @@ class Method3 : public Function {
     virtual void f0();
     virtual void f1();
     virtual bool f2(int x, Args_106a40* a, bool* out);
-    char pad[0x1c - 4];
+    ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x1c - 4])
     Fn_106a40 fn;
 };
 bool Method3::f2(int x, Args_106a40* a, bool* out) {
@@ -549,9 +564,25 @@ Method3::Method3(const char* name, Fn_106af0 function) : hulk_script::ScriptFunc
 
 
 // 0x00106b50 Method3<CPatrolPathManager,bool,const_char_*,int,math::Vector>::vfunc_0 (30 B): matches/0x00106b50.cpp
-// sym: ??_G?$Method3@VCPatrolPathManager@@_NPBDHVVector@math@@@@UAEPAXI@Z
+// sym: ?vfunc_0@Method3_106b50@fn_00106b50@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Method3<CPatrolPathManager, bool, const char *,
+// int,math::Vector>::~Method3() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body
+// 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_00106b50 {
+struct Method3_106b50 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method3_106b50::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_00106b50
+// the destructor itself, which other objects' code references natively:
 template <> Method3<CPatrolPathManager, bool, const char *, int,math::Vector>::~Method3() {}
 
 
@@ -570,9 +601,25 @@ template class Method3<CPatrolPathManager, bool, const char *, int,math::Vector>
 
 
 // 0x00106bf0 Closure3<CPatrolPathManager,bool,const_char_*,bool,int>::vfunc_0 (30 B): matches/0x00106bf0.cpp
-// sym: ??_G?$Method3@VCPatrolPathManager@@_NPBDHVVector@math@@@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure3_106bf0@fn_00106bf0@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Closure3<CPatrolPathManager, bool, const char *,
+// bool, int>::~Closure3() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0,
+// then (flags & 1) operator delete.
+namespace fn_00106bf0 {
+struct Closure3_106bf0 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure3_106bf0::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_00106bf0
+// the destructor itself, which other objects' code references natively:
 template <> Closure3<CPatrolPathManager, bool, const char *, bool, int>::~Closure3() {}
 #if defined(HULK_PTR64)
 template class Closure3<CPatrolPathManager, bool, const char *, bool, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x106bf0)
@@ -613,7 +660,7 @@ class Closure1 {
     virtual void V0();
     virtual void V1();
     virtual void V2(void*, const char**, bool*);
-    char pad[0x18];
+    ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
     typedef bool(__fastcall* Fn)(void*, const char*, const char*);
     Fn mFn;
     void* mObj;

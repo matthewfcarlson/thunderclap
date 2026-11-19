@@ -7,6 +7,7 @@
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
 #include "decls/data/script.h"
+#include "game/script_bind.h"
 #include "gen/owners.h"
 #define TREE_TU_BEGIN namespace fn_f3574e0c {
 #define TREE_TU_END }
@@ -1415,7 +1416,7 @@ void Actor::FUN_001cf0c0(int a, int b, int c)
 } // namespace fn_f3574e0c
 
 // 0x001cf690 FUN_001cf690 (1154 B): equivalent/0x001cf690.cpp [wrapped: conflict: FUN_001d4c90]
-// sym: ?FUN_001cf690@CScenarioManager@fn_001cf690@@QAEXXZ @4fd73f524ff2 @w6cbb96b7d848 @v01cf28ebd2a9
+// sym: ?FUN_001cf690@CScenarioManager@fn_001cf690@@QAEXXZ @79d4049b492e @w44864a3e4429 @v0890e8c7b752
 inline void *operator new(hulk_uintptr, void *p) throw() { return p; }
 namespace fn_001cf690 {
 // STATUS: equivalent (tools/equiv.py level 3: 7663 inputs, branch coverage 2/2)
@@ -1457,39 +1458,21 @@ template <> struct Tid<int> { static const char *p() { return ((const char*)&DAT
 template <> struct Tid<float> { static const char *p() { return ((const char*)&DAT_0048e128); } };
 template <> struct Tid<const char *> { static const char *p() { return ((const char*)&DAT_0048e0f0); } };
 
-// Function's fields (include/decls/data/script.h) after the vftable.
-class __declspec(novtable) MethodBase_1cf690 : public ScriptFunctionFields {
-public:
-    virtual void m0();
-    MethodBase_1cf690(const char *n, int k) { FUN_001d0480(n, k); }
-    void FUN_001d0480(const char *, int);
+// (script2) Closure2 is include/game/script_bind.h's record on the stack: Method2<T,R,A,B>'s and Closure2<T,R,A,B>'s game
+// vftables by address (Vft2), as the game's inlined constructors store them; FUN_001d04a0 is Function's destructor.
+template <class T, class R, class A, class B> struct Vft2;
+template <class T, class R, class A, class B>
+struct Closure2 : hulk_script::ScriptClosure<hulk_script::ScriptMethod2<T, R, A, B>, T> {
+    Closure2(const char *name, T *o, R (T::*f)(A, B)) throw()
+        : hulk_script::ScriptClosure<hulk_script::ScriptMethod2<T, R, A, B>, T>(name, o, f, Vft2<T, R, A, B>::mv(), Vft2<T, R, A, B>::cv()) {}
     void FUN_001d04a0();
 };
 
-template <class T, class R, class A, class B>
-class Method2 : public MethodBase_1cf690 {
-public:
-    typedef R (T::*Fn)(A, B);
-    Method2(const char *name, Fn f) : MethodBase_1cf690(name, 2) {
-        fn = f;
-        this->retType = FUN_001d04d0(Tid<R>::p());
-        this->argTypes[0] = FUN_001d04d0(Tid<A>::p());
-        this->argTypes[1] = FUN_001d04d0(Tid<B>::p());
-    }
-    Fn fn;
-};
-
-template <class T, class R, class A, class B>
-class Closure2 : public Method2<T, R, A, B> {
-public:
-    Closure2(const char *name, T *o, typename Method2<T, R, A, B>::Fn f) : Method2<T, R, A, B>(name, f), owner(o) {}
-    T *owner;
-};
-
+// (script2) the vftable word: FUN_001cf690 stores the game's CScenarioManager vftable 0x00421e74 (was a placement new of a
+// stand-in with a virtual function)
 class CScenarioManager {
 public:
-    CScenarioManager() {}
-    virtual void* v0_001d0340(char);
+    void* vftable;
     char pad04[0x1c];
     int FUN_001cc5e0();
     void FUN_001cc620(int);
@@ -1527,6 +1510,16 @@ public:
     void FUN_001cd5b0(float);
     void FUN_001cf690();
 };
+extern "C" char DAT_00421e74[];
+extern "C" char DAT_00421f1c[], DAT_00421f2c[], DAT_00421f3c[], DAT_00421f7c[], DAT_00421f9c[];
+extern "C" char DAT_0042201c[], DAT_0042202c[], DAT_0042203c[], DAT_0042207c[], DAT_0042209c[];
+#define VFT2(R, A, B, M, C) template <> struct Vft2<CScenarioManager, R, A, B> { static const void* mv() { return M; } static const void* cv() { return C; } };
+VFT2(void, int, float, DAT_00421f1c, DAT_0042201c)
+VFT2(int, float, const char *, DAT_00421f2c, DAT_0042202c)
+VFT2(void, float, const char *, DAT_00421f3c, DAT_0042203c)
+VFT2(void, int, const char *, DAT_00421f7c, DAT_0042207c)
+VFT2(void, int, int, DAT_00421f9c, DAT_0042209c)
+#undef VFT2
 
 struct Registry_1cf690 {
     void FUN_001ce990(const char *, CScenarioManager *, void (CScenarioManager::*)(int));
@@ -1540,14 +1533,14 @@ struct Registry_1cf690 {
     void FUN_001ceec0(const char *, CScenarioManager *, void (CScenarioManager::*)(const char *));
     void FUN_001cef50(const char *, CScenarioManager *, const char * (CScenarioManager::*)(int));
     void FUN_001cf030(const char *, CScenarioManager *, int (CScenarioManager::*)(int));
-    void FUN_001d26d0(const char *, MethodBase_1cf690 *);
+    void FUN_001d26d0(const char *, void *);
 };
 
 Registry_1cf690 *FUN_001d4c90();
 
 void CScenarioManager::FUN_001cf690()
 {
-    new (this) CScenarioManager;
+    vftable = DAT_00421e74;
     FUN_001cced0();
     Registry_1cf690 *reg = FUN_001d4c90();
     if (reg) {

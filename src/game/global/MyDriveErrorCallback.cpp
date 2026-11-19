@@ -590,10 +590,29 @@ template <> void Closure2<CPlatformManager, void, const char *, const char *>::v
 namespace fn_f294a1a9 {
 
 // 0x0008e750 FUN_0008e750 (76 B): matches/0x0008e750.cpp
-// sym: ??0Closure1_8e750@fn_f294a1a9@@QAE@PBDPAX1@Z
-Closure1_8e750::Closure1_8e750(const char* s, void* x, void* p) : Method1_8e750(s, p) {
-    extra = x;
+// sym: ??0Closure1@fn_0008e750@fn_f294a1a9@@QAE@PBDPAVOwner_8e750@12@P8312@AEXXZ@Z
+namespace fn_0008e750 {
+// (script1) Closure1<class CPlatformManager,void,const char *>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftables by address,
+// the member-function pointer, the type codes (0x001d04d0), the object.
+extern "C" char DAT_004008b0[];   // Method1<class CPlatformManager,void,const char *>
+extern "C" char DAT_00400a08[];   // Closure1<class CPlatformManager,void,const char *>
+class Owner_8e750 {};
+typedef void (Owner_8e750::*Fn_8e750)();
+struct Closure1 : hulk_script::ScriptFunction {
+    Fn_8e750 fn;
+    Owner_8e750* owner;
+    Closure1(const char* name, Owner_8e750* object, Fn_8e750 function);
+};
+Closure1::Closure1(const char* name, Owner_8e750* object, Fn_8e750 function) : hulk_script::ScriptFunction(name, 1) {
+    vftable = DAT_004008b0;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e100);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0f0);
+    vftable = DAT_00400a08;
+    owner = object;
 }
+} // namespace fn_0008e750
 
 } // namespace fn_f294a1a9
 

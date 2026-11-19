@@ -1,5 +1,4 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
-// cl-flags: /GX
 // object 0x00201740..0x002036c0 (kind game, layer game, confidence high), dominant class CWorldCollisionManager
 #include "tree_prelude.h"
 #include "compat/ptr.h"
@@ -535,9 +534,25 @@ template class Method1<CWorldCollisionManager,math::Vector,math::Vector>; // (re
 
 
 // 0x00202290 Method1<CWorldCollisionManager,void,float>::vfunc_0 (30 B): matches/0x00202290.cpp
-// sym: ??_G?$Method1@VCWorldCollisionManager@@XM@@UAEPAXI@Z
+// sym: ?vfunc_0@Method1_202290@fn_00202290@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Method1<CWorldCollisionManager, void,
+// float>::~Method1() {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then
+// (flags & 1) operator delete.
+namespace fn_00202290 {
+struct Method1_202290 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method1_202290::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_00202290
+// the destructor itself, which other objects' code references natively:
 template <> Method1<CWorldCollisionManager, void, float>::~Method1() {}
 
 
@@ -555,9 +570,25 @@ template class Method1<CWorldCollisionManager, void, float>; // (ren2) native on
 
 
 // 0x00202310 Method0<CWorldCollisionManager,float>::vfunc_0 (30 B): matches/0x00202310.cpp
-// sym: ??_G?$Method0@VCWorldCollisionManager@@M@@UAEPAXI@Z
+// sym: ?vfunc_0@Method0_202310@fn_00202310@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <> Method0<CWorldCollisionManager, float>::~Method0()
+// {}` stood for it, whose MSVC `??_G` matched only under /GX. The destructor's body 0x001d04a0, then (flags & 1)
+// operator delete.
+namespace fn_00202310 {
+struct Method0_202310 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Method0_202310::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_00202310
+// the destructor itself, which other objects' code references natively:
 template <> Method0<CWorldCollisionManager, float>::~Method0() {}
 #if defined(HULK_PTR64)
 template class Method0<CWorldCollisionManager, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x202310)
@@ -575,7 +606,7 @@ class Function {
 };
 class Method0Base_202330 : public Function {
   public:
-    char pad[0x18];
+    ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
     float(__fastcall* fn)(void*);
     virtual void f2(void* a, void* b, float* out);
 };
@@ -1454,9 +1485,25 @@ Closure1::Closure1(const char* name, Owner_202f20* object, Fn_202f20 function) :
 
 
 // 0x00202f70 Closure1<CWorldCollisionManager,math::Vector,math::Vector>::vfunc_0 (30 B): matches/0x00202f70.cpp
-// sym: ??_G?$Method1@VCWorldCollisionManager@@XM@@UAEPAXI@Z
+// sym: ?vfunc_0@Closure1_202f70@fn_00202f70@@QAEPAXI@Z
 // Same code shape as 0x00021840 (propagated; names are from that function)
 // scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+// (script2, D24) an explicit function in D114's form: `template <>
+// Closure1<CWorldCollisionManager,math::Vector,math::Vector>::~Closure1() {}` stood for it, whose MSVC `??_G` matched
+// only under /GX. The destructor's body 0x001d04a0, then (flags & 1) operator delete.
+namespace fn_00202f70 {
+struct Closure1_202f70 {
+    void FUN_001d04a0();   // the destructor's body
+    void* vfunc_0(unsigned int flags);
+};
+void* Closure1_202f70::vfunc_0(unsigned int flags) {
+    FUN_001d04a0();
+    if (flags & 1)
+        operator delete(this);
+    return this;
+}
+} // namespace fn_00202f70
+// the destructor itself, which other objects' code references natively:
 template <> Closure1<CWorldCollisionManager,math::Vector,math::Vector>::~Closure1() {}
 #if defined(HULK_PTR64)
 template class Closure1<CWorldCollisionManager,math::Vector,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x202f70)
@@ -1476,7 +1523,7 @@ class Method2 {
     virtual void f0();
     virtual void f1();
     virtual void vfunc_2(int, int, int);
-    char pad[0x18];
+    ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
 };
 class Function {
   public:

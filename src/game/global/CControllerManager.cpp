@@ -345,10 +345,29 @@ template <> void Closure2<CControllerManager, void, int, bool>::vfunc_2(void* __
 namespace fn_f57ff923 {
 
 // 0x000aed70 FUN_000aed70 (76 B): matches/0x000aed70.cpp
-// sym: ??0Closure1_aed70@fn_f57ff923@@QAE@PAX00@Z
-Closure1_aed70::Closure1_aed70(void* a, void* b, void* c) : Method1_aed70(a, c) {
-    q = b;
+// sym: ??0Closure1@fn_000aed70@fn_f57ff923@@QAE@PBDPAVOwner_aed70@12@P8312@AEXXZ@Z
+namespace fn_000aed70 {
+// (script1) Closure1<class CControllerManager,void,bool>'s constructor
+// on include/game/script_bind.h's records: Function's constructor 0x001d0480, the game's vftables by address,
+// the member-function pointer, the type codes (0x001d04d0), the object.
+extern "C" char DAT_00405d8c[];   // Method1<class CControllerManager,void,bool>
+extern "C" char DAT_00405dbc[];   // Closure1<class CControllerManager,void,bool>
+class Owner_aed70 {};
+typedef void (Owner_aed70::*Fn_aed70)();
+struct Closure1 : hulk_script::ScriptFunction {
+    Fn_aed70 fn;
+    Owner_aed70* owner;
+    Closure1(const char* name, Owner_aed70* object, Fn_aed70 function);
+};
+Closure1::Closure1(const char* name, Owner_aed70* object, Fn_aed70 function) : hulk_script::ScriptFunction(name, 1) {
+    vftable = DAT_00405d8c;
+    fn = function;
+    f.retType = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e100);
+    f.argTypes[0] = hulk_script::FUN_001d04d0(hulk_script::DAT_0048e0e4);
+    vftable = DAT_00405dbc;
+    owner = object;
 }
+} // namespace fn_000aed70
 
 } // namespace fn_f57ff923
 
