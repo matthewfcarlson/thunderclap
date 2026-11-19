@@ -1421,7 +1421,7 @@ template class Method0<CGameFlowManager, void>; // (ren2) native only: clang emi
 
 
 // 0x0008a8f0 FUN_0008a8f0 (706 B): equivalent/0x0008a8f0.cpp [wrapped: conflict: DAT_004dd6ec; World]
-// sym: ?FUN_0008a8f0@Game_8a8f0@fn_0008a8f0@@QAE_NHPAUWorld@2@@Z @24be3c4e05e7 @w84ac5842a2ff
+// sym: ?FUN_0008a8f0@Game_8a8f0@fn_0008a8f0@@QAE_NHPAUWorld@2@@Z @24be3c4e05e7 @w84ac5842a2ff @ved0f4a8dfb50
 namespace fn_0008a8f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 57 inputs, branch coverage 26/28, incomplete)
 // FUN_0008a8f0 @ 0x0008a8f0

@@ -2122,7 +2122,7 @@ void Sound_1f4c50::FUN_001f4c50()
 } // namespace fn_f7fca51a
 
 // 0x001f4f00 FUN_001f4f00 (1470 B): equivalent/0x001f4f00.cpp [wrapped: conflict: FUN_002673a0; Node]
-// sym: ?reset@State_1f4f00@fn_001f4f00@@QAEXXZ @70e6e7143721 @w3b90d0da241c
+// sym: ?reset@State_1f4f00@fn_001f4f00@@QAEXXZ @70e6e7143721 @w3b90d0da241c @v4467bdeedefd
 namespace fn_001f4f00 {
 // STATUS: equivalent (tools/equiv.py level 3: 25 inputs, branch coverage 86/86)
 // FUN_001f4f00 @ 0x001f4f00
