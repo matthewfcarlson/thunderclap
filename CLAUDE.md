@@ -174,6 +174,10 @@ addresses (script2).
   entries); never hand-edit it, add only with `tree_tu.py unproven-accept ADDR --modes M --why TEXT`. verify and
   materialize report its size as `unproven_baseline`. Cross-TU declaration / allocation / free-name report:
   `tools/xtu_check.py run --jobq`, then `report build/xtu/facts` (report-only; build/xtu/summary.json).
+- **Free-name gate** (D149): `verify --relocs` fails on a new call that reaches one of the game's frees under another
+  name (`free_by_other_name new`). `config/free-name-baseline.json` lists the existing sites and only shrinks
+  (`--update-free-baseline`); add only with `free-name-accept --why`. Call the free as `operator delete` / `delete[]`
+  (D115). The list is worked to zero (decl1; build/integ3/d149/decl1_worklist.jsonl).
 - **Verify jobs ship what they check.** `jobq.py` refuses a `tree_tu.py verify|check` / `x64_gate.py check` job whose
   TUs, reachable headers or read config files have unshipped local edits; ship them (`--dirty`; `--files config/data.json`,
   which `--dirty` skips at >8 MB) or pass `--head-only` to check the commit on purpose. `verify` also runs
