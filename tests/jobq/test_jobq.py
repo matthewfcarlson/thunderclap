@@ -143,6 +143,33 @@ class Fairness(unittest.TestCase):
                 c.execute("UPDATE jobs SET state='cancelled' WHERE name LIKE 'fair-%'")
 
 
+class HeldAcrossPasses(unittest.TestCase):
+    """A big job over its fair share in the first (capped) pass must not hold its hosts in the second, uncapped pass:
+    there it may run itself, and other big jobs may take an idle host (11-19: studio sat idle at 0/22 for 5 h while
+    ~440 jobs waited, every 4- and 8-slot job finding it 'held')."""
+
+    def test_idle_host_not_held_by_over_share_job(self):
+        busy = mkhost("busy", ["equiv", "wine"], cap=16, used=12)
+        idle = mkhost("idle", ["equiv", "wine"], cap=22)
+        c = jobq.conn()
+        try:
+            run = jobq.insert_jobs([jobq.make_job("held-a", ["true"], slots=12)])[0]
+            with c:
+                c.execute("UPDATE jobs SET state='running' WHERE id=?", (run,))
+            a = jobq.insert_jobs([jobq.make_job("held-a", ["true"], needs="equiv", slots=8)])[0]   # over its share
+            b = jobq.insert_jobs([jobq.make_job("held-b", ["true"], needs="wine", slots=8, pin="idle")])[0]
+            jobq.insert_jobs([jobq.make_job("held-c", ["true"], needs="equiv", slots=4)])
+            d = jobq.Daemon([busy, idle])
+            d.run_job = lambda h, job: None
+            d.dispatch(c)
+            st = {r[0]: (r[1], r[2]) for r in c.execute("SELECT id,state,host FROM jobs WHERE id IN (?,?)", (a, b))}
+            self.assertEqual(st[b], ("running", "idle"))      # the pinned build starts on the idle host
+            self.assertEqual(st[a], ("running", "idle"))      # and the over-share job takes what the share left idle
+        finally:
+            with c:
+                c.execute("UPDATE jobs SET state='cancelled' WHERE name LIKE 'held-%'")
+
+
 class Lending(unittest.TestCase):
     """Reserved slots a big job leaves idle (load well below `used`) go to 1-slot jobs, within the core count."""
 

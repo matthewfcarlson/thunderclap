@@ -905,8 +905,11 @@ class Daemon:
         # A second pass then hands out whatever the share left idle, so capacity is never wasted.
         share = max(1, sum(h.cap for h in self.hosts) // max(1, len(names)))
         n = 0
-        blocked = set()       # hosts held for a queued job of BIG_SLOTS or more that does not fit yet (else 1-slot jobs starve it)
         for capped in (len(names) > 1, False):
+            # hosts held for a queued job of BIG_SLOTS or more that does not fit yet (else 1-slot jobs starve it). Fresh
+            # each pass: a big job held back only by its share in the capped pass must not hold its hosts in the uncapped
+            # pass, or it and every other big job find them held and an idle host takes nothing (studio idle 11-19).
+            blocked = set()
             # fairness: the submitter holding the fewest slots goes first, then the queue order
             order = sorted(range(len(rows)), key=lambda i: (-rows[i]["prio"], running.get(rows[i]["name"], 0), rows[i]["id"]))
             n += self.dispatch_pass(c, rows, order, running, blocked, now, share if capped else None)
