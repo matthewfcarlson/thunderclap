@@ -192,7 +192,7 @@ Terms: the *Wine build* is the 32-bit clang image run under Wine (`tools/wine_*.
   reverts others' work. Generators that rewrite many TUs read a `git archive HEAD` snapshot, never the shared working copy,
   and apply their result to the working copy as a patch (`git apply` of the commit's diff; --3way implies --index and refuses
   files with others' unstaged edits), never by copying whole files over it: a
-  whole-file write over a TU with someone's uncommitted edits silently discards them (integ2's S5 hashes, 11-18).
+  whole-file write over a TU with someone's uncommitted edits silently discards them (decl1's landing cp race, 11-18).
 - Never relax a comparison in the checker to make something pass; a source that doesn't pass is not promoted.
   A byte match needs `compare.py` MATCH and `verify_relocs.py` ok; an equivalent needs a promotable `equiv.py` run.
 - Don't run xemu, the Wine build or other long jobs unless the task is that job. The farm is archived (`farm/` removed); don't
