@@ -8,6 +8,7 @@
 #include "gen/content.h"
 #include "gen/owners.h"
 #include "gen/pure3d.h"
+#include "gen/core.h"
 #define TREE_TU_BEGIN namespace fn_f40ca5f7 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CAction
@@ -1136,11 +1137,10 @@ hulk_intptr Target_299170::Destroy(int flags) {
 } // namespace fn_f40ca5f7
 
 // 0x002991b0 content::LoadInventory::DynamicCaster<pure3d::DrawableContainer>::vfunc_0 (30 B): matches/0x002991b0.cpp
-// sym: ?vfunc_0@?$DynamicCaster@VDrawableContainer@pure3d@@@LoadInventory@content@@UAEXPAX@Z
+// sym: ?vfunc_0@?$DynamicCaster@VDrawableContainer@pure3d@@@LoadInventory@content@@UAEPAXPAX@Z
 // Same code shape as 0x00021650 (propagated; names are from that function)
-template <> void content::LoadInventory::DynamicCaster<pure3d::DrawableContainer>::vfunc_0(void* __p0) { void * p = (void *)__p0;
-
-    Cast((hulk_uintptr)p, 0, &type_refcount, &type_animation, 0);
+template <> void* content::LoadInventory::DynamicCaster<pure3d::DrawableContainer>::vfunc_0(void* p) {
+    return dynamic_cast<::pure3d::DrawableContainer*>((::core::IRefCount*)p);   // (sweep2, G7) the cast is the slot's result
 }
 
 

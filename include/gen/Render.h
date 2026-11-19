@@ -36,6 +36,7 @@ public:
     virtual ~CRenderableCharacter(); // slot 0
     char _pad_04[0xc];
     int f_10;
+    int f_14; // (sweep2) the allocation's last word: new allocates 0x18 bytes (0x1c60f0); no constructor writes it
 };
 
 } // namespace Render

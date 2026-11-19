@@ -61,13 +61,9 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::motion::RayCa
 
 // 0x0016e6b0 fight::ConditionFactoryTemplate<hulkfight::motion::RayCastCondition>::vfunc_5 (24 B): matches/0x0016e6b0.cpp
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VRayCastCondition@motion@hulkfight@@@fight@@UAEPAXXZ
-struct AllocWords_16e6b0 : ::hulkfight::motion::RayCastCondition {   // (sweep-allocsize) gen's words and the allocation's last word (gen's size is its
-    int last;                                                       // last field's end, 4 short of the 0x40-byte allocation)
-};
-typedef char AllocWords_16e6b0_size32[(sizeof(void*) != 4 || sizeof(AllocWords_16e6b0) == 0x40) ? 1 : -1];
 // Same code shape as 0x0006fa30 (propagated; names are from that function)
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::RayCastCondition>::vfunc_5() {
-    Grapple_16e6b0* p = (Grapple_16e6b0*)operator new(sizeof(AllocWords_16e6b0));
+    Grapple_16e6b0* p = (Grapple_16e6b0*)operator new(sizeof(::hulkfight::motion::RayCastCondition));
     if (p)
         return (void*)(p->BuildTrack_001663a0());
     return (void*)(0);

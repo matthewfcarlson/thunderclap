@@ -11,10 +11,6 @@ extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 // sym: ?vfunc_10@SemaphoreWaitTrack@ai@hulkfight@@UAEHHHH@Z
 // Same code shape as 0x001131c0 (propagated; names are from that function)
 #include "gen/hulkfight.h"
-struct AllocWords_1133a0 : ::hulkfight::ai::SemaphoreWaitAction {   // (sweep-allocsize) gen's words and the allocation's last word (gen's size is its
-    int last;                                                      // last field's end, 4 short of the 0x28-byte allocation)
-};
-typedef char AllocWords_1133a0_size32[(sizeof(void*) != 4 || sizeof(AllocWords_1133a0) == 0x28) ? 1 : -1];
 
 typedef unsigned int u32_1133a0;
 extern int hulk_at_00494b44;
@@ -27,7 +23,7 @@ extern hulkfight::ai::SemaphoreWaitAction* Alloc_0008d690(int);
 hulk_intptr hulkfight::ai::SemaphoreWaitTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_1133a0 a = (u32_1133a0)__p0; u32_1133a0 b = (u32_1133a0)__p1; void * p = (void *)__p2;
 
     if (((int)(hulk_uintptr)__RTDynamicCast(p, 0, (void*)(&hulk_at_00494b44), (void*)(&hulk_at_00494b60), 0))) {
-        hulkfight::ai::SemaphoreWaitAction* q = Alloc_0008d690(sizeof(AllocWords_1133a0));
+        hulkfight::ai::SemaphoreWaitAction* q = Alloc_0008d690(sizeof(::hulkfight::ai::SemaphoreWaitAction));
         if (q)
             return (int)(((SemaphoreWaitAction_nv_1133a0*)(((hulkfight::ai::SemaphoreWaitAction*)(q))))->Init_0010f940(this, p));
     }

@@ -6,6 +6,7 @@
 #include "gen/content.h"
 #include "gen/owners.h"
 #include "gen/physics.h"
+#include "gen/core.h"
 #define TREE_TU_BEGIN namespace fn_fb7c7da0 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CAction
@@ -276,11 +277,10 @@ void Outer_2fc700::target(hulk_intptr a, int b) {
 } // namespace fn_fb7c7da0
 
 // 0x002fc720 content::LoadInventory::DynamicCaster<physics::ArticulatedPhysicsObject>::vfunc_0 (30 B): matches/0x002fc720.cpp
-// sym: ?vfunc_0@?$DynamicCaster@VArticulatedPhysicsObject@physics@@@LoadInventory@content@@UAEXPAX@Z
+// sym: ?vfunc_0@?$DynamicCaster@VArticulatedPhysicsObject@physics@@@LoadInventory@content@@UAEPAXPAX@Z
 // Same code shape as 0x00021650 (propagated; names are from that function)
-template <> void content::LoadInventory::DynamicCaster<physics::ArticulatedPhysicsObject>::vfunc_0(void* __p0) { void * p = (void *)__p0;
-
-    __RTDynamicCast((void*)((hulk_uintptr)p), 0, (void*)(&type_refcount), (void*)(&type_animation), 0);
+template <> void* content::LoadInventory::DynamicCaster<physics::ArticulatedPhysicsObject>::vfunc_0(void* p) {
+    return dynamic_cast<::physics::ArticulatedPhysicsObject*>((::core::IRefCount*)p);   // (sweep2, G7) the cast is the slot's result
 }
 
 

@@ -100,12 +100,8 @@ void thunk_FUN_00267090(pure3d::NonCopyable_1c65d0*);
 
 // 0x001c60f0 FUN_001c60f0 (63 B): matches/0x001c60f0.cpp
 // sym: ?Create@Owner@fn_fb68dce8@@QAEPAVCRenderableCharacter_1c60f0@2@HH@Z
-struct AllocWords_1c60f0 : ::Render::CRenderableCharacter {   // (sweep-allocsize) gen's words and the allocation's last word (gen's size is its
-    int last;                                                // last field's end, 4 short of the 0x18-byte allocation)
-};
-typedef char AllocWords_1c60f0_size32[(sizeof(void*) != 4 || sizeof(AllocWords_1c60f0) == 0x18) ? 1 : -1];
 CRenderableCharacter_1c60f0* Owner::Create(int a, int b) {
-    CRenderableCharacter_1c60f0* p = (CRenderableCharacter_1c60f0*)FUN_0008d690(sizeof(AllocWords_1c60f0));
+    CRenderableCharacter_1c60f0* p = (CRenderableCharacter_1c60f0*)FUN_0008d690(sizeof(::Render::CRenderableCharacter));
     if (p) {
         CRenderableCharacter_1c60f0* q = p->Init_001c6050(a, b);
         if (q) {

@@ -1,7 +1,7 @@
 {
  "comment": "integ3 9a: RTTI type descriptors referenced by the tree's code whose names are not the game's (native dynamic_cast/typeid fail on them). Only shrinks (x64_gate.py check --update-baseline lowers; rtti-accept adds, with a reason).",
  "seed_why": "integ3 9a: non-exact at 19ddec138 (cast sites: find2's castscan family, sweep2 fixing; complete object locators: rev5 R2)",
- "total": 3954,
+ "total": 3949,
  "tus": {
   "src/engine/audio/ChannelSendVolumeFadeBehaviour.cpp": {
    "col:?AUSeqActionChannelSendVolumes_24f230@fn_0024f230@@|?AUSeqActionChannelSendVolumes_24f230@fn_0024f230@@": 1,
@@ -42,9 +42,6 @@
   },
   "src/engine/audio/ListenerEffectPspType.cpp": {
    "col:?AUListenerEffectPsp@audio@fn_f28ff79c@@|?AUListenerEffectPsp@audio@fn_f28ff79c@@": 1
-  },
-  "src/engine/audio/ListenerEffectXBoxType.cpp": {
-   "col:?AUListenerEffectXBox_24d840@audio@@|?AUListenerEffectXBox_24d840@audio@@": 1
   },
   "src/engine/audio/Mix.cpp": {
    "col:?AUMixBuss@audio@fn_0025a8f0@@|?AUMixBuss@audio@fn_0025a8f0@@": 1,
@@ -993,10 +990,6 @@
    "col:?AVRefObj_2e22c0@pure3d@fn_f66a63d8@@|?AVRefObj_2e22c0@pure3d@fn_f66a63d8@@": 1
   },
   "src/engine/unknown/unk_24dce0.cpp": {
-   "col:?AV?$MetaTypeAttribScalar@H@om@fn_0024df00@@|?AVAttribBase@om@fn_0024df00@@": 1,
-   "col:?AV?$MetaTypeAttribScalar@M@om@fn_0024df00@@|?AVAttribBase@om@fn_0024df00@@": 1,
-   "col:?AV?$TypeT@V?$MetaTypeAttribScalar@H@om@fn_0024df00@@@om@fn_0024df00@@|?AVTypeBase@om@fn_0024df00@@": 1,
-   "col:?AV?$TypeT@V?$MetaTypeAttribScalar@M@om@fn_0024df00@@@om@fn_0024df00@@|?AVTypeBase@om@fn_0024df00@@": 1,
    "col:?AVTypeT_24e4c0@fn_0024e4c0@@|?AVTypeT_24e4c0@fn_0024e4c0@@": 1,
    "col:?AVTypeT_24e4c0@fn_0024e4c0@@|?AVType_24e4c0@fn_0024e4c0@@": 1
   },

@@ -6,6 +6,8 @@
 #include "gen/content.h"
 #include "decls/load_inventory.h"
 #include "decls/table_cursor.h"
+#include "gen/core.h"
+#include "gen/pure3d.h"
 #define TREE_TU_BEGIN namespace fn_f30d46c2 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CEffectStopTrack
@@ -387,11 +389,10 @@ ParamValueConditionGroup* ParamValueConditionGroup::vfunc_0(int flags) {
 } // namespace fn_f30d46c2
 
 // 0x00235870 content::LoadInventory::DynamicCaster<pure3d::Entity>::vfunc_0 (30 B): matches/0x00235870.cpp
-// sym: ?vfunc_0@?$DynamicCaster@VEntity@pure3d@@@LoadInventory@content@@UAEXPAX@Z
+// sym: ?vfunc_0@?$DynamicCaster@VEntity@pure3d@@@LoadInventory@content@@UAEPAXPAX@Z
 // Same code shape as 0x00021650 (propagated; names are from that function)
-template <> void content::LoadInventory::DynamicCaster<pure3d::Entity>::vfunc_0(void* __p0) { void * p = (void *)__p0;
-
-    __RTDynamicCast((void*)((hulk_uintptr)p), 0, (void*)(&type_refcount), (void*)(&type_animation), 0);
+template <> void* content::LoadInventory::DynamicCaster<pure3d::Entity>::vfunc_0(void* p) {
+    return dynamic_cast<::pure3d::Entity*>((::core::IRefCount*)p);   // (sweep2, G7) the cast is the slot's result
 }
 
 

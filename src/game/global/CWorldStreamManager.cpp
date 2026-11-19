@@ -14,6 +14,8 @@
 #include "gen/content.h"
 #include "gen/global.h"
 #include "gen/owners.h"
+#include "gen/core.h"
+#include "gen/physics.h"
 #define TREE_TU_BEGIN namespace fn_f49dcb8d {
 #define TREE_TU_END }
 namespace fn_f49dcb8d {} using namespace fn_f49dcb8d;
@@ -1640,11 +1642,10 @@ void* DynamicCaster::Cast(void* p) {
 } // namespace fn_f49dcb8d
 
 // 0x00205050 content::LoadInventory::DynamicCaster<physics::WorldCollisionObject>::vfunc_0 (30 B): matches/0x00205050.cpp
-// sym: ?vfunc_0@?$DynamicCaster@VWorldCollisionObject@physics@@@LoadInventory@content@@UAEXPAX@Z
+// sym: ?vfunc_0@?$DynamicCaster@VWorldCollisionObject@physics@@@LoadInventory@content@@UAEPAXPAX@Z
 // Same code shape as 0x00021650 (propagated; names are from that function)
-template <> void content::LoadInventory::DynamicCaster<physics::WorldCollisionObject>::vfunc_0(void* __p0) { void * p = (void *)__p0;
-
-    __RTDynamicCast((void*)((hulk_uintptr)p), 0, (void*)(&type_refcount), (void*)(&type_animation), 0);
+template <> void* content::LoadInventory::DynamicCaster<physics::WorldCollisionObject>::vfunc_0(void* p) {
+    return dynamic_cast<::physics::WorldCollisionObject*>((::core::IRefCount*)p);   // (sweep2, G7) the cast is the slot's result
 }
 
 

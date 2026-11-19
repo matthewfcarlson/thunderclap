@@ -6,6 +6,8 @@
 #include "gen/content.h"
 #include "gen/owners.h"
 #include "gen/pure3d.h"
+#include "gen/core.h"
+#include "gen/physics.h"
 #define TREE_TU_BEGIN namespace fn_f5d7895e {
 #define TREE_TU_END }
 #define TREE_LOCAL_CAction
@@ -478,20 +480,18 @@ extern "C" void __cdecl FUN_00290500(void * begin, void * end) {
 } // namespace fn_f5d7895e
 
 // 0x00290590 content::LoadInventory::DynamicCaster<physics::CollisionObject>::vfunc_0 (30 B): matches/0x00290590.cpp
-// sym: ?vfunc_0@?$DynamicCaster@VCollisionObject@physics@@@LoadInventory@content@@UAEXPAX@Z
+// sym: ?vfunc_0@?$DynamicCaster@VCollisionObject@physics@@@LoadInventory@content@@UAEPAXPAX@Z
 // Same code shape as 0x00021650 (propagated; names are from that function)
-template <> void content::LoadInventory::DynamicCaster<physics::CollisionObject>::vfunc_0(void* __p0) { void * p = (void *)__p0;
-
-    Cast((hulk_uintptr)p, 0, &type_refcount, &type_animation, 0);
+template <> void* content::LoadInventory::DynamicCaster<physics::CollisionObject>::vfunc_0(void* p) {
+    return dynamic_cast<::physics::CollisionObject*>((::core::IRefCount*)p);   // (sweep2, G7) the cast is the slot's result
 }
 
 
 // 0x002905c0 content::LoadInventory::DynamicCaster<physics::PhysicsObject>::vfunc_0 (30 B): matches/0x002905c0.cpp
-// sym: ?vfunc_0@?$DynamicCaster@VPhysicsObject@physics@@@LoadInventory@content@@UAEXPAX@Z
+// sym: ?vfunc_0@?$DynamicCaster@VPhysicsObject@physics@@@LoadInventory@content@@UAEPAXPAX@Z
 // Same code shape as 0x00021650 (propagated; names are from that function)
-template <> void content::LoadInventory::DynamicCaster<physics::PhysicsObject>::vfunc_0(void* __p0) { void * p = (void *)__p0;
-
-    Cast((hulk_uintptr)p, 0, &type_refcount, &type_animation, 0);
+template <> void* content::LoadInventory::DynamicCaster<physics::PhysicsObject>::vfunc_0(void* p) {
+    return dynamic_cast<::physics::PhysicsObject*>((::core::IRefCount*)p);   // (sweep2, G7) the cast is the slot's result
 }
 
 

@@ -10,10 +10,6 @@ extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 // sym: ?vfunc_10@MotionTargetTrack@ai@hulkfight@@UAEHHHH@Z
 // Same code shape as 0x001131c0 (propagated; names are from that function)
 #include "gen/hulkfight.h"
-struct AllocWords_119e50 : ::hulkfight::ai::MotionTargetAction {   // (sweep-allocsize) gen's words and the allocation's last word (gen's size is its
-    int last;                                                     // last field's end, 4 short of the 0x28-byte allocation)
-};
-typedef char AllocWords_119e50_size32[(sizeof(void*) != 4 || sizeof(AllocWords_119e50) == 0x28) ? 1 : -1];
 
 typedef unsigned int u32_119e50;
 extern int hulk_at_00494b44;
@@ -26,7 +22,7 @@ extern hulkfight::ai::MotionTargetAction* Alloc_0008d690(int);
 hulk_intptr hulkfight::ai::MotionTargetTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_119e50 a = (u32_119e50)__p0; u32_119e50 b = (u32_119e50)__p1; void * p = (void *)__p2;
 
     if (((int)(hulk_uintptr)__RTDynamicCast(p, 0, (void*)(&hulk_at_00494b44), (void*)(&hulk_at_00494b60), 0))) {
-        hulkfight::ai::MotionTargetAction* q = Alloc_0008d690(sizeof(AllocWords_119e50));
+        hulkfight::ai::MotionTargetAction* q = Alloc_0008d690(sizeof(::hulkfight::ai::MotionTargetAction));
         if (q)
             return (int)(((MotionTargetAction_nv_119e50*)(((hulkfight::ai::MotionTargetAction*)(q))))->Init_00116a30(this, p));
     }

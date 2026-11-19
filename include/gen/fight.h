@@ -743,6 +743,7 @@ public:
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
     float f_0c;
+    int f_10; // (sweep2) the allocation's last word: new allocates 0x14 bytes (0x23f570); no constructor writes it
 };
 
 // .?AVDataReader@fight@@  vftable 0x4287d0 (6)

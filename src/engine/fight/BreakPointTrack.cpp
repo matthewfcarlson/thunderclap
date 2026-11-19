@@ -506,12 +506,8 @@ template <> void* fight::TrackFactoryCasterTemplate<fight::BreakPointTrack>::vfu
 
 // 0x0023f570 fight::TrackFactoryTemplate<fight::BreakPointTrack>::vfunc_5 (60 B): matches/0x0023f570.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VBreakPointTrack@fight@@@fight@@UAEPAXXZ
-struct AllocWords_23f570 : ::fight::BreakPointTrack {   // (sweep-allocsize) gen's words and the allocation's last word (gen's size is its
-    int last;                                          // last field's end, 4 short of the 0x14-byte allocation)
-};
-typedef char AllocWords_23f570_size32[(sizeof(void*) != 4 || sizeof(AllocWords_23f570) == 0x14) ? 1 : -1];
 template <> void* fight::TrackFactoryTemplate<fight::BreakPointTrack>::vfunc_5() {
-    Obj_23f570* p = (Obj_23f570*)FUN_0008d690(sizeof(AllocWords_23f570));
+    Obj_23f570* p = (Obj_23f570*)FUN_0008d690(sizeof(::fight::BreakPointTrack));
     if (p) {
         ((Base_23f570*)p)->init_00236d40();
         p->vf = (hulk_intptr)((int*)DAT_00428f70);

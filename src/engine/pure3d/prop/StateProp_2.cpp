@@ -10,6 +10,7 @@
 #include "gen/owners.h"
 #include "gen/physics.h"
 #include "gen/pure3d.h"
+#include "gen/core.h"
 #define TREE_TU_BEGIN namespace fn_f03c5b48 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CAction
@@ -1582,11 +1583,10 @@ int *Owner::FUN_0027de50(int a,hulk_intptr b) { int i=0; Range *r=range; if (((r
 } // namespace fn_f03c5b48
 
 // 0x0027ded0 content::LoadInventory::DynamicCaster<pure3d::prop::StatePropData>::vfunc_0 (30 B): matches/0x0027ded0.cpp
-// sym: ?vfunc_0@?$DynamicCaster@VStatePropData@prop@pure3d@@@LoadInventory@content@@UAEXPAX@Z
+// sym: ?vfunc_0@?$DynamicCaster@VStatePropData@prop@pure3d@@@LoadInventory@content@@UAEPAXPAX@Z
 // Same code shape as 0x00021650 (propagated; names are from that function)
-template <> void content::LoadInventory::DynamicCaster<pure3d::prop::StatePropData>::vfunc_0(void* __p0) { void * p = (void *)__p0;
-
-    Cast((hulk_uintptr)p, 0, &type_refcount, &type_animation, 0);
+template <> void* content::LoadInventory::DynamicCaster<pure3d::prop::StatePropData>::vfunc_0(void* p) {
+    return dynamic_cast<::pure3d::prop::StatePropData*>((::core::IRefCount*)p);   // (sweep2, G7) the cast is the slot's result
 }
 
 

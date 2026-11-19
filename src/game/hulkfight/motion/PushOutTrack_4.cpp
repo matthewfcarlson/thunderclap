@@ -54,13 +54,9 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::PushOutTr
 
 // 0x0017f130 fight::TrackFactoryTemplate<hulkfight::motion::PushOutTrack>::vfunc_5 (24 B): matches/0x0017f130.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VPushOutTrack@motion@hulkfight@@@fight@@UAEPAXXZ
-struct AllocWords_17f130 : ::hulkfight::motion::PushOutTrack {   // (sweep-allocsize) gen's words and the allocation's last word (gen's size is its
-    int last;                                                   // last field's end, 4 short of the 0x48-byte allocation)
-};
-typedef char AllocWords_17f130_size32[(sizeof(void*) != 4 || sizeof(AllocWords_17f130) == 0x48) ? 1 : -1];
 // Same code shape as 0x00070420 (propagated; names are from that function)
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::PushOutTrack>::vfunc_5() {
-    void* p = FUN_0008d690(sizeof(AllocWords_17f130));
+    void* p = FUN_0008d690(sizeof(::hulkfight::motion::PushOutTrack));
     if (p)
         return (void*)(((Track_17f130*)p)->Init_00170740());
     return (void*)(0);

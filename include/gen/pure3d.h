@@ -1185,6 +1185,7 @@ public:
     int f_10;
     void* f_14;
     void* f_18;
+    int f_1c; // (sweep2) the allocation's last word: new allocates 0x20 bytes (0x2afba0); no constructor writes it
 };
 
 // .?AVExpressionAnimationController@pure3d@@  vftable 0x42df6c (27)
@@ -1629,6 +1630,7 @@ public:
     int f_20;
     int f_24;
     float f_28;
+    int f_2c; // (sweep2) the allocation's last word: new allocates 0x30 bytes (0x2c1770); no constructor writes it
 };
 
 // .?AVLocatorLoader@pure3d@@  vftable 0x42ebb0 (6)
@@ -2189,6 +2191,7 @@ public:
     int f_50;
     char _pad_54[0x4];
     void* f_58;
+    void* f_5c; // (sweep2) the matrix palette (a refcounted object the skinned loader 0x002e2a70 sets); new allocates 0x60
 };
 
 // .?AVPrimGroupSkinnedOptimized@pure3d@@  vftable 0x42fbd4 (11)
@@ -2198,6 +2201,10 @@ public:
     virtual bool vfunc_3(); // overrides pure3d::Entity slot 3
     virtual void* vfunc_4(); // overrides pure3d::Entity slot 4
     virtual void vfunc_6(); // overrides pure3d::DrawablePrimitive slot 6
+    // (sweep2) the shared palette and the matrix palette list: refcounted objects (the constructor 0x002dffe0 clears
+    // them, the loaders release and set them); pointer-sized natively. new allocates 0x68 (0x002e1960, 0x002e30f0).
+    hulk_intptr f_60;
+    hulk_intptr f_64;
 };
 
 // .?AVPrimGroupSkinnedPC@pure3d@@  vftable 0x42fc74 (11)
@@ -2208,10 +2215,8 @@ public:
     virtual void* vfunc_4(); // overrides pure3d::Entity slot 4
     virtual int vfunc_5(); // overrides pure3d::DrawablePrimitive slot 5
     virtual void vfunc_6(); // overrides pure3d::DrawablePrimitive slot 6
-    char _pad_5c[0x4];
-    int f_60;
-    int f_64;
     void* f_68;
+    int f_6c; // (sweep2) the allocation's last word: new allocates 0x70 (0x002e2a70); no constructor writes it
 };
 
 // .?AVPrimGroupStreamed@pure3d@@  vftable 0x42fc04 (13)
@@ -2639,6 +2644,7 @@ public:
     char _pad_3c[0x8];
     void* f_44;
     void* f_48;
+    int f_4c; // (sweep2) the allocation's last word: new allocates 0x50 bytes (0x27c720); no constructor writes it
 };
 
 // .?AVPartition@Skeleton@pure3d@@  vftable 0x42c1b4 (1)

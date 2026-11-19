@@ -43,12 +43,26 @@ struct Blender_f87f0 {
     void FUN_000f81b0(int v, int a, int b);
     void FUN_000f87f0(Entry_f87f0* e, hulk_intptr arg);
 };
+// (sweep2) the text object's words before its font table (owners::Obj_f86f0's, which 0x000f86f0 sets up: the text
+// buffer, its size, the line table and the run table), as fields: a char pad of 0x24 bytes put the font table at
+// +0x28 natively where the object's typed words end at +0x30, and its words were raw 32-bit data to the 64-bit check
+struct TextHead_f86f0 {
+    char* m0;     // +0x00
+    unsigned m4;  // +0x04
+    int m8;       // +0x08
+    int* mC;      // +0x0c
+    unsigned m10; // +0x10
+    int m14;      // +0x14
+    void* m18;    // +0x18
+    int m1c;      // +0x1c
+    int m20;      // +0x20
+};
 struct Item {
     virtual void a0(); virtual void a1(); virtual void a2(); virtual void a3();
     virtual void a4(); virtual void a5(); virtual void a6(); virtual float a7();
     virtual void a8(); virtual float a9(int);
 };
-struct Root { char pad[0x24]; Item *items[1]; };
+struct Root : TextHead_f86f0 { Item *items[1]; };
 struct Context;
 struct Choice { int slot; int FUN_000f83f0(Root *, Context *); };
 struct Context {
@@ -66,8 +80,7 @@ public:
     virtual void v8(); virtual void v9();
     virtual float GetWidth(const unsigned short *text);             // slot 10
 };
-struct Owner_f88a0 {
-    char pad0[0x24];
+struct Owner_f88a0 : TextHead_f86f0 {
     Font *fonts[1];         // 0x24
 };
 struct StyleEntry {
@@ -136,12 +149,11 @@ struct Id64_f8970 {
 } // namespace fn_fb8fef2d
 extern "C" Id64_f8970 __cdecl FUN_0027b020(const char *name);
 namespace fn_fb8fef2d {
-class FontSet_f8970 {
+class FontSet_f8970 : public TextHead_f86f0 {
 public:
-    char pad0[0x24];
     Ref_f8970 *fonts[0x24 / 4];
     Id64_f8970 ids[(0x88 - 0x48) / 8];
-    int count;
+    unsigned int count;   // (sweep2) the number of fonts loaded (an index into the tables; never negative)
 
     void FUN_000f8970(const char *name);
 };
@@ -161,9 +173,8 @@ struct Id64_f89e0 {
     unsigned int lo;
     unsigned int hi;
 };
-class FontSet_f89e0 {
+class FontSet_f89e0 : public TextHead_f86f0 {
 public:
-    char pad0[0x24];
     Ref_f89e0 *fonts[0x24 / 4];
     Id64_f89e0 ids[(0x88 - 0x48) / 8];
     int count;
@@ -326,7 +337,7 @@ hulk_freg Label_f88a0::FUN_000f88a0(Run_f88a0 *run)
 // FUN_000f8970 @ 0x000f8970
 void FontSet_f8970::FUN_000f8970(const char *name)
 {
-    int i = count;
+    unsigned int i = count;
     if (fonts[i] != 0)
         fonts[i]->Release();
     Id64_f8970 id = FUN_0027b020(name);

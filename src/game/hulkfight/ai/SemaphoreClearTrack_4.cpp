@@ -67,12 +67,8 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::ai::SemaphoreClea
 
 // 0x00114850 fight::TrackFactoryTemplate<hulkfight::ai::SemaphoreClearTrack>::vfunc_5 (75 B): matches/0x00114850.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VSemaphoreClearTrack@ai@hulkfight@@@fight@@UAEPAXXZ
-struct AllocWords_114850 : ::hulkfight::ai::SemaphoreClearTrack {   // (sweep-allocsize) gen's words and the allocation's last word (gen's size is its
-    int last;                                                      // last field's end, 4 short of the 0x28-byte allocation)
-};
-typedef char AllocWords_114850_size32[(sizeof(void*) != 4 || sizeof(AllocWords_114850) == 0x28) ? 1 : -1];
 template <> void* fight::TrackFactoryTemplate<hulkfight::ai::SemaphoreClearTrack>::vfunc_5() {
-    char* p = (char*)FUN_0008d690(sizeof(AllocWords_114850));
+    char* p = (char*)FUN_0008d690(sizeof(::hulkfight::ai::SemaphoreClearTrack));
     if (p) {
         ((TrackBase_114850*)p)->Init_00236d40();
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_0040db84);

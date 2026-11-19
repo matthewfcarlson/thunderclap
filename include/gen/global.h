@@ -2896,6 +2896,7 @@ public:
     virtual ~CGrappleAttachAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_6(int); // overrides CAction slot 6
     void* f_1c;
+    int f_20; // (sweep2) the allocation's last word: new allocates 0x24 bytes (0x5aad0); no constructor writes it
 };
 
 // .?AVCGrappleAttachTrack@@  vftable 0x3f9944 (14)
@@ -2996,6 +2997,7 @@ public:
     virtual ~CGrappleEffectTrack(); // overrides fight::Param slot 5
     virtual void* vfunc_8(void*, void*); // overrides fight::Track slot 8
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
+    int f_5c; // (sweep2) the allocation's last word: new allocates 0x60 bytes (0x6f5b0); no constructor writes it
 };
 
 // .?AVCGrappleFightNodeCondition@@  vftable 0x3f8584 (8)
@@ -3098,6 +3100,7 @@ public:
     int f_68;
     float f_6c;
     float f_70;
+    int f_74; // (sweep2) the allocation's last word: new allocates 0x78 bytes (0x77d00); no constructor writes it
 };
 
 // .?AVCGrappleKeyPoseTrack@@  vftable 0x3fec10 (14)
@@ -3206,6 +3209,7 @@ public:
     float f_14;
     char _pad_18[0xc];
     int f_24;
+    int f_28; // (sweep2) the allocation's last word: new allocates 0x2c bytes (0x6f850); no constructor writes it
 };
 
 // .?AVCGrappleSequenceTrack@@  vftable 0x3f9a2c (11)
@@ -3279,6 +3283,7 @@ public:
     virtual ~CGrappleSwapAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_6(int); // overrides CAction slot 6
     void* f_1c;
+    int f_20; // (sweep2) the allocation's last word: new allocates 0x24 bytes (0x5abe0); no constructor writes it
 };
 
 // .?AVCGrappleSwapTrack@@  vftable 0x3f9980 (14)
@@ -4102,6 +4107,7 @@ public:
     virtual ~CMoveAddYAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_7(int); // overrides CAction slot 7
     void* f_1c;
+    int f_20; // (sweep2) the allocation's last word: new allocates 0x24 bytes (0x69b00); no constructor writes it
 };
 
 // .?AVCMoveAddYTrack@@  vftable 0x3fbc60 (14)
@@ -5170,6 +5176,7 @@ public:
     virtual void vfunc_13(void*); // slot 13
     int event;
     float timeBegin;
+    int f_14; // (sweep2) the allocation's last word: new allocates 0x18 bytes (0x700c0); the constructor 0x00062b50 clears it
 };
 
 // .?AVCSmartPropGrabbableNameCondition@@  vftable 0x3f7208 (8)
@@ -5288,6 +5295,7 @@ public:
     virtual ~CSmartPropThrowAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_6(int); // overrides CAction slot 6
     void* f_1c;
+    int f_20; // (sweep2) the allocation's last word: new allocates 0x24 bytes (0x62940); no constructor writes it
 };
 
 // .?AVCSmartPropThrowTrack@@  vftable 0x3fb08c (14)
@@ -5738,6 +5746,7 @@ public:
     int f_38;
     int f_3c;
     int f_40;
+    int f_44; // (sweep2) the allocation's last word: new allocates 0x48 bytes (0x70540); no constructor writes it
 };
 
 // .?AVOverlay@@  vftable 0x40a47c (6)
@@ -5897,6 +5906,7 @@ public:
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_6(int); // overrides CAction slot 6
     void* f_1c;
+    int f_20; // (sweep2) the allocation's last word: new allocates 0x24 bytes (0x5b350); no constructor writes it
 };
 
 // .?AVCUnlockable@@  vftable 0x40449c (1)
@@ -6095,6 +6105,7 @@ public:
     int f_f0;
     int f_f4;
     int f_f8;
+    int f_fc; // (sweep2) the allocation's last word: new allocates 0x100 bytes (0x705d0); no constructor writes it
 };
 
 // .?AVCWorldCollisionManager@@  vftable 0x4259f8 (1)
@@ -8440,6 +8451,7 @@ public:
     float f_260;
     float f_264;
     int f_268;
+    int f_26c; // (sweep2) the allocation's last word: new allocates 0x270 bytes (0xe49f0); no constructor writes it
 };
 
 // .?AUsControllerInputPointCallback@@  vftable 0x405fac (1)

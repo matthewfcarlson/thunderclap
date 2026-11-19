@@ -64,12 +64,8 @@ template <> void* fight::TrackFactoryCasterTemplate<CGrappleOpportunityTrack>::v
 
 // 0x0006f850 fight::TrackFactoryTemplate<CGrappleOpportunityTrack>::vfunc_5 (24 B): matches/0x0006f850.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VCGrappleOpportunityTrack@@@fight@@UAEPAXXZ
-struct AllocWords_6f850 : ::CGrappleOpportunityTrack {   // (sweep-allocsize) gen's words and the allocation's last word (gen's size is its
-    int last;                                           // last field's end, 4 short of the 0x2c-byte allocation)
-};
-typedef char AllocWords_6f850_size32[(sizeof(void*) != 4 || sizeof(AllocWords_6f850) == 0x2c) ? 1 : -1];
 template <> void* fight::TrackFactoryTemplate<CGrappleOpportunityTrack>::vfunc_5() {
-    Grapple_6f850* p = (Grapple_6f850*)FUN_0008d690(sizeof(AllocWords_6f850));
+    Grapple_6f850* p = (Grapple_6f850*)FUN_0008d690(sizeof(::CGrappleOpportunityTrack));
     if (p)
         return (void*)(p->ctor_0005ad00());
     return (void*)(0);

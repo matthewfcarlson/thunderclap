@@ -6,10 +6,6 @@
 // 0x000e49f0 FEContainer::vfunc_22 (68 B): matches/0x000e49f0.cpp [isolated: compile error C2440: 'initializing' : cannot convert from 'int' to 'void *'; on include/gen/ and not mergeable]
 // sym: ?vfunc_22@FEContainer@@UAEHH@Z
 #include "gen/global.h"
-struct AllocWords_e49f0 : ::VScroll {   // (sweep-allocsize) gen's words and the allocation's last word (gen's size is its
-    int last;                          // last field's end, 4 short of the 0x270-byte allocation)
-};
-typedef char AllocWords_e49f0_size32[(sizeof(void*) != 4 || sizeof(AllocWords_e49f0) == 0x270) ? 1 : -1];
 
 extern void* __cdecl FUN_0008d690(unsigned int);
 struct VScroll_nv_e49f0 {
@@ -17,7 +13,7 @@ struct VScroll_nv_e49f0 {
 };
 
 int FEContainer::vfunc_22(int param) {
-    void* p = FUN_0008d690(sizeof(AllocWords_e49f0));
+    void* p = FUN_0008d690(sizeof(::VScroll));
     int r;
     if (p)
         r = ((VScroll_nv_e49f0*)(((VScroll*)(((VScroll*)p)))))->make_000e21e0(this, param);

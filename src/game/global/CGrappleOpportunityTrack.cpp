@@ -910,12 +910,8 @@ CGrappleAttachTrack_5aaa0::~CGrappleAttachTrack_5aaa0() {
 
 // 0x0005aad0 CGrappleAttachTrack::vfunc_12 (40 B): matches/0x0005aad0.cpp
 // sym: ?vfunc_12@CGrappleAttachTrack@@UAEHH@Z
-struct AllocWords_5aad0 : ::CGrappleAttachAction {   // (sweep-allocsize) gen's words and the allocation's last word (gen's size is its
-    int last;                                       // last field's end, 4 short of the 0x24-byte allocation)
-};
-typedef char AllocWords_5aad0_size32[(sizeof(void*) != 4 || sizeof(AllocWords_5aad0) == 0x24) ? 1 : -1];
 hulk_intptr CGrappleAttachTrack::vfunc_12(hulk_intptr param) {
-    R_5aad0* p = FUN_0008d690((int)sizeof(AllocWords_5aad0));
+    R_5aad0* p = FUN_0008d690((int)sizeof(::CGrappleAttachAction));
     if (p)
         return p->invoke_0001dcd0(this, param);
     return 0;
@@ -1560,10 +1556,6 @@ void* CGrappleUninterruptibleTrack::vfunc_11(hulk_intptr param) {
 
 // 0x0005b350 CGrappleUninterruptibleTrack::vfunc_12 (114 B): equivalent/0x0005b350.cpp
 // sym: ?vfunc_12@CGrappleUninterruptibleTrack@@UAEHH@Z @2f4610e4972e @w62a3ddc58af7 @vc5a84bcd77ae
-struct AllocWords_5b350 : ::CUninterruptibleAction {   // (sweep-allocsize) gen's words and the allocation's last word (gen's size is its
-    int last;                                         // last field's end, 4 short of the 0x24-byte allocation)
-};
-typedef char AllocWords_5b350_size32[(sizeof(void*) != 4 || sizeof(AllocWords_5b350) == 0x24) ? 1 : -1];
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 15/16, incomplete)
 // CGrappleUninterruptibleTrack::vfunc_12 @ 0x0005b350
 hulk_intptr CGrappleUninterruptibleTrack::vfunc_12(hulk_intptr __p0) { Link1_5b350 * owner = (Link1_5b350 *)__p0;
@@ -1585,7 +1577,7 @@ hulk_intptr CGrappleUninterruptibleTrack::vfunc_12(hulk_intptr __p0) { Link1_5b3
     Weapon *weapon = fighter->weapon;
     if (weapon == 0)
         return (int)(0);
-    CUninterruptibleAction_5b350 *effect = (CUninterruptibleAction_5b350 *)FUN_0008d690((int)sizeof(AllocWords_5b350));
+    CUninterruptibleAction_5b350 *effect = (CUninterruptibleAction_5b350 *)FUN_0008d690((int)sizeof(::CUninterruptibleAction));
     if (effect == 0)
         return (int)(0);
     return (hulk_intptr)(effect->FUN_00020020(weapon, this->extensionTime));

@@ -1086,6 +1086,7 @@ public:
     float timeEnd;
     char _pad_14[0xc];
     char randomIntroWait;
+    int f_24; // (sweep2) the allocation's last word: new allocates 0x28 bytes (0x114b30); no constructor writes it
 };
 
 // .?AVLeashedCondition@ai@hulkfight@@  vftable 0x40da64 (7)
@@ -1304,6 +1305,7 @@ public:
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
     char _pad_1c[0x4];
     void* f_20;
+    int f_24; // (sweep2) the allocation's last word: new allocates 0x28 bytes (0x119e50); no constructor writes it
 };
 
 // .?AVMotionTargetTrack@ai@hulkfight@@  vftable 0x40ec10 (11)
@@ -1604,6 +1606,7 @@ public:
     char _pad_14[0xc];
     char f_20;
     char f_21;
+    int f_24; // (sweep2) the allocation's last word: new allocates 0x28 bytes (0x114850); no constructor writes it
 };
 
 // .?AVSemaphoreWaitAction@ai@hulkfight@@  vftable 0x40ddc0 (6)
@@ -1614,6 +1617,7 @@ public:
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
     int f_1c;
     void* f_20;
+    int f_24; // (sweep2) the allocation's last word: new allocates 0x28 bytes (0x1133a0); no constructor writes it
 };
 
 // .?AVSemaphoreWaitTrack@ai@hulkfight@@  vftable 0x40dd04 (11)
@@ -1656,6 +1660,7 @@ public:
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
     char _pad_1c[0x4];
     void* f_20;
+    int f_24; // (sweep2) the allocation's last word: new allocates 0x28 bytes (0x122210); no constructor writes it
 };
 
 // .?AVStrafeCircleHBTrack@ai@hulkfight@@  vftable 0x40f530 (11)
@@ -1986,6 +1991,7 @@ public:
     char threatName;
     char _pad_11[0x7];
     unsigned char threatRespondOnlyOnce;
+    int f_1c; // (sweep2) the allocation's last word: new allocates 0x20 bytes (0x12d5e0); no constructor writes it
 };
 
 // .?AVThreatDistanceCondition@ai@hulkfight@@  vftable 0x410bf4 (7)
@@ -2355,6 +2361,7 @@ public:
     int f_68;
     int f_6c;
     int f_70;
+    int f_74; // (sweep2) the allocation's last word: new allocates 0x78 bytes (0x18c940); no constructor writes it
 };
 
 // .?AVBallAndChainShootAction@motion@hulkfight@@  vftable 0x4197ac (6)
@@ -4400,6 +4407,7 @@ public:
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
     float timeBegin;
     float timeEnd;
+    int f_14; // (sweep2) the allocation's last word: new allocates 0x18 bytes (0x159e20); no constructor writes it
 };
 
 // .?AVJointPivotTrackerAction@motion@hulkfight@@  vftable 0x417e0c (6)
@@ -4608,6 +4616,7 @@ public:
     int f_58;
     float f_5c;
     float f_60;
+    int f_64; // (sweep2) the allocation's last word: new allocates 0x68 bytes (0x1652a0); no constructor writes it
 };
 
 // .?AVLocomotionStateAction@motion@hulkfight@@  vftable 0x417db8 (6)
@@ -4709,6 +4718,7 @@ public:
     int f_98;
     float f_9c;
     float f_a0;
+    int f_a4; // (sweep2) the allocation's last word: new allocates 0xa8 bytes (0x1650f0); no constructor writes it
 };
 
 // .?AVMissilePunchAction@motion@hulkfight@@  vftable 0x41b51c (6)
@@ -4908,6 +4918,7 @@ public:
     int f_58;
     int f_5c;
     int f_60;
+    int f_64; // (sweep2) the allocation's last word: new allocates 0x68 bytes (0x17f0a0); no constructor writes it
 };
 
 // .?AVNoHitPushbackAction@motion@hulkfight@@  vftable 0x4145f0 (6)
@@ -5486,6 +5497,7 @@ public:
     float f_38;
     float f_3c;
     char f_40;
+    int f_44; // (sweep2) the allocation's last word: new allocates 0x48 bytes (0x17f130); no constructor writes it
 };
 
 // .?AVRageModeStateCondition@motion@hulkfight@@  vftable 0x416958 (7)
@@ -5513,6 +5525,7 @@ public:
     char f_35;
     char _pad_36[0x2];
     float f_38;
+    int f_3c; // (sweep2) the allocation's last word: new allocates 0x40 bytes (0x16e6b0); no constructor writes it
 };
 
 // .?AVRayCastConeCondition@motion@hulkfight@@  vftable 0x4167b8 (7)

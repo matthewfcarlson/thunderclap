@@ -5,6 +5,7 @@
 #include "decls/address.h"
 #include "decls/data/engine/pure3d/prop.h"
 #include "gen/owners.h"
+#include "gen/pure3d.h"
 #define TREE_TU_BEGIN namespace fn_fcb4ee90 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CAction
@@ -607,12 +608,6 @@ public:
 };
 
 
-// (sweep-caster-land) the optimized prim group's allocation: the view's words and the allocation's last word (0x60 on the
-// 32-bit builds, as the literal was; gen's pure3d::PrimGroupOptimized agrees with the view natively, 0x68)
-struct AllocWords_2e1960 : pure3d::PrimGroupOptimized {
-    int last;
-};
-typedef char AllocWords_2e1960_size32[(sizeof(void*) != 4 || sizeof(AllocWords_2e1960) == 0x60) ? 1 : -1];
 
 
 // 0x002e1960 FUN_002e1960 (2315 B): equivalent/0x002e1960.cpp
@@ -635,7 +630,7 @@ void Hdr_2e1960::Load(int a1, Reader* R, int a3, PalList_2e1960* a4, unsigned in
     PrimGroup* obj;
     f.pal = 0;
     if (a4 != 0 && ((a4->end - a4->begin) >> 6) != 0) {
-        void* m = thunk_FUN_0008d690((unsigned int)sizeof(PrimGroupPalette_2e1960));   // (sweep-caster-land) the view's size (0x68 on the 32-bit builds)
+        void* m = thunk_FUN_0008d690((unsigned int)sizeof(::pure3d::PrimGroupSkinnedOptimized));   // (sweep2) gen's record (0x68; the constructor 0x002dffe0 is its)
         if (m) {
             f.pal = ((PrimGroupPalette_2e1960*)m)->FUN_002dffe0(f1c, f20);
             obj = f.pal;
@@ -644,7 +639,7 @@ void Hdr_2e1960::Load(int a1, Reader* R, int a3, PalList_2e1960* a4, unsigned in
             obj = 0;
         }
     } else {
-        void* m = thunk_FUN_0008d690((unsigned int)sizeof(AllocWords_2e1960));
+        void* m = thunk_FUN_0008d690((unsigned int)sizeof(::pure3d::PrimGroupOptimized));
         if (m)
             obj = new (m) pure3d::PrimGroupOptimized(f1c, f20);
         else
@@ -896,12 +891,6 @@ void Hdr_2e1960::Load(int a1, Reader* R, int a3, PalList_2e1960* a4, unsigned in
 }
 
 
-// (sweep-caster-land) the skinned prim group's allocation: the view's words and the allocation's last word (0x70 on the
-// 32-bit builds, as the literal was)
-struct AllocWords_2e2a70 : PrimGroupSkinnedPC_2e2a70 {
-    int last;
-};
-typedef char AllocWords_2e2a70_size32[(sizeof(void*) != 4 || sizeof(AllocWords_2e2a70) == 0x70) ? 1 : -1];
 
 
 // 0x002e2a70 FUN_002e2a70 (1577 B): equivalent/0x002e2a70.cpp
@@ -924,7 +913,7 @@ void PrimLoader::FUN_002e2a70(int a1, Slot2 a2, int a3, RefObj_2e2a70 *a4, Slot5
         vA = 0;
     f.vA = vA;
     f.lim = fl & 0xf;
-    void *mem = thunk_FUN_0008d690((unsigned int)sizeof(AllocWords_2e2a70));
+    void *mem = thunk_FUN_0008d690((unsigned int)sizeof(::pure3d::PrimGroupSkinnedPC));
     PrimGroupSkinnedPC_2e2a70 *obj = 0;
     if (mem != 0)
         obj = ((PrimGroupSkinnedPC_2e2a70 *)mem)->FUN_002e0620(flags, f20, f24);
@@ -1548,12 +1537,6 @@ struct Frame_2e30f0 {
 };
 
 
-// (sweep-caster-land) the optimized prim group's allocation: the view's words and the allocation's last word (0x60 on the
-// 32-bit builds, as the literal was; gen's pure3d::PrimGroupOptimized agrees with the view natively, 0x68)
-struct AllocWords_2e30f0 : pure3d::PrimGroupOptimized {
-    int last;
-};
-typedef char AllocWords_2e30f0_size32[(sizeof(void*) != 4 || sizeof(AllocWords_2e30f0) == 0x60) ? 1 : -1];
 
 void Hdr::Load(int a1, Reader *R, int a3, PalList_2e30f0 *a4)
 {
@@ -1570,7 +1553,7 @@ void Hdr::Load(int a1, Reader *R, int a3, PalList_2e30f0 *a4)
     PrimGroup *obj;
     f.pal = 0;
     if (a4 != 0 && ((a4->end - a4->begin) >> 6) != 0) {
-        void *m = thunk_FUN_0008d690((unsigned int)sizeof(PrimGroupPalette_2e30f0));   // (sweep-caster-land) the view's size (0x68 on the 32-bit builds)
+        void *m = thunk_FUN_0008d690((unsigned int)sizeof(::pure3d::PrimGroupSkinnedOptimized));   // (sweep2) gen's record (0x68; the constructor 0x002dffe0 is its)
         if (m) {
             f.pal = ((PrimGroupPalette_2e30f0 *)m)->FUN_002dffe0(flags, f18);
             obj = f.pal;
@@ -1579,7 +1562,7 @@ void Hdr::Load(int a1, Reader *R, int a3, PalList_2e30f0 *a4)
             obj = 0;
         }
     } else {
-        void *m = thunk_FUN_0008d690((unsigned int)sizeof(AllocWords_2e30f0));
+        void *m = thunk_FUN_0008d690((unsigned int)sizeof(::pure3d::PrimGroupOptimized));
         if (m) {
             f.u12.y12 = flags;
             obj = new (m) pure3d::PrimGroupOptimized(f.u12.y12, f18);
@@ -2145,14 +2128,14 @@ void Loader::FUN_002e3bd0(Slot1 a1, Slot2 a2, int a3, PalSrc *a4)
     f.obj = 0;
     PrimGroupStreamed_2e3bd0 *g;
     if (a4 != 0 && (unsigned int)((a4->end - a4->begin) >> 6) > 0) {
-        void *mem = thunk_FUN_0008d690(0x68);
+        void *mem = thunk_FUN_0008d690(sizeof(::pure3d::PrimGroupSkinnedStreamed));   // (sweep2) gen's record (0x68)
         pure3d::PrimGroupSkinnedStreamed *sg = 0;
         if (mem != 0)
             sg = new (mem) pure3d::PrimGroupSkinnedStreamed(flags, f18, f1c);
         g = sg;
         f.obj = sg;
     } else {
-        void *mem = thunk_FUN_0008d690(0x60);
+        void *mem = thunk_FUN_0008d690(sizeof(::pure3d::PrimGroupStreamed));   // (sweep2) gen's record (0x60)
         g = 0;
         if (mem != 0)
             g = ((PrimGroupStreamed_2e3bd0 *)mem)->FUN_002e01d0(flags, f18, f1c);

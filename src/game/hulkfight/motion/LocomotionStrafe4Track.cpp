@@ -56,12 +56,8 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::Locomotio
 
 // 0x001650f0 fight::TrackFactoryTemplate<hulkfight::motion::LocomotionStrafe4Track>::vfunc_5 (27 B): matches/0x001650f0.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VLocomotionStrafe4Track@motion@hulkfight@@@fight@@UAEPAXXZ
-struct AllocWords_1650f0 : ::hulkfight::motion::LocomotionStrafe4Track {   // (sweep-allocsize) gen's words and the allocation's last word (gen's size is its
-    int last;                                                             // last field's end, 4 short of the 0xa8-byte allocation)
-};
-typedef char AllocWords_1650f0_size32[(sizeof(void*) != 4 || sizeof(AllocWords_1650f0) == 0xa8) ? 1 : -1];
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::LocomotionStrafe4Track>::vfunc_5() {
-    LocomotionStrafe4Track_1650f0* p = (LocomotionStrafe4Track_1650f0*)FUN_0008d690(sizeof(AllocWords_1650f0));
+    LocomotionStrafe4Track_1650f0* p = (LocomotionStrafe4Track_1650f0*)FUN_0008d690(sizeof(::hulkfight::motion::LocomotionStrafe4Track));
     if (p)
         return (void*)(p->Init_0015baf0());
     return (void*)(0);

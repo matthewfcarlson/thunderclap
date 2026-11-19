@@ -120,10 +120,6 @@ Locator::Locator() {
 
 // 0x002c1770 pure3d::LocatorLoader::vfunc_5 (388 B): equivalent/0x002c1770.cpp
 // sym: ?vfunc_5@LocatorLoader@pure3d@@UAEXPAX00H@Z @d445b8d36bb0 @wb146b3faaaec @vfa52a8acf141
-struct AllocWords_2c1770 : pure3d::Locator_2c1770 {   // (sweep-allocsize) the locator's words and the allocation's last
-    int last;                                         // word (the view's size is its last field's end, 4 short of 0x30)
-};
-typedef char AllocWords_2c1770_size32[(sizeof(void*) != 4 || sizeof(AllocWords_2c1770) == 0x30) ? 1 : -1];
 // STATUS: equivalent (tools/equiv.py level 3: 15928 inputs, branch coverage 8/8)
 // pure3d::LocatorLoader::vfunc_5 @ 0x002c1770
 void pure3d::LocatorLoader::vfunc_5(void* __p0, void* __p1, void* __p2, hulk_intptr __p3) { pure3d::Locator_2c1770 ** out = (pure3d::Locator_2c1770 **)__p0; unsigned long long * outId = (unsigned long long *)__p1; Stream_2c1770 * s = (Stream_2c1770 *)__p2; void * ctx = (void *)__p3;
@@ -136,7 +132,7 @@ void pure3d::LocatorLoader::vfunc_5(void* __p0, void* __p1, void* __p2, hulk_int
     f.name[f.len] = 0;
     ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((void*)(&f.pos), (hulk_intptr)3, 4, (hulk_intptr)1);
 
-    void *mem = FUN_00263ea0(sizeof(AllocWords_2c1770));
+    void *mem = FUN_00263ea0(sizeof(::pure3d::Locator));
     pure3d::Locator_2c1770 *loc = 0;
     if (mem)
         loc = new (mem) pure3d::Locator_2c1770();

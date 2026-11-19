@@ -8,10 +8,6 @@
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VThreatCondition@ai@hulkfight@@@fight@@UAEPAXXZ
 #include "gen/fight.h"
 #include "gen/hulkfight.h"
-struct AllocWords_12d5e0 : ::hulkfight::ai::ThreatCondition {   // (sweep-allocsize) gen's words and the allocation's last word (gen's size is its
-    int last;                                                  // last field's end, 4 short of the 0x20-byte allocation)
-};
-typedef char AllocWords_12d5e0_size32[(sizeof(void*) != 4 || sizeof(AllocWords_12d5e0) == 0x20) ? 1 : -1];
 
 extern "C" char DAT_00410bd4[];
 typedef unsigned int u32_12d5e0;
@@ -32,7 +28,7 @@ struct ThreatDistanceCondition_12d5e0 {
 };
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::ThreatCondition>::vfunc_5() {
-    ThreatDistanceCondition_12d5e0* p = (ThreatDistanceCondition_12d5e0*)alloc(sizeof(AllocWords_12d5e0));
+    ThreatDistanceCondition_12d5e0* p = (ThreatDistanceCondition_12d5e0*)alloc(sizeof(::hulkfight::ai::ThreatCondition));
     if (p) {
         p->init_00234590(0);
         p->vptr = ((hulk_intptr)DAT_00410bd4);

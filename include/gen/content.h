@@ -122,7 +122,7 @@ public:
 // .?AVDynamicCasterBase@LoadInventory@content@@  vftable 0x3f3384 (1)
 class LoadInventory::DynamicCasterBase {
 public:
-    virtual void vfunc_0(void*) = 0; // slot 0
+    virtual void* vfunc_0(void*) = 0; // slot 0 (sweep2, G7: the cast; MSVC returns it in eax)
 };
 
 // template family content::LoadInventory::DynamicCaster: 49 instantiation(s), 0 with their own specialization
@@ -178,7 +178,7 @@ public:
 template <class T0>
 class LoadInventory::DynamicCaster : public ::content::LoadInventory::DynamicCasterBase {
 public:
-    virtual void vfunc_0(void*); // overrides content::LoadInventory::DynamicCasterBase slot 0
+    virtual void* vfunc_0(void*); // overrides content::LoadInventory::DynamicCasterBase slot 0 (the cast)
 };
 
 // .?AVLoadRequest@content@@  vftable 0x42aee4 (3)

@@ -3067,13 +3067,12 @@ class CTrack_62b50 {
 class CSmartPropEventTrack : public ::CSmartPropEventTrack {
   public:
     CSmartPropEventTrack();
-    int m_14;
 };
 
 CSmartPropEventTrack::CSmartPropEventTrack() {
     event = 0;
     timeBegin = 0;
-    m_14 = 0;}
+    f_14 = 0;}   // (sweep2) gen's last word (the allocation is 0x18 bytes)
 } // namespace fn_00062b50
 
 

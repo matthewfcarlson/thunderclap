@@ -1555,11 +1555,13 @@ __int64 Iter::Run() {
 } // namespace fn_fd8937bc
 
 // 0x000faf20 content::LoadInventory::DynamicCaster<DollyScript::CRawScript>::vfunc_0 (30 B): matches/0x000faf20.cpp
-// sym: ?vfunc_0@?$DynamicCaster@VCRawScript@DollyScript@@@LoadInventory@content@@UAEXPAX@Z
+// sym: ?vfunc_0@?$DynamicCaster@VCRawScript@DollyScript@@@LoadInventory@content@@UAEPAXPAX@Z
 // Same code shape as 0x00021650 (propagated; names are from that function)
-template <> void content::LoadInventory::DynamicCaster<DollyScript::CRawScript>::vfunc_0(void* __p0) { void * p = (void *)__p0;
-
-    __RTDynamicCast((void*)((hulk_uintptr)p), 0, (void*)(&type_refcount), (void*)(&type_animation), 0);
+// (sweep2, G7) the game's descriptors by address: gen/DollyScript.h's classes collide with this TU's local ones
+extern "C" char hulk_at_0048d5bc[];   // ??_R0.?AUIRefCount@core@@@8
+extern "C" char hulk_at_004a18b4[];   // ??_R0.?AVCRawScript@DollyScript@@@8
+template <> void* content::LoadInventory::DynamicCaster<DollyScript::CRawScript>::vfunc_0(void* p) {
+    return __RTDynamicCast(p, 0, (void*)hulk_at_0048d5bc, (void*)hulk_at_004a18b4, 0);   // the cast is the slot's result
 }
 
 

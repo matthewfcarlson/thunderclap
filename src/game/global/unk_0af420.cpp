@@ -36,7 +36,7 @@ struct Provider_af530 {
 };
 struct Record_af530 { unsigned count; unsigned types[8]; float values[2]; Provider_af530* provider; };
 struct Object {
- char pad0[8]; unsigned char enabled; char pad9[11]; Record_af530* records;
+ void* vftable; int refs; unsigned char enabled; char pad9[3]; void* src; int count; Record_af530* records;   // (sweep2) CHapticController's words (gen/global.h; natively the records are at +0x20)
  void target(unsigned group,unsigned index,float value);
 };
 class Info_af700 {
@@ -76,7 +76,12 @@ struct Record_af700 {
 };
 class Controller_af700 {
 public:
-    char pad0[0x14];
+    void *vftable;   // (sweep2) CHapticController's words (gen/global.h; natively the records are at +0x20)
+    int refs;
+    unsigned char enabled;
+    char pad9[3];
+    void *src;
+    int count;
     Record_af700 *records;
     void FUN_000af530(int index, unsigned int port, int flag);
     void FUN_000af700(int index, Device_af700 *dev);
@@ -130,7 +135,8 @@ struct Group_af8e0 {
 };
 class Mixer {
 public:
-    char pad00[8];
+    void *vftable;          // (sweep2) CHapticController's words (gen/global.h)
+    int refs;
     bool enabled;           // 0x08
     char pad09[3];
     EntryList_af8e0 *entries;     // 0x0c
@@ -159,14 +165,16 @@ public:
 struct Group_afaf0 {
     unsigned int count;      // 0x00
     char pad04[8];
-    void *entries[8];        // 0x0c
+    int entries[8];          // 0x0c (sweep2) the timers and levels (Group_af8e0's floats): 4 bytes each natively too
     Source_afaf0 *owner;           // 0x2c
 };
 class Manager_afaf0 {
 public:
-    char pad00[8];
+    void *vftable;           // (sweep2) CHapticController's words (gen/global.h)
+    int refs;
     char active;             // 0x08
-    char pad09[7];
+    char pad09[3];
+    void *src;               // 0x0c
     int groupCount;          // 0x10
     Group_afaf0 *groups;           // 0x14
     void FUN_000af530(int group, unsigned int entry, int flag);

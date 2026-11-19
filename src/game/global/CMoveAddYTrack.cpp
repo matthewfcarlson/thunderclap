@@ -98,13 +98,9 @@ hulk_freg CMoveAddYTrack::vfunc_7() {
 
 // 0x00069b00 CMoveAddYTrack::vfunc_12 (40 B): matches/0x00069b00.cpp
 // sym: ?vfunc_12@CMoveAddYTrack@@UAEHH@Z
-struct AllocWords_69b00 : ::CMoveAddYAction {   // (sweep-allocsize) gen's words and the allocation's last word (gen's size is its
-    int last;                                  // last field's end, 4 short of the 0x24-byte allocation)
-};
-typedef char AllocWords_69b00_size32[(sizeof(void*) != 4 || sizeof(AllocWords_69b00) == 0x24) ? 1 : -1];
 // Same code shape as 0x0005aad0 (propagated; names are from that function)
 hulk_intptr CMoveAddYTrack::vfunc_12(hulk_intptr param) {
-    R_69b00* p = FUN_0008d690(sizeof(AllocWords_69b00));
+    R_69b00* p = FUN_0008d690(sizeof(::CMoveAddYAction));
     if (p)
         return p->invoke_0001d3a0(this, param);
     return 0;

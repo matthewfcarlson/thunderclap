@@ -57,12 +57,8 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::Interrupt
 
 // 0x00159e20 fight::TrackFactoryTemplate<hulkfight::motion::InterruptPriorityTrack>::vfunc_5 (66 B): matches/0x00159e20.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VInterruptPriorityTrack@motion@hulkfight@@@fight@@UAEPAXXZ
-struct AllocWords_159e20 : ::hulkfight::motion::InterruptPriorityTrack {   // (sweep-allocsize) gen's words and the allocation's last word (gen's size is its
-    int last;                                                             // last field's end, 4 short of the 0x18-byte allocation)
-};
-typedef char AllocWords_159e20_size32[(sizeof(void*) != 4 || sizeof(AllocWords_159e20) == 0x18) ? 1 : -1];
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::InterruptPriorityTrack>::vfunc_5() {
-    char* p = (char*)FUN_0008d690(sizeof(AllocWords_159e20));
+    char* p = (char*)FUN_0008d690(sizeof(::hulkfight::motion::InterruptPriorityTrack));
     if (p) {
         ((TrackBase_159e20*)p)->Init_00236d40();
         *(hulk_intptr*)p = ((hulk_intptr)DAT_00414330);

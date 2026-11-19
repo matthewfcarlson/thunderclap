@@ -11,6 +11,8 @@
 #include "gen/content.h"
 #include "gen/global.h"
 #include "gen/owners.h"
+#include "gen/core.h"
+#include "gen/pure3d.h"
 #define TREE_TU_BEGIN namespace fn_f9399ba1 {
 #define TREE_TU_END }
 namespace fn_f9399ba1 {} using namespace fn_f9399ba1;
@@ -3705,11 +3707,10 @@ void Thing_7cdb0::Run() {
 } // namespace fn_f9399ba1
 
 // 0x0007ce10 content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable>::vfunc_0 (30 B): matches/0x0007ce10.cpp
-// sym: ?vfunc_0@?$DynamicCaster@VCompositeDrawable@pure3d@@@LoadInventory@content@@UAEXPAX@Z
+// sym: ?vfunc_0@?$DynamicCaster@VCompositeDrawable@pure3d@@@LoadInventory@content@@UAEPAXPAX@Z
 // Same code shape as 0x00021650 (propagated; names are from that function)
-template <> void content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable>::vfunc_0(void* __p0) { void * p = (void *)__p0;
-
-    __RTDynamicCast((void*)((hulk_uintptr)p), 0, (void*)(&type_refcount), (void*)(&type_animation), 0);
+template <> void* content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable>::vfunc_0(void* p) {
+    return dynamic_cast<::pure3d::CompositeDrawable*>((::core::IRefCount*)p);   // (sweep2, G7) the cast is the slot's result
 }
 
 
