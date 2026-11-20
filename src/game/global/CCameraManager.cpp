@@ -3149,14 +3149,24 @@ template <> Method6<CCameraManager, void, float, float, float, float, float, flo
 
 
 // 0x0009a780 Method6<CCameraManager,void,float,float,float,float,float,float>::vfunc_2 (30 B): matches/0x0009a780.cpp
-// sym: ?vfunc_2@?$Method6@VCCameraManager@@XMMMMMM@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method6_9a780@fn_0009a780@@QAEXPAX00@Z
 // Same code shape as 0x0002caf0 (propagated; names are from that function)
-template <> void Method6<CCameraManager, void, float, float, float, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { const char * a = (const char *)__p0; const char * b = (const char *)__p1; const char * c = (const char *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method6<CCameraManager, void, float, float, float, float, float, float>::vfunc_2`.
+namespace fn_0009a780 {
+struct Method6_9a780 : hulk_script::FunctionGenView {
+    void (::CCameraManager::*f_1c)(float, float, float, float, float, float);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method6_9a780::vfunc_2(void* __p0, void* __p1, void* __p2) { const char * a = (const char *)__p0; const char * b = (const char *)__p1; const char * c = (const char *)__p2;
 
     FUN_0009a7a0(a, b, c, (*(int *)&this->f_1c));
 }
+} // namespace fn_0009a780
 #if defined(HULK_PTR64)
-template class Method6<CCameraManager, void, float, float, float, float, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9a760)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method6<CCameraManager, void, float, float, float, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0009a780::Method6_9a780*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 namespace fn_f5ef2b3f {
@@ -3221,15 +3231,25 @@ template <> Method4<CCameraManager, void, float, float,math::Vector, float>::~Me
 
 
 // 0x0009a890 Method4<CCameraManager,void,float,float,math::Vector,float>::vfunc_2 (73 B): equivalent/0x0009a890.cpp
-// sym: ?vfunc_2@?$Method4@VCCameraManager@@XMMVVector@math@@M@@UAEXPAX00@Z @70637d1eda7a @wcd11ec81a8a3 @v71876ce0bf75
+// sym: ?vfunc_2@Method4_9a890@fn_0009a890@@QAEXPAX00@Z @70637d1eda7a @wcd11ec81a8a3 @v94c03ad3a53c
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // Method4<CCameraManager,void,float,float,math::Vector,float>::vfunc_2 @ 0x0009a890
-template <> void Method4<CCameraManager, void, float, float,math::Vector, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { CCameraManager_9a890 * manager = (CCameraManager_9a890 *)__p0; const Args * args = (const Args *)__p1; void * unused = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method4<CCameraManager, void, float, float,math::Vector, float>::vfunc_2`.
+namespace fn_0009a890 {
+struct Method4_9a890 : hulk_script::FunctionGenView {
+    void (::CCameraManager::*f_1c)(float, float, math::Vector, float);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method4_9a890::vfunc_2(void* __p0, void* __p1, void* __p2) { CCameraManager_9a890 * manager = (CCameraManager_9a890 *)__p0; const Args * args = (const Args *)__p1; void * unused = (void *)__p2;
 
     (manager->*(*(void (CCameraManager_9a890::**)(float, float, Vector_9a890, float))&this->f_1c))(args->first,args->second,args->direction,args->last);
 }
+} // namespace fn_0009a890
 #if defined(HULK_PTR64)
-template class Method4<CCameraManager, void, float, float,math::Vector, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9a870)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method4<CCameraManager, void, float, float,math::Vector, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0009a890::Method4_9a890*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 namespace fn_f5ef2b3f {
@@ -3309,17 +3329,27 @@ template <> Method2<CCameraManager, void, float, float>::~Method2() {}
 
 
 // 0x0009aa00 Method2<CCameraManager,void,float,float>::vfunc_2 (23 B): matches/0x0009aa00.cpp
-// sym: ?vfunc_2@?$Method2@VCCameraManager@@XMM@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method2_9aa00@fn_0009aa00@@QAEXPAX00@Z
 // Same code shape as 0x000beac0 (propagated; names are from that function)
-template <> void Method2<CCameraManager, void, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; void * p = (void *)__p1; hulk_intptr n = (hulk_intptr)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method2<CCameraManager, void, float, float>::vfunc_2`.
+namespace fn_0009aa00 {
+struct Method2_9aa00 : hulk_script::FunctionGenView {
+    void (::CCameraManager::*f_1c)(float, float);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method2_9aa00::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; void * p = (void *)__p1; hulk_intptr n = (hulk_intptr)__p2;
 
     CFEManager_9aa00* m = (CFEManager_9aa00*)unused;
     const char* s = *(const char**)p;
     int x = *(int*)((char*)p + 4);
     (m->*(*(void (CFEManager_9aa00::**)(const char *, int))&this->f_1c))(s, x);
 }
+} // namespace fn_0009aa00
 #if defined(HULK_PTR64)
-template class Method2<CCameraManager, void, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9a9e0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method2<CCameraManager, void, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0009aa00::Method2_9aa00*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -3378,12 +3408,12 @@ template class Method4<CCameraManager, void, float, float, float, float>; // (re
 
 
 // 0x0009aab0 Method4<CCameraManager,void,float,float,float,float>::vfunc_2 (53 B): matches/0x0009aab0.cpp [wrapped: conflict: CCameraManager; Function; Method4]
-// sym: ?f2@Method4@fn_0009aab0@@UAEXPAVCCameraManager@2@PAMH@Z
+// sym: ?f2@Method4@fn_0009aab0@@QAEXPAVCCameraManager@2@PAMH@Z
 namespace fn_0009aab0 {
-class Function {
+class Function { void* vftable;   /* (script2) the vftable word, no stand-in vftable */
   public:
-    virtual void f0();
-    virtual void f1();
+    void f0();
+    void f1();
 };
 class CCameraManager {
   public:
@@ -3391,8 +3421,8 @@ class CCameraManager {
 };
 class Method4 : public Function {
   public:
-    virtual void f0();
-    virtual void f2(CCameraManager*, float*, int);
+    void f0();
+    void f2(CCameraManager*, float*, int);
     ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[24])
     typedef void (CCameraManager::*M)(float, float, float, float);
     M method;
@@ -3521,7 +3551,7 @@ template class Method4<CCameraManager, void, bool, bool, bool, float>; // (ren2)
 
 
 // 0x0009ac30 Method4<CCameraManager,void,bool,bool,bool,float>::vfunc_2 (54 B): matches/0x0009ac30.cpp [wrapped: conflict: CCameraManager; Function; Method4]
-// sym: ?vfunc_2@Method4@fn_0009ac30@@UAEXPAVCCameraManager@2@PAUArg@2@H@Z
+// sym: ?vfunc_2@Method4@fn_0009ac30@@QAEXPAVCCameraManager@2@PAUArg@2@H@Z
 namespace fn_0009ac30 {
 class CCameraManager {
   public:
@@ -3535,14 +3565,14 @@ union Slot {
     unsigned int u;
     bool b;
 };
-class Function {
+class Function { void* vftable;   /* (script2) the vftable word, no stand-in vftable */
   public:
-    virtual void f0();
-    virtual void f1();
+    void f0();
+    void f1();
 };
 class Method4 : public Function {
   public:
-    virtual void vfunc_2(CCameraManager*, Arg*, int);
+    void vfunc_2(CCameraManager*, Arg*, int);
     ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[24])
     typedef void (CCameraManager::*Fn)(unsigned int, unsigned int, unsigned int, float);
     Fn fn;
@@ -3610,17 +3640,27 @@ template <> Method4<CCameraManager, void, bool, bool, bool, bool>::~Method4() {}
 
 
 // 0x0009ad00 Method4<CCameraManager,void,bool,bool,bool,bool>::vfunc_2 (56 B): equivalent/0x0009ad00.cpp
-// sym: ?vfunc_2@?$Method4@VCCameraManager@@X_N_N_N_N@@UAEXPAX00@Z @100ae2990848 @w7082a0cabf52 @v19a7aeedb92f
+// sym: ?vfunc_2@Method4_9ad00@fn_0009ad00@@QAEXPAX00@Z @100ae2990848 @w7082a0cabf52 @v0e49f58f7e94
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Method4<CCameraManager,void,bool,bool,bool,bool>::vfunc_2 @ 0x0009ad00
-template <> void Method4<CCameraManager, void, bool, bool, bool, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { CCameraManager_9ad00 * manager = (CCameraManager_9ad00 *)__p0; const unsigned char * args = (const unsigned char *)__p1;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method4<CCameraManager, void, bool, bool, bool, bool>::vfunc_2`.
+namespace fn_0009ad00 {
+struct Method4_9ad00 : hulk_script::FunctionGenView {
+    void (::CCameraManager::*f_1c)(bool, bool, bool, bool);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method4_9ad00::vfunc_2(void* __p0, void* __p1, void* __p2) { CCameraManager_9ad00 * manager = (CCameraManager_9ad00 *)__p0; const unsigned char * args = (const unsigned char *)__p1;
 
     (manager->*(*(void (CCameraManager_9ad00::**)(unsigned int, unsigned int, unsigned int, unsigned int))&this->f_1c))(((hulk_uintptr)this & 0xffffff00u) | args[0],
                          ((hulk_uintptr)args & 0xffffff00u) | args[4],
                          args[8], args[12]);
 }
+} // namespace fn_0009ad00
 #if defined(HULK_PTR64)
-template class Method4<CCameraManager, void, bool, bool, bool, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9ace0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method4<CCameraManager, void, bool, bool, bool, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0009ad00::Method4_9ad00*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 namespace fn_f5ef2b3f {
@@ -3667,14 +3707,24 @@ template <> Method5<CCameraManager, void, bool, bool, bool, bool, float>::~Metho
 
 
 // 0x0009ade0 Method5<CCameraManager,void,bool,bool,bool,bool,float>::vfunc_2 (30 B): matches/0x0009ade0.cpp
-// sym: ?vfunc_2@?$Method5@VCCameraManager@@X_N_N_N_NM@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method5_9ade0@fn_0009ade0@@QAEXPAX00@Z
 // Same code shape as 0x0002caf0 (propagated; names are from that function)
-template <> void Method5<CCameraManager, void, bool, bool, bool, bool, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { const char * a = (const char *)__p0; const char * b = (const char *)__p1; const char * c = (const char *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method5<CCameraManager, void, bool, bool, bool, bool, float>::vfunc_2`.
+namespace fn_0009ade0 {
+struct Method5_9ade0 : hulk_script::FunctionGenView {
+    void (::CCameraManager::*f_1c)(bool, bool, bool, bool, float);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method5_9ade0::vfunc_2(void* __p0, void* __p1, void* __p2) { const char * a = (const char *)__p0; const char * b = (const char *)__p1; const char * c = (const char *)__p2;
 
     FUN_0009ae00(a, b, c, (*(int *)&this->f_1c));
 }
+} // namespace fn_0009ade0
 #if defined(HULK_PTR64)
-template class Method5<CCameraManager, void, bool, bool, bool, bool, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9adc0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method5<CCameraManager, void, bool, bool, bool, bool, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0009ade0::Method5_9ade0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -3740,14 +3790,24 @@ template <> Method7<CCameraManager, void, bool, bool, bool, bool, bool, bool, fl
 
 
 // 0x0009af00 Method7<CCameraManager,void,bool,bool,bool,bool,bool,bool,float>::vfunc_2 (30 B): matches/0x0009af00.cpp
-// sym: ?vfunc_2@?$Method7@VCCameraManager@@X_N_N_N_N_N_NM@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method7_9af00@fn_0009af00@@QAEXPAX00@Z
 // Same code shape as 0x0002caf0 (propagated; names are from that function)
-template <> void Method7<CCameraManager, void, bool, bool, bool, bool, bool, bool, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { const char * a = (const char *)__p0; const char * b = (const char *)__p1; const char * c = (const char *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method7<CCameraManager, void, bool, bool, bool, bool, bool, bool, float>::vfunc_2`.
+namespace fn_0009af00 {
+struct Method7_9af00 : hulk_script::FunctionGenView {
+    void (::CCameraManager::*f_1c)(bool, bool, bool, bool, bool, bool, float);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method7_9af00::vfunc_2(void* __p0, void* __p1, void* __p2) { const char * a = (const char *)__p0; const char * b = (const char *)__p1; const char * c = (const char *)__p2;
 
     FUN_0009af20(a, b, c, (*(int *)&this->f_1c));
 }
+} // namespace fn_0009af00
 #if defined(HULK_PTR64)
-template class Method7<CCameraManager, void, bool, bool, bool, bool, bool, bool, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9aee0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method7<CCameraManager, void, bool, bool, bool, bool, bool, bool, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0009af00::Method7_9af00*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 namespace fn_f5ef2b3f {
@@ -3785,14 +3845,24 @@ template <> Method0<CCameraManager, void>::~Method0() {}
 
 
 // 0x0009aff0 Method0<CCameraManager,void>::vfunc_2 (12 B): matches/0x0009aff0.cpp
-// sym: ?vfunc_2@?$Method0@VCCameraManager@@X@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method0_9aff0@fn_0009aff0@@QAEXPAX00@Z
 // Same code shape as 0x0002d950 (propagated; names are from that function)
-template <> void Method0<CCameraManager, void>::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_9aff0 * a = (CActorManager_9aff0 *)__p0;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method0<CCameraManager, void>::vfunc_2`.
+namespace fn_0009aff0 {
+struct Method0_9aff0 : hulk_script::FunctionGenView {
+    void (::CCameraManager::*f_1c)();
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method0_9aff0::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_9aff0 * a = (CActorManager_9aff0 *)__p0;
 
     (a->*(*(void (CActorManager_9aff0::**)())&this->f_1c))();
 }
+} // namespace fn_0009aff0
 #if defined(HULK_PTR64)
-template class Method0<CCameraManager, void>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9afd0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method0<CCameraManager, void>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0009aff0::Method0_9aff0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -3819,17 +3889,27 @@ template <> Method0<CCameraManager, bool>::~Method0() {}
 
 
 // 0x0009b060 Method0<CCameraManager,bool>::vfunc_2 (22 B): matches/0x0009b060.cpp
-// sym: ?vfunc_2@?$Method0@VCCameraManager@@_N@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method0_9b060@fn_0009b060@@QAEXPAX00@Z
 // Same code shape as 0x0002d750 (propagated; names are from that function)
-template <> void Method0<CCameraManager, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_9b060 * obj = (CActorManager_9b060 *)__p0; void * a = (void *)__p1; unsigned char * out = (unsigned char *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method0<CCameraManager, bool>::vfunc_2`.
+namespace fn_0009b060 {
+struct Method0_9b060 : hulk_script::FunctionGenView {
+    bool (::CCameraManager::*f_1c)();
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method0_9b060::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_9b060 * obj = (CActorManager_9b060 *)__p0; void * a = (void *)__p1; unsigned char * out = (unsigned char *)__p2;
 
     Fn_9b060 fn = (*(Fn_9b060 *)&this->f_1c);
     unsigned char r = fn(obj);
     if (out)
         *out = r;
 }
+} // namespace fn_0009b060
 #if defined(HULK_PTR64)
-template class Method0<CCameraManager, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9b040)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method0<CCameraManager, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0009b060::Method0_9b060*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 namespace fn_f5ef2b3f {
@@ -3879,14 +3959,24 @@ template <> Method6<CCameraManager, void, int, int, float, int, int, float>::~Me
 
 
 // 0x0009b120 Method6<CCameraManager,void,int,int,float,int,int,float>::vfunc_2 (30 B): matches/0x0009b120.cpp
-// sym: ?vfunc_2@?$Method6@VCCameraManager@@XHHMHHM@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method6_9b120@fn_0009b120@@QAEXPAX00@Z
 // Same code shape as 0x0002caf0 (propagated; names are from that function)
-template <> void Method6<CCameraManager, void, int, int, float, int, int, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { const char * a = (const char *)__p0; const char * b = (const char *)__p1; const char * c = (const char *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method6<CCameraManager, void, int, int, float, int, int, float>::vfunc_2`.
+namespace fn_0009b120 {
+struct Method6_9b120 : hulk_script::FunctionGenView {
+    void (::CCameraManager::*f_1c)(int, int, float, int, int, float);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method6_9b120::vfunc_2(void* __p0, void* __p1, void* __p2) { const char * a = (const char *)__p0; const char * b = (const char *)__p1; const char * c = (const char *)__p2;
 
     FUN_0009b140(a, b, c, (*(int *)&this->f_1c));
 }
+} // namespace fn_0009b120
 #if defined(HULK_PTR64)
-template class Method6<CCameraManager, void, int, int, float, int, int, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9b100)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method6<CCameraManager, void, int, int, float, int, int, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0009b120::Method6_9b120*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -3930,15 +4020,25 @@ template <> Method1<CCameraManager, void, float>::~Method1() {}
 
 
 // 0x0009b1e0 Method1<CCameraManager,void,float>::vfunc_2 (19 B): matches/0x0009b1e0.cpp
-// sym: ?vfunc_2@?$Method1@VCCameraManager@@XM@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method1_9b1e0@fn_0009b1e0@@QAEXPAX00@Z
 // Same code shape as 0x0002ce30 (propagated; names are from that function)
-template <> void Method1<CCameraManager, void, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void ** b = (void **)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method1<CCameraManager, void, float>::vfunc_2`.
+namespace fn_0009b1e0 {
+struct Method1_9b1e0 : hulk_script::FunctionGenView {
+    void (::CCameraManager::*f_1c)(float);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method1_9b1e0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void ** b = (void **)__p1; void * c = (void *)__p2;
 
     Dummy_9b1e0* d = (Dummy_9b1e0*)a;
     (d->*(*(void (Dummy_9b1e0::**)(void *))&this->f_1c))(*b);
 }
+} // namespace fn_0009b1e0
 #if defined(HULK_PTR64)
-template class Method1<CCameraManager, void, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9b1c0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method1<CCameraManager, void, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0009b1e0::Method1_9b1e0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -3966,15 +4066,25 @@ template <> Method2<CCameraManager, void,math::Vector,math::Vector>::~Method2() 
 
 
 // 0x0009b270 Method2<CCameraManager,void,math::Vector,math::Vector>::vfunc_2 (61 B): equivalent/0x0009b270.cpp
-// sym: ?vfunc_2@?$Method2@VCCameraManager@@XVVector@math@@V23@@@UAEXPAX00@Z @622a1d49eaab @waabb9d84df46 @v2ac1d9721c38
+// sym: ?vfunc_2@Method2_9b270@fn_0009b270@@QAEXPAX00@Z @622a1d49eaab @waabb9d84df46 @vd252147d4349
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Method2<CCameraManager,void,math::Vector,math::Vector>::vfunc_2 @ 0x0009b270
-template <> void Method2<CCameraManager, void,math::Vector,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { CCameraManager_9b270 * manager = (CCameraManager_9b270 *)__p0; const math::Vector_9b270 * args = (const math::Vector_9b270 *)__p1; void * unused = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method2<CCameraManager, void,math::Vector,math::Vector>::vfunc_2`.
+namespace fn_0009b270 {
+struct Method2_9b270 : hulk_script::FunctionGenView {
+    void (::CCameraManager::*f_1c)(math::Vector, math::Vector);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method2_9b270::vfunc_2(void* __p0, void* __p1, void* __p2) { CCameraManager_9b270 * manager = (CCameraManager_9b270 *)__p0; const math::Vector_9b270 * args = (const math::Vector_9b270 *)__p1; void * unused = (void *)__p2;
 
     (manager->*(*(void (CCameraManager_9b270::**)(math::Vector_9b270, math::Vector_9b270))&this->f_1c))(args[0], args[1]);
 }
+} // namespace fn_0009b270
 #if defined(HULK_PTR64)
-template class Method2<CCameraManager, void,math::Vector,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9b250)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method2<CCameraManager, void,math::Vector,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0009b270::Method2_9b270*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -4002,14 +4112,24 @@ template <> Method1<CCameraManager, void, bool>::~Method1() {}
 
 
 // 0x0009b310 Method1<CCameraManager,void,bool>::vfunc_2 (21 B): matches/0x0009b310.cpp
-// sym: ?vfunc_2@?$Method1@VCCameraManager@@X_N@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method1_9b310@fn_0009b310@@QAEXPAX00@Z
 // Same code shape as 0x0002e290 (propagated; names are from that function)
-template <> void Method1<CCameraManager, void, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_9b310 * obj = (CActorManager_9b310 *)__p0; unsigned char * b = (unsigned char *)__p1; void * unused = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method1<CCameraManager, void, bool>::vfunc_2`.
+namespace fn_0009b310 {
+struct Method1_9b310 : hulk_script::FunctionGenView {
+    void (::CCameraManager::*f_1c)(bool);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method1_9b310::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_9b310 * obj = (CActorManager_9b310 *)__p0; unsigned char * b = (unsigned char *)__p1; void * unused = (void *)__p2;
 
     (obj->*(*(MFn_9b310 *)&this->f_1c))(*b);
 }
+} // namespace fn_0009b310
 #if defined(HULK_PTR64)
-template class Method1<CCameraManager, void, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9b2f0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method1<CCameraManager, void, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0009b310::Method1_9b310*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 namespace fn_f5ef2b3f {
@@ -4057,16 +4177,16 @@ template class Method4<CCameraManager, void, int, float, float, float>; // (ren2
 
 
 // 0x0009b3c0 Method4<CCameraManager,void,int,float,float,float>::vfunc_2 (46 B): equivalent/0x0009b3c0.cpp [wrapped: conflict: Args; CCameraManager; Function; Method4]
-// sym: ?vfunc_2@Method4@fn_0009b3c0@@UAEXPAUCCameraManager@2@PAUArgs@2@M@Z @06f2e20faa8a @w36572cef6aad @vcf48817f2e30
+// sym: ?vfunc_2@Method4@fn_0009b3c0@@QAEXPAUCCameraManager@2@PAUArgs@2@M@Z @06f2e20faa8a @w36572cef6aad @v3d03083ebb83
 namespace fn_0009b3c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // Method4<CCameraManager,void,int,float,float,float>::vfunc_2 @ 0x0009b3c0
 struct CCameraManager {};
 typedef void (CCameraManager::*CameraMethod)(int, float, float, float);
-struct Function { virtual void vfunc_0(); virtual void vfunc_1(); };
+struct Function { void* vftable;   /* (script2) the vftable word, no stand-in vftable */ void vfunc_0(); void vfunc_1(); };
 struct Args { int mode; float a, b, c; };
 struct Method4 : Function {
-    virtual void vfunc_2(CCameraManager *, Args *, float);
+    void vfunc_2(CCameraManager *, Args *, float);
     ScriptFunctionFields fields;   // (script2) Function's fields (was char padding[0x18])
     CameraMethod method;
 };
@@ -4100,9 +4220,16 @@ template <> Method0<CCameraManager,math::Vector>::~Method0() {}
 
 
 // 0x0009b450 Method0<CCameraManager,math::Vector>::vfunc_2 (69 B): matches/0x0009b450.cpp
-// sym: ?vfunc_2@?$Method0@VCCameraManager@@VVector@math@@@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method0_9b450@fn_0009b450@@QAEXPAX00@Z
 // Same code shape as 0x0008a610 (propagated; names are from that function)
-template <> void Method0<CCameraManager,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { CGameFlowManager_9b450 * mgr = (CGameFlowManager_9b450 *)__p0; Vector_9b450 * out = (Vector_9b450 *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method0<CCameraManager,math::Vector>::vfunc_2`.
+namespace fn_0009b450 {
+struct Method0_9b450 : hulk_script::FunctionGenView {
+    math::Vector (::CCameraManager::*f_1c)();
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method0_9b450::vfunc_2(void* __p0, void* __p1, void* __p2) { CGameFlowManager_9b450 * mgr = (CGameFlowManager_9b450 *)__p0; Vector_9b450 * out = (Vector_9b450 *)__p2;
 
     Fn_9b450 fn = (*(Fn_9b450 *)&this->f_1c);
     Vector_9b450 temp;
@@ -4117,8 +4244,11 @@ template <> void Method0<CCameraManager,math::Vector>::vfunc_2(void* __p0, void*
         out->z = r.z;
     }
 }
+} // namespace fn_0009b450
 #if defined(HULK_PTR64)
-template class Method0<CCameraManager,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9b430)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method0<CCameraManager,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0009b450::Method0_9b450*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 namespace fn_f5ef2b3f {
@@ -4165,14 +4295,24 @@ template <> Method6<CCameraManager, bool, float, float, float, float, float, flo
 
 
 // 0x0009b540 Method6<CCameraManager,bool,float,float,float,float,float,float>::vfunc_2 (30 B): matches/0x0009b540.cpp
-// sym: ?vfunc_2@?$Method6@VCCameraManager@@_NMMMMMM@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method6_9b540@fn_0009b540@@QAEXPAX00@Z
 // Same code shape as 0x0002caf0 (propagated; names are from that function)
-template <> void Method6<CCameraManager, bool, float, float, float, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { const char * a = (const char *)__p0; const char * b = (const char *)__p1; const char * c = (const char *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method6<CCameraManager, bool, float, float, float, float, float, float>::vfunc_2`.
+namespace fn_0009b540 {
+struct Method6_9b540 : hulk_script::FunctionGenView {
+    bool (::CCameraManager::*f_1c)(float, float, float, float, float, float);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method6_9b540::vfunc_2(void* __p0, void* __p1, void* __p2) { const char * a = (const char *)__p0; const char * b = (const char *)__p1; const char * c = (const char *)__p2;
 
     FUN_0009b560(a, b, c, (*(int *)&this->f_1c));
 }
+} // namespace fn_0009b540
 #if defined(HULK_PTR64)
-template class Method6<CCameraManager, bool, float, float, float, float, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9b520)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method6<CCameraManager, bool, float, float, float, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0009b540::Method6_9b540*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 namespace fn_f5ef2b3f {
@@ -4215,15 +4355,25 @@ template <> Method1<CCameraManager, void, const char *>::~Method1() {}
 
 
 // 0x0009b630 Method1<CCameraManager,void,const_char_*>::vfunc_2 (19 B): matches/0x0009b630.cpp
-// sym: ?vfunc_2@?$Method1@VCCameraManager@@XM@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method1_9b630@fn_0009b630@@QAEXPAX00@Z
 // Same code shape as 0x0002ce30 (propagated; names are from that function)
-template <> void Method1<CCameraManager, void, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void ** b = (void **)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method1<CCameraManager, void, const char *>::vfunc_2`.
+namespace fn_0009b630 {
+struct Method1_9b630 : hulk_script::FunctionGenView {
+    void (::CCameraManager::*f_1c)(const char *);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method1_9b630::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void ** b = (void **)__p1; void * c = (void *)__p2;
 
     Dummy_9b630* d = (Dummy_9b630*)a;
     (d->*(*(void (Dummy_9b630::**)(void *))&this->f_1c))(*b);
 }
+} // namespace fn_0009b630
 #if defined(HULK_PTR64)
-template class Method1<CCameraManager, void, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9b610)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method1<CCameraManager, void, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0009b630::Method1_9b630*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -4251,17 +4401,27 @@ template <> Method0<CCameraManager, const char *>::~Method0() {}
 
 
 // 0x0009b6b0 Method0<CCameraManager,const_char_*>::vfunc_2 (22 B): matches/0x0009b6b0.cpp
-// sym: ?vfunc_2@?$Method0@VCCameraManager@@PBD@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method0_9b6b0@fn_0009b6b0@@QAEXPAX00@Z
 // Same code shape as 0x0002ceb0 (propagated; names are from that function)
-template <> void Method0<CCameraManager, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void * b = (void *)__p1; unsigned int * out = (unsigned int *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method0<CCameraManager, const char *>::vfunc_2`.
+namespace fn_0009b6b0 {
+struct Method0_9b6b0 : hulk_script::FunctionGenView {
+    const char * (::CCameraManager::*f_1c)();
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method0_9b6b0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void * b = (void *)__p1; unsigned int * out = (unsigned int *)__p2;
 
     unsigned(__fastcall * p)(void*) = *(unsigned(__fastcall**)(void*))((char*)&this->f_1c);
     unsigned v = p(a);
     if (out)
         *out = v;
 }
+} // namespace fn_0009b6b0
 #if defined(HULK_PTR64)
-template class Method0<CCameraManager, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9b690)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method0<CCameraManager, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0009b6b0::Method0_9b6b0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -4289,13 +4449,23 @@ template <> Method2<CCameraManager, void,math::Vector, bool>::~Method2() {}
 
 
 // 0x0009b740 Method2<CCameraManager,void,math::Vector,bool>::vfunc_2 (45 B): matches/0x0009b740.cpp
-// sym: ?vfunc_2@?$Method2@VCCameraManager@@XVVector@math@@_N@@UAEXPAX00@Z
-template <> void Method2<CCameraManager, void,math::Vector, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr a = (hulk_intptr)__p0; Vector_9b740 * p = (Vector_9b740 *)__p1; hulk_intptr c = (hulk_intptr)__p2;
+// sym: ?vfunc_2@Method2_9b740@fn_0009b740@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method2<CCameraManager, void,math::Vector, bool>::vfunc_2`.
+namespace fn_0009b740 {
+struct Method2_9b740 : hulk_script::FunctionGenView {
+    void (::CCameraManager::*f_1c)(math::Vector, bool);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method2_9b740::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr a = (hulk_intptr)__p0; Vector_9b740 * p = (Vector_9b740 *)__p1; hulk_intptr c = (hulk_intptr)__p2;
 
     ((CCameraManager_9b740*)a->*(*(void (CCameraManager_9b740::**)(Vector_9b740, unsigned char))&this->f_1c))(*p, *((unsigned char*)p + 12));
 }
+} // namespace fn_0009b740
 #if defined(HULK_PTR64)
-template class Method2<CCameraManager, void,math::Vector, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9b720)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method2<CCameraManager, void,math::Vector, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0009b740::Method2_9b740*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 namespace fn_f5ef2b3f {
@@ -4351,14 +4521,24 @@ template <> Method5<CCameraManager, bool, float, float, float, float, bool>::~Me
 
 
 // 0x0009b810 Method5<CCameraManager,bool,float,float,float,float,bool>::vfunc_2 (30 B): matches/0x0009b810.cpp
-// sym: ?vfunc_2@?$Method5@VCCameraManager@@_NMMMM_N@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method5_9b810@fn_0009b810@@QAEXPAX00@Z
 // Same code shape as 0x0002caf0 (propagated; names are from that function)
-template <> void Method5<CCameraManager, bool, float, float, float, float, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { const char * a = (const char *)__p0; const char * b = (const char *)__p1; const char * c = (const char *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method5<CCameraManager, bool, float, float, float, float, bool>::vfunc_2`.
+namespace fn_0009b810 {
+struct Method5_9b810 : hulk_script::FunctionGenView {
+    bool (::CCameraManager::*f_1c)(float, float, float, float, bool);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method5_9b810::vfunc_2(void* __p0, void* __p1, void* __p2) { const char * a = (const char *)__p0; const char * b = (const char *)__p1; const char * c = (const char *)__p2;
 
     FUN_0009b830(a, b, c, (*(int *)&this->f_1c));
 }
+} // namespace fn_0009b810
 #if defined(HULK_PTR64)
-template class Method5<CCameraManager, bool, float, float, float, float, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9b7f0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method5<CCameraManager, bool, float, float, float, float, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0009b810::Method5_9b810*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -4418,7 +4598,7 @@ template class Method2<CCameraManager, void,math::Vector, float>; // (ren2) nati
 
 
 // 0x0009b900 Method2<CCameraManager,void,math::Vector,float>::vfunc_2 (43 B): matches/0x0009b900.cpp [wrapped: conflict: Args; CCameraManager; Function; Method2]
-// sym: ?f2@Method2@fn_0009b900@@UAEXPAVCCameraManager@2@PBUArgs@2@H@Z
+// sym: ?f2@Method2@fn_0009b900@@QAEXPAVCCameraManager@2@PBUArgs@2@H@Z
 namespace fn_0009b900 {
 namespace math {
 struct Vector {
@@ -4433,17 +4613,17 @@ class CCameraManager {
   public:
     void Action(math::Vector, float);
 };
-class Function {
+class Function { void* vftable;   /* (script2) the vftable word, no stand-in vftable */
   public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2(CCameraManager*, const Args*, int);
+    void f0();
+    void f1();
+    void f2(CCameraManager*, const Args*, int);
 };
 class Method2 : public Function {
   public:
     ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
     void (CCameraManager::*fn)(math::Vector, float);
-    virtual void f2(CCameraManager*, const Args*, int);
+    void f2(CCameraManager*, const Args*, int);
 };
 void Method2::f2(CCameraManager* obj, const Args* args, int unused) {
     (obj->*fn)(args->v, args->f);
@@ -4493,8 +4673,15 @@ template <> Method4<CCameraManager, void, char *, char *, char *, char *>::~Meth
 
 
 // 0x0009b9c0 Method4<CCameraManager,void,char_*,char_*,char_*,char_*>::vfunc_2 (40 B): matches/0x0009b9c0.cpp
-// sym: ?vfunc_2@?$Method4@VCCameraManager@@XPADPADPADPAD@@UAEXPAX00@Z
-template <> void Method4<CCameraManager, void, char *, char *, char *, char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { CCameraManager_9b9c0 * obj = (CCameraManager_9b9c0 *)__p0; char ** args = (char **)__p1;
+// sym: ?vfunc_2@Method4_9b9c0@fn_0009b9c0@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method4<CCameraManager, void, char *, char *, char *, char *>::vfunc_2`.
+namespace fn_0009b9c0 {
+struct Method4_9b9c0 : hulk_script::FunctionGenView {
+    void (::CCameraManager::*f_1c)(char *, char *, char *, char *);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method4_9b9c0::vfunc_2(void* __p0, void* __p1, void* __p2) { CCameraManager_9b9c0 * obj = (CCameraManager_9b9c0 *)__p0; char ** args = (char **)__p1;
 
     char* a = next(args);
     char* b = next(args);
@@ -4502,8 +4689,11 @@ template <> void Method4<CCameraManager, void, char *, char *, char *, char *>::
     char* d = next(args);
     (obj->*(*(void (CCameraManager_9b9c0::**)(char *, char *, char *, char *))&this->f_1c))(a, b, c, d);
 }
+} // namespace fn_0009b9c0
 #if defined(HULK_PTR64)
-template class Method4<CCameraManager, void, char *, char *, char *, char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9b9a0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method4<CCameraManager, void, char *, char *, char *, char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0009b9c0::Method4_9b9c0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 namespace fn_f5ef2b3f {
@@ -4556,19 +4746,19 @@ template class Method0<CCameraManager, float>; // (ren2) native only: clang emit
 
 
 // 0x0009ba50 Method0<CCameraManager,float>::vfunc_2 (34 B): matches/0x0009ba50.cpp [wrapped: conflict: Function]
-// sym: ?f2@Method0Base_9ba50@fn_0009ba50@@UAEXPAX0PAM@Z
+// sym: ?f2@Method0Base_9ba50@fn_0009ba50@@QAEXPAX0PAM@Z
 namespace fn_0009ba50 {
 // Same code shape as 0x0002e080 (propagated; names are from that function)
-class Function {
+class Function { void* vftable;   /* (script2) the vftable word, no stand-in vftable */
   public:
-    virtual void f0();
-    virtual void f1();
+    void f0();
+    void f1();
 };
 class Method0Base_9ba50 : public Function {
   public:
     ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
     float(__fastcall* fn)(void*);
-    virtual void f2(void* a, void* b, float* out);
+    void f2(void* a, void* b, float* out);
 };
 void Method0Base_9ba50::f2(void* a, void* b, float* out) {
     float(__fastcall * f)(void*) = fn;
@@ -5015,8 +5205,16 @@ template <> Closure6<CCameraManager, void, float, float, float, float, float, fl
 
 
 // 0x0009c2c0 Closure6<CCameraManager,void,float,float,float,float,float,float>::vfunc_2 (85 B): matches/0x0009c2c0.cpp
-// sym: ?vfunc_2@?$Closure6@VCCameraManager@@XMMMMMM@@UAEXPAX00@Z
-template <> void Closure6<CCameraManager, void, float, float, float, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { float * p = (float *)__p1;
+// sym: ?vfunc_2@Closure6_9c2c0@fn_0009c2c0@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure6<CCameraManager, void, float, float, float, float, float, float>::vfunc_2`.
+namespace fn_0009c2c0 {
+struct Closure6_9c2c0 : hulk_script::FunctionGenView {
+    void (::CCameraManager::*f_1c)(float, float, float, float, float, float);
+    hulk_intptr f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure6_9c2c0::vfunc_2(void* __p0, void* __p1, void* __p2) { float * p = (float *)__p1;
 
     volatile float* q = p;
     float a = *q++;
@@ -5026,8 +5224,11 @@ template <> void Closure6<CCameraManager, void, float, float, float, float, floa
     float e = ((float*)q)[0], f = ((float*)q)[1];
     ((*(CCameraManager_9c2c0 * *)&this->f_20)->*(*(void (CCameraManager_9c2c0::**)(float, float, float, float, float, float))&this->f_1c))(a, b, c, d, e, f);
 }
+} // namespace fn_0009c2c0
 #if defined(HULK_PTR64)
-template class Closure6<CCameraManager, void, float, float, float, float, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9c2a0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure6<CCameraManager, void, float, float, float, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0009c2c0::Closure6_9c2c0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -5055,8 +5256,16 @@ template <> Closure4<CCameraManager, void, float, float,math::Vector, float>::~C
 
 
 // 0x0009c370 Closure4<CCameraManager,void,float,float,math::Vector,float>::vfunc_2 (72 B): matches/0x0009c370.cpp
-// sym: ?vfunc_2@?$Closure4@VCCameraManager@@XMMVVector@math@@M@@UAEXPAX00@Z
-template <> void Closure4<CCameraManager, void, float, float,math::Vector, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr unused = (hulk_intptr)__p0; float * p = (float *)__p1; hulk_intptr unused2 = (hulk_intptr)__p2;
+// sym: ?vfunc_2@Closure4_9c370@fn_0009c370@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure4<CCameraManager, void, float, float,math::Vector, float>::vfunc_2`.
+namespace fn_0009c370 {
+struct Closure4_9c370 : hulk_script::FunctionGenView {
+    void (::CCameraManager::*f_1c)(float, float, math::Vector, float);
+    hulk_intptr f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure4_9c370::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr unused = (hulk_intptr)__p0; float * p = (float *)__p1; hulk_intptr unused2 = (hulk_intptr)__p2;
 
     float a = *p++;
     float b = *p++;
@@ -5065,8 +5274,11 @@ template <> void Closure4<CCameraManager, void, float, float,math::Vector, float
     float c = *p;
     ((*(CCameraManager_9c370 * *)&this->f_20)->*(*(void (CCameraManager_9c370::**)(float, float, math::Vector_9c370, float))&this->f_1c))(a, b, v, c);
 }
+} // namespace fn_0009c370
 #if defined(HULK_PTR64)
-template class Closure4<CCameraManager, void, float, float,math::Vector, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9c350)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure4<CCameraManager, void, float, float,math::Vector, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0009c370::Closure4_9c370*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -5094,16 +5306,27 @@ template <> Closure3<CCameraManager, void, float, float, bool>::~Closure3() {}
 
 
 // 0x0009c410 Closure3<CCameraManager,void,float,float,bool>::vfunc_2 (36 B): matches/0x0009c410.cpp
-// sym: ?vfunc_2@?$Closure3@VCCameraManager@@XMM_N@@UAEXPAX00@Z
-template <> void Closure3<CCameraManager, void, float, float, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr unused = (hulk_intptr)__p0; CameraArgs * args = (CameraArgs *)__p1; hulk_intptr unused2 = (hulk_intptr)__p2;
+// sym: ?vfunc_2@Closure3_9c410@fn_0009c410@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure3<CCameraManager, void, float, float, bool>::vfunc_2`.
+namespace fn_0009c410 {
+struct Closure3_9c410 : hulk_script::FunctionGenView {
+    void (::CCameraManager::*f_1c)(float, float, bool);
+    hulk_intptr f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure3_9c410::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr unused = (hulk_intptr)__p0; CameraArgs * args = (CameraArgs *)__p1; hulk_intptr unused2 = (hulk_intptr)__p2;
 
     float first = args->first;
     _ReadWriteBarrier();
     ((*(CCameraManager_9c410 * *)&this->f_20)->*(*(void (CCameraManager_9c410::**)(float, float, bool))&this->f_1c))(first, args->second, args->third);
     _ReadWriteBarrier();
 }
+} // namespace fn_0009c410
 #if defined(HULK_PTR64)
-template class Closure3<CCameraManager, void, float, float, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9c3f0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure3<CCameraManager, void, float, float, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0009c410::Closure3_9c410*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -5161,14 +5384,25 @@ template <> Closure2<CCameraManager, void, float, float>::~Closure2() {}
 
 
 // 0x0009c4c0 Closure2<CCameraManager,void,float,float>::vfunc_2 (22 B): matches/0x0009c4c0.cpp
-// sym: ?vfunc_2@?$Closure2@VCCameraManager@@XMM@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure2_9c4c0@fn_0009c4c0@@QAEXPAX00@Z
 // Same code shape as 0x0002e6d0 (propagated; names are from that function)
-template <> void Closure2<CCameraManager, void, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; Pair_9c4c0 * p = (Pair_9c4c0 *)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure2<CCameraManager, void, float, float>::vfunc_2`.
+namespace fn_0009c4c0 {
+struct Closure2_9c4c0 : hulk_script::FunctionGenView {
+    void (::CCameraManager::*f_1c)(float, float);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure2_9c4c0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; Pair_9c4c0 * p = (Pair_9c4c0 *)__p1; void * c = (void *)__p2;
 
     ((*(CActorManager_9c4c0 * *)&this->f_20)->*(*(void (CActorManager_9c4c0::**)(const char *, float))&this->f_1c))(p->s, p->f);
 }
+} // namespace fn_0009c4c0
 #if defined(HULK_PTR64)
-template class Closure2<CCameraManager, void, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9c4a0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure2<CCameraManager, void, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0009c4c0::Closure2_9c4c0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -5199,16 +5433,16 @@ template class Closure4<CCameraManager, void, float, float, float, float>; // (r
 
 
 // 0x0009c530 Closure4<CCameraManager,void,float,float,float,float>::vfunc_2 (52 B): matches/0x0009c530.cpp [wrapped: conflict: CCameraManager; Closure4; Function; Method4]
-// sym: ?vfunc_2@Closure4@fn_0009c530@@UAEXHPAMH@Z
+// sym: ?vfunc_2@Closure4@fn_0009c530@@QAEXHPAMH@Z
 namespace fn_0009c530 {
 class CCameraManager {
   public:
     void action(float, float, float, float);
 };
-class Function {
+class Function { void* vftable;   /* (script2) the vftable word, no stand-in vftable */
   public:
-    virtual void f0();
-    virtual void f1();
+    void f0();
+    void f1();
 };
 class Method4 : public Function {
   public:
@@ -5219,7 +5453,7 @@ class Closure4 : public Method4 {
     typedef void (CCameraManager::*Fn)(float, float, float, float);
     Fn fn;
     CCameraManager* obj;
-    virtual void vfunc_2(int, float*, int);
+    void vfunc_2(int, float*, int);
 };
 void Closure4::vfunc_2(int, float* p, int) {
     float a = *p++;
@@ -5255,15 +5489,26 @@ template <> Closure3<CCameraManager, void, bool, bool, bool>::~Closure3() {}
 
 
 // 0x0009c5c0 Closure3<CCameraManager,void,bool,bool,bool>::vfunc_2 (37 B): matches/0x0009c5c0.cpp
-// sym: ?vfunc_2@?$Closure3@VCCameraManager@@X_N_N_N@@UAEXPAX00@Z
-template <> void Closure3<CCameraManager, void, bool, bool, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; P9C5C0_9c5c0 * p = (P9C5C0_9c5c0 *)__p1; void * c = (void *)__p2;
+// sym: ?vfunc_2@Closure3_9c5c0@fn_0009c5c0@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure3<CCameraManager, void, bool, bool, bool>::vfunc_2`.
+namespace fn_0009c5c0 {
+struct Closure3_9c5c0 : hulk_script::FunctionGenView {
+    void (::CCameraManager::*f_1c)(bool, bool, bool);
+    hulk_intptr f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure3_9c5c0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; P9C5C0_9c5c0 * p = (P9C5C0_9c5c0 *)__p1; void * c = (void *)__p2;
 
     char t = p->a;
     p->a = t;
     ((*(Mgr_9c5c0 * *)&this->f_20)->*(*(void (Mgr_9c5c0::**)(unsigned char, unsigned char, unsigned char))&this->f_1c))((unsigned char)t, (unsigned char)p->b, (unsigned char)p->c);
 }
+} // namespace fn_0009c5c0
 #if defined(HULK_PTR64)
-template class Closure3<CCameraManager, void, bool, bool, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9c5a0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure3<CCameraManager, void, bool, bool, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0009c5c0::Closure3_9c5c0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -5291,17 +5536,28 @@ template <> Closure4<CCameraManager, void, bool, bool, bool, float>::~Closure4()
 
 
 // 0x0009c640 Closure4<CCameraManager,void,bool,bool,bool,float>::vfunc_2 (53 B): equivalent/0x0009c640.cpp
-// sym: ?vfunc_2@?$Closure4@VCCameraManager@@X_N_N_NM@@UAEXPAX00@Z @46089777eaf0 @w463f1612e205 @v0a5fc53b9aa6
+// sym: ?vfunc_2@Closure4_9c640@fn_0009c640@@QAEXPAX00@Z @46089777eaf0 @w463f1612e205 @v9af2eb7ec501
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Closure4<CCameraManager,void,bool,bool,bool,float>::vfunc_2 @ 0x0009c640
-template <> void Closure4<CCameraManager, void, bool, bool, bool, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr unused = (hulk_intptr)__p0; Arguments * arguments = (Arguments *)__p1; hulk_intptr unused2 = (hulk_intptr)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure4<CCameraManager, void, bool, bool, bool, float>::vfunc_2`.
+namespace fn_0009c640 {
+struct Closure4_9c640 : hulk_script::FunctionGenView {
+    void (::CCameraManager::*f_1c)(bool, bool, bool, float);
+    hulk_intptr f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure4_9c640::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr unused = (hulk_intptr)__p0; Arguments * arguments = (Arguments *)__p1; hulk_intptr unused2 = (hulk_intptr)__p2;
 
     unsigned int first = (reinterpret_cast<hulk_uintptr>(this) & 0xffffff00u) | arguments->first;
     unsigned int second = (reinterpret_cast<hulk_uintptr>(arguments) & 0xffffff00u) | arguments->second;
     ((*(CCameraManager_9c640 * *)&this->f_20)->*(*(void (CCameraManager_9c640::**)(unsigned int, unsigned int, unsigned int, float))&this->f_1c))(first, second, arguments->third, arguments->fourth);
 }
+} // namespace fn_0009c640
 #if defined(HULK_PTR64)
-template class Closure4<CCameraManager, void, bool, bool, bool, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9c620)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure4<CCameraManager, void, bool, bool, bool, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0009c640::Closure4_9c640*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -5329,17 +5585,28 @@ template <> Closure4<CCameraManager, void, bool, bool, bool, bool>::~Closure4() 
 
 
 // 0x0009c6d0 Closure4<CCameraManager,void,bool,bool,bool,bool>::vfunc_2 (55 B): equivalent/0x0009c6d0.cpp
-// sym: ?vfunc_2@?$Closure4@VCCameraManager@@X_N_N_N_N@@UAEXPAX00@Z @6e17f8afb7e4 @w74d0a22f6088 @v6587ee77051e
+// sym: ?vfunc_2@Closure4_9c6d0@fn_0009c6d0@@QAEXPAX00@Z @6e17f8afb7e4 @w74d0a22f6088 @v82799f594860
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Closure4<CCameraManager,void,bool,bool,bool,bool>::vfunc_2 @ 0x0009c6d0
-template <> void Closure4<CCameraManager, void, bool, bool, bool, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; BoolArguments * args = (BoolArguments *)__p1; void * other = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure4<CCameraManager, void, bool, bool, bool, bool>::vfunc_2`.
+namespace fn_0009c6d0 {
+struct Closure4_9c6d0 : hulk_script::FunctionGenView {
+    void (::CCameraManager::*f_1c)(bool, bool, bool, bool);
+    hulk_intptr f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure4_9c6d0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; BoolArguments * args = (BoolArguments *)__p1; void * other = (void *)__p2;
 
   unsigned first = ((hulk_uintptr)this & 0xffffff00U) | args->first;
   unsigned second = ((hulk_uintptr)args & 0xffffff00U) | args->second;
   ((*(CCameraManager_9c6d0 * *)&this->f_20)->*(*(void (CCameraManager_9c6d0::**)(unsigned int, unsigned int, unsigned int, unsigned int))&this->f_1c))(first, second, args->third, args->fourth);
 }
+} // namespace fn_0009c6d0
 #if defined(HULK_PTR64)
-template class Closure4<CCameraManager, void, bool, bool, bool, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9c6b0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure4<CCameraManager, void, bool, bool, bool, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0009c6d0::Closure4_9c6d0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -5393,14 +5660,25 @@ template <> Closure7<CCameraManager, void, bool, bool, bool, bool, bool, bool, f
 
 
 // 0x0009c800 Closure7<CCameraManager,void,bool,bool,bool,bool,bool,bool,float>::vfunc_2 (29 B): matches/0x0009c800.cpp
-// sym: ?vfunc_2@?$Closure7@VCCameraManager@@X_N_N_N_N_N_NM@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure7_9c800@fn_0009c800@@QAEXPAX00@Z
 // Same code shape as 0x0002ebc0 (propagated; names are from that function)
-template <> void Closure7<CCameraManager, void, bool, bool, bool, bool, bool, bool, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr x = (hulk_intptr)__p0; hulk_intptr y = (hulk_intptr)__p1; hulk_intptr z = (hulk_intptr)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure7<CCameraManager, void, bool, bool, bool, bool, bool, bool, float>::vfunc_2`.
+namespace fn_0009c800 {
+struct Closure7_9c800 : hulk_script::FunctionGenView {
+    void (::CCameraManager::*f_1c)(bool, bool, bool, bool, bool, bool, float);
+    hulk_intptr f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure7_9c800::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr x = (hulk_intptr)__p0; hulk_intptr y = (hulk_intptr)__p1; hulk_intptr z = (hulk_intptr)__p2;
 
     invoke(this->f_20, y, z, (*(int *)&this->f_1c));
 }
+} // namespace fn_0009c800
 #if defined(HULK_PTR64)
-template class Closure7<CCameraManager, void, bool, bool, bool, bool, bool, bool, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9c7e0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure7<CCameraManager, void, bool, bool, bool, bool, bool, bool, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0009c800::Closure7_9c800*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -5428,13 +5706,24 @@ template <> Closure0<CCameraManager, void>::~Closure0() {}
 
 
 // 0x0009c880 Closure0<CCameraManager,void>::vfunc_2 (11 B): matches/0x0009c880.cpp
-// sym: ?vfunc_2@?$Closure0@VCCameraManager@@X@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure0_9c880@fn_0009c880@@QAEXPAX00@Z
 // Same code shape as 0x0002f820 (propagated; names are from that function)
-template <> void Closure0<CCameraManager, void>::vfunc_2(void* __p0, void* __p1, void* __p2) {
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure0<CCameraManager, void>::vfunc_2`.
+namespace fn_0009c880 {
+struct Closure0_9c880 : hulk_script::FunctionGenView {
+    void (::CCameraManager::*f_1c)();
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure0_9c880::vfunc_2(void* __p0, void* __p1, void* __p2) {
     ((*(CActorManager_9c880 * *)&this->f_20)->*(*(void (CActorManager_9c880::**)())&this->f_1c))();
 }
+} // namespace fn_0009c880
 #if defined(HULK_PTR64)
-template class Closure0<CCameraManager, void>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9c860)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure0<CCameraManager, void>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0009c880::Closure0_9c880*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -5462,9 +5751,17 @@ template <> Closure0<CCameraManager, bool>::~Closure0() {}
 
 
 // 0x0009c8f0 Closure0<CCameraManager,bool>::vfunc_2 (23 B): matches/0x0009c8f0.cpp
-// sym: ?vfunc_2@?$Closure0@VCCameraManager@@_N@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure0_9c8f0@fn_0009c8f0@@QAEXPAX00@Z
 // Same code shape as 0x0002f6a0 (propagated; names are from that function)
-template <> void Closure0<CCameraManager, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { unsigned char * out = (unsigned char *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure0<CCameraManager, bool>::vfunc_2`.
+namespace fn_0009c8f0 {
+struct Closure0_9c8f0 : hulk_script::FunctionGenView {
+    bool (::CCameraManager::*f_1c)();
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure0_9c8f0::vfunc_2(void* __p0, void* __p1, void* __p2) { unsigned char * out = (unsigned char *)__p2;
 
     CActorManager_9c8f0* o = (*(CActorManager_9c8f0 * *)&this->f_20);
     Fn_9c8f0 fn = (*(Fn_9c8f0 *)&this->f_1c);
@@ -5472,8 +5769,11 @@ template <> void Closure0<CCameraManager, bool>::vfunc_2(void* __p0, void* __p1,
     if (out)
         *out = b;
 }
+} // namespace fn_0009c8f0
 #if defined(HULK_PTR64)
-template class Closure0<CCameraManager, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9c8d0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure0<CCameraManager, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0009c8f0::Closure0_9c8f0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -5553,14 +5853,25 @@ template <> Closure1<CCameraManager, void, float>::~Closure1() {}
 
 
 // 0x0009ca10 Closure1<CCameraManager,void,float>::vfunc_2 (18 B): matches/0x0009ca10.cpp
-// sym: ?vfunc_2@?$Closure1@VCCameraManager@@XM@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure1_9ca10@fn_0009ca10@@QAEXPAX00@Z
 // Same code shape as 0x0002ed90 (propagated; names are from that function)
-template <> void Closure1<CCameraManager, void, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; const char ** b = (const char **)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure1<CCameraManager, void, float>::vfunc_2`.
+namespace fn_0009ca10 {
+struct Closure1_9ca10 : hulk_script::FunctionGenView {
+    void (::CCameraManager::*f_1c)(float);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure1_9ca10::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; const char ** b = (const char **)__p1; void * c = (void *)__p2;
 
     ((*(CActorManager_9ca10 * *)&this->f_20)->*(*(void (CActorManager_9ca10::**)(const char *))&this->f_1c))(*b);
 }
+} // namespace fn_0009ca10
 #if defined(HULK_PTR64)
-template class Closure1<CCameraManager, void, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9c9f0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure1<CCameraManager, void, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0009ca10::Closure1_9ca10*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -5619,15 +5930,26 @@ template <> Closure2<CCameraManager, void,math::Vector,math::Vector>::~Closure2(
 
 
 // 0x0009cab0 Closure2<CCameraManager,void,math::Vector,math::Vector>::vfunc_2 (60 B): equivalent/0x0009cab0.cpp
-// sym: ?vfunc_2@?$Closure2@VCCameraManager@@XVVector@math@@V23@@@UAEXPAX00@Z @9a4886667fe5 @w0ec339f70452 @ve0cb0320a93e
+// sym: ?vfunc_2@Closure2_9cab0@fn_0009cab0@@QAEXPAX00@Z @9a4886667fe5 @w0ec339f70452 @va1f6abbee723
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Closure2<CCameraManager,void,math::Vector,math::Vector>::vfunc_2 @ 0x0009cab0
-template <> void Closure2<CCameraManager, void,math::Vector,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr unused1 = (hulk_intptr)__p0; VectorPair * args = (VectorPair *)__p1; hulk_intptr unused2 = (hulk_intptr)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure2<CCameraManager, void,math::Vector,math::Vector>::vfunc_2`.
+namespace fn_0009cab0 {
+struct Closure2_9cab0 : hulk_script::FunctionGenView {
+    void (::CCameraManager::*f_1c)(math::Vector, math::Vector);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure2_9cab0::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr unused1 = (hulk_intptr)__p0; VectorPair * args = (VectorPair *)__p1; hulk_intptr unused2 = (hulk_intptr)__p2;
 
     ((*(CCameraManager_9cab0 * *)&this->f_20)->*(*(void (CCameraManager_9cab0::**)(math::Vector_9cab0, math::Vector_9cab0))&this->f_1c))(args->first, args->second);
 }
+} // namespace fn_0009cab0
 #if defined(HULK_PTR64)
-template class Closure2<CCameraManager, void,math::Vector,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9ca90)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure2<CCameraManager, void,math::Vector,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0009cab0::Closure2_9cab0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -5681,14 +6003,25 @@ template <> Closure1<CCameraManager, void, bool>::~Closure1() {}
 
 
 // 0x0009cb60 Closure1<CCameraManager,void,bool>::vfunc_2 (20 B): matches/0x0009cb60.cpp
-// sym: ?vfunc_2@?$Closure1@VCCameraManager@@X_N@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure1_9cb60@fn_0009cb60@@QAEXPAX00@Z
 // Same code shape as 0x00030040 (propagated; names are from that function)
-template <> void Closure1<CCameraManager, void, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { unsigned char * arg = (unsigned char *)__p1;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure1<CCameraManager, void, bool>::vfunc_2`.
+namespace fn_0009cb60 {
+struct Closure1_9cb60 : hulk_script::FunctionGenView {
+    void (::CCameraManager::*f_1c)(bool);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure1_9cb60::vfunc_2(void* __p0, void* __p1, void* __p2) { unsigned char * arg = (unsigned char *)__p1;
 
     ((*(Actor_9cb60 * *)&this->f_20)->*(*(void (Actor_9cb60::**)(unsigned char))&this->f_1c))(*arg);
 }
+} // namespace fn_0009cb60
 #if defined(HULK_PTR64)
-template class Closure1<CCameraManager, void, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9cb40)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure1<CCameraManager, void, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0009cb60::Closure1_9cb60*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -5716,8 +6049,16 @@ template <> Closure4<CCameraManager, void, int, float, float, float>::~Closure4(
 
 
 // 0x0009cbd0 Closure4<CCameraManager,void,int,float,float,float>::vfunc_2 (45 B): matches/0x0009cbd0.cpp
-// sym: ?vfunc_2@?$Closure4@VCCameraManager@@XHMMM@@UAEXPAX00@Z
-template <> void Closure4<CCameraManager, void, int, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { int * p = (int *)__p1;
+// sym: ?vfunc_2@Closure4_9cbd0@fn_0009cbd0@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure4<CCameraManager, void, int, float, float, float>::vfunc_2`.
+namespace fn_0009cbd0 {
+struct Closure4_9cbd0 : hulk_script::FunctionGenView {
+    void (::CCameraManager::*f_1c)(int, float, float, float);
+    hulk_intptr f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure4_9cbd0::vfunc_2(void* __p0, void* __p1, void* __p2) { int * p = (int *)__p1;
 
     int a = *p++;
     float b = *(float*)p++;
@@ -5725,8 +6066,11 @@ template <> void Closure4<CCameraManager, void, int, float, float, float>::vfunc
     float d = *(float*)p++;
     ((*(CCameraManager_9cbd0 * *)&this->f_20)->*(*(void (CCameraManager_9cbd0::**)(int, float, float, float))&this->f_1c))(a, b, c, d);
 }
+} // namespace fn_0009cbd0
 #if defined(HULK_PTR64)
-template class Closure4<CCameraManager, void, int, float, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9cbb0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure4<CCameraManager, void, int, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0009cbd0::Closure4_9cbd0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -5779,28 +6123,53 @@ template <> Closure0<CCameraManager,math::Vector>::~Closure0() {}
 
 
 // 0x0009cc60 Closure0<CCameraManager,math::Vector>::vfunc_2 (63 B): equivalent/0x0009cc60.cpp
-// sym: ?vfunc_2@?$Closure0@VCCameraManager@@VVector@math@@@@UAEXPAX00@Z @5b5ca72bc2e3 @w23491895e659 @v687b622b545d
+// sym: ?vfunc_2@Closure0_9cc60@fn_0009cc60@@QAEXPAX00@Z @5b5ca72bc2e3 @w23491895e659 @v48465fb763bd
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // Closure0<CCameraManager,math::Vector>::vfunc_2 @ 0x0009cc60
-template <> void Closure0<CCameraManager,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { int unused0 = (int)__p0; int unused1 = (int)__p1; math::Vector_9cc60 * result = (math::Vector_9cc60 *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure0<CCameraManager,math::Vector>::vfunc_2`.
+namespace fn_0009cc60 {
+struct Closure0_9cc60 : hulk_script::FunctionGenView {
+    math::Vector (::CCameraManager::*f_1c)();
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure0_9cc60::vfunc_2(void* __p0, void* __p1, void* __p2) { int unused0 = (int)__p0; int unused1 = (int)__p1; math::Vector_9cc60 * result = (math::Vector_9cc60 *)__p2;
 
     math::Vector_9cc60 temporary;
     math::Vector_9cc60 *value = ((*(CCameraManager_9cc60 * *)&this->f_20)->*(*(math::Vector_9cc60 *(CCameraManager_9cc60::**)(math::Vector_9cc60 *))&this->f_1c))(&temporary);
     math::Vector_9cc60 copy = *value;
     if (result) *result = copy;
 }
+} // namespace fn_0009cc60
 #if defined(HULK_PTR64)
-template class Closure0<CCameraManager,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9cc40)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure0<CCameraManager,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0009cc60::Closure0_9cc60*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
 // 0x0009ccf0 Closure6<CCameraManager,bool,float,float,float,float,float,float>::vfunc_2 (29 B): matches/0x0009ccf0.cpp
-// sym: ?vfunc_2@?$Closure6@VCCameraManager@@_NMMMMMM@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure6_9ccf0@fn_0009ccf0@@QAEXPAX00@Z
 // Same code shape as 0x0002ebc0 (propagated; names are from that function)
-template <> void Closure6<CCameraManager, bool, float, float, float, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr x = (hulk_intptr)__p0; hulk_intptr y = (hulk_intptr)__p1; hulk_intptr z = (hulk_intptr)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure6<CCameraManager, bool, float, float, float, float, float, float>::vfunc_2`.
+namespace fn_0009ccf0 {
+struct Closure6_9ccf0 : hulk_script::FunctionGenView {
+    bool (::CCameraManager::*f_1c)(float, float, float, float, float, float);
+    hulk_intptr f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure6_9ccf0::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr x = (hulk_intptr)__p0; hulk_intptr y = (hulk_intptr)__p1; hulk_intptr z = (hulk_intptr)__p2;
 
     invoke(this->f_20, y, z, (*(int *)&this->f_1c));
 }
+} // namespace fn_0009ccf0
+#if defined(HULK_PTR64)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure6<CCameraManager, bool, float, float, float, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0009ccf0::Closure6_9ccf0*)this)->vfunc_2(__p0, __p1, __p2); }
+#endif
 
 
 // 0x0009cd10 FUN_0009cd10 (76 B): matches/0x0009cd10.cpp [wrapped: conflict: Closure1; Method1]
@@ -5830,18 +6199,40 @@ Closure1::Closure1(const char* name, Owner_9cd10* object, Fn_9cd10 function) : h
 
 
 // 0x0009cd80 Closure1<CCameraManager,void,const_char_*>::vfunc_2 (18 B): matches/0x0009cd80.cpp
-// sym: ?vfunc_2@?$Closure1@VCCameraManager@@XM@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure1_9cd80@fn_0009cd80@@QAEXPAX00@Z
 // Same code shape as 0x0002ed90 (propagated; names are from that function)
-template <> void Closure1<CCameraManager, void, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; const char ** b = (const char **)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure1<CCameraManager, void, const char *>::vfunc_2`.
+namespace fn_0009cd80 {
+struct Closure1_9cd80 : hulk_script::FunctionGenView {
+    void (::CCameraManager::*f_1c)(const char *);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure1_9cd80::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; const char ** b = (const char **)__p1; void * c = (void *)__p2;
 
     ((*(CActorManager_9cd80 * *)&this->f_20)->*(*(void (CActorManager_9cd80::**)(const char *))&this->f_1c))(*b);
 }
+} // namespace fn_0009cd80
+#if defined(HULK_PTR64)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure1<CCameraManager, void, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0009cd80::Closure1_9cd80*)this)->vfunc_2(__p0, __p1, __p2); }
+#endif
 
 
 // 0x0009ce00 Closure0<CCameraManager,const_char_*>::vfunc_2 (23 B): matches/0x0009ce00.cpp
-// sym: ?vfunc_2@?$Closure0@VCCameraManager@@PBD@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure0_9ce00@fn_0009ce00@@QAEXPAX00@Z
 // Same code shape as 0x0002ee10 (propagated; names are from that function)
-template <> void Closure0<CCameraManager, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { int * out = (int *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure0<CCameraManager, const char *>::vfunc_2`.
+namespace fn_0009ce00 {
+struct Closure0_9ce00 : hulk_script::FunctionGenView {
+    const char * (::CCameraManager::*f_1c)();
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure0_9ce00::vfunc_2(void* __p0, void* __p1, void* __p2) { int * out = (int *)__p2;
 
     CActorManager_9ce00* obj = (*(CActorManager_9ce00 * *)&this->f_20);
     int (CActorManager_9ce00::*fn)() = (*(int (CActorManager_9ce00::**)())&this->f_1c);
@@ -5849,6 +6240,12 @@ template <> void Closure0<CCameraManager, const char *>::vfunc_2(void* __p0, voi
     if (out)
         *out = result;
 }
+} // namespace fn_0009ce00
+#if defined(HULK_PTR64)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure0<CCameraManager, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0009ce00::Closure0_9ce00*)this)->vfunc_2(__p0, __p1, __p2); }
+#endif
 
 
 // 0x0009ce20 FUN_0009ce20 (89 B): matches/0x0009ce20.cpp [wrapped: conflict: Closure2; Method2]
@@ -5882,20 +6279,48 @@ Closure2::Closure2(const char* name, Owner_9ce20* object, Fn_9ce20 function) : h
 
 
 // 0x0009cea0 Closure2<CCameraManager,void,math::Vector,bool>::vfunc_2 (44 B): matches/0x0009cea0.cpp
-// sym: ?vfunc_2@?$Closure2@VCCameraManager@@XVVector@math@@_N@@UAEXPAX00@Z
-template <> void Closure2<CCameraManager, void,math::Vector, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { Vector_9cea0 * p = (Vector_9cea0 *)__p1;
+// sym: ?vfunc_2@Closure2_9cea0@fn_0009cea0@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure2<CCameraManager, void,math::Vector, bool>::vfunc_2`.
+namespace fn_0009cea0 {
+struct Closure2_9cea0 : hulk_script::FunctionGenView {
+    void (::CCameraManager::*f_1c)(math::Vector, bool);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure2_9cea0::vfunc_2(void* __p0, void* __p1, void* __p2) { Vector_9cea0 * p = (Vector_9cea0 *)__p1;
 
     ((*(CCameraManager_9cea0 * *)&this->f_20)->*(*(void (CCameraManager_9cea0::**)(Vector_9cea0, unsigned char))&this->f_1c))(*p, *((unsigned char*)p + 12));
 }
+} // namespace fn_0009cea0
+#if defined(HULK_PTR64)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure2<CCameraManager, void,math::Vector, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0009cea0::Closure2_9cea0*)this)->vfunc_2(__p0, __p1, __p2); }
+#endif
 
 
 // 0x0009cf20 Closure5<CCameraManager,bool,float,float,float,float,bool>::vfunc_2 (29 B): matches/0x0009cf20.cpp
-// sym: ?vfunc_2@?$Closure5@VCCameraManager@@_NMMMM_N@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure5_9cf20@fn_0009cf20@@QAEXPAX00@Z
 // Same code shape as 0x0002ebc0 (propagated; names are from that function)
-template <> void Closure5<CCameraManager, bool, float, float, float, float, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr x = (hulk_intptr)__p0; hulk_intptr y = (hulk_intptr)__p1; hulk_intptr z = (hulk_intptr)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure5<CCameraManager, bool, float, float, float, float, bool>::vfunc_2`.
+namespace fn_0009cf20 {
+struct Closure5_9cf20 : hulk_script::FunctionGenView {
+    bool (::CCameraManager::*f_1c)(float, float, float, float, bool);
+    hulk_intptr f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure5_9cf20::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr x = (hulk_intptr)__p0; hulk_intptr y = (hulk_intptr)__p1; hulk_intptr z = (hulk_intptr)__p2;
 
     invoke(this->f_20, y, z, (*(int *)&this->f_1c));
 }
+} // namespace fn_0009cf20
+#if defined(HULK_PTR64)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure5<CCameraManager, bool, float, float, float, float, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0009cf20::Closure5_9cf20*)this)->vfunc_2(__p0, __p1, __p2); }
+#endif
 
 
 // 0x0009cf40 FUN_0009cf40 (89 B): matches/0x0009cf40.cpp [wrapped: conflict: Closure2; Method2]
@@ -5947,19 +6372,41 @@ void Closure2::vfunc_2(void* unused, int* p, void* unused2) {
 
 
 // 0x0009d040 Closure4<CCameraManager,void,char_*,char_*,char_*,char_*>::vfunc_2 (39 B): equivalent/0x0009d040.cpp
-// sym: ?vfunc_2@?$Closure4@VCCameraManager@@XPADPADPADPAD@@UAEXPAX00@Z @35da6a76506a @w988358e1f154 @v83eeeb2c6141
+// sym: ?vfunc_2@Closure4_9d040@fn_0009d040@@QAEXPAX00@Z @35da6a76506a @w988358e1f154 @vd3fb9f054668
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Closure4<CCameraManager,void,char_*,char_*,char_*,char_*>::vfunc_2 @ 0x0009d040
-template <> void Closure4<CCameraManager, void, char *, char *, char *, char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { char ** args = (char **)__p1;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure4<CCameraManager, void, char *, char *, char *, char *>::vfunc_2`.
+namespace fn_0009d040 {
+struct Closure4_9d040 : hulk_script::FunctionGenView {
+    void (::CCameraManager::*f_1c)(char *, char *, char *, char *);
+    hulk_intptr f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure4_9d040::vfunc_2(void* __p0, void* __p1, void* __p2) { char ** args = (char **)__p1;
 
     ((*(CCameraManager_9d040 * *)&this->f_20)->*(*(void (CCameraManager_9d040::**)(char *, char *, char *, char *))&this->f_1c))(args[0], args[1], args[2], args[3]);
 }
+} // namespace fn_0009d040
+#if defined(HULK_PTR64)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure4<CCameraManager, void, char *, char *, char *, char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0009d040::Closure4_9d040*)this)->vfunc_2(__p0, __p1, __p2); }
+#endif
 
 
 // 0x0009d0d0 Closure0<CCameraManager,float>::vfunc_2 (35 B): matches/0x0009d0d0.cpp
-// sym: ?vfunc_2@?$Closure0@VCCameraManager@@M@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure0_9d0d0@fn_0009d0d0@@QAEXPAX00@Z
 // Same code shape as 0x0002fe60 (propagated; names are from that function)
-template <> void Closure0<CCameraManager, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr a = (hulk_intptr)__p0; hulk_intptr b = (hulk_intptr)__p1; float * out = (float *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure0<CCameraManager, float>::vfunc_2`.
+namespace fn_0009d0d0 {
+struct Closure0_9d0d0 : hulk_script::FunctionGenView {
+    float (::CCameraManager::*f_1c)();
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure0_9d0d0::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr a = (hulk_intptr)__p0; hulk_intptr b = (hulk_intptr)__p1; float * out = (float *)__p2;
 
     CActorManager_9d0d0* m = (*(CActorManager_9d0d0 * *)&this->f_20);
     Fn_9d0d0 fn = (*(Fn_9d0d0 *)&this->f_1c);
@@ -5967,6 +6414,12 @@ template <> void Closure0<CCameraManager, float>::vfunc_2(void* __p0, void* __p1
     if (out)
         *out = v;
 }
+} // namespace fn_0009d0d0
+#if defined(HULK_PTR64)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure0<CCameraManager, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0009d0d0::Closure0_9d0d0*)this)->vfunc_2(__p0, __p1, __p2); }
+#endif
 
 
 // 0x0009d100 FUN_0009d100 (169 B): equivalent/0x0009d100.cpp [wrapped: conflict: World; content::LoadInventory::DynamicCaster; pure3d::Animation]
@@ -6851,7 +7304,7 @@ void Owner_9dcb0::Make(int id, int a, int b) throw() {
 
 
 // 0x0009dd20 FUN_0009dd20 (6657 B): equivalent/0x0009dd20.cpp [wrapped: macros]
-// sym: ??0CCameraManager@fn_0009dd20@@QAE@XZ @6b14d6b9d7a0 @w78b9985087bc @v6e4f2e569033
+// sym: ??0CCameraManager@fn_0009dd20@@QAE@XZ @ea0919333530 @we6cca24ec04b @v3ea4b1b8f52a
 namespace fn_0009dd20 {
 // STATUS: equivalent (tools/equiv.py level 3: 252 inputs, branch coverage 126/126)
 // FUN_0009dd20 @ 0x0009dd20
@@ -6861,6 +7314,10 @@ void* FUN_0008d690(unsigned int);
 char FUN_001d04d0(const void*) throw();
 class CCameraManager;
 namespace math { class Vector { public: float x, y, z; }; }
+} // namespace fn_0009dd20
+template <> struct hulk_script::ScriptType<fn_0009dd20::math::Vector> { static const void* tag() { return hulk_script::DAT_0048e10c; } };
+template <> struct hulk_script::ScriptType<const fn_0009dd20::math::Vector> { static const void* tag() { return hulk_script::DAT_0048e10c; } };
+namespace fn_0009dd20 {
 typedef float Float; typedef bool Bool; typedef int Int; typedef void Void;
 typedef const char* String; typedef char* CharPtr; typedef math::Vector Vector;
 extern char DAT_0048e0e4, DAT_0048e0f0, DAT_0048e100, DAT_0048e10c, DAT_0048e128, DAT_0048e134, DAT_0049cad8;
@@ -6873,33 +7330,21 @@ extern char DAT_0048e0e4, DAT_0048e0f0, DAT_0048e100, DAT_0048e10c, DAT_0048e128
 #define tCharPtr DAT_0049cad8
 // Function's fields (include/decls/data/script.h); Method<N> adds the member-function pointer (CCameraManager's,
 // held as ScriptMemberFn), Closure<N> the object.
-class Base : public ScriptFunctionFields { public: virtual void v(); Base(const char*, int) throw(); };
-template<class C, class R> class Method0 : public Base { public: R (C::*f)(); Method0(const char* n, R (C::*x)(), const void* r) : Base(n, 0) { f = x; retType = FUN_001d04d0(r); } virtual void v(); };
-template<class C, class R> class Closure0 : public Method0<C, R> { public: C* owner; Closure0(const char* n, C* o, R (C::*f)(), const void* r) : Method0<C, R>(n, f, r) { owner = o; } virtual void v(); };
-template<class C, class R, class A1> class Method1 : public Base { public: R (C::*f)(A1); Method1(const char* n, R (C::*x)(A1), const void* r, const void* a1) : Base(n, 1) { f = x; retType = FUN_001d04d0(r); argTypes[0] = FUN_001d04d0(a1); } virtual void v(); };
-template<class C, class R, class A1> class Closure1 : public Method1<C, R, A1> { public: C* owner; Closure1(const char* n, C* o, R (C::*f)(A1), const void* r, const void* a1) : Method1<C, R, A1>(n, f, r, a1) { owner = o; } virtual void v(); };
-template<class C, class R, class A1, class A2> class Method2 : public Base { public: R (C::*f)(A1, A2); Method2(const char* n, R (C::*x)(A1, A2), const void* r, const void* a1, const void* a2) : Base(n, 2) { f = x; retType = FUN_001d04d0(r); argTypes[0] = FUN_001d04d0(a1); argTypes[1] = FUN_001d04d0(a2); } virtual void v(); };
-template<class C, class R, class A1, class A2> class Closure2 : public Method2<C, R, A1, A2> { public: C* owner; Closure2(const char* n, C* o, R (C::*f)(A1, A2), const void* r, const void* a1, const void* a2) : Method2<C, R, A1, A2>(n, f, r, a1, a2) { owner = o; } virtual void v(); };
-template<class C, class R, class A1, class A2, class A3> class Method3 : public Base { public: R (C::*f)(A1, A2, A3); Method3(const char* n, R (C::*x)(A1, A2, A3), const void* r, const void* a1, const void* a2, const void* a3) : Base(n, 3) { f = x; retType = FUN_001d04d0(r); argTypes[0] = FUN_001d04d0(a1); argTypes[1] = FUN_001d04d0(a2); argTypes[2] = FUN_001d04d0(a3); } virtual void v(); };
-template<class C, class R, class A1, class A2, class A3> class Closure3 : public Method3<C, R, A1, A2, A3> { public: C* owner; Closure3(const char* n, C* o, R (C::*f)(A1, A2, A3), const void* r, const void* a1, const void* a2, const void* a3) : Method3<C, R, A1, A2, A3>(n, f, r, a1, a2, a3) { owner = o; } virtual void v(); };
-template<class C, class R, class A1, class A2, class A3, class A4> class Method4 : public Base { public: R (C::*f)(A1, A2, A3, A4); Method4(const char* n, R (C::*x)(A1, A2, A3, A4), const void* r, const void* a1, const void* a2, const void* a3, const void* a4) : Base(n, 4) { f = x; retType = FUN_001d04d0(r); argTypes[0] = FUN_001d04d0(a1); argTypes[1] = FUN_001d04d0(a2); argTypes[2] = FUN_001d04d0(a3); argTypes[3] = FUN_001d04d0(a4); } virtual void v(); };
-template<class C, class R, class A1, class A2, class A3, class A4> class Closure4 : public Method4<C, R, A1, A2, A3, A4> { public: C* owner; Closure4(const char* n, C* o, R (C::*f)(A1, A2, A3, A4), const void* r, const void* a1, const void* a2, const void* a3, const void* a4) : Method4<C, R, A1, A2, A3, A4>(n, f, r, a1, a2, a3, a4) { owner = o; } virtual void v(); };
-template<class C, class R, class A1, class A2, class A3, class A4, class A5> class Method5 : public Base { public: R (C::*f)(A1, A2, A3, A4, A5); Method5(const char* n, R (C::*x)(A1, A2, A3, A4, A5), const void* r, const void* a1, const void* a2, const void* a3, const void* a4, const void* a5) : Base(n, 5) { f = x; retType = FUN_001d04d0(r); argTypes[0] = FUN_001d04d0(a1); argTypes[1] = FUN_001d04d0(a2); argTypes[2] = FUN_001d04d0(a3); argTypes[3] = FUN_001d04d0(a4); argTypes[4] = FUN_001d04d0(a5); } virtual void v(); };
-template<class C, class R, class A1, class A2, class A3, class A4, class A5> class Closure5 : public Method5<C, R, A1, A2, A3, A4, A5> { public: C* owner; Closure5(const char* n, C* o, R (C::*f)(A1, A2, A3, A4, A5), const void* r, const void* a1, const void* a2, const void* a3, const void* a4, const void* a5) : Method5<C, R, A1, A2, A3, A4, A5>(n, f, r, a1, a2, a3, a4, a5) { owner = o; } virtual void v(); };
-template<class C, class R, class A1, class A2, class A3, class A4, class A5, class A6> class Method6 : public Base { public: R (C::*f)(A1, A2, A3, A4, A5, A6); Method6(const char* n, R (C::*x)(A1, A2, A3, A4, A5, A6), const void* r, const void* a1, const void* a2, const void* a3, const void* a4, const void* a5, const void* a6) : Base(n, 6) { f = x; retType = FUN_001d04d0(r); argTypes[0] = FUN_001d04d0(a1); argTypes[1] = FUN_001d04d0(a2); argTypes[2] = FUN_001d04d0(a3); argTypes[3] = FUN_001d04d0(a4); argTypes[4] = FUN_001d04d0(a5); argTypes[5] = FUN_001d04d0(a6); } virtual void v(); };
-template<class C, class R, class A1, class A2, class A3, class A4, class A5, class A6> class Closure6 : public Method6<C, R, A1, A2, A3, A4, A5, A6> { public: C* owner; Closure6(const char* n, C* o, R (C::*f)(A1, A2, A3, A4, A5, A6), const void* r, const void* a1, const void* a2, const void* a3, const void* a4, const void* a5, const void* a6) : Method6<C, R, A1, A2, A3, A4, A5, A6>(n, f, r, a1, a2, a3, a4, a5, a6) { owner = o; } virtual void v(); };
-template<class C, class R, class A1, class A2, class A3, class A4, class A5, class A6, class A7> class Method7 : public Base { public: R (C::*f)(A1, A2, A3, A4, A5, A6, A7); Method7(const char* n, R (C::*x)(A1, A2, A3, A4, A5, A6, A7), const void* r, const void* a1, const void* a2, const void* a3, const void* a4, const void* a5, const void* a6, const void* a7) : Base(n, 7) { f = x; retType = FUN_001d04d0(r); argTypes[0] = FUN_001d04d0(a1); argTypes[1] = FUN_001d04d0(a2); argTypes[2] = FUN_001d04d0(a3); argTypes[3] = FUN_001d04d0(a4); argTypes[4] = FUN_001d04d0(a5); argTypes[5] = FUN_001d04d0(a6); argTypes[6] = FUN_001d04d0(a7); } virtual void v(); };
-template<class C, class R, class A1, class A2, class A3, class A4, class A5, class A6, class A7> class Closure7 : public Method7<C, R, A1, A2, A3, A4, A5, A6, A7> { public: C* owner; Closure7(const char* n, C* o, R (C::*f)(A1, A2, A3, A4, A5, A6, A7), const void* r, const void* a1, const void* a2, const void* a3, const void* a4, const void* a5, const void* a6, const void* a7) : Method7<C, R, A1, A2, A3, A4, A5, A6, A7>(n, f, r, a1, a2, a3, a4, a5, a6, a7) { owner = o; } virtual void v(); };
 #define FN(b) void FUN_##b();
 #define CB(b) (&CCameraManager::FUN_##b)
-#define G0(n, b, R) { typedef Closure0<CCameraManager, R> Built_t; HULK_SIZE32(Built_t, 0x24); r->FUN_001d3b70(n, new Built_t(n, this, CB(b), &t##R)); }
-#define G1(n, b, R, A1) { typedef Closure1<CCameraManager, R, A1> Built_t; HULK_SIZE32(Built_t, 0x24); r->FUN_001d3b70(n, new Built_t(n, this, CB(b), &t##R, &t##A1)); }
-#define G2(n, b, R, A1, A2) { typedef Closure2<CCameraManager, R, A1, A2> Built_t; HULK_SIZE32(Built_t, 0x24); r->FUN_001d3b70(n, new Built_t(n, this, CB(b), &t##R, &t##A1, &t##A2)); }
-#define G3(n, b, R, A1, A2, A3) { typedef Closure3<CCameraManager, R, A1, A2, A3> Built_t; HULK_SIZE32(Built_t, 0x24); r->FUN_001d3b70(n, new Built_t(n, this, CB(b), &t##R, &t##A1, &t##A2, &t##A3)); }
-#define G4(n, b, R, A1, A2, A3, A4) { typedef Closure4<CCameraManager, R, A1, A2, A3, A4> Built_t; HULK_SIZE32(Built_t, 0x24); r->FUN_001d3b70(n, new Built_t(n, this, CB(b), &t##R, &t##A1, &t##A2, &t##A3, &t##A4)); }
-#define G5(n, b, R, A1, A2, A3, A4, A5) { typedef Closure5<CCameraManager, R, A1, A2, A3, A4, A5> Built_t; HULK_SIZE32(Built_t, 0x24); r->FUN_001d3b70(n, new Built_t(n, this, CB(b), &t##R, &t##A1, &t##A2, &t##A3, &t##A4, &t##A5)); }
-#define M6(n, c, b, R, A1, A2, A3, A4, A5, A6) { typedef Closure6<CCameraManager, R, A1, A2, A3, A4, A5, A6> Built_t; HULK_SIZE32(Built_t, 0x24); void* m = FUN_0008d690((unsigned int)sizeof(Built_t)); void* x = 0; if (m) { ((Raw_##c*)m)->FUN_##c(n, CB(b)); x = new (m) Built_t(this); } r->FUN_001d3b70(n, x); }
-#define M7(n, c, b, R, A1, A2, A3, A4, A5, A6, A7) { typedef Closure7<CCameraManager, R, A1, A2, A3, A4, A5, A6, A7> Built_t; HULK_SIZE32(Built_t, 0x24); void* m = FUN_0008d690((unsigned int)sizeof(Built_t)); void* x = 0; if (m) { ((Raw_##c*)m)->FUN_##c(n, CB(b)); x = new (m) Built_t(this); } r->FUN_001d3b70(n, x); }
+// (script2) the Method<N> / Closure<N> are include/game/script_bind.h's records with the game's vftables by address (MV, CV:
+// the instantiation's Method<N> and Closure<N> vftables, as the game's inlined constructors store them); M6 / M7 store
+// Closure<N>'s vftable and the object after the out-of-line Method<N> constructor. No stand-in vftable.
+extern "C" char DAT_00404c10[], DAT_00404c20[], DAT_00404c30[], DAT_00404c40[], DAT_00404c50[], DAT_00404c60[], DAT_00404c70[], DAT_00404c80[], DAT_00404ca0[], DAT_00404cb0[], DAT_00404cd0[], DAT_00404ce0[], DAT_00404cf0[], DAT_00404d00[], DAT_00404d10[], DAT_00404d30[], DAT_00404d40[], DAT_00404d50[], DAT_00404d60[], DAT_00404d70[], DAT_00404d80[], DAT_00404d90[], DAT_00404da0[], DAT_00404db0[], DAT_00404dc0[], DAT_00404dd0[], DAT_00404de0[], DAT_00404df0[], DAT_00404e00[], DAT_00404e10[], DAT_00404e20[], DAT_00404e30[], DAT_00404e40[], DAT_00404e50[], DAT_00404e60[], DAT_00404e70[], DAT_00404e80[], DAT_00404e90[], DAT_00404ea0[], DAT_00404eb0[], DAT_00404ec0[], DAT_00404ed0[], DAT_00404ee0[], DAT_00404ef0[], DAT_00404f00[], DAT_00404f10[], DAT_00404f20[], DAT_00404f30[];
+struct ClosureTail : hulk_script::FunctionGenView { ScriptMemberFn f_1c; CCameraManager* owner; };
+#define G0(n, b, R, MV, CV) { r->FUN_001d3b70(n, new hulk_script::ScriptClosure<hulk_script::ScriptMethod0<CCameraManager, R>, CCameraManager>(n, this, reinterpret_cast<R (CCameraManager::*)()>(CB(b)), DAT_##MV, DAT_##CV)); }
+#define G1(n, b, R, A1, MV, CV) { r->FUN_001d3b70(n, new hulk_script::ScriptClosure<hulk_script::ScriptMethod1<CCameraManager, R, A1>, CCameraManager>(n, this, reinterpret_cast<R (CCameraManager::*)(A1)>(CB(b)), DAT_##MV, DAT_##CV)); }
+#define G2(n, b, R, A1, A2, MV, CV) { r->FUN_001d3b70(n, new hulk_script::ScriptClosure<hulk_script::ScriptMethod2<CCameraManager, R, A1, A2>, CCameraManager>(n, this, reinterpret_cast<R (CCameraManager::*)(A1, A2)>(CB(b)), DAT_##MV, DAT_##CV)); }
+#define G3(n, b, R, A1, A2, A3, MV, CV) { r->FUN_001d3b70(n, new hulk_script::ScriptClosure<hulk_script::ScriptMethod3<CCameraManager, R, A1, A2, A3>, CCameraManager>(n, this, reinterpret_cast<R (CCameraManager::*)(A1, A2, A3)>(CB(b)), DAT_##MV, DAT_##CV)); }
+#define G4(n, b, R, A1, A2, A3, A4, MV, CV) { r->FUN_001d3b70(n, new hulk_script::ScriptClosure<hulk_script::ScriptMethod4<CCameraManager, R, A1, A2, A3, A4>, CCameraManager>(n, this, reinterpret_cast<R (CCameraManager::*)(A1, A2, A3, A4)>(CB(b)), DAT_##MV, DAT_##CV)); }
+#define G5(n, b, R, A1, A2, A3, A4, A5, MV, CV) { r->FUN_001d3b70(n, new hulk_script::ScriptClosure<hulk_script::ScriptMethod5<CCameraManager, R, A1, A2, A3, A4, A5>, CCameraManager>(n, this, reinterpret_cast<R (CCameraManager::*)(A1, A2, A3, A4, A5)>(CB(b)), DAT_##MV, DAT_##CV)); }
+#define M6(n, c, b, R, A1, A2, A3, A4, A5, A6, CV) { void* m = FUN_0008d690((unsigned int)sizeof(ClosureTail)); void* x = 0; if (m) { ((Raw_##c*)m)->FUN_##c(n, CB(b)); ClosureTail* t = (ClosureTail*)m; t->vftable = DAT_##CV; t->owner = this; x = t; } r->FUN_001d3b70(n, x); }
+#define M7(n, c, b, R, A1, A2, A3, A4, A5, A6, A7, CV) { void* m = FUN_0008d690((unsigned int)sizeof(ClosureTail)); void* x = 0; if (m) { ((Raw_##c*)m)->FUN_##c(n, CB(b)); ClosureTail* t = (ClosureTail*)m; t->vftable = DAT_##CV; t->owner = this; x = t; } r->FUN_001d3b70(n, x); }
 
 class CCameraManager {
 public:
@@ -6983,10 +7428,6 @@ public:
     void FUN_0009c230(bool, bool, bool, bool, bool, bool, float);
     void FUN_0009d1b0(char*, char*, char*, char*);
 };
-template<> class Closure6<CCameraManager, bool, float, float, float, float, float, float> { public: virtual void* Fnv_0009ccd0(int); ScriptFunctionFields fields; bool (CCameraManager::*fn)(float, float, float, float, float, float); CCameraManager* owner; Closure6(CCameraManager* o) { owner = o; } };
-template<> class Closure6<CCameraManager, void, float, float, float, float, float, float> { public: virtual void* Fnv_0009c2a0(int); ScriptFunctionFields fields; void (CCameraManager::*fn)(float, float, float, float, float, float); CCameraManager* owner; Closure6(CCameraManager* o) { owner = o; } };
-template<> class Closure6<CCameraManager, void, int, int, float, int, int, float> { public: virtual void* Fnv_0009c940(int); ScriptFunctionFields fields; void (CCameraManager::*fn)(int, int, float, int, int, float); CCameraManager* owner; Closure6(CCameraManager* o) { owner = o; } };
-template<> class Closure7<CCameraManager, void, bool, bool, bool, bool, bool, bool, float> { public: virtual void* Fnv_0009c7e0(int); ScriptFunctionFields fields; void (CCameraManager::*fn)(bool, bool, bool, bool, bool, bool, float); CCameraManager* owner; Closure7(CCameraManager* o) { owner = o; } };
 class Registry { public:
     void FUN_001d3b70(const char*, void*);
 };
@@ -7019,68 +7460,68 @@ CCameraManager::CCameraManager() {
     i0c = 0;
     Registry* r = FUN_001d4c90();
     if (r) {
-M6("cm_SetScriptCamStatic", 0009a6e0, 00099570, Void, Float, Float, Float, Float, Float, Float)
-G4("cm_SetScriptCamStaticV", 00099500, Void, Float, Float, Vector, Float)
-G3("cm_SetScriptCamShot", 000995c0, Void, Float, Float, Bool)
-G2("cm_SetScriptCamZoom", 00099600, Void, Float, Float)
-G2("cm_SetScriptCamPan", 00099640, Void, Float, Float)
-G2("cm_SetScriptCamPitch", 00099680, Void, Float, Float)
-G4("cm_SetScriptCamShake", 000996c0, Void, Float, Float, Float, Float)
-G3("cm_SwitchToScriptCamera", 0009c170, Void, Bool, Bool, Bool)
-G4("cm_SwitchToScriptCameraTD", 0009c1a0, Void, Bool, Bool, Bool, Float)
-G4("cm_SwitchToScriptCameraP", 0009c1d0, Void, Bool, Bool, Bool, Bool)
-G5("cm_SwitchToScriptCameraTDP", 0009c200, Void, Bool, Bool, Bool, Bool, Float)
-M7("cm_SwitchToScriptCameraAll", 0009ae50, 0009c230, Void, Bool, Bool, Bool, Bool, Bool, Bool, Float)
-G0("cm_AbortScriptCamera", 00099710, Void)
-G0("cm_IsScriptCameraPlaying", 00099760, Bool)
-G2("cm_SetScriptCamPanTiming", 000997b0, Void, Float, Float)
-G2("cm_SetScriptCamPitchTiming", 000997e0, Void, Float, Float)
-G2("cm_SetScriptCamZoomTiming", 00099810, Void, Float, Float)
-M6("cm_SetScriptCamBlending", 0009b080, 000993f0, Void, Int, Int, Float, Int, Int, Float)
-G2("cm_SetScriptCamZoomEaseInOut", 00099860, Void, Float, Float)
-G2("cm_SetScriptCamPitchEaseInOut", 00099880, Void, Float, Float)
-G2("cm_SetScriptCamPanEaseInOut", 000998a0, Void, Float, Float)
-G1("cm_SetScriptCamSkipTime", 00099840, Void, Float)
-G2("cm_SetScriptCamTargetTiming", 000998c0, Void, Float, Float)
-G2("cm_SetScriptCamTarget", 000998f0, Void, Vector, Vector)
-G2("cm_SetScriptCamTargetEaseInOut", 00099960, Void, Float, Float)
-G2("cm_SetScriptCamFovaTiming", 00099980, Void, Float, Float)
-G2("cm_SetScriptCamFova", 000999b0, Void, Float, Float)
-G2("cm_SetScriptCamFovaEaseInOut", 000999f0, Void, Float, Float)
-G1("cm_SetScriptCamNearPlane", 00099a10, Void, Float)
-G1("cm_SetScriptCamFarPlane", 00099a20, Void, Float)
-G1("cm_SetScriptCamDontSwitch", 00099a30, Void, Bool)
-G1("cm_EnableDramaticCamera", 00098f40, Void, Bool)
-G4("cm_CameraShake", 00099330, Void, Int, Float, Float, Float)
-G0("cm_GetCurrentCameraPosition", 00099bf0, Vector)
-G0("cm_IsDramaticCameraActive", 00099730, Bool)
-G0("cm_IsHypnoticCameraActive", 00099740, Bool)
-G0("cm_IsScriptCameraActive", 00099750, Bool)
-G0("cm_IsNISCameraActive", 00099790, Bool)
-G0("cm_IsGameCameraActive", 000997a0, Bool)
-G1("cm_SetScriptCamTargetBias", 00099c60, Void, Float)
-G1("cm_SetScriptCamFovaBias", 00099c80, Void, Float)
-G1("cm_SetScriptCamPitchBias", 00099ca0, Void, Float)
-G1("cm_SetScriptCamPanBias", 00099cc0, Void, Float)
-G1("cm_SetScriptCamZoomBias", 00099ce0, Void, Float)
-M6("cm_CanScriptCamSeeTarget", 0009b4a0, 0009a5d0, Bool, Float, Float, Float, Float, Float, Float)
-G1("cm_SetChaseCamTarget", 00099a50, Void, String)
-G0("cm_GetChaseCamTarget", 00099a70, String)
-G1("cm_ResetChaseCam", 00099ae0, Void, Bool)
-G2("cm_ResetChaseCamFacing", 00099b00, Void, Vector, Bool)
-G5("cm_IsPointInCameraView", 00099d60, Bool, Float, Float, Float, Float, Bool)
-G2("cm_SetHypnoticCamTarget", 00099000, Void, Vector, Float)
-G1("cm_SetHypnoticCamSoundTrigger", 00099030, Void, Float)
-G1("cm_SetHypnoticCamMinHeight", 00099040, Void, Float)
-G4("cm_StartHypnoticCam", 0009d1b0, Void, CharPtr, CharPtr, CharPtr, CharPtr)
-G0("cm_GetChaseCamBaseDist", 00099b30, Float)
-G0("cm_GetChaseCamFOV", 00099b50, Float)
-G1("cm_SetChaseCamBaseDist", 0009a480, Void, Float)
-G2("cm_SetChaseCamFOV", 0009a500, Void, Float, Float)
-G0("cm_GetChaseCamMaxHeight", 00099b70, Float)
-G1("cm_SetChaseCamMaxHeight", 00099b90, Void, Float)
-G0("cm_GetChaseCamMinHeight", 00099bb0, Float)
-G1("cm_SetChaseCamMinHeight", 00099bd0, Void, Float)
+M6("cm_SetScriptCamStatic", 0009a6e0, 00099570, Void, Float, Float, Float, Float, Float, Float, 00404da0)
+G4("cm_SetScriptCamStaticV", 00099500, Void, Float, Float, Vector, Float, 00404c10, 00404db0)
+G3("cm_SetScriptCamShot", 000995c0, Void, Float, Float, Bool, 00404c20, 00404dc0)
+G2("cm_SetScriptCamZoom", 00099600, Void, Float, Float, 00404c30, 00404dd0)
+G2("cm_SetScriptCamPan", 00099640, Void, Float, Float, 00404c30, 00404dd0)
+G2("cm_SetScriptCamPitch", 00099680, Void, Float, Float, 00404c30, 00404dd0)
+G4("cm_SetScriptCamShake", 000996c0, Void, Float, Float, Float, Float, 00404c40, 00404de0)
+G3("cm_SwitchToScriptCamera", 0009c170, Void, Bool, Bool, Bool, 00404c50, 00404df0)
+G4("cm_SwitchToScriptCameraTD", 0009c1a0, Void, Bool, Bool, Bool, Float, 00404c60, 00404e00)
+G4("cm_SwitchToScriptCameraP", 0009c1d0, Void, Bool, Bool, Bool, Bool, 00404c70, 00404e10)
+G5("cm_SwitchToScriptCameraTDP", 0009c200, Void, Bool, Bool, Bool, Bool, Float, 00404c80, 00404e20)
+M7("cm_SwitchToScriptCameraAll", 0009ae50, 0009c230, Void, Bool, Bool, Bool, Bool, Bool, Bool, Float, 00404e30)
+G0("cm_AbortScriptCamera", 00099710, Void, 00404ca0, 00404e40)
+G0("cm_IsScriptCameraPlaying", 00099760, Bool, 00404cb0, 00404e50)
+G2("cm_SetScriptCamPanTiming", 000997b0, Void, Float, Float, 00404c30, 00404dd0)
+G2("cm_SetScriptCamPitchTiming", 000997e0, Void, Float, Float, 00404c30, 00404dd0)
+G2("cm_SetScriptCamZoomTiming", 00099810, Void, Float, Float, 00404c30, 00404dd0)
+M6("cm_SetScriptCamBlending", 0009b080, 000993f0, Void, Int, Int, Float, Int, Int, Float, 00404e60)
+G2("cm_SetScriptCamZoomEaseInOut", 00099860, Void, Float, Float, 00404c30, 00404dd0)
+G2("cm_SetScriptCamPitchEaseInOut", 00099880, Void, Float, Float, 00404c30, 00404dd0)
+G2("cm_SetScriptCamPanEaseInOut", 000998a0, Void, Float, Float, 00404c30, 00404dd0)
+G1("cm_SetScriptCamSkipTime", 00099840, Void, Float, 00404cd0, 00404e70)
+G2("cm_SetScriptCamTargetTiming", 000998c0, Void, Float, Float, 00404c30, 00404dd0)
+G2("cm_SetScriptCamTarget", 000998f0, Void, Vector, Vector, 00404ce0, 00404e80)
+G2("cm_SetScriptCamTargetEaseInOut", 00099960, Void, Float, Float, 00404c30, 00404dd0)
+G2("cm_SetScriptCamFovaTiming", 00099980, Void, Float, Float, 00404c30, 00404dd0)
+G2("cm_SetScriptCamFova", 000999b0, Void, Float, Float, 00404c30, 00404dd0)
+G2("cm_SetScriptCamFovaEaseInOut", 000999f0, Void, Float, Float, 00404c30, 00404dd0)
+G1("cm_SetScriptCamNearPlane", 00099a10, Void, Float, 00404cd0, 00404e70)
+G1("cm_SetScriptCamFarPlane", 00099a20, Void, Float, 00404cd0, 00404e70)
+G1("cm_SetScriptCamDontSwitch", 00099a30, Void, Bool, 00404cf0, 00404e90)
+G1("cm_EnableDramaticCamera", 00098f40, Void, Bool, 00404cf0, 00404e90)
+G4("cm_CameraShake", 00099330, Void, Int, Float, Float, Float, 00404d00, 00404ea0)
+G0("cm_GetCurrentCameraPosition", 00099bf0, Vector, 00404d10, 00404eb0)
+G0("cm_IsDramaticCameraActive", 00099730, Bool, 00404cb0, 00404e50)
+G0("cm_IsHypnoticCameraActive", 00099740, Bool, 00404cb0, 00404e50)
+G0("cm_IsScriptCameraActive", 00099750, Bool, 00404cb0, 00404e50)
+G0("cm_IsNISCameraActive", 00099790, Bool, 00404cb0, 00404e50)
+G0("cm_IsGameCameraActive", 000997a0, Bool, 00404cb0, 00404e50)
+G1("cm_SetScriptCamTargetBias", 00099c60, Void, Float, 00404cd0, 00404e70)
+G1("cm_SetScriptCamFovaBias", 00099c80, Void, Float, 00404cd0, 00404e70)
+G1("cm_SetScriptCamPitchBias", 00099ca0, Void, Float, 00404cd0, 00404e70)
+G1("cm_SetScriptCamPanBias", 00099cc0, Void, Float, 00404cd0, 00404e70)
+G1("cm_SetScriptCamZoomBias", 00099ce0, Void, Float, 00404cd0, 00404e70)
+M6("cm_CanScriptCamSeeTarget", 0009b4a0, 0009a5d0, Bool, Float, Float, Float, Float, Float, Float, 00404ec0)
+G1("cm_SetChaseCamTarget", 00099a50, Void, String, 00404d30, 00404ed0)
+G0("cm_GetChaseCamTarget", 00099a70, String, 00404d40, 00404ee0)
+G1("cm_ResetChaseCam", 00099ae0, Void, Bool, 00404cf0, 00404e90)
+G2("cm_ResetChaseCamFacing", 00099b00, Void, Vector, Bool, 00404d50, 00404ef0)
+G5("cm_IsPointInCameraView", 00099d60, Bool, Float, Float, Float, Float, Bool, 00404d60, 00404f00)
+G2("cm_SetHypnoticCamTarget", 00099000, Void, Vector, Float, 00404d70, 00404f10)
+G1("cm_SetHypnoticCamSoundTrigger", 00099030, Void, Float, 00404cd0, 00404e70)
+G1("cm_SetHypnoticCamMinHeight", 00099040, Void, Float, 00404cd0, 00404e70)
+G4("cm_StartHypnoticCam", 0009d1b0, Void, CharPtr, CharPtr, CharPtr, CharPtr, 00404d80, 00404f20)
+G0("cm_GetChaseCamBaseDist", 00099b30, Float, 00404d90, 00404f30)
+G0("cm_GetChaseCamFOV", 00099b50, Float, 00404d90, 00404f30)
+G1("cm_SetChaseCamBaseDist", 0009a480, Void, Float, 00404cd0, 00404e70)
+G2("cm_SetChaseCamFOV", 0009a500, Void, Float, Float, 00404c30, 00404dd0)
+G0("cm_GetChaseCamMaxHeight", 00099b70, Float, 00404d90, 00404f30)
+G1("cm_SetChaseCamMaxHeight", 00099b90, Void, Float, 00404cd0, 00404e70)
+G0("cm_GetChaseCamMinHeight", 00099bb0, Float, 00404d90, 00404f30)
+G1("cm_SetChaseCamMinHeight", 00099bd0, Void, Float, 00404cd0, 00404e70)
     }
 }
 } // namespace fn_0009dd20

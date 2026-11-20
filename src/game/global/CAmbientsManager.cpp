@@ -3767,7 +3767,7 @@ template class Method5<CAmbientsManager, void, const char *, int, bool,math::Vec
 
 
 // 0x0007ced0 Method5<CAmbientsManager,void,const_char_*,int,bool,math::Vector,math::Vector>::vfunc_2 (119 B): equivalent/0x0007ced0.cpp [wrapped: conflict: CAmbientsManager; Function; Method5]
-// sym: ?vfunc_2@Method5@fn_0007ced0@@UAEXPAVCAmbientsManager@2@TArgsSlot@2@PAX@Z @ab324c6eedb7 @w8be8d86a032f @v366e03a44a72
+// sym: ?vfunc_2@Method5@fn_0007ced0@@QAEXPAVCAmbientsManager@2@TArgsSlot@2@PAX@Z @ab324c6eedb7 @w8be8d86a032f @v21b9081bfeee
 namespace fn_0007ced0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // Method5<CAmbientsManager,void,const_char_*,int,bool,math::Vector,math::Vector>::vfunc_2 @ 0x0007ced0
@@ -3796,16 +3796,16 @@ union ArgsSlot {
     bool flag;
     unsigned int word;
 };
-class Function {
+class Function { void* vftable;   /* (script2) the vftable word, no stand-in vftable */
 public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
+    void vfunc_0();
+    void vfunc_1();
 };
 class Method5 : public Function {
 public:
     ScriptFunctionFields fields;   // (script2) Function's fields (was char pad04[0x18])
     AmbientFn fn;
-    virtual void vfunc_2(CAmbientsManager* owner, ArgsSlot slot, void* result);
+    void vfunc_2(CAmbientsManager* owner, ArgsSlot slot, void* result);
 };
 void Method5::vfunc_2(CAmbientsManager* owner, ArgsSlot slot, void* result) {
     Args_7ced0* args = slot.args;
@@ -3841,8 +3841,15 @@ template <> Method2<CAmbientsManager, void, const char *, bool>::~Method2() {}
 
 
 // 0x0007cfc0 Method2<CAmbientsManager,void,const_char_*,bool>::vfunc_2 (25 B): matches/0x0007cfc0.cpp
-// sym: ?vfunc_2@?$Method2@VCAmbientsManager@@XPBD_N@@UAEXPAX00@Z
-template <> void Method2<CAmbientsManager, void, const char *, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { CAmbientsManager_7cfc0 * obj = (CAmbientsManager_7cfc0 *)__p0; void * args = (void *)__p1; void * unused = (void *)__p2;
+// sym: ?vfunc_2@Method2_7cfc0@fn_0007cfc0@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method2<CAmbientsManager, void, const char *, bool>::vfunc_2`.
+namespace fn_0007cfc0 {
+struct Method2_7cfc0 : hulk_script::FunctionGenView {
+    void (::CAmbientsManager::*f_1c)(const char *, bool);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method2_7cfc0::vfunc_2(void* __p0, void* __p1, void* __p2) { CAmbientsManager_7cfc0 * obj = (CAmbientsManager_7cfc0 *)__p0; void * args = (void *)__p1; void * unused = (void *)__p2;
 
     struct Args {
         const char* s;
@@ -3851,8 +3858,11 @@ template <> void Method2<CAmbientsManager, void, const char *, bool>::vfunc_2(vo
     Args* a = (Args*)args;
     (obj->*(*(void (CAmbientsManager_7cfc0::**)(const char *, bool))&this->f_1c))(a->s, a->b);
 }
+} // namespace fn_0007cfc0
 #if defined(HULK_PTR64)
-template class Method2<CAmbientsManager, void, const char *, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x7cfa0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method2<CAmbientsManager, void, const char *, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0007cfc0::Method2_7cfc0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -3880,14 +3890,24 @@ template <> Method0<CAmbientsManager, void>::~Method0() {}
 
 
 // 0x0007d040 Method0<CAmbientsManager,void>::vfunc_2 (12 B): matches/0x0007d040.cpp
-// sym: ?vfunc_2@?$Method0@VCAmbientsManager@@X@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method0_7d040@fn_0007d040@@QAEXPAX00@Z
 // Same code shape as 0x0002d950 (propagated; names are from that function)
-template <> void Method0<CAmbientsManager, void>::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_7d040 * a = (CActorManager_7d040 *)__p0;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method0<CAmbientsManager, void>::vfunc_2`.
+namespace fn_0007d040 {
+struct Method0_7d040 : hulk_script::FunctionGenView {
+    void (::CAmbientsManager::*f_1c)();
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method0_7d040::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_7d040 * a = (CActorManager_7d040 *)__p0;
 
     (a->*(*(void (CActorManager_7d040::**)())&this->f_1c))();
 }
+} // namespace fn_0007d040
 #if defined(HULK_PTR64)
-template class Method0<CAmbientsManager, void>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x7d020)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method0<CAmbientsManager, void>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0007d040::Method0_7d040*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -3939,15 +3959,25 @@ template <> Method3<CAmbientsManager, void, const char *, int, bool>::~Method3()
 
 
 // 0x0007d0d0 Method3<CAmbientsManager,void,const_char_*,int,bool>::vfunc_2 (31 B): equivalent/0x0007d0d0.cpp
-// sym: ?vfunc_2@?$Method3@VCAmbientsManager@@XPBDH_N@@UAEXPAX00@Z @df298f4335fd @w022c10218034 @v72c42d7a2a6b
+// sym: ?vfunc_2@Method3_7d0d0@fn_0007d0d0@@QAEXPAX00@Z @df298f4335fd @w022c10218034 @vc30b27d967a7
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Method3<CAmbientsManager,void,const_char_*,int,bool>::vfunc_2 @ 0x0007d0d0
-template <> void Method3<CAmbientsManager, void, const char *, int, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { CAmbientsManager_7d0d0 * manager = (CAmbientsManager_7d0d0 *)__p0; AmbientArgs * args = (AmbientArgs *)__p1; void * unused = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method3<CAmbientsManager, void, const char *, int, bool>::vfunc_2`.
+namespace fn_0007d0d0 {
+struct Method3_7d0d0 : hulk_script::FunctionGenView {
+    void (::CAmbientsManager::*f_1c)(const char *, int, bool);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method3_7d0d0::vfunc_2(void* __p0, void* __p1, void* __p2) { CAmbientsManager_7d0d0 * manager = (CAmbientsManager_7d0d0 *)__p0; AmbientArgs * args = (AmbientArgs *)__p1; void * unused = (void *)__p2;
 
     (manager->*(*(void (CAmbientsManager_7d0d0::**)(const char *, int, int))&this->f_1c))(args->name, args->value, args->enabled);
 }
+} // namespace fn_0007d0d0
 #if defined(HULK_PTR64)
-template class Method3<CAmbientsManager, void, const char *, int, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x7d0b0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method3<CAmbientsManager, void, const char *, int, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0007d0d0::Method3_7d0d0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -3975,15 +4005,25 @@ template <> Method1<CAmbientsManager, void, const char *>::~Method1() {}
 
 
 // 0x0007d150 Method1<CAmbientsManager,void,const_char_*>::vfunc_2 (19 B): matches/0x0007d150.cpp
-// sym: ?vfunc_2@?$Method1@VCAmbientsManager@@XPBD@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method1_7d150@fn_0007d150@@QAEXPAX00@Z
 // Same code shape as 0x0002ce30 (propagated; names are from that function)
-template <> void Method1<CAmbientsManager, void, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void ** b = (void **)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method1<CAmbientsManager, void, const char *>::vfunc_2`.
+namespace fn_0007d150 {
+struct Method1_7d150 : hulk_script::FunctionGenView {
+    void (::CAmbientsManager::*f_1c)(const char *);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method1_7d150::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void ** b = (void **)__p1; void * c = (void *)__p2;
 
     Dummy_7d150* d = (Dummy_7d150*)a;
     (d->*(*(void (Dummy_7d150::**)(void *))&this->f_1c))(*b);
 }
+} // namespace fn_0007d150
 #if defined(HULK_PTR64)
-template class Method1<CAmbientsManager, void, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x7d130)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method1<CAmbientsManager, void, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0007d150::Method1_7d150*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -4011,15 +4051,25 @@ template <> Method1<CAmbientsManager, void, int>::~Method1() {}
 
 
 // 0x0007d1d0 Method1<CAmbientsManager,void,int>::vfunc_2 (19 B): matches/0x0007d1d0.cpp
-// sym: ?vfunc_2@?$Method1@VCAmbientsManager@@XPBD@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method1_7d1d0@fn_0007d1d0@@QAEXPAX00@Z
 // Same code shape as 0x0002ce30 (propagated; names are from that function)
-template <> void Method1<CAmbientsManager, void, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void ** b = (void **)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method1<CAmbientsManager, void, int>::vfunc_2`.
+namespace fn_0007d1d0 {
+struct Method1_7d1d0 : hulk_script::FunctionGenView {
+    void (::CAmbientsManager::*f_1c)(const char *);   // (script2) the instantiation this code-identical block shares (its HEAD pin)
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method1_7d1d0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void ** b = (void **)__p1; void * c = (void *)__p2;
 
     Dummy_7d1d0* d = (Dummy_7d1d0*)a;
     (d->*(*(void (Dummy_7d1d0::**)(void *))&this->f_1c))(*b);
 }
+} // namespace fn_0007d1d0
 #if defined(HULK_PTR64)
-template class Method1<CAmbientsManager, void, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x7d1b0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method1<CAmbientsManager, void, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0007d1d0::Method1_7d1d0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -4047,15 +4097,25 @@ template <> Method1<CAmbientsManager, void, float>::~Method1() {}
 
 
 // 0x0007d250 Method1<CAmbientsManager,void,float>::vfunc_2 (19 B): matches/0x0007d250.cpp
-// sym: ?vfunc_2@?$Method1@VCAmbientsManager@@XPBD@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method1_7d250@fn_0007d250@@QAEXPAX00@Z
 // Same code shape as 0x0002ce30 (propagated; names are from that function)
-template <> void Method1<CAmbientsManager, void, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void ** b = (void **)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method1<CAmbientsManager, void, float>::vfunc_2`.
+namespace fn_0007d250 {
+struct Method1_7d250 : hulk_script::FunctionGenView {
+    void (::CAmbientsManager::*f_1c)(float);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method1_7d250::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void ** b = (void **)__p1; void * c = (void *)__p2;
 
     Dummy_7d250* d = (Dummy_7d250*)a;
     (d->*(*(void (Dummy_7d250::**)(void *))&this->f_1c))(*b);
 }
+} // namespace fn_0007d250
 #if defined(HULK_PTR64)
-template class Method1<CAmbientsManager, void, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x7d230)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method1<CAmbientsManager, void, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0007d250::Method1_7d250*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -4083,17 +4143,27 @@ template <> Method2<CAmbientsManager, void, float, float>::~Method2() {}
 
 
 // 0x0007d2e0 Method2<CAmbientsManager,void,float,float>::vfunc_2 (23 B): matches/0x0007d2e0.cpp
-// sym: ?vfunc_2@?$Method2@VCAmbientsManager@@XMM@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method2_7d2e0@fn_0007d2e0@@QAEXPAX00@Z
 // Same code shape as 0x000beac0 (propagated; names are from that function)
-template <> void Method2<CAmbientsManager, void, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; void * p = (void *)__p1; hulk_intptr n = (hulk_intptr)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method2<CAmbientsManager, void, float, float>::vfunc_2`.
+namespace fn_0007d2e0 {
+struct Method2_7d2e0 : hulk_script::FunctionGenView {
+    void (::CAmbientsManager::*f_1c)(float, float);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method2_7d2e0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; void * p = (void *)__p1; hulk_intptr n = (hulk_intptr)__p2;
 
     CFEManager_7d2e0* m = (CFEManager_7d2e0*)unused;
     const char* s = *(const char**)p;
     int x = *(int*)((char*)p + 4);
     (m->*(*(void (CFEManager_7d2e0::**)(const char *, int))&this->f_1c))(s, x);
 }
+} // namespace fn_0007d2e0
 #if defined(HULK_PTR64)
-template class Method2<CAmbientsManager, void, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x7d2c0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method2<CAmbientsManager, void, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0007d2e0::Method2_7d2e0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -4121,14 +4191,24 @@ template <> Method1<CAmbientsManager, void, bool>::~Method1() {}
 
 
 // 0x0007d360 Method1<CAmbientsManager,void,bool>::vfunc_2 (21 B): matches/0x0007d360.cpp
-// sym: ?vfunc_2@?$Method1@VCAmbientsManager@@X_N@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method1_7d360@fn_0007d360@@QAEXPAX00@Z
 // Same code shape as 0x0002e290 (propagated; names are from that function)
-template <> void Method1<CAmbientsManager, void, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_7d360 * obj = (CActorManager_7d360 *)__p0; unsigned char * b = (unsigned char *)__p1; void * unused = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method1<CAmbientsManager, void, bool>::vfunc_2`.
+namespace fn_0007d360 {
+struct Method1_7d360 : hulk_script::FunctionGenView {
+    void (::CAmbientsManager::*f_1c)(bool);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method1_7d360::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_7d360 * obj = (CActorManager_7d360 *)__p0; unsigned char * b = (unsigned char *)__p1; void * unused = (void *)__p2;
 
     (obj->*(*(MFn_7d360 *)&this->f_1c))(*b);
 }
+} // namespace fn_0007d360
 #if defined(HULK_PTR64)
-template class Method1<CAmbientsManager, void, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x7d340)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method1<CAmbientsManager, void, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0007d360::Method1_7d360*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 namespace fn_f9399ba1 {
@@ -4184,8 +4264,15 @@ template <> Method4<CAmbientsManager, void, const char *, int, const ::math::Vec
 
 
 // 0x0007d410 Method4<CAmbientsManager,void,const_char_*,int,const_math::Vector,const_math::Vector>::vfunc_2 (106 B): matches/0x0007d410.cpp
-// sym: ?vfunc_2@?$Method4@VCAmbientsManager@@XPBDH$$CBVVector@math@@$$CBV23@@@UAEXPAX00@Z
-template <> void Method4<CAmbientsManager, void, const char *, int, const ::math::Vector, const ::math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { CAmbientsManager_7d410 * o = (CAmbientsManager_7d410 *)__p0; char * a = (char *)__p1; hulk_intptr u = (hulk_intptr)__p2;
+// sym: ?vfunc_2@Method4_7d410@fn_0007d410@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method4<CAmbientsManager, void, const char *, int, const ::math::Vector, const ::math::Vector>::vfunc_2`.
+namespace fn_0007d410 {
+struct Method4_7d410 : hulk_script::FunctionGenView {
+    void (::CAmbientsManager::*f_1c)(const char *, int, const ::math::Vector, const ::math::Vector);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method4_7d410::vfunc_2(void* __p0, void* __p1, void* __p2) { CAmbientsManager_7d410 * o = (CAmbientsManager_7d410 *)__p0; char * a = (char *)__p1; hulk_intptr u = (hulk_intptr)__p2;
 
     char* p = a;
     const char* s = *(const char**)p;
@@ -4197,8 +4284,11 @@ template <> void Method4<CAmbientsManager, void, const char *, int, const ::math
     math::Vector_7d410 vb = *(math::Vector_7d410*)p;
     (o->*(*(void (CAmbientsManager_7d410::**)(const char *, int, const math::Vector_7d410, const math::Vector_7d410))&this->f_1c))(s, i, va, vb);
 }
+} // namespace fn_0007d410
 #if defined(HULK_PTR64)
-template class Method4<CAmbientsManager, void, const char *, int, const ::math::Vector, const ::math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x7d3f0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method4<CAmbientsManager, void, const char *, int, const ::math::Vector, const ::math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0007d410::Method4_7d410*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -4226,15 +4316,25 @@ template <> Method3<CAmbientsManager, void, const char *, unsigned int, float>::
 
 
 // 0x0007d500 Method3<CAmbientsManager,void,const_char_*,unsigned_int,float>::vfunc_2 (29 B): equivalent/0x0007d500.cpp
-// sym: ?vfunc_2@?$Method3@VCAmbientsManager@@XPBDIM@@UAEXPAX00@Z @a7a6d240b96d @w7a58705a9035 @vc63b18b04ea3
+// sym: ?vfunc_2@Method3_7d500@fn_0007d500@@QAEXPAX00@Z @a7a6d240b96d @w7a58705a9035 @v383c8123b492
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // Method3<CAmbientsManager,void,const_char_*,unsigned_int,float>::vfunc_2 @ 0x0007d500
-template <> void Method3<CAmbientsManager, void, const char *, unsigned int, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { CAmbientsManager_7d500 * manager = (CAmbientsManager_7d500 *)__p0; const Args * args = (const Args *)__p1; void * unused = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method3<CAmbientsManager, void, const char *, unsigned int, float>::vfunc_2`.
+namespace fn_0007d500 {
+struct Method3_7d500 : hulk_script::FunctionGenView {
+    void (::CAmbientsManager::*f_1c)(const char *, unsigned int, float);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method3_7d500::vfunc_2(void* __p0, void* __p1, void* __p2) { CAmbientsManager_7d500 * manager = (CAmbientsManager_7d500 *)__p0; const Args * args = (const Args *)__p1; void * unused = (void *)__p2;
 
     (manager->*(*(void (CAmbientsManager_7d500::**)(const char *, unsigned int, float))&this->f_1c))(args->name, args->value, args->amount);
 }
+} // namespace fn_0007d500
 #if defined(HULK_PTR64)
-template class Method3<CAmbientsManager, void, const char *, unsigned int, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x7d4e0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method3<CAmbientsManager, void, const char *, unsigned int, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0007d500::Method3_7d500*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -4262,17 +4362,27 @@ template <> Method2<CAmbientsManager, void, const char *, float>::~Method2() {}
 
 
 // 0x0007d590 Method2<CAmbientsManager,void,const_char_*,float>::vfunc_2 (23 B): matches/0x0007d590.cpp
-// sym: ?vfunc_2@?$Method2@VCAmbientsManager@@XMM@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method2_7d590@fn_0007d590@@QAEXPAX00@Z
 // Same code shape as 0x000beac0 (propagated; names are from that function)
-template <> void Method2<CAmbientsManager, void, const char *, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; void * p = (void *)__p1; hulk_intptr n = (hulk_intptr)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method2<CAmbientsManager, void, const char *, float>::vfunc_2`.
+namespace fn_0007d590 {
+struct Method2_7d590 : hulk_script::FunctionGenView {
+    void (::CAmbientsManager::*f_1c)(const char *, float);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method2_7d590::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; void * p = (void *)__p1; hulk_intptr n = (hulk_intptr)__p2;
 
     CFEManager_7d590* m = (CFEManager_7d590*)unused;
     const char* s = *(const char**)p;
     int x = *(int*)((char*)p + 4);
     (m->*(*(void (CFEManager_7d590::**)(const char *, int))&this->f_1c))(s, x);
 }
+} // namespace fn_0007d590
 #if defined(HULK_PTR64)
-template class Method2<CAmbientsManager, void, const char *, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x7d570)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method2<CAmbientsManager, void, const char *, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0007d590::Method2_7d590*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 namespace fn_f9399ba1 {
@@ -4873,14 +4983,25 @@ template <> Closure2<CAmbientsManager, void, const char *, bool>::~Closure2() {}
 
 
 // 0x0007e020 Closure2<CAmbientsManager,void,const_char_*,bool>::vfunc_2 (24 B): matches/0x0007e020.cpp
-// sym: ?vfunc_2@?$Closure2@VCAmbientsManager@@XPBD_N@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure2_7e020@fn_0007e020@@QAEXPAX00@Z
 // Same code shape as 0x0002ec60 (propagated; names are from that function)
-template <> void Closure2<CAmbientsManager, void, const char *, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { Arg_7e020 * p = (Arg_7e020 *)__p1;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure2<CAmbientsManager, void, const char *, bool>::vfunc_2`.
+namespace fn_0007e020 {
+struct Closure2_7e020 : hulk_script::FunctionGenView {
+    void (::CAmbientsManager::*f_1c)(const char *, bool);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure2_7e020::vfunc_2(void* __p0, void* __p1, void* __p2) { Arg_7e020 * p = (Arg_7e020 *)__p1;
 
     ((*(Actor_7e020 * *)&this->f_20)->*(*(void (Actor_7e020::**)(const char *, unsigned char))&this->f_1c))(p->s, p->b);
 }
+} // namespace fn_0007e020
 #if defined(HULK_PTR64)
-template class Closure2<CAmbientsManager, void, const char *, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x7e000)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure2<CAmbientsManager, void, const char *, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0007e020::Closure2_7e020*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -4908,13 +5029,24 @@ template <> Closure0<CAmbientsManager, void>::~Closure0() {}
 
 
 // 0x0007e0a0 Closure0<CAmbientsManager,void>::vfunc_2 (11 B): matches/0x0007e0a0.cpp
-// sym: ?vfunc_2@?$Closure0@VCAmbientsManager@@X@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure0_7e0a0@fn_0007e0a0@@QAEXPAX00@Z
 // Same code shape as 0x0002f820 (propagated; names are from that function)
-template <> void Closure0<CAmbientsManager, void>::vfunc_2(void* __p0, void* __p1, void* __p2) {
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure0<CAmbientsManager, void>::vfunc_2`.
+namespace fn_0007e0a0 {
+struct Closure0_7e0a0 : hulk_script::FunctionGenView {
+    void (::CAmbientsManager::*f_1c)();
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure0_7e0a0::vfunc_2(void* __p0, void* __p1, void* __p2) {
     ((*(CActorManager_7e0a0 * *)&this->f_20)->*(*(void (CActorManager_7e0a0::**)())&this->f_1c))();
 }
+} // namespace fn_0007e0a0
 #if defined(HULK_PTR64)
-template class Closure0<CAmbientsManager, void>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x7e080)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure0<CAmbientsManager, void>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0007e0a0::Closure0_7e0a0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -4997,14 +5129,25 @@ template <> Closure1<CAmbientsManager, void, const char *>::~Closure1() {}
 
 
 // 0x0007e190 Closure1<CAmbientsManager,void,const_char_*>::vfunc_2 (18 B): matches/0x0007e190.cpp
-// sym: ?vfunc_2@?$Closure1@VCAmbientsManager@@XPBD@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure1_7e190@fn_0007e190@@QAEXPAX00@Z
 // Same code shape as 0x0002ed90 (propagated; names are from that function)
-template <> void Closure1<CAmbientsManager, void, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; const char ** b = (const char **)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure1<CAmbientsManager, void, const char *>::vfunc_2`.
+namespace fn_0007e190 {
+struct Closure1_7e190 : hulk_script::FunctionGenView {
+    void (::CAmbientsManager::*f_1c)(const char *);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure1_7e190::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; const char ** b = (const char **)__p1; void * c = (void *)__p2;
 
     ((*(CActorManager_7e190 * *)&this->f_20)->*(*(void (CActorManager_7e190::**)(const char *))&this->f_1c))(*b);
 }
+} // namespace fn_0007e190
 #if defined(HULK_PTR64)
-template class Closure1<CAmbientsManager, void, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x7e170)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure1<CAmbientsManager, void, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0007e190::Closure1_7e190*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -5058,14 +5201,25 @@ template <> Closure1<CAmbientsManager, void, int>::~Closure1() {}
 
 
 // 0x0007e220 Closure1<CAmbientsManager,void,int>::vfunc_2 (18 B): matches/0x0007e220.cpp
-// sym: ?vfunc_2@?$Closure1@VCAmbientsManager@@XPBD@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure1_7e220@fn_0007e220@@QAEXPAX00@Z
 // Same code shape as 0x0002ed90 (propagated; names are from that function)
-template <> void Closure1<CAmbientsManager, void, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; const char ** b = (const char **)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure1<CAmbientsManager, void, int>::vfunc_2`.
+namespace fn_0007e220 {
+struct Closure1_7e220 : hulk_script::FunctionGenView {
+    void (::CAmbientsManager::*f_1c)(const char *);   // (script2) the instantiation this code-identical block shares (its HEAD pin)
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure1_7e220::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; const char ** b = (const char **)__p1; void * c = (void *)__p2;
 
     ((*(CActorManager_7e220 * *)&this->f_20)->*(*(void (CActorManager_7e220::**)(const char *))&this->f_1c))(*b);
 }
+} // namespace fn_0007e220
 #if defined(HULK_PTR64)
-template class Closure1<CAmbientsManager, void, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x7e200)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure1<CAmbientsManager, void, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0007e220::Closure1_7e220*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -5099,12 +5253,26 @@ Closure1::Closure1(const char* name, Owner_7e240* object, Fn_7e240 function) : h
 
 
 // 0x0007e2b0 Closure1<CAmbientsManager,void,float>::vfunc_2 (18 B): matches/0x0007e2b0.cpp
-// sym: ?vfunc_2@?$Closure1@VCAmbientsManager@@XPBD@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure1_7e2b0@fn_0007e2b0@@QAEXPAX00@Z
 // Same code shape as 0x0002ed90 (propagated; names are from that function)
-template <> void Closure1<CAmbientsManager, void, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; const char ** b = (const char **)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure1<CAmbientsManager, void, float>::vfunc_2`.
+namespace fn_0007e2b0 {
+struct Closure1_7e2b0 : hulk_script::FunctionGenView {
+    void (::CAmbientsManager::*f_1c)(float);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure1_7e2b0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; const char ** b = (const char **)__p1; void * c = (void *)__p2;
 
     ((*(CActorManager_7e2b0 * *)&this->f_20)->*(*(void (CActorManager_7e2b0::**)(const char *))&this->f_1c))(*b);
 }
+} // namespace fn_0007e2b0
+#if defined(HULK_PTR64)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure1<CAmbientsManager, void, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0007e2b0::Closure1_7e2b0*)this)->vfunc_2(__p0, __p1, __p2); }
+#endif
 
 
 // 0x0007e2d0 FUN_0007e2d0 (89 B): matches/0x0007e2d0.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
@@ -5138,12 +5306,26 @@ Closure2::Closure2(const char* name, Owner_7e2d0* object, Fn_7e2d0 function) : h
 
 
 // 0x0007e350 Closure2<CAmbientsManager,void,float,float>::vfunc_2 (22 B): matches/0x0007e350.cpp
-// sym: ?vfunc_2@?$Closure2@VCAmbientsManager@@XMM@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure2_7e350@fn_0007e350@@QAEXPAX00@Z
 // Same code shape as 0x0002e6d0 (propagated; names are from that function)
-template <> void Closure2<CAmbientsManager, void, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; Pair_7e350 * p = (Pair_7e350 *)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure2<CAmbientsManager, void, float, float>::vfunc_2`.
+namespace fn_0007e350 {
+struct Closure2_7e350 : hulk_script::FunctionGenView {
+    void (::CAmbientsManager::*f_1c)(float, float);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure2_7e350::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; Pair_7e350 * p = (Pair_7e350 *)__p1; void * c = (void *)__p2;
 
     ((*(CActorManager_7e350 * *)&this->f_20)->*(*(void (CActorManager_7e350::**)(const char *, float))&this->f_1c))(p->s, p->f);
 }
+} // namespace fn_0007e350
+#if defined(HULK_PTR64)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure2<CAmbientsManager, void, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0007e350::Closure2_7e350*)this)->vfunc_2(__p0, __p1, __p2); }
+#endif
 
 
 // 0x0007e370 FUN_0007e370 (76 B): matches/0x0007e370.cpp [wrapped: conflict: Closure1; Method1]
@@ -5173,12 +5355,26 @@ Closure1::Closure1(const char* name, Owner_7e370* object, Fn_7e370 function) : h
 
 
 // 0x0007e3e0 Closure1<CAmbientsManager,void,bool>::vfunc_2 (20 B): matches/0x0007e3e0.cpp
-// sym: ?vfunc_2@?$Closure1@VCAmbientsManager@@X_N@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure1_7e3e0@fn_0007e3e0@@QAEXPAX00@Z
 // Same code shape as 0x00030040 (propagated; names are from that function)
-template <> void Closure1<CAmbientsManager, void, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { unsigned char * arg = (unsigned char *)__p1;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure1<CAmbientsManager, void, bool>::vfunc_2`.
+namespace fn_0007e3e0 {
+struct Closure1_7e3e0 : hulk_script::FunctionGenView {
+    void (::CAmbientsManager::*f_1c)(bool);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure1_7e3e0::vfunc_2(void* __p0, void* __p1, void* __p2) { unsigned char * arg = (unsigned char *)__p1;
 
     ((*(Actor_7e3e0 * *)&this->f_20)->*(*(void (Actor_7e3e0::**)(unsigned char))&this->f_1c))(*arg);
 }
+} // namespace fn_0007e3e0
+#if defined(HULK_PTR64)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure1<CAmbientsManager, void, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0007e3e0::Closure1_7e3e0*)this)->vfunc_2(__p0, __p1, __p2); }
+#endif
 
 
 // 0x0007e450 Closure4<CAmbientsManager,void,const_char_*,int,const_math::Vector,const_math::Vector>::vfunc_2 (12 B): matches/0x0007e450.cpp [wrapped: conflict: Closure2; Function; Method2]
@@ -5212,13 +5408,27 @@ void Closure2::vfunc_2(int x, int a2, int a3) {
 
 
 // 0x0007e4b0 Closure3<CAmbientsManager,void,const_char_*,unsigned_int,float>::vfunc_2 (28 B): equivalent/0x0007e4b0.cpp
-// sym: ?vfunc_2@?$Closure3@VCAmbientsManager@@XPBDIM@@UAEXPAX00@Z @737c210bc5da @we909f5656d8a @v1cbdf8aeec31
+// sym: ?vfunc_2@Closure3_7e4b0@fn_0007e4b0@@QAEXPAX00@Z @737c210bc5da @we909f5656d8a @v97d834f1dbee
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Closure3<CAmbientsManager,void,const_char_*,unsigned_int,float>::vfunc_2 @ 0x0007e4b0
-template <> void Closure3<CAmbientsManager, void, const char *, unsigned int, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; AmbientArguments * arguments = (AmbientArguments *)__p1; void * unused2 = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure3<CAmbientsManager, void, const char *, unsigned int, float>::vfunc_2`.
+namespace fn_0007e4b0 {
+struct Closure3_7e4b0 : hulk_script::FunctionGenView {
+    void (::CAmbientsManager::*f_1c)(const char *, unsigned int, float);
+    hulk_intptr f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure3_7e4b0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; AmbientArguments * arguments = (AmbientArguments *)__p1; void * unused2 = (void *)__p2;
 
     ((*(CAmbientsManager_7e4b0 * *)&this->f_20)->*(*(void (CAmbientsManager_7e4b0::**)(const char *, unsigned int, float))&this->f_1c))(arguments->name, arguments->id, arguments->volume);
 }
+} // namespace fn_0007e4b0
+#if defined(HULK_PTR64)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure3<CAmbientsManager, void, const char *, unsigned int, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0007e4b0::Closure3_7e4b0*)this)->vfunc_2(__p0, __p1, __p2); }
+#endif
 
 
 // 0x0007e4d0 FUN_0007e4d0 (89 B): matches/0x0007e4d0.cpp [wrapped: conflict: Closure2; Method2]
@@ -5252,12 +5462,26 @@ Closure2::Closure2(const char* name, Owner_7e4d0* object, Fn_7e4d0 function) : h
 
 
 // 0x0007e550 Closure2<CAmbientsManager,void,const_char_*,float>::vfunc_2 (22 B): matches/0x0007e550.cpp
-// sym: ?vfunc_2@?$Closure2@VCAmbientsManager@@XMM@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure2_7e550@fn_0007e550@@QAEXPAX00@Z
 // Same code shape as 0x0002e6d0 (propagated; names are from that function)
-template <> void Closure2<CAmbientsManager, void, const char *, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; Pair_7e550 * p = (Pair_7e550 *)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure2<CAmbientsManager, void, const char *, float>::vfunc_2`.
+namespace fn_0007e550 {
+struct Closure2_7e550 : hulk_script::FunctionGenView {
+    void (::CAmbientsManager::*f_1c)(const char *, float);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure2_7e550::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; Pair_7e550 * p = (Pair_7e550 *)__p1; void * c = (void *)__p2;
 
     ((*(CActorManager_7e550 * *)&this->f_20)->*(*(void (CActorManager_7e550::**)(const char *, float))&this->f_1c))(p->s, p->f);
 }
+} // namespace fn_0007e550
+#if defined(HULK_PTR64)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure2<CAmbientsManager, void, const char *, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0007e550::Closure2_7e550*)this)->vfunc_2(__p0, __p1, __p2); }
+#endif
 
 
 // 0x0007e570 FUN_0007e570 (262 B): equivalent/0x0007e570.cpp [wrapped: conflict: content::LoadInventory; pure3d::CompositeDrawable]
@@ -5924,7 +6148,7 @@ void Spawner_7f690::FUN_0007f690(int a1, int a2, int a3, int a4)
 
 
 // 0x0007f950 FUN_0007f950 (3788 B): equivalent/0x0007f950.cpp [wrapped: macros]
-// sym: ??0CAmbientsManager@fn_0007f950@@QAE@XZ @846c9273be7b @wa2194581f845 @v355bc75f29f3
+// sym: ??0CAmbientsManager@fn_0007f950@@QAE@XZ @f368979f0455 @w682daaedf3d0 @vc4078f4f932b
 void* operator new(hulk_uintptr) throw();
 namespace fn_0007f950 {
 // STATUS: equivalent (tools/equiv.py level 3: 479 inputs, branch coverage 74/74)
@@ -5935,6 +6159,10 @@ void* FUN_0008d690(unsigned int);
 char FUN_001d04d0(const void*) throw();
 class CAmbientsManager;
 namespace math { class Vector { public: float x, y, z; }; }
+} // namespace fn_0007f950
+template <> struct hulk_script::ScriptType<fn_0007f950::math::Vector> { static const void* tag() { return hulk_script::DAT_0048e10c; } };
+template <> struct hulk_script::ScriptType<const fn_0007f950::math::Vector> { static const void* tag() { return hulk_script::DAT_0048e10c; } };
+namespace fn_0007f950 {
 typedef float Float; typedef bool Bool; typedef int Int; typedef void Void;
 typedef const char* String; typedef char* CharPtr; typedef math::Vector Vector;
 typedef const math::Vector ConstMathVector;
@@ -5948,26 +6176,19 @@ extern char DAT_0048e0e4, DAT_0048e0f0, DAT_0048e100, DAT_0048e10c, DAT_0048e128
 #define tFloat DAT_0048e128
 #define tInt DAT_0048e134
 #define tUnsignedInt DAT_0049b95c
-class Base : public ScriptFunctionFields { public: virtual void v(); Base(const char*, int) throw(); };
-template<class C, class R> class Method0 : public Base { public: R (C::*f)(); Method0(const char* n, R (C::*x)(), const void* r) : Base(n, 0) { f = x; retType = FUN_001d04d0(r); } virtual void v(); };
-template<class C, class R> class Closure0 : public Method0<C, R> { public: C* owner; Closure0(const char* n, C* o, R (C::*f)(), const void* r) : Method0<C, R>(n, f, r) { owner = o; } virtual void v(); };
-template<class C, class R, class A1> class Method1 : public Base { public: R (C::*f)(A1); Method1(const char* n, R (C::*x)(A1), const void* r, const void* a1) : Base(n, 1) { f = x; retType = FUN_001d04d0(r); argTypes[0] = FUN_001d04d0(a1); } virtual void v(); };
-template<class C, class R, class A1> class Closure1 : public Method1<C, R, A1> { public: C* owner; Closure1(const char* n, C* o, R (C::*f)(A1), const void* r, const void* a1) : Method1<C, R, A1>(n, f, r, a1) { owner = o; } virtual void v(); };
-template<class C, class R, class A1, class A2> class Method2 : public Base { public: R (C::*f)(A1, A2); Method2(const char* n, R (C::*x)(A1, A2), const void* r, const void* a1, const void* a2) : Base(n, 2) { f = x; retType = FUN_001d04d0(r); argTypes[0] = FUN_001d04d0(a1); argTypes[1] = FUN_001d04d0(a2); } virtual void v(); };
-template<class C, class R, class A1, class A2> class Closure2 : public Method2<C, R, A1, A2> { public: C* owner; Closure2(const char* n, C* o, R (C::*f)(A1, A2), const void* r, const void* a1, const void* a2) : Method2<C, R, A1, A2>(n, f, r, a1, a2) { owner = o; } virtual void v(); };
-template<class C, class R, class A1, class A2, class A3> class Method3 : public Base { public: R (C::*f)(A1, A2, A3); Method3(const char* n, R (C::*x)(A1, A2, A3), const void* r, const void* a1, const void* a2, const void* a3) : Base(n, 3) { f = x; retType = FUN_001d04d0(r); argTypes[0] = FUN_001d04d0(a1); argTypes[1] = FUN_001d04d0(a2); argTypes[2] = FUN_001d04d0(a3); } virtual void v(); };
-template<class C, class R, class A1, class A2, class A3> class Closure3 : public Method3<C, R, A1, A2, A3> { public: C* owner; Closure3(const char* n, C* o, R (C::*f)(A1, A2, A3), const void* r, const void* a1, const void* a2, const void* a3) : Method3<C, R, A1, A2, A3>(n, f, r, a1, a2, a3) { owner = o; } virtual void v(); };
-template<class C, class R, class A1, class A2, class A3, class A4> class Method4 : public Base { public: R (C::*f)(A1, A2, A3, A4); Method4(const char* n, R (C::*x)(A1, A2, A3, A4), const void* r, const void* a1, const void* a2, const void* a3, const void* a4) : Base(n, 4) { f = x; retType = FUN_001d04d0(r); argTypes[0] = FUN_001d04d0(a1); argTypes[1] = FUN_001d04d0(a2); argTypes[2] = FUN_001d04d0(a3); argTypes[3] = FUN_001d04d0(a4); } virtual void v(); };
-template<class C, class R, class A1, class A2, class A3, class A4> class Closure4 : public Method4<C, R, A1, A2, A3, A4> { public: C* owner; Closure4(const char* n, C* o, R (C::*f)(A1, A2, A3, A4), const void* r, const void* a1, const void* a2, const void* a3, const void* a4) : Method4<C, R, A1, A2, A3, A4>(n, f, r, a1, a2, a3, a4) { owner = o; } virtual void v(); };
-template<class C, class R, class A1, class A2, class A3, class A4, class A5> class Method5 : public Base { public: R (C::*f)(A1, A2, A3, A4, A5); Method5(const char* n, R (C::*x)(A1, A2, A3, A4, A5), const void* r, const void* a1, const void* a2, const void* a3, const void* a4, const void* a5) : Base(n, 5) { f = x; retType = FUN_001d04d0(r); argTypes[0] = FUN_001d04d0(a1); argTypes[1] = FUN_001d04d0(a2); argTypes[2] = FUN_001d04d0(a3); argTypes[3] = FUN_001d04d0(a4); argTypes[4] = FUN_001d04d0(a5); } virtual void v(); };
-template<class C, class R, class A1, class A2, class A3, class A4, class A5> class Closure5 : public Method5<C, R, A1, A2, A3, A4, A5> { public: C* owner; Closure5(const char* n, C* o, R (C::*f)(A1, A2, A3, A4, A5), const void* r, const void* a1, const void* a2, const void* a3, const void* a4, const void* a5) : Method5<C, R, A1, A2, A3, A4, A5>(n, f, r, a1, a2, a3, a4, a5) { owner = o; } virtual void v(); };
 #define FN(b) extern void FUN_##b();
-#define G0(n, b, R) { r->FUN_001d3b70(n, new Closure0<CAmbientsManager, R>(n, this, &CAmbientsManager::FUN_##b, &t##R)); }
-#define G1(n, b, R, A1) { r->FUN_001d3b70(n, new Closure1<CAmbientsManager, R, A1>(n, this, &CAmbientsManager::FUN_##b, &t##R, &t##A1)); }
-#define G2(n, b, R, A1, A2) { r->FUN_001d3b70(n, new Closure2<CAmbientsManager, R, A1, A2>(n, this, &CAmbientsManager::FUN_##b, &t##R, &t##A1, &t##A2)); }
-#define G3(n, b, R, A1, A2, A3) { r->FUN_001d3b70(n, new Closure3<CAmbientsManager, R, A1, A2, A3>(n, this, &CAmbientsManager::FUN_##b, &t##R, &t##A1, &t##A2, &t##A3)); }
-#define G4(n, b, R, A1, A2, A3, A4) { r->FUN_001d3b70(n, new Closure4<CAmbientsManager, R, A1, A2, A3, A4>(n, this, &CAmbientsManager::FUN_##b, &t##R, &t##A1, &t##A2, &t##A3, &t##A4)); }
-#define G5(n, b, R, A1, A2, A3, A4, A5) { r->FUN_001d3b70(n, new Closure5<CAmbientsManager, R, A1, A2, A3, A4, A5>(n, this, &CAmbientsManager::FUN_##b, &t##R, &t##A1, &t##A2, &t##A3, &t##A4, &t##A5)); }
+#define CB(b) (&CAmbientsManager::FUN_##b)
+// (script2) the Method<N> / Closure<N> are include/game/script_bind.h's records with the game's vftables by address (MV, CV:
+// the instantiation's Method<N> and Closure<N> vftables, as the game's inlined constructors store them); M6 / M7 store
+// Closure<N>'s vftable and the object after the out-of-line Method<N> constructor. No stand-in vftable.
+extern "C" char DAT_003fef84[], DAT_003fef94[], DAT_003fefa4[], DAT_003fefb4[], DAT_003fefc4[], DAT_003fefd4[], DAT_003fefe4[], DAT_003feff4[], DAT_003ff004[], DAT_003ff014[], DAT_003ff024[], DAT_003ff034[], DAT_003ff070[], DAT_003ff080[], DAT_003ff090[], DAT_003ff0a0[], DAT_003ff0b0[], DAT_003ff0c0[], DAT_003ff0d0[], DAT_003ff0e0[], DAT_003ff0f0[], DAT_003ff100[], DAT_003ff110[], DAT_003ff120[];
+struct ClosureTail : hulk_script::FunctionGenView { ScriptMemberFn f_1c; CAmbientsManager* owner; };
+#define G0(n, b, R, MV, CV) { r->FUN_001d3b70(n, new hulk_script::ScriptClosure<hulk_script::ScriptMethod0<CAmbientsManager, R>, CAmbientsManager>(n, this, reinterpret_cast<R (CAmbientsManager::*)()>(CB(b)), DAT_##MV, DAT_##CV)); }
+#define G1(n, b, R, A1, MV, CV) { r->FUN_001d3b70(n, new hulk_script::ScriptClosure<hulk_script::ScriptMethod1<CAmbientsManager, R, A1>, CAmbientsManager>(n, this, reinterpret_cast<R (CAmbientsManager::*)(A1)>(CB(b)), DAT_##MV, DAT_##CV)); }
+#define G2(n, b, R, A1, A2, MV, CV) { r->FUN_001d3b70(n, new hulk_script::ScriptClosure<hulk_script::ScriptMethod2<CAmbientsManager, R, A1, A2>, CAmbientsManager>(n, this, reinterpret_cast<R (CAmbientsManager::*)(A1, A2)>(CB(b)), DAT_##MV, DAT_##CV)); }
+#define G3(n, b, R, A1, A2, A3, MV, CV) { r->FUN_001d3b70(n, new hulk_script::ScriptClosure<hulk_script::ScriptMethod3<CAmbientsManager, R, A1, A2, A3>, CAmbientsManager>(n, this, reinterpret_cast<R (CAmbientsManager::*)(A1, A2, A3)>(CB(b)), DAT_##MV, DAT_##CV)); }
+#define G4(n, b, R, A1, A2, A3, A4, MV, CV) { r->FUN_001d3b70(n, new hulk_script::ScriptClosure<hulk_script::ScriptMethod4<CAmbientsManager, R, A1, A2, A3, A4>, CAmbientsManager>(n, this, reinterpret_cast<R (CAmbientsManager::*)(A1, A2, A3, A4)>(CB(b)), DAT_##MV, DAT_##CV)); }
+#define G5(n, b, R, A1, A2, A3, A4, A5, MV, CV) { r->FUN_001d3b70(n, new hulk_script::ScriptClosure<hulk_script::ScriptMethod5<CAmbientsManager, R, A1, A2, A3, A4, A5>, CAmbientsManager>(n, this, reinterpret_cast<R (CAmbientsManager::*)(A1, A2, A3, A4, A5)>(CB(b)), DAT_##MV, DAT_##CV)); }
 
 class Link16 { public: char b[16]; void FUN_0027af00(); };
 class Link8 { public: char b[8]; void FUN_0027af00(); };
@@ -6100,35 +6321,35 @@ CAmbientsManager::CAmbientsManager() {
     }
     Registry* r = FUN_001d4c90();
     if (r) {
-G5("amb_CreateCivilian", 0007f450, Void, String, Int, Bool, Vector, Vector)
-G2("amb_SetCivilianPersistent", 0007d640, Void, String, Bool)
-G0("amb_ClearCivilianModels", 00079290, Void)
-G3("amb_AddCivilianModel", 000792a0, Void, String, Int, Bool)
-G0("amb_ClearPatrolPaths", 00079310, Void)
-G1("amb_AddPatrolPath", 00079320, Void, String)
-G1("amb_SetMaxActiveCivilianCount", 00079370, Void, Int)
-G1("amb_SetAllowedCharacterCount", 00079390, Void, Int)
-G1("amb_SetMinDistanceBetweenCivilians", 000793a0, Void, Float)
-G2("amb_SetCivilianSpawnRadii", 000793c0, Void, Float, Float)
-G2("amb_SetCivilianPanicRadii", 00079400, Void, Float, Float)
-G0("amb_RemoveAllCivilians", 0007b480, Void)
-G1("amb_SetCiviliansIgnoreHulk", 00078d00, Void, Bool)
-G1("amb_AddCattleRoom", 0007ab60, Void, Int)
-G2("amb_SetCowSpawnStrata", 0007aba0, Void, Float, Float)
-G1("amb_SetMaxActiveCattleCount", 0007abc0, Void, Int)
-G4("amb_CreateCow", 0007de00, Void, String, Int, ConstMathVector, ConstMathVector)
-G1("amb_SetMaxActiveVehicleCount", 00079420, Void, Int)
-G1("amb_SetMaxTotalVehicleCount", 00079440, Void, Int)
-G0("amb_ClearVehicleTypes", 000788e0, Void)
-G3("amb_AddVehicleType", 000794a0, Void, String, UnsignedInt, Float)
-G1("amb_SetVehiclePerceptionRadius", 00079550, Void, Float)
-G1("amb_SetVehiclePanicRadius", 000795a0, Void, Float)
-G1("amb_SetVehiclePanicAcceleration", 000795f0, Void, Float)
-G2("amb_SetVehicleSpeed", 0007d680, Void, String, Float)
-G1("amb_SetAllVehicleSpeeds", 00079660, Void, Float)
-G2("amb_SetVehicleSpeedRange", 00079640, Void, Float, Float)
-G2("amb_VaryVehicleSpeed", 0007d6c0, Void, String, Float)
-G1("amb_VaryAllVehicleSpeeds", 000796a0, Void, Float)
+G5("amb_CreateCivilian", 0007f450, Void, String, Int, Bool, Vector, Vector, 003fef84, 003ff070)
+G2("amb_SetCivilianPersistent", 0007d640, Void, String, Bool, 003fef94, 003ff080)
+G0("amb_ClearCivilianModels", 00079290, Void, 003fefa4, 003ff090)
+G3("amb_AddCivilianModel", 000792a0, Void, String, Int, Bool, 003fefb4, 003ff0a0)
+G0("amb_ClearPatrolPaths", 00079310, Void, 003fefa4, 003ff090)
+G1("amb_AddPatrolPath", 00079320, Void, String, 003fefc4, 003ff0b0)
+G1("amb_SetMaxActiveCivilianCount", 00079370, Void, Int, 003fefd4, 003ff0c0)
+G1("amb_SetAllowedCharacterCount", 00079390, Void, Int, 003fefd4, 003ff0c0)
+G1("amb_SetMinDistanceBetweenCivilians", 000793a0, Void, Float, 003fefe4, 003ff0d0)
+G2("amb_SetCivilianSpawnRadii", 000793c0, Void, Float, Float, 003feff4, 003ff0e0)
+G2("amb_SetCivilianPanicRadii", 00079400, Void, Float, Float, 003feff4, 003ff0e0)
+G0("amb_RemoveAllCivilians", 0007b480, Void, 003fefa4, 003ff090)
+G1("amb_SetCiviliansIgnoreHulk", 00078d00, Void, Bool, 003ff004, 003ff0f0)
+G1("amb_AddCattleRoom", 0007ab60, Void, Int, 003fefd4, 003ff0c0)
+G2("amb_SetCowSpawnStrata", 0007aba0, Void, Float, Float, 003feff4, 003ff0e0)
+G1("amb_SetMaxActiveCattleCount", 0007abc0, Void, Int, 003fefd4, 003ff0c0)
+G4("amb_CreateCow", 0007de00, Void, String, Int, ConstMathVector, ConstMathVector, 003ff014, 003ff100)
+G1("amb_SetMaxActiveVehicleCount", 00079420, Void, Int, 003fefd4, 003ff0c0)
+G1("amb_SetMaxTotalVehicleCount", 00079440, Void, Int, 003fefd4, 003ff0c0)
+G0("amb_ClearVehicleTypes", 000788e0, Void, 003fefa4, 003ff090)
+G3("amb_AddVehicleType", 000794a0, Void, String, UnsignedInt, Float, 003ff024, 003ff110)
+G1("amb_SetVehiclePerceptionRadius", 00079550, Void, Float, 003fefe4, 003ff0d0)
+G1("amb_SetVehiclePanicRadius", 000795a0, Void, Float, 003fefe4, 003ff0d0)
+G1("amb_SetVehiclePanicAcceleration", 000795f0, Void, Float, 003fefe4, 003ff0d0)
+G2("amb_SetVehicleSpeed", 0007d680, Void, String, Float, 003ff034, 003ff120)
+G1("amb_SetAllVehicleSpeeds", 00079660, Void, Float, 003fefe4, 003ff0d0)
+G2("amb_SetVehicleSpeedRange", 00079640, Void, Float, Float, 003feff4, 003ff0e0)
+G2("amb_VaryVehicleSpeed", 0007d6c0, Void, String, Float, 003ff034, 003ff120)
+G1("amb_VaryAllVehicleSpeeds", 000796a0, Void, Float, 003fefe4, 003ff0d0)
     }
 }
 } // namespace fn_0007f950

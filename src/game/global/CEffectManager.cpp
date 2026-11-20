@@ -158,16 +158,26 @@ template <> Method2<CEffectManager, int, const char *,math::Vector>::~Method2() 
 
 
 // 0x001f76e0 Method2<CEffectManager,int,const_char_*,math::Vector>::vfunc_2 (58 B): equivalent/0x001f76e0.cpp
-// sym: ?vfunc_2@?$Method2@VCEffectManager@@HPBDVVector@math@@@@UAEXPAX00@Z @bb24390dc870 @w74df6adcba10 @v07a7e475bfbf
+// sym: ?vfunc_2@Method2_1f76e0@fn_001f76e0@@QAEXPAX00@Z @bb24390dc870 @w74df6adcba10 @va7213c60f28c
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // Method2<CEffectManager,int,const_char_*,math::Vector>::vfunc_2 @ 0x001f76e0
-template <> void Method2<CEffectManager, int, const char *,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { CEffectManager_1f76e0 * manager = (CEffectManager_1f76e0 *)__p0; const EffectArguments * args = (const EffectArguments *)__p1; int * result = (int *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method2<CEffectManager, int, const char *,math::Vector>::vfunc_2`.
+namespace fn_001f76e0 {
+struct Method2_1f76e0 : hulk_script::FunctionGenView {
+    int (::CEffectManager::*f_1c)(const char *, math::Vector);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method2_1f76e0::vfunc_2(void* __p0, void* __p1, void* __p2) { CEffectManager_1f76e0 * manager = (CEffectManager_1f76e0 *)__p0; const EffectArguments * args = (const EffectArguments *)__p1; int * result = (int *)__p2;
 
     int value = (manager->*(*(int (CEffectManager_1f76e0::**)(const char *, math::Vector_1f76e0))&this->f_1c))(args->name, args->position);
     if (result) *result = value;
 }
+} // namespace fn_001f76e0
 #if defined(HULK_PTR64)
-template class Method2<CEffectManager, int, const char *,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1f76c0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method2<CEffectManager, int, const char *,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001f76e0::Method2_1f76e0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 namespace fn_f919337e {
@@ -222,17 +232,27 @@ template <> Method3<CEffectManager, int, const char *,math::Vector,math::Vector>
 
 
 // 0x001f77a0 Method3<CEffectManager,int,const_char_*,math::Vector,math::Vector>::vfunc_2 (102 B): equivalent/0x001f77a0.cpp
-// sym: ?vfunc_2@?$Method3@VCEffectManager@@HPBDVVector@math@@V23@@@UAEXPAX00@Z @7ff14e27db80 @w2db63ba4069d @v75f96d7ac648
+// sym: ?vfunc_2@Method3_1f77a0@fn_001f77a0@@QAEXPAX00@Z @7ff14e27db80 @w2db63ba4069d @vc462894d9816
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // Method3<CEffectManager,int,const_char_*,math::Vector,math::Vector>::vfunc_2 @ 0x001f77a0
-template <> void Method3<CEffectManager, int, const char *,math::Vector,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { CEffectManager_1f77a0 * obj = (CEffectManager_1f77a0 *)__p0; Args_1f77a0 * args = (Args_1f77a0 *)__p1; int * result = (int *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method3<CEffectManager, int, const char *,math::Vector,math::Vector>::vfunc_2`.
+namespace fn_001f77a0 {
+struct Method3_1f77a0 : hulk_script::FunctionGenView {
+    int (::CEffectManager::*f_1c)(const char *, math::Vector, math::Vector);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method3_1f77a0::vfunc_2(void* __p0, void* __p1, void* __p2) { CEffectManager_1f77a0 * obj = (CEffectManager_1f77a0 *)__p0; Args_1f77a0 * args = (Args_1f77a0 *)__p1; int * result = (int *)__p2;
 
     int r = (obj->*(*(int (CEffectManager_1f77a0::**)(const char *, Vector_1f77a0, Vector_1f77a0))&this->f_1c))(args->name, args->a, args->b);
     if (result)
         *result = r;
 }
+} // namespace fn_001f77a0
 #if defined(HULK_PTR64)
-template class Method3<CEffectManager, int, const char *,math::Vector,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1f7780)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method3<CEffectManager, int, const char *,math::Vector,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001f77a0::Method3_1f77a0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -260,16 +280,26 @@ template <> Method2<CEffectManager, bool, int,math::Vector>::~Method2() {}
 
 
 // 0x001f7880 Method2<CEffectManager,bool,int,math::Vector>::vfunc_2 (58 B): equivalent/0x001f7880.cpp
-// sym: ?vfunc_2@?$Method2@VCEffectManager@@_NHVVector@math@@@@UAEXPAX00@Z @5070c124e04e @w8cf067245f4c @vb292603f0c12
+// sym: ?vfunc_2@Method2_1f7880@fn_001f7880@@QAEXPAX00@Z @5070c124e04e @w8cf067245f4c @v8e7157396e4b
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // Method2<CEffectManager,bool,int,math::Vector>::vfunc_2 @ 0x001f7880
-template <> void Method2<CEffectManager, bool, int,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { CEffectManager_1f7880 * object = (CEffectManager_1f7880 *)__p0; Arguments * args = (Arguments *)__p1; bool * result = (bool *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method2<CEffectManager, bool, int,math::Vector>::vfunc_2`.
+namespace fn_001f7880 {
+struct Method2_1f7880 : hulk_script::FunctionGenView {
+    bool (::CEffectManager::*f_1c)(int, math::Vector);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method2_1f7880::vfunc_2(void* __p0, void* __p1, void* __p2) { CEffectManager_1f7880 * object = (CEffectManager_1f7880 *)__p0; Arguments * args = (Arguments *)__p1; bool * result = (bool *)__p2;
 
     bool value = (object->*(*(bool (CEffectManager_1f7880::**)(int, math::Vector_1f7880))&this->f_1c))(args->id, args->position);
     if (result) *result = value;
 }
+} // namespace fn_001f7880
 #if defined(HULK_PTR64)
-template class Method2<CEffectManager, bool, int,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1f7860)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method2<CEffectManager, bool, int,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001f7880::Method2_1f7880*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 namespace fn_f919337e {
@@ -313,8 +343,15 @@ template <> Method3<CEffectManager, unsigned int, char *, float, float>::~Method
 
 
 // 0x001f7940 Method3<CEffectManager,unsigned_int,char_*,float,float>::vfunc_2 (51 B): matches/0x001f7940.cpp
-// sym: ?vfunc_2@?$Method3@VCEffectManager@@IPADMM@@UAEXPAX00@Z
-template <> void Method3<CEffectManager, unsigned int, char *, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { CEffectManager_1f7940 * obj = (CEffectManager_1f7940 *)__p0; void * args = (void *)__p1; unsigned int * result = (unsigned int *)__p2;
+// sym: ?vfunc_2@Method3_1f7940@fn_001f7940@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method3<CEffectManager, unsigned int, char *, float, float>::vfunc_2`.
+namespace fn_001f7940 {
+struct Method3_1f7940 : hulk_script::FunctionGenView {
+    unsigned int (::CEffectManager::*f_1c)(char *, float, float);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method3_1f7940::vfunc_2(void* __p0, void* __p1, void* __p2) { CEffectManager_1f7940 * obj = (CEffectManager_1f7940 *)__p0; void * args = (void *)__p1; unsigned int * result = (unsigned int *)__p2;
 
     struct Args {
         char* a;
@@ -330,8 +367,11 @@ template <> void Method3<CEffectManager, unsigned int, char *, float, float>::vf
     if (result)
         *result = r;
 }
+} // namespace fn_001f7940
 #if defined(HULK_PTR64)
-template class Method3<CEffectManager, unsigned int, char *, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1f7920)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method3<CEffectManager, unsigned int, char *, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001f7940::Method3_1f7940*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -361,19 +401,19 @@ template class Method0<CEffectManager, float>; // (ren2) native only: clang emit
 
 
 // 0x001f79e0 Method0<CEffectManager,float>::vfunc_2 (34 B): matches/0x001f79e0.cpp [wrapped: conflict: Function]
-// sym: ?f2@Method0Base_1f79e0@fn_001f79e0@@UAEXPAX0PAM@Z
+// sym: ?f2@Method0Base_1f79e0@fn_001f79e0@@QAEXPAX0PAM@Z
 namespace fn_001f79e0 {
 // Same code shape as 0x0002e080 (propagated; names are from that function)
-class Function {
+class Function { void* vftable;   /* (script2) the vftable word, no stand-in vftable */
   public:
-    virtual void f0();
-    virtual void f1();
+    void f0();
+    void f1();
 };
 class Method0Base_1f79e0 : public Function {
   public:
     ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
     float(__fastcall* fn)(void*);
-    virtual void f2(void* a, void* b, float* out);
+    void f2(void* a, void* b, float* out);
 };
 void Method0Base_1f79e0::f2(void* a, void* b, float* out) {
     float(__fastcall * f)(void*) = fn;
@@ -411,7 +451,7 @@ template class Method1<CEffectManager, unsigned int, char *>; // (ren2) native o
 
 
 // 0x001f7a70 Method1<CEffectManager,unsigned_int,char_*>::vfunc_2 (29 B): matches/0x001f7a70.cpp [wrapped: conflict: Function; Method1]
-// sym: ?f2@Method1@fn_001f7a70@@UAEXPAVCEffectManager@2@PAUArg@2@PAI@Z
+// sym: ?f2@Method1@fn_001f7a70@@QAEXPAVCEffectManager@2@PAUArg@2@PAI@Z
 namespace fn_001f7a70 {
 class CEffectManager {
   public:
@@ -420,18 +460,18 @@ class CEffectManager {
 struct Arg {
     unsigned int v;
 };
-class Function {
+class Function { void* vftable;   /* (script2) the vftable word, no stand-in vftable */
   public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
+    void f0();
+    void f1();
+    void f2();
 };
 class Method1 : public Function {
   public:
     ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
     typedef unsigned int (CEffectManager::*Fn)(unsigned int);
     Fn fn;
-    virtual void f2(CEffectManager*, Arg*, unsigned int*);
+    void f2(CEffectManager*, Arg*, unsigned int*);
 };
 inline unsigned int invoke(CEffectManager* obj, Method1::Fn f, unsigned int v) {
     return (obj->*f)(v);
@@ -469,8 +509,15 @@ template <> Method1<CEffectManager, bool, bool>::~Method1() {}
 
 
 // 0x001f7af0 Method1<CEffectManager,bool,bool>::vfunc_2 (37 B): matches/0x001f7af0.cpp
-// sym: ?vfunc_2@?$Method1@VCEffectManager@@_N_N@@UAEXPAX00@Z
-template <> void Method1<CEffectManager, bool, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; bool * b = (bool *)__p1; bool * out = (bool *)__p2;
+// sym: ?vfunc_2@Method1_1f7af0@fn_001f7af0@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method1<CEffectManager, bool, bool>::vfunc_2`.
+namespace fn_001f7af0 {
+struct Method1_1f7af0 : hulk_script::FunctionGenView {
+    bool (::CEffectManager::*f_1c)(bool);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method1_1f7af0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; bool * b = (bool *)__p1; bool * out = (bool *)__p2;
 
     Fn_1f7af0 f = (*(Fn_1f7af0 *)&this->f_1c);
     bool bv = *b;
@@ -478,8 +525,11 @@ template <> void Method1<CEffectManager, bool, bool>::vfunc_2(void* __p0, void* 
     if (out)
         *out = v;
 }
+} // namespace fn_001f7af0
 #if defined(HULK_PTR64)
-template class Method1<CEffectManager, bool, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1f7ad0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method1<CEffectManager, bool, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001f7af0::Method1_1f7af0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -537,17 +587,17 @@ template class Closure2<CEffectManager, int, const char *,math::Vector>; // (ren
 
 
 // 0x001f7ba0 Closure2<CEffectManager,int,const_char_*,math::Vector>::vfunc_2 (61 B): equivalent/0x001f7ba0.cpp [wrapped: conflict: Arguments; CEffectManager; Closure2]
-// sym: ?vfunc_2@Closure2@fn_001f7ba0@@UAEXPAXPAUArguments@2@PAH@Z @69c5af852677 @w0dfc1d6ccf29 @v3f22645da249
+// sym: ?vfunc_2@Closure2@fn_001f7ba0@@QAEXPAXPAUArguments@2@PAH@Z @69c5af852677 @w0dfc1d6ccf29 @vd0c501e6d3a6
 namespace fn_001f7ba0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // Closure2<CEffectManager,int,const_char_*,math::Vector>::vfunc_2 @ 0x001f7ba0
 namespace math { struct Vector { float x,y,z; }; }
 struct CEffectManager { int FUN_001f7ba0(int, math::Vector); };
 struct Arguments { int id; math::Vector position; };
-struct Closure2 {
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2(void* unused, Arguments* args, int* result);
+struct Closure2 { void* vftable;   /* (script2) the vftable word, no stand-in vftable */
+    void vfunc_0();
+    void vfunc_1();
+    void vfunc_2(void* unused, Arguments* args, int* result);
     ScriptFunctionFields fields;   // (script2) Function's fields (was char padding[0x18])
     int (CEffectManager::*method)(int, math::Vector);
     CEffectManager* manager;
@@ -669,18 +719,18 @@ template class Closure2<CEffectManager, bool, int,math::Vector>; // (ren2) nativ
 
 
 // 0x001f7cc0 Closure2<CEffectManager,bool,int,math::Vector>::vfunc_2 (61 B): equivalent/0x001f7cc0.cpp [wrapped: conflict: CEffectManager; Closure2; EffectArguments]
-// sym: ?vfunc_2@Closure2@fn_001f7cc0@@UAEXPAXPBUEffectArguments@2@PA_N@Z @6c585092a365 @w54271f29a7dd @vdba43968aa56
+// sym: ?vfunc_2@Closure2@fn_001f7cc0@@QAEXPAXPBUEffectArguments@2@PA_N@Z @6c585092a365 @w54271f29a7dd @v67d979596007
 namespace fn_001f7cc0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // Closure2<CEffectManager,bool,int,math::Vector>::vfunc_2 @ 0x001f7cc0
 namespace math { struct Vector { float x, y, z; }; }
 struct CEffectManager { bool FUN_001f7cc0(int value, math::Vector position); };
 struct EffectArguments { int value; math::Vector position; };
-class Closure2 {
+class Closure2 { void* vftable;   /* (script2) the vftable word, no stand-in vftable */
 public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2(void *unused, const EffectArguments *args, bool *result);
+    void vfunc_0();
+    void vfunc_1();
+    void vfunc_2(void *unused, const EffectArguments *args, bool *result);
     ScriptFunctionFields fields;   // (script2) Function's fields (was char padding[0x18])
     bool (CEffectManager::*method)(int, math::Vector);
     CEffectManager *manager;
@@ -693,7 +743,7 @@ void Closure2::vfunc_2(void *unused, const EffectArguments *args, bool *result) 
 
 
 // 0x001f7d50 Closure3<CEffectManager,unsigned_int,char_*,float,float>::vfunc_2 (54 B): equivalent/0x001f7d50.cpp [wrapped: conflict: Arguments; CEffectManager; Closure3]
-// sym: ?vfunc_2@Closure3@fn_001f7d50@@UAEIPAXPAUArguments@2@PAI@Z @df53f4d6ac4d @w6fd122bfc109 @vd85dbba5706a
+// sym: ?vfunc_2@Closure3@fn_001f7d50@@QAEIPAXPAUArguments@2@PAI@Z @df53f4d6ac4d @w6fd122bfc109 @v03bd65f09c74
 namespace fn_001f7d50 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // Closure3<CEffectManager,unsigned_int,char_*,float,float>::vfunc_2 @ 0x001f7d50
@@ -702,11 +752,11 @@ public:
     unsigned int FUN_001f7d50(unsigned int, char *, float);
 };
 struct Arguments { unsigned int id; char *name; float value; };
-class Closure3 {
+class Closure3 { void* vftable;   /* (script2) the vftable word, no stand-in vftable */
 public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual unsigned int vfunc_2(void *unused, Arguments *arguments, unsigned int *result);
+    void vfunc_0();
+    void vfunc_1();
+    unsigned int vfunc_2(void *unused, Arguments *arguments, unsigned int *result);
 private:
     ScriptFunctionFields fields;   // (script2) Function's fields (was char padding[0x18])
     unsigned int (CEffectManager::*method)(unsigned int, char *, float);
@@ -722,9 +772,17 @@ unsigned int Closure3::vfunc_2(void *unused, Arguments *arguments, unsigned int 
 
 
 // 0x001f7df0 Closure0<CEffectManager,float>::vfunc_2 (35 B): matches/0x001f7df0.cpp
-// sym: ?vfunc_2@?$Closure0@VCEffectManager@@M@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure0_1f7df0@fn_001f7df0@@QAEXPAX00@Z
 // Same code shape as 0x0002fe60 (propagated; names are from that function)
-template <> void Closure0<CEffectManager, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr a = (hulk_intptr)__p0; hulk_intptr b = (hulk_intptr)__p1; float * out = (float *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure0<CEffectManager, float>::vfunc_2`.
+namespace fn_001f7df0 {
+struct Closure0_1f7df0 : hulk_script::FunctionGenView {
+    float (::CEffectManager::*f_1c)();
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure0_1f7df0::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr a = (hulk_intptr)__p0; hulk_intptr b = (hulk_intptr)__p1; float * out = (float *)__p2;
 
     CActorManager_1f7df0* m = (*(CActorManager_1f7df0 * *)&this->f_20);
     Fn_1f7df0 fn = (*(Fn_1f7df0 *)&this->f_1c);
@@ -732,6 +790,12 @@ template <> void Closure0<CEffectManager, float>::vfunc_2(void* __p0, void* __p1
     if (out)
         *out = v;
 }
+} // namespace fn_001f7df0
+#if defined(HULK_PTR64)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure0<CEffectManager, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001f7df0::Closure0_1f7df0*)this)->vfunc_2(__p0, __p1, __p2); }
+#endif
 
 
 // 0x001f7e20 FUN_001f7e20 (76 B): matches/0x001f7e20.cpp [wrapped: conflict: Closure1; Method1]
@@ -761,8 +825,16 @@ Closure1::Closure1(const char* name, Owner_1f7e20* object, Fn_1f7e20 function) :
 
 
 // 0x001f7e90 Closure1<CEffectManager,unsigned_int,char_*>::vfunc_2 (30 B): matches/0x001f7e90.cpp
-// sym: ?vfunc_2@?$Closure1@VCEffectManager@@IPAD@@UAEXPAX00@Z
-template <> void Closure1<CEffectManager, unsigned int, char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { char ** argument = (char **)__p1; unsigned int * result = (unsigned int *)__p2;
+// sym: ?vfunc_2@Closure1_1f7e90@fn_001f7e90@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure1<CEffectManager, unsigned int, char *>::vfunc_2`.
+namespace fn_001f7e90 {
+struct Closure1_1f7e90 : hulk_script::FunctionGenView {
+    unsigned int (::CEffectManager::*f_1c)(char *);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure1_1f7e90::vfunc_2(void* __p0, void* __p1, void* __p2) { char ** argument = (char **)__p1; unsigned int * result = (unsigned int *)__p2;
 
     CEffectManager_1f7e90* m = (*(CEffectManager_1f7e90 * *)&this->f_20);
     unsigned int (CEffectManager_1f7e90::*fn)(char*) = (*(unsigned int (CEffectManager_1f7e90::**)(char *))&this->f_1c);
@@ -770,6 +842,12 @@ template <> void Closure1<CEffectManager, unsigned int, char *>::vfunc_2(void* _
     if (result)
         *result = value;
 }
+} // namespace fn_001f7e90
+#if defined(HULK_PTR64)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure1<CEffectManager, unsigned int, char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001f7e90::Closure1_1f7e90*)this)->vfunc_2(__p0, __p1, __p2); }
+#endif
 
 
 // 0x001f7eb0 FUN_001f7eb0 (76 B): matches/0x001f7eb0.cpp [wrapped: conflict: Closure1; Method1]
@@ -799,8 +877,16 @@ Closure1::Closure1(const char* name, Owner_1f7eb0* object, Fn_1f7eb0 function) :
 
 
 // 0x001f7f20 Closure1<CEffectManager,bool,bool>::vfunc_2 (38 B): matches/0x001f7f20.cpp
-// sym: ?vfunc_2@?$Closure1@VCEffectManager@@_N_N@@UAEXPAX00@Z
-template <> void Closure1<CEffectManager, bool, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr unused = (hulk_intptr)__p0; bool * arg = (bool *)__p1; bool * out = (bool *)__p2;
+// sym: ?vfunc_2@Closure1_1f7f20@fn_001f7f20@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure1<CEffectManager, bool, bool>::vfunc_2`.
+namespace fn_001f7f20 {
+struct Closure1_1f7f20 : hulk_script::FunctionGenView {
+    bool (::CEffectManager::*f_1c)(bool);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure1_1f7f20::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr unused = (hulk_intptr)__p0; bool * arg = (bool *)__p1; bool * out = (bool *)__p2;
 
     CEffectManager_1f7f20* o = (*(CEffectManager_1f7f20 * *)&this->f_20);
     bool b = *arg;
@@ -809,6 +895,12 @@ template <> void Closure1<CEffectManager, bool, bool>::vfunc_2(void* __p0, void*
     if (out)
         *out = value;
 }
+} // namespace fn_001f7f20
+#if defined(HULK_PTR64)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure1<CEffectManager, bool, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001f7f20::Closure1_1f7f20*)this)->vfunc_2(__p0, __p1, __p2); }
+#endif
 
 namespace fn_f919337e {
 

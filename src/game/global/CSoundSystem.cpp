@@ -446,17 +446,27 @@ template <> Method2<CSoundSystem, void, char *, char *>::~Method2() {}
 
 
 // 0x001f0ad0 Method2<CSoundSystem,void,char_*,char_*>::vfunc_2 (23 B): matches/0x001f0ad0.cpp
-// sym: ?vfunc_2@?$Method2@VCSoundSystem@@XPADPAD@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method2_1f0ad0@fn_001f0ad0@@QAEXPAX00@Z
 // Same code shape as 0x000beac0 (propagated; names are from that function)
-template <> void Method2<CSoundSystem, void, char *, char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; void * p = (void *)__p1; hulk_intptr n = (hulk_intptr)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method2<CSoundSystem, void, char *, char *>::vfunc_2`.
+namespace fn_001f0ad0 {
+struct Method2_1f0ad0 : hulk_script::FunctionGenView {
+    void (::CSoundSystem::*f_1c)(char *, char *);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method2_1f0ad0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; void * p = (void *)__p1; hulk_intptr n = (hulk_intptr)__p2;
 
     CFEManager_1f0ad0* m = (CFEManager_1f0ad0*)unused;
     const char* s = *(const char**)p;
     int x = *(int*)((char*)p + 4);
     (m->*(*(void (CFEManager_1f0ad0::**)(const char *, int))&this->f_1c))(s, x);
 }
+} // namespace fn_001f0ad0
 #if defined(HULK_PTR64)
-template class Method2<CSoundSystem, void, char *, char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1f0ab0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method2<CSoundSystem, void, char *, char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001f0ad0::Method2_1f0ad0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 namespace fn_ffeee61e {
@@ -500,15 +510,25 @@ template <> Method3<CSoundSystem, void, char *, char *, float>::~Method3() {}
 
 
 // 0x001f0b70 Method3<CSoundSystem,void,char_*,char_*,float>::vfunc_2 (29 B): equivalent/0x001f0b70.cpp
-// sym: ?vfunc_2@?$Method3@VCSoundSystem@@XPADPADM@@UAEXPAX00@Z @a7a6d240b96d @w7a58705a9035 @v9c02c3aef1bb
+// sym: ?vfunc_2@Method3_1f0b70@fn_001f0b70@@QAEXPAX00@Z @a7a6d240b96d @w7a58705a9035 @v8f83302e01e3
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Method3<CSoundSystem,void,char_*,char_*,float>::vfunc_2 @ 0x001f0b70
-template <> void Method3<CSoundSystem, void, char *, char *, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { CSoundSystem_1f0b70 * object = (CSoundSystem_1f0b70 *)__p0; CallArgs * args = (CallArgs *)__p1; void * unused = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method3<CSoundSystem, void, char *, char *, float>::vfunc_2`.
+namespace fn_001f0b70 {
+struct Method3_1f0b70 : hulk_script::FunctionGenView {
+    void (::CSoundSystem::*f_1c)(char *, char *, float);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method3_1f0b70::vfunc_2(void* __p0, void* __p1, void* __p2) { CSoundSystem_1f0b70 * object = (CSoundSystem_1f0b70 *)__p0; CallArgs * args = (CallArgs *)__p1; void * unused = (void *)__p2;
 
     (object->*(*(void (CSoundSystem_1f0b70::**)(char *, char *, float))&this->f_1c))(args->first, args->second, args->third);
 }
+} // namespace fn_001f0b70
 #if defined(HULK_PTR64)
-template class Method3<CSoundSystem, void, char *, char *, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1f0b50)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method3<CSoundSystem, void, char *, char *, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001f0b70::Method3_1f0b70*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -536,14 +556,24 @@ template <> Method0<CSoundSystem, void>::~Method0() {}
 
 
 // 0x001f0bf0 Method0<CSoundSystem,void>::vfunc_2 (12 B): matches/0x001f0bf0.cpp
-// sym: ?vfunc_2@?$Method0@VCSoundSystem@@X@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method0_1f0bf0@fn_001f0bf0@@QAEXPAX00@Z
 // Same code shape as 0x0002d950 (propagated; names are from that function)
-template <> void Method0<CSoundSystem, void>::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_1f0bf0 * a = (CActorManager_1f0bf0 *)__p0;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method0<CSoundSystem, void>::vfunc_2`.
+namespace fn_001f0bf0 {
+struct Method0_1f0bf0 : hulk_script::FunctionGenView {
+    void (::CSoundSystem::*f_1c)();
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method0_1f0bf0::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_1f0bf0 * a = (CActorManager_1f0bf0 *)__p0;
 
     (a->*(*(void (CActorManager_1f0bf0::**)())&this->f_1c))();
 }
+} // namespace fn_001f0bf0
 #if defined(HULK_PTR64)
-template class Method0<CSoundSystem, void>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1f0bd0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method0<CSoundSystem, void>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001f0bf0::Method0_1f0bf0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 namespace fn_ffeee61e {
@@ -600,14 +630,24 @@ template <> Method6<CSoundSystem, void, char *, char *, float, float, float, flo
 
 
 // 0x001f0ca0 Method6<CSoundSystem,void,char_*,char_*,float,float,float,float>::vfunc_2 (30 B): matches/0x001f0ca0.cpp
-// sym: ?vfunc_2@?$Method6@VCSoundSystem@@XPADPADMMMM@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method6_1f0ca0@fn_001f0ca0@@QAEXPAX00@Z
 // Same code shape as 0x0002caf0 (propagated; names are from that function)
-template <> void Method6<CSoundSystem, void, char *, char *, float, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { const char * a = (const char *)__p0; const char * b = (const char *)__p1; const char * c = (const char *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method6<CSoundSystem, void, char *, char *, float, float, float, float>::vfunc_2`.
+namespace fn_001f0ca0 {
+struct Method6_1f0ca0 : hulk_script::FunctionGenView {
+    void (::CSoundSystem::*f_1c)(char *, char *, float, float, float, float);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method6_1f0ca0::vfunc_2(void* __p0, void* __p1, void* __p2) { const char * a = (const char *)__p0; const char * b = (const char *)__p1; const char * c = (const char *)__p2;
 
     FUN_001f0cc0(a, b, c, (*(int *)&this->f_1c));
 }
+} // namespace fn_001f0ca0
 #if defined(HULK_PTR64)
-template class Method6<CSoundSystem, void, char *, char *, float, float, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1f0c80)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method6<CSoundSystem, void, char *, char *, float, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001f0ca0::Method6_1f0ca0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 namespace fn_ffeee61e {
@@ -675,16 +715,26 @@ template <> Method4<CSoundSystem, void, char *, char *, float, float>::~Method4(
 
 
 // 0x001f0da0 Method4<CSoundSystem,void,char_*,char_*,float,float>::vfunc_2 (40 B): equivalent/0x001f0da0.cpp
-// sym: ?vfunc_2@?$Method4@VCSoundSystem@@XPADPADMM@@UAEXPAX00@Z @06f2e20faa8a @wcaf4bfffddb3 @v72404296bf90
+// sym: ?vfunc_2@Method4_1f0da0@fn_001f0da0@@QAEXPAX00@Z @06f2e20faa8a @wcaf4bfffddb3 @ve44f1cf49b94
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Method4<CSoundSystem,void,char_*,char_*,float,float>::vfunc_2 @ 0x001f0da0
-template <> void Method4<CSoundSystem, void, char *, char *, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { CSoundSystem_1f0da0 * sound = (CSoundSystem_1f0da0 *)__p0; void * args = (void *)__p1; void * unused = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method4<CSoundSystem, void, char *, char *, float, float>::vfunc_2`.
+namespace fn_001f0da0 {
+struct Method4_1f0da0 : hulk_script::FunctionGenView {
+    void (::CSoundSystem::*f_1c)(char *, char *, float, float);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method4_1f0da0::vfunc_2(void* __p0, void* __p1, void* __p2) { CSoundSystem_1f0da0 * sound = (CSoundSystem_1f0da0 *)__p0; void * args = (void *)__p1; void * unused = (void *)__p2;
 
     Arguments *a = (Arguments *)args;
     (sound->*(*(void (CSoundSystem_1f0da0::**)(char *, char *, float, float))&this->f_1c))(a->first, a->second, a->third, a->fourth);
 }
+} // namespace fn_001f0da0
 #if defined(HULK_PTR64)
-template class Method4<CSoundSystem, void, char *, char *, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1f0d80)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method4<CSoundSystem, void, char *, char *, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001f0da0::Method4_1f0da0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 namespace fn_ffeee61e {
@@ -731,14 +781,24 @@ template <> Method5<CSoundSystem, void, char *, char *, float, float, float>::~M
 
 
 // 0x001f0e70 Method5<CSoundSystem,void,char_*,char_*,float,float,float>::vfunc_2 (30 B): matches/0x001f0e70.cpp
-// sym: ?vfunc_2@?$Method5@VCSoundSystem@@XPADPADMMM@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method5_1f0e70@fn_001f0e70@@QAEXPAX00@Z
 // Same code shape as 0x0002caf0 (propagated; names are from that function)
-template <> void Method5<CSoundSystem, void, char *, char *, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { const char * a = (const char *)__p0; const char * b = (const char *)__p1; const char * c = (const char *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method5<CSoundSystem, void, char *, char *, float, float, float>::vfunc_2`.
+namespace fn_001f0e70 {
+struct Method5_1f0e70 : hulk_script::FunctionGenView {
+    void (::CSoundSystem::*f_1c)(char *, char *, float, float, float);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method5_1f0e70::vfunc_2(void* __p0, void* __p1, void* __p2) { const char * a = (const char *)__p0; const char * b = (const char *)__p1; const char * c = (const char *)__p2;
 
     FUN_001f0e90(a, b, c, (*(int *)&this->f_1c));
 }
+} // namespace fn_001f0e70
 #if defined(HULK_PTR64)
-template class Method5<CSoundSystem, void, char *, char *, float, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1f0e50)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method5<CSoundSystem, void, char *, char *, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001f0e70::Method5_1f0e70*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -810,14 +870,24 @@ template <> Method6<CSoundSystem, void, char *, char *, char *, float, float, fl
 
 
 // 0x001f0f70 Method6<CSoundSystem,void,char_*,char_*,char_*,float,float,float>::vfunc_2 (30 B): matches/0x001f0f70.cpp
-// sym: ?vfunc_2@?$Method6@VCSoundSystem@@XPADPADPADMMM@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method6_1f0f70@fn_001f0f70@@QAEXPAX00@Z
 // Same code shape as 0x0002caf0 (propagated; names are from that function)
-template <> void Method6<CSoundSystem, void, char *, char *, char *, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { const char * a = (const char *)__p0; const char * b = (const char *)__p1; const char * c = (const char *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method6<CSoundSystem, void, char *, char *, char *, float, float, float>::vfunc_2`.
+namespace fn_001f0f70 {
+struct Method6_1f0f70 : hulk_script::FunctionGenView {
+    void (::CSoundSystem::*f_1c)(char *, char *, char *, float, float, float);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method6_1f0f70::vfunc_2(void* __p0, void* __p1, void* __p2) { const char * a = (const char *)__p0; const char * b = (const char *)__p1; const char * c = (const char *)__p2;
 
     FUN_001f0f90(a, b, c, (*(int *)&this->f_1c));
 }
+} // namespace fn_001f0f70
 #if defined(HULK_PTR64)
-template class Method6<CSoundSystem, void, char *, char *, char *, float, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1f0f50)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method6<CSoundSystem, void, char *, char *, char *, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001f0f70::Method6_1f0f70*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -858,15 +928,25 @@ template <> Method1<CSoundSystem, void, float>::~Method1() {}
 
 
 // 0x001f1030 Method1<CSoundSystem,void,float>::vfunc_2 (19 B): matches/0x001f1030.cpp
-// sym: ?vfunc_2@?$Method1@VCSoundSystem@@XM@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method1_1f1030@fn_001f1030@@QAEXPAX00@Z
 // Same code shape as 0x0002ce30 (propagated; names are from that function)
-template <> void Method1<CSoundSystem, void, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void ** b = (void **)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method1<CSoundSystem, void, float>::vfunc_2`.
+namespace fn_001f1030 {
+struct Method1_1f1030 : hulk_script::FunctionGenView {
+    void (::CSoundSystem::*f_1c)(float);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method1_1f1030::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void ** b = (void **)__p1; void * c = (void *)__p2;
 
     Dummy_1f1030* d = (Dummy_1f1030*)a;
     (d->*(*(void (Dummy_1f1030::**)(void *))&this->f_1c))(*b);
 }
+} // namespace fn_001f1030
 #if defined(HULK_PTR64)
-template class Method1<CSoundSystem, void, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1f1010)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method1<CSoundSystem, void, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001f1030::Method1_1f1030*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 namespace fn_ffeee61e {
@@ -920,15 +1000,25 @@ template <> Method3<CSoundSystem, void, char *, float, float>::~Method3() {}
 
 
 // 0x001f10d0 Method3<CSoundSystem,void,char_*,float,float>::vfunc_2 (29 B): equivalent/0x001f10d0.cpp
-// sym: ?vfunc_2@?$Method3@VCSoundSystem@@XPADPADM@@UAEXPAX00@Z @a7a6d240b96d @w7a58705a9035 @v9c02c3aef1bb
+// sym: ?vfunc_2@Method3_1f10d0@fn_001f10d0@@QAEXPAX00@Z @a7a6d240b96d @wde646867942a @vd8dc7c221aa6
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Method3<CSoundSystem,void,char_*,float,float>::vfunc_2 @ 0x001f10d0
-template <> void Method3<CSoundSystem, void, char *, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { CSoundSystem_1f10d0 * system = (CSoundSystem_1f10d0 *)__p0; SoundArguments * arguments = (SoundArguments *)__p1; void * unused = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method3<CSoundSystem, void, char *, float, float>::vfunc_2`.
+namespace fn_001f10d0 {
+struct Method3_1f10d0 : hulk_script::FunctionGenView {
+    void (::CSoundSystem::*f_1c)(char *, float, float);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method3_1f10d0::vfunc_2(void* __p0, void* __p1, void* __p2) { CSoundSystem_1f10d0 * system = (CSoundSystem_1f10d0 *)__p0; SoundArguments * arguments = (SoundArguments *)__p1; void * unused = (void *)__p2;
 
     (system->*(*(void (CSoundSystem_1f10d0::**)(char *, float, float))&this->f_1c))(arguments->name, arguments->first, arguments->second);
 }
+} // namespace fn_001f10d0
 #if defined(HULK_PTR64)
-template class Method3<CSoundSystem, void, char *, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1f10b0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method3<CSoundSystem, void, char *, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001f10d0::Method3_1f10d0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -956,17 +1046,27 @@ template <> Method2<CSoundSystem, void, float, float>::~Method2() {}
 
 
 // 0x001f1160 Method2<CSoundSystem,void,float,float>::vfunc_2 (23 B): matches/0x001f1160.cpp
-// sym: ?vfunc_2@?$Method2@VCSoundSystem@@XPADPAD@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method2_1f1160@fn_001f1160@@QAEXPAX00@Z
 // Same code shape as 0x000beac0 (propagated; names are from that function)
-template <> void Method2<CSoundSystem, void, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; void * p = (void *)__p1; hulk_intptr n = (hulk_intptr)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method2<CSoundSystem, void, float, float>::vfunc_2`.
+namespace fn_001f1160 {
+struct Method2_1f1160 : hulk_script::FunctionGenView {
+    void (::CSoundSystem::*f_1c)(float, float);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method2_1f1160::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; void * p = (void *)__p1; hulk_intptr n = (hulk_intptr)__p2;
 
     CFEManager_1f1160* m = (CFEManager_1f1160*)unused;
     const char* s = *(const char**)p;
     int x = *(int*)((char*)p + 4);
     (m->*(*(void (CFEManager_1f1160::**)(const char *, int))&this->f_1c))(s, x);
 }
+} // namespace fn_001f1160
 #if defined(HULK_PTR64)
-template class Method2<CSoundSystem, void, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1f1140)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method2<CSoundSystem, void, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001f1160::Method2_1f1160*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -994,17 +1094,27 @@ template <> Method2<CSoundSystem, void, char *, float>::~Method2() {}
 
 
 // 0x001f11f0 Method2<CSoundSystem,void,char_*,float>::vfunc_2 (23 B): matches/0x001f11f0.cpp
-// sym: ?vfunc_2@?$Method2@VCSoundSystem@@XPADPAD@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method2_1f11f0@fn_001f11f0@@QAEXPAX00@Z
 // Same code shape as 0x000beac0 (propagated; names are from that function)
-template <> void Method2<CSoundSystem, void, char *, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; void * p = (void *)__p1; hulk_intptr n = (hulk_intptr)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method2<CSoundSystem, void, char *, float>::vfunc_2`.
+namespace fn_001f11f0 {
+struct Method2_1f11f0 : hulk_script::FunctionGenView {
+    void (::CSoundSystem::*f_1c)(char *, float);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method2_1f11f0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; void * p = (void *)__p1; hulk_intptr n = (hulk_intptr)__p2;
 
     CFEManager_1f11f0* m = (CFEManager_1f11f0*)unused;
     const char* s = *(const char**)p;
     int x = *(int*)((char*)p + 4);
     (m->*(*(void (CFEManager_1f11f0::**)(const char *, int))&this->f_1c))(s, x);
 }
+} // namespace fn_001f11f0
 #if defined(HULK_PTR64)
-template class Method2<CSoundSystem, void, char *, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1f11d0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method2<CSoundSystem, void, char *, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001f11f0::Method2_1f11f0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -1350,14 +1460,25 @@ template <> Closure2<CSoundSystem, void, char *, char *>::~Closure2() {}
 
 
 // 0x001f1d70 Closure2<CSoundSystem,void,char_*,char_*>::vfunc_2 (22 B): matches/0x001f1d70.cpp
-// sym: ?vfunc_2@?$Closure2@VCSoundSystem@@XPADPAD@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure2_1f1d70@fn_001f1d70@@QAEXPAX00@Z
 // Same code shape as 0x0002e6d0 (propagated; names are from that function)
-template <> void Closure2<CSoundSystem, void, char *, char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; Pair_1f1d70 * p = (Pair_1f1d70 *)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure2<CSoundSystem, void, char *, char *>::vfunc_2`.
+namespace fn_001f1d70 {
+struct Closure2_1f1d70 : hulk_script::FunctionGenView {
+    void (::CSoundSystem::*f_1c)(char *, char *);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure2_1f1d70::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; Pair_1f1d70 * p = (Pair_1f1d70 *)__p1; void * c = (void *)__p2;
 
     ((*(CActorManager_1f1d70 * *)&this->f_20)->*(*(void (CActorManager_1f1d70::**)(const char *, float))&this->f_1c))(p->s, p->f);
 }
+} // namespace fn_001f1d70
 #if defined(HULK_PTR64)
-template class Closure2<CSoundSystem, void, char *, char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1f1d50)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure2<CSoundSystem, void, char *, char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001f1d70::Closure2_1f1d70*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -1385,15 +1506,26 @@ template <> Closure3<CSoundSystem, void, char *, char *, float>::~Closure3() {}
 
 
 // 0x001f1de0 Closure3<CSoundSystem,void,char_*,char_*,float>::vfunc_2 (28 B): equivalent/0x001f1de0.cpp
-// sym: ?vfunc_2@?$Closure3@VCSoundSystem@@XPADPADM@@UAEXPAX00@Z @737c210bc5da @wc1b59fcf3196 @v45999d103137
+// sym: ?vfunc_2@Closure3_1f1de0@fn_001f1de0@@QAEXPAX00@Z @737c210bc5da @wc1b59fcf3196 @v70d64b2e02bb
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Closure3<CSoundSystem,void,char_*,char_*,float>::vfunc_2 @ 0x001f1de0
-template <> void Closure3<CSoundSystem, void, char *, char *, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { SoundArgs * args = (SoundArgs *)__p1;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure3<CSoundSystem, void, char *, char *, float>::vfunc_2`.
+namespace fn_001f1de0 {
+struct Closure3_1f1de0 : hulk_script::FunctionGenView {
+    void (::CSoundSystem::*f_1c)(char *, char *, float);
+    hulk_intptr f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure3_1f1de0::vfunc_2(void* __p0, void* __p1, void* __p2) { SoundArgs * args = (SoundArgs *)__p1;
 
     ((*(CSoundSystem_1f1de0 * *)&this->f_20)->*(*(void (CSoundSystem_1f1de0::**)(char *, char *, float))&this->f_1c))(args->first, args->second, args->volume);
 }
+} // namespace fn_001f1de0
 #if defined(HULK_PTR64)
-template class Closure3<CSoundSystem, void, char *, char *, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1f1dc0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure3<CSoundSystem, void, char *, char *, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001f1de0::Closure3_1f1de0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -1421,13 +1553,24 @@ template <> Closure0<CSoundSystem, void>::~Closure0() {}
 
 
 // 0x001f1e60 Closure0<CSoundSystem,void>::vfunc_2 (11 B): matches/0x001f1e60.cpp
-// sym: ?vfunc_2@?$Closure0@VCSoundSystem@@X@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure0_1f1e60@fn_001f1e60@@QAEXPAX00@Z
 // Same code shape as 0x0002f820 (propagated; names are from that function)
-template <> void Closure0<CSoundSystem, void>::vfunc_2(void* __p0, void* __p1, void* __p2) {
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure0<CSoundSystem, void>::vfunc_2`.
+namespace fn_001f1e60 {
+struct Closure0_1f1e60 : hulk_script::FunctionGenView {
+    void (::CSoundSystem::*f_1c)();
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure0_1f1e60::vfunc_2(void* __p0, void* __p1, void* __p2) {
     ((*(CActorManager_1f1e60 * *)&this->f_20)->*(*(void (CActorManager_1f1e60::**)())&this->f_1c))();
 }
+} // namespace fn_001f1e60
 #if defined(HULK_PTR64)
-template class Closure0<CSoundSystem, void>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1f1e40)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure0<CSoundSystem, void>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001f1e60::Closure0_1f1e60*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -1472,18 +1615,40 @@ template class Closure6<CSoundSystem, void, char *, char *, float, float, float,
 
 
 // 0x001f1f60 Closure4<CSoundSystem,void,char_*,char_*,float,float>::vfunc_2 (39 B): equivalent/0x001f1f60.cpp
-// sym: ?vfunc_2@?$Closure4@VCSoundSystem@@XPADPADMM@@UAEXPAX00@Z @35da6a76506a @wda143db70d1f @vcda79238ace8
+// sym: ?vfunc_2@Closure4_1f1f60@fn_001f1f60@@QAEXPAX00@Z @35da6a76506a @wda143db70d1f @vbb1f4cb41b00
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Closure4<CSoundSystem,void,char_*,char_*,float,float>::vfunc_2 @ 0x001f1f60
-template <> void Closure4<CSoundSystem, void, char *, char *, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { Arguments * args = (Arguments *)__p1;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure4<CSoundSystem, void, char *, char *, float, float>::vfunc_2`.
+namespace fn_001f1f60 {
+struct Closure4_1f1f60 : hulk_script::FunctionGenView {
+    void (::CSoundSystem::*f_1c)(char *, char *, float, float);
+    hulk_intptr f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure4_1f1f60::vfunc_2(void* __p0, void* __p1, void* __p2) { Arguments * args = (Arguments *)__p1;
 
     ((*(CSoundSystem_1f1f60 * *)&this->f_20)->*(*(void (CSoundSystem_1f1f60::**)(char *, char *, float, float))&this->f_1c))(args->first, args->second, args->third, args->fourth);
 }
+} // namespace fn_001f1f60
+#if defined(HULK_PTR64)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure4<CSoundSystem, void, char *, char *, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001f1f60::Closure4_1f1f60*)this)->vfunc_2(__p0, __p1, __p2); }
+#endif
 
 
 // 0x001f1fe0 Closure5<CSoundSystem,void,char_*,char_*,float,float,float>::vfunc_2 (55 B): matches/0x001f1fe0.cpp
-// sym: ?vfunc_2@?$Closure5@VCSoundSystem@@XPADPADMMM@@UAEXPAX00@Z
-template <> void Closure5<CSoundSystem, void, char *, char *, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { unsigned int * args = (unsigned int *)__p1;
+// sym: ?vfunc_2@Closure5_1f1fe0@fn_001f1fe0@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure5<CSoundSystem, void, char *, char *, float, float, float>::vfunc_2`.
+namespace fn_001f1fe0 {
+struct Closure5_1f1fe0 : hulk_script::FunctionGenView {
+    void (::CSoundSystem::*f_1c)(char *, char *, float, float, float);
+    hulk_intptr f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure5_1f1fe0::vfunc_2(void* __p0, void* __p1, void* __p2) { unsigned int * args = (unsigned int *)__p1;
 
     char* first = (char*)*(hulk_uintptr*)args;
     char* second = (char*)*++args;
@@ -1492,11 +1657,25 @@ template <> void Closure5<CSoundSystem, void, char *, char *, float, float, floa
     float fifth = *(float*)++args;
     ((*(CSoundSystem_1f1fe0 * *)&this->f_20)->*(*(SoundMethod *)&this->f_1c))(first, second, third, fourth, fifth);
 }
+} // namespace fn_001f1fe0
+#if defined(HULK_PTR64)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure5<CSoundSystem, void, char *, char *, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001f1fe0::Closure5_1f1fe0*)this)->vfunc_2(__p0, __p1, __p2); }
+#endif
 
 
 // 0x001f2070 Closure6<CSoundSystem,void,char_*,char_*,char_*,float,float,float>::vfunc_2 (64 B): matches/0x001f2070.cpp
-// sym: ?vfunc_2@?$Closure6@VCSoundSystem@@XPADPADPADMMM@@UAEXPAX00@Z
-template <> void Closure6<CSoundSystem, void, char *, char *, char *, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { unsigned int * x = (unsigned int *)__p1;
+// sym: ?vfunc_2@Closure6_1f2070@fn_001f2070@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure6<CSoundSystem, void, char *, char *, char *, float, float, float>::vfunc_2`.
+namespace fn_001f2070 {
+struct Closure6_1f2070 : hulk_script::FunctionGenView {
+    void (::CSoundSystem::*f_1c)(char *, char *, char *, float, float, float);
+    hulk_intptr f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure6_1f2070::vfunc_2(void* __p0, void* __p1, void* __p2) { unsigned int * x = (unsigned int *)__p1;
 
     char* a = (char*)*x++;
     char* b = (char*)*x++;
@@ -1506,6 +1685,12 @@ template <> void Closure6<CSoundSystem, void, char *, char *, char *, float, flo
     float f = *(float*)x++;
     ((*(CSoundSystem_1f2070 * *)&this->f_20)->*(*(void (CSoundSystem_1f2070::**)(char *, char *, char *, float, float, float))&this->f_1c))(a, b, c, d, e, f);
 }
+} // namespace fn_001f2070
+#if defined(HULK_PTR64)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure6<CSoundSystem, void, char *, char *, char *, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001f2070::Closure6_1f2070*)this)->vfunc_2(__p0, __p1, __p2); }
+#endif
 
 
 // 0x001f20b0 FUN_001f20b0 (76 B): matches/0x001f20b0.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
@@ -1538,12 +1723,26 @@ Closure1::Closure1(const char* name, Owner_1f20b0* object, Fn_1f20b0 function) :
 
 
 // 0x001f2120 Closure1<CSoundSystem,void,float>::vfunc_2 (18 B): matches/0x001f2120.cpp
-// sym: ?vfunc_2@?$Closure1@VCSoundSystem@@XM@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure1_1f2120@fn_001f2120@@QAEXPAX00@Z
 // Same code shape as 0x0002ed90 (propagated; names are from that function)
-template <> void Closure1<CSoundSystem, void, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; const char ** b = (const char **)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure1<CSoundSystem, void, float>::vfunc_2`.
+namespace fn_001f2120 {
+struct Closure1_1f2120 : hulk_script::FunctionGenView {
+    void (::CSoundSystem::*f_1c)(float);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure1_1f2120::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; const char ** b = (const char **)__p1; void * c = (void *)__p2;
 
     ((*(CActorManager_1f2120 * *)&this->f_20)->*(*(void (CActorManager_1f2120::**)(const char *))&this->f_1c))(*b);
 }
+} // namespace fn_001f2120
+#if defined(HULK_PTR64)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure1<CSoundSystem, void, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001f2120::Closure1_1f2120*)this)->vfunc_2(__p0, __p1, __p2); }
+#endif
 
 
 // 0x001f21b0 FUN_001f21b0 (89 B): matches/0x001f21b0.cpp [wrapped: conflict: Closure2]
@@ -1574,12 +1773,26 @@ Closure2::Closure2(const char* name, Owner_1f21b0* object, Fn_1f21b0 function) :
 
 
 // 0x001f2230 Closure2<CSoundSystem,void,float,float>::vfunc_2 (22 B): matches/0x001f2230.cpp
-// sym: ?vfunc_2@?$Closure2@VCSoundSystem@@XPADPAD@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure2_1f2230@fn_001f2230@@QAEXPAX00@Z
 // Same code shape as 0x0002e6d0 (propagated; names are from that function)
-template <> void Closure2<CSoundSystem, void, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; Pair_1f2230 * p = (Pair_1f2230 *)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure2<CSoundSystem, void, float, float>::vfunc_2`.
+namespace fn_001f2230 {
+struct Closure2_1f2230 : hulk_script::FunctionGenView {
+    void (::CSoundSystem::*f_1c)(float, float);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure2_1f2230::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; Pair_1f2230 * p = (Pair_1f2230 *)__p1; void * c = (void *)__p2;
 
     ((*(CActorManager_1f2230 * *)&this->f_20)->*(*(void (CActorManager_1f2230::**)(const char *, float))&this->f_1c))(p->s, p->f);
 }
+} // namespace fn_001f2230
+#if defined(HULK_PTR64)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure2<CSoundSystem, void, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001f2230::Closure2_1f2230*)this)->vfunc_2(__p0, __p1, __p2); }
+#endif
 
 
 // 0x001f2250 FUN_001f2250 (89 B): matches/0x001f2250.cpp [wrapped: conflict: Closure2]
@@ -1610,12 +1823,26 @@ Closure2::Closure2(const char* name, Owner_1f2250* object, Fn_1f2250 function) :
 
 
 // 0x001f22d0 Closure2<CSoundSystem,void,char_*,float>::vfunc_2 (22 B): matches/0x001f22d0.cpp
-// sym: ?vfunc_2@?$Closure2@VCSoundSystem@@XPADPAD@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure2_1f22d0@fn_001f22d0@@QAEXPAX00@Z
 // Same code shape as 0x0002e6d0 (propagated; names are from that function)
-template <> void Closure2<CSoundSystem, void, char *, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; Pair_1f22d0 * p = (Pair_1f22d0 *)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure2<CSoundSystem, void, char *, float>::vfunc_2`.
+namespace fn_001f22d0 {
+struct Closure2_1f22d0 : hulk_script::FunctionGenView {
+    void (::CSoundSystem::*f_1c)(char *, float);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure2_1f22d0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; Pair_1f22d0 * p = (Pair_1f22d0 *)__p1; void * c = (void *)__p2;
 
     ((*(CActorManager_1f22d0 * *)&this->f_20)->*(*(void (CActorManager_1f22d0::**)(const char *, float))&this->f_1c))(p->s, p->f);
 }
+} // namespace fn_001f22d0
+#if defined(HULK_PTR64)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure2<CSoundSystem, void, char *, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001f22d0::Closure2_1f22d0*)this)->vfunc_2(__p0, __p1, __p2); }
+#endif
 
 namespace fn_ffeee61e {
 

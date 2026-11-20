@@ -1849,14 +1849,24 @@ template <> Method0<HUDOverlay, void>::~Method0() {}
 
 
 // 0x000ce910 Method0<HUDOverlay,void>::vfunc_2 (12 B): matches/0x000ce910.cpp
-// sym: ?vfunc_2@?$Method0@VHUDOverlay@@X@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method0_ce910@fn_000ce910@@QAEXPAX00@Z
 // Same code shape as 0x0002d950 (propagated; names are from that function)
-template <> void Method0<HUDOverlay, void>::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_ce910 * a = (CActorManager_ce910 *)__p0;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method0<HUDOverlay, void>::vfunc_2`.
+namespace fn_000ce910 {
+struct Method0_ce910 : hulk_script::FunctionGenView {
+    void (::HUDOverlay::*f_1c)();
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method0_ce910::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_ce910 * a = (CActorManager_ce910 *)__p0;
 
     (a->*(*(void (CActorManager_ce910::**)())&this->f_1c))();
 }
+} // namespace fn_000ce910
 #if defined(HULK_PTR64)
-template class Method0<HUDOverlay, void>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xce8f0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method0<HUDOverlay, void>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000ce910::Method0_ce910*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -1884,15 +1894,25 @@ template <> Method1<HUDOverlay, void, const char *>::~Method1() {}
 
 
 // 0x000ce980 Method1<HUDOverlay,void,const_char_*>::vfunc_2 (19 B): matches/0x000ce980.cpp
-// sym: ?vfunc_2@?$Method1@VHUDOverlay@@XPBD@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method1_ce980@fn_000ce980@@QAEXPAX00@Z
 // Same code shape as 0x0002ce30 (propagated; names are from that function)
-template <> void Method1<HUDOverlay, void, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void ** b = (void **)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method1<HUDOverlay, void, const char *>::vfunc_2`.
+namespace fn_000ce980 {
+struct Method1_ce980 : hulk_script::FunctionGenView {
+    void (::HUDOverlay::*f_1c)(const char *);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method1_ce980::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void ** b = (void **)__p1; void * c = (void *)__p2;
 
     Dummy_ce980* d = (Dummy_ce980*)a;
     (d->*(*(void (Dummy_ce980::**)(void *))&this->f_1c))(*b);
 }
+} // namespace fn_000ce980
 #if defined(HULK_PTR64)
-template class Method1<HUDOverlay, void, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xce960)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method1<HUDOverlay, void, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000ce980::Method1_ce980*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -1920,15 +1940,25 @@ template <> Method1<HUDOverlay, void, int>::~Method1() {}
 
 
 // 0x000cea00 Method1<HUDOverlay,void,int>::vfunc_2 (19 B): matches/0x000cea00.cpp
-// sym: ?vfunc_2@?$Method1@VHUDOverlay@@XPBD@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method1_cea00@fn_000cea00@@QAEXPAX00@Z
 // Same code shape as 0x0002ce30 (propagated; names are from that function)
-template <> void Method1<HUDOverlay, void, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void ** b = (void **)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method1<HUDOverlay, void, int>::vfunc_2`.
+namespace fn_000cea00 {
+struct Method1_cea00 : hulk_script::FunctionGenView {
+    void (::HUDOverlay::*f_1c)(const char *);   // (script2) the instantiation this code-identical block shares (its HEAD pin)
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method1_cea00::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void ** b = (void **)__p1; void * c = (void *)__p2;
 
     Dummy_cea00* d = (Dummy_cea00*)a;
     (d->*(*(void (Dummy_cea00::**)(void *))&this->f_1c))(*b);
 }
+} // namespace fn_000cea00
 #if defined(HULK_PTR64)
-template class Method1<HUDOverlay, void, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xce9e0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method1<HUDOverlay, void, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000cea00::Method1_cea00*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -1956,15 +1986,25 @@ template <> Method1<HUDOverlay, void, float>::~Method1() {}
 
 
 // 0x000cea80 Method1<HUDOverlay,void,float>::vfunc_2 (19 B): matches/0x000cea80.cpp
-// sym: ?vfunc_2@?$Method1@VHUDOverlay@@XPBD@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method1_cea80@fn_000cea80@@QAEXPAX00@Z
 // Same code shape as 0x0002ce30 (propagated; names are from that function)
-template <> void Method1<HUDOverlay, void, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void ** b = (void **)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method1<HUDOverlay, void, float>::vfunc_2`.
+namespace fn_000cea80 {
+struct Method1_cea80 : hulk_script::FunctionGenView {
+    void (::HUDOverlay::*f_1c)(float);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method1_cea80::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void ** b = (void **)__p1; void * c = (void *)__p2;
 
     Dummy_cea80* d = (Dummy_cea80*)a;
     (d->*(*(void (Dummy_cea80::**)(void *))&this->f_1c))(*b);
 }
+} // namespace fn_000cea80
 #if defined(HULK_PTR64)
-template class Method1<HUDOverlay, void, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xcea60)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method1<HUDOverlay, void, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000cea80::Method1_cea80*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 namespace fn_f3fdf6d3 {
@@ -2010,10 +2050,17 @@ template <> Method4<HUDOverlay, void, const char *, float, float,math::Vector>::
 
 
 // 0x000ceb30 Method4<HUDOverlay,void,const_char_*,float,float,math::Vector>::vfunc_2 (80 B): equivalent/0x000ceb30.cpp
-// sym: ?vfunc_2@?$Method4@VHUDOverlay@@XPBDMMVVector@math@@@@UAEXPAX00@Z @80c1e69fabd4 @wa9e830b47232 @v12835e756921
+// sym: ?vfunc_2@Method4_ceb30@fn_000ceb30@@QAEXPAX00@Z @80c1e69fabd4 @wa9e830b47232 @v7d7d27c89b9c
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // Method4<HUDOverlay,void,const_char_*,float,float,math::Vector>::vfunc_2 @ 0x000ceb30
-template <> void Method4<HUDOverlay, void, const char *, float, float,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { HUDOverlay_ceb30 * object = (HUDOverlay_ceb30 *)__p0; const unsigned int * args = (const unsigned int *)__p1; void * unused = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method4<HUDOverlay, void, const char *, float, float,math::Vector>::vfunc_2`.
+namespace fn_000ceb30 {
+struct Method4_ceb30 : hulk_script::FunctionGenView {
+    void (::HUDOverlay::*f_1c)(const char *, float, float, math::Vector);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method4_ceb30::vfunc_2(void* __p0, void* __p1, void* __p2) { HUDOverlay_ceb30 * object = (HUDOverlay_ceb30 *)__p0; const unsigned int * args = (const unsigned int *)__p1; void * unused = (void *)__p2;
 
     union Bits { unsigned int u; float f; } a, b, x, y, z;
     a.u=args[1]; b.u=args[2];
@@ -2021,8 +2068,11 @@ template <> void Method4<HUDOverlay, void, const char *, float, float,math::Vect
     Vector_ceb30 v; v.x=x.f; v.y=y.f; v.z=z.f;
     (object->*(*(void (HUDOverlay_ceb30::**)(const char *, float, float, Vector_ceb30))&this->f_1c))((const char*)args[0], a.f, b.f, v);
 }
+} // namespace fn_000ceb30
 #if defined(HULK_PTR64)
-template class Method4<HUDOverlay, void, const char *, float, float,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xceb10)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method4<HUDOverlay, void, const char *, float, float,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000ceb30::Method4_ceb30*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -2077,16 +2127,26 @@ template <> Method3<HUDOverlay, int, const char *, const char *, float>::~Method
 
 
 // 0x000cec00 Method3<HUDOverlay,int,const_char_*,const_char_*,float>::vfunc_2 (43 B): equivalent/0x000cec00.cpp
-// sym: ?vfunc_2@?$Method3@VHUDOverlay@@HPBDPBDM@@UAEXPAX00@Z @4f7964c43f8f @w871789d8cadc @v68dfd123de92
+// sym: ?vfunc_2@Method3_cec00@fn_000cec00@@QAEXPAX00@Z @4f7964c43f8f @w871789d8cadc @v2959b4c815cf
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // Method3<HUDOverlay,int,const_char_*,const_char_*,float>::vfunc_2 @ 0x000cec00
-template <> void Method3<HUDOverlay, int, const char *, const char *, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { HUDOverlay_cec00 * object = (HUDOverlay_cec00 *)__p0; unsigned int * arguments = (unsigned int *)__p1; int * result = (int *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method3<HUDOverlay, int, const char *, const char *, float>::vfunc_2`.
+namespace fn_000cec00 {
+struct Method3_cec00 : hulk_script::FunctionGenView {
+    int (::HUDOverlay::*f_1c)(const char *, const char *, float);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method3_cec00::vfunc_2(void* __p0, void* __p1, void* __p2) { HUDOverlay_cec00 * object = (HUDOverlay_cec00 *)__p0; unsigned int * arguments = (unsigned int *)__p1; int * result = (int *)__p2;
 
     int value = (object->*(*(int (HUDOverlay_cec00::**)(int, const char *, const char *))&this->f_1c))(arguments[0], (const char *)arguments[1], (const char *)arguments[2]);
     if (result) *result = value;
 }
+} // namespace fn_000cec00
 #if defined(HULK_PTR64)
-template class Method3<HUDOverlay, int, const char *, const char *, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xcebe0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method3<HUDOverlay, int, const char *, const char *, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000cec00::Method3_cec00*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -2114,17 +2174,27 @@ template <> Method0<HUDOverlay, int>::~Method0() {}
 
 
 // 0x000cec90 Method0<HUDOverlay,int>::vfunc_2 (22 B): matches/0x000cec90.cpp
-// sym: ?vfunc_2@?$Method0@VHUDOverlay@@H@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method0_cec90@fn_000cec90@@QAEXPAX00@Z
 // Same code shape as 0x0002ceb0 (propagated; names are from that function)
-template <> void Method0<HUDOverlay, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void * b = (void *)__p1; unsigned int * out = (unsigned int *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method0<HUDOverlay, int>::vfunc_2`.
+namespace fn_000cec90 {
+struct Method0_cec90 : hulk_script::FunctionGenView {
+    int (::HUDOverlay::*f_1c)();
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method0_cec90::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void * b = (void *)__p1; unsigned int * out = (unsigned int *)__p2;
 
     unsigned(__fastcall * p)(void*) = *(unsigned(__fastcall**)(void*))((char*)&this->f_1c);
     unsigned v = p(a);
     if (out)
         *out = v;
 }
+} // namespace fn_000cec90
 #if defined(HULK_PTR64)
-template class Method0<HUDOverlay, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xcec70)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method0<HUDOverlay, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000cec90::Method0_cec90*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -2152,13 +2222,23 @@ template <> Method1<HUDOverlay, void,math::Vector>::~Method1() {}
 
 
 // 0x000ced10 Method1<HUDOverlay,void,math::Vector>::vfunc_2 (39 B): matches/0x000ced10.cpp
-// sym: ?vfunc_2@?$Method1@VHUDOverlay@@XVVector@math@@@@UAEXPAX00@Z
-template <> void Method1<HUDOverlay, void,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { HUDOverlay_ced10 * o = (HUDOverlay_ced10 *)__p0; math::Vector_ced10 * v = (math::Vector_ced10 *)__p1;
+// sym: ?vfunc_2@Method1_ced10@fn_000ced10@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method1<HUDOverlay, void,math::Vector>::vfunc_2`.
+namespace fn_000ced10 {
+struct Method1_ced10 : hulk_script::FunctionGenView {
+    void (::HUDOverlay::*f_1c)(math::Vector);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method1_ced10::vfunc_2(void* __p0, void* __p1, void* __p2) { HUDOverlay_ced10 * o = (HUDOverlay_ced10 *)__p0; math::Vector_ced10 * v = (math::Vector_ced10 *)__p1;
 
     (o->*(*(void (HUDOverlay_ced10::**)(math::Vector_ced10))&this->f_1c))(*v);
 }
+} // namespace fn_000ced10
 #if defined(HULK_PTR64)
-template class Method1<HUDOverlay, void,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xcecf0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method1<HUDOverlay, void,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000ced10::Method1_ced10*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -2186,8 +2266,15 @@ template <> Method2<HUDOverlay, int, int,math::Vector>::~Method2() {}
 
 
 // 0x000cedb0 Method2<HUDOverlay,int,int,math::Vector>::vfunc_2 (58 B): matches/0x000cedb0.cpp
-// sym: ?vfunc_2@?$Method2@VHUDOverlay@@HHVVector@math@@@@UAEXPAX00@Z
-template <> void Method2<HUDOverlay, int, int,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { HUDOverlay_cedb0 * obj = (HUDOverlay_cedb0 *)__p0; int * args = (int *)__p1; int * out = (int *)__p2;
+// sym: ?vfunc_2@Method2_cedb0@fn_000cedb0@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method2<HUDOverlay, int, int,math::Vector>::vfunc_2`.
+namespace fn_000cedb0 {
+struct Method2_cedb0 : hulk_script::FunctionGenView {
+    int (::HUDOverlay::*f_1c)(int, math::Vector);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method2_cedb0::vfunc_2(void* __p0, void* __p1, void* __p2) { HUDOverlay_cedb0 * obj = (HUDOverlay_cedb0 *)__p0; int * args = (int *)__p1; int * out = (int *)__p2;
 
     int (HUDOverlay_cedb0::*call)(int, math::Vector_cedb0) = (*(int (HUDOverlay_cedb0::**)(int, math::Vector_cedb0))&this->f_1c);
     int a = *args;
@@ -2196,8 +2283,11 @@ template <> void Method2<HUDOverlay, int, int,math::Vector>::vfunc_2(void* __p0,
     if (out)
         *out = r;
 }
+} // namespace fn_000cedb0
 #if defined(HULK_PTR64)
-template class Method2<HUDOverlay, int, int,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xced90)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method2<HUDOverlay, int, int,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000cedb0::Method2_cedb0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -2225,15 +2315,25 @@ template <> Method2<HUDOverlay, void, int,math::Vector>::~Method2() {}
 
 
 // 0x000cee60 Method2<HUDOverlay,void,int,math::Vector>::vfunc_2 (48 B): equivalent/0x000cee60.cpp
-// sym: ?vfunc_2@?$Method2@VHUDOverlay@@XHVVector@math@@@@UAEXPAX00@Z @db11992ea1ff @w81b0a50beed9 @v88aa91ac664a
+// sym: ?vfunc_2@Method2_cee60@fn_000cee60@@QAEXPAX00@Z @db11992ea1ff @w81b0a50beed9 @v4a402040447b
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // Method2<HUDOverlay,void,int,math::Vector>::vfunc_2 @ 0x000cee60
-template <> void Method2<HUDOverlay, void, int,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { HUDOverlay_cee60 * owner = (HUDOverlay_cee60 *)__p0; const Arguments * args = (const Arguments *)__p1; int unused = (int)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method2<HUDOverlay, void, int,math::Vector>::vfunc_2`.
+namespace fn_000cee60 {
+struct Method2_cee60 : hulk_script::FunctionGenView {
+    void (::HUDOverlay::*f_1c)(int, math::Vector);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method2_cee60::vfunc_2(void* __p0, void* __p1, void* __p2) { HUDOverlay_cee60 * owner = (HUDOverlay_cee60 *)__p0; const Arguments * args = (const Arguments *)__p1; int unused = (int)__p2;
 
     (owner->*(*(void (HUDOverlay_cee60::**)(int, Vector_cee60))&this->f_1c))(args->index, args->position);
 }
+} // namespace fn_000cee60
 #if defined(HULK_PTR64)
-template class Method2<HUDOverlay, void, int,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xcee40)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method2<HUDOverlay, void, int,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000cee60::Method2_cee60*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -2261,8 +2361,15 @@ template <> Method2<HUDOverlay, int, int, const char *>::~Method2() {}
 
 
 // 0x000cef00 Method2<HUDOverlay,int,int,const_char_*>::vfunc_2 (33 B): matches/0x000cef00.cpp
-// sym: ?vfunc_2@?$Method2@VHUDOverlay@@HHPBD@@UAEXPAX00@Z
-template <> void Method2<HUDOverlay, int, int, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { HUDOverlay_cef00 * obj = (HUDOverlay_cef00 *)__p0; Args * args = (Args *)__p1; int * out = (int *)__p2;
+// sym: ?vfunc_2@Method2_cef00@fn_000cef00@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method2<HUDOverlay, int, int, const char *>::vfunc_2`.
+namespace fn_000cef00 {
+struct Method2_cef00 : hulk_script::FunctionGenView {
+    int (::HUDOverlay::*f_1c)(int, const char *);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method2_cef00::vfunc_2(void* __p0, void* __p1, void* __p2) { HUDOverlay_cef00 * obj = (HUDOverlay_cef00 *)__p0; Args * args = (Args *)__p1; int * out = (int *)__p2;
 
     int (HUDOverlay_cef00::*fn)(int, int) = (*(int (HUDOverlay_cef00::**)(int, int))&this->f_1c);
     int a = args->a;
@@ -2271,8 +2378,11 @@ template <> void Method2<HUDOverlay, int, int, const char *>::vfunc_2(void* __p0
     if (out)
         *out = result;
 }
+} // namespace fn_000cef00
 #if defined(HULK_PTR64)
-template class Method2<HUDOverlay, int, int, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xceee0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method2<HUDOverlay, int, int, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000cef00::Method2_cef00*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -2300,14 +2410,24 @@ template <> Method2<HUDOverlay, void, bool, float>::~Method2() {}
 
 
 // 0x000cefa0 Method2<HUDOverlay,void,bool,float>::vfunc_2 (24 B): matches/0x000cefa0.cpp
-// sym: ?vfunc_2@?$Method2@VHUDOverlay@@X_NM@@UAEXPAX00@Z
-template <> void Method2<HUDOverlay, void, bool, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void * p = (void *)__p1; void * c = (void *)__p2;
+// sym: ?vfunc_2@Method2_cefa0@fn_000cefa0@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method2<HUDOverlay, void, bool, float>::vfunc_2`.
+namespace fn_000cefa0 {
+struct Method2_cefa0 : hulk_script::FunctionGenView {
+    void (::HUDOverlay::*f_1c)(bool, float);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method2_cefa0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void * p = (void *)__p1; void * c = (void *)__p2;
 
     HUDOverlay_cefa0* h = (HUDOverlay_cefa0*)a;
     (h->*(*(void (HUDOverlay_cefa0::**)(unsigned char, float))&this->f_1c))(*(unsigned char*)p, *(float*)((char*)p + 4));
 }
+} // namespace fn_000cefa0
 #if defined(HULK_PTR64)
-template class Method2<HUDOverlay, void, bool, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xcef80)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method2<HUDOverlay, void, bool, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000cefa0::Method2_cefa0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -2335,8 +2455,15 @@ template <> Method2<HUDOverlay, void, int, bool>::~Method2() {}
 
 
 // 0x000cf030 Method2<HUDOverlay,void,int,bool>::vfunc_2 (25 B): matches/0x000cf030.cpp
-// sym: ?vfunc_2@?$Method2@VHUDOverlay@@XH_N@@UAEXPAX00@Z
-template <> void Method2<HUDOverlay, void, int, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { HUDOverlay_cf030 * h = (HUDOverlay_cf030 *)__p0; void * b = (void *)__p1; void * c = (void *)__p2;
+// sym: ?vfunc_2@Method2_cf030@fn_000cf030@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method2<HUDOverlay, void, int, bool>::vfunc_2`.
+namespace fn_000cf030 {
+struct Method2_cf030 : hulk_script::FunctionGenView {
+    void (::HUDOverlay::*f_1c)(int, bool);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method2_cf030::vfunc_2(void* __p0, void* __p1, void* __p2) { HUDOverlay_cf030 * h = (HUDOverlay_cf030 *)__p0; void * b = (void *)__p1; void * c = (void *)__p2;
 
     struct Args {
         int i;
@@ -2345,8 +2472,11 @@ template <> void Method2<HUDOverlay, void, int, bool>::vfunc_2(void* __p0, void*
     Args* p = (Args*)b;
     (h->*(*(void (HUDOverlay_cf030::**)(int, bool))&this->f_1c))(p->i, p->flag);
 }
+} // namespace fn_000cf030
 #if defined(HULK_PTR64)
-template class Method2<HUDOverlay, void, int, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xcf010)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method2<HUDOverlay, void, int, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000cf030::Method2_cf030*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 namespace fn_f3fdf6d3 {
@@ -2401,8 +2531,15 @@ template <> Method4<HUDOverlay, int, int, int,math::Vector,math::Vector>::~Metho
 
 
 // 0x000cf0e0 Method4<HUDOverlay,int,int,int,math::Vector,math::Vector>::vfunc_2 (115 B): matches/0x000cf0e0.cpp
-// sym: ?vfunc_2@?$Method4@VHUDOverlay@@HHHVVector@math@@V23@@@UAEXPAX00@Z
-template <> void Method4<HUDOverlay, int, int, int,math::Vector,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { HUDOverlay_cf0e0 * o = (HUDOverlay_cf0e0 *)__p0; char * args = (char *)__p1; int * out = (int *)__p2;
+// sym: ?vfunc_2@Method4_cf0e0@fn_000cf0e0@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method4<HUDOverlay, int, int, int,math::Vector,math::Vector>::vfunc_2`.
+namespace fn_000cf0e0 {
+struct Method4_cf0e0 : hulk_script::FunctionGenView {
+    int (::HUDOverlay::*f_1c)(int, int, math::Vector, math::Vector);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method4_cf0e0::vfunc_2(void* __p0, void* __p1, void* __p2) { HUDOverlay_cf0e0 * o = (HUDOverlay_cf0e0 *)__p0; char * args = (char *)__p1; int * out = (int *)__p2;
 
     Fn_cf0e0 fn = (*(Fn_cf0e0 *)&this->f_1c);
     char* p = args;
@@ -2414,8 +2551,11 @@ template <> void Method4<HUDOverlay, int, int, int,math::Vector,math::Vector>::v
     if (out)
         *out = r;
 }
+} // namespace fn_000cf0e0
 #if defined(HULK_PTR64)
-template class Method4<HUDOverlay, int, int, int,math::Vector,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xcf0c0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method4<HUDOverlay, int, int, int,math::Vector,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000cf0e0::Method4_cf0e0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 namespace fn_f3fdf6d3 {
@@ -2472,7 +2612,7 @@ template class Method3<HUDOverlay, void, int, int,math::Vector>; // (ren2) nativ
 
 
 // 0x000cf1e0 Method3<HUDOverlay,void,int,int,math::Vector>::vfunc_2 (57 B): matches/0x000cf1e0.cpp [wrapped: conflict: Arguments; Function; HUDOverlay; Method3]
-// sym: ?vfunc_2@Method3@fn_000cf1e0@@UAEXPAUHUDOverlay@2@PAUArguments@2@PAX@Z
+// sym: ?vfunc_2@Method3@fn_000cf1e0@@QAEXPAUHUDOverlay@2@PAUArguments@2@PAX@Z
 namespace fn_000cf1e0 {
 namespace math {
 struct Vector {
@@ -2486,15 +2626,15 @@ struct Arguments {
     int a, b;
     math::Vector v;
 };
-struct Function {
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2(HUDOverlay*, Arguments*, void*);
+struct Function { void* vftable;   /* (script2) the vftable word, no stand-in vftable */
+    void vfunc_0();
+    void vfunc_1();
+    void vfunc_2(HUDOverlay*, Arguments*, void*);
 };
 struct Method3 : Function {
     char reserved[24];
     void (HUDOverlay::*callback)(int, int, math::Vector);
-    virtual void vfunc_2(HUDOverlay*, Arguments*, void*);
+    void vfunc_2(HUDOverlay*, Arguments*, void*);
 };
 void Method3::vfunc_2(HUDOverlay* object, Arguments* args, void* unused) {
     int* p = &args->a;
@@ -2530,17 +2670,27 @@ template <> Method2<HUDOverlay, void, int, int>::~Method2() {}
 
 
 // 0x000cf290 Method2<HUDOverlay,void,int,int>::vfunc_2 (23 B): matches/0x000cf290.cpp
-// sym: ?vfunc_2@?$Method2@VHUDOverlay@@XHH@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method2_cf290@fn_000cf290@@QAEXPAX00@Z
 // Same code shape as 0x000beac0 (propagated; names are from that function)
-template <> void Method2<HUDOverlay, void, int, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; void * p = (void *)__p1; hulk_intptr n = (hulk_intptr)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method2<HUDOverlay, void, int, int>::vfunc_2`.
+namespace fn_000cf290 {
+struct Method2_cf290 : hulk_script::FunctionGenView {
+    void (::HUDOverlay::*f_1c)(int, int);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method2_cf290::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; void * p = (void *)__p1; hulk_intptr n = (hulk_intptr)__p2;
 
     CFEManager_cf290* m = (CFEManager_cf290*)unused;
     const char* s = *(const char**)p;
     int x = *(int*)((char*)p + 4);
     (m->*(*(void (CFEManager_cf290::**)(const char *, int))&this->f_1c))(s, x);
 }
+} // namespace fn_000cf290
 #if defined(HULK_PTR64)
-template class Method2<HUDOverlay, void, int, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xcf270)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method2<HUDOverlay, void, int, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000cf290::Method2_cf290*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 namespace fn_f3fdf6d3 {
@@ -2588,18 +2738,28 @@ template <> Method5<HUDOverlay, int, int, const char *,math::Vector,math::Vector
 
 
 // 0x000cf350 Method5<HUDOverlay,int,int,const_char_*,math::Vector,math::Vector,math::Vector>::vfunc_2 (166 B): equivalent/0x000cf350.cpp
-// sym: ?vfunc_2@?$Method5@VHUDOverlay@@HHPBDVVector@math@@V23@V23@@@UAEXPAX00@Z @7e2cce862d80 @wd72534a0dbce @v2e2c24ec372b
+// sym: ?vfunc_2@Method5_cf350@fn_000cf350@@QAEXPAX00@Z @7e2cce862d80 @wd72534a0dbce @v68e14f3861cd
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // Method5<HUDOverlay,int,int,const_char_*,math::Vector,math::Vector,math::Vector>::vfunc_2 @ 0x000cf350
-template <> void Method5<HUDOverlay, int, int, const char *,math::Vector,math::Vector,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { HUDOverlay_cf350 * obj = (HUDOverlay_cf350 *)__p0; Args_cf350 * args = (Args_cf350 *)__p1; int * out = (int *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method5<HUDOverlay, int, int, const char *,math::Vector,math::Vector,math::Vector>::vfunc_2`.
+namespace fn_000cf350 {
+struct Method5_cf350 : hulk_script::FunctionGenView {
+    int (::HUDOverlay::*f_1c)(int, const char *, math::Vector, math::Vector, math::Vector);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method5_cf350::vfunc_2(void* __p0, void* __p1, void* __p2) { HUDOverlay_cf350 * obj = (HUDOverlay_cf350 *)__p0; Args_cf350 * args = (Args_cf350 *)__p1; int * out = (int *)__p2;
 
     ActFn_cf350 fn = (*(ActFn_cf350 *)&this->f_1c);
     int r = (obj->*fn)(args->a1, args->a2, args->v3, args->v4, args->v5);
     if (out)
         *out = r;
 }
+} // namespace fn_000cf350
 #if defined(HULK_PTR64)
-template class Method5<HUDOverlay, int, int, const char *,math::Vector,math::Vector,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xcf330)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method5<HUDOverlay, int, int, const char *,math::Vector,math::Vector,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000cf350::Method5_cf350*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -2627,14 +2787,24 @@ template <> Method1<HUDOverlay, void, bool>::~Method1() {}
 
 
 // 0x000cf460 Method1<HUDOverlay,void,bool>::vfunc_2 (21 B): matches/0x000cf460.cpp
-// sym: ?vfunc_2@?$Method1@VHUDOverlay@@X_N@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method1_cf460@fn_000cf460@@QAEXPAX00@Z
 // Same code shape as 0x0002e290 (propagated; names are from that function)
-template <> void Method1<HUDOverlay, void, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_cf460 * obj = (CActorManager_cf460 *)__p0; unsigned char * b = (unsigned char *)__p1; void * unused = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method1<HUDOverlay, void, bool>::vfunc_2`.
+namespace fn_000cf460 {
+struct Method1_cf460 : hulk_script::FunctionGenView {
+    void (::HUDOverlay::*f_1c)(bool);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method1_cf460::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_cf460 * obj = (CActorManager_cf460 *)__p0; unsigned char * b = (unsigned char *)__p1; void * unused = (void *)__p2;
 
     (obj->*(*(MFn_cf460 *)&this->f_1c))(*b);
 }
+} // namespace fn_000cf460
 #if defined(HULK_PTR64)
-template class Method1<HUDOverlay, void, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xcf440)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method1<HUDOverlay, void, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000cf460::Method1_cf460*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -2772,13 +2942,24 @@ template <> Closure0<HUDOverlay, void>::~Closure0() {}
 
 
 // 0x000cf830 Closure0<HUDOverlay,void>::vfunc_2 (11 B): matches/0x000cf830.cpp
-// sym: ?vfunc_2@?$Closure0@VHUDOverlay@@X@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure0_cf830@fn_000cf830@@QAEXPAX00@Z
 // Same code shape as 0x0002f820 (propagated; names are from that function)
-template <> void Closure0<HUDOverlay, void>::vfunc_2(void* __p0, void* __p1, void* __p2) {
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure0<HUDOverlay, void>::vfunc_2`.
+namespace fn_000cf830 {
+struct Closure0_cf830 : hulk_script::FunctionGenView {
+    void (::HUDOverlay::*f_1c)();
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure0_cf830::vfunc_2(void* __p0, void* __p1, void* __p2) {
     ((*(CActorManager_cf830 * *)&this->f_20)->*(*(void (CActorManager_cf830::**)())&this->f_1c))();
 }
+} // namespace fn_000cf830
 #if defined(HULK_PTR64)
-template class Closure0<HUDOverlay, void>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xcf810)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure0<HUDOverlay, void>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000cf830::Closure0_cf830*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -2835,14 +3016,25 @@ template <> Closure1<HUDOverlay, void, const char *>::~Closure1() {}
 
 
 // 0x000cf8b0 Closure1<HUDOverlay,void,const_char_*>::vfunc_2 (18 B): matches/0x000cf8b0.cpp
-// sym: ?vfunc_2@?$Closure1@VHUDOverlay@@XPBD@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure1_cf8b0@fn_000cf8b0@@QAEXPAX00@Z
 // Same code shape as 0x0002ed90 (propagated; names are from that function)
-template <> void Closure1<HUDOverlay, void, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; const char ** b = (const char **)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure1<HUDOverlay, void, const char *>::vfunc_2`.
+namespace fn_000cf8b0 {
+struct Closure1_cf8b0 : hulk_script::FunctionGenView {
+    void (::HUDOverlay::*f_1c)(const char *);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure1_cf8b0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; const char ** b = (const char **)__p1; void * c = (void *)__p2;
 
     ((*(CActorManager_cf8b0 * *)&this->f_20)->*(*(void (CActorManager_cf8b0::**)(const char *))&this->f_1c))(*b);
 }
+} // namespace fn_000cf8b0
 #if defined(HULK_PTR64)
-template class Closure1<HUDOverlay, void, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xcf890)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure1<HUDOverlay, void, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000cf8b0::Closure1_cf8b0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -2896,14 +3088,25 @@ template <> Closure1<HUDOverlay, void, int>::~Closure1() {}
 
 
 // 0x000cf940 Closure1<HUDOverlay,void,int>::vfunc_2 (18 B): matches/0x000cf940.cpp
-// sym: ?vfunc_2@?$Closure1@VHUDOverlay@@XPBD@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure1_cf940@fn_000cf940@@QAEXPAX00@Z
 // Same code shape as 0x0002ed90 (propagated; names are from that function)
-template <> void Closure1<HUDOverlay, void, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; const char ** b = (const char **)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure1<HUDOverlay, void, int>::vfunc_2`.
+namespace fn_000cf940 {
+struct Closure1_cf940 : hulk_script::FunctionGenView {
+    void (::HUDOverlay::*f_1c)(const char *);   // (script2) the instantiation this code-identical block shares (its HEAD pin)
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure1_cf940::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; const char ** b = (const char **)__p1; void * c = (void *)__p2;
 
     ((*(CActorManager_cf940 * *)&this->f_20)->*(*(void (CActorManager_cf940::**)(const char *))&this->f_1c))(*b);
 }
+} // namespace fn_000cf940
 #if defined(HULK_PTR64)
-template class Closure1<HUDOverlay, void, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xcf920)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure1<HUDOverlay, void, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000cf940::Closure1_cf940*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -2960,14 +3163,25 @@ template <> Closure1<HUDOverlay, void, float>::~Closure1() {}
 
 
 // 0x000cf9d0 Closure1<HUDOverlay,void,float>::vfunc_2 (18 B): matches/0x000cf9d0.cpp
-// sym: ?vfunc_2@?$Closure1@VHUDOverlay@@XPBD@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure1_cf9d0@fn_000cf9d0@@QAEXPAX00@Z
 // Same code shape as 0x0002ed90 (propagated; names are from that function)
-template <> void Closure1<HUDOverlay, void, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; const char ** b = (const char **)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure1<HUDOverlay, void, float>::vfunc_2`.
+namespace fn_000cf9d0 {
+struct Closure1_cf9d0 : hulk_script::FunctionGenView {
+    void (::HUDOverlay::*f_1c)(float);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure1_cf9d0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; const char ** b = (const char **)__p1; void * c = (void *)__p2;
 
     ((*(CActorManager_cf9d0 * *)&this->f_20)->*(*(void (CActorManager_cf9d0::**)(const char *))&this->f_1c))(*b);
 }
+} // namespace fn_000cf9d0
 #if defined(HULK_PTR64)
-template class Closure1<HUDOverlay, void, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xcf9b0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure1<HUDOverlay, void, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000cf9d0::Closure1_cf9d0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -2995,8 +3209,16 @@ template <> Closure4<HUDOverlay, void, const char *, float, float,math::Vector>:
 
 
 // 0x000cfa40 Closure4<HUDOverlay,void,const_char_*,float,float,math::Vector>::vfunc_2 (79 B): matches/0x000cfa40.cpp
-// sym: ?vfunc_2@?$Closure4@VHUDOverlay@@XPBDMMVVector@math@@@@UAEXPAX00@Z
-template <> void Closure4<HUDOverlay, void, const char *, float, float,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; void * args = (void *)__p1; void * extra = (void *)__p2;
+// sym: ?vfunc_2@Closure4_cfa40@fn_000cfa40@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure4<HUDOverlay, void, const char *, float, float,math::Vector>::vfunc_2`.
+namespace fn_000cfa40 {
+struct Closure4_cfa40 : hulk_script::FunctionGenView {
+    void (::HUDOverlay::*f_1c)(const char *, float, float, math::Vector);
+    hulk_intptr f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure4_cfa40::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; void * args = (void *)__p1; void * extra = (void *)__p2;
 
     char* p = (char*)args;
     const char* s = *(const char**)p;
@@ -3008,8 +3230,11 @@ template <> void Closure4<HUDOverlay, void, const char *, float, float,math::Vec
     math::Vector_cfa40 v = *(math::Vector_cfa40*)p;
     ((*(HUDOverlay_cfa40 * *)&this->f_20)->*(*(void (HUDOverlay_cfa40::**)(const char *, float, float, math::Vector_cfa40))&this->f_1c))(s, a, b, v);
 }
+} // namespace fn_000cfa40
 #if defined(HULK_PTR64)
-template class Closure4<HUDOverlay, void, const char *, float, float,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xcfa20)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure4<HUDOverlay, void, const char *, float, float,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000cfa40::Closure4_cfa40*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -3063,9 +3288,17 @@ template <> Closure0<HUDOverlay, int>::~Closure0() {}
 
 
 // 0x000cfb70 Closure0<HUDOverlay,int>::vfunc_2 (23 B): matches/0x000cfb70.cpp
-// sym: ?vfunc_2@?$Closure0@VHUDOverlay@@H@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure0_cfb70@fn_000cfb70@@QAEXPAX00@Z
 // Same code shape as 0x0002ee10 (propagated; names are from that function)
-template <> void Closure0<HUDOverlay, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { int * out = (int *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure0<HUDOverlay, int>::vfunc_2`.
+namespace fn_000cfb70 {
+struct Closure0_cfb70 : hulk_script::FunctionGenView {
+    int (::HUDOverlay::*f_1c)();
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure0_cfb70::vfunc_2(void* __p0, void* __p1, void* __p2) { int * out = (int *)__p2;
 
     CActorManager_cfb70* obj = (*(CActorManager_cfb70 * *)&this->f_20);
     int (CActorManager_cfb70::*fn)() = (*(int (CActorManager_cfb70::**)())&this->f_1c);
@@ -3073,8 +3306,11 @@ template <> void Closure0<HUDOverlay, int>::vfunc_2(void* __p0, void* __p1, void
     if (out)
         *out = result;
 }
+} // namespace fn_000cfb70
 #if defined(HULK_PTR64)
-template class Closure0<HUDOverlay, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xcfb50)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure0<HUDOverlay, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000cfb70::Closure0_cfb70*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -3131,13 +3367,24 @@ template <> Closure1<HUDOverlay, void,math::Vector>::~Closure1() {}
 
 
 // 0x000cfc00 Closure1<HUDOverlay,void,math::Vector>::vfunc_2 (38 B): matches/0x000cfc00.cpp
-// sym: ?vfunc_2@?$Closure1@VHUDOverlay@@XVVector@math@@@@UAEXPAX00@Z
-template <> void Closure1<HUDOverlay, void,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { math::Vector_cfc00 * v = (math::Vector_cfc00 *)__p1;
+// sym: ?vfunc_2@Closure1_cfc00@fn_000cfc00@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure1<HUDOverlay, void,math::Vector>::vfunc_2`.
+namespace fn_000cfc00 {
+struct Closure1_cfc00 : hulk_script::FunctionGenView {
+    void (::HUDOverlay::*f_1c)(math::Vector);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure1_cfc00::vfunc_2(void* __p0, void* __p1, void* __p2) { math::Vector_cfc00 * v = (math::Vector_cfc00 *)__p1;
 
     ((*(HUDOverlay_cfc00 * *)&this->f_20)->*(*(void (HUDOverlay_cfc00::**)(math::Vector_cfc00))&this->f_1c))(*v);
 }
+} // namespace fn_000cfc00
 #if defined(HULK_PTR64)
-template class Closure1<HUDOverlay, void,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xcfbe0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure1<HUDOverlay, void,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000cfc00::Closure1_cfc00*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -3195,17 +3442,17 @@ template class Closure2<HUDOverlay, int, int,math::Vector>; // (ren2) native onl
 
 
 // 0x000cfcb0 Closure2<HUDOverlay,int,int,math::Vector>::vfunc_2 (61 B): equivalent/0x000cfcb0.cpp [wrapped: conflict: Args; Closure2; HUDOverlay]
-// sym: ?vfunc_2@Closure2@fn_000cfcb0@@UAEXHPAUArgs@2@PAH@Z @69c5af852677 @w0dfc1d6ccf29 @v5b82b1b73854
+// sym: ?vfunc_2@Closure2@fn_000cfcb0@@QAEXHPAUArgs@2@PAH@Z @69c5af852677 @w0dfc1d6ccf29 @vfc0034381213
 namespace fn_000cfcb0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // Closure2<HUDOverlay,int,int,math::Vector>::vfunc_2 @ 0x000cfcb0
 namespace math { struct Vector { float x,y,z; }; }
 struct HUDOverlay { int FUN_00000000(int, math::Vector); };
 struct Args { int number; math::Vector vector; };
-struct Closure2 {
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2(int ignored, Args* arguments, int* result);
+struct Closure2 { void* vftable;   /* (script2) the vftable word, no stand-in vftable */
+    void vfunc_0();
+    void vfunc_1();
+    void vfunc_2(int ignored, Args* arguments, int* result);
     ScriptFunctionFields fields;   // (script2) Function's fields (was char padding[0x18])
     int (HUDOverlay::*method)(int, math::Vector);
     HUDOverlay* object;
@@ -3271,10 +3518,18 @@ template <> Closure2<HUDOverlay, void, int,math::Vector>::~Closure2() {}
 
 
 // 0x000cfd70 Closure2<HUDOverlay,void,int,math::Vector>::vfunc_2 (47 B): equivalent/0x000cfd70.cpp
-// sym: ?vfunc_2@?$Closure2@VHUDOverlay@@XHVVector@math@@@@UAEXPAX00@Z @24b1dd12cec5 @wc560a9a5bfca @vfec5a859f574
+// sym: ?vfunc_2@Closure2_cfd70@fn_000cfd70@@QAEXPAX00@Z @24b1dd12cec5 @wc560a9a5bfca @ve94a11637879
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Closure2<HUDOverlay,void,int,math::Vector>::vfunc_2 @ 0x000cfd70
-template <> void Closure2<HUDOverlay, void, int,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { const void * args = (const void *)__p1;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure2<HUDOverlay, void, int,math::Vector>::vfunc_2`.
+namespace fn_000cfd70 {
+struct Closure2_cfd70 : hulk_script::FunctionGenView {
+    void (::HUDOverlay::*f_1c)(int, math::Vector);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure2_cfd70::vfunc_2(void* __p0, void* __p1, void* __p2) { const void * args = (const void *)__p1;
 
     const int* words = (const int*)args;
     Vector_cfd70 vector;
@@ -3283,8 +3538,11 @@ template <> void Closure2<HUDOverlay, void, int,math::Vector>::vfunc_2(void* __p
     vector.z = *(const float*)(words + 3);
     ((*(HUDOverlay_cfd70 * *)&this->f_20)->*(*(void (HUDOverlay_cfd70::**)(int, Vector_cfd70))&this->f_1c))(words[0], vector);
 }
+} // namespace fn_000cfd70
 #if defined(HULK_PTR64)
-template class Closure2<HUDOverlay, void, int,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xcfd50)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure2<HUDOverlay, void, int,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000cfd70::Closure2_cfd70*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 namespace fn_f3fdf6d3 {
@@ -3397,13 +3655,24 @@ template <> Closure2<HUDOverlay, void, bool, float>::~Closure2() {}
 
 
 // 0x000cfed0 Closure2<HUDOverlay,void,bool,float>::vfunc_2 (23 B): matches/0x000cfed0.cpp
-// sym: ?vfunc_2@?$Closure2@VHUDOverlay@@X_NM@@UAEXPAX00@Z
-template <> void Closure2<HUDOverlay, void, bool, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { unsigned char * args = (unsigned char *)__p1;
+// sym: ?vfunc_2@Closure2_cfed0@fn_000cfed0@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure2<HUDOverlay, void, bool, float>::vfunc_2`.
+namespace fn_000cfed0 {
+struct Closure2_cfed0 : hulk_script::FunctionGenView {
+    void (::HUDOverlay::*f_1c)(bool, float);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure2_cfed0::vfunc_2(void* __p0, void* __p1, void* __p2) { unsigned char * args = (unsigned char *)__p1;
 
     ((*(HUDOverlay_cfed0 * *)&this->f_20)->*(*(void (HUDOverlay_cfed0::**)(unsigned char, float))&this->f_1c))(args[0], *(float*)(args + 4));
 }
+} // namespace fn_000cfed0
 #if defined(HULK_PTR64)
-template class Closure2<HUDOverlay, void, bool, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xcfeb0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure2<HUDOverlay, void, bool, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000cfed0::Closure2_cfed0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -3477,16 +3746,30 @@ void Closure2::vfunc_2(int x, int a2, int a3) {
 
 
 // 0x000d0040 Closure3<HUDOverlay,void,int,int,math::Vector>::vfunc_2 (56 B): equivalent/0x000d0040.cpp
-// sym: ?vfunc_2@?$Closure3@VHUDOverlay@@XHHVVector@math@@@@UAEXPAX00@Z @8edf7df33cb8 @wcf864df72b4f @vd10226448f54
+// sym: ?vfunc_2@Closure3_d0040@fn_000d0040@@QAEXPAX00@Z @8edf7df33cb8 @wcf864df72b4f @v1af521b00216
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // Closure3<HUDOverlay,void,int,int,math::Vector>::vfunc_2 @ 0x000d0040
-template <> void Closure3<HUDOverlay, void, int, int,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; const int * args = (const int *)__p1; void * unused2 = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure3<HUDOverlay, void, int, int,math::Vector>::vfunc_2`.
+namespace fn_000d0040 {
+struct Closure3_d0040 : hulk_script::FunctionGenView {
+    void (::HUDOverlay::*f_1c)(int, int, math::Vector);
+    hulk_intptr f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure3_d0040::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; const int * args = (const int *)__p1; void * unused2 = (void *)__p2;
 
     math::Vector_d0040 v;
     const math::Vector_d0040* source = (const math::Vector_d0040*)(args+2);
     v = *source;
     ((*(HUDOverlay_d0040 * *)&this->f_20)->*(*(void (HUDOverlay_d0040::**)(int, int, math::Vector_d0040))&this->f_1c))(args[0],args[1],v);
 }
+} // namespace fn_000d0040
+#if defined(HULK_PTR64)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure3<HUDOverlay, void, int, int,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000d0040::Closure3_d0040*)this)->vfunc_2(__p0, __p1, __p2); }
+#endif
 
 
 // 0x000d0080 FUN_000d0080 (89 B): matches/0x000d0080.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
@@ -3585,12 +3868,26 @@ Closure1::Closure1(const char* name, Owner_d0180* object, Fn_d0180 function) : h
 
 
 // 0x000d01f0 Closure1<HUDOverlay,void,bool>::vfunc_2 (20 B): matches/0x000d01f0.cpp
-// sym: ?vfunc_2@?$Closure1@VHUDOverlay@@X_N@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure1_d01f0@fn_000d01f0@@QAEXPAX00@Z
 // Same code shape as 0x00030040 (propagated; names are from that function)
-template <> void Closure1<HUDOverlay, void, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { unsigned char * arg = (unsigned char *)__p1;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure1<HUDOverlay, void, bool>::vfunc_2`.
+namespace fn_000d01f0 {
+struct Closure1_d01f0 : hulk_script::FunctionGenView {
+    void (::HUDOverlay::*f_1c)(bool);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure1_d01f0::vfunc_2(void* __p0, void* __p1, void* __p2) { unsigned char * arg = (unsigned char *)__p1;
 
     ((*(Actor_d01f0 * *)&this->f_20)->*(*(void (Actor_d01f0::**)(unsigned char))&this->f_1c))(*arg);
 }
+} // namespace fn_000d01f0
+#if defined(HULK_PTR64)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure1<HUDOverlay, void, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000d01f0::Closure1_d01f0*)this)->vfunc_2(__p0, __p1, __p2); }
+#endif
 
 
 // 0x000d0240 HUDOverlay::vfunc_3 (935 B): equivalent/0x000d0240.cpp [wrapped: conflict: HUDOverlay; Overlay]

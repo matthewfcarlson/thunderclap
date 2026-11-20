@@ -927,8 +927,15 @@ template <> Method2<CActorManager, bool, const char *, bool>::~Method2() {}
 
 
 // 0x0002c510 Method2<CActorManager,bool,const_char_*,bool>::vfunc_2 (41 B): matches/0x0002c510.cpp
-// sym: ?vfunc_2@?$Method2@UCActorManager@@_NPBD_N@@UAEXPAX00@Z
-template <> void Method2<CActorManager, bool, const char *, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_2c510 * obj = (CActorManager_2c510 *)__p0; Pair_2c510 * p = (Pair_2c510 *)__p1; bool * out = (bool *)__p2;
+// sym: ?vfunc_2@Method2_2c510@fn_0002c510@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method2<CActorManager, bool, const char *, bool>::vfunc_2`.
+namespace fn_0002c510 {
+struct Method2_2c510 : hulk_script::FunctionGenView {
+    bool (::CActorManager::*f_1c)(const char *, bool);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method2_2c510::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_2c510 * obj = (CActorManager_2c510 *)__p0; Pair_2c510 * p = (Pair_2c510 *)__p1; bool * out = (bool *)__p2;
 
     bool (CActorManager_2c510::*fn)(const char*, bool) = (*(bool (CActorManager_2c510::**)(const char *, bool))&this->f_1c);
     const char* s = p->p;
@@ -937,8 +944,11 @@ template <> void Method2<CActorManager, bool, const char *, bool>::vfunc_2(void*
     if (out)
         *out = r;
 }
+} // namespace fn_0002c510
 #if defined(HULK_PTR64)
-template class Method2<CActorManager, bool, const char *, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2c4f0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method2<CActorManager, bool, const char *, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002c510::Method2_2c510*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -969,17 +979,17 @@ template class Method2<CActorManager, void, const char *,math::Vector>; // (ren2
 
 
 // 0x0002c5b0 Method2<CActorManager,void,const_char_*,math::Vector>::vfunc_2 (48 B): equivalent/0x0002c5b0.cpp [wrapped: conflict: Args; CActorManager; Function; Method2]
-// sym: ?vfunc_2@Method2@fn_0002c5b0@@UAEXPAUCActorManager@2@PBXH@Z @db11992ea1ff @w53dc8781dea7 @v88007a9e27e9
+// sym: ?vfunc_2@Method2@fn_0002c5b0@@QAEXPAUCActorManager@2@PBXH@Z @db11992ea1ff @w53dc8781dea7 @v2e912292eab5
 namespace fn_0002c5b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // Method2<CActorManager,void,const_char_*,math::Vector>::vfunc_2 @ 0x0002c5b0
 namespace math { struct Vector { float x, y, z; }; }
 struct CActorManager { void FUN_0002c5b0(const char *, math::Vector); };
-struct Function { virtual void vfunc_0(); virtual void vfunc_1(); };
+struct Function { void* vftable;   /* (script2) the vftable word, no stand-in vftable */ void vfunc_0(); void vfunc_1(); };
 struct Method2 : Function {
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2(CActorManager *actor, const void *args, int unused);
+    void vfunc_0();
+    void vfunc_1();
+    void vfunc_2(CActorManager *actor, const void *args, int unused);
     ScriptFunctionFields fields;   // (script2) Function's fields (was char padding[0x18])
     void (CActorManager::*method)(const char *, math::Vector);
 };
@@ -1015,17 +1025,27 @@ template <> Method2<CActorManager, void, const char *, float>::~Method2() {}
 
 
 // 0x0002c650 Method2<CActorManager,void,const_char_*,float>::vfunc_2 (23 B): matches/0x0002c650.cpp
-// sym: ?vfunc_2@?$Method2@UCActorManager@@XPBDM@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method2_2c650@fn_0002c650@@QAEXPAX00@Z
 // Same code shape as 0x000beac0 (propagated; names are from that function)
-template <> void Method2<CActorManager, void, const char *, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; void * p = (void *)__p1; hulk_intptr n = (hulk_intptr)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method2<CActorManager, void, const char *, float>::vfunc_2`.
+namespace fn_0002c650 {
+struct Method2_2c650 : hulk_script::FunctionGenView {
+    void (::CActorManager::*f_1c)(const char *, float);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method2_2c650::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; void * p = (void *)__p1; hulk_intptr n = (hulk_intptr)__p2;
 
     CFEManager_2c650* m = (CFEManager_2c650*)unused;
     const char* s = *(const char**)p;
     int x = *(int*)((char*)p + 4);
     (m->*(*(void (CFEManager_2c650::**)(const char *, int))&this->f_1c))(s, x);
 }
+} // namespace fn_0002c650
 #if defined(HULK_PTR64)
-template class Method2<CActorManager, void, const char *, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2c630)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method2<CActorManager, void, const char *, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002c650::Method2_2c650*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -1053,17 +1073,27 @@ template <> Method2<CActorManager, void, const char *, int>::~Method2() {}
 
 
 // 0x0002c6e0 Method2<CActorManager,void,const_char_*,int>::vfunc_2 (23 B): matches/0x0002c6e0.cpp
-// sym: ?vfunc_2@?$Method2@UCActorManager@@XPBDM@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method2_2c6e0@fn_0002c6e0@@QAEXPAX00@Z
 // Same code shape as 0x000beac0 (propagated; names are from that function)
-template <> void Method2<CActorManager, void, const char *, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; void * p = (void *)__p1; hulk_intptr n = (hulk_intptr)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method2<CActorManager, void, const char *, int>::vfunc_2`.
+namespace fn_0002c6e0 {
+struct Method2_2c6e0 : hulk_script::FunctionGenView {
+    void (::CActorManager::*f_1c)(const char *, int);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method2_2c6e0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; void * p = (void *)__p1; hulk_intptr n = (hulk_intptr)__p2;
 
     CFEManager_2c6e0* m = (CFEManager_2c6e0*)unused;
     const char* s = *(const char**)p;
     int x = *(int*)((char*)p + 4);
     (m->*(*(void (CFEManager_2c6e0::**)(const char *, int))&this->f_1c))(s, x);
 }
+} // namespace fn_0002c6e0
 #if defined(HULK_PTR64)
-template class Method2<CActorManager, void, const char *, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2c6c0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method2<CActorManager, void, const char *, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002c6e0::Method2_2c6e0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -1113,8 +1143,15 @@ template <> Method1<CActorManager, float, const char *>::~Method1() {}
 
 
 // 0x0002c760 Method1<CActorManager,float,const_char_*>::vfunc_2 (42 B): matches/0x0002c760.cpp
-// sym: ?vfunc_2@?$Method1@UCActorManager@@MPBD@@UAEXPAX00@Z
-template <> void Method1<CActorManager, float, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_2c760 * a = (CActorManager_2c760 *)__p0; const char ** p = (const char **)__p1; float * out = (float *)__p2;
+// sym: ?vfunc_2@Method1_2c760@fn_0002c760@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method1<CActorManager, float, const char *>::vfunc_2`.
+namespace fn_0002c760 {
+struct Method1_2c760 : hulk_script::FunctionGenView {
+    float (::CActorManager::*f_1c)(const char *);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method1_2c760::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_2c760 * a = (CActorManager_2c760 *)__p0; const char ** p = (const char **)__p1; float * out = (float *)__p2;
 
     Fn_2c760 f = (*(Fn_2c760 *)&this->f_1c);
     const char* s = *p;
@@ -1122,8 +1159,11 @@ template <> void Method1<CActorManager, float, const char *>::vfunc_2(void* __p0
     if (out)
         *out = x;
 }
+} // namespace fn_0002c760
 #if defined(HULK_PTR64)
-template class Method1<CActorManager, float, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2c740)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method1<CActorManager, float, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002c760::Method1_2c760*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -1176,8 +1216,15 @@ template <> Method1<CActorManager, bool, const char *>::~Method1() {}
 
 
 // 0x0002c7f0 Method1<CActorManager,bool,const_char_*>::vfunc_2 (29 B): matches/0x0002c7f0.cpp
-// sym: ?vfunc_2@?$Method1@UCActorManager@@_NPBD@@UAEXPAX00@Z
-template <> void Method1<CActorManager, bool, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_2c7f0 * obj = (CActorManager_2c7f0 *)__p0; const char ** arg = (const char **)__p1; bool * out = (bool *)__p2;
+// sym: ?vfunc_2@Method1_2c7f0@fn_0002c7f0@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method1<CActorManager, bool, const char *>::vfunc_2`.
+namespace fn_0002c7f0 {
+struct Method1_2c7f0 : hulk_script::FunctionGenView {
+    bool (::CActorManager::*f_1c)(const char *);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method1_2c7f0::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_2c7f0 * obj = (CActorManager_2c7f0 *)__p0; const char ** arg = (const char **)__p1; bool * out = (bool *)__p2;
 
     bool (CActorManager_2c7f0::*fn)(const char*) = (*(bool (CActorManager_2c7f0::**)(const char *))&this->f_1c);
     const char* val = *arg;
@@ -1185,8 +1232,11 @@ template <> void Method1<CActorManager, bool, const char *>::vfunc_2(void* __p0,
     if (out)
         *out = r;
 }
+} // namespace fn_0002c7f0
 #if defined(HULK_PTR64)
-template class Method1<CActorManager, bool, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2c7d0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method1<CActorManager, bool, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002c7f0::Method1_2c7f0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -1238,15 +1288,25 @@ template <> Method3<CActorManager, void, const char *, float, bool>::~Method3() 
 
 
 // 0x0002c890 Method3<CActorManager,void,const_char_*,float,bool>::vfunc_2 (31 B): equivalent/0x0002c890.cpp
-// sym: ?vfunc_2@?$Method3@UCActorManager@@XPBDM_N@@UAEXPAX00@Z @086ee6cd29ba @wc99d4108e717 @vc800b2dac207
+// sym: ?vfunc_2@Method3_2c890@fn_0002c890@@QAEXPAX00@Z @086ee6cd29ba @wc99d4108e717 @v34b559aac44e
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Method3<CActorManager,void,const_char_*,float,bool>::vfunc_2 @ 0x0002c890
-template <> void Method3<CActorManager, void, const char *, float, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_2c890 * actor = (CActorManager_2c890 *)__p0; const CallArguments * arguments = (const CallArguments *)__p1; hulk_intptr unused = (hulk_intptr)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method3<CActorManager, void, const char *, float, bool>::vfunc_2`.
+namespace fn_0002c890 {
+struct Method3_2c890 : hulk_script::FunctionGenView {
+    void (::CActorManager::*f_1c)(const char *, float, bool);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method3_2c890::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_2c890 * actor = (CActorManager_2c890 *)__p0; const CallArguments * arguments = (const CallArguments *)__p1; hulk_intptr unused = (hulk_intptr)__p2;
 
  (actor->*(*(void (CActorManager_2c890::**)(const char *, float, bool))&this->f_1c))(arguments->text, arguments->value, arguments->enabled);
 }
+} // namespace fn_0002c890
 #if defined(HULK_PTR64)
-template class Method3<CActorManager, void, const char *, float, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2c870)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method3<CActorManager, void, const char *, float, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002c890::Method3_2c890*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -1301,21 +1361,21 @@ template class Method3<CActorManager, void, const char *, float, const char *>; 
 
 
 // 0x0002c930 Method3<CActorManager,void,const_char_*,float,const_char_*>::vfunc_2 (29 B): equivalent/0x0002c930.cpp [wrapped: conflict: Function; Method3]
-// sym: ?vfunc_2@Method3@fn_0002c930@@UAEXPAUCActorManager@2@PBUArgs@2@PAX@Z @a7a6d240b96d @wba0c35a5e91c @v1a3fdee4cbdb
+// sym: ?vfunc_2@Method3@fn_0002c930@@QAEXPAUCActorManager@2@PBUArgs@2@PAX@Z @a7a6d240b96d @wba0c35a5e91c @v1b5aea859e03
 namespace fn_0002c930 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // Method3<CActorManager,void,const_char_*,float,const_char_*>::vfunc_2 @ 0x0002c930
 struct CActorManager {};
 struct Args { const char *first; float second; const char *third; };
-struct Function {
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2(CActorManager *, const Args *, void *);
+struct Function { void* vftable;   /* (script2) the vftable word, no stand-in vftable */
+    void vfunc_0();
+    void vfunc_1();
+    void vfunc_2(CActorManager *, const Args *, void *);
 };
 struct Method3 : Function {
     ScriptFunctionFields fields;   // (script2) Function's fields (was char padding[0x1c - sizeof(Function)])
     void (CActorManager::*callback)(const char *, float, const char *);
-    virtual void vfunc_2(CActorManager *, const Args *, void *);
+    void vfunc_2(CActorManager *, const Args *, void *);
 };
 void Method3::vfunc_2(CActorManager *actor, const Args *args, void *) {
     (actor->*callback)(args->first, args->second, args->third);
@@ -1347,16 +1407,26 @@ template <> Method1<CActorManager, int, const char *>::~Method1() {}
 
 
 // 0x0002c9b0 Method1<CActorManager,int,const_char_*>::vfunc_2 (29 B): matches/0x0002c9b0.cpp
-// sym: ?vfunc_2@?$Method1@UCActorManager@@HPBD@@UAEXPAX00@Z
-template <> void Method1<CActorManager, int, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_2c9b0 * arg = (CActorManager_2c9b0 *)__p0; const char ** value = (const char **)__p1; int * out = (int *)__p2;
+// sym: ?vfunc_2@Method1_2c9b0@fn_0002c9b0@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method1<CActorManager, int, const char *>::vfunc_2`.
+namespace fn_0002c9b0 {
+struct Method1_2c9b0 : hulk_script::FunctionGenView {
+    int (::CActorManager::*f_1c)(const char *);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method1_2c9b0::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_2c9b0 * arg = (CActorManager_2c9b0 *)__p0; const char ** value = (const char **)__p1; int * out = (int *)__p2;
 
     int (CActorManager_2c9b0::*f)(const char*) = (*(int (CActorManager_2c9b0::**)(const char *))&this->f_1c);
     int r = arg->Invoke(f, *value);
     if (out)
         *out = r;
 }
+} // namespace fn_0002c9b0
 #if defined(HULK_PTR64)
-template class Method1<CActorManager, int, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2c990)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method1<CActorManager, int, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002c9b0::Method1_2c9b0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -1384,8 +1454,15 @@ template <> Method1<CActorManager, const char *, const char *>::~Method1() {}
 
 
 // 0x0002ca30 Method1<CActorManager,const_char_*,const_char_*>::vfunc_2 (29 B): matches/0x0002ca30.cpp
-// sym: ?vfunc_2@?$Method1@UCActorManager@@HPBD@@UAEXPAX00@Z
-template <> void Method1<CActorManager, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_2ca30 * obj = (CActorManager_2ca30 *)__p0; const char ** arg = (const char **)__p1; const char ** out = (const char **)__p2;
+// sym: ?vfunc_2@Method1_2ca30@fn_0002ca30@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method1<CActorManager, const char *, const char *>::vfunc_2`.
+namespace fn_0002ca30 {
+struct Method1_2ca30 : hulk_script::FunctionGenView {
+    const char * (::CActorManager::*f_1c)(const char *);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method1_2ca30::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_2ca30 * obj = (CActorManager_2ca30 *)__p0; const char ** arg = (const char **)__p1; const char ** out = (const char **)__p2;
 
     const char* (CActorManager_2ca30::*f)(const char*) = (*(const char *(CActorManager_2ca30::**)(const char *))&this->f_1c);
     const char* p = *arg;
@@ -1393,8 +1470,11 @@ template <> void Method1<CActorManager, const char *, const char *>::vfunc_2(voi
     if (out)
         *out = r;
 }
+} // namespace fn_0002ca30
 #if defined(HULK_PTR64)
-template class Method1<CActorManager, const char *, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2ca10)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method1<CActorManager, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002ca30::Method1_2ca30*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -1453,13 +1533,23 @@ template <> Method6<CActorManager, bool, const char *, const char *, const char 
 
 
 // 0x0002caf0 Method6<CActorManager,bool,const_char_*,const_char_*,const_char_*,const_char_*,bool,const_char_*>::vfunc_2 (30 B): matches/0x0002caf0.cpp
-// sym: ?vfunc_2@?$Method6@UCActorManager@@_NPBDPBDPBDPBD_NPBD@@UAEXPAX00@Z
-template <> void Method6<CActorManager, bool, const char *, const char *, const char *, const char *, bool, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { const char * a = (const char *)__p0; const char * b = (const char *)__p1; const char * c = (const char *)__p2;
+// sym: ?vfunc_2@Method6_2caf0@fn_0002caf0@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method6<CActorManager, bool, const char *, const char *, const char *, const char *, bool, const char *>::vfunc_2`.
+namespace fn_0002caf0 {
+struct Method6_2caf0 : hulk_script::FunctionGenView {
+    bool (::CActorManager::*f_1c)(const char *, const char *, const char *, const char *, bool, const char *);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method6_2caf0::vfunc_2(void* __p0, void* __p1, void* __p2) { const char * a = (const char *)__p0; const char * b = (const char *)__p1; const char * c = (const char *)__p2;
 
     FUN_0002cb10(a, b, c, (*(int *)&this->f_1c));
 }
+} // namespace fn_0002caf0
 #if defined(HULK_PTR64)
-template class Method6<CActorManager, bool, const char *, const char *, const char *, const char *, bool, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2cad0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method6<CActorManager, bool, const char *, const char *, const char *, const char *, bool, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002caf0::Method6_2caf0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 namespace fn_f8e68f21 {
@@ -1525,14 +1615,24 @@ template <> Method7<CActorManager, bool, const char *,math::Vector, float, const
 
 
 // 0x0002cc10 Method7<CActorManager,bool,const_char_*,math::Vector,float,const_char_*,const_char_*,bool,const_char_*>::vfunc_2 (30 B): matches/0x0002cc10.cpp
-// sym: ?vfunc_2@?$Method7@UCActorManager@@_NPBDVVector@math@@MPBDPBD_NPBD@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method7_2cc10@fn_0002cc10@@QAEXPAX00@Z
 // Same code shape as 0x0002caf0 (propagated; names are from that function)
-template <> void Method7<CActorManager, bool, const char *,math::Vector, float, const char *, const char *, bool, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { const char * a = (const char *)__p0; const char * b = (const char *)__p1; const char * c = (const char *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method7<CActorManager, bool, const char *,math::Vector, float, const char *, const char *, bool, const char *>::vfunc_2`.
+namespace fn_0002cc10 {
+struct Method7_2cc10 : hulk_script::FunctionGenView {
+    bool (::CActorManager::*f_1c)(const char *, math::Vector, float, const char *, const char *, bool, const char *);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method7_2cc10::vfunc_2(void* __p0, void* __p1, void* __p2) { const char * a = (const char *)__p0; const char * b = (const char *)__p1; const char * c = (const char *)__p2;
 
     FUN_0002cc30(a, b, c, (*(int *)&this->f_1c));
 }
+} // namespace fn_0002cc10
 #if defined(HULK_PTR64)
-template class Method7<CActorManager, bool, const char *,math::Vector, float, const char *, const char *, bool, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2cbf0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method7<CActorManager, bool, const char *,math::Vector, float, const char *, const char *, bool, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002cc10::Method7_2cc10*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 namespace fn_f8e68f21 {
@@ -1583,7 +1683,7 @@ template class Method2<CActorManager, void, const char *, bool>; // (ren2) nativ
 
 
 // 0x0002cd20 Method2<CActorManager,void,const_char_*,bool>::vfunc_2 (25 B): matches/0x0002cd20.cpp [wrapped: conflict: Args; CActorManager; Function; Method2]
-// sym: ?v2@Method2@fn_0002cd20@@UAEXPAVCActorManager@2@PAUArgs@2@PAX@Z
+// sym: ?v2@Method2@fn_0002cd20@@QAEXPAVCActorManager@2@PAUArgs@2@PAX@Z
 namespace fn_0002cd20 {
 class CActorManager {
   public:
@@ -1593,17 +1693,17 @@ struct Args {
     const char* name;
     bool flag;
 };
-class Function {
+class Function { void* vftable;   /* (script2) the vftable word, no stand-in vftable */
   public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2(CActorManager*, Args*, void*);
+    void v0();
+    void v1();
+    void v2(CActorManager*, Args*, void*);
 };
 class Method2 : public Function {
   public:
     ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
     void (CActorManager::*method)(const char*, bool);
-    virtual void v2(CActorManager* obj, Args* args, void* unused);
+    void v2(CActorManager* obj, Args* args, void* unused);
 };
 void Method2::v2(CActorManager* obj, Args* args, void* unused) {
     (obj->*method)(args->name, args->flag);
@@ -1635,17 +1735,27 @@ template <> Method2<CActorManager, void, float, float>::~Method2() {}
 
 
 // 0x0002cdb0 Method2<CActorManager,void,float,float>::vfunc_2 (23 B): matches/0x0002cdb0.cpp
-// sym: ?vfunc_2@?$Method2@UCActorManager@@XPBDM@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method2_2cdb0@fn_0002cdb0@@QAEXPAX00@Z
 // Same code shape as 0x000beac0 (propagated; names are from that function)
-template <> void Method2<CActorManager, void, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; void * p = (void *)__p1; hulk_intptr n = (hulk_intptr)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method2<CActorManager, void, float, float>::vfunc_2`.
+namespace fn_0002cdb0 {
+struct Method2_2cdb0 : hulk_script::FunctionGenView {
+    void (::CActorManager::*f_1c)(float, float);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method2_2cdb0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; void * p = (void *)__p1; hulk_intptr n = (hulk_intptr)__p2;
 
     CFEManager_2cdb0* m = (CFEManager_2cdb0*)unused;
     const char* s = *(const char**)p;
     int x = *(int*)((char*)p + 4);
     (m->*(*(void (CFEManager_2cdb0::**)(const char *, int))&this->f_1c))(s, x);
 }
+} // namespace fn_0002cdb0
 #if defined(HULK_PTR64)
-template class Method2<CActorManager, void, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2cd90)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method2<CActorManager, void, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002cdb0::Method2_2cdb0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -1673,14 +1783,24 @@ template <> Method1<CActorManager, void, const char *>::~Method1() {}
 
 
 // 0x0002ce30 Method1<CActorManager,void,const_char_*>::vfunc_2 (19 B): matches/0x0002ce30.cpp
-// sym: ?vfunc_2@?$Method1@UCActorManager@@XPBD@@UAEXPAX00@Z
-template <> void Method1<CActorManager, void, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void ** b = (void **)__p1; void * c = (void *)__p2;
+// sym: ?vfunc_2@Method1_2ce30@fn_0002ce30@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method1<CActorManager, void, const char *>::vfunc_2`.
+namespace fn_0002ce30 {
+struct Method1_2ce30 : hulk_script::FunctionGenView {
+    void (::CActorManager::*f_1c)(const char *);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method1_2ce30::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void ** b = (void **)__p1; void * c = (void *)__p2;
 
     Dummy_2ce30* d = (Dummy_2ce30*)a;
     (d->*(*(void (Dummy_2ce30::**)(void *))&this->f_1c))(*b);
 }
+} // namespace fn_0002ce30
 #if defined(HULK_PTR64)
-template class Method1<CActorManager, void, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2ce10)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method1<CActorManager, void, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002ce30::Method1_2ce30*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -1708,16 +1828,26 @@ template <> Method0<CActorManager, const char *>::~Method0() {}
 
 
 // 0x0002ceb0 Method0<CActorManager,const_char_*>::vfunc_2 (22 B): matches/0x0002ceb0.cpp
-// sym: ?vfunc_2@?$Method0@UCActorManager@@PBD@@UAEXPAX00@Z
-template <> void Method0<CActorManager, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void * b = (void *)__p1; unsigned int * out = (unsigned int *)__p2;
+// sym: ?vfunc_2@Method0_2ceb0@fn_0002ceb0@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method0<CActorManager, const char *>::vfunc_2`.
+namespace fn_0002ceb0 {
+struct Method0_2ceb0 : hulk_script::FunctionGenView {
+    const char * (::CActorManager::*f_1c)();
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method0_2ceb0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void * b = (void *)__p1; unsigned int * out = (unsigned int *)__p2;
 
     unsigned(__fastcall * p)(void*) = *(unsigned(__fastcall**)(void*))((char*)&this->f_1c);
     unsigned v = p(a);
     if (out)
         *out = v;
 }
+} // namespace fn_0002ceb0
 #if defined(HULK_PTR64)
-template class Method0<CActorManager, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2ce90)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method0<CActorManager, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002ceb0::Method0_2ceb0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -1744,17 +1874,27 @@ template <> Method0<CActorManager, int>::~Method0() {}
 
 
 // 0x0002cf30 Method0<CActorManager,int>::vfunc_2 (22 B): matches/0x0002cf30.cpp
-// sym: ?vfunc_2@?$Method0@UCActorManager@@PBD@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method0_2cf30@fn_0002cf30@@QAEXPAX00@Z
 // Same code shape as 0x0002ceb0 (propagated; names are from that function)
-template <> void Method0<CActorManager, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void * b = (void *)__p1; unsigned int * out = (unsigned int *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method0<CActorManager, int>::vfunc_2`.
+namespace fn_0002cf30 {
+struct Method0_2cf30 : hulk_script::FunctionGenView {
+    int (::CActorManager::*f_1c)();
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method0_2cf30::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void * b = (void *)__p1; unsigned int * out = (unsigned int *)__p2;
 
     unsigned(__fastcall * p)(void*) = *(unsigned(__fastcall**)(void*))((char*)&this->f_1c);
     unsigned v = p(a);
     if (out)
         *out = v;
 }
+} // namespace fn_0002cf30
 #if defined(HULK_PTR64)
-template class Method0<CActorManager, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2cf10)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method0<CActorManager, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002cf30::Method0_2cf30*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -1782,8 +1922,15 @@ template <> Method1<CActorManager, const char *, int>::~Method1() {}
 
 
 // 0x0002cfb0 Method1<CActorManager,const_char_*,int>::vfunc_2 (29 B): matches/0x0002cfb0.cpp
-// sym: ?vfunc_2@?$Method1@UCActorManager@@HPBD@@UAEXPAX00@Z
-template <> void Method1<CActorManager, const char *, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_2cfb0 * obj = (CActorManager_2cfb0 *)__p0; const char ** arg = (const char **)__p1; int * out = (int *)__p2;
+// sym: ?vfunc_2@Method1_2cfb0@fn_0002cfb0@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method1<CActorManager, const char *, int>::vfunc_2`.
+namespace fn_0002cfb0 {
+struct Method1_2cfb0 : hulk_script::FunctionGenView {
+    const char * (::CActorManager::*f_1c)(int);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method1_2cfb0::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_2cfb0 * obj = (CActorManager_2cfb0 *)__p0; const char ** arg = (const char **)__p1; int * out = (int *)__p2;
 
     int (CActorManager_2cfb0::*f)(const char*) = (*(int (CActorManager_2cfb0::**)(const char *))&this->f_1c);
     const char* a = *arg;
@@ -1791,8 +1938,11 @@ template <> void Method1<CActorManager, const char *, int>::vfunc_2(void* __p0, 
     if (out)
         *out = x;
 }
+} // namespace fn_0002cfb0
 #if defined(HULK_PTR64)
-template class Method1<CActorManager, const char *, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2cf90)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method1<CActorManager, const char *, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002cfb0::Method1_2cfb0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -1820,8 +1970,15 @@ template <> Method2<CActorManager, bool, const char *, const char *>::~Method2()
 
 
 // 0x0002d040 Method2<CActorManager,bool,const_char_*,const_char_*>::vfunc_2 (33 B): matches/0x0002d040.cpp
-// sym: ?vfunc_2@?$Method2@UCActorManager@@_NPBDPBD@@UAEXPAX00@Z
-template <> void Method2<CActorManager, bool, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_2d040 * obj = (CActorManager_2d040 *)__p0; const char ** args = (const char **)__p1; char * out = (char *)__p2;
+// sym: ?vfunc_2@Method2_2d040@fn_0002d040@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method2<CActorManager, bool, const char *, const char *>::vfunc_2`.
+namespace fn_0002d040 {
+struct Method2_2d040 : hulk_script::FunctionGenView {
+    bool (::CActorManager::*f_1c)(const char *, const char *);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method2_2d040::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_2d040 * obj = (CActorManager_2d040 *)__p0; const char ** args = (const char **)__p1; char * out = (char *)__p2;
 
     char (CActorManager_2d040::*f)(const char*, const char*) = (*(char (CActorManager_2d040::**)(const char *, const char *))&this->f_1c);
     const char* a = args[0];
@@ -1830,8 +1987,11 @@ template <> void Method2<CActorManager, bool, const char *, const char *>::vfunc
     if (out)
         *out = r;
 }
+} // namespace fn_0002d040
 #if defined(HULK_PTR64)
-template class Method2<CActorManager, bool, const char *, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2d020)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method2<CActorManager, bool, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002d040::Method2_2d040*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -1859,17 +2019,27 @@ template <> Method2<CActorManager, void, const char *, const char *>::~Method2()
 
 
 // 0x0002d0e0 Method2<CActorManager,void,const_char_*,const_char_*>::vfunc_2 (23 B): matches/0x0002d0e0.cpp
-// sym: ?vfunc_2@?$Method2@UCActorManager@@XPBDM@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method2_2d0e0@fn_0002d0e0@@QAEXPAX00@Z
 // Same code shape as 0x000beac0 (propagated; names are from that function)
-template <> void Method2<CActorManager, void, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; void * p = (void *)__p1; hulk_intptr n = (hulk_intptr)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method2<CActorManager, void, const char *, const char *>::vfunc_2`.
+namespace fn_0002d0e0 {
+struct Method2_2d0e0 : hulk_script::FunctionGenView {
+    void (::CActorManager::*f_1c)(const char *, const char *);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method2_2d0e0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; void * p = (void *)__p1; hulk_intptr n = (hulk_intptr)__p2;
 
     CFEManager_2d0e0* m = (CFEManager_2d0e0*)unused;
     const char* s = *(const char**)p;
     int x = *(int*)((char*)p + 4);
     (m->*(*(void (CFEManager_2d0e0::**)(const char *, int))&this->f_1c))(s, x);
 }
+} // namespace fn_0002d0e0
 #if defined(HULK_PTR64)
-template class Method2<CActorManager, void, const char *, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2d0c0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method2<CActorManager, void, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002d0e0::Method2_2d0e0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -1900,7 +2070,7 @@ template class Method1<CActorManager,math::Vector, const char *>; // (ren2) nati
 
 
 // 0x0002d160 Method1<CActorManager,math::Vector,const_char_*>::vfunc_2 (69 B): equivalent/0x0002d160.cpp [wrapped: conflict: CActorManager; Method1]
-// sym: ?vfunc_2@Method1@fn_0002d160@@UAEXPAUCActorManager@2@PAPBDPAUVector@2@@Z @97077a2a52c1 @we0844cc63fd1 @vad0302af9643
+// sym: ?vfunc_2@Method1@fn_0002d160@@QAEXPAUCActorManager@2@PAPBDPAUVector@2@@Z @97077a2a52c1 @we0844cc63fd1 @v842e15ffb0a8
 namespace fn_0002d160 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // Method1<CActorManager,math::Vector,const_char_*>::vfunc_2 @ 0x0002d160
@@ -1908,10 +2078,10 @@ struct Vector { float x, y, z; };
 struct CActorManager {
     Vector* FUN_0002d160(Vector*, const char*);
 };
-struct Method1 {
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2(CActorManager* manager, const char** name, Vector* output);
+struct Method1 { void* vftable;   /* (script2) the vftable word, no stand-in vftable */
+    void vfunc_0();
+    void vfunc_1();
+    void vfunc_2(CActorManager* manager, const char** name, Vector* output);
     ScriptFunctionFields fields;   // (script2) Function's fields (was char padding[0x18])
     Vector* (CActorManager::*method)(Vector*, const char*);
 };
@@ -1948,15 +2118,25 @@ template <> Method1<CActorManager, void, int>::~Method1() {}
 
 
 // 0x0002d210 Method1<CActorManager,void,int>::vfunc_2 (19 B): matches/0x0002d210.cpp
-// sym: ?vfunc_2@?$Method1@UCActorManager@@XPBD@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method1_2d210@fn_0002d210@@QAEXPAX00@Z
 // Same code shape as 0x0002ce30 (propagated; names are from that function)
-template <> void Method1<CActorManager, void, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void ** b = (void **)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method1<CActorManager, void, int>::vfunc_2`.
+namespace fn_0002d210 {
+struct Method1_2d210 : hulk_script::FunctionGenView {
+    void (::CActorManager::*f_1c)(const char *);   // (script2) the instantiation this code-identical block shares (its HEAD pin)
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method1_2d210::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void ** b = (void **)__p1; void * c = (void *)__p2;
 
     Dummy_2d210* d = (Dummy_2d210*)a;
     (d->*(*(void (Dummy_2d210::**)(void *))&this->f_1c))(*b);
 }
+} // namespace fn_0002d210
 #if defined(HULK_PTR64)
-template class Method1<CActorManager, void, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2d1f0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method1<CActorManager, void, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002d210::Method1_2d210*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -1984,16 +2164,26 @@ template <> Method1<CActorManager, bool,math::Vector>::~Method1() {}
 
 
 // 0x0002d290 Method1<CActorManager,bool,math::Vector>::vfunc_2 (49 B): matches/0x0002d290.cpp
-// sym: ?vfunc_2@?$Method1@UCActorManager@@_NVVector@math@@@@UAEXPAX00@Z
-template <> void Method1<CActorManager, bool,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; Vec_2d290 * v = (Vec_2d290 *)__p1; unsigned char * out = (unsigned char *)__p2;
+// sym: ?vfunc_2@Method1_2d290@fn_0002d290@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method1<CActorManager, bool,math::Vector>::vfunc_2`.
+namespace fn_0002d290 {
+struct Method1_2d290 : hulk_script::FunctionGenView {
+    bool (::CActorManager::*f_1c)(math::Vector);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method1_2d290::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; Vec_2d290 * v = (Vec_2d290 *)__p1; unsigned char * out = (unsigned char *)__p2;
 
     ActorFn_2d290 f = (*(ActorFn_2d290 *)&this->f_1c);
     unsigned char r = (unsigned char)((((Actor_2d290*)a)->*f)(*v));
     if (out)
         *out = r;
 }
+} // namespace fn_0002d290
 #if defined(HULK_PTR64)
-template class Method1<CActorManager, bool,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2d270)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method1<CActorManager, bool,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002d290::Method1_2d290*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -2021,16 +2211,26 @@ template <> Method1<CActorManager, const char *,math::Vector>::~Method1() {}
 
 
 // 0x0002d330 Method1<CActorManager,const_char_*,math::Vector>::vfunc_2 (49 B): matches/0x0002d330.cpp
-// sym: ?vfunc_2@?$Method1@UCActorManager@@PBDVVector@math@@@@UAEXPAX00@Z
-template <> void Method1<CActorManager, const char *,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_2d330 * obj = (CActorManager_2d330 *)__p0; Vec_2d330 * v = (Vec_2d330 *)__p1; unsigned int * out = (unsigned int *)__p2;
+// sym: ?vfunc_2@Method1_2d330@fn_0002d330@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method1<CActorManager, const char *,math::Vector>::vfunc_2`.
+namespace fn_0002d330 {
+struct Method1_2d330 : hulk_script::FunctionGenView {
+    const char * (::CActorManager::*f_1c)(math::Vector);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method1_2d330::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_2d330 * obj = (CActorManager_2d330 *)__p0; Vec_2d330 * v = (Vec_2d330 *)__p1; unsigned int * out = (unsigned int *)__p2;
 
     ActFn_2d330 fn = (*(ActFn_2d330 *)&this->f_1c);
     int r = (obj->*fn)(*v);
     if (out)
         *out = r;
 }
+} // namespace fn_0002d330
 #if defined(HULK_PTR64)
-template class Method1<CActorManager, const char *,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2d310)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method1<CActorManager, const char *,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002d330::Method1_2d330*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 namespace fn_f8e68f21 {
@@ -2080,14 +2280,24 @@ template <> Method7<CActorManager, void, const char *, float, float, float, floa
 
 
 // 0x0002d420 Method7<CActorManager,void,const_char_*,float,float,float,float,float,const_char_*>::vfunc_2 (30 B): matches/0x0002d420.cpp
-// sym: ?vfunc_2@?$Method7@UCActorManager@@XPBDMMMMMPBD@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method7_2d420@fn_0002d420@@QAEXPAX00@Z
 // Same code shape as 0x0002caf0 (propagated; names are from that function)
-template <> void Method7<CActorManager, void, const char *, float, float, float, float, float, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { const char * a = (const char *)__p0; const char * b = (const char *)__p1; const char * c = (const char *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method7<CActorManager, void, const char *, float, float, float, float, float, const char *>::vfunc_2`.
+namespace fn_0002d420 {
+struct Method7_2d420 : hulk_script::FunctionGenView {
+    void (::CActorManager::*f_1c)(const char *, float, float, float, float, float, const char *);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method7_2d420::vfunc_2(void* __p0, void* __p1, void* __p2) { const char * a = (const char *)__p0; const char * b = (const char *)__p1; const char * c = (const char *)__p2;
 
     FUN_0002d440(a, b, c, (*(int *)&this->f_1c));
 }
+} // namespace fn_0002d420
 #if defined(HULK_PTR64)
-template class Method7<CActorManager, void, const char *, float, float, float, float, float, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2d400)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method7<CActorManager, void, const char *, float, float, float, float, float, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002d420::Method7_2d420*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -2130,17 +2340,27 @@ template <> Method2<CActorManager, void, int, const char *>::~Method2() {}
 
 
 // 0x0002d510 Method2<CActorManager,void,int,const_char_*>::vfunc_2 (23 B): matches/0x0002d510.cpp
-// sym: ?vfunc_2@?$Method2@UCActorManager@@XPBDM@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method2_2d510@fn_0002d510@@QAEXPAX00@Z
 // Same code shape as 0x000beac0 (propagated; names are from that function)
-template <> void Method2<CActorManager, void, int, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; void * p = (void *)__p1; hulk_intptr n = (hulk_intptr)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method2<CActorManager, void, int, const char *>::vfunc_2`.
+namespace fn_0002d510 {
+struct Method2_2d510 : hulk_script::FunctionGenView {
+    void (::CActorManager::*f_1c)(int, const char *);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method2_2d510::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; void * p = (void *)__p1; hulk_intptr n = (hulk_intptr)__p2;
 
     CFEManager_2d510* m = (CFEManager_2d510*)unused;
     const char* s = *(const char**)p;
     int x = *(int*)((char*)p + 4);
     (m->*(*(void (CFEManager_2d510::**)(const char *, int))&this->f_1c))(s, x);
 }
+} // namespace fn_0002d510
 #if defined(HULK_PTR64)
-template class Method2<CActorManager, void, int, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2d4f0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method2<CActorManager, void, int, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002d510::Method2_2d510*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -2171,7 +2391,7 @@ template class Method2<CActorManager, void,math::Vector, float>; // (ren2) nativ
 
 
 // 0x0002d5a0 Method2<CActorManager,void,math::Vector,float>::vfunc_2 (43 B): matches/0x0002d5a0.cpp [wrapped: conflict: Args; CActorManager; Function; Method2]
-// sym: ?vfunc_2@Method2@fn_0002d5a0@@UAEXPAVCActorManager@2@PAXH@Z
+// sym: ?vfunc_2@Method2@fn_0002d5a0@@QAEXPAVCActorManager@2@PAXH@Z
 namespace fn_0002d5a0 {
 namespace math {
 struct Vector {
@@ -2182,11 +2402,11 @@ class CActorManager {
   public:
     void act(math::Vector, float);
 };
-class Function {
+class Function { void* vftable;   /* (script2) the vftable word, no stand-in vftable */
   public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2(CActorManager*, void*, int);
+    void vfunc_0();
+    void vfunc_1();
+    void vfunc_2(CActorManager*, void*, int);
 };
 struct Args {
     math::Vector v;
@@ -2197,7 +2417,7 @@ class Method2 : public Function {
 
   public:
     void (CActorManager::*fn)(math::Vector, float);
-    virtual void vfunc_2(CActorManager*, void*, int);
+    void vfunc_2(CActorManager*, void*, int);
 };
 void Method2::vfunc_2(CActorManager* mgr, void* data, int unused) {
     Args* a = (Args*)data;
@@ -2230,8 +2450,15 @@ template <> Method2<CActorManager, bool, const char *, int>::~Method2() {}
 
 
 // 0x0002d640 Method2<CActorManager,bool,const_char_*,int>::vfunc_2 (33 B): matches/0x0002d640.cpp
-// sym: ?vfunc_2@?$Method2@UCActorManager@@_NPBDPBD@@UAEXPAX00@Z
-template <> void Method2<CActorManager, bool, const char *, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_2d640 * object = (CActorManager_2d640 *)__p0; void * args = (void *)__p1; bool * out = (bool *)__p2;
+// sym: ?vfunc_2@Method2_2d640@fn_0002d640@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method2<CActorManager, bool, const char *, int>::vfunc_2`.
+namespace fn_0002d640 {
+struct Method2_2d640 : hulk_script::FunctionGenView {
+    bool (::CActorManager::*f_1c)(const char *, int);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method2_2d640::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_2d640 * object = (CActorManager_2d640 *)__p0; void * args = (void *)__p1; bool * out = (bool *)__p2;
 
     struct Args {
         const char* name;
@@ -2245,8 +2472,11 @@ template <> void Method2<CActorManager, bool, const char *, int>::vfunc_2(void* 
     if (out)
         *out = result;
 }
+} // namespace fn_0002d640
 #if defined(HULK_PTR64)
-template class Method2<CActorManager, bool, const char *, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2d620)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method2<CActorManager, bool, const char *, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002d640::Method2_2d640*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -2274,8 +2504,15 @@ template <> Method1<CActorManager, bool, int>::~Method1() {}
 
 
 // 0x0002d6d0 Method1<CActorManager,bool,int>::vfunc_2 (29 B): matches/0x0002d6d0.cpp
-// sym: ?vfunc_2@?$Method1@UCActorManager@@_NPBD@@UAEXPAX00@Z
-template <> void Method1<CActorManager, bool, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_2d6d0 * obj = (CActorManager_2d6d0 *)__p0; int * input = (int *)__p1; bool * out = (bool *)__p2;
+// sym: ?vfunc_2@Method1_2d6d0@fn_0002d6d0@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method1<CActorManager, bool, int>::vfunc_2`.
+namespace fn_0002d6d0 {
+struct Method1_2d6d0 : hulk_script::FunctionGenView {
+    bool (::CActorManager::*f_1c)(int);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method1_2d6d0::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_2d6d0 * obj = (CActorManager_2d6d0 *)__p0; int * input = (int *)__p1; bool * out = (bool *)__p2;
 
     bool (CActorManager_2d6d0::*f)(int) = (*(bool (CActorManager_2d6d0::**)(int))&this->f_1c);
     int n = *input;
@@ -2283,8 +2520,11 @@ template <> void Method1<CActorManager, bool, int>::vfunc_2(void* __p0, void* __
     if (out)
         *out = r;
 }
+} // namespace fn_0002d6d0
 #if defined(HULK_PTR64)
-template class Method1<CActorManager, bool, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2d6b0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method1<CActorManager, bool, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002d6d0::Method1_2d6d0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -2311,16 +2551,26 @@ template <> Method0<CActorManager, bool>::~Method0() {}
 
 
 // 0x0002d750 Method0<CActorManager,bool>::vfunc_2 (22 B): matches/0x0002d750.cpp
-// sym: ?vfunc_2@?$Method0@UCActorManager@@_N@@UAEXPAX00@Z
-template <> void Method0<CActorManager, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_2d750 * obj = (CActorManager_2d750 *)__p0; void * a = (void *)__p1; unsigned char * out = (unsigned char *)__p2;
+// sym: ?vfunc_2@Method0_2d750@fn_0002d750@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method0<CActorManager, bool>::vfunc_2`.
+namespace fn_0002d750 {
+struct Method0_2d750 : hulk_script::FunctionGenView {
+    bool (::CActorManager::*f_1c)();
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method0_2d750::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_2d750 * obj = (CActorManager_2d750 *)__p0; void * a = (void *)__p1; unsigned char * out = (unsigned char *)__p2;
 
     Fn_2d750 fn = (*(Fn_2d750 *)&this->f_1c);
     unsigned char r = fn(obj);
     if (out)
         *out = r;
 }
+} // namespace fn_0002d750
 #if defined(HULK_PTR64)
-template class Method0<CActorManager, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2d730)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method0<CActorManager, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002d750::Method0_2d750*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 namespace fn_f8e68f21 {
@@ -2375,8 +2625,15 @@ template <> Method4<CActorManager, void, const char *, float, int, float>::~Meth
 
 
 // 0x0002d800 Method4<CActorManager,void,const_char_*,float,int,float>::vfunc_2 (46 B): matches/0x0002d800.cpp
-// sym: ?vfunc_2@?$Method4@UCActorManager@@XPBDMHM@@UAEXPAX00@Z
-template <> void Method4<CActorManager, void, const char *, float, int, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_2d800 * actor = (CActorManager_2d800 *)__p0; const char * args = (const char *)__p1;
+// sym: ?vfunc_2@Method4_2d800@fn_0002d800@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method4<CActorManager, void, const char *, float, int, float>::vfunc_2`.
+namespace fn_0002d800 {
+struct Method4_2d800 : hulk_script::FunctionGenView {
+    void (::CActorManager::*f_1c)(const char *, float, int, float);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method4_2d800::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_2d800 * actor = (CActorManager_2d800 *)__p0; const char * args = (const char *)__p1;
 
     const char* name = *(const char**)args;
     args += 4;
@@ -2387,8 +2644,11 @@ template <> void Method4<CActorManager, void, const char *, float, int, float>::
     float other = *(float*)args;
     (actor->*(*(void (CActorManager_2d800::**)(const char *, float, int, float))&this->f_1c))(name, value, count, other);
 }
+} // namespace fn_0002d800
 #if defined(HULK_PTR64)
-template class Method4<CActorManager, void, const char *, float, int, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2d7e0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method4<CActorManager, void, const char *, float, int, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002d800::Method4_2d800*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 namespace fn_f8e68f21 {
@@ -2486,13 +2746,23 @@ template <> Method0<CActorManager, void>::~Method0() {}
 
 
 // 0x0002d950 Method0<CActorManager,void>::vfunc_2 (12 B): matches/0x0002d950.cpp
-// sym: ?vfunc_2@?$Method0@UCActorManager@@X@@UAEXPAX00@Z
-template <> void Method0<CActorManager, void>::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_2d950 * a = (CActorManager_2d950 *)__p0;
+// sym: ?vfunc_2@Method0_2d950@fn_0002d950@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method0<CActorManager, void>::vfunc_2`.
+namespace fn_0002d950 {
+struct Method0_2d950 : hulk_script::FunctionGenView {
+    void (::CActorManager::*f_1c)();
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method0_2d950::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_2d950 * a = (CActorManager_2d950 *)__p0;
 
     (a->*(*(void (CActorManager_2d950::**)())&this->f_1c))();
 }
+} // namespace fn_0002d950
 #if defined(HULK_PTR64)
-template class Method0<CActorManager, void>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2d930)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method0<CActorManager, void>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002d950::Method0_2d950*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -2546,14 +2816,24 @@ template <> Method5<CActorManager, void, const char *, const char *, float, floa
 
 
 // 0x0002da00 Method5<CActorManager,void,const_char_*,const_char_*,float,float,float>::vfunc_2 (30 B): matches/0x0002da00.cpp
-// sym: ?vfunc_2@?$Method5@UCActorManager@@XPBDPBDMMM@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method5_2da00@fn_0002da00@@QAEXPAX00@Z
 // Same code shape as 0x0002caf0 (propagated; names are from that function)
-template <> void Method5<CActorManager, void, const char *, const char *, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { const char * a = (const char *)__p0; const char * b = (const char *)__p1; const char * c = (const char *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method5<CActorManager, void, const char *, const char *, float, float, float>::vfunc_2`.
+namespace fn_0002da00 {
+struct Method5_2da00 : hulk_script::FunctionGenView {
+    void (::CActorManager::*f_1c)(const char *, const char *, float, float, float);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method5_2da00::vfunc_2(void* __p0, void* __p1, void* __p2) { const char * a = (const char *)__p0; const char * b = (const char *)__p1; const char * c = (const char *)__p2;
 
     FUN_0002da20(a, b, c, (*(int *)&this->f_1c));
 }
+} // namespace fn_0002da00
 #if defined(HULK_PTR64)
-template class Method5<CActorManager, void, const char *, const char *, float, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2d9e0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method5<CActorManager, void, const char *, const char *, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002da00::Method5_2da00*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -2630,17 +2910,17 @@ template class Method3<CActorManager, bool, const char *, float, float>; // (ren
 
 
 // 0x0002dae0 Method3<CActorManager,bool,const_char_*,float,float>::vfunc_2 (51 B): matches/0x0002dae0.cpp [wrapped: conflict: CActorManager; Fn; Function; Method3]
-// sym: ?vfunc_2@Method3@fn_0002dae0@@UAEXPAVCActorManager@2@PAUArgs@2@PA_N@Z
+// sym: ?vfunc_2@Method3@fn_0002dae0@@QAEXPAVCActorManager@2@PAUArgs@2@PA_N@Z
 namespace fn_0002dae0 {
 class CActorManager {
   public:
     bool Do(const char*, float, float);
 };
-class Function {
+class Function { void* vftable;   /* (script2) the vftable word, no stand-in vftable */
   public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
+    void f0();
+    void f1();
+    void f2();
 };
 typedef bool (CActorManager::*Fn)(const char*, float, float);
 struct Args {
@@ -2652,7 +2932,7 @@ class Method3 : public Function {
     Fn fn;
 
   public:
-    virtual void vfunc_2(CActorManager*, Args*, bool*);
+    void vfunc_2(CActorManager*, Args*, bool*);
 };
 void Method3::vfunc_2(CActorManager* obj, Args* args, bool* out) {
     Fn f = fn;
@@ -2709,17 +2989,17 @@ template class Method3<CActorManager, void, const char *, float, float>; // (ren
 
 
 // 0x0002dba0 Method3<CActorManager,void,const_char_*,float,float>::vfunc_2 (29 B): equivalent/0x0002dba0.cpp [wrapped: conflict: CActorManager; Function; Method3]
-// sym: ?vfunc_2@Method3@fn_0002dba0@@UAEXPAUCActorManager@2@PAUActorArgs@2@PAX@Z @a7a6d240b96d @w05a13dc0adbf @v2ae709d51bb9
+// sym: ?vfunc_2@Method3@fn_0002dba0@@QAEXPAUCActorManager@2@PAUActorArgs@2@PAX@Z @a7a6d240b96d @w05a13dc0adbf @v2eb2f5de2225
 namespace fn_0002dba0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // Method3<CActorManager,void,const_char_*,float,float>::vfunc_2 @ 0x0002dba0
 struct CActorManager { void FUN_0002dba0(const char*, float, float); };
 struct ActorArgs { const char* name; float first; float second; };
-struct Function { virtual void vfunc_0(); virtual void vfunc_1(); };
+struct Function { void* vftable;   /* (script2) the vftable word, no stand-in vftable */ void vfunc_0(); void vfunc_1(); };
 struct Method3 : Function {
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2(CActorManager* actor, ActorArgs* args, void* unused);
+    void vfunc_0();
+    void vfunc_1();
+    void vfunc_2(CActorManager* actor, ActorArgs* args, void* unused);
     ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
     void (CActorManager::*callback)(const char*, float, float);
 };
@@ -2758,11 +3038,11 @@ template class Method2<CActorManager, bool, const char *, float>; // (ren2) nati
 // 0x0002dc30 Method2<CActorManager,bool,const_char_*,float>::vfunc_2 (37 B): matches/0x0002dc30.cpp [wrapped: conflict: CActorManager; Function; Method2]
 // sym: ?v2@Method2@fn_0002dc30@@QAEXPAVCActorManager@2@PAUArgs@2@PAD@Z
 namespace fn_0002dc30 {
-class Function {
+class Function { void* vftable;   /* (script2) the vftable word, no stand-in vftable */
   public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
+    void v0();
+    void v1();
+    void v2();
 };
 class CActorManager {
   public:
@@ -2844,17 +3124,17 @@ template class Method3<CActorManager, void, const char *, const char *, float>; 
 
 
 // 0x0002dce0 Method3<CActorManager,void,const_char_*,const_char_*,float>::vfunc_2 (29 B): equivalent/0x0002dce0.cpp [wrapped: conflict: Function; Method3]
-// sym: ?vfunc_2@Method3@fn_0002dce0@@UAEXPAUCActorManager@2@PBUActorArguments@2@PAX@Z @a7a6d240b96d @w69b19def5989 @vce1aa13659a5
+// sym: ?vfunc_2@Method3@fn_0002dce0@@QAEXPAUCActorManager@2@PBUActorArguments@2@PAX@Z @a7a6d240b96d @w69b19def5989 @vb3e48ec27ed7
 namespace fn_0002dce0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // Method3<CActorManager,void,const_char_*,const_char_*,float>::vfunc_2 @ 0x0002dce0
 struct CActorManager {};
 struct ActorArguments { const char *first; const char *second; float value; };
-struct Function { virtual void vfunc_0(); virtual void vfunc_1(); };
+struct Function { void* vftable;   /* (script2) the vftable word, no stand-in vftable */ void vfunc_0(); void vfunc_1(); };
 struct Method3 : Function {
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2(CActorManager *manager, const ActorArguments *arguments, void *unused);
+    void vfunc_0();
+    void vfunc_1();
+    void vfunc_2(CActorManager *manager, const ActorArguments *arguments, void *unused);
     ScriptFunctionFields fields;   // (script2) Function's fields (was char padding[0x18])
     void (CActorManager::*callback)(const char *, const char *, float);
 };
@@ -2918,16 +3198,16 @@ template class Method4<CActorManager, void, const char *, const char *, float, f
 
 
 // 0x0002dd90 Method4<CActorManager,void,const_char_*,const_char_*,float,float>::vfunc_2 (40 B): equivalent/0x0002dd90.cpp [wrapped: conflict: Method4]
-// sym: ?vfunc_2@Method4@fn_0002dd90@@UAEXPAUCActorManager@2@PBUArguments@2@PAX@Z @06f2e20faa8a @wf51ff9f09ecf @vd4705c828a6c
+// sym: ?vfunc_2@Method4@fn_0002dd90@@QAEXPAUCActorManager@2@PBUArguments@2@PAX@Z @06f2e20faa8a @wf51ff9f09ecf @v5af546c53d67
 namespace fn_0002dd90 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // Method4<CActorManager,void,const_char_*,const_char_*,float,float>::vfunc_2 @ 0x0002dd90
 struct CActorManager {};
 struct Arguments { const char* first; const char* second; float third; float fourth; };
-struct Method4 {
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2(CActorManager* manager, const Arguments* arguments, void* unused);
+struct Method4 { void* vftable;   /* (script2) the vftable word, no stand-in vftable */
+    void vfunc_0();
+    void vfunc_1();
+    void vfunc_2(CActorManager* manager, const Arguments* arguments, void* unused);
     ScriptFunctionFields fields;   // (script2) Function's fields (was char padding[0x18])
     void (CActorManager::*callback)(const char*, const char*, float, float);
 };
@@ -2964,7 +3244,7 @@ template class Method2<CActorManager, const char *, const char *, int>; // (ren2
 
 
 // 0x0002de30 Method2<CActorManager,const_char_*,const_char_*,int>::vfunc_2 (33 B): matches/0x0002de30.cpp [wrapped: conflict: CActorManager; Function; Method2]
-// sym: ?v2@Method2@fn_0002de30@@UAEXPAVCActorManager@2@PAUArgs@2@PAH@Z
+// sym: ?v2@Method2@fn_0002de30@@QAEXPAVCActorManager@2@PAUArgs@2@PAH@Z
 namespace fn_0002de30 {
 class CActorManager {
   public:
@@ -2974,11 +3254,11 @@ struct Args {
     const char* a;
     const char* b;
 };
-class Function {
+class Function { void* vftable;   /* (script2) the vftable word, no stand-in vftable */
   public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2(CActorManager*, Args*, int*);
+    void v0();
+    void v1();
+    void v2(CActorManager*, Args*, int*);
 };
 class Method2 : public Function {
     ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
@@ -3023,8 +3303,15 @@ template <> Method2<CActorManager, int, const char *, const char *>::~Method2() 
 
 
 // 0x0002ded0 Method2<CActorManager,int,const_char_*,const_char_*>::vfunc_2 (33 B): matches/0x0002ded0.cpp
-// sym: ?vfunc_2@?$Method2@UCActorManager@@HPBDPBD@@UAEXPAX00@Z
-template <> void Method2<CActorManager, int, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_2ded0 * a = (CActorManager_2ded0 *)__p0; const char ** b = (const char **)__p1; int * out = (int *)__p2;
+// sym: ?vfunc_2@Method2_2ded0@fn_0002ded0@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method2<CActorManager, int, const char *, const char *>::vfunc_2`.
+namespace fn_0002ded0 {
+struct Method2_2ded0 : hulk_script::FunctionGenView {
+    int (::CActorManager::*f_1c)(const char *, const char *);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method2_2ded0::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_2ded0 * a = (CActorManager_2ded0 *)__p0; const char ** b = (const char **)__p1; int * out = (int *)__p2;
 
     int (CActorManager_2ded0::*f)(const char*, const char*) = (*(int (CActorManager_2ded0::**)(const char *, const char *))&this->f_1c);
     const char* x = b[0];
@@ -3033,8 +3320,11 @@ template <> void Method2<CActorManager, int, const char *, const char *>::vfunc_
     if (out)
         *out = r;
 }
+} // namespace fn_0002ded0
 #if defined(HULK_PTR64)
-template class Method2<CActorManager, int, const char *, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2deb0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method2<CActorManager, int, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002ded0::Method2_2ded0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -3065,7 +3355,7 @@ template class Method2<CActorManager, const char *, const char *, const char *>;
 
 
 // 0x0002df70 Method2<CActorManager,const_char_*,const_char_*,const_char_*>::vfunc_2 (33 B): matches/0x0002df70.cpp [wrapped: conflict: CActorManager; Function; Method2]
-// sym: ?vfunc_2@Method2@fn_0002df70@@UAEXPAVCActorManager@2@PAUArgs@2@PAH@Z
+// sym: ?vfunc_2@Method2@fn_0002df70@@QAEXPAVCActorManager@2@PAUArgs@2@PAH@Z
 namespace fn_0002df70 {
 class CActorManager {
   public:
@@ -3075,18 +3365,18 @@ struct Args {
     const char* a;
     const char* b;
 };
-class Function {
+class Function { void* vftable;   /* (script2) the vftable word, no stand-in vftable */
   public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2(CActorManager*, Args*, int*);
+    void vfunc_0();
+    void vfunc_1();
+    void vfunc_2(CActorManager*, Args*, int*);
 };
 class Method2 : public Function {
   public:
     ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[24])
     typedef int (CActorManager::*MemFn)(const char*, const char*);
     MemFn fn;
-    virtual void vfunc_2(CActorManager*, Args*, int*);
+    void vfunc_2(CActorManager*, Args*, int*);
 };
 void Method2::vfunc_2(CActorManager* obj, Args* args, int* out) {
     MemFn f = fn;
@@ -3123,15 +3413,25 @@ template <> Method1<CActorManager, void, float>::~Method1() {}
 
 
 // 0x0002e000 Method1<CActorManager,void,float>::vfunc_2 (19 B): matches/0x0002e000.cpp
-// sym: ?vfunc_2@?$Method1@UCActorManager@@XPBD@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method1_2e000@fn_0002e000@@QAEXPAX00@Z
 // Same code shape as 0x0002ce30 (propagated; names are from that function)
-template <> void Method1<CActorManager, void, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void ** b = (void **)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method1<CActorManager, void, float>::vfunc_2`.
+namespace fn_0002e000 {
+struct Method1_2e000 : hulk_script::FunctionGenView {
+    void (::CActorManager::*f_1c)(float);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method1_2e000::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void ** b = (void **)__p1; void * c = (void *)__p2;
 
     Dummy_2e000* d = (Dummy_2e000*)a;
     (d->*(*(void (Dummy_2e000::**)(void *))&this->f_1c))(*b);
 }
+} // namespace fn_0002e000
 #if defined(HULK_PTR64)
-template class Method1<CActorManager, void, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2dfe0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method1<CActorManager, void, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002e000::Method1_2e000*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -3161,18 +3461,18 @@ template class Method0<CActorManager, float>; // (ren2) native only: clang emits
 
 
 // 0x0002e080 Method0<CActorManager,float>::vfunc_2 (34 B): matches/0x0002e080.cpp [wrapped: conflict: Function]
-// sym: ?f2@Method0Base_2e080@fn_0002e080@@UAEXPAX0PAM@Z
+// sym: ?f2@Method0Base_2e080@fn_0002e080@@QAEXPAX0PAM@Z
 namespace fn_0002e080 {
-class Function {
+class Function { void* vftable;   /* (script2) the vftable word, no stand-in vftable */
   public:
-    virtual void f0();
-    virtual void f1();
+    void f0();
+    void f1();
 };
 class Method0Base_2e080 : public Function {
   public:
     ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
     float(__fastcall* fn)(void*);
-    virtual void f2(void* a, void* b, float* out);
+    void f2(void* a, void* b, float* out);
 };
 void Method0Base_2e080::f2(void* a, void* b, float* out) {
     float(__fastcall * f)(void*) = fn;
@@ -3207,17 +3507,27 @@ template <> Method2<CActorManager,math::Vector,math::Vector, float>::~Method2() 
 
 
 // 0x0002e120 Method2<CActorManager,math::Vector,math::Vector,float>::vfunc_2 (106 B): equivalent/0x0002e120.cpp
-// sym: ?vfunc_2@?$Method2@UCActorManager@@VVector@math@@V23@M@@UAEXPAX00@Z @ffc0ee1e1efd @w466ac40d7f4e @v5919d840c7b9
+// sym: ?vfunc_2@Method2_2e120@fn_0002e120@@QAEXPAX00@Z @ffc0ee1e1efd @w466ac40d7f4e @v40e41cac8139
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // Method2<CActorManager,math::Vector,math::Vector,float>::vfunc_2 @ 0x0002e120
-template <> void Method2<CActorManager,math::Vector,math::Vector, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_2e120 * owner = (CActorManager_2e120 *)__p0; CallParams * params = (CallParams *)__p1; Vector_2e120 * out = (Vector_2e120 *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method2<CActorManager,math::Vector,math::Vector, float>::vfunc_2`.
+namespace fn_0002e120 {
+struct Method2_2e120 : hulk_script::FunctionGenView {
+    math::Vector (::CActorManager::*f_1c)(math::Vector, float);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method2_2e120::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_2e120 * owner = (CActorManager_2e120 *)__p0; CallParams * params = (CallParams *)__p1; Vector_2e120 * out = (Vector_2e120 *)__p2;
 
     Vector_2e120 result = (owner->*(*(VectorMethod *)&this->f_1c))(params->arg, params->scale);
     if (out != 0)
         *out = result;
 }
+} // namespace fn_0002e120
 #if defined(HULK_PTR64)
-template class Method2<CActorManager,math::Vector,math::Vector, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2e100)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method2<CActorManager,math::Vector,math::Vector, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002e120::Method2_2e120*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -3245,8 +3555,15 @@ template <> Method2<CActorManager, float, const char *, const char *>::~Method2(
 
 
 // 0x0002e200 Method2<CActorManager,float,const_char_*,const_char_*>::vfunc_2 (46 B): matches/0x0002e200.cpp
-// sym: ?vfunc_2@?$Method2@UCActorManager@@MPBDPBD@@UAEXPAX00@Z
-template <> void Method2<CActorManager, float, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_2e200 * obj = (CActorManager_2e200 *)__p0; Args * args = (Args *)__p1; float * out = (float *)__p2;
+// sym: ?vfunc_2@Method2_2e200@fn_0002e200@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method2<CActorManager, float, const char *, const char *>::vfunc_2`.
+namespace fn_0002e200 {
+struct Method2_2e200 : hulk_script::FunctionGenView {
+    float (::CActorManager::*f_1c)(const char *, const char *);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method2_2e200::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_2e200 * obj = (CActorManager_2e200 *)__p0; Args * args = (Args *)__p1; float * out = (float *)__p2;
 
     MemFn f = (*(MemFn *)&this->f_1c);
     const char* a = args->a;
@@ -3255,8 +3572,11 @@ template <> void Method2<CActorManager, float, const char *, const char *>::vfun
     if (out)
         *out = r;
 }
+} // namespace fn_0002e200
 #if defined(HULK_PTR64)
-template class Method2<CActorManager, float, const char *, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2e1e0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method2<CActorManager, float, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002e200::Method2_2e200*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -3284,13 +3604,23 @@ template <> Method1<CActorManager, void, bool>::~Method1() {}
 
 
 // 0x0002e290 Method1<CActorManager,void,bool>::vfunc_2 (21 B): matches/0x0002e290.cpp
-// sym: ?vfunc_2@?$Method1@UCActorManager@@X_N@@UAEXPAX00@Z
-template <> void Method1<CActorManager, void, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_2e290 * obj = (CActorManager_2e290 *)__p0; unsigned char * b = (unsigned char *)__p1; void * unused = (void *)__p2;
+// sym: ?vfunc_2@Method1_2e290@fn_0002e290@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method1<CActorManager, void, bool>::vfunc_2`.
+namespace fn_0002e290 {
+struct Method1_2e290 : hulk_script::FunctionGenView {
+    void (::CActorManager::*f_1c)(bool);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method1_2e290::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_2e290 * obj = (CActorManager_2e290 *)__p0; unsigned char * b = (unsigned char *)__p1; void * unused = (void *)__p2;
 
     (obj->*(*(MFn_2e290 *)&this->f_1c))(*b);
 }
+} // namespace fn_0002e290
 #if defined(HULK_PTR64)
-template class Method1<CActorManager, void, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2e270)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method1<CActorManager, void, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002e290::Method1_2e290*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 namespace fn_f8e68f21 {
@@ -3347,15 +3677,15 @@ template class Method3<CActorManager, void, int, int, int>; // (ren2) native onl
 
 
 // 0x0002e330 Method3<CActorManager,void,int,int,int>::vfunc_2 (29 B): equivalent/0x0002e330.cpp [wrapped: conflict: Args; CActorManager; Function; Method3]
-// sym: ?vfunc_2@Method3@fn_0002e330@@UAEXPAUCActorManager@2@PAUArgs@2@H@Z @a7a6d240b96d @w9b83a8b8e93b @v9377ab55c3de
+// sym: ?vfunc_2@Method3@fn_0002e330@@QAEXPAUCActorManager@2@PAUArgs@2@H@Z @a7a6d240b96d @w9b83a8b8e93b @v9b3f8906d77e
 namespace fn_0002e330 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // Method3<CActorManager,void,int,int,int>::vfunc_2 @ 0x0002e330
 struct CActorManager { void FUN_0002e330(int, int, int); };
 struct Args { int first, second, third; };
-struct Function { virtual void vfunc_0(); virtual void vfunc_1(); };
+struct Function { void* vftable;   /* (script2) the vftable word, no stand-in vftable */ void vfunc_0(); void vfunc_1(); };
 struct Method3 : Function {
-    virtual void vfunc_2(CActorManager* actor, Args* args, int unused);
+    void vfunc_2(CActorManager* actor, Args* args, int unused);
     ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
     void (CActorManager::*callback)(int,int,int);
 };
@@ -3416,17 +3746,27 @@ template <> Method3<CActorManager, bool, const char *,math::Vector,math::Vector>
 
 
 // 0x0002e3d0 Method3<CActorManager,bool,const_char_*,math::Vector,math::Vector>::vfunc_2 (102 B): equivalent/0x0002e3d0.cpp
-// sym: ?vfunc_2@?$Method3@UCActorManager@@_NPBDVVector@math@@V23@@@UAEXPAX00@Z @7c392f6af52b @w28fcddcb9c47 @v590613ce17bb
+// sym: ?vfunc_2@Method3_2e3d0@fn_0002e3d0@@QAEXPAX00@Z @7c392f6af52b @w28fcddcb9c47 @vad62d0764890
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // Method3<CActorManager,bool,const_char_*,math::Vector,math::Vector>::vfunc_2 @ 0x0002e3d0
-template <> void Method3<CActorManager, bool, const char *,math::Vector,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_2e3d0 * owner = (CActorManager_2e3d0 *)__p0; Args_2e3d0 * args = (Args_2e3d0 *)__p1; bool * result = (bool *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method3<CActorManager, bool, const char *,math::Vector,math::Vector>::vfunc_2`.
+namespace fn_0002e3d0 {
+struct Method3_2e3d0 : hulk_script::FunctionGenView {
+    bool (::CActorManager::*f_1c)(const char *, math::Vector, math::Vector);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method3_2e3d0::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_2e3d0 * owner = (CActorManager_2e3d0 *)__p0; Args_2e3d0 * args = (Args_2e3d0 *)__p1; bool * result = (bool *)__p2;
 
     bool r = (owner->*(*(ActorFn_2e3d0 *)&this->f_1c))(args->name, args->a, args->b);
     if (result)
         *result = r;
 }
+} // namespace fn_0002e3d0
 #if defined(HULK_PTR64)
-template class Method3<CActorManager, bool, const char *,math::Vector,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2e3b0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method3<CActorManager, bool, const char *,math::Vector,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002e3d0::Method3_2e3d0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -3510,17 +3850,17 @@ template class Closure2<CActorManager, bool, const char *, bool>; // (ren2) nati
 
 
 // 0x0002e570 Closure2<CActorManager,bool,const_char_*,bool>::vfunc_2 (46 B): equivalent/0x0002e570.cpp [wrapped: conflict: Arguments; CActorManager]
-// sym: ?vfunc_2@Closure2_CActorManager_bool_const_char_bool@fn_0002e570@@UAEXPAXPAUArguments@2@PA_N@Z @8eb15ebc569e @w77c25302b90b
+// sym: ?vfunc_2@Closure2_CActorManager_bool_const_char_bool@fn_0002e570@@QAEXPAXPAUArguments@2@PA_N@Z @8eb15ebc569e @w77c25302b90b
 namespace fn_0002e570 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // Closure2<CActorManager,bool,const_char_*,bool>::vfunc_2 @ 0x0002e570
 struct CActorManager { char unused; };
 struct Arguments { const char *text; bool flag; };
-class Closure2_CActorManager_bool_const_char_bool {
+class Closure2_CActorManager_bool_const_char_bool { void* vftable;   /* (script2) the vftable word, no stand-in vftable */
 public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2(void *unused, Arguments *arguments, bool *result);
+    void vfunc_0();
+    void vfunc_1();
+    void vfunc_2(void *unused, Arguments *arguments, bool *result);
 private:
     ScriptFunctionFields fields;   // (script2) Function's fields (was char padding[0x18])
     bool (CActorManager::*method)(const char *, bool);
@@ -3588,7 +3928,7 @@ template class Closure2<CActorManager, void, const char *,math::Vector>; // (ren
 
 
 // 0x0002e620 Closure2<CActorManager,void,const_char_*,math::Vector>::vfunc_2 (47 B): equivalent/0x0002e620.cpp [wrapped: conflict: Arguments; CActorManager; Closure2]
-// sym: ?vfunc_2@Closure2@fn_0002e620@@UAEXPAXPBUArguments@2@0@Z @967618bc6127 @wf30778dea4a0 @vbaea1d815836
+// sym: ?vfunc_2@Closure2@fn_0002e620@@QAEXPAXPBUArguments@2@0@Z @967618bc6127 @wf30778dea4a0 @v8f4bca6fa706
 namespace fn_0002e620 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // Closure2<CActorManager,void,const_char_*,math::Vector>::vfunc_2 @ 0x0002e620
@@ -3597,11 +3937,11 @@ struct Arguments { const char *name; Vector position; };
 class CActorManager {};
 class Closure2;
 typedef void (__fastcall *ActorMethod)(CActorManager *, Closure2 *, const char *, Vector);
-class Closure2 {
+class Closure2 { void* vftable;   /* (script2) the vftable word, no stand-in vftable */
 public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2(void *unused, const Arguments *arguments, void *unused2);
+    void vfunc_0();
+    void vfunc_1();
+    void vfunc_2(void *unused, const Arguments *arguments, void *unused2);
     char reserved[0x18];
     ActorMethod method;
     CActorManager *actor;
@@ -3663,13 +4003,24 @@ template <> Closure2<CActorManager, void, const char *, float>::~Closure2() {}
 
 
 // 0x0002e6d0 Closure2<CActorManager,void,const_char_*,float>::vfunc_2 (22 B): matches/0x0002e6d0.cpp
-// sym: ?vfunc_2@?$Closure2@UCActorManager@@XPBDM@@UAEXPAX00@Z
-template <> void Closure2<CActorManager, void, const char *, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; Pair_2e6d0 * p = (Pair_2e6d0 *)__p1; void * c = (void *)__p2;
+// sym: ?vfunc_2@Closure2_2e6d0@fn_0002e6d0@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure2<CActorManager, void, const char *, float>::vfunc_2`.
+namespace fn_0002e6d0 {
+struct Closure2_2e6d0 : hulk_script::FunctionGenView {
+    void (::CActorManager::*f_1c)(const char *, float);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure2_2e6d0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; Pair_2e6d0 * p = (Pair_2e6d0 *)__p1; void * c = (void *)__p2;
 
     ((*(CActorManager_2e6d0 * *)&this->f_20)->*(*(void (CActorManager_2e6d0::**)(const char *, float))&this->f_1c))(p->s, p->f);
 }
+} // namespace fn_0002e6d0
 #if defined(HULK_PTR64)
-template class Closure2<CActorManager, void, const char *, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2e6b0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure2<CActorManager, void, const char *, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002e6d0::Closure2_2e6d0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -3724,14 +4075,25 @@ template <> Closure2<CActorManager, void, const char *, int>::~Closure2() {}
 
 
 // 0x0002e770 Closure2<CActorManager,void,const_char_*,int>::vfunc_2 (22 B): matches/0x0002e770.cpp
-// sym: ?vfunc_2@?$Closure2@UCActorManager@@XPBDM@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure2_2e770@fn_0002e770@@QAEXPAX00@Z
 // Same code shape as 0x0002e6d0 (propagated; names are from that function)
-template <> void Closure2<CActorManager, void, const char *, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; Pair_2e770 * p = (Pair_2e770 *)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure2<CActorManager, void, const char *, int>::vfunc_2`.
+namespace fn_0002e770 {
+struct Closure2_2e770 : hulk_script::FunctionGenView {
+    void (::CActorManager::*f_1c)(const char *, float);   // (script2) the instantiation this code-identical block shares (its HEAD pin)
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure2_2e770::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; Pair_2e770 * p = (Pair_2e770 *)__p1; void * c = (void *)__p2;
 
     ((*(CActorManager_2e770 * *)&this->f_20)->*(*(void (CActorManager_2e770::**)(const char *, float))&this->f_1c))(p->s, p->f);
 }
+} // namespace fn_0002e770
 #if defined(HULK_PTR64)
-template class Closure2<CActorManager, void, const char *, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2e750)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure2<CActorManager, void, const char *, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002e770::Closure2_2e770*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -3785,8 +4147,16 @@ template <> Closure1<CActorManager, float, const char *>::~Closure1() {}
 
 
 // 0x0002e800 Closure1<CActorManager,float,const_char_*>::vfunc_2 (43 B): matches/0x0002e800.cpp
-// sym: ?vfunc_2@?$Closure1@UCActorManager@@MPBD@@UAEXPAX00@Z
-template <> void Closure1<CActorManager, float, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr ignored = (hulk_intptr)__p0; const char ** arg = (const char **)__p1; float * out = (float *)__p2;
+// sym: ?vfunc_2@Closure1_2e800@fn_0002e800@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure1<CActorManager, float, const char *>::vfunc_2`.
+namespace fn_0002e800 {
+struct Closure1_2e800 : hulk_script::FunctionGenView {
+    float (::CActorManager::*f_1c)(const char *);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure1_2e800::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr ignored = (hulk_intptr)__p0; const char ** arg = (const char **)__p1; float * out = (float *)__p2;
 
     CActorManager_2e800* obj = (*(CActorManager_2e800 * *)&this->f_20);
     Fn_2e800 fn = (*(Fn_2e800 *)&this->f_1c);
@@ -3794,8 +4164,11 @@ template <> void Closure1<CActorManager, float, const char *>::vfunc_2(void* __p
     if (out)
         *out = value;
 }
+} // namespace fn_0002e800
 #if defined(HULK_PTR64)
-template class Closure1<CActorManager, float, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2e7e0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure1<CActorManager, float, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002e800::Closure1_2e800*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 namespace fn_f8e68f21 {
@@ -3842,14 +4215,14 @@ template class Closure1<CActorManager, bool, const char *>; // (ren2) native onl
 
 
 // 0x0002e8a0 Closure1<CActorManager,bool,const_char_*>::vfunc_2 (30 B): matches/0x0002e8a0.cpp [wrapped: conflict: Closure1]
-// sym: ?V2@Closure1@fn_0002e8a0@@UAEXPAXPAPBDPA_N@Z
+// sym: ?V2@Closure1@fn_0002e8a0@@QAEXPAXPAPBDPA_N@Z
 namespace fn_0002e8a0 {
 // Same code shape as 0x00106cc0 (propagated; names are from that function)
-class Closure1 {
+class Closure1 { void* vftable;   /* (script2) the vftable word, no stand-in vftable */
   public:
-    virtual void V0();
-    virtual void V1();
-    virtual void V2(void*, const char**, bool*);
+    void V0();
+    void V1();
+    void V2(void*, const char**, bool*);
     ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
     typedef bool(__fastcall* Fn)(void*, const char*, const char*);
     Fn mFn;
@@ -4061,18 +4434,18 @@ template class Closure1<CActorManager, const char *, const char *>; // (ren2) na
 
 
 // 0x0002eaa0 Closure1<CActorManager,const_char_*,const_char_*>::vfunc_2 (30 B): matches/0x0002eaa0.cpp [wrapped: conflict: CActorManager; Closure1]
-// sym: ?v2@Closure1@fn_0002eaa0@@UAEHHPAPBDPAH@Z
+// sym: ?v2@Closure1@fn_0002eaa0@@QAEHHPAPBDPAH@Z
 namespace fn_0002eaa0 {
 class CActorManager {
   public:
     int f(const char*);
 };
 
-class Closure1 {
+class Closure1 { void* vftable;   /* (script2) the vftable word, no stand-in vftable */
   public:
-    virtual void v0();
-    virtual void v1();
-    virtual int v2(int a, const char** b, int* out);
+    void v0();
+    void v1();
+    int v2(int a, const char** b, int* out);
     ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
     int (CActorManager::*mFn)(const char*);
     CActorManager* mObj;
@@ -4141,13 +4514,24 @@ template <> Closure7<CActorManager, bool, const char *,math::Vector, float, cons
 
 
 // 0x0002ebc0 Closure7<CActorManager,bool,const_char_*,math::Vector,float,const_char_*,const_char_*,bool,const_char_*>::vfunc_2 (29 B): matches/0x0002ebc0.cpp
-// sym: ?vfunc_2@?$Closure7@UCActorManager@@_NPBDVVector@math@@MPBDPBD_NPBD@@UAEXPAX00@Z
-template <> void Closure7<CActorManager, bool, const char *,math::Vector, float, const char *, const char *, bool, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr x = (hulk_intptr)__p0; hulk_intptr y = (hulk_intptr)__p1; hulk_intptr z = (hulk_intptr)__p2;
+// sym: ?vfunc_2@Closure7_2ebc0@fn_0002ebc0@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure7<CActorManager, bool, const char *,math::Vector, float, const char *, const char *, bool, const char *>::vfunc_2`.
+namespace fn_0002ebc0 {
+struct Closure7_2ebc0 : hulk_script::FunctionGenView {
+    bool (::CActorManager::*f_1c)(const char *, math::Vector, float, const char *, const char *, bool, const char *);
+    hulk_intptr f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure7_2ebc0::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr x = (hulk_intptr)__p0; hulk_intptr y = (hulk_intptr)__p1; hulk_intptr z = (hulk_intptr)__p2;
 
     invoke(this->f_20, y, z, (*(int *)&this->f_1c));
 }
+} // namespace fn_0002ebc0
 #if defined(HULK_PTR64)
-template class Closure7<CActorManager, bool, const char *,math::Vector, float, const char *, const char *, bool, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2eba0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure7<CActorManager, bool, const char *,math::Vector, float, const char *, const char *, bool, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002ebc0::Closure7_2ebc0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -4202,13 +4586,24 @@ template <> Closure2<CActorManager, void, const char *, bool>::~Closure2() {}
 
 
 // 0x0002ec60 Closure2<CActorManager,void,const_char_*,bool>::vfunc_2 (24 B): matches/0x0002ec60.cpp
-// sym: ?vfunc_2@?$Closure2@UCActorManager@@XPBD_N@@UAEXPAX00@Z
-template <> void Closure2<CActorManager, void, const char *, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { Arg_2ec60 * p = (Arg_2ec60 *)__p1;
+// sym: ?vfunc_2@Closure2_2ec60@fn_0002ec60@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure2<CActorManager, void, const char *, bool>::vfunc_2`.
+namespace fn_0002ec60 {
+struct Closure2_2ec60 : hulk_script::FunctionGenView {
+    void (::CActorManager::*f_1c)(const char *, bool);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure2_2ec60::vfunc_2(void* __p0, void* __p1, void* __p2) { Arg_2ec60 * p = (Arg_2ec60 *)__p1;
 
     ((*(Actor_2ec60 * *)&this->f_20)->*(*(void (Actor_2ec60::**)(const char *, unsigned char))&this->f_1c))(p->s, p->b);
 }
+} // namespace fn_0002ec60
 #if defined(HULK_PTR64)
-template class Closure2<CActorManager, void, const char *, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2ec40)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure2<CActorManager, void, const char *, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002ec60::Closure2_2ec60*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -4263,14 +4658,25 @@ template <> Closure2<CActorManager, void, float, float>::~Closure2() {}
 
 
 // 0x0002ed00 Closure2<CActorManager,void,float,float>::vfunc_2 (22 B): matches/0x0002ed00.cpp
-// sym: ?vfunc_2@?$Closure2@UCActorManager@@XPBDM@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure2_2ed00@fn_0002ed00@@QAEXPAX00@Z
 // Same code shape as 0x0002e6d0 (propagated; names are from that function)
-template <> void Closure2<CActorManager, void, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; Pair_2ed00 * p = (Pair_2ed00 *)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure2<CActorManager, void, float, float>::vfunc_2`.
+namespace fn_0002ed00 {
+struct Closure2_2ed00 : hulk_script::FunctionGenView {
+    void (::CActorManager::*f_1c)(float, float);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure2_2ed00::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; Pair_2ed00 * p = (Pair_2ed00 *)__p1; void * c = (void *)__p2;
 
     ((*(CActorManager_2ed00 * *)&this->f_20)->*(*(void (CActorManager_2ed00::**)(const char *, float))&this->f_1c))(p->s, p->f);
 }
+} // namespace fn_0002ed00
 #if defined(HULK_PTR64)
-template class Closure2<CActorManager, void, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2ece0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure2<CActorManager, void, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002ed00::Closure2_2ed00*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 namespace fn_f8e68f21 {
@@ -4326,13 +4732,24 @@ template <> Closure1<CActorManager, void, const char *>::~Closure1() {}
 
 
 // 0x0002ed90 Closure1<CActorManager,void,const_char_*>::vfunc_2 (18 B): matches/0x0002ed90.cpp
-// sym: ?vfunc_2@?$Closure1@UCActorManager@@XPBD@@UAEXPAX00@Z
-template <> void Closure1<CActorManager, void, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; const char ** b = (const char **)__p1; void * c = (void *)__p2;
+// sym: ?vfunc_2@Closure1_2ed90@fn_0002ed90@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure1<CActorManager, void, const char *>::vfunc_2`.
+namespace fn_0002ed90 {
+struct Closure1_2ed90 : hulk_script::FunctionGenView {
+    void (::CActorManager::*f_1c)(const char *);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure1_2ed90::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; const char ** b = (const char **)__p1; void * c = (void *)__p2;
 
     ((*(CActorManager_2ed90 * *)&this->f_20)->*(*(void (CActorManager_2ed90::**)(const char *))&this->f_1c))(*b);
 }
+} // namespace fn_0002ed90
 #if defined(HULK_PTR64)
-template class Closure1<CActorManager, void, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2ed70)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure1<CActorManager, void, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002ed90::Closure1_2ed90*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -4360,8 +4777,16 @@ template <> Closure0<CActorManager, const char *>::~Closure0() {}
 
 
 // 0x0002ee10 Closure0<CActorManager,const_char_*>::vfunc_2 (23 B): matches/0x0002ee10.cpp
-// sym: ?vfunc_2@?$Closure0@UCActorManager@@PBD@@UAEXPAX00@Z
-template <> void Closure0<CActorManager, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { int * out = (int *)__p2;
+// sym: ?vfunc_2@Closure0_2ee10@fn_0002ee10@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure0<CActorManager, const char *>::vfunc_2`.
+namespace fn_0002ee10 {
+struct Closure0_2ee10 : hulk_script::FunctionGenView {
+    const char * (::CActorManager::*f_1c)();
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure0_2ee10::vfunc_2(void* __p0, void* __p1, void* __p2) { int * out = (int *)__p2;
 
     CActorManager_2ee10* obj = (*(CActorManager_2ee10 * *)&this->f_20);
     int (CActorManager_2ee10::*fn)() = (*(int (CActorManager_2ee10::**)())&this->f_1c);
@@ -4369,8 +4794,11 @@ template <> void Closure0<CActorManager, const char *>::vfunc_2(void* __p0, void
     if (out)
         *out = result;
 }
+} // namespace fn_0002ee10
 #if defined(HULK_PTR64)
-template class Closure0<CActorManager, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2edf0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure0<CActorManager, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002ee10::Closure0_2ee10*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -4398,9 +4826,17 @@ template <> Closure0<CActorManager, int>::~Closure0() {}
 
 
 // 0x0002ee90 Closure0<CActorManager,int>::vfunc_2 (23 B): matches/0x0002ee90.cpp
-// sym: ?vfunc_2@?$Closure0@UCActorManager@@PBD@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure0_2ee90@fn_0002ee90@@QAEXPAX00@Z
 // Same code shape as 0x0002ee10 (propagated; names are from that function)
-template <> void Closure0<CActorManager, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { int * out = (int *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure0<CActorManager, int>::vfunc_2`.
+namespace fn_0002ee90 {
+struct Closure0_2ee90 : hulk_script::FunctionGenView {
+    int (::CActorManager::*f_1c)();
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure0_2ee90::vfunc_2(void* __p0, void* __p1, void* __p2) { int * out = (int *)__p2;
 
     CActorManager_2ee90* obj = (*(CActorManager_2ee90 * *)&this->f_20);
     int (CActorManager_2ee90::*fn)() = (*(int (CActorManager_2ee90::**)())&this->f_1c);
@@ -4408,8 +4844,11 @@ template <> void Closure0<CActorManager, int>::vfunc_2(void* __p0, void* __p1, v
     if (out)
         *out = result;
 }
+} // namespace fn_0002ee90
 #if defined(HULK_PTR64)
-template class Closure0<CActorManager, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2ee70)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure0<CActorManager, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002ee90::Closure0_2ee90*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -4542,16 +4981,27 @@ template <> Closure2<CActorManager, bool, const char *, const char *>::~Closure2
 
 
 // 0x0002efc0 Closure2<CActorManager,bool,const_char_*,const_char_*>::vfunc_2 (36 B): equivalent/0x0002efc0.cpp
-// sym: ?vfunc_2@?$Closure2@UCActorManager@@_NPBDPBD@@UAEXPAX00@Z @e654de0dce29 @w4e3d89bebec6 @v6da97e962de2
+// sym: ?vfunc_2@Closure2_2efc0@fn_0002efc0@@QAEXPAX00@Z @e654de0dce29 @w4e3d89bebec6 @vc3dac620841d
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // Closure2<CActorManager,bool,const_char_*,const_char_*>::vfunc_2 @ 0x0002efc0
-template <> void Closure2<CActorManager, bool, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; const char ** args = (const char **)__p1; bool * result = (bool *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure2<CActorManager, bool, const char *, const char *>::vfunc_2`.
+namespace fn_0002efc0 {
+struct Closure2_2efc0 : hulk_script::FunctionGenView {
+    bool (::CActorManager::*f_1c)(const char *, const char *);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure2_2efc0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; const char ** args = (const char **)__p1; bool * result = (bool *)__p2;
 
     bool value = ((*(CActorManager_2efc0 * *)&this->f_20)->*(*(bool (CActorManager_2efc0::**)(const char *, const char *))&this->f_1c))(args[0], args[1]);
     if (result) *result = value;
 }
+} // namespace fn_0002efc0
 #if defined(HULK_PTR64)
-template class Closure2<CActorManager, bool, const char *, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2efa0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure2<CActorManager, bool, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002efc0::Closure2_2efc0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -4606,14 +5056,25 @@ template <> Closure2<CActorManager, void, const char *, const char *>::~Closure2
 
 
 // 0x0002f070 Closure2<CActorManager,void,const_char_*,const_char_*>::vfunc_2 (22 B): matches/0x0002f070.cpp
-// sym: ?vfunc_2@?$Closure2@UCActorManager@@XPBDM@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure2_2f070@fn_0002f070@@QAEXPAX00@Z
 // Same code shape as 0x0002e6d0 (propagated; names are from that function)
-template <> void Closure2<CActorManager, void, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; Pair_2f070 * p = (Pair_2f070 *)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure2<CActorManager, void, const char *, const char *>::vfunc_2`.
+namespace fn_0002f070 {
+struct Closure2_2f070 : hulk_script::FunctionGenView {
+    void (::CActorManager::*f_1c)(const char *, const char *);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure2_2f070::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; Pair_2f070 * p = (Pair_2f070 *)__p1; void * c = (void *)__p2;
 
     ((*(CActorManager_2f070 * *)&this->f_20)->*(*(void (CActorManager_2f070::**)(const char *, float))&this->f_1c))(p->s, p->f);
 }
+} // namespace fn_0002f070
 #if defined(HULK_PTR64)
-template class Closure2<CActorManager, void, const char *, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2f050)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure2<CActorManager, void, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002f070::Closure2_2f070*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -4670,16 +5131,16 @@ template class Closure1<CActorManager,math::Vector, const char *>; // (ren2) nat
 
 
 // 0x0002f100 Closure1<CActorManager,math::Vector,const_char_*>::vfunc_2 (70 B): equivalent/0x0002f100.cpp [wrapped: conflict: CActorManager]
-// sym: ?vfunc_2@Closure@fn_0002f100@@UAEXPAXPAPBDPAUVector@2@@Z @307fff147072 @wb98e40599041 @v79099bdec487
+// sym: ?vfunc_2@Closure@fn_0002f100@@QAEXPAXPAPBDPAUVector@2@@Z @307fff147072 @wb98e40599041 @v1938fd855dbb
 namespace fn_0002f100 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // Closure1<CActorManager,math::Vector,const_char_*>::vfunc_2 @ 0x0002f100
 struct Vector { float x, y, z; };
 struct CActorManager { Vector FUN_0002f100(const char *name); };
-struct Closure {
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2(void *unused, const char **name, Vector *result);
+struct Closure { void* vftable;   /* (script2) the vftable word, no stand-in vftable */
+    void vfunc_0();
+    void vfunc_1();
+    void vfunc_2(void *unused, const char **name, Vector *result);
     ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
     Vector (CActorManager::*method)(const char *);
     CActorManager *actorManager;
@@ -4744,14 +5205,25 @@ template <> Closure1<CActorManager, void, int>::~Closure1() {}
 
 
 // 0x0002f1c0 Closure1<CActorManager,void,int>::vfunc_2 (18 B): matches/0x0002f1c0.cpp
-// sym: ?vfunc_2@?$Closure1@UCActorManager@@XPBD@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure1_2f1c0@fn_0002f1c0@@QAEXPAX00@Z
 // Same code shape as 0x0002ed90 (propagated; names are from that function)
-template <> void Closure1<CActorManager, void, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; const char ** b = (const char **)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure1<CActorManager, void, int>::vfunc_2`.
+namespace fn_0002f1c0 {
+struct Closure1_2f1c0 : hulk_script::FunctionGenView {
+    void (::CActorManager::*f_1c)(const char *);   // (script2) the instantiation this code-identical block shares (its HEAD pin)
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure1_2f1c0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; const char ** b = (const char **)__p1; void * c = (void *)__p2;
 
     ((*(CActorManager_2f1c0 * *)&this->f_20)->*(*(void (CActorManager_2f1c0::**)(const char *))&this->f_1c))(*b);
 }
+} // namespace fn_0002f1c0
 #if defined(HULK_PTR64)
-template class Closure1<CActorManager, void, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2f1a0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure1<CActorManager, void, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002f1c0::Closure1_2f1c0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -4808,7 +5280,7 @@ template class Closure1<CActorManager, bool,math::Vector>; // (ren2) native only
 
 
 // 0x0002f250 Closure1<CActorManager,bool,math::Vector>::vfunc_2 (52 B): matches/0x0002f250.cpp [wrapped: conflict: CActorManager; Closure1; Function]
-// sym: ?vfunc_2@Closure1@fn_0002f250@@UAEXHPBUVector@math@2@PA_N@Z
+// sym: ?vfunc_2@Closure1@fn_0002f250@@QAEXHPBUVector@math@2@PA_N@Z
 namespace fn_0002f250 {
 namespace math {
 struct Vector {
@@ -4819,18 +5291,18 @@ class CActorManager {
   public:
     bool Action(math::Vector);
 };
-class Function {
+class Function { void* vftable;   /* (script2) the vftable word, no stand-in vftable */
   public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
+    void vfunc_0();
+    void vfunc_1();
+    void vfunc_2();
 };
 class Closure1 : public Function {
   public:
     ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
     bool (CActorManager::*method)(math::Vector);
     CActorManager* obj;
-    virtual void vfunc_2(int unused, const math::Vector* v, bool* out);
+    void vfunc_2(int unused, const math::Vector* v, bool* out);
     inline bool invoke(math::Vector v) {
         CActorManager* o = obj;
         bool (CActorManager::*fn)(math::Vector) = method;
@@ -4901,7 +5373,7 @@ template class Closure1<CActorManager, const char *,math::Vector>; // (ren2) nat
 
 
 // 0x0002f300 Closure1<CActorManager,const_char_*,math::Vector>::vfunc_2 (52 B): equivalent/0x0002f300.cpp [wrapped: conflict: CActorManager; Closure1]
-// sym: ?vfunc_2@Closure1@fn_0002f300@@UAEXPAXPBUVector@2@PAI@Z @d145a21c7e71 @w810791563e95 @v19ab7521e34d
+// sym: ?vfunc_2@Closure1@fn_0002f300@@QAEXPAXPBUVector@2@PAI@Z @d145a21c7e71 @w810791563e95 @va4a80800b0bd
 namespace fn_0002f300 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // Closure1<CActorManager,const_char_*,math::Vector>::vfunc_2 @ 0x0002f300
@@ -4910,11 +5382,11 @@ class CActorManager {
 public:
     unsigned int FUN_0002f300(Vector value);
 };
-class Closure1 {
+class Closure1 { void* vftable;   /* (script2) the vftable word, no stand-in vftable */
 public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2(void *unused, const Vector *value, unsigned int *result);
+    void vfunc_0();
+    void vfunc_1();
+    void vfunc_2(void *unused, const Vector *value, unsigned int *result);
     char reserved[0x18];
     unsigned int (CActorManager::*method)(Vector);
     CActorManager *manager;
@@ -4951,14 +5423,25 @@ template <> Closure7<CActorManager, void, const char *, float, float, float, flo
 
 
 // 0x0002f390 Closure7<CActorManager,void,const_char_*,float,float,float,float,float,const_char_*>::vfunc_2 (29 B): matches/0x0002f390.cpp
-// sym: ?vfunc_2@?$Closure7@UCActorManager@@XPBDMMMMMPBD@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure7_2f390@fn_0002f390@@QAEXPAX00@Z
 // Same code shape as 0x0002ebc0 (propagated; names are from that function)
-template <> void Closure7<CActorManager, void, const char *, float, float, float, float, float, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr x = (hulk_intptr)__p0; hulk_intptr y = (hulk_intptr)__p1; hulk_intptr z = (hulk_intptr)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure7<CActorManager, void, const char *, float, float, float, float, float, const char *>::vfunc_2`.
+namespace fn_0002f390 {
+struct Closure7_2f390 : hulk_script::FunctionGenView {
+    void (::CActorManager::*f_1c)(const char *, float, float, float, float, float, const char *);
+    hulk_intptr f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure7_2f390::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr x = (hulk_intptr)__p0; hulk_intptr y = (hulk_intptr)__p1; hulk_intptr z = (hulk_intptr)__p2;
 
     invoke(this->f_20, y, z, (*(int *)&this->f_1c));
 }
+} // namespace fn_0002f390
 #if defined(HULK_PTR64)
-template class Closure7<CActorManager, void, const char *, float, float, float, float, float, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2f370)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure7<CActorManager, void, const char *, float, float, float, float, float, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002f390::Closure7_2f390*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -5013,14 +5496,25 @@ template <> Closure2<CActorManager, void, int, const char *>::~Closure2() {}
 
 
 // 0x0002f430 Closure2<CActorManager,void,int,const_char_*>::vfunc_2 (22 B): matches/0x0002f430.cpp
-// sym: ?vfunc_2@?$Closure2@UCActorManager@@XPBDM@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure2_2f430@fn_0002f430@@QAEXPAX00@Z
 // Same code shape as 0x0002e6d0 (propagated; names are from that function)
-template <> void Closure2<CActorManager, void, int, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; Pair_2f430 * p = (Pair_2f430 *)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure2<CActorManager, void, int, const char *>::vfunc_2`.
+namespace fn_0002f430 {
+struct Closure2_2f430 : hulk_script::FunctionGenView {
+    void (::CActorManager::*f_1c)(int, const char *);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure2_2f430::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; Pair_2f430 * p = (Pair_2f430 *)__p1; void * c = (void *)__p2;
 
     ((*(CActorManager_2f430 * *)&this->f_20)->*(*(void (CActorManager_2f430::**)(const char *, float))&this->f_1c))(p->s, p->f);
 }
+} // namespace fn_0002f430
 #if defined(HULK_PTR64)
-template class Closure2<CActorManager, void, int, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2f410)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure2<CActorManager, void, int, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002f430::Closure2_2f430*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -5148,16 +5642,27 @@ template <> Closure2<CActorManager, bool, const char *, int>::~Closure2() {}
 
 
 // 0x0002f580 Closure2<CActorManager,bool,const_char_*,int>::vfunc_2 (36 B): equivalent/0x0002f580.cpp
-// sym: ?vfunc_2@?$Closure2@UCActorManager@@_NPBDH@@UAEXPAX00@Z @e654de0dce29 @w4e3d89bebec6 @vc7f547317854
+// sym: ?vfunc_2@Closure2_2f580@fn_0002f580@@QAEXPAX00@Z @e654de0dce29 @w4e3d89bebec6 @vd6dfeccaa01f
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // Closure2<CActorManager,bool,const_char_*,int>::vfunc_2 @ 0x0002f580
-template <> void Closure2<CActorManager, bool, const char *, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; const ActorArgs * args = (const ActorArgs *)__p1; bool * result = (bool *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure2<CActorManager, bool, const char *, int>::vfunc_2`.
+namespace fn_0002f580 {
+struct Closure2_2f580 : hulk_script::FunctionGenView {
+    bool (::CActorManager::*f_1c)(const char *, int);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure2_2f580::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; const ActorArgs * args = (const ActorArgs *)__p1; bool * result = (bool *)__p2;
 
     bool value = ((*(CActorManager_2f580 * *)&this->f_20)->*(*(bool (CActorManager_2f580::**)(const char *, int))&this->f_1c))(args->name, args->value);
     if (result) *result = value;
 }
+} // namespace fn_0002f580
 #if defined(HULK_PTR64)
-template class Closure2<CActorManager, bool, const char *, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2f560)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure2<CActorManager, bool, const char *, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002f580::Closure2_2f580*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -5217,14 +5722,14 @@ template class Closure1<CActorManager, bool, int>; // (ren2) native only: clang 
 
 
 // 0x0002f620 Closure1<CActorManager,bool,int>::vfunc_2 (30 B): matches/0x0002f620.cpp [wrapped: conflict: Closure1]
-// sym: ?V2@Closure1@fn_0002f620@@UAEXPAXPAPBDPA_N@Z
+// sym: ?V2@Closure1@fn_0002f620@@QAEXPAXPAPBDPA_N@Z
 namespace fn_0002f620 {
 // Same code shape as 0x00106cc0 (propagated; names are from that function)
-class Closure1 {
+class Closure1 { void* vftable;   /* (script2) the vftable word, no stand-in vftable */
   public:
-    virtual void V0();
-    virtual void V1();
-    virtual void V2(void*, const char**, bool*);
+    void V0();
+    void V1();
+    void V2(void*, const char**, bool*);
     ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
     typedef bool(__fastcall* Fn)(void*, const char*, const char*);
     Fn mFn;
@@ -5263,8 +5768,16 @@ template <> Closure0<CActorManager, bool>::~Closure0() {}
 
 
 // 0x0002f6a0 Closure0<CActorManager,bool>::vfunc_2 (23 B): matches/0x0002f6a0.cpp
-// sym: ?vfunc_2@?$Closure0@UCActorManager@@_N@@UAEXPAX00@Z
-template <> void Closure0<CActorManager, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { unsigned char * out = (unsigned char *)__p2;
+// sym: ?vfunc_2@Closure0_2f6a0@fn_0002f6a0@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure0<CActorManager, bool>::vfunc_2`.
+namespace fn_0002f6a0 {
+struct Closure0_2f6a0 : hulk_script::FunctionGenView {
+    bool (::CActorManager::*f_1c)();
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure0_2f6a0::vfunc_2(void* __p0, void* __p1, void* __p2) { unsigned char * out = (unsigned char *)__p2;
 
     CActorManager_2f6a0* o = (*(CActorManager_2f6a0 * *)&this->f_20);
     Fn_2f6a0 fn = (*(Fn_2f6a0 *)&this->f_1c);
@@ -5272,8 +5785,11 @@ template <> void Closure0<CActorManager, bool>::vfunc_2(void* __p0, void* __p1, 
     if (out)
         *out = b;
 }
+} // namespace fn_0002f6a0
 #if defined(HULK_PTR64)
-template class Closure0<CActorManager, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2f680)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure0<CActorManager, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002f6a0::Closure0_2f6a0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -5304,16 +5820,16 @@ template class Closure4<CActorManager, void, const char *, float, int, float>; /
 
 
 // 0x0002f710 Closure4<CActorManager,void,const_char_*,float,int,float>::vfunc_2 (45 B): equivalent/0x0002f710.cpp [wrapped: conflict: CActorManager; Closure4]
-// sym: ?vfunc_2@Closure4@fn_0002f710@@UAEXHPBXH@Z @35da6a76506a @wc1e95d57ad4d @v3144d6494306
+// sym: ?vfunc_2@Closure4@fn_0002f710@@QAEXHPBXH@Z @35da6a76506a @wc1e95d57ad4d @vda064cb63cce
 namespace fn_0002f710 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // Closure4<CActorManager,void,const_char_*,float,int,float>::vfunc_2 @ 0x0002f710
 class CActorManager {};
-class Closure4 {
+class Closure4 { void* vftable;   /* (script2) the vftable word, no stand-in vftable */
 public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2(int unused, const void *arguments, int other);
+    void vfunc_0();
+    void vfunc_1();
+    void vfunc_2(int unused, const void *arguments, int other);
     ScriptFunctionFields fields;   // (script2) Function's fields (was char padding[0x18])
     typedef void (CActorManager::*Method)(const char *, float, int, float);
     Method method;
@@ -5352,15 +5868,26 @@ template <> Closure4<CActorManager, void, const char *, float, float, float>::~C
 
 
 // 0x0002f790 Closure4<CActorManager,void,const_char_*,float,float,float>::vfunc_2 (45 B): equivalent/0x0002f790.cpp
-// sym: ?vfunc_2@?$Closure4@UCActorManager@@XPBDMMM@@UAEXPAX00@Z @35da6a76506a @w86f05f0358a7 @vef69d9b32215
+// sym: ?vfunc_2@Closure4_2f790@fn_0002f790@@QAEXPAX00@Z @35da6a76506a @w86f05f0358a7 @vef380ad25267
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Closure4<CActorManager,void,const_char_*,float,float,float>::vfunc_2 @ 0x0002f790
-template <> void Closure4<CActorManager, void, const char *, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; ActorArgs * args = (ActorArgs *)__p1; void * unused2 = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure4<CActorManager, void, const char *, float, float, float>::vfunc_2`.
+namespace fn_0002f790 {
+struct Closure4_2f790 : hulk_script::FunctionGenView {
+    void (::CActorManager::*f_1c)(const char *, float, float, float);
+    hulk_intptr f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure4_2f790::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; ActorArgs * args = (ActorArgs *)__p1; void * unused2 = (void *)__p2;
 
     ((*(CActorManager_2f790 * *)&this->f_20)->*(*(void (CActorManager_2f790::**)(const char *, float, float, float))&this->f_1c))(args->name, args->a, args->b, args->c);
 }
+} // namespace fn_0002f790
 #if defined(HULK_PTR64)
-template class Closure4<CActorManager, void, const char *, float, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2f770)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure4<CActorManager, void, const char *, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002f790::Closure4_2f790*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -5388,12 +5915,23 @@ template <> Closure0<CActorManager, void>::~Closure0() {}
 
 
 // 0x0002f820 Closure0<CActorManager,void>::vfunc_2 (11 B): matches/0x0002f820.cpp
-// sym: ?vfunc_2@?$Closure0@UCActorManager@@X@@UAEXPAX00@Z
-template <> void Closure0<CActorManager, void>::vfunc_2(void* __p0, void* __p1, void* __p2) {
+// sym: ?vfunc_2@Closure0_2f820@fn_0002f820@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure0<CActorManager, void>::vfunc_2`.
+namespace fn_0002f820 {
+struct Closure0_2f820 : hulk_script::FunctionGenView {
+    void (::CActorManager::*f_1c)();
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure0_2f820::vfunc_2(void* __p0, void* __p1, void* __p2) {
     ((*(CActorManager_2f820 * *)&this->f_20)->*(*(void (CActorManager_2f820::**)())&this->f_1c))();
 }
+} // namespace fn_0002f820
 #if defined(HULK_PTR64)
-template class Closure0<CActorManager, void>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2f800)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure0<CActorManager, void>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002f820::Closure0_2f820*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -5536,16 +6074,27 @@ template <> Closure2<CActorManager, bool, const char *, float>::~Closure2() {}
 
 
 // 0x0002fa40 Closure2<CActorManager,bool,const_char_*,float>::vfunc_2 (40 B): equivalent/0x0002fa40.cpp
-// sym: ?vfunc_2@?$Closure2@UCActorManager@@_NPBDM@@UAEXPAX00@Z @e654de0dce29 @w869ed99f0dcb @v75e51167ee16
+// sym: ?vfunc_2@Closure2_2fa40@fn_0002fa40@@QAEXPAX00@Z @e654de0dce29 @w869ed99f0dcb @v11061005ced4
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // Closure2<CActorManager,bool,const_char_*,float>::vfunc_2 @ 0x0002fa40
-template <> void Closure2<CActorManager, bool, const char *, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; CallArgs * args = (CallArgs *)__p1; bool * result = (bool *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure2<CActorManager, bool, const char *, float>::vfunc_2`.
+namespace fn_0002fa40 {
+struct Closure2_2fa40 : hulk_script::FunctionGenView {
+    bool (::CActorManager::*f_1c)(const char *, float);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure2_2fa40::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; CallArgs * args = (CallArgs *)__p1; bool * result = (bool *)__p2;
 
     bool value = ((*(CActorManager_2fa40 * *)&this->f_20)->*(*(bool (CActorManager_2fa40::**)(const char *, float))&this->f_1c))(args->name, args->value);
     if (result) *result = value;
 }
+} // namespace fn_0002fa40
 #if defined(HULK_PTR64)
-template class Closure2<CActorManager, bool, const char *, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2fa20)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure2<CActorManager, bool, const char *, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002fa40::Closure2_2fa40*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -5599,10 +6148,18 @@ template <> Closure4<CActorManager, void, const char *, const char *, float, flo
 
 
 // 0x0002fb30 Closure4<CActorManager,void,const_char_*,const_char_*,float,float>::vfunc_2 (39 B): equivalent/0x0002fb30.cpp
-// sym: ?vfunc_2@?$Closure4@UCActorManager@@XPBDPBDMM@@UAEXPAX00@Z @35da6a76506a @w27dfc6c0d2b4 @vef3b5617b914
+// sym: ?vfunc_2@Closure4_2fb30@fn_0002fb30@@QAEXPAX00@Z @35da6a76506a @w27dfc6c0d2b4 @v5b8d3e636ec2
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Closure4<CActorManager,void,const_char_*,const_char_*,float,float>::vfunc_2 @ 0x0002fb30
-template <> void Closure4<CActorManager, void, const char *, const char *, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { const void * arguments = (const void *)__p1;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure4<CActorManager, void, const char *, const char *, float, float>::vfunc_2`.
+namespace fn_0002fb30 {
+struct Closure4_2fb30 : hulk_script::FunctionGenView {
+    void (::CActorManager::*f_1c)(const char *, const char *, float, float);
+    hulk_intptr f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure4_2fb30::vfunc_2(void* __p0, void* __p1, void* __p2) { const void * arguments = (const void *)__p1;
 
     struct Args {
         const char *first;
@@ -5613,8 +6170,11 @@ template <> void Closure4<CActorManager, void, const char *, const char *, float
     const Args *args = (const Args *)arguments;
     ((*(CActorManager_2fb30 * *)&this->f_20)->*(*(void (CActorManager_2fb30::**)(const char *, const char *, float, float))&this->f_1c))(args->first, args->second, args->third, args->fourth);
 }
+} // namespace fn_0002fb30
 #if defined(HULK_PTR64)
-template class Closure4<CActorManager, void, const char *, const char *, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2fb10)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure4<CActorManager, void, const char *, const char *, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002fb30::Closure4_2fb30*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -5672,16 +6232,16 @@ template class Closure2<CActorManager, const char *, const char *, int>; // (ren
 
 
 // 0x0002fbe0 Closure2<CActorManager,const_char_*,const_char_*,int>::vfunc_2 (36 B): equivalent/0x0002fbe0.cpp [wrapped: conflict: ActorMethod; Closure2]
-// sym: ?vfunc_2@Closure2@fn_0002fbe0@@UAEXPAXPAPBDPAH@Z @5f2db1ebe681 @waf66c672aa7b @v4e5800feb020
+// sym: ?vfunc_2@Closure2@fn_0002fbe0@@QAEXPAXPAPBDPAH@Z @5f2db1ebe681 @waf66c672aa7b @vfb85e9936b59
 namespace fn_0002fbe0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // Closure2<CActorManager,const_char_*,const_char_*,int>::vfunc_2 @ 0x0002fbe0
 struct CActorManager {};
 typedef int (CActorManager::*ActorMethod)(const char *, const char *);
-struct Closure2 {
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2(void *unused, const char **arguments, int *result);
+struct Closure2 { void* vftable;   /* (script2) the vftable word, no stand-in vftable */
+    void vfunc_0();
+    void vfunc_1();
+    void vfunc_2(void *unused, const char **arguments, int *result);
     ScriptFunctionFields fields;   // (script2) Function's fields (was char padding[0x18])
     ActorMethod method;
     CActorManager *actorManager;
@@ -5749,16 +6309,16 @@ template class Closure2<CActorManager, int, const char *, const char *>; // (ren
 
 
 // 0x0002fc90 Closure2<CActorManager,int,const_char_*,const_char_*>::vfunc_2 (36 B): equivalent/0x0002fc90.cpp [wrapped: conflict: CActorManager]
-// sym: ?vfunc_2@Closure2_CActorManager_int_const_char_const_char@fn_0002fc90@@UAEXHPBUArguments@2@PAH@Z @5f2db1ebe681 @waf66c672aa7b @vf9885143613c
+// sym: ?vfunc_2@Closure2_CActorManager_int_const_char_const_char@fn_0002fc90@@QAEXHPBUArguments@2@PAH@Z @5f2db1ebe681 @waf66c672aa7b @v61193af30c3d
 namespace fn_0002fc90 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // Closure2<CActorManager,int,const_char_*,const_char_*>::vfunc_2 @ 0x0002fc90
 struct CActorManager { int FUN_0002fc90(const char *, const char *); };
 struct Arguments { const char *first; const char *second; };
-struct Closure2_CActorManager_int_const_char_const_char {
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2(int unused, const Arguments *arguments, int *result);
+struct Closure2_CActorManager_int_const_char_const_char { void* vftable;   /* (script2) the vftable word, no stand-in vftable */
+    void vfunc_0();
+    void vfunc_1();
+    void vfunc_2(int unused, const Arguments *arguments, int *result);
     ScriptFunctionFields fields;   // (script2) Function's fields (was char padding[0x18])
     int (CActorManager::*method)(const char *, const char *);
     CActorManager *object;
@@ -5822,17 +6382,28 @@ template <> Closure2<CActorManager, const char *, const char *, const char *>::~
 
 
 // 0x0002fd40 Closure2<CActorManager,const_char_*,const_char_*,const_char_*>::vfunc_2 (36 B): equivalent/0x0002fd40.cpp
-// sym: ?vfunc_2@?$Closure2@UCActorManager@@PBDPBDPBD@@UAEXPAX00@Z @5f2db1ebe681 @w1a588241b2b0 @v260654de492c
+// sym: ?vfunc_2@Closure2_2fd40@fn_0002fd40@@QAEXPAX00@Z @5f2db1ebe681 @w1a588241b2b0 @vdcb5455b40a6
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // Closure2<CActorManager,const_char_*,const_char_*,const_char_*>::vfunc_2 @ 0x0002fd40
-template <> void Closure2<CActorManager, const char *, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; const char ** arguments = (const char **)__p1; int * result = (int *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure2<CActorManager, const char *, const char *, const char *>::vfunc_2`.
+namespace fn_0002fd40 {
+struct Closure2_2fd40 : hulk_script::FunctionGenView {
+    const char * (::CActorManager::*f_1c)(const char *, const char *);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure2_2fd40::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; const char ** arguments = (const char **)__p1; int * result = (int *)__p2;
 
     int value = ((*(CActorManager_2fd40 * *)&this->f_20)->*(*(int (CActorManager_2fd40::**)(const char *, const char *))&this->f_1c))(arguments[0], arguments[1]);
     if (result)
         *result = value;
 }
+} // namespace fn_0002fd40
 #if defined(HULK_PTR64)
-template class Closure2<CActorManager, const char *, const char *, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2fd20)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure2<CActorManager, const char *, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002fd40::Closure2_2fd40*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 namespace fn_f8e68f21 {
@@ -5853,17 +6424,39 @@ Closure1_2fd70* Closure1_2fd70::Fn(const char* a, Owner_2fd70* b, Fn_2fd70 c) {
 } // namespace fn_f8e68f21
 
 // 0x0002fde0 Closure1<CActorManager,void,float>::vfunc_2 (18 B): matches/0x0002fde0.cpp
-// sym: ?vfunc_2@?$Closure1@UCActorManager@@XPBD@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure1_2fde0@fn_0002fde0@@QAEXPAX00@Z
 // Same code shape as 0x0002ed90 (propagated; names are from that function)
-template <> void Closure1<CActorManager, void, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; const char ** b = (const char **)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure1<CActorManager, void, float>::vfunc_2`.
+namespace fn_0002fde0 {
+struct Closure1_2fde0 : hulk_script::FunctionGenView {
+    void (::CActorManager::*f_1c)(float);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure1_2fde0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; const char ** b = (const char **)__p1; void * c = (void *)__p2;
 
     ((*(CActorManager_2fde0 * *)&this->f_20)->*(*(void (CActorManager_2fde0::**)(const char *))&this->f_1c))(*b);
 }
+} // namespace fn_0002fde0
+#if defined(HULK_PTR64)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure1<CActorManager, void, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002fde0::Closure1_2fde0*)this)->vfunc_2(__p0, __p1, __p2); }
+#endif
 
 
 // 0x0002fe60 Closure0<CActorManager,float>::vfunc_2 (35 B): matches/0x0002fe60.cpp
-// sym: ?vfunc_2@?$Closure0@UCActorManager@@M@@UAEXPAX00@Z
-template <> void Closure0<CActorManager, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr a = (hulk_intptr)__p0; hulk_intptr b = (hulk_intptr)__p1; float * out = (float *)__p2;
+// sym: ?vfunc_2@Closure0_2fe60@fn_0002fe60@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure0<CActorManager, float>::vfunc_2`.
+namespace fn_0002fe60 {
+struct Closure0_2fe60 : hulk_script::FunctionGenView {
+    float (::CActorManager::*f_1c)();
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure0_2fe60::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr a = (hulk_intptr)__p0; hulk_intptr b = (hulk_intptr)__p1; float * out = (float *)__p2;
 
     CActorManager_2fe60* m = (*(CActorManager_2fe60 * *)&this->f_20);
     Fn_2fe60 fn = (*(Fn_2fe60 *)&this->f_1c);
@@ -5871,6 +6464,12 @@ template <> void Closure0<CActorManager, float>::vfunc_2(void* __p0, void* __p1,
     if (out)
         *out = v;
 }
+} // namespace fn_0002fe60
+#if defined(HULK_PTR64)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure0<CActorManager, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002fe60::Closure0_2fe60*)this)->vfunc_2(__p0, __p1, __p2); }
+#endif
 
 
 // 0x0002fe90 FUN_0002fe90 (89 B): matches/0x0002fe90.cpp [wrapped: conflict: Closure2]
@@ -5957,8 +6556,16 @@ Closure2::Closure2(const char* name, Owner_2ff20* object, Fn_2ff20 function) : h
 
 
 // 0x0002ffa0 Closure2<CActorManager,float,const_char_*,const_char_*>::vfunc_2 (47 B): matches/0x0002ffa0.cpp
-// sym: ?vfunc_2@?$Closure2@UCActorManager@@MPBDPBD@@UAEXPAX00@Z
-template <> void Closure2<CActorManager, float, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { unsigned int * x = (unsigned int *)__p0; unsigned int * args = (unsigned int *)__p1; float * out = (float *)__p2;
+// sym: ?vfunc_2@Closure2_2ffa0@fn_0002ffa0@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure2<CActorManager, float, const char *, const char *>::vfunc_2`.
+namespace fn_0002ffa0 {
+struct Closure2_2ffa0 : hulk_script::FunctionGenView {
+    float (::CActorManager::*f_1c)(const char *, const char *);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure2_2ffa0::vfunc_2(void* __p0, void* __p1, void* __p2) { unsigned int * x = (unsigned int *)__p0; unsigned int * args = (unsigned int *)__p1; float * out = (float *)__p2;
 
     CActorManager_2ffa0* o = (*(CActorManager_2ffa0 * *)&this->f_20);
     float (CActorManager_2ffa0::*fn)(const char*, const char*) = (*(float (CActorManager_2ffa0::**)(const char *, const char *))&this->f_1c);
@@ -5968,6 +6575,12 @@ template <> void Closure2<CActorManager, float, const char *, const char *>::vfu
     if (out)
         *out = r;
 }
+} // namespace fn_0002ffa0
+#if defined(HULK_PTR64)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure2<CActorManager, float, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002ffa0::Closure2_2ffa0*)this)->vfunc_2(__p0, __p1, __p2); }
+#endif
 
 
 // 0x0002ffd0 FUN_0002ffd0 (76 B): matches/0x0002ffd0.cpp [wrapped: conflict: Closure1; Method1]
@@ -6000,11 +6613,25 @@ Closure1::Closure1(const char* name, Owner_2ffd0* object, Fn_2ffd0 function) : h
 
 
 // 0x00030040 Closure1<CActorManager,void,bool>::vfunc_2 (20 B): matches/0x00030040.cpp
-// sym: ?vfunc_2@?$Closure1@UCActorManager@@X_N@@UAEXPAX00@Z
-template <> void Closure1<CActorManager, void, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { unsigned char * arg = (unsigned char *)__p1;
+// sym: ?vfunc_2@Closure1_30040@fn_00030040@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure1<CActorManager, void, bool>::vfunc_2`.
+namespace fn_00030040 {
+struct Closure1_30040 : hulk_script::FunctionGenView {
+    void (::CActorManager::*f_1c)(bool);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure1_30040::vfunc_2(void* __p0, void* __p1, void* __p2) { unsigned char * arg = (unsigned char *)__p1;
 
     ((*(Actor_30040 * *)&this->f_20)->*(*(void (Actor_30040::**)(unsigned char))&this->f_1c))(*arg);
 }
+} // namespace fn_00030040
+#if defined(HULK_PTR64)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure1<CActorManager, void, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00030040::Closure1_30040*)this)->vfunc_2(__p0, __p1, __p2); }
+#endif
 
 
 // 0x00030120 Closure3<CActorManager,bool,const_char_*,math::Vector,math::Vector>::vfunc_2 (12 B): matches/0x00030120.cpp [wrapped: conflict: Closure2; Function; Method2]
@@ -6065,16 +6692,30 @@ Closure2::Closure2(const char* name, Owner_30130* object, Fn_30130 function) : h
 
 
 // 0x000301b0 Closure2<CActorManager,bool,const_char_*,math::Vector>::vfunc_2 (61 B): equivalent/0x000301b0.cpp
-// sym: ?vfunc_2@?$Closure2@UCActorManager@@_NPBDVVector@math@@@@UAEXPAX00@Z @6c585092a365 @wa53bb2aee1dc @v7fe8451da96b
+// sym: ?vfunc_2@Closure2_301b0@fn_000301b0@@QAEXPAX00@Z @6c585092a365 @wa53bb2aee1dc @ve85fc8648f3a
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // Closure2<CActorManager,bool,const_char_*,math::Vector>::vfunc_2 @ 0x000301b0
-template <> void Closure2<CActorManager, bool, const char *,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { const void * data = (const void *)__p1; bool * result = (bool *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure2<CActorManager, bool, const char *,math::Vector>::vfunc_2`.
+namespace fn_000301b0 {
+struct Closure2_301b0 : hulk_script::FunctionGenView {
+    bool (::CActorManager::*f_1c)(const char *, math::Vector);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure2_301b0::vfunc_2(void* __p0, void* __p1, void* __p2) { const void * data = (const void *)__p1; bool * result = (bool *)__p2;
 
     struct Arguments { const char *name; Vector_301b0 position; };
     const Arguments *args = (const Arguments *)data;
     bool value = ((*(CActorManager_301b0 * *)&this->f_20)->*(*(bool (CActorManager_301b0::**)(const char *, Vector_301b0))&this->f_1c))(args->name, args->position);
     if (result) *result = value;
 }
+} // namespace fn_000301b0
+#if defined(HULK_PTR64)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure2<CActorManager, bool, const char *,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000301b0::Closure2_301b0*)this)->vfunc_2(__p0, __p1, __p2); }
+#endif
 
 namespace fn_f8e68f21 {
 

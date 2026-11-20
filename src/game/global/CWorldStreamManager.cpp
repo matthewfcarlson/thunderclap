@@ -1673,15 +1673,25 @@ template <> Method1<CWorldStreamManager, void, int>::~Method1() {}
 
 
 // 0x002050d0 Method1<CWorldStreamManager,void,int>::vfunc_2 (19 B): matches/0x002050d0.cpp
-// sym: ?vfunc_2@?$Method1@VCWorldStreamManager@@XH@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method1_2050d0@fn_002050d0@@QAEXPAX00@Z
 // Same code shape as 0x0002ce30 (propagated; names are from that function)
-template <> void Method1<CWorldStreamManager, void, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void ** b = (void **)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method1<CWorldStreamManager, void, int>::vfunc_2`.
+namespace fn_002050d0 {
+struct Method1_2050d0 : hulk_script::FunctionGenView {
+    void (::CWorldStreamManager::*f_1c)(int);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method1_2050d0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void ** b = (void **)__p1; void * c = (void *)__p2;
 
     Dummy_2050d0* d = (Dummy_2050d0*)a;
     (d->*(*(void (Dummy_2050d0::**)(void *))&this->f_1c))(*b);
 }
+} // namespace fn_002050d0
 #if defined(HULK_PTR64)
-template class Method1<CWorldStreamManager, void, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2050b0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method1<CWorldStreamManager, void, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_002050d0::Method1_2050d0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 namespace fn_f49dcb8d {
@@ -1735,8 +1745,15 @@ template <> Method3<CWorldStreamManager, bool, float, float, float>::~Method3() 
 
 
 // 0x00205170 Method3<CWorldStreamManager,bool,float,float,float>::vfunc_2 (64 B): matches/0x00205170.cpp
-// sym: ?vfunc_2@?$Method3@VCWorldStreamManager@@_NMMM@@UAEXPAX00@Z
-template <> void Method3<CWorldStreamManager, bool, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { CWorldStreamManager_205170 * object = (CWorldStreamManager_205170 *)__p0; const float * args = (const float *)__p1; bool * result = (bool *)__p2;
+// sym: ?vfunc_2@Method3_205170@fn_00205170@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method3<CWorldStreamManager, bool, float, float, float>::vfunc_2`.
+namespace fn_00205170 {
+struct Method3_205170 : hulk_script::FunctionGenView {
+    bool (::CWorldStreamManager::*f_1c)(float, float, float);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method3_205170::vfunc_2(void* __p0, void* __p1, void* __p2) { CWorldStreamManager_205170 * object = (CWorldStreamManager_205170 *)__p0; const float * args = (const float *)__p1; bool * result = (bool *)__p2;
 
     bool (CWorldStreamManager_205170::*fn)(float, float, float) = (*(bool (CWorldStreamManager_205170::**)(float, float, float))&this->f_1c);
     float a = args[0], b = args[1], c = args[2];
@@ -1744,8 +1761,11 @@ template <> void Method3<CWorldStreamManager, bool, float, float, float>::vfunc_
     if (result)
         *result = value;
 }
+} // namespace fn_00205170
 #if defined(HULK_PTR64)
-template class Method3<CWorldStreamManager, bool, float, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x205150)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method3<CWorldStreamManager, bool, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00205170::Method3_205170*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 namespace fn_f49dcb8d {
@@ -1799,8 +1819,15 @@ template <> Method3<CWorldStreamManager, int, float, float, float>::~Method3() {
 
 
 // 0x00205230 Method3<CWorldStreamManager,int,float,float,float>::vfunc_2 (64 B): matches/0x00205230.cpp
-// sym: ?vfunc_2@?$Method3@VCWorldStreamManager@@HMMM@@UAEXPAX00@Z
-template <> void Method3<CWorldStreamManager, int, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { CWorldStreamManager_205230 * manager = (CWorldStreamManager_205230 *)__p0; const float * args = (const float *)__p1; int * result = (int *)__p2;
+// sym: ?vfunc_2@Method3_205230@fn_00205230@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method3<CWorldStreamManager, int, float, float, float>::vfunc_2`.
+namespace fn_00205230 {
+struct Method3_205230 : hulk_script::FunctionGenView {
+    int (::CWorldStreamManager::*f_1c)(float, float, float);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method3_205230::vfunc_2(void* __p0, void* __p1, void* __p2) { CWorldStreamManager_205230 * manager = (CWorldStreamManager_205230 *)__p0; const float * args = (const float *)__p1; int * result = (int *)__p2;
 
     int (CWorldStreamManager_205230::*fn)(float, float, float) = (*(int (CWorldStreamManager_205230::**)(float, float, float))&this->f_1c);
     float a = args[0], b = args[1], c = args[2];
@@ -1808,8 +1835,11 @@ template <> void Method3<CWorldStreamManager, int, float, float, float>::vfunc_2
     if (result)
         *result = value;
 }
+} // namespace fn_00205230
 #if defined(HULK_PTR64)
-template class Method3<CWorldStreamManager, int, float, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x205210)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method3<CWorldStreamManager, int, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00205230::Method3_205230*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -1837,17 +1867,27 @@ template <> Method0<CWorldStreamManager, const char *>::~Method0() {}
 
 
 // 0x002052d0 Method0<CWorldStreamManager,const_char_*>::vfunc_2 (22 B): matches/0x002052d0.cpp
-// sym: ?vfunc_2@?$Method0@VCWorldStreamManager@@PBD@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method0_2052d0@fn_002052d0@@QAEXPAX00@Z
 // Same code shape as 0x0002ceb0 (propagated; names are from that function)
-template <> void Method0<CWorldStreamManager, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void * b = (void *)__p1; unsigned int * out = (unsigned int *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method0<CWorldStreamManager, const char *>::vfunc_2`.
+namespace fn_002052d0 {
+struct Method0_2052d0 : hulk_script::FunctionGenView {
+    const char * (::CWorldStreamManager::*f_1c)();
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method0_2052d0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void * b = (void *)__p1; unsigned int * out = (unsigned int *)__p2;
 
     unsigned(__fastcall * p)(void*) = *(unsigned(__fastcall**)(void*))((char*)&this->f_1c);
     unsigned v = p(a);
     if (out)
         *out = v;
 }
+} // namespace fn_002052d0
 #if defined(HULK_PTR64)
-template class Method0<CWorldStreamManager, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2052b0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method0<CWorldStreamManager, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_002052d0::Method0_2052d0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -1875,8 +1915,15 @@ template <> Method2<CWorldStreamManager, int, int, int>::~Method2() {}
 
 
 // 0x00205360 Method2<CWorldStreamManager,int,int,int>::vfunc_2 (33 B): matches/0x00205360.cpp
-// sym: ?vfunc_2@?$Method2@VCWorldStreamManager@@HHH@@UAEXPAX00@Z
-template <> void Method2<CWorldStreamManager, int, int, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { CWorldStreamManager_205360 * obj = (CWorldStreamManager_205360 *)__p0; Args * args = (Args *)__p1; int * result = (int *)__p2;
+// sym: ?vfunc_2@Method2_205360@fn_00205360@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method2<CWorldStreamManager, int, int, int>::vfunc_2`.
+namespace fn_00205360 {
+struct Method2_205360 : hulk_script::FunctionGenView {
+    int (::CWorldStreamManager::*f_1c)(int, int);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method2_205360::vfunc_2(void* __p0, void* __p1, void* __p2) { CWorldStreamManager_205360 * obj = (CWorldStreamManager_205360 *)__p0; Args * args = (Args *)__p1; int * result = (int *)__p2;
 
     int (CWorldStreamManager_205360::*fn)(int, int) = (*(int (CWorldStreamManager_205360::**)(int, int))&this->f_1c);
     int a = args->a;
@@ -1885,8 +1932,11 @@ template <> void Method2<CWorldStreamManager, int, int, int>::vfunc_2(void* __p0
     if (result)
         *result = value;
 }
+} // namespace fn_00205360
 #if defined(HULK_PTR64)
-template class Method2<CWorldStreamManager, int, int, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x205340)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method2<CWorldStreamManager, int, int, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00205360::Method2_205360*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -1914,8 +1964,15 @@ template <> Method1<CWorldStreamManager, int, int>::~Method1() {}
 
 
 // 0x002053f0 Method1<CWorldStreamManager,int,int>::vfunc_2 (29 B): matches/0x002053f0.cpp
-// sym: ?vfunc_2@?$Method1@VCWorldStreamManager@@HH@@UAEXPAX00@Z
-template <> void Method1<CWorldStreamManager, int, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { CWorldStreamManager_2053f0 * manager = (CWorldStreamManager_2053f0 *)__p0; int * input = (int *)__p1; int * result = (int *)__p2;
+// sym: ?vfunc_2@Method1_2053f0@fn_002053f0@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method1<CWorldStreamManager, int, int>::vfunc_2`.
+namespace fn_002053f0 {
+struct Method1_2053f0 : hulk_script::FunctionGenView {
+    int (::CWorldStreamManager::*f_1c)(int);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method1_2053f0::vfunc_2(void* __p0, void* __p1, void* __p2) { CWorldStreamManager_2053f0 * manager = (CWorldStreamManager_2053f0 *)__p0; int * input = (int *)__p1; int * result = (int *)__p2;
 
     int (CWorldStreamManager_2053f0::*fn)(int) = (*(int (CWorldStreamManager_2053f0::**)(int))&this->f_1c);
     int arg = *input;
@@ -1923,8 +1980,11 @@ template <> void Method1<CWorldStreamManager, int, int>::vfunc_2(void* __p0, voi
     if (result)
         *result = value;
 }
+} // namespace fn_002053f0
 #if defined(HULK_PTR64)
-template class Method1<CWorldStreamManager, int, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2053d0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method1<CWorldStreamManager, int, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_002053f0::Method1_2053f0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -1952,17 +2012,27 @@ template <> Method0<CWorldStreamManager, int>::~Method0() {}
 
 
 // 0x00205470 Method0<CWorldStreamManager,int>::vfunc_2 (22 B): matches/0x00205470.cpp
-// sym: ?vfunc_2@?$Method0@VCWorldStreamManager@@PBD@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method0_205470@fn_00205470@@QAEXPAX00@Z
 // Same code shape as 0x0002ceb0 (propagated; names are from that function)
-template <> void Method0<CWorldStreamManager, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void * b = (void *)__p1; unsigned int * out = (unsigned int *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method0<CWorldStreamManager, int>::vfunc_2`.
+namespace fn_00205470 {
+struct Method0_205470 : hulk_script::FunctionGenView {
+    int (::CWorldStreamManager::*f_1c)();
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method0_205470::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void * b = (void *)__p1; unsigned int * out = (unsigned int *)__p2;
 
     unsigned(__fastcall * p)(void*) = *(unsigned(__fastcall**)(void*))((char*)&this->f_1c);
     unsigned v = p(a);
     if (out)
         *out = v;
 }
+} // namespace fn_00205470
 #if defined(HULK_PTR64)
-template class Method0<CWorldStreamManager, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x205450)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method0<CWorldStreamManager, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00205470::Method0_205470*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -1990,8 +2060,15 @@ template <> Method1<CWorldStreamManager, bool, int>::~Method1() {}
 
 
 // 0x002054f0 Method1<CWorldStreamManager,bool,int>::vfunc_2 (29 B): matches/0x002054f0.cpp
-// sym: ?vfunc_2@?$Method1@VCWorldStreamManager@@_NH@@UAEXPAX00@Z
-template <> void Method1<CWorldStreamManager, bool, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { CWorldStreamManager_2054f0 * obj = (CWorldStreamManager_2054f0 *)__p0; int * arg = (int *)__p1; bool * out = (bool *)__p2;
+// sym: ?vfunc_2@Method1_2054f0@fn_002054f0@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method1<CWorldStreamManager, bool, int>::vfunc_2`.
+namespace fn_002054f0 {
+struct Method1_2054f0 : hulk_script::FunctionGenView {
+    bool (::CWorldStreamManager::*f_1c)(int);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method1_2054f0::vfunc_2(void* __p0, void* __p1, void* __p2) { CWorldStreamManager_2054f0 * obj = (CWorldStreamManager_2054f0 *)__p0; int * arg = (int *)__p1; bool * out = (bool *)__p2;
 
     bool (CWorldStreamManager_2054f0::*f)(int) = (*(bool (CWorldStreamManager_2054f0::**)(int))&this->f_1c);
     int value = *arg;
@@ -1999,8 +2076,11 @@ template <> void Method1<CWorldStreamManager, bool, int>::vfunc_2(void* __p0, vo
     if (out)
         *out = result;
 }
+} // namespace fn_002054f0
 #if defined(HULK_PTR64)
-template class Method1<CWorldStreamManager, bool, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2054d0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method1<CWorldStreamManager, bool, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_002054f0::Method1_2054f0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -2028,17 +2108,27 @@ template <> Method0<CWorldStreamManager, bool>::~Method0() {}
 
 
 // 0x00205570 Method0<CWorldStreamManager,bool>::vfunc_2 (22 B): matches/0x00205570.cpp
-// sym: ?vfunc_2@?$Method0@VCWorldStreamManager@@_N@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method0_205570@fn_00205570@@QAEXPAX00@Z
 // Same code shape as 0x0002d750 (propagated; names are from that function)
-template <> void Method0<CWorldStreamManager, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_205570 * obj = (CActorManager_205570 *)__p0; void * a = (void *)__p1; unsigned char * out = (unsigned char *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method0<CWorldStreamManager, bool>::vfunc_2`.
+namespace fn_00205570 {
+struct Method0_205570 : hulk_script::FunctionGenView {
+    bool (::CWorldStreamManager::*f_1c)();
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method0_205570::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_205570 * obj = (CActorManager_205570 *)__p0; void * a = (void *)__p1; unsigned char * out = (unsigned char *)__p2;
 
     Fn_205570 fn = (*(Fn_205570 *)&this->f_1c);
     unsigned char r = fn(obj);
     if (out)
         *out = r;
 }
+} // namespace fn_00205570
 #if defined(HULK_PTR64)
-template class Method0<CWorldStreamManager, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x205550)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method0<CWorldStreamManager, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00205570::Method0_205570*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -2066,14 +2156,24 @@ template <> Method0<CWorldStreamManager, void>::~Method0() {}
 
 
 // 0x002055f0 Method0<CWorldStreamManager,void>::vfunc_2 (12 B): matches/0x002055f0.cpp
-// sym: ?vfunc_2@?$Method0@VCWorldStreamManager@@X@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method0_2055f0@fn_002055f0@@QAEXPAX00@Z
 // Same code shape as 0x0002d950 (propagated; names are from that function)
-template <> void Method0<CWorldStreamManager, void>::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_2055f0 * a = (CActorManager_2055f0 *)__p0;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method0<CWorldStreamManager, void>::vfunc_2`.
+namespace fn_002055f0 {
+struct Method0_2055f0 : hulk_script::FunctionGenView {
+    void (::CWorldStreamManager::*f_1c)();
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method0_2055f0::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_2055f0 * a = (CActorManager_2055f0 *)__p0;
 
     (a->*(*(void (CActorManager_2055f0::**)())&this->f_1c))();
 }
+} // namespace fn_002055f0
 #if defined(HULK_PTR64)
-template class Method0<CWorldStreamManager, void>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2055d0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method0<CWorldStreamManager, void>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_002055f0::Method0_2055f0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 namespace fn_f49dcb8d {
@@ -2127,14 +2227,24 @@ template <> Method3<CWorldStreamManager, void, const char *, int, bool>::~Method
 
 
 // 0x00205680 Method3<CWorldStreamManager,void,const_char_*,int,bool>::vfunc_2 (31 B): matches/0x00205680.cpp
-// sym: ?vfunc_2@?$Method3@VCWorldStreamManager@@XPBDH_N@@UAEXPAX00@Z
-template <> void Method3<CWorldStreamManager, void, const char *, int, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { CWorldStreamManager_205680 * object = (CWorldStreamManager_205680 *)__p0; Arguments * arguments = (Arguments *)__p1; void * unused = (void *)__p2;
+// sym: ?vfunc_2@Method3_205680@fn_00205680@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method3<CWorldStreamManager, void, const char *, int, bool>::vfunc_2`.
+namespace fn_00205680 {
+struct Method3_205680 : hulk_script::FunctionGenView {
+    void (::CWorldStreamManager::*f_1c)(const char *, int, bool);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method3_205680::vfunc_2(void* __p0, void* __p1, void* __p2) { CWorldStreamManager_205680 * object = (CWorldStreamManager_205680 *)__p0; Arguments * arguments = (Arguments *)__p1; void * unused = (void *)__p2;
 
     const char* name = arguments->name;
     (object->*(*(void (CWorldStreamManager_205680::**)(const char *, int, bool))&this->f_1c))(name, arguments->number, arguments->flag);
 }
+} // namespace fn_00205680
 #if defined(HULK_PTR64)
-template class Method3<CWorldStreamManager, void, const char *, int, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x205660)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method3<CWorldStreamManager, void, const char *, int, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00205680::Method3_205680*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 namespace fn_f49dcb8d {
@@ -2316,16 +2426,27 @@ template <> Closure3<CWorldStreamManager, bool, float, float, float>::~Closure3(
 
 
 // 0x00205ce0 Closure3<CWorldStreamManager,bool,float,float,float>::vfunc_2 (64 B): equivalent/0x00205ce0.cpp
-// sym: ?vfunc_2@?$Closure3@VCWorldStreamManager@@_NMMM@@UAEXPAX00@Z @b66dd089ba69 @w9c630f34be59 @v5c8a73e92b23
+// sym: ?vfunc_2@Closure3_205ce0@fn_00205ce0@@QAEXPAX00@Z @b66dd089ba69 @w9c630f34be59 @v86acb1cedc30
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // Closure3<CWorldStreamManager,bool,float,float,float>::vfunc_2 @ 0x00205ce0
-template <> void Closure3<CWorldStreamManager, bool, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; float * arguments = (float *)__p1; bool * result = (bool *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure3<CWorldStreamManager, bool, float, float, float>::vfunc_2`.
+namespace fn_00205ce0 {
+struct Closure3_205ce0 : hulk_script::FunctionGenView {
+    bool (::CWorldStreamManager::*f_1c)(float, float, float);
+    hulk_intptr f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure3_205ce0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; float * arguments = (float *)__p1; bool * result = (bool *)__p2;
 
     bool value = (*(StreamCallback *)&this->f_1c)((*(CWorldStreamManager_205ce0 * *)&this->f_20), 0, arguments[0], arguments[1], arguments[2]);
     if (result) *result = value;
 }
+} // namespace fn_00205ce0
 #if defined(HULK_PTR64)
-template class Closure3<CWorldStreamManager, bool, float, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x205cc0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure3<CWorldStreamManager, bool, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00205ce0::Closure3_205ce0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -2353,13 +2474,24 @@ template <> Closure3<CWorldStreamManager, int, float, float, float>::~Closure3()
 
 
 // 0x00205d70 Closure3<CWorldStreamManager,int,float,float,float>::vfunc_2 (64 B): equivalent/0x00205d70.cpp
-// sym: ?vfunc_2@?$Closure3@VCWorldStreamManager@@HMMM@@UAEXPAX00@Z @df53f4d6ac4d @wf56146c9fa5a @v765d5af4e34b
+// sym: ?vfunc_2@Closure3_205d70@fn_00205d70@@QAEXPAX00@Z @df53f4d6ac4d @wf56146c9fa5a @v2918d819faef
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // Closure3<CWorldStreamManager,int,float,float,float>::vfunc_2 @ 0x00205d70
-template <> void Closure3<CWorldStreamManager, int, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr unused = (hulk_intptr)__p0; const float * args = (const float *)__p1; int * result = (int *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure3<CWorldStreamManager, int, float, float, float>::vfunc_2`.
+namespace fn_00205d70 {
+struct Closure3_205d70 : hulk_script::FunctionGenView {
+    int (::CWorldStreamManager::*f_1c)(float, float, float);
+    hulk_intptr f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure3_205d70::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr unused = (hulk_intptr)__p0; const float * args = (const float *)__p1; int * result = (int *)__p2;
  int value = ((*(CWorldStreamManager_205d70 * *)&this->f_20)->*(*(int (CWorldStreamManager_205d70::**)(float, float, float))&this->f_1c))(args[0], args[1], args[2]); if (result) *result = value; }
+} // namespace fn_00205d70
 #if defined(HULK_PTR64)
-template class Closure3<CWorldStreamManager, int, float, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x205d50)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure3<CWorldStreamManager, int, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00205d70::Closure3_205d70*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -2387,9 +2519,17 @@ template <> Closure0<CWorldStreamManager, const char *>::~Closure0() {}
 
 
 // 0x00205e10 Closure0<CWorldStreamManager,const_char_*>::vfunc_2 (23 B): matches/0x00205e10.cpp
-// sym: ?vfunc_2@?$Closure0@VCWorldStreamManager@@PBD@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure0_205e10@fn_00205e10@@QAEXPAX00@Z
 // Same code shape as 0x0002ee10 (propagated; names are from that function)
-template <> void Closure0<CWorldStreamManager, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { int * out = (int *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure0<CWorldStreamManager, const char *>::vfunc_2`.
+namespace fn_00205e10 {
+struct Closure0_205e10 : hulk_script::FunctionGenView {
+    const char * (::CWorldStreamManager::*f_1c)();
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure0_205e10::vfunc_2(void* __p0, void* __p1, void* __p2) { int * out = (int *)__p2;
 
     CActorManager_205e10* obj = (*(CActorManager_205e10 * *)&this->f_20);
     int (CActorManager_205e10::*fn)() = (*(int (CActorManager_205e10::**)())&this->f_1c);
@@ -2397,8 +2537,11 @@ template <> void Closure0<CWorldStreamManager, const char *>::vfunc_2(void* __p0
     if (out)
         *out = result;
 }
+} // namespace fn_00205e10
 #if defined(HULK_PTR64)
-template class Closure0<CWorldStreamManager, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x205df0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure0<CWorldStreamManager, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00205e10::Closure0_205e10*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -2453,16 +2596,27 @@ template <> Closure2<CWorldStreamManager, int, int, int>::~Closure2() {}
 
 
 // 0x00205eb0 Closure2<CWorldStreamManager,int,int,int>::vfunc_2 (36 B): equivalent/0x00205eb0.cpp
-// sym: ?vfunc_2@?$Closure2@VCWorldStreamManager@@HHH@@UAEXPAX00@Z @5f2db1ebe681 @w1a588241b2b0 @v9d2093b60b8f
+// sym: ?vfunc_2@Closure2_205eb0@fn_00205eb0@@QAEXPAX00@Z @5f2db1ebe681 @w1a588241b2b0 @v4f83eba10421
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // Closure2<CWorldStreamManager,int,int,int>::vfunc_2 @ 0x00205eb0
-template <> void Closure2<CWorldStreamManager, int, int, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr unused = (hulk_intptr)__p0; Arguments * arguments = (Arguments *)__p1; int * result = (int *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure2<CWorldStreamManager, int, int, int>::vfunc_2`.
+namespace fn_00205eb0 {
+struct Closure2_205eb0 : hulk_script::FunctionGenView {
+    int (::CWorldStreamManager::*f_1c)(int, int);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure2_205eb0::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr unused = (hulk_intptr)__p0; Arguments * arguments = (Arguments *)__p1; int * result = (int *)__p2;
 
     int value = ((*(CWorldStreamManager_205eb0 * *)&this->f_20)->*(*(int (CWorldStreamManager_205eb0::**)(int, int))&this->f_1c))(arguments->first, arguments->second);
     if (result) *result = value;
 }
+} // namespace fn_00205eb0
 #if defined(HULK_PTR64)
-template class Closure2<CWorldStreamManager, int, int, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x205e90)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure2<CWorldStreamManager, int, int, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00205eb0::Closure2_205eb0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -2516,17 +2670,28 @@ template <> Closure1<CWorldStreamManager, int, int>::~Closure1() {}
 
 
 // 0x00205f50 Closure1<CWorldStreamManager,int,int>::vfunc_2 (30 B): equivalent/0x00205f50.cpp
-// sym: ?vfunc_2@?$Closure1@VCWorldStreamManager@@HH@@UAEXPAX00@Z @d5fcbfd9f63b @we2b2731e125e @v831dab222706
+// sym: ?vfunc_2@Closure1_205f50@fn_00205f50@@QAEXPAX00@Z @d5fcbfd9f63b @we2b2731e125e @v04020684a3df
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // Closure1<CWorldStreamManager,int,int>::vfunc_2 @ 0x00205f50
-template <> void Closure1<CWorldStreamManager, int, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; int * argument = (int *)__p1; int * result = (int *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure1<CWorldStreamManager, int, int>::vfunc_2`.
+namespace fn_00205f50 {
+struct Closure1_205f50 : hulk_script::FunctionGenView {
+    int (::CWorldStreamManager::*f_1c)(int);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure1_205f50::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; int * argument = (int *)__p1; int * result = (int *)__p2;
 
     int value = ((*(CWorldStreamManager_205f50 * *)&this->f_20)->*(*(int (CWorldStreamManager_205f50::**)(int))&this->f_1c))(*argument);
     if (result)
         *result = value;
 }
+} // namespace fn_00205f50
 #if defined(HULK_PTR64)
-template class Closure1<CWorldStreamManager, int, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x205f30)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure1<CWorldStreamManager, int, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00205f50::Closure1_205f50*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -2554,9 +2719,17 @@ template <> Closure0<CWorldStreamManager, int>::~Closure0() {}
 
 
 // 0x00205fd0 Closure0<CWorldStreamManager,int>::vfunc_2 (23 B): matches/0x00205fd0.cpp
-// sym: ?vfunc_2@?$Closure0@VCWorldStreamManager@@PBD@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure0_205fd0@fn_00205fd0@@QAEXPAX00@Z
 // Same code shape as 0x0002ee10 (propagated; names are from that function)
-template <> void Closure0<CWorldStreamManager, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { int * out = (int *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure0<CWorldStreamManager, int>::vfunc_2`.
+namespace fn_00205fd0 {
+struct Closure0_205fd0 : hulk_script::FunctionGenView {
+    int (::CWorldStreamManager::*f_1c)();
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure0_205fd0::vfunc_2(void* __p0, void* __p1, void* __p2) { int * out = (int *)__p2;
 
     CActorManager_205fd0* obj = (*(CActorManager_205fd0 * *)&this->f_20);
     int (CActorManager_205fd0::*fn)() = (*(int (CActorManager_205fd0::**)())&this->f_1c);
@@ -2564,8 +2737,11 @@ template <> void Closure0<CWorldStreamManager, int>::vfunc_2(void* __p0, void* _
     if (out)
         *out = result;
 }
+} // namespace fn_00205fd0
 #if defined(HULK_PTR64)
-template class Closure0<CWorldStreamManager, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x205fb0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure0<CWorldStreamManager, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00205fd0::Closure0_205fd0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -2599,14 +2775,14 @@ Closure1::Closure1(const char* name, Owner_205ff0* object, Fn_205ff0 function) :
 
 
 // 0x00206060 Closure1<CWorldStreamManager,bool,int>::vfunc_2 (30 B): matches/0x00206060.cpp [wrapped: conflict: Closure1]
-// sym: ?V2@Closure1@fn_00206060@@UAEXPAXPAPBDPA_N@Z
+// sym: ?V2@Closure1@fn_00206060@@QAEXPAXPAPBDPA_N@Z
 namespace fn_00206060 {
 // Same code shape as 0x00106cc0 (propagated; names are from that function)
-class Closure1 {
+class Closure1 { void* vftable;   /* (script2) the vftable word, no stand-in vftable */
   public:
-    virtual void V0();
-    virtual void V1();
-    virtual void V2(void*, const char**, bool*);
+    void V0();
+    void V1();
+    void V2(void*, const char**, bool*);
     ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
     typedef bool(__fastcall* Fn)(void*, const char*, const char*);
     Fn mFn;
@@ -2623,9 +2799,17 @@ void Closure1::V2(void* a, const char** p, bool* out) {
 
 
 // 0x002060e0 Closure0<CWorldStreamManager,bool>::vfunc_2 (23 B): matches/0x002060e0.cpp
-// sym: ?vfunc_2@?$Closure0@VCWorldStreamManager@@_N@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure0_2060e0@fn_002060e0@@QAEXPAX00@Z
 // Same code shape as 0x0002f6a0 (propagated; names are from that function)
-template <> void Closure0<CWorldStreamManager, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { unsigned char * out = (unsigned char *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure0<CWorldStreamManager, bool>::vfunc_2`.
+namespace fn_002060e0 {
+struct Closure0_2060e0 : hulk_script::FunctionGenView {
+    bool (::CWorldStreamManager::*f_1c)();
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure0_2060e0::vfunc_2(void* __p0, void* __p1, void* __p2) { unsigned char * out = (unsigned char *)__p2;
 
     CActorManager_2060e0* o = (*(CActorManager_2060e0 * *)&this->f_20);
     Fn_2060e0 fn = (*(Fn_2060e0 *)&this->f_1c);
@@ -2633,24 +2817,58 @@ template <> void Closure0<CWorldStreamManager, bool>::vfunc_2(void* __p0, void* 
     if (out)
         *out = b;
 }
+} // namespace fn_002060e0
+#if defined(HULK_PTR64)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure0<CWorldStreamManager, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_002060e0::Closure0_2060e0*)this)->vfunc_2(__p0, __p1, __p2); }
+#endif
 
 
 // 0x00206160 Closure0<CWorldStreamManager,void>::vfunc_2 (11 B): matches/0x00206160.cpp
-// sym: ?vfunc_2@?$Closure0@VCWorldStreamManager@@X@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure0_206160@fn_00206160@@QAEXPAX00@Z
 // Same code shape as 0x0002f820 (propagated; names are from that function)
-template <> void Closure0<CWorldStreamManager, void>::vfunc_2(void* __p0, void* __p1, void* __p2) {
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure0<CWorldStreamManager, void>::vfunc_2`.
+namespace fn_00206160 {
+struct Closure0_206160 : hulk_script::FunctionGenView {
+    void (::CWorldStreamManager::*f_1c)();
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure0_206160::vfunc_2(void* __p0, void* __p1, void* __p2) {
     ((*(CActorManager_206160 * *)&this->f_20)->*(*(void (CActorManager_206160::**)())&this->f_1c))();
 }
+} // namespace fn_00206160
+#if defined(HULK_PTR64)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure0<CWorldStreamManager, void>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00206160::Closure0_206160*)this)->vfunc_2(__p0, __p1, __p2); }
+#endif
 
 
 // 0x002061c0 Closure3<CWorldStreamManager,void,const_char_*,int,bool>::vfunc_2 (30 B): equivalent/0x002061c0.cpp
-// sym: ?vfunc_2@?$Closure3@VCWorldStreamManager@@XPBDH_N@@UAEXPAX00@Z @bf9aeccd3fbc @w361740b851d9 @v0f507b461492
+// sym: ?vfunc_2@Closure3_2061c0@fn_002061c0@@QAEXPAX00@Z @bf9aeccd3fbc @w361740b851d9 @v3f45b90602c2
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Closure3<CWorldStreamManager,void,const_char_*,int,bool>::vfunc_2 @ 0x002061c0
-template <> void Closure3<CWorldStreamManager, void, const char *, int, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { const Args * args = (const Args *)__p1;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure3<CWorldStreamManager, void, const char *, int, bool>::vfunc_2`.
+namespace fn_002061c0 {
+struct Closure3_2061c0 : hulk_script::FunctionGenView {
+    void (::CWorldStreamManager::*f_1c)(const char *, int, bool);
+    hulk_intptr f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure3_2061c0::vfunc_2(void* __p0, void* __p1, void* __p2) { const Args * args = (const Args *)__p1;
 
     ((*(CWorldStreamManager_2061c0 * *)&this->f_20)->*(*(void (CWorldStreamManager_2061c0::**)(const char *, int, bool))&this->f_1c))(args->name, args->number, args->flag);
 }
+} // namespace fn_002061c0
+#if defined(HULK_PTR64)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure3<CWorldStreamManager, void, const char *, int, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_002061c0::Closure3_2061c0*)this)->vfunc_2(__p0, __p1, __p2); }
+#endif
 
 
 // 0x002061e0 FUN_002061e0 (226 B): matches/0x002061e0.cpp [wrapped: helper definitions (2 out-of-line function bodies)]

@@ -3,8 +3,8 @@
   "gating": ["layout", "ptrtrunc", "crash64"],
   "settings": {"inputs": 200, "time_budget": 60},
   "source": "x64eq's tree-wide sweep at 96cba7a7c (the 44cb331c3 batch-2 blocks re-run after it), brought to ea6ce3693 by gate1's replay of the gate over every commit since",
-  "counts": {"crash64": 11, "crash64/ptr32": 204, "layout": 714, "ptrtrunc": 156},
-  "total": 1085,
+  "counts": {"crash64": 11, "crash64/ptr32": 204, "layout": 714, "ptrtrunc": 154},
+  "total": 1083,
   "why": {
     "0x000147d0": "gx5 (D56): fails at 2472de24e too (class untyped: the TU's 32-bit views H3_147d0 { char p[0x64]; void* q; } / H4 read pointers at 32-bit offsets); with fight::Action's words typed the harness's run reaches the wild pointer as a crash. Fixed by typing those views (the motion objects' records), not by this change (2026-11-15)",
     "0x000f8970": "pre-existing at HEAD: equiv --x64 job 91208 identical to 91207; caster fix unrelated (sweep-caster-land: FontSet_f8970 pointer read from 32-bit data, its char-pad view) (2026-11-18)"
@@ -178,7 +178,6 @@
     "0x00088670": "layout",
     "0x000890a0": "crash64/ptr32",
     "0x0008a510": "ptrtrunc",
-    "0x0008a590": "ptrtrunc",
     "0x0008b560": "layout",
     "0x0008c470": "layout",
     "0x0008e090": "ptrtrunc",
@@ -652,7 +651,6 @@
     "0x001cd810": "ptrtrunc",
     "0x001cd9a0": "ptrtrunc",
     "0x001cdb20": "ptrtrunc",
-    "0x001cdde0": "ptrtrunc",
     "0x001d1180": "crash64/ptr32",
     "0x001d1360": "crash64/ptr32",
     "0x001d16a0": "layout",

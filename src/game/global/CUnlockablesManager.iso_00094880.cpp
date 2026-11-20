@@ -4,10 +4,11 @@
 
 
 // 0x00094880 Closure6<CUnlockablesManager,void,const_char_*,int,const_char_*,const_char_*,const_char_*,const_char_*>::vfunc_2 (58 B): equivalent/0x00094880.cpp [isolated: conflict: Arguments; on include/gen/ and not mergeable]
-// sym: ?vfunc_2@?$Closure6@VCUnlockablesManager@@XPBDHPBDPBDPBDPBD@@UAEXPAX00@Z @d87f9086673d @w2b842b0de07d @vbc305c5e2a79
+// sym: ?vfunc_2@Closure6_94880@fn_00094880@@QAEXPAX00@Z @d87f9086673d @w2b842b0de07d @vb3219acdfad5
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Closure6<CUnlockablesManager,void,const_char_*,int,const_char_*,const_char_*,const_char_*,const_char_*>::vfunc_2 @ 0x00094880
 #include "gen/global.h"
+#include "game/script_bind.h"
 
 struct CUnlockablesManager_94880 {
     void FUN_00094880(const char *, int, const char *, const char *, const char *, const char *);
@@ -21,8 +22,22 @@ struct Arguments {
     const char *text4;
 };
 
-template <> void Closure6<CUnlockablesManager, void, const char *, int, const char *, const char *, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { Arguments * args = (Arguments *)__p1;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure6<CUnlockablesManager, void, const char *, int, const char *, const char *, const char *, const char *>::vfunc_2`.
+namespace fn_00094880 {
+struct Closure6_94880 : hulk_script::FunctionGenView {
+    void (::CUnlockablesManager::*f_1c)(const char *, int, const char *, const char *, const char *, const char *);
+    hulk_intptr f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure6_94880::vfunc_2(void* __p0, void* __p1, void* __p2) { Arguments * args = (Arguments *)__p1;
 
     ((*(CUnlockablesManager_94880 * *)&this->f_20)->*(*(void (CUnlockablesManager_94880::**)(const char *, int, const char *, const char *, const char *, const char *))&this->f_1c))(args->name, args->number, args->text1, args->text2, args->text3, args->text4);
 }
+} // namespace fn_00094880
+#if defined(HULK_PTR64)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure6<CUnlockablesManager, void, const char *, int, const char *, const char *, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00094880::Closure6_94880*)this)->vfunc_2(__p0, __p1, __p2); }
+#endif
 

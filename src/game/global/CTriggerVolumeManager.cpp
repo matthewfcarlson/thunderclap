@@ -2267,18 +2267,28 @@ template <> Method1<CTriggerVolumeManager,math::Vector, const char *>::~Method1(
 
 
 // 0x001fe8f0 Method1<CTriggerVolumeManager,math::Vector,const_char_*>::vfunc_2 (69 B): equivalent/0x001fe8f0.cpp
-// sym: ?vfunc_2@?$Method1@VCTriggerVolumeManager@@VVector@math@@PBD@@UAEXPAX00@Z @a8a827e1a186 @we320285f6b9d @vf588d857795a
+// sym: ?vfunc_2@Method1_1fe8f0@fn_001fe8f0@@QAEXPAX00@Z @a8a827e1a186 @we320285f6b9d @v0cba1b514b75
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // Method1<CTriggerVolumeManager,math::Vector,const_char_*>::vfunc_2 @ 0x001fe8f0
-template <> void Method1<CTriggerVolumeManager,math::Vector, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { CTriggerVolumeManager_1fe8f0 * manager = (CTriggerVolumeManager_1fe8f0 *)__p0; const char ** text = (const char **)__p1; math::Vector_1fe8f0 * result = (math::Vector_1fe8f0 *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method1<CTriggerVolumeManager,math::Vector, const char *>::vfunc_2`.
+namespace fn_001fe8f0 {
+struct Method1_1fe8f0 : hulk_script::FunctionGenView {
+    math::Vector (::CTriggerVolumeManager::*f_1c)(const char *);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method1_1fe8f0::vfunc_2(void* __p0, void* __p1, void* __p2) { CTriggerVolumeManager_1fe8f0 * manager = (CTriggerVolumeManager_1fe8f0 *)__p0; const char ** text = (const char **)__p1; math::Vector_1fe8f0 * result = (math::Vector_1fe8f0 *)__p2;
 
  math::Vector_1fe8f0 temp;
  math::Vector_1fe8f0* source = (manager->*(*(math::Vector_1fe8f0 *(CTriggerVolumeManager_1fe8f0::**)(math::Vector_1fe8f0 *, const char *))&this->f_1c))(&temp, *text);
  temp = *source;
  if(result) *result = temp;
 }
+} // namespace fn_001fe8f0
 #if defined(HULK_PTR64)
-template class Method1<CTriggerVolumeManager,math::Vector, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1fe8d0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method1<CTriggerVolumeManager,math::Vector, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001fe8f0::Method1_1fe8f0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -2306,9 +2316,16 @@ template <> Method1<CTriggerVolumeManager, float, const char *>::~Method1() {}
 
 
 // 0x001fe9a0 Method1<CTriggerVolumeManager,float,const_char_*>::vfunc_2 (42 B): matches/0x001fe9a0.cpp
-// sym: ?vfunc_2@?$Method1@VCTriggerVolumeManager@@MPBD@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method1_1fe9a0@fn_001fe9a0@@QAEXPAX00@Z
 // Same code shape as 0x0002c760 (propagated; names are from that function)
-template <> void Method1<CTriggerVolumeManager, float, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_1fe9a0 * a = (CActorManager_1fe9a0 *)__p0; const char ** p = (const char **)__p1; float * out = (float *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method1<CTriggerVolumeManager, float, const char *>::vfunc_2`.
+namespace fn_001fe9a0 {
+struct Method1_1fe9a0 : hulk_script::FunctionGenView {
+    float (::CTriggerVolumeManager::*f_1c)(const char *);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method1_1fe9a0::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_1fe9a0 * a = (CActorManager_1fe9a0 *)__p0; const char ** p = (const char **)__p1; float * out = (float *)__p2;
 
     Fn_1fe9a0 f = (*(Fn_1fe9a0 *)&this->f_1c);
     const char* s = *p;
@@ -2316,8 +2333,11 @@ template <> void Method1<CTriggerVolumeManager, float, const char *>::vfunc_2(vo
     if (out)
         *out = x;
 }
+} // namespace fn_001fe9a0
 #if defined(HULK_PTR64)
-template class Method1<CTriggerVolumeManager, float, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1fe980)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method1<CTriggerVolumeManager, float, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001fe9a0::Method1_1fe9a0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -2345,16 +2365,26 @@ template <> Method2<CTriggerVolumeManager, bool, const char *,math::Vector>::~Me
 
 
 // 0x001fea40 Method2<CTriggerVolumeManager,bool,const_char_*,math::Vector>::vfunc_2 (58 B): equivalent/0x001fea40.cpp
-// sym: ?vfunc_2@?$Method2@VCTriggerVolumeManager@@_NPBDVVector@math@@@@UAEXPAX00@Z @5070c124e04e @w8cf067245f4c @v41b3c6f849eb
+// sym: ?vfunc_2@Method2_1fea40@fn_001fea40@@QAEXPAX00@Z @5070c124e04e @w8cf067245f4c @v78f384363325
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // Method2<CTriggerVolumeManager,bool,const_char_*,math::Vector>::vfunc_2 @ 0x001fea40
-template <> void Method2<CTriggerVolumeManager, bool, const char *,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { CTriggerVolumeManager_1fea40 * manager = (CTriggerVolumeManager_1fea40 *)__p0; Parameters * params = (Parameters *)__p1; bool * result = (bool *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method2<CTriggerVolumeManager, bool, const char *,math::Vector>::vfunc_2`.
+namespace fn_001fea40 {
+struct Method2_1fea40 : hulk_script::FunctionGenView {
+    bool (::CTriggerVolumeManager::*f_1c)(const char *, math::Vector);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method2_1fea40::vfunc_2(void* __p0, void* __p1, void* __p2) { CTriggerVolumeManager_1fea40 * manager = (CTriggerVolumeManager_1fea40 *)__p0; Parameters * params = (Parameters *)__p1; bool * result = (bool *)__p2;
 
  bool value = (manager->*(*(bool (CTriggerVolumeManager_1fea40::**)(const char *, Vector_1fea40))&this->f_1c))(params->name, params->position);
  if (result) *result = value;
 }
+} // namespace fn_001fea40
 #if defined(HULK_PTR64)
-template class Method2<CTriggerVolumeManager, bool, const char *,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1fea20)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method2<CTriggerVolumeManager, bool, const char *,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001fea40::Method2_1fea40*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -2382,8 +2412,15 @@ template <> Method2<CTriggerVolumeManager, bool, const char *, float>::~Method2(
 
 
 // 0x001feaf0 Method2<CTriggerVolumeManager,bool,const_char_*,float>::vfunc_2 (37 B): matches/0x001feaf0.cpp
-// sym: ?vfunc_2@?$Method2@VCTriggerVolumeManager@@_NPBDM@@UAEXPAX00@Z
-template <> void Method2<CTriggerVolumeManager, bool, const char *, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { CTriggerVolumeManager_1feaf0 * o = (CTriggerVolumeManager_1feaf0 *)__p0; Args * p = (Args *)__p1; bool * out = (bool *)__p2;
+// sym: ?vfunc_2@Method2_1feaf0@fn_001feaf0@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method2<CTriggerVolumeManager, bool, const char *, float>::vfunc_2`.
+namespace fn_001feaf0 {
+struct Method2_1feaf0 : hulk_script::FunctionGenView {
+    bool (::CTriggerVolumeManager::*f_1c)(const char *, float);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method2_1feaf0::vfunc_2(void* __p0, void* __p1, void* __p2) { CTriggerVolumeManager_1feaf0 * o = (CTriggerVolumeManager_1feaf0 *)__p0; Args * p = (Args *)__p1; bool * out = (bool *)__p2;
 
     bool (CTriggerVolumeManager_1feaf0::*f)(const char*, float) = (*(bool (CTriggerVolumeManager_1feaf0::**)(const char *, float))&this->f_1c);
     const char* s = p->s;
@@ -2392,8 +2429,11 @@ template <> void Method2<CTriggerVolumeManager, bool, const char *, float>::vfun
     if (out)
         *out = v;
 }
+} // namespace fn_001feaf0
 #if defined(HULK_PTR64)
-template class Method2<CTriggerVolumeManager, bool, const char *, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1fead0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method2<CTriggerVolumeManager, bool, const char *, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001feaf0::Method2_1feaf0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -2421,8 +2461,15 @@ template <> Method1<CTriggerVolumeManager, bool, const char *>::~Method1() {}
 
 
 // 0x001feb80 Method1<CTriggerVolumeManager,bool,const_char_*>::vfunc_2 (29 B): matches/0x001feb80.cpp
-// sym: ?vfunc_2@?$Method1@VCTriggerVolumeManager@@_NPBD@@UAEXPAX00@Z
-template <> void Method1<CTriggerVolumeManager, bool, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { CTriggerVolumeManager_1feb80 * obj = (CTriggerVolumeManager_1feb80 *)__p0; const char ** arg = (const char **)__p1; bool * out = (bool *)__p2;
+// sym: ?vfunc_2@Method1_1feb80@fn_001feb80@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method1<CTriggerVolumeManager, bool, const char *>::vfunc_2`.
+namespace fn_001feb80 {
+struct Method1_1feb80 : hulk_script::FunctionGenView {
+    bool (::CTriggerVolumeManager::*f_1c)(const char *);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method1_1feb80::vfunc_2(void* __p0, void* __p1, void* __p2) { CTriggerVolumeManager_1feb80 * obj = (CTriggerVolumeManager_1feb80 *)__p0; const char ** arg = (const char **)__p1; bool * out = (bool *)__p2;
 
     bool (CTriggerVolumeManager_1feb80::*f)(const char*) = (*(bool (CTriggerVolumeManager_1feb80::**)(const char *))&this->f_1c);
     const char* s = *arg;
@@ -2430,8 +2477,11 @@ template <> void Method1<CTriggerVolumeManager, bool, const char *>::vfunc_2(voi
     if (out)
         *out = r;
 }
+} // namespace fn_001feb80
 #if defined(HULK_PTR64)
-template class Method1<CTriggerVolumeManager, bool, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1feb60)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method1<CTriggerVolumeManager, bool, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001feb80::Method1_1feb80*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -2459,17 +2509,27 @@ template <> Method0<CTriggerVolumeManager, int>::~Method0() {}
 
 
 // 0x001fec00 Method0<CTriggerVolumeManager,int>::vfunc_2 (22 B): matches/0x001fec00.cpp
-// sym: ?vfunc_2@?$Method0@VCTriggerVolumeManager@@H@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method0_1fec00@fn_001fec00@@QAEXPAX00@Z
 // Same code shape as 0x0002ceb0 (propagated; names are from that function)
-template <> void Method0<CTriggerVolumeManager, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void * b = (void *)__p1; unsigned int * out = (unsigned int *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method0<CTriggerVolumeManager, int>::vfunc_2`.
+namespace fn_001fec00 {
+struct Method0_1fec00 : hulk_script::FunctionGenView {
+    int (::CTriggerVolumeManager::*f_1c)();
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method0_1fec00::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void * b = (void *)__p1; unsigned int * out = (unsigned int *)__p2;
 
     unsigned(__fastcall * p)(void*) = *(unsigned(__fastcall**)(void*))((char*)&this->f_1c);
     unsigned v = p(a);
     if (out)
         *out = v;
 }
+} // namespace fn_001fec00
 #if defined(HULK_PTR64)
-template class Method0<CTriggerVolumeManager, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1febe0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method0<CTriggerVolumeManager, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001fec00::Method0_1fec00*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -2497,16 +2557,26 @@ template <> Method1<CTriggerVolumeManager, const char *, int>::~Method1() {}
 
 
 // 0x001fec80 Method1<CTriggerVolumeManager,const_char_*,int>::vfunc_2 (29 B): matches/0x001fec80.cpp
-// sym: ?vfunc_2@?$Method1@VCTriggerVolumeManager@@PBDH@@UAEXPAX00@Z
-template <> void Method1<CTriggerVolumeManager, const char *, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { CTriggerVolumeManager_1fec80 * obj = (CTriggerVolumeManager_1fec80 *)__p0; const char ** args = (const char **)__p1; int * result = (int *)__p2;
+// sym: ?vfunc_2@Method1_1fec80@fn_001fec80@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method1<CTriggerVolumeManager, const char *, int>::vfunc_2`.
+namespace fn_001fec80 {
+struct Method1_1fec80 : hulk_script::FunctionGenView {
+    const char * (::CTriggerVolumeManager::*f_1c)(int);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method1_1fec80::vfunc_2(void* __p0, void* __p1, void* __p2) { CTriggerVolumeManager_1fec80 * obj = (CTriggerVolumeManager_1fec80 *)__p0; const char ** args = (const char **)__p1; int * result = (int *)__p2;
 
     CTriggerVolumeManager_1fec80::Method fn = (*(CTriggerVolumeManager_1fec80::Method *)&this->f_1c);
     int r = obj->Do(fn, *args);
     if (result)
         *result = r;
 }
+} // namespace fn_001fec80
 #if defined(HULK_PTR64)
-template class Method1<CTriggerVolumeManager, const char *, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1fec60)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method1<CTriggerVolumeManager, const char *, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001fec80::Method1_1fec80*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 namespace fn_f3d6a774 {
@@ -2553,18 +2623,28 @@ template <> Method4<CTriggerVolumeManager, bool, const char *,math::Vector,math:
 
 
 // 0x001fed30 Method4<CTriggerVolumeManager,bool,const_char_*,math::Vector,math::Vector,float>::vfunc_2 (110 B): equivalent/0x001fed30.cpp
-// sym: ?vfunc_2@?$Method4@VCTriggerVolumeManager@@_NPBDVVector@math@@V23@M@@UAEXPAX00@Z @0fd9e26ce8ae @w351da021458c @vf733127f5fb7
+// sym: ?vfunc_2@Method4_1fed30@fn_001fed30@@QAEXPAX00@Z @0fd9e26ce8ae @w351da021458c @v818e6b5ebb4f
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // Method4<CTriggerVolumeManager,bool,const_char_*,math::Vector,math::Vector,float>::vfunc_2 @ 0x001fed30
-template <> void Method4<CTriggerVolumeManager, bool, const char *,math::Vector,math::Vector, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { CTriggerVolumeManager_1fed30 * obj = (CTriggerVolumeManager_1fed30 *)__p0; Args_1fed30 * args = (Args_1fed30 *)__p1; bool * out = (bool *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method4<CTriggerVolumeManager, bool, const char *,math::Vector,math::Vector, float>::vfunc_2`.
+namespace fn_001fed30 {
+struct Method4_1fed30 : hulk_script::FunctionGenView {
+    bool (::CTriggerVolumeManager::*f_1c)(const char *, math::Vector, math::Vector, float);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method4_1fed30::vfunc_2(void* __p0, void* __p1, void* __p2) { CTriggerVolumeManager_1fed30 * obj = (CTriggerVolumeManager_1fed30 *)__p0; Args_1fed30 * args = (Args_1fed30 *)__p1; bool * out = (bool *)__p2;
 
     CheckFn_1fed30 fn = (*(CheckFn_1fed30 *)&this->f_1c);
     bool r = (obj->*fn)(args->name, args->from, args->to, args->radius);
     if (out)
         *out = r;
 }
+} // namespace fn_001fed30
 #if defined(HULK_PTR64)
-template class Method4<CTriggerVolumeManager, bool, const char *,math::Vector,math::Vector, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1fed10)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method4<CTriggerVolumeManager, bool, const char *,math::Vector,math::Vector, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001fed30::Method4_1fed30*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -2595,7 +2675,7 @@ template class Method2<CTriggerVolumeManager, void, const char *, bool>; // (ren
 
 
 // 0x001fee10 Method2<CTriggerVolumeManager,void,const_char_*,bool>::vfunc_2 (25 B): matches/0x001fee10.cpp [wrapped: conflict: Args; CTriggerVolumeManager; Function; Method2]
-// sym: ?v2@Method2@fn_001fee10@@UAEXPAVCTriggerVolumeManager@2@PAUArgs@2@PAX@Z
+// sym: ?v2@Method2@fn_001fee10@@QAEXPAVCTriggerVolumeManager@2@PAUArgs@2@PAX@Z
 namespace fn_001fee10 {
 class CTriggerVolumeManager {
   public:
@@ -2605,17 +2685,17 @@ struct Args {
     const char* s;
     bool b;
 };
-class Function {
+class Function { void* vftable;   /* (script2) the vftable word, no stand-in vftable */
   public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
+    void v0();
+    void v1();
+    void v2();
 };
 class Method2 : public Function {
   public:
     ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[24])
     void (CTriggerVolumeManager::*method)(const char*, bool);
-    virtual void v2(CTriggerVolumeManager*, Args*, void*);
+    void v2(CTriggerVolumeManager*, Args*, void*);
 };
 void Method2::v2(CTriggerVolumeManager* obj, Args* a, void*) {
     (obj->*method)(a->s, a->b);
@@ -2647,15 +2727,25 @@ template <> Method1<CTriggerVolumeManager, void, const char *>::~Method1() {}
 
 
 // 0x001fee90 Method1<CTriggerVolumeManager,void,const_char_*>::vfunc_2 (19 B): matches/0x001fee90.cpp
-// sym: ?vfunc_2@?$Method1@VCTriggerVolumeManager@@XPBD@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method1_1fee90@fn_001fee90@@QAEXPAX00@Z
 // Same code shape as 0x0002ce30 (propagated; names are from that function)
-template <> void Method1<CTriggerVolumeManager, void, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void ** b = (void **)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method1<CTriggerVolumeManager, void, const char *>::vfunc_2`.
+namespace fn_001fee90 {
+struct Method1_1fee90 : hulk_script::FunctionGenView {
+    void (::CTriggerVolumeManager::*f_1c)(const char *);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method1_1fee90::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void ** b = (void **)__p1; void * c = (void *)__p2;
 
     Dummy_1fee90* d = (Dummy_1fee90*)a;
     (d->*(*(void (Dummy_1fee90::**)(void *))&this->f_1c))(*b);
 }
+} // namespace fn_001fee90
 #if defined(HULK_PTR64)
-template class Method1<CTriggerVolumeManager, void, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1fee70)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method1<CTriggerVolumeManager, void, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001fee90::Method1_1fee90*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -2686,7 +2776,7 @@ template class Method2<CTriggerVolumeManager, bool, const char *, const char *>;
 
 
 // 0x001fef20 Method2<CTriggerVolumeManager,bool,const_char_*,const_char_*>::vfunc_2 (33 B): matches/0x001fef20.cpp [wrapped: conflict: CTriggerVolumeManager; Function; Method2; Pair]
-// sym: ?vfunc_2@Method2@fn_001fef20@@UAEXPAVCTriggerVolumeManager@2@PAUPair@2@PA_N@Z
+// sym: ?vfunc_2@Method2@fn_001fef20@@QAEXPAVCTriggerVolumeManager@2@PAUPair@2@PA_N@Z
 namespace fn_001fef20 {
 class CTriggerVolumeManager {
   public:
@@ -2696,16 +2786,16 @@ struct Pair {
     const char* a;
     const char* b;
 };
-class Function {
+class Function { void* vftable;   /* (script2) the vftable word, no stand-in vftable */
   public:
-    virtual void v0();
-    virtual void v1();
+    void v0();
+    void v1();
 };
 class Method2 : public Function {
   public:
-    virtual void v0();
-    virtual void v1();
-    virtual void vfunc_2(CTriggerVolumeManager*, Pair*, bool*);
+    void v0();
+    void v1();
+    void vfunc_2(CTriggerVolumeManager*, Pair*, bool*);
     ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[24])
     bool (CTriggerVolumeManager::*fn)(const char*, const char*);
 };
@@ -2744,17 +2834,27 @@ template <> Method2<CTriggerVolumeManager, void, const char *, float>::~Method2(
 
 
 // 0x001fefc0 Method2<CTriggerVolumeManager,void,const_char_*,float>::vfunc_2 (23 B): matches/0x001fefc0.cpp
-// sym: ?vfunc_2@?$Method2@VCTriggerVolumeManager@@XPBDM@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method2_1fefc0@fn_001fefc0@@QAEXPAX00@Z
 // Same code shape as 0x000beac0 (propagated; names are from that function)
-template <> void Method2<CTriggerVolumeManager, void, const char *, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; void * p = (void *)__p1; hulk_intptr n = (hulk_intptr)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method2<CTriggerVolumeManager, void, const char *, float>::vfunc_2`.
+namespace fn_001fefc0 {
+struct Method2_1fefc0 : hulk_script::FunctionGenView {
+    void (::CTriggerVolumeManager::*f_1c)(const char *, float);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method2_1fefc0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; void * p = (void *)__p1; hulk_intptr n = (hulk_intptr)__p2;
 
     CFEManager_1fefc0* m = (CFEManager_1fefc0*)unused;
     const char* s = *(const char**)p;
     int x = *(int*)((char*)p + 4);
     (m->*(*(void (CFEManager_1fefc0::**)(const char *, int))&this->f_1c))(s, x);
 }
+} // namespace fn_001fefc0
 #if defined(HULK_PTR64)
-template class Method2<CTriggerVolumeManager, void, const char *, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1fefa0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method2<CTriggerVolumeManager, void, const char *, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001fefc0::Method2_1fefc0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 namespace fn_f3d6a774 {
@@ -2798,8 +2898,15 @@ template <> Method3<CTriggerVolumeManager, bool,math::Vector, const char *, bool
 
 
 // 0x001ff060 Method3<CTriggerVolumeManager,bool,math::Vector,const_char_*,bool>::vfunc_2 (65 B): matches/0x001ff060.cpp
-// sym: ?vfunc_2@?$Method3@VCTriggerVolumeManager@@_NVVector@math@@PBD_N@@UAEXPAX00@Z
-template <> void Method3<CTriggerVolumeManager, bool,math::Vector, const char *, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { CTriggerVolumeManager_1ff060 * obj = (CTriggerVolumeManager_1ff060 *)__p0; Params_1ff060 * p = (Params_1ff060 *)__p1; bool * result = (bool *)__p2;
+// sym: ?vfunc_2@Method3_1ff060@fn_001ff060@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method3<CTriggerVolumeManager, bool,math::Vector, const char *, bool>::vfunc_2`.
+namespace fn_001ff060 {
+struct Method3_1ff060 : hulk_script::FunctionGenView {
+    bool (::CTriggerVolumeManager::*f_1c)(math::Vector, const char *, bool);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method3_1ff060::vfunc_2(void* __p0, void* __p1, void* __p2) { CTriggerVolumeManager_1ff060 * obj = (CTriggerVolumeManager_1ff060 *)__p0; Params_1ff060 * p = (Params_1ff060 *)__p1; bool * result = (bool *)__p2;
 
     Fn fn = (*(Fn *)&this->f_1c);
     const char* name = p->name;
@@ -2808,8 +2915,11 @@ template <> void Method3<CTriggerVolumeManager, bool,math::Vector, const char *,
     if (result)
         *result = r;
 }
+} // namespace fn_001ff060
 #if defined(HULK_PTR64)
-template class Method3<CTriggerVolumeManager, bool,math::Vector, const char *, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1ff040)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method3<CTriggerVolumeManager, bool,math::Vector, const char *, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001ff060::Method3_1ff060*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -2837,9 +2947,16 @@ template <> Method2<CTriggerVolumeManager, bool, const char *, bool>::~Method2()
 
 
 // 0x001ff120 Method2<CTriggerVolumeManager,bool,const_char_*,bool>::vfunc_2 (41 B): matches/0x001ff120.cpp
-// sym: ?vfunc_2@?$Method2@VCTriggerVolumeManager@@_NPBD_N@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method2_1ff120@fn_001ff120@@QAEXPAX00@Z
 // Same code shape as 0x0002c510 (propagated; names are from that function)
-template <> void Method2<CTriggerVolumeManager, bool, const char *, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_1ff120 * obj = (CActorManager_1ff120 *)__p0; Pair_1ff120 * p = (Pair_1ff120 *)__p1; bool * out = (bool *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method2<CTriggerVolumeManager, bool, const char *, bool>::vfunc_2`.
+namespace fn_001ff120 {
+struct Method2_1ff120 : hulk_script::FunctionGenView {
+    bool (::CTriggerVolumeManager::*f_1c)(const char *, bool);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method2_1ff120::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_1ff120 * obj = (CActorManager_1ff120 *)__p0; Pair_1ff120 * p = (Pair_1ff120 *)__p1; bool * out = (bool *)__p2;
 
     bool (CActorManager_1ff120::*fn)(const char*, bool) = (*(bool (CActorManager_1ff120::**)(const char *, bool))&this->f_1c);
     const char* s = p->p;
@@ -2848,8 +2965,11 @@ template <> void Method2<CTriggerVolumeManager, bool, const char *, bool>::vfunc
     if (out)
         *out = r;
 }
+} // namespace fn_001ff120
 #if defined(HULK_PTR64)
-template class Method2<CTriggerVolumeManager, bool, const char *, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1ff100)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method2<CTriggerVolumeManager, bool, const char *, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001ff120::Method2_1ff120*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 namespace fn_f3d6a774 {
@@ -2904,14 +3024,24 @@ template <> Method4<CTriggerVolumeManager, bool, const char *, int, int, bool>::
 
 
 // 0x001ff1e0 Method4<CTriggerVolumeManager,bool,const_char_*,int,int,bool>::vfunc_2 (30 B): matches/0x001ff1e0.cpp
-// sym: ?vfunc_2@?$Method4@VCTriggerVolumeManager@@_NPBDHH_N@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method4_1ff1e0@fn_001ff1e0@@QAEXPAX00@Z
 // Same code shape as 0x0002caf0 (propagated; names are from that function)
-template <> void Method4<CTriggerVolumeManager, bool, const char *, int, int, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { const char * a = (const char *)__p0; const char * b = (const char *)__p1; const char * c = (const char *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method4<CTriggerVolumeManager, bool, const char *, int, int, bool>::vfunc_2`.
+namespace fn_001ff1e0 {
+struct Method4_1ff1e0 : hulk_script::FunctionGenView {
+    bool (::CTriggerVolumeManager::*f_1c)(const char *, int, int, bool);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method4_1ff1e0::vfunc_2(void* __p0, void* __p1, void* __p2) { const char * a = (const char *)__p0; const char * b = (const char *)__p1; const char * c = (const char *)__p2;
 
     FUN_001ff200(a, b, c, (*(int *)&this->f_1c));
 }
+} // namespace fn_001ff1e0
 #if defined(HULK_PTR64)
-template class Method4<CTriggerVolumeManager, bool, const char *, int, int, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1ff1c0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method4<CTriggerVolumeManager, bool, const char *, int, int, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001ff1e0::Method4_1ff1e0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 namespace fn_f3d6a774 {
@@ -2955,8 +3085,15 @@ template <> Method1<CTriggerVolumeManager, int, const char *>::~Method1() {}
 
 
 // 0x001ff2a0 Method1<CTriggerVolumeManager,int,const_char_*>::vfunc_2 (29 B): matches/0x001ff2a0.cpp
-// sym: ?vfunc_2@?$Method1@VCTriggerVolumeManager@@PBDH@@UAEXPAX00@Z
-template <> void Method1<CTriggerVolumeManager, int, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { CTriggerVolumeManager_1ff2a0 * obj = (CTriggerVolumeManager_1ff2a0 *)__p0; const char ** arg = (const char **)__p1; int * out = (int *)__p2;
+// sym: ?vfunc_2@Method1_1ff2a0@fn_001ff2a0@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method1<CTriggerVolumeManager, int, const char *>::vfunc_2`.
+namespace fn_001ff2a0 {
+struct Method1_1ff2a0 : hulk_script::FunctionGenView {
+    int (::CTriggerVolumeManager::*f_1c)(const char *);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method1_1ff2a0::vfunc_2(void* __p0, void* __p1, void* __p2) { CTriggerVolumeManager_1ff2a0 * obj = (CTriggerVolumeManager_1ff2a0 *)__p0; const char ** arg = (const char **)__p1; int * out = (int *)__p2;
 
     int (CTriggerVolumeManager_1ff2a0::*f)(const char*) = (*(int (CTriggerVolumeManager_1ff2a0::**)(const char *))&this->f_1c);
     const char* s = *arg;
@@ -2964,8 +3101,11 @@ template <> void Method1<CTriggerVolumeManager, int, const char *>::vfunc_2(void
     if (out)
         *out = r;
 }
+} // namespace fn_001ff2a0
 #if defined(HULK_PTR64)
-template class Method1<CTriggerVolumeManager, int, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1ff280)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method1<CTriggerVolumeManager, int, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001ff2a0::Method1_1ff2a0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 namespace fn_f3d6a774 {
@@ -3019,15 +3159,25 @@ template <> Method3<CTriggerVolumeManager, void, const char *, int, bool>::~Meth
 
 
 // 0x001ff340 Method3<CTriggerVolumeManager,void,const_char_*,int,bool>::vfunc_2 (31 B): equivalent/0x001ff340.cpp
-// sym: ?vfunc_2@?$Method3@VCTriggerVolumeManager@@XPBDH_N@@UAEXPAX00@Z @086ee6cd29ba @wf4247e7733f6 @v641b02d90e43
+// sym: ?vfunc_2@Method3_1ff340@fn_001ff340@@QAEXPAX00@Z @086ee6cd29ba @wf4247e7733f6 @v74f60cd51399
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Method3<CTriggerVolumeManager,void,const_char_*,int,bool>::vfunc_2 @ 0x001ff340
-template <> void Method3<CTriggerVolumeManager, void, const char *, int, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { CTriggerVolumeManager_1ff340 * manager = (CTriggerVolumeManager_1ff340 *)__p0; TriggerArguments * args = (TriggerArguments *)__p1; void * unused = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method3<CTriggerVolumeManager, void, const char *, int, bool>::vfunc_2`.
+namespace fn_001ff340 {
+struct Method3_1ff340 : hulk_script::FunctionGenView {
+    void (::CTriggerVolumeManager::*f_1c)(const char *, int, bool);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method3_1ff340::vfunc_2(void* __p0, void* __p1, void* __p2) { CTriggerVolumeManager_1ff340 * manager = (CTriggerVolumeManager_1ff340 *)__p0; TriggerArguments * args = (TriggerArguments *)__p1; void * unused = (void *)__p2;
 
     (manager->*(*(void (CTriggerVolumeManager_1ff340::**)(const char *, int, bool))&this->f_1c))(args->name, args->value, args->enabled);
 }
+} // namespace fn_001ff340
 #if defined(HULK_PTR64)
-template class Method3<CTriggerVolumeManager, void, const char *, int, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1ff320)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method3<CTriggerVolumeManager, void, const char *, int, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001ff340::Method3_1ff340*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 namespace fn_f3d6a774 {
@@ -3084,14 +3234,24 @@ template <> Method5<CTriggerVolumeManager, const char *, const ::math::Vector, i
 
 
 // 0x001ff400 Method5<CTriggerVolumeManager,const_char_*,const_math::Vector,int,int,float,float>::vfunc_2 (30 B): matches/0x001ff400.cpp
-// sym: ?vfunc_2@?$Method5@VCTriggerVolumeManager@@PBD$$CBVVector@math@@HHMM@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method5_1ff400@fn_001ff400@@QAEXPAX00@Z
 // Same code shape as 0x0002caf0 (propagated; names are from that function)
-template <> void Method5<CTriggerVolumeManager, const char *, const ::math::Vector, int, int, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { const char * a = (const char *)__p0; const char * b = (const char *)__p1; const char * c = (const char *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method5<CTriggerVolumeManager, const char *, const ::math::Vector, int, int, float, float>::vfunc_2`.
+namespace fn_001ff400 {
+struct Method5_1ff400 : hulk_script::FunctionGenView {
+    const char * (::CTriggerVolumeManager::*f_1c)(const ::math::Vector, int, int, float, float);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method5_1ff400::vfunc_2(void* __p0, void* __p1, void* __p2) { const char * a = (const char *)__p0; const char * b = (const char *)__p1; const char * c = (const char *)__p2;
 
     FUN_001ff420(a, b, c, (*(int *)&this->f_1c));
 }
+} // namespace fn_001ff400
 #if defined(HULK_PTR64)
-template class Method5<CTriggerVolumeManager, const char *, const ::math::Vector, int, int, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1ff3e0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method5<CTriggerVolumeManager, const char *, const ::math::Vector, int, int, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001ff400::Method5_1ff400*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 namespace fn_f3d6a774 {
@@ -3133,16 +3293,26 @@ template <> Method1<CTriggerVolumeManager, const char *, const char *>::~Method1
 
 
 // 0x001ff4e0 Method1<CTriggerVolumeManager,const_char_*,const_char_*>::vfunc_2 (29 B): matches/0x001ff4e0.cpp
-// sym: ?vfunc_2@?$Method1@VCTriggerVolumeManager@@PBDH@@UAEXPAX00@Z
-template <> void Method1<CTriggerVolumeManager, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { CTriggerVolumeManager_1ff4e0 * obj = (CTriggerVolumeManager_1ff4e0 *)__p0; const char ** arg = (const char **)__p1; void ** out = (void **)__p2;
+// sym: ?vfunc_2@Method1_1ff4e0@fn_001ff4e0@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method1<CTriggerVolumeManager, const char *, const char *>::vfunc_2`.
+namespace fn_001ff4e0 {
+struct Method1_1ff4e0 : hulk_script::FunctionGenView {
+    const char * (::CTriggerVolumeManager::*f_1c)(const char *);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method1_1ff4e0::vfunc_2(void* __p0, void* __p1, void* __p2) { CTriggerVolumeManager_1ff4e0 * obj = (CTriggerVolumeManager_1ff4e0 *)__p0; const char ** arg = (const char **)__p1; void ** out = (void **)__p2;
 
     void* (CTriggerVolumeManager_1ff4e0::*fn)(const char*) = (*(void *(CTriggerVolumeManager_1ff4e0::**)(const char *))&this->f_1c);
     void* result = obj->Invoke(fn, *arg);
     if (out)
         *out = result;
 }
+} // namespace fn_001ff4e0
 #if defined(HULK_PTR64)
-template class Method1<CTriggerVolumeManager, const char *, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1ff4c0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method1<CTriggerVolumeManager, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001ff4e0::Method1_1ff4e0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -3170,15 +3340,25 @@ template <> Method1<CTriggerVolumeManager, void, float>::~Method1() {}
 
 
 // 0x001ff560 Method1<CTriggerVolumeManager,void,float>::vfunc_2 (19 B): matches/0x001ff560.cpp
-// sym: ?vfunc_2@?$Method1@VCTriggerVolumeManager@@XPBD@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method1_1ff560@fn_001ff560@@QAEXPAX00@Z
 // Same code shape as 0x0002ce30 (propagated; names are from that function)
-template <> void Method1<CTriggerVolumeManager, void, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void ** b = (void **)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method1<CTriggerVolumeManager, void, float>::vfunc_2`.
+namespace fn_001ff560 {
+struct Method1_1ff560 : hulk_script::FunctionGenView {
+    void (::CTriggerVolumeManager::*f_1c)(float);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method1_1ff560::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void ** b = (void **)__p1; void * c = (void *)__p2;
 
     Dummy_1ff560* d = (Dummy_1ff560*)a;
     (d->*(*(void (Dummy_1ff560::**)(void *))&this->f_1c))(*b);
 }
+} // namespace fn_001ff560
 #if defined(HULK_PTR64)
-template class Method1<CTriggerVolumeManager, void, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1ff540)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method1<CTriggerVolumeManager, void, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001ff560::Method1_1ff560*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -3537,16 +3717,27 @@ template <> Closure1<CTriggerVolumeManager,math::Vector, const char *>::~Closure
 
 
 // 0x001ffa10 Closure1<CTriggerVolumeManager,math::Vector,const_char_*>::vfunc_2 (70 B): equivalent/0x001ffa10.cpp
-// sym: ?vfunc_2@?$Closure1@VCTriggerVolumeManager@@VVector@math@@PBD@@UAEXPAX00@Z @307fff147072 @wc421665ee9f8 @va624223322d4
+// sym: ?vfunc_2@Closure1_1ffa10@fn_001ffa10@@QAEXPAX00@Z @307fff147072 @wc421665ee9f8 @v687fd8e6a024
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // Closure1<CTriggerVolumeManager,math::Vector,const_char_*>::vfunc_2 @ 0x001ffa10
-template <> void Closure1<CTriggerVolumeManager,math::Vector, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; const char ** input = (const char **)__p1; Vector_1ffa10 * result = (Vector_1ffa10 *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure1<CTriggerVolumeManager,math::Vector, const char *>::vfunc_2`.
+namespace fn_001ffa10 {
+struct Closure1_1ffa10 : hulk_script::FunctionGenView {
+    math::Vector (::CTriggerVolumeManager::*f_1c)(const char *);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure1_1ffa10::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; const char ** input = (const char **)__p1; Vector_1ffa10 * result = (Vector_1ffa10 *)__p2;
 
     Vector_1ffa10 value = ((*(CTriggerVolumeManager_1ffa10 * *)&this->f_20)->*(*(Vector_1ffa10 (CTriggerVolumeManager_1ffa10::**)(const char *))&this->f_1c))(*input);
     if (result) *result = value;
 }
+} // namespace fn_001ffa10
 #if defined(HULK_PTR64)
-template class Closure1<CTriggerVolumeManager,math::Vector, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1ff9f0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure1<CTriggerVolumeManager,math::Vector, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001ffa10::Closure1_1ffa10*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -3600,9 +3791,17 @@ template <> Closure1<CTriggerVolumeManager, float, const char *>::~Closure1() {}
 
 
 // 0x001ffad0 Closure1<CTriggerVolumeManager,float,const_char_*>::vfunc_2 (43 B): matches/0x001ffad0.cpp
-// sym: ?vfunc_2@?$Closure1@VCTriggerVolumeManager@@MPBD@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure1_1ffad0@fn_001ffad0@@QAEXPAX00@Z
 // Same code shape as 0x0002e800 (propagated; names are from that function)
-template <> void Closure1<CTriggerVolumeManager, float, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr ignored = (hulk_intptr)__p0; const char ** arg = (const char **)__p1; float * out = (float *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure1<CTriggerVolumeManager, float, const char *>::vfunc_2`.
+namespace fn_001ffad0 {
+struct Closure1_1ffad0 : hulk_script::FunctionGenView {
+    float (::CTriggerVolumeManager::*f_1c)(const char *);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure1_1ffad0::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr ignored = (hulk_intptr)__p0; const char ** arg = (const char **)__p1; float * out = (float *)__p2;
 
     CActorManager_1ffad0* obj = (*(CActorManager_1ffad0 * *)&this->f_20);
     Fn_1ffad0 fn = (*(Fn_1ffad0 *)&this->f_1c);
@@ -3610,8 +3809,11 @@ template <> void Closure1<CTriggerVolumeManager, float, const char *>::vfunc_2(v
     if (out)
         *out = value;
 }
+} // namespace fn_001ffad0
 #if defined(HULK_PTR64)
-template class Closure1<CTriggerVolumeManager, float, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1ffab0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure1<CTriggerVolumeManager, float, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001ffad0::Closure1_1ffad0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -3666,16 +3868,27 @@ template <> Closure2<CTriggerVolumeManager, bool, const char *,math::Vector>::~C
 
 
 // 0x001ffb80 Closure2<CTriggerVolumeManager,bool,const_char_*,math::Vector>::vfunc_2 (61 B): equivalent/0x001ffb80.cpp
-// sym: ?vfunc_2@?$Closure2@VCTriggerVolumeManager@@_NPBDVVector@math@@@@UAEXPAX00@Z @eaabcb9b97d0 @w3e55d6888abb @vce3a9135efbb
+// sym: ?vfunc_2@Closure2_1ffb80@fn_001ffb80@@QAEXPAX00@Z @eaabcb9b97d0 @w3e55d6888abb @v6a39d842839e
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // Closure2<CTriggerVolumeManager,bool,const_char_*,math::Vector>::vfunc_2 @ 0x001ffb80
-template <> void Closure2<CTriggerVolumeManager, bool, const char *,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { const Vector_1ffb80 * value = (const Vector_1ffb80 *)__p1; bool * result = (bool *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure2<CTriggerVolumeManager, bool, const char *,math::Vector>::vfunc_2`.
+namespace fn_001ffb80 {
+struct Closure2_1ffb80 : hulk_script::FunctionGenView {
+    bool (::CTriggerVolumeManager::*f_1c)(const char *, math::Vector);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure2_1ffb80::vfunc_2(void* __p0, void* __p1, void* __p2) { const Vector_1ffb80 * value = (const Vector_1ffb80 *)__p1; bool * result = (bool *)__p2;
 
     bool answer = ((*(CTriggerVolumeManager_1ffb80 * *)&this->f_20)->*(*(bool (CTriggerVolumeManager_1ffb80::**)(Vector_1ffb80))&this->f_1c))(*value);
     if (result) *result = answer;
 }
+} // namespace fn_001ffb80
 #if defined(HULK_PTR64)
-template class Closure2<CTriggerVolumeManager, bool, const char *,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1ffb60)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure2<CTriggerVolumeManager, bool, const char *,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001ffb80::Closure2_1ffb80*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -3733,7 +3946,7 @@ template class Closure2<CTriggerVolumeManager, bool, const char *, float>; // (r
 
 
 // 0x001ffc40 Closure2<CTriggerVolumeManager,bool,const_char_*,float>::vfunc_2 (40 B): equivalent/0x001ffc40.cpp [wrapped: conflict: CTriggerVolumeManager; Closure2; Function; TriggerArguments]
-// sym: ?vfunc_2@Closure2@fn_001ffc40@@UAEXPAXPBUTriggerArguments@2@PA_N@Z @e654de0dce29 @wba6b7cc7fabf @vd2e2b7483196
+// sym: ?vfunc_2@Closure2@fn_001ffc40@@QAEXPAXPBUTriggerArguments@2@PA_N@Z @e654de0dce29 @wba6b7cc7fabf @v074133740b4d
 namespace fn_001ffc40 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // Closure2<CTriggerVolumeManager,bool,const_char_*,float>::vfunc_2 @ 0x001ffc40
@@ -3744,10 +3957,10 @@ struct TriggerArguments {
     const char *name;
     float value;
 };
-struct Function {
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2(void *, const TriggerArguments *, bool *);
+struct Function { void* vftable;   /* (script2) the vftable word, no stand-in vftable */
+    void vfunc_0();
+    void vfunc_1();
+    void vfunc_2(void *, const TriggerArguments *, bool *);
 };
 struct Closure2 : Function {
     ScriptFunctionFields fields;   // (script2) Function's fields (was char padding[0x18])
@@ -3818,14 +4031,14 @@ template class Closure1<CTriggerVolumeManager, bool, const char *>; // (ren2) na
 
 
 // 0x001ffce0 Closure1<CTriggerVolumeManager,bool,const_char_*>::vfunc_2 (30 B): matches/0x001ffce0.cpp [wrapped: conflict: Closure1]
-// sym: ?V2@Closure1@fn_001ffce0@@UAEXPAXPAPBDPA_N@Z
+// sym: ?V2@Closure1@fn_001ffce0@@QAEXPAXPAPBDPA_N@Z
 namespace fn_001ffce0 {
 // Same code shape as 0x00106cc0 (propagated; names are from that function)
-class Closure1 {
+class Closure1 { void* vftable;   /* (script2) the vftable word, no stand-in vftable */
   public:
-    virtual void V0();
-    virtual void V1();
-    virtual void V2(void*, const char**, bool*);
+    void V0();
+    void V1();
+    void V2(void*, const char**, bool*);
     ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
     typedef bool(__fastcall* Fn)(void*, const char*, const char*);
     Fn mFn;
@@ -3893,9 +4106,17 @@ template <> Closure0<CTriggerVolumeManager, int>::~Closure0() {}
 
 
 // 0x001ffd60 Closure0<CTriggerVolumeManager,int>::vfunc_2 (23 B): matches/0x001ffd60.cpp
-// sym: ?vfunc_2@?$Closure0@VCTriggerVolumeManager@@H@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure0_1ffd60@fn_001ffd60@@QAEXPAX00@Z
 // Same code shape as 0x0002ee10 (propagated; names are from that function)
-template <> void Closure0<CTriggerVolumeManager, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { int * out = (int *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure0<CTriggerVolumeManager, int>::vfunc_2`.
+namespace fn_001ffd60 {
+struct Closure0_1ffd60 : hulk_script::FunctionGenView {
+    int (::CTriggerVolumeManager::*f_1c)();
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure0_1ffd60::vfunc_2(void* __p0, void* __p1, void* __p2) { int * out = (int *)__p2;
 
     CActorManager_1ffd60* obj = (*(CActorManager_1ffd60 * *)&this->f_20);
     int (CActorManager_1ffd60::*fn)() = (*(int (CActorManager_1ffd60::**)())&this->f_1c);
@@ -3903,8 +4124,11 @@ template <> void Closure0<CTriggerVolumeManager, int>::vfunc_2(void* __p0, void*
     if (out)
         *out = result;
 }
+} // namespace fn_001ffd60
 #if defined(HULK_PTR64)
-template class Closure0<CTriggerVolumeManager, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1ffd40)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure0<CTriggerVolumeManager, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001ffd60::Closure0_1ffd60*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -3961,17 +4185,17 @@ template class Closure1<CTriggerVolumeManager, const char *, int>; // (ren2) nat
 
 
 // 0x001ffdf0 Closure1<CTriggerVolumeManager,const_char_*,int>::vfunc_2 (30 B): matches/0x001ffdf0.cpp [wrapped: conflict: Closure1]
-// sym: ?v2@Closure1@fn_001ffdf0@@UAEHPAPAVCActorManager@2@PAPBDPAPAH@Z
+// sym: ?v2@Closure1@fn_001ffdf0@@QAEHPAPAVCActorManager@2@PAPBDPAPAH@Z
 namespace fn_001ffdf0 {
 class CActorManager {
   public:
     int f(const char* a);
 };
-class Closure1 {
+class Closure1 { void* vftable;   /* (script2) the vftable word, no stand-in vftable */
   public:
-    virtual void v0();
-    virtual void v1();
-    virtual int v2(CActorManager** obj, const char** arg, int** out);
+    void v0();
+    void v1();
+    int v2(CActorManager** obj, const char** arg, int** out);
     ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
     int (CActorManager::*mFn)(const char*);
     CActorManager* mObj;
@@ -4095,14 +4319,25 @@ template <> Closure2<CTriggerVolumeManager, void, const char *, bool>::~Closure2
 
 
 // 0x001ffef0 Closure2<CTriggerVolumeManager,void,const_char_*,bool>::vfunc_2 (24 B): matches/0x001ffef0.cpp
-// sym: ?vfunc_2@?$Closure2@VCTriggerVolumeManager@@XPBD_N@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure2_1ffef0@fn_001ffef0@@QAEXPAX00@Z
 // Same code shape as 0x0002ec60 (propagated; names are from that function)
-template <> void Closure2<CTriggerVolumeManager, void, const char *, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { Arg_1ffef0 * p = (Arg_1ffef0 *)__p1;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure2<CTriggerVolumeManager, void, const char *, bool>::vfunc_2`.
+namespace fn_001ffef0 {
+struct Closure2_1ffef0 : hulk_script::FunctionGenView {
+    void (::CTriggerVolumeManager::*f_1c)(const char *, bool);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure2_1ffef0::vfunc_2(void* __p0, void* __p1, void* __p2) { Arg_1ffef0 * p = (Arg_1ffef0 *)__p1;
 
     ((*(Actor_1ffef0 * *)&this->f_20)->*(*(void (Actor_1ffef0::**)(const char *, unsigned char))&this->f_1c))(p->s, p->b);
 }
+} // namespace fn_001ffef0
 #if defined(HULK_PTR64)
-template class Closure2<CTriggerVolumeManager, void, const char *, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1ffed0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure2<CTriggerVolumeManager, void, const char *, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001ffef0::Closure2_1ffef0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -4159,14 +4394,25 @@ template <> Closure1<CTriggerVolumeManager, void, const char *>::~Closure1() {}
 
 
 // 0x001fff80 Closure1<CTriggerVolumeManager,void,const_char_*>::vfunc_2 (18 B): matches/0x001fff80.cpp
-// sym: ?vfunc_2@?$Closure1@VCTriggerVolumeManager@@XPBD@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure1_1fff80@fn_001fff80@@QAEXPAX00@Z
 // Same code shape as 0x0002ed90 (propagated; names are from that function)
-template <> void Closure1<CTriggerVolumeManager, void, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; const char ** b = (const char **)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure1<CTriggerVolumeManager, void, const char *>::vfunc_2`.
+namespace fn_001fff80 {
+struct Closure1_1fff80 : hulk_script::FunctionGenView {
+    void (::CTriggerVolumeManager::*f_1c)(const char *);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure1_1fff80::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; const char ** b = (const char **)__p1; void * c = (void *)__p2;
 
     ((*(CActorManager_1fff80 * *)&this->f_20)->*(*(void (CActorManager_1fff80::**)(const char *))&this->f_1c))(*b);
 }
+} // namespace fn_001fff80
 #if defined(HULK_PTR64)
-template class Closure1<CTriggerVolumeManager, void, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1fff60)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure1<CTriggerVolumeManager, void, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001fff80::Closure1_1fff80*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -4221,17 +4467,28 @@ template <> Closure2<CTriggerVolumeManager, bool, const char *, const char *>::~
 
 
 // 0x00200020 Closure2<CTriggerVolumeManager,bool,const_char_*,const_char_*>::vfunc_2 (37 B): equivalent/0x00200020.cpp
-// sym: ?vfunc_2@?$Closure2@VCTriggerVolumeManager@@_NPBDPBD@@UAEXPAX00@Z @e654de0dce29 @w4e3d89bebec6 @v926252974588
+// sym: ?vfunc_2@Closure2_200020@fn_00200020@@QAEXPAX00@Z @e654de0dce29 @w4e3d89bebec6 @v30e1d7bcd577
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // Closure2<CTriggerVolumeManager,bool,const_char_*,const_char_*>::vfunc_2 @ 0x00200020
-template <> void Closure2<CTriggerVolumeManager, bool, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; const char ** arguments = (const char **)__p1; bool * result = (bool *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure2<CTriggerVolumeManager, bool, const char *, const char *>::vfunc_2`.
+namespace fn_00200020 {
+struct Closure2_200020 : hulk_script::FunctionGenView {
+    bool (::CTriggerVolumeManager::*f_1c)(const char *, const char *);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure2_200020::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; const char ** arguments = (const char **)__p1; bool * result = (bool *)__p2;
 
     bool value = ((*(CTriggerVolumeManager_200020 * *)&this->f_20)->*(*(bool (CTriggerVolumeManager_200020::**)(const char *, const char *))&this->f_1c))(arguments[0], arguments[1]);
     if (result)
         *result = value;
 }
+} // namespace fn_00200020
 #if defined(HULK_PTR64)
-template class Closure2<CTriggerVolumeManager, bool, const char *, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x200000)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure2<CTriggerVolumeManager, bool, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00200020::Closure2_200020*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -4286,14 +4543,25 @@ template <> Closure2<CTriggerVolumeManager, void, const char *, float>::~Closure
 
 
 // 0x002000d0 Closure2<CTriggerVolumeManager,void,const_char_*,float>::vfunc_2 (22 B): matches/0x002000d0.cpp
-// sym: ?vfunc_2@?$Closure2@VCTriggerVolumeManager@@XPBDM@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure2_2000d0@fn_002000d0@@QAEXPAX00@Z
 // Same code shape as 0x0002e6d0 (propagated; names are from that function)
-template <> void Closure2<CTriggerVolumeManager, void, const char *, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; Pair_2000d0 * p = (Pair_2000d0 *)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure2<CTriggerVolumeManager, void, const char *, float>::vfunc_2`.
+namespace fn_002000d0 {
+struct Closure2_2000d0 : hulk_script::FunctionGenView {
+    void (::CTriggerVolumeManager::*f_1c)(const char *, float);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure2_2000d0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; Pair_2000d0 * p = (Pair_2000d0 *)__p1; void * c = (void *)__p2;
 
     ((*(CActorManager_2000d0 * *)&this->f_20)->*(*(void (CActorManager_2000d0::**)(const char *, float))&this->f_1c))(p->s, p->f);
 }
+} // namespace fn_002000d0
 #if defined(HULK_PTR64)
-template class Closure2<CTriggerVolumeManager, void, const char *, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2000b0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure2<CTriggerVolumeManager, void, const char *, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_002000d0::Closure2_2000d0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -4374,16 +4642,27 @@ template <> Closure2<CTriggerVolumeManager, bool, const char *, bool>::~Closure2
 
 
 // 0x00200210 Closure2<CTriggerVolumeManager,bool,const_char_*,bool>::vfunc_2 (46 B): equivalent/0x00200210.cpp
-// sym: ?vfunc_2@?$Closure2@VCTriggerVolumeManager@@_NPBD_N@@UAEXPAX00@Z @8eb15ebc569e @w69c2d2ef61d1
+// sym: ?vfunc_2@Closure2_200210@fn_00200210@@QAEXPAX00@Z @8eb15ebc569e @w69c2d2ef61d1
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // Closure2<CTriggerVolumeManager,bool,const_char_*,bool>::vfunc_2 @ 0x00200210
-template <> void Closure2<CTriggerVolumeManager, bool, const char *, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; Arguments * arguments = (Arguments *)__p1; bool * result = (bool *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure2<CTriggerVolumeManager, bool, const char *, bool>::vfunc_2`.
+namespace fn_00200210 {
+struct Closure2_200210 : hulk_script::FunctionGenView {
+    bool (::CTriggerVolumeManager::*f_1c)(const char *, bool);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure2_200210::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; Arguments * arguments = (Arguments *)__p1; bool * result = (bool *)__p2;
 
     bool value = ((*(CTriggerVolumeManager_200210 * *)&this->f_20)->*(*(bool (CTriggerVolumeManager_200210::**)(const char *, bool))&this->f_1c))(arguments->name, arguments->value);
     if (result) *result = value;
 }
+} // namespace fn_00200210
 #if defined(HULK_PTR64)
-template class Closure2<CTriggerVolumeManager, bool, const char *, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2001f0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure2<CTriggerVolumeManager, bool, const char *, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00200210::Closure2_200210*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -4413,24 +4692,52 @@ Closure1_2002d0::Closure1_2002d0(const char* a, void* b, ScriptMemberFn c) : Met
 } // namespace fn_f3d6a774
 
 // 0x00200340 Closure1<CTriggerVolumeManager,int,const_char_*>::vfunc_2 (30 B): equivalent/0x00200340.cpp
-// sym: ?vfunc_2@?$Closure1@VCTriggerVolumeManager@@HPBD@@UAEXPAX00@Z @d5fcbfd9f63b @we2b2731e125e @v35cd1c759f78
+// sym: ?vfunc_2@Closure1_200340@fn_00200340@@QAEXPAX00@Z @d5fcbfd9f63b @we2b2731e125e @v16583a6edbf7
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // Closure1<CTriggerVolumeManager,int,const_char_*>::vfunc_2 @ 0x00200340
-template <> void Closure1<CTriggerVolumeManager, int, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; const char ** value = (const char **)__p1; int * result = (int *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure1<CTriggerVolumeManager, int, const char *>::vfunc_2`.
+namespace fn_00200340 {
+struct Closure1_200340 : hulk_script::FunctionGenView {
+    int (::CTriggerVolumeManager::*f_1c)(const char *);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure1_200340::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; const char ** value = (const char **)__p1; int * result = (int *)__p2;
 
     int answer = ((*(CTriggerVolumeManager_200340 * *)&this->f_20)->*(*(int (CTriggerVolumeManager_200340::**)(const char *))&this->f_1c))(*value);
     if (result)
         *result = answer;
 }
+} // namespace fn_00200340
+#if defined(HULK_PTR64)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure1<CTriggerVolumeManager, int, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00200340::Closure1_200340*)this)->vfunc_2(__p0, __p1, __p2); }
+#endif
 
 
 // 0x00200420 Closure5<CTriggerVolumeManager,const_char_*,const_math::Vector,int,int,float,float>::vfunc_2 (29 B): matches/0x00200420.cpp
-// sym: ?vfunc_2@?$Closure5@VCTriggerVolumeManager@@PBD$$CBVVector@math@@HHMM@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure5_200420@fn_00200420@@QAEXPAX00@Z
 // Same code shape as 0x0002ebc0 (propagated; names are from that function)
-template <> void Closure5<CTriggerVolumeManager, const char *, const ::math::Vector, int, int, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr x = (hulk_intptr)__p0; hulk_intptr y = (hulk_intptr)__p1; hulk_intptr z = (hulk_intptr)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure5<CTriggerVolumeManager, const char *, const ::math::Vector, int, int, float, float>::vfunc_2`.
+namespace fn_00200420 {
+struct Closure5_200420 : hulk_script::FunctionGenView {
+    const char * (::CTriggerVolumeManager::*f_1c)(const ::math::Vector, int, int, float, float);
+    hulk_intptr f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure5_200420::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr x = (hulk_intptr)__p0; hulk_intptr y = (hulk_intptr)__p1; hulk_intptr z = (hulk_intptr)__p2;
 
     invoke(this->f_20, y, z, (*(int *)&this->f_1c));
 }
+} // namespace fn_00200420
+#if defined(HULK_PTR64)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure5<CTriggerVolumeManager, const char *, const ::math::Vector, int, int, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00200420::Closure5_200420*)this)->vfunc_2(__p0, __p1, __p2); }
+#endif
 
 
 // 0x00200440 FUN_00200440 (76 B): matches/0x00200440.cpp [wrapped: conflict: Closure1; Method1]
@@ -4460,14 +4767,28 @@ Closure1::Closure1(const char* name, Owner_200440* object, Fn_200440 function) :
 
 
 // 0x002004b0 Closure1<CTriggerVolumeManager,const_char_*,const_char_*>::vfunc_2 (30 B): equivalent/0x002004b0.cpp
-// sym: ?vfunc_2@?$Closure1@VCTriggerVolumeManager@@HPBD@@UAEXPAX00@Z @d5fcbfd9f63b @we2b2731e125e @v35cd1c759f78
+// sym: ?vfunc_2@Closure1_2004b0@fn_002004b0@@QAEXPAX00@Z @d5fcbfd9f63b @we2b2731e125e @vf6a24a1921ca
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // Closure1<CTriggerVolumeManager,const_char_*,const_char_*>::vfunc_2 @ 0x002004b0
-template <> void Closure1<CTriggerVolumeManager, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; const char ** argument = (const char **)__p1; const char ** result = (const char **)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure1<CTriggerVolumeManager, const char *, const char *>::vfunc_2`.
+namespace fn_002004b0 {
+struct Closure1_2004b0 : hulk_script::FunctionGenView {
+    const char * (::CTriggerVolumeManager::*f_1c)(const char *);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure1_2004b0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; const char ** argument = (const char **)__p1; const char ** result = (const char **)__p2;
 
     const char* value = ((*(CTriggerVolumeManager_2004b0 * *)&this->f_20)->*(*(TriggerMethod *)&this->f_1c))(*argument);
     if (result) *result = value;
 }
+} // namespace fn_002004b0
+#if defined(HULK_PTR64)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure1<CTriggerVolumeManager, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_002004b0::Closure1_2004b0*)this)->vfunc_2(__p0, __p1, __p2); }
+#endif
 
 
 // 0x002004d0 FUN_002004d0 (76 B): equivalent/0x002004d0.cpp [wrapped: conflict: CTriggerVolumeManager; Closure1; Method1]
@@ -4518,12 +4839,26 @@ template<> Closure1<CTriggerVolumeManager,void,float>::Closure1(const char* arg,
 
 
 // 0x00200540 Closure1<CTriggerVolumeManager,void,float>::vfunc_2 (18 B): matches/0x00200540.cpp
-// sym: ?vfunc_2@?$Closure1@VCTriggerVolumeManager@@XPBD@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure1_200540@fn_00200540@@QAEXPAX00@Z
 // Same code shape as 0x0002ed90 (propagated; names are from that function)
-template <> void Closure1<CTriggerVolumeManager, void, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; const char ** b = (const char **)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure1<CTriggerVolumeManager, void, float>::vfunc_2`.
+namespace fn_00200540 {
+struct Closure1_200540 : hulk_script::FunctionGenView {
+    void (::CTriggerVolumeManager::*f_1c)(float);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure1_200540::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; const char ** b = (const char **)__p1; void * c = (void *)__p2;
 
     ((*(CActorManager_200540 * *)&this->f_20)->*(*(void (CActorManager_200540::**)(const char *))&this->f_1c))(*b);
 }
+} // namespace fn_00200540
+#if defined(HULK_PTR64)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure1<CTriggerVolumeManager, void, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00200540::Closure1_200540*)this)->vfunc_2(__p0, __p1, __p2); }
+#endif
 
 
 // 0x002006f0 FUN_002006f0 (109 B): matches/0x002006f0.cpp [wrapped: conflict: CTriggerVolumeManager; Closure0; Method0]

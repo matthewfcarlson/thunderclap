@@ -911,13 +911,26 @@ Function2::Function2(const char* name, Fn_1b3790 function) : hulk_script::Script
 
 
 // 0x001b37e0 Function2<void,int,math::Vector>::vfunc_2 (45 B): equivalent/0x001b37e0.cpp
-// sym: ?vfunc_2@?$Function2@XHVVector@math@@@@UAEXPAX00@Z @b33272d857a4 @wd6dde55d7ec9 @v6859cf8eb361
+// sym: ?vfunc_2@Function2_1b37e0@fn_001b37e0@@QAEXPAX00@Z @b33272d857a4 @wd6dde55d7ec9 @vf054a362e20c
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Function2<void,int,math::Vector>::vfunc_2 @ 0x001b37e0
-template <> void Function2<void, int,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr unused = (hulk_intptr)__p0; const math::Vector_1b37e0 * value = (const math::Vector_1b37e0 *)__p1; hulk_intptr extra = (hulk_intptr)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Function2<void, int,math::Vector>::vfunc_2`.
+namespace fn_001b37e0 {
+struct Function2_1b37e0 : hulk_script::FunctionGenView {
+    void* f_1c;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Function2_1b37e0::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr unused = (hulk_intptr)__p0; const math::Vector_1b37e0 * value = (const math::Vector_1b37e0 *)__p1; hulk_intptr extra = (hulk_intptr)__p2;
 
     (*(void (**)(int, math::Vector_1b37e0))&this->f_1c)(*(const int*)value, *(const math::Vector_1b37e0*)((const char*)value+4));
 }
+} // namespace fn_001b37e0
+#if defined(HULK_PTR64)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Function2<void, int,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001b37e0::Function2_1b37e0*)this)->vfunc_2(__p0, __p1, __p2); }
+#endif
 
 
 // 0x001b3810 FUN_001b3810 (102 B): matches/0x001b3810.cpp [wrapped: conflict: Function4]
@@ -949,17 +962,17 @@ Function4::Function4(const char* name, Fn_1b3810 function) : hulk_script::Script
 
 
 // 0x001b3880 Function4<void,int,const_char_*,const_char_*,float>::vfunc_2 (37 B): matches/0x001b3880.cpp [wrapped: conflict: Function; Function4]
-// sym: ?vfunc_2@Function4@fn_001b3880@@UAEXHPAHH@Z
+// sym: ?vfunc_2@Function4@fn_001b3880@@QAEXHPAHH@Z
 namespace fn_001b3880 {
-class Function {
+class Function { void* vftable;   /* (script2) the vftable word, no stand-in vftable */
   public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
+    void vfunc_0();
+    void vfunc_1();
 };
 class Function4 : public Function {
   public:
-    virtual void vfunc_0();
-    virtual void vfunc_2(int, int*, int);
+    void vfunc_0();
+    void vfunc_2(int, int*, int);
     ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[24])
     void(__cdecl* fn)(int, const char*, const char*, float);
 };
@@ -1003,12 +1016,25 @@ Function5::Function5(const char* name, Fn_1b38b0 function) : hulk_script::Script
 } // namespace fn_f5af65ff
 
 // 0x001b3930 Function5<void,int,int,float,float,float>::vfunc_2 (30 B): matches/0x001b3930.cpp
-// sym: ?vfunc_2@?$Function5@XHHMMM@@UAEXPAX00@Z
+// sym: ?vfunc_2@Function5_1b3930@fn_001b3930@@QAEXPAX00@Z
 // Same code shape as 0x0002caf0 (propagated; names are from that function)
-template <> void Function5<void, int, int, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { const char * a = (const char *)__p0; const char * b = (const char *)__p1; const char * c = (const char *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Function5<void, int, int, float, float, float>::vfunc_2`.
+namespace fn_001b3930 {
+struct Function5_1b3930 : hulk_script::FunctionGenView {
+    int f_1c;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Function5_1b3930::vfunc_2(void* __p0, void* __p1, void* __p2) { const char * a = (const char *)__p0; const char * b = (const char *)__p1; const char * c = (const char *)__p2;
 
     FUN_001b3950(a, b, c, this->f_1c);
 }
+} // namespace fn_001b3930
+#if defined(HULK_PTR64)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Function5<void, int, int, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001b3930::Function5_1b3930*)this)->vfunc_2(__p0, __p1, __p2); }
+#endif
 
 namespace fn_f5af65ff {
 
@@ -1902,15 +1928,25 @@ template <> Method3<CCollisionManager, void, float, float, float>::~Method3() {}
 
 
 // 0x001b5c40 Method3<CCollisionManager,void,float,float,float>::vfunc_2 (35 B): matches/0x001b5c40.cpp
-// sym: ?vfunc_2@?$Method3@VCCollisionManager@@XMMM@@UAEXPAX00@Z
-template <> void Method3<CCollisionManager, void, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { CCollisionManager_1b5c40 * obj = (CCollisionManager_1b5c40 *)__p0; float * args = (float *)__p1; hulk_intptr unused = (hulk_intptr)__p2;
+// sym: ?vfunc_2@Method3_1b5c40@fn_001b5c40@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method3<CCollisionManager, void, float, float, float>::vfunc_2`.
+namespace fn_001b5c40 {
+struct Method3_1b5c40 : hulk_script::FunctionGenView {
+    void (::CCollisionManager::*f_1c)(float, float, float);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method3_1b5c40::vfunc_2(void* __p0, void* __p1, void* __p2) { CCollisionManager_1b5c40 * obj = (CCollisionManager_1b5c40 *)__p0; float * args = (float *)__p1; hulk_intptr unused = (hulk_intptr)__p2;
 
     float* p = args;
     *(volatile int*)&args = *(int*)p;
     (obj->*(*(void (CCollisionManager_1b5c40::**)(float, float, float))&this->f_1c))(*(float*)&args, p[1], p[2]);
 }
+} // namespace fn_001b5c40
 #if defined(HULK_PTR64)
-template class Method3<CCollisionManager, void, float, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1b5c20)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method3<CCollisionManager, void, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001b5c40::Method3_1b5c40*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -1938,16 +1974,26 @@ template <> Method2<CCollisionManager, bool,math::Vector, int>::~Method2() {}
 
 
 // 0x001b5ce0 Method2<CCollisionManager,bool,math::Vector,int>::vfunc_2 (53 B): matches/0x001b5ce0.cpp
-// sym: ?vfunc_2@?$Method2@VCCollisionManager@@_NVVector@math@@H@@UAEXPAX00@Z
-template <> void Method2<CCollisionManager, bool,math::Vector, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { Callee_1b5ce0 * a = (Callee_1b5ce0 *)__p0; VecI * p = (VecI *)__p1; char * out = (char *)__p2;
+// sym: ?vfunc_2@Method2_1b5ce0@fn_001b5ce0@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method2<CCollisionManager, bool,math::Vector, int>::vfunc_2`.
+namespace fn_001b5ce0 {
+struct Method2_1b5ce0 : hulk_script::FunctionGenView {
+    bool (::CCollisionManager::*f_1c)(math::Vector, int);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method2_1b5ce0::vfunc_2(void* __p0, void* __p1, void* __p2) { Callee_1b5ce0 * a = (Callee_1b5ce0 *)__p0; VecI * p = (VecI *)__p1; char * out = (char *)__p2;
 
     Fn_1b5ce0 f = (*(Fn_1b5ce0 *)&this->f_1c);
     bool r = (a->*f)(*(Vec_1b5ce0*)p, p->i);
     if (out)
         *out = r;
 }
+} // namespace fn_001b5ce0
 #if defined(HULK_PTR64)
-template class Method2<CCollisionManager, bool,math::Vector, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1b5cc0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method2<CCollisionManager, bool,math::Vector, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001b5ce0::Method2_1b5ce0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 namespace fn_f5af65ff {
@@ -2073,13 +2119,27 @@ char owners::Tracker_1b6000::FUN_001b6000(int id, void ***outList, int *outId)
 
 
 // 0x001b61c0 Closure3<CCollisionManager,void,float,float,float>::vfunc_2 (34 B): matches/0x001b61c0.cpp
-// sym: ?vfunc_2@?$Closure3@VCCollisionManager@@XMMM@@UAEXPAX00@Z
-template <> void Closure3<CCollisionManager, void, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { float * p = (float *)__p1;
+// sym: ?vfunc_2@Closure3_1b61c0@fn_001b61c0@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure3<CCollisionManager, void, float, float, float>::vfunc_2`.
+namespace fn_001b61c0 {
+struct Closure3_1b61c0 : hulk_script::FunctionGenView {
+    void (::CCollisionManager::*f_1c)(float, float, float);
+    hulk_intptr f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure3_1b61c0::vfunc_2(void* __p0, void* __p1, void* __p2) { float * p = (float *)__p1;
 
     float* q = p;
     *(volatile int*)&p = *(int*)q;
     ((*(CCollisionManager_1b61c0 * *)&this->f_20)->*(*(void (CCollisionManager_1b61c0::**)(float, float, float))&this->f_1c))(*(float*)&p, q[1], q[2]);
 }
+} // namespace fn_001b61c0
+#if defined(HULK_PTR64)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure3<CCollisionManager, void, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001b61c0::Closure3_1b61c0*)this)->vfunc_2(__p0, __p1, __p2); }
+#endif
 
 
 // 0x001b61f0 FUN_001b61f0 (89 B): matches/0x001b61f0.cpp [wrapped: conflict: Closure2]
@@ -2113,7 +2173,7 @@ Closure2::Closure2(const char* name, Owner_1b61f0* object, Fn_1b61f0 function) :
 
 
 // 0x001b6270 Closure2<CCollisionManager,bool,math::Vector,int>::vfunc_2 (56 B): matches/0x001b6270.cpp [wrapped: conflict: CCollisionManager; Closure2; Function]
-// sym: ?vfunc_2@Closure2@fn_001b6270@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure2@fn_001b6270@@QAEXPAX00@Z
 namespace fn_001b6270 {
 namespace math {
 struct Vector {
@@ -2124,11 +2184,11 @@ class CCollisionManager {
   public:
     bool fn(math::Vector, int);
 };
-class Function {
+class Function { void* vftable;   /* (script2) the vftable word, no stand-in vftable */
   public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2(void*, void*, void*);
+    void vfunc_0();
+    void vfunc_1();
+    void vfunc_2(void*, void*, void*);
 };
 class Closure2 : public Function {
   public:
@@ -2136,7 +2196,7 @@ class Closure2 : public Function {
     typedef bool (CCollisionManager::*Method)(math::Vector, int);
     Method method;
     CCollisionManager* obj;
-    virtual void vfunc_2(void*, void*, void*);
+    void vfunc_2(void*, void*, void*);
 };
 void Closure2::vfunc_2(void* unused, void* input, void* output) {
     CCollisionManager* target = obj;

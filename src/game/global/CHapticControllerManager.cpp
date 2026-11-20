@@ -190,8 +190,15 @@ template <> Method4<CHapticControllerManager, void, int, float, float, float>::~
 
 
 // 0x000b0140 Method4<CHapticControllerManager,void,int,float,float,float>::vfunc_2 (46 B): matches/0x000b0140.cpp
-// sym: ?vfunc_2@?$Method4@VCHapticControllerManager@@XHMMM@@UAEXPAX00@Z
-template <> void Method4<CHapticControllerManager, void, int, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { CHapticControllerManager_b0140 * obj = (CHapticControllerManager_b0140 *)__p0; void * args = (void *)__p1; void * unused = (void *)__p2;
+// sym: ?vfunc_2@Method4_b0140@fn_000b0140@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method4<CHapticControllerManager, void, int, float, float, float>::vfunc_2`.
+namespace fn_000b0140 {
+struct Method4_b0140 : hulk_script::FunctionGenView {
+    void (::CHapticControllerManager::*f_1c)(int, float, float, float);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method4_b0140::vfunc_2(void* __p0, void* __p1, void* __p2) { CHapticControllerManager_b0140 * obj = (CHapticControllerManager_b0140 *)__p0; void * args = (void *)__p1; void * unused = (void *)__p2;
 
     char* p = (char*)args;
     int a = *(int*)p;
@@ -202,8 +209,11 @@ template <> void Method4<CHapticControllerManager, void, int, float, float, floa
     float d = *(float*)(p + 4);
     (obj->*(*(void (CHapticControllerManager_b0140::**)(int, float, float, float))&this->f_1c))(a, b, c, d);
 }
+} // namespace fn_000b0140
 #if defined(HULK_PTR64)
-template class Method4<CHapticControllerManager, void, int, float, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xb0120)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method4<CHapticControllerManager, void, int, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000b0140::Method4_b0140*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -231,14 +241,24 @@ template <> Method0<CHapticControllerManager, void>::~Method0() {}
 
 
 // 0x000b01d0 Method0<CHapticControllerManager,void>::vfunc_2 (12 B): matches/0x000b01d0.cpp
-// sym: ?vfunc_2@?$Method0@VCHapticControllerManager@@X@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method0_b01d0@fn_000b01d0@@QAEXPAX00@Z
 // Same code shape as 0x0002d950 (propagated; names are from that function)
-template <> void Method0<CHapticControllerManager, void>::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_b01d0 * a = (CActorManager_b01d0 *)__p0;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method0<CHapticControllerManager, void>::vfunc_2`.
+namespace fn_000b01d0 {
+struct Method0_b01d0 : hulk_script::FunctionGenView {
+    void (::CHapticControllerManager::*f_1c)();
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method0_b01d0::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_b01d0 * a = (CActorManager_b01d0 *)__p0;
 
     (a->*(*(void (CActorManager_b01d0::**)())&this->f_1c))();
 }
+} // namespace fn_000b01d0
 #if defined(HULK_PTR64)
-template class Method0<CHapticControllerManager, void>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xb01b0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method0<CHapticControllerManager, void>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000b01d0::Method0_b01d0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -266,20 +286,38 @@ template <> Method1<CHapticControllerManager, void, bool>::~Method1() {}
 
 
 // 0x000b0240 Method1<CHapticControllerManager,void,bool>::vfunc_2 (21 B): matches/0x000b0240.cpp
-// sym: ?vfunc_2@?$Method1@VCHapticControllerManager@@X_N@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method1_b0240@fn_000b0240@@QAEXPAX00@Z
 // Same code shape as 0x0002e290 (propagated; names are from that function)
-template <> void Method1<CHapticControllerManager, void, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_b0240 * obj = (CActorManager_b0240 *)__p0; unsigned char * b = (unsigned char *)__p1; void * unused = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method1<CHapticControllerManager, void, bool>::vfunc_2`.
+namespace fn_000b0240 {
+struct Method1_b0240 : hulk_script::FunctionGenView {
+    void (::CHapticControllerManager::*f_1c)(bool);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method1_b0240::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_b0240 * obj = (CActorManager_b0240 *)__p0; unsigned char * b = (unsigned char *)__p1; void * unused = (void *)__p2;
 
     (obj->*(*(MFn_b0240 *)&this->f_1c))(*b);
 }
+} // namespace fn_000b0240
 #if defined(HULK_PTR64)
-template class Method1<CHapticControllerManager, void, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xb0220)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method1<CHapticControllerManager, void, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000b0240::Method1_b0240*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
 // 0x000b02b0 Closure4<CHapticControllerManager,void,int,float,float,float>::vfunc_2 (45 B): matches/0x000b02b0.cpp
-// sym: ?vfunc_2@?$Closure4@VCHapticControllerManager@@XHMMM@@UAEXPAX00@Z
-template <> void Closure4<CHapticControllerManager, void, int, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { int * args = (int *)__p1;
+// sym: ?vfunc_2@Closure4_b02b0@fn_000b02b0@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure4<CHapticControllerManager, void, int, float, float, float>::vfunc_2`.
+namespace fn_000b02b0 {
+struct Closure4_b02b0 : hulk_script::FunctionGenView {
+    void (::CHapticControllerManager::*f_1c)(int, float, float, float);
+    hulk_intptr f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure4_b02b0::vfunc_2(void* __p0, void* __p1, void* __p2) { int * args = (int *)__p1;
 
     int a = *args;
     float b = *(float*)++args;
@@ -288,14 +326,34 @@ template <> void Closure4<CHapticControllerManager, void, int, float, float, flo
     float d = *(float*)(args + 1);
     ((*(CHapticControllerManager_b02b0 * *)&this->f_20)->*(*(void (CHapticControllerManager_b02b0::**)(int, float, float, float))&this->f_1c))(a, b, c, d);
 }
+} // namespace fn_000b02b0
+#if defined(HULK_PTR64)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure4<CHapticControllerManager, void, int, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000b02b0::Closure4_b02b0*)this)->vfunc_2(__p0, __p1, __p2); }
+#endif
 
 
 // 0x000b0340 Closure0<CHapticControllerManager,void>::vfunc_2 (11 B): matches/0x000b0340.cpp
-// sym: ?vfunc_2@?$Closure0@VCHapticControllerManager@@X@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure0_b0340@fn_000b0340@@QAEXPAX00@Z
 // Same code shape as 0x0002f820 (propagated; names are from that function)
-template <> void Closure0<CHapticControllerManager, void>::vfunc_2(void* __p0, void* __p1, void* __p2) {
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure0<CHapticControllerManager, void>::vfunc_2`.
+namespace fn_000b0340 {
+struct Closure0_b0340 : hulk_script::FunctionGenView {
+    void (::CHapticControllerManager::*f_1c)();
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure0_b0340::vfunc_2(void* __p0, void* __p1, void* __p2) {
     ((*(CActorManager_b0340 * *)&this->f_20)->*(*(void (CActorManager_b0340::**)())&this->f_1c))();
 }
+} // namespace fn_000b0340
+#if defined(HULK_PTR64)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure0<CHapticControllerManager, void>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000b0340::Closure0_b0340*)this)->vfunc_2(__p0, __p1, __p2); }
+#endif
 
 
 // 0x000b0350 FUN_000b0350 (76 B): matches/0x000b0350.cpp [wrapped: conflict: Closure1; Method1]
@@ -328,12 +386,26 @@ Closure1::Closure1(const char* name, Owner_b0350* object, Fn_b0350 function) : h
 
 
 // 0x000b03c0 Closure1<CHapticControllerManager,void,bool>::vfunc_2 (20 B): matches/0x000b03c0.cpp
-// sym: ?vfunc_2@?$Closure1@VCHapticControllerManager@@X_N@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure1_b03c0@fn_000b03c0@@QAEXPAX00@Z
 // Same code shape as 0x00030040 (propagated; names are from that function)
-template <> void Closure1<CHapticControllerManager, void, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { unsigned char * arg = (unsigned char *)__p1;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure1<CHapticControllerManager, void, bool>::vfunc_2`.
+namespace fn_000b03c0 {
+struct Closure1_b03c0 : hulk_script::FunctionGenView {
+    void (::CHapticControllerManager::*f_1c)(bool);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure1_b03c0::vfunc_2(void* __p0, void* __p1, void* __p2) { unsigned char * arg = (unsigned char *)__p1;
 
     ((*(Actor_b03c0 * *)&this->f_20)->*(*(void (Actor_b03c0::**)(unsigned char))&this->f_1c))(*arg);
 }
+} // namespace fn_000b03c0
+#if defined(HULK_PTR64)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure1<CHapticControllerManager, void, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000b03c0::Closure1_b03c0*)this)->vfunc_2(__p0, __p1, __p2); }
+#endif
 
 namespace fn_f8a35d46 {
 

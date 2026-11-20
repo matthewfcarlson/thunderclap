@@ -4937,12 +4937,25 @@ Function7_3eea0* Function7_3eea0::Init(const char* name, Fn_3eea0 fn) {
 } // namespace fn_f35f7bdf
 
 // 0x0003ef30 Function7<void,int,float,float,float,float,float,float>::vfunc_2 (30 B): matches/0x0003ef30.cpp
-// sym: ?vfunc_2@?$Function7@XHMMMMMM@@UAEXPAX00@Z
+// sym: ?vfunc_2@Function7_3ef30@fn_0003ef30@@QAEXPAX00@Z
 // Same code shape as 0x0002caf0 (propagated; names are from that function)
-template <> void Function7<void, int, float, float, float, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { const char * a = (const char *)__p0; const char * b = (const char *)__p1; const char * c = (const char *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Function7<void, int, float, float, float, float, float, float>::vfunc_2`.
+namespace fn_0003ef30 {
+struct Function7_3ef30 : hulk_script::FunctionGenView {
+    int f_1c;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Function7_3ef30::vfunc_2(void* __p0, void* __p1, void* __p2) { const char * a = (const char *)__p0; const char * b = (const char *)__p1; const char * c = (const char *)__p2;
 
     FUN_0003ef50(a, b, c, this->f_1c);
 }
+} // namespace fn_0003ef30
+#if defined(HULK_PTR64)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Function7<void, int, float, float, float, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0003ef30::Function7_3ef30*)this)->vfunc_2(__p0, __p1, __p2); }
+#endif
 
 namespace fn_f35f7bdf {
 

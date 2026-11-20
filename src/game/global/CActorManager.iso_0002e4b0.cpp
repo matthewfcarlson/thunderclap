@@ -4,19 +4,33 @@
 
 
 // 0x0002e4b0 Method2<CActorManager,bool,const_char_*,math::Vector>::vfunc_2 (58 B): equivalent/0x0002e4b0.cpp [isolated: conflict: Arguments; on include/gen/ and not mergeable]
-// sym: ?vfunc_2@?$Method2@VCActorManager@@_NPBDVVector@math@@@@UAEXPAX00@Z @5070c124e04e @w8cf067245f4c @v978af50ba842
+// sym: ?vfunc_2@Method2_2e4b0@fn_0002e4b0@@QAEXPAX00@Z @5070c124e04e @w8cf067245f4c @vbf92294aae67
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // Method2<CActorManager,bool,const_char_*,math::Vector>::vfunc_2 @ 0x0002e4b0
 #include "gen/global.h"
+#include "game/script_bind.h"
 
 namespace math { struct Vector_2e4b0 { float x,y,z; }; }
 class CActorManager_2e4b0 {};
 struct Arguments { const char* text; math::Vector_2e4b0 position; };
 class Function_2e4b0 { public: virtual void vfunc_0(); virtual void vfunc_1(); };
 
-template <> void Method2<CActorManager, bool, const char *,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_2e4b0 * actor = (CActorManager_2e4b0 *)__p0; const Arguments * args = (const Arguments *)__p1; bool * result = (bool *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method2<CActorManager, bool, const char *,math::Vector>::vfunc_2`.
+namespace fn_0002e4b0 {
+struct Method2_2e4b0 : hulk_script::FunctionGenView {
+    bool (::CActorManager::*f_1c)(const char *, math::Vector);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method2_2e4b0::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_2e4b0 * actor = (CActorManager_2e4b0 *)__p0; const Arguments * args = (const Arguments *)__p1; bool * result = (bool *)__p2;
 
     bool value = (actor->*(*(bool (CActorManager_2e4b0::**)(const char *, math::Vector_2e4b0))&this->f_1c))(args->text, args->position);
     if (result) *result = value;
 }
+} // namespace fn_0002e4b0
+#if defined(HULK_PTR64)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method2<CActorManager, bool, const char *,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002e4b0::Method2_2e4b0*)this)->vfunc_2(__p0, __p1, __p2); }
+#endif
 

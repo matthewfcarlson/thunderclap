@@ -810,21 +810,21 @@ template class Function1<void, const char *>; // (ren2) native only: clang emits
 
 
 // 0x000be4c0 Function1<void,const_char_*>::vfunc_2 (14 B): matches/0x000be4c0.cpp [wrapped: conflict: Function; Function1]
-// sym: ?v2@Function1@fn_000be4c0@@UAEXHPAPBDH@Z
+// sym: ?v2@Function1@fn_000be4c0@@QAEXHPAPBDH@Z
 namespace fn_000be4c0 {
-class Function {
+class Function { void* vftable;   /* (script2) the vftable word, no stand-in vftable */
   public:
-    virtual void v0();
-    virtual void v1();
+    void v0();
+    void v1();
 };
 class Function1 : public Function {
     ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
 
   public:
     void(__cdecl* mFn)(const char*);
-    virtual void v0();
-    virtual void v1();
-    virtual void v2(int, const char**, int);
+    void v0();
+    void v1();
+    void v2(int, const char**, int);
 };
 void Function1::v2(int, const char** p, int) {
     mFn(*p);
@@ -858,17 +858,17 @@ template class Function0<void>; // (ren2) native only: clang emits the scalar de
 
 
 // 0x000be530 Function0<void>::vfunc_2 (6 B): matches/0x000be530.cpp [wrapped: conflict: Function]
-// sym: ?f2@Function0_be530@fn_000be530@@UAEXHHH@Z
+// sym: ?f2@Function0_be530@fn_000be530@@QAEXHHH@Z
 namespace fn_000be530 {
-class Function {
+class Function { void* vftable;   /* (script2) the vftable word, no stand-in vftable */
   public:
-    virtual void f0();
-    virtual void f1();
+    void f0();
+    void f1();
 };
 class Function0_be530 : public Function {
   public:
-    virtual void f0();
-    virtual void f2(int, int, int);
+    void f0();
+    void f2(int, int, int);
     ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
     void(__cdecl* mFn)();
 };
@@ -902,15 +902,25 @@ template <> Method1<CFEManager, void, char *>::~Method1() {}
 
 
 // 0x000be5a0 Method1<CFEManager,void,char_*>::vfunc_2 (19 B): matches/0x000be5a0.cpp
-// sym: ?vfunc_2@?$Method1@VCFEManager@@XPAD@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method1_be5a0@fn_000be5a0@@QAEXPAX00@Z
 // Same code shape as 0x0002ce30 (propagated; names are from that function)
-template <> void Method1<CFEManager, void, char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void ** b = (void **)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method1<CFEManager, void, char *>::vfunc_2`.
+namespace fn_000be5a0 {
+struct Method1_be5a0 : hulk_script::FunctionGenView {
+    void (::CFEManager::*f_1c)(char *);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method1_be5a0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void ** b = (void **)__p1; void * c = (void *)__p2;
 
     Dummy_be5a0* d = (Dummy_be5a0*)a;
     (d->*(*(void (Dummy_be5a0::**)(void *))&this->f_1c))(*b);
 }
+} // namespace fn_000be5a0
 #if defined(HULK_PTR64)
-template class Method1<CFEManager, void, char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xbe580)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method1<CFEManager, void, char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000be5a0::Method1_be5a0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 namespace fn_f53c52ab {
@@ -968,14 +978,24 @@ template <> Method6<CFEManager, void, const char *, const char *, const char *, 
 
 
 // 0x000be660 Method6<CFEManager,void,const_char_*,const_char_*,const_char_*,const_char_*,int,int>::vfunc_2 (30 B): matches/0x000be660.cpp
-// sym: ?vfunc_2@?$Method6@VCFEManager@@XPBDPBDPBDPBDHH@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method6_be660@fn_000be660@@QAEXPAX00@Z
 // Same code shape as 0x0002caf0 (propagated; names are from that function)
-template <> void Method6<CFEManager, void, const char *, const char *, const char *, const char *, int, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { const char * a = (const char *)__p0; const char * b = (const char *)__p1; const char * c = (const char *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method6<CFEManager, void, const char *, const char *, const char *, const char *, int, int>::vfunc_2`.
+namespace fn_000be660 {
+struct Method6_be660 : hulk_script::FunctionGenView {
+    void (::CFEManager::*f_1c)(const char *, const char *, const char *, const char *, int, int);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method6_be660::vfunc_2(void* __p0, void* __p1, void* __p2) { const char * a = (const char *)__p0; const char * b = (const char *)__p1; const char * c = (const char *)__p2;
 
     FUN_000be680(a, b, c, (*(int *)&this->f_1c));
 }
+} // namespace fn_000be660
 #if defined(HULK_PTR64)
-template class Method6<CFEManager, void, const char *, const char *, const char *, const char *, int, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xbe640)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method6<CFEManager, void, const char *, const char *, const char *, const char *, int, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000be660::Method6_be660*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 namespace fn_f53c52ab {
@@ -1018,14 +1038,24 @@ template <> Method0<CFEManager, void>::~Method0() {}
 
 
 // 0x000be720 Method0<CFEManager,void>::vfunc_2 (12 B): matches/0x000be720.cpp
-// sym: ?vfunc_2@?$Method0@VCFEManager@@X@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method0_be720@fn_000be720@@QAEXPAX00@Z
 // Same code shape as 0x0002d950 (propagated; names are from that function)
-template <> void Method0<CFEManager, void>::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_be720 * a = (CActorManager_be720 *)__p0;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method0<CFEManager, void>::vfunc_2`.
+namespace fn_000be720 {
+struct Method0_be720 : hulk_script::FunctionGenView {
+    void (::CFEManager::*f_1c)();
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method0_be720::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_be720 * a = (CActorManager_be720 *)__p0;
 
     (a->*(*(void (CActorManager_be720::**)())&this->f_1c))();
 }
+} // namespace fn_000be720
 #if defined(HULK_PTR64)
-template class Method0<CFEManager, void>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xbe700)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method0<CFEManager, void>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000be720::Method0_be720*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -1053,15 +1083,25 @@ template <> Method1<CFEManager, void, const char *>::~Method1() {}
 
 
 // 0x000be790 Method1<CFEManager,void,const_char_*>::vfunc_2 (19 B): matches/0x000be790.cpp
-// sym: ?vfunc_2@?$Method1@VCFEManager@@XPAD@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method1_be790@fn_000be790@@QAEXPAX00@Z
 // Same code shape as 0x0002ce30 (propagated; names are from that function)
-template <> void Method1<CFEManager, void, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void ** b = (void **)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method1<CFEManager, void, const char *>::vfunc_2`.
+namespace fn_000be790 {
+struct Method1_be790 : hulk_script::FunctionGenView {
+    void (::CFEManager::*f_1c)(const char *);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method1_be790::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void ** b = (void **)__p1; void * c = (void *)__p2;
 
     Dummy_be790* d = (Dummy_be790*)a;
     (d->*(*(void (Dummy_be790::**)(void *))&this->f_1c))(*b);
 }
+} // namespace fn_000be790
 #if defined(HULK_PTR64)
-template class Method1<CFEManager, void, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xbe770)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method1<CFEManager, void, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000be790::Method1_be790*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -1089,17 +1129,27 @@ template <> Method2<CFEManager, void, const char *, const char *>::~Method2() {}
 
 
 // 0x000be820 Method2<CFEManager,void,const_char_*,const_char_*>::vfunc_2 (23 B): matches/0x000be820.cpp
-// sym: ?vfunc_2@?$Method2@VCFEManager@@XPBDPBD@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method2_be820@fn_000be820@@QAEXPAX00@Z
 // Same code shape as 0x000beac0 (propagated; names are from that function)
-template <> void Method2<CFEManager, void, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; void * p = (void *)__p1; hulk_intptr n = (hulk_intptr)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method2<CFEManager, void, const char *, const char *>::vfunc_2`.
+namespace fn_000be820 {
+struct Method2_be820 : hulk_script::FunctionGenView {
+    void (::CFEManager::*f_1c)(const char *, const char *);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method2_be820::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; void * p = (void *)__p1; hulk_intptr n = (hulk_intptr)__p2;
 
     CFEManager_be820* m = (CFEManager_be820*)unused;
     const char* s = *(const char**)p;
     int x = *(int*)((char*)p + 4);
     (m->*(*(void (CFEManager_be820::**)(const char *, int))&this->f_1c))(s, x);
 }
+} // namespace fn_000be820
 #if defined(HULK_PTR64)
-template class Method2<CFEManager, void, const char *, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xbe800)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method2<CFEManager, void, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000be820::Method2_be820*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -1159,14 +1209,24 @@ template <> Method7<CFEManager, void, const char *, const char *, const char *, 
 
 
 // 0x000be8f0 Method7<CFEManager,void,const_char_*,const_char_*,const_char_*,const_char_*,const_char_*,const_char_*,const_char_*>::vfunc_2 (30 B): matches/0x000be8f0.cpp
-// sym: ?vfunc_2@?$Method7@VCFEManager@@XPBDPBDPBDPBDPBDPBDPBD@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method7_be8f0@fn_000be8f0@@QAEXPAX00@Z
 // Same code shape as 0x0002caf0 (propagated; names are from that function)
-template <> void Method7<CFEManager, void, const char *, const char *, const char *, const char *, const char *, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { const char * a = (const char *)__p0; const char * b = (const char *)__p1; const char * c = (const char *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method7<CFEManager, void, const char *, const char *, const char *, const char *, const char *, const char *, const char *>::vfunc_2`.
+namespace fn_000be8f0 {
+struct Method7_be8f0 : hulk_script::FunctionGenView {
+    void (::CFEManager::*f_1c)(const char *, const char *, const char *, const char *, const char *, const char *, const char *);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method7_be8f0::vfunc_2(void* __p0, void* __p1, void* __p2) { const char * a = (const char *)__p0; const char * b = (const char *)__p1; const char * c = (const char *)__p2;
 
     FUN_000be910(a, b, c, (*(int *)&this->f_1c));
 }
+} // namespace fn_000be8f0
 #if defined(HULK_PTR64)
-template class Method7<CFEManager, void, const char *, const char *, const char *, const char *, const char *, const char *, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xbe8d0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method7<CFEManager, void, const char *, const char *, const char *, const char *, const char *, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000be8f0::Method7_be8f0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 namespace fn_f53c52ab {
@@ -1238,14 +1298,24 @@ template <> Method6<CFEManager, void, const char *, const char *, const char *, 
 
 
 // 0x000be9f0 Method6<CFEManager,void,const_char_*,const_char_*,const_char_*,const_char_*,const_char_*,const_char_*>::vfunc_2 (30 B): matches/0x000be9f0.cpp
-// sym: ?vfunc_2@?$Method6@VCFEManager@@XPBDPBDPBDPBDPBDPBD@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method6_be9f0@fn_000be9f0@@QAEXPAX00@Z
 // Same code shape as 0x0002caf0 (propagated; names are from that function)
-template <> void Method6<CFEManager, void, const char *, const char *, const char *, const char *, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { const char * a = (const char *)__p0; const char * b = (const char *)__p1; const char * c = (const char *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method6<CFEManager, void, const char *, const char *, const char *, const char *, const char *, const char *>::vfunc_2`.
+namespace fn_000be9f0 {
+struct Method6_be9f0 : hulk_script::FunctionGenView {
+    void (::CFEManager::*f_1c)(const char *, const char *, const char *, const char *, const char *, const char *);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method6_be9f0::vfunc_2(void* __p0, void* __p1, void* __p2) { const char * a = (const char *)__p0; const char * b = (const char *)__p1; const char * c = (const char *)__p2;
 
     FUN_000bea10(a, b, c, (*(int *)&this->f_1c));
 }
+} // namespace fn_000be9f0
 #if defined(HULK_PTR64)
-template class Method6<CFEManager, void, const char *, const char *, const char *, const char *, const char *, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xbe9d0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method6<CFEManager, void, const char *, const char *, const char *, const char *, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000be9f0::Method6_be9f0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 namespace fn_f53c52ab {
@@ -1289,16 +1359,26 @@ template <> Method2<CFEManager, void, const char *, int>::~Method2() {}
 
 
 // 0x000beac0 Method2<CFEManager,void,const_char_*,int>::vfunc_2 (23 B): matches/0x000beac0.cpp
-// sym: ?vfunc_2@?$Method2@VCFEManager@@XPBDPBD@@UAEXPAX00@Z
-template <> void Method2<CFEManager, void, const char *, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; void * p = (void *)__p1; hulk_intptr n = (hulk_intptr)__p2;
+// sym: ?vfunc_2@Method2_beac0@fn_000beac0@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method2<CFEManager, void, const char *, int>::vfunc_2`.
+namespace fn_000beac0 {
+struct Method2_beac0 : hulk_script::FunctionGenView {
+    void (::CFEManager::*f_1c)(const char *, int);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method2_beac0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; void * p = (void *)__p1; hulk_intptr n = (hulk_intptr)__p2;
 
     CFEManager_beac0* m = (CFEManager_beac0*)unused;
     const char* s = *(const char**)p;
     int x = *(int*)((char*)p + 4);
     (m->*(*(void (CFEManager_beac0::**)(const char *, int))&this->f_1c))(s, x);
 }
+} // namespace fn_000beac0
 #if defined(HULK_PTR64)
-template class Method2<CFEManager, void, const char *, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xbeaa0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method2<CFEManager, void, const char *, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000beac0::Method2_beac0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -1326,17 +1406,27 @@ template <> Method0<CFEManager, int>::~Method0() {}
 
 
 // 0x000beb40 Method0<CFEManager,int>::vfunc_2 (22 B): matches/0x000beb40.cpp
-// sym: ?vfunc_2@?$Method0@VCFEManager@@H@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method0_beb40@fn_000beb40@@QAEXPAX00@Z
 // Same code shape as 0x0002ceb0 (propagated; names are from that function)
-template <> void Method0<CFEManager, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void * b = (void *)__p1; unsigned int * out = (unsigned int *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method0<CFEManager, int>::vfunc_2`.
+namespace fn_000beb40 {
+struct Method0_beb40 : hulk_script::FunctionGenView {
+    int (::CFEManager::*f_1c)();
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method0_beb40::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void * b = (void *)__p1; unsigned int * out = (unsigned int *)__p2;
 
     unsigned(__fastcall * p)(void*) = *(unsigned(__fastcall**)(void*))((char*)&this->f_1c);
     unsigned v = p(a);
     if (out)
         *out = v;
 }
+} // namespace fn_000beb40
 #if defined(HULK_PTR64)
-template class Method0<CFEManager, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xbeb20)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method0<CFEManager, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000beb40::Method0_beb40*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -1364,15 +1454,25 @@ template <> Method1<CFEManager, void, int>::~Method1() {}
 
 
 // 0x000bebc0 Method1<CFEManager,void,int>::vfunc_2 (19 B): matches/0x000bebc0.cpp
-// sym: ?vfunc_2@?$Method1@VCFEManager@@XPAD@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method1_bebc0@fn_000bebc0@@QAEXPAX00@Z
 // Same code shape as 0x0002ce30 (propagated; names are from that function)
-template <> void Method1<CFEManager, void, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void ** b = (void **)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method1<CFEManager, void, int>::vfunc_2`.
+namespace fn_000bebc0 {
+struct Method1_bebc0 : hulk_script::FunctionGenView {
+    void (::CFEManager::*f_1c)(char *);   // (script2) the instantiation this code-identical block shares (its HEAD pin)
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method1_bebc0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void ** b = (void **)__p1; void * c = (void *)__p2;
 
     Dummy_bebc0* d = (Dummy_bebc0*)a;
     (d->*(*(void (Dummy_bebc0::**)(void *))&this->f_1c))(*b);
 }
+} // namespace fn_000bebc0
 #if defined(HULK_PTR64)
-template class Method1<CFEManager, void, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xbeba0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method1<CFEManager, void, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000bebc0::Method1_bebc0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -1854,14 +1954,25 @@ template <> Closure1<CFEManager, void, char *>::~Closure1() {}
 
 
 // 0x000bfe80 Closure1<CFEManager,void,char_*>::vfunc_2 (18 B): matches/0x000bfe80.cpp
-// sym: ?vfunc_2@?$Closure1@VCFEManager@@XPAD@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure1_bfe80@fn_000bfe80@@QAEXPAX00@Z
 // Same code shape as 0x0002ed90 (propagated; names are from that function)
-template <> void Closure1<CFEManager, void, char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; const char ** b = (const char **)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure1<CFEManager, void, char *>::vfunc_2`.
+namespace fn_000bfe80 {
+struct Closure1_bfe80 : hulk_script::FunctionGenView {
+    void (::CFEManager::*f_1c)(char *);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure1_bfe80::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; const char ** b = (const char **)__p1; void * c = (void *)__p2;
 
     ((*(CActorManager_bfe80 * *)&this->f_20)->*(*(void (CActorManager_bfe80::**)(const char *))&this->f_1c))(*b);
 }
+} // namespace fn_000bfe80
 #if defined(HULK_PTR64)
-template class Closure1<CFEManager, void, char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xbfe60)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure1<CFEManager, void, char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000bfe80::Closure1_bfe80*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -1915,13 +2026,24 @@ template <> Closure0<CFEManager, void>::~Closure0() {}
 
 
 // 0x000bff90 Closure0<CFEManager,void>::vfunc_2 (11 B): matches/0x000bff90.cpp
-// sym: ?vfunc_2@?$Closure0@VCFEManager@@X@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure0_bff90@fn_000bff90@@QAEXPAX00@Z
 // Same code shape as 0x0002f820 (propagated; names are from that function)
-template <> void Closure0<CFEManager, void>::vfunc_2(void* __p0, void* __p1, void* __p2) {
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure0<CFEManager, void>::vfunc_2`.
+namespace fn_000bff90 {
+struct Closure0_bff90 : hulk_script::FunctionGenView {
+    void (::CFEManager::*f_1c)();
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure0_bff90::vfunc_2(void* __p0, void* __p1, void* __p2) {
     ((*(CActorManager_bff90 * *)&this->f_20)->*(*(void (CActorManager_bff90::**)())&this->f_1c))();
 }
+} // namespace fn_000bff90
 #if defined(HULK_PTR64)
-template class Closure0<CFEManager, void>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xbff70)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure0<CFEManager, void>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000bff90::Closure0_bff90*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -1975,14 +2097,25 @@ template <> Closure1<CFEManager, void, const char *>::~Closure1() {}
 
 
 // 0x000c0010 Closure1<CFEManager,void,const_char_*>::vfunc_2 (18 B): matches/0x000c0010.cpp
-// sym: ?vfunc_2@?$Closure1@VCFEManager@@XPAD@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure1_c0010@fn_000c0010@@QAEXPAX00@Z
 // Same code shape as 0x0002ed90 (propagated; names are from that function)
-template <> void Closure1<CFEManager, void, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; const char ** b = (const char **)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure1<CFEManager, void, const char *>::vfunc_2`.
+namespace fn_000c0010 {
+struct Closure1_c0010 : hulk_script::FunctionGenView {
+    void (::CFEManager::*f_1c)(const char *);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure1_c0010::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; const char ** b = (const char **)__p1; void * c = (void *)__p2;
 
     ((*(CActorManager_c0010 * *)&this->f_20)->*(*(void (CActorManager_c0010::**)(const char *))&this->f_1c))(*b);
 }
+} // namespace fn_000c0010
 #if defined(HULK_PTR64)
-template class Closure1<CFEManager, void, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xbfff0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure1<CFEManager, void, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000c0010::Closure1_c0010*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -2040,20 +2173,39 @@ template <> Closure2<CFEManager, void, const char *, const char *>::~Closure2() 
 
 
 // 0x000c00b0 Closure2<CFEManager,void,const_char_*,const_char_*>::vfunc_2 (22 B): matches/0x000c00b0.cpp
-// sym: ?vfunc_2@?$Closure2@VCFEManager@@XPBDPBD@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure2_c00b0@fn_000c00b0@@QAEXPAX00@Z
 // Same code shape as 0x0002e6d0 (propagated; names are from that function)
-template <> void Closure2<CFEManager, void, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; Pair_c00b0 * p = (Pair_c00b0 *)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure2<CFEManager, void, const char *, const char *>::vfunc_2`.
+namespace fn_000c00b0 {
+struct Closure2_c00b0 : hulk_script::FunctionGenView {
+    void (::CFEManager::*f_1c)(const char *, const char *);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure2_c00b0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; Pair_c00b0 * p = (Pair_c00b0 *)__p1; void * c = (void *)__p2;
 
     ((*(CActorManager_c00b0 * *)&this->f_20)->*(*(void (CActorManager_c00b0::**)(const char *, float))&this->f_1c))(p->s, p->f);
 }
+} // namespace fn_000c00b0
 #if defined(HULK_PTR64)
-template class Closure2<CFEManager, void, const char *, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xc0090)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure2<CFEManager, void, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000c00b0::Closure2_c00b0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
 // 0x000c0120 Closure7<CFEManager,void,const_char_*,const_char_*,const_char_*,const_char_*,const_char_*,const_char_*,const_char_*>::vfunc_2 (73 B): matches/0x000c0120.cpp
-// sym: ?vfunc_2@?$Closure7@VCFEManager@@XPBDPBDPBDPBDPBDPBDPBD@@UAEXPAX00@Z
-template <> void Closure7<CFEManager, void, const char *, const char *, const char *, const char *, const char *, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * p0 = (void *)__p0; void * p1 = (void *)__p1; void * p2 = (void *)__p2;
+// sym: ?vfunc_2@Closure7_c0120@fn_000c0120@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure7<CFEManager, void, const char *, const char *, const char *, const char *, const char *, const char *, const char *>::vfunc_2`.
+namespace fn_000c0120 {
+struct Closure7_c0120 : hulk_script::FunctionGenView {
+    void (::CFEManager::*f_1c)(const char *, const char *, const char *, const char *, const char *, const char *, const char *);
+    hulk_intptr f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure7_c0120::vfunc_2(void* __p0, void* __p1, void* __p2) { void * p0 = (void *)__p0; void * p1 = (void *)__p1; void * p2 = (void *)__p2;
 
     Args* args = (Args*)p1;
     const char** a = args->values;
@@ -2066,11 +2218,25 @@ template <> void Closure7<CFEManager, void, const char *, const char *, const ch
     const char* v6 = *a++;
     ((*(CFEManager_c0120 * *)&this->f_20)->*(*(void (CFEManager_c0120::**)(const char *, const char *, const char *, const char *, const char *, const char *, const char *))&this->f_1c))(v0, v1, v2, v3, v4, v5, v6);
 }
+} // namespace fn_000c0120
+#if defined(HULK_PTR64)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure7<CFEManager, void, const char *, const char *, const char *, const char *, const char *, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000c0120::Closure7_c0120*)this)->vfunc_2(__p0, __p1, __p2); }
+#endif
 
 
 // 0x000c01c0 Closure6<CFEManager,void,const_char_*,const_char_*,const_char_*,const_char_*,const_char_*,const_char_*>::vfunc_2 (58 B): matches/0x000c01c0.cpp
-// sym: ?vfunc_2@?$Closure6@VCFEManager@@XPBDPBDPBDPBDPBDPBD@@UAEXPAX00@Z
-template <> void Closure6<CFEManager, void, const char *, const char *, const char *, const char *, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { const char ** a = (const char **)__p1;
+// sym: ?vfunc_2@Closure6_c01c0@fn_000c01c0@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure6<CFEManager, void, const char *, const char *, const char *, const char *, const char *, const char *>::vfunc_2`.
+namespace fn_000c01c0 {
+struct Closure6_c01c0 : hulk_script::FunctionGenView {
+    void (::CFEManager::*f_1c)(const char *, const char *, const char *, const char *, const char *, const char *);
+    hulk_intptr f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure6_c01c0::vfunc_2(void* __p0, void* __p1, void* __p2) { const char ** a = (const char **)__p1;
 
     const char* t0 = take(a);
     const char* t1 = take(a);
@@ -2080,6 +2246,12 @@ template <> void Closure6<CFEManager, void, const char *, const char *, const ch
     const char* t5 = take(a);
     ((*(CFEManager_c01c0 * *)&this->f_20)->*(*(void (CFEManager_c01c0::**)(const char *, const char *, const char *, const char *, const char *, const char *))&this->f_1c))(t0, t1, t2, t3, t4, t5);
 }
+} // namespace fn_000c01c0
+#if defined(HULK_PTR64)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure6<CFEManager, void, const char *, const char *, const char *, const char *, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000c01c0::Closure6_c01c0*)this)->vfunc_2(__p0, __p1, __p2); }
+#endif
 
 
 // 0x000c0200 FUN_000c0200 (89 B): matches/0x000c0200.cpp [wrapped: conflict: Closure2]
@@ -2113,18 +2285,40 @@ Closure2::Closure2(const char* name, Owner_c0200* object, Fn_c0200 function) : h
 
 
 // 0x000c0280 Closure2<CFEManager,void,const_char_*,int>::vfunc_2 (22 B): matches/0x000c0280.cpp
-// sym: ?vfunc_2@?$Closure2@VCFEManager@@XPBDPBD@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure2_c0280@fn_000c0280@@QAEXPAX00@Z
 // Same code shape as 0x0002e6d0 (propagated; names are from that function)
-template <> void Closure2<CFEManager, void, const char *, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; Pair_c0280 * p = (Pair_c0280 *)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure2<CFEManager, void, const char *, int>::vfunc_2`.
+namespace fn_000c0280 {
+struct Closure2_c0280 : hulk_script::FunctionGenView {
+    void (::CFEManager::*f_1c)(const char *, const char *);   // (script2) the instantiation this code-identical block shares (its HEAD pin)
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure2_c0280::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; Pair_c0280 * p = (Pair_c0280 *)__p1; void * c = (void *)__p2;
 
     ((*(CActorManager_c0280 * *)&this->f_20)->*(*(void (CActorManager_c0280::**)(const char *, float))&this->f_1c))(p->s, p->f);
 }
+} // namespace fn_000c0280
+#if defined(HULK_PTR64)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure2<CFEManager, void, const char *, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000c0280::Closure2_c0280*)this)->vfunc_2(__p0, __p1, __p2); }
+#endif
 
 
 // 0x000c0300 Closure0<CFEManager,int>::vfunc_2 (23 B): matches/0x000c0300.cpp
-// sym: ?vfunc_2@?$Closure0@VCFEManager@@H@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure0_c0300@fn_000c0300@@QAEXPAX00@Z
 // Same code shape as 0x0002ee10 (propagated; names are from that function)
-template <> void Closure0<CFEManager, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { int * out = (int *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure0<CFEManager, int>::vfunc_2`.
+namespace fn_000c0300 {
+struct Closure0_c0300 : hulk_script::FunctionGenView {
+    int (::CFEManager::*f_1c)();
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure0_c0300::vfunc_2(void* __p0, void* __p1, void* __p2) { int * out = (int *)__p2;
 
     CActorManager_c0300* obj = (*(CActorManager_c0300 * *)&this->f_20);
     int (CActorManager_c0300::*fn)() = (*(int (CActorManager_c0300::**)())&this->f_1c);
@@ -2132,6 +2326,12 @@ template <> void Closure0<CFEManager, int>::vfunc_2(void* __p0, void* __p1, void
     if (out)
         *out = result;
 }
+} // namespace fn_000c0300
+#if defined(HULK_PTR64)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure0<CFEManager, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000c0300::Closure0_c0300*)this)->vfunc_2(__p0, __p1, __p2); }
+#endif
 
 
 // 0x000c0320 FUN_000c0320 (76 B): matches/0x000c0320.cpp [wrapped: conflict: Closure1; Method1]
@@ -2161,12 +2361,26 @@ Closure1::Closure1(const char* name, Owner_c0320* object, Fn_c0320 function) : h
 
 
 // 0x000c0390 Closure1<CFEManager,void,int>::vfunc_2 (18 B): matches/0x000c0390.cpp
-// sym: ?vfunc_2@?$Closure1@VCFEManager@@XPAD@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure1_c0390@fn_000c0390@@QAEXPAX00@Z
 // Same code shape as 0x0002ed90 (propagated; names are from that function)
-template <> void Closure1<CFEManager, void, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; const char ** b = (const char **)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure1<CFEManager, void, int>::vfunc_2`.
+namespace fn_000c0390 {
+struct Closure1_c0390 : hulk_script::FunctionGenView {
+    void (::CFEManager::*f_1c)(char *);   // (script2) the instantiation this code-identical block shares (its HEAD pin)
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure1_c0390::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; const char ** b = (const char **)__p1; void * c = (void *)__p2;
 
     ((*(CActorManager_c0390 * *)&this->f_20)->*(*(void (CActorManager_c0390::**)(const char *))&this->f_1c))(*b);
 }
+} // namespace fn_000c0390
+#if defined(HULK_PTR64)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure1<CFEManager, void, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000c0390::Closure1_c0390*)this)->vfunc_2(__p0, __p1, __p2); }
+#endif
 
 namespace fn_f53c52ab {
 

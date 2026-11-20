@@ -600,8 +600,15 @@ template <> Method1<CUnlockablesManager, bool, int>::~Method1() {}
 
 
 // 0x00093e30 Method1<CUnlockablesManager,bool,int>::vfunc_2 (29 B): matches/0x00093e30.cpp
-// sym: ?vfunc_2@?$Method1@VCUnlockablesManager@@_NH@@UAEXPAX00@Z
-template <> void Method1<CUnlockablesManager, bool, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { CUnlockablesManager_93e30 * obj = (CUnlockablesManager_93e30 *)__p0; int * arg = (int *)__p1; bool * out = (bool *)__p2;
+// sym: ?vfunc_2@Method1_93e30@fn_00093e30@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method1<CUnlockablesManager, bool, int>::vfunc_2`.
+namespace fn_00093e30 {
+struct Method1_93e30 : hulk_script::FunctionGenView {
+    bool (::CUnlockablesManager::*f_1c)(int);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method1_93e30::vfunc_2(void* __p0, void* __p1, void* __p2) { CUnlockablesManager_93e30 * obj = (CUnlockablesManager_93e30 *)__p0; int * arg = (int *)__p1; bool * out = (bool *)__p2;
 
     bool (CUnlockablesManager_93e30::*f)(int) = (*(bool (CUnlockablesManager_93e30::**)(int))&this->f_1c);
     int v = *arg;
@@ -609,8 +616,11 @@ template <> void Method1<CUnlockablesManager, bool, int>::vfunc_2(void* __p0, vo
     if (out)
         *out = r;
 }
+} // namespace fn_00093e30
 #if defined(HULK_PTR64)
-template class Method1<CUnlockablesManager, bool, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x93e10)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method1<CUnlockablesManager, bool, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00093e30::Method1_93e30*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -638,13 +648,23 @@ template <> Method2<CUnlockablesManager, void, int, bool>::~Method2() {}
 
 
 // 0x00093ec0 Method2<CUnlockablesManager,void,int,bool>::vfunc_2 (25 B): matches/0x00093ec0.cpp
-// sym: ?vfunc_2@?$Method2@VCUnlockablesManager@@XH_N@@UAEXPAX00@Z
-template <> void Method2<CUnlockablesManager, void, int, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { CUnlockablesManager_93ec0 * obj = (CUnlockablesManager_93ec0 *)__p0; Args * args = (Args *)__p1; void * result = (void *)__p2;
+// sym: ?vfunc_2@Method2_93ec0@fn_00093ec0@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method2<CUnlockablesManager, void, int, bool>::vfunc_2`.
+namespace fn_00093ec0 {
+struct Method2_93ec0 : hulk_script::FunctionGenView {
+    void (::CUnlockablesManager::*f_1c)(int, bool);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method2_93ec0::vfunc_2(void* __p0, void* __p1, void* __p2) { CUnlockablesManager_93ec0 * obj = (CUnlockablesManager_93ec0 *)__p0; Args * args = (Args *)__p1; void * result = (void *)__p2;
 
     (obj->*(*(void (CUnlockablesManager_93ec0::**)(int, bool))&this->f_1c))(args->n, args->b);
 }
+} // namespace fn_00093ec0
 #if defined(HULK_PTR64)
-template class Method2<CUnlockablesManager, void, int, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x93ea0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method2<CUnlockablesManager, void, int, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00093ec0::Method2_93ec0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -672,17 +692,27 @@ template <> Method2<CUnlockablesManager, void, int, int>::~Method2() {}
 
 
 // 0x00093f50 Method2<CUnlockablesManager,void,int,int>::vfunc_2 (23 B): matches/0x00093f50.cpp
-// sym: ?vfunc_2@?$Method2@VCUnlockablesManager@@XHH@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method2_93f50@fn_00093f50@@QAEXPAX00@Z
 // Same code shape as 0x000beac0 (propagated; names are from that function)
-template <> void Method2<CUnlockablesManager, void, int, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; void * p = (void *)__p1; hulk_intptr n = (hulk_intptr)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method2<CUnlockablesManager, void, int, int>::vfunc_2`.
+namespace fn_00093f50 {
+struct Method2_93f50 : hulk_script::FunctionGenView {
+    void (::CUnlockablesManager::*f_1c)(int, int);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method2_93f50::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; void * p = (void *)__p1; hulk_intptr n = (hulk_intptr)__p2;
 
     CFEManager_93f50* m = (CFEManager_93f50*)unused;
     const char* s = *(const char**)p;
     int x = *(int*)((char*)p + 4);
     (m->*(*(void (CFEManager_93f50::**)(const char *, int))&this->f_1c))(s, x);
 }
+} // namespace fn_00093f50
 #if defined(HULK_PTR64)
-template class Method2<CUnlockablesManager, void, int, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x93f30)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method2<CUnlockablesManager, void, int, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00093f50::Method2_93f50*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -710,17 +740,27 @@ template <> Method2<CUnlockablesManager, void, const char *, int>::~Method2() {}
 
 
 // 0x00093fe0 Method2<CUnlockablesManager,void,const_char_*,int>::vfunc_2 (23 B): matches/0x00093fe0.cpp
-// sym: ?vfunc_2@?$Method2@VCUnlockablesManager@@XHH@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method2_93fe0@fn_00093fe0@@QAEXPAX00@Z
 // Same code shape as 0x000beac0 (propagated; names are from that function)
-template <> void Method2<CUnlockablesManager, void, const char *, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; void * p = (void *)__p1; hulk_intptr n = (hulk_intptr)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method2<CUnlockablesManager, void, const char *, int>::vfunc_2`.
+namespace fn_00093fe0 {
+struct Method2_93fe0 : hulk_script::FunctionGenView {
+    void (::CUnlockablesManager::*f_1c)(const char *, int);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method2_93fe0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; void * p = (void *)__p1; hulk_intptr n = (hulk_intptr)__p2;
 
     CFEManager_93fe0* m = (CFEManager_93fe0*)unused;
     const char* s = *(const char**)p;
     int x = *(int*)((char*)p + 4);
     (m->*(*(void (CFEManager_93fe0::**)(const char *, int))&this->f_1c))(s, x);
 }
+} // namespace fn_00093fe0
 #if defined(HULK_PTR64)
-template class Method2<CUnlockablesManager, void, const char *, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x93fc0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method2<CUnlockablesManager, void, const char *, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00093fe0::Method2_93fe0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 namespace fn_f8b63219 {
@@ -778,14 +818,24 @@ template <> Method6<CUnlockablesManager, void, const char *, int, const char *, 
 
 
 // 0x000940a0 Method6<CUnlockablesManager,void,const_char_*,int,const_char_*,const_char_*,const_char_*,const_char_*>::vfunc_2 (30 B): matches/0x000940a0.cpp
-// sym: ?vfunc_2@?$Method6@VCUnlockablesManager@@XPBDHPBDPBDPBDPBD@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method6_940a0@fn_000940a0@@QAEXPAX00@Z
 // Same code shape as 0x0002caf0 (propagated; names are from that function)
-template <> void Method6<CUnlockablesManager, void, const char *, int, const char *, const char *, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { const char * a = (const char *)__p0; const char * b = (const char *)__p1; const char * c = (const char *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method6<CUnlockablesManager, void, const char *, int, const char *, const char *, const char *, const char *>::vfunc_2`.
+namespace fn_000940a0 {
+struct Method6_940a0 : hulk_script::FunctionGenView {
+    void (::CUnlockablesManager::*f_1c)(const char *, int, const char *, const char *, const char *, const char *);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method6_940a0::vfunc_2(void* __p0, void* __p1, void* __p2) { const char * a = (const char *)__p0; const char * b = (const char *)__p1; const char * c = (const char *)__p2;
 
     FUN_000940c0(a, b, c, (*(int *)&this->f_1c));
 }
+} // namespace fn_000940a0
 #if defined(HULK_PTR64)
-template class Method6<CUnlockablesManager, void, const char *, int, const char *, const char *, const char *, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x94080)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method6<CUnlockablesManager, void, const char *, int, const char *, const char *, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000940a0::Method6_940a0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -865,14 +915,24 @@ template <> Method6<CUnlockablesManager, void, int, const char *, const char *, 
 
 
 // 0x000941a0 Method6<CUnlockablesManager,void,int,const_char_*,const_char_*,const_char_*,const_char_*,int>::vfunc_2 (30 B): matches/0x000941a0.cpp
-// sym: ?vfunc_2@?$Method6@VCUnlockablesManager@@XHPBDPBDPBDPBDH@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method6_941a0@fn_000941a0@@QAEXPAX00@Z
 // Same code shape as 0x0002caf0 (propagated; names are from that function)
-template <> void Method6<CUnlockablesManager, void, int, const char *, const char *, const char *, const char *, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { const char * a = (const char *)__p0; const char * b = (const char *)__p1; const char * c = (const char *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method6<CUnlockablesManager, void, int, const char *, const char *, const char *, const char *, int>::vfunc_2`.
+namespace fn_000941a0 {
+struct Method6_941a0 : hulk_script::FunctionGenView {
+    void (::CUnlockablesManager::*f_1c)(int, const char *, const char *, const char *, const char *, int);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method6_941a0::vfunc_2(void* __p0, void* __p1, void* __p2) { const char * a = (const char *)__p0; const char * b = (const char *)__p1; const char * c = (const char *)__p2;
 
     FUN_000941c0(a, b, c, (*(int *)&this->f_1c));
 }
+} // namespace fn_000941a0
 #if defined(HULK_PTR64)
-template class Method6<CUnlockablesManager, void, int, const char *, const char *, const char *, const char *, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x94180)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method6<CUnlockablesManager, void, int, const char *, const char *, const char *, const char *, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000941a0::Method6_941a0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 namespace fn_f8b63219 {
@@ -943,15 +1003,25 @@ template <> Method3<CUnlockablesManager, void, int, int, bool>::~Method3() {}
 
 
 // 0x00094280 Method3<CUnlockablesManager,void,int,int,bool>::vfunc_2 (31 B): equivalent/0x00094280.cpp
-// sym: ?vfunc_2@?$Method3@VCUnlockablesManager@@XHH_N@@UAEXPAX00@Z @df298f4335fd @w022c10218034 @ve490d974e069
+// sym: ?vfunc_2@Method3_94280@fn_00094280@@QAEXPAX00@Z @df298f4335fd @w022c10218034 @va286e5cb4faf
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Method3<CUnlockablesManager,void,int,int,bool>::vfunc_2 @ 0x00094280
-template <> void Method3<CUnlockablesManager, void, int, int, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { CUnlockablesManager_94280 * object = (CUnlockablesManager_94280 *)__p0; Arguments * arguments = (Arguments *)__p1; void * unused = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method3<CUnlockablesManager, void, int, int, bool>::vfunc_2`.
+namespace fn_00094280 {
+struct Method3_94280 : hulk_script::FunctionGenView {
+    void (::CUnlockablesManager::*f_1c)(int, int, bool);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method3_94280::vfunc_2(void* __p0, void* __p1, void* __p2) { CUnlockablesManager_94280 * object = (CUnlockablesManager_94280 *)__p0; Arguments * arguments = (Arguments *)__p1; void * unused = (void *)__p2;
 
     (object->*(*(void (CUnlockablesManager_94280::**)(int, int, int))&this->f_1c))(arguments->first, arguments->second, arguments->third);
 }
+} // namespace fn_00094280
 #if defined(HULK_PTR64)
-template class Method3<CUnlockablesManager, void, int, int, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x94260)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method3<CUnlockablesManager, void, int, int, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00094280::Method3_94280*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -1006,16 +1076,16 @@ template class Method3<CUnlockablesManager, void, int, const char *, const char 
 
 
 // 0x00094320 Method3<CUnlockablesManager,void,int,const_char_*,const_char_*>::vfunc_2 (29 B): equivalent/0x00094320.cpp [wrapped: conflict: Arguments; Method3]
-// sym: ?vfunc_2@Method3@fn_00094320@@UAEXPAUCUnlockablesManager@2@PAUArguments@2@PAX@Z @a7a6d240b96d @w9b83a8b8e93b @v4989fed05a58
+// sym: ?vfunc_2@Method3@fn_00094320@@QAEXPAUCUnlockablesManager@2@PAUArguments@2@PAX@Z @a7a6d240b96d @w9b83a8b8e93b @v392713614c44
 namespace fn_00094320 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // Method3<CUnlockablesManager,void,int,const_char_*,const_char_*>::vfunc_2 @ 0x00094320
 struct CUnlockablesManager { char unused; };
 struct Arguments { int number; const char *first; const char *second; };
-struct Method3 {
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2(CUnlockablesManager *manager, Arguments *args, void *unused);
+struct Method3 { void* vftable;   /* (script2) the vftable word, no stand-in vftable */
+    void vfunc_0();
+    void vfunc_1();
+    void vfunc_2(CUnlockablesManager *manager, Arguments *args, void *unused);
     ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
     void (CUnlockablesManager::*method)(int, const char *, const char *);
 };
@@ -1049,8 +1119,15 @@ template <> Method1<CUnlockablesManager, const char *, int>::~Method1() {}
 
 
 // 0x000943a0 Method1<CUnlockablesManager,const_char_*,int>::vfunc_2 (29 B): matches/0x000943a0.cpp
-// sym: ?vfunc_2@?$Method1@VCUnlockablesManager@@PBDH@@UAEXPAX00@Z
-template <> void Method1<CUnlockablesManager, const char *, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { CUnlockablesManager_943a0 * obj = (CUnlockablesManager_943a0 *)__p0; const char ** arg = (const char **)__p1; int * out = (int *)__p2;
+// sym: ?vfunc_2@Method1_943a0@fn_000943a0@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method1<CUnlockablesManager, const char *, int>::vfunc_2`.
+namespace fn_000943a0 {
+struct Method1_943a0 : hulk_script::FunctionGenView {
+    const char * (::CUnlockablesManager::*f_1c)(int);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method1_943a0::vfunc_2(void* __p0, void* __p1, void* __p2) { CUnlockablesManager_943a0 * obj = (CUnlockablesManager_943a0 *)__p0; const char ** arg = (const char **)__p1; int * out = (int *)__p2;
 
     int (CUnlockablesManager_943a0::*f)(const char*) = (*(int (CUnlockablesManager_943a0::**)(const char *))&this->f_1c);
     const char* p = *arg;
@@ -1058,8 +1135,11 @@ template <> void Method1<CUnlockablesManager, const char *, int>::vfunc_2(void* 
     if (out)
         *out = v;
 }
+} // namespace fn_000943a0
 #if defined(HULK_PTR64)
-template class Method1<CUnlockablesManager, const char *, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x94380)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method1<CUnlockablesManager, const char *, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000943a0::Method1_943a0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 namespace fn_f8b63219 {
@@ -1109,14 +1189,24 @@ template <> Method7<CUnlockablesManager, void, const char *, int, const char *, 
 
 
 // 0x00094470 Method7<CUnlockablesManager,void,const_char_*,int,const_char_*,const_char_*,const_char_*,const_char_*,int>::vfunc_2 (30 B): matches/0x00094470.cpp
-// sym: ?vfunc_2@?$Method7@VCUnlockablesManager@@XPBDHPBDPBDPBDPBDH@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method7_94470@fn_00094470@@QAEXPAX00@Z
 // Same code shape as 0x0002caf0 (propagated; names are from that function)
-template <> void Method7<CUnlockablesManager, void, const char *, int, const char *, const char *, const char *, const char *, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { const char * a = (const char *)__p0; const char * b = (const char *)__p1; const char * c = (const char *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method7<CUnlockablesManager, void, const char *, int, const char *, const char *, const char *, const char *, int>::vfunc_2`.
+namespace fn_00094470 {
+struct Method7_94470 : hulk_script::FunctionGenView {
+    void (::CUnlockablesManager::*f_1c)(const char *, int, const char *, const char *, const char *, const char *, int);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method7_94470::vfunc_2(void* __p0, void* __p1, void* __p2) { const char * a = (const char *)__p0; const char * b = (const char *)__p1; const char * c = (const char *)__p2;
 
     FUN_00094490(a, b, c, (*(int *)&this->f_1c));
 }
+} // namespace fn_00094470
 #if defined(HULK_PTR64)
-template class Method7<CUnlockablesManager, void, const char *, int, const char *, const char *, const char *, const char *, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x94450)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method7<CUnlockablesManager, void, const char *, int, const char *, const char *, const char *, const char *, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00094470::Method7_94470*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 namespace fn_f8b63219 {
@@ -1195,8 +1285,15 @@ template <> Method4<CUnlockablesManager, void, const char *, int, const char *, 
 
 
 // 0x00094560 Method4<CUnlockablesManager,void,const_char_*,int,const_char_*,const_char_*>::vfunc_2 (40 B): matches/0x00094560.cpp
-// sym: ?vfunc_2@?$Method4@VCUnlockablesManager@@XPBDHPBDPBD@@UAEXPAX00@Z
-template <> void Method4<CUnlockablesManager, void, const char *, int, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { CUnlockablesManager_94560 * object = (CUnlockablesManager_94560 *)__p0; const char ** args = (const char **)__p1; void * unused = (void *)__p2;
+// sym: ?vfunc_2@Method4_94560@fn_00094560@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method4<CUnlockablesManager, void, const char *, int, const char *, const char *>::vfunc_2`.
+namespace fn_00094560 {
+struct Method4_94560 : hulk_script::FunctionGenView {
+    void (::CUnlockablesManager::*f_1c)(const char *, int, const char *, const char *);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method4_94560::vfunc_2(void* __p0, void* __p1, void* __p2) { CUnlockablesManager_94560 * object = (CUnlockablesManager_94560 *)__p0; const char ** args = (const char **)__p1; void * unused = (void *)__p2;
 
     const char* a = *args++;
     int b = *(const int*)args++;
@@ -1204,8 +1301,11 @@ template <> void Method4<CUnlockablesManager, void, const char *, int, const cha
     const char* d = *args;
     (object->*(*(void (CUnlockablesManager_94560::**)(const char *, int, const char *, const char *))&this->f_1c))(a, b, c, d);
 }
+} // namespace fn_00094560
 #if defined(HULK_PTR64)
-template class Method4<CUnlockablesManager, void, const char *, int, const char *, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x94540)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method4<CUnlockablesManager, void, const char *, int, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00094560::Method4_94560*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -1274,14 +1374,14 @@ template class Closure1<CUnlockablesManager, bool, int>; // (ren2) native only: 
 
 
 // 0x00094630 Closure1<CUnlockablesManager,bool,int>::vfunc_2 (30 B): matches/0x00094630.cpp [wrapped: conflict: Closure1]
-// sym: ?V2@Closure1@fn_00094630@@UAEXPAXPAPBDPA_N@Z
+// sym: ?V2@Closure1@fn_00094630@@QAEXPAXPAPBDPA_N@Z
 namespace fn_00094630 {
 // Same code shape as 0x00106cc0 (propagated; names are from that function)
-class Closure1 {
+class Closure1 { void* vftable;   /* (script2) the vftable word, no stand-in vftable */
   public:
-    virtual void V0();
-    virtual void V1();
-    virtual void V2(void*, const char**, bool*);
+    void V0();
+    void V1();
+    void V2(void*, const char**, bool*);
     ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
     typedef bool(__fastcall* Fn)(void*, const char*, const char*);
     Fn mFn;
@@ -1519,11 +1619,25 @@ template class Closure6<CUnlockablesManager, void, const char *, int, const char
 
 
 // 0x00094910 Closure6<CUnlockablesManager,void,int,const_char_*,const_char_*,const_char_*,const_char_*,int>::vfunc_2 (58 B): equivalent/0x00094910.cpp
-// sym: ?vfunc_2@?$Closure6@VCUnlockablesManager@@XHPBDPBDPBDPBDH@@UAEXPAX00@Z @d87f9086673d @w3c3165c7de60 @v4be7ecf75931
+// sym: ?vfunc_2@Closure6_94910@fn_00094910@@QAEXPAX00@Z @d87f9086673d @w3c3165c7de60 @v5b97aa8a00a0
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Closure6<CUnlockablesManager,void,int,const_char_*,const_char_*,const_char_*,const_char_*,int>::vfunc_2 @ 0x00094910
-template <> void Closure6<CUnlockablesManager, void, int, const char *, const char *, const char *, const char *, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { const CallArgs * args = (const CallArgs *)__p1;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure6<CUnlockablesManager, void, int, const char *, const char *, const char *, const char *, int>::vfunc_2`.
+namespace fn_00094910 {
+struct Closure6_94910 : hulk_script::FunctionGenView {
+    void (::CUnlockablesManager::*f_1c)(int, const char *, const char *, const char *, const char *, int);
+    hulk_intptr f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure6_94910::vfunc_2(void* __p0, void* __p1, void* __p2) { const CallArgs * args = (const CallArgs *)__p1;
  ((*(CUnlockablesManager_94910 * *)&this->f_20)->*(*(void (CUnlockablesManager_94910::**)(int, const char *, const char *, const char *, const char *, int))&this->f_1c))(args->id,args->a,args->b,args->c,args->d,args->value); }
+} // namespace fn_00094910
+#if defined(HULK_PTR64)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure6<CUnlockablesManager, void, int, const char *, const char *, const char *, const char *, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00094910::Closure6_94910*)this)->vfunc_2(__p0, __p1, __p2); }
+#endif
 
 
 // 0x00094a30 FUN_00094a30 (76 B): matches/0x00094a30.cpp [wrapped: conflict: Closure1; Method1]
@@ -1553,8 +1667,16 @@ Closure1::Closure1(const char* name, Owner_94a30* object, Fn_94a30 function) : h
 
 
 // 0x00094aa0 Closure1<CUnlockablesManager,const_char_*,int>::vfunc_2 (30 B): matches/0x00094aa0.cpp
-// sym: ?vfunc_2@?$Closure1@VCUnlockablesManager@@PBDH@@UAEXPAX00@Z
-template <> void Closure1<CUnlockablesManager, const char *, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; const char ** argument = (const char **)__p1; int * result = (int *)__p2;
+// sym: ?vfunc_2@Closure1_94aa0@fn_00094aa0@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure1<CUnlockablesManager, const char *, int>::vfunc_2`.
+namespace fn_00094aa0 {
+struct Closure1_94aa0 : hulk_script::FunctionGenView {
+    const char * (::CUnlockablesManager::*f_1c)(int);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure1_94aa0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; const char ** argument = (const char **)__p1; int * result = (int *)__p2;
 
     CUnlockablesManager_94aa0* obj = (*(CUnlockablesManager_94aa0 * *)&this->f_20);
     int (CUnlockablesManager_94aa0::*fn)(const char*) = (*(int (CUnlockablesManager_94aa0::**)(const char *))&this->f_1c);
@@ -1562,16 +1684,36 @@ template <> void Closure1<CUnlockablesManager, const char *, int>::vfunc_2(void*
     if (result)
         *result = value;
 }
+} // namespace fn_00094aa0
+#if defined(HULK_PTR64)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure1<CUnlockablesManager, const char *, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00094aa0::Closure1_94aa0*)this)->vfunc_2(__p0, __p1, __p2); }
+#endif
 
 
 // 0x00094b10 Closure7<CUnlockablesManager,void,const_char_*,int,const_char_*,const_char_*,const_char_*,const_char_*,int>::vfunc_2 (73 B): equivalent/0x00094b10.cpp
-// sym: ?vfunc_2@?$Closure7@VCUnlockablesManager@@XPBDHPBDPBDPBDPBDH@@UAEXPAX00@Z @c0251080410d @waf7fe9cdae89 @ve14be1a471f1
+// sym: ?vfunc_2@Closure7_94b10@fn_00094b10@@QAEXPAX00@Z @c0251080410d @waf7fe9cdae89 @vdc6cef1a4b52
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Closure7<CUnlockablesManager,void,const_char_*,int,const_char_*,const_char_*,const_char_*,const_char_*,int>::vfunc_2 @ 0x00094b10
-template <> void Closure7<CUnlockablesManager, void, const char *, int, const char *, const char *, const char *, const char *, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; const unsigned int * args = (const unsigned int *)__p1; void * unused2 = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure7<CUnlockablesManager, void, const char *, int, const char *, const char *, const char *, const char *, int>::vfunc_2`.
+namespace fn_00094b10 {
+struct Closure7_94b10 : hulk_script::FunctionGenView {
+    void (::CUnlockablesManager::*f_1c)(const char *, int, const char *, const char *, const char *, const char *, int);
+    hulk_intptr f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure7_94b10::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; const unsigned int * args = (const unsigned int *)__p1; void * unused2 = (void *)__p2;
 
     ((*(CUnlockablesManager_94b10 * *)&this->f_20)->*(*(void (CUnlockablesManager_94b10::**)(const char *, int, const char *, const char *, const char *, const char *, int))&this->f_1c))((const char *)args[0], (int)args[1], (const char *)args[2], (const char *)args[3], (const char *)args[4], (const char *)args[5], (int)args[6]);
 }
+} // namespace fn_00094b10
+#if defined(HULK_PTR64)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure7<CUnlockablesManager, void, const char *, int, const char *, const char *, const char *, const char *, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00094b10::Closure7_94b10*)this)->vfunc_2(__p0, __p1, __p2); }
+#endif
 
 
 // 0x00094bb0 Closure4<CUnlockablesManager,void,const_char_*,int,const_char_*,const_char_*>::vfunc_2 (39 B): matches/0x00094bb0.cpp

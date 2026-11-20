@@ -6272,3 +6272,33 @@ mostly landed (recs1 ec0e69d62, sweep2 1f5b80223 / 517c82262, decl1), but these 
   words (CDecalQueue then called through 0x...feedfacf). It needs DAT_004d3ed0 typed as four stream records (data_gen)
   and the stream views on gen's d3dPrimBufferStream; also Record_327190::FUN_00326e90 is declared `(int, int, int, int)`
   where 0x00326e90 takes `(char*, Format*, unsigned, unsigned)` (missing).
+
+## script2 2: the invoke functions on records; camera, ambients and sound-resource constructors (2026-11-19)
+
+- 611 of the 664 script-binding invoke blocks no longer define members of polymorphic classes.
+  - 536 `template <> void Method<N><...>::vfunc_2` specializations of include/gen/global.h's templates (geninv.py) and
+    75 block-local polymorphic stand-ins (genlv.py) are plain members of non-polymorphic records.
+  - The base is `hulk_script::FunctionGenView` (script_bind.h): the vftable word, then gen Function's fields.
+  - f_1c has gen's member-function-pointer type with the class written as `::C`.
+  - The native-only `template class` lines are gone. Natively, gen's template vftables are still emitted by the
+    D114 destructor specializations, which other TUs reference (`??1`: dropping them made 367 names unbound in a
+    trial). So each converted block keeps a native-only `template <> void X<...>::vfunc_2` that forwards to its
+    record's function. Without the forwarders the trial had 123 new unbound names.
+  - 18 code-identical blocks that shared another instantiation's pin are typed by that pin's instantiation.
+  - 53 blocks stay as they were:
+    - 30 newly fail the x64 gate under the record form, so they are reverted (build/script2/reverted-final.json);
+    - 11 local stand-ins call their base's invoke by name (`Method2::vfunc_2`), whose non-virtual name binds to
+      nothing natively (build/script2/lv-revert.txt);
+    - 12 are local templates and forms the generators don't parse.
+  - All matches blocks still MATCH. 130 equivalent blocks are re-proven at 3,000 inputs, MSVC and --wine; their code
+    was unchanged, but their views changed.
+- Constructors on records with the game's vftables by address: camera 0x0009dd20 (62 registrations, genmgr.py),
+  ambients 0x0007f950 (29) and sound resource 0x001ea8b0. All are re-proven, MSVC and --wine at 3,000. --x64
+  reports class int.
+- RTTI baseline: 3,949 -> 3,457 sites. The x64 baseline drops 0x0008a590 and 0x001cdde0, both improved.
+- Checks: tree_tu check --relocs on the 61 TUs plus the 7 other TUs that include script_bind.h. The x64 gate is ok
+  (native-syntax pass 122/122).
+- Wine: control 100108 (1f243a81c) and proof 100170 (seed:100108, studio, play3 60000): GATE ok, 0 of 2,002 common
+  frames differ.
+- Native unbound, control 100108 vs proof 100170, each on its own map: mac 10343 -> 10272, linux-x64 10321 -> 10250,
+  android-arm64 10334 -> 10263. No new names on any target.

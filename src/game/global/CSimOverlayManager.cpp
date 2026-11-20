@@ -181,14 +181,24 @@ template <> Method1<CSimOverlayManager, void, bool>::~Method1() {}
 
 
 // 0x000d70d0 Method1<CSimOverlayManager,void,bool>::vfunc_2 (21 B): matches/0x000d70d0.cpp
-// sym: ?vfunc_2@?$Method1@VCSimOverlayManager@@X_N@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method1_d70d0@fn_000d70d0@@QAEXPAX00@Z
 // Same code shape as 0x0002e290 (propagated; names are from that function)
-template <> void Method1<CSimOverlayManager, void, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_d70d0 * obj = (CActorManager_d70d0 *)__p0; unsigned char * b = (unsigned char *)__p1; void * unused = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method1<CSimOverlayManager, void, bool>::vfunc_2`.
+namespace fn_000d70d0 {
+struct Method1_d70d0 : hulk_script::FunctionGenView {
+    void (::CSimOverlayManager::*f_1c)(bool);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method1_d70d0::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_d70d0 * obj = (CActorManager_d70d0 *)__p0; unsigned char * b = (unsigned char *)__p1; void * unused = (void *)__p2;
 
     (obj->*(*(MFn_d70d0 *)&this->f_1c))(*b);
 }
+} // namespace fn_000d70d0
 #if defined(HULK_PTR64)
-template class Method1<CSimOverlayManager, void, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xd70b0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method1<CSimOverlayManager, void, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000d70d0::Method1_d70d0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -216,15 +226,25 @@ template <> Method1<CSimOverlayManager, void, int>::~Method1() {}
 
 
 // 0x000d7150 Method1<CSimOverlayManager,void,int>::vfunc_2 (19 B): matches/0x000d7150.cpp
-// sym: ?vfunc_2@?$Method1@VCSimOverlayManager@@XH@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method1_d7150@fn_000d7150@@QAEXPAX00@Z
 // Same code shape as 0x0002ce30 (propagated; names are from that function)
-template <> void Method1<CSimOverlayManager, void, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void ** b = (void **)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method1<CSimOverlayManager, void, int>::vfunc_2`.
+namespace fn_000d7150 {
+struct Method1_d7150 : hulk_script::FunctionGenView {
+    void (::CSimOverlayManager::*f_1c)(int);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method1_d7150::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void ** b = (void **)__p1; void * c = (void *)__p2;
 
     Dummy_d7150* d = (Dummy_d7150*)a;
     (d->*(*(void (Dummy_d7150::**)(void *))&this->f_1c))(*b);
 }
+} // namespace fn_000d7150
 #if defined(HULK_PTR64)
-template class Method1<CSimOverlayManager, void, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xd7130)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method1<CSimOverlayManager, void, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000d7150::Method1_d7150*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -252,17 +272,27 @@ template <> Method0<CSimOverlayManager, int>::~Method0() {}
 
 
 // 0x000d71d0 Method0<CSimOverlayManager,int>::vfunc_2 (22 B): matches/0x000d71d0.cpp
-// sym: ?vfunc_2@?$Method0@VCSimOverlayManager@@H@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method0_d71d0@fn_000d71d0@@QAEXPAX00@Z
 // Same code shape as 0x0002ceb0 (propagated; names are from that function)
-template <> void Method0<CSimOverlayManager, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void * b = (void *)__p1; unsigned int * out = (unsigned int *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method0<CSimOverlayManager, int>::vfunc_2`.
+namespace fn_000d71d0 {
+struct Method0_d71d0 : hulk_script::FunctionGenView {
+    int (::CSimOverlayManager::*f_1c)();
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method0_d71d0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void * b = (void *)__p1; unsigned int * out = (unsigned int *)__p2;
 
     unsigned(__fastcall * p)(void*) = *(unsigned(__fastcall**)(void*))((char*)&this->f_1c);
     unsigned v = p(a);
     if (out)
         *out = v;
 }
+} // namespace fn_000d71d0
 #if defined(HULK_PTR64)
-template class Method0<CSimOverlayManager, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xd71b0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method0<CSimOverlayManager, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000d71d0::Method0_d71d0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 namespace fn_f34eeb08 {
@@ -362,14 +392,25 @@ template <> Closure1<CSimOverlayManager, void, bool>::~Closure1() {}
 
 
 // 0x000d7380 Closure1<CSimOverlayManager,void,bool>::vfunc_2 (20 B): matches/0x000d7380.cpp
-// sym: ?vfunc_2@?$Closure1@VCSimOverlayManager@@X_N@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure1_d7380@fn_000d7380@@QAEXPAX00@Z
 // Same code shape as 0x00030040 (propagated; names are from that function)
-template <> void Closure1<CSimOverlayManager, void, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { unsigned char * arg = (unsigned char *)__p1;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure1<CSimOverlayManager, void, bool>::vfunc_2`.
+namespace fn_000d7380 {
+struct Closure1_d7380 : hulk_script::FunctionGenView {
+    void (::CSimOverlayManager::*f_1c)(bool);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure1_d7380::vfunc_2(void* __p0, void* __p1, void* __p2) { unsigned char * arg = (unsigned char *)__p1;
 
     ((*(Actor_d7380 * *)&this->f_20)->*(*(void (Actor_d7380::**)(unsigned char))&this->f_1c))(*arg);
 }
+} // namespace fn_000d7380
 #if defined(HULK_PTR64)
-template class Closure1<CSimOverlayManager, void, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xd7360)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure1<CSimOverlayManager, void, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000d7380::Closure1_d7380*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -409,9 +450,17 @@ template <> void Closure1<CSimOverlayManager, void, int>::vfunc_2(void* __p0, vo
 
 
 // 0x000d7490 Closure0<CSimOverlayManager,int>::vfunc_2 (23 B): matches/0x000d7490.cpp
-// sym: ?vfunc_2@?$Closure0@VCSimOverlayManager@@H@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure0_d7490@fn_000d7490@@QAEXPAX00@Z
 // Same code shape as 0x0002ee10 (propagated; names are from that function)
-template <> void Closure0<CSimOverlayManager, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { int * out = (int *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure0<CSimOverlayManager, int>::vfunc_2`.
+namespace fn_000d7490 {
+struct Closure0_d7490 : hulk_script::FunctionGenView {
+    int (::CSimOverlayManager::*f_1c)();
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure0_d7490::vfunc_2(void* __p0, void* __p1, void* __p2) { int * out = (int *)__p2;
 
     CActorManager_d7490* obj = (*(CActorManager_d7490 * *)&this->f_20);
     int (CActorManager_d7490::*fn)() = (*(int (CActorManager_d7490::**)())&this->f_1c);
@@ -419,6 +468,12 @@ template <> void Closure0<CSimOverlayManager, int>::vfunc_2(void* __p0, void* __
     if (out)
         *out = result;
 }
+} // namespace fn_000d7490
+#if defined(HULK_PTR64)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure0<CSimOverlayManager, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000d7490::Closure0_d7490*)this)->vfunc_2(__p0, __p1, __p2); }
+#endif
 
 
 // 0x000d7550 FUN_000d7550 (109 B): matches/0x000d7550.cpp [wrapped: conflict: CSimOverlayManager; Closure0; Method0]

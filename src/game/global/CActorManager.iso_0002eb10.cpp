@@ -5,10 +5,11 @@
 
 
 // 0x0002eb10 Closure6<CActorManager,bool,const_char_*,const_char_*,const_char_*,const_char_*,bool,const_char_*>::vfunc_2 (87 B): equivalent/0x0002eb10.cpp [isolated: conflict: Arguments; on include/gen/ and not mergeable]
-// sym: ?vfunc_2@?$Closure6@VCActorManager@@_NPBDPBDPBDPBD_NPBD@@UAEXPAX00@Z @1949978960cd @wc08e2f96d486
+// sym: ?vfunc_2@Closure6_2eb10@fn_0002eb10@@QAEXPAX00@Z @1949978960cd @wc08e2f96d486
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // Closure6<CActorManager,bool,const_char_*,const_char_*,const_char_*,const_char_*,bool,const_char_*>::vfunc_2 @ 0x0002eb10
 #include "gen/global.h"
+#include "game/script_bind.h"
 
 struct CActorManager_2eb10 {
     bool FUN_0002eb10(bool, const char*, const char*, const char*, const char*, bool, const char*);
@@ -24,9 +25,23 @@ struct Arguments {
     const char* sixth;
 };
 
-template <> void Closure6<CActorManager, bool, const char *, const char *, const char *, const char *, bool, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr unused = (hulk_intptr)__p0; const Arguments * arguments = (const Arguments *)__p1; bool * result = (bool *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure6<CActorManager, bool, const char *, const char *, const char *, const char *, bool, const char *>::vfunc_2`.
+namespace fn_0002eb10 {
+struct Closure6_2eb10 : hulk_script::FunctionGenView {
+    bool (::CActorManager::*f_1c)(const char *, const char *, const char *, const char *, bool, const char *);
+    hulk_intptr f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure6_2eb10::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr unused = (hulk_intptr)__p0; const Arguments * arguments = (const Arguments *)__p1; bool * result = (bool *)__p2;
 
     bool value = ((*(CActorManager_2eb10 * *)&this->f_20)->*(*(bool (CActorManager_2eb10::**)(const char *, const char *, const char *, const char *, bool, const char *))&this->f_1c))(arguments->first, arguments->second, arguments->third, arguments->fourth, arguments->fifth, arguments->sixth);
     if (result) *result = value;
 }
+} // namespace fn_0002eb10
+#if defined(HULK_PTR64)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure6<CActorManager, bool, const char *, const char *, const char *, const char *, bool, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002eb10::Closure6_2eb10*)this)->vfunc_2(__p0, __p1, __p2); }
+#endif
 

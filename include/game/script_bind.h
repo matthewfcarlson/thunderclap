@@ -158,6 +158,22 @@ struct ScriptVftable {
     void* vftable;
 };
 
+// (script2) gen Function's fields by their gen names (include/gen/global.h: f_04 name, f_08 key, f_0c argc, f_10..
+// argument codes, f_18 result code) after the vftable word, without gen's virtual functions: the record the invoke
+// functions (Method<N> / Closure<N> / Function<N>::vfunc_2) are members of. Natively the same offsets as
+// ScriptFunctionView (0x08 / 0x10 / 0x18 / 0x1c / 0x24).
+struct FunctionGenView {
+    void* vftable;
+    hulk_intptr f_04;
+    hulk_intptr f_08;
+    int f_0c;
+    char f_10;
+    char f_11;
+    char f_12;
+    char _pad_13[5];
+    char f_18;
+};
+
 // ScriptHandler's registration (0x001d3b70: name, function) on the singleton 0x001d4c90 returns.
 struct ScriptRegistry {
     void FUN_001d3b70(const char* name, void* function);

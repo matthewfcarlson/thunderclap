@@ -1014,17 +1014,27 @@ template <> Method0<CGameFlowManager, int>::~Method0() {}
 
 
 // 0x0008a390 Method0<CGameFlowManager,int>::vfunc_2 (22 B): matches/0x0008a390.cpp
-// sym: ?vfunc_2@?$Method0@VCGameFlowManager@@H@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method0_8a390@fn_0008a390@@QAEXPAX00@Z
 // Same code shape as 0x0002ceb0 (propagated; names are from that function)
-template <> void Method0<CGameFlowManager, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void * b = (void *)__p1; unsigned int * out = (unsigned int *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method0<CGameFlowManager, int>::vfunc_2`.
+namespace fn_0008a390 {
+struct Method0_8a390 : hulk_script::FunctionGenView {
+    int (::CGameFlowManager::*f_1c)();
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method0_8a390::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void * b = (void *)__p1; unsigned int * out = (unsigned int *)__p2;
 
     unsigned(__fastcall * p)(void*) = *(unsigned(__fastcall**)(void*))((char*)&this->f_1c);
     unsigned v = p(a);
     if (out)
         *out = v;
 }
+} // namespace fn_0008a390
 #if defined(HULK_PTR64)
-template class Method0<CGameFlowManager, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x8a370)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method0<CGameFlowManager, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0008a390::Method0_8a390*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -1052,17 +1062,27 @@ template <> Method0<CGameFlowManager, const char *>::~Method0() {}
 
 
 // 0x0008a410 Method0<CGameFlowManager,const_char_*>::vfunc_2 (22 B): matches/0x0008a410.cpp
-// sym: ?vfunc_2@?$Method0@VCGameFlowManager@@H@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method0_8a410@fn_0008a410@@QAEXPAX00@Z
 // Same code shape as 0x0002ceb0 (propagated; names are from that function)
-template <> void Method0<CGameFlowManager, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void * b = (void *)__p1; unsigned int * out = (unsigned int *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method0<CGameFlowManager, const char *>::vfunc_2`.
+namespace fn_0008a410 {
+struct Method0_8a410 : hulk_script::FunctionGenView {
+    const char * (::CGameFlowManager::*f_1c)();
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method0_8a410::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void * b = (void *)__p1; unsigned int * out = (unsigned int *)__p2;
 
     unsigned(__fastcall * p)(void*) = *(unsigned(__fastcall**)(void*))((char*)&this->f_1c);
     unsigned v = p(a);
     if (out)
         *out = v;
 }
+} // namespace fn_0008a410
 #if defined(HULK_PTR64)
-template class Method0<CGameFlowManager, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x8a3f0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method0<CGameFlowManager, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0008a410::Method0_8a410*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -1090,17 +1110,27 @@ template <> Method0<CGameFlowManager, bool>::~Method0() {}
 
 
 // 0x0008a490 Method0<CGameFlowManager,bool>::vfunc_2 (22 B): matches/0x0008a490.cpp
-// sym: ?vfunc_2@?$Method0@VCGameFlowManager@@_N@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method0_8a490@fn_0008a490@@QAEXPAX00@Z
 // Same code shape as 0x0002d750 (propagated; names are from that function)
-template <> void Method0<CGameFlowManager, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_8a490 * obj = (CActorManager_8a490 *)__p0; void * a = (void *)__p1; unsigned char * out = (unsigned char *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method0<CGameFlowManager, bool>::vfunc_2`.
+namespace fn_0008a490 {
+struct Method0_8a490 : hulk_script::FunctionGenView {
+    bool (::CGameFlowManager::*f_1c)();
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method0_8a490::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_8a490 * obj = (CActorManager_8a490 *)__p0; void * a = (void *)__p1; unsigned char * out = (unsigned char *)__p2;
 
     Fn_8a490 fn = (*(Fn_8a490 *)&this->f_1c);
     unsigned char r = fn(obj);
     if (out)
         *out = r;
 }
+} // namespace fn_0008a490
 #if defined(HULK_PTR64)
-template class Method0<CGameFlowManager, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x8a470)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method0<CGameFlowManager, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0008a490::Method0_8a490*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -1128,15 +1158,25 @@ template <> Method1<CGameFlowManager, void, int>::~Method1() {}
 
 
 // 0x0008a510 Method1<CGameFlowManager,void,int>::vfunc_2 (19 B): matches/0x0008a510.cpp
-// sym: ?vfunc_2@?$Method1@VCGameFlowManager@@XH@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method1_8a510@fn_0008a510@@QAEXPAX00@Z
 // Same code shape as 0x0002ce30 (propagated; names are from that function)
-template <> void Method1<CGameFlowManager, void, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void ** b = (void **)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method1<CGameFlowManager, void, int>::vfunc_2`.
+namespace fn_0008a510 {
+struct Method1_8a510 : hulk_script::FunctionGenView {
+    void (::CGameFlowManager::*f_1c)(int);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method1_8a510::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void ** b = (void **)__p1; void * c = (void *)__p2;
 
     Dummy_8a510* d = (Dummy_8a510*)a;
     (d->*(*(void (Dummy_8a510::**)(void *))&this->f_1c))(*b);
 }
+} // namespace fn_0008a510
 #if defined(HULK_PTR64)
-template class Method1<CGameFlowManager, void, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x8a4f0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method1<CGameFlowManager, void, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0008a510::Method1_8a510*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -1164,15 +1204,25 @@ template <> Method1<CGameFlowManager, void, const char *>::~Method1() {}
 
 
 // 0x0008a590 Method1<CGameFlowManager,void,const_char_*>::vfunc_2 (19 B): matches/0x0008a590.cpp
-// sym: ?vfunc_2@?$Method1@VCGameFlowManager@@XH@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method1_8a590@fn_0008a590@@QAEXPAX00@Z
 // Same code shape as 0x0002ce30 (propagated; names are from that function)
-template <> void Method1<CGameFlowManager, void, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void ** b = (void **)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method1<CGameFlowManager, void, const char *>::vfunc_2`.
+namespace fn_0008a590 {
+struct Method1_8a590 : hulk_script::FunctionGenView {
+    void (::CGameFlowManager::*f_1c)(const char *);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method1_8a590::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void ** b = (void **)__p1; void * c = (void *)__p2;
 
     Dummy_8a590* d = (Dummy_8a590*)a;
     (d->*(*(void (Dummy_8a590::**)(void *))&this->f_1c))(*b);
 }
+} // namespace fn_0008a590
 #if defined(HULK_PTR64)
-template class Method1<CGameFlowManager, void, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x8a570)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method1<CGameFlowManager, void, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0008a590::Method1_8a590*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -1200,8 +1250,15 @@ template <> Method0<CGameFlowManager,math::Vector>::~Method0() {}
 
 
 // 0x0008a610 Method0<CGameFlowManager,math::Vector>::vfunc_2 (69 B): matches/0x0008a610.cpp
-// sym: ?vfunc_2@?$Method0@VCGameFlowManager@@VVector@math@@@@UAEXPAX00@Z
-template <> void Method0<CGameFlowManager,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { CGameFlowManager_8a610 * mgr = (CGameFlowManager_8a610 *)__p0; Vector_8a610 * out = (Vector_8a610 *)__p2;
+// sym: ?vfunc_2@Method0_8a610@fn_0008a610@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method0<CGameFlowManager,math::Vector>::vfunc_2`.
+namespace fn_0008a610 {
+struct Method0_8a610 : hulk_script::FunctionGenView {
+    math::Vector (::CGameFlowManager::*f_1c)();
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method0_8a610::vfunc_2(void* __p0, void* __p1, void* __p2) { CGameFlowManager_8a610 * mgr = (CGameFlowManager_8a610 *)__p0; Vector_8a610 * out = (Vector_8a610 *)__p2;
 
     Fn_8a610 fn = (*(Fn_8a610 *)&this->f_1c);
     Vector_8a610 temp;
@@ -1216,8 +1273,11 @@ template <> void Method0<CGameFlowManager,math::Vector>::vfunc_2(void* __p0, voi
         out->z = r.z;
     }
 }
+} // namespace fn_0008a610
 #if defined(HULK_PTR64)
-template class Method0<CGameFlowManager,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x8a5f0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method0<CGameFlowManager,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0008a610::Method0_8a610*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -1248,19 +1308,19 @@ template class Method0<CGameFlowManager, float>; // (ren2) native only: clang em
 
 
 // 0x0008a6c0 Method0<CGameFlowManager,float>::vfunc_2 (34 B): matches/0x0008a6c0.cpp [wrapped: conflict: Function]
-// sym: ?f2@Method0Base_8a6c0@fn_0008a6c0@@UAEXPAX0PAM@Z
+// sym: ?f2@Method0Base_8a6c0@fn_0008a6c0@@QAEXPAX0PAM@Z
 namespace fn_0008a6c0 {
 // Same code shape as 0x0002e080 (propagated; names are from that function)
-class Function {
+class Function { void* vftable;   /* (script2) the vftable word, no stand-in vftable */
   public:
-    virtual void f0();
-    virtual void f1();
+    void f0();
+    void f1();
 };
 class Method0Base_8a6c0 : public Function {
   public:
     ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
     float(__fastcall* fn)(void*);
-    virtual void f2(void* a, void* b, float* out);
+    void f2(void* a, void* b, float* out);
 };
 void Method0Base_8a6c0::f2(void* a, void* b, float* out) {
     float(__fastcall * f)(void*) = fn;
@@ -1295,8 +1355,15 @@ template <> Method1<CGameFlowManager, bool, const char *>::~Method1() {}
 
 
 // 0x0008a750 Method1<CGameFlowManager,bool,const_char_*>::vfunc_2 (29 B): matches/0x0008a750.cpp
-// sym: ?vfunc_2@?$Method1@VCGameFlowManager@@_NPBD@@UAEXPAX00@Z
-template <> void Method1<CGameFlowManager, bool, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { CGameFlowManager_8a750 * obj = (CGameFlowManager_8a750 *)__p0; const char ** arg = (const char **)__p1; bool * out = (bool *)__p2;
+// sym: ?vfunc_2@Method1_8a750@fn_0008a750@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method1<CGameFlowManager, bool, const char *>::vfunc_2`.
+namespace fn_0008a750 {
+struct Method1_8a750 : hulk_script::FunctionGenView {
+    bool (::CGameFlowManager::*f_1c)(const char *);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method1_8a750::vfunc_2(void* __p0, void* __p1, void* __p2) { CGameFlowManager_8a750 * obj = (CGameFlowManager_8a750 *)__p0; const char ** arg = (const char **)__p1; bool * out = (bool *)__p2;
 
     bool (CGameFlowManager_8a750::*f)(const char*) = (*(bool (CGameFlowManager_8a750::**)(const char *))&this->f_1c);
     const char* value = *arg;
@@ -1304,8 +1371,11 @@ template <> void Method1<CGameFlowManager, bool, const char *>::vfunc_2(void* __
     if (out)
         *out = r;
 }
+} // namespace fn_0008a750
 #if defined(HULK_PTR64)
-template class Method1<CGameFlowManager, bool, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x8a730)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method1<CGameFlowManager, bool, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0008a750::Method1_8a750*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -1333,17 +1403,27 @@ template <> Method2<CGameFlowManager, void, const char *, const char *>::~Method
 
 
 // 0x0008a7e0 Method2<CGameFlowManager,void,const_char_*,const_char_*>::vfunc_2 (23 B): matches/0x0008a7e0.cpp
-// sym: ?vfunc_2@?$Method2@VCGameFlowManager@@XPBDPBD@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method2_8a7e0@fn_0008a7e0@@QAEXPAX00@Z
 // Same code shape as 0x000beac0 (propagated; names are from that function)
-template <> void Method2<CGameFlowManager, void, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; void * p = (void *)__p1; hulk_intptr n = (hulk_intptr)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method2<CGameFlowManager, void, const char *, const char *>::vfunc_2`.
+namespace fn_0008a7e0 {
+struct Method2_8a7e0 : hulk_script::FunctionGenView {
+    void (::CGameFlowManager::*f_1c)(const char *, const char *);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method2_8a7e0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; void * p = (void *)__p1; hulk_intptr n = (hulk_intptr)__p2;
 
     CFEManager_8a7e0* m = (CFEManager_8a7e0*)unused;
     const char* s = *(const char**)p;
     int x = *(int*)((char*)p + 4);
     (m->*(*(void (CFEManager_8a7e0::**)(const char *, int))&this->f_1c))(s, x);
 }
+} // namespace fn_0008a7e0
 #if defined(HULK_PTR64)
-template class Method2<CGameFlowManager, void, const char *, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x8a7c0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method2<CGameFlowManager, void, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0008a7e0::Method2_8a7e0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -1371,8 +1451,15 @@ template <> Method1<CGameFlowManager, const char *, const char *>::~Method1() {}
 
 
 // 0x0008a860 Method1<CGameFlowManager,const_char_*,const_char_*>::vfunc_2 (29 B): matches/0x0008a860.cpp
-// sym: ?vfunc_2@?$Method1@VCGameFlowManager@@PBDPBD@@UAEXPAX00@Z
-template <> void Method1<CGameFlowManager, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { CGameFlowManager_8a860 * a = (CGameFlowManager_8a860 *)__p0; const char ** p = (const char **)__p1; const char ** out = (const char **)__p2;
+// sym: ?vfunc_2@Method1_8a860@fn_0008a860@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method1<CGameFlowManager, const char *, const char *>::vfunc_2`.
+namespace fn_0008a860 {
+struct Method1_8a860 : hulk_script::FunctionGenView {
+    const char * (::CGameFlowManager::*f_1c)(const char *);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method1_8a860::vfunc_2(void* __p0, void* __p1, void* __p2) { CGameFlowManager_8a860 * a = (CGameFlowManager_8a860 *)__p0; const char ** p = (const char **)__p1; const char ** out = (const char **)__p2;
 
     Fn_8a860 f = (*(Fn_8a860 *)&this->f_1c);
     const char* s = *p;
@@ -1380,8 +1467,11 @@ template <> void Method1<CGameFlowManager, const char *, const char *>::vfunc_2(
     if (out)
         *out = x;
 }
+} // namespace fn_0008a860
 #if defined(HULK_PTR64)
-template class Method1<CGameFlowManager, const char *, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x8a840)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method1<CGameFlowManager, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0008a860::Method1_8a860*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -1409,14 +1499,24 @@ template <> Method0<CGameFlowManager, void>::~Method0() {}
 
 
 // 0x0008a8e0 Method0<CGameFlowManager,void>::vfunc_2 (12 B): matches/0x0008a8e0.cpp
-// sym: ?vfunc_2@?$Method0@VCGameFlowManager@@X@@UAEXPAX00@Z
+// sym: ?vfunc_2@Method0_8a8e0@fn_0008a8e0@@QAEXPAX00@Z
 // Same code shape as 0x0002d950 (propagated; names are from that function)
-template <> void Method0<CGameFlowManager, void>::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_8a8e0 * a = (CActorManager_8a8e0 *)__p0;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method0<CGameFlowManager, void>::vfunc_2`.
+namespace fn_0008a8e0 {
+struct Method0_8a8e0 : hulk_script::FunctionGenView {
+    void (::CGameFlowManager::*f_1c)();
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method0_8a8e0::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_8a8e0 * a = (CActorManager_8a8e0 *)__p0;
 
     (a->*(*(void (CActorManager_8a8e0::**)())&this->f_1c))();
 }
+} // namespace fn_0008a8e0
 #if defined(HULK_PTR64)
-template class Method0<CGameFlowManager, void>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x8a8c0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method0<CGameFlowManager, void>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0008a8e0::Method0_8a8e0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -1706,9 +1806,17 @@ template <> Closure0<CGameFlowManager, int>::~Closure0() {}
 
 
 // 0x0008af10 Closure0<CGameFlowManager,int>::vfunc_2 (23 B): matches/0x0008af10.cpp
-// sym: ?vfunc_2@?$Closure0@VCGameFlowManager@@H@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure0_8af10@fn_0008af10@@QAEXPAX00@Z
 // Same code shape as 0x0002ee10 (propagated; names are from that function)
-template <> void Closure0<CGameFlowManager, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { int * out = (int *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure0<CGameFlowManager, int>::vfunc_2`.
+namespace fn_0008af10 {
+struct Closure0_8af10 : hulk_script::FunctionGenView {
+    int (::CGameFlowManager::*f_1c)();
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure0_8af10::vfunc_2(void* __p0, void* __p1, void* __p2) { int * out = (int *)__p2;
 
     CActorManager_8af10* obj = (*(CActorManager_8af10 * *)&this->f_20);
     int (CActorManager_8af10::*fn)() = (*(int (CActorManager_8af10::**)())&this->f_1c);
@@ -1716,8 +1824,11 @@ template <> void Closure0<CGameFlowManager, int>::vfunc_2(void* __p0, void* __p1
     if (out)
         *out = result;
 }
+} // namespace fn_0008af10
 #if defined(HULK_PTR64)
-template class Closure0<CGameFlowManager, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x8aef0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure0<CGameFlowManager, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0008af10::Closure0_8af10*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -1745,9 +1856,17 @@ template <> Closure0<CGameFlowManager, const char *>::~Closure0() {}
 
 
 // 0x0008af90 Closure0<CGameFlowManager,const_char_*>::vfunc_2 (23 B): matches/0x0008af90.cpp
-// sym: ?vfunc_2@?$Closure0@VCGameFlowManager@@H@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure0_8af90@fn_0008af90@@QAEXPAX00@Z
 // Same code shape as 0x0002ee10 (propagated; names are from that function)
-template <> void Closure0<CGameFlowManager, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { int * out = (int *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure0<CGameFlowManager, const char *>::vfunc_2`.
+namespace fn_0008af90 {
+struct Closure0_8af90 : hulk_script::FunctionGenView {
+    const char * (::CGameFlowManager::*f_1c)();
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure0_8af90::vfunc_2(void* __p0, void* __p1, void* __p2) { int * out = (int *)__p2;
 
     CActorManager_8af90* obj = (*(CActorManager_8af90 * *)&this->f_20);
     int (CActorManager_8af90::*fn)() = (*(int (CActorManager_8af90::**)())&this->f_1c);
@@ -1755,8 +1874,11 @@ template <> void Closure0<CGameFlowManager, const char *>::vfunc_2(void* __p0, v
     if (out)
         *out = result;
 }
+} // namespace fn_0008af90
 #if defined(HULK_PTR64)
-template class Closure0<CGameFlowManager, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x8af70)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure0<CGameFlowManager, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0008af90::Closure0_8af90*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -1784,9 +1906,17 @@ template <> Closure0<CGameFlowManager, bool>::~Closure0() {}
 
 
 // 0x0008b010 Closure0<CGameFlowManager,bool>::vfunc_2 (23 B): matches/0x0008b010.cpp
-// sym: ?vfunc_2@?$Closure0@VCGameFlowManager@@_N@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure0_8b010@fn_0008b010@@QAEXPAX00@Z
 // Same code shape as 0x0002f6a0 (propagated; names are from that function)
-template <> void Closure0<CGameFlowManager, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { unsigned char * out = (unsigned char *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure0<CGameFlowManager, bool>::vfunc_2`.
+namespace fn_0008b010 {
+struct Closure0_8b010 : hulk_script::FunctionGenView {
+    bool (::CGameFlowManager::*f_1c)();
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure0_8b010::vfunc_2(void* __p0, void* __p1, void* __p2) { unsigned char * out = (unsigned char *)__p2;
 
     CActorManager_8b010* o = (*(CActorManager_8b010 * *)&this->f_20);
     Fn_8b010 fn = (*(Fn_8b010 *)&this->f_1c);
@@ -1794,8 +1924,11 @@ template <> void Closure0<CGameFlowManager, bool>::vfunc_2(void* __p0, void* __p
     if (out)
         *out = b;
 }
+} // namespace fn_0008b010
 #if defined(HULK_PTR64)
-template class Closure0<CGameFlowManager, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x8aff0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure0<CGameFlowManager, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0008b010::Closure0_8b010*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -1910,14 +2043,25 @@ template <> Closure1<CGameFlowManager, void, const char *>::~Closure1() {}
 
 
 // 0x0008b130 Closure1<CGameFlowManager,void,const_char_*>::vfunc_2 (18 B): matches/0x0008b130.cpp
-// sym: ?vfunc_2@?$Closure1@VCGameFlowManager@@XH@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure1_8b130@fn_0008b130@@QAEXPAX00@Z
 // Same code shape as 0x0002ed90 (propagated; names are from that function)
-template <> void Closure1<CGameFlowManager, void, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; const char ** b = (const char **)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure1<CGameFlowManager, void, const char *>::vfunc_2`.
+namespace fn_0008b130 {
+struct Closure1_8b130 : hulk_script::FunctionGenView {
+    void (::CGameFlowManager::*f_1c)(const char *);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure1_8b130::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; const char ** b = (const char **)__p1; void * c = (void *)__p2;
 
     ((*(CActorManager_8b130 * *)&this->f_20)->*(*(void (CActorManager_8b130::**)(const char *))&this->f_1c))(*b);
 }
+} // namespace fn_0008b130
 #if defined(HULK_PTR64)
-template class Closure1<CGameFlowManager, void, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x8b110)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure1<CGameFlowManager, void, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0008b130::Closure1_8b130*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -1945,17 +2089,28 @@ template <> Closure0<CGameFlowManager,math::Vector>::~Closure0() {}
 
 
 // 0x0008b1b0 Closure0<CGameFlowManager,math::Vector>::vfunc_2 (63 B): equivalent/0x0008b1b0.cpp
-// sym: ?vfunc_2@?$Closure0@VCGameFlowManager@@VVector@math@@@@UAEXPAX00@Z @5b5ca72bc2e3 @wc42fa44f8b30 @v25df763d6201
+// sym: ?vfunc_2@Closure0_8b1b0@fn_0008b1b0@@QAEXPAX00@Z @5b5ca72bc2e3 @wc42fa44f8b30 @v503dd25e3026
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // Closure0<CGameFlowManager,math::Vector>::vfunc_2 @ 0x0008b1b0
-template <> void Closure0<CGameFlowManager,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused1 = (void *)__p0; void * unused2 = (void *)__p1; math::Vector_8b1b0 * output = (math::Vector_8b1b0 *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure0<CGameFlowManager,math::Vector>::vfunc_2`.
+namespace fn_0008b1b0 {
+struct Closure0_8b1b0 : hulk_script::FunctionGenView {
+    math::Vector (::CGameFlowManager::*f_1c)();
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure0_8b1b0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused1 = (void *)__p0; void * unused2 = (void *)__p1; math::Vector_8b1b0 * output = (math::Vector_8b1b0 *)__p2;
 
     math::Vector_8b1b0 temporary;
     math::Vector_8b1b0 result = ((*(CGameFlowManager_8b1b0 * *)&this->f_20)->*(*(math::Vector_8b1b0 *(CGameFlowManager_8b1b0::**)(math::Vector_8b1b0 *))&this->f_1c))(&temporary)[0];
     if (output) *output = result;
 }
+} // namespace fn_0008b1b0
 #if defined(HULK_PTR64)
-template class Closure0<CGameFlowManager,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x8b190)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure0<CGameFlowManager,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0008b1b0::Closure0_8b1b0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -1983,9 +2138,17 @@ template <> Closure0<CGameFlowManager, float>::~Closure0() {}
 
 
 // 0x0008b250 Closure0<CGameFlowManager,float>::vfunc_2 (35 B): matches/0x0008b250.cpp
-// sym: ?vfunc_2@?$Closure0@VCGameFlowManager@@M@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure0_8b250@fn_0008b250@@QAEXPAX00@Z
 // Same code shape as 0x0002fe60 (propagated; names are from that function)
-template <> void Closure0<CGameFlowManager, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr a = (hulk_intptr)__p0; hulk_intptr b = (hulk_intptr)__p1; float * out = (float *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure0<CGameFlowManager, float>::vfunc_2`.
+namespace fn_0008b250 {
+struct Closure0_8b250 : hulk_script::FunctionGenView {
+    float (::CGameFlowManager::*f_1c)();
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure0_8b250::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr a = (hulk_intptr)__p0; hulk_intptr b = (hulk_intptr)__p1; float * out = (float *)__p2;
 
     CActorManager_8b250* m = (*(CActorManager_8b250 * *)&this->f_20);
     Fn_8b250 fn = (*(Fn_8b250 *)&this->f_1c);
@@ -1993,8 +2156,11 @@ template <> void Closure0<CGameFlowManager, float>::vfunc_2(void* __p0, void* __
     if (out)
         *out = v;
 }
+} // namespace fn_0008b250
 #if defined(HULK_PTR64)
-template class Closure0<CGameFlowManager, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x8b230)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure0<CGameFlowManager, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0008b250::Closure0_8b250*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 namespace fn_f53af43c {
@@ -2053,14 +2219,14 @@ template class Closure1<CGameFlowManager, bool, const char *>; // (ren2) native 
 
 
 // 0x0008b2f0 Closure1<CGameFlowManager,bool,const_char_*>::vfunc_2 (30 B): matches/0x0008b2f0.cpp [wrapped: conflict: Closure1]
-// sym: ?V2@Closure1@fn_0008b2f0@@UAEXPAXPAPBDPA_N@Z
+// sym: ?V2@Closure1@fn_0008b2f0@@QAEXPAXPAPBDPA_N@Z
 namespace fn_0008b2f0 {
 // Same code shape as 0x00106cc0 (propagated; names are from that function)
-class Closure1 {
+class Closure1 { void* vftable;   /* (script2) the vftable word, no stand-in vftable */
   public:
-    virtual void V0();
-    virtual void V1();
-    virtual void V2(void*, const char**, bool*);
+    void V0();
+    void V1();
+    void V2(void*, const char**, bool*);
     ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
     typedef bool(__fastcall* Fn)(void*, const char*, const char*);
     Fn mFn;
@@ -2104,12 +2270,26 @@ Closure2::Closure2(const char* name, Owner_8b310* object, Fn_8b310 function) : h
 
 
 // 0x0008b390 Closure2<CGameFlowManager,void,const_char_*,const_char_*>::vfunc_2 (22 B): matches/0x0008b390.cpp
-// sym: ?vfunc_2@?$Closure2@VCGameFlowManager@@XPBDPBD@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure2_8b390@fn_0008b390@@QAEXPAX00@Z
 // Same code shape as 0x0002e6d0 (propagated; names are from that function)
-template <> void Closure2<CGameFlowManager, void, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; Pair_8b390 * p = (Pair_8b390 *)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure2<CGameFlowManager, void, const char *, const char *>::vfunc_2`.
+namespace fn_0008b390 {
+struct Closure2_8b390 : hulk_script::FunctionGenView {
+    void (::CGameFlowManager::*f_1c)(const char *, const char *);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure2_8b390::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; Pair_8b390 * p = (Pair_8b390 *)__p1; void * c = (void *)__p2;
 
     ((*(CActorManager_8b390 * *)&this->f_20)->*(*(void (CActorManager_8b390::**)(const char *, float))&this->f_1c))(p->s, p->f);
 }
+} // namespace fn_0008b390
+#if defined(HULK_PTR64)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure2<CGameFlowManager, void, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0008b390::Closure2_8b390*)this)->vfunc_2(__p0, __p1, __p2); }
+#endif
 
 
 // 0x0008b3b0 FUN_0008b3b0 (76 B): matches/0x0008b3b0.cpp [wrapped: conflict: Closure1; Method1]
@@ -2139,8 +2319,16 @@ Closure1::Closure1(const char* name, Owner_8b3b0* object, Fn_8b3b0 function) : h
 
 
 // 0x0008b420 Closure1<CGameFlowManager,const_char_*,const_char_*>::vfunc_2 (30 B): matches/0x0008b420.cpp
-// sym: ?vfunc_2@?$Closure1@VCGameFlowManager@@PBDPBD@@UAEXPAX00@Z
-template <> void Closure1<CGameFlowManager, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; const char ** argument = (const char **)__p1; const char ** result = (const char **)__p2;
+// sym: ?vfunc_2@Closure1_8b420@fn_0008b420@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure1<CGameFlowManager, const char *, const char *>::vfunc_2`.
+namespace fn_0008b420 {
+struct Closure1_8b420 : hulk_script::FunctionGenView {
+    const char * (::CGameFlowManager::*f_1c)(const char *);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure1_8b420::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; const char ** argument = (const char **)__p1; const char ** result = (const char **)__p2;
 
     CGameFlowManager_8b420* obj = (*(CGameFlowManager_8b420 * *)&this->f_20);
     const char* (CGameFlowManager_8b420::*fn)(const char*) = (*(const char *(CGameFlowManager_8b420::**)(const char *))&this->f_1c);
@@ -2148,14 +2336,34 @@ template <> void Closure1<CGameFlowManager, const char *, const char *>::vfunc_2
     if (result)
         *result = value;
 }
+} // namespace fn_0008b420
+#if defined(HULK_PTR64)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure1<CGameFlowManager, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0008b420::Closure1_8b420*)this)->vfunc_2(__p0, __p1, __p2); }
+#endif
 
 
 // 0x0008b4a0 Closure0<CGameFlowManager,void>::vfunc_2 (11 B): matches/0x0008b4a0.cpp
-// sym: ?vfunc_2@?$Closure0@VCGameFlowManager@@X@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure0_8b4a0@fn_0008b4a0@@QAEXPAX00@Z
 // Same code shape as 0x0002f820 (propagated; names are from that function)
-template <> void Closure0<CGameFlowManager, void>::vfunc_2(void* __p0, void* __p1, void* __p2) {
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure0<CGameFlowManager, void>::vfunc_2`.
+namespace fn_0008b4a0 {
+struct Closure0_8b4a0 : hulk_script::FunctionGenView {
+    void (::CGameFlowManager::*f_1c)();
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Closure0_8b4a0::vfunc_2(void* __p0, void* __p1, void* __p2) {
     ((*(CActorManager_8b4a0 * *)&this->f_20)->*(*(void (CActorManager_8b4a0::**)())&this->f_1c))();
 }
+} // namespace fn_0008b4a0
+#if defined(HULK_PTR64)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Closure0<CGameFlowManager, void>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0008b4a0::Closure0_8b4a0*)this)->vfunc_2(__p0, __p1, __p2); }
+#endif
 
 namespace fn_f53af43c {
 

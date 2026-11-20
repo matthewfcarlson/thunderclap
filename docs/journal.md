@@ -1661,3 +1661,28 @@ blocks fight::Action's whole family: the records come first there.
   two `unsigned int` words natively. The 32-bit side keeps the original u64 parameter in `#if defined(HULK_PTR64)` /
   `#else`, so MSVC's bytes and the Wine build don't change. Natively a u64 is one register, so the definition read
   a garbage high word.
+
+## 2026-11-19 script2 2: the invoke functions without stand-in vftables (RTTI)
+
+- **The script-binding invoke functions (`Closure<N>/Method<N>/Function<N>::vfunc_2`) are plain members now.** 536 of
+  them were written as `template <> void Method2<C, R, A, B>::vfunc_2(...)`, a member of include/gen/global.h's
+  polymorphic template. Each specialization made clang emit the template's vftable and RTTI natively: the D147 gate
+  counted about 2,000 such entries. They are now members of a block-local record on
+  `hulk_script::FunctionGenView`: gen Function's fields by their gen names, after a plain vftable word. f_1c is typed
+  as gen's (`R (::C::*)(A...)`, with the gen class qualified with `::`), and f_20 keeps gen's type. Generator:
+  build/script2/scripts/geninv.py. The blocks' native-only `template class X<...>;` lines go: the D114 functions
+  already bind the game vftables' slots. 75 more were written on block-local polymorphic stand-ins (`struct Function { virtual ...; }`): they lose `virtual`, and each
+  root class gets a leading `void* vftable;` (build/script2/scripts/genlv.py). All 481 converted matches blocks still MATCH. The
+  130 converted equivalent blocks keep their MSVC code; their checker views changed (the `this` class), and they are re-proven
+  at 3,000 inputs, MSVC and --wine.
+- **f_1c must carry gen's member-function-pointer type.** With `ScriptMemberFn` (one word, 4 bytes) every block still
+  MATCHed, but `equiv.py --x64` no longer recognised the field as the bound function: the harness gives a
+  member-function-pointer leaf a stub only when its pointee prototype is the call's. Of 659 changed blocks, 426 became
+  `unsupported:no32`, because the 32-bit side called a random word, and 5 became NEW layout failures. With gen's type
+  qualified as `::C`, all blocks MATCH and --x64 runs. The same type written without `::` resolved to a block-local
+  class and changed MSVC's code.
+- **Manager constructors on records:** camera 0x0009dd20 and ambients 0x0007f950 (the `G<N>` macro family:
+  build/script2/scripts/genmgr.py, vftables from the XBE listing in call order) and sound resource 0x001ea8b0.
+- **Natively a gen template's vftable outlives its specializations.** D114 keeps `template <> X<...>::~X() {}`, and
+  that destructor emits gen's vftable for X natively. Its slot 2 (`X::vfunc_2`) then has to be defined: the converted
+  invokes keep a native-only specialization that forwards to the record's function.

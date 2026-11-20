@@ -460,7 +460,7 @@ template class Method3<CPatrolPathManager, bool, const char *, bool, int>; // (r
 
 
 // 0x00106a40 Method3<CPatrolPathManager,bool,const_char_*,bool,int>::vfunc_2 (47 B): matches/0x00106a40.cpp [wrapped: conflict: CPatrolPathManager; Function; Method3]
-// sym: ?f2@Method3@fn_00106a40@@UAE_NHPAUArgs_106a40@2@PA_N@Z
+// sym: ?f2@Method3@fn_00106a40@@QAE_NHPAUArgs_106a40@2@PA_N@Z
 namespace fn_00106a40 {
 class CPatrolPathManager {
   public:
@@ -472,16 +472,16 @@ struct Args_106a40 {
     int i;
 };
 typedef bool (CPatrolPathManager::*Fn_106a40)(const char*, bool, int);
-class Function {
+class Function { void* vftable;   /* (script2) the vftable word, no stand-in vftable */
   public:
-    virtual void f0();
-    virtual void f1();
+    void f0();
+    void f1();
 };
 class Method3 : public Function {
   public:
-    virtual void f0();
-    virtual void f1();
-    virtual bool f2(int x, Args_106a40* a, bool* out);
+    void f0();
+    void f1();
+    bool f2(int x, Args_106a40* a, bool* out);
     ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x1c - 4])
     Fn_106a40 fn;
 };
@@ -522,8 +522,15 @@ template <> Method1<CPatrolPathManager, bool, const char *>::~Method1() {}
 
 
 // 0x00106ad0 Method1<CPatrolPathManager,bool,const_char_*>::vfunc_2 (29 B): matches/0x00106ad0.cpp
-// sym: ?vfunc_2@?$Method1@VCPatrolPathManager@@_NPBD@@UAEXPAX00@Z
-template <> void Method1<CPatrolPathManager, bool, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { CPatrolPathManager_106ad0 * obj = (CPatrolPathManager_106ad0 *)__p0; const char ** arg = (const char **)__p1; bool * out = (bool *)__p2;
+// sym: ?vfunc_2@Method1_106ad0@fn_00106ad0@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method1<CPatrolPathManager, bool, const char *>::vfunc_2`.
+namespace fn_00106ad0 {
+struct Method1_106ad0 : hulk_script::FunctionGenView {
+    bool (::CPatrolPathManager::*f_1c)(const char *);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method1_106ad0::vfunc_2(void* __p0, void* __p1, void* __p2) { CPatrolPathManager_106ad0 * obj = (CPatrolPathManager_106ad0 *)__p0; const char ** arg = (const char **)__p1; bool * out = (bool *)__p2;
 
     bool (CPatrolPathManager_106ad0::*f)(const char*) = (*(bool (CPatrolPathManager_106ad0::**)(const char *))&this->f_1c);
     const char* x = *arg;
@@ -531,8 +538,11 @@ template <> void Method1<CPatrolPathManager, bool, const char *>::vfunc_2(void* 
     if (out)
         *out = r;
 }
+} // namespace fn_00106ad0
 #if defined(HULK_PTR64)
-template class Method1<CPatrolPathManager, bool, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x106ab0)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method1<CPatrolPathManager, bool, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00106ad0::Method1_106ad0*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -587,16 +597,26 @@ template <> Method3<CPatrolPathManager, bool, const char *, int,math::Vector>::~
 
 
 // 0x00106b70 Method3<CPatrolPathManager,bool,const_char_*,int,math::Vector>::vfunc_2 (67 B): equivalent/0x00106b70.cpp
-// sym: ?vfunc_2@?$Method3@VCPatrolPathManager@@_NPBDHVVector@math@@@@UAEXPAX00@Z @45f9773cb776 @w22e531a9c9d9 @va83ce70ed827
+// sym: ?vfunc_2@Method3_106b70@fn_00106b70@@QAEXPAX00@Z @45f9773cb776 @w22e531a9c9d9 @vd04ad2ecfba7
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // Method3<CPatrolPathManager,bool,const_char_*,int,math::Vector>::vfunc_2 @ 0x00106b70
-template <> void Method3<CPatrolPathManager, bool, const char *, int,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { CPatrolPathManager_106b70 * owner = (CPatrolPathManager_106b70 *)__p0; const Arguments * args = (const Arguments *)__p1; bool * result = (bool *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Method3<CPatrolPathManager, bool, const char *, int,math::Vector>::vfunc_2`.
+namespace fn_00106b70 {
+struct Method3_106b70 : hulk_script::FunctionGenView {
+    bool (::CPatrolPathManager::*f_1c)(const char *, int, math::Vector);
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+void Method3_106b70::vfunc_2(void* __p0, void* __p1, void* __p2) { CPatrolPathManager_106b70 * owner = (CPatrolPathManager_106b70 *)__p0; const Arguments * args = (const Arguments *)__p1; bool * result = (bool *)__p2;
 
     bool value = (owner->*(*(bool (CPatrolPathManager_106b70::**)(const char *, int, Vector_106b70))&this->f_1c))(args->name, args->value, args->position);
     if (result) *result = value;
 }
+} // namespace fn_00106b70
 #if defined(HULK_PTR64)
-template class Method3<CPatrolPathManager, bool, const char *, int,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x106b50)
+// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
+// vftable): forward it to the record's function
+template <> void Method3<CPatrolPathManager, bool, const char *, int,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00106b70::Method3_106b70*)this)->vfunc_2(__p0, __p1, __p2); }
 #endif
 
 
@@ -653,13 +673,13 @@ Closure1::Closure1(const char* name, Owner_106c50* object, Fn_106c50 function) :
 
 
 // 0x00106cc0 Closure1<CPatrolPathManager,bool,const_char_*>::vfunc_2 (30 B): matches/0x00106cc0.cpp [wrapped: conflict: Closure1]
-// sym: ?V2@Closure1@fn_00106cc0@@UAEXPAXPAPBDPA_N@Z
+// sym: ?V2@Closure1@fn_00106cc0@@QAEXPAXPAPBDPA_N@Z
 namespace fn_00106cc0 {
-class Closure1 {
+class Closure1 { void* vftable;   /* (script2) the vftable word, no stand-in vftable */
   public:
-    virtual void V0();
-    virtual void V1();
-    virtual void V2(void*, const char**, bool*);
+    void V0();
+    void V1();
+    void V2(void*, const char**, bool*);
     ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
     typedef bool(__fastcall* Fn)(void*, const char*, const char*);
     Fn mFn;

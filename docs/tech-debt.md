@@ -80,6 +80,18 @@ Kept by `tools/tech_debt.py` as written (everything from this heading on).
   feas2.py lists them) and the 19 single non-template `??_G` blocks, the latter by D114's generator once their blocks
   are rewritable (x64t21 skipped them as "more than the empty destructor in the block"). This entry's count goes down
   as that lands.
+- **Native-only gen-template invoke forwarders (script2, 2026-11-19).** 536 invoke blocks
+  (`Closure<N>/Method<N>/Function<N>::vfunc_2`) are plain members of non-polymorphic records
+  (`hulk_script::FunctionGenView`). Each also keeps, under `#if defined(HULK_PTR64)`, a
+  `template <> void X<...>::vfunc_2(...)` that forwards to the record's function. The reason: natively, include/gen/global.h's
+  polymorphic templates are still instantiated by D114's destructor specializations (`template <> X<...>::~X() {}`).
+  Those destructors emit gen's vftable for X, and the vftable names slot 2. The destructors stay because other TUs'
+  native code references `??1X`: dropping them made 367 names unbound in a trial. What removes both the forwarders and
+  the destructor specializations: the TUs that still reference `??1?$Closure.../??1?$Method...` construct the
+  records instead of gen's classes. That means the 42 invoke blocks still on gen specializations or local stand-ins,
+  and the code that deletes bindings through gen's types. Find the list with `grep -rn "native-only gen's template
+  still has this vftable slot" src`, and find the referencing TUs in a native link with the destructor
+  specializations removed. Task: script2's next, after stop 6.
 - **HULK_REFCOUNT_INLINE_DTOR (gx5, 2026-11-15).** core::IRefCount's and pure3d::NonCopyable's destructors are inline
   (as in the game) only in the TUs that define the macro before their includes; elsewhere they stay declared out of
   line, because the /GX TUs that write a class's scalar deleting destructor as an empty user destructor
