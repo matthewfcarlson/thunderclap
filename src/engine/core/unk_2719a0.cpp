@@ -240,17 +240,25 @@ bool FUN_00271a30(unsigned int ch, unsigned int* out) {
 
 
 // 0x00271b70 FUN_00271b70 (116 B): equivalent/0x00271b70.cpp
-// sym: _FUN_00271b70 @83510850d188 @wb9b2fdba5997 @vea812c22eaff
+// sym: _FUN_00271b70 @83510850d188 @w9ca8ea483540 @v86e71cc368b6
 // STATUS: equivalent (tools/equiv.py level 3: 20007 inputs, branch coverage 12/12)
 // FUN_00271b70 @ 0x00271b70
 // FUN_00271b70 @ 0x00271b70
-extern "C" int __cdecl FUN_00271b70(const unsigned char *text, int *length, int *value)
+// (drive1, D141) its callers pass a fourth word, the conversion's options, which it does not read: declared, so
+// every caller can declare it as defined
+extern "C" int __cdecl FUN_00271b70(const unsigned char *text, int *length, int *value, void *options)
 {
     unsigned int first = *text;
     int extra = ((signed char*)&DAT_0042b6f8)[first];
     int count = extra + 1;
+#if defined(HULK_PTR64)
+    // (drive1, D141) the 64-bit builds call the validator as defined (a byte result; the 32-bit spelling below, which
+    // passes its whole eax on as the original does, is an overload the native link cannot bind)
+    unsigned int low = FUN_002719a0((unsigned int)count, text);
+#else
     unsigned __int64 result = FUN_002719a0(count, text);
     unsigned int low = (unsigned int)result;
+#endif
     if (!(low & 255)) return low;
     const unsigned char *p = text;
     unsigned int code = 0;
@@ -363,8 +371,10 @@ int __cdecl CountChars(const char* str, unsigned int* end) {
 
 // 0x00271dd0 FUN_00271dd0 (103 B): matches/0x00271dd0.cpp
 // sym: _FUN_00271dd0
+// (drive1, D141) its callers pass a fourth word, the conversion's options, which it does not read: declared, so
+// every caller can declare it as defined (unk_2699f0.cpp's C++ spellings bound nothing natively)
 extern "C" unsigned char __cdecl FUN_00271dd0(const unsigned short* text, unsigned int* bytesConsumed,
-                                   unsigned int* codePoint) {
+                                   unsigned int* codePoint, void* options) {
     unsigned int point = text[0];
     unsigned int units = 1;
     if (point >= 0xd800 && point <= 0xdbff) {

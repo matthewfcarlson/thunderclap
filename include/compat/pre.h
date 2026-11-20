@@ -59,6 +59,60 @@ static inline __attribute__((noreturn, cold, noinline)) void hulk_pre_fail(const
     hulk_pre_write2("\n");
     __builtin_trap();
 }
+// (integ3, D152) range contracts. HULK_CONTRACTS: 2 trap (the default, and always in the Wine build and native release
+// builds), 1 log (development only: report and go on), 0 off (development only). A run built with another value than
+// 2 proves nothing.
+#ifndef HULK_CONTRACTS
+#define HULK_CONTRACTS 2
+#endif
+static inline void hulk_pre_hex(unsigned long long v, int digits) {
+    char b[20];
+    int i = 0;
+    b[i++] = '0';
+    b[i++] = 'x';
+    for (int d = digits - 1; d >= 0; --d)
+        b[i++] = "0123456789abcdef"[(v >> (4 * d)) & 15];
+    b[i] = 0;
+    hulk_pre_write2(b);
+}
+static inline __attribute__((cold, noinline)) void hulk_pre_fail_bits(const char* fn, const char* what,
+                                                                       unsigned long long bits, int digits) {
+    hulk_pre_write2("hulk: contract failed: ");
+    hulk_pre_write2(fn);
+    hulk_pre_write2(": ");
+    hulk_pre_write2(what);
+    hulk_pre_write2(" (value ");
+    hulk_pre_hex(bits, digits);
+    hulk_pre_write2(")\n");
+#if HULK_CONTRACTS >= 2
+    static const char* volatile s_fn;
+    static const char* volatile s_what;
+    s_fn = fn;      // (as hulk_pre_fail: in the backtrace and a crash dump)
+    s_what = what;
+    __builtin_trap();
+#endif
+}
+// (rev5) the value's bits at its own width, whatever its type (long under LLP64, short, char, bool, enums, floats)
+template <class T> static inline unsigned long long hulk_pre_bits(T x) {
+    unsigned long long u = 0;
+    __builtin_memcpy(&u, &x, sizeof(T) < 8 ? sizeof(T) : 8);
+    return u;
+}
+#define HULK_PRE_BITS_(x) hulk_pre_bits(x)
+#define HULK_PRE_DIG_(x) ((int)(2 * sizeof(x)))
+#if HULK_CONTRACTS >= 1
+// (the conditions are written so a NaN fails every one of them: `x >= lo && x <= hi` is false for a NaN)
+#define HULK_PRE_IF_(ok, x, what) ((ok) ? (void)0 : hulk_pre_fail_bits(__func__, what, HULK_PRE_BITS_(x), HULK_PRE_DIG_(x)))
+#else
+#define HULK_PRE_IF_(ok, x, what) ((void)0)
+#endif
+#define HULK_PRE_RANGE(x, lo, hi) HULK_PRE_IF_((x) >= (lo) && (x) <= (hi), x, "range(" #x ", " #lo ", " #hi ")")
+#define HULK_PRE_GT(x, c) HULK_PRE_IF_((x) > (c), x, "gt(" #x ", " #c ")")
+#define HULK_PRE_GE(x, c) HULK_PRE_IF_((x) >= (c), x, "ge(" #x ", " #c ")")
+#define HULK_PRE_LT(x, c) HULK_PRE_IF_((x) < (c), x, "lt(" #x ", " #c ")")
+#define HULK_PRE_LE(x, c) HULK_PRE_IF_((x) <= (c), x, "le(" #x ", " #c ")")
+// (not for a proven block: tools/equiv.py can't read an arbitrary condition and refuses it there)
+#define HULK_PRE(cond) HULK_PRE_IF_((cond), 0, "pre(" #cond ")")
 static inline void hulk_pre_notnan_n(const float* p, int n, const char* fn, const char* what) {
     for (int i = 0; i < n; ++i)
         if (__builtin_isnan(p[i]))
@@ -86,6 +140,12 @@ static inline void hulk_pre_defnan1(float x, const char* fn, const char* what) {
 #define HULK_PRE_DEFNAN(x) hulk_pre_defnan1((x), __func__, "defnan(" #x ")")
 #define HULK_PRE_DEFNAN_N(p, n) hulk_pre_defnan_n((const void*)(p), (n), __func__, "defnan(" #p "[0.." #n "])")
 #else
+#define HULK_PRE_RANGE(x, lo, hi) ((void)0)
+#define HULK_PRE_GT(x, c) ((void)0)
+#define HULK_PRE_GE(x, c) ((void)0)
+#define HULK_PRE_LT(x, c) ((void)0)
+#define HULK_PRE_LE(x, c) ((void)0)
+#define HULK_PRE(cond) ((void)0)
 #define HULK_PRE_NOTNAN(x) ((void)0)
 #define HULK_PRE_NOTNAN_N(p, n) ((void)0)
 #define HULK_PRE_DEFNAN(x) ((void)0)

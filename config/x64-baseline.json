@@ -3,11 +3,13 @@
   "gating": ["layout", "ptrtrunc", "crash64"],
   "settings": {"inputs": 200, "time_budget": 60},
   "source": "x64eq's tree-wide sweep at 96cba7a7c (the 44cb331c3 batch-2 blocks re-run after it), brought to ea6ce3693 by gate1's replay of the gate over every commit since",
-  "counts": {"crash64": 11, "crash64/ptr32": 204, "layout": 714, "ptrtrunc": 154},
-  "total": 1083,
+  "counts": {"crash64": 12, "crash64/ptr32": 204, "layout": 715, "ptrtrunc": 154},
+  "total": 1085,
   "why": {
     "0x000147d0": "gx5 (D56): fails at 2472de24e too (class untyped: the TU's 32-bit views H3_147d0 { char p[0x64]; void* q; } / H4 read pointers at 32-bit offsets); with fight::Action's words typed the harness's run reaches the wild pointer as a crash. Fixed by typing those views (the motion objects' records), not by this change (2026-11-15)",
-    "0x000f8970": "pre-existing at HEAD: equiv --x64 job 91208 identical to 91207; caster fix unrelated (sweep-caster-land: FontSet_f8970 pointer read from 32-bit data, its char-pad view) (2026-11-18)"
+    "0x0002d8c0": "script2 stop 6 (find3): natively the Lua dispatcher 0x001d22a0 lays the arguments out in their natural native layout (pointer cells 8 bytes); this invoke's native-only body reads that layout while its 32-bit body reads 4-byte cells, so the harness's paired 32-bit view differs by design (2026-11-19) (2026-11-19)",
+    "0x000f8970": "pre-existing at HEAD: equiv --x64 job 91208 identical to 91207; caster fix unrelated (sweep-caster-land: FontSet_f8970 pointer read from 32-bit data, its char-pad view) (2026-11-18)",
+    "0x00327590": "find3 stop 10: vfunc_6 writes tex[i*2] through the stream's texture-coordinate pointer (gen d3dPrimBufferStream f_38, now at its native offset); the crash is the harness's random index i (input 25) off a pointer built from 32-bit input words, which the 32-bit run happened to survive; the code is the same indexing as the original (2026-11-19)"
   },
   "blocks": {
     "0x000145b0": "layout",
@@ -25,6 +27,7 @@
     "0x0002b250": "layout",
     "0x0002b590": "layout",
     "0x0002b690": "layout",
+    "0x0002d8c0": "layout",
     "0x0002ebc0": "ptrtrunc",
     "0x0002f390": "ptrtrunc",
     "0x00035e70": "ptrtrunc",
@@ -1057,6 +1060,7 @@
     "0x003220f0": "layout",
     "0x003223a0": "crash64/ptr32",
     "0x003223c0": "layout",
+    "0x00327590": "crash64",
     "0x00327930": "layout",
     "0x00327a40": "layout",
     "0x00327aa0": "layout",

@@ -529,7 +529,7 @@ hulk_freg __fastcall Vec2Normalize(Vec2_2a54e0* v) {
 } // namespace fn_fa65e9c0
 
 // 0x002a5570 FUN_002a5570 (872 B): equivalent/0x002a5570.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: _FUN_002a5570 @5d6d1f086552 @w21264fddd06f
+// sym: _FUN_002a5570 @5d6d1f086552 @wc830ca235187 @v91a4091b8652
 namespace fn_002a5570 {
 // STATUS: equivalent (tools/equiv.py level 3: 146 inputs, branch coverage 38/38)
 // FUN_002a5570 @ 0x002a5570
@@ -578,7 +578,8 @@ struct Ripple {
 };
 
 
-static float Smooth(float w)
+// inlined in the original: its result stays in st (D80; a TU-local helper, so hulk_freg names no external symbol)
+static hulk_freg Smooth(float w)
 {
     if (w <= 0.0f)
         return 0.0f;

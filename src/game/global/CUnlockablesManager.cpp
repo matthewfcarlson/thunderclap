@@ -753,7 +753,7 @@ void Method2_93fe0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused 
 
     CFEManager_93fe0* m = (CFEManager_93fe0*)unused;
     const char* s = *(const char**)p;
-    int x = *(int*)((char*)p + 4);
+    int x = *(int*)((char*)p + sizeof(void*));   // (script2, stop 6) the second argument follows a pointer cell
     (m->*(*(void (CFEManager_93fe0::**)(const char *, int))&this->f_1c))(s, x);
 }
 } // namespace fn_00093fe0
@@ -1704,10 +1704,20 @@ struct Closure7_94b10 : hulk_script::FunctionGenView {
     hulk_intptr f_20;
     void vfunc_2(void* __p0, void* __p1, void* __p2);
 };
+#if defined(HULK_PTR64)
+// (script2, stop 6) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells
+void Closure7_94b10::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Args_ { const char* a0; int a1; const char* a2; const char* a3; const char* a4; const char* a5; int a6; };
+    const Args_* a = (const Args_*)__p1;
+    ((*(Obj_**)&this->f_20)->*(*(void (Obj_::**)(const char*, int, const char*, const char*, const char*, const char*, int))&this->f_1c))(a->a0, a->a1, a->a2, a->a3, a->a4, a->a5, a->a6);
+}
+#else
 void Closure7_94b10::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; const unsigned int * args = (const unsigned int *)__p1; void * unused2 = (void *)__p2;
 
     ((*(CUnlockablesManager_94b10 * *)&this->f_20)->*(*(void (CUnlockablesManager_94b10::**)(const char *, int, const char *, const char *, const char *, const char *, int))&this->f_1c))((const char *)args[0], (int)args[1], (const char *)args[2], (const char *)args[3], (const char *)args[4], (const char *)args[5], (int)args[6]);
 }
+#endif
 } // namespace fn_00094b10
 #if defined(HULK_PTR64)
 // (script2) natively gen's template still has this vftable slot (its destructor specializations emit the

@@ -2,6 +2,7 @@
 // object 0x00273c70..0x00273d50 (kind game, layer engine, confidence medium), dominant class core::SaveGameOpenRequest
 #include "tree_prelude.h"
 #include "decls/data/records.h"
+#include "decls/save_game.h"
 #include "compat/ptr.h"
 #include "gen/core.h"
 #include "gen/owners.h"
@@ -34,29 +35,16 @@ struct FileRequest_273c70 {
     Inner_273c70* p;
     void run();
 };
-struct Info_273cb0 { char pad[12]; unsigned value; };
+// (drive1, D141) the drive's media block (decls/drive_media.h; 0x002728d0 returns it): its sector size
+typedef CoreDriveMedia Info_273cb0;
+// the drive's slot 9 (XboxSaveDrive::vfunc_9 0x00279630): the save's name and image are pointers, and so are the
+// words it fills, the file's handle (its view's tail[1]) and its size (field128)
 struct Backend_273cb0 {
  virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual void slot4(); virtual void slot5(); virtual void slot6(); virtual void slot7(); virtual void slot8();
- virtual int open(char*,unsigned,unsigned,unsigned,unsigned,void*,void*);
+ virtual int open(const char*,unsigned,unsigned,GameSaveImage*,unsigned,unsigned*,unsigned*);
  unsigned FUN_00272880();
 };
 struct Lock_273cb0 { virtual void lock(); virtual void unlock(); };
-struct State_273cb0 {
- unsigned unknown0;
- Lock_273cb0 guard;
- unsigned unknown8;
- Backend_273cb0* backend;
- unsigned unknown10;
- unsigned status;
- char pad18[4];
- unsigned char opened;
- char pad1d;
- char name[0x128-0x1e];
- char data128[0x15c-0x128];
- unsigned data15c;
- unsigned data160;
- unsigned value164;
-};
 class pddiObject_273d40 {
   public:
     virtual void vfunc0();
@@ -100,22 +88,25 @@ void FileRequest_273c70::run() {
 } // namespace fn_f1bb87c2
 
 // 0x00273cb0 core::SaveGameOpenRequest::vfunc_1 (129 B): equivalent/0x00273cb0.cpp
-// sym: ?vfunc_1@SaveGameOpenRequest@core@@UAEHXZ @59bdffe1a33c @wf74e56f32afc @v38220eded086
+// sym: ?vfunc_1@SaveGameOpenRequest@core@@UAEHXZ @59bdffe1a33c @wba1ea125a2bf @v38220eded086
 // STATUS: equivalent (tools/equiv.py level 3: 19867 inputs, branch coverage 2/2)
 // core::SaveGameOpenRequest::vfunc_1 @ 0x00273cb0
 int core::SaveGameOpenRequest::vfunc_1() {
- State_273cb0* s = (*(State_273cb0 * *)&this->f_08);
- Backend_273cb0* backend = s->backend;
- int result = backend->open(s->name,(*(unsigned int *)&this->f_0c),(*(unsigned char *)&this->f_10),(*(unsigned int *)&this->f_14),(*(unsigned int *)&this->f_18),&s->data15c,s->data128);
+ // (drive1, D141) the request is decls/save_game.h CoreSaveGameOpenRequest and its file records.h CoreFile (were
+ // 32-bit views: natively the open's arguments were read from the file pointer's words and the image truncated)
+ CoreSaveGameOpenRequest* request = (CoreSaveGameOpenRequest*)this;
+ CoreFile* s = (CoreFile*)request->request.file;
+ Backend_273cb0* backend = (Backend_273cb0*)s->provider;
+ int result = backend->open(s->filename,request->mode,request->writable,request->image,request->size,&s->view.tail[1],&s->field128);
  if(result == 1) {
- (*(State_273cb0 * *)&this->f_08)->opened = 1;
+ ((CoreFile*)request->request.file)->flag1c = 1;
  Info_273cb0* info = ((Info_273cb0 *)((owners::ProjectileMissile_2728d0 *)backend)->FUN_002728d0());
- (*(State_273cb0 * *)&this->f_08)->value164 = info->value;
+ ((CoreFile*)request->request.file)->field164 = info->sectorSize;
  }
  unsigned status = backend->FUN_00272880();
- (&(*(State_273cb0 * *)&this->f_08)->guard)->lock();
- (*(State_273cb0 * *)&this->f_08)->status = status;
- (&(*(State_273cb0 * *)&this->f_08)->guard)->unlock();
+ ((Lock_273cb0*)&((CoreFile*)request->request.file)->vftableMutable)->lock();
+ ((CoreFile*)request->request.file)->field14 = status;
+ ((Lock_273cb0*)&((CoreFile*)request->request.file)->vftableMutable)->unlock();
  return result;
 }
 

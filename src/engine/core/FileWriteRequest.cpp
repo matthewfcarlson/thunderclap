@@ -42,30 +42,14 @@ struct Backend_274060 {
 namespace core {
 struct Lock_274060 { virtual void lock(); virtual void unlock(); };
 }
-namespace core {
-struct File {
- unsigned unknown0;
- Lock_274060 lock;
- unsigned unknown8;
- Backend_274060* backend;
- unsigned unknown10;
- unsigned status;
- char padding18[6];
- char name[0x102];
- unsigned mode;
- unsigned position;
- unsigned state;
- char padding12c[0x30];
- unsigned handle;
-};
-}
+// (drive1, D141) the file is records.h CoreFile (was a 32-bit pad view: natively its words sat 4-12 bytes off)
 namespace core {
 struct FileWriteRequest {
  virtual void vfunc_0();
  virtual int vfunc_1();
  virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6();
  unsigned unknown4;
- File* file;
+ CoreFile* file;
  void* buffer;
  unsigned size;
  unsigned flags;
@@ -91,17 +75,17 @@ void FileRequest_274020::run() {
 // core::FileWriteRequest::vfunc_1 @ 0x00274060
 namespace core {
 int FileWriteRequest::vfunc_1() {
- unsigned written = (unsigned)this;
- Backend_274060* backend = file->backend;
+ unsigned written = (unsigned)(hulk_uintptr)this;
+ Backend_274060* backend = (Backend_274060*)file->provider;
  int result = 1;
  if (size != 0) {
- result = backend->write(file->handle, file->name, file->mode, file->position, buffer, size, &written, &file->state, flags);
- if (result == 1) file->position += written;
+ result = backend->write(file->view.tail[1], file->filename, file->field120, file->field124, buffer, size, &written, &file->field128, flags);
+ if (result == 1) file->field124 += written;
  }
  unsigned status = backend->FUN_00272880();
- (&file->lock)->lock();
- file->status = status;
- (&file->lock)->unlock();
+ ((Lock_274060*)&file->vftableMutable)->lock();
+ file->field14 = status;
+ ((Lock_274060*)&file->vftableMutable)->unlock();
  return result;
 }
 }

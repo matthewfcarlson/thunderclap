@@ -1115,7 +1115,7 @@ StrafeRunAction_11cdd0::~StrafeRunAction_11cdd0() {
 } // namespace fn_fbabf3f2
 
 // 0x0011ce20 hulkfight::ai::StrafeRunAction::vfunc_5 (1169 B): equivalent/0x0011ce20.cpp [wrapped: conflict: hulkfight::ai::StrafeRunAction]
-// sym: ?vfunc_5@StrafeRunAction@ai@hulkfight@fn_0011ce20@@UAE_NTSlot_11ce20@4@0@Z @1a197f42245b @w3525a6bec9e5
+// sym: ?vfunc_5@StrafeRunAction@ai@hulkfight@fn_0011ce20@@UAE_NTSlot_11ce20@4@0@Z @1a197f42245b @wc3b94d699ad2 @v44a83e80b2c4
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)
@@ -1316,8 +1316,9 @@ bool StrafeRunAction::vfunc_5(Slot_11ce20 a0, Slot_11ce20 a1)
 
     tn = tuning;
     a0.f = tn->f14;
-    fr.t1c = fr.fwd.z * fr.d.z + fr.fwd.x * fr.d.x + fr.fwd.y * fr.d.y;
-    if (fr.t1c < 0.0f) {
+    hulk_freg dot = (hulk_freg)fr.fwd.z * fr.d.z + (hulk_freg)fr.fwd.x * fr.d.x + (hulk_freg)fr.fwd.y * fr.d.y;
+    fr.t1c = dot;  // stored, then compared from st (D80)
+    if (dot < 0.0f) {
         if (f28 > 0)
             f28 = -f28;
         if (fr.dist > a0.f) {

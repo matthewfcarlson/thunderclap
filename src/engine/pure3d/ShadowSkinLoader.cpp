@@ -1226,7 +1226,7 @@ void Obj_2b46c0::Do(int p, Source_2b46c0* q) {
 } // namespace fn_f35954a7
 
 // 0x002b4710 FUN_002b4710 (381 B): equivalent/0x002b4710.cpp [wrapped: conflict: Gfx]
-// sym: ?FUN_002b4710@Obj_2b4710@fn_002b4710@@QAEXXZ @4ad7ab409d38 @w2096b377b924
+// sym: ?FUN_002b4710@Obj_2b4710@fn_002b4710@@QAEXXZ @4ad7ab409d38 @wd0983d6bf535 @vdcd8798b4298
 namespace fn_002b4710 {
 // STATUS: equivalent (tools/equiv.py level 3: 154 inputs, branch coverage 4/4)
 // FUN_002b4710 @ 0x002b4710
@@ -1326,9 +1326,10 @@ void Obj_2b4710::FUN_002b4710()
         hulk_freg mx = (p1.x - p0.x) * 0.5f + p0.x;
         hulk_freg my = (p1.y - p0.y) * 0.5f + p0.y;
         float mz = (p1.z - p0.z) * 0.5f + p0.z;
-        hulk_freg nx = (p2.x - mx) * 0.5f + mx;
-        hulk_freg ny = (p2.y - my) * 0.5f + my;
-        hulk_freg nz = (p2.z - mz) * 0.5f + mz;
+        // stored to the frame (rounded): the second vertex adds the offsets to the rounded values
+        float nx = (p2.x - mx) * 0.5f + mx;
+        float ny = (p2.y - my) * 0.5f + my;
+        float nz = (p2.z - mz) * 0.5f + mz;
         *s->flag = -1;
         s->pos[0] = nx;
         s->pos[1] = ny;

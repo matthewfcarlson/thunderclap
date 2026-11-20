@@ -4375,7 +4375,7 @@ void Method2_7d590::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused 
 
     CFEManager_7d590* m = (CFEManager_7d590*)unused;
     const char* s = *(const char**)p;
-    int x = *(int*)((char*)p + 4);
+    int x = *(int*)((char*)p + sizeof(void*));   // (script2, stop 6) the second argument follows a pointer cell
     (m->*(*(void (CFEManager_7d590::**)(const char *, int))&this->f_1c))(s, x);
 }
 } // namespace fn_0007d590

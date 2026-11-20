@@ -1194,6 +1194,12 @@ CASES = {
     "0x00264050_msplit_slotint": ("fail", "call #3", 0, {"n_inputs": 200}),
     "0x00264050_msplit_noword": ("fail", "argument 3 is 0x00000000, expected 0x00000001", 0, {"n_inputs": 200}),
     "0x00264050_wine_msplit": ("unsupported", "split_unpinned", 0, {"src": "0x00264050_msplit", "native": True, "n_inputs": 300}),
+    # (integ3, D152) range contracts: HULK_PRE_GE/GT/... with their `// pre:` items and `// pre-callers:` census; --wine
+    # repairs inputs into the range and plants the bounds (just outside traps, just inside computes). _mismatch: the
+    # macro says gt where the item says ge; _census: one call site not cited
+    "0x0009fb20_native_range": ("equivalent", None, 0, {"native": True, "n_inputs": 300}),
+    "0x0009fb20_native_range_mismatch": ("fail", "L2 pre_macro_mismatch", 0, {"native": True, "n_inputs": 100}),
+    "0x0009fb20_native_range_census": ("fail", "L2 pre_census", 0, {"native": True, "n_inputs": 100}),
 }
 
 # verify_relocs.py cases: name -> (expected status, issue kind it must report or None)
@@ -1250,6 +1256,8 @@ DECL_CASES = {
 # (eq64) the 64-bit check, tools/equiv64.py (`equiv.py --x64`): name -> (status, class or None, text the difference
 # must contain or None, minimum completed inputs). The x86-64 object against the 32-bit clang object of the same source.
 X64_CASES = {
+    # (integ3, D152) the range contract's repair in equiv64 too: every input compared inside the domain
+    "0x0009fb20_x64_range": ("equivalent", None, None, 90),
     # a plain setter: a typed `this`, an int and a byte field
     "0x000ac780_x64_setter": ("equivalent", None, None, 50),
     # vftables of input objects (slot by MS vftable index on both targets), float returns of stubs (st0 / xmm0), an

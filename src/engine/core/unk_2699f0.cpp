@@ -20,21 +20,19 @@ namespace fn_fcad8d96 {
 extern "C" bool __cdecl FUN_002716c0(const char* source, uint_2699f0* length, uint_2699f0* other, int zero);
 extern "C++" char __cdecl FUN_002716c0(const char*, int*, const char**, void*);
 extern "C" int __cdecl FUN_002716f0(const char*, char*, int, void*, int*, void*);
-extern "C" char __cdecl FUN_00271b70(const char*, int*, const char**, void*);
+// (drive1, D141) as defined (unk_2719a0.cpp)
+extern "C" int __cdecl FUN_00271b70(const unsigned char *, int *, int *, void *);
 typedef unsigned short wchar16_269ba0;
-extern "C" char __cdecl FUN_00271dd0(const wchar16_269ba0 *, unsigned *, unsigned *, void *);
+extern "C" unsigned char __cdecl FUN_00271dd0(const unsigned short *, unsigned *, unsigned *, void *);   // (drive1, D141) as defined (unk_2719a0.cpp)
 extern "C++" int __cdecl FUN_002716f0(unsigned, char *, int, int, unsigned *, void *);
 extern "C" char __cdecl FUN_00272070(const unsigned *, unsigned *, unsigned *, void *);
 extern "C" char __cdecl FUN_00272240(const char*, int*, const char**, void*);
 extern "C" char __cdecl FUN_00271820(const char*, int*, const char**, void*);
 typedef unsigned int uint_269e00;
-extern "C++" unsigned char __cdecl FUN_00271b70(const char* text, uint_269e00* bytes, uint_269e00* other, int mode);
 extern "C++" unsigned char __cdecl FUN_002716c0(const char* input, int* consumed, int* parsed, int flags);
 extern "C" int __cdecl FUN_00271c00(int parsed, char* output, int available, int mode, int* produced, int flags);
 extern "C++" int __cdecl FUN_00271c00(const char*, char*, int, void*, int*, void*);
 extern "C++" int __cdecl FUN_00271c00(unsigned, char *, int, int, unsigned *, void *);
-extern "C++" char __cdecl FUN_00271dd0(const unsigned short *source, unsigned int *length, unsigned int *end, int flags);
-extern "C++" unsigned char __cdecl FUN_00271b70(const char* input, int* consumed, int* parsed, int flags);
 extern "C" int __cdecl FUN_00271e40(unsigned int, unsigned short *, unsigned int, unsigned int, unsigned int *, unsigned int *);
 extern "C++" bool __cdecl FUN_00272070(const unsigned *source, int *srcBytes, int *units, int options);
 extern "C++" unsigned char __cdecl FUN_00272240(const char* input, int* consumed, int* parsed, int flags);
@@ -43,9 +41,7 @@ extern "C++" char __cdecl FUN_00271820(const char *, unsigned *, unsigned *, voi
 typedef unsigned int uint_26a6b0;
 extern "C++" unsigned char __cdecl FUN_00272070(const char* text, uint_26a6b0* bytes, uint_26a6b0* other, int mode);
 extern "C" int __cdecl FUN_002720b0(int parsed, char* output, int available, int mode, int* produced, int flags);
-extern "C++" char __cdecl FUN_00271b70(const char *, unsigned *, unsigned *, void *);
 extern "C++" int __cdecl FUN_002720b0(unsigned, unsigned *, int, int, unsigned *, void *);
-extern "C++" bool __cdecl FUN_00271dd0(const unsigned short *source, int *srcBytes, int *units, int options);
 extern "C++" unsigned char __cdecl FUN_00272070(const int* input, int* consumed, int* parsed, int flags);
 extern "C++" char __cdecl FUN_00272240(const char *, unsigned *, unsigned *, void *);
 extern "C++" bool __cdecl FUN_00271820(const char *source, int *srcBytes, int *units, int options);
@@ -168,7 +164,7 @@ extern "C" int __cdecl FUN_00269a80(const char* input, char* output, void* value
 
 
 // 0x00269b10 FUN_00269b10 (144 B): equivalent/0x00269b10.cpp
-// sym: _FUN_00269b10 @362902b637b6 @webb48d30c248 @v7c4278462a09
+// sym: _FUN_00269b10 @362902b637b6 @webb48d30c248 @v4243b75352a8
 // STATUS: equivalent (tools/equiv.py level 3: 65 inputs, branch coverage 10/10)
 // FUN_00269b10 @ 0x00269b10
 // equiv-conv: FUN_00269b10 eax ecx stack stack stack
@@ -182,7 +178,7 @@ extern "C" int __cdecl FUN_00269b10(const char* input, char* output, void* value
         }
         int consumed;
         const char* token;
-        if (!FUN_00271b70(input, &consumed, &token, context))
+        if (!(unsigned char)FUN_00271b70((const unsigned char *)input, &consumed, (int *)&token, context))
             return -2;
         int produced;
         int result = FUN_002716f0(token, output, capacity - used - 1,
@@ -316,7 +312,7 @@ extern "C" int __cdecl FUN_00269d70(const char* input, char* output, void* value
 
 
 // 0x00269e00 FUN_00269e00 (141 B): equivalent/0x00269e00.cpp
-// sym: ?FUN_00269e00@fn_fcad8d96@@YAHPBDPADI@Z @975b56fff67a @we6d04c17bb6b @v8cd37a6f393f
+// sym: ?FUN_00269e00@fn_fcad8d96@@YAHPBDPADI@Z @975b56fff67a @we6d04c17bb6b @ve72f0bd661b2
 // STATUS: equivalent (tools/equiv.py level 3: 228 inputs, branch coverage 8/8)
 // FUN_00269e00 @ 0x00269e00
 // equiv-conv: FUN_00269e00 eax stack stack
@@ -326,7 +322,7 @@ int __cdecl FUN_00269e00(const char* source, char* destination, uint_269e00 capa
     uint_269e00 bytes;
     uint_269e00 other;
     while (*source) {
-        if (!FUN_00271b70(source, &bytes, &other, 0))
+        if (!(unsigned char)FUN_00271b70((const unsigned char *)source, (int *)&bytes, (int *)&other, 0))
             return -1;
         if (copied + bytes > capacity - 1)
             break;
@@ -367,7 +363,7 @@ extern "C" int __cdecl FUN_00269e90(const char* source, char* dest, int mode, in
 
 
 // 0x00269f20 FUN_00269f20 (144 B): equivalent/0x00269f20.cpp
-// sym: _FUN_00269f20 @5ad2d7753212 @wae3b368f0f6a @vcd760d6adcfe
+// sym: _FUN_00269f20 @5ad2d7753212 @wae3b368f0f6a @v19b590f5d5cd
 // STATUS: equivalent (tools/equiv.py level 3: 65 inputs, branch coverage 10/10)
 // FUN_00269f20 @ 0x00269f20
 // equiv-conv: FUN_00269f20 eax ecx stack stack stack
@@ -381,7 +377,7 @@ extern "C" int __cdecl FUN_00269f20(const char* input, char* output, void* value
         }
         int consumed;
         const char* token;
-        if (!FUN_00271b70(input, &consumed, &token, context))
+        if (!(unsigned char)FUN_00271b70((const unsigned char *)input, &consumed, (int *)&token, context))
             return -2;
         int produced;
         int result = FUN_00271c00(token, output, capacity - used - 1,
@@ -400,13 +396,12 @@ extern "C" int __cdecl FUN_00269f20(const char* input, char* output, void* value
 } // namespace fn_fcad8d96
 
 // 0x00269fb0 FUN_00269fb0 (160 B): equivalent/0x00269fb0.cpp [wrapped: compile error in a shared declaration (C2732)]
-// sym: _FUN_00269fb0 @8c3e44be8b6a @wfee119760126 @v29303498e5f6
+// sym: _FUN_00269fb0 @8c3e44be8b6a @wfee119760126 @v249fee929f5e
 namespace fn_00269fb0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_00269fb0 @ 0x00269fb0
 // FUN_00269fb0 converts a string of 16-bit code units to bytes, one decoded unit at a time
 typedef unsigned short wchar16_269fb0;
-extern "C++" char __cdecl FUN_00271dd0(const wchar16_269fb0 *, unsigned *, unsigned *, void *);
 extern "C++" int __cdecl FUN_00271c00(unsigned, char *, int, int, unsigned *, void *);
 
 // equiv-conv: FUN_00269fb0 eax ecx stack stack stack
@@ -523,7 +518,7 @@ extern "C" int __cdecl FUN_0026a180(const char* input, char* output, void* value
 
 
 // 0x0026a210 FUN_0026a210 (138 B): equivalent/0x0026a210.cpp
-// sym: _FUN_0026a210 @00df21131ae2 @w4e429e8a9750 @v257b6874a97a
+// sym: _FUN_0026a210 @00df21131ae2 @w4e429e8a9750 @v3a59ca6d5bba
 // STATUS: equivalent (tools/equiv.py level 3: 137 inputs, branch coverage 8/8)
 // FUN_0026a210 @ 0x0026a210
 // equiv-conv: FUN_0026a210 eax stack stack
@@ -585,7 +580,7 @@ extern "C" int __cdecl FUN_0026a2a0(const char *source, char *destination, int m
 namespace fn_fcad8d96 {
 
 // 0x0026a350 FUN_0026a350 (165 B): equivalent/0x0026a350.cpp
-// sym: _FUN_0026a350 @d6ba934d1661 @w938370657a72 @v9da7a5ea3442
+// sym: _FUN_0026a350 @d6ba934d1661 @w938370657a72 @v0d860ef23c17
 // STATUS: equivalent (tools/equiv.py level 3: 75 inputs, branch coverage 12/12)
 // FUN_0026a350 @ 0x0026a350
 // equiv-conv: FUN_0026a350 eax ecx stack stack stack
@@ -595,7 +590,7 @@ extern "C" int __cdecl FUN_0026a350(const char* source, char* dest, int mode, in
     int written = 0;
     while (*source) {
         struct { int parsed; int consumed; int produced; } v;
-        if (!FUN_00271b70(source, &v.consumed, &v.parsed, flags))
+        if (!(unsigned char)FUN_00271b70((const unsigned char *)source, &v.consumed, &v.parsed, (void *)(hulk_intptr)flags))
             return -2;
         int result = FUN_00271e40((int)(v.parsed), (unsigned short *)(char *)dest, (int)(capacity - written - 2), (int)mode, (unsigned int *)(int *)(&v.produced), (unsigned int *)(hulk_uintptr)(int)flags);
         if (result != 0) {
@@ -614,12 +609,11 @@ extern "C" int __cdecl FUN_0026a350(const char* source, char* dest, int mode, in
 } // namespace fn_fcad8d96
 
 // 0x0026a400 FUN_0026a400 (149 B): equivalent/0x0026a400.cpp [wrapped: compile error in a shared declaration (C2732)]
-// sym: _FUN_0026a400 @0e6500943c51 @w41a5eca42926 @v5443bc21bf94
+// sym: _FUN_0026a400 @0e6500943c51 @w41a5eca42926 @v1bf7a22e96b2
 namespace fn_0026a400 {
 // STATUS: equivalent (tools/equiv.py level 3: 68 inputs, branch coverage 10/10)
 // FUN_0026a400 @ 0x0026a400
 typedef unsigned short wchar16_26a400;
-extern "C++" char __cdecl FUN_00271dd0(const wchar16_26a400 *, unsigned *, unsigned *, void *);
 extern "C" int __cdecl FUN_00271e40(unsigned int, unsigned short *, unsigned int, unsigned int, unsigned int *, unsigned int *);
 
 // equiv-conv: FUN_0026a400 eax ecx stack stack stack
@@ -781,7 +775,7 @@ extern "C" int __cdecl FUN_0026a750(const char* source, char* dest, int mode, in
 
 
 // 0x0026a800 FUN_0026a800 (165 B): equivalent/0x0026a800.cpp
-// sym: _FUN_0026a800 @af01fde54910 @we48cf00a1a3f @v6b2129307f0a
+// sym: _FUN_0026a800 @af01fde54910 @we48cf00a1a3f @v79e87cf95756
 // STATUS: equivalent (tools/equiv.py level 3: 73 inputs, branch coverage 12/12)
 // FUN_0026a800 @ 0x0026a800
 // equiv-conv: FUN_0026a800 eax ecx stack stack stack
@@ -790,7 +784,7 @@ extern "C" int __cdecl FUN_0026a800(const char *source, unsigned *destination, i
     int used = 0;
     while (*source) {
         struct { unsigned auxiliary, consumed, written; } l;
-        if (!FUN_00271b70(source, &l.consumed, &l.auxiliary, options)) return -2;
+        if (!(unsigned char)FUN_00271b70((const unsigned char *)source, (int *)&l.consumed, (int *)&l.auxiliary, options)) return -2;
         int result = FUN_002720b0(l.auxiliary, destination, capacity - used - 4, input, &l.written, options);
         if (result != 0) {
             if (result == -1) *destination = 0;
@@ -806,7 +800,7 @@ extern "C" int __cdecl FUN_0026a800(const char *source, unsigned *destination, i
 
 
 // 0x0026a8b0 FUN_0026a8b0 (165 B): equivalent/0x0026a8b0.cpp
-// sym: _FUN_0026a8b0 @a758aaddf70a @w240c96c7a61f @v739abc164875
+// sym: _FUN_0026a8b0 @a758aaddf70a @w5b7002964345 @v8885d35bce73
 // STATUS: equivalent (tools/equiv.py level 3: 76 inputs, branch coverage 12/12)
 // FUN_0026a8b0 @ 0x0026a8b0
 // equiv-conv: FUN_0026a8b0 eax ecx stack stack stack
@@ -817,7 +811,7 @@ extern "C" int __cdecl FUN_0026a8b0(const unsigned short *source, char *destinat
     struct { int units; int srcBytes; int written; } r;
     int used = 0;
     while (*source) {
-        if (!FUN_00271dd0(source, &r.srcBytes, &r.units, options))
+        if (!FUN_00271dd0(source, (unsigned *)&r.srcBytes, (unsigned *)&r.units, (void *)(hulk_intptr)options))
             return -2;
         int result = FUN_002720b0(r.units, destination, capacity - used - 4, mode, &r.written, options);
         if (result) {
@@ -969,7 +963,7 @@ extern "C" int __cdecl FUN_0026abf0(const char *text, char *output, int options,
 
 
 // 0x0026ac80 FUN_0026ac80 (144 B): equivalent/0x0026ac80.cpp
-// sym: _FUN_0026ac80 @31034865da1c @w12465781a89a @veceee295581d
+// sym: _FUN_0026ac80 @31034865da1c @w12465781a89a @vcf64a16f4424
 // STATUS: equivalent (tools/equiv.py level 3: 65 inputs, branch coverage 10/10)
 // FUN_0026ac80 @ 0x0026ac80
 // equiv-conv: FUN_0026ac80 eax ecx stack stack stack
@@ -983,7 +977,7 @@ extern "C" int __cdecl FUN_0026ac80(const char* input, char* output, void* value
         }
         int consumed;
         const char* token;
-        if (!FUN_00271b70(input, &consumed, &token, context))
+        if (!(unsigned char)FUN_00271b70((const unsigned char *)input, &consumed, (int *)&token, context))
             return -2;
         int produced;
         int result = FUN_002722b0(token, output, capacity - used - 1,
@@ -1002,13 +996,12 @@ extern "C" int __cdecl FUN_0026ac80(const char* input, char* output, void* value
 } // namespace fn_fcad8d96
 
 // 0x0026ad10 FUN_0026ad10 (160 B): equivalent/0x0026ad10.cpp [wrapped: compile error in a shared declaration (C2732)]
-// sym: _FUN_0026ad10 @b9a1197ec011 @w252b2313290b @vb61823183662
+// sym: _FUN_0026ad10 @b9a1197ec011 @w252b2313290b @v07248614d1d6
 namespace fn_0026ad10 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_0026ad10 @ 0x0026ad10
 // FUN_0026ad10 converts a string of 16-bit code units to bytes, one decoded unit at a time
 typedef unsigned short wchar16_26ad10;
-extern "C++" char __cdecl FUN_00271dd0(const wchar16_26ad10 *, unsigned *, unsigned *, void *);
 extern "C" int __cdecl FUN_002722b0(unsigned, char *, int, int, unsigned *, void *);
 
 // equiv-conv: FUN_0026ad10 eax ecx stack stack stack
@@ -1176,7 +1169,7 @@ extern "C" int __cdecl FUN_0026b000(const char* source, char* dest, int mode, in
 
 
 // 0x0026b090 FUN_0026b090 (144 B): equivalent/0x0026b090.cpp
-// sym: _FUN_0026b090 @2e3570af2467 @wa0b3d27b0c17 @va3675fbfccdd
+// sym: _FUN_0026b090 @2e3570af2467 @wa0b3d27b0c17 @v2ea2bf3c1f12
 // STATUS: equivalent (tools/equiv.py level 3: 65 inputs, branch coverage 10/10)
 // FUN_0026b090 @ 0x0026b090
 // equiv-conv: FUN_0026b090 eax ecx stack stack stack
@@ -1190,7 +1183,7 @@ extern "C" int __cdecl FUN_0026b090(const char* input, char* output, void* value
         }
         int consumed;
         const char* token;
-        if (!FUN_00271b70(input, &consumed, &token, context))
+        if (!(unsigned char)FUN_00271b70((const unsigned char *)input, &consumed, (int *)&token, context))
             return -2;
         int produced;
         int result = FUN_00271870(token, output, capacity - used - 1,

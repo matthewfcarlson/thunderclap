@@ -2469,7 +2469,7 @@ bool Fighter_39440::FUN_00039440(Event_39440 *ev, void *out, int *result, char f
 
 
 // 0x000396a0 FUN_000396a0 (1462 B): equivalent/0x000396a0.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?F@Picker@fn_000396a0@@QAEPAUThing_396a0@2@MMH@Z @03136105d84b @w3ab900913270
+// sym: ?F@Picker@fn_000396a0@@QAEPAUThing_396a0@2@MMH@Z @64ce2e57f40c @w7e6db0bd39a9 @v60512883847b
 namespace fn_000396a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 4020 inputs, branch coverage 69/78, incomplete)
 // FUN_000396a0 @ 0x000396a0
@@ -2641,10 +2641,10 @@ Thing_396a0 *Picker::F(float x, float z, int minScore)
         V3_396a0 outB;
     } fr;
 
-    float len = (float)sqrt(x * x + z * z);
+    hulk_freg len = (hulk_freg)sqrt((hulk_freg)x * x + (hulk_freg)z * z);  // compared and inverted from st (D80)
     if (len <= 0.0f)
         return 0;
-    float inv0 = 1.0f / len;
+    hulk_freg inv0 = (hulk_freg)1.0f / len;
     x = x * inv0;
     z = z * inv0;
     fr.cam = FUN_001c3d90()->inner->FUN_001c19a0()->v13();
@@ -2700,28 +2700,35 @@ Thing_396a0 *Picker::F(float x, float z, int minScore)
             bl = score2 >= 50;
         }
         fr.W.FUN_0022d240(&fr.T, fr.cam);
-        fr.dA = (float)atan2(fr.W.x, fr.W.z) - fr.A;
-        fr.dB = (float)atan2(fr.W.y, fr.W.z) - fr.B;
-        fr.d = (float)sqrt(fr.dB * fr.dB + fr.dA * fr.dA);
-        if (fr.d > 4.71238899f) {
+        // the differences from the unrounded atan2; dB and the length used from st as well (D80)
+        fr.dA = atan2(fr.W.x, fr.W.z) - fr.A;
+        hulk_freg dB = atan2(fr.W.y, fr.W.z) - fr.B;
+        fr.dB = dB;
+        hulk_freg d = (hulk_freg)sqrt(dB * fr.dB + (hulk_freg)fr.dA * fr.dA);
+        fr.d = d;
+        if (d > 4.71238899f) {
             if (!bl)
                 continue;
         }
-        float u, v;
+        // u, v, dot and the new angle stay in st (D80): u from the unrounded quotient, v from the stored inv, and the
+        // angle compared before its store rounds it
+        hulk_freg u, v;
         if (fr.d > 0.0f) {
-            fr.inv = 1.0f / fr.d;
-            u = fr.inv * fr.dA;
+            hulk_freg q = (hulk_freg)1.0f / fr.d;
+            fr.inv = q;
+            u = q * fr.dA;
             v = fr.inv * fr.dB;
         } else {
             u = 0.0f;
             v = 0.0f;
         }
-        float dot = u * x + v * z;
+        hulk_freg dot = u * x + v * z;
         if (dot < 0.0f && !bl)
             continue;
         static float halfPi = HalfPi();
-        fr.d = fr.d - dot * halfPi;
-        if (!(fr.d < fr.bestAngle) && !fr.flag && !bl)
+        hulk_freg nd = fr.d - dot * halfPi;
+        fr.d = nd;
+        if (!(nd < fr.bestAngle) && !fr.flag && !bl)
             continue;
         char ok = 1;
         if (th->type == 1) {
@@ -5007,6 +5014,14 @@ class Function3 : public Function {
     virtual void vfunc_1();
     virtual void vfunc_2(int, void*, int);
 };
+#if defined(HULK_PTR64)
+// (script2, stop 6) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells
+void Function3::vfunc_2(int, void* arg, int) {
+    struct Args_ { const char* a0; const char* a1; float a2; };
+    const Args_* a = (const Args_*)arg;
+    mFn(a->a0, a->a1, a->a2);
+}
+#else
 void Function3::vfunc_2(int, void* arg, int) {
     volatile unsigned long* p = (volatile unsigned long*)arg;
     hulk_ulongptr a = p[0];
@@ -5014,6 +5029,7 @@ void Function3::vfunc_2(int, void* arg, int) {
     hulk_ulongptr b = p[1];
     mFn((const char*)a, (const char*)b, *(float*)&c);
 }
+#endif
 } // namespace fn_0003f010
 
 

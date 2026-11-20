@@ -20,10 +20,20 @@ struct Closure6_bfef0 : hulk_script::FunctionGenView {
     hulk_intptr f_20;
     void vfunc_2(void* __p0, void* __p1, void* __p2);
 };
+#if defined(HULK_PTR64)
+// (script2, stop 6) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells
+void Closure6_bfef0::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Args_ { const char* a0; const char* a1; const char* a2; const char* a3; int a4; int a5; };
+    const Args_* a = (const Args_*)__p1;
+    ((*(Obj_**)&this->f_20)->*(*(void (Obj_::**)(const char*, const char*, const char*, const char*, int, int))&this->f_1c))(a->a0, a->a1, a->a2, a->a3, a->a4, a->a5);
+}
+#else
 void Closure6_bfef0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; const int * args = (const int *)__p1; void * unused2 = (void *)__p2;
 
     ((*(CFEManager_bfef0 * *)&this->f_20)->*(*(void (CFEManager_bfef0::**)(const char *, const char *, const char *, const char *, int, int))&this->f_1c))((const char *)args[0], (const char *)args[1], (const char *)args[2], (const char *)args[3], args[4], args[5]);
 }
+#endif
 } // namespace fn_000bfef0
 #if defined(HULK_PTR64)
 // (script2) natively gen's template still has this vftable slot (its destructor specializations emit the

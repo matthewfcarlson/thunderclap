@@ -501,7 +501,8 @@ def macos_system_names(arch="arm64"):
 SHIM_DIR = "src/platform/sdl/xdk"
 SHIM_SKIP = ("startup.cpp", "replay_hooks.cpp")
 SHIM_HOST = ["src/platform/sdl/host/host_crt_posix.cpp", "src/platform/sdl/host/shim_posix.cpp"]
-REPLAY_SRCS = ["src/platform/sdl/host/replay_native.cpp"]   # (the recording reader: input/hulk_input.cpp includes it)
+REPLAY_SRCS = ["src/platform/sdl/host/replay_native.cpp",   # (the recording reader: input/hulk_input.cpp includes it)
+               "src/platform/sdl/host/save_selftest.cpp"]   # (drive1, D141) the save round trip (native_hooks.h)
 SDL_SRCS = ["src/platform/sdl/audio/hulk_audio.cpp", "src/platform/sdl/audio/xadpcm.cpp",
             "src/platform/sdl/audio/reverb.cpp", "src/platform/sdl/input/hulk_input.cpp", "src/platform/sdl/fs/hulk_fs.cpp",
             "src/platform/sdl/fs/hulk_saves.cpp", "src/platform/sdl/movies/bink_player.cpp",

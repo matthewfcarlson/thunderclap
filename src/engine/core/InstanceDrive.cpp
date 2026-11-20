@@ -5,6 +5,7 @@
 #include "decls/data/engine/core.h"
 #include "decls/data/records.h"
 #include "decls/instance_drive.h"
+#include "decls/save_game.h"
 #include "gen/core.h"
 #define TREE_TU_BEGIN namespace fn_ff53bcc9 {
 #define TREE_TU_END }
@@ -1100,31 +1101,38 @@ void InstanceDrive_276ec0::f34(int* p, int a, int b, int c, int d, int e, int f,
 } // namespace fn_ff53bcc9
 
 // 0x00276f00 core::InstanceDrive::vfunc_35 (193 B): equivalent/0x00276f00.cpp [wrapped: conflict: FUN_00275d50; core::InstanceDrive]
-// sym: ?vfunc_35@InstanceDrive@core@fn_00276f00@@QAEPAUFile_276f00@3@PAPAU43@PBDIIIII@Z @719987e34b7d @w91cc8d0b6421 @v9b6f60a357ae
+// sym: ?vfunc_35@InstanceDrive@core@fn_00276f00@@QAEPAUFUN_002763a0@3@PAPAU43@PBDIIPAUGameSaveImage@@II@Z @35e4f662f01f @wcbcde6c8f788 @v788339dac3b6
+inline void* operator new(size_t, void* p) { return p; }   // (drive1) the save File's placement construction
 namespace fn_00276f00 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // core::InstanceDrive::vfunc_35 @ 0x00276f00
 struct Drive {
  virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual void slot4(); virtual void slot5(); virtual signed char slot6();
 };
-struct File_276f00 {
- File_276f00* FUN_002763a0(Drive*, const char*, unsigned, unsigned, unsigned, unsigned, unsigned);
+// (drive1, D141) core::File's save constructor 0x002763a0 (File.cpp), as a constructor of a record view named by its
+// address, so the native link binds it (a member function spelling returns a pointer, the constructor nothing:
+// refused); the save's image is a pointer (decls/save_game.h)
+struct FUN_002763a0 : CoreFile {
+ FUN_002763a0(Drive*, const char*, unsigned, unsigned, GameSaveImage*, unsigned, unsigned);
 };
+typedef FUN_002763a0 File_276f00;
 extern void __cdecl FUN_002697c0(const char*, char*, char*, char**, const char**);   // (x64t12) the results are pointers
 extern File_276f00* __cdecl FUN_00275d50(unsigned);
 namespace core {
+// (drive1, D141) decls/instance_drive.h's words (a 12-byte pad put `drive` 12 bytes early natively)
 struct InstanceDrive {
- char padding[12]; Drive* drive;
- File_276f00* vfunc_35(File_276f00**, const char*, unsigned, unsigned, unsigned, unsigned, unsigned);
+ void* vftable; void* mutableVftable; int refs; Drive* drive; int priority; int pending; int status; unsigned int handle; unsigned char active;
+ File_276f00* vfunc_35(File_276f00**, const char*, unsigned, unsigned, GameSaveImage*, unsigned, unsigned);
 };
-File_276f00* InstanceDrive::vfunc_35(File_276f00** output, const char* input, unsigned a, unsigned b, unsigned c, unsigned d, unsigned e) {
+HULK_INSTANCE_DRIVE_SAME(InstanceDrive);
+File_276f00* InstanceDrive::vfunc_35(File_276f00** output, const char* input, unsigned a, unsigned b, GameSaveImage* c, unsigned d, unsigned e) {
  const char* first=0; char* second=0;
  char small[20]; char large[260];
  FUN_002697c0(input,large,small,&second,&first);
  const char* selected=second;
  if (drive->slot6()<0) selected=first;
  File_276f00* result=FUN_00275d50(0x168);
- if(result) result=result->FUN_002763a0(drive,selected,a,b,c,d,e);
+ if(result) result=new (result) FUN_002763a0(drive,selected,a,b,c,d,e);
  *output=result;
  return result;
 }
@@ -1133,7 +1141,7 @@ File_276f00* InstanceDrive::vfunc_35(File_276f00** output, const char* input, un
 
 
 // 0x00276fd0 core::InstanceDrive::vfunc_36 (59 B): matches/0x00276fd0.cpp [wrapped: conflict: core::InstanceDrive]
-// sym: ?vfunc_36@InstanceDrive@core@fn_00276fd0@@UAEXPAXIIIIII@Z
+// sym: ?vfunc_36@InstanceDrive@core@fn_00276fd0@@UAEXPAXPBDIIPAUGameSaveImage@@II@Z
 namespace fn_00276fd0 {
 typedef unsigned int U_276fd0;
 namespace core {
@@ -1174,7 +1182,8 @@ class InstanceDrive {
     virtual void f32();
     virtual void f33();
     virtual void f34();
-    virtual void vfunc_36(void*, U_276fd0, U_276fd0, U_276fd0, U_276fd0, U_276fd0, U_276fd0);
+    // (drive1, D141) slot 35's arguments: the file's slot, the save's name, two words, its image (decls/save_game.h), two words
+    virtual void vfunc_36(void*, const char*, U_276fd0, U_276fd0, GameSaveImage*, U_276fd0, U_276fd0);
 };
 class Obj_276fd0 {
   public:
@@ -1201,7 +1210,7 @@ class Obj_276fd0 {
     virtual void u();
     virtual void v();
 };
-void InstanceDrive::vfunc_36(void* p, U_276fd0 a, U_276fd0 b, U_276fd0 c, U_276fd0 d, U_276fd0 e, U_276fd0 f) {
+void InstanceDrive::vfunc_36(void* p, const char* a, U_276fd0 b, U_276fd0 c, GameSaveImage* d, U_276fd0 e, U_276fd0 f) {
     this->vfunc_36(p, a, b, c, d, e, f);
     Obj_276fd0* o = *(Obj_276fd0**)p;
     if (o)

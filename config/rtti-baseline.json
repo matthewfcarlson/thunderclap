@@ -1,7 +1,7 @@
 {
  "comment": "integ3 9a: RTTI type descriptors referenced by the tree's code whose names are not the game's (native dynamic_cast/typeid fail on them). Only shrinks (x64_gate.py check --update-baseline lowers; rtti-accept adds, with a reason).",
  "seed_why": "integ3 9a: non-exact at 19ddec138 (cast sites: find2's castscan family, sweep2 fixing; complete object locators: rev5 R2)",
- "total": 3457,
+ "total": 3451,
  "tus": {
   "src/engine/audio/ChannelSendVolumeFadeBehaviour.cpp": {
    "col:?AUSeqActionChannelSendVolumes_24f230@fn_0024f230@@|?AUSeqActionChannelSendVolumes_24f230@fn_0024f230@@": 1,
@@ -273,12 +273,6 @@
    "col:?AVXboxDrive@fn_f30ddaac@@|?AVDrive@fn_f30ddaac@@": 2,
    "col:?AVXboxDrive@fn_f30ddaac@@|?AVIBase@fn_f30ddaac@@": 2,
    "col:?AVXboxDrive@fn_f30ddaac@@|?AVXboxDrive@fn_f30ddaac@@": 2
-  },
-  "src/engine/core/File.cpp": {
-   "col:?AVFile@core@fn_002763a0@@|?AVIFileBase@core@fn_002763a0@@": 2,
-   "col:?AVFile@core@fn_002763a0@@|?AVIMutable@core@fn_002763a0@@": 2,
-   "col:?AVIFileBase@core@fn_002763a0@@|?AVIFileBase@core@fn_002763a0@@": 1,
-   "col:?AVIMutable@core@fn_002763a0@@|?AVIMutable@core@fn_002763a0@@": 1
   },
   "src/engine/core/MemoryPool.cpp": {
    "col:?AVMemoryPool@core@fn_00270010@@|?AVIMemoryAllocator@core@fn_00270010@@": 2,

@@ -1687,6 +1687,84 @@ blocks fight::Action's whole family: the records come first there.
   that destructor emits gen's vftable for X natively. Its slot 2 (`X::vfunc_2`) then has to be defined: the converted
   invokes keep a native-only specialization that forwards to the record's function.
 
+## drive1 (D141, 2026-11-19): the native save round trip
+
+- The save path from CMemoryCardManager down to the SDL shim now runs on arm64 macOS. A 0xbe8-byte save goes through
+  the game's 0x0008cbe0 and the InstanceDrive's open, core::File's write and commit, and XboxSaveDrive's signed 8 KiB
+  blocks. It is then read back through the same open and core::File's read, with the signature check, and the data
+  comes back identical. The new host test tests/native_host/save_roundtrip_test.py drives this through
+  src/platform/sdl/host/save_selftest.cpp, an entry hook on 0x0008c470 that only acts under HULK_SAVE_SELFTEST=1.
+- Each break had the same shape: a value the 32-bit code passed as an int and natively had to be a pointer, a 32-bit
+  view of a record, or a callee declared with a different IR signature from its definition. Examples:
+  - the save's name, data, image and buffer were `unsigned` in vfunc_9 / 12 / 13 and in 0x0027a370 / 0x0027a460;
+  - the request's file (SaveGameOpenRequest, the save File constructor 0x002763a0, InstanceDrive slot 35 / 36);
+  - XDK calls declared with int handles (now decls/save_xdk.h, one declaration each);
+  - `bool` against `unsigned char` returns and an `int` against `unsigned char` parameter.
+  The native link refuses the last kind at the IR level, even where native_unbound's register-class check calls them
+  compatible.
+- Lessons:
+  - a constructor called through a class named by its address (`struct FUN_<addr> : Record`) does not bind by the
+    address in its name natively ("special member of a class named by address"); the Wine map binds it by name;
+  - unifying a callee's declaration with a definition in the same TU lets MSVC 7.1 inline it (0x00278ef0 lost its
+    call to 0x00278180); keep the caller's overload distinct;
+  - an equivalent block whose --wine run faults on an unterminated buffer may just have its locals in another order
+    than the original: vfunc_9's path ran into the return address until the title / path / drive and share / access /
+    byte-count locals were declared in the original's frame order (clang -O0 places them in declaration order, the
+    first one highest); its unproven-baseline entry is gone;
+  - a local native run after symbol changes needs the snapshot's report.json refreshed (build/drive1/scripts/fixreport.py)
+    and the binding map extended (augmap3 plus the class-named constructors by hand).
+
+## 2026-11-19 fix126 (D126): float group, first seven (D80)
+
+- 0x000396a0: u, v, dot and the new angle stay in st, and the angle is compared before its store. atan2's differences
+  come from the unrounded result.
+- 0x000a0330: the wrap loops run on a hulk_freg.
+- 0x000a4b90: speed, and the stored-then-compared angle, are hulk_freg.
+- 0x0011ce20: the dot is compared from st.
+- 0x002a5570: the inlined Smooth returns a hulk_freg (a TU-local helper names no external symbol).
+- 0x002b4710: nx/ny/nz are float. The original rounds them through the frame, and the second vertex adds the offsets
+  to the rounded values: the opposite of the triage's guess.
+- 0x0030aef0: `!(|v| >= |newVel|)`, so an unordered (NaN) compare subtracts, as the original's C0 test does.
+- tools/x87_order.py misses roundings inside TU-local helpers (a call leaf); check inlined helpers' return types by
+  hand.
+
+## 2026-11-19 script2 3: the Lua dispatcher's native argument cells (find3's start-up stop 6)
+
+- **The dispatcher 0x001d22a0 packs each argument into a 4-byte cell; natively the invokes read pointers as 8 bytes.**
+  Closure4<CSoundVoiceManager,...>::vfunc_2 read its three `char*` from `VoiceArgs { char* first, second, third;
+  int fourth; }`: at 0/8/16 natively, but the dispatcher wrote them at 0/4/8, so CB_001f30e0 received
+  name = 0x100000001.
+- **Fix (natural layout, native only):** under `#if HULK_PTR64` the dispatcher gives a pointer argument a
+  pointer-aligned, pointer-sized cell, so the buffer has exactly the natural native layout of the argument list (a C
+  struct of the argument types). The 32-bit code is unchanged, so its proofs stand.
+  - Hand-laid argument structs and all-pointer arrays already read that layout.
+  - 22 invokes read the second argument at `(char*)p + 4` after a pointer. They now read `+ sizeof(void*)`: the same
+    32-bit code, and they still MATCH.
+  - 8 invokes index int arrays to get pointers or pointer arrays to get floats, or call the bound function with the
+    32-bit cells punned (0x001b16b0, 0x0002d8c0, 0x0003f010, 0x000bfef0, 0x001bf5f0, 0x00094b10, 0x000ceb30,
+    0x000cec00). They get a native-only body that
+    reads a struct of the instantiation's types (`#if HULK_PTR64` ... `#else` the 32-bit body).
+- **Buffer size:** the largest native argument list is 56 bytes (0x0002cc10 / 0x0002ebc0 `pVsppsp`, 0x000be8f0
+  7 x `char*`, 0x001dfb80 `ppspVV`). It is within the 0x40-byte buffer, including the Vector writer 0x001d1f30's
+  this-relative bound.
+- **(script2) hack_IsFieldGoal: a `bool` declaration of a `char` definition does not bind natively.** CGame's
+  constructor 0x00087e80 declared 0x00096f40 as returning bool, but the definition returns char. MSVC 7.1 compiles
+  either the same, while natively i1 and i8 are different signatures, so it stayed unbound. Declared as defined, it binds.
+
+## 2026-11-19 integ3: D152 range contracts, D153 split pins, the queue's base commit
+
+- D152 (8b982fc60): a range contract (`HULK_PRE_GE(dt, 0.0f)` + `// pre: ge(arg4, 0)` + `// pre-callers:`) is enforced
+  natively (a trap) and repaired into in the checker. Expected follow-on: the callers of a contracted block pass it
+  values from their own fuzzed inputs; 0x000a75d0 (the caller of 0x9fb20) comes out `pre_violation_in_original` as soon
+  as 0x9fb20 is contracted (tau is the fuzzed global DAT_0049ec84). Each such caller needs its own contract, or a model
+  of the global (HULK_RANGE / HULK_RDATA with its census), before it can be proven.
+- D153 (345179548): a split of pushed words that only our own code makes is no evidence; a per-input set-aside of the
+  unpinned inputs made a real bug (0x00264050_msplit_noword) promotable, so the rule fails closed at the block.
+- A repair of a contract word must be applied after any directed patch of the same word (a dict update keeps the old
+  key's position): before D152 a patched input could undo the repair (a false failure only).
+- Coverage-ratio regress cases fail deterministically on mac1 with every checker (0x000ffef0_compare_chain,
+  0x002cb2b0_loop_exit_order, 0x003037f0_iterator_range; control 100463): a host difference, not load.
+
 ## 2026-11-18 data5: string-pointer lists the text rule cut (D128); bss records typed by records.h (D129)
 
 - **The text rule hid 689 pointer words in 45 items** (docs/data.md "String-pointer lists the text rule cut"). Name
