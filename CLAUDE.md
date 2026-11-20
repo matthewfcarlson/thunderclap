@@ -157,7 +157,9 @@ size to the x64 gate: write `sizeof(record)` (decl1). Before writing `sizeof(::G
 32-bit size with the literal: gen can be larger than the object (physics::CollisionSphere is 0x78 in gen, its constructor
 writes 0x48 and every allocation is 0x48); then use the decls record, and fix gen. A constructor view that pads
 fight::Track's words (`char pad[8]` after the vftable) puts the derived fields 4 bytes early natively: spell Track's
-`void*` and `int`. `tree_tu.py pin` without records resolves a block by name and can pick another function of the TU:
+`void*` and `int`. A Track's words are settled by its fight::Param registrations (each setter's store offset
+and Param kind: float, int, vector, name, script) and an Action's by its methods' views and destructor: check gen's
+fields against these before writing `sizeof(::Gen)`. `tree_tu.py pin` without records resolves a block by name and can pick another function of the TU:
 after moving a block's function into a local record, pin with `--records` naming the definition's own symbol (sweep3).
 Script bindings (Function / Method<N> / Closure<N>) use include/game/script_bind.h's records (`hulk_script::ScriptFunction`,
 `ScriptMethodN`, `ScriptClosure`, or a TU-local `VftOf` trait) with the game's vftables by address, never a local `virtual`
