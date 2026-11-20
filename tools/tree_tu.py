@@ -833,12 +833,62 @@ def views(path, recs, rec=None, wine=True):
 LEDGER = os.path.join(ROOT, "config", "proof-ledger.jsonl")
 
 
+REVOKED = os.path.join(ROOT, "config", "proof-revoked.jsonl")
+_REVOKED = {}
+
+
+LINE_KEY_FIELDS = ("addr", "mode", "code", "view", "checker", "job", "date", "n_inputs")
+
+
+def ledger_line_key(e):
+    """(integ4, D154; rev5) A ledger line's identity: a fixed tuple of the fields that identify a run (two runs of the
+    same code are two lines), stable when the line is re-serialized or gains a field."""
+    return hashlib.sha1(json.dumps([str(e.get(k)) for k in LINE_KEY_FIELDS]).encode()).hexdigest()[:20]
+
+
+def _revocations(path=None):
+    """(integ4, D154) ({ledger_line_key}, {(addr, mode, code, checker): why}) of config/proof-revoked.jsonl (re-read
+    when the file changes)."""
+    path = path or REVOKED
+    try:
+        st = os.stat(path)
+    except OSError:
+        return frozenset(), {}
+    k = (path, st.st_mtime_ns, st.st_size)
+    if _REVOKED.get("k") != k:
+        lines, runs = set(), {}
+        with open(path) as f:
+            for l in f:
+                l = l.strip()
+                if l.startswith("{"):
+                    r = json.loads(l)
+                    lines.update(r.get("lines", ()))
+                    for c in r.get("runs", ()):
+                        runs[(r["addr"], r["mode"], c[0], c[1])] = r.get("why")
+        _REVOKED.update(k=k, v=(frozenset(lines), runs))
+    return _REVOKED["v"]
+
+
+def revoked_lines(path=None):
+    return _revocations(path)[0]
+
+
+def revoked_run(e):
+    """(integ4, D154; rev5) The why of the revocation covering line E's (addr, mode, code, checker), or None: the same
+    code under the same checker proves nothing again (a host whose tools lag, an old checker kept), a fixed checker
+    (another digest) does."""
+    return _revocations()[1].get((e.get("addr"), e.get("mode"), e.get("code"), e.get("checker")))
+
+
 def ledger_line_proves(e):
     """(integ3, rev5) What a ledger line proves, one rule for every index (ledger_index, code_ledger_index) and the
     unproven ratchet: status equivalent and not marked unpromotable. A --wine line that passed wine_gate.judge under D38
     without equiv.py's coverage gate (promotable false) proves nothing until the lead rules on wine coverage (fails
-    closed: the materialize gate already refused those modes)."""
-    return e.get("promotable") is not False and e.get("status", "equivalent") == "equivalent"
+    closed: the materialize gate already refused those modes). (integ4, D154) A line config/proof-revoked.jsonl revokes
+    proves nothing either: the run is known unsound (a checker rule found since); only a new line proves that code again
+    (a fresh run of new code, or of the same code under the fixed checker: another record, another key)."""
+    return e.get("promotable") is not False and e.get("status", "equivalent") == "equivalent" and \
+        ledger_line_key(e) not in revoked_lines() and revoked_run(e) is None
 
 
 def ledger_index(path=None):
@@ -2138,8 +2188,14 @@ def hash_proven(path, results, addrs=None, dry_run=False, ledger=None, unproven_
             why = [(x, proves(x, kind, h, view)) for x in results.get(r["addr"], [])]
             good = [(x, w) for x, (ok, w) in why if ok]
             if good:
+                ent_ = ledger_entry(r["addr"], kind, h, view, good[0][0], tu)
+                rw_ = revoked_run(ent_)
+                if rw_ is not None:
+                    # (integ4, D154; rev5) the same code under a revoked checker: never written
+                    o[kind] = "unproven: the run's checker %s was revoked for this code (%s)" % (ent_.get("checker"), rw_)
+                    continue
                 o[kind] = good[0][1]
-                entries.append(ledger_entry(r["addr"], kind, h, view, good[0][0], tu))
+                entries.append(ent_)
                 o.setdefault("ledger", []).append(entries[-1])
             else:
                 o[kind] = "unproven: " + ("; ".join(w for _, (_, w) in why) or "no result for this block")
@@ -2253,6 +2309,11 @@ def main(argv=None):
     p.add_argument("addr")
     p.add_argument("--tu", required=True, help="the block's tree TU (its hashes are taken from its check)")
     p.add_argument("--modes", default="msvc,wine")
+    p.add_argument("--why", required=True)
+    p = sub.add_parser("revoke", help="(integ4, D154) revoke every ledger line that proves ADDR in MODE now (a run a later "
+                       "checker rule shows unsound): config/proof-revoked.jsonl, append-only")
+    p.add_argument("addr")
+    p.add_argument("--mode", required=True, choices=["msvc", "wine"])
     p.add_argument("--why", required=True)
     p = sub.add_parser("unproven-seed", help="(D126) seed config/unproven-baseline.json from a verify/materialize "
                        "checks.jsonl: every equivalent (addr, mode) whose code has no ledger line (once, when the gate "
@@ -2391,6 +2452,30 @@ def main(argv=None):
         return 0
     if a.cmd in ("unproven-accept", "unproven-seed") and not (a.why or "").strip():
         sys.exit("%s: --why must give a reason" % a.cmd)
+    if a.cmd == "revoke":
+        # (integ4, D154) append-only: no un-revoke; a fresh proof (another ledger line) is the only way back
+        if not (a.why or "").strip():
+            sys.exit("revoke: --why must give a reason")
+        addr = "0x%08x" % int(a.addr, 16)
+        lines = []
+        if os.path.exists(LEDGER):
+            for l in open(LEDGER):
+                l = l.strip()
+                if l.startswith("{"):
+                    e = json.loads(l)
+                    if e.get("addr") == addr and e.get("mode") == a.mode and ledger_line_proves(e):
+                        lines.append(e)
+        if not lines:
+            sys.exit("revoke: no ledger line proves %s %s" % (addr, a.mode))
+        rec = {"addr": addr, "mode": a.mode, "lines": sorted(ledger_line_key(e) for e in lines),
+               "codes": sorted({e.get("code") for e in lines}), "jobs": sorted({str(e.get("job")) for e in lines}),
+               "runs": sorted({(e.get("code"), e.get("checker")) for e in lines}),
+               "why": a.why.strip(), "by": "revoke",
+               "date": __import__("datetime").datetime.now().isoformat(timespec="seconds")}
+        with open(REVOKED, "a") as f:
+            f.write(json.dumps(rec, sort_keys=True) + "\n")
+        print("revoked", addr, a.mode, len(lines), "line(s):", rec["codes"])
+        return 0
     if a.cmd == "unproven-accept":
         # (rev5's R3) the hash comes from the block's check, the block must be an equivalent one and the mode unproven
         recs = check_tu(a.tu)

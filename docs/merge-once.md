@@ -260,6 +260,15 @@ counts and the main inconclusive causes. equiv.py's proof-sized runs draw until 
 Runs made with any EQUIV_ON / EQUIV_OFF switch prove nothing either. `--ledger FILE` reads and appends
 another ledger (tests, dry runs).
 
+(integ4, D154) **Revoked proofs.** A ledger line a later checker rule shows unsound (D153's audit: a `--wine` proof
+whose inputs took an argument split only our own code makes) is revoked with `tree_tu.py revoke ADDR --mode M --why
+TEXT`: every line proving ADDR in that mode is named in config/proof-revoked.jsonl (append-only, merge=union), by a
+stable key of the fields that identify a run (addr, mode, code, view, checker, job, date, n_inputs) and by its (code,
+checker). `ledger_line_proves`, the one rule every index uses, then refuses those lines and any line of the same code
+under the same checker (a host whose tools lag would reproduce the unsound proof); `hash --proven` refuses to write
+one. There is no un-revoke: a new run proves again, of new code or of the same code under the fixed checker (another
+digest). The block then needs `unproven-accept --why "D154: revoked, ..."` or a fresh proof (tests/test_revoke.py).
+
 ### Checks beyond the blocks (tool2, 2026-11-13)
 
 `check` and `verify` run three more checks (user decisions D9, D10, D12 of 2026-11-13); each fails the run like a

@@ -1955,3 +1955,12 @@ blocks fight::Action's whole family: the records come first there.
   their callers. MSVC code and checker views are unchanged, so no re-proofs.
 - Re-proven at 3,000 compared inputs (MSVC and Wine; hashes recorded by a queue job): 0x000fc060, 0x000c1790,
   0x000c1f70, 0x000c3900, 0x00088670, 0x000f7a80, and 0x001f1270 .. 0x001f16e0 (8 blocks).
+
+## 2026-11-20 integ4: D154, revoking unsound proofs
+- The D153 audit re-proved 149 --wine proofs under the fail-closed vsplit guard: 146 still prove, 0x00272df0 and
+  0x00296160 take splits only our own code makes, and 0x000b0a50 fails on inputs whose original rewrites its own
+  .rdata literals (fix126's EQUIV_SEEDS=1550 repro; an ro_write checker item). Their old ledger lines still proved
+  them and the ledger is append-only, so `unproven-accept` refused. `tree_tu.py revoke` now names unsound runs in
+  config/proof-revoked.jsonl. A key built from the whole JSON line would break the first time a line is
+  re-serialized, so the key is a fixed set of a run's identifying fields, plus the (code, checker) pair: a host
+  with lagging tools cannot re-create the unsound proof.
