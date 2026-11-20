@@ -381,7 +381,7 @@ CASES = {
     # per pair: counts of 1-4 still give 160 points and a run past the step budget. A round with counts of 0 or 1
     # where the pair loop's bound has no load to plant (26/46, 34 inputs -> 39/46, 79); a swapped coordinate in the
     # pair loop's result is caught
-    "0x001fe380_tiny_counts": ("equivalent", None, 0.8, {"n_inputs": 3000}),
+    "0x001fe380_tiny_counts": ("equivalent", None, 0.8, {"n_inputs": 3000, "time_budget": 1200}),   # (integ3: the default 120 s cut it under load: 38-32 of 46 edges by host speed)
     "0x001fe380_tiny_counts_wrong": ("fail", None, 0, {"n_inputs": 3000}),
     # round 11. `push 0; call [0x4de948]; ...; push ecx; call [esi+0x18]`: the global function pointer takes no
     # arguments (its other call sites push nothing), so the 0 is the virtual call's second argument. The stub had the
