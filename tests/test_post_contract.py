@@ -44,13 +44,64 @@ class T(unittest.TestCase):
         e64._LEDGER_IDX[:] = [set()]
         out = e64._post_of_text(BLK, {})
         self.assertNotIn(0x1f87e0, out)          # no proof of the current code: callers get the plain fill
-        e64._LEDGER_IDX[:] = [{("0x001f87e0", "msvc", "aaaaaaaaaaaa", "cccccccccccc")}]
-        out = e64._post_of_text(BLK, {})
+        import tree_tu
+        # (integ5) a ledger line holds its mode's own view; the pin's @v is the digest of the msvc and wine views
+        blk = BLK.replace("@vcccccccccccc", "@v" + tree_tu.view_digest("vm1", "vw1"))
+        both = {("0x001f87e0", "msvc", "aaaaaaaaaaaa", "vm1"), ("0x001f87e0", "wine", "bbbbbbbbbbbb", "vw1")}
+        e64._LEDGER_IDX[:] = [both]
+        out = e64._post_of_text(blk, {})
         self.assertIn(0x1f87e0, out)
         self.assertEqual(out["sym"]["?Find@Table@@QAE_NPAXPAXPAI@Z"], 0x1f87e0)     # by symbol too
-        e64._LEDGER_IDX[:] = [{("0x001f87e0", "msvc", "dddddddddddd", "cccccccccccc")}]     # an older code's proof
-        self.assertNotIn(0x1f87e0, e64._post_of_text(BLK, {}))
+        e64._LEDGER_IDX[:] = [{x for x in both if x[1] == "msvc"}]                  # one mode only: not the pin's view
+        self.assertNotIn(0x1f87e0, e64._post_of_text(blk, {}))
+        e64._LEDGER_IDX[:] = [(both - {("0x001f87e0", "wine", "bbbbbbbbbbbb", "vw1")}) |
+                              {("0x001f87e0", "wine", "bbbbbbbbbbbb", "vw2")}]
+        self.assertNotIn(0x1f87e0, e64._post_of_text(blk, {}))                     # another view of the same code
+        e64._LEDGER_IDX[:] = [{("0x001f87e0", "msvc", "dddddddddddd", "vm1"), ("0x001f87e0", "wine", "bbbbbbbbbbbb", "vw1")}]
+        self.assertNotIn(0x1f87e0, e64._post_of_text(blk, {}))                     # an older code's proof
+        e64._LEDGER_IDX[:] = [{("0x001f87e0", "msvc", "aaaaaaaaaaaa", "cccccccccccc")}]
+        self.assertNotIn(0x1f87e0, e64._post_of_text(BLK, {}))                     # (the old, wrong match: @v as a line view)
+        nw = blk.replace(" @wbbbbbbbbbbbb", "")                                    # no clang object: the msvc line alone
+        e64._LEDGER_IDX[:] = [{("0x001f87e0", "msvc", "aaaaaaaaaaaa", "vm1")}]
+        self.assertNotIn(0x1f87e0, e64._post_of_text(nw, {}))                      # (@v was the digest with a wine view)
+        nw2 = BLK.replace(" @wbbbbbbbbbbbb", "").replace("@vcccccccccccc", "@v" + tree_tu.view_digest("vm1", None))
+        self.assertIn(0x1f87e0, e64._post_of_text(nw2, {}))
         e64._LEDGER_IDX[:] = []
+
+    def test_index_uses_the_ledger_predicate(self):
+        """(integ5; rev5) passing is tree_tu.ledger_line_proves (via ledger_index): a revoked or non-promotable wine
+        line of the callee leaves its post unused."""
+        import json
+        import tempfile
+        from unittest import mock
+        import tree_tu
+        e64 = self.e64
+        blk = BLK.replace("@vcccccccccccc", "@v" + tree_tu.view_digest("vm1", "vw1"))
+        lm = {"addr": "0x001f87e0", "mode": "msvc", "code": "aaaaaaaaaaaa", "view": "vm1", "status": "equivalent",
+              "promotable": True, "checker": "c1", "job": "1"}
+        lw = dict(lm, mode="wine", code="bbbbbbbbbbbb", view="vw1", job="2")
+        d = tempfile.mkdtemp()
+        led, rev = os.path.join(d, "ledger.jsonl"), os.path.join(d, "revoked.jsonl")
+
+        def index(lines, revoked=()):
+            with open(led, "w") as f:
+                f.writelines(json.dumps(e) + "\n" for e in lines)
+            with open(rev, "w") as f:
+                for e in revoked:
+                    f.write(json.dumps({"addr": e["addr"], "mode": e["mode"], "codes": [e["code"]], "by": "revoke",
+                                        "lines": [tree_tu.ledger_line_key(e)], "runs": [], "why": "t"}) + "\n")
+            tree_tu._REVOKED.clear()
+            e64._LEDGER_IDX[:] = []
+            return 0x1f87e0 in e64._post_of_text(blk, {})
+        try:
+            with mock.patch.object(tree_tu, "LEDGER", led), mock.patch.object(tree_tu, "REVOKED", rev):
+                self.assertTrue(index([lm, lw]))
+                self.assertFalse(index([lm, lw], revoked=[lw]))                     # the wine proof revoked
+                self.assertFalse(index([lm, dict(lw, promotable=False)]))           # not promotable
+                self.assertFalse(index([lm, dict(lw, status="fail")]))              # a recorded failure
+        finally:
+            tree_tu._REVOKED.clear()
+            e64._LEDGER_IDX[:] = []
 
 
 if __name__ == "__main__":

@@ -2960,8 +2960,8 @@ _LEDGER_IDX = []
 
 
 def _post_proven(addr, pins):
-    """(integ4, post; rev5) Does the proof ledger hold a passing line for ADDR's current code in some mode (PINS: the
-    `// sym:` line's ` @msvc @wclang @vview` hashes)?"""
+    """(integ4, post; rev5) Does the proof ledger hold passing lines for ADDR's current code and view (PINS: the
+    `// sym:` line's ` @msvc @wclang @vview` hashes): both modes, as the pin's view covers both?"""
     import tree_tu
     if not _LEDGER_IDX:
         _LEDGER_IDX.append(tree_tu.ledger_index() or set())
@@ -2976,7 +2976,16 @@ def _post_proven(addr, pins):
         elif h.startswith("@"):
             code["msvc"] = h[1:]
     a = "0x%08x" % addr
-    return any((a, m, c, view) in _LEDGER_IDX[0] for m, c in code.items() if c)
+    if view is None or not code["msvc"]:
+        return False
+    # (integ5) the pin's @v is tree_tu.view_digest(msvc view, wine view) while a ledger line holds its mode's own view:
+    # the current code and view are proven when a passing msvc line of the @ code and a passing wine line of the @w code
+    # (none when the block has no clang object) have views whose digest is the pin's (comparing @v with a line's view
+    # never matched: no tree block's post was used outside EQ64_OFF=postproof)
+    vms = {v for (a_, m_, c_, v) in _LEDGER_IDX[0] if a_ == a and m_ == "msvc" and c_ == code["msvc"]}
+    vws = {v for (a_, m_, c_, v) in _LEDGER_IDX[0] if a_ == a and m_ == "wine" and c_ == code["wine"]} \
+        if code["wine"] else {None}
+    return any(tree_tu.view_digest(vm, vw) == view for vm in vms for vw in vws)
 
 
 def post_lines_of(fn):
