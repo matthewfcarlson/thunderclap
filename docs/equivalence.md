@@ -18,9 +18,28 @@ Library: `equiv.verify(src, addr, symbol=None, flags=(), n_inputs=64, mapping=No
 returns the report dict. `seeds=[...]` (or `EQUIV_SEEDS=1,2` in the environment, whatever `--inputs` says) runs only those random
 inputs: a regression case for the one input in thousands that showed a bug. The exit status is 0 only for `equivalent`. A typical function takes 1–5 s
 (compile included; a `--wine` run also compiles with clang and takes longer); loops that run long on fuzzed inputs can take up to the 120 s level-3 budget. The
-budget is CPU time, so a loaded machine takes longer but gets the same result. `--time-budget S` changes it (slow
-functions need more to reach the 50 completed inputs `promotable` asks for). `--inputs N` raises the
-input cap to at least N.
+budget is counted in work, not time (integ3, workclock): every emulator run adds 680 units, 16 per emulated instruction
+and 130 per stubbed call (microseconds on mac2/studio, a fit over 128 tree blocks; equiv64: 2,640 per run and 1.18 per
+hook call), and a budget second is 10^6 units. The inputs drawn, the directed phases' shares and where a run stops
+therefore depend only on the inputs, never on the host: a slow host (mac1 is ~3.5x slower) takes longer and reaches the
+same inputs, coverage and verdict (it reached a fraction of them under the old CPU-time budget, and a regress case
+passed only because the budget ran out before input 839 of 0x000ffef0 showed its 1-ulp store). CPU time is only a
+safety cap, `EQUIV_WALL_CAP` (8) times the budget, and equiv64's per-run Unicorn timeout (`EQ64_RUN_SECONDS`) likewise:
+a run either stops is `unsupported`, class `time_cut_wall` (a difference found before it still fails), and a hang is
+decided by steps only. The knobs (`EQUIV_WORK_PER_SEC`, `EQUIV_WALL_CAP`, `EQ64_WORK_PER_SEC`, `EQ64_RUN_SECONDS`) join
+the report's `equiv_off` / `eq64_off` when set: such a run proves nothing. A re-fit of the constants is a checker change
+(`--selftest --update`, the reason in the commit). `--time-budget S` changes the budget (slow functions need more to
+reach the 50 completed inputs `promotable` asks for; a proof run keeps drawing until 3,000 are compared). `--inputs N`
+raises the input cap to at least N.
+
+`equiv.py --selftest` (integ3, hostcheck) runs config/equiv-selftest.json's cases (three coverage cases, two `--wine`
+float cases, one `--x64` case) and compares each run's summary exactly with the recorded one: status, class,
+promotable, inputs run / failed / inconclusive, the covered edges (counts and a hash of the uncovered set), statuses,
+work, a digest of the inputs drawn in order with what each gave, and the first difference. It refuses to run with any
+switch or budget knob set. `--selftest --update` re-records (a checker change that moves them on purpose, from a
+reference host). `tools/host_selftest.py submit` runs it as one pinned job per queue host; `apply` takes the `equiv`
+cap from a host whose run differs (build/jobs/hosts.json, which the daemon reloads without a restart; each change
+logged in build/jobs/daemon.log) and gives it back after a passing run. The lane that lands a checker commit runs both.
 
 ## Levels
 

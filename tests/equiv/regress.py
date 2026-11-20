@@ -202,8 +202,10 @@ CASES = {
     # source passes FUN_00025260's arguments in reverse: the failure the checker must now reach
     "0x001050d0_fstp_after_void_call": ("fail", "to 0x00025260: argument 1 is 0x00000000, expected 0x00000001"),
     # 22 name-hash compares (stub u64 vs a field): the directed phase tried every observation of one compare
-    # before the next got a turn, and string plants used the whole budget (82/122 edges)
-    "0x000ffef0_compare_chain": ("equivalent", None, 0.9, {"n_inputs": 3000, "time_budget": 1200}),
+    # before the next got a turn, and string plants used the whole budget (82/122 edges). (integ3, workclock) at
+    # 3,000 compared inputs, input 839 shows the MSVC object's 1-ulp store to this+0xc8 (the tree block's msvc mode
+    # is proof debt for it; fix126 holds the source fix): it passed only while the budget ran out first
+    "0x000ffef0_compare_chain": ("fail", "write to this+0xc8 before call #5", 0.9, {"n_inputs": 3000, "time_budget": 1200}),
     # `cmp eax, eax; je` after a loop (a compiler artefact): its not-taken side is dead, not uncovered (7/10 ->
     # 7/9 edges)
     "0x000e4470_self_compare": ("equivalent", None, 0.75),
@@ -1310,9 +1312,14 @@ X64_CASES = {
     "0x002fdc90_x64_rawint": ("equivalent", None, None, 50),
     # (x64t9, sitecasts) one allocator cast to two types in one body (the request ring's HulkLoadEntry*, the 256-byte
     # char* buffer): each allocation takes its own call site's cast (EQ64_OFF=sitecasts: the buffer's end read as a
-    # HulkLoadEntry array, a false layout difference, +256 against +128). What is left is `int`: a fuzzed count whose
-    # `n * sizeof(HulkLoadEntry)` wraps differently on the two targets (not a gating class)
-    "0x002656b0_x64_sitecasts": ("fail", "int", None, 50),
+    # HulkLoadEntry array, a false layout difference, +256 against +128). (integ3) Since x64t19 (e9d5d974f) the ring
+    # words are hulk_intptr* as in the tree (the case's int* stopped compiling against decls/loaders.h): the buffer is
+    # pointer words on both targets and the run is equivalent; the `int` difference it showed (a fuzzed count whose
+    # `n * sizeof(HulkLoadEntry)` wrapped differently) went with the old entry layout
+    "0x002656b0_x64_sitecasts": ("equivalent", None, None, 50),
+    # (integ3, rev5) _wrong: the 256-byte buffer cast to HulkLoadEntry* at its own site: typed by that cast, its end reads
+    # +256 against +128 (layout); the must-fail that shows each site's cast is the one used
+    "0x002656b0_x64_sitecasts_wrong": ("fail", "layout", "ringEnd", 0),
     # (x64eq) an adjustor thunk (`?f@C@@W3AEXXZ`) is paired with the 64-bit thunk of the same method (`W7EAA`), typed by
     # the method's declaration (was "function under test not found in the 64-bit object")
     "0x00268010_x64_thunk": ("equivalent", None, None, 50),

@@ -90,6 +90,23 @@ STACK_FILL = 0x5A5A5A5A
 RARE_HITS = 4               # directed inputs also re-drive branch sides taken by fewer inputs than this
 ARRAY_WINDOW = 16          # most bytes compared behind a scalar or unknown pointer (e.g. float v[4])
 POINTEE_WINDOW = 4096        # most bytes of a stack local passed by pointer that are compared at a call
+# (integ3, workclock) the run loop's budget is counted in work, not time: per emulator run, WORK_RUN units plus
+# WORK_STEP per emulated instruction and WORK_CALL per stubbed call (a fit of CPU time on mac2/studio over 128 tree
+# blocks: within 0.6x..1.35x of it for 90% of them), at WORK_PER_SEC units to a budget second. A host's speed changes how long a check takes, never which
+# inputs it drew or what they reached; CPU time is only a safety cap (WALL_CAP times the budget), and a run it cuts is
+# marked `time_cut_wall` (time-cut like any budget stop)
+WORK = [0]
+WORKN = {"runs": 0, "steps": 0, "writes": 0, "calls": 0, "unmapped": 0}   # (calibration: the parts)
+WORK_RUN, WORK_STEP, WORK_CALL = 680, 16, 130     # (microseconds on the reference hosts)
+WORK_PER_SEC = float(os.environ.get("EQUIV_WORK_PER_SEC", "0") or 0) or 1.0e6
+WALL_CAP = float(os.environ.get("EQUIV_WALL_CAP", "8"))
+# (rev5 2) these change how many inputs a budget reaches: a run with one set is another check and proves nothing (they
+# join the report's equiv_off, which tree_tu.proves and wine_gate.judge refuse; equiv64 puts its own in eq64_off)
+WORK_KNOBS = ("EQUIV_WORK_PER_SEC", "EQUIV_WALL_CAP", "EQ64_WORK_PER_SEC", "EQ64_RUN_SECONDS")
+
+
+def work_knobs_set():
+    return ["env:%s=%s" % (k, os.environ[k]) for k in WORK_KNOBS if os.environ.get(k, "") != ""]
 LONG_STEPS = 1000000        # step budget once every early input of the original ran out of 50k steps
 PROBE_STEPS = 8000000       # round 7: one input run this long tells long but finite code from runaway loops
 EARLY_STEPS = 256           # round 11: an original that returns within this many steps returned early
@@ -3884,7 +3901,8 @@ class Machine:
             b = arr.tobytes()
         if self.overlay:
             hits = [(a, v) for (e, a), v in self.overlay.items()
-                    if (e == epoch or e == "*" or (isinstance(e, tuple) and epoch > e[1])) and page <= a < page + PAGE]
+                    if (e == epoch or e == "*" or (isinstance(e, tuple) and epoch > e[1] and
+                                                  (len(e) < 3 or epoch <= e[2]))) and page <= a < page + PAGE]
             if hits:
                 buf = bytearray(b)
                 for a, v in hits:
@@ -4078,6 +4096,7 @@ class Run:
         self.ambig_calls = {}       # (round 22, vsplit) indirect call -> words pending before it, its pop a guess
         self.cpop = None
         self.vp = {}                # (round 21, vptrkeep) register -> (word address, value, epoch, calls so far, base entry)
+        self.vp_until = {}          # (integ3, objkeep end) word address -> the last epoch a kept object pointer holds in
         self.vp_havoc = {}          # ... word address -> (value, epoch) of a pointer-word the stubs' memory havoc changed under a register
         self.fill_watch = {}        # stack byte -> such a fill, until the function rewrites it
         self.fill_readback = set()  # fills whose replaced word the function read back before rewriting it
@@ -4136,6 +4155,7 @@ class Run:
 
     # -- hooks ---------------------------------------------------------------------------------
     def _on_unmapped(self, uc, access, addr, size, value, _):
+        WORKN["unmapped"] += 1
         page = addr & ~0xFFF
         if _reserved(addr):
             self.fault = self.fault or ("bad_access", addr)
@@ -4160,6 +4180,7 @@ class Run:
         return True
 
     def _on_write(self, uc, access, addr, size, value, _):
+        WORKN["writes"] += 1
         ci0 = self.cur_insn
         if size > 1 and addr & (size - 1) and ci0 is not None and ci0.mnemonic in RMW_MNEMS and ci0.mem is not None and \
                 "rmwundo" not in EQUIV_OFF:
@@ -6685,7 +6706,14 @@ class Run:
             # came before the stub (this entry)
             ba, bval, bep, bnc, _ = base
             if bep <= ep and "objkeep" in EQUIV_ON:
+                had_ = ba in self.vp_havoc
                 self._vp_keep(ba, bval, bep, bnc)
+                if not had_ and ba in self.vp_havoc:
+                    # (integ3, objkeep end) only up to this virtual call: the object pointer is kept for `this` of the
+                    # call whose vptr was read before the stub, not for the calls after it (an ("after", ep) overlay
+                    # pinned it for every later epoch, and 0x000e8790_native_objkeep_pin's re-read after
+                    # FUN_002998d0 passed)
+                    self.vp_until[ba] = self.epoch
 
     def _vp_keep(self, a, val, ep, nc):
         """Keep word A (VAL, read in epoch EP after NC calls) at its value across the stubs since, when no call in between
@@ -7275,6 +7303,10 @@ class Run:
             self.uc.emu_start(entry, SENTINEL, count=self.max_steps)
         except UcError as e:
             err = str(e)
+        WORK[0] += WORK_RUN + WORK_STEP * self.nsteps + WORK_CALL * len(self.calls)
+        WORKN["runs"] += 1
+        WORKN["steps"] += self.nsteps
+        WORKN["calls"] += len(self.calls)
         eip = self.reg("eip")
         out = {"status": "ret"}
         if self.fault:
@@ -9523,7 +9555,9 @@ def coverage_of(view, edges):
                 covered += 1
             else:
                 missing.append("+0x%x case ->+0x%x" % (j - view.entry, t - view.entry))
-    out = {"edges_total": total, "edges_covered": covered, "uncovered": missing[:20], "complete": covered == total}
+    out = {"edges_total": total, "edges_covered": covered, "uncovered": missing[:20], "complete": covered == total,
+           # (integ3, hostcheck) which edges were missed, not only how many (the selftest compares it across hosts)
+           "uncovered_hash": hashlib.sha1("\n".join(sorted(missing)).encode()).hexdigest()[:12]}
     if taken_dead:
         out["dead_taken"] = sorted("+0x%x -> %s" % (j - view.entry, t if isinstance(t, str) else "+0x%x" % (t - view.entry))
                                    for j, t in taken_dead)
@@ -10395,7 +10429,7 @@ def _verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappi
     size, tname = prog.funcs[addr]
     rep = {"addr": "0x%08x" % addr, "src": src, "target": tname, "level": 0, "status": "fail",
            # (integ1, rev3) the non-default switches this run had: a proof needs none (tree_tu.proves, wine_gate.judge)
-           "equiv_off": sorted(EQUIV_OFF - {""}), "equiv_on": sorted(EQUIV_ON - {""})}
+           "equiv_off": sorted(EQUIV_OFF - {""}) + work_knobs_set(), "equiv_on": sorted(EQUIV_ON - {""})}
     explicit = dict(mapping or {})
     conv_lines = list(conventions or [])
     dead_lines = []             # `// equiv-dead: +0x52 taken, +0x61 not taken: why` (hand-reviewed)
@@ -10984,6 +11018,14 @@ def _verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappi
         rep["status"] = "unsupported"
         rep["class"] = "pre_violation_in_original"
         rep["error"] = "[pre_violation_in_original] %d inputs: %s" % (pv_, l3.get("pre_violation_first"))
+    if l3.get("time_cut_wall") and (rep["status"] in ("equivalent", "inconclusive") or
+                                    (rep["status"] == "unsupported" and not l3.get("inputs_run"))):
+        # (integ3, workclock; rev5/lead (b)) the CPU safety cap stopped the run before its work budget: how far it got is
+        # the host's speed, so the run is no evidence either way (a difference it found still stands: status fail)
+        rep["status"] = "unsupported"
+        rep["class"] = "time_cut_wall"
+        rep["error"] = ("[time_cut_wall] the CPU safety cap (%gx the budget) cut the run before its work budget: rerun "
+                        "with a bigger --time-budget" % WALL_CAP)
     if unp_ and rep["status"] in ("equivalent", "inconclusive"):
         # (integ3, rev5, D153) an argument split nothing in the original's code pins (splitpin) was taken from our own
         # code: no block whose run needed one is proven, in any mode, until class evidence pins it. In the status, so
@@ -11284,7 +11326,16 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
     objptr_seen = Counter()    # pc -> times queued
     str_seen = Counter()       # (site, literal) -> times queued
     str_popped = Counter()     # (round 9) site -> plants run
-    t_start = time.process_time()      # CPU time: a loaded machine doesn't change the result
+    t_start = time.process_time()      # CPU time: only the safety cap (WALL_CAP); budgets are counted in work
+    w_start = WORK[0]
+    input_seq = hashlib.sha1()
+    wn_start = dict(WORKN)
+
+    def clk():
+        """(integ3, workclock) budget seconds used: work done since the loop began, at WORK_PER_SEC"""
+        if "workclock" in EQUIV_OFF:
+            return time.process_time()
+        return (WORK[0] - w_start) / WORK_PER_SEC
     steps = [max_steps]
     timeout_calls = [0]        # most stub calls a timed-out run of the original made
     last_steps = [0]           # instructions the last original run executed
@@ -11813,6 +11864,9 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             out_ = _run_input(seed, overlay, stack_patch, label, _vk, _ar, _bf)
         finally:
             edge_frames.pop()
+        # (integ3, hostcheck; rev5 (c)) the inputs drawn, in order, with what each gave: two hosts that reach the same
+        # counts by different inputs differ here
+        input_seq.update(("%s|%s|%s\n" % (seed, label, "x" if out_ is None else (len(out_) if hasattr(out_, "__len__") else 1))).encode())
         if out_ is None and fr_ and "maskedges" not in EQUIV_OFF:
             # (chk1, maskedges) an input set aside as inconclusive (a difference masked as undefined behaviour, ours not
             # compared, ...) proves nothing about the edges its original run took: they don't count for coverage
@@ -11878,7 +11932,8 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             # replaced it: the real callee leaves it alone, so both sides keep it (from the epoch it was loaded in on)
             ov_ = dict(overlay or {})
             for a_, (v_, ep_) in orun.vp_havoc.items():
-                ov_[(("after", ep_), a_)] = v_.to_bytes(4, "little")
+                ov_[(("after", ep_) if a_ not in orun.vp_until else ("after", ep_, orun.vp_until[a_]), a_)] = \
+                    v_.to_bytes(4, "little")
             return run_input(seed, ov_, stack_patch, label, _vk=True, _ar=_ar, _bf=_bf)
         # only a run that returned proves anything about the edges it took (a fault both sides share, e.g.
         # a stub that can't model the call, leaves the code after it unverified)
@@ -12378,7 +12433,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
         return new
 
     def out_of_time():
-        el = time.process_time() - t_start
+        el = clk() if "workclock" not in EQUIV_OFF else time.process_time() - t_start
         lm = 3
         if steps[0] >= LONG_STEPS and "longmore" not in EQUIV_OFF and res["inputs_run"] < 50 and \
                 res["statuses"].get("ret", 0) >= 8 and res["statuses"].get("ret", 0) >= 4 * nrun_away():
@@ -12390,10 +12445,18 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                 (el > time_budget * (lm if steps[0] >= LONG_STEPS else 1) and res["inputs_run"] >= 8):
             res["time_budget_hit"] = True
             return True
+        if "workclock" not in EQUIV_OFF and time.process_time() - t_start > WALL_CAP * time_budget * lm:
+            # (the safety cap: a host far slower than the work clock assumes, or work the clock doesn't count)
+            res["time_budget_hit"] = True
+            res["time_cut_wall"] = True
+            return True
         return False
 
+    def _clk0():
+        return clk() if "workclock" not in EQUIV_OFF else time.process_time()
+
     def time_frac():
-        el = time.process_time() - t_start
+        el = clk() if "workclock" not in EQUIV_OFF else time.process_time() - t_start
         return el / (time_budget * (3 if steps[0] >= LONG_STEPS else 1))
 
     # 1. random inputs; then more while coverage keeps growing
@@ -12420,10 +12483,10 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             pt = dict(patch or {})
             pt[("sentinel",)] = sv
             del stuck[n0:]             # (the plain run's stuck entry: repaired below if this doesn't help)
-            t_ = time.process_time()
+            t_ = _clk0()
             new = run_input(seed, overlay, pt, label="%d+nil" % seed)
             res["sentinel_runs"] = res.get("sentinel_runs", 0) + 1
-            res["sentinel_time"] = round(res.get("sentinel_time", 0) + time.process_time() - t_, 1)
+            res["sentinel_time"] = round(res.get("sentinel_time", 0) + _clk0() - t_, 1)
             if new is not None:
                 break
         if new is None:
@@ -12462,11 +12525,11 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             return None
         plants = {}
         new = None
-        t0_ = time.process_time()
+        t0_ = _clk0()
         try:
             return _small_rounds(seed, overlay0, patch0, plants)
         finally:
-            small_left[4] += time.process_time() - t0_
+            small_left[4] += _clk0() - t0_
 
     def _small_rounds(seed, overlay0, patch0, plants):
         new = None
@@ -12800,7 +12863,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                         if out_of_time() or res["inputs_failed"] >= MAX_FAIL or miss_run >= 256 or \
                                 word_time[0] > 0.3 * time_budget:
                             break
-                        t_w = time.process_time()
+                        t_w = _clk0()
                         model, bases_ = models[rnd.choice(sorted(models))]
                         seed0, ov0, sp0, ea1, ea2, keep_, bnd_ = rnd.choice(bases_)
                         stride = ea2 - ea1 if ea2 is not None and 0 < ea2 - ea1 <= 16 else 4
@@ -12826,7 +12889,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                             word_left[0] += 4
                         else:
                             miss_run += 1
-                        word_time[0] += time.process_time() - t_w
+                        word_time[0] += _clk0() - t_w
             if not missing:
                 # everything reached: spend what is left on sides that few inputs took (path diversity)
                 rare = [j for j in oview.jcc for t in (oview.insns[j].target, j + oview.insns[j].size)
@@ -13078,6 +13141,10 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             proof_draw[0] = False
         res["inputs_drawn"] = rs["seed"]
     res["coverage"] = coverage_of(oview, edges)
+    res["work"] = WORK[0] - w_start                     # (workclock) units the loop spent
+    res["input_digest"] = input_seq.hexdigest()[:12]
+    res["workn"] = {k: WORKN[k] - wn_start[k] for k in WORKN}
+    res["cpu"] = round(time.process_time() - t_start, 2)
     res["statuses"] = dict(res["statuses"])
     if res.get("unexplained"):
         res["unexplained"] = dict(res["unexplained"])     # (chk1) masks refused: the input was compared (and failed)
@@ -13969,7 +14036,72 @@ def render(rep):
     return "\n".join(lines)
 
 
+SELFTEST = os.path.join(ROOT, "config", "equiv-selftest.json")
+
+
+def _selftest_summary(rep):
+    """(integ3, hostcheck) what a host's run of a selftest case must agree on: everything the verdict reads"""
+    l = rep.get("level3") or {}
+    c = l.get("coverage") or {}
+    return {"status": rep.get("status"), "class": rep.get("class"), "promotable": rep.get("promotable"),
+            "inputs_run": l.get("inputs_run"), "inputs_drawn": l.get("inputs_drawn"),
+            "inputs_failed": l.get("inputs_failed"), "inputs_inconclusive": l.get("inputs_inconclusive"),
+            "edges": [c.get("edges_covered"), c.get("edges_total"), c.get("uncovered_hash")] if isinstance(c, dict) else c, "work": l.get("work", rep.get("work")),
+            "statuses": dict(sorted((k, v) for k, v in (l.get("statuses") or {}).items() if v)),
+            "time_cut_wall": bool(l.get("time_cut_wall")), "input_digest": l.get("input_digest", rep.get("input_digest")),
+            "first_diff": ((l.get("mismatches") or [{}])[0].get("diffs") or [None])[0] if l.get("mismatches") else
+            rep.get("diff")}
+
+
+def selftest(update=False, names=None):
+    """(integ3, hostcheck) `equiv.py --selftest`: run config/equiv-selftest.json's cases (fixed inputs, a work-counted
+    budget) and compare each run's summary with the recorded one. A host whose verdicts, inputs or coverage differ
+    from the record computes something else than the hosts that recorded it, and must not take proof jobs (the
+    queue's per-host check). --update records the current summaries (a checker change that moves them on purpose)."""
+    if work_knobs_set() or (EQUIV_OFF - {""}) or (EQUIV_ON - {""}) or os.environ.get("EQ64_OFF"):
+        raise SystemExit("--selftest runs with no switches or budget knobs set (have: %s)" % ", ".join(
+            work_knobs_set() + sorted(EQUIV_OFF - {""}) + sorted(EQUIV_ON - {""}) + [os.environ.get("EQ64_OFF", "")]))
+    cfg = json.load(open(SELFTEST))
+    bad, out = [], {}
+    for case in cfg["cases"]:
+        if names and case["name"] not in names:
+            continue
+        off_ = set(EQUIV_OFF)
+        EQUIV_OFF.clear()
+        EQUIV_OFF.update(case.get("equiv_off", "").split(","))
+        WORK[0] = 0
+        try:
+            src = os.path.join(ROOT, case["src"])
+            if case.get("mode") == "x64":
+                import equiv64
+                rep = equiv64.verify64(src, int(case["addr"], 16), n_inputs=case["inputs"],
+                                       time_budget=case.get("time_budget", 120))
+            else:
+                rep = verify(src, int(case["addr"], 16), n_inputs=case["inputs"], max_inputs=case.get("max_inputs", 256),
+                             time_budget=case.get("time_budget", 120), native=case.get("mode") == "wine",
+                             seeds=case.get("seeds"))
+        finally:
+            EQUIV_OFF.clear()
+            EQUIV_OFF.update(off_)
+        got = _selftest_summary(rep)
+        out[case["name"]] = got
+        want = (cfg.get("expect") or {}).get(case["name"])
+        if not update and got != want:
+            bad.append({"case": case["name"], "want": want, "got": got})
+    if update:
+        cfg.setdefault("expect", {}).update(out)
+        with open(SELFTEST, "w") as f:
+            json.dump(cfg, f, indent=1, sort_keys=True)
+            f.write("\n")
+    return {"ok": not bad, "cases": len(out), "diffs": bad, "checker": _checker_digest(), "summaries": out}
+
+
 def main(argv):
+    if argv and argv[0] == "--selftest":
+        upd = "--update" in argv
+        r = selftest(update=upd, names=[x for x in argv[1:] if not x.startswith("--")] or None)
+        print(json.dumps(r, indent=1, default=str))
+        return 0 if r["ok"] else 1
     extra = []
     if "--" in argv:
         k = argv.index("--")

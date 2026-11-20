@@ -645,6 +645,8 @@ def checker_key():
     if not _CK:
         h = hashlib.sha1(b"x64res3\0" + json.dumps(SETTINGS, sort_keys=True).encode())
         h.update(os.environ.get("EQ64_OFF", "").encode() + b"\0")
+        for k_ in ("EQUIV_WORK_PER_SEC", "EQUIV_WALL_CAP", "EQ64_WORK_PER_SEC", "EQ64_RUN_SECONDS"):
+            h.update((k_ + "=" + os.environ.get(k_, "")).encode() + b"\0")   # (integ3, rev5 2) budget knobs
         for m in ("equiv64.py", "equiv_batch.py", "compare.py", "clang_probe.py"):
             h.update(_sha_file(os.path.join(ROOT, "tools", m)).encode())
         import equiv

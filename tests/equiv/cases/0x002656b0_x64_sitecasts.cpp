@@ -30,8 +30,8 @@ Object* Object::FUN_002656b0(Config_2656b0* config) {
  // (x64t8) the request ring's entries by their size (8 bytes on the 32-bit builds; each holds a pointer)
  if(n) { unsigned bytes=n*(unsigned)sizeof(HulkLoadEntry); HulkLoadEntry* data=(HulkLoadEntry*)FUN_0008d6d0(bytes); head=data; if(data) { tail=data; begin=data; end=(HulkLoadEntry*)((char*)data+bytes); } else tail=0; }
  else { head=0; tail=0; }
- int* data=(int*)FUN_0008d6d0(256); ringHead=data;   // (x64t14) decls/loaders.h's words since x64t13
- if(data) { ringTail=data; ringBegin=data; ringEnd=(int*)((char*)data+256); } else ringTail=0;
+ hulk_intptr* data=(hulk_intptr*)FUN_0008d6d0(256); ringHead=data;   // (x64t14) decls/loaders.h's words since x64t13 (hulk_intptr* since, as the tree has it)
+ if(data) { ringTail=data; ringBegin=data; ringEnd=(hulk_intptr*)((char*)data+256); } else ringTail=0;
  (*(CoreFiber**)&DAT_00527c4c)=FUN_0026dbf0();
  unsigned v=config->value; (*(unsigned*)&DAT_004cd504)=v;
  FUN_0026dd70(&DAT_00527c28,FUN_00265520,this,v,0);

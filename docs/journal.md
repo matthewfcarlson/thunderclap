@@ -1802,3 +1802,25 @@ blocks fight::Action's whole family: the records come first there.
   So the 536 native-only forwarders (a84e0c824) go as well.
 - In a native mac link of the stop-6 snapshot with the 185 TUs overlaid, unbound went from 10265 to 10150, with no new
   names. The 32-bit code is unchanged: the destructor specializations defined only unpinned COMDATs.
+
+## 2026-11-20 integ3: equiv budgets by work, not time (workclock); per-host selftest (hostcheck)
+- Three regress coverage cases failed on mac1 and passed elsewhere. Host probes (jobs 100640-100642) found the same
+  unicorn, capstone, clang, XBE and symbols on every host: the cause is speed. The run loop's budget was CPU time and
+  mac1 (M1 Max, Python 3.12.3) does about a quarter of mac2's work per second, so in 120 s it reached 51 inputs of
+  0x002cb2b0 where mac2 reached 532.
+- equiv.py and equiv64.py now count work: per emulator run, a fixed cost plus one per instruction and one per stubbed
+  call (equiv64: per hook call), fitted to CPU time on mac2/studio (128 and 64 tree blocks). The verdict, inputs and
+  coverage are identical on all three hosts (100855-100857); mac1 takes ~3.5x as long. CPU time is a safety cap only
+  (8x); a run it cuts is unsupported / time_cut_wall, and equiv64 decides hangs by steps alone. The budget knobs count as
+  switches (a run with one set proves nothing).
+- `equiv.py --selftest` and tools/host_selftest.py: six fixed cases must reproduce the recorded summary exactly
+  (including the uncovered-edge set and an ordered digest of the inputs); a host that differs loses the queue's
+  `equiv` cap until it passes again.
+- The budget had hidden a real difference: at 3,000 compared inputs 0x000ffef0's MSVC object stores this+0xc8 one ulp
+  off from input 839 on (0x44797bef vs 0x44797bee; job 100932, --wine is equivalent). The regress case passed only
+  because the 120 s budget ran out first (mac2 stopped at input 859, studio at 752). The block's msvc mode was already
+  in the unproven baseline; fix126's source fix (fbc read through volatile) passes at 3,000 compared (94008).
+- The seven regress failures that predated this were fixture rot and one objkeep bug: three cases followed tree changes
+  (a data declaration's header, `void* dst`, data.json's GameLanguageName typing), sitecasts was retyped as the tree has
+  it (equivalent, with a new must-fail _wrong variant), and objkeep's kept object pointer now ends at the virtual call
+  (it pinned the word for every later epoch).
