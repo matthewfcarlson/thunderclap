@@ -394,7 +394,7 @@ void FUN_001a9800()
 } // namespace fn_fabb071b
 
 // 0x001a9b10 FUN_001a9b10 (1021 B): equivalent/0x001a9b10.cpp [wrapped: conflict: content::LoadInventory::DynamicCaster; pure3d::CompositeDrawable; pure3d::DrawableHierarchy; pure3d::Entity (+2)]
-// sym: ?FUN_001a9b10@AnimSetup@fn_001a9b10@@QAE_NPAUOut_1a9b10@2@PBD1_N2H2@Z @340b42880eef @w2460212960d2 @v51cdef41ba14
+// sym: ?FUN_001a9b10@AnimSetup@fn_001a9b10@@QAE_NPAUOut_1a9b10@2@PBD1_N2H2@Z @52221901d7fa @w2460212960d2 @v51cdef41ba14
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)
