@@ -194,7 +194,9 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   front ends (macos-arm64, linux-x64): a compile error, a missing toolchain or an `--x64` compile_error fails it (integ3).
   It also fails on a dynamic_cast site or vftable RTTI (COL) whose name is not the game's exact one (a TU-local polymorphic
   stand-in) unless `config/rtti-baseline.json` lists it; that list only shrinks (`check --update-baseline`), add only with
-  `x64_gate.py rtti-accept --why` (D147).
+  `x64_gate.py rtti-accept --why` (D147). A checker change that fixes a baseline block: `x64_gate.py check --tus FILE --blocks
+  ADDR,... --update-baseline` (the gate otherwise re-runs only changed code); `--head C` takes an ancestor REF
+  (`--changed-since $(git merge-base ...)`) (integ4).
 - **Unproven-code gate** (D126): materialize refuses an equivalent block whose (mode, code hash) has no promotable ledger
   line unless `config/unproven-baseline.json` lists exactly that hash. The list only shrinks (`hash --proven` removes
   entries); never hand-edit it, add only with `tree_tu.py unproven-accept ADDR --modes M --why TEXT`. verify and
