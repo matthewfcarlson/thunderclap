@@ -65,7 +65,9 @@ code and of the checker's view of it (`// sym: NAME @msvc @wclang @vview`, docs/
 COMPARED inputs plus `--wine` at 3,000 compared (and `--x64` where the 64-bit build compiles it; a proof run keeps drawing
 until 3,000 inputs are compared, so give big blocks a generous `--time-budget`), recorded with `tree_tu.py hash --proven`,
 which also appends config/proof-ledger.jsonl (never write a hash or a ledger line by hand). Runs made with any
-`EQUIV_ON`/`EQUIV_OFF`/`EQ64_OFF` switch prove nothing. A 64-bit fix changes the source, never the 32-bit proof:
+`EQUIV_ON`/`EQUIV_OFF`/`EQ64_OFF` switch prove nothing. A slow proof can run as N queue jobs: `equiv.py TU ADDR --json --inputs 3000
+--shard K/N` for K=0..N-1, then `tree_tu.py hash --proven` on all N reports (they merge; a lone or missing shard proves
+nothing, and the ledger line names every shard's job); the same --time-budget and no switches in every shard (D155c). A 64-bit fix changes the source, never the 32-bit proof:
 re-check both sides.
 config/proof-ledger.jsonl is appended only by `hash --proven` (or `tree_tu.ledger_append` of a hash job's lines) and merges
 with `merge=union`; to seed many blocks, harvest committed checkers' reports and run hash --proven in queue jobs at a
@@ -78,7 +80,8 @@ A function only a 64-bit branch defines is named `FUN_<addr>`; native_mac and na
 address, and 64-bit-only thunks call their targets by the targets' own names (D35). Several definitions sharing one
 name in a TU (overloads `target(...)`) have no unique 64-bit symbol, so nothing binds to them by address natively:
 name each `FUN_<addr>` (decl1, 0x00086380).
-`regress.py --jobq` ships every dirty file (read a failure's cause before blaming your own change) and submits 2-slot
+A regress case run with a development switch (EQ64_OFF=postproof) doesn't exercise the production path: check the real
+block too (integ5). `regress.py --jobq` ships every dirty file (read a failure's cause before blaming your own change) and submits 2-slot
 jobs, which starve behind low-priority 1-slot work.
 An interactive zsh does not word-split `$VAR`: build `jobq.py submit --files $F` lists inside `sh` scripts (an unsplit
 list fails remotely as `ssh/remote exit 1` showing the file list). A queue job's `sh -c` command calls
@@ -124,6 +127,11 @@ an anonymous struct keeps a nested pointer struct's native alignment in gen (D92
 A dynamic_cast / typeid compares RTTI names natively: the source and target types must carry the game's exact names
 (`.?AVTextureLoader@pure3d@@`; gen classes or the game's namespaces), never a block-local stand-in (`@fn_ADDR@@`) or a
 `Class_<addr>` rename, or the cast always returns null natively. The Wine link's ??_R0 leaf/suffix mapping hides this (B4).
+The descriptors of non-class types are type descriptors too: built-ins and pointers (`.PAD`, `._N`, `.H`,
+`.PBVCCharacter@@`) and enums (`.?AW4...`). config/data.json gives them kind rtti_td (data_inventory finds them by
+type_info's vftable word plus a null spare); include/decls/data still declares them for the sources (`extern "C" char
+DAT_x;`), and natively the link emits them as 64-bit descriptors. The native type_info compare ignores only the __ptr64
+`E` (`.PEAD` == `.PAD`; tests/native_host/rtti_ptr64_test.cpp) (gfx1).
 Write `((T*)dynamic_cast<ns::G*>((ns::S*)(p)))->m`: without the outer parentheses `->` binds to the cast (sweep2).
 A TU that both calls a record's virtual slots and writes its words declares the words once as a macro list
 (`HULK_VIEW_WORDS`) used by the plain record and by the TU's slot view: a plain record plus a cast leaves `--x64` with
@@ -221,7 +229,7 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   `tools/xtu_check.py run --jobq [--relocmap V.jsonl...]` (verify records for the reloc map need `HULK_XTU_RELOCMAP=1`),
   then `report build/xtu/facts` (report-only; build/xtu/summary.json).
 - **Work budgets** (workclock): equiv.py / equiv64.py budgets are work, not time: a host's speed changes how long a
-  check takes, never what it reached. A run the CPU safety cap cuts (`time_cut_wall`) is unsupported, and runs with a
+  check takes, never what it reached. Measure equiv.py speed on one queue host (`--host`), never on the laptop under load. A run the CPU safety cap cuts (`time_cut_wall`) is unsupported, and runs with a
   budget knob set (EQUIV_WORK_PER_SEC, EQUIV_WALL_CAP, EQ64_WORK_PER_SEC, EQ64_RUN_SECONDS) prove nothing. The lane
   that lands a checker commit (equiv.py, equiv64.py, wine_gate, tree_tu proof paths, config/equiv-selftest.json) runs
   `tools/host_selftest.py submit`, then `apply` once the jobs finish: a host whose `equiv.py --selftest` differs loses
