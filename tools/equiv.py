@@ -3824,8 +3824,10 @@ class Fault(Exception):
 class Machine:
     """Initial memory state for one input: a deterministic function of (seed, epoch, address)."""
 
-    def __init__(self, prog, seed, globals_, pristine=False, dictionary=(), pointers=(), overlay=None, sentinels=()):
+    def __init__(self, prog, seed, globals_, pristine=False, dictionary=(), pointers=(), overlay=None, sentinels=(),
+                 granges=None):
         self.overlay = overlay or {}       # {(epoch, addr): bytes} forced by directed inputs
+        self.granges = granges or {}       # (integ4, D152b) {global word: range cond}: drawn inside it, per epoch
         # (round 7) values a runaway walk compared its links against (`&tree.nil`): half the words of every
         # data page hold one of them, in every epoch, so list and tree walks end within a few links
         self.sentinels = tuple(sentinels)
@@ -3864,6 +3866,13 @@ class Machine:
                             a = g + 4 * k
                             if page <= a and a + 4 <= page + PAGE:
                                 buf[a - page:a - page + 4] = struct.pack("<I", fuzz_value(mix(self.seed, epoch, a)))
+                                if a in self.granges:
+                                    # (integ4, D152b; rev5) a global a range item names: redrawn every epoch as any
+                                    # global (a callee may write it), inside the range (the same on both sides)
+                                    nb_ = _pre_range_fix(mix(self.seed, epoch, a), a, bytes(buf[a - page:a - page + 4]), 4,
+                                                         self.granges[a], False)
+                                    if nb_ is not None:
+                                        buf[a - page:a - page + 4] = nb_
                     b = bytes(buf)
         elif self.noise and mix(self.seed, page, 0x401) & 1:     # half the pages: structured fields elsewhere
             import random
@@ -8316,7 +8325,7 @@ def contracts_of_text(text, out=None):
                not _pre_relational(c)]      # (integ4: a field bound can't be read from a caller's call record)
         if not rng:
             continue
-        d = re.search(r"[\w:~<>]+\s*\(([^()]*)\)\s*(?:const\s*)?\{", _strip_comments(blk))
+        d = _pre_definition(_strip_comments(blk))
         if not d:
             continue
         types = [p_.strip() for p_ in d.group(1).split(",")]
@@ -8333,10 +8342,24 @@ def contracts_of_text(text, out=None):
     return out
 
 
+def _pre_definition(code):
+    """(integ4, D152b) The match of the definition a block's contract belongs to: the last function definition before its
+    first HULK_PRE_* statement (a wrapped block defines helpers first: 0x000a38c0's AbsF), else the first definition."""
+    defs = list(re.finditer(r"[\w:~<>]+\s*\(([^()]*)\)\s*(?:const\s*)?\{", code))
+    if not defs:
+        return None
+    mac = re.search(r"\bHULK_PRE_[A-Z0-9_]+\s*\(", code)
+    if mac:
+        before = [d for d in defs if d.start() < mac.start()]
+        if before:
+            return before[-1]
+    return defs[0]
+
+
 def _pre_range_macros(code):
     """(integ3, D152) ({(argN, cond)}, [errors]) of the HULK_PRE_RANGE/GT/GE/LT/LE statements in CODE (a block without
     comments): the macro's first argument must be a parameter of the block's definition, by name."""
-    m = re.search(r"[\w:~<>]+\s*\(([^()]*)\)\s*(?:const\s*)?\{", code)
+    m = _pre_definition(code)
     names = []
     if m and m.group(1).strip() not in ("", "void"):
         for p_ in m.group(1).split(","):
@@ -8345,6 +8368,16 @@ def _pre_range_macros(code):
     out, bad = set(), []
     for fn_, args_ in re.findall(r"\bHULK_PRE_(RANGE|GT|GE|LT|LE)\s*\(([^;]*)\)\s*;", code):
         a_ = [x.strip() for x in args_.split(",")]
+        mg_ = re.match(r"^\*\s*\(\s*(float|int)\s*\*\s*\)\s*&\s*DAT_([0-9a-fA-F]{8})$", a_[0])
+        if mg_:
+            # (integ4, D152b) a global's word through its typed address, `*(float*)&DAT_0049ec8c` (no side effect)
+            try:
+                c_ = _pre_range_cond(fn_.lower(), a_[1:])
+            except (ValueError, KeyError, IndexError):
+                bad.append("HULK_PRE_%s(%s): constants" % (fn_, args_))
+                continue
+            out.add((("g", int(mg_.group(2), 16)), c_[:5]))
+            continue
         if not re.match(r"^[A-Za-z_]\w*$", a_[0]):
             # (rev5) the subject is evaluated twice (condition and value) and mapped by name: a bare parameter only
             bad.append("pre_macro_subject: HULK_PRE_%s(%s): the subject must be a parameter's name" % (fn_, args_))
@@ -8414,6 +8447,8 @@ def _defnan_ok(u):
     """(integ2, D85) a float word inside the defnan contract: not a NaN, or the zero-payload quiet NaN of either sign."""
     return (u & 0x7F800000) != 0x7F800000 or (u & 0x7FFFFF) == 0 or (u & 0x7FFFFFFF) == 0x7FC00000
 _PRE_LOC = re.compile(r"^(?:(arg)(\d+)|\*(arg)(\d+)|\*(this))(?:\+0x([0-9a-fA-F]+))?(?:\.\.0x([0-9a-fA-F]+))?$")
+# (integ4, D152b) a range item on a global word: *0xADDR.f32 / *0xADDR.i32 (the word's own type)
+_PRE_GLOB = re.compile(r"^\*0x([0-9a-fA-F]+)\.(f32|i32)$")
 
 
 def _pre_arg_word(sig, n):
@@ -8462,6 +8497,11 @@ def _parse_pre(lines):
                     bad.append("%s: constants %r" % (fn, parts_[1:]))
                     continue
                 loc = parts_[0]
+                mg_ = _PRE_GLOB.match(loc.replace(" ", ""))
+                if mg_:
+                    # (integ4, D152b) a global's word: the item keeps its type; its census is the global's references
+                    out.append((4, "glob", 0, int(mg_.group(1), 16), None, rng_ + ("f" if mg_.group(2) == "f32" else "i",)))
+                    continue
             m = _PRE_LOC.match(loc.replace(" ", ""))
             if not m:
                 bad.append("location %r" % loc)
@@ -10939,6 +10979,7 @@ def _verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappi
             rep["level"] = 1
         issues = issues + bad
     pre_specs, pre_bad = _parse_pre(pre_lines)
+    pre_cited = False       # (integ4, D152b) the block's range contract carries its `// pre-callers:` census
     pre_rel = [it_ for it_ in pre_specs if _pre_relational(it_[5])]
     sig_l2_ = sig
     if not pre_lines and "pre" not in EQUIV_OFF:
@@ -10964,7 +11005,8 @@ def _verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappi
         conds_ = {it_[5] for it_ in pre_specs if not isinstance(it_[5], tuple)}
         # (integ3, D152; rev5) each range item and its HULK_PRE_RANGE/GT/GE/LT/LE macro state one claim: the macro's
         # parameter (by name, in the definition's parameter list) and constants must equal the item's, both ways
-        rng_items_ = {(it_[2], it_[5]) for it_ in pre_specs if isinstance(it_[5], tuple)}
+        rng_items_ = {((("g", it_[3]) if it_[1] == "glob" else it_[2]), it_[5][:5] if it_[1] == "glob" else it_[5])
+                      for it_ in pre_specs if isinstance(it_[5], tuple)}
         rng_macros_, mbad_ = _pre_range_macros(code_)
         bad_ += [{"kind": "pre_unparsed", "why": w_} for w_ in mbad_]
         if rng_items_ and "precensus" not in EQUIV_OFF:
@@ -10974,9 +11016,24 @@ def _verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappi
                 seen_, miss_ = _pre_census(addr, text_)
             except Exception as e_:     # noqa: BLE001
                 seen_, miss_ = False, ["(census failed: %s)" % e_]
+            pre_cited = bool(seen_ and not miss_)
             if not seen_ or miss_:
                 bad_.append({"kind": "pre_census", "why": "range contract without `// pre-callers:` citing every reference "
                              "(missing: %s)" % ", ".join(m_ if isinstance(m_, str) else "0x%08x" % m_ for m_ in miss_[:20])})
+            for g_ in sorted({it_[3] for it_ in pre_specs if it_[1] == "glob"}):
+                # (integ4, D152b) a global's range cites every reference to the global (`// pre-writers: 0x...`: the
+                # instructions and data words that read or store it, pre_callers of its address), judged against play3
+                try:
+                    cited_ = {int(x, 16) for l_ in text_.splitlines()
+                              for m2_ in [re.match(r"^\s*//\s*pre-writers:\s*(.*)$", l_)] if m2_
+                              for x in re.findall(r"0x[0-9a-fA-F]+", m2_.group(1))}
+                    gm_ = [a2_ for a2_ in pre_callers(g_) if a2_ not in cited_]
+                except Exception as e2_:     # noqa: BLE001
+                    gm_ = ["(census failed: %s)" % e2_]
+                if gm_ or not cited_:
+                    bad_.append({"kind": "pre_census", "why": "range on the global 0x%08x without `// pre-writers:` citing "
+                                 "every reference (missing: %s)" % (g_, ", ".join(m_ if isinstance(m_, str) else
+                                                                                "0x%08x" % m_ for m_ in gm_[:20]))})
         if rng_items_ != rng_macros_:
             bad_.append({"kind": "pre_macro_mismatch", "why": "range items %s but macros %s" % (
                 sorted(rng_items_ - rng_macros_), sorted(rng_macros_ - rng_items_))})
@@ -11032,7 +11089,7 @@ def _verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappi
             rep["x87_decl_error"] = str(e_)[:200]
     l3 = level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs, max_steps, keep_runs,
                 time_budget, psizes=psizes, convs=convs, decls=decls, void_eax=void_eax, seeds=seeds,
-                pre=[it_ for it_ in pre_specs if not _pre_relational(it_[5])])
+                pre=[it_ for it_ in pre_specs if not _pre_relational(it_[5])], pre_cited=pre_cited)
     rep["level3"] = l3
     if pre_specs and native and l3.get("pre_trap") != "fired" and not seeds:
         # (integ1, D54) --wine: an input that violates the contract must hit HULK_PRE_NOTNAN's trap in our code
@@ -11059,6 +11116,12 @@ def _verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappi
         rep["status"] = "fail"
         # (round 9) which levels failed (`level` is the highest one passed)
         rep["failed_levels"] = ([2] if issues else []) + ([3] if l3.get("inputs_failed") or not issues else [])
+    pod_ = (l3.get("statuses") or {}).get("pre_outside_dropped", 0)
+    if pod_ and rep["status"] in ("equivalent", "inconclusive") and 2 * pod_ >= sum((l3.get("statuses") or {}).values()):
+        # (integ4, D152b; rev5) most inputs dropped as outside the block's own contract: too narrow to stand for it
+        rep["status"] = "unsupported"
+        rep["class"] = "pre_dominated"
+        rep["error"] = "[pre_dominated] %d inputs dropped outside the block's own contract" % pod_
     pv_ = (l3.get("statuses") or {}).get("pre_violation_in_original", 0)
     if pv_ and rep["status"] in ("equivalent", "inconclusive"):
         # (integ3, D152; rev5 (c)) never promotable: the original's own calls break a callee's range contract
@@ -11276,7 +11339,8 @@ def caller_cleaned(prog, oview):
 
 
 def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs, max_steps, keep_runs=False,
-           time_budget=120, directed=96, psizes=None, convs=None, decls=None, void_eax=False, seeds=None, pre=None):
+           time_budget=120, directed=96, psizes=None, convs=None, decls=None, void_eax=False, seeds=None, pre=None,
+           pre_cited=False):
     only_seeds = set(seeds) if seeds else ONLY_SEEDS
     globals_ = sorted({t for _, k, t in orefs if k in ("data", "imm") and prog.section_name(t) in (".data", "BINKDATA", "DOLBY")})
     if "wglobals" not in EQUIV_OFF:
@@ -11594,6 +11658,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
         if stack_patch and ("arity",) in stack_patch:
             inp["arity_override"] = stack_patch[("arity",)]     # (round 22, vsplit)
         mach = Machine(prog, seed, globals_, pristine=(seed == 0), dictionary=dictionary, pointers=pointers,
+                       granges={it_[3]: it_[5] for it_ in (pre or ()) if it_[1] == "glob"} if "grange" not in EQUIV_OFF else None,
                        overlay=overlay, sentinels=(stack_patch or {}).get(("sentinel",), ()))
         # Callee write extents the original's run learns must reach our run too: create the dict
         # before _conv_input's shallow copy so both inputs share it.
@@ -11635,6 +11700,10 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
         for i_, (w, kind, n, off, end, cond) in enumerate(pre or ()):
             if item is not None and i_ != item:
                 continue
+            if kind == "glob":
+                # (integ4, D152b) a global's word, in every memory epoch (a global re-read after a call is the same word)
+                out.append((("gmem", off), w, cond))
+                continue
             if kind == "arg":
                 wi = _pre_arg_word(sig, n)
                 if wi is not None and wi < len(inp["stack"]):
@@ -11674,7 +11743,20 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                 out[wx] = (w, cond)
         return out
 
-    def _pre_fix(seed, inp, mach, plant=True):
+    def _pre_outside(inp, mach):
+        """(integ4, D152b) Does INP (with MACH's memory) break one of the block's own range items?"""
+        for (where, x), (w, cond) in _pre_conds(inp).items():
+            if not isinstance(cond, tuple):
+                continue
+            if where == "stack":
+                b = b"".join(struct.pack("<I", inp["stack"][x + i] & M32) for i in range(w // 4) if x + i < len(inp["stack"]))
+            else:
+                b = bytes(mach.byte(x + i, 0) for i in range(w))
+            if len(b) == w and not _pre_in(_pre_val(b, w, cond[5]), cond):
+                return True
+        return False
+
+    def _pre_fix(seed, inp, mach, plant=True, only_range=False):
         """The overlay and stack patch that give every word of the contract a value the contract allows (and whether an
         allowed NaN was planted): notnan: a NaN word gets a finite value; (integ2, D65/D85) defnan: a NaN outside the
         contract gets a finite value or an allowed NaN (0xffc00000 / 0x7fc00000, by the seed), and with PLANT one input
@@ -11698,6 +11780,10 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             else:
                 picks = {wx for wx in dwords if mix(seed, 0xD65, wx[1]) % 3 == 0}
         for (where, x), (w, cond) in sorted(conds.items()):
+            if only_range and not isinstance(cond, tuple):
+                continue
+            if where == "gmem":
+                continue        # (integ4, D152b; rev5) a ranged global is drawn inside its range per epoch (Machine)
             if where == "stack":
                 b = b"".join(struct.pack("<I", inp["stack"][x + i] & M32) for i in range(w // 4) if x + i < len(inp["stack"]))
             else:
@@ -11713,7 +11799,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                     for i in range(w // 4):
                         sp[("sbyte", x + i, 0, 4)] = struct.unpack_from("<I", nb, 4 * i)[0]
                 else:
-                    ov[(0, x)] = nb
+                    ov[("*" if where == "gmem" else 0, x)] = nb
                 continue
             allowed_ = struct.pack("<I", DEFNAN_ALLOWED[mix(seed, x, 0xD7) % 2])
             if (where, x) in picks and not (w == 4 and _is_nan_bits(b, w) and _defnan_ok(u_)):
@@ -11729,7 +11815,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                 for i in range(w // 4):
                     sp[("sbyte", x + i, 0, 4)] = struct.unpack_from("<I", nb, 4 * i)[0]
             else:
-                ov[(0, x)] = nb
+                ov[("*" if where == "gmem" else 0, x)] = nb
         return ov, sp, planted
 
     PRE_CHECK_MAX = 256
@@ -11772,7 +11858,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                         for i in range(len(nan) // 4):
                             sp[("sbyte", x + i, 0, 4)] = struct.unpack_from("<I", nan, 4 * i)[0]
                     else:
-                        ov[(0, x)] = nan
+                        ov[("*" if where == "gmem" else 0, x)] = nan
                 saved = (copy.deepcopy(res), set(edges), Counter(hits), set(edges_any))
                 pre_off[0] = True
                 try:
@@ -11970,12 +12056,14 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
 
     def _run_input(seed, overlay, stack_patch, label, _vk, _ar, _bf):
         inp, inp_o, mach = build(seed, overlay, stack_patch)
-        if pre and not pre_off[0] and NATIVE_MODE:
+        if pre and not pre_off[0] and (NATIVE_MODE or "premsvc" not in EQUIV_OFF):
+            # (integ4, D152b; rev5) range items are repaired in MSVC mode too (an input outside the contracted domain
+            # is no input of the function, trap or not); notnan/defnan stay --wine only (below, only_range)
             # (integ1, D54; rev5: only where our object traps, --wine: in MSVC mode the macro is nothing, so the input
             # is compared as it is) an input that breaks the block's `// pre:` contract is outside the function's domain: the
             # words that break it are given finite values on both sides (the same input otherwise), so the input
             # still counts, as the contract's input (excluding it would set most inputs of a float-heavy block aside)
-            ov_, sp_, planted_ = _pre_fix(seed, inp, mach)
+            ov_, sp_, planted_ = _pre_fix(seed, inp, mach, only_range=not NATIVE_MODE)
             if ov_ or sp_:
                 overlay = dict(overlay or {})
                 overlay.update(ov_)
@@ -12501,6 +12589,13 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             # block's own domain is narrower (it needs its own contract) or the callee's contract is wrong; natively the
             # callee would trap here. The run can't be proven (pre_violation_in_original)
             v_ = pre_arg_violation(o["calls"], _contract_index())
+            if v_ and pre_cited and "preoutside" not in EQUIV_OFF and _pre_outside(inp_o, mach):
+                # (integ4, D152b; lead) the input is outside the block's OWN range contract (its census cited): not
+                # the function's domain, so what its original passes a contracted callee there says nothing; the
+                # input is dropped (counted), in both modes (MSVC mode compares inputs as drawn otherwise)
+                res["inputs_inconclusive"] += 1
+                res["statuses"]["pre_outside_dropped"] += 1
+                return None
             if v_:
                 res["statuses"]["pre_violation_in_original"] += 1
                 res.setdefault("pre_violation_first", v_)

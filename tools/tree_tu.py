@@ -1086,7 +1086,100 @@ def changed_tus(root, ref):
         files = [os.path.join(ROOT, l) for l in r.stdout.split()]
     if any(f.endswith(".h") for f in files):
         return tree_tus(root)
-    return [f for f in files if f.endswith(".cpp") and is_tree_tu(f)]
+    out = [f for f in files if f.endswith(".cpp") and is_tree_tu(f)]
+    try:
+        more = contract_caller_tus(root, ref, out)
+    except RefReadError as e:
+        raise SystemExit("verify --changed-since %s: the contract callers' check can't read REF: %s" % (ref, e))
+    return out + sorted(set(more) - set(out))
+
+
+_CONTRACT_CALLERS = []      # (integ4) the caller blocks contract_caller_tus found (verify probes them)
+_CONTRACT_SLOTS = []        # (integ4; rev5) references through data words (vftable slots): reported unprobed
+
+
+def contract_caller_probe(root, owners, tus, inputs=300):
+    """(integ4, D152b; lead) Every XBE caller block of a function whose contract changed: a short equiv.py run in MSVC
+    mode and --wine; a caller whose original breaks the new contract (pre_violation_in_original) refuses the change
+    until it has its own contract. [(addr, mode, why)] of the refusals."""
+    bad = []
+    by = {}
+    for p in tus:
+        text = open(p, errors="replace").read()
+        for o in owners:
+            if ("// %s " % o) in text:
+                by[o] = p
+    for o, p in sorted(by.items()):
+        for mode, flag in (("msvc", []), ("wine", ["--wine"])):
+            r = subprocess.run([sys.executable, os.path.join(ROOT, "tools", "equiv.py"), p, o, "--inputs",
+                                str(2 * inputs), "--json"] + flag, cwd=root, capture_output=True, text=True)
+            try:
+                d = json.loads(r.stdout)
+            except ValueError:
+                bad.append((o, mode, "no report (%s)" % r.stderr.strip()[-200:]))
+                continue
+            l3_ = d.get("level3") or {}
+            if l3_.get("statuses", {}).get("pre_violation_in_original"):
+                bad.append((o, mode, str(d.get("error") or "pre_violation_in_original")[:200]))
+            elif (l3_.get("inputs_run") or 0) < inputs:
+                # (rev5) the probe counts COMPARED inputs: fewer is no probe
+                bad.append((o, mode, "underprobed: %d compared of the %d needed" % (l3_.get("inputs_run") or 0, inputs)))
+    return bad
+
+
+def _pre_lines_by_block(text):
+    """{address: tuple of the block's `// pre:` lines} of a tree TU's text."""
+    out = {}
+    for blk in re.split(r"\n(?=// 0x[0-9a-f]{8} )", text or ""):
+        m = re.match(r"// (0x[0-9a-f]{8}) ", blk)
+        if m:
+            out[m.group(1)] = tuple(re.findall(r"^\s*//\s*pre:\s*(.*)$", blk, re.M))
+    return out
+
+
+def contract_caller_tus(root, ref, paths):
+    """(integ4, D152b; lead) A changed `// pre:` contract changes the checker view of every XBE caller of the function
+    (its proofs' inputs meet the contract through pre_violation_in_original): the TUs holding those callers are
+    verified too, so a contract edit can't land with callers in other TUs left view-changed. [TU paths]"""
+    import equiv
+    import bisect
+    import csv
+    changed = []
+    for p in paths:
+        rel = os.path.relpath(p, root)
+        now = _pre_lines_by_block(open(p, errors="replace").read())
+        old = _pre_lines_by_block(file_at_ref(ref, rel, root) or "")
+        changed += [a for a in set(now) | set(old) if now.get(a, ()) != old.get(a, ())]
+    if not changed or "contractcallers" in os.environ.get("TREE_TU_OFF", ""):
+        del _CONTRACT_CALLERS[:]
+        return []
+    starts = sorted(int(r[0], 16) for r in list(csv.reader(open(equiv.FUNCS_CSV)))[1:] if r and r[0].startswith("0x"))
+    owners = set()
+    prog = equiv.Program.get()
+    del _CONTRACT_SLOTS[:]
+    for a in changed:
+        for c in equiv.pre_callers(int(a, 16)):
+            if not isinstance(c, int):
+                continue
+            if prog.section_name(c) != ".text":
+                # (rev5) a data word (a vftable slot): its callers reach it through the slot; reported unprobed
+                _CONTRACT_SLOTS.append("0x%08x (%s, callee %s)" % (c, prog.section_name(c), a))
+                continue
+            i = bisect.bisect_right(starts, c) - 1
+            if i >= 0:
+                owners.add("0x%08x" % starts[i])
+    _CONTRACT_CALLERS[:] = sorted(owners)
+    if not owners:
+        return []
+    out = []
+    for p in tree_tus(root):
+        try:
+            text = open(p, errors="replace").read()
+        except OSError:
+            continue
+        if any(("// %s " % o) in text for o in owners):
+            out.append(p)
+    return out
 
 
 _LEDGER = []        # (verify: the ledger index, read once before the pool forks)
@@ -1389,7 +1482,8 @@ def failing(counts, unproven=True):
                                                  or k in ("unproven code, not in baseline",
                                                           "unproven baseline grew without accept",
                                                           "free_by_other_name new",
-                                                          "free-name baseline grew without accept"))
+                                                          "free-name baseline grew without accept",
+                                                          "contract caller breaks the contract"))
                and not k.endswith((" match", " compiled", ": same")))
 
 
@@ -2625,7 +2719,14 @@ def main(argv=None):
             return 0
         s = verify(paths, jobs=a.jobs, relocs=a.relocs, out=a.out, vs_standalone=a.vs_standalone,
                    wine=not a.no_wine_code, ref=a.changed_since, view=not a.no_view)
-        if a.changed_since:
+        if a.changed_since and (_CONTRACT_CALLERS or _CONTRACT_SLOTS) and \
+                "contractcallers" not in os.environ.get("TREE_TU_OFF", ""):
+            # (integ4, D152b; lead) a contract edit re-checks every XBE caller: none may break it in its original
+            cb_ = contract_caller_probe(root, _CONTRACT_CALLERS, paths)
+            s["contract_callers"] = {"callers": list(_CONTRACT_CALLERS), "refused": cb_,
+                                     "unprobed_slots": list(_CONTRACT_SLOTS)}
+            if cb_:
+                s["counts"]["contract caller breaks the contract"] = len(cb_)
             # (rev5's R3) the unproven list may only grow through unproven-accept (its stamp on the entry)
             grew = unproven_baseline_growth(a.changed_since, root)
             if grew:

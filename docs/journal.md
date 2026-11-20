@@ -1984,3 +1984,14 @@ blocks fight::Action's whole family: the records come first there.
   132 names tree-wide). They are now named by their addresses. This is how the 0x00086380 overload from the
   2026-11-20 batch binds.
 - BillboardQuad.cpp gets the G4 key split natively (deferred from batch 4+U while sweep2 held the file).
+
+## 2026-11-20 integ4: D152b, contracts along a call chain
+- A D152 contract on a callee broke its caller's proof: fix126's `ge(a, 0)` on 0x0009faa0 changed 0x000a1b30's
+  checker view, and the re-proof was unsupported because the original, fed a fuzzed negative frame time, passed it
+  straight on. The game never does that (play3 job 100781). The fix belongs in the caller: it states its own domain,
+  including the camera time-constant global it passes (D152b). A verify-time probe of every XBE caller then showed
+  the same thing one level up, 0x000a1ca0. The chain ends at 0x000a75d0, a virtual, whose callers can't be matched.
+- In MSVC mode D152 compared inputs as drawn (the macro is nothing there). An input outside the function's
+  contracted domain is no input of the function either way, so range items are now repaired in both modes.
+- The harness redraws a global after every call. A contracted global is redrawn inside its range rather than
+  pinned: the contract bounds the value, it doesn't claim nothing writes it.

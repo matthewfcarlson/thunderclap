@@ -1658,6 +1658,22 @@ call, wrong exit constant, width), `0x00088020_stubexit_sealed` (the guard inver
 tests/test_stubexit.py (the sites; a noreturn call unseals a loop). A loop whose exit tests memory a stub doesn't
 write (0x002731d0 DriveThread, `while (!s->stopped)`) is not this rule's.
 
+(integ4, D152b; rev5) **Contracts along a call chain.** A contract on a callee makes every caller whose original passes
+it an out-of-range argument unsupported (`pre_violation_in_original`); with fuzzed inputs that is every caller that
+passes its own parameter or a global on (0x0009faa0's `ge(a, 0)` broke 0x000a1b30, whose dt is the frame time).
+- The caller states its own domain: a range item on its parameter, and on a global it passes (`ge(*0x0049ec8c.f32, 0)`,
+  the word's type after the dot; macro `HULK_PRE_GE(*(float*)&DAT_0049ec8c, 0.0f)`; the global's census `// pre-writers:`
+  must cite every XBE reference to it). Range items are repaired in MSVC mode too (notnan/defnan stay --wine only); a
+  contracted global is drawn inside its range at every memory epoch, the same on both sides (a callee may still write
+  it). An input still outside the caller's domain with a complete `// pre-callers:` census is dropped
+  (`pre_outside_dropped`; half the inputs dropped: unsupported `pre_dominated`); an input inside it that breaks the
+  callee's contract still makes the run unsupported. `EQUIV_OFF=premsvc` / `grange` / `preoutside` prove nothing.
+- Landing: `verify --changed-since` adds the TUs of every XBE caller of a function whose `// pre:` lines changed and
+  probes each caller block (600 inputs, at least 300 compared, MSVC and --wine): a caller whose original breaks the new
+  contract fails verify (`contract caller breaks the contract`); references through data words (vftable slots) are
+  listed as `unprobed_slots`. TREE_TU_OFF=contractcallers off. Cases `0x000a1b30_pre_{domain,nocensus,nowriters,
+  wrongglobal}`.
+
 (integ1, D39, `nanpayload`) **Dropped (user decision D50, 2026-11-15).** A rule to set aside quiet-NaN words that differ
 only in payload (x87 hands on the larger significand when two NaNs meet, SSE the first operand) was written (a07ba065a),
 rejected by rev3 (integer -1/-2 words are qNaN-shaped: an int mutant passed), restricted to words both sides last stored

@@ -23,6 +23,14 @@ CASES_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "cases")
 # name: (expected status, text one of the mismatches must contain or None[, minimum branch coverage[, verify()
 # keyword arguments, e.g. the seeds of the one input in thousands that showed the bug]])
 CASES = {
+    # (integ4, D152b; rev5) a caller of a contracted callee (0x0009faa0's ge(a, 0) ge(b, 0), stated in the case's TU copy
+    # of the callee via src/) with its own contract on dt and on the global it passes as b: inputs outside its domain
+    # are repaired in both modes, the global drawn inside its range every epoch; without a census, a contract of its
+    # own, the global item, the writers census or with the wrong global's macro it does not pass
+    "0x000a1b30_pre_domain": ("equivalent", None, 0.8, {"n_inputs": 300}),
+    "0x000a1b30_pre_nocensus": ("fail", "L2 pre_census", 0, {"n_inputs": 300}),
+    "0x000a1b30_pre_nowriters": ("fail", "L2 pre_census", 0, {"n_inputs": 300}),
+    "0x000a1b30_pre_wrongglobal": ("fail", "L2 pre_macro_mismatch", 0, {"n_inputs": 300}),
     # (integ4, stubexit) a loop whose condition is a stub's result ends after n rounds the original's run draws, the
     # same results by call index on ours; the body is compared every round
     "0x00086240_stubexit": ("equivalent", None, 0.9, {"n_inputs": 300}),
