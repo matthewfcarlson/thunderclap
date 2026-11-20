@@ -1564,6 +1564,7 @@ class Checker:
         self.param_casts = {}
         self.param_into = {}    # (pick() sets it; its deleting-destructor / early paths return before that)
         self.param_range = {}   # (integ2, D102)
+        self.pre_ranges = {}    # (integ3, D152)
         if symbol is None:
             symbol = self._pick_by_original()
         if symbol and symbol.startswith("??_G") and symbol not in self.img[32].funcs:
@@ -1799,6 +1800,9 @@ class Checker:
             if r32 != r64:
                 raise Unsupported("HULK_RANGE: the 32- and 64-bit parses disagree (%s / %s)" % (r32, r64))
             self.param_range = r32
+        # (integ3, D152; rev5) the block's range contract (`// pre: range|gt|ge|lt|le(argN, ...)`): drawn arguments are
+        # repaired into the domain as equiv.py does (both sides alike), so the comparison stays inside it
+        self.pre_ranges = pre_ranges(c32.get_definition() or c32) if "prerange" not in OFF else {}
         self.param_into = {}
         a32, a64 = param_into(c32.get_definition() or c32), param_into(c64.get_definition() or c64)
         if a32 != a64 and "intocheck" not in OFF:
@@ -2668,6 +2672,30 @@ def xbe_refs(lo, hi):
     return out
 
 
+def pre_lines_of(fn):
+    """(integ3, D152) The `// pre:` lines of the comment block right above function FN's definition (the source file)."""
+    try:
+        path, line = fn.extent.start.file.name, fn.extent.start.line
+        lines = open(path, errors="replace").read().splitlines()
+    except Exception:   # noqa: BLE001
+        return []
+    out = []
+    i = line - 2
+    while i >= 0 and lines[i].lstrip().startswith("//"):
+        m = re.match(r"^\s*//\s*pre:\s*(.*)$", lines[i])
+        if m:
+            out.append(m.group(1))
+        i -= 1
+    return out[::-1]
+
+
+def pre_ranges(fn):
+    """(integ3, D152) {param index (0-based): (range cond)} of FN's range contract items on its parameters."""
+    import equiv
+    specs, _bad = equiv._parse_pre(pre_lines_of(fn))
+    return {n - 1: cond for (_w, kind, n, _off, _end, cond) in specs if kind == "arg" and isinstance(cond, tuple)}
+
+
 def _comment_block(c, near=False):
     """(integ2, D103; rev5's R8) The text of declaration C and the comment block right above it, from the parse's own
     tokens (the buffer the parse read, not the file as it is now). NEAR: whether its line or the line before carries
@@ -2820,6 +2848,7 @@ def ast_digest(c32, c64):
             parts["prange" + n] = "unsupported: %s" % e
         parts["rcasts" + n] = sorted([k, sp(v)] for k, v in return_casts(fn).items())
         parts["scasts" + n] = sorted([k, [sp(x) for x in v]] for k, v in return_casts(fn, True).items())
+        parts["pre" + n] = pre_lines_of(fn)     # (integ3, D152) a contract change re-runs the gate
         parts["fcasts" + n] = sorted([list(k), sp(v)] for k, v in field_casts(fn).items())
         # (integ2, D103; rev5's R4) the data annotations of every global of the parse (HULK_RANGE / HULK_RDATA on any
         # declaration, with their comment blocks), not only of those the body names: a helper can read one
@@ -3459,6 +3488,14 @@ class Side:
                     data = self.arg_into(chk.param_into[pi], Rng(self.seed, "arg", i))
                 if data is None:
                     data = self.arg_data(pt, ("arg", i), Rng(self.seed, "arg", i))
+                if pi in getattr(chk, "pre_ranges", {}):
+                    import equiv
+                    t_ = pt[0 if b == 32 else 1].get_canonical()
+                    w_ = t_.get_size()
+                    typ_ = "f" if t_.kind.name in ("FLOAT", "DOUBLE") else "i"
+                    nb_ = equiv._pre_range_fix(self.seed, i, bytes(data[:w_]), w_, chk.pre_ranges[pi] + (typ_,), True)
+                    if nb_ is not None:
+                        data = nb_ + bytes(data[w_:])
             if loc[0] == "reg":
                 regs[loc[1]] = int.from_bytes(data[:self.ps].ljust(self.ps, b"\0"), "little")
             elif loc[0] == "xmm":

@@ -1587,6 +1587,32 @@ checked in part). Refused at level 2: an annotation without HULK_PRE_NOTNAN in t
     Accepted as the contract (the game's values stay inside it in play3); a check placed at the reads would follow the
     use exactly (not built).
 
+(integ3, D152; the user's decision) **Range contracts: HULK_PRE_RANGE / GT / GE / LT / LE.** The user's rule: a function
+that the game only ever calls inside a domain says so in code, and the port asserts it ("put an assert if the function
+is ever called with an out of range input"), one reusable mechanism with the NaN contracts above.
+- **Code** (include/compat/pre.h): `HULK_PRE_RANGE(x, lo, hi)`, `HULK_PRE_GT(x, c)`, `_GE`, `_LT`, `_LE`, at the top of the
+  body, the subject a bare parameter name. MSVC 7.1: nothing (32-bit bytes and proofs unchanged). clang (the Wine and
+  native builds): the check; every condition is false for a NaN, so a NaN traps too. A failure writes "hulk: contract
+  failed: FUNC: EXPR (value 0x...)" and traps. `HULK_CONTRACTS` (compile time): 2 trap (the default; the Wine build and
+  every native release build, tests/test_contract_flags.py checks no build defines it), 1 log, 0 off (debug builds only;
+  such a build proves nothing). A generic `HULK_PRE(cond)` exists outside proofs; a proven block refuses it.
+- **Annotation**: `// pre: range(argN, lo, hi)` / `gt(argN, c)` / `ge` / `lt` / `le` (constants: decimal, hex, inf), the
+  parameter's kind from the signature (float, double, integer); memory LOCs are refused for now. The macros and the
+  items must state the same claims (by parameter name and constants: L2 `pre_macro_mismatch`), and the block cites every
+  reference to the function in the XBE (`// pre-callers: 0x...`: E8/E9 rel32 calls and jumps and absolute words, found
+  by `pre_callers`: L2 `pre_census` when one is missing), with the trace evidence next to it (reviewers judge it).
+- **Checker**: --wine repairs drawn inputs into the domain (a float redrawn inside, an integer to its nearest bound; one
+  input in twenty at the extreme inside value of a finite bound), never skipping one; the trap check plants each finite
+  bound's value just outside (must trap), NaN (must trap) and just inside (must compute as the original), which pins
+  the bound's sense (GE vs GT). equiv64 repairs alike and the contract is in the x64 gate's AST digest.
+- **Callers**: every tree block's range contracts are indexed (and the checked file's); an input on which the ORIGINAL
+  passes a contracted callee an argument outside its range makes the run `unsupported`, class
+  `pre_violation_in_original`: the caller's domain needs its own contract or the callee's contract is wrong.
+- A directed patch of an argument word no longer overrides an earlier repair (the repair is applied last; it could only
+  cause a false failure before). Cases `0x0009fb20_native_range` (equivalent), `_mismatch`, `_census` (fail),
+  `0x0009fb20_x64_range`; tests tests/test_pre_contracts.py, tests/test_contract_flags.py.
+
+
 (integ1, D39, `nanpayload`) **Dropped (user decision D50, 2026-11-15).** A rule to set aside quiet-NaN words that differ
 only in payload (x87 hands on the larger significand when two NaNs meet, SSE the first operand) was written (a07ba065a),
 rejected by rev3 (integer -1/-2 words are qNaN-shaped: an int mutant passed), restricted to words both sides last stored

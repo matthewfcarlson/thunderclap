@@ -8079,7 +8079,254 @@ _NAN_SIGN = [0]
 _NAN_EQ = [0]
 
 
-_PRE_ITEM = re.compile(r"(notnan64|notnan|defnan)\(([^()]*)\)")
+_PRE_ITEM = re.compile(r"(notnan64|notnan|defnan|range|gt|ge|lt|le)\(([^()]*)\)")
+_PRE_RANGE = ("range", "gt", "ge", "lt", "le")     # (integ3, D152) range contracts: (lo, hi, lo inclusive, hi inclusive)
+
+
+def _pre_val(b, w, typ):
+    """(integ3, D152) A contract word's value: a float (NaN as NaN) or a signed integer."""
+    if typ == "f":
+        return struct.unpack("<f" if w == 4 else "<d", b)[0]
+    return int.from_bytes(b, "little", signed=True)
+
+
+def _pre_in(v, cond):
+    _, lo, hi, li, hi_i = cond[:5]
+    if v != v:
+        return False        # (a NaN is outside every range: the macros' comparisons are false for it)
+    return (v >= lo if li else v > lo) and (v <= hi if hi_i else v < hi)
+
+
+def _pre_pack(v, w, typ):
+    if typ == "f":
+        return struct.pack("<f" if w == 4 else "<d", v)
+    return (int(v) & ((1 << (8 * w)) - 1)).to_bytes(w, "little")
+
+
+def _pre_inner(cond, w, side):
+    """The extreme value inside the range at SIDE ("lo"/"hi"): the bound when inclusive, else its neighbour inward."""
+    _, lo, hi, li, hi_i, typ = cond
+    import math
+    b_, inc_ = (lo, li) if side == "lo" else (hi, hi_i)
+    if math.isinf(b_):
+        return None
+    if typ == "i":
+        return int(b_) if inc_ else int(b_) + (1 if side == "lo" else -1)
+    if inc_:
+        return b_
+    if w == 4:
+        f_ = struct.unpack("<f", struct.pack("<f", b_))[0]
+        return float(np_next32(f_, side == "lo"))
+    return math.nextafter(b_, math.inf if side == "lo" else -math.inf)
+
+
+def np_next32(f, up):
+    """The float32 next to F upward (UP) or downward."""
+    u = struct.unpack("<I", struct.pack("<f", f))[0]
+    if f == 0.0:
+        u = 0x00000001 if up else 0x80000001
+    elif (f > 0) == up:
+        u += 1
+    else:
+        u -= 1
+    return struct.unpack("<f", struct.pack("<I", u & 0xFFFFFFFF))[0]
+
+
+def _pre_range_fix(seed, x, b, w, cond, plant):
+    """(integ3, D152; rev5) A range word's repaired bytes, or None to keep it: a value outside (a NaN too) is replaced, a
+    float by a draw inside the range, an integer by its nearest bound; with PLANT one input in twenty gets the extreme
+    value inside the range at a finite bound (the bound when inclusive, its neighbour inward otherwise)."""
+    typ = cond[5]
+    v = _pre_val(b, w, typ)
+    sides_ = [s_ for s_ in ("lo", "hi") if _pre_inner(cond, w, s_) is not None]
+    if plant and sides_ and mix(seed, x, 0xD152) % 20 == 0:
+        return _pre_pack(_pre_inner(cond, w, sides_[mix(seed, x, 0xD153) % len(sides_)]), w, typ)
+    if _pre_in(v, cond):
+        return None
+    _, lo, hi, li, hi_i = cond[:5]
+    import math
+    if typ == "i":
+        if v != v or (v < lo or (v == lo and not li)):
+            return _pre_pack(_pre_inner(cond, w, "lo"), w, typ)
+        return _pre_pack(_pre_inner(cond, w, "hi"), w, typ)
+    lo_f = _pre_inner(cond, w, "lo")
+    hi_f = _pre_inner(cond, w, "hi")
+    r = (mix(seed, x, 0xD154) % 1000003) / 1000003.0
+    if lo_f is not None and hi_f is not None:
+        nv = lo_f + (hi_f - lo_f) * r
+    elif lo_f is not None:
+        nv = lo_f + abs(FLOATS[mix(seed, x, 0x9E) % len(FLOATS)] or 1.0) * r
+    elif hi_f is not None:
+        nv = hi_f - abs(FLOATS[mix(seed, x, 0x9E) % len(FLOATS)] or 1.0) * r
+    else:
+        nv = FLOATS[mix(seed, x, 0x9E) % len(FLOATS)]
+    nb = _pre_pack(nv, w, typ)
+    if not _pre_in(_pre_val(nb, w, typ), cond):
+        nb = _pre_pack(lo_f if lo_f is not None else hi_f, w, typ)
+    return nb
+
+
+def pre_callers(addr):
+    """(integ3, D152; rev5) Every reference in the XBE to the function at ADDR: a direct call or jump (E8 / E9 rel32 whose
+    target is ADDR, at any byte of an executable section: a byte scan, so a coincidental match only asks for one more
+    citation) and an absolute word holding ADDR (a vftable slot, a function-pointer datum, `push imm32`, `mov reg, imm32`)."""
+    xbe = Program.get().xbe
+    out = set()
+    pat = addr.to_bytes(4, "little")
+    for sec in xbe.sections:
+        d = xbe.data[sec.raw:sec.raw + sec.rsize]
+        i = d.find(pat)
+        while i >= 0:
+            out.add(sec.va + i)
+            i = d.find(pat, i + 1)
+        if not sec.executable:
+            continue
+        for op in (b"\xe8", b"\xe9"):
+            j = d.find(op)
+            while 0 <= j < len(d) - 4:
+                if (sec.va + j + 5 + int.from_bytes(d[j + 1:j + 5], "little", signed=True)) & 0xFFFFFFFF == addr:
+                    out.add(sec.va + j)
+                j = d.find(op, j + 1)
+    return sorted(out)
+
+
+def _pre_census(addr, text):
+    """(integ3, D152) Missing citations: the references pre_callers finds that the block's `// pre-callers:` lines don't
+    cite (and whether the lines exist). Reviewers judge the trace evidence; the census is mechanical."""
+    cited = set()
+    seen = False
+    for l in text.splitlines():
+        m = re.match(r"^\s*//\s*pre-callers:\s*(.*)$", l)
+        if m:
+            seen = True
+            cited |= {int(x, 16) for x in re.findall(r"0x[0-9a-fA-F]+", m.group(1))}
+    found = pre_callers(addr)
+    return seen, [a for a in found if a not in cited]
+
+
+_CALLEE_PRE = {}
+
+
+_CHECKED = [None, None]     # (integ3, D152) the source under check (path, its contracts)
+
+
+def _contract_index():
+    """callee_contracts plus the contracts of the source under check (a case file outside src/, or its newest text)."""
+    idx = callee_contracts()
+    if _CHECKED[1]:
+        idx = dict(idx)
+        idx.update(_CHECKED[1])
+    return idx
+
+
+def callee_contracts():
+    """(integ3, D152; rev5 (c)) {function address: [(stack word, width, cond)]} of every tree block's range contract on
+    its parameters (scanned once from src/): the arguments a caller's original passes must lie in them."""
+    if _CALLEE_PRE:
+        return _CALLEE_PRE
+    _CALLEE_PRE["_"] = True
+    for dp, _dn, fns in os.walk(os.path.join(ROOT, "src")):
+        for fn in fns:
+            if fn.endswith(".cpp"):
+                try:
+                    contracts_of_text(open(os.path.join(dp, fn), errors="replace").read(), _CALLEE_PRE)
+                except OSError:
+                    pass
+    return _CALLEE_PRE
+
+
+def pre_arg_violation(calls, index):
+    """(integ3, D152) The first of CALLS (a run's call records) that passes a callee of INDEX (callee_contracts) an
+    argument outside its range contract, described, or None."""
+    for c_ in calls:
+        for wi_, w_, cond_ in index.get(c_.get("target"), ()):
+            if wi_ + w_ // 4 > len(c_.get("args") or ()):
+                continue
+            b_ = b"".join(struct.pack("<I", c_["args"][wi_ + k_][0] & M32) for k_ in range(w_ // 4))
+            if not _pre_in(_pre_val(b_, w_, cond_[5]), cond_):
+                return "call to 0x%08x word %d: %r" % (c_["target"], wi_, _pre_val(b_, w_, cond_[5]))
+    return None
+
+
+def contracts_of_text(text, out=None):
+    """(integ3, D152) {address: [(stack word, width, cond)]} of the range contracts on parameters in TEXT's blocks (a tree
+    TU's `// 0xADDR` blocks). The stack word counts the definition's parameters before it (this is in ecx for a
+    __thiscall member and takes none; a double or 64-bit integer takes two)."""
+    out = {} if out is None else out
+    if "// pre:" not in text:
+        return out
+    for blk in re.split(r"\n(?=// 0x[0-9a-f]{8} )", text):
+        m = re.match(r"// (0x[0-9a-f]{8}) ", blk)
+        pl = re.findall(r"^\s*//\s*pre:\s*(.*)$", blk, re.M)
+        if not m or not pl:
+            continue
+        specs, _ = _parse_pre(pl)
+        rng = [(n, c) for (_w, k, n, _o, _e, c) in specs if k == "arg" and isinstance(c, tuple)]
+        if not rng:
+            continue
+        d = re.search(r"[\w:~<>]+\s*\(([^()]*)\)\s*(?:const\s*)?\{", _strip_comments(blk))
+        if not d:
+            continue
+        types = [p_.strip() for p_ in d.group(1).split(",")]
+        ent = []
+        for n, c in rng:
+            if n > len(types):
+                continue
+            wi = sum(2 if re.match(r"^(const\s+)?(double|__int64|long long)\b", t_) else 1 for t_ in types[:n - 1])
+            w_ = 8 if re.match(r"^(const\s+)?double\b", types[n - 1]) else 4
+            typ = "f" if re.match(r"^(const\s+)?(float|double)\b", types[n - 1]) else "i"
+            ent.append((wi, w_, c + (typ,)))
+        if ent:
+            out[int(m.group(1), 16)] = ent
+    return out
+
+
+def _pre_range_macros(code):
+    """(integ3, D152) ({(argN, cond)}, [errors]) of the HULK_PRE_RANGE/GT/GE/LT/LE statements in CODE (a block without
+    comments): the macro's first argument must be a parameter of the block's definition, by name."""
+    m = re.search(r"[\w:~<>]+\s*\(([^()]*)\)\s*(?:const\s*)?\{", code)
+    names = []
+    if m and m.group(1).strip() not in ("", "void"):
+        for p_ in m.group(1).split(","):
+            t_ = re.findall(r"[A-Za-z_]\w*", p_.split("=")[0])
+            names.append(t_[-1] if t_ else None)
+    out, bad = set(), []
+    for fn_, args_ in re.findall(r"\bHULK_PRE_(RANGE|GT|GE|LT|LE)\s*\(([^;]*)\)\s*;", code):
+        a_ = [x.strip() for x in args_.split(",")]
+        if not re.match(r"^[A-Za-z_]\w*$", a_[0]):
+            # (rev5) the subject is evaluated twice (condition and value) and mapped by name: a bare parameter only
+            bad.append("pre_macro_subject: HULK_PRE_%s(%s): the subject must be a parameter's name" % (fn_, args_))
+            continue
+        if a_[0] not in names:
+            bad.append("HULK_PRE_%s(%s): %r is not a parameter of the definition" % (fn_, args_, a_[0]))
+            continue
+        try:
+            c_ = _pre_range_cond(fn_.lower(), a_[1:])
+        except (ValueError, KeyError, IndexError):
+            bad.append("HULK_PRE_%s(%s): constants" % (fn_, args_))
+            continue
+        out.add((names.index(a_[0]) + 1, c_))
+    return out, bad
+
+
+def _pre_num(t):
+    t = t.strip().lower().rstrip("f")
+    if t in ("inf", "+inf"):
+        return float("inf")
+    if t == "-inf":
+        return float("-inf")
+    return float(int(t, 0)) if re.match(r"^-?(0x[0-9a-f]+|\d+)$", t) else float(t)
+
+
+def _pre_range_cond(fn, args):
+    """(integ3, D152) ("range", lo, hi, lo_incl, hi_incl) of a range item's constant arguments."""
+    if fn == "range":
+        lo, hi = _pre_num(args[0]), _pre_num(args[1])
+        return ("range", lo, hi, True, True)
+    c = _pre_num(args[0])
+    inf = float("inf")
+    return {"gt": ("range", c, inf, False, True), "ge": ("range", c, inf, True, True),
+            "lt": ("range", -inf, c, True, False), "le": ("range", -inf, c, True, True)}[fn]
 DEFAULT_NAN = 0xFFC00000     # (integ2, D65) the x87 indefinite / SSE default NaN
 # (integ2, D85) what `defnan` allows: the zero-payload quiet NaN of either sign (arm64 generates 0x7fc00000, and a
 # negation flips the sign of 0xffc00000); every other NaN is outside the contract
@@ -8131,12 +8378,30 @@ def _parse_pre(lines):
             bad.append("not `notnan(LOC)` items: %r" % l)
             continue
         for fn, loc in items:
+            rng_ = None
+            if fn in _PRE_RANGE:
+                parts_ = [x.strip() for x in loc.split(",")]
+                if len(parts_) != (3 if fn == "range" else 2):
+                    bad.append("%s(LOC, ...) takes %d constants: %r" % (fn, 2 if fn == "range" else 1, loc))
+                    continue
+                try:
+                    rng_ = _pre_range_cond(fn, parts_[1:])
+                except ValueError:
+                    bad.append("%s: constants %r" % (fn, parts_[1:]))
+                    continue
+                loc = parts_[0]
             m = _PRE_LOC.match(loc.replace(" ", ""))
             if not m:
                 bad.append("location %r" % loc)
                 continue
             w = 8 if fn == "notnan64" else 4
             cond = "defnan" if fn == "defnan" else "notnan"
+            if rng_ is not None:
+                if not m.group(1):
+                    bad.append("%s on memory (%r): only argN for now (D152)" % (fn, loc))
+                    continue
+                cond = rng_
+                w = 0       # (the parameter's own width and kind, from the signature: _pre_words)
             off = int(m.group(6), 16) if m.group(6) else 0
             end = int(m.group(7), 16) if m.group(7) else None
             if m.group(1):
@@ -9997,6 +10262,10 @@ def verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappin
     (merge-once) SRC may be a tree TU (tools/tree_tu.py): the function at ADDR is checked inside the TU's object (the
     MSVC object from the tree's cache, or the TU compiled with clang under --wine), found by the tree's rules, with the
     directives of its own block only."""
+    try:        # (integ3, D152) the contracts the checked file itself states (a callee of the block in the same file)
+        _CHECKED[:] = [src, contracts_of_text(open(src, errors="replace").read()) if src and os.path.exists(src) else {}]
+    except OSError:
+        _CHECKED[:] = [src, {}]
     import tree_tu
     if src and tree_tu.is_tree_tu(src):
         # (hash1) a run that can prove a code hash: the tree's own object and directives, the full checker
@@ -10601,8 +10870,8 @@ def _verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappi
         # (integ1, rev5) the macro without the contract: the builds trap where the proof compared freely
         text0_ = "\n".join(src_lines) if src_lines is not None else \
             (open(src, errors="replace").read() if src and os.path.exists(src) else "")
-        if re.search(r"\bHULK_PRE_(NOTNAN|DEFNAN)(_N)?\s*\(", _strip_comments(text0_)):
-            bad0_ = {"kind": "trap_without_pre", "why": "HULK_PRE_NOTNAN/DEFNAN without a `// pre:` annotation in the block"}
+        if re.search(r"\bHULK_PRE_(NOTNAN|DEFNAN|RANGE|GT|GE|LT|LE)(_N)?\s*\(", _strip_comments(text0_)):
+            bad0_ = {"kind": "trap_without_pre", "why": "HULK_PRE_* without a `// pre:` annotation in the block"}
             issues = issues + [bad0_]
             rep["level2"]["issues"] = rep["level2"]["issues"] + [bad0_]
             rep["level2"]["ok"] = False
@@ -10617,8 +10886,29 @@ def _verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappi
         # notnan macro under a defnan contract traps on the default NaN the contract allows, a defnan macro under a
         # notnan contract computes on where the proof assumed no NaN
         code_ = _strip_comments(text_)
-        conds_ = {it_[5] for it_ in pre_specs}
-        for c_ in sorted(conds_ or {"notnan"}):
+        conds_ = {it_[5] for it_ in pre_specs if not isinstance(it_[5], tuple)}
+        # (integ3, D152; rev5) each range item and its HULK_PRE_RANGE/GT/GE/LT/LE macro state one claim: the macro's
+        # parameter (by name, in the definition's parameter list) and constants must equal the item's, both ways
+        rng_items_ = {(it_[2], it_[5]) for it_ in pre_specs if isinstance(it_[5], tuple)}
+        rng_macros_, mbad_ = _pre_range_macros(code_)
+        bad_ += [{"kind": "pre_unparsed", "why": w_} for w_ in mbad_]
+        if rng_items_ and "precensus" not in EQUIV_OFF:
+            # (integ3, D152; rev5) a range contract cites every reference to the function (`// pre-callers: 0x...`, the
+            # call sites and data words pre_callers finds), each judged by the reviewers against play3's evidence
+            try:
+                seen_, miss_ = _pre_census(addr, text_)
+            except Exception as e_:     # noqa: BLE001
+                seen_, miss_ = False, ["(census failed: %s)" % e_]
+            if not seen_ or miss_:
+                bad_.append({"kind": "pre_census", "why": "range contract without `// pre-callers:` citing every reference "
+                             "(missing: %s)" % ", ".join(m_ if isinstance(m_, str) else "0x%08x" % m_ for m_ in miss_[:20])})
+        if rng_items_ != rng_macros_:
+            bad_.append({"kind": "pre_macro_mismatch", "why": "range items %s but macros %s" % (
+                sorted(rng_items_ - rng_macros_), sorted(rng_macros_ - rng_items_))})
+        if re.search(r"\bHULK_PRE\s*\(", code_):
+            bad_.append({"kind": "pre_generic", "why": "HULK_PRE(cond) in a proven block: the checker can't read an "
+                         "arbitrary condition (use HULK_PRE_RANGE/GT/GE/LT/LE)"})
+        for c_ in sorted(conds_ or ({"notnan"} if not rng_items_ else set())):
             if not re.search(r"\bHULK_PRE_%s(_N)?\s*\(" % c_.upper(), code_):
                 bad_.append({"kind": "pre_without_trap", "why": "`// pre: %s` without HULK_PRE_%s in the block: the "
                              "builds would compute on where the proof assumed the contract" % ("; ".join(pre_lines),
@@ -10688,6 +10978,12 @@ def _verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappi
         rep["status"] = "fail"
         # (round 9) which levels failed (`level` is the highest one passed)
         rep["failed_levels"] = ([2] if issues else []) + ([3] if l3.get("inputs_failed") or not issues else [])
+    pv_ = (l3.get("statuses") or {}).get("pre_violation_in_original", 0)
+    if pv_ and rep["status"] in ("equivalent", "inconclusive"):
+        # (integ3, D152; rev5 (c)) never promotable: the original's own calls break a callee's range contract
+        rep["status"] = "unsupported"
+        rep["class"] = "pre_violation_in_original"
+        rep["error"] = "[pre_violation_in_original] %d inputs: %s" % (pv_, l3.get("pre_violation_first"))
     if unp_ and rep["status"] in ("equivalent", "inconclusive"):
         # (integ3, rev5, D153) an argument split nothing in the original's code pins (splitpin) was taken from our own
         # code: no block whose run needed one is proven, in any mode, until class evidence pins it. In the status, so
@@ -11235,7 +11531,14 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             if kind == "arg":
                 wi = _pre_arg_word(sig, n)
                 if wi is not None and wi < len(inp["stack"]):
-                    out.append((("stack", wi), w, cond))
+                    if isinstance(cond, tuple):
+                        # (integ3, D152) the parameter's own kind: f32 (4, float), f64 (8, float), an integer (4)
+                        k_ = ((sig or {}).get("params") or [None] * n)[n - 1]
+                        w_ = 8 if k_ in ("f64", "i64") else 4
+                        cond = cond + ("f" if k_ in ("f32", "f64") else "i",)
+                        out.append((("stack", wi), w_, cond))
+                    else:
+                        out.append((("stack", wi), w, cond))
                 continue
             if kind == "pthis":
                 base = inp["regs"].get("ecx")
@@ -11295,6 +11598,16 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             if len(b) != w:
                 continue
             u_ = int.from_bytes(b, "little")
+            if isinstance(cond, tuple):
+                nb = _pre_range_fix(seed, x, b, w, cond, plant)
+                if nb is None:
+                    continue
+                if where == "stack":
+                    for i in range(w // 4):
+                        sp[("sbyte", x + i, 0, 4)] = struct.unpack_from("<I", nb, 4 * i)[0]
+                else:
+                    ov[(0, x)] = nb
+                continue
             allowed_ = struct.pack("<I", DEFNAN_ALLOWED[mix(seed, x, 0xD7) % 2])
             if (where, x) in picks and not (w == 4 and _is_nan_bits(b, w) and _defnan_ok(u_)):
                 nb, planted = allowed_, True
@@ -11372,6 +11685,40 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                 if out_of_time():
                     missing.append("item %d: the time budget ran out before every word was checked" % (i_ + 1))
                     break
+                if isinstance(cond, tuple):
+                    # (integ3, D152; rev5) the bounds pin the sense: each finite bound's value just outside must trap,
+                    # the extreme value just inside must not (and must compute as the original); a NaN must trap
+                    typ_ = cond[5]
+                    outs_, ins_ = [], []
+                    import math
+                    for side_ in ("lo", "hi"):
+                        in_ = _pre_inner(cond, w, side_)
+                        if in_ is None:
+                            continue
+                        ins_.append(in_)
+                        if typ_ == "i":
+                            outs_.append(in_ - 1 if side_ == "lo" else in_ + 1)
+                        elif w == 4:
+                            outs_.append(np_next32(in_, side_ != "lo"))
+                        else:
+                            outs_.append(math.nextafter(in_, -math.inf if side_ == "lo" else math.inf))
+                    if typ_ == "f":
+                        outs_.append(float("nan"))
+                    for v_ in outs_:
+                        d_, stat_ = one({(where, x): _pre_pack(v_, w, typ_)}, "pre-trap")
+                        checked += 1
+                        if not any("ours fault:Invalid_instruction" in x_ for x_ in d_):
+                            missing.append("item %d %s 0x%x holding %r (outside): %s" % (
+                                i_ + 1, where, x, v_, ("; ".join(d_)[:120] if d_ else "no trap")))
+                            break
+                    for v_ in ins_:
+                        d_, stat_ = one({(where, x): _pre_pack(v_, w, typ_)}, "pre-inside")
+                        res["pre_range_bounds"] = res.get("pre_range_bounds", 0) + 1
+                        if d_:
+                            missing.append("item %d %s 0x%x holding %r (inside): %s" % (
+                                i_ + 1, where, x, v_, "; ".join(d_)[:120]))
+                            break
+                    continue
                 # (integ2, D86) several NaNs outside the contract, each of which must trap: a fuzzed -1, payload and
                 # signalling NaNs of both signs (a macro blind to the sign, or to signalling NaNs, fails here); for
                 # notnan the two quiet NaNs defnan allows too
@@ -11502,7 +11849,11 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                 overlay = dict(overlay or {})
                 overlay.update(ov_)
                 stack_patch = dict(stack_patch or {})
-                stack_patch.update(sp_)
+                for k_, v_ in sp_.items():
+                    # (integ3, D152) the repair is applied last: a directed patch of the same word (an int key, a byte
+                    # range) inserted after an earlier repair would otherwise win in build()'s order
+                    stack_patch.pop(k_, None)
+                    stack_patch[k_] = v_
                 inp, inp_o, mach = build(seed, overlay, stack_patch)
                 res["inputs_pre_repaired"] = res.get("inputs_pre_repaired", 0) + 1
                 if planted_:
@@ -11990,6 +12341,14 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             res["inputs_inconclusive"] += 1
             res["statuses"]["both_fault"] += 1
             return None
+        if o["status"] == "ret" and "previo" not in EQUIV_OFF:
+            # (integ3, D152; rev5 (c)) the original passed a callee outside that callee's range contract: either this
+            # block's own domain is narrower (it needs its own contract) or the callee's contract is wrong; natively the
+            # callee would trap here. The run can't be proven (pre_violation_in_original)
+            v_ = pre_arg_violation(o["calls"], _contract_index())
+            if v_:
+                res["statuses"]["pre_violation_in_original"] += 1
+                res.setdefault("pre_violation_first", v_)
         if not diffs and stack_patch and stack_patch.get(("unpinned",)):
             # (rev5, D153) an unpinned split that agreed: not evidence (the verdict becomes unsupported/split_unpinned)
             res["inputs_inconclusive"] += 1
