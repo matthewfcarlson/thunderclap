@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x0010b2a0..0x0010c0d0 (kind game, layer game, confidence high), dominant class hulkfight::ai::FaceTargetAction
 #include "tree_prelude.h"
+#include "decls/fight_context.h"   // (decl1) fight::Context's words
 #define HULK_FIGHT_PARAM_IMPLICIT   // (gx2, D18) include/gen/fight.h: the parameter templates constructed for real
 #include "compat/ptr.h"
 #include "decls/address.h"
@@ -407,11 +408,10 @@ class ColorHolder {
   public:
 };
 
-struct Context_10b2c0 {
-    char pad0[8];
-    ColorHolder ch;
-    char pad1[0x60 - 8 - 1];
-    Context_10b2c0() throw();
+// (decl1, drive1's stop) fight::Context on its record (decls/fight_context.h), constructed by its constructor's address
+// 0x00236840 (a local constructor had no definition natively); the name is pure3d::Entity's second word
+struct Context_10b2c0 : HulkFightContext {
+    Context_10b2c0* FUN_00236840();   // fight::Context::Context
 };
 
 class List_10b2c0 {
@@ -419,9 +419,10 @@ class List_10b2c0 {
     void Add_00232a80(Context_10b2c0* it);
 };
 
+// (decl1) 0x00232780 is a free function (unk_232780.cpp; a member spelling bound nowhere natively)
+List_10b2c0* __cdecl FUN_00232780();
 class This_10b2c0 {
   public:
-    List_10b2c0* GetList_00232780();
     This_10b2c0* Build();
 };
 HULK_MGR_SAME(This_10b2c0, Hulk_10b2c0);   // (x64t9-mgr) include/decls/managers.h
@@ -433,15 +434,18 @@ extern "C" void __cdecl FUN_00238b60(hulk_intptr a, int b);
 extern "C" void __cdecl FUN_00238330(hulk_intptr a, int b);
 
 This_10b2c0* This_10b2c0::Build() {
-    List_10b2c0* list = GetList_00232780();
-    Context_10b2c0* a = new Context_10b2c0();
-    ((owners::Target_27b040 *)&(a->ch))->FUN_0027b040((hulk_uintptr)(((float**)&DAT_004a1f60)[0]));
+    List_10b2c0* list = FUN_00232780();
+    void* ma = operator new(HULK_FIGHT_CONTEXT_SIZE);
+    Context_10b2c0* a = ma ? ((Context_10b2c0*)ma)->FUN_00236840() : 0;
+    ((owners::Target_27b040 *)&(a->entityWords[1]))->FUN_0027b040((hulk_uintptr)(((float**)&DAT_004a1f60)[0]));
     list->Add_00232a80(a);
-    Context_10b2c0* b = new Context_10b2c0();
-    ((owners::Target_27b040 *)&(b->ch))->FUN_0027b040((hulk_uintptr)(((float**)&DAT_004a1f60)[1]));
+    void* mb = operator new(HULK_FIGHT_CONTEXT_SIZE);
+    Context_10b2c0* b = mb ? ((Context_10b2c0*)mb)->FUN_00236840() : 0;
+    ((owners::Target_27b040 *)&(b->entityWords[1]))->FUN_0027b040((hulk_uintptr)(((float**)&DAT_004a1f60)[1]));
     list->Add_00232a80(b);
-    Context_10b2c0* c = new Context_10b2c0();
-    ((owners::Target_27b040 *)&(c->ch))->FUN_0027b040((hulk_uintptr)(((float**)&DAT_004a1f60)[2]));
+    void* mc = operator new(HULK_FIGHT_CONTEXT_SIZE);
+    Context_10b2c0* c = mc ? ((Context_10b2c0*)mc)->FUN_00236840() : 0;
+    ((owners::Target_27b040 *)&(c->entityWords[1]))->FUN_0027b040((hulk_uintptr)(((float**)&DAT_004a1f60)[2]));
     list->Add_00232a80(c);
     FUN_00238b60(((hulk_intptr)(void (__cdecl*)())&FUN_0010b2a0), 0);
     FUN_00238330(((hulk_intptr)(void (__cdecl*)())&FUN_0010b2b0), 0);

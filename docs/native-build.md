@@ -6471,3 +6471,8 @@ the literal before writing `sizeof(::Gen)`.
 ## decl1 (2026-11-20): start-up declaration stops (find1/2/3, S11, Q5)
 
 - 17 TUs, 14 equivalent blocks re-proven (ledger lines in this commit). Details in docs/journal.md (2026-11-20 decl1).
+
+## decl1 (2026-11-20): fight::Context record, 0x00203e90 callers, `target` renames
+
+- 7 TUs plus include/decls/fight_context.h. Re-proven: 0x00236840, 0x00206320. MSVC clean, x64 gate ok. Wine pair and
+  native count are in the commit message.

@@ -841,7 +841,11 @@ public:
     virtual void v0();
     virtual void v1();
     virtual void v2();
+#if defined(HULK_PTR64)
+    virtual ::pure3d::Shader *v3(content::LoadInventory_2bc790::DynamicCaster<pure3d::Shader_2bc790> *caster, unsigned int id_lo, unsigned int id_hi);   // (decl1, find2 G4) the slot's definition takes the key as two words; a u64 is one register natively
+#else
     virtual ::pure3d::Shader *v3(content::LoadInventory_2bc790::DynamicCaster<pure3d::Shader_2bc790> *caster, unsigned __int64 id);
+#endif
 };
 struct Parent_2bc790 {
     char pad00[8];
@@ -1003,7 +1007,11 @@ public:
     virtual void v0();
     virtual void v1();
     virtual void v2();
+#if defined(HULK_PTR64)
+    virtual ::pure3d::Shader *v3(content::LoadInventory_2bcf30::DynamicCaster<pure3d::Shader_2bcf30> *caster, unsigned int id_lo, unsigned int id_hi);   // (decl1, find2 G4) the slot's definition takes the key as two words; a u64 is one register natively
+#else
     virtual ::pure3d::Shader *v3(content::LoadInventory_2bcf30::DynamicCaster<pure3d::Shader_2bcf30> *caster, unsigned __int64 id);
+#endif
 };
 struct Parent_2bcf30 {
     char pad00[8];
@@ -3526,7 +3534,11 @@ void Group_2bc790::FUN_002bc790(Parent_2bc790 *parent, Reader_2bc790 *r, Factory
     content::LoadInventory_2bc790::DynamicCaster<pure3d::Shader_2bc790> *caster =
         new (&fr.count) content::LoadInventory_2bc790::DynamicCaster<pure3d::Shader_2bc790>();
 #endif
+#if defined(HULK_PTR64)
+    ::pure3d::Shader *shader = factory->v3(caster, (unsigned int)(id), (unsigned int)((id) >> 32));   // (decl1, find2 G4)
+#else
     ::pure3d::Shader *shader = factory->v3(caster, id);
+#endif
     if (shader == 0) {
         FUN_0028fcc0("warning : shader \"%s\" not found for billboard quad group \"%s\"\n", name2, name1);
         void *mem2 = FUN_00263ea0(0x20);
@@ -3704,7 +3716,11 @@ void Group_2bcf30::FUN_002bcf30(Parent_2bcf30 *parent, Reader_2bcf30 *r, Factory
     ((owners::Target_27b040 *)&(o->name))->FUN_0027b040((hulk_uintptr)name1);
     unsigned __int64 id = FUN_0027b020(name2);
     content::LoadInventory_2bcf30::DynamicCaster<pure3d::Shader_2bcf30> caster;
+#if defined(HULK_PTR64)
+    ::pure3d::Shader *shader = factory->v3(&caster, (unsigned int)(id), (unsigned int)((id) >> 32));   // (decl1, find2 G4)
+#else
     ::pure3d::Shader *shader = factory->v3(&caster, id);
+#endif
     if (shader == 0) {
         FUN_0028fcc0("warning : shader \"%s\" not found for billboard quad group \"%s\"\n", name2, name1);
         void *mem2 = FUN_00263ea0(0x20);

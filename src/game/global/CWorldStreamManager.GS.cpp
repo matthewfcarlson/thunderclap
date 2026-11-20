@@ -151,14 +151,14 @@ struct Nodes_206320 {
   Node* FUN_00232840(long long); int FUN_002327c0(); Node* FUN_00232810(int);
 };
 struct W_206320 {
-  char pad0[4]; char name1[0x20]; char name2[0x20];
+  void* vftable; char name1[0x20]; char name2[0x20];   // (decl1) the vftable is a pointer (was char pad0[4])
   Obj_206320* f44;
   char pad1[0x588-0x48]; Prov_206320* prov;
   char pad2[0x5a4-0x58c]; unsigned int tbl[0x100];
   char pad3[0xaa0-0x9a4]; Obj_206320* aa0; char aa4[0x20]; char ac4[0x20];
   Obj_206320* ae4; Obj_206320* ae8;
   void FUN_00205910();   
-  Obj_206320* FUN_00203e90(const char*, int, int, int, Obj_206320*, Obj_206320*, int);
+  Obj_206320* FUN_00203e90(const char*, bool, bool, void*, Obj_206320*, Obj_206320*, int);   // (decl1) as defined (0x00203e90: the name, two flags, the actor, the target, the callback, a kind)
   void FUN_00206320(Ctx_206320*);
 };
 extern "C" Registry_206320* __cdecl FUN_001d4c90();
@@ -352,7 +352,7 @@ void District_205860::FUN_00205860(int id)
 
 
 // 0x00206320 FUN_00206320 (1199 B): equivalent/0x00206320.cpp
-// sym: ?FUN_00206320@W_206320@fn_f43ea553@@QAEXPAUCtx_206320@2@@Z @1751c2469025 @w9263a85f0d92 @v977e2d3b0182
+// sym: ?FUN_00206320@W_206320@fn_f43ea553@@QAEXPAUCtx_206320@2@@Z @1751c2469025 @w9263a85f0d92 @v6993f97d9c05
 // STATUS: equivalent (tools/equiv.py level 3: 544 inputs, branch coverage 42/42)
 // FUN_00206320 @ 0x00206320
 void W_206320::FUN_00206320(Ctx_206320* g){
@@ -1025,7 +1025,7 @@ public:
     char pending;           // 0xaf2
     int FUN_00204c10(int v);
     void FUN_00207080(int v);
-    Handle_207580 *FUN_00203e90(char *path, int a, int b, char *slot, hulk_intptr c, hulk_intptr d, int e);   // (decl1, recs1 Q5) the target and the callback pointer-sized
+    Handle_207580 *FUN_00203e90(char *path, bool a, bool b, char *slot, hulk_intptr c, hulk_intptr d, int e);   // (decl1, recs1 Q5) as defined: two flags; the target and the callback pointer-sized
     void FUN_002067d0(int id, int v);
     bool FUN_00207580(int a1, bool a2);
 };

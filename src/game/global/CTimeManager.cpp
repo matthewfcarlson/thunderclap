@@ -644,8 +644,8 @@ hulk_uintptr __fastcall FUN_00086270(X_86270* p) {
 
 
 // 0x00086280 FUN_00086280 (4 B): matches/0x00086280.cpp
-// sym: ?target@fn_f5b26912@@YIIPAVC_86280@1@@Z
-hulk_uintptr __fastcall target(C_86280* self) {
+// sym: ?FUN_00086280@fn_f5b26912@@YIIPAVC_86280@1@@Z
+hulk_uintptr __fastcall FUN_00086280(C_86280* self) {   // (decl1) named by its address: four `target` overloads in this TU had no unique 64-bit symbol, so callers bound to none natively
     return (hulk_uintptr)self->frontEnd;
 }
 
@@ -682,8 +682,8 @@ extern "C" hulk_uintptr __fastcall FUN_000862c0(Obj_862c0* self) {
 
 
 // 0x000862d0 FUN_000862d0 (4 B): matches/0x000862d0.cpp
-// sym: ?target@fn_f5b26912@@YIIPAUX_862d0@1@@Z
-hulk_uintptr __fastcall target(X_862d0* self) {
+// sym: ?FUN_000862d0@fn_f5b26912@@YIIPAUX_862d0@1@@Z
+hulk_uintptr __fastcall FUN_000862d0(X_862d0* self) {   // (decl1) named by its address: four `target` overloads in this TU had no unique 64-bit symbol, so callers bound to none natively
     return (hulk_uintptr)self->gameControllers;
 }
 
@@ -792,8 +792,8 @@ hulk_intptr owners::A_86370::FUN_00086370() {
 namespace fn_f5b26912 {
 
 // 0x00086380 FUN_00086380 (4 B): matches/0x00086380.cpp
-// sym: ?target@fn_f5b26912@@YIIPAVA_86380@1@@Z
-hulk_uintptr __fastcall target(A_86380* self) {
+// sym: ?FUN_00086380@fn_f5b26912@@YIIPAVA_86380@1@@Z
+hulk_uintptr __fastcall FUN_00086380(A_86380* self) {   // (decl1) named by its address: four `target` overloads in this TU had no unique 64-bit symbol, so callers bound to none natively
     return (hulk_uintptr)self->subtitle;
 }
 
@@ -860,9 +860,9 @@ pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
 namespace fn_f5b26912 {
 
 // 0x000865d0 FUN_000865d0 (93 B): matches/0x000865d0.cpp
-// sym: ?target@fn_f5b26912@@YIXPAUObj_865d0@1@@Z
+// sym: ?FUN_000865d0@fn_f5b26912@@YIXPAUObj_865d0@1@@Z
 // data: flag_865d0 = DAT_004dd6f0
-void __fastcall target(Obj_865d0* self) {
+void __fastcall FUN_000865d0(Obj_865d0* self) {   // (decl1) named by its address: four `target` overloads in this TU had no unique 64-bit symbol, so callers bound to none natively
     A_865d0* edi = self->init();
     if (!(*(unsigned char*)&DAT_004dd6f0))
         edi->f2();

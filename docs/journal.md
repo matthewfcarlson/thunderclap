@@ -1964,3 +1964,23 @@ blocks fight::Action's whole family: the records come first there.
   config/proof-revoked.jsonl. A key built from the whole JSON line would break the first time a line is
   re-serialized, so the key is a fixed set of a run's identifying fields, plus the (code, checker) pair: a host
   with lagging tools cannot re-create the unsound proof.
+
+## 2026-11-20 decl1: fight::Context on a record (drive1's 0x0010b2c0 stop); the 0x00203e90 callers; `target` overloads
+
+- **fight::Context's words: include/decls/fight_context.h `HulkFightContext`.** 0x0010b2c0 called the list getter
+  0x00232780 as a member (the definition is free) and constructed fight::Context through a local constructor with no
+  native definition. 0x00236840 (the constructor) and 0x002368d0 (the destructor) were local polymorphic stand-ins: the
+  constructor stored clang's own vftable, and fight's list (0x00232a80) then called through it. The context's object
+  at +0x10 was an int, which fight's list reads as its `next` link at native +0x18.
+  - The constructor and destructor now use the record and store the game's vftable 0x00427e80 by address. The
+    constructor calls pure3d::Entity's constructor 0x0027b070 by its address.
+  - The callers allocate `HULK_FIGHT_CONTEXT_SIZE` and construct through 0x00236840's address.
+  - The list head 0x00232780 allocates a pointer.
+- **0x00203e90's callers declare its definition's flags as `bool`.** 0x00206320's CWorldStreamManager view started
+  with `char pad0[4]` for the vftable, so natively every later word sat 4 bytes early. The x64 gate showed it as
+  `layout` at the 0x002660a0 call once the declaration changed. The view now opens with `void* vftable`.
+- **Four `target` overloads in CTimeManager.cpp (0x00086280, 0x000862d0, 0x00086380, 0x000865d0) had no unique 64-bit
+  symbol,** so native_unbound could not bind callers by address (class "definition without a unique 64-bit symbol",
+  132 names tree-wide). They are now named by their addresses. This is how the 0x00086380 overload from the
+  2026-11-20 batch binds.
+- BillboardQuad.cpp gets the G4 key split natively (deferred from batch 4+U while sweep2 held the file).

@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x002366e0..0x00236940 (kind game, layer engine, confidence medium), dominant class fight::Context
 #include "tree_prelude.h"
+#include "decls/fight_context.h"   // (decl1) fight::Context's words
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
@@ -118,15 +119,12 @@ class Context_2368d0 {
   public:
     void Dtor_0027afd0();
 };
-class Context {
+// (decl1) fight::Context on its record (decls/fight_context.h); the destructor stores the game's vftable by address
+// (a local polymorphic stand-in stored clang's own natively)
+extern "C" char DAT_00427e80[];   // fight::Context's vftable
+class Context : public HulkFightContext {
   public:
-    virtual ~Context();
-    char pad4[0x0c];
-    Obj_2368d0* p10;
-    SubB_2368d0 b14;
-    SubA_2368d0 a38;
-    char pad58[4];
-    Obj_2368d0* p5c;
+    ~Context();
 };
 
 
@@ -218,7 +216,7 @@ void Obj_236830::Target() {
 } // namespace fn_feea6610
 
 // 0x00236840 FUN_00236840 (135 B): equivalent/0x00236840.cpp [wrapped: conflict: fight::Context; pure3d::Entity]
-// sym: ??0Context@fight@fn_00236840@@QAE@XZ @0e15fa4d7108 @wfa41dc669d68 @v035b51f6afe2
+// sym: ??0Context@fight@fn_00236840@@QAE@XZ @7e0bad34b255 @w3e577e496f80 @va7f7839afcd9
 namespace fn_00236840 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_00236840 @ 0x00236840
@@ -232,8 +230,7 @@ struct NameHolder_236840 {
     void FUN_0027b040(const char *name);
 };
 
-struct Ring_236840 {
-    char data[0x24];
+struct Ring_236840 : HulkHashTableWords {   // (decl1) decls/fight_context.h: the hash table's words (was char data[0x24])
     Ring_236840 *FUN_00231550(int capacity, int a, int b);
 };
 
@@ -245,39 +242,32 @@ public:
     Node *FUN_0023c620();
 };
 
-namespace pure3d {
-class __declspec(novtable) Entity {
-public:
-    virtual void v0_00038290();
-    char pad04[0xc];
-    void FUN_0027b070();
-    Entity() { FUN_0027b070(); }
-};
-}
-
+// (decl1) fight::Context as the record (decls/fight_context.h) with the game's vftable 0x00427e80 stored by address and
+// pure3d::Entity's constructor 0x0027b070 called by its address: a local polymorphic stand-in got clang's own vftable
+// natively (fight's list then called through it: 0x00232a80), and the int at +0x10 / 32-bit table pads put the words
+// where no other TU reads them
+extern "C" char DAT_00427e80[];   // fight::Context's vftable
 namespace fight {
-class Context : public pure3d::Entity {
+class Context : public HulkFightContext {
 public:
     Context();
-    virtual void v1_000382a0();
-    int f10;
-    Ring_236840 ringA;
-    Ring_236840 ringB;
-    Node *node;
+    Context* FUN_0027b070();   // pure3d::Entity::Entity
 };
 
 Context::Context()
 {
-    f10 = 0;
-    ringA.FUN_00231550(0x200, 0x50, 100);
-    ringB.FUN_00231550(0x200, 0x50, 100);
+    FUN_0027b070();
+    vftable = (void*)DAT_00427e80;
+    object = 0;
+    ((Ring_236840*)&tableA)->FUN_00231550(0x200, 0x50, 100);
+    ((Ring_236840*)&tableB)->FUN_00231550(0x200, 0x50, 100);
     int saved = FUN_00266da0(FUN_00238190(0));
     Node *n = (Node *)thunk_FUN_0008d690(0x28);
     if (n)
         n = n->FUN_0023c620();
     node = n;
     n->AddRef();
-    node->name.FUN_0027b040("");
+    ((Node*)node)->name.FUN_0027b040("");
     FUN_00266da0(saved);
 }
 }
@@ -286,17 +276,19 @@ Context::Context()
 namespace fn_feea6610 {
 
 // 0x002368d0 FUN_002368d0 (80 B): matches/0x002368d0.cpp
-// sym: ??1Context@fn_feea6610@@UAE@XZ
+// sym: ??1Context@fn_feea6610@@QAE@XZ
 Context::~Context() {
-    p5c->B();
-    if (p10) {
-        p10->B();
-        p10 = 0;
+    Obj_2368d0* n = (Obj_2368d0*)node;
+    vftable = (void*)DAT_00427e80;
+    n->B();
+    if (object) {
+        ((Obj_2368d0*)object)->B();
+        object = 0;
     }
-    a38.Init_00236720();
-    a38.Fini_00231050();
-    b14.Init_002366e0();
-    b14.Fini_00231050();
+    ((SubA_2368d0*)&tableB)->Init_00236720();
+    ((SubA_2368d0*)&tableB)->Fini_00231050();
+    ((SubB_2368d0*)&tableA)->Init_002366e0();
+    ((SubB_2368d0*)&tableA)->Fini_00231050();
     Context_2368d0* b = (Context_2368d0*)this;
     b->Dtor_0027afd0();
 }
