@@ -189,6 +189,13 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   entries); never hand-edit it, add only with `tree_tu.py unproven-accept ADDR --modes M --why TEXT`. verify and
   materialize report its size as `unproven_baseline`. Cross-TU declaration / allocation / free-name report:
   `tools/xtu_check.py run --jobq`, then `report build/xtu/facts` (report-only; build/xtu/summary.json).
+- **Range contracts** (D152): a function whose game callers keep an argument in a domain states it with
+  `HULK_PRE_RANGE(x, lo, hi)` / `HULK_PRE_GT|GE|LT|LE(x, c)` at the top of the body (include/compat/pre.h; x a parameter's
+  name), the matching `// pre: range|gt|ge|lt|le(argN, ...)` item, and `// pre-callers:` citing every XBE reference to the
+  function with the trace evidence. Nothing under MSVC 7.1, a trap natively (never define HULK_CONTRACTS in a build).
+  equiv.py repairs inputs into the domain, plants the bounds, and fails a block whose macro and item disagree; a caller
+  whose original passes a contracted callee an out-of-range argument is unsupported (`pre_violation_in_original`) until
+  it has its own contract.
 - **Free-name gate** (D149): `verify --relocs` fails on a new call that reaches one of the game's frees under another
   name (`free_by_other_name new`). `config/free-name-baseline.json` lists the existing sites and only shrinks
   (`--update-free-baseline`); add only with `free-name-accept --why`. Call the free as `operator delete` / `delete[]`
