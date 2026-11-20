@@ -121,7 +121,7 @@ Write `((T*)dynamic_cast<ns::G*>((ns::S*)(p)))->m`: without the outer parenthese
 A TU that both calls a record's virtual slots and writes its words declares the words once as a macro list
 (`HULK_VIEW_WORDS`) used by the plain record and by the TU's slot view: a plain record plus a cast leaves `--x64` with
 `view_ambiguous` or every input crashing on a fuzzed vftable (recs1). `git apply` inside an untracked directory of the
-checkout silently skips every path: `git init -q` a private workspace before applying a patch there.
+checkout (build/ included) silently skips every path: `git init -q` a private workspace first, or use `patch -p1`.
 A virtual-slot view must declare the slot definition's parameters and return: a 64-bit key the definition takes as two
 32-bit words, or a pointer returned as int, binds natively with garbage, and no binding check sees calls through vftables.
 A pddi/D3D object's status and refcount are separate words: pddiObject is vftable, refcount f_04, status f_08 (natively
@@ -159,7 +159,10 @@ Wine map: an older map reports renamed definitions as unbound (script1). Bound c
 its member-function pointer with `this` in ecx, and a `__stdcall F(int)` that ignores `this` matches on 32-bit but natively
 reads `this` as its argument; define `R CB_<addr>::FUN_<addr>(RTTI types)` and declare the same at the binding site. Never
 name a helper `DAT_<addr>...`/`FUN_<addr>...` unless that is its own address: the checker resolves such names as
-addresses (script2).
+addresses (script2). An invoke's f_1c keeps gen's member-function-pointer type
+(`R (::C::*)(A...)`): the --x64 harness stubs only typed member-function-pointer leaves. Natively the Lua dispatcher
+0x001d22a0 gives pointer arguments pointer-sized cells, so its argument buffer has the argument list's natural native
+layout: invokes read it as a struct of the instantiation's types, never by 32-bit byte offsets (script2, stop 6).
 
 ## Builds and proofs
 
