@@ -36440,7 +36440,7 @@
   {"addr":"0x004a06e4","size":4,"kind":"float","name":"flt_004a06e4","type":"float","source_type":"float","object":"global/MessageOverlay.cpp","owner_by":"refs","source_names":1,"xrefs":["0xd49b0"]},
   {"addr":"0x004a06e8","size":16,"kind":"float_table","name":"fltTbl_004a06e8","type":"float[4]","object":"global/MessageOverlay.cpp","owner_by":"between","referenced":false},
   {"addr":"0x004a06f8","size":12,"kind":"table","name":"tbl_004a06f8","type":"int[]","object":"global/MessageOverlay.cpp","owner_by":"refs","source_names":1,"xrefs":["0xd40e0"]},
-  {"addr":"0x004a0704","size":48,"kind":"rtti_td","name":"??_R0.?AV?$Method1@VMessageOverlay@@XPBD@@@8","source_type":"int[]","object":"global/MessageOverlay.cpp","owner_by":"data","source_names":1},
+  {"addr":"0x004a0704","size":48,"kind":"rtti_td","name":"??_R0.?AV?$Method1@VMessageOverlay@@XPBD@@@8","object":"global/MessageOverlay.cpp","owner_by":"data","source_names":1},
   {"addr":"0x004a0734","size":4,"kind":"zeros","name":"zero_004a0734","object":"global/MessageOverlay.cpp","owner_by":"between"},
   {"addr":"0x004a0738","size":64,"kind":"rtti_td","name":"??_R0.?AV?$Method7@VMessageOverlay@@XPBDPBDPBDPBDPBDPBDPBD@@@8","object":"global/MessageOverlay.cpp","owner_by":"data"},
   {"addr":"0x004a0778","size":64,"kind":"rtti_td","name":"??_R0.?AV?$Method3@VMessageOverlay@@XPBDHVVector@math@@@@@8","object":"global/MessageOverlay.cpp","owner_by":"between"},
