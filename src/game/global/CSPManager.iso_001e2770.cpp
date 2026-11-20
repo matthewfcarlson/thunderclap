@@ -24,9 +24,4 @@ void* Closure6_1e2770::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_001e2770
-// the destructor itself, which other objects' code references natively:
-template <> Closure6<CSPManager, void, int, float, float, float, float, int>::~Closure6() {}
-#if defined(HULK_PTR64)
-template class Closure6<CSPManager, void, int, float, float, float, float, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1e2770)
-#endif
 

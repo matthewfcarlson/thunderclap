@@ -37,9 +37,4 @@ void Method3_9a960::vfunc_2(void* __p0, void* __p1, void* __p2) { CCameraManager
     (obj->*(*(void (CCameraManager_9a960::**)(float, float, bool))&this->f_1c))(*(float*)&args, p->b, p->c);
 }
 } // namespace fn_0009a960
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method3<CCameraManager, void, float, float, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0009a960::Method3_9a960*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 

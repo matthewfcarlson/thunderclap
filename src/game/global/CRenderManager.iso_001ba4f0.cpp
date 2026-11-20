@@ -37,9 +37,4 @@ void Closure3_1ba4f0::vfunc_2(void* __p0, void* __p1, void* __p2) { Args * args 
     ((*(CRenderManager_1ba4f0 * *)&this->f_20)->*(*(void (CRenderManager_1ba4f0::**)(int, int, int))&this->f_1c))(a, b, c);
 }
 } // namespace fn_001ba4f0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure3<CRenderManager, void, int, int, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001ba4f0::Closure3_1ba4f0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 

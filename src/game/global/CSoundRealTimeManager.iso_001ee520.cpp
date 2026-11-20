@@ -24,9 +24,4 @@ void* Closure2_1ee520::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_001ee520
-// the destructor itself, which other objects' code references natively:
-template <> Closure2<CSoundSimManager, void, const char *, const char *>::~Closure2() {}
-#if defined(HULK_PTR64)
-template class Closure2<CSoundSimManager, void, const char *, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1ee520)
-#endif
 

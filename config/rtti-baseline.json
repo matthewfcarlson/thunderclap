@@ -1,7 +1,7 @@
 {
  "comment": "integ3 9a: RTTI type descriptors referenced by the tree's code whose names are not the game's (native dynamic_cast/typeid fail on them). Only shrinks (x64_gate.py check --update-baseline lowers; rtti-accept adds, with a reason).",
  "seed_why": "integ3 9a: non-exact at 19ddec138 (cast sites: find2's castscan family, sweep2 fixing; complete object locators: rev5 R2)",
- "total": 3273,
+ "total": 3015,
  "tus": {
   "src/engine/audio/ChannelSendVolumeFadeBehaviour.cpp": {
    "col:?AUSeqActionChannelSendVolumes_24f230@fn_0024f230@@|?AUSeqActionChannelSendVolumes_24f230@fn_0024f230@@": 1,
@@ -1004,7 +1004,6 @@
   },
   "src/game/global/AICollisionSolverAgent.cpp": {
    "col:?AV?$Function2@XMM@fn_001b2e50@@|?AUScriptFunctionFields@@": 1,
-   "col:?AV?$Function2@XPEBDM@@|?AV?$Function2@XPEBDM@@": 1,
    "col:?AV?$Function2@XPEBDM@fn_001b2e50@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Function2@XPEBDM@fn_001b2e50@@|?AV?$Function2@XPEBDM@fn_001b2e50@@": 1,
    "col:?AVAICollisionSolverAgent@fn_001b2e50@@|?AVCollisionSolverAgent_1b2e50@fn_001b2e50@@": 1
@@ -1016,42 +1015,6 @@
    "col:?AVTrackFactoryTemplate_77990@fn_fab98861@@|?AVTrackFactoryTemplate_77990@fn_fab98861@@": 1
   },
   "src/game/global/CActorManager.cpp": {
-   "col:?AV?$Closure1@UCActorManager@@HPEBD@@|?AV?$Closure1@UCActorManager@@HPEBD@@": 1,
-   "col:?AV?$Closure1@UCActorManager@@HPEBD@@|?AV?$Method1@UCActorManager@@HPEBD@@": 1,
-   "col:?AV?$Closure1@UCActorManager@@PEBDH@@|?AV?$Closure1@UCActorManager@@PEBDH@@": 1,
-   "col:?AV?$Closure1@UCActorManager@@PEBDH@@|?AV?$Method1@UCActorManager@@PEBDH@@": 1,
-   "col:?AV?$Closure1@UCActorManager@@PEBDPEBD@@|?AV?$Closure1@UCActorManager@@PEBDPEBD@@": 1,
-   "col:?AV?$Closure1@UCActorManager@@PEBDPEBD@@|?AV?$Method1@UCActorManager@@PEBDPEBD@@": 1,
-   "col:?AV?$Closure1@UCActorManager@@PEBDVVector@math@@@@|?AV?$Closure1@UCActorManager@@PEBDVVector@math@@@@": 1,
-   "col:?AV?$Closure1@UCActorManager@@PEBDVVector@math@@@@|?AV?$Method1@UCActorManager@@PEBDVVector@math@@@@": 1,
-   "col:?AV?$Closure1@UCActorManager@@VVector@math@@PEBD@@|?AV?$Closure1@UCActorManager@@VVector@math@@PEBD@@": 1,
-   "col:?AV?$Closure1@UCActorManager@@VVector@math@@PEBD@@|?AV?$Method1@UCActorManager@@VVector@math@@PEBD@@": 1,
-   "col:?AV?$Closure1@UCActorManager@@_NH@@|?AV?$Closure1@UCActorManager@@_NH@@": 1,
-   "col:?AV?$Closure1@UCActorManager@@_NH@@|?AV?$Method1@UCActorManager@@_NH@@": 1,
-   "col:?AV?$Closure1@UCActorManager@@_NPEBD@@|?AV?$Closure1@UCActorManager@@_NPEBD@@": 1,
-   "col:?AV?$Closure1@UCActorManager@@_NPEBD@@|?AV?$Method1@UCActorManager@@_NPEBD@@": 1,
-   "col:?AV?$Closure1@UCActorManager@@_NVVector@math@@@@|?AV?$Closure1@UCActorManager@@_NVVector@math@@@@": 1,
-   "col:?AV?$Closure1@UCActorManager@@_NVVector@math@@@@|?AV?$Method1@UCActorManager@@_NVVector@math@@@@": 1,
-   "col:?AV?$Closure2@UCActorManager@@HPEBDPEBD@@|?AV?$Closure2@UCActorManager@@HPEBDPEBD@@": 1,
-   "col:?AV?$Closure2@UCActorManager@@HPEBDPEBD@@|?AV?$Method2@UCActorManager@@HPEBDPEBD@@": 1,
-   "col:?AV?$Closure2@UCActorManager@@PEBDPEBDH@@|?AV?$Closure2@UCActorManager@@PEBDPEBDH@@": 1,
-   "col:?AV?$Closure2@UCActorManager@@PEBDPEBDH@@|?AV?$Method2@UCActorManager@@PEBDPEBDH@@": 1,
-   "col:?AV?$Closure2@UCActorManager@@XPEBDVVector@math@@@@|?AV?$Closure2@UCActorManager@@XPEBDVVector@math@@@@": 1,
-   "col:?AV?$Closure2@UCActorManager@@XPEBDVVector@math@@@@|?AV?$Method2@UCActorManager@@XPEBDVVector@math@@@@": 1,
-   "col:?AV?$Closure2@UCActorManager@@XVVector@math@@M@@|?AV?$Closure2@UCActorManager@@XVVector@math@@M@@": 1,
-   "col:?AV?$Closure2@UCActorManager@@XVVector@math@@M@@|?AV?$Method2@UCActorManager@@XVVector@math@@M@@": 1,
-   "col:?AV?$Closure2@UCActorManager@@_NPEBD_N@@|?AV?$Closure2@UCActorManager@@_NPEBD_N@@": 1,
-   "col:?AV?$Closure2@UCActorManager@@_NPEBD_N@@|?AV?$Method2@UCActorManager@@_NPEBD_N@@": 1,
-   "col:?AV?$Closure3@UCActorManager@@XPEBDMM@@|?AV?$Closure3@UCActorManager@@XPEBDMM@@": 1,
-   "col:?AV?$Closure3@UCActorManager@@XPEBDMM@@|?AV?$Method3@UCActorManager@@XPEBDMM@@": 1,
-   "col:?AV?$Closure3@UCActorManager@@XPEBDMPEBD@@|?AV?$Closure3@UCActorManager@@XPEBDMPEBD@@": 1,
-   "col:?AV?$Closure3@UCActorManager@@XPEBDMPEBD@@|?AV?$Method3@UCActorManager@@XPEBDMPEBD@@": 1,
-   "col:?AV?$Closure3@UCActorManager@@XPEBDM_N@@|?AV?$Closure3@UCActorManager@@XPEBDM_N@@": 1,
-   "col:?AV?$Closure3@UCActorManager@@XPEBDM_N@@|?AV?$Method3@UCActorManager@@XPEBDM_N@@": 1,
-   "col:?AV?$Closure3@UCActorManager@@XPEBDPEBDM@@|?AV?$Closure3@UCActorManager@@XPEBDPEBDM@@": 1,
-   "col:?AV?$Closure3@UCActorManager@@XPEBDPEBDM@@|?AV?$Method3@UCActorManager@@XPEBDPEBDM@@": 1,
-   "col:?AV?$Closure3@UCActorManager@@_NPEBDMM@@|?AV?$Closure3@UCActorManager@@_NPEBDMM@@": 1,
-   "col:?AV?$Closure3@UCActorManager@@_NPEBDMM@@|?AV?$Method3@UCActorManager@@_NPEBDMM@@": 1,
    "col:?AV?$Closure3_303d0@VCActorManager_303d0@fn_f8e68f21@@XPEBDM_N@fn_f8e68f21@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Closure3_303d0@VCActorManager_303d0@fn_f8e68f21@@XPEBDM_N@fn_f8e68f21@@|?AV?$Closure3_303d0@VCActorManager_303d0@fn_f8e68f21@@XPEBDM_N@fn_f8e68f21@@": 1,
    "col:?AV?$Closure3_30430@VCActorManager_30430@fn_f8e68f21@@XPEBDMPEBD@fn_f8e68f21@@|?AUScriptFunctionFields@@": 1,
@@ -1066,54 +1029,20 @@
    "col:?AV?$Closure3_31200@VCActorManager_31200@fn_f8e68f21@@XHHH@fn_f8e68f21@@|?AV?$Closure3_31200@VCActorManager_31200@fn_f8e68f21@@XHHH@fn_f8e68f21@@": 1,
    "col:?AV?$Closure3_31260@VCActorManager_31260@fn_f8e68f21@@_NPEBDVVector_31260@math@@V34@@fn_f8e68f21@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Closure3_31260@VCActorManager_31260@fn_f8e68f21@@_NPEBDVVector_31260@math@@V34@@fn_f8e68f21@@|?AV?$Closure3_31260@VCActorManager_31260@fn_f8e68f21@@_NPEBDVVector_31260@math@@V34@@fn_f8e68f21@@": 1,
-   "col:?AV?$Closure4@UCActorManager@@XPEBDMHM@@|?AV?$Closure4@UCActorManager@@XPEBDMHM@@": 1,
-   "col:?AV?$Closure4@UCActorManager@@XPEBDMHM@@|?AV?$Method4@UCActorManager@@XPEBDMHM@@": 1,
    "col:?AV?$Closure4_30c00@VCActorManager_30c00@fn_f8e68f21@@XPEBDMHM@fn_f8e68f21@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Closure4_30c00@VCActorManager_30c00@fn_f8e68f21@@XPEBDMHM@fn_f8e68f21@@|?AV?$Closure4_30c00@VCActorManager_30c00@fn_f8e68f21@@XPEBDMHM@fn_f8e68f21@@": 1,
    "col:?AV?$Closure4_30c60@VCActorManager_30c60@fn_f8e68f21@@XPEBDMMM@fn_f8e68f21@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Closure4_30c60@VCActorManager_30c60@fn_f8e68f21@@XPEBDMMM@fn_f8e68f21@@|?AV?$Closure4_30c60@VCActorManager_30c60@fn_f8e68f21@@XPEBDMMM@fn_f8e68f21@@": 1,
    "col:?AV?$Closure4_30f00@VCActorManager_30f00@fn_f8e68f21@@XPEBDPEBDMM@fn_f8e68f21@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Closure4_30f00@VCActorManager_30f00@fn_f8e68f21@@XPEBDPEBDMM@fn_f8e68f21@@|?AV?$Closure4_30f00@VCActorManager_30f00@fn_f8e68f21@@XPEBDPEBDMM@fn_f8e68f21@@": 1,
-   "col:?AV?$Closure5@UCActorManager@@XPEBDPEBDMMM@@|?AV?$Closure5@UCActorManager@@XPEBDPEBDMMM@@": 1,
-   "col:?AV?$Closure5@UCActorManager@@XPEBDPEBDMMM@@|?AV?$Method5@UCActorManager@@XPEBDPEBDMMM@@": 1,
    "col:?AV?$Closure5_30d30@VCActorManager_30d30@fn_f8e68f21@@XPEBDPEBDMMM@fn_f8e68f21@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Closure5_30d30@VCActorManager_30d30@fn_f8e68f21@@XPEBDPEBDMMM@fn_f8e68f21@@|?AV?$Closure5_30d30@VCActorManager_30d30@fn_f8e68f21@@XPEBDPEBDMMM@fn_f8e68f21@@": 1,
-   "col:?AV?$Closure6@UCActorManager@@_NPEBDPEBDPEBDPEBD_NPEBD@@|?AV?$Closure6@UCActorManager@@_NPEBDPEBDPEBDPEBD_NPEBD@@": 1,
-   "col:?AV?$Closure6@UCActorManager@@_NPEBDPEBDPEBDPEBD_NPEBD@@|?AV?$Method6@UCActorManager@@_NPEBDPEBDPEBDPEBD_NPEBD@@": 1,
    "col:?AV?$Closure6_30530@VCActorManager_30530@fn_f8e68f21@@_NPEBDPEBDPEBDPEBD_NPEBD@fn_f8e68f21@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Closure6_30530@VCActorManager_30530@fn_f8e68f21@@_NPEBDPEBDPEBDPEBD_NPEBD@fn_f8e68f21@@|?AV?$Closure6_30530@VCActorManager_30530@fn_f8e68f21@@_NPEBDPEBDPEBDPEBD_NPEBD@fn_f8e68f21@@": 1,
    "col:?AV?$Closure7_30590@VCActorManager_30590@fn_f8e68f21@@_NPEBDVVector_30590@math@@MPEBDPEBD_NPEBD@fn_f8e68f21@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Closure7_30590@VCActorManager_30590@fn_f8e68f21@@_NPEBDVVector_30590@math@@MPEBDPEBD_NPEBD@fn_f8e68f21@@|?AV?$Closure7_30590@VCActorManager_30590@fn_f8e68f21@@_NPEBDVVector_30590@math@@MPEBDPEBD_NPEBD@fn_f8e68f21@@": 1,
    "col:?AV?$Closure7_309f0@VCActorManager_309f0@fn_f8e68f21@@XPEBDMMMMMPEBD@fn_f8e68f21@@|?AUScriptFunctionFields@@": 1,
-   "col:?AV?$Closure7_309f0@VCActorManager_309f0@fn_f8e68f21@@XPEBDMMMMMPEBD@fn_f8e68f21@@|?AV?$Closure7_309f0@VCActorManager_309f0@fn_f8e68f21@@XPEBDMMMMMPEBD@fn_f8e68f21@@": 1,
-   "col:?AV?$Method0@UCActorManager@@M@@|?AV?$Method0@UCActorManager@@M@@": 1,
-   "col:?AV?$Method1@UCActorManager@@VVector@math@@PEBD@@|?AV?$Method1@UCActorManager@@VVector@math@@PEBD@@": 1,
-   "col:?AV?$Method2@UCActorManager@@PEBDPEBDH@@|?AV?$Method2@UCActorManager@@PEBDPEBDH@@": 1,
-   "col:?AV?$Method2@UCActorManager@@PEBDPEBDPEBD@@|?AV?$Method2@UCActorManager@@PEBDPEBDPEBD@@": 1,
-   "col:?AV?$Method2@UCActorManager@@XPEBDVVector@math@@@@|?AV?$Method2@UCActorManager@@XPEBDVVector@math@@@@": 1,
-   "col:?AV?$Method2@UCActorManager@@XPEBD_N@@|?AV?$Method2@UCActorManager@@XPEBD_N@@": 1,
-   "col:?AV?$Method2@UCActorManager@@XVVector@math@@M@@|?AV?$Method2@UCActorManager@@XVVector@math@@M@@": 1,
-   "col:?AV?$Method2@UCActorManager@@_NPEBDM@@|?AV?$Method2@UCActorManager@@_NPEBDM@@": 1,
-   "col:?AV?$Method2@UCActorManager@@_NPEBDVVector@math@@@@|?AV?$Method2@UCActorManager@@_NPEBDVVector@math@@@@": 1,
-   "col:?AV?$Method3@UCActorManager@@XHHH@@|?AV?$Method3@UCActorManager@@XHHH@@": 1,
-   "col:?AV?$Method3@UCActorManager@@XPEBDMM@@|?AV?$Method3@UCActorManager@@XPEBDMM@@": 1,
-   "col:?AV?$Method3@UCActorManager@@XPEBDMPEBD@@|?AV?$Method3@UCActorManager@@XPEBDMPEBD@@": 1,
-   "col:?AV?$Method3@UCActorManager@@XPEBDPEBDM@@|?AV?$Method3@UCActorManager@@XPEBDPEBDM@@": 1,
-   "col:?AV?$Method3@UCActorManager@@_NPEBDMM@@|?AV?$Method3@UCActorManager@@_NPEBDMM@@": 1,
-   "col:?AV?$Method4@UCActorManager@@XPEBDMMM@@|?AV?$Method4@UCActorManager@@XPEBDMMM@@": 1,
-   "col:?AV?$Method4@UCActorManager@@XPEBDPEBDMM@@|?AV?$Method4@UCActorManager@@XPEBDPEBDMM@@": 1
-  },
-  "src/game/global/CActorManager.iso_0002ff80.cpp": {
-   "col:?AV?$Closure2@VCActorManager@@MPEBDPEBD@@|?AV?$Closure2@VCActorManager@@MPEBDPEBD@@": 1,
-   "col:?AV?$Closure2@VCActorManager@@MPEBDPEBD@@|?AV?$Method2@VCActorManager@@MPEBDPEBD@@": 1
-  },
-  "src/game/global/CActorManager.iso_00030100.cpp": {
-   "col:?AV?$Closure3@VCActorManager@@_NPEBDVVector@math@@V23@@@|?AV?$Closure3@VCActorManager@@_NPEBDVVector@math@@V23@@@": 1,
-   "col:?AV?$Closure3@VCActorManager@@_NPEBDVVector@math@@V23@@@|?AV?$Method3@VCActorManager@@_NPEBDVVector@math@@V23@@@": 1
-  },
-  "src/game/global/CActorManager.iso_00030190.cpp": {
-   "col:?AV?$Closure2@VCActorManager@@_NPEBDVVector@math@@@@|?AV?$Closure2@VCActorManager@@_NPEBDVVector@math@@@@": 1,
-   "col:?AV?$Closure2@VCActorManager@@_NPEBDVVector@math@@@@|?AV?$Method2@VCActorManager@@_NPEBDVVector@math@@@@": 1
+   "col:?AV?$Closure7_309f0@VCActorManager_309f0@fn_f8e68f21@@XPEBDMMMMMPEBD@fn_f8e68f21@@|?AV?$Closure7_309f0@VCActorManager_309f0@fn_f8e68f21@@XPEBDMMMMMPEBD@fn_f8e68f21@@": 1
   },
   "src/game/global/CAlertStatusCondition_factory.cpp": {
    "col:?AVTrackFactoryTemplate_56af0@fn_fb5b56c3@@|?AVTrackFactoryTemplate_56af0@fn_fb5b56c3@@": 1
@@ -1124,33 +1053,16 @@
   "src/game/global/CAmbientsManager.cpp": {
    "col:?AV?$Closure0@VCAmbientsManager@fn_0007eaa0@@X@fn_0007eaa0@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Closure0@VCAmbientsManager@fn_0007eaa0@@X@fn_0007eaa0@@|?AVMethodBase_7eaa0@fn_0007eaa0@@": 1,
-   "col:?AV?$Closure3@VCAmbientsManager@@XPEBDH_N@@|?AV?$Closure3@VCAmbientsManager@@XPEBDH_N@@": 1,
-   "col:?AV?$Closure3@VCAmbientsManager@@XPEBDH_N@@|?AV?$Method3@VCAmbientsManager@@XPEBDH_N@@": 1,
    "col:?AV?$Closure3_7eb10@VCAmbientsManager_7eb10@fn_f9399ba1@@XPEBDH_N@fn_f9399ba1@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Closure3_7eb10@VCAmbientsManager_7eb10@fn_f9399ba1@@XPEBDH_N@fn_f9399ba1@@|?AV?$Closure3_7eb10@VCAmbientsManager_7eb10@fn_f9399ba1@@XPEBDH_N@fn_f9399ba1@@": 1,
    "col:?AV?$Closure3_7ed60@VCAmbientsManager_7ed60@fn_f9399ba1@@XPEBDIM@fn_f9399ba1@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Closure3_7ed60@VCAmbientsManager_7ed60@fn_f9399ba1@@XPEBDIM@fn_f9399ba1@@|?AV?$Closure3_7ed60@VCAmbientsManager_7ed60@fn_f9399ba1@@XPEBDIM@fn_f9399ba1@@": 1,
    "col:?AV?$Closure4_7ed00@VCAmbientsManager_7ed00@fn_f9399ba1@@XPEBDH$$CBVVector_7ed00@math@@$$CBV34@@fn_f9399ba1@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Closure4_7ed00@VCAmbientsManager_7ed00@fn_f9399ba1@@XPEBDH$$CBVVector_7ed00@math@@$$CBV34@@fn_f9399ba1@@|?AV?$Closure4_7ed00@VCAmbientsManager_7ed00@fn_f9399ba1@@XPEBDH$$CBVVector_7ed00@math@@$$CBV34@@fn_f9399ba1@@": 1,
-   "col:?AV?$Closure5@VCAmbientsManager@@XPEBDH_NVVector@math@@V23@@@|?AV?$Closure5@VCAmbientsManager@@XPEBDH_NVVector@math@@V23@@@": 1,
-   "col:?AV?$Closure5@VCAmbientsManager@@XPEBDH_NVVector@math@@V23@@@|?AV?$Method5@VCAmbientsManager@@XPEBDH_NVVector@math@@V23@@@": 1,
    "col:?AV?$Closure5_7e9f0@VCAmbientsManager_7e9f0@fn_f9399ba1@@XPEBDH_NVVector_7e9f0@math@@V34@@fn_f9399ba1@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Closure5_7e9f0@VCAmbientsManager_7e9f0@fn_f9399ba1@@XPEBDH_NVVector_7e9f0@math@@V34@@fn_f9399ba1@@|?AV?$Closure5_7e9f0@VCAmbientsManager_7e9f0@fn_f9399ba1@@XPEBDH_NVVector_7e9f0@math@@V34@@fn_f9399ba1@@": 1,
    "col:?AV?$Method0@VCAmbientsManager@fn_0007eaa0@@X@fn_0007eaa0@@|?AUScriptFunctionFields@@": 1,
-   "col:?AV?$Method0@VCAmbientsManager@fn_0007eaa0@@X@fn_0007eaa0@@|?AVMethodBase_7eaa0@fn_0007eaa0@@": 1,
-   "col:?AV?$Method5@VCAmbientsManager@@XPEBDH_NVVector@math@@V23@@@|?AV?$Method5@VCAmbientsManager@@XPEBDH_NVVector@math@@V23@@@": 1
-  },
-  "src/game/global/CAmbientsManager.iso_0007e430.cpp": {
-   "col:?AV?$Closure4@VCAmbientsManager@@XPEBDH$$CBVVector@math@@$$CBV23@@@|?AV?$Closure4@VCAmbientsManager@@XPEBDH$$CBVVector@math@@$$CBV23@@@": 1,
-   "col:?AV?$Closure4@VCAmbientsManager@@XPEBDH$$CBVVector@math@@$$CBV23@@@|?AV?$Method4@VCAmbientsManager@@XPEBDH$$CBVVector@math@@$$CBV23@@@": 1
-  },
-  "src/game/global/CAmbientsManager.iso_0007e490.cpp": {
-   "col:?AV?$Closure3@VCAmbientsManager@@XPEBDIM@@|?AV?$Closure3@VCAmbientsManager@@XPEBDIM@@": 1,
-   "col:?AV?$Closure3@VCAmbientsManager@@XPEBDIM@@|?AV?$Method3@VCAmbientsManager@@XPEBDIM@@": 1
-  },
-  "src/game/global/CAmbientsManager.iso_0007e530.cpp": {
-   "col:?AV?$Closure2@VCAmbientsManager@@XPEBDM@@|?AV?$Closure2@VCAmbientsManager@@XPEBDM@@": 1,
-   "col:?AV?$Closure2@VCAmbientsManager@@XPEBDM@@|?AV?$Method2@VCAmbientsManager@@XPEBDM@@": 1
+   "col:?AV?$Method0@VCAmbientsManager@fn_0007eaa0@@X@fn_0007eaa0@@|?AVMethodBase_7eaa0@fn_0007eaa0@@": 1
   },
   "src/game/global/CAutoTargetTrack.cpp": {
    "col:?AUCAutoTargetTrack@fn_00069c50@@|?AUCAutoTargetTrack@fn_00069c50@@": 1,
@@ -1278,23 +1190,8 @@
    "col:?AV?$Method0@VCCameraManager@fn_0009dae0@@PEBD@fn_0009dae0@@|?AV?$Method0@VCCameraManager@fn_0009dae0@@PEBD@fn_0009dae0@@": 1,
    "col:?AV?$Method0@VCCameraManager@fn_0009dae0@@PEBD@fn_0009dae0@@|?AVMethodBase_9dae0@fn_0009dae0@@": 1
   },
-  "src/game/global/CCameraManager.iso_0009cd60.cpp": {
-   "col:?AV?$Closure1@VCCameraManager@@XPEBD@@|?AV?$Closure1@VCCameraManager@@XPEBD@@": 1,
-   "col:?AV?$Closure1@VCCameraManager@@XPEBD@@|?AV?$Method1@VCCameraManager@@XPEBD@@": 1
-  },
-  "src/game/global/CCameraManager.iso_0009cde0.cpp": {
-   "col:?AV?$Closure0@VCCameraManager@@PEBD@@|?AV?$Closure0@VCCameraManager@@PEBD@@": 1,
-   "col:?AV?$Closure0@VCCameraManager@@PEBD@@|?AV?$Method0@VCCameraManager@@PEBD@@": 1
-  },
-  "src/game/global/CCameraManager.iso_0009d020.cpp": {
-   "col:?AV?$Closure4@VCCameraManager@@XPEADPEADPEADPEAD@@|?AV?$Closure4@VCCameraManager@@XPEADPEADPEADPEAD@@": 1,
-   "col:?AV?$Closure4@VCCameraManager@@XPEADPEADPEADPEAD@@|?AV?$Method4@VCCameraManager@@XPEADPEADPEADPEAD@@": 1
-  },
   "src/game/global/CCameraShakeTrack_2.cpp": {
    "col:?AVTrackFactoryTemplate_75e30@fn_fd0ccaa0@@|?AVTrackFactoryTemplate_75e30@fn_fd0ccaa0@@": 1
-  },
-  "src/game/global/CCharacter.cpp": {
-   "col:?AV?$Function3@XPEBDPEBDM@@|?AV?$Function3@XPEBDPEBDM@@": 1
   },
   "src/game/global/CCharacterAgent.cpp": {
    "col:?AVBaseAgent@fn_000fc760@@|?AVBaseAgent@fn_000fc760@@": 1,
@@ -1316,10 +1213,6 @@
    "col:?AV?$Closure1@VCCharacterTemplateManager@fn_00047890@@XPEBD@fn_00047890@@|?AV?$Method1@VCCharacterTemplateManager@fn_00047890@@XPEBD@fn_00047890@@": 1,
    "col:?AV?$Method1@VCCharacterTemplateManager@fn_00047890@@XPEBD@fn_00047890@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Method1@VCCharacterTemplateManager@fn_00047890@@XPEBD@fn_00047890@@|?AV?$Method1@VCCharacterTemplateManager@fn_00047890@@XPEBD@fn_00047890@@": 1
-  },
-  "src/game/global/CCharacterTemplateManager.iso_00046480.cpp": {
-   "col:?AV?$Closure1@VCCharacterTemplateManager@@XPEBD@@|?AV?$Closure1@VCCharacterTemplateManager@@XPEBD@@": 1,
-   "col:?AV?$Closure1@VCCharacterTemplateManager@@XPEBD@@|?AV?$Method1@VCCharacterTemplateManager@@XPEBD@@": 1
   },
   "src/game/global/CCharacterTemplateVariationCondition_2.cpp": {
    "col:?AVTrackFactoryTemplate_58d30@fn_f0389c66@@|?AVTrackFactoryTemplate_58d30@fn_f0389c66@@": 1
@@ -1370,8 +1263,7 @@
    "col:?AUCCollisionManager@fn_001b6440@@|?AUCCollisionManager@fn_001b6440@@": 1,
    "col:?AV?$Closure3_1b62d0@VCCollisionManager_1b62d0@fn_f5af65ff@@XMMM@fn_f5af65ff@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Closure3_1b62d0@VCCollisionManager_1b62d0@fn_f5af65ff@@XMMM@fn_f5af65ff@@|?AV?$Closure3_1b62d0@VCCollisionManager_1b62d0@fn_f5af65ff@@XMMM@fn_f5af65ff@@": 1,
-   "col:?AV?$Function2@XHVVector@math@fn_001b3c50@@@fn_001b3c50@@|?AUScriptFunctionFields@@": 1,
-   "col:?AV?$Function4@XHPEBDPEBDM@@|?AV?$Function4@XHPEBDPEBDM@@": 1
+   "col:?AV?$Function2@XHVVector@math@fn_001b3c50@@@fn_001b3c50@@|?AUScriptFunctionFields@@": 1
   },
   "src/game/global/CCollisionPushbackDirectionCondition_2.cpp": {
    "col:?AVTrackFactoryTemplate_579c0@fn_f8ff7609@@|?AVTrackFactoryTemplate_579c0@fn_f8ff7609@@": 1
@@ -1460,10 +1352,6 @@
    "col:?AV?$Closure1@VCEffectManager@fn_001f81c0@@IPEAD@fn_001f81c0@@|?AV?$Closure1@VCEffectManager@fn_001f81c0@@IPEAD@fn_001f81c0@@": 1,
    "col:?AV?$Closure1@VCEffectManager@fn_001f81c0@@IPEAD@fn_001f81c0@@|?AV?$Method1@VCEffectManager@fn_001f81c0@@IPEAD@fn_001f81c0@@": 1,
    "col:?AV?$Closure1@VCEffectManager@fn_001f81c0@@_N_N@fn_001f81c0@@|?AUScriptFunctionFields@@": 1,
-   "col:?AV?$Closure2@VCEffectManager@@HPEBDVVector@math@@@@|?AV?$Closure2@VCEffectManager@@HPEBDVVector@math@@@@": 1,
-   "col:?AV?$Closure2@VCEffectManager@@HPEBDVVector@math@@@@|?AV?$Method2@VCEffectManager@@HPEBDVVector@math@@@@": 1,
-   "col:?AV?$Closure3@VCEffectManager@@HPEBDVVector@math@@V23@@@|?AV?$Closure3@VCEffectManager@@HPEBDVVector@math@@V23@@@": 1,
-   "col:?AV?$Closure3@VCEffectManager@@HPEBDVVector@math@@V23@@@|?AV?$Method3@VCEffectManager@@HPEBDVVector@math@@V23@@@": 1,
    "col:?AV?$Closure3@VCEffectManager@fn_001f81c0@@HPEBDVVector@math@2@V342@@fn_001f81c0@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Closure3@VCEffectManager@fn_001f81c0@@HPEBDVVector@math@2@V342@@fn_001f81c0@@|?AV?$Closure3@VCEffectManager@fn_001f81c0@@HPEBDVVector@math@2@V342@@fn_001f81c0@@": 1,
    "col:?AV?$Closure3@VCEffectManager@fn_001f81c0@@HPEBDVVector@math@2@V342@@fn_001f81c0@@|?AVMethod3Oriented@fn_001f81c0@@": 1,
@@ -1475,18 +1363,9 @@
    "col:?AV?$Closure3_1f8050@VCEffectManager_1f8050@fn_f919337e@@IPEADMM@fn_f919337e@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Closure3_1f8050@VCEffectManager_1f8050@fn_f919337e@@IPEADMM@fn_f919337e@@|?AV?$Closure3_1f8050@VCEffectManager_1f8050@fn_f919337e@@IPEADMM@fn_f919337e@@": 1,
    "col:?AV?$Function2@XMM@fn_001f81c0@@|?AUScriptFunctionFields@@": 1,
-   "col:?AV?$Method1@VCEffectManager@@IPEAD@@|?AV?$Method1@VCEffectManager@@IPEAD@@": 1,
    "col:?AV?$Method1@VCEffectManager@fn_001f81c0@@IPEAD@fn_001f81c0@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Method1@VCEffectManager@fn_001f81c0@@IPEAD@fn_001f81c0@@|?AV?$Method1@VCEffectManager@fn_001f81c0@@IPEAD@fn_001f81c0@@": 1,
    "col:?AV?$Method1@VCEffectManager@fn_001f81c0@@_N_N@fn_001f81c0@@|?AUScriptFunctionFields@@": 1
-  },
-  "src/game/global/CEffectManager.iso_001f7d30.cpp": {
-   "col:?AV?$Closure3@VCEffectManager@@IPEADMM@@|?AV?$Closure3@VCEffectManager@@IPEADMM@@": 1,
-   "col:?AV?$Closure3@VCEffectManager@@IPEADMM@@|?AV?$Method3@VCEffectManager@@IPEADMM@@": 1
-  },
-  "src/game/global/CEffectManager.iso_001f7e70.cpp": {
-   "col:?AV?$Closure1@VCEffectManager@@IPEAD@@|?AV?$Closure1@VCEffectManager@@IPEAD@@": 1,
-   "col:?AV?$Closure1@VCEffectManager@@IPEAD@@|?AV?$Method1@VCEffectManager@@IPEAD@@": 1
   },
   "src/game/global/CEffectTrack.cpp": {
    "col:?AU?$ParamFloatConstRange_610c0@VCEffectStopTrack_610c0@fn_fb6e447b@@@fight@@|?AU?$ParamFloatConstRange_610c0@VCEffectStopTrack_610c0@fn_fb6e447b@@@fight@@": 1,
@@ -1526,8 +1405,6 @@
    "col:?AV?$ParamVector_61850@VCEffectTrack_61850@fn_f0ac4b35@@@fight@@|?AVParamVectorBase@fn_f0ac4b35@@": 1
   },
   "src/game/global/CEventManager.cpp": {
-   "col:?AV?$Closure1@VCEventManager@@_NPEBD@@|?AV?$Closure1@VCEventManager@@_NPEBD@@": 1,
-   "col:?AV?$Closure1@VCEventManager@@_NPEBD@@|?AV?$Method1@VCEventManager@@_NPEBD@@": 1,
    "col:?AV?$Closure1@VCEventManager@fn_001cc360@@XPEBD@fn_001cc360@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Closure1@VCEventManager@fn_001cc360@@XPEBD@fn_001cc360@@|?AV?$Closure1@VCEventManager@fn_001cc360@@XPEBD@fn_001cc360@@": 1,
    "col:?AV?$Closure1@VCEventManager@fn_001cc360@@XPEBD@fn_001cc360@@|?AV?$Method1@VCEventManager@fn_001cc360@@XPEBD@fn_001cc360@@": 1,
@@ -1546,10 +1423,6 @@
    "col:?AV?$Method1@VCEventManager@fn_001cc360@@_NPEBD@fn_001cc360@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Method1@VCEventManager@fn_001cc360@@_NPEBD@fn_001cc360@@|?AV?$Method1@VCEventManager@fn_001cc360@@_NPEBD@fn_001cc360@@": 1,
    "col:?AV?$Method1@VCEventManager@fn_001cc360@@_NPEBD@fn_001cc360@@|?AVMethodBase_1cc360@fn_001cc360@@": 1
-  },
-  "src/game/global/CEventManager.iso_001cbf00.cpp": {
-   "col:?AV?$Closure1@VCEventManager@@XPEBD@@|?AV?$Closure1@VCEventManager@@XPEBD@@": 1,
-   "col:?AV?$Closure1@VCEventManager@@XPEBD@@|?AV?$Method1@VCEventManager@@XPEBD@@": 1
   },
   "src/game/global/CExplosionTrack_2.cpp": {
    "col:?AVCExplosionTrack@fn_00077fe0@@|?AVBase@fn_00077fe0@@": 1,
@@ -1598,8 +1471,6 @@
    "col:?AV?$Closure0@VCFEManager@fn_000c0740@@X@fn_000c0740@@|?AVMethodBase_c0740@fn_000c0740@@": 1,
    "col:?AV?$Closure0@VCFEManager@fn_000c0960@@H@fn_000c0960@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Closure0@VCFEManager@fn_000c0960@@H@fn_000c0960@@|?AVMethodBase_c0960@fn_000c0960@@": 1,
-   "col:?AV?$Closure6@VCFEManager@@XPEBDPEBDPEBDPEBDHH@@|?AV?$Closure6@VCFEManager@@XPEBDPEBDPEBDPEBDHH@@": 1,
-   "col:?AV?$Closure6@VCFEManager@@XPEBDPEBDPEBDPEBDHH@@|?AV?$Method6@VCFEManager@@XPEBDPEBDPEBDPEBDHH@@": 1,
    "col:?AV?$Closure6_c06e0@VCFEManager_c06e0@fn_f53c52ab@@XPEBDPEBDPEBDPEBDHH@fn_f53c52ab@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Closure6_c06e0@VCFEManager_c06e0@fn_f53c52ab@@XPEBDPEBDPEBDPEBDHH@fn_f53c52ab@@|?AV?$Closure6_c06e0@VCFEManager_c06e0@fn_f53c52ab@@XPEBDPEBDPEBDPEBDHH@fn_f53c52ab@@": 1,
    "col:?AV?$Closure6_c08b0@VCFEManager_c08b0@fn_f53c52ab@@XPEBDPEBDPEBDPEBDPEBDPEBD@fn_f53c52ab@@|?AUScriptFunctionFields@@": 1,
@@ -1609,7 +1480,6 @@
    "col:?AV?$Function0_bfcc0@X@fn_f53c52ab@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Function0_bfcc0@X@fn_f53c52ab@@|?AV?$Function0_bfcc0@X@fn_f53c52ab@@": 1,
    "col:?AV?$Function0_bfcc0@X@fn_f53c52ab@@|?AVMethodBase_bfcc0@fn_f53c52ab@@": 1,
-   "col:?AV?$Function1@XPEBD@@|?AV?$Function1@XPEBD@@": 1,
    "col:?AV?$Function1@XPEBD@fn_000bfc50@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Function1@XPEBD@fn_000bfc50@@|?AV?$Function1@XPEBD@fn_000bfc50@@": 1,
    "col:?AV?$Function1@XPEBD@fn_000bfc50@@|?AVMethodBase_bfc50@fn_000bfc50@@": 1,
@@ -1617,18 +1487,6 @@
    "col:?AV?$Method0@VCFEManager@fn_000c0740@@X@fn_000c0740@@|?AVMethodBase_c0740@fn_000c0740@@": 1,
    "col:?AV?$Method0@VCFEManager@fn_000c0960@@H@fn_000c0960@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Method0@VCFEManager@fn_000c0960@@H@fn_000c0960@@|?AVMethodBase_c0960@fn_000c0960@@": 1
-  },
-  "src/game/global/CFEManager.iso_000c0100.cpp": {
-   "col:?AV?$Closure7@VCFEManager@@XPEBDPEBDPEBDPEBDPEBDPEBDPEBD@@|?AV?$Closure7@VCFEManager@@XPEBDPEBDPEBDPEBDPEBDPEBDPEBD@@": 1,
-   "col:?AV?$Closure7@VCFEManager@@XPEBDPEBDPEBDPEBDPEBDPEBDPEBD@@|?AV?$Method7@VCFEManager@@XPEBDPEBDPEBDPEBDPEBDPEBDPEBD@@": 1
-  },
-  "src/game/global/CFEManager.iso_000c01a0.cpp": {
-   "col:?AV?$Closure6@VCFEManager@@XPEBDPEBDPEBDPEBDPEBDPEBD@@|?AV?$Closure6@VCFEManager@@XPEBDPEBDPEBDPEBDPEBDPEBD@@": 1,
-   "col:?AV?$Closure6@VCFEManager@@XPEBDPEBDPEBDPEBDPEBDPEBD@@|?AV?$Method6@VCFEManager@@XPEBDPEBDPEBDPEBDPEBDPEBD@@": 1
-  },
-  "src/game/global/CFEManager.iso_000c0260.cpp": {
-   "col:?AV?$Closure2@VCFEManager@@XPEBDH@@|?AV?$Closure2@VCFEManager@@XPEBDH@@": 1,
-   "col:?AV?$Closure2@VCFEManager@@XPEBDH@@|?AV?$Method2@VCFEManager@@XPEBDH@@": 1
   },
   "src/game/global/CFEManager.new_plain.cpp": {
    "col:?AUCFEManager@fn_000c0e40@@|?AUCFEManager@fn_000c0e40@@": 1
@@ -1658,18 +1516,6 @@
    "col:?AUCGameCamera@fn_000a9400@@|?AUCamera@pure3d@fn_000a9400@@": 1,
    "col:?AUCGameCamera@fn_000a94c0@@|?AUCGameCamera@fn_000a94c0@@": 1,
    "col:?AUCGameCamera@fn_000a94c0@@|?AUCamera@pure3d@fn_000a94c0@@": 1
-  },
-  "src/game/global/CGameFlowManager.cpp": {
-   "col:?AV?$Closure1@VCGameFlowManager@@_NPEBD@@|?AV?$Closure1@VCGameFlowManager@@_NPEBD@@": 1,
-   "col:?AV?$Closure1@VCGameFlowManager@@_NPEBD@@|?AV?$Method1@VCGameFlowManager@@_NPEBD@@": 1
-  },
-  "src/game/global/CGameFlowManager.iso_0008b370.cpp": {
-   "col:?AV?$Closure2@VCGameFlowManager@@XPEBDPEBD@@|?AV?$Closure2@VCGameFlowManager@@XPEBDPEBD@@": 1,
-   "col:?AV?$Closure2@VCGameFlowManager@@XPEBDPEBD@@|?AV?$Method2@VCGameFlowManager@@XPEBDPEBD@@": 1
-  },
-  "src/game/global/CGameFlowManager.iso_0008b400.cpp": {
-   "col:?AV?$Closure1@VCGameFlowManager@@PEBDPEBD@@|?AV?$Closure1@VCGameFlowManager@@PEBDPEBD@@": 1,
-   "col:?AV?$Closure1@VCGameFlowManager@@PEBDPEBD@@|?AV?$Method1@VCGameFlowManager@@PEBDPEBD@@": 1
   },
   "src/game/global/CGrappleAlertStatusCondition.cpp": {
    "col:?AVTrackFactoryTemplate_57de0@fn_f9b6de1e@@|?AVTrackFactoryTemplate_57de0@fn_f9b6de1e@@": 1
@@ -2010,8 +1856,6 @@
    "col:?AV?$Closure1@VCPatrolPathManager@fn_00106e90@@_NPEBD@fn_00106e90@@|?AV?$Closure1@VCPatrolPathManager@fn_00106e90@@_NPEBD@fn_00106e90@@": 1,
    "col:?AV?$Closure1@VCPatrolPathManager@fn_00106e90@@_NPEBD@fn_00106e90@@|?AV?$Method1@VCPatrolPathManager@fn_00106e90@@_NPEBD@fn_00106e90@@": 1,
    "col:?AV?$Closure1@VCPatrolPathManager@fn_00106e90@@_NPEBD@fn_00106e90@@|?AVBase@fn_00106e90@@": 1,
-   "col:?AV?$Closure3@VCPatrolPathManager@@_NPEBD_NH@@|?AV?$Closure3@VCPatrolPathManager@@_NPEBD_NH@@": 1,
-   "col:?AV?$Closure3@VCPatrolPathManager@@_NPEBD_NH@@|?AV?$Method3@VCPatrolPathManager@@_NPEBD_NH@@": 1,
    "col:?AV?$Closure3_106d80@VCPatrolPathManager_106d80@fn_fd31b6ef@@_NPEBD_NH@fn_fd31b6ef@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Closure3_106d80@VCPatrolPathManager_106d80@fn_fd31b6ef@@_NPEBD_NH@fn_fd31b6ef@@|?AV?$Closure3_106d80@VCPatrolPathManager_106d80@fn_fd31b6ef@@_NPEBD_NH@fn_fd31b6ef@@": 1,
    "col:?AV?$Closure3_106e30@VCPatrolPathManager_106e30@fn_fd31b6ef@@_NPEBDHVVector_106e30@math@@@fn_fd31b6ef@@|?AUScriptFunctionFields@@": 1,
@@ -2019,16 +1863,7 @@
    "col:?AV?$Method1@VCPatrolPathManager@fn_00106e90@@_NPEBD@fn_00106e90@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Method1@VCPatrolPathManager@fn_00106e90@@_NPEBD@fn_00106e90@@|?AV?$Method1@VCPatrolPathManager@fn_00106e90@@_NPEBD@fn_00106e90@@": 1,
    "col:?AV?$Method1@VCPatrolPathManager@fn_00106e90@@_NPEBD@fn_00106e90@@|?AVBase@fn_00106e90@@": 1,
-   "col:?AV?$Method3@VCPatrolPathManager@@_NPEBD_NH@@|?AV?$Method3@VCPatrolPathManager@@_NPEBD_NH@@": 1,
    "col:?AVCPatrolPath@fn_001065b0@@|?AVPathBase@fn_001065b0@@": 1
-  },
-  "src/game/global/CPatrolPathManager.iso_00106ca0.cpp": {
-   "col:?AV?$Closure1@VCPatrolPathManager@@_NPEBD@@|?AV?$Closure1@VCPatrolPathManager@@_NPEBD@@": 1,
-   "col:?AV?$Closure1@VCPatrolPathManager@@_NPEBD@@|?AV?$Method1@VCPatrolPathManager@@_NPEBD@@": 1
-  },
-  "src/game/global/CPatrolPathManager.iso_00106d10.cpp": {
-   "col:?AV?$Closure3@VCPatrolPathManager@@_NPEBDHVVector@math@@@@|?AV?$Closure3@VCPatrolPathManager@@_NPEBDHVVector@math@@@@": 1,
-   "col:?AV?$Closure3@VCPatrolPathManager@@_NPEBDHVVector@math@@@@|?AV?$Method3@VCPatrolPathManager@@_NPEBDHVVector@math@@@@": 1
   },
   "src/game/global/CPhysicalController.cpp": {
    "col:?AUCPhysicalController@fn_000b2640@@|?AUCPhysicalController@fn_000b2640@@": 1
@@ -2064,14 +1899,6 @@
    "col:?AV?$Closure6_1bb630@VCRenderManager_1bb630@fn_ff10b020@@XMMMMMM@fn_ff10b020@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Closure6_1bb630@VCRenderManager_1bb630@fn_ff10b020@@XMMMMMM@fn_ff10b020@@|?AV?$Closure6_1bb630@VCRenderManager_1bb630@fn_ff10b020@@XMMMMMM@fn_ff10b020@@": 1
   },
-  "src/game/global/CRenderManager.iso_001ba780.cpp": {
-   "col:?AV?$Closure4@VCRenderManager@@IPEBDMMM@@|?AV?$Closure4@VCRenderManager@@IPEBDMMM@@": 1,
-   "col:?AV?$Closure4@VCRenderManager@@IPEBDMMM@@|?AV?$Method4@VCRenderManager@@IPEBDMMM@@": 1
-  },
-  "src/game/global/CRenderManager.iso_001ba820.cpp": {
-   "col:?AV?$Closure4@VCRenderManager@@IPEBDVVector@math@@V23@M@@|?AV?$Closure4@VCRenderManager@@IPEBDVVector@math@@V23@M@@": 1,
-   "col:?AV?$Closure4@VCRenderManager@@IPEBDVVector@math@@V23@M@@|?AV?$Method4@VCRenderManager@@IPEBDVVector@math@@V23@M@@": 1
-  },
   "src/game/global/CSPHulkPropLoader.cpp": {
    "col:?AVCSPHulkProp@fn_001d4d50@@|?AVEntity_1d4d50@fn_001d4d50@@": 1
   },
@@ -2082,20 +1909,6 @@
    "col:?AU?$DynamicCaster@VCSPHulkProp@fn_001e3020@@@LoadInventory@content@fn_001e3020@@|?AU?$DynamicCaster@VCSPHulkProp@fn_001e3020@@@LoadInventory@content@fn_001e3020@@": 1,
    "col:?AV?$Closure0@VCSPManager@fn_001e3e20@@H@fn_001e3e20@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Closure0@VCSPManager@fn_001e3e20@@H@fn_001e3e20@@|?AVMethodBase_1e3e20@fn_001e3e20@@": 1,
-   "col:?AV?$Closure1@VCSPManager@@_NPEBD@@|?AV?$Closure1@VCSPManager@@_NPEBD@@": 1,
-   "col:?AV?$Closure1@VCSPManager@@_NPEBD@@|?AV?$Method1@VCSPManager@@_NPEBD@@": 1,
-   "col:?AV?$Closure2@VCSPManager@@_NPEBDH@@|?AV?$Closure2@VCSPManager@@_NPEBDH@@": 1,
-   "col:?AV?$Closure2@VCSPManager@@_NPEBDH@@|?AV?$Method2@VCSPManager@@_NPEBDH@@": 1,
-   "col:?AV?$Closure2@VCSPManager@@_NPEBDVVector@math@@@@|?AV?$Closure2@VCSPManager@@_NPEBDVVector@math@@@@": 1,
-   "col:?AV?$Closure2@VCSPManager@@_NPEBDVVector@math@@@@|?AV?$Method2@VCSPManager@@_NPEBDVVector@math@@@@": 1,
-   "col:?AV?$Closure2@VCSPManager@@_NPEBD_N@@|?AV?$Closure2@VCSPManager@@_NPEBD_N@@": 1,
-   "col:?AV?$Closure2@VCSPManager@@_NPEBD_N@@|?AV?$Method2@VCSPManager@@_NPEBD_N@@": 1,
-   "col:?AV?$Closure3@VCSPManager@@XPEBDPEBDVVector@math@@@@|?AV?$Closure3@VCSPManager@@XPEBDPEBDVVector@math@@@@": 1,
-   "col:?AV?$Closure3@VCSPManager@@XPEBDPEBDVVector@math@@@@|?AV?$Method3@VCSPManager@@XPEBDPEBDVVector@math@@@@": 1,
-   "col:?AV?$Closure3@VCSPManager@@XPEBD_NM@@|?AV?$Closure3@VCSPManager@@XPEBD_NM@@": 1,
-   "col:?AV?$Closure3@VCSPManager@@XPEBD_NM@@|?AV?$Method3@VCSPManager@@XPEBD_NM@@": 1,
-   "col:?AV?$Closure3@VCSPManager@@_NPEBDHH@@|?AV?$Closure3@VCSPManager@@_NPEBDHH@@": 1,
-   "col:?AV?$Closure3@VCSPManager@@_NPEBDHH@@|?AV?$Method3@VCSPManager@@_NPEBDHH@@": 1,
    "col:?AV?$Closure3_1e35a0@VCSPManager_1e35a0@fn_f75938cb@@_NPEBDHH@fn_f75938cb@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Closure3_1e35a0@VCSPManager_1e35a0@fn_f75938cb@@_NPEBDHH@fn_f75938cb@@|?AV?$Closure3_1e35a0@VCSPManager_1e35a0@fn_f75938cb@@_NPEBDHH@fn_f75938cb@@": 1,
    "col:?AV?$Closure3_1e3a50@VCSPManager_1e3a50@fn_f75938cb@@XPEBD_NM@fn_f75938cb@@|?AUScriptFunctionFields@@": 1,
@@ -2106,8 +1919,6 @@
    "col:?AV?$Closure3_1e3ee0@VCSPManager_1e3ee0@fn_f75938cb@@XHHPEBD@fn_f75938cb@@|?AV?$Closure3_1e3ee0@VCSPManager_1e3ee0@fn_f75938cb@@XHHPEBD@fn_f75938cb@@": 1,
    "col:?AV?$Closure3_1e3f40@VCSPManager_1e3f40@fn_f75938cb@@XMMM@fn_f75938cb@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Closure3_1e3f40@VCSPManager_1e3f40@fn_f75938cb@@XMMM@fn_f75938cb@@|?AV?$Closure3_1e3f40@VCSPManager_1e3f40@fn_f75938cb@@XMMM@fn_f75938cb@@": 1,
-   "col:?AV?$Closure4@VCSPManager@@XPEBDPEBDVVector@math@@V23@@@|?AV?$Closure4@VCSPManager@@XPEBDPEBDVVector@math@@V23@@@": 1,
-   "col:?AV?$Closure4@VCSPManager@@XPEBDPEBDVVector@math@@V23@@@|?AV?$Method4@VCSPManager@@XPEBDPEBDVVector@math@@V23@@@": 1,
    "col:?AV?$Closure4_1e3990@VCSPManager_1e3990@fn_f75938cb@@XHMMM@fn_f75938cb@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Closure4_1e3990@VCSPManager_1e3990@fn_f75938cb@@XHMMM@fn_f75938cb@@|?AV?$Closure4_1e3990@VCSPManager_1e3990@fn_f75938cb@@XHMMM@fn_f75938cb@@": 1,
    "col:?AV?$Closure4_1e3d10@VCSPManager_1e3d10@fn_f75938cb@@XPEBDPEBDVVector_1e3d10@math@@V34@@fn_f75938cb@@|?AUScriptFunctionFields@@": 1,
@@ -2130,32 +1941,8 @@
    "col:?AV?$Closure6_1e40f0@VCSPManager_1e40f0@fn_f75938cb@@XHMMMMH@fn_f75938cb@@|?AV?$Closure6_1e40f0@VCSPManager_1e40f0@fn_f75938cb@@XHMMMMH@fn_f75938cb@@": 1,
    "col:?AV?$Function1@XM@fn_001e12b0@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Function1@XM@fn_001e12b0@@|?AVMethodBase_1e12b0@fn_001e12b0@@": 1,
-   "col:?AV?$Function5@XPEBDMMMM@@|?AV?$Function5@XPEBDMMMM@@": 1,
    "col:?AV?$Method0@VCSPManager@fn_001e3e20@@H@fn_001e3e20@@|?AUScriptFunctionFields@@": 1,
-   "col:?AV?$Method0@VCSPManager@fn_001e3e20@@H@fn_001e3e20@@|?AVMethodBase_1e3e20@fn_001e3e20@@": 1,
-   "col:?AV?$Method2@VCSPManager@@XPEBD_N@@|?AV?$Method2@VCSPManager@@XPEBD_N@@": 1,
-   "col:?AV?$Method2@VCSPManager@@_NPEBDVVector@math@@@@|?AV?$Method2@VCSPManager@@_NPEBDVVector@math@@@@": 1,
-   "col:?AV?$Method3@VCSPManager@@XPEBD_NM@@|?AV?$Method3@VCSPManager@@XPEBD_NM@@": 1
-  },
-  "src/game/global/CSPManager.iso_001e2400.cpp": {
-   "col:?AV?$Closure3@VCSPManager@@XHHPEBD@@|?AV?$Closure3@VCSPManager@@XHHPEBD@@": 1,
-   "col:?AV?$Closure3@VCSPManager@@XHHPEBD@@|?AV?$Method3@VCSPManager@@XHHPEBD@@": 1
-  },
-  "src/game/global/CSPManager.iso_001e2520.cpp": {
-   "col:?AV?$Closure2@VCSPManager@@_NPEBDM@@|?AV?$Closure2@VCSPManager@@_NPEBDM@@": 1,
-   "col:?AV?$Closure2@VCSPManager@@_NPEBDM@@|?AV?$Method2@VCSPManager@@_NPEBDM@@": 1
-  },
-  "src/game/global/CSPManager.iso_001e25a0.cpp": {
-   "col:?AV?$Closure4@VCSPManager@@_NPEBDMMH@@|?AV?$Closure4@VCSPManager@@_NPEBDMMH@@": 1,
-   "col:?AV?$Closure4@VCSPManager@@_NPEBDMMH@@|?AV?$Method4@VCSPManager@@_NPEBDMMH@@": 1
-  },
-  "src/game/global/CSPManager.iso_001e2660.cpp": {
-   "col:?AV?$Closure1@VCSPManager@@PEBDPEBD@@|?AV?$Closure1@VCSPManager@@PEBDPEBD@@": 1,
-   "col:?AV?$Closure1@VCSPManager@@PEBDPEBD@@|?AV?$Method1@VCSPManager@@PEBDPEBD@@": 1
-  },
-  "src/game/global/CSPManager.iso_001e2700.cpp": {
-   "col:?AV?$Closure2@VCSPManager@@XPEBDM@@|?AV?$Closure2@VCSPManager@@XPEBDM@@": 1,
-   "col:?AV?$Closure2@VCSPManager@@XPEBDM@@|?AV?$Method2@VCSPManager@@XPEBDM@@": 1
+   "col:?AV?$Method0@VCSPManager@fn_001e3e20@@H@fn_001e3e20@@|?AVMethodBase_1e3e20@fn_001e3e20@@": 1
   },
   "src/game/global/CScenarioManager.GS.cpp": {
    "col:?AV?$Closure0@VCScenarioManager@fn_001ceaa0@@M@fn_001ceaa0@@|?AUScriptFunctionFields@@": 1,
@@ -2211,10 +1998,6 @@
    "col:?AV?$Method1@VCScenarioManager@fn_001cf030@@W4eMissionObjectiveState@2@H@fn_001cf030@@|?AVMethodBase_1cf030@fn_001cf030@@": 1,
    "col:?AV?$Method1@VCScenarioManager@fn_f3574e0c@@XH@fn_f3574e0c@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Method1@VCScenarioManager@fn_f3574e0c@@XH@fn_f3574e0c@@|?AVMethodBase_1ce990@fn_f3574e0c@@": 1
-  },
-  "src/game/global/CScenarioManager.iso_001ce820.cpp": {
-   "col:?AV?$Closure2@VCScenarioManager@@XHPEBD@@|?AV?$Closure2@VCScenarioManager@@XHPEBD@@": 1,
-   "col:?AV?$Closure2@VCScenarioManager@@XHPEBD@@|?AV?$Method2@VCScenarioManager@@XHPEBD@@": 1
   },
   "src/game/global/CScenarioParams.cpp": {
    "col:?AVCScenarioParams@fn_001d03d0@@|?AVParams_1d03d0@fn_001d03d0@@": 1
@@ -2290,22 +2073,6 @@
    "col:?AV?$Closure4_1ee770@VCSoundSimManager_1ee770@fn_f014178b@@XPEBDPEBDPEBDPEBD@fn_f014178b@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Closure4_1ee770@VCSoundSimManager_1ee770@fn_f014178b@@XPEBDPEBDPEBDPEBD@fn_f014178b@@|?AV?$Closure4_1ee770@VCSoundSimManager_1ee770@fn_f014178b@@XPEBDPEBDPEBDPEBD@fn_f014178b@@": 1
   },
-  "src/game/global/CSoundRealTimeManager.iso_001ee370.cpp": {
-   "col:?AV?$Closure3@VCSoundRealTimeManager@@XPEADPEADPEAD@@|?AV?$Closure3@VCSoundRealTimeManager@@XPEADPEADPEAD@@": 1,
-   "col:?AV?$Closure3@VCSoundRealTimeManager@@XPEADPEADPEAD@@|?AV?$Method3@VCSoundRealTimeManager@@XPEADPEADPEAD@@": 1
-  },
-  "src/game/global/CSoundRealTimeManager.iso_001ee400.cpp": {
-   "col:?AV?$Closure1@VCSoundRealTimeManager@@XPEAD@@|?AV?$Closure1@VCSoundRealTimeManager@@XPEAD@@": 1,
-   "col:?AV?$Closure1@VCSoundRealTimeManager@@XPEAD@@|?AV?$Method1@VCSoundRealTimeManager@@XPEAD@@": 1
-  },
-  "src/game/global/CSoundRealTimeManager.iso_001ee470.cpp": {
-   "col:?AV?$Closure4@VCSoundSimManager@@XPEBDPEBDPEBDPEBD@@|?AV?$Closure4@VCSoundSimManager@@XPEBDPEBDPEBDPEBD@@": 1,
-   "col:?AV?$Closure4@VCSoundSimManager@@XPEBDPEBDPEBDPEBD@@|?AV?$Method4@VCSoundSimManager@@XPEBDPEBDPEBDPEBD@@": 1
-  },
-  "src/game/global/CSoundRealTimeManager.iso_001ee520.cpp": {
-   "col:?AV?$Closure2@VCSoundSimManager@@XPEBDPEBD@@|?AV?$Closure2@VCSoundSimManager@@XPEBDPEBD@@": 1,
-   "col:?AV?$Closure2@VCSoundSimManager@@XPEBDPEBD@@|?AV?$Method2@VCSoundSimManager@@XPEBDPEBD@@": 1
-  },
   "src/game/global/CSoundResourceManager.cpp": {
    "col:?AUDynamicCasterListenerEffectXBox@LoadInventory@content@fn_001ea560@@|?AUDynamicCasterListenerEffectXBox@LoadInventory@content@fn_001ea560@@": 1,
    "col:?AVClosure1@fn_001ea4d0@@|?AUScriptFunctionFields@@": 1,
@@ -2325,32 +2092,10 @@
    "col:?AV?$Closure4_1f24c0@VCSoundSystem_1f24c0@fn_ffeee61e@@XPEADPEADMM@fn_ffeee61e@@|?AV?$Closure4_1f24c0@VCSoundSystem_1f24c0@fn_ffeee61e@@XPEADPEADMM@fn_ffeee61e@@": 1,
    "col:?AV?$Closure5_1f2520@VCSoundSystem_1f2520@fn_ffeee61e@@XPEADPEADMMM@fn_ffeee61e@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Closure5_1f2520@VCSoundSystem_1f2520@fn_ffeee61e@@XPEADPEADMMM@fn_ffeee61e@@|?AV?$Closure5_1f2520@VCSoundSystem_1f2520@fn_ffeee61e@@XPEADPEADMMM@fn_ffeee61e@@": 1,
-   "col:?AV?$Closure6@VCSoundSystem@@XPEADPEADMMMM@@|?AV?$Closure6@VCSoundSystem@@XPEADPEADMMMM@@": 1,
-   "col:?AV?$Closure6@VCSoundSystem@@XPEADPEADMMMM@@|?AV?$Method6@VCSoundSystem@@XPEADPEADMMMM@@": 1,
    "col:?AV?$Closure6_1f2460@VCSoundSystem_1f2460@fn_ffeee61e@@XPEADPEADMMMM@fn_ffeee61e@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Closure6_1f2460@VCSoundSystem_1f2460@fn_ffeee61e@@XPEADPEADMMMM@fn_ffeee61e@@|?AV?$Closure6_1f2460@VCSoundSystem_1f2460@fn_ffeee61e@@XPEADPEADMMMM@fn_ffeee61e@@": 1,
    "col:?AV?$Closure6_1f2580@VCSoundSystem_1f2580@fn_ffeee61e@@XPEADPEADPEADMMM@fn_ffeee61e@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Closure6_1f2580@VCSoundSystem_1f2580@fn_ffeee61e@@XPEADPEADPEADMMM@fn_ffeee61e@@|?AV?$Closure6_1f2580@VCSoundSystem_1f2580@fn_ffeee61e@@XPEADPEADPEADMMM@fn_ffeee61e@@": 1
-  },
-  "src/game/global/CSoundSystem.iso_001f1f40.cpp": {
-   "col:?AV?$Closure4@VCSoundSystem@@XPEADPEADMM@@|?AV?$Closure4@VCSoundSystem@@XPEADPEADMM@@": 1,
-   "col:?AV?$Closure4@VCSoundSystem@@XPEADPEADMM@@|?AV?$Method4@VCSoundSystem@@XPEADPEADMM@@": 1
-  },
-  "src/game/global/CSoundSystem.iso_001f1fc0.cpp": {
-   "col:?AV?$Closure5@VCSoundSystem@@XPEADPEADMMM@@|?AV?$Closure5@VCSoundSystem@@XPEADPEADMMM@@": 1,
-   "col:?AV?$Closure5@VCSoundSystem@@XPEADPEADMMM@@|?AV?$Method5@VCSoundSystem@@XPEADPEADMMM@@": 1
-  },
-  "src/game/global/CSoundSystem.iso_001f2050.cpp": {
-   "col:?AV?$Closure6@VCSoundSystem@@XPEADPEADPEADMMM@@|?AV?$Closure6@VCSoundSystem@@XPEADPEADPEADMMM@@": 1,
-   "col:?AV?$Closure6@VCSoundSystem@@XPEADPEADPEADMMM@@|?AV?$Method6@VCSoundSystem@@XPEADPEADPEADMMM@@": 1
-  },
-  "src/game/global/CSoundSystem.iso_001f2170.cpp": {
-   "col:?AV?$Closure3@VCSoundSystem@@XPEADMM@@|?AV?$Closure3@VCSoundSystem@@XPEADMM@@": 1,
-   "col:?AV?$Closure3@VCSoundSystem@@XPEADMM@@|?AV?$Method3@VCSoundSystem@@XPEADMM@@": 1
-  },
-  "src/game/global/CSoundSystem.iso_001f22b0.cpp": {
-   "col:?AV?$Closure2@VCSoundSystem@@XPEADM@@|?AV?$Closure2@VCSoundSystem@@XPEADM@@": 1,
-   "col:?AV?$Closure2@VCSoundSystem@@XPEADM@@|?AV?$Method2@VCSoundSystem@@XPEADM@@": 1
   },
   "src/game/global/CSoundSystem.new_plain.cpp": {
    "col:?AUCSoundTriggerExecutionState_1f2c00@fn_fe4d26cb@@|?AUCSoundTriggerExecutionState_1f2c00@fn_fe4d26cb@@": 1
@@ -2365,10 +2110,6 @@
    "col:?AV?$Closure3_1f6860@VCSoundVoiceManager_1f6860@fn_f7fca51a@@X_N_N_N@fn_f7fca51a@@|?AV?$Closure3_1f6860@VCSoundVoiceManager_1f6860@fn_f7fca51a@@X_N_N_N@fn_f7fca51a@@": 1,
    "col:?AV?$Closure4_1f6930@VCSoundVoiceManager_1f6930@fn_f7fca51a@@XPEADPEADPEADH@fn_f7fca51a@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Closure4_1f6930@VCSoundVoiceManager_1f6930@fn_f7fca51a@@XPEADPEADPEADH@fn_f7fca51a@@|?AV?$Closure4_1f6930@VCSoundVoiceManager_1f6930@fn_f7fca51a@@XPEADPEADPEADH@fn_f7fca51a@@": 1
-  },
-  "src/game/global/CSoundVoiceManager.iso_001f5b20.cpp": {
-   "col:?AV?$Closure4@VCSoundVoiceManager@@XPEADPEADPEADH@@|?AV?$Closure4@VCSoundVoiceManager@@XPEADPEADPEADH@@": 1,
-   "col:?AV?$Closure4@VCSoundVoiceManager@@XPEADPEADPEADH@@|?AV?$Method4@VCSoundVoiceManager@@XPEADPEADPEADH@@": 1
   },
   "src/game/global/CStageCondition_4.cpp": {
    "col:?AVTrackFactoryTemplate_58bd0@fn_fbbe4521@@|?AVTrackFactoryTemplate_58bd0@fn_fbbe4521@@": 1
@@ -2409,44 +2150,20 @@
    "col:?AVTrackFactoryTemplate_775e0@fn_fbee1db8@@|?AVTrackFactoryTemplate_775e0@fn_fbee1db8@@": 1
   },
   "src/game/global/CStatsManager.cpp": {
-   "col:?AV?$Closure2@VCStatsManager@@XPEBDH@@|?AV?$Closure2@VCStatsManager@@XPEBDH@@": 1,
-   "col:?AV?$Closure2@VCStatsManager@@XPEBDH@@|?AV?$Method2@VCStatsManager@@XPEBDH@@": 1,
    "col:?AV?$Closure3_91580@VCStatsManager_91580@fn_f6df19d8@@XPEADPEADH@fn_f6df19d8@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Closure3_91580@VCStatsManager_91580@fn_f6df19d8@@XPEADPEADH@fn_f6df19d8@@|?AV?$Closure3_91580@VCStatsManager_91580@fn_f6df19d8@@XPEADPEADH@fn_f6df19d8@@": 1,
    "col:?AV?$Closure6_91300@VCStatsManager_91300@fn_f6df19d8@@XPEBDPEBDHHHH@fn_f6df19d8@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Closure6_91300@VCStatsManager_91300@fn_f6df19d8@@XPEBDPEBDHHHH@fn_f6df19d8@@|?AV?$Closure6_91300@VCStatsManager_91300@fn_f6df19d8@@XPEBDPEBDHHHH@fn_f6df19d8@@": 1
-  },
-  "src/game/global/CStatsManager.iso_00091140.cpp": {
-   "col:?AV?$Closure1@VCStatsManager@@HPEBD@@|?AV?$Closure1@VCStatsManager@@HPEBD@@": 1,
-   "col:?AV?$Closure1@VCStatsManager@@HPEBD@@|?AV?$Method1@VCStatsManager@@HPEBD@@": 1
-  },
-  "src/game/global/CStatsManager.iso_00091230.cpp": {
-   "col:?AV?$Closure3@VCStatsManager@@XPEADPEADH@@|?AV?$Closure3@VCStatsManager@@XPEADPEADH@@": 1,
-   "col:?AV?$Closure3@VCStatsManager@@XPEADPEADH@@|?AV?$Method3@VCStatsManager@@XPEADPEADH@@": 1
-  },
-  "src/game/global/CStatsManager.iso_000912c0.cpp": {
-   "col:?AV?$Closure1@VCStatsManager@@PEBDH@@|?AV?$Closure1@VCStatsManager@@PEBDH@@": 1,
-   "col:?AV?$Closure1@VCStatsManager@@PEBDH@@|?AV?$Method1@VCStatsManager@@PEBDH@@": 1
   },
   "src/game/global/CSubtitleManager.cpp": {
    "col:?AV?$Closure3_1c0980@VCSubtitleManager_1c0980@fn_fed79ca6@@XMMM@fn_fed79ca6@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Closure3_1c0980@VCSubtitleManager_1c0980@fn_fed79ca6@@XMMM@fn_fed79ca6@@|?AV?$Closure3_1c0980@VCSubtitleManager_1c0980@fn_fed79ca6@@XMMM@fn_fed79ca6@@": 1,
    "col:?AV?$Closure3_1c09e0@VCSubtitleManager_1c09e0@fn_fed79ca6@@XPEBDPEBDM@fn_fed79ca6@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Closure3_1c09e0@VCSubtitleManager_1c09e0@fn_fed79ca6@@XPEBDPEBDM@fn_fed79ca6@@|?AV?$Closure3_1c09e0@VCSubtitleManager_1c09e0@fn_fed79ca6@@XPEBDPEBDM@fn_fed79ca6@@": 1,
-   "col:?AV?$Closure4@VCSubtitleManager@@XHMPEBDM@@|?AV?$Closure4@VCSubtitleManager@@XHMPEBDM@@": 1,
-   "col:?AV?$Closure4@VCSubtitleManager@@XHMPEBDM@@|?AV?$Method4@VCSubtitleManager@@XHMPEBDM@@": 1,
    "col:?AV?$Closure4_1c0810@VCSubtitleManager_1c0810@fn_fed79ca6@@XHMPEBDM@fn_fed79ca6@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Closure4_1c0810@VCSubtitleManager_1c0810@fn_fed79ca6@@XHMPEBDM@fn_fed79ca6@@|?AV?$Closure4_1c0810@VCSubtitleManager_1c0810@fn_fed79ca6@@XHMPEBDM@fn_fed79ca6@@": 1,
    "col:?AVCSubtitleOverlay@fn_001be170@@|?AVOverlay_1be170@fn_001be170@@": 1,
    "col:?AVOverlay_1be170@fn_001be170@@|?AVOverlay_1be170@fn_001be170@@": 1
-  },
-  "src/game/global/CSubtitleManager.iso_001c0010.cpp": {
-   "col:?AV?$Closure2@VCSubtitleManager@@XHPEBD@@|?AV?$Closure2@VCSubtitleManager@@XHPEBD@@": 1,
-   "col:?AV?$Closure2@VCSubtitleManager@@XHPEBD@@|?AV?$Method2@VCSubtitleManager@@XHPEBD@@": 1
-  },
-  "src/game/global/CSubtitleManager.iso_001c0210.cpp": {
-   "col:?AV?$Closure3@VCSubtitleManager@@XPEBDPEBDM@@|?AV?$Closure3@VCSubtitleManager@@XPEBDPEBDM@@": 1,
-   "col:?AV?$Closure3@VCSubtitleManager@@XPEBDPEBDM@@|?AV?$Method3@VCSubtitleManager@@XPEBDPEBDM@@": 1
   },
   "src/game/global/CSubtitleManager.new_plain.cpp": {
    "col:?AU?$Closure1@UCSubtitleManager@fn_f74613ff@@XH@fn_f74613ff@@|?AU?$Closure1@UCSubtitleManager@fn_f74613ff@@XH@fn_f74613ff@@": 1,
@@ -2515,28 +2232,16 @@
    "col:?AU?$Method1@UCTriggerVolumeManager@fn_002004d0@@XM@fn_002004d0@@|?AUBaseInit@fn_002004d0@@": 1,
    "col:?AU?$Method1@UCTriggerVolumeManager@fn_002004d0@@XM@fn_002004d0@@|?AUScriptFunctionFields@@": 1,
    "col:?AUCTriggerVolumeManager@fn_001ff580@@|?AUCTriggerVolumeManager@fn_001ff580@@": 1,
-   "col:?AV?$Closure1@VCTriggerVolumeManager@@PEBDH@@|?AV?$Closure1@VCTriggerVolumeManager@@PEBDH@@": 1,
-   "col:?AV?$Closure1@VCTriggerVolumeManager@@PEBDH@@|?AV?$Method1@VCTriggerVolumeManager@@PEBDH@@": 1,
-   "col:?AV?$Closure1@VCTriggerVolumeManager@@_NPEBD@@|?AV?$Closure1@VCTriggerVolumeManager@@_NPEBD@@": 1,
-   "col:?AV?$Closure1@VCTriggerVolumeManager@@_NPEBD@@|?AV?$Method1@VCTriggerVolumeManager@@_NPEBD@@": 1,
-   "col:?AV?$Closure2@VCTriggerVolumeManager@@_NPEBDM@@|?AV?$Closure2@VCTriggerVolumeManager@@_NPEBDM@@": 1,
-   "col:?AV?$Closure2@VCTriggerVolumeManager@@_NPEBDM@@|?AV?$Method2@VCTriggerVolumeManager@@_NPEBDM@@": 1,
-   "col:?AV?$Closure3@VCTriggerVolumeManager@@_NVVector@math@@PEBD_N@@|?AV?$Closure3@VCTriggerVolumeManager@@_NVVector@math@@PEBD_N@@": 1,
-   "col:?AV?$Closure3@VCTriggerVolumeManager@@_NVVector@math@@PEBD_N@@|?AV?$Method3@VCTriggerVolumeManager@@_NVVector@math@@PEBD_N@@": 1,
    "col:?AV?$Closure3_200950@VCTriggerVolumeManager_200950@fn_f3d6a774@@_NVVector_200950@math@@PEBD_N@fn_f3d6a774@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Closure3_200950@VCTriggerVolumeManager_200950@fn_f3d6a774@@_NVVector_200950@math@@PEBD_N@fn_f3d6a774@@|?AV?$Closure3_200950@VCTriggerVolumeManager_200950@fn_f3d6a774@@_NVVector_200950@math@@PEBD_N@fn_f3d6a774@@": 1,
    "col:?AV?$Closure3_200ab0@VCTriggerVolumeManager_200ab0@fn_f3d6a774@@XPEBDH_N@fn_f3d6a774@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Closure3_200ab0@VCTriggerVolumeManager_200ab0@fn_f3d6a774@@XPEBDH_N@fn_f3d6a774@@|?AV?$Closure3_200ab0@VCTriggerVolumeManager_200ab0@fn_f3d6a774@@XPEBDH_N@fn_f3d6a774@@": 1,
-   "col:?AV?$Closure4@VCTriggerVolumeManager@@_NPEBDVVector@math@@V23@M@@|?AV?$Closure4@VCTriggerVolumeManager@@_NPEBDVVector@math@@V23@M@@": 1,
-   "col:?AV?$Closure4@VCTriggerVolumeManager@@_NPEBDVVector@math@@V23@M@@|?AV?$Method4@VCTriggerVolumeManager@@_NPEBDVVector@math@@V23@M@@": 1,
    "col:?AV?$Closure4_2007b0@VCTriggerVolumeManager_2007b0@fn_f3d6a774@@_NPEBDVVector_2007b0@math@@V34@M@fn_f3d6a774@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Closure4_2007b0@VCTriggerVolumeManager_2007b0@fn_f3d6a774@@_NPEBDVVector_2007b0@math@@V34@M@fn_f3d6a774@@|?AV?$Closure4_2007b0@VCTriggerVolumeManager_2007b0@fn_f3d6a774@@_NPEBDVVector_2007b0@math@@V34@M@fn_f3d6a774@@": 1,
    "col:?AV?$Closure4_200a00@VCTriggerVolumeManager_200a00@fn_f3d6a774@@_NPEBDHH_N@fn_f3d6a774@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Closure4_200a00@VCTriggerVolumeManager_200a00@fn_f3d6a774@@_NPEBDHH_N@fn_f3d6a774@@|?AV?$Closure4_200a00@VCTriggerVolumeManager_200a00@fn_f3d6a774@@_NPEBDHH_N@fn_f3d6a774@@": 1,
    "col:?AV?$Closure5_200b10@VCTriggerVolumeManager_200b10@fn_f3d6a774@@PEBD$$CBVVector_200b10@math@@HHMM@fn_f3d6a774@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Closure5_200b10@VCTriggerVolumeManager_200b10@fn_f3d6a774@@PEBD$$CBVVector_200b10@math@@HHMM@fn_f3d6a774@@|?AV?$Closure5_200b10@VCTriggerVolumeManager_200b10@fn_f3d6a774@@PEBD$$CBVVector_200b10@math@@HHMM@fn_f3d6a774@@": 1,
-   "col:?AV?$Method2@VCTriggerVolumeManager@@XPEBD_N@@|?AV?$Method2@VCTriggerVolumeManager@@XPEBD_N@@": 1,
-   "col:?AV?$Method2@VCTriggerVolumeManager@@_NPEBDPEBD@@|?AV?$Method2@VCTriggerVolumeManager@@_NPEBDPEBD@@": 1,
    "col:?AVClosure1_2002d0@fn_f3d6a774@@|?AUScriptFunctionFields@@": 1,
    "col:?AVClosure1_2002d0@fn_f3d6a774@@|?AVClosure1_2002d0@fn_f3d6a774@@": 1,
    "col:?AVClosure1_2002d0@fn_f3d6a774@@|?AVFunction_2002d0@fn_f3d6a774@@": 1,
@@ -2544,26 +2249,6 @@
    "col:?AVMethod1_2002d0@fn_f3d6a774@@|?AUScriptFunctionFields@@": 1,
    "col:?AVMethod1_2002d0@fn_f3d6a774@@|?AVFunction_2002d0@fn_f3d6a774@@": 1,
    "col:?AVMethod1_2002d0@fn_f3d6a774@@|?AVMethod1_2002d0@fn_f3d6a774@@": 1
-  },
-  "src/game/global/CTriggerVolumeManager.iso_00200270.cpp": {
-   "col:?AV?$Closure4@VCTriggerVolumeManager@@_NPEBDHH_N@@|?AV?$Closure4@VCTriggerVolumeManager@@_NPEBDHH_N@@": 1,
-   "col:?AV?$Closure4@VCTriggerVolumeManager@@_NPEBDHH_N@@|?AV?$Method4@VCTriggerVolumeManager@@_NPEBDHH_N@@": 1
-  },
-  "src/game/global/CTriggerVolumeManager.iso_00200320.cpp": {
-   "col:?AV?$Closure1@VCTriggerVolumeManager@@HPEBD@@|?AV?$Closure1@VCTriggerVolumeManager@@HPEBD@@": 1,
-   "col:?AV?$Closure1@VCTriggerVolumeManager@@HPEBD@@|?AV?$Method1@VCTriggerVolumeManager@@HPEBD@@": 1
-  },
-  "src/game/global/CTriggerVolumeManager.iso_00200390.cpp": {
-   "col:?AV?$Closure3@VCTriggerVolumeManager@@XPEBDH_N@@|?AV?$Closure3@VCTriggerVolumeManager@@XPEBDH_N@@": 1,
-   "col:?AV?$Closure3@VCTriggerVolumeManager@@XPEBDH_N@@|?AV?$Method3@VCTriggerVolumeManager@@XPEBDH_N@@": 1
-  },
-  "src/game/global/CTriggerVolumeManager.iso_00200400.cpp": {
-   "col:?AV?$Closure5@VCTriggerVolumeManager@@PEBD$$CBVVector@math@@HHMM@@|?AV?$Closure5@VCTriggerVolumeManager@@PEBD$$CBVVector@math@@HHMM@@": 1,
-   "col:?AV?$Closure5@VCTriggerVolumeManager@@PEBD$$CBVVector@math@@HHMM@@|?AV?$Method5@VCTriggerVolumeManager@@PEBD$$CBVVector@math@@HHMM@@": 1
-  },
-  "src/game/global/CTriggerVolumeManager.iso_00200490.cpp": {
-   "col:?AV?$Closure1@VCTriggerVolumeManager@@PEBDPEBD@@|?AV?$Closure1@VCTriggerVolumeManager@@PEBDPEBD@@": 1,
-   "col:?AV?$Closure1@VCTriggerVolumeManager@@PEBDPEBD@@|?AV?$Method1@VCTriggerVolumeManager@@PEBDPEBD@@": 1
   },
   "src/game/global/CUninterruptibleTrack_2.cpp": {
    "col:?AVTrackFactoryTemplate_77800@fn_fbba5966@@|?AVTrackFactoryTemplate_77800@fn_fbba5966@@": 1
@@ -2599,43 +2284,18 @@
    "col:?AV?$Method1@VCUnlockablesManager@fn_00094fb0@@_NH@fn_00094fb0@@|?AVBase@fn_00094fb0@@": 1
   },
   "src/game/global/CUnlockablesManager.cpp": {
-   "col:?AV?$Closure2@VCUnlockablesManager@@XPEBDH@@|?AV?$Closure2@VCUnlockablesManager@@XPEBDH@@": 1,
-   "col:?AV?$Closure2@VCUnlockablesManager@@XPEBDH@@|?AV?$Method2@VCUnlockablesManager@@XPEBDH@@": 1,
    "col:?AV?$Closure3_94de0@VCUnlockablesManager_94de0@fn_f8b63219@@XHH_N@fn_f8b63219@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Closure3_94de0@VCUnlockablesManager_94de0@fn_f8b63219@@XHH_N@fn_f8b63219@@|?AV?$Closure3_94de0@VCUnlockablesManager_94de0@fn_f8b63219@@XHH_N@fn_f8b63219@@": 1,
    "col:?AV?$Closure3_94e40@VCUnlockablesManager_94e40@fn_f8b63219@@XHPEBDPEBD@fn_f8b63219@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Closure3_94e40@VCUnlockablesManager_94e40@fn_f8b63219@@XHPEBDPEBD@fn_f8b63219@@|?AV?$Closure3_94e40@VCUnlockablesManager_94e40@fn_f8b63219@@XHPEBDPEBD@fn_f8b63219@@": 1,
    "col:?AV?$Closure4_94f50@VCUnlockablesManager_94f50@fn_f8b63219@@XPEBDHPEBDPEBD@fn_f8b63219@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Closure4_94f50@VCUnlockablesManager_94f50@fn_f8b63219@@XPEBDHPEBDPEBD@fn_f8b63219@@|?AV?$Closure4_94f50@VCUnlockablesManager_94f50@fn_f8b63219@@XPEBDHPEBDPEBD@fn_f8b63219@@": 1,
-   "col:?AV?$Closure6@VCUnlockablesManager@@XPEBDHPEBDPEBDPEBDPEBD@@|?AV?$Closure6@VCUnlockablesManager@@XPEBDHPEBDPEBDPEBDPEBD@@": 1,
-   "col:?AV?$Closure6@VCUnlockablesManager@@XPEBDHPEBDPEBDPEBDPEBD@@|?AV?$Method6@VCUnlockablesManager@@XPEBDHPEBDPEBDPEBDPEBD@@": 1,
    "col:?AV?$Closure6_94d20@VCUnlockablesManager_94d20@fn_f8b63219@@XPEBDHPEBDPEBDPEBDPEBD@fn_f8b63219@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Closure6_94d20@VCUnlockablesManager_94d20@fn_f8b63219@@XPEBDHPEBDPEBDPEBDPEBD@fn_f8b63219@@|?AV?$Closure6_94d20@VCUnlockablesManager_94d20@fn_f8b63219@@XPEBDHPEBDPEBDPEBDPEBD@fn_f8b63219@@": 1,
    "col:?AV?$Closure6_94d80@VCUnlockablesManager_94d80@fn_f8b63219@@XHPEBDPEBDPEBDPEBDH@fn_f8b63219@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Closure6_94d80@VCUnlockablesManager_94d80@fn_f8b63219@@XHPEBDPEBDPEBDPEBDH@fn_f8b63219@@|?AV?$Closure6_94d80@VCUnlockablesManager_94d80@fn_f8b63219@@XHPEBDPEBDPEBDPEBDH@fn_f8b63219@@": 1,
    "col:?AV?$Closure7_94ef0@VCUnlockablesManager_94ef0@fn_f8b63219@@XPEBDHPEBDPEBDPEBDPEBDH@fn_f8b63219@@|?AUScriptFunctionFields@@": 1,
-   "col:?AV?$Closure7_94ef0@VCUnlockablesManager_94ef0@fn_f8b63219@@XPEBDHPEBDPEBDPEBDPEBDH@fn_f8b63219@@|?AV?$Closure7_94ef0@VCUnlockablesManager_94ef0@fn_f8b63219@@XPEBDHPEBDPEBDPEBDPEBDH@fn_f8b63219@@": 1,
-   "col:?AV?$Method3@VCUnlockablesManager@@XHPEBDPEBD@@|?AV?$Method3@VCUnlockablesManager@@XHPEBDPEBD@@": 1
-  },
-  "src/game/global/CUnlockablesManager.iso_000948f0.cpp": {
-   "col:?AV?$Closure6@VCUnlockablesManager@@XHPEBDPEBDPEBDPEBDH@@|?AV?$Closure6@VCUnlockablesManager@@XHPEBDPEBDPEBDPEBDH@@": 1,
-   "col:?AV?$Closure6@VCUnlockablesManager@@XHPEBDPEBDPEBDPEBDH@@|?AV?$Method6@VCUnlockablesManager@@XHPEBDPEBDPEBDPEBDH@@": 1
-  },
-  "src/game/global/CUnlockablesManager.iso_000949f0.cpp": {
-   "col:?AV?$Closure3@VCUnlockablesManager@@XHPEBDPEBD@@|?AV?$Closure3@VCUnlockablesManager@@XHPEBDPEBD@@": 1,
-   "col:?AV?$Closure3@VCUnlockablesManager@@XHPEBDPEBD@@|?AV?$Method3@VCUnlockablesManager@@XHPEBDPEBD@@": 1
-  },
-  "src/game/global/CUnlockablesManager.iso_00094a80.cpp": {
-   "col:?AV?$Closure1@VCUnlockablesManager@@PEBDH@@|?AV?$Closure1@VCUnlockablesManager@@PEBDH@@": 1,
-   "col:?AV?$Closure1@VCUnlockablesManager@@PEBDH@@|?AV?$Method1@VCUnlockablesManager@@PEBDH@@": 1
-  },
-  "src/game/global/CUnlockablesManager.iso_00094af0.cpp": {
-   "col:?AV?$Closure7@VCUnlockablesManager@@XPEBDHPEBDPEBDPEBDPEBDH@@|?AV?$Closure7@VCUnlockablesManager@@XPEBDHPEBDPEBDPEBDPEBDH@@": 1,
-   "col:?AV?$Closure7@VCUnlockablesManager@@XPEBDHPEBDPEBDPEBDPEBDH@@|?AV?$Method7@VCUnlockablesManager@@XPEBDHPEBDPEBDPEBDPEBDH@@": 1
-  },
-  "src/game/global/CUnlockablesManager.iso_00094b90.cpp": {
-   "col:?AV?$Closure4@VCUnlockablesManager@@XPEBDHPEBDPEBD@@|?AV?$Closure4@VCUnlockablesManager@@XPEBDHPEBDPEBD@@": 1,
-   "col:?AV?$Closure4@VCUnlockablesManager@@XPEBDHPEBDPEBD@@|?AV?$Method4@VCUnlockablesManager@@XPEBDHPEBDPEBD@@": 1
+   "col:?AV?$Closure7_94ef0@VCUnlockablesManager_94ef0@fn_f8b63219@@XPEBDHPEBDPEBDPEBDPEBDH@fn_f8b63219@@|?AV?$Closure7_94ef0@VCUnlockablesManager_94ef0@fn_f8b63219@@XPEBDHPEBDPEBDPEBDPEBDH@fn_f8b63219@@": 1
   },
   "src/game/global/CWallSlideTrack_2.cpp": {
    "col:?AVTrackFactoryTemplate_778c0@fn_f0c0ad92@@|?AVTrackFactoryTemplate_778c0@fn_f0c0ad92@@": 1
@@ -2670,10 +2330,6 @@
    "col:?AV?$Method1@VCWorldCollisionManager@fn_00203490@@XPEBD@fn_00203490@@|?AV?$Method1@VCWorldCollisionManager@fn_00203490@@XPEBD@fn_00203490@@": 1,
    "col:?AV?$Method1@VCWorldCollisionManager@fn_00203490@@XPEBD@fn_00203490@@|?AVMethodBase_203490@fn_00203490@@": 1
   },
-  "src/game/global/CWorldCollisionManager.iso_00203110.cpp": {
-   "col:?AV?$Closure1@VCWorldCollisionManager@@XPEBD@@|?AV?$Closure1@VCWorldCollisionManager@@XPEBD@@": 1,
-   "col:?AV?$Closure1@VCWorldCollisionManager@@XPEBD@@|?AV?$Method1@VCWorldCollisionManager@@XPEBD@@": 1
-  },
   "src/game/global/CWorldStreamManager.cpp": {
    "col:?AV?$Closure3_206c90@VCWorldStreamManager_206c90@fn_f49dcb8d@@_NMMM@fn_f49dcb8d@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Closure3_206c90@VCWorldStreamManager_206c90@fn_f49dcb8d@@_NMMM@fn_f49dcb8d@@|?AV?$Closure3_206c90@VCWorldStreamManager_206c90@fn_f49dcb8d@@_NMMM@fn_f49dcb8d@@": 1,
@@ -2681,10 +2337,6 @@
    "col:?AV?$Closure3_206cf0@VCWorldStreamManager_206cf0@fn_f49dcb8d@@HMMM@fn_f49dcb8d@@|?AV?$Closure3_206cf0@VCWorldStreamManager_206cf0@fn_f49dcb8d@@HMMM@fn_f49dcb8d@@": 1,
    "col:?AV?$Closure3_207000@VCWorldStreamManager_207000@fn_f49dcb8d@@XPEBDH_N@fn_f49dcb8d@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Closure3_207000@VCWorldStreamManager_207000@fn_f49dcb8d@@XPEBDH_N@fn_f49dcb8d@@|?AV?$Closure3_207000@VCWorldStreamManager_207000@fn_f49dcb8d@@XPEBDH_N@fn_f49dcb8d@@": 1
-  },
-  "src/game/global/CWorldStreamManager.iso_002061a0.cpp": {
-   "col:?AV?$Closure3@VCWorldStreamManager@@XPEBDH_N@@|?AV?$Closure3@VCWorldStreamManager@@XPEBDH_N@@": 1,
-   "col:?AV?$Closure3@VCWorldStreamManager@@XPEBDH_N@@|?AV?$Method3@VCWorldStreamManager@@XPEBDH_N@@": 1
   },
   "src/game/global/ControllerPoller.cpp": {
    "col:?AVControllerPoller@fn_000dd940@@|?AVControllerPollerBase_dd940@fn_000dd940@@": 1
@@ -2747,10 +2399,6 @@
    "col:?AV?$Closure0@VHUDOverlay@fn_000d10c0@@X@fn_000d10c0@@|?AVMethodBase_d10c0@fn_000d10c0@@": 1,
    "col:?AV?$Closure0@VHUDOverlay@fn_000d12e0@@H@fn_000d12e0@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Closure0@VHUDOverlay@fn_000d12e0@@H@fn_000d12e0@@|?AVMethodBase_d12e0@fn_000d12e0@@": 1,
-   "col:?AV?$Closure2@VHUDOverlay@@HHPEBD@@|?AV?$Closure2@VHUDOverlay@@HHPEBD@@": 1,
-   "col:?AV?$Closure2@VHUDOverlay@@HHPEBD@@|?AV?$Method2@VHUDOverlay@@HHPEBD@@": 1,
-   "col:?AV?$Closure3@VHUDOverlay@@HPEBDPEBDM@@|?AV?$Closure3@VHUDOverlay@@HPEBDPEBDM@@": 1,
-   "col:?AV?$Closure3@VHUDOverlay@@HPEBDPEBDM@@|?AV?$Method3@VHUDOverlay@@HPEBDPEBDM@@": 1,
    "col:?AV?$Closure3_d1280@VHUDOverlay_d1280@fn_f3fdf6d3@@HPEBDPEBDM@fn_f3fdf6d3@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Closure3_d1280@VHUDOverlay_d1280@fn_f3fdf6d3@@HPEBDPEBDM@fn_f3fdf6d3@@|?AV?$Closure3_d1280@VHUDOverlay_d1280@fn_f3fdf6d3@@HPEBDPEBDM@fn_f3fdf6d3@@": 1,
    "col:?AV?$Closure3_d1590@VHUDOverlay_d1590@fn_f3fdf6d3@@XHHVVector_d1590@math@@@fn_f3fdf6d3@@|?AUScriptFunctionFields@@": 1,
@@ -2766,10 +2414,6 @@
    "col:?AV?$Method0@VHUDOverlay@fn_000d12e0@@H@fn_000d12e0@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Method0@VHUDOverlay@fn_000d12e0@@H@fn_000d12e0@@|?AVMethodBase_d12e0@fn_000d12e0@@": 1
   },
-  "src/game/global/HUDOverlay_2.iso_000d0150.cpp": {
-   "col:?AV?$Closure5@VHUDOverlay@@HHPEBDVVector@math@@V23@V23@@@|?AV?$Closure5@VHUDOverlay@@HHPEBDVVector@math@@V23@V23@@@": 1,
-   "col:?AV?$Closure5@VHUDOverlay@@HHPEBDVVector@math@@V23@V23@@@|?AV?$Method5@VHUDOverlay@@HHPEBDVVector@math@@V23@V23@@@": 1
-  },
   "src/game/global/ImageSelector_2.cpp": {
    "col:?AVImageSelector@fn_000edf60@@|?AVFEControl_edf60@fn_000edf60@@": 1
   },
@@ -2784,16 +2428,7 @@
    "col:?AV?$Closure5_d65e0@VMessageOverlay_d65e0@fn_f27eef39@@XHPEBDHVVector_d65e0@math@@M@fn_f27eef39@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Closure5_d65e0@VMessageOverlay_d65e0@fn_f27eef39@@XHPEBDHVVector_d65e0@math@@M@fn_f27eef39@@|?AV?$Closure5_d65e0@VMessageOverlay_d65e0@fn_f27eef39@@XHPEBDHVVector_d65e0@math@@M@fn_f27eef39@@": 1,
    "col:?AV?$Closure7_d6410@VMessageOverlay_d6410@fn_f27eef39@@XPEBDPEBDPEBDPEBDPEBDPEBDPEBD@fn_f27eef39@@|?AUScriptFunctionFields@@": 1,
-   "col:?AV?$Closure7_d6410@VMessageOverlay_d6410@fn_f27eef39@@XPEBDPEBDPEBDPEBDPEBDPEBDPEBD@fn_f27eef39@@|?AV?$Closure7_d6410@VMessageOverlay_d6410@fn_f27eef39@@XPEBDPEBDPEBDPEBDPEBDPEBDPEBD@fn_f27eef39@@": 1,
-   "col:?AV?$Method5@VMessageOverlay@@XHPEBDHVVector@math@@M@@|?AV?$Method5@VMessageOverlay@@XHPEBDHVVector@math@@M@@": 1
-  },
-  "src/game/global/MessageOverlay.iso_000d6130.cpp": {
-   "col:?AV?$Closure3@VMessageOverlay@@XPEBDHVVector@math@@@@|?AV?$Closure3@VMessageOverlay@@XPEBDHVVector@math@@@@": 1,
-   "col:?AV?$Closure3@VMessageOverlay@@XPEBDHVVector@math@@@@|?AV?$Method3@VMessageOverlay@@XPEBDHVVector@math@@@@": 1
-  },
-  "src/game/global/MessageOverlay.iso_000d6350.cpp": {
-   "col:?AV?$Closure5@VMessageOverlay@@XHPEBDHVVector@math@@M@@|?AV?$Closure5@VMessageOverlay@@XHPEBDHVVector@math@@M@@": 1,
-   "col:?AV?$Closure5@VMessageOverlay@@XHPEBDHVVector@math@@M@@|?AV?$Method5@VMessageOverlay@@XHPEBDHVVector@math@@M@@": 1
+   "col:?AV?$Closure7_d6410@VMessageOverlay_d6410@fn_f27eef39@@XPEBDPEBDPEBDPEBDPEBDPEBDPEBD@fn_f27eef39@@|?AV?$Closure7_d6410@VMessageOverlay_d6410@fn_f27eef39@@XPEBDPEBDPEBDPEBDPEBDPEBDPEBD@fn_f27eef39@@": 1
   },
   "src/game/global/MessageOverlay.new_plain.cpp": {
    "col:?AU?$Closure1@UMessageOverlay@fn_000d6640@@XM@fn_000d6640@@|?AU?$Closure1@UMessageOverlay@fn_000d6640@@XM@fn_000d6640@@": 1,
@@ -2834,14 +2469,6 @@
   "src/game/global/MyDriveErrorCallback.iso_0008dec0.cpp": {
    "col:?AUCSPHulkPropLoader@@|?AUCSPHulkPropLoader@@": 1
   },
-  "src/game/global/MyDriveErrorCallback.iso_0008e710.cpp": {
-   "col:?AV?$Closure2@VCPlatformManager@@XPEBDPEBD@@|?AV?$Closure2@VCPlatformManager@@XPEBDPEBD@@": 1,
-   "col:?AV?$Closure2@VCPlatformManager@@XPEBDPEBD@@|?AV?$Method2@VCPlatformManager@@XPEBDPEBD@@": 1
-  },
-  "src/game/global/MyDriveErrorCallback.iso_0008e7a0.cpp": {
-   "col:?AV?$Closure1@VCPlatformManager@@XPEBD@@|?AV?$Closure1@VCPlatformManager@@XPEBD@@": 1,
-   "col:?AV?$Closure1@VCPlatformManager@@XPEBD@@|?AV?$Method1@VCPlatformManager@@XPEBD@@": 1
-  },
   "src/game/global/MyFileStream.GS_new_plain.cpp": {
    "col:?AUCDataHandlerObject_1fb050@fn_f57d431a@@|?AUCDataHandlerObject_1fb050@fn_f57d431a@@": 1
   },
@@ -2849,8 +2476,6 @@
    "col:?AUMyFileStream_1faf70@fn_fa90982c@@|?AUMyFileStream_1faf70@fn_fa90982c@@": 1
   },
   "src/game/global/ScriptHandler.cpp": {
-   "col:?AV?$Closure1@VScriptHandler@@PEBDPEBD@@|?AV?$Closure1@VScriptHandler@@PEBDPEBD@@": 1,
-   "col:?AV?$Closure1@VScriptHandler@@PEBDPEBD@@|?AV?$Method1@VScriptHandler@@PEBDPEBD@@": 1,
    "col:?AV?$Closure1@VScriptHandler@fn_001d4830@@MPEBD@fn_001d4830@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Closure1@VScriptHandler@fn_001d4830@@MPEBD@fn_001d4830@@|?AV?$Closure1@VScriptHandler@fn_001d4830@@MPEBD@fn_001d4830@@": 1,
    "col:?AV?$Closure1@VScriptHandler@fn_001d4830@@MPEBD@fn_001d4830@@|?AV?$Method1@VScriptHandler@fn_001d4830@@MPEBD@fn_001d4830@@": 1,
@@ -2871,7 +2496,6 @@
    "col:?AV?$Closure2@VScriptHandler@fn_001d4830@@XPEBDPEBD@fn_001d4830@@|?AV?$Closure2@VScriptHandler@fn_001d4830@@XPEBDPEBD@fn_001d4830@@": 1,
    "col:?AV?$Closure2@VScriptHandler@fn_001d4830@@XPEBDPEBD@fn_001d4830@@|?AV?$Method2@VScriptHandler@fn_001d4830@@XPEBDPEBD@fn_001d4830@@": 1,
    "col:?AV?$Closure2@VScriptHandler@fn_001d4830@@XPEBDPEBD@fn_001d4830@@|?AVMethodBase_1d4830@fn_001d4830@@": 1,
-   "col:?AV?$Method1@VScriptHandler@@_NPEBD@@|?AV?$Method1@VScriptHandler@@_NPEBD@@": 1,
    "col:?AV?$Method1@VScriptHandler@fn_001d4830@@MPEBD@fn_001d4830@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Method1@VScriptHandler@fn_001d4830@@MPEBD@fn_001d4830@@|?AV?$Method1@VScriptHandler@fn_001d4830@@MPEBD@fn_001d4830@@": 1,
    "col:?AV?$Method1@VScriptHandler@fn_001d4830@@MPEBD@fn_001d4830@@|?AVMethodBase_1d4830@fn_001d4830@@": 1,
@@ -2887,18 +2511,6 @@
    "col:?AV?$Method2@VScriptHandler@fn_001d4830@@XPEBDPEBD@fn_001d4830@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Method2@VScriptHandler@fn_001d4830@@XPEBDPEBD@fn_001d4830@@|?AV?$Method2@VScriptHandler@fn_001d4830@@XPEBDPEBD@fn_001d4830@@": 1,
    "col:?AV?$Method2@VScriptHandler@fn_001d4830@@XPEBDPEBD@fn_001d4830@@|?AVMethodBase_1d4830@fn_001d4830@@": 1
-  },
-  "src/game/global/ScriptHandler.iso_001d42d0.cpp": {
-   "col:?AV?$Closure4@VScriptHandler@@XPEBDPEBDPEBDPEBD@@|?AV?$Closure4@VScriptHandler@@XPEBDPEBDPEBDPEBD@@": 1,
-   "col:?AV?$Closure4@VScriptHandler@@XPEBDPEBDPEBDPEBD@@|?AV?$Method4@VScriptHandler@@XPEBDPEBDPEBDPEBD@@": 1
-  },
-  "src/game/global/ScriptHandler.iso_001d4370.cpp": {
-   "col:?AV?$Closure1@VScriptHandler@@W4script_state@1@PEBD@@|?AV?$Closure1@VScriptHandler@@W4script_state@1@PEBD@@": 1,
-   "col:?AV?$Closure1@VScriptHandler@@W4script_state@1@PEBD@@|?AV?$Method1@VScriptHandler@@W4script_state@1@PEBD@@": 1
-  },
-  "src/game/global/ScriptHandler.iso_001d4400.cpp": {
-   "col:?AV?$Closure1@VScriptHandler@@_NPEBD@@|?AV?$Closure1@VScriptHandler@@_NPEBD@@": 1,
-   "col:?AV?$Closure1@VScriptHandler@@_NPEBD@@|?AV?$Method1@VScriptHandler@@_NPEBD@@": 1
   },
   "src/game/global/TextSelector_2.cpp": {
    "col:?AUHSlider@fn_f12e8a1b@@|?AUFUN_000e9240@fn_f12e8a1b@@": 1,

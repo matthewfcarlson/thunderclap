@@ -24,9 +24,4 @@ void* Closure4_9d020::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_0009d020
-// the destructor itself, which other objects' code references natively:
-template <> Closure4<CCameraManager, void, char *, char *, char *, char *>::~Closure4() {}
-#if defined(HULK_PTR64)
-template class Closure4<CCameraManager, void, char *, char *, char *, char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9d020)
-#endif
 

@@ -1669,7 +1669,6 @@ void* Method1_2050b0::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_002050b0
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method1<CWorldStreamManager, void, int>::~Method1() {}
 
 
 // 0x002050d0 Method1<CWorldStreamManager,void,int>::vfunc_2 (19 B): matches/0x002050d0.cpp
@@ -1688,11 +1687,6 @@ void Method1_2050d0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (v
     (d->*(*(void (Dummy_2050d0::**)(void *))&this->f_1c))(*b);
 }
 } // namespace fn_002050d0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method1<CWorldStreamManager, void, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_002050d0::Method1_2050d0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 namespace fn_f49dcb8d {
 
@@ -1741,7 +1735,6 @@ void* Method3_205150::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_00205150
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method3<CWorldStreamManager, bool, float, float, float>::~Method3() {}
 
 
 // 0x00205170 Method3<CWorldStreamManager,bool,float,float,float>::vfunc_2 (64 B): matches/0x00205170.cpp
@@ -1762,11 +1755,6 @@ void Method3_205170::vfunc_2(void* __p0, void* __p1, void* __p2) { CWorldStreamM
         *result = value;
 }
 } // namespace fn_00205170
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method3<CWorldStreamManager, bool, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00205170::Method3_205170*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 namespace fn_f49dcb8d {
 
@@ -1815,7 +1803,6 @@ void* Method3_205210::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_00205210
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method3<CWorldStreamManager, int, float, float, float>::~Method3() {}
 
 
 // 0x00205230 Method3<CWorldStreamManager,int,float,float,float>::vfunc_2 (64 B): matches/0x00205230.cpp
@@ -1836,11 +1823,6 @@ void Method3_205230::vfunc_2(void* __p0, void* __p1, void* __p2) { CWorldStreamM
         *result = value;
 }
 } // namespace fn_00205230
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method3<CWorldStreamManager, int, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00205230::Method3_205230*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x002052b0 Method0<CWorldStreamManager,const_char_*>::vfunc_0 (30 B): matches/0x002052b0.cpp
@@ -1863,7 +1845,6 @@ void* Method0_2052b0::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_002052b0
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method0<CWorldStreamManager, const char *>::~Method0() {}
 
 
 // 0x002052d0 Method0<CWorldStreamManager,const_char_*>::vfunc_2 (22 B): matches/0x002052d0.cpp
@@ -1884,11 +1865,6 @@ void Method0_2052d0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (v
         *out = v;
 }
 } // namespace fn_002052d0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method0<CWorldStreamManager, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_002052d0::Method0_2052d0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x00205340 Method2<CWorldStreamManager,int,int,int>::vfunc_0 (30 B): matches/0x00205340.cpp
@@ -1911,7 +1887,6 @@ void* Method2_205340::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_00205340
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method2<CWorldStreamManager, int, int, int>::~Method2() {}
 
 
 // 0x00205360 Method2<CWorldStreamManager,int,int,int>::vfunc_2 (33 B): matches/0x00205360.cpp
@@ -1933,11 +1908,6 @@ void Method2_205360::vfunc_2(void* __p0, void* __p1, void* __p2) { CWorldStreamM
         *result = value;
 }
 } // namespace fn_00205360
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method2<CWorldStreamManager, int, int, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00205360::Method2_205360*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x002053d0 Method1<CWorldStreamManager,int,int>::vfunc_0 (30 B): matches/0x002053d0.cpp
@@ -1960,7 +1930,6 @@ void* Method1_2053d0::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_002053d0
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method1<CWorldStreamManager, int, int>::~Method1() {}
 
 
 // 0x002053f0 Method1<CWorldStreamManager,int,int>::vfunc_2 (29 B): matches/0x002053f0.cpp
@@ -1981,11 +1950,6 @@ void Method1_2053f0::vfunc_2(void* __p0, void* __p1, void* __p2) { CWorldStreamM
         *result = value;
 }
 } // namespace fn_002053f0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method1<CWorldStreamManager, int, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_002053f0::Method1_2053f0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x00205450 Method0<CWorldStreamManager,int>::vfunc_0 (30 B): matches/0x00205450.cpp
@@ -2008,7 +1972,6 @@ void* Method0_205450::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_00205450
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method0<CWorldStreamManager, int>::~Method0() {}
 
 
 // 0x00205470 Method0<CWorldStreamManager,int>::vfunc_2 (22 B): matches/0x00205470.cpp
@@ -2029,11 +1992,6 @@ void Method0_205470::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (v
         *out = v;
 }
 } // namespace fn_00205470
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method0<CWorldStreamManager, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00205470::Method0_205470*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x002054d0 Method1<CWorldStreamManager,bool,int>::vfunc_0 (30 B): matches/0x002054d0.cpp
@@ -2056,7 +2014,6 @@ void* Method1_2054d0::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_002054d0
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method1<CWorldStreamManager, bool, int>::~Method1() {}
 
 
 // 0x002054f0 Method1<CWorldStreamManager,bool,int>::vfunc_2 (29 B): matches/0x002054f0.cpp
@@ -2077,11 +2034,6 @@ void Method1_2054f0::vfunc_2(void* __p0, void* __p1, void* __p2) { CWorldStreamM
         *out = result;
 }
 } // namespace fn_002054f0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method1<CWorldStreamManager, bool, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_002054f0::Method1_2054f0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x00205550 Method0<CWorldStreamManager,bool>::vfunc_0 (30 B): matches/0x00205550.cpp
@@ -2104,7 +2056,6 @@ void* Method0_205550::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_00205550
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method0<CWorldStreamManager, bool>::~Method0() {}
 
 
 // 0x00205570 Method0<CWorldStreamManager,bool>::vfunc_2 (22 B): matches/0x00205570.cpp
@@ -2125,11 +2076,6 @@ void Method0_205570::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager
         *out = r;
 }
 } // namespace fn_00205570
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method0<CWorldStreamManager, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00205570::Method0_205570*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x002055d0 Method0<CWorldStreamManager,void>::vfunc_0 (30 B): matches/0x002055d0.cpp
@@ -2152,7 +2098,6 @@ void* Method0_2055d0::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_002055d0
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method0<CWorldStreamManager, void>::~Method0() {}
 
 
 // 0x002055f0 Method0<CWorldStreamManager,void>::vfunc_2 (12 B): matches/0x002055f0.cpp
@@ -2170,11 +2115,6 @@ void Method0_2055f0::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager
     (a->*(*(void (CActorManager_2055f0::**)())&this->f_1c))();
 }
 } // namespace fn_002055f0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method0<CWorldStreamManager, void>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_002055f0::Method0_2055f0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 namespace fn_f49dcb8d {
 
@@ -2223,7 +2163,6 @@ void* Method3_205660::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_00205660
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method3<CWorldStreamManager, void, const char *, int, bool>::~Method3() {}
 
 
 // 0x00205680 Method3<CWorldStreamManager,void,const_char_*,int,bool>::vfunc_2 (31 B): matches/0x00205680.cpp
@@ -2241,11 +2180,6 @@ void Method3_205680::vfunc_2(void* __p0, void* __p1, void* __p2) { CWorldStreamM
     (object->*(*(void (CWorldStreamManager_205680::**)(const char *, int, bool))&this->f_1c))(name, arguments->number, arguments->flag);
 }
 } // namespace fn_00205680
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method3<CWorldStreamManager, void, const char *, int, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00205680::Method3_205680*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 namespace fn_f49dcb8d {
 
@@ -2387,7 +2321,6 @@ void* Closure1_205c50::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_00205c50
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Closure1<CWorldStreamManager, void, int>::~Closure1() {}
 
 
 // 0x00205c70 Closure1<CWorldStreamManager,void,int>::vfunc_2 (18 B): matches/0x00205c70.cpp
@@ -2397,9 +2330,6 @@ template <> void Closure1<CWorldStreamManager, void, int>::vfunc_2(void* __p0, v
 
     ((*(CActorManager_205c70 * *)&this->f_20)->*(*(void (CActorManager_205c70::**)(const char *))&this->f_1c))(*b);
 }
-#if defined(HULK_PTR64)
-template class Closure1<CWorldStreamManager, void, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x205c50)
-#endif
 
 
 // 0x00205cc0 Closure3<CWorldStreamManager,bool,float,float,float>::vfunc_0 (30 B): matches/0x00205cc0.cpp
@@ -2422,7 +2352,6 @@ void* Closure3_205cc0::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_00205cc0
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Closure3<CWorldStreamManager, bool, float, float, float>::~Closure3() {}
 
 
 // 0x00205ce0 Closure3<CWorldStreamManager,bool,float,float,float>::vfunc_2 (64 B): equivalent/0x00205ce0.cpp
@@ -2443,11 +2372,6 @@ void Closure3_205ce0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unuse
     if (result) *result = value;
 }
 } // namespace fn_00205ce0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure3<CWorldStreamManager, bool, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00205ce0::Closure3_205ce0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x00205d50 Closure3<CWorldStreamManager,int,float,float,float>::vfunc_0 (30 B): matches/0x00205d50.cpp
@@ -2470,7 +2394,6 @@ void* Closure3_205d50::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_00205d50
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Closure3<CWorldStreamManager, int, float, float, float>::~Closure3() {}
 
 
 // 0x00205d70 Closure3<CWorldStreamManager,int,float,float,float>::vfunc_2 (64 B): equivalent/0x00205d70.cpp
@@ -2488,11 +2411,6 @@ struct Closure3_205d70 : hulk_script::FunctionGenView {
 void Closure3_205d70::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr unused = (hulk_intptr)__p0; const float * args = (const float *)__p1; int * result = (int *)__p2;
  int value = ((*(CWorldStreamManager_205d70 * *)&this->f_20)->*(*(int (CWorldStreamManager_205d70::**)(float, float, float))&this->f_1c))(args[0], args[1], args[2]); if (result) *result = value; }
 } // namespace fn_00205d70
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure3<CWorldStreamManager, int, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00205d70::Closure3_205d70*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x00205df0 Closure0<CWorldStreamManager,const_char_*>::vfunc_0 (30 B): matches/0x00205df0.cpp
@@ -2515,7 +2433,6 @@ void* Closure0_205df0::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_00205df0
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Closure0<CWorldStreamManager, const char *>::~Closure0() {}
 
 
 // 0x00205e10 Closure0<CWorldStreamManager,const_char_*>::vfunc_2 (23 B): matches/0x00205e10.cpp
@@ -2538,11 +2455,6 @@ void Closure0_205e10::vfunc_2(void* __p0, void* __p1, void* __p2) { int * out = 
         *out = result;
 }
 } // namespace fn_00205e10
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure0<CWorldStreamManager, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00205e10::Closure0_205e10*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x00205e30 FUN_00205e30 (89 B): matches/0x00205e30.cpp [wrapped: conflict: Closure2]
@@ -2592,7 +2504,6 @@ void* Closure2_205e90::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_00205e90
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Closure2<CWorldStreamManager, int, int, int>::~Closure2() {}
 
 
 // 0x00205eb0 Closure2<CWorldStreamManager,int,int,int>::vfunc_2 (36 B): equivalent/0x00205eb0.cpp
@@ -2613,11 +2524,6 @@ void Closure2_205eb0::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr 
     if (result) *result = value;
 }
 } // namespace fn_00205eb0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure2<CWorldStreamManager, int, int, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00205eb0::Closure2_205eb0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x00205ee0 FUN_00205ee0 (76 B): matches/0x00205ee0.cpp [wrapped: conflict: Closure1; Method1]
@@ -2666,7 +2572,6 @@ void* Closure1_205f30::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_00205f30
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Closure1<CWorldStreamManager, int, int>::~Closure1() {}
 
 
 // 0x00205f50 Closure1<CWorldStreamManager,int,int>::vfunc_2 (30 B): equivalent/0x00205f50.cpp
@@ -2688,11 +2593,6 @@ void Closure1_205f50::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unuse
         *result = value;
 }
 } // namespace fn_00205f50
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure1<CWorldStreamManager, int, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00205f50::Closure1_205f50*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x00205fb0 Closure0<CWorldStreamManager,int>::vfunc_0 (30 B): matches/0x00205fb0.cpp
@@ -2715,7 +2615,6 @@ void* Closure0_205fb0::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_00205fb0
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Closure0<CWorldStreamManager, int>::~Closure0() {}
 
 
 // 0x00205fd0 Closure0<CWorldStreamManager,int>::vfunc_2 (23 B): matches/0x00205fd0.cpp
@@ -2738,11 +2637,6 @@ void Closure0_205fd0::vfunc_2(void* __p0, void* __p1, void* __p2) { int * out = 
         *out = result;
 }
 } // namespace fn_00205fd0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure0<CWorldStreamManager, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00205fd0::Closure0_205fd0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x00205ff0 FUN_00205ff0 (76 B): matches/0x00205ff0.cpp [wrapped: conflict: Closure1; Method1]
@@ -2818,11 +2712,6 @@ void Closure0_2060e0::vfunc_2(void* __p0, void* __p1, void* __p2) { unsigned cha
         *out = b;
 }
 } // namespace fn_002060e0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure0<CWorldStreamManager, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_002060e0::Closure0_2060e0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x00206160 Closure0<CWorldStreamManager,void>::vfunc_2 (11 B): matches/0x00206160.cpp
@@ -2840,11 +2729,6 @@ void Closure0_206160::vfunc_2(void* __p0, void* __p1, void* __p2) {
     ((*(CActorManager_206160 * *)&this->f_20)->*(*(void (CActorManager_206160::**)())&this->f_1c))();
 }
 } // namespace fn_00206160
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure0<CWorldStreamManager, void>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00206160::Closure0_206160*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x002061c0 Closure3<CWorldStreamManager,void,const_char_*,int,bool>::vfunc_2 (30 B): equivalent/0x002061c0.cpp
@@ -2864,11 +2748,6 @@ void Closure3_2061c0::vfunc_2(void* __p0, void* __p1, void* __p2) { const Args *
     ((*(CWorldStreamManager_2061c0 * *)&this->f_20)->*(*(void (CWorldStreamManager_2061c0::**)(const char *, int, bool))&this->f_1c))(args->name, args->number, args->flag);
 }
 } // namespace fn_002061c0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure3<CWorldStreamManager, void, const char *, int, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_002061c0::Closure3_2061c0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x002061e0 FUN_002061e0 (226 B): matches/0x002061e0.cpp [wrapped: helper definitions (2 out-of-line function bodies)]

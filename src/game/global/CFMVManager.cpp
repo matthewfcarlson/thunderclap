@@ -463,7 +463,6 @@ void* Method2_1b7b40::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_001b7b40
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method2<CFMVManager, void, const char *, int>::~Method2() {}
 
 
 // 0x001b7b60 Method2<CFMVManager,void,const_char_*,int>::vfunc_2 (23 B): matches/0x001b7b60.cpp
@@ -484,11 +483,6 @@ void Method2_1b7b60::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused
     (m->*(*(void (CFEManager_1b7b60::**)(const char *, int))&this->f_1c))(s, x);
 }
 } // namespace fn_001b7b60
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method2<CFMVManager, void, const char *, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001b7b60::Method2_1b7b60*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x001b7bc0 Method0<CFMVManager,bool>::vfunc_0 (30 B): matches/0x001b7bc0.cpp
@@ -511,7 +505,6 @@ void* Method0_1b7bc0::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_001b7bc0
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method0<CFMVManager, bool>::~Method0() {}
 
 
 // 0x001b7be0 Method0<CFMVManager,bool>::vfunc_2 (22 B): matches/0x001b7be0.cpp
@@ -532,11 +525,6 @@ void Method0_1b7be0::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager
         *out = r;
 }
 } // namespace fn_001b7be0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method0<CFMVManager, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001b7be0::Method0_1b7be0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 namespace fn_ff8e53b8 {
 
@@ -586,7 +574,6 @@ void* Method4_1b7c70::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_001b7c70
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method4<CFMVManager, void, float, float, float, float>::~Method4() {}
 
 
 // 0x001b7c90 Method4<CFMVManager,void,float,float,float,float>::vfunc_2 (53 B): matches/0x001b7c90.cpp
@@ -605,11 +592,6 @@ void Method4_1b7c90::vfunc_2(void* __p0, void* __p1, void* __p2) { CFMVManager_1
     (obj->*(*(void (CFMVManager_1b7c90::**)(float, float, float, float))&this->f_1c))(f0, f1, p[0], p[1]);
 }
 } // namespace fn_001b7c90
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method4<CFMVManager, void, float, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001b7c90::Method4_1b7c90*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 namespace fn_ff8e53b8 {
 
@@ -888,7 +870,6 @@ void* Closure2_1b8200::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_001b8200
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Closure2<CFMVManager, void, const char *, int>::~Closure2() {}
 
 
 // 0x001b8220 Closure2<CFMVManager,void,const_char_*,int>::vfunc_2 (22 B): matches/0x001b8220.cpp
@@ -920,11 +901,6 @@ void Closure0_1b82a0::vfunc_2(void* __p0, void* __p1, void* __p2) { unsigned cha
         *out = b;
 }
 } // namespace fn_001b82a0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure0<CFMVManager, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001b82a0::Closure0_1b82a0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x001b8310 Closure4<CFMVManager,void,float,float,float,float>::vfunc_2 (52 B): matches/0x001b8310.cpp
@@ -944,11 +920,6 @@ void Closure4_1b8310::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (
     ((*(CFMVManager_1b8310 * *)&this->f_20)->*(*(void (CFMVManager_1b8310::**)(float, float, float, float))&this->f_1c))(*(float*)&x, *(float*)&y, *p, *(p + 1));
 }
 } // namespace fn_001b8310
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure4<CFMVManager, void, float, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001b8310::Closure4_1b8310*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 namespace fn_ff8e53b8 {
 

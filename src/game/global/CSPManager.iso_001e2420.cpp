@@ -34,9 +34,4 @@ void Closure3_1e2420::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unuse
     _ReadWriteBarrier();
 }
 } // namespace fn_001e2420
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure3<CSPManager, void, int, int, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001e2420::Closure3_1e2420*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 

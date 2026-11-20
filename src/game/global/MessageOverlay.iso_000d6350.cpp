@@ -24,9 +24,4 @@ void* Closure5_d6350::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_000d6350
-// the destructor itself, which other objects' code references natively:
-template <> Closure5<MessageOverlay, void, int, const char *, int,math::Vector, float>::~Closure5() {}
-#if defined(HULK_PTR64)
-template class Closure5<MessageOverlay, void, int, const char *, int,math::Vector, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xd6350)
-#endif
 

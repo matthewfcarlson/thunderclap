@@ -28,9 +28,4 @@ void Method2_2e4b0::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_
     if (result) *result = value;
 }
 } // namespace fn_0002e4b0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method2<CActorManager, bool, const char *,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002e4b0::Method2_2e4b0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 

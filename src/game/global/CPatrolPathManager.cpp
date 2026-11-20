@@ -452,11 +452,6 @@ void* Method3_106a20::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_00106a20
-// the destructor itself, which other objects' code references natively:
-template <> Method3<CPatrolPathManager, bool, const char *, bool, int>::~Method3() {}
-#if defined(HULK_PTR64)
-template class Method3<CPatrolPathManager, bool, const char *, bool, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x106a20)
-#endif
 
 
 // 0x00106a40 Method3<CPatrolPathManager,bool,const_char_*,bool,int>::vfunc_2 (47 B): matches/0x00106a40.cpp [wrapped: conflict: CPatrolPathManager; Function; Method3]
@@ -518,7 +513,6 @@ void* Method1_106ab0::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_00106ab0
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method1<CPatrolPathManager, bool, const char *>::~Method1() {}
 
 
 // 0x00106ad0 Method1<CPatrolPathManager,bool,const_char_*>::vfunc_2 (29 B): matches/0x00106ad0.cpp
@@ -539,11 +533,6 @@ void Method1_106ad0::vfunc_2(void* __p0, void* __p1, void* __p2) { CPatrolPathMa
         *out = r;
 }
 } // namespace fn_00106ad0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method1<CPatrolPathManager, bool, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00106ad0::Method1_106ad0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x00106af0 FUN_00106af0 (89 B): matches/0x00106af0.cpp [wrapped: conflict: Method3]
@@ -592,8 +581,6 @@ void* Method3_106b50::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_00106b50
-// the destructor itself, which other objects' code references natively:
-template <> Method3<CPatrolPathManager, bool, const char *, int,math::Vector>::~Method3() {}
 
 
 // 0x00106b70 Method3<CPatrolPathManager,bool,const_char_*,int,math::Vector>::vfunc_2 (67 B): equivalent/0x00106b70.cpp
@@ -613,11 +600,6 @@ void Method3_106b70::vfunc_2(void* __p0, void* __p1, void* __p2) { CPatrolPathMa
     if (result) *result = value;
 }
 } // namespace fn_00106b70
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method3<CPatrolPathManager, bool, const char *, int,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00106b70::Method3_106b70*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x00106bf0 Closure3<CPatrolPathManager,bool,const_char_*,bool,int>::vfunc_0 (30 B): matches/0x00106bf0.cpp
@@ -639,11 +621,6 @@ void* Closure3_106bf0::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_00106bf0
-// the destructor itself, which other objects' code references natively:
-template <> Closure3<CPatrolPathManager, bool, const char *, bool, int>::~Closure3() {}
-#if defined(HULK_PTR64)
-template class Closure3<CPatrolPathManager, bool, const char *, bool, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x106bf0)
-#endif
 
 
 // 0x00106c50 FUN_00106c50 (76 B): matches/0x00106c50.cpp [wrapped: conflict: Closure1; Method1]

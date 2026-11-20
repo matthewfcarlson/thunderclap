@@ -27,9 +27,4 @@ void Closure3_2f910::vfunc_2(void* __p0, void* __p1, void* __p2) { const Argumen
     if (result) *result = value;
 }
 } // namespace fn_0002f910
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure3<CActorManager, bool, const char *, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002f910::Closure3_2f910*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 

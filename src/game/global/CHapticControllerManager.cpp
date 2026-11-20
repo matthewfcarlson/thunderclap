@@ -186,7 +186,6 @@ void* Method4_b0120::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_000b0120
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method4<CHapticControllerManager, void, int, float, float, float>::~Method4() {}
 
 
 // 0x000b0140 Method4<CHapticControllerManager,void,int,float,float,float>::vfunc_2 (46 B): matches/0x000b0140.cpp
@@ -210,11 +209,6 @@ void Method4_b0140::vfunc_2(void* __p0, void* __p1, void* __p2) { CHapticControl
     (obj->*(*(void (CHapticControllerManager_b0140::**)(int, float, float, float))&this->f_1c))(a, b, c, d);
 }
 } // namespace fn_000b0140
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method4<CHapticControllerManager, void, int, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000b0140::Method4_b0140*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x000b01b0 Method0<CHapticControllerManager,void>::vfunc_0 (30 B): matches/0x000b01b0.cpp
@@ -237,7 +231,6 @@ void* Method0_b01b0::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_000b01b0
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method0<CHapticControllerManager, void>::~Method0() {}
 
 
 // 0x000b01d0 Method0<CHapticControllerManager,void>::vfunc_2 (12 B): matches/0x000b01d0.cpp
@@ -255,11 +248,6 @@ void Method0_b01d0::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_
     (a->*(*(void (CActorManager_b01d0::**)())&this->f_1c))();
 }
 } // namespace fn_000b01d0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method0<CHapticControllerManager, void>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000b01d0::Method0_b01d0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x000b0220 Method1<CHapticControllerManager,void,bool>::vfunc_0 (30 B): matches/0x000b0220.cpp
@@ -282,7 +270,6 @@ void* Method1_b0220::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_000b0220
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method1<CHapticControllerManager, void, bool>::~Method1() {}
 
 
 // 0x000b0240 Method1<CHapticControllerManager,void,bool>::vfunc_2 (21 B): matches/0x000b0240.cpp
@@ -300,11 +287,6 @@ void Method1_b0240::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_
     (obj->*(*(MFn_b0240 *)&this->f_1c))(*b);
 }
 } // namespace fn_000b0240
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method1<CHapticControllerManager, void, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000b0240::Method1_b0240*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x000b02b0 Closure4<CHapticControllerManager,void,int,float,float,float>::vfunc_2 (45 B): matches/0x000b02b0.cpp
@@ -327,11 +309,6 @@ void Closure4_b02b0::vfunc_2(void* __p0, void* __p1, void* __p2) { int * args = 
     ((*(CHapticControllerManager_b02b0 * *)&this->f_20)->*(*(void (CHapticControllerManager_b02b0::**)(int, float, float, float))&this->f_1c))(a, b, c, d);
 }
 } // namespace fn_000b02b0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure4<CHapticControllerManager, void, int, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000b02b0::Closure4_b02b0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x000b0340 Closure0<CHapticControllerManager,void>::vfunc_2 (11 B): matches/0x000b0340.cpp
@@ -349,11 +326,6 @@ void Closure0_b0340::vfunc_2(void* __p0, void* __p1, void* __p2) {
     ((*(CActorManager_b0340 * *)&this->f_20)->*(*(void (CActorManager_b0340::**)())&this->f_1c))();
 }
 } // namespace fn_000b0340
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure0<CHapticControllerManager, void>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000b0340::Closure0_b0340*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x000b0350 FUN_000b0350 (76 B): matches/0x000b0350.cpp [wrapped: conflict: Closure1; Method1]
@@ -401,11 +373,6 @@ void Closure1_b03c0::vfunc_2(void* __p0, void* __p1, void* __p2) { unsigned char
     ((*(Actor_b03c0 * *)&this->f_20)->*(*(void (Actor_b03c0::**)(unsigned char))&this->f_1c))(*arg);
 }
 } // namespace fn_000b03c0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure1<CHapticControllerManager, void, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000b03c0::Closure1_b03c0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 namespace fn_f8a35d46 {
 

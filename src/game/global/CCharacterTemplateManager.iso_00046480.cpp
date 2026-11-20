@@ -24,9 +24,4 @@ void* Closure1_46480::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_00046480
-// the destructor itself, which other objects' code references natively:
-template <> Closure1<CCharacterTemplateManager, void, const char *>::~Closure1() {}
-#if defined(HULK_PTR64)
-template class Closure1<CCharacterTemplateManager, void, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x46480)
-#endif
 

@@ -725,7 +725,6 @@ void* Method6_908c0::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_000908c0
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method6<CStatsManager, void, const char *, const char *, int, int, int, int>::~Method6() {}
 
 
 // 0x000908e0 Method6<CStatsManager,void,const_char_*,const_char_*,int,int,int,int>::vfunc_2 (30 B): matches/0x000908e0.cpp
@@ -743,11 +742,6 @@ void Method6_908e0::vfunc_2(void* __p0, void* __p1, void* __p2) { const char * a
     FUN_00090900(a, b, c, (*(int *)&this->f_1c));
 }
 } // namespace fn_000908e0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method6<CStatsManager, void, const char *, const char *, int, int, int, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000908e0::Method6_908e0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 namespace fn_f6df19d8 {
 
@@ -786,7 +780,6 @@ void* Method2_90990::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_00090990
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method2<CStatsManager, void, const char *, int>::~Method2() {}
 
 
 // 0x000909b0 Method2<CStatsManager,void,const_char_*,int>::vfunc_2 (23 B): matches/0x000909b0.cpp
@@ -807,11 +800,6 @@ void Method2_909b0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused 
     (m->*(*(void (CFEManager_909b0::**)(const char *, int))&this->f_1c))(s, x);
 }
 } // namespace fn_000909b0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method2<CStatsManager, void, const char *, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000909b0::Method2_909b0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x00090a10 Method1<CStatsManager,void,const_char_*>::vfunc_0 (30 B): matches/0x00090a10.cpp
@@ -834,7 +822,6 @@ void* Method1_90a10::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_00090a10
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method1<CStatsManager, void, const char *>::~Method1() {}
 
 
 // 0x00090a30 Method1<CStatsManager,void,const_char_*>::vfunc_2 (19 B): matches/0x00090a30.cpp
@@ -853,11 +840,6 @@ void Method1_90a30::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (vo
     (d->*(*(void (Dummy_90a30::**)(void *))&this->f_1c))(*b);
 }
 } // namespace fn_00090a30
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method1<CStatsManager, void, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00090a30::Method1_90a30*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x00090a90 Method1<CStatsManager,void,int>::vfunc_0 (30 B): matches/0x00090a90.cpp
@@ -880,7 +862,6 @@ void* Method1_90a90::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_00090a90
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method1<CStatsManager, void, int>::~Method1() {}
 
 
 // 0x00090ab0 Method1<CStatsManager,void,int>::vfunc_2 (19 B): matches/0x00090ab0.cpp
@@ -899,11 +880,6 @@ void Method1_90ab0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (vo
     (d->*(*(void (Dummy_90ab0::**)(void *))&this->f_1c))(*b);
 }
 } // namespace fn_00090ab0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method1<CStatsManager, void, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00090ab0::Method1_90ab0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x00090b10 Method0<CStatsManager,int>::vfunc_0 (30 B): matches/0x00090b10.cpp
@@ -926,7 +902,6 @@ void* Method0_90b10::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_00090b10
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method0<CStatsManager, int>::~Method0() {}
 
 
 // 0x00090b30 Method0<CStatsManager,int>::vfunc_2 (22 B): matches/0x00090b30.cpp
@@ -947,11 +922,6 @@ void Method0_90b30::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (vo
         *out = v;
 }
 } // namespace fn_00090b30
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method0<CStatsManager, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00090b30::Method0_90b30*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x00090b90 Method1<CStatsManager,int,const_char_*>::vfunc_0 (30 B): matches/0x00090b90.cpp
@@ -974,7 +944,6 @@ void* Method1_90b90::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_00090b90
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method1<CStatsManager, int, const char *>::~Method1() {}
 
 
 // 0x00090bb0 Method1<CStatsManager,int,const_char_*>::vfunc_2 (29 B): matches/0x00090bb0.cpp
@@ -995,11 +964,6 @@ void Method1_90bb0::vfunc_2(void* __p0, void* __p1, void* __p2) { CStatsManager_
         *out = r;
 }
 } // namespace fn_00090bb0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method1<CStatsManager, int, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00090bb0::Method1_90bb0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x00090c10 Method0<CStatsManager,bool>::vfunc_0 (30 B): matches/0x00090c10.cpp
@@ -1022,7 +986,6 @@ void* Method0_90c10::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_00090c10
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method0<CStatsManager, bool>::~Method0() {}
 
 
 // 0x00090c30 Method0<CStatsManager,bool>::vfunc_2 (22 B): matches/0x00090c30.cpp
@@ -1043,11 +1006,6 @@ void Method0_90c30::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_
         *out = r;
 }
 } // namespace fn_00090c30
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method0<CStatsManager, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00090c30::Method0_90c30*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x00090c50 FUN_00090c50 (89 B): matches/0x00090c50.cpp [wrapped: conflict: Method3]
@@ -1094,7 +1052,6 @@ void* Method3_90cb0::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_00090cb0
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method3<CStatsManager, void, char *, char *, int>::~Method3() {}
 
 
 // 0x00090cd0 Method3<CStatsManager,void,char_*,char_*,int>::vfunc_2 (29 B): equivalent/0x00090cd0.cpp
@@ -1113,11 +1070,6 @@ void Method3_90cd0::vfunc_2(void* __p0, void* __p1, void* __p2) { CStatsManager_
     (manager->*(*(void (CStatsManager_90cd0::**)(char *, char *, int))&this->f_1c))(args->first, args->second, args->third);
 }
 } // namespace fn_00090cd0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method3<CStatsManager, void, char *, char *, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00090cd0::Method3_90cd0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x00090d30 Method1<CStatsManager,const_char_*,int>::vfunc_0 (30 B): matches/0x00090d30.cpp
@@ -1140,7 +1092,6 @@ void* Method1_90d30::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_00090d30
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method1<CStatsManager, const char *, int>::~Method1() {}
 
 
 // 0x00090d50 Method1<CStatsManager,const_char_*,int>::vfunc_2 (29 B): matches/0x00090d50.cpp
@@ -1161,11 +1112,6 @@ void Method1_90d50::vfunc_2(void* __p0, void* __p1, void* __p2) { CStatsManager_
         *result = value;
 }
 } // namespace fn_00090d50
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method1<CStatsManager, const char *, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00090d50::Method1_90d50*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 namespace fn_f6df19d8 {
 
@@ -1224,7 +1170,6 @@ void* Closure6_90e50::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_00090e50
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Closure6<CStatsManager, void, const char *, const char *, int, int, int, int>::~Closure6() {}
 
 
 // 0x00090e70 Closure6<CStatsManager,void,const_char_*,const_char_*,int,int,int,int>::vfunc_2 (58 B): matches/0x00090e70.cpp
@@ -1249,11 +1194,6 @@ void Closure6_90e70::vfunc_2(void* __p0, void* __p1, void* __p2) { const int * a
     ((*(CStatsManager_90e70 * *)&this->f_20)->*(*(void (CStatsManager_90e70::**)(const char *, const char *, int, int, int, int))&this->f_1c))((const char*)a, (const char*)b, c, d, e, f);
 }
 } // namespace fn_00090e70
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure6<CStatsManager, void, const char *, const char *, int, int, int, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00090e70::Closure6_90e70*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x00090eb0 FUN_00090eb0 (89 B): matches/0x00090eb0.cpp [wrapped: conflict: Closure2]
@@ -1306,7 +1246,6 @@ void* Closure2_90f10::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_00090f10
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Closure2<CStatsManager, void, const char *, int>::~Closure2() {}
 
 
 // 0x00090f30 Closure2<CStatsManager,void,const_char_*,int>::vfunc_2 (22 B): matches/0x00090f30.cpp
@@ -1316,9 +1255,6 @@ template <> void Closure2<CStatsManager, void, const char *, int>::vfunc_2(void*
 
     ((*(CActorManager_90f30 * *)&this->f_20)->*(*(void (CActorManager_90f30::**)(const char *, float))&this->f_1c))(p->s, p->f);
 }
-#if defined(HULK_PTR64)
-template class Closure2<CStatsManager, void, const char *, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x90f10)
-#endif
 
 
 // 0x00090f50 FUN_00090f50 (76 B): matches/0x00090f50.cpp [wrapped: conflict: Closure1; Method1]
@@ -1367,7 +1303,6 @@ void* Closure1_90fa0::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_00090fa0
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Closure1<CStatsManager, void, const char *>::~Closure1() {}
 
 
 // 0x00090fc0 Closure1<CStatsManager,void,const_char_*>::vfunc_2 (18 B): matches/0x00090fc0.cpp
@@ -1386,11 +1321,6 @@ void Closure1_90fc0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (v
     ((*(CActorManager_90fc0 * *)&this->f_20)->*(*(void (CActorManager_90fc0::**)(const char *))&this->f_1c))(*b);
 }
 } // namespace fn_00090fc0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure1<CStatsManager, void, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00090fc0::Closure1_90fc0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x00090fe0 FUN_00090fe0 (76 B): matches/0x00090fe0.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
@@ -1442,7 +1372,6 @@ void* Closure1_91030::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_00091030
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Closure1<CStatsManager, void, int>::~Closure1() {}
 
 
 // 0x00091050 Closure1<CStatsManager,void,int>::vfunc_2 (18 B): matches/0x00091050.cpp
@@ -1461,11 +1390,6 @@ void Closure1_91050::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (v
     ((*(CActorManager_91050 * *)&this->f_20)->*(*(void (CActorManager_91050::**)(const char *))&this->f_1c))(*b);
 }
 } // namespace fn_00091050
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure1<CStatsManager, void, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00091050::Closure1_91050*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x000910d0 Closure0<CStatsManager,int>::vfunc_2 (23 B): matches/0x000910d0.cpp
@@ -1488,11 +1412,6 @@ void Closure0_910d0::vfunc_2(void* __p0, void* __p1, void* __p2) { int * out = (
         *out = result;
 }
 } // namespace fn_000910d0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure0<CStatsManager, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000910d0::Closure0_910d0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x000910f0 FUN_000910f0 (76 B): matches/0x000910f0.cpp [wrapped: conflict: Closure1; Method1]
@@ -1543,11 +1462,6 @@ void Closure1_91160::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused
         *result = value;
 }
 } // namespace fn_00091160
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure1<CStatsManager, int, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00091160::Closure1_91160*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x000911e0 Closure0<CStatsManager,bool>::vfunc_2 (23 B): matches/0x000911e0.cpp
@@ -1570,11 +1484,6 @@ void Closure0_911e0::vfunc_2(void* __p0, void* __p1, void* __p2) { unsigned char
         *out = b;
 }
 } // namespace fn_000911e0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure0<CStatsManager, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000911e0::Closure0_911e0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x00091250 Closure3<CStatsManager,void,char_*,char_*,int>::vfunc_2 (28 B): equivalent/0x00091250.cpp
@@ -1594,11 +1503,6 @@ void Closure3_91250::vfunc_2(void* __p0, void* __p1, void* __p2) { Arguments * a
     ((*(CStatsManager_91250 * *)&this->f_20)->*(*(void (CStatsManager_91250::**)(char *, char *, int))&this->f_1c))(arguments->first, arguments->second, arguments->third);
 }
 } // namespace fn_00091250
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure3<CStatsManager, void, char *, char *, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00091250::Closure3_91250*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x00091270 FUN_00091270 (76 B): matches/0x00091270.cpp [wrapped: conflict: Closure1; Method1]

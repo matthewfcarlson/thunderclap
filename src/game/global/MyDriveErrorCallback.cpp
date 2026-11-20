@@ -176,7 +176,6 @@ void* Method2_8e130::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_0008e130
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method2<CPlatformManager, void, const char *, const char *>::~Method2() {}
 
 
 // 0x0008e150 Method2<CPlatformManager,void,const_char_*,const_char_*>::vfunc_2 (23 B): matches/0x0008e150.cpp
@@ -197,11 +196,6 @@ void Method2_8e150::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused 
     (m->*(*(void (CFEManager_8e150::**)(const char *, int))&this->f_1c))(s, x);
 }
 } // namespace fn_0008e150
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method2<CPlatformManager, void, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0008e150::Method2_8e150*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x0008e1b0 Method1<CPlatformManager,void,const_char_*>::vfunc_0 (30 B): matches/0x0008e1b0.cpp
@@ -224,7 +218,6 @@ void* Method1_8e1b0::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_0008e1b0
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method1<CPlatformManager, void, const char *>::~Method1() {}
 
 
 // 0x0008e1d0 Method1<CPlatformManager,void,const_char_*>::vfunc_2 (19 B): matches/0x0008e1d0.cpp
@@ -243,11 +236,6 @@ void Method1_8e1d0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (vo
     (d->*(*(void (Dummy_8e1d0::**)(void *))&this->f_1c))(*b);
 }
 } // namespace fn_0008e1d0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method1<CPlatformManager, void, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0008e1d0::Method1_8e1d0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x0008e1f0 MyDriveErrorCallback::vfunc_0 (1161 B): equivalent/0x0008e1f0.cpp [wrapped: conflict: FUN_0008e090; MyControllerCallback; MyDriveErrorCallback]
@@ -615,11 +603,6 @@ void Closure2_8e730::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (v
     ((*(CActorManager_8e730 * *)&this->f_20)->*(*(void (CActorManager_8e730::**)(const char *, float))&this->f_1c))(p->s, p->f);
 }
 } // namespace fn_0008e730
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure2<CPlatformManager, void, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0008e730::Closure2_8e730*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 namespace fn_f294a1a9 {
 
@@ -666,11 +649,6 @@ void Closure1_8e7c0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (v
     ((*(CActorManager_8e7c0 * *)&this->f_20)->*(*(void (CActorManager_8e7c0::**)(const char *))&this->f_1c))(*b);
 }
 } // namespace fn_0008e7c0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure1<CPlatformManager, void, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0008e7c0::Closure1_8e7c0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 namespace fn_f294a1a9 {
 

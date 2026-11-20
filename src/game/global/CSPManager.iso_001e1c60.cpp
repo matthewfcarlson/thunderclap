@@ -28,9 +28,4 @@ void Closure3_1e1c60::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr 
     ((*(CSPManager_1e1c60 * *)&this->f_20)->*(*(Callback *)&this->f_1c))(args->text, args->flag, args->value);
 }
 } // namespace fn_001e1c60
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure3<CSPManager, void, const char *, bool, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001e1c60::Closure3_1e1c60*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 

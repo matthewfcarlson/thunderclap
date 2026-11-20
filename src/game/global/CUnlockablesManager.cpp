@@ -596,7 +596,6 @@ void* Method1_93e10::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_00093e10
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method1<CUnlockablesManager, bool, int>::~Method1() {}
 
 
 // 0x00093e30 Method1<CUnlockablesManager,bool,int>::vfunc_2 (29 B): matches/0x00093e30.cpp
@@ -617,11 +616,6 @@ void Method1_93e30::vfunc_2(void* __p0, void* __p1, void* __p2) { CUnlockablesMa
         *out = r;
 }
 } // namespace fn_00093e30
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method1<CUnlockablesManager, bool, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00093e30::Method1_93e30*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x00093ea0 Method2<CUnlockablesManager,void,int,bool>::vfunc_0 (30 B): matches/0x00093ea0.cpp
@@ -644,7 +638,6 @@ void* Method2_93ea0::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_00093ea0
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method2<CUnlockablesManager, void, int, bool>::~Method2() {}
 
 
 // 0x00093ec0 Method2<CUnlockablesManager,void,int,bool>::vfunc_2 (25 B): matches/0x00093ec0.cpp
@@ -661,11 +654,6 @@ void Method2_93ec0::vfunc_2(void* __p0, void* __p1, void* __p2) { CUnlockablesMa
     (obj->*(*(void (CUnlockablesManager_93ec0::**)(int, bool))&this->f_1c))(args->n, args->b);
 }
 } // namespace fn_00093ec0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method2<CUnlockablesManager, void, int, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00093ec0::Method2_93ec0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x00093f30 Method2<CUnlockablesManager,void,int,int>::vfunc_0 (30 B): matches/0x00093f30.cpp
@@ -687,8 +675,6 @@ void* Method2_93f30::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_00093f30
-// the destructor itself, which other objects' code references natively:
-template <> Method2<CUnlockablesManager, void, int, int>::~Method2() {}
 
 
 // 0x00093f50 Method2<CUnlockablesManager,void,int,int>::vfunc_2 (23 B): matches/0x00093f50.cpp
@@ -709,11 +695,6 @@ void Method2_93f50::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused 
     (m->*(*(void (CFEManager_93f50::**)(const char *, int))&this->f_1c))(s, x);
 }
 } // namespace fn_00093f50
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method2<CUnlockablesManager, void, int, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00093f50::Method2_93f50*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x00093fc0 Method2<CUnlockablesManager,void,const_char_*,int>::vfunc_0 (30 B): matches/0x00093fc0.cpp
@@ -736,7 +717,6 @@ void* Method2_93fc0::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_00093fc0
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method2<CUnlockablesManager, void, const char *, int>::~Method2() {}
 
 
 // 0x00093fe0 Method2<CUnlockablesManager,void,const_char_*,int>::vfunc_2 (23 B): matches/0x00093fe0.cpp
@@ -757,11 +737,6 @@ void Method2_93fe0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused 
     (m->*(*(void (CFEManager_93fe0::**)(const char *, int))&this->f_1c))(s, x);
 }
 } // namespace fn_00093fe0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method2<CUnlockablesManager, void, const char *, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00093fe0::Method2_93fe0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 namespace fn_f8b63219 {
 
@@ -814,7 +789,6 @@ void* Method6_94080::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_00094080
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method6<CUnlockablesManager, void, const char *, int, const char *, const char *, const char *, const char *>::~Method6() {}
 
 
 // 0x000940a0 Method6<CUnlockablesManager,void,const_char_*,int,const_char_*,const_char_*,const_char_*,const_char_*>::vfunc_2 (30 B): matches/0x000940a0.cpp
@@ -832,11 +806,6 @@ void Method6_940a0::vfunc_2(void* __p0, void* __p1, void* __p2) { const char * a
     FUN_000940c0(a, b, c, (*(int *)&this->f_1c));
 }
 } // namespace fn_000940a0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method6<CUnlockablesManager, void, const char *, int, const char *, const char *, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000940a0::Method6_940a0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x000940c0 FUN_000940c0 (53 B): matches/0x000940c0.cpp [wrapped: conflict: Args]
@@ -911,7 +880,6 @@ void* Method6_94180::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_00094180
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method6<CUnlockablesManager, void, int, const char *, const char *, const char *, const char *, int>::~Method6() {}
 
 
 // 0x000941a0 Method6<CUnlockablesManager,void,int,const_char_*,const_char_*,const_char_*,const_char_*,int>::vfunc_2 (30 B): matches/0x000941a0.cpp
@@ -929,11 +897,6 @@ void Method6_941a0::vfunc_2(void* __p0, void* __p1, void* __p2) { const char * a
     FUN_000941c0(a, b, c, (*(int *)&this->f_1c));
 }
 } // namespace fn_000941a0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method6<CUnlockablesManager, void, int, const char *, const char *, const char *, const char *, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000941a0::Method6_941a0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 namespace fn_f8b63219 {
 
@@ -999,7 +962,6 @@ void* Method3_94260::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_00094260
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method3<CUnlockablesManager, void, int, int, bool>::~Method3() {}
 
 
 // 0x00094280 Method3<CUnlockablesManager,void,int,int,bool>::vfunc_2 (31 B): equivalent/0x00094280.cpp
@@ -1018,11 +980,6 @@ void Method3_94280::vfunc_2(void* __p0, void* __p1, void* __p2) { CUnlockablesMa
     (object->*(*(void (CUnlockablesManager_94280::**)(int, int, int))&this->f_1c))(arguments->first, arguments->second, arguments->third);
 }
 } // namespace fn_00094280
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method3<CUnlockablesManager, void, int, int, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00094280::Method3_94280*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x000942a0 FUN_000942a0 (89 B): matches/0x000942a0.cpp [wrapped: conflict: Method3]
@@ -1068,11 +1025,6 @@ void* Method3_94300::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_00094300
-// the destructor itself, which other objects' code references natively:
-template <> Method3<CUnlockablesManager, void, int, const char *, const char *>::~Method3() {}
-#if defined(HULK_PTR64)
-template class Method3<CUnlockablesManager, void, int, const char *, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x94300)
-#endif
 
 
 // 0x00094320 Method3<CUnlockablesManager,void,int,const_char_*,const_char_*>::vfunc_2 (29 B): equivalent/0x00094320.cpp [wrapped: conflict: Arguments; Method3]
@@ -1114,8 +1066,6 @@ void* Method1_94380::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_00094380
-// the destructor itself, which other objects' code references natively:
-template <> Method1<CUnlockablesManager, const char *, int>::~Method1() {}
 
 
 // 0x000943a0 Method1<CUnlockablesManager,const_char_*,int>::vfunc_2 (29 B): matches/0x000943a0.cpp
@@ -1136,11 +1086,6 @@ void Method1_943a0::vfunc_2(void* __p0, void* __p1, void* __p2) { CUnlockablesMa
         *out = v;
 }
 } // namespace fn_000943a0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method1<CUnlockablesManager, const char *, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000943a0::Method1_943a0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 namespace fn_f8b63219 {
 
@@ -1185,7 +1130,6 @@ void* Method7_94450::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_00094450
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method7<CUnlockablesManager, void, const char *, int, const char *, const char *, const char *, const char *, int>::~Method7() {}
 
 
 // 0x00094470 Method7<CUnlockablesManager,void,const_char_*,int,const_char_*,const_char_*,const_char_*,const_char_*,int>::vfunc_2 (30 B): matches/0x00094470.cpp
@@ -1203,11 +1147,6 @@ void Method7_94470::vfunc_2(void* __p0, void* __p1, void* __p2) { const char * a
     FUN_00094490(a, b, c, (*(int *)&this->f_1c));
 }
 } // namespace fn_00094470
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method7<CUnlockablesManager, void, const char *, int, const char *, const char *, const char *, const char *, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00094470::Method7_94470*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 namespace fn_f8b63219 {
 
@@ -1281,7 +1220,6 @@ void* Method4_94540::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_00094540
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method4<CUnlockablesManager, void, const char *, int, const char *, const char *>::~Method4() {}
 
 
 // 0x00094560 Method4<CUnlockablesManager,void,const_char_*,int,const_char_*,const_char_*>::vfunc_2 (40 B): matches/0x00094560.cpp
@@ -1302,11 +1240,6 @@ void Method4_94560::vfunc_2(void* __p0, void* __p1, void* __p2) { CUnlockablesMa
     (object->*(*(void (CUnlockablesManager_94560::**)(const char *, int, const char *, const char *))&this->f_1c))(a, b, c, d);
 }
 } // namespace fn_00094560
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method4<CUnlockablesManager, void, const char *, int, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00094560::Method4_94560*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x00094590 FUN_00094590 (45 B): matches/0x00094590.cpp
@@ -1366,11 +1299,6 @@ void* Closure1_94610::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_00094610
-// the destructor itself, which other objects' code references natively:
-template <> Closure1<CUnlockablesManager, bool, int>::~Closure1() {}
-#if defined(HULK_PTR64)
-template class Closure1<CUnlockablesManager, bool, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x94610)
-#endif
 
 
 // 0x00094630 Closure1<CUnlockablesManager,bool,int>::vfunc_2 (30 B): matches/0x00094630.cpp [wrapped: conflict: Closure1]
@@ -1447,7 +1375,6 @@ void* Closure2_946b0::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_000946b0
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Closure2<CUnlockablesManager, void, int, bool>::~Closure2() {}
 
 
 // 0x000946d0 Closure2<CUnlockablesManager,void,int,bool>::vfunc_2 (24 B): matches/0x000946d0.cpp
@@ -1457,9 +1384,6 @@ template <> void Closure2<CUnlockablesManager, void, int, bool>::vfunc_2(void* _
 
     ((*(Actor_946d0 * *)&this->f_20)->*(*(void (Actor_946d0::**)(const char *, unsigned char))&this->f_1c))(p->s, p->b);
 }
-#if defined(HULK_PTR64)
-template class Closure2<CUnlockablesManager, void, int, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x946b0)
-#endif
 
 
 // 0x000946f0 FUN_000946f0 (89 B): matches/0x000946f0.cpp [wrapped: conflict: Closure2]
@@ -1512,7 +1436,6 @@ void* Closure2_94750::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_00094750
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Closure2<CUnlockablesManager, void, int, int>::~Closure2() {}
 
 
 // 0x00094770 Closure2<CUnlockablesManager,void,int,int>::vfunc_2 (22 B): matches/0x00094770.cpp
@@ -1522,9 +1445,6 @@ template <> void Closure2<CUnlockablesManager, void, int, int>::vfunc_2(void* __
 
     ((*(CActorManager_94770 * *)&this->f_20)->*(*(void (CActorManager_94770::**)(const char *, float))&this->f_1c))(p->s, p->f);
 }
-#if defined(HULK_PTR64)
-template class Closure2<CUnlockablesManager, void, int, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x94750)
-#endif
 
 
 // 0x00094790 FUN_00094790 (89 B): matches/0x00094790.cpp [wrapped: conflict: Closure2]
@@ -1576,8 +1496,6 @@ void* Closure2_947f0::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_000947f0
-// the destructor itself, which other objects' code references natively:
-template <> Closure2<CUnlockablesManager, void, const char *, int>::~Closure2() {}
 
 
 // 0x00094810 Closure2<CUnlockablesManager,void,const_char_*,int>::vfunc_2 (22 B): matches/0x00094810.cpp
@@ -1587,9 +1505,6 @@ template <> void Closure2<CUnlockablesManager, void, const char *, int>::vfunc_2
 
     ((*(CActorManager_94810 * *)&this->f_20)->*(*(void (CActorManager_94810::**)(const char *, float))&this->f_1c))(p->s, p->f);
 }
-#if defined(HULK_PTR64)
-template class Closure2<CUnlockablesManager, void, const char *, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x947f0)
-#endif
 
 
 // 0x00094860 Closure6<CUnlockablesManager,void,const_char_*,int,const_char_*,const_char_*,const_char_*,const_char_*>::vfunc_0 (30 B): matches/0x00094860.cpp
@@ -1611,11 +1526,6 @@ void* Closure6_94860::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_00094860
-// the destructor itself, which other objects' code references natively:
-template <> Closure6<CUnlockablesManager, void, const char *, int, const char *, const char *, const char *, const char *>::~Closure6() {}
-#if defined(HULK_PTR64)
-template class Closure6<CUnlockablesManager, void, const char *, int, const char *, const char *, const char *, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x94860)
-#endif
 
 
 // 0x00094910 Closure6<CUnlockablesManager,void,int,const_char_*,const_char_*,const_char_*,const_char_*,int>::vfunc_2 (58 B): equivalent/0x00094910.cpp
@@ -1633,11 +1543,6 @@ struct Closure6_94910 : hulk_script::FunctionGenView {
 void Closure6_94910::vfunc_2(void* __p0, void* __p1, void* __p2) { const CallArgs * args = (const CallArgs *)__p1;
  ((*(CUnlockablesManager_94910 * *)&this->f_20)->*(*(void (CUnlockablesManager_94910::**)(int, const char *, const char *, const char *, const char *, int))&this->f_1c))(args->id,args->a,args->b,args->c,args->d,args->value); }
 } // namespace fn_00094910
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure6<CUnlockablesManager, void, int, const char *, const char *, const char *, const char *, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00094910::Closure6_94910*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x00094a30 FUN_00094a30 (76 B): matches/0x00094a30.cpp [wrapped: conflict: Closure1; Method1]
@@ -1685,11 +1590,6 @@ void Closure1_94aa0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused
         *result = value;
 }
 } // namespace fn_00094aa0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure1<CUnlockablesManager, const char *, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00094aa0::Closure1_94aa0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x00094b10 Closure7<CUnlockablesManager,void,const_char_*,int,const_char_*,const_char_*,const_char_*,const_char_*,int>::vfunc_2 (73 B): equivalent/0x00094b10.cpp
@@ -1719,11 +1619,6 @@ void Closure7_94b10::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused
 }
 #endif
 } // namespace fn_00094b10
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure7<CUnlockablesManager, void, const char *, int, const char *, const char *, const char *, const char *, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00094b10::Closure7_94b10*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x00094bb0 Closure4<CUnlockablesManager,void,const_char_*,int,const_char_*,const_char_*>::vfunc_2 (39 B): matches/0x00094bb0.cpp

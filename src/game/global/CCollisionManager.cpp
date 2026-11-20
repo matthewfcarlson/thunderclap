@@ -927,11 +927,6 @@ void Function2_1b37e0::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr
     (*(void (**)(int, math::Vector_1b37e0))&this->f_1c)(*(const int*)value, *(const math::Vector_1b37e0*)((const char*)value+4));
 }
 } // namespace fn_001b37e0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Function2<void, int,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001b37e0::Function2_1b37e0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x001b3810 FUN_001b3810 (102 B): matches/0x001b3810.cpp [wrapped: conflict: Function4]
@@ -1031,11 +1026,6 @@ void Function5_1b3930::vfunc_2(void* __p0, void* __p1, void* __p2) { const char 
     FUN_001b3950(a, b, c, this->f_1c);
 }
 } // namespace fn_001b3930
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Function5<void, int, int, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001b3930::Function5_1b3930*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 namespace fn_f5af65ff {
 
@@ -1072,11 +1062,6 @@ void* Function2_1b3990::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_001b3990
-// the destructor itself, which other objects' code references natively:
-template <> Function2<void, int,math::Vector>::~Function2() {}
-#if defined(HULK_PTR64)
-template class Function2<void, int,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1b3990)
-#endif
 
 
 // 0x001b39b0 Function4<void,int,const_char_*,const_char_*,float>::vfunc_0 (30 B): matches/0x001b39b0.cpp
@@ -1098,11 +1083,6 @@ void* Function4_1b39b0::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_001b39b0
-// the destructor itself, which other objects' code references natively:
-template <> Function4<void, int, const char *, const char *, float>::~Function4() {}
-#if defined(HULK_PTR64)
-template class Function4<void, int, const char *, const char *, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1b39b0)
-#endif
 
 
 // 0x001b39d0 Function5<void,int,int,float,float,float>::vfunc_0 (30 B): matches/0x001b39d0.cpp
@@ -1124,11 +1104,6 @@ void* Function5_1b39d0::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_001b39d0
-// the destructor itself, which other objects' code references natively:
-template <> Function5<void, int, int, float, float, float>::~Function5() {}
-#if defined(HULK_PTR64)
-template class Function5<void, int, int, float, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1b39d0)
-#endif
 
 namespace fn_f5af65ff {
 
@@ -1925,7 +1900,6 @@ void* Method3_1b5c20::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_001b5c20
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method3<CCollisionManager, void, float, float, float>::~Method3() {}
 
 
 // 0x001b5c40 Method3<CCollisionManager,void,float,float,float>::vfunc_2 (35 B): matches/0x001b5c40.cpp
@@ -1944,11 +1918,6 @@ void Method3_1b5c40::vfunc_2(void* __p0, void* __p1, void* __p2) { CCollisionMan
     (obj->*(*(void (CCollisionManager_1b5c40::**)(float, float, float))&this->f_1c))(*(float*)&args, p[1], p[2]);
 }
 } // namespace fn_001b5c40
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method3<CCollisionManager, void, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001b5c40::Method3_1b5c40*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x001b5cc0 Method2<CCollisionManager,bool,math::Vector,int>::vfunc_0 (30 B): matches/0x001b5cc0.cpp
@@ -1971,7 +1940,6 @@ void* Vector_int_1b5cc0::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_001b5cc0
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method2<CCollisionManager, bool,math::Vector, int>::~Method2() {}
 
 
 // 0x001b5ce0 Method2<CCollisionManager,bool,math::Vector,int>::vfunc_2 (53 B): matches/0x001b5ce0.cpp
@@ -1991,11 +1959,6 @@ void Method2_1b5ce0::vfunc_2(void* __p0, void* __p1, void* __p2) { Callee_1b5ce0
         *out = r;
 }
 } // namespace fn_001b5ce0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method2<CCollisionManager, bool,math::Vector, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001b5ce0::Method2_1b5ce0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 namespace fn_f5af65ff {
 
@@ -2136,11 +2099,6 @@ void Closure3_1b61c0::vfunc_2(void* __p0, void* __p1, void* __p2) { float * p = 
     ((*(CCollisionManager_1b61c0 * *)&this->f_20)->*(*(void (CCollisionManager_1b61c0::**)(float, float, float))&this->f_1c))(*(float*)&p, q[1], q[2]);
 }
 } // namespace fn_001b61c0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure3<CCollisionManager, void, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001b61c0::Closure3_1b61c0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x001b61f0 FUN_001b61f0 (89 B): matches/0x001b61f0.cpp [wrapped: conflict: Closure2]

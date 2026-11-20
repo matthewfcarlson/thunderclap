@@ -24,9 +24,4 @@ void* Closure1_1ba8a0::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_001ba8a0
-// the destructor itself, which other objects' code references natively:
-template <> Closure1<CRenderManager, void, unsigned int>::~Closure1() {}
-#if defined(HULK_PTR64)
-template class Closure1<CRenderManager, void, unsigned int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1ba8a0)
-#endif
 

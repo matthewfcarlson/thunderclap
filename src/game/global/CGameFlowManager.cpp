@@ -1010,7 +1010,6 @@ void* Method0_8a370::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_0008a370
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method0<CGameFlowManager, int>::~Method0() {}
 
 
 // 0x0008a390 Method0<CGameFlowManager,int>::vfunc_2 (22 B): matches/0x0008a390.cpp
@@ -1031,11 +1030,6 @@ void Method0_8a390::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (vo
         *out = v;
 }
 } // namespace fn_0008a390
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method0<CGameFlowManager, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0008a390::Method0_8a390*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x0008a3f0 Method0<CGameFlowManager,const_char_*>::vfunc_0 (30 B): matches/0x0008a3f0.cpp
@@ -1058,7 +1052,6 @@ void* Method0_8a3f0::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_0008a3f0
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method0<CGameFlowManager, const char *>::~Method0() {}
 
 
 // 0x0008a410 Method0<CGameFlowManager,const_char_*>::vfunc_2 (22 B): matches/0x0008a410.cpp
@@ -1079,11 +1072,6 @@ void Method0_8a410::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (vo
         *out = v;
 }
 } // namespace fn_0008a410
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method0<CGameFlowManager, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0008a410::Method0_8a410*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x0008a470 Method0<CGameFlowManager,bool>::vfunc_0 (30 B): matches/0x0008a470.cpp
@@ -1106,7 +1094,6 @@ void* Method0_8a470::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_0008a470
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method0<CGameFlowManager, bool>::~Method0() {}
 
 
 // 0x0008a490 Method0<CGameFlowManager,bool>::vfunc_2 (22 B): matches/0x0008a490.cpp
@@ -1127,11 +1114,6 @@ void Method0_8a490::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_
         *out = r;
 }
 } // namespace fn_0008a490
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method0<CGameFlowManager, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0008a490::Method0_8a490*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x0008a4f0 Method1<CGameFlowManager,void,int>::vfunc_0 (30 B): matches/0x0008a4f0.cpp
@@ -1154,7 +1136,6 @@ void* Method1_8a4f0::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_0008a4f0
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method1<CGameFlowManager, void, int>::~Method1() {}
 
 
 // 0x0008a510 Method1<CGameFlowManager,void,int>::vfunc_2 (19 B): matches/0x0008a510.cpp
@@ -1173,11 +1154,6 @@ void Method1_8a510::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (vo
     (d->*(*(void (Dummy_8a510::**)(void *))&this->f_1c))(*b);
 }
 } // namespace fn_0008a510
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method1<CGameFlowManager, void, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0008a510::Method1_8a510*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x0008a570 Method1<CGameFlowManager,void,const_char_*>::vfunc_0 (30 B): matches/0x0008a570.cpp
@@ -1200,7 +1176,6 @@ void* Method1_8a570::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_0008a570
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method1<CGameFlowManager, void, const char *>::~Method1() {}
 
 
 // 0x0008a590 Method1<CGameFlowManager,void,const_char_*>::vfunc_2 (19 B): matches/0x0008a590.cpp
@@ -1219,11 +1194,6 @@ void Method1_8a590::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (vo
     (d->*(*(void (Dummy_8a590::**)(void *))&this->f_1c))(*b);
 }
 } // namespace fn_0008a590
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method1<CGameFlowManager, void, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0008a590::Method1_8a590*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x0008a5f0 Method0<CGameFlowManager,math::Vector>::vfunc_0 (30 B): matches/0x0008a5f0.cpp
@@ -1246,7 +1216,6 @@ void* Vector_8a5f0::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_0008a5f0
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method0<CGameFlowManager,math::Vector>::~Method0() {}
 
 
 // 0x0008a610 Method0<CGameFlowManager,math::Vector>::vfunc_2 (69 B): matches/0x0008a610.cpp
@@ -1274,11 +1243,6 @@ void Method0_8a610::vfunc_2(void* __p0, void* __p1, void* __p2) { CGameFlowManag
     }
 }
 } // namespace fn_0008a610
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method0<CGameFlowManager,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0008a610::Method0_8a610*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x0008a6a0 Method0<CGameFlowManager,float>::vfunc_0 (30 B): matches/0x0008a6a0.cpp
@@ -1300,11 +1264,6 @@ void* Method0_8a6a0::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_0008a6a0
-// the destructor itself, which other objects' code references natively:
-template <> Method0<CGameFlowManager, float>::~Method0() {}
-#if defined(HULK_PTR64)
-template class Method0<CGameFlowManager, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x8a6a0)
-#endif
 
 
 // 0x0008a6c0 Method0<CGameFlowManager,float>::vfunc_2 (34 B): matches/0x0008a6c0.cpp [wrapped: conflict: Function]
@@ -1351,7 +1310,6 @@ void* Method1_8a730::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_0008a730
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method1<CGameFlowManager, bool, const char *>::~Method1() {}
 
 
 // 0x0008a750 Method1<CGameFlowManager,bool,const_char_*>::vfunc_2 (29 B): matches/0x0008a750.cpp
@@ -1372,11 +1330,6 @@ void Method1_8a750::vfunc_2(void* __p0, void* __p1, void* __p2) { CGameFlowManag
         *out = r;
 }
 } // namespace fn_0008a750
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method1<CGameFlowManager, bool, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0008a750::Method1_8a750*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x0008a7c0 Method2<CGameFlowManager,void,const_char_*,const_char_*>::vfunc_0 (30 B): matches/0x0008a7c0.cpp
@@ -1399,7 +1352,6 @@ void* Method2_8a7c0::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_0008a7c0
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method2<CGameFlowManager, void, const char *, const char *>::~Method2() {}
 
 
 // 0x0008a7e0 Method2<CGameFlowManager,void,const_char_*,const_char_*>::vfunc_2 (23 B): matches/0x0008a7e0.cpp
@@ -1420,11 +1372,6 @@ void Method2_8a7e0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused 
     (m->*(*(void (CFEManager_8a7e0::**)(const char *, int))&this->f_1c))(s, x);
 }
 } // namespace fn_0008a7e0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method2<CGameFlowManager, void, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0008a7e0::Method2_8a7e0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x0008a840 Method1<CGameFlowManager,const_char_*,const_char_*>::vfunc_0 (30 B): matches/0x0008a840.cpp
@@ -1447,7 +1394,6 @@ void* Method1_8a840::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_0008a840
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method1<CGameFlowManager, const char *, const char *>::~Method1() {}
 
 
 // 0x0008a860 Method1<CGameFlowManager,const_char_*,const_char_*>::vfunc_2 (29 B): matches/0x0008a860.cpp
@@ -1468,11 +1414,6 @@ void Method1_8a860::vfunc_2(void* __p0, void* __p1, void* __p2) { CGameFlowManag
         *out = x;
 }
 } // namespace fn_0008a860
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method1<CGameFlowManager, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0008a860::Method1_8a860*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x0008a8c0 Method0<CGameFlowManager,void>::vfunc_0 (30 B): matches/0x0008a8c0.cpp
@@ -1494,8 +1435,6 @@ void* Method0_8a8c0::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_0008a8c0
-// the destructor itself, which other objects' code references natively:
-template <> Method0<CGameFlowManager, void>::~Method0() {}
 
 
 // 0x0008a8e0 Method0<CGameFlowManager,void>::vfunc_2 (12 B): matches/0x0008a8e0.cpp
@@ -1513,11 +1452,6 @@ void Method0_8a8e0::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_
     (a->*(*(void (CActorManager_8a8e0::**)())&this->f_1c))();
 }
 } // namespace fn_0008a8e0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method0<CGameFlowManager, void>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0008a8e0::Method0_8a8e0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x0008a8f0 FUN_0008a8f0 (706 B): equivalent/0x0008a8f0.cpp [wrapped: conflict: DAT_004dd6ec; World]
@@ -1802,7 +1736,6 @@ void* Closure0_8aef0::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_0008aef0
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Closure0<CGameFlowManager, int>::~Closure0() {}
 
 
 // 0x0008af10 Closure0<CGameFlowManager,int>::vfunc_2 (23 B): matches/0x0008af10.cpp
@@ -1825,11 +1758,6 @@ void Closure0_8af10::vfunc_2(void* __p0, void* __p1, void* __p2) { int * out = (
         *out = result;
 }
 } // namespace fn_0008af10
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure0<CGameFlowManager, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0008af10::Closure0_8af10*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x0008af70 Closure0<CGameFlowManager,const_char_*>::vfunc_0 (30 B): matches/0x0008af70.cpp
@@ -1852,7 +1780,6 @@ void* Closure0_8af70::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_0008af70
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Closure0<CGameFlowManager, const char *>::~Closure0() {}
 
 
 // 0x0008af90 Closure0<CGameFlowManager,const_char_*>::vfunc_2 (23 B): matches/0x0008af90.cpp
@@ -1875,11 +1802,6 @@ void Closure0_8af90::vfunc_2(void* __p0, void* __p1, void* __p2) { int * out = (
         *out = result;
 }
 } // namespace fn_0008af90
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure0<CGameFlowManager, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0008af90::Closure0_8af90*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x0008aff0 Closure0<CGameFlowManager,bool>::vfunc_0 (30 B): matches/0x0008aff0.cpp
@@ -1902,7 +1824,6 @@ void* Closure0_8aff0::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_0008aff0
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Closure0<CGameFlowManager, bool>::~Closure0() {}
 
 
 // 0x0008b010 Closure0<CGameFlowManager,bool>::vfunc_2 (23 B): matches/0x0008b010.cpp
@@ -1925,11 +1846,6 @@ void Closure0_8b010::vfunc_2(void* __p0, void* __p1, void* __p2) { unsigned char
         *out = b;
 }
 } // namespace fn_0008b010
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure0<CGameFlowManager, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0008b010::Closure0_8b010*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x0008b030 FUN_0008b030 (76 B): matches/0x0008b030.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
@@ -1978,7 +1894,6 @@ void* Closure1_8b080::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_0008b080
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Closure1<CGameFlowManager, void, int>::~Closure1() {}
 
 
 // 0x0008b0a0 Closure1<CGameFlowManager,void,int>::vfunc_2 (18 B): matches/0x0008b0a0.cpp
@@ -1988,9 +1903,6 @@ template <> void Closure1<CGameFlowManager, void, int>::vfunc_2(void* __p0, void
 
     ((*(CActorManager_8b0a0 * *)&this->f_20)->*(*(void (CActorManager_8b0a0::**)(const char *))&this->f_1c))(*b);
 }
-#if defined(HULK_PTR64)
-template class Closure1<CGameFlowManager, void, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x8b080)
-#endif
 
 
 // 0x0008b0c0 FUN_0008b0c0 (76 B): matches/0x0008b0c0.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
@@ -2038,8 +1950,6 @@ void* Closure1_8b110::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_0008b110
-// the destructor itself, which other objects' code references natively:
-template <> Closure1<CGameFlowManager, void, const char *>::~Closure1() {}
 
 
 // 0x0008b130 Closure1<CGameFlowManager,void,const_char_*>::vfunc_2 (18 B): matches/0x0008b130.cpp
@@ -2058,11 +1968,6 @@ void Closure1_8b130::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (v
     ((*(CActorManager_8b130 * *)&this->f_20)->*(*(void (CActorManager_8b130::**)(const char *))&this->f_1c))(*b);
 }
 } // namespace fn_0008b130
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure1<CGameFlowManager, void, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0008b130::Closure1_8b130*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x0008b190 Closure0<CGameFlowManager,math::Vector>::vfunc_0 (30 B): matches/0x0008b190.cpp
@@ -2085,7 +1990,6 @@ void* Vector_8b190::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_0008b190
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Closure0<CGameFlowManager,math::Vector>::~Closure0() {}
 
 
 // 0x0008b1b0 Closure0<CGameFlowManager,math::Vector>::vfunc_2 (63 B): equivalent/0x0008b1b0.cpp
@@ -2107,11 +2011,6 @@ void Closure0_8b1b0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused
     if (output) *output = result;
 }
 } // namespace fn_0008b1b0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure0<CGameFlowManager,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0008b1b0::Closure0_8b1b0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x0008b230 Closure0<CGameFlowManager,float>::vfunc_0 (30 B): matches/0x0008b230.cpp
@@ -2134,7 +2033,6 @@ void* Closure0_8b230::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_0008b230
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Closure0<CGameFlowManager, float>::~Closure0() {}
 
 
 // 0x0008b250 Closure0<CGameFlowManager,float>::vfunc_2 (35 B): matches/0x0008b250.cpp
@@ -2157,11 +2055,6 @@ void Closure0_8b250::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr a
         *out = v;
 }
 } // namespace fn_0008b250
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure0<CGameFlowManager, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0008b250::Closure0_8b250*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 namespace fn_f53af43c {
 
@@ -2211,11 +2104,6 @@ void* Closure1_8b2d0::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_0008b2d0
-// the destructor itself, which other objects' code references natively:
-template <> Closure1<CGameFlowManager, bool, const char *>::~Closure1() {}
-#if defined(HULK_PTR64)
-template class Closure1<CGameFlowManager, bool, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x8b2d0)
-#endif
 
 
 // 0x0008b2f0 Closure1<CGameFlowManager,bool,const_char_*>::vfunc_2 (30 B): matches/0x0008b2f0.cpp [wrapped: conflict: Closure1]
@@ -2285,11 +2173,6 @@ void Closure2_8b390::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (v
     ((*(CActorManager_8b390 * *)&this->f_20)->*(*(void (CActorManager_8b390::**)(const char *, float))&this->f_1c))(p->s, p->f);
 }
 } // namespace fn_0008b390
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure2<CGameFlowManager, void, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0008b390::Closure2_8b390*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x0008b3b0 FUN_0008b3b0 (76 B): matches/0x0008b3b0.cpp [wrapped: conflict: Closure1; Method1]
@@ -2337,11 +2220,6 @@ void Closure1_8b420::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused
         *result = value;
 }
 } // namespace fn_0008b420
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure1<CGameFlowManager, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0008b420::Closure1_8b420*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x0008b4a0 Closure0<CGameFlowManager,void>::vfunc_2 (11 B): matches/0x0008b4a0.cpp
@@ -2359,11 +2237,6 @@ void Closure0_8b4a0::vfunc_2(void* __p0, void* __p1, void* __p2) {
     ((*(CActorManager_8b4a0 * *)&this->f_20)->*(*(void (CActorManager_8b4a0::**)())&this->f_1c))();
 }
 } // namespace fn_0008b4a0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure0<CGameFlowManager, void>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0008b4a0::Closure0_8b4a0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 namespace fn_f53af43c {
 

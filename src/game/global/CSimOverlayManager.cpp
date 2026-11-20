@@ -177,7 +177,6 @@ void* Method1_d70b0::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_000d70b0
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method1<CSimOverlayManager, void, bool>::~Method1() {}
 
 
 // 0x000d70d0 Method1<CSimOverlayManager,void,bool>::vfunc_2 (21 B): matches/0x000d70d0.cpp
@@ -195,11 +194,6 @@ void Method1_d70d0::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_
     (obj->*(*(MFn_d70d0 *)&this->f_1c))(*b);
 }
 } // namespace fn_000d70d0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method1<CSimOverlayManager, void, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000d70d0::Method1_d70d0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x000d7130 Method1<CSimOverlayManager,void,int>::vfunc_0 (30 B): matches/0x000d7130.cpp
@@ -222,7 +216,6 @@ void* Method1_d7130::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_000d7130
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method1<CSimOverlayManager, void, int>::~Method1() {}
 
 
 // 0x000d7150 Method1<CSimOverlayManager,void,int>::vfunc_2 (19 B): matches/0x000d7150.cpp
@@ -241,11 +234,6 @@ void Method1_d7150::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (vo
     (d->*(*(void (Dummy_d7150::**)(void *))&this->f_1c))(*b);
 }
 } // namespace fn_000d7150
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method1<CSimOverlayManager, void, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000d7150::Method1_d7150*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x000d71b0 Method0<CSimOverlayManager,int>::vfunc_0 (30 B): matches/0x000d71b0.cpp
@@ -268,7 +256,6 @@ void* Method0_d71b0::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_000d71b0
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method0<CSimOverlayManager, int>::~Method0() {}
 
 
 // 0x000d71d0 Method0<CSimOverlayManager,int>::vfunc_2 (22 B): matches/0x000d71d0.cpp
@@ -289,11 +276,6 @@ void Method0_d71d0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (vo
         *out = v;
 }
 } // namespace fn_000d71d0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method0<CSimOverlayManager, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000d71d0::Method0_d71d0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 namespace fn_f34eeb08 {
 
@@ -388,7 +370,6 @@ void* Closure1_d7360::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_000d7360
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Closure1<CSimOverlayManager, void, bool>::~Closure1() {}
 
 
 // 0x000d7380 Closure1<CSimOverlayManager,void,bool>::vfunc_2 (20 B): matches/0x000d7380.cpp
@@ -407,11 +388,6 @@ void Closure1_d7380::vfunc_2(void* __p0, void* __p1, void* __p2) { unsigned char
     ((*(Actor_d7380 * *)&this->f_20)->*(*(void (Actor_d7380::**)(unsigned char))&this->f_1c))(*arg);
 }
 } // namespace fn_000d7380
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure1<CSimOverlayManager, void, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000d7380::Closure1_d7380*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x000d73a0 FUN_000d73a0 (76 B): matches/0x000d73a0.cpp [wrapped: conflict: Closure1; Method1]
@@ -469,11 +445,6 @@ void Closure0_d7490::vfunc_2(void* __p0, void* __p1, void* __p2) { int * out = (
         *out = result;
 }
 } // namespace fn_000d7490
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure0<CSimOverlayManager, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000d7490::Closure0_d7490*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x000d7550 FUN_000d7550 (109 B): matches/0x000d7550.cpp [wrapped: conflict: CSimOverlayManager; Closure0; Method0]

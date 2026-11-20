@@ -24,9 +24,4 @@ void* Closure4_cffc0::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_000cffc0
-// the destructor itself, which other objects' code references natively:
-template <> Closure4<HUDOverlay, int, int, int,math::Vector,math::Vector>::~Closure4() {}
-#if defined(HULK_PTR64)
-template class Closure4<HUDOverlay, int, int, int,math::Vector,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xcffc0)
-#endif
 

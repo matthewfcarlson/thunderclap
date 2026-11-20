@@ -24,9 +24,4 @@ void* Closure3_1f7d30::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_001f7d30
-// the destructor itself, which other objects' code references natively:
-template <> Closure3<CEffectManager, unsigned int, char *, float, float>::~Closure3() {}
-#if defined(HULK_PTR64)
-template class Closure3<CEffectManager, unsigned int, char *, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1f7d30)
-#endif
 

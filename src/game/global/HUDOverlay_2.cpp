@@ -1845,7 +1845,6 @@ void* Method0_ce8f0::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_000ce8f0
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method0<HUDOverlay, void>::~Method0() {}
 
 
 // 0x000ce910 Method0<HUDOverlay,void>::vfunc_2 (12 B): matches/0x000ce910.cpp
@@ -1863,11 +1862,6 @@ void Method0_ce910::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_
     (a->*(*(void (CActorManager_ce910::**)())&this->f_1c))();
 }
 } // namespace fn_000ce910
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method0<HUDOverlay, void>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000ce910::Method0_ce910*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x000ce960 Method1<HUDOverlay,void,const_char_*>::vfunc_0 (30 B): matches/0x000ce960.cpp
@@ -1890,7 +1884,6 @@ void* Method1_ce960::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_000ce960
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method1<HUDOverlay, void, const char *>::~Method1() {}
 
 
 // 0x000ce980 Method1<HUDOverlay,void,const_char_*>::vfunc_2 (19 B): matches/0x000ce980.cpp
@@ -1909,11 +1902,6 @@ void Method1_ce980::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (vo
     (d->*(*(void (Dummy_ce980::**)(void *))&this->f_1c))(*b);
 }
 } // namespace fn_000ce980
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method1<HUDOverlay, void, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000ce980::Method1_ce980*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x000ce9e0 Method1<HUDOverlay,void,int>::vfunc_0 (30 B): matches/0x000ce9e0.cpp
@@ -1936,7 +1924,6 @@ void* Method1_ce9e0::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_000ce9e0
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method1<HUDOverlay, void, int>::~Method1() {}
 
 
 // 0x000cea00 Method1<HUDOverlay,void,int>::vfunc_2 (19 B): matches/0x000cea00.cpp
@@ -1955,11 +1942,6 @@ void Method1_cea00::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (vo
     (d->*(*(void (Dummy_cea00::**)(void *))&this->f_1c))(*b);
 }
 } // namespace fn_000cea00
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method1<HUDOverlay, void, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000cea00::Method1_cea00*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x000cea60 Method1<HUDOverlay,void,float>::vfunc_0 (30 B): matches/0x000cea60.cpp
@@ -1982,7 +1964,6 @@ void* Method1_cea60::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_000cea60
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method1<HUDOverlay, void, float>::~Method1() {}
 
 
 // 0x000cea80 Method1<HUDOverlay,void,float>::vfunc_2 (19 B): matches/0x000cea80.cpp
@@ -2001,11 +1982,6 @@ void Method1_cea80::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (vo
     (d->*(*(void (Dummy_cea80::**)(void *))&this->f_1c))(*b);
 }
 } // namespace fn_000cea80
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method1<HUDOverlay, void, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000cea80::Method1_cea80*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 namespace fn_f3fdf6d3 {
 
@@ -2046,7 +2022,6 @@ void* Vector_ceb10::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_000ceb10
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method4<HUDOverlay, void, const char *, float, float,math::Vector>::~Method4() {}
 
 
 // 0x000ceb30 Method4<HUDOverlay,void,const_char_*,float,float,math::Vector>::vfunc_2 (80 B): equivalent/0x000ceb30.cpp
@@ -2079,11 +2054,6 @@ void Method4_ceb30::vfunc_2(void* __p0, void* __p1, void* __p2) { HUDOverlay_ceb
 }
 #endif
 } // namespace fn_000ceb30
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method4<HUDOverlay, void, const char *, float, float,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000ceb30::Method4_ceb30*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x000ceb80 FUN_000ceb80 (89 B): matches/0x000ceb80.cpp [wrapped: conflict: HUDOverlay; Method3]
@@ -2133,7 +2103,6 @@ void* Method3_cebe0::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_000cebe0
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method3<HUDOverlay, int, const char *, const char *, float>::~Method3() {}
 
 
 // 0x000cec00 Method3<HUDOverlay,int,const_char_*,const_char_*,float>::vfunc_2 (43 B): equivalent/0x000cec00.cpp
@@ -2164,11 +2133,6 @@ void Method3_cec00::vfunc_2(void* __p0, void* __p1, void* __p2) { HUDOverlay_cec
 }
 #endif
 } // namespace fn_000cec00
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method3<HUDOverlay, int, const char *, const char *, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000cec00::Method3_cec00*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x000cec70 Method0<HUDOverlay,int>::vfunc_0 (30 B): matches/0x000cec70.cpp
@@ -2191,7 +2155,6 @@ void* Method0_cec70::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_000cec70
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method0<HUDOverlay, int>::~Method0() {}
 
 
 // 0x000cec90 Method0<HUDOverlay,int>::vfunc_2 (22 B): matches/0x000cec90.cpp
@@ -2212,11 +2175,6 @@ void Method0_cec90::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (vo
         *out = v;
 }
 } // namespace fn_000cec90
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method0<HUDOverlay, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000cec90::Method0_cec90*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x000cecf0 Method1<HUDOverlay,void,math::Vector>::vfunc_0 (30 B): matches/0x000cecf0.cpp
@@ -2239,7 +2197,6 @@ void* Vector_cecf0::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_000cecf0
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method1<HUDOverlay, void,math::Vector>::~Method1() {}
 
 
 // 0x000ced10 Method1<HUDOverlay,void,math::Vector>::vfunc_2 (39 B): matches/0x000ced10.cpp
@@ -2256,11 +2213,6 @@ void Method1_ced10::vfunc_2(void* __p0, void* __p1, void* __p2) { HUDOverlay_ced
     (o->*(*(void (HUDOverlay_ced10::**)(math::Vector_ced10))&this->f_1c))(*v);
 }
 } // namespace fn_000ced10
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method1<HUDOverlay, void,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000ced10::Method1_ced10*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x000ced90 Method2<HUDOverlay,int,int,math::Vector>::vfunc_0 (30 B): matches/0x000ced90.cpp
@@ -2283,7 +2235,6 @@ void* Vector_ced90::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_000ced90
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method2<HUDOverlay, int, int,math::Vector>::~Method2() {}
 
 
 // 0x000cedb0 Method2<HUDOverlay,int,int,math::Vector>::vfunc_2 (58 B): matches/0x000cedb0.cpp
@@ -2305,11 +2256,6 @@ void Method2_cedb0::vfunc_2(void* __p0, void* __p1, void* __p2) { HUDOverlay_ced
         *out = r;
 }
 } // namespace fn_000cedb0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method2<HUDOverlay, int, int,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000cedb0::Method2_cedb0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x000cee40 Method2<HUDOverlay,void,int,math::Vector>::vfunc_0 (30 B): matches/0x000cee40.cpp
@@ -2332,7 +2278,6 @@ void* Vector_cee40::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_000cee40
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method2<HUDOverlay, void, int,math::Vector>::~Method2() {}
 
 
 // 0x000cee60 Method2<HUDOverlay,void,int,math::Vector>::vfunc_2 (48 B): equivalent/0x000cee60.cpp
@@ -2351,11 +2296,6 @@ void Method2_cee60::vfunc_2(void* __p0, void* __p1, void* __p2) { HUDOverlay_cee
     (owner->*(*(void (HUDOverlay_cee60::**)(int, Vector_cee60))&this->f_1c))(args->index, args->position);
 }
 } // namespace fn_000cee60
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method2<HUDOverlay, void, int,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000cee60::Method2_cee60*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x000ceee0 Method2<HUDOverlay,int,int,const_char_*>::vfunc_0 (30 B): matches/0x000ceee0.cpp
@@ -2377,8 +2317,6 @@ void* Method2_ceee0::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_000ceee0
-// the destructor itself, which other objects' code references natively:
-template <> Method2<HUDOverlay, int, int, const char *>::~Method2() {}
 
 
 // 0x000cef00 Method2<HUDOverlay,int,int,const_char_*>::vfunc_2 (33 B): matches/0x000cef00.cpp
@@ -2400,11 +2338,6 @@ void Method2_cef00::vfunc_2(void* __p0, void* __p1, void* __p2) { HUDOverlay_cef
         *out = result;
 }
 } // namespace fn_000cef00
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method2<HUDOverlay, int, int, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000cef00::Method2_cef00*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x000cef80 Method2<HUDOverlay,void,bool,float>::vfunc_0 (30 B): matches/0x000cef80.cpp
@@ -2427,7 +2360,6 @@ void* Method2_cef80::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_000cef80
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method2<HUDOverlay, void, bool, float>::~Method2() {}
 
 
 // 0x000cefa0 Method2<HUDOverlay,void,bool,float>::vfunc_2 (24 B): matches/0x000cefa0.cpp
@@ -2445,11 +2377,6 @@ void Method2_cefa0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (vo
     (h->*(*(void (HUDOverlay_cefa0::**)(unsigned char, float))&this->f_1c))(*(unsigned char*)p, *(float*)((char*)p + 4));
 }
 } // namespace fn_000cefa0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method2<HUDOverlay, void, bool, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000cefa0::Method2_cefa0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x000cf010 Method2<HUDOverlay,void,int,bool>::vfunc_0 (30 B): matches/0x000cf010.cpp
@@ -2472,7 +2399,6 @@ void* Method2_cf010::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_000cf010
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method2<HUDOverlay, void, int, bool>::~Method2() {}
 
 
 // 0x000cf030 Method2<HUDOverlay,void,int,bool>::vfunc_2 (25 B): matches/0x000cf030.cpp
@@ -2494,11 +2420,6 @@ void Method2_cf030::vfunc_2(void* __p0, void* __p1, void* __p2) { HUDOverlay_cf0
     (h->*(*(void (HUDOverlay_cf030::**)(int, bool))&this->f_1c))(p->i, p->flag);
 }
 } // namespace fn_000cf030
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method2<HUDOverlay, void, int, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000cf030::Method2_cf030*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 namespace fn_f3fdf6d3 {
 
@@ -2547,8 +2468,6 @@ void* Method4_cf0c0::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_000cf0c0
-// the destructor itself, which other objects' code references natively:
-template <> Method4<HUDOverlay, int, int, int,math::Vector,math::Vector>::~Method4() {}
 
 
 // 0x000cf0e0 Method4<HUDOverlay,int,int,int,math::Vector,math::Vector>::vfunc_2 (115 B): matches/0x000cf0e0.cpp
@@ -2573,11 +2492,6 @@ void Method4_cf0e0::vfunc_2(void* __p0, void* __p1, void* __p2) { HUDOverlay_cf0
         *out = r;
 }
 } // namespace fn_000cf0e0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method4<HUDOverlay, int, int, int,math::Vector,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000cf0e0::Method4_cf0e0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 namespace fn_f3fdf6d3 {
 
@@ -2625,11 +2539,6 @@ void* Method3_cf1c0::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_000cf1c0
-// the destructor itself, which other objects' code references natively:
-template <> Method3<HUDOverlay, void, int, int,math::Vector>::~Method3() {}
-#if defined(HULK_PTR64)
-template class Method3<HUDOverlay, void, int, int,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xcf1c0)
-#endif
 
 
 // 0x000cf1e0 Method3<HUDOverlay,void,int,int,math::Vector>::vfunc_2 (57 B): matches/0x000cf1e0.cpp [wrapped: conflict: Arguments; Function; HUDOverlay; Method3]
@@ -2686,8 +2595,6 @@ void* Method2_cf270::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_000cf270
-// the destructor itself, which other objects' code references natively:
-template <> Method2<HUDOverlay, void, int, int>::~Method2() {}
 
 
 // 0x000cf290 Method2<HUDOverlay,void,int,int>::vfunc_2 (23 B): matches/0x000cf290.cpp
@@ -2708,11 +2615,6 @@ void Method2_cf290::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused 
     (m->*(*(void (CFEManager_cf290::**)(const char *, int))&this->f_1c))(s, x);
 }
 } // namespace fn_000cf290
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method2<HUDOverlay, void, int, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000cf290::Method2_cf290*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 namespace fn_f3fdf6d3 {
 
@@ -2755,7 +2657,6 @@ void* Vector_cf330::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_000cf330
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method5<HUDOverlay, int, int, const char *,math::Vector,math::Vector,math::Vector>::~Method5() {}
 
 
 // 0x000cf350 Method5<HUDOverlay,int,int,const_char_*,math::Vector,math::Vector,math::Vector>::vfunc_2 (166 B): equivalent/0x000cf350.cpp
@@ -2777,11 +2678,6 @@ void Method5_cf350::vfunc_2(void* __p0, void* __p1, void* __p2) { HUDOverlay_cf3
         *out = r;
 }
 } // namespace fn_000cf350
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method5<HUDOverlay, int, int, const char *,math::Vector,math::Vector,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000cf350::Method5_cf350*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x000cf440 Method1<HUDOverlay,void,bool>::vfunc_0 (30 B): matches/0x000cf440.cpp
@@ -2804,7 +2700,6 @@ void* Method1_cf440::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_000cf440
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method1<HUDOverlay, void, bool>::~Method1() {}
 
 
 // 0x000cf460 Method1<HUDOverlay,void,bool>::vfunc_2 (21 B): matches/0x000cf460.cpp
@@ -2822,11 +2717,6 @@ void Method1_cf460::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_
     (obj->*(*(MFn_cf460 *)&this->f_1c))(*b);
 }
 } // namespace fn_000cf460
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method1<HUDOverlay, void, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000cf460::Method1_cf460*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x000cf490 content::LoadInventory::DynamicCaster<pure3d::Locator>::vfunc_0 (30 B): matches/0x000cf490.cpp
@@ -2959,7 +2849,6 @@ void* Closure0_cf810::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_000cf810
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Closure0<HUDOverlay, void>::~Closure0() {}
 
 
 // 0x000cf830 Closure0<HUDOverlay,void>::vfunc_2 (11 B): matches/0x000cf830.cpp
@@ -2977,11 +2866,6 @@ void Closure0_cf830::vfunc_2(void* __p0, void* __p1, void* __p2) {
     ((*(CActorManager_cf830 * *)&this->f_20)->*(*(void (CActorManager_cf830::**)())&this->f_1c))();
 }
 } // namespace fn_000cf830
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure0<HUDOverlay, void>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000cf830::Closure0_cf830*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x000cf840 FUN_000cf840 (76 B): matches/0x000cf840.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
@@ -3033,7 +2917,6 @@ void* Closure1_cf890::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_000cf890
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Closure1<HUDOverlay, void, const char *>::~Closure1() {}
 
 
 // 0x000cf8b0 Closure1<HUDOverlay,void,const_char_*>::vfunc_2 (18 B): matches/0x000cf8b0.cpp
@@ -3052,11 +2935,6 @@ void Closure1_cf8b0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (v
     ((*(CActorManager_cf8b0 * *)&this->f_20)->*(*(void (CActorManager_cf8b0::**)(const char *))&this->f_1c))(*b);
 }
 } // namespace fn_000cf8b0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure1<HUDOverlay, void, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000cf8b0::Closure1_cf8b0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x000cf8d0 FUN_000cf8d0 (76 B): matches/0x000cf8d0.cpp [wrapped: conflict: Closure1; Method1]
@@ -3105,7 +2983,6 @@ void* Closure1_cf920::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_000cf920
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Closure1<HUDOverlay, void, int>::~Closure1() {}
 
 
 // 0x000cf940 Closure1<HUDOverlay,void,int>::vfunc_2 (18 B): matches/0x000cf940.cpp
@@ -3124,11 +3001,6 @@ void Closure1_cf940::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (v
     ((*(CActorManager_cf940 * *)&this->f_20)->*(*(void (CActorManager_cf940::**)(const char *))&this->f_1c))(*b);
 }
 } // namespace fn_000cf940
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure1<HUDOverlay, void, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000cf940::Closure1_cf940*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x000cf960 FUN_000cf960 (76 B): matches/0x000cf960.cpp [wrapped: conflict: Closure1; Method1]
@@ -3180,7 +3052,6 @@ void* Closure1_cf9b0::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_000cf9b0
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Closure1<HUDOverlay, void, float>::~Closure1() {}
 
 
 // 0x000cf9d0 Closure1<HUDOverlay,void,float>::vfunc_2 (18 B): matches/0x000cf9d0.cpp
@@ -3199,11 +3070,6 @@ void Closure1_cf9d0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (v
     ((*(CActorManager_cf9d0 * *)&this->f_20)->*(*(void (CActorManager_cf9d0::**)(const char *))&this->f_1c))(*b);
 }
 } // namespace fn_000cf9d0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure1<HUDOverlay, void, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000cf9d0::Closure1_cf9d0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x000cfa20 Closure4<HUDOverlay,void,const_char_*,float,float,math::Vector>::vfunc_0 (30 B): matches/0x000cfa20.cpp
@@ -3226,7 +3092,6 @@ void* Vector_cfa20::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_000cfa20
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Closure4<HUDOverlay, void, const char *, float, float,math::Vector>::~Closure4() {}
 
 
 // 0x000cfa40 Closure4<HUDOverlay,void,const_char_*,float,float,math::Vector>::vfunc_2 (79 B): matches/0x000cfa40.cpp
@@ -3252,11 +3117,6 @@ void Closure4_cfa40::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused
     ((*(HUDOverlay_cfa40 * *)&this->f_20)->*(*(void (HUDOverlay_cfa40::**)(const char *, float, float, math::Vector_cfa40))&this->f_1c))(s, a, b, v);
 }
 } // namespace fn_000cfa40
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure4<HUDOverlay, void, const char *, float, float,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000cfa40::Closure4_cfa40*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x000cfac0 Closure3<HUDOverlay,int,const_char_*,const_char_*,float>::vfunc_0 (30 B): matches/0x000cfac0.cpp
@@ -3278,11 +3138,6 @@ void* Closure3_cfac0::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_000cfac0
-// the destructor itself, which other objects' code references natively:
-template <> Closure3<HUDOverlay, int, const char *, const char *, float>::~Closure3() {}
-#if defined(HULK_PTR64)
-template class Closure3<HUDOverlay, int, const char *, const char *, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xcfac0)
-#endif
 
 
 // 0x000cfb50 Closure0<HUDOverlay,int>::vfunc_0 (30 B): matches/0x000cfb50.cpp
@@ -3305,7 +3160,6 @@ void* Closure0_cfb50::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_000cfb50
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Closure0<HUDOverlay, int>::~Closure0() {}
 
 
 // 0x000cfb70 Closure0<HUDOverlay,int>::vfunc_2 (23 B): matches/0x000cfb70.cpp
@@ -3328,11 +3182,6 @@ void Closure0_cfb70::vfunc_2(void* __p0, void* __p1, void* __p2) { int * out = (
         *out = result;
 }
 } // namespace fn_000cfb70
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure0<HUDOverlay, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000cfb70::Closure0_cfb70*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x000cfb90 FUN_000cfb90 (76 B): matches/0x000cfb90.cpp [wrapped: conflict: Closure1; DAT_0048e10c; Method1]
@@ -3384,7 +3233,6 @@ void* Vector_cfbe0::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_000cfbe0
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Closure1<HUDOverlay, void,math::Vector>::~Closure1() {}
 
 
 // 0x000cfc00 Closure1<HUDOverlay,void,math::Vector>::vfunc_2 (38 B): matches/0x000cfc00.cpp
@@ -3402,11 +3250,6 @@ void Closure1_cfc00::vfunc_2(void* __p0, void* __p1, void* __p2) { math::Vector_
     ((*(HUDOverlay_cfc00 * *)&this->f_20)->*(*(void (HUDOverlay_cfc00::**)(math::Vector_cfc00))&this->f_1c))(*v);
 }
 } // namespace fn_000cfc00
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure1<HUDOverlay, void,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000cfc00::Closure1_cfc00*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x000cfc30 FUN_000cfc30 (89 B): matches/0x000cfc30.cpp [wrapped: conflict: Closure2; Method2]
@@ -3455,11 +3298,6 @@ void* Closure2_cfc90::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_000cfc90
-// the destructor itself, which other objects' code references natively:
-template <> Closure2<HUDOverlay, int, int,math::Vector>::~Closure2() {}
-#if defined(HULK_PTR64)
-template class Closure2<HUDOverlay, int, int,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xcfc90)
-#endif
 
 
 // 0x000cfcb0 Closure2<HUDOverlay,int,int,math::Vector>::vfunc_2 (61 B): equivalent/0x000cfcb0.cpp [wrapped: conflict: Args; Closure2; HUDOverlay]
@@ -3534,8 +3372,6 @@ void* Closure2_cfd50::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_000cfd50
-// the destructor itself, which other objects' code references natively:
-template <> Closure2<HUDOverlay, void, int,math::Vector>::~Closure2() {}
 
 
 // 0x000cfd70 Closure2<HUDOverlay,void,int,math::Vector>::vfunc_2 (47 B): equivalent/0x000cfd70.cpp
@@ -3560,11 +3396,6 @@ void Closure2_cfd70::vfunc_2(void* __p0, void* __p1, void* __p2) { const void * 
     ((*(HUDOverlay_cfd70 * *)&this->f_20)->*(*(void (HUDOverlay_cfd70::**)(int, Vector_cfd70))&this->f_1c))(words[0], vector);
 }
 } // namespace fn_000cfd70
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure2<HUDOverlay, void, int,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000cfd70::Closure2_cfd70*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 namespace fn_f3fdf6d3 {
 
@@ -3615,11 +3446,6 @@ void* Closure2_cfe00::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_000cfe00
-// the destructor itself, which other objects' code references natively:
-template <> Closure2<HUDOverlay, int, int, const char *>::~Closure2() {}
-#if defined(HULK_PTR64)
-template class Closure2<HUDOverlay, int, int, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xcfe00)
-#endif
 
 
 // 0x000cfe50 FUN_000cfe50 (89 B): matches/0x000cfe50.cpp [wrapped: conflict: Closure2; Method2]
@@ -3672,7 +3498,6 @@ void* Closure2_cfeb0::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_000cfeb0
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Closure2<HUDOverlay, void, bool, float>::~Closure2() {}
 
 
 // 0x000cfed0 Closure2<HUDOverlay,void,bool,float>::vfunc_2 (23 B): matches/0x000cfed0.cpp
@@ -3690,11 +3515,6 @@ void Closure2_cfed0::vfunc_2(void* __p0, void* __p1, void* __p2) { unsigned char
     ((*(HUDOverlay_cfed0 * *)&this->f_20)->*(*(void (HUDOverlay_cfed0::**)(unsigned char, float))&this->f_1c))(args[0], *(float*)(args + 4));
 }
 } // namespace fn_000cfed0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure2<HUDOverlay, void, bool, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000cfed0::Closure2_cfed0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x000cfef0 FUN_000cfef0 (89 B): matches/0x000cfef0.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
@@ -3786,11 +3606,6 @@ void Closure3_d0040::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused
     ((*(HUDOverlay_d0040 * *)&this->f_20)->*(*(void (HUDOverlay_d0040::**)(int, int, math::Vector_d0040))&this->f_1c))(args[0],args[1],v);
 }
 } // namespace fn_000d0040
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure3<HUDOverlay, void, int, int,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000d0040::Closure3_d0040*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x000d0080 FUN_000d0080 (89 B): matches/0x000d0080.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
@@ -3904,11 +3719,6 @@ void Closure1_d01f0::vfunc_2(void* __p0, void* __p1, void* __p2) { unsigned char
     ((*(Actor_d01f0 * *)&this->f_20)->*(*(void (Actor_d01f0::**)(unsigned char))&this->f_1c))(*arg);
 }
 } // namespace fn_000d01f0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure1<HUDOverlay, void, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000d01f0::Closure1_d01f0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x000d0240 HUDOverlay::vfunc_3 (935 B): equivalent/0x000d0240.cpp [wrapped: conflict: HUDOverlay; Overlay]

@@ -3759,11 +3759,6 @@ void* Method5_7ceb0::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_0007ceb0
-// the destructor itself, which other objects' code references natively:
-template <> Method5<CAmbientsManager, void, const char *, int, bool,math::Vector,math::Vector>::~Method5() {}
-#if defined(HULK_PTR64)
-template class Method5<CAmbientsManager, void, const char *, int, bool,math::Vector,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x7ceb0)
-#endif
 
 
 // 0x0007ced0 Method5<CAmbientsManager,void,const_char_*,int,bool,math::Vector,math::Vector>::vfunc_2 (119 B): equivalent/0x0007ced0.cpp [wrapped: conflict: CAmbientsManager; Function; Method5]
@@ -3837,7 +3832,6 @@ void* Method2_7cfa0::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_0007cfa0
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method2<CAmbientsManager, void, const char *, bool>::~Method2() {}
 
 
 // 0x0007cfc0 Method2<CAmbientsManager,void,const_char_*,bool>::vfunc_2 (25 B): matches/0x0007cfc0.cpp
@@ -3859,11 +3853,6 @@ void Method2_7cfc0::vfunc_2(void* __p0, void* __p1, void* __p2) { CAmbientsManag
     (obj->*(*(void (CAmbientsManager_7cfc0::**)(const char *, bool))&this->f_1c))(a->s, a->b);
 }
 } // namespace fn_0007cfc0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method2<CAmbientsManager, void, const char *, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0007cfc0::Method2_7cfc0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x0007d020 Method0<CAmbientsManager,void>::vfunc_0 (30 B): matches/0x0007d020.cpp
@@ -3886,7 +3875,6 @@ void* Method0_7d020::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_0007d020
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method0<CAmbientsManager, void>::~Method0() {}
 
 
 // 0x0007d040 Method0<CAmbientsManager,void>::vfunc_2 (12 B): matches/0x0007d040.cpp
@@ -3904,11 +3892,6 @@ void Method0_7d040::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_
     (a->*(*(void (CActorManager_7d040::**)())&this->f_1c))();
 }
 } // namespace fn_0007d040
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method0<CAmbientsManager, void>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0007d040::Method0_7d040*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x0007d050 FUN_0007d050 (89 B): matches/0x0007d050.cpp [wrapped: conflict: Method3]
@@ -3955,7 +3938,6 @@ void* Method3_7d0b0::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_0007d0b0
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method3<CAmbientsManager, void, const char *, int, bool>::~Method3() {}
 
 
 // 0x0007d0d0 Method3<CAmbientsManager,void,const_char_*,int,bool>::vfunc_2 (31 B): equivalent/0x0007d0d0.cpp
@@ -3974,11 +3956,6 @@ void Method3_7d0d0::vfunc_2(void* __p0, void* __p1, void* __p2) { CAmbientsManag
     (manager->*(*(void (CAmbientsManager_7d0d0::**)(const char *, int, int))&this->f_1c))(args->name, args->value, args->enabled);
 }
 } // namespace fn_0007d0d0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method3<CAmbientsManager, void, const char *, int, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0007d0d0::Method3_7d0d0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x0007d130 Method1<CAmbientsManager,void,const_char_*>::vfunc_0 (30 B): matches/0x0007d130.cpp
@@ -4001,7 +3978,6 @@ void* Method1_7d130::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_0007d130
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method1<CAmbientsManager, void, const char *>::~Method1() {}
 
 
 // 0x0007d150 Method1<CAmbientsManager,void,const_char_*>::vfunc_2 (19 B): matches/0x0007d150.cpp
@@ -4020,11 +3996,6 @@ void Method1_7d150::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (vo
     (d->*(*(void (Dummy_7d150::**)(void *))&this->f_1c))(*b);
 }
 } // namespace fn_0007d150
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method1<CAmbientsManager, void, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0007d150::Method1_7d150*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x0007d1b0 Method1<CAmbientsManager,void,int>::vfunc_0 (30 B): matches/0x0007d1b0.cpp
@@ -4046,8 +4017,6 @@ void* Method1_7d1b0::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_0007d1b0
-// the destructor itself, which other objects' code references natively:
-template <> Method1<CAmbientsManager, void, int>::~Method1() {}
 
 
 // 0x0007d1d0 Method1<CAmbientsManager,void,int>::vfunc_2 (19 B): matches/0x0007d1d0.cpp
@@ -4066,11 +4035,6 @@ void Method1_7d1d0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (vo
     (d->*(*(void (Dummy_7d1d0::**)(void *))&this->f_1c))(*b);
 }
 } // namespace fn_0007d1d0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method1<CAmbientsManager, void, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0007d1d0::Method1_7d1d0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x0007d230 Method1<CAmbientsManager,void,float>::vfunc_0 (30 B): matches/0x0007d230.cpp
@@ -4093,7 +4057,6 @@ void* Method1_7d230::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_0007d230
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method1<CAmbientsManager, void, float>::~Method1() {}
 
 
 // 0x0007d250 Method1<CAmbientsManager,void,float>::vfunc_2 (19 B): matches/0x0007d250.cpp
@@ -4112,11 +4075,6 @@ void Method1_7d250::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (vo
     (d->*(*(void (Dummy_7d250::**)(void *))&this->f_1c))(*b);
 }
 } // namespace fn_0007d250
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method1<CAmbientsManager, void, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0007d250::Method1_7d250*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x0007d2c0 Method2<CAmbientsManager,void,float,float>::vfunc_0 (30 B): matches/0x0007d2c0.cpp
@@ -4139,7 +4097,6 @@ void* Method2_7d2c0::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_0007d2c0
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method2<CAmbientsManager, void, float, float>::~Method2() {}
 
 
 // 0x0007d2e0 Method2<CAmbientsManager,void,float,float>::vfunc_2 (23 B): matches/0x0007d2e0.cpp
@@ -4160,11 +4117,6 @@ void Method2_7d2e0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused 
     (m->*(*(void (CFEManager_7d2e0::**)(const char *, int))&this->f_1c))(s, x);
 }
 } // namespace fn_0007d2e0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method2<CAmbientsManager, void, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0007d2e0::Method2_7d2e0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x0007d340 Method1<CAmbientsManager,void,bool>::vfunc_0 (30 B): matches/0x0007d340.cpp
@@ -4186,8 +4138,6 @@ void* Method1_7d340::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_0007d340
-// the destructor itself, which other objects' code references natively:
-template <> Method1<CAmbientsManager, void, bool>::~Method1() {}
 
 
 // 0x0007d360 Method1<CAmbientsManager,void,bool>::vfunc_2 (21 B): matches/0x0007d360.cpp
@@ -4205,11 +4155,6 @@ void Method1_7d360::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_
     (obj->*(*(MFn_7d360 *)&this->f_1c))(*b);
 }
 } // namespace fn_0007d360
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method1<CAmbientsManager, void, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0007d360::Method1_7d360*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 namespace fn_f9399ba1 {
 
@@ -4260,7 +4205,6 @@ void* Vector_7d3f0::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_0007d3f0
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method4<CAmbientsManager, void, const char *, int, const ::math::Vector, const ::math::Vector>::~Method4() {}
 
 
 // 0x0007d410 Method4<CAmbientsManager,void,const_char_*,int,const_math::Vector,const_math::Vector>::vfunc_2 (106 B): matches/0x0007d410.cpp
@@ -4285,11 +4229,6 @@ void Method4_7d410::vfunc_2(void* __p0, void* __p1, void* __p2) { CAmbientsManag
     (o->*(*(void (CAmbientsManager_7d410::**)(const char *, int, const math::Vector_7d410, const math::Vector_7d410))&this->f_1c))(s, i, va, vb);
 }
 } // namespace fn_0007d410
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method4<CAmbientsManager, void, const char *, int, const ::math::Vector, const ::math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0007d410::Method4_7d410*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x0007d4e0 Method3<CAmbientsManager,void,const_char_*,unsigned_int,float>::vfunc_0 (30 B): matches/0x0007d4e0.cpp
@@ -4312,7 +4251,6 @@ void* Method3_7d4e0::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_0007d4e0
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method3<CAmbientsManager, void, const char *, unsigned int, float>::~Method3() {}
 
 
 // 0x0007d500 Method3<CAmbientsManager,void,const_char_*,unsigned_int,float>::vfunc_2 (29 B): equivalent/0x0007d500.cpp
@@ -4331,11 +4269,6 @@ void Method3_7d500::vfunc_2(void* __p0, void* __p1, void* __p2) { CAmbientsManag
     (manager->*(*(void (CAmbientsManager_7d500::**)(const char *, unsigned int, float))&this->f_1c))(args->name, args->value, args->amount);
 }
 } // namespace fn_0007d500
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method3<CAmbientsManager, void, const char *, unsigned int, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0007d500::Method3_7d500*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x0007d570 Method2<CAmbientsManager,void,const_char_*,float>::vfunc_0 (30 B): matches/0x0007d570.cpp
@@ -4358,7 +4291,6 @@ void* Method2_7d570::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_0007d570
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method2<CAmbientsManager, void, const char *, float>::~Method2() {}
 
 
 // 0x0007d590 Method2<CAmbientsManager,void,const_char_*,float>::vfunc_2 (23 B): matches/0x0007d590.cpp
@@ -4379,11 +4311,6 @@ void Method2_7d590::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused 
     (m->*(*(void (CFEManager_7d590::**)(const char *, int))&this->f_1c))(s, x);
 }
 } // namespace fn_0007d590
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method2<CAmbientsManager, void, const char *, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0007d590::Method2_7d590*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 namespace fn_f9399ba1 {
 
@@ -4893,11 +4820,6 @@ void* Closure5_7df70::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_0007df70
-// the destructor itself, which other objects' code references natively:
-template <> Closure5<CAmbientsManager, void, const char *, int, bool,math::Vector,math::Vector>::~Closure5() {}
-#if defined(HULK_PTR64)
-template class Closure5<CAmbientsManager, void, const char *, int, bool,math::Vector,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x7df70)
-#endif
 
 
 // 0x0007df90 Closure5<CAmbientsManager,void,const_char_*,int,bool,math::Vector,math::Vector>::vfunc_2 (12 B): matches/0x0007df90.cpp [wrapped: conflict: Closure2; Function; Method2]
@@ -4979,7 +4901,6 @@ void* Closure2_7e000::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_0007e000
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Closure2<CAmbientsManager, void, const char *, bool>::~Closure2() {}
 
 
 // 0x0007e020 Closure2<CAmbientsManager,void,const_char_*,bool>::vfunc_2 (24 B): matches/0x0007e020.cpp
@@ -4998,11 +4919,6 @@ void Closure2_7e020::vfunc_2(void* __p0, void* __p1, void* __p2) { Arg_7e020 * p
     ((*(Actor_7e020 * *)&this->f_20)->*(*(void (Actor_7e020::**)(const char *, unsigned char))&this->f_1c))(p->s, p->b);
 }
 } // namespace fn_0007e020
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure2<CAmbientsManager, void, const char *, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0007e020::Closure2_7e020*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x0007e080 Closure0<CAmbientsManager,void>::vfunc_0 (30 B): matches/0x0007e080.cpp
@@ -5025,7 +4941,6 @@ void* Closure0_7e080::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_0007e080
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Closure0<CAmbientsManager, void>::~Closure0() {}
 
 
 // 0x0007e0a0 Closure0<CAmbientsManager,void>::vfunc_2 (11 B): matches/0x0007e0a0.cpp
@@ -5043,11 +4958,6 @@ void Closure0_7e0a0::vfunc_2(void* __p0, void* __p1, void* __p2) {
     ((*(CActorManager_7e0a0 * *)&this->f_20)->*(*(void (CActorManager_7e0a0::**)())&this->f_1c))();
 }
 } // namespace fn_0007e0a0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure0<CAmbientsManager, void>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0007e0a0::Closure0_7e0a0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x0007e0e0 Closure3<CAmbientsManager,void,const_char_*,int,bool>::vfunc_0 (30 B): matches/0x0007e0e0.cpp
@@ -5069,11 +4979,6 @@ void* Closure3_7e0e0::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_0007e0e0
-// the destructor itself, which other objects' code references natively:
-template <> Closure3<CAmbientsManager, void, const char *, int, bool>::~Closure3() {}
-#if defined(HULK_PTR64)
-template class Closure3<CAmbientsManager, void, const char *, int, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x7e0e0)
-#endif
 
 
 // 0x0007e120 FUN_0007e120 (76 B): matches/0x0007e120.cpp [wrapped: conflict: Closure1; Method1]
@@ -5125,7 +5030,6 @@ void* Closure1_7e170::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_0007e170
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Closure1<CAmbientsManager, void, const char *>::~Closure1() {}
 
 
 // 0x0007e190 Closure1<CAmbientsManager,void,const_char_*>::vfunc_2 (18 B): matches/0x0007e190.cpp
@@ -5144,11 +5048,6 @@ void Closure1_7e190::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (v
     ((*(CActorManager_7e190 * *)&this->f_20)->*(*(void (CActorManager_7e190::**)(const char *))&this->f_1c))(*b);
 }
 } // namespace fn_0007e190
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure1<CAmbientsManager, void, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0007e190::Closure1_7e190*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x0007e1b0 FUN_0007e1b0 (76 B): matches/0x0007e1b0.cpp [wrapped: conflict: Closure1; Method1]
@@ -5197,7 +5096,6 @@ void* Closure1_7e200::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_0007e200
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Closure1<CAmbientsManager, void, int>::~Closure1() {}
 
 
 // 0x0007e220 Closure1<CAmbientsManager,void,int>::vfunc_2 (18 B): matches/0x0007e220.cpp
@@ -5216,11 +5114,6 @@ void Closure1_7e220::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (v
     ((*(CActorManager_7e220 * *)&this->f_20)->*(*(void (CActorManager_7e220::**)(const char *))&this->f_1c))(*b);
 }
 } // namespace fn_0007e220
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure1<CAmbientsManager, void, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0007e220::Closure1_7e220*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x0007e240 FUN_0007e240 (76 B): matches/0x0007e240.cpp [wrapped: conflict: Closure1; Method1]
@@ -5268,11 +5161,6 @@ void Closure1_7e2b0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (v
     ((*(CActorManager_7e2b0 * *)&this->f_20)->*(*(void (CActorManager_7e2b0::**)(const char *))&this->f_1c))(*b);
 }
 } // namespace fn_0007e2b0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure1<CAmbientsManager, void, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0007e2b0::Closure1_7e2b0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x0007e2d0 FUN_0007e2d0 (89 B): matches/0x0007e2d0.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
@@ -5321,11 +5209,6 @@ void Closure2_7e350::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (v
     ((*(CActorManager_7e350 * *)&this->f_20)->*(*(void (CActorManager_7e350::**)(const char *, float))&this->f_1c))(p->s, p->f);
 }
 } // namespace fn_0007e350
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure2<CAmbientsManager, void, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0007e350::Closure2_7e350*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x0007e370 FUN_0007e370 (76 B): matches/0x0007e370.cpp [wrapped: conflict: Closure1; Method1]
@@ -5370,11 +5253,6 @@ void Closure1_7e3e0::vfunc_2(void* __p0, void* __p1, void* __p2) { unsigned char
     ((*(Actor_7e3e0 * *)&this->f_20)->*(*(void (Actor_7e3e0::**)(unsigned char))&this->f_1c))(*arg);
 }
 } // namespace fn_0007e3e0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure1<CAmbientsManager, void, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0007e3e0::Closure1_7e3e0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x0007e450 Closure4<CAmbientsManager,void,const_char_*,int,const_math::Vector,const_math::Vector>::vfunc_2 (12 B): matches/0x0007e450.cpp [wrapped: conflict: Closure2; Function; Method2]
@@ -5424,11 +5302,6 @@ void Closure3_7e4b0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused
     ((*(CAmbientsManager_7e4b0 * *)&this->f_20)->*(*(void (CAmbientsManager_7e4b0::**)(const char *, unsigned int, float))&this->f_1c))(arguments->name, arguments->id, arguments->volume);
 }
 } // namespace fn_0007e4b0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure3<CAmbientsManager, void, const char *, unsigned int, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0007e4b0::Closure3_7e4b0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x0007e4d0 FUN_0007e4d0 (89 B): matches/0x0007e4d0.cpp [wrapped: conflict: Closure2; Method2]
@@ -5477,11 +5350,6 @@ void Closure2_7e550::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (v
     ((*(CActorManager_7e550 * *)&this->f_20)->*(*(void (CActorManager_7e550::**)(const char *, float))&this->f_1c))(p->s, p->f);
 }
 } // namespace fn_0007e550
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure2<CAmbientsManager, void, const char *, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0007e550::Closure2_7e550*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x0007e570 FUN_0007e570 (262 B): equivalent/0x0007e570.cpp [wrapped: conflict: content::LoadInventory; pure3d::CompositeDrawable]

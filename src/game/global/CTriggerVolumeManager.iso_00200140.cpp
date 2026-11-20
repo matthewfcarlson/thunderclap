@@ -44,9 +44,4 @@ void Closure3_200140::vfunc_2(void* __p0, void* __p1, void* __p2) { Args * args 
         *out = r;
 }
 } // namespace fn_00200140
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure3<CTriggerVolumeManager, bool,math::Vector, const char *, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00200140::Closure3_200140*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 

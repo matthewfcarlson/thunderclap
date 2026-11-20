@@ -1788,3 +1788,17 @@ blocks fight::Action's whole family: the records come first there.
   not six 16-byte items; 0x0035cec0 initializes them by index.
 - **D129:** 104 `.bss` records.h items carry their declaration's type in config/data.json instead of stale source
   votes; data_gen's output is unchanged.
+
+## 2026-11-19 script2 4: gen's script-binding templates no longer instantiated natively
+
+- **Native `template class X<...>;` lines were what kept D114's destructor specializations alive.** The 245 native-only
+  explicit instantiations of include/gen/global.h's Closure/Method/Function templates instantiated each class's
+  declared, undefined `virtual ~X()`. With the 664 `template <> X<...>::~X() {}` specializations dropped, those lines
+  made 367 `??1` unbound. With the lines dropped too, nothing natively instantiates gen's polymorphic templates any
+  more:
+  - the game vftables are emitted by native_mac;
+  - the D114 explicit functions bind slot 0;
+  - the record invokes bind slot 2.
+  So the 536 native-only forwarders (a84e0c824) go as well.
+- In a native mac link of the stop-6 snapshot with the 185 TUs overlaid, unbound went from 10265 to 10150, with no new
+  names. The 32-bit code is unchanged: the destructor specializations defined only unpinned COMDATs.

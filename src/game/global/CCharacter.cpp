@@ -4958,11 +4958,6 @@ void Function7_3ef30::vfunc_2(void* __p0, void* __p1, void* __p2) { const char *
     FUN_0003ef50(a, b, c, this->f_1c);
 }
 } // namespace fn_0003ef30
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Function7<void, int, float, float, float, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0003ef30::Function7_3ef30*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 namespace fn_f35f7bdf {
 
@@ -5052,11 +5047,6 @@ void* Function7_3f030::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_0003f030
-// the destructor itself, which other objects' code references natively:
-template <> Function7<void, int, float, float, float, float, float, float>::~Function7() {}
-#if defined(HULK_PTR64)
-template class Function7<void, int, float, float, float, float, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x3f030)
-#endif
 
 
 // 0x0003f050 Function3<void,const_char_*,const_char_*,float>::vfunc_0 (30 B): matches/0x0003f050.cpp
@@ -5078,11 +5068,6 @@ void* Function3_3f050::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_0003f050
-// the destructor itself, which other objects' code references natively:
-template <> Function3<void, const char *, const char *, float>::~Function3() {}
-#if defined(HULK_PTR64)
-template class Function3<void, const char *, const char *, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x3f050)
-#endif
 
 
 // 0x0003f090 FUN_0003f090 (841 B): equivalent/0x0003f090.cpp [wrapped: conflict: CCharacter; FUN_001c3d90; World]

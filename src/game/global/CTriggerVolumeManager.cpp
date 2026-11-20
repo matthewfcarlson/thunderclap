@@ -2263,7 +2263,6 @@ void* Vector_const_char_1fe8d0::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_001fe8d0
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method1<CTriggerVolumeManager,math::Vector, const char *>::~Method1() {}
 
 
 // 0x001fe8f0 Method1<CTriggerVolumeManager,math::Vector,const_char_*>::vfunc_2 (69 B): equivalent/0x001fe8f0.cpp
@@ -2285,11 +2284,6 @@ void Method1_1fe8f0::vfunc_2(void* __p0, void* __p1, void* __p2) { CTriggerVolum
  if(result) *result = temp;
 }
 } // namespace fn_001fe8f0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method1<CTriggerVolumeManager,math::Vector, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001fe8f0::Method1_1fe8f0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x001fe980 Method1<CTriggerVolumeManager,float,const_char_*>::vfunc_0 (30 B): matches/0x001fe980.cpp
@@ -2312,7 +2306,6 @@ void* Method1_1fe980::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_001fe980
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method1<CTriggerVolumeManager, float, const char *>::~Method1() {}
 
 
 // 0x001fe9a0 Method1<CTriggerVolumeManager,float,const_char_*>::vfunc_2 (42 B): matches/0x001fe9a0.cpp
@@ -2334,11 +2327,6 @@ void Method1_1fe9a0::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager
         *out = x;
 }
 } // namespace fn_001fe9a0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method1<CTriggerVolumeManager, float, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001fe9a0::Method1_1fe9a0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x001fea20 Method2<CTriggerVolumeManager,bool,const_char_*,math::Vector>::vfunc_0 (30 B): matches/0x001fea20.cpp
@@ -2361,7 +2349,6 @@ void* Vector_1fea20::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_001fea20
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method2<CTriggerVolumeManager, bool, const char *,math::Vector>::~Method2() {}
 
 
 // 0x001fea40 Method2<CTriggerVolumeManager,bool,const_char_*,math::Vector>::vfunc_2 (58 B): equivalent/0x001fea40.cpp
@@ -2381,11 +2368,6 @@ void Method2_1fea40::vfunc_2(void* __p0, void* __p1, void* __p2) { CTriggerVolum
  if (result) *result = value;
 }
 } // namespace fn_001fea40
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method2<CTriggerVolumeManager, bool, const char *,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001fea40::Method2_1fea40*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x001fead0 Method2<CTriggerVolumeManager,bool,const_char_*,float>::vfunc_0 (30 B): matches/0x001fead0.cpp
@@ -2408,7 +2390,6 @@ void* Method2_1fead0::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_001fead0
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method2<CTriggerVolumeManager, bool, const char *, float>::~Method2() {}
 
 
 // 0x001feaf0 Method2<CTriggerVolumeManager,bool,const_char_*,float>::vfunc_2 (37 B): matches/0x001feaf0.cpp
@@ -2430,11 +2411,6 @@ void Method2_1feaf0::vfunc_2(void* __p0, void* __p1, void* __p2) { CTriggerVolum
         *out = v;
 }
 } // namespace fn_001feaf0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method2<CTriggerVolumeManager, bool, const char *, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001feaf0::Method2_1feaf0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x001feb60 Method1<CTriggerVolumeManager,bool,const_char_*>::vfunc_0 (30 B): matches/0x001feb60.cpp
@@ -2457,7 +2433,6 @@ void* Method1_1feb60::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_001feb60
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method1<CTriggerVolumeManager, bool, const char *>::~Method1() {}
 
 
 // 0x001feb80 Method1<CTriggerVolumeManager,bool,const_char_*>::vfunc_2 (29 B): matches/0x001feb80.cpp
@@ -2478,11 +2453,6 @@ void Method1_1feb80::vfunc_2(void* __p0, void* __p1, void* __p2) { CTriggerVolum
         *out = r;
 }
 } // namespace fn_001feb80
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method1<CTriggerVolumeManager, bool, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001feb80::Method1_1feb80*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x001febe0 Method0<CTriggerVolumeManager,int>::vfunc_0 (30 B): matches/0x001febe0.cpp
@@ -2505,7 +2475,6 @@ void* Method0_1febe0::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_001febe0
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method0<CTriggerVolumeManager, int>::~Method0() {}
 
 
 // 0x001fec00 Method0<CTriggerVolumeManager,int>::vfunc_2 (22 B): matches/0x001fec00.cpp
@@ -2526,11 +2495,6 @@ void Method0_1fec00::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (v
         *out = v;
 }
 } // namespace fn_001fec00
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method0<CTriggerVolumeManager, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001fec00::Method0_1fec00*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x001fec60 Method1<CTriggerVolumeManager,const_char_*,int>::vfunc_0 (30 B): matches/0x001fec60.cpp
@@ -2552,8 +2516,6 @@ void* Method1_1fec60::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_001fec60
-// the destructor itself, which other objects' code references natively:
-template <> Method1<CTriggerVolumeManager, const char *, int>::~Method1() {}
 
 
 // 0x001fec80 Method1<CTriggerVolumeManager,const_char_*,int>::vfunc_2 (29 B): matches/0x001fec80.cpp
@@ -2573,11 +2535,6 @@ void Method1_1fec80::vfunc_2(void* __p0, void* __p1, void* __p2) { CTriggerVolum
         *result = r;
 }
 } // namespace fn_001fec80
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method1<CTriggerVolumeManager, const char *, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001fec80::Method1_1fec80*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 namespace fn_f3d6a774 {
 
@@ -2619,7 +2576,6 @@ void* Vector_float_1fed10::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_001fed10
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method4<CTriggerVolumeManager, bool, const char *,math::Vector,math::Vector, float>::~Method4() {}
 
 
 // 0x001fed30 Method4<CTriggerVolumeManager,bool,const_char_*,math::Vector,math::Vector,float>::vfunc_2 (110 B): equivalent/0x001fed30.cpp
@@ -2641,11 +2597,6 @@ void Method4_1fed30::vfunc_2(void* __p0, void* __p1, void* __p2) { CTriggerVolum
         *out = r;
 }
 } // namespace fn_001fed30
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method4<CTriggerVolumeManager, bool, const char *,math::Vector,math::Vector, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001fed30::Method4_1fed30*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x001fedf0 Method2<CTriggerVolumeManager,void,const_char_*,bool>::vfunc_0 (30 B): matches/0x001fedf0.cpp
@@ -2667,11 +2618,6 @@ void* Method2_1fedf0::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_001fedf0
-// the destructor itself, which other objects' code references natively:
-template <> Method2<CTriggerVolumeManager, void, const char *, bool>::~Method2() {}
-#if defined(HULK_PTR64)
-template class Method2<CTriggerVolumeManager, void, const char *, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1fedf0)
-#endif
 
 
 // 0x001fee10 Method2<CTriggerVolumeManager,void,const_char_*,bool>::vfunc_2 (25 B): matches/0x001fee10.cpp [wrapped: conflict: Args; CTriggerVolumeManager; Function; Method2]
@@ -2723,7 +2669,6 @@ void* Method1_1fee70::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_001fee70
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method1<CTriggerVolumeManager, void, const char *>::~Method1() {}
 
 
 // 0x001fee90 Method1<CTriggerVolumeManager,void,const_char_*>::vfunc_2 (19 B): matches/0x001fee90.cpp
@@ -2742,11 +2687,6 @@ void Method1_1fee90::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (v
     (d->*(*(void (Dummy_1fee90::**)(void *))&this->f_1c))(*b);
 }
 } // namespace fn_001fee90
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method1<CTriggerVolumeManager, void, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001fee90::Method1_1fee90*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x001fef00 Method2<CTriggerVolumeManager,bool,const_char_*,const_char_*>::vfunc_0 (30 B): matches/0x001fef00.cpp
@@ -2768,11 +2708,6 @@ void* Method2_1fef00::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_001fef00
-// the destructor itself, which other objects' code references natively:
-template <> Method2<CTriggerVolumeManager, bool, const char *, const char *>::~Method2() {}
-#if defined(HULK_PTR64)
-template class Method2<CTriggerVolumeManager, bool, const char *, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1fef00)
-#endif
 
 
 // 0x001fef20 Method2<CTriggerVolumeManager,bool,const_char_*,const_char_*>::vfunc_2 (33 B): matches/0x001fef20.cpp [wrapped: conflict: CTriggerVolumeManager; Function; Method2; Pair]
@@ -2829,8 +2764,6 @@ void* Method2_1fefa0::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_001fefa0
-// the destructor itself, which other objects' code references natively:
-template <> Method2<CTriggerVolumeManager, void, const char *, float>::~Method2() {}
 
 
 // 0x001fefc0 Method2<CTriggerVolumeManager,void,const_char_*,float>::vfunc_2 (23 B): matches/0x001fefc0.cpp
@@ -2851,11 +2784,6 @@ void Method2_1fefc0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused
     (m->*(*(void (CFEManager_1fefc0::**)(const char *, int))&this->f_1c))(s, x);
 }
 } // namespace fn_001fefc0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method2<CTriggerVolumeManager, void, const char *, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001fefc0::Method2_1fefc0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 namespace fn_f3d6a774 {
 
@@ -2894,7 +2822,6 @@ void* Vector_const_char_bool_1ff040::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_001ff040
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method3<CTriggerVolumeManager, bool,math::Vector, const char *, bool>::~Method3() {}
 
 
 // 0x001ff060 Method3<CTriggerVolumeManager,bool,math::Vector,const_char_*,bool>::vfunc_2 (65 B): matches/0x001ff060.cpp
@@ -2916,11 +2843,6 @@ void Method3_1ff060::vfunc_2(void* __p0, void* __p1, void* __p2) { CTriggerVolum
         *result = r;
 }
 } // namespace fn_001ff060
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method3<CTriggerVolumeManager, bool,math::Vector, const char *, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001ff060::Method3_1ff060*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x001ff100 Method2<CTriggerVolumeManager,bool,const_char_*,bool>::vfunc_0 (30 B): matches/0x001ff100.cpp
@@ -2943,7 +2865,6 @@ void* Method2_1ff100::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_001ff100
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method2<CTriggerVolumeManager, bool, const char *, bool>::~Method2() {}
 
 
 // 0x001ff120 Method2<CTriggerVolumeManager,bool,const_char_*,bool>::vfunc_2 (41 B): matches/0x001ff120.cpp
@@ -2966,11 +2887,6 @@ void Method2_1ff120::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager
         *out = r;
 }
 } // namespace fn_001ff120
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method2<CTriggerVolumeManager, bool, const char *, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001ff120::Method2_1ff120*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 namespace fn_f3d6a774 {
 
@@ -3020,7 +2936,6 @@ void* Method4_1ff1c0::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_001ff1c0
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method4<CTriggerVolumeManager, bool, const char *, int, int, bool>::~Method4() {}
 
 
 // 0x001ff1e0 Method4<CTriggerVolumeManager,bool,const_char_*,int,int,bool>::vfunc_2 (30 B): matches/0x001ff1e0.cpp
@@ -3038,11 +2953,6 @@ void Method4_1ff1e0::vfunc_2(void* __p0, void* __p1, void* __p2) { const char * 
     FUN_001ff200(a, b, c, (*(int *)&this->f_1c));
 }
 } // namespace fn_001ff1e0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method4<CTriggerVolumeManager, bool, const char *, int, int, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001ff1e0::Method4_1ff1e0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 namespace fn_f3d6a774 {
 
@@ -3081,7 +2991,6 @@ void* Method1_1ff280::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_001ff280
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method1<CTriggerVolumeManager, int, const char *>::~Method1() {}
 
 
 // 0x001ff2a0 Method1<CTriggerVolumeManager,int,const_char_*>::vfunc_2 (29 B): matches/0x001ff2a0.cpp
@@ -3102,11 +3011,6 @@ void Method1_1ff2a0::vfunc_2(void* __p0, void* __p1, void* __p2) { CTriggerVolum
         *out = r;
 }
 } // namespace fn_001ff2a0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method1<CTriggerVolumeManager, int, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001ff2a0::Method1_1ff2a0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 namespace fn_f3d6a774 {
 
@@ -3155,7 +3059,6 @@ void* Method3_1ff320::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_001ff320
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method3<CTriggerVolumeManager, void, const char *, int, bool>::~Method3() {}
 
 
 // 0x001ff340 Method3<CTriggerVolumeManager,void,const_char_*,int,bool>::vfunc_2 (31 B): equivalent/0x001ff340.cpp
@@ -3174,11 +3077,6 @@ void Method3_1ff340::vfunc_2(void* __p0, void* __p1, void* __p2) { CTriggerVolum
     (manager->*(*(void (CTriggerVolumeManager_1ff340::**)(const char *, int, bool))&this->f_1c))(args->name, args->value, args->enabled);
 }
 } // namespace fn_001ff340
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method3<CTriggerVolumeManager, void, const char *, int, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001ff340::Method3_1ff340*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 namespace fn_f3d6a774 {
 
@@ -3230,7 +3128,6 @@ void* Vector_int_int_float_float_1ff3e0::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_001ff3e0
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method5<CTriggerVolumeManager, const char *, const ::math::Vector, int, int, float, float>::~Method5() {}
 
 
 // 0x001ff400 Method5<CTriggerVolumeManager,const_char_*,const_math::Vector,int,int,float,float>::vfunc_2 (30 B): matches/0x001ff400.cpp
@@ -3248,11 +3145,6 @@ void Method5_1ff400::vfunc_2(void* __p0, void* __p1, void* __p2) { const char * 
     FUN_001ff420(a, b, c, (*(int *)&this->f_1c));
 }
 } // namespace fn_001ff400
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method5<CTriggerVolumeManager, const char *, const ::math::Vector, int, int, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001ff400::Method5_1ff400*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 namespace fn_f3d6a774 {
 
@@ -3288,8 +3180,6 @@ void* Method1_1ff4c0::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_001ff4c0
-// the destructor itself, which other objects' code references natively:
-template <> Method1<CTriggerVolumeManager, const char *, const char *>::~Method1() {}
 
 
 // 0x001ff4e0 Method1<CTriggerVolumeManager,const_char_*,const_char_*>::vfunc_2 (29 B): matches/0x001ff4e0.cpp
@@ -3309,11 +3199,6 @@ void Method1_1ff4e0::vfunc_2(void* __p0, void* __p1, void* __p2) { CTriggerVolum
         *out = result;
 }
 } // namespace fn_001ff4e0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method1<CTriggerVolumeManager, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001ff4e0::Method1_1ff4e0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x001ff540 Method1<CTriggerVolumeManager,void,float>::vfunc_0 (30 B): matches/0x001ff540.cpp
@@ -3336,7 +3221,6 @@ void* Method1_1ff540::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_001ff540
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method1<CTriggerVolumeManager, void, float>::~Method1() {}
 
 
 // 0x001ff560 Method1<CTriggerVolumeManager,void,float>::vfunc_2 (19 B): matches/0x001ff560.cpp
@@ -3355,11 +3239,6 @@ void Method1_1ff560::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (v
     (d->*(*(void (Dummy_1ff560::**)(void *))&this->f_1c))(*b);
 }
 } // namespace fn_001ff560
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method1<CTriggerVolumeManager, void, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001ff560::Method1_1ff560*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x001ff580 FUN_001ff580 (416 B): equivalent/0x001ff580.cpp [wrapped: conflict: CTriggerVolumeManager]
@@ -3713,7 +3592,6 @@ void* Vector_const_char_1ff9f0::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_001ff9f0
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Closure1<CTriggerVolumeManager,math::Vector, const char *>::~Closure1() {}
 
 
 // 0x001ffa10 Closure1<CTriggerVolumeManager,math::Vector,const_char_*>::vfunc_2 (70 B): equivalent/0x001ffa10.cpp
@@ -3734,11 +3612,6 @@ void Closure1_1ffa10::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unuse
     if (result) *result = value;
 }
 } // namespace fn_001ffa10
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure1<CTriggerVolumeManager,math::Vector, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001ffa10::Closure1_1ffa10*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x001ffa60 FUN_001ffa60 (76 B): matches/0x001ffa60.cpp [wrapped: conflict: Closure1; Method1]
@@ -3787,7 +3660,6 @@ void* Closure1_1ffab0::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_001ffab0
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Closure1<CTriggerVolumeManager, float, const char *>::~Closure1() {}
 
 
 // 0x001ffad0 Closure1<CTriggerVolumeManager,float,const_char_*>::vfunc_2 (43 B): matches/0x001ffad0.cpp
@@ -3810,11 +3682,6 @@ void Closure1_1ffad0::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr 
         *out = value;
 }
 } // namespace fn_001ffad0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure1<CTriggerVolumeManager, float, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001ffad0::Closure1_1ffad0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x001ffb00 FUN_001ffb00 (89 B): matches/0x001ffb00.cpp [wrapped: conflict: Closure2]
@@ -3864,7 +3731,6 @@ void* Vector_1ffb60::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_001ffb60
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Closure2<CTriggerVolumeManager, bool, const char *,math::Vector>::~Closure2() {}
 
 
 // 0x001ffb80 Closure2<CTriggerVolumeManager,bool,const_char_*,math::Vector>::vfunc_2 (61 B): equivalent/0x001ffb80.cpp
@@ -3885,11 +3751,6 @@ void Closure2_1ffb80::vfunc_2(void* __p0, void* __p1, void* __p2) { const Vector
     if (result) *result = answer;
 }
 } // namespace fn_001ffb80
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure2<CTriggerVolumeManager, bool, const char *,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001ffb80::Closure2_1ffb80*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x001ffbc0 FUN_001ffbc0 (89 B): matches/0x001ffbc0.cpp [wrapped: conflict: Closure2]
@@ -3938,11 +3799,6 @@ void* Closure2_1ffc20::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_001ffc20
-// the destructor itself, which other objects' code references natively:
-template <> Closure2<CTriggerVolumeManager, bool, const char *, float>::~Closure2() {}
-#if defined(HULK_PTR64)
-template class Closure2<CTriggerVolumeManager, bool, const char *, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1ffc20)
-#endif
 
 
 // 0x001ffc40 Closure2<CTriggerVolumeManager,bool,const_char_*,float>::vfunc_2 (40 B): equivalent/0x001ffc40.cpp [wrapped: conflict: CTriggerVolumeManager; Closure2; Function; TriggerArguments]
@@ -4023,11 +3879,6 @@ void* Closure1_1ffcc0::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_001ffcc0
-// the destructor itself, which other objects' code references natively:
-template <> Closure1<CTriggerVolumeManager, bool, const char *>::~Closure1() {}
-#if defined(HULK_PTR64)
-template class Closure1<CTriggerVolumeManager, bool, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1ffcc0)
-#endif
 
 
 // 0x001ffce0 Closure1<CTriggerVolumeManager,bool,const_char_*>::vfunc_2 (30 B): matches/0x001ffce0.cpp [wrapped: conflict: Closure1]
@@ -4102,7 +3953,6 @@ void* Closure0_1ffd40::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_001ffd40
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Closure0<CTriggerVolumeManager, int>::~Closure0() {}
 
 
 // 0x001ffd60 Closure0<CTriggerVolumeManager,int>::vfunc_2 (23 B): matches/0x001ffd60.cpp
@@ -4125,11 +3975,6 @@ void Closure0_1ffd60::vfunc_2(void* __p0, void* __p1, void* __p2) { int * out = 
         *out = result;
 }
 } // namespace fn_001ffd60
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure0<CTriggerVolumeManager, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001ffd60::Closure0_1ffd60*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x001ffd80 FUN_001ffd80 (76 B): matches/0x001ffd80.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
@@ -4177,11 +4022,6 @@ void* Closure1_1ffdd0::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_001ffdd0
-// the destructor itself, which other objects' code references natively:
-template <> Closure1<CTriggerVolumeManager, const char *, int>::~Closure1() {}
-#if defined(HULK_PTR64)
-template class Closure1<CTriggerVolumeManager, const char *, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1ffdd0)
-#endif
 
 
 // 0x001ffdf0 Closure1<CTriggerVolumeManager,const_char_*,int>::vfunc_2 (30 B): matches/0x001ffdf0.cpp [wrapped: conflict: Closure1]
@@ -4231,11 +4071,6 @@ void* Closure4_1ffe40::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_001ffe40
-// the destructor itself, which other objects' code references natively:
-template <> Closure4<CTriggerVolumeManager, bool, const char *,math::Vector,math::Vector, float>::~Closure4() {}
-#if defined(HULK_PTR64)
-template class Closure4<CTriggerVolumeManager, bool, const char *,math::Vector,math::Vector, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1ffe40)
-#endif
 
 
 // 0x001ffe60 Closure4<CTriggerVolumeManager,bool,const_char_*,math::Vector,math::Vector,float>::vfunc_2 (12 B): matches/0x001ffe60.cpp [wrapped: conflict: Closure2; Function; Method2]
@@ -4315,7 +4150,6 @@ void* Closure2_1ffed0::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_001ffed0
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Closure2<CTriggerVolumeManager, void, const char *, bool>::~Closure2() {}
 
 
 // 0x001ffef0 Closure2<CTriggerVolumeManager,void,const_char_*,bool>::vfunc_2 (24 B): matches/0x001ffef0.cpp
@@ -4334,11 +4168,6 @@ void Closure2_1ffef0::vfunc_2(void* __p0, void* __p1, void* __p2) { Arg_1ffef0 *
     ((*(Actor_1ffef0 * *)&this->f_20)->*(*(void (Actor_1ffef0::**)(const char *, unsigned char))&this->f_1c))(p->s, p->b);
 }
 } // namespace fn_001ffef0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure2<CTriggerVolumeManager, void, const char *, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001ffef0::Closure2_1ffef0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x001fff10 FUN_001fff10 (76 B): matches/0x001fff10.cpp [wrapped: conflict: Closure1; Closure1::Closure1; Method1]
@@ -4390,7 +4219,6 @@ void* Closure1_1fff60::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_001fff60
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Closure1<CTriggerVolumeManager, void, const char *>::~Closure1() {}
 
 
 // 0x001fff80 Closure1<CTriggerVolumeManager,void,const_char_*>::vfunc_2 (18 B): matches/0x001fff80.cpp
@@ -4409,11 +4237,6 @@ void Closure1_1fff80::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (
     ((*(CActorManager_1fff80 * *)&this->f_20)->*(*(void (CActorManager_1fff80::**)(const char *))&this->f_1c))(*b);
 }
 } // namespace fn_001fff80
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure1<CTriggerVolumeManager, void, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001fff80::Closure1_1fff80*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x001fffa0 FUN_001fffa0 (89 B): matches/0x001fffa0.cpp [wrapped: conflict: Closure2]
@@ -4463,7 +4286,6 @@ void* Closure2_200000::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_00200000
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Closure2<CTriggerVolumeManager, bool, const char *, const char *>::~Closure2() {}
 
 
 // 0x00200020 Closure2<CTriggerVolumeManager,bool,const_char_*,const_char_*>::vfunc_2 (37 B): equivalent/0x00200020.cpp
@@ -4485,11 +4307,6 @@ void Closure2_200020::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unuse
         *result = value;
 }
 } // namespace fn_00200020
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure2<CTriggerVolumeManager, bool, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00200020::Closure2_200020*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x00200050 FUN_00200050 (89 B): matches/0x00200050.cpp [wrapped: conflict: Closure2]
@@ -4539,7 +4356,6 @@ void* Closure2_2000b0::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_002000b0
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Closure2<CTriggerVolumeManager, void, const char *, float>::~Closure2() {}
 
 
 // 0x002000d0 Closure2<CTriggerVolumeManager,void,const_char_*,float>::vfunc_2 (22 B): matches/0x002000d0.cpp
@@ -4558,11 +4374,6 @@ void Closure2_2000d0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (
     ((*(CActorManager_2000d0 * *)&this->f_20)->*(*(void (CActorManager_2000d0::**)(const char *, float))&this->f_1c))(p->s, p->f);
 }
 } // namespace fn_002000d0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure2<CTriggerVolumeManager, void, const char *, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_002000d0::Closure2_2000d0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x00200120 Closure3<CTriggerVolumeManager,bool,math::Vector,const_char_*,bool>::vfunc_0 (30 B): matches/0x00200120.cpp
@@ -4584,11 +4395,6 @@ void* Closure3_200120::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_00200120
-// the destructor itself, which other objects' code references natively:
-template <> Closure3<CTriggerVolumeManager, bool,math::Vector, const char *, bool>::~Closure3() {}
-#if defined(HULK_PTR64)
-template class Closure3<CTriggerVolumeManager, bool,math::Vector, const char *, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x200120)
-#endif
 
 
 // 0x00200190 FUN_00200190 (89 B): matches/0x00200190.cpp [wrapped: conflict: Closure2]
@@ -4638,7 +4444,6 @@ void* Closure2_2001f0::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_002001f0
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Closure2<CTriggerVolumeManager, bool, const char *, bool>::~Closure2() {}
 
 
 // 0x00200210 Closure2<CTriggerVolumeManager,bool,const_char_*,bool>::vfunc_2 (46 B): equivalent/0x00200210.cpp
@@ -4659,11 +4464,6 @@ void Closure2_200210::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unuse
     if (result) *result = value;
 }
 } // namespace fn_00200210
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure2<CTriggerVolumeManager, bool, const char *, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00200210::Closure2_200210*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x00200290 Closure4<CTriggerVolumeManager,bool,const_char_*,int,int,bool>::vfunc_2 (62 B): matches/0x00200290.cpp
@@ -4710,11 +4510,6 @@ void Closure1_200340::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unuse
         *result = answer;
 }
 } // namespace fn_00200340
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure1<CTriggerVolumeManager, int, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00200340::Closure1_200340*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x00200420 Closure5<CTriggerVolumeManager,const_char_*,const_math::Vector,int,int,float,float>::vfunc_2 (29 B): matches/0x00200420.cpp
@@ -4733,11 +4528,6 @@ void Closure5_200420::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr 
     invoke(this->f_20, y, z, (*(int *)&this->f_1c));
 }
 } // namespace fn_00200420
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure5<CTriggerVolumeManager, const char *, const ::math::Vector, int, int, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00200420::Closure5_200420*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x00200440 FUN_00200440 (76 B): matches/0x00200440.cpp [wrapped: conflict: Closure1; Method1]
@@ -4784,11 +4574,6 @@ void Closure1_2004b0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unuse
     if (result) *result = value;
 }
 } // namespace fn_002004b0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure1<CTriggerVolumeManager, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_002004b0::Closure1_2004b0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x002004d0 FUN_002004d0 (76 B): equivalent/0x002004d0.cpp [wrapped: conflict: CTriggerVolumeManager; Closure1; Method1]
@@ -4854,11 +4639,6 @@ void Closure1_200540::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (
     ((*(CActorManager_200540 * *)&this->f_20)->*(*(void (CActorManager_200540::**)(const char *))&this->f_1c))(*b);
 }
 } // namespace fn_00200540
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure1<CTriggerVolumeManager, void, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00200540::Closure1_200540*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x002006f0 FUN_002006f0 (109 B): matches/0x002006f0.cpp [wrapped: conflict: CTriggerVolumeManager; Closure0; Method0]

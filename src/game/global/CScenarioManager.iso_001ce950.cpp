@@ -24,9 +24,4 @@ void* Closure2_1ce950::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_001ce950
-// the destructor itself, which other objects' code references natively:
-template <> Closure2<CScenarioManager, void, int, int>::~Closure2() {}
-#if defined(HULK_PTR64)
-template class Closure2<CScenarioManager, void, int, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1ce950)
-#endif
 

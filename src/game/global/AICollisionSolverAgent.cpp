@@ -2433,11 +2433,6 @@ void Function2_1b1640::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr
     (*(void (**)(float, float))&this->f_1c)(*(float*)p, *((float*)p + 1));
 }
 } // namespace fn_001b1640
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Function2<void, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001b1640::Function2_1b1640*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x001b1660 FUN_001b1660 (76 B): matches/0x001b1660.cpp [wrapped: conflict: Function2]
@@ -2488,11 +2483,6 @@ void Function2_1b16b0::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr
 }
 #endif
 } // namespace fn_001b16b0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Function2<void, const char *, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001b16b0::Function2_1b16b0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x001b16d0 Function2<void,float,float>::vfunc_0 (30 B): matches/0x001b16d0.cpp
@@ -2514,11 +2504,6 @@ void* Function2_1b16d0::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_001b16d0
-// the destructor itself, which other objects' code references natively:
-template <> Function2<void, float, float>::~Function2() {}
-#if defined(HULK_PTR64)
-template class Function2<void, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1b16d0)
-#endif
 
 
 // 0x001b16f0 Function2<void,const_char_*,float>::vfunc_0 (30 B): matches/0x001b16f0.cpp
@@ -2540,11 +2525,6 @@ void* Function2_1b16f0::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_001b16f0
-// the destructor itself, which other objects' code references natively:
-template <> Function2<void, const char *, float>::~Function2() {}
-#if defined(HULK_PTR64)
-template class Function2<void, const char *, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1b16f0)
-#endif
 
 
 // 0x001b1e90 FUN_001b1e90 (1738 B): equivalent/0x001b1e90.cpp [wrapped: conflict: World]

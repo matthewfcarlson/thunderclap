@@ -36,9 +36,4 @@ void Closure3_cfae0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused
     if (result) *result = value;
 }
 } // namespace fn_000cfae0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure3<HUDOverlay, int, const char *, const char *, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000cfae0::Closure3_cfae0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
