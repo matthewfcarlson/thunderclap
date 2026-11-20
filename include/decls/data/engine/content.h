@@ -17,7 +17,7 @@ typedef const void* const* hulk_vftable_ptr;  // a pointer to a vftable
 #endif
 #endif
 
-struct DataLayout_00527c58;  // packed layout (bytes and pointers), defined in the data TU
+struct HulkContentRegistry;  // a record pointer's record (defined by the sources that use it)
 #include "decls/data/records.h"
 
 // content/LoadInventory.cpp
@@ -35,6 +35,7 @@ extern "C" int DAT_004cd504;
 // DAT_00527c4c: typed by decls/data/records.h (included above)
 // DAT_00527c50: typed by decls/data/records.h (included above)
 // DAT_00527c54: typed by decls/data/records.h (included above)
-extern "C" DataLayout_00527c58 DAT_00527c58[1];
+extern "C" struct HulkContentRegistry* DAT_00527c58;
+extern "C" unsigned char DAT_00527c5c[4];  // unkBss_00527c5c
 
 #endif

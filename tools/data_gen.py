@@ -268,6 +268,14 @@ PRIM = {"int": ("int", 4, "i"), "unsigned int": ("unsigned int", 4, "I"), "uint"
         "bool": ("unsigned char", 1, "B"), "__int64": ("__int64", 8, "q"), "unsigned __int64": ("unsigned __int64", 8, "Q")}
 
 
+def record_ptr_type(it):
+    """(data5) The record name of an item config/data-items.json types `struct NAME *` (a pointer to a record the
+    sources define elsewhere, include/decls/loaders.h's HulkContentRegistry), else None. Only that explicit spelling
+    counts: the sources' type votes (`LoaderRegistry *`, a TU-local view) never make an item a record pointer."""
+    m = re.fullmatch(r"struct ([A-Za-z_]\w*) ?\*", it.get("type") or "")
+    return m.group(1) if m else None
+
+
 def scalar_type(it):
     """(C type, element count) when the item's type (inventory or sources) is a primitive matching its size."""
     for t in (it.get("type"), it.get("source_type")):
@@ -481,6 +489,12 @@ class TUWriter:
         if sec == ".bss":
             if n in self.pins and size == 4:
                 return "%s* %s" % (self.pins[n], n), None, "pinned"
+            rp = record_ptr_type(it)
+            if rp and size == 4:
+                # (data5, Q1 (a)) a word that holds a pointer to a record (`struct HulkContentRegistry *`, a
+                # config/data-items.json type): a pointer to the forward-declared record, 8 bytes natively, declared in
+                # the generated header (C linkage, as every DAT_ item), so the sources that name it need no new include
+                return "struct %s* %s" % (rp, n), None, "record pointer"
             if run_ptrs:
                 return self.pointer_item(it, b, {}, run_ptrs, "", bss=True)
             st = scalar_type(it)
@@ -954,6 +968,8 @@ def write_decls(model, tus):
                 structs.add(m.group(1))
         for s in sorted(structs):
             lines.append("struct %s;  // packed layout (bytes and pointers), defined in the data TU" % s)
+        for s in sorted({m.group(1) for _, decl in rows for m in [re.match(r"struct (\w+)\* ", decl or "")] if m}):
+            lines.append("struct %s;  // a record pointer's record (defined by the sources that use it)" % s)
         if any(decl is None for it, decl in rows):
             # items typed by records.h are declared there: the header includes it, so a source naming them needs
             # nothing else (records.h declares only its records and their items)

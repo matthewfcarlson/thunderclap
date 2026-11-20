@@ -708,3 +708,13 @@ names them by index (`((AnimKey*)&DAT_004dd270)[k]`; MATCH, relocations ok).
 **Bss records take their records.h type (data5, 2026-11-18, D129).** A `.bss` records.h item now carries its
 declaration's type in config/data.json (`type`), not the sources' votes (`char[]`, `void*`, `unsigned int`, a bare
 record name): 104 items. Metadata only: data_gen defines these items from records.h, and its output is unchanged.
+
+**Static records and record pointers (data5, 2026-11-20).** The pddi prim buffer's four static vertex streams
+0x004d3ed0 are records.h `PrimBufferStreamStatic[4]` (gen pure3d::d3dPrimBufferStream's words with simple field types,
+the same offsets on every build; word 0 the game's stream vftable 0x004334f4), not a `void*[84]` pointer table.
+A word that holds a pointer to a record the sources define elsewhere is pinned in config/data-items.json with the
+type `struct NAME *` (explicitly: the sources' votes never qualify), and data_gen declares it in the generated header
+as a pointer to the forward-declared record (`record_ptr_type`): 0x00527c58, the content registry's pointer
+(include/decls/loaders.h `HulkContentRegistry`), is `extern "C" struct HulkContentRegistry* DAT_00527c58;` in
+include/decls/data/engine/content.h, so the 29 objects that name it need no new include, and natively it is an
+8-byte pointer of its record's type.

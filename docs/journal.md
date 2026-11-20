@@ -1865,3 +1865,11 @@ blocks fight::Action's whole family: the records come first there.
   offsets were divided by the region size as if the allocation were an array of regions. The raw-tail rule now
   covers offsets as well as bytes.
 - Left to triage: 0x0016d860 (layout -> wild64: element 3 in a region's raw tail) and 0x0030f870 (layout -> untyped).
+
+## 2026-11-20 data5: the prim buffer's static streams on gen's words; record pointers in the generated headers
+
+- DAT_004d3ed0 (find3's stop 10) is four records.h `PrimBufferStreamStatic` records (gen d3dPrimBufferStream's
+  words; clang static_asserts: same offsets on i686-msvc, x86_64, arm64). Landed 9804d55a2.
+- data_gen: a config/data-items.json type `struct NAME *` makes the item a pointer to the forward-declared record in
+  the generated header (record_ptr_type); DAT_00527c58 is `struct HulkContentRegistry*` (recs1: 0x002407a0's
+  x64 `int` class). Opt-in by that spelling only, so source votes (`LoaderRegistry *`) never turn an item into one.
