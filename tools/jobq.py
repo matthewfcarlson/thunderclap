@@ -232,8 +232,15 @@ def base_tar(commit, paths, key):
 # ---------------------------------------------------------------------------------------------------- submit & CLI
 
 def head_commit():
-    return subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True,
+    head = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True,
                           check=True).stdout.strip()
+    # Lanes push side-ref commits to origin/main, so the shared checkout's main can lag it; a job based on a stale HEAD
+    # runs old tools and TUs (11-19: equiv.py without the D153 guard). Warn (from the last fetch; no network here).
+    p = subprocess.run(["git", "rev-list", "--count", "HEAD..origin/main"], cwd=ROOT, capture_output=True, text=True)
+    if p.returncode == 0 and p.stdout.strip() not in ("", "0"):
+        sys.stderr.write("jobq: warning: local main is %s commit(s) behind origin/main; the job is based on %s. "
+                         "Run `build/venv/bin/python tools/sync_main.py` first.\n" % (p.stdout.strip(), head[:9]))
+    return head
 
 
 def make_job(name, cmd, needs="any", files=None, outs=None, limit=1800, slots=1, attempts=3, prio=0,

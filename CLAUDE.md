@@ -87,7 +87,9 @@ TUs) shows no `code_changed`. MSVC 7.1 orders two equal spill slots by the TU's 
 that exact code and view in every mode).
 Never leave an unchecked local commit on the shared main: another agent's push publishes it. Build it on a side ref
 (`git commit-tree` + `git update-ref refs/heads/<agent>`) and push `<sha>:refs/heads/main` once checked (in zsh write
-`${C}:refs/...`; `$C:r` is a history modifier). When a block casts `this` to a record, declare the class as that record:
+`${C}:refs/...`; `$C:r` is a history modifier). After that push, run `tools/sync_main.py`: it fast-forwards the shared
+checkout's main without touching others' uncommitted edits (queue jobs are based on the local HEAD, and a lagging main
+runs old tools; `jobq submit` warns when main is behind origin/main). When a block casts `this` to a record, declare the class as that record:
 `--x64` builds `this` from the declared class, and an owners.h pad stub is read past its end natively.
 A 5-byte `jmp` vftable slot listed "not yet verified" is a real function: give it a block (`void X::f() { Base::f(); }` on
 the record view; MSVC 7.1 emits the jump), or the native vftable holds a `hulk_x_` stub there. A .data structure whose
