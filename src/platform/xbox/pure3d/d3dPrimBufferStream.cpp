@@ -9,33 +9,46 @@
 #define TREE_TU_END }
 namespace fn_fd8cb2f6 {} using namespace fn_fd8cb2f6;
 #include "platform/xbox/pure3d.h"
+// (find3) a view's pad up to gen d3dPrimBufferStream's field F (byte K of the 32-bit stream), less the view's own
+// leading bytes B: the views' fields sit at gen's offsets natively too (as HULK_D3DCTX_PAD for the context)
+#if defined(HULK_PTR64)
+#define HULK_STREAM_PAD(f, k, b) (__builtin_offsetof(::pure3d::d3dPrimBufferStream, f) - (b))
+#else
+#define HULK_STREAM_PAD(f, k, b) ((k) - (b))
+#endif
 
 // ---- declarations shared by the functions below
 namespace fn_fd8cb2f6 {
 struct Format_326e90 { char pad[8]; unsigned flags; unsigned unused; unsigned count; };
+// (find3) a d3dPrimBufferStream's words as gen pure3d::d3dPrimBufferStream lays them out (vftable, in-use flag, then
+// pointers where the stream keeps pointers): the views below were 32-bit pads and int words
 struct Layout_326e90 {
- char pad[8]; Format_326e90* format; char* base; unsigned zero; unsigned arg; unsigned count; unsigned texCount; unsigned blendCount; char* position; unsigned reserved; char* normal; char* blend; char* color; char* tex; char* extra1; char* extra2; char* extra3; char* extra4; char* weight; char* point;
+ void* vftable; unsigned char active; char pad05[3]; Format_326e90* format; char* base; unsigned zero; unsigned arg; unsigned count; unsigned texCount; unsigned blendCount; char* position; char* reserved; char* normal; char* blend; char* color; char* tex; char* extra1; char* extra2; char* extra3; char* extra4; char* weight; char* point;
  char* FUN_00326e90(char* data, Format_326e90* fmt, unsigned value, unsigned unused);
 };
-class Obj_326f90 {
+class Obj_326f90 {   // (find3) the stream's words (Layout_326e90): the element pointers advance by the stride
   public:
-    char pad0[0x10];
+    void* vftable;
+    unsigned char active;
+    char pad05[3];
+    void* format;
+    char* base;
     int count;
-    char pad14[4];
+    unsigned arg;
     int delta;
-    char pad1c[8];
-    int a24;
-    int a28;
-    int a2c;
-    int a30;
-    int a34;
-    int a38;
-    int a3c;
-    int a40;
-    int a44;
-    int a48;
-    int a4c;
-    int a50;
+    unsigned texCount, blendCount;
+    char* a24;
+    char* a28;
+    char* a2c;
+    char* a30;
+    char* a34;
+    char* a38;
+    char* a3c;
+    char* a40;
+    char* a44;
+    char* a48;
+    char* a4c;
+    char* a50;
     void Fn();
 };
 extern "C" char DAT_00433424[];
@@ -554,32 +567,40 @@ void owners::Buffer_327130::FUN_00327130(int n) {
 
 
 // 0x00327190 pure3d::d3dPrimBuffer::vfunc_4 (92 B): equivalent/0x00327190.cpp [wrapped: conflict: pure3d::d3dPrimBuffer]
-// sym: ?vfunc_4@d3dPrimBuffer@pure3d@fn_00327190@@QAEPAURecord_327190@3@XZ @5e84ebb77904 @w3a46d8e8a8ec @v241ca3b5b07f
+// sym: ?vfunc_4@d3dPrimBuffer@pure3d@fn_00327190@@QAEPAURecord_327190@3@XZ @7321ce334d4b @w39b4ccd9ccf1 @ve0b7668cd86e
 namespace fn_00327190 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 3/4, incomplete)
 // pure3d::d3dPrimBuffer::vfunc_4 @ 0x00327190
 
-namespace D3D8 { int __stdcall D3DVertexBuffer_Lock2(void* buffer, int flags); }
+namespace D3D8 { void* __stdcall D3DVertexBuffer_Lock2(void* buffer, int flags); }   // (find3) the locked data (a pointer; int truncated it)
 extern "C" void __cdecl FUN_0031c230(int);
+// (find3) a stream of DAT_004d3ed0 (gen pure3d::d3dPrimBufferStream) and the prim buffer (gen d3dPrimBuffer) by their
+// words; 0x00326e90 by its definition's signature (was `(int, int, int, int)`: no native definition)
 struct Record_327190 {
-    int header;
+    void* vftable;
     unsigned char active;
-    char remaining[0x4f];
-    void FUN_00326e90(int data, int value, int count, int flags);
+    char remaining[sizeof(::pure3d::d3dPrimBufferStream) - sizeof(void*) - 1];
+    char* FUN_00326e90(char* data, void* format, unsigned int value, unsigned int unused);
 };
 namespace pure3d {
 struct d3dPrimBuffer {
-    char padding0[0x1c];
+    void* vftable;
+    int refs, f08;
+    void* device;
+    int f10, f14;
+    unsigned int f18;
     int count;
-    char padding20[0x10];
+    int f20, f24, f28;
+    void* indexBuffer;
     void* buffer;
     unsigned char locked;
-    char padding35[7];
-    int value;
+    char padding35[3];
+    void* context;
+    void* value;
     Record_327190* vfunc_4();
 };
 Record_327190* d3dPrimBuffer::vfunc_4() {
-    int data = D3D8::D3DVertexBuffer_Lock2(buffer, 0);
+    char* data = (char*)D3D8::D3DVertexBuffer_Lock2(buffer, 0);
     FUN_0031c230(0);
     locked = 1;
     Record_327190* available = 0;
@@ -753,7 +774,7 @@ extern "C" double __cdecl sqrt(double);
 namespace pure3d {
 struct pddiPrimBufferStream { virtual void vfunc_0(); virtual void vfunc_1(float x,float y,float z); };
 struct d3dPrimBufferStream : pddiPrimBufferStream {
- char reserved[0x24]; float* normal; unsigned int* packedNormal;
+ char reserved[HULK_STREAM_PAD(f_28, 0x28, sizeof(void*))]; float* normal; unsigned int* packedNormal;   // (find3) gen's offsets (was char reserved[0x24])
  virtual void vfunc_1(float x,float y,float z);
 };
 void d3dPrimBufferStream::vfunc_1(float x,float y,float z) {
@@ -830,7 +851,7 @@ namespace fn_00327600 {
 namespace pure3d {
 struct d3dPrimBufferStream {
     virtual void vfunc_0();
-    char padding[0x4c];
+    char padding[HULK_STREAM_PAD(f_50, 0x50, sizeof(void*))];   // (find3) gen's offset (was char padding[0x4c])
     unsigned int* packedNormal;
     void vfunc_11(float x, float y, float z);
 };

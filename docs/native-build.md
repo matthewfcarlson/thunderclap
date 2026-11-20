@@ -6336,3 +6336,19 @@ mostly landed (recs1 ec0e69d62, sweep2 1f5b80223 / 517c82262, decl1), but these 
 - x64 gate ok. 0x0002d8c0 is accepted as `layout`: its native body reads the native layout by design.
 - Wine pair 100285 / 100438: GATE ok. Native unbound is unchanged (mac 10265, linux-x64 10243, android-arm64 10256):
   this fixes the run-time argument layout, not binding.
+
+### find3, continued: stop 10 (the prim buffer's stream records), and the graphics blocker
+
+- **Stop 10:** the prim buffer's lock 0x00327190 takes one of four d3dPrimBufferStream records from DAT_004d3ed0 and
+  lays it out over the locked vertex buffer (0x00326e90); the stream's slots write through its element pointers.
+  gen pure3d::d3dPrimBufferStream now spells the stream's words (in-use flag, format, base, index, stride, counts,
+  twelve element pointers; were pads and ints; 0x54 on 32-bit as before), and the views (Layout_326e90, Obj_326f90
+  0x00326f90, Record_327190, vfunc_1 / vfunc_11 via HULK_STREAM_PAD) lay out on it; 0x00326e90 is declared as defined
+  (was `(int, int, int, int)`: missing) and D3DVertexBuffer_Lock2 returns the pointer. 0x00327190 re-proven (MSVC
+  100281, --wine 100282); the mover 0x001a9b10 re-pinned from the ledger; x64 gate: 0x00327590 accepted (harness
+  crash on a random index off a pointer from 32-bit input words). data5 types DAT_004d3ed0 as d3dPrimBufferStream[4]
+  next (tested here with a private typed copy: the stream's vftable call and 0x00326e90 run).
+- **Blocker, not a source bug:** the native link's D3D is the XDK shim (src/platform/sdl/xdk/graphics_d3d8.cpp), whose
+  vertex buffer create / lock return 0, so the first locked prim buffer has no memory. The Wine build gets past it
+  only with --gfx (the pddi/bgfx backend). Next: the native graphics backend (a C bridge over bgfx's C99 API for
+  the MS-ABI pddi objects, native_mac.py --gfx; plan in build/find3/RESUME.md).

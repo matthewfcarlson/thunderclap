@@ -4302,19 +4302,27 @@ public:
     virtual void vfunc_15(void*, void*); // overrides pure3d::pddiPrimBufferStream slot 15
     virtual void vfunc_16(hulk_intptr, int); // overrides pure3d::pddiPrimBufferStream slot 16
     virtual void vfunc_17(); // overrides pure3d::pddiPrimBufferStream slot 17
-    char _pad_04[0xc];
-    int f_10;
-    char _pad_14[0x4];
-    int f_18;
-    char _pad_1c[0x8];
+    // (find3) the stream's words (0x00326e90 lays them out over a locked vertex buffer; DAT_004d3ed0 holds four):
+    // the in-use flag, the vertex format, the buffer base, the vertex index, the caller's value, the stride, the
+    // texture / blend counts, then the element pointers (position, normal, packed normal, blend, colour, texture
+    // coordinates, four extras, weight, point size), which 0x00326f90 advances by the stride
+    unsigned char f_04;   // in use (0x00327190 takes a free one)
+    char _pad_05[0x3];
+    void* f_08;           // the vertex format
+    void* f_0c;           // the buffer base
+    int f_10;             // the vertex index
+    unsigned int f_14;
+    int f_18;             // the stride
+    unsigned int f_1c;    // the texture coordinate count
+    unsigned int f_20;    // the blend weight count
     void* f_24;
     void* f_28;
     void* f_2c;
     void* f_30;
     void* f_34;
     void* f_38;
-    int f_3c;
-    int f_40;
+    void* f_3c;
+    void* f_40;
     void* f_44;
     void* f_48;
     void* f_4c;
