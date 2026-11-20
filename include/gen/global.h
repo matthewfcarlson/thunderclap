@@ -2506,7 +2506,18 @@ class CEncounterGenerator : public ::pure3d::Entity {
 public:
     class CEncounter;
     virtual ~CEncounterGenerator(); // overrides core::IRefCount slot 2
-    char _pad_10[0xc5c];
+    // (recs1, find2 G20) the words of decls/encounter.h HulkEncounterGenerator: the entries (pointers), their count, the
+    // title and state words, 16 tracker slots (an object pointer each), 16 CEncounter (a vftable and the generator
+    // pointer each), the encounter count and the encounter map
+    void* f_10[256];
+    int f_410;
+    char _pad_414[0x4c];
+    struct { void* obj; int w[6]; float radius; int tracker; unsigned char active; char pad[3]; } f_460[16];
+    int f_6e0;
+    int f_6e4;
+    struct { void* vftable; int f04; void* table; char name[0x20]; int f2c; unsigned int key[4]; int f40[4];
+             unsigned char b50, b51; unsigned short w52; int f54; } f_6e8[16];
+    int f_c68;
     void* f_c6c;
 };
 

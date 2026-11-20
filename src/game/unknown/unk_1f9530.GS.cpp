@@ -5,6 +5,7 @@
 #include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/unknown.h"
+#include "decls/encounter.h"   // (recs1, find2 G20) CEncounterGenerator
 #define TREE_TU_BEGIN namespace fn_f326376d {
 #define TREE_TU_END }
 #define TREE_LOCAL_CSPHulkProp
@@ -44,8 +45,10 @@ Selector_1fa1c0 *FUN_001d4c90();
 struct Item_1fa1c0 {
     const char *FUN_001fba60();
 };
-struct Target_1fa1c0 {
-    char pad00[0x10];
+struct Target_1fa1c0 {   // (recs1) pure3d::Entity's words (was char pad00[0x10]), then the data
+    void* vftable;
+    int refs;
+    unsigned int name[2];
     int *data;                // 0x10
 };
 struct Panel_1fa1c0;
@@ -56,33 +59,23 @@ struct Copyable {
     void FUN_001f8940(const Copyable *src);
     Copyable(const Copyable &o) { FUN_001f8940(&o); }
 };
-struct Slot_1fa1c0 {
-    char pad00[0x30];
+struct Slot_1fa1c0 {   // (recs1) a CEncounter: decls/encounter.h HulkEncounter's words (were 32-bit pads)
+    void* vftable;
+    int f04;
+    void* table;
+    char name[0x20];
+    int f2c;
     Copyable value;           // 0x30
-    char pad40[0x51 - 0x40];
+    int f40, f44, f48, f4c;
+    unsigned char b50;
     unsigned char flag51;     // 0x51
     char pad52[6];
     void FUN_001f9230();
     void FUN_001f9710(Panel_1fa1c0 *owner, const char *name, int a, int b);
 };
-struct Entry_1fa1c0 {
-    unsigned char active;
-    char pad01[0x27];
-};
-class Panel_1fa1c0 {
+// (recs1, find2 G20) the generator on its record (decls/encounter.h; was a view with 32-bit pads)
+class Panel_1fa1c0 : public HulkEncounterGenerator {
 public:
-    char pad000[0x41c];
-    char label[0x20];         // 0x41c
-    int f43c;
-    char pad440[0x44c - 0x440];
-    int f44c;
-    char pad450[0x484 - 0x450];
-    Entry_1fa1c0 entries[15];        // 0x484
-    char pad6dc[4];
-    int entryCount;           // 0x6e0
-    char pad6e4[4];
-    Slot_1fa1c0 slots[16];           // 0x6e8
-    int count;                // 0xc68
 
     void FUN_001f9fc0(Copyable value);
     void FUN_001fa1c0(Target_1fa1c0 *target, Item_1fa1c0 *item);
@@ -209,7 +202,7 @@ struct ZObj {
     char pad;
 };
 
-struct Entry {
+struct Entry {   // (recs1) a tracker slot: decls/encounter.h HulkEncounterSlot's words
     NameObj *obj;                    // 0
     int f4;
     int f8;
@@ -223,17 +216,8 @@ struct Entry {
     char FUN_001f8aa0(ZObj *z, Obj *r);
 };
 
-struct Cfg {
-    char pad0[0x41c];
-    char name[12];                   // 0x41c
-    char pad428[0x448 - 0x428];
-    int f448;
-    char pad44c[0x454 - 0x44c];
-    int f454;
-    char pad458[0x460 - 0x458];
-    Entry entries[1];                // 0x460
-    char pad_tail[0x6e0 - 0x460 - 0x28];
-    int count;                       // 0x6e0
+// (recs1, find2 G20) the generator on its record (decls/encounter.h; was a view with 32-bit pads)
+struct Cfg : HulkEncounterGenerator {
     short FUN_001f9630(Key o);
     void FUN_001f9670(Key o, short s);
 };
@@ -319,11 +303,13 @@ struct Frame {
     int pad2d8;
 };
 
-class Self {
+class Self {   // (recs1) a CEncounter: decls/encounter.h HulkEncounter's words (were char pad0[8] and 32-bit counts)
 public:
-    char pad0[8];
+    void* vftable;
+    int f04;
     Cfg *f8;
-    char name[0x30 - 0xc];           // 0xc
+    char name[0x20];                 // 0xc
+    int f2c;
     Key key;                         // 0x30
     int f40;
     float f44;
@@ -366,9 +352,9 @@ void Self::FUN_001f9810(float dt)
         u64 id = FUN_0027b020(name);
         f.R = DAT_004dd700->f28->FUN_001fc8c0(id);
         f.i = 0;
-        if (f8->count <= 0)
+        if (f8->slotCount <= 0)
             break;
-        f.off = 0x460;
+        f.off = (int)HULK_ENC_AT(slots, 0x460);   // (recs1) the slots' offset in the record
         bool finish = false;
         do {
             do {
@@ -386,7 +372,7 @@ void Self::FUN_001f9810(float dt)
                     Spawner *sp = DAT_004dd700->f30;
                     if (sp == 0)
                         break;
-                    f.q.FUN_001ca000(f8->name, name);
+                    f.q.FUN_001ca000(f8->title, name);
                     sp->FUN_001cbc20(&f.q);
                     break;
                 }
@@ -394,10 +380,10 @@ void Self::FUN_001f9810(float dt)
                     break;
 
                 Cfg *c = f8;
-                f.strike = memcmp(c->name, "strike_team", 12) == 0;
+                f.strike = memcmp(c->title, "strike_team", 12) == 0;
                 Entry *E = (Entry *)((char *)c + f.off);
                 char *entryName = E->obj->FUN_00044400();
-                FUN_00267760(f.buf1, 0x100, "%s+%s+%d+%s", f8->name, name, f.i, entryName);
+                FUN_00267760(f.buf1, 0x100, "%s+%s+%d+%s", f8->title, name, f.i, entryName);
                 if (f.s10.i >= E->f4)
                     break;
                 f.n = E->f8 - f.s10.i;
@@ -505,8 +491,8 @@ void Self::FUN_001f9810(float dt)
             if (finish)
                 break;
             f.i++;
-            f.off += 0x28;
-        } while (f.i < f8->count);
+            f.off += (int)sizeof(HulkEncounterSlot);
+        } while (f.i < f8->slotCount);
     } while (0);
 }
 } // namespace fn_001f9810
@@ -518,18 +504,18 @@ void Self::FUN_001f9810(float dt)
 namespace fn_f326376d {
 
 // 0x001fa1c0 FUN_001fa1c0 (465 B): equivalent/0x001fa1c0.cpp
-// sym: ?FUN_001fa1c0@Panel_1fa1c0@fn_f326376d@@QAEXPAUTarget_1fa1c0@2@PAUItem_1fa1c0@2@@Z @6f029fd01ff8 @wf8683acca230
+// sym: ?FUN_001fa1c0@Panel_1fa1c0@fn_f326376d@@QAEXPAUTarget_1fa1c0@2@PAUItem_1fa1c0@2@@Z @6f029fd01ff8 @w6ea70dff1176 @ve0f8e9807749
 // STATUS: equivalent (tools/equiv.py level 3: 3012 inputs, branch coverage 28/28)
 // FUN_001fa1c0 @ 0x001fa1c0
 void Panel_1fa1c0::FUN_001fa1c0(Target_1fa1c0 *target, Item_1fa1c0 *item)
 {
-    if (count >= 16 || !item) {
+    if (encounterCount >= 16 || !item) {
         return;
     }
 
-    slots[count].FUN_001f9230();
-    slots[count].FUN_001f9710(this, item->FUN_001fba60(), target->data[0], f43c);
-    count++;
+    ((Slot_1fa1c0 *)&encounters[encounterCount])->FUN_001f9230();
+    ((Slot_1fa1c0 *)&encounters[encounterCount])->FUN_001f9710(this, item->FUN_001fba60(), target->data[0], f43c);
+    encounterCount++;
 
     Selector_1fa1c0 *sel = FUN_001d4c90();
     do {
@@ -537,8 +523,8 @@ void Panel_1fa1c0::FUN_001fa1c0(Target_1fa1c0 *target, Item_1fa1c0 *item)
             break;
         if (!sel->FUN_001d1930(f44c))
             break;
-        sel->FUN_001d1a50(label);
-        sel->FUN_001d1ac0((float)(count - 1));
+        sel->FUN_001d1a50(title);
+        sel->FUN_001d1ac0((float)(encounterCount - 1));
         sel->FUN_001d1a50(item->FUN_001fba60());
         int r = sel->FUN_001d2b10(-4, 3);
         unsigned char ok = 1;
@@ -553,19 +539,19 @@ void Panel_1fa1c0::FUN_001fa1c0(Target_1fa1c0 *target, Item_1fa1c0 *item)
             if (!ok)
                 break;
         }
-        for (int i = 0; i < entryCount; i++) {
-            if (entries[i].active) {
-                slots[count].value.index = (unsigned char)i;
-                FUN_001f9fc0(slots[count].value);
+        for (int i = 0; i < slotCount; i++) {
+            if (slots[i].active) {
+                ((Slot_1fa1c0 *)&encounters[encounterCount])->value.index = (unsigned char)i;
+                FUN_001f9fc0(((Slot_1fa1c0 *)&encounters[encounterCount])->value);
             }
         }
-        slots[count - 1].flag51 = 0;
+        ((Slot_1fa1c0 *)&encounters[encounterCount - 1])->flag51 = 0;
     } while (0);
 
     Queue_1fa1c0 *q = DAT_004dd700->queue;
     if (q) {
         Msg_1fa1c0 m;
-        m.FUN_001ca020(label, item->FUN_001fba60());
+        m.FUN_001ca020(title, item->FUN_001fba60());
         q->FUN_001cbc20(&m);
     }
 }
@@ -573,7 +559,7 @@ void Panel_1fa1c0::FUN_001fa1c0(Target_1fa1c0 *target, Item_1fa1c0 *item)
 } // namespace fn_f326376d
 
 // 0x001fa3a0 FUN_001fa3a0 (344 B): equivalent/0x001fa3a0.cpp [wrapped: conflict: World]
-// sym: ?FUN_001fa3a0@Mixer@fn_001fa3a0@@QAEXH@Z @9517c75daccf @w7db6b74136b3
+// sym: ?FUN_001fa3a0@Mixer@fn_001fa3a0@@QAEXH@Z @9517c75daccf @w4658e12621f3 @vfdb1c35fb8ad
 namespace fn_001fa3a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 14/14)
 // FUN_001fa3a0 @ 0x001fa3a0
@@ -644,9 +630,10 @@ struct World {
 };
 
 
-struct Record_1fa3a0 {
-    char pad00[8];
-    int field08;
+struct Record_1fa3a0 {   // (recs1) a CEncounter: decls/encounter.h HulkEncounter's words (was char pad00[8], int field08)
+    void* vftable;
+    int f04;
+    void* field08;
     char label[0x20];
     char pad2c[4];
     S8_1fa3a0 name;
@@ -666,16 +653,9 @@ struct Channel {
     char pad[0x27];
 };
 
-class Mixer {
+// (recs1, find2 G20) the generator on its record (decls/encounter.h; was a view with 32-bit pads)
+class Mixer : public HulkEncounterGenerator {
 public:
-    char pad000[0x41c];
-    char settings[0x484 - 0x41c];
-    Channel channels[1];
-    char pad4ac[0x6e0 - 0x4ac - 0x28 + 0x28];
-    int channelCount;
-    char pad6e4[4];
-    Record_1fa3a0 records[16];
-    int recordCount;
 
     void FUN_001f9fc0(SlotKey_1fa3a0 key);
     void FUN_001fa3a0(int index);
@@ -685,21 +665,21 @@ void Mixer::FUN_001fa3a0(int index)
 {
     char gs_unused[16]; /* dead stack buffer: MSVC /GS protects only functions with a char array */
 
-    if (index >= 0 && index < recordCount) {
-        for (int i = 0; i < channelCount; i++) {
-            if (channels[i].flag) {
-                Record_1fa3a0 *r = &records[index];
+    if (index >= 0 && index < encounterCount) {
+        for (int i = 0; i < slotCount; i++) {
+            if (slots[i].active) {
+                Record_1fa3a0 *r = (Record_1fa3a0 *)&encounters[index];
                 r->flagB = (unsigned char)i;
                 FUN_001f9fc0(*(SlotKey_1fa3a0 *)&r->name);
             }
         }
-        Record_1fa3a0 *r = &records[index];
+        Record_1fa3a0 *r = (Record_1fa3a0 *)&encounters[index];
         r->flagB = 0xff;
 
         Listener_1fa3a0 *l = DAT_004dd700->listener;
         if (l) {
             Event_1fa3a0 ev;
-            ev.FUN_001ca040(settings, r->label);
+            ev.FUN_001ca040(title, r->label);
             l->FUN_001cbc20(&ev);
         }
 
@@ -715,9 +695,9 @@ void Mixer::FUN_001fa3a0(int index)
         r->f50 = 0;
         r->f51 = 1;
         r->f52 = 0xffff;
-        if (index != recordCount - 1)
-            r->FUN_001f91b0(&records[recordCount - 1]);
-        recordCount--;
+        if (index != encounterCount - 1)
+            r->FUN_001f91b0((Record_1fa3a0 *)&encounters[encounterCount - 1]);
+        encounterCount--;
     }
 }
 } // namespace fn_001fa3a0

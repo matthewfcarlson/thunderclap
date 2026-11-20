@@ -6,6 +6,7 @@
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
 #include "gen/owners.h"
+#include "decls/encounter.h"   // (recs1, find2 G20) CEncounterGenerator
 #define TREE_TU_BEGIN namespace fn_f6c21956 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CSPHulkProp
@@ -19,6 +20,16 @@ class Base_1f8530 {
   public:
     virtual void Foo();
 };
+// (recs1, find2 G20) the generator's small accessors, defined on its record (were owners.h stubs with 32-bit pads)
+struct Gen_1f8710 : HulkEncounterGenerator { void FUN_001f8710(int); };
+struct Gen_1f8720 : HulkEncounterGenerator { void FUN_001f8720(int i, unsigned char v); };
+struct Gen_1f8740 : HulkEncounterGenerator { unsigned char FUN_001f8740(hulk_intptr index); };
+struct Gen_1f8790 : HulkEncounterGenerator { Gen_1f8790* get_obj(); void FUN_001f8790(int); };
+struct Gen_1f87c0 : HulkEncounterGenerator { void FUN_001f87c0(unsigned char x); };
+struct Gen_1f87d0 : HulkEncounterGenerator { void FUN_001f87d0(int x); };
+struct Gen_1f8f40 : HulkEncounterGenerator { void FUN_001f8f40(const char* arg); };
+struct Slot_1f9130 : HulkEncounterSlot { char Check(unsigned int); char FUN_001f9130(unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, unsigned char); };
+struct Gen_1f93e0 : HulkEncounterGenerator { int FUN_001f93e0(hulk_intptr, int, int, int, int, int, int, int, int, int); };
 class Holder_1f8530 {
   public:
     Base_1f8530* ptr;
@@ -29,16 +40,14 @@ struct Name {
     ~Name();
     bool FUN_0027af90(const Name *other);
 };
+// (recs1, find2 G20) an entry: a pure3d::Entity's words (vftable, count, then the name; was char pad0[8])
 struct Entry_1f85f0 {
-    char pad0[8];
+    void* vftable;
+    int refs;
     Name key;
 };
-struct Table_1f85f0 {
-    char pad0[0x10];
-    Entry_1f85f0 *entries[0x100];
-    int count;
-    char pad414[0x458 - 0x414];
-    int enabled;
+// (recs1, find2 G20) the generator on its record (decls/encounter.h; was a view with 32-bit pads)
+struct Table_1f85f0 : HulkEncounterGenerator {
     int FUN_001f85f0(Name name);
 };
 class Child_1f8760 {
@@ -47,12 +56,12 @@ class Child_1f8760 {
 class Thing_1f8760 {
   public:
 };
-class Owner_1f8760 {
+// (recs1, find2 G20) the generator on its record: +0x448 is a script reference, an int (was a Child_1f8760 pointer at a
+// 32-bit pad: natively 8 bytes over two ints)
+class Owner_1f8760 : public HulkEncounterGenerator {
   public:
-    char pad[0x448];
-    Child_1f8760* child;
     Thing_1f8760* Get_001d4c90();
-    void Set(Child_1f8760*);
+    void Set(int);
 };
 class D {
   public:
@@ -66,34 +75,27 @@ struct Slot_1f87e0 {
     int value;              // 0x34
     char pad38[0x58 - 0x38];
 };
+// (recs1) pure3d::Entity's words (vftable, count, name), then the object's own (were char pad0[0x10] / pad0[8])
 struct Ref_1f87e0 {
-    char pad0[0x10];
+    void* vftable;
+    int refs;
+    unsigned int name[2];
     int *target;            // 0x10
 };
 struct Request {
-    char pad0[8];
+    void* vftable;
+    int refs;
     Key64 key;              // 0x08
 };
 } // namespace fn_f6c21956
-extern "C" unsigned __int64 __cdecl FUN_0027b020(Slot_1f87e0 *slot);
+// (recs1) FUN_0027b020: decls/address.h's declaration (the hash of a name; was declared on the encounter view)
 namespace fn_f6c21956 {
-class SlotTable_1f87e0 {
+class SlotTable_1f87e0 : public HulkEncounterGenerator {   // (recs1) on its record (was a view with 32-bit pads)
 public:
-    char pad0[0x458];
-    int enabled;            // 0x458
-    char pad45c[0x6f4 - 0x45c];
-    char slotStorage[0xc68 - 0x6f4];
-    int count;              // 0xc68
     bool FUN_001f87e0(Ref_1f87e0 *ref, Request *req, unsigned int *outIndex);
 };
 struct Entry_1f8890 { float value; char padding[36]; };
-struct Object {
- char pad0[0x458];
- int enabled;
- char pad1[0x20];
- Entry_1f8890 entries[15];
- char pad2[12];
- int count;
+struct Object : HulkEncounterGenerator {   // (recs1) on its record (was a view with 32-bit pads): the slots' floats
  float target();
 };
 struct Item_1f89e0 {
@@ -121,9 +123,11 @@ extern "C" __int64 __cdecl MakeKey_0027b020(const char*);
 class Helper_1f8a80 {
   public:
 };
-class Owner_1f8a80 {
+class Owner_1f8a80 {   // (recs1) a tracker slot: decls/encounter.h HulkEncounterSlot's words (was char pad[0x20])
   public:
-    char pad[0x20];
+    void* obj;
+    int w[6];
+    float radius;
     volatile int member;
     Helper_1f8a80* GetHelper_001d4c90();
     void Set(int);
@@ -134,8 +138,10 @@ struct Vec3_1f8aa0 {
 struct Owner_1f8aa0 {
     bool FUN_00059a50(Vec3_1f8aa0 *out);
 };
-struct Source_1f8aa0 {
-    char pad0[0x10];
+struct Source_1f8aa0 {   // (recs1) pure3d::Entity's words (was char pad0[0x10]), then the owner
+    void* vftable;
+    int refs;
+    unsigned int name[2];
     Owner_1f8aa0 *owner;           // 0x10
 };
 class Target_1f8aa0 {
@@ -144,9 +150,10 @@ public:
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
     virtual void GetPosition(Vec3_1f8aa0 *out);        // slot 8
 };
-class Sensor_1f8aa0 {
+class Sensor_1f8aa0 {   // (recs1) a tracker slot: HulkEncounterSlot's words (was char pad0[0x1c])
 public:
-    char pad0[0x1c];
+    void* obj;
+    int w[6];
     float radius;           // 0x1c
 
     bool FUN_001f8aa0(Source_1f8aa0 *src, Target_1f8aa0 *target);
@@ -223,14 +230,14 @@ public:
 struct Tracker_1f9040 {
     bool FUN_00059a50(V3_1f9040 *out);
 };
-struct Source_1f9040 {
-    char pad0[0x10];
+struct Source_1f9040 {   // (recs1) pure3d::Entity's words (was char pad0[0x10]), then the tracker
+    void* vftable;
+    int refs;
+    unsigned int name[2];
     Tracker_1f9040 *tracker;       // 0x10
 };
-class Area {
+class Area : public HulkEncounterGenerator {   // (recs1) on its record (was char pad0[0x458], then the state)
 public:
-    char pad0[0x458];
-    int enabled;            // 0x458
     float FUN_001f8890();
     bool FUN_001f9040(Source_1f9040 *src, Target_1f9040 *target);
 };
@@ -244,24 +251,13 @@ extern void InitText_00267760(char*, unsigned int, const char*, ...);
 class Sub_1f9230 {
   public:
 };
-class Obj_1f9230 {
-  public:
-    char pad0[8];
-    int value;
-    char padc[0x2c];
-    unsigned char a, b;
-    char pad3a[6];
-    int x40, x44, x48, x4c;
-    unsigned char x50, x51;
-    unsigned short x52;
+class Obj_1f9230 : public HulkEncounter {   // (recs1) a CEncounter on its record (was a view with 32-bit words)
 };
 struct Sub_1f93b0 {
     void Fnf_0027af50();
 };
 void destroy_0008d330(void*);
-class X_1f93b0 {
-    char pad[0x10];
-
+class X_1f93b0 : public HulkEncounterMapNode {   // (recs1) a node of the encounter map (was char pad[0x10] before the key)
   public:
     X_1f93b0* run(unsigned char);
 };
@@ -273,30 +269,21 @@ class Inner_1f9460 {
   public:
     void Fng_001f9370(int, int);
 };
-class Obj_1f9460 {
-    char p0[0x6e0];
-    int n;
-    char p1[0x56];
-
+class Obj_1f9460 : public HulkEncounterGenerator {   // (recs1) on its record (was a view with 32-bit pads): the encounters' flags
   public:
-    struct Item {
-        Inner_1f9460 in;
-        char pad[0x57];
-    } items[1];
-    char p2[0x4d6];
-    int lim;
     bool f(int a, int b, int x);
 };
 class CEncounter {
   public:
     virtual void* FnV_001f94e0(int);
-    char pad[0x30 - 4];
+    // (recs1) decls/encounter.h HulkEncounter's words (were 32-bit pads)
+    char pad[HULK_ENCR_PAD(key, 0x30, sizeof(void*))];
     class Sub {
       public:
         int x;
         void Init_0027af00();
     } sub;
-    char pad2[0x52 - 0x34];
+    char pad2[HULK_ENCR_PAD(w52, 0x52, HULK_ENCR_PAD(key, 0x30, 0) + sizeof(int))];
     unsigned short field52;
     void InitEncounter_001f9230();
     CEncounter();
@@ -335,10 +322,10 @@ Holder_1f8530* Holder_1f8530::Set(Base_1f8530* p) {
 // equiv-map: ??1Name@@QAE@XZ = 0x0027af50
 int Table_1f85f0::FUN_001f85f0(Name name)
 {
-    if (enabled == 0)
+    if (state == 0)
         return -1;
     for (int i = 0; i < count; i++) {
-        if (entries[i]->key.FUN_0027af90(&name))
+        if (((Entry_1f85f0 *)items[i])->key.FUN_0027af90(&name))
             return i;
     }
     return -1;
@@ -364,13 +351,8 @@ struct Item_1f8670 {
     char pad[1];
 };
 
-class Registry_1f8670 {
+class Registry_1f8670 : public HulkEncounterGenerator {   // (recs1) on its record (was a view with a 32-bit pad)
 public:
-    char pad0[0x10];
-    Item_1f8670 *items[256];       // 0x10
-    int count;              // 0x410
-    int firstActive;        // 0x414
-    int activeCount;        // 0x418
 
     int FUN_001f85f0(Key key);
     int FUN_001f8670(Key key);
@@ -396,80 +378,80 @@ int Registry_1f8670::FUN_001f8670(Key key)
 
 
 // 0x001f8710 FUN_001f8710 (13 B): matches/0x001f8710.cpp
-// sym: ?FUN_001f8710@Target_1f8710@owners@@QAEXH@Z
-void owners::Target_1f8710::FUN_001f8710(int x) {
-    value = x;
+// sym: ?FUN_001f8710@Gen_1f8710@fn_f6c21956@@QAEXH@Z
+void fn_f6c21956::Gen_1f8710::FUN_001f8710(int x) {
+    f43c = x;
 }
 
 
 // 0x001f8720 FUN_001f8720 (27 B): matches/0x001f8720.cpp
-// sym: ?FUN_001f8720@C_1f8720@owners@@QAEXHE@Z
-void owners::C_1f8720::FUN_001f8720(int i, unsigned char v) {
+// sym: ?FUN_001f8720@Gen_1f8720@fn_f6c21956@@QAEXHE@Z
+void fn_f6c21956::Gen_1f8720::FUN_001f8720(int i, unsigned char v) {
     if (i >= 0 && i < 6)
-        *(unsigned char*)((char*)this + i + 0x440) = v;
+        flags440[i] = v;
 }
 
 
 // 0x001f8740 FUN_001f8740 (25 B): matches/0x001f8740.cpp
-// sym: ?FUN_001f8740@Thing_1f8740@owners@@QAEEH@Z
-unsigned char owners::Thing_1f8740::FUN_001f8740(hulk_intptr index) {
+// sym: ?FUN_001f8740@Gen_1f8740@fn_f6c21956@@QAEEH@Z
+unsigned char fn_f6c21956::Gen_1f8740::FUN_001f8740(hulk_intptr index) {
     unsigned char result = 0;
     if (((int)index) >= 0 && ((int)index) < 6)
-        result = bytes[((int)index)];
+        result = flags440[((int)index)];
     return result;
 }
 
 namespace fn_f6c21956 {
 
 // 0x001f8760 FUN_001f8760 (36 B): matches/0x001f8760.cpp
-// sym: ?Set@Owner_1f8760@fn_f6c21956@@QAEXPAVChild_1f8760@2@@Z
-void Owner_1f8760::Set(Child_1f8760* arg) {
+// sym: ?Set@Owner_1f8760@fn_f6c21956@@QAEXH@Z
+void Owner_1f8760::Set(int arg) {   // (recs1) a script reference (was a Child_1f8760 pointer)
     Thing_1f8760* t = Get_001d4c90();
-    Child_1f8760* old = child;
-    ((owners::Obj_1d1900 *)t)->FUN_001d1900((hulk_intptr)(Child_1f8760 *)old);
-    child = arg;
+    int old = f448;
+    ((owners::Obj_1d1900 *)t)->FUN_001d1900((hulk_intptr)old);
+    f448 = arg;
 }
 
 } // namespace fn_f6c21956
 
 // 0x001f8790 FUN_001f8790 (36 B): matches/0x001f8790.cpp
-// sym: ?FUN_001f8790@C_1f8790@owners@@QAEXH@Z
-void owners::C_1f8790::FUN_001f8790(int p) {
+// sym: ?FUN_001f8790@Gen_1f8790@fn_f6c21956@@QAEXH@Z
+void fn_f6c21956::Gen_1f8790::FUN_001f8790(int p) {
     D* q = (D*)get_obj();
-    ((owners::Obj_1d1900 *)q)->FUN_001d1900((hulk_intptr)value);
-    value = p;
+    ((owners::Obj_1d1900 *)q)->FUN_001d1900((hulk_intptr)f44c);
+    f44c = p;
 }
 
 
 // 0x001f87c0 FUN_001f87c0 (13 B): matches/0x001f87c0.cpp
-// sym: ?FUN_001f87c0@X_1f87c0@owners@@QAEXE@Z
-void owners::X_1f87c0::FUN_001f87c0(unsigned char x) {
-    pad[0x450] = x;
+// sym: ?FUN_001f87c0@Gen_1f87c0@fn_f6c21956@@QAEXE@Z
+void fn_f6c21956::Gen_1f87c0::FUN_001f87c0(unsigned char x) {
+    enabled = x;
 }
 
 
 // 0x001f87d0 FUN_001f87d0 (13 B): matches/0x001f87d0.cpp
-// sym: ?FUN_001f87d0@C_1f87d0@owners@@QAEXH@Z
-void owners::C_1f87d0::FUN_001f87d0(int x) {
-    value = x;
+// sym: ?FUN_001f87d0@Gen_1f87d0@fn_f6c21956@@QAEXH@Z
+void fn_f6c21956::Gen_1f87d0::FUN_001f87d0(int x) {
+    f454 = x;
 }
 
 namespace fn_f6c21956 {
 
 // 0x001f87e0 FUN_001f87e0 (163 B): equivalent/0x001f87e0.cpp
-// sym: ?FUN_001f87e0@SlotTable_1f87e0@fn_f6c21956@@QAE_NPAURef_1f87e0@2@PAURequest@2@PAI@Z @d2f1343876af @w93bab90ff6e3 @v1487a85135cd
+// sym: ?FUN_001f87e0@SlotTable_1f87e0@fn_f6c21956@@QAE_NPAURef_1f87e0@2@PAURequest@2@PAI@Z @890f5e9bb32d @w33bf11339317 @vf3d0d067cebb
 // STATUS: equivalent (tools/equiv.py level 3: 2939 inputs, branch coverage 12/12)
 // FUN_001f87e0 @ 0x001f87e0
 bool SlotTable_1f87e0::FUN_001f87e0(Ref_1f87e0 *ref, Request *req, unsigned int *outIndex)
 {
-    if (enabled == 0)
+    if (state == 0)
         return false;
-    for (int i = 0; i < count; i++) {
-        Slot_1f87e0 *slot = (Slot_1f87e0 *)slotStorage + i;
+    for (int i = 0; i < encounterCount; i++) {
+        HulkEncounter *slot = &encounters[i];   // (recs1) was a view 0xc bytes into the encounter
         unsigned int lo = req->key.lo;
         unsigned int hi = req->key.hi;
-        unsigned __int64 id = FUN_0027b020(slot);
-        if ((unsigned int)id == lo && (unsigned int)(id >> 32) == hi && slot->value == *ref->target) {
+        unsigned __int64 id = FUN_0027b020(slot->name);
+        if ((unsigned int)id == lo && (unsigned int)(id >> 32) == hi && slot->f40 == *ref->target) {
             *outIndex = i;
             return true;
         }
@@ -479,14 +461,14 @@ bool SlotTable_1f87e0::FUN_001f87e0(Ref_1f87e0 *ref, Request *req, unsigned int 
 
 
 // 0x001f8890 FUN_001f8890 (170 B): equivalent/0x001f8890.cpp
-// sym: ?target@Object@fn_f6c21956@@QAEMXZ @d8a4a073de73 @w7e68a299e1fc @v60b1d2553300
+// sym: ?target@Object@fn_f6c21956@@QAEMXZ @d8a4a073de73 @wc2a016aa081f @v60b1d2553300
 // STATUS: equivalent (tools/equiv.py level 3: 81 inputs, branch coverage 20/20)
 // FUN_001f8890 @ 0x001f8890
 float Object::target() {
  float result = 0.0f;
- if (!enabled) return result;
- for (int i=0; i<count; ++i) {
-  float v=entries[i].value;
+ if (!state) return result;
+ for (int i=0; i<slotCount; ++i) {
+  float v=slots[i].radius;
   if (result < v) result=v;
  }
  return result;
@@ -629,11 +611,11 @@ CCollisionAction* CCollisionAction::vfunc_2(unsigned char flags) {
 } // namespace fn_f6c21956
 
 // 0x001f8f40 FUN_001f8f40 (45 B): matches/0x001f8f40.cpp
-// sym: ?FUN_001f8f40@Target_1f8f40@owners@@QAEXPBD@Z
+// sym: ?FUN_001f8f40@Gen_1f8f40@fn_f6c21956@@QAEXPBD@Z
 // data: fmt_1f8f40 = DAT_003f3f38
-void owners::Target_1f8f40::FUN_001f8f40(const char* arg) {
-    ((owners::Target_27b040 *)(((Sub_1f8f40*)((char*)this + 8))))->FUN_0027b040((hulk_uintptr)arg);
-    FUN_00267760((char*)this + 0x41c, 0x20, DAT_003f3f38, arg);
+void fn_f6c21956::Gen_1f8f40::FUN_001f8f40(const char* arg) {
+    ((owners::Target_27b040 *)(((Sub_1f8f40*)entityName)))->FUN_0027b040((hulk_uintptr)arg);
+    FUN_00267760(title, 0x20, DAT_003f3f38, arg);
 }
 
 
@@ -691,11 +673,8 @@ struct World {
     Factory_1f8f70* factory;       // 0x28
 };
 
-class Registry_1f8f70 {
+class Registry_1f8f70 : public HulkEncounterGenerator {   // (recs1) on its record (was a view with a 32-bit pad)
 public:
-    char pad0[0x10];
-    Item_1f8f70* items[256];       // 0x10
-    int count;              // 0x410
     int FUN_001f85f0(Key key);
     int FUN_001f8f70(const char* name);
 };
@@ -732,18 +711,14 @@ struct Key {
     Key(const Key& other);
 };
 
-struct Item {
-    char pad[8];
+struct Item {   // (recs1) pure3d::Entity's words (vftable, count; was char pad[8]), then the name
+    void* vftable;
+    int refs;
     Key key;                // 0x08
 };
 
-class Registry {
+class Registry : public HulkEncounterGenerator {   // (recs1) on its record (was a view with a 32-bit pad)
 public:
-    char pad0[0x10];
-    Item* items[256];       // 0x10
-    int count;              // 0x410
-    int pad414;
-    int total;              // 0x418
     int FUN_001f85f0(Key key);
     int FUN_001f8fe0(Item* item);
 };
@@ -758,7 +733,7 @@ int Registry::FUN_001f8fe0(Item* item)
         index = count;
         items[index] = item;
         count++;
-        total++;
+        activeCount++;
     }
     return index;
 }
@@ -772,7 +747,7 @@ namespace fn_f6c21956 {
 // FUN_001f9040 @ 0x001f9040
 bool Area::FUN_001f9040(Source_1f9040 *src, Target_1f9040 *target)
 {
-    if (enabled == 0)
+    if (state == 0)
         return false;
     struct Frame {
         V3_1f9040 other;
@@ -797,21 +772,21 @@ bool Area::FUN_001f9040(Source_1f9040 *src, Target_1f9040 *target)
 } // namespace fn_f6c21956
 
 // 0x001f9130 FUN_001f9130 (106 B): matches/0x001f9130.cpp
-// sym: ?FUN_001f9130@Obj_1f9130@owners@@QAEDIIIIIIIIIE@Z
-char owners::Obj_1f9130::FUN_001f9130(u32_1f9130 p1, u32_1f9130 p2, u32_1f9130 p3, u32_1f9130 p4, u32_1f9130 p5, u32_1f9130 p6, u32_1f9130 p7, u32_1f9130 p8, u32_1f9130 p9, u8_1f9130 p10) {
+// sym: ?FUN_001f9130@Slot_1f9130@fn_f6c21956@@QAEDIIIIIIIIIE@Z
+char fn_f6c21956::Slot_1f9130::FUN_001f9130(u32_1f9130 p1, u32_1f9130 p2, u32_1f9130 p3, u32_1f9130 p4, u32_1f9130 p5, u32_1f9130 p6, u32_1f9130 p7, u32_1f9130 p8, u32_1f9130 p9, u8_1f9130 p10) {
     char r = Check(p1);
     if (r) {
-        a = p2;
-        b = p3;
-        c = p4;
-        d = p5;
-        e = p6;
-        f = p7;
-        g = p8;
+        w[0] = p2;   // (recs1) the slot's words on its record (was an owners.h view: char pad[4], then a .. h)
+        w[1] = p3;
+        w[2] = p4;
+        w[3] = p5;
+        w[4] = p6;
+        w[5] = p7;
+        *(u32_1f9130*)&radius = p8;
         Ret_1f9130* o = FUN_001d4c90();
-        ((owners::Obj_1d1900 *)o)->FUN_001d1900((hulk_intptr)h);
-        h = p9;
-        flag = p10;
+        ((owners::Obj_1d1900 *)o)->FUN_001d1900((hulk_intptr)tracker);
+        tracker = p9;
+        active = p10;
     }
     return r;
 }
@@ -874,18 +849,18 @@ namespace fn_f6c21956 {
 // sym: ?Target@fn_f6c21956@@YIXPAVObj_1f9230@1@@Z
 // data: gText_1f9230 = DAT_00424f08, gZero_1f9230 = DAT_003f335c
 void __fastcall Target(Obj_1f9230* self) {
-    self->value = 0;
-    InitText_00267760((char*)self + 0xc, 0x20, DAT_00424f08);
-    self->x40 = 0;
-    self->x44 = 0;
-    self->x48 = 0;
-    self->x4c = 0;
-    self->a = 0xff;
-    ((owners::Target_27b040 *)(((Sub_1f9230*)((char*)self + 0x30))))->FUN_0027b040((hulk_uintptr)(&DAT_003f335c));
-    self->x50 = 0;
-    self->b = 0xff;
-    self->x51 = 1;
-    self->x52 = 0xffff;
+    self->table = 0;
+    InitText_00267760(self->name, 0x20, DAT_00424f08);
+    self->f40 = 0;
+    self->f44 = 0;
+    self->f48 = 0;
+    self->f4c = 0;
+    self->key.a = 0xff;
+    ((owners::Target_27b040 *)(((Sub_1f9230*)&self->key)))->FUN_0027b040((hulk_uintptr)(&DAT_003f335c));
+    self->b50 = 0;
+    self->key.b = 0xff;
+    self->b51 = 1;
+    self->w52 = 0xffff;
 }
 
 } // namespace fn_f6c21956
@@ -904,7 +879,7 @@ namespace fn_f6c21956 {
 // 0x001f93b0 FUN_001f93b0 (33 B): matches/0x001f93b0.cpp
 // sym: ?run@X_1f93b0@fn_f6c21956@@QAEPAV12@E@Z
 X_1f93b0* X_1f93b0::run(unsigned char flags) {
-    ((Sub_1f93b0*)((char*)this + 0x10))->Fnf_0027af50();
+    ((Sub_1f93b0*)&key)->Fnf_0027af50();
     if (flags & 1)
         destroy_0008d330(this);
     return this;
@@ -913,13 +888,13 @@ X_1f93b0* X_1f93b0::run(unsigned char flags) {
 } // namespace fn_f6c21956
 
 // 0x001f93e0 FUN_001f93e0 (114 B): matches/0x001f93e0.cpp
-// sym: ?FUN_001f93e0@Obj_1f93e0@owners@@QAEHHHHHHHHHHH@Z
-int owners::Obj_1f93e0::FUN_001f93e0(hulk_intptr a, int b, int c, int d, int e, int f, int g, int h, int i, int j) {
+// sym: ?FUN_001f93e0@Gen_1f93e0@fn_f6c21956@@QAEHHHHHHHHHHH@Z
+int fn_f6c21956::Gen_1f93e0::FUN_001f93e0(hulk_intptr a, int b, int c, int d, int e, int f, int g, int h, int i, int j) {
     int r = -1;
-    if (count < 16) {
-        if (((Elem_1f93e0*)((char*)this + (count * 5 + 0x8c) * 8))->Test_001f9130(((int)a), b, c, d, e, f, g, h, i, j)) {
-            r = count;
-            count = r + 1;
+    if (slotCount < 16) {
+        if (((Elem_1f93e0*)&slots[slotCount])->Test_001f9130(((int)a), b, c, d, e, f, g, h, i, j)) {
+            r = slotCount;
+            slotCount = r + 1;
         }
     }
     return r;
@@ -930,11 +905,11 @@ namespace fn_f6c21956 {
 // 0x001f9460 FUN_001f9460 (71 B): matches/0x001f9460.cpp
 // sym: ?f@Obj_1f9460@fn_f6c21956@@QAE_NHHH@Z
 bool Obj_1f9460::f(int a, int b, int x) {
-    if (a < 0 || a >= lim)
+    if (a < 0 || a >= encounterCount)
         return false;
-    if (b < 0 || b >= n)
+    if (b < 0 || b >= slotCount)
         return false;
-    items[a].in.Fng_001f9370(b, x);
+    ((Inner_1f9460 *)&encounters[a].w52)->Fng_001f9370(b, x);
     return true;
 }
 
