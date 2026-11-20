@@ -227,7 +227,11 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   function with the trace evidence. Nothing under MSVC 7.1, a trap natively (never define HULK_CONTRACTS in a build).
   equiv.py repairs inputs into the domain, plants the bounds, and fails a block whose macro and item disagree; a caller
   whose original passes a contracted callee an out-of-range argument is unsupported (`pre_violation_in_original`) until
-  it has its own contract.
+  it has its own contract. A contract on a callee obliges its callers (D152b): a caller whose original passes on its own
+  parameter or a global states its own range (`// pre: ge(argN, 0) ge(*0xADDR.f32, 0)`; for a global
+  `HULK_PRE_GE(*(float*)&DAT_<addr>, 0.0f)` with `// pre-writers:` citing every reference to it); range items are
+  repaired in MSVC mode too. `verify --changed-since` probes every XBE caller of a changed contract and fails one whose
+  original breaks it; vftable-slot callers are listed unprobed.
 - **Field bounds** (x64bounds): a pointer field the code indexes with a caller's index gets `HULK_COUNT(count_field)`
   (typed pointee) or `HULK_COUNT_BYTES(count_field, n)` (void*) on its declaration (include/compat/hulk_annot.h; nothing
   in compiled builds), its comment citing every writer of the pointer; the count field carries `HULK_RANGE(lo, hi)`
