@@ -8,6 +8,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20022 inputs, branch coverage 12/12)
 // FEContainer::vfunc_5 @ 0x000ef030
 #include "gen/global.h"
+#include "decls/fethings.h"   // (recs1) FEThings views
 
 struct TypeInfo_ef030 { unsigned int data; }; extern TypeInfo_ef030 DAT_0049dba4; extern TypeInfo_ef030 DAT_0049f470;
 struct Text_ef030 { char pad[0x2c]; int id; };
@@ -16,7 +17,7 @@ struct Brief { int FUN_000f7d30(const char*); };
 struct Page { virtual void f0(); virtual void f1(); virtual void f2(); virtual void f3(); virtual void f4(); virtual void f5(); virtual void f6(); virtual void f7(); virtual const char* f8(); };
 struct Owner_ef030 {
 virtual void f0(); virtual void f1(); virtual void f2(); virtual void f3(); virtual void f4(); virtual void f5(); virtual void f6(); virtual void f7(); virtual void f8(); virtual void f9(); virtual void f10(); virtual void f11(); virtual void f12(); virtual void f13(); virtual void f14(); virtual void f15(); virtual void f16(); virtual void f17(); virtual void f18(); virtual void f19(); virtual void f20(); virtual void f21(); virtual void f22(); virtual void f23(); virtual void f24(); virtual void f25(); virtual void f26(); virtual void f27(); virtual void f28(); virtual void f29(); virtual void f30(); virtual void f31(); virtual void f32(); virtual void f33(); virtual void f34(); virtual void f35(); virtual void f36(); virtual void f37(); virtual void f38(); virtual void f39(); virtual void f40(); virtual void f41(); virtual void f42(); virtual void f43(); virtual Brief* f44(); virtual void f45(); virtual void f46(); virtual void f47(); virtual void f48(int); virtual void f49(const char*);
-char pad[0x1758]; Page* page; char pad2[0x98]; int state;
+char pad[HULK_FE_SPAN(0x4, 0x175c)]; Page* page; char pad2[HULK_FE_SPAN(0x1760, 0x17f8)]; int state;   // (recs1) gen FEThings' words (the view starts after the vftable)
 void* FUN_000e7260(const char*);
 };
 struct FEContainer_nv_ef030 {

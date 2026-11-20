@@ -7779,7 +7779,7 @@ public:
     void* f_175c;
     void* f_1760;
     char _pad_1764[0x4];
-    int f_1768;
+    hulk_intptr f_1768; // (recs1) a pointer, pointer-sized (vfunc_17 / vfunc_19 store their int-typed object argument)
     int f_176c;
     int f_1770;
     char _pad_1774[0x3c];
@@ -7798,7 +7798,7 @@ public:
     void* f_1818;
     float f_181c[3];
     void* f_1828; // (recs1) the FE camera (0x000ddbf0 stores it)
-    int f_182c;
+    void* f_182c; // (recs1) a pointer (0x000f1650 / 0x000f1890; find1 F8's overlay)
     int f_1830;
     int f_1834;
     int f_1838;
@@ -7807,7 +7807,16 @@ public:
     char f_184c;
     char _pad_184d[0x3];
     int f_1850;
-    char _pad_1854[0x820];
+    // (recs1) the three resource-controller lists (0x000f50a0 / 0x000f5210 / 0x000f52a0 load into them): two pointers
+    // each, then two names of 0x100 (the third list has two pointer pairs and two pairs of names)
+    void* f_1854[2];
+    char f_185c[2][0x100];
+    void* f_1a5c[2];
+    char f_1a64[2][0x100];
+    void* f_1c64[2];
+    void* f_1c6c[2];
+    char f_1c74[2][0x100];
+    char f_1e74[2][0x100];
     char f_2074;
     char _pad_2075[0x3];
     struct { void* vftable; void* owner; void* slots[32]; } f_2078; // (recs1) the animation holder (0x000f3000)

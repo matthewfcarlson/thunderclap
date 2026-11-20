@@ -1865,3 +1865,15 @@ blocks fight::Action's whole family: the records come first there.
   offsets were divided by the region size as if the allocation were an array of regions. The raw-tail rule now
   covers offsets as well as bytes.
 - Left to triage: 0x0016d860 (layout -> wild64: element 3 in a region's raw tail) and 0x0030f870 (layout -> untyped).
+
+## 2026-11-20 recs1: FEThings views, CEncounterGenerator
+
+- A pad view of a 32-bit object needs its native offset from gen's members, not a native-only formula. The first
+  HULK_FE_SPAN doubled the pointer segments on every clang build, which broke the 32-bit clang (Wine) build's views
+  (0x000e4a40 wrote FEObject +0x40 at the wrong place under --wine). With the pointer segments scaled by
+  sizeof(void*) / 4, the 32-bit clang code is identical and no block needs a re-proof.
+- FEThings' remaining views disagree with gen in about 20 places: Target_f42c0 has a pointer at 0x1d98 inside what gen
+  calls the name buffers at 0x1c74, and Runner_f5fa0 / X_e65b0 have words where gen has pointers. These are evidence
+  that gen's 0x1c74 .. 0x2074 block is not two plain name buffers. They are left as 32-bit pads.
+- 0x001fa7d0's x64 `layout` comes from the checker: FUN_001f87e0's stub returns true with an unwritten out-index.
+  integ4 is adding a `// post:` contract for it.

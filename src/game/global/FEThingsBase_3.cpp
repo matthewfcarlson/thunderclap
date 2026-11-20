@@ -2,6 +2,7 @@
 // object 0x000f1570..0x000f8690 (kind game, layer game, confidence high), dominant class FEThingsBase
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "decls/fethings.h"   // (recs1) FEThings views
 #include "decls/address.h"
 #include "decls/data/engine/content.h"
 #include "decls/data/engine/pure3d/prop.h"
@@ -49,7 +50,7 @@ public:
     virtual void v40(); virtual void v41(); virtual void v42(); virtual void v43();
     virtual void v44(); virtual void v45(); virtual void v46(); virtual void v47();
     virtual void v48(int mode);
-    char pad[0x182c - 4];
+    char pad[HULK_FE_SPAN(0x4, 0x182c)];   // (recs1) was [0x182c - 4]
     Curve_f1650 *curve;
 };
 class B_f1650 { public: char pad[4]; C_f1650 *c; };
@@ -98,7 +99,7 @@ public:
     virtual void v40(); virtual void v41(); virtual void v42(); virtual void v43();
     virtual void v44(); virtual void v45(); virtual void v46(); virtual void v47();
     virtual void v48(int mode);
-    char pad[0x182c - 4];
+    char pad[HULK_FE_SPAN(0x4, 0x182c)];   // (recs1) was [0x182c - 4]
     Curve_f1890 *curve;
 };
 class B_f1890 { public: char pad[4]; C_f1890 *c; };
@@ -492,12 +493,12 @@ public:
     virtual void vfunc_62();
     virtual void vfunc_63();
     virtual void vfunc_64(int a, int b, int c);
-    char pad04[0x2105 - 4];
+    char pad04[HULK_FE_SPAN(0x4, 0x2105)];   // (recs1) gen FEThings' words (were 32-bit pads; f220c pointer-sized as gen's)
     char name[0x100];
     char active;
     char pad2206[2];
     int count;
-    int f220c;
+    hulk_intptr f220c;
     void FUN_000f5b20(DollyScript::CScriptParser_f5fa0 *p, int a, int b, Node *node);
     void FUN_000f5fa0(const char *src, int arg);
 };
@@ -1666,7 +1667,7 @@ struct Child_f1f40 {
 struct FEThingsBase {
  virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); virtual void vfunc_7(); virtual void vfunc_8(); virtual bool vfunc_9();
  virtual void vfunc_10(); virtual void vfunc_11(); virtual void vfunc_12(); virtual void vfunc_13(); virtual void vfunc_14(); virtual void vfunc_15(); virtual void vfunc_16(); virtual void vfunc_17(); virtual void vfunc_18(); virtual void vfunc_19(); virtual void vfunc_20(); virtual void vfunc_21(); virtual void vfunc_22(); virtual void vfunc_23(); virtual void vfunc_24(); virtual void vfunc_25(); virtual void vfunc_26(); virtual void vfunc_27(); virtual void vfunc_28(); virtual void vfunc_29(); virtual void vfunc_30();
- char pad[0x1760-4]; Child_f1f40* child; char pad2[0x1830-0x1764]; int state; float amount; float elapsed;
+ char pad[HULK_FE_SPAN(0x4, 0x1760)]; Child_f1f40* child; char pad2[HULK_FE_SPAN(0x1764, 0x1830)]; int state; float amount; float elapsed;   // (recs1) gen FEThings' words
 };
 bool FEThingsBase::vfunc_9() {
  ++DAT_004de94c;
@@ -2912,7 +2913,7 @@ public:
     void* f175c;
     void* f1760;
     char pad1764[4];
-    int f1768;
+    hulk_intptr f1768;   // (recs1) pointer-sized, as gen's
     int f176c;
     int arr5[0x10];                 // 0x1770
     int f17b0;
@@ -2929,7 +2930,7 @@ public:
     Scenegraph* cursorGroup;        // 0x1818
     float cursorScale[3];           // 0x181c
     void* f1828;   // the camera (a pointer)
-    int f182c;
+    void* f182c;   // (recs1) a pointer, as gen's
     int f1830;
     char pad1834[4];
     int f1838;
@@ -2938,11 +2939,11 @@ public:
     char f184c;
     char pad184d[3];
     unsigned int f1850;
-    int f1854[2];                   // 0x1854
+    void* f1854[2];                 // 0x1854 (recs1) pointers, as gen's
     char pad185c[0x1a5c - 0x185c];
-    int f1a5c[2];                   // 0x1a5c
+    void* f1a5c[2];                 // 0x1a5c
     char pad1a64[0x1c64 - 0x1a64];
-    int f1c64[2];                   // 0x1c64
+    void* f1c64[2];                 // 0x1c64
     int f1c6c[2];                   // 0x1c6c
     char pad1c74[0x2074 - 0x1c74];
     char f2074;
@@ -4889,8 +4890,8 @@ public:
     virtual bool v37(Tok *p, Obj_f4960 *obj, Key_f4960 *key);
     virtual void v38();
     virtual bool v39(Tok *p, void *slot, Key_f4960 *key);
-    char pad9c[0x2105 - 4];
-    char f2105[0x2210 - 0x2105];
+    char pad9c[HULK_FE_SPAN(0x4, 0x2105)];   // (recs1) gen FEThings' words (were 32-bit pads)
+    char f2105[HULK_FE_SPAN(0x2105, 0x2210)];
     bool (__cdecl *cb)(void *ud, FEThingsBase *self, Obj_f4960 *obj, Tok *p, Key_f4960 *key);
     void *ud;
     NewObj_f4960 *FUN_000efca0(const char *s, int v);
@@ -5138,7 +5139,7 @@ public:
     virtual void v35();
     virtual void v36();
     virtual char v37(Param *p, Target_f4e90 *t, Args_f4e90 *a);
-    char pad[0x2210 - 4];
+    char pad[HULK_FE_SPAN(0x4, 0x2210)];   // (recs1) gen FEThings' words (was a 32-bit pad)
     char (*callback)(int ctx, FEThingsBase *self, int zero, Param *p, Args_f4e90 *a);
     int callbackCtx;
 
@@ -5269,10 +5270,10 @@ public:
 
 class Slots_f50a0 {
 public:
-    char pad00[0x1a5c];
+    char pad00[HULK_FE_SPAN(0x0, 0x1a5c)];   // (recs1) was [0x1a5c]
     Controller_f50a0 *controllers[2];
     char names[2][0x100];
-    char pad_names[0x2105 - 0x1a5c - 8 - 0x200];
+    char pad_names[HULK_FE_SPAN(0x1c64, 0x2105)];   // (recs1) was [0x2105 - 0x1a5c - 8 - 0x200]
     char defaultName[1];
     void FUN_000f50a0(const char *assetName);
 };
@@ -5443,11 +5444,11 @@ public:
 
 class Slots_f5210 {
 public:
-    char pad00[0x1c6c];
+    char pad00[HULK_FE_SPAN(0x0, 0x1c6c)];   // (recs1) was [0x1c6c]
     Controller_f5210 *controllers[2];
     char gap[0x200];
     char names[2][0x100];
-    char pad_names[0x2105 - 0x1c6c - 8 - 0x200 - 0x200];
+    char pad_names[HULK_FE_SPAN(0x2074, 0x2105)];   // (recs1) was [0x2105 - 0x1c6c - 8 - 0x200 - 0x200]
     char defaultName[1];
     void FUN_000f5210(const char *assetName);
 };
@@ -5545,10 +5546,10 @@ public:
 
 class Slots_f52a0 {
 public:
-    char pad00[0x1854];
+    char pad00[HULK_FE_SPAN(0x0, 0x1854)];   // (recs1) was [0x1854]
     Controller_f52a0 *controllers[2];
     char names[2][0x100];
-    char pad_names[0x2105 - 0x1854 - 8 - 0x200];
+    char pad_names[HULK_FE_SPAN(0x1a5c, 0x2105)];   // (recs1) was [0x2105 - 0x1854 - 8 - 0x200]
     char defaultName[1];
     void FUN_000f52a0(const char *assetName);
 };
@@ -5719,7 +5720,7 @@ public:
     virtual char v37(Param *a0, Factory_f5330 *a1, Args_f5330 *a2);
     virtual void v38();
     virtual void v39();
-    char pad04[0x1804 - 4];
+    char pad04[HULK_FE_SPAN(0x4, 0x1804)];   // (recs1) was [0x1804 - 4]
     int f1804;
     int f1808;
 
@@ -6050,12 +6051,12 @@ public:
     virtual Node *v44();
     virtual Node *v45();
 
-    int field4;
+    void* field4;   // (recs1) gen FEThings' words: the callback tables, poolB, the camera (pointers)
     Holder_f5b20 *field8;
-    char pad0c[0x1828 - 0xc];
-    int field1828;
-    char pad182c[0x2078 - 0x182c];
-    char buf2078[0x2104 - 0x2078];
+    char pad0c[HULK_FE_SPAN(0xc, 0x1828)];
+    hulk_intptr field1828;
+    char pad182c[HULK_FE_SPAN(0x182c, 0x2078)];
+    char buf2078[HULK_FE_SPAN(0x2078, 0x2104)];
     char flag2104;
     char str2105[1];
 

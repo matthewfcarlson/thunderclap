@@ -2,6 +2,7 @@
 // object 0x000ddef0..0x000de140 (kind game, layer game, confidence high), dominant class FEThings
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "decls/fethings.h"   // (recs1) FEThings views
 #include "decls/data/game/unknown.h"
 #include "gen/global.h"
 #define TREE_TU_BEGIN namespace fn_f4042a89 {
@@ -57,7 +58,7 @@ class FEThingsBase_ddef0 {
     virtual void v37();
     virtual void v38();
     virtual void v39();
-    char pad[0x2220];
+    char pad[HULK_FE_SPAN(0x4, 0x2224)];   // (recs1) was [0x2220]
     Receiver_ddef0* ptr;
 };
 class Receiver_ddf00 {
@@ -106,7 +107,7 @@ class FEThingsBase_ddf00 {
     virtual void v37();
     virtual void v38();
     virtual void v39();
-    char pad[0x2220];
+    char pad[HULK_FE_SPAN(0x4, 0x2224)];   // (recs1) was [0x2220]
     Receiver_ddf00* ptr;
 };
 class FEThingsBase_ddf10 {
@@ -195,7 +196,7 @@ class FEThingsBase_ddf20 {
     virtual void vfunc_38();
     virtual void vfunc_39();
     virtual void vfunc_47();
-    char pad[0x2230 - 4];
+    char pad[HULK_FE_SPAN(0x4, 0x2230)];   // (recs1) was [0x2230 - 4]
 };
 class FEThingsBase_ddf30 {
   public:
@@ -306,11 +307,11 @@ class FEThingsBase_ddfc0 {
 };
 class FEThings_ddfc0 : public FEThingsBase_ddfc0 {
   public:
-    char pad4[0x1824];
+    char pad4[HULK_FE_SPAN(0x4, 0x1828)];   // (recs1) gen FEThings' camera, screen and widget (were 32-bit pads)
     Ref_ddfc0* m1828;
-    char pad182c[0x2224 - 0x182c];
+    char pad182c[HULK_FE_SPAN(0x182c, 0x2224)];
     Ref_ddfc0* m2224;
-    char pad2228[8];
+    char pad2228[HULK_FE_SPAN(0x2228, 0x2230)];
     Sub_ddfc0* m2230;
     ~FEThings_ddfc0();
 };

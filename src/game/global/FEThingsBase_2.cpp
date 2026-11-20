@@ -2,6 +2,7 @@
 // object 0x000ee9b0..0x000f0f70 (kind game, layer game, confidence high), dominant class FEThingsBase
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "decls/fethings.h"   // (recs1) FEThings views
 #include "decls/data/game/global.h"
 #include "gen/global.h"
 #define TREE_TU_BEGIN namespace fn_f196c51b {
@@ -290,24 +291,24 @@ class FEThingsBase_ef920 {
     A_ef920* m4;
     B_ef920* m8;
     Del_ef920* a[64];
-    char pp20c[256];
+    char pp20c[HULK_FE_SPAN(0x10c, 0x20c)];   // (recs1) was [256]
     Del_ef920* b[256];
     Del_ef920* c[1024];
     void* d[64];
-    char pp17fc[240];
+    char pp17fc[HULK_FE_SPAN(0x170c, 0x17fc)];   // (recs1) was [240]
     Ref_ef920* m17fc;
-    char pp1818[24];
+    char pp1818[HULK_FE_SPAN(0x1800, 0x1818)];   // (recs1) was [24]
     Ref_ef920* m1818;
-    char pp1854[56];
+    char pp1854[HULK_FE_SPAN(0x181c, 0x1854)];   // (recs1) was [56]
     Ref_ef920* e[2];
-    char pp1a5c[512];
+    char pp1a5c[HULK_FE_SPAN(0x185c, 0x1a5c)];   // (recs1) was [512]
     Ref_ef920* f[2];
-    char pp1c64[512];
+    char pp1c64[HULK_FE_SPAN(0x1a64, 0x1c64)];   // (recs1) was [512]
     Ref_ef920* g[2];
     Ref_ef920* h[2];
-    char pp2078[1028];
+    char pp2078[HULK_FE_SPAN(0x1c74, 0x2078)];   // (recs1) was [1028]
     void* hvptr;
-    char pp2080[4];
+    char pp2080[HULK_FE_SPAN(0x207c, 0x2080)];   // (recs1) was [4]
     Del_ef920* ii[32];
     ~FEThingsBase_ef920();
 };
@@ -417,21 +418,21 @@ struct Pair_f0b90 {
     Res_f0b90 *res[2];
 };
 struct Mgr_f0b90 {
-    char pad0[0xc];
+    char pad0[HULK_FE_SPAN(0x0, 0xc)];   // (recs1) was [0xc]
     Obj_f0b90 *objs[0x40];                // 0xc
-    char pad10c[0x20c - 0x10c];
+    char pad10c[HULK_FE_SPAN(0x10c, 0x20c)];   // (recs1) was [0x20c - 0x10c]
     Obj_f0b90 *objs2[0x100];              // 0x20c
-    char pad60c[0x160c - 0x60c];
+    char pad60c[HULK_FE_SPAN(0x60c, 0x160c)];   // (recs1) was [0x160c - 0x60c]
     void *bufs[0x40];               // 0x160c
     char curName[0x175c - 0x170c];  // 0x170c
     Obj_f0b90 *cur;                       // 0x175c
-    char pad1760[0x1854 - 0x1760];
+    char pad1760[HULK_FE_SPAN(0x1760, 0x1854)];   // (recs1) was [0x1854 - 0x1760]
     Res_f0b90 *rA[2];                     // 0x1854
     char nameA[2][0x100];           // 0x185c
     Res_f0b90 *rB[2];                     // 0x1a5c
     char nameB[2][0x100];           // 0x1a64
     Res_f0b90 *rC[2];                     // 0x1c64
-    char padC[8];
+    char padC[HULK_FE_SPAN(0x1c6c, 0x1c74)];   // (recs1) was [8]
     char nameC[2][0x100];           // 0x1c74
     void FUN_000f0b90(const char *name);
 };
@@ -1795,11 +1796,11 @@ namespace fn_000ef180 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_000ef180 @ 0x000ef180
 struct ScreenSource {
-    char pad00[0x180c];
+    char pad00[HULK_FE_SPAN(0x0, 0x180c)];   // (recs1) was [0x180c]
     int f180c;
     int f1810;
     int f1814;
-    char pad1818[0x1840 - 0x1818];
+    char pad1818[HULK_FE_SPAN(0x1818, 0x1840)];   // (recs1) was [0x1840 - 0x1818]
     int quad[4];                // 0x1840
     int f1850;
 };
@@ -2152,8 +2153,8 @@ struct Manager_ef6e0 {
  virtual void slot10(); virtual void slot11(); virtual void slot12(); virtual void slot13(); virtual void slot14(); virtual void slot15(); virtual void slot16(); virtual void slot17(); virtual void slot18(); virtual void slot19();
  virtual void slot20(); virtual void slot21(); virtual void slot22(); virtual void slot23(); virtual void slot24(); virtual void slot25(); virtual void slot26(); virtual void slot27(); virtual void slot28(); virtual void slot29();
  virtual void slot30(); virtual void slot31(); virtual void slot32(); virtual void slot33(); virtual void slot34(); virtual void slot35(); virtual void slot36(); virtual void slot37(); virtual void slot38(); virtual void slot39();
- virtual void slot40(unsigned); virtual void slot41(); virtual void slot42(unsigned); virtual Settings_ef6e0* slot43();
- char pad[0x1850]; unsigned items[2];
+ virtual void slot40(unsigned); virtual void slot41(); virtual void slot42(hulk_uintptr); virtual Settings_ef6e0* slot43();   /* (recs1) slot 42 takes a pointer-sized word (gen) */
+ char pad[HULK_FE_SPAN(0x4, 0x1854)]; void* items[2];   // (recs1) gen FEThings' resource pointers (were a 32-bit pad and words)
 };
 struct Widget_ef6e0 {
  virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual void slot4(); virtual void slot5(); virtual void slot6(); virtual void slot7(); virtual void slot8(int); virtual void slot9(); virtual void slot10(int);
@@ -2171,7 +2172,7 @@ void FEScreenBase::vfunc_14() {
  manager->slot40(primary);
  manager->slot41();
  Manager_ef6e0* saved = manager;
- for(int i=0;i<2;++i) { unsigned item = saved->items[i]; if(item) saved->slot42(item); }
+ for(int i=0;i<2;++i) { void* item = saved->items[i]; if(item) saved->slot42((hulk_uintptr)item); }
  for(int j=0;j<4;++j) { unsigned item = items[j]; if(item) manager->slot42(item); }
  Settings_ef6e0* settings = manager->slot43();
  settings->enabled = enabled;
@@ -2513,34 +2514,35 @@ public:
     virtual void vfunc_2();
     virtual void vfunc_3();
     virtual void vfunc_4();
-    char pad0[0x8];
+    void* poolA;   // (recs1) gen FEThings' words (were char pad0[0x8] and words where gen has pointers)
+    void* poolB;
     Owned_efaf0 *objsA[0x40];       // 0xc
     Owned_efaf0 *objsB[0x40];       // 0x10c
     Owned_efaf0 *objsC[0x100];      // 0x20c
     Owned_efaf0 *objsD[0x400];      // 0x60c
-    char pad1[0x170c - 0x160c];
+    char pad1[HULK_FE_SPAN(0x160c, 0x170c)];
     char flag170c;
     char pad2[0x175c - 0x170d];
-    int f175c;
-    int f1760;
+    void* f175c;
+    void* f1760;
     char pad3[4];
-    int f1768;
+    hulk_intptr f1768;
     int f176c;
     int tab1770[16];
     int f17b0;
     int tab17b4[16];
     int f17f4;
-    char pad4[0x1830 - 0x17f8];
+    char pad4[HULK_FE_SPAN(0x17f8, 0x1830)];
     int f1830;
-    char pad5[0x1854 - 0x1834];
+    char pad5[HULK_FE_SPAN(0x1834, 0x1854)];
     Released *resA[2];        // 0x1854
     char pad6[0x1a5c - 0x185c];
     Released *resB[2];        // 0x1a5c
     char pad7[0x1c64 - 0x1a64];
     Released *resC[2];        // 0x1c64
     Released *resD[2];        // 0x1c6c
-    char pad8[0x2080 - 0x1c74];
-    int slots2080[0x20];
+    char pad8[HULK_FE_SPAN(0x1c74, 0x2080)];
+    void* slots2080[0x20];   // (recs1) the animation holder's slots (pointers)
     int f2100;
     char flag2104;
 };
@@ -4140,7 +4142,7 @@ public:
     virtual char v37(Param *p, Entity *d, Args *a);
     virtual void v38();
     virtual char v39(Param *p, char *q, Args *a);
-    char pad[0x2105 - 4];
+    char pad[HULK_FE_SPAN(0x4, 0x2105)];   // (recs1) gen FEThings' words (was a 32-bit pad)
     char buf2105[1];
 
     Obj_f0950 *FUN_000efca0(char *s, int v);
@@ -4287,11 +4289,12 @@ extern unsigned DAT_004de94c;
 struct FEThingsBase {
  virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); virtual bool vfunc_7();
  virtual void vfunc_8(); virtual void vfunc_9(); virtual void vfunc_10(); virtual void vfunc_11(); virtual void vfunc_12(); virtual void vfunc_13(); virtual void vfunc_14(); virtual void vfunc_15(); virtual void vfunc_16(); virtual void vfunc_17(); virtual void vfunc_18(); virtual void vfunc_19(); virtual void vfunc_20();
- char pad0[0x175c-4]; Widget_f0e60* child; int blocked; int unused[2]; int state;
- char pad1[0x1818-0x1770]; Widget_f0e60* animation;
- char pad2[0x1a5c-0x181c]; Widget_f0e60* extras[2];
- char pad3[0x2074-0x1a64]; bool enabled; char pad4[3]; Timer timer;
- char pad5[0x2218-0x2079]; Widget_f0e60* other;
+ // (recs1) gen FEThings' words (were 32-bit pads; blocked / unused are gen's pointer and pointer-sized words)
+ char pad0[HULK_FE_SPAN(0x4, 0x175c)]; Widget_f0e60* child; void* blocked; int unused0; hulk_intptr unused1; int state;
+ char pad1[HULK_FE_SPAN(0x1770, 0x1818)]; Widget_f0e60* animation;
+ char pad2[HULK_FE_SPAN(0x181c, 0x1a5c)]; Widget_f0e60* extras[2];
+ char pad3[HULK_FE_SPAN(0x1a64, 0x2074)]; bool enabled; char pad4[3]; Timer timer;
+ char pad5[HULK_FE_SPAN(0x2079, 0x2218)]; Widget_f0e60* other;
 };
 bool FEThingsBase::vfunc_7() {
  if(blocked) return false;
