@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/global.h"
 #define TREE_TU_BEGIN namespace fn_ff9c64fd {
 #define TREE_TU_END }
 namespace fn_ff9c64fd {} using namespace fn_ff9c64fd;
@@ -64,7 +65,7 @@ template <> void* fight::TrackFactoryCasterTemplate<CHeadTrackerTrack>::vfunc_1(
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VCHeadTrackerTrack@@@fight@@UAEPAXXZ
 // Same code shape as 0x0006f220 (propagated; names are from that function)
 template <> void* fight::TrackFactoryTemplate<CHeadTrackerTrack>::vfunc_5() {
-    void* p = FUN_0008d690(0x60);
+    void* p = FUN_0008d690((unsigned int)sizeof(::CHeadTrackerTrack));
     if (p)
         return (void*)(((InitObj_77be0*)p)->Init_0006ac20());
     return (void*)(0);

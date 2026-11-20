@@ -1373,7 +1373,7 @@ void PrimGroupSkinnedOptimized_2e0090::Cleanup() {
 // sym: ?vfunc_4@PrimGroupSkinnedOptimized@pure3d@@UAEPAXXZ
 // Same code shape as 0x002c3140 (propagated; names are from that function)
 void* pure3d::PrimGroupSkinnedOptimized::vfunc_4() {
-    void* p = thunk_FUN_0008d690(0x68);
+    void* p = thunk_FUN_0008d690((unsigned int)sizeof(::pure3d::PrimGroupSkinnedOptimized));
     if (p)
         return (void*)(((Helper_2e00f0*)p)->run_002e0020(this));
     return (void*)(0);
@@ -1547,7 +1547,7 @@ PrimGroupSkinnedStreamed_2e04e0::~PrimGroupSkinnedStreamed_2e04e0() throw() {
 // sym: ?vfunc_4@PrimGroupSkinnedStreamed@pure3d@@UAEPAXXZ
 // Same code shape as 0x002c3140 (propagated; names are from that function)
 void* pure3d::PrimGroupSkinnedStreamed::vfunc_4() {
-    void* p = thunk_FUN_0008d690(0x68);
+    void* p = thunk_FUN_0008d690((unsigned int)sizeof(::pure3d::PrimGroupSkinnedStreamed));
     if (p)
         return (void*)(((Helper_2e0540*)p)->run_002e0460(this));
     return (void*)(0);
@@ -1632,7 +1632,7 @@ pure3d::PrimGroupSkinnedPC::PrimGroupSkinnedPC(int a, int b, int c)
     f60 = 0;
     f64 = 0;
     VertexList_2e0620 *s = 0;
-    void *mem = FUN_0008d690(0x5c);
+    void *mem = FUN_0008d690((unsigned int)sizeof(::pure3d::VertexList));
     if (mem != 0)
         s = ((VertexList_2e0620 *)mem)->FUN_002c86d0(a, b, 0);
     f68 = s;

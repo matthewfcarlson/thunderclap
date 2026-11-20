@@ -107,7 +107,7 @@ hulk_freg CIntangibleTrack::vfunc_7() {
 // sym: ?vfunc_12@CIntangibleTrack@@UAEHH@Z
 // Same code shape as 0x0005e050 (propagated; names are from that function)
 hulk_intptr CIntangibleTrack::vfunc_12(hulk_intptr a) {
-    void* p = FUN_0008d690(0x20);
+    void* p = FUN_0008d690((unsigned int)sizeof(::CIntangibleAction));
     if (p)
         return ((Helper_6a1c0*)p)->go_0001f560(a);
     return 0;

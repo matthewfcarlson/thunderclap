@@ -2,6 +2,7 @@
 // object 0x00284a10..0x002878b0 (kind game, layer engine, confidence high), dominant class pure3d::DefaultFrameControllerHandler
 #include "tree_prelude.h"
 #include "decls/address.h"
+#include "gen/pure3d.h"
 #define TREE_TU_BEGIN namespace fn_fca8c081 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CAction
@@ -360,7 +361,7 @@ Base_2870d0 *OldFrameControllerLoader::v7(const char *name, unsigned int tag, St
         return o;
     }
     case 0x53495653: {
-        SceneGraphVisibilityAnimationController_2870d0 *p = (SceneGraphVisibilityAnimationController_2870d0 *)thunk_FUN_0008d690(0x48);
+        SceneGraphVisibilityAnimationController_2870d0 *p = (SceneGraphVisibilityAnimationController_2870d0 *)thunk_FUN_0008d690((unsigned int)sizeof(::pure3d::SceneGraphVisibilityAnimationController));
         SceneGraphVisibilityAnimationController_2870d0 *o;
         if (p != 0)
             o = p->FUN_002a7b90();

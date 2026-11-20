@@ -5,6 +5,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/global.h"
 #define TREE_TU_BEGIN namespace fn_f5467fe9 {
 #define TREE_TU_END }
 namespace fn_f5467fe9 {} using namespace fn_f5467fe9;
@@ -63,7 +64,7 @@ template <> void* fight::TrackFactoryCasterTemplate<CEffectStopTrack>::vfunc_1(v
 // 0x0006f2b0 fight::TrackFactoryTemplate<CEffectStopTrack>::vfunc_5 (24 B): matches/0x0006f2b0.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VCEffectStopTrack@@@fight@@UAEPAXXZ
 template <> void* fight::TrackFactoryTemplate<CEffectStopTrack>::vfunc_5() {
-    void* p = FUN_0008d690(0x18);
+    void* p = FUN_0008d690((unsigned int)sizeof(::CEffectStopTrack));
     if (p)
         return (void*)(((Effect_6f2b0*)p)->Init_000608d0());
     return (void*)(0);

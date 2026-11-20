@@ -2443,7 +2443,7 @@ void physics::PhysicsObjectLoader::vfunc_5(void* __p0, void* __p1, void* __p2, h
 
     SimObject *res = 0;
     if (f.a == 2) {
-        void *mem = thunk_FUN_0008d690(0x200);
+        void *mem = thunk_FUN_0008d690((unsigned int)sizeof(::physics::HairclubPhysicsObject));
         Composite_2f70a0 *c = 0;
         if (mem != 0)
             c = ((Composite_2f70a0 *)mem)->FUN_00309520(props, parts, count);
@@ -2454,7 +2454,7 @@ void physics::PhysicsObjectLoader::vfunc_5(void* __p0, void* __p1, void* __p2, h
         }
         thunk_FUN_00267090(parts);
     } else if (f.b == 0) {
-        void *mem = thunk_FUN_0008d690(0x1f8);
+        void *mem = thunk_FUN_0008d690((unsigned int)sizeof(::physics::PhysicsObject));
         if (mem != 0)
             res = ((Articulated *)mem)->FUN_002f6220(props, &f.center, &f.sm, f.c);
     } else if (count > 0) {

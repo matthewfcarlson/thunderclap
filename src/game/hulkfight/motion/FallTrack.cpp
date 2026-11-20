@@ -1807,7 +1807,7 @@ void* FlyingDashAction_138eb0::vfunc_2(unsigned char flag) {
 // Same code shape as 0x001134e0 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::FlyingAutoTargetTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     if (FUN_00344e74(c, 0, &RTTI_Type1, &RTTI_Type2, 0)) {
-        AllocObj_138f10* p = (AllocObj_138f10*)FUN_0008d690(0x2c);
+        AllocObj_138f10* p = (AllocObj_138f10*)FUN_0008d690((unsigned int)sizeof(::hulkfight::motion::FlyingAutoTargetAction));
         if (p)
             return p->init_00135ef0(this, c);
     }

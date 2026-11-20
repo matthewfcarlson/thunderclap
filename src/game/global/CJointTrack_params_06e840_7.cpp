@@ -5,6 +5,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/global.h"
 #define TREE_TU_BEGIN namespace fn_fdf74c47 {
 #define TREE_TU_END }
 namespace fn_fdf74c47 {} using namespace fn_fdf74c47;
@@ -64,7 +65,7 @@ template <> void* fight::TrackFactoryCasterTemplate<CGrappleAttachTrack>::vfunc_
 // 0x0006f460 fight::TrackFactoryTemplate<CGrappleAttachTrack>::vfunc_5 (24 B): matches/0x0006f460.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VCGrappleAttachTrack@@@fight@@UAEPAXXZ
 template <> void* fight::TrackFactoryTemplate<CGrappleAttachTrack>::vfunc_5() {
-    void* p = FUN_0008d690(0x68);
+    void* p = FUN_0008d690((unsigned int)sizeof(::CGrappleAttachTrack));
     if (p)
         return (void*)(((Dummy_6f460*)p)->FUN_0005aa00());
     return (void*)(0);

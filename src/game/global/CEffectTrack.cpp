@@ -409,7 +409,7 @@ extern "C" int __stdcall FUN_000605e0(int x) {
 // sym: ?vfunc_12@CGrappleMotionTrailTrack@@UAEHH@Z
 hulk_intptr CGrappleMotionTrailTrack::vfunc_12(hulk_intptr arg) {
     CGrappleMotionTrailTrack* self = this;
-    Alloc_605f0* p = (Alloc_605f0*)FUN_0008d690(0x28);
+    Alloc_605f0* p = (Alloc_605f0*)FUN_0008d690((unsigned int)sizeof(::CMotionTrailAction));
     if (p) {
         int v = FUN_0005a430(arg)->value;
         return p->invoke_0001f640(self, v);

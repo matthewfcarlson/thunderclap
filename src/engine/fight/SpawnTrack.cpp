@@ -615,7 +615,7 @@ void FUN_0023ee40()
 // sym: ?vfunc_10@SpawnTrack@fight@@UAEHHHH@Z
 hulk_intptr fight::SpawnTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { uint_23ef40 a = (uint_23ef40)__p0; uint_23ef40 b = (uint_23ef40)__p1; uint_23ef40 c = (uint_23ef40)__p2;
 
-    Alloc_23ef40* p = FUN_0008d690(0x58);
+    Alloc_23ef40* p = FUN_0008d690((unsigned int)sizeof(::fight::SpawnAction));
     if (p)
         return (int)(p->run_0023ec50(a, this, c));
     return (int)(0);

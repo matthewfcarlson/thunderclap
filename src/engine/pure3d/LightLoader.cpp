@@ -211,7 +211,7 @@ void pure3d::LightLoader::vfunc_5(void* __p0, void* __p1, void* __p2, hulk_intpt
     result = 0;
     switch (F.type) {
     case 0: {
-        void *mem = thunk_FUN_0008d690(0x58);
+        void *mem = thunk_FUN_0008d690((unsigned int)sizeof(::pure3d::AmbientLight));
         obj = mem ? ((Light0 *)mem)->FUN_002a1230() : 0;
         ((owners::Target_27b040 *)&(obj->name))->FUN_0027b040((hulk_uintptr)(F.name));
         obj->FUN_002a07a0(F.a18);
@@ -225,7 +225,7 @@ void pure3d::LightLoader::vfunc_5(void* __p0, void* __p1, void* __p2, hulk_intpt
         break;
     }
     case 1: {
-        void *mem = thunk_FUN_0008d690(0x68);
+        void *mem = thunk_FUN_0008d690((unsigned int)sizeof(::pure3d::PointLight));
         Light1 *o = mem ? ((Light1 *)mem)->FUN_002c3e10() : 0;
         obj = o;
         ((owners::Target_27b040 *)&(obj->name))->FUN_0027b040((hulk_uintptr)(F.name));
@@ -259,7 +259,7 @@ void pure3d::LightLoader::vfunc_5(void* __p0, void* __p1, void* __p2, hulk_intpt
         break;
     }
     case 3: {
-        void *mem = thunk_FUN_0008d690(0x80);
+        void *mem = thunk_FUN_0008d690((unsigned int)sizeof(::pure3d::SpotLight));
         Light3 *o = mem ? ((Light3 *)mem)->FUN_002c4020() : 0;
         obj = o;
         ((owners::Target_27b040 *)&(obj->name))->FUN_0027b040((hulk_uintptr)(F.name));

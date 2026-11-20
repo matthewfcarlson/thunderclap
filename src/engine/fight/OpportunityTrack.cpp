@@ -833,7 +833,7 @@ void* OpportunityTrack::vfunc_10(void* a1, void* a2, void* a3) {
     } else if (peak >= 0.0f) {
         fall = 0.0f;
     }
-    Node* n = (Node*)FUN_0008d690(0x50);
+    Node* n = (Node*)FUN_0008d690((unsigned int)sizeof(::fight::OpportunityAction));
     if (!n) return 0;
     return n->FUN_00237470(a1, this, rise, fall, f18, f24, &sub, a2, a3);
 }

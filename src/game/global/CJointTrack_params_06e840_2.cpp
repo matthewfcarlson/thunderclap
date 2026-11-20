@@ -4,6 +4,7 @@
 #include "tree_prelude.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/global.h"
 #define TREE_TU_BEGIN namespace fn_fc3acc0d {
 #define TREE_TU_END }
 namespace fn_fc3acc0d {} using namespace fn_fc3acc0d;
@@ -63,7 +64,7 @@ template <> void* fight::TrackFactoryCasterTemplate<CCollisionTrack>::vfunc_1(vo
 // 0x0006f190 fight::TrackFactoryTemplate<CCollisionTrack>::vfunc_5 (27 B): matches/0x0006f190.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VCCollisionTrack@@@fight@@UAEPAXXZ
 template <> void* fight::TrackFactoryTemplate<CCollisionTrack>::vfunc_5() {
-    Obj_6f190* p = (Obj_6f190*)FUN_0008d690(0x120);
+    Obj_6f190* p = (Obj_6f190*)FUN_0008d690((unsigned int)sizeof(::CCollisionTrack));
     if (p)
         return (void*)(p->Initialize_0005d930());
     return (void*)(0);

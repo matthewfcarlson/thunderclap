@@ -2228,7 +2228,7 @@ pure3d::ShadowSkinImpl::ShadowSkinImpl(FUN_002b52e0* src) : FUN_002b52e0(src) {
  Matrix* mem=(Matrix*)FUN_0008d6d0((resource->count+1)*64);
  matrices=mem;
  mem[resource->count].FUN_0022b980();
- ShadowMeshVertices_2b5610* obj=(ShadowMeshVertices_2b5610*)FUN_0008d690(24);
+ ShadowMeshVertices_2b5610* obj=(ShadowMeshVertices_2b5610*)FUN_0008d690((unsigned int)sizeof(::pure3d::ShadowMeshVertices));
  Ref_2b5610* result=obj ? obj->FUN_002b5100(src->object) : 0;
  if(result) result->AddRef();
  if(object) object->Release();
@@ -3060,7 +3060,7 @@ unsigned __int64 pure3d::ShadowSkinLoader::v5(Target_2b7020 **objOut, unsigned _
         A->topo->Release();
     A->topo = topo;
 
-    void *m2 = FUN_0008d690(0x18);
+    void *m2 = FUN_0008d690((unsigned int)sizeof(::pure3d::ShadowMeshVertices));
     ShadowMeshVertices_2b7020 *st;
     if (m2)
         st = ((ShadowMeshVertices_2b7020 *)m2)->FUN_002b5070(nvv, nfv);

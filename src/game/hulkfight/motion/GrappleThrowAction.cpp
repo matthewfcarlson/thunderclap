@@ -5979,7 +5979,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::GrappleTh
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VGrappleThrowTrack@motion@hulkfight@@@fight@@UAEPAXXZ
 // Same code shape as 0x0006fa30 (propagated; names are from that function)
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::GrappleThrowTrack>::vfunc_5() {
-    Grapple_14bfa0* p = (Grapple_14bfa0*)operator new(0x40);
+    Grapple_14bfa0* p = (Grapple_14bfa0*)operator new(sizeof(::hulkfight::motion::GrappleThrowTrack));
     if (p)
         return (void*)(p->BuildTrack_00147430());
     return (void*)(0);
@@ -6096,7 +6096,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::CivilianT
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VCivilianThrowTrack@motion@hulkfight@@@fight@@UAEPAXXZ
 // Same code shape as 0x0006fa30 (propagated; names are from that function)
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::CivilianThrowTrack>::vfunc_5() {
-    Grapple_14c0f0* p = (Grapple_14c0f0*)operator new(0x40);
+    Grapple_14c0f0* p = (Grapple_14c0f0*)operator new(sizeof(::hulkfight::motion::CivilianThrowTrack));
     if (p)
         return (void*)(p->BuildTrack_00147590());
     return (void*)(0);

@@ -3,6 +3,7 @@
 #include "tree_prelude.h"
 #include "compat/ptr.h"
 #include "decls/address.h"
+#include "gen/pure3d.h"
 #define TREE_TU_BEGIN namespace fn_f66a63d8 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CAction
@@ -291,7 +292,7 @@ void Loader_2e22c0::FUN_002e22c0(void *a0, Reader *rd, int a2, VecObj *a3, int a
     fr.nlow = flags & 0xf;
 
     if (a3 != 0 && ((a3->fc - a3->f8) >> 6) != 0) {
-        void *mem = thunk_FUN_0008d690(0x68);
+        void *mem = thunk_FUN_0008d690((unsigned int)sizeof(::pure3d::PrimGroupSkinnedStreamed));
         if (mem != 0) {
             fr.psk = new (mem) pure3d::PrimGroupSkinnedStreamed(f1c, f20, f24);
             fr.B = fr.psk;

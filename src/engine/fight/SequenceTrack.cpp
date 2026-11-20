@@ -498,7 +498,7 @@ class SequenceTrack : public Track {
     u32_238020 vfunc_10(u32_238020, u32_238020, u32_238020);
 };
 u32_238020 SequenceTrack::vfunc_10(u32_238020 a, u32_238020 b, u32_238020 c) {
-    Builder* p = (Builder*)FUN_0008d690(0x3c);
+    Builder* p = (Builder*)FUN_0008d690((unsigned int)sizeof(::fight::SequenceAction));
     if (p) {
         u32_238020 x = field0c;
         return p->Run_00237c90(a, (hulk_uintptr)this, x, field18, &pad1c, b, c);

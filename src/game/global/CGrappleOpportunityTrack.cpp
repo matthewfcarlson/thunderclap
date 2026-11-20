@@ -1201,7 +1201,7 @@ unsigned CGrappleOpportunityTrack::vfunc_10(unsigned a,unsigned b,Owner_5ae00* o
  float d1=first-start; float d2=second-start;
  if(d2<0.0f && second>=0.0f) d2=0.0f;
  Context* context=owner->s4(); context->value=*link->data;
- OpportunityAction_5ae00* result=FUN_0008d690(0x50); if(!result) return 0;
+ OpportunityAction_5ae00* result=FUN_0008d690((unsigned int)sizeof(::fight::OpportunityAction)); if(!result) return 0;
  unsigned saved=field18;
  unsigned v=vfunc_8(b,owner);
  return result->FUN_00237470(a,this,d1,d2,saved,field24,payload,v,context);
@@ -1336,7 +1336,7 @@ Mid_5b000* mid = input->FUN_000592a0(); if (!mid) return 0;
 Actor_5b000* actor = mid->FUN_00059a30(); if (!actor) return 0;
 Holder_5b000* holder = actor->preferred; if (!holder) holder = actor->fallback; if (!holder) return 0;
 Result_5b000* result = input->s4(); result->value = holder->link->value;
-Object* obj = (Object*)FUN_0008d690(0x3c); if (!obj) return 0;
+Object* obj = (Object*)FUN_0008d690((unsigned int)sizeof(::fight::SequenceAction)); if (!obj) return 0;
 unsigned int saved = fieldC;
 unsigned int value = s8(b, input);
 return obj->FUN_00237c90(a, this, saved, field18, field1c, value, result);
@@ -1504,7 +1504,7 @@ void* CGrappleInvincibleTrack::vfunc_11(hulk_intptr param) {
 
 
 // 0x0005b280 CGrappleInvincibleTrack::vfunc_12 (114 B): equivalent/0x0005b280.cpp
-// sym: ?vfunc_12@CGrappleInvincibleTrack@@UAEHH@Z @345a800937bb @we6e64d8e5169 @v1a7b38da6d12
+// sym: ?vfunc_12@CGrappleInvincibleTrack@@UAEHH@Z @345a800937bb @we6e64d8e5169 @v6103b9b9417b
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 15/16, incomplete)
 // CGrappleInvincibleTrack::vfunc_12 @ 0x0005b280
 hulk_intptr CGrappleInvincibleTrack::vfunc_12(hulk_intptr __p0) { Link1_5b280 * owner = (Link1_5b280 *)__p0;
@@ -1526,7 +1526,7 @@ hulk_intptr CGrappleInvincibleTrack::vfunc_12(hulk_intptr __p0) { Link1_5b280 * 
     Weapon *weapon = fighter->weapon;
     if (weapon == 0)
         return (int)(0);
-    CInvincibleAction_5b280 *effect = (CInvincibleAction_5b280 *)FUN_0008d690(0x24);
+    CInvincibleAction_5b280 *effect = (CInvincibleAction_5b280 *)FUN_0008d690((unsigned int)sizeof(::CInvincibleAction));
     if (effect == 0)
         return (int)(0);
     return (hulk_intptr)(effect->FUN_0001f4e0(weapon, this->f_14));
