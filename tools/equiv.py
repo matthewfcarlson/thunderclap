@@ -9763,7 +9763,7 @@ def table_cases_n(view, j):
     return (getattr(view, "table_bound", None) or {}).get(j) or len(view.tables[j])
 
 
-def coverage_of(view, edges):
+def coverage_of(view, edges, full=False):
     total, covered, missing = 0, 0, []
     dead = infeasible_edges(view)
     # (round 8) an edge a rule calls dead that a run took anyway is a checker bug: it counts as a normal edge
@@ -9813,6 +9813,8 @@ def coverage_of(view, edges):
     out = {"edges_total": total, "edges_covered": covered, "uncovered": missing[:20], "complete": covered == total,
            # (integ3, hostcheck) which edges were missed, not only how many (the selftest compares it across hosts)
            "uncovered_hash": hashlib.sha1("\n".join(sorted(missing)).encode()).hexdigest()[:12]}
+    if full:
+        out["missing_all"] = sorted(missing)    # (integ5, D155c) every edge not covered, for a shard merge
     if taken_dead:
         out["dead_taken"] = sorted("+0x%x -> %s" % (j - view.entry, t if isinstance(t, str) else "+0x%x" % (t - view.entry))
                                    for j, t in taken_dead)
@@ -10627,6 +10629,7 @@ def _canon(x):
 
 
 VIEW_VERSION = 1
+SHARD = [0, 1]       # (integ5, D155c) [K, N]: this run is shard K of N of one proof (`--shard K/N`; [0, 1]: a whole run)
 PROOF_DRAW_LIMIT = 10000    # (integ1, D62) inputs a proof-sized run may draw to compare --inputs of them
 PROOF_DRAW_CAP = 40000      # (integ2, D69, D81: was 30,000) past it, for inputs that time out, at most this many
 
@@ -11302,6 +11305,13 @@ def _verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappi
         issues = issues + [bad_]
         rep["level2"]["issues"] = rep["level2"]["issues"] + [bad_]
         rep["level2"]["ok"] = False
+    return level3_verdict(rep, l3, issues, post_specs, time_budget, t0)
+
+
+def level3_verdict(rep, l3, issues, post_specs, time_budget, t0):
+    """The verdict of a run from its level-3 result L3 and its level-2 ISSUES: status, class and promotable. (integ5,
+    D155c) One function for a whole run and for a merge of a sharded proof's shards (tools/tree_tu.py merge_shards):
+    the same rules read the merged counts."""
     if l3["ok"] and rep["level"] == 2:
         rep["level"] = 3
     unp_ = sum((l3.get("statuses") or {}).get(k_, 0) for k_ in ("msplit_unpinned", "vsplit_unpinned"))
@@ -11659,6 +11669,16 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
     w_start = WORK[0]
     input_seq = hashlib.sha1()
     wn_start = dict(WORKN)
+    # (integ5, D155c; rev5) a proof sharded N ways: shard K's inputs are drawn from the seeds K + N*j (its own slice, a
+    # fixed function of (K, N), disjoint from every other shard's) and it compares ceil(--inputs / N) of them; the rest
+    # of the run (exploration, directed inputs, proof draw) is the whole run's, on its own inputs. [0, 1] is the
+    # unsharded run, unchanged
+    sh_k, sh_n = SHARD
+    n_target = n_inputs if sh_n == 1 else -(-n_inputs // sh_n)
+
+    def _dseed(s_):
+        return s_ if sh_n == 1 else sh_k + sh_n * s_
+    compared_keys = set()
 
     def clk():
         """(integ3, workclock) budget seconds used: work done since the loop began, at WORK_PER_SEC"""
@@ -11788,6 +11808,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
         return False
 
     def build(seed, overlay=None, stack_patch=None):
+        seed = _dseed(seed)     # (D155c) the input's own seed: every random choice below draws from it
         inp = make_input(seed, sig, globals_, rdata_ptrs, consts if seed % 3 == 2 else (), strides, own_words)
         inp["arity_by_call"] = {}
         inp["ret_override"] = {}
@@ -11983,6 +12004,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
         contract gets a finite value or an allowed NaN (0xffc00000 / 0x7fc00000, by the seed), and with PLANT one input
         in four gets allowed NaNs planted (by the seed) in one defnan word, all the words of one item, every defnan
         word, or a random subset of them, so the inputs the contract allows include its NaNs, alone and together."""
+        seed = _dseed(seed)     # (D155c)
         ov, sp = {}, {}
         planted = False
         conds = _pre_conds(inp)
@@ -12404,7 +12426,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                 str_seen[ak] += 1
                 str_seen[("alpha",)] += 1
                 import random
-                rnd = random.Random(mix(seed, ea, 0xA1FA))
+                rnd = random.Random(mix(_dseed(seed), ea, 0xA1FA))
                 for k_ in range(24):
                     # (runs of one char half the time: "1.2345" needs several digits in a row)
                     txt = []
@@ -12857,6 +12879,13 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             return None
         if o["status"] == "ret":
             res["inputs_run"] += 1
+            if sh_n > 1:
+                # (integ5, D155c; rev5) the compared input's identity: what build() makes it from (its own seed, the
+                # overlay and the stack patch); the merge counts distinct ones, so an input two shards could both build
+                # would count once
+                compared_keys.add(hashlib.sha1(repr((_dseed(seed), sorted(map(repr, (overlay or {}).items())),
+                                                     sorted(map(repr, (stack_patch or {}).items())))).encode()
+                                              ).hexdigest()[:16])
             if label and str(label).endswith("+small"):
                 # (rev5 re-review of D82) compared inputs whose loop counts small_retry planted, apart from the inputs
                 # compared as drawn (inputs_small counts small-count attempts, not comparisons)
@@ -13154,7 +13183,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                 for st_ in list(stuck):
                     if not out_of_time():
                         repair(st_)
-            if seed >= n_inputs and not proof_draw[0]:
+            if seed >= n_target and not proof_draw[0]:
                 if coverage_of(oview, edges)["complete"] or rs["stale"] >= 16:
                     break
             n0 = len(stuck)
@@ -13559,7 +13588,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             res["covcap"] = True
             random_phase(soft=False, nocap=True)
             directed_phase()
-    if n_inputs >= 3000 and res["inputs_run"] < n_inputs and not out_of_time() and res["inputs_failed"] < MAX_FAIL and \
+    if n_inputs >= 3000 and res["inputs_run"] < n_target and not out_of_time() and res["inputs_failed"] < MAX_FAIL and \
             not only_seeds and "proofcap" not in EQUIV_OFF:
         # (integ1, D38/D62) a proof-sized run (--inputs 3000: promotions, `hash --proven`) goes on drawing until it has
         # COMPARED as many inputs as it asked for (inconclusive ones don't count), up to PROOF_DRAW_LIMIT drawn or the
@@ -13577,11 +13606,11 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             # going while they work (the success-ratio stops stay); inputs only, each compared in full
             sent_left[0] += 4 * PROOF_DRAW_CAP
         try:
-            random_phase(soft=False, nocap=True, until_run=n_inputs)
+            random_phase(soft=False, nocap=True, until_run=n_target)
             drawn_ = rs["seed"]
             run_ = res["inputs_run"]
             other_ = (res.get("inputs_inconclusive") or 0) - res["statuses"].get("timeout", 0)
-            if run_ < n_inputs and drawn_ >= max_inputs and run_ > 0 and not out_of_time() and \
+            if run_ < n_target and drawn_ >= max_inputs and run_ > 0 and not out_of_time() and \
                     res["inputs_failed"] < MAX_FAIL and 4 * max(other_, 0) <= drawn_ - run_ and \
                     "proofdraw" not in EQUIV_OFF:
                 # (integ2, D69) the inputs that did not compare are (three in four at least) ones that ran out of steps
@@ -13594,12 +13623,12 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                 # stage that compared nothing)
                 res["proofdraw"] = {"at": drawn_, "compared": run_, "stages": []}
                 rate_ = run_ / float(drawn_)
-                while res["inputs_run"] < n_inputs and rs["seed"] < PROOF_DRAW_CAP and not out_of_time() and \
+                while res["inputs_run"] < n_target and rs["seed"] < PROOF_DRAW_CAP and not out_of_time() and \
                         res["inputs_failed"] < MAX_FAIL and rate_ > 0:
                     d0_, r0_ = rs["seed"], res["inputs_run"]
-                    lim_ = min(PROOF_DRAW_CAP, d0_ + max(500, int((n_inputs - r0_) * 1.1 / rate_) + 1))
+                    lim_ = min(PROOF_DRAW_CAP, d0_ + max(500, int((n_target - r0_) * 1.1 / rate_) + 1))
                     max_inputs = lim_
-                    random_phase(soft=False, nocap=True, until_run=n_inputs)
+                    random_phase(soft=False, nocap=True, until_run=n_target)
                     res["proofdraw"]["stages"].append([lim_, res["inputs_run"]])
                     if rs["seed"] <= d0_:
                         break
@@ -13612,7 +13641,15 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
         post_phase()
     if post:
         res["post_pairs"] = len(post_pairs)
+        if sh_n > 1:
+            res["post_pair_list"] = sorted(repr(x) for x in post_pairs)   # (D155c) the merge counts distinct pairs
     res["coverage"] = coverage_of(oview, edges)
+    if sh_n > 1:
+        # (integ5, D155c) what a shard merge needs: which shard, and every edge it left uncovered (the merge's coverage is
+        # that of the union of the shards' covered edges: an edge counts when any shard took it, never from the counts)
+        res["shard"] = [sh_k, sh_n]
+        res["compared_keys"] = sorted(compared_keys)
+        res["coverage"] = coverage_of(oview, edges, full=True)
     res["work"] = WORK[0] - w_start                     # (workclock) units the loop spent
     res["input_digest"] = input_seq.hexdigest()[:12]
     res["workn"] = {k: WORKN[k] - wn_start[k] for k in WORKN}
@@ -14752,6 +14789,8 @@ def main(argv):
     p.add_argument("--strict-decl", action="store_true",
                    help="(round 23) a callee whose stack arity our declaration states wrongly (decl_arity) fails level 2")
     p.add_argument("--json", action="store_true")
+    p.add_argument("--shard", metavar="K/N", help="(integ5, D155c) shard K (0..N-1) of an N-way proof: draws seeds "
+                   "K + N*j and compares ceil(--inputs / N) of them; tree_tu.py hash --proven-shards merges all N reports")
     p.add_argument("--float", choices=("sse", "x87"),
                    help="(perf1) with --wine: the Wine build's float code to check (default sse, or HULK_WINE_FLOAT)")
     p.add_argument("--x87-keep", metavar="FILE",
@@ -14764,6 +14803,11 @@ def main(argv):
                                time_budget=a.time_budget)
         print(json.dumps(rep, default=str) if a.json else equiv64.render(rep))
         return 0 if rep["status"] == "equivalent" else 1
+    if a.shard:
+        k_, n_ = (int(x) for x in a.shard.split("/"))
+        if not (n_ >= 2 and 0 <= k_ < n_) or a.inputs < 3000:
+            raise SystemExit("--shard K/N: 0 <= K < N, N >= 2, for a proof-sized run (--inputs 3000 or more)")
+        SHARD[:] = [k_, n_]
     if a.float:
         os.environ["HULK_WINE_FLOAT"] = a.float
     if a.x87_keep:

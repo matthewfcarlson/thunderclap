@@ -1659,6 +1659,47 @@ Cases `0x001f87e0_post` (equivalent; `_proof` at 3,000), `_wrong` (post_refuted)
 (post_unverified), `0x001fa7d0_x64_post` (equivalent), `_readfalse`, `_stride`, `_wrongcount` (layout); tests
 tests/test_post_contract.py.
 
+(integ5, D155a; rev5) **Speed: the unicorn binding's hot calls.** A slow proof's time is the Python hook logic
+(`_on_code` per instruction, `_stub` per stubbed call); Unicorn's emulation is negligible. `_fast_uc` takes the
+binding's per-call wrappers out of the Machine's register and memory reads and its four hooks (same values; a register
+cache emptied wherever the CPU state can change; tests/test_fastuc.py), 1.05-1.2x; a run's inputs, verdict and digests
+are unchanged (the selftest is identical). The wall-clock lever for a 10-hour proof is sharding (below).
+
+(integ5, D155c; rev5) **Sharded proofs.** A slow block's 3,000-input proof can run as N queue jobs at once:
+`equiv.py TU ADDR --json --inputs 3000 --shard K/N` for K = 0..N-1 (N >= 2, proof-sized runs only). Shard K draws its
+inputs from the seeds K + N*j (the input, its memory, its planted contract values: everything `build` and `_pre_fix`
+draw), a fixed slice no other shard touches, and compares ceil(3000 / N) of them; each shard is otherwise a whole run
+(exploration, directed inputs, proof draw) on its own inputs. `--shard` absent is the unsharded run, unchanged (the
+selftest's summaries are identical). A shard proves nothing alone (`proves`: "one shard of a sharded proof").
+`tree_tu.py hash --proven` takes the shards' reports with any others: the shards of one block and mode
+(same symbol, code hashes, view, checker, asked inputs; grouped without the job) merge into one report
+(`merge_shards`), which the whole run's rules then judge (`equiv.level3_verdict`). Merge rules, by level-3 field
+(a field no rule names refuses the merge: default-deny):
+- refused: a shard missing or twice, shards cut another number of ways, other code/view/checker/contracts, any
+  EQUIV_ON/OFF switch, a shard `unsupported` (stubexit, split_unpinned, pre_dominated, pre_violation_in_original, ...)
+  or cut by the CPU cap (`time_cut_wall`), shards that disagree on `pre_trap` / `pre_trap_words` (the contract trap
+  must have fired in every shard: each shard's own run already fails without it).
+- a difference anywhere: the shards' mismatches are the merged run's; `ok` only when every shard's is; a failing
+  shard makes the merge fail.
+- summed, then judged as one run's totals: inputs_* counters, statuses (so the wild/both_fault, copy_overlap and
+  pre_outside_dropped shares and the inconclusive caps read the totals), post_checked, post_phase, post_ret0,
+  post_unread, sentinel/stubexit/vsplit run counts, work, workn, cpu, unexplained, the defnan/range repair counts.
+- compared inputs: the distinct ones (each shard lists its compared inputs' keys, `compared_keys`: a hash of the
+  input's own seed, overlay and stack patch); an input compared twice counts once (`compared_duplicates`), and a shard
+  without the list refuses the merge. run_shortfall then needs 3,000 distinct.
+- post pairs: the union of the shards' distinct (out, bound) pairs (`post_pair_list`), never a sum.
+- coverage: an edge counts as covered when any shard took it (the intersection of the shards' uncovered edges,
+  `missing_all`, is what stays uncovered); the shards must agree on the edges to cover (dead edges a shard took
+  count once); then the same ACCEPT_COVERAGE bar.
+- informational: the largest long_steps / rep_allow_max / static_counts / early_returns, any of huge_rep /
+  probe_skipped / covcap / inconclusive_cap_hit / time_budget_hit, per-shard lists of proofcap / proofdraw /
+  long_skipped / input_digest / coverage_with_inconclusive, the first post_refuted / pre_violation note.
+The ledger line of a merged proof has `shard_n` and `shard_jobs` (every shard's job) and no single `job`; its D154 line
+key includes the sorted shard jobs (other lines keep their keys). `hash --proven` prints each shard group's outcome
+(`shard_merge`: merged, or refused and why).
+Tests: tests/test_shard_merge.py; regress `0x001f87e0_post_wrong_shards8` (shard 7 alone is equivalent, the merge
+fails post_refuted, seven shards don't merge).
+
 (integ4, `stubexit`; rev5) **Loops a stub ends.** A loop whose condition is a stubbed callee's result (`while
 (registry->Pending())`, drained by real code elsewhere; `do r = Status(v); while (r != 2)`) never ends on random stub
 results that keep it going, so its inputs time out and its body is never compared. Static half (`_stubexit_sites`, the

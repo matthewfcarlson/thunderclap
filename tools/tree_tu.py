@@ -843,7 +843,12 @@ LINE_KEY_FIELDS = ("addr", "mode", "code", "view", "checker", "job", "date", "n_
 def ledger_line_key(e):
     """(integ4, D154; rev5) A ledger line's identity: a fixed tuple of the fields that identify a run (two runs of the
     same code are two lines), stable when the line is re-serialized or gains a field."""
-    return hashlib.sha1(json.dumps([str(e.get(k)) for k in LINE_KEY_FIELDS]).encode()).hexdigest()[:20]
+    f_ = [str(e.get(k)) for k in LINE_KEY_FIELDS]
+    if e.get("shard_jobs"):
+        # (integ5, D155c; rev5) a sharded proof's line has no single job: its shards' jobs tell two such runs apart
+        # (lines without shards keep the key they had)
+        f_.append(json.dumps(sorted(map(str, e["shard_jobs"]))))
+    return hashlib.sha1(json.dumps(f_).encode()).hexdigest()[:20]
 
 
 def _revocations(path=None):
@@ -925,7 +930,10 @@ def ledger_entry(addr, mode, code, view, rep, tu):
             # (integ2, D100; rev5's re-review) compared inputs with planted walk sentinels (sentinel_retry)
             "compared_sentinel": l3.get("inputs_sentinel", 0),
             "compared_drawn": (l3.get("inputs_run") or 0) - l3.get("inputs_compared_small", 0) - l3.get("inputs_sentinel", 0),
-            "job": tc.get("job"), "date": datetime.date.today().isoformat()}
+            "job": tc.get("job"), "date": datetime.date.today().isoformat(),
+            # (integ5, D155c; lead) a sharded proof's line names every shard's job
+            **({"shard_n": rep["shards"]["n"], "shard_jobs": rep["shards"]["jobs"], "job": None}
+               if rep.get("shards") else {})}
 
 
 def ledger_append(entries, path=None):
@@ -2207,6 +2215,7 @@ def proof_code(src, addr, native, recs):
 
 def _load_results(paths):
     out = collections.defaultdict(list)
+    shards = collections.defaultdict(list)
     for p in paths:
         text = open(p).read()
         try:
@@ -2215,8 +2224,163 @@ def _load_results(paths):
             recs = [json.loads(l) for l in text.splitlines() if l.strip().startswith("{")]
         for r in recs:
             if isinstance(r, dict) and r.get("addr"):
-                out["0x%08x" % int(r["addr"], 16)].append(r)
+                a = "0x%08x" % int(r["addr"], 16)
+                sh_ = (r.get("level3") or {}).get("shard")
+                if sh_:
+                    # (integ5, D155c) a shard proves nothing alone: the shards of one proof are merged first
+                    tc_ = {k_: v_ for k_, v_ in (r.get("tree_code") or {}).items() if k_ != "job"}
+                    shards[(a, bool(r.get("native")), sh_[1], json.dumps(tc_, sort_keys=True, default=str))].append(r)
+                else:
+                    out[a].append(r)
+    SHARD_NOTES[:] = []
+    for (a, _nat, n_, _tc), reps in sorted(shards.items()):
+        m_, why_ = merge_shards(reps)
+        SHARD_NOTES.append({"addr": a, "native": _nat, "shards": n_, "merged": m_ is not None, "why": why_})
+        if m_ is not None:
+            out[a].append(m_)
     return out
+
+
+SHARD_NOTES = []    # (integ5, D155c) what _load_results did with each group of shard reports
+
+# (integ5, D155c; rev5) how each level-3 field of the shards of one proof merges. A field no rule names refuses the
+# merge (default-deny): a new counter needs its rule here before a sharded proof may count it.
+SHARD_SUM = {"inputs_run", "inputs_inconclusive", "inputs_faulted", "inputs_failed", "inputs_directed", "inputs_drawn",
+             "inputs_compared_small", "inputs_defnan_planted", "inputs_memfwd", "inputs_nan_eq", "inputs_objptr",
+             "inputs_planted", "inputs_pre_repaired", "inputs_repaired", "inputs_sentinel", "inputs_small",
+             "inputs_strcase", "inputs_stubexit", "inputs_tie", "inputs_words", "post_checked", "post_phase", "post_ret0",
+             "post_unread", "sentinel_runs", "stubexit_runs", "vsplit_reruns", "work", "edges_withdrawn",
+             "pre_defnan_all", "pre_defnan_words", "pre_range_bounds", "stubexit_sealed", "cpu", "sentinel_time"}
+SHARD_SUM_DICT = {"statuses", "workn", "stubexit_n", "unexplained"}
+SHARD_MAX = {"long_steps", "rep_allow_max", "static_counts", "early_returns"}
+SHARD_ANY = {"huge_rep", "probe_skipped", "covcap", "inconclusive_cap_hit", "time_budget_hit"}
+SHARD_LIST = {"proofcap", "proofdraw", "long_skipped", "input_digest", "coverage_with_inconclusive"}
+SHARD_FIRST = {"post_refuted_first", "pre_violation_first"}
+SHARD_EQUAL = {"pre_trap", "pre_trap_words"}
+SHARD_REFUSE = {"time_cut_wall", "unsupported"}
+SHARD_SPECIAL = {"ok", "mismatches", "coverage", "post_pairs", "post_pair_list", "shard", "compared_keys"}
+
+
+def merge_shards(reps):
+    """(integ5, D155c; rev5) One report from the N shard reports of a sharded proof (equiv.py --shard K/N), or (None,
+    why). Every shard K = 0..N-1 exactly once, of the same block, mode, code, view, checker and switches; a shard that is
+    unsupported or cut by the CPU cap means no proof; a difference in any shard is the merged run's difference. Counts
+    sum (the inconclusive and set-aside caps then read the totals), post pairs are the union of distinct pairs, the
+    coverage is that of the union of the covered edges, the contract trap must have fired in every shard; then
+    equiv.level3_verdict gives status and promotable by the whole run's rules. The merged report names every shard's
+    job (`shards`)."""
+    import equiv
+    if not reps:
+        return None, "no shards"
+    n = (reps[0].get("level3") or {}).get("shard", [0, 0])[1]
+    ks = sorted((r.get("level3") or {}).get("shard", [None])[0] for r in reps)
+    if {tuple((r.get("level3") or {}).get("shard") or ())[1:] for r in reps} != {(n,)}:
+        return None, "the shards were not all cut %d ways" % n
+    if n < 2 or ks != list(range(n)):
+        return None, "shards %s of %d: every shard 0..%d exactly once" % (ks, n, n - 1)
+    key = lambda r: json.dumps([r.get("addr"), bool(r.get("native")), r.get("symbol")] +
+                               [(r.get("tree_code") or {}).get(k) for k in ("msvc", "wine", "view", "checker", "n_inputs",
+                                                                           "x87_keep")], default=str)
+    if len({key(r) for r in reps}) != 1:
+        return None, "the shards are not runs of one block, mode, code, view and checker"
+    if any(r.get("equiv_off") or r.get("equiv_on") for r in reps):
+        return None, "a shard ran with checker switches"
+    if len({json.dumps([r.get("post"), r.get("pre")], default=str) for r in reps}) != 1:
+        return None, "the shards disagree on the block's contracts"
+    for r in reps:
+        st_ = r.get("status")
+        if st_ == "unsupported" or (r.get("level3") or {}).get("time_cut_wall"):
+            return None, "shard %s: %s (%s)" % (r["level3"]["shard"][0], st_, r.get("class") or r.get("error") or "")
+        if st_ not in ("equivalent", "inconclusive", "fail"):
+            return None, "shard %s: status %s" % (r["level3"]["shard"][0], st_)
+    known = SHARD_SUM | SHARD_SUM_DICT | SHARD_MAX | SHARD_ANY | SHARD_LIST | SHARD_FIRST | SHARD_EQUAL | SHARD_REFUSE | \
+        SHARD_SPECIAL
+    l3s = [r.get("level3") or {} for r in sorted(reps, key=lambda r: r["level3"]["shard"][0])]
+    unknown = sorted({k for l in l3s for k in l} - known)
+    if unknown:
+        return None, "no merge rule for %s (default-deny)" % ", ".join(unknown)
+    m = {}
+    for k in SHARD_SUM:
+        if any(k in l for l in l3s):
+            m[k] = sum(l.get(k) or 0 for l in l3s)
+    for k in SHARD_SUM_DICT:
+        if any(k in l for l in l3s):
+            c_ = collections.Counter()
+            for l in l3s:
+                c_.update({x: v for x, v in (l.get(k) or {}).items()})
+            m[k] = dict(c_)
+    for k in SHARD_MAX:
+        if any(k in l for l in l3s):
+            m[k] = max(l.get(k) or 0 for l in l3s)
+    for k in SHARD_ANY:
+        if any(l.get(k) for l in l3s):
+            m[k] = True
+    for k in SHARD_LIST:
+        if any(k in l for l in l3s):
+            m[k] = [l.get(k) for l in l3s]
+    for k in SHARD_FIRST:
+        v_ = next((l[k] for l in l3s if l.get(k)), None)
+        if v_ is not None:
+            m[k] = v_
+    for k in SHARD_EQUAL:
+        vs_ = {json.dumps(l.get(k), default=str) for l in l3s}
+        if len(vs_) != 1:
+            return None, "the shards disagree on %s (%s): every shard runs the same check" % (k, sorted(vs_))
+        if k in l3s[0]:
+            m[k] = l3s[0][k]
+    if any(not isinstance(l.get("compared_keys"), list) for l in l3s):
+        return None, "a shard does not list its compared inputs"
+    keys_ = set()
+    for l in l3s:
+        keys_.update(l["compared_keys"])
+    if len(keys_) != m.get("inputs_run", 0):
+        # (rev5) an input two shards both compared counts once: the compared total is the distinct inputs
+        m["compared_duplicates"] = m.get("inputs_run", 0) - len(keys_)
+    m["inputs_run"] = len(keys_)
+    m["ok"] = all(l.get("ok") for l in l3s)
+    m["mismatches"] = [x for l in l3s for x in (l.get("mismatches") or [])]
+    if any("post_pairs" in l for l in l3s):
+        if any(l.get("post_pairs") and "post_pair_list" not in l for l in l3s):
+            return None, "a shard reports post pairs without the list"
+        m["post_pair_list"] = sorted({x for l in l3s for x in (l.get("post_pair_list") or [])})
+        m["post_pairs"] = len(m["post_pair_list"])     # (rev5) distinct pairs over all shards, not a sum
+    covs = [l.get("coverage") or {} for l in l3s]
+    if any("missing_all" not in c for c in covs):
+        return None, "a shard's coverage lacks its uncovered edges"
+    base_ = {c["edges_total"] - len(c.get("dead_taken") or []) for c in covs}
+    if len(base_) != 1:
+        return None, "the shards disagree on the edges to cover"
+    dead_ = sorted({x for c in covs for x in (c.get("dead_taken") or [])})
+    missing = set(covs[0]["missing_all"])
+    for c in covs[1:]:
+        missing &= set(c["missing_all"])         # an edge counts as covered when any shard took it
+    total = base_.pop() + len(dead_)
+    m["coverage"] = {"edges_total": total, "edges_covered": total - len(missing), "uncovered": sorted(missing)[:20],
+                     "complete": not missing, "missing_all": sorted(missing),
+                     "uncovered_hash": hashlib.sha1("\n".join(sorted(missing)).encode()).hexdigest()[:12]}
+    if dead_:
+        m["coverage"]["dead_taken"] = dead_
+    m["shard"] = [None, n]
+    out = json.loads(json.dumps(reps[0], default=str))
+    out["level3"] = m
+    out["level"] = 2 if out.get("level", 0) >= 2 else out.get("level")
+    for k_ in ("status", "class", "error", "inconclusive", "promotable", "promotable_note", "failed_levels"):
+        out.pop(k_, None)
+    issues = []
+    seen_ = set()
+    for r in reps:
+        for i_ in (r.get("level2") or {}).get("issues") or []:
+            k2_ = json.dumps(i_, sort_keys=True, default=str)
+            if k2_ not in seen_:
+                seen_.add(k2_)
+                issues.append(i_)
+    out["level2"] = dict(out.get("level2") or {}, issues=issues, ok=not issues)
+    out["shards"] = {"n": n, "jobs": [(r.get("tree_code") or {}).get("job") for r in
+                                      sorted(reps, key=lambda r: r["level3"]["shard"][0])],
+                     "input_digests": [l.get("input_digest") for l in l3s]}
+    import time as time_
+    out = equiv.level3_verdict(out, m, issues, out.get("post"), 0, time_.time())
+    return out, "merged %d shards: %s" % (n, out.get("status"))
 
 
 def proves(rep, kind, h, view=None):
@@ -2226,6 +2390,8 @@ def proves(rep, kind, h, view=None):
     tc = rep.get("tree_code") or {}
     if h is None:
         return False, "no hash to prove"
+    if (rep.get("level3") or {}).get("shard") and not rep.get("shards"):
+        return False, "one shard of a sharded proof (merge all of them: hash --proven takes every shard's report)"
     if rep.get("equiv_off") or rep.get("equiv_on"):
         return False, "a run with non-default checker switches (EQUIV_OFF %s, EQUIV_ON %s)" % (
             ",".join(rep.get("equiv_off") or []) or "-", ",".join(rep.get("equiv_on") or []) or "-")
@@ -2656,6 +2822,9 @@ def main(argv=None):
         res = {} if (a.from_ledger or a.unproven_accepted) else _load_results(a.proven)
         addrs = {"0x%08x" % int(x, 16) for x in a.addr} if a.addr else None
         bad = 0
+        for sn_ in SHARD_NOTES:     # (integ5, D155c; rev5) each group of shard reports: merged, or refused and why
+            print(json.dumps({"shard_merge": sn_}) if a.json else "shards %s %s: %s" % (
+                sn_["addr"], "wine" if sn_["native"] else "msvc", sn_["why"]))
         for path in a.paths:
             for o in hash_proven(path, res, addrs, dry_run=a.dry_run, ledger=a.ledger,
                                  unproven_accepted=a.unproven_accepted):

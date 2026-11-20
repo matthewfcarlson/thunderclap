@@ -1522,6 +1522,41 @@ MIN_RUN = {"0x0028c2a0_rep_count": 50, "0x000e36c0_small_counts": 50, "0x002155f
            "0x0021a3e0_proofcap": 3000, "0x0024a280_native_proofwalk": 3000}    # (integ1, D62) 442 before: the 32-inconclusive stop ended the proof run at 535 drawn
 
 
+# (integ5, D155c; rev5) sharded proofs: the case's N shards run (equiv.py --shard K/N) and tools/tree_tu.py
+# merge_shards merges them. NAME: (merged status, merged class, {"src": case, "n": N, "n_inputs", "time_budget",
+# "shard_status": {K: status}}). _post_wrong_shards8: the mutant's refutations are reached by shards 0-6 but not by
+# shard 7 (equivalent alone): the merge fails, and 7 of the 8 shards alone don't prove anything
+SHARD_CASES = {
+    "0x001f87e0_post_wrong_shards8": ("fail", "post_refuted", {"src": "0x001f87e0_post_wrong", "n": 8, "n_inputs": 3000,
+                                                                "time_budget": 1200, "shard_status": {7: "equivalent"}}),
+}
+
+
+def shard_job(name):
+    """(integ5, D155c) one SHARD_CASES case: (ok, merged status, merged class, why)."""
+    equiv = __import__(os.environ.get("EQUIV_MODULE", "equiv"))
+    import tree_tu
+    want, cls, kw = SHARD_CASES[name]
+    kw = dict(kw)
+    n = kw.pop("n")
+    src = os.path.join(CASES_DIR, kw.pop("src") + ".cpp")
+    each = kw.pop("shard_status", {})
+    reps, was = [], list(equiv.SHARD)
+    try:
+        for k in range(n):
+            equiv.SHARD[:] = [k, n]
+            reps.append(equiv.verify(src, int(name.split("_")[0], 16), **kw))
+    finally:
+        equiv.SHARD[:] = was
+    bad = ["shard %d: %s, not %s" % (k, reps[k].get("status"), st) for k, st in each.items() if reps[k].get("status") != st]
+    m, why = tree_tu.merge_shards(reps)
+    if m is None:
+        return False, None, None, why
+    ok = not bad and m["status"] == want and (cls is None or m.get("class") == cls) and \
+        tree_tu.merge_shards(reps[:-1])[0] is None
+    return ok, m["status"], m.get("class"), "; ".join(bad) or why
+
+
 def x64_job(name):
     """(eq64) one X64_CASES case: (ok, status, class, difference or error)."""
     import equiv64
@@ -1667,8 +1702,8 @@ def main():
         os.environ["EQUIV_MODULE"] = a.module
     sel = set(a.names.split(",")) if a.names else None
     if a.jobq:
-        return run_jobq(a, [n for n in list(CASES) + list(RELOC_CASES) + list(DECL_CASES) + list(X64_CASES)
-                            if (not a.only or a.only in n) and (not sel or n in sel)])
+        return run_jobq(a, [n for n in list(CASES) + list(RELOC_CASES) + list(DECL_CASES) + list(X64_CASES) +
+                            list(SHARD_CASES) if (not a.only or a.only in n) and (not sel or n in sel)])
     if not os.path.exists(os.path.join(ROOT, "isos/extracted/default.xbe")):
         print("skip: no isos/extracted/default.xbe")
         return 0
@@ -1701,6 +1736,11 @@ def main():
         bad += not ok
         names.append(name)
         print("%-4s %-32s %-12s %s" % ("ok" if ok else "FAIL", name, status, "" if ok else "%s: %s" % (cls, got[:300])))
+    for name in [n for n in SHARD_CASES if (not a.only or a.only in n) and (not sel or n in sel)]:
+        ok, status, cls, got = shard_job(name)
+        bad += not ok
+        names.append(name)
+        print("%-4s %-32s %-12s %s" % ("ok" if ok else "FAIL", name, status, "" if ok else "%s: %s" % (cls, got)))
     print("%d/%d cases ok" % (len(names) - bad, len(names)))
     return 1 if bad else 0
 
