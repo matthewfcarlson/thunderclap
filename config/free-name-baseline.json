@@ -1,7 +1,7 @@
 {
  "comment": "D149: matches blocks that call one of the game's frees (operator delete / delete[], FREE_NAMES) under another name, when the gate began. Only shrinks (verify --relocs --update-free-baseline); add with tree_tu.py free-name-accept --why. decl1 removes them.",
  "seed_why": "D149 (user, 2026-11-19): free-by-other-name gates as a shrink-only ratchet; the matches blocks calling a game free under another name at 509f9aa2e (whole-tree verify --relocs, job 95138); decl1 removes them",
- "total": 1796,
+ "total": 1927,
  "tus": {
   "src/engine/audio/ChannelSendVolumeFadeBehaviour.cpp": {
    "0x0024ece0": ["?thunk_FUN_00267090@fn_f983a9d8@@YAXPAVNonCopyable_24ece0@pure3d@@@Z"]
@@ -24,6 +24,9 @@
   },
   "src/engine/audio/unk_23fa40.cpp": {
    "0x00240730": ["?thunk_FUN_00267090@fn_f2774db1@@YAXPAVCCollisionAction@1@@Z"]
+  },
+  "src/engine/audio/unk_23fa40.iso_00240a10.cpp": {
+   "0x00240a10": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d330@fn_fbd1fbb7@@YAXPAX@Z": "name"}, "names": ["?FUN_0008d330@fn_fbd1fbb7@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"}
   },
   "src/engine/choreo2/AnimationDriver.cpp": {
    "0x002259e0": ["?thunk_00263f30@fn_002259e0@@YAXPAUAnimationDriver@1@@Z"]
@@ -98,6 +101,7 @@
   },
   "src/engine/fight/Branch.cpp": {
    "0x00233d90": ["?thunk_FUN_00267090@fight@fn_00233d90@@YAXPAVBranch@12@@Z"],
+   "0x00233f20": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_00267090@fn_00233f20@@YAXPAD@Z": "name"}, "names": ["?FUN_00267090@fn_00233f20@@YAXPAD@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
    "0x00233fa0": ["?FUN_00267090@fn_f3f1aadd@@YAXH@Z"]
   },
   "src/engine/fight/BreakPointTrack.cpp": {
@@ -182,6 +186,9 @@
    "0x00235460": ["_thunk_FUN_00267090"],
    "0x00235490": ["?thunk_FUN_00267090@fn_faf04b50@@YAXPAVParamValueNameList@1@@Z"]
   },
+  "src/engine/fight/ParamValueScript.cpp": {
+   "0x00234c30": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?thunk_FUN_00267090@fn_f1ee0f39@@YAXPAX@Z": "name"}, "names": ["?thunk_FUN_00267090@fn_f1ee0f39@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"}
+  },
   "src/engine/fight/Params.cpp": {
    "0x00236a70": ["?thunk_FUN_00267090@fn_f44dc5d7@@YAXPAVNonCopyable@pure3d@1@@Z"]
   },
@@ -190,7 +197,10 @@
    "0x0023ceb0": ["?thunk_delete_00263f30@fn_fe0f08cb@@YAXPAX@Z"]
   },
   "src/engine/fight/PrintTrack.cpp": {
+   "0x00238910": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"_FUN_0008d340": "name"}, "names": ["_FUN_0008d340"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
    "0x00238970": ["?thunk_FUN_00267090@fn_fbe81dc2@@YAXPAX@Z"],
+   "0x00238a80": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"_FUN_0008d340": "name"}, "names": ["_FUN_0008d340"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
+   "0x00238ae0": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"_FUN_0008d340": "name"}, "names": ["_FUN_0008d340"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
    "0x002392b0": ["?thunk_delete_00263f30@fn_fbe81dc2@@YAXPAX@Z"],
    "0x00239370": ["?thunk_delete_00263f30@fn_fbe81dc2@@YAXPAX@Z"]
   },
@@ -238,6 +248,9 @@
   "src/engine/fight/WaitTrack.cpp": {
    "0x0023e050": ["?SweepTrack_DeleteThis_0008d330@fn_f3d35335@@YAXPAX@Z"],
    "0x0023e4a0": ["?thunk_delete_00263f30@fn_f3d35335@@YAXPAX@Z"]
+  },
+  "src/engine/fight/unk_2310a0.cpp": {
+   "0x002310a0": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d330@fn_f6bca062@@YAXPAX@Z": "name"}, "names": ["?FUN_0008d330@fn_f6bca062@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"}
   },
   "src/engine/fight/unk_232780.cpp": {
    "0x00232ae0": ["?thunk_FUN_00267090@fn_f81ad613@@YAXPAX@Z"]
@@ -334,10 +347,14 @@
   },
   "src/engine/physics/CollisionObject.cpp": {
    "0x003048a0": ["_FreeFunc_0008d340"],
+   "0x00304930": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d340@fn_f3c9f944@@YAXPAX@Z": "name"}, "names": ["?FUN_0008d340@fn_f3c9f944@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
+   "0x00304a10": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?thunk_FUN_00267090@fn_f3c9f944@@YAXPAX@Z": "name"}, "names": ["?thunk_FUN_00267090@fn_f3c9f944@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
+   "0x00304e80": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d340@fn_f3c9f944@@YAXPAX@Z": "name"}, "names": ["?FUN_0008d340@fn_f3c9f944@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
    "0x00304ff0": ["?thunk_0008d340@fn_00304ff0@@YAXPAX@Z"],
    "0x00305320": ["?freeA_0008d340@fn_00305320@@YAXPAX@Z", "?freeB_00263f30@fn_00305320@@YAXPAX@Z"]
   },
   "src/engine/physics/CollisionObjectLoader.cpp": {
+   "0x00307f30": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"_FUN_0008d340": "name"}, "names": ["_FUN_0008d340"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
    "0x00308040": ["?thunk_FUN_00267090@fn_00308040@@YAXPAVNonCopyable@pure3d@1@@Z"],
    "0x00308080": ["?thunk_FUN_00267090@fn_00308080@@YAXPAVNonCopyable@pure3d@1@@Z"]
   },
@@ -372,7 +389,8 @@
   "src/engine/physics/PhysicsObject.cpp": {
    "0x002f5460": ["?thunk_FUN_00267090@fn_ff237b18@@YAXPAVSymMatrix_2f5460@1@@Z"],
    "0x002f61c0": ["?destroy_00263f30@fn_002f61c0@@YAXPAVPhysicsObject@1@@Z"],
-   "0x002f7080": ["?thunk_FUN_00267090@fn_002f7080@@YAXPAVNonCopyable@pure3d@1@@Z"]
+   "0x002f7080": ["?thunk_FUN_00267090@fn_002f7080@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x002f70a0": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?thunk_FUN_00267090@fn_ff237b18@@YAXPAX@Z": "name"}, "names": ["?thunk_FUN_00267090@fn_ff237b18@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"}
   },
   "src/engine/physics/PhysicsPropertiesLoader.cpp": {
    "0x002f2c90": ["?thunk_FUN_00267090@fn_002f2c90@@YAXPAVNonCopyable@pure3d@1@@Z"],
@@ -382,6 +400,12 @@
    "0x0030ebd0": ["_thunk_FUN_00267090"],
    "0x0030f810": ["?thunk_FUN_00267090@fn_f346547a@@YAXPAX@Z"],
    "0x0030fc90": ["?drop_0008d340@fn_f346547a@@YAXPAX@Z"]
+  },
+  "src/engine/physics/Pose.iso_0030f870.cpp": {
+   "0x0030f870": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d340@fn_f9a2be07@@YAXPAX@Z": "name"}, "names": ["?FUN_0008d340@fn_f9a2be07@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"}
+  },
+  "src/engine/physics/Pose.iso_0030fa10.cpp": {
+   "0x0030fa10": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d340@fn_f6208780@@YAXPAX@Z": "name"}, "names": ["?FUN_0008d340@fn_f6208780@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"}
   },
   "src/engine/physics/PoseDriver.cpp": {
    "0x0030eb60": ["??3@YAXPAX@Z"]
@@ -430,6 +454,11 @@
    "0x00289e60": ["?destroy_00263f30@fn_f25f8e16@@YAXPAUAnimationLoader@1@@Z"],
    "0x00289ea0": ["?thunk_FUN_00267090@fn_00289ea0@@YAXPAVAnimationGroup@1@@Z"]
   },
+  "src/engine/pure3d/BMPHandler.cpp": {
+   "0x002af510": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_00267090@fn_f24f7502@@YAXPAX@Z": "name"}, "names": ["?FUN_00267090@fn_f24f7502@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
+   "0x002af670": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_00267090@fn_f24f7502@@YAXPAX@Z": "name"}, "names": ["?FUN_00267090@fn_f24f7502@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
+   "0x002af790": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_00267090@fn_002af790@@YAXPAE@Z": "name"}, "names": ["?FUN_00267090@fn_002af790@@YAXPAE@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"}
+  },
   "src/engine/pure3d/BillboardQuad.cpp": {
    "0x002b98a0": ["??3@YAXPAX@Z"],
    "0x002b9cb0": ["??3@YAXPAX@Z"],
@@ -466,7 +495,8 @@
    "0x002a7fa0": ["?thunk_FUN_00267090@fn_fadd80aa@@YAXI@Z"],
    "0x002a7fd0": ["?thunk_FUN_00267090@fn_fadd80aa@@YAXI@Z"],
    "0x002a80f0": ["?Free_0008d340@fn_fadd80aa@@YAXPAX@Z"],
-   "0x002a8170": ["?Free2_00263f30@fn_fadd80aa@@YAXPAX@Z", "?Free_0008d340@fn_fadd80aa@@YAXPAX@Z"]
+   "0x002a8170": ["?Free2_00263f30@fn_fadd80aa@@YAXPAX@Z", "?Free_0008d340@fn_fadd80aa@@YAXPAX@Z"],
+   "0x002a81c0": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d340@fn_fadd80aa@@YAXPAX@Z": "name"}, "names": ["?FUN_0008d340@fn_fadd80aa@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"}
   },
   "src/engine/pure3d/DXTNHandler.cpp": {
    "0x002af2b0": ["?thunk_FUN_00267090@fn_002af2b0@@YAXPAVNonCopyable@pure3d@1@@Z"]
@@ -498,6 +528,7 @@
    "0x002a47d0": ["?thunk_FUN_00267090@fn_f6d01fd6@@YAXPAX@Z"],
    "0x002a4890": ["?thunk_FUN_00267090@fn_f6d01fd6@@YAXPAX@Z"],
    "0x002a4950": ["?thunk_FUN_00267090@fn_f6d01fd6@@YAXPAVCCollisionAction@1@@Z"],
+   "0x002a4a50": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"_FUN_0008d340": "name"}, "names": ["_FUN_0008d340"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
    "0x002a4da0": ["?thunk_FUN_00267090@fn_f6d01fd6@@YAXPAX@Z"],
    "0x002a4ff0": ["?thunk_FUN_00267090@fn_002a4ff0@@YAXPAX@Z"],
    "0x002a5040": ["??3@YAXPAX@Z"]
@@ -515,6 +546,7 @@
    "0x0027b090": ["?thunk_FUN_00267090@fn_0027b090@@YAXPAVNonCopyable@pure3d@1@@Z"]
   },
   "src/engine/pure3d/ExpressionAnimationController.cpp": {
+   "0x002a9ea0": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?thunk_FUN_00267090@fn_ff685ee7@@YAXPAX@Z": "name"}, "names": ["?thunk_FUN_00267090@fn_ff685ee7@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
    "0x002aa000": ["?freefn_0008d340@fn_ff685ee7@@YAXPAX@Z", "?opdel_00263f30@fn_ff685ee7@@YAXPAX@Z"]
   },
   "src/engine/pure3d/ExpressionGroupLoader.cpp": {
@@ -538,8 +570,10 @@
    "0x002bfb70": ["?thunk_FUN_00267090@fn_fbf8e46b@@YAXH@Z"],
    "0x002bfd30": ["?Thunk_0008d340@fn_fbf8e46b@@YAXH@Z"],
    "0x002bfdd0": ["?free_pixels_0008d340@fn_fbf8e46b@@YAXPAX@Z"],
+   "0x002bfe10": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"_FUN_0008d340": "name"}, "names": ["_FUN_0008d340"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
    "0x002c0010": ["?thunk_FUN_00267090@fn_002c0010@@YAXH@Z"],
    "0x002c0070": ["?thunk_FUN_00267090@fn_fbf8e46b@@YAXPAX@Z"],
+   "0x002c00b0": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"_FUN_0008d340": "name"}, "names": ["_FUN_0008d340"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
    "0x002c0790": ["??3@YAXPAX@Z", "?destroyChooser_0008d340@fn_002c0790@@YAXPAX@Z"],
    "0x002c07d0": ["??3@YAXPAX@Z"],
    "0x002c09a0": ["??3@YAXPAX@Z"],
@@ -549,6 +583,7 @@
    "0x002dec80": ["?thunk_FUN_00267090@fn_002dec80@@YAXPAVNonCopyable@pure3d@1@@Z"]
   },
   "src/engine/pure3d/ImageFont.cpp": {
+   "0x002bf680": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?thunk_FUN_00267090@fn_002bf680@@YAXPAX@Z": "name"}, "names": ["?thunk_FUN_00267090@fn_002bf680@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
    "0x002bfa50": ["?thunk_FUN_00267090@fn_002bfa50@@YAXPAVNonCopyable@pure3d@1@@Z"],
    "0x002bfa70": ["?FUN_00263f30@fn_002bfa70@@YAXPAX@Z", "?thunk_FUN_00267090@fn_002bfa70@@YAXPAX@Z"]
   },
@@ -605,7 +640,8 @@
    "0x00299430": ["?thunk_FUN_00267090@fn_00299430@@YAXPAVNonCopyable@pure3d@1@@Z"],
    "0x00299470": ["?thunk_FUN_00267090@fn_00299470@@YAXPAVNonCopyable@pure3d@1@@Z"],
    "0x002998b0": ["??3@YAXPAX@Z"],
-   "0x00299fa0": ["?Release_0008d340@fn_f40ca5f7@@YAXPAX@Z"]
+   "0x00299fa0": ["?Release_0008d340@fn_f40ca5f7@@YAXPAX@Z"],
+   "0x0029a630": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d340@fn_0029a630@@YAXPAX@Z": "name"}, "names": ["?FUN_0008d340@fn_0029a630@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"}
   },
   "src/engine/pure3d/OpaqueTraversal.cpp": {
    "0x002a2de0": ["??3@YAXPAX@Z"]
@@ -619,7 +655,8 @@
   },
   "src/engine/pure3d/ParticleController.cpp": {
    "0x002a7340": ["?thunk_FUN_00267090@fn_fa907639@@YAXI@Z"],
-   "0x002a74e0": ["?Free@pure3d@fn_002a74e0@@YAXPAX@Z"]
+   "0x002a74e0": ["?Free@pure3d@fn_002a74e0@@YAXPAX@Z"],
+   "0x002a75a0": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d340@fn_fa907639@@YAXPAX@Z": "name"}, "names": ["?FUN_0008d340@fn_fa907639@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"}
   },
   "src/engine/pure3d/ParticleController.iso_002a7580.cpp": {
    "0x002a7580": ["??3@YAXPAX@Z"]
@@ -660,6 +697,7 @@
   },
   "src/engine/pure3d/PoseAnimationController.cpp": {
    "0x00287f40": ["??3@YAXPAX@Z"],
+   "0x00288080": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d340@fn_f83362ab@@YAXPAX@Z": "name"}, "names": ["?FUN_0008d340@fn_f83362ab@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
    "0x002886a0": ["??3@YAXPAX@Z"]
   },
   "src/engine/pure3d/PrimGroupStreamed.cpp": {
@@ -679,6 +717,7 @@
    "0x002c3d30": ["?destroy_00263f30@fn_002c3d30@@YAXPAVProximityLight@1@@Z"]
   },
   "src/engine/pure3d/QuaternionChannel.cpp": {
+   "0x0028b490": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d340@fn_0028b490@@YAXPAX@Z": "name"}, "names": ["?FUN_0008d340@fn_0028b490@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
    "0x0028b4d0": ["?thunk_0008d340@fn_f66a22d3@@YAXPAH@Z"],
    "0x0028b520": ["?thunk_0008d340@fn_f66a22d3@@YAXPAH@Z"],
    "0x0028b570": ["?thunk_0008d340@fn_f66a22d3@@YAXPAH@Z"],
@@ -738,6 +777,7 @@
    "0x002a17c0": ["??3@YAXPAX@Z"]
   },
   "src/engine/pure3d/SkeletonLoader.cpp": {
+   "0x0027b570": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d340@fn_f8d8f61c@@YAXPAX@Z": "name"}, "names": ["?FUN_0008d340@fn_f8d8f61c@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
    "0x0027b650": ["?thunk_FUN_00267090@fn_f8d8f61c@@YAXPAVCCollisionAction@1@@Z"],
    "0x0027b9a0": ["?thunk_FUN_00267090@fn_0027b9a0@@YAXPAVNonCopyable@pure3d@1@@Z"],
    "0x0027b9e0": ["?thunk_FUN_00267090@fn_0027b9e0@@YAXPAVNonCopyable@pure3d@1@@Z"],
@@ -751,6 +791,7 @@
    "0x002bd430": ["?thunk_FUN_00267090@fn_f43dee86@@YAXPAX@Z"],
    "0x002bdfa0": ["?thunk_FUN_00267090@fn_f43dee86@@YAXPAVCCollisionAction@1@@Z"],
    "0x002be420": ["?thunk_FUN_00267090@fn_f43dee86@@YAXPAX@Z"],
+   "0x002be720": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_00267090@fn_f43dee86@@YAHPAX@Z": "name"}, "names": ["?FUN_00267090@fn_f43dee86@@YAHPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
    "0x002bea70": ["?thunk_FUN_00267090@fn_f43dee86@@YAXPAX@Z"],
    "0x002bed30": ["?Free2_0008d330@fn_f43dee86@@YAXPAX@Z", "?thunk_FUN_00267090@fn_f43dee86@@YAXPAX@Z"]
   },
@@ -783,6 +824,7 @@
    "0x0029b3a0": ["??3@YAXPAX@Z", "?ReleaseThing_0008d340@fn_0029b3a0@@YAXPAX@Z"]
   },
   "src/engine/pure3d/Texture.cpp": {
+   "0x002c1f80": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d340@fn_f9a208e6@@YAXPAX@Z": "name"}, "names": ["?FUN_0008d340@fn_f9a208e6@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
    "0x002c2330": ["?thunk_FUN_00267090@fn_f9a208e6@@YAXPAX@Z"],
    "0x002c2570": ["??3@YAXPAX@Z"]
   },
@@ -791,7 +833,9 @@
   },
   "src/engine/pure3d/TextureFontLoader.cpp": {
    "0x00294de0": ["??3@YAXPAX@Z"],
-   "0x002955e0": ["?thunk_FUN_00267090@fn_002955e0@@YAXPAVNonCopyable@pure3d@1@@Z"]
+   "0x00295520": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d340@fn_00295520@@YAXPAX@Z": "name"}, "names": ["?FUN_0008d340@fn_00295520@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
+   "0x002955e0": ["?thunk_FUN_00267090@fn_002955e0@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x00295620": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?thunk_FUN_00267090@fn_00295620@@YAXPAX@Z": "name"}, "names": ["?thunk_FUN_00267090@fn_00295620@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"}
   },
   "src/engine/pure3d/TextureFontLoader.iso_00295600.cpp": {
    "0x00295600": ["??3@YAXPAX@Z"]
@@ -810,7 +854,8 @@
   },
   "src/engine/pure3d/VertexAnimKeyFrame.cpp": {
    "0x002e5a70": ["??3@YAXPAX@Z"],
-   "0x002e61c0": ["?thunk_FUN_00267090@fn_f411a916@@YAXH@Z"]
+   "0x002e61c0": ["?thunk_FUN_00267090@fn_f411a916@@YAXH@Z"],
+   "0x002e6270": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d340@fn_002e6270@@YAXPAX@Z": "name"}, "names": ["?FUN_0008d340@fn_002e6270@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"}
   },
   "src/engine/pure3d/VertexList.cpp": {
    "0x002c89b0": ["?Free_0008d340@fn_f7aa76dc@@YAXPAX@Z"]
@@ -879,13 +924,16 @@
    "0x00290450": ["?thunk_FUN_00267090@fn_00290450@@YAXPAVCCollisionAction@1@@Z"],
    "0x00290470": ["?Free_0008d330@fn_f5d7895e@@YAXPAVObj_290470@1@@Z"],
    "0x00290500": ["?ReleaseHandle_0008d340@fn_f5d7895e@@YAXI@Z"],
+   "0x002905e0": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"_FUN_0008d330": "name", "_FUN_0008d340": "name"}, "names": ["_FUN_0008d330", "_FUN_0008d340"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
    "0x00290760": ["?thunk_FUN_00267090@fn_00290760@@YAXPAVNonCopyable@pure3d@1@@Z"],
    "0x002907f0": ["?Fng_0008d340@fn_f5d7895e@@YAXH@Z"],
    "0x002908f0": ["??3@YAXPAX@Z"],
+   "0x00290910": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d340@fn_00290910@@YAXPAX@Z": "name"}, "names": ["?FUN_0008d340@fn_00290910@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
    "0x00290ab0": ["??3@YAXPAX@Z"],
    "0x00290ad0": ["?Free_0008d340@fn_f5d7895e@@YAXPAX@Z"]
   },
   "src/engine/pure3d/prop/StateProp_2.cpp": {
+   "0x0027e2d0": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d330@fn_0027e2d0@@YAXPAX@Z": "name", "?FUN_0008d340@fn_0027e2d0@@YAXPAX@Z": "name"}, "names": ["?FUN_0008d330@fn_0027e2d0@@YAXPAX@Z", "?FUN_0008d340@fn_0027e2d0@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
    "0x0027e8b0": ["?thunk_FUN_00267090@fn_0027e8b0@@YAXPAVNonCopyable@pure3d@1@@Z"]
   },
   "src/engine/pure3d/prop/StateProp_2.iso_0027e900.cpp": {
@@ -909,10 +957,15 @@
    "0x002847f0": ["?cleanup_0008d340@fn_fffbb65f@@YAXPAX@Z"]
   },
   "src/engine/pure3d/unk_28b970.cpp": {
+   "0x0028b970": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?thunk_FUN_0008d340@fn_f8c9e634@@YAXPAX@Z": "name"}, "names": ["?thunk_FUN_0008d340@fn_f8c9e634@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
    "0x0028ba20": ["?Drop_0008d340@fn_f8c9e634@@YAXPAX@Z"],
    "0x0028bb10": ["??3@YAXPAX@Z"],
    "0x0028bc20": ["?Drop_0008d340@fn_f8c9e634@@YAXPAX@Z"],
+   "0x0028bcd0": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?thunk_FUN_00267090@fn_f8c9e634@@YAXPAX@Z": "name"}, "names": ["?thunk_FUN_00267090@fn_f8c9e634@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
+   "0x0028bdb0": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?thunk_FUN_00267090@fn_0028bdb0@@YAXPAX@Z": "name"}, "names": ["?thunk_FUN_00267090@fn_0028bdb0@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
    "0x0028beb0": ["?Drop_0008d340@fn_f8c9e634@@YAXPAX@Z"],
+   "0x0028bfb0": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?thunk_FUN_00267090@fn_0028bfb0@@YAXPAX@Z": "name"}, "names": ["?thunk_FUN_00267090@fn_0028bfb0@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
+   "0x0028c040": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?thunk_FUN_00267090@fn_0028c040@@YAXPAX@Z": "name"}, "names": ["?thunk_FUN_00267090@fn_0028c040@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
    "0x0028c130": ["?Drop_0008d340@fn_f8c9e634@@YAXPAX@Z"],
    "0x0028c240": ["?Drop_0008d340@fn_f8c9e634@@YAXPAX@Z"],
    "0x0028c310": ["?Drop_0008d340@fn_f8c9e634@@YAXPAX@Z"],
@@ -927,7 +980,8 @@
   },
   "src/engine/unknown/unk_22baf0.cpp": {
    "0x0022ec20": ["?thunk@fn_f0c6a717@@YAXH@Z"],
-   "0x0022eda0": ["?ReleaseThing_0008d330@fn_f0c6a717@@YAXPAX@Z"]
+   "0x0022eda0": ["?ReleaseThing_0008d330@fn_f0c6a717@@YAXPAX@Z"],
+   "0x0022f400": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d330@fn_f0c6a717@@YAXPAX@Z": "name"}, "names": ["?FUN_0008d330@fn_f0c6a717@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"}
   },
   "src/engine/unknown/unk_27b0b0.cpp": {
    "0x0027b1d0": ["?release_0008d330@fn_fdc3a51a@@YAXPAX@Z"]
@@ -958,7 +1012,9 @@
    "0x002ef150": ["_freeObj_0008d330"]
   },
   "src/engine/unknown/unk_2feae0.cpp": {
+   "0x00300930": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d340@fn_fb493392@@YAXPAX@Z": "name"}, "names": ["?FUN_0008d340@fn_fb493392@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
    "0x00300b50": ["?Release_0008d340@fn_fb493392@@YAXPAX@Z"],
+   "0x00300d80": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d330@fn_fb493392@@YAXPAX@Z": "name", "?FUN_0008d340@fn_fb493392@@YAXPAX@Z": "name"}, "names": ["?FUN_0008d330@fn_fb493392@@YAXPAX@Z", "?FUN_0008d340@fn_fb493392@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
    "0x00300e60": ["?FUN_0008d340@fn_00300e60@@YAXI@Z"],
    "0x00300fa0": ["?relA_0008d340@fn_fb493392@@YAXPAX@Z", "?relB_0008d330@fn_fb493392@@YAXPAX@Z"]
   },
@@ -1045,6 +1101,7 @@
    "0x0004ded0": ["?SweepTrack_DeleteThis_0008d330@fn_f9e0b99b@@YAXPAX@Z"]
   },
   "src/game/global/AICollisionSolverAgent.cpp": {
+   "0x001aedb0": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?thunk_FUN_00267090@fn_f7cf5713@@YAXPAX@Z": "name"}, "names": ["?thunk_FUN_00267090@fn_f7cf5713@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
    "0x001b02e0": ["?SweepTrack_DeleteThis_0008d330@fn_f7cf5713@@YAXPAX@Z"]
   },
   "src/game/global/CAIHintTrack_2.cpp": {
@@ -1340,6 +1397,9 @@
   "src/game/global/CExplosionTrack_2_2.cpp": {
    "0x000788b0": ["?thunk_FUN_00267090@fn_f3f3201f@@YAXPAVNonCopyable@pure3d@1@@Z"]
   },
+  "src/game/global/CFEManager.GS.cpp": {
+   "0x000c1430": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d340@fn_f71c7272@@YAXPAX@Z": "name"}, "names": ["?FUN_0008d340@fn_f71c7272@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"}
+  },
   "src/game/global/CFEManager.cpp": {
    "0x000c1f50": ["?thunk_FUN_00267090@fn_f53c52ab@@YAXPAVCFEManager_c1f50@1@@Z"]
   },
@@ -1352,6 +1412,7 @@
   },
   "src/game/global/CFightParamsCollision.cpp": {
    "0x00059890": ["?MyDelete_0008d330@fn_00059890@@YAXPAX@Z"],
+   "0x00059f30": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d330@fn_f8b0a0f7@@YAXPAX@Z": "name", "?FUN_0008d340@fn_f8b0a0f7@@YAXPAX@Z": "name"}, "names": ["?FUN_0008d330@fn_f8b0a0f7@@YAXPAX@Z", "?FUN_0008d340@fn_f8b0a0f7@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
    "0x0005a010": ["?thunk_FUN_00267090@fn_f8b0a0f7@@YAXH@Z"]
   },
   "src/game/global/CFrontEndCallback_2.cpp": {
@@ -1367,7 +1428,8 @@
    "0x000af3d0": ["?thunk_FUN_00267090@fn_faa012bb@@YAXPAUCGameControllerManager@1@@Z"]
   },
   "src/game/global/CGameFlowManager.cpp": {
-   "0x0008c400": ["?thunk_FUN_00267090@fn_0008c400@@YAXPAX@Z"]
+   "0x0008c400": ["?thunk_FUN_00267090@fn_0008c400@@YAXPAX@Z"],
+   "0x0008c470": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d330@fn_0008c470@@YAXPAUPair_8c470@1@@Z": "name"}, "names": ["?FUN_0008d330@fn_0008c470@@YAXPAUPair_8c470@1@@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"}
   },
   "src/game/global/CGrappleAlertStatusCondition.cpp": {
    "0x00057e20": ["?thunk_delete_00263f30@fn_f9b6de1e@@YAXPAX@Z"],
@@ -1623,6 +1685,9 @@
   "src/game/global/CLuaNumberCondition_4.cpp": {
    "0x00058380": ["?thunk_delete_00263f30@fn_ff8b2601@@YAXPAX@Z"]
   },
+  "src/game/global/CMemoryCardManager.GS.cpp": {
+   "0x0008cbe0": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d330@fn_f8087876@@YAXPAX@Z": "name"}, "names": ["?FUN_0008d330@fn_f8087876@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"}
+  },
   "src/game/global/CMotionClimbAngleCondition.cpp": {
    "0x0004dc00": ["?SweepTrack_DeleteThis_0008d330@fn_f7347cb6@@YAXPAX@Z"],
    "0x0004dc30": ["?SweepTrack_DeleteThis_0008d330@fn_f7347cb6@@YAXPAX@Z"]
@@ -1671,6 +1736,7 @@
   "src/game/global/CPathAgent.cpp": {
    "0x00104a70": ["?thunk_FUN_00267090@fn_f58850d5@@YAXI@Z"],
    "0x00104b20": ["_thunk_FUN_00267090"],
+   "0x00104b50": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d330@fn_00104b50@@YAXPAX@Z": "name", "?FUN_0008d340@fn_00104b50@@YAXPAX@Z": "name"}, "names": ["?FUN_0008d330@fn_00104b50@@YAXPAX@Z", "?FUN_0008d340@fn_00104b50@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
    "0x00105060": ["?thunk2_0008d330@fn_00105060@@YAXPAX@Z", "?thunk_0008d340@fn_00105060@@YAXI@Z"],
    "0x00105ef0": ["?Ref_0008d340@fn_f58850d5@@YAXPAX@Z"],
    "0x00106130": ["?thunk_FUN_00267090@fn_00106130@@YAXI@Z"]
@@ -1682,7 +1748,10 @@
    "0x00106f80": ["?thunk_FUN_00267090@fn_00106f80@@YAXPAVNonCopyable@pure3d@1@@Z"]
   },
   "src/game/global/CPhysicalController.cpp": {
-   "0x000b0ff0": ["?ReleaseThing_0008d330@fn_f3919bbe@@YAXI@Z"]
+   "0x000b0ff0": ["?ReleaseThing_0008d330@fn_f3919bbe@@YAXI@Z"],
+   "0x000b1020": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?thunk_FUN_00267090@fn_f3919bbe@@YAXPAX@Z": "name"}, "names": ["?thunk_FUN_00267090@fn_f3919bbe@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
+   "0x000b1c90": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d330@fn_000b1c90@@YAXPAX@Z": "name"}, "names": ["?FUN_0008d330@fn_000b1c90@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
+   "0x000b2640": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d330@fn_000b2640@@YAXPAX@Z": "name"}, "names": ["?FUN_0008d330@fn_000b2640@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"}
   },
   "src/game/global/CPropActorStateCondition_3.cpp": {
    "0x00058640": ["?thunk_delete_00263f30@fn_f1eed91f@@YAXPAX@Z"]
@@ -1709,6 +1778,7 @@
   },
   "src/game/global/CSPHulkPropLoader.cpp": {
    "0x001d55d0": ["?FUN_0008d340@fn_f590c0bf@@YAXPAX@Z"],
+   "0x001d5730": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?thunk_FUN_00267090@fn_f590c0bf@@YAXPAX@Z": "name"}, "names": ["?thunk_FUN_00267090@fn_f590c0bf@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
    "0x001d5c50": ["??3@YAXPAX@Z"]
   },
   "src/game/global/CSPListener.cpp": {
@@ -1730,7 +1800,8 @@
    "0x0010abc0": ["?thunk_FUN_00267090@fn_0010abc0@@YAXPAVNonCopyable@pure3d@1@@Z"]
   },
   "src/game/global/CSeparationBehaviour.cpp": {
-   "0x0010ac20": ["?thunk_FUN_00267090@fn_0010ac20@@YAXPAVNonCopyable@pure3d@1@@Z"]
+   "0x0010ac20": ["?thunk_FUN_00267090@fn_0010ac20@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x0010ae50": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?thunk_FUN_00267090@fn_f3deebf2@@YAXPAX@Z": "name"}, "names": ["?thunk_FUN_00267090@fn_f3deebf2@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"}
   },
   "src/game/global/CSimController.cpp": {
    "0x000b36a0": ["?thunk_0008d330@fn_f8cdf61b@@YAXPAVCSimController@1@@Z"]
@@ -1822,6 +1893,12 @@
   "src/game/global/CSoundMix.cpp": {
    "0x001e86d0": ["?thunk_FUN_00267090@fn_f9b4d5ee@@YAXPAVNonCopyable@pure3d@1@@Z"]
   },
+  "src/game/global/CSoundRealTimeManager.cpp": {
+   "0x001eaea0": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d330@fn_f014178b@@YAXPAX@Z": "name"}, "names": ["?FUN_0008d330@fn_f014178b@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"}
+  },
+  "src/game/global/CSoundSequence.cpp": {
+   "0x001e9680": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d330@fn_f9e85a4e@@YAXPAX@Z": "name", "?FUN_0008d340@fn_f9e85a4e@@YAXPAX@Z": "name"}, "names": ["?FUN_0008d330@fn_f9e85a4e@@YAXPAX@Z", "?FUN_0008d340@fn_f9e85a4e@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"}
+  },
   "src/game/global/CSoundSystem.cpp": {
    "0x001f1250": ["?thunk_FUN_00267090@fn_001f1250@@YAXPAVNonCopyable@pure3d@1@@Z"],
    "0x001f1310": ["?done_0008d330@fn_ffeee61e@@YAXPAX@Z"],
@@ -1832,7 +1909,8 @@
   },
   "src/game/global/CSoundVoiceManager.cpp": {
    "0x001f3830": ["?thunk_FUN_00267090@fn_f7fca51a@@YAXPAUThing_1f3830@1@@Z"],
-   "0x001f3860": ["?destroy_0008d330@fn_001f3860@@YAXPAX@Z"]
+   "0x001f3860": ["?destroy_0008d330@fn_001f3860@@YAXPAX@Z"],
+   "0x001f54c0": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d330@fn_001f54c0@@YAXPAX@Z": "name"}, "names": ["?FUN_0008d330@fn_001f54c0@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"}
   },
   "src/game/global/CStageCondition_4.cpp": {
    "0x00058c50": ["?thunk_delete_00263f30@fn_fbbe4521@@YAXPAX@Z"]
@@ -1874,7 +1952,8 @@
    "0x00109a30": ["?thunk_FUN_00267090@fn_f7a37a23@@YAXPAVNonCopyable@pure3d@1@@Z"]
   },
   "src/game/global/CSubtitleManager.cpp": {
-   "0x001bfc80": ["?Free_0008d330@fn_fed79ca6@@YAXPAX@Z"]
+   "0x001bfc80": ["?Free_0008d330@fn_fed79ca6@@YAXPAX@Z"],
+   "0x001c0250": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d330@fn_001c0250@@YAXPAX@Z": "name", "?FUN_0008d340@fn_001c0250@@YAXPAX@Z": "name"}, "names": ["?FUN_0008d330@fn_001c0250@@YAXPAX@Z", "?FUN_0008d340@fn_001c0250@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"}
   },
   "src/game/global/CSweepTrack_3.cpp": {
    "0x00077720": ["?thunk_delete_00263f30@fn_fcf3eba1@@YAXPAX@Z"]
@@ -1890,7 +1969,8 @@
   },
   "src/game/global/CTriggerVolume.cpp": {
    "0x001fc000": ["?SweepTrack_DeleteThis_00263f30@fn_f9414999@@YAXPAX@Z"],
-   "0x001fc390": ["?SweepTrack_DeleteThis_00263f30@fn_f9414999@@YAXPAX@Z"]
+   "0x001fc390": ["?SweepTrack_DeleteThis_00263f30@fn_f9414999@@YAXPAX@Z"],
+   "0x001fc590": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_00263f30@fn_001fc590@@YAXPAX@Z": "name", "?FUN_00263f40@fn_001fc590@@YAXPAX@Z": "name"}, "names": ["?FUN_00263f30@fn_001fc590@@YAXPAX@Z", "?FUN_00263f40@fn_001fc590@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"}
   },
   "src/game/global/CTriggerVolumeManager.cpp": {
    "0x001ff750": ["?thunk_FUN_00267090@fn_001ff750@@YAXPAVNonCopyable@pure3d@1@@Z"]
@@ -1903,6 +1983,9 @@
   },
   "src/game/global/CUnlockableMove.cpp": {
    "0x00093470": ["?FreeThis_0008d330@fn_fae5595d@@YAXPAX@Z", "?thunk_FUN_00267090@fn_fae5595d@@YAXPAX@Z"]
+  },
+  "src/game/global/CUnlockablesManager.GS.cpp": {
+   "0x00094fb0": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d340@fn_00094fb0@@YAXPAX@Z": "name"}, "names": ["?FUN_0008d340@fn_00094fb0@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"}
   },
   "src/game/global/CVehicle.cpp": {
    "0x00083e30": ["?SweepTrack_DeleteThis_00263f30@fn_f50ba1e5@@YAXPAX@Z"]
@@ -1927,15 +2010,19 @@
    "0x00066a00": ["?thunk_FUN_00267090@fn_00066a00@@YAXH@Z"]
   },
   "src/game/global/CWorldCollisionManager.cpp": {
+   "0x00201cd0": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d340@fn_f0f2b8a0@@YAXPAX@Z": "name"}, "names": ["?FUN_0008d340@fn_f0f2b8a0@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
    "0x00202430": ["?thunk_FUN_00267090@fn_00202430@@YAXPAX@Z"],
    "0x00203150": ["?FreeMemA_0008d340@fn_00203150@@YAXPAX@Z", "?FreeMemB_0008d330@fn_00203150@@YAXPAX@Z"]
   },
   "src/game/global/CWorldStreamManager.cpp": {
    "0x00204ea0": ["?fptr_00267090@fn_f49dcb8d@@YAXPAX@Z"],
+   "0x002059d0": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_00267090@fn_f49dcb8d@@YAXPAX@Z": "name"}, "names": ["?FUN_00267090@fn_f49dcb8d@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
    "0x00205b20": ["?thunk_FUN_00267090@fn_00205b20@@YAXPAVNonCopyable@pure3d@1@@Z"],
    "0x002061e0": ["?FUN_00267090@fn_002061e0@@YAXPAX@Z"],
    "0x00206c10": ["?SweepTrack_DeleteThis_0008d330@fn_00206c10@@YAXPAX@Z"],
-   "0x00207060": ["?thunk_FUN_00267090@fn_f49dcb8d@@YAXPAVCWorldStreamManager_207060@1@@Z"]
+   "0x00207060": ["?thunk_FUN_00267090@fn_f49dcb8d@@YAXPAVCWorldStreamManager_207060@1@@Z"],
+   "0x002071e0": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_00267090@fn_f49dcb8d@@YAXPAX@Z": "name"}, "names": ["?FUN_00267090@fn_f49dcb8d@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
+   "0x002088a0": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_00267090@fn_f49dcb8d@@YAXPAD@Z": "name"}, "names": ["?FUN_00267090@fn_f49dcb8d@@YAXPAD@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"}
   },
   "src/game/global/ControllerPoller.cpp": {
    "0x000dd7a0": ["?Release_0008d330@fn_f09842b8@@YAXPAX@Z"],
@@ -1988,6 +2075,9 @@
   "src/game/global/FEPoseAnimation.cpp": {
    "0x000e8980": ["?thunk@fn_f477ab1c@@YAXI@Z"]
   },
+  "src/game/global/FETextInput.GS.cpp": {
+   "0x000dd350": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d340@fn_000dd350@@YAXPAX@Z": "name"}, "names": ["?FUN_0008d340@fn_000dd350@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"}
+  },
   "src/game/global/FETextInput.cpp": {
    "0x000dc600": ["?Free_0008d340@fn_fb73efad@@YAXPAX@Z"],
    "0x000dc810": ["?FUN_0008d340@fn_fb73efad@@YAXPAX@Z"]
@@ -2005,7 +2095,11 @@
   },
   "src/game/global/FEThingsBase_2.cpp": {
    "0x000eeac0": ["?FreeThing_0008d330@fn_000eeac0@@YAXPAX@Z"],
-   "0x000ef920": ["?Free_0008d330@fn_f196c51b@@YAXPAX@Z"]
+   "0x000ef920": ["?Free_0008d330@fn_f196c51b@@YAXPAX@Z"],
+   "0x000f0b90": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?thunk_FUN_00267090@fn_f196c51b@@YAXPAX@Z": "name"}, "names": ["?thunk_FUN_00267090@fn_f196c51b@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"}
+  },
+  "src/game/global/FEThingsBase_3.GS.cpp": {
+   "0x000f8500": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d340@fn_f1b16f90@@YAXPAX@Z": "name"}, "names": ["?FUN_0008d340@fn_f1b16f90@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"}
   },
   "src/game/global/FEThingsBase_3.cpp": {
    "0x000f1b70": ["?SweepTrack_DeleteThis_0008d330@fn_f5892d97@@YAXPAX@Z"],
@@ -2014,10 +2108,12 @@
    "0x000f1cf0": ["?thunk_FUN_00267090@fn_000f1cf0@@YAXPAVFEContainer_f1cf0@1@@Z"],
    "0x000f1d30": ["?Free_0008d330@fn_f5892d97@@YAXPAX@Z"],
    "0x000f1d70": ["?thunk_FUN_00267090@fn_000f1d70@@YAXPAVFEMenuBase@1@@Z"],
+   "0x000f5fa0": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d330@fn_f5892d97@@YAXPAX@Z": "name"}, "names": ["?FUN_0008d330@fn_f5892d97@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
    "0x000f6f60": ["?R0_0008d340@fn_f5892d97@@YAXPAX@Z", "?R1_0008d330@fn_f5892d97@@YAXPAX@Z", "?R2_0008d340@fn_f5892d97@@YAXPAX@Z", "?R3_0008d340@fn_f5892d97@@YAXPAX@Z"],
    "0x000f7960": ["?ReleaseThing_0008d340@fn_f5892d97@@YAXI@Z"],
    "0x000f79a0": ["?thunk_FUN_00267090@fn_f5892d97@@YAXH@Z"],
-   "0x000f7a10": ["?release_0008d340@fn_f5892d97@@YAXH@Z"]
+   "0x000f7a10": ["?release_0008d340@fn_f5892d97@@YAXH@Z"],
+   "0x000f83f0": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d340@fn_000f83f0@@YAXPAX@Z": "name"}, "names": ["?FUN_0008d340@fn_000f83f0@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"}
   },
   "src/game/global/Function.cpp": {
    "0x001d05a0": ["?thunk_FUN_00267090@fn_001d05a0@@YAXPAVNonCopyable@pure3d@1@@Z"]
@@ -2033,6 +2129,9 @@
   },
   "src/game/global/ISoundManager.cpp": {
    "0x000b4410": ["?thunk_FUN_00267090@fn_fde9996c@@YAXPAVNonCopyable@pure3d@1@@Z"]
+  },
+  "src/game/global/MapThing.cpp": {
+   "0x000e36c0": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?thunk_FUN_00267090@fn_ffa3e06c@@YAXPAX@Z": "name"}, "names": ["?thunk_FUN_00267090@fn_ffa3e06c@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"}
   },
   "src/game/global/MenuSelector.cpp": {
    "0x000ebca0": ["??_V@YAXPAX@Z"]
@@ -2056,11 +2155,19 @@
   "src/game/global/RDLHandler.cpp": {
    "0x00044a80": ["?thunk_FUN_00267090@fn_fe338dd9@@YAXPAVRDLHandler_44a80@1@@Z"]
   },
+  "src/game/global/ScriptHandler.GS.cpp": {
+   "0x001d36f0": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d340@fn_f932887f@@YAXPAX@Z": "name"}, "names": ["?FUN_0008d340@fn_f932887f@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"}
+  },
   "src/game/global/ScriptHandler.cpp": {
+   "0x001d3600": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d340@fn_f55829c3@@YAXPAX@Z": "name"}, "names": ["?FUN_0008d340@fn_f55829c3@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
    "0x001d4440": ["?thunk_FUN_00267090@fn_f55829c3@@YAXPAVScriptHandler_1d4440@1@@Z"]
   },
   "src/game/global/TextSelector_2.cpp": {
-   "0x000e9ff0": ["??_V@YAXPAX@Z"]
+   "0x000e9ff0": ["??_V@YAXPAX@Z"],
+   "0x000ea1b0": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d340@fn_000ea1b0@@YAXPAX@Z": "name"}, "names": ["?FUN_0008d340@fn_000ea1b0@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"}
+  },
+  "src/game/global/TextWindow_2.GS.cpp": {
+   "0x000ecf10": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?thunk_FUN_00267090@fn_f89be21d@@YAXPAX@Z": "name"}, "names": ["?thunk_FUN_00267090@fn_f89be21d@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"}
   },
   "src/game/global/TextWindow_2.cpp": {
    "0x000ece40": ["?destroy_0008d340@fn_fc766a14@@YAXPAX@Z"]
@@ -2074,7 +2181,8 @@
    "0x000df5e0": ["?Helper_0008d330@fn_f1bcb140@@YAXI@Z"],
    "0x000df610": ["?Helper_0008d330@fn_f1bcb140@@YAXI@Z"],
    "0x000df640": ["?Helper_0008d330@fn_f1bcb140@@YAXI@Z"],
-   "0x000df670": ["?Helper_0008d330@fn_f1bcb140@@YAXI@Z"]
+   "0x000df670": ["?Helper_0008d330@fn_f1bcb140@@YAXI@Z"],
+   "0x000df700": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?thunk_FUN_00267090@fn_f1bcb140@@YAXPAX@Z": "name"}, "names": ["?thunk_FUN_00267090@fn_f1bcb140@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"}
   },
   "src/game/global/unk_0e2800.cpp": {
    "0x000e2ac0": ["?ReleaseThing_0008d330@fn_fb20b5f7@@YAXH@Z"]
@@ -2089,16 +2197,27 @@
   "src/game/hulkfight/GameStateCondition.cpp": {
    "0x0012e290": ["?thunk_0008d340@fn_f587a2cf@@YAXPAX@Z"],
    "0x0012e2c0": ["_FUN_0008d340"],
+   "0x0012e320": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"_FUN_0008d340": "name"}, "names": ["_FUN_0008d340"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
    "0x0012e440": ["?thunk_0008d340@fn_0012e440@@YAXPAX@Z"],
    "0x0012e4d0": ["_thunk_FUN_00267090"],
+   "0x0012e5c0": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"_FUN_0008d340": "name"}, "names": ["_FUN_0008d340"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
+   "0x0012e620": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"_FUN_0008d340": "name"}, "names": ["_FUN_0008d340"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
    "0x0012e6e0": ["?ReleaseThing_0008d340@fn_f587a2cf@@YAXI@Z"],
+   "0x0012e710": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d340@fn_0012e710@@YAIPAX@Z": "name"}, "names": ["?FUN_0008d340@fn_0012e710@@YAIPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
+   "0x0012e770": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d340@fn_0012e770@@YAHPAX@Z": "name"}, "names": ["?FUN_0008d340@fn_0012e770@@YAHPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
    "0x0012e8b0": ["?thunk_0008d340@fn_f587a2cf@@YAXH@Z"],
    "0x0012e8d0": ["_FUN_0008d340"],
    "0x0012e9b0": ["?ReleaseThing_0008d340@fn_0012e9b0@@YAXI@Z"],
+   "0x0012e9e0": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d340@fn_0012e9e0@@YAIPAX@Z": "name"}, "names": ["?FUN_0008d340@fn_0012e9e0@@YAIPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
    "0x0012ea40": ["_FUN_0008d340"],
+   "0x0012eaa0": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d340@fn_0012eaa0@@YAPAXPAX@Z": "name"}, "names": ["?FUN_0008d340@fn_0012eaa0@@YAPAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
    "0x0012eb80": ["?release_0008d340@fn_f587a2cf@@YAXI@Z"],
+   "0x0012ebc0": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"_FUN_0008d340": "name"}, "names": ["_FUN_0008d340"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
+   "0x0012ec20": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"_FUN_0008d340": "name"}, "names": ["_FUN_0008d340"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
+   "0x0012ece0": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"_FUN_0008d340": "name"}, "names": ["_FUN_0008d340"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
    "0x0012edc0": ["?ReleaseThing_0008d340@fn_0012edc0@@YAXI@Z"],
    "0x0012edf0": ["?Free_0008d340@fn_0012edf0@@YAXPAX@Z"],
+   "0x0012ee50": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d340@fn_0012ee50@@YAIPAX@Z": "name"}, "names": ["?FUN_0008d340@fn_0012ee50@@YAIPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
    "0x0012ef20": ["?thunk_0008d340@fn_0012ef20@@YAXH@Z"],
    "0x0012f030": ["_FUN_0008d340"],
    "0x0012fbe0": ["?thunk_FUN_00267090@fn_0012fbe0@@YAXPAX@Z"],
@@ -2127,6 +2246,12 @@
    "0x00132c50": ["?thunk_delete_00263f30@fn_00132c50@@YAXPAX@Z"],
    "0x00132d10": ["?thunk_delete_00263f30@fn_00132d10@@YAXPAX@Z"],
    "0x00132dd0": ["?thunk_delete_00263f30@fn_00132dd0@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/GameStateCondition.iso_0012ec80.cpp": {
+   "0x0012ec80": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d340@@YAHPAX@Z": "name"}, "names": ["?FUN_0008d340@@YAHPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"}
+  },
+  "src/game/hulkfight/GameStateCondition.iso_0012ef40.cpp": {
+   "0x0012ef40": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"_FUN_0008d340": "name"}, "names": ["_FUN_0008d340"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"}
   },
   "src/game/hulkfight/PostEvent_StringTrack.cpp": {
    "0x0012db20": ["?thunk_FUN_00267090@fn_facdac2a@@YAXPAVPostEvent_StringTrack@hulkfight@@@Z"],
@@ -2374,6 +2499,7 @@
    "0x00114db0": ["?DeallocateObject_00263f30@fn_fe1f4182@@YAXPAX@Z"]
   },
   "src/game/hulkfight/motion/AccuracyLatencyAction.cpp": {
+   "0x00194510": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d340@fn_fc8c1e47@@YAPAXPAX@Z": "name"}, "names": ["?FUN_0008d340@fn_fc8c1e47@@YAPAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
    "0x00194ee0": ["?SweepTrack_DeleteThis_0008d330@fn_fc8c1e47@@YAXPAX@Z"],
    "0x00194f10": ["?SweepTrack_DeleteThis_0008d330@fn_fc8c1e47@@YAXPAX@Z"],
    "0x00194f40": ["?FUN_0008d330@fn_fc8c1e47@@YAXPAX@Z"],
@@ -2417,7 +2543,8 @@
    "0x0016de00": ["?thunk_delete_00263f30@fn_fb3e6666@@YAXPAX@Z"]
   },
   "src/game/hulkfight/motion/ChargeClearTrack.cpp": {
-   "0x00170dc0": ["?thunk@fn_f18c5a89@@YAXH@Z"]
+   "0x00170dc0": ["?thunk@fn_f18c5a89@@YAXH@Z"],
+   "0x00170de0": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"_FUN_0008d340": "name"}, "names": ["_FUN_0008d340"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"}
   },
   "src/game/hulkfight/motion/ChargeClearTrack_4.cpp": {
    "0x0017ed00": ["?thunk_delete_00263f30@fn_f0814f05@@YAXPAX@Z"]
@@ -2981,19 +3108,40 @@
   },
   "src/game/hulkfight/scenario/EffectAction.cpp": {
    "0x001a34f0": ["?FUN_0008d340@fn_001a34f0@@YAXPAX@Z"],
+   "0x001a36f0": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d340@fn_fc5dbd2a@@YAHPAX@Z": "name"}, "names": ["?FUN_0008d340@fn_fc5dbd2a@@YAHPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
+   "0x001a3750": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d340@fn_fc5dbd2a@@YAHPAX@Z": "name"}, "names": ["?FUN_0008d340@fn_fc5dbd2a@@YAHPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
+   "0x001a37b0": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d340@fn_fc5dbd2a@@YAHPAX@Z": "name"}, "names": ["?FUN_0008d340@fn_fc5dbd2a@@YAHPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
+   "0x001a3810": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d340@fn_001a3810@@YAXPAX@Z": "name"}, "names": ["?FUN_0008d340@fn_001a3810@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
+   "0x001a3870": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d340@fn_001a3870@@YAXPAX@Z": "name"}, "names": ["?FUN_0008d340@fn_001a3870@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
    "0x001a38d0": ["?FUN_0008d340@fn_001a38d0@@YAXPAX@Z"],
    "0x001a3930": ["?release_0008d340@fn_001a3930@@YAXPAX@Z"],
    "0x001a3990": ["?thunk_FUN_00267090@fn_fc5dbd2a@@YAXPAX@Z"],
+   "0x001a3a00": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d340@fn_001a3a00@@YAIPAX@Z": "name"}, "names": ["?FUN_0008d340@fn_001a3a00@@YAIPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
+   "0x001a3ae0": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d340@fn_001a3ae0@@YAPAXPAX@Z": "name"}, "names": ["?FUN_0008d340@fn_001a3ae0@@YAPAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
    "0x001a3b50": ["?thunk_FUN_00267090@fn_fc5dbd2a@@YAXPAX@Z"],
+   "0x001a3c30": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d340@fn_fc5dbd2a@@YAHPAX@Z": "name"}, "names": ["?FUN_0008d340@fn_fc5dbd2a@@YAHPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
+   "0x001a3ca0": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d340@fn_001a3ca0@@YAHPAX@Z": "name"}, "names": ["?FUN_0008d340@fn_001a3ca0@@YAHPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
+   "0x001a3d10": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d340@fn_001a3d10@@YAHPAX@Z": "name"}, "names": ["?FUN_0008d340@fn_001a3d10@@YAHPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
+   "0x001a3d80": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d340@fn_001a3d80@@YAPAXPAX@Z": "name"}, "names": ["?FUN_0008d340@fn_001a3d80@@YAPAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
    "0x001a3df0": ["_freeMem_0008d340"],
    "0x001a3e60": ["?thunk_FUN_00267090@fn_fc5dbd2a@@YAXPAX@Z"],
+   "0x001a3ed0": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d340@fn_001a3ed0@@YAIPAX@Z": "name"}, "names": ["?FUN_0008d340@fn_001a3ed0@@YAIPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
    "0x001a3fb0": ["?FUN_0008d340@fn_001a3fb0@@YAXPAX@Z"],
+   "0x001a4090": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d340@fn_001a4090@@YAIPAX@Z": "name"}, "names": ["?FUN_0008d340@fn_001a4090@@YAIPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
+   "0x001a4100": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"_thunk_FUN_0008d340": "name"}, "names": ["_thunk_FUN_0008d340"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
+   "0x001a4170": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d340@fn_001a4170@@YAIPAX@Z": "name"}, "names": ["?FUN_0008d340@fn_001a4170@@YAIPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
    "0x001a41e0": ["_freeBuf_0008d340"],
    "0x001a4330": ["?thunk_FUN_00267090@fn_fc5dbd2a@@YAXPAX@Z"],
    "0x001a4410": ["?thunk_FUN_00267090@fn_fc5dbd2a@@YAXPAX@Z"],
+   "0x001a4480": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"_thunk_FUN_0008d340": "name"}, "names": ["_thunk_FUN_0008d340"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
    "0x001a4560": ["?thunk_FUN_00267090@fn_001a4560@@YAXPAD@Z"],
    "0x001a45d0": ["_FreeMem_0008d340"],
+   "0x001a4640": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d340@fn_001a4640@@YAIPAX@Z": "name"}, "names": ["?FUN_0008d340@fn_001a4640@@YAIPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
    "0x001a46b0": ["?FUN_0008d340@fn_001a46b0@@YAXPAX@Z"],
+   "0x001a4720": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d340@fn_001a4720@@YAXPAX@Z": "name"}, "names": ["?FUN_0008d340@fn_001a4720@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
+   "0x001a4790": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d340@fn_001a4790@@YAIPAX@Z": "name"}, "names": ["?FUN_0008d340@fn_001a4790@@YAIPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
+   "0x001a4800": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d340@fn_001a4800@@YAXPAX@Z": "name"}, "names": ["?FUN_0008d340@fn_001a4800@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
+   "0x001a4870": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d340@fn_001a4870@@YAHPAX@Z": "name"}, "names": ["?FUN_0008d340@fn_001a4870@@YAHPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
    "0x001a5aa0": ["?SweepTrack_DeleteThis_0008d330@fn_fc5dbd2a@@YAXPAX@Z"],
    "0x001a5ad0": ["?thunk_FUN_00267090@fn_fc5dbd2a@@YAXPAUObj_1a5ad0@1@@Z"],
    "0x001a5b00": ["?SweepTrack_DeleteThis_0008d330@fn_fc5dbd2a@@YAXPAX@Z"],
@@ -3031,6 +3179,9 @@
    "0x001ac970": ["?thunk_delete_00263f30@fn_fc09f66d@@YAXPAX@Z"],
    "0x001aca20": ["?thunk_delete_00263f30@fn_fc09f66d@@YAXPAX@Z"],
    "0x001acad0": ["?thunk_delete_00263f30@fn_fc09f66d@@YAXPAX@Z"]
+  },
+  "src/game/hulkfight/scenario/LuaCondition.GS.cpp": {
+   "0x001a14f0": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d340@fn_f21f790b@@YAXPAX@Z": "name"}, "names": ["?FUN_0008d340@fn_f21f790b@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"}
   },
   "src/game/hulkfight/scenario/LuaCondition.cpp": {
    "0x001a1350": ["?thunk_FUN_00267090@fn_fd836fc7@@YAXPAX@Z"],
@@ -3168,9 +3319,11 @@
    "0x00091cc0": ["?thunk_FUN_00267090@fn_f9898967@@YAXH@Z"],
    "0x00091e30": ["?thunk_FUN_00267090@fn_00091e30@@YAXPAX@Z"],
    "0x00091ef0": ["?rel_0008d340@fn_f9898967@@YAXPAX@Z"],
+   "0x00091fe0": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"_FUN_0008d340": "name"}, "names": ["_FUN_0008d340"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
    "0x000920f0": ["?thunk_FUN_00267090@fn_000920f0@@YAXPAX@Z"]
   },
   "src/game/unknown/unk_092120.cpp": {
+   "0x00092120": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"_FUN_0008d340": "name"}, "names": ["_FUN_0008d340"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
    "0x000921d0": ["?thunk_FUN_00267090@fn_f9a5903c@@YAXPAX@Z"],
    "0x00092270": ["?ReleaseThing_0008d340@fn_00092270@@YAXPAX@Z"]
   },
@@ -3179,7 +3332,8 @@
    "0x000b0e20": ["?thunk_FUN_00267090@fn_f3cf613f@@YAXPAX@Z"]
   },
   "src/game/unknown/unk_0bbb00.cpp": {
-   "0x000bbb20": ["?thunk_FUN_00267090@fn_fc9dd2b5@@YAXPAVNonCopyable@pure3d@1@@Z"]
+   "0x000bbb20": ["?thunk_FUN_00267090@fn_fc9dd2b5@@YAXPAVNonCopyable@pure3d@1@@Z"],
+   "0x000bc100": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"_FUN_0008d340": "name"}, "names": ["_FUN_0008d340"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"}
   },
   "src/game/unknown/unk_0bc1e0.cpp": {
    "0x000bc4d0": ["?Release_0008d340@fn_f87c96cc@@YAXPAX@Z"]
@@ -3189,6 +3343,7 @@
   },
   "src/game/unknown/unk_10c0d0.cpp": {
    "0x0010c8b0": ["?thunk@fn_f15aa14c@@YAXH@Z"],
+   "0x0010c8d0": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d340@fn_f15aa14c@@YAHPAX@Z": "name"}, "names": ["?FUN_0008d340@fn_f15aa14c@@YAHPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
    "0x0010c990": ["?thunk_0008d340@fn_0010c990@@YAXH@Z"],
    "0x0010cae0": ["?thunk_0008d340@fn_0010cae0@@YAXH@Z"],
    "0x0010cc20": ["?thunk_0008d340@fn_0010cc20@@YAXH@Z"],
@@ -3196,6 +3351,12 @@
    "0x0010cd00": ["?thunk_0008d340@fn_0010cd00@@YAXH@Z"],
    "0x0010ce40": ["?thunk_0008d340@fn_0010ce40@@YAXH@Z"],
    "0x0010ce60": ["_thunk_FUN_00267090"]
+  },
+  "src/game/unknown/unk_10c0d0.iso_0010c9b0.cpp": {
+   "0x0010c9b0": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"_FUN_0008d340": "name"}, "names": ["_FUN_0008d340"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"}
+  },
+  "src/game/unknown/unk_10c0d0.iso_0010cd20.cpp": {
+   "0x0010cd20": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"_FUN_0008d340": "name"}, "names": ["_FUN_0008d340"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"}
   },
   "src/game/unknown/unk_10e950.cpp": {
    "0x0010e990": ["?SweepTrack_DeleteThis_0008d330@fn_f9459e3d@@YAXPAX@Z"],
@@ -3208,6 +3369,9 @@
    "0x0010eae0": ["?thunk_FUN_00267090@fn_f9459e3d@@YAXPAVHulkActionTrack@ai@hulkfight@@@Z"],
    "0x0010eb40": ["?SweepTrack_DeleteThis_0008d330@fn_f9459e3d@@YAXPAX@Z"],
    "0x0010eba0": ["?SweepTrack_DeleteThis_0008d330@fn_f9459e3d@@YAXPAX@Z"]
+  },
+  "src/game/unknown/unk_11b800.cpp": {
+   "0x0011c290": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"_FUN_0008d340": "name"}, "names": ["_FUN_0008d340"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"}
   },
   "src/game/unknown/unk_124e60.cpp": {
    "0x00124e60": ["?SweepTrack_DeleteThis_0008d330@fn_f60bff30@@YAXPAX@Z"],
@@ -3257,6 +3421,9 @@
    "0x00150840": ["?SweepTrack_DeleteThis_0008d330@fn_fb14e9c5@@YAXPAX@Z"],
    "0x00150870": ["?SweepTrack_DeleteThis_0008d330@fn_fb14e9c5@@YAXPAX@Z"],
    "0x001508a0": ["?SweepTrack_DeleteThis_0008d330@fn_fb14e9c5@@YAXPAX@Z"]
+  },
+  "src/game/unknown/unk_165380.cpp": {
+   "0x00166230": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"_FUN_0008d340": "name"}, "names": ["_FUN_0008d340"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"}
   },
   "src/game/unknown/unk_167560.cpp": {
    "0x00167560": ["?SweepTrack_DeleteThis_0008d330@fn_fb3274a2@@YAXPAX@Z"],
@@ -3337,6 +3504,7 @@
   },
   "src/game/unknown/unk_1f9530.cpp": {
    "0x001fa7a0": ["?FUN_0008d330@fn_f80593ac@@YAXPAVObj_1fa7a0@1@@Z"],
+   "0x001fa8b0": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?thunk_FUN_00267090@fn_f80593ac@@YAXPAX@Z": "name"}, "names": ["?thunk_FUN_00267090@fn_f80593ac@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
    "0x001fa920": ["?thunk_FUN_00267090@fn_f80593ac@@YAXPAVCCollisionAction@1@@Z"]
   },
   "src/platform/xbox/core/ControllerXBox.cpp": {
@@ -3391,6 +3559,7 @@
    "0x0032aa30": ["?thunk_FUN_00267090@fn_f1389006@@YAXPAX@Z"]
   },
   "src/platform/xbox/pure3d/d3dTexture.cpp": {
+   "0x00326a10": {"accepted": "2026-11-19T23:09:53", "by": "free-name-accept", "how": {"?FUN_0008d330@fn_00326a10@@YAXPAX@Z": "name"}, "names": ["?FUN_0008d330@fn_00326a10@@YAXPAX@Z"], "why": "D149 equivalent-block name seed (integ3-xtu): every equivalent block's callee name reaching a game free under another name [records: job 100608-100631 at 02f62f4cb]"},
    "0x00326c40": ["?thunk_FUN_00267090@fn_00326c40@@YAXPAX@Z"]
   },
   "src/platform/xbox/pure3d/d3dToon2VertexShader.cpp": {

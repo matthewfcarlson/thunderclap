@@ -14,6 +14,9 @@ is then checked:
   consistency                  one symbol -> one target within the function; two symbols -> one target is a warning
   library name                 a C runtime name the CRT tables list at an address (src/platform/sdl/crt/
                                host_crt_table.h, native_crt_table.h) hits that address (RELOC_OFF=libname)
+  free name (D132, SOFT)       a reference reaching one of the game's frees (FREE_NAMES) carries that free's own
+                               name: a call, an address stored as data (a deleter pointer, a callback argument)
+                               and a relocation inside a table the TU defines (RELOC_OFF=freename)
   address as integer           an operand with no relocation that the original's instruction uses as an address
                                (tools/addr_literal.py; RELOC_OFF=addrlit switches it off)
 
@@ -353,12 +356,75 @@ def free_name_issue(name, target, xbe=None):
     return ("free_by_other_name", name)
 
 
+def name_target(name):
+    """(integ3, D149) The address a symbol's name gives without relocations: a placeholder's (FUN_/LAB_<addr>), a suffix
+    name's (`Free_00263f30`), `thunk_FUN_x`'s target x (the thunk reaches what x reaches); else None."""
+    m = re.search(r"(?:^|[?_@])thunk_FUN_([0-9a-fA-F]{8})(?:@|$)", name or "")
+    if m:
+        return int(m.group(1), 16)
+    a = placeholder_address(name)
+    if a is None:
+        a = addr_names.symbol_suffix_address(name)
+    return a
+
+
+def free_name_by_name(name, xbe=None):
+    """(integ3, D149) free_name_issue for a reference of an EQUIVALENT block, whose relocations no byte match pairs
+    with the original: by the address the name itself gives (name_target). A name matching any free's own name
+    (FREE_NAMES) passes; a name that gives no address can't be judged here (xtu_check resolves those tree-wide)."""
+    if "freename" in os.environ.get("RELOC_OFF", ""):
+        return None
+    if any(rx.match(name or "") for rx in FREE_NAMES.values()):
+        return None
+    a = name_target(name)
+    if a is None:
+        return None
+    if a not in FREE_NAMES:
+        xbe = xbe or state()["xbe"]
+        sec = xbe.section_of(a)
+        if sec is None or sec.name != ".text":
+            return None
+    return free_name_issue(name, a, xbe)
+
+
+def free_address_issue(name, target, xbe=None):
+    """(integ3, D132 item 6) free_name_issue for a reference that is not a call: NAME's address stored as data (a
+    deleter pointer in a record or table, a callback argument, a function-pointer global's initializer). TARGET is
+    the original's DIR32 operand; only a code address (.text) is followed through its one-jmp thunks, so a data
+    operand that happens to start with 0xE9 is never taken for a thunk."""
+    xbe = xbe or state()["xbe"]
+    sec = xbe.section_of(target)
+    if sec is None or sec.name != ".text":
+        return None
+    return free_name_issue(name, target, xbe)
+
+
+def data_relocs(coff, name):
+    """(integ3, D132 item 6) [(offset in the data symbol NAME, target symbol name, reloc type, inline addend bytes)]
+    of the relocations inside NAME's extent in COFF (a table or record the TU defines); [] when NAME isn't
+    defined there."""
+    s = next((x for x in coff.symbols if x[0] == name and x[2] > 0 and x[3] != 0x20), None)
+    if s is None:
+        return []
+    _, value, secnum, _, _ = s
+    _, raw, relocs = coff.sections[secnum - 1]
+    later = [x[1] for x in coff.symbols if x[2] == secnum and x[1] > value]
+    end = min(later) if later else len(raw)
+    out = []
+    for va, si, typ in relocs:
+        if value <= va < end:
+            t = coff.by_index.get(si)
+            out.append((va - value, t[0] if t else None, typ, raw[va:va + 4] if raw else b"\0\0\0\0"))
+    return out
+
+
 def check_object(coff, sym, addr):
     """The relocation checks of function SYM of COFF, which byte-matches the original at ADDR."""
     st = state()
     xbe = st["xbe"]
     issues, mapping = [], {}
     calls, thisdecls = {}, []
+    free_refs = []      # (integ3, D132) the free_by_other_name references: how each reaches the free
     for off, target_sym, typ, addend_bytes in coff.function_relocs(sym):
         if target_sym is None:
             issues.append(("unknown_symbol", off))
@@ -379,6 +445,14 @@ def check_object(coff, sym, addr):
             fi = free_name_issue(name, target, xbe)
             if fi:
                 issues.append(fi)
+                free_refs.append({"name": name, "target": "0x%08x" % target, "how": "call"})
+        elif typ == DIR32 and kind == "symbol":
+            # (integ3, D132 item 6) a free's address stored as data (`p->deleter = FUN_0008d340`, a callback
+            # argument): the stored name binds natively like a called one
+            fi = free_address_issue(name, target, xbe)
+            if fi:
+                issues.append(fi)
+                free_refs.append({"name": name, "target": "0x%08x" % target, "how": "address"})
         if mapping.get(name, target) != target:
             issues.append(("inconsistent", name))
         mapping[name] = target
@@ -453,6 +527,24 @@ def check_object(coff, sym, addr):
         addrlits = addr_literal.unrelocated_addresses(code, mask, addr)
         for h in addrlits:
             issues.append(("address_as_integer", "%s@+%s" % (h["value"], h["offset"])))
+    # (integ3, D132 item 6) a table or record this TU defines and the function binds to an original address (a
+    # function-pointer global, a vftable-like table of deleters): each relocation inside it is paired with the
+    # original's dword at the same offset, and a free stored there must carry the free's own name
+    for dname, dtarget in sorted(mapping.items()):
+        if classify(dname) != "symbol" or dname in calls:
+            continue
+        for k, rname, rtyp, rbytes in data_relocs(coff, dname):
+            if rtyp != DIR32 or not rname or classify(rname) != "symbol":
+                continue
+            o = xbe.offset(dtarget + k)
+            if o is None:
+                continue
+            orig_t = (struct.unpack("<I", xbe.data[o:o + 4])[0] - struct.unpack("<i", rbytes)[0]) & 0xFFFFFFFF
+            fi = free_address_issue(rname, orig_t, xbe)
+            if fi:
+                issues.append(fi)
+                free_refs.append({"name": rname, "target": "0x%08x" % orig_t,
+                                  "how": "table %s+0x%x" % (dname, k)})
     # (cl3) a global the source defines: its initial bytes must be the original's
     inits = initializer_diffs(coff.data, mapping, xbe_read(xbe))
     for rec in inits:
@@ -467,7 +559,8 @@ def check_object(coff, sym, addr):
     return {"addr": "0x%08x" % addr, "status": "ok" if not hard else "bad", "relocs": len(mapping),
             "issues": issues, "map": {k: "0x%08x" % v for k, v in mapping.items()},
             **({"initializers": inits} if inits else {}), **({"thiscall_decls": thisdecls} if thisdecls else {}),
-            **({"address_literals": addrlits} if addrlits else {})}
+            **({"address_literals": addrlits} if addrlits else {}),
+            **({"free_refs": free_refs} if free_refs else {})}
 
 
 _STRIP = re.compile(r'//[^\n]*|/\*.*?\*/|"(?:\\.|[^"\\\n])*"|\'(?:\\.|[^\'\\\n])*\'', re.S)
