@@ -145,7 +145,9 @@ The game's free calls are `operator delete(p)` / `operator delete[](p)`: 0x0008d
 scope. Never add a new name for the free (D115). When the checker pairs an
 unaddressed operator name to the wrong call (`??_V` paired with 0x0008d6d0), add `// equiv-map: NAME = 0xADDR` to the block:
 a mapping hint, not a relaxation (nat2). A `??_G` written as an explicit function keeps `X::~X() {}` (other TUs'
-native code references `??1X`) and has `??_G`'s signature, `void* vfunc_N(unsigned int flags)` (D114).
+native code references `??1X`) and has `??_G`'s signature, `void* vfunc_N(unsigned int flags)` (D114). For the script-binding gen templates (Closure/Method/Function) no native
+`template class` line or destructor specialization is needed any more: either one re-instantiates gen's polymorphic
+templates natively (RTTI, unbound `??1`) (script2, a47fd3f2c).
 All declarations of one C name in a TU are one function: write one `extern "C"` declaration per callee per TU, and when
 an include/ header declares the name, use its prototype exactly (clang rejects a differing redeclaration natively even
 where MSVC 7.1 sees `int` both times). An int that the definition receives as a pointer is retyped on the definition and
