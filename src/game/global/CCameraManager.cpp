@@ -850,9 +850,9 @@ class Obj {
     Child* child;
     char _m_pad_bc[0x8];
     union { Sub* p; Sub* sub; };
-    void Set(int x, int y, int z, int w);
+    void FUN_00099000(int x, int y, int z, int w);
     void Fn(int a, int b);
-    void Set(int x, int y);
+    void FUN_000997e0(int x, int y);
     void Func(int);
 };
 struct Sub_99c60 {
@@ -1859,8 +1859,8 @@ void Owner_98f50::initialize(unsigned a, unsigned b, unsigned c, unsigned d, uns
 
 
 // 0x00099000 FUN_00099000 (43 B): matches/0x00099000.cpp
-// sym: ?Set@Obj@fn_f5ef2b3f@@QAEXHHHH@Z
-void Obj::Set(int x, int y, int z, int w) {
+// sym: ?FUN_00099000@Obj@fn_f5ef2b3f@@QAEXHHHH@Z
+void Obj::FUN_00099000(int x, int y, int z, int w) {
     a = x;
     b = y;
     c = z;
@@ -2278,8 +2278,8 @@ void Obj::Set(int a, int b) {
 namespace fn_f5ef2b3f {
 
 // 0x000997e0 FUN_000997e0 (35 B): matches/0x000997e0.cpp
-// sym: ?Set@Obj@fn_f5ef2b3f@@QAEXHH@Z
-void Obj::Set(int x, int y) {
+// sym: ?FUN_000997e0@Obj@fn_f5ef2b3f@@QAEXHH@Z
+void Obj::FUN_000997e0(int x, int y) {
     sub->a = x;
     sub->b = y;
 }

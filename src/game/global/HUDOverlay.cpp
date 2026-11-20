@@ -361,15 +361,15 @@ class Obj {
     char names[8][0x40];
     void SetName(const char*);
     void Full_000caab0();
-    int Go(int a, int b);
-    void Fn(int a, int b);
+    int FUN_000cafd0(int a, int b);
+    void FUN_000caff0(int a, int b);
     void Action_000c90d0(int a, int b);
-    void Forward(int a, int b);
+    void FUN_000cb010(int a, int b);
     void Run_000c9100(int);
-    void Forward(int);
-    int Go(int a, int b, Vec c, Vec d);
+    void FUN_000cb030(int);
+    int FUN_000cb090(int a, int b, Vec c, Vec d);
     void fn_000c8410(int, Vec3);
-    void Fn(int, Vec);
+    void FUN_000cb230(int, Vec);
 };
 class Wrap {
     char pad[0x88];
@@ -972,8 +972,8 @@ void Outer::Run(int a, V3 v) {
 
 
 // 0x000cafd0 FUN_000cafd0 (21 B): matches/0x000cafd0.cpp
-// sym: ?Go@Obj@fn_fb3f3f46@@QAEHHH@Z
-int Obj::Go(int a, int b) {
+// sym: ?FUN_000cafd0@Obj@fn_fb3f3f46@@QAEHHH@Z
+int Obj::FUN_000cafd0(int a, int b) {
     int result = -1;
     Item* q = p;
     if (q)
@@ -983,24 +983,24 @@ int Obj::Go(int a, int b) {
 
 
 // 0x000caff0 FUN_000caff0 (18 B): matches/0x000caff0.cpp
-// sym: ?Fn@Obj@fn_fb3f3f46@@QAEXHH@Z
-void Obj::Fn(int a, int b) {
+// sym: ?FUN_000caff0@Obj@fn_fb3f3f46@@QAEXHH@Z
+void Obj::FUN_000caff0(int a, int b) {
     if (other)
         other->Fn_000c7f50(a, b);
 }
 
 
 // 0x000cb010 FUN_000cb010 (18 B): matches/0x000cb010.cpp
-// sym: ?Forward@Obj@fn_fb3f3f46@@QAEXHH@Z
-void Obj::Forward(int a, int b) {
+// sym: ?FUN_000cb010@Obj@fn_fb3f3f46@@QAEXHH@Z
+void Obj::FUN_000cb010(int a, int b) {
     if (child)
         child->Action_000c90d0(a, b);
 }
 
 
 // 0x000cb030 FUN_000cb030 (18 B): matches/0x000cb030.cpp
-// sym: ?Forward@Obj@fn_fb3f3f46@@QAEXH@Z
-void Obj::Forward(int x) {
+// sym: ?FUN_000cb030@Obj@fn_fb3f3f46@@QAEXH@Z
+void Obj::FUN_000cb030(int x) {
     if (ptr)
         ptr->Run_000c9100(x);
 }
@@ -1032,8 +1032,8 @@ void Owner_cb080::Fn() {
 
 
 // 0x000cb090 FUN_000cb090 (81 B): matches/0x000cb090.cpp
-// sym: ?Go@Obj@fn_fb3f3f46@@QAEHHHUVec@2@0@Z
-int Obj::Go(int a, int b, Vec c, Vec d) {
+// sym: ?FUN_000cb090@Obj@fn_fb3f3f46@@QAEHHHUVec@2@0@Z
+int Obj::FUN_000cb090(int a, int b, Vec c, Vec d) {
     int result = -1;
     if (mgr)
         result = mgr->Run_000c9210(a, b, c, d);
@@ -1078,8 +1078,8 @@ void Wrap::fn(int a, Vec3 v) {
 
 
 // 0x000cb230 FUN_000cb230 (48 B): matches/0x000cb230.cpp
-// sym: ?Fn@Obj@fn_fb3f3f46@@QAEXHUVec@2@@Z
-void Obj::Fn(int a, Vec v) {
+// sym: ?FUN_000cb230@Obj@fn_fb3f3f46@@QAEXHUVec@2@@Z
+void Obj::FUN_000cb230(int a, Vec v) {
     if (inner)
         inner->Fn_000c8450(a, v);
 }

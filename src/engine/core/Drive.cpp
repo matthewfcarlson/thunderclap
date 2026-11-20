@@ -308,9 +308,9 @@ void owners::C_272b40::FUN_00272b40(unsigned char x) {
 namespace fn_f59a9783 {
 
 // 0x00272b50 FUN_00272b50 (4 B): matches/0x00272b50.cpp
-// sym: ?target@fn_f59a9783@@YIEPAVX_272b50@1@PAX@Z
+// sym: ?FUN_00272b50@fn_f59a9783@@YIEPAVX_272b50@1@PAX@Z
 // core::Drive (records.h CoreDrive): the flag at +0x5c
-unsigned char __fastcall target(X_272b50* self, void*) {
+unsigned char __fastcall FUN_00272b50(X_272b50* self, void*) {
     return self->flag5c;
 }
 
@@ -367,9 +367,9 @@ void D::f(void* a0) {
 namespace fn_f59a9783 {
 
 // 0x00272bc0 FUN_00272bc0 (4 B): matches/0x00272bc0.cpp
-// sym: ?target@fn_f59a9783@@YIPAXPAUObj_272bc0@1@@Z
+// sym: ?FUN_00272bc0@fn_f59a9783@@YIPAXPAUObj_272bc0@1@@Z
 // core::Drive (records.h CoreDrive): its library list at +0x14
-void* __fastcall target(Obj_272bc0* self) {
+void* __fastcall FUN_00272bc0(Obj_272bc0* self) {
     return &self->libraries;
 }
 

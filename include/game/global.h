@@ -146,6 +146,6 @@ extern "C" void* FUN_00266e00(int heap, int size);
 extern "C" int __cdecl FUN_00096600(const char *a, const char *b);
 void thunk(void*);
 extern "C" void __cdecl FUN_00240bb0();
-extern "C" int __cdecl FUN_002673a0(int, int);
+extern "C" int __cdecl FUN_002673a0(hulk_intptr, int);
 TREE_TU_END
 #endif

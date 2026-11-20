@@ -632,7 +632,7 @@ int FUN_001cc5e0() {
 
 // 0x001cc600 FUN_001cc600 (32 B): matches/0x001cc600.cpp
 // sym: ?target@fn_fdf9c5a9@@YIXPAX@Z
-void __fastcall target(void* p) {
+void __fastcall target(void* p) {   // (decl1) unique once its group mates are named by address; FUN_001cc600 is 0x001cc620's char declaration
     A_1cc600* a = hulk_at_004dd6ec;
     if (a && a->child && a->child->next)
         a->child->next->run_000d6fb0(p);
@@ -788,8 +788,8 @@ char CScenarioManager::FUN_001cc8f0() {
 namespace fn_fdf9c5a9 {
 
 // 0x001cc900 FUN_001cc900 (7 B): matches/0x001cc900.cpp
-// sym: ?target@fn_fdf9c5a9@@YIHPAVC_1cc900@1@@Z
-int __fastcall target(C_1cc900* p) {
+// sym: ?FUN_001cc900@fn_fdf9c5a9@@YIHPAVC_1cc900@1@@Z
+int __fastcall FUN_001cc900(C_1cc900* p) {
     return p->value;
 }
 
@@ -921,8 +921,8 @@ void CScenarioManager_1ccc10::Set(int v) {
 
 
 // 0x001ccc20 FUN_001ccc20 (7 B): matches/0x001ccc20.cpp
-// sym: ?target@fn_fdf9c5a9@@YIMPAVC_1ccc20@1@@Z
-float __fastcall target(C_1ccc20* self) {
+// sym: ?FUN_001ccc20@fn_fdf9c5a9@@YIMPAVC_1ccc20@1@@Z
+float __fastcall FUN_001ccc20(C_1ccc20* self) {
     return self->value;
 }
 
@@ -1051,8 +1051,8 @@ void CScenarioManager::FUN_001ccfe0(unsigned char v) {
 namespace fn_fdf9c5a9 {
 
 // 0x001ccff0 FUN_001ccff0 (7 B): matches/0x001ccff0.cpp
-// sym: ?target@fn_fdf9c5a9@@YIEPAVC_1ccff0@1@@Z
-unsigned char __fastcall target(C_1ccff0* self) {
+// sym: ?FUN_001ccff0@fn_fdf9c5a9@@YIEPAVC_1ccff0@1@@Z
+unsigned char __fastcall FUN_001ccff0(C_1ccff0* self) {
     return self->value;
 }
 

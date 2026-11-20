@@ -129,7 +129,7 @@ void thunk_FUN_00267090(pure3d::NonCopyable*);
 } // namespace fn_f4b77e46
 extern "C" unsigned __int64 __cdecl FUN_002672f0(hulk_intptr, int, int);   // (decl1) as defined (unk_267280.cpp)
 namespace fn_f4b77e46 {
-extern "C" int __cdecl FUN_002673a0(int, int);
+extern "C" int __cdecl FUN_002673a0(hulk_intptr, int);
 struct CSoundCommand_1f01c0 {
     int field4, field8, fieldC;
     CSoundCommand_1f01c0(int c) : field4(0), field8(0), fieldC(c) {}
@@ -353,7 +353,7 @@ void Player_1effc0::FUN_001effc0(float delta) {
 // sym: ??0CSoundCommand_PlaySequenceEvent@fn_001f0150@@QAE@HHH@Z
 namespace fn_001f0150 {
 extern "C" unsigned __int64 __cdecl FUN_002672f0(hulk_intptr, int, int);   // (decl1) as defined (unk_267280.cpp)
-extern "C" int __cdecl FUN_002673a0(int, int);
+extern "C" int __cdecl FUN_002673a0(hulk_intptr, int);
 class CSoundCommand_1f0150 {
   public:
     virtual void v();

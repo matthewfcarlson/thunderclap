@@ -134,7 +134,7 @@ struct Iter_261460 {
     int v;
 };
 int FUN_002611b0(int* p);
-int FUN_002673a0(int a, int b);
+int FUN_002673a0(hulk_intptr a, int b);
 hulk_intptr FUN_002610e0(int m, int* k);
 void FUN_00261120(int m, int* k, Iter_261460* it);
 struct Helper_261460 {

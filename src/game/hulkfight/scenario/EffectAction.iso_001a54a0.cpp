@@ -49,7 +49,7 @@ struct Source_1a54a0 {
 };
 
 extern Globals_1a54a0 *DAT_004dd700;
-extern "C" unsigned __int64 FUN_002672f0(int id, int a, int b);
+extern "C" unsigned __int64 FUN_002672f0(hulk_intptr id, int a, int b);
 
 struct Component_1a54a0 {
     char pad0[0x1c];

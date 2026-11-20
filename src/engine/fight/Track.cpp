@@ -17,7 +17,7 @@ typedef unsigned __int64 Key_236ac0;
 extern "C" int __cdecl FUN_00238190(int);
 extern "C" int32_t __cdecl FUN_00266da0(int32_t);   // (x64t16, D70) the heap id: a 32-bit integer
 } // namespace fn_f5a78e74
-extern "C" Key_236ac0 __cdecl FUN_002672f0(int, int, int);
+extern "C" Key_236ac0 __cdecl FUN_002672f0(hulk_intptr, int, int);
 namespace fn_f5a78e74 {
 struct Node { char pad[16]; Node* next; int FUN_002367f0(Key_236ac0); };
 struct List_236ac0 { Node* first; };

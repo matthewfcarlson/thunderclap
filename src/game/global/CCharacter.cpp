@@ -1090,15 +1090,15 @@ struct Object {
     int count;
     Entry_38e80 entries[128];
     void FUN_00038410(const Vec3_38410* delta, const Vec3_38410* added);
-    void target(float a,float b,float c,const Vec3_38e80* d,const Vec3_38e80* e,float f);
+    void FUN_00038e80(float a,float b,float c,const Vec3_38e80* d,const Vec3_38e80* e,float f);
     bool FUN_000352b0(Vec_3a590*);
     void FUN_00035fa0(int);
-    bool target(int unused, Object* other);
+    bool FUN_0003a590(int unused, Object* other);
     void FUN_000350c0(Vector*);
     void FUN_00035dc0(int);
     bool FUN_0003a440(Vector*,int,int,int,int);
     int FUN_00039c60(Vector*,int,int,int,int,int,int);
-    int target(int a,int b,unsigned char allow,int fallback,int mode);
+    int FUN_0003ffe0(int a,int b,unsigned char allow,int fallback,int mode);
 };
 class Item_400e0 {
   public:
@@ -2192,10 +2192,10 @@ u8_38e30 owners::Obj_38e30::FUN_00038e30(hulk_intptr a, hulk_intptr b, int c, in
 namespace fn_f35f7bdf {
 
 // 0x00038e80 FUN_00038e80 (271 B): equivalent/0x00038e80.cpp
-// sym: ?target@Object@fn_f35f7bdf@@QAEXMMMPBUVec3_38e80@2@0M@Z @e24c99eb6e1d @we6ab3b32f885 @v44e04b99b3eb
+// sym: ?FUN_00038e80@Object@fn_f35f7bdf@@QAEXMMMPBUVec3_38e80@2@0M@Z @e24c99eb6e1d @we6ab3b32f885 @ve7a963df0b83
 // STATUS: equivalent (tools/equiv.py level 3: 1390 inputs, branch coverage 18/18)
 // FUN_00038e80 @ 0x00038e80
-void Object::target(float a,float b,float c,const Vec3_38e80* d,const Vec3_38e80* e,float f) {
+void Object::FUN_00038e80(float a,float b,float c,const Vec3_38e80* d,const Vec3_38e80* e,float f) {
  Object* obj=this;
  while(obj->next) obj=obj->next;
  int count=obj->count;
@@ -3246,8 +3246,8 @@ void B_3a570::run() {
 
 
 // 0x0003a590 FUN_0003a590 (237 B): matches/0x0003a590.cpp
-// sym: ?target@Object@fn_f35f7bdf@@QAE_NHPAU12@@Z
-bool Object::target(int unused, Object* other) {
+// sym: ?FUN_0003a590@Object@fn_f35f7bdf@@QAE_NHPAU12@@Z
+bool Object::FUN_0003a590(int unused, Object* other) {
     if (state && state->kind == 3)
         return true;
     if (other->state && other->state->kind == 5)
@@ -5723,10 +5723,10 @@ void Thing_3ffa0::Set(Ref_3ffa0* value, unsigned char flag) {
 
 
 // 0x0003ffe0 FUN_0003ffe0 (256 B): equivalent/0x0003ffe0.cpp
-// sym: ?target@Object@fn_f35f7bdf@@QAEHHHEHH@Z @176b23c61cbb @w1d81168e6085 @veb3960b22998
+// sym: ?FUN_0003ffe0@Object@fn_f35f7bdf@@QAEHHHEHH@Z @176b23c61cbb @w1d81168e6085 @ve5a65f9859d6
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 18/18)
 // FUN_0003ffe0 @ 0x0003ffe0
-int Object::target(int a,int b,unsigned char allow,int fallback,int mode) {
+int Object::FUN_0003ffe0(int a,int b,unsigned char allow,int fallback,int mode) {
  Vector v; v.x=0; v.y=0; v.z=0;
  FUN_000350c0(&v);
  FUN_00035dc0(mode);

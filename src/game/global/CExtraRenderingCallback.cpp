@@ -163,8 +163,8 @@ Triple Obj::Get() {
 
 
 // 0x001bc4e0 FUN_001bc4e0 (42 B): matches/0x001bc4e0.cpp
-// sym: ?target@fn_f0a5b372@@YIXPAVObj_1bc4e0@1@@Z
-void __fastcall target(Obj_1bc4e0* self) {
+// sym: ?FUN_001bc4e0@fn_f0a5b372@@YIXPAVObj_1bc4e0@1@@Z
+void __fastcall FUN_001bc4e0(Obj_1bc4e0* self) {
     Obj_1bc4e0* saved = self;
     GetObj_001c3d90()->DoA_001c3520();
     GetObj_001c3d90()->DoB_001c35f0();
@@ -275,8 +275,8 @@ extern "C" void FUN_001bc5b0(void *rect, void *pos, float a)
 namespace fn_f0a5b372 {
 
 // 0x001bc710 FUN_001bc710 (12 B): matches/0x001bc710.cpp
-// sym: ?target@fn_f0a5b372@@YGXPAX@Z
-void __stdcall target(void* a) {
+// sym: ?FUN_001bc710@fn_f0a5b372@@YGXPAX@Z
+void __stdcall FUN_001bc710(void* a) {
     X_1bc710* x = Make_001c3d90();
     x->Run_001c3850(a);
 }

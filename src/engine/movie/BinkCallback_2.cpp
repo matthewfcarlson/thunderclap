@@ -834,9 +834,9 @@ void owners::Obj_336d90::FUN_00336d90() {
 namespace fn_f964084a {
 
 // 0x00336ee0 FUN_00336ee0 (21 B): matches/0x00336ee0.cpp
-// sym: ?target@fn_f964084a@@YGXH@Z
+// sym: ?FUN_00336ee0@fn_f964084a@@YGXH@Z
 // data: gBase = DAT_0055dbb4, gResult_336ee0 = DAT_0055dbbc
-void __stdcall target(int value) {
+void __stdcall FUN_00336ee0(int value) {
     (*(int*)&DAT_0055dbbc) = (*(int*)&DAT_0055dbb4) + value;
 }
 
@@ -863,8 +863,8 @@ void* movie::BinkCallback::vfunc_1_BinkCallback(unsigned char flags) {
 namespace fn_f964084a {
 
 // 0x00337040 FUN_00337040 (34 B): matches/0x00337040.cpp
-// sym: ?target@fn_f964084a@@YIXPAUObj_337040@1@@Z
-void __fastcall target(Obj_337040* p) {
+// sym: ?FUN_00337040@fn_f964084a@@YIXPAUObj_337040@1@@Z
+void __fastcall FUN_00337040(Obj_337040* p) {
     p->a = 0;
     p->b = 0;
     Item_337040* q = (Item_337040*)((char*)p + 0x48);
@@ -1505,8 +1505,8 @@ void __fastcall FUN_00337e90(void* self) {
 
 
 // 0x00337ea0 FUN_00337ea0 (21 B): matches/0x00337ea0.cpp
-// sym: ?target@fn_f964084a@@YIXPAUX_337ea0@1@PAX@Z
-void __fastcall target(X_337ea0* p, void*) {
+// sym: ?FUN_00337ea0@fn_f964084a@@YIXPAUX_337ea0@1@PAX@Z
+void __fastcall FUN_00337ea0(X_337ea0* p, void*) {
     p->a = 0;
     p->b = -1;
     p->c = 0;
@@ -1849,8 +1849,8 @@ bool Target_3385f0::Run(hulk_intptr x) {
 
 
 // 0x00338630 FUN_00338630 (8 B): matches/0x00338630.cpp
-// sym: ?target@fn_f964084a@@YIXPAUB_338630@1@@Z
-void __fastcall target(B_338630* self) {
+// sym: ?FUN_00338630@fn_f964084a@@YIXPAUB_338630@1@@Z
+void __fastcall FUN_00338630(B_338630* self) {
     self->p->f2();
 }
 

@@ -452,9 +452,9 @@ struct Object {
     float time;
     char _m_pad_110[0xc];
     float offset;
-    void target(char mode, float* out);
+    void FUN_0030ad10(char mode, float* out);
     hulk_freg FUN_0030adc0(float start, float delta, float lower, float upper);
-    float target(float delta);
+    float FUN_0030b2c0(float delta);
 };
 class PhysicsJoint3D {
   public:
@@ -1829,10 +1829,10 @@ void Body_30a9d0::FUN_0030a9d0(Vec3_30a9d0 a, Vec3_30a9d0 b, char flag)
 
 
 // 0x0030ad10 FUN_0030ad10 (175 B): equivalent/0x0030ad10.cpp
-// sym: ?target@Object@fn_fca90e00@@QAEXDPAM@Z @2f0486852b36 @w6e1c927d1d29 @ve727afcf87d4
+// sym: ?FUN_0030ad10@Object@fn_fca90e00@@QAEXDPAM@Z @2f0486852b36 @w6e1c927d1d29 @v80a829b9391f
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_0030ad10 @ 0x0030ad10
-void Object::target(char mode, float* out) {
+void Object::FUN_0030ad10(char mode, float* out) {
  if (!mode) { *out=v6(); return; }
  Vec3_30ad10 v;
  helper->FUN_00310490(value,&v,0);
@@ -2042,10 +2042,10 @@ void physics::PhysicsJoint1D::vfunc_25() {
 namespace fn_fca90e00 {
 
 // 0x0030b2c0 FUN_0030b2c0 (211 B): equivalent/0x0030b2c0.cpp
-// sym: ?target@Object@fn_fca90e00@@QAEMM@Z @9782fd56fd72 @w714a119e3f89 @v6ed68734e47a
+// sym: ?FUN_0030b2c0@Object@fn_fca90e00@@QAEMM@Z @9782fd56fd72 @w714a119e3f89 @v1586cbfba25a
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_0030b2c0 @ 0x0030b2c0
-float Object::target(float delta) {
+float Object::FUN_0030b2c0(float delta) {
  float limit=1.0f;
  if(delta==0.0f || time+delta==0.0f) return limit;
  float result=FUN_0030adc0(time*settings->scale+offset,delta*settings->scale,lower,upper);

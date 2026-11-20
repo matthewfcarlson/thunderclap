@@ -5292,8 +5292,8 @@ void Obj_65b80::Tick(int a) {
 
 
 // 0x00065c10 FUN_00065c10 (56 B): matches/0x00065c10.cpp
-// sym: ?Target@fn_fa3ff49b@@YAXXZ
-void __cdecl Target() {
+// sym: ?FUN_00065c10@fn_fa3ff49b@@YAXXZ
+void __cdecl FUN_00065c10() {
     int n = gRoot_65c10->manager->count;
     for (int i = 0; i < n; ++i) {
         void* p = gRoot_65c10->manager->GetItem_00024190(i);
@@ -5304,8 +5304,8 @@ void __cdecl Target() {
 
 
 // 0x00065c50 FUN_00065c50 (82 B): matches/0x00065c50.cpp
-// sym: ?Target@fn_fa3ff49b@@YIHPAVOwner_65c50@1@@Z
-hulk_intptr __fastcall Target(Owner_65c50* self) {
+// sym: ?FUN_00065c50@fn_fa3ff49b@@YIHPAVOwner_65c50@1@@Z
+hulk_intptr __fastcall FUN_00065c50(Owner_65c50* self) {
     int i = 0;
     hulk_intptr result = 0;
     if (self->count > 0) {
@@ -6385,8 +6385,8 @@ void Tracker_66d50::FUN_00066d50()
 namespace fn_fa3ff49b {
 
 // 0x000670a0 FUN_000670a0 (61 B): matches/0x000670a0.cpp
-// sym: ?Target@fn_fa3ff49b@@YIXPAUS_670a0@1@PAXPAIH@Z
-void __fastcall Target(S_670a0* self, void*, u32_670a0* param, int value) {
+// sym: ?FUN_000670a0@fn_fa3ff49b@@YIXPAUS_670a0@1@PAXPAIH@Z
+void __fastcall FUN_000670a0(S_670a0* self, void*, u32_670a0* param, int value) {
     Inner_670a0* p = (Inner_670a0*)((char*)self + 0x2f4);
     int* result = (int*)p->Find_00230ba0((void*)((hulk_intptr)(void (__cdecl*)())&FUN_00066980), param);
     if (result) {

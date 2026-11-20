@@ -6476,3 +6476,9 @@ the literal before writing `sizeof(::Gen)`.
 
 - 7 TUs plus include/decls/fight_context.h. Re-proven: 0x00236840, 0x00206320. MSVC clean, x64 gate ok. Wine pair and
   native count are in the commit message.
+
+## decl1 (2026-11-20): FUN_<addr> renames of overloaded definitions; string-hash declarations
+
+- 51 files (28 rename TUs, 23 hash files, include/game/global.h, CWorldStreamManager.cpp). Re-proven (MSVC + --wine):
+  11 equivalent blocks whose view changed. The x64 gate is ok (whole tree, global.h). The Wine pair and the native
+  count are in the commit message.

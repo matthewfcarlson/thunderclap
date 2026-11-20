@@ -1210,17 +1210,17 @@ void Owner_1eb7e0::FUN_001eb7e0(int a, int b, const Vec3_1eb7e0 *p3, const Vec3_
 
 
 // 0x001eb870 FUN_001eb870 (17 B): matches/0x001eb870.cpp
-// sym: ?target@fn_f014178b@@YIXPAVA_1eb870@1@@Z
-void __fastcall target(A_1eb870* p) {
+// sym: ?FUN_001eb870@fn_f014178b@@YIXPAVA_1eb870@1@@Z
+void __fastcall FUN_001eb870(A_1eb870* p) {
     if (p->flag)
         ((B_1eb870*)**(void***)p)->FnF_001f6580();
 }
 
 
 // 0x001eb890 FUN_001eb890 (17 B): matches/0x001eb890.cpp
-// sym: ?target@fn_f014178b@@YIXPAVA_1eb890@1@@Z
+// sym: ?FUN_001eb890@fn_f014178b@@YIXPAVA_1eb890@1@@Z
 // Same code shape as 0x001eb870 (propagated; names are from that function)
-void __fastcall target(A_1eb890* p) {
+void __fastcall FUN_001eb890(A_1eb890* p) {
     if (p->flag)
         ((B_1eb890*)**(void***)p)->FnF_001f6650();
 }
@@ -1390,9 +1390,9 @@ void Owner_1ebbc0::target(Actor_1ebbc0* actor, const char* text) {
 
 
 // 0x001ebc80 FUN_001ebc80 (128 B): matches/0x001ebc80.cpp
-// sym: ?target@fn_f014178b@@YGXPAXPBD@Z
+// sym: ?FUN_001ebc80@fn_f014178b@@YGXPAXPBD@Z
 // data: gState_1ebc80 = DAT_004e36d8, sDialogue = DAT_00424220, sObjects = DAT_00424208
-void __stdcall target(void* param1, const char* param2) {
+void __stdcall FUN_001ebc80(void* param1, const char* param2) {
     char local[72];
     if (!param1)
         return;

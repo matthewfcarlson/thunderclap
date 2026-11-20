@@ -1758,8 +1758,8 @@ class Obj {
     char _m_pad_50[0x34];
     int value;
     unsigned int FUN_001a2060(const Angles *angles);
-    char Set(float);
-    bool Set(int x);
+    char FUN_001a21d0(float);
+    bool FUN_001a24c0(int x);
     void set_00236760(void*);
     void Apply_00236760(void*);
     void Do_00236760(void*);
@@ -2299,8 +2299,8 @@ char Obj_1a21b0::Set(int v) {
 
 
 // 0x001a21d0 FUN_001a21d0 (18 B): matches/0x001a21d0.cpp
-// sym: ?Set@Obj@fn_fc5dbd2a@@QAEDM@Z
-char Obj::Set(float x) {
+// sym: ?FUN_001a21d0@Obj@fn_fc5dbd2a@@QAEDM@Z
+char Obj::FUN_001a21d0(float x) {
     angle = x * 0.017453292519943295f;
     return 1;
 }
@@ -2459,8 +2459,8 @@ char Obj_1a2480::Set(char c) {
 
 
 // 0x001a24c0 FUN_001a24c0 (15 B): matches/0x001a24c0.cpp
-// sym: ?Set@Obj@fn_fc5dbd2a@@QAE_NH@Z
-bool Obj::Set(int x) {
+// sym: ?FUN_001a24c0@Obj@fn_fc5dbd2a@@QAE_NH@Z
+bool Obj::FUN_001a24c0(int x) {
     value = x;
     return true;
 }

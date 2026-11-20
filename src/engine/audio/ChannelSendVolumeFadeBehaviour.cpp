@@ -677,7 +677,7 @@ extern "C" unsigned char __cdecl FUN_0024f4a0(void* source, const unsigned char*
 } // namespace fn_f983a9d8
 
 // 0x0024f540 audio::SeqEventChannelSendVolumesType::vfunc_3 (80 B): equivalent/0x0024f540.cpp [wrapped: conflict: FUN_002673a0; audio::SeqEventChannelSendVolumes; audio::SeqEventChannelSendVolumesType]
-// sym: ?vfunc_3@SeqEventChannelSendVolumesType@audio@fn_0024f540@@UAEPAUSeqEventChannelSendVolumes@23@XZ @5cee1a3156c9 @w150a18947b9a @va4883c9c7915
+// sym: ?vfunc_3@SeqEventChannelSendVolumesType@audio@fn_0024f540@@UAEPAUSeqEventChannelSendVolumes@23@XZ @5cee1a3156c9 @w150a18947b9a @vb376c0e172d6
 namespace fn_0024f540 {
 // STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 2/2)
 // audio::SeqEventChannelSendVolumesType::vfunc_3 @ 0x0024f540
@@ -693,7 +693,7 @@ struct SeqEventChannelSendVolumes {
     char pad[4];
     unsigned int volumes[16];
     int count;
-    void *tag;
+    unsigned int tag;   // (decl1) 0x002673a0's 32-bit hash
     void FUN_0025fd00();
 };
 struct SeqEventChannelSendVolumesType {
@@ -704,7 +704,7 @@ struct SeqEventChannelSendVolumesType {
 };
 }
 extern void * __cdecl FUN_00247530(void *);
-extern void * __cdecl FUN_002673a0(const char *, int);
+extern unsigned int __cdecl FUN_002673a0(const char *, int);   // (decl1) as defined (unk_267280.cpp): an int hash
 audio::SeqEventChannelSendVolumes *audio::SeqEventChannelSendVolumesType::vfunc_3() {
     audio::SeqEventChannelSendVolumes *event = (audio::SeqEventChannelSendVolumes *)FUN_00247530(((char*)((char*)&DAT_004e6750)));
     if (event) {

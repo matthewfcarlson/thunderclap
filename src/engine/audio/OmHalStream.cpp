@@ -348,8 +348,8 @@ extern "C" int __cdecl FUN_0025aa50(void** value, char flag) {
 
 
 // 0x0025aa80 FUN_0025aa80 (47 B): matches/0x0025aa80.cpp
-// sym: ?Target@fn_fd6abdd0@@YA_NIPA_N@Z
-bool __cdecl Target(hulk_uintptr a, bool* out) {
+// sym: ?FUN_0025aa80@fn_fd6abdd0@@YA_NIPA_N@Z
+bool __cdecl FUN_0025aa80(hulk_uintptr a, bool* out) {
     Obj_25aa80* o = *(Obj_25aa80**)a;
     BYTE* b = (BYTE*)&a;
     if (o->Query_00246f00(b, 1, 1, 1)) {
@@ -495,8 +495,8 @@ char FUN_0025ac30(Writer_25ac30 *w, unsigned __int64 value)
 
 
 // 0x0025acc0 FUN_0025acc0 (23 B): matches/0x0025acc0.cpp
-// sym: ?Target@fn_fd6abdd0@@YAHPCRAUObj@1@PAX@Z
-int Target(Obj* volatile* a, void* b) {
+// sym: ?FUN_0025acc0@fn_fd6abdd0@@YAHPCRAUObj@1@PAX@Z
+int FUN_0025acc0(Obj* volatile* a, void* b) {
     Obj* obj = *a;
     return obj->DoThing_00246f00(b, 8, 1, 1);
 }
@@ -773,8 +773,8 @@ extern "C" void FUN_0025b010(void * tree_, void * x_)
 
 
 // 0x0025b2c0 FUN_0025b2c0 (51 B): matches/0x0025b2c0.cpp
-// sym: ?Target@fn_fd6abdd0@@YIPAUA_25b2c0@1@PAU21@@Z
-A_25b2c0* __fastcall Target(A_25b2c0* self) {
+// sym: ?FUN_0025b2c0@fn_fd6abdd0@@YIPAUA_25b2c0@1@PAU21@@Z
+A_25b2c0* __fastcall FUN_0025b2c0(A_25b2c0* self) {
     self->a.Init_0023fac0();
     self->b.Init_0023fac0();
     int i = 10;
@@ -1085,9 +1085,9 @@ extern "C" void __cdecl FUN_0025b7d0(void * t_)
 namespace fn_fd6abdd0 {
 
 // 0x0025b850 FUN_0025b850 (83 B): matches/0x0025b850.cpp
-// sym: ?target@fn_fd6abdd0@@YAXPAXPAUObj@1@@Z
+// sym: ?FUN_0025b850@fn_fd6abdd0@@YAXPAXPAUObj@1@@Z
 // data: bss = DAT_004e7778
-void __cdecl target(void* p, Obj* o) {
+void __cdecl FUN_0025b850(void* p, Obj* o) {
     FUN_0025b5b0(p, (Obj *)o);
     if (o) {
         Elem* e = o->arr + 10;
@@ -1338,8 +1338,8 @@ char Section_25b970::FUN_0025b970(Writer_25b970* w)
 namespace fn_fd6abdd0 {
 
 // 0x0025bbd0 FUN_0025bbd0 (41 B): matches/0x0025bbd0.cpp
-// sym: ?target@fn_fd6abdd0@@YIXPAUS_25bbd0@1@@Z
-void __fastcall target(S_25bbd0* self) {
+// sym: ?FUN_0025bbd0@fn_fd6abdd0@@YIXPAUS_25bbd0@1@@Z
+void __fastcall FUN_0025bbd0(S_25bbd0* self) {
     if (self->value != 0) {
         FUN_0025b7d0((void *)(hulk_uintptr)(unsigned int)(self->value));
         if (self->value != 0)
@@ -1350,8 +1350,8 @@ void __fastcall target(S_25bbd0* self) {
 
 
 // 0x0025bcb0 FUN_0025bcb0 (33 B): matches/0x0025bcb0.cpp
-// sym: ?target@fn_fd6abdd0@@YAHPAHPAVC_25bcb0@1@@Z
-int target(int* stream, C_25bcb0* item) {
+// sym: ?FUN_0025bcb0@fn_fd6abdd0@@YAHPAHPAVC_25bcb0@1@@Z
+int FUN_0025bcb0(int* stream, C_25bcb0* item) {
     int value = *stream;
     int result = item->Get_0023fb00();
     return FUN_00246f50(value, format, result);
@@ -1395,8 +1395,8 @@ extern "C" void __cdecl FUN_0025be60(unsigned int *source, unsigned int *destina
 
 
 // 0x0025be80 FUN_0025be80 (51 B): matches/0x0025be80.cpp
-// sym: ?target@fn_fd6abdd0@@YAIHH@Z
-unsigned int __cdecl target(int a, hulk_intptr b) {
+// sym: ?FUN_0025be80@fn_fd6abdd0@@YAIHH@Z
+unsigned int __cdecl FUN_0025be80(int a, hulk_intptr b) {
     int x = FUN_0024c310(a);
     int y = FUN_0024c2f0(b);
     unsigned int z = FUN_0024c310(b);
@@ -1910,8 +1910,8 @@ OmHalStream* OmHalStream::Init(unsigned char flag) {
 
 
 // 0x0025ccf0 FUN_0025ccf0 (76 B): matches/0x0025ccf0.cpp
-// sym: ?Target@fn_fd6abdd0@@YAEHPAUReceiver_25ccf0@1@@Z
-unsigned char Target(int a, Receiver_25ccf0* b) {
+// sym: ?FUN_0025ccf0@fn_fd6abdd0@@YAEHPAUReceiver_25ccf0@1@@Z
+unsigned char FUN_0025ccf0(int a, Receiver_25ccf0* b) {
     Temp_25ccf0 t;
     t.Init_0023fac0();
     unsigned char r = Work_0025bce0(a, &t);

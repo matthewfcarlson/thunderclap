@@ -57,7 +57,7 @@ struct Pair {
     unsigned a, b;
 };
 } // namespace fn_f88922b7
-extern "C" Pair __cdecl FUN_002672f0(int, int, int);
+extern "C" Pair __cdecl FUN_002672f0(hulk_intptr, int, int);
 namespace fn_f88922b7 {
 class Obj {
   public:

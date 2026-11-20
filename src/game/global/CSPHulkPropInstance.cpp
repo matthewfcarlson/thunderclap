@@ -807,8 +807,8 @@ void StateWalker::FUN_001d6770()
 
 
 // 0x001d68d0 FUN_001d68d0 (15 B): matches/0x001d68d0.cpp
-// sym: ?target@fn_fff2a2ba@@YIHPAVC_1d68d0@1@@Z
-hulk_intptr __fastcall target(C_1d68d0* self) {
+// sym: ?FUN_001d68d0@fn_fff2a2ba@@YIHPAVC_1d68d0@1@@Z
+hulk_intptr __fastcall FUN_001d68d0(C_1d68d0* self) {
     if (!self->p)
         return 0;
     return self->p[6];
@@ -923,8 +923,8 @@ void Skeleton::FUN_001d69f0(V3_1d69f0 *out)
 
 
 // 0x001d6a80 FUN_001d6a80 (14 B): matches/0x001d6a80.cpp
-// sym: ?target@fn_fff2a2ba@@YI_NPAVA_1d6a80@1@@Z
-bool __fastcall target(A_1d6a80* self) {
+// sym: ?FUN_001d6a80@fn_fff2a2ba@@YI_NPAVA_1d6a80@1@@Z
+bool __fastcall FUN_001d6a80(A_1d6a80* self) {
     return self->value != 0;
 }
 
@@ -978,8 +978,8 @@ int* owners::Thing_1d6b30::FUN_001d6b30() {
 namespace fn_fff2a2ba {
 
 // 0x001d6b40 FUN_001d6b40 (32 B): matches/0x001d6b40.cpp
-// sym: ?target@fn_fff2a2ba@@YIHPAUObj_1d6b40@1@@Z
-hulk_intptr __fastcall target(Obj_1d6b40* self) {
+// sym: ?FUN_001d6b40@fn_fff2a2ba@@YIHPAUObj_1d6b40@1@@Z
+hulk_intptr __fastcall FUN_001d6b40(Obj_1d6b40* self) {
     void* p = self->pA0;
     if (p) {
         int r = FUN_002fc6f0(p);
@@ -1148,8 +1148,8 @@ void owners::C_1d6cc0::FUN_001d6cc0(int x) {
 namespace fn_fff2a2ba {
 
 // 0x001d6cd0 FUN_001d6cd0 (7 B): matches/0x001d6cd0.cpp
-// sym: ?target@fn_fff2a2ba@@YIMPAVC_1d6cd0@1@@Z
-float __fastcall target(C_1d6cd0* self) {
+// sym: ?FUN_001d6cd0@fn_fff2a2ba@@YIMPAVC_1d6cd0@1@@Z
+float __fastcall FUN_001d6cd0(C_1d6cd0* self) {
     return self->value;
 }
 
@@ -1640,8 +1640,8 @@ bool Node::FUN_001d7360(Vec4Bits* out)
 
 
 // 0x001d73f0 FUN_001d73f0 (90 B): matches/0x001d73f0.cpp
-// sym: ?target@fn_fff2a2ba@@YIHPAVSelf_1d73f0@1@@Z
-int __fastcall target(Self_1d73f0* s) {
+// sym: ?FUN_001d73f0@fn_fff2a2ba@@YIHPAVSelf_1d73f0@1@@Z
+int __fastcall FUN_001d73f0(Self_1d73f0* s) {
     float limit = g_1d73f0->p->value;
     hulk_intptr r;
     if (s->a)

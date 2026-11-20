@@ -146,7 +146,7 @@ struct Temp_244d10 {
 };
 extern "C" unsigned char __cdecl FUN_0025bce0(int, Temp_244d10*);
 } // namespace fn_f7032cca
-extern "C" unsigned long long __cdecl FUN_002672f0(unsigned long, int, int);
+extern "C" unsigned long long __cdecl FUN_002672f0(hulk_ulongptr, int, int);
 namespace fn_f7032cca {
 extern "C++" void __cdecl FUN_00244610(void *, void *);
 extern void __cdecl FUN_002446d0(void*, void*);
@@ -222,8 +222,8 @@ owners::CFightParamsCollision_243390* owners::CFightParamsCollision_243390::FUN_
 namespace fn_f7032cca {
 
 // 0x002433b0 FUN_002433b0 (71 B): matches/0x002433b0.cpp
-// sym: ?Target@fn_f7032cca@@YAHPBXPBD@Z
-int __cdecl Target(const void* a, const char* b) {
+// sym: ?FUN_002433b0@fn_f7032cca@@YAHPBXPBD@Z
+int __cdecl FUN_002433b0(const void* a, const char* b) {
     if (Check(a, b) && Check(a, b + 4) && Check(a, b + 8))
         return 1;
     return 0;
@@ -231,8 +231,8 @@ int __cdecl Target(const void* a, const char* b) {
 
 
 // 0x00243410 FUN_00243410 (106 B): matches/0x00243410.cpp
-// sym: ?Target@fn_f7032cca@@YI_NPAVC_243410@1@@Z
-bool __fastcall Target(C_243410* self) {
+// sym: ?FUN_00243410@fn_f7032cca@@YI_NPAVC_243410@1@@Z
+bool __fastcall FUN_00243410(C_243410* self) {
     int a, b, c;
     int x = self->value;
     if (!FUN_0025abd0(x, &a))
@@ -1812,8 +1812,8 @@ void* __cdecl FUN_00244cc0(Container* container, Iterator* iterator)
 
 
 // 0x00244d10 FUN_00244d10 (86 B): matches/0x00244d10.cpp
-// sym: ?Target@fn_f7032cca@@YAEHPAK@Z
-unsigned char __cdecl Target(hulk_intptr a, unsigned long* out) {
+// sym: ?FUN_00244d10@fn_f7032cca@@YAEHPAK@Z
+unsigned char __cdecl FUN_00244d10(hulk_intptr a, unsigned long* out) {
     Temp_244d10 t;
     t.Init_0023fac0();
     unsigned char r = FUN_0025bce0(a, &t);

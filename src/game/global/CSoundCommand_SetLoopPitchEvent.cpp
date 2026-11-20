@@ -16,7 +16,7 @@ namespace fn_f43ad3f1 { extern "C" char DAT_004245a4[]; }   // (x64t6) the game 
 namespace fn_f43ad3f1 {
 typedef unsigned __int64 I64;
 } // namespace fn_f43ad3f1
-extern "C" I64 __cdecl FUN_002672f0(int, int, int);
+extern "C" I64 __cdecl FUN_002672f0(hulk_intptr, int, int);
 namespace fn_f43ad3f1 {
 struct Pair {
     int lo, hi;

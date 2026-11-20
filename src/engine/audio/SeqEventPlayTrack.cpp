@@ -123,7 +123,7 @@ struct Settings_251720 { char pad[8]; unsigned value8; unsigned valueC; unsigned
 struct Owner_251720 { char pad[0x5c]; char tracks[1]; };
 struct Context_251720 { char pad[0x3c]; Owner_251720* owner; };
 extern "C" void __cdecl FUN_002613b0(void*,Temp_251720*,Temp_251720*);
-extern "C" unsigned __cdecl FUN_002673a0(unsigned,unsigned);
+extern "C" unsigned __cdecl FUN_002673a0(hulk_uintptr,unsigned);
 void* __cdecl FUN_0024a370(Owner_251720*,unsigned*);
 extern "C" void __cdecl FUN_0024ac40(Owner_251720*,void*,bool,unsigned,void*);
 struct Frame_251720 {

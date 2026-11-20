@@ -275,8 +275,8 @@ class Obj {
     int m_b0;
     int m_b4;
     int m_b8;
-    bool Set(const V3* v);
-    bool Set(const Vec3* v);
+    bool FUN_00060310(const V3* v);
+    bool FUN_000603a0(const Vec3* v);
 };
 struct Vec3_60450 {
     int x, y, z;
@@ -614,8 +614,8 @@ bool owners::Obj_602f0::FUN_000602f0(int* x) {
 namespace fn_fe2e62b7 {
 
 // 0x00060310 FUN_00060310 (35 B): matches/0x00060310.cpp
-// sym: ?Set@Obj@fn_fe2e62b7@@QAE_NPBUV3@2@@Z
-bool Obj::Set(const V3* v) {
+// sym: ?FUN_00060310@Obj@fn_fe2e62b7@@QAE_NPBUV3@2@@Z
+bool Obj::FUN_00060310(const V3* v) {
     a = v->x;
     b = v->y;
     c = v->z;
@@ -647,8 +647,8 @@ bool Thing::Set(const Src* p) {
 
 
 // 0x000603a0 FUN_000603a0 (35 B): matches/0x000603a0.cpp
-// sym: ?Set@Obj@fn_fe2e62b7@@QAE_NPBUVec3@2@@Z
-bool Obj::Set(const Vec3* v) {
+// sym: ?FUN_000603a0@Obj@fn_fe2e62b7@@QAE_NPBUVec3@2@@Z
+bool Obj::FUN_000603a0(const Vec3* v) {
     m_b0 = v->x;
     m_b4 = v->y;
     m_b8 = v->z;

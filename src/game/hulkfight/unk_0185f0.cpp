@@ -230,8 +230,8 @@ void FUN_00018780(Obj** p) {
 
 
 // 0x000187a0 FUN_000187a0 (36 B): matches/0x000187a0.cpp
-// sym: ?Set@fn_f7aff818@@YAXPAPAVObj_187a0@1@PAV21@@Z
-void Set(Obj_187a0** p, Obj_187a0* v) {
+// sym: ?FUN_000187a0@fn_f7aff818@@YAXPAPAVObj_187a0@1@PAV21@@Z
+void FUN_000187a0(Obj_187a0** p, Obj_187a0* v) {
     if (v)
         v->A();
     if (*p)
@@ -251,9 +251,9 @@ void FUN_000187d0(A_187d0** p) {
 
 
 // 0x00018810 FUN_00018810 (36 B): matches/0x00018810.cpp
-// sym: ?Set@fn_f7aff818@@YAXPAPAVObj_187a0@1@PAV21@@Z
+// sym: ?FUN_00018810@fn_f7aff818@@YAXPAPAVObj_18810@1@PAV21@@Z
 // Same code shape as 0x000187a0 (propagated; names are from that function)
-void Set(Obj_18810** p, Obj_18810* v) {
+void FUN_00018810(Obj_18810** p, Obj_18810* v) {
     if (v)
         v->A();
     if (*p)
@@ -263,9 +263,9 @@ void Set(Obj_18810** p, Obj_18810* v) {
 
 
 // 0x00018840 FUN_00018840 (36 B): matches/0x00018840.cpp
-// sym: ?Set@fn_f7aff818@@YAXPAPAVObj_187a0@1@PAV21@@Z
+// sym: ?FUN_00018840@fn_f7aff818@@YAXPAPAVObj_18840@1@PAV21@@Z
 // Same code shape as 0x000187a0 (propagated; names are from that function)
-void Set(Obj_18840** p, Obj_18840* v) {
+void FUN_00018840(Obj_18840** p, Obj_18840* v) {
     if (v)
         v->A();
     if (*p)
@@ -285,9 +285,9 @@ void __cdecl FUN_00018890(Holder* h) {
 
 
 // 0x000188e0 FUN_000188e0 (36 B): matches/0x000188e0.cpp
-// sym: ?Set@fn_f7aff818@@YAXPAPAVObj_187a0@1@PAV21@@Z
+// sym: ?FUN_000188e0@fn_f7aff818@@YAXPAPAVObj_188e0@1@PAV21@@Z
 // Same code shape as 0x000187a0 (propagated; names are from that function)
-void Set(Obj_188e0** p, Obj_188e0* v) {
+void FUN_000188e0(Obj_188e0** p, Obj_188e0* v) {
     if (v)
         v->A();
     if (*p)

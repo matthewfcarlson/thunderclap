@@ -2575,16 +2575,16 @@ void owners::Obj_1c3970::FUN_001c3970(u32_1c3970* src) {
 namespace fn_ffffca36 {
 
 // 0x001c3990 FUN_001c3990 (4 B): matches/0x001c3990.cpp
-// sym: ?target@fn_ffffca36@@YIPAXPAUX_1c3990@1@@Z
-void* __fastcall target(X_1c3990* p) {
+// sym: ?FUN_001c3990@fn_ffffca36@@YIPAXPAUX_1c3990@1@@Z
+void* __fastcall FUN_001c3990(X_1c3990* p) {
     return p->pad + 0x1c;
 }
 
 
 // 0x001c39a0 FUN_001c39a0 (4 B): matches/0x001c39a0.cpp
-// sym: ?target@fn_ffffca36@@YIPAXPAUX_1c3990@1@@Z
+// sym: ?FUN_001c39a0@fn_ffffca36@@YIPAXPAUX_1c39a0@1@@Z
 // Same code shape as 0x001c3990 (propagated; names are from that function)
-void* __fastcall target(X_1c39a0* p) {
+void* __fastcall FUN_001c39a0(X_1c39a0* p) {
     return p->pad + 0x1c;
 }
 
@@ -2705,8 +2705,8 @@ void Obj_1c3c20::Set(char value) {
 
 
 // 0x001c3c90 FUN_001c3c90 (4 B): matches/0x001c3c90.cpp
-// sym: ?target@fn_ffffca36@@YIEPAVC_1c3c90@1@@Z
-unsigned char __fastcall target(C_1c3c90* self) {
+// sym: ?FUN_001c3c90@fn_ffffca36@@YIEPAVC_1c3c90@1@@Z
+unsigned char __fastcall FUN_001c3c90(C_1c3c90* self) {
     return self->value;
 }
 

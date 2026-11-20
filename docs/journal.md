@@ -1995,3 +1995,30 @@ blocks fight::Action's whole family: the records come first there.
   contracted domain is no input of the function either way, so range items are now repaired in both modes.
 - The harness redraws a global after every call. A contracted global is redrawn inside its range rather than
   pinned: the contract bounds the value, it doesn't claim nothing writes it.
+
+## 2026-11-20 decl1: definitions named by address (no unique 64-bit symbol); the string hashes' caller declarations
+
+- **Overloaded placeholder names.** native_mac binds a caller's `FUN_<addr>` to the definition at that address
+  through the definition's 64-bit symbol, found by demangled form or, failing that, by qualified name. A definition
+  whose qualified name it shares with others (`target`, `Target`, `Set`, `Fn`, `Go`, `Forward`, `ProcessManager`
+  overloads in one namespace or class) has no unique 64-bit symbol, so no caller binds to it (native_unbound class
+  "definition without a unique 64-bit symbol": 79 names after 8a8c12c41).
+  - build/decl1/scripts/gen_uniq.py renamed the 55 such definitions that have unbound callers, plus their group mates
+    (82 definitions in 28 TUs), to `FUN_<addr>`, together with members' declarations in their class bodies. Pins were
+    redone with `tree_tu.py pin --records`.
+  - Kept: 0x001cc600 stays `target`. 0x001cc620 (equivalent) calls a distinct `FUN_001cc600(char)` declaration, and
+    a definition of that name makes the call `FUN_001cc600(0)` ambiguous. Its group mates are renamed, so `target`
+    is unique.
+  - An `equiv-conv:` line names the function (0x00249630). A rename has to update it, or the checker reports
+    `unresolved_convention`.
+- **0x002672f0 / 0x002673a0 (string hashes, defined with `const char*`).**
+  - build/decl1/scripts/gen_hash.py retyped every caller declaration whose first parameter was a 32-bit integer
+    (49 declarations or casts in 21 files, include/game/global.h among them; 23 files with the hand fixes) to the pointer-sized integer of the same
+    32-bit type.
+  - Three declarations returned `void*` from the int hash, and the records stored it in a pointer field (natively
+    8 bytes in a 4-byte slot): CSoundVoiceManager's Entry_1f4420.value, Sequence's Entry_257b30.name and
+    ChannelSendVolumes' tag. They are now `unsigned`.
+  - Callers whose argument is their own `int` parameter remain for the Q3 pass (unk_0240b0, unk_1f0630, unk_1efb80,
+    CSoundCommand_SetLoopPitchEvent, Condition.cpp, Track.cpp).
+- 0x00207960 passes its one-byte flag union to 0x00203e90's `bool` natively as `flag.on != 0` (`HULK_PTR64` branch).
+  MSVC 7.1 pushes the parameter's whole word, which the 32-bit side keeps.

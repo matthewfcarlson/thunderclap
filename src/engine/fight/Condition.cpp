@@ -32,7 +32,7 @@ typedef unsigned __int64 U64_2343e0;
 extern "C" U_2343e0 __cdecl FUN_00238190(U_2343e0);   // (decl1) as defined (MaybeCondition.cpp)
 extern "C" U_2343e0 __cdecl FUN_00266da0(U_2343e0);   // (decl1) as defined (unk_266950.cpp)
 } // namespace fn_fc77ac82
-U64_2343e0 __cdecl FUN_002672f0(U_2343e0,U_2343e0,U_2343e0);
+U64_2343e0 __cdecl FUN_002672f0(hulk_uintptr,U_2343e0,U_2343e0);
 namespace fn_fc77ac82 {
 struct Node { U_2343e0 head; char pad[12]; Node* next; U_2343e0 FUN_00236790(U64_2343e0); };
 struct List_2343e0 { Node* first; };
@@ -53,7 +53,7 @@ class Owner_2344a0 {
     void Set(Ref_2344a0* p);
 };
 } // namespace fn_fc77ac82
-unsigned __int64 __cdecl FUN_002672f0(unsigned int name, int a, int b);
+unsigned __int64 __cdecl FUN_002672f0(hulk_uintptr name, int a, int b);
 namespace fn_fc77ac82 {
 class Param {
 public:

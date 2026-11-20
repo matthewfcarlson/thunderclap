@@ -639,8 +639,8 @@ bool CB_001d1150::FUN_001d1150(const char * x) {
 
 
 // 0x001d1160 FUN_001d1160 (17 B): matches/0x001d1160.cpp
-// sym: ?target@fn_f55829c3@@YIXPAUScriptHandlerView@@HH@Z
-void __fastcall target(ScriptHandlerView* self, int arg, int extra) {
+// sym: ?FUN_001d1160@fn_f55829c3@@YIXPAUScriptHandlerView@@HH@Z
+void __fastcall FUN_001d1160(ScriptHandlerView* self, int arg, int extra) {
     FUN_00212d80(self->f.L, 0);
 }
 
@@ -1217,8 +1217,8 @@ void owners::C_1d1f30::FUN_001d1f30(unsigned int a, unsigned int b, unsigned int
 namespace fn_f55829c3 {
 
 // 0x001d2000 FUN_001d2000 (19 B): matches/0x001d2000.cpp
-// sym: ?target@fn_f55829c3@@YAHPBD@Z
-int __cdecl target(const char* s) {
+// sym: ?FUN_001d2000@fn_f55829c3@@YAHPBD@Z
+int __cdecl FUN_001d2000(const char* s) {
     return check(s, "/lua");
 }
 
@@ -2458,9 +2458,9 @@ ScriptHandler_1d4440* ScriptHandler_1d4440::vfunc_2(unsigned char flags) {
 
 
 // 0x001d4530 FUN_001d4530 (71 B): matches/0x001d4530.cpp
-// sym: ?target@fn_f55829c3@@YIXPAUScriptHandlerView@@@Z
+// sym: ?FUN_001d4530@fn_f55829c3@@YIXPAUScriptHandlerView@@@Z
 // ScriptHandler (include/decls/data/script.h): (re)creates the Lua state once, then registers the functions.
-void __fastcall target(ScriptHandlerView* self) {
+void __fastcall FUN_001d4530(ScriptHandlerView* self) {
     if (!self->f.ownsState) {
         self->f.ownsState = 1;
         ((ScriptHandler_nv_1d4530*)(self))->FUN_001d3c90(&self->f.L);

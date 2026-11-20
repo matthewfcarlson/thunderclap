@@ -122,9 +122,9 @@ class CSoundCommand_PlayAmbienceEvent : public CSoundCommand_1f0880 {
     CSoundCommand_PlayAmbienceEvent(hulk_intptr x, int y, int z);
 };
 } // namespace fn_f1aba5fa
-extern "C" __int64 __cdecl FUN_002672f0(int, int, int);
+extern "C" __int64 __cdecl FUN_002672f0(hulk_intptr, int, int);
 namespace fn_f1aba5fa {
-extern "C" int __cdecl FUN_002673a0(int, int);
+extern "C" int __cdecl FUN_002673a0(hulk_intptr, int);
 typedef unsigned __int64 u64;
 u64 __cdecl First_002672f0(int, int, int);
 int __cdecl Second_002673a0(int, int);
@@ -366,8 +366,8 @@ pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
 namespace fn_001f08f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_001f08f0 @ 0x001f08f0
-unsigned __int64 __cdecl FUN_002672f0(int, int, int);
-int __cdecl FUN_002673a0(int, int);
+unsigned __int64 __cdecl FUN_002672f0(hulk_intptr, int, int);
+int __cdecl FUN_002673a0(hulk_intptr, int);
 
 class CSoundCommand_PlaySFXEvent {
 public:
@@ -469,7 +469,7 @@ pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
 // sym: ??0CSoundCommand_InstallEffect@fn_001f09d0@@QAE@HH@Z
 namespace fn_001f09d0 {
 typedef unsigned __int64 U64;
-U64 __cdecl FUN_002672f0(int, int, int);
+U64 __cdecl FUN_002672f0(hulk_intptr, int, int);
 
 class CSoundCommand_1f09d0 {
 public:

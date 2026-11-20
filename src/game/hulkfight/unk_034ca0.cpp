@@ -1456,9 +1456,9 @@ void Mover_35810::Start(float t, const Vec3_35810* d) {
 
 
 // 0x000358a0 FUN_000358a0 (28 B): matches/0x000358a0.cpp
-// sym: ?target@fn_f9673120@@YIHPAUObj_358a0@1@@Z
+// sym: ?FUN_000358a0@fn_f9673120@@YIHPAUObj_358a0@1@@Z
 // data: zero_358a0 = DAT_003f32e0
-int __fastcall target(Obj_358a0* self) {
+int __fastcall FUN_000358a0(Obj_358a0* self) {
     return self->value > DAT_003f32e0;
 }
 
@@ -1601,8 +1601,8 @@ bool Actor_35ae0::FUN_00035ae0() {
 
 
 // 0x00035b60 FUN_00035b60 (7 B): matches/0x00035b60.cpp
-// sym: ?target@fn_f9673120@@YIIPAUX_35b60@1@@Z
-hulk_uintptr __fastcall target(X_35b60* self) {
+// sym: ?FUN_00035b60@fn_f9673120@@YIIPAUX_35b60@1@@Z
+hulk_uintptr __fastcall FUN_00035b60(X_35b60* self) {
     return self->value;
 }
 
@@ -2111,8 +2111,8 @@ void Actor_365f0::target(int,int) {
 
 
 // 0x000366d0 FUN_000366d0 (26 B): matches/0x000366d0.cpp
-// sym: ?target@fn_f9673120@@YIXPAUTarget_366d0@1@PAXHH@Z
-void __fastcall target(Target_366d0* self, void*, int a, int b) {
+// sym: ?FUN_000366d0@fn_f9673120@@YIXPAUTarget_366d0@1@PAXHH@Z
+void __fastcall FUN_000366d0(Target_366d0* self, void*, int a, int b) {
     if (self->flag == 0)
         ((Helper_366d0*)((char*)self + 0xdc))->method_00231f20(1);
 }
@@ -2463,8 +2463,8 @@ unsigned char owners::Thing_36fd0::FUN_00036fd0(hulk_intptr arg) {
 namespace fn_f9673120 {
 
 // 0x00037000 FUN_00037000 (58 B): matches/0x00037000.cpp
-// sym: ?target@fn_f9673120@@YIXPAUObj_37000@1@@Z
-void __fastcall target(Obj_37000* self) {
+// sym: ?FUN_00037000@fn_f9673120@@YIXPAUObj_37000@1@@Z
+void __fastcall FUN_00037000(Obj_37000* self) {
     Entry_37000* p = self->entries;
     int n = 4;
     do {
@@ -2685,8 +2685,8 @@ void owners::Target_373e0::FUN_000373e0(unsigned char x) {
 namespace fn_f9673120 {
 
 // 0x00037400 FUN_00037400 (7 B): matches/0x00037400.cpp
-// sym: ?target@fn_f9673120@@YIHPAVObj_37400@1@@Z
-hulk_intptr __fastcall target(Obj_37400* self) {
+// sym: ?FUN_00037400@fn_f9673120@@YIHPAVObj_37400@1@@Z
+hulk_intptr __fastcall FUN_00037400(Obj_37400* self) {
     return self->value;
 }
 
@@ -2776,9 +2776,9 @@ Plane::Plane(const Vec* a, const Vec* b) {
 
 
 // 0x00037710 FUN_00037710 (47 B): matches/0x00037710.cpp
-// sym: ?target@fn_f9673120@@YIPAVObj_37710@1@PAV21@@Z
+// sym: ?FUN_00037710@fn_f9673120@@YIPAVObj_37710@1@PAV21@@Z
 // data: zero_37710 = DAT_003f335c
-Obj_37710* __fastcall target(Obj_37710* self) {
+Obj_37710* __fastcall FUN_00037710(Obj_37710* self) {
     self->init_0027af00();
     self->value = (int)0xbf800000;
     ((owners::Target_27b040 *)self)->FUN_0027b040((hulk_uintptr)(&DAT_003f335c));

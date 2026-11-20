@@ -820,8 +820,8 @@ float owners::Obj_1afb00::FUN_001afb00() { if (value < (*(float*)&DAT_003f32e0))
 namespace fn_f7cf5713 {
 
 // 0x001afb80 FUN_001afb80 (31 B): matches/0x001afb80.cpp
-// sym: ?target@fn_f7cf5713@@YGHPAUHost_1afb80@1@PAUObj_1afb80@1@@Z
-int __stdcall target(Host_1afb80* a, Obj_1afb80* b) {
+// sym: ?FUN_001afb80@fn_f7cf5713@@YGHPAUHost_1afb80@1@PAUObj_1afb80@1@@Z
+int __stdcall FUN_001afb80(Host_1afb80* a, Obj_1afb80* b) {
     if (b->type == 5)
         a->sub->Fnf_0003aaf0(b);
     return 1;
@@ -1084,8 +1084,8 @@ int __stdcall FUN_001afdc0(Context* context, Candidate_1afdc0* candidate, unsign
 
 
 // 0x001afe70 FUN_001afe70 (40 B): matches/0x001afe70.cpp
-// sym: ?target@fn_f7cf5713@@YGHPAUHolder_1afe70@1@HHHHH@Z
-int __stdcall target(Holder_1afe70* self, int a, int b, int c, int d, int e) {
+// sym: ?FUN_001afe70@fn_f7cf5713@@YGHPAUHolder_1afe70@1@HHHHH@Z
+int __stdcall FUN_001afe70(Holder_1afe70* self, int a, int b, int c, int d, int e) {
     return self->p->f6(b, a, c, d, e);
 }
 

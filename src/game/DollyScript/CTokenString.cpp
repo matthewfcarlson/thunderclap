@@ -1494,8 +1494,8 @@ float Obj_fad30::run() {
 namespace fn_fd8937bc {
 
 // 0x000fad90 FUN_000fad90 (81 B): matches/0x000fad90.cpp
-// sym: ?Target@fn_fd8937bc@@YIHPAUObj_fad90@1@@Z
-hulk_intptr __fastcall Target(Obj_fad90* self) {
+// sym: ?FUN_000fad90@fn_fd8937bc@@YIHPAUObj_fad90@1@@Z
+hulk_intptr __fastcall FUN_000fad90(Obj_fad90* self) {
     Base_fad90* p = self->mRoot;
     if (!p)
         return 0;
@@ -1586,8 +1586,8 @@ CTokenFloat* CTokenFloat::vfunc_2() {
 namespace fn_fd8937bc {
 
 // 0x000fb110 FUN_000fb110 (50 B): matches/0x000fb110.cpp
-// sym: ?Target@fn_fd8937bc@@YIHPAUObj_fb110@1@@Z
-hulk_intptr __fastcall Target(Obj_fb110* self) {
+// sym: ?FUN_000fb110@fn_fd8937bc@@YIHPAUObj_fb110@1@@Z
+hulk_intptr __fastcall FUN_000fb110(Obj_fb110* self) {
     int x = ((ThisCall_000f9d70*)(self))->GetThing_000f9d70();
     self->field8 = x;
     if (x == 0)

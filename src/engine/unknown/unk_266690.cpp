@@ -112,16 +112,16 @@ void* __fastcall FUN_00266700(ContentLoadRequest* object) {   // (x64t13) the st
 
 
 // 0x00266710 FUN_00266710 (4 B): matches/0x00266710.cpp
-// sym: ?target@fn_f4a58842@@YIIPAUX_266710@1@@Z
+// sym: ?FUN_00266710@fn_f4a58842@@YIIPAUX_266710@1@@Z
 // Same code shape as 0x000862d0 (propagated; names are from that function)
-unsigned __fastcall target(X_266710* self) {
+unsigned __fastcall FUN_00266710(X_266710* self) {
     return self->state;
 }
 
 
 // 0x00266750 FUN_00266750 (12 B): matches/0x00266750.cpp
-// sym: ?target@fn_f4a58842@@YI_NPAVC_266750@1@@Z
-bool __fastcall target(C_266750* self) {
+// sym: ?FUN_00266750@fn_f4a58842@@YI_NPAVC_266750@1@@Z
+bool __fastcall FUN_00266750(C_266750* self) {
     return self->state == 3;
 }
 

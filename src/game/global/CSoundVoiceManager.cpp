@@ -1445,7 +1445,7 @@ char FUN_001d04d0(const void* typeInfo);                      // type_info test 
 struct Handle_1f4010 { unsigned a,b; void FUN_0027af70(unsigned); };
 struct Object { char pad[0x18]; unsigned ready; };
 struct Entry_1f4010 { Handle_1f4010 first,second; Object* objects[4]; unsigned results[4]; char pad30[0x44]; int type; char pad78[8]; struct Block { unsigned low,high,value; char pad[0x1c]; } blocks[4]; };
-extern unsigned __cdecl FUN_002673a0(unsigned,unsigned);
+extern unsigned __cdecl FUN_002673a0(hulk_uintptr,unsigned);
 extern "C++" __declspec(nothrow) void __cdecl FUN_001f3040(void *, void *);
 struct Owner_1f4010 { char pad[0xd4]; Entry_1f4010* entries[148]; int count; unsigned FUN_001f3ec0(Object*,Entry_1f4010*,Entry_1f4010*,unsigned,unsigned); Entry_1f4010* target(hulk_uintptr,hulk_uintptr,unsigned); };
 Entry_1f4010* Owner_1f4010::target(hulk_uintptr arg1,hulk_uintptr arg2,unsigned arg3) {
@@ -1576,7 +1576,7 @@ void Manager_1f42d0::FUN_001f42d0(const Id_1f42d0 *id, void *owner, float px, fl
 } // namespace fn_f7fca51a
 
 // 0x001f4420 FUN_001f4420 (489 B): equivalent/0x001f4420.cpp [wrapped: conflict: FUN_002673a0]
-// sym: ?FUN_001f4420@ThisWrap_001f4420@fn_001f4420@@QAEXH@Z @0444fb444f0f @w8bf1e2ef3924 @vda2eb788917d
+// sym: ?FUN_001f4420@ThisWrap_001f4420@fn_001f4420@@QAEXH@Z @0444fb444f0f @w8bf1e2ef3924 @v3eff94c40397
 namespace fn_001f4420 {
 // STATUS: equivalent (tools/equiv.py level 3: 4899 inputs, branch coverage 28/28)
 // FUN_001f4420 @ 0x001f4420
@@ -1643,7 +1643,7 @@ struct Slot_1f4420 {
 struct Entry_1f4420 {
     unsigned int lo;
     unsigned int hi;
-    void *value;
+    unsigned int value;   // (decl1) 0x002673a0's 32-bit string hash
     char pad0c[0x28 - 0xc];
 };
 
@@ -1663,7 +1663,7 @@ struct Obj_1f4420 {
     Entry_1f4420 entries[4];
 };
 
-void *__cdecl FUN_002673a0(int a, int b);
+int __cdecl FUN_002673a0(hulk_intptr a, int b);   // (decl1) as defined (unk_267280.cpp): an int hash
 Item_1f4420 *__cdecl FUN_0024a370(Ptr_1f4420 *p, void *key);
 void __cdecl FUN_00249bd0(Ptr_1f4420 *p, Item_1f4420 *item, Params *params);
 void __cdecl FUN_002497e0(void *buf);
@@ -2038,7 +2038,7 @@ struct State_1f4ba0 {
  char pad[7];
  void FUN_0027af00();
 };
-extern unsigned int __cdecl FUN_002673a0(int,int);
+extern unsigned int __cdecl FUN_002673a0(hulk_intptr,int);
 struct Object;
 struct Object {
  char pad0[0x88];
@@ -2168,7 +2168,7 @@ char FUN_001d04d0(const void* typeInfo);                      // type_info test 
 
 typedef unsigned long U_1f4f00; typedef unsigned __int64 Q_1f4f00;
 struct Pair_1f4f00 { U_1f4f00 a,b; };
-U_1f4f00 __cdecl FUN_002673a0(int,int);
+U_1f4f00 __cdecl FUN_002673a0(hulk_intptr,int);
 void __cdecl FUN_00249a90(U_1f4f00,Pair_1f4f00*);
 void __cdecl FUN_0024a800(U_1f4f00,int);
 void __cdecl FUN_002497e0(U_1f4f00);
@@ -2718,7 +2718,7 @@ void FUN_0024ac40(void *voice, void *r2, int a, int b, int c);
 char FUN_00249b40(void *voice);
 Info30 *FUN_002495f0(void *r2);
 void FUN_00249bd0(void *voice, void *r2, Pair_1f5c20 *p);
-int FUN_002673a0(int a, int b);
+int FUN_002673a0(hulk_intptr a, int b);
 
 class Mgr_1f5c20 {
 public:
@@ -3007,7 +3007,7 @@ struct Current_1f6250 {
     unsigned __int64 FUN_001f57e0();
 };
 
-int __cdecl FUN_002673a0(int a, int b);
+int __cdecl FUN_002673a0(hulk_intptr a, int b);
 int __cdecl FUN_0024a370(void *handle, int *hash);
 void __cdecl FUN_00249bd0(void *handle, int x, Params *p);
 char __cdecl FUN_00249b40(void *handle);

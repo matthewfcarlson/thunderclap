@@ -5552,9 +5552,9 @@ void FEThingsBase::FUN_000e7ad0(Reader* reader, void* context, void* object, Ite
 namespace fn_f26f242d {
 
 // 0x000e7b90 FUN_000e7b90 (148 B): matches/0x000e7b90.cpp
-// sym: ?ProcessManager@fn_f26f242d@@YGXPAVManager_e7b90@1@PAVCallback_e7b90@1@@Z
+// sym: ?FUN_000e7b90@fn_f26f242d@@YGXPAVManager_e7b90@1@PAVCallback_e7b90@1@@Z
 // data: g_GlobalFloatBits_004a0fec = DAT_004a0fec
-void __stdcall ProcessManager(Manager_e7b90* mgr, Callback_e7b90* cb) {
+void __stdcall FUN_000e7b90(Manager_e7b90* mgr, Callback_e7b90* cb) {
     bool flag = false;
 
     while (mgr->IsActive_000f9e90()) {
@@ -5584,9 +5584,9 @@ void __stdcall ProcessManager(Manager_e7b90* mgr, Callback_e7b90* cb) {
 
 
 // 0x000e7c30 FUN_000e7c30 (148 B): matches/0x000e7c30.cpp
-// sym: ?ProcessManager@fn_f26f242d@@YGXPAVManager_e7c30@1@PAVCallback_e7c30@1@@Z
+// sym: ?FUN_000e7c30@fn_f26f242d@@YGXPAVManager_e7c30@1@PAVCallback_e7c30@1@@Z
 // data: g_GlobalFloatBits = DAT_004a0ff0
-void __stdcall ProcessManager(Manager_e7c30* mgr, Callback_e7c30* cb) {
+void __stdcall FUN_000e7c30(Manager_e7c30* mgr, Callback_e7c30* cb) {
     bool flag = false;
 
     while (mgr->IsActive_000f9e90()) {

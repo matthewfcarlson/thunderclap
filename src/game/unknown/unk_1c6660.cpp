@@ -246,8 +246,8 @@ void __stdcall FUN_001c6950(List_1c6950* list) {
 
 
 // 0x001c6aa0 FUN_001c6aa0 (7 B): matches/0x001c6aa0.cpp
-// sym: ?target@fn_fe13ae73@@YIHPAVC_1c6aa0@1@@Z
-hulk_intptr __fastcall target(C_1c6aa0* self) {
+// sym: ?FUN_001c6aa0@fn_fe13ae73@@YIHPAVC_1c6aa0@1@@Z
+hulk_intptr __fastcall FUN_001c6aa0(C_1c6aa0* self) {
     return self->value + 0x14;
 }
 
@@ -273,9 +273,9 @@ extern "C" void* __fastcall FUN_001c6ac0(Obj_1c6ac0* self, void*) {
 
 
 // 0x001c6af0 FUN_001c6af0 (38 B): matches/0x001c6af0.cpp
-// sym: ?target@fn_fe13ae73@@YIPADPAVObj_1c6af0@1@@Z
+// sym: ?FUN_001c6af0@fn_fe13ae73@@YIPADPAVObj_1c6af0@1@@Z
 // data: g_buffer = DAT_004e238c, g_flag_1c6af0 = DAT_004e239c
-char* __fastcall target(Obj_1c6af0* self) {
+char* __fastcall FUN_001c6af0(Obj_1c6af0* self) {
     if (self->mPtr)
         return (char*)(self->mPtr + 0x2c);
     if ((((u8*)&(*(u32_1c6af0*)&DAT_004e239c))[0] & 1) == 0)

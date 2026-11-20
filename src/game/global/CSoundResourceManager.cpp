@@ -31,7 +31,7 @@ class Dummy_1e9f90 {
     void Call(void*);
 };
 } // namespace fn_f01d1853
-extern "C" __int64 __cdecl FUN_002672f0(int, int, int);
+extern "C" __int64 __cdecl FUN_002672f0(hulk_intptr, int, int);
 namespace fn_f01d1853 {
 struct Entry {
     char pad0[0x14];
@@ -253,7 +253,7 @@ void Method1_1e9f90::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (v
 // 0x001ea010 FUN_001ea010 (50 B): matches/0x001ea010.cpp
 // sym: ?FUN_001ea010@X_1ea010@owners@@QAEHH@Z
 int owners::X_1ea010::FUN_001ea010(hulk_intptr p) {
-    __int64 v = FUN_002672f0(((int)p), 0, 0);
+    __int64 v = FUN_002672f0(((hulk_intptr)p), 0, 0);
     return consume(&v);
 }
 

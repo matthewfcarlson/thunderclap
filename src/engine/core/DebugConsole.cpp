@@ -306,8 +306,8 @@ void owners::Device_26e030::FUN_0026e030() {
 namespace fn_f42a2f23 {
 
 // 0x0026e0e0 FUN_0026e0e0 (81 B): matches/0x0026e0e0.cpp
-// sym: ?target@fn_f42a2f23@@YIXPAUObj_26e0e0@1@@Z
-void __fastcall target(Obj_26e0e0* self) {
+// sym: ?FUN_0026e0e0@fn_f42a2f23@@YIXPAUObj_26e0e0@1@@Z
+void __fastcall FUN_0026e0e0(Obj_26e0e0* self) {
     int x = self->state;
     if (x == 3) {
         cleanup_0026eef0(&self->field68);
@@ -884,10 +884,10 @@ void C_26e970::Fn(int a, int b, int c, int d, char e, char f, char g, char h2, c
 
 
 // 0x0026e9e0 FUN_0026e9e0 (97 B): equivalent/0x0026e9e0.cpp
-// sym: ?target@fn_f42a2f23@@YAXPAPAUObj_26e9e0@1@HH@Z @1b55fcac8f14 @w6a92ac48092a @v7f747464993b
+// sym: ?FUN_0026e9e0@fn_f42a2f23@@YAXPAPAUObj_26e9e0@1@HH@Z @1b55fcac8f14 @w6a92ac48092a @v0476b5821839
 // STATUS: equivalent (tools/equiv.py level 3: 20009 inputs, branch coverage 4/4)
 // FUN_0026e9e0 @ 0x0026e9e0
-void __cdecl target(Obj_26e9e0** result, hulk_intptr value, int other) {
+void __cdecl FUN_0026e9e0(Obj_26e9e0** result, hulk_intptr value, int other) {
     if ((*(Obj_26e9e0**)&DAT_005283b0)) {
         (*(Obj_26e9e0**)&DAT_005283b0)->FUN_0026e9e0_slot0();
         *result = (*(Obj_26e9e0**)&DAT_005283b0);

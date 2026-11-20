@@ -37,7 +37,7 @@ class Obj_201750 {
     unsigned short f();
 };
 } // namespace fn_f0f2b8a0
-extern "C" __int64 __cdecl FUN_002672f0(int, int, int);
+extern "C" __int64 __cdecl FUN_002672f0(hulk_intptr, int, int);
 namespace fn_f0f2b8a0 {
 struct Key_2017d0 {
     unsigned int lo, hi;

@@ -3372,7 +3372,13 @@ public:
 
     void FUN_00203e30(Playing_207960 *p);
     void FUN_00207410();
+#if defined(HULK_PTR64)
+    // (decl1) natively the flag as the definition's bool: the one-byte union by value has another IR signature and
+    // does not bind (MSVC 7.1 pushes the parameter's whole word, which the 32-bit side keeps)
+    Playing_207960 *FUN_00203e90(hulk_intptr a, bool flag, bool z0, hulk_intptr z1, hulk_intptr entry, hulk_intptr first, int seven);
+#else
     Playing_207960 *FUN_00203e90(hulk_intptr a, Flag_207960 flag, bool z0, hulk_intptr z1, hulk_intptr entry, hulk_intptr first, int seven);   // (decl1, recs1 Q5) pointer-sized where 0x00203e90 takes pointers (the name, the actor, the target, the callback)
+#endif
     void FUN_00207960(int a, int index, Flag_207960 flag);
 };
 
@@ -3384,7 +3390,11 @@ void CWorldStreamManager_207960::FUN_00207960(int a, int index, Flag_207960 flag
         FUN_00203e30(current);
         FUN_00207410();
     }
+#if defined(HULK_PTR64)
+    Playing_207960 *p = FUN_00203e90(a, flag.on != 0, 0, 0, table[index], table[0], 7);
+#else
     Playing_207960 *p = FUN_00203e90(a, flag, 0, 0, table[index], table[0], 7);
+#endif
     current = p;
     if (flag.on) {
         selected = index;

@@ -1962,11 +1962,11 @@ extern "C" int __cdecl FUN_00249610(void* unused, void* p) {
 
 
 // 0x00249630 FUN_00249630 (232 B): equivalent/0x00249630.cpp
-// sym: ?target@fn_f9a518a5@@YAXPAUObject@1@H@Z @08a176d125ef @wdf9fd0a48cd4 @va18d952fcdaf
+// sym: ?FUN_00249630@fn_f9a518a5@@YAXPAUObject@1@H@Z @339db08c9865 @w9acf7a19fc18 @v3f36570a7a62
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 16/16)
 // FUN_00249630 @ 0x00249630
-// equiv-conv: target edi stack
-void __cdecl target(Object* self, hulk_intptr delta) {
+// equiv-conv: FUN_00249630 edi stack
+void __cdecl FUN_00249630(Object* self, hulk_intptr delta) {
  if(self->state == 1 || self->state == 3) {
   double step = (double)delta / self->duration;
   if (step >= 0.1f) step = 0.1f;
@@ -2884,8 +2884,8 @@ Settings_24a510* Settings_24a510::FUN_0024a510(int ownerArg) {
 
 
 // 0x0024a590 FUN_0024a590 (54 B): matches/0x0024a590.cpp
-// sym: ?target@fn_f9a518a5@@YIXPAUObj_24a590@1@PAX@Z
-void __fastcall target(Obj_24a590* p, void*) {
+// sym: ?FUN_0024a590@fn_f9a518a5@@YIXPAUObj_24a590@1@PAX@Z
+void __fastcall FUN_0024a590(Obj_24a590* p, void*) {
     F47550_00247550((void*)((hulk_intptr)((char*)((char*)&DAT_004e6158))), p->m40);
     F47550_00247550((void*)((hulk_intptr)DAT_004e6110), p->m3c);
     char* q = (char*)p + 0x50;
@@ -3534,8 +3534,8 @@ extern "C" void __cdecl FUN_0024af00(Obj_24af00* object) {
 
 
 // 0x0024af90 FUN_0024af90 (49 B): matches/0x0024af90.cpp
-// sym: ?target@fn_f9a518a5@@YAIPAUX@1@@Z
-unsigned int __cdecl target(X* p) {
+// sym: ?FUN_0024af90@fn_f9a518a5@@YAIPAUX@1@@Z
+unsigned int __cdecl FUN_0024af90(X* p) {
     unsigned int n = ((unsigned int)FUN_0025e2b0((X *)p));
     hulk_freg f = (hulk_freg)(unsigned int)p->value * p->scale;
     return n <= (unsigned int)(int)(__int64)f;

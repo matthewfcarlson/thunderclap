@@ -31,10 +31,10 @@ struct Object {
     union { Item_2d0950* item; State_2d0a50* state; };
     unsigned __int64 FUN_002c8a80(void*, void*);
     unsigned __int64 FUN_002c92f0(void*, void*);
-    void target(void* arg1, void* arg2, void* arg3);
+    void FUN_002d0950(void* arg1, void* arg2, void* arg3);
     void FUN_002c8a80(unsigned,void*);
     void FUN_002c92f0(unsigned,void*);
-    void target(unsigned,hulk_uintptr,void*);
+    void FUN_002d0a50(unsigned,hulk_uintptr,void*);
 };
 extern "C" void FUN_002cec10(Object*,bool,unsigned);
 extern "C" void FUN_002cd130(Object*,bool,unsigned);
@@ -136,7 +136,7 @@ extern "C" int * __cdecl FUN_002d0cc0(int *, int, const int *);
 
 
 // 0x002d0950 FUN_002d0950 (244 B): equivalent/0x002d0950.cpp
-// sym: ?target@Object@fn_f491b664@@QAEXPAX00@Z @8e80af90cd2c @w32d1f83f67f6 @vc7585a8f2d86
+// sym: ?FUN_002d0950@Object@fn_f491b664@@QAEXPAX00@Z @8e80af90cd2c @w32d1f83f67f6 @v5d8288484e0b
 // STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 20/20)
 // FUN_002d0950 @ 0x002d0950
 // FUN_002d0950 @ 0x002d0950
@@ -144,7 +144,7 @@ extern "C" int * __cdecl FUN_002d0cc0(int *, int, const int *);
 // equiv-conv: FUN_002cb2b0 ecx stack esi
 // equiv-conv: FUN_002c7690 eax esi stack
 // equiv-conv: FUN_002c7a50 ecx eax esi
-void Object::target(void* arg1, void* arg2, void* arg3) {
+void Object::FUN_002d0950(void* arg1, void* arg2, void* arg3) {
  Object* self = this;
  bool enabled = arg3 != 0 && self->field50 != 0;
  bool special;
@@ -164,14 +164,14 @@ void Object::target(void* arg1, void* arg2, void* arg3) {
 
 
 // 0x002d0a50 FUN_002d0a50 (160 B): equivalent/0x002d0a50.cpp
-// sym: ?target@Object@fn_f491b664@@QAEXIIPAX@Z @ef91f7c8d485 @we399d3a8f43a @vc38e64febe11
+// sym: ?FUN_002d0a50@Object@fn_f491b664@@QAEXIIPAX@Z @ef91f7c8d485 @we399d3a8f43a @v4e6cb68b561b
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 18/18)
 // FUN_002d0a50 @ 0x002d0a50
 // equiv-conv: FUN_002cec10 ecx edx esi
 // equiv-conv: FUN_002cd130 eax edx esi
 // equiv-conv: FUN_002c7e40 eax ecx esi
 // equiv-conv: FUN_002c8130 ecx eax esi
-void Object::target(unsigned c,hulk_uintptr v,void* d) { bool e=d && resource; bool s; if(e) { if(state) FUN_002c8a80(v,d); else FUN_002c92f0(v,d); s=state && (state->flags&0xffffffcfU); } else s=state!=0; if(s) {if(active) FUN_002cd130(this,e,c); else FUN_002cec10(this,e,c);} else {if(active) FUN_002c7e40(this,e,c); else FUN_002c8130(e,this,c);} }
+void Object::FUN_002d0a50(unsigned c,hulk_uintptr v,void* d) { bool e=d && resource; bool s; if(e) { if(state) FUN_002c8a80(v,d); else FUN_002c92f0(v,d); s=state && (state->flags&0xffffffcfU); } else s=state!=0; if(s) {if(active) FUN_002cd130(this,e,c); else FUN_002cec10(this,e,c);} else {if(active) FUN_002c7e40(this,e,c); else FUN_002c8130(e,this,c);} }
 
 } // namespace fn_f491b664
 

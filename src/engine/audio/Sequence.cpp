@@ -1274,17 +1274,17 @@ bool audio::Sequence::vfunc_4(int __p0) { unsigned int p = (unsigned int)__p0;
 
 
 // 0x00257b30 FUN_00257b30 (234 B): equivalent/0x00257b30.cpp [wrapped: conflict: FUN_00247530]
-// sym: ?target@Owner_257b30@fn_00257b30@@QAE_NPAX@Z @79bd5499b1eb @wd189bbfc99b6 @v234288475c4a
+// sym: ?target@Owner_257b30@fn_00257b30@@QAE_NPAX@Z @79bd5499b1eb @wd189bbfc99b6 @vc8f8f18f6a35
 namespace fn_00257b30 {
 // STATUS: equivalent (tools/equiv.py level 3: 373 inputs, branch coverage 11/12, incomplete)
 // FUN_00257b30 @ 0x00257b30
 
 struct Text_257b30 { char data[12]; void FUN_0023fac0(); const char* FUN_0023fb00();  };
-struct Entry_257b30 { char pad[16]; void* name; };
+struct Entry_257b30 { char pad[16]; unsigned name; };   // (decl1) name: 0x002673a0's 32-bit hash
 struct List_257b30 { char opaque; };
 extern bool __cdecl FUN_0025abd0(void*, unsigned*);
 extern Entry_257b30* __cdecl FUN_00247530(void*);
-extern "C" void* __cdecl FUN_002673a0(const char*, int);
+extern "C" unsigned __cdecl FUN_002673a0(const char*, int);   // (decl1) as defined (unk_267280.cpp): an int hash
 extern "C" bool __cdecl FUN_0025bce0(void*, Text_257b30*);
 extern "C++" char __cdecl FUN_00257780(void *, void *, const unsigned *);
 extern void __cdecl FUN_00247550(void*, Entry_257b30*);
@@ -1298,11 +1298,11 @@ bool Owner_257b30::target(void* input) {
   Text_257b30 text;
   text.FUN_0023fac0();
   bool ok = FUN_0025bce0(input,&text);
-  void** slot = &item->name;
+  unsigned* slot = &item->name;
   if (slot) *slot = FUN_002673a0(text.FUN_0023fb00(),0);
   ((owners::Str_240060 *)&text)->FUN_00240060();
   if (!ok) { FUN_00247550(((char*)&DAT_004e7690),item); return false; }
-  FUN_00257780((List_257b30 *)(&list),(Entry_257b30 *)item,(const unsigned *)(void * *)slot);
+  FUN_00257780((List_257b30 *)(&list),(Entry_257b30 *)item,(const unsigned *)slot);
  }
  return true;
 }

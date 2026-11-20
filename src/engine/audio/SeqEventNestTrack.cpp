@@ -155,7 +155,7 @@ class SeqEventNestTrack : public SeqEvent {
 extern "C" void FUN_00247550(void*, SeqEventNestTrack*);
 extern "C" void __cdecl FUN_002613b0(void *tree, Key *key, void *name) throw();
 extern "C" Index_24e870 *__cdecl FUN_00247810(Context *c) throw();
-unsigned int __cdecl FUN_002673a0(unsigned int v, int flags) throw();
+unsigned int __cdecl FUN_002673a0(hulk_uintptr v, int flags) throw();
 
 // 0x0024e520 audio::SeqEventNestTrackType::vfunc_0 (5 B): matches
 // sym: ?vfunc_0@SeqEventNestTrackType_24e520@fn_f724be52@@QAEXXZ
