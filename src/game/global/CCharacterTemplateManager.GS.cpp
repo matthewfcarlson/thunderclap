@@ -267,7 +267,7 @@ public:
 
 
 // 0x000464c0 FUN_000464c0 (4782 B): equivalent/0x000464c0.cpp
-// sym: ?FUN_000464c0@CharDef@fn_ff1647fc@@QAE_NHPAVReader@2@@Z @c09031e17b89 @w4580e47f60c8 @vd40321a5713a
+// sym: ?FUN_000464c0@CharDef@fn_ff1647fc@@QAE_NHPAVReader@2@@Z @00989ebc4e0c @w1211febb6ad0 @v5975cf03e014
 // STATUS: equivalent (tools/equiv.py level 3: 586 inputs, branch coverage 118/118)
 // FUN_000464c0 @ 0x000464c0
 bool CharDef::FUN_000464c0(int unused, Reader* props) {
@@ -342,7 +342,7 @@ bool CharDef::FUN_000464c0(int unused, Reader* props) {
     fr.jidp = jid;
     fr.x14.namep = jname[0];
     fr.u18.offp = joff;
-    fr.u24.nm = ((const char**)&DAT_0048f6d0);
+    fr.u24.nm = ((const char**)&DAT_0048f6cc) + 1;   // (data5, D128) the joint names, entries 1..3 of the hit locations
     do {
         const char* sub = *fr.u24.nm;
         FUN_00267760(fr.buf, 0x80, "CollActor%sJoint", sub);
@@ -366,7 +366,7 @@ bool CharDef::FUN_000464c0(int unused, Reader* props) {
         fr.x14.namep += 0x20;
         fr.u18.offp++;
         fr.u24.nm++;
-    } while (fr.u24.nm < ((const char**)&DAT_0048f6d0) + 3);
+    } while (fr.u24.nm < ((const char**)&DAT_0048f6cc) + 4);
     fr.t0 = 0;
     props->FUN_0027aac0("FightRoot", &fr.t0);
     sub[0].FUN_00233f20(fr.t0);

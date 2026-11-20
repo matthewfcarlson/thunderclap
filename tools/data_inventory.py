@@ -625,7 +625,7 @@ class Inventory:
             if not self.lo <= a < self.hi:
                 continue
             if a >= self.bss_lo:
-                put(a, size, "bss", record=t)
+                put(a, size, "bss", record=t, type=canon_type(t))   # (data5, D129) its records.h type, not the sources' votes
             else:
                 # (data4, D119) an initialized record is typed by its declaration, and one whose layout holds a pointer
                 # is a `struct` (not a scalar `table`: natively its words move, and equiv64's HULK_RDATA refuses it);
@@ -688,8 +688,53 @@ class Inventory:
                 self.data_ptrs[a] = v
                 if self.is_data_ptr(v):
                     starts[v].add("data")
+        for a in self.string_pointer_runs(forced, starts):
+            v = self.data_ptrs[a] = self.u32(a)
+            starts[v].add("data")
         self.src_off = src_off
         return starts
+
+    def string_start(self, v):
+        """Is v the first character of a text string of .rdata/.data: a NUL before it, or word-aligned after bytes that
+        are not text (a float before 0x003f3f30 "none")?"""
+        if not (self.lo < v < self.bss_lo and self.looks_string(v, 1)):
+            return False
+        before = self.img[v - 1 - self.lo]
+        return before == 0 or v % 4 == 0 and before not in PRINTABLE
+
+    def string_pointer_runs(self, forced, starts):
+        """(data5, D128) Words whose bytes read as text that are pointers all the same: a word that points at the
+        start of a string (or at an empty string code references) and sits in a run of pointers (a neighbour, or a
+        neighbour's neighbour through such words, is a pointer word the text rule kept, data or code, or a forced
+        one). The enum name lists the fight parameters pass to ParamEnumConstList (`{"None", "Slappable", ...}`,
+        0x003f6b40), the mission tables (0x00406140, 0x004061e8), the cheat and unlock names (0x0049ceb0) and
+        om::String's {name, function} lists (0x004cd390) hold many: their pointers' bytes (`30 5c 3f 00`) read as
+        text. Words of the RTTI structures and vftables are never taken."""
+        fixed = sorted((s, e) for s, e in self.fixed if self.items.get(s, {}).get("kind") in CODE_OWNED)
+        fixed_starts = [s for s, _ in fixed]
+
+        def in_fixed(a):
+            j = bisect.bisect_right(fixed_starts, a) - 1
+            return j >= 0 and fixed[j][0] <= a < fixed[j][1]
+
+        def target(v):
+            return self.string_start(v) or (self.lo < v < self.bss_lo and self.img[v - self.lo] == 0 and
+                                            "code" in starts.get(v, ()))
+
+        cand = set()
+        for a in range(self.lo, self.bss_lo, 4):
+            if a in self.data_ptrs or a in forced or in_fixed(a):
+                continue
+            if target(self.u32(a)) and all(c in PRINTABLE for c in self.img[a - self.lo:a - self.lo + 3]):
+                cand.add(a)
+        took, grew = set(), True
+        while grew:
+            grew = False
+            for a in sorted(cand - took):
+                if any(b in self.data_ptrs or b in took for b in (a - 4, a + 4)):
+                    took.add(a)
+                    grew = True
+        return sorted(took)
 
     FIELD_GAP = 16
 

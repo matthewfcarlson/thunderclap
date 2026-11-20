@@ -1686,3 +1686,27 @@ blocks fight::Action's whole family: the records come first there.
 - **Natively a gen template's vftable outlives its specializations.** D114 keeps `template <> X<...>::~X() {}`, and
   that destructor emits gen's vftable for X natively. Its slot 2 (`X::vfunc_2`) then has to be defined: the converted
   invokes keep a native-only specialization that forwards to the record's function.
+
+## 2026-11-18 data5: string-pointer lists the text rule cut (D128); bss records typed by records.h (D129)
+
+- **The text rule hid 689 pointer words in 45 items** (docs/data.md "String-pointer lists the text rule cut"). Name
+  lists whose string addresses read as text (`30 5c 3f 00` = "None" at 0x003f5c30) were cut into `unknown`, 1-byte
+  `string`, `table` and `pointer_table` pieces, or kept as integers inside `struct`s: natively 4-byte words where the
+  code reads 8-byte pointers, or a list that runs from one item into the next. data_inventory now takes such a word
+  when it points at a string start and sits in a run of pointers (`string_pointer_runs`). Besides the lists the lead
+  named, it finds the unlockables (0x0049ceb0, 766 names, 188 hidden pointers), the mission objectives (0x004061e8,
+  213), the credits (0x004c3c18, 661 lines: an `unknown`/pointer patchwork before), om::String's operator list and
+  zlib's messages.
+- **Two original overruns, kept and made safe.** SmartPropGrabbableCondition passes its objectClass list (22 names;
+  csmConsole is missing) with a count of 23, so the game reads the first weaponType name after it; CSPManager's weapon
+  loop ends at the next item's address and the credits loop 0x001baab0 at the address after its table. The overlapping lists
+  are one item (0x004c5fd0 `const char*[29]`, 0x0048f6cc `const char*[4]`) and the sources name the inner lists and
+  ends by index (`&DAT_004c5fd0[22]`, `DAT_004c3c18 + 661`): the MSVC bytes are the same, natively the reads stay
+  inside one array.
+- **The movies' track mixes are records.** CRadMovieRenderLoop's tables (0x004341a4..0x0043423c and the French /
+  Italian ones) are {count, entries} / {track, count, bins} records that movie::PlayerBink 0x00333ab0 copies through
+  pointer-holding records: records.h `MovieTrackMix` / `MovieTrackMixEntry`, one item per referenced start.
+- **The cow's animation keys (sweep2):** 0x004dd270 is `Entry_835a0[6]` (one `.bss` item; 0x000835a0 indexes 0..5),
+  not six 16-byte items; 0x0035cec0 initializes them by index.
+- **D129:** 104 `.bss` records.h items carry their declaration's type in config/data.json instead of stale source
+  votes; data_gen's output is unchanged.

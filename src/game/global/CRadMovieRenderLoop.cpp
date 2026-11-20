@@ -5,6 +5,7 @@
 #include "decls/address.h"
 #include "decls/data/engine/pure3d/prop.h"
 #include "decls/data/game/global.h"
+#include "decls/data/records.h"   // (data5, D128) the movie track mixes FUN_001b73c0 returns
 #include "decls/shader.h"
 #include "gen/global.h"
 #include "gen/owners.h"

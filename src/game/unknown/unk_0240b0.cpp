@@ -7955,7 +7955,7 @@ struct Obj_2a2b0 {
     Sub_2a2b0* ptr;
 };
 extern "C++" Vec_2a2b0 __cdecl Decode_002672f0(int, int, int);
-extern float* hulk_at_004c6028[];
+extern "C" const char* const DAT_004c5fd0[29];   // (data5, D128) objectClass + weaponType names; weaponType is [22..28]
 extern float zero_2a2b0;
 class C_2a2b0 {
   public:
@@ -7977,7 +7977,7 @@ float* C_2a2b0::Fn(int x) {
     int n = p->Lookup_001d5dd0(id);
     if (n < 1 || n >= 7)
         return &zero_2a2b0;
-    return hulk_at_004c6028[n];
+    return ((float**)&DAT_004c5fd0[22])[n];
 }
 } // namespace fn_0002a2b0
 

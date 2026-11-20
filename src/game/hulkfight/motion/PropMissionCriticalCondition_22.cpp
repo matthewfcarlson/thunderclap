@@ -900,9 +900,9 @@ extern "C" void FUN_001876f0()
         params[2] = new ::fight::ParamBool< ::hulkfight::motion::SmartPropGrabbableCondition>("matchCargo", &owners::Obj_17f330::FUN_0017f330);
         params[3] = new ::fight::ParamBool< ::hulkfight::motion::SmartPropGrabbableCondition>("isCargo", &owners::X_17f350::FUN_0017f350);
         params[4] = new ::fight::ParamBool< ::hulkfight::motion::SmartPropGrabbableCondition>("matchWeaponType", &owners::X_17f370::FUN_0017f370);
-        params[5] = new ::fight::ParamEnumConstList< ::hulkfight::motion::SmartPropGrabbableCondition>("weaponType", (void*)&DAT_004c6028, 7, &owners::Obj_17f390::FUN_0017f390);
+        params[5] = new ::fight::ParamEnumConstList< ::hulkfight::motion::SmartPropGrabbableCondition>("weaponType", (void*)&DAT_004c5fd0[22], 7, &owners::Obj_17f390::FUN_0017f390);
         params[6] = new ::fight::ParamBool< ::hulkfight::motion::SmartPropGrabbableCondition>("matchWeaponizableType", &owners::Obj_17f3b0::FUN_0017f3b0);
-        params[7] = new ::fight::ParamEnumConstList< ::hulkfight::motion::SmartPropGrabbableCondition>("weaponizableType", (void*)&DAT_004c6028, 7, &owners::Obj_17f3d0::FUN_0017f3d0);
+        params[7] = new ::fight::ParamEnumConstList< ::hulkfight::motion::SmartPropGrabbableCondition>("weaponizableType", (void*)&DAT_004c5fd0[22], 7, &owners::Obj_17f3d0::FUN_0017f3d0);
         params[8] = new ::fight::ParamBool< ::hulkfight::motion::SmartPropGrabbableCondition>("matchHasEvent", &owners::Obj_17f3f0::FUN_0017f3f0);
         params[9] = new ::fight::ParamEnumConstList< ::hulkfight::motion::SmartPropGrabbableCondition>("event", (void*)&DAT_00496168, 16, &owners::Obj_17f410::FUN_0017f410);
         FUN_002347b0(&DAT_004e1408, params, 10);

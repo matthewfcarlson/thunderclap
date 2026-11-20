@@ -668,3 +668,43 @@ byte table 0x004399a1, libcmt's DBL_MIN doubles 0x00439ff8 / 0x0043b204, its byt
 `unknown` runs of string pointers the text rule dropped (0x003f6b4c, 0x003f6b78, 0x00406158, 0x004061d8, 0x00427748,
 0x00427750, 0x0042775c, CRadMovieRenderLoop's 0x004341a4..0x0043423c), and `.data` items the sources type as int that
 hold string pointers (0x0048f6b4 `int[6]`, read as `const char**`; 0x0049f3bc; 0x004c6028, passed as a 7-entry list).
+
+**String-pointer lists the text rule cut (data5, 2026-11-18, D128).** The text rule (a data word whose first three
+bytes are printable is not a pointer) dropped the pointers of many name lists, whose string addresses happen to read as
+text (`30 5c 3f 00` is 0x003f5c30, "None"), and the carve then cut each list into `unknown`, 1-byte `string`, `table`
+and `pointer_table` pieces, or kept its words as integers inside a `struct`; natively such a list read 8-byte pointers
+from 4-byte words, or ran from one item into the next. data_inventory now takes a text-looking word as a pointer when
+it points at the start of a string (a NUL before it, or word-aligned after bytes that are not text) or at an empty
+string code references, and a neighbour (directly, or through such words) is a pointer word, data or code
+(`Inventory.string_pointer_runs`; never inside an RTTI structure or vftable). It takes 689 words in 45 items; in the
+game layers: the fight parameters' ParamEnumConstList name lists, the mission tables 0x00406140 / 0x004061e8 /
+0x00406740, the unlockables 0x0049ceb0 (766 names), the credits 0x004c3c18 (661 lines), om::String's {name,
+function} list 0x004cd390, zlib's messages 0x004d1704, and the lists the lead named (0x0048f6b4 `int[6]`, 0x0049f3bc,
+0x003f6b40, 0x00406140, 0x0042773c). A list whose referenced head was cut short (a source's one-word type vote limits
+a referenced item's extent) is pinned in config/data-items.json at its length, the count its ParamEnumConstList call
+passes: 0x0042773c, 0x00427758, 0x0048f57c, 0x0048f9c0, 0x004ad788, 0x00428b30, 0x00495470, 0x00495480,
+0x004954b4, 0x00496fb4, 0x004a1ab4, 0x004af9f0, 0x00406140 (40 mission names), 0x004ae340 (its two words have no
+pointer neighbour: config/data-pointers.json). Lists that overlap are one item, and the sources name the inner one
+by index: 0x004c5fd0 `const char*[29]` holds SmartPropGrabbableCondition's objectClass names (22, passed with a count
+of 23: the original reads one past its end into the next list), its weaponType names at [22] (was DAT_004c6028) and
+CSPManager's weapon names at [23] (was DAT_004c602c, its loop end DAT_004c6044 = [29]); 0x0048f6cc `const char*[4]`
+holds the hit locations and, at [1..3], the joint names scan1 had pinned at 0x0048f6d0. A loop end past a table is
+written from the table: 0x001baab0's credits loop ran to `&DAT_004c466c` (the next item), now `DAT_004c3c18 + 661`
+(the credits pinned at their 661 words).
+The movies' sound-track mixes (CRadMovieRenderLoop's 0x004341a4..0x0043423c and the French / Italian ones at
+0x0041db58..0x0041dc18) are records.h `MovieTrackMix` {count, entries} and `MovieTrackMixEntry` {track, count, bins},
+one item per referenced start, with `unsigned int[]` bin lists (data-items pins), and four entries' bins pointers in
+config/data-pointers.json (their targets' bytes read as text): movie::PlayerBink 0x00333ab0 copies them through
+records of the same shape. Remaining text-looking words that point at a string start: none outside the library. The
+inventory's owners follow (a string a list points at goes to the list's object): data_gen's definitions change for
+1,236 items (233 new, 384 merged into a list), every one byte-matching with its relocations resolving; the 12
+failing items are HEAD's.
+
+Also (sweep2's report): the cow's animation keys 0x004dd270 are one `.bss` item of six 16-byte entries (`Entry_835a0[6]`,
+config/data-items.json), which 0x000835a0 indexes with `random % DAT_003ff8bc[state] + DAT_003ff8e0[state]` (0..5);
+the carve had made one item per entry, so natively entries 1..5 were read past the item. The initializer 0x0035cec0
+names them by index (`((AnimKey*)&DAT_004dd270)[k]`; MATCH, relocations ok).
+
+**Bss records take their records.h type (data5, 2026-11-18, D129).** A `.bss` records.h item now carries its
+declaration's type in config/data.json (`type`), not the sources' votes (`char[]`, `void*`, `unsigned int`, a bare
+record name): 104 items. Metadata only: data_gen defines these items from records.h, and its output is unchanged.

@@ -2336,17 +2336,19 @@ void __fastcall target(Obj_1dbd40* self) {
 
 // 0x001dbd50 FUN_001dbd50 (84 B): matches/0x001dbd50.cpp
 // sym: ?FUN_001dbd50@fn_f75938cb@@YAXPAX@Z
-// data: vals = DAT_004c602c
+// data: vals = DAT_004c5fd0[23..28] (data5, D128: the weapon names, the tail of one item; was DAT_004c602c up to
+// DAT_004c6044, the next item, as the end)
+extern "C" const char* const DAT_004c5fd0[29];   // (data5, D128) PropMissionCriticalCondition's name lists (decls/data/game/hulkfight/motion.h)
 void __cdecl FUN_001dbd50(void* /*this, unused: callers pass it (unb4)*/) {
     Loader_1dbd50* p = FUN_001d4c90();
     if (p) {
         p->Config_001d2ba0("constants", 1, 1);
         p->Type_001d2ba0("weaponTypes", 0, 1);
-        const int* q = ((const int*)&DAT_004c602c);
+        const char* const* q = &DAT_004c5fd0[23];
         do {
             ((owners::Thing_1d1d50 *)p)->FUN_001d1d50((hulk_uintptr)(*q), (hulk_uintptr)(*q));
             ++q;
-        } while ((hulk_intptr)q < ((hulk_intptr)DAT_004c6044));
+        } while ((hulk_intptr)q < ((hulk_intptr)&DAT_004c5fd0[29]));
         ((owners::Obj_1d19d0 *)p)->FUN_001d19d0(2);
     }
 }

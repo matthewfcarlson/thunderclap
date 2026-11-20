@@ -17,7 +17,6 @@ typedef const void* const* hulk_vftable_ptr;  // a pointer to a vftable
 #endif
 #endif
 
-struct DataLayout_004d982c;  // packed layout (bytes and pointers), defined in the data TU
 #include "decls/data/records.h"
 
 // movie/BinkCallback_2.cpp
@@ -75,7 +74,7 @@ extern "C" const char DAT_0043464e[1];  // s_empty_0043464e
 extern "C" const short DAT_00434650;
 extern "C" const char DAT_00434652[1];  // s_empty_00434652
 extern "C" hulk_code_ptr DAT_004d9800[11];  // ptrTbl_004d9800
-extern "C" DataLayout_004d982c DAT_004d982c;  // struct_004d982c
+extern "C" const char* DAT_004d982c[11];  // ptrTbl_004d982c
 extern "C" unsigned char DAT_0055dbb0[4];
 extern "C" unsigned char DAT_0055dbb4[8];
 extern "C" unsigned char DAT_0055dbbc[4];

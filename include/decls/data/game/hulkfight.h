@@ -253,12 +253,7 @@ extern "C" const char DAT_003ff944[15];  // s_cow_loco_run_n_003ff944
 extern "C" const char DAT_003ff954[18];  // s_cow_loco_180_turn_003ff954
 extern "C" const char DAT_003ff968[16];  // s_cow_loco_walk_n_003ff968
 extern "C" const char DAT_003ff978[13];  // s_cow_amb_idle_003ff978
-extern "C" unsigned char DAT_004dd270[16];
-extern "C" unsigned char DAT_004dd280[16];
-extern "C" unsigned char DAT_004dd290[16];
-extern "C" unsigned char DAT_004dd2a0[16];
-extern "C" unsigned char DAT_004dd2b0[16];
-extern "C" unsigned char DAT_004dd2c0[16];
+extern "C" unsigned char DAT_004dd270[96];
 extern "C" unsigned char DAT_004dd2d0[1044];
 
 // hulkfight/unk_088ea0.cpp
@@ -311,12 +306,6 @@ extern "C" float DAT_004c36e8[4];  // fltTbl_004c36e8
 extern "C" unsigned char DAT_004e17c0[64];
 
 // hulkfight/unk_1f6bc0.cpp
-extern "C" const char DAT_00412ed8[10];  // s_Footprint_00412ed8
-extern "C" const char DAT_00412ee4[10];  // s_Treadmark_00412ee4
-extern "C" const char DAT_00412ef0[6];  // s_Crack_00412ef0
-extern "C" const char DAT_00412ef8[6];  // s_Crush_00412ef8
-extern "C" const char DAT_00412f00[7];  // s_Bullet_00412f00
-extern "C" const char DAT_00412f08[5];  // s_Fire_00412f08
 extern "C" const char DAT_00424bf0[11];  // s_Energywall_00424bf0
 extern "C" const char DAT_00424bfc[11];  // s_Hybridwall_00424bfc
 extern "C" const char DAT_00424c08[11];  // s_Grassfloor_00424c08

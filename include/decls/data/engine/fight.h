@@ -41,7 +41,6 @@ extern "C" float DAT_004cb264[4];  // fltTbl_004cb264
 extern "C" const char DAT_00427770[10];  // s_debugOnly_00427770
 extern "C" const char DAT_00427824[13];  // s_fightContext_00427824
 extern "C" const char DAT_00427834[2];  // s_empty_00427834
-extern "C" const float DAT_00427838[7];  // fltTbl_00427838
 extern "C" const char DAT_00427854[33];  // s_fight_Reader_ERROR_s_00427854
 extern "C" const float DAT_00427878[7];  // fltTbl_00427878
 extern "C" const char DAT_004278c0[13];  // s_08x_08x_s_s_004278c0
@@ -111,6 +110,7 @@ extern "C" unsigned char DAT_004e5c94[8];
 
 // fight/Chunk.cpp
 extern "C" const char DAT_004277d8[13];  // s_siblingIndex_004277d8
+extern "C" const float DAT_00427838[7];  // fltTbl_00427838
 extern "C" const char DAT_00428704[29];  // s_Failed_to_insert_fig_00428704
 extern "C" const float DAT_00428724[7];  // fltTbl_00428724
 extern "C" const unsigned int DAT_0047f648[1];  // zero_0047f648
@@ -161,8 +161,7 @@ extern "C" const unsigned int DAT_0047e688[1];  // zero_0047e688
 extern "C" float DAT_004ca618[16];  // fltTbl_004ca618
 
 // fight/DebugCondition.cpp
-extern "C" const char* const DAT_00428b30;  // PTR_00428b30
-extern "C" const char* const DAT_00428b34[2];  // ptrTbl_00428b34
+extern "C" const char* const DAT_00428b30[3];  // ptrTbl_00428b30
 extern "C" const char DAT_00428b3c[12];  // s_RAD_RELEASE_00428b3c
 extern "C" const char DAT_00428b48[9];  // s_RAD_TUNE_00428b48
 extern "C" const char DAT_00428b54[10];  // s_RAD_DEBUG_00428b54
@@ -205,9 +204,9 @@ extern "C" unsigned int DAT_004cb65c[1];  // zero_004cb65c
 extern "C" float DAT_004cb770[4];  // fltTbl_004cb770
 
 // fight/FightNodeTimeCondition.cpp
-extern "C" const char DAT_0042773c[4];  // s_lwB_0042773c
+extern "C" const char* const DAT_0042773c[6];  // ptrTbl_0042773c
 extern "C" const int DAT_00427754;
-extern "C" const char DAT_00427758;  // tbl_00427758
+extern "C" const char* const DAT_00427758[2];  // ptrTbl_00427758
 extern "C" const int DAT_00427760;
 extern "C" const char DAT_00427e50[8];  // s_recurse_00427e50
 extern "C" const char DAT_00427e58[7];  // s_parent_00427e58
@@ -521,13 +520,9 @@ extern "C" int DAT_004e5c70;
 extern "C" const char DAT_00427720[13];  // s_fightChunk_00427720
 extern "C" const unsigned int DAT_00427730[1];  // unk_00427730
 extern "C" const char DAT_00427734[5];  // s_fig0_00427734
-extern "C" const char* const DAT_00427740[2];  // ptrTbl_00427740
-extern "C" const unsigned int DAT_00427748[1];  // unk_00427748
-extern "C" const char* const DAT_0042774c;  // PTR_0042774c
-extern "C" const unsigned int DAT_00427750[1];  // unk_00427750
-extern "C" const char DAT_00427759[3];  // s_lB_00427759
-extern "C" const unsigned int DAT_0042775c[1];  // unk_0042775c
-extern "C" const unsigned int DAT_00427764[3];  // unk_00427764
+extern "C" const char DAT_00427764[2];  // s_empty_00427764
+extern "C" const char DAT_00427768[3];  // s_empty_00427768
+extern "C" const char DAT_0042776c[2];  // s_empty_0042776c
 extern "C" const char DAT_0042777c[10];  // s_reference_0042777c
 extern "C" DataLayout_004e5af8 DAT_004e5af8[1];
 

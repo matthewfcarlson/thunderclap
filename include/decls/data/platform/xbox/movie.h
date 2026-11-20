@@ -17,7 +17,6 @@ typedef const void* const* hulk_vftable_ptr;  // a pointer to a vftable
 #endif
 #endif
 
-struct DataLayout_00434184;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_0048bd30;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_0048bd78;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_00555ba8;  // packed layout (bytes and pointers), defined in the data TU
@@ -54,13 +53,7 @@ extern "C" unsigned char DAT_00555bb0[32768];
 extern "C" const unsigned int DAT_004340b4[1];  // zero_004340b4
 extern "C" const unsigned int DAT_004340fc[1];  // zero_004340fc
 extern "C" const float DAT_00434100[2];  // fltTbl_00434100
-extern "C" const char DAT_00434108[1];  // s_empty_00434108
-extern "C" const unsigned int DAT_0043410c[1];  // unk_0043410c
-extern "C" const char DAT_00434110[1];  // s_empty_00434110
-extern "C" const unsigned int DAT_00434114[1];  // unk_00434114
-extern "C" const unsigned int DAT_00434118[26];  // tbl_00434118
-extern "C" const unsigned int DAT_00434180[1];  // tbl_00434180
-extern "C" const DataLayout_00434184 DAT_00434184;  // struct_00434184
+extern "C" const unsigned int DAT_00434108[2];  // tbl_00434108
 extern "C" const unsigned int DAT_0048bba0[1];  // zero_0048bba0
 extern "C" const unsigned int DAT_0048bbe8[1];  // zero_0048bbe8
 extern "C" unsigned char DAT_00555b9c[4];

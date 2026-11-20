@@ -3012,7 +3012,7 @@ void MissionMenu::FUN_000c4020(hulk_intptr a, hulk_intptr b)
             f5c->FUN_001c0ab0("fe");
         f28 = 1;
         (*(Timer**)&DAT_004dd9cc)->FUN_002665a0();
-        FUN_000befc0(DAT_0049f3bc, 0xb, 1);
+        FUN_000befc0((*(hulk_intptr*)&DAT_0049f3bc), 0xb, 1);
         FUN_000befc0((*(hulk_intptr*)&DAT_0049f3c8), 0xb, 1);
         FUN_000befc0((*(hulk_intptr*)&DAT_0049f3cc), 0xb, 1);
         FUN_000befc0((*(hulk_intptr*)&DAT_0049f3d4), 0xb, 1);

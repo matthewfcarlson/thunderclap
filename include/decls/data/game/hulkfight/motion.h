@@ -17,8 +17,6 @@ typedef const void* const* hulk_vftable_ptr;  // a pointer to a vftable
 #endif
 #endif
 
-struct DataLayout_004abf80;  // packed layout (bytes and pointers), defined in the data TU
-struct DataLayout_004b4d7c;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_004b4d98;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_004bebb4;  // packed layout (bytes and pointers), defined in the data TU
 
@@ -67,6 +65,8 @@ extern "C" unsigned char DAT_004e15c8[4];
 extern "C" unsigned char DAT_004e15cc[4];
 
 // hulkfight/motion/AnimationVelocityScaledAction.cpp
+extern "C" const char DAT_00412354[20];  // s_Velocity_Animated_Y_00412354
+extern "C" const char DAT_00412368[21];  // s_Velocity_Animated_XZ_00412368
 extern "C" const char DAT_00412380[18];  // s_Velocity_Animated_00412380
 extern "C" const char DAT_00412394[11];  // s_Velocity_Y_00412394
 extern "C" const char DAT_004123a0[12];  // s_Velocity_XZ_004123a0
@@ -132,7 +132,7 @@ extern "C" const unsigned int DAT_00460e80[1];  // zero_00460e80
 extern "C" const unsigned int DAT_00460ed4[1];  // zero_00460ed4
 extern "C" const unsigned int DAT_00460f20[1];  // zero_00460f20
 extern "C" const char* DAT_004abf70[4];  // ptrTbl_004abf70
-extern "C" DataLayout_004abf80 DAT_004abf80;  // struct_004abf80
+extern "C" const char* DAT_004abf80[6];  // ptrTbl_004abf80
 extern "C" float DAT_004abf98[4];  // fltTbl_004abf98
 extern "C" unsigned int DAT_004abfa8[2];  // zero_004abfa8
 extern "C" float DAT_004abfb0;  // flt_004abfb0
@@ -220,17 +220,14 @@ extern "C" unsigned char DAT_004e12e0[8];
 // hulkfight/motion/ChargeCondition_2.cpp
 extern "C" const int DAT_003f5bbc;
 extern "C" const int DAT_003fb900;
-extern "C" const char DAT_003fb92c[8];  // s_Grapple_003fb92c
-extern "C" const char DAT_003fb934[8];  // s_HopJump_003fb934
-extern "C" const char DAT_003fb93c[10];  // s_QuickTurn_003fb93c
-extern "C" const char DAT_003fb948[6];  // s_Float_003fb948
-extern "C" const char DAT_003fb950[8];  // s_WallRun_003fb950
 extern "C" const char DAT_004165a8[43];  // s_Grapple_Allowed_Perf_004165a8
 extern "C" const char DAT_004165d4[23];  // s_Grapple_Always_Allow_004165d4
 extern "C" const char DAT_004165ec[20];  // s_Grapple_Not_Allowed_004165ec
 extern "C" const char DAT_00416600[11];  // s_Max_Health_00416600
 extern "C" const char DAT_0041660c[17];  // s_Adrenaline_Boost_0041660c
 extern "C" const float DAT_00416620[3];  // fltTbl_00416620
+extern "C" const char DAT_00416644[6];  // s_Throw_00416644
+extern "C" const char DAT_0041664c[7];  // s_Attack_0041664c
 extern "C" const char DAT_0041722c[14];  // s_anyButtonDown_0041722c
 extern "C" const char DAT_0041723c[12];  // s_axisPressed_0041723c
 extern "C" const char DAT_00417248[14];  // s_buttonPressed_00417248
@@ -350,9 +347,8 @@ extern "C" const unsigned int DAT_0046a824[1];  // zero_0046a824
 extern "C" const unsigned int DAT_0046a874[1];  // zero_0046a874
 extern "C" const unsigned int DAT_0046a8c8[1];  // zero_0046a8c8
 extern "C" const unsigned int DAT_0046a91c[1];  // zero_0046a91c
-extern "C" DataLayout_004b4d7c DAT_004b4d7c;  // struct_004b4d7c
-extern "C" char DAT_004b4d88[4];  // s_0_004b4d88
-extern "C" const char* DAT_004b4d8c[3];  // ptrTbl_004b4d8c
+extern "C" const char* DAT_004b4d7c[3];  // ptrTbl_004b4d7c
+extern "C" const char* DAT_004b4d88[4];  // ptrTbl_004b4d88
 extern "C" DataLayout_004b4d98 DAT_004b4d98;  // struct_004b4d98
 extern "C" unsigned int DAT_004b5464[1];  // zero_004b5464
 extern "C" unsigned int DAT_004b55b4[1];  // zero_004b55b4
@@ -780,8 +776,6 @@ extern "C" float DAT_004c1358[4];  // fltTbl_004c1358
 extern "C" const float DAT_00411b88;  // flt_00411b88
 
 // hulkfight/motion/FlyingAttackTrack.cpp
-extern "C" const char DAT_00412354[20];  // s_Velocity_Animated_Y_00412354
-extern "C" const char DAT_00412368[21];  // s_Velocity_Animated_XZ_00412368
 extern "C" const unsigned int DAT_0045ff5c[1];  // zero_0045ff5c
 
 // hulkfight/motion/FlyingBrakeAction.cpp
@@ -914,6 +908,9 @@ extern "C" const unsigned int DAT_0046ac10[1];  // zero_0046ac10
 
 // hulkfight/motion/GrappleThrowAction.cpp
 extern "C" const char DAT_003f6028[12];  // s_Motion_Root_003f6028
+extern "C" const char DAT_00413540[9];  // s_Grapplee_00413540
+extern "C" const char DAT_0041354c[9];  // s_Grappler_0041354c
+extern "C" const float DAT_00413558[7];  // fltTbl_00413558
 extern "C" const char DAT_00413be4[11];  // s_isAttached_00413be4
 extern "C" const char DAT_00413bf0[12];  // s_stunTimeMax_00413bf0
 extern "C" const char DAT_00413bfc[12];  // s_stunTimeMin_00413bfc
@@ -936,10 +933,6 @@ extern "C" const char DAT_00413d64[17];  // s_civilianAttached_00413d64
 extern "C" const char DAT_00413d78[16];  // s_grappleAttached_00413d78
 extern "C" const char DAT_00413d88[19];  // s_grappleAttachJoint_00413d88
 extern "C" const char DAT_00413d9c[19];  // s_grappleOrientation_00413d9c
-extern "C" const char DAT_00413f1c[10];  // s_Stun_Time_00413f1c
-extern "C" const char DAT_00413f28[14];  // s_Pushback_Time_00413f28
-extern "C" const char DAT_00413f38[18];  // s_Hit_Reaction_Time_00413f38
-extern "C" const float DAT_00413f4c[3];  // fltTbl_00413f4c
 extern "C" const unsigned int DAT_004623f4[1];  // zero_004623f4
 extern "C" const unsigned int DAT_00462440[1];  // zero_00462440
 extern "C" const unsigned int DAT_0046248c[1];  // zero_0046248c
@@ -1053,8 +1046,7 @@ extern "C" const unsigned int DAT_004644bc[1];  // zero_004644bc
 extern "C" const unsigned int DAT_0046450c[1];  // zero_0046450c
 extern "C" const unsigned int DAT_0046455c[1];  // zero_0046455c
 extern "C" const unsigned int DAT_004645ac[1];  // zero_004645ac
-extern "C" char DAT_004ae340[4];  // s_L5A_004ae340
-extern "C" unsigned int DAT_004ae344[1];  // unk_004ae344
+extern "C" const char* DAT_004ae340[2];  // ptrTbl_004ae340
 extern "C" float DAT_004ae348[4];  // fltTbl_004ae348
 extern "C" int DAT_004ae358[3];  // tbl_004ae358
 extern "C" unsigned int DAT_004ae804[1];  // zero_004ae804
@@ -1411,6 +1403,10 @@ extern "C" const unsigned int DAT_0046e668[1];  // zero_0046e668
 extern "C" const unsigned int DAT_0046ab68[1];  // zero_0046ab68
 
 // hulkfight/motion/InterruptAccumulatorCondition.cpp
+extern "C" const char DAT_00413f1c[10];  // s_Stun_Time_00413f1c
+extern "C" const char DAT_00413f28[14];  // s_Pushback_Time_00413f28
+extern "C" const char DAT_00413f38[18];  // s_Hit_Reaction_Time_00413f38
+extern "C" const float DAT_00413f4c[3];  // fltTbl_00413f4c
 extern "C" const char DAT_00415110[8];  // s_percent_00415110
 extern "C" const char DAT_00415118[6];  // s_throw_00415118
 extern "C" const char DAT_00415120[15];  // s_targetPriority_00415120
@@ -1562,11 +1558,8 @@ extern "C" const unsigned int DAT_004666d4[1];  // zero_004666d4
 extern "C" const unsigned int DAT_00466724[1];  // zero_00466724
 extern "C" const unsigned int DAT_00466774[1];  // zero_00466774
 extern "C" const unsigned int DAT_004667c8[1];  // zero_004667c8
-extern "C" char DAT_004af9e4[4];  // s_8_A_004af9e4
-extern "C" unsigned int DAT_004af9e8[1];  // unk_004af9e8
-extern "C" const char* DAT_004af9ec;  // PTR_004af9ec
-extern "C" const char* DAT_004af9f0;  // PTR_004af9f0
-extern "C" const char* DAT_004af9f4;  // PTR_004af9f4
+extern "C" const char* DAT_004af9e4[3];  // ptrTbl_004af9e4
+extern "C" const char* DAT_004af9f0[2];  // ptrTbl_004af9f0
 extern "C" float DAT_004af9f8[4];  // fltTbl_004af9f8
 extern "C" unsigned int DAT_004afa54[1];  // zero_004afa54
 extern "C" unsigned int DAT_004afc7c[1];  // zero_004afc7c
@@ -1698,8 +1691,10 @@ extern "C" int DAT_004b7d20;
 
 // hulkfight/motion/JointTrackerTrack_3.cpp
 extern "C" const int DAT_00416640;
-extern "C" const char DAT_00416644[6];  // s_Throw_00416644
-extern "C" const char DAT_0041664c[7];  // s_Attack_0041664c
+extern "C" const char DAT_0041783c[17];  // s_Counterclockwise_0041783c
+extern "C" const char DAT_00417850[10];  // s_Clockwise_00417850
+extern "C" const char DAT_0041785c[5];  // s_Body_0041785c
+extern "C" const char DAT_00417864[5];  // s_Root_00417864
 extern "C" const char DAT_00418a8c[12];  // s_finalCharge_00418a8c
 extern "C" const char DAT_00418a98[13];  // s_clearOnBegin_00418a98
 extern "C" const char DAT_00418aa8[9];  // s_variable_00418aa8
@@ -1842,11 +1837,8 @@ extern "C" const unsigned int DAT_0046e0d4[1];  // zero_0046e0d4
 extern "C" const unsigned int DAT_0046e128[1];  // zero_0046e128
 extern "C" const unsigned int DAT_0046e17c[1];  // zero_0046e17c
 extern "C" const unsigned int DAT_0046e1d0[1];  // zero_0046e1d0
-extern "C" char DAT_004b7cf0[4];  // s_dxA_004b7cf0
-extern "C" unsigned int DAT_004b7cf4[1];  // unk_004b7cf4
-extern "C" const char* DAT_004b7cf8;  // PTR_004b7cf8
-extern "C" char DAT_004b7cfc[4];  // s_0_004b7cfc
-extern "C" unsigned int DAT_004b7d00[2];  // unk_004b7d00
+extern "C" const char* DAT_004b7cf0[3];  // ptrTbl_004b7cf0
+extern "C" const char* DAT_004b7cfc[3];  // ptrTbl_004b7cfc
 extern "C" float DAT_004b7d08[4];  // fltTbl_004b7d08
 extern "C" unsigned int DAT_004b882c[1];  // zero_004b882c
 extern "C" unsigned int DAT_004b89ac[1];  // zero_004b89ac
@@ -2127,6 +2119,27 @@ extern "C" const char DAT_0041a638[23];  // s_grapplePropStateByNa_0041a638
 extern "C" const char DAT_0041a650[16];  // s_propStateByName_0041a650
 extern "C" const char DAT_0041a660[17];  // s_propStateByIndex_0041a660
 extern "C" const char DAT_0041a674[11];  // s_propAtRest_0041a674
+extern "C" const char DAT_004228b4[12];  // s_missilePack_004228b4
+extern "C" const char DAT_004228c0[13];  // s_ballAndChain_004228c0
+extern "C" const char DAT_004228d0[11];  // s_hammerToss_004228d0
+extern "C" const char DAT_004228dc[12];  // s_bowlingBall_004228dc
+extern "C" const char DAT_004228e8[8];  // s_csmWall_004228e8
+extern "C" const char DAT_004228f0[23];  // s_invisibleWallNoRayca_004228f0
+extern "C" const char DAT_00422908[13];  // s_attachedClub_00422908
+extern "C" const char DAT_00422918[14];  // s_attachedHeavy_00422918
+extern "C" const char DAT_00422928[14];  // s_attachedLarge_00422928
+extern "C" const char DAT_00422938[14];  // s_attachedSmall_00422938
+extern "C" const char DAT_00422948[10];  // s_csmBanner_00422948
+extern "C" const char DAT_00422954[11];  // s_energyDoor_00422954
+extern "C" const char DAT_00422960[14];  // s_invisibleWall_00422960
+extern "C" const char DAT_00422970[9];  // s_csmLever_00422970
+extern "C" const char DAT_0042297c[21];  // s_csmHydraulicElevator_0042297c
+extern "C" const char DAT_00422994[19];  // s_csmLargecsmConsole_00422994
+extern "C" const char DAT_004229a8[9];  // s_csmSmall_004229a8
+extern "C" const char DAT_004229bc[10];  // s_steelFist_004229bc
+extern "C" const char DAT_004229c8[6];  // s_heavy_004229c8
+extern "C" const char DAT_004229e0[10];  // s_slappable_004229e0
+extern "C" const float DAT_004229ec[7];  // fltTbl_004229ec
 extern "C" const unsigned int DAT_0046f880[1];  // zero_0046f880
 extern "C" const unsigned int DAT_0046f8cc[1];  // zero_0046f8cc
 extern "C" const unsigned int DAT_0046f918[1];  // zero_0046f918
@@ -2288,13 +2301,7 @@ extern "C" unsigned int DAT_004be9f4[1];  // zero_004be9f4
 extern "C" unsigned int DAT_004bea44[1];  // zero_004bea44
 extern "C" unsigned int DAT_004beaec[1];  // zero_004beaec
 extern "C" unsigned int DAT_004beb44[1];  // zero_004beb44
-extern "C" char DAT_004c5fd0[4];  // s_0_004c5fd0
-extern "C" const char* DAT_004c5fd4[9];  // ptrTbl_004c5fd4
-extern "C" unsigned int DAT_004c5ff8[3];  // unk_004c5ff8
-extern "C" const char* DAT_004c6004;  // PTR_004c6004
-extern "C" unsigned int DAT_004c6008[4];  // unk_004c6008
-extern "C" const char* DAT_004c6018[4];  // ptrTbl_004c6018
-extern "C" int DAT_004c6028;
+extern "C" const char* DAT_004c5fd0[29];  // ptrTbl_004c5fd0
 
 // hulkfight/motion/PropMissionCriticalCondition_2.cpp
 extern "C" const unsigned int DAT_00471854[1];  // zero_00471854
@@ -2349,10 +2356,6 @@ extern "C" const unsigned int DAT_0046e95c[1];  // zero_0046e95c
 extern "C" const unsigned int DAT_0046b000[1];  // zero_0046b000
 
 // hulkfight/motion/RayCastCondition_4.cpp
-extern "C" const char DAT_0041783c[17];  // s_Counterclockwise_0041783c
-extern "C" const char DAT_00417850[10];  // s_Clockwise_00417850
-extern "C" const char DAT_0041785c[5];  // s_Body_0041785c
-extern "C" const char DAT_00417864[5];  // s_Root_00417864
 extern "C" const unsigned int DAT_0046b298[1];  // zero_0046b298
 extern "C" const unsigned int DAT_0046b2e4[1];  // zero_0046b2e4
 extern "C" const unsigned int DAT_0046b330[1];  // zero_0046b330
@@ -2795,7 +2798,6 @@ extern "C" unsigned int DAT_004ad62c[1];  // zero_004ad62c
 extern "C" unsigned int DAT_004ad6d4[1];  // zero_004ad6d4
 extern "C" float DAT_004ad76c[4];  // fltTbl_004ad76c
 extern "C" int DAT_004ad77c[3];  // tbl_004ad77c
-extern "C" const char* DAT_004ad78c[6];  // ptrTbl_004ad78c
 extern "C" float DAT_004ad7a4[4];  // fltTbl_004ad7a4
 extern "C" unsigned char DAT_004e0f40[4];
 extern "C" int DAT_004e0f44;
@@ -2815,6 +2817,12 @@ extern "C" const float DAT_00412eb4;  // flt_00412eb4
 extern "C" const float DAT_00412eb8[2];  // fltTbl_00412eb8
 extern "C" const float DAT_00412ec0;  // flt_00412ec0
 extern "C" const float DAT_00412ec4[4];  // fltTbl_00412ec4
+extern "C" const char DAT_00412ed8[10];  // s_Footprint_00412ed8
+extern "C" const char DAT_00412ee4[10];  // s_Treadmark_00412ee4
+extern "C" const char DAT_00412ef0[6];  // s_Crack_00412ef0
+extern "C" const char DAT_00412ef8[6];  // s_Crush_00412ef8
+extern "C" const char DAT_00412f00[7];  // s_Bullet_00412f00
+extern "C" const char DAT_00412f08[5];  // s_Fire_00412f08
 extern "C" const char DAT_004132f0[13];  // s_fromScenario_004132f0
 extern "C" const char DAT_00413300[15];  // s_simulationRate_00413300
 extern "C" const char DAT_00413310[8];  // s_timeOff_00413310
@@ -2842,9 +2850,6 @@ extern "C" const char DAT_00413460[10];  // s_hitEffect_00413460
 extern "C" const char DAT_0041346c[16];  // s_motionTrailStop_0041346c
 extern "C" const char DAT_0041347c[16];  // s_worldConeDamage_0041347c
 extern "C" const char DAT_0041348c[12];  // s_worldDamage_0041348c
-extern "C" const char DAT_00413540[9];  // s_Grapplee_00413540
-extern "C" const char DAT_0041354c[9];  // s_Grappler_0041354c
-extern "C" const float DAT_00413558[7];  // fltTbl_00413558
 extern "C" const unsigned int DAT_00461744[1];  // zero_00461744
 extern "C" const unsigned int DAT_00461790[1];  // zero_00461790
 extern "C" const unsigned int DAT_004617dc[1];  // zero_004617dc
@@ -2887,7 +2892,7 @@ extern "C" const unsigned int DAT_004622c4[1];  // zero_004622c4
 extern "C" const unsigned int DAT_00462310[1];  // zero_00462310
 extern "C" const unsigned int DAT_0046235c[1];  // zero_0046235c
 extern "C" const unsigned int DAT_004623a8[1];  // zero_004623a8
-extern "C" char DAT_004ad788[4];  // s_0_004ad788
+extern "C" const char* DAT_004ad788[7];  // ptrTbl_004ad788
 extern "C" int DAT_004ad7b4[3];  // tbl_004ad7b4
 extern "C" unsigned int DAT_004ada1c[1];  // zero_004ada1c
 extern "C" unsigned int DAT_004adabc[1];  // zero_004adabc

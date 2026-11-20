@@ -19,26 +19,16 @@ typedef const void* const* hulk_vftable_ptr;  // a pointer to a vftable
 
 struct DataLayout_003ffde0;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_004061e8;  // packed layout (bytes and pointers), defined in the data TU
-struct DataLayout_00406740;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_00406a54;  // packed layout (bytes and pointers), defined in the data TU
-struct DataLayout_00409fd8;  // packed layout (bytes and pointers), defined in the data TU
-struct DataLayout_0041db58;  // packed layout (bytes and pointers), defined in the data TU
-struct DataLayout_0041dba0;  // packed layout (bytes and pointers), defined in the data TU
-struct DataLayout_0041dbe8;  // packed layout (bytes and pointers), defined in the data TU
-struct DataLayout_0041dbf0;  // packed layout (bytes and pointers), defined in the data TU
-struct DataLayout_00434250;  // packed layout (bytes and pointers), defined in the data TU
-struct DataLayout_00434270;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_0048e0f0;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_0048e100;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_0048e134;  // packed layout (bytes and pointers), defined in the data TU
-struct DataLayout_0048f6a4;  // packed layout (bytes and pointers), defined in the data TU
-struct DataLayout_0048f9fc;  // packed layout (bytes and pointers), defined in the data TU
-struct DataLayout_0049548c;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_00496168;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_0049b6b4;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_0049b95c;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_0049cad8;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_004a0658;  // packed layout (bytes and pointers), defined in the data TU
+struct DataLayout_004c3c18;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_004c5ca0;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_004c5cbc;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_004c5d10;  // packed layout (bytes and pointers), defined in the data TU
@@ -446,8 +436,6 @@ extern "C" unsigned int DAT_0048e384[1];  // zero_0048e384
 extern "C" unsigned int DAT_0048ed74[1];  // zero_0048ed74
 extern "C" unsigned int DAT_0048f4e4[1];  // zero_0048f4e4
 extern "C" float DAT_0048f56c[4];  // fltTbl_0048f56c
-extern "C" unsigned int DAT_0048f580[1];  // unk_0048f580
-extern "C" const char* DAT_0048f584[3];  // ptrTbl_0048f584
 
 // global/CAgent.cpp
 extern "C" const float DAT_0040d010[8];  // fltTbl_0040d010
@@ -911,10 +899,6 @@ extern "C" const char DAT_003f5bf0[12];  // s_WallRunning_003f5bf0
 extern "C" const char DAT_003f5bfc[8];  // s_Running_003f5bfc
 extern "C" const char DAT_003f5c04[8];  // s_Walking_003f5c04
 extern "C" const char DAT_003f5c0c[9];  // s_Climbing_003f5c0c
-extern "C" const char DAT_003f5c18[4];  // s_Air_003f5c18
-extern "C" const char DAT_003f5c1c[6];  // s_Prone_003f5c1c
-extern "C" const char DAT_003f5c24[9];  // s_Standing_003f5c24
-extern "C" const char DAT_003f5c30[5];  // s_None_003f5c30
 extern "C" const unsigned int DAT_003f5c38[1];  // unk_003f5c38
 extern "C" const float DAT_003f5cb0;  // flt_003f5cb0
 extern "C" const float DAT_003f5cb4;  // flt_003f5cb4
@@ -1028,10 +1012,6 @@ extern "C" const float DAT_0040d0e8;  // flt_0040d0e8
 extern "C" const float DAT_0040d0ec;  // flt_0040d0ec
 extern "C" const float DAT_0040d0f0;  // flt_0040d0f0
 extern "C" const float DAT_0040d0f4;  // flt_0040d0f4
-extern "C" const char DAT_0040d0f8[9];  // s_Panicked_0040d0f8
-extern "C" const char DAT_0040d104[10];  // s_Attacking_0040d104
-extern "C" const char DAT_0040d110[6];  // s_Alert_0040d110
-extern "C" const char DAT_0040d118[6];  // s_Awake_0040d118
 extern "C" const float DAT_0040d15c;  // flt_0040d15c
 extern "C" const float DAT_0040d1b8[9];  // fltTbl_0040d1b8
 extern "C" const unsigned int DAT_004551e8[1];  // zero_004551e8
@@ -1206,7 +1186,6 @@ extern "C" const char DAT_003f6a30[17];  // s_VariationName4CC_003f6a30
 extern "C" const char DAT_003f6a44[9];  // s_BaseName_003f6a44
 extern "C" const char DAT_003f6a50[14];  // s_VariationName_003f6a50
 extern "C" const char DAT_003f6a60[28];  // s_ctm_UnloadCharacterT_003f6a60
-extern "C" const unsigned int DAT_003f6a7c[1];  // unk_003f6a7c
 extern "C" const unsigned int DAT_0043f75c[1];  // zero_0043f75c
 extern "C" const unsigned int DAT_0043f7f0[1];  // zero_0043f7f0
 extern "C" const unsigned int DAT_0043f838[1];  // zero_0043f838
@@ -1215,20 +1194,9 @@ extern "C" const unsigned int DAT_0043f8c8[1];  // zero_0043f8c8
 extern "C" const unsigned int DAT_0043f914[1];  // zero_0043f914
 extern "C" const unsigned int DAT_0043f990[1];  // zero_0043f990
 extern "C" const unsigned int DAT_0043f9e0[1];  // zero_0043f9e0
-extern "C" DataLayout_0048f6a4 DAT_0048f6a4;  // struct_0048f6a4
-extern "C" int DAT_0048f6b4[6];  // tbl_0048f6b4
-extern "C" const char* DAT_0048f6d0[3];  // ptrTbl_0048f6d0
-extern "C" unsigned int DAT_0048f6dc[1];  // zero_0048f6dc
-extern "C" unsigned int DAT_0048f6e0[1];  // unk_0048f6e0
-extern "C" const char* DAT_0048f6e4[14];  // ptrTbl_0048f6e4
-extern "C" unsigned int DAT_0048f71c[1];  // unk_0048f71c
-extern "C" const char* DAT_0048f720[6];  // ptrTbl_0048f720
-extern "C" unsigned int DAT_0048f738[7];  // unk_0048f738
-extern "C" const char* DAT_0048f754[5];  // ptrTbl_0048f754
-extern "C" unsigned int DAT_0048f768[1];  // unk_0048f768
-extern "C" float DAT_0048f76c[4];  // fltTbl_0048f76c
-extern "C" unsigned int DAT_0048f77c[2];  // zero_0048f77c
-extern "C" float DAT_0048f784;  // flt_0048f784
+extern "C" const char* DAT_0048f6a4[4];  // ptrTbl_0048f6a4
+extern "C" const char* DAT_0048f6b4[6];  // ptrTbl_0048f6b4
+extern "C" const char* DAT_0048f6cc[4];  // ptrTbl_0048f6cc
 extern "C" unsigned int DAT_0048f8d4[1];  // zero_0048f8d4
 extern "C" unsigned char DAT_004dc330[8];
 extern "C" unsigned char DAT_004dc338[8];
@@ -1534,8 +1502,13 @@ extern "C" const unsigned int DAT_004449e0[1];  // zero_004449e0
 extern "C" const unsigned int DAT_00440154[1];  // zero_00440154
 
 // global/CCollisionTrack.cpp
+extern "C" const char DAT_003fa11c[14];  // s_Source_Facing_003fa11c
+extern "C" const char DAT_003fa12c[14];  // s_Camera_Facing_003fa12c
 extern "C" const char DAT_003fa13c[17];  // s_Source_To_Target_003fa13c
+extern "C" const char DAT_003fa1e8[16];  // s_Characters_Only_003fa1e8
+extern "C" const char DAT_003fa1f8[11];  // s_Props_Only_003fa1f8
 extern "C" const char DAT_003fa204[4];  // s_Any_003fa204
+extern "C" const char DAT_003fa208[5];  // s_Both_003fa208
 extern "C" const char DAT_003fa6a8[13];  // s_snapToGround_003fa6a8
 extern "C" const char DAT_003fa6b8[12];  // s_orientation_003fa6b8
 extern "C" const char DAT_003fa778[14];  // s_largeStunTime_003fa778
@@ -1615,13 +1588,10 @@ extern "C" const unsigned int DAT_00446bec[1];  // zero_00446bec
 extern "C" const unsigned int DAT_00446c3c[1];  // zero_00446c3c
 extern "C" const unsigned int DAT_00446c8c[1];  // zero_00446c8c
 extern "C" const unsigned int DAT_00446cdc[1];  // zero_00446cdc
-extern "C" char DAT_00495470[4];  // s_0_00495470
-extern "C" const char* DAT_00495474[3];  // ptrTbl_00495474
-extern "C" const char* DAT_00495480;  // PTR_00495480
-extern "C" const char* DAT_00495484[2];  // ptrTbl_00495484
-extern "C" DataLayout_0049548c DAT_0049548c;  // struct_0049548c
-extern "C" const char* DAT_004954b4;  // PTR_004954b4
-extern "C" const char* DAT_004954b8[2];  // ptrTbl_004954b8
+extern "C" const char* DAT_00495470[4];  // ptrTbl_00495470
+extern "C" const char* DAT_00495480[3];  // ptrTbl_00495480
+extern "C" const char* DAT_0049548c[10];  // ptrTbl_0049548c
+extern "C" const char* DAT_004954b4[3];  // ptrTbl_004954b4
 extern "C" float DAT_004954c0[4];  // fltTbl_004954c0
 extern "C" unsigned int DAT_004954d0[2];  // zero_004954d0
 extern "C" float DAT_004954d8;  // flt_004954d8
@@ -1681,7 +1651,6 @@ extern "C" int DAT_004a1aa4;
 extern "C" int DAT_004a1aa8;
 extern "C" float DAT_004a1aac;  // flt_004a1aac
 extern "C" float DAT_004a1ab0;  // flt_004a1ab0
-extern "C" const char* DAT_004a1ab8[4];  // ptrTbl_004a1ab8
 extern "C" float DAT_004a1ac8[4];  // fltTbl_004a1ac8
 extern "C" unsigned char DAT_004e0a90[4];
 
@@ -1750,8 +1719,7 @@ extern "C" const char DAT_0040585c[9];  // s_Cameras_0040585c
 extern "C" const unsigned int DAT_0045140c[1];  // zero_0045140c
 extern "C" const char* DAT_0049ed3c;  // PTR_0049ed3c
 extern "C" float DAT_0049ed40[4];  // fltTbl_0049ed40
-extern "C" unsigned int DAT_0049ed70[4];  // unk_0049ed70
-extern "C" const char* DAT_0049ed80[3];  // ptrTbl_0049ed80
+extern "C" const char* DAT_0049ed70[7];  // ptrTbl_0049ed70
 extern "C" float DAT_0049ed8c[4];  // fltTbl_0049ed8c
 
 // global/CDriftAction.cpp
@@ -1884,7 +1852,7 @@ extern "C" const unsigned int DAT_00447298[1];  // zero_00447298
 extern "C" const char* DAT_00495d50[4];  // ptrTbl_00495d50
 extern "C" const char* DAT_00495d60[5];  // ptrTbl_00495d60
 extern "C" unsigned int DAT_00495dec[1];  // zero_00495dec
-extern "C" unsigned int DAT_0049615c[3];  // unk_0049615c
+extern "C" const char* DAT_0049615c[3];  // ptrTbl_0049615c
 extern "C" unsigned char DAT_004dc600[4];
 extern "C" int DAT_004dc604;
 extern "C" unsigned char DAT_004dc608[4];
@@ -1942,13 +1910,6 @@ extern "C" const char* DAT_004c55dc;  // PTR_004c55dc
 extern "C" float DAT_004c55e0[4];  // fltTbl_004c55e0
 
 // global/CExplosionTrack_2.cpp
-extern "C" const char DAT_003f6cfc[6];  // s_Small_003f6cfc
-extern "C" const char DAT_003f6d04[10];  // s_Slappable_003f6d04
-extern "C" const char DAT_003f6d10[14];  // s_Change_Target_003f6d10
-extern "C" const char DAT_003f6d20[12];  // s_MovementXYZ_003f6d20
-extern "C" const char DAT_003f6d2c[16];  // s_Movement_Target_003f6d2c
-extern "C" const char DAT_003f6d3c[9];  // s_Movement_003f6d3c
-extern "C" const unsigned int DAT_003f6d48[1];  // unk_003f6d48
 extern "C" const char DAT_003fecb8[8];  // s_Type_10_003fecb8
 extern "C" const char DAT_003fecc0[7];  // s_Type_9_003fecc0
 extern "C" const char DAT_003fecc8[7];  // s_Type_8_003fecc8
@@ -2244,8 +2205,8 @@ extern "C" const unsigned int DAT_00452700[1];  // zero_00452700
 extern "C" const unsigned int DAT_00452744[1];  // zero_00452744
 extern "C" const unsigned int DAT_0045278c[1];  // zero_0045278c
 extern "C" const unsigned int DAT_004527d4[1];  // zero_004527d4
-extern "C" int DAT_0049f3bc;
-extern "C" unsigned int DAT_0049f3c0[1];  // unk_0049f3c0
+extern "C" const char* DAT_0049f3bc;  // PTR_0049f3bc
+extern "C" const char* DAT_0049f3c0;  // PTR_0049f3c0
 extern "C" const char* DAT_0049f3c4;  // PTR_0049f3c4
 extern "C" const char* DAT_0049f3c8;  // PTR_0049f3c8
 extern "C" const char* DAT_0049f3cc;  // PTR_0049f3cc
@@ -2295,7 +2256,7 @@ extern "C" const char DAT_00409f98[11];  // s_story_mode_00409f98
 extern "C" const char DAT_00409fa4[7];  // s_splash_00409fa4
 extern "C" const char DAT_00409fac[15];  // s_init_mem_check_00409fac
 extern "C" const float DAT_00409fbc[7];  // fltTbl_00409fbc
-extern "C" const DataLayout_00409fd8 DAT_00409fd8;  // struct_00409fd8
+extern "C" const char* const DAT_00409fd8[8];  // ptrTbl_00409fd8
 extern "C" const char DAT_00409ff8[9];  // s_FE_error_00409ff8
 extern "C" const char DAT_0040a004[20];  // s_FE_screen_enter_end_0040a004
 extern "C" const char DAT_0040a018[15];  // s_FE_goto_screen_0040a018
@@ -2315,465 +2276,6 @@ extern "C" const char DAT_0041dd0c[20];  // s_fmvm_SetRumbleEvent_0041dd0c
 extern "C" const char DAT_0041dd20[15];  // s_fmvm_IsPlaying_0041dd20
 extern "C" const char DAT_0041dd30[24];  // s_fmvm_PlayMovieWithAu_0041dd30
 extern "C" const char DAT_0041dd48[15];  // s_fmvm_PlayMovie_0041dd48
-extern "C" const char DAT_0041dd58[31];  // s_TBS_CREDIT_RG_SPECIA_0041dd58
-extern "C" const char DAT_0041dd78[13];  // s_Tom_Marvelli_0041dd78
-extern "C" const char DAT_0041dd88[12];  // s_Axel_Alonso_0041dd88
-extern "C" const char DAT_0041dd94[14];  // s_Mark_Paniccia_0041dd94
-extern "C" const char DAT_0041dda4[12];  // s_Dan_Buckley_0041dda4
-extern "C" const char DAT_0041ddb0[12];  // s_Joe_Quesada_0041ddb0
-extern "C" const char DAT_0041ddbc[9];  // s_Ari_Arad_0041ddbc
-extern "C" const char DAT_0041ddc8[9];  // s_Avi_Arad_0041ddc8
-extern "C" const char DAT_0041ddd4[30];  // s_TBS_CREDIT_MVL_SPECI_0041ddd4
-extern "C" const char DAT_0041ddf4[16];  // s_Donnie_Wahlberg_0041ddf4
-extern "C" const char DAT_0041de04[30];  // s_TBS_CREDIT_MPV_SPECI_0041de04
-extern "C" const char DAT_0041de24[13];  // s_Tomas_Melian_0041de24
-extern "C" const char DAT_0041de34[12];  // s_Tom_Gastall_0041de34
-extern "C" const char DAT_0041de40[11];  // s_Suzan_Rude_0041de40
-extern "C" const char DAT_0041de4c[14];  // s_So_Ann_Santos_0041de4c
-extern "C" const char DAT_0041de5c[15];  // s_Sarah_McKinney_0041de5c
-extern "C" const char DAT_0041de6c[16];  // s_Michael_Herring_0041de6c
-extern "C" const char DAT_0041de7c[15];  // s_Linda_Ethridge_0041de7c
-extern "C" const char DAT_0041de8c[13];  // s_Julie_Thomas_0041de8c
-extern "C" const char DAT_0041de9c[17];  // s_Jonathan_Eubanks_0041de9c
-extern "C" const char DAT_0041deb0[13];  // s_Jim_Flaharty_0041deb0
-extern "C" const char DAT_0041dec0[12];  // s_James_Carey_0041dec0
-extern "C" const char DAT_0041decc[16];  // s_Janice_Charlton_0041decc
-extern "C" const char DAT_0041dedc[10];  // s_Hal_Paris_0041dedc
-extern "C" const char DAT_0041dee8[12];  // s_Charles_Yam_0041dee8
-extern "C" const char DAT_0041def4[13];  // s_Cathy_Truong_0041def4
-extern "C" const char DAT_0041df04[12];  // s_Bruce_Hack_0041df04
-extern "C" const char DAT_0041df10[12];  // s_Bill_Brown_0041df10
-extern "C" const char DAT_0041df1c[9];  // s_Amy_Chen_0041df1c
-extern "C" const char DAT_0041df28[11];  // s_Ambra_Roth_0041df28
-extern "C" const char DAT_0041df34[30];  // s_TBS_CREDIT_VUG_SPECI_0041df34
-extern "C" const char DAT_0041df54[13];  // s_Carl_Suecoff_0041df54
-extern "C" const char DAT_0041df64[20];  // s_Joshua_M_Silverman_0041df64
-extern "C" const char DAT_0041df78[12];  // s_Seth_Lehman_0041df78
-extern "C" const char DAT_0041df84[29];  // s_TBS_CREDIT_MVL_LEGAL_0041df84
-extern "C" const char DAT_0041dfa4[13];  // s_Tim_Rothwell_0041dfa4
-extern "C" const char DAT_0041dfb4[44];  // s_TBS_CREDIT_MVL_PRES_0041dfb4
-extern "C" const char DAT_0041dfe0[13];  // s_Ames_Kirshen_0041dfe0
-extern "C" const char DAT_0041dff0[30];  // s_TBS_CREDIT_MVL_VICE_0041dff0
-extern "C" const char DAT_0041e010[34];  // s_TBS_CREDIT_MVL_MARVE_0041e010
-extern "C" const char DAT_0041e034[16];  // s_Pierre_Dejarnac_0041e034
-extern "C" const char DAT_0041e044[33];  // s_TBS_CREDIT_DUBLIN_SP_0041e044
-extern "C" const char DAT_0041e068[13];  // s_Tom_Lindgren_0041e068
-extern "C" const char DAT_0041e078[10];  // s_John_Hall_0041e078
-extern "C" const char DAT_0041e084[18];  // s_TBS_CREDIT_NORDIC_0041e084
-extern "C" const char DAT_0041e098[12];  // s_Javier_Sanz_0041e098
-extern "C" const char DAT_0041e0a4[15];  // s_Esther_Fidalgo_0041e0a4
-extern "C" const char DAT_0041e0b4[18];  // s_Frederic_Hosteins_0041e0b4
-extern "C" const char DAT_0041e0c8[17];  // s_TBS_CREDIT_SPAIN_0041e0c8
-extern "C" const char DAT_0041e0dc[17];  // s_Simone_Cazzaniga_0041e0dc
-extern "C" const char DAT_0041e0f0[14];  // s_Simone_Isella_0041e0f0
-extern "C" const char DAT_0041e100[13];  // s_Sara_Cantoni_0041e100
-extern "C" const char DAT_0041e110[17];  // s_TBS_CREDIT_ITALY_0041e110
-extern "C" const char DAT_0041e124[12];  // s_Cat_Channon_0041e124
-extern "C" const char DAT_0041e130[14];  // s_Gary_Chantler_0041e130
-extern "C" const char DAT_0041e140[16];  // s_George_Georgiou_0041e140
-extern "C" const char DAT_0041e150[14];  // s_TBS_CREDIT_UK_0041e150
-extern "C" const char DAT_0041e160[15];  // s_Clement_Debetz_0041e160
-extern "C" const char DAT_0041e170[13];  // s_Thomas_Seris_0041e170
-extern "C" const char DAT_0041e180[15];  // s_Thomas_Paincon_0041e180
-extern "C" const char DAT_0041e190[18];  // s_TBS_CREDIT_FRANCE_0041e190
-extern "C" const char DAT_0041e1a4[36];  // s_TBS_CREDIT_DUBLIN_LO_0041e1a4
-extern "C" const char DAT_0041e1c8[17];  // s_Gregoire_Gabalda_0041e1c8
-extern "C" const char DAT_0041e1dc[38];  // s_TBS_CREDIT_DUBLIN_MA_0041e1dc
-extern "C" const char DAT_0041e204[12];  // s_Myriam_Lamy_0041e204
-extern "C" const char DAT_0041e210[29];  // s_TBS_CREDIT_DUBLIN_LE_0041e210
-extern "C" const char DAT_0041e230[26];  // s_Chantal_Veillon_Bert_0041e230
-extern "C" const char DAT_0041e24c[24];  // s_TBS_CREDIT_DUBLIN_LE_0041e24c
-extern "C" const char DAT_0041e264[14];  // s_Melissa_Brown_0041e264
-extern "C" const char DAT_0041e274[39];  // s_TBS_CREDIT_DUBLIN_CO_0041e274
-extern "C" const char DAT_0041e29c[21];  // s_Erika_Thiong_Soui_Ho_0041e29c
-extern "C" const char DAT_0041e2b4[41];  // s_TBS_CREDIT_DUBLIN_SU_0041e2b4
-extern "C" const char DAT_0041e2e0[13];  // s_Fabien_Tisle_0041e2e0
-extern "C" const char DAT_0041e2f0[30];  // s_TBS_CREDIT_DUBLIN_OP_0041e2f0
-extern "C" const char DAT_0041e310[14];  // s_Eric_Chatelet_0041e310
-extern "C" const char DAT_0041e320[41];  // s_TBS_CREDIT_DUBLIN_PU_0041e320
-extern "C" const char DAT_0041e34c[14];  // s_Annick_Decrop_0041e34c
-extern "C" const char DAT_0041e35c[38];  // s_TBS_CREDIT_DUBLIN_PU_0041e35c
-extern "C" const char DAT_0041e384[13];  // s_Maria_Pirpan_0041e384
-extern "C" const char DAT_0041e394[33];  // s_TBS_CREDIT_DUBLIN_SN_0041e394
-extern "C" const char DAT_0041e3b8[17];  // s_Sandrine_Reymond_0041e3b8
-extern "C" const char DAT_0041e3cc[31];  // s_TBS_CREDIT_VUG_LOCAL_0041e3cc
-extern "C" const char DAT_0041e3ec[15];  // s_Wilfrid_Vinmer_0041e3ec
-extern "C" const char DAT_0041e3fc[32];  // s_TBS_CREDIT_DUBLIN_BR_0041e3fc
-extern "C" const char DAT_0041e41c[18];  // s_Estelle_Dubernard_0041e41c
-extern "C" const char DAT_0041e430[31];  // s_TBS_CREDIT_DUBLIN_VP_0041e430
-extern "C" const char DAT_0041e450[23];  // s_Olivier_De_Roquemaur_0041e450
-extern "C" const char DAT_0041e468[22];  // s_TBS_CREDIT_DUBLIN_CF_0041e468
-extern "C" const char DAT_0041e480[25];  // s_Jean_Fran_ois_Grolle_0041e480
-extern "C" const char DAT_0041e49c[22];  // s_TBS_CREDIT_DUBLIN_CE_0041e49c
-extern "C" const char DAT_0041e4b4[18];  // s_TBS_CREDIT_DUBLIN_0041e4b4
-extern "C" const char DAT_0041e4c8[14];  // s_Eoghan_Whelan_0041e4c8
-extern "C" const char DAT_0041e4d8[13];  // s_Brendan_Aupy_0041e4d8
-extern "C" const char DAT_0041e4e8[14];  // s_Nico_Richters_0041e4e8
-extern "C" const char DAT_0041e4f8[16];  // s_Yvonne_Costello_0041e4f8
-extern "C" const char DAT_0041e508[20];  // s_Giampaolo_Focarelli_0041e508
-extern "C" const char DAT_0041e51c[11];  // s_Tito_Laeti_0041e51c
-extern "C" const char DAT_0041e528[20];  // s_Nicolas_de_Turkheim_0041e528
-extern "C" const char DAT_0041e53c[19];  // s_Jerome_Grandgeorge_0041e53c
-extern "C" const char DAT_0041e550[13];  // s_Jose_Ordonez_0041e550
-extern "C" const char DAT_0041e560[19];  // s_Giammarco_Schisani_0041e560
-extern "C" const char DAT_0041e574[15];  // s_Fran_ois_Kulik_0041e574
-extern "C" const char DAT_0041e584[15];  // s_Esther_Hartwig_0041e584
-extern "C" const char DAT_0041e594[14];  // s_Carlos_Losada_0041e594
-extern "C" const char DAT_0041e5a4[17];  // s_Alfonso_Sorribes_0041e5a4
-extern "C" const char DAT_0041e5b8[14];  // s_Veronika_Mang_0041e5b8
-extern "C" const char DAT_0041e5c8[14];  // s_Sarah_Brennan_0041e5c8
-extern "C" const char DAT_0041e5d8[15];  // s_Lawrence_Moran_0041e5d8
-extern "C" const char DAT_0041e5e8[22];  // s_Laura_Casanellas_Lur_0041e5e8
-extern "C" const char DAT_0041e600[13];  // s_Bill_Sweeney_0041e600
-extern "C" const char DAT_0041e610[13];  // s_David_Hickey_0041e610
-extern "C" const char DAT_0041e620[12];  // s_Annette_Lee_0041e620
-extern "C" const char DAT_0041e62c[16];  // s_Bobby_Henderson_0041e62c
-extern "C" const char DAT_0041e63c[11];  // s_Fiona_Ebbs_0041e63c
-extern "C" const char DAT_0041e648[12];  // s_Barry_Kehoe_0041e648
-extern "C" const char DAT_0041e654[12];  // s_Gerry_Carty_0041e654
-extern "C" const char DAT_0041e660[31];  // s_TBS_CREDIT_DUBLIN_LO_0041e660
-extern "C" const char DAT_0041e680[27];  // s_TBS_CREDIT_SERC_DANE_0041e680
-extern "C" const char DAT_0041e69c[14];  // s_Shawn_Johnson_0041e69c
-extern "C" const char DAT_0041e6ac[11];  // s_Bo_Bennike_0041e6ac
-extern "C" const char DAT_0041e6b8[29];  // s_TBS_CREDIT_R360_SOUN_0041e6b8
-extern "C" const char DAT_0041e6d8[10];  // s_Sara_Wein_0041e6d8
-extern "C" const char DAT_0041e6e4[30];  // s_TBS_CREDIT_VUG_PRODU_0041e6e4
-extern "C" const char DAT_0041e704[12];  // s_Steve_Kutay_0041e704
-extern "C" const char DAT_0041e710[38];  // s_TBS_CREDIT_VUG_SOUND_0041e710
-extern "C" const char DAT_0041e738[11];  // s_Rich_Seitz_0041e738
-extern "C" const char DAT_0041e744[31];  // s_TBS_CREDIT_VUG_DIALO_0041e744
-extern "C" const char DAT_0041e764[16];  // s_Patrick_McNulty_0041e764
-extern "C" const char DAT_0041e774[34];  // s_TBS_CREDIT_VUG_RECOR_0041e774
-extern "C" const char DAT_0041e798[14];  // s_Andrea_Toylas_0041e798
-extern "C" const char DAT_0041e7a8[39];  // s_TBS_CREDIT_VUG_DIALO_0041e7a8
-extern "C" const char DAT_0041e7d0[11];  // s_Eric_Weiss_0041e7d0
-extern "C" const char DAT_0041e7dc[27];  // s_TBS_CREDIT_VUG_CASTI_0041e7dc
-extern "C" const char DAT_0041e7f8[11];  // s_Tom_Keegan_0041e7f8
-extern "C" const char DAT_0041e804[33];  // s_TBS_CREDIT_VUG_CASTI_0041e804
-extern "C" const char DAT_0041e828[33];  // s_TBS_CREDIT_VUG_MEDIA_0041e828
-extern "C" const char DAT_0041e84c[18];  // s_Richard_Benavides_0041e84c
-extern "C" const char DAT_0041e860[18];  // s_Glen_Dphrepaulezz_0041e860
-extern "C" const char DAT_0041e874[12];  // s_Cyra_Talton_0041e874
-extern "C" const char DAT_0041e880[15];  // s_Brandon_Valdez_0041e880
-extern "C" const char DAT_0041e890[10];  // s_VUPC_Team_0041e890
-extern "C" const char DAT_0041e89c[16];  // s_William_Bagnell_0041e89c
-extern "C" const char DAT_0041e8ac[13];  // s_Jose_Beltran_0041e8ac
-extern "C" const char DAT_0041e8bc[19];  // s_Lauren_Kamieniecki_0041e8bc
-extern "C" const char DAT_0041e8d0[17];  // s_Fausto_Lorenzano_0041e8d0
-extern "C" const char DAT_0041e8e4[12];  // s_Ryan_French_0041e8e4
-extern "C" const char DAT_0041e8f0[15];  // s_Robert_Gardner_0041e8f0
-extern "C" const char DAT_0041e900[14];  // s_Mark_Jihanian_0041e900
-extern "C" const char DAT_0041e910[11];  // s_Tom_Craven_0041e910
-extern "C" const char DAT_0041e91c[29];  // s_TBS_CREDIT_TRG_GROUP_0041e91c
-extern "C" const char DAT_0041e93c[13];  // s_Joaquin_Meza_0041e93c
-extern "C" const char DAT_0041e94c[12];  // s_Joe_Olivas_0041e94c
-extern "C" const char DAT_0041e958[9];  // s_Ali_Raza_0041e958
-extern "C" const char DAT_0041e964[33];  // s_TBS_CREDIT_TRG_GROUP_0041e964
-extern "C" const char DAT_0041e988[19];  // s_Christopher_Wilson_0041e988
-extern "C" const char DAT_0041e99c[29];  // s_TBS_CREDIT_TRG_GROUP_0041e99c
-extern "C" const char DAT_0041e9bc[21];  // s_TBS_CREDIT_TRG_GROUP_0041e9bc
-extern "C" const char DAT_0041e9d4[9];  // s_Ken_Sato_0041e9d4
-extern "C" const char DAT_0041e9e0[10];  // s_Danny_Koo_0041e9e0
-extern "C" const char DAT_0041e9ec[13];  // s_Chris_Miller_0041e9ec
-extern "C" const char DAT_0041e9fc[12];  // s_Jason_Perry_0041e9fc
-extern "C" const char DAT_0041ea08[16];  // s_Afolabi_Akibola_0041ea08
-extern "C" const char DAT_0041ea18[26];  // s_TBS_CREDIT_TRG_CONFI_0041ea18
-extern "C" const char DAT_0041ea34[11];  // s_Jaime_Rios_0041ea34
-extern "C" const char DAT_0041ea40[34];  // s_TBS_CREDIT_TRG_CONFI_0041ea40
-extern "C" const char DAT_0041ea64[13];  // s_James_Pasque_0041ea64
-extern "C" const char DAT_0041ea74[23];  // s_Christopher_Richards_0041ea74
-extern "C" const char DAT_0041ea8c[30];  // s_TBS_CREDIT_VUG_QA_SU_0041ea8c
-extern "C" const char DAT_0041eaac[17];  // s_Michael_Gonzales_0041eaac
-extern "C" const char DAT_0041eac0[30];  // s_TBS_CREDIT_VUG_QA_RE_0041eac0
-extern "C" const char DAT_0041eae0[13];  // s_Stephen_Yang_0041eae0
-extern "C" const char DAT_0041eaf0[30];  // s_TBS_CREDIT_VUG_QA_TE_0041eaf0
-extern "C" const char DAT_0041eb10[16];  // s_Eric_Hoffmaster_0041eb10
-extern "C" const char DAT_0041eb20[31];  // s_TBS_CREDIT_VUG_QA_NE_0041eb20
-extern "C" const char DAT_0041eb40[20];  // s_Zachary_Yim_Richley_0041eb40
-extern "C" const char DAT_0041eb54[24];  // s_Ernest_Jib_Zamora_Jr_0041eb54
-extern "C" const char DAT_0041eb6c[14];  // s_Daniel_Jacobs_0041eb6c
-extern "C" const char DAT_0041eb7c[9];  // s_Loi_Tran_0041eb7c
-extern "C" const char DAT_0041eb88[19];  // s_Marcel_Tirtariandi_0041eb88
-extern "C" const char DAT_0041eb9c[19];  // s_Khone_Vongphachanh_0041eb9c
-extern "C" const char DAT_0041ebb0[14];  // s_Kevin_Jackson_0041ebb0
-extern "C" const char DAT_0041ebc0[15];  // s_Jose_Hernandez_0041ebc0
-extern "C" const char DAT_0041ebd0[15];  // s_Jonathan_Gomez_0041ebd0
-extern "C" const char DAT_0041ebe0[14];  // s_Freeman_Bejar_0041ebe0
-extern "C" const char DAT_0041ebf0[12];  // s_David_Sykes_0041ebf0
-extern "C" const char DAT_0041ebfc[13];  // s_Thomas_Board_0041ebfc
-extern "C" const char DAT_0041ec0c[16];  // s_Alex_Schoenberg_0041ec0c
-extern "C" const char DAT_0041ec1c[15];  // s_Elisabeth_Carr_0041ec1c
-extern "C" const char DAT_0041ec2c[9];  // s_Sok_Phuy_0041ec2c
-extern "C" const char DAT_0041ec38[21];  // s_Russell_Roy_Espinosa_0041ec38
-extern "C" const char DAT_0041ec50[13];  // s_Michael_Ryan_0041ec50
-extern "C" const char DAT_0041ec60[12];  // s_Lazlo_Szoke_0041ec60
-extern "C" const char DAT_0041ec6c[17];  // s_Jason_Colombetti_0041ec6c
-extern "C" const char DAT_0041ec80[14];  // s_Eduardo_Mayor_0041ec80
-extern "C" const char DAT_0041ec90[14];  // s_Dustin_Thomas_0041ec90
-extern "C" const char DAT_0041eca0[13];  // s_David_Scharf_0041eca0
-extern "C" const char DAT_0041ecb0[16];  // s_Channa_De_Silva_0041ecb0
-extern "C" const char DAT_0041ecc0[16];  // s_Paco_E_Erskine_0041ecc0
-extern "C" const char DAT_0041ecd0[12];  // s_Dan_Bradley_0041ecd0
-extern "C" const char DAT_0041ecdc[12];  // s_Charlie_Oun_0041ecdc
-extern "C" const char DAT_0041ece8[15];  // s_Troy_Mirmirani_0041ece8
-extern "C" const char DAT_0041ecf8[12];  // s_Jen_Johnson_0041ecf8
-extern "C" const char DAT_0041ed04[14];  // s_Spencer_Vigil_0041ed04
-extern "C" const char DAT_0041ed14[13];  // s_Rodney_Vallo_0041ed14
-extern "C" const char DAT_0041ed24[16];  // s_Brian_Wrightson_0041ed24
-extern "C" const char DAT_0041ed34[13];  // s_Mia_Tarzwell_0041ed34
-extern "C" const char DAT_0041ed44[9];  // s_Mark_Yao_0041ed44
-extern "C" const char DAT_0041ed50[13];  // s_Kelly_Kooser_0041ed50
-extern "C" const char DAT_0041ed60[23];  // s_Juan_Sebastian_Delga_0041ed60
-extern "C" const char DAT_0041ed78[16];  // s_Cassie_Townsend_0041ed78
-extern "C" const char DAT_0041ed88[13];  // s_Marcus_Quinn_0041ed88
-extern "C" const char DAT_0041ed98[9];  // s_Kit_Chan_0041ed98
-extern "C" const char DAT_0041eda4[13];  // s_Kevin_Sodini_0041eda4
-extern "C" const char DAT_0041edb4[14];  // s_John_Triplett_0041edb4
-extern "C" const char DAT_0041edc4[15];  // s_Gregory_S_Lee_0041edc4
-extern "C" const char DAT_0041edd4[15];  // s_Apeedeth_Vanna_0041edd4
-extern "C" const char DAT_0041ede4[13];  // s_Amit_Bhaumik_0041ede4
-extern "C" const char DAT_0041edf4[14];  // s_Adam_Rauscher_0041edf4
-extern "C" const char DAT_0041ee04[15];  // s_Kristen_Carter_0041ee04
-extern "C" const char DAT_0041ee14[12];  // s_Mike_Doonan_0041ee14
-extern "C" const char DAT_0041ee20[10];  // s_Alvin_Kim_0041ee20
-extern "C" const char DAT_0041ee2c[26];  // s_TBS_CREDIT_VUG_QA_TE_0041ee2c
-extern "C" const char DAT_0041ee48[13];  // s_Tim_Harrison_0041ee48
-extern "C" const char DAT_0041ee58[13];  // s_Jared_Yeager_0041ee58
-extern "C" const char DAT_0041ee68[13];  // s_Dereck_Queza_0041ee68
-extern "C" const char DAT_0041ee78[10];  // s_Donna_Woo_0041ee78
-extern "C" const char DAT_0041ee84[32];  // s_TBS_CREDIT_VUG_QA_PR_0041ee84
-extern "C" const char DAT_0041eea4[12];  // s_Jamie_Saxon_0041eea4
-extern "C" const char DAT_0041eeb0[26];  // s_TBS_CREDIT_VUG_QA_MA_0041eeb0
-extern "C" const char DAT_0041eecc[22];  // s_James_E_J_Galloway_0041eecc
-extern "C" const char DAT_0041eee4[30];  // s_TBS_CREDIT_VUG_QA_SN_0041eee4
-extern "C" const char DAT_0041ef04[14];  // s_Rich_Robinson_0041ef04
-extern "C" const char DAT_0041ef14[28];  // s_TBS_CREDIT_VUG_VP_ST_0041ef14
-extern "C" const char DAT_0041ef30[18];  // s_TBS_CREDIT_VUG_QA_0041ef30
-extern "C" const char DAT_0041ef44[11];  // s_Pam_Teller_0041ef44
-extern "C" const char DAT_0041ef50[12];  // s_Kevin_Crook_0041ef50
-extern "C" const char DAT_0041ef5c[11];  // s_Rod_Rigole_0041ef5c
-extern "C" const char DAT_0041ef68[11];  // s_James_Shaw_0041ef68
-extern "C" const char DAT_0041ef74[21];  // s_TBS_CREDIT_VUG_LEGAL_0041ef74
-extern "C" const char DAT_0041ef8c[15];  // s_Nathan_Grupman_0041ef8c
-extern "C" const char DAT_0041ef9c[27];  // s_TBS_CREDIT_VUG_GRAPH_0041ef9c
-extern "C" const char DAT_0041efb8[17];  // s_Elisabeth_Miller_0041efb8
-extern "C" const char DAT_0041efcc[31];  // s_TBS_CREDIT_VUG_SNR_G_0041efcc
-extern "C" const char DAT_0041efec[25];  // s_Michelle_Garnier_Win_0041efec
-extern "C" const char DAT_0041f008[10];  // s_Bill_Watt_0041f008
-extern "C" const char DAT_0041f014[32];  // s_TBS_CREDIT_VUG_CREAT_0041f014
-extern "C" const char DAT_0041f034[15];  // s_Michael_Bannon_0041f034
-extern "C" const char DAT_0041f044[41];  // s_TBS_CREDIT_VUG_SNR_D_0041f044
-extern "C" const char DAT_0041f070[33];  // s_TBS_CREDIT_VUG_CREAT_0041f070
-extern "C" const char DAT_0041f094[12];  // s_Eric_Culqui_0041f094
-extern "C" const char DAT_0041f0a0[29];  // s_TBS_CREDIT_VUG_RESEA_0041f0a0
-extern "C" const char DAT_0041f0c0[13];  // s_Linda_Howard_0041f0c0
-extern "C" const char DAT_0041f0d0[28];  // s_TBS_CREDIT_VUG_RESEA_0041f0d0
-extern "C" const char DAT_0041f0ec[33];  // s_TBS_CREDIT_VUG_CONSU_0041f0ec
-extern "C" const char DAT_0041f110[11];  // s_Lisa_Douet_0041f110
-extern "C" const char DAT_0041f11c[28];  // s_TBS_CREDIT_VUG_ASSOC_0041f11c
-extern "C" const char DAT_0041f138[10];  // s_Adam_Kahn_0041f138
-extern "C" const char DAT_0041f144[27];  // s_TBS_CREDIT_VUG_DIREC_0041f144
-extern "C" const char DAT_0041f160[32];  // s_TBS_CREDIT_VUG_PUBLI_0041f160
-extern "C" const char DAT_0041f180[15];  // s_Kirsten_Gavoni_0041f180
-extern "C" const char DAT_0041f190[21];  // s_TBS_CREDIT_VUG_PROMO_0041f190
-extern "C" const char DAT_0041f1a8[15];  // s_Chloe_Rothwell_0041f1a8
-extern "C" const char DAT_0041f1b8[33];  // s_TBS_CREDIT_VUG_MARKE_0041f1b8
-extern "C" const char DAT_0041f1dc[14];  // s_Laurent_Caffy_0041f1dc
-extern "C" const char DAT_0041f1ec[36];  // s_TBS_CREDIT_VUG_BRAND_0041f1ec
-extern "C" const char DAT_0041f210[11];  // s_Keyur_Shah_0041f210
-extern "C" const char DAT_0041f21c[31];  // s_TBS_CREDIT_VUG_MARKE_0041f21c
-extern "C" const char DAT_0041f23c[16];  // s_Katya_Shuldiner_0041f23c
-extern "C" const char DAT_0041f24c[33];  // s_TBS_CREDIT_VUG_ASS_B_0041f24c
-extern "C" const char DAT_0041f270[15];  // s_Ivo_Gerscovich_0041f270
-extern "C" const char DAT_0041f280[33];  // s_TBS_CREDIT_VUG_DIRE_0041f280
-extern "C" const char DAT_0041f2a4[14];  // s_Beckie_Holmes_0041f2a4
-extern "C" const char DAT_0041f2b4[28];  // s_TBS_CREDIT_VUG_VP_MA_0041f2b4
-extern "C" const char DAT_0041f2d0[11];  // s_Ed_Zobrist_0041f2d0
-extern "C" const char DAT_0041f2dc[35];  // s_TBS_CREDIT_VUG_VP_GL_0041f2dc
-extern "C" const char DAT_0041f300[11];  // s_Cindy_Cook_0041f300
-extern "C" const char DAT_0041f30c[26];  // s_TBS_CREDIT_VUG_CONSU_0041f30c
-extern "C" const char DAT_0041f328[13];  // s_Phil_O_Neil_0041f328
-extern "C" const char DAT_0041f338[28];  // s_TBS_CREDIT_VUG_PRESI_0041f338
-extern "C" const char DAT_0041f354[25];  // s_TBS_CREDIT_VUG_MARKE_0041f354
-extern "C" const char DAT_0041f370[20];  // s_Alan_Roderick_Jones_0041f370
-extern "C" const char DAT_0041f384[37];  // s_TBS_CREDIT_VUG_CONCE_0041f384
-extern "C" const char DAT_0041f3ac[12];  // s_Brian_Hitch_0041f3ac
-extern "C" const char DAT_0041f3b8[32];  // s_TBS_CREDIT_VUG_SIGNA_0041f3b8
-extern "C" const char DAT_0041f3d8[35];  // s_TBS_CREDIT_VUG_ADDIT_0041f3d8
-extern "C" const char DAT_0041f3fc[19];  // s_Ryan_T_Sammartino_0041f3fc
-extern "C" const char DAT_0041f410[34];  // s_TBS_CREDIT_VUG_TECHN_0041f410
-extern "C" const char DAT_0041f434[18];  // s_Michael_Heilemann_0041f434
-extern "C" const char DAT_0041f448[40];  // s_TBS_CREDIT_VUG_CHIEF_0041f448
-extern "C" const char DAT_0041f470[11];  // s_Bret_Berry_0041f470
-extern "C" const char DAT_0041f47c[29];  // s_TBS_CREDIT_VUG_VP_PR_0041f47c
-extern "C" const char DAT_0041f49c[13];  // s_Michael_Pole_0041f49c
-extern "C" const char DAT_0041f4ac[37];  // s_TBS_CREDIT_VUG_EXEC_0041f4ac
-extern "C" const char DAT_0041f4d4[17];  // s_Kenneth_S_Rosman_0041f4d4
-extern "C" const char DAT_0041f4e8[15];  // s_Nathan_Whitman_0041f4e8
-extern "C" const char DAT_0041f4f8[12];  // s_Justin_Lees_0041f4f8
-extern "C" const char DAT_0041f504[13];  // s_Francis_Choi_0041f504
-extern "C" const char DAT_0041f514[15];  // s_Daniel_Badilla_0041f514
-extern "C" const char DAT_0041f524[34];  // s_TBS_CREDIT_VUG_ASSOC_0041f524
-extern "C" const char DAT_0041f548[14];  // s_Jeff_Barnhart_0041f548
-extern "C" const char DAT_0041f558[24];  // s_TBS_CREDIT_VUG_PRODU_0041f558
-extern "C" const char DAT_0041f570[26];  // s_TBS_CREDIT_VUG_PRODU_0041f570
-extern "C" const char DAT_0041f58c[25];  // s_TBS_CREDIT_VUG_PUBLI_0041f58c
-extern "C" const char DAT_0041f5a8[21];  // s_TBS_CREDIT_COPYRIGHT_0041f5a8
-extern "C" const char DAT_0041f5c0[26];  // s_TBS_CREDIT_BINK_COPY_0041f5c0
-extern "C" const char DAT_0041f5dc[16];  // s_TBS_CREDIT_BINK_0041f5dc
-extern "C" const char DAT_0041f5ec[10];  // s_Tom_Legal_0041f5ec
-extern "C" const char DAT_0041f5f8[13];  // s_Sound_Deluxe_0041f5f8
-extern "C" const char DAT_0041f608[14];  // s_Robert_Sparks_0041f608
-extern "C" const char DAT_0041f618[13];  // s_Rob_Bridgett_0041f618
-extern "C" const char DAT_0041f628[13];  // s_Mike_Hayward_0041f628
-extern "C" const char DAT_0041f638[17];  // s_Michael_Faulkner_0041f638
-extern "C" const char DAT_0041f64c[13];  // s_Marcin_Chady_0041f64c
-extern "C" const char DAT_0041f65c[11];  // s_Marc_Baril_0041f65c
-extern "C" const char DAT_0041f668[24];  // s_Mainframe_Entertainm_0041f668
-extern "C" const char DAT_0041f680[16];  // s_Liezel_Sinclair_0041f680
-extern "C" const char DAT_0041f690[15];  // s_Liberty_Walker_0041f690
-extern "C" const char DAT_0041f6a0[16];  // s_Joshua_Mitchell_0041f6a0
-extern "C" const char DAT_0041f6b0[17];  // s_Josh_Blommestein_0041f6b0
-extern "C" const char DAT_0041f6c4[15];  // s_Jen_MacDougall_0041f6c4
-extern "C" const char DAT_0041f6d4[16];  // s_Jean_Luc_Duprat_0041f6d4
-extern "C" const char DAT_0041f6e4[13];  // s_Jason_Elliot_0041f6e4
-extern "C" const char DAT_0041f6f4[13];  // s_Jasmin_Patry_0041f6f4
-extern "C" const char DAT_0041f704[17];  // s_Hallie_Sanderson_0041f704
-extern "C" const char DAT_0041f718[11];  // s_Greg_Mayer_0041f718
-extern "C" const char DAT_0041f724[17];  // s_Dennis_Detwiller_0041f724
-extern "C" const char DAT_0041f738[15];  // s_Darren_Evenson_0041f738
-extern "C" const char DAT_0041f748[17];  // s_Danielle_Michael_0041f748
-extern "C" const char DAT_0041f75c[14];  // s_Colin_Lorimer_0041f75c
-extern "C" const char DAT_0041f76c[15];  // s_Chris_Mitchell_0041f76c
-extern "C" const char DAT_0041f77c[15];  // s_Cary_Brisebois_0041f77c
-extern "C" const char DAT_0041f78c[17];  // s_Bryan_Gillingham_0041f78c
-extern "C" const char DAT_0041f7a0[29];  // s_TBS_CREDIT_RG_SPECIA_0041f7a0
-extern "C" const char DAT_0041f7c0[18];  // s_Hiroshi_Takahashi_0041f7c0
-extern "C" const char DAT_0041f7d4[13];  // s_Eric_Legaspi_0041f7d4
-extern "C" const char DAT_0041f7e4[11];  // s_Samuel_Ko_0041f7e4
-extern "C" const char DAT_0041f7f0[15];  // s_Shannon_Hemmes_0041f7f0
-extern "C" const char DAT_0041f800[17];  // s_TBS_CREDIT_ITEAM_0041f800
-extern "C" const char DAT_0041f814[10];  // s_Karen_Mah_0041f814
-extern "C" const char DAT_0041f820[37];  // s_TBS_CREDIT_RG_PRODUC_0041f820
-extern "C" const char DAT_0041f848[17];  // s_Geoff_Richardson_0041f848
-extern "C" const char DAT_0041f85c[10];  // s_Josh_Cole_0041f85c
-extern "C" const char DAT_0041f868[26];  // s_TBS_CREDIT_RG_COMPOS_0041f868
-extern "C" const char DAT_0041f884[13];  // s_Shamus_Horak_0041f884
-extern "C" const char DAT_0041f894[15];  // s_Ting_Ting_Chen_0041f894
-extern "C" const char DAT_0041f8a4[29];  // s_TBS_CREDIT_RG_GRAPHI_0041f8a4
-extern "C" const char DAT_0041f8c4[25];  // s_TBS_CREDIT_RG_GLOBAL_0041f8c4
-extern "C" const char DAT_0041f8e0[17];  // s_Jay_Balakrishnan_0041f8e0
-extern "C" const char DAT_0041f8f4[29];  // s_TBS_CREDIT_VUG_EXEC_0041f8f4
-extern "C" const char DAT_0041f914[16];  // s_Harold_Westlund_0041f914
-extern "C" const char DAT_0041f924[15];  // s_Neall_Verheyde_0041f924
-extern "C" const char DAT_0041f934[12];  // s_Jodi_Tilley_0041f934
-extern "C" const char DAT_0041f940[11];  // s_Paul_Stark_0041f940
-extern "C" const char DAT_0041f94c[19];  // s_Adam_Kolodziejczak_0041f94c
-extern "C" const char DAT_0041f960[13];  // s_Senta_Kaiser_0041f960
-extern "C" const char DAT_0041f970[16];  // s_Adrian_Johnston_0041f970
-extern "C" const char DAT_0041f980[10];  // s_Stan_Jang_0041f980
-extern "C" const char DAT_0041f98c[15];  // s_Michael_Hughes_0041f98c
-extern "C" const char DAT_0041f99c[12];  // s_Eric_Honsch_0041f99c
-extern "C" const char DAT_0041f9a8[10];  // s_Tim_Hinds_0041f9a8
-extern "C" const char DAT_0041f9b4[12];  // s_Simon_Hatch_0041f9b4
-extern "C" const char DAT_0041f9c0[16];  // s_Adrian_Gheorghe_0041f9c0
-extern "C" const char DAT_0041f9d0[11];  // s_Kathy_Fung_0041f9d0
-extern "C" const char DAT_0041f9dc[12];  // s_Bryan_Ewert_0041f9dc
-extern "C" const char DAT_0041f9e8[12];  // s_Rod_Davison_0041f9e8
-extern "C" const char DAT_0041f9f4[12];  // s_Pamela_Chow_0041f9f4
-extern "C" const char DAT_0041fa00[15];  // s_Colin_Caufield_0041fa00
-extern "C" const char DAT_0041fa10[13];  // s_Nigel_Brooke_0041fa10
-extern "C" const char DAT_0041fa20[14];  // s_Scott_Andrews_0041fa20
-extern "C" const char DAT_0041fa30[17];  // s_Michael_Anderson_0041fa30
-extern "C" const char DAT_0041fa44[18];  // s_TBS_CREDIT_RG_ATG_0041fa44
-extern "C" const char DAT_0041fa58[15];  // s_Lynnanne_Zager_0041fa58
-extern "C" const char DAT_0041fa68[14];  // s_David_Sobolov_0041fa68
-extern "C" const char DAT_0041fa78[18];  // s_Richard_McGonagle_0041fa78
-extern "C" const char DAT_0041fa8c[14];  // s_Scott_Bullock_0041fa8c
-extern "C" const char DAT_0041fa9c[15];  // s_Sean_Donnellan_0041fa9c
-extern "C" const char DAT_0041faac[13];  // s_Brad_Sanders_0041faac
-extern "C" const char DAT_0041fabc[12];  // s_Andy_Milder_0041fabc
-extern "C" const char DAT_0041fac8[14];  // s_John_DiMaggio_0041fac8
-extern "C" const char DAT_0041fad8[14];  // s_Michael_Ralph_0041fad8
-extern "C" const char DAT_0041fae8[14];  // s_David_Pizzuto_0041fae8
-extern "C" const char DAT_0041faf8[15];  // s_Keith_Ferguson_0041faf8
-extern "C" const char DAT_0041fb08[13];  // s_Justin_Gross_0041fb08
-extern "C" const char DAT_0041fb18[12];  // s_Nolan_North_0041fb18
-extern "C" const char DAT_0041fb24[11];  // s_Nick_Guest_0041fb24
-extern "C" const char DAT_0041fb30[16];  // s_Fred_Tatasciore_0041fb30
-extern "C" const char DAT_0041fb40[13];  // s_Rick_Overton_0041fb40
-extern "C" const char DAT_0041fb50[11];  // s_Cam_Clarke_0041fb50
-extern "C" const char DAT_0041fb5c[14];  // s_Chris_Edgerly_0041fb5c
-extern "C" const char DAT_0041fb6c[14];  // s_Kari_Wahlgren_0041fb6c
-extern "C" const char DAT_0041fb7c[35];  // s_TBS_CREDIT_ADDITIONA_0041fb7c
-extern "C" const char DAT_0041fba0[12];  // s_Dave_Thomas_0041fba0
-extern "C" const char DAT_0041fbac[37];  // s_TBS_CREDIT_VOICE_TAL_0041fbac
-extern "C" const char DAT_0041fbd4[16];  // s_Michael_Donovan_0041fbd4
-extern "C" const char DAT_0041fbe4[34];  // s_TBS_CREDIT_VOICE_TAL_0041fbe4
-extern "C" const char DAT_0041fc08[13];  // s_Richard_Moll_0041fc08
-extern "C" const char DAT_0041fc18[35];  // s_TBS_CREDIT_VOICE_TAL_0041fc18
-extern "C" const char DAT_0041fc3c[17];  // s_Vanessa_Marshall_0041fc3c
-extern "C" const char DAT_0041fc50[6];  // s_Mercy_0041fc50
-extern "C" const char DAT_0041fc58[15];  // s_Daniel_Riordan_0041fc58
-extern "C" const char DAT_0041fc68[7];  // s_Samson_0041fc68
-extern "C" const char DAT_0041fc70[12];  // s_Ron_Perlman_0041fc70
-extern "C" const char DAT_0041fc7c[13];  // s_Emil_Blonsky_0041fc7c
-extern "C" const char DAT_0041fc8c[15];  // s_Neal_McDonough_0041fc8c
-extern "C" const char DAT_0041fc9c[13];  // s_Bruce_Banner_0041fc9c
-extern "C" const char DAT_0041fcac[27];  // s_TBS_CREDIT_RG_VOICE_0041fcac
-extern "C" const char DAT_0041fcc8[11];  // s_Bill_Brown_0041fcc8
-extern "C" const char DAT_0041fcd4[29];  // s_TBS_CREDIT_RG_MUSIC_0041fcd4
-extern "C" const char DAT_0041fcf4[10];  // s_Iain_Ross_0041fcf4
-extern "C" const char DAT_0041fd00[33];  // s_TBS_CREDIT_RG_SOUND_0041fd00
-extern "C" const char DAT_0041fd24[14];  // s_Roman_Tomazin_0041fd24
-extern "C" const char DAT_0041fd34[15];  // s_Cory_Hawthorne_0041fd34
-extern "C" const char DAT_0041fd44[32];  // s_TBS_CREDIT_R360_SOUN_0041fd44
-extern "C" const char DAT_0041fd64[11];  // s_Lino_Conti_0041fd64
-extern "C" const char DAT_0041fd70[12];  // s_Keith_Blyth_0041fd70
-extern "C" const char DAT_0041fd7c[22];  // s_TBS_CREDIT_RG_TESTER_0041fd7c
-extern "C" const char DAT_0041fd94[13];  // s_Jonathan_Lim_0041fd94
-extern "C" const char DAT_0041fda4[37];  // s_TBS_CREDIT_RG_LEAD_Q_0041fda4
-extern "C" const char DAT_0041fdcc[17];  // s_Brandon_McGuigan_0041fdcc
-extern "C" const char DAT_0041fde0[16];  // s_Dave_Martindale_0041fde0
-extern "C" const char DAT_0041fdf0[12];  // s_Joel_Kinman_0041fdf0
-extern "C" const char DAT_0041fdfc[16];  // s_Ross_Kakuschke_0041fdfc
-extern "C" const char DAT_0041fe0c[10];  // s_Wendy_Hoy_0041fe0c
-extern "C" const char DAT_0041fe18[12];  // s_Ben_Geisler_0041fe18
-extern "C" const char DAT_0041fe24[15];  // s_Kevin_Coughlan_0041fe24
-extern "C" const char DAT_0041fe34[13];  // s_Bryan_Brandt_0041fe34
-extern "C" const char DAT_0041fe44[14];  // s_Ryan_Blazecka_0041fe44
-extern "C" const char DAT_0041fe54[10];  // s_Zaven_Ali_0041fe54
-extern "C" const char DAT_0041fe60[26];  // s_TBS_CREDIT_RG_PROGRA_0041fe60
-extern "C" const char DAT_0041fe7c[13];  // s_Chris_Cudahy_0041fe7c
-extern "C" const char DAT_0041fe8c[24];  // s_TBS_CREDIT_RG_LEAD_P_0041fe8c
-extern "C" const char DAT_0041fea4[15];  // s_Steve_Sadowski_0041fea4
-extern "C" const char DAT_0041feb4[26];  // s_TBS_CREDIT_RG_CONCEP_0041feb4
-extern "C" const char DAT_0041fed0[10];  // s_Harry_Ahn_0041fed0
-extern "C" const char DAT_0041fedc[33];  // s_TBS_CREDIT_RG_CINEMA_0041fedc
-extern "C" const char DAT_0041ff00[12];  // s_Michael_Lum_0041ff00
-extern "C" const char DAT_0041ff0c[10];  // s_Derek_Day_0041ff0c
-extern "C" const char DAT_0041ff18[29];  // s_TBS_CREDIT_RG_GAME_A_0041ff18
-extern "C" const char DAT_0041ff38[16];  // s_Gerald_Sombilon_0041ff38
-extern "C" const char DAT_0041ff48[28];  // s_TBS_CREDIT_RG_LEAD_A_0041ff48
-extern "C" const char DAT_0041ff64[12];  // s_Colin_Penty_0041ff64
-extern "C" const char DAT_0041ff70[35];  // s_TBS_CREDIT_RG_TECHNI_0041ff70
-extern "C" const char DAT_0041ff94[12];  // s_Derek_Young_0041ff94
-extern "C" const char DAT_0041ffa0[16];  // s_Robert_Sculnick_0041ffa0
-extern "C" const char DAT_0041ffb0[14];  // s_Jake_Pokorny_0041ffb0
-extern "C" const char DAT_0041ffc0[11];  // s_Steve_Mele_0041ffc0
-extern "C" const char DAT_0041ffcc[10];  // s_Clint_Mar_0041ffcc
-extern "C" const char DAT_0041ffd8[13];  // s_Michelle_Lam_0041ffd8
-extern "C" const char DAT_0041ffe8[28];  // s_TBS_CREDIT_RG_WORLD_0041ffe8
-extern "C" const char DAT_00420004[13];  // s_Tyler_Wilson_00420004
-extern "C" const char DAT_00420014[16];  // s_Jaroslav_Chorny_00420014
-extern "C" const char DAT_00420024[32];  // s_TBS_CREDIT_RG_CHARAC_00420024
-extern "C" const char DAT_00420044[16];  // s_Murray_McCarron_00420044
-extern "C" const char DAT_00420054[46];  // s_TBS_CREDIT_RG_LEAD_C_00420054
-extern "C" const char DAT_00420084[12];  // s_Dave_Forsey_00420084
-extern "C" const char DAT_00420090[34];  // s_TBS_CREDIT_RG_BOSS_L_00420090
-extern "C" const char DAT_004200b4[10];  // s_Mike_Wong_004200b4
-extern "C" const char DAT_004200c0[30];  // s_TBS_CREDIT_RG_COMBAT_004200c0
-extern "C" const char DAT_004200e0[15];  // s_Brian_Smedley_004200e0
 extern "C" const unsigned int DAT_00476cc0[1];  // zero_00476cc0
 extern "C" const unsigned int DAT_00476d08[1];  // zero_00476d08
 extern "C" const unsigned int DAT_00476d54[1];  // zero_00476d54
@@ -2799,8 +2301,7 @@ extern "C" const unsigned int DAT_00445618[1];  // zero_00445618
 extern "C" int DAT_00494b30;
 extern "C" float DAT_00494b34[4];  // fltTbl_00494b34
 extern "C" float DAT_00494ba0[4];  // fltTbl_00494ba0
-extern "C" unsigned int DAT_00494bb0[2];  // unk_00494bb0
-extern "C" const char* DAT_00494bb8[2];  // ptrTbl_00494bb8
+extern "C" const char* DAT_00494bb0[4];  // ptrTbl_00494bb0
 extern "C" float DAT_00494bc0[4];  // fltTbl_00494bc0
 extern "C" unsigned int DAT_00494bd0[2];  // zero_00494bd0
 extern "C" float DAT_00494bd8;  // flt_00494bd8
@@ -3130,18 +2631,6 @@ extern "C" const unsigned int DAT_004405b4[1];  // zero_004405b4
 extern "C" const unsigned int DAT_0044d320[1];  // zero_0044d320
 extern "C" const unsigned int DAT_0044d374[1];  // zero_0044d374
 
-// global/CGrappleTimerCondition.cpp
-extern "C" const char DAT_003f6a9c[9];  // s_Attack10_003f6a9c
-extern "C" const char DAT_003f6aa8[8];  // s_Attack9_003f6aa8
-extern "C" const char DAT_003f6ab0[8];  // s_Attack8_003f6ab0
-extern "C" const char DAT_003f6ab8[8];  // s_Attack7_003f6ab8
-extern "C" const char DAT_003f6ac0[8];  // s_Attack6_003f6ac0
-extern "C" const char DAT_003f6ac8[8];  // s_Attack5_003f6ac8
-extern "C" const char DAT_003f6ad0[8];  // s_Attack4_003f6ad0
-extern "C" const char DAT_003f6ad8[8];  // s_Attack3_003f6ad8
-extern "C" const char DAT_003f6ae0[8];  // s_Attack2_003f6ae0
-extern "C" const char DAT_003f6ae8[8];  // s_Attack1_003f6ae8
-
 // global/CGrappleTimerCondition_4.cpp
 extern "C" const unsigned int DAT_004408d4[1];  // zero_004408d4
 extern "C" const unsigned int DAT_00444cd4[1];  // zero_00444cd4
@@ -3334,6 +2823,11 @@ extern "C" const float DAT_003fb8b4[17];  // fltTbl_003fb8b4
 extern "C" const char DAT_003fb904[17];  // s_Adrenaline_Surge_003fb904
 extern "C" const char DAT_003fb918[14];  // s_Critical_Mass_003fb918
 extern "C" const char DAT_003fb928[4];  // s_Off_003fb928
+extern "C" const char DAT_003fb92c[8];  // s_Grapple_003fb92c
+extern "C" const char DAT_003fb934[8];  // s_HopJump_003fb934
+extern "C" const char DAT_003fb93c[10];  // s_QuickTurn_003fb93c
+extern "C" const char DAT_003fb948[6];  // s_Float_003fb948
+extern "C" const char DAT_003fb950[8];  // s_WallRun_003fb950
 extern "C" const char DAT_003fb958[6];  // s_Slide_003fb958
 extern "C" const char DAT_003fb960[12];  // s_Ease_in_out_003fb960
 extern "C" const char DAT_003fb96c[9];  // s_Ease_out_003fb96c
@@ -3822,8 +3316,7 @@ extern "C" const unsigned int DAT_0044caec[1];  // zero_0044caec
 extern "C" const char* DAT_00496f8c[4];  // ptrTbl_00496f8c
 extern "C" const char* DAT_00496f9c[2];  // ptrTbl_00496f9c
 extern "C" const char* DAT_00496fa4[4];  // ptrTbl_00496fa4
-extern "C" const char* DAT_00496fb4;  // PTR_00496fb4
-extern "C" const char* DAT_00496fb8[8];  // ptrTbl_00496fb8
+extern "C" const char* DAT_00496fb4[9];  // ptrTbl_00496fb4
 extern "C" const char* DAT_00496fd8[3];  // ptrTbl_00496fd8
 extern "C" float DAT_00496fe4[4];  // fltTbl_00496fe4
 extern "C" unsigned int DAT_00496ff4[2];  // zero_00496ff4
@@ -4090,55 +3583,52 @@ extern "C" unsigned char DAT_004dc4f4[4];
 extern "C" const unsigned int DAT_004404c4[1];  // zero_004404c4
 
 // global/CRadMovieRenderLoop.cpp
-extern "C" const char DAT_0041db3c[1];  // s_empty_0041db3c
+extern "C" const unsigned int DAT_0041db3c[1];  // tbl_0041db3c
 extern "C" const unsigned int DAT_0041db40[1];  // tbl_0041db40
 extern "C" const unsigned int DAT_0041db44[1];  // tbl_0041db44
 extern "C" const unsigned int DAT_0041db48[1];  // tbl_0041db48
 extern "C" const unsigned int DAT_0041db4c[1];  // tbl_0041db4c
-extern "C" const unsigned int DAT_0041db50[2];  // tbl_0041db50
-extern "C" const DataLayout_0041db58 DAT_0041db58;  // struct_0041db58
-extern "C" const DataLayout_0041dba0 DAT_0041dba0;  // struct_0041dba0
-extern "C" const DataLayout_0041dbe8 DAT_0041dbe8;  // struct_0041dbe8
-extern "C" const DataLayout_0041dbf0 DAT_0041dbf0;  // struct_0041dbf0
-extern "C" const char DAT_0041dbf8[1];  // s_empty_0041dbf8
-extern "C" const unsigned int DAT_0041dbfc[3];  // unk_0041dbfc
-extern "C" const char* const DAT_0041dc08;  // PTR_0041dc08
-extern "C" const unsigned int DAT_0041dc0c[2];  // unk_0041dc0c
-extern "C" const char* const DAT_0041dc14;  // PTR_0041dc14
+extern "C" const unsigned int DAT_0041db50[1];  // tbl_0041db50
+extern "C" const unsigned int DAT_0041db54[1];  // zero_0041db54
+// DAT_0041db58: typed by decls/data/records.h (included above)
+// DAT_0041dba0: typed by decls/data/records.h (included above)
+// DAT_0041dbe8: typed by decls/data/records.h (included above)
+// DAT_0041dbf0: typed by decls/data/records.h (included above)
+extern "C" const unsigned int DAT_0041dbf8[2];  // tbl_0041dbf8
+// DAT_0041dc00: typed by decls/data/records.h (included above)
 extern "C" const char DAT_0041dc40[7];  // s_dintro_0041dc40
 extern "C" const char DAT_0041dc48[15];  // s_transformation_0041dc48
 extern "C" const char DAT_0041dc58[5];  // s_anim_0041dc58
 extern "C" const char DAT_0041dc60[6];  // s_s_s_0041dc60
-extern "C" const char DAT_00434194[1];  // s_empty_00434194
-extern "C" const unsigned int DAT_00434198[1];  // unk_00434198
-extern "C" const char* const DAT_0043419c;  // PTR_0043419c
-extern "C" const char DAT_004341a0[1];  // s_empty_004341a0
-extern "C" const unsigned int DAT_004341a4[1];  // unk_004341a4
-extern "C" const char* const DAT_004341a8;  // PTR_004341a8
-extern "C" const char DAT_004341ac[1];  // s_empty_004341ac
-extern "C" const unsigned int DAT_004341b0[2];  // unk_004341b0
-extern "C" const char DAT_004341b8[1];  // s_empty_004341b8
-extern "C" const unsigned int DAT_004341bc[2];  // unk_004341bc
-extern "C" const char DAT_004341c4[1];  // s_empty_004341c4
-extern "C" const unsigned int DAT_004341c8[2];  // unk_004341c8
-extern "C" const char DAT_004341d0[1];  // s_empty_004341d0
-extern "C" const unsigned int DAT_004341d4[1];  // unk_004341d4
-extern "C" const char* const DAT_004341d8;  // PTR_004341d8
-extern "C" const unsigned int DAT_004341dc[2];  // unk_004341dc
-extern "C" const void* const DAT_004341e4;  // PTR_004341e4
-extern "C" const unsigned int DAT_004341e8[3];  // unk_004341e8
+extern "C" const unsigned int DAT_00434110[2];  // tbl_00434110
+extern "C" const unsigned int DAT_00434118[2];  // tbl_00434118
+extern "C" const unsigned int DAT_00434120[6];  // tbl_00434120
+extern "C" const unsigned int DAT_00434138[4];  // tbl_00434138
+extern "C" const unsigned int DAT_00434148[8];  // tbl_00434148
+extern "C" const unsigned int DAT_00434168[2];  // tbl_00434168
+extern "C" const unsigned int DAT_00434170[1];  // tbl_00434170
+extern "C" const unsigned int DAT_00434174[1];  // tbl_00434174
+extern "C" const unsigned int DAT_00434178[1];  // tbl_00434178
+extern "C" const unsigned int DAT_0043417c[1];  // tbl_0043417c
+extern "C" const unsigned int DAT_00434180[1];  // tbl_00434180
+extern "C" const unsigned int DAT_00434184[1];  // tbl_00434184
+// DAT_00434188: typed by decls/data/records.h (included above)
+// DAT_00434194: typed by decls/data/records.h (included above)
+// DAT_004341a0: typed by decls/data/records.h (included above)
+// DAT_004341ac: typed by decls/data/records.h (included above)
+// DAT_004341b8: typed by decls/data/records.h (included above)
+// DAT_004341c4: typed by decls/data/records.h (included above)
+// DAT_004341d0: typed by decls/data/records.h (included above)
 extern "C" const unsigned int DAT_004341f4[1];  // zero_004341f4
-extern "C" const char DAT_004341f8[1];  // s_empty_004341f8
-extern "C" const unsigned int DAT_004341fc[13];  // unk_004341fc
-extern "C" const void* const DAT_00434230;  // PTR_00434230
-extern "C" const unsigned int DAT_00434234[2];  // unk_00434234
-extern "C" const void* const DAT_0043423c;  // PTR_0043423c
-extern "C" const unsigned int DAT_00434240[1];  // unk_00434240
-extern "C" const char* const DAT_00434244;  // PTR_00434244
-extern "C" const unsigned int DAT_00434248[1];  // unk_00434248
-extern "C" const char* const DAT_0043424c;  // PTR_0043424c
-extern "C" const DataLayout_00434250 DAT_00434250;  // struct_00434250
-extern "C" const DataLayout_00434270 DAT_00434270;  // struct_00434270
+// DAT_004341f8: typed by decls/data/records.h (included above)
+// DAT_00434240: typed by decls/data/records.h (included above)
+// DAT_00434248: typed by decls/data/records.h (included above)
+// DAT_00434250: typed by decls/data/records.h (included above)
+// DAT_00434258: typed by decls/data/records.h (included above)
+// DAT_00434260: typed by decls/data/records.h (included above)
+// DAT_00434268: typed by decls/data/records.h (included above)
+// DAT_00434270: typed by decls/data/records.h (included above)
+extern "C" const float DAT_00434278[7];  // fltTbl_00434278
 extern "C" const unsigned int DAT_00476c30[1];  // zero_00476c30
 extern "C" const unsigned int DAT_00476c78[1];  // zero_00476c78
 
@@ -4199,6 +3689,493 @@ extern "C" unsigned char DAT_004e0acc[4];
 
 // global/CRenderManager.cpp
 extern "C" const char DAT_0040b914[27];  // s_TBS_MENU_ITEM_MC_LOA_0040b914
+extern "C" const char DAT_0041dd58[31];  // s_TBS_CREDIT_RG_SPECIA_0041dd58
+extern "C" const char DAT_0041dd78[13];  // s_Tom_Marvelli_0041dd78
+extern "C" const char DAT_0041dd88[12];  // s_Axel_Alonso_0041dd88
+extern "C" const char DAT_0041dd94[14];  // s_Mark_Paniccia_0041dd94
+extern "C" const char DAT_0041dda4[12];  // s_Dan_Buckley_0041dda4
+extern "C" const char DAT_0041ddb0[12];  // s_Joe_Quesada_0041ddb0
+extern "C" const char DAT_0041ddbc[9];  // s_Ari_Arad_0041ddbc
+extern "C" const char DAT_0041ddc8[9];  // s_Avi_Arad_0041ddc8
+extern "C" const char DAT_0041ddd4[30];  // s_TBS_CREDIT_MVL_SPECI_0041ddd4
+extern "C" const char DAT_0041ddf4[16];  // s_Donnie_Wahlberg_0041ddf4
+extern "C" const char DAT_0041de04[30];  // s_TBS_CREDIT_MPV_SPECI_0041de04
+extern "C" const char DAT_0041de24[13];  // s_Tomas_Melian_0041de24
+extern "C" const char DAT_0041de34[12];  // s_Tom_Gastall_0041de34
+extern "C" const char DAT_0041de40[11];  // s_Suzan_Rude_0041de40
+extern "C" const char DAT_0041de4c[14];  // s_So_Ann_Santos_0041de4c
+extern "C" const char DAT_0041de5c[15];  // s_Sarah_McKinney_0041de5c
+extern "C" const char DAT_0041de6c[16];  // s_Michael_Herring_0041de6c
+extern "C" const char DAT_0041de7c[15];  // s_Linda_Ethridge_0041de7c
+extern "C" const char DAT_0041de8c[13];  // s_Julie_Thomas_0041de8c
+extern "C" const char DAT_0041de9c[17];  // s_Jonathan_Eubanks_0041de9c
+extern "C" const char DAT_0041deb0[13];  // s_Jim_Flaharty_0041deb0
+extern "C" const char DAT_0041dec0[12];  // s_James_Carey_0041dec0
+extern "C" const char DAT_0041decc[16];  // s_Janice_Charlton_0041decc
+extern "C" const char DAT_0041dedc[10];  // s_Hal_Paris_0041dedc
+extern "C" const char DAT_0041dee8[12];  // s_Charles_Yam_0041dee8
+extern "C" const char DAT_0041def4[13];  // s_Cathy_Truong_0041def4
+extern "C" const char DAT_0041df04[12];  // s_Bruce_Hack_0041df04
+extern "C" const char DAT_0041df10[12];  // s_Bill_Brown_0041df10
+extern "C" const char DAT_0041df1c[9];  // s_Amy_Chen_0041df1c
+extern "C" const char DAT_0041df28[11];  // s_Ambra_Roth_0041df28
+extern "C" const char DAT_0041df34[30];  // s_TBS_CREDIT_VUG_SPECI_0041df34
+extern "C" const char DAT_0041df54[13];  // s_Carl_Suecoff_0041df54
+extern "C" const char DAT_0041df64[20];  // s_Joshua_M_Silverman_0041df64
+extern "C" const char DAT_0041df78[12];  // s_Seth_Lehman_0041df78
+extern "C" const char DAT_0041df84[29];  // s_TBS_CREDIT_MVL_LEGAL_0041df84
+extern "C" const char DAT_0041dfa4[13];  // s_Tim_Rothwell_0041dfa4
+extern "C" const char DAT_0041dfb4[44];  // s_TBS_CREDIT_MVL_PRES_0041dfb4
+extern "C" const char DAT_0041dfe0[13];  // s_Ames_Kirshen_0041dfe0
+extern "C" const char DAT_0041dff0[30];  // s_TBS_CREDIT_MVL_VICE_0041dff0
+extern "C" const char DAT_0041e010[34];  // s_TBS_CREDIT_MVL_MARVE_0041e010
+extern "C" const char DAT_0041e034[16];  // s_Pierre_Dejarnac_0041e034
+extern "C" const char DAT_0041e044[33];  // s_TBS_CREDIT_DUBLIN_SP_0041e044
+extern "C" const char DAT_0041e068[13];  // s_Tom_Lindgren_0041e068
+extern "C" const char DAT_0041e078[10];  // s_John_Hall_0041e078
+extern "C" const char DAT_0041e084[18];  // s_TBS_CREDIT_NORDIC_0041e084
+extern "C" const char DAT_0041e098[12];  // s_Javier_Sanz_0041e098
+extern "C" const char DAT_0041e0a4[15];  // s_Esther_Fidalgo_0041e0a4
+extern "C" const char DAT_0041e0b4[18];  // s_Frederic_Hosteins_0041e0b4
+extern "C" const char DAT_0041e0c8[17];  // s_TBS_CREDIT_SPAIN_0041e0c8
+extern "C" const char DAT_0041e0dc[17];  // s_Simone_Cazzaniga_0041e0dc
+extern "C" const char DAT_0041e0f0[14];  // s_Simone_Isella_0041e0f0
+extern "C" const char DAT_0041e100[13];  // s_Sara_Cantoni_0041e100
+extern "C" const char DAT_0041e110[17];  // s_TBS_CREDIT_ITALY_0041e110
+extern "C" const char DAT_0041e124[12];  // s_Cat_Channon_0041e124
+extern "C" const char DAT_0041e130[14];  // s_Gary_Chantler_0041e130
+extern "C" const char DAT_0041e140[16];  // s_George_Georgiou_0041e140
+extern "C" const char DAT_0041e150[14];  // s_TBS_CREDIT_UK_0041e150
+extern "C" const char DAT_0041e160[15];  // s_Clement_Debetz_0041e160
+extern "C" const char DAT_0041e170[13];  // s_Thomas_Seris_0041e170
+extern "C" const char DAT_0041e180[15];  // s_Thomas_Paincon_0041e180
+extern "C" const char DAT_0041e190[18];  // s_TBS_CREDIT_FRANCE_0041e190
+extern "C" const char DAT_0041e1a4[36];  // s_TBS_CREDIT_DUBLIN_LO_0041e1a4
+extern "C" const char DAT_0041e1c8[17];  // s_Gregoire_Gabalda_0041e1c8
+extern "C" const char DAT_0041e1dc[38];  // s_TBS_CREDIT_DUBLIN_MA_0041e1dc
+extern "C" const char DAT_0041e204[12];  // s_Myriam_Lamy_0041e204
+extern "C" const char DAT_0041e210[29];  // s_TBS_CREDIT_DUBLIN_LE_0041e210
+extern "C" const char DAT_0041e230[26];  // s_Chantal_Veillon_Bert_0041e230
+extern "C" const char DAT_0041e24c[24];  // s_TBS_CREDIT_DUBLIN_LE_0041e24c
+extern "C" const char DAT_0041e264[14];  // s_Melissa_Brown_0041e264
+extern "C" const char DAT_0041e274[39];  // s_TBS_CREDIT_DUBLIN_CO_0041e274
+extern "C" const char DAT_0041e29c[21];  // s_Erika_Thiong_Soui_Ho_0041e29c
+extern "C" const char DAT_0041e2b4[41];  // s_TBS_CREDIT_DUBLIN_SU_0041e2b4
+extern "C" const char DAT_0041e2e0[13];  // s_Fabien_Tisle_0041e2e0
+extern "C" const char DAT_0041e2f0[30];  // s_TBS_CREDIT_DUBLIN_OP_0041e2f0
+extern "C" const char DAT_0041e310[14];  // s_Eric_Chatelet_0041e310
+extern "C" const char DAT_0041e320[41];  // s_TBS_CREDIT_DUBLIN_PU_0041e320
+extern "C" const char DAT_0041e34c[14];  // s_Annick_Decrop_0041e34c
+extern "C" const char DAT_0041e35c[38];  // s_TBS_CREDIT_DUBLIN_PU_0041e35c
+extern "C" const char DAT_0041e384[13];  // s_Maria_Pirpan_0041e384
+extern "C" const char DAT_0041e394[33];  // s_TBS_CREDIT_DUBLIN_SN_0041e394
+extern "C" const char DAT_0041e3b8[17];  // s_Sandrine_Reymond_0041e3b8
+extern "C" const char DAT_0041e3cc[31];  // s_TBS_CREDIT_VUG_LOCAL_0041e3cc
+extern "C" const char DAT_0041e3ec[15];  // s_Wilfrid_Vinmer_0041e3ec
+extern "C" const char DAT_0041e3fc[32];  // s_TBS_CREDIT_DUBLIN_BR_0041e3fc
+extern "C" const char DAT_0041e41c[18];  // s_Estelle_Dubernard_0041e41c
+extern "C" const char DAT_0041e430[31];  // s_TBS_CREDIT_DUBLIN_VP_0041e430
+extern "C" const char DAT_0041e450[23];  // s_Olivier_De_Roquemaur_0041e450
+extern "C" const char DAT_0041e468[22];  // s_TBS_CREDIT_DUBLIN_CF_0041e468
+extern "C" const char DAT_0041e480[25];  // s_Jean_Fran_ois_Grolle_0041e480
+extern "C" const char DAT_0041e49c[22];  // s_TBS_CREDIT_DUBLIN_CE_0041e49c
+extern "C" const char DAT_0041e4b4[18];  // s_TBS_CREDIT_DUBLIN_0041e4b4
+extern "C" const char DAT_0041e4c8[14];  // s_Eoghan_Whelan_0041e4c8
+extern "C" const char DAT_0041e4d8[13];  // s_Brendan_Aupy_0041e4d8
+extern "C" const char DAT_0041e4e8[14];  // s_Nico_Richters_0041e4e8
+extern "C" const char DAT_0041e4f8[16];  // s_Yvonne_Costello_0041e4f8
+extern "C" const char DAT_0041e508[20];  // s_Giampaolo_Focarelli_0041e508
+extern "C" const char DAT_0041e51c[11];  // s_Tito_Laeti_0041e51c
+extern "C" const char DAT_0041e528[20];  // s_Nicolas_de_Turkheim_0041e528
+extern "C" const char DAT_0041e53c[19];  // s_Jerome_Grandgeorge_0041e53c
+extern "C" const char DAT_0041e550[13];  // s_Jose_Ordonez_0041e550
+extern "C" const char DAT_0041e560[19];  // s_Giammarco_Schisani_0041e560
+extern "C" const char DAT_0041e574[15];  // s_Fran_ois_Kulik_0041e574
+extern "C" const char DAT_0041e584[15];  // s_Esther_Hartwig_0041e584
+extern "C" const char DAT_0041e594[14];  // s_Carlos_Losada_0041e594
+extern "C" const char DAT_0041e5a4[17];  // s_Alfonso_Sorribes_0041e5a4
+extern "C" const char DAT_0041e5b8[14];  // s_Veronika_Mang_0041e5b8
+extern "C" const char DAT_0041e5c8[14];  // s_Sarah_Brennan_0041e5c8
+extern "C" const char DAT_0041e5d8[15];  // s_Lawrence_Moran_0041e5d8
+extern "C" const char DAT_0041e5e8[22];  // s_Laura_Casanellas_Lur_0041e5e8
+extern "C" const char DAT_0041e600[13];  // s_Bill_Sweeney_0041e600
+extern "C" const char DAT_0041e610[13];  // s_David_Hickey_0041e610
+extern "C" const char DAT_0041e620[12];  // s_Annette_Lee_0041e620
+extern "C" const char DAT_0041e62c[16];  // s_Bobby_Henderson_0041e62c
+extern "C" const char DAT_0041e63c[11];  // s_Fiona_Ebbs_0041e63c
+extern "C" const char DAT_0041e648[12];  // s_Barry_Kehoe_0041e648
+extern "C" const char DAT_0041e654[12];  // s_Gerry_Carty_0041e654
+extern "C" const char DAT_0041e660[31];  // s_TBS_CREDIT_DUBLIN_LO_0041e660
+extern "C" const char DAT_0041e680[27];  // s_TBS_CREDIT_SERC_DANE_0041e680
+extern "C" const char DAT_0041e69c[14];  // s_Shawn_Johnson_0041e69c
+extern "C" const char DAT_0041e6ac[11];  // s_Bo_Bennike_0041e6ac
+extern "C" const char DAT_0041e6b8[29];  // s_TBS_CREDIT_R360_SOUN_0041e6b8
+extern "C" const char DAT_0041e6d8[10];  // s_Sara_Wein_0041e6d8
+extern "C" const char DAT_0041e6e4[30];  // s_TBS_CREDIT_VUG_PRODU_0041e6e4
+extern "C" const char DAT_0041e704[12];  // s_Steve_Kutay_0041e704
+extern "C" const char DAT_0041e710[38];  // s_TBS_CREDIT_VUG_SOUND_0041e710
+extern "C" const char DAT_0041e738[11];  // s_Rich_Seitz_0041e738
+extern "C" const char DAT_0041e744[31];  // s_TBS_CREDIT_VUG_DIALO_0041e744
+extern "C" const char DAT_0041e764[16];  // s_Patrick_McNulty_0041e764
+extern "C" const char DAT_0041e774[34];  // s_TBS_CREDIT_VUG_RECOR_0041e774
+extern "C" const char DAT_0041e798[14];  // s_Andrea_Toylas_0041e798
+extern "C" const char DAT_0041e7a8[39];  // s_TBS_CREDIT_VUG_DIALO_0041e7a8
+extern "C" const char DAT_0041e7d0[11];  // s_Eric_Weiss_0041e7d0
+extern "C" const char DAT_0041e7dc[27];  // s_TBS_CREDIT_VUG_CASTI_0041e7dc
+extern "C" const char DAT_0041e7f8[11];  // s_Tom_Keegan_0041e7f8
+extern "C" const char DAT_0041e804[33];  // s_TBS_CREDIT_VUG_CASTI_0041e804
+extern "C" const char DAT_0041e828[33];  // s_TBS_CREDIT_VUG_MEDIA_0041e828
+extern "C" const char DAT_0041e84c[18];  // s_Richard_Benavides_0041e84c
+extern "C" const char DAT_0041e860[18];  // s_Glen_Dphrepaulezz_0041e860
+extern "C" const char DAT_0041e874[12];  // s_Cyra_Talton_0041e874
+extern "C" const char DAT_0041e880[15];  // s_Brandon_Valdez_0041e880
+extern "C" const char DAT_0041e890[10];  // s_VUPC_Team_0041e890
+extern "C" const char DAT_0041e89c[16];  // s_William_Bagnell_0041e89c
+extern "C" const char DAT_0041e8ac[13];  // s_Jose_Beltran_0041e8ac
+extern "C" const char DAT_0041e8bc[19];  // s_Lauren_Kamieniecki_0041e8bc
+extern "C" const char DAT_0041e8d0[17];  // s_Fausto_Lorenzano_0041e8d0
+extern "C" const char DAT_0041e8e4[12];  // s_Ryan_French_0041e8e4
+extern "C" const char DAT_0041e8f0[15];  // s_Robert_Gardner_0041e8f0
+extern "C" const char DAT_0041e900[14];  // s_Mark_Jihanian_0041e900
+extern "C" const char DAT_0041e910[11];  // s_Tom_Craven_0041e910
+extern "C" const char DAT_0041e91c[29];  // s_TBS_CREDIT_TRG_GROUP_0041e91c
+extern "C" const char DAT_0041e93c[13];  // s_Joaquin_Meza_0041e93c
+extern "C" const char DAT_0041e94c[12];  // s_Joe_Olivas_0041e94c
+extern "C" const char DAT_0041e958[9];  // s_Ali_Raza_0041e958
+extern "C" const char DAT_0041e964[33];  // s_TBS_CREDIT_TRG_GROUP_0041e964
+extern "C" const char DAT_0041e988[19];  // s_Christopher_Wilson_0041e988
+extern "C" const char DAT_0041e99c[29];  // s_TBS_CREDIT_TRG_GROUP_0041e99c
+extern "C" const char DAT_0041e9bc[21];  // s_TBS_CREDIT_TRG_GROUP_0041e9bc
+extern "C" const char DAT_0041e9d4[9];  // s_Ken_Sato_0041e9d4
+extern "C" const char DAT_0041e9e0[10];  // s_Danny_Koo_0041e9e0
+extern "C" const char DAT_0041e9ec[13];  // s_Chris_Miller_0041e9ec
+extern "C" const char DAT_0041e9fc[12];  // s_Jason_Perry_0041e9fc
+extern "C" const char DAT_0041ea08[16];  // s_Afolabi_Akibola_0041ea08
+extern "C" const char DAT_0041ea18[26];  // s_TBS_CREDIT_TRG_CONFI_0041ea18
+extern "C" const char DAT_0041ea34[11];  // s_Jaime_Rios_0041ea34
+extern "C" const char DAT_0041ea40[34];  // s_TBS_CREDIT_TRG_CONFI_0041ea40
+extern "C" const char DAT_0041ea64[13];  // s_James_Pasque_0041ea64
+extern "C" const char DAT_0041ea74[23];  // s_Christopher_Richards_0041ea74
+extern "C" const char DAT_0041ea8c[30];  // s_TBS_CREDIT_VUG_QA_SU_0041ea8c
+extern "C" const char DAT_0041eaac[17];  // s_Michael_Gonzales_0041eaac
+extern "C" const char DAT_0041eac0[30];  // s_TBS_CREDIT_VUG_QA_RE_0041eac0
+extern "C" const char DAT_0041eae0[13];  // s_Stephen_Yang_0041eae0
+extern "C" const char DAT_0041eaf0[30];  // s_TBS_CREDIT_VUG_QA_TE_0041eaf0
+extern "C" const char DAT_0041eb10[16];  // s_Eric_Hoffmaster_0041eb10
+extern "C" const char DAT_0041eb20[31];  // s_TBS_CREDIT_VUG_QA_NE_0041eb20
+extern "C" const char DAT_0041eb40[20];  // s_Zachary_Yim_Richley_0041eb40
+extern "C" const char DAT_0041eb54[24];  // s_Ernest_Jib_Zamora_Jr_0041eb54
+extern "C" const char DAT_0041eb6c[14];  // s_Daniel_Jacobs_0041eb6c
+extern "C" const char DAT_0041eb7c[9];  // s_Loi_Tran_0041eb7c
+extern "C" const char DAT_0041eb88[19];  // s_Marcel_Tirtariandi_0041eb88
+extern "C" const char DAT_0041eb9c[19];  // s_Khone_Vongphachanh_0041eb9c
+extern "C" const char DAT_0041ebb0[14];  // s_Kevin_Jackson_0041ebb0
+extern "C" const char DAT_0041ebc0[15];  // s_Jose_Hernandez_0041ebc0
+extern "C" const char DAT_0041ebd0[15];  // s_Jonathan_Gomez_0041ebd0
+extern "C" const char DAT_0041ebe0[14];  // s_Freeman_Bejar_0041ebe0
+extern "C" const char DAT_0041ebf0[12];  // s_David_Sykes_0041ebf0
+extern "C" const char DAT_0041ebfc[13];  // s_Thomas_Board_0041ebfc
+extern "C" const char DAT_0041ec0c[16];  // s_Alex_Schoenberg_0041ec0c
+extern "C" const char DAT_0041ec1c[15];  // s_Elisabeth_Carr_0041ec1c
+extern "C" const char DAT_0041ec2c[9];  // s_Sok_Phuy_0041ec2c
+extern "C" const char DAT_0041ec38[21];  // s_Russell_Roy_Espinosa_0041ec38
+extern "C" const char DAT_0041ec50[13];  // s_Michael_Ryan_0041ec50
+extern "C" const char DAT_0041ec60[12];  // s_Lazlo_Szoke_0041ec60
+extern "C" const char DAT_0041ec6c[17];  // s_Jason_Colombetti_0041ec6c
+extern "C" const char DAT_0041ec80[14];  // s_Eduardo_Mayor_0041ec80
+extern "C" const char DAT_0041ec90[14];  // s_Dustin_Thomas_0041ec90
+extern "C" const char DAT_0041eca0[13];  // s_David_Scharf_0041eca0
+extern "C" const char DAT_0041ecb0[16];  // s_Channa_De_Silva_0041ecb0
+extern "C" const char DAT_0041ecc0[16];  // s_Paco_E_Erskine_0041ecc0
+extern "C" const char DAT_0041ecd0[12];  // s_Dan_Bradley_0041ecd0
+extern "C" const char DAT_0041ecdc[12];  // s_Charlie_Oun_0041ecdc
+extern "C" const char DAT_0041ece8[15];  // s_Troy_Mirmirani_0041ece8
+extern "C" const char DAT_0041ecf8[12];  // s_Jen_Johnson_0041ecf8
+extern "C" const char DAT_0041ed04[14];  // s_Spencer_Vigil_0041ed04
+extern "C" const char DAT_0041ed14[13];  // s_Rodney_Vallo_0041ed14
+extern "C" const char DAT_0041ed24[16];  // s_Brian_Wrightson_0041ed24
+extern "C" const char DAT_0041ed34[13];  // s_Mia_Tarzwell_0041ed34
+extern "C" const char DAT_0041ed44[9];  // s_Mark_Yao_0041ed44
+extern "C" const char DAT_0041ed50[13];  // s_Kelly_Kooser_0041ed50
+extern "C" const char DAT_0041ed60[23];  // s_Juan_Sebastian_Delga_0041ed60
+extern "C" const char DAT_0041ed78[16];  // s_Cassie_Townsend_0041ed78
+extern "C" const char DAT_0041ed88[13];  // s_Marcus_Quinn_0041ed88
+extern "C" const char DAT_0041ed98[9];  // s_Kit_Chan_0041ed98
+extern "C" const char DAT_0041eda4[13];  // s_Kevin_Sodini_0041eda4
+extern "C" const char DAT_0041edb4[14];  // s_John_Triplett_0041edb4
+extern "C" const char DAT_0041edc4[15];  // s_Gregory_S_Lee_0041edc4
+extern "C" const char DAT_0041edd4[15];  // s_Apeedeth_Vanna_0041edd4
+extern "C" const char DAT_0041ede4[13];  // s_Amit_Bhaumik_0041ede4
+extern "C" const char DAT_0041edf4[14];  // s_Adam_Rauscher_0041edf4
+extern "C" const char DAT_0041ee04[15];  // s_Kristen_Carter_0041ee04
+extern "C" const char DAT_0041ee14[12];  // s_Mike_Doonan_0041ee14
+extern "C" const char DAT_0041ee20[10];  // s_Alvin_Kim_0041ee20
+extern "C" const char DAT_0041ee2c[26];  // s_TBS_CREDIT_VUG_QA_TE_0041ee2c
+extern "C" const char DAT_0041ee48[13];  // s_Tim_Harrison_0041ee48
+extern "C" const char DAT_0041ee58[13];  // s_Jared_Yeager_0041ee58
+extern "C" const char DAT_0041ee68[13];  // s_Dereck_Queza_0041ee68
+extern "C" const char DAT_0041ee78[10];  // s_Donna_Woo_0041ee78
+extern "C" const char DAT_0041ee84[32];  // s_TBS_CREDIT_VUG_QA_PR_0041ee84
+extern "C" const char DAT_0041eea4[12];  // s_Jamie_Saxon_0041eea4
+extern "C" const char DAT_0041eeb0[26];  // s_TBS_CREDIT_VUG_QA_MA_0041eeb0
+extern "C" const char DAT_0041eecc[22];  // s_James_E_J_Galloway_0041eecc
+extern "C" const char DAT_0041eee4[30];  // s_TBS_CREDIT_VUG_QA_SN_0041eee4
+extern "C" const char DAT_0041ef04[14];  // s_Rich_Robinson_0041ef04
+extern "C" const char DAT_0041ef14[28];  // s_TBS_CREDIT_VUG_VP_ST_0041ef14
+extern "C" const char DAT_0041ef30[18];  // s_TBS_CREDIT_VUG_QA_0041ef30
+extern "C" const char DAT_0041ef44[11];  // s_Pam_Teller_0041ef44
+extern "C" const char DAT_0041ef50[12];  // s_Kevin_Crook_0041ef50
+extern "C" const char DAT_0041ef5c[11];  // s_Rod_Rigole_0041ef5c
+extern "C" const char DAT_0041ef68[11];  // s_James_Shaw_0041ef68
+extern "C" const char DAT_0041ef74[21];  // s_TBS_CREDIT_VUG_LEGAL_0041ef74
+extern "C" const char DAT_0041ef8c[15];  // s_Nathan_Grupman_0041ef8c
+extern "C" const char DAT_0041ef9c[27];  // s_TBS_CREDIT_VUG_GRAPH_0041ef9c
+extern "C" const char DAT_0041efb8[17];  // s_Elisabeth_Miller_0041efb8
+extern "C" const char DAT_0041efcc[31];  // s_TBS_CREDIT_VUG_SNR_G_0041efcc
+extern "C" const char DAT_0041efec[25];  // s_Michelle_Garnier_Win_0041efec
+extern "C" const char DAT_0041f008[10];  // s_Bill_Watt_0041f008
+extern "C" const char DAT_0041f014[32];  // s_TBS_CREDIT_VUG_CREAT_0041f014
+extern "C" const char DAT_0041f034[15];  // s_Michael_Bannon_0041f034
+extern "C" const char DAT_0041f044[41];  // s_TBS_CREDIT_VUG_SNR_D_0041f044
+extern "C" const char DAT_0041f070[33];  // s_TBS_CREDIT_VUG_CREAT_0041f070
+extern "C" const char DAT_0041f094[12];  // s_Eric_Culqui_0041f094
+extern "C" const char DAT_0041f0a0[29];  // s_TBS_CREDIT_VUG_RESEA_0041f0a0
+extern "C" const char DAT_0041f0c0[13];  // s_Linda_Howard_0041f0c0
+extern "C" const char DAT_0041f0d0[28];  // s_TBS_CREDIT_VUG_RESEA_0041f0d0
+extern "C" const char DAT_0041f0ec[33];  // s_TBS_CREDIT_VUG_CONSU_0041f0ec
+extern "C" const char DAT_0041f110[11];  // s_Lisa_Douet_0041f110
+extern "C" const char DAT_0041f11c[28];  // s_TBS_CREDIT_VUG_ASSOC_0041f11c
+extern "C" const char DAT_0041f138[10];  // s_Adam_Kahn_0041f138
+extern "C" const char DAT_0041f144[27];  // s_TBS_CREDIT_VUG_DIREC_0041f144
+extern "C" const char DAT_0041f160[32];  // s_TBS_CREDIT_VUG_PUBLI_0041f160
+extern "C" const char DAT_0041f180[15];  // s_Kirsten_Gavoni_0041f180
+extern "C" const char DAT_0041f190[21];  // s_TBS_CREDIT_VUG_PROMO_0041f190
+extern "C" const char DAT_0041f1a8[15];  // s_Chloe_Rothwell_0041f1a8
+extern "C" const char DAT_0041f1b8[33];  // s_TBS_CREDIT_VUG_MARKE_0041f1b8
+extern "C" const char DAT_0041f1dc[14];  // s_Laurent_Caffy_0041f1dc
+extern "C" const char DAT_0041f1ec[36];  // s_TBS_CREDIT_VUG_BRAND_0041f1ec
+extern "C" const char DAT_0041f210[11];  // s_Keyur_Shah_0041f210
+extern "C" const char DAT_0041f21c[31];  // s_TBS_CREDIT_VUG_MARKE_0041f21c
+extern "C" const char DAT_0041f23c[16];  // s_Katya_Shuldiner_0041f23c
+extern "C" const char DAT_0041f24c[33];  // s_TBS_CREDIT_VUG_ASS_B_0041f24c
+extern "C" const char DAT_0041f270[15];  // s_Ivo_Gerscovich_0041f270
+extern "C" const char DAT_0041f280[33];  // s_TBS_CREDIT_VUG_DIRE_0041f280
+extern "C" const char DAT_0041f2a4[14];  // s_Beckie_Holmes_0041f2a4
+extern "C" const char DAT_0041f2b4[28];  // s_TBS_CREDIT_VUG_VP_MA_0041f2b4
+extern "C" const char DAT_0041f2d0[11];  // s_Ed_Zobrist_0041f2d0
+extern "C" const char DAT_0041f2dc[35];  // s_TBS_CREDIT_VUG_VP_GL_0041f2dc
+extern "C" const char DAT_0041f300[11];  // s_Cindy_Cook_0041f300
+extern "C" const char DAT_0041f30c[26];  // s_TBS_CREDIT_VUG_CONSU_0041f30c
+extern "C" const char DAT_0041f328[13];  // s_Phil_O_Neil_0041f328
+extern "C" const char DAT_0041f338[28];  // s_TBS_CREDIT_VUG_PRESI_0041f338
+extern "C" const char DAT_0041f354[25];  // s_TBS_CREDIT_VUG_MARKE_0041f354
+extern "C" const char DAT_0041f370[20];  // s_Alan_Roderick_Jones_0041f370
+extern "C" const char DAT_0041f384[37];  // s_TBS_CREDIT_VUG_CONCE_0041f384
+extern "C" const char DAT_0041f3ac[12];  // s_Brian_Hitch_0041f3ac
+extern "C" const char DAT_0041f3b8[32];  // s_TBS_CREDIT_VUG_SIGNA_0041f3b8
+extern "C" const char DAT_0041f3d8[35];  // s_TBS_CREDIT_VUG_ADDIT_0041f3d8
+extern "C" const char DAT_0041f3fc[19];  // s_Ryan_T_Sammartino_0041f3fc
+extern "C" const char DAT_0041f410[34];  // s_TBS_CREDIT_VUG_TECHN_0041f410
+extern "C" const char DAT_0041f434[18];  // s_Michael_Heilemann_0041f434
+extern "C" const char DAT_0041f448[40];  // s_TBS_CREDIT_VUG_CHIEF_0041f448
+extern "C" const char DAT_0041f470[11];  // s_Bret_Berry_0041f470
+extern "C" const char DAT_0041f47c[29];  // s_TBS_CREDIT_VUG_VP_PR_0041f47c
+extern "C" const char DAT_0041f49c[13];  // s_Michael_Pole_0041f49c
+extern "C" const char DAT_0041f4ac[37];  // s_TBS_CREDIT_VUG_EXEC_0041f4ac
+extern "C" const char DAT_0041f4d4[17];  // s_Kenneth_S_Rosman_0041f4d4
+extern "C" const char DAT_0041f4e8[15];  // s_Nathan_Whitman_0041f4e8
+extern "C" const char DAT_0041f4f8[12];  // s_Justin_Lees_0041f4f8
+extern "C" const char DAT_0041f504[13];  // s_Francis_Choi_0041f504
+extern "C" const char DAT_0041f514[15];  // s_Daniel_Badilla_0041f514
+extern "C" const char DAT_0041f524[34];  // s_TBS_CREDIT_VUG_ASSOC_0041f524
+extern "C" const char DAT_0041f548[14];  // s_Jeff_Barnhart_0041f548
+extern "C" const char DAT_0041f558[24];  // s_TBS_CREDIT_VUG_PRODU_0041f558
+extern "C" const char DAT_0041f570[26];  // s_TBS_CREDIT_VUG_PRODU_0041f570
+extern "C" const char DAT_0041f58c[25];  // s_TBS_CREDIT_VUG_PUBLI_0041f58c
+extern "C" const char DAT_0041f5a8[21];  // s_TBS_CREDIT_COPYRIGHT_0041f5a8
+extern "C" const char DAT_0041f5c0[26];  // s_TBS_CREDIT_BINK_COPY_0041f5c0
+extern "C" const char DAT_0041f5dc[16];  // s_TBS_CREDIT_BINK_0041f5dc
+extern "C" const char DAT_0041f5ec[10];  // s_Tom_Legal_0041f5ec
+extern "C" const char DAT_0041f5f8[13];  // s_Sound_Deluxe_0041f5f8
+extern "C" const char DAT_0041f608[14];  // s_Robert_Sparks_0041f608
+extern "C" const char DAT_0041f618[13];  // s_Rob_Bridgett_0041f618
+extern "C" const char DAT_0041f628[13];  // s_Mike_Hayward_0041f628
+extern "C" const char DAT_0041f638[17];  // s_Michael_Faulkner_0041f638
+extern "C" const char DAT_0041f64c[13];  // s_Marcin_Chady_0041f64c
+extern "C" const char DAT_0041f65c[11];  // s_Marc_Baril_0041f65c
+extern "C" const char DAT_0041f668[24];  // s_Mainframe_Entertainm_0041f668
+extern "C" const char DAT_0041f680[16];  // s_Liezel_Sinclair_0041f680
+extern "C" const char DAT_0041f690[15];  // s_Liberty_Walker_0041f690
+extern "C" const char DAT_0041f6a0[16];  // s_Joshua_Mitchell_0041f6a0
+extern "C" const char DAT_0041f6b0[17];  // s_Josh_Blommestein_0041f6b0
+extern "C" const char DAT_0041f6c4[15];  // s_Jen_MacDougall_0041f6c4
+extern "C" const char DAT_0041f6d4[16];  // s_Jean_Luc_Duprat_0041f6d4
+extern "C" const char DAT_0041f6e4[13];  // s_Jason_Elliot_0041f6e4
+extern "C" const char DAT_0041f6f4[13];  // s_Jasmin_Patry_0041f6f4
+extern "C" const char DAT_0041f704[17];  // s_Hallie_Sanderson_0041f704
+extern "C" const char DAT_0041f718[11];  // s_Greg_Mayer_0041f718
+extern "C" const char DAT_0041f724[17];  // s_Dennis_Detwiller_0041f724
+extern "C" const char DAT_0041f738[15];  // s_Darren_Evenson_0041f738
+extern "C" const char DAT_0041f748[17];  // s_Danielle_Michael_0041f748
+extern "C" const char DAT_0041f75c[14];  // s_Colin_Lorimer_0041f75c
+extern "C" const char DAT_0041f76c[15];  // s_Chris_Mitchell_0041f76c
+extern "C" const char DAT_0041f77c[15];  // s_Cary_Brisebois_0041f77c
+extern "C" const char DAT_0041f78c[17];  // s_Bryan_Gillingham_0041f78c
+extern "C" const char DAT_0041f7a0[29];  // s_TBS_CREDIT_RG_SPECIA_0041f7a0
+extern "C" const char DAT_0041f7c0[18];  // s_Hiroshi_Takahashi_0041f7c0
+extern "C" const char DAT_0041f7d4[13];  // s_Eric_Legaspi_0041f7d4
+extern "C" const char DAT_0041f7e4[11];  // s_Samuel_Ko_0041f7e4
+extern "C" const char DAT_0041f7f0[15];  // s_Shannon_Hemmes_0041f7f0
+extern "C" const char DAT_0041f800[17];  // s_TBS_CREDIT_ITEAM_0041f800
+extern "C" const char DAT_0041f814[10];  // s_Karen_Mah_0041f814
+extern "C" const char DAT_0041f820[37];  // s_TBS_CREDIT_RG_PRODUC_0041f820
+extern "C" const char DAT_0041f848[17];  // s_Geoff_Richardson_0041f848
+extern "C" const char DAT_0041f85c[10];  // s_Josh_Cole_0041f85c
+extern "C" const char DAT_0041f868[26];  // s_TBS_CREDIT_RG_COMPOS_0041f868
+extern "C" const char DAT_0041f884[13];  // s_Shamus_Horak_0041f884
+extern "C" const char DAT_0041f894[15];  // s_Ting_Ting_Chen_0041f894
+extern "C" const char DAT_0041f8a4[29];  // s_TBS_CREDIT_RG_GRAPHI_0041f8a4
+extern "C" const char DAT_0041f8c4[25];  // s_TBS_CREDIT_RG_GLOBAL_0041f8c4
+extern "C" const char DAT_0041f8e0[17];  // s_Jay_Balakrishnan_0041f8e0
+extern "C" const char DAT_0041f8f4[29];  // s_TBS_CREDIT_VUG_EXEC_0041f8f4
+extern "C" const char DAT_0041f914[16];  // s_Harold_Westlund_0041f914
+extern "C" const char DAT_0041f924[15];  // s_Neall_Verheyde_0041f924
+extern "C" const char DAT_0041f934[12];  // s_Jodi_Tilley_0041f934
+extern "C" const char DAT_0041f940[11];  // s_Paul_Stark_0041f940
+extern "C" const char DAT_0041f94c[19];  // s_Adam_Kolodziejczak_0041f94c
+extern "C" const char DAT_0041f960[13];  // s_Senta_Kaiser_0041f960
+extern "C" const char DAT_0041f970[16];  // s_Adrian_Johnston_0041f970
+extern "C" const char DAT_0041f980[10];  // s_Stan_Jang_0041f980
+extern "C" const char DAT_0041f98c[15];  // s_Michael_Hughes_0041f98c
+extern "C" const char DAT_0041f99c[12];  // s_Eric_Honsch_0041f99c
+extern "C" const char DAT_0041f9a8[10];  // s_Tim_Hinds_0041f9a8
+extern "C" const char DAT_0041f9b4[12];  // s_Simon_Hatch_0041f9b4
+extern "C" const char DAT_0041f9c0[16];  // s_Adrian_Gheorghe_0041f9c0
+extern "C" const char DAT_0041f9d0[11];  // s_Kathy_Fung_0041f9d0
+extern "C" const char DAT_0041f9dc[12];  // s_Bryan_Ewert_0041f9dc
+extern "C" const char DAT_0041f9e8[12];  // s_Rod_Davison_0041f9e8
+extern "C" const char DAT_0041f9f4[12];  // s_Pamela_Chow_0041f9f4
+extern "C" const char DAT_0041fa00[15];  // s_Colin_Caufield_0041fa00
+extern "C" const char DAT_0041fa10[13];  // s_Nigel_Brooke_0041fa10
+extern "C" const char DAT_0041fa20[14];  // s_Scott_Andrews_0041fa20
+extern "C" const char DAT_0041fa30[17];  // s_Michael_Anderson_0041fa30
+extern "C" const char DAT_0041fa44[18];  // s_TBS_CREDIT_RG_ATG_0041fa44
+extern "C" const char DAT_0041fa58[15];  // s_Lynnanne_Zager_0041fa58
+extern "C" const char DAT_0041fa68[14];  // s_David_Sobolov_0041fa68
+extern "C" const char DAT_0041fa78[18];  // s_Richard_McGonagle_0041fa78
+extern "C" const char DAT_0041fa8c[14];  // s_Scott_Bullock_0041fa8c
+extern "C" const char DAT_0041fa9c[15];  // s_Sean_Donnellan_0041fa9c
+extern "C" const char DAT_0041faac[13];  // s_Brad_Sanders_0041faac
+extern "C" const char DAT_0041fabc[12];  // s_Andy_Milder_0041fabc
+extern "C" const char DAT_0041fac8[14];  // s_John_DiMaggio_0041fac8
+extern "C" const char DAT_0041fad8[14];  // s_Michael_Ralph_0041fad8
+extern "C" const char DAT_0041fae8[14];  // s_David_Pizzuto_0041fae8
+extern "C" const char DAT_0041faf8[15];  // s_Keith_Ferguson_0041faf8
+extern "C" const char DAT_0041fb08[13];  // s_Justin_Gross_0041fb08
+extern "C" const char DAT_0041fb18[12];  // s_Nolan_North_0041fb18
+extern "C" const char DAT_0041fb24[11];  // s_Nick_Guest_0041fb24
+extern "C" const char DAT_0041fb30[16];  // s_Fred_Tatasciore_0041fb30
+extern "C" const char DAT_0041fb40[13];  // s_Rick_Overton_0041fb40
+extern "C" const char DAT_0041fb50[11];  // s_Cam_Clarke_0041fb50
+extern "C" const char DAT_0041fb5c[14];  // s_Chris_Edgerly_0041fb5c
+extern "C" const char DAT_0041fb6c[14];  // s_Kari_Wahlgren_0041fb6c
+extern "C" const char DAT_0041fb7c[35];  // s_TBS_CREDIT_ADDITIONA_0041fb7c
+extern "C" const char DAT_0041fba0[12];  // s_Dave_Thomas_0041fba0
+extern "C" const char DAT_0041fbac[37];  // s_TBS_CREDIT_VOICE_TAL_0041fbac
+extern "C" const char DAT_0041fbd4[16];  // s_Michael_Donovan_0041fbd4
+extern "C" const char DAT_0041fbe4[34];  // s_TBS_CREDIT_VOICE_TAL_0041fbe4
+extern "C" const char DAT_0041fc08[13];  // s_Richard_Moll_0041fc08
+extern "C" const char DAT_0041fc18[35];  // s_TBS_CREDIT_VOICE_TAL_0041fc18
+extern "C" const char DAT_0041fc3c[17];  // s_Vanessa_Marshall_0041fc3c
+extern "C" const char DAT_0041fc50[6];  // s_Mercy_0041fc50
+extern "C" const char DAT_0041fc58[15];  // s_Daniel_Riordan_0041fc58
+extern "C" const char DAT_0041fc68[7];  // s_Samson_0041fc68
+extern "C" const char DAT_0041fc70[12];  // s_Ron_Perlman_0041fc70
+extern "C" const char DAT_0041fc7c[13];  // s_Emil_Blonsky_0041fc7c
+extern "C" const char DAT_0041fc8c[15];  // s_Neal_McDonough_0041fc8c
+extern "C" const char DAT_0041fc9c[13];  // s_Bruce_Banner_0041fc9c
+extern "C" const char DAT_0041fcac[27];  // s_TBS_CREDIT_RG_VOICE_0041fcac
+extern "C" const char DAT_0041fcc8[11];  // s_Bill_Brown_0041fcc8
+extern "C" const char DAT_0041fcd4[29];  // s_TBS_CREDIT_RG_MUSIC_0041fcd4
+extern "C" const char DAT_0041fcf4[10];  // s_Iain_Ross_0041fcf4
+extern "C" const char DAT_0041fd00[33];  // s_TBS_CREDIT_RG_SOUND_0041fd00
+extern "C" const char DAT_0041fd24[14];  // s_Roman_Tomazin_0041fd24
+extern "C" const char DAT_0041fd34[15];  // s_Cory_Hawthorne_0041fd34
+extern "C" const char DAT_0041fd44[32];  // s_TBS_CREDIT_R360_SOUN_0041fd44
+extern "C" const char DAT_0041fd64[11];  // s_Lino_Conti_0041fd64
+extern "C" const char DAT_0041fd70[12];  // s_Keith_Blyth_0041fd70
+extern "C" const char DAT_0041fd7c[22];  // s_TBS_CREDIT_RG_TESTER_0041fd7c
+extern "C" const char DAT_0041fd94[13];  // s_Jonathan_Lim_0041fd94
+extern "C" const char DAT_0041fda4[37];  // s_TBS_CREDIT_RG_LEAD_Q_0041fda4
+extern "C" const char DAT_0041fdcc[17];  // s_Brandon_McGuigan_0041fdcc
+extern "C" const char DAT_0041fde0[16];  // s_Dave_Martindale_0041fde0
+extern "C" const char DAT_0041fdf0[12];  // s_Joel_Kinman_0041fdf0
+extern "C" const char DAT_0041fdfc[16];  // s_Ross_Kakuschke_0041fdfc
+extern "C" const char DAT_0041fe0c[10];  // s_Wendy_Hoy_0041fe0c
+extern "C" const char DAT_0041fe18[12];  // s_Ben_Geisler_0041fe18
+extern "C" const char DAT_0041fe24[15];  // s_Kevin_Coughlan_0041fe24
+extern "C" const char DAT_0041fe34[13];  // s_Bryan_Brandt_0041fe34
+extern "C" const char DAT_0041fe44[14];  // s_Ryan_Blazecka_0041fe44
+extern "C" const char DAT_0041fe54[10];  // s_Zaven_Ali_0041fe54
+extern "C" const char DAT_0041fe60[26];  // s_TBS_CREDIT_RG_PROGRA_0041fe60
+extern "C" const char DAT_0041fe7c[13];  // s_Chris_Cudahy_0041fe7c
+extern "C" const char DAT_0041fe8c[24];  // s_TBS_CREDIT_RG_LEAD_P_0041fe8c
+extern "C" const char DAT_0041fea4[15];  // s_Steve_Sadowski_0041fea4
+extern "C" const char DAT_0041feb4[26];  // s_TBS_CREDIT_RG_CONCEP_0041feb4
+extern "C" const char DAT_0041fed0[10];  // s_Harry_Ahn_0041fed0
+extern "C" const char DAT_0041fedc[33];  // s_TBS_CREDIT_RG_CINEMA_0041fedc
+extern "C" const char DAT_0041ff00[12];  // s_Michael_Lum_0041ff00
+extern "C" const char DAT_0041ff0c[10];  // s_Derek_Day_0041ff0c
+extern "C" const char DAT_0041ff18[29];  // s_TBS_CREDIT_RG_GAME_A_0041ff18
+extern "C" const char DAT_0041ff38[16];  // s_Gerald_Sombilon_0041ff38
+extern "C" const char DAT_0041ff48[28];  // s_TBS_CREDIT_RG_LEAD_A_0041ff48
+extern "C" const char DAT_0041ff64[12];  // s_Colin_Penty_0041ff64
+extern "C" const char DAT_0041ff70[35];  // s_TBS_CREDIT_RG_TECHNI_0041ff70
+extern "C" const char DAT_0041ff94[12];  // s_Derek_Young_0041ff94
+extern "C" const char DAT_0041ffa0[16];  // s_Robert_Sculnick_0041ffa0
+extern "C" const char DAT_0041ffb0[14];  // s_Jake_Pokorny_0041ffb0
+extern "C" const char DAT_0041ffc0[11];  // s_Steve_Mele_0041ffc0
+extern "C" const char DAT_0041ffcc[10];  // s_Clint_Mar_0041ffcc
+extern "C" const char DAT_0041ffd8[13];  // s_Michelle_Lam_0041ffd8
+extern "C" const char DAT_0041ffe8[28];  // s_TBS_CREDIT_RG_WORLD_0041ffe8
+extern "C" const char DAT_00420004[13];  // s_Tyler_Wilson_00420004
+extern "C" const char DAT_00420014[16];  // s_Jaroslav_Chorny_00420014
+extern "C" const char DAT_00420024[32];  // s_TBS_CREDIT_RG_CHARAC_00420024
+extern "C" const char DAT_00420044[16];  // s_Murray_McCarron_00420044
+extern "C" const char DAT_00420054[46];  // s_TBS_CREDIT_RG_LEAD_C_00420054
+extern "C" const char DAT_00420084[12];  // s_Dave_Forsey_00420084
+extern "C" const char DAT_00420090[34];  // s_TBS_CREDIT_RG_BOSS_L_00420090
+extern "C" const char DAT_004200b4[10];  // s_Mike_Wong_004200b4
+extern "C" const char DAT_004200c0[30];  // s_TBS_CREDIT_RG_COMBAT_004200c0
+extern "C" const char DAT_004200e0[15];  // s_Brian_Smedley_004200e0
+extern "C" const char DAT_004200f0[33];  // s_TBS_CREDIT_RG_TECHNI_004200f0
+extern "C" const char DAT_00420114[18];  // s_Gregory_MacMartin_00420114
+extern "C" const char DAT_00420128[35];  // s_TBS_CREDIT_RG_SENIOR_00420128
+extern "C" const char DAT_0042014c[12];  // s_Des_Hinkson_0042014c
+extern "C" const char DAT_00420158[12];  // s_Al_Escudero_00420158
+extern "C" const char DAT_00420164[31];  // s_TBS_CREDIT_RG_SENIOR_00420164
+extern "C" const char DAT_00420184[13];  // s_Paul_Jenkins_00420184
+extern "C" const char DAT_00420194[31];  // s_TBS_CREDIT_RG_ORIGIN_00420194
+extern "C" const char DAT_004201b4[13];  // s_Scott_Morgan_004201b4
+extern "C" const char DAT_004201c4[29];  // s_TBS_CREDIT_RG_SOUND_004201c4
+extern "C" const char DAT_004201e4[15];  // s_Katrina_Archer_004201e4
+extern "C" const char DAT_004201f4[40];  // s_TBS_CREDIT_RG_TECHNI_004201f4
+extern "C" const char DAT_0042021c[12];  // s_Rustle_Hill_0042021c
+extern "C" const char DAT_00420228[37];  // s_TBS_CREDIT_RG_TECHNI_00420228
+extern "C" const char DAT_00420250[11];  // s_Mark_James_00420250
+extern "C" const char DAT_0042025c[33];  // s_TBS_CREDIT_RG_TECHNI_0042025c
+extern "C" const char DAT_00420280[17];  // s_Lindz_Williamson_00420280
+extern "C" const char DAT_00420294[30];  // s_TBS_CREDIT_RG_PROJEC_00420294
+extern "C" const char DAT_004202b4[12];  // s_Eric_Holmes_004202b4
+extern "C" const char DAT_004202c0[33];  // s_TBS_CREDIT_RG_LEAD_G_004202c0
+extern "C" const char DAT_004202e4[11];  // s_Martin_Bae_004202e4
+extern "C" const char DAT_004202f0[27];  // s_TBS_CREDIT_RG_ART_DI_004202f0
+extern "C" const char DAT_0042030c[13];  // s_Vlad_Ceraldi_0042030c
+extern "C" const char DAT_0042031c[13];  // s_Tim_Bennison_0042031c
+extern "C" const char DAT_0042032c[23];  // s_TBS_CREDIT_RG_PRODUC_0042032c
+extern "C" const char DAT_00420344[22];  // s_TBS_CREDIT_RG_RADICA_00420344
+extern "C" const char DAT_0042035c[24];  // s_TBS_CREDIT_CREDITS_L_0042035c
+extern "C" const float DAT_00420374[8];  // fltTbl_00420374
 extern "C" const char DAT_00420394[14];  // s_Lock_to_VSync_00420394
 extern "C" const char DAT_004203a4[10];  // s_Rendering_004203a4
 extern "C" const float DAT_004203b0;  // flt_004203b0
@@ -4336,297 +4313,8 @@ extern "C" int DAT_004c3c08;
 extern "C" int DAT_004c3c0c;
 extern "C" unsigned int DAT_004c3c10[1];  // unk_004c3c10
 extern "C" unsigned int DAT_004c3c14[1];  // zero_004c3c14
-extern "C" char DAT_004c3c18[4];  // s_3_004c3c18
-extern "C" const char* DAT_004c3c1c;  // PTR_004c3c1c
-extern "C" unsigned int DAT_004c3c20[2];  // unk_004c3c20
-extern "C" const char* DAT_004c3c28;  // PTR_004c3c28
-extern "C" unsigned int DAT_004c3c2c[1];  // unk_004c3c2c
-extern "C" const char* DAT_004c3c30[3];  // ptrTbl_004c3c30
-extern "C" unsigned int DAT_004c3c3c[1];  // unk_004c3c3c
-extern "C" const char* DAT_004c3c40[2];  // ptrTbl_004c3c40
-extern "C" unsigned int DAT_004c3c48[1];  // unk_004c3c48
-extern "C" const char* DAT_004c3c4c[2];  // ptrTbl_004c3c4c
-extern "C" unsigned int DAT_004c3c54[1];  // unk_004c3c54
-extern "C" const char* DAT_004c3c58[2];  // ptrTbl_004c3c58
-extern "C" unsigned int DAT_004c3c60[1];  // unk_004c3c60
-extern "C" const char* DAT_004c3c64[2];  // ptrTbl_004c3c64
-extern "C" unsigned int DAT_004c3c6c[1];  // unk_004c3c6c
-extern "C" const char* DAT_004c3c70[2];  // ptrTbl_004c3c70
-extern "C" unsigned int DAT_004c3c78[1];  // unk_004c3c78
-extern "C" const char* DAT_004c3c7c[2];  // ptrTbl_004c3c7c
-extern "C" unsigned int DAT_004c3c84[1];  // unk_004c3c84
-extern "C" const char* DAT_004c3c88[2];  // ptrTbl_004c3c88
-extern "C" unsigned int DAT_004c3c90[1];  // unk_004c3c90
-extern "C" const char* DAT_004c3c94[2];  // ptrTbl_004c3c94
-extern "C" unsigned int DAT_004c3c9c[1];  // unk_004c3c9c
-extern "C" const char* DAT_004c3ca0[3];  // ptrTbl_004c3ca0
-extern "C" unsigned int DAT_004c3cac[1];  // unk_004c3cac
-extern "C" const char* DAT_004c3cb0[2];  // ptrTbl_004c3cb0
-extern "C" unsigned int DAT_004c3cb8[1];  // unk_004c3cb8
-extern "C" const char* DAT_004c3cbc[2];  // ptrTbl_004c3cbc
-extern "C" unsigned int DAT_004c3cc4[1];  // unk_004c3cc4
-extern "C" const char* DAT_004c3cc8[2];  // ptrTbl_004c3cc8
-extern "C" unsigned int DAT_004c3cd0[1];  // unk_004c3cd0
-extern "C" const char* DAT_004c3cd4[2];  // ptrTbl_004c3cd4
-extern "C" unsigned int DAT_004c3cdc[1];  // unk_004c3cdc
-extern "C" const char* DAT_004c3ce0[2];  // ptrTbl_004c3ce0
-extern "C" unsigned int DAT_004c3ce8[1];  // unk_004c3ce8
-extern "C" const char* DAT_004c3cec[3];  // ptrTbl_004c3cec
-extern "C" unsigned int DAT_004c3cf8[1];  // unk_004c3cf8
-extern "C" const char* DAT_004c3cfc[7];  // ptrTbl_004c3cfc
-extern "C" unsigned int DAT_004c3d18[1];  // unk_004c3d18
-extern "C" const char* DAT_004c3d1c[2];  // ptrTbl_004c3d1c
-extern "C" unsigned int DAT_004c3d24[1];  // unk_004c3d24
-extern "C" const char* DAT_004c3d28[2];  // ptrTbl_004c3d28
-extern "C" unsigned int DAT_004c3d30[1];  // unk_004c3d30
-extern "C" const char* DAT_004c3d34[3];  // ptrTbl_004c3d34
-extern "C" unsigned int DAT_004c3d40[1];  // unk_004c3d40
-extern "C" const char* DAT_004c3d44[2];  // ptrTbl_004c3d44
-extern "C" unsigned int DAT_004c3d4c[1];  // unk_004c3d4c
-extern "C" const char* DAT_004c3d50[2];  // ptrTbl_004c3d50
-extern "C" unsigned int DAT_004c3d58[1];  // unk_004c3d58
-extern "C" const char* DAT_004c3d5c[2];  // ptrTbl_004c3d5c
-extern "C" unsigned int DAT_004c3d64[1];  // unk_004c3d64
-extern "C" const char* DAT_004c3d68[11];  // ptrTbl_004c3d68
-extern "C" unsigned int DAT_004c3d94[1];  // unk_004c3d94
-extern "C" const char* DAT_004c3d98[2];  // ptrTbl_004c3d98
-extern "C" unsigned int DAT_004c3da0[1];  // unk_004c3da0
-extern "C" const char* DAT_004c3da4[3];  // ptrTbl_004c3da4
-extern "C" unsigned int DAT_004c3db0[1];  // unk_004c3db0
-extern "C" const char* DAT_004c3db4[3];  // ptrTbl_004c3db4
-extern "C" unsigned int DAT_004c3dc0[1];  // unk_004c3dc0
-extern "C" const char* DAT_004c3dc4[2];  // ptrTbl_004c3dc4
-extern "C" unsigned int DAT_004c3dcc[1];  // unk_004c3dcc
-extern "C" const char* DAT_004c3dd0[2];  // ptrTbl_004c3dd0
-extern "C" unsigned int DAT_004c3dd8[1];  // unk_004c3dd8
-extern "C" const char* DAT_004c3ddc;  // PTR_004c3ddc
-extern "C" unsigned int DAT_004c3de0[1];  // unk_004c3de0
-extern "C" const char* DAT_004c3de4[2];  // ptrTbl_004c3de4
-extern "C" unsigned int DAT_004c3dec[1];  // unk_004c3dec
-extern "C" const char* DAT_004c3df0[2];  // ptrTbl_004c3df0
-extern "C" unsigned int DAT_004c3df8[1];  // unk_004c3df8
-extern "C" const char* DAT_004c3dfc[2];  // ptrTbl_004c3dfc
-extern "C" unsigned int DAT_004c3e04[1];  // unk_004c3e04
-extern "C" const char* DAT_004c3e08[2];  // ptrTbl_004c3e08
-extern "C" unsigned int DAT_004c3e10[1];  // unk_004c3e10
-extern "C" const char* DAT_004c3e14[2];  // ptrTbl_004c3e14
-extern "C" unsigned int DAT_004c3e1c[1];  // unk_004c3e1c
-extern "C" const char* DAT_004c3e20[2];  // ptrTbl_004c3e20
-extern "C" unsigned int DAT_004c3e28[1];  // unk_004c3e28
-extern "C" const char* DAT_004c3e2c[2];  // ptrTbl_004c3e2c
-extern "C" unsigned int DAT_004c3e34[1];  // unk_004c3e34
-extern "C" const char* DAT_004c3e38[20];  // ptrTbl_004c3e38
-extern "C" unsigned int DAT_004c3e88[2];  // unk_004c3e88
-extern "C" const char* DAT_004c3e90[22];  // ptrTbl_004c3e90
-extern "C" unsigned int DAT_004c3ee8[2];  // unk_004c3ee8
-extern "C" const char* DAT_004c3ef0[2];  // ptrTbl_004c3ef0
-extern "C" unsigned int DAT_004c3ef8[2];  // unk_004c3ef8
-extern "C" const char* DAT_004c3f00;  // PTR_004c3f00
-extern "C" unsigned int DAT_004c3f04[1];  // unk_004c3f04
-extern "C" const char* DAT_004c3f08[3];  // ptrTbl_004c3f08
-extern "C" unsigned int DAT_004c3f14[1];  // unk_004c3f14
-extern "C" const char* DAT_004c3f18[3];  // ptrTbl_004c3f18
-extern "C" unsigned int DAT_004c3f24[1];  // unk_004c3f24
-extern "C" const char* DAT_004c3f28[2];  // ptrTbl_004c3f28
-extern "C" unsigned int DAT_004c3f30[1];  // unk_004c3f30
-extern "C" const char* DAT_004c3f34[5];  // ptrTbl_004c3f34
-extern "C" unsigned int DAT_004c3f48[2];  // unk_004c3f48
-extern "C" const char* DAT_004c3f50[28];  // ptrTbl_004c3f50
-extern "C" unsigned int DAT_004c3fc0[2];  // unk_004c3fc0
-extern "C" const char* DAT_004c3fc8[2];  // ptrTbl_004c3fc8
-extern "C" unsigned int DAT_004c3fd0[1];  // unk_004c3fd0
-extern "C" const char* DAT_004c3fd4;  // PTR_004c3fd4
-extern "C" unsigned int DAT_004c3fd8[2];  // unk_004c3fd8
-extern "C" const char* DAT_004c3fe0;  // PTR_004c3fe0
-extern "C" unsigned int DAT_004c3fe4[1];  // unk_004c3fe4
-extern "C" const char* DAT_004c3fe8;  // PTR_004c3fe8
-extern "C" unsigned int DAT_004c3fec[1];  // unk_004c3fec
-extern "C" const char* DAT_004c3ff0[2];  // ptrTbl_004c3ff0
-extern "C" unsigned int DAT_004c3ff8[1];  // unk_004c3ff8
-extern "C" const char* DAT_004c3ffc[5];  // ptrTbl_004c3ffc
-extern "C" unsigned int DAT_004c4010[1];  // unk_004c4010
-extern "C" const char* DAT_004c4014[2];  // ptrTbl_004c4014
-extern "C" unsigned int DAT_004c401c[1];  // unk_004c401c
-extern "C" const char* DAT_004c4020[2];  // ptrTbl_004c4020
-extern "C" unsigned int DAT_004c4028[1];  // unk_004c4028
-extern "C" const char* DAT_004c402c[2];  // ptrTbl_004c402c
-extern "C" unsigned int DAT_004c4034[1];  // unk_004c4034
-extern "C" const char* DAT_004c4038[2];  // ptrTbl_004c4038
-extern "C" unsigned int DAT_004c4040[1];  // unk_004c4040
-extern "C" const char* DAT_004c4044[2];  // ptrTbl_004c4044
-extern "C" unsigned int DAT_004c404c[1];  // unk_004c404c
-extern "C" const char* DAT_004c4050;  // PTR_004c4050
-extern "C" unsigned int DAT_004c4054[1];  // unk_004c4054
-extern "C" const char* DAT_004c4058[2];  // ptrTbl_004c4058
-extern "C" unsigned int DAT_004c4060[1];  // unk_004c4060
-extern "C" const char* DAT_004c4064[2];  // ptrTbl_004c4064
-extern "C" unsigned int DAT_004c406c[1];  // unk_004c406c
-extern "C" const char* DAT_004c4070;  // PTR_004c4070
-extern "C" unsigned int DAT_004c4074[1];  // unk_004c4074
-extern "C" const char* DAT_004c4078[2];  // ptrTbl_004c4078
-extern "C" unsigned int DAT_004c4080[1];  // unk_004c4080
-extern "C" const char* DAT_004c4084[2];  // ptrTbl_004c4084
-extern "C" unsigned int DAT_004c408c[1];  // unk_004c408c
-extern "C" const char* DAT_004c4090[2];  // ptrTbl_004c4090
-extern "C" unsigned int DAT_004c4098[1];  // unk_004c4098
-extern "C" const char* DAT_004c409c[2];  // ptrTbl_004c409c
-extern "C" unsigned int DAT_004c40a4[1];  // unk_004c40a4
-extern "C" const char* DAT_004c40a8[2];  // ptrTbl_004c40a8
-extern "C" unsigned int DAT_004c40b0[1];  // unk_004c40b0
-extern "C" const char* DAT_004c40b4[2];  // ptrTbl_004c40b4
-extern "C" unsigned int DAT_004c40bc[1];  // unk_004c40bc
-extern "C" const char* DAT_004c40c0[2];  // ptrTbl_004c40c0
-extern "C" unsigned int DAT_004c40c8[1];  // unk_004c40c8
-extern "C" const char* DAT_004c40cc[2];  // ptrTbl_004c40cc
-extern "C" unsigned int DAT_004c40d4[1];  // unk_004c40d4
-extern "C" const char* DAT_004c40d8[2];  // ptrTbl_004c40d8
-extern "C" unsigned int DAT_004c40e0[1];  // unk_004c40e0
-extern "C" const char* DAT_004c40e4[2];  // ptrTbl_004c40e4
-extern "C" unsigned int DAT_004c40ec[1];  // unk_004c40ec
-extern "C" const char* DAT_004c40f0;  // PTR_004c40f0
-extern "C" unsigned int DAT_004c40f4[1];  // unk_004c40f4
-extern "C" const char* DAT_004c40f8[2];  // ptrTbl_004c40f8
-extern "C" unsigned int DAT_004c4100[1];  // unk_004c4100
-extern "C" const char* DAT_004c4104[2];  // ptrTbl_004c4104
-extern "C" unsigned int DAT_004c410c[1];  // unk_004c410c
-extern "C" const char* DAT_004c4110;  // PTR_004c4110
-extern "C" unsigned int DAT_004c4114[1];  // unk_004c4114
-extern "C" const char* DAT_004c4118[2];  // ptrTbl_004c4118
-extern "C" unsigned int DAT_004c4120[1];  // unk_004c4120
-extern "C" const char* DAT_004c4124[2];  // ptrTbl_004c4124
-extern "C" unsigned int DAT_004c412c[1];  // unk_004c412c
-extern "C" const char* DAT_004c4130;  // PTR_004c4130
-extern "C" unsigned int DAT_004c4134[1];  // unk_004c4134
-extern "C" const char* DAT_004c4138[2];  // ptrTbl_004c4138
-extern "C" unsigned int DAT_004c4140[1];  // unk_004c4140
-extern "C" const char* DAT_004c4144[3];  // ptrTbl_004c4144
-extern "C" unsigned int DAT_004c4150[1];  // unk_004c4150
-extern "C" const char* DAT_004c4154[2];  // ptrTbl_004c4154
-extern "C" unsigned int DAT_004c415c[1];  // unk_004c415c
-extern "C" const char* DAT_004c4160[2];  // ptrTbl_004c4160
-extern "C" unsigned int DAT_004c4168[1];  // unk_004c4168
-extern "C" const char* DAT_004c416c[5];  // ptrTbl_004c416c
-extern "C" unsigned int DAT_004c4180[1];  // unk_004c4180
-extern "C" const char* DAT_004c4184;  // PTR_004c4184
-extern "C" unsigned int DAT_004c4188[1];  // unk_004c4188
-extern "C" const char* DAT_004c418c[2];  // ptrTbl_004c418c
-extern "C" unsigned int DAT_004c4194[1];  // unk_004c4194
-extern "C" const char* DAT_004c4198[2];  // ptrTbl_004c4198
-extern "C" unsigned int DAT_004c41a0[1];  // unk_004c41a0
-extern "C" const char* DAT_004c41a4[2];  // ptrTbl_004c41a4
-extern "C" unsigned int DAT_004c41ac[1];  // unk_004c41ac
-extern "C" const char* DAT_004c41b0[5];  // ptrTbl_004c41b0
-extern "C" unsigned int DAT_004c41c4[1];  // unk_004c41c4
-extern "C" const char* DAT_004c41c8[48];  // ptrTbl_004c41c8
-extern "C" unsigned int DAT_004c4288[1];  // unk_004c4288
-extern "C" const char* DAT_004c428c[2];  // ptrTbl_004c428c
-extern "C" unsigned int DAT_004c4294[1];  // unk_004c4294
-extern "C" const char* DAT_004c4298[2];  // ptrTbl_004c4298
-extern "C" unsigned int DAT_004c42a0[1];  // unk_004c42a0
-extern "C" const char* DAT_004c42a4[2];  // ptrTbl_004c42a4
-extern "C" unsigned int DAT_004c42ac[1];  // unk_004c42ac
-extern "C" const char* DAT_004c42b0[3];  // ptrTbl_004c42b0
-extern "C" unsigned int DAT_004c42bc[1];  // unk_004c42bc
-extern "C" const char* DAT_004c42c0[2];  // ptrTbl_004c42c0
-extern "C" unsigned int DAT_004c42c8[1];  // unk_004c42c8
-extern "C" const char* DAT_004c42cc[6];  // ptrTbl_004c42cc
-extern "C" unsigned int DAT_004c42e4[1];  // unk_004c42e4
-extern "C" const char* DAT_004c42e8;  // PTR_004c42e8
-extern "C" unsigned int DAT_004c42ec[1];  // unk_004c42ec
-extern "C" const char* DAT_004c42f0[2];  // ptrTbl_004c42f0
-extern "C" unsigned int DAT_004c42f8[1];  // unk_004c42f8
-extern "C" const char* DAT_004c42fc[4];  // ptrTbl_004c42fc
-extern "C" unsigned int DAT_004c430c[1];  // unk_004c430c
-extern "C" const char* DAT_004c4310[9];  // ptrTbl_004c4310
-extern "C" unsigned int DAT_004c4334[1];  // unk_004c4334
-extern "C" const char* DAT_004c4338[5];  // ptrTbl_004c4338
-extern "C" unsigned int DAT_004c434c[2];  // unk_004c434c
-extern "C" const char* DAT_004c4354;  // PTR_004c4354
-extern "C" unsigned int DAT_004c4358[1];  // unk_004c4358
-extern "C" const char* DAT_004c435c[2];  // ptrTbl_004c435c
-extern "C" unsigned int DAT_004c4364[1];  // unk_004c4364
-extern "C" const char* DAT_004c4368[2];  // ptrTbl_004c4368
-extern "C" unsigned int DAT_004c4370[1];  // unk_004c4370
-extern "C" const char* DAT_004c4374[2];  // ptrTbl_004c4374
-extern "C" unsigned int DAT_004c437c[1];  // unk_004c437c
-extern "C" const char* DAT_004c4380[2];  // ptrTbl_004c4380
-extern "C" unsigned int DAT_004c4388[1];  // unk_004c4388
-extern "C" const char* DAT_004c438c[2];  // ptrTbl_004c438c
-extern "C" unsigned int DAT_004c4394[1];  // unk_004c4394
-extern "C" const char* DAT_004c4398[2];  // ptrTbl_004c4398
-extern "C" unsigned int DAT_004c43a0[1];  // unk_004c43a0
-extern "C" const char* DAT_004c43a4[2];  // ptrTbl_004c43a4
-extern "C" unsigned int DAT_004c43ac[1];  // unk_004c43ac
-extern "C" const char* DAT_004c43b0;  // PTR_004c43b0
-extern "C" unsigned int DAT_004c43b4[1];  // unk_004c43b4
-extern "C" const char* DAT_004c43b8[3];  // ptrTbl_004c43b8
-extern "C" unsigned int DAT_004c43c4[1];  // unk_004c43c4
-extern "C" const char* DAT_004c43c8;  // PTR_004c43c8
-extern "C" unsigned int DAT_004c43cc[2];  // unk_004c43cc
-extern "C" const char* DAT_004c43d4[27];  // ptrTbl_004c43d4
-extern "C" unsigned int DAT_004c4440[1];  // unk_004c4440
-extern "C" const char* DAT_004c4444;  // PTR_004c4444
-extern "C" unsigned int DAT_004c4448[1];  // unk_004c4448
-extern "C" const char* DAT_004c444c[2];  // ptrTbl_004c444c
-extern "C" unsigned int DAT_004c4454[1];  // unk_004c4454
-extern "C" const char* DAT_004c4458[2];  // ptrTbl_004c4458
-extern "C" unsigned int DAT_004c4460[1];  // unk_004c4460
-extern "C" const char* DAT_004c4464[2];  // ptrTbl_004c4464
-extern "C" unsigned int DAT_004c446c[1];  // unk_004c446c
-extern "C" const char* DAT_004c4470[2];  // ptrTbl_004c4470
-extern "C" unsigned int DAT_004c4478[1];  // unk_004c4478
-extern "C" const char* DAT_004c447c[2];  // ptrTbl_004c447c
-extern "C" unsigned int DAT_004c4484[1];  // unk_004c4484
-extern "C" const char* DAT_004c4488[2];  // ptrTbl_004c4488
-extern "C" unsigned int DAT_004c4490[1];  // unk_004c4490
-extern "C" const char* DAT_004c4494[2];  // ptrTbl_004c4494
-extern "C" unsigned int DAT_004c449c[1];  // unk_004c449c
-extern "C" const char* DAT_004c44a0[2];  // ptrTbl_004c44a0
-extern "C" unsigned int DAT_004c44a8[1];  // unk_004c44a8
-extern "C" const char* DAT_004c44ac[2];  // ptrTbl_004c44ac
-extern "C" unsigned int DAT_004c44b4[1];  // unk_004c44b4
-extern "C" const char* DAT_004c44b8[2];  // ptrTbl_004c44b8
-extern "C" unsigned int DAT_004c44c0[1];  // unk_004c44c0
-extern "C" const char* DAT_004c44c4[2];  // ptrTbl_004c44c4
-extern "C" unsigned int DAT_004c44cc[1];  // unk_004c44cc
-extern "C" const char* DAT_004c44d0[2];  // ptrTbl_004c44d0
-extern "C" unsigned int DAT_004c44d8[1];  // unk_004c44d8
-extern "C" const char* DAT_004c44dc[2];  // ptrTbl_004c44dc
-extern "C" unsigned int DAT_004c44e4[1];  // unk_004c44e4
-extern "C" const char* DAT_004c44e8[2];  // ptrTbl_004c44e8
-extern "C" unsigned int DAT_004c44f0[1];  // unk_004c44f0
-extern "C" const char* DAT_004c44f4;  // PTR_004c44f4
-extern "C" unsigned int DAT_004c44f8[1];  // unk_004c44f8
-extern "C" const char* DAT_004c44fc[4];  // ptrTbl_004c44fc
-extern "C" unsigned int DAT_004c450c[1];  // unk_004c450c
-extern "C" const char* DAT_004c4510[4];  // ptrTbl_004c4510
-extern "C" unsigned int DAT_004c4520[1];  // unk_004c4520
-extern "C" const char* DAT_004c4524[4];  // ptrTbl_004c4524
-extern "C" unsigned int DAT_004c4534[1];  // unk_004c4534
-extern "C" const char* DAT_004c4538[4];  // ptrTbl_004c4538
-extern "C" unsigned int DAT_004c4548[1];  // unk_004c4548
-extern "C" const char* DAT_004c454c[3];  // ptrTbl_004c454c
-extern "C" unsigned int DAT_004c4558[1];  // unk_004c4558
-extern "C" const char* DAT_004c455c[3];  // ptrTbl_004c455c
-extern "C" unsigned int DAT_004c4568[2];  // unk_004c4568
-extern "C" const char* DAT_004c4570;  // PTR_004c4570
-extern "C" unsigned int DAT_004c4574[1];  // unk_004c4574
-extern "C" const char* DAT_004c4578[2];  // ptrTbl_004c4578
-extern "C" unsigned int DAT_004c4580[1];  // unk_004c4580
-extern "C" const char* DAT_004c4584[2];  // ptrTbl_004c4584
-extern "C" unsigned int DAT_004c458c[1];  // unk_004c458c
-extern "C" const char* DAT_004c4590[4];  // ptrTbl_004c4590
-extern "C" unsigned int DAT_004c45a0[1];  // unk_004c45a0
-extern "C" const char* DAT_004c45a4[21];  // ptrTbl_004c45a4
-extern "C" unsigned int DAT_004c45f8[1];  // unk_004c45f8
-extern "C" const char* DAT_004c45fc[15];  // ptrTbl_004c45fc
-extern "C" unsigned int DAT_004c4638[1];  // unk_004c4638
-extern "C" const char* DAT_004c463c[8];  // ptrTbl_004c463c
-extern "C" unsigned int DAT_004c465c[3];  // unk_004c465c
-extern "C" const char* DAT_004c4668;  // PTR_004c4668
-extern "C" char DAT_004c466c[1];  // s_empty_004c466c
-extern "C" unsigned char DAT_004c466e[2];  // unk_004c466e
-extern "C" float DAT_004c4670[4];  // fltTbl_004c4670
+extern "C" DataLayout_004c3c18 DAT_004c3c18;  // ptrTbl_004c3c18
+extern "C" float DAT_004c466c[5];  // fltTbl_004c466c
 extern "C" unsigned char DAT_004c4680;
 extern "C" unsigned int DAT_004c4684[1];  // tbl_004c4684
 extern "C" unsigned char DAT_004dd91c[20];
@@ -4698,8 +4386,6 @@ extern "C" const char DAT_004190f0[5];  // s_club_004190f0
 extern "C" const char DAT_004229b4[7];  // s_shield_004229b4
 extern "C" const char DAT_004229d0[6];  // s_large_004229d0
 extern "C" const char DAT_004229d8[6];  // s_small_004229d8
-extern "C" const char DAT_004229e0[10];  // s_slappable_004229e0
-extern "C" const float DAT_004229ec[7];  // fltTbl_004229ec
 extern "C" const char DAT_00422a20[11];  // s_steel_fist_00422a20
 extern "C" const char DAT_00422a2c[12];  // s_articulated_00422a2c
 extern "C" const char DAT_00422a38[10];  // s_rigidbody_00422a38
@@ -4898,25 +4584,6 @@ extern "C" const char DAT_004190e8[5];  // s_pole_004190e8
 extern "C" const char DAT_004190f8[13];  // s_small_object_004190f8
 extern "C" const float DAT_00419108[8];  // fltTbl_00419108
 extern "C" const int DAT_0042189c;
-extern "C" const char DAT_004228b4[12];  // s_missilePack_004228b4
-extern "C" const char DAT_004228c0[13];  // s_ballAndChain_004228c0
-extern "C" const char DAT_004228d0[11];  // s_hammerToss_004228d0
-extern "C" const char DAT_004228dc[12];  // s_bowlingBall_004228dc
-extern "C" const char DAT_004228e8[8];  // s_csmWall_004228e8
-extern "C" const char DAT_004228f0[23];  // s_invisibleWallNoRayca_004228f0
-extern "C" const char DAT_00422908[13];  // s_attachedClub_00422908
-extern "C" const char DAT_00422918[14];  // s_attachedHeavy_00422918
-extern "C" const char DAT_00422928[14];  // s_attachedLarge_00422928
-extern "C" const char DAT_00422938[14];  // s_attachedSmall_00422938
-extern "C" const char DAT_00422948[10];  // s_csmBanner_00422948
-extern "C" const char DAT_00422954[11];  // s_energyDoor_00422954
-extern "C" const char DAT_00422960[14];  // s_invisibleWall_00422960
-extern "C" const char DAT_00422970[9];  // s_csmLever_00422970
-extern "C" const char DAT_0042297c[21];  // s_csmHydraulicElevator_0042297c
-extern "C" const char DAT_00422994[19];  // s_csmLargecsmConsole_00422994
-extern "C" const char DAT_004229a8[9];  // s_csmSmall_004229a8
-extern "C" const char DAT_004229bc[10];  // s_steelFist_004229bc
-extern "C" const char DAT_004229c8[6];  // s_heavy_004229c8
 extern "C" const float DAT_00423178;  // flt_00423178
 extern "C" const float DAT_0042317c[2];  // fltTbl_0042317c
 extern "C" const float DAT_00423184;  // flt_00423184
@@ -5019,7 +4686,6 @@ extern "C" const unsigned int DAT_0047a6a4[1];  // zero_0047a6a4
 extern "C" const unsigned int DAT_0047a6f0[1];  // zero_0047a6f0
 extern "C" const unsigned int DAT_0047a734[1];  // zero_0047a734
 extern "C" const unsigned int DAT_0047a77c[1];  // zero_0047a77c
-extern "C" const char* DAT_004c602c[6];  // ptrTbl_004c602c
 extern "C" char DAT_004c6044[1];  // s_empty_004c6044
 extern "C" unsigned char DAT_004c6045[1];  // unk_004c6045
 extern "C" unsigned char DAT_004c6047[1];  // unk_004c6047
@@ -5572,26 +5238,34 @@ extern "C" const unsigned int DAT_0043fa84[1];  // zero_0043fa84
 
 // global/CStageCondition_params_factory.cpp
 extern "C" const int DAT_003f5bb8;
+extern "C" const char DAT_003f5c18[4];  // s_Air_003f5c18
+extern "C" const char DAT_003f5c1c[6];  // s_Prone_003f5c1c
+extern "C" const char DAT_003f5c24[9];  // s_Standing_003f5c24
 extern "C" const int DAT_003f5eb4;
 extern "C" const int DAT_003f5ed0;
+extern "C" const char DAT_003f6a7c[4];  // s_All_003f6a7c
 extern "C" const char DAT_003f6a80[5];  // s_Down_003f6a80
 extern "C" const char DAT_003f6a88[6];  // s_Right_003f6a88
 extern "C" const char DAT_003f6a90[5];  // s_Left_003f6a90
 extern "C" const char DAT_003f6a98[3];  // s_Up_003f6a98
+extern "C" const char DAT_003f6a9c[9];  // s_Attack10_003f6a9c
+extern "C" const char DAT_003f6aa8[8];  // s_Attack9_003f6aa8
+extern "C" const char DAT_003f6ab0[8];  // s_Attack8_003f6ab0
+extern "C" const char DAT_003f6ab8[8];  // s_Attack7_003f6ab8
+extern "C" const char DAT_003f6ac0[8];  // s_Attack6_003f6ac0
+extern "C" const char DAT_003f6ac8[8];  // s_Attack5_003f6ac8
+extern "C" const char DAT_003f6ad0[8];  // s_Attack4_003f6ad0
+extern "C" const char DAT_003f6ad8[8];  // s_Attack3_003f6ad8
+extern "C" const char DAT_003f6ae0[8];  // s_Attack2_003f6ae0
+extern "C" const char DAT_003f6ae8[8];  // s_Attack1_003f6ae8
 extern "C" const char DAT_003f6af0[8];  // s_Ceiling_003f6af0
 extern "C" const char DAT_003f6af8[12];  // s_Wall_Static_003f6af8
 extern "C" const char DAT_003f6b04[5];  // s_Wall_003f6b04
 extern "C" const char DAT_003f6b0c[7];  // s_Ground_003f6b0c
 extern "C" const unsigned char DAT_003f6b13[5];  // zero_003f6b13
 extern "C" const float DAT_003f6b18;  // flt_003f6b18
-extern "C" const char DAT_003f6b40[4];  // s_0_003f6b40
-extern "C" const char* const DAT_003f6b44[2];  // ptrTbl_003f6b44
-extern "C" const unsigned int DAT_003f6b4c[1];  // unk_003f6b4c
-extern "C" const char* const DAT_003f6b50[10];  // ptrTbl_003f6b50
-extern "C" const unsigned int DAT_003f6b78[7];  // unk_003f6b78
-extern "C" const char* const DAT_003f6b94[2];  // ptrTbl_003f6b94
-extern "C" const char DAT_003f6b9c[4];  // s_0_003f6b9c
-extern "C" const char* const DAT_003f6ba0[6];  // ptrTbl_003f6ba0
+extern "C" const char* const DAT_003f6b40[23];  // ptrTbl_003f6b40
+extern "C" const char* const DAT_003f6b9c[7];  // ptrTbl_003f6b9c
 extern "C" const char DAT_003f6bb8[13];  // s_Missile_Pack_003f6bb8
 extern "C" const char DAT_003f6bc8[15];  // s_Ball_And_Chain_003f6bc8
 extern "C" const char DAT_003f6bd8[12];  // s_Hammer_Toss_003f6bd8
@@ -5615,6 +5289,13 @@ extern "C" const char DAT_003f6cd8[7];  // s_Shield_003f6cd8
 extern "C" const char DAT_003f6ce0[11];  // s_Steel_Fist_003f6ce0
 extern "C" const char DAT_003f6cec[5];  // s_Club_003f6cec
 extern "C" const char DAT_003f6cf4[6];  // s_Heavy_003f6cf4
+extern "C" const char DAT_003f6cfc[6];  // s_Small_003f6cfc
+extern "C" const char DAT_003f6d04[10];  // s_Slappable_003f6d04
+extern "C" const char DAT_003f6d10[14];  // s_Change_Target_003f6d10
+extern "C" const char DAT_003f6d20[12];  // s_MovementXYZ_003f6d20
+extern "C" const char DAT_003f6d2c[16];  // s_Movement_Target_003f6d2c
+extern "C" const char DAT_003f6d3c[9];  // s_Movement_003f6d3c
+extern "C" const unsigned int DAT_003f6d48[1];  // unk_003f6d48
 extern "C" const char DAT_003f8678[6];  // s_stage_003f8678
 extern "C" const char DAT_003f8680[8];  // s_compare_003f8680
 extern "C" const char DAT_003f8688[5];  // s_time_003f8688
@@ -5770,6 +5451,10 @@ extern "C" const char DAT_00405cf8[7];  // s_Action_00405cf8
 extern "C" const char DAT_00405d00[6];  // s_Gamma_00405d00
 extern "C" const char DAT_00405d08[6];  // s_Punch_00405d08
 extern "C" const int DAT_0040d0e4;
+extern "C" const char DAT_0040d0f8[9];  // s_Panicked_0040d0f8
+extern "C" const char DAT_0040d104[10];  // s_Attacking_0040d104
+extern "C" const char DAT_0040d110[6];  // s_Alert_0040d110
+extern "C" const char DAT_0040d118[6];  // s_Awake_0040d118
 extern "C" const char DAT_0040d120[6];  // s_Sleep_0040d120
 extern "C" const unsigned int DAT_00440514[1];  // zero_00440514
 extern "C" const unsigned int DAT_00440564[1];  // zero_00440564
@@ -5945,15 +5630,11 @@ extern "C" const unsigned int DAT_00443e80[1];  // zero_00443e80
 extern "C" const unsigned int DAT_00443ed0[1];  // zero_00443ed0
 extern "C" const unsigned int DAT_00443f20[1];  // zero_00443f20
 extern "C" const unsigned int DAT_00443f74[1];  // zero_00443f74
-extern "C" char DAT_0048f57c[4];  // s_0_0048f57c
-extern "C" char DAT_0048f6cc[4];  // s_0_0048f6cc
-extern "C" char DAT_0048f9b0[4];  // s_m_0048f9b0
-extern "C" unsigned int DAT_0048f9b4[2];  // unk_0048f9b4
-extern "C" const char* DAT_0048f9bc;  // PTR_0048f9bc
-extern "C" char DAT_0048f9c0[4];  // s_0_0048f9c0
-extern "C" const char* DAT_0048f9c4[4];  // ptrTbl_0048f9c4
+extern "C" const char* DAT_0048f57c[5];  // ptrTbl_0048f57c
+extern "C" const char* DAT_0048f9b0[4];  // ptrTbl_0048f9b0
+extern "C" const char* DAT_0048f9c0[5];  // ptrTbl_0048f9c0
 extern "C" const char* DAT_0048f9d4[10];  // ptrTbl_0048f9d4
-extern "C" DataLayout_0048f9fc DAT_0048f9fc;  // struct_0048f9fc
+extern "C" const char* DAT_0048f9fc[6];  // ptrTbl_0048f9fc
 extern "C" float DAT_0048fa14[4];  // fltTbl_0048fa14
 extern "C" unsigned int DAT_004904f4[1];  // zero_004904f4
 extern "C" unsigned int DAT_0049053c[1];  // zero_0049053c
@@ -6002,10 +5683,9 @@ extern "C" unsigned int DAT_00494124[1];  // zero_00494124
 extern "C" unsigned int DAT_00494884[1];  // zero_00494884
 extern "C" unsigned int DAT_004948cc[1];  // zero_004948cc
 extern "C" unsigned int DAT_0049491c[1];  // zero_0049491c
-extern "C" char DAT_0049ee74[4];  // s_m_0049ee74
-extern "C" const char* DAT_0049ee78;  // PTR_0049ee78
+extern "C" const char* DAT_0049ee74[2];  // ptrTbl_0049ee74
 extern "C" float DAT_0049ee7c[4];  // fltTbl_0049ee7c
-extern "C" const char* DAT_004a1ab4;  // PTR_004a1ab4
+extern "C" const char* DAT_004a1ab4[5];  // ptrTbl_004a1ab4
 
 // global/CStageTrack.cpp
 extern "C" unsigned char DAT_004dcfe8[4];
@@ -6479,11 +6159,6 @@ extern "C" const unsigned int DAT_0043c4c8[1];  // zero_0043c4c8
 extern "C" const char DAT_003f5f2c[8];  // s_Wrist_R_003f5f2c
 extern "C" const int DAT_003fa110;
 extern "C" const int DAT_003fa118;
-extern "C" const char DAT_003fa11c[14];  // s_Source_Facing_003fa11c
-extern "C" const char DAT_003fa12c[14];  // s_Camera_Facing_003fa12c
-extern "C" const char DAT_003fa1e8[16];  // s_Characters_Only_003fa1e8
-extern "C" const char DAT_003fa1f8[11];  // s_Props_Only_003fa1f8
-extern "C" const char DAT_003fa208[5];  // s_Both_003fa208
 extern "C" const char DAT_003fae44[15];  // s_ZERO_HITPOINTS_003fae44
 extern "C" const char DAT_003fae54[15];  // s_GRENADE_ACTION_003fae54
 extern "C" const char DAT_003fae64[8];  // s_TURN_ON_003fae64
@@ -7632,6 +7307,11 @@ extern "C" float DAT_0049fbd4;  // flt_0049fbd4
 extern "C" const char* DAT_0048f698;  // PTR_0048f698
 extern "C" const char* DAT_0048f69c;  // PTR_0048f69c
 extern "C" const char* DAT_0048f6a0;  // PTR_0048f6a0
+extern "C" unsigned int DAT_0048f6dc[1];  // zero_0048f6dc
+extern "C" const char* DAT_0048f6e0[35];  // ptrTbl_0048f6e0
+extern "C" float DAT_0048f76c[4];  // fltTbl_0048f76c
+extern "C" unsigned int DAT_0048f77c[2];  // zero_0048f77c
+extern "C" float DAT_0048f784;  // flt_0048f784
 
 // global/ScriptHandler.cpp
 extern "C" const void* const DAT_004223c8[4];  // ptrTbl_004223c8
@@ -7825,16 +7505,12 @@ extern "C" unsigned char DAT_004dda3d[3];
 
 // global/unk_0b4cf0.cpp
 extern "C" const float DAT_00406138;  // flt_00406138
-extern "C" const char* const DAT_00406140;  // PTR_00406140
-extern "C" const char* const DAT_00406144[5];  // ptrTbl_00406144
-extern "C" const unsigned int DAT_00406158[12];  // unk_00406158
-extern "C" const char* const DAT_00406188[20];  // ptrTbl_00406188
-extern "C" const unsigned int DAT_004061d8[2];  // unk_004061d8
+extern "C" const char* const DAT_00406140[40];  // ptrTbl_00406140
 extern "C" const unsigned int DAT_004061e0[2];  // zero_004061e0
-extern "C" const DataLayout_004061e8 DAT_004061e8;  // struct_004061e8
+extern "C" const DataLayout_004061e8 DAT_004061e8;  // ptrTbl_004061e8
 extern "C" const char* const DAT_00406738;  // PTR_00406738
 extern "C" const char* const DAT_0040673c;  // PTR_0040673c
-extern "C" const DataLayout_00406740 DAT_00406740;  // struct_00406740
+extern "C" const void* const DAT_00406740[25];  // ptrTbl_00406740
 extern "C" const char* const DAT_004067a4;  // PTR_004067a4
 extern "C" const char* const DAT_004067a8[6];  // ptrTbl_004067a8
 extern "C" const unsigned int DAT_004067c0[1];  // zero_004067c0

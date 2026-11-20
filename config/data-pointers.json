@@ -163,6 +163,46 @@
     "0x4"
    ],
    "why": "data4 (2026-11-18, D119): an OBJECT_STRING {USHORT Length 6, USHORT MaximumLength 7, PCHAR Buffer} of the XAPI library (xapilib.obj; 0x002092c5 and others pass its address); Buffer points at the string at 0x0042613c (bytes 3c 61 42 00)"
+  },
+  "0x004ae340": {
+   "offsets": [
+    "0x0",
+    "0x4"
+   ],
+   "why": "data5 (2026-11-18, D128): GrappleThrowAction's grapple-role names, a 2-entry ParamEnumConstList list (0x0014b5d0 passes it twice with a count of 2); the words point at the strings at 0x0041354c / 0x00413540 (bytes 4c 35 41 00, 40 35 41 00) and have no pointer neighbour for data_inventory's string-pointer run rule"
+  },
+  "0x004341ac": {
+   "offsets": [
+    "0x8"
+   ],
+   "why": "data5 (2026-11-18, D128): MovieTrackMixEntry bins pointers (include/decls/data/records.h; movie::PlayerBink 0x00333ab0 copies them) at the bin lists 0x00434120 (bytes 20 41 43 00), bytes that read as text"
+  },
+  "0x004341b8": {
+   "offsets": [
+    "0x8"
+   ],
+   "why": "data5 (2026-11-18, D128): MovieTrackMixEntry bins pointers (include/decls/data/records.h; movie::PlayerBink 0x00333ab0 copies them) at the bin lists 0x00434138 (38 41 43 00), bytes that read as text"
+  },
+  "0x004341c4": {
+   "offsets": [
+    "0x8"
+   ],
+   "why": "data5 (2026-11-18, D128): MovieTrackMixEntry bins pointers (include/decls/data/records.h; movie::PlayerBink 0x00333ab0 copies them) at the bin lists 0x00434148 (48 41 43 00), bytes that read as text"
+  },
+  "0x004341d0": {
+   "offsets": [
+    "0x20"
+   ],
+   "why": "data5 (2026-11-18, D128): MovieTrackMixEntry bins pointers (include/decls/data/records.h; movie::PlayerBink 0x00333ab0 copies them) at the bin lists 0x00434168 (68 41 43 00), bytes that read as text"
+  },
+  "0x004341f8": {
+   "offsets": [
+    "0x8",
+    "0x14",
+    "0x20",
+    "0x2c"
+   ],
+   "why": "data5 (2026-11-18, D128): MovieTrackMixEntry bins pointers (include/decls/data/records.h; movie::PlayerBink 0x00333ab0 copies them) at the bin lists 0x00434170, 0x00434174, 0x00434178, 0x0043417c (70 / 74 / 78 / 7c 41 43 00), bytes that read as text"
   }
  }
 }

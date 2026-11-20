@@ -27,6 +27,8 @@ extern "C" const unsigned int DAT_00480c64[1];  // zero_00480c64
 extern "C" const char DAT_0042aa9c[5];  // s_rand_0042aa9c
 extern "C" const char DAT_0042aaa4[7];  // s_timeus_0042aaa4
 extern "C" const char DAT_0042aaac[7];  // s_timems_0042aaac
+extern "C" const char DAT_0042aab8[2];  // s_empty_0042aab8
+extern "C" const char DAT_0042aabc[4];  // s_set_0042aabc
 extern "C" char DAT_004e58c8[4];
 extern "C" char DAT_004e58d0[4];
 
@@ -103,23 +105,11 @@ extern "C" const unsigned int DAT_00480b8c[1];  // zero_00480b8c
 
 // om/String.cpp
 extern "C" const char DAT_004269b4[4];  // s_nil_004269b4
-extern "C" const char DAT_0042aab8[2];  // s_empty_0042aab8
-extern "C" const char DAT_0042aabc[4];  // s_set_0042aabc
 extern "C" const char DAT_0042aac0[4];  // s_cat_0042aac0
 extern "C" const char DAT_0042aae0[17];  // s_Undefined_symbol_0042aae0
 extern "C" const char DAT_0042aaf4[10];  // s_Missing_0042aaf4
 extern "C" DataRec_004cd388 DAT_004cd388[1];  // ptrTbl_004cd388
-extern "C" const void* DAT_004cd390[6];  // ptrTbl_004cd390
-extern "C" unsigned int DAT_004cd3a8[1];  // unk_004cd3a8
-extern "C" hulk_code_ptr DAT_004cd3ac;  // PTR_004cd3ac
-extern "C" unsigned int DAT_004cd3b0[1];  // unk_004cd3b0
-extern "C" hulk_code_ptr DAT_004cd3b4;  // PTR_004cd3b4
-extern "C" unsigned int DAT_004cd3b8[1];  // unk_004cd3b8
-extern "C" const void* DAT_004cd3bc[9];  // ptrTbl_004cd3bc
-extern "C" unsigned int DAT_004cd3e0[1];  // unk_004cd3e0
-extern "C" const void* DAT_004cd3e4[3];  // ptrTbl_004cd3e4
-extern "C" unsigned int DAT_004cd3f0[1];  // unk_004cd3f0
-extern "C" const void* DAT_004cd3f4[9];  // ptrTbl_004cd3f4
+extern "C" const void* DAT_004cd390[34];  // ptrTbl_004cd390
 extern "C" int DAT_004cd418;
 
 // om/TextOutStream.cpp

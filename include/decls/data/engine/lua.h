@@ -17,7 +17,6 @@ typedef const void* const* hulk_vftable_ptr;  // a pointer to a vftable
 #endif
 #endif
 
-struct DataLayout_00434864;  // packed layout (bytes and pointers), defined in the data TU
 struct DataRec_00426824;  // packed layout (bytes and pointers), defined in the data TU
 struct DataRec_00434d90;  // packed layout (bytes and pointers), defined in the data TU
 
@@ -165,7 +164,7 @@ extern "C" const char DAT_00434834[6];  // s_flnSu_00434834
 extern "C" const char DAT_0043483c[19];  // s_level_out_of_range_0043483c
 extern "C" const char DAT_00434850[12];  // s_tail_return_00434850
 extern "C" const char DAT_0043485c[5];  // s_line_0043485c
-extern "C" const DataLayout_00434864 DAT_00434864;  // struct_00434864
+extern "C" const char* const DAT_00434864[5];  // ptrTbl_00434864
 extern "C" const char DAT_00434878[14];  // s_external_hook_00434878
 extern "C" const char DAT_00434888[6];  // s_cont_00434888
 extern "C" const char DAT_00434890[12];  // s_lua_debug_00434890

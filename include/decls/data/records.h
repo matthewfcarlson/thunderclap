@@ -1976,4 +1976,39 @@ struct ContentChunkReader {
     ContentLoadStream* stream;              // +0x284
 };
 
+// (data5, D128) The movies' sound-track mixes: FUN_001b73c0 (CRadMovieRenderLoop) picks one by the movie's name and
+// language, CFMVManager 0x001b7f40 passes it to the player's open, and movie::PlayerBink 0x00333ab0 copies it: per
+// track, the mixer bins its audio goes to. A mix is {count, entries}, an entry {track, count, bins}; the bin lists
+// are unsigned int tables (config/data-items.json). Natively both records hold 8-byte pointers (the carve had cut
+// them into 4-byte words, unknowns and 1-byte "strings").
+struct MovieTrackMixEntry {
+    unsigned int track;
+    unsigned int count;
+    const unsigned int* bins;
+};
+struct MovieTrackMix {
+    unsigned int count;
+    const MovieTrackMixEntry* entries;
+};
+extern "C" const MovieTrackMixEntry DAT_0041db58[6];   // French: tracks 6..11
+extern "C" const MovieTrackMixEntry DAT_0041dba0[6];   // Italian: tracks 12..17
+extern "C" const MovieTrackMix DAT_0041dbe8[1];        // French (FUN_001b73c0)
+extern "C" const MovieTrackMix DAT_0041dbf0[1];        // Italian (FUN_001b73c0)
+extern "C" const MovieTrackMixEntry DAT_0041dc00[2];   // (no reference)
+extern "C" const MovieTrackMixEntry DAT_00434188[1];   // (no reference)
+extern "C" const MovieTrackMixEntry DAT_00434194[1];
+extern "C" const MovieTrackMixEntry DAT_004341a0[1];
+extern "C" const MovieTrackMixEntry DAT_004341ac[1];
+extern "C" const MovieTrackMixEntry DAT_004341b8[1];
+extern "C" const MovieTrackMixEntry DAT_004341c4[1];
+extern "C" const MovieTrackMixEntry DAT_004341d0[3];
+extern "C" const MovieTrackMixEntry DAT_004341f8[6];
+extern "C" const MovieTrackMix DAT_00434240[1];
+extern "C" const MovieTrackMix DAT_00434248[1];
+extern "C" const MovieTrackMix DAT_00434250[1];        // FUN_001b73c0: the default
+extern "C" const MovieTrackMix DAT_00434258[1];
+extern "C" const MovieTrackMix DAT_00434260[1];
+extern "C" const MovieTrackMix DAT_00434268[1];
+extern "C" const MovieTrackMix DAT_00434270[1];        // FUN_001b73c0: dolby, radical and the English anims
+
 #endif

@@ -36,7 +36,7 @@ struct World {
 
 
 // 0x001baab0 FUN_001baab0 (1531 B): equivalent/0x001baab0.cpp [wrapped: conflict: DAT_004dd700; DAT_0052c2a8]
-// sym: ?FUN_001baab0@Credits_1baab0@fn_001baab0@@QAEX_N@Z @401ec5740692 @wd2b211e1f094 @v2436cbce5fee
+// sym: ?FUN_001baab0@Credits_1baab0@fn_001baab0@@QAEX_N@Z @4c27cf93e370 @w1a4ecf3a7851 @vd0893da8304f
 inline void *operator new(size_t, void *p) throw() { return p; }
 namespace fn_001baab0 {
 // STATUS: equivalent (tools/equiv.py level 3: 130 inputs, branch coverage 45/46, incomplete)
@@ -393,7 +393,7 @@ void Credits_1baab0::FUN_001baab0(bool flag)
             }
         }
         f.p++;
-    } while (f.p < ((const char**)&DAT_004c466c));
+    } while (f.p < ((const char**)&DAT_004c3c18) + 661);   // (data5, D128) the table's end, not the next item
 
     DAT_0052c2a8->v24(f.saved);
     DAT_0052c2a8->v54(1);

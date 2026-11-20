@@ -114,6 +114,32 @@ class Helpers(unittest.TestCase):
         self.assertEqual(dict(names[0x500004]["types"]), {"int": 1})        # on the shared headers: the recorded type
         self.assertEqual(dict(names[0x500010]["types"]), {"char[]": 1})
 
+    def test_string_pointer_runs(self):
+        """(data5, D128) A word whose bytes read as text (`30 5c 3f 00`) is a pointer when it points at the start of
+        a string (or at an empty string code references) and a neighbour, directly or through such words, is a
+        pointer word; never alone, and never inside an RTTI structure or vftable."""
+        import struct
+        inv = di.Inventory.__new__(di.Inventory)
+        inv.lo, inv.bss_lo, inv.hi = 0x3f0000, 0x3f8000, 0x3f8000
+        inv.img = bytearray(inv.hi - inv.lo)
+        def put(a, b):
+            inv.img[a - inv.lo:a - inv.lo + len(b)] = b
+        def word(a, v):
+            put(a, struct.pack("<I", v))
+        put(0x3f5c2c, b"\x00\x00\x48\xc3None\0")   # after a float's last byte (not text): aligned, a string start
+        put(0x3f6060, b"Large\0")
+        put(0x3f6080, b"Tank\0")
+        word(0x3f7000, 0x3f5c30); word(0x3f7004, 0x3f6080); word(0x3f7008, 0x3f6060); word(0x3f700c, 0x3f5c30)
+        word(0x3f7100, 0x3f5c30)                         # alone: text
+        word(0x3f7200, 0x3f6080); word(0x3f7204, 0x3f5c30)   # inside a vftable item
+        word(0x3f7300, 0x3f6080); word(0x3f7304, 0x3f7420)   # an empty string code references
+        word(0x3f7308, 0x3f6061)                         # into a string: not a start
+        inv.data_ptrs = {0x3f7004: 0x3f6080, 0x3f7200: 0x3f6080, 0x3f7300: 0x3f6080}
+        inv.fixed = [(0x3f7200, 0x3f7208)]
+        inv.items = {0x3f7200: {"kind": "vtable"}}
+        got = inv.string_pointer_runs(set(), {0x3f7420: {"code"}})
+        self.assertEqual(got, [0x3f7000, 0x3f7008, 0x3f700c, 0x3f7304])
+
     @unittest.skipUnless(libclang(), "libclang not found (clang_probe.LLVM's lib/, or HULK_LIBCLANG)")
     def test_record_sizes(self):
         """records.h spans are MSVC's 32-bit layout: 4-byte pointers, __int64 8-aligned, __declspec(align)."""
