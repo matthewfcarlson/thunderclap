@@ -55,6 +55,50 @@ class Unproven(unittest.TestCase):
         self.assertEqual(t.unproven_code([rec("0x00010000", "zzz", "bbb")], base={"blocks": {}}, ledger=led),
                          [("0x00010000", "msvc")])
 
+    def test_verify_reports_listed_code(self):
+        """(integ5, D157) verify reports an equivalent block's mode that the baseline lists for exactly its current code
+        hash (stamped by unproven-accept / unproven-seed) under `unproven-baseline`, not as a failure; a listed block
+        whose code hash changed, an entry without the stamp (added by hand) and a block listed for the other mode only
+        still fail as `unproven`."""
+        import collections
+        seed = {"accepted": "2026-11-19T00:00:00", "by": "unproven-seed"}
+        acc = {"accepted": "2026-11-20T00:00:00", "by": "unproven-accept"}
+        base = {"blocks": {"0x00020000": {"modes": {"msvc": dict(seed, code="m1"), "wine": dict(acc, code="w1")}},
+                           "0x00020010": {"modes": {"msvc": dict(seed, code="m2")}},
+                           "0x00020020": {"modes": {"msvc": {"code": "m3"}}, "why": "by hand"},
+                           "0x00020030": {"modes": {"wine": dict(seed, code="w4")}}}}
+        recs = [dict(rec("0x00020000", "m1", "w1"), wine_code="ok"),    # listed, both hashes current: reported
+                dict(rec("0x00020010", "m2x", "w2"), wine_code="ok"),   # listed for m2, code now m2x: fails
+                dict(rec("0x00020020", "m3", "w3"), wine_code="ok"),    # a hand-added entry (no stamp): fails
+                dict(rec("0x00020030", "m4", "w4"), wine_code="ok")]    # wine listed, msvc not: msvc fails
+        vs = {r["addr"]: {"msvc": "vm", "wine": "vw"} for r in recs}
+        blocks = {"blocks": [{"addr": r["addr"], "vhash": t.view_digest("vm", "vw")} for r in recs]}
+        with mock.patch.object(t, "_UNPROVEN_BASE", [base]):
+            t.mark_views(recs, blocks, vs, set())
+        by = {r["addr"]: r for r in recs}
+        self.assertEqual(by["0x00020000"]["proof"], {"msvc": "unproven-baseline", "wine": "unproven-baseline"})
+        self.assertNotIn("unproven", by["0x00020000"])
+        self.assertEqual(by["0x00020000"]["unproven_baseline"], ["msvc", "wine"])
+        self.assertEqual(by["0x00020010"]["unproven"], ["msvc", "wine"])
+        self.assertEqual(by["0x00020020"]["unproven"], ["msvc", "wine"])
+        self.assertEqual(by["0x00020030"]["unproven"], ["msvc"])
+        self.assertEqual(by["0x00020030"]["unproven_baseline"], ["wine"])
+        c = collections.Counter()
+        t.count_codes(c, by["0x00020000"])
+        self.assertEqual(t.failing(c), 0)
+        self.assertEqual(c["proof: unproven-baseline (msvc)"], 1)
+        for a in ("0x00020010", "0x00020020", "0x00020030"):
+            c = collections.Counter()
+            t.count_codes(c, by[a])
+            self.assertGreater(t.failing(c), 0, a)
+        # the exemption is the materialize gate's own exact lookup: what it exempts, unproven_code does not refuse
+        self.assertEqual(t.unproven_code([rec("0x00020000", "m1", "w1")], base=base, ledger=set()), [])
+        self.assertTrue(t.baseline_exempt(base, "0x00020000", "msvc", "m1"))
+        self.assertFalse(t.baseline_exempt(base, "0x00020000", "msvc", None))
+        self.assertFalse(t.baseline_exempt(base, "0x00020020", "msvc", "m3"))
+        # growth without accept still fails verify (the summary count is a failure even when every block is exempt)
+        self.assertEqual(t.failing({"unproven baseline grew without accept": 1, "proof: unproven-baseline (msvc)": 3}), 1)
+
     def test_ratchet(self):
         t.write_unproven_baseline({"blocks": {"0x00010020": {"modes": {"msvc": {"code": "eee"}, "wine": {"code": "fff"}},
                                                              "why": "x"},

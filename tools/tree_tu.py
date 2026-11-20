@@ -992,10 +992,32 @@ def mark_views(recs, rec, vs, ledger):
             pr["wine"] = "unchecked"
         else:
             pr["wine"] = "proven" if (r["addr"], "wine", r.get("wine_code_hash"), vw) in ledger else "unproven"
+        # (integ5, D157) a mode config/unproven-baseline.json lists for exactly this (addr, mode, code hash), with an
+        # accept/seed stamp, is reported (`unproven-baseline`), not failed: the same exact lookup materialize's D126
+        # gate uses (unproven_code), never the address alone; edited code has another hash and stays `unproven`
+        base = _UNPROVEN_BASE[0] if _UNPROVEN_BASE else load_unproven_baseline()
+        for m in [m for m, st in pr.items() if st == "unproven"]:
+            if baseline_exempt(base, r["addr"], m, r.get("code_hash" if m == "msvc" else "wine_code_hash")):
+                pr[m] = "unproven-baseline"
         r["proof"] = pr
         un = [m for m, st in pr.items() if st == "unproven"]
         if un:
             r["unproven"] = un
+        ub = [m for m, st in pr.items() if st == "unproven-baseline"]
+        if ub:
+            r["unproven_baseline"] = ub
+
+
+_UNPROVEN_BASE = []     # (integ5, D157; verify: the unproven baseline, read once before the pool forks)
+
+
+def baseline_exempt(base, addr, mode, h):
+    """(integ5, D157) True when the unproven baseline BASE lists ADDR's MODE for exactly code hash H with the stamp
+    unproven-accept / unproven-seed writes (`by` and `accepted`): an entry added by hand carries neither and exempts
+    nothing (and `verify --changed-since` fails on it as growth without accept)."""
+    m = (base.get("blocks", {}).get(addr, {}).get("modes", {}).get(mode) or {})
+    return bool(h) and m.get("code") == h and m.get("by") in ("unproven-accept", "unproven-seed") and \
+        bool(m.get("accepted"))
 
 
 # ------------------------------------------------------------------------------------------------------- verify cache
@@ -1851,9 +1873,11 @@ def verify(paths, jobs=4, relocs=False, out=None, vs_standalone=False, wine=True
     errors = []
     led = ledger_index() if view else None
     _LEDGER[:] = [led]
+    _UNPROVEN_BASE[:] = [load_unproven_baseline()]
     f = open(out, "w") if out else None
     fb = (free_base if free_base is not None else load_free_baseline()) if relocs else None
     free_rows = []
+    exempt = []
     ctx = multiprocessing.get_context("fork")
     with ctx.Pool(max(1, jobs)) as pool:
         for path, recs, hit, err in pool.imap_unordered(_verify_one, [(p, relocs, vs_standalone, wine, view)
@@ -1891,6 +1915,8 @@ def verify(paths, jobs=4, relocs=False, out=None, vs_standalone=False, wine=True
                     counts["equivalent vs standalone: %s" % r["vs_standalone"]] += 1
                 if "standalone" in r:
                     counts["matches not matching in the tree, standalone: %s" % r["standalone"]] += 1
+                for m_ in r.get("unproven_baseline", []):
+                    exempt.append("%s %s" % (r["addr"], m_))
                 if f:
                     f.write(json.dumps(r) + "\n")
     if f:
@@ -1899,6 +1925,8 @@ def verify(paths, jobs=4, relocs=False, out=None, vs_standalone=False, wine=True
             "n_errors": len(errors), "inputs": inputs_digest(paths),
             "ledger": None if not view else "none" if led is None else len(led),
             "unproven_baseline": load_unproven_baseline().get("total", 0),    # (D126) the list's size, for status
+            # (integ5, D157) the equivalent blocks' modes this verify reported instead of failing: listed for their code
+            "unproven_baseline_exempt": {"count": len(exempt), "blocks": sorted(exempt)},
             "free_name_baseline": load_free_baseline().get("total", 0),       # (D149)
             **({"free_names": free_rows} if free_rows else {})}
 
@@ -2688,6 +2716,8 @@ def main(argv=None):
                     code += "view %s " % r["view"]
                 if r.get("unproven"):
                     code += "UNPROVEN(%s) " % ",".join(r["unproven"])
+                if r.get("unproven_baseline"):
+                    code += "unproven-baseline(%s) " % ",".join(r["unproven_baseline"])
                 print("%s %-10s %-8s %-10s %s%s%s%s%s  %s" % (r["addr"], r["kind"], r["mode"], r["status"],
                                                             ("relocs " + r["relocs"] + " ") if "relocs" in r else "",
                                                             ("equiv " + str(r["equiv"]) + " ") if "equiv" in r else "",
