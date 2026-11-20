@@ -1416,7 +1416,7 @@ void Method2_8a7e0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused 
 
     CFEManager_8a7e0* m = (CFEManager_8a7e0*)unused;
     const char* s = *(const char**)p;
-    int x = *(int*)((char*)p + 4);
+    int x = *(int*)((char*)p + sizeof(void*));   // (script2, stop 6) the second argument follows a pointer cell
     (m->*(*(void (CFEManager_8a7e0::**)(const char *, int))&this->f_1c))(s, x);
 }
 } // namespace fn_0008a7e0

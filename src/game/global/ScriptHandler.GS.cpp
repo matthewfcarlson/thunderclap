@@ -351,11 +351,21 @@ extern "C" int FUN_001d22a0(LuaVMState* L)
             }
             {
                 void* p = FUN_00213260(L, i);
+#if defined(HULK_PTR64)
+                // (script2, find3's stop 6) natively a pointer argument takes a pointer-aligned, pointer-sized cell: the
+                // invokes read the buffer as the natural layout of their argument list (`{ char* a; char* b; int c; }`)
+                char* cur = f.args.data + ((f.args.cur - f.args.data + sizeof(void*) - 1) & ~(hulk_intptr)(sizeof(void*) - 1));
+                if ((unsigned int)(cur - f.args.data + sizeof(void*)) <= 0x40) {
+                    *(void**)cur = p;
+                    f.args.cur = cur + sizeof(void*);
+                }
+#else
                 char* cur = f.args.cur;
                 if ((unsigned int)(cur - f.args.data + 4) < 0x40) {
                     *(void**)cur = p;
                     f.args.cur += 4;
                 }
+#endif
             }
             break;
         case 'f':
@@ -393,11 +403,21 @@ extern "C" int FUN_001d22a0(LuaVMState* L)
                     }
                     s = FUN_00213190(L, i);
                 }
+#if defined(HULK_PTR64)
+                // (script2, find3's stop 6) natively a pointer argument takes a pointer-aligned, pointer-sized cell: the
+                // invokes read the buffer as the natural layout of their argument list (`{ char* a; char* b; int c; }`)
+                char* cur = f.args.data + ((f.args.cur - f.args.data + sizeof(void*) - 1) & ~(hulk_intptr)(sizeof(void*) - 1));
+                if ((unsigned int)(cur - f.args.data + sizeof(void*)) <= 0x40) {
+                    *(char**)cur = s;
+                    f.args.cur = cur + sizeof(void*);
+                }
+#else
                 char* cur = f.args.cur;
                 if ((unsigned int)(cur - f.args.data + 4) < 0x40) {
                     *(char**)cur = s;
                     f.args.cur += 4;
                 }
+#endif
             }
             break;
         default:

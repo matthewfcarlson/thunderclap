@@ -6324,3 +6324,15 @@ mostly landed (recs1 ec0e69d62, sweep2 1f5b80223 / 517c82262, decl1), but these 
   merged onto HEAD and one private skip (the unbound `hack_IsFieldGoal` registration).
 - Not covered: the save enumeration that 0x0008ca70 starts with (DriveFindFirstRequest 0x002759e0 / 0x002747d0 are
   still 32-bit views, and InitMore is unbound); the self-test opens the save by name instead.
+
+## script2 3: the Lua dispatcher's native argument cells, find3's stop 6 (2026-11-19)
+
+- Natively, 0x001d22a0 (ScriptHandler.GS.cpp) writes pointer arguments to pointer-aligned 8-byte cells (`#if
+  HULK_PTR64`; the 32-bit code is unchanged and needs no new proofs). The buffer is then the natural native layout of
+  the argument list. The worst case is 56 of 0x40 bytes.
+- Invokes: 22 offset readers use `(char*)p + sizeof(void*)` and still MATCH. 8 get native-only bodies that read the
+  natural layout with the instantiation's types (journal). Hand-laid structs and all-pointer arrays already read
+  this layout.
+- x64 gate ok. 0x0002d8c0 is accepted as `layout`: its native body reads the native layout by design.
+- Wine pair 100285 / 100438: GATE ok. Native unbound is unchanged (mac 10265, linux-x64 10243, android-arm64 10256):
+  this fixes the run-time argument layout, not binding.

@@ -1142,7 +1142,7 @@ void Method2_be820::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused 
 
     CFEManager_be820* m = (CFEManager_be820*)unused;
     const char* s = *(const char**)p;
-    int x = *(int*)((char*)p + 4);
+    int x = *(int*)((char*)p + sizeof(void*));   // (script2, stop 6) the second argument follows a pointer cell
     (m->*(*(void (CFEManager_be820::**)(const char *, int))&this->f_1c))(s, x);
 }
 } // namespace fn_000be820
@@ -1371,7 +1371,7 @@ void Method2_beac0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused 
 
     CFEManager_beac0* m = (CFEManager_beac0*)unused;
     const char* s = *(const char**)p;
-    int x = *(int*)((char*)p + 4);
+    int x = *(int*)((char*)p + sizeof(void*));   // (script2, stop 6) the second argument follows a pointer cell
     (m->*(*(void (CFEManager_beac0::**)(const char *, int))&this->f_1c))(s, x);
 }
 } // namespace fn_000beac0

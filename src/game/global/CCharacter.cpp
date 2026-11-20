@@ -5014,6 +5014,14 @@ class Function3 : public Function {
     virtual void vfunc_1();
     virtual void vfunc_2(int, void*, int);
 };
+#if defined(HULK_PTR64)
+// (script2, stop 6) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells
+void Function3::vfunc_2(int, void* arg, int) {
+    struct Args_ { const char* a0; const char* a1; float a2; };
+    const Args_* a = (const Args_*)arg;
+    mFn(a->a0, a->a1, a->a2);
+}
+#else
 void Function3::vfunc_2(int, void* arg, int) {
     volatile unsigned long* p = (volatile unsigned long*)arg;
     hulk_ulongptr a = p[0];
@@ -5021,6 +5029,7 @@ void Function3::vfunc_2(int, void* arg, int) {
     hulk_ulongptr b = p[1];
     mFn((const char*)a, (const char*)b, *(float*)&c);
 }
+#endif
 } // namespace fn_0003f010
 
 

@@ -459,7 +459,7 @@ void Method2_1f0ad0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused
 
     CFEManager_1f0ad0* m = (CFEManager_1f0ad0*)unused;
     const char* s = *(const char**)p;
-    int x = *(int*)((char*)p + 4);
+    int x = *(int*)((char*)p + sizeof(void*));   // (script2, stop 6) the second argument follows a pointer cell
     (m->*(*(void (CFEManager_1f0ad0::**)(const char *, int))&this->f_1c))(s, x);
 }
 } // namespace fn_001f0ad0
@@ -1107,7 +1107,7 @@ void Method2_1f11f0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused
 
     CFEManager_1f11f0* m = (CFEManager_1f11f0*)unused;
     const char* s = *(const char**)p;
-    int x = *(int*)((char*)p + 4);
+    int x = *(int*)((char*)p + sizeof(void*));   // (script2, stop 6) the second argument follows a pointer cell
     (m->*(*(void (CFEManager_1f11f0::**)(const char *, int))&this->f_1c))(s, x);
 }
 } // namespace fn_001f11f0

@@ -1848,6 +1848,15 @@ struct Method2_1bf5f0 : hulk_script::FunctionGenView {
     void (::CSubtitleManager::*f_1c)(int, const char *);
     void vfunc_2(void* __p0, void* __p1, void* __p2);
 };
+#if defined(HULK_PTR64)
+// (script2, stop 6) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells
+void Method2_1bf5f0::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Args_ { int a0; const char* a1; };
+    const Args_* a = (const Args_*)__p1;
+    (((Obj_*)__p0)->*(*(void (Obj_::**)(int, const char*))&this->f_1c))(a->a0, a->a1);
+}
+#else
 void Method2_1bf5f0::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr manager = (hulk_intptr)__p0; int * pair = (int *)__p1; hulk_intptr a = (hulk_intptr)__p2;
 
     int x = pair[0];
@@ -1855,6 +1864,7 @@ void Method2_1bf5f0::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr m
     CSubtitleManager_1bf5f0* m = (CSubtitleManager_1bf5f0*)manager;
     (m->*(*(void (CSubtitleManager_1bf5f0::**)(int, int))&this->f_1c))(x, y);
 }
+#endif
 } // namespace fn_001bf5f0
 #if defined(HULK_PTR64)
 // (script2) natively gen's template still has this vftable slot (its destructor specializations emit the

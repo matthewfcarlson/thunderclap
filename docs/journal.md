@@ -1727,3 +1727,23 @@ blocks fight::Action's whole family: the records come first there.
 - 0x0030aef0: `!(|v| >= |newVel|)`, so an unordered (NaN) compare subtracts, as the original's C0 test does.
 - tools/x87_order.py misses roundings inside TU-local helpers (a call leaf); check inlined helpers' return types by
   hand.
+
+## 2026-11-19 script2 3: the Lua dispatcher's native argument cells (find3's start-up stop 6)
+
+- **The dispatcher 0x001d22a0 packs each argument into a 4-byte cell; natively the invokes read pointers as 8 bytes.**
+  Closure4<CSoundVoiceManager,...>::vfunc_2 read its three `char*` from `VoiceArgs { char* first, second, third;
+  int fourth; }`: at 0/8/16 natively, but the dispatcher wrote them at 0/4/8, so CB_001f30e0 received
+  name = 0x100000001.
+- **Fix (natural layout, native only):** under `#if HULK_PTR64` the dispatcher gives a pointer argument a
+  pointer-aligned, pointer-sized cell, so the buffer has exactly the natural native layout of the argument list (a C
+  struct of the argument types). The 32-bit code is unchanged, so its proofs stand.
+  - Hand-laid argument structs and all-pointer arrays already read that layout.
+  - 22 invokes read the second argument at `(char*)p + 4` after a pointer. They now read `+ sizeof(void*)`: the same
+    32-bit code, and they still MATCH.
+  - 8 invokes index int arrays to get pointers or pointer arrays to get floats, or call the bound function with the
+    32-bit cells punned (0x001b16b0, 0x0002d8c0, 0x0003f010, 0x000bfef0, 0x001bf5f0, 0x00094b10, 0x000ceb30,
+    0x000cec00). They get a native-only body that
+    reads a struct of the instantiation's types (`#if HULK_PTR64` ... `#else` the 32-bit body).
+- **Buffer size:** the largest native argument list is 56 bytes (0x0002cc10 / 0x0002ebc0 `pVsppsp`, 0x000be8f0
+  7 x `char*`, 0x001dfb80 `ppspVV`). It is within the 0x40-byte buffer, including the Vector writer 0x001d1f30's
+  this-relative bound.

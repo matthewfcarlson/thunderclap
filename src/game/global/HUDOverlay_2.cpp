@@ -2060,6 +2060,15 @@ struct Method4_ceb30 : hulk_script::FunctionGenView {
     void (::HUDOverlay::*f_1c)(const char *, float, float, math::Vector);
     void vfunc_2(void* __p0, void* __p1, void* __p2);
 };
+#if defined(HULK_PTR64)
+// (script2, stop 6) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells
+void Method4_ceb30::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Args_ { const char* a0; float a1; float a2; Vector_ceb30 a3; };
+    const Args_* a = (const Args_*)__p1;
+    (((Obj_*)__p0)->*(*(void (Obj_::**)(const char*, float, float, Vector_ceb30))&this->f_1c))(a->a0, a->a1, a->a2, a->a3);
+}
+#else
 void Method4_ceb30::vfunc_2(void* __p0, void* __p1, void* __p2) { HUDOverlay_ceb30 * object = (HUDOverlay_ceb30 *)__p0; const unsigned int * args = (const unsigned int *)__p1; void * unused = (void *)__p2;
 
     union Bits { unsigned int u; float f; } a, b, x, y, z;
@@ -2068,6 +2077,7 @@ void Method4_ceb30::vfunc_2(void* __p0, void* __p1, void* __p2) { HUDOverlay_ceb
     Vector_ceb30 v; v.x=x.f; v.y=y.f; v.z=z.f;
     (object->*(*(void (HUDOverlay_ceb30::**)(const char *, float, float, Vector_ceb30))&this->f_1c))((const char*)args[0], a.f, b.f, v);
 }
+#endif
 } // namespace fn_000ceb30
 #if defined(HULK_PTR64)
 // (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
@@ -2137,11 +2147,22 @@ struct Method3_cec00 : hulk_script::FunctionGenView {
     int (::HUDOverlay::*f_1c)(const char *, const char *, float);
     void vfunc_2(void* __p0, void* __p1, void* __p2);
 };
+#if defined(HULK_PTR64)
+// (script2, stop 6) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells
+void Method3_cec00::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Args_ { const char* a0; const char* a1; float a2; };
+    const Args_* a = (const Args_*)__p1;
+    int r = (((Obj_*)__p0)->*(*(int (Obj_::**)(const char*, const char*, float))&this->f_1c))(a->a0, a->a1, a->a2);
+    if (__p2) *(int*)__p2 = r;
+}
+#else
 void Method3_cec00::vfunc_2(void* __p0, void* __p1, void* __p2) { HUDOverlay_cec00 * object = (HUDOverlay_cec00 *)__p0; unsigned int * arguments = (unsigned int *)__p1; int * result = (int *)__p2;
 
     int value = (object->*(*(int (HUDOverlay_cec00::**)(int, const char *, const char *))&this->f_1c))(arguments[0], (const char *)arguments[1], (const char *)arguments[2]);
     if (result) *result = value;
 }
+#endif
 } // namespace fn_000cec00
 #if defined(HULK_PTR64)
 // (script2) natively gen's template still has this vftable slot (its destructor specializations emit the

@@ -1038,7 +1038,7 @@ void Method2_2c650::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused 
 
     CFEManager_2c650* m = (CFEManager_2c650*)unused;
     const char* s = *(const char**)p;
-    int x = *(int*)((char*)p + 4);
+    int x = *(int*)((char*)p + sizeof(void*));   // (script2, stop 6) the second argument follows a pointer cell
     (m->*(*(void (CFEManager_2c650::**)(const char *, int))&this->f_1c))(s, x);
 }
 } // namespace fn_0002c650
@@ -1086,7 +1086,7 @@ void Method2_2c6e0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused 
 
     CFEManager_2c6e0* m = (CFEManager_2c6e0*)unused;
     const char* s = *(const char**)p;
-    int x = *(int*)((char*)p + 4);
+    int x = *(int*)((char*)p + sizeof(void*));   // (script2, stop 6) the second argument follows a pointer cell
     (m->*(*(void (CFEManager_2c6e0::**)(const char *, int))&this->f_1c))(s, x);
 }
 } // namespace fn_0002c6e0
@@ -2032,7 +2032,7 @@ void Method2_2d0e0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused 
 
     CFEManager_2d0e0* m = (CFEManager_2d0e0*)unused;
     const char* s = *(const char**)p;
-    int x = *(int*)((char*)p + 4);
+    int x = *(int*)((char*)p + sizeof(void*));   // (script2, stop 6) the second argument follows a pointer cell
     (m->*(*(void (CFEManager_2d0e0::**)(const char *, int))&this->f_1c))(s, x);
 }
 } // namespace fn_0002d0e0
@@ -2353,7 +2353,7 @@ void Method2_2d510::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused 
 
     CFEManager_2d510* m = (CFEManager_2d510*)unused;
     const char* s = *(const char**)p;
-    int x = *(int*)((char*)p + 4);
+    int x = *(int*)((char*)p + sizeof(void*));   // (script2, stop 6) the second argument follows a pointer cell
     (m->*(*(void (CFEManager_2d510::**)(const char *, int))&this->f_1c))(s, x);
 }
 } // namespace fn_0002d510
@@ -2716,9 +2716,18 @@ struct Method4 {
     void (CActorManager::*method)(const char *, float, float, float);
     void target(CActorManager *manager, const unsigned *arguments, unsigned unused);
 };
+#if defined(HULK_PTR64)
+// (script2, stop 6) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells
+void Method4::target(CActorManager *manager, const unsigned *arguments, unsigned unused) {
+    struct Args_ { const char* a0; float a1; float a2; float a3; };
+    const Args_* a = (const Args_*)arguments;
+    (manager->*method)(a->a0, a->a1, a->a2, a->a3);
+}
+#else
 void Method4::target(CActorManager *manager, const unsigned *arguments, unsigned unused) {
     (manager->*method)((const char *)arguments[0], *(const float *)&arguments[1], *(const float *)&arguments[2], *(const float *)&arguments[3]);
 }
+#endif
 } // namespace fn_0002d8c0
 
 

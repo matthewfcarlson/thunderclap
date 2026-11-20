@@ -2473,10 +2473,20 @@ struct Function2_1b16b0 : hulk_script::FunctionGenView {
     void* f_1c;
     void vfunc_2(void* __p0, void* __p1, void* __p2);
 };
+#if defined(HULK_PTR64)
+// (script2, stop 6) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells
+void Function2_1b16b0::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Args_ { const char* a0; float a1; };
+    const Args_* a = (const Args_*)__p1;
+    (*(void (**)(const char*, float))&this->f_1c)(a->a0, a->a1);
+}
+#else
 void Function2_1b16b0::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr x = (hulk_intptr)__p0; unsigned int * p = (unsigned int *)__p1; hulk_intptr y = (hulk_intptr)__p2;
 
     (*(void (**)(float, float))&this->f_1c)(*(float*)p, *((float*)p + 1));
 }
+#endif
 } // namespace fn_001b16b0
 #if defined(HULK_PTR64)
 // (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
