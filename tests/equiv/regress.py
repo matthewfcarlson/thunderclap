@@ -1325,6 +1325,9 @@ X64_CASES = {
     # (x64eq, rawint) an int leaf with the same bits on both sides (a byte field's untouched neighbours in a fresh
     # allocation) is the same integer, even where its 32-bit value lands in a heap object (was a false ptrtrunc)
     "0x002fdc90_x64_rawint": ("equivalent", None, None, 50),
+    # (integ4, allocty regiontail; rev5) the same shape with a pointer-bearing Entry under the literal 32-bit size: the tail
+    # past the one typed record is at another place natively (must fail whatever the tail mapping)
+    "0x002fdc90_x64_regiontail_ptr": ("fail", "layout", None, 0),
     # (x64t9, sitecasts) one allocator cast to two types in one body (the request ring's HulkLoadEntry*, the 256-byte
     # char* buffer): each allocation takes its own call site's cast (EQ64_OFF=sitecasts: the buffer's end read as a
     # HulkLoadEntry array, a false layout difference, +256 against +128). (integ3) Since x64t19 (e9d5d974f) the ring
@@ -1345,6 +1348,23 @@ X64_CASES = {
     "0x002775b0_x64_bucket_range": ("equivalent", None, None, 40),
     # (x64t13) a pointer parameter annotated HULK_INTO(base) points into the array this->base points to (the pool's
     # free: the block index is `value - base`); without the annotation the parameter is an unrelated object
+    # (integ3, allocty) an allocation returned as a record (declared pointer or cast): bytes read before written (a
+    # stubbed initializer's) are the record's leaves on both targets; a 32-bit-offset store into it still fails
+    "0x0008c470_x64_allocty": ("equivalent", None, None, 80),
+    "0x0008c470_x64_allocty_offset": ("fail", "layout", "].result", 0),
+    "0x0008c470_x64_allocty_straddle": ("fail", None, "].file", 0),
+    # (rev5 R1/R2) every whole record of `count * sizeof(T)`; a request without room for the 32-bit run's records fails
+    "0x0008c470_x64_allocty_elem1": ("equivalent", None, None, 80),
+    "0x0008c470_x64_allocty_stride": ("fail", "crash64", None, 0),
+    "0x0008c470_x64_allocty_size32": ("fail", "layout", "holds 0 State", 0),
+    # (rev5 R2') a header and its payload with a fuzzed len (multiples of sizeof included): header typed, payload raw
+    "0x0008c470_x64_allocty_hdr": ("equivalent", None, None, 80),
+    # (integ3, allocty regions) an array-new cookie: `(Elem*)(raw + 1)` types the region past it; a 32-bit stride fails
+    "0x000afbf0_x64_allocregion": ("equivalent", None, None, 80),
+    "0x000afbf0_x64_allocregion_stride": ("fail", None, "f2c", 0),
+    # (rev5 Q2) the byte form (`(Elem*)((char*)raw + 4)`) and one record plus a payload (no `n * sizeof`), both equivalent
+    "0x000afbf0_x64_allocregion_bytes": ("equivalent", None, None, 80),
+    "0x000afbf0_x64_allocregion_payload": ("equivalent", None, None, 80),
     "0x0008ff00_x64_into_pool": ("equivalent", None, None, 40),
     "0x0008ff00_x64_into_none": ("fail", "layout", "].limit", 0),
     # (integ2, D93, fieldcasts; rev5's review) a pointer field read through the record the code casts it to:

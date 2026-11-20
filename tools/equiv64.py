@@ -1102,7 +1102,7 @@ def ret_indirect(sig, bits):
 # ------------------------------------------------------------------------------------------------- the object graph
 class Obj:
     __slots__ = ("id", "rid", "ident", "kind", "lay", "count", "a32", "a64", "size32", "size64", "ptrs", "hint", "alloc",
-                 "init", "grange", "rdata", "res")
+                 "init", "grange", "rdata", "res", "ahint", "ak")
 
     def __init__(self, oid, ident, kind, lay, count, size32, size64):
         self.id, self.ident, self.kind, self.lay, self.count = oid, ident, kind, lay, count
@@ -1116,6 +1116,8 @@ class Obj:
         self.grange = None      # (integ2, D103) (lo, hi): a global's integer words (HULK_RANGE on its declaration)
         self.rdata = None       # (integ2, D103) the name of a HULK_RDATA global (its XBE bytes; no store may reach it)
         self.res = {}           # (integ2, D107) {bits: bytes reserved for it in that heap} (a heap region's span)
+        self.ahint = None       # (integ3, allocty) the record an allocation is returned as (declared or cast): its leaves
+        self.ak = 0             # (integ3, allocty; rev5 R1/R2) whole records typed in it, the same on both sides
 
     def base(self, bits):
         return self.a32 if bits == 32 else self.a64
@@ -1139,6 +1141,7 @@ class Heap:
         self.order = {32: [], 64: []}
         self.by_type = {}
         self.choices = {}
+        self.allocty = False    # (integ3) an allocation's image was drawn as its record (counted per input)
 
     def _region(self, bits, size):
         a = self.next[bits]
@@ -1263,6 +1266,32 @@ class Heap:
                     v &= 0x0000000F0000000F
                 chunk = v.to_bytes(8, "little")
                 buf[i:i + 8] = chunk[:max(0, min(8, n - i))]
+            lay = o.ahint
+            if lay is not None and o.kind == "alloc" and o.ak and "allocty" not in OFF:
+                # (integ3, allocty) an allocation the allocator returns as a record (its declaration's pointer type, or
+                # the cast of its result): bytes the code reads before it writes them (a stubbed initializer's work,
+                # `slot = Alloc(sizeof *slot); InitSlot(slot); if (slot->drive) ...`) are that record's leaves, drawn as
+                # any typed object's: a pointer field is null or an object on both sides. Raw bytes, the same byte for
+                # byte, read as an 8-byte pointer differ from the 4-byte word the 32-bit run read (0x0008c470, D142)
+                # (rev5 R2) every whole record of the request (`count * sizeof(T)`), each element its own leaf values;
+                # (R1) the same count on both sides (allocator(): a 64-bit request that holds fewer is a layout stop)
+                es_ = lay.size(bits)
+                # (rev5 R2') the bytes past the typed records (a header's payload, `sizeof(Hdr) + len`): raw, the same byte
+                # for byte counted from the records' end, so payload byte i is one value on both sides
+                r_ = Rng(self.seed, "rawtail", o.rid)
+                t0_ = o.ak * es_
+                for i in range(t0_, n, 8):
+                    v = r_.next()
+                    c = (v >> 56) & 3
+                    if c == 0:
+                        v = 0
+                    elif c == 1:
+                        v &= 0x0000000F0000000F
+                    buf[i:i + 8] = v.to_bytes(8, "little")[:max(0, min(8, n - i))]
+                for e in range(o.ak):
+                    for l in lay.leaves:
+                        self.put_leaf(buf, e * es_ + l.off(bits), bits, l, self.leaf_value(o, e, l, lay))
+                self.allocty = True
             return buf
         lay = o.lay
         es = lay.size(bits)
@@ -1271,9 +1300,10 @@ class Heap:
                 self.put_leaf(buf, e * es + l.off(bits), bits, l, self.leaf_value(o, e, l))
         return buf
 
-    def leaf_value(self, o, e, l):
-        """The abstract value of leaf L of element E of O: ("i", int) ("f", bits) ("d", bits) ("b", bytes) or a
-        pointer ("p", obj or None, 32-bit offset) / ("fn", stub key) / ("vt", vtable obj)."""
+    def leaf_value(self, o, e, l, lay=None):
+        """The abstract value of leaf L of element E of O (laid out as LAY, default O's own layout): ("i", int)
+        ("f", bits) ("d", bits) ("b", bytes) or a pointer ("p", obj or None, 32-bit offset) / ("fn", stub key) /
+        ("vt", vtable obj)."""
         r = Rng(self.seed, "leaf", o.rid, e, l.o32)
         k = l.kind
         if k == "i" and l.s32 == 4 and l.s64 == 8:
@@ -1301,11 +1331,11 @@ class Heap:
             key = (e, l.o32)
             if key not in o.ptrs:
                 v = None
-                prev = self.range_partner(o.lay, l)
+                prev = self.range_partner(lay or o.lay, l)
                 if prev is not None:
                     # [begin, end) pairs (a vector's begin/end/capacity): the later pointer points into the
                     # earlier one's array (null with it), so `end - begin` is an element count on both targets
-                    pv = self.leaf_value(o, e, prev)
+                    pv = self.leaf_value(o, e, prev, lay)
                     t = pv[1] if pv[0] == "p" else None
                     if t is None:
                         v = ("p", None, 0)
@@ -1407,6 +1437,8 @@ class Heap:
             return off32 * 2
         if o.lay.raw or off32 == 0:
             return off32
+        if o.lay.key.startswith("region<") and off32 >= o.lay.size32 and "regiontail" not in OFF:
+            return off32 - o.lay.size32 + o.lay.size64      # (integ4) the raw tail past a region's records
         v = o.lay.to64(off32)
         if v is None:
             raise Unsupported("interior pointer translation (%s +0x%x)" % (o.lay.key, off32))
@@ -1586,11 +1618,12 @@ class Checker:
             self.tree_externalize()
         self.resolve_all()
 
-    def call_site_index(self, bits, st, retaddr):
+    def call_site_index(self, bits, st, retaddr, sites=None):
         """(x64t9, sitecasts) The index of the call returning to RETADDR among the function under test's direct calls of
         stub ST, in address order (None if it is not one of them, or the sites are not one per source call)."""
         cache = self.__dict__.setdefault("_sites", {})
-        key = (bits, st.key)
+        sites = self.site_casts if sites is None else sites
+        key = (bits, st.key, id(sites))
         if key not in cache:
             img = self.img[bits]
             name = st.names.get(bits)
@@ -1605,7 +1638,7 @@ class Checker:
                         a = img.secaddr[sn] + va
                         if rng[0] <= a < rng[1] and si in img.obj.syms and img.obj.syms[si][0] == name:
                             rets.append(a + 4)
-            l = len(self.site_casts.get(st.key, ()))
+            l = len(sites.get(st.key, ()))
             cache[key] = sorted(rets) if len(rets) == l else None
         rets = cache[key]
         if rets is None or retaddr not in rets:
@@ -1850,6 +1883,13 @@ class Checker:
                     if len(kinds) > 1:
                         self.site_casts[k] = [None if a is None or b is None else (a.get_pointee(), b.get_pointee())
                                               for a, b in zip(l32, l64)]
+        # (integ3, allocty; rev5 R2') per allocator call site, in source order: the record T when its size argument is
+        # `n * sizeof(T)` (an array of T: every whole record typed), else None (element 0 only, the rest raw)
+        self.site_arrays = alloc_site_arrays(c32.get_definition() or c32) if "allocty" not in OFF else {}
+        # (integ3, allocty regions; 0x000afbf0) per allocator call site: (off32, off64, (T32, T64), array) when the body
+        # casts the allocation's pointer plus a constant to a record pointer (`(Elem*)(raw + 1)`: an array-new cookie)
+        self.site_regions = alloc_site_regions(c32.get_definition() or c32, c64.get_definition() or c64) \
+            if "allocty" not in OFF and "allocregion" not in OFF else {}
         self.range32 = self.img[32].func_range(name32)
         self.ast_digest = ast_digest(c32, c64)
 
@@ -2204,6 +2244,8 @@ class Checker:
                 res.setdefault("skip_first", {}).setdefault(out["skip"], out.get("why"))
                 continue
             res["completed"] += 1
+            if out.get("allocty"):
+                res["allocty"] = res.get("allocty", 0) + 1
             cov |= out.get("cov", set())
             if out.get("diff"):
                 c = out["class"]
@@ -2239,6 +2281,8 @@ class Checker:
             # out of range of every object: 32-bit address arithmetic wraps, 64-bit doesn't): not comparable
             return {"skip": "wild", "why": "32-bit run read 0x%x, outside every object" % min(w32)}
         diff, cls = compare(self, heap, r32, r64)
+        if heap.allocty:
+            out["allocty"] = True
         if diff:
             out["diff"], out["class"] = diff, cls
         return out
@@ -2858,6 +2902,207 @@ def param_casts(fn):
     return out
 
 
+def region_layout(off32, off64, el, k):
+    """(integ3, allocty regions) A layout of K records EL starting at OFF32 / OFF64 (the bytes before them untyped)."""
+    leaves = []
+    for e in range(k):
+        for l in el.leaves:
+            n = Leaf(("[%d]" % e,) + tuple(l.path), off32 + e * el.size32 + l.o32, off64 + e * el.size64 + l.o64, l.kind,
+                     l.s32, l.s64, l.extra, l.signed)
+            n.range, n.cast = l.range, l.cast
+            leaves.append(n)
+        leaves.append(Leaf(("[%d]" % e,), off32 + e * el.size32, off64 + e * el.size64, "m", 0, 0))
+    lay = Layout("region<%d,%s,%d>" % (off32, el.key, k), off32 + k * el.size32, off64 + k * el.size64, leaves)
+    lay.record = True
+    return lay
+
+
+def alloc_site_regions(fn32, fn64):
+    """(integ3, allocty regions) {callee key: [(off32, off64, (T32, T64), array) or None per call, in source order]} for
+    allocator calls whose result initializes a local P* p (directly or through a cast) that the body casts as
+    `(T*)(p + k)` with T a record and k an integer literal: the record region starts k * sizeof(P) bytes in (each
+    target's). array: the call's size argument is `n * sizeof(T) + c` (or `n * sizeof(T)`)."""
+    K = ci().CursorKind
+
+    def strip(c):
+        while c.kind in (K.PAREN_EXPR, K.UNEXPOSED_EXPR, K.CSTYLE_CAST_EXPR, K.CXX_STATIC_CAST_EXPR,
+                         K.CXX_REINTERPRET_CAST_EXPR):
+            k = [x for x in c.get_children() if x.kind != K.TYPE_REF]
+            if len(k) != 1:
+                break
+            c = k[0]
+        return c
+
+    def lit(c):
+        c = strip(c)
+        if c.kind == K.INTEGER_LITERAL:
+            toks = [t.spelling for t in c.get_tokens()]
+            try:
+                return int(toks[0].rstrip("uUlL"), 0) if toks else None
+            except ValueError:
+                return None
+        return None
+
+    def is_sizeof(c, spelling):
+        c = strip(c)
+        if c.kind == K.CXX_UNARY_EXPR and [t.spelling for t in c.get_tokens()][:1] == ["sizeof"]:
+            kids = list(c.get_children())
+            return bool(kids) and kids[0].type.get_canonical().spelling == spelling
+        return False
+
+    def op(c):
+        return getattr(getattr(c, "binary_operator", None), "name", "")
+
+    def has_sizeof(c, spelling):
+        """(rev5) an array only for `n * sizeof(T)` or `sizeof(T) * n`, optionally plus an integer literal: a sizeof(T)
+        that is only added (`4 + sizeof(T) + len`) is one record and a payload."""
+        c = strip(c)
+        if c.kind == K.BINARY_OPERATOR and op(c) == "Add":
+            a_, b_ = [strip(x) for x in list(c.get_children())[:2]]
+            if lit(b_) is not None:
+                c = a_
+            elif lit(a_) is not None:
+                c = b_
+            else:
+                return False
+        if c.kind == K.BINARY_OPERATOR and op(c) == "Mul":
+            return any(is_sizeof(x, spelling) for x in list(c.get_children())[:2])
+        return False
+
+    def scan(fn):
+        calls, inits, casts, reassigned = [], {}, [], set()
+
+        def walk(c, depth=0):
+            if depth > 200:
+                return
+            if c.kind == K.CALL_EXPR and c.referenced is not None:
+                calls.append(((c.location.line, c.location.column), "decl:" + loc_key(c.referenced), c))
+            if c.kind == K.VAR_DECL:
+                kids = [x for x in c.get_children() if x.kind not in (K.TYPE_REF,)]
+                if kids:
+                    v = strip(kids[-1])
+                    if v.kind == K.CALL_EXPR and c.type.get_canonical().kind.name == "POINTER":
+                        inits[c.hash] = (v.location.line, v.location.column), c.type.get_canonical().get_pointee()
+            if c.kind in (K.CSTYLE_CAST_EXPR, K.CXX_STATIC_CAST_EXPR, K.CXX_REINTERPRET_CAST_EXPR):
+                t = c.type.get_canonical()
+                if t.kind.name == "POINTER" and is_record(t.get_pointee()):
+                    kids = [x for x in c.get_children() if x.kind != K.TYPE_REF]
+                    e = strip(kids[-1]) if kids else None
+                    if e is not None and e.kind == K.BINARY_OPERATOR and op(e) == "Add":
+                        a_, b_ = list(e.get_children())[:2]
+                        a_ = strip(a_)
+                        k_ = lit(b_)
+                        if a_.kind == K.DECL_REF_EXPR and a_.referenced is not None and k_ is not None:
+                            # (rev5 Q2) the byte offset is k times the Add's own element size: `(int*)p + 1` is 4,
+                            # `(char*)p + 4` is 4 (the byte form), whatever the local's type
+                            try:
+                                es_ = e.type.get_canonical().get_pointee().get_size()
+                            except Exception:   # noqa: BLE001
+                                es_ = -1
+                            if es_ > 0:
+                                casts.append((a_.referenced.hash, k_ * es_, t.get_pointee()))
+            if c.kind == K.BINARY_OPERATOR and op(c) == "Assign":
+                lhs = strip(list(c.get_children())[0])
+                if lhs.kind == K.DECL_REF_EXPR and lhs.referenced is not None:
+                    reassigned.add(lhs.referenced.hash)     # (rev5 note) a local assigned again: no region
+            for ch in c.get_children():
+                walk(ch, depth + 1)
+        for ch in fn.get_children():
+            if ch.kind == K.COMPOUND_STMT:
+                walk(ch)
+        return calls, {h: v for h, v in inits.items() if h not in reassigned}, casts
+
+    c32, i32, k32 = scan(fn32)
+    c64, i64, k64 = scan(fn64)
+    if len(k32) != len(k64) or len(c32) != len(c64):
+        return {}
+    regions = {}
+    for (h32, kk, t32), (h64, _kk, t64) in zip(k32, k64):
+        if h32 not in i32 or h64 not in i64:
+            continue
+        loc, _p32 = i32[h32]
+        off32, off64 = kk, _kk
+        if off32 <= 0 or off64 <= 0:
+            continue
+        regions.setdefault(loc, (off32, off64, (t32, t64)))
+    per = {}
+    for (loc, key, c), (_l, _k, c64_) in zip(sorted(c32, key=lambda x: x[0]), sorted(c64, key=lambda x: x[0])):
+        r = regions.get(loc)
+        if r is not None:
+            args = list(c.get_arguments())
+            ai_ = ALLOCATOR_AT.get(c.referenced.spelling, 0)
+            arr = len(args) > ai_ and has_sizeof(args[ai_], r[2][0].get_canonical().spelling)
+            r = r + (arr,)
+        per.setdefault(key, []).append(r)
+    return {k: v for k, v in per.items() if any(x is not None for x in v)}
+
+
+def alloc_site_arrays(fn):
+    """(integ3, allocty; rev5 R2') {callee key: [T's canonical spelling or None per call, in source order]}: T when the
+    call's size argument (the first, or ALLOCATOR_AT's index) is `n * sizeof(T)` or `sizeof(T) * n` (through parens and
+    casts), for every callee called. Other shapes (`n * m * sizeof(T)`, `n * sizeof(T) + extra`) type the header alone."""
+    K = ci().CursorKind
+
+    def strip(c):
+        while c.kind in (K.PAREN_EXPR, K.UNEXPOSED_EXPR, K.CSTYLE_CAST_EXPR, K.CXX_STATIC_CAST_EXPR,
+                         K.CXX_FUNCTIONAL_CAST_EXPR):
+            k = [x for x in c.get_children() if x.kind != K.TYPE_REF]
+            if len(k) != 1:
+                break
+            c = k[0]
+        return c
+
+    def sizeof_of(c):
+        c = strip(c)
+        if c.kind == K.CXX_UNARY_EXPR:
+            toks = [t.spelling for t in c.get_tokens()]
+            if toks[:1] == ["sizeof"]:
+                kids = list(c.get_children())
+                if kids and kids[0].kind == K.TYPE_REF:
+                    return kids[0].type.get_canonical().spelling
+                if kids:
+                    return kids[0].type.get_canonical().spelling
+                return None
+        return None
+
+    calls = []
+
+    def walk(c, depth=0):
+        if depth > 200:
+            return
+        if c.kind == K.CALL_EXPR and c.referenced is not None:
+            args = list(c.get_arguments())
+            t = None
+            ai_ = ALLOCATOR_AT.get(c.referenced.spelling, 0)     # (rev5) the size parameter's index (luaM_realloc: 3)
+            if len(args) > ai_:
+                a = strip(args[ai_])
+                if a.kind == K.BINARY_OPERATOR and getattr(getattr(a, "binary_operator", None), "name", "") == "Mul":
+                    l_, r_ = list(a.get_children())[:2]
+                    t = sizeof_of(l_) or sizeof_of(r_)
+            calls.append(((c.location.line, c.location.column), "decl:" + loc_key(c.referenced), t))
+        for ch in c.get_children():
+            walk(ch, depth + 1)
+    for ch in fn.get_children():
+        if ch.kind == K.COMPOUND_STMT:
+            walk(ch)
+    per = {}
+    for loc, key, t in sorted(calls):
+        per.setdefault(key, []).append(t)
+    return {k: v for k, v in per.items() if any(x is not None for x in v)}
+
+
+def callee_returns(fn):
+    """(integ3, allocty) [callee name, its declared result type] of every call in FN's body."""
+    out = set()
+    for c in fn.walk_preorder():
+        if c.kind.name == "CALL_EXPR" and c.referenced is not None:
+            try:
+                out.add((c.referenced.spelling, c.referenced.result_type.get_canonical().spelling))
+            except Exception:   # noqa: BLE001
+                pass
+    return sorted(list(x) for x in out)
+
+
 def ast_digest(c32, c64):
     """(integ2, D97; rev5's review) A digest of what a run of the function C32 / C64 takes from the parse besides its
     bytes and its records' layouts: its own declaration (the signature it is called with), the HULK_INTO parameters
@@ -2882,6 +3127,9 @@ def ast_digest(c32, c64):
             parts["prange" + n] = "unsupported: %s" % e
         parts["rcasts" + n] = sorted([k, sp(v)] for k, v in return_casts(fn).items())
         parts["scasts" + n] = sorted([k, [sp(x) for x in v]] for k, v in return_casts(fn, True).items())
+        # (integ3, allocty; rev5 R3) the declared result of every function it calls: an allocator's record pointer types
+        # the allocation's untouched bytes, and a `void *` -> `Slot *` change leaves the code bytes alone
+        parts["callret" + n] = callee_returns(fn)
         parts["pre" + n] = pre_lines_of(fn)     # (integ3, D152) a contract change re-runs the gate
         parts["fcasts" + n] = sorted([list(k), sp(v)] for k, v in field_casts(fn).items())
         # (integ2, D103; rev5's R4) the data annotations of every global of the parse (HULK_RANGE / HULK_RDATA on any
@@ -2889,6 +3137,13 @@ def ast_digest(c32, c64):
         parts["gdata" + n] = gdata_digest_part(fn.translation_unit)
         # (integ2, D111) the pointer-word globals it reads through a typed cast
         parts["gcasts" + n] = sorted([k, v if v == AMBIGUOUS else sp(v)] for k, v in global_casts(fn).items())
+    try:     # (integ3, allocty regions) the record regions the body's offset casts give allocations
+        parts["aregions"] = sorted([k, [None if r is None else [r[0], r[1], r[2][0].get_canonical().spelling,
+                                                               r[2][1].get_canonical().spelling, r[3]] for r in v]]
+                                   for k, v in alloc_site_regions(c32.get_definition() or c32,
+                                                                  c64.get_definition() or c64).items())
+    except Exception as e:      # noqa: BLE001
+        parts["aregions"] = "error: %s" % e
     return hashlib.sha1(json.dumps(parts, sort_keys=True, default=str).encode()).hexdigest()[:16]
 
 
@@ -3387,6 +3642,10 @@ class Side:
         if self.bits == 32 or o.lay.raw or off == 0:
             return off
         lay = o.lay
+        if lay.key.startswith("region<") and off >= lay.size64 and "regiontail" not in OFF:
+            # (integ4, allocty regions) past the typed records the payload is raw, the same bytes counted from the
+            # records' end on both sides (a cookie + one record + a tail: 0x002fdc90's `count * 100 + 4`)
+            return off - lay.size64 + lay.size32
         v = lay.to32(off)
         return v if v is not None else ("in64", off)
 
@@ -4161,6 +4420,63 @@ class Side:
                         o.hint = lay
                 except Unsupported:
                     pass
+            reg_ = None
+            if st.key in getattr(self.chk, "site_regions", {}):
+                i_ = self.chk.call_site_index(b, st, retaddr, self.chk.site_regions)
+                reg_ = self.chk.site_regions[st.key][i_] if i_ is not None else None
+            if reg_ is not None and "allocty" not in OFF:
+                # (integ3, allocty regions) the cast at an offset types the allocation from there: `count` records of T
+                # (an `n * sizeof(T) + c` request: as many as the 32-bit request holds past the offset), else one; the
+                # bytes before it keep their raw image (written before read: the cookie)
+                off32_, off64_, tt_, arr_ = reg_
+                try:
+                    el_ = self.chk.types.layout(*tt_)
+                except Unsupported:
+                    el_ = None
+                if el_ is not None and not el_.raw:
+                    k_ = (size - off32_) // max(1, el_.size32) if arr_ else 1
+                    k_ = max(0, min(k_, KMAX))
+                    if k_:
+                        o.ahint = region_layout(off32_, off64_, el_, k_)
+                        o.ahint.__dict__.setdefault("key32_spelling", None)
+                        o.hint = o.ahint    # (the region, not the prefix's cast type, says where the words are)
+            if reg_ is None and "allocty" not in OFF:
+                # (integ3, allocty) the record the allocation is returned as: the cast's, else the declared pointer's
+                at_ = cast
+                if at_ is None and isinstance(sig, Sig):
+                    p32, p64 = sig.ret[0].get_canonical(), sig.ret[1].get_canonical()
+                    if p32.kind.name == "POINTER" and p64.kind.name == "POINTER":
+                        at_ = (p32.get_pointee(), p64.get_pointee())
+                if at_ is not None and is_record(at_[0]) and is_record(at_[1]):
+                    try:
+                        lay_ = self.chk.types.layout(*at_)
+                        if not lay_.raw:
+                            o.ahint = lay_
+                            o.ahint.__dict__.setdefault("key32_spelling", at_[0].get_canonical().spelling)
+                    except Unsupported:
+                        pass
+        if o.ahint is not None and "allocty" not in OFF:
+            # (integ3, allocty; rev5 R1) the records the allocation holds, decided once from the first (32-bit) request and
+            # held to on the other side: a 64-bit request with room for fewer of them (a hard-coded 32-bit size or
+            # stride) is the native size computation's error, a gating layout difference, never a raw 64-bit side
+            # (rev5 R2') more than element 0 only where the call site's size is `n * sizeof(T)` for this record T (then
+            # n64 == k * size64 by construction); a header and its payload (`sizeof(Hdr) + len`) or a hard-coded size
+            # types the header alone, the rest stays raw, the same byte for byte on both sides
+            k_ = size // max(1, o.ahint.size(b))
+            if b == 32 or not o.alloc or not o.alloc[0]:
+                arr_ = False
+                i_ = self.chk.call_site_index(b, st, retaddr, self.chk.site_arrays) if st.key in self.chk.site_arrays else None
+                if i_ is not None:
+                    t_ = self.chk.site_arrays[st.key][i_]
+                    arr_ = t_ is not None and t_ == o.ahint.key32_spelling
+                o.ak = min(k_, KMAX) if arr_ else min(k_, 1)
+                if o.ak and o.hint is None:
+                    o.hint = o.ahint    # (rev5 R2) a pointer to element e (`slots + 1`) translates by the record's size
+            elif o.ak and k_ < 1:
+                # (rev5 R1) the declared record allocated short natively: the 32-bit request holds one, the 64-bit none
+                self.stop = ("alloc64", "allocation of 0x%x bytes holds %d %s where the 32-bit run's holds %d" % (
+                    size, k_, o.ahint.key, o.ak))
+                raise Stop()
         if b == 64 and o.alloc[1] != size or b == 32 and o.alloc[0] != size:
             o.alloc = (o.alloc[0], size) if b == 64 else (size, o.alloc[1])
             o.size64 = max(1, o.alloc[1])
@@ -4348,6 +4664,8 @@ def normalize(v, heap):
             lay = o.hint
             if lay is None:
                 return ("obj", v[1], off)          # (untyped: byte for byte the same on both sides)
+            if lay.key.startswith("region<") and off >= lay.size64 and "regiontail" not in OFF:
+                return ("obj", v[1], off - lay.size64 + lay.size32)     # (integ4) a region's raw tail
             t = lay.to32(off)
             return ("obj", v[1], t if t is not None else ("in64", off))
         return tuple(normalize(x, heap) for x in v)
@@ -4424,6 +4742,13 @@ def compare(chk, heap, r32, r64):
                 cls = "layout"      # (only one side wrote it: the other side's store went to another offset)
             if key[0] in ("raw", "rawleaf") and cls not in ("float",):
                 cls = "untyped"
+            if l32 is not None and l32.kind in ("p", "fp", "vp", "mfp") and "ptrstore" not in OFF and a64 is not None:
+                # (integ3, rev5 Q1) ptrpart for writes: a differing pointer field the 64-bit run stored into only in part
+                # (a store not at the leaf's 64-bit offset, or narrower than the pointer: a 32-bit stride or offset
+                # landing inside it) is the native layout's error, whatever the value it left
+                w_ = (l64 or l32).size(64)
+                if any(a_ < a64 + w_ and a_ + n_ > a64 and not (a_ == a64 and n_ >= w_) for a_, n_ in s64.writes):
+                    cls = "layout"
             return ptrnote(s64, "memory %s%s: 32-bit %s, 64-bit %s" % (describe(o) + " " if o else "", fmt_key(key), short(v32),
                                                                       short(v64)), cls)
     return None, None
@@ -4615,6 +4940,8 @@ def _verify64(src, addr, symbol=None, n_inputs=200, seeds=None, time_budget=120,
         hit = sum(1 for a in insns if any(b <= a < b + n for b, n in res["cov"]))
         rep["coverage"] = "%d/%d" % (hit, len(insns))
     rep["classes"] = res["classes"]
+    if res.get("allocty"):
+        rep["allocty"] = res["allocty"]     # (integ3) inputs that drew an allocation's bytes as its record
     if res["fails"]:
         rep["status"] = "fail"
         rep["class"] = res["fails"][0]["class"]
