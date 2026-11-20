@@ -71,6 +71,9 @@ config/proof-ledger.jsonl is appended only by `hash --proven` (or `tree_tu.ledge
 with `merge=union`; to seed many blocks, harvest committed checkers' reports and run hash --proven in queue jobs at a
 fixed commit (build/integ2/scripts/seed.py) (D84). Build a Wine proof workspace only after the last `hash --proven`:
 materialize fails on a stale code hash, and only after ~20 minutes (D92).
+The proof workspace's config/proof-ledger.jsonl must hold the hash job's new ledger lines. Re-merge your files onto the
+current HEAD before a hash, proof or verify job or a Wine pair: a stale gen header silently reverts another lane's records
+(integ4).
 A function only a 64-bit branch defines is named `FUN_<addr>`; native_mac and native_unbound bind callers to it by that
 address, and 64-bit-only thunks call their targets by the targets' own names (D35). Several definitions sharing one
 name in a TU (overloads `target(...)`) have no unique 64-bit symbol, so nothing binds to them by address natively:
@@ -299,6 +302,8 @@ Terms: the *Wine build* is the 32-bit clang image run under Wine (`tools/wine_*.
   and apply their result to the working copy as a patch (`git apply` of the commit's diff; --3way implies --index and refuses
   files with others' unstaged edits), never by copying whole files over it: a
   whole-file write over a TU with someone's uncommitted edits silently discards them (decl1's landing cp race, 11-18).
+  Unset `GIT_INDEX_FILE` in a subshell that runs `git status` in a private workspace: with it exported for another
+  commit, git reads the wrong index, and a commit built that way silently drops the workspace's edits (recs1).
 - Never relax a comparison in the checker to make something pass; a source that doesn't pass is not promoted.
   A byte match needs `compare.py` MATCH and `verify_relocs.py` ok; an equivalent needs a promotable `equiv.py` run.
 - Don't run xemu, the Wine build or other long jobs unless the task is that job. The farm is archived (`farm/` removed); don't
