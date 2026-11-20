@@ -329,7 +329,7 @@ Base_2870d0 *OldFrameControllerLoader::v7(const char *name, unsigned int tag, St
         return o;
     }
     case 0x4e525453: {
-        SceneGraphTransformAnimationController_2870d0 *p = (SceneGraphTransformAnimationController_2870d0 *)thunk_FUN_0008d690(0x118);
+        SceneGraphTransformAnimationController_2870d0 *p = (SceneGraphTransformAnimationController_2870d0 *)thunk_FUN_0008d690((unsigned int)sizeof(::pure3d::SceneGraphTransformAnimationController));
         SceneGraphTransformAnimationController_2870d0 *o;
         if (p != 0)
             o = p->FUN_002a7730();

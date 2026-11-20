@@ -835,7 +835,7 @@ void Hdr_2e1960::Load(int a1, Reader* R, int a3, PalList_2e1960* a4, unsigned in
                         if (f1c & 0x80) {
                             unsigned int n = R->FUN_001c61c0();
                             pure3d::MatrixPaletteList* mp;
-                            void* mm = FUN_0008d690(0x14);
+                            void* mm = FUN_0008d690((unsigned int)sizeof(::pure3d::MatrixPaletteList));
                             if (mm)
                                 mp = new (mm) pure3d::MatrixPaletteList();
                             else
@@ -1710,7 +1710,7 @@ void Hdr::Load(int a1, Reader *R, int a3, PalList_2e30f0 *a4)
                 if (flags & 0x80) {
                     R->stream->FUN_002647e0(&f.n16, 1, 4, 1);
                     pure3d::MatrixPaletteList *mp;
-                    void *mm = FUN_0008d690(0x14);
+                    void *mm = FUN_0008d690((unsigned int)sizeof(::pure3d::MatrixPaletteList));
                     if (mm)
                         mp = new (mm) pure3d::MatrixPaletteList();
                     else

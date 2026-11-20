@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/hulkfight.h"
 #define TREE_TU_BEGIN namespace fn_f738addc {
 #define TREE_TU_END }
 namespace fn_f738addc {} using namespace fn_f738addc;
@@ -57,7 +58,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::GrappleLo
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VGrappleLocomotionSteerTrack@motion@hulkfight@@@fight@@UAEPAXXZ
 // Same code shape as 0x0006f3d0 (propagated; names are from that function)
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::GrappleLocomotionSteerTrack>::vfunc_5() {
-    CGrabTrack_165330* p = (CGrabTrack_165330*)FUN_0008d690(0x50);
+    CGrabTrack_165330* p = (CGrabTrack_165330*)FUN_0008d690((unsigned int)sizeof(::hulkfight::motion::GrappleLocomotionSteerTrack));
     if (p)
         return (void*)(p->init_0015c040());
     return (void*)(0);

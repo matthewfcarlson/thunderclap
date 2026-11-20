@@ -3,6 +3,7 @@
 #include "tree_prelude.h"
 #include "compat/ptr.h"
 #include "gen/fight.h"
+#include "gen/global.h"
 #include "gen/owners.h"
 #define TREE_TU_BEGIN namespace fn_f15fc4c0 {
 #define TREE_TU_END }
@@ -47,10 +48,6 @@ class CSoundTrack_76aa0 {
     void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 } // namespace fn_f15fc4c0
-class CGrappleSoundTrack : public CSoundTrack_76aa0 {
-  public:
-    CGrappleSoundTrack* vfunc_5(signed char flags);
-};
 
 
 // 0x00076a00 fight::TrackFactoryCasterTemplate<CGrappleSoundTrack>::vfunc_1 (60 B): matches/0x00076a00.cpp
@@ -88,7 +85,7 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
 // 0x00076a70 fight::TrackFactoryTemplate<CGrappleSoundTrack>::vfunc_5 (38 B): matches/0x00076a70.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VCGrappleSoundTrack@@@fight@@UAEPAXXZ
 template <> void* fight::TrackFactoryTemplate<CGrappleSoundTrack>::vfunc_5() {
-    Track_76a70* p = (Track_76a70*)FUN_0008d690(0x54);
+    Track_76a70* p = (Track_76a70*)FUN_0008d690((unsigned int)sizeof(::CSoundTrack));
     if (p != 0) {
         p->Init_000696c0();
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_003fe8d8);
@@ -99,11 +96,16 @@ template <> void* fight::TrackFactoryTemplate<CGrappleSoundTrack>::vfunc_5() {
 
 
 // 0x00076aa0 CGrappleSoundTrack::vfunc_5 (36 B): matches/0x00076aa0.cpp
-// sym: ?vfunc_5@CGrappleSoundTrack@@QAEPAV1@C@Z
+// sym: ?vfunc_5@CGrappleSoundTrack_76aa0@fn_00076aa0@@QAEPAU12@C@Z
 // Same code shape as 0x0006b7e0 (propagated; names are from that function)
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
-CGrappleSoundTrack* CGrappleSoundTrack::vfunc_5(signed char flags) {
+// (sweep3) a local record: gen/global.h's CGrappleSoundTrack has no such member (the scalar deleting destructor)
+namespace fn_00076aa0 {
+struct CGrappleSoundTrack_76aa0 : CSoundTrack_76aa0 {
+    CGrappleSoundTrack_76aa0* vfunc_5(signed char flags);
+};
+CGrappleSoundTrack_76aa0* CGrappleSoundTrack_76aa0::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_003f98d0;
     Destroy_00236d60();
     if (flags & 1) {
@@ -111,4 +113,5 @@ CGrappleSoundTrack* CGrappleSoundTrack::vfunc_5(signed char flags) {
     }
     return this;
 }
+} // namespace fn_00076aa0
 

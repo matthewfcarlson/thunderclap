@@ -167,7 +167,7 @@ void *Builder::FUN_002fdf40(int id, int nameLo, int nameHi)
                 if (mismatch > 0) {
                     matchCount = (int)(list->end - list->begin) - mismatch;
                     if (matchCount > 1) {
-                        void *mem = FUN_0008d690(0x44);
+                        void *mem = FUN_0008d690((unsigned int)sizeof(HulkCollisionAABB));
                         CollisionAABB_2fdf40 *merged = 0;
                         if (mem != 0)
                             merged = ((CollisionAABB_2fdf40 *)mem)->FUN_00312900();

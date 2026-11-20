@@ -57,7 +57,8 @@ class CTrack_69430 {
     virtual bool F1_00234270(void*);
     virtual ~CTrack_69430();
     CTrack_69430();
-    char pad[8];
+    void* f4;   // (sweep3) fight::Track's words (gen/fight.h): a pointer and an int, not an 8-byte pad natively
+    int f8;
 };
 
 class CDropTrack : public CTrack_69430 {
@@ -78,8 +79,7 @@ class CDropTrack : public CTrack_69430 {
     float mE; // 0x2c
     int mF;   // 0x30
     float mG; // 0x34
-    float mH; // 0x38
-    char pad2[4];
+    float mH; // 0x38 (sweep3: the record ends here; new allocates 0x3c bytes)
 };
 
 CDropTrack::CDropTrack() {

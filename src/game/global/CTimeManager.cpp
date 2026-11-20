@@ -2387,7 +2387,7 @@ void Sim_88670::FUN_00088670(Ctx_88670 *arg0, hulk_intptr arg1)
     d = td;
     ((CPatrolPathManager_nv_88670*)(td))->FUN_001063e0();
 
-    CPathManager *te = (CPathManager *)FUN_0008d690(0x2c);
+    CPathManager *te = (CPathManager *)FUN_0008d690((unsigned int)sizeof(::CPathManager));
     if (te)
         te = ((CPathManager_nv_88670*)(te))->FUN_001aec00();
     e = te;

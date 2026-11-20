@@ -3,6 +3,7 @@
 #include "tree_prelude.h"
 #include "compat/ptr.h"
 #include "gen/fight.h"
+#include "gen/global.h"
 #include "gen/owners.h"
 #define TREE_TU_BEGIN namespace fn_fb1ec90b {
 #define TREE_TU_END }
@@ -53,10 +54,6 @@ class CDrainHealthTrack_76760 {
     void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 } // namespace fn_fb1ec90b
-class CGrappleDrainHealthTrack : public CDrainHealthTrack_76760 {
-  public:
-    CGrappleDrainHealthTrack* vfunc_5(signed char flags);
-};
 
 
 // 0x000766c0 fight::TrackFactoryCasterTemplate<CGrappleDrainHealthTrack>::vfunc_1 (60 B): matches/0x000766c0.cpp
@@ -94,7 +91,7 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
 // 0x00076730 fight::TrackFactoryTemplate<CGrappleDrainHealthTrack>::vfunc_5 (38 B): matches/0x00076730.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VCGrappleDrainHealthTrack@@@fight@@UAEPAXXZ
 template <> void* fight::TrackFactoryTemplate<CGrappleDrainHealthTrack>::vfunc_5() {
-    CGrappleDrainHealthTrack_76730* p = (CGrappleDrainHealthTrack_76730*)FUN_0008d690(0x18);
+    CGrappleDrainHealthTrack_76730* p = (CGrappleDrainHealthTrack_76730*)FUN_0008d690((unsigned int)sizeof(::CDrainHealthTrack));
     if (p) {
         p->Init_00069ea0();
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_003fe778);
@@ -105,11 +102,16 @@ template <> void* fight::TrackFactoryTemplate<CGrappleDrainHealthTrack>::vfunc_5
 
 
 // 0x00076760 CGrappleDrainHealthTrack::vfunc_5 (36 B): matches/0x00076760.cpp
-// sym: ?vfunc_5@CGrappleDrainHealthTrack@@QAEPAV1@C@Z
+// sym: ?vfunc_5@CGrappleDrainHealthTrack_76760@fn_00076760@@QAEPAU12@C@Z
 // Same code shape as 0x0006b7e0 (propagated; names are from that function)
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
-CGrappleDrainHealthTrack* CGrappleDrainHealthTrack::vfunc_5(signed char flags) {
+// (sweep3) a local record: gen/global.h's CGrappleDrainHealthTrack has no such member (the scalar deleting destructor)
+namespace fn_00076760 {
+struct CGrappleDrainHealthTrack_76760 : CDrainHealthTrack_76760 {
+    CGrappleDrainHealthTrack_76760* vfunc_5(signed char flags);
+};
+CGrappleDrainHealthTrack_76760* CGrappleDrainHealthTrack_76760::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_003f98d0;
     Destroy_00236d60();
     if (flags & 1) {
@@ -117,4 +119,5 @@ CGrappleDrainHealthTrack* CGrappleDrainHealthTrack::vfunc_5(signed char flags) {
     }
     return this;
 }
+} // namespace fn_00076760
 

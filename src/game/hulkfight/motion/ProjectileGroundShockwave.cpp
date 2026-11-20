@@ -2,6 +2,7 @@
 // object 0x00198900..0x00199630 (kind game, layer game, confidence medium), dominant class hulkfight::motion::ProjectileGroundShockwave
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "decls/physics_world.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/hulkfight/motion.h"
 #include "gen/fight.h"
@@ -146,7 +147,7 @@ namespace hulkfight { namespace motion {
 ProjectileGroundShockwave::ProjectileGroundShockwave(Params* p) {
  params=0; field1c=0; field20=0; object=0; field28=0; field2c=0; field30=-1.0f; field34=0; field38=0; fieldbc=0;
  params=p; *(unsigned*)(base+8)=p->field2c;
- CollisionSphere_198990* mem=(CollisionSphere_198990*)FUN_0008d690(72);
+ CollisionSphere_198990* mem=(CollisionSphere_198990*)FUN_0008d690((unsigned int)sizeof(HulkCollisionSphere));
  CollisionSphere_198990* created=0;
  if(mem) { unsigned value=params->field34; Vec3_198990 v; v.x=0; v.y=0; v.z=0; created=mem->FUN_002efe50(&v,value); }
  Object* obj=FUN_002efca0(created,0);

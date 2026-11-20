@@ -1458,7 +1458,7 @@ CGrabTrack::~CGrabTrack() {
 
 
 // 0x0005b1a0 CGrabTrack::vfunc_10 (134 B): equivalent/0x0005b1a0.cpp
-// sym: ?vfunc_10@CGrabTrack@@UAEHHHH@Z @014ee7513341 @web37f65bd86b @v94d42f7423e6
+// sym: ?vfunc_10@CGrabTrack@@UAEHHHH@Z @014ee7513341 @web37f65bd86b @v54da8f4656ec
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8; --wine 600 inputs)
 // CGrabTrack::vfunc_10 @ 0x0005b1a0
 hulk_intptr CGrabTrack::vfunc_10(hulk_intptr a1, hulk_intptr a2, hulk_intptr __p2) { fight::Params * params = (fight::Params *)__p2;

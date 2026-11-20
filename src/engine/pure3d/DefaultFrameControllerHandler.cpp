@@ -2825,7 +2825,7 @@ FcBase *Handler::FUN_002867b0(const char *arg1, unsigned int type, unsigned int 
         return obj;
     }
     if (type == 0x505845) {
-        FC_INIT(FcExp, 0x50, FUN_002a9cb0)
+        FC_INIT(FcExp, (unsigned int)sizeof(::pure3d::ExpressionAnimationController), FUN_002a9cb0)
         void *r = FUN_00286750(inv, buf1);
         if (!r)
             return obj;
@@ -2865,7 +2865,7 @@ FcBase *Handler::FUN_002867b0(const char *arg1, unsigned int type, unsigned int 
         return obj;
     }
     if (type == 0x4554494c) {
-        FC_INIT(FcLite, 0x118, FUN_002a87c0)
+        FC_INIT(FcLite, (unsigned int)sizeof(::pure3d::LightAnimationController), FUN_002a87c0)
         void *r = FUN_00286780(inv, buf1);
         if (!r)
             return obj;
@@ -2901,7 +2901,7 @@ FcBase *Handler::FUN_002867b0(const char *arg1, unsigned int type, unsigned int 
         return obj;
     }
     if (type == 0x4e525453) {
-        FC_INIT(FcStrn, 0x118, FUN_002a7730)
+        FC_INIT(FcStrn, (unsigned int)sizeof(::pure3d::SceneGraphTransformAnimationController), FUN_002a7730)
         Res *r = (Res *)FUN_000f23d0(inv, buf1);
         if (!r)
             return obj;

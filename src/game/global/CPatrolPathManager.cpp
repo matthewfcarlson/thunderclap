@@ -306,7 +306,7 @@ char CPatrolPathManager::vfunc_1(Element_1065b0 *elem)
     f.tmp = f.full;
 
     int n = f.n;
-    void *mem = thunk_FUN_0008d690(0x20);
+    void *mem = thunk_FUN_0008d690((unsigned int)sizeof(::CPatrolPath));
     CPatrolPath *path = 0;
     if (mem)
         path = new (mem) CPatrolPath(n);

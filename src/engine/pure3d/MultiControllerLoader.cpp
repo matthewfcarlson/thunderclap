@@ -768,7 +768,7 @@ unsigned __int64 OldMultiControllerLoader::vfunc_5(MultiController_2b3340 **out,
     s->reader->FUN_002647e0(&f.v18, 1, 4, 1);
     s->reader->FUN_002647e0(&f.v14, 1, 4, 1);
     s->reader->FUN_002647e0(&f.v10, 1, 4, 1);
-    MultiController_2b3340 *loaded = (MultiController_2b3340 *)thunk_FUN_0008d690(0x58);
+    MultiController_2b3340 *loaded = (MultiController_2b3340 *)thunk_FUN_0008d690((unsigned int)sizeof(::pure3d::MultiController));
     if (loaded != 0)
         loaded = loaded->FUN_002b2710(f.v10, f.v18, f.v14);
     loaded->name.FUN_0027b040(f.name);

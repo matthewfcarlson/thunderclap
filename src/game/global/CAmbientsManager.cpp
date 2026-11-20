@@ -2,6 +2,7 @@
 // object 0x000788e0..0x00081340 (kind game, layer game, confidence high), dominant class CAmbientsManager
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "decls/physics_world.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/hulkfight.h"
@@ -6796,7 +6797,7 @@ CCivilian::CCivilian(int a1, Device_810f0* dev, int a3, int a4, int a5, char fla
     v.x = 0.0f;
     v.y = 0.8f;
     v.z = 0.0f;
-    mem = FUN_0008d690(0x48);
+    mem = FUN_0008d690((unsigned int)sizeof(HulkCollisionSphere));   // (sweep3) decls/physics_world.h: 0x48 on 32-bit
     CollisionSphere_810f0* ctl = 0;
     if (mem)
         ctl = ((CollisionSphere_810f0*)mem)->FUN_002efe50(&v, 0.801f);

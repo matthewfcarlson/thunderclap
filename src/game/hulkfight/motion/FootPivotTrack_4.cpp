@@ -3,6 +3,7 @@
 #include "tree_prelude.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/hulkfight.h"
 #define TREE_TU_BEGIN namespace fn_fa9b8fa8 {
 #define TREE_TU_END }
 namespace fn_fa9b8fa8 {} using namespace fn_fa9b8fa8;
@@ -55,7 +56,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::FootPivot
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VFootPivotTrack@motion@hulkfight@@@fight@@UAEPAXXZ
 // Same code shape as 0x00070420 (propagated; names are from that function)
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::FootPivotTrack>::vfunc_5() {
-    void* p = FUN_0008d690(0x48);
+    void* p = FUN_0008d690((unsigned int)sizeof(::hulkfight::motion::FootPivotTrack));
     if (p)
         return (void*)(((Track_17f250*)p)->Init_00170f90());
     return (void*)(0);

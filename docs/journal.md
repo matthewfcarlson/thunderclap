@@ -1824,3 +1824,15 @@ blocks fight::Action's whole family: the records come first there.
   (a data declaration's header, `void* dst`, data.json's GameLanguageName typing), sitecasts was retyped as the tree has
   it (equivalent, with a new must-fail _wrong variant), and objkeep's kept object pointer now ends at the virtual call
   (it pinned the word for every later epoch).
+
+## 2026-11-20 sweep3: gen records completed from their allocations
+- gen's 32-bit size can be wrong in both directions. Below the allocation, most gaps are the last word that no
+  constructor writes, or tUIDs (0x0027af00) and helper objects the constructor builds in place. Above it, the RTTI
+  merge attributed fields to the wrong class: physics::CollisionSphere is 0x78 in gen, but its constructor 0x002efe50
+  writes 0x48 bytes and every allocation is 0x48. Before writing `sizeof(::Gen)`, compare gen's size with the literal.
+- Hand-written constructor views that pad fight::Track's words (`char pad[8]` after the vftable) put the derived
+  fields 4 bytes early natively, because Track's f_04 is a pointer. The 32-bit code is the same, so only a native
+  size probe (xtu alloc rows) shows it.
+- `tree_tu.py pin` with no records resolves an unpinned block by its name. When the block's function moves into a
+  local record, that lookup can pick an inline constructor of another class in the TU. Pass `--records` with the
+  definition's own symbol.

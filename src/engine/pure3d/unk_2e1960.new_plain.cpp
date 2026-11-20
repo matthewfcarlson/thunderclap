@@ -312,7 +312,7 @@ void Loader_2e22c0::FUN_002e22c0(void *a0, Reader *rd, int a2, VecObj *a3, int a
 
     if (w12 == 1) {
         VertexAnimPrimGroup_2e22c0 *N = 0;
-        void *mem = thunk_FUN_0008d690(0x60);
+        void *mem = thunk_FUN_0008d690((unsigned int)sizeof(::pure3d::VertexAnimPrimGroup));
         if (mem != 0)
             N = ((VertexAnimPrimGroup_2e22c0 *)mem)->FUN_002e0760(fr.B);
         void *m30 = FUN_0008d690(0x30);

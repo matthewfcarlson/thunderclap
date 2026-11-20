@@ -553,7 +553,7 @@ PolySkin::PolySkin(const PolySkin* src) : DrawableContainer_2b7e50(src)
             shared->Release();
         shared = s;
         if (src->info != 0) {
-            void* mem = FUN_0008d690(0x14);
+            void* mem = FUN_0008d690((unsigned int)sizeof(::pure3d::BoneMatrixList));
             BoneMatrixList_2b7e50* n = 0;
             if (mem != 0) {
                 n = (BoneMatrixList_2b7e50*)mem;
@@ -583,7 +583,7 @@ PolySkin::PolySkin(const PolySkin* src) : DrawableContainer_2b7e50(src)
         binderShared->Release();
     binderShared = b;
     if (src->binder != 0) {
-        void* mem = FUN_0008d690(0x18);
+        void* mem = FUN_0008d690((unsigned int)sizeof(::pure3d::VertexAnimObject));
         VertexAnimObject_2b7e50* n = 0;
         if (mem != 0) {
             n = (VertexAnimObject_2b7e50*)mem;
@@ -619,7 +619,7 @@ PolySkin::PolySkin(const PolySkin* src) : DrawableContainer_2b7e50(src)
 // 0x002b8020 pure3d::PolySkin::vfunc_4 (31 B): matches/0x002b8020.cpp
 // sym: ?vfunc_4@PolySkin@pure3d@@UAEPAXXZ
 void* pure3d::PolySkin::vfunc_4() {
-    Helper_2b8020* p = (Helper_2b8020*)thunk_FUN_0008d690(0x78);
+    Helper_2b8020* p = (Helper_2b8020*)thunk_FUN_0008d690((unsigned int)sizeof(::pure3d::PolySkin));
     if (p)
         return (void*)(p->Fnf_002b7e50(this));
     return (void*)(0);
