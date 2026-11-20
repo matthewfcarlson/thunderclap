@@ -3,6 +3,7 @@
 #include "tree_prelude.h"
 #include "compat/ptr.h"
 #include "gen/fight.h"
+#include "gen/hulkfight.h"
 #include "gen/owners.h"
 #define TREE_TU_BEGIN namespace fn_f4961c7e {
 #define TREE_TU_END }
@@ -57,7 +58,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::SyncToLoc
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VSyncToLocatorTrack@motion@hulkfight@@@fight@@UAEPAXXZ
 // Same code shape as 0x0006f3d0 (propagated; names are from that function)
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::SyncToLocatorTrack>::vfunc_5() {
-    CGrabTrack_17f010* p = (CGrabTrack_17f010*)FUN_0008d690(0x50);
+    CGrabTrack_17f010* p = (CGrabTrack_17f010*)FUN_0008d690((unsigned int)sizeof(::hulkfight::motion::SyncToLocatorTrack));
     if (p)
         return (void*)(p->init_00170080());
     return (void*)(0);

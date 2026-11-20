@@ -524,8 +524,8 @@ public:
     virtual void vfunc_11(void*); // overrides physics::CollisionVolume slot 11
     virtual void vfunc_14(void*); // overrides physics::CollisionVolume slot 14
     float f_38;
-    char _pad_3c[0x38];
-    void* f_74;
+    float f_3c[3]; // (sweep3) the position again (0x002efe50 writes 0x1c..0x24 and 0x3c..0x44): the object ends at
+                   // 0x48, which every allocation asks for; the RTTI merge had given it a pointer at 0x74
 };
 
 // .?AVCollisionWall@physics@@  vftable 0x43201c (16)

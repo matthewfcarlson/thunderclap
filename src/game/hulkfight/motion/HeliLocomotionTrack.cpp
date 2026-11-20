@@ -3,6 +3,7 @@
 #include "tree_prelude.h"
 #include "compat/ptr.h"
 #include "gen/fight.h"
+#include "gen/hulkfight.h"
 #include "gen/owners.h"
 #define TREE_TU_BEGIN namespace fn_f9bc2ae8 {
 #define TREE_TU_END }
@@ -64,7 +65,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::HeliLocom
 // 0x00165180 fight::TrackFactoryTemplate<hulkfight::motion::HeliLocomotionTrack>::vfunc_5 (27 B): matches/0x00165180.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VHeliLocomotionTrack@motion@hulkfight@@@fight@@UAEPAXXZ
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::HeliLocomotionTrack>::vfunc_5() {
-    Product* p = (Product*)FUN_0008d690(0xd8);
+    Product* p = (Product*)FUN_0008d690((unsigned int)sizeof(::hulkfight::motion::HeliLocomotionTrack));
     if (p)
         return (void*)(p->Initialize_0015bc90());
     return (void*)(0);

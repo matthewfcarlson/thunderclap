@@ -3937,6 +3937,38 @@ public:
     void FUN_0015bde0(); // non-virtual
     float f_0c;
     float f_10;
+    // (sweep3) the words its fight::Param setters store (HeliLocomotionTrack's registrations) and its constructor
+    // 0x0015bc90 initializes; new allocates 0xd8 bytes (0x00165180)
+    float f_14; // acceleration
+    float f_18; // velocity
+    float f_1c; // turnAcceleration
+    float f_20; // turnVelocity
+    float f_24[4]; // tiltX desired at rest / at max speed, min, max
+    float f_34; // tiltXMomentOfInertia
+    float f_38; // tiltXSpringConstant
+    float f_3c; // tiltXDampingConstant
+    float f_40[3]; // tiltXInertiaPoint
+    float f_4c[4]; // tiltZ desired at rest / at max speed, min, max
+    float f_5c; // tiltZMomentOfInertia
+    float f_60; // tiltZSpringConstant
+    float f_64; // tiltZDampingConstant
+    float f_68[3]; // tiltZInertiaPoint
+    float f_74[3]; // minimum
+    float f_80[3]; // maximum
+    int f_8c; // priority
+    float f_90; // blendInTime
+    float f_94; // blendOutTime
+    float f_98; // riseUpSmoothingConstant
+    int f_9c; // nothing writes it
+    unsigned int f_a0[2]; // riseUpJoint, a tUID (0x0027af00)
+    float f_a8; // riseUpRayLength
+    float f_ac[3]; // riseUpOffset
+    float f_b8; // riseUpVelocity
+    float f_bc; // riseUpBoostAcceleration
+    float f_c0; // riseUpBoostXMax
+    float f_c4; // riseUpDecay
+    float f_c8; // riseUpDecayCutOff
+    float f_cc[3]; // riseUpDifference
 };
 
 // .?AVHitDamageAction@motion@hulkfight@@  vftable 0x414644 (6)
@@ -4424,9 +4456,13 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_1c[0x4];
+    void* f_1c; // (sweep3) the action's data (a pointer: its methods read through it)
     void* f_20;
     void* f_24;
+    float f_28[3]; // (sweep3, the methods 0x001712c0 / 0x00173ca0) the side vector
+    float f_34[3]; // the axis
+    float f_40[16]; // a matrix
+    void* f_80; // a held reference (the destructor 0x00173c50 releases it); new allocates 0x84 bytes (0x0017b170)
 };
 
 // .?AVJointPivotTrackerTrack@motion@hulkfight@@  vftable 0x417b98 (11)
@@ -4477,9 +4513,14 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
     virtual bool vfunc_5(hulk_intptr, int); // overrides fight::Action slot 5
-    char _pad_1c[0x4];
+    void* f_1c; // (sweep3) the action's data (a pointer: its methods read through it)
     void* f_20;
     void* f_24;
+    float f_28[4]; // (sweep3, the methods 0x001714b0 / 0x001716c0) the joint's start rotation (a quaternion)
+    float f_38[3]; // its start position
+    float f_44[4]; // the end rotation
+    float f_54[3]; // the end position
+    float f_60; // the elapsed time; new allocates 0x64 bytes (0x0017b1e0)
 };
 
 // .?AVJointRelativeTrack@motion@hulkfight@@  vftable 0x417958 (11)
@@ -5834,8 +5875,16 @@ public:
     float f_10;
     float f_14;
     float f_18;
-    char _pad_1c[0xc];
-    void* f_28;
+    char _pad_1c[0x4];
+    unsigned int f_20[2]; // (sweep3) "locatorName", a tUID (0x0027af00; ParamName 0x0016ecc0)
+    void* f_28; // "locatorInitScript": the copied string 0x00170130 allocates (the destructor frees it)
+    int f_2c; // its length (0x00170130)
+    int f_30; // "rotationOverride" (ParamEnumConstList, 0x0016ed00)
+    float f_34; // "orientOffset" in radians (0x0016ed20)
+    float f_38[3]; // "positionOffset" (ParamVector, 0x0016ed60)
+    int f_44; // "priority" (ParamIntConstRange 0x0016ed90; the constructor 0x00170080 sets -5)
+    float f_48; // "blendInTime" (0x0016edb0)
+    float f_4c; // "blendOutTime" (0x0016edd0); new allocates 0x50 bytes (0x0017f010)
 };
 
 // .?AVTankLocomotionAction@motion@hulkfight@@  vftable 0x41af68 (6)
