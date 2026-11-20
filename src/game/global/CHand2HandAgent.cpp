@@ -847,7 +847,7 @@ CHand2HandAgent* CHand2HandAgent::vfunc_2(unsigned char param) {
 } // namespace fn_f3aa029d
 
 // 0x000ffef0 CHand2HandAgent::vfunc_14 (1731 B): equivalent/0x000ffef0.cpp [wrapped: macros]
-// sym: ?vfunc_14@CHand2HandAgent@fn_000ffef0@@UAEXPAUEnv@2@H@Z @64f4e53a40c9 @wf59fc56b577e
+// sym: ?vfunc_14@CHand2HandAgent@fn_000ffef0@@UAEXPAUEnv@2@H@Z @67dc424b1276 @w3f89337986d8 @v567883bbefda
 namespace fn_000ffef0 {
 // STATUS: equivalent (tools/equiv.py level 3: 927 inputs, branch coverage 122/122)
 // CHand2HandAgent::vfunc_14 @ 0x000ffef0
@@ -1035,7 +1035,9 @@ void CHand2HandAgent::vfunc_14(Env *env, int unused)
     f.v.z = fa4.z - f88.z;
     fbc.z = f.v.z;
     fbc.y = 0.0f;
-    fc8 = (float)sqrt(fbc.x * fbc.x + fbc.y * fbc.y + fbc.z * fbc.z);
+    // the length from the stored (rounded) components: MSVC would reuse the unrounded x still in st
+    volatile float *b = &fbc.x;
+    fc8 = (float)sqrt(b[0] * b[0] + b[1] * b[1] + b[2] * b[2]);
     fbc.FUN_0022d110();
     bd2 = c2->b9e;
     if (f70 > 0.0f && f70 <= 2.0f)

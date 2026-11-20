@@ -481,7 +481,7 @@ void AnimationDriver_2251d0::run(Input_2251d0* input, void* a, void* b, Vec_2251
 
 
 // 0x00225300 choreo2::AnimationDriver::vfunc_10 (928 B): equivalent/0x00225300.cpp
-// sym: ?vfunc_10@AnimationDriver@fn_fe002747@@UAEXPAVPose@2@0PAUPoseData_225300@2@M@Z @57eadab2eaed @w890aaddf25b5
+// sym: ?vfunc_10@AnimationDriver@fn_fe002747@@UAEXPAVPose@2@0PAUPoseData_225300@2@M@Z @7b4a02f0067e @wc2b4afe0c506 @v6c013dd63660
 // STATUS: equivalent (tools/equiv.py level 3: 62 inputs, branch coverage 21/22, incomplete)
 // choreo2::AnimationDriver::vfunc_10 @ 0x00225300
 void AnimationDriver::vfunc_10(Pose* from, Pose* to, PoseData_225300* data, float t)
@@ -516,11 +516,13 @@ void AnimationDriver::vfunc_10(Pose* from, Pose* to, PoseData_225300* data, floa
             f.tgt.y = f.tgt.y + from->position.y;
             f.tgt.z = f.tgt.z + from->position.z;
             double u = 1.0f - t;
+            // cur.y goes through its (rounded) slot: MSVC would otherwise reuse the unrounded product in st
+            volatile float *cy = &f.cur.y;
             double cx = f.cur.x * u;
-            f.cur.y = f.cur.y * u;
+            *cy = *cy * u;
             f.cur.z = f.cur.z * u;
             f.cur.x = f.tgt.x * t + cx;
-            f.cur.y = f.tgt.y * t + f.cur.y;
+            *cy = f.tgt.y * t + *cy;
             f.cur.z = f.tgt.z * t + f.cur.z;
             ((owners::Target_22be40 *)to)->FUN_0022be40((const int *)(Vec3_225300 *)(&f.cur));
         }

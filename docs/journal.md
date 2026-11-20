@@ -1884,3 +1884,21 @@ blocks fight::Action's whole family: the records come first there.
 - data_gen: a config/data-items.json type `struct NAME *` makes the item a pointer to the forward-declared record in
   the generated header (record_ptr_type); DAT_00527c58 is `struct HulkContentRegistry*` (recs1: 0x002407a0's
   x64 `int` class). Opt-in by that spelling only, so source votes (`LoaderRegistry *`) never turn an item into one.
+
+## 2026-11-19 fix126 (D126/D146): four more float blocks; a preloaded virtual slot (include/compat/hulk_vslot.h)
+
+- Float blocks:
+  - 0x000ffef0: the length comes from the stored, rounded fbc words. MSVC 7.1 had reused the unrounded x still in
+    st; volatile reads stop that.
+  - 0x00225300: cur.y goes through its rounded slot.
+  - 0x0010a040: the third length, d3, is compared from st.
+  - 0x002a5fd0: the inlined Clamp01 takes and returns hulk_freg. v3 is float: the original spills it like v0-v2.
+- D146, 0x000bd1b0: the original loads the device's vftable before the viewport's slot 16 (impure in some
+  implementations). It then re-reads the device and calls slot 28 of the table it loaded: old table, new object.
+  - `hulk_slot<F>(vt, k)` reads slot k as a member-function pointer. Under the MS ABI, a complete single-inheritance
+    class's member pointer is one code pointer; a size check guards that.
+  - `hulk_vcallN<F>(&objptr, vt, k, args...)` reads the object and the slot only after the arguments are evaluated.
+    clang evaluates `(obj->*m)` before its arguments.
+  - MSVC 7.1 inlines it to the original's `call [edi+0x70]`.
+- 0x00264050 uses the same helper. Its MSVC proof waits for integ3's thiscallpend extension: MSVC pushes Read's
+  constant argument after FUN_0026fd50, not before slot 16 as the original does.

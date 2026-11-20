@@ -345,7 +345,7 @@ bool __stdcall FUN_00109df0(Context* ctx, Vec3_109df0* from, Vec3_109df0* to, in
 } // namespace fn_f710b797
 
 // 0x0010a040 CAvoidBehaviour::vfunc_3 (2639 B): equivalent/0x0010a040.cpp [wrapped: conflict: CAvoidBehaviour; World]
-// sym: ?vfunc_3@CAvoidBehaviour@fn_0010a040@@UAEDPAUOwner_10a040@2@PAUStats_10a040@2@PAUV3_10a040@2@MD@Z @bc5c23fa7754 @w53d78b48517e
+// sym: ?vfunc_3@CAvoidBehaviour@fn_0010a040@@UAEDPAUOwner_10a040@2@PAUStats_10a040@2@PAUV3_10a040@2@MD@Z @bc5c23fa7754 @w5af181b250df @vfb9506f4177f
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)
@@ -535,7 +535,7 @@ char CAvoidBehaviour::vfunc_3(Owner_10a040 *owner, Stats_10a040 *st, V3_10a040 *
     f.f84 = f.f8;
     if (!(B > f2c))
         B = f2c;
-    float R = B * C;
+    hulk_freg R = B * C;  // compared from st (D80)
     if (R < f.f8)
         f.M = f.f8;
     else
@@ -561,8 +561,9 @@ char CAvoidBehaviour::vfunc_3(Owner_10a040 *owner, Stats_10a040 *st, V3_10a040 *
     f.v40.y = 0;
     if (f.v40.FUN_0022d110() == 0.0f)
         return false;
-    f30 = f30 - dt;
-    if (f30 > 0.0f && !flag && (!f.flagA || b34)) {
+    hulk_freg t30 = f30 - dt;  // stored, then compared from st
+    f30 = t30;
+    if (t30 > 0.0f && !flag && (!f.flagA || b34)) {
         *out = v1c;
         return b34;
     }
@@ -668,10 +669,11 @@ char CAvoidBehaviour::vfunc_3(Owner_10a040 *owner, Stats_10a040 *st, V3_10a040 *
 
     f.f112 = f.f4 / f.M;
     f.f8 = 0.1f;
-    f2c = FUN_00018710(&f.f112, &f.f8);
+    hulk_freg q = FUN_00018710(&f.f112, &f.f8);  // stored, and used from st
+    f2c = q;
     f.v52 = f.v40;
     f.v64 = f.v40;
-    f.f8 = (1.0f - f2c) * 0.785398185f + 0.261799395f;
+    f.f8 = ((hulk_freg)1.0f - q) * 0.785398185f + 0.261799395f;
     FUN_00224d70(-f.f8, &f.v64);
     FUN_00224d70(f.f8, &f.v52);
     f.f112 = f.M * 0.5f;
@@ -716,7 +718,7 @@ char CAvoidBehaviour::vfunc_3(Owner_10a040 *owner, Stats_10a040 *st, V3_10a040 *
             f.v16.x = f.v144.x - f.P.x;
             f.v16.y = f.v144.y - f.P.y;
             f.v16.z = f.v144.z - f.P.z;
-            float d3 = f.v16.FUN_000111f0();
+            hulk_freg d3 = f.v16.FUN_000111f0();  // compared from st (D80)
             if (f.f8 > f.f4 && f.f8 > d3 && b34)
                 *out = v1c;
             else if (f.f4 > d3)
@@ -728,16 +730,16 @@ char CAvoidBehaviour::vfunc_3(Owner_10a040 *owner, Stats_10a040 *st, V3_10a040 *
         *out = f.v64;
     } else {
         if (st->f1d00 * 0.5f > f.f4)
-            f.f4 = f.v100.z * f.v40.x - f.v100.x * f.v40.z;
+            f.f4 = (hulk_freg)f.v100.z * f.v40.x - (hulk_freg)f.v100.x * f.v40.z;  // products in st (D80)
         else
-            f.f4 = f.v100.z * v10.x - f.v100.x * v10.z;
+            f.f4 = (hulk_freg)f.v100.z * v10.x - (hulk_freg)f.v100.x * v10.z;
         if (f.f4 != 0.0f && !f.v100.FUN_0022d2b0(&f.v88, 1e-05f)) {
             if (f.f4 > 0.0f)
                 *out = f.v52;
             else
                 *out = f.v64;
         } else {
-            if (f.v168.z * f.v40.x - f.v168.x * f.v40.z > 0.0f)
+            if ((hulk_freg)f.v168.z * f.v40.x - (hulk_freg)f.v168.x * f.v40.z > 0.0f)
                 *out = f.v64;
             else
                 *out = f.v52;

@@ -870,7 +870,7 @@ void FUN_002a5df0(Anim_2a5df0 *obj, int a2, int a3, int a4)
 } // namespace fn_fa65e9c0
 
 // 0x002a5fd0 FUN_002a5fd0 (1320 B): equivalent/0x002a5fd0.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?FUN_002a5fd0@fn_002a5fd0@@YAXMPAUSrcMesh@1@PAUDstMesh@1@IPAUParams@1@@Z @85371c5e39ad @w21b5b194f296
+// sym: ?FUN_002a5fd0@fn_002a5fd0@@YAXMPAUSrcMesh@1@PAUDstMesh@1@IPAUParams@1@@Z @85371c5e39ad @w320688e1ccfc @v9f00643d050b
 namespace fn_002a5fd0 {
 // STATUS: equivalent (tools/equiv.py level 3: 84 inputs, branch coverage 42/42)
 // FUN_002a5fd0 @ 0x002a5fd0
@@ -916,7 +916,8 @@ struct Params {
     float uvScale;
 };
 
-static float Clamp01(float v)
+// inlined in the original: the sum it is given and its result stay in st (D80)
+static hulk_freg Clamp01(hulk_freg v)
 {
     if (v >= 0.0f && v <= 1.0f)
         return v;
@@ -1026,7 +1027,7 @@ void FUN_002a5fd0(float t, SrcMesh *a, DstMesh *b, unsigned int flags, Params *c
             f.v2 = (float)(int)ch2 * k;
             f.v1 = (float)(int)ch1 * k;
             f.v0 = (float)(int)ch0 * k;
-            hulk_freg v3 = (float)(int)ch3 * k;
+            float v3 = (float)(int)ch3 * k;   // spilled to a float slot ([esp+0x10]) like v0-v2
             f.wb4.x = f.tp;
             f.wb4.y = f.v1;
             f.wb4.z = f.v0;

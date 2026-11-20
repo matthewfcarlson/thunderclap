@@ -664,7 +664,7 @@ void Menu_bcf40::FUN_000bcf40(hulk_intptr who) {
 
 
 // 0x000bd1b0 FUN_000bd1b0 (2851 B): equivalent/0x000bd1b0.cpp [wrapped: conflict: FUN_000fc1b0; World]
-// sym: ?FUN_000bd1b0@Menu_bd1b0@fn_000bd1b0@@QAEXE@Z @29b434f17a63 @w8c18c6fe6563
+// sym: ?FUN_000bd1b0@Menu_bd1b0@fn_000bd1b0@@QAEXE@Z @df360f4d706c @we90ff5757837 @vb720843f5ce3
 namespace fn_000bd1b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20098 inputs, branch coverage 78/80, incomplete)
 // FUN_000bd1b0 @ 0x000bd1b0
@@ -801,7 +801,7 @@ public:
     virtual void v27();
     virtual void v28(float a, float b, float c, float d);
     virtual void v29();
-    virtual struct Mesh_bd1b0 *v30(int handle, int a, int b, int c, int d);
+    virtual struct Mesh_bd1b0 *v30(hulk_intptr handle, int a, int b, int c, int d);   // a pointer (the shader) natively
     virtual void v31(struct Mesh_bd1b0 *m);
     virtual void v32();
     virtual void v33();
@@ -1004,6 +1004,9 @@ public:
     void FUN_000bd1b0(unsigned char flag);
 };
 
+#include "compat/hulk_vslot.h"
+typedef void (Gfx::*V28_bd1b0)(float a, float b, float c, float d);   // Gfx's slot 28 (v28)
+
 void Menu_bd1b0::FUN_000bd1b0(unsigned char flag)
 {
     Frame_bd1b0 f;
@@ -1033,7 +1036,13 @@ void Menu_bd1b0::FUN_000bd1b0(unsigned char flag)
             f.saved61 = DAT_0052c2a8->v61();
             DAT_0052c2a8->v60(1);
             p20->FUN_00293ef0();
-            DAT_0052c2a8->v28(0.1f, 10000.0f, 0.5235988f, (*(Viewport_bd1b0**)&DAT_0052c2a4)->v16());
+            {
+                // (fix126, D146) the original loads the device's vftable before the viewport's slot 16 (impure in
+                // some implementations), then re-reads the device and calls slot 28 of the table it loaded
+                void* const* vt = *(void* const**)DAT_0052c2a8;
+                hulk_vcall4<V28_bd1b0>((Gfx* const*)&DAT_0052c2a8, vt, 28, 0.1f, 10000.0f, 0.5235988f,
+                                       (float)(*(Viewport_bd1b0**)&DAT_0052c2a4)->v16());
+            }
             DAT_0052c2a8->v12(7);
             char *id = p34->FUN_0008a2d0();
             f.s8 = (hulk_intptr)id;
