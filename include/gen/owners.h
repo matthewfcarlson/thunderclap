@@ -4718,8 +4718,8 @@ struct C_f7220 {
     hulk_intptr FUN_000f7220(hulk_intptr index);
 };
 // matches/0x000f72c0.cpp (stub Obj_f72c0), size 0x1c (0x20)
-struct Obj_f72c0 {
-    char pad[0x18]; // +0x00
+struct Obj_f72c0 {   // (gfx1) the string table (decls/fe_strings.h): its words up to the keys, pointers where it has them
+    void* pool; int poolCapacity, used; void* strings; int maxStrings, count; // +0x00 (the keys natively at +0x20)
     unsigned long* data; // +0x18
     unsigned long long FUN_000f72c0(int index);
 };

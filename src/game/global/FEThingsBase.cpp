@@ -182,7 +182,7 @@ public:
 struct Item_e5330 { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11(); virtual void update(); };
 struct Link_e5330 { void FUN_000fb640(void*, void*, unsigned int); };
 struct Entry_e5330 { char prefix[0xb0]; Link_e5330* links[12]; char data[4]; };
-struct Owner_e5330 { char pad[0x17f8]; unsigned int index; };
+struct Owner_e5330 { char pad[HULK_FE_SPAN(0x0, 0x17f8)]; unsigned int index; };   // (recs1) FEThings f_17f8 (was [0x17f8])
 struct Target_e5330 {
  virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void finishOne(); virtual void finishTwo();
  Owner_e5330* owner; char pad0[0x44]; Item_e5330* items[128]; char pad1[0x200]; Entry_e5330* entries[128]; char pad2[0x42c]; unsigned int mode;
@@ -556,7 +556,7 @@ struct Item_e6530 {
     char name[1];
 };
 struct FEThingsBase_e6530 {
-    char pad[0x160c];
+    char pad[HULK_FE_SPAN(0x0, 0x160c)];   // (recs1) FEThings' table at 0x160c (was [0x160c])
     Item_e6530* items[64];
     Item_e6530* Find(const char* s);
 };
@@ -650,7 +650,7 @@ struct Entry_e67b0 {
 };
 void* __cdecl FUN_0008d690(unsigned int size);
 struct Registry_e67b0 {
- char padding[0x160c];
+ char padding[HULK_FE_SPAN(0x0, 0x160c)];   // (recs1) FEThings' table at 0x160c (was [0x160c])
  Entry_e67b0* entries[64];
  Entry_e67b0* findOrCreate(const char* name);
 };

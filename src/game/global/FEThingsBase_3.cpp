@@ -10,6 +10,7 @@
 #include "gen/global.h"
 #include "gen/owners.h"
 #include "decls/fe_callbacks.h"   // (recs1, find2 G13)
+#include "decls/fe_strings.h"   // (gfx1) the front end's string table
 #define TREE_TU_BEGIN namespace fn_f5892d97 {
 #define TREE_TU_END }
 namespace fn_f5892d97 {} using namespace fn_f5892d97;
@@ -666,8 +667,7 @@ struct T_f6ef0 {
     int X_f6ef0();
     int m[0x100];
 };
-struct X_f6ef0 {
-    int w[0x48];
+struct X_f6ef0 : HulkFEStringTable {   // (gfx1) on the record (was int w[0x48]: natively its pointers are 8 bytes)
     X_f6ef0();
 };
 extern void __cdecl R0_0008d340(void*);
@@ -679,27 +679,14 @@ class Item_f6f60 {
     virtual void A();
     virtual void B();
 };
-class Owner_f6f60 {
+class Owner_f6f60 : public HulkFEStringTable {   // (gfx1) on the record (was 32-bit pads)
   public:
-    void* p0;
-    char a[8];
-    void* pC;
-    char b[8];
-    void* p18;
-    char c[8];
-    Item_f6f60* items[25];
-    int count;
-    char d[0x90];
-    void* p11c;
     void Clear();
 };
 extern "C" void* __cdecl allocbuf_0008d6d0(int);
 extern "C" void __cdecl freebuf(void*);
-class Buffer_f6ff0 {
+class Buffer_f6ff0 : public HulkFEStringTable {   // (gfx1) the record's text pool
   public:
-    void* data;
-    int capacity;
-    int size;
     void Reserve(int n);
 };
 class Stream {
@@ -712,23 +699,14 @@ union BufferSlot {
     unsigned short* buffer;
     unsigned short ch;
 };
-class Thing_f7110 {
-  public:
-    char pad[0x14];
-    int a;
-    char pad2[8];
-    int b;
+class Thing_f7110 : public HulkFEStringTable {   // (gfx1) on the record (count, hashCount)
 };
 extern "C" const char* __cdecl FUN_000f7120(int key);
 struct KeyEntry {
     unsigned int lo, hi;
 };
-class KeyTable_f7240 {
+class KeyTable_f7240 : public HulkFEStringTable {   // (gfx1) the record's keys (hashes, hashCount)
 public:
-    char pad00[0x18];
-    KeyEntry *entries;
-    char pad1c[4];
-    int count;
     int FUN_000f7240(unsigned int lo, unsigned int hi);
 };
 typedef unsigned short ushort_f7810;
@@ -738,11 +716,8 @@ class Item_f7850 {
     virtual void f0();
     virtual void Release();
 };
-class Owner_f7850 {
+class Owner_f7850 : public HulkFEStringTable {   // (gfx1) on the record (items, itemCount)
   public:
-    char pad[0x24];
-    Item_f7850* items[25];
-    int count;
     void Cleanup();
 };
 struct Item_f78f0 {
@@ -2944,7 +2919,7 @@ public:
     void* f1a5c[2];                 // 0x1a5c
     char pad1a64[0x1c64 - 0x1a64];
     void* f1c64[2];                 // 0x1c64
-    int f1c6c[2];                   // 0x1c6c
+    void* f1c6c[2];                 // 0x1c6c (gfx1) pointers, as gen's (an int pair put every later word 8 bytes early natively)
     char pad1c74[0x2074 - 0x1c74];
     char f2074;
     char pad2075[3];
@@ -5354,7 +5329,7 @@ namespace content { struct LoadInventory { template <class T> struct DynamicCast
 typedef unsigned __int64 Key_f5130;
 struct Inventory_f5130 { virtual void Slot0(); virtual void Slot1(); virtual void Slot2(); virtual pure3d::MultiController* Find(void*, Key_f5130); };
 void __cdecl FUN_000f6410(pure3d::MultiController*, void*);
-struct Object { char pad[0x1c64]; pure3d::MultiController* controllers[2]; char gap[8]; char names[2][256]; char gap2[0x2105-0x1e74]; char name[1]; void Run(const char*, const char*); };
+struct Object { char pad[HULK_FE_SPAN(0x0, 0x1c64)]; pure3d::MultiController* controllers[2]; void* gap[2]; char names[2][256]; char gap2[HULK_FE_SPAN(0x1e74, 0x2105)]; char name[1]; void Run(const char*, const char*); };   // (recs1) FEThings f_1c64 .. f_2105 (were 32-bit pads; gap: f_1c6c, two pointers)
 template <> inline content::LoadInventory::DynamicCaster<pure3d::MultiController>::DynamicCaster() { vftable = DAT_0040cb3c; }
 template <> inline content::LoadInventory::DynamicCaster<pure3d::Scenegraph>::DynamicCaster() { vftable = DAT_0040cb34; }
 void Object::Run(const char* a, const char* b) {
@@ -6777,46 +6752,46 @@ namespace fn_f5892d97 {
 // data: g_one_f6ef0 = DAT_004a1734
 X_f6ef0::X_f6ef0() {
     int one = DAT_004a1734;
-    w[0x22] = 0;
-    w[0] = 0;
-    w[1] = 0;
-    w[2] = 0;
-    w[3] = 0;
-    w[0x47] = 0;
-    w[4] = 0;
-    w[6] = 0;
-    w[7] = 0;
-    w[8] = 0;
-    w[5] = 0;
-    *(char*)&w[0x23] = 0;
-    w[0x43] = 0;
-    *(char*)&w[0x44] = 0;
-    w[0x45] = 0;
-    w[0x46] = one;
-    w[9] = 0;
-    w[10] = 0;
-    w[11] = 0;
-    w[12] = 0;
-    w[13] = 0;
-    w[14] = 0;
-    w[15] = 0;
-    w[16] = 0;
+    itemCount = 0;
+    pool = 0;
+    poolCapacity = 0;
+    used = 0;
+    strings = 0;
+    f11c = 0;
+    maxStrings = 0;
+    hashes = 0;
+    maxHashes = 0;
+    hashCount = 0;
+    count = 0;
+    text[0] = 0;
+    f10c = 0;
+    f110 = 0;
+    f114 = 0;
+    f118 = one;
+    items[0] = 0;
+    items[1] = 0;
+    items[2] = 0;
+    items[3] = 0;
+    items[4] = 0;
+    items[5] = 0;
+    items[6] = 0;
+    items[7] = 0;
 }
 
 
 // 0x000f6f60 FUN_000f6f60 (121 B): matches/0x000f6f60.cpp
 // sym: ?Clear@Owner_f6f60@fn_f5892d97@@QAEXXZ
 void Owner_f6f60::Clear() {
-    if (p0)
-        R0_0008d340(p0);
-    if (p11c)
-        R1_0008d330(p11c);
-    if (pC)
-        R2_0008d340(pC);
-    if (p18)
-        R3_0008d340(p18);
-    for (int i = 0; i < count; ++i) {
-        Item_f6f60* q = items[i];
+    if (pool)
+        R0_0008d340(pool);
+    if (f11c)
+        R1_0008d330(f11c);
+    if (strings)
+        R2_0008d340(strings);
+    if (hashes)
+        R3_0008d340(hashes);
+    for (int i = 0; i < itemCount; ++i) {
+        Item_f6f60* q = (Item_f6f60*)items[i];
         if (q) {
             q->B();
             items[i] = 0;
@@ -6837,15 +6812,15 @@ namespace fn_f5892d97 {
 // 0x000f6ff0 FUN_000f6ff0 (83 B): matches/0x000f6ff0.cpp
 // sym: ?Reserve@Buffer_f6ff0@fn_f5892d97@@QAEXH@Z
 void Buffer_f6ff0::Reserve(int n) {
-    if (n > capacity) {
-        void* old = data;
+    if (n > poolCapacity) {
+        void* old = pool;
         void* fresh = allocbuf_0008d6d0(n * 2);
-        data = fresh;
+        pool = (unsigned short*)fresh;
         if (old) {
-            memcpy(fresh, old, size * 2);
+            memcpy(fresh, old, used * 2);
             ::operator delete[](old);
         }
-        capacity = n;
+        poolCapacity = n;
     }
 }
 
@@ -6895,8 +6870,8 @@ unsigned short* __stdcall FUN_000f7080(BufferSlot slot, int count, Stream* strea
 // 0x000f7110 FUN_000f7110 (9 B): matches/0x000f7110.cpp
 // sym: ?FUN_000f7110@fn_f5892d97@@YIXPAVThing_f7110@1@@Z
 void __fastcall FUN_000f7110(Thing_f7110* self) {
-    self->a = 0;
-    self->b = 0;
+    self->count = 0;
+    self->hashCount = 0;
 }
 
 
@@ -6938,10 +6913,10 @@ int KeyTable_f7240::FUN_000f7240(unsigned int lo, unsigned int hi)
     } platform;
     int found = -1;
     platform.q = FUN_002672f0("_XBOX", lo, hi);
-    int n = count;
+    int n = hashCount;
     for (int i = 0; i < n; i++) {
-        unsigned int elo = entries[i].lo;
-        unsigned int ehi = entries[i].hi;
+        unsigned int elo = ((KeyEntry*)hashes)[i].lo;
+        unsigned int ehi = ((KeyEntry*)hashes)[i].hi;
         if (platform.w[0] == elo && platform.w[1] == ehi)
             return i;
         if (lo == elo && hi == ehi)
@@ -7057,8 +7032,8 @@ extern "C" void FUN_000f7810(const ushort_f7810* src, uchar_f7810* dst) {
 // sym: ?Cleanup@Owner_f7850@fn_f5892d97@@QAEXXZ
 void Owner_f7850::Cleanup() {
     int i = 0;
-    if (count > 0) {
-        Item_f7850** p = items;
+    if (itemCount > 0) {
+        Item_f7850** p = (Item_f7850**)items;
         do {
             if (*p != 0) {
                 (*p)->Release();
@@ -7066,7 +7041,7 @@ void Owner_f7850::Cleanup() {
             }
             ++i;
             ++p;
-        } while (i < count);
+        } while (i < itemCount);
     }
 }
 

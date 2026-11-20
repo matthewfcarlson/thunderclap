@@ -2105,7 +2105,7 @@ namespace fn_000ef610 {
 // FUN_000ef610 @ 0x000ef610
 struct TimerState { int state; bool FUN_000fb4b0(float dt); };
 struct Entry_ef610 { char pad[0xe0]; TimerState timer; };
-struct Context { char pad[0x17f8]; int flag; };
+struct Context { char pad[HULK_FE_SPAN(0x0, 0x17f8)]; int flag; };   // (recs1) FEThings f_17f8 (was [0x17f8])
 extern float (__fastcall *DAT_004de948)(void*);
 struct Object {
  virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9();

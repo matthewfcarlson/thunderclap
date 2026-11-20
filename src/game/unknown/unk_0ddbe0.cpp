@@ -7,6 +7,7 @@
 #include "gen/owners.h"
 #include "decls/view.h"   // (recs1) pure3d::View
 #include "decls/fethings.h"   // (recs1) FEThings views
+#include "decls/fe_strings.h"   // (gfx1) the widget: the string table
 #define TREE_TU_BEGIN namespace fn_f683177d {
 #define TREE_TU_END }
 namespace fn_f683177d {} using namespace fn_f683177d;
@@ -266,7 +267,7 @@ FEThings::FEThings(View_ddbf0* existing)
     dir.z = 1.0f;
     camera->FUN_00293a90(&dir);
     screen->FUN_00294980(camera);
-    void* wmem = FUN_0008d690(0x120);
+    void* wmem = FUN_0008d690(sizeof(HulkFEStringTable));   // (gfx1) the string table (0x120 on the 32-bit builds)
     if (wmem != 0)
         widget = ((Widget_ddbf0*)wmem)->FUN_000f6ef0();
     else
