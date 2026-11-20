@@ -25,7 +25,7 @@ class Obj_23830 {
 typedef unsigned int U_238b0;
 typedef unsigned __int64 U64_238b0;
 } // namespace fn_f88922b7
-extern U64_238b0 __cdecl FUN_0027b020(U_238b0);
+extern "C" U64_238b0 __cdecl FUN_0027b020(hulk_intptr);   // (decl1) as defined (Entity.cpp)
 namespace fn_f88922b7 {
 class Obj_23c50 {
   public:

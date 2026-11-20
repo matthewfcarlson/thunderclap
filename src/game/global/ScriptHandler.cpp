@@ -19,9 +19,9 @@ namespace fn_f55829c3 {} using namespace fn_f55829c3;
 // ---- declarations shared by the functions below
 namespace fn_f55829c3 {
 extern "C" float __cdecl FUN_00339f40(LuaVMState* L, int narg, float def);
-extern "C" void* __cdecl FUN_00213d30(LuaVMState* L, unsigned int size);
-extern "C" void __cdecl FUN_00338f30(LuaVMState* L, const char* tname);
-extern "C" int __cdecl FUN_002138e0(LuaVMState* L, int objindex);
+extern "C" void* __cdecl FUN_00213d30(LuaVMState*, unsigned int);   // (decl1) as defined (lapi.cpp)
+extern "C" void __cdecl FUN_00338f30(LuaVMState*, const char*);   // (decl1) as defined (lauxlib.cpp)
+extern "C" int __cdecl FUN_002138e0(LuaVMState*, int);   // (decl1) as defined (lapi.cpp)
 extern "C" void* __cdecl FUN_00213260(LuaVMState*, int);
 extern "C" void __cdecl FUN_002136d0(LuaVMState*, int);
 extern "C" void __cdecl FUN_00212ed0(LuaVMState*, int);
@@ -34,7 +34,7 @@ extern "C" void __cdecl FUN_002133d0(LuaVMState*, const char*);
 extern "C" void __cdecl FUN_00213c40(LuaVMState*);
 extern "C" void __cdecl FUN_00339d70(LuaVMState* L, int a, int b);
 extern "C" void __cdecl FUN_00213380(LuaVMState* L, const char* msg, unsigned int len);
-extern "C" void __cdecl FUN_003390d0(LuaVMState* L, const char* libname, const LuaVMReg* l, int nup);
+extern "C" void __cdecl FUN_003390d0(LuaVMState*, const char*, const LuaVMReg*, int);   // (decl1) as defined (lauxlib.cpp)
 extern "C" void __cdecl FUN_00212d80(LuaVMState* L, int idx);
 extern "C" int __cdecl FUN_00338eb0(LuaVMState* L, const char* tname);
 extern "C" void __cdecl FUN_00213800(LuaVMState* L, int idx);
@@ -114,7 +114,7 @@ extern "C++" __declspec(nothrow) const char* __cdecl FUN_00213190(void*, int);
 extern "C++" __declspec(nothrow) void __cdecl FUN_00212d80(void*, int);
 extern "C" void __cdecl FUN_00339710(LuaVMState* L, int t, int ref);
 extern "C" void __cdecl FUN_00213640(LuaVMState*, int, int);
-extern "C" void FUN_00267760(char* buffer, unsigned int size, const char* format, ...);
+extern "C" int __cdecl FUN_00267760(char* buf, int size, const char* fmt, ...);   // (decl1) as defined (unk_267280.cpp)
 struct Owner_1d1a70 : public ScriptHandlerFields {
     virtual void v0();
     bool FUN_001d1a70(float*);
@@ -188,7 +188,7 @@ class C_1d26d0 : public ScriptHandlerFields {
     virtual void v0();
     void g(hulk_uintptr, B_1d26d0*);
 };
-extern "C" void __cdecl FUN_002151e0(LuaVMState* L);
+extern "C" void __cdecl FUN_002151e0(LuaVMState*);   // (decl1) as defined (lstate.cpp)
 class Obj_1d2700 : public ScriptHandlerFields {
   public:
     virtual void v0();
@@ -215,7 +215,7 @@ struct Object : public ScriptHandlerFields {
  bool target(const char* key, int mode, bool retry);
 };
 extern "C" void __cdecl FUN_00213360(LuaVMState*, int);
-extern void __cdecl F4_00267760(char*, int, const char*, const char*);
+extern "C" int __cdecl FUN_00267760(char* buf, int size, const char* fmt, ...);   // (decl1) as defined (unk_267280.cpp)
 class Obj_1d3030 : public ScriptHandlerFields {
   public:
     virtual void v0();
@@ -481,9 +481,9 @@ extern "C" int __cdecl FUN_001d07b0(LuaVMState* L) {
 // 0x001d0870 FUN_001d0870 (66 B): matches/0x001d0870.cpp [wrapped: conflict: FUN_002138e0]
 // sym: ?FUN_001d0870@fn_001d0870@@YAHPAULuaVMState@@PAI@Z
 namespace fn_001d0870 {
-extern "C++" __declspec(nothrow) void* __cdecl FUN_00213d30(LuaVMState*, unsigned int);
-extern "C++" __declspec(nothrow) void __cdecl FUN_00338f30(LuaVMState*, const char*);
-extern "C++" __declspec(nothrow) void __cdecl FUN_002138e0(LuaVMState*, int);
+extern "C" void* __cdecl FUN_00213d30(LuaVMState*, unsigned int);   // (decl1) as defined (lapi.cpp)
+extern "C" void __cdecl FUN_00338f30(LuaVMState*, const char*);   // (decl1) as defined (lauxlib.cpp)
+extern "C" int __cdecl FUN_002138e0(LuaVMState*, int);   // (decl1) as defined (lapi.cpp)
 
 int __cdecl FUN_001d0870(LuaVMState* L, unsigned int* vec) {
     unsigned int* dst = (unsigned int*)FUN_00213d30(L, 0xc);
@@ -1533,7 +1533,7 @@ bool owners::C_1d2cd0::FUN_001d2cd0(int a, hulk_intptr b, int c) {
     if (!r)
         ok = false;
     else
-        F4_00267760((char*)b, c, (const char*)&DAT_003f3f38, r);
+        FUN_00267760((char*)b, c, (const char*)&DAT_003f3f38, r);
     FUN_00212d80((LuaVMState*)(hulk_intptr)field, -2);
     return ok;
 }
@@ -1897,7 +1897,7 @@ void Method1::f2(ScriptHandler* a, const char** b, bool* c) {
 // sym: ??1ScriptHandler@fn_001d3410@@QAE@XZ
 namespace fn_001d3410 {
 extern "C" void _ReadWriteBarrier();
-extern "C++" __declspec(nothrow) void __cdecl FUN_002151e0(LuaVMState* L);
+extern "C" void __cdecl FUN_002151e0(LuaVMState*);   // (decl1) as defined (lstate.cpp)
 extern void* hulk_at_00422684;
 class Item_1d3410 {
   public:
@@ -2027,7 +2027,7 @@ namespace fn_001d3c90 {
 extern "C++" __declspec(nothrow) void* __cdecl FUN_001d0990(void*, void*, unsigned int, unsigned int);
 extern int __cdecl FUN_001d2000(LuaVMState*);
 extern "C" int __cdecl FUN_001d2020(LuaVMState*);
-extern "C++" __declspec(nothrow) void __cdecl FUN_002151e0(LuaVMState*);
+extern "C" void __cdecl FUN_002151e0(LuaVMState*);   // (decl1) as defined (lstate.cpp)
 extern "C" LuaVMState* __cdecl FUN_002150e0(LuaVMAlloc, void*);
 extern "C" void __cdecl FUN_0033eb30(LuaVMState*);
 extern "C++" __declspec(nothrow) void __cdecl FUN_00212d80(LuaVMState*, int);
@@ -2036,7 +2036,7 @@ extern "C" void __cdecl FUN_0033bca0(LuaVMState*);
 extern "C" void __cdecl FUN_0033b560(LuaVMState*);
 extern "C" void __cdecl FUN_0033ac90(LuaVMState*);
 extern "C++" __declspec(nothrow) void __cdecl FUN_00212ed0(LuaVMState*, int);
-extern "C++" __declspec(nothrow) void __cdecl FUN_003390d0(LuaVMState* L, const char* libname, const LuaVMReg* l, int nup);
+extern "C" void __cdecl FUN_003390d0(LuaVMState*, const char*, const LuaVMReg*, int);   // (decl1) as defined (lauxlib.cpp)
 extern "C++" __declspec(nothrow) int __cdecl FUN_001d07b0(LuaVMState* L);
 extern "C++" __declspec(nothrow) void __cdecl FUN_002134a0(LuaVMState*, LuaVMCFunction, int);
 extern "C++" __declspec(nothrow) void __cdecl FUN_00213790(LuaVMState*, int, const char*);

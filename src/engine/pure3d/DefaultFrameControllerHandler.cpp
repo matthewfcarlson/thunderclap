@@ -331,7 +331,11 @@ class Inventory {
     virtual void a();
     virtual void b();
     virtual void c();
+#if defined(HULK_PTR64)
+    virtual int load(DynamicCaster_286750*, unsigned int key_lo, unsigned int key_hi);   // (decl1, find2 G4) the slot's definition takes the key as two words; a u64 is one register natively
+#else
     virtual int load(DynamicCaster_286750*, U64);
+#endif
 };
 extern "C" char DAT_0042c7d4[];   // (fix2) the game's caster vftable
 struct DynamicCaster_286780 {   // (fix2) was polymorphic (virtual void cast_002864a0(void*);): clang's vftable natively
@@ -342,7 +346,11 @@ struct Manager {
     virtual void f0();
     virtual void f1();
     virtual void f2();
+#if defined(HULK_PTR64)
+    virtual int find(DynamicCaster_286780*, unsigned int key_lo, unsigned int key_hi);   // (decl1, find2 G4) the slot's definition takes the key as two words; a u64 is one register natively
+#else
     virtual int find(DynamicCaster_286780*, __int64);
+#endif
 };
 extern __int64 __cdecl hash_0027b020(const char*);
 class BlendFrameController_287860 {
@@ -2438,7 +2446,11 @@ namespace fn_ff70be84 {
 hulk_intptr __cdecl FUN_00286750(Inventory* inv, void* p) {
     U64 v = getValue(p);
     DynamicCaster_286750 caster;
+#if defined(HULK_PTR64)
+    return inv->load(&caster, (unsigned int)(v), (unsigned int)((v) >> 32));
+#else
     return inv->load(&caster, v);
+#endif
 }
 
 
@@ -2447,7 +2459,11 @@ hulk_intptr __cdecl FUN_00286750(Inventory* inv, void* p) {
 hulk_intptr load(Manager* manager, const char* name) {
     __int64 h = hash_0027b020(name);
     DynamicCaster_286780 caster;
+#if defined(HULK_PTR64)
+    return manager->find(&caster, (unsigned int)(h), (unsigned int)((h) >> 32));
+#else
     return manager->find(&caster, h);
+#endif
 }
 
 } // namespace fn_ff70be84

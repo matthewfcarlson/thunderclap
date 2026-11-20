@@ -32,10 +32,10 @@ GrappleHealthCondition_16dc70::GrappleHealthCondition_16dc70() {
     m20 = 0;
 }
 
-void* Alloc_0008d690(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::GrappleHealthCondition>::vfunc_5() {
-    GrappleHealthCondition_16dc70* p = (GrappleHealthCondition_16dc70*)Alloc_0008d690(sizeof(::hulkfight::motion::GrappleHealthCondition));
+    GrappleHealthCondition_16dc70* p = (GrappleHealthCondition_16dc70*)FUN_0008d690(sizeof(::hulkfight::motion::GrappleHealthCondition));
     if (p) {
         p->Init_00234590(0);
         p->GrappleHealthCondition_16dc70::GrappleHealthCondition_16dc70();

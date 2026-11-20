@@ -291,7 +291,7 @@ class SeqEventChannelSends : public SeqEvent {
     virtual void v3();
     virtual SeqEventChannelSends* v4(int);
 };
-extern "C" void __cdecl FUN_00247550(void*, void*);
+extern "C" int __cdecl FUN_00247550(void*, void*);   // (decl1) as defined (unk_2474c0.cpp)
 SeqEventChannelSends* SeqEventChannelSends::v4(int a) {
     helper_0025fd10();
     if (a & 1)
@@ -317,7 +317,7 @@ class SeqAction {
     virtual void vfunc_5();
     virtual void vfunc_6();
 };
-extern void Init_00247550(void*, void*);
+extern "C" int __cdecl FUN_00247550(void*, void*);   // (decl1) as defined (unk_2474c0.cpp)
 extern int hulk_at_004298fc;
 class SeqActionChannelSends : public SeqAction {
   public:
@@ -333,7 +333,7 @@ class SeqActionChannelSends : public SeqAction {
 audio::SeqActionChannelSends* audio::SeqActionChannelSends::vfunc_0(int x) {
     *(hulk_ulongptr*)this = (hulk_ulongptr)&hulk_at_004298fc;
     if (x & 1)
-        Init_00247550(((char*)&DAT_004e6800), this);
+        FUN_00247550(((char*)&DAT_004e6800), this);
     return this;
 }
 } // namespace fn_0024fa60

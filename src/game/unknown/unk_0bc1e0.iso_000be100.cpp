@@ -21,7 +21,7 @@ class Game_be100 {
     int mode;
 };
 class Singleton;
-Game_be100* __cdecl FUN_000fc3d0();
+extern "C" Game_be100* __cdecl FUN_000fc3d0(void);   // (decl1) as defined (unk_0fb830.cpp)
 extern "C" Singleton* __cdecl FUN_001d4c90();
 
 

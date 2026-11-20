@@ -2,6 +2,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x001db770..0x001e5f10 (kind game, layer game, confidence high), dominant class CSPManager
 #include "tree_prelude.h"
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 #define TREE_TU_BEGIN namespace fn_f80c1c30 {
@@ -42,7 +43,11 @@ struct Inventory_1e4c40 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
+#if defined(HULK_PTR64)
+    virtual Prop_1e4c40 *v3(content::LoadInventory::DynamicCaster<CSPHulkProp> *caster, unsigned int key_lo, unsigned int key_hi);   // (decl1, find2 G4) the slot's definition takes the key as two words; a u64 is one register natively
+#else
     virtual Prop_1e4c40 *v3(content::LoadInventory::DynamicCaster<CSPHulkProp> *caster, unsigned __int64 key);
+#endif
 };
 struct Counter_1e4c40 {
     int FUN_00088fa0();
@@ -116,11 +121,19 @@ Node *CSPManager_1e4c40::FUN_001e4c40(const char *key, Vec3_1e4c40 *pos, int typ
     f.m.FUN_0022be40(pos);
     Inventory_1e4c40 *inv = DAT_004dd700->holder->FUN_000862a0()->FUN_00203d70();
     unsigned __int64 id = FUN_002672f0(key, 0, 0);
+#if defined(HULK_PTR64)
+    Prop_1e4c40 *prop = inv->v3(new (f.caster) content::LoadInventory::DynamicCaster<CSPHulkProp>, (unsigned int)(id), (unsigned int)((id) >> 32));
+#else
     Prop_1e4c40 *prop = inv->v3(new (f.caster) content::LoadInventory::DynamicCaster<CSPHulkProp>, id);
+#endif
     if (prop == 0) {
         FUN_000964a0(f.buf, 0x80, "%s_%s", key, key);
         id = FUN_002672f0(f.buf, 0, 0);
+#if defined(HULK_PTR64)
+        prop = inv->v3(new (f.caster) content::LoadInventory::DynamicCaster<CSPHulkProp>, (unsigned int)(id), (unsigned int)((id) >> 32));
+#else
         prop = inv->v3(new (f.caster) content::LoadInventory::DynamicCaster<CSPHulkProp>, id);
+#endif
     }
 
     Node *node = 0;

@@ -464,7 +464,7 @@ struct Entry_1b5a20 { char pad[68]; Mesh_1b5a20* mesh; };
 struct Table_1b5a20 { Entry_1b5a20** entries; Vec3_1b5a20* FUN_001b5a20(Vec3_1b5a20* output, unsigned int id); };
 extern "C" char DAT_0041da1c[];
 struct This_FUN_001d0480 {
-    int FUN_001d0480(const char*, int);
+    hulk_intptr FUN_001d0480(const char*, int);   // (decl1) passes as defined
 };
 class Method3_1b5bc0 {
   public:
@@ -635,7 +635,7 @@ class Registry_1b62d0 { public:
 template<class C, class R, class A1, class A2, class A3> class Closure3_1b62d0;
 template<> class Closure3_1b62d0<CCollisionManager_1b62d0, void, float, float, float> : public ScriptFunctionFields { public: virtual void* Fnv_001b61a0(int); Fn_1b62d0 fn; CCollisionManager_1b62d0* owner; Closure3_1b62d0(CCollisionManager_1b62d0* o) { owner = o; } };
 class Raw_1b62d0 { public: void FUN_001b5bc0(const char*, Fn_1b62d0); };
-extern "C" void* Alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d6d0(int);   // (decl1) as defined (unk_08ceb0.cpp)
 class Arena_1b6380 {
   public:
     unsigned int *mStart, *mFree, *mEnd;
@@ -2174,7 +2174,7 @@ Arena_1b6380::Arena_1b6380() {
     mStart = 0;
     mFree = 0;
     mEnd = 0;
-    unsigned int* p = (unsigned int*)Alloc(0x1000);
+    unsigned int* p = (unsigned int*)FUN_0008d6d0(0x1000);
     mStart = p;
     if (p) {
         mFree = p;

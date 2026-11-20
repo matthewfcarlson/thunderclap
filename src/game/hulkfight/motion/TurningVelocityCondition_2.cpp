@@ -36,7 +36,7 @@ struct Turning {
     int w;
     void Init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
-extern "C" void* __cdecl Alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 extern int hulk_at_00416738;
 extern int hulk_at_004175a0;
 struct ConditionFactoryTemplate_16d740 {
@@ -68,7 +68,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::motion::Turni
 // 0x0016d700 fight::ConditionFactoryTemplate<hulkfight::motion::TurningVelocityCondition>::vfunc_5 (54 B): matches/0x0016d700.cpp
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VTurningVelocityCondition@motion@hulkfight@@@fight@@UAEPAXXZ
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::TurningVelocityCondition>::vfunc_5() {
-    Turning* p = (Turning*)Alloc(sizeof(::hulkfight::motion::TurningVelocityCondition));
+    Turning* p = (Turning*)FUN_0008d690(sizeof(::hulkfight::motion::TurningVelocityCondition));
     if (p) {
         p->Init_00234590(0);
         p->vptr = (hulk_intptr)&hulk_at_00416738;

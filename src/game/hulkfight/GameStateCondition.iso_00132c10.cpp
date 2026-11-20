@@ -10,7 +10,7 @@
 #include "gen/fight.h"
 #include "gen/hulkfight.h"
 
-extern void* __cdecl Alloc_0008d690(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 extern int hulk_at_00411314;
 class CCameraShakeTrack_132c10 {
   public:
@@ -30,7 +30,7 @@ class CCameraShakeTrack_132c10 {
 };
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::NISSoundTrack>::vfunc_5() {
-    CCameraShakeTrack_132c10* p = (CCameraShakeTrack_132c10*)Alloc_0008d690(sizeof(::hulkfight::NISSoundTrack));
+    CCameraShakeTrack_132c10* p = (CCameraShakeTrack_132c10*)FUN_0008d690(sizeof(::hulkfight::NISSoundTrack));
     if (p) {
         p->Init_00236d40();
         p->x = 0;

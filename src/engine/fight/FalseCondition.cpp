@@ -83,7 +83,7 @@ class Caster_23d360 : public FactoryBase {
 };
 struct CIsGrappledCondition_23d3a0 {
     virtual ~CIsGrappledCondition_23d3a0();
-    void init_00234590(int);
+    void init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 extern void* condition_vftable_23d3a0;
 extern void* hulk_at_00428afc[];

@@ -48,7 +48,7 @@ struct Info_183d30 {
     int b;
 };
 extern void* __fastcall FUN_000592a0(void*);
-extern Mgr_183d30* __fastcall FUN_00059a30(void*);
+extern "C" Mgr_183d30* __fastcall FUN_00059a30(void*);   // (decl1) as defined (CFightParamsCollision.cpp)
 
 bool hulkfight::motion::PropSetStateByIndexAction::vfunc_5(hulk_intptr __p0, int y) { int * x = (int *)__p0;
 

@@ -53,7 +53,11 @@ class Inventory {
     virtual void a();
     virtual void b();
     virtual void c();
+#if defined(HULK_PTR64)
+    virtual void* find(DynamicCaster_2b2c00*, unsigned int key_lo, unsigned int key_hi);   // (decl1, find2 G4) the slot's definition takes the key as two words; a u64 is one register natively
+#else
     virtual void* find(DynamicCaster_2b2c00*, __int64);
+#endif
 };
 extern __int64 __cdecl getKey_0027b020(void*);
 extern "C" char DAT_0042e434[];   // content::LoadInventory::DynamicCaster<pure3d::ExpressionAnimationController>::vftable
@@ -65,7 +69,11 @@ class Obj {
     virtual void a();
     virtual void b();
     virtual void c();
+#if defined(HULK_PTR64)
+    virtual void* doIt(DynamicCaster_2b2c30*, unsigned int key_lo, unsigned int key_hi);   // (decl1, find2 G4) the slot's definition takes the key as two words; a u64 is one register natively
+#else
     virtual void* doIt(DynamicCaster_2b2c30*, U64);
+#endif
 };
 
 } // namespace fn_f35e48b8
@@ -298,7 +306,11 @@ extern "C" void* __cdecl FUN_002b2c00(void * inv, void* name) {
     __int64 key = getKey_0027b020(name);
     DynamicCaster_2b2c00 caster;
     caster.vftable = (void*)DAT_0042e42c;   // (sweep-caster-fix1) the game's vftable by address
+#if defined(HULK_PTR64)
+    return ((Inventory *)inv)->find(&caster, (unsigned int)(key), (unsigned int)((key) >> 32));
+#else
     return ((Inventory *)inv)->find(&caster, key);
+#endif
 }
 
 
@@ -308,7 +320,11 @@ extern "C" void* __cdecl FUN_002b2c30(void * obj, void* p) {
     U64 v = getValue(p);
     DynamicCaster_2b2c30 caster;
     caster.vftable = (void*)DAT_0042e434;   // (sweep-caster-fix1) the game's vftable by address
+#if defined(HULK_PTR64)
+    return ((Obj *)obj)->doIt(&caster, (unsigned int)(v), (unsigned int)((v) >> 32));
+#else
     return ((Obj *)obj)->doIt(&caster, v);
+#endif
 }
 
 } // namespace fn_f35e48b8

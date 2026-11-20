@@ -74,7 +74,7 @@ struct Sub_23eb20 {
     bool Done_00231ee0();
 };
 struct Res_23eb20 {
-    void Bind_00231ad0(Sub_23eb20*, int, int);
+    void Bind_00231ad0(Sub_23eb20*, hulk_intptr, int);   // (decl1) passes as defined
 };
 struct Inner_23eb20 {
     virtual void v0();

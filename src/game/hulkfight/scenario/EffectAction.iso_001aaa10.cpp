@@ -10,7 +10,7 @@
 #include "gen/hulkfight.h"   // (sweep-allocsize)
 
 extern "C" char DAT_0041c4f0[];
-extern void* __cdecl Alloc_0008d690(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 struct Event_StringCondition_1aaa10 {
     int x[6];
     void Initialize_00234590(hulk_intptr);   // (decl1) passes as defined
@@ -20,7 +20,7 @@ struct Sub_1aaa10 {
 };
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::scenario::Event_StringCondition>::vfunc_5() {
-    Event_StringCondition_1aaa10* p = (Event_StringCondition_1aaa10*)Alloc_0008d690((int)sizeof(::hulkfight::scenario::Event_StringCondition));   // (sweep-allocsize) the size by gen's record (a fight::Condition)
+    Event_StringCondition_1aaa10* p = (Event_StringCondition_1aaa10*)FUN_0008d690((int)sizeof(::hulkfight::scenario::Event_StringCondition));   // (sweep-allocsize) the size by gen's record (a fight::Condition)
     if (p) {
         p->Initialize_00234590(0);
         p->x[0] = ((hulk_intptr)DAT_0041c4f0);

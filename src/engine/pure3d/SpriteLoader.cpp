@@ -1818,7 +1818,11 @@ public:
     virtual void v0();
     virtual void v1();
     virtual void v2();
+#if defined(HULK_PTR64)
+    virtual pure3d::Shader* v3(::content::LoadInventory::DynamicCaster< ::pure3d::Shader>* caster, unsigned int hash_lo, unsigned int hash_hi);   // (decl1, find2 G4) the slot's definition takes the key as two words; a u64 is one register natively
+#else
     virtual pure3d::Shader* v3(::content::LoadInventory::DynamicCaster< ::pure3d::Shader>* caster, unsigned __int64 hash);
+#endif
 };
 
 // (x64t19) pure3d::SpriteObject's record (decls/drawable_container.h), not polymorphic: the container's constructor
@@ -1945,7 +1949,11 @@ int pure3d::SpriteLoader::vfunc_5(pure3d::SpriteObject** out, unsigned __int64* 
         // (x64t18) gen's content::LoadInventory::DynamicCaster<pure3d::Shader>, the game's class: its vftable is the
         // game's 0x003f3e88 (the local stand-in's slot had no definition natively)
         ::content::LoadInventory::DynamicCaster< ::pure3d::Shader>* caster = new (&f.r6) ::content::LoadInventory::DynamicCaster< ::pure3d::Shader>();
+#if defined(HULK_PTR64)
+        pure3d::Shader* shader = ctx->v3(caster, (unsigned int)(hash), (unsigned int)((hash) >> 32));
+#else
         pure3d::Shader* shader = ctx->v3(caster, hash);
+#endif
         void* mem = FUN_00263ea0(sizeof(HulkSprite));   // (x64t19) pure3d::Sprite (decls/sprite.h)
         if (mem)
             sprite = ((Sprite*)mem)->FUN_002beb20(image, shader, 1, f.r1, f.r2, f14);
@@ -1956,7 +1964,11 @@ int pure3d::SpriteLoader::vfunc_5(pure3d::SpriteObject** out, unsigned __int64* 
         // (x64t18) gen's content::LoadInventory::DynamicCaster<pure3d::Shader>, the game's class: its vftable is the
         // game's 0x003f3e88 (the local stand-in's slot had no definition natively)
         ::content::LoadInventory::DynamicCaster< ::pure3d::Shader>* caster = new (&f.r6) ::content::LoadInventory::DynamicCaster< ::pure3d::Shader>();
+#if defined(HULK_PTR64)
+        pure3d::Shader* shader = ctx->v3(caster, (unsigned int)(hash), (unsigned int)((hash) >> 32));
+#else
         pure3d::Shader* shader = ctx->v3(caster, hash);
+#endif
         void* mem = FUN_00263ea0(sizeof(HulkSprite));   // (x64t19) pure3d::Sprite (decls/sprite.h)
         if (mem)
             sprite = ((Sprite*)mem)->FUN_002be440(f.arr, f.r3, f.r4, f.r5, shader, 1, f.r1, f.r2, f14);

@@ -270,7 +270,7 @@ class FEMemCardControl_d8170 {
 };
 extern int hulk_at_004dd6ec;
 struct R_d8190 {
-    int finish_0008b560(int, int, int);
+    int finish_0008b560(int, int, hulk_intptr);   // (decl1) passes as defined
 };
 struct A_d8190 {
     R_d8190* call_000b5000();
@@ -506,7 +506,11 @@ struct Loader_d7af0 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
+#if defined(HULK_PTR64)
+    virtual Node *v3(content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy> *caster, unsigned int key_lo, unsigned int key_hi);   // (decl1, find2 G4) the slot's definition takes the key as two words; a u64 is one register natively
+#else
     virtual Node *v3(content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy> *caster, unsigned __int64 key);
+#endif
 };
 
 struct FUN_000e9240 {
@@ -533,7 +537,11 @@ FEBackground::FEBackground(hulk_intptr arg, const char *name) : FUN_000e9240((in
     Loader_d7af0 *loader = (*(Loader_d7af0**)&DAT_004dd9cc);
     content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy> *caster =
         new (&arg) content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy>;
+#if defined(HULK_PTR64)
+    drawable = loader->v3(caster, (unsigned int)(FUN_002672f0(name, 0, 0)), (unsigned int)((FUN_002672f0(name, 0, 0)) >> 32));
+#else
     drawable = loader->v3(caster, FUN_002672f0(name, 0, 0));
+#endif
     if (drawable)
         drawable->AddRef();
     flag141 = 0;

@@ -13,7 +13,7 @@ class Thing_1cad40 {
   public:
     void finish_001d1d10();
 };
-Thing_1cad40* FUN_001d4c90();
+extern "C" Thing_1cad40* __cdecl FUN_001d4c90(void);   // (decl1) as defined (ScriptHandler.cpp)
 bool owners::Owner_1cad40::FUN_001cad40() {
     Thing_1cad40* t = FUN_001d4c90();
     if (!t)

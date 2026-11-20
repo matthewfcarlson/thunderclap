@@ -16,7 +16,7 @@ namespace fn_f289a90f {} using namespace fn_f289a90f;
 // ---- declarations shared by the functions below
 namespace fn_f289a90f {
 struct Obj_2504b0 {
-    void Do_00261e60(int a);
+    void Do_00261e60(hulk_intptr a);   // (decl1) passes as defined
 };
 class Obj_2504e0 {
   public:

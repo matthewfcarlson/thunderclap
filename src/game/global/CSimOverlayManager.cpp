@@ -50,7 +50,7 @@ class Function_d71d0 {
 };
 class X_d71f0 {
   public:
-    void Fna_000d3170(int, int, int);
+    void Fna_000d3170(hulk_intptr, int, hulk_intptr);   // (decl1) passes as defined
     unsigned int Fnb_000cae60();
     void Fnc_000cae40(unsigned int);
 };
@@ -58,7 +58,7 @@ class Y_d71f0 {
   public:
     char pad[4];
     unsigned char x;
-    void Fna_000d40e0(int, int, int);
+    void Fna_000d40e0(hulk_intptr, hulk_intptr, hulk_intptr);   // (decl1) passes as defined
 };
 class Z {
   public:

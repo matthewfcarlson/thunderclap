@@ -303,8 +303,8 @@ struct Obj_95f50 {
     u32_95f50 a;
     u32_95f50 b;
 };
-extern "C" u32_95f50 __cdecl FUN_00267f80();
-extern "C" unsigned int __cdecl tick_00267f80();
+extern "C" int __cdecl FUN_00267f80(void);   // (decl1) as defined (TimerList.cpp)
+extern "C" int __cdecl FUN_00267f80(void);   // (decl1) as defined (TimerList.cpp)
 struct Timer {
     float scale;
     unsigned int last;
@@ -1719,7 +1719,7 @@ Obj_95f50* __fastcall FUN_00095f50(Obj_95f50* self) {
 // 0x00095f70 FUN_00095f70 (42 B): matches/0x00095f70.cpp
 // sym: ?Delta@Timer@fn_f8b63219@@QAEMXZ
 hulk_freg Timer::Delta() {
-    unsigned int t = tick_00267f80();
+    unsigned int t = FUN_00267f80();
     unsigned int d = t - last;
     hulk_freg result = (hulk_freg)d * scale;
     last = t;

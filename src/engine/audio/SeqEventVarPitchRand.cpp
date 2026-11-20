@@ -52,7 +52,7 @@ class SeqAction_253470 {
     virtual void f5();
     virtual void f6();
 };
-extern "C" void* __cdecl Alloc(void*);
+extern "C" void* __cdecl FUN_00247530(void*);   // (decl1) as defined (unk_2474c0.cpp)
 extern int rand_vftable;
 struct SeqEventVarPitchRand_253530 {
     int* vf;
@@ -239,7 +239,7 @@ struct Singleton_4dd6ec;          // object with getters FUN_00086280/FUN_000862
 }
 
 unsigned __int64 FUN_0027b020(const char* s);                 // string hash
-unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash with seed/length
+extern "C" unsigned __int64 __cdecl FUN_002672f0(const char*, int, int);   // string hash with seed/length
 char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
 
 struct Field {
@@ -297,7 +297,7 @@ audio::SeqEventVarPitchRandType::~SeqEventVarPitchRandType() {}
 // sym: ?vfunc_3@SeqEventVarPitchRandType@audio@@UAEPAXXZ
 // data: g_pool_253530 = DAT_004e70e8
 void* audio::SeqEventVarPitchRandType::vfunc_3() {
-    SeqEventVarPitchRand_253530* p = (SeqEventVarPitchRand_253530*)Alloc(((int*)&DAT_004e70e8));
+    SeqEventVarPitchRand_253530* p = (SeqEventVarPitchRand_253530*)FUN_00247530(((int*)&DAT_004e70e8));
     if (p) {
         p->init_0025fd00();
         p->vf = ((int*)DAT_0042a150);
@@ -410,7 +410,7 @@ class SeqEventVarPitchRand : public SeqEvent {
     virtual void v2(Ctx*);
 };
 } // namespace audio
-extern "C" void* FUN_00247530(void*);
+extern "C" void* __cdecl FUN_00247530(void*);   // (decl1) as defined (unk_2474c0.cpp)
 void audio::SeqEventVarPitchRand::v2(Ctx* ctx) {
     void* p = FUN_00247530(DAT_004e70a0);
     ctx->Add_0025dc20(p ? new (p) SeqActionVarPitchRand(this) : 0);

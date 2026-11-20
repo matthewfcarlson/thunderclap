@@ -612,7 +612,11 @@ class Obj {
     virtual void a();
     virtual void b();
     virtual void c();
+#if defined(HULK_PTR64)
+    virtual void f(DynamicCaster_299bc0*, unsigned int key_lo, unsigned int key_hi);   // (decl1, find2 G4) the slot's definition takes the key as two words; a u64 is one register natively
+#else
     virtual void f(DynamicCaster_299bc0*, unsigned __int64);
+#endif
 };
 extern "C" unsigned __int64 __cdecl Make(int);
 extern int hulk_at_0042d51c;
@@ -1587,7 +1591,11 @@ void __fastcall target(Obj_299ba0* self) {
 void __cdecl target(Obj* obj, int n) {
     unsigned __int64 v = Make(n);
     DynamicCaster_299bc0 caster(v);
+#if defined(HULK_PTR64)
+    obj->f(&caster, (unsigned int)(v), (unsigned int)((v) >> 32));
+#else
     obj->f(&caster, v);
+#endif
 }
 
 } // namespace fn_f40ca5f7

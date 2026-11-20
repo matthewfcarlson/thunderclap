@@ -37,9 +37,9 @@ class SeqEventPlayTrack_251590 : public SeqEvent_251590 {
     virtual void d();
 };
 } // namespace audio
-extern void* alloc_00247530(char*);
+extern "C" void* __cdecl FUN_00247530(char*);   // (decl1) as defined (unk_2474c0.cpp)
 inline void* operator new(size_t n, char* h) {
-    return alloc_00247530(h);
+    return FUN_00247530(h);
 }
 audio::SeqEventPlayTrack_251590::SeqEventPlayTrack_251590() {
     x = 0;

@@ -7,7 +7,7 @@
 // sym: ?vfunc_22@FEContainer@@UAEHH@Z
 #include "gen/global.h"
 
-extern void* __cdecl FUN_0008d690(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 struct VScroll_nv_e49f0 {
     int make_000e21e0(void*, unsigned int);
 };

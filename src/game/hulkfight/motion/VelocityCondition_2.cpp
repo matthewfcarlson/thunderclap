@@ -29,7 +29,7 @@ class TrackFactoryTemplate_16d4b0 {
 };
 extern "C" void FUN_0016b000();
 extern "C" char DAT_004166b8[];
-extern "C" void* alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 class Condition {
   public:
     void init_00234590(hulk_intptr);   // (decl1) passes as defined
@@ -69,7 +69,7 @@ namespace fn_f9fa62c7 {
 // 0x0016d4f0 fight::ConditionFactoryTemplate<hulkfight::motion::VelocityCondition>::vfunc_5 (54 B): matches/0x0016d4f0.cpp
 // sym: ?target@fn_f9fa62c7@@YAPAXPAVTemplate_16d4f0@1@@Z
 void* target(Template_16d4f0* self) {
-    Condition* p = (Condition*)alloc(sizeof(::hulkfight::motion::VelocityCondition));
+    Condition* p = (Condition*)FUN_0008d690(sizeof(::hulkfight::motion::VelocityCondition));
     if (p) {
         p->init_00234590(0);
         *(hulk_intptr*)p = ((hulk_intptr)DAT_004166b8);

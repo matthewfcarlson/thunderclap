@@ -88,7 +88,7 @@ class SeqEventVarVolumeRand_252560 : public Base {
 };
 }
 namespace fn_f0c19b70 {
-extern "C" void* __cdecl alloc(void*);
+extern "C" void* __cdecl FUN_00247530(void*);   // (decl1) as defined (unk_2474c0.cpp)
 class SeqEventVarVolumeRand_2525a0 : public audio::SeqEvent {
   public:
     virtual void vfunc_0();
@@ -191,7 +191,7 @@ class SeqEvent_2526f0 {
 };
 }
 namespace fn_f0c19b70 {
-extern "C" void* __cdecl FUN_00247530(void*);
+extern "C" void* __cdecl FUN_00247530(void*);   // (decl1) as defined (unk_2474c0.cpp)
 
 // 0x00252350 audio::SeqEventVarVolumeRandType::vfunc_0 (5 B): matches
 // sym: ?vfunc_0@SeqEventVarVolumeRandType_252350@fn_f0c19b70@@QAEXXZ
@@ -355,7 +355,7 @@ audio::SeqEventVarVolumeRandType::~SeqEventVarVolumeRandType() {}
 // 0x00252560 audio::SeqEventVarVolumeRandType::vfunc_3 (55 B): matches/0x00252560.cpp
 // sym: ?vfunc_3@SeqEventVarVolumeRandType@audio@@UAEPAXXZ
 void* audio::SeqEventVarVolumeRandType::vfunc_3() {
-    audio::SeqEventVarVolumeRand_252560* p = (audio::SeqEventVarVolumeRand_252560*)alloc(((char*)((char*)&(*(unsigned char(*)[112])&DAT_004e6e20) + 8)));
+    audio::SeqEventVarVolumeRand_252560* p = (audio::SeqEventVarVolumeRand_252560*)FUN_00247530(((char*)((char*)&(*(unsigned char(*)[112])&DAT_004e6e20) + 8)));
     if (p) {
         p->audio::SeqEventVarVolumeRand_252560::SeqEventVarVolumeRand_252560();
         return (void*)(p);

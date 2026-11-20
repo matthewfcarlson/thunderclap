@@ -27,12 +27,12 @@ struct Manager_10f3a0 {
     float FUN_000670e0(Pair_10f3a0*);
     void FUN_000670a0(Pair_10f3a0*, int);
 };
-Manager_10f3a0* __cdecl FUN_000678d0();
+extern "C" Manager_10f3a0* __cdecl FUN_000678d0(void);   // (decl1) as defined (CWeaponCollisionTrack.cpp)
 struct StaticObject {
     char data[8];
     void FUN_0027af00();
 };
-void __cdecl FUN_00363ec0();
+extern "C" void __cdecl FUN_00363ec0(void);   // (decl1) as defined (dynamic_initializers.cpp)
 
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 int __cdecl _atexit(void(__cdecl*)());

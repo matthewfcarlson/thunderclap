@@ -169,7 +169,7 @@ class OpportunityTrack_237330 : public Track_237330 {
 extern int hulk_at_004e5c00;
 extern void(__cdecl* hulk_at_004e5bfc)(::core::IRefCount*, ::core::IRefCount*, int, int*, int*);
 struct Receiver_2373e0 {
-    void run_00231ad0(int, ::core::IRefCount*, int);
+    void run_00231ad0(hulk_intptr, ::core::IRefCount*, int);   // (decl1) passes as defined
 };
 extern void* g_vftable_00427ff0[];
 struct T1 {

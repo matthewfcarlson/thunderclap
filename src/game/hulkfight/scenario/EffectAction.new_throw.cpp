@@ -577,7 +577,11 @@ public:
     virtual void l0();
     virtual void l1();
     virtual void l2();
+#if defined(HULK_PTR64)
+    virtual pure3d::Animation *Find(const content::LoadInventory::DynamicCaster<pure3d::Animation> &c, unsigned int id_lo, unsigned int id_hi);   // (decl1, find2 G4) the slot's definition takes the key as two words; a u64 is one register natively
+#else
     virtual pure3d::Animation *Find(const content::LoadInventory::DynamicCaster<pure3d::Animation> &c, unsigned __int64 id);
+#endif
     void *FUN_001a9420(const char *name);
 };
 
@@ -655,7 +659,11 @@ bool AnimSetup::FUN_001a9b10(Out_1a9b10 *out, const char *animName, const char *
     Inventory_1a9b10 *inv = registry->FUN_00203d60(idx);
 
     content::LoadInventory::DynamicCaster<pure3d::Animation> caster;
+#if defined(HULK_PTR64)
+    pure3d::Animation *anim = inv->Find(caster, (unsigned int)(FUN_002672f0(animName, 0, 0)), (unsigned int)((FUN_002672f0(animName, 0, 0)) >> 32));
+#else
     pure3d::Animation *anim = inv->Find(caster, FUN_002672f0(animName, 0, 0));
+#endif
     if (anim == 0)
         return false;
 

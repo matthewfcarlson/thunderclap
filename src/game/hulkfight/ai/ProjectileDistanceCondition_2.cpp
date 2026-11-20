@@ -28,7 +28,7 @@ class TrackFactoryTemplate_12a740 {
     TrackImpl mTrack;
 };
 extern "C" void FUN_00128ad0();
-extern "C" void* __cdecl alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 class TDC_12a780 {
   public:
     hulk_intptr vf;
@@ -71,7 +71,7 @@ namespace fn_fec170fd {
 // sym: ?target@fn_fec170fd@@YAPAVTDC_12a780@1@XZ
 // Same code shape as 0x0012a410 (propagated; names are from that function)
 TDC_12a780* __cdecl target() {
-    TDC_12a780* p = (TDC_12a780*)alloc((int)sizeof(::hulkfight::ai::ProjectileDistanceCondition));   // (allocsize1) the size by gen's record
+    TDC_12a780* p = (TDC_12a780*)FUN_0008d690((int)sizeof(::hulkfight::ai::ProjectileDistanceCondition));   // (allocsize1) the size by gen's record
     int z = 0;
     if (p) {
         p->init_00234590(z);

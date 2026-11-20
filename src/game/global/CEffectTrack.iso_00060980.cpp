@@ -32,8 +32,8 @@ struct Obj_60980 {
 struct CEffectStopAction_nv_60980 {
     int method_0001f780(hulk_intptr, int);
 };
-extern void* FUN_0008d690(int);
-extern Obj_60980* FUN_0005a430(int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
+extern "C" Obj_60980* __cdecl FUN_0005a430(hulk_intptr);   // (decl1) as defined (CFightParamsCollision.cpp)
 
 hulk_intptr CGrappleEffectStopTrack::vfunc_12(hulk_intptr arg) {
     CEffectStopAction* p = (CEffectStopAction*)FUN_0008d690(0x24);

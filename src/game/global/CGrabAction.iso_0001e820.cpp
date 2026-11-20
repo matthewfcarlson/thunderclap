@@ -27,7 +27,7 @@ class Obj_1e820 {
     virtual void f0();
     virtual void f1();
 };
-Helper_1e820* __stdcall FUN_001b6580();
+extern "C" Helper_1e820* __cdecl FUN_001b6580(void);   // (decl1) as defined (CCollisionManager.cpp)
 
 void CGrabAction::vfunc_4() {
     Mgr_1e820* m = ((Holder_1e820*)(*(void * *)&this->f_1c))->first_000592a0()->second_00059a30();

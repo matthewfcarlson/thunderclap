@@ -111,7 +111,7 @@ class Condition_23cae0 {
     virtual void b();
     virtual void c();
     virtual void d();
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 struct Tail_23cae0 {
     void InitTail_00236e00();

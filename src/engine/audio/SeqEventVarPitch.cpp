@@ -118,7 +118,7 @@ class SeqEventVarPitch_253950 : public ::audio::SeqEvent {
 };
 }
 namespace fn_fd3c3557 {
-extern void FUN_00247550(void*, audio::SeqEventVarPitch_253950*);
+extern "C" int __cdecl FUN_00247550(void*, void*);   // (decl1) as defined (unk_2474c0.cpp)
 struct Stm_253980 {
     char pad[0x24];
     int depth;
@@ -142,7 +142,7 @@ class SeqEventVarPitch_253980 : public SeqEvent {
     int vfunc_1(Stm_253980**);
 };
 extern int SeqActionVftable;
-extern void __cdecl FUN_00247550(void*, void*);
+extern "C" int __cdecl FUN_00247550(void*, void*);   // (decl1) as defined (unk_2474c0.cpp)
 class SeqAction {
   public:
     int* vptr;

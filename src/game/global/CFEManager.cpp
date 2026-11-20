@@ -84,14 +84,14 @@ struct Item_be230 {
     Channel* first;
     Channel* second;
     Channel* third;
-    void FUN_000bb820(void*, int, int);
+    void FUN_000bb820(void*, hulk_intptr, hulk_intptr);   // (decl1) passes as defined
     void FUN_000e5f70();
     void FUN_000e5f00(int);
 };
 struct Manager_be230 {
     char pad[0x2218];
     Item_be230* active;
-    Item_be230* FUN_000e7620(int);
+    Item_be230* FUN_000e7620(hulk_intptr);   // (decl1) passes as defined
     bool FUN_000be230(hulk_intptr, void*, void*, void*, void*, int, int, int);
 };
 class Dummy_be5a0 {
@@ -357,7 +357,7 @@ class Outer {
     Inner* inner;
     int run(void* arg, int unused);
 };
-extern "C" void Finish_000fc300();
+extern "C" void FUN_000fc300();   // (decl1) as defined (unk_0fb830.cpp)
 class Holder_c05f0 {
   public:
     void set_000bf5c0(long);
@@ -423,7 +423,7 @@ class DynamicCaster_c0de0 {   // (fix2) was polymorphic (virtual void Cast_00046
     DynamicCaster_c0de0() { vftable = DAT_003f6330; }
 };
 struct Sub_c1f00 {
-    void Fn_000c1790(int);
+    void Fn_000c1790(hulk_intptr);   // (decl1) passes as defined
 };
 struct Obj_c1f00 {
     char pad[4];
@@ -619,8 +619,8 @@ int Mbbfa0_000bbfa0(void*, int, void*); /* (unb4) as defined; address taken only
 int Mbbfd0_000bbfd0(void*, int, int); /* (unb4) as defined; address taken only */
 int Mbbff0_000bbff0(void*, int, int); /* (unb4) as defined; address taken only */
 int Mbc010_000bc010(void*, void*, void*); /* (unb4) as defined; address taken only */
-extern "C" void FUN_000bc030();
-extern "C" void FUN_000bc040();
+extern "C" void __stdcall FUN_000bc030(int);   // (decl1) as defined (unk_0bbb00.cpp)
+extern "C" void __stdcall FUN_000bc040(int);   // (decl1) as defined (unk_0bbb00.cpp)
 void Mbc050_000bc050(void*, float); /* (unb4) as defined; address taken only */
 int Mbc060_000bc060(void*, int, int); /* (unb4) as defined; address taken only */
 int Mbc080_000bc080(void*, int, int); /* (unb4) as defined; address taken only */
@@ -746,14 +746,14 @@ struct Item_be310 {
     Channel* first;
     Channel* second;
     Channel* third;
-    void FUN_000bb970(void*, unsigned int, unsigned int);
+    void FUN_000bb970(void*, hulk_uintptr, hulk_uintptr);   // (decl1) passes as defined
     void FUN_000e5f70();
     void FUN_000e5f00(unsigned int);
 };
 struct Owner_be310 {
     char pad[0x2218];
     Item_be310* active;
-    Item_be310* FUN_000e7620(unsigned int);
+    Item_be310* FUN_000e7620(hulk_uintptr);   // (decl1) passes as defined
     bool FUN_000be310(hulk_uintptr, void*, void*, void*, void*, unsigned int, hulk_uintptr, hulk_uintptr);
 };
 bool Owner_be310::FUN_000be310(hulk_uintptr id, void* setup, void* a, void* b, void* c, unsigned int mode,
@@ -2303,7 +2303,7 @@ int Obj::Run(int a, int b) {
     if (!inner)
         return -1;
     inner->Step_000bf560();
-    Finish_000fc300();
+    FUN_000fc300();
     return 0;
 }
 

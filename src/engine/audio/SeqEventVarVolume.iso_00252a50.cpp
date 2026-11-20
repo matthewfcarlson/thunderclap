@@ -13,11 +13,11 @@ extern "C" unsigned char DAT_004e6e88[112];
 // data: bss = DAT_004e6a68
 
 /* size_t: tree_prelude.h */
-extern "C" void* __cdecl allocate(void*);
+extern "C" void* __cdecl FUN_00247530(void*);   // (decl1) as defined (unk_2474c0.cpp)
 
 } // namespace fn_f777b0e5
 inline void* operator new(size_t, char* p) {
-    return allocate(p);
+    return FUN_00247530(p);
 }
 namespace fn_f777b0e5 {
 

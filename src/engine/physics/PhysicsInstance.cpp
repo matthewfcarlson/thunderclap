@@ -84,7 +84,7 @@ struct Track {
     char pad0[0x10];
     int count;                 // 0x10
     void FUN_0030ff80(int a);
-    void FUN_0030ffb0(int index, int arg);
+    void FUN_0030ffb0(int index, hulk_intptr arg);   // (decl1) passes as defined
     void FUN_00310010(int index);
     void FUN_00310070();
 };

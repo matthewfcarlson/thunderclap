@@ -58,11 +58,11 @@ class SeqEventCondition_24fee0 {
   public:
     void Fnf_002607a0();
 };
-void __cdecl f47550_00247550(void*, SeqEventCondition*);
-extern void* __cdecl alloc(void*);
+extern "C" int __cdecl FUN_00247550(void*, void*);   // (decl1) as defined (unk_2474c0.cpp)
+extern "C" void* __cdecl FUN_00247530(void*);   // (decl1) as defined (unk_2474c0.cpp)
 } // namespace fn_f150b671
 inline void* operator new(size_t, void* heap) {
-    return alloc(heap);
+    return FUN_00247530(heap);
 }
 namespace audio {
 class SeqCommandCondition_24ff10 {
@@ -221,7 +221,7 @@ class SeqCommandCondition : public SeqCommand {
     virtual SeqCommandCondition* vfunc_1(int);
 };
 } // namespace audio
-extern void __cdecl FUN_00247550(void*, void*);
+extern "C" int __cdecl FUN_00247550(void*, void*);   // (decl1) as defined (unk_2474c0.cpp)
 audio::SeqCommandCondition* audio::SeqCommandCondition::vfunc_1(int arg) {
     *(hulk_intptr*)this = ((hulk_intptr)DAT_00429ac8);
     if (arg & 1)
@@ -304,7 +304,7 @@ SeqEventCondition* SeqEventCondition::vfunc_4(unsigned char flag) {
     ((A_24fee0*)((char*)&this->m10))->Fnf_00240060();
     ((SeqEventCondition_24fee0*)this)->Fnf_002607a0();
     if (flag & 1)
-        f47550_00247550(((char*)&DAT_004e68f8), this);
+        FUN_00247550(((char*)&DAT_004e68f8), this);
     return this;
 }
 

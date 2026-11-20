@@ -28,7 +28,7 @@ struct Item_b97d0 {
     char pad[0x9a8];
     char busy;
 };
-extern Manager_b97d0* FUN_000fc3d0();
+extern "C" Manager_b97d0* __cdecl FUN_000fc3d0(void);   // (decl1) as defined (unk_0fb830.cpp)
 extern "C" void __cdecl FUN_000fc300();
 void State_b97d0::Target() {
     if (state == 0x15) {

@@ -33,7 +33,11 @@ class LoadInventory_d3f10 {
     virtual void l0();
     virtual void l1();
     virtual void l2();
+#if defined(HULK_PTR64)
+    virtual void* Find(const DynamicCaster<pure3d::DrawableHierarchy_d3f10>& c, unsigned int uid_lo, unsigned int uid_hi);   // (decl1, find2 G4) the slot's definition takes the key as two words; a u64 is one register natively
+#else
     virtual void* Find(const DynamicCaster<pure3d::DrawableHierarchy_d3f10>& c, __int64 uid);
+#endif
 };
 template <> inline LoadInventory_d3f10::DynamicCaster<pure3d::DrawableHierarchy_d3f10>::DynamicCaster() { vftable = (void*)DAT_003f6330; }
 }
@@ -695,7 +699,11 @@ void* Finder_d3f10::FUN_000d3f10(const char* name) {
     sprintf(buf, "%s%s%s", prefix, text, (*(const char**)&DAT_004a06a0));
     content::LoadInventory_d3f10* ld = (*(content::LoadInventory_d3f10**)&DAT_004dd9cc);
     __int64 uid = FUN_0027b020(buf);
+#if defined(HULK_PTR64)
+    void* r = ld->Find(content::LoadInventory_d3f10::DynamicCaster<pure3d::DrawableHierarchy_d3f10>(), (unsigned int)(uid), (unsigned int)((uid) >> 32));
+#else
     void* r = ld->Find(content::LoadInventory_d3f10::DynamicCaster<pure3d::DrawableHierarchy_d3f10>(), uid);
+#endif
     return r;
 }
 

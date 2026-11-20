@@ -65,7 +65,7 @@ extern "C" void FUN_0025d300(int);
 extern "C" void FUN_00247550(void*, Clip*);
 typedef unsigned int u32_245640;
 extern void* __cdecl FUN_00247530(void*);
-extern u32_245640 clipVftable;
+extern "C" char DAT_0042918c[];   // (decl1) was `u32_245640 clipVftable` (a C++ name bound nowhere natively)
 } // namespace fn_f6720d1b
 namespace audio {
 class Clip_245640 {
@@ -114,7 +114,7 @@ struct Parser_245b00 {
     int line;
 };
 bool F2(Ctx* c, const char* s, ...);
-int vfmt(char* buf, int n, const char* fmt, char* va);
+extern "C" int __cdecl FUN_00267730(char*, int, const char*, char*);   // (decl1) as defined (unk_267280.cpp)
 } // namespace fn_f6720d1b
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" unsigned int __cdecl strlen(const char*);
@@ -540,7 +540,7 @@ void* audio::ClipType::vfunc_2() {
     Clip_245640* p = (Clip_245640*)FUN_00247530(((char*)&DAT_004e5f18));
     if (p != 0) {
         p->init(((char*)&DAT_004e5f18));
-        p->vft = (hulk_uintptr)&clipVftable;
+        p->vft = (hulk_uintptr)&(*(u32_245640*)&DAT_0042918c);
         p->field28 = 0;
         return (void*)(p);
     }
@@ -675,9 +675,9 @@ bool Err(Parser_245b00* p, Ctx* c, const char* fmt, ...) {
 #if defined(HULK_PTR64)
     __builtin_va_list va;
     __builtin_va_start(va, fmt);
-    vfmt(buf, 0x1000, fmt, va);
+    FUN_00267730(buf, 0x1000, fmt, va);
 #else
-    vfmt(buf, 0x1000, fmt, (char*)&fmt + 4);
+    FUN_00267730(buf, 0x1000, fmt, (char*)&fmt + 4);
 #endif
     F2(c, buf);
     F2(c, "\nError Line: [%d]\n", p->line);

@@ -125,7 +125,11 @@ class Obj {
     virtual void a();
     virtual void b();
     virtual void c();
+#if defined(HULK_PTR64)
+    virtual int d(DynamicCaster_c9ba0*, unsigned int key_lo, unsigned int key_hi);   // (decl1, find2 G4) the slot's definition takes the key as two words; a u64 is one register natively
+#else
     virtual int d(DynamicCaster_c9ba0*, __int64);
+#endif
 };
 } // namespace fn_fd3ccc71
 extern "C" __int64 FUN_0027b020(void*);
@@ -243,7 +247,11 @@ void Tracker_c9810::FUN_000c9810(float dt)
 extern "C" hulk_intptr FUN_000c9ba0(Obj* obj, void* input) {
     __int64 p = FUN_0027b020(input);
     DynamicCaster_c9ba0 caster;
+#if defined(HULK_PTR64)
+    return obj->d(&caster, (unsigned int)(p), (unsigned int)((p) >> 32));
+#else
     return obj->d(&caster, p);
+#endif
 }
 
 } // namespace fn_fd3ccc71

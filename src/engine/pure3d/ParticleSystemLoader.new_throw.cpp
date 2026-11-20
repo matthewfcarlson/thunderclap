@@ -85,7 +85,11 @@ public:
     virtual void c0();
     virtual void c1();
     virtual void c2();
+#if defined(HULK_PTR64)
+    virtual RefObj_2ac610 *load(content::LoadInventory::DynamicCaster<pure3d::Shader> *caster, unsigned int id_lo, unsigned int id_hi);   // (decl1, find2 G4) the slot's definition takes the key as two words; a u64 is one register natively
+#else
     virtual RefObj_2ac610 *load(content::LoadInventory::DynamicCaster<pure3d::Shader> *caster, unsigned __int64 id);
+#endif
 };
 struct Name_2ac610 {
     char data[8];
@@ -254,7 +258,11 @@ void Loader::FUN_002ac610(int a1, Stream *stream, Ctx_2ac610 *ctx, Extra *a4)
     unsigned __int64 id = FUN_0027b020(f.name2);
     content::LoadInventory::DynamicCaster<pure3d::Shader> *caster =
         new (&f.casterSlot) content::LoadInventory::DynamicCaster<pure3d::Shader>();
+#if defined(HULK_PTR64)
+    obj->SetShader(ctx->load(caster, (unsigned int)(id), (unsigned int)((id) >> 32)));
+#else
     obj->SetShader(ctx->load(caster, id));
+#endif
     obj->fa6 = f.b13;
     obj->f15c = f.flagC;
     obj->f188 = f.s24;

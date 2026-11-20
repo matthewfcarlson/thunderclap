@@ -481,34 +481,34 @@ template <> inline ConditionFactoryCasterTemplate<CStageCondition>::ConditionFac
 struct Registry_553d0 { void FUN_00236760(void*); void FUN_002363f0(); };
 void* __cdecl FUN_002343e0(const char*, void*);
 void __cdecl FUN_00236940(Registry_553d0*);
-void __cdecl FUN_00132620(Registry_553d0*);
+extern "C" void __cdecl FUN_00132620(void*);   // (decl1) as defined (GameStateCondition.cpp)
 extern "C" void __cdecl FUN_001138d0(void *, void *);
-void __cdecl FUN_00113a20(Registry_553d0*, const char*);
-void __cdecl FUN_00113b10(Registry_553d0*, const char*);
-void __cdecl FUN_00113b40(Registry_553d0*, const char*);
-void __cdecl FUN_00113ab0(Registry_553d0*, const char*);
-void __cdecl FUN_001139f0(Registry_553d0*, const char*);
-void __cdecl FUN_00129fe0(Registry_553d0*);
-void __cdecl FUN_0012d450(Registry_553d0*);
-void __cdecl FUN_00113900(Registry_553d0*, const char*);
-void __cdecl FUN_00113a80(Registry_553d0*, const char*);
-void __cdecl FUN_00113b70(Registry_553d0*, const char*);
-void __cdecl FUN_00113ae0(Registry_553d0*, const char*);
-void __cdecl FUN_00113990(Registry_553d0*, const char*);
-void __cdecl FUN_0016cea0(Registry_553d0*);
-void __cdecl FUN_00142910(Registry_553d0*);
-void __cdecl FUN_0018b310(Registry_553d0*);
-void __cdecl FUN_0018e860(Registry_553d0*);
-void __cdecl FUN_0013d3c0(Registry_553d0*);
-void __cdecl FUN_00163a20(Registry_553d0*);
-void __cdecl FUN_0014bb60(Registry_553d0*);
-void __cdecl FUN_00158c20(Registry_553d0*);
-void __cdecl FUN_0019e3e0(Registry_553d0*);
-void __cdecl FUN_0011a9b0(Registry_553d0*, const char*);
-void __cdecl FUN_0011a9e0(Registry_553d0*, const char*);
-void __cdecl FUN_0011a980(Registry_553d0*, const char*);
-void __cdecl FUN_0011aa10(Registry_553d0*, const char*);
-void __cdecl FUN_001a1cf0(Registry_553d0*, const char*);
+extern "C" void __cdecl FUN_00113a20(void*, const char*);   // (decl1) as defined (unk_1133f0.cpp)
+extern "C" void __cdecl FUN_00113b10(void*, const char*);   // (decl1) as defined (unk_1133f0.cpp)
+extern "C" void __cdecl FUN_00113b40(void*, const char*);   // (decl1) as defined (unk_1133f0.cpp)
+extern "C" int __cdecl FUN_00113ab0(void*, const char*);   // (decl1) as defined (unk_1133f0.cpp)
+extern "C" void __cdecl FUN_001139f0(void*, const char*);   // (decl1) as defined (unk_1133f0.cpp)
+extern "C" void* __cdecl FUN_00129fe0(void*);   // (decl1) as defined (TargetDirectionYCondition_16.cpp)
+extern "C" void __cdecl FUN_0012d450(void*);   // (decl1) as defined (ThreatDistanceCondition.cpp)
+extern "C" void __cdecl FUN_00113900(void*, const char*);   // (decl1) as defined (unk_1133f0.cpp)
+extern "C" void __cdecl FUN_00113a80(void*, const char*);   // (decl1) as defined (unk_1133f0.cpp)
+extern "C" void __cdecl FUN_00113b70(void*, const char*);   // (decl1) as defined (unk_1133f0.cpp)
+extern "C" void __cdecl FUN_00113ae0(void*, const char*);   // (decl1) as defined (unk_1133f0.cpp)
+extern "C" void __cdecl FUN_00113990(void*, const char*);   // (decl1) as defined (unk_1133f0.cpp)
+extern "C" void __cdecl FUN_0016cea0(void*);   // (decl1) as defined (ChargeCondition_2_13.cpp)
+extern "C" void __cdecl FUN_00142910(void*);   // (decl1) as defined (WallJumpAction.cpp)
+extern "C" void* __cdecl FUN_0018b310(void*);   // (decl1) as defined (PropMissionCriticalCondition_28.cpp)
+extern "C" void __cdecl FUN_0018e860(void*);   // (decl1) as defined (TimerCondition.cpp)
+extern "C" void __cdecl FUN_0013d3c0(void*);   // (decl1) as defined (AnimationVelocityScaledAction.cpp)
+extern "C" void __cdecl FUN_00163a20(void*);   // (decl1) as defined (HeliLocomotionAction_2.cpp)
+extern "C" void __cdecl FUN_0014bb60(void*);   // (decl1) as defined (GrappleThrowAction.cpp)
+extern "C" void __cdecl FUN_00158c20(void*);   // (decl1) as defined (InterruptAccumulatorCondition_19.cpp)
+extern "C" void __cdecl FUN_0019e3e0(void*);   // (decl1) as defined (FireProjectileAction_2.cpp)
+extern "C" void __cdecl FUN_0011a9b0(void*, const char*);   // (decl1) as defined (MotionClosestWaypointAction_2.cpp)
+extern "C" void __cdecl FUN_0011a9e0(void*, const char*);   // (decl1) as defined (MotionClosestWaypointAction_2.cpp)
+extern "C" void __cdecl FUN_0011a980(void*, const char*);   // (decl1) as defined (MotionClosestWaypointAction_2.cpp)
+extern "C" void __cdecl FUN_0011aa10(void*, const char*);   // (decl1) as defined (MotionClosestWaypointAction_2.cpp)
+extern "C" void __cdecl FUN_001a1cf0(void*, const char*);   // (decl1) as defined (LuaCondition.cpp)
 extern "C" bool __cdecl FUN_000553d0(Registry_553d0* r)
 {
     FUN_00236940(r);
@@ -990,36 +990,36 @@ extern void* __cdecl FUN_002343e0(const char*, fight::ConditionFactoryCasterTemp
 extern void* __cdecl FUN_002343e0(const char*, fight::ConditionFactoryCasterTemplate<CStageCondition>*);
 extern "C" void __cdecl FUN_001138a0(Registry_55d80*, const char*);
 extern "C" void __cdecl FUN_001138d0(void *, void *);
-extern void __cdecl FUN_00113900(Registry_55d80*, const char*);
+extern "C" void __cdecl FUN_00113900(void*, const char*);   // (decl1) as defined (unk_1133f0.cpp)
 extern "C" void __cdecl FUN_00113930(Registry_55d80*, const char*);
-extern void __cdecl FUN_00113990(Registry_55d80*, const char*);
-extern void __cdecl FUN_001139f0(Registry_55d80*, const char*);
-extern void __cdecl FUN_00113a20(Registry_55d80*, const char*);
+extern "C" void __cdecl FUN_00113990(void*, const char*);   // (decl1) as defined (unk_1133f0.cpp)
+extern "C" void __cdecl FUN_001139f0(void*, const char*);   // (decl1) as defined (unk_1133f0.cpp)
+extern "C" void __cdecl FUN_00113a20(void*, const char*);   // (decl1) as defined (unk_1133f0.cpp)
 extern "C" void __cdecl FUN_00113a50(Registry_55d80*, const char*);
-extern void __cdecl FUN_00113a80(Registry_55d80*, const char*);
-extern void __cdecl FUN_00113ab0(Registry_55d80*, const char*);
-extern void __cdecl FUN_00113ae0(Registry_55d80*, const char*);
-extern void __cdecl FUN_00113b10(Registry_55d80*, const char*);
-extern void __cdecl FUN_00113b40(Registry_55d80*, const char*);
-extern void __cdecl FUN_00113b70(Registry_55d80*, const char*);
-extern void __cdecl FUN_0011a980(Registry_55d80*, const char*);
-extern void __cdecl FUN_0011a9b0(Registry_55d80*, const char*);
-extern void __cdecl FUN_0011a9e0(Registry_55d80*, const char*);
-extern void __cdecl FUN_0011aa10(Registry_55d80*, const char*);
+extern "C" void __cdecl FUN_00113a80(void*, const char*);   // (decl1) as defined (unk_1133f0.cpp)
+extern "C" int __cdecl FUN_00113ab0(void*, const char*);   // (decl1) as defined (unk_1133f0.cpp)
+extern "C" void __cdecl FUN_00113ae0(void*, const char*);   // (decl1) as defined (unk_1133f0.cpp)
+extern "C" void __cdecl FUN_00113b10(void*, const char*);   // (decl1) as defined (unk_1133f0.cpp)
+extern "C" void __cdecl FUN_00113b40(void*, const char*);   // (decl1) as defined (unk_1133f0.cpp)
+extern "C" void __cdecl FUN_00113b70(void*, const char*);   // (decl1) as defined (unk_1133f0.cpp)
+extern "C" void __cdecl FUN_0011a980(void*, const char*);   // (decl1) as defined (MotionClosestWaypointAction_2.cpp)
+extern "C" void __cdecl FUN_0011a9b0(void*, const char*);   // (decl1) as defined (MotionClosestWaypointAction_2.cpp)
+extern "C" void __cdecl FUN_0011a9e0(void*, const char*);   // (decl1) as defined (MotionClosestWaypointAction_2.cpp)
+extern "C" void __cdecl FUN_0011aa10(void*, const char*);   // (decl1) as defined (MotionClosestWaypointAction_2.cpp)
 extern "C" void __cdecl FUN_00122b70(Registry_55d80*, const char*);
-extern void __cdecl FUN_00129fe0(Registry_55d80*);
-extern void __cdecl FUN_0012d450(Registry_55d80*);
-extern void __cdecl FUN_00132620(Registry_55d80*);
-extern void __cdecl FUN_0013d3c0(Registry_55d80*);
-extern void __cdecl FUN_00142910(Registry_55d80*);
-extern void __cdecl FUN_0014bb60(Registry_55d80*);
-extern void __cdecl FUN_00158c20(Registry_55d80*);
-extern void __cdecl FUN_00163a20(Registry_55d80*);
-extern void __cdecl FUN_0016cea0(Registry_55d80*);
-extern void __cdecl FUN_0018b310(Registry_55d80*);
-extern void __cdecl FUN_0018e860(Registry_55d80*);
-extern void __cdecl FUN_0019e3e0(Registry_55d80*);
-extern void __cdecl FUN_001a1cf0(Registry_55d80*, const char*);
+extern "C" void* __cdecl FUN_00129fe0(void*);   // (decl1) as defined (TargetDirectionYCondition_16.cpp)
+extern "C" void __cdecl FUN_0012d450(void*);   // (decl1) as defined (ThreatDistanceCondition.cpp)
+extern "C" void __cdecl FUN_00132620(void*);   // (decl1) as defined (GameStateCondition.cpp)
+extern "C" void __cdecl FUN_0013d3c0(void*);   // (decl1) as defined (AnimationVelocityScaledAction.cpp)
+extern "C" void __cdecl FUN_00142910(void*);   // (decl1) as defined (WallJumpAction.cpp)
+extern "C" void __cdecl FUN_0014bb60(void*);   // (decl1) as defined (GrappleThrowAction.cpp)
+extern "C" void __cdecl FUN_00158c20(void*);   // (decl1) as defined (InterruptAccumulatorCondition_19.cpp)
+extern "C" void __cdecl FUN_00163a20(void*);   // (decl1) as defined (HeliLocomotionAction_2.cpp)
+extern "C" void __cdecl FUN_0016cea0(void*);   // (decl1) as defined (ChargeCondition_2_13.cpp)
+extern "C" void* __cdecl FUN_0018b310(void*);   // (decl1) as defined (PropMissionCriticalCondition_28.cpp)
+extern "C" void __cdecl FUN_0018e860(void*);   // (decl1) as defined (TimerCondition.cpp)
+extern "C" void __cdecl FUN_0019e3e0(void*);   // (decl1) as defined (FireProjectileAction_2.cpp)
+extern "C" void __cdecl FUN_001a1cf0(void*, const char*);   // (decl1) as defined (LuaCondition.cpp)
 extern void __cdecl FUN_00236940(Registry_55d80*);
 extern "C" bool __cdecl FUN_00055d80(Registry_55d80* registry) {
     FUN_00236940(registry);
@@ -1250,7 +1250,7 @@ struct Registry_56460 {
 };
 extern void __cdecl FUN_00236940(Registry_56460*);
 extern void* __cdecl FUN_002343e0(const char*, fight::ConditionFactoryCasterTemplate<CLuaNumberCondition>*);
-extern void __cdecl FUN_00132620(Registry_56460*);
+extern "C" void __cdecl FUN_00132620(void*);   // (decl1) as defined (GameStateCondition.cpp)
 extern "C" void __cdecl FUN_001ac340(Registry_56460*, const char*);
 extern "C" void __cdecl FUN_001ac460(Registry_56460*, const char*);
 extern "C" void __cdecl FUN_001ac220(Registry_56460*, const char*);
@@ -1263,7 +1263,7 @@ extern "C" void __cdecl FUN_001a9620(Registry_56460*, const char*);
 extern "C" void __cdecl FUN_001a94d0(Registry_56460*, const char*);
 extern "C" void __cdecl FUN_001a95c0(Registry_56460*, const char*);
 extern "C" void __cdecl FUN_001a9590(Registry_56460*, const char*);
-extern void __cdecl FUN_001a1cf0(Registry_56460*, const char*);
+extern "C" void __cdecl FUN_001a1cf0(void*, const char*);   // (decl1) as defined (LuaCondition.cpp)
 extern "C" void __cdecl FUN_001ac2b0(Registry_56460*, const char*);
 extern "C" void __cdecl FUN_001ac580(Registry_56460*, const char*);
 extern "C" void __cdecl FUN_001ac310(Registry_56460*, const char*);

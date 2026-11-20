@@ -37,7 +37,11 @@ struct Inventory_19e430 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
+#if defined(HULK_PTR64)
+    virtual Prop_19e430 *v3(content::LoadInventory::DynamicCaster<CSPHulkProp> *caster, unsigned int key_lo, unsigned int key_hi);   // (decl1, find2 G4) the slot's definition takes the key as two words; a u64 is one register natively
+#else
     virtual Prop_19e430 *v3(content::LoadInventory::DynamicCaster<CSPHulkProp> *caster, unsigned __int64 key);
+#endif
 };
 struct Holder44_19e430 { Inventory_19e430 *FUN_00203d70(); };
 struct Holder28_19e430 { Holder44_19e430 *FUN_000862a0(); };
@@ -215,11 +219,19 @@ char FireMissileAction::vfunc_5(int a0, int a1)
             DAT_004e16f0 |= 1;
             (*(unsigned __int64*)&DAT_004e16e8) = FUN_0027afb0("cow_male_cow_male");
         }
+#if defined(HULK_PTR64)
+        f.s10.prop = inv->v3(new (&f.s10) content::LoadInventory::DynamicCaster<CSPHulkProp>, (unsigned int)((*(unsigned __int64*)&DAT_004e16e8)), (unsigned int)(((*(unsigned __int64*)&DAT_004e16e8)) >> 32));
+#else
         f.s10.prop = inv->v3(new (&f.s10) content::LoadInventory::DynamicCaster<CSPHulkProp>, (*(unsigned __int64*)&DAT_004e16e8));
+#endif
         got = f.s10.prop != 0;
     }
     if (!got) {
+#if defined(HULK_PTR64)
+        f.s10.prop = inv->v3(new (&f.s10) content::LoadInventory::DynamicCaster<CSPHulkProp>, (unsigned int)(cfg->key10), (unsigned int)((cfg->key10) >> 32));
+#else
         f.s10.prop = inv->v3(new (&f.s10) content::LoadInventory::DynamicCaster<CSPHulkProp>, cfg->key10);
+#endif
         if (f.s10.prop == 0)
             return 0;
     }

@@ -28,7 +28,7 @@ public:
     virtual void vfunc_0();
 };
 
-FEObject_b8d00 *__cdecl FUN_000fc260(const char *name);
+extern "C" FEObject_b8d00 * __cdecl FUN_000fc260(const char *);   // (decl1) as defined (unk_0fb830.cpp)
 
 class TextWindow_b8d00 : public FEObject_b8d00 {
 public:

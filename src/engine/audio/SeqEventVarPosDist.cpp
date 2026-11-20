@@ -334,7 +334,7 @@ class SeqEventVarPosDist : public SeqEvent {
     virtual SeqEventVarPosDist* f4(int);
     void Prep_0025fd10();
 };
-extern void FUN_00247550(void*, SeqEventVarPosDist*);
+extern "C" int __cdecl FUN_00247550(void*, void*);   // (decl1) as defined (unk_2474c0.cpp)
 SeqEventVarPosDist* SeqEventVarPosDist::f4(int flags) {
     Prep_0025fd10();
     if (flags & 1)
@@ -387,7 +387,7 @@ class SeqActionVarPosDist : public SeqAction {
     virtual SeqActionVarPosDist* vfunc_0(int);
 };
 } // namespace audio
-extern void FUN_00247550(void*, void*);
+extern "C" int __cdecl FUN_00247550(void*, void*);   // (decl1) as defined (unk_2474c0.cpp)
 audio::SeqActionVarPosDist* audio::SeqActionVarPosDist::vfunc_0(int x) {
     int* p = (int*)this;
     *(hulk_intptr*)p = ((hulk_intptr)DAT_004298fc);

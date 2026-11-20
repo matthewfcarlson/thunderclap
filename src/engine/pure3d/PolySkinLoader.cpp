@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x002b8040..0x002b87d0 (kind game, layer engine, confidence medium), dominant class pure3d::PolySkinLoader
 #include "tree_prelude.h"
+#include "compat/ptr.h"
 #include "decls/data/engine/content.h"
 #define TREE_TU_BEGIN namespace fn_f2d93049 {
 #define TREE_TU_END }
@@ -168,7 +169,11 @@ struct Ctx {
     virtual void c0();
     virtual void c1();
     virtual void c2();
+#if defined(HULK_PTR64)
+    virtual Shared *load(content::LoadInventory::DynamicCaster<pure3d::Skeleton> *caster, unsigned int id_lo, unsigned int id_hi);   // (decl1, find2 G4) the slot's definition takes the key as two words; a u64 is one register natively
+#else
     virtual Shared *load(content::LoadInventory::DynamicCaster<pure3d::Skeleton> *caster, unsigned __int64 id);
+#endif
 };
 
 struct Name {
@@ -333,7 +338,11 @@ void pure3d::PolySkinLoader::vfunc_5(PolySkin **out, unsigned __int64 *outId, St
     {
         content::LoadInventory::DynamicCaster<pure3d::Skeleton> *caster =
             new (&f.count) content::LoadInventory::DynamicCaster<pure3d::Skeleton>();
+#if defined(HULK_PTR64)
+        skin->shared = ctx->load(caster, (unsigned int)(id), (unsigned int)((id) >> 32));
+#else
         skin->shared = ctx->load(caster, id);
+#endif
     }
     if (skin->shared != 0) {
         void *m = FUN_0008d690(0x14);

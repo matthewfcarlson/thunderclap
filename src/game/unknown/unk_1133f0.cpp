@@ -398,7 +398,7 @@ class Obj {
   public:
     void Set_00236760(void*);
 };
-void* Find_002343e0(int, Caster*);
+void* Find_002343e0(hulk_intptr, Caster*);   // (decl1) passes as defined
 extern "C" void FUN_00113a80(Obj* obj, hulk_intptr id) {
     Caster caster;
     caster.vftable = (void*)DAT_0040e5c8;   // (sweep-caster-land) the game's vftable by address

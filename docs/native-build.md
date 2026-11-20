@@ -6240,3 +6240,10 @@ mostly landed (recs1 ec0e69d62, sweep2 1f5b80223 / 517c82262, decl1), but these 
   Setup, and its delete path 0x00327800 calls an invented `cleanup` (missing); CDecalQueue 0x00280690 then calls the
   null instance. Also missing on this path: EffectQueue's `Entity_280120` constructor and `EffectQueue::v`.
 - Stop 6 (the script argument buffer's 4-byte slots) went to script2.
+
+## decl1 (2026-11-19): batch 4 + U
+
+- 123 TUs (BillboardQuad.cpp held back: another lane's uncommitted edits conflict): gen_decl / gen_sig / gen_data over the TUs left out before (script, audio and previously dirty TUs), plus
+  gen_u64.py's native-only key split in 18 inventory-find views (find2 G4 family). MSVC clean, x64 gate ok (with its
+  native compile pass), Wine control 95064 / proof 95404 (HEAD 509f9aa2e) GATE ok.
+- Native mac on the proof's map: unbound 10531 -> 10353, no new names.

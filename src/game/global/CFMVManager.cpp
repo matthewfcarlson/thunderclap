@@ -367,7 +367,7 @@ class Thing_1b8350 {
     char b130;
     char p131[3];
     int arg134;
-    void Helper_001b7f40(int, unsigned char);
+    void Helper_001b7f40(hulk_intptr, unsigned char);   // (decl1) passes as defined
     void Run(hulk_intptr, int);
 };
 extern int getval_00267f80();

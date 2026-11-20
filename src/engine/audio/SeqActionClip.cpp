@@ -162,7 +162,7 @@ public:
     int handle;
     void FUN_00256150(Arg_256150 *arg);
 };
-extern "C" void* __cdecl alloc(void*);
+extern "C" void* __cdecl FUN_00247530(void*);   // (decl1) as defined (unk_2474c0.cpp)
 class Part {
   public:
     char pad[8];
@@ -395,7 +395,7 @@ struct Singleton_4dd6ec;          // object with getters FUN_00086280/FUN_000862
 }
 
 unsigned __int64 FUN_0027b020(const char* s);                 // string hash
-unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash with seed/length
+extern "C" unsigned __int64 __cdecl FUN_002672f0(const char*, int, int);   // string hash with seed/length
 char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
 
 struct Field {
@@ -508,7 +508,7 @@ class SeqEventClip : public SeqEvent {
     virtual SeqEventClip* f4(int);
     void helper_0025fd10();
 };
-extern void FUN_00247550(void*, SeqEventClip*);
+extern "C" int __cdecl FUN_00247550(void*, void*);   // (decl1) as defined (unk_2474c0.cpp)
 SeqEventClip* SeqEventClip::f4(int arg) {
     helper_0025fd10();
     if (arg & 1)
@@ -587,7 +587,7 @@ class SeqActionClip {
     SeqActionClip* vfunc_0(int);
 };
 } // namespace audio
-extern "C" void __cdecl FUN_00247550(void*, void*);
+extern "C" int __cdecl FUN_00247550(void*, void*);   // (decl1) as defined (unk_2474c0.cpp)
 audio::SeqActionClip* audio::SeqActionClip::vfunc_0(int f) {
     SeqActionClip* p = this;
     vt = ((hulk_intptr)DAT_004298fc);
@@ -635,7 +635,7 @@ void SeqActionClip_256150::FUN_00256150(Arg_256150 *arg)
 // sym: ?vfunc_3@SeqEventClipType@audio@@UAEPAXXZ
 // data: pool_2562c0 = DAT_004e75b8
 void* audio::SeqEventClipType::vfunc_3() {
-    void* p = alloc(((char*)&DAT_004e75b8));
+    void* p = FUN_00247530(((char*)&DAT_004e75b8));
     if (p) {
         Clip_2562c0* q = (Clip_2562c0*)p;
         q->Clip_2562c0::Clip_2562c0();
@@ -679,7 +679,7 @@ class Target {
     void set_0025dc20(SeqActionClip*);
 };
 } // namespace audio
-extern "C" void* FUN_00247530(void*);
+extern "C" void* __cdecl FUN_00247530(void*);   // (decl1) as defined (unk_2474c0.cpp)
 inline audio::SeqActionClip* create(audio::SeqEventClip* p) {
     audio::SeqActionClip* a = (audio::SeqActionClip*)FUN_00247530(((char*)((char*)&DAT_004e7570)));
     if (a) {
@@ -759,7 +759,11 @@ public:
     virtual void f0();
     virtual void f1();
     virtual void f2();
+#if defined(HULK_PTR64)
+    virtual Clip *lookup(content::LoadInventory::DynamicCasterBase *caster, unsigned int id_lo, unsigned int id_hi);   // (decl1, find2 G4) the slot's definition takes the key as two words; a u64 is one register natively
+#else
     virtual Clip *lookup(content::LoadInventory::DynamicCasterBase *caster, unsigned __int64 id);
+#endif
 };
 
 struct Env_256420 {
@@ -849,7 +853,11 @@ int SeqActionClip::vfunc_6(Ctx_256420 *ctx)
                 content::LoadInventory::DynamicCaster<audio::Clip> *caster =
                     new (&fr.caster) content::LoadInventory::DynamicCaster<audio::Clip>();
                 unsigned __int64 id = ((unsigned __int64)ref->idHi << 32) | ref->idLo;
+#if defined(HULK_PTR64)
+                clip = ctx->env->clips->lookup(caster, (unsigned int)(id), (unsigned int)((id) >> 32));
+#else
                 clip = ctx->env->clips->lookup(caster, id);
+#endif
                 if (clip) {
                     clip->refs++;
                     unsigned int *params = ctx->voice->params;

@@ -384,14 +384,22 @@ struct Inventory {
     virtual void a();
     virtual void b();
     virtual void c();
+#if defined(HULK_PTR64)
+    virtual int get(DynamicCaster_fb1c0*, unsigned int key_lo, unsigned int key_hi);   // (decl1, find2 G4) the slot's definition takes the key as two words; a u64 is one register natively
+#else
     virtual int get(DynamicCaster_fb1c0*, __int64);
+#endif
     virtual void d();
     virtual void use(int);
 };
 inline int find(Inventory* inv, __int64 key) {
     DynamicCaster_fb1c0 caster;
     caster.vftable = (void*)DAT_0040ced4;
+#if defined(HULK_PTR64)
+    return inv->get(&caster, (unsigned int)(key), (unsigned int)((key) >> 32));
+#else
     return inv->get(&caster, key);
+#endif
 }
 struct Loader {
     virtual void slot0();

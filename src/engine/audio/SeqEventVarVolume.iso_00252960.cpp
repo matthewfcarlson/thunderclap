@@ -8,8 +8,8 @@
 namespace fn_f3cd7fd2 {} using namespace fn_f3cd7fd2;
 namespace fn_f3cd7fd2 {
 extern void* hulk_at_004e6ed8;
-void __cdecl FUN_00247550(void*, void*);
-void __fastcall FUN_0025fd10(void*);
+extern "C" int __cdecl FUN_00247550(void*, void*);   // (decl1) as defined (unk_2474c0.cpp)
+extern "C" void __fastcall FUN_0025fd10(void*);   // (decl1) as defined (SeqEvent.cpp)
 class SeqEvent {
   public:
     virtual void v0();

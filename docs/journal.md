@@ -1646,3 +1646,18 @@ blocks fight::Action's whole family: the records come first there.
 - input_guard (260c93696): a stale refusal now names the commit the input was built from (stamp files.json
   built_from) and the job's commit; a workspace below the checkout is not the checkout's HEAD.
 - R5 (faac4ce73): 17 of 45 re-proofs promotable; unproven baseline 150/192 -> 146/183.
+
+## 2026-11-18 decl1 batch 4: the three generators over the TUs left out before
+
+- gen_decl, gen_sig and gen_data, run in that order on one snapshot, over every TU without another agent's uncommitted
+  edits. That includes the script-binding and audio TUs script1 and audio1 have since landed. 194 extern "C"
+  callees, 47 pointer-sized int references and 1 data global, in 122 TUs.
+- Two generator bugs found here and fixed: a global C++ function (`?FUN_001d04d0@@YADPBX@Z`, no namespace) was taken
+  for a member, and a TU with no `#include "tree_prelude.h"` line made gen_decl stop before the rest of the batch.
+- 5 TUs whose equivalent blocks' checker view changed (CScenarioManager.GS, CWorldStreamManager, CSoundResourceManager,
+  HUDOverlay_2, CRenderManager) wait for the equivalent re-proof batch.
+- **U: 64-bit keys the slot definition takes as two words (find2 G4 family).** In 18 TUs, the inventory find slot
+  (content::LoadInventory::vfunc_3 0x00266280, `(Matcher*, int, int)`) is now called through views that pass the key as
+  two `unsigned int` words natively. The 32-bit side keeps the original u64 parameter in `#if defined(HULK_PTR64)` /
+  `#else`, so MSVC's bytes and the Wine build don't change. Natively a u64 is one register, so the definition read
+  a garbage high word.

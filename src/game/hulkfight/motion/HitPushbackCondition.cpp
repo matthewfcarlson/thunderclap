@@ -40,7 +40,7 @@ class HitPushbackCondition_1593f0 {
     unsigned char flag;
     void Init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
-extern "C" void* __cdecl Alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 extern int hulk_at_00414050;
 extern int hulk_at_004155e0;
 struct ConditionFactoryTemplate_159420 {
@@ -72,7 +72,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::motion::HitPu
 // 0x001593f0 fight::ConditionFactoryTemplate<hulkfight::motion::HitPushbackCondition>::vfunc_5 (44 B): matches/0x001593f0.cpp
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VHitPushbackCondition@motion@hulkfight@@@fight@@UAEPAXXZ
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::HitPushbackCondition>::vfunc_5() {
-    HitPushbackCondition_1593f0* p = (HitPushbackCondition_1593f0*)Alloc((int)sizeof(::hulkfight::motion::HitPushbackCondition));   // (allocsize1) the size by gen's record
+    HitPushbackCondition_1593f0* p = (HitPushbackCondition_1593f0*)FUN_0008d690((int)sizeof(::hulkfight::motion::HitPushbackCondition));   // (allocsize1) the size by gen's record
     if (p) {
         p->Init_00234590(0);
         *(hulk_intptr*)p = (hulk_intptr)&hulk_at_00414050;

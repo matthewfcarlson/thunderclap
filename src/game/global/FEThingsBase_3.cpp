@@ -307,7 +307,7 @@ struct FEShaderAnimation_nv_f28c0 {
     int make_000f2560(void*, void*);
 };
 struct FEBillboardAnimation_nv_f2920 {
-    int Create_000f25f0(int, int);
+    hulk_intptr Create_000f25f0(int, hulk_intptr);   // (decl1) passes as defined
 };
 class Obj_f2d40 {
   public:
@@ -592,7 +592,7 @@ struct Obj_f6680 {
 class Arg_f6850 {
   public:
     virtual void F();
-    int FnG_002961d0();
+    hulk_intptr FnG_002961d0();   // (decl1) passes as defined
 };
 class Obj_f6850 {
   public:

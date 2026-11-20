@@ -310,7 +310,7 @@ class Obj {
     void use_002367c0(void*);
     void Apply_002367c0(void*);
     void set_002367c0(void*);
-    void second_002367c0(int);
+    void second_002367c0(hulk_intptr);   // (decl1) passes as defined
     void Process_002367c0(void*);
     void Apply_002367c0(int);
 };
@@ -1653,7 +1653,7 @@ class Caster {
 };
 class Obj {
   public:
-    void Use_002367c0(int);
+    void Use_002367c0(hulk_intptr);   // (decl1) passes as defined
 };
 extern int Find_00236ac0(void*, Caster*);
 extern "C" void FUN_0017cea0(Obj* obj, void* name) {

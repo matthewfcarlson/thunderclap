@@ -30,7 +30,7 @@ class TrackFactoryTemplate_587c0 {
 };
 extern "C" void FUN_000538b0();
 extern "C" char DAT_003f710c[];
-extern "C" void* __cdecl Allocate(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 struct Condition_58800 {
     void* vptr;
     unsigned char pad4[8];
@@ -70,7 +70,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<CSmartPropAttachedCondit
 // 0x00058800 fight::ConditionFactoryTemplate<CSmartPropAttachedCondition>::vfunc_5 (58 B): matches/0x00058800.cpp
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VCSmartPropAttachedCondition@@@fight@@UAEPAXXZ
 template <> void* fight::ConditionFactoryTemplate<CSmartPropAttachedCondition>::vfunc_5() {
-    Condition_58800* p = (Condition_58800*)Allocate(sizeof(::CSmartPropAttachedCondition));
+    Condition_58800* p = (Condition_58800*)FUN_0008d690(sizeof(::CSmartPropAttachedCondition));
     if (p) {
         p->Initialize_00234590(0);
         p->vptr = (void*)((hulk_intptr)DAT_003f710c);

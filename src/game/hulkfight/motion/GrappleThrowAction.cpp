@@ -1806,7 +1806,7 @@ class Base_14c2e0 {
 };
 class Cond_14c2e0 {
   public:
-    void Init_00234590(int);
+    void Init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 class Sub_14c2e0 {
   public:
@@ -3109,9 +3109,9 @@ class GrappleExecuteTrack : public fight::Track, public fight::Param {
 };
 } // namespace motion
 } // namespace hulkfight
-int execute_0005a3f0(int);
+extern "C" hulk_intptr FUN_0005a3f0(hulk_intptr);   // (decl1) as defined (CFightParamsCollision.cpp)
 int hulkfight::motion::GrappleExecuteTrack::vfunc_8(int a, int b) {
-    return execute_0005a3f0(b);
+    return FUN_0005a3f0(b);
 }
 } // namespace fn_00147b10
 
@@ -3123,7 +3123,7 @@ int __cdecl findThing_0005a470(int);
 void* __cdecl allocThing_0008d690(int);
 class ExecuteAction_147b20 {
   public:
-    int init_002397c0(int, void*, int, int, void*, int, int);
+    hulk_intptr init_002397c0(hulk_intptr, void*, hulk_intptr, int, void*, hulk_intptr, hulk_intptr);   // (decl1) passes as defined
 };
 class GrappleExecuteTrack {
     char p0[0x14];
@@ -3238,7 +3238,7 @@ class Track {
 };
 class Param {};
 } // namespace fight
-extern "C++" __declspec(nothrow) int __cdecl helper_0005a3f0(hulk_intptr);
+extern "C" hulk_intptr FUN_0005a3f0(hulk_intptr);   // (decl1) as defined (CFightParamsCollision.cpp)
 namespace hulkfight {
 namespace motion {
 class GrappleHitReactionTrack : public fight::Track, public fight::Param {
@@ -3246,7 +3246,7 @@ class GrappleHitReactionTrack : public fight::Track, public fight::Param {
     virtual int vfunc_8(int a, int b);
 };
 int GrappleHitReactionTrack::vfunc_8(int a, int b) {
-    return helper_0005a3f0(b);
+    return FUN_0005a3f0(b);
 }
 } // namespace motion
 } // namespace hulkfight
@@ -3286,7 +3286,7 @@ class GrappleThrowTrack : public fight::Track, public fight::Param {
 };
 } // namespace motion
 } // namespace hulkfight
-hulk_intptr __cdecl FUN_0005a3f0(hulk_intptr);
+extern "C" hulk_intptr FUN_0005a3f0(hulk_intptr);   // (decl1) as defined (CFightParamsCollision.cpp)
 int hulkfight::motion::GrappleThrowTrack::vfunc_8(int a, int b) {
     return FUN_0005a3f0(b);
 }

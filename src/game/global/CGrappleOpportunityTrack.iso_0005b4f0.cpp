@@ -34,7 +34,7 @@ struct Input_5b4f0 {
 struct CIntangibleAction_nv_5b4f0 {
     CIntangibleAction* Init_0001f560(hulk_intptr);   // (decl1) passes as defined
 };
-void* __cdecl FUN_0008d690(int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 
 hulk_intptr CGrappleIntangibleTrack::vfunc_12(hulk_intptr __p0) { Input_5b4f0 * p = (Input_5b4f0 *)__p0;
 

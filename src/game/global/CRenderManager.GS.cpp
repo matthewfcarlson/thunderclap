@@ -2,6 +2,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x001b8690..0x001bc0c0 (kind game, layer game, confidence high), dominant class CRenderManager
 #include "tree_prelude.h"
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/engine/pure3d/prop.h"
 #include "decls/data/game/global.h"
@@ -90,7 +91,11 @@ struct Loader_1baab0 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
+#if defined(HULK_PTR64)
+    virtual Font *v3(content::LoadInventory::DynamicCaster<pure3d::TextureFont_1baab0> *caster, unsigned int hash_lo, unsigned int hash_hi);   // (decl1, find2 G4) the slot's definition takes the key as two words; a u64 is one register natively
+#else
     virtual Font *v3(content::LoadInventory::DynamicCaster<pure3d::TextureFont_1baab0> *caster, unsigned __int64 hash);
+#endif
 };
 
 struct TextObj {
@@ -326,7 +331,11 @@ void Credits_1baab0::FUN_001baab0(bool flag)
                 Loader_1baab0 *inv = (*(Loader_1baab0**)&DAT_004dd9c8);
                 content::LoadInventory::DynamicCaster<pure3d::TextureFont_1baab0> *caster =
                     new (&f.casterSlot) content::LoadInventory::DynamicCaster<pure3d::TextureFont_1baab0>();
+#if defined(HULK_PTR64)
+                f.font = inv->v3(caster, (unsigned int)(FUN_002672f0("font_serpentine_lt_med", 0)), (unsigned int)((FUN_002672f0("font_serpentine_lt_med", 0)) >> 32));
+#else
                 f.font = inv->v3(caster, FUN_002672f0("font_serpentine_lt_med", 0));
+#endif
                 if (f.line[0] != 0) {
                     float negScale = -f.scale;
                     f.u14.negScale = negScale;
@@ -465,7 +474,11 @@ struct Loader_1bb0b0 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
+#if defined(HULK_PTR64)
+    virtual Font *v3(content::LoadInventory::DynamicCaster<pure3d::TextureFont_1bb0b0> *caster, unsigned int hash_lo, unsigned int hash_hi);   // (decl1, find2 G4) the slot's definition takes the key as two words; a u64 is one register natively
+#else
     virtual Font *v3(content::LoadInventory::DynamicCaster<pure3d::TextureFont_1bb0b0> *caster, unsigned __int64 hash);
+#endif
 };
 
 struct TextObj {
@@ -656,7 +669,11 @@ extern "C" void __cdecl FUN_001bb0b0(const char *code)
     Loader_1bb0b0 *inv = (*(Loader_1bb0b0**)&DAT_004dd9c8);
     content::LoadInventory::DynamicCaster<pure3d::TextureFont_1bb0b0> *caster =
         new (&f.caster) content::LoadInventory::DynamicCaster<pure3d::TextureFont_1bb0b0>();
+#if defined(HULK_PTR64)
+    Font *font = inv->v3(caster, (unsigned int)(FUN_002672f0("font_serpentine_lt_med", 0)), (unsigned int)((FUN_002672f0("font_serpentine_lt_med", 0)) >> 32));
+#else
     Font *font = inv->v3(caster, FUN_002672f0("font_serpentine_lt_med", 0));
+#endif
     if (w != 0) {
         unsigned short *d = f.text;
         while (*w != 0)

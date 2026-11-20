@@ -531,7 +531,11 @@ public:
     virtual void f0();
     virtual void f1();
     virtual void f2();
+#if defined(HULK_PTR64)
+    virtual void *lookup(content::LoadInventory::DynamicCasterBase *caster, unsigned int id_lo, unsigned int id_hi);   // (decl1, find2 G4) the slot's definition takes the key as two words; a u64 is one register natively
+#else
     virtual void *lookup(content::LoadInventory::DynamicCasterBase *caster, unsigned __int64 id);
+#endif
 };
 
 struct Reader {
@@ -585,7 +589,11 @@ void VertexOffsetExpressionMixerLoader::vfunc_5(VertexOffsetExpressionMixer_2b16
     unsigned __int64 groupId = FUN_0027b020(f.groupName);
     content::LoadInventory::DynamicCaster<pure3d::ExpressionGroup_2b16a0> *groupCaster =
         new (&f.cell) content::LoadInventory::DynamicCaster<pure3d::ExpressionGroup_2b16a0>();
+#if defined(HULK_PTR64)
+    ExprGroup *group = (ExprGroup *)ctx->lookup(groupCaster, (unsigned int)(groupId), (unsigned int)((groupId) >> 32));
+#else
     ExprGroup *group = (ExprGroup *)ctx->lookup(groupCaster, groupId);
+#endif
     if (group == 0)
         FUN_0028fcc0("Warning : can't find expression group '%s' for mixer '%s'\n", f.groupName, f.mixerName);
 
@@ -598,7 +606,11 @@ void VertexOffsetExpressionMixerLoader::vfunc_5(VertexOffsetExpressionMixer_2b16
     unsigned __int64 skinId = FUN_0027b020(f.skinName);
     content::LoadInventory::DynamicCaster<pure3d::PolySkin_2b16a0> *skinCaster =
         new (&f.cell) content::LoadInventory::DynamicCaster<pure3d::PolySkin_2b16a0>();
+#if defined(HULK_PTR64)
+    Skin_2b16a0 *skin = (Skin_2b16a0 *)ctx->lookup(skinCaster, (unsigned int)(skinId), (unsigned int)((skinId) >> 32));
+#else
     Skin_2b16a0 *skin = (Skin_2b16a0 *)ctx->lookup(skinCaster, skinId);
+#endif
     if (skin && skin->holder)
         skin->holder->FUN_002a9ea0(mixer);
 

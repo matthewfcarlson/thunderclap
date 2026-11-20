@@ -30,7 +30,7 @@ class TrackFactoryTemplate_57bd0 {
 };
 extern "C" void FUN_00053750();
 typedef unsigned int u32_57c10;
-extern "C" void* __cdecl Alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 struct CCollisionPushbackYAngleCondition_57c10 {
     hulk_uintptr vptr;
     char pad[8];
@@ -69,7 +69,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<CCollisionPushbackYAngle
 // 0x00057c10 fight::ConditionFactoryTemplate<CCollisionPushbackYAngleCondition>::vfunc_5 (54 B): matches/0x00057c10.cpp
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VCCollisionPushbackYAngleCondition@@@fight@@UAEPAXXZ
 template <> void* fight::ConditionFactoryTemplate<CCollisionPushbackYAngleCondition>::vfunc_5() {
-    CCollisionPushbackYAngleCondition_57c10* p = (CCollisionPushbackYAngleCondition_57c10*)Alloc(sizeof(::CCollisionPushbackYAngleCondition));
+    CCollisionPushbackYAngleCondition_57c10* p = (CCollisionPushbackYAngleCondition_57c10*)FUN_0008d690(sizeof(::CCollisionPushbackYAngleCondition));
     if (p) {
         p->Init_00234590(0);
         p->vptr = (hulk_uintptr)&hulk_at_003f70c4;

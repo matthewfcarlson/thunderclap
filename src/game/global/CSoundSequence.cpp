@@ -27,7 +27,7 @@ typedef unsigned int U_1e8c70;
 extern U_1e8c70 __cdecl F40750_00240750();
 extern void __cdecl F416c0_002416c0(U_1e8c70, hulk_uintptr, int);
 extern void __cdecl F43090_00243090(U_1e8c70, hulk_uintptr);
-extern void __cdecl F42ca0_00242ca0(U_1e8c70, hulk_uintptr);
+extern void __cdecl F42ca0_00242ca0(hulk_uintptr, hulk_uintptr);   // (decl1) passes as defined
 class Obj_1e8c70 {
   public:
     char pad[0x34];
@@ -166,7 +166,7 @@ struct Obj_1e9a90 {
     void Reset_001e8d00(int);
 };
 struct ThisCall_001e9960 {
-    void* FUN_001e9960(int);
+    void* FUN_001e9960(hulk_intptr);   // (decl1) passes as defined
 };
 struct Sound_1e9b20 { char pad[0xc]; int handle; };
 void __cdecl FUN_002416c0(void *mixer, int handle, float volume);

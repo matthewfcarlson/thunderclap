@@ -44,7 +44,7 @@ class SeqAction_2546d0 {
     char pad[0x1c];
 };
 typedef unsigned int u32_2546f0;
-extern u32_2546f0 FUN_00267f80();
+extern "C" u32_2546f0 __cdecl FUN_00267f80(void);   // (decl1) as defined (TimerList.cpp)
 class SeqActionSilence {
     char pad[0x14];
 
@@ -317,10 +317,10 @@ class SeqActionSilence : public SeqAction {
     virtual void vfunc_6(int);
 };
 } // namespace audio
-extern "C++" __declspec(nothrow) int __cdecl tick_00267f80();
+extern "C" u32_2546f0 __cdecl FUN_00267f80(void);   // (decl1) as defined (TimerList.cpp)
 void audio::SeqActionSilence::vfunc_6(int) {
     if (state == 3) {
-        int t = tick_00267f80();
+        int t = FUN_00267f80();
         elapsed += t - last;
         last = t;
         if ((float)elapsed >= duration) {

@@ -29,7 +29,7 @@ class TrackFactoryTemplate_57040 {
     TrackImpl mTrack;
 };
 extern "C" void FUN_00052b40();
-extern "C" void* __cdecl Allocate(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 extern "C" int hulk_at_003f6e7c;
 class CAxisSpeedCondition_57080 {
   public:
@@ -70,7 +70,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<CAxisSpeedCondition>::vf
 // 0x00057080 fight::ConditionFactoryTemplate<CAxisSpeedCondition>::vfunc_5 (61 B): matches/0x00057080.cpp
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VCAxisSpeedCondition@@@fight@@UAEPAXXZ
 template <> void* fight::ConditionFactoryTemplate<CAxisSpeedCondition>::vfunc_5() {
-    CAxisSpeedCondition_57080* p = (CAxisSpeedCondition_57080*)Allocate(sizeof(::CAxisSpeedCondition));
+    CAxisSpeedCondition_57080* p = (CAxisSpeedCondition_57080*)FUN_0008d690(sizeof(::CAxisSpeedCondition));
     if (p) {
         p->Initialize_00234590(0);
         p->c = 0;

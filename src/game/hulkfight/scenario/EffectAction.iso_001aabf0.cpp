@@ -19,7 +19,7 @@ class Base_1aabf0 {
     virtual void e();
     virtual void f();
 };
-extern void* __cdecl alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 class Obj_1aabf0 {
   public:
     virtual void a();
@@ -42,7 +42,7 @@ class Sub_1aabf0 {
 };
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::scenario::Event_PropNameCondition>::vfunc_5() {
-    Obj_1aabf0* p = (Obj_1aabf0*)alloc((int)sizeof(::hulkfight::scenario::Event_PropNameCondition));   // (allocsize1) the size by gen's record
+    Obj_1aabf0* p = (Obj_1aabf0*)FUN_0008d690((int)sizeof(::hulkfight::scenario::Event_PropNameCondition));   // (allocsize1) the size by gen's record
     if (p) {
         p->init_00234590(0);
         *((hulk_intptr*)p) = ((hulk_intptr)DAT_0041c5d0);

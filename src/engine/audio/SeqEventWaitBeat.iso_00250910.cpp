@@ -9,7 +9,7 @@
 #include "decls/data/engine/audio.h"
 // data: bss = DAT_004e6a68
 
-void* alloc_00247530(void*);
+extern "C" void* __cdecl FUN_00247530(void*);   // (decl1) as defined (unk_2474c0.cpp)
 int find_002673a0(const char*, int);
 extern "C" void _ReadWriteBarrier();
 namespace audio {
@@ -39,7 +39,7 @@ inline void* operator new(size_t, void* p) {
     return p;
 }
 void* audio::SeqEventWaitBeatType::vfunc_3() {
-    void* p = alloc_00247530(((char*)((char*)&DAT_004e6a68)));
+    void* p = FUN_00247530(((char*)((char*)&DAT_004e6a68)));
     return (void*)(p ? new (p) SeqEventWaitBeat_250910 : 0);
 }
 

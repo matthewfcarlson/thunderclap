@@ -30,7 +30,7 @@ class TrackFactoryTemplate_58460 {
 };
 extern "C" void FUN_000540a0();
 extern "C" char DAT_003f73bc[];
-extern "C" void* __cdecl Allocate(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 struct CMotionHitCondition_584a0 {
     hulk_uintptr vtable;
     unsigned int pad1;
@@ -69,7 +69,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<CMotionHitCondition>::vf
 // 0x000584a0 fight::ConditionFactoryTemplate<CMotionHitCondition>::vfunc_5 (54 B): matches/0x000584a0.cpp
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VCMotionHitCondition@@@fight@@UAEPAXXZ
 template <> void* fight::ConditionFactoryTemplate<CMotionHitCondition>::vfunc_5() {
-    CMotionHitCondition_584a0* p = (CMotionHitCondition_584a0*)Allocate((int)sizeof(::CMotionHitCondition));   // (allocsize1) the size by gen's record
+    CMotionHitCondition_584a0* p = (CMotionHitCondition_584a0*)FUN_0008d690((int)sizeof(::CMotionHitCondition));   // (allocsize1) the size by gen's record
     if (p) {
         p->Init_00234590(0);
         p->vtable = ((hulk_intptr)DAT_003f73bc);

@@ -44,7 +44,7 @@ class Holder_1e8880 {
     int mCount;
     void Remove(Item_1e8880* item);
 };
-extern int __cdecl MakeThing_0008d710(int, int);
+extern "C" hulk_intptr __cdecl FUN_0008d710(hulk_intptr, int);   // (decl1) as defined (unk_08ceb0.cpp)
 class Thing_1e8910 {
   public:
     char pad[0x19c];
@@ -53,7 +53,7 @@ class Thing_1e8910 {
 };
 extern "C" char DAT_00423f28[];
 typedef unsigned int u32_1e8960;
-extern void* __cdecl alloc_0008d710(unsigned int, unsigned int);
+extern "C" hulk_intptr __cdecl FUN_0008d710(hulk_intptr, int);   // (decl1) as defined (unk_08ceb0.cpp)
 struct SoundMix {
     u32_1e8960* vptr;
     u32_1e8960 a;
@@ -187,7 +187,7 @@ void Holder_1e8880::Remove(Item_1e8880* item) {
 int __fastcall Target(Thing_1e8910* self) {
     if (self->count >= 200)
         return 0;
-    int value = MakeThing_0008d710(0x14, 6);
+    int value = FUN_0008d710(0x14, 6);
     self->items[self->count] = value;
     value = self->items[self->count];
     ++self->count;
@@ -200,7 +200,7 @@ int __fastcall Target(Thing_1e8910* self) {
 SoundMix* Manager_1e8960::Add() {
     if (count >= 20)
         return 0;
-    SoundMix* p = (SoundMix*)alloc_0008d710(0x10, 6);
+    SoundMix* p = (SoundMix*)FUN_0008d710(0x10, 6);
     if (p != 0) {
         p->vptr = (u32_1e8960*)((hulk_intptr)DAT_00423f28);
         p->a = 0;

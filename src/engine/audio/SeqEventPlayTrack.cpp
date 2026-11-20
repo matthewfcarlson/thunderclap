@@ -112,7 +112,7 @@ class A_2515e0 {
 struct SeqEventPlayTrack_nv_2515e0 {
     void Fnf_0025fd10();
 };
-void __cdecl f47550_00247550(void*, SeqEventPlayTrack_2515e0*);
+extern "C" int __cdecl FUN_00247550(void*, SeqEventPlayTrack_2515e0*);   // (decl1) as defined (unk_2474c0.cpp)
 class SeqActionPlayTrack {
   public:
     int* vptr;
@@ -281,7 +281,7 @@ SeqEventPlayTrack_2515e0* SeqEventPlayTrack_2515e0::vfunc_4(unsigned char flag) 
     ((A_2515e0*)&this->seqTrackName)->Fnf_00240060();
     ((SeqEventPlayTrack_nv_2515e0*)(((audio::SeqEventPlayTrack*)this)))->Fnf_0025fd10();
     if (flag & 1)
-        f47550_00247550(((char*)((char*)&DAT_004e6c78)), this);
+        FUN_00247550(((char*)((char*)&DAT_004e6c78)), this);
     return this;
 }
 

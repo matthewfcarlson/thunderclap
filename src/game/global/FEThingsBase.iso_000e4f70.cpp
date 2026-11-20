@@ -8,7 +8,7 @@
 // Same code shape as 0x000e49f0 (propagated; names are from that function)
 #include "gen/global.h"
 
-extern void* __cdecl FUN_0008d690(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 struct VScroll_nv_e4f70 {
     int make_000e21e0(void*, unsigned int);
 };

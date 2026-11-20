@@ -15,7 +15,7 @@ namespace fn_f902c78b {} using namespace fn_f902c78b;
 // ---- declarations shared by the functions below
 namespace fn_f902c78b {
 extern "C" void first(char*);
-extern "C" __int64 second_002672f0(char*, int, int);
+extern "C" __int64 __cdecl FUN_002672f0(const void*, int, int);   // (decl1) as defined (unk_267280.cpp)
 class Thing {
   public:
     __int64 value;
@@ -129,7 +129,7 @@ struct Param {
     char y[4];
     Sub_253f10* b;
 };
-void __cdecl Sink_0024b040(u32_253f10, float);
+void __cdecl Sink_0024b040(hulk_uintptr, float);   // (decl1) passes as defined
 struct Source { char pad0[0x1c]; float *value; float scale2; float scale1; };
 struct Factor { char pad[0x14]; float value; };
 struct Context { char pad0[4]; Source *source; char pad1[0x2c]; void *destination; char pad2[4]; Factor *factor; };
@@ -164,7 +164,7 @@ class Handler {
     char check_0025ce40(char**);
 };
 } // namespace fn_f902c78b
-extern "C" __int64 __cdecl FUN_002672f0(const char*, int, int) throw();
+extern "C" __int64 __cdecl FUN_002672f0(const void*, int, int);   // (decl1) as defined (unk_267280.cpp)
 namespace fn_f902c78b {
 struct FUN_00240060 {
     char data[12];
@@ -295,7 +295,7 @@ Thing::Thing(char* s) {
         ++s;
     } while (c);
     first(buf);
-    value = second_002672f0(buf, 0, 0);
+    value = FUN_002672f0(buf, 0, 0);
 }
 
 // 0x00253c30 audio::SeqEventStreamType::vfunc_0 (5 B): matches

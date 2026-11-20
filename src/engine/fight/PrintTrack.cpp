@@ -641,7 +641,7 @@ template <> bool fight::TrackFactoryCasterTemplate<fight::PrintTrack>::vfunc_0(v
 // The parameters of fight::PrintCondition (gx2, D18: merged from PrintTrack.new_throw.cpp; constructs the real
 // ParamString<PrintCondition>, whose vftable and scalar deleting destructor 0x00238ed0 this emits)
 namespace fn_fbe81dc2 {
-void __cdecl FUN_002347b0(void* reg, void* params, int count);
+extern "C" void __cdecl FUN_002347b0(void*, void*, int);   // (decl1) as defined (ParamValueBool_2.cpp)
 void FUN_00238f70()
 {
     if (DAT_004e5c24 == 0) {

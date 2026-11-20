@@ -779,7 +779,7 @@ class Host {
 };
 class Child_99aa0 {
   public:
-    void run_000a62c0(int a, int b);
+    void run_000a62c0(hulk_intptr a, hulk_intptr b);   // (decl1) passes as defined
 };
 class Obj_99aa0 {
   public:
@@ -1201,7 +1201,7 @@ class Function_9aa00 {
 extern "C" char DAT_00404c50[];
 class Function_9aaf0 {
   public:
-    void Init_001d0480(int, int);
+    void Init_001d0480(hulk_intptr, int);   // (decl1) passes as defined
 };
 extern unsigned char __cdecl GetValue_001d04d0(const char*);
 class Method3_9aaf0 : public Function_9aaf0 {
@@ -2430,7 +2430,7 @@ void Obj_99a30::Set(unsigned char v) {
 namespace fn_00099a50 {
 class Inner {
   public:
-    void Work_000a74c0(void*, int);
+    void Work_000a74c0(void*, hulk_intptr);   // (decl1) passes as defined
 };
 class Obj {
   public:

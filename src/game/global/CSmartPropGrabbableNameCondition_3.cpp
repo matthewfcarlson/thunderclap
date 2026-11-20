@@ -29,7 +29,7 @@ class TrackFactoryTemplate_59100 {
     TrackImpl mTrack;
 };
 extern "C" void FUN_00056830();
-extern "C" void* __cdecl Allocate(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 extern "C" int hulk_at_003f7208;
 struct Sub_59140 {
     int x;
@@ -74,7 +74,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<CSmartPropGrabbableNameC
 // 0x00059140 fight::ConditionFactoryTemplate<CSmartPropGrabbableNameCondition>::vfunc_5 (55 B): matches/0x00059140.cpp
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VCSmartPropGrabbableNameCondition@@@fight@@UAEPAXXZ
 template <> void* fight::ConditionFactoryTemplate<CSmartPropGrabbableNameCondition>::vfunc_5() {
-    Cond_59140* p = (Cond_59140*)Allocate(sizeof(::CSmartPropGrabbableNameCondition));
+    Cond_59140* p = (Cond_59140*)FUN_0008d690(sizeof(::CSmartPropGrabbableNameCondition));
     if (p) {
         p->Initialize_00234590(0);
         *(hulk_intptr*)p = (hulk_intptr)&hulk_at_003f7208;

@@ -1430,7 +1430,7 @@ extern Root_67870* gRoot_67870;
 extern "C" int atexit(void (*)());
 #endif
 namespace fn_fa3ff49b {
-extern "C" void cleanup();
+extern "C" void __cdecl FUN_00363bf0(void);   // (decl1) as defined (dynamic_initializers.cpp)
 struct Obj_678d0 {
     void init_000675b0();
 };
@@ -5856,7 +5856,7 @@ public:
 bool Squad::FUN_000665e0(Pair_665e0 *out, Source_665e0 *from)
 {
     bool found = false;
-    bool cleanup = false;
+    bool FUN_00363bf0 = false;
     int i = 0;
     if (from == 0) {
         if (count <= 0)
@@ -5872,7 +5872,7 @@ bool Squad::FUN_000665e0(Pair_665e0 *out, Source_665e0 *from)
                 out->hi = p->hi;
                 found = true;
             } else {
-                cleanup = true;
+                FUN_00363bf0 = true;
             }
             i++;
             p++;
@@ -5905,7 +5905,7 @@ bool Squad::FUN_000665e0(Pair_665e0 *out, Source_665e0 *from)
                         best = i;
                     }
                 } else {
-                    cleanup = true;
+                    FUN_00363bf0 = true;
                 }
                 i++;
                 p++;
@@ -5914,7 +5914,7 @@ bool Squad::FUN_000665e0(Pair_665e0 *out, Source_665e0 *from)
         out->lo = pairs[best].lo;
         out->hi = pairs[best].hi;
     }
-    if (cleanup)
+    if (FUN_00363bf0)
         FUN_00066530();
     return found;
 }
@@ -7007,7 +7007,7 @@ extern "C" Obj_678d0* FUN_000678d0() {
     if (((*(unsigned int*)&DAT_004dcec0) & 1) == 0) {
         (*(unsigned int*)&DAT_004dcec0) = (*(unsigned int*)&DAT_004dcec0) | 1;
         (*(Obj_678d0*)&DAT_004dc678).init_000675b0();
-        atexit(cleanup);
+        atexit(FUN_00363bf0);
     }
     return ((Obj_678d0*)&DAT_004dc678);
 }

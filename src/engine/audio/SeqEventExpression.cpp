@@ -93,7 +93,7 @@ class SeqEventExpressionType_250b20 : public FUN_002605e0 {
     SeqEventExpressionType_250b20();
 };
 typedef unsigned int u32_250ba0;
-extern "C" void* __cdecl FUN_00247530(void*);
+extern "C" void* __cdecl FUN_00247530(void*);   // (decl1) as defined (unk_2474c0.cpp)
 extern int hulk_at_00429c8c;
 class NameObj_250ba0 {
   public:
@@ -127,7 +127,7 @@ class SeqEventExpression_250c10 : public SeqEvent {
   public:
     int vfunc_1(Stm_250c10**);
 };
-extern "C" void* __cdecl allocate(void*);
+extern "C" void* __cdecl FUN_00247530(void*);   // (decl1) as defined (unk_2474c0.cpp)
 } // namespace fn_fbd591a0
 namespace audio {
 class SeqActionExpression_250cd0 {
@@ -139,7 +139,7 @@ class SeqActionExpression_250cd0 {
     audio::SeqEventExpression* owner;
     int val;
     SeqActionExpression_250cd0(audio::SeqEventExpression* p) : owner(p), val(0) {}
-    static void* operator new(size_t) { return allocate(&bss); }
+    static void* operator new(size_t) { return FUN_00247530(&bss); }
 };
 }
 namespace audio {

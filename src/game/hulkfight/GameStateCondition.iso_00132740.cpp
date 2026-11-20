@@ -11,14 +11,14 @@ extern "C" char DAT_00411224[];   // (x64t7) the game vftables the TU's placehol
 #include "gen/fight.h"
 #include "gen/hulkfight.h"
 
-extern void* __cdecl Alloc_0008d690(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 struct GameStateCondition_nv_132740 {
     void Init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
 extern int AIHistoryNameCondition_vftable;
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::MissionProgressCondition>::vfunc_5() {
-    hulkfight::GameStateCondition* p = (hulkfight::GameStateCondition*)Alloc_0008d690((int)sizeof(::hulkfight::MissionProgressCondition));   // (allocsize1) the size by gen's record
+    hulkfight::GameStateCondition* p = (hulkfight::GameStateCondition*)FUN_0008d690((int)sizeof(::hulkfight::MissionProgressCondition));   // (allocsize1) the size by gen's record
     void* result;
     if (p) {
         ((GameStateCondition_nv_132740*)(p))->Init_00234590(0);

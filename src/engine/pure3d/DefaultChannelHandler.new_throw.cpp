@@ -55,7 +55,11 @@ public:
     virtual void f0();
     virtual void f1();
     virtual void f2();
+#if defined(HULK_PTR64)
+    virtual Entity *lookup(content::LoadInventory::DynamicCasterBase *caster, unsigned int id_lo, unsigned int id_hi);   // (decl1, find2 G4) the slot's definition takes the key as two words; a u64 is one register natively
+#else
     virtual Entity *lookup(content::LoadInventory::DynamicCasterBase *caster, unsigned __int64 id);
+#endif
 };
 class Parent_28ea80 {
 public:
@@ -117,7 +121,11 @@ EntityChannel_28ea80 *__stdcall FUN_0028ea80(Reader *r, LoadContext_28ea80 *ctx,
         unsigned __int64 id = FUN_0027b020(f.name);
         content::LoadInventory::DynamicCaster<pure3d::Entity> *caster =
             new (&f.a) content::LoadInventory::DynamicCaster<pure3d::Entity>();
+#if defined(HULK_PTR64)
+        node->field_18[i] = ctx->lookup(caster, (unsigned int)(id), (unsigned int)((id) >> 32));
+#else
         node->field_18[i] = ctx->lookup(caster, id);
+#endif
         Entity *e = node->field_18[i];
         if (e != 0)
             e->AddRef();

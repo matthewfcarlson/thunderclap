@@ -25,7 +25,11 @@ class LoadInventory_13d7b0 {
     virtual void l0();
     virtual void l1();
     virtual void l2();
+#if defined(HULK_PTR64)
+    virtual void *Find(const DynamicCaster_13d7b0<pure3d::Animation_13d7b0> &c, unsigned int uid_lo, unsigned int uid_hi);   // (decl1, find2 G4) the slot's definition takes the key as two words; a u64 is one register natively
+#else
     virtual void *Find(const DynamicCaster_13d7b0<pure3d::Animation_13d7b0> &c, __int64 uid);
+#endif
 };
 template <> inline LoadInventory_13d7b0::DynamicCaster_13d7b0<pure3d::Animation_13d7b0>::DynamicCaster_13d7b0() { vftable = (void *)DAT_003f3e80; }
 }
@@ -107,7 +111,11 @@ bool hulkfight::motion::AnimationPhaseMatchedAction::vfunc_3(hulk_intptr unused0
     Registry_13d7b0 *reg = DAT_004dd700->registry;
     __int64 uid = ((__int64)(*(Spec_13d7b0 * *)&this->f_1c)->uidHi << 32) | (unsigned int)(*(Spec_13d7b0 * *)&this->f_1c)->uidLo;
     content::LoadInventory_13d7b0 *inv = reg->FUN_000862a0()->FUN_00203d70();
+#if defined(HULK_PTR64)
+    void *anim = inv->Find(content::LoadInventory_13d7b0::DynamicCaster_13d7b0<pure3d::Animation_13d7b0>(), (unsigned int)(uid), (unsigned int)((uid) >> 32));
+#else
     void *anim = inv->Find(content::LoadInventory_13d7b0::DynamicCaster_13d7b0<pure3d::Animation_13d7b0>(), uid);
+#endif
     if (anim == 0) return false;
     AnimationDriver_13d7b0 *mem = (AnimationDriver_13d7b0 *)FUN_00263ea0(0x240);
     AnimationDriver_13d7b0 *inst = 0;

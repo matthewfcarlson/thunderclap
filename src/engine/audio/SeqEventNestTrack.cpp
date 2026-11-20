@@ -77,9 +77,9 @@ extern "C" unsigned char __cdecl Check1(int, hulk_intptr, ...);
 extern "C" unsigned char __cdecl Validate1_0025bcb0(hulk_intptr, int);
 extern "C" unsigned char __cdecl Final1_00246f50(hulk_intptr, hulk_intptr, ...);
 extern int hulk_at_00422518;
-extern void FUN_00247530(void*);
+extern "C" void* __cdecl FUN_00247530(void*);   // (decl1) as defined (unk_2474c0.cpp)
 typedef unsigned int u32_24e6f0;
-extern void* __cdecl Acquire_00247530(void*);
+extern "C" void* __cdecl FUN_00247530(void*);   // (decl1) as defined (unk_2474c0.cpp)
 extern int hulk_at_00429884;
 class NameObj_24e6f0 {
   public:
@@ -284,7 +284,7 @@ struct Singleton_4dd6ec;          // object with getters FUN_00086280/FUN_000862
 }
 
 unsigned __int64 FUN_0027b020(const char* s);                 // string hash
-unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash with seed/length
+extern "C" unsigned __int64 __cdecl FUN_002672f0(const char*, int, int);   // string hash with seed/length
 char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
 
 struct Field {
@@ -342,7 +342,7 @@ audio::SeqEventNestTrackType::~SeqEventNestTrackType() {}
 // sym: ?vfunc_3@SeqEventNestTrackType@audio@@UAEPAXXZ
 // data: gName_24e6f0 = DAT_0042989c, gPool_24e6f0 = DAT_004e6698
 void* audio::SeqEventNestTrackType::vfunc_3() {
-    NestTrack_24e6f0* p = (NestTrack_24e6f0*)Acquire_00247530(((char*)&DAT_004e6698));
+    NestTrack_24e6f0* p = (NestTrack_24e6f0*)FUN_00247530(((char*)&DAT_004e6698));
     if (p) {
         p->init_0025fd00();
         p->vf = (hulk_uintptr)&hulk_at_00429884;

@@ -107,7 +107,7 @@ struct Writer_24f070 {
     Stream *out;
 };
 char FUN_0024ebe0(Writer_24f070 *w, float *value);
-extern unsigned int GetSize_00247800();
+extern "C" hulk_intptr __cdecl FUN_00247800(void);   // (decl1) as defined (unk_2477f0.cpp)
 extern unsigned int* Allocate_00247530(unsigned int);
 struct Owner_24f180 {
     char pad[0x40];
@@ -130,7 +130,7 @@ class SeqEventChannelSendVolumes : public SeqEvent {
     virtual void f3();
     virtual SeqEventChannelSendVolumes* f4(unsigned char flags);
 };
-void FUN_00247550(void* g, SeqEventChannelSendVolumes* p);
+extern "C" int __cdecl FUN_00247550(void*, void*);   // (decl1) as defined (unk_2474c0.cpp)
 struct Node {
     Node* left;
     Node* right;
@@ -327,7 +327,7 @@ namespace fn_f983a9d8 {
 SeqActionChannelSendVolumes_24edb0* SeqActionChannelSendVolumes_24edb0::f0(unsigned char flags) {
     vptr = hulk_at_004298fc;
     if (flags & 1)
-        Free(((char*)&DAT_004e6700), this);
+        FUN_00247550(((char*)&DAT_004e6700), this);
     return this;
 }
 
@@ -352,7 +352,7 @@ class ChannelSendVolumeFadeBehaviour : public om::DynBehaviour {
     virtual void vfunc_1();
 };
 } // namespace audio
-extern "C++" __declspec(nothrow) void __cdecl FUN_00247550(void*, void*);
+extern "C" int __cdecl FUN_00247550(void*, void*);   // (decl1) as defined (unk_2474c0.cpp)
 audio::ChannelSendVolumeFadeBehaviour* audio::ChannelSendVolumeFadeBehaviour::vfunc_0(int flag) {
     ChannelSendVolumeFadeBehaviour* p = this;
     *(hulk_intptr*)p = ((hulk_intptr)DAT_0042991c);
@@ -471,7 +471,7 @@ bool FUN_0024f070(Writer_24f070 *w, float *values)
 // 0x0024f180 FUN_0024f180 (53 B): matches/0x0024f180.cpp
 // sym: ?FUN_0024f180@fn_f983a9d8@@YIPAIPAUOwner_24f180@1@@Z
 unsigned int* __fastcall FUN_0024f180(Owner_24f180* self) {
-    unsigned int* p = Allocate_00247530(GetSize_00247800());
+    unsigned int* p = Allocate_00247530(FUN_00247800());
     unsigned int* r;
     if (p) {
         for (int i = 0; i != 0x40; ++i)

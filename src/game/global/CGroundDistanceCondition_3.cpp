@@ -34,7 +34,7 @@ class GroundCondition {
   public:
     void Init_00234590(hulk_intptr);   // (decl1) passes as defined
 };
-extern "C" void* Alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 extern int hulk_at_003f9524;
 struct ConditionFactoryTemplate_58170 {
     void* m_vptr;
@@ -65,7 +65,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<CGroundDistanceCondition
 // 0x00058130 fight::ConditionFactoryTemplate<CGroundDistanceCondition>::vfunc_5 (54 B): matches/0x00058130.cpp
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VCGroundDistanceCondition@@@fight@@UAEPAXXZ
 template <> void* fight::ConditionFactoryTemplate<CGroundDistanceCondition>::vfunc_5() {
-    GroundCondition* p = (GroundCondition*)Alloc((int)sizeof(::CGroundDistanceCondition));   // (allocsize1) the size by gen's record
+    GroundCondition* p = (GroundCondition*)FUN_0008d690((int)sizeof(::CGroundDistanceCondition));   // (allocsize1) the size by gen's record
     if (p) {
         p->Init_00234590(0);
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_003f6f5c);

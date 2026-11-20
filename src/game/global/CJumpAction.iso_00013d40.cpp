@@ -12,7 +12,7 @@ struct R_13d40 {
     void call_00222970(void*, int);
 };
 extern void* __fastcall FUN_000592a0(void*);
-extern R_13d40* __fastcall FUN_00059a40(void*);
+extern "C" R_13d40* __fastcall FUN_00059a40(void*);   // (decl1) as defined (CFightParamsCollision.cpp)
 
 void CJumpAction::vfunc_4() {
     void* a = FUN_000592a0((*(void * *)&this->f_1c));

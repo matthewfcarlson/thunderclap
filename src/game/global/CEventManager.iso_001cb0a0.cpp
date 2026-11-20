@@ -26,7 +26,7 @@ struct World {
     char pad[0x44];
     Look_1cb0a0* look;
 };
-Writer_1cb0a0* FUN_001d4c90();
+extern "C" Writer_1cb0a0* __cdecl FUN_001d4c90(void);   // (decl1) as defined (ScriptHandler.cpp)
 bool owners::Actor_1cb0a0::FUN_001cb0a0() {
     Writer_1cb0a0* w = FUN_001d4c90();
     if (!w)

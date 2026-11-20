@@ -31,7 +31,7 @@ class TrackFactoryTemplate_57660 {
 extern "C" void FUN_00054800();
 extern "C" char DAT_003f7528[];
 typedef unsigned int u32_576a0;
-extern "C" void* __cdecl Alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 struct CClimbEdgeCondition_576a0 {
     hulk_uintptr vptr;
     char pad[8];
@@ -69,7 +69,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<CClimbEdgeCondition>::vf
 // 0x000576a0 fight::ConditionFactoryTemplate<CClimbEdgeCondition>::vfunc_5 (51 B): matches/0x000576a0.cpp
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VCClimbEdgeCondition@@@fight@@UAEPAXXZ
 template <> void* fight::ConditionFactoryTemplate<CClimbEdgeCondition>::vfunc_5() {
-    CClimbEdgeCondition_576a0* p = (CClimbEdgeCondition_576a0*)Alloc((int)sizeof(::CClimbEdgeCondition));   // (allocsize1) the size by gen's record
+    CClimbEdgeCondition_576a0* p = (CClimbEdgeCondition_576a0*)FUN_0008d690((int)sizeof(::CClimbEdgeCondition));   // (allocsize1) the size by gen's record
     if (p) {
         p->Init_00234590(0);
         p->vptr = ((hulk_intptr)DAT_003f7528);

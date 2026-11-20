@@ -56,7 +56,7 @@ struct X_2479a0 {
     void FnA_0025def0();
     X_2479a0* Target(unsigned char flag);
 };
-extern int __cdecl FnB_0025d3d0();
+extern "C" hulk_intptr __cdecl FUN_0025d3d0(void);   // (decl1) as defined (OmHalStream.cpp)
 extern "C" void __cdecl FUN_00247550(int, X_2479a0*);
 struct Obj_247a10 {
     char pad[0x3c];
@@ -223,7 +223,7 @@ extern "C" void FUN_00247970(Obj_247970* self, int value) {
 X_2479a0* X_2479a0::Target(unsigned char flag) {
     FnA_0025def0();
     if (flag & 1)
-        FUN_00247550(FnB_0025d3d0(), this);
+        FUN_00247550(FUN_0025d3d0(), this);
     return this;
 }
 

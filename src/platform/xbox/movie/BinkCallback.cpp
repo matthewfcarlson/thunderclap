@@ -123,7 +123,7 @@ class ControllerXBox {
 }
 typedef unsigned char u8_335160;
 extern char refvt_335160, basevt;
-void __cdecl cleanup(int, void*);
+extern "C" void __cdecl FUN_00266f00(int, void*);   // (decl1) as defined (unk_266950.cpp)
 namespace movie {
 class BinkCallback {
   public:
@@ -598,7 +598,7 @@ movie::BinkCallback* movie::BinkCallback::vfunc_0(u8_335160 flag) {
     DAT_004cdbb0 = m;
     vptr = &basevt;
     if (flag & 1)
-        cleanup(DAT_004cdbb0, this);
+        FUN_00266f00(DAT_004cdbb0, this);
     return this;
 }
 

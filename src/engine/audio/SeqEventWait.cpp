@@ -103,7 +103,7 @@ class SeqAction_250250 {
     virtual void f6();
 };
 typedef unsigned int u32_250310;
-extern "C" void* __cdecl FUN_00247530(void*);
+extern "C" void* __cdecl FUN_00247530(void*);   // (decl1) as defined (unk_2474c0.cpp)
 extern int hulk_at_00429b6c;
 class NameObj_250310 {
   public:
@@ -169,7 +169,7 @@ class SeqEvent_250460 {
 };
 }
 namespace fn_f0ad381b {
-extern "C" void* __cdecl alloc(void*);
+extern "C" void* __cdecl FUN_00247530(void*);   // (decl1) as defined (unk_2474c0.cpp)
 
 
 // 0x00250080 FUN_00250080 (4 B): matches/0x00250080.cpp
@@ -516,7 +516,7 @@ audio::SeqActionWait* audio::SeqActionWait::vfunc_0(int x) {
 // sym: ?vfunc_2@SeqEventWait@audio@@UAEXH@Z
 void audio::SeqEventWait::vfunc_2(hulk_intptr __p0) { Target * p = (Target *)__p0;
 
-    audio::SeqActionWait_250460* a = (audio::SeqActionWait_250460*)alloc(&bss);
+    audio::SeqActionWait_250460* a = (audio::SeqActionWait_250460*)FUN_00247530(&bss);
     p->set_0025dc20(a ? (a->audio::SeqActionWait_250460::SeqActionWait_250460(this), a) : 0);
 }
 

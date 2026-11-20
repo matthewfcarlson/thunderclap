@@ -27,7 +27,7 @@ class Entity_27aff0 {
     char pad[0x100];
 };
 }
-unsigned __int64 FUN_002672f0(void* a, int b, int c);
+extern "C" unsigned __int64 __cdecl FUN_002672f0(void*, int, int);   // (decl1) as defined (unk_267280.cpp)
 namespace fn_f83389b9 {
 typedef unsigned int U32_27b040;
 typedef unsigned __int64 U64_27b040;

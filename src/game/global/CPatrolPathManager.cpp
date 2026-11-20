@@ -155,7 +155,7 @@ struct Singleton_4dd6ec;          // object with getters FUN_00086280/FUN_000862
 
 unsigned __int64 FUN_0027b020(const char* s);                 // string hash
 unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash with seed/length
-char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
+extern "C" char __cdecl FUN_001d04d0(const void*);   // type_info test (compares against DAT_0048e100, ...)
 
 
 struct V3_1065b0 {
@@ -212,7 +212,7 @@ public:
 };
 
 void *thunk_FUN_0008d690(unsigned int size);
-extern "C" void *FUN_0008d6d0(unsigned int size);
+extern "C" void* __cdecl FUN_0008d6d0(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 
 
 class CPatrolPath : public PathBase {
@@ -723,8 +723,8 @@ namespace fn_00106e90 {
 
 
 void* FUN_0008d690(unsigned int);
-void* FUN_0008d6d0(unsigned int);
-char FUN_001d04d0(const void*) throw();
+extern "C" void* __cdecl FUN_0008d6d0(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
+extern "C" char __cdecl FUN_001d04d0(const void*);   // (decl1) as defined (Function.cpp)
 namespace math { class Vector { public: float x, y, z; }; }
 typedef float Float; typedef bool Bool; typedef int Int; typedef void Void;
 typedef const char* String; typedef char* CharPtr; typedef math::Vector Vector;
@@ -753,7 +753,7 @@ class Registry { public:
     void FUN_00106d80(const char*, CPatrolPathManager*, bool (CPatrolPathManager::*)(const char*, bool, int));
     void FUN_00106e30(const char*, CPatrolPathManager*, bool (CPatrolPathManager::*)(const char*, int, math::Vector));
 };
-Registry* FUN_001d4c90();
+extern "C" Registry* __cdecl FUN_001d4c90(void);   // (decl1) as defined (ScriptHandler.cpp)
 #define G1(n, b, R, A1) { r->FUN_001d3b70(n, new Closure1<CPatrolPathManager, R, A1>(n, this, &CPatrolPathManager::FUN_##b, &t##R, &t##A1)); }
 #define O(n, c, b) { r->FUN_##c(n, this, &CPatrolPathManager::FUN_##b); }
 CPatrolPathManager::CPatrolPathManager(int a) {

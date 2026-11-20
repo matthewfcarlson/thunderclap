@@ -33,7 +33,7 @@ struct Entry_f87f0 {
     int a;
     int b;
     float scale;
-    int FUN_000f83f0(Owner* owner, Blender_f87f0* blender);
+    hulk_intptr FUN_000f83f0(Owner* owner, Blender_f87f0* blender);   // (decl1) passes as defined
 };
 struct Blender_f87f0 {
     Owner* owner;

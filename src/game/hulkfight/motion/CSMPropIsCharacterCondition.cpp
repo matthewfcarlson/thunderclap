@@ -28,7 +28,7 @@ class TrackFactoryTemplate_18bcc0 {
     TrackImpl mTrack;
 };
 extern "C" void FUN_00187da0();
-extern "C" void* __cdecl alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 extern int hulk_at_004192ac;
 class Obj_18bd00 {
   public:
@@ -72,7 +72,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::motion::CSMPr
 // 0x0018bd00 fight::ConditionFactoryTemplate<hulkfight::motion::CSMPropIsCharacterCondition>::vfunc_5 (44 B): matches/0x0018bd00.cpp
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VCSMPropIsCharacterCondition@motion@hulkfight@@@fight@@UAEPAXXZ
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::CSMPropIsCharacterCondition>::vfunc_5() {
-    Obj_18bd00* p = (Obj_18bd00*)alloc(sizeof(::hulkfight::motion::CSMPropIsCharacterCondition));
+    Obj_18bd00* p = (Obj_18bd00*)FUN_0008d690(sizeof(::hulkfight::motion::CSMPropIsCharacterCondition));
     if (p) {
         p->init_00234590(0);
         *(hulk_intptr*)p = (hulk_intptr)&hulk_at_004192ac;

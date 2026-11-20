@@ -9,7 +9,7 @@
 #include "gen/owners.h"
 extern "C" float DAT_004c7df8;
 static const float DAT_003f3358 = 0.01f;
-extern void __cdecl FUN_00247890(int, float);
+extern "C" void __cdecl FUN_00247890(hulk_intptr, float);   // (decl1) as defined (unk_2477f0.cpp)
 void owners::Obj_1f39d0::FUN_001f39d0(float x) {
     DAT_004c7df8 = x;
     if (flag == 0) {

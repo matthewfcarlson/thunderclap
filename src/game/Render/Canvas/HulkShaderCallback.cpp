@@ -288,7 +288,7 @@ struct Object { virtual void s0(); virtual void s1(); virtual void s2(); virtual
 hulk_freg __cdecl FUN_00018a20(float);
 struct Target_1c20e0 { char pad[8]; Object* object; char pad2[0xa4]; float horizontalLimit,verticalLimit; int FUN_001c20e0(const Input_1c20e0*); };
 struct Sub_1c22f0 {
-    void FnA_0029bc80(int);
+    void FnA_0029bc80(hulk_intptr);   // (decl1) passes as defined
     void FnB_0029bb60();
 };
 struct Obj2_1c22f0 {
@@ -679,7 +679,7 @@ struct Owner_1c35f0 {
 };
 class H {
   public:
-    int check_001c5b00(int);
+    int check_001c5b00(hulk_intptr);   // (decl1) passes as defined
 };
 class C_1c3740 {
     char pad[0x0c];
@@ -795,7 +795,7 @@ struct Obj_1c3a40 {
 };
 class Sub_1c3b20 {
   public:
-    int Fn_001c60f0(int, int);
+    hulk_intptr Fn_001c60f0(int, int);   // (decl1) passes as defined
 };
 class C_1c3b20 {
   public:
@@ -805,8 +805,8 @@ class C_1c3b20 {
 };
 class Helper_1c3b30 {
   public:
-    int first_001c5fb0(int);
-    void second_001c6000(int);
+    hulk_intptr first_001c5fb0(hulk_intptr);   // (decl1) passes as defined
+    void second_001c6000(hulk_intptr);   // (decl1) passes as defined
 };
 class Obj_1c3b30 {
   public:
@@ -821,7 +821,7 @@ class D {
 class C_1c3b80 {
   public:
     void* pad[3];
-    int Get_001c59d0(int);
+    int Get_001c59d0(hulk_intptr);   // (decl1) passes as defined
     void Finish_001c5a20(int);
 };
 class Obj_1c3b80 {
@@ -938,7 +938,7 @@ class Target_1c3dc0 {
 class Engine_1c4010 {
   public:
     void Init_001c1f30(void*, int, int, int, int);
-    int Finish_001c1310(int);
+    int Finish_001c1310(hulk_intptr);   // (decl1) passes as defined
 };
 class Engine_1c4050 {
   public:

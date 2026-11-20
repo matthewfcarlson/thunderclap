@@ -30,7 +30,7 @@ class TrackFactoryTemplate_58670 {
 };
 extern "C" void FUN_00054300();
 extern "C" char DAT_003f742c[];
-extern "C" void* __cdecl Alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 class CRageModeCondition_586b0 {
   public:
     void Init_00234590(hulk_intptr);   // (decl1) passes as defined
@@ -65,7 +65,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<CRageModeCondition>::vfu
 // 0x000586b0 fight::ConditionFactoryTemplate<CRageModeCondition>::vfunc_5 (44 B): matches/0x000586b0.cpp
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VCRageModeCondition@@@fight@@UAEPAXXZ
 template <> void* fight::ConditionFactoryTemplate<CRageModeCondition>::vfunc_5() {
-    CRageModeCondition_586b0* p = (CRageModeCondition_586b0*)Alloc((int)sizeof(::CRageModeCondition));   // (allocsize1) the size by gen's record
+    CRageModeCondition_586b0* p = (CRageModeCondition_586b0*)FUN_0008d690((int)sizeof(::CRageModeCondition));   // (allocsize1) the size by gen's record
     if (p) {
         p->Init_00234590(0);
         *(hulk_intptr*)p = ((hulk_intptr)DAT_003f742c);

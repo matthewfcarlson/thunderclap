@@ -92,7 +92,7 @@ struct Dev_262fe0 {
     virtual void v18();
     virtual void Sync(unsigned* g);
 };
-void G1_0026d860(unsigned*, int);
+extern "C" void __cdecl FUN_0026d860(unsigned*, int);   // (decl1) as defined (unk_26d480.cpp)
 extern "C" void FUN_0026d890(unsigned*);
 extern "C" void FUN_0026d880(unsigned*);
 class HalRsdFileStream {
@@ -177,7 +177,7 @@ struct Item_263300 {
     char pad[0x20];
     Item_263300* F(unsigned char);
 };
-void __cdecl FUN_00247550(void*, Item_263300*);
+extern "C" int __cdecl FUN_00247550(void*, void*);   // (decl1) as defined (unk_2474c0.cpp)
 } // namespace fn_fe2967ee
 namespace audio {
 class Obj_263420 {
@@ -192,7 +192,7 @@ struct Aux_263420 {
 };
 }
 namespace fn_fe2967ee {
-void FUN_00247550(void*, void*);
+extern "C" int __cdecl FUN_00247550(void*, void*);   // (decl1) as defined (unk_2474c0.cpp)
 
 
 // 0x00262e60 FUN_00262e60 (49 B): matches/0x00262e60.cpp
@@ -293,7 +293,7 @@ unsigned HalRsdFileStream::vfunc_7(int a, int b, unsigned n) {
     else
         mLen = n;
     if (mLen > 0) {
-        G1_0026d860(&n, 0);
+        FUN_0026d860(&n, 0);
         mDev->Read(a, mLen, b);
         mDev->Sync(&n);
         FUN_0026d890(&n);

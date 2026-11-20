@@ -28,7 +28,7 @@ class TrackFactoryTemplate_12a3d0 {
     TrackImpl mTrack;
 };
 extern "C" void FUN_00128660();
-extern "C" void* __cdecl alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 class TDC_12a410 {
   public:
     hulk_intptr vf;
@@ -70,7 +70,7 @@ namespace fn_fac1b2ca {
 // 0x0012a410 fight::ConditionFactoryTemplate<hulkfight::ai::TargetDistanceCondition>::vfunc_5 (56 B): matches/0x0012a410.cpp
 // sym: ?target@fn_fac1b2ca@@YAPAVTDC_12a410@1@XZ
 TDC_12a410* __cdecl target() {
-    TDC_12a410* p = (TDC_12a410*)alloc(sizeof(::hulkfight::ai::TargetDistanceCondition));
+    TDC_12a410* p = (TDC_12a410*)FUN_0008d690(sizeof(::hulkfight::ai::TargetDistanceCondition));
     int z = 0;
     if (p) {
         p->init_00234590(z);

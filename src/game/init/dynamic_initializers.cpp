@@ -729,7 +729,7 @@ struct X_364200 {
 struct Obj_364210 {
     void Run_002580e0();
 };
-extern void __fastcall FUN_002580e0(void*);
+extern "C" void __fastcall FUN_002580e0(void*);   // (decl1) as defined (unk_257dd0.cpp)
 class Obj_364230 {
   public:
     void Run_002580e0();
@@ -768,7 +768,7 @@ extern "C" char g_target_364360[];
 struct Obj_364360 {
     void Run_002580e0();
 };
-extern void __fastcall target_func_002580e0(void*);
+extern "C" void __fastcall FUN_002580e0(void*);   // (decl1) as defined (unk_257dd0.cpp)
 struct G_364390 {
     void Run_002580e0();
 };
@@ -892,7 +892,7 @@ struct G_364670 {
 struct Obj_364680 {
     void Run();
 };
-void __fastcall FUN_002580e0(Obj_364680*) throw();
+extern "C" void __fastcall FUN_002580e0(void*);   // (decl1) as defined (unk_257dd0.cpp)
 struct Obj_364690 {
     void Fn_002580e0();
 };
@@ -10029,7 +10029,7 @@ void __fastcall FUN_00364360() {
 // sym: _FUN_00364370
 // data: g_global = DAT_004e67b8
 extern "C" void __cdecl FUN_00364370() {
-    target_func_002580e0(((void**)&DAT_004e67b8));
+    FUN_002580e0(((void**)&DAT_004e67b8));
 }
 
 } // namespace fn_f1ddef39
@@ -10069,7 +10069,7 @@ extern "C" void FUN_003643a0() {
 // sym: _FUN_003643b0@0
 namespace fn_003643b0 {
 
-extern "C++" __declspec(nothrow) void __stdcall FUN_002580e0(void*);
+extern "C" void __fastcall FUN_002580e0(void*);   // (decl1) as defined (unk_257dd0.cpp)
 struct Obj_3643b0 {
     void Fn_002580e0();
 };

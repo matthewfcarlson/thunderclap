@@ -37,7 +37,7 @@ struct Pair_8e730 {
     const char* s;
     float f;
 };
-extern "C" unsigned char __cdecl Check(const void*);
+extern "C" char __cdecl FUN_001d04d0(const void*);   // (decl1) as defined (Function.cpp)
 class Function_8e750 {
   public:
     Function_8e750(const char*, int);
@@ -50,8 +50,8 @@ class Method1_8e750 : public Function_8e750 {
   public:
     Method1_8e750(const char* s, void* p) : Function_8e750(s, 1) {
         value = p;
-        flag2 = Check(((char*)&DAT_0048e100));
-        flag = Check(((char*)&DAT_0048e0f0));
+        flag2 = FUN_001d04d0(((char*)&DAT_0048e100));
+        flag = FUN_001d04d0(((char*)&DAT_0048e0f0));
     }
     virtual void fn();
     unsigned char flag2;
@@ -265,7 +265,7 @@ struct Singleton_4dd6ec;          // object with getters FUN_00086280/FUN_000862
 
 unsigned __int64 FUN_0027b020(const char* s);                 // string hash
 unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash with seed/length
-char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
+extern "C" char __cdecl FUN_001d04d0(const void*);   // type_info test (compares against DAT_0048e100, ...)
 
 
 

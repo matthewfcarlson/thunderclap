@@ -697,14 +697,14 @@ template <> inline TrackFactoryCasterTemplate<CWeaponCollisionTrack>::TrackFacto
 struct Registry_73700 { void FUN_002367c0(void*); void FUN_00236400(); };
 void* __cdecl FUN_00236ac0(const char*, void*);
 extern "C" void __cdecl FUN_002369c0(void *);
-void __cdecl FUN_0012de00(Registry_73700*, const char*);
-extern "C" void __cdecl FUN_00132560(Registry_73700*, const char*);
-void __cdecl FUN_00132530(Registry_73700*, const char*);
-void __cdecl FUN_00132500(Registry_73700*, const char*);
-void __cdecl FUN_001325c0(Registry_73700*, const char*);
-void __cdecl FUN_001324d0(Registry_73700*, const char*);
-void __cdecl FUN_00132590(Registry_73700*, const char*);
-void __cdecl FUN_001325f0(Registry_73700*, const char*);
+extern "C" void __cdecl FUN_0012de00(void*, const char*);   // (decl1) as defined (PostEvent_StringTrack.cpp)
+extern "C" void __cdecl FUN_00132560(Registry_73700*, const char*);   // (decl1) as defined (GameStateCondition.cpp)
+extern "C" void __cdecl FUN_00132530(void*, const char*);   // (decl1) as defined (GameStateCondition.cpp)
+extern "C" void __cdecl FUN_00132500(void*, const char*);   // (decl1) as defined (GameStateCondition.cpp)
+extern "C" void __cdecl FUN_001325c0(void*, const char*);   // (decl1) as defined (GameStateCondition.cpp)
+extern "C" void __cdecl FUN_001324d0(void*, const char*);   // (decl1) as defined (GameStateCondition.cpp)
+extern "C" void __cdecl FUN_00132590(void*, const char*);   // (decl1) as defined (GameStateCondition.cpp)
+extern "C" void __cdecl FUN_001325f0(void*, const char*);   // (decl1) as defined (GameStateCondition.cpp)
 extern "C" void __cdecl FUN_0013c620(Registry_73700*, const char*);
 extern "C" void __cdecl FUN_0013d780(Registry_73700*, const char*);
 extern "C" void __cdecl FUN_0013cdd0(Registry_73700*, const char*);
@@ -719,7 +719,7 @@ extern "C" void __cdecl FUN_0019c690(Registry_73700*, const char*);
 extern "C" void __cdecl FUN_0019de20(Registry_73700*, const char*);
 extern "C" void __cdecl FUN_0019c6c0(Registry_73700*, const char*);
 extern "C" void __cdecl FUN_0017c620(Registry_73700*, const char*);
-extern "C" void __cdecl FUN_0017d1b0(Registry_73700*, const char*);
+extern "C" void __cdecl FUN_0017d1b0(Registry_73700*, const char*);   // (decl1) as defined (JointTrackerTrack_3_26.cpp)
 extern "C" void __cdecl FUN_00161d20(Registry_73700*, const char*);
 extern "C" void __cdecl FUN_0017d5e0(Registry_73700*, const char*);
 extern "C" void __cdecl FUN_0017d8a0(Registry_73700*, const char*);
@@ -745,7 +745,7 @@ extern "C" void __cdecl FUN_00158aa0(Registry_73700*, const char*);
 extern "C" void __cdecl FUN_00158b60(Registry_73700*, const char*);
 extern "C" void __cdecl FUN_00158290(Registry_73700*, const char*);
 extern "C" void __cdecl FUN_00158a70(Registry_73700*, const char*);
-extern "C" void __cdecl FUN_00158b30(Registry_73700*, const char*);
+extern "C" void __cdecl FUN_00158b30(Registry_73700*, const char*);   // (decl1) as defined (InterruptAccumulatorCondition_19.cpp)
 extern "C" void __cdecl FUN_00158ad0(Registry_73700*, const char*);
 extern "C" void __cdecl FUN_0017d1e0(Registry_73700*, const char*);
 extern "C" void __cdecl FUN_0014b960(Registry_73700*, const char*);
@@ -770,7 +770,7 @@ extern "C" void __cdecl FUN_0018b080(Registry_73700*, const char*);
 extern "C" void __cdecl FUN_0018ab70(Registry_73700*, const char*);
 extern "C" void __cdecl FUN_00189f60(Registry_73700*, const char*);
 extern "C" void __cdecl FUN_0018b110(Registry_73700*, const char*);
-extern "C" void __cdecl FUN_0018a0a0(Registry_73700*, const char*);
+extern "C" void* __cdecl FUN_0018a0a0(Registry_73700*, const char*);   // (decl1) as defined (PropMissionCriticalCondition_28.cpp)
 extern "C" void __cdecl FUN_0018b0e0(Registry_73700*, const char*);
 extern "C" void __cdecl FUN_0018a2e0(Registry_73700*, const char*);
 extern "C" void __cdecl FUN_0018b2e0(Registry_73700*, const char*);
@@ -779,7 +779,7 @@ extern "C" void __cdecl FUN_0018b050(Registry_73700*, const char*);
 extern "C" void __cdecl FUN_0018b020(Registry_73700*, const char*);
 extern "C" void __cdecl FUN_0018aba0(Registry_73700*, const char*);
 extern "C" void __cdecl FUN_0018a840(Registry_73700*, const char*);
-void __cdecl FUN_0018e8d0(Registry_73700*);
+extern "C" void __cdecl FUN_0018e8d0(void*);   // (decl1) as defined (TimerCondition.cpp)
 extern "C" void __cdecl FUN_00191b10(Registry_73700*, const char*);
 extern "C" void __cdecl FUN_00191ae0(Registry_73700*, const char*);
 extern "C" void __cdecl FUN_00191910(Registry_73700*, const char*);
@@ -787,7 +787,7 @@ extern "C" void __cdecl FUN_0017ca00(Registry_73700*, const char*);
 extern "C" void __cdecl FUN_0017dd60(Registry_73700*, const char*);
 extern "C" void __cdecl FUN_0017d670(Registry_73700*, const char*);
 extern "C" void __cdecl FUN_0017ddc0(Registry_73700*, const char*);
-extern "C" void __cdecl FUN_0017d580(Registry_73700*, const char*);
+extern "C" void __cdecl FUN_0017d580(Registry_73700*, const char*);   // (decl1) as defined (JointTrackerTrack_3_26.cpp)
 extern "C" void __cdecl FUN_0017d5b0(Registry_73700*, const char*);
 extern "C" void __cdecl FUN_0017dca0(Registry_73700*, const char*);
 extern "C" void __cdecl FUN_0017dc40(Registry_73700*, const char*);
@@ -803,23 +803,23 @@ extern "C" void __cdecl FUN_00139390(Registry_73700*, const char*);
 extern "C" void __cdecl FUN_001392d0(Registry_73700*, const char*);
 extern "C" void __cdecl FUN_00139300(Registry_73700*, const char*);
 extern "C" void __cdecl FUN_0017d870(Registry_73700*, const char*);
-extern "C" void __cdecl FUN_0017dd30(Registry_73700*, const char*);
+extern "C" void __cdecl FUN_0017dd30(Registry_73700*, const char*);   // (decl1) as defined (JointTrackerTrack_3_26.cpp)
 extern "C" void __cdecl FUN_0017cea0(Registry_73700*, const char*);
-extern "C" void __cdecl FUN_0017dcd0(Registry_73700*, const char*);
+extern "C" void __cdecl FUN_0017dcd0(Registry_73700*, const char*);   // (decl1) as defined (JointTrackerTrack_3_26.cpp)
 extern "C" void __cdecl FUN_001424e0(Registry_73700*, const char*);
 extern "C" void __cdecl FUN_001428e0(Registry_73700*, const char*);
 extern "C" void __cdecl FUN_001428b0(Registry_73700*, const char*);
 extern "C" void __cdecl FUN_00146400(Registry_73700*);
-extern "C" void __cdecl FUN_00113cf0(Registry_73700*, const char*);
-extern "C" void __cdecl FUN_00113bd0(Registry_73700*, const char*);
-extern "C" void __cdecl FUN_00113d20(Registry_73700*, const char*);
-extern "C" void __cdecl FUN_00129f80(Registry_73700*, const char*);
-extern "C" void __cdecl FUN_00129fb0(Registry_73700*, const char*);
+extern "C" void __cdecl FUN_00113cf0(Registry_73700*, const char*);   // (decl1) as defined (unk_1133f0.cpp)
+extern "C" void __cdecl FUN_00113bd0(Registry_73700*, const char*);   // (decl1) as defined (unk_1133f0.cpp)
+extern "C" void __cdecl FUN_00113d20(Registry_73700*, const char*);   // (decl1) as defined (unk_1133f0.cpp)
+extern "C" void __cdecl FUN_00129f80(Registry_73700*, const char*);   // (decl1) as defined (TargetDirectionYCondition_16.cpp)
+extern "C" void __cdecl FUN_00129fb0(Registry_73700*, const char*);   // (decl1) as defined (TargetDirectionYCondition_16.cpp)
 extern "C" void __cdecl FUN_0012d110(Registry_73700*, const char*);
 extern "C" void __cdecl FUN_00113ba0(Registry_73700*, const char*);
-extern "C" void __cdecl FUN_00113c30(Registry_73700*, const char*);
+extern "C" void __cdecl FUN_00113c30(Registry_73700*, const char*);   // (decl1) as defined (unk_1133f0.cpp)
 extern "C" void __cdecl FUN_00129f50(Registry_73700*, const char*);
-void __cdecl FUN_001a1d20(Registry_73700*, const char*);
+extern "C" void* __cdecl FUN_001a1d20(void*, const char*);   // (decl1) as defined (LuaCondition.cpp)
 extern "C" bool __cdecl FUN_00073700(Registry_73700* r) {
     FUN_002369c0((Registry_73700 *)r);
     FUN_0012de00(r, "postEvent_string");
@@ -1319,7 +1319,7 @@ DECL(00132530) DECL(00132500) DECL(00132560) DECL(001325c0) DECL(001324d0) DECL(
                 DECL(0017dcd0) DECL(0017d580) DECL(0018a0a0) DECL(0017d1b0) DECL(00158b30)
                     DECL(001a1d20) void __cdecl FUN_0011ae60(Registry*);
 extern "C" void __cdecl FUN_0010bf20(Registry*);
-void __cdecl FUN_0018e8d0(Registry*);
+extern "C" void __cdecl FUN_0018e8d0(void*);   // (decl1) as defined (TimerCondition.cpp)
 extern "C" bool __cdecl FUN_00074790(Registry* r) {
     FUN_002369c0((Registry *)r);
     FUN_0012de00(r, "postEvent_string");
@@ -1403,14 +1403,14 @@ struct Registry_749e0 {
     void FUN_00236400();
 };
 extern "C" void __cdecl FUN_002369c0(void *);
-extern void __cdecl FUN_0012de00(Registry_749e0*, const char*);
-extern void __cdecl FUN_00132530(Registry_749e0*, const char*);
-extern void __cdecl FUN_00132500(Registry_749e0*, const char*);
-extern void __cdecl FUN_001325c0(Registry_749e0*, const char*);
-extern void __cdecl FUN_001324d0(Registry_749e0*, const char*);
-extern void __cdecl FUN_00132590(Registry_749e0*, const char*);
-extern void __cdecl FUN_001325f0(Registry_749e0*, const char*);
-extern void __cdecl FUN_001a1d20(Registry_749e0*, const char*);
+extern "C" void __cdecl FUN_0012de00(void*, const char*);   // (decl1) as defined (PostEvent_StringTrack.cpp)
+extern "C" void __cdecl FUN_00132530(void*, const char*);   // (decl1) as defined (GameStateCondition.cpp)
+extern "C" void __cdecl FUN_00132500(void*, const char*);   // (decl1) as defined (GameStateCondition.cpp)
+extern "C" void __cdecl FUN_001325c0(void*, const char*);   // (decl1) as defined (GameStateCondition.cpp)
+extern "C" void __cdecl FUN_001324d0(void*, const char*);   // (decl1) as defined (GameStateCondition.cpp)
+extern "C" void __cdecl FUN_00132590(void*, const char*);   // (decl1) as defined (GameStateCondition.cpp)
+extern "C" void __cdecl FUN_001325f0(void*, const char*);   // (decl1) as defined (GameStateCondition.cpp)
+extern "C" void* __cdecl FUN_001a1d20(void*, const char*);   // (decl1) as defined (LuaCondition.cpp)
 extern "C" void __cdecl FUN_001a9a90(Registry_749e0*, const char*);
 extern "C" void __cdecl FUN_001a97d0(Registry_749e0*, const char*);
 extern "C" void __cdecl FUN_00146130(Registry_749e0*, const char*);

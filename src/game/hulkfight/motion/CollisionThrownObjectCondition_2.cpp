@@ -27,7 +27,7 @@ class TrackFactoryTemplate_15a4f0 {
     TrackImpl mTrack;
 };
 extern "C" void FUN_00157ee0();
-extern "C" void* __cdecl alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
 extern "C" int hulk_at_004140f0;
 struct Helper_15a530 {
     char pad[8];
@@ -71,7 +71,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::motion::Colli
 // 0x0015a530 fight::ConditionFactoryTemplate<hulkfight::motion::CollisionThrownObjectCondition>::vfunc_5 (52 B): matches/0x0015a530.cpp
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VCollisionThrownObjectCondition@motion@hulkfight@@@fight@@UAEPAXXZ
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::CollisionThrownObjectCondition>::vfunc_5() {
-    Cond_15a530* p = (Cond_15a530*)alloc((int)sizeof(Cond_15a530));   // (allocsize1) the size by the record the code writes
+    Cond_15a530* p = (Cond_15a530*)FUN_0008d690((int)sizeof(Cond_15a530));   // (allocsize1) the size by the record the code writes
     if (p) {
         p->Init_00234590(0);
         p->vp = (void*)&hulk_at_004140f0;
