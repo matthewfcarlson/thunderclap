@@ -2,6 +2,7 @@
 // object 0x000df5e0..0x000dfd70 (kind game, layer game, confidence low)
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "decls/fe_callbacks.h"   // (recs1, find2 G13)
 #define TREE_TU_BEGIN namespace fn_f1bcb140 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CCollisionTrack
@@ -40,8 +41,11 @@ struct Target_df670 {
     U_df670 b;
     void Run();
 };
+// (recs1, find2 G13) the callback tables' entries are decls/fe_callbacks.h HulkFECallback's words (were two ints: the
+// name copy and the handler truncated natively, the tables at 32-bit offsets)
 struct E_df690 {
-    int a, b;
+    char* a;
+    void* b;
     E_df690() : a(0), b(0) {}
 };
 class Data_df690 {
@@ -52,6 +56,7 @@ class Data_df690 {
     E_df690 d[64];
     Data_df690();
 };
+HULK_SIZE32(Data_df690, 0x800);
 struct Pair_df700 {
     void *first;
     void *second;
@@ -65,70 +70,58 @@ public:
     Pair_df700 d[64];                    // 0x600
     void FUN_000df700();
 };
-struct Entry_df7b0 {
-    int key;
-    int value;
-};
+typedef HulkFECallback Entry_df7b0;
 extern "C" hulk_intptr __cdecl FUN_000f6610(hulk_intptr);   // (decl1) as defined (FEThingsBase_3.cpp)
 class Table_df7b0 {
 public:
     Entry_df7b0 entries[0x40];
-    void FUN_000df7b0(int a, int b);
+    void FUN_000df7b0(const char* a, void* b);   // (recs1, find2 G13) the name and the handler (were ints)
 };
-class C_df820 {
+class C_df820 {   // (recs1, find2 G13) the second table (was char pad[0x200], then int pairs)
   public:
-    void Add(int a, int b);
-    char pad[0x200];
+    void Add(const char* a, void* b);
+    HulkFECallback first[64];
     struct E {
-        int a;
-        int b;
+        char* a;
+        void* b;
     } e[64];
 };
 extern "C" hulk_intptr __cdecl FUN_000f6610(hulk_intptr);   // (decl1) as defined (FEThingsBase_3.cpp)
-struct Slot_df890 {
-    int a;
-    int b;
+struct Slot_df890 {   // (recs1, find2 G13) HulkFECallback's words (were ints)
+    char* a;
+    void* b;
 };
-struct S_df890 {
-    char pad[0x400];
+struct S_df890 {   // the third table (was char pad[0x400])
+    HulkFECallback before[2][64];
     Slot_df890 s[64];
-    void Add(int a, int b);
+    void Add(const char* a, void* b);
 };
 extern "C" hulk_intptr __cdecl FUN_000f6610(hulk_intptr);   // (decl1) as defined (FEThingsBase_3.cpp)
-class C_df900 {
+class C_df900 {   // (recs1, find2 G13) the fourth table (was char pad[0x600], then 128 ints)
   public:
-    char pad[0x600];
-    int e[128];
-    void F(int a, int b);
+    HulkFECallback before[3][64];
+    HulkFECallback e[64];
+    void F(const char* a, void* b);
 };
-struct Entry_df970 {
-    char* name;
-    int value;
-};
+// (recs1, find2 G13) the searches return the handler (a pointer; was int) on HulkFECallback's words
+typedef HulkFECallback Entry_df970;
 class Table_df970 {
   public:
     Entry_df970 entries[64];
-    int Find(char*);
+    void* Find(char*);
 };
 class Thing_df9e0 {
   public:
-    char pad[0x200];
-    struct Entry {
-        const char* name;
-        int value;
-    };
-    Entry entries[64];
-    int Find(const char*);
+    HulkFECallback before[64];
+    HulkFECallback entries[64];
+    void* Find(const char*);
 };
-struct Entry_dfa60 {
-    const char* name;
-    int value;
-};
+typedef HulkFECallback Entry_dfa60;
 class Search_dfa60 {
   public:
-    char pad[0x400];
+    HulkFECallback before[2][64];
     Entry_dfa60 entries[64];
-    int Find(const char* s);
+    void* Find(const char* s);
 };
 
 
@@ -199,22 +192,22 @@ void PairTable::FUN_000df700()
 
 
 // 0x000df7b0 FUN_000df7b0 (103 B): matches/0x000df7b0.cpp
-// sym: ?FUN_000df7b0@Table_df7b0@fn_f1bcb140@@QAEXHH@Z
+// sym: ?FUN_000df7b0@Table_df7b0@fn_f1bcb140@@QAEXPBDPAX@Z
 // FUN_000df7b0 @ 0x000df7b0
-void Table_df7b0::FUN_000df7b0(int a, int b) {
+void Table_df7b0::FUN_000df7b0(const char* a, void* b) {
     int i = 0;
-    while (i < 0x40 && entries[i].key != 0)
+    while (i < 0x40 && entries[i].name != 0)
         i++;
     if (i < 0x40) {
-        entries[i].key = FUN_000f6610(a);
-        entries[i].value = b;
+        entries[i].name = (char*)FUN_000f6610((hulk_intptr)a);
+        entries[i].handler = b;
     }
 }
 
 
 // 0x000df820 FUN_000df820 (110 B): matches/0x000df820.cpp
-// sym: ?Add@C_df820@fn_f1bcb140@@QAEXHH@Z
-void C_df820::Add(int a, int b) {
+// sym: ?Add@C_df820@fn_f1bcb140@@QAEXPBDPAX@Z
+void C_df820::Add(const char* a, void* b) {
     int i = 0;
     while (i < 64) {
         if (e[i].a == 0)
@@ -234,106 +227,106 @@ void C_df820::Add(int a, int b) {
         i += 4;
     }
     if (i < 64) {
-        e[i].a = FUN_000f6610(a);
+        e[i].a = (char*)FUN_000f6610((hulk_intptr)a);
         e[i].b = b;
     }
 }
 
 
 // 0x000df890 FUN_000df890 (110 B): matches/0x000df890.cpp
-// sym: ?Add@S_df890@fn_f1bcb140@@QAEXHH@Z
-void S_df890::Add(int a, int b) {
+// sym: ?Add@S_df890@fn_f1bcb140@@QAEXPBDPAX@Z
+void S_df890::Add(const char* a, void* b) {
     int i = 0;
-    int* p = (int*)((char*)this + 0x408);
+    Slot_df890* p = &s[1];   // (recs1) the entries by element (was a 32-bit byte walk from this + 0x408)
     do {
-        if (p[-2] == 0)
+        if (p[-1].a == 0)
             break;
-        if (p[0] == 0) {
+        if (p[0].a == 0) {
             i += 1;
             break;
         }
-        if (p[2] == 0) {
+        if (p[1].a == 0) {
             i += 2;
             break;
         }
-        if (p[4] == 0) {
+        if (p[2].a == 0) {
             i += 3;
             break;
         }
         i += 4;
-        p += 8;
+        p += 4;
     } while (i < 64);
     if (i < 64) {
-        s[i].a = FUN_000f6610(a);
+        s[i].a = (char*)FUN_000f6610((hulk_intptr)a);
         s[i].b = b;
     }
 }
 
 
 // 0x000df900 FUN_000df900 (110 B): matches/0x000df900.cpp
-// sym: ?F@C_df900@fn_f1bcb140@@QAEXHH@Z
-void C_df900::F(int a, int b) {
+// sym: ?F@C_df900@fn_f1bcb140@@QAEXPBDPAX@Z
+void C_df900::F(const char* a, void* b) {
     // Find the first free slot (key == 0), scanning four entries per pass.
     int i = 0;
-    int* p = (int*)((char*)this + 0x608);
+    HulkFECallback* p = &e[1];   // (recs1) the entries by element (was a 32-bit byte walk from this + 0x608)
     do {
-        if (p[-2] == 0)
+        if (p[-1].name == 0)
             break;
-        if (p[0] == 0) {
+        if (p[0].name == 0) {
             i = i + 1;
             break;
         }
-        if (p[2] == 0) {
+        if (p[1].name == 0) {
             i = i + 2;
             break;
         }
-        if (p[4] == 0) {
+        if (p[2].name == 0) {
             i = i + 3;
             break;
         }
         i = i + 4;
-        p = p + 8;
+        p = p + 4;
     } while (i < 0x40);
     if (i < 0x40) {
-        e[i * 2] = FUN_000f6610(a);
-        e[i * 2 + 1] = b;
+        e[i].name = (char*)FUN_000f6610((hulk_intptr)a);
+        e[i].handler = b;
     }
 }
 
 
 // 0x000df970 FUN_000df970 (103 B): matches/0x000df970.cpp
-// sym: ?Find@Table_df970@fn_f1bcb140@@QAEHPAD@Z
-int Table_df970::Find(char* s) {
+// sym: ?Find@Table_df970@fn_f1bcb140@@QAEPAXPAD@Z
+void* Table_df970::Find(char* s) {
     int i;
     for (i = 0; i < 64; ++i) {
         if (!entries[i].name)
             return 0;
         if (strcmp(entries[i].name, s) == 0)
-            return entries[i].value;
+            return entries[i].handler;
     }
     return 0;
 }
 
 
 // 0x000df9e0 FUN_000df9e0 (115 B): matches/0x000df9e0.cpp
-// sym: ?Find@Thing_df9e0@fn_f1bcb140@@QAEHPBD@Z
-int Thing_df9e0::Find(const char* s) {
+// sym: ?Find@Thing_df9e0@fn_f1bcb140@@QAEPAXPBD@Z
+void* Thing_df9e0::Find(const char* s) {
     for (int i = 0; i < 64; ++i) {
         if (!entries[i].name)
             return 0;
         if (strcmp(entries[i].name, s) == 0)
-            return entries[i].value;
+            return entries[i].handler;
     }
     return 0;
 }
 
 
 // 0x000dfa60 FUN_000dfa60 (115 B): matches/0x000dfa60.cpp
-// sym: ?Find@Search_dfa60@fn_f1bcb140@@QAEHPBD@Z
-int Search_dfa60::Find(const char* s) {
+// sym: ?Find@Search_dfa60@fn_f1bcb140@@QAEPAXPBD@Z
+void* Search_dfa60::Find(const char* s) {
     for (int i = 0; i < 64 && entries[i].name; ++i) {
         if (strcmp(entries[i].name, s) == 0)
-            return entries[i].value;
+            return entries[i].handler;
     }
     return 0;
 }

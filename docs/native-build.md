@@ -6416,3 +6416,54 @@ the literal before writing `sizeof(::Gen)`.
   4-byte difference was tail padding only.
 - Held for nat2: GameStateCondition.cpp's six action allocations and CTriggerVolumeManager's CLocator element view
   (both TUs are in nat2's candidate).
+
+## recs1 batches 2-4: FEThings, the FE callback tables, CEncounterGenerator, the FEThings views (2026-11-20)
+
+- **Batch 2: FEThings, first stage (find1 B3/F9/F11, find2 G8/G12/G15).** gen FEThingsBase now declares its five
+  widget tables as pointer tables (0x000e8310 releases them, 0x000e7260 searches them, 0x000f3000 clears them),
+  f_1828 as the FE camera and f_2078 as the animation holder. Slot 44 returns the widget as void*.
+  include/decls/fethings.h `HULK_FE_PAD(member, k, start)` pads a TU's view to gen's member natively and stays the
+  32-bit literal on MSVC. The views on it: 0x000e7260, 0x000e70d0, 0x000e8310, the 0x000f3000 constructor view
+  (its words are gen's types now), 0x000dddc0, 0x000dddf0 and 0x000dde50. 0x000e6280 / 0x000e62e0 read the byte
+  flags from gen's f_2100.
+- **find3's stop 4, 0x000ddbf0:** its FEThings was a TU-local polymorphic class. It is now a non-polymorphic record
+  that stores vftable 0x0040bd24 by address. The VectorCamera allocation is sized from the record.
+- **G13.** include/decls/fe_callbacks.h HulkFECallbacks: four tables of 64 {name, handler}.
+  - unk_0df5e0's table functions take (const char*, void*) and the finds return void*, which are decl1's wrappers'
+    signatures. All of them still match byte for byte.
+  - 0x000f3000 allocates sizeof(HulkFECallbacks).
+  - G9 (decl1's): natively 0x000f3000's inventory find passes the 64-bit key as two words.
+- **G19.** 0x001b3c50, 0x000d40e0 and 0x000b4dc0 stop their table walks at their own table's extent. They were
+  bounded by the next data item's address. data5 covered 0x001dbd50 in 13a22b75c.
+- **G20.** In the tree map, the nil node is the member after the root: 0x00230800, 0x00230be0, 0x00230ea0 and
+  0x00230f50 (was `this + 4`). G10 and G11 landed with find3 (identical).
+- **Batch 3: CEncounterGenerator (find2 G20, Q2).** include/decls/encounter.h is the generator's record.
+  - Layout: a pure3d::Entity head, 256 entries, 16 tracker slots of 0x28, 16 CEncounter of 0x58, and the count and
+    encounter map. The map is a red-black tree of 0x28-byte nodes (include/decls/tree_map.h). 0xc70 bytes on the
+    32-bit build.
+  - The counts carry HULK_RANGE.
+  - Code on the record: 0x001fa040 (the reset), 0x001fa500, the constructor 0x001fa630 and the encounter and slot
+    views of unk_1f84d0 / unk_1f9530 / .GS. CTriggerVolumeManager's eight generators derive from the record, and
+    their allocation is sizeof.
+  - Re-proven: 0x001f87e0, 0x001f8890, 0x001fa040, 0x001fa500, 0x001fa630, 0x001fa7d0 (MSVC and --wine).
+  - 0x001f9810, 0x001fa1c0 and 0x001fa3a0 stay unproven in wine as at HEAD (the same faults, job 100024). They are
+    re-pinned with `hash --unproven-accepted`.
+  - x64 gate: 0x001fa7d0 is accepted (layout). The checker's stub for 0x001f87e0 returns true with an unwritten
+    out-index; integ3 has the case.
+- **Batch 4: the FEThings pad views (Q3).** gen FEThingsBase types its remaining pointer words: f_1768 (hulk_intptr),
+  f_182c, and the 0x1854 .. 0x1e74 resource block (pointer pairs and name buffers).
+  - `HULK_FE_SPAN(start, end)` maps a pad between two 32-bit offsets of FEThings to the distance between their places
+    in gen's layout. The pointer segments scale by `HULK_FE_P` = sizeof(void*) / 4, so the 32-bit clang build keeps
+    the literal too.
+  - 74 pads across FEThings.cpp, FEThingsBase.cpp, FEThingsBase_2.cpp (+ iso_000ef030) and FEThingsBase_3.cpp are
+    on it (generated, plus hand fixes). X_e65b0 / Manager_ef6e0's slot 42 takes hulk_intptr, as gen
+    declares it.
+  - Both 32-bit builds' code is unchanged, so no block needed a re-proof. Natively the views reach gen's members.
+  - 0x000e4a40 / 0x000e4fc0 stay wild64 as at HEAD: their FELayout view's `pad04[4]` puts `parent` at the wrong
+    native offset. Typing FELayout is the follow-up.
+- Checks: each TU tree_tu check --relocs, a whole-tree verify (no code_changed; gen_probe ok), and the x64 gate ok.
+  Wine: control 101207 (a9d5a9aa7) and proof 102329 (seed:101207, mac2, play3 60000), with all three batches together:
+  GATE ok, 0 of 2,002 common frames differ. The commits are rebased onto 9804d55a2 and re-checked there.
+- Left as 32-bit pads (about 20 views): Target_f42c0 (a pointer at 0x1d98, inside gen's name buffers),
+  Runner_f5fa0 (a word at 0x220c where gen has a pointer), Node, Context, Owner_e5330, the 0x160c views and the
+  0x1d58 .. 0x1da8 views. Typing gen's 0x1c74 .. 0x2074 block from them comes next.

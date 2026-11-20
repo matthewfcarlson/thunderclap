@@ -2,6 +2,7 @@
 // object 0x000e4330..0x000e8490 (kind game, layer game, confidence high), dominant class FEThingsBase
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "decls/fethings.h"   // (recs1) FEThings views
 #include "decls/data/engine/pure3d/prop.h"
 #include "decls/data/game/global.h"
 #include "gen/global.h"
@@ -496,7 +497,7 @@ class Mgr_e63a0 {
     virtual Sub_e63a0* get();
 };
 struct Inner_e63a0 {
-    char p[0x175c];
+    char p[HULK_FE_SPAN(0x0, 0x175c)];   // (recs1) was [0x175c]
     Mgr_e63a0* mgr;
 };
 struct Obj_e63a0 {
@@ -510,7 +511,7 @@ struct Obj_e63a0 {
 class C_e63a0 {
   public:
     void Fn();
-    char p[0x2218];
+    char p[HULK_FE_SPAN(0x0, 0x2218)];   // (recs1) was [0x2218]
     Obj_e63a0* cur;
     int saved;
 };
@@ -603,9 +604,9 @@ class X_e65b0 {
     virtual void a39();
     virtual void a40();
     virtual void a41();
-    virtual void call(int);
-    char pad[0x1854 - 4];
-    int vals[2];
+    virtual void call(hulk_intptr);   // (recs1) slot 42, as gen declares it
+    char pad[HULK_FE_SPAN(0x4, 0x1854)];   // (recs1) gen FEThings' resource pointers (were a 32-bit pad and ints)
+    void* vals[2];
     void clear();
 };
 typedef unsigned int u32_e65e0;
@@ -624,7 +625,7 @@ struct Entry_e6620 {
 extern "C" void __cdecl FUN_000dfcc0(char*, int, const char*, ...);
 struct Manager_e6620 {
  virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15(); virtual void v16(); virtual void v17(); virtual void v18(); virtual void v19(); virtual void v20(); virtual void v21(); virtual void v22(); virtual void v23(); virtual void v24(); virtual void v25(); virtual void v26(); virtual void v27(); virtual void v28(); virtual void v29(); virtual void v30(); virtual void v31(); virtual void v32(); virtual void v33(); virtual void v34(); virtual void v35(); virtual void v36(); virtual void v37(); virtual void v38(); virtual void v39(); virtual void v40(); virtual void v41(); virtual void v42(); virtual void v43(); virtual void v44(); virtual void v45(); virtual void v46(); virtual void v47(); virtual void v48(); virtual void v49(); virtual Entry_e6620* create(Manager_e6620*, const char*);
- char pad[8]; Entry_e6620* entries[64]; char gap[0x170c-0x10c]; char label[40];
+ char pad[HULK_FE_SPAN(0x4, 0xc)]; Entry_e6620* entries[64]; char gap[HULK_FE_SPAN(0x10c, 0x170c)]; char label[40];   // (recs1) gen FEThings' words (the view starts after the vftable)
  Entry_e6620* FUN_000e6620(const char*);
 };
 struct Entry_e66f0 {
@@ -859,7 +860,7 @@ class Out_e7cd0 {
 };
 class FEThingsBase_e7cd0 {
   public:
-    char pad[0x2220];
+    char pad[HULK_FE_SPAN(0x0, 0x2220)];   // (recs1) was [0x2220]
     char flag;
     void Target(Arg_e7cd0*, Out_e7cd0*);
 };
@@ -2044,7 +2045,7 @@ class FEContainer;
 class FEObject;
 
 struct Owner {
-    char pad0[0x1800];
+    char pad0[HULK_FE_SPAN(0x0, 0x1800)];   // (recs1) was [0x1800]
     int v1800;
     int v1804;
     int v1808;
@@ -2631,7 +2632,7 @@ class FEScreenBase_e4fc0;
 class FEObject;
 
 struct Owner {
-    char pad0[0x1800];
+    char pad0[HULK_FE_SPAN(0x0, 0x1800)];   // (recs1) was [0x1800]
     int v1800;
     int v1804;
     int v1808;
@@ -3299,7 +3300,7 @@ class Parent_e5710 {
     virtual void v21();
     virtual void v22();
     virtual void v23();
-    char pad[0x175c - 4];
+    char pad[HULK_FE_SPAN(0x4, 0x175c)];   // (recs1) was [0x175c - 4]
     Names_e5710 *names;
 };
 
@@ -4128,8 +4129,7 @@ CCollisionAction* CCollisionAction::vfunc_2(unsigned char flags) {
 // 0x000e6280 FEThingsBase::vfunc_0 (88 B): matches/0x000e6280.cpp
 // sym: ?vfunc_0@FEThingsBase@@UAE_NHH@Z
 bool FEThingsBase::vfunc_0(int x, int index) {
-    char* p = (char*)this;
-    if (p[index + 0x2100])
+    if (((unsigned char*)&this->f_2100)[index])   // (recs1) the byte flags from gen's f_2100 (was this + 0x2100, a 32-bit offset)
         return true;
     if ((*(Child_e6280 * *)&this->f_2218))
         return (*(Child_e6280 * *)&this->f_2218)->f1(x, index);
@@ -4144,7 +4144,7 @@ bool FEThingsBase::vfunc_0(int x, int index) {
 // 0x000e62e0 FEThingsBase::vfunc_1 (88 B): matches/0x000e62e0.cpp
 // sym: ?vfunc_1@FEThingsBase@@UAE_NHH@Z
 bool FEThingsBase::vfunc_1(int a, int index) {
-    if (*((unsigned char*)this + index + 0x2100))
+    if (((unsigned char*)&this->f_2100)[index])   // (recs1) the byte flags from gen's f_2100 (was this + 0x2100)
         return true;
     if ((*(Obj_e62e0 * *)&this->f_2218))
         return (*(Obj_e62e0 * *)&this->f_2218)->f2(a, index);
@@ -4230,11 +4230,11 @@ Item_e6530* FEThingsBase_e6530::Find(const char* s) {
 // 0x000e65b0 FUN_000e65b0 (43 B): matches/0x000e65b0.cpp
 // sym: ?clear@X_e65b0@fn_f26f242d@@QAEXXZ
 void X_e65b0::clear() {
-    int* p = vals;
+    void** p = vals;
     int n = 2;
     do {
         if (*p)
-            call(*p);
+            call((hulk_intptr)*p);
         ++p;
         --n;
     } while (n);
@@ -4421,9 +4421,9 @@ public:
     virtual void v46();
     virtual void v47();
     virtual void Refresh(int mode);
-    char pad04[0x20c - 4];
+    char pad04[HULK_FE_SPAN(0x4, 0x20c)];   // (recs1) was [0x20c - 4]
     Thing_e6880 *things[256];
-    char pad60c[0x1830 - 0x60c];
+    char pad60c[HULK_FE_SPAN(0x60c, 0x1830)];   // (recs1) was [0x1830 - 0x60c]
     int f1830;
     float f1834;
     int f1838;
@@ -4559,14 +4559,14 @@ public:
     virtual void vfunc_47();
     virtual void vfunc_48(int mode);
 
-    char pad04[0x175c - 4];
+    char pad04[HULK_FE_SPAN(0x4, 0x175c)];   // (recs1) was [0x175c - 4]
     Thing_e6ab0 *current;        // +0x175c
-    char pad1760[8];
+    char pad1760[HULK_FE_SPAN(0x1760, 0x1768)];   // (recs1) was [8]
     Thing_e6ab0 *pending;        // +0x1768
     int mode;              // +0x176c
-    char pad1770[0x17b0 - 0x1770];
+    char pad1770[HULK_FE_SPAN(0x1770, 0x17b0)];   // (recs1) was [0x17b0 - 0x1770]
     int state;             // +0x17b0
-    char pad17b4[0x17f8 - 0x17b4];
+    char pad17b4[HULK_FE_SPAN(0x17b4, 0x17f8)];   // (recs1) was [0x17f8 - 0x17b4]
     int f17f8;
 };
 
@@ -4779,7 +4779,7 @@ struct Thing_e6cc0 {
 };
 struct FEThingsBase {
  virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); virtual void vfunc_7(); virtual void vfunc_8(); virtual void vfunc_9(); virtual void vfunc_10(); virtual void vfunc_11(); virtual void vfunc_12(); virtual void vfunc_13(); virtual void vfunc_14(); virtual void vfunc_15(); virtual void vfunc_16(); virtual void vfunc_17(); virtual void vfunc_18(); virtual void vfunc_19(); virtual void vfunc_20(); virtual void vfunc_21(); virtual void vfunc_22(); virtual void vfunc_23(); virtual void vfunc_24(); virtual void vfunc_25(); virtual void vfunc_26(); virtual void vfunc_27(); virtual void vfunc_28(); virtual void vfunc_29(); virtual void vfunc_30(); virtual void vfunc_31(); virtual void vfunc_32(); virtual void vfunc_33(); virtual void vfunc_34(); virtual void vfunc_35(); virtual void vfunc_36(); virtual void vfunc_37(); virtual void vfunc_38(); virtual void vfunc_39(); virtual void slot40(); virtual void slot41(); virtual void slot42(); virtual void slot43(); virtual void slot44(); virtual void slot45(); virtual void slot46(); virtual void vfunc_47(); virtual void vfunc_48(int);
- char pad[0x1734-4]; char name[40]; Thing_e6cc0* current; char pad2[8]; Thing_e6cc0* pending; int active;
+ char pad[HULK_FE_SPAN(0x4, 0x1734)]; char name[40]; Thing_e6cc0* current; char pad2[HULK_FE_SPAN(0x1760, 0x1768)]; Thing_e6cc0* pending; int active;   // (recs1) gen FEThings' words
 };
 void FEThingsBase::vfunc_20() {
  if(current) {
@@ -4909,16 +4909,16 @@ struct FEThingsBase {
     virtual void s46();
     virtual void vfunc_47();
     virtual void vfunc_48(int);
-    char pad0[0x175c - 4];
+    char pad0[HULK_FE_SPAN(0x4, 0x175c)];   // (recs1) gen FEThings' words (were 32-bit pads)
     Child_e6e90* child;
-    char pad1[8];
-    int selected;
+    char pad1[HULK_FE_SPAN(0x1760, 0x1768)];
+    hulk_intptr selected;
     int mode;
     int history[16];
     int index;
     char pad2[0x17f8 - 0x17b4];
     int active;
-    char pad3[0x2104 - 0x17fc];
+    char pad3[HULK_FE_SPAN(0x17fc, 0x2104)];
     unsigned char enabled;
 };
 void FEThingsBase::vfunc_22() {
@@ -6113,7 +6113,8 @@ public:
     virtual void vfunc_4();
     virtual void vfunc_5();
     virtual void vfunc_6();
-    char pad04[8];
+    void* poolA;   // (recs1, find1 B3) gen FEThingsBase's f_04 / f_08 (was char pad04[8])
+    void* poolB;
     FEWidget_e8310 *first[0x40];
     FEWidget_e8310 *second[0x40];
     FEWidget_e8310 *big[0x100];
@@ -6182,7 +6183,7 @@ class FEThingsBase {
     virtual void f37();
     virtual void f38();
     virtual void f39();
-    char pad[0x1708];
+    char pad[HULK_FE_SPAN(0x4, 0x170c)];   // (recs1) was [0x1708]
     unsigned char field;
 };
 void FEThingsBase::vfunc_5() {
@@ -6223,15 +6224,15 @@ public:
     virtual void vfunc_6();
     virtual void vfunc_7();
     virtual void vfunc_8();
-    char pad04[0x175c - 4];
+    char pad04[HULK_FE_SPAN(0x4, 0x175c)];   // (recs1) was [0x175c - 4]
     Widget_e83a0* header;         // 0x175c
-    char pad1760[0x1a5c - 0x1760];
+    char pad1760[HULK_FE_SPAN(0x1760, 0x1a5c)];   // (recs1) was [0x1a5c - 0x1760]
     Widget_e83a0* arrows[2];      // 0x1a5c
-    char pad1a64[0x2074 - 0x1a64];
+    char pad1a64[HULK_FE_SPAN(0x1a64, 0x2074)];   // (recs1) was [0x2074 - 0x1a64]
     char arrowsVisible;     // 0x2074
-    char pad2075[0x2080 - 0x2075];
+    char pad2075[HULK_FE_SPAN(0x2075, 0x2080)];   // (recs1) was [0x2080 - 0x2075]
     Widget_e83a0* items[32];      // 0x2080
-    char pad2100[0x2218 - 0x2100];
+    char pad2100[HULK_FE_SPAN(0x2100, 0x2218)];   // (recs1) was [0x2218 - 0x2100]
     Widget_e83a0* footer;         // 0x2218
 };
 

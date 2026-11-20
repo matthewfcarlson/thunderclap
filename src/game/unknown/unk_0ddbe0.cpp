@@ -6,6 +6,7 @@
 #include "gen/global.h"
 #include "gen/owners.h"
 #include "decls/view.h"   // (recs1) pure3d::View
+#include "decls/fethings.h"   // (recs1) FEThings views
 #define TREE_TU_BEGIN namespace fn_f683177d {
 #define TREE_TU_END }
 namespace fn_f683177d {} using namespace fn_f683177d;
@@ -17,7 +18,7 @@ struct Helper_dddc0 {
 };
 class Obj_dddc0 {
   public:
-    char pad[0x2230];
+    char pad[HULK_FE_PAD(f_2230, 0x2230, 0)];   // (recs1, find1 F11) to gen FEThings' widget (was 0x2230)
     Helper_dddc0* helper;
     void* stored;
     void f(void* a, void* b);
@@ -36,7 +37,7 @@ class Target_dddf0 {
     virtual void V4();
     virtual void V5();
     virtual void V6();
-    char pad[0x2230 - 4];
+    char pad[HULK_FE_PAD(f_2230, 0x2230, sizeof(void*))];   // (recs1, find1 F11) to gen FEThings' widget (was 0x2230 - 4)
     Inner_dddf0* inner;
     char Run(void*);
 };
@@ -137,7 +138,7 @@ public:
     virtual void v8();
     virtual void v9();
     virtual void v10();
-    char pad04[0x2220];
+    char pad04[HULK_FE_PAD(f_2224, 0x2224, sizeof(void*))];   // (recs1) to gen FEThings' screen (was 0x2220)
     Handle_dde50 *handle;
     char hasHandle;
     char pad2229[3];
@@ -157,7 +158,7 @@ extern "C" float FUN_000ddbe0() {
 } // namespace fn_f683177d
 
 // 0x000ddbf0 FUN_000ddbf0 (370 B): equivalent/0x000ddbf0.cpp [wrapped: conflict: DAT_004de948; FEThings; FEThingsBase]
-// sym: ??0FEThings@fn_000ddbf0@@QAE@PAVView_ddbf0@1@@Z @aed528d0c9f4 @w9b266ca6bfaa @v7993cb3e1760
+// sym: ??0FEThings@fn_000ddbf0@@QAE@PAVView_ddbf0@1@@Z @c899542f430b @wad275ee552f6 @vf8818e68ebcf
 namespace fn_000ddbf0 {
 // STATUS: equivalent (tools/equiv.py level 3: 70 inputs, branch coverage 8/8)
 // FUN_000ddbf0 @ 0x000ddbf0
@@ -199,12 +200,16 @@ public:
     Widget_ddbf0* FUN_000f6ef0();
 };
 
-class __declspec(novtable) FEThingsBase {
+// (recs1, find1 F9c / find3) FEThings constructed on its words, non-polymorphic: FEThingsBase's constructor 0x000f3000,
+// then FEThings' vftable 0x0040bd24 stored by address (was a block-local polymorphic class: natively clang's own,
+// shorter vftable, whose slot 46 0x000c4ef0 calls was null). The words are gen FEThings' (decls/fethings.h).
+extern "C" char DAT_0040bd24[];   // FEThings' vftable
+class FEThingsBase {
 public:
-    virtual void vfunc_0();
-    char pad4[0x1828 - 4];
+    void* vftable;
+    char pad4[HULK_FE_PAD(f_1828, 0x1828, sizeof(void*))];
     Camera* camera;
-    char pad182c[0x2224 - 0x182c];
+    char pad182c[HULK_FE_PAD(f_2224, 0x2224, HULK_FE_PAD(f_1828, 0x1828, 0) + sizeof(void*))];
     void FUN_000f3000();
     FEThingsBase() { FUN_000f3000(); }
 };
@@ -212,7 +217,6 @@ public:
 class FEThings : public FEThingsBase {
 public:
     FEThings(View_ddbf0* existing);
-    virtual void vfunc_0();
     View_ddbf0* screen;
     char ownsScreen;
     char pad2229[3];
@@ -222,6 +226,7 @@ public:
 
 FEThings::FEThings(View_ddbf0* existing)
 {
+    vftable = DAT_0040bd24;
     View_ddbf0* s = existing;
     if (existing != 0) {
         ownsScreen = 0;
@@ -240,7 +245,7 @@ FEThings::FEThings(View_ddbf0* existing)
     ((HulkView*)screen)->clearMask = 6;
     ((HulkView*)screen)->clearColour = 0xff000000;
     screen->FUN_00293e90(0xff505050);
-    void* cmem = FUN_00263ea0(0xf8);
+    void* cmem = FUN_00263ea0((sizeof(::pure3d::VectorCamera)+7)/8*8);   // (recs1) gen's VectorCamera (0xf4), 8-rounded: 0xf8
     Camera* cam;
     if (cmem != 0)
         cam = ((Camera*)cmem)->FUN_002939a0();

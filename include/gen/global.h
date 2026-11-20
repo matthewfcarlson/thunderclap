@@ -2506,7 +2506,18 @@ class CEncounterGenerator : public ::pure3d::Entity {
 public:
     class CEncounter;
     virtual ~CEncounterGenerator(); // overrides core::IRefCount slot 2
-    char _pad_10[0xc5c];
+    // (recs1, find2 G20) the words of decls/encounter.h HulkEncounterGenerator: the entries (pointers), their count, the
+    // title and state words, 16 tracker slots (an object pointer each), 16 CEncounter (a vftable and the generator
+    // pointer each), the encounter count and the encounter map
+    void* f_10[256];
+    int f_410;
+    char _pad_414[0x4c];
+    struct { void* obj; int w[6]; float radius; int tracker; unsigned char active; char pad[3]; } f_460[16];
+    int f_6e0;
+    int f_6e4;
+    struct { void* vftable; int f04; void* table; char name[0x20]; int f2c; unsigned int key[4]; int f40[4];
+             unsigned char b50, b51; unsigned short w52; int f54; } f_6e8[16];
+    int f_c68;
     void* f_c6c;
 };
 
@@ -7730,7 +7741,7 @@ public:
     virtual void vfunc_41() = 0; // slot 41
     virtual void vfunc_42(hulk_intptr) = 0; // slot 42
     virtual unsigned int vfunc_43() = 0; // slot 43
-    virtual int vfunc_44() = 0; // slot 44
+    virtual void* vfunc_44() = 0; // slot 44 (recs1, find2 G15: the widget, a pointer)
     virtual unsigned int vfunc_45() = 0; // slot 45
     virtual void vfunc_46(unsigned long) = 0; // slot 46
     virtual void vfunc_47(); // slot 47
@@ -7753,15 +7764,22 @@ public:
     virtual void vfunc_64(int, int, int) = 0; // slot 64
     virtual void vfunc_65(); // slot 65
     virtual void vfunc_66(); // slot 66
+    // (recs1, find1 B3, find2 G8 / G12) the callback tables (decls/fe_callbacks.h HulkFECallbacks), poolB, then the
+    // five widget tables, all pointers (0x000e8310 releases the first three, 0x000e7260 searches them; the constructor
+    // 0x000f3000 clears all five): natively 8-byte entries, so every later word moves (views: decls/fethings.h)
     void* f_04;
     void* f_08;
-    char _pad_0c[0x1700];
+    void* f_0c[0x40];
+    void* f_10c[0x40];
+    void* f_20c[0x100];
+    void* f_60c[0x400];
+    void* f_160c[0x40];
     unsigned char f_170c;
     char _pad_170d[0x4f];
     void* f_175c;
     void* f_1760;
     char _pad_1764[0x4];
-    int f_1768;
+    hulk_intptr f_1768; // (recs1) a pointer, pointer-sized (vfunc_17 / vfunc_19 store their int-typed object argument)
     int f_176c;
     int f_1770;
     char _pad_1774[0x3c];
@@ -7778,8 +7796,9 @@ public:
     float f_1810;
     float f_1814;
     void* f_1818;
-    char _pad_181c[0x10];
-    int f_182c;
+    float f_181c[3];
+    void* f_1828; // (recs1) the FE camera (0x000ddbf0 stores it)
+    void* f_182c; // (recs1) a pointer (0x000f1650 / 0x000f1890; find1 F8's overlay)
     int f_1830;
     int f_1834;
     int f_1838;
@@ -7788,9 +7807,19 @@ public:
     char f_184c;
     char _pad_184d[0x3];
     int f_1850;
-    char _pad_1854[0x820];
+    // (recs1) the three resource-controller lists (0x000f50a0 / 0x000f5210 / 0x000f52a0 load into them): two pointers
+    // each, then two names of 0x100 (the third list has two pointer pairs and two pairs of names)
+    void* f_1854[2];
+    char f_185c[2][0x100];
+    void* f_1a5c[2];
+    char f_1a64[2][0x100];
+    void* f_1c64[2];
+    void* f_1c6c[2];
+    char f_1c74[2][0x100];
+    char f_1e74[2][0x100];
     char f_2074;
-    char _pad_2075[0x8b];
+    char _pad_2075[0x3];
+    struct { void* vftable; void* owner; void* slots[32]; } f_2078; // (recs1) the animation holder (0x000f3000)
     int f_2100;
     char f_2104;
     char _pad_2105[0x100];
@@ -7812,7 +7841,7 @@ public:
     virtual void vfunc_41(); // overrides FEThingsBase slot 41
     virtual void vfunc_42(hulk_intptr); // overrides FEThingsBase slot 42
     virtual unsigned int vfunc_43(); // overrides FEThingsBase slot 43
-    virtual int vfunc_44(); // overrides FEThingsBase slot 44
+    virtual void* vfunc_44(); // overrides FEThingsBase slot 44 (recs1, find2 G15: the widget, a pointer)
     virtual unsigned int vfunc_45(); // overrides FEThingsBase slot 45
     virtual void vfunc_46(unsigned long); // overrides FEThingsBase slot 46
     virtual void vfunc_48(int); // overrides FEThingsBase slot 48

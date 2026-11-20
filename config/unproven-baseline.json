@@ -642,31 +642,34 @@
    "modes": {
     "wine": {
      "code": "1e01495a9f6d",
-     "accepted": "2026-11-18T23:06:13",
-     "by": "unproven-seed"
+     "accepted": "2026-11-19T20:21:39",
+     "by": "unproven-accept",
+     "why": "recs1 (find2 G20): the CEncounterGenerator record changes this block's clang code; its --wine run fails / is inconclusive exactly as HEAD's own (job 100024 on 205d0924c: the same faults), so it stays unproven in wine as before (was listed with the old hash)"
     }
    },
-   "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
+   "why": "recs1 (find2 G20): the CEncounterGenerator record changes this block's clang code; its --wine run fails / is inconclusive exactly as HEAD's own (job 100024 on 205d0924c: the same faults), so it stays unproven in wine as before (was listed with the old hash)"
   },
   "0x001fa1c0": {
    "modes": {
     "wine": {
-     "code": "f8683acca230",
-     "accepted": "2026-11-18T23:06:13",
-     "by": "unproven-seed"
+     "code": "6ea70dff1176",
+     "accepted": "2026-11-19T20:21:39",
+     "by": "unproven-accept",
+     "why": "recs1 (find2 G20): the CEncounterGenerator record changes this block's clang code; its --wine run fails / is inconclusive exactly as HEAD's own (job 100024 on 205d0924c: the same faults), so it stays unproven in wine as before (was listed with the old hash)"
     }
    },
-   "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
+   "why": "recs1 (find2 G20): the CEncounterGenerator record changes this block's clang code; its --wine run fails / is inconclusive exactly as HEAD's own (job 100024 on 205d0924c: the same faults), so it stays unproven in wine as before (was listed with the old hash)"
   },
   "0x001fa3a0": {
    "modes": {
     "wine": {
-     "code": "7db6b74136b3",
-     "accepted": "2026-11-18T23:06:13",
-     "by": "unproven-seed"
+     "code": "4658e12621f3",
+     "accepted": "2026-11-19T20:21:39",
+     "by": "unproven-accept",
+     "why": "recs1 (find2 G20): the CEncounterGenerator record changes this block's clang code; its --wine run fails / is inconclusive exactly as HEAD's own (job 100024 on 205d0924c: the same faults), so it stays unproven in wine as before (was listed with the old hash)"
     }
    },
-   "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
+   "why": "recs1 (find2 G20): the CEncounterGenerator record changes this block's clang code; its --wine run fails / is inconclusive exactly as HEAD's own (job 100024 on 205d0924c: the same faults), so it stays unproven in wine as before (was listed with the old hash)"
   },
   "0x00200210": {
    "modes": {

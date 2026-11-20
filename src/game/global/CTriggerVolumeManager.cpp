@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x001fc690..0x00201740 (kind game, layer game, confidence high), dominant class CTriggerVolumeManager
 #include "tree_prelude.h"
+#include "decls/encounter.h"   // (recs1) CEncounterGenerator
 #include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
@@ -3251,7 +3252,7 @@ extern void* __cdecl FUN_00263ec0(unsigned);
 extern "C" void* __cdecl FUN_0008d6d0(unsigned);
 struct CLocator_1ff580 { char data[64]; void FUN_001fbf40(); };   // (sweep-allocsize) unidentified: a 64-byte element whose
                                                                   // constructor is CLocator's (0x24 B); its native size is unknown
-struct CEncounterGenerator_1ff580 : ::CEncounterGenerator { void FUN_001fa630(); };   // (sweep-allocsize) gen's record (0xc70 B)
+struct CEncounterGenerator_1ff580 : HulkEncounterGenerator { void FUN_001fa630(); };   // (recs1) decls/encounter.h's record (0xc70 B)
 typedef char CEncounterGenerator_1ff580_size32[(sizeof(void*) != 4 || sizeof(CEncounterGenerator_1ff580) == 0xc70) ? 1 : -1];
 struct Entry_1ff580 { unsigned count; CLocator_1ff580* volumes; };
 struct CTriggerVolumeManager {
