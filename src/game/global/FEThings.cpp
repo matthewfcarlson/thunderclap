@@ -375,9 +375,9 @@ unsigned int FEThings::vfunc_43() {
 
 
 // 0x000ddf20 FEThings::vfunc_44 (7 B): matches/0x000ddf20.cpp
-// sym: ?vfunc_44@FEThings@@UAEHXZ
-int FEThings::vfunc_44() {
-    return *(int*)((char*)&this->f_2230);
+// sym: ?vfunc_44@FEThings@@UAEPAXXZ
+void* FEThings::vfunc_44() {   // (recs1, find2 G15) the widget, a pointer (was an int: truncated natively)
+    return this->f_2230;
 }
 
 

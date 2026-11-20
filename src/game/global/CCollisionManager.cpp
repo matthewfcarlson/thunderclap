@@ -1130,7 +1130,7 @@ void Registry_1b3c00::FUN_001b3c00(const char* a1, Owner* a2) {
 } // namespace fn_f5af65ff
 
 // 0x001b3c50 FUN_001b3c50 (340 B): equivalent/0x001b3c50.cpp [wrapped: conflict: DAT_0048e100; DAT_0048e134; DAT_004e2194; Function (+1)]
-// sym: _FUN_001b3c50 @854611259ded @w49c763b336b9 @va5e100ac42c1
+// sym: _FUN_001b3c50 @fa5ddfce6124 @w546fc859fb40 @v5be8be163ed2
 namespace fn_001b3c50 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 10/10)
 // FUN_001b3c50 @ 0x001b3c50
@@ -1212,13 +1212,17 @@ void __cdecl FUN_001b33d0(int, int, float, float, float);
 void __cdecl FUN_001b3320(int, math::Vector);
 
 /* 180-byte records starting at 0x4e1830; this view starts at each record's +0x40 byte. */
+// (recs1, find2 G19) the explosion profiles (the .bss item 0x004e1830: 13 records of 0xb4, the name, then this tail at
+// +0x40: DAT_004e1870 labels the first tail). The walk ends after the item's 13 records (it compared against
+// DAT_004e2194, the address of another data item: natively the items are not laid out in the XBE's order, and the
+// walk ran on over other globals, clearing the heap's ready flag)
 struct ProfileTail {
     char active;
     char pad01[0x3f];
     float v[13];
+    char name[0x40];   // the next record's name
 };
 extern char DAT_004e1870[];
-extern char DAT_004e2194[];
 
 extern "C" void FUN_001b3c50()
 {
@@ -1239,8 +1243,8 @@ extern "C" void FUN_001b3c50()
         e->v[11] = 0.0f;
         ((char*)e)[-0x40] = 0; /* record +0x00: enabled */
         e->active = 0;
-        e = (ProfileTail*)((char*)e + 0xb4);
-    } while ((char*)e < DAT_004e2194);
+        e = e + 1;
+    } while (e < (ProfileTail*)DAT_004e1870 + 13);
 
     Registry_1b3c50* reg = (Registry_1b3c50*)FUN_001d4c90();
     if (reg) {

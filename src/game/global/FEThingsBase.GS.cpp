@@ -3,6 +3,8 @@
 // object 0x000e4330..0x000e8490 (kind game, layer game, confidence high), dominant class FEThingsBase
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "gen/global.h"
+#include "decls/fethings.h"   // (recs1)
 #define TREE_TU_BEGIN namespace fn_fcae020b {
 #define TREE_TU_END }
 #define TREE_LOCAL_CCollisionTrack
@@ -59,14 +61,15 @@ class Node {
 };
 class Registry_e70d0 {
   public:
-    char pad0[0xc];
+    // (recs1, find2 G8 / G12) FEThings' words at gen's members (decls/fethings.h; were 32-bit pads)
+    char pad0[HULK_FE_PAD(f_0c, 0xc, 0)];
     Node* groupA[0x40];
     Node* groupB[0x40];
     Node* groupC[0x100];
-    char pad1[0x175c - 0x60c];
+    char pad1[HULK_FE_PAD(f_175c, 0x175c, HULK_FE_PAD(f_60c, 0x60c, 0))];
     Node* primaryA;
     Node* primaryC;
-    char pad2[0x2218 - 0x1764];
+    char pad2[HULK_FE_PAD(f_2218, 0x2218, HULK_FE_PAD(f_1760, 0x1760, 0) + sizeof(void*))];
     Node* primaryB;
     Node* FUN_000e6410(const char* name);
     Node* FUN_000e6490(const char* name);
@@ -78,14 +81,15 @@ public:
     Node *FUN_000e6490(const char *name);
     Node *FUN_000e6410(const char *name);
 
-    char pad0[0xc];
+    // (recs1, find2 G8 / G12) FEThings' words at gen's members (decls/fethings.h; were 32-bit pads)
+    char pad0[HULK_FE_PAD(f_0c, 0xc, 0)];
     Node *groupA[0x40];
     Node *groupC[0x40];
     Node *groupB[0x100];
-    char pad1[0x175c - 0x60c];
+    char pad1[HULK_FE_PAD(f_175c, 0x175c, HULK_FE_PAD(f_60c, 0x60c, 0))];
     Node *defaultA;
     Node *defaultB;
-    char pad2[0x2218 - 0x1764];
+    char pad2[HULK_FE_PAD(f_2218, 0x2218, HULK_FE_PAD(f_1760, 0x1760, 0) + sizeof(void*))];
     Node *defaultC;
 };
 struct Frame_e7260 {

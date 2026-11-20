@@ -43,9 +43,11 @@ struct Node {
     union { unsigned char color; unsigned char red; };
     char _m_pad_d[0x3];
 };
+// (recs1, find2 G20) the tree's words: the root, then the nil node (was taken as `this + 4`, the 32-bit offset)
 class Tree_230be0 {
   public:
     Node* head;
+    Node nil;
     Node* FindNode(CompareFn_230be0 compare, void* value);
 };
 struct Tree_230c30 {
@@ -64,13 +66,12 @@ struct Tree_230de0 {
  void FUN_00230de0(Node* node);
 };
 typedef void(__cdecl* Callback_230f50)(Node*, int);
+// (recs1, find2 G20) the tree's words: the root, the nil node, the count (was `int pad; head; tail; char flag[4]`: the
+// nil node's words at 32-bit offsets, and the nil node taken as `this + 4`)
 class Container_230f50 {
   public:
     Node* root;
-    int pad;
-    Node* head;
-    Node* tail;
-    char flag[4];
+    Node nil;
     int value;
     void Clear(Callback_230f50 cb, hulk_intptr arg);
 };
@@ -82,7 +83,7 @@ class Container_230f50 {
 namespace fn_00230800 {
 // STATUS: equivalent (tools/equiv.py level 3: 471 inputs, branch coverage 15/16, incomplete)
 // FUN_00230800 @ 0x00230800
-struct Node { Node* left; Node* parent; Node* right; }; struct Tree { char pad[4]; Node root; Node* FUN_00230800(Node* node); }; Node* Tree::FUN_00230800(Node* node) { Node* sentinel=&root; Node* next=node->parent; if(next==sentinel) { next=node->right; while(next!=sentinel && node==next->parent) { node=next; next=next->right; } } else { if(next->left!=sentinel) { next=next->left; while(next->left!=sentinel) next=next->left; } } return next==sentinel ? 0 : next; }
+struct Node { Node* left; Node* parent; Node* right; }; struct Tree { Node* rootWord; Node root; Node* FUN_00230800(Node* node); };   /* (recs1, find2 G20) the root pointer, then the nil node (was char pad[4]) */ Node* Tree::FUN_00230800(Node* node) { Node* sentinel=&root; Node* next=node->parent; if(next==sentinel) { next=node->right; while(next!=sentinel && node==next->parent) { node=next; next=next->right; } } else { if(next->left!=sentinel) { next=next->left; while(next->left!=sentinel) next=next->left; } } return next==sentinel ? 0 : next; }
 } // namespace fn_00230800
 
 
@@ -311,7 +312,7 @@ void* List_230ba0::Find(CompareFn_230ba0 fn, void* key) {
 // sym: ?FindNode@Tree_230be0@fn_f39652ec@@QAEPAUNode@2@P6AHPAX0@Z0@Z
 Node* Tree_230be0::FindNode(CompareFn_230be0 compare, void* value) {
     Node* node = head;
-    Node* sentinel = (Node*)((char*)this + 4);
+    Node* sentinel = &nil;
     Node* result = sentinel;
     while (node != sentinel) {
         result = node;
@@ -471,11 +472,16 @@ namespace fn_00230ea0 {
 struct Node {
     Node* next;
 };
+// (recs1, find2 G20) a list head: its first link, then its own end node (was `p + 4`, the 32-bit offset)
+struct List_230ea0 {
+    Node* next;
+    Node end;
+};
 extern "C" Node* __fastcall FUN_00230ea0(Node* p) {
     Node* n = p->next;
-    if (n == (Node*)((char*)p + 4))
+    if (n == &((List_230ea0*)p)->end)
         return 0;
-    while (n->next != (Node*)((char*)p + 4))
+    while (n->next != &((List_230ea0*)p)->end)
         n = n->next;
     return n;
 }
@@ -554,7 +560,7 @@ namespace fn_f39652ec {
 // 0x00230f50 FUN_00230f50 (105 B): matches/0x00230f50.cpp
 // sym: ?Clear@Container_230f50@fn_f39652ec@@QAEXP6AXPAUNode@2@H@ZH@Z
 void Container_230f50::Clear(Callback_230f50 cb, hulk_intptr arg) {
-    Node* sent = (Node*)((char*)this + 4);
+    Node* sent = &nil;
     Node* n = root;
     if (n != sent)
         do {
@@ -576,10 +582,10 @@ void Container_230f50::Clear(Callback_230f50 cb, hulk_intptr arg) {
             cb(ret, arg);
         } while (n != sent);
     root = sent;
-    head = sent;
-    tail = sent;
+    nil.right = sent;
+    nil.parent = sent;
     sent->left = sent;
-    flag[0] = 0;
+    nil.color = 0;
     value = 0;
 }
 

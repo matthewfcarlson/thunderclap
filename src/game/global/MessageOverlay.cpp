@@ -23,7 +23,6 @@ extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_f27eef39 {
-extern int DAT_004a0704[];
 struct V3_d40e0 {
     float x, y, z;
 };
@@ -509,7 +508,7 @@ class Slots_d6d90 {
 
 
 // 0x000d40e0 FUN_000d40e0 (641 B): equivalent/0x000d40e0.cpp
-// sym: ?FUN_000d40e0@Screen_d40e0@fn_f27eef39@@QAEXPAUSource_d40e0@2@PAUMode_d40e0@2@PAUCamera@2@@Z @82c2cf79638d @w7d20b4c1ae24 @v3b4233a1fd08
+// sym: ?FUN_000d40e0@Screen_d40e0@fn_f27eef39@@QAEXPAUSource_d40e0@2@PAUMode_d40e0@2@PAUCamera@2@@Z @5691ab75f445 @wb2c510e3ea28 @vf2014a752c4c
 // STATUS: equivalent (tools/equiv.py level 3: 72 inputs, branch coverage 8/8)
 // FUN_000d40e0 @ 0x000d40e0
 void Screen_d40e0::FUN_000d40e0(Source_d40e0 *src, Mode_d40e0 *m, Camera *cam)
@@ -553,7 +552,7 @@ void Screen_d40e0::FUN_000d40e0(Source_d40e0 *src, Mode_d40e0 *m, Camera *cam)
     DAT_004ddfe8 = (float)(b2F - fExt);
     int j = 0;
     const int *p;
-    for (p = DAT_004a06f8; p < DAT_004a0704; p++) {
+    for (p = DAT_004a06f8; p < DAT_004a06f8 + 3; p++) {   // (recs1, find2 G19) the table's own 3 entries (was DAT_004a0704: another data item, not laid out after it natively)
         items[j].w0 = 0;
         items[j].v100 = *p;
         items[j].f104 = 1000.0f;

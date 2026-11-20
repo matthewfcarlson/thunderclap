@@ -4128,8 +4128,7 @@ CCollisionAction* CCollisionAction::vfunc_2(unsigned char flags) {
 // 0x000e6280 FEThingsBase::vfunc_0 (88 B): matches/0x000e6280.cpp
 // sym: ?vfunc_0@FEThingsBase@@UAE_NHH@Z
 bool FEThingsBase::vfunc_0(int x, int index) {
-    char* p = (char*)this;
-    if (p[index + 0x2100])
+    if (((unsigned char*)&this->f_2100)[index])   // (recs1) the byte flags from gen's f_2100 (was this + 0x2100, a 32-bit offset)
         return true;
     if ((*(Child_e6280 * *)&this->f_2218))
         return (*(Child_e6280 * *)&this->f_2218)->f1(x, index);
@@ -4144,7 +4143,7 @@ bool FEThingsBase::vfunc_0(int x, int index) {
 // 0x000e62e0 FEThingsBase::vfunc_1 (88 B): matches/0x000e62e0.cpp
 // sym: ?vfunc_1@FEThingsBase@@UAE_NHH@Z
 bool FEThingsBase::vfunc_1(int a, int index) {
-    if (*((unsigned char*)this + index + 0x2100))
+    if (((unsigned char*)&this->f_2100)[index])   // (recs1) the byte flags from gen's f_2100 (was this + 0x2100)
         return true;
     if ((*(Obj_e62e0 * *)&this->f_2218))
         return (*(Obj_e62e0 * *)&this->f_2218)->f2(a, index);
@@ -6113,7 +6112,8 @@ public:
     virtual void vfunc_4();
     virtual void vfunc_5();
     virtual void vfunc_6();
-    char pad04[8];
+    void* poolA;   // (recs1, find1 B3) gen FEThingsBase's f_04 / f_08 (was char pad04[8])
+    void* poolB;
     FEWidget_e8310 *first[0x40];
     FEWidget_e8310 *second[0x40];
     FEWidget_e8310 *big[0x100];

@@ -8,6 +8,7 @@
 #include "decls/data/game/global.h"
 #include "gen/global.h"
 #include "gen/owners.h"
+#include "decls/fe_callbacks.h"   // (recs1, find2 G13)
 #define TREE_TU_BEGIN namespace fn_f5892d97 {
 #define TREE_TU_END }
 namespace fn_f5892d97 {} using namespace fn_f5892d97;
@@ -2859,7 +2860,13 @@ public:
     virtual void v0();
     virtual void v1();
     virtual void v2();
+#if defined(HULK_PTR64)
+    // (decl1 G9, folded in by recs1) slot 3 (0x00266280) takes the 64-bit key as two words: natively a u64 is one
+    // register where the definition reads two
+    virtual Scenegraph* find(content::LoadInventory::DynamicCasterBase* caster, unsigned int key_lo, unsigned int key_hi);
+#else
     virtual Scenegraph* find(content::LoadInventory::DynamicCasterBase* caster, unsigned __int64 key);
+#endif
 };
 
 extern "C++" __declspec(nothrow) void __cdecl FUN_000f69e0(void *, void *);
@@ -2893,15 +2900,17 @@ public:
 
     PoolA* poolA;                   // 0x4
     PoolB* poolB;                   // 0x8
-    int arr0[0x40];                 // 0xc
-    int arr1[0x40];                 // 0x10c
-    int arr2[0x100];                // 0x20c
-    int arr3[0x400];                // 0x60c
-    int arr4[0x40];                 // 0x160c
+    // (recs1, find1 B3, find2 G8) the widget tables are pointer tables, and the words below are gen/global.h
+    // FEThingsBase's (pointers as pointers: f175c, f1760, f17fc, f183c, f220c, f2218), so every view agrees natively
+    void* arr0[0x40];               // 0xc
+    void* arr1[0x40];               // 0x10c
+    void* arr2[0x100];              // 0x20c
+    void* arr3[0x400];              // 0x60c
+    void* arr4[0x40];               // 0x160c
     char f170c;
     char pad170d[0x175c - 0x170d];
-    int f175c;
-    int f1760;
+    void* f175c;
+    void* f1760;
     char pad1764[4];
     int f1768;
     int f176c;
@@ -2910,7 +2919,7 @@ public:
     int arr6[0x10];                 // 0x17b4
     int f17f4;
     char pad17f8[4];
-    int f17fc;
+    void* f17fc;
     float f1800;
     int f1804;
     char pad1808[4];
@@ -2919,12 +2928,13 @@ public:
     float f1814;
     Scenegraph* cursorGroup;        // 0x1818
     float cursorScale[3];           // 0x181c
-    int f1828;
+    void* f1828;   // the camera (a pointer)
     int f182c;
     int f1830;
     char pad1834[4];
     int f1838;
-    char pad183c[0x184c - 0x183c];
+    hulk_intptr f183c;
+    char pad1840[0x184c - 0x1840];
     char f184c;
     char pad184d[3];
     unsigned int f1850;
@@ -2944,10 +2954,10 @@ public:
     char f2205;
     char pad2206[2];
     int f2208;
-    int f220c;
+    hulk_intptr f220c;
     int f2210;
     int f2214;
-    int f2218;
+    void* f2218;
     int f221c;
     char f2220;
 };
@@ -2962,11 +2972,11 @@ FEThingsBase::FEThingsBase()
     f2208 = 0;
     f220c = 0;
     f1828 = 0;
-    memset(arr0, 0, 0x40 * sizeof(int));
-    memset(arr1, 0, 0x40 * sizeof(int));
-    memset(arr3, 0, 0x400 * sizeof(int));
-    memset(arr2, 0, 0x100 * sizeof(int));
-    memset(arr4, 0, 0x40 * sizeof(int));
+    memset(arr0, 0, sizeof(arr0));
+    memset(arr1, 0, sizeof(arr1));
+    memset(arr3, 0, sizeof(arr3));
+    memset(arr2, 0, sizeof(arr2));
+    memset(arr4, 0, sizeof(arr4));
     f170c = 0;
     f175c = 0;
     f1768 = 0;
@@ -2979,7 +2989,7 @@ FEThingsBase::FEThingsBase()
     memset(arr6, 0, 0x10 * sizeof(int));
     f17f4 = -1;
 
-    void* mem = FUN_0008d690(0x800);
+    void* mem = FUN_0008d690(sizeof(HulkFECallbacks));   // (recs1, find2 G13) the callback tables (0x800 on the 32-bit builds)
     PoolA* a = 0;
     if (mem)
         a = ((PoolA*)mem)->FUN_000df690();
@@ -3016,7 +3026,11 @@ FEThingsBase::FEThingsBase()
         content::LoadInventory::DynamicCaster<pure3d::scenegraph::Scenegraph> caster;
         Inventory_f3000* inv = (*(Inventory_f3000**)&DAT_004dd9cc);
         unsigned __int64 key = FUN_0027b020("cursor_group");
+#if defined(HULK_PTR64)
+        Scenegraph* sg = inv->find(&caster, (unsigned int)key, (unsigned int)(key >> 32));
+#else
         Scenegraph* sg = inv->find(&caster, key);
+#endif
         cursorGroup = sg;
         if (sg)
             sg->addRef();
@@ -3028,7 +3042,11 @@ FEThingsBase::FEThingsBase()
         content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy> caster;
         Inventory_f3000* inv = (*(Inventory_f3000**)&DAT_004dd9cc);
         unsigned __int64 key = FUN_0027b020("cursor_planeShape");
+#if defined(HULK_PTR64)
+        Scenegraph* shape = inv->find(&caster, (unsigned int)key, (unsigned int)(key >> 32));
+#else
         Scenegraph* shape = inv->find(&caster, key);
+#endif
         if (shape)
             FUN_000f69e0((Scenegraph *)shape, (float *)cursorScale);
     }

@@ -583,7 +583,7 @@ extern "C" bool __stdcall FUN_000b4dc0(const char* s) {
         if (strcmp(s, q) == 0)
             return true;
         ++p;
-    } while ((hulk_intptr)p < ((hulk_intptr)DAT_0049f3e4));
+    } while ((hulk_intptr)p < (hulk_intptr)((const char**)DAT_0049f3d8 + 3));   // (recs1, find2 G19) the table's own 3 entries (was DAT_0049f3e4: another data item)
     return false;
 }
 
