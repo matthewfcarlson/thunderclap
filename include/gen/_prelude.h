@@ -1,4 +1,5 @@
 #include "compat/ptr.h"
+#include "compat/hulk_annot.h"   // (integ4) checker annotations: nothing in any compiled build
 // Class declarations from the game's RTTI. Source, edited by hand (tools/gen_headers.py generated them until
 // gen1, 2026-11-13). vfunc_N = slot N of the class that introduced it; fields only where code proves the offset.
 // tools/gen_headers.py --probe checks the layouts against RTTI and the XBE. See docs/headers.md.

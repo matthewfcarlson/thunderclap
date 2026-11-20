@@ -8312,7 +8312,8 @@ def contracts_of_text(text, out=None):
         if not m or not pl:
             continue
         specs, _ = _parse_pre(pl)
-        rng = [(n, c) for (_w, k, n, _o, _e, c) in specs if k == "arg" and isinstance(c, tuple)]
+        rng = [(n, c) for (_w, k, n, _o, _e, c) in specs if k == "arg" and isinstance(c, tuple) and
+               not _pre_relational(c)]      # (integ4: a field bound can't be read from a caller's call record)
         if not rng:
             continue
         d = re.search(r"[\w:~<>]+\s*\(([^()]*)\)\s*(?:const\s*)?\{", _strip_comments(blk))
@@ -8352,7 +8353,9 @@ def _pre_range_macros(code):
             bad.append("HULK_PRE_%s(%s): %r is not a parameter of the definition" % (fn_, args_, a_[0]))
             continue
         try:
-            c_ = _pre_range_cond(fn_.lower(), a_[1:])
+            # (integ4, x64bounds) a bound that is a member's bare name (`HULK_PRE_LT(i, f_1c)`) states `this->f_1c`
+            c_ = _pre_range_cond(fn_.lower(), ["this->" + x if re.match(r"^[A-Za-z_]\w*$", x) and x not in names
+                                                 and x.lower() not in ("inf",) else x for x in a_[1:]])
         except (ValueError, KeyError, IndexError):
             bad.append("HULK_PRE_%s(%s): constants" % (fn_, args_))
             continue
@@ -8369,12 +8372,30 @@ def _pre_num(t):
     return float(int(t, 0)) if re.match(r"^-?(0x[0-9a-f]+|\d+)$", t) else float(t)
 
 
+_PRE_FIELD = re.compile(r"^this->([A-Za-z_]\w*)$")
+
+
+def _pre_bound(t):
+    """(integ4, x64bounds) A range item's bound: a constant, or ("field", NAME) for `this->NAME` (a relational item: an
+    integer field of the object the member function is called on, read per input)."""
+    m = _PRE_FIELD.match(t.strip().replace(" ", ""))
+    if m:
+        return ("field", m.group(1))
+    return _pre_num(t)
+
+
+def _pre_relational(cond):
+    """(integ4, x64bounds) Does a range cond have a field bound (`lt(arg3, this->count)`)?"""
+    return isinstance(cond, tuple) and len(cond) >= 3 and any(isinstance(x, tuple) for x in cond[1:3])
+
+
 def _pre_range_cond(fn, args):
-    """(integ3, D152) ("range", lo, hi, lo_incl, hi_incl) of a range item's constant arguments."""
+    """(integ3, D152) ("range", lo, hi, lo_incl, hi_incl) of a range item's constant arguments ((integ4) a bound may be
+    `this->FIELD`: ("field", FIELD))."""
     if fn == "range":
-        lo, hi = _pre_num(args[0]), _pre_num(args[1])
+        lo, hi = _pre_bound(args[0]), _pre_bound(args[1])
         return ("range", lo, hi, True, True)
-    c = _pre_num(args[0])
+    c = _pre_bound(args[0])
     inf = float("inf")
     return {"gt": ("range", c, inf, False, True), "ge": ("range", c, inf, True, True),
             "lt": ("range", -inf, c, True, False), "le": ("range", -inf, c, True, True)}[fn]
@@ -10918,6 +10939,7 @@ def _verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappi
             rep["level"] = 1
         issues = issues + bad
     pre_specs, pre_bad = _parse_pre(pre_lines)
+    pre_rel = [it_ for it_ in pre_specs if _pre_relational(it_[5])]
     sig_l2_ = sig
     if not pre_lines and "pre" not in EQUIV_OFF:
         # (integ1, rev5) the macro without the contract: the builds trap where the proof compared freely
@@ -10970,6 +10992,11 @@ def _verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappi
             if c_ not in conds_ and re.search(r"\bHULK_PRE_%s(_N)?\s*\(" % c_.upper(), code_):
                 bad_.append({"kind": "trap_without_pre", "why": "HULK_PRE_%s in the block without a `// pre: %s(...)` item"
                              % (c_.upper(), c_)})
+        if pre_rel:
+            # (integ4, x64bounds; rev5) a bound read from `this` per input is the x64 harness's (tools/equiv64.py); the
+            # 32-bit runs don't model it yet: a block that states one is refused here (a matches block is not run here)
+            bad_.append({"kind": "pre_relational", "why": "relational range items %s: only the x64 harness reads them"
+                         % sorted((it_[2], it_[5]) for it_ in pre_rel)})
         for w_, kind_, n_, off_, end_, _c in pre_specs:
             if kind_ in ("arg", "parg") and _pre_arg_word(sig_l2_, n_) is None:
                 bad_.append({"kind": "pre_unparsed", "why": "arg%d: no such parameter, or past a by-value struct" % n_})
@@ -11004,7 +11031,8 @@ def _verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappi
         except Exception as e_:     # noqa: BLE001 - a diagnostic: never fail the check because of it
             rep["x87_decl_error"] = str(e_)[:200]
     l3 = level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs, max_steps, keep_runs,
-                time_budget, psizes=psizes, convs=convs, decls=decls, void_eax=void_eax, seeds=seeds, pre=pre_specs)
+                time_budget, psizes=psizes, convs=convs, decls=decls, void_eax=void_eax, seeds=seeds,
+                pre=[it_ for it_ in pre_specs if not _pre_relational(it_[5])])
     rep["level3"] = l3
     if pre_specs and native and l3.get("pre_trap") != "fired" and not seeds:
         # (integ1, D54) --wine: an input that violates the contract must hit HULK_PRE_NOTNAN's trap in our code

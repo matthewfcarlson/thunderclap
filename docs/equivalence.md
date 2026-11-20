@@ -2358,7 +2358,8 @@ equiv64's `rawint` and truncated-pointer tests rely on the 64-bit heap's low 32 
 
 **x64t13's input annotations (2026-11-15, D34).** Two facts of the game's data the fuzzer could not know, written in
 the source where a field or parameter is declared and seen only by equiv64's libclang parse (`-DHULK_EQ64_PARSE`;
-include/decls/data/records.h defines both macros empty for every compiled build, so no code changes). Inputs are drawn
+include/compat/hulk_annot.h (integ4: moved from records.h so include/gen can use them) defines the macros empty for every
+compiled build, so no code changes). Inputs are drawn
 from the annotated domain; nothing compared changes:
 - `HULK_RANGE(lo, hi)` after an integer field (`int bucket HULK_RANGE(0, 1);`, records.h CoreCementLibrary): the
   field is drawn from lo..hi (`field_range`, Leaf.range, in the layout fingerprint). A fuzzed list index read
@@ -2448,6 +2449,30 @@ them and EQ64_OFF=census skips the census: development switches, a run with them
 `0x00356fa0_x64_grange{,_none,_uncited,_both,_float,_rdata,_wide,_census,_c30}`,
 `0x001fe380_x64_grange_{initial,below}` and `0x001fe380_x64_rdata{,_none,_nonconst,_store,_ptrs,_writable,_oneside,
 _vtable,_text,_addrs}`.
+
+(integ4, x64bounds; rev5) **Counted pointers and relational contracts.** A pointer field the code indexes with a
+caller's index (`(*(float**)&this->f_38)[i * 2] = a`, 0x00327590) was a fuzzed pointer and a fuzzed index: 32-bit address
+arithmetic wraps into some mapped page, the 64-bit one doesn't (a false `crash64`).
+- `HULK_COUNT(field)` after a typed pointer field, `HULK_COUNT_BYTES(field, n)` after a `void*` one (elements of n bytes):
+  the field points at an array of exactly `this->field` elements (`field_count`, Leaf.count, in the layout fingerprint).
+  Only on a single pointer leaf whose declaration cites its writers (0x addresses); the count must be a sibling integer
+  field with a cited `HULK_RANGE`. The generator draws the count, then the array (null for 0): the count's whole range up
+  to COUNT_MAX (1,024) elements and COUNT_BYTES (1 MB); a count past that sets the input aside (`count_cap`), never a
+  shorter array. gen pure3d.h d3dPrimBufferStream: `f_1c HULK_RANGE(0, 15)` (0x00326e90 stores the format's flags & 15),
+  `f_38 HULK_COUNT_BYTES(f_1c, 8)` (its float pairs).
+- Relational range items: `// pre: ge(arg3, 0) lt(arg3, this->f_1c)` with `HULK_PRE_GE(i, 0); HULK_PRE_LT(i, f_1c);` (a bare
+  member name in the macro is `this->name`). Items on one parameter now intersect (they used to overwrite). equiv64 reads
+  the bound from the this-object's field as generated for the input (an integer field, its own or a base's, with a
+  cited HULK_RANGE) and repairs the argument into the domain; an empty domain sets the input aside (`pre_empty`). The
+  items and macros must agree both ways and the block cites every reference (`// pre-callers:`), else unsupported.
+  equiv.py refuses relational items in its own runs (L2 `pre_relational`: only matches blocks can use them until the
+  32-bit runs read the field) and doesn't index them for callers.
+- Most inputs set aside as `pre_empty` or `count_cap` make the run `unsupported`, class `pre_dominated`.
+- A partial access to a pointer field of a typed object (counted or allocty) is `layout` (ptrpart for reads, allocty's
+  ptrstore for writes): a hard-coded 32-bit stride over an array holding pointers gates.
+Cases `0x00327590_x64_count` (equivalent), `_nocount` (crash64), `_norange`, `_nocite`, `_nomacro`, `_wrongfield`,
+`_nocensus`, `_capall` (unsupported), `_stride`, `_strideread` (layout), `_cap` (a range past KMAX, compared whole).
+`EQ64_OFF=countattr` / `preand` / `predom` switch the parts off (a run with them proves nothing).
 
 (integ1, rev5's review, D61) Checks on the annotations: `HULK_RANGE` only on a scalar integer field whose declaration has a
 comment naming a 0x address, meant to be the field's writer sites; the checker only sees that an address is cited, not

@@ -2,6 +2,7 @@
 // object 0x00326e90..0x003278e0 (kind game, layer platform/xbox, confidence high), dominant class pure3d::d3dPrimBufferStream
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "compat/pre.h"
 #include "decls/data/platform/xbox/pure3d.h"
 #include "gen/owners.h"
 #include "gen/pure3d.h"
@@ -822,9 +823,16 @@ void pure3d::d3dPrimBufferStream::vfunc_4(int a, int b) {
 
 // 0x00327590 pure3d::d3dPrimBufferStream::vfunc_6 (28 B): matches/0x00327590.cpp
 // sym: ?vfunc_6@d3dPrimBufferStream@pure3d@@UAEXMMH@Z
+// (integ4, x64bounds) i is a texture coordinate set of the current vertex: below the format's count f_1c, whose f_1c
+// float pairs f_38 points at (gen: HULK_COUNT_BYTES)
+// pre: ge(arg3, 0) lt(arg3, this->f_1c)
+// pre-callers: 0x0043350c (vftable slot 6, pddiPrimBufferStream's SetUV(u, v, set): the primitive builders pass a set
+// index below the stream's vertex format's texture coordinate count)
 void pure3d::d3dPrimBufferStream::vfunc_6(float a, float b, int i) {
-    (*(float * *)&this->f_38)[i * 2] = a;
-    (*(float * *)&this->f_38)[i * 2 + 1] = b;
+    HULK_PRE_GE(i, 0);
+    HULK_PRE_LT(i, f_1c);
+    ((float*)this->f_38)[i * 2] = a;
+    ((float*)this->f_38)[i * 2 + 1] = b;
 }
 
 
@@ -982,7 +990,7 @@ d3dPrimBuffer* d3dPrimBuffer::f3(unsigned char flag) {
 
 
 // 0x00327860 FUN_00327860 (107 B): equivalent/0x00327860.cpp
-// sym: ?FUN_00327860@Skin_327860@fn_fd8cb2f6@@QAEXHIHHHPBD@Z @7711284a52db @w02aa0e790bf0 @v6cd2cbc75c84
+// sym: ?FUN_00327860@Skin_327860@fn_fd8cb2f6@@QAEXHIHHHPBD@Z @7711284a52db @wca492de3637c @v6cd2cbc75c84
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_00327860 @ 0x00327860
 void Skin_327860::FUN_00327860(int idx, unsigned int fl, int unused, int a4, int a5, const char *name)

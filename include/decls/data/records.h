@@ -19,23 +19,9 @@
 #define HULK_SIZE32(T, n) \
     typedef char HULK_SIZE32_CAT(hulk_size32_, __LINE__)[(sizeof(void*) != 4 || sizeof(T) == (n)) ? 1 : -1]
 
-// HULK_RANGE(lo, hi), after an integer field's declarator: the values the game stores there (lo..hi), where the code
-// uses the field as an index. Only tools/equiv64.py's libclang parse sees it (HULK_EQ64_PARSE: the generator draws
-// the field from the range); every compiled build gets nothing, so no code changes.
-// HULK_INTO(field), after a pointer parameter's name in a member function's definition: the pointer is into the
-// array this->field points to (a pool's block, from the pool's data); tools/equiv64.py generates it there.
-// (D103) On a TU's redeclaration of a global (`extern "C" int DAT_0056bfc8[514] HULK_RANGE(0, 255);`, its comment
-// citing the stores into it) HULK_RANGE bounds every integer word of the global. HULK_RDATA, after a const global's
-// declarator: a table in a read-only section of the XBE; tools/equiv64.py starts both runs from its bytes there.
-#if defined(HULK_EQ64_PARSE)
-#define HULK_RANGE(lo, hi) __attribute__((annotate("hulk_range " #lo " " #hi)))
-#define HULK_INTO(field) __attribute__((annotate("hulk_into " #field)))
-#define HULK_RDATA __attribute__((annotate("hulk_rdata")))
-#else
-#define HULK_RANGE(lo, hi)
-#define HULK_INTO(field)
-#define HULK_RDATA
-#endif
+// The checker annotations HULK_RANGE / HULK_INTO / HULK_RDATA / HULK_COUNT live in compat/hulk_annot.h (integ4: include/gen
+// uses them too).
+#include "compat/hulk_annot.h"
 
 // The memory allocator registry (core, 0x00266e00-0x00267280): one slot per heap id; the slots also form a tree
 // under the root 0x00527f40 (first child, next sibling, parent), which 0x00266f50 / 0x00266f90 walk to find the

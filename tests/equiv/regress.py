@@ -1273,6 +1273,20 @@ DECL_CASES = {
 # (eq64) the 64-bit check, tools/equiv64.py (`equiv.py --x64`): name -> (status, class or None, text the difference
 # must contain or None, minimum completed inputs). The x86-64 object against the 32-bit clang object of the same source.
 X64_CASES = {
+    # (integ4, x64bounds; rev5) a pointer field counted by a cited HULK_RANGE field (HULK_COUNT / HULK_COUNT_BYTES) and a
+    # relational range contract on the index (`lt(arg3, this->f_1c)`, its macro and census): every input compared stays in
+    # the array (a count range past KMAX generated whole, up to COUNT_MAX; past it count_cap); missing pieces are refused
+    "0x00327590_x64_count": ("equivalent", None, None, 80),
+    "0x00327590_x64_count_nocount": ("fail", "crash64", None, 0),
+    "0x00327590_x64_count_norange": ("unsupported", None, "cited HULK_RANGE", 0),
+    "0x00327590_x64_count_nocite": ("unsupported", None, "citing the writer sites", 0),
+    "0x00327590_x64_count_nomacro": ("unsupported", None, "relational pre: items", 0),
+    "0x00327590_x64_count_wrongfield": ("unsupported", None, "f_20", 0),
+    "0x00327590_x64_count_nocensus": ("unsupported", None, "pre-callers", 0),
+    "0x00327590_x64_count_stride": ("fail", "layout", None, 0),     # (allocty's ptrstore: a partial pointer write)
+    "0x00327590_x64_count_strideread": ("fail", "layout", "of the 8-byte pointer", 0),     # (ptrpart on reads)
+    "0x00327590_x64_count_cap": ("equivalent", None, None, 80),
+    "0x00327590_x64_count_capall": ("unsupported", None, "count_cap", 0),
     # (integ3, D152) the range contract's repair in equiv64 too: every input compared inside the domain
     "0x0009fb20_x64_range": ("equivalent", None, None, 90),
     # a plain setter: a typed `this`, an int and a byte field

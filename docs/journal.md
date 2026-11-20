@@ -1902,3 +1902,15 @@ blocks fight::Action's whole family: the records come first there.
   - MSVC 7.1 inlines it to the original's `call [edi+0x70]`.
 - 0x00264050 uses the same helper. Its MSVC proof waits for integ3's thiscallpend extension: MSVC pushes Read's
   constant argument after FUN_0026fd50, not before slot 16 as the original does.
+
+## 2026-11-20 integ4: x64bounds, counted pointers and relational contracts
+- 0x00327590 (`tex[i * 2] = a` through the stream's texture coordinate pointer) was a false crash64: the harness
+  fuzzed both the pointer and the set index, and a 32-bit address that wraps into a mapped page has no 64-bit
+  counterpart. gen d3dPrimBufferStream now says what the game guarantees: f_1c (the vertex format's flags & 15) is the
+  count of float pairs f_38 points at (`HULK_COUNT_BYTES(f_1c, 8)`), and the block's contract `ge(arg3, 0)
+  lt(arg3, this->f_1c)` bounds the index by that field. The x64 run is equivalent at 186 of 200 (14 inputs have
+  count 0, so no index is valid).
+- Two items on one parameter used to overwrite each other in equiv64 (the last one won). They now intersect.
+- Adding `#include "compat/pre.h"` to d3dPrimBufferStream.cpp changed the clang code hash of another block in the TU
+  (0x00327860): a header include can move a neighbour's Wine hash, so re-prove the TU's equivalents.
+- The checker annotation macros moved from records.h to compat/hulk_annot.h so include/gen can use them.

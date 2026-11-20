@@ -68,6 +68,8 @@ HEAP64_SPAN = HEAP32 - (HEAP64 & 0xFFFFFFFF)
 assert (HEAP64 & 0xFFFFFFFF) + HEAP64_SPAN <= HEAP32 and HEAP32 + HEAP32_SPAN <= 0x50000000
 NULL_HI = 0x10000                   # 0..0xFFFF reads as zero on both sides
 KMAX = 16                           # elements per typed object (p[i] for small i stays typed)
+COUNT_MAX = 1024                    # (integ4, x64bounds; rev5) a HULK_COUNT array's elements at most ...
+COUNT_BYTES = 1 << 20               # ... and bytes (each target's): past either the input is set aside (count_cap)
 RAW_SIZE = 0x1000
 
 STEPS = int(os.environ.get("EQ64_STEPS", "1000000"))
@@ -503,13 +505,14 @@ SAME_WIDTH = ("i", "f", "d")
 
 
 class Leaf:
-    __slots__ = ("path", "o32", "o64", "kind", "s32", "s64", "extra", "signed", "range", "cast")
+    __slots__ = ("path", "o32", "o64", "kind", "s32", "s64", "extra", "signed", "range", "cast", "count")
 
     def __init__(self, path, o32, o64, kind, s32, s64, extra=None, signed=False):
         self.path, self.o32, self.o64, self.kind, self.s32, self.s64 = path, o32, o64, kind, s32, s64
         self.extra, self.signed = extra, signed
         self.range = None       # (x64t13) (lo, hi): the values an integer field takes (HULK_RANGE, field_range)
         self.cast = None        # (integ2, D93) a pointer field's pointee as the code casts it (field_casts)
+        self.count = None       # (integ4, x64bounds) a pointer field's array length: (count leaf, element bytes or None)
 
     def off(self, bits):
         return self.o32 if bits == 32 else self.o64
@@ -589,6 +592,20 @@ def _spell(x):
 
 
 RANGE_ATTR = re.compile(r"^hulk_range (-?\d+) (-?\d+)$")
+COUNT_ATTR = re.compile(r"^hulk_count (\w+)(?: (\d+))?$")     # (integ4, x64bounds) HULK_COUNT / HULK_COUNT_BYTES
+
+
+def field_count(c):
+    """(integ4, x64bounds) (count field name, element bytes or None) from a pointer field's HULK_COUNT(field) /
+    HULK_COUNT_BYTES(field, n) annotation (include/compat/hulk_annot.h): the field points at an array of exactly
+    this->field elements (of its pointee type, or of n bytes for a void pointer). None without one."""
+    K = ci().CursorKind
+    for a in c.get_children():
+        if a.kind == K.ANNOTATE_ATTR:
+            m = COUNT_ATTR.match(a.spelling or "")
+            if m:
+                return m.group(1), (int(m.group(2)) if m.group(2) else None)
+    return None
 
 
 def _cites_writers(c):
@@ -634,6 +651,8 @@ def layout_fp(lay):
             h.update(("cast %s\n" % _spell(l.cast)).encode())     # (integ2, D93/F3) the view the code reads it through
         if l.range is not None:
             h.update(("range %d %d\n" % l.range).encode())
+        if l.count is not None:
+            h.update(("count %r %s\n" % (l.count[0].path, l.count[1])).encode())     # (integ4, x64bounds)
     return h.hexdigest()[:16]
 
 
@@ -709,6 +728,7 @@ class Types:
 
     def __init__(self, tu32, tu64, vtables):
         self.ranges_used = {}    # (integ1, rev5) {(record, field): (lo, hi)} of the HULK_RANGE annotations used
+        self.counts_used = {}    # (integ4, x64bounds) {(record, field): (count field, element bytes)} (HULK_COUNT)
         self.field_casts = {}    # (integ2, D93) {(record, field): (T32, T64)}: the record the code casts a pointer field to
         self.view_trusted = set()   # (integ2, D93) views taken on trust (Types.extend)
         self.view_ambiguous = set()     # (integ2, F5) objects of fields cast to several records (kept as declared)
@@ -890,6 +910,7 @@ class Types:
             raise Unsupported("fields differ between targets: %s" % a.spelling)
         union = da.kind == K.UNION_DECL
         seen_units = set()
+        counted = []        # (integ4, x64bounds) (pointer leaf, count field, element bytes, field cursor)
         for x, y in zip(fa, fb):
             pa = x.get_field_offsetof()
             pb = y.get_field_offsetof()
@@ -924,8 +945,30 @@ class Types:
                 for l in out[n0:]:
                     if l.kind == "i":
                         l.range = rng
+            cnt_ = field_count(x) if "countattr" not in OFF else None
+            if cnt_ is not None:
+                lv_ = out[n0:]
+                if len(lv_) != 1 or lv_[0].kind != "p":
+                    raise Unsupported("HULK_COUNT on %s::%s, not a pointer field" % (a.spelling, x.spelling))
+                if not _cites_writers(x):
+                    raise Unsupported("HULK_COUNT on %s::%s without a comment citing the writer sites (0x addresses)"
+                                      % (a.spelling, x.spelling))
+                counted.append((lv_[0], cnt_[0], cnt_[1], x))
             if union:
                 break
+        for l_, cf_, eb_, x_ in counted:
+            # (integ4, x64bounds; rev5) the count is a sibling integer field whose values HULK_RANGE states (cited): the
+            # generator draws it, then the array of exactly that many elements
+            cl_ = [l for l in out if l.path == path + (cf_,)]
+            if len(cl_) != 1 or cl_[0].kind != "i" or cl_[0].range is None:
+                raise Unsupported("HULK_COUNT(%s) on %s::%s: the count must be an integer field of %s with a cited "
+                                  "HULK_RANGE" % (cf_, a.spelling, x_.spelling, a.spelling))
+            pv_ = l_.extra[0].get_canonical().kind.name == "VOID" if l_.extra else True
+            if pv_ != (eb_ is not None) or (eb_ is not None and eb_ <= 0):
+                raise Unsupported("HULK_COUNT on %s::%s: a void pointer takes HULK_COUNT_BYTES(field, n), a typed one "
+                                  "HULK_COUNT(field)" % (a.spelling, x_.spelling))
+            l_.count = (cl_[0], eb_)
+            self.counts_used[(a.spelling, x_.spelling)] = (cf_, eb_)
 
     def fingerprints(self):
         """(x64t12) {layout key: {"k64": the 64-bit spelling, "fp": layout_fp}} of every layout this checker built: the
@@ -1141,6 +1184,7 @@ class Heap:
         self.order = {32: [], 64: []}
         self.by_type = {}
         self.choices = {}
+        self.count_cap = None       # (integ4, x64bounds) why a HULK_COUNT array was cut to KMAX (the input is set aside)
         self.allocty = False    # (integ3) an allocation's image was drawn as its record (counted per input)
 
     def _region(self, bits, size):
@@ -1327,6 +1371,31 @@ class Heap:
             return ("d", struct.unpack("<Q", struct.pack("<d", gen_float(r)))[0])
         if k == "b":
             return ("b", bytes(gen_byte(r) for _ in range(l.s32)))
+        if k == "p" and l.count is not None:
+            key = (e, l.o32)
+            if key not in o.ptrs:
+                # (integ4, x64bounds) HULK_COUNT: an array of exactly this->count elements (null when it is 0), up to
+                # COUNT_MAX elements / COUNT_BYTES bytes (rev5: the count's whole declared range, within a generous
+                # limit); a count past that sets the input aside (count_cap), never a shorter array
+                cv = self.leaf_value(o, e, l.count[0])
+                n = cv[1] if cv[0] == "i" else 0
+                if n <= 0:
+                    o.ptrs[key] = ("p", None, 0)
+                else:
+                    es_ = l.count[1] or max(1, self.chk.types.layout(l.extra[0], l.extra[1]).size64)
+                    if n > COUNT_MAX or n * es_ > COUNT_BYTES:
+                        self.count_cap = "%s: count %d past %d elements / %d bytes" % (
+                            "/".join(map(str, l.path)), n, COUNT_MAX, COUNT_BYTES)
+                        n = 1
+                    if l.count[1] is not None:
+                        a_ = self.get(("count", o.id, e, l.o32), "heap", RAW, alloc=(n * l.count[1], n * l.count[1]))
+                    else:
+                        lay_ = self.chk.types.layout(l.extra[0], l.extra[1])
+                        if lay_.raw:
+                            raise Unsupported("HULK_COUNT on %s: the pointee has no layout" % "/".join(map(str, l.path)))
+                        a_ = self.get(("count", o.id, e, l.o32), "heap", lay_, count=n)
+                    o.ptrs[key] = ("p", a_, 0)
+            return o.ptrs[key]
         if k == "p":
             key = (e, l.o32)
             if key not in o.ptrs:
@@ -1848,6 +1917,9 @@ class Checker:
         # (integ3, D152; rev5) the block's range contract (`// pre: range|gt|ge|lt|le(argN, ...)`): drawn arguments are
         # repaired into the domain as equiv.py does (both sides alike), so the comparison stays inside it
         self.pre_ranges = pre_ranges(c32.get_definition() or c32) if "prerange" not in OFF else {}
+        import equiv
+        if any(equiv._pre_relational(c_) for c_ in self.pre_ranges.values()):
+            pre_relational_check(c32.get_definition() or c32, self.addr)
         self.param_into = {}
         a32, a64 = param_into(c32.get_definition() or c32), param_into(c64.get_definition() or c64)
         if a32 != a64 and "intocheck" not in OFF:
@@ -2267,7 +2339,11 @@ class Checker:
         r32 = Side(self, 32, heap, seed).call()
         if r32.get("skip"):
             return {"skip": r32["skip"], "why": (r32.get("stop") or ("", ""))[1]}
+        if heap.count_cap:
+            return {"skip": "count_cap", "why": heap.count_cap}      # (integ4, x64bounds)
         r64 = Side(self, 64, heap, seed).call()
+        if heap.count_cap:
+            return {"skip": "count_cap", "why": heap.count_cap}
         out = {"cov": r32.get("cov", set())}
         past = [k for k in written_locations(r32["side"]) if k[0] == "past"]
         if past:
@@ -2771,7 +2847,72 @@ def pre_ranges(fn):
     """(integ3, D152) {param index (0-based): (range cond)} of FN's range contract items on its parameters."""
     import equiv
     specs, _bad = equiv._parse_pre(pre_lines_of(fn))
-    return {n - 1: cond for (_w, kind, n, _off, _end, cond) in specs if kind == "arg" and isinstance(cond, tuple)}
+    out = {}
+    for (_w, kind, n, _off, _end, cond) in specs:
+        if kind != "arg" or not isinstance(cond, tuple):
+            continue
+        if n - 1 in out and "preand" not in OFF:
+            # (integ4, x64bounds) two items on one parameter (`ge(arg3, 0) lt(arg3, this->count)`) state both bounds:
+            # the domain is their intersection (a later item used to replace the earlier one)
+            out[n - 1] = _pre_and(out[n - 1], cond)
+        else:
+            out[n - 1] = cond
+    return out
+
+
+def _pre_and(a, b):
+    """(integ4, x64bounds) The intersection of two range conds ("range", lo, hi, lo_incl, hi_incl); a field bound
+    (("field", NAME)) and a constant on the same side can't be ordered statically: refused."""
+    lo, li = a[1], a[3]
+    for x, xi in ((b[1], b[3]),):
+        if isinstance(x, tuple) or isinstance(lo, tuple):
+            if x != float("-inf") and lo != float("-inf"):
+                raise Unsupported("two lower bounds on one parameter, one of them a field (%r / %r)" % (lo, x))
+            if lo == float("-inf"):
+                lo, li = x, xi
+        elif x > lo or (x == lo and not xi):
+            lo, li = x, xi
+    hi, hi_i = a[2], a[4]
+    for x, xi in ((b[2], b[4]),):
+        if isinstance(x, tuple) or isinstance(hi, tuple):
+            if x != float("inf") and hi != float("inf"):
+                raise Unsupported("two upper bounds on one parameter, one of them a field (%r / %r)" % (hi, x))
+            if hi == float("inf"):
+                hi, hi_i = x, xi
+        elif x < hi or (x == hi and not xi):
+            hi, hi_i = x, xi
+    return ("range", lo, hi, li, hi_i)
+
+
+def pre_relational_check(fn, addr):
+    """(integ4, x64bounds; rev5) A block with a relational range item (`lt(argN, this->FIELD)`): the items and the
+    HULK_PRE_* macros in the body must state the same claims, and its `// pre-callers:` lines must cite every
+    reference to the function (equiv.py's census). Raises Unsupported otherwise."""
+    import equiv
+    lines = pre_lines_of(fn)
+    specs, bad = equiv._parse_pre(lines)
+    if bad:
+        raise Unsupported("`// pre:` %s" % "; ".join(bad))
+    items = {(n, c) for (_w, k, n, _o, _e, c) in specs if k == "arg" and isinstance(c, tuple)}
+    if not any(equiv._pre_relational(c) for _n, c in items):
+        return
+    try:
+        path, l0, l1 = fn.extent.start.file.name, fn.extent.start.line, fn.extent.end.line
+        src = open(path, errors="replace").read().splitlines()
+    except Exception as ex:     # noqa: BLE001
+        raise Unsupported("relational pre: can't read the block (%s)" % ex)
+    i = l0 - 2
+    while i >= 0 and src[i].lstrip().startswith("//"):
+        i -= 1
+    block = "\n".join(src[i + 1:l1])
+    macros, mbad = equiv._pre_range_macros(equiv._strip_comments("\n".join(src[l0 - 1:l1])))
+    if mbad or macros != items:
+        raise Unsupported("relational pre: items %s, macros %s %s" % (sorted(map(str, items - macros)),
+                                                                      sorted(map(str, macros - items)), mbad))
+    seen, miss = equiv._pre_census(addr, block)
+    if not seen or miss:
+        raise Unsupported("relational pre without `// pre-callers:` citing every reference (missing: %s)" %
+                          ", ".join("0x%08x" % m if isinstance(m, int) else str(m) for m in miss[:20]))
 
 
 def _comment_block(c, near=False):
@@ -3791,7 +3932,16 @@ class Side:
                     t_ = pt[0 if b == 32 else 1].get_canonical()
                     w_ = t_.get_size()
                     typ_ = "f" if t_.kind.name in ("FLOAT", "DOUBLE") else "i"
-                    nb_ = equiv._pre_range_fix(self.seed, i, bytes(data[:w_]), w_, chk.pre_ranges[pi] + (typ_,), True)
+                    cond_ = chk.pre_ranges[pi]
+                    if equiv._pre_relational(cond_):
+                        # (integ4, x64bounds; rev5) `lt(argN, this->count)`: the bound is the this-object's field as
+                        # generated for this input (its HULK_RANGE draw), the same on both sides; an empty domain (no
+                        # value can satisfy it) sets the input aside
+                        cond_ = self.pre_resolve(cond_)
+                        if cond_[0] == "empty":
+                            return {"skip": "pre_empty", "stop": ("pre_empty", cond_[1]), "side": self,
+                                    "events": [], "cov": set(), "flags": set()}
+                    nb_ = equiv._pre_range_fix(self.seed, i, bytes(data[:w_]), w_, cond_ + (typ_,), True)
                     if nb_ is not None:
                         data = nb_ + bytes(data[w_:])
             if loc[0] == "reg":
@@ -3877,6 +4027,29 @@ class Side:
                     out["saved"] = "callee-saved register clobbered"
             out["ret"] = self.ret_value(sig, sret)
         return out
+
+    def pre_resolve(self, cond):
+        """(integ4, x64bounds) COND with its ("field", NAME) bounds replaced by this input's values of this->NAME: an
+        integer field with a cited HULK_RANGE (else Unsupported). ("empty", why) when no integer satisfies it."""
+        o = self.heap.by_ident.get(("arg", "this"))
+        if o is None or o.lay.raw:
+            raise Unsupported("relational pre %r: no typed this-object" % (cond,))
+        vals = []
+        for x in cond[1:3]:
+            if isinstance(x, tuple):
+                l = next((y for y in o.lay.leaves if y.path[-1:] == (x[1],) and len(y.path) % 2 == 1 and
+                          all(y.path[i] == "base" for i in range(0, len(y.path) - 1, 2))), None)   # (or a base's field)
+                if l is None or l.kind != "i" or l.range is None:
+                    raise Unsupported("relational pre: this->%s is not an integer field with a cited HULK_RANGE" % x[1])
+                v = self.heap.leaf_value(o, 0, l)
+                x = float(v[1])
+            vals.append(x)
+        c = ("range", vals[0], vals[1], cond[3], cond[4])
+        lo = vals[0] if cond[3] else vals[0] + 1
+        hi = vals[1] if cond[4] else vals[1] - 1
+        if lo > hi:
+            return ("empty", "no integer in %r" % (c,))
+        return c
 
     def arg_into(self, field, r):
         """(x64t13, HULK_INTO) A pointer into the array this->FIELD points to, at a fuzzed byte offset (null with it);
@@ -4963,6 +5136,14 @@ def _verify64(src, addr, symbol=None, n_inputs=200, seeds=None, time_budget=120,
         rep["status"] = "inconclusive"
     else:
         rep["status"] = "equivalent"
+    dom_ = res["skipped"].get("pre_empty", 0) + res["skipped"].get("count_cap", 0)
+    if dom_ and rep["status"] in ("equivalent", "inconclusive") and 2 * dom_ >= res["inputs"] and "predom" not in OFF:
+        # (integ4, x64bounds; rev5) most inputs set aside by a contract's empty domain or a count past COUNT_MAX: what
+        # was compared is too narrow a slice to stand for the block
+        rep["status"] = "unsupported"
+        rep["class"] = "pre_dominated"
+        rep["error"] = "[pre_dominated] %d of %d inputs set aside (%s)" % (
+            dom_, res["inputs"], {k: res["skipped"][k] for k in ("pre_empty", "count_cap") if res["skipped"].get(k)})
     if res["skipped"].get("view_straddle") and rep["status"] != "fail":
         # (integ2, D93; rev5's review) inputs whose object a straddling view would type were skipped: say so, never
         # pass on the others

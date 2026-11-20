@@ -4332,14 +4332,17 @@ public:
     int f_10;             // the vertex index
     unsigned int f_14;
     int f_18;             // the stride
-    unsigned int f_1c;    // the texture coordinate count
+    // the texture coordinate count: 0x00326e90 (the only writer) stores the vertex format's flags & 15
+    unsigned int f_1c HULK_RANGE(0, 15);
     unsigned int f_20;    // the blend weight count
     void* f_24;
     void* f_28;
     void* f_2c;
     void* f_30;
     void* f_34;
-    void* f_38;
+    // the texture coordinates (integ4, x64bounds): 0x00326e90 points it at the vertex's f_1c float pairs (null without),
+    // 0x00326f90 advances it by the stride to the next vertex's
+    void* f_38 HULK_COUNT_BYTES(f_1c, 8);
     void* f_3c;
     void* f_40;
     void* f_44;
