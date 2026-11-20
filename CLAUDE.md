@@ -192,6 +192,12 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   materialize report its size as `unproven_baseline`. Cross-TU declaration / allocation / free-name report:
   `tools/xtu_check.py run --jobq [--relocmap V.jsonl...]` (verify records for the reloc map need `HULK_XTU_RELOCMAP=1`),
   then `report build/xtu/facts` (report-only; build/xtu/summary.json).
+- **Work budgets** (workclock): equiv.py / equiv64.py budgets are work, not time: a host's speed changes how long a
+  check takes, never what it reached. A run the CPU safety cap cuts (`time_cut_wall`) is unsupported, and runs with a
+  budget knob set (EQUIV_WORK_PER_SEC, EQUIV_WALL_CAP, EQ64_WORK_PER_SEC, EQ64_RUN_SECONDS) prove nothing. The lane
+  that lands a checker commit (equiv.py, equiv64.py, wine_gate, tree_tu proof paths, config/equiv-selftest.json) runs
+  `tools/host_selftest.py submit`, then `apply` once the jobs finish: a host whose `equiv.py --selftest` differs loses
+  its `equiv` cap until a pinned run passes.
 - **Range contracts** (D152): a function whose game callers keep an argument in a domain states it with
   `HULK_PRE_RANGE(x, lo, hi)` / `HULK_PRE_GT|GE|LT|LE(x, c)` at the top of the body (include/compat/pre.h; x a parameter's
   name), the matching `// pre: range|gt|ge|lt|le(argN, ...)` item, and `// pre-callers:` citing every XBE reference to the
