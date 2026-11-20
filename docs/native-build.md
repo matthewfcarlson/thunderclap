@@ -6302,3 +6302,25 @@ mostly landed (recs1 ec0e69d62, sweep2 1f5b80223 / 517c82262, decl1), but these 
   frames differ.
 - Native unbound, control 100108 vs proof 100170, each on its own map: mac 10343 -> 10272, linux-x64 10321 -> 10250,
   android-arm64 10334 -> 10263. No new names on any target.
+
+## drive1 D141 (the save I/O path, 2026-11-19)
+
+- Records and declarations as defined along the save path:
+  - XboxSaveDrive.cpp: decls/save_xdk.h holds the XDK calls with HANDLEs and pointers; the name / buffer / state words
+    of slots 12 and 13, 0x0027a370 / 0x0027a460, the block reader and writer, and vfunc_9 (decls/save_game.h
+    GameSaveImage) are pointers; the drive's helpers 0x002787c0 / 0x002788c0 / 0x002789e0 / 0x00278a00 / 0x00278de0
+    / 0x00278ef0 / 0x00279490 are declared as defined; 0x002781c0 is a C function; 0x00278740's vftables are given by
+    address; 0x00278b50 declares XMUNameFromDriveLetter's error-code result (it passed the result on as a truncated
+    `char*`, the x64 gate's ptrtrunc);
+  - SaveGameOpenRequest 0x00273cb0 / 0x00275060 / 0x002750a0 on decls/save_game.h CoreSaveGameOpenRequest and CoreFile;
+  - core::File's save constructor 0x002763a0 on CoreFile; InstanceDrive slots 35 and 36; gen IFile / File slots 3, 4,
+    9 and 10 take the buffer as a pointer;
+  - FileWriteRequest 0x00274060 on CoreFile; DriveThread 0x00273120 a member;
+  - the UTF-8 / UTF-16 helpers 0x00271b70 / 0x00271dd0 have one declaration each (unk_2699f0.cpp);
+  - CMemoryCardManager 0x0008cbe0 / 0x0008ca70 take pointer arguments and allocate the GameSaveImage.
+- Round trip on macOS: tests/native_host/save_roundtrip_test.py --binary hulk-mac gives "save-selftest: ok" and
+  udata/<title>/save.dat (3,072 bytes). HEAD's start-up does not reach the mount yet: it stops at CGame's script
+  registrations (0x00087e80's Function4, script2's area). The run used a private kit with find1's start-up patches
+  merged onto HEAD and one private skip (the unbound `hack_IsFieldGoal` registration).
+- Not covered: the save enumeration that 0x0008ca70 starts with (DriveFindFirstRequest 0x002759e0 / 0x002747d0 are
+  still 32-bit views, and InitMore is unbound); the self-test opens the save by name instead.

@@ -45,6 +45,8 @@
     H(entry, 0x001b7d10, 0, hulk_nhook_fmv_render, layout, "no-fmv: the FMV render takes its finished path (+0xc, +8)") \
     H(entry, 0x00272fc0, 0, hulk_nhook_drive_post, layout, "syncio: core::DriveThread's post (the drive's +0x8c count)") \
     H(entry, 0x00272df0, 0, hulk_nhook_drive_pump, layout, "syncio: core::Drive::vfunc_3, the lockstep drive pump") \
+    H(entry, 0x0008c470, 0, hulk_nhook_save_selftest, ready, \
+      "save round trip: after the U: mount, HULK_SAVE_SELFTEST=1 writes and reads a save (host/save_selftest.cpp)") \
     H(site, 0x001c1a40, 0x00344e74, hulk_cast_self, gfx, \
       "--gfx only: HulkShaderCallback's dynamic_cast of the pddi effects extension (xdk/library.cpp)")
 

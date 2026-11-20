@@ -751,14 +751,14 @@ public:
 // .?AUIFile@core@@  vftable 0x42bcac (32)
 struct IFile : public ::core::IRefCount {
 public:
-    virtual void vfunc_3(int, int, int) = 0; // slot 3
-    virtual int vfunc_4(int, int, int) = 0; // slot 4
+    virtual void vfunc_3(void*, int, int) = 0; // slot 3 (drive1, D141) the read: the buffer, the count, the flags
+    virtual int vfunc_4(void*, int, int) = 0; // slot 4 (the write: the data, the count, the flags)
     virtual void vfunc_5(int) = 0; // slot 5
     virtual int vfunc_6(int) = 0; // slot 6
     virtual int vfunc_7(int) = 0; // slot 7
     virtual void vfunc_8() = 0; // slot 8
-    virtual void vfunc_9(int, int, int) = 0; // slot 9
-    virtual void vfunc_10(int, int, int) = 0; // slot 10
+    virtual void vfunc_9(void*, int, int) = 0; // slot 9 (slot 3, then wait)
+    virtual void vfunc_10(void*, int, int) = 0; // slot 10 (slot 4, then wait)
     virtual void vfunc_11(int) = 0; // slot 11
     virtual void vfunc_12(unsigned int) = 0; // slot 12
     virtual void vfunc_13(int) = 0; // slot 13
@@ -789,14 +789,14 @@ public:
     virtual void vfunc_0(); // overrides core::IRefCount slot 0
     virtual void vfunc_1(); // overrides core::IRefCount slot 1
     virtual ~File(); // overrides core::IRefCount slot 2
-    virtual void vfunc_3(int, int, int); // overrides core::IFile slot 3
-    virtual int vfunc_4(int, int, int); // overrides core::IFile slot 4
+    virtual void vfunc_3(void*, int, int); // overrides core::IFile slot 3
+    virtual int vfunc_4(void*, int, int); // overrides core::IFile slot 4
     virtual void vfunc_5(int); // overrides core::IFile slot 5
     virtual int vfunc_6(int); // overrides core::IFile slot 6
     virtual int vfunc_7(int); // overrides core::IFile slot 7
     virtual void vfunc_8(); // overrides core::IFile slot 8
-    virtual void vfunc_9(int, int, int); // overrides core::IFile slot 9
-    virtual void vfunc_10(int, int, int); // overrides core::IFile slot 10
+    virtual void vfunc_9(void*, int, int); // overrides core::IFile slot 9
+    virtual void vfunc_10(void*, int, int); // overrides core::IFile slot 10
     virtual void vfunc_11(int); // overrides core::IFile slot 11
     virtual void vfunc_12(unsigned int); // overrides core::IFile slot 12
     virtual void vfunc_13(int); // overrides core::IFile slot 13

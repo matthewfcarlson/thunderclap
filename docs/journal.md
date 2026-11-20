@@ -1686,3 +1686,30 @@ blocks fight::Action's whole family: the records come first there.
 - **Natively a gen template's vftable outlives its specializations.** D114 keeps `template <> X<...>::~X() {}`, and
   that destructor emits gen's vftable for X natively. Its slot 2 (`X::vfunc_2`) then has to be defined: the converted
   invokes keep a native-only specialization that forwards to the record's function.
+
+## drive1 (D141, 2026-11-19): the native save round trip
+
+- The save path from CMemoryCardManager down to the SDL shim now runs on arm64 macOS. A 0xbe8-byte save goes through
+  the game's 0x0008cbe0 and the InstanceDrive's open, core::File's write and commit, and XboxSaveDrive's signed 8 KiB
+  blocks. It is then read back through the same open and core::File's read, with the signature check, and the data
+  comes back identical. The new host test tests/native_host/save_roundtrip_test.py drives this through
+  src/platform/sdl/host/save_selftest.cpp, an entry hook on 0x0008c470 that only acts under HULK_SAVE_SELFTEST=1.
+- Each break had the same shape: a value the 32-bit code passed as an int and natively had to be a pointer, a 32-bit
+  view of a record, or a callee declared with a different IR signature from its definition. Examples:
+  - the save's name, data, image and buffer were `unsigned` in vfunc_9 / 12 / 13 and in 0x0027a370 / 0x0027a460;
+  - the request's file (SaveGameOpenRequest, the save File constructor 0x002763a0, InstanceDrive slot 35 / 36);
+  - XDK calls declared with int handles (now decls/save_xdk.h, one declaration each);
+  - `bool` against `unsigned char` returns and an `int` against `unsigned char` parameter.
+  The native link refuses the last kind at the IR level, even where native_unbound's register-class check calls them
+  compatible.
+- Lessons:
+  - a constructor called through a class named by its address (`struct FUN_<addr> : Record`) does not bind by the
+    address in its name natively ("special member of a class named by address"); the Wine map binds it by name;
+  - unifying a callee's declaration with a definition in the same TU lets MSVC 7.1 inline it (0x00278ef0 lost its
+    call to 0x00278180); keep the caller's overload distinct;
+  - an equivalent block whose --wine run faults on an unterminated buffer may just have its locals in another order
+    than the original: vfunc_9's path ran into the return address until the title / path / drive and share / access /
+    byte-count locals were declared in the original's frame order (clang -O0 places them in declaration order, the
+    first one highest); its unproven-baseline entry is gone;
+  - a local native run after symbol changes needs the snapshot's report.json refreshed (build/drive1/scripts/fixreport.py)
+    and the binding map extended (augmap3 plus the class-named constructors by hand).

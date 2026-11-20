@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "decls/data/engine/core.h"
 #include "decls/data/records.h"
+#include "decls/save_game.h"
 #include "gen/core.h"
 #define TREE_TU_BEGIN namespace fn_f81ff691 {
 #define TREE_TU_END }
@@ -384,16 +385,18 @@ unsigned int File_275ff0::vfunc_7(unsigned int* result) {
 } // namespace fn_f81ff691
 
 // 0x00276040 core::File::vfunc_9 (36 B): matches/0x00276040.cpp
-// sym: ?vfunc_9@File@core@@UAEXHHH@Z
-void core::File::vfunc_9(int a, int b, int c) {
+// sym: ?vfunc_9@File@core@@UAEXPAXHH@Z
+// (drive1, D141) the buffer is a pointer (gen/core.h IFile)
+void core::File::vfunc_9(void* a, int b, int c) {
     vfunc_3(a, b, c);
     vfunc_21();
 }
 
 
 // 0x00276070 core::File::vfunc_10 (36 B): matches/0x00276070.cpp
-// sym: ?vfunc_10@File@core@@UAEXHHH@Z
-void core::File::vfunc_10(int a, int b, int c) {
+// sym: ?vfunc_10@File@core@@UAEXPAXHH@Z
+// (drive1, D141) the data is a pointer (gen/core.h IFile)
+void core::File::vfunc_10(void* a, int b, int c) {
     vfunc_4(a, b, c);
     vfunc_21();
 }
@@ -609,107 +612,47 @@ extern "C" void FUN_00276340() {
 } // namespace fn_f81ff691
 
 // 0x002763a0 FUN_002763a0 (247 B): equivalent/0x002763a0.cpp [wrapped: conflict: core::File; core::IMutable; core::SaveGameOpenRequest]
-// sym: ??0File@core@fn_002763a0@@QAE@PAVIDevice_2763a0@12@PBDHHHHPAX@Z @a33a80c5b1a8 @w50bc7e6ec7ec @v727e973d2d5a
+// sym: ??0File_2763a0@core@fn_002763a0@@QAE@PAUDevice_2763a0@2@PBDIIPAUGameSaveImage@@II@Z @e1649ac12b71 @w30949b3f73ff @v543716890426
 namespace fn_002763a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // FUN_002763a0 @ 0x002763a0
-// equiv-map: ??_7File@core@@6BIFileBase@1@@ = 0x0042bd3c
-// equiv-map: ??_7File@core@@6BIMutable@1@@ = 0x0042bd30
+// (drive1, D141) core::File's save-game constructor on records.h CoreFile (as 0x002764d0; it was a local polymorphic
+// stand-in whose 32-bit layout put the key, counters and name off natively and whose vftables were clang's), the
+// game's vftables by address; then a save-game open request (decls/save_game.h: the save's image is a pointer)
+struct Device_2763a0 {
+ virtual void slot0();
+ virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual void slot4(); virtual void slot5(); virtual void slot6();
+ int FUN_00272b60(void*, int, int);
+};
+struct Embedded_2763a0 { void FUN_00277c00(); };
+extern "C" int* FUN_002705f0();
+int __cdecl thunk_FUN_00271cf0(char*, const char*, int);
+extern "C" char* __cdecl _strncpy(char*, const char*, unsigned);
+void* __cdecl FUN_00273560(unsigned);
+struct SaveGameOpenRequest_2763a0 { void* FUN_00275060(void* file, unsigned int mode, unsigned char writable, GameSaveImage* image, unsigned int size); };
+extern "C" char DAT_0042b850[];
+extern "C" char DAT_0042bd30[];
+extern "C" char DAT_0042bd3c[];
 namespace core {
-class IFileBase {
-  public:
-    virtual void f0();
-    virtual void f1();
+struct File_2763a0 : CoreFile {
+ File_2763a0(Device_2763a0*, const char*, unsigned, unsigned, GameSaveImage*, unsigned, unsigned);
 };
-class IMutable {
-  public:
-    virtual void m0() HULK_PURE64;
-    virtual void m1() HULK_PURE64;
-    int refCount;
-};
-class IDevice_2763a0 {
-  public:
-    virtual void d0();
-    virtual void d1();
-    virtual void d2();
-    virtual void d3();
-    virtual void d4();
-    virtual void d5();
-    virtual void d6();
-};
-struct Counters {
-    int w[11];
-    void FUN_00277c00();
-};
-class SaveGameOpenRequest {
-  public:
-    SaveGameOpenRequest* FUN_00275060(void* file, int a, int b, int c, int d);
-};
-class File : public IFileBase, public IMutable {
-  public:
-    File(IDevice_2763a0* device, const char* name, int flag, int a4, int a5, int a6, void* userData);
-    virtual void f0();
-    virtual void f1();
-    virtual void m0();
-    virtual void m1();
-    IDevice_2763a0* device;
-    void* userData;
-    int field_14;
-    int field_18;
-    char field_1c;
-    char flag;
-    char name[0x100];
-    char nameEnd;
-    char pad_11f;
-    int field_120;
-    int field_124;
-    int field_128;
-    Counters counters;
-    char pad_158[8];
-    char field_160;
-    char pad_161[3];
-    int field_164;
-};
+File_2763a0::File_2763a0(Device_2763a0* p, const char* name, unsigned a3, unsigned a4, GameSaveImage* a5, unsigned a6, unsigned a7) {
+ vftableMutable=DAT_0042b850;
+ vftable=DAT_0042bd3c; vftableMutable=DAT_0042bd30;
+ refs=1; provider=p; key=a7; field14=0; field18=0; flag1c=0; flag1d=(unsigned char)a3;
+ field120=0; field124=0; field128=0;
+ ((Embedded_2763a0*)&view)->FUN_00277c00();
+ field160=1; field164=0x800;
+ FUN_002705f0();
+ ((Device_2763a0*)provider)->slot0();
+ if(thunk_FUN_00271cf0(filename,name,0x100)<0) { _strncpy(filename,name,0x100); filename[0x100]=0; }
+ ((Device_2763a0*)provider)->slot6();
+ SaveGameOpenRequest_2763a0* h=(SaveGameOpenRequest_2763a0*)FUN_00273560(0x1c);
+ void* result=0;
+ if(h) result=h->FUN_00275060(this,a4,(unsigned char)a3,a5,a6);
+ ((Device_2763a0*)provider)->FUN_00272b60(result,(int)key,0);
 }
-class DeviceHelper {
-  public:
-    void FUN_00272b60(core::SaveGameOpenRequest* req, void* userData, int zero);
-};
-const char* FUN_002705f0();
-void* FUN_00273560(unsigned size);
-int thunk_FUN_00271cf0(char* dst, const char* src, unsigned n);
-
-#if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
-char* strncpy(char* dst, const char* src, unsigned n);
-#endif
-
-
-core::File::File(IDevice_2763a0* dev, const char* nm, int fl, int a4, int a5, int a6, void* ud) {
-    refCount = 1;
-    device = dev;
-    userData = ud;
-    field_14 = 0;
-    field_18 = 0;
-    field_1c = 0;
-    flag = (char)fl;
-    field_120 = 0;
-    field_124 = 0;
-    field_128 = 0;
-    counters.FUN_00277c00();
-    field_160 = 1;
-    field_164 = 0x800;
-    FUN_002705f0();
-    device->d0();
-    if (thunk_FUN_00271cf0(name, nm, 0x100) < 0) {
-        strncpy(name, nm, 0x100);
-        nameEnd = 0;
-    }
-    device->d6();
-    SaveGameOpenRequest* req = (SaveGameOpenRequest*)FUN_00273560(0x1c);
-    if (req != 0) {
-        req = req->FUN_00275060(this, a4, fl, a5, a6);
-    }
-    ((DeviceHelper*)device)->FUN_00272b60(req, userData, 0);
 }
 } // namespace fn_002763a0
 

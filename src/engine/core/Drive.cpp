@@ -23,7 +23,7 @@ class Inner_272a40 {
 };
 class Other_272a40 {
   public:
-    void FUN_00273120(int);
+    void FUN_00273120(unsigned char);   // (drive1, D141) the drive thread's requeue flag, as defined (DriveThread.cpp)
 };
 class Drive_272a40 : public CoreDrive {
   public:

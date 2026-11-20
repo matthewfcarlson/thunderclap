@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "decls/data/engine/core.h"
 #include "decls/data/records.h"
+#include "decls/save_game.h"
 #define TREE_TU_BEGIN namespace fn_f7190711 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CSPHulkProp
@@ -122,17 +123,12 @@ class FileOpenByKeyRequest_274ff0 {
 };
 extern "C" char DAT_0042ba40[];
 extern "C" int* __cdecl FUN_002705f0(void);   // (decl1) as defined (MemorySpaceAsyncRequest_Copy.cpp)
-class SaveGameOpenRequest {
+// (drive1, D141) decls/save_game.h CoreSaveGameOpenRequest (was a 32-bit pad view: natively the open's arguments
+// landed on the request's file pointer); the file and the save's image are pointers
+class SaveGameOpenRequest : public CoreSaveGameOpenRequest {
   public:
-    hulk_intptr vptr;
-    char pad4[8];
-    int fieldC;
-    unsigned char field10;
-    char pad11[3];
-    int field14;
-    int field18;
-    void init_00274e60(int);
-    SaveGameOpenRequest* FUN_00275060(int, int, unsigned char, int, int);
+    void init_00274e60(hulk_uintptr);
+    SaveGameOpenRequest* FUN_00275060(void*, unsigned int, unsigned char, GameSaveImage*, unsigned int);
 };
 class Inner_2750a0 {
   public:
@@ -152,11 +148,9 @@ struct Manager_2750a0 {
     virtual void add(void*);
 };
 namespace core {
-class SaveGameOpenRequest {
+// (drive1, D141) on the record (was a 32-bit pad view, which read the file's words at 32-bit offsets natively)
+class SaveGameOpenRequest : public CoreSaveGameOpenRequest {
   public:
-    void* vt;
-    int pad;
-    Inner_2750a0* inner;
     SaveGameOpenRequest* vfunc_0(int flags);
 };
 }
@@ -291,14 +285,14 @@ FileOpenByKeyRequest_274ff0* FileOpenByKeyRequest_274ff0::Dtor(unsigned char fla
 
 
 // 0x00275060 FUN_00275060 (58 B): matches/0x00275060.cpp
-// sym: ?FUN_00275060@SaveGameOpenRequest@fn_f7190711@@QAEPAV12@HHEHH@Z
-SaveGameOpenRequest* SaveGameOpenRequest::FUN_00275060(int a, int b, unsigned char c, int d, int e) {
-    init_00274e60(a);
-    fieldC = b;
-    vptr = ((hulk_intptr)DAT_0042ba40);
-    field10 = c;
-    field14 = d;
-    field18 = e;
+// sym: ?FUN_00275060@SaveGameOpenRequest@fn_f7190711@@QAEPAV12@PAXIEPAUGameSaveImage@@I@Z
+SaveGameOpenRequest* SaveGameOpenRequest::FUN_00275060(void* a, unsigned int b, unsigned char c, GameSaveImage* d, unsigned int e) {
+    init_00274e60((hulk_uintptr)a);
+    mode = b;
+    request.vftable = DAT_0042ba40;
+    writable = c;
+    image = d;
+    size = e;
     FUN_002705f0();
     return this;
 }
@@ -308,13 +302,13 @@ SaveGameOpenRequest* SaveGameOpenRequest::FUN_00275060(int a, int b, unsigned ch
 // sym: ?vfunc_0@SaveGameOpenRequest@core@fn_f7190711@@QAEPAV123@H@Z
 // data: g_mgr_2750a0 = DAT_0052a1e4
 core::SaveGameOpenRequest* core::SaveGameOpenRequest::vfunc_0(int flags) {
-    Inner_2750a0* p = inner;
-    *(void**)this = (void*)((hulk_intptr)DAT_0042b99c);
-    ((Inner_2750a0*)((char*)p + 4))->a();
-    --*(int*)((char*)inner + 0x18);
-    ((Inner_2750a0*)((char*)inner + 4))->b();
-    ((Root_2750a0*)inner)->b();
-    *(void**)this = (void*)((hulk_intptr)DAT_0042b914);
+    CoreFile* p = (CoreFile*)request.file;
+    request.vftable = DAT_0042b99c;
+    ((Inner_2750a0*)&p->vftableMutable)->a();
+    --((CoreFile*)request.file)->field18;
+    ((Inner_2750a0*)&((CoreFile*)request.file)->vftableMutable)->b();
+    ((Root_2750a0*)request.file)->b();
+    request.vftable = DAT_0042b914;
     if (flags & 1) {
         FUN_0026d850((void*)((hulk_intptr)((char*)&DAT_0052a1c8)));
         (*(Manager_2750a0**)&DAT_0052a1e4)->add(this);

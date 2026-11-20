@@ -135,6 +135,8 @@ class Target_2730c0 {
 };
 typedef unsigned char u8_273120;
 class Thing_273120 : public CoreDriveThread {
+  public:
+    void FUN_00273120(u8_273120 value);   // (drive1, D141) a member, as core::Drive 0x00272a40 calls it
 };
 extern "C" void __cdecl FUN_0026d8a0(hulk_uintptr*);
 struct Lock_273140 {
@@ -352,10 +354,10 @@ bool Target_2730c0::F() {
 
 
 // 0x00273120 FUN_00273120 (26 B): matches/0x00273120.cpp
-// sym: ?Target@fn_f30ddaac@@YIXPAVThing_273120@1@PAXE@Z
-void __fastcall Target(Thing_273120* self, void*, u8_273120 value) {
-    self->requeue = value;
-    FUN_0026d8a0(&self->done);
+// sym: ?FUN_00273120@Thing_273120@fn_f30ddaac@@QAEXE@Z
+void Thing_273120::FUN_00273120(u8_273120 value) {
+    requeue = value;
+    FUN_0026d8a0(&done);
 }
 
 

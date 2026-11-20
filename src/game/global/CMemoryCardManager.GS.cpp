@@ -5,6 +5,7 @@
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 #include "decls/drive_media.h"
+#include "decls/save_game.h"
 #define TREE_TU_BEGIN namespace fn_f8087876 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CCollisionTrack
@@ -81,14 +82,6 @@ struct LaunchData_8c680 { int mode; int reserved; int code; int size; char rest[
 // (drive1) the manager and its slots: decls/drive_media.h (were 32-bit pad views)
 struct Owner_8c680 : GameMemoryCardManager { void FUN_0008c680(int index); };
 struct Manager_8c920 : GameMemoryCardManager { int FUN_0008c590(int, unsigned, int*); void target(); };
-struct CreateParams_8ca70 {
-    void* buffer;
-    int a;
-    int b;
-    int c;
-    int d;
-    int e;
-};
 class Obj_8ca70 {
 public:
     virtual void v00();
@@ -100,7 +93,7 @@ public:
     virtual void v18();
     virtual void v1c();
     virtual void v20();
-    virtual void v24(int a, int b, int c);
+    virtual void v24(void* buffer, int size, int flags);   // (drive1, D141) core::File slot 9: the read
     virtual void v28();
     virtual void v2c();
     virtual void v30();
@@ -127,13 +120,16 @@ public:
     virtual void v84();
     virtual void v88();
     virtual void v8c();
-    virtual void v90(Obj_8ca70** out, CreateParams_8ca70 p);
+    // (drive1, D141) core::InstanceDrive slot 36 (the save open), its arguments one by one as defined (0x00276fd0;
+    // the original pushes them as one block, which a by-value struct passes otherwise natively)
+    virtual void v90(Obj_8ca70** out, const char* name, unsigned int writable, unsigned int mode, GameSaveImage* image, unsigned int size, unsigned int key);
 };
-extern "C" int FUN_0026b800(int a, int b, char* buf, int c, int d, int e, int f);
+// (drive1, D141) the string converter as defined (unk_2699f0.cpp)
+extern "C" int __cdecl FUN_0026b800(void*, int, void*, int, int, int, int);
 class Manager_8ca70 : public GameMemoryCardManager {
 public:
     int FUN_0008c590(int index, int a, int* status);
-    int FUN_0008ca70(int index, int arg1, int arg2, int arg3, int arg4);
+    int FUN_0008ca70(int index, int arg1, void* arg2, int arg3, unsigned short* arg4);
 };
 struct Engine_8cbe0 {
     void FUN_001eb870();
@@ -146,14 +142,13 @@ struct Singleton_4dd6ec {
 namespace fn_f8087876 {
 extern "C" void *FUN_0008d690(unsigned int size);
 extern "C" int __cdecl FUN_00266da0(int mode);
-void __cdecl FUN_0026b800(char *buf, int a, int b, int c, int d, int e, int f);
 class SubObj_8cbe0 {
 public:
     virtual void v0();
     virtual void Release();
     virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5();
     virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9();
-    virtual void v10(int a, int b, int c);
+    virtual void v10(const void* data, int size, int flags);   // (drive1, D141) core::File slot 10: the write
     virtual void v11(); virtual void v12(); virtual void v13();
     virtual void v14();
     virtual void v15(); virtual void v16(); virtual void v17(); virtual void v18();
@@ -187,11 +182,12 @@ public:
     virtual void v24(); virtual void v25(); virtual void v26(); virtual void v27();
     virtual void v28(); virtual void v29(); virtual void v30(); virtual void v31();
     virtual void v32(); virtual void v33(); virtual void v34(); virtual void v35();
-    virtual void v36(SubObj_8cbe0 **out, char *buf, int a, int b, void *c, int d, int e);
+    virtual void v36(SubObj_8cbe0 **out, const char *buf, unsigned int a, unsigned int b, GameSaveImage *c, unsigned int d, unsigned int e);
 };
 class Loader_8cbe0 : public GameMemoryCardManager {
 public:
-    void *FUN_0008cbe0(int index, int a, int b, int c, int d);
+    // (drive1, D141) the save's data and name are pointers (CGameFlowManager.GS.cpp's caller passes them)
+    void *FUN_0008cbe0(int index, int a, const void *b, int c, const unsigned short *d);
 };
 
 
@@ -262,10 +258,10 @@ void Manager_8c920::target() {
 
 
 // 0x0008ca70 FUN_0008ca70 (356 B): equivalent/0x0008ca70.cpp
-// sym: ?FUN_0008ca70@Manager_8ca70@fn_f8087876@@QAEHHHHHH@Z @f7bfc029a89f @w2aa68fee9db2 @vb65f6b75f791
+// sym: ?FUN_0008ca70@Manager_8ca70@fn_f8087876@@QAEHHHPAXHPAG@Z @4475f9ea6151 @w16bf7bcb97c3 @v362727581ed0
 // STATUS: equivalent (tools/equiv.py level 3: 16099 inputs, branch coverage 21/22, incomplete)
 // FUN_0008ca70 @ 0x0008ca70
-int Manager_8ca70::FUN_0008ca70(int index, int arg1, int arg2, int arg3, int arg4)
+int Manager_8ca70::FUN_0008ca70(int index, int arg1, void* arg2, int arg3, unsigned short* arg4)
 {
     struct {
         Obj_8ca70* created;
@@ -290,15 +286,8 @@ int Manager_8ca70::FUN_0008ca70(int index, int arg1, int arg2, int arg3, int arg
         } else {
             if (arg4 != 0)
                 FUN_0026b800(arg4, 2, f.buf, 1, 0x2e, 0x40, 0);
-            CreateParams_8ca70 p;
             f.created = 0;
-            p.buffer = f.buf;
-            p.a = 0;
-            p.b = 0;
-            p.c = 0;
-            p.d = 0;
-            p.e = 1;
-            obj->v90(&f.created, p);
+            obj->v90(&f.created, f.buf, 0, 0, 0, 0, 1);
             result = obj->v5c();
             if (result == 1)
                 result = 0xc;
@@ -320,10 +309,10 @@ int Manager_8ca70::FUN_0008ca70(int index, int arg1, int arg2, int arg3, int arg
 
 
 // 0x0008cbe0 FUN_0008cbe0 (405 B): equivalent/0x0008cbe0.cpp
-// sym: ?FUN_0008cbe0@Loader_8cbe0@fn_f8087876@@QAEPAXHHHHH@Z @f238fbf1c205 @wf529c69c6280 @v74730197d16c
+// sym: ?FUN_0008cbe0@Loader_8cbe0@fn_f8087876@@QAEPAXHHPBXHPBG@Z @f238fbf1c205 @wf529c69c6280 @v2578c8b4837e
 // STATUS: equivalent (tools/equiv.py level 3: 10398 inputs, branch coverage 15/16, incomplete)
 // FUN_0008cbe0 @ 0x0008cbe0
-void *Loader_8cbe0::FUN_0008cbe0(int index, int a, int b, int c, int d)
+void *Loader_8cbe0::FUN_0008cbe0(int index, int a, const void *b, int c, const unsigned short *d)
 {
     char buf[0x100];
     DAT_004dd6ec->FUN_000862e0()->FUN_001eb870();
@@ -339,11 +328,11 @@ void *Loader_8cbe0::FUN_0008cbe0(int index, int a, int b, int c, int d)
         }
     }
     int prev = FUN_00266da0(1);
-    int *state = (int *)FUN_0008d690(8);
-    state[0] = 0;
-    state[1] = 0;
+    GameSaveImage *state = (GameSaveImage *)FUN_0008d690((unsigned int)sizeof(GameSaveImage));   // (D141) its record, 8 B on 32-bit
+    state->data = 0;
+    state->length = 0;
     FUN_00266da0(prev);
-    FUN_0026b800(buf, 1, d, 2, 0x2e, 0x100, 0);
+    FUN_0026b800(buf, 1, (void *)d, 2, 0x2e, 0x100, 0);
     SubObj_8cbe0 *sub = 0;
     slot->v36(&sub, buf, 1, 3, state, parameter, 1);
     void *result = slot->v23();
