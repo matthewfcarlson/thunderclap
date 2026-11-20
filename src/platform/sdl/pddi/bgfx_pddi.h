@@ -960,8 +960,8 @@ class bgfxExtGammaControl : public bgfxExtension {
   public:
     enum { kClass = kClassExtGammaControl };
     explicit bgfxExtGammaControl(bgfxContext* context) : m_context(context) {}
-    virtual void vfunc_1();                   // slot 1: d3dExtGammaControl 0x324590 (pure3d/d3dExtFramebufferEffects.cpp)
-    virtual void vfunc_2();                   // slot 2: d3dExtGammaControl 0x3245a0 (pure3d/d3dExtFramebufferEffects.cpp)
+    virtual void vfunc_1(int, int, int);      // slot 1: d3dExtGammaControl 0x324590 (pure3d/d3dExtFramebufferEffects.cpp)
+    virtual void vfunc_2(int, int, int);      // slot 2: d3dExtGammaControl 0x3245a0 (pure3d/d3dExtFramebufferEffects.cpp)
     bgfxContext* m_context;
 };
 
@@ -1006,9 +1006,9 @@ class bgfxExtVertexProgram : public bgfxExtension {
   public:
     enum { kClass = kClassExtVertexProgram };
     explicit bgfxExtVertexProgram(bgfxContext* context) : m_context(context) {}
-    virtual void vfunc_1();                   // slot 1: d3dExtVertexProgram 0x322420 (pure3d/d3dExtFramebufferEffects.cpp)
+    virtual void vfunc_1(int, int);           // slot 1: d3dExtVertexProgram 0x322420 (pure3d/d3dExtFramebufferEffects.cpp)
     virtual int vfunc_2(bgfxShader*, int, int, int, unsigned char); // slot 2: 0x322440: the handle for a shader
-    virtual void vfunc_3();                   // slot 3: d3dExtVertexProgram 0x322430 (pure3d/d3dExtFramebufferEffects.cpp)
+    virtual void vfunc_3(int, int, int, int); // slot 3: d3dExtVertexProgram 0x322430 (pure3d/d3dExtFramebufferEffects.cpp)
     virtual bool vfunc_4(bgfxShader*, unsigned char); // slot 4: 0x322360: does the shader have a program (slot 22)
     virtual void vfunc_5(bgfxPrimBuffer*, int); // slot 5: 0x322390: a prim buffer's handle (+0x3c)
     virtual void vfunc_6(unsigned int);       // slot 6: 0x3223a0: the handle prim streams draw with (0: none)

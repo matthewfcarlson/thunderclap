@@ -31,8 +31,10 @@ void bgfxExtFrameBufferTexture::vfunc_2() { PDDI_STUB(2); }
 // ---- bgfxExtFramebufferEffects: bgfx_effects.cpp
 
 // ---- bgfxExtGammaControl
-void bgfxExtGammaControl::vfunc_1() { PDDI_STUB(1); }
-void bgfxExtGammaControl::vfunc_2() { PDDI_STUB(2); }
+// slots 1 / 2 (0x324590 / 0x3245a0): the display's gamma ramp (tail calls with the game's three arguments, popped by
+// the callee: a slot that takes none unbalances a 32-bit caller's stack)
+void bgfxExtGammaControl::vfunc_1(int, int, int) { PDDI_STUB(1); }
+void bgfxExtGammaControl::vfunc_2(int, int, int) { PDDI_STUB(2); }
 
 // ---- bgfxExtGlobalProjectedTexture
 void bgfxExtGlobalProjectedTexture::vfunc_1(int a0, void* a1, void* a2) { PDDI_STUB(1); }
@@ -89,7 +91,7 @@ void bgfxExtReadPixels::vfunc_1(void* a0, void* a1, void* a2) { PDDI_STUB(1); }
 // ---- bgfxExtVertexProgram (the prim group loaders FUN_002e1960 / FUN_002e22c0 / FUN_002e30f0 / FUN_002e3bd0 ask
 // slot 4, then slot 2 for the handle, then slot 5 to give it to the prim buffer, or keep it as a streamed prim
 // group's binding, which PrimGroupStreamed::vfunc_6 (0x2df5a0) hands to slot 6 around its prim stream draws)
-void bgfxExtVertexProgram::vfunc_1() { PDDI_STUB(1); }
+void bgfxExtVertexProgram::vfunc_1(int, int) { PDDI_STUB(1); }          // (0x322420: two arguments, as 0x00329320 takes)
 // the handles: 1 + an index into the program names seen (a name pointer would not fit an int on 64-bit hosts)
 static const char* s_vpNames[32];
 static int vpHandle(const char* name)
@@ -124,7 +126,7 @@ int bgfxExtVertexProgram::vfunc_2(bgfxShader* shader, int, int, int, unsigned ch
         shader->m_skinned = was;
     return vpHandle(name);
 }
-void bgfxExtVertexProgram::vfunc_3() { PDDI_STUB(3); }
+void bgfxExtVertexProgram::vfunc_3(int, int, int, int) { PDDI_STUB(3); }   // (0x322430: four, as 0x003290e0 takes)
 // slot 4 (0x322360): whether the shader has program constants (slot 22: the refraction shader; the CBV programs of
 // simple/layered when CBVP is set, which no data does), with +0x7d set around the question when `skinned`
 bool bgfxExtVertexProgram::vfunc_4(bgfxShader* shader, unsigned char skinned)

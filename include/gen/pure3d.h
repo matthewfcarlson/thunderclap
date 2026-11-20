@@ -4073,7 +4073,7 @@ public:
     virtual ~pddiExtVisibilityTest(); // overrides pure3d::pddiExtension slot 0
     virtual unsigned int vfunc_1() = 0; // slot 1
     virtual void vfunc_2() = 0; // slot 2
-    virtual void vfunc_3() = 0; // slot 3
+    virtual void vfunc_3(int) = 0; // slot 3
     virtual int vfunc_4(int) = 0; // slot 4
 };
 
@@ -4083,7 +4083,7 @@ public:
     virtual ~d3dExtVisibilityTest(); // overrides pure3d::pddiExtension slot 0
     virtual unsigned int vfunc_1(); // overrides pure3d::pddiExtVisibilityTest slot 1
     virtual void vfunc_2(); // overrides pure3d::pddiExtVisibilityTest slot 2
-    virtual void vfunc_3(); // overrides pure3d::pddiExtVisibilityTest slot 3
+    virtual void vfunc_3(int); // overrides pure3d::pddiExtVisibilityTest slot 3
     virtual int vfunc_4(int); // overrides pure3d::pddiExtVisibilityTest slot 4
 };
 
