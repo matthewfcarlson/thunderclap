@@ -41,6 +41,7 @@ struct DataLayout_0049cad8;  // packed layout (bytes and pointers), defined in t
 struct DataLayout_004a0658;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_004c5ca0;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_004c5cbc;  // packed layout (bytes and pointers), defined in the data TU
+struct DataLayout_004c5d10;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_004de658;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_004de660;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_004de668;  // packed layout (bytes and pointers), defined in the data TU
@@ -7709,10 +7710,7 @@ extern "C" const unsigned int DAT_00479078[1];  // zero_00479078
 extern "C" const char* DAT_004c5cf8;  // PTR_004c5cf8
 extern "C" int DAT_004c5cfc;
 extern "C" float DAT_004c5d00[4];  // fltTbl_004c5d00
-extern "C" char DAT_004c5d10;  // tbl_004c5d10
-extern "C" unsigned char DAT_004c5d11[2];  // unk_004c5d11
-extern "C" unsigned char DAT_004c5d13[5];  // zero_004c5d13
-extern "C" char DAT_004c5d18[34];  // s_AW4script_state_Scri_004c5d18
+extern "C" DataLayout_004c5d10 DAT_004c5d10;  // struct_004c5d10
 extern "C" unsigned int DAT_004c5fcc[1];  // zero_004c5fcc
 extern "C" void* DAT_004e23cc[1];
 
