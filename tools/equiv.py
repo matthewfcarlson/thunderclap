@@ -12589,7 +12589,9 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             # block's own domain is narrower (it needs its own contract) or the callee's contract is wrong; natively the
             # callee would trap here. The run can't be proven (pre_violation_in_original)
             v_ = pre_arg_violation(o["calls"], _contract_index())
-            if v_ and pre_cited and "preoutside" not in EQUIV_OFF and _pre_outside(inp_o, mach):
+            if v_ and pre_cited and not pre_off[0] and "preoutside" not in EQUIV_OFF and _pre_outside(inp_o, mach):
+                # (integ4, D152c: not in the trap check's own runs, pre_off: an input planted outside the contract there
+                # must reach our trap, not be dropped as outside the domain)
                 # (integ4, D152b; lead) the input is outside the block's OWN range contract (its census cited): not
                 # the function's domain, so what its original passes a contracted callee there says nothing; the
                 # input is dropped (counted), in both modes (MSVC mode compares inputs as drawn otherwise)
