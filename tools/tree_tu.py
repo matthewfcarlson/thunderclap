@@ -482,6 +482,8 @@ def check_tu(path, relocs=False, rec=None, obj=None, vs_standalone=False):
                                 hw[f_["name"]] = h_
                         if any(h_ != "call" for h_ in hw.values()):
                             r["free_how"] = hw
+                    if os.environ.get("HULK_XTU_RELOCMAP"):     # (integ3) xtu_check report --relocmap input
+                        r["reloc_map"] = {k: v_ for k, v_ in rr["map"].items() if verify_relocs.classify(k) == "symbol"}
                 elif r["kind"] == "equivalent" and r.get("symbol") and "freeequiv" not in OFF:
                     # (integ3, D149 for equivalent blocks) no byte match pairs their relocations with the original:
                     # each relocation's name is judged by the address it gives itself (verify_relocs.name_target)
@@ -956,6 +958,8 @@ def _code_key():
     import compare
     import verify_relocs
     h = hashlib.sha1(b"tuverify2\0" + ",".join(sorted(OFF)).encode())
+    if os.environ.get("HULK_XTU_RELOCMAP"):
+        h.update(b"\0relocmap")     # (integ3, rev5's R2) records with reloc_map are cached apart from those without
     for m in (sys.modules[__name__], build_tree, compare, verify_relocs, code_hash, sys.modules["xbe"], sys.modules["disasm"],
               sys.modules["addr_names"]):
         with open(m.__file__, "rb") as f:

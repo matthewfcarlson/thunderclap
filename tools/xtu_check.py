@@ -13,7 +13,11 @@ tools/equiv64.py parses it) and reports:
              type, so the disagreement links silently: find1's 0x00240760, 0x00267070 / 0x00266f90). The callee is found by its symbol (a block's pinned `// sym:`), else by the
              address its name carries (FUN_xxxxxxxx, Name_xxxxxxxx: the native link binds those by address).
   free_name  (D132, equivalent blocks: verify_relocs covers the byte-matched ones) a call whose callee reaches one of
-             the game's frees under a name other than that free's own.
+             the game's frees under a name other than that free's own; (integ3) also a function whose address the
+             block takes (a deleter stored, a callback passed: `how` address).
+  pointee    (integ3, rev5's D) a pointer parameter (or `this`) whose pointee size the caller declares otherwise than
+             the definition: 32-bit sizes (`only64` false), else the 64-bit ones (`only64` true). The definitions'
+             own pointee sizes go to pointees.json (`pointee ADDR|SYM`, pointees_of()) for tools/equiv.py's stub fills.
   (a) alloc  an allocator's result (tools/equiv64.py ALLOCATORS) passed as `this` or the first argument of a call
              to a defined member or function: the request's 64-bit size (clang folds sizeof and literals) against
              the 64-bit size of the record the callee works on (its class; for a free function, its first
@@ -22,11 +26,20 @@ tools/equiv64.py parses it) and reports:
              result the caller passes on.
 
   build/venv/bin/python tools/xtu_check.py extract TU.cpp... --out DIR     # facts per TU (one queue job per group)
-  build/venv/bin/python tools/xtu_check.py report DIR [--out build/xtu]     # rows: report.jsonl, summary.json
+  build/venv/bin/python tools/xtu_check.py report DIR [--out build/xtu] [--relocmap V.jsonl...]   # report.jsonl,
+                                                                            # summary.json, gaps.jsonl, pointees.json
   build/venv/bin/python tools/xtu_check.py run [--jobq] [--prio -5]         # both, every tree TU
 
 Coverage gaps are counted in summary.json (fatal TUs, block errors, calls without a 64-bit pair, unresolved calls,
 allocations of a runtime size) and listed in gaps.jsonl; a report is `clean` only when they are all zero.
+(integ3) A block whose pin is not clang's symbol is found by the pin up to M/N (a `hulk_freg` result) or as the one
+definition inside its lines (`bound` mn / place). A call with no definition is classed (gap_classes): virtual (vftable
+dispatch) and implicit (a compiler-declared member) are no bindings; library (an address in a library object, a CRT
+table name, a C name nothing defines); else a gap: unresolved_call (the tree has a block at the address the facts
+lack), unresolved_placeholder (an address with no tree block), unresolved_by_symbol (the qualified name is defined
+under another symbol: natively the call binds to nothing), unresolved_undefined (nothing defines the qualified name).
+Callees are resolved by symbol or pin, the address a name carries, a placeholder thunk's jmp target, and (with
+--relocmap) the original target a byte-matched block's relocation gives the name in that TU.
 Known blind spots (rev5's review): only calls inside blocks with a pinned sym (not out-of-line helpers, header inline
 functions, function pointers or virtual slots); 32/64-bit calls are paired by (line, column), so several calls of
 one macro expansion with the same callee share the first one's 64-bit facts (calls are keyed by place and callee); a symbol two TUs define resolves to the first; allocation
@@ -49,7 +62,8 @@ import tempfile
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
 sys.path.insert(0, os.path.join(ROOT, "tools"))
-FACTS_VER = "xtu3"     # (HFA records; calls paired by place and callee; unpinned blocks recorded)
+FACTS_VER = "xtu4"     # (HFA records; calls paired by place and callee; unpinned blocks recorded; integ3: blocks found
+                       # by M/N and by place, pointee sizes, virtual dispatch, address-taken functions)
 
 
 # ------------------------------------------------------------------------------------------------ libclang helpers
@@ -153,6 +167,22 @@ def pointee_size(t):
     return s if s > 0 else None
 
 
+def pointee_any(t):
+    """(integ3, rev5 D) The size of what pointer / reference type T points at (a record, a scalar, an array), or None
+    (not a pointer, void, a function, an incomplete type)."""
+    t = t.get_canonical()
+    if t.kind.name not in ("POINTER", "LVALUEREFERENCE", "RVALUEREFERENCE"):
+        return None
+    p = t.get_pointee().get_canonical()
+    if p.kind.name in ("VOID", "FUNCTIONPROTO", "FUNCTIONNOPROTO", "INVALID"):
+        return None
+    try:
+        s = p.get_size()
+    except Exception:   # noqa: BLE001
+        return None
+    return s if s > 0 else None
+
+
 def sig_of(c):
     """The facts of function declaration C: params, return, member, variadic, class size."""
     K = __import__("equiv64").ci().CursorKind
@@ -172,9 +202,10 @@ def sig_of(c):
         at = list(t.argument_types())
         if at:
             p0 = pointee_size(at[0])
+    pp = [pointee_any(a) for a in t.argument_types()] if t.kind.name == "FUNCTIONPROTO" else None
     return {"params": params, "ret": kind_of(t.get_result()) if t.kind.name in ("FUNCTIONPROTO", "FUNCTIONNOPROTO")
             else None, "this": has_this, "variadic": bool(t.kind.name == "FUNCTIONPROTO" and t.is_function_variadic()),
-            "cls": cls, "p0": p0, "kind": c.kind.name}
+            "cls": cls, "p0": p0, "kind": c.kind.name, "pp": pp}
 
 
 def mangled(c, bits):
@@ -295,9 +326,16 @@ def extract_tu(path):
 
         def pair64(c32):
             return idx64.get((c32.kind, equiv64.loc_key(c32)))
+        fb = Fallback(t32, rel)
         for b in rec["blocks"]:
             s = b.get("sym")
             c32 = t32.by_mangled.get(s) if s else None
+            bound = "pin"
+            if c32 is None and s and not ("$" in s.split("@")[0] or s.startswith(("?_$E", "_$E", "$L"))):
+                # (integ3) the pin is MSVC 7.1's symbol; clang's can differ (a `hulk_freg` result is float there and
+                # double here; a scalar deleting destructor written as its vftable slot's function): the definition
+                # of the same name up to M/N, else the one function defined inside the block's lines
+                c32, bound = fb.find(s, b.get("lines"))
             if c32 is None:
                 # (rev5) never left out silently: a block with nothing to parse (an MSVC `$L` funclet, an `_$E`
                 # initializer, a `$`-named helper) is counted apart; any other is a block error
@@ -314,12 +352,163 @@ def extract_tu(path):
                 continue
             out["defs"].append({"addr": b["addr"], "sym32": mangled(c32, 32), "pin": s, "sym64": mangled(c64, 64),
                                 "at": where(c32), "kind": b.get("kind"),
-                                "s32": sig_of(c32), "s64": sig_of(c64)})
+                                "s32": sig_of(c32), "s64": sig_of(c64), "bound": bound})
             try:
                 block_calls(b["addr"], c32, c64, out)
             except Exception as e:      # noqa: BLE001 - keep the TU's other blocks
                 out["errors"].append([b["addr"], "calls: %r" % e])
     return out
+
+
+class Fallback:
+    """(integ3) Finding a block whose pin isn't clang's symbol: by the pin up to M/N (float / double), else by the one
+    function definition inside the block's lines of the TU."""
+
+    def __init__(self, t32, rel):
+        self.t32, self.rel = t32, rel
+        self._mn, self._lines = None, None
+
+    def _defs(self):
+        K = __import__("equiv64").ci().CursorKind
+        kinds = (K.FUNCTION_DECL, K.CXX_METHOD, K.CONSTRUCTOR, K.DESTRUCTOR, K.CONVERSION_FUNCTION)
+        seen = {}
+        for mn, c in self.t32.by_mangled.items():
+            if c.kind not in kinds:
+                continue
+            d = c.get_definition()
+            if d is None:
+                continue
+            seen.setdefault(d.hash, (d, mn))
+        return list(seen.values())
+
+    def find(self, pin, lines):
+        if self._mn is None:
+            self._mn = {}
+            for mn in self.t32.by_mangled:
+                self._mn.setdefault((len(mn), mn.replace("N", "M")), []).append(mn)
+        cand = {}
+        for mn in self._mn.get((len(pin), pin.replace("N", "M")), ()):
+            if all(x == y or {x, y} == {"M", "N"} for x, y in zip(mn, pin)):
+                c = self.t32.by_mangled[mn]
+                d = c.get_definition() or c
+                cand[d.hash] = d
+        if len(cand) == 1:
+            return next(iter(cand.values())), "mn"
+        if not lines:
+            return None, None
+        if self._lines is None:
+            self._lines = []
+            for d, mn in self._defs():
+                w = where(d)
+                f, _, ln = w.rpartition(":")
+                if f == self.rel and ln.isdigit():
+                    self._lines.append((int(ln), d))
+        inside = {d.hash: d for ln, d in self._lines if lines[0] <= ln <= lines[1]}
+        if len(inside) == 1:
+            return next(iter(inside.values())), "place"
+        return None, None
+
+
+def is_dispatch(call, callee):
+    """(integ3) Is CALL a virtual call through the vftable (a virtual member called without a qualifier)? It binds
+    through the object's vftable, not by name: not a cross-TU declaration the link pairs."""
+    try:
+        if not callee.is_virtual_method():
+            return False
+    except Exception:   # noqa: BLE001
+        return False
+    kids = list(call.get_children())
+    if not kids:
+        return False
+    toks = [t.spelling for t in kids[0].get_tokens()]
+    return "::" not in toks
+
+
+_VSLOTS = {}
+
+
+def class_vslots(rec, depth=0):
+    """(integ3) The vftable of record REC at offset 0 as MSVC 7.1 lays it out: the primary (first) base's slots, then
+    REC's new virtuals in declaration order, overloads of one name together in reverse order at the first one's
+    place; an override takes its base's slot. [(name, arity, cursor hash or None)] per slot."""
+    K = __import__("equiv64").ci().CursorKind
+    if rec is None or depth > 12:
+        return []
+    rec = rec.get_definition() or rec
+    key = rec.hash
+    if key in _VSLOTS:
+        return _VSLOTS[key]
+    _VSLOTS[key] = []
+    slots = []
+    for ch in rec.get_children():
+        if ch.kind == K.CXX_BASE_SPECIFIER:
+            try:
+                bd = ch.type.get_canonical().get_declaration()
+            except Exception:   # noqa: BLE001
+                bd = None
+            b = class_vslots(bd, depth + 1)
+            if b:
+                slots = list(b)
+                break
+    new = []
+    for ch in rec.get_children():
+        if ch.kind not in (K.CXX_METHOD, K.DESTRUCTOR):
+            continue
+        try:
+            if not ch.is_virtual_method():
+                continue
+        except Exception:   # noqa: BLE001
+            continue
+        nm = "~" if ch.kind == K.DESTRUCTOR else ch.spelling
+        ar = len(list(ch.get_arguments()))
+        hit = next((i for i, (n, a, _) in enumerate(slots) if n == nm and (a == ar or nm == "~")), None)
+        if hit is not None:
+            slots[hit] = (nm, ar, ch.canonical.hash)
+            continue
+        new.append((nm, ar, ch.canonical.hash))
+    order, seen = [], set()
+    for nm, ar, h in new:       # (MSVC: the overloads of one name, reversed, at the first one's place)
+        if nm in seen:
+            continue
+        seen.add(nm)
+        order += list(reversed([x for x in new if x[0] == nm]))
+    slots += order
+    _VSLOTS[key] = slots
+    return slots
+
+
+def vslot_of(callee):
+    """(integ3) [declaring class spelling, slot index] of virtual method CALLEE, or None."""
+    p = callee.semantic_parent
+    if p is None:
+        return None
+    try:
+        sl = class_vslots(p)
+    except Exception:   # noqa: BLE001
+        return None
+    h = callee.canonical.hash
+    i = next((k for k, x in enumerate(sl) if x[2] == h), None)
+    if i is None:
+        return None
+    return [p.type.get_canonical().spelling, i]
+
+
+def is_implicit(callee):
+    """(integ3) Is CALLEE a member the compiler declares itself (a default / copy constructor, a destructor, an
+    assignment no source spells)? Clang places it at its class; every TU emits its own (inline, COMDAT), so it is no
+    cross-TU binding."""
+    K = __import__("equiv64").ci().CursorKind
+    if callee.kind not in (K.CONSTRUCTOR, K.DESTRUCTOR, K.CXX_METHOD):
+        return False
+    p = callee.semantic_parent
+    if p is None:
+        return False
+    try:
+        a, b = callee.location, p.location
+        return (a.line, a.column) == (b.line, b.column) and a.file is not None and b.file is not None and \
+            a.file.name == b.file.name
+    except Exception:   # noqa: BLE001
+        return False
 
 
 def block_calls(addr, f32, f64, out):
@@ -345,6 +534,17 @@ def block_calls(addr, f32, f64, out):
                "name": callee.spelling, "decl_at": where(callee), "s32": sig_of(callee),
                "s64": sig_of(callee64) if callee64 is not None else None,
                "argc": len(list(c.get_arguments()))}
+        if is_dispatch(c, callee):
+            rec["virtual"] = True
+            vs = vslot_of(callee)
+            if vs is not None:
+                rec["vslot"] = vs       # (integ3, vslot_sig) [declaring class, slot index]
+        if is_implicit(callee):
+            rec["implicit"] = True
+        else:
+            dfn = callee.get_definition()
+            if dfn is not None:
+                rec["local_def"] = where(dfn)       # (integ3) defined in this TU (a block, a helper, a header inline)
         out["calls"].append(rec)
         if is_allocator(n32) and c64 is not None:
             a32 = list(c.get_arguments())
@@ -354,6 +554,23 @@ def block_calls(addr, f32, f64, out):
                 al = {"caller": addr, "at": where(c), "size32": evaluate(a32[at_]), "size64": evaluate(a64[at_]),
                       "site": site_key(c)}
                 pending.append((c, al))
+    # (integ3, D132 item 6) functions whose address the block takes (a deleter stored, a callback passed): every
+    # DECL_REF_EXPR to a function that isn't a call's callee
+    callee_refs = set()
+    for c in l32:
+        kids = list(c.get_children())
+        e = kids[0] if kids else None
+        while e is not None and e.kind.name in ("UNEXPOSED_EXPR", "PAREN_EXPR"):
+            k_ = list(e.get_children())
+            e = k_[0] if len(k_) == 1 else None
+        if e is not None and e.kind == K.DECL_REF_EXPR:
+            callee_refs.add(e.hash)
+    for x in f32.walk_preorder():
+        if x.kind != K.DECL_REF_EXPR or x.hash in callee_refs or x.referenced is None or \
+                x.referenced.kind not in (K.FUNCTION_DECL, K.CXX_METHOD):
+            continue
+        out.setdefault("addr_refs", []).append({"caller": addr, "at": where(x), "name": x.referenced.spelling,
+                                                "sym32": mangled(x.referenced, 32)})
     # flows: where each allocation goes
     allocs_by_hash = {x[0].hash: x[1] for x in pending}
 
@@ -568,7 +785,252 @@ def record_size(d):
     return None, None
 
 
-def report(facts_dir, out_dir):
+_LIB = []
+
+
+def library_address(a):
+    """(integ3) Is A inside a library object (config/splits.json kind library: the XDK, the CRT, Bink)? A call there
+    binds to the platform layer, not to a tree definition."""
+    if not _LIB:
+        try:
+            objs = json.load(open(os.path.join(ROOT, "config/splits.json")))["objects"]
+        except (OSError, ValueError):
+            objs = []
+        _LIB.append(sorted((int(o["start"], 16), int(o["end"], 16)) for o in objs if o.get("kind") == "library"))
+    i = bisect.bisect_right(_LIB[0], (a, 0xFFFFFFFF)) - 1
+    return i >= 0 and _LIB[0][i][0] <= a < _LIB[0][i][1]
+
+
+_PLAT = []
+_DEF_RE = re.compile(r"\b([A-Za-z_]\w*)\s*\([^;{}()]*(?:\([^;{}()]*\)[^;{}()]*)*\)\s*(?:const\s*)?(?:noexcept\s*)?\{")
+
+
+def platform_names():
+    """(integ3, rev5's R1) The C names the native link can bind outside the tree: the XDK shim's rows (native_bind
+    XdkTable: imports.h / library.h, GAME_NAME_ROWS), the CRT tables' names and the functions src/platform/sdl
+    defines (a text scan of its sources: a name followed by a parameter list and a body)."""
+    if not _PLAT:
+        out = set()
+        try:
+            import native_bind
+            out |= set(native_bind.XdkTable().by_name)
+        except Exception:   # noqa: BLE001
+            pass
+        import verify_relocs
+        out |= set(verify_relocs.crt_name_addresses())
+        for rel in ("src/platform/sdl/crt/host_crt_table.h", "src/platform/sdl/crt/native_crt_table.h"):
+            try:
+                for names in re.findall(r'"([^"]*)"\)', open(os.path.join(ROOT, rel)).read()):
+                    out |= set(names.split())
+            except OSError:
+                pass
+        for dp, _, fs in os.walk(os.path.join(ROOT, "src/platform/sdl")):
+            for fn in fs:
+                if fn.endswith((".c", ".cpp", ".cc", ".h", ".inc")):
+                    try:
+                        out |= set(_DEF_RE.findall(open(os.path.join(dp, fn), errors="replace").read()))
+                    except OSError:
+                        pass
+        out -= {"if", "for", "while", "switch", "return", "sizeof"}
+        # MSVC's intrinsics: no call, no symbol natively (clang lowers them)
+        out |= {"_ReadWriteBarrier", "_ReadBarrier", "_WriteBarrier", "_alloca", "__debugbreak", "_byteswap_ulong",
+                "_rotl", "_rotr", "__emit"}
+        _PLAT.append(out)
+    return _PLAT[0]
+
+
+_XBE = []
+
+
+def thunk_target(a):
+    """(integ3) The end of the chain of one-jmp thunks from A (the game's 5-byte `thunk_FUN_x` placeholders: the tree
+    defines no block for them), or None when A is no thunk or the image isn't here."""
+    if not _XBE:
+        try:
+            import verify_relocs
+            _XBE.append(verify_relocs.state()["xbe"])
+        except Exception:   # noqa: BLE001
+            _XBE.append(None)
+    if _XBE[0] is None:
+        return None
+    import verify_relocs
+    seen, t = set(), None
+    while a not in seen and len(seen) < 8:
+        seen.add(a)
+        n = verify_relocs.jmp_target(_XBE[0], a)
+        if n is None:
+            break
+        t = a = n
+    return t
+
+
+def qual_key(sym):
+    """(integ3) The qualified name a symbol carries (`Release@Ref`, a C name's identifier), the tree's namespaces
+    left out: two symbols of one key are one function declared two ways."""
+    if not sym:
+        return None
+    s = TREE_NS_RE.sub("", sym)
+    if s.startswith("?"):
+        return s[1:].split("@@")[0] if "@@" in s else s[1:]
+    return s.lstrip("_@").split("@")[0]
+
+
+PLATFORM_NS = re.compile(r"^\?[^@]+@(?:D3D8|XAPILIB|DSOUND|XGRAPHC)@@")
+THUNK_NAME = re.compile(r"(?:^|[?_@])thunk_FUN_([0-9a-fA-F]{8})(?:@|$)")
+TREE_NS_RE = re.compile(r"@fn_f?[0-9a-f]{7,8}(?=@)")
+
+
+_RELOCMAP_TUS = {}
+
+
+def load_relocmap(paths):
+    """(integ3) {(tu, name): address} from tree_tu verify outputs that carry `reloc_map` (HULK_XTU_RELOCMAP=1): the
+    original target each name of a byte-matched block's relocations hits. Within one TU a name is one function, so
+    the TU's equivalent blocks calling the name bind to the same address (the native link binds callers so)."""
+    out, bad = {}, set()
+    for p in paths or []:
+        for l in open(p):
+            try:
+                r = json.loads(l)
+            except ValueError:
+                continue
+            tu = r.get("tu") or r.get("path")
+            if r.get("kind") == "matches" and r.get("status") == "match":
+                # (rev5's R2) a byte-matched record without reloc_map: cached without HULK_XTU_RELOCMAP
+                _RELOCMAP_TUS.setdefault(tu, [0, 0])[0 if "reloc_map" in r else 1] += 1
+            for n, a in (r.get("reloc_map") or {}).items():
+                k = (os.path.relpath(os.path.join(ROOT, tu), ROOT) if tu else None, n)
+                v = int(a, 16)
+                if out.get(k, v) != v:
+                    bad.add(k)
+                out[k] = v
+    for k in bad:
+        out.pop(k, None)
+    return out
+
+
+def pointee_rows(c, d):
+    """(integ3, rev5's D) The parameters whose pointee size the caller declares otherwise than the definition D: 32-bit
+    sizes (the checker's frames) and, where those agree, the 64-bit ones. `this` is compared as the class sizes."""
+    out = []
+    pairs = []
+    cs32, ds32, cs64, ds64 = c.get("s32") or {}, d.get("s32") or {}, c.get("s64") or {}, d.get("s64") or {}
+    if cs32.get("this") and ds32.get("this"):
+        pairs.append(("this", (cs32.get("cls") or [None, None])[1], (ds32.get("cls") or [None, None])[1],
+                      (cs64.get("cls") or [None, None])[1], (ds64.get("cls") or [None, None])[1]))
+    cp32, dp32 = list(cs32.get("pp") or []), list(ds32.get("pp") or [])
+    cp64, dp64 = list(cs64.get("pp") or []), list(ds64.get("pp") or [])
+    off_c = off_d = 0
+    if cs32.get("this") and not ds32.get("this"):
+        off_d = 1       # the definition takes the object as its first argument
+    elif ds32.get("this") and not cs32.get("this"):
+        off_c = 1
+    for i in range(max(0, min(len(cp32) - off_c, len(dp32) - off_d))):
+        g = lambda l, k: l[k] if k < len(l) else None      # noqa: E731
+        pairs.append(("arg%d" % (i + off_d), g(cp32, i + off_c), g(dp32, i + off_d), g(cp64, i + off_c),
+                      g(dp64, i + off_d)))
+    for name, c32, d32, c64, d64 in pairs:
+        if c32 is None or d32 is None:
+            continue
+        if c32 != d32:
+            out.append({"param": name, "caller_size32": c32, "def_size32": d32, "caller_size64": c64,
+                        "def_size64": d64, "only64": False, "caller_smaller": c32 < d32})
+        elif c64 is not None and d64 is not None and c64 != d64:
+            out.append({"param": name, "caller_size32": c32, "def_size32": d32, "caller_size64": c64,
+                        "def_size64": d64, "only64": True, "caller_smaller": c64 < d64})
+    return out
+
+
+def definition_pointees(facts_dir):
+    """(integ3, rev5's D) {address: {"sym32", "this32", "this64", "params32", "params64"}}: the pointee size of each
+    pointer parameter (None: not a pointer, or nothing sized) and of `this`, as the DEFINITION declares them. A
+    stub fill in tools/equiv.py can bound itself by these instead of the caller's view (report writes them to
+    pointees.json next to report.jsonl)."""
+    out = {}
+    for f in sorted(glob.glob(os.path.join(facts_dir, "*.json"))):
+        try:
+            fa = json.load(open(f))
+        except ValueError:
+            continue
+        for d in fa.get("defs", []):
+            s32, s64 = d.get("s32") or {}, d.get("s64") or {}
+            out.setdefault(d["addr"], {"sym32": d.get("sym32"), "pin": d.get("pin"), "tu": fa.get("tu"),
+                                       "this32": (s32.get("cls") or [None, None])[1] if s32.get("this") else None,
+                                       "this64": (s64.get("cls") or [None, None])[1] if s64.get("this") else None,
+                                       "params32": s32.get("pp"), "params64": s64.get("pp")})
+    return out
+
+
+def pointees_of(key, path=None):
+    """(integ3) The definition's pointee sizes of one function, by address (`0x0008d330` / int) or symbol, from
+    pointees.json (build/xtu by default); None when the facts don't have it."""
+    path = path or os.path.join(ROOT, "build/xtu/pointees.json")
+    tab = json.load(open(path))
+    if isinstance(key, int):
+        key = "0x%08x" % key
+    if key in tab:
+        return tab[key]
+    return next((v for v in tab.values() if key in (v.get("sym32"), v.get("pin"))), None)
+
+
+LOCAL_SUFFIX = re.compile(r"_[0-9a-f]{4,6}$")
+
+
+class Vftables:
+    """(integ3, vslot_sig) The game's vftables at offset 0 by class (build/rtti.json), and the lookup of a source class
+    or view by its spelling: exact (the tree's namespaces left out), then without the views' `_<addr>` suffixes, then
+    the one RTTI class whose leaf name ends with the view's leaf (`Inventory` -> content::LoadInventory)."""
+
+    def __init__(self, path=None):
+        path = path or os.path.join(ROOT, "build/rtti.json")
+        self.by_name = {}
+        try:
+            for c in json.load(open(path))["classes"]:
+                v = [t for t in c.get("vtables", []) if t.get("offset") == 0]
+                if v:
+                    self.by_name[c["name"].replace("class ", "").replace("struct ", "")] = (v[0]["address"],
+                                                                                            v[0]["slots"])
+        except (OSError, ValueError, KeyError):
+            pass
+        self.leaf = {}
+        for n in self.by_name:
+            self.leaf.setdefault(re.sub(r"<.*", "", n).split("::")[-1], []).append(n)
+
+    def find(self, spelling):
+        n = re.sub(r"\bfn_f?[0-9a-f]{7,8}::", "", spelling or "").replace("class ", "").replace("struct ", "")
+        n = re.sub(r"^(?:owners|records)::", "", n)
+        if n in self.by_name:
+            return n, "exact"
+        n2 = "::".join(LOCAL_SUFFIX.sub("", x) for x in n.split("::"))
+        if n2 in self.by_name:
+            return n2, "suffix"
+        lf = re.sub(r"<.*", "", n2).split("::")[-1]
+        if len(lf) >= 4:
+            c = [k for kl, ks in self.leaf.items() if kl.endswith(lf) for k in ks]
+            if len(c) == 1:
+                return c[0], "leaf"
+            if len(c) > 1:
+                return None, "ambiguous"
+        return None, "no_rtti_class"
+
+
+def vslot_diff(c, d):
+    """(integ3) The disagreements of a virtual call's declaration C with the definition D in the slot it calls: on
+    i386 (`32:` kinds: arity, kinds and widths, member vs free, return) and natively (diff_sig's)."""
+    out = []
+    for bits in ("32", "64"):
+        cs, ds = c.get("s" + bits), d.get("s" + bits)
+        if cs is None or ds is None:
+            continue
+        k = diff_sig({"s64": cs, "callee64": None}, {"s64": ds, "sym64": None})
+        # (`this_as_arg0`: a free definition taking the object first; natively the same register, on i386 ecx
+        # against the stack, so it stays a kind)
+        k = [x for x in k if x not in ("symbol", "c_link_type") and not (bits == "64" and x == "this_as_arg0")]
+        out += ["%s:%s" % (bits, x) for x in k]
+    return out
+
+
+def report(facts_dir, out_dir, relocmap=None, rtti=None):
     facts = []
     for f in sorted(glob.glob(os.path.join(facts_dir, "*.json"))):
         try:
@@ -577,31 +1039,110 @@ def report(facts_dir, out_dir):
             pass
     by_sym, by_addr = {}, {}
     def_names = {}      # (rev5) a definition's plain name -> its symbols
+    _RELOCMAP_TUS.clear()
+    rmap = load_relocmap(relocmap)
     for f in facts:
         for d in f.get("defs", []):
             d["tu"] = f["tu"]
             by_sym.setdefault(d["sym32"], d)
+            if d.get("pin"):
+                by_sym.setdefault(d["pin"], d)      # (integ3) a byte-matched caller's name is MSVC's
             by_addr.setdefault(int(d["addr"], 16), d)
             sym = d.get("sym32") or ""
             leaf = sym[1:].split("@")[0] if sym.startswith("?") else sym.lstrip("_@").split("@")[0]
             if leaf:
                 def_names.setdefault(leaf, []).append(sym)
 
-    def resolve(sym, name):
+    def resolve(sym, name, tu=None):
         d = by_sym.get(sym)
         if d is not None:
             return d, "symbol"
         a = name_address(sym) or name_address(name)
         if a is not None and a in by_addr:
             return by_addr[a], "address"
+        if a is not None:
+            t = thunk_target(a)     # (integ3) a placeholder thunk: the declaration is the target's
+            if t is not None and t in by_addr:
+                return by_addr[t], "thunk"
+        m_ = THUNK_NAME.search(sym or "") or THUNK_NAME.search(name or "")
+        if m_ and int(m_.group(1), 16) in by_addr:
+            # (integ3) a `thunk_FUN_x` name: the game's jmp to x, declared as x's own signature
+            return by_addr[int(m_.group(1), 16)], "thunk name"
+        a = rmap.get((tu, sym))
+        if a is not None:
+            if a in by_addr:
+                return by_addr[a], "relocation"
+            t = thunk_target(a)
+            if t is not None and t in by_addr:
+                return by_addr[t], "relocation thunk"
         return None, None
+
+    def target_of(sym, name, tu):
+        """The address a callee's name or the TU's relocations give, when no definition is there."""
+        a = name_address(sym) or name_address(name)
+        return a if a is not None else rmap.get((tu, sym))
+    def_keys = {}
+    for f in facts:
+        for d in f.get("defs", []):
+            def_keys.setdefault(qual_key(d.get("sym32")), []).append(d.get("sym32"))
+            def_keys.setdefault(qual_key(d.get("pin")), []).append(d.get("pin"))
+    rmap_any = {}
+    for (tu_, n_), a_ in rmap.items():
+        rmap_any.setdefault(n_, set()).add(a_)
+    import verify_relocs
+    crt = verify_relocs.crt_name_addresses()
+
+    def unresolved_class(c, tu):
+        """(integ3) Why a call has no definition: virtual (vftable dispatch), library, placeholder (an address with
+        no tree block that is no thunk), call (an address the tree has a block for that the facts lack: a block
+        error, a fatal TU), by_symbol (no address; the qualified name is defined under another symbol), undefined
+        (no address; nothing in the tree defines the qualified name)."""
+        if c.get("virtual"):
+            return "virtual", None
+        if c.get("implicit"):
+            return "implicit", None
+        if is_allocator(c["callee32"]):
+            return "library", None      # (the allocators: tools/equiv64.py ALLOCATORS, the platform's)
+        ta = target_of(c["callee32"], c["name"], tu)
+        if ta is not None and ta < 0x00011000:
+            ta = None       # (a name's digits read as an address: FUN_00000000)
+        if ta is not None:
+            if library_address(ta):
+                return "library", ta
+            t = thunk_target(ta)
+            if t is not None and library_address(t):
+                return "library", ta
+            import tree_index
+            if not tree_index.find(ta) and not tree_index.find(t or ta):
+                return "placeholder", ta
+            return "call", ta
+        if PLATFORM_NS.search(c["callee32"] or ""):
+            return "library", None      # (the XDK shims' namespaces: D3D8, XAPILIB, DSOUND, XGRAPHC)
+        plain = verify_relocs.library_plain_name(c["callee32"] or "")
+        if plain and plain in crt:
+            return "library", None
+        others = rmap_any.get(c["callee32"])
+        if others and all(library_address(x) for x in others):
+            return "library", None
+        k = qual_key(c["callee32"])
+        if c.get("local_def"):
+            # (integ3) defined in the calling TU itself but not as a block (an out-of-line helper, a header inline):
+            # it binds inside the TU; the known blind spot (its body is no block, nothing checks it)
+            return "local", None
+        if k in def_keys:
+            return "by_symbol", None
+        if c["name"] not in def_names and not c["callee32"].startswith("?") and \
+                (plain or c["name"] or "") in platform_names():
+            return "library", None      # (rev5's R1: a C name only when the platform layer or a binding table has it)
+        return "undefined", None
     rows, stats = [], {"tus": len(facts), "fatal": 0, "defs": 0, "calls": 0, "resolved": 0, "decl_rows": 0,
                        "alloc_rows": 0, "allocs": 0, "allocs_sized": 0}
     seen = set()
     ret_alloc = {}
     gaps = []
     stats.update(block_errors=0, unpaired_calls=0, unresolved_calls=0, unresolved_library_calls=0,
-                 unresolved_by_symbol=0, allocs_unsized=0, stale_facts=0)
+                 unresolved_by_symbol=0, allocs_unsized=0, stale_facts=0, virtual_calls=0, unresolved_undefined=0,
+                 unresolved_placeholder=0, implicit_calls=0, local_calls=0, resolved_by={}, pointee_rows=0, pointee_rows64=0)
     for f in [f for f in facts if f.get("ver") != FACTS_VER]:
         # (rev5) facts of another extraction (older records, older call pairing) are not compared, and block `clean`
         stats["stale_facts"] += 1
@@ -622,26 +1163,34 @@ def report(facts_dir, out_dir):
     for f in facts:
         for c in f.get("calls", []):
             stats["calls"] += 1
-            d, how = resolve(c["callee32"], c["name"])
+            d, how = resolve(c["callee32"], c["name"], f["tu"])
             if d is None:
-                if name_address(c["callee32"]) is None and name_address(c["name"]) is None:
-                    if c["name"] in def_names:
-                        # (rev5) the tree defines a function of that name, but not under this symbol (an unpinned
-                        # block, a fatal or stale TU, a C++ mangling that differs): a gap, not library code
-                        stats["unresolved_by_symbol"] += 1
-                        gaps.append({"gap": "unresolved_by_symbol", "tu": f["tu"], "caller": c["caller"],
-                                     "callee": c["callee32"], "definitions": def_names[c["name"]][:4],
-                                     "at": c["at"]})
-                        continue
-                    # a callee with no address in its name and no definition of its name in the tree: the XDK,
-                    # the CRT, the platform layer (expected; counted apart, not blocking `clean`)
+                cls_, ta = unresolved_class(c, f["tu"])
+                if cls_ in ("virtual", "implicit", "local"):
+                    # (integ3) a virtual call binds through the object's vftable, a compiler-declared member is
+                    # emitted by each TU: no name for the link to pair
+                    stats[cls_ + "_calls"] += 1
+                    continue
+                if cls_ == "library":
+                    # a callee of the XDK, the CRT, Bink (by its address, the CRT tables or another TU's relocation
+                    # of the same name), or with no address and no definition of its plain name anywhere (expected;
+                    # counted apart, not blocking `clean`)
                     stats["unresolved_library_calls"] += 1
                     continue
-                stats["unresolved_calls"] += 1
-                gaps.append({"gap": "unresolved_call", "tu": f["tu"], "caller": c["caller"], "callee": c["callee32"],
-                             "at": c["at"]})
+                g = {"gap": {"by_symbol": "unresolved_by_symbol", "undefined": "unresolved_undefined",
+                             "placeholder": "unresolved_placeholder"}.get(cls_, "unresolved_call"),
+                     "tu": f["tu"], "caller": c["caller"], "callee": c["callee32"], "at": c["at"]}
+                if ta is not None:
+                    g["target"] = "0x%08x" % ta
+                if cls_ == "by_symbol":
+                    # (rev5) the tree defines a function of that qualified name, but not under this symbol (a C++
+                    # mangling that differs: natively the call binds to nothing): a gap, not library code
+                    g["definitions"] = def_keys[qual_key(c["callee32"])][:4]
+                stats[g["gap"].replace("unresolved_call", "unresolved_calls")] += 1
+                gaps.append(g)
                 continue
             stats["resolved"] += 1
+            stats["resolved_by"][how] = stats["resolved_by"].get(how, 0) + 1
             if d["addr"] == c["caller"]:
                 continue
             if c.get("s64") is None or d.get("s64") is None:
@@ -649,6 +1198,17 @@ def report(facts_dir, out_dir):
                 gaps.append({"gap": "unpaired_call", "tu": f["tu"], "caller": c["caller"], "callee": d["addr"],
                              "at": c["at"]})
                 continue
+            for pr in pointee_rows(c, d):
+                # (integ3, rev5's D) the pointee sizes: the checker fills a stub's out-parameters by the caller's
+                # view, the definition writes its own record
+                pk = (c["caller"], d["addr"], pr["param"])
+                if pk in seen:
+                    continue
+                seen.add(pk)
+                rows.append(dict({"check": "pointee", "caller": c["caller"], "caller_tu": f["tu"], "at": c["at"],
+                                  "callee": d["addr"], "callee_tu": d["tu"], "callee_at": d["at"], "bound_by": how,
+                                  "caller_decl": c["callee32"], "definition": d["sym32"]}, **pr))
+                stats["pointee_rows64" if pr["only64"] else "pointee_rows"] += 1
             kinds = diff_sig(c, d)
             if kinds in (["symbol"], ["symbol", "this_as_arg0"], ["this_as_arg0"]):
                 # the names differ only: bound by the address the caller's name carries (the native link binds
@@ -699,16 +1259,84 @@ def report(facts_dir, out_dir):
             r = ret_alloc[int(m["addr"], 16)]
             alloc_row({"caller": h["caller"], "at": r.get("at"), "use_at": h["use_at"], "size32": r.get("size32"),
                        "size64": r.get("size64")}, d, h["how"] + " via return of " + m["addr"])
+    # (integ3, find2's G4/G6) virtual calls: the declaration the caller calls through (a view's `vN(...)`) against the
+    # definition in that slot of the class's game vftable
+    vt = Vftables(rtti)
+    vst = {"vcalls": 0, "no_slot": 0, "mapped": 0, "ok": 0, "mismatch": 0, "slot_out_of_range": 0,
+           "slot_not_defined": 0, "slot_library": 0, "no_rtti_class": 0, "ambiguous": 0, "mapped_by": {}}
+    vseen = set()
+    vout = []       # (integ3) every virtual call's outcome: vslot_calls.jsonl (the seed lists' explanations)
+
+    def vnote(f, c, outcome, **kw):
+        vout.append(dict({"tu": f["tu"], "caller": c["caller"], "at": c["at"], "decl_at": c.get("decl_at"),
+                          "view": (c.get("vslot") or [None])[0], "slot": (c.get("vslot") or [None, None])[1],
+                          "decl": c["callee32"], "outcome": outcome}, **kw))
+    for f in facts:
+        for c in f.get("calls", []):
+            if not c.get("virtual"):
+                continue
+            vst["vcalls"] += 1
+            vs = c.get("vslot")
+            if not vs:
+                vst["no_slot"] += 1
+                vnote(f, c, "no_slot")
+                continue
+            cls, why = vt.find(vs[0])
+            if cls is None:
+                vst[why] += 1
+                vnote(f, c, why)
+                continue
+            vst["mapped"] += 1
+            vst["mapped_by"][why] = vst["mapped_by"].get(why, 0) + 1
+            vaddr, slots = vt.by_name[cls]
+            if vs[1] >= len(slots):
+                vst["slot_out_of_range"] += 1
+                # (the view stands for a derived object, or the mapping chose the wrong class: no signature to
+                # compare, counted, no row)
+                vnote(f, c, "slot_out_of_range", cls=cls, mapped_by=why, slots=len(slots))
+                gaps.append({"gap": "vslot_out_of_range", "tu": f["tu"], "caller": c["caller"], "at": c["at"],
+                             "view": vs[0], "slot": vs[1], "class": cls, "slots": len(slots), "mapped_by": why})
+                continue
+            ta = slots[vs[1]]
+            d = by_addr.get(ta)
+            if d is None:
+                t = thunk_target(ta)
+                d = by_addr.get(t) if t is not None else None
+            if d is None:
+                o_ = "slot_library" if library_address(ta) else "slot_not_defined"
+                vst[o_] += 1
+                vnote(f, c, o_, cls=cls, mapped_by=why, target="0x%08x" % ta)
+                continue
+            kinds = vslot_diff(c, d)
+            if not kinds:
+                vst["ok"] += 1
+                vnote(f, c, "ok", cls=cls, mapped_by=why, callee=d["addr"])
+                continue
+            vst["mismatch"] += 1
+            vnote(f, c, "mismatch", cls=cls, mapped_by=why, callee=d["addr"], kinds=kinds)
+            k = (c["caller"], c["callee32"], d["addr"])
+            if k in vseen:
+                continue
+            vseen.add(k)
+            rows.append({"check": "vslot_sig", "caller": c["caller"], "caller_tu": f["tu"], "at": c["at"],
+                         "view": vs[0], "view_decl": c["callee32"], "view_decl_at": c["decl_at"], "slot": vs[1],
+                         "class": cls, "vftable": "0x%08x" % vaddr, "mapped_by": why, "callee": d["addr"],
+                         "callee_tu": d["tu"], "definition": d["sym32"], "kinds": kinds})
+    stats["vslot"] = vst
     # (D132 for equivalent blocks) a call in an equivalent block (not relocation-checked) whose callee's name or
     # symbol reaches one of the game's frees under another name than that free's own
     import verify_relocs
     kind_of_def = {(f["tu"], d["addr"]): d.get("kind") for f in facts for d in f.get("defs", [])}
-    free_rows = 0
+    free_rows = free_addr_rows = 0
     for f in facts:
-        for c in f.get("calls", []):
+        # (integ3, D132 item 6) and a function whose address the block takes (a deleter stored, a callback passed)
+        refs = [dict(c, how="call") for c in f.get("calls", [])] + \
+            [{"caller": r["caller"], "at": r["at"], "callee32": r["sym32"], "name": r["name"], "how": "address"}
+             for r in f.get("addr_refs", [])]
+        for c in refs:
             if kind_of_def.get((f["tu"], c["caller"])) != "equivalent":
                 continue
-            d, how = resolve(c["callee32"], c["name"])
+            d, how = resolve(c["callee32"], c["name"], f["tu"])
             a_ = int(d["addr"], 16) if d is not None else name_address(c["callee32"]) or name_address(c["name"])
             if a_ is None:
                 continue
@@ -716,9 +1344,11 @@ def report(facts_dir, out_dir):
             if fr is None or verify_relocs.FREE_NAMES[fr].match(c["callee32"] or ""):
                 continue
             rows.append({"check": "free_name", "caller": c["caller"], "caller_tu": f["tu"], "at": c["at"],
-                         "callee": "0x%08x" % fr, "name": c["callee32"]})
+                         "callee": "0x%08x" % fr, "name": c["callee32"], "how": c["how"]})
             free_rows += 1
+            free_addr_rows += c["how"] == "address"
     stats["free_name_rows"] = free_rows
+    stats["free_name_address_rows"] = free_addr_rows
     os.makedirs(out_dir, exist_ok=True)
     with open(os.path.join(out_dir, "report.jsonl"), "w") as fh:
         for r in sorted(rows, key=lambda r: (r["check"], r["caller_tu"], r["caller"])):
@@ -727,6 +1357,13 @@ def report(facts_dir, out_dir):
     for r in rows:
         for k in r.get("kinds", [r["check"]]):
             k0 = re.sub(r"\d+", "N", k)
+            if r["check"] == "vslot_sig":
+                b_, _, k1 = k.partition(":")
+                k1 = re.sub(r"\d+", "N", k1)
+                k1 = "argN size" if k1.startswith("argN size") else ("argc" if k1.startswith("argc") else k1)
+                k0 = "vslot %s:%s" % (b_, k1)
+                kinds[k0] = kinds.get(k0, 0) + 1
+                continue
             k0 = "argN size" if k0.startswith("argN size") else ("argc" if k0.startswith("argc") else k0)
             kinds[k0] = kinds.get(k0, 0) + 1
     stats["kinds"] = dict(sorted(kinds.items(), key=lambda x: -x[1]))
@@ -734,15 +1371,30 @@ def report(facts_dir, out_dir):
     with open(os.path.join(out_dir, "gaps.jsonl"), "w") as fh:
         for g in gaps:
             fh.write(json.dumps(g) + "\n")
-    stats["clean"] = not any(stats[k] for k in ("fatal", "block_errors", "unpaired_calls", "unresolved_calls",
-                                                "unresolved_by_symbol", "allocs_unsized", "stale_facts"))
+    if relocmap:
+        stats["relocmap_tus"] = len(_RELOCMAP_TUS)
+        stats["relocmap_tus_missing"] = sorted(t for t, (y, n) in _RELOCMAP_TUS.items() if n)[:50]
+        stats["relocmap_records_missing"] = sum(n for y, n in _RELOCMAP_TUS.values())
+    stats["clean"] = not stats.get("relocmap_records_missing") and not any(stats[k] for k in ("fatal", "block_errors", "unpaired_calls", "unresolved_calls",
+                                                "unresolved_by_symbol", "allocs_unsized", "stale_facts",
+                                                "unresolved_undefined", "unresolved_placeholder"))
+    # (integ3) every gap by class and cause, for the work lists
+    stats["gap_classes"] = {}
+    for g in gaps:
+        k = g["gap"] + (": " + re.sub(r"'.*", "", str(g.get("why")))[:40] if g.get("why") else "")
+        stats["gap_classes"][k] = stats["gap_classes"].get(k, 0) + 1
+    with open(os.path.join(out_dir, "vslot_calls.jsonl"), "w") as fh:
+        for v in vout:
+            fh.write(json.dumps(v) + "\n")
+    with open(os.path.join(out_dir, "pointees.json"), "w") as fh:
+        json.dump(definition_pointees(facts_dir), fh)
     with open(os.path.join(out_dir, "summary.json"), "w") as fh:
         json.dump(stats, fh, indent=1)
     return rows, stats
 
 
 def cmd_report(a):
-    rows, stats = report(a.facts, a.out)
+    rows, stats = report(a.facts, a.out, a.relocmap)
     print(json.dumps(stats, indent=1))
 
 
@@ -782,7 +1434,14 @@ def main(argv=None):
     r = sp.add_parser("report")
     r.add_argument("facts")
     r.add_argument("--out", default=os.path.join(ROOT, "build/xtu"))
+    r.add_argument("--relocmap", nargs="*", help="tree_tu verify outputs with reloc_map (HULK_XTU_RELOCMAP=1): "
+                   "resolves a byte-matched TU's callee names by their relocations")
     r.set_defaults(fn=cmd_report)
+    q = sp.add_parser("pointee", help="the definition's pointee sizes of one function (address or symbol)")
+    q.add_argument("key")
+    q.add_argument("--table", default=os.path.join(ROOT, "build/xtu/pointees.json"))
+    q.set_defaults(fn=lambda a: print(json.dumps(pointees_of(int(a.key, 16) if re.match(r"0x[0-9a-fA-F]+$", a.key)
+                                                             else a.key, a.table), indent=1)))
     u = sp.add_parser("run")
     u.add_argument("--jobq", action="store_true")
     u.add_argument("--per", type=int, default=40)
