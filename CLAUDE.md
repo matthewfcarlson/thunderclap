@@ -101,6 +101,11 @@ references: prove and hash a block from HEAD plus your own hunks only, never fro
 edits (fix126).
 A caller's declaration must never become the same function as a definition in its own TU (MSVC inlines the call); keep it
 a distinct overload, e.g. a `void *` or hulk_intptr parameter, which binds natively like the pointer.
+An equivalent block whose `--wine` run faults on an unterminated local buffer (`ours fault:wild_jump`) may only have its
+locals in another order than the original's frame: clang -O0 places locals in declaration order, the first highest;
+declare them so the buffer overruns into the same neighbour as in the original (0x00279630, drive1 D141). A constructor
+called through a class named by its address (`struct FUN_<addr> : Record`) does not bind natively by that address: use
+placement new and a binding-map entry with a `def` (drive1).
 A float local the listing only loads and stores (`mov`, or `fld`/`fst` with no arithmetic) stays `float`; `hulk_freg` is
 only for values computed in st. Under the Wine build's SSE code, write a product that feeds a sum the original keeps in st
 as `(hulk_freg)a * b` (D80). Before calling a `--wine` difference float rounding, check whether only one byte differs:
