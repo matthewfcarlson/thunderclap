@@ -1747,3 +1747,6 @@ blocks fight::Action's whole family: the records come first there.
 - **Buffer size:** the largest native argument list is 56 bytes (0x0002cc10 / 0x0002ebc0 `pVsppsp`, 0x000be8f0
   7 x `char*`, 0x001dfb80 `ppspVV`). It is within the 0x40-byte buffer, including the Vector writer 0x001d1f30's
   this-relative bound.
+- **(script2) hack_IsFieldGoal: a `bool` declaration of a `char` definition does not bind natively.** CGame's
+  constructor 0x00087e80 declared 0x00096f40 as returning bool, but the definition returns char. MSVC 7.1 compiles
+  either the same, while natively i1 and i8 are different signatures, so it stayed unbound. Declared as defined, it binds.
