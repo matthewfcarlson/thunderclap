@@ -126,6 +126,8 @@ A TU that both calls a record's virtual slots and writes its words declares the 
 checkout (build/ included) silently skips every path: `git init -q` a private workspace first, or use `patch -p1`.
 A virtual-slot view must declare the slot definition's parameters and return: a 64-bit key the definition takes as two
 32-bit words, or a pointer returned as int, binds natively with garbage, and no binding check sees calls through vftables.
+To call a vftable slot the original loaded before an argument's call (old table, new object), use
+include/compat/hulk_vslot.h's hulk_slot / hulk_vcallN, never a local virtual (fix126).
 A pddi/D3D object's status and refcount are separate words: pddiObject is vftable, refcount f_04, status f_08 (natively
 8 and 0xc); a raw `p + 4` / `p + 8` read in the d3d layer is a 32-bit offset: use gen's fields (find3, stop 9).
 pure3d::Entity is 0x14 bytes natively (vftable, count, two name words): views write `void* vftable; int words[3];` or
