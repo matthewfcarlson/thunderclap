@@ -821,7 +821,7 @@ void CFEManager::FUN_000c1430()
 } // namespace fn_f71c7272
 
 // 0x000c1790 FUN_000c1790 (811 B): equivalent/0x000c1790.cpp [wrapped: conflict: FUN_000964a0; FUN_000fc1b0; FUN_000fc260]
-// sym: ?FUN_000c1790@FrontEnd_c1790@fn_000c1790@@QAE_NPBD@Z @816f864c2e57 @wcd511ed67764 @v556bdff2ed4a
+// sym: ?FUN_000c1790@FrontEnd_c1790@fn_000c1790@@QAE_NPBD@Z @8ae1dafcfb87 @wb36457364a53 @vfb0883067d2b
 namespace fn_000c1790 {
 // STATUS: equivalent (tools/equiv.py level 3: 6070 inputs, branch coverage 43/46, incomplete)
 // FUN_000c1790 @ 0x000c1790
@@ -895,7 +895,7 @@ struct Loader_c1790 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
-    virtual Font* v3(content::LoadInventory::DynamicCaster<pure3d::TextureFont_c1790>* caster, unsigned __int64 hash);
+    virtual Font* v3(content::LoadInventory::DynamicCaster<pure3d::TextureFont_c1790>* caster, unsigned int lo, unsigned int hi);   // (decl1, find2 G4) as defined: 0x00266280 takes the key as two words (a u64 is one register natively)
     void FUN_002665a0();
 };
 
@@ -922,7 +922,7 @@ extern "C" int __cdecl FUN_00266da0(int mode);
 Ui_c1790* __cdecl FUN_000fc1b0();
 const char* __cdecl FUN_000f7120(int index);
 extern "C" int __cdecl FUN_000964a0(char*, int, const char*, ...);   // (x64t14) as defined (CUnlockablesManager.cpp)
-bool __cdecl FUN_000fc1c0(const char* path);
+extern "C" char __cdecl FUN_000fc1c0(const void* path);   // (decl1) as defined (unk_0fb830.cpp): a C function
 DynamicLabel* __cdecl FUN_000fc260(const char* name);
 
 struct Frame_c1790 {
@@ -941,7 +941,7 @@ public:
     char pad60[0x1bc9 - 0x60];
     char lang[8];
     int FUN_000bc900(unsigned short* buf, int pos, const char* key, int idx);
-    void FUN_000bc3c0(const char* path, Loader_c1790* loader, int zero);
+    static void __stdcall FUN_000bc3c0(const char* path, Loader_c1790* loader, int zero);   // (decl1) a free __stdcall function (unk_0bc1e0.GS.cpp), no this
     bool FUN_000c1790(const char* code);
 };
 
@@ -983,7 +983,7 @@ bool FrontEnd_c1790::FUN_000c1790(const char* code)
         panel->FUN_001bde90();
     (*(Loader_c1790**)&DAT_004dd9c8)->FUN_002665a0();
     FUN_000964a0(f.path, 0x40, "art/fonts_%s.p3d", lang);
-    this->FUN_000bc3c0(f.path, (*(Loader_c1790**)&DAT_004dd9c8), 0);
+    FUN_000bc3c0(f.path, (*(Loader_c1790**)&DAT_004dd9c8), 0);
     const char* first;
     const char* second;
     if (strncmp("jp", lang, 2) == 0) {
@@ -997,13 +997,13 @@ bool FrontEnd_c1790::FUN_000c1790(const char* code)
         Loader_c1790* ld = (*(Loader_c1790**)&DAT_004dd9c8);
         unsigned __int64 h = FUN_0027b020(first);
         new (&f.caster) content::LoadInventory::DynamicCaster<pure3d::TextureFont_c1790>;
-        ((owners::C_295250 *)(ld->v3(&f.caster, h)))->FUN_00295250(0xfa0);
+        ((owners::C_295250 *)(ld->v3(&f.caster, (unsigned int)h, (unsigned int)(h >> 32))))->FUN_00295250(0xfa0);
     }
     {
         Loader_c1790* ld = (*(Loader_c1790**)&DAT_004dd9c8);
         unsigned __int64 h = FUN_0027b020(second);
         new (&f.caster) content::LoadInventory::DynamicCaster<pure3d::TextureFont_c1790>;
-        ((owners::C_295250 *)(ld->v3(&f.caster, h)))->FUN_00295250(0xfa0);
+        ((owners::C_295250 *)(ld->v3(&f.caster, (unsigned int)h, (unsigned int)(h >> 32))))->FUN_00295250(0xfa0);
     }
     Ui_c1790* ui = f.ui;
     if (ui) {
@@ -1307,7 +1307,7 @@ void GalleryScreen::FUN_000c1b50(int kind, int first, int last)
 
 
 // 0x000c1f70 FUN_000c1f70 (573 B): equivalent/0x000c1f70.cpp [wrapped: conflict: FUN_000fc1b0; content::LoadInventory::DynamicCaster]
-// sym: ?FUN_000c1f70@BlonskyScreen@fn_000c1f70@@QAEXH@Z @40a71b058d14 @we77940ab374b @vfcbc2586f00d
+// sym: ?FUN_000c1f70@BlonskyScreen@fn_000c1f70@@QAEXH@Z @0c3d6f5dc620 @wc40b95acc223 @vd2f16e412bdc
 namespace fn_000c1f70 {
 // STATUS: equivalent (tools/equiv.py level 3: 20026 inputs, branch coverage 18/18)
 // FUN_000c1f70 @ 0x000c1f70
@@ -1458,7 +1458,7 @@ class BlonskyScreen {
 public:
     char pad0[0x4c];
     ItemTable_c1f70* items;
-    void FUN_000bc3c0(const char* path, LoadInventory_c1f70* loader, int kind);
+    static void __stdcall FUN_000bc3c0(const char* path, LoadInventory_c1f70* loader, int kind);   // (decl1) a free __stdcall function, no this
     void FUN_000c1f70(int index);
 };
 
@@ -2711,7 +2711,7 @@ void Env::FUN_000c31e0(const char *name)
 
 
 // 0x000c3900 FUN_000c3900 (989 B): equivalent/0x000c3900.cpp [wrapped: macros]
-// sym: ?target@Game@fn_000c3900@@QAE_NPBDIIH0II@Z @10832da029fb @wbbe9a71ce634 @vfcd00cd2ddc1
+// sym: ?target@Game@fn_000c3900@@QAE_NPBDIIH0II@Z @5dd39e8d78a1 @w8c6332803692 @vaa091c04cf74
 namespace fn_000c3900 {
 // STATUS: equivalent (tools/equiv.py level 3: 20037 inputs, branch coverage 62/62)
 // FUN_000c3900 @ 0x000c3900
@@ -2762,7 +2762,7 @@ void* __cdecl FUN_00263ea0(int);
 extern "C" U __cdecl FUN_00267f80();
 extern "C" void __cdecl FUN_000b9230(Obj*);
 struct Game { char p0[0x4c]; Other* other; char p1[0x187c-0x50]; U id; char p2[0x1a08-0x1880]; U start;
-void FUN_000bc3c0(const char*,Loader*,int); void FUN_000bd050(); void FUN_000b9470(int,Resource*); bool FUN_000bdf50(bool,int); void FUN_000c21b0(U);
+static void __stdcall FUN_000bc3c0(const char*,Loader*,int); /* (decl1) free __stdcall, no this */ void FUN_000bd050(); void FUN_000b9470(int,Resource*); bool FUN_000bdf50(bool,int); void FUN_000c21b0(U);
 bool target(const char*,U,U,int,const char*,U,U);
 };
 bool Game::target(const char* name,U duration,U threshold,int mode,const char* folder,U unused,U fade) {

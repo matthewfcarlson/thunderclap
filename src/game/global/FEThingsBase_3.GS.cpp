@@ -113,9 +113,10 @@ public:
     int maxHashes;
     int hashCount;
 
-    int FUN_000f7080(unsigned short *buf, int n, LoadStream_f7a80 *file);
-    void FUN_000f76c0(unsigned short *line);
-    int FUN_000f7790(unsigned short *line);
+    // (decl1) free __stdcall functions (FEThingsBase_3.cpp), no this: the member spellings bound nowhere natively
+    static unsigned short* __stdcall FUN_000f7080(unsigned short *buf, int n, LoadStream_f7a80 *file);   // returns the buffer
+    static int __stdcall FUN_000f76c0(short *line);
+    static int __stdcall FUN_000f7790(unsigned short *line);
     bool FUN_000f7a80(const char *filename);
 };
 extern "C" void __cdecl FUN_00294c70(int src, char* dst, int size);
@@ -304,7 +305,7 @@ extern "C" void __cdecl FUN_000f6d70(const char *filename, const char *other)
 
 
 // 0x000f7a80 FUN_000f7a80 (600 B): equivalent/0x000f7a80.cpp
-// sym: ?FUN_000f7a80@StringTable_f7a80@fn_f1b16f90@@QAE_NPBD@Z @91e22f53f762 @wd772c1b7d4f7
+// sym: ?FUN_000f7a80@StringTable_f7a80@fn_f1b16f90@@QAE_NPBD@Z @d2e0929c88be @w603c4bddbc13 @v61c89c75dd2e
 // STATUS: equivalent (tools/equiv.py level 3: 101 inputs, branch coverage 38/46, incomplete)
 // FUN_000f7a80 @ 0x000f7a80
 // checked with equiv.py --time-budget 3600 (at the defaults most inputs hit the time budget)
@@ -338,9 +339,9 @@ bool StringTable_f7a80::FUN_000f7a80(const char *filename)
     file->FUN_002647e0(hdr, 1, 2, 1);
     line[0] = *(unsigned short *)hdr;
 
-    int more = FUN_000f7080(line, 0x1000, file);
+    int more = FUN_000f7080(line, 0x1000, file) != 0;
     while (more != 0) {
-        FUN_000f76c0(line);
+        FUN_000f76c0((short*)line);
         int n = FUN_000f7790(line) + 1;
         if (line[0] != '#' && line[0] != 0) {
             unsigned short *p = line;
@@ -392,7 +393,7 @@ bool StringTable_f7a80::FUN_000f7a80(const char *filename)
                 }
             }
         }
-        more = FUN_000f7080(line, 0x1000, file);
+        more = FUN_000f7080(line, 0x1000, file) != 0;
     }
     file->vfunc_1();
     return true;

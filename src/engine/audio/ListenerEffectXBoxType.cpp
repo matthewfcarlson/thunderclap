@@ -136,9 +136,10 @@ namespace fn_0024d720 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // om::MetaTypeAttrib<int>::vfunc_1 @ 0x0024d720
 // (recs1, D144) the attribute's words are records.h OmMetaTypeAttribBase's (was char pad[16]: the offset at +0x14)
-namespace om { struct MetaTypeAttribBase { virtual void vfunc_0(); virtual void vfunc_1(int, int); virtual void vfunc_2(); virtual void vfunc_3(); void* nodeWords[3]; int nodeColor; int memberOffset; }; struct MetaTypeAttrib : MetaTypeAttribBase { void vfunc_1(int destination, int object); }; }
-extern "C" void __cdecl FUN_0025ab30(int, int);
-void om::MetaTypeAttrib::vfunc_1(int destination, int object) { FUN_0025ab30(destination, *(int*)((char*)object + memberOffset)); }
+namespace om { struct MetaTypeAttribBase { virtual void vfunc_0(); virtual void vfunc_1(hulk_intptr, hulk_intptr); virtual void vfunc_2(); virtual void vfunc_3(); void* nodeWords[3]; int nodeColor; int memberOffset; }; struct MetaTypeAttrib : MetaTypeAttribBase { void vfunc_1(hulk_intptr destination, hulk_intptr object); }; }
+extern "C" void __cdecl FUN_0025ab30(hulk_intptr, int);   // (decl1, recs1 Q5) as defined: the destination is a pointer
+// (decl1, recs1 Q5) the destination and the object are pointers
+void om::MetaTypeAttrib::vfunc_1(hulk_intptr destination, hulk_intptr object) { FUN_0025ab30(destination, *(int*)((char*)object + memberOffset)); }
 } // namespace fn_0024d720
 
 
@@ -174,9 +175,10 @@ namespace fn_0024d790 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // om::MetaTypeAttrib<float>::vfunc_1 @ 0x0024d790
 // (recs1, D144) the attribute's words are records.h OmMetaTypeAttribBase's (was char pad[16]: the offset at +0x14)
-namespace om { struct MetaTypeAttribBase { virtual void vfunc_0(); virtual int vfunc_1(void *, int); virtual void vfunc_2(); virtual void vfunc_3(); void* nodeWords[3]; int nodeColor; int memberOffset; }; struct MetaTypeAttribFloat : MetaTypeAttribBase { int vfunc_1(void *destination, int object); }; }
+namespace om { struct MetaTypeAttribBase { virtual void vfunc_0(); virtual int vfunc_1(void *, hulk_intptr); virtual void vfunc_2(); virtual void vfunc_3(); void* nodeWords[3]; int nodeColor; int memberOffset; }; struct MetaTypeAttribFloat : MetaTypeAttribBase { int vfunc_1(void *destination, hulk_intptr object); }; }
 extern "C" int __cdecl FUN_0025abf0(void *destination, unsigned int value);
-int om::MetaTypeAttribFloat::vfunc_1(void *destination, int object) { return FUN_0025abf0(destination, *(unsigned int *)((char *)object + memberOffset)); }
+// (decl1, recs1 Q5) the object is a pointer
+int om::MetaTypeAttribFloat::vfunc_1(void *destination, hulk_intptr object) { return FUN_0025abf0(destination, *(unsigned int *)((char *)object + memberOffset)); }
 } // namespace fn_0024d790
 
 

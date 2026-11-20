@@ -594,7 +594,7 @@ struct EncObj : HulkEncounterMap {
 };
 
 struct Tracker_1fa630 {
-    void FUN_001d1900(int id);
+    void FUN_001d1900(hulk_intptr id);   // (decl1, find3) as defined (ScriptHandler.cpp: owners::Obj_1d1900::FUN_001d1900(hulk_intptr))
 };
 
 struct NameHolder_1fa630 {

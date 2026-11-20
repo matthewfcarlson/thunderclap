@@ -38,7 +38,12 @@ public:
     virtual void vfunc_1();
     virtual void vfunc_2();
     virtual void vfunc_3();
-    virtual void OnEntry(U64 id, Node* node);
+#if defined(HULK_PTR64)
+    // (decl1, find2 G6) as defined: vfunc_4 0x00266510 takes the key as two words, and natively a u64 is one register
+    virtual void OnEntry(unsigned int lo, unsigned int hi, Node* node);
+#else
+    virtual void OnEntry(U64 id, Node* node);   // 32-bit: the same two stack words, in the original's evaluation order
+#endif
     void FUN_00266220(Source* src);
 };
 struct Node_266280;
@@ -192,7 +197,11 @@ void Listener::FUN_00266220(Source* src)
     Node* n = it.FUN_00231640();
     if (n) {
         do {
+#if defined(HULK_PTR64)
+            { U64 k = it.FUN_00231530(); OnEntry((unsigned int)k, (unsigned int)(k >> 32), n); }   // (decl1, find2 G6)
+#else
             OnEntry(it.FUN_00231530(), n);
+#endif
             n = it.FUN_002314c0();
         } while (n);
     }

@@ -3076,7 +3076,7 @@ class CScenarioManager {
     void FUN_001ccfe0(bool);
     bool FUN_001ccff0();
     void FUN_001cd5b0(float);
-    void FUN_001cfb20(int arg);
+    void FUN_001cfb20(hulk_intptr arg);   // (decl1, find3) the argument is the World (0x00088670 passes `this`): pointer-sized
 };
 extern "C" char DAT_00421eac[], DAT_00421edc[], DAT_00421eec[], DAT_00421f0c[], DAT_00421f5c[], DAT_00421f6c[], DAT_00421f8c[];
 extern "C" char DAT_00421fac[], DAT_00421fdc[], DAT_00421fec[], DAT_0042200c[], DAT_0042205c[], DAT_0042206c[], DAT_0042208c[];
@@ -3112,7 +3112,7 @@ struct Registry_1cfb20 {
 };
 Registry_1cfb20 *FUN_001d4c90();
 
-void CScenarioManager::FUN_001cfb20(int arg)
+void CScenarioManager::FUN_001cfb20(hulk_intptr arg)
 {
     f4 = arg;
     Registry_1cfb20 *reg = FUN_001d4c90();

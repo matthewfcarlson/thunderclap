@@ -528,19 +528,22 @@ void CTriggerVolume_1fbec0::FUN_001fbec0(Vec3 *result) {
 // sym: ??0CLocator@fn_001fbf40@@QAE@XZ
 namespace fn_001fbf40 {
 extern "C" void _ReadWriteBarrier();
-class Entity_1fbf40 {
-  public:
-    Entity_1fbf40();
-    virtual void fn_00038290();
-};
-class CLocator : public Entity_1fbf40 {
+// (decl1, find3) pure3d::Entity's constructor 0x0027b070 by its address (a local base constructor had no definition
+// natively), and CLocator as a record with its vftable 0x00425120 stored by address (a local polymorphic stand-in got
+// clang's own vftable natively); pure3d::Entity's words as CLAUDE.md spells them (vftable + 3 words)
+extern "C" char DAT_00425120[];   // CLocator's vftable
+class CLocator {
   public:
     CLocator();
-    char pad[12];
+    void* vftable;
+    int words[3];
     int a, b, c, d;
     char flag;
+    CLocator* FUN_0027b070();   // pure3d::Entity::Entity
 };
 CLocator::CLocator() {
+    FUN_0027b070();
+    vftable = (void*)DAT_00425120;
     c = 0;
     _ReadWriteBarrier();
     b = 0;

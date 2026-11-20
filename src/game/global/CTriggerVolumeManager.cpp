@@ -4897,7 +4897,7 @@ public:
     void FUN_001fdf50();
     void FUN_001fd920();
     void FUN_001ff950();
-    void Register(int a);
+    void Register(hulk_intptr a);   // (decl1, find3) the argument is the World (0x00088670 passes `this`): pointer-sized
     int i0;
     int i4;
 };
@@ -4915,7 +4915,7 @@ VFT1(String, String, DAT_00425394, DAT_0042550c)
 VFT1(Void, Float, DAT_004253a4, &DAT_0042551c)
 #undef VFT1
 
-void CTriggerVolumeManager::Register(int a) {
+void CTriggerVolumeManager::Register(hulk_intptr a) {
     i4 = a;
     Registry* r = FUN_001d4c90();
     if (r) {

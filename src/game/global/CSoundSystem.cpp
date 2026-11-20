@@ -176,7 +176,7 @@ class Function_1f11f0 {
 };
 extern char DAT_0042476c[];
 extern "C" void *__cdecl FUN_00263ed0(int size, int tag);
-void *__cdecl FUN_0008d710(int size, int tag);
+extern "C" void* __cdecl FUN_0008d710(hulk_intptr size, int heap);   // (decl1, census1 S11) as defined (unk_08ceb0.cpp): the C++ spellings bound nowhere natively, so the sound heap was never created
 struct SoundBank_1f1270 {
     hulk_intptr vptr;
     int f04;
@@ -248,7 +248,7 @@ struct Key_1f13b0 {
     void FUN_001f0090(void* source);
 };
 struct Bucket_1f13b0;
-extern void* __cdecl FUN_0008d710(unsigned int size, unsigned int kind);
+extern "C" void* __cdecl FUN_0008d710(hulk_intptr size, int heap);   // (decl1, census1 S11) as defined (unk_08ceb0.cpp): the C++ spellings bound nowhere natively, so the sound heap was never created
 struct Item {
   public:
     void *FUN_001f0150(void *, void *, void *);
@@ -1083,7 +1083,7 @@ pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
 namespace fn_ffeee61e {
 
 // 0x001f1270 FUN_001f1270 (153 B): equivalent/0x001f1270.cpp
-// sym: ?FUN_001f1270@SoundResourceManager@fn_ffeee61e@@QAEPAV12@XZ @f05344da7020 @wea39432e40d9 @v17e6e89e52d9
+// sym: ?FUN_001f1270@SoundResourceManager@fn_ffeee61e@@QAEPAV12@XZ @f05344da7020 @wea39432e40d9 @v448c2561e672
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 4/4)
 // FUN_001f1270 @ 0x001f1270
 SoundResourceManager *SoundResourceManager::FUN_001f1270()
@@ -1151,7 +1151,7 @@ void Owner_1f1350::Run(int arg) {
 
 
 // 0x001f13b0 FUN_001f13b0 (198 B): equivalent/0x001f13b0.cpp
-// sym: ?FUN_001f13b0@Object@fn_ffeee61e@@QAEXPAX0@Z @89f4dc83a813 @wed70a225d761 @vdcde592aa594
+// sym: ?FUN_001f13b0@Object@fn_ffeee61e@@QAEXPAX0@Z @89f4dc83a813 @wed70a225d761 @v91b45abb973a
 // STATUS: equivalent (tools/equiv.py level 3: 2989 inputs, branch coverage 14/14)
 // FUN_001f13b0 @ 0x001f13b0
 void Object::FUN_001f13b0(void* value, void* source) {
@@ -1183,7 +1183,7 @@ void Object::FUN_001f13b0(void* value, void* source) {
 } // namespace fn_ffeee61e
 
 // 0x001f1480 FUN_001f1480 (182 B): equivalent/0x001f1480.cpp [wrapped: conflict: Node]
-// sym: ?FUN_001f1480@Owner_1f1480@fn_001f1480@@QAEXPAX0M@Z @863527e3beb7 @w510e17cf4f7e @v919b0bf52d67
+// sym: ?FUN_001f1480@Owner_1f1480@fn_001f1480@@QAEXPAX0M@Z @863527e3beb7 @w510e17cf4f7e @v44c1b536ba24
 namespace fn_001f1480 {
 // STATUS: equivalent (tools/equiv.py level 3: 2989 inputs, branch coverage 12/12)
 // FUN_001f1480 @ 0x001f1480
@@ -1193,7 +1193,7 @@ struct Key_1f1480 { Part_1f1480 parts[8]; char extra[8]; void FUN_001f0090(void*
 struct Node;
 struct Group_1f1480 { char pad[4]; Node* head; };
 struct Node { char pad[8]; Group_1f1480* group; Node* next; unsigned a,b; float weight; unsigned tail; void FUN_0027af00();  };
-extern void* __cdecl FUN_0008d710(unsigned,unsigned);
+extern "C" void* __cdecl FUN_0008d710(hulk_intptr size, int heap);   // (decl1, census1 S11) as defined (unk_08ceb0.cpp): the C++ spellings bound nowhere natively, so the sound heap was never created
 struct Owner_1f1480 { Group_1f1480* FUN_001efb80(Key_1f1480*); void FUN_001f1480(void*,void*,float); };
 void Owner_1f1480::FUN_001f1480(void* value, void* key, float weight) {
  Key_1f1480 temporary;
@@ -1221,7 +1221,7 @@ void Owner_1f1480::FUN_001f1480(void* value, void* key, float weight) {
 namespace fn_ffeee61e {
 
 // 0x001f1540 FUN_001f1540 (90 B): equivalent/0x001f1540.cpp
-// sym: ?FUN_001f1540@fn_ffeee61e@@YGXPAX00@Z @180fe9376142 @w38c60b89b855 @vcfb052e32550
+// sym: ?FUN_001f1540@fn_ffeee61e@@YGXPAX00@Z @180fe9376142 @w38c60b89b855 @vaaf506ac8bc1
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_001f1540 @ 0x001f1540
 void __stdcall FUN_001f1540(void *a, void *b, void *c) {
@@ -1239,14 +1239,14 @@ void __stdcall FUN_001f1540(void *a, void *b, void *c) {
 
 
 // 0x001f15a0 FUN_001f15a0 (90 B): equivalent/0x001f15a0.cpp
-// sym: ?FUN_001f15a0@fn_ffeee61e@@YGXPAX00@Z @1d9cc2d9ef5c @w50ad66a5de8b @vd43e28b467c2
+// sym: ?FUN_001f15a0@fn_ffeee61e@@YGXPAX00@Z @1d9cc2d9ef5c @w50ad66a5de8b @v620796ded6ad
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_001f15a0 @ 0x001f15a0
 void __stdcall FUN_001f15a0(void *a, void *b, void *c) { if (!a || !b) return; Manager *manager = (*(Manager**)&DAT_004e3710); if (!manager) return; Item *item = (Item *)FUN_0008d710(0x20, 6); if (item) item = item->FUN_001f01c0(a, b, c); manager->FUN_001ef260(item); }
 
 
 // 0x001f1600 FUN_001f1600 (105 B): equivalent/0x001f1600.cpp
-// sym: ?FUN_001f1600@fn_ffeee61e@@YGXHHHHHH@Z @9b564625df3c @w040a60ea6b48 @v978f33aa2464
+// sym: ?FUN_001f1600@fn_ffeee61e@@YGXHHHHHH@Z @9b564625df3c @w040a60ea6b48 @va5ccf8cde32d
 // STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 8/8)
 // FUN_001f1600 @ 0x001f1600
 void __stdcall FUN_001f1600(int a, int b, int c, int d, int e, int f)
@@ -1266,7 +1266,7 @@ void __stdcall FUN_001f1600(int a, int b, int c, int d, int e, int f)
 
 
 // 0x001f1670 FUN_001f1670 (100 B): equivalent/0x001f1670.cpp
-// sym: ?FUN_001f1670@fn_ffeee61e@@YGXHHHHH@Z @db0867fa44a1 @wdb9fb240f61b @v2154f8d8987b
+// sym: ?FUN_001f1670@fn_ffeee61e@@YGXHHHHH@Z @db0867fa44a1 @wdb9fb240f61b @v5cd51bb59424
 // STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 8/8)
 // FUN_001f1670 @ 0x001f1670
 void __stdcall FUN_001f1670(int a, int b, int c, int d, int e)
@@ -1286,7 +1286,7 @@ void __stdcall FUN_001f1670(int a, int b, int c, int d, int e)
 
 
 // 0x001f16e0 FUN_001f16e0 (95 B): equivalent/0x001f16e0.cpp
-// sym: ?FUN_001f16e0@fn_ffeee61e@@YGXPAX0II@Z @f7689a46a6f1 @w1c57d30fa4b6 @v170e560346ab
+// sym: ?FUN_001f16e0@fn_ffeee61e@@YGXPAX0II@Z @f7689a46a6f1 @w1c57d30fa4b6 @v104827c35e84
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_001f16e0 @ 0x001f16e0
 void __stdcall FUN_001f16e0(void* a, void* b, unsigned c, unsigned d) {

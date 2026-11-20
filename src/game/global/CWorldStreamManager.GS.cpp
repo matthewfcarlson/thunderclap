@@ -102,7 +102,7 @@ public:
     char padAF6[6];
     unsigned int fAFC;
 
-    Handle_203e90* Run(const char* name, bool a2, bool a3, Actor_203e90* actor, Target_203e90* target, int a6, int a7);
+    Handle_203e90* Run(const char* name, bool a2, bool a3, Actor_203e90* actor, Target_203e90* target, hulk_intptr a6, int a7);
 };
 struct Frame_204d70 { char buf[32];  };
 struct Rec_204d70 { char pad[0x38]; int v38; };
@@ -260,7 +260,7 @@ int Holder_203bb0::FUN_00203bb0()
 // sym: ?Run@Owner_203e90@fn_f43ea553@@QAEPAVHandle_203e90@2@PBD_N1PAUActor_203e90@2@PAUTarget_203e90@2@HH@Z @38bebf6837aa @w3bc73b346e87 @v615fd4c678cb
 // STATUS: equivalent (tools/equiv.py level 3: 9174 inputs, branch coverage 30/30)
 // FUN_00203e90 @ 0x00203e90
-Handle_203e90* Owner_203e90::Run(const char* name, bool a2, bool a3, Actor_203e90* actor, Target_203e90* target, int a6, int a7)
+Handle_203e90* Owner_203e90::Run(const char* name, bool a2, bool a3, Actor_203e90* actor, Target_203e90* target, hulk_intptr a6, int a7)   // (decl1, recs1 Q5) a6 is the callback (a pointer)
 {
     struct Frame {
         Handle_203e90* out;
@@ -1025,7 +1025,7 @@ public:
     char pending;           // 0xaf2
     int FUN_00204c10(int v);
     void FUN_00207080(int v);
-    Handle_207580 *FUN_00203e90(char *path, int a, int b, char *slot, int c, int d, int e);
+    Handle_207580 *FUN_00203e90(char *path, int a, int b, char *slot, hulk_intptr c, hulk_intptr d, int e);   // (decl1, recs1 Q5) the target and the callback pointer-sized
     void FUN_002067d0(int id, int v);
     bool FUN_00207580(int a1, bool a2);
 };

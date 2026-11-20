@@ -142,7 +142,7 @@ class Arg_b3c90 {
 void* operator new(size_t);
 namespace fn_f8cdf61b {
 struct CSimController_b3c90 {
-    Controller_b3c90* Build_000b3b80(int);
+    Controller_b3c90* Build_000b3b80(void*);   // (decl1, find2 G18) as defined (0x000b3b80 takes the Ref as a pointer)
 };
 class CSimControllerManager_b3c90 {
   public:
@@ -467,7 +467,7 @@ CSimControllerManager_b3c90* CSimControllerManager_b3c90::ctor(Arg_b3c90* a) {
     void* p = operator new(sizeof(fn_000b3b80::CSimController));   // (sweep2, find2 G18) the record the constructor builds
     Controller_b3c90* c;
     if (p) {
-        c = ((CSimController_b3c90*)p)->Build_000b3b80(((int)((owners::C_ae640 *)a)->FUN_000ae640(0)));
+        c = ((CSimController_b3c90*)p)->Build_000b3b80((void*)((owners::C_ae640 *)a)->FUN_000ae640(0));   // (decl1, find2 G18)
     } else
         c = 0;
     controller = c;

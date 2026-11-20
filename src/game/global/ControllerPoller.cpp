@@ -350,25 +350,29 @@ hulk_freg ControllerState::vfunc_11(int i) {
 
 
 // 0x000dd940 FUN_000dd940 (37 B): matches/0x000dd940.cpp [wrapped: conflict: ControllerPoller]
-// sym: ??0ControllerPoller@fn_000dd940@@QAE@HH@Z
+// sym: ??0ControllerPoller@fn_000dd940@@QAE@PAX0@Z
 namespace fn_000dd940 {
-class ControllerPollerBase_dd940 {
+// (decl1) the controllers and the FEThings are pointers (FUN_000fc060 passes them; int truncated them natively), and
+// so are the words that store them here (gen's ControllerPoller f_08 / f_38 and the base's f_04 still say int: the
+// controllers go on to 0x000dd710 ControllerState's constructor, also an int there: the next link). The base constructor
+// 0x000de140 is called by its address (a local base constructor had no definition natively), and the object is a
+// record with the game's vftable stored by address (a local polymorphic stand-in got clang's own vftable).
+extern int hulk_at_0040bce8;
+class ControllerPoller {
   public:
-    virtual void Dummy_000de4e0();
-    ControllerPollerBase_dd940(int);
-};
-class ControllerPoller : public ControllerPollerBase_dd940 {
-  public:
-    virtual double Poll_000de590(int, int);
-    char pad[4];
-    int m8;
+    void* vftable;
+    void* p04;
+    void* m8;
     char pad2[0x2c];
-    int m38;
-    ControllerPoller(int a, int b);
+    void* m38;
+    ControllerPoller(void* a, void* b);
+    ControllerPoller* FUN_000de140(void* x);   // ControllerPollerBase's constructor (ControllerPollerBase.cpp)
 };
-ControllerPoller::ControllerPoller(int a, int b) : ControllerPollerBase_dd940(b) {
+ControllerPoller::ControllerPoller(void* a, void* b) {
+    FUN_000de140(b);
     m8 = b;
     m38 = a;
+    vftable = &hulk_at_0040bce8;
 }
 } // namespace fn_000dd940
 

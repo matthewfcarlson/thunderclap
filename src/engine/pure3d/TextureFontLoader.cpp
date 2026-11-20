@@ -109,7 +109,7 @@ class Obj_295220 {
 };
 class Other_295250 {
   public:
-    int Fng_00294ed0(int);
+    int Fng_00294ed0(unsigned short);   // (decl1) as defined (0x00294ed0 takes the key as unsigned short)
 };
 extern "C" char DAT_0042d1b0[];
 class TextureFontLoader : public HulkChunkHandler {

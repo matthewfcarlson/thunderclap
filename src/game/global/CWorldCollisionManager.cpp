@@ -663,9 +663,9 @@ void Method1_2023c0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (v
 namespace fn_f0f2b8a0 {
 
 // 0x002023e0 FUN_002023e0 (79 B): matches/0x002023e0.cpp
-// sym: ?FUN_002023e0@fn_f0f2b8a0@@YIPAVCWorldCollisionManager_2023e0@1@PAV21@PAX@Z
+// sym: ?FUN_002023e0@fn_f0f2b8a0@@YIPAVCWorldCollisionManager_2023e0@1@PAV21@@Z
 // data: global64 = DAT_004d293c
-CWorldCollisionManager_2023e0* __fastcall FUN_002023e0(CWorldCollisionManager_2023e0* s, void*) {
+CWorldCollisionManager_2023e0* __fastcall FUN_002023e0(CWorldCollisionManager_2023e0* s) {   // (decl1, find3) the constructor takes only `this` (edx is unused; the caller 0x00088670 calls it as a member)
     Head_2023e0* h = &s->head;
     s->vf = (void*)((hulk_intptr)DAT_004259f8);
     h->x = 0;

@@ -306,8 +306,8 @@ class B_86da0 {
     void a();
 };
 bool b80();
-void thunk();
-void f656a0();
+// (decl1) `thunk` / `f656a0` -> common.h's thunk_FUN_00270a50 (the jmp thunk 0x002696a0 to 0x00270a50) and game/global.h's
+// FUN_002656a0: the invented names had no definition natively
 class C_86da0 {
   public:
 };
@@ -384,9 +384,12 @@ struct Ctx_88670 {
     Cfg_88670 *FUN_00086380();
 };
 struct CSimControllerManager_nv_88670 {
-    CSimControllerManager *FUN_000b3c90(int a);
+    CSimControllerManager *FUN_000b3c90(void* a);   // (decl1, find2 G16) as defined (0x000b3c90 takes a pointer)
     void FUN_000b3d00();
 };
+// (decl1, find2 G16) the free fastcall 0x00086380 (`target` here) by its address, as a distinct overload so MSVC
+// does not inline the definition into 0x00088670
+hulk_uintptr __fastcall FUN_00086380(void* self);
 struct CCameraManager_nv_88670 {
     CCameraManager *FUN_0009dd20();
 };
@@ -1351,8 +1354,8 @@ void A_86da0::run() {
     if (x)
         x->a();
     else {
-        thunk();
-        f656a0();
+        thunk_FUN_00270a50();
+        FUN_002656a0();
     }
     if (y)
         ((owners::Thing_1eb2a0 *)y)->FUN_001eb2a0(0, 0);
@@ -2349,18 +2352,18 @@ World::World()
 namespace fn_f5b26912 {
 
 // 0x00088670 FUN_00088670 (713 B): equivalent/0x00088670.cpp
-// sym: ?FUN_00088670@Sim_88670@fn_f5b26912@@QAEXPAUCtx_88670@2@H@Z @c6201aef935b @w59e4b2687fbb @v132949355606
+// sym: ?FUN_00088670@Sim_88670@fn_f5b26912@@QAEXPAUCtx_88670@2@H@Z @c6201aef935b @w59e4b2687fbb @v0225141af03f
 // STATUS: equivalent (tools/equiv.py level 3: 20023 inputs, branch coverage 34/34)
 // FUN_00088670 @ 0x00088670
 void Sim_88670::FUN_00088670(Ctx_88670 *arg0, hulk_intptr arg1)
 {
     ctx = arg0;
     p58 = arg0->FUN_00086320();
-    cfg50 = arg0->FUN_00086380();
+    cfg50 = (Cfg_88670*)FUN_00086380(arg0);   // (decl1, find2 G16) 0x00086380 is a free fastcall (a member spelling bound nowhere natively)
 
     CSimControllerManager *ta = (CSimControllerManager *)FUN_0008d690((int)sizeof(::CSimControllerManager));   // (allocsize1) gen's record
     if (ta)
-        ta = ((CSimControllerManager_nv_88670*)(ta))->FUN_000b3c90(arg1);
+        ta = ((CSimControllerManager_nv_88670*)(ta))->FUN_000b3c90((void*)arg1);   // (decl1, find2 G16)
     a = ta;
     ((CSimControllerManager_nv_88670*)(ta))->FUN_000b3d00();
 
@@ -2439,7 +2442,7 @@ void Sim_88670::FUN_00088670(Ctx_88670 *arg0, hulk_intptr arg1)
     if (tm)
         tm = ((CSimOverlayManager_nv_88670*)(tm))->FUN_000d75c0();
     m = tm;
-    int arg_v2c = ctx->FUN_00086380()->v2c; // MSVC evaluates the argument before loading the receiver m
+    int arg_v2c = ((Cfg_88670*)FUN_00086380(ctx))->v2c;   // (decl1, find2 G16) // MSVC evaluates the argument before loading the receiver m
     ((owners::A_d6f00 *)(((CSimOverlayManager_nv_88670*)(m))))->FUN_000d6f00(arg_v2c);
 
     CExtraRenderingCallback *tn = (CExtraRenderingCallback *)FUN_0008d690(0x2c);

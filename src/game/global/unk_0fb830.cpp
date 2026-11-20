@@ -37,15 +37,15 @@ namespace fn_f5c759cd {
 class FEThings_fc060;
 class ControllerPoller_fc060 {
 public:
-    ControllerPoller_fc060(int a, FEThings_fc060* mgr);
+    ControllerPoller_fc060* FUN_000dd940(void* controllers, FEThings_fc060* things);   // (decl1) the constructor by its address
     virtual void v0();
 };
 class FEThings_fc060 {
 public:
-    FEThings_fc060(int a);
+    FEThings_fc060* FUN_000ddbf0(void* view);   // (decl1) the constructor by its address (it takes the View)
     char pad0[0x182c];
     ControllerPoller_fc060* overlay;
-    void FUN_000dddc0(int a, int b);
+    void FUN_000dddc0(void* a, void* b);   // (decl1) as defined (pointers)
 };
 class CAction {
   public:
@@ -98,24 +98,24 @@ struct Obj_fc1a0 {
     void Target_000dde50();
 };
 struct Obj_fc1c0 {
-    int Fnf_000dddf0(unsigned int);
+    char Fnf_000dddf0(void*);   // (decl1) as defined (Target_dddf0::Run(void*): the path)
 };
 struct Inner_fc1e0 {
-    void run_000df7b0(unsigned int, unsigned int);
+    void run_000df7b0(const char*, void*);   // (decl1, find2 G13) the name and the handler are pointers
 };
 struct Obj_fc1e0 {
     int pad;
     Inner_fc1e0* field;
 };
 struct Inner_fc200 {
-    void run_000df820(unsigned int, unsigned int);
+    void run_000df820(const char*, void*);   // (decl1, find2 G13) the name and the handler are pointers
 };
 struct Obj_fc200 {
     int pad;
     Inner_fc200* field;
 };
 struct Inner_fc220 {
-    void run_000df890(unsigned int, unsigned int);
+    void run_000df890(const char*, void*);   // (decl1, find2 G13) the name and the handler are pointers
 };
 struct Obj_fc220 {
     int pad;
@@ -574,22 +574,22 @@ extern "C" void FUN_000fc020(hulk_uintptr a, U_fc020 b, hulk_uintptr c, ...) {
 
 
 // 0x000fc060 FUN_000fc060 (121 B): equivalent/0x000fc060.cpp
-// sym: _FUN_000fc060 @9a41a4804c2a @w61636d92011b @v8bb3f5414e79
+// sym: _FUN_000fc060 @722d34f55197 @w20f0998a773c @vb77cc6aed7ef
 // STATUS: equivalent (tools/equiv.py level 3: 19802 inputs, branch coverage 4/4)
 // FUN_000fc060 @ 0x000fc060
-// equiv-map: ??0Manager@@QAE@H@Z = 0x000ddbf0
-// equiv-map: ??0Overlay@@QAE@HPAVManager@@@Z = 0x000dd940
-extern "C" void FUN_000fc060(int a1, int a2, int a3, int a4) {
+// (decl1) the file name, the controllers, the sound manager and the View are pointers (int truncated them natively);
+// the two constructors are called by their addresses (local constructors had no definition natively)
+extern "C" void FUN_000fc060(const char* a1, void* a2, void* a3, void* a4) {
     void* mem = FUN_0008d690(0x223c);
     FEThings_fc060* mgr = 0;
     if (mem)
-        mgr = new (mem) FEThings_fc060(a4);
+        mgr = ((FEThings_fc060*)mem)->FUN_000ddbf0(a4);
     (*(FEThings_fc060**)&DAT_004e0a60) = mgr;
-    mgr->FUN_000dddc0(a1, a3);
+    mgr->FUN_000dddc0((void*)a1, a3);
     void* mem2 = FUN_0008d690((int)sizeof(::ControllerPoller));   // (allocsize1) gen's record
     ControllerPoller_fc060* ov = 0;
     if (mem2)
-        ov = new (mem2) ControllerPoller_fc060(a2, (*(FEThings_fc060**)&DAT_004e0a60));
+        ov = ((ControllerPoller_fc060*)mem2)->FUN_000dd940(a2, (*(FEThings_fc060**)&DAT_004e0a60));
     (*(ControllerPoller_fc060**)&DAT_004e0a64) = ov;
     ov->v0();
     (*(FEThings_fc060**)&DAT_004e0a60)->overlay = (*(ControllerPoller_fc060**)&DAT_004e0a64);
@@ -656,7 +656,7 @@ extern "C" void __cdecl FUN_000fc1a0(void) {
 } // namespace fn_f5c759cd
 
 // 0x000fc1b0 FUN_000fc1b0 (14 B): matches/0x000fc1b0.cpp [wrapped: conflict: FUN_000fc1b0]
-// sym: ?FUN_000fc1b0@fn_000fc1b0@@YAHXZ
+// sym: ?FUN_000fc1b0@fn_000fc1b0@@YAPAXXZ
 namespace fn_000fc1b0 {
 
 class A_fc1b0 {
@@ -705,7 +705,7 @@ class A_fc1b0 {
     virtual void f41();
     virtual void f42();
     virtual void f43();
-    virtual int f44();
+    virtual void* f44();   // (decl1, find2 G15) FEThings::vfunc_44 returns the widget pointer
     virtual void f45();
     virtual void f46();
     virtual void f47();
@@ -839,7 +839,7 @@ class A_fc1b0 {
     virtual void f175();
     virtual void f176();
 };
-hulk_intptr FUN_000fc1b0() {
+void* FUN_000fc1b0() {   // (decl1, find2 G15) the FE widget is a pointer (an int return truncated it natively)
     return (*(A_fc1b0**)&DAT_004e0a60)->f44();
 }
 } // namespace fn_000fc1b0
@@ -850,7 +850,7 @@ namespace fn_f5c759cd {
 // sym: _FUN_000fc1c0
 // Same code shape as 0x000fc130 (propagated; names are from that function)
 // data: gObject_fc1c0 = DAT_004e0a60
-extern "C" int __cdecl FUN_000fc1c0(unsigned int value) {
+extern "C" char __cdecl FUN_000fc1c0(void* value) {   // (decl1) the path (unsigned int truncated it natively); the result is the callee's char
     return (*(Obj_fc1c0**)&DAT_004e0a60)->Fnf_000dddf0(value);
 }
 
@@ -858,7 +858,7 @@ extern "C" int __cdecl FUN_000fc1c0(unsigned int value) {
 // 0x000fc1e0 FUN_000fc1e0 (32 B): matches/0x000fc1e0.cpp
 // sym: _FUN_000fc1e0
 // data: g_flag_fc1e0 = DAT_004e0a68, g_obj_fc1e0 = DAT_004e0a60
-extern "C" void FUN_000fc1e0(unsigned int a, unsigned int b) {
+extern "C" void FUN_000fc1e0(const char* a, void* b) {   // (decl1, find2 G13) the callback name and handler (unsigned truncated them natively)
     (*(Obj_fc1e0**)&DAT_004e0a60)->field->run_000df7b0(a, b);
     (*(unsigned char*)&DAT_004e0a68) = 1;
 }
@@ -868,7 +868,7 @@ extern "C" void FUN_000fc1e0(unsigned int a, unsigned int b) {
 // sym: _FUN_000fc200
 // Same code shape as 0x000fc1e0 (propagated; names are from that function)
 // data: g_flag_fc200 = DAT_004e0a68, g_obj_fc200 = DAT_004e0a60
-extern "C" void FUN_000fc200(unsigned int a, unsigned int b) {
+extern "C" void FUN_000fc200(const char* a, void* b) {   // (decl1, find2 G13) the callback name and handler (unsigned truncated them natively)
     (*(Obj_fc200**)&DAT_004e0a60)->field->run_000df820(a, b);
     (*(unsigned char*)&DAT_004e0a68) = 1;
 }
@@ -878,7 +878,7 @@ extern "C" void FUN_000fc200(unsigned int a, unsigned int b) {
 // sym: _FUN_000fc220
 // Same code shape as 0x000fc1e0 (propagated; names are from that function)
 // data: g_flag_fc220 = DAT_004e0a68, g_obj_fc220 = DAT_004e0a60
-extern "C" void FUN_000fc220(unsigned int a, unsigned int b) {
+extern "C" void FUN_000fc220(const char* a, void* b) {   // (decl1, find2 G13) the callback name and handler (unsigned truncated them natively)
     (*(Obj_fc220**)&DAT_004e0a60)->field->run_000df890(a, b);
     (*(unsigned char*)&DAT_004e0a68) = 1;
 }

@@ -3372,7 +3372,7 @@ public:
 
     void FUN_00203e30(Playing_207960 *p);
     void FUN_00207410();
-    Playing_207960 *FUN_00203e90(int a, Flag_207960 flag, int z0, int z1, int entry, int first, int seven);
+    Playing_207960 *FUN_00203e90(hulk_intptr a, Flag_207960 flag, int z0, hulk_intptr z1, hulk_intptr entry, hulk_intptr first, int seven);   // (decl1, recs1 Q5) pointer-sized where 0x00203e90 takes pointers (the name, the actor, the target, the callback)
     void FUN_00207960(int a, int index, Flag_207960 flag);
 };
 

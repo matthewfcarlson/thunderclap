@@ -1931,3 +1931,27 @@ blocks fight::Action's whole family: the records come first there.
   D152 item, integ3).
 - 0x002e11e0 (PrimGroupStreamed, D80: x and y in st, z through a float slot) lands here too; its MSVC proof needed a
   36,000-unit budget.
+
+## 2026-11-20 decl1: start-up declaration stops (find1/find2/find3), census S11, recs1 Q5
+
+- 17 TUs. find1 F8/F10/F12b/F13: the FE things' file name, controllers, sound manager and View are pointers in
+  0x000fc060, and its constructors are called by their addresses. 0x000fc1c0 passes the path as a pointer, and the
+  call returns the callee's char. 0x000bc3c0 / 0x000f7080 / 0x000f76c0 / 0x000f7790 are free __stdcall functions that
+  callers had declared as members (now `static __stdcall`). 0x00294ed0's key is `unsigned short`.
+- find2 G4/G6: the inventory slots 3 / 4 take a 64-bit key as two words. Natively their views pass the halves; the
+  32-bit side keeps the u64 behind `#if defined(HULK_PTR64)`, so 0x00266220 stays a MATCH.
+- find2 G13/G15/G16/G18: the FE callback wrappers take (const char*, void*). 0x000fc1b0 returns the widget as a
+  pointer. 0x00088670 calls the free fastcall 0x00086380 through a distinct `FUN_00086380(void*)` declaration: with the
+  TU's own definition (`target`) visible, MSVC inlined the call and the equivalence run saw a call missing. The
+  CSimControllerManager and CSimController constructors take their pointers.
+- find3 (World init): 0x002023e0's definition loses an unused second fastcall parameter. The callers call it as a
+  member, so the declarations now agree natively. 0x00200c10 / 0x001cfb20 take the World as `hulk_intptr`. CLocator
+  0x001fbf40 is a record with its vftable stored by address, calling pure3d::Entity's constructor 0x0027b070 by its
+  address. The caller of 0x001d1900 declares the parameter `hulk_intptr`, as defined.
+- census1 S11: CSoundSystem's three C++ spellings of the allocator 0x0008d710 are now the C declaration (the sound heap
+  was never created natively). Its 0x340 / 0x20 / 0x28 literal sizes stay: gen's 32-bit sizes for those command
+  classes differ from the literals, so they go to the records/allocation lane.
+- recs1 Q5: 0x00203e90's callback and the om attribute slots' object words are `hulk_intptr`, on the definitions and
+  their callers. MSVC code and checker views are unchanged, so no re-proofs.
+- Re-proven at 3,000 compared inputs (MSVC and Wine; hashes recorded by a queue job): 0x000fc060, 0x000c1790,
+  0x000c1f70, 0x000c3900, 0x00088670, 0x000f7a80, and 0x001f1270 .. 0x001f16e0 (8 blocks).

@@ -6467,3 +6467,7 @@ the literal before writing `sizeof(::Gen)`.
 - Left as 32-bit pads (about 20 views): Target_f42c0 (a pointer at 0x1d98, inside gen's name buffers),
   Runner_f5fa0 (a word at 0x220c where gen has a pointer), Node, Context, Owner_e5330, the 0x160c views and the
   0x1d58 .. 0x1da8 views. Typing gen's 0x1c74 .. 0x2074 block from them comes next.
+
+## decl1 (2026-11-20): start-up declaration stops (find1/2/3, S11, Q5)
+
+- 17 TUs, 14 equivalent blocks re-proven (ledger lines in this commit). Details in docs/journal.md (2026-11-20 decl1).
