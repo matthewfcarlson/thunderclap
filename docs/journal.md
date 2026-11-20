@@ -2046,3 +2046,21 @@ blocks fight::Action's whole family: the records come first there.
   and its callers, then made to agree in gen, the tree and the stand-ins.
 - With ASLR off (lldb's default) native start-up takes a different path (stops in the front end); debug with
   `settings set target.disable-aslr false`.
+
+## 2026-11-20 integ5: proof-integrity findings (post contracts, D157, equiv speed, sharded proofs)
+
+- Post contracts landed (2d40b0115), then a bug in them (74443f404): equiv64 `_post_proven` compared a block pin's `@v`
+  with each ledger line's view, but `@v` is the digest of the msvc and wine views together, so no tree block's post was
+  ever used outside `EQ64_OFF=postproof`. It failed closed (false layouts, never a false pass). Lesson: a regress case run
+  with a development switch (`postproof`) does not exercise the production path; the forced x64 gate on the real block
+  (0x001fa7d0) found it. 0x001fa7d0 left the x64 baseline (944aa58ad).
+- D157 (e5a2d3e62): verify reports equivalent blocks whose exact (addr, mode, code) the unproven baseline lists
+  (`unproven_baseline_exempt`) instead of failing; HEAD's whole-tree verify failed only on those 148 modes.
+- gfx1's gen slot-type change (35ed44382) broke two regress cases' copies of the edited blocks (compile_error); a gen or
+  tree signature change needs `grep -l` over tests/equiv/cases for the old symbol.
+- equiv.py speed (D155a, f8f67fd1d): a slow proof is ~90% Python hook logic (per instruction and per stubbed call);
+  bypassing the unicorn binding's wrappers gives 1.05-1.2x on the same host (mac2: 0x88020 177 -> 149 s). A laptop A/B
+  under load showed the opposite (contention): measure speed on one queue host. Bigger gains need the hook logic out of
+  Python; sharding (D155c, 8bbae1421) is the wall-clock lever: N jobs on disjoint seed classes, merged with per-field
+  default-deny rules, compared inputs counted by distinct keys. An unsharded run compares ~1% of its (seed, overlay,
+  patch) triples twice (801 keys for 810 compared): follow-up to count distinct inputs everywhere.
