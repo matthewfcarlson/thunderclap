@@ -1964,6 +1964,8 @@ class Checker:
             if "allocty" not in OFF and "allocregion" not in OFF else {}
         self.range32 = self.img[32].func_range(name32)
         self.ast_digest = ast_digest(c32, c64)
+        if "post" not in OFF:
+            post_macro_check(c32.get_definition() or c32, self)
 
     def _pick_by_original(self):
         """The MSVC 7.1 object of the source names the function (equiv.py's natmap); else the only external function."""
@@ -2216,6 +2218,21 @@ class Checker:
         self.stubs.append(st)
         self.stub_by_key[key] = st
         return st
+
+    def post_of(self, name):
+        """(integ4, post) The post items of the function NAME stands for: FUN_<addr> in it, or (rev5) its 32-bit symbol
+        a tree block's `// sym:` pins (tree namespaces dropped). None without."""
+        if not hasattr(self, "_post_idx"):
+            try:
+                txt = open(self.src, errors="replace").read()
+            except OSError:
+                txt = ""
+            self._post_idx = post_contracts(txt)
+        m = re.search(r"FUN_([0-9a-fA-F]{8})", name or "")
+        if m:
+            return self._post_idx.get(int(m.group(1), 16))
+        a = self._post_idx.get("sym", {}).get(TREE_NS.sub("", name or ""))
+        return self._post_idx.get(a) if a is not None else None
 
     def stub_addr(self, key):
         return STUBS + 16 * self.stub_by_key[key].idx
@@ -2884,6 +2901,194 @@ def _pre_and(a, b):
     return ("range", lo, hi, li, hi_i)
 
 
+_POST_IDX = {}
+
+
+def post_contracts(extra=None):
+    """(integ4, post; rev5) {function address: [(n, cond)]} of the `// post: ... when ret` items of every tree block (src/,
+    scanned once) and of EXTRA (the source under check, a case file): a caller's stub of that function draws *argN inside
+    cond when it returns nonzero."""
+    import equiv
+    if "_" not in _POST_IDX:
+        _POST_IDX["_"] = {}
+        for dp, _dn, fns in os.walk(os.path.join(ROOT, "src")):
+            for f in fns:
+                if f.endswith(".cpp"):
+                    try:
+                        _post_of_text(open(os.path.join(dp, f), errors="replace").read(), _POST_IDX["_"])
+                    except OSError:
+                        pass
+    if not extra:
+        return _POST_IDX["_"]
+    out = dict(_POST_IDX["_"])
+    _post_of_text(extra, out, header=True)
+    return out
+
+
+def _post_of_text(text, out, header=False):
+    """Fills OUT {address: items} and OUT["sym"] {32-bit symbol (the block's `// sym:` pin, tree namespaces dropped):
+    address}; (rev5) with LEDGER, a block whose current code has no proof is left out (callers fall back to the plain
+    fill). Block text ends at the next `// 0x` header."""
+    import equiv
+    if "// post:" not in text:
+        return out
+    blocks = re.split(r"\n(?=// 0x[0-9a-f]{8} )", text)
+    for blk in blocks:
+        m = re.match(r"// (0x[0-9a-f]{8}) ", blk)
+        fh = re.search(r"^// FUN_[0-9a-fA-F]{8} @ (0x[0-9a-fA-F]+)", blk, re.M) if header and not m else None
+        pl = re.findall(r"^\s*//\s*post:\s*(.*)$", blk, re.M)
+        if not pl:
+            continue
+        specs, bad = equiv._parse_post(pl)
+        if bad or not (m or fh):
+            continue        # (the block's own checks refuse it)
+        a = int((m or fh).group(1), 16)
+        sm = re.search(r"^// sym: (\S+)((?: @\S+)*)", blk, re.M)
+        if "postproof" not in OFF:
+            # (rev5) callers rely on a post only when the callee's current code has a proof (>= 50 checked nonzero
+            # returns make its run promotable): a ledger line for one of its modes' current (code, view). A case file's
+            # own statement (`// FUN_x @ 0x...`, no pins) counts only with EQ64_OFF=postproof (regress; proves nothing)
+            if not m or sm is None or not _post_proven(a, sm.group(2)):
+                continue
+        out[a] = specs
+        if sm is not None:
+            out.setdefault("sym", {})[TREE_NS.sub("", sm.group(1))] = a
+    return out
+
+
+_LEDGER_IDX = []
+
+
+def _post_proven(addr, pins):
+    """(integ4, post; rev5) Does the proof ledger hold a passing line for ADDR's current code in some mode (PINS: the
+    `// sym:` line's ` @msvc @wclang @vview` hashes)?"""
+    import tree_tu
+    if not _LEDGER_IDX:
+        _LEDGER_IDX.append(tree_tu.ledger_index() or set())
+    hs = pins.split()
+    code = {"msvc": None, "wine": None}
+    view = None
+    for h in hs:
+        if h.startswith("@w"):
+            code["wine"] = h[2:]
+        elif h.startswith("@v"):
+            view = h[2:]
+        elif h.startswith("@"):
+            code["msvc"] = h[1:]
+    a = "0x%08x" % addr
+    return any((a, m, c, view) in _LEDGER_IDX[0] for m, c in code.items() if c)
+
+
+def post_lines_of(fn):
+    """(integ4, post) The `// post:` lines of the comment block right above function FN's definition."""
+    try:
+        path, line = fn.extent.start.file.name, fn.extent.start.line
+        lines = open(path, errors="replace").read().splitlines()
+    except Exception:   # noqa: BLE001
+        return []
+    out = []
+    i = line - 2
+    while i >= 0 and lines[i].lstrip().startswith("//"):
+        m = re.match(r"^\s*//\s*post:\s*(.*)$", lines[i])
+        if m:
+            out.append(m.group(1))
+        i -= 1
+    return out[::-1]
+
+
+def _field_off32(t, name, depth=0):
+    """(integ4, post) The byte offset of field NAME in record type T (its own field or a base's), or None."""
+    if depth > 8:
+        return None
+    try:
+        o = t.get_canonical().get_offset(name)
+    except Exception:   # noqa: BLE001
+        o = -1
+    if o is not None and o >= 0:
+        return o // 8
+    d = t.get_canonical().get_declaration()
+    K = ci().CursorKind
+    for b in d.get_children():
+        if b.kind == K.CXX_BASE_SPECIFIER:
+            r = _field_off32(b.type, name, depth + 1)
+            if r is not None:
+                return (b.get_base_offsetof(d) // 8) + r
+    return None
+
+
+def post_operands(fn):
+    """(integ4, post) [(op, subject, bound, resolved)] of FN's HULK_POST_* macros: a member bound with its byte offset in
+    this parse's record (the 32-bit parse gives the original's), for the AST digest."""
+    try:
+        path, l0, l1 = fn.extent.start.file.name, fn.extent.start.line, fn.extent.end.line
+        import equiv
+        body = equiv._strip_comments("\n".join(open(path, errors="replace").read().splitlines()[l0 - 1:l1]))
+    except Exception:   # noqa: BLE001
+        return []
+    out = []
+    rec = fn.semantic_parent.type if fn.semantic_parent is not None else None
+    for op, args in re.findall(r"\bHULK_POST_(GT|GE|LT|LE)\s*\(([^;]*)\)\s*;", body):
+        a = [x.strip() for x in args.split(",")]
+        res = None
+        if len(a) == 2 and re.match(r"^[A-Za-z_]\w*$", a[1]) and rec is not None:
+            res = _field_off32(rec, a[1])
+        out.append([op] + a + [res])
+    return out
+
+
+def post_macro_check(fn, chk):
+    """(integ4, post; rev5) A block stating `// post: ... when ret`: its HULK_POST_GE/GT/LT/LE(*param, bound) macros and
+    its items must be the same claims, both ways: the subject the item's *argN (by the parameter's name, through a cast),
+    the bound the same constant or the field of this whose 32-bit offset the item names. Raises Unsupported otherwise."""
+    import equiv
+    pl = post_lines_of(fn)
+    try:
+        path, l0, l1 = fn.extent.start.file.name, fn.extent.start.line, fn.extent.end.line
+        body = equiv._strip_comments("\n".join(open(path, errors="replace").read().splitlines()[l0 - 1:l1]))
+    except Exception:   # noqa: BLE001
+        body = ""
+    macros = re.findall(r"\bHULK_POST_(GT|GE|LT|LE)\s*\(([^;]*)\)\s*;", body)
+    if not pl and not macros:
+        return
+    specs, bad = equiv._parse_post(pl)
+    if bad:
+        raise Unsupported("post: %s" % "; ".join(bad))
+    K = ci().CursorKind
+    params = [c.spelling for c in fn.get_children() if c.kind == K.PARM_DECL]
+    lay = None
+    if chk.sig is not None and chk.sig.method_record is not None:
+        lay = chk.types.layout(chk.sig.method_record[0], chk.sig.method_record[1])
+    inf = float("inf")
+    got = set()
+    for op, args in macros:
+        a = [x.strip() for x in args.split(",")]
+        if len(a) != 2:
+            raise Unsupported("post: HULK_POST_%s(%s): two operands" % (op, args))
+        m = re.match(r"^(?:\(\s*(?:unsigned\s+)?int\s*\))?\s*\*\s*([A-Za-z_]\w*)$", a[0])
+        if not m or m.group(1) not in params:
+            raise Unsupported("post: HULK_POST_%s(%s): the subject must be *parameter" % (op, args))
+        n = params.index(m.group(1)) + 1
+        if re.match(r"^[A-Za-z_]\w*$", a[1]):
+            def own_(path, nm):     # a field of the record or of one of its bases (path: base, key, ..., name)
+                return path[-1:] == (nm,) and all(path[i] == "base" for i in range(0, len(path) - 1, 2)) and \
+                    len(path) % 2 == 1
+            l = next((x for x in (lay.leaves if lay is not None else ()) if own_(x.path, a[1])), None)
+            if l is None:
+                raise Unsupported("post: HULK_POST_%s(%s): %s is no field of this" % (op, args, a[1]))
+            c = ("this32", l.o32)
+        else:
+            try:
+                c = equiv._pre_num(a[1])
+            except ValueError:
+                raise Unsupported("post: HULK_POST_%s(%s): the bound must be a constant or a field" % (op, args))
+        cond = {"GT": ("range", c, inf, False, True), "GE": ("range", c, inf, True, True),
+                "LT": ("range", -inf, c, True, False), "LE": ("range", -inf, c, True, True)}[op]
+        got.add((n, cond))
+    want = set(specs)
+    if got != want:
+        raise Unsupported("post: items %s, macros %s" % (sorted(map(str, want - got)), sorted(map(str, got - want))))
+
+
 def pre_relational_check(fn, addr):
     """(integ4, x64bounds; rev5) A block with a relational range item (`lt(argN, this->FIELD)`): the items and the
     HULK_PRE_* macros in the body must state the same claims, and its `// pre-callers:` lines must cite every
@@ -3272,6 +3477,12 @@ def ast_digest(c32, c64):
         # the allocation's untouched bytes, and a `void *` -> `Slot *` change leaves the code bytes alone
         parts["callret" + n] = callee_returns(fn)
         parts["pre" + n] = pre_lines_of(fn)     # (integ3, D152) a contract change re-runs the gate
+        # (integ4, post; rev5) the post items and the macros' resolved operands: an edit to either re-runs the gate's
+        # operand check (post_macro_check), which equiv.py's operator-only agreement relies on
+        try:
+            parts["post" + n] = [post_lines_of(fn), post_operands(fn)]
+        except Exception as ex_:    # noqa: BLE001
+            parts["post" + n] = "error: %s" % ex_
         parts["fcasts" + n] = sorted([list(k), sp(v)] for k, v in field_casts(fn).items())
         # (integ2, D103; rev5's R4) the data annotations of every global of the parse (HULK_RANGE / HULK_RDATA on any
         # declaration, with their comment blocks), not only of those the body names: a helper can read one
@@ -4219,9 +4430,12 @@ class Side:
         this_local = None
         nparam = 0
         sret_ptr = None
+        this_v = None
+        pvals = []          # (integ4, post) each parameter's word (a pointer's address)
         for (kind, t), loc in zip(kinds, locs):
             if kind == "this":
                 v = int.from_bytes(self.read_loc(loc, self.ps, sp), "little")
+                this_v = v
                 args.append(("this", self.canon_ptr(v)))
                 self.hint(v, sig.method_record)
                 if STACK_LO <= v < STACK_HI and sig.method_record is not None:
@@ -4235,6 +4449,7 @@ class Side:
                     # i386 passes such a record in an argument block clang builds in place (inalloca)
                     raise Unsupported("record with a copy constructor or destructor passed by value (%s)" % st.label)
                 data = self.value_bytes(t, loc, sp)
+                pvals.append(int.from_bytes(data[:self.ps], "little") if len(data) >= self.ps else None)
                 cv = self.canon_value(t, data, ptr_width_int(tt))
                 if cv[0] == "rec":
                     cv = self.canon_record(tt, data)
@@ -4269,7 +4484,64 @@ class Side:
             self.fill_out(this_local, (FakeType("POINTER", 4, sig.method_record[0]), FakeType("POINTER", 8, sig.method_record[1])),
                           st.key, n, 0)
         rv = self.stub_return(sig, st, n, sret, sret_ptr)
+        pa_ = self.chk.post_of(st.names.get(32) or name or st.label) if "post" not in OFF and st.kind == "func" else None
+        if pa_ and rv is not None and rv[0] == "int":
+            rv = self.post_fill(pa_, rv, sig, this_v, pvals, st, n)
         return self._ret(sp, retaddr, pop, rv, sig)
+
+    def post_fill(self, items, rv, sig, this_v, pvals, st, n):
+        """(integ4, post; rev5) A stubbed callee whose definition states `// post: ... when ret`: when the stub's result
+        is nonzero (al for a byte result), each *argN gets a value inside its items' bounds (a `*this+0xOFF` bound read
+        from the object in this, at the 32-bit offset's field on each side), drawn from the seed, the same on both sides;
+        with no value inside, the stub returns 0 (the definition can't return nonzero then). A zero result leaves the
+        out-parameters as the stub filled them."""
+        b = self.bits
+        rk = sig.ret[0].get_canonical().kind.name if isinstance(sig, Sig) else ""
+        v = rv[1]
+        if not ((v & 0xFF) if rk in ("BOOL", "CHAR_S", "UCHAR", "SCHAR", "CHAR_U") else v):
+            return rv
+        by_n = {}
+        for k, cond in items:
+            by_n.setdefault(k, []).append(cond)
+        writes = []
+        for k, conds in sorted(by_n.items()):
+            if k - 1 >= len(pvals) or pvals[k - 1] is None:
+                raise Unsupported("post: *arg%d of %s: no such parameter" % (k, st.label))
+            lo, hi = float("-inf"), float("inf")
+            for c in conds:
+                bnd = []
+                for x in c[1:3]:
+                    if isinstance(x, tuple):
+                        x = float(self.post_field(this_v, x[1], st))
+                    bnd.append(x)
+                l_ = bnd[0] if c[3] else bnd[0] + 1
+                h_ = bnd[1] if c[4] else bnd[1] - 1
+                lo, hi = max(lo, l_), min(hi, h_)
+            lo = max(lo, -(1 << 31))
+            hi = min(hi, (1 << 31) - 1)
+            if lo > hi:
+                return ("int", 0)
+            r = Rng(self.seed, "post", rng_key(st.key), n, k)
+            span = int(hi - lo) + 1
+            writes.append((pvals[k - 1], int(lo) + r.below(min(span, 1 << 30))))
+        for a, x in writes:
+            self.write(a, (x & M32).to_bytes(4, "little"))
+        return rv
+
+    def post_field(self, this_v, off32, st):
+        """(integ4, post) The signed 32-bit field at the original's offset OFF32 of the object THIS_V points at (its
+        record's leaf there, at that leaf's offset on this side)."""
+        o, off = self.heap.find(self.bits, this_v or 0)
+        if o is None or o.lay.raw:
+            raise Unsupported("post on %s: no typed object in this" % st.label)
+        es = o.lay.size(self.bits)
+        if off % es:
+            raise Unsupported("post on %s: this points inside an element" % st.label)
+        l = next((x for x in o.lay.leaves if x.o32 == off32 and x.kind == "i" and x.s32 == 4 and x.s64 == 4), None)
+        if l is None:
+            raise Unsupported("post on %s: no 4-byte integer field at +0x%x of %s" % (st.label, off32, o.lay.key))
+        v = int.from_bytes(self.read(this_v + l.off(self.bits), 4), "little")
+        return v - (1 << 32) if v & 0x80000000 else v
 
     def hint(self, v, pt):
         if pt is None or isinstance(pt[0], FakeType) or isinstance(pt[1], FakeType):

@@ -23,6 +23,16 @@ CASES_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "cases")
 # name: (expected status, text one of the mismatches must contain or None[, minimum branch coverage[, verify()
 # keyword arguments, e.g. the seeds of the one input in thousands that showed the bug]])
 CASES = {
+    # (integ4, post; rev5) a postcondition on an out-parameter (`// post: ... when ret` + HULK_POST_*): the block's own runs
+    # check it on every return of the original; a wrong field is refuted, items without macros refused
+    "0x001f87e0_post": ("equivalent", None, 0.9, {"n_inputs": 300}),
+    "0x001f87e0_post_wrong": ("fail", "post_refuted", 0, {"n_inputs": 300}),
+    "0x001f87e0_post_nomacro": ("fail", "L2 post_macro_mismatch", 0, {"n_inputs": 300}),
+    # (rev5 (a)) the post phase: the base and _wrong need the 3,000-input runs (the phase redraws the bound field of the
+    # original's own nonzero returns); a constant bound gives the phase nothing to vary: post_unverified
+    "0x001f87e0_post_proof": ("equivalent", None, 0.9, {"src": "0x001f87e0_post", "n_inputs": 3000, "time_budget": 1200}),
+    "0x001f87e0_post_wrong_proof": ("fail", "post_refuted", 0, {"src": "0x001f87e0_post_wrong", "n_inputs": 3000, "time_budget": 1200}),
+    "0x001f87e0_post_const": ("inconclusive", None, 0, {"n_inputs": 3000, "time_budget": 1200}),
     # (integ4, D152b; rev5) a caller of a contracted callee (0x0009faa0's ge(a, 0) ge(b, 0), stated in the case's TU copy
     # of the callee via src/) with its own contract on dt and on the global it passes as b: inputs outside its domain
     # are repaired in both modes, the global drawn inside its range every epoch; without a census, a contract of its
@@ -36,6 +46,9 @@ CASES = {
     "0x000a1b30_pre_noglobal": ("unsupported", "pre_violation_in_original", 0, {"n_inputs": 300}),
     # (rev5, D152c) a contracted caller of a contracted callee: the trap check's planted just-outside dt reaches our trap
     "0x000a1ca0_native_pre_trap": ("equivalent", None, 0, {"native": True, "n_inputs": 100}),
+    # (integ5, rev5) its mutant: the caller's own HULK_PRE_GE(dt) removed: the planted just-outside dt reaches no trap: pre_trap_missing
+    # (the base case's `equivalent` needs pre_trap == "fired": equiv.py fails a --wine contract run without it)
+    "0x000a1ca0_native_pre_trap_nomacro": ("fail", "pre_trap_missing", 0, {"native": True, "n_inputs": 100}),
     "0x000a1b30_pre_wrongglobal": ("fail", "L2 pre_macro_mismatch", 0, {"n_inputs": 300}),
     # (integ4, stubexit) a loop whose condition is a stub's result ends after n rounds the original's run draws, the
     # same results by call index on ours; the body is compared every round
@@ -1287,6 +1300,12 @@ DECL_CASES = {
 # (eq64) the 64-bit check, tools/equiv64.py (`equiv.py --x64`): name -> (status, class or None, text the difference
 # must contain or None, minimum completed inputs). The x86-64 object against the 32-bit clang object of the same source.
 X64_CASES = {
+    # (integ4, post; rev5) a stubbed callee's postcondition draws its out-parameter in range (both sides) when it returns
+    # true: 0x001fa7d0 selects the same encounter; reading it after a false return, a 32-bit stride, a wrong count field fail
+    "0x001fa7d0_x64_post": ("equivalent", None, None, 80, {"eq64_off": "postproof"}),
+    "0x001fa7d0_x64_post_readfalse": ("fail", "layout", None, 0, {"eq64_off": "postproof"}),
+    "0x001fa7d0_x64_post_stride": ("fail", "layout", None, 0, {"eq64_off": "postproof"}),
+    "0x001fa7d0_x64_post_wrongcount": ("fail", "layout", None, 0, {"eq64_off": "postproof"}),
     # (integ4, x64bounds; rev5) a pointer field counted by a cited HULK_RANGE field (HULK_COUNT / HULK_COUNT_BYTES) and a
     # relational range contract on the index (`lt(arg3, this->f_1c)`, its macro and census): every input compared stays in
     # the array (a count range past KMAX generated whole, up to COUNT_MAX; past it count_cap); missing pieces are refused
@@ -1507,8 +1526,13 @@ def x64_job(name):
     """(eq64) one X64_CASES case: (ok, status, class, difference or error)."""
     import equiv64
     want, cls, text, min_done = X64_CASES[name][:4]
-    kw = X64_CASES[name][4] if len(X64_CASES[name]) > 4 else {}     # (integ2) e.g. {"symbol": "??0C@@QAE@H@Z"}
-    r = equiv64.verify64(os.path.join(CASES_DIR, name + ".cpp"), int(name.split("_")[0], 16), n_inputs=100, **kw)
+    kw = dict(X64_CASES[name][4]) if len(X64_CASES[name]) > 4 else {}     # (integ2) e.g. {"symbol": "??0C@@QAE@H@Z"}
+    off = [x for x in kw.pop("eq64_off", "").split(",") if x]       # (integ4) switches the case runs with
+    equiv64.OFF.update(off)
+    try:
+        r = equiv64.verify64(os.path.join(CASES_DIR, name + ".cpp"), int(name.split("_")[0], 16), n_inputs=100, **kw)
+    finally:
+        equiv64.OFF.difference_update(off)
     got = r.get("diff") or r.get("error") or ""
     ok = r["status"] == want and (cls is None or r.get("class") == cls) and (text is None or text in got) and \
         r.get("completed", 0) >= min_done

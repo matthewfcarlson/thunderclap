@@ -8528,6 +8528,73 @@ def _parse_pre(lines):
     return out, bad
 
 
+POST_MIN = 50       # (integ4, post; rev5) nonzero returns of the original a promotable run checks its postcondition on
+POST_PAIRS = 10     # ... with at least this many distinct (out value, bound value) pairs among them
+POST_PHASE_RUNS = 600   # the post phase's runs at most
+_POST_ITEM = re.compile(r"(gt|ge|lt|le)\(\s*\*arg(\d+)\s*,\s*([^()]*?)\s*\)")
+
+
+def _parse_post(lines):
+    """(integ4, post; rev5) `// post: ITEMS when ret` lines -> ([(n, cond)], [errors]): when the function returns
+    nonzero (al for a byte result), the integer *argN lies in cond ("range", lo, hi, lo_incl, hi_incl). A bound is a
+    constant or `*this+0xOFF` (("this32", OFF): the signed 32-bit word at that offset of the object in ecx, the
+    original's layout; tools/equiv64.py maps it through each side's record). The callee's own runs check it on every
+    input of the original; callers' stubs (equiv64) draw the out-parameter inside it."""
+    out, bad = [], []
+    inf = float("inf")
+    for l in lines:
+        m = re.match(r"^(.*?)\s+when\s+ret\s*$", l)
+        if not m:
+            bad.append("post: %r: items then `when ret`" % l)
+            continue
+        items = _POST_ITEM.findall(m.group(1))
+        rest = _POST_ITEM.sub("", m.group(1)).replace(",", " ").strip()
+        if not items or rest:
+            bad.append("post: not `op(*argN, bound)` items: %r" % l)
+            continue
+        for fn, n, b in items:
+            mb = re.match(r"^\*this\+0x([0-9a-fA-F]+)$", b.replace(" ", ""))
+            try:
+                c = ("this32", int(mb.group(1), 16)) if mb else _pre_num(b)
+            except ValueError:
+                bad.append("post: bound %r" % b)
+                continue
+            cond = {"gt": ("range", c, inf, False, True), "ge": ("range", c, inf, True, True),
+                    "lt": ("range", -inf, c, True, False), "le": ("range", -inf, c, True, True)}[fn]
+            out.append((int(n), cond))
+    return out, bad
+
+
+def _post_check(post, sig, inp_o, o, read32):
+    """(integ4, post) The first post item the original's return breaks, described, or None (or "unread" when a word
+    can't be read). READ32(addr) -> the original's word after its run."""
+    rk = (sig or {}).get("ret")
+    pair = []
+    eax = o.get("eax") or 0
+    if not ((eax & 0xFF) if rk in ("b8", "i8", "u8", "bool") else (eax & M32)):
+        return "zero"
+    for n, cond in post:
+        wi = _pre_arg_word(sig, n)
+        if wi is None or wi >= len(inp_o["stack"]):
+            return "unread"
+        try:
+            v = read32(inp_o["stack"][wi] & M32)
+            b = []
+            for x in cond[1:3]:
+                if isinstance(x, tuple):
+                    x = read32((inp_o["regs"].get("ecx", 0) + x[1]) & M32)
+                    x = float(x - (1 << 32) if x & 0x80000000 else x)
+                b.append(x)
+        except Exception:   # noqa: BLE001
+            return "unread"
+        sv = v - (1 << 32) if v & 0x80000000 else v
+        c = ("range", b[0], b[1], cond[3], cond[4])
+        if not _pre_in(float(sv), c):
+            return "*arg%d = %d outside %r" % (n, sv, c[1:])
+        pair.append((n, sv, tuple(x for x in b if x not in (float("inf"), float("-inf")))))
+    return ("ok", tuple(pair))
+
+
 def _fuzzed_heap(a):
     """(integ1, strcase) A string the input's own memory holds (the same address on both sides): not the null page, the
     stack, the original's image or our object (a literal there has another address on the other side)."""
@@ -10514,6 +10581,7 @@ def _verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappi
     conv_lines = list(conventions or [])
     dead_lines = []             # `// equiv-dead: +0x52 taken, +0x61 not taken: why` (hand-reviewed)
     pre_lines = []              # (integ1, D54) `// pre: notnan(*arg1+0x0..0x40)`: the function's input contract
+    post_lines = []             # (integ4) `// post: lt(*arg3, *this+0xc68) when ret`: what it returns through out-params
     if src_lines is not None or src and os.path.exists(src):
         for line in (src_lines if src_lines is not None else open(src, errors="replace")):
             m = re.match(r"\s*//\s*equiv-map:\s*(\S+)\s*=\s*(0x[0-9a-fA-F]+)", line)
@@ -10528,6 +10596,9 @@ def _verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappi
             m = re.match(r"\s*//\s*pre:\s*(.+?)\s*$", line)
             if m and "pre" not in EQUIV_OFF:
                 pre_lines.append(m.group(1))
+            m = re.match(r"\s*//\s*post:\s*(.+?)\s*$", line)
+            if m and "post" not in EQUIV_OFF:
+                post_lines.append(m.group(1))
     # ---- level 1
     tmp = None
     if obj_path is None:
@@ -10981,6 +11052,30 @@ def _verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappi
     pre_specs, pre_bad = _parse_pre(pre_lines)
     pre_cited = False       # (integ4, D152b) the block's range contract carries its `// pre-callers:` census
     pre_rel = [it_ for it_ in pre_specs if _pre_relational(it_[5])]
+    post_specs, post_bad = _parse_post(post_lines)
+    text_p_ = ("\n".join(src_lines) if src_lines is not None else
+               (open(src, errors="replace").read() if src and os.path.exists(src) else "")) if (post_lines or "post" not in EQUIV_OFF) else ""
+    code_p_ = _strip_comments(text_p_)
+    pbad_ = [{"kind": "post_unparsed", "why": b_} for b_ in post_bad]
+    # (integ4, post; rev5) the items and the HULK_POST_* macros state one claim: each item's operator needs its macro and
+    # a macro needs an item (tools/equiv64.py checks the operands against the record); a post item is never on a
+    # parameter that isn't a pointer
+    ops_items_ = sorted({("GE" if c_[3] else "GT") if c_[1] != float("-inf") else ("LE" if c_[4] else "LT")
+                         for _n, c_ in post_specs})
+    ops_macros_ = sorted(set(re.findall(r"\bHULK_POST_(GT|GE|LT|LE)\s*\(", code_p_)))
+    if ops_items_ != ops_macros_:
+        pbad_.append({"kind": "post_macro_mismatch", "why": "post items %s but HULK_POST macros %s" % (ops_items_, ops_macros_)})
+    for n_, _c in post_specs:
+        if _pre_arg_word(sig, n_) is None or (((sig or {}).get("params") or [None] * n_)[n_ - 1] not in (None, "ptr")):
+            pbad_.append({"kind": "post_unparsed", "why": "*arg%d: not a pointer parameter" % n_})
+    if pbad_:
+        issues = issues + pbad_
+        rep["level2"]["issues"] = rep["level2"]["issues"] + pbad_
+        rep["level2"]["ok"] = False
+        if rep["level"] == 2:
+            rep["level"] = 1
+    if post_specs:
+        rep["post"] = list(post_lines)
     sig_l2_ = sig
     if not pre_lines and "pre" not in EQUIV_OFF:
         # (integ1, rev5) the macro without the contract: the builds trap where the proof compared freely
@@ -11089,7 +11184,8 @@ def _verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappi
             rep["x87_decl_error"] = str(e_)[:200]
     l3 = level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs, max_steps, keep_runs,
                 time_budget, psizes=psizes, convs=convs, decls=decls, void_eax=void_eax, seeds=seeds,
-                pre=[it_ for it_ in pre_specs if not _pre_relational(it_[5])], pre_cited=pre_cited)
+                pre=[it_ for it_ in pre_specs if not _pre_relational(it_[5])], pre_cited=pre_cited,
+                post=post_specs)
     rep["level3"] = l3
     if pre_specs and native and l3.get("pre_trap") != "fired" and not seeds:
         # (integ1, D54) --wine: an input that violates the contract must hit HULK_PRE_NOTNAN's trap in our code
@@ -11116,6 +11212,20 @@ def _verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappi
         rep["status"] = "fail"
         # (round 9) which levels failed (`level` is the highest one passed)
         rep["failed_levels"] = ([2] if issues else []) + ([3] if l3.get("inputs_failed") or not issues else [])
+    pr_ = (l3.get("statuses") or {}).get("post_refuted", 0)
+    if pr_:
+        # (integ4, post; rev5) the original itself breaks the block's postcondition: the contract is wrong
+        rep["status"] = "fail"
+        rep["class"] = "post_refuted"
+        rep["error"] = "[post_refuted] %d inputs: %s" % (pr_, l3.get("post_refuted_first"))
+    if post_specs and rep["status"] == "equivalent" and ((l3.get("post_checked") or 0) < POST_MIN or
+                                                         (l3.get("post_pairs") or 0) < POST_PAIRS) and \
+            "postmin" not in EQUIV_OFF:
+        # (integ4, post; rev5) a postcondition callers rely on needs evidence: the original's nonzero returns checked
+        rep["status"] = "inconclusive"
+        rep["class"] = "post_unverified"
+        rep["inconclusive"] = "the postcondition was checked on %d nonzero returns, %d distinct (out, bound) pairs (at " \
+            "least %d and %d)" % (l3.get("post_checked") or 0, l3.get("post_pairs") or 0, POST_MIN, POST_PAIRS)
     pod_ = (l3.get("statuses") or {}).get("pre_outside_dropped", 0)
     if pod_ and rep["status"] in ("equivalent", "inconclusive") and 2 * pod_ >= sum((l3.get("statuses") or {}).values()):
         # (integ4, D152b; rev5) most inputs dropped as outside the block's own contract: too narrow to stand for it
@@ -11340,7 +11450,7 @@ def caller_cleaned(prog, oview):
 
 def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs, max_steps, keep_runs=False,
            time_budget=120, directed=96, psizes=None, convs=None, decls=None, void_eax=False, seeds=None, pre=None,
-           pre_cited=False):
+           pre_cited=False, post=None):
     only_seeds = set(seeds) if seeds else ONLY_SEEDS
     globals_ = sorted({t for _, k, t in orefs if k in ("data", "imm") and prog.section_name(t) in (".data", "BINKDATA", "DOLBY")})
     if "wglobals" not in EQUIV_OFF:
@@ -11506,6 +11616,9 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
     back_edges = [(a, i.target) for a, i in oview.insns.items() if i.kind in ("jcc", "jmp") and
                   i.target is not None and i.target <= a and oview.internal_target(i.target)]
     loop_exits = set()
+    post_held = [None]      # (integ4, post) the last run's checked nonzero return: (seed, overlay, patch, pair, ecx)
+    post_true = []          # ... of compared inputs: the post phase mutates them
+    post_pairs = set()      # distinct pairs ((n, out, bounds), ...) among the checked nonzero returns
     # (integ4, stubexit) loop conditions that are a stub's result (static half of the rule; the dynamic half is the
     # timed-out run's hot loop, in _run_input)
     sx_sites = _stubexit_sites(oview, prog) if "stubexit" not in EQUIV_OFF else {}
@@ -12002,11 +12115,19 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
         """Run one input on both sides; returns the set of new original edges (None if inconclusive)."""
         fr_ = []
         edge_frames.append(fr_)
+        post_held[0] = None
         sx_hit[0] = None
         try:
             out_ = _run_input(seed, overlay, stack_patch, label, _vk, _ar, _bf)
         finally:
             edge_frames.pop()
+        ph_, post_held[0] = post_held[0], None
+        if ph_ is not None and out_ is not None:
+            # (integ4, post; rev5) a nonzero return checked against the postcondition, on an input compared in full
+            res["post_checked"] = res.get("post_checked", 0) + 1
+            post_pairs.add(ph_[3])
+            if len(post_true) < 256:
+                post_true.append(ph_)
         sxh_, sx_hit[0] = sx_hit[0], None
         if out_ is None and sxh_ is not None and not out_of_time():
             # (integ4, stubexit) the original ran out of steps in a loop whose condition is a stub's result: the same
@@ -12601,6 +12722,26 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             if v_:
                 res["statuses"]["pre_violation_in_original"] += 1
                 res.setdefault("pre_violation_first", v_)
+        if o["status"] == "ret" and post:
+            # (integ4, post; rev5) the block's own postcondition, on the original: a return that breaks it refutes it
+            pv_ = _post_check(post, sig, inp_o, o, orun._read_u32)
+            if pv_ == "unread":
+                res["post_unread"] = res.get("post_unread", 0) + 1
+            elif pv_ == "zero":
+                res["post_ret0"] = res.get("post_ret0", 0) + 1      # (returned 0: nothing stated)
+            elif isinstance(pv_, tuple):
+                # (rev5) a bound counts toward the distinct pairs only where the original's compares read its field
+                # (variation the run's path never looked at is no evidence)
+                ecx_ = inp_o["regs"].get("ecx", 0)
+                read_ = {o_["src"][0] for ob_ in obs_run.values() for o_ in (ob_.get("ops") or ())
+                         if o_.get("src") and isinstance(o_["src"][0], int)}
+                offs_ = [x[1] for _n, c in post for x in c[1:3] if isinstance(x, tuple)]
+                seen_ = any(((ecx_ + f_) & M32) in read_ for f_ in offs_)
+                pair_ = tuple((n_, v_, b_ if seen_ or not offs_ else None) for n_, v_, b_ in pv_[1])
+                post_held[0] = (seed, overlay, stack_patch, pair_, ecx_)
+            else:
+                res["statuses"]["post_refuted"] += 1
+                res.setdefault("post_refuted_first", "seed %s: %s" % (seed, pv_))
         if not diffs and stack_patch and stack_patch.get(("unpinned",)):
             # (rev5, D153) an unpinned split that agreed: not evidence (the verdict becomes unsupported/split_unpinned)
             res["inputs_inconclusive"] += 1
@@ -12655,6 +12796,28 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
     def time_frac():
         el = clk() if "workclock" not in EQUIV_OFF else time.process_time() - t_start
         return el / (time_budget * (3 if steps[0] >= LONG_STEPS else 1))
+
+    def post_phase():
+        """(integ4, post; rev5 (a)) Too few distinct checked nonzero returns: the inputs whose original returned nonzero
+        again, each with the postcondition's field bounds (`*this+0xOFF`) redrawn (a planted word, the same on both
+        sides; the rest of the input as it was, so the deciding compares read what they read), compared in full. The
+        bound varies, so the checks are not copies of one; a value the original's path no longer allows ends it
+        elsewhere (a zero return, nothing stated)."""
+        offs = sorted({x[1] for _n, c in post for x in c[1:3] if isinstance(x, tuple)})
+        if not offs:
+            return
+        base = list(post_true)
+        k = 0
+        while base and not out_of_time() and res["inputs_failed"] < MAX_FAIL and k < POST_PHASE_RUNS and \
+                (res.get("post_checked", 0) < POST_MIN or len(post_pairs) < POST_PAIRS):
+            seed0, ov0, sp0, _pair, ecx0 = base[k % len(base)]
+            ov = dict(ov0 or {})
+            for off in offs:
+                h = mix(seed0, 0x9057, k, off)
+                ov[("*", (ecx0 + off) & M32)] = struct.pack("<i", (h >> 8) % 64 if h & 3 else (h >> 8) % 1024)
+            k += 1
+            res["post_phase"] = res.get("post_phase", 0) + 1
+            run_input(seed0, ov, sp0, label="%d+post" % seed0)
 
     # 1. random inputs; then more while coverage keeps growing
     rs = {"seed": 0, "stale": 0, "rinc": 0, "done": False}
@@ -13337,6 +13500,10 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
         finally:
             proof_draw[0] = False
         res["inputs_drawn"] = rs["seed"]
+    if post and "postphase" not in EQUIV_OFF:
+        post_phase()
+    if post:
+        res["post_pairs"] = len(post_pairs)
     res["coverage"] = coverage_of(oview, edges)
     res["work"] = WORK[0] - w_start                     # (workclock) units the loop spent
     res["input_digest"] = input_seq.hexdigest()[:12]

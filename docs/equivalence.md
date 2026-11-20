@@ -1632,6 +1632,33 @@ is ever called with an out of range input"), one reusable mechanism with the NaN
   `0x0009fb20_x64_range`; tests tests/test_pre_contracts.py, tests/test_contract_flags.py.
 
 
+(integ4, post; rev5) **Postconditions on out-parameters.** A caller's stub of a callee that returns an index through an
+out-parameter drew it unconstrained, so `encounters[index]` after a true return landed outside the array, a false
+`layout` natively (0x001fa7d0 calling 0x001f87e0). The callee states what it returns:
+`// post: ge(*arg3, 0) lt(*arg3, *this+0xc68) when ret` (when its result is nonzero, al for a byte result, the integer
+*argN lies in the bounds: constants or the signed word at the original's 32-bit offset of the object in ecx), with
+`HULK_POST_GE((int)*outIndex, 0); HULK_POST_LT((int)*outIndex, encounterCount);` right before that return
+(include/compat/pre.h: the same check and trap as HULK_PRE_*, nothing under MSVC).
+- The callee's own runs (equiv.py) check it on every compared input where the ORIGINAL returns nonzero, reading *argN
+  and the field from the original's memory after its run (the post-state); a violation fails the run (`post_refuted`).
+  A promotable run needs POST_MIN (50) such checks with POST_PAIRS (10) distinct (out, bound) pairs, a bound counting
+  only where the original's compares read its field; short of that it is `inconclusive`, class `post_unverified`. When
+  the random and directed inputs reach too few (0x001f87e0 returns true on 18 of 3,000: three equalities at once), the
+  post phase re-runs the original's own true inputs with only the bound field redrawn (every word the deciding compares
+  read stays), each compared in full (`post_phase`; `post_checked`, `post_pairs`, `post_ret0` in the report). A constant
+  bound must hold over the harness's fields, which are not bounded (`lt(*arg3, 16)` is refuted where the fuzzed count
+  passes 16). L2 `post_macro_mismatch` when the items' and macros' operators differ.
+- equiv64 checks the operands (the subject `*param`, the bound's field by name at the item's offset, own or a base's;
+  unsupported otherwise), and the items and the resolved operands are in the x64 gate's AST digest.
+- Callers (equiv64): a stub of a callee whose tree block states a post (found by FUN_<addr> or by the block's `// sym:`
+  symbol) draws *argN inside the bounds when its result is nonzero, the field read after the call on each side at that
+  offset's leaf (stubs leave it as it was, so it agrees with the callee's post-state check); no value inside -> the stub
+  returns 0. Only when the proof ledger holds a passing line for the callee's current code and view (else the plain
+  fill). `EQ64_OFF=postproof` takes a case file's own statement without a proof: development only, proves nothing.
+Cases `0x001f87e0_post` (equivalent; `_proof` at 3,000), `_wrong` (post_refuted), `_nomacro` (L2), `_const`
+(post_unverified), `0x001fa7d0_x64_post` (equivalent), `_readfalse`, `_stride`, `_wrongcount` (layout); tests
+tests/test_post_contract.py.
+
 (integ4, `stubexit`; rev5) **Loops a stub ends.** A loop whose condition is a stubbed callee's result (`while
 (registry->Pending())`, drained by real code elsewhere; `do r = Status(v); while (r != 2)`) never ends on random stub
 results that keep it going, so its inputs time out and its body is never compared. Static half (`_stubexit_sites`, the

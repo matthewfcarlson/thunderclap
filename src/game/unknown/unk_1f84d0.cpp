@@ -1,6 +1,7 @@
 // Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
 // object 0x001f84d0..0x001f94e0 (kind game, layer game, confidence low)
 #include "tree_prelude.h"
+#include "compat/pre.h"
 #include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
@@ -439,9 +440,12 @@ void fn_f6c21956::Gen_1f87d0::FUN_001f87d0(int x) {
 namespace fn_f6c21956 {
 
 // 0x001f87e0 FUN_001f87e0 (163 B): equivalent/0x001f87e0.cpp
-// sym: ?FUN_001f87e0@SlotTable_1f87e0@fn_f6c21956@@QAE_NPAURef_1f87e0@2@PAURequest@2@PAI@Z @890f5e9bb32d @w33bf11339317 @vf3d0d067cebb
+// sym: ?FUN_001f87e0@SlotTable_1f87e0@fn_f6c21956@@QAE_NPAURef_1f87e0@2@PAURequest@2@PAI@Z @890f5e9bb32d @w658e28e75c99 @v04027fe76cd3
 // STATUS: equivalent (tools/equiv.py level 3: 2939 inputs, branch coverage 12/12)
 // FUN_001f87e0 @ 0x001f87e0
+// (integ4, post) a found encounter's index is below the generator's encounter count (callers index encounters[] by it;
+// a stub of this function draws one there)
+// post: ge(*arg3, 0) lt(*arg3, *this+0xc68) when ret
 bool SlotTable_1f87e0::FUN_001f87e0(Ref_1f87e0 *ref, Request *req, unsigned int *outIndex)
 {
     if (state == 0)
@@ -453,6 +457,8 @@ bool SlotTable_1f87e0::FUN_001f87e0(Ref_1f87e0 *ref, Request *req, unsigned int 
         unsigned __int64 id = FUN_0027b020(slot->name);
         if ((unsigned int)id == lo && (unsigned int)(id >> 32) == hi && slot->f40 == *ref->target) {
             *outIndex = i;
+            HULK_POST_GE((int)*outIndex, 0);
+            HULK_POST_LT((int)*outIndex, encounterCount);
             return true;
         }
     }

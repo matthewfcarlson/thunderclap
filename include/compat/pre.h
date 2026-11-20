@@ -111,6 +111,12 @@ template <class T> static inline unsigned long long hulk_pre_bits(T x) {
 #define HULK_PRE_GE(x, c) HULK_PRE_IF_((x) >= (c), x, "ge(" #x ", " #c ")")
 #define HULK_PRE_LT(x, c) HULK_PRE_IF_((x) < (c), x, "lt(" #x ", " #c ")")
 #define HULK_PRE_LE(x, c) HULK_PRE_IF_((x) <= (c), x, "le(" #x ", " #c ")")
+// (integ4, post) postconditions: the same checks, written right before the return they describe (`*out = i;
+// HULK_POST_LT(*out, count); return true;`); the block's `// post: ... when ret` items name them (tools/equiv64.py)
+#define HULK_POST_GE(x, c) HULK_PRE_IF_((x) >= (c), x, "post ge(" #x ", " #c ")")
+#define HULK_POST_GT(x, c) HULK_PRE_IF_((x) > (c), x, "post gt(" #x ", " #c ")")
+#define HULK_POST_LT(x, c) HULK_PRE_IF_((x) < (c), x, "post lt(" #x ", " #c ")")
+#define HULK_POST_LE(x, c) HULK_PRE_IF_((x) <= (c), x, "post le(" #x ", " #c ")")
 // (not for a proven block: tools/equiv.py can't read an arbitrary condition and refuses it there)
 #define HULK_PRE(cond) HULK_PRE_IF_((cond), 0, "pre(" #cond ")")
 static inline void hulk_pre_notnan_n(const float* p, int n, const char* fn, const char* what) {
@@ -145,6 +151,10 @@ static inline void hulk_pre_defnan1(float x, const char* fn, const char* what) {
 #define HULK_PRE_GE(x, c) ((void)0)
 #define HULK_PRE_LT(x, c) ((void)0)
 #define HULK_PRE_LE(x, c) ((void)0)
+#define HULK_POST_GE(x, c) ((void)0)
+#define HULK_POST_GT(x, c) ((void)0)
+#define HULK_POST_LT(x, c) ((void)0)
+#define HULK_POST_LE(x, c) ((void)0)
 #define HULK_PRE(cond) ((void)0)
 #define HULK_PRE_NOTNAN(x) ((void)0)
 #define HULK_PRE_NOTNAN_N(p, n) ((void)0)

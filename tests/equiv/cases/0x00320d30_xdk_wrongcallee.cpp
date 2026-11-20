@@ -1993,8 +1993,8 @@ void* pure3d::d3dContext::vfunc_30(hulk_intptr a, int b, int c, int d, int e) {
 
 
 // 0x003218b0 pure3d::d3dContext::vfunc_31 (14 B): matches/0x003218b0.cpp
-// sym: ?vfunc_31@d3dContext@pure3d@@UAEXH@Z
-void pure3d::d3dContext::vfunc_31(int ) {
+// sym: ?vfunc_31@d3dContext@pure3d@@UAEXPAX@Z
+void pure3d::d3dContext::vfunc_31(void* ) {   // (gfx1) EndPrims(stream): a pointer
     ((Thing_3218b0*)(*(char**)((char*)&this->f_204)))->call();
 }
 
@@ -3762,11 +3762,11 @@ d3dExtFramebufferEffects::d3dExtFramebufferEffects(::pure3d::d3dContext* value) 
 
 
 // 0x003225c0 pure3d::d3dExtFramebufferEffects::vfunc_1 (31 B): matches/0x003225c0.cpp
-// sym: ?vfunc_1@d3dExtFramebufferEffects@pure3d@@UAEXEHHE@Z
-void pure3d::d3dExtFramebufferEffects::vfunc_1(unsigned char x, int y, int z, unsigned char w) {
+// sym: ?vfunc_1@d3dExtFramebufferEffects@pure3d@@UAEXEMME@Z
+void pure3d::d3dExtFramebufferEffects::vfunc_1(unsigned char x, float y, float z, unsigned char w) {   // (gfx1) the overlay's alpha and scale are floats
     this->f_10 = x;
-    this->f_14 = y;
-    this->f_18 = z;
+    *(float *)&this->f_14 = y;
+    *(float *)&this->f_18 = z;
     this->f_1c = w;
 }
 
