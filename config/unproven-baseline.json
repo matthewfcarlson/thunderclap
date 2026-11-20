@@ -194,6 +194,17 @@
    },
    "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
   },
+  "0x000b0a50": {
+   "modes": {
+    "wine": {
+     "code": "aa4bab2cf77d",
+     "accepted": "2026-11-20T09:06:37",
+     "by": "unproven-accept",
+     "why": "D154: revoked, fails under the vsplit guard on inputs whose original rewrites its own .rdata literals (audit job 99535; ro_write checker item at integ4)"
+    }
+   },
+   "why": "D154: revoked, fails under the vsplit guard on inputs whose original rewrites its own .rdata literals (audit job 99535; ro_write checker item at integ4)"
+  },
   "0x000b3f10": {
    "modes": {
     "wine": {
@@ -842,6 +853,17 @@
    },
    "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
   },
+  "0x00272df0": {
+   "modes": {
+    "wine": {
+     "code": "8f35b1edd1be",
+     "accepted": "2026-11-20T09:06:35",
+     "by": "unproven-accept",
+     "why": "D154: revoked, split_unpinned under the vsplit guard (audit job 99660)"
+    }
+   },
+   "why": "D154: revoked, split_unpinned under the vsplit guard (audit job 99660)"
+  },
   "0x002731d0": {
    "modes": {
     "msvc": {
@@ -966,6 +988,17 @@
     }
    },
    "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
+  },
+  "0x00296160": {
+   "modes": {
+    "wine": {
+     "code": "736b80e97ef4",
+     "accepted": "2026-11-20T09:06:36",
+     "by": "unproven-accept",
+     "why": "D154: revoked, split_unpinned under the vsplit guard (audit job 99674)"
+    }
+   },
+   "why": "D154: revoked, split_unpinned under the vsplit guard (audit job 99674)"
   },
   "0x00297680": {
    "modes": {
@@ -1313,5 +1346,5 @@
    "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
   }
  },
- "total": 146
+ "total": 149
 }
