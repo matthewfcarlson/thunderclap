@@ -299,7 +299,7 @@ class FromLedger(unittest.TestCase):
     """(integ3, movers) `hash --from-ledger`: a block whose current code AND checker view have a ledger line in every mode
     is re-pinned with no run (MSVC 7.1's header-sensitive spill orders); any other block stays unproven."""
 
-    def run_hash(self, ledger_lines, view_now=("vm", "vw"), extra=None):
+    def run_hash(self, ledger_lines, view_now=("vm", "vw"), extra=None, baseline=None):
         import json as _j
         from unittest import mock
         with tempfile.TemporaryDirectory() as d:
@@ -319,8 +319,9 @@ class FromLedger(unittest.TestCase):
                     mock.patch.object(tree_tu, "with_wine", lambda *a, **k: None), \
                     mock.patch.object(tree_tu, "views", lambda *a, **k: {"0x00011000": {"msvc": view_now[0], "wine": view_now[1]}}), \
                     mock.patch.object(tree_tu, "find_root", lambda p: None), \
-                    mock.patch.object(tree_tu, "_write", lambda path, pins, hashes: wrote.update(hashes)):
-                out = tree_tu.hash_proven("T.cpp", {}, ledger=led)
+                    mock.patch.object(tree_tu, "_write", lambda path, pins, hashes: wrote.update(hashes)), \
+                    mock.patch.object(tree_tu, "load_unproven_baseline", lambda *a, **k: {"blocks": baseline or {}}):
+                out = tree_tu.hash_proven("T.cpp", {}, ledger=led, unproven_accepted=baseline is not None)
             return out[0], wrote
 
     def test_indexes_agree(self):
@@ -338,6 +339,28 @@ class FromLedger(unittest.TestCase):
             b = tree_tu.code_ledger_index(led)
             self.assertEqual(a, b)
             self.assertEqual(b, {("0x2", "wine", "c2"), ("0x4", "msvc", "c4")})
+
+    def test_unproven_accepted(self):
+        """(integ3) --unproven-accepted: a mode listed in the unproven baseline with exactly the current code re-pins
+        with the other mode proven; a listed old code, or a mode in neither, refuses; nothing goes to the ledger."""
+        led = [("0x00011000", "msvc", "new000000000", "vm")]
+        o, wrote = self.run_hash(led, baseline={"0x00011000": {"modes": {"wine": {"code": "w00000000000", "by": "unproven-accept"}}}})
+        self.assertEqual(o["result"], "recorded")
+        self.assertTrue(o["wine"].startswith("unproven-accepted"))
+        self.assertNotIn("ledger", o)
+        # (rev5) after the re-pin, verify's proof mark still says the wine mode is unproven (never proven)
+        r = {"addr": "0x00011000", "kind": "equivalent", "code_hash": "new000000000", "wine_code_hash": "w00000000000",
+             "code": "ok", "wine_code": "ok"}
+        rec = {"blocks": [{"addr": "0x00011000", "vhash": tree_tu.view_digest("vm", "vw")}]}
+        tree_tu.mark_views([r], rec, {"0x00011000": {"msvc": "vm", "wine": "vw"}},
+                           {("0x00011000", "msvc", "new000000000", "vm")})
+        self.assertEqual(r["proof"], {"msvc": "proven", "wine": "unproven"})
+        o, wrote = self.run_hash(led, baseline={"0x00011000": {"modes": {"wine": {"code": "old0000000ww"}}}})
+        self.assertTrue(o["result"].startswith("unproven"))
+        self.assertEqual(wrote, {})
+        o, wrote = self.run_hash([], baseline={"0x00011000": {"modes": {"wine": {"code": "w00000000000"}}}})
+        self.assertTrue(o["result"].startswith("unproven"))        # msvc in neither the ledger nor the list
+        self.assertEqual(wrote, {})
 
     def test_repins_only_when_every_mode_is_in_the_ledger(self):
         o, wrote = self.run_hash([("0x00011000", "msvc", "new000000000", "vm"), ("0x00011000", "wine", "w00000000000", "vw")])

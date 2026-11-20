@@ -2050,7 +2050,7 @@ def proves(rep, kind, h, view=None):
     return True, why
 
 
-def hash_proven(path, results, addrs=None, dry_run=False, ledger=None):
+def hash_proven(path, results, addrs=None, dry_run=False, ledger=None, unproven_accepted=False):
     """Record what RESULTS ({addr: [equiv.py reports]}) prove about PATH's equivalent blocks as they are now (proves():
     the code and the checker's view in each mode): a proven mode's run goes into the proof ledger (integ1, D37), and a
     block whose every mode is proven gets its code hashes and `@v` (D42) written; a mode already in the ledger for its
@@ -2060,6 +2060,7 @@ def hash_proven(path, results, addrs=None, dry_run=False, ledger=None):
     with_wine(path, recs, rec)
     vs = views(path, recs, rec, wine=True)
     led = ledger_index(ledger) or set()
+    ub = load_unproven_baseline().get("blocks", {}) if unproven_accepted else {}
     blocks = {b["addr"]: b for b in rec["blocks"]}
     root = find_root(os.path.abspath(path))
     tu = os.path.relpath(os.path.abspath(path), root) if root else path
@@ -2088,6 +2089,16 @@ def hash_proven(path, results, addrs=None, dry_run=False, ledger=None):
             if (r["addr"], kind, h, view) in led:
                 o[kind] = "in the ledger"
                 continue
+            if unproven_accepted:
+                # (integ3, lead) the mode is unproven and config/unproven-baseline.json lists exactly this code (an
+                # unproven-accept after a layout-only edit): the pin follows the code; no proof is claimed or recorded,
+                # and the materialize gate keeps refusing anything the list doesn't name
+                bm_ = (ub.get(r["addr"], {}).get("modes") or {}).get(kind) or {}
+                if bm_.get("code") == h and h:
+                    o[kind] = "unproven-accepted (%s)" % (bm_.get("by") or "?")
+                    continue
+                o[kind] = "unproven: neither the ledger nor the unproven list holds %s" % h
+                continue
             why = [(x, proves(x, kind, h, view)) for x in results.get(r["addr"], [])]
             good = [(x, w) for x, (ok, w) in why if ok]
             if good:
@@ -2096,7 +2107,8 @@ def hash_proven(path, results, addrs=None, dry_run=False, ledger=None):
                 o.setdefault("ledger", []).append(entries[-1])
             else:
                 o[kind] = "unproven: " + ("; ".join(w for _, (_, w) in why) or "no result for this block")
-        if any(str(o.get(k, "")).startswith("unproven") for k in ("msvc", "wine")):
+        if any(str(o.get(k, "")).startswith("unproven:") or (str(o.get(k, "")).startswith("unproven") and not
+               str(o.get(k, "")).startswith("unproven-accepted")) for k in ("msvc", "wine")):
             o["result"] = "unproven: nothing recorded on the pin line"
             out.append(o)
             continue
@@ -2223,6 +2235,9 @@ def main(argv=None):
     p.add_argument("--why", required=True)
     p = sub.add_parser("hash", help="record equivalent blocks' code hashes (only from proofs)")
     p.add_argument("paths", nargs="+", help="TUs (--proven), or the tree root (--compute)")
+    p.add_argument("--unproven-accepted", action="store_true", help="(integ3) re-pin equivalent blocks whose every mode "
+                   "is proven by the ledger (current code and view) or listed with exactly its current code hash in "
+                   "config/unproven-baseline.json (unproven-accept after a layout-only edit); no run, no ledger line")
     p.add_argument("--from-ledger", action="store_true", help="(integ3, movers) re-pin equivalent blocks whose current "
                    "code AND checker view already have a promotable ledger line in every mode (no new run: the line is the "
                    "proof; MSVC 7.1's header-sensitive spill orders, 0x00027930 & co.); any other block is refused")
@@ -2323,15 +2338,16 @@ def main(argv=None):
                     f.write(json.dumps(r) + "\n")
             print(json.dumps(compute_records.summary, indent=1))
             return 0
-        if a.from_ledger and a.proven:
-            ap.error("hash: --from-ledger takes no --proven (the ledger is the proof)")
-        if not a.proven and not a.from_ledger:
-            ap.error("hash: --proven RESULT... or --compute OUT or --from-ledger")
-        res = {} if a.from_ledger else _load_results(a.proven)
+        if (a.from_ledger or a.unproven_accepted) and a.proven:
+            ap.error("hash: --from-ledger / --unproven-accepted take no --proven")
+        if not a.proven and not a.from_ledger and not a.unproven_accepted:
+            ap.error("hash: --proven RESULT... or --compute OUT or --from-ledger or --unproven-accepted")
+        res = {} if (a.from_ledger or a.unproven_accepted) else _load_results(a.proven)
         addrs = {"0x%08x" % int(x, 16) for x in a.addr} if a.addr else None
         bad = 0
         for path in a.paths:
-            for o in hash_proven(path, res, addrs, dry_run=a.dry_run, ledger=a.ledger):
+            for o in hash_proven(path, res, addrs, dry_run=a.dry_run, ledger=a.ledger,
+                                 unproven_accepted=a.unproven_accepted):
                 bad += o["result"].startswith(("unproven", "no symbol"))
                 print(json.dumps(dict(o, tu=path)) if a.json else "%s %s  %s%s" % (
                     o["addr"], o["result"], "msvc: %s " % o["msvc"] if "msvc" in o else "",
