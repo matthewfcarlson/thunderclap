@@ -1914,3 +1914,20 @@ blocks fight::Action's whole family: the records come first there.
 - Adding `#include "compat/pre.h"` to d3dPrimBufferStream.cpp changed the clang code hash of another block in the TU
   (0x00327860): a header include can move a neighbour's Wine hash, so re-prove the TU's equivalents.
 - The checker annotation macros moved from records.h to compat/hulk_annot.h so include/gen can use them.
+
+## 2026-11-20 fix126 (D152): range contracts on 0x0009faa0 / 0x0009fb20, with play3 evidence
+
+- Both functions' exp(-dt/tau) leaves the double range for a negative ratio, where the original's x87 keeps a 15-bit
+  exponent. They now carry `ge` contracts: dt and tau >= 0 (HULK_PRE_GE, `// pre: ge(...)`), with every XBE caller
+  cited.
+- Evidence: a Wine build with HULK_TRACE_FUNCS probes on the three functions, replaying play3 to 60120 (job 100781;
+  build/fix126/scripts/argrange.py reads the `fcall` lines).
+  - 0x9faa0: a in [0, 0.033333]; b is 2.0, 0.3 or 0.1.
+  - 0x9fb20: dt in [0, 0.033333]; tau 0.1 or 1.0.
+  - No value was negative or NaN. 0 occurs, so the contracts are `ge`, not `gt`.
+- The contract changes the checker view, so the MSVC runs were redone too.
+- Including compat/pre.h changed the clang code of 0x000a74c0 (re-proven) in the same TU.
+- 0x000a97e0 is not contracted: its decay uses `shake[i].time + dt`, whose member word needs a memory contract (a new
+  D152 item, integ3).
+- 0x002e11e0 (PrimGroupStreamed, D80: x and y in st, z through a float slot) lands here too; its MSVC proof needed a
+  36,000-unit budget.

@@ -2056,7 +2056,7 @@ void Dispatcher_2e1020::FUN_002e1020(Batch_2e1020 *batch, int ctx, unsigned int 
 
 
 // 0x002e11e0 FUN_002e11e0 (453 B): equivalent/0x002e11e0.cpp
-// sym: ?FUN_002e11e0@Morph@fn_f1455a33@@QAEXPAUDeltaList@2@M@Z @a10e3e8d341e @w988b15a5c4cd
+// sym: ?FUN_002e11e0@Morph@fn_f1455a33@@QAEXPAUDeltaList@2@M@Z @979c43e30fca @we5aa15ca9fa4 @v1132ea0c0a30
 // STATUS: equivalent (tools/equiv.py level 3: 22 inputs, branch coverage 8/8)
 // FUN_002e11e0 @ 0x002e11e0
 // Adds weight * delta to each referenced vertex.
@@ -2065,9 +2065,10 @@ void Morph::FUN_002e11e0(DeltaList* list, float weight)
     hulk_intptr count = list->end - list->begin;
     for (unsigned i = 0; i < (unsigned)count; i++) {
         const Delta* d = &list->begin[i];
-        float x = weight * d->dx;
-        float y = weight * d->dy;
-        float z = weight * d->dz;
+        // x and y stay in st; the original spills z to a float slot (D80)
+        hulk_freg x = weight * d->dx;
+        hulk_freg y = weight * d->dy;
+        volatile float z = weight * d->dz;
         V3_2e11e0* v = &buffer->verts[d->vertex];
         v->x += x;
         v->y += y;

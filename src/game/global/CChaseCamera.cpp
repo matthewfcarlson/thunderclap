@@ -2,6 +2,7 @@
 // object 0x0009f760..0x000a75d0 (kind game, layer game, confidence high), dominant class CChaseCamera
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "compat/pre.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
@@ -844,11 +845,19 @@ extern "C" int FUN_0009fa70(int* a, int* b, int* c) {
 
 
 // 0x0009faa0 FUN_0009faa0 (117 B): equivalent/0x0009faa0.cpp
-// sym: ?FUN_0009faa0@fn_f69c308d@@YAMMMMM@Z @4c478b5f1506 @w9a87bf26124e
+// sym: ?FUN_0009faa0@fn_f69c308d@@YAMMMMM@Z @4c478b5f1506 @wef425a73393b @v96031bd03c35
 // STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 4/4; Wine build: input 71 differs only past the double exponent range (80-bit st0 overflow), HEAD failed at input 0)
 // FUN_0009faa0 @ 0x0009faa0
+// (fix126, D152) a range contract: a (a frame time) and b (a time constant) are >= 0; a negative ratio sends exp past
+// the double range where the original's x87 keeps a 15-bit exponent
+// pre: ge(arg3, 0) ge(arg4, 0)
+// pre-callers: 0x000a1c37 0x000a3afa 0x000a7a0f (in 0x000a1b30, 0x000a38c0, 0x000a75d0: a is the caller's frame
+// time, b a camera time-constant global such as DAT_0049ec8c / DAT_0049eccc). play3 to 60000 (Wine build job 100781,
+// HULK_TRACE_FUNCS probes): 2,661 calls, a in [0, 0.033333], b one of 2.0 / 0.3 / 0.1; none negative or NaN
 hulk_freg __cdecl FUN_0009faa0(float from, float to, float a, float b)
 {
+    HULK_PRE_GE(a, 0.0f);
+    HULK_PRE_GE(b, 0.0f);
     // the original keeps t and r in st0: t = 1 - exp(-(a/b)) and r = from + (to - from) * t are never rounded;
     // only the dead-zone test uses r stored to float (fst), and the unrounded r is returned
     hulk_freg t;
@@ -865,10 +874,18 @@ hulk_freg __cdecl FUN_0009faa0(float from, float to, float a, float b)
 
 
 // 0x0009fb20 FUN_0009fb20 (176 B): equivalent/0x0009fb20.cpp
-// sym: ?FUN_0009fb20@fn_f69c308d@@YAMMMMMM@Z @6fc3bd4bac6a @w2c171d510baf
+// sym: ?FUN_0009fb20@fn_f69c308d@@YAMMMMMM@Z @6fc3bd4bac6a @wa95d0d961e69 @v19d510988e56
 // STATUS: equivalent (tools/equiv.py level 3: 20003 inputs, branch coverage 6/6)
 // FUN_0009fb20 @ 0x0009fb20
+// (fix126, D152) a range contract: dt (a frame time) and tau (a time constant) are >= 0; a negative one sends exp past
+// the double range where the original's x87 keeps a 15-bit exponent
+// pre: ge(arg4, 0) ge(arg5, 0)
+// pre-callers: 0x000a81d1 0x000a81f8 0x000a8220 0x000a8248 (the four calls in 0x000a8180). play3 to 60000 (Wine
+// build job 100781, HULK_TRACE_FUNCS probes): 192,792 calls, dt in [0, 0.033333], tau 0.1 (three sites) or 1.0;
+// none negative or NaN
 hulk_freg __cdecl FUN_0009fb20(float a, float b, float c, float dt, float tau) {
+    HULK_PRE_GE(dt, 0.0f);
+    HULK_PRE_GE(tau, 0.0f);
     double factor = 1.0;
     if (tau != 0.0f) factor = 1.0 - exp(-(double)dt / tau);
     double second = 0.0;
@@ -4408,7 +4425,7 @@ void Camera::FUN_000a6400(float a1, float a2) {
 namespace fn_f69c308d {
 
 // 0x000a74c0 FUN_000a74c0 (267 B): equivalent/0x000a74c0.cpp
-// sym: ?target@CChaseCamera_a74c0@fn_f69c308d@@QAEXPAUContext@2@PBD@Z @b18469b1d6e1 @w5232220b0ff0 @vcf95f278bbd8
+// sym: ?target@CChaseCamera_a74c0@fn_f69c308d@@QAEXPAUContext@2@PBD@Z @b18469b1d6e1 @wc09debe98c72 @vcf95f278bbd8
 // STATUS: equivalent (tools/equiv.py level 3: 20019 inputs, branch coverage 18/18)
 // FUN_000a74c0 @ 0x000a74c0
 void CChaseCamera_a74c0::target(Context* context,const char* requested) {
