@@ -1631,7 +1631,6 @@ void* Method2_1bf380::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_001bf380
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method2<CSubtitleManager, void, int, int>::~Method2() {}
 
 
 // 0x001bf3a0 Method2<CSubtitleManager,void,int,int>::vfunc_2 (23 B): matches/0x001bf3a0.cpp
@@ -1652,11 +1651,6 @@ void Method2_1bf3a0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused
     (m->*(*(void (CFEManager_1bf3a0::**)(const char *, int))&this->f_1c))(s, x);
 }
 } // namespace fn_001bf3a0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method2<CSubtitleManager, void, int, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001bf3a0::Method2_1bf3a0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x001bf400 Method1<CSubtitleManager,void,bool>::vfunc_0 (30 B): matches/0x001bf400.cpp
@@ -1679,7 +1673,6 @@ void* Method1_1bf400::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_001bf400
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method1<CSubtitleManager, void, bool>::~Method1() {}
 
 
 // 0x001bf420 Method1<CSubtitleManager,void,bool>::vfunc_2 (21 B): matches/0x001bf420.cpp
@@ -1697,11 +1690,6 @@ void Method1_1bf420::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager
     (obj->*(*(MFn_1bf420 *)&this->f_1c))(*b);
 }
 } // namespace fn_001bf420
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method1<CSubtitleManager, void, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001bf420::Method1_1bf420*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x001bf480 Method1<CSubtitleManager,void,int>::vfunc_0 (30 B): matches/0x001bf480.cpp
@@ -1724,7 +1712,6 @@ void* Method1_1bf480::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_001bf480
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method1<CSubtitleManager, void, int>::~Method1() {}
 
 
 // 0x001bf4a0 Method1<CSubtitleManager,void,int>::vfunc_2 (19 B): matches/0x001bf4a0.cpp
@@ -1743,11 +1730,6 @@ void Method1_1bf4a0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (v
     (d->*(*(void (Dummy_1bf4a0::**)(void *))&this->f_1c))(*b);
 }
 } // namespace fn_001bf4a0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method1<CSubtitleManager, void, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001bf4a0::Method1_1bf4a0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 namespace fn_fed79ca6 {
 
@@ -1790,7 +1772,6 @@ void* Method4_1bf530::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_001bf530
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method4<CSubtitleManager, void, int, float, const char *, float>::~Method4() {}
 
 
 // 0x001bf550 Method4<CSubtitleManager,void,int,float,const_char_*,float>::vfunc_2 (46 B): equivalent/0x001bf550.cpp
@@ -1809,11 +1790,6 @@ void Method4_1bf550::vfunc_2(void* __p0, void* __p1, void* __p2) { CSubtitleMana
     (manager->*(*(void (CSubtitleManager_1bf550::**)(int, float, const char *, float))&this->f_1c))(arguments->number, arguments->start, arguments->text, arguments->end);
 }
 } // namespace fn_001bf550
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method4<CSubtitleManager, void, int, float, const char *, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001bf550::Method4_1bf550*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x001bf5d0 Method2<CSubtitleManager,void,int,const_char_*>::vfunc_0 (30 B): matches/0x001bf5d0.cpp
@@ -1836,7 +1812,6 @@ void* Method2_1bf5d0::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_001bf5d0
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method2<CSubtitleManager, void, int, const char *>::~Method2() {}
 
 
 // 0x001bf5f0 Method2<CSubtitleManager,void,int,const_char_*>::vfunc_2 (23 B): matches/0x001bf5f0.cpp
@@ -1866,11 +1841,6 @@ void Method2_1bf5f0::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr m
 }
 #endif
 } // namespace fn_001bf5f0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method2<CSubtitleManager, void, int, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001bf5f0::Method2_1bf5f0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x001bf650 Method0<CSubtitleManager,bool>::vfunc_0 (30 B): matches/0x001bf650.cpp
@@ -1893,7 +1863,6 @@ void* Method0_1bf650::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_001bf650
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method0<CSubtitleManager, bool>::~Method0() {}
 
 
 // 0x001bf670 Method0<CSubtitleManager,bool>::vfunc_2 (22 B): matches/0x001bf670.cpp
@@ -1914,11 +1883,6 @@ void Method0_1bf670::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager
         *out = r;
 }
 } // namespace fn_001bf670
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method0<CSubtitleManager, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001bf670::Method0_1bf670*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x001bf6d0 Method1<CSubtitleManager,void,float>::vfunc_0 (30 B): matches/0x001bf6d0.cpp
@@ -1941,7 +1905,6 @@ void* Method1_1bf6d0::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_001bf6d0
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method1<CSubtitleManager, void, float>::~Method1() {}
 
 
 // 0x001bf6f0 Method1<CSubtitleManager,void,float>::vfunc_2 (19 B): matches/0x001bf6f0.cpp
@@ -1960,11 +1923,6 @@ void Method1_1bf6f0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (v
     (d->*(*(void (Dummy_1bf6f0::**)(void *))&this->f_1c))(*b);
 }
 } // namespace fn_001bf6f0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method1<CSubtitleManager, void, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001bf6f0::Method1_1bf6f0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x001bf710 FUN_001bf710 (89 B): matches/0x001bf710.cpp [wrapped: conflict: Method3]
@@ -2011,7 +1969,6 @@ void* Method3_1bf770::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_001bf770
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method3<CSubtitleManager, void, float, float, float>::~Method3() {}
 
 
 // 0x001bf790 Method3<CSubtitleManager,void,float,float,float>::vfunc_2 (35 B): matches/0x001bf790.cpp
@@ -2031,11 +1988,6 @@ void Method3_1bf790::vfunc_2(void* __p0, void* __p1, void* __p2) { CSubtitleMana
     (manager->*(*(void (CSubtitleManager_1bf790::**)(float, float, float))&this->f_1c))(*(float*)&values, v->y, v->z);
 }
 } // namespace fn_001bf790
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method3<CSubtitleManager, void, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001bf790::Method3_1bf790*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 namespace fn_fed79ca6 {
 
@@ -2076,7 +2028,6 @@ void* Method3_1bf820::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_001bf820
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method3<CSubtitleManager, void, const char *, const char *, float>::~Method3() {}
 
 
 // 0x001bf840 Method3<CSubtitleManager,void,const_char_*,const_char_*,float>::vfunc_2 (29 B): equivalent/0x001bf840.cpp
@@ -2095,11 +2046,6 @@ void Method3_1bf840::vfunc_2(void* __p0, void* __p1, void* __p2) { CSubtitleMana
     (manager->*(*(void (CSubtitleManager_1bf840::**)(const char *, const char *, float))&this->f_1c))(args->first, args->second, args->third);
 }
 } // namespace fn_001bf840
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method3<CSubtitleManager, void, const char *, const char *, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001bf840::Method3_1bf840*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 namespace fn_fed79ca6 {
 
@@ -2435,7 +2381,6 @@ void* Closure2_1bfdd0::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_001bfdd0
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Closure2<CSubtitleManager, void, int, int>::~Closure2() {}
 
 
 // 0x001bfdf0 Closure2<CSubtitleManager,void,int,int>::vfunc_2 (22 B): matches/0x001bfdf0.cpp
@@ -2445,9 +2390,6 @@ template <> void Closure2<CSubtitleManager, void, int, int>::vfunc_2(void* __p0,
 
     ((*(CActorManager_1bfdf0 * *)&this->f_20)->*(*(void (CActorManager_1bfdf0::**)(const char *, float))&this->f_1c))(p->s, p->f);
 }
-#if defined(HULK_PTR64)
-template class Closure2<CSubtitleManager, void, int, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1bfdd0)
-#endif
 
 
 // 0x001bfe10 FUN_001bfe10 (76 B): matches/0x001bfe10.cpp [wrapped: conflict: Closure1; Method1]
@@ -2496,7 +2438,6 @@ void* Closure1_1bfe60::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_001bfe60
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Closure1<CSubtitleManager, void, bool>::~Closure1() {}
 
 
 // 0x001bfe80 Closure1<CSubtitleManager,void,bool>::vfunc_2 (20 B): matches/0x001bfe80.cpp
@@ -2515,11 +2456,6 @@ void Closure1_1bfe80::vfunc_2(void* __p0, void* __p1, void* __p2) { unsigned cha
     ((*(Actor_1bfe80 * *)&this->f_20)->*(*(void (Actor_1bfe80::**)(unsigned char))&this->f_1c))(*arg);
 }
 } // namespace fn_001bfe80
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure1<CSubtitleManager, void, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001bfe80::Closure1_1bfe80*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x001bfea0 FUN_001bfea0 (76 B): matches/0x001bfea0.cpp [wrapped: helper definitions (3 out-of-line function bodies)]
@@ -2571,7 +2507,6 @@ void* Closure1_1bfef0::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_001bfef0
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Closure1<CSubtitleManager, void, int>::~Closure1() {}
 
 
 // 0x001bff10 Closure1<CSubtitleManager,void,int>::vfunc_2 (18 B): matches/0x001bff10.cpp
@@ -2581,9 +2516,6 @@ template <> void Closure1<CSubtitleManager, void, int>::vfunc_2(void* __p0, void
 
     ((*(CActorManager_1bff10 * *)&this->f_20)->*(*(void (CActorManager_1bff10::**)(const char *))&this->f_1c))(*b);
 }
-#if defined(HULK_PTR64)
-template class Closure1<CSubtitleManager, void, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1bfef0)
-#endif
 
 
 // 0x001bff60 Closure4<CSubtitleManager,void,int,float,const_char_*,float>::vfunc_0 (30 B): matches/0x001bff60.cpp
@@ -2606,7 +2538,6 @@ void* Closure4_1bff60::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_001bff60
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Closure4<CSubtitleManager, void, int, float, const char *, float>::~Closure4() {}
 
 
 // 0x001bff80 Closure4<CSubtitleManager,void,int,float,const_char_*,float>::vfunc_2 (45 B): equivalent/0x001bff80.cpp
@@ -2618,9 +2549,6 @@ template <> void Closure4<CSubtitleManager, void, int, float, const char *, floa
     float time = arguments->time;
     ((*(CSubtitleManager_1bff80 * *)&this->f_20)->*(*(void (CSubtitleManager_1bff80::**)(int, float, const char *, float))&this->f_1c))(arguments->number, time, arguments->text, arguments->duration);
 }
-#if defined(HULK_PTR64)
-template class Closure4<CSubtitleManager, void, int, float, const char *, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1bff60)
-#endif
 
 
 // 0x001bffb0 FUN_001bffb0 (89 B): matches/0x001bffb0.cpp [wrapped: conflict: Closure2]
@@ -2669,11 +2597,6 @@ void Closure2_1c0030::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (
     ((*(CActorManager_1c0030 * *)&this->f_20)->*(*(void (CActorManager_1c0030::**)(const char *, float))&this->f_1c))(p->s, p->f);
 }
 } // namespace fn_001c0030
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure2<CSubtitleManager, void, int, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001c0030::Closure2_1c0030*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x001c00b0 Closure0<CSubtitleManager,bool>::vfunc_2 (23 B): matches/0x001c00b0.cpp
@@ -2696,11 +2619,6 @@ void Closure0_1c00b0::vfunc_2(void* __p0, void* __p1, void* __p2) { unsigned cha
         *out = b;
 }
 } // namespace fn_001c00b0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure0<CSubtitleManager, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001c00b0::Closure0_1c00b0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x001c00d0 FUN_001c00d0 (76 B): matches/0x001c00d0.cpp [wrapped: conflict: Closure1; Method1]
@@ -2748,11 +2666,6 @@ void Closure1_1c0140::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (
     ((*(CActorManager_1c0140 * *)&this->f_20)->*(*(void (CActorManager_1c0140::**)(const char *))&this->f_1c))(*b);
 }
 } // namespace fn_001c0140
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure1<CSubtitleManager, void, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001c0140::Closure1_1c0140*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x001c01b0 Closure3<CSubtitleManager,void,float,float,float>::vfunc_2 (34 B): equivalent/0x001c01b0.cpp
@@ -2772,11 +2685,6 @@ void Closure3_1c01b0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unuse
     ((*(CSubtitleManager_1c01b0 * *)&this->f_20)->*(*(void (CSubtitleManager_1c01b0::**)(float, float, float))&this->f_1c))(values[0], values[1], values[2]);
 }
 } // namespace fn_001c01b0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure3<CSubtitleManager, void, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001c01b0::Closure3_1c01b0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x001c0230 Closure3<CSubtitleManager,void,const_char_*,const_char_*,float>::vfunc_2 (28 B): equivalent/0x001c0230.cpp

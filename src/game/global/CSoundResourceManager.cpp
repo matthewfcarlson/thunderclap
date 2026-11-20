@@ -150,7 +150,6 @@ void* Method1_1e9e70::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_001e9e70
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method1<CSoundResourceManager, void, const char *>::~Method1() {}
 
 
 // 0x001e9e90 Method1<CSoundResourceManager,void,const_char_*>::vfunc_2 (19 B): matches/0x001e9e90.cpp
@@ -169,11 +168,6 @@ void Method1_1e9e90::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (v
     (d->*(*(void (Dummy_1e9e90::**)(void *))&this->f_1c))(*b);
 }
 } // namespace fn_001e9e90
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method1<CSoundResourceManager, void, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001e9e90::Method1_1e9e90*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x001e9ef0 Method1<CSoundResourceManager,void,char_*>::vfunc_0 (30 B): matches/0x001e9ef0.cpp
@@ -196,7 +190,6 @@ void* Method1_1e9ef0::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_001e9ef0
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method1<CSoundResourceManager, void, char *>::~Method1() {}
 
 
 // 0x001e9f10 Method1<CSoundResourceManager,void,char_*>::vfunc_2 (19 B): matches/0x001e9f10.cpp
@@ -215,11 +208,6 @@ void Method1_1e9f10::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (v
     (d->*(*(void (Dummy_1e9f10::**)(void *))&this->f_1c))(*b);
 }
 } // namespace fn_001e9f10
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method1<CSoundResourceManager, void, char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001e9f10::Method1_1e9f10*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x001e9f70 Method1<CSoundResourceManager,void,int>::vfunc_0 (30 B): matches/0x001e9f70.cpp
@@ -242,7 +230,6 @@ void* Method1_1e9f70::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_001e9f70
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method1<CSoundResourceManager, void, int>::~Method1() {}
 
 
 // 0x001e9f90 Method1<CSoundResourceManager,void,int>::vfunc_2 (19 B): matches/0x001e9f90.cpp
@@ -261,11 +248,6 @@ void Method1_1e9f90::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (v
     (d->*(*(void (Dummy_1e9f90::**)(void *))&this->f_1c))(*b);
 }
 } // namespace fn_001e9f90
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method1<CSoundResourceManager, void, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001e9f90::Method1_1e9f90*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x001ea010 FUN_001ea010 (50 B): matches/0x001ea010.cpp
@@ -408,7 +390,6 @@ void* Closure1_1ea400::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_001ea400
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Closure1<CSoundResourceManager, void, const char *>::~Closure1() {}
 
 
 // 0x001ea420 Closure1<CSoundResourceManager,void,const_char_*>::vfunc_2 (18 B): matches/0x001ea420.cpp
@@ -427,11 +408,6 @@ void Closure1_1ea420::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (
     ((*(CActorManager_1ea420 * *)&this->f_20)->*(*(void (CActorManager_1ea420::**)(const char *))&this->f_1c))(*b);
 }
 } // namespace fn_001ea420
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure1<CSoundResourceManager, void, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001ea420::Closure1_1ea420*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x001ea440 FUN_001ea440 (76 B): matches/0x001ea440.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
@@ -480,7 +456,6 @@ void* Closure1_1ea490::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_001ea490
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Closure1<CSoundResourceManager, void, char *>::~Closure1() {}
 
 
 // 0x001ea4b0 Closure1<CSoundResourceManager,void,char_*>::vfunc_2 (18 B): matches/0x001ea4b0.cpp
@@ -499,11 +474,6 @@ void Closure1_1ea4b0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (
     ((*(CActorManager_1ea4b0 * *)&this->f_20)->*(*(void (CActorManager_1ea4b0::**)(const char *))&this->f_1c))(*b);
 }
 } // namespace fn_001ea4b0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure1<CSoundResourceManager, void, char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001ea4b0::Closure1_1ea4b0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x001ea4d0 FUN_001ea4d0 (76 B): matches/0x001ea4d0.cpp [wrapped: conflict: Closure1; Closure1::Closure1; Method1]
@@ -584,11 +554,6 @@ void Closure1_1ea540::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (
     ((*(CActorManager_1ea540 * *)&this->f_20)->*(*(void (CActorManager_1ea540::**)(const char *))&this->f_1c))(*b);
 }
 } // namespace fn_001ea540
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure1<CSoundResourceManager, void, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001ea540::Closure1_1ea540*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x001ea560 FUN_001ea560 (59 B): equivalent/0x001ea560.cpp [wrapped: compile error in a shared declaration (C2757)]

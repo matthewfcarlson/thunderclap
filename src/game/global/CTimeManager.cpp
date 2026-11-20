@@ -1430,11 +1430,6 @@ struct Function2_86eb0 : hulk_script::FunctionGenView {
 void Function2_86eb0::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr unused = (hulk_intptr)__p0; const float * args = (const float *)__p1; float * result = (float *)__p2;
  float value = (*(float (**)(float, float))&this->f_1c)(args[0], args[1]); if (result) *result = value; }
 } // namespace fn_00086eb0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Function2<float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00086eb0::Function2_86eb0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x00086f30 Function1<const_char_*,const_char_*>::vfunc_2 (28 B): matches/0x00086f30.cpp [wrapped: conflict: Function; Function1]
@@ -1507,11 +1502,6 @@ void Function2_86fa0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * ignor
         *out = value;
 }
 } // namespace fn_00086fa0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Function2<const char *, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00086fa0::Function2_86fa0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 namespace fn_f5b26912 {
 
@@ -1580,7 +1570,6 @@ void* Function0_870e0::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_000870e0
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Function0<float>::~Function0() {}
 
 
 // 0x00087100 Function2<float,float,float>::vfunc_0 (30 B): matches/0x00087100.cpp
@@ -1603,7 +1592,6 @@ void* Function2_87100::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_00087100
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Function2<float, float, float>::~Function2() {}
 
 
 // 0x00087120 Function1<const_char_*,const_char_*>::vfunc_0 (30 B): matches/0x00087120.cpp
@@ -1626,7 +1614,6 @@ void* Function1_87120::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_00087120
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Function1<const char *, const char *>::~Function1() {}
 
 
 // 0x00087140 Function2<const_char_*,const_char_*,const_char_*>::vfunc_0 (30 B): matches/0x00087140.cpp
@@ -1649,7 +1636,6 @@ void* Function2_87140::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_00087140
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Function2<const char *, const char *, const char *>::~Function2() {}
 
 
 // 0x00087160 Function4<bool,math::Vector,math::Vector,math::Vector,math::Vector>::vfunc_0 (30 B): matches/0x00087160.cpp
@@ -1673,7 +1659,6 @@ void* Vector_87160::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_00087160
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Function4<bool,math::Vector,math::Vector,math::Vector,math::Vector>::~Function4() {}
 
 
 // 0x000871c0 Method0<CTimeManager,float>::vfunc_0 (30 B): matches/0x000871c0.cpp
@@ -1696,7 +1681,6 @@ void* Method0_871c0::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_000871c0
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method0<CTimeManager, float>::~Method0() {}
 
 
 // 0x000871e0 Method0<CTimeManager,float>::vfunc_2 (34 B): matches/0x000871e0.cpp [wrapped: conflict: Function]
@@ -1743,7 +1727,6 @@ void* Method0_87250::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_00087250
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method0<CGame, void>::~Method0() {}
 
 
 // 0x00087270 Method0<CGame,void>::vfunc_2 (12 B): matches/0x00087270.cpp
@@ -1761,11 +1744,6 @@ void Method0_87270::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_
     (a->*(*(void (CActorManager_87270::**)())&this->f_1c))();
 }
 } // namespace fn_00087270
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method0<CGame, void>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00087270::Method0_87270*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x000872a0 FUN_000872a0 (230 B): equivalent/0x000872a0.cpp [wrapped: conflict: World]
@@ -2057,7 +2035,6 @@ void* Closure0_87c90::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_00087c90
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Closure0<CTimeManager, float>::~Closure0() {}
 
 
 // 0x00087cb0 Closure0<CTimeManager,float>::vfunc_2 (35 B): matches/0x00087cb0.cpp
@@ -2080,11 +2057,6 @@ void Closure0_87cb0::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr a
         *out = v;
 }
 } // namespace fn_00087cb0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure0<CTimeManager, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00087cb0::Closure0_87cb0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x00087d20 Closure0<CGame,void>::vfunc_0 (30 B): matches/0x00087d20.cpp
@@ -2107,7 +2079,6 @@ void* Closure0_87d20::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_00087d20
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Closure0<CGame, void>::~Closure0() {}
 
 
 // 0x00087d40 Closure0<CGame,void>::vfunc_2 (11 B): matches/0x00087d40.cpp
@@ -2125,11 +2096,6 @@ void Closure0_87d40::vfunc_2(void* __p0, void* __p1, void* __p2) {
     ((*(CActorManager_87d40 * *)&this->f_20)->*(*(void (CActorManager_87d40::**)())&this->f_1c))();
 }
 } // namespace fn_00087d40
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure0<CGame, void>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00087d40::Closure0_87d40*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x00087d50 FUN_00087d50 (109 B): matches/0x00087d50.cpp [wrapped: conflict: Closure0; Method0]

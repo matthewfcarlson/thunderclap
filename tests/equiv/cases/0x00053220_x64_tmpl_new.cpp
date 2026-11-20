@@ -3,6 +3,7 @@
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
+#include "decls/data/engine/fight.h"     // (DAT_00427758/60 moved here with gx3's split, 21d2cd23c)
 
 void __cdecl SetCompare_00047c60();
 void __cdecl SetSize_00047c70();

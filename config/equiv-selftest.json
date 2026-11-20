@@ -1,0 +1,176 @@
+{
+ "about": "equiv.py --selftest (integ3, hostcheck): fixed cases at a work-counted budget; every host must reproduce these summaries exactly (inputs, coverage, statuses, verdict). A host that differs computes something else and takes no proof jobs. Re-record with --selftest --update only for a checker change that moves them on purpose, from a reference host.",
+ "cases": [
+  {
+   "addr": "0x002cb2b0",
+   "inputs": 300,
+   "name": "loop_exit_order",
+   "src": "tests/equiv/cases/0x002cb2b0_loop_exit_order.cpp",
+   "time_budget": 30
+  },
+  {
+   "addr": "0x003037f0",
+   "inputs": 300,
+   "name": "iterator_range",
+   "src": "tests/equiv/cases/0x003037f0_iterator_range.cpp",
+   "time_budget": 30
+  },
+  {
+   "addr": "0x000ffef0",
+   "inputs": 300,
+   "name": "compare_chain",
+   "src": "tests/equiv/cases/0x000ffef0_compare_chain.cpp",
+   "time_budget": 30
+  },
+  {
+   "addr": "0x00301410",
+   "inputs": 100,
+   "mode": "wine",
+   "name": "wine_nan_sign",
+   "src": "tests/equiv/cases/0x00301410_native_nan_sign.cpp",
+   "time_budget": 30
+  },
+  {
+   "addr": "0x0009f760",
+   "inputs": 100,
+   "mode": "wine",
+   "name": "wine_exp",
+   "src": "tests/equiv/cases/0x0009f760_native_exp_python.cpp",
+   "time_budget": 30
+  },
+  {
+   "addr": "0x0009fb20",
+   "inputs": 90,
+   "mode": "x64",
+   "name": "x64_range",
+   "src": "tests/equiv/cases/0x0009fb20_x64_range.cpp",
+   "time_budget": 30
+  }
+ ],
+ "expect": {
+  "compare_chain": {
+   "class": null,
+   "edges": [
+    97,
+    122,
+    "bf6072d6d92d"
+   ],
+   "first_diff": null,
+   "input_digest": "7a3afedad420",
+   "inputs_drawn": null,
+   "inputs_failed": 0,
+   "inputs_inconclusive": 55,
+   "inputs_run": 212,
+   "promotable": true,
+   "status": "equivalent",
+   "statuses": {
+    "ret": 212,
+    "timeout": 55
+   },
+   "time_cut_wall": false,
+   "work": 30422516
+  },
+  "iterator_range": {
+   "class": null,
+   "edges": [
+    40,
+    62,
+    "6a67819d76e1"
+   ],
+   "first_diff": null,
+   "input_digest": "1f4e980f2422",
+   "inputs_drawn": null,
+   "inputs_failed": 0,
+   "inputs_inconclusive": 114,
+   "inputs_run": 8,
+   "promotable": false,
+   "status": "equivalent",
+   "statuses": {
+    "ret": 8,
+    "timeout": 114
+   },
+   "time_cut_wall": false,
+   "work": 74092428
+  },
+  "loop_exit_order": {
+   "class": null,
+   "edges": [
+    57,
+    382,
+    "b78a5445129c"
+   ],
+   "first_diff": "missing write to 0x00000038 before call #4 (expected 0xf000000)",
+   "input_digest": "caff584b6fe1",
+   "inputs_drawn": null,
+   "inputs_failed": 1,
+   "inputs_inconclusive": 36,
+   "inputs_run": 51,
+   "promotable": false,
+   "status": "fail",
+   "statuses": {
+    "code_write": 2,
+    "ret": 53,
+    "timeout": 34
+   },
+   "time_cut_wall": false,
+   "work": 30925890
+  },
+  "wine_exp": {
+   "class": null,
+   "edges": [
+    0,
+    0,
+    "da39a3ee5e6b"
+   ],
+   "first_diff": null,
+   "input_digest": "bc526429a3a5",
+   "inputs_drawn": null,
+   "inputs_failed": 0,
+   "inputs_inconclusive": 0,
+   "inputs_run": 100,
+   "promotable": true,
+   "status": "equivalent",
+   "statuses": {
+    "ret": 100
+   },
+   "time_cut_wall": false,
+   "work": 182400
+  },
+  "wine_nan_sign": {
+   "class": null,
+   "edges": [
+    0,
+    0,
+    "da39a3ee5e6b"
+   ],
+   "first_diff": null,
+   "input_digest": "db2f7ada3eaa",
+   "inputs_drawn": null,
+   "inputs_failed": 0,
+   "inputs_inconclusive": 0,
+   "inputs_run": 104,
+   "promotable": true,
+   "status": "equivalent",
+   "statuses": {
+    "ret": 104
+   },
+   "time_cut_wall": false,
+   "work": 328816
+  },
+  "x64_range": {
+   "class": null,
+   "edges": "103/128",
+   "first_diff": null,
+   "input_digest": "7cc4c7784734",
+   "inputs_drawn": null,
+   "inputs_failed": null,
+   "inputs_inconclusive": null,
+   "inputs_run": 90,
+   "promotable": null,
+   "status": "equivalent",
+   "statuses": {},
+   "time_cut_wall": false,
+   "work": 479507
+  }
+ }
+}

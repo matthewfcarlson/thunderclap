@@ -207,7 +207,6 @@ void* Method0_aeb00::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_000aeb00
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method0<CControllerManager, bool>::~Method0() {}
 
 
 // 0x000aeb20 Method0<CControllerManager,bool>::vfunc_2 (22 B): matches/0x000aeb20.cpp
@@ -228,11 +227,6 @@ void Method0_aeb20::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_
         *out = r;
 }
 } // namespace fn_000aeb20
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method0<CControllerManager, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000aeb20::Method0_aeb20*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x000aeb90 Method2<CControllerManager,void,int,bool>::vfunc_0 (30 B): matches/0x000aeb90.cpp
@@ -255,7 +249,6 @@ void* Method2_aeb90::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_000aeb90
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method2<CControllerManager, void, int, bool>::~Method2() {}
 
 
 // 0x000aebb0 Method2<CControllerManager,void,int,bool>::vfunc_2 (25 B): matches/0x000aebb0.cpp
@@ -272,11 +265,6 @@ void Method2_aebb0::vfunc_2(void* __p0, void* __p1, void* __p2) { CControllerMan
     (obj->*(*(void (CControllerManager_aebb0::**)(int, bool))&this->f_1c))(args->a, args->b);
 }
 } // namespace fn_000aebb0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method2<CControllerManager, void, int, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000aebb0::Method2_aebb0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x000aec10 Method1<CControllerManager,void,bool>::vfunc_0 (30 B): matches/0x000aec10.cpp
@@ -299,7 +287,6 @@ void* Method1_aec10::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_000aec10
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method1<CControllerManager, void, bool>::~Method1() {}
 
 
 // 0x000aec30 Method1<CControllerManager,void,bool>::vfunc_2 (21 B): matches/0x000aec30.cpp
@@ -317,11 +304,6 @@ void Method1_aec30::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager_
     (obj->*(*(MFn_aec30 *)&this->f_1c))(*b);
 }
 } // namespace fn_000aec30
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method1<CControllerManager, void, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000aec30::Method1_aec30*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x000aecb0 Closure0<CControllerManager,bool>::vfunc_2 (23 B): matches/0x000aecb0.cpp
@@ -344,11 +326,6 @@ void Closure0_aecb0::vfunc_2(void* __p0, void* __p1, void* __p2) { unsigned char
         *out = b;
 }
 } // namespace fn_000aecb0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure0<CControllerManager, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000aecb0::Closure0_aecb0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x000aecd0 FUN_000aecd0 (89 B): matches/0x000aecd0.cpp [wrapped: conflict: Closure2; Method2]
@@ -431,11 +408,6 @@ void Closure1_aede0::vfunc_2(void* __p0, void* __p1, void* __p2) { unsigned char
     ((*(Actor_aede0 * *)&this->f_20)->*(*(void (Actor_aede0::**)(unsigned char))&this->f_1c))(*arg);
 }
 } // namespace fn_000aede0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure1<CControllerManager, void, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000aede0::Closure1_aede0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x000aee00 FUN_000aee00 (109 B): matches/0x000aee00.cpp [wrapped: conflict: CControllerManager; Closure0; Method0]

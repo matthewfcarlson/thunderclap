@@ -24,9 +24,4 @@ void* Closure2_9ce80::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_0009ce80
-// the destructor itself, which other objects' code references natively:
-template <> Closure2<CCameraManager, void,math::Vector, bool>::~Closure2() {}
-#if defined(HULK_PTR64)
-template class Closure2<CCameraManager, void,math::Vector, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x9ce80)
-#endif
 

@@ -51,7 +51,7 @@ hulk_intptr CGrappleSmartPropDropTrack::vfunc_12(hulk_intptr __p0) { Owner_5b670
     Settings* settings = slot->settings;
     if (settings == 0)
         return (int)(0);
-    CSmartPropDropAction* c = static_cast<CSmartPropDropAction*>(FUN_0008d690(0x24));
+    CSmartPropDropAction* c = static_cast<CSmartPropDropAction*>(FUN_0008d690((unsigned int)sizeof(::CSmartPropDropAction)));
     if (c == 0)
         return (int)(0);
     return (hulk_intptr)(((CSmartPropDropAction_nv_5b670*)(((CSmartPropDropAction*)(c))))->FUN_0001f360(this, settings));

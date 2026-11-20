@@ -915,7 +915,6 @@ void* Method1_46340::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_00046340
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method1<CCharacterTemplateManager, void, const char *>::~Method1() {}
 
 
 // 0x00046360 Method1<CCharacterTemplateManager,void,const_char_*>::vfunc_2 (19 B): matches/0x00046360.cpp
@@ -934,11 +933,6 @@ void Method1_46360::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (vo
     (d->*(*(void (Dummy_46360::**)(void *))&this->f_1c))(*b);
 }
 } // namespace fn_00046360
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method1<CCharacterTemplateManager, void, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00046360::Method1_46360*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x00046380 CCharacterTemplate::vfunc_2 (30 B): matches/0x00046380.cpp
@@ -1029,11 +1023,6 @@ void Closure1_464a0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (v
     ((*(CActorManager_464a0 * *)&this->f_20)->*(*(void (CActorManager_464a0::**)(const char *))&this->f_1c))(*b);
 }
 } // namespace fn_000464a0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure1<CCharacterTemplateManager, void, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000464a0::Closure1_464a0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x00047770 CCharacterTemplateManager::vfunc_0 (203 B): equivalent/0x00047770.cpp [wrapped: conflict: CCharacterTemplateManager; RDLHandler]

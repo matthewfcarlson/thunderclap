@@ -145,13 +145,20 @@ The game's free calls are `operator delete(p)` / `operator delete[](p)`: 0x0008d
 scope. Never add a new name for the free (D115). When the checker pairs an
 unaddressed operator name to the wrong call (`??_V` paired with 0x0008d6d0), add `// equiv-map: NAME = 0xADDR` to the block:
 a mapping hint, not a relaxation (nat2). A `??_G` written as an explicit function keeps `X::~X() {}` (other TUs'
-native code references `??1X`) and has `??_G`'s signature, `void* vfunc_N(unsigned int flags)` (D114).
+native code references `??1X`) and has `??_G`'s signature, `void* vfunc_N(unsigned int flags)` (D114). For the script-binding gen templates (Closure/Method/Function) no native
+`template class` line or destructor specialization is needed any more: either one re-instantiates gen's polymorphic
+templates natively (RTTI, unbound `??1`) (script2, a47fd3f2c).
 All declarations of one C name in a TU are one function: write one `extern "C"` declaration per callee per TU, and when
 an include/ header declares the name, use its prototype exactly (clang rejects a differing redeclaration natively even
 where MSVC 7.1 sees `int` both times). An int that the definition receives as a pointer is retyped on the definition and
 on every caller in one change (`hulk_intptr`/`hulk_uintptr` keep the 32-bit type and mangling; a field that stores it is
 retyped too), or the callers still saying `int` stop binding. A binding fix can expose a 32-bit literal allocation
-size to the x64 gate: write `sizeof(record)` (decl1).
+size to the x64 gate: write `sizeof(record)` (decl1). Before writing `sizeof(::Gen)` for an allocation, compare gen's
+32-bit size with the literal: gen can be larger than the object (physics::CollisionSphere is 0x78 in gen, its constructor
+writes 0x48 and every allocation is 0x48); then use the decls record, and fix gen. A constructor view that pads
+fight::Track's words (`char pad[8]` after the vftable) puts the derived fields 4 bytes early natively: spell Track's
+`void*` and `int`. `tree_tu.py pin` without records resolves a block by name and can pick another function of the TU:
+after moving a block's function into a local record, pin with `--records` naming the definition's own symbol (sweep3).
 Script bindings (Function / Method<N> / Closure<N>) use include/game/script_bind.h's records (`hulk_script::ScriptFunction`,
 `ScriptMethodN`, `ScriptClosure`, or a TU-local `VftOf` trait) with the game's vftables by address, never a local `virtual`
 stand-in; their constructors are `throw()` so /GX TUs add no unwind frame. Measure native unbound on the proof's own
@@ -190,6 +197,12 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   materialize report its size as `unproven_baseline`. Cross-TU declaration / allocation / free-name report:
   `tools/xtu_check.py run --jobq [--relocmap V.jsonl...]` (verify records for the reloc map need `HULK_XTU_RELOCMAP=1`),
   then `report build/xtu/facts` (report-only; build/xtu/summary.json).
+- **Work budgets** (workclock): equiv.py / equiv64.py budgets are work, not time: a host's speed changes how long a
+  check takes, never what it reached. A run the CPU safety cap cuts (`time_cut_wall`) is unsupported, and runs with a
+  budget knob set (EQUIV_WORK_PER_SEC, EQUIV_WALL_CAP, EQ64_WORK_PER_SEC, EQ64_RUN_SECONDS) prove nothing. The lane
+  that lands a checker commit (equiv.py, equiv64.py, wine_gate, tree_tu proof paths, config/equiv-selftest.json) runs
+  `tools/host_selftest.py submit`, then `apply` once the jobs finish: a host whose `equiv.py --selftest` differs loses
+  its `equiv` cap until a pinned run passes.
 - **Range contracts** (D152): a function whose game callers keep an argument in a domain states it with
   `HULK_PRE_RANGE(x, lo, hi)` / `HULK_PRE_GT|GE|LT|LE(x, c)` at the top of the body (include/compat/pre.h; x a parameter's
   name), the matching `// pre: range|gt|ge|lt|le(argN, ...)` item, and `// pre-callers:` citing every XBE reference to the

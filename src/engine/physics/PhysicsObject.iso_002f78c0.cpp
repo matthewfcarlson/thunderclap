@@ -18,7 +18,7 @@ extern PhysicsObject_2f78c0* __cdecl thunk_FUN_0008d690(unsigned int);
 
 void* physics::PhysicsObject::vfunc_28(unsigned int __p0) { int arg = (int)__p0;
 
-    PhysicsObject_2f78c0* p = thunk_FUN_0008d690(0x1f8);
+    PhysicsObject_2f78c0* p = thunk_FUN_0008d690((unsigned int)sizeof(::physics::PhysicsObject));
     hulk_intptr result;
     if (p)
         result = p->call_002f5480();

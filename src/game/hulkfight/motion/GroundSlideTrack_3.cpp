@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/hulkfight.h"
 #define TREE_TU_BEGIN namespace fn_f26a8aea {
 #define TREE_TU_END }
 namespace fn_f26a8aea {} using namespace fn_f26a8aea;
@@ -57,7 +58,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::GroundSli
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VGroundSlideTrack@motion@hulkfight@@@fight@@UAEPAXXZ
 // Same code shape as 0x0006fac0 (propagated; names are from that function)
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::GroundSlideTrack>::vfunc_5() {
-    Track_15a320* p = (Track_15a320*)FUN_0008d690(0x38);
+    Track_15a320* p = (Track_15a320*)FUN_0008d690((unsigned int)sizeof(::hulkfight::motion::GroundSlideTrack));
     if (p)
         return (void*)(p->method_0014e330());
     return (void*)(0);

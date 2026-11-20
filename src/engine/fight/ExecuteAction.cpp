@@ -574,7 +574,7 @@ namespace fn_fd5a1171 {
 // 0x00239bd0 fight::ExecuteTrack::vfunc_10 (64 B): matches/0x00239bd0.cpp
 // sym: ?vfunc_10@ExecuteTrack@fn_fd5a1171@@QAEHHHH@Z
 int ExecuteTrack::vfunc_10(int a, int b, int c) {
-    ExecuteAction_239bd0* p = FUN_0008d690(0x68);
+    ExecuteAction_239bd0* p = FUN_0008d690((unsigned int)sizeof(::fight::ExecuteAction));
     int result;
     if (p) {
         int x = field20;

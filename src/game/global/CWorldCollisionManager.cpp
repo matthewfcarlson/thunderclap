@@ -516,7 +516,6 @@ void* Vector_2021d0::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_002021d0
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method1<CWorldCollisionManager,math::Vector,math::Vector>::~Method1() {}
 
 
 // 0x002021f0 Method1<CWorldCollisionManager,math::Vector,math::Vector>::vfunc_2 (90 B): matches/0x002021f0.cpp
@@ -536,11 +535,6 @@ void Method1_2021f0::vfunc_2(void* __p0, void* __p1, void* __p2) { CWorldCollisi
         *out = v;
 }
 } // namespace fn_002021f0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method1<CWorldCollisionManager,math::Vector,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_002021f0::Method1_2021f0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x00202290 Method1<CWorldCollisionManager,void,float>::vfunc_0 (30 B): matches/0x00202290.cpp
@@ -562,8 +556,6 @@ void* Method1_202290::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_00202290
-// the destructor itself, which other objects' code references natively:
-template <> Method1<CWorldCollisionManager, void, float>::~Method1() {}
 
 
 // 0x002022b0 Method1<CWorldCollisionManager,void,float>::vfunc_2 (19 B): matches/0x002022b0.cpp
@@ -582,11 +574,6 @@ void Method1_2022b0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (v
     (d->*(*(void (Dummy_2022b0::**)(void *))&this->f_1c))(*b);
 }
 } // namespace fn_002022b0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method1<CWorldCollisionManager, void, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_002022b0::Method1_2022b0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x00202310 Method0<CWorldCollisionManager,float>::vfunc_0 (30 B): matches/0x00202310.cpp
@@ -608,11 +595,6 @@ void* Method0_202310::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_00202310
-// the destructor itself, which other objects' code references natively:
-template <> Method0<CWorldCollisionManager, float>::~Method0() {}
-#if defined(HULK_PTR64)
-template class Method0<CWorldCollisionManager, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x202310)
-#endif
 
 
 // 0x00202330 Method0<CWorldCollisionManager,float>::vfunc_2 (34 B): matches/0x00202330.cpp [wrapped: conflict: Function]
@@ -659,7 +641,6 @@ void* Method1_2023a0::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_002023a0
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method1<CWorldCollisionManager, void, const char *>::~Method1() {}
 
 
 // 0x002023c0 Method1<CWorldCollisionManager,void,const_char_*>::vfunc_2 (19 B): matches/0x002023c0.cpp
@@ -678,11 +659,6 @@ void Method1_2023c0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (v
     (d->*(*(void (Dummy_2023c0::**)(void *))&this->f_1c))(*b);
 }
 } // namespace fn_002023c0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method1<CWorldCollisionManager, void, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_002023c0::Method1_2023c0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 namespace fn_f0f2b8a0 {
 
@@ -1533,11 +1509,6 @@ void* Closure1_202f70::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_00202f70
-// the destructor itself, which other objects' code references natively:
-template <> Closure1<CWorldCollisionManager,math::Vector,math::Vector>::~Closure1() {}
-#if defined(HULK_PTR64)
-template class Closure1<CWorldCollisionManager,math::Vector,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x202f70)
-#endif
 
 
 // 0x00202f90 Closure1<CWorldCollisionManager,math::Vector,math::Vector>::vfunc_2 (12 B): matches/0x00202f90.cpp [wrapped: conflict: Closure2; Function; Method2]
@@ -1616,7 +1587,6 @@ void* Closure1_202ff0::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_00202ff0
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Closure1<CWorldCollisionManager, void, float>::~Closure1() {}
 
 
 // 0x00203010 Closure1<CWorldCollisionManager,void,float>::vfunc_2 (18 B): matches/0x00203010.cpp
@@ -1635,11 +1605,6 @@ void Closure1_203010::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (
     ((*(CActorManager_203010 * *)&this->f_20)->*(*(void (CActorManager_203010::**)(const char *))&this->f_1c))(*b);
 }
 } // namespace fn_00203010
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure1<CWorldCollisionManager, void, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00203010::Closure1_203010*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x00203090 Closure0<CWorldCollisionManager,float>::vfunc_2 (35 B): matches/0x00203090.cpp
@@ -1662,11 +1627,6 @@ void Closure0_203090::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr 
         *out = v;
 }
 } // namespace fn_00203090
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure0<CWorldCollisionManager, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00203090::Closure0_203090*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x002030c0 FUN_002030c0 (76 B): matches/0x002030c0.cpp [wrapped: conflict: Closure1; Method1]
@@ -1714,11 +1674,6 @@ void Closure1_203130::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (
     ((*(CActorManager_203130 * *)&this->f_20)->*(*(void (CActorManager_203130::**)(const char *))&this->f_1c))(*b);
 }
 } // namespace fn_00203130
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure1<CWorldCollisionManager, void, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00203130::Closure1_203130*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x00203150 CWorldCollisionManager::vfunc_0 (58 B): matches/0x00203150.cpp [wrapped: conflict: CWorldCollisionManager]

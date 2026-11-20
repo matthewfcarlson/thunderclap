@@ -24,9 +24,4 @@ void* Closure3_d0020::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_000d0020
-// the destructor itself, which other objects' code references natively:
-template <> Closure3<HUDOverlay, void, int, int,math::Vector>::~Closure3() {}
-#if defined(HULK_PTR64)
-template class Closure3<HUDOverlay, void, int, int,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xd0020)
-#endif
 

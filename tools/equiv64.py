@@ -71,6 +71,18 @@ KMAX = 16                           # elements per typed object (p[i] for small 
 RAW_SIZE = 0x1000
 
 STEPS = int(os.environ.get("EQ64_STEPS", "1000000"))
+# (integ3, workclock) the input loop's budget is counted in work: WORK_RUN units per emulator run plus WORK_HOOK per hook
+# call (memory, stubs, the function's blocks; a fit of CPU time on mac2/studio over 64 tree blocks), at WORK_PER_SEC
+# units to a budget second, so a host's speed never changes which inputs a check ran; CPU time is only a safety cap
+# (WALL_CAP times the budget, marked `time_cut_wall`)
+WORKN = {"runs": 0, "hooks": 0}
+WORK_RUN, WORK_HOOK = 2640, 1.18          # (microseconds on the reference hosts)
+WORK_PER_SEC = float(os.environ.get("EQ64_WORK_PER_SEC", "0") or 0) or 1.0e6
+
+
+def _work():
+    return WORK_RUN * WORKN["runs"] + WORK_HOOK * WORKN["hooks"]
+WALL_CAP = float(os.environ.get("EQUIV_WALL_CAP", "8"))
 RUN_TIMEOUT = int(float(os.environ.get("EQ64_RUN_SECONDS", "30")) * 1e6)    # per run (us); a longer run counts as a hang
 OFF = set(os.environ.get("EQ64_OFF", "").split(","))
 # (merge-once) while a tree TU is checked: the TU's other verified functions (MSVC symbols, tools/tree_tu.py records).
@@ -2162,13 +2174,31 @@ class Checker:
         res = {"inputs": 0, "completed": 0, "skipped": {}, "fails": [], "classes": {}}
         cov = set()
         seq = seeds if seeds else range(n_inputs)
+        import equiv
         w0 = time.time()
+        k0 = _work()
+        kn0 = dict(WORKN)
+        seq_ = hashlib.sha1()        # (integ3, rev5 (c)) the inputs and what each gave, for the selftest
         for seed in seq:
-            if (time.process_time() - t0 > time_budget or time.time() - w0 > 3 * time_budget) and not seeds:
+            if "workclock" in equiv.EQUIV_OFF:
+                if (time.process_time() - t0 > time_budget or time.time() - w0 > 3 * time_budget) and not seeds:
+                    res["stopped"] = "time budget"
+                    break
+            elif not seeds and (_work() - k0) / WORK_PER_SEC > time_budget:
                 res["stopped"] = "time budget"
+                break
+            elif not seeds and time.process_time() - t0 > WALL_CAP * time_budget:
+                res["stopped"] = "time budget"
+                res["time_cut_wall"] = True
                 break
             res["inputs"] += 1
             out = self.one(seed)
+            seq_.update(("%s|%s|%s\n" % (seed, out.get("skip"), out.get("class") if out.get("diff") else "")).encode())
+            if getattr(self, "wall_cut", False):
+                # (integ3, rev5 1) an input a wall-clock timeout cut: the run proves nothing on any host
+                res["stopped"] = "time budget"
+                res["time_cut_wall"] = True
+                break
             if out.get("skip"):
                 res["skipped"][out["skip"]] = res["skipped"].get(out["skip"], 0) + 1
                 res.setdefault("skip_first", {}).setdefault(out["skip"], out.get("why"))
@@ -2183,6 +2213,10 @@ class Checker:
                 if len(res["fails"]) >= 3 and not seeds:
                     break
         res["cov"] = cov
+        res["work"] = int(_work() - k0)
+        res["workn"] = {k: WORKN[k] - kn0[k] for k in WORKN}
+        res["input_digest"] = seq_.hexdigest()[:12]
+        res["cpu"] = round(time.process_time() - t0, 2)
         return res
 
     def one(self, seed):
@@ -3221,6 +3255,7 @@ class Side:
         return o
 
     def _unmapped(self, uc, access, address, size, value, data):
+        WORKN["hooks"] += 1
         if access == UC_MEM_FETCH_UNMAPPED:
             self.stop = ("crash", "call or jump to unmapped 0x%x" % address)
             return False
@@ -3280,9 +3315,11 @@ class Side:
         self.writes.append((a, len(data)))
 
     def _write(self, uc, access, address, size, value, data):
+        WORKN["hooks"] += 1
         self.writes.append((address, size))
 
     def _read(self, uc, access, address, size, value, data):
+        WORKN["hooks"] += 1
         """Reads past the end of an object (its elements, or an allocation's requested size): an input whose
         32-bit run does this is not used; a 64-bit run that does it alone has a layout difference."""
         if self.oob is not None:
@@ -3307,6 +3344,7 @@ class Side:
                     describe(o), ".".join(str(x) for x in l.path))
 
     def _cov(self, uc, address, size, data):
+        WORKN["hooks"] += 1
         self.cov.add((address, size))
 
     def reg(self, r):
@@ -3451,6 +3489,7 @@ class Side:
 
     def call(self):
         """Run the function under test on this side's view of the input."""
+        import equiv
         chk, b, uc = self.chk, self.bits, self.uc
         sig = chk.sig
         sret = ret_indirect(sig, b)
@@ -3515,6 +3554,8 @@ class Side:
             uc.reg_write(rr, v)
         entry = chk.img[b].funcs[chk.sym32 if b == 32 else chk.sym64]
         try:
+            WORKN["runs"] += 1
+            t_run = time.monotonic()
             uc.emu_start(entry, SENTINEL, count=STEPS if b == 32 else 2 * STEPS, timeout=RUN_TIMEOUT)   # (64-bit: more room)
         except UcError as e:
             if self.stop is None:
@@ -3553,6 +3594,15 @@ class Side:
                 if b == 32:
                     out["skip"] = self.stop[0]
                 return out
+        elif pc != SENTINEL and "workclock" not in equiv.EQUIV_OFF and \
+                time.monotonic() - t_run >= 0.95 * RUN_TIMEOUT / 1e6:
+            # (integ3, workclock; rev5 1) Unicorn's wall-clock timeout stopped the run, not its step count: a hang is
+            # decided by steps only, so this input says nothing (the whole run is time_cut_wall, Checker.run)
+            chk.wall_cut = True
+            out["stop"] = ("wallcut", "the %gs per-run safety timeout stopped the run before its steps ran out"
+                           % (RUN_TIMEOUT / 1e6))
+            out["skip"] = "wallcut"
+            return out
         elif pc != SENTINEL:
             out["stop"] = ("hang", "ran out of %d steps" % STEPS)
             if b == 32:
@@ -3669,6 +3719,7 @@ class Side:
 
     # ---- stubs
     def _stub_hit(self, uc, address, size, data):
+        WORKN["hooks"] += 1
         try:
             self.stub(address)
         except Stop:
@@ -4514,9 +4565,11 @@ def verify64(src, addr, symbol=None, n_inputs=200, seeds=None, time_budget=120, 
 def _verify64(src, addr, symbol=None, n_inputs=200, seeds=None, time_budget=120, verbose=False):
     t0 = time.time()
     rep = {"addr": "0x%08x" % addr, "src": src, "mode": "x64", "status": "fail"}
-    if OFF - {""}:
+    import equiv as eq_
+    if OFF - {""} or eq_.work_knobs_set():
         # (integ1, rev5) a run with EQ64_OFF switches is another check: tools/x64_gate.py takes it for no result
-        rep["eq64_off"] = sorted(OFF - {""})
+        # (integ3, rev5 2: so is one with a budget knob set, EQ64_WORK_PER_SEC / EQ64_RUN_SECONDS / EQUIV_WALL_CAP)
+        rep["eq64_off"] = sorted(OFF - {""}) + eq_.work_knobs_set()
     try:
         chk = Checker(src, addr, symbol, verbose)
     except CompileError as e:
@@ -4547,6 +4600,10 @@ def _verify64(src, addr, symbol=None, n_inputs=200, seeds=None, time_budget=120,
     if getattr(chk, "gcasts_used", None):
         rep["global_casts"] = {k: v for k, v in sorted(chk.gcasts_used.items())}
     rep["inputs"], rep["completed"], rep["skipped"] = res["inputs"], res["completed"], res["skipped"]
+    rep["work"], rep["cpu"], rep["workn"] = res.get("work"), res.get("cpu"), res.get("workn")
+    rep["input_digest"] = res.get("input_digest")
+    if res.get("time_cut_wall"):
+        rep["time_cut_wall"] = True
     if res.get("skip_first"):
         rep["skip_first"] = res["skip_first"]
     if chk.range32:
@@ -4564,6 +4621,11 @@ def _verify64(src, addr, symbol=None, n_inputs=200, seeds=None, time_budget=120,
         rep["diff"] = res["fails"][0]["diff"]
         rep["seed"] = res["fails"][0]["seed"]
         rep["fails"] = res["fails"]
+    elif res.get("time_cut_wall"):
+        # (integ3, workclock) the CPU safety cap cut the run before its work budget: how far it got is the host's speed
+        rep["status"] = "unsupported"
+        rep["class"] = "time_cut_wall"
+        rep["error"] = "[time_cut_wall] the CPU safety cap cut the run before its work budget: rerun with a bigger --time-budget"
     elif res["completed"] == 0:
         rep["status"] = "unsupported"
         first = res.get("skip_first") or {}

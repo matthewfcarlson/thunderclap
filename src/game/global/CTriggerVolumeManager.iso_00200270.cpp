@@ -24,9 +24,4 @@ void* Closure4_200270::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_00200270
-// the destructor itself, which other objects' code references natively:
-template <> Closure4<CTriggerVolumeManager, bool, const char *, int, int, bool>::~Closure4() {}
-#if defined(HULK_PTR64)
-template class Closure4<CTriggerVolumeManager, bool, const char *, int, int, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x200270)
-#endif
 

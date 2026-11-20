@@ -33,9 +33,4 @@ void Closure2_cfe20::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused
         *result = value;
 }
 } // namespace fn_000cfe20
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure2<HUDOverlay, int, int, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000cfe20::Closure2_cfe20*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 

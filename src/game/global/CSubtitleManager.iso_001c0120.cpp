@@ -24,9 +24,4 @@ void* Closure1_1c0120::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_001c0120
-// the destructor itself, which other objects' code references natively:
-template <> Closure1<CSubtitleManager, void, float>::~Closure1() {}
-#if defined(HULK_PTR64)
-template class Closure1<CSubtitleManager, void, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1c0120)
-#endif
 

@@ -38,9 +38,4 @@ void Closure5_9c760::vfunc_2(void* __p0, void* __p1, void* __p2) { V * args = (V
     ((*(CCameraManager_9c760 * *)&this->f_20)->*(*(void (CCameraManager_9c760::**)(int, int, int, bool, float))&this->f_1c))(a.n, b.n, c.n, args->b, (args + 1)->f);
 }
 } // namespace fn_0009c760
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure5<CCameraManager, void, bool, bool, bool, bool, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0009c760::Closure5_9c760*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 

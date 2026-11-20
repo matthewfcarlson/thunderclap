@@ -103,7 +103,7 @@ hulk_freg CDeathTrack::vfunc_7() {
 // sym: ?vfunc_12@CDeathTrack@@UAEHH@Z
 // Same code shape as 0x0005e050 (propagated; names are from that function)
 hulk_intptr CDeathTrack::vfunc_12(hulk_intptr a) {
-    void* p = FUN_0008d690(0x20);
+    void* p = FUN_0008d690((unsigned int)sizeof(::CDeathAction));
     if (p)
         return ((Helper_6aec0*)p)->go_00020b50(a);
     return 0;

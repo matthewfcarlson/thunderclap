@@ -24,9 +24,4 @@ void* Closure5_1f1fc0::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_001f1fc0
-// the destructor itself, which other objects' code references natively:
-template <> Closure5<CSoundSystem, void, char *, char *, float, float, float>::~Closure5() {}
-#if defined(HULK_PTR64)
-template class Closure5<CSoundSystem, void, char *, char *, float, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1f1fc0)
-#endif
 

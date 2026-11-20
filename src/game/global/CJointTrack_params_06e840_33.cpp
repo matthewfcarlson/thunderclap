@@ -4,6 +4,7 @@
 #include "tree_prelude.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/global.h"
 #define TREE_TU_BEGIN namespace fn_fcb33e3a {
 #define TREE_TU_END }
 namespace fn_fcb33e3a {} using namespace fn_fcb33e3a;
@@ -62,7 +63,7 @@ template <> void* fight::TrackFactoryCasterTemplate<CSmartPropUpdateAttachmentTr
 // 0x00070420 fight::TrackFactoryTemplate<CSmartPropUpdateAttachmentTrack>::vfunc_5 (24 B): matches/0x00070420.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VCSmartPropUpdateAttachmentTrack@@@fight@@UAEPAXXZ
 template <> void* fight::TrackFactoryTemplate<CSmartPropUpdateAttachmentTrack>::vfunc_5() {
-    void* p = FUN_0008d690(0x48);
+    void* p = FUN_0008d690((unsigned int)sizeof(::CSmartPropUpdateAttachmentTrack));
     if (p)
         return (void*)(((Track_70420*)p)->Init_00062360());
     return (void*)(0);

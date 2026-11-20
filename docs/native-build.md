@@ -6352,3 +6352,16 @@ mostly landed (recs1 ec0e69d62, sweep2 1f5b80223 / 517c82262, decl1), but these 
   vertex buffer create / lock return 0, so the first locked prim buffer has no memory. The Wine build gets past it
   only with --gfx (the pddi/bgfx backend). Next: the native graphics backend (a C bridge over bgfx's C99 API for
   the MS-ABI pddi objects, native_mac.py --gfx; plan in build/find3/RESUME.md).
+
+## script2 4: gen template destructors, explicit instantiations and forwarders removed (2026-11-19)
+
+- Across 185 TUs this drops the 664 `template <> Closure/Method/Function<...>::~X() {}` specializations (D114 kept
+  them for `??1` references), the 245 native-only `template class` lines and the 536 forwarders of a84e0c824. No
+  `??1` reference remains, so docs/tech-debt.md's forwarder entry is removed.
+- Checks: tree_tu check --relocs on the 185 TUs (every matches block MATCHes, equivalent code unchanged). x64 gate ok
+  (native-syntax 370/370). The RTTI ratchet lowers the baseline from 3,273 to 3,015 sites.
+- Wine: control 100607 (02f62f4cb) and proof 100926 (seed:100607, studio, play3 60000): GATE ok, 0 of 2,005 common frames
+  differ. The commit is rebased onto 9297b1c06 (sweep2 piece 3 and others in 14 of these TUs). The 32-bit code is
+  unchanged: only unpinned COMDATs and native-only lines go. The rebased TUs are re-checked.
+- Native unbound (control 100607 vs proof 100926, each on its own map): mac 10211 -> 10097, linux-x64 10189 -> 10075,
+  android-arm64 10202 -> 10088. No new names.

@@ -95,7 +95,7 @@ hulk_freg CDamageTrack::vfunc_7() {
 // 0x00069e40 CDamageTrack::vfunc_12 (47 B): matches/0x00069e40.cpp
 // sym: ?vfunc_12@CDamageTrack@@UAEHH@Z
 hulk_intptr CDamageTrack::vfunc_12(hulk_intptr x) {
-    Helper_69e40* p = (Helper_69e40*)FUN_0008d690(0x28);
+    Helper_69e40* p = (Helper_69e40*)FUN_0008d690((unsigned int)sizeof(::CDamageAction));
     if (p)
         return p->run_0001d9b0(x, this->damage, this->damageMax);
     return 0;

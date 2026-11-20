@@ -1329,7 +1329,6 @@ void* Method1_1cbae0::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_001cbae0
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method1<CEventManager, bool, const char *>::~Method1() {}
 
 
 // 0x001cbb00 Method1<CEventManager,bool,const_char_*>::vfunc_2 (29 B): matches/0x001cbb00.cpp
@@ -1350,11 +1349,6 @@ void Method1_1cbb00::vfunc_2(void* __p0, void* __p1, void* __p2) { CEventManager
         *out = r;
 }
 } // namespace fn_001cbb00
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method1<CEventManager, bool, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001cbb00::Method1_1cbb00*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x001cbb60 Method1<CEventManager,void,bool>::vfunc_0 (30 B): matches/0x001cbb60.cpp
@@ -1376,8 +1370,6 @@ void* Method1_1cbb60::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_001cbb60
-// the destructor itself, which other objects' code references natively:
-template <> Method1<CEventManager, void, bool>::~Method1() {}
 
 
 // 0x001cbb80 Method1<CEventManager,void,bool>::vfunc_2 (21 B): matches/0x001cbb80.cpp
@@ -1395,11 +1387,6 @@ void Method1_1cbb80::vfunc_2(void* __p0, void* __p1, void* __p2) { CActorManager
     (obj->*(*(MFn_1cbb80 *)&this->f_1c))(*b);
 }
 } // namespace fn_001cbb80
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method1<CEventManager, void, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001cbb80::Method1_1cbb80*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x001cbbe0 Method1<CEventManager,void,const_char_*>::vfunc_0 (30 B): matches/0x001cbbe0.cpp
@@ -1422,7 +1409,6 @@ void* Method1_1cbbe0::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_001cbbe0
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Method1<CEventManager, void, const char *>::~Method1() {}
 
 
 // 0x001cbc00 Method1<CEventManager,void,const_char_*>::vfunc_2 (19 B): matches/0x001cbc00.cpp
@@ -1441,11 +1427,6 @@ void Method1_1cbc00::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (v
     (d->*(*(void (Dummy_1cbc00::**)(void *))&this->f_1c))(*b);
 }
 } // namespace fn_001cbc00
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Method1<CEventManager, void, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001cbc00::Method1_1cbc00*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x001cbcb0 FUN_001cbcb0 (90 B): matches/0x001cbcb0.cpp
@@ -1526,11 +1507,6 @@ void* Closure1_1cbde0::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_001cbde0
-// the destructor itself, which other objects' code references natively:
-template <> Closure1<CEventManager, bool, const char *>::~Closure1() {}
-#if defined(HULK_PTR64)
-template class Closure1<CEventManager, bool, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1cbde0)
-#endif
 
 
 // 0x001cbe00 Closure1<CEventManager,bool,const_char_*>::vfunc_2 (30 B): matches/0x001cbe00.cpp [wrapped: conflict: Closure1]
@@ -1605,7 +1581,6 @@ void* Closure1_1cbe70::vfunc_0(unsigned int flags) {
 }
 } // namespace fn_001cbe70
 // (x64t21) the destructor itself, which other objects' code references:
-template <> Closure1<CEventManager, void, bool>::~Closure1() {}
 
 
 // 0x001cbe90 Closure1<CEventManager,void,bool>::vfunc_2 (20 B): matches/0x001cbe90.cpp
@@ -1624,11 +1599,6 @@ void Closure1_1cbe90::vfunc_2(void* __p0, void* __p1, void* __p2) { unsigned cha
     ((*(Actor_1cbe90 * *)&this->f_20)->*(*(void (Actor_1cbe90::**)(unsigned char))&this->f_1c))(*arg);
 }
 } // namespace fn_001cbe90
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure1<CEventManager, void, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001cbe90::Closure1_1cbe90*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 
 // 0x001cbeb0 FUN_001cbeb0 (76 B): matches/0x001cbeb0.cpp [wrapped: conflict: Closure1; Closure1::Closure1; Method1]
@@ -1673,11 +1643,6 @@ void Closure1_1cbf20::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (
     ((*(CActorManager_1cbf20 * *)&this->f_20)->*(*(void (CActorManager_1cbf20::**)(const char *))&this->f_1c))(*b);
 }
 } // namespace fn_001cbf20
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure1<CEventManager, void, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_001cbf20::Closure1_1cbf20*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 
 namespace fn_ffd7287e {
 

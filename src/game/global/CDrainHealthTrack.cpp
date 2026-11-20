@@ -120,7 +120,7 @@ hulk_intptr CDrainHealthTrack::vfunc_12(hulk_intptr arg) {
     float value = vfunc_7();
     if (!(value <= hulk_at_003f32e0)) {
         float a = this->f_14;
-        hulk_intptr obj = FUN_0008d690(0x24);
+        hulk_intptr obj = FUN_0008d690((unsigned int)sizeof(::CDrainHealthAction));
         if (obj)
             return ((Helper_69f10*)obj)->Apply_0001db40(arg, a / value);
     }

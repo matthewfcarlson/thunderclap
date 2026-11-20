@@ -24,9 +24,4 @@ void* Closure3_200390::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_00200390
-// the destructor itself, which other objects' code references natively:
-template <> Closure3<CTriggerVolumeManager, void, const char *, int, bool>::~Closure3() {}
-#if defined(HULK_PTR64)
-template class Closure3<CTriggerVolumeManager, void, const char *, int, bool>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x200390)
-#endif
 

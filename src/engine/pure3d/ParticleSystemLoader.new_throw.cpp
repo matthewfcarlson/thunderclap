@@ -5,6 +5,7 @@
 #include "decls/address.h"
 #include "decls/data/engine/content.h"
 #include "decls/particle_emitter.h"
+#include "gen/pure3d.h"
 #define TREE_TU_BEGIN namespace fn_fc263da4 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CAction
@@ -277,7 +278,7 @@ void Loader::FUN_002ac610(int a1, Stream *stream, Ctx_2ac610 *ctx, Extra *a4)
         obj->f140 = (Matrix *)m;
         ((Matrix *)m)->FUN_0022b980();
     }
-    void *sm = FUN_0008d690(8);
+    void *sm = FUN_0008d690((unsigned int)sizeof(::pure3d::SpriteParticleRenderer));
     Small_2ac610 *small = 0;
     if (sm != 0)
         small = ((Small_2ac610 *)sm)->FUN_002d6760();

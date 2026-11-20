@@ -26,9 +26,4 @@ void Closure3_2e910::vfunc_2(void* __p0, void* __p1, void* __p2) { const Argumen
     ((*(CActorManager_2e910 * *)&this->f_20)->*(*(void (CActorManager_2e910::**)(const char *, float, bool))&this->f_1c))(args->name, args->value, args->flag);
 }
 } // namespace fn_0002e910
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure3<CActorManager, void, const char *, float, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002e910::Closure3_2e910*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 

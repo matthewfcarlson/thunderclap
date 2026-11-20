@@ -27,9 +27,4 @@ void Closure6_9c960::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr u
     ((*(CCameraManager_9c960 * *)&this->f_20)->*(*(void (CCameraManager_9c960::**)(int, int, float, int, int, float))&this->f_1c))(arguments->first, arguments->second, arguments->third, arguments->fourth, arguments->fifth, arguments->sixth);
 }
 } // namespace fn_0009c960
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure6<CCameraManager, void, int, int, float, int, int, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0009c960::Closure6_9c960*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 

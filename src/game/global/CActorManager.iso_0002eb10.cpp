@@ -39,9 +39,4 @@ void Closure6_2eb10::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr u
     if (result) *result = value;
 }
 } // namespace fn_0002eb10
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure6<CActorManager, bool, const char *, const char *, const char *, const char *, bool, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_0002eb10::Closure6_2eb10*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 

@@ -24,9 +24,4 @@ void* Closure2_30190::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_00030190
-// the destructor itself, which other objects' code references natively:
-template <> Closure2<CActorManager, bool, const char *,math::Vector>::~Closure2() {}
-#if defined(HULK_PTR64)
-template class Closure2<CActorManager, bool, const char *,math::Vector>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x30190)
-#endif
 

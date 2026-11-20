@@ -26,9 +26,4 @@ void Closure3_94a10::vfunc_2(void* __p0, void* __p1, void* __p2) { const Argumen
     ((*(CUnlockablesManager_94a10 * *)&this->f_20)->*(*(void (CUnlockablesManager_94a10::**)(int, const char *, const char *))&this->f_1c))(args->value, args->first, args->second);
 }
 } // namespace fn_00094a10
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure3<CUnlockablesManager, void, int, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_00094a10::Closure3_94a10*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 

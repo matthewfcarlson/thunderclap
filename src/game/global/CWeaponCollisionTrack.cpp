@@ -2820,7 +2820,7 @@ hulk_freg CSmartPropDetachTrack::vfunc_7() {
 // sym: ?vfunc_12@CSmartPropDetachTrack@@UAEHH@Z
 // Same code shape as 0x0005e050 (propagated; names are from that function)
 hulk_intptr CSmartPropDetachTrack::vfunc_12(hulk_intptr a) {
-    void* p = FUN_0008d690(0x20);
+    void* p = FUN_0008d690((unsigned int)sizeof(::CSmartPropDetachAction));
     if (p)
         return ((Helper_62860*)p)->go_0001f1f0(a);
     return 0;

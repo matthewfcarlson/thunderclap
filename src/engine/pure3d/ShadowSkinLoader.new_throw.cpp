@@ -2,6 +2,7 @@
 // object 0x002b37a0..0x002b78a0 (kind game, layer engine, confidence high), dominant class pure3d::ShadowSkinLoader
 #include "tree_prelude.h"
 #include "decls/address.h"
+#include "gen/pure3d.h"
 #define TREE_TU_BEGIN namespace fn_f5844d48 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CAction
@@ -137,7 +138,7 @@ void ShadowMeshLoader::vfunc_5(Target_2b6170 **out, unsigned __int64 *outId, Str
         f.r0->f44->v1_00018b40();
     f.r0->f44 = topo;
 
-    void *mem2 = FUN_0008d690(0x18);
+    void *mem2 = FUN_0008d690((unsigned int)sizeof(::pure3d::ShadowMeshVertices));
     ShadowMeshVertices_2b6170 *vs;
     if (mem2 != 0)
         vs = ((ShadowMeshVertices_2b6170 *)mem2)->FUN_002b5070(f.cntA, f.nf);

@@ -35,9 +35,4 @@ void Closure6_bfef0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused
 }
 #endif
 } // namespace fn_000bfef0
-#if defined(HULK_PTR64)
-// (script2) natively gen's template still has this vftable slot (its destructor specializations emit the
-// vftable): forward it to the record's function
-template <> void Closure6<CFEManager, void, const char *, const char *, const char *, const char *, int, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { ((fn_000bfef0::Closure6_bfef0*)this)->vfunc_2(__p0, __p1, __p2); }
-#endif
 

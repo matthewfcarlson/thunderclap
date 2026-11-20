@@ -24,9 +24,4 @@ void* Closure1_94a80::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_00094a80
-// the destructor itself, which other objects' code references natively:
-template <> Closure1<CUnlockablesManager, const char *, int>::~Closure1() {}
-#if defined(HULK_PTR64)
-template class Closure1<CUnlockablesManager, const char *, int>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x94a80)
-#endif
 

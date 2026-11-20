@@ -5,6 +5,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/global.h"
 #define TREE_TU_BEGIN namespace fn_fc60230d {
 #define TREE_TU_END }
 namespace fn_fc60230d {} using namespace fn_fc60230d;
@@ -62,7 +63,7 @@ template <> void* fight::TrackFactoryCasterTemplate<CGrappleDetachTrack>::vfunc_
 // 0x0006f4f0 fight::TrackFactoryTemplate<CGrappleDetachTrack>::vfunc_5 (24 B): matches/0x0006f4f0.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VCGrappleDetachTrack@@@fight@@UAEPAXXZ
 template <> void* fight::TrackFactoryTemplate<CGrappleDetachTrack>::vfunc_5() {
-    Thing_6f4f0* p = (Thing_6f4f0*)operator new(0x14);
+    Thing_6f4f0* p = (Thing_6f4f0*)operator new(sizeof(::CGrappleDetachTrack));
     if (p)
         return (void*)(p->init_0005ac40());
     return (void*)(0);

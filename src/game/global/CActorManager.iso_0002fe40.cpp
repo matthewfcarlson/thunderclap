@@ -24,9 +24,4 @@ void* Closure0_2fe40::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_0002fe40
-// the destructor itself, which other objects' code references natively:
-template <> Closure0<CActorManager, float>::~Closure0() {}
-#if defined(HULK_PTR64)
-template class Closure0<CActorManager, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x2fe40)
-#endif
 

@@ -726,7 +726,7 @@ hulk_intptr CCollisionTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_i
     unsigned arg2_ = (*(unsigned int *)&this->f_18);
     int index = lk->FUN_002226b0()->FUN_0027b200(arg2_, arg1_);
     if (index == 0xffff) return (int)(0);
-    CCollisionAction_5daf0* item = (CCollisionAction_5daf0*)FUN_0008d690(sizeof(::CCollisionAction));
+    CCollisionAction_5daf0* item = (CCollisionAction_5daf0*)FUN_0008d690((unsigned int)sizeof(::CCollisionAction));
     if (!item) return (int)(0);
     return (hulk_intptr)(item->FUN_00019380(a, this, h, index));
 }
@@ -802,7 +802,7 @@ hulk_intptr COpportunityBallTrack::vfunc_12(hulk_intptr __p0) { void * arg = (vo
     void* n = (*(void * *)&this->f_1c);
     unsigned int r = ((R_5dc10*)a->FnD_002226b0())->FnE_0027b200(m, n);
     if (r != 0xffff) {
-        Q_5dc10* q = (Q_5dc10*)FUN_0008d690(sizeof(::COpportunityBallAction));
+        Q_5dc10* q = (Q_5dc10*)FUN_0008d690((unsigned int)sizeof(::COpportunityBallAction));
         if (q)
             return q->FnF_0001adb0(this, arg, r);
     }
@@ -905,7 +905,7 @@ CProceduralDurationAnimationTrack_5dd40::~CProceduralDurationAnimationTrack_5dd4
 // 0x0005dd70 CHitAnimationTrack::vfunc_12 (40 B): matches/0x0005dd70.cpp
 // sym: ?vfunc_12@CHitAnimationTrack@@UAEHH@Z
 hulk_intptr CHitAnimationTrack::vfunc_12(hulk_intptr param) {
-    Helper_5dd70* p = (Helper_5dd70*)FUN_0008d690(sizeof(::CHitAnimationAction));
+    Helper_5dd70* p = (Helper_5dd70*)FUN_0008d690((unsigned int)sizeof(::CHitAnimationAction));
     if (p)
         return p->FUN_0001cfd0(this, param);
     return 0;
@@ -916,7 +916,7 @@ hulk_intptr CHitAnimationTrack::vfunc_12(hulk_intptr param) {
 // sym: ?vfunc_12@CPushBackAnimationTrack@@UAEHH@Z
 // Same code shape as 0x0005dd70 (propagated; names are from that function)
 hulk_intptr CPushBackAnimationTrack::vfunc_12(hulk_intptr param) {
-    Helper_5dda0* p = (Helper_5dda0*)FUN_0008d690(sizeof(::CPushBackAnimationAction));
+    Helper_5dda0* p = (Helper_5dda0*)FUN_0008d690((unsigned int)sizeof(::CPushBackAnimationAction));
     if (p)
         return p->FUN_0001d020(this, param);
     return 0;
@@ -1030,7 +1030,7 @@ CStunAnimationTrack::~CStunAnimationTrack() {
 // sym: ?vfunc_12@CStunAnimationTrack@@UAEHH@Z
 // Same code shape as 0x0005dd70 (propagated; names are from that function)
 hulk_intptr CStunAnimationTrack::vfunc_12(hulk_intptr param) {
-    Helper_5deb0* p = (Helper_5deb0*)FUN_0008d690(sizeof(::CStunAnimationAction));
+    Helper_5deb0* p = (Helper_5deb0*)FUN_0008d690((unsigned int)sizeof(::CStunAnimationAction));
     if (p)
         return p->FUN_0001d070(this, param);
     return 0;
@@ -1122,7 +1122,7 @@ hulk_freg CSnapToWallTrack::vfunc_7() {
 // sym: ?vfunc_12@CSnapToWallTrack@@UAEHH@Z
 // Same code shape as 0x0005dd70 (propagated; names are from that function)
 hulk_intptr CSnapToWallTrack::vfunc_12(hulk_intptr param) {
-    Helper_5df90* p = (Helper_5df90*)FUN_0008d690(sizeof(::CSnapToWallAction));
+    Helper_5df90* p = (Helper_5df90*)FUN_0008d690((unsigned int)sizeof(::CSnapToWallAction));
     if (p)
         return p->FUN_00020c40(this, param);
     return 0;
@@ -1197,7 +1197,7 @@ hulk_freg CClearHitRecordsTrack::vfunc_7() {
 // 0x0005e050 CClearHitRecordsTrack::vfunc_12 (26 B): matches/0x0005e050.cpp
 // sym: ?vfunc_12@CClearHitRecordsTrack@@UAEHH@Z
 hulk_intptr CClearHitRecordsTrack::vfunc_12(hulk_intptr a) {
-    void* p = FUN_0008d690(0x20);
+    void* p = FUN_0008d690((unsigned int)sizeof(::CClearHitRecordsAction));
     if (p)
         return ((Helper_5e050*)p)->go_000215d0(a);
     return 0;

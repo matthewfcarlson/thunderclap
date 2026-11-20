@@ -303,7 +303,7 @@ field4=0; active=1; object=0; wrapper=0;
 PoseEngine_2fc740* result;
 if (!mode) { if(input) {
 void* cast=FUN_00344e74(b,0,&DAT_004c60bc,&DAT_004d2d90,0);
-PoseEngine_2fc740* mem=(PoseEngine_2fc740*)FUN_0008d690(32);
+PoseEngine_2fc740* mem=(PoseEngine_2fc740*)FUN_0008d690((unsigned int)sizeof(::physics::PoseEngine));
 PoseEngine_2fc740* fresh=mem?mem->FUN_00310080(input,2,input->data):0;
 PoseEngine_2fc740* old=wrapper;
 if(old!=fresh){ wrapper=fresh; if(fresh)fresh->AddRef(); if(old)old->Release(); }
@@ -371,7 +371,7 @@ physics::PhysicsInstance::PhysicsInstance(Ref_2fc880* input, Input_2fc880* data)
  Ref_2fc880* old=source;
  if(old!=input){ source=input; if(input) input->AddRef(); if(old) old->Release(); }
  if(data){
-  PoseEngine_2fc880* object=(PoseEngine_2fc880*)FUN_0008d690(32);
+  PoseEngine_2fc880* object=(PoseEngine_2fc880*)FUN_0008d690((unsigned int)sizeof(::physics::PoseEngine));
   if(object) object=object->FUN_00310080(data,2,data->value);
   PoseEngine_2fc880* previous=wrapper;
   if(previous!=object){ wrapper=object; if(object) object->AddRef(); if(previous) previous->Release(); }

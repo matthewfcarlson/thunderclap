@@ -80,7 +80,7 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
 // 0x00077b50 fight::TrackFactoryTemplate<CGrappleKeyPoseTrack>::vfunc_5 (38 B): matches/0x00077b50.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VCGrappleKeyPoseTrack@@@fight@@UAEPAXXZ
 template <> void* fight::TrackFactoryTemplate<CGrappleKeyPoseTrack>::vfunc_5() {
-    CGrappleKeyPoseTrack_77b50* p = (CGrappleKeyPoseTrack_77b50*)FUN_0008d690(0x78);
+    CGrappleKeyPoseTrack_77b50* p = (CGrappleKeyPoseTrack_77b50*)FUN_0008d690((unsigned int)sizeof(::CKeyPoseTrack));
     if (p) {
         p->init_00069520();
         p->vf = (hulk_uintptr)&hulk_at_003fec10;

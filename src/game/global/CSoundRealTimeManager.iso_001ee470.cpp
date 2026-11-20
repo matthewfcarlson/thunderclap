@@ -24,9 +24,4 @@ void* Closure4_1ee470::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_001ee470
-// the destructor itself, which other objects' code references natively:
-template <> Closure4<CSoundSimManager, void, const char *, const char *, const char *, const char *>::~Closure4() {}
-#if defined(HULK_PTR64)
-template class Closure4<CSoundSimManager, void, const char *, const char *, const char *, const char *>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0x1ee470)
-#endif
 

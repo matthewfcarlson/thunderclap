@@ -24,9 +24,4 @@ void* Closure4_b0290::vfunc_0(unsigned int flags) {
     return this;
 }
 } // namespace fn_000b0290
-// the destructor itself, which other objects' code references natively:
-template <> Closure4<CHapticControllerManager, void, int, float, float, float>::~Closure4() {}
-#if defined(HULK_PTR64)
-template class Closure4<CHapticControllerManager, void, int, float, float, float>; // (ren2) native only: clang emits the scalar deleting destructor beside the vftable, which this instantiation emits (0xb0290)
-#endif
 

@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/hulkfight.h"
 #define TREE_TU_BEGIN namespace fn_ff0b2ada {
 #define TREE_TU_END }
 namespace fn_ff0b2ada {} using namespace fn_ff0b2ada;
@@ -57,7 +58,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::PropSpawn
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VPropSpawnTrack@motion@hulkfight@@@fight@@UAEPAXXZ
 // Same code shape as 0x0006f3d0 (propagated; names are from that function)
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::PropSpawnTrack>::vfunc_5() {
-    CGrabTrack_18ca60* p = (CGrabTrack_18ca60*)FUN_0008d690(0x50);
+    CGrabTrack_18ca60* p = (CGrabTrack_18ca60*)FUN_0008d690((unsigned int)sizeof(::hulkfight::motion::PropSpawnTrack));
     if (p)
         return (void*)(p->init_001815d0());
     return (void*)(0);
