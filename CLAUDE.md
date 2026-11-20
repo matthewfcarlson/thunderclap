@@ -223,6 +223,12 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   equiv.py repairs inputs into the domain, plants the bounds, and fails a block whose macro and item disagree; a caller
   whose original passes a contracted callee an out-of-range argument is unsupported (`pre_violation_in_original`) until
   it has its own contract.
+- **Field bounds** (x64bounds): a pointer field the code indexes with a caller's index gets `HULK_COUNT(count_field)`
+  (typed pointee) or `HULK_COUNT_BYTES(count_field, n)` (void*) on its declaration (include/compat/hulk_annot.h; nothing
+  in compiled builds), its comment citing every writer of the pointer; the count field carries `HULK_RANGE(lo, hi)`
+  citing its writers' stores; the index gets a relational contract `// pre: ge(argN, 0) lt(argN, this->count_field)`
+  with `HULK_PRE_GE/LT` and `// pre-callers:` (matches blocks only: equiv.py refuses relational items in its own runs).
+  The --x64 harness then generates exactly count elements and keeps the index inside (integ4, 0x00327590).
 - **Free-name gate** (D149): `verify --relocs` fails on a new call that reaches one of the game's frees under another
   name (`free_by_other_name new`). `config/free-name-baseline.json` lists the existing sites and only shrinks
   (`--update-free-baseline`); add only with `free-name-accept --why`. Call the free as `operator delete` / `delete[]`
