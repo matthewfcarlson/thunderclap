@@ -1741,6 +1741,33 @@ only while its run line does: revoking the run line (by key or by its code and c
 counts it only after its proving run line. Tests tests/test_carry.py (mutation-checked: each condition's removal fails
 it).
 
+(integ6; rev5) **Checker epochs: carrying across a non-semantic checker change.** equiv.py changes several times a day
+(36 commits 11-13..11-20), and every change is a new checker digest. A carry needs the run line's checker *epoch*,
+not its digest. A digest is its own epoch, unless config/checker-epochs.jsonl (append-only, merge=union) marks it
+as the same semantics as the digest before it:
+`tree_tu.py epoch-mark DIGEST --same-as PREV --why TEXT --review TEXT --selftest JOB... --prev-selftest JOB...
+--regress JOB... --prev-regress JOB...` (queue job ids only: the evidence is read from build/jobs/out, a job whose
+output is missing refuses the mark, never a file handed in).
+The mark is refused unless all of the following hold:
+- (a) the host_selftest jobs under DIGEST and under PREV each ran the digest they are given for and passed, DIGEST ran
+  on every host PREV did, and every job's summaries are identical (input digests, edges and uncovered hash, work,
+  statuses, first differences);
+- (b) the full regress suite's queue jobs under each digest (each run with `REGRESS_SUMMARY=jobsrc/regsum.jsonl`)
+  cover exactly the suite's cases once per digest, pass every case under DIGEST, ran each case under its own digest,
+  and have the same facts per case (status, class, distinct compared count, repeats, input digest,
+  compared-keys hash, edges, work, first difference);
+- (c) `--review` cites the reviewer's approval of that specific change. Only changes that cannot alter what is
+  generated, executed, compared or counted qualify: binding shortcuts such as fastuc, pure refactors, logging.
+  Anything touching input generation, stub models, budgets or the workclock constants, comparison, classification or
+  promotability starts a new epoch, whatever the tests say.
+The mark records the jobs, hosts and a hash of the regress facts. A digest marked twice, or a cycle, keeps its own
+epoch (default-deny). `tree_tu.py epoch-split DIGEST --why --review` appends a split that cuts a mark later found to
+be semantic. Epochs are read when used, against the file as it is now: a carried line records `carry_checker`, and it
+proves only while its run line's checker and carry_checker share an epoch, so a split stops every carry made across
+that link without rewriting anything (the D154 pattern). A mark widens carry only, never what a run line proves:
+ledger lines keep their raw digests, and revocation stays keyed on (code, raw checker). Tests tests/test_carry.py
+(carry across a mark, then split; marked twice; cycle; the evidence rules; mutation-checked).
+
 (integ4, `stubexit`; rev5) **Loops a stub ends.** A loop whose condition is a stubbed callee's result (`while
 (registry->Pending())`, drained by real code elsewhere; `do r = Status(v); while (r != 2)`) never ends on random stub
 results that keep it going, so its inputs time out and its body is never compared. Static half (`_stubexit_sites`, the

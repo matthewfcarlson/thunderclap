@@ -1,3 +1,4 @@
 # (integ2, D51) the proof ledger is append-only: concurrent appends merge as the union of both sides
 config/proof-ledger.jsonl merge=union
 config/proof-revoked.jsonl merge=union
+config/checker-epochs.jsonl merge=union

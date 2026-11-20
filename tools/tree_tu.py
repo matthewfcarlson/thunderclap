@@ -894,7 +894,8 @@ def ledger_line_proves(e):
     (a fresh run of new code, or of the same code under the fixed checker: another record, another key)."""
     return e.get("promotable") is not False and e.get("status", "equivalent") == "equivalent" and \
         ledger_line_key(e) not in revoked_lines() and revoked_run(e) is None and \
-        (e.get("carried_from") is None or e["carried_from"] not in revoked_lines())
+        (e.get("carried_from") is None or (e["carried_from"] not in revoked_lines() and
+                                            same_checker_epoch(e.get("checker"), e.get("carry_checker", e.get("checker")))))
 
 
 def ledger_index(path=None):
@@ -920,6 +921,151 @@ def ledger_index(path=None):
     return out
 
 
+EPOCHS = os.path.join(ROOT, "config", "checker-epochs.jsonl")
+_EPOCHS = {}
+
+
+def _epoch_records(path=None):
+    """(integ6, checker epochs; rev5) ({digest: [the digests it was marked the same as]}, {split digests}) of
+    config/checker-epochs.jsonl (append-only; re-read when the file changes)"""
+    path = path or EPOCHS
+    try:
+        st = os.stat(path)
+    except OSError:
+        return {}, set()
+    k = (path, st.st_mtime_ns, st.st_size)
+    if _EPOCHS.get("k") != k:
+        marks, splits = {}, set()
+        with open(path) as f:
+            for l in f:
+                l = l.strip()
+                if l.startswith("{"):
+                    r = json.loads(l)
+                    if r.get("kind") == "mark":
+                        marks.setdefault(r["digest"], []).append(r["same_as"])
+                    elif r.get("kind") == "split":
+                        splits.add(r["digest"])
+        _EPOCHS.update(k=k, v=(marks, splits))
+    return _EPOCHS["v"]
+
+
+def _selftest_out(jid):
+    """(checker digest, host, summaries) of a finished host_selftest job"""
+    import jobq
+    p = os.path.join(jobq.JOBS, "out", str(jid), "jobsrc", "selftest.json")
+    with open(p) as f:
+        d = json.load(f)
+    row = jobq.conn().execute("select host from jobs where id=?", (int(jid),)).fetchone()
+    return d.get("checker"), (row["host"] if row else None), d.get("summaries"), d.get("ok")
+
+
+def _regress_job_lines(jid):
+    """the REGRESS_SUMMARY lines a finished regress queue job wrote (jobsrc/regsum.jsonl), or None when its output is
+    missing here (refused: never a file handed in instead)"""
+    import jobq
+    p = os.path.join(jobq.JOBS, "out", str(jid), "jobsrc", "regsum.jsonl")
+    if not os.path.exists(p):
+        return None
+    with open(p) as f:
+        return [json.loads(l) for l in f if l.strip().startswith("{")]
+
+
+def regress_case_names():
+    """every case of tests/equiv/regress.py (the full suite a mark's regress must cover)"""
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("regress_cases", os.path.join(ROOT, "tests/equiv/regress.py"))
+    m = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(m)
+    return set(m.CASES) | set(m.RELOC_CASES) | set(m.DECL_CASES) | set(m.X64_CASES) | set(getattr(m, "SHARD_CASES", {}))
+
+
+def _regress_facts(jids, reader):
+    """({case: facts}, why) of regress jobs JIDS: each case's facts line and its ok line merged; a job without its
+    summary, or a case reported twice, refuses (None, why)"""
+    out, seen = {}, collections.Counter()
+    for j in jids:
+        ls = reader(j)
+        if ls is None:
+            return None, "regress job %s: no summary here (jobsrc/regsum.jsonl)" % j
+        for r in ls:
+            r = dict(r)
+            c = r.pop("case")
+            k = "ok" if set(r) == {"ok"} else "facts"
+            seen[(c, k)] += 1
+            if seen[(c, k)] > 1:
+                return None, "regress case %s reported twice" % c
+            out.setdefault(c, {}).update(r)
+    return out, ""
+
+
+def epoch_mark_evidence(digest, prev, jobs, prev_jobs, regress, prev_regress, selftest_out=None, regress_lines=None,
+                        cases=None):
+    """(integ6; rev5) (ok, why, facts to record): may DIGEST join PREV's epoch? (a) the selftest summaries of every job
+    under DIGEST and under PREV are identical (input digests, edges, work, statuses, first differences), each job ran the
+    digest it is given for and passed, and DIGEST ran on every host PREV did; (b) the full regress under DIGEST passed
+    every case and its facts (status, class, distinct compared count, repeats, input digest, compared-keys hash, edges,
+    work, first difference) equal PREV's case by case, each run under its own digest. (c), the reviewer's approval of
+    this specific change, is the caller's --review."""
+    selftest_out = selftest_out or _selftest_out
+    regress_lines = regress_lines or _regress_job_lines
+    if digest == prev:
+        return False, "the same digest", {}
+    outs = {}
+    for d_, js_ in ((digest, jobs), (prev, prev_jobs)):
+        outs[d_] = []
+        for j in js_:
+            ck, host, summ, ok = selftest_out(j)
+            if ck != d_:
+                return False, "selftest job %s ran checker %s, not %s" % (j, ck, d_), {}
+            if not ok or not summ:
+                return False, "selftest job %s did not pass" % j, {}
+            outs[d_].append((host, json.dumps(summ, sort_keys=True)))
+    if len({s for v in outs.values() for _, s in v}) != 1:
+        return False, "the selftest summaries differ (between hosts or between the two checkers)", {}
+    if not {h for h, _ in outs[prev]} <= {h for h, _ in outs[digest]}:
+        return False, "no selftest under %s on host(s) %s" % (digest, sorted({h for h, _ in outs[prev]} -
+                                                                             {h for h, _ in outs[digest]})), {}
+    new_, w1_ = _regress_facts(regress, regress_lines)
+    old_, w2_ = _regress_facts(prev_regress, regress_lines)
+    if new_ is None or old_ is None:
+        return False, w1_ or w2_, {}
+    want_ = cases if cases is not None else regress_case_names()
+    if not new_ or set(new_) != set(want_) or set(old_) != set(want_):
+        return False, "the regress jobs cover other cases than the suite (%d / %d of %d)" % (
+            len(new_), len(old_), len(want_)), {}
+    for c, f_ in sorted(new_.items()):
+        if f_.get("ok") is not True:
+            return False, "regress case %s did not pass under %s" % (c, digest), {}
+        g_ = old_[c]
+        if "checker" in f_ and (f_["checker"] != digest or g_.get("checker") != prev):
+            return False, "regress case %s ran under %s / %s" % (c, f_["checker"], g_.get("checker")), {}
+        a_ = {k: v for k, v in f_.items() if k not in ("checker", "ok")}
+        b_ = {k: v for k, v in g_.items() if k not in ("checker", "ok")}
+        if a_ != b_:
+            return False, "regress case %s: %s" % (c, sorted(k for k in set(a_) | set(b_) if a_.get(k) != b_.get(k))), {}
+    return True, "", {"selftest": {"jobs": list(map(str, jobs)), "prev_jobs": list(map(str, prev_jobs)),
+                                   "hosts": sorted({h for h, _ in outs[digest]})},
+                      "regress": {"jobs": list(map(str, regress)), "prev_jobs": list(map(str, prev_regress)),
+                                  "cases": len(new_),
+                                  "facts": hashlib.sha1(json.dumps(new_, sort_keys=True).encode()).hexdigest()[:12]}}
+
+
+def checker_epoch(d, path=None):
+    """(integ6; rev5) The epoch of checker digest D: the digest itself, unless a mark (`epoch-mark D --same-as P`) links
+    it to P's epoch and no split cut that link since; evaluated at read time against the file as it is now, so a split
+    undoes every carry made across its link. A digest with two marks, or a cycle, keeps its own epoch (default-deny)."""
+    marks, splits = _epoch_records(path)
+    seen = set()
+    while d in marks and d not in splits and len(marks[d]) == 1 and d not in seen:
+        seen.add(d)
+        d = marks[d][0]
+    return d
+
+
+def same_checker_epoch(a, b, path=None):
+    return a is not None and b is not None and (a == b or checker_epoch(a, path) == checker_epoch(b, path))
+
+
 CARRY_PARTS = {"rest", "decls", "pointee_sizes", "bindings"}
 
 
@@ -933,9 +1079,13 @@ def carry_check(run, cur):
     reached. Every other part of the view must be equal (`rest`: the signature, return kind, conventions, narrowing,
     issues, conflicts, contracts, switches, and any key a later checker adds): default-deny. The run would have gone
     exactly as it did under the new view: those entries are read only when a call reaches their callee."""
-    for k in ("addr", "mode", "code", "checker"):
+    for k in ("addr", "mode", "code"):
         if run.get(k) != cur.get(k):
             return False, "another %s (%s, now %s)" % (k, run.get(k), cur.get(k))
+    if not same_checker_epoch(run.get("checker"), cur.get("checker")):
+        # (rev5) the same checker, or one config/checker-epochs.jsonl marks as the same semantics (epoch-mark)
+        return False, "another checker (%s, now %s; epochs %s, %s)" % (
+            run.get("checker"), cur.get("checker"), checker_epoch(run.get("checker")), checker_epoch(cur.get("checker")))
     if run.get("carried_from") is not None:
         return False, "a carried line (carry only from a run line)"
     if not isinstance(run.get("view_parts"), dict) or not isinstance(run.get("touched"), dict) or \
@@ -979,7 +1129,7 @@ def carried_line(run, cur, delta, tu):
     import datetime
     e = dict(run)
     e.update(view=cur["view"], view_parts=cur["view_parts"], carried_from=ledger_line_key(run), carry_delta=delta,
-             carry_l2=cur["l2_parts"],
+             carry_l2=cur["l2_parts"], carry_checker=cur["checker"],
              tu=tu, date=datetime.date.today().isoformat())
     return e
 
@@ -2744,6 +2894,23 @@ def main(argv=None):
     p.add_argument("addr")
     p.add_argument("--mode", required=True, choices=["msvc", "wine"])
     p.add_argument("--why", required=True)
+    p = sub.add_parser("epoch-mark", help="(integ6; rev5) mark checker digest DIGEST as the same semantics as PREV "
+                       "(carry may cross the link): config/checker-epochs.jsonl, append-only; only with the reviewer's "
+                       "approval of that change, identical selftests on every host and identical regress facts")
+    p.add_argument("digest")
+    p.add_argument("--same-as", required=True)
+    p.add_argument("--why", required=True)
+    p.add_argument("--review", required=True, help="the reviewer's approval of this mark (agent and date, or the commit)")
+    p.add_argument("--selftest", nargs="+", required=True, metavar="JOB", help="host_selftest jobs under DIGEST")
+    p.add_argument("--prev-selftest", nargs="+", required=True, metavar="JOB", help="host_selftest jobs under PREV")
+    p.add_argument("--regress", nargs="+", required=True, metavar="JOB", help="the full regress suite's queue jobs "
+                   "under DIGEST (each wrote jobsrc/regsum.jsonl with REGRESS_SUMMARY)")
+    p.add_argument("--prev-regress", nargs="+", required=True, metavar="JOB", help="... under PREV")
+    p = sub.add_parser("epoch-split", help="(integ6; rev5) cut the mark of DIGEST (it was semantic after all): every "
+                       "carry across that link stops proving; append-only")
+    p.add_argument("digest")
+    p.add_argument("--why", required=True)
+    p.add_argument("--review", required=True)
     p = sub.add_parser("unproven-seed", help="(D126) seed config/unproven-baseline.json from a verify/materialize "
                        "checks.jsonl: every equivalent (addr, mode) whose code has no ledger line (once, when the gate "
                        "begins)")
@@ -2884,6 +3051,28 @@ def main(argv=None):
         return 0
     if a.cmd in ("unproven-accept", "unproven-seed") and not (a.why or "").strip():
         sys.exit("%s: --why must give a reason" % a.cmd)
+    if a.cmd in ("epoch-mark", "epoch-split"):
+        import datetime
+        if not a.why.strip() or not a.review.strip():
+            sys.exit("%s: --why and --review must be given" % a.cmd)
+        marks, splits = _epoch_records()
+        rec = {"kind": a.cmd.split("-")[1], "digest": a.digest, "why": a.why.strip(), "review": a.review.strip(),
+               "date": datetime.date.today().isoformat()}
+        if a.cmd == "epoch-split":
+            if a.digest not in marks or a.digest in splits:
+                sys.exit("epoch-split: %s has no mark in force" % a.digest)
+        else:
+            ok_, why_, facts_ = epoch_mark_evidence(a.digest, a.same_as, a.selftest, a.prev_selftest, a.regress,
+                                                    a.prev_regress)
+            if not ok_:
+                sys.exit("epoch-mark refused: " + why_)
+            if a.digest in marks:
+                sys.exit("epoch-mark: %s is marked already (append-only; a split cuts a mark, never a second one)" % a.digest)
+            rec.update(same_as=a.same_as, **facts_)
+        with open(EPOCHS, "a") as f:
+            f.write(json.dumps(rec, sort_keys=True) + "\n")
+        print(json.dumps(rec))
+        return 0
     if a.cmd == "revoke":
         # (integ4, D154) append-only: no un-revoke; a fresh proof (another ledger line) is the only way back
         if not (a.why or "").strip():

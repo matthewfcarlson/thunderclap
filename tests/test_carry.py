@@ -51,10 +51,13 @@ class T(unittest.TestCase):
         self.d = tempfile.mkdtemp()
         self.led = os.path.join(self.d, "ledger.jsonl")
         self.rev = os.path.join(self.d, "revoked.jsonl")
-        self.p = [mock.patch.object(tree_tu, "LEDGER", self.led), mock.patch.object(tree_tu, "REVOKED", self.rev)]
+        self.ep = os.path.join(self.d, "epochs.jsonl")
+        self.p = [mock.patch.object(tree_tu, "LEDGER", self.led), mock.patch.object(tree_tu, "REVOKED", self.rev),
+                  mock.patch.object(tree_tu, "EPOCHS", self.ep)]
         for p in self.p:
             p.start()
         tree_tu._REVOKED.clear()
+        tree_tu._EPOCHS.clear()
 
     def tearDown(self):
         for p in self.p:
@@ -170,6 +173,74 @@ class T(unittest.TestCase):
         # shards that disagree on the view's parts are not one proof
         a2 = dict(a, view_parts={"rest": "x"})
         self.assertIsNone(tree_tu.merge_shards([a2, b])[0])
+    def _epochs(self, *recs):
+        with open(self.ep, "a") as f:
+            for r in recs:
+                f.write(json.dumps(r) + "\n")
+        tree_tu._EPOCHS.clear()
+
+    def test_epoch_carry_and_split(self):
+        v = moved(decls=("0x00020000", {"cc": "cdecl", "params": []}))
+        self.assertFalse(tree_tu.carry_check(RUN, cur(v, checker="chk2"))[0])        # no mark: another checker
+        self._epochs({"kind": "mark", "digest": "chk2", "same_as": "chk"})
+        ok, d = tree_tu.carry_check(RUN, cur(v, checker="chk2"))
+        self.assertTrue(ok, d)
+        carried = tree_tu.carried_line(RUN, cur(v, checker="chk2"), d, "tu.cpp")
+        self.assertEqual(carried["carry_checker"], "chk2")
+        self.assertTrue(tree_tu.ledger_line_proves(carried))
+        self._epochs({"kind": "mark", "digest": "chk3", "same_as": "chk2"})          # a chain carries too
+        self.assertTrue(tree_tu.carry_check(RUN, cur(v, checker="chk3"))[0])
+        # a split cuts the link: the carry made across it stops proving, read time, nothing rewritten
+        self._epochs({"kind": "split", "digest": "chk2"})
+        self.assertFalse(tree_tu.ledger_line_proves(carried))
+        self.assertFalse(tree_tu.carry_check(RUN, cur(v, checker="chk2"))[0])
+        self.assertFalse(tree_tu.carry_check(RUN, cur(v, checker="chk3"))[0])
+        self.assertTrue(tree_tu.ledger_line_proves(RUN))                               # the run line stands
+
+    def test_epoch_ambiguous_or_cycle(self):
+        self._epochs({"kind": "mark", "digest": "b", "same_as": "a"}, {"kind": "mark", "digest": "b", "same_as": "c"},
+                     {"kind": "mark", "digest": "x", "same_as": "y"}, {"kind": "mark", "digest": "y", "same_as": "x"})
+        self.assertEqual(tree_tu.checker_epoch("b"), "b")
+        self.assertFalse(tree_tu.same_checker_epoch("b", "a"))
+        self.assertIn(tree_tu.checker_epoch("x"), ("x", "y"))
+        self.assertFalse(tree_tu.same_checker_epoch(None, None))
+
+    def test_epoch_mark_evidence(self):
+        S = {"case1": {"input_digest": "i1", "edges": [3, 4, "u"], "work": 7}}
+        jobs = {"1": ("new", "mac1", S, True), "2": ("new", "mac2", S, True), "3": ("old", "mac1", S, True),
+                "4": ("old", "mac2", S, True), "5": ("new", "mac1", {"case1": dict(S["case1"], work=8)}, True),
+                "6": ("new", "mac1", S, False), "7": ("other", "mac1", S, True)}
+        out = lambda j: jobs[j]
+        F = {"status": "equivalent", "inputs_run": 300, "input_digest": "d", "keys": "k", "first_diff": None}
+        R = {"n1": [dict(F, case="c1", checker="new"), {"case": "c1", "ok": True}],
+             "n2": [dict(F, case="c2", checker="new"), {"case": "c2", "ok": True}],
+             "o1": [dict(F, case="c1", checker="old"), {"case": "c1", "ok": True}],
+             "o2": [dict(F, case="c2", checker="old"), {"case": "c2", "ok": True}],
+             "b1": [dict(F, case="c1", checker="new", input_digest="e"), {"case": "c1", "ok": True}],
+             "b2": [dict(F, case="c1", checker="new"), {"case": "c1", "ok": False}],
+             "b3": [dict(F, case="c1", checker="old"), {"case": "c1", "ok": True}],
+             "b5": [dict(F, case="c1", checker="new", inputs_run=301), {"case": "c1", "ok": True}]}
+        rl = lambda j: R.get(j)
+        ev = lambda j, pj, n=("n1", "n2"), o=("o1", "o2"), cases=("c1", "c2"): tree_tu.epoch_mark_evidence(
+            "new", "old", j, pj, list(n), list(o), selftest_out=out, regress_lines=rl, cases=set(cases))
+        ok, why, facts = ev(["1", "2"], ["3", "4"])
+        self.assertTrue(ok, why)
+        self.assertEqual(facts["selftest"]["hosts"], ["mac1", "mac2"])
+        self.assertEqual(facts["regress"]["jobs"], ["n1", "n2"])
+        for j, pj in ((["1", "2", "5"], ["3", "4"]),     # a summary differs
+                      (["1"], ["3", "4"]),               # a host PREV ran on is missing
+                      (["1", "2", "6"], ["3", "4"]),     # a job failed
+                      (["1", "2", "7"], ["3", "4"]),     # a job of another checker
+                      (["1", "2"], ["1", "4"])):         # PREV's job is a DIGEST job
+            self.assertFalse(ev(j, pj)[0], (j, pj))
+        for n in (("b1", "n2"), ("b2", "n2"), ("b3", "n2"), ("b5", "n2"),   # facts / ok / checker / count differ
+                  ("n1",),                                  # the suite not covered
+                  ("n1", "n2", "n1"),                       # a case twice
+                  ("n1", "n2", "missing")):                 # a job's output missing: refused, no fallback
+            self.assertFalse(ev(["1", "2"], ["3", "4"], n=n)[0], n)
+        self.assertFalse(ev(["1", "2"], ["3", "4"], cases=("c1", "c2", "c3"))[0])     # the suite has another case
+        self.assertFalse(tree_tu.epoch_mark_evidence("old", "old", ["3"], ["4"], ["o1"], ["o1"], selftest_out=out,
+                                                     regress_lines=rl, cases={"c1"})[0])
 
 class Touched(unittest.TestCase):
     def test_touched_sets(self):

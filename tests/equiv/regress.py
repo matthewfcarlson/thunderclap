@@ -11,6 +11,8 @@ piece of the mismatch text that shows the right thing was caught, and for some a
 Skips when the game files are absent.
 """
 import argparse
+import hashlib
+import json
 import os
 import sys
 import time
@@ -1652,10 +1654,24 @@ def _job(name, equiv, addr, kw):
         return name, "invariant: inputs_run %s, compared keys %s (%s distinct)" % (
             l3_["inputs_run"], len(l3_.get("compared_keys") or ()), len(set(l3_.get("compared_keys") or ()))), \
             diffs, ratio, l3_["inputs_run"]
+    _summary(name, {"checker": equiv._checker_digest(), "status": r["status"], "class": r.get("class"), "inputs_run": l3_.get("inputs_run"),
+                    "inputs_repeated": l3_.get("inputs_repeated", 0), "input_digest": l3_.get("input_digest"),
+                    "keys": hashlib.sha1("\n".join(l3_.get("compared_keys") or ()).encode()).hexdigest()[:12],
+                    "edges": [cov.get("edges_covered"), cov.get("edges_total"), cov.get("uncovered_hash")],
+                    "work": l3_.get("work"), "first_diff": diffs[0] if diffs else None})
     if l3_.get("inputs_repeated", 0) < kw_min_rep.get(name, 0):
         return name, "invariant: %s repeated input(s), the case has at least %d" % (
             l3_.get("inputs_repeated", 0), kw_min_rep[name]), diffs, ratio, l3_.get("inputs_run") or 0
     return name, r["status"], diffs, ratio, l3_.get("inputs_run") or 0
+
+
+def _summary(name, rec):
+    """(integ6, checker epochs; rev5) REGRESS_SUMMARY=FILE: one jsonl line per case with what its run did (facts) or
+    whether it met its expectation (ok); tools/tree_tu.py epoch-mark compares two checkers' files case by case"""
+    p_ = os.environ.get("REGRESS_SUMMARY")
+    if p_:
+        with open(p_, "a") as f_:
+            f_.write(json.dumps({"case": name, **rec}, sort_keys=True, default=str) + "\n")
 
 
 # (integ6; rev5) cases whose run compares an input twice (the post phase redraws a bound it drew before): the repeat
@@ -1672,11 +1688,15 @@ def run_jobq(a, names):
     if any(n in X64_CASES for n in names):
         import equiv64
         files.update(equiv64.job_files())     # (libclang's Python binding, for hosts whose venv lacks it)
-    jobs = [jobq.make_job(a.name, ["python", "tests/equiv/regress.py", "--names", ",".join(names[i:i + per]), "--jobs", "2"] +
-                          (["--module", a.module] if a.module else []),
-                          "equiv", files, [], 3600, 2, 3, 0, commit) for i in range(0, len(names), per)]
+    # (integ6, checker epochs) each job also writes its cases' facts (jobsrc/regsum.jsonl): a full suite's job ids are
+    # the regress evidence `tree_tu.py epoch-mark --regress` reads
+    jobs = [jobq.make_job(a.name, ["sh", "-c", "mkdir -p jobsrc; rm -f jobsrc/regsum.jsonl; REGRESS_SUMMARY=jobsrc/regsum.jsonl "
+                                   "build/venv/bin/python tests/equiv/regress.py --names %s --jobs 2%s" % (
+                                       ",".join(names[i:i + per]), " --module " + a.module if a.module else "")],
+                          "equiv", files, ["jobsrc/regsum.jsonl"], 3600, 2, 3, 0, commit) for i in range(0, len(names), per)]
     ids = jobq.submit_jobs(jobs)
     print("%d cases in %d jobs (%d-%d)" % (len(names), len(ids), ids[0], ids[-1]), flush=True)
+    print("regress job ids: %s" % " ".join(map(str, ids)), flush=True)
     c = jobq.conn()
     pending, bad, total = dict(zip(ids, [names[i:i + per] for i in range(0, len(names), per)])), 0, 0
     while pending:
@@ -1732,6 +1752,7 @@ def main():
             ok = status == want and (text is None or any(text in d for d in diffs)) and ratio >= min_cov and \
                 nrun >= MIN_RUN.get(name, 0)
             bad += not ok
+            _summary(name, {"ok": ok})
             print("%-4s %-32s %-12s %3.0f%% %s" % ("ok" if ok else "FAIL", name, status, 100 * ratio,
                                                  "" if ok else (diffs[:2] or "")))
     import verify_relocs
@@ -1740,21 +1761,25 @@ def main():
         r = verify_relocs.check(os.path.join(CASES_DIR, name + ".cpp"), int(name.split("_")[0], 16))
         ok = r["status"] == want and (kind is None or any(i[0] == kind for i in r["issues"]))
         bad += not ok
+        _summary(name, {"ok": ok, "status": r["status"], "issues": sorted(map(str, r["issues"]))})
         names.append(name)
         print("%-4s %-32s %-12s %s" % ("ok" if ok else "FAIL", name, r["status"], "" if ok else r.get("issues")))
     for name in [n for n in DECL_CASES if (not a.only or a.only in n) and (not sel or n in sel)]:
         ok, status, got = decl_job(name)
         bad += not ok
+        _summary(name, {"ok": ok, "status": status, "got": sorted(map(list, got))})
         names.append(name)
         print("%-4s %-32s %-12s %s" % ("ok" if ok else "FAIL", name, status, "" if ok else sorted(got)))
     for name in [n for n in X64_CASES if (not a.only or a.only in n) and (not sel or n in sel)]:
         ok, status, cls, got = x64_job(name)
         bad += not ok
+        _summary(name, {"ok": ok, "status": status, "class": cls, "got": got[:300]})
         names.append(name)
         print("%-4s %-32s %-12s %s" % ("ok" if ok else "FAIL", name, status, "" if ok else "%s: %s" % (cls, got[:300])))
     for name in [n for n in SHARD_CASES if (not a.only or a.only in n) and (not sel or n in sel)]:
         ok, status, cls, got = shard_job(name)
         bad += not ok
+        _summary(name, {"ok": ok, "status": status, "class": cls, "got": got})
         names.append(name)
         print("%-4s %-32s %-12s %s" % ("ok" if ok else "FAIL", name, status, "" if ok else "%s: %s" % (cls, got)))
     print("%d/%d cases ok" % (len(names) - bad, len(names)))
