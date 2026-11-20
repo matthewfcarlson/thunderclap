@@ -38,7 +38,7 @@ public:
 struct Holder44_235f0 { Factory_235f0 *FUN_00203d70(); };
 struct Holder28_235f0 { Holder44_235f0 *FUN_000862a0(); };
 } // namespace fn_f8d1195f
-struct World { char pad0[0x54]; Holder28_235f0 *holder; };
+struct World { void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */ Holder28_235f0 *holder; };
 namespace fn_f8d1195f {
 struct Owner_235f0 { char pad[4]; };
 Owner_235f0 *__fastcall FUN_000592a0(void *x);

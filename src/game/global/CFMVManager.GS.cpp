@@ -25,7 +25,7 @@ struct Audio_1b7f40 { void FUN_001eb870(); void FUN_001eb2a0(float,int);  };
 struct Other_1b7f40 { void FUN_000bb670(); };
 struct Manager_1b7f40 { Audio_1b7f40* FUN_000862e0(); Other_1b7f40* FUN_00086280(); };
 } // namespace fn_facea1d8
-struct World { char pad[0x54]; Manager_1b7f40* manager; };
+struct World { void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */ Manager_1b7f40 *manager; };
 namespace fn_facea1d8 {
 struct Resource_1b7f40 {  void FUN_0008db60(int); };
 extern "C" int __cdecl FUN_00266da0(int);

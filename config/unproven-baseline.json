@@ -81,16 +81,6 @@
    },
    "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
   },
-  "0x00081b20": {
-   "modes": {
-    "wine": {
-     "code": "5c5e264eedce",
-     "accepted": "2026-11-18T23:06:13",
-     "by": "unproven-seed"
-    }
-   },
-   "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
-  },
   "0x000835a0": {
    "modes": {
     "wine": {
@@ -104,17 +94,19 @@
   "0x00088020": {
    "modes": {
     "msvc": {
-     "code": "54a5748c9730",
-     "accepted": "2026-11-18T23:06:13",
-     "by": "unproven-seed"
+     "code": "715eb165888e",
+     "accepted": "2026-11-19T19:56:25",
+     "by": "unproven-accept",
+     "why": "start-up load loop runs until the content registry drains; no stubbed input completes (96703/96704: 170/163 of 3,000 compared, 7,656 timeouts; --steps 20M: 0 completed); replaces HEAD's 54a5748c9730/982200fa5274 entries, which were unproven the same way; the change is find3's binding fix (C9::FUN_001eb220 as defined) plus the World view words; integ3 is giving drain loops a terminating stub"
     },
     "wine": {
-     "code": "982200fa5274",
-     "accepted": "2026-11-18T23:06:13",
-     "by": "unproven-seed"
+     "code": "d5c868c909af",
+     "accepted": "2026-11-19T19:56:25",
+     "by": "unproven-accept",
+     "why": "start-up load loop runs until the content registry drains; no stubbed input completes (96703/96704: 170/163 of 3,000 compared, 7,656 timeouts; --steps 20M: 0 completed); replaces HEAD's 54a5748c9730/982200fa5274 entries, which were unproven the same way; the change is find3's binding fix (C9::FUN_001eb220 as defined) plus the World view words; integ3 is giving drain loops a terminating stub"
     }
    },
-   "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
+   "why": "start-up load loop runs until the content registry drains; no stubbed input completes (96703/96704: 170/163 of 3,000 compared, 7,656 timeouts; --steps 20M: 0 completed); replaces HEAD's 54a5748c9730/982200fa5274 entries, which were unproven the same way; the change is find3's binding fix (C9::FUN_001eb220 as defined) plus the World view words; integ3 is giving drain loops a terminating stub"
   },
   "0x0008b560": {
    "modes": {
@@ -996,16 +988,6 @@
    },
    "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
   },
-  "0x00284fa0": {
-   "modes": {
-    "msvc": {
-     "code": "331d2d8c3689",
-     "accepted": "2026-11-18T23:06:13",
-     "by": "unproven-seed"
-    }
-   },
-   "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
-  },
   "0x0028a630": {
    "modes": {
     "wine": {
@@ -1402,5 +1384,5 @@
    "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
   }
  },
- "total": 156
+ "total": 154
 }

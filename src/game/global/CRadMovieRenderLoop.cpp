@@ -160,7 +160,7 @@ struct Object {
 struct Language { const char* FUN_000bb670(); };
 struct Manager_1b73c0 { Language* FUN_00086280(); };
 } // namespace fn_fbeebd58
-struct World { char padding[0x54]; Manager_1b73c0* manager; };
+struct World { void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */ Manager_1b73c0 *manager; };
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" int __cdecl memcmp(const void*, const void*, unsigned int);
 #endif

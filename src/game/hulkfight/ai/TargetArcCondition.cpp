@@ -7,6 +7,7 @@
 #include "gen/fight.h"
 #include "gen/hulkfight.h"
 #include "gen/owners.h"
+#include "gen/global.h"
 #define TREE_TU_BEGIN namespace fn_f038364c {
 #define TREE_TU_END }
 namespace fn_f038364c {} using namespace fn_f038364c;
@@ -797,7 +798,7 @@ bool TargetOrientationCondition::vfunc_6(int, Input_1259c0* input, int) {
 
 
 // 0x00125a90 hulkfight::ai::TargetArcCondition::vfunc_6 (583 B): equivalent/0x00125a90.cpp [wrapped: conflict: CFightParams; World; fight::Params; hulkfight::ai::TargetArcCondition]
-// sym: ?vfunc_6@TargetArcCondition@ai@hulkfight@fn_00125a90@@UAE_NHPAVParams@fight@4@H@Z @9143329ab022 @w7fe03cf59e89 @v32d5fe3f039e
+// sym: ?vfunc_6@TargetArcCondition@ai@hulkfight@fn_00125a90@@UAE_NHPAVParams@fight@4@H@Z @03d521ac7fb2 @w5d4a7a13fec4 @v54de68cef7be
 namespace fn_00125a90 {
 // STATUS: equivalent (tools/equiv.py level 3: 101 inputs, branch coverage 25/26, incomplete)
 // hulkfight::ai::TargetArcCondition::vfunc_6 @ 0x00125a90
@@ -938,7 +939,7 @@ public:
 
 bool TargetArcCondition::vfunc_6(int a1, fight::Params* params, int a3)
 {
-    if (!dynamic_cast<CFightParams*>(params))
+    if (!((CFightParams*)dynamic_cast<::CFightParams*>((::fight::Params*)(params))))
         return false;
 
     Stats_125a90* stats = ((CFightParams*)params)->FUN_000592a0()->FUN_00059a30();
@@ -1015,7 +1016,7 @@ bool TargetArcCondition::vfunc_6(int a1, fight::Params* params, int a3)
 
 
 // 0x00125ce0 hulkfight::ai::TargetVelocityCondition::vfunc_6 (321 B): equivalent/0x00125ce0.cpp [wrapped: conflict: CFightParams; FUN_00018960; fight::Params]
-// sym: ?vfunc_6@TargetVelocityCondition@fn_00125ce0@@UAEDHPAVParams@fight@2@H@Z @108725b40ab6 @w87fadbf3135f @vf6faeef024bd
+// sym: ?vfunc_6@TargetVelocityCondition@fn_00125ce0@@UAEDHPAVParams@fight@2@H@Z @ec8f832371d3 @w3255efb60265 @veb2b91e6b821
 namespace fn_00125ce0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3206 inputs, branch coverage 18/18; Wine build 679 inputs, 18/18)
 // hulkfight::ai::TargetVelocityCondition::vfunc_6 @ 0x00125ce0
@@ -1070,7 +1071,7 @@ public:
 
 char TargetVelocityCondition::vfunc_6(int a, fight::Params *params, int c)
 {
-    if (dynamic_cast<CFightParams *>(params) == 0)
+    if (((CFightParams *)dynamic_cast<::CFightParams*>((::fight::Params*)(params))) == 0)
         return 0;
     Owner_125ce0 *owner = FUN_00059a30(FUN_000592a0(params));
     Body_125ce0 *body = owner->body;
@@ -1215,12 +1216,12 @@ bool TargetVelocityYCondition::vfunc_6(void*, Actor_125f90* actor, void*) {
 
 
 // 0x001260a0 hulkfight::ai::TargetDirectionCondition::vfunc_6 (437 B): equivalent/0x001260a0.cpp
-// sym: ?vfunc_6@TargetDirectionCondition@ai@hulkfight@@UAE_NPAX00@Z @3906fd4eac7e @w4ec30cf14a6f @v5fd5a2a1d332
+// sym: ?vfunc_6@TargetDirectionCondition@ai@hulkfight@@UAE_NPAX00@Z @b77984468069 @w7c09af459232 @ve9a4358a8e28
 // STATUS: equivalent (tools/equiv.py level 3: 98 inputs, branch coverage 17/18, incomplete)
 // hulkfight::ai::TargetDirectionCondition::vfunc_6 @ 0x001260a0
 bool hulkfight::ai::TargetDirectionCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { int a = (int)__p0; fight::Params_1260a0 * params = (fight::Params_1260a0 *)__p1; int b = (int)__p2;
 
-    CFightParams_1260a0 *fp = dynamic_cast<CFightParams_1260a0 *>(params);
+    CFightParams_1260a0 *fp = ((CFightParams_1260a0 *)dynamic_cast<::CFightParams*>((::fight::Params*)(params)));
     if (fp == 0)
         return 0;
     Fighter_1260a0 *fighter = params->FUN_000592a0()->FUN_00059a30();
@@ -1259,12 +1260,12 @@ bool hulkfight::ai::TargetDirectionCondition::vfunc_6(void* __p0, void* __p1, vo
 
 
 // 0x00126270 hulkfight::ai::TargetDirectionXZCondition::vfunc_6 (441 B): equivalent/0x00126270.cpp
-// sym: ?vfunc_6@TargetDirectionXZCondition@ai@hulkfight@@UAE_NPAX00@Z @a38d4223da0e @w3a6e8a976b6d @v4afbb1b80f17
+// sym: ?vfunc_6@TargetDirectionXZCondition@ai@hulkfight@@UAE_NPAX00@Z @3c19c148c194 @w9a4da4f93cb3 @v0655c78331b2
 // STATUS: equivalent (tools/equiv.py level 3: 99 inputs, branch coverage 17/18, incomplete)
 // hulkfight::ai::TargetDirectionXZCondition::vfunc_6 @ 0x00126270
 bool hulkfight::ai::TargetDirectionXZCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { int a = (int)__p0; fight::Params_126270 * params = (fight::Params_126270 *)__p1; int b = (int)__p2;
 
-    CFightParams_126270 *fp = dynamic_cast<CFightParams_126270 *>(params);
+    CFightParams_126270 *fp = ((CFightParams_126270 *)dynamic_cast<::CFightParams*>((::fight::Params*)(params)));
     if (fp == 0)
         return 0;
     Fighter_126270 *fighter = params->FUN_000592a0()->FUN_00059a30();

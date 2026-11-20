@@ -5,6 +5,8 @@
 #include "decls/data/game/global.h"
 #include "gen/hulkfight.h"
 #include "gen/owners.h"
+#include "gen/fight.h"
+#include "gen/global.h"
 #define TREE_TU_BEGIN namespace fn_f451e068 {
 #define TREE_TU_END }
 namespace fn_f451e068 {} using namespace fn_f451e068;
@@ -71,12 +73,12 @@ struct World {
 
 
 // 0x0010dcf0 hulkfight::ai::TokenCondition::vfunc_6 (356 B): equivalent/0x0010dcf0.cpp
-// sym: ?vfunc_6@TokenCondition@ai@hulkfight@@UAE_NPAX00@Z @22293afd97a9 @w0f0a6df5f094 @v8573d11d3b42
+// sym: ?vfunc_6@TokenCondition@ai@hulkfight@@UAE_NPAX00@Z @d08f15ef24d6 @wae0e4a9e535f @v7cfd46ba8ccd
 // STATUS: equivalent (tools/equiv.py level 3: 3017 inputs, branch coverage 30/30)
 // hulkfight::ai::TokenCondition::vfunc_6 @ 0x0010dcf0
 bool hulkfight::ai::TokenCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { int arg0 = (int)__p0; fight::Params_10dcf0 * params = (fight::Params_10dcf0 *)__p1; int arg2 = (int)__p2;
 
-    if (!dynamic_cast<CFightParams_10dcf0*>(params))
+    if (!((CFightParams_10dcf0*)dynamic_cast<::CFightParams*>((::fight::Params*)(params))))
         return false;
     Actor_10dcf0* actor = ((Handle_10dcf0 *)((owners::Object_592a0 *)(((CFightParams_10dcf0*)params)))->FUN_000592a0())->FUN_00059a30();
     if (!actor)

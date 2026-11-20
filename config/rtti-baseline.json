@@ -1,7 +1,7 @@
 {
  "comment": "integ3 9a: RTTI type descriptors referenced by the tree's code whose names are not the game's (native dynamic_cast/typeid fail on them). Only shrinks (x64_gate.py check --update-baseline lowers; rtti-accept adds, with a reason).",
  "seed_why": "integ3 9a: non-exact at 19ddec138 (cast sites: find2's castscan family, sweep2 fixing; complete object locators: rev5 R2)",
- "total": 3451,
+ "total": 3273,
  "tus": {
   "src/engine/audio/ChannelSendVolumeFadeBehaviour.cpp": {
    "col:?AUSeqActionChannelSendVolumes_24f230@fn_0024f230@@|?AUSeqActionChannelSendVolumes_24f230@fn_0024f230@@": 1,
@@ -500,10 +500,6 @@
   "src/engine/physics/SimLength.cpp": {
    "col:?AUSimTime@fn_fae3921a@@|?AUSimTime@fn_fae3921a@@": 1
   },
-  "src/engine/physics/SimState.cpp": {
-   "0x002ef440|?AVPhysicsObject@fn_f89b78b9@@": 2,
-   "0x002ef440|?AVSimulatedObject@fn_f89b78b9@@": 2
-  },
   "src/engine/physics/SimStateArticulated.cpp": {
    "col:?AUSimStateArticulated@physics@fn_002fdc90@@|?AUFUN_002ef7f0@fn_002fdc90@@": 1,
    "col:?AUSimStateArticulated@physics@fn_002fdc90@@|?AUSimStateArticulated@physics@fn_002fdc90@@": 1
@@ -537,7 +533,6 @@
   "src/engine/pure3d/BillboardQuad.cpp": {
    "col:?AUBillboardQuad@pure3d@fn_002b8e80@@|?AUBillboardQuad@pure3d@fn_002b8e80@@": 1,
    "col:?AUBillboardQuad@pure3d@fn_002b8e80@@|?AUEntity_2b8e80@fn_002b8e80@@": 1,
-   "col:?AV?$DynamicCaster@VShader_2bc790@pure3d@@@LoadInventory_2bc790@content@@|?AV?$DynamicCaster@VShader_2bc790@pure3d@@@LoadInventory_2bc790@content@@": 1,
    "col:?AVBillboardCutOffQuad@pure3d@fn_002b9520@@|?AVBillboardQuad_2b9520@fn_002b9520@@": 1,
    "col:?AVBillboardCutOffQuadGroup@pure3d@fn_002bc660@@|?AVQuadGroupBase@pure3d@fn_002bc660@@": 1,
    "col:?AVBillboardObject@pure3d@fn_002bd300@@|?AVDrawableContainer_2bd300@fn_002bd300@@": 1,
@@ -714,12 +709,6 @@
    "col:?AVParticleSphereGenerator@fn_002d3b40@@|?AVParticleSphereGenerator@fn_002d3b40@@": 1
   },
   "src/engine/pure3d/ParticleSystemLoader.cpp": {
-   "0x002abd90|?AVAnimationLoader_2abd90@pure3d@@": 1,
-   "0x002abd90|?AVObjectLoader_2abd90@content@@": 1,
-   "0x002abfb0|?AVAnimationLoader_2abfb0@pure3d@@": 1,
-   "0x002abfb0|?AVObjectLoader_2abfb0@content@@": 1,
-   "0x002ac180|?AVAnimationLoader_2ac180@pure3d@fn_002ac180@@": 1,
-   "0x002ac180|?AVObjectLoader_2ac180@content@fn_002ac180@@": 1,
    "col:?AUOldParticleEmitterLoader_2ab7c0@fn_f07ae39e@@|?AUOldParticleEmitterLoader_2ab7c0@fn_f07ae39e@@": 1,
    "col:?AUOldParticleEmitterLoader_2ab7c0@fn_f07ae39e@@|?AURenderObjectLoader_2ab7c0@fn_f07ae39e@@": 1,
    "col:?AUOldParticleSystemLoader_2ab7c0@fn_f07ae39e@@|?AUOldParticleSystemLoader_2ab7c0@fn_f07ae39e@@": 1,
@@ -794,10 +783,6 @@
    "col:?AVSimpleChannel@fn_f66a22d3@@|?AVChannel@fn_f66a22d3@@": 1,
    "col:?AVSimpleChannel@fn_f66a22d3@@|?AVSimpleChannel@fn_f66a22d3@@": 1
   },
-  "src/engine/pure3d/ShaderAnimationController.cpp": {
-   "0x002a8450|?AVEntity_2a8450@pure3d@@": 1,
-   "0x002a8450|?AVTexture_2a8450@pure3d@@": 1
-  },
   "src/engine/pure3d/ShaderLoader.cpp": {
    "col:?AVShader@pure3d@fn_f495b664@@|?AVEntity_28f2c0@fn_f495b664@@": 1
   },
@@ -867,12 +852,6 @@
   "src/engine/pure3d/TextString.cpp": {
    "col:?AVTextString@fn_0029b3a0@@|?AVTextString@fn_0029b3a0@@": 1
   },
-  "src/engine/pure3d/TextureAnimationController.cpp": {
-   "0x002a9480|?AVChannel_2a9480@pure3d@@": 1,
-   "0x002a9480|?AVEntityChannel_2a9480@pure3d@@": 1,
-   "0x002a9480|?AVEntity_2a9480@pure3d@@": 1,
-   "0x002a9480|?AVTexture_2a9480@pure3d@@": 1
-  },
   "src/engine/pure3d/TextureFontLoader.cpp": {
    "col:?AUTextureFont@pure3d@fn_00295520@@|?AUTextureFont@pure3d@fn_00295520@@": 1,
    "col:?AVFont@pure3d@fn_00294db0@@|?AVBase_294db0@pure3d@fn_00294db0@@": 1,
@@ -901,8 +880,6 @@
    "col:?AVCLightQueue@prop@pure3d@fn_002821d0@@|?AVQueueBase@prop@pure3d@fn_002821d0@@": 1,
    "col:?AVCMotionTrail@fn_00282790@@|?AVCMotionTrail@fn_00282790@@": 1,
    "col:?AVCMotionTrail@fn_00282790@@|?AVDrawablePrimitive_282790@fn_00282790@@": 1,
-   "col:?AVEffectQueue@fn_f4890d4c@@|?AVEffectQueue@fn_f4890d4c@@": 1,
-   "col:?AVEffectQueue@fn_f4890d4c@@|?AVEntity_280120@fn_f4890d4c@@": 1,
    "col:?AVEffectQueue_2834f0@fn_f4890d4c@@|?AVEffectQueue_2834f0@fn_f4890d4c@@": 1
   },
   "src/engine/pure3d/prop/StatePropDataLoader.cpp": {
@@ -987,15 +964,7 @@
    "col:?AVTypeT_24e4c0@fn_0024e4c0@@|?AVTypeT_24e4c0@fn_0024e4c0@@": 1,
    "col:?AVTypeT_24e4c0@fn_0024e4c0@@|?AVType_24e4c0@fn_0024e4c0@@": 1
   },
-  "src/engine/unknown/unk_29c660.cpp": {
-   "0x0029df90|?AVDirectionalLight_29df90@pure3d@fn_f3bb83d9@@": 1,
-   "0x0029df90|?AVLight_29df90@pure3d@fn_f3bb83d9@@": 1
-  },
   "src/engine/unknown/unk_29e7f0.cpp": {
-   "0x0029ea40|?AVDirectionalLight@fn_fa427f67@@": 1,
-   "0x0029ea40|?AVLight@fn_fa427f67@@": 3,
-   "0x0029ea40|?AVPointLight@fn_fa427f67@@": 1,
-   "0x0029ea40|?AVSpotLight@fn_fa427f67@@": 1,
    "col:?AUCacheManager@LightsChooser@pure3d@fn_0029f3d0@@|?AUCacheManager@LightsChooser@pure3d@fn_0029f3d0@@": 1
   },
   "src/engine/unknown/unk_2c6d30.cpp": {
@@ -1332,16 +1301,6 @@
    "col:?AVCCharacterAgent@fn_000fc760@@|?AVBaseAgent@fn_000fc760@@": 1
   },
   "src/game/global/CCharacterGolem.cpp": {
-   "0x000fe940|?AUCAgent_fe940@fn_f54027db@@": 1,
-   "0x000fe940|?AUCRangedAgent_fe940@fn_f54027db@@": 1,
-   "0x000fe9e0|?AUCAgent_fe9e0@fn_f54027db@@": 1,
-   "0x000fe9e0|?AUCHand2HandAgent_fe9e0@fn_f54027db@@": 1,
-   "0x000fea80|?AUCAgent_fea80@fn_f54027db@@": 1,
-   "0x000fea80|?AUCChaseAgent_fea80@fn_f54027db@@": 1,
-   "0x000feb20|?AUCAgent_feb20@fn_f54027db@@": 1,
-   "0x000feb20|?AUCMoveAgent_feb20@fn_f54027db@@": 1,
-   "0x000fec60|?AUCAgent_fec60@fn_f54027db@@": 1,
-   "0x000fec60|?AUCPathGraphAgent_fec60@fn_f54027db@@": 1,
    "col:?AVCHand2HandAgent@fn_000ff180@@|?AVCCharacterAgent_ff180@fn_000ff180@@": 1
   },
   "src/game/global/CCharacterSizeCondition_2.cpp": {
@@ -1635,12 +1594,6 @@
    "col:?AV?$Method2@VCFEManager@fn_f71c7272@@XPEBDPEBD@fn_f71c7272@@|?AVMethodBase_c1430@fn_f71c7272@@": 1
   },
   "src/game/global/CFEManager.cpp": {
-   "0x000bf160|?AVFEObject_bf160@fn_000bf160@@": 1,
-   "0x000bf160|?AVTextButton_bf160@fn_000bf160@@": 1,
-   "0x000bf5c0|?AVCUnlockableMove_bf5c0@fn_000bf5c0@@": 1,
-   "0x000bf5c0|?AVCUnlockable_bf5c0@fn_000bf5c0@@": 1,
-   "0x000c3db0|?AVCUnlockableGallery_c3db0@fn_f53c52ab@@": 1,
-   "0x000c3db0|?AVCUnlockable_c3db0@fn_f53c52ab@@": 1,
    "col:?AV?$Closure0@VCFEManager@fn_000c0740@@X@fn_000c0740@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Closure0@VCFEManager@fn_000c0740@@X@fn_000c0740@@|?AVMethodBase_c0740@fn_000c0740@@": 1,
    "col:?AV?$Closure0@VCFEManager@fn_000c0960@@H@fn_000c0960@@|?AUScriptFunctionFields@@": 1,
@@ -2329,13 +2282,6 @@
    "col:?AVCSoundCommand_1f04e0@fn_f622a04d@@|?AVCSoundCommand_1f04e0@fn_f622a04d@@": 1,
    "col:?AVCSoundCommand_StopTunableEvent@fn_f622a04d@@|?AVCSoundCommand_1f04e0@fn_f622a04d@@": 1
   },
-  "src/game/global/CSoundRealTimeManager.GS.cpp": {
-   "0x001eab10|?AUIRefCount_1eab10@core@fn_f7674384@@": 8,
-   "0x001eab10|?AVListenerEffectXBox_1eab10@audio@fn_f7674384@@": 2,
-   "0x001eab10|?AVMix_1eab10@audio@fn_f7674384@@": 2,
-   "0x001eab10|?AVMixer_1eab10@audio@fn_f7674384@@": 2,
-   "0x001eab10|?AVSequence_1eab10@audio@fn_f7674384@@": 2
-  },
   "src/game/global/CSoundRealTimeManager.cpp": {
    "col:?AV?$Closure3_1ee6c0@VCSoundRealTimeManager_1ee6c0@fn_f014178b@@XPEADPEADPEAD@fn_f014178b@@|?AUScriptFunctionFields@@": 1,
    "col:?AV?$Closure3_1ee6c0@VCSoundRealTimeManager_1ee6c0@fn_f014178b@@XPEADPEADPEAD@fn_f014178b@@|?AV?$Closure3_1ee6c0@VCSoundRealTimeManager_1ee6c0@fn_f014178b@@XPEADPEADPEAD@fn_f014178b@@": 1,
@@ -2653,10 +2599,6 @@
    "col:?AV?$Method1@VCUnlockablesManager@fn_00094fb0@@_NH@fn_00094fb0@@|?AVBase@fn_00094fb0@@": 1
   },
   "src/game/global/CUnlockablesManager.cpp": {
-   "0x00093950|?AVCUnlockableCheat_93950@fn_f8b63219@@": 3,
-   "0x00093950|?AVCUnlockable_93950@fn_f8b63219@@": 3,
-   "0x00093950|?AVFEObject_93950@fn_f8b63219@@": 1,
-   "0x00093950|?AVTextSelector_93950@fn_f8b63219@@": 1,
    "col:?AV?$Closure2@VCUnlockablesManager@@XPEBDH@@|?AV?$Closure2@VCUnlockablesManager@@XPEBDH@@": 1,
    "col:?AV?$Closure2@VCUnlockablesManager@@XPEBDH@@|?AV?$Method2@VCUnlockablesManager@@XPEBDH@@": 1,
    "col:?AV?$Closure3_94de0@VCUnlockablesManager_94de0@fn_f8b63219@@XHH_N@fn_f8b63219@@|?AUScriptFunctionFields@@": 1,
@@ -2958,10 +2900,6 @@
    "col:?AV?$Closure1@VScriptHandler@@_NPEBD@@|?AV?$Closure1@VScriptHandler@@_NPEBD@@": 1,
    "col:?AV?$Closure1@VScriptHandler@@_NPEBD@@|?AV?$Method1@VScriptHandler@@_NPEBD@@": 1
   },
-  "src/game/global/TextButton.cpp": {
-   "0x000e9320|?AVFrameController@fn_fdd3d2cc@@": 1,
-   "0x000e9320|?AVTextureAnimationController@fn_fdd3d2cc@@": 1
-  },
   "src/game/global/TextSelector_2.cpp": {
    "col:?AUHSlider@fn_f12e8a1b@@|?AUFUN_000e9240@fn_f12e8a1b@@": 1,
    "col:?AUHSlider@fn_f12e8a1b@@|?AUHSlider@fn_f12e8a1b@@": 1
@@ -3092,26 +3030,6 @@
    "col:?AVCTargetAction_213b0@fn_000213b0@@|?AVAction_213b0@fn_000213b0@@": 1,
    "col:?AVCTargetAction_213b0@fn_000213b0@@|?AVCTargetAction_213b0@fn_000213b0@@": 1
   },
-  "src/game/global/unk_0b4cf0.cpp": {
-   "0x000b50d0|?AVFEObject_b50d0@fn_000b50d0@@": 1,
-   "0x000b50d0|?AVTextSelector_b50d0@fn_000b50d0@@": 1,
-   "0x000b5bf0|?AVFEObject_b5bf0@fn_000b5bf0@@": 2,
-   "0x000b5bf0|?AVTextSelector_b5bf0@fn_000b5bf0@@": 2,
-   "0x000b76c0|?AVFEObject_b76c0@fn_000b76c0@@": 1,
-   "0x000b76c0|?AVTextButton_b76c0@fn_000b76c0@@": 1,
-   "0x000b78e0|?AVCUnlockableBlonskyFile_b78e0@fn_000b78e0@@": 1,
-   "0x000b78e0|?AVCUnlockable_b78e0@fn_000b78e0@@": 1,
-   "0x000b78e0|?AVFEObject_b78e0@fn_000b78e0@@": 1,
-   "0x000b78e0|?AVTextSelector_b78e0@fn_000b78e0@@": 1,
-   "0x000b8e70|?AVFEObject_b8e70@fn_000b8e70@@": 2,
-   "0x000b8e70|?AVMapThing_b8e70@fn_000b8e70@@": 1,
-   "0x000b8e70|?AVTextSelector_b8e70@fn_000b8e70@@": 1
-  },
-  "src/game/global/unk_0b4cf0.iso_000b8d00.cpp": {
-   "0x000b8d00|?AVFEObject_b8d00@@": 2,
-   "0x000b8d00|?AVTextLabel_b8d00@@": 1,
-   "0x000b8d00|?AVTextWindow_b8d00@@": 1
-  },
   "src/game/global/unk_0e2800.cpp": {
    "col:?AUFEObject@fn_000e2860@@|?AUFEObject@fn_000e2860@@": 1
   },
@@ -3201,10 +3119,6 @@
    "col:?AVTrackFactoryTemplate_114990@fn_f496d4dd@@|?AVTrackFactoryTemplate_114990@fn_f496d4dd@@": 1
   },
   "src/game/hulkfight/ai/AIHistoryNameCondition.cpp": {
-   "0x0010f480|?AVCFightParams_10f480@fn_f49cf0cf@@": 1,
-   "0x0010f480|?AVParams_10f480@fight@@": 1,
-   "0x0010f630|?AVCFightParams_10f630@fn_f49cf0cf@@": 1,
-   "0x0010f630|?AVParams_10f630@fight@@": 1,
    "col:?AVAIHistorySetAction_10f8b0@fn_f49cf0cf@@|?AVAIHistorySetAction_10f8b0@fn_f49cf0cf@@": 1,
    "col:?AVAIHistorySetAction_10f8b0@fn_f49cf0cf@@|?AVAction_10f8b0@fn_f49cf0cf@@": 1,
    "col:?AVHulkAction_10f310@fn_f49cf0cf@@|?AVAction_10f310@fn_f49cf0cf@@": 1,
@@ -3229,8 +3143,6 @@
    "col:?AVTrackFactoryTemplate_114c70@fn_f38dd81c@@|?AVTrackFactoryTemplate_114c70@fn_f38dd81c@@": 1
   },
   "src/game/hulkfight/ai/AcquireTargetAction.cpp": {
-   "0x001247d0|?AVCFightParams_1247d0@fn_001247d0@@": 1,
-   "0x001247d0|?AVParams_1247d0@fight@fn_001247d0@@": 1,
    "col:?AUAcquireTargetTrack@ai@hulkfight@fn_001243a0@@|?AUAcquireTargetTrack@ai@hulkfight@fn_001243a0@@": 1,
    "col:?AUAcquireTargetTrack@ai@hulkfight@fn_001243a0@@|?AUFUN_00236d40@fn_001243a0@@": 1,
    "col:?AVClearProjectileDistanceTrack@fn_f712cb17@@|?AVClearProjectileDistanceTrack@fn_f712cb17@@": 1,
@@ -3254,10 +3166,6 @@
   },
   "src/game/hulkfight/ai/ClearProjectileDistanceTrack_2.cpp": {
    "col:?AVTrackFactoryTemplate_12b010@fn_f9c9fc87@@|?AVTrackFactoryTemplate_12b010@fn_f9c9fc87@@": 1
-  },
-  "src/game/hulkfight/ai/ComputeDropZoneCondition.cpp": {
-   "0x00115f40|?AVCFightParams_115f40@fn_fb4fb98f@@": 1,
-   "0x00115f40|?AVParams_115f40@fight@@": 1
   },
   "src/game/hulkfight/ai/DefendingCondition.cpp": {
    "col:?AVTrackFactoryTemplate_113ea0@fn_feed8707@@|?AVTrackFactoryTemplate_113ea0@fn_feed8707@@": 1
@@ -3286,10 +3194,6 @@
    "col:?AVHasTargetCondition@ai@hulkfight@fn_0012a830@@|?AVBaseCondition@ai@hulkfight@fn_0012a830@@": 1,
    "col:?AVTrackFactoryTemplate_12a7f0@fn_f56221d5@@|?AVTrackFactoryTemplate_12a7f0@fn_f56221d5@@": 1
   },
-  "src/game/hulkfight/ai/HulkActionCountCondition.cpp": {
-   "0x0010ec90|?AVCFightParams_10ec90@fn_f5cdd5db@@": 1,
-   "0x0010ec90|?AVParams_10ec90@fight@fn_f5cdd5db@@": 1
-  },
   "src/game/hulkfight/ai/HulkActionCountCondition_4.cpp": {
    "col:?AVTrackFactoryTemplate_1144b0@fn_fc8eb1c1@@|?AVTrackFactoryTemplate_1144b0@fn_fc8eb1c1@@": 1
   },
@@ -3308,10 +3212,6 @@
   },
   "src/game/hulkfight/ai/HulkActionTrack_3.cpp": {
    "col:?AVTrackFactoryTemplate_114a30@fn_f4a008a1@@|?AVTrackFactoryTemplate_114a30@fn_f4a008a1@@": 1
-  },
-  "src/game/hulkfight/ai/InActiveCondition.cpp": {
-   "0x0010e3e0|?AVCFightParams_10e3e0@fn_fad6e2b1@@": 1,
-   "0x0010e3e0|?AVParams_10e3e0@fight@fn_fad6e2b1@@": 1
   },
   "src/game/hulkfight/ai/InActiveCondition_4.cpp": {
    "col:?AVTrackFactoryTemplate_114400@fn_fc88775a@@|?AVTrackFactoryTemplate_114400@fn_fc88775a@@": 1
@@ -3515,10 +3415,6 @@
    "col:?AVTrackFactoryTemplate_12a480@fn_f6e5a698@@|?AVTrackFactoryTemplate_12a480@fn_f6e5a698@@": 1
   },
   "src/game/hulkfight/ai/TargetArcCondition.cpp": {
-   "0x001260a0|?AVCFightParams_1260a0@fn_f038364c@@": 1,
-   "0x001260a0|?AVParams_1260a0@fight@@": 1,
-   "0x00126270|?AVCFightParams_126270@fn_f038364c@@": 1,
-   "0x00126270|?AVParams_126270@fight@@": 1,
    "col:?AVAcquireTargetAction_126780@fn_f038364c@@|?AVAcquireTargetAction_126780@fn_f038364c@@": 1,
    "col:?AVAcquireTargetAction_126780@fn_f038364c@@|?AVAction_126780@fn_f038364c@@": 1,
    "col:?AVClearProjectileDistanceAction_126810@fn_f038364c@@|?AVAction_126810@fn_f038364c@@": 1,
@@ -3609,10 +3505,6 @@
   "src/game/hulkfight/ai/ThreatDistanceCondition.iso_0012d860.cpp": {
    "col:?AVTrackFactoryTemplate_12d860@@|?AVTrackFactoryTemplate_12d860@@": 1
   },
-  "src/game/hulkfight/ai/TokenCondition.cpp": {
-   "0x0010dcf0|?AVCFightParams_10dcf0@fn_f451e068@@": 1,
-   "0x0010dcf0|?AVParams_10dcf0@fight@@": 1
-  },
   "src/game/hulkfight/ai/TokenCondition_2.cpp": {
    "col:?AVTrackFactoryTemplate_1146d0@fn_fcf8ca27@@|?AVTrackFactoryTemplate_1146d0@fn_fcf8ca27@@": 1
   },
@@ -3633,14 +3525,6 @@
    "col:?AVMissilePunchTrack@fn_fc8c1e47@@|?AVTrack_193ef0@fn_fc8c1e47@@": 1
   },
   "src/game/hulkfight/motion/AnimationVelocityScaledAction.cpp": {
-   "0x0013a9e0|?AVAnimationDriver_13a9e0@choreo2@fn_f30d2d27@@": 1,
-   "0x0013a9e0|?AVCFightParams_13a9e0@fn_f30d2d27@@": 1,
-   "0x0013a9e0|?AVDriver_13a9e0@choreo2@fn_f30d2d27@@": 1,
-   "0x0013a9e0|?AVParams_13a9e0@fight@@": 1,
-   "0x0013ab50|?AVAnimationDriver_13ab50@choreo2@fn_0013ab50@@": 1,
-   "0x0013ab50|?AVCFightParams_13ab50@fn_0013ab50@@": 1,
-   "0x0013ab50|?AVDriver_13ab50@choreo2@fn_0013ab50@@": 1,
-   "0x0013ab50|?AVParams_13ab50@fight@fn_0013ab50@@": 1,
    "col:?AU?$ParamEnumConstList@VFrameCondition@motion@hulkfight@fn_0013c530@@@fight@fn_0013c530@@|?AU?$ParamEnumConstList@VFrameCondition@motion@hulkfight@fn_0013c530@@@fight@fn_0013c530@@": 1,
    "col:?AU?$ParamEnumConstList@VFrameCondition@motion@hulkfight@fn_0013c530@@@fight@fn_0013c530@@|?AUFUN_00234cc0@fn_0013c530@@": 1,
    "col:?AU?$ParamFloatConstRange@VFrameCondition@motion@hulkfight@fn_0013c530@@@fight@fn_0013c530@@|?AU?$ParamFloatConstRange@VFrameCondition@motion@hulkfight@fn_0013c530@@@fight@fn_0013c530@@": 1,
@@ -3749,10 +3633,6 @@
   },
   "src/game/hulkfight/motion/ChargeClearTrack_4.cpp": {
    "col:?AVTrackFactoryTemplate_17ec80@fn_f0814f05@@|?AVTrackFactoryTemplate_17ec80@fn_f0814f05@@": 1
-  },
-  "src/game/hulkfight/motion/ChargeCondition_2_12.cpp": {
-   "0x0016ab50|?AV?$ConditionFactoryTemplate_16ab50@VRageModeStateCondition_16ab50@motion@hulkfight@@@fight@@": 1,
-   "0x0016ab50|?AVConditionFactory_16ab50@fight@@": 1
   },
   "src/game/hulkfight/motion/ChargeCondition_2_13.new_plain.cpp": {
    "col:?AVTrackFactoryTemplate_16d2b0@fn_f7af1011@@|?AVTrackFactoryTemplate_16d2b0@fn_f7af1011@@": 1
@@ -4068,8 +3948,6 @@
    "col:?AVTrack_147590@fn_f1739f6f@@|?AVTrack_147590@fn_f1739f6f@@": 1
   },
   "src/game/hulkfight/motion/GroundSlideAction.cpp": {
-   "0x00150d80|?AVCFightParams_150d80@fn_f20ed7e3@@": 1,
-   "0x00150d80|?AVParams_150d80@fight@@": 1,
    "col:?AVClearFightParamsHitRecordAction_1526c0@fn_f20ed7e3@@|?AVAction_1526c0@fn_f20ed7e3@@": 1,
    "col:?AVClearFightParamsHitRecordAction_1526c0@fn_f20ed7e3@@|?AVClearFightParamsHitRecordAction_1526c0@fn_f20ed7e3@@": 1,
    "col:?AVGroundSlideAction_151180@fn_f20ed7e3@@|?AVAction_151180@fn_f20ed7e3@@": 1,
@@ -4123,8 +4001,6 @@
    "col:?AVTrackFactoryTemplate_15a180@fn_f28f0564@@|?AVTrackFactoryTemplate_15a180@fn_f28f0564@@": 1
   },
   "src/game/hulkfight/motion/HeliLocomotionAction.cpp": {
-   "0x0015ed10|?AVDriver_15ed10@choreo2@fn_f94adb62@@": 1,
-   "0x0015ed10|?AVLocomotionStrafeDriver_15ed10@choreo2@fn_f94adb62@@": 1,
    "col:?AULocomotionStrafe4Action@fn_f94adb62@@|?AULocomotionStrafe4Action@fn_f94adb62@@": 1,
    "col:?AULocomotionStrafe4Action@fn_f94adb62@@|?AVLocomotionStrafeAction@fn_f94adb62@@": 1,
    "col:?AUParamName_161a00@fn_f94adb62@@|?AUParamName_161a00@fn_f94adb62@@": 1,
@@ -4336,10 +4212,6 @@
    "col:?AVMissileThrowAction_198560@fn_fbc25767@@|?AVAction_198560@fn_fbc25767@@": 1,
    "col:?AVMissileThrowAction_198560@fn_fbc25767@@|?AVMissileThrowAction_198560@fn_fbc25767@@": 1
   },
-  "src/game/hulkfight/motion/MissileThrowAction.iso_001985f0.cpp": {
-   "0x001985f0|?AVCProjectile_1985f0@@": 1,
-   "0x001985f0|?AVProjectileMissile_1985f0@motion@hulkfight@@": 1
-  },
   "src/game/hulkfight/motion/MomentumXZAddTrack.cpp": {
    "col:?AVMomentumXZAddTrack@fn_f2cad3c1@@|?AVMomentumXZAddTrack@fn_f2cad3c1@@": 1
   },
@@ -4444,19 +4316,11 @@
    "col:?AUPropMassCondition_18c5f0@fn_ffe1b429@@|?AUPropMassCondition_18c5f0@fn_ffe1b429@@": 1,
    "col:?AVTrackFactoryTemplate_18c5b0@fn_ffe1b429@@|?AVTrackFactoryTemplate_18c5b0@fn_ffe1b429@@": 1
   },
-  "src/game/hulkfight/motion/PropMissileCountCondition.cpp": {
-   "0x001819f0|?AVCFightParams_1819f0@fn_fc979cf7@@": 1,
-   "0x001819f0|?AVParams_1819f0@fight@@": 1
-  },
   "src/game/hulkfight/motion/PropMissileCountCondition_4.cpp": {
    "col:?AVTrackFactoryTemplate_18bac0@fn_fdbc4aa5@@|?AVTrackFactoryTemplate_18bac0@fn_fdbc4aa5@@": 1
   },
   "src/game/hulkfight/motion/PropMissionCriticalCondition_2.cpp": {
    "col:?AVTrackFactoryTemplate_18b6b0@fn_fe97ab9a@@|?AVTrackFactoryTemplate_18b6b0@fn_fe97ab9a@@": 1
-  },
-  "src/game/hulkfight/motion/PropMissionCriticalCondition_22.cpp": {
-   "0x00187340|?AV?$TrackFactoryTemplate_187340@VShieldArcTrack_187340@motion@hulkfight@@@fight@@": 1,
-   "0x00187340|?AVTrackFactory_187340@fight@@": 1
   },
   "src/game/hulkfight/motion/PropSetStateByIndexTrack.cpp": {
    "col:?AVPropSetStateByIndexTrack@fn_f579a2c4@@|?AVPropSetStateByIndexTrack@fn_f579a2c4@@": 1
@@ -4484,12 +4348,6 @@
    "col:?AVTrackFactoryTemplate_18c670@fn_fd0a5b33@@|?AVTrackFactoryTemplate_18c670@fn_fd0a5b33@@": 1
   },
   "src/game/hulkfight/motion/PropThrowAction.cpp": {
-   "0x00183510|?AVCFightParams_183510@fn_fd95142d@@": 1,
-   "0x00183510|?AVParams_183510@fight@@": 1,
-   "0x00183670|?AVCFightParams_183670@fn_00183670@@": 1,
-   "0x00183670|?AVParams_183670@fight@fn_00183670@@": 1,
-   "0x001837e0|?AVCFightParams_1837e0@fn_fd95142d@@": 1,
-   "0x001837e0|?AVParams_1837e0@fight@@": 1,
    "col:?AVBallAndChainReturnAction_184ef0@fn_fd95142d@@|?AVAction_184ef0@fn_fd95142d@@": 1,
    "col:?AVBallAndChainReturnAction_184ef0@fn_fd95142d@@|?AVBallAndChainReturnAction_184ef0@fn_fd95142d@@": 1,
    "col:?AVBallAndChainSpinAction@fn_fd95142d@@|?AVAction_1847e0@fn_fd95142d@@": 1,
@@ -4538,22 +4396,8 @@
    "col:?AVRageModeStateCondition_16e120@motion@hulkfight@@|?AVRageModeStateCondition_16e120@motion@hulkfight@@": 1,
    "col:?AVTrackFactoryTemplate_16e0e0@fn_ff0ee82a@@|?AVTrackFactoryTemplate_16e0e0@fn_ff0ee82a@@": 1
   },
-  "src/game/hulkfight/motion/RayCastCondition.cpp": {
-   "0x00167cc0|?AVCFightParams_167cc0@fn_f88f56f3@@": 1,
-   "0x00167cc0|?AVParams_167cc0@fight@@": 1,
-   "0x00168120|?AVCFightParams_168120@fn_f88f56f3@@": 1,
-   "0x00168120|?AVParams_168120@fight@@": 1
-  },
   "src/game/hulkfight/motion/RayCastCondition_4.cpp": {
    "col:?AVTrackFactoryTemplate_16e670@fn_fb8e6264@@|?AVTrackFactoryTemplate_16e670@fn_fb8e6264@@": 1
-  },
-  "src/game/hulkfight/motion/RayCastConeCondition.cpp": {
-   "0x00166b40|?AVCFightParams_166b40@fn_fa2e0d0f@@": 1,
-   "0x00166b40|?AVParams_166b40@fight@@": 1,
-   "0x00166bc0|?AVCFightParams_166bc0@fn_fa2e0d0f@@": 1,
-   "0x00166bc0|?AVParams_166bc0@fight@@": 1,
-   "0x00166e30|?AVCFightParams_166e30@fn_00166e30@@": 1,
-   "0x00166e30|?AVParams_166e30@fight@fn_00166e30@@": 1
   },
   "src/game/hulkfight/motion/RayCastConeCondition_4.cpp": {
    "col:?AVTrackFactoryTemplate_16e5b0@fn_f7bcb175@@|?AVTrackFactoryTemplate_16e5b0@fn_f7bcb175@@": 1
@@ -4711,8 +4555,6 @@
    "col:?AVTrackFactoryTemplate_16e2e0@fn_f53a7970@@|?AVTrackFactoryTemplate_16e2e0@fn_f53a7970@@": 1
   },
   "src/game/hulkfight/motion/TimerCondition.cpp": {
-   "0x0018d480|?AVCFightParams_18d480@fn_f1f11990@@": 1,
-   "0x0018d480|?AVParams_18d480@fight@@": 1,
    "col:?AUGrappleVarCompareCondition@motion@hulkfight@fn_0018ead0@@|?AUBase@fn_0018ead0@@": 1,
    "col:?AUGrappleVarCompareCondition@motion@hulkfight@fn_0018ead0@@|?AUGrappleVarCompareCondition@motion@hulkfight@fn_0018ead0@@": 1,
    "col:?AVTimerSetAction_18d610@fn_f1f11990@@|?AVAction_18d610@fn_f1f11990@@": 1,
@@ -4814,12 +4656,6 @@
    "col:?AVWorldDamageAction_1448e0@fn_f3c8e3e3@@|?AVWorldDamageAction_1448e0@fn_f3c8e3e3@@": 1
   },
   "src/game/hulkfight/scenario/EffectAction.cpp": {
-   "0x001aa150|?AUIRefCount_1aa150@core@fn_001aa150@@": 1,
-   "0x001aa150|?AVNode_1aa150@scenegraph@pure3d@fn_001aa150@@": 1,
-   "0x001aa150|?AVScenegraph_1aa150@scenegraph@pure3d@fn_001aa150@@": 1,
-   "0x001aa150|?AVTransformNode_1aa150@scenegraph@pure3d@fn_001aa150@@": 1,
-   "0x001aa2a0|?AUIRefCount_1aa2a0@core@fn_001aa2a0@@": 1,
-   "0x001aa2a0|?AVCameraAnimationController_1aa2a0@pure3d@fn_001aa2a0@@": 1,
    "col:?AU?$ParamBool@VNISAnimationTrack@scenario@hulkfight@fn_001a71e0@@@fight@fn_001a71e0@@|?AU?$ParamBool@VNISAnimationTrack@scenario@hulkfight@fn_001a71e0@@@fight@fn_001a71e0@@": 1,
    "col:?AU?$ParamBool@VNISAnimationTrack@scenario@hulkfight@fn_001a71e0@@@fight@fn_001a71e0@@|?AUParamBase@fn_001a71e0@@": 1,
    "col:?AU?$ParamEnumConstList@VEvent_LocomotionStateNameCondition@scenario@hulkfight@fn_001a70b0@@@fight@fn_001a70b0@@|?AU?$ParamEnumConstList@VEvent_LocomotionStateNameCondition@scenario@hulkfight@fn_001a70b0@@@fight@fn_001a70b0@@": 1,
@@ -4890,8 +4726,6 @@
    "col:?AV?$ParamVector_1a9800@VEffectTrack@fn_fabb071b@@@fight@@|?AVParamVectorBase@fn_fabb071b@@": 1
   },
   "src/game/hulkfight/scenario/Event_PathNameCondition.cpp": {
-   "0x001ab330|?AVCScenarioParams_1ab330@fn_fc09f66d@@": 1,
-   "0x001ab330|?AVParams_1ab330@fight@@": 1,
    "col:?AUCond@fn_fc09f66d@@|?AUBase@fn_fc09f66d@@": 1,
    "col:?AUCond@fn_fc09f66d@@|?AUCond@fn_fc09f66d@@": 1,
    "col:?AVEvent_CharacterTemplateVariationCondition@fn_fc09f66d@@|?AVEvent_CharacterTemplateVariationCondition@fn_fc09f66d@@": 1
@@ -4916,11 +4750,6 @@
   },
   "src/game/hulkfight/scenario/Event_PathNameCondition.iso_001aca50.cpp": {
    "col:?AVConditionFactoryTemplate_1aca50@@|?AVConditionFactoryTemplate_1aca50@@": 1
-  },
-  "src/game/hulkfight/scenario/LuaCondition.GS.cpp": {
-   "0x001a14f0|?AVCFightParams_1a14f0@fn_f21f790b@@": 1,
-   "0x001a14f0|?AVCScenarioParams_1a14f0@fn_f21f790b@@": 1,
-   "0x001a14f0|?AVParams_1a14f0@fight@@": 2
   },
   "src/game/hulkfight/scenario/LuaCondition.cpp": {
    "col:?AVLuaAction@fn_001a1880@@|?AUAction_1a1880@fn_001a1880@@": 1,
@@ -5061,29 +4890,11 @@
    "col:?AVParamFloatConstRange_6bd00@fn_fad3cf42@@|?AVParamValueFloat_6bd00@fn_fad3cf42@@": 1
   },
   "src/game/unknown/unk_081690.cpp": {
-   "col:?AU?$DynamicCaster@VAnimation@pure3d@fn_00081b20@@@LoadInventory@content@fn_00081b20@@|?AU?$DynamicCaster@VAnimation@pure3d@fn_00081b20@@@LoadInventory@content@fn_00081b20@@": 1,
    "col:?AUCCow@fn_000831c0@@|?AUCCow@fn_000831c0@@": 1,
    "col:?AUCCow@fn_000831c0@@|?AUFUN_0027b070@fn_000831c0@@": 1
   },
   "src/game/unknown/unk_091bc0.cpp": {
    "col:?AVCUnlockable@fn_f9898967@@|?AUHulkUnlockableWords@@": 1
-  },
-  "src/game/unknown/unk_092120.cpp": {
-   "0x00092e50|?AVCUnlockableBlonskyFile_92e50@fn_f9a5903c@@": 1,
-   "0x00092e50|?AVCUnlockable_92e50@fn_f9a5903c@@": 1,
-   "0x00093150|?AVCUnlockableGallery_93150@fn_f9a5903c@@": 1,
-   "0x00093150|?AVCUnlockable_93150@fn_f9a5903c@@": 1
-  },
-  "src/game/unknown/unk_0bc1e0.cpp": {
-   "0x000bc230|?AVFEObject_bc230@fn_f87c96cc@@": 4,
-   "0x000bc230|?AVTextButton_bc230@fn_f87c96cc@@": 2,
-   "0x000bc230|?AVTextLabel_bc230@fn_f87c96cc@@": 1,
-   "0x000bc230|?AVTextWindow_bc230@fn_f87c96cc@@": 1,
-   "0x000bcbf0|?AVCUnlockableCheat_bcbf0@fn_000bcbf0@@": 1,
-   "0x000bcbf0|?AVCUnlockableMove_bcbf0@fn_000bcbf0@@": 2,
-   "0x000bcbf0|?AVCUnlockable_bcbf0@fn_000bcbf0@@": 3,
-   "0x000bcbf0|?AVFEObject_bcbf0@fn_000bcbf0@@": 1,
-   "0x000bcbf0|?AVTextSelector_bcbf0@fn_000bcbf0@@": 1
   },
   "src/game/unknown/unk_0e1b30.cpp": {
    "col:?AUFEDoPushDialog@fn_000e1b90@@|?AUFEDoPushDialog@fn_000e1b90@@": 1

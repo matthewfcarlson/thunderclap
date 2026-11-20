@@ -5,6 +5,8 @@
 #include "compat/ptr.h"
 #include "gen/hulkfight.h"
 #include "gen/owners.h"
+#include "gen/fight.h"
+#include "gen/global.h"
 #define TREE_TU_BEGIN namespace fn_f21f790b {
 #define TREE_TU_END }
 namespace fn_f21f790b {} using namespace fn_f21f790b;
@@ -51,7 +53,7 @@ extern "C" void FUN_001d0430(unsigned int v);
 } // namespace fn_f21f790b
 
 // 0x001a14f0 hulkfight::scenario::LuaCondition::vfunc_6 (444 B): equivalent/0x001a14f0.cpp
-// sym: ?vfunc_6@LuaCondition@scenario@hulkfight@@UAE_NPAX00@Z @2783edc1cff6 @w9c0cfb7d4c74 @vc95946ca10d5
+// sym: ?vfunc_6@LuaCondition@scenario@hulkfight@@UAE_NPAX00@Z @0fb415f0f5a2 @w0debf1e30e1d @v80a83a7bfc28
 // STATUS: equivalent (tools/equiv.py level 3: 14900 inputs, branch coverage 18/18)
 // hulkfight::scenario::LuaCondition::vfunc_6 @ 0x001a14f0
 bool hulkfight::scenario::LuaCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { hulk_intptr a = (hulk_intptr)__p0; fight::Params_1a14f0 * params = (fight::Params_1a14f0 *)__p1; hulk_intptr c = (hulk_intptr)__p2;
@@ -71,7 +73,7 @@ bool hulkfight::scenario::LuaCondition::vfunc_6(void* __p0, void* __p1, void* __
     mgr->FUN_001d1cb0();
     ((owners::Thing_1d1d50 *)mgr)->FUN_001d1d50((hulk_uintptr)"node", (hulk_uintptr)(fr.buf));
     mgr->FUN_001d1d30();
-    CScenarioParams_1a14f0 *sp = dynamic_cast<CScenarioParams_1a14f0 *>(params);
+    CScenarioParams_1a14f0 *sp = ((CScenarioParams_1a14f0 *)dynamic_cast<::CScenarioParams*>((::fight::Params*)(params)));
     if (sp != 0) {
         unsigned int v = sp->f8;
         if (FUN_001d0440() != v) {
@@ -80,7 +82,7 @@ bool hulkfight::scenario::LuaCondition::vfunc_6(void* __p0, void* __p1, void* __
             ((owners::Dispatcher_1cb170 *)&(fr.copy))->FUN_001cb170();
         }
     } else {
-        CFightParams_1a14f0 *fp = dynamic_cast<CFightParams_1a14f0 *>(params);
+        CFightParams_1a14f0 *fp = ((CFightParams_1a14f0 *)dynamic_cast<::CFightParams*>((::fight::Params*)(params)));
         if (fp != 0)
             mgr->FUN_001d2ee0(fp);
     }

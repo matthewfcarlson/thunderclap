@@ -5,7 +5,10 @@
 
 
 // 0x001985f0 hulkfight::motion::MissileThrowAction::vfunc_3 (774 B): equivalent/0x001985f0.cpp [isolated: conflict: World; on include/gen/ and not mergeable]
-// sym: ?vfunc_3@MissileThrowAction@motion@hulkfight@@UAE_NHH@Z @a4db866afaf7 @w5ba99db50422 @v3eddcd7b8cbb
+// sym: ?vfunc_3@MissileThrowAction@motion@hulkfight@@UAE_NHH@Z @7b68098e2062 @wce5a07303691 @ve2d8ab25e850
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);   // (sweep2) the CRT's (include/common.h's declaration; this isolated TU has no tree prelude)
+extern "C" char hulk_at_004bfe10[];   // (sweep2) ??_R0.?AVCProjectile@@@8, the game's type descriptor
+extern "C" char hulk_at_004bfe2c[];   // (sweep2) ??_R0.?AVProjectileMissile@motion@hulkfight@@@8, the game's type descriptor
 // STATUS: equivalent (tools/equiv.py level 3: 3050 inputs, branch coverage 28/28)
 // hulkfight::motion::MissileThrowAction::vfunc_3 @ 0x001985f0
 #include "gen/hulkfight.h"
@@ -142,7 +145,7 @@ bool hulkfight::motion::MissileThrowAction::vfunc_3(hulk_intptr a, hulk_intptr b
     if (i >= 0x20)
         return false;
 
-    ProjectileMissile_1985f0 *missile = dynamic_cast<ProjectileMissile_1985f0 *>(proj);
+    ProjectileMissile_1985f0 *missile = ((ProjectileMissile_1985f0 *)__RTDynamicCast((void*)(proj), 0, (void*)hulk_at_004bfe10, (void*)hulk_at_004bfe2c, 0));
     if (missile == 0)
         return false;
 

@@ -323,7 +323,7 @@ extern "C" void* __cdecl FUN_0008d6d0(unsigned int);
 } // namespace fn_f8b63219
 
 // 0x00093600 FUN_00093600 (846 B): equivalent/0x00093600.cpp [wrapped: conflict: CUnlockable; CUnlockableBlonskyFile; CUnlockableGallery; CUnlockableMove]
-// sym: ?FUN_00093600@Menu_93600@fn_00093600@@QAEXHD@Z @6d03cc7c5669 @w5126dbf49d98 @v9924b8e19616
+// sym: ?FUN_00093600@Menu_93600@fn_00093600@@QAEXHD@Z @9ec973cf7d8d @w13aebf29efcf @v6ad2d7ae2e5f
 namespace fn_00093600 {
 // STATUS: equivalent (tools/equiv.py level 3: 3036 inputs, branch coverage 85/86, incomplete)
 // FUN_00093600 @ 0x00093600
@@ -394,7 +394,7 @@ void Menu_93600::FUN_00093600(int index, char on)
             CUnlockable *u = *p;
             if (u->flag != on) {
                 u->flag = on;
-                CUnlockableGallery *g = dynamic_cast<CUnlockableGallery *>(*p);
+                CUnlockableGallery *g = ((CUnlockableGallery *)dynamic_cast<::CUnlockableGallery*>((::CUnlockable*)(*p)));
                 if (g)
                     g->hidden = on == 0;
                 if (env)
@@ -405,7 +405,7 @@ void Menu_93600::FUN_00093600(int index, char on)
         }
         return;
     } else if (id == 0x1c) {
-        CUnlockableGallery *g = dynamic_cast<CUnlockableGallery *>(slots[0x1c]);
+        CUnlockableGallery *g = ((CUnlockableGallery *)dynamic_cast<::CUnlockableGallery*>((::CUnlockable*)(slots[0x1c])));
         if (g)
             g->hidden = on == 0;
         int i;
@@ -426,13 +426,13 @@ void Menu_93600::FUN_00093600(int index, char on)
     if (u->flag == on)
         return;
     u->flag = on;
-    CUnlockableGallery *g = dynamic_cast<CUnlockableGallery *>(slots[id]);
+    CUnlockableGallery *g = ((CUnlockableGallery *)dynamic_cast<::CUnlockableGallery*>((::CUnlockable*)(slots[id])));
     if (g)
         g->hidden = on == 0;
-    CUnlockableMove *m = dynamic_cast<CUnlockableMove *>(slots[id]);
+    CUnlockableMove *m = ((CUnlockableMove *)dynamic_cast<::CUnlockableMove*>((::CUnlockable*)(slots[id])));
     if (m)
         m->hidden = on == 0;
-    CUnlockableBlonskyFile *b = dynamic_cast<CUnlockableBlonskyFile *>(slots[id]);
+    CUnlockableBlonskyFile *b = ((CUnlockableBlonskyFile *)dynamic_cast<::CUnlockableBlonskyFile*>((::CUnlockable*)(slots[id])));
     if (b)
         b->hidden = on == 0;
     if (env)
@@ -443,7 +443,7 @@ void Menu_93600::FUN_00093600(int index, char on)
 namespace fn_f8b63219 {
 
 // 0x00093950 FUN_00093950 (647 B): equivalent/0x00093950.cpp
-// sym: ?FUN_00093950@Menu_93950@fn_f8b63219@@QAEXPBDDPAEPAD1PAH@Z @d069d1b555a1 @w5ce309bb2228 @veccedd4bf8e3
+// sym: ?FUN_00093950@Menu_93950@fn_f8b63219@@QAEXPBDDPAEPAD1PAH@Z @a94dd43d3be9 @w42d33c499cf0 @vc42982998c21
 // STATUS: equivalent (tools/equiv.py level 3: 98 inputs, branch coverage 51/58, incomplete)
 // FUN_00093950 @ 0x00093950
 void Menu_93950::FUN_00093950(const char *name, char wait, unsigned char *outFound, char *outLinked, unsigned char *outPicked, int *outPos)
@@ -459,7 +459,7 @@ void Menu_93950::FUN_00093950(const char *name, char wait, unsigned char *outFou
 
     int i;
     for (i = 0x261; i <= 0x265; i++) {
-        CUnlockableCheat_93950 *c = dynamic_cast<CUnlockableCheat_93950 *>(slots[i]);
+        CUnlockableCheat_93950 *c = ((CUnlockableCheat_93950 *)dynamic_cast<::CUnlockableCheat*>((::CUnlockable*)(slots[i])));
         if (c && FUN_0027b020(c->name) == h) {
             *outFound = 1;
             if (wait)
@@ -474,7 +474,7 @@ void Menu_93950::FUN_00093950(const char *name, char wait, unsigned char *outFou
     }
 
     for (i = 0; i <= 0x1e; i++) {
-        CUnlockableCheat_93950 *c = dynamic_cast<CUnlockableCheat_93950 *>(slots[i]);
+        CUnlockableCheat_93950 *c = ((CUnlockableCheat_93950 *)dynamic_cast<::CUnlockableCheat*>((::CUnlockable*)(slots[i])));
         if (c && FUN_0027b020(c->name) == h) {
             *outFound = 1;
             if (i == 4 || i == 3) {
@@ -496,7 +496,7 @@ void Menu_93950::FUN_00093950(const char *name, char wait, unsigned char *outFou
             outPos[0] = u->pos0;
             outPos[1] = u->pos1;
             FUN_00093600(i, 0);
-            TextSelector_93950 *t = dynamic_cast<TextSelector_93950 *>(FUN_000fc260(slots[i]->obj18));
+            TextSelector_93950 *t = ((TextSelector_93950 *)dynamic_cast<::TextSelector*>((::FEObject*)(FUN_000fc260(slots[i]->obj18))));
             if (t)
                 t->marked = 1;
             return;
@@ -504,7 +504,7 @@ void Menu_93950::FUN_00093950(const char *name, char wait, unsigned char *outFou
     }
 
     for (i = 0x1f; i <= 0x32; i++) {
-        CUnlockableCheat_93950 *c = dynamic_cast<CUnlockableCheat_93950 *>(slots[i]);
+        CUnlockableCheat_93950 *c = ((CUnlockableCheat_93950 *)dynamic_cast<::CUnlockableCheat*>((::CUnlockable*)(slots[i])));
         if (c && FUN_0027b020(c->name) == h) {
             *outFound = 1;
             if (c->link != -1) {

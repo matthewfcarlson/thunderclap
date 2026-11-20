@@ -302,7 +302,7 @@ struct Obj54_1cd220 {
 };
 
 struct World {
-    char pad00[0x54];
+    void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */
     Obj54_1cd220 *f54;
 };
 

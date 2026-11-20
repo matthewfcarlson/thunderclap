@@ -2908,7 +2908,7 @@ char FUN_001d04d0(const void* typeInfo);                      // type_info test 
 struct MissionState { int FUN_00088fa0(); int FUN_00088fb0(); };
 struct Mission_12f200 { char pad[0x80]; MissionState state; };
 struct Manager_12f200 { Mission_12f200* FUN_00086310(); };
-struct World { char pad[0x54]; Manager_12f200* manager; };
+struct World { void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */ Manager_12f200 *manager; };
 namespace hulkfight {
 struct ChapterMissionCondition {
  virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual int vfunc_6(int,int,int);
@@ -2985,7 +2985,7 @@ char FUN_001d04d0(const void* typeInfo);                      // type_info test 
 
 struct NameSource_12f320 { const char* FUN_000897e0(); };
 struct Manager_12f320 { NameSource_12f320* FUN_00086310(); };
-struct World { char pad[0x54]; Manager_12f320* manager; };
+struct World { void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */ Manager_12f320 *manager; };
 
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" int __cdecl strncmp(const char*, const char*, unsigned int);
@@ -3070,7 +3070,7 @@ struct NameTable {
 };
 
 struct World {
-    char pad00[0x54];
+    void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */
     NameTable *table;
 };
 

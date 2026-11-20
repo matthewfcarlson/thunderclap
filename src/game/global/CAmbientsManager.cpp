@@ -4558,8 +4558,8 @@ struct Opt_7d700 {
 };
 
 struct World {
-    char pad00[0x54];
-    Opt_7d700* opt;
+    void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */
+    Opt_7d700 *opt;
 };
 
 struct Sim_7d700 {
@@ -5506,7 +5506,7 @@ struct Result_7e570 { virtual void v0(); virtual void v1(); virtual void v2(); v
 struct Inventory_7e570 { virtual void v0(); virtual void v1(); virtual void v2(); virtual Result_7e570* find(content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable>*,int,int); };
 struct Context { Inventory_7e570* FUN_00203d70(); };
 struct Service_7e570 { Context* FUN_000862a0(); };
-struct Holder_7e570 { char pad[0x54]; Service_7e570* service; };
+struct Holder_7e570 { void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */ Service_7e570 *service; };
 struct Key_7e570 { int first,second; };
 struct Target_7e570 { char pad[0x382c]; Holder_7e570* holder; pure3d::CompositeDrawable* run(Key_7e570*,int); };
 pure3d::CompositeDrawable* Target_7e570::run(Key_7e570* key,int value) {

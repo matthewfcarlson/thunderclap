@@ -17,6 +17,7 @@
 #include "decls/load_inventory.h"
 #include "decls/table_cursor.h"
 #include "gen/core.h"
+#include "gen/global.h"
 #include "gen/pure3d.h"
 #define TREE_TU_BEGIN namespace fn_fc5dbd2a {
 #define TREE_TU_END }
@@ -4494,7 +4495,7 @@ bool hulkfight::scenario::NodeShouldRunImmediatelyCondition::vfunc_6(void* __p0,
 
 
 // 0x001a4a30 hulkfight::scenario::Event_PropNameCondition::vfunc_6 (117 B): equivalent/0x001a4a30.cpp [wrapped: conflict: CScenarioParams; fight::Params; hulkfight::scenario::Event_PropNameCondition]
-// sym: ?vfunc_6@Event_PropNameCondition@scenario@hulkfight@fn_001a4a30@@UAE_NHPAVParams@fight@4@H@Z @ea5e8c064055 @w5a307ef17c05 @vfd7fd89f574f
+// sym: ?vfunc_6@Event_PropNameCondition@scenario@hulkfight@fn_001a4a30@@UAE_NHPAVParams@fight@4@H@Z @e154d7ff8f2e @w457c97398855 @ve280fc02195b
 namespace fn_001a4a30 {
 // STATUS: equivalent (tools/equiv.py level 3: 3040 inputs, branch coverage 15/16, incomplete)
 // hulkfight::scenario::Event_PropNameCondition::vfunc_6 @ 0x001a4a30
@@ -4539,7 +4540,7 @@ public:
 
 bool hulkfight::scenario::Event_PropNameCondition::vfunc_6(int a, fight::Params *params, int c)
 {
-    CScenarioParams *sp = dynamic_cast<CScenarioParams *>(params);
+    CScenarioParams *sp = ((CScenarioParams *)dynamic_cast<::CScenarioParams*>((::fight::Params*)(params)));
     if (sp == 0)
         return false;
     PropInfo_1a4a30 *info = sp->FUN_001d03c0();
@@ -4567,7 +4568,7 @@ bool hulkfight::scenario::Event_PropStateDescCondition::vfunc_6(void* __p0, void
 
 
 // 0x001a4b10 hulkfight::scenario::Event_PropTypeCondition::vfunc_6 (117 B): equivalent/0x001a4b10.cpp [wrapped: conflict: CScenarioParams; fight::Params; hulkfight::scenario::Event_PropTypeCondition]
-// sym: ?vfunc_6@Event_PropTypeCondition@scenario@hulkfight@fn_001a4b10@@UAE_NHPAVParams@fight@4@H@Z @f0dce03fb346 @w0c7fdef454bd @v6886206c5cb0
+// sym: ?vfunc_6@Event_PropTypeCondition@scenario@hulkfight@fn_001a4b10@@UAE_NHPAVParams@fight@4@H@Z @d8ef5af9365e @w4204eed754fb @v959df0e345c7
 namespace fn_001a4b10 {
 // STATUS: equivalent (tools/equiv.py level 3: 3040 inputs, branch coverage 15/16, incomplete)
 // hulkfight::scenario::Event_PropTypeCondition::vfunc_6 @ 0x001a4b10
@@ -4612,7 +4613,7 @@ public:
 
 bool hulkfight::scenario::Event_PropTypeCondition::vfunc_6(int a, fight::Params *params, int c)
 {
-    CScenarioParams *sp = dynamic_cast<CScenarioParams *>(params);
+    CScenarioParams *sp = ((CScenarioParams *)dynamic_cast<::CScenarioParams*>((::fight::Params*)(params)));
     if (sp == 0)
         return false;
     PropInfo_1a4b10 *info = sp->FUN_001d03c0();
@@ -5113,7 +5114,7 @@ hulkfight::scenario::NISAnimationTrack::~NISAnimationTrack() {}
 
 
 // 0x001a5cc0 hulkfight::scenario::Event_PropStateNameCondition::vfunc_6 (141 B): equivalent/0x001a5cc0.cpp [wrapped: conflict: CScenarioParams; World; fight::Params; hulkfight::scenario::Event_PropStateNameCondition]
-// sym: ?vfunc_6@Event_PropStateNameCondition@scenario@hulkfight@fn_001a5cc0@@UAE_NHPAVParams@fight@4@H@Z @95502132de7e @wc557cf227981 @vbe8721a84706
+// sym: ?vfunc_6@Event_PropStateNameCondition@scenario@hulkfight@fn_001a5cc0@@UAE_NHPAVParams@fight@4@H@Z @f8cde3a65894 @wf425204fa524 @v0d63c3a72325
 namespace fn_001a5cc0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3024 inputs, branch coverage 12/12)
 // hulkfight::scenario::Event_PropStateNameCondition::vfunc_6 @ 0x001a5cc0
@@ -5222,7 +5223,7 @@ public:
 
 bool hulkfight::scenario::Event_PropStateNameCondition::vfunc_6(int a, fight::Params *params, int c)
 {
-    CScenarioParams *sp = dynamic_cast<CScenarioParams *>(params);
+    CScenarioParams *sp = ((CScenarioParams *)dynamic_cast<::CScenarioParams*>((::fight::Params*)(params)));
     if (sp == 0)
         return false;
     bool result = false;
@@ -6646,7 +6647,7 @@ struct SlotEntry_1a8d10 {
     int v0, v1, v2, v3, v4;
 };
 struct Holder54_1a8d10 {  };
-struct World { char pad[0x54]; Holder54_1a8d10* holder; };
+struct World { void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */ Holder54_1a8d10 *holder; };
 
 struct NISAnimationAction;
 
@@ -6800,7 +6801,7 @@ struct Inner_1a8e60 {
 struct Selector_1a8e60 {
 };
 struct World {
-    char pad0[0x54];
+    void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */
     Selector_1a8e60 *f54;
 };
 
@@ -7297,7 +7298,7 @@ hulkfight::scenario::NISAnimationAction::~NISAnimationAction() {}
 
 
 // 0x001aa150 FUN_001aa150 (327 B): equivalent/0x001aa150.cpp [wrapped: using-directive]
-// sym: ?FUN_001aa150@Controller_1aa150@fn_001aa150@@QAEXXZ @6542790abf19 @w4117c6ef06eb @v202da3aeac4a
+// sym: ?FUN_001aa150@Controller_1aa150@fn_001aa150@@QAEXXZ @3a39922f7136 @w1ca4f72d194f @vf5a0561b8271
 namespace fn_001aa150 {
 // STATUS: equivalent (tools/equiv.py level 3: 20021 inputs, branch coverage 12/12)
 // FUN_001aa150 @ 0x001aa150
@@ -7428,7 +7429,7 @@ struct Handle_1aa150 {
 };
 
 struct World {
-    char pad0[0x54];
+    void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */
     Handle_1aa150 *handle;
 };
 
@@ -7467,7 +7468,7 @@ void Controller_1aa150::FUN_001aa150()
     fr.it.c = inner;
     Entity *e = fr.it.FUN_00231640();
     core::IRefCount_1aa150 *r = e;
-    if (dynamic_cast<Scenegraph_1aa150 *>(r) != 0)
+    if (((Scenegraph_1aa150 *)dynamic_cast<::pure3d::scenegraph::Scenegraph*>((::core::IRefCount*)(r))) != 0)
         entity = e;
     else
         entity = ((Entity *)((owners::Owner_1a6e10 *)&(fr.it))->FUN_001a6e10());
@@ -7476,7 +7477,7 @@ void Controller_1aa150::FUN_001aa150()
         Sequence *seq = entity->FUN_002961d0();
         if (seq != 0 && seq->q11() != 0) {
             Node_1aa150 *n = seq->q12(0);
-            TransformNode_1aa150 *tn = dynamic_cast<TransformNode_1aa150 *>(n);
+            TransformNode_1aa150 *tn = ((TransformNode_1aa150 *)dynamic_cast<::pure3d::scenegraph::TransformNode*>((::pure3d::scenegraph::Node*)(n)));
             if (tn != 0) {
                 FUN_001a54a0(&fr.out1, &fr.extra);
                 fr.f = owner->f2c;
@@ -7498,7 +7499,7 @@ void Controller_1aa150::FUN_001aa150()
 
 
 // 0x001aa2a0 FUN_001aa2a0 (342 B): equivalent/0x001aa2a0.cpp [wrapped: conflict: DAT_004dd700]
-// sym: ?FUN_001aa2a0@CameraRig@fn_001aa2a0@@QAEXXZ @8c445ad5e4c5 @w96ffd03527f7 @v0155449534d9
+// sym: ?FUN_001aa2a0@CameraRig@fn_001aa2a0@@QAEXXZ @e590dea71958 @w16ee3bb8df98 @v45e9c8a3f64d
 namespace fn_001aa2a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 85 inputs, branch coverage 14/14)
 // FUN_001aa2a0 @ 0x001aa2a0
@@ -7617,7 +7618,7 @@ void CameraRig::FUN_001aa2a0()
     it.FUN_002314a0(inv->pool);
     it.c = inv;
     core::IRefCount_1aa2a0 *e = it.FUN_00231640();
-    pure3d::CameraAnimationController_1aa2a0 *cc = dynamic_cast<pure3d::CameraAnimationController_1aa2a0 *>(e);
+    pure3d::CameraAnimationController_1aa2a0 *cc = ((pure3d::CameraAnimationController_1aa2a0 *)dynamic_cast<::pure3d::CameraAnimationController*>((::core::IRefCount*)(e)));
     if (cc != 0)
         controller = (pure3d::CameraAnimationController_1aa2a0 *)e;
     else

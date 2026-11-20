@@ -60,7 +60,7 @@ public:
 struct Holder44_163a90 { Factory_163a90 *FUN_00203d70(); };
 struct Holder28_163a90 { Holder44_163a90 *FUN_000862a0(); };
 } // namespace fn_ff103e17
-struct World { char pad0[0x54]; Holder28_163a90 *holder; };
+struct World { void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */ Holder28_163a90 *holder; };
 namespace fn_ff103e17 {
 class StrafeData_163a90 {
 public:

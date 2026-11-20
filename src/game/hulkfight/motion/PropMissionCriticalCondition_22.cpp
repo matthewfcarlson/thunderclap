@@ -742,7 +742,7 @@ class PropAddToMissileCountAction_188a10 {
 // to fight::TrackFactoryTemplate<hulkfight::motion::ShieldArcTrack> (0x004be460)
 template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::ShieldArcTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return dynamic_cast<fight::TrackFactoryTemplate_187340<hulkfight::motion::ShieldArcTrack_187340>*>((fight::TrackFactory_187340*)p) != 0;
+    return ((fight::TrackFactoryTemplate_187340<hulkfight::motion::ShieldArcTrack_187340>*)dynamic_cast< ::fight::TrackFactoryTemplate< ::hulkfight::motion::ShieldArcTrack>*>((::fight::TrackFactory*)((fight::TrackFactory_187340*)p))) != 0;
 }
 
 

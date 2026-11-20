@@ -206,7 +206,7 @@ public:
 };
 
 struct World {
-    char pad0[0x54];
+    void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */
     Pad_a9f00 *pad;
 };
 

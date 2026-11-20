@@ -7,6 +7,7 @@
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
 #include "gen/owners.h"
+#include "gen/global.h"
 #define TREE_TU_BEGIN namespace fn_f9a5903c {
 #define TREE_TU_END }
 #define TREE_LOCAL_CSPHulkProp
@@ -705,7 +706,7 @@ void Game::FUN_00092e20(int x, int y) {
 
 
 // 0x00092e50 FUN_00092e50 (153 B): equivalent/0x00092e50.cpp
-// sym: ?FUN_00092e50@UnlockableList_92e50@fn_f9a5903c@@QAEXPBDH0000@Z @bf0fc489fa5c @wcb3dd39b08e5 @v289ddc2f42c5
+// sym: ?FUN_00092e50@UnlockableList_92e50@fn_f9a5903c@@QAEXPBDH0000@Z @94ff79f1c668 @w4582eb799628 @v93a9606ce668
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // FUN_00092e50 @ 0x00092e50
 void UnlockableList_92e50::FUN_00092e50(const char *id, int idx, const char *title, const char *subtitle,
@@ -713,7 +714,7 @@ void UnlockableList_92e50::FUN_00092e50(const char *id, int idx, const char *tit
 {
     if (idx < 0x34 || idx > 0x51)
         return;
-    CUnlockableBlonskyFile_92e50 *g = dynamic_cast<CUnlockableBlonskyFile_92e50 *>(items[idx]);
+    CUnlockableBlonskyFile_92e50 *g = ((CUnlockableBlonskyFile_92e50 *)dynamic_cast<::CUnlockableBlonskyFile*>((::CUnlockable*)(items[idx])));
     if (g == 0)
         return;
     ((owners::Target_27b040 *)&(g->title))->FUN_0027b040((hulk_uintptr)title);
@@ -836,13 +837,13 @@ extern "C" float* __fastcall FUN_00093110(Obj_93110* self, void*, int index) {
 
 
 // 0x00093150 FUN_00093150 (153 B): equivalent/0x00093150.cpp
-// sym: ?FUN_00093150@UnlockableList_93150@fn_f9a5903c@@QAEXPBDH0000H@Z @1a3d56648b6d @w9dbfa6938a6f @vb48521cbb830
+// sym: ?FUN_00093150@UnlockableList_93150@fn_f9a5903c@@QAEXPBDH0000H@Z @7c48a8030409 @wd0de55059efd @v7acd63cf2796
 // STATUS: equivalent (tools/equiv.py level 3: 1169 inputs, branch coverage 12/12)
 // FUN_00093150 @ 0x00093150
 void UnlockableList_93150::FUN_00093150(const char *id, int idx, const char *title, const char *subtitle,
                                   const char *caption, const char *path, int flags)
 {
-    CUnlockableGallery_93150 *g = dynamic_cast<CUnlockableGallery_93150 *>(items[idx]);
+    CUnlockableGallery_93150 *g = ((CUnlockableGallery_93150 *)dynamic_cast<::CUnlockableGallery*>((::CUnlockable*)(items[idx])));
     if (g == 0)
         return;
     ((owners::Target_27b040 *)&(g->title))->FUN_0027b040((hulk_uintptr)title);

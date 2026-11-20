@@ -48,7 +48,7 @@ public:
 struct Holder44_164690 { Factory_164690 *FUN_00203d70(); };
 struct Holder28_164690 { Holder44_164690 *FUN_000862a0(); };
 } // namespace fn_fabfed4f
-struct World { char pad0[0x54]; Holder28_164690 *holder; };
+struct World { void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */ Holder28_164690 *holder; };
 namespace fn_fabfed4f {
 struct Sub_164690 { char pad[4]; };
 struct Cand {

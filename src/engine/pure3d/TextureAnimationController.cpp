@@ -159,18 +159,18 @@ bool pure3d::TextureAnimationController::vfunc_26(void* __p0) { Anim * a = (Anim
 
 
 // 0x002a9480 pure3d::TextureAnimationController::vfunc_7 (144 B): equivalent/0x002a9480.cpp
-// sym: ?vfunc_7@TextureAnimationController@pure3d@@UAEXXZ @a1d1d65e7ddd @w44c1e30bdb36 @v0559a46feebb
+// sym: ?vfunc_7@TextureAnimationController@pure3d@@UAEXXZ @141b5351289e @wf6d9699bf915 @v560933fb3e23
 // STATUS: equivalent (tools/equiv.py level 3: 222 inputs, branch coverage 8/8)
 // pure3d::TextureAnimationController::vfunc_7 @ 0x002a9480
 void pure3d::TextureAnimationController::vfunc_7() {
     ChannelList_2a9480 *list = ((ChannelList_2a9480 *)((owners::Target_288a10 *)((*(ChannelSource * *)&this->f_3c)))->FUN_00288a10(0));
     for (int i = list->count - 1; i >= 0; i--) {
-        pure3d::EntityChannel_2a9480 *channel = dynamic_cast<pure3d::EntityChannel_2a9480 *>(((pure3d :: Channel_2a9480 *)((owners::C_288950 *)list)->FUN_00288950(i)));
+        pure3d::EntityChannel_2a9480 *channel = ((pure3d::EntityChannel_2a9480 *)dynamic_cast<::pure3d::EntityChannel*>((::pure3d::Channel*)(((pure3d :: Channel_2a9480 *)((owners::C_288950 *)list)->FUN_00288950(i)))));
         if (channel == 0)
             continue;
         pure3d::Entity_2a9480 *entity;
         channel->FUN_0028ac00((*(int *)&this->f_34), &entity);
-        pure3d::Texture_2a9480 *texture = dynamic_cast<pure3d::Texture_2a9480 *>(entity);
+        pure3d::Texture_2a9480 *texture = ((pure3d::Texture_2a9480 *)dynamic_cast<::pure3d::Texture*>((::pure3d::Entity*)(entity)));
         int target = channel->field8;
         if (texture == 0)
             continue;
@@ -250,11 +250,11 @@ void* pure3d::TextureAnimationController::vfunc_4() {
 void pure3d::TextureAnimationController::vfunc_5(void* __p0) { pure3d::Entity * e = (pure3d::Entity *)__p0;
 
     pure3d::Shader* r;
-    pure3d::DrawablePrimitive* d = dynamic_cast<pure3d::DrawablePrimitive*>(e);
+    pure3d::DrawablePrimitive* d = ((pure3d::DrawablePrimitive*)dynamic_cast<::pure3d::DrawablePrimitive*>((::pure3d::Entity*)(e)));
     if (d)
         r = (pure3d::Shader*)d->vfunc_7();
     else
-        r = dynamic_cast<pure3d::Shader*>(e);
+        r = ((pure3d::Shader*)dynamic_cast<::pure3d::Shader*>((::pure3d::Entity*)(e)));
     if (r)
         r->vfunc_0();
     if ((pure3d::Shader*)this->f_40)

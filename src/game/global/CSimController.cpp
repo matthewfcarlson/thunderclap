@@ -409,22 +409,27 @@ class Ref_b3b80 {
     virtual void F();
 };
 extern "C" char DAT_004060c4[];   // (decl1) was `int vtable_b3b80` (a C++ name bound nowhere natively)
+// (sweep2, find2 G18) the controller's two sample blocks as fields (13 vectors and two 14-word tables each, 0x10c
+// bytes, no pointers): byte offsets from `this` put them over the source pointer natively. 0x224 bytes.
+struct Block_b3b80 { unsigned int words[0x10c / 4]; };
 class CSimController {
   public:
     hulk_intptr vt;
     int m;
     Ref_b3b80* p;
-    char pad[0x10c];
+    Block_b3b80 first;
+    Block_b3b80 second;
     CSimController(Ref_b3b80*);
     void Init_000b35f0(void*, int);
 };
+HULK_SIZE32(CSimController, 0x224);
 CSimController::CSimController(Ref_b3b80* q) {
     m = 0;
     vt = (hulk_intptr)&(*(int*)&DAT_004060c4);
     p = q;
     q->F();
-    Init_000b35f0((char*)this + 0xc, 1);
-    Init_000b35f0((char*)this + 0x118, 1);
+    Init_000b35f0(&first, 1);
+    Init_000b35f0(&second, 1);
 }
 } // namespace fn_000b3b80
 
@@ -459,7 +464,7 @@ extern "C" void __cdecl FUN_000b3c80(unsigned char x) {
 CSimControllerManager_b3c90* CSimControllerManager_b3c90::ctor(Arg_b3c90* a) {
     vptr = hulk_at_004060d8;
     flag = 1;
-    void* p = operator new(0x224);
+    void* p = operator new(sizeof(fn_000b3b80::CSimController));   // (sweep2, find2 G18) the record the constructor builds
     Controller_b3c90* c;
     if (p) {
         c = ((CSimController_b3c90*)p)->Build_000b3b80(((int)((owners::C_ae640 *)a)->FUN_000ae640(0)));

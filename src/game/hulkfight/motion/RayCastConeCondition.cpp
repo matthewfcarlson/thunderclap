@@ -6,6 +6,8 @@
 #include "decls/data/game/hulkfight/motion.h"
 #include "gen/hulkfight.h"
 #include "gen/owners.h"
+#include "gen/fight.h"
+#include "gen/global.h"
 #define TREE_TU_BEGIN namespace fn_fa2e0d0f {
 #define TREE_TU_END }
 namespace fn_fa2e0d0f {} using namespace fn_fa2e0d0f;
@@ -335,7 +337,7 @@ bool hulkfight::motion::ThinkingCondition::vfunc_6(void* __p0, void* __p1, void*
 
 
 // 0x00166820 hulkfight::motion::RayCastConeCondition::vfunc_6 (799 B): equivalent/0x00166820.cpp [wrapped: conflict: CFightParams; fight::Params; hulkfight::motion::RayCastConeCondition]
-// sym: ?vfunc_6@RayCastConeCondition@motion@hulkfight@fn_00166820@@UAE_NHPAVParams@fight@4@H@Z @ba7f74258753 @w9bad3331aaf5 @vb4c90a991840
+// sym: ?vfunc_6@RayCastConeCondition@motion@hulkfight@fn_00166820@@UAE_NHPAVParams@fight@4@H@Z @e8b6e2b84220 @w6eb3c05171ef @vfbc9c5ad909f
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)
@@ -473,7 +475,7 @@ public:
 bool RayCastConeCondition::vfunc_6(int a0, fight::Params* a1, int a2)
 {
     Frame_166820 f;
-    if (dynamic_cast<CFightParams*>(a1) == 0)
+    if (((CFightParams*)dynamic_cast<::CFightParams*>((::fight::Params*)(a1))) == 0)
         return false;
     Anchor_166820* anchor = a1->FUN_000592a0();
     f.fighter = anchor->FUN_00059a30();
@@ -547,12 +549,12 @@ bool RayCastConeCondition::vfunc_6(int a0, fight::Params* a1, int a2)
 
 
 // 0x00166b40 hulkfight::motion::IntentionButtonDownAnyCondition::vfunc_6 (121 B): equivalent/0x00166b40.cpp
-// sym: ?vfunc_6@IntentionButtonDownAnyCondition@motion@hulkfight@@UAE_NPAX00@Z @ebe074a54509 @w5647646b64c6 @v980b66b2f83f
+// sym: ?vfunc_6@IntentionButtonDownAnyCondition@motion@hulkfight@@UAE_NPAX00@Z @22cbf88c95f9 @we4c287c11045 @v0fc6b2f93b3b
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // hulkfight::motion::IntentionButtonDownAnyCondition::vfunc_6 @ 0x00166b40
 bool hulkfight::motion::IntentionButtonDownAnyCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { int unused1 = (int)__p0; fight::Params_166b40 * params = (fight::Params_166b40 *)__p1; int unused2 = (int)__p2;
 
-    if (!dynamic_cast<CFightParams_166b40*>(params))
+    if (!((CFightParams_166b40*)dynamic_cast<::CFightParams*>((::fight::Params*)(params))))
         return false;
     Holder_166b40* h = params->FUN_000592a0()->FUN_00059a30();
     char down = 0;
@@ -567,13 +569,13 @@ bool hulkfight::motion::IntentionButtonDownAnyCondition::vfunc_6(void* __p0, voi
 
 
 // 0x00166bc0 hulkfight::motion::IntentionInputCondition::vfunc_6 (160 B): equivalent/0x00166bc0.cpp
-// sym: ?vfunc_6@IntentionInputCondition@motion@hulkfight@@UAE_NPAX00@Z @133c1407e978 @w690349ebd486 @v9a6f04014a39
+// sym: ?vfunc_6@IntentionInputCondition@motion@hulkfight@@UAE_NPAX00@Z @ff2177e78a6c @w490ca018e228 @va1f96eb782ed
 // STATUS: equivalent (tools/equiv.py level 3: 3020 inputs, branch coverage 20/20)
 // hulkfight::motion::IntentionInputCondition::vfunc_6 @ 0x00166bc0
 // hulkfight::motion::IntentionInputCondition::vfunc_6 @ 0x00166bc0: checks the requested pad inputs against the controller state
 bool hulkfight::motion::IntentionInputCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { int a = (int)__p0; fight::Params_166bc0 * params = (fight::Params_166bc0 *)__p1; int c = (int)__p2;
 
-    if (dynamic_cast<CFightParams_166bc0 *>(params) == 0)
+    if (((CFightParams_166bc0 *)dynamic_cast<::CFightParams*>((::fight::Params*)(params))) == 0)
         return false;
     Controller_166bc0 *ctl = params->FUN_000592a0()->FUN_00059a30();
     bool hit = false;
@@ -645,7 +647,7 @@ bool GrappleReactionTypeCondition::vfunc_6(void*, Actor_166cb0* actor, void*) {
 
 
 // 0x00166d90 hulkfight::motion::InLoadedRoomCondition::vfunc_6 (147 B): equivalent/0x00166d90.cpp [wrapped: conflict: CFightParams; DAT_004dd700; World; fight::Params (+1)]
-// sym: ?vfunc_6@InLoadedRoomCondition@motion@hulkfight@fn_00166d90@@QAE_NHPAVParams@fight@4@H@Z @90a4f13bc7b6 @w52d117267ada @vf73521ee3b65
+// sym: ?vfunc_6@InLoadedRoomCondition@motion@hulkfight@fn_00166d90@@QAE_NHPAVParams@fight@4@H@Z @e8dc4ac0f844 @w2b574d06f257 @ve8b5e854a1e1
 namespace fn_00166d90 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // hulkfight::motion::InLoadedRoomCondition::vfunc_6 @ 0x00166d90
@@ -678,7 +680,7 @@ struct World {
 };
 
 struct Game_166d90 {
-    char pad00[0x54];
+    void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */
     World *world;           // 0x54
 };
 
@@ -697,7 +699,7 @@ public:
 
 bool InLoadedRoomCondition::vfunc_6(int arg0, fight::Params *params, int arg2)
 {
-    if (!dynamic_cast<CFightParams *>(params))
+    if (!((CFightParams *)dynamic_cast<::CFightParams*>((::fight::Params*)(params))))
         return false;
     Handle_166d90 *handle = ((CFightParams *)params)->FUN_000592a0();
     V3_166d90 pos;
@@ -714,7 +716,7 @@ bool InLoadedRoomCondition::vfunc_6(int arg0, fight::Params *params, int arg2)
 
 
 // 0x00166e30 hulkfight::motion::ShoreNearCondition::vfunc_6 (400 B): equivalent/0x00166e30.cpp [wrapped: conflict: World]
-// sym: ?FUN_00166e30@ShoreNearCondition@fn_00166e30@@UAEDHPAVParams_166e30@fight@2@H@Z @b435ceb17242 @w206634eeb3fa @vc92184e0eae6
+// sym: ?FUN_00166e30@ShoreNearCondition@fn_00166e30@@UAEDHPAVParams_166e30@fight@2@H@Z @799ba6790104 @wec2688e9d5c8 @vb83480e3e624
 namespace fn_00166e30 {
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 16/16)
 // hulkfight::motion::ShoreNearCondition::vfunc_6 @ 0x00166e30
@@ -807,7 +809,7 @@ class ShoreNearCondition {
 
 char ShoreNearCondition::FUN_00166e30(int a1, fight::Params_166e30 *params, int a3)
 {
-    if (dynamic_cast<CFightParams_166e30 *>(params) == 0)
+    if (((CFightParams_166e30 *)dynamic_cast<::CFightParams*>((::fight::Params*)(params))) == 0)
         return false;
 
     Holder_166e30 *holder = params->FUN_000592a0();

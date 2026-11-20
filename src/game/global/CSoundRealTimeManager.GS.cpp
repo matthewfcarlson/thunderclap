@@ -11,6 +11,8 @@
 #include "gen/owners.h"
 #include "decls/load_inventory.h"
 #include "decls/table_cursor.h"
+#include "gen/audio.h"
+#include "gen/core.h"
 #define TREE_TU_BEGIN namespace fn_f7674384 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CCollisionTrack
@@ -88,7 +90,7 @@ struct Scene_1eab10 {
 };
 } // namespace fn_f7674384
 struct World {
-    char pad0[0x54];
+    void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */
     Scene_1eab10 *scene;           // 0x54
 };
 namespace fn_f7674384 {
@@ -256,7 +258,7 @@ public:
 
 
 // 0x001eab10 FUN_001eab10 (733 B): equivalent/0x001eab10.cpp
-// sym: ?FUN_001eab10@Player_1eab10@fn_f7674384@@QAEXPBD@Z @d2db7f64b4fb @w7ce27daf4d08 @v706c94ac4c88
+// sym: ?FUN_001eab10@Player_1eab10@fn_f7674384@@QAEXPBD@Z @2b8cc181406b @w1e984c49403d @va3c1fe5d646f
 // STATUS: equivalent (tools/equiv.py level 3: 128 inputs, branch coverage 24/24)
 // FUN_001eab10 @ 0x001eab10
 void Player_1eab10::FUN_001eab10(const char *name)
@@ -285,8 +287,8 @@ void Player_1eab10::FUN_001eab10(const char *name)
             audio::Sequence_1eab10 *seq = 0;
             audio::Mix_1eab10 *mix = 0;
             audio::ListenerEffectXBox_1eab10 *fx = 0;
-            if (dynamic_cast<audio::Sequence_1eab10 *>(e)) {
-                seq = dynamic_cast<audio::Sequence_1eab10 *>(e);
+            if (((audio::Sequence_1eab10 *)dynamic_cast<::audio::Sequence*>((::core::IRefCount*)(e)))) {
+                seq = ((audio::Sequence_1eab10 *)dynamic_cast<::audio::Sequence*>((::core::IRefCount*)(e)));
                 Pair_1eab10 *pr = seq->FUN_00243390();
                 Pair_1eab10 p;
                 int ca = pr->a;
@@ -311,18 +313,18 @@ void Player_1eab10::FUN_001eab10(const char *name)
                         sink->k4(q->a, q->b, e);
                     }
                 }
-            } else if (dynamic_cast<audio::Mix_1eab10 *>(e)) {
-                mix = dynamic_cast<audio::Mix_1eab10 *>(e);
+            } else if (((audio::Mix_1eab10 *)dynamic_cast<::audio::Mix*>((::core::IRefCount*)(e)))) {
+                mix = ((audio::Mix_1eab10 *)dynamic_cast<::audio::Mix*>((::core::IRefCount*)(e)));
                 Voice_1eab10 *v = FUN_001e8960();
                 v->mix = mix;
                 void *mgr = FUN_00240750();
                 v->fc = FUN_00242c30(mgr, (hulk_intptr)v->mix);
                 Pair_1eab10 *q = mix->FUN_00243390();
                 sink->k4(q->a, q->b, e);
-            } else if (dynamic_cast<audio::Mixer_1eab10 *>(e)) {
-                dynamic_cast<audio::Mixer_1eab10 *>(e);
-            } else if (dynamic_cast<audio::ListenerEffectXBox_1eab10 *>(e)) {
-                fx = dynamic_cast<audio::ListenerEffectXBox_1eab10 *>(e);
+            } else if (((audio::Mixer_1eab10 *)dynamic_cast< ::audio::Mixer*>((::core::IRefCount*)(e)))) {
+                ((audio::Mixer_1eab10 *)dynamic_cast< ::audio::Mixer*>((::core::IRefCount*)(e)));
+            } else if (((audio::ListenerEffectXBox_1eab10 *)dynamic_cast<::audio::ListenerEffectXBox*>((::core::IRefCount*)(e)))) {
+                fx = ((audio::ListenerEffectXBox_1eab10 *)dynamic_cast<::audio::ListenerEffectXBox*>((::core::IRefCount*)(e)));
                 Pair_1eab10 *q = fx->FUN_00243390();
                 sink->k4(q->a, q->b, e);
             }

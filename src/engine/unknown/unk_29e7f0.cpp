@@ -6,6 +6,7 @@
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/global.h"
 #include "gen/owners.h"
+#include "gen/pure3d.h"
 #define TREE_TU_BEGIN namespace fn_fa427f67 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CEffectStopTrack
@@ -341,7 +342,7 @@ public:
 
 
 // 0x0029e7f0 FUN_0029e7f0 (579 B): equivalent/0x0029e7f0.cpp
-// sym: ?FUN_0029e7f0@LightList_29e7f0@fn_fa427f67@@QAEXPAULightSet_29e7f0@2@PAUVec3_29e7f0@2@H@Z @07f01e9fb777 @wcf7088b1496f @v9b0c95cc10bf
+// sym: ?FUN_0029e7f0@LightList_29e7f0@fn_fa427f67@@QAEXPAULightSet_29e7f0@2@PAUVec3_29e7f0@2@H@Z @51bfcb66510e @w18ab42c2f8f8 @v5ed6a083c3b8
 // STATUS: equivalent (tools/equiv.py level 3: 16013 inputs, branch coverage 18/18)
 // FUN_0029e7f0 @ 0x0029e7f0
 // FUN_0029e7f0 @ 0x0029e7f0
@@ -361,7 +362,7 @@ void LightList_29e7f0::FUN_0029e7f0(LightSet_29e7f0* set, Vec3_29e7f0* ambientCo
         if (light->enabled)
             anyEnabled = 1;
 
-        pure3d::DirectionalLight* dl = dynamic_cast<pure3d::DirectionalLight*>(light);
+        pure3d::DirectionalLight* dl = ((pure3d::DirectionalLight*)dynamic_cast<::pure3d::DirectionalLight*>((::pure3d::Light*)(light)));
         if (dl) {
             dl->FUN_002a2f20(&f.dirV.x, &f.dirV.y, &f.dirV.z);
             LightRec_29e7f0* rec = &recs[f.n];
@@ -372,7 +373,7 @@ void LightList_29e7f0::FUN_0029e7f0(LightSet_29e7f0* set, Vec3_29e7f0* ambientCo
             f.n++;
             continue;
         }
-        pure3d::PointLight* pl = dynamic_cast<pure3d::PointLight*>(light);
+        pure3d::PointLight* pl = ((pure3d::PointLight*)dynamic_cast<::pure3d::PointLight*>((::pure3d::Light*)(light)));
         if (pl) {
             pl->FUN_002c3f20(&f.a, &f.b, &f.c);
             pl->FUN_002a0800(&f.pointV.x, &f.pointV.y, &f.pointV.z);
@@ -387,7 +388,7 @@ void LightList_29e7f0::FUN_0029e7f0(LightSet_29e7f0* set, Vec3_29e7f0* ambientCo
             f.n++;
             continue;
         }
-        pure3d::SpotLight* sl = dynamic_cast<pure3d::SpotLight*>(light);
+        pure3d::SpotLight* sl = ((pure3d::SpotLight*)dynamic_cast<::pure3d::SpotLight*>((::pure3d::Light*)(light)));
         if (sl) {
             sl->FUN_002c41c0(&f.q0, &f.q1, &f.q2);
             sl->FUN_002c4200(&f.r0, &f.r1, &f.r2);
@@ -404,7 +405,7 @@ void LightList_29e7f0::FUN_0029e7f0(LightSet_29e7f0* set, Vec3_29e7f0* ambientCo
 
 
 // 0x0029ea40 FUN_0029ea40 (574 B): equivalent/0x0029ea40.cpp
-// sym: ?FUN_0029ea40@LightSetup_29ea40@fn_fa427f67@@QAEXPAULightList_29ea40@2@@Z @87d25a5a4742 @wb131910ff38b @v6754cbf09445
+// sym: ?FUN_0029ea40@LightSetup_29ea40@fn_fa427f67@@QAEXPAULightList_29ea40@2@@Z @52a59ddb9b02 @wae7137521bed @vdc388d1e6d76
 // STATUS: equivalent (tools/equiv.py level 3: 87 inputs, branch coverage 32/32)
 // FUN_0029ea40 @ 0x0029ea40
 void LightSetup_29ea40::FUN_0029ea40(LightList_29ea40* list)
@@ -423,7 +424,7 @@ void LightSetup_29ea40::FUN_0029ea40(LightList_29ea40* list)
 
         switch (recs[i].kind) {
         case 0: {
-            DirectionalLight* d = dynamic_cast<DirectionalLight*>(light);
+            DirectionalLight* d = ((DirectionalLight*)dynamic_cast<::pure3d::DirectionalLight*>((::pure3d::Light*)(light)));
             if (d == 0) {
                 void* mem = FUN_00263ea0(0x68);
                 d = mem ? ((DirectionalLight*)mem)->FUN_002a2e70() : 0;
@@ -433,7 +434,7 @@ void LightSetup_29ea40::FUN_0029ea40(LightList_29ea40* list)
             break;
         }
         case 1: {
-            PointLight* p = dynamic_cast<PointLight*>(light);
+            PointLight* p = ((PointLight*)dynamic_cast<::pure3d::PointLight*>((::pure3d::Light*)(light)));
             if (p == 0) {
                 void* mem = FUN_00263ea0(0x68);
                 p = mem ? ((PointLight*)mem)->FUN_002c3e10() : 0;
@@ -444,7 +445,7 @@ void LightSetup_29ea40::FUN_0029ea40(LightList_29ea40* list)
             break;
         }
         case 2: {
-            SpotLight* s = dynamic_cast<SpotLight*>(light);
+            SpotLight* s = ((SpotLight*)dynamic_cast<::pure3d::SpotLight*>((::pure3d::Light*)(light)));
             if (s == 0) {
                 void* mem = FUN_00263ea0(0x80);
                 s = mem ? ((SpotLight*)mem)->FUN_002c4020() : 0;

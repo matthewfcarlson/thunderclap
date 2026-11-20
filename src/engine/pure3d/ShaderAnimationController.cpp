@@ -220,7 +220,7 @@ bool pure3d::ShaderAnimationController::vfunc_26(void* __p0) { void * p = (void 
 
 
 // 0x002a8450 pure3d::ShaderAnimationController::vfunc_7 (460 B): equivalent/0x002a8450.cpp
-// sym: ?vfunc_7@ShaderAnimationController@pure3d@@UAEXXZ @f9c83d82bc9b @w17f938516c65 @v467264ad2825
+// sym: ?vfunc_7@ShaderAnimationController@pure3d@@UAEXXZ @16bfa4b07897 @w782e60c3a948 @v5627ad761b56
 // STATUS: equivalent (tools/equiv.py level 3: 141 inputs, branch coverage 18/22, incomplete)
 // pure3d::ShaderAnimationController::vfunc_7 @ 0x002a8450
 void pure3d::ShaderAnimationController::vfunc_7() {
@@ -244,7 +244,7 @@ void pure3d::ShaderAnimationController::vfunc_7() {
             Entity_2a8450 *e;
             ch->FUN_0028ac00(this->f_34, &e);
             int id = ch->paramId;
-            Texture_2a8450 *t = dynamic_cast<Texture_2a8450 *>(e);
+            Texture_2a8450 *t = ((Texture_2a8450 *)dynamic_cast<::pure3d::Texture*>((::pure3d::Entity*)(e)));
             if (t)
                 (*(SinkHolder_2a8450 * *)&this->f_40)->sink->s5(id, t->handle);
             else
@@ -353,11 +353,11 @@ SimpleFrameController_2a8700* ShaderAnimationController_2a8700::own4() {
 void pure3d::ShaderAnimationController::vfunc_5(void* __p0) { pure3d::Entity * e = (pure3d::Entity *)__p0;
 
     pure3d::Shader* r;
-    pure3d::DrawablePrimitive* d = dynamic_cast<pure3d::DrawablePrimitive*>(e);
+    pure3d::DrawablePrimitive* d = ((pure3d::DrawablePrimitive*)dynamic_cast<::pure3d::DrawablePrimitive*>((::pure3d::Entity*)(e)));
     if (d)
         r = (pure3d::Shader*)d->vfunc_7();
     else
-        r = dynamic_cast<pure3d::Shader*>(e);
+        r = ((pure3d::Shader*)dynamic_cast<::pure3d::Shader*>((::pure3d::Entity*)(e)));
     if (r)
         r->vfunc_0();
     if ((pure3d::Shader*)this->f_40)

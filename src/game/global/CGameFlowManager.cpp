@@ -34,8 +34,8 @@ struct LevelTable {
 };
 } // namespace fn_f53af43c
 struct World {
-    char pad[0x54];
-    LevelTable* levels;
+    void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */
+    LevelTable *levels;
 };
 namespace fn_f53af43c {
 struct LevelAbbrev {
@@ -777,7 +777,7 @@ struct Control_89d30 { void FUN_00090130(int); };
 struct Entries_89d30 { void FUN_00093600(int,int); void FUN_00092870(int,float); void FUN_000929a0(int,float); };
 struct Final_89d30 { void FUN_000c3ea0(); };
 struct Manager_89d30 { Control_89d30* FUN_00086370(); Entries_89d30* FUN_00086340(); Final_89d30* FUN_00086280(); };
-struct World { char pad[0x54]; Manager_89d30* manager; };
+struct World { void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */ Manager_89d30 *manager; };
 extern "C++" __declspec(nothrow) void __cdecl FUN_00267760(char*,int,const char*,...);
 struct Item_89d30 { int first,second; char pad[16]; };
 struct Target_89d30 {

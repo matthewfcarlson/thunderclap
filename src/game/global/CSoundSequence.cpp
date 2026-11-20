@@ -187,7 +187,7 @@ struct Worker_1e9bf0 { bool FUN_00266750(); void FUN_00263e90(); };
 struct Item_1e9bf0 { void FUN_000bd1b0(int); };
 struct Manager_1e9bf0 { Item_1e9bf0* FUN_00086280(); };
 } // namespace fn_f9e85a4e
-struct World { char pad[0x54]; Manager_1e9bf0* manager; };
+struct World { void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */ Manager_1e9bf0 *manager; };
 namespace fn_f9e85a4e {
 struct Owner_1e9bf0 { char pad[0x29]; bool done; char pad2[2]; Entry_1e9bf0* entries[64]; int count; bool FUN_001e9bf0(); };
 

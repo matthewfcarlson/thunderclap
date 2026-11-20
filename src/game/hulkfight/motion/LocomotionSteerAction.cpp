@@ -91,7 +91,7 @@ public:
 struct Holder44_164270 { Factory_164270 *FUN_00203d70(); };
 struct Holder28_164270 { Holder44_164270 *FUN_000862a0(); };
 } // namespace fn_f605e37d
-struct World { char pad0[0x54]; Holder28_164270 *holder; };
+struct World { void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */ Holder28_164270 *holder; };
 namespace fn_f605e37d {
 struct Config_164270 {
     virtual void v0();

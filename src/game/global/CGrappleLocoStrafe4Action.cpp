@@ -79,7 +79,7 @@ public:
 struct Holder44_23160 { Factory_23160 *FUN_00203d70(); };
 struct Holder28_23160 { Holder44_23160 *FUN_000862a0(); };
 } // namespace fn_f698f5f9
-struct World { char pad0[0x54]; Holder28_23160 *holder; };
+struct World { void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */ Holder28_23160 *holder; };
 namespace fn_f698f5f9 {
 class Owner_23160 {
 public:

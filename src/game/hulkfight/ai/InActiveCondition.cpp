@@ -5,6 +5,8 @@
 #include "decls/address.h"
 #include "gen/owners.h"
 #include "gen/hulkfight.h"
+#include "gen/fight.h"
+#include "gen/global.h"
 #define TREE_TU_BEGIN namespace fn_fad6e2b1 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CSPHulkProp
@@ -40,7 +42,7 @@ struct Holder_10e3e0 {
 };
 } // namespace fn_fad6e2b1
 struct World {
-    char pad0[0x54];
+    void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */
     Holder_10e3e0 *holder;
 };
 namespace fn_fad6e2b1 {
@@ -246,12 +248,12 @@ class InActiveCondition_10e920 : public Condition_10e920 {
 
 
 // 0x0010e3e0 hulkfight::ai::InActiveCondition::vfunc_6 (325 B): equivalent/0x0010e3e0.cpp
-// sym: ?vfunc_6@InActiveCondition@fn_fad6e2b1@@UAEDHPAVParams_10e3e0@fight@2@H@Z @3b560927f625 @w28150fb5d16b @v0ad5e8d09fd9
+// sym: ?vfunc_6@InActiveCondition@fn_fad6e2b1@@UAEDHPAVParams_10e3e0@fight@2@H@Z @82d410ebc2a8 @w12abf0d85cc6 @v1c50d4f14ea6
 // STATUS: equivalent (tools/equiv.py level 3: 3247 inputs, branch coverage 30/30; Wine build 697 inputs, 30/30)
 // hulkfight::ai::InActiveCondition::vfunc_6 @ 0x0010e3e0
 char InActiveCondition::vfunc_6(int a, fight::Params_10e3e0 *params, int c)
 {
-    if (dynamic_cast<CFightParams_10e3e0 *>(params) == 0)
+    if (((CFightParams_10e3e0 *)dynamic_cast<::CFightParams*>((::fight::Params*)(params))) == 0)
         return 0;
     Fighter_10e3e0 *f = FUN_00059a30(FUN_000592a0(params));
     if (f == 0)

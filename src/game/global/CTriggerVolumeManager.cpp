@@ -1932,7 +1932,7 @@ struct Holder54_1fe080 {
 };
 
 struct World {
-    char pad[0x54];
+    void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */
     Holder54_1fe080 *holder;        // 0x54
 };
 
@@ -3560,7 +3560,7 @@ struct Table_1ff770 {
 };
 
 struct World {
-    char pad0[0x54];
+    void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */
     Table_1ff770 *table;
 };
 

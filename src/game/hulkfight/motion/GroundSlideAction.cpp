@@ -7,6 +7,7 @@
 #include "gen/fight.h"
 #include "gen/hulkfight.h"
 #include "gen/owners.h"
+#include "gen/global.h"
 #define TREE_TU_BEGIN namespace fn_f20ed7e3 {
 #define TREE_TU_END }
 namespace fn_f20ed7e3 {} using namespace fn_f20ed7e3;
@@ -1000,7 +1001,7 @@ default: return false;
 
 
 // 0x00150c30 hulkfight::motion::CollisionChargeCondition::vfunc_6 (305 B): equivalent/0x00150c30.cpp [wrapped: conflict: CFightParams; FUN_00018960; fight::Condition; fight::Params (+1)]
-// sym: ?vfunc_6@CollisionChargeCondition@motion@hulkfight@fn_00150c30@@UAEDHPAVParams@fight@4@H@Z @7aaed9d8d1e9 @w7b4aa6d20d21 @v0535ed6df282
+// sym: ?vfunc_6@CollisionChargeCondition@motion@hulkfight@fn_00150c30@@UAEDHPAVParams@fight@4@H@Z @4f694abaa46f @wf86809eaa6bf @vafb1741365cb
 namespace fn_00150c30 {
 // STATUS: equivalent (tools/equiv.py level 3: 109 inputs, branch coverage 21/22, incomplete)
 // hulkfight::motion::CollisionChargeCondition::vfunc_6 @ 0x00150c30
@@ -1063,7 +1064,7 @@ class CollisionChargeCondition {
 
 char CollisionChargeCondition::vfunc_6(int a1, fight::Params *params, int a3)
 {
-    if (dynamic_cast<CFightParams *>(params) == 0)
+    if (((CFightParams *)dynamic_cast<::CFightParams*>((::fight::Params*)(params))) == 0)
         return false;
 
     Target_150c30 *target = params->v3();
@@ -1100,12 +1101,12 @@ char CollisionChargeCondition::vfunc_6(int a1, fight::Params *params, int a3)
 
 
 // 0x00150d80 hulkfight::motion::CollisionDamageHealthCompareCondition::vfunc_6 (539 B): equivalent/0x00150d80.cpp
-// sym: ?vfunc_6@CollisionDamageHealthCompareCondition@motion@hulkfight@@UAE_NPAX00@Z @9e7e172b5c04 @we0298156a55c @vd6f8f66b79c8
+// sym: ?vfunc_6@CollisionDamageHealthCompareCondition@motion@hulkfight@@UAE_NPAX00@Z @2e0756c81741 @w23807f163c85 @v6a6b2cab1883
 // STATUS: equivalent (tools/equiv.py level 3: 178 inputs, branch coverage 33/40, incomplete)
 // hulkfight::motion::CollisionDamageHealthCompareCondition::vfunc_6 @ 0x00150d80
 bool hulkfight::motion::CollisionDamageHealthCompareCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { int arg0 = (int)__p0; fight::Params_150d80 * params = (fight::Params_150d80 *)__p1; int arg2 = (int)__p2;
 
-    if (dynamic_cast<CFightParams_150d80 *>(params) == 0)
+    if (((CFightParams_150d80 *)dynamic_cast<::CFightParams*>((::fight::Params*)(params))) == 0)
         return false;
     Member_150d80 *m = params->vfunc_3();
     if (m == 0)

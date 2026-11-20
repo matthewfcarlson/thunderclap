@@ -315,7 +315,7 @@ template <> inline content::LoadInventory::DynamicCaster<pure3d::Animation>::Dyn
 struct Inventory_819f0 { virtual void v0(); virtual void v1(); virtual void v2(); virtual pure3d::Animation* find(content::LoadInventory::DynamicCaster<pure3d::Animation>*, unsigned, unsigned); };
 struct Resource_819f0 { Inventory_819f0* FUN_00203d70(); };
 struct Manager_819f0 { Resource_819f0* FUN_000862a0(); };
-struct World { char pad[0x54]; Manager_819f0* manager; };
+struct World { void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */ Manager_819f0 *manager; };
 struct Controller_819f0 {
 virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
 virtual void setValue(unsigned);
@@ -353,7 +353,7 @@ if(d>0.0f) time=d;
 
 
 // 0x00081b20 FUN_00081b20 (4266 B): equivalent/0x00081b20.cpp [wrapped: conflict: Matrix; World]
-// sym: ?FUN_00081b20@CAnimState@fn_00081b20@@QAEXM@Z @71b044d429aa @w5c5e264eedce
+// sym: ?FUN_00081b20@CAnimState@fn_00081b20@@QAEXM@Z @843325b231f1 @w30f05109d6e8 @v23b43b0154bc
 inline void *operator new(size_t, void *p) throw() { return p; }
 namespace fn_00081b20 {
 // STATUS: equivalent (tools/equiv.py level 3: 19925 inputs, branch coverage 177/179, incomplete)
@@ -395,13 +395,17 @@ extern "C" double sqrt(double);
 namespace pure3d { class Animation; }
 struct Loader;
 
+// (sweep2) the caster as the word its inline constructor writes: the game's vftable by address (a local polymorphic
+// stand-in got clang's own vftable natively, whose slot had no definition)
+extern "C" char DAT_003f3e80[];   // content::LoadInventory::DynamicCaster<pure3d::Animation>'s vftable
 namespace content {
 namespace LoadInventory {
 template <class T>
 struct DynamicCaster {
-    virtual void v0();
-    Loader *pad4;
+    void *vftable;
+    DynamicCaster();
 };
+template <> inline DynamicCaster<pure3d::Animation>::DynamicCaster() { vftable = (void *)DAT_003f3e80; }
 }
 }
 
@@ -646,7 +650,13 @@ struct Frame81 {
     Vec3_81b20 v20;
     float s2c;
     Quat_81b20 q30;
-    char cbuf[8];
+    // (sweep2) +0x40: the caster's word (later the world pointer) and the next state, as fields: natively the caster
+    // and the pointer are 8 bytes, and a byte view put the state word in their high half
+    union {
+        void *caster;
+        World *w;
+    };
+    int next;
     char slot48[16];
     char slot58[0x40];
 };
@@ -702,14 +712,13 @@ public:
 void CAnimState::FUN_00081b20(float dt)
 {
     Frame81 fr;
-    char *cbuf = fr.cbuf;
     char *slot58 = fr.slot58;
     char *slot48 = fr.slot48;
     Vec3_81b20 &v48 = *(Vec3_81b20 *)slot48;
     Vec3_81b20 &v10 = fr.v10;
     Vec3_81b20 &v20 = fr.v20;
     Vec3_81b20 &v30 = *(Vec3_81b20 *)&fr.q30;
-    int &next = *(int *)(cbuf + 4);
+    int &next = fr.next;
     next = 0x10;
     hulk_freg dx = pos.x - old.x;
     hulk_freg dy = pos.y - old.y;
@@ -755,7 +764,7 @@ void CAnimState::FUN_00081b20(float dt)
         int idx = base + pick;
         Factory_81b20 *fac = DAT_004dd700->holder->FUN_000862a0()->FUN_00203d70();
         rec = &((EntryRec*)&DAT_004dd090)[idx];
-        content::LoadInventory::DynamicCaster<pure3d::Animation> *caster = new (cbuf) content::LoadInventory::DynamicCaster<pure3d::Animation>;
+        content::LoadInventory::DynamicCaster<pure3d::Animation> *caster = new (&fr.caster) content::LoadInventory::DynamicCaster<pure3d::Animation>;
         Animation2 *anim = fac->f3(caster, rec->lo, rec->hi);
         if (anim == 0)
             return;
@@ -954,7 +963,7 @@ void CAnimState::FUN_00081b20(float dt)
                 next = 8;
             } else if (f84 > 0.1f) {
                 v30 = (*(Gravity_81b20**)&DAT_00554c10)->g;
-                v10.y = v10.y + (((v30.y * 0.01f) * dt) * dt);
+                v10.y = v10.y + ((((hulk_freg)v30.y * 0.01f) * dt) * dt);   // (sweep2, D80) the products stay in st
             }
         }
         pos.x = v10.x + pos.x;
@@ -979,19 +988,20 @@ void CAnimState::FUN_00081b20(float dt)
         v10.z = va4.z * fb0;
         if (fb8 == 0) {
             v20 = (*(Gravity_81b20**)&DAT_00554c10)->g;
-            v10.x = v20.x * dt + v10.x;
-            v10.y = ((v20.y * 0.01f) * dt) + v10.y;
+            v10.x = (hulk_freg)v20.x * dt + v10.x;   // (sweep2, D80) the products stay in st
+            v10.y = (((hulk_freg)v20.y * 0.01f) * dt) + v10.y;
             va4.y = v10.y;
-            v10.z = v20.z * dt + v10.z;
+            v10.z = (hulk_freg)v20.z * dt + v10.z;
             va4.z = v10.z;
             va4.x = v10.x;
             fb0 = va4.FUN_0022d110();
         }
-        v20.x = v10.x * dt;
-        v20.y = v10.y * dt;
+        // (sweep2, D80) the original keeps the x and y products in st and rounds the z product through memory
+        hulk_freg sx = (hulk_freg)v10.x * dt;
+        hulk_freg sy = (hulk_freg)v10.y * dt;
         v20.z = v10.z * dt;
-        v20.x = v20.x + pos.x;
-        v20.y = v20.y + pos.y;
+        v20.x = sx + pos.x;
+        v20.y = sy + pos.y;
         v20.z = v20.z + pos.z;
         float &h = fr.s2c;
         h = FUN_00224f10(&va4) + f8c;
@@ -1137,7 +1147,7 @@ void CAnimState::FUN_00081b20(float dt)
         state = ns;
         flags |= 2;
     }
-    World *&w = *(World **)fr.cbuf;
+    World *&w = fr.w;
     w = DAT_004dd700;
     W24 *w24 = w->w24;
     float &L = fr.s1c;

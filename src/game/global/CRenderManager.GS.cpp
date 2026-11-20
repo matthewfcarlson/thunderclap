@@ -30,8 +30,8 @@ struct Profile_1bc040 {
 };
 } // namespace fn_faf7c40e
 struct World {
-    char pad[0x54];
-    Profile_1bc040* profile;
+    void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */
+    Profile_1bc040 *profile;
 };
 
 
@@ -235,7 +235,7 @@ struct Replay_1baab0 {
 };
 
 struct Globals_1baab0 {
-    char pad0[0x54];
+    void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */
     Replay_1baab0 *replay;
 };
 
@@ -619,7 +619,7 @@ struct Replay_1bb0b0 {
 };
 
 struct Globals_1bb0b0 {
-    char pad0[0x54];
+    void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */
     Replay_1bb0b0 *replay;
 };
 

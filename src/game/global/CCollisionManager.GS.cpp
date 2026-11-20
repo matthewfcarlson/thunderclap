@@ -46,7 +46,7 @@ public:
 };
 } // namespace fn_fde88daa
 struct World {
-    char pad0[0x54];
+    void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */
     Pad_1b5da0 *pad;
 };
 namespace fn_fde88daa {

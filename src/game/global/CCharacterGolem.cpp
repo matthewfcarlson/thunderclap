@@ -1250,7 +1250,7 @@ void CCharacterGolem::vfunc_3(Entity *a1, float dt)
 namespace fn_f54027db {
 
 // 0x000fe940 FUN_000fe940 (158 B): equivalent/0x000fe940.cpp
-// sym: ?FUN_000fe940@fn_f54027db@@YAXPAUAgentHost_fe940@1@PAPAUCAgent_fe940@1@@Z @f495c85e4087 @wcf34ade08564 @vcac17dc3a605
+// sym: ?FUN_000fe940@fn_f54027db@@YAXPAUAgentHost_fe940@1@PAPAUCAgent_fe940@1@@Z @277e57f2d53b @w3818c4df74ad @v4ee5ad15e9c0
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 13/14, incomplete)
 // FUN_000fe940 @ 0x000fe940
 // 0x000fe940: fetch (or lazily create) the CRangedAgent in *slot
@@ -1258,7 +1258,7 @@ void __cdecl FUN_000fe940(AgentHost_fe940 *host, CAgent_fe940 **slot)
 {
     CAgent_fe940 *found = ((CAgent_fe940 *)((owners::Container_fdd30 *)host)->FUN_000fdd30((hulk_intptr)(&DAT_004a1b68)));
     if (found) {
-        CRangedAgent_fe940 *agent = dynamic_cast<CRangedAgent_fe940 *>(found);
+        CRangedAgent_fe940 *agent = ((CRangedAgent_fe940 *)dynamic_cast<::CRangedAgent*>((::CAgent*)(found)));
         if (agent)
             agent->AddRef();
         if (*slot)
@@ -1281,7 +1281,7 @@ void __cdecl FUN_000fe940(AgentHost_fe940 *host, CAgent_fe940 **slot)
 
 
 // 0x000fe9e0 FUN_000fe9e0 (158 B): equivalent/0x000fe9e0.cpp
-// sym: ?FUN_000fe9e0@fn_f54027db@@YAXPAUAgentHost_fe9e0@1@PAPAUCAgent_fe9e0@1@@Z @81254826d8f5 @w5216876a5c3f @v84f08241fa54
+// sym: ?FUN_000fe9e0@fn_f54027db@@YAXPAUAgentHost_fe9e0@1@PAPAUCAgent_fe9e0@1@@Z @48bf83b45df6 @wc13dff9b6a68 @v8cc9d2d98572
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 13/14, incomplete)
 // FUN_000fe9e0 @ 0x000fe9e0
 // 0x000fe9e0: fetch (or lazily create) the CHand2HandAgent in *slot
@@ -1289,7 +1289,7 @@ void __cdecl FUN_000fe9e0(AgentHost_fe9e0 *host, CAgent_fe9e0 **slot)
 {
     CAgent_fe9e0 *found = ((CAgent_fe9e0 *)((owners::Container_fdd30 *)host)->FUN_000fdd30((hulk_intptr)(&DAT_004a1b84)));
     if (found) {
-        CHand2HandAgent_fe9e0 *agent = dynamic_cast<CHand2HandAgent_fe9e0 *>(found);
+        CHand2HandAgent_fe9e0 *agent = ((CHand2HandAgent_fe9e0 *)dynamic_cast<::CHand2HandAgent*>((::CAgent*)(found)));
         if (agent)
             agent->AddRef();
         if (*slot)
@@ -1312,7 +1312,7 @@ void __cdecl FUN_000fe9e0(AgentHost_fe9e0 *host, CAgent_fe9e0 **slot)
 
 
 // 0x000fea80 FUN_000fea80 (155 B): equivalent/0x000fea80.cpp
-// sym: ?FUN_000fea80@fn_f54027db@@YAXPAUAgentHost_fea80@1@PAPAUCAgent_fea80@1@@Z @b58418138aa5 @we6704b07ca29 @v0c1876fb63f1
+// sym: ?FUN_000fea80@fn_f54027db@@YAXPAUAgentHost_fea80@1@PAPAUCAgent_fea80@1@@Z @8391050ba664 @w6c835490111b @v5d989d980bb1
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // FUN_000fea80 @ 0x000fea80
 // FUN_000fea80: fetch (or lazily create) the CChaseAgent in *slot
@@ -1320,7 +1320,7 @@ void __cdecl FUN_000fea80(AgentHost_fea80 *host, CAgent_fea80 **slot)
 {
     CAgent_fea80 *found = ((CAgent_fea80 *)((owners::Container_fdd30 *)host)->FUN_000fdd30((hulk_intptr)(&DAT_004a1a44)));
     if (found) {
-        CChaseAgent_fea80 *agent = dynamic_cast<CChaseAgent_fea80 *>(found);
+        CChaseAgent_fea80 *agent = ((CChaseAgent_fea80 *)dynamic_cast<::CChaseAgent*>((::CAgent*)(found)));
         if (agent)
             agent->AddRef();
         if (*slot)
@@ -1343,7 +1343,7 @@ void __cdecl FUN_000fea80(AgentHost_fea80 *host, CAgent_fea80 **slot)
 
 
 // 0x000feb20 FUN_000feb20 (155 B): equivalent/0x000feb20.cpp
-// sym: ?FUN_000feb20@fn_f54027db@@YAXPAUAgentHost_feb20@1@PAPAUCAgent_feb20@1@@Z @8ac8ef787f81 @wa5805ce61916 @v6979b7ea89b9
+// sym: ?FUN_000feb20@fn_f54027db@@YAXPAUAgentHost_feb20@1@PAPAUCAgent_feb20@1@@Z @e4faf4979c3e @w828549943e08 @v48e151a79a09
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // FUN_000feb20 @ 0x000feb20
 // FUN_000feb20: fetch (or lazily create) the CMoveAgent in *slot
@@ -1351,7 +1351,7 @@ void __cdecl FUN_000feb20(AgentHost_feb20 *host, CAgent_feb20 **slot)
 {
     CAgent_feb20 *found = ((CAgent_feb20 *)((owners::Container_fdd30 *)host)->FUN_000fdd30((hulk_intptr)(&DAT_004a1ba4)));
     if (found) {
-        CMoveAgent_feb20 *agent = dynamic_cast<CMoveAgent_feb20 *>(found);
+        CMoveAgent_feb20 *agent = ((CMoveAgent_feb20 *)dynamic_cast<::CMoveAgent*>((::CAgent*)(found)));
         if (agent)
             agent->AddRef();
         if (*slot)
@@ -1374,7 +1374,7 @@ void __cdecl FUN_000feb20(AgentHost_feb20 *host, CAgent_feb20 **slot)
 
 
 // 0x000fec60 FUN_000fec60 (158 B): equivalent/0x000fec60.cpp
-// sym: ?FUN_000fec60@fn_f54027db@@YAXPAUAgentHost_fec60@1@PAPAUCAgent_fec60@1@@Z @be3a21ae190d @wf1c57f8a92f9 @v8d251565a912
+// sym: ?FUN_000fec60@fn_f54027db@@YAXPAUAgentHost_fec60@1@PAPAUCAgent_fec60@1@@Z @83e2945af389 @w1c3753481e0b @v8d64feaefa4e
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 13/14, incomplete)
 // FUN_000fec60 @ 0x000fec60
 // 0x000fec60: fetch (or lazily create) the CPathGraphAgent in *slot
@@ -1382,7 +1382,7 @@ void __cdecl FUN_000fec60(AgentHost_fec60 *host, CAgent_fec60 **slot)
 {
     CAgent_fec60 *found = ((CAgent_fec60 *)((owners::Container_fdd30 *)host)->FUN_000fdd30((hulk_intptr)(&DAT_004a1bdc)));
     if (found) {
-        CPathGraphAgent_fec60 *agent = dynamic_cast<CPathGraphAgent_fec60 *>(found);
+        CPathGraphAgent_fec60 *agent = ((CPathGraphAgent_fec60 *)dynamic_cast<::CPathGraphAgent*>((::CAgent*)(found)));
         if (agent)
             agent->AddRef();
         if (*slot)

@@ -4,6 +4,8 @@
 #include "compat/ptr.h"
 #include "decls/data/game/hulkfight/ai.h"
 #include "gen/owners.h"
+#include "gen/fight.h"
+#include "gen/global.h"
 #define TREE_TU_BEGIN namespace fn_f5cdd5db {
 #define TREE_TU_END }
 #define TREE_LOCAL_CSPHulkProp
@@ -55,7 +57,7 @@ class HulkActionCountCondition {
 
 
 // 0x0010ec90 hulkfight::ai::HulkActionCountCondition::vfunc_6 (398 B): equivalent/0x0010ec90.cpp
-// sym: ?FUN_0010ec90@HulkActionCountCondition@fn_f5cdd5db@@UAE_NHPAVParams_10ec90@fight@2@H@Z @186c2af23919 @w0258e07bf45a @v8854e95eb758
+// sym: ?FUN_0010ec90@HulkActionCountCondition@fn_f5cdd5db@@UAE_NHPAVParams_10ec90@fight@2@H@Z @f7951cde2bcf @we3f553daaef5 @v3cb138ca5c63
 // STATUS: equivalent (tools/equiv.py level 3: 3005 inputs, branch coverage 22/22)
 // hulkfight::ai::HulkActionCountCondition::vfunc_6 @ 0x0010ec90
 bool HulkActionCountCondition::FUN_0010ec90(int a1, fight::Params_10ec90 *params, int a3)
@@ -65,7 +67,7 @@ bool HulkActionCountCondition::FUN_0010ec90(int a1, fight::Params_10ec90 *params
         (*(Key_10ec90*)&DAT_004e0bb0).FUN_0027af00();
         atexit(FUN_00363e70);
     }
-    if (dynamic_cast<CFightParams_10ec90 *>(params) == 0)
+    if (((CFightParams_10ec90 *)dynamic_cast<::CFightParams*>((::fight::Params*)(params))) == 0)
         return false;
 
     Fighter_10ec90 *fighter = params->FUN_000592a0()->FUN_00059a30();

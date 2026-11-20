@@ -71,7 +71,7 @@ public:
 struct Holder44_22ff0 { Factory_22ff0 *FUN_00203d70(); };
 struct Holder28_22ff0 { Holder44_22ff0 *FUN_000862a0(); };
 } // namespace fn_f372509d
-struct World { char pad0[0x54]; Holder28_22ff0 *holder; };
+struct World { void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */ Holder28_22ff0 *holder; };
 namespace fn_f372509d {
 struct PoseBinding {
     char pad00[0x10];

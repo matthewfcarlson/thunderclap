@@ -6,6 +6,10 @@
 
 // 0x000b8d00 FUN_000b8d00 (330 B): matches/0x000b8d00.cpp [isolated: conflict: FUN_000fc1b0; FUN_000fc260; on include/gen/ and not mergeable]
 // sym: ?FUN_000b8d00@ObjectivesScreen@@QAEXXZ
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);   // (sweep2) the CRT's (include/common.h's declaration; this isolated TU has no tree prelude)
+extern "C" char hulk_at_0049dba4[];   // (sweep2) ??_R0.?AVFEObject@@@8, the game's type descriptor
+extern "C" char hulk_at_0049f470[];   // (sweep2) ??_R0.?AVTextWindow@@@8, the game's type descriptor
+extern "C" char hulk_at_0049f48c[];   // (sweep2) ??_R0.?AVTextLabel@@@8, the game's type descriptor
 // STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 14/14)
 // FUN_000b8d00 @ 0x000b8d00
 // cl-flags: /GS
@@ -72,13 +76,13 @@ void ObjectivesScreen::FUN_000b8d00()
         for (int i = 0; i < 4; i++) {
             char buf[0x40];
             FUN_000964a0(buf, 0x40, "mission_objectives%d_text", i + 1);
-            TextWindow_b8d00 *text = dynamic_cast<TextWindow_b8d00 *>(FUN_000fc260(buf));
+            TextWindow_b8d00 *text = ((TextWindow_b8d00 *)__RTDynamicCast((void*)(FUN_000fc260(buf)), 0, (void*)hulk_at_0049dba4, (void*)hulk_at_0049f470, 0));
             if (text != 0) {
                 text->entry.FUN_000f8500(((const char *)((::CScenarioManager *)objectives)->FUN_001ccf50(i)), FUN_000fc1b0(), 1);
                 text->vfunc_3();
             }
             FUN_000964a0(buf, 0x40, "mission_objectives%d_status", i + 1);
-            TextLabel_b8d00 *label = dynamic_cast<TextLabel_b8d00 *>(FUN_000fc260(buf));
+            TextLabel_b8d00 *label = ((TextLabel_b8d00 *)__RTDynamicCast((void*)(FUN_000fc260(buf)), 0, (void*)hulk_at_0049dba4, (void*)hulk_at_0049f48c, 0));
             if (label != 0) {
                 const char *name = ((const char*)&DAT_003f335c);
                 switch (objectives->FUN_001ccfa0(i)) {

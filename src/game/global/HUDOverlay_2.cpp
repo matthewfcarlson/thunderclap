@@ -3981,8 +3981,8 @@ struct Timer {
 };
 
 struct World {
-    char pad00[0x54];
-    Timer* timer;
+    void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */
+    Timer *timer;
 };
 
 struct Updater_d0240 {
@@ -4985,7 +4985,7 @@ struct Holder_d2c30 {
 };
 
 struct World {
-    char pad0[0x54];
+    void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */
     Holder_d2c30 *holder;
 };
 

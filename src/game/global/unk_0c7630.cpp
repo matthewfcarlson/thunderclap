@@ -73,7 +73,7 @@ public:
 struct Holder44_c7630 { Factory_c7630 *FUN_00203d70(); };
 struct Holder28_c7630 { Holder44_c7630 *FUN_000862a0(); };
 } // namespace fn_f9a0caab
-struct World { char pad0[0x54]; Holder28_c7630 *holder; };
+struct World { void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */ Holder28_c7630 *holder; };
 namespace fn_f9a0caab {
 class CHudIcons : public pure3d::Entity {
 public:
@@ -758,7 +758,7 @@ char FUN_001d04d0(const void* typeInfo);                      // type_info test 
 
 struct Item_c7f50 { int FUN_00204200(int, int, int); };
 struct Manager_c7f50 {  };
-struct World { char pad[0x54]; Manager_c7f50* manager; };
+struct World { void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */ Manager_c7f50 *manager; };
 struct Entry_c7f50 { int active; int x; int y; int z; char pad[0x24]; int value; char tail[8]; };
 struct Object { char pad[0x258]; Entry_c7f50 entries[128]; int target(unsigned char flag, int value); };
 int Object::target(unsigned char flag, int value) {

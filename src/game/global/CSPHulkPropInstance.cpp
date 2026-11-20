@@ -17,7 +17,7 @@ extern unsigned __int64 __cdecl FUN_0027afb0(const char*);
 struct Input_1d64c0 { bool FUN_00092940(int); };
 struct Manager_1d64c0 {  };
 } // namespace fn_fff2a2ba
-struct World { char pad[0x54]; Manager_1d64c0* manager; };
+struct World { void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */ Manager_1d64c0 *manager; };
 namespace fn_fff2a2ba {
 struct Identity { char pad[8]; uint low, high; };
 class C_1d6640 {
