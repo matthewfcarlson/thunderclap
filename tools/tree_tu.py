@@ -2250,7 +2250,8 @@ SHARD_SUM = {"inputs_run", "inputs_inconclusive", "inputs_faulted", "inputs_fail
              "inputs_planted", "inputs_pre_repaired", "inputs_repaired", "inputs_sentinel", "inputs_small",
              "inputs_strcase", "inputs_stubexit", "inputs_tie", "inputs_words", "post_checked", "post_phase", "post_ret0",
              "post_unread", "sentinel_runs", "stubexit_runs", "vsplit_reruns", "work", "edges_withdrawn",
-             "pre_defnan_all", "pre_defnan_words", "pre_range_bounds", "stubexit_sealed", "cpu", "sentinel_time"}
+             "pre_defnan_all", "pre_defnan_words", "pre_range_bounds", "stubexit_sealed", "cpu", "sentinel_time",
+             "inputs_repeated"}
 SHARD_SUM_DICT = {"statuses", "workn", "stubexit_n", "unexplained"}
 SHARD_MAX = {"long_steps", "rep_allow_max", "static_counts", "early_returns"}
 SHARD_ANY = {"huge_rep", "probe_skipped", "covcap", "inconclusive_cap_hit", "time_budget_hit"}

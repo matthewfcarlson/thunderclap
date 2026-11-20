@@ -1700,6 +1700,16 @@ key includes the sorted shard jobs (other lines keep their keys). `hash --proven
 Tests: tests/test_shard_merge.py; regress `0x001f87e0_post_wrong_shards8` (shard 7 alone is equivalent, the merge
 fails post_refuted, seven shards don't merge).
 
+(integ6; rev5) **Distinct compared inputs.** Every run, sharded or not, counts distinct compared inputs toward --inputs:
+an input is identified by what `build` makes it from (its own seed, overlay and stack patch: `compared_keys`, listed
+in every report). Some phases can build one twice: the post phase redraws a bound field to a value it drew before
+(0x001f87e0's seed 2649), two tie compares plant the same overlay (0x00230800). Such an input is still compared in full
+(a difference fails as anywhere) but counts as `inputs_repeated`, not in inputs_run, nor in the compared subcounts
+(inputs_compared_small, inputs_sentinel, inputs_nan_eq, inputs_memfwd) or post_checked; the proof draw then draws on
+until 3,000 distinct inputs are compared. (The bool-fix counterfactual re-run, `_bf`, never counted: it returns before
+the count.) regress checks inputs_run == the number of distinct keys on every case, and that `0x001f87e0_post_proof`
+reports its repeat.
+
 (integ4, `stubexit`; rev5) **Loops a stub ends.** A loop whose condition is a stubbed callee's result (`while
 (registry->Pending())`, drained by real code elsewhere; `do r = Status(v); while (r != 2)`) never ends on random stub
 results that keep it going, so its inputs time out and its body is never compared. Static half (`_stubexit_sites`, the

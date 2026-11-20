@@ -11679,6 +11679,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
     def _dseed(s_):
         return s_ if sh_n == 1 else sh_k + sh_n * s_
     compared_keys = set()
+    last_repeat = [False]      # (integ6) the last compared input was one compared before (run_input's callers ask)
 
     def clk():
         """(integ3, workclock) budget seconds used: work done since the loop began, at WORK_PER_SEC"""
@@ -12102,7 +12103,8 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                             sp[("sbyte", x + i, 0, 4)] = struct.unpack_from("<I", nan, 4 * i)[0]
                     else:
                         ov[("*" if where == "gmem" else 0, x)] = nan
-                saved = (copy.deepcopy(res), set(edges), Counter(hits), set(edges_any))
+                saved = (copy.deepcopy(res), set(edges), Counter(hits), set(edges_any),
+                         set(compared_keys), set(post_pairs), list(post_true))     # (integ6) uncounted, as res
                 pre_off[0] = True
                 try:
                     run_input(seed0, ov, sp, label=label)
@@ -12115,6 +12117,9 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                     edges.clear(); edges.update(saved[1])
                     hits.clear(); hits.update(saved[2])
                     edges_any.clear(); edges_any.update(saved[3])
+                    compared_keys.clear(); compared_keys.update(saved[4])
+                    post_pairs.clear(); post_pairs.update(saved[5])
+                    post_true[:] = saved[6]
                 return (mm_[0]["diffs"] if mm_ else []), stat_
 
             for (where, x), w, cond in ws_:
@@ -12215,7 +12220,8 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                         missing.append("the time budget ran out before the all-words run (%s)" % name_)
                         break
                     words_ = {wx: struct.pack("<I", fill_(k_)) for k_, (wx, w) in enumerate(ws1_)}
-                    saved_ = (copy.deepcopy(res), set(edges), Counter(hits), set(edges_any))
+                    saved_ = (copy.deepcopy(res), set(edges), Counter(hits), set(edges_any),
+                             set(compared_keys), set(post_pairs), list(post_true))     # (integ6) uncounted, as res
                     pre_off[0] = True
                     try:
                         ov, sp = dict(ov0), dict(sp0)
@@ -12233,6 +12239,9 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                         edges.clear(); edges.update(saved_[1])
                         hits.clear(); hits.update(saved_[2])
                         edges_any.clear(); edges_any.update(saved_[3])
+                        compared_keys.clear(); compared_keys.update(saved_[4])
+                        post_pairs.clear(); post_pairs.update(saved_[5])
+                        post_true[:] = saved_[6]
                     res["pre_defnan_all"] = res.get("pre_defnan_all", 0) + 1
                     if mm_:
                         missing.append("every defnan word holding an allowed NaN (%s, %d words, seed %d): %s" % (
@@ -12247,12 +12256,13 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
         edge_frames.append(fr_)
         post_held[0] = None
         sx_hit[0] = None
+        last_repeat[0] = False
         try:
             out_ = _run_input(seed, overlay, stack_patch, label, _vk, _ar, _bf)
         finally:
             edge_frames.pop()
         ph_, post_held[0] = post_held[0], None
-        if ph_ is not None and out_ is not None:
+        if ph_ is not None and out_ is not None and not last_repeat[0]:
             # (integ4, post; rev5) a nonzero return checked against the postcondition, on an input compared in full
             res["post_checked"] = res.get("post_checked", 0) + 1
             post_pairs.add(ph_[3])
@@ -12878,14 +12888,20 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             res["statuses"]["msplit_unpinned" if not NATIVE_MODE else "vsplit_unpinned"] += 1
             return None
         if o["status"] == "ret":
-            res["inputs_run"] += 1
-            if sh_n > 1:
-                # (integ5, D155c; rev5) the compared input's identity: what build() makes it from (its own seed, the
-                # overlay and the stack patch); the merge counts distinct ones, so an input two shards could both build
-                # would count once
-                compared_keys.add(hashlib.sha1(repr((_dseed(seed), sorted(map(repr, (overlay or {}).items())),
-                                                     sorted(map(repr, (stack_patch or {}).items())))).encode()
-                                              ).hexdigest()[:16])
+            # (integ5, D155c; rev5) the compared input's identity: what build() makes it from (its own seed, the overlay
+            # and the stack patch). (integ6; rev5) Every run counts distinct inputs: one compared again (a post-phase
+            # bound or a tie plant that redraws an overlay already compared, ...) is compared in full, and a difference
+            # there fails as anywhere, but it is no new evidence: it counts as inputs_repeated, never toward --inputs
+            # (nor the subcounts below). A shard merge counts the distinct inputs of all shards the same way
+            key_ = hashlib.sha1(repr((_dseed(seed), sorted(map(repr, (overlay or {}).items())),
+                                      sorted(map(repr, (stack_patch or {}).items())))).encode()).hexdigest()[:16]
+            if key_ in compared_keys:
+                res["inputs_repeated"] = res.get("inputs_repeated", 0) + 1
+                last_repeat[0] = True
+            else:
+                compared_keys.add(key_)
+                res["inputs_run"] += 1
+        if o["status"] == "ret" and not last_repeat[0]:
             if label and str(label).endswith("+small"):
                 # (rev5 re-review of D82) compared inputs whose loop counts small_retry planted, apart from the inputs
                 # compared as drawn (inputs_small counts small-count attempts, not comparisons)
@@ -12989,7 +13005,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
         if new is None:
             del stuck[n0:]
             stuck.extend(saved)     # (loop repair works from the plain run)
-        if new is not None:
+        if new is not None and not last_repeat[0]:
             sent_left[2] += 1
             res["inputs_sentinel"] = res.get("inputs_sentinel", 0) + 1     # (compared inputs with planted sentinels)
         return new
@@ -13648,8 +13664,8 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
         # (integ5, D155c) what a shard merge needs: which shard, and every edge it left uncovered (the merge's coverage is
         # that of the union of the shards' covered edges: an edge counts when any shard took it, never from the counts)
         res["shard"] = [sh_k, sh_n]
-        res["compared_keys"] = sorted(compared_keys)
         res["coverage"] = coverage_of(oview, edges, full=True)
+    res["compared_keys"] = sorted(compared_keys)        # (integ6; rev5) every run lists its distinct compared inputs
     res["work"] = WORK[0] - w_start                     # (workclock) units the loop spent
     res["input_digest"] = input_seq.hexdigest()[:12]
     res["workn"] = {k: WORKN[k] - wn_start[k] for k in WORKN}

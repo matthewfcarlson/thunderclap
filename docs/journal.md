@@ -2098,3 +2098,29 @@ blocks fight::Action's whole family: the records come first there.
   drifts from frame 5,875 and Hulk and the actors from 34,240, with the quantised hashes equal.
 - The original itself is not deterministic in pure3d's particle generators after about frame 12,920 of play3, nor in
   the sound code's own generators: two xemu runs disagree there, so the references drop those tags frame by frame.
+
+## 2026-11-20 integ6: distinct compared inputs (rev5 follow-up), D160
+
+- Repeats: an unsharded run compared about 1% of its inputs twice. The cause is not the bool-fix rerun (`_bf`), which
+  returns before anything is counted. Directed phases rebuild an input that was already compared: a post-phase bound
+  redrawn to a value drawn before, two tie compares planting one overlay, and patch / obj / small / loop inputs.
+  Instrumented runs: build/integ6/dup.
+- Since then every run counts distinct compared inputs (`compared_keys` in every report). A repeat is still compared
+  in full but counts as `inputs_repeated`.
+- The regress invariant (inputs_run == distinct keys) found a second leak: the uncounted Wine trap-check runs of
+  `// pre:` contracts left their keys behind. A merged sharded proof would have counted them; the ledger has no
+  sharded lines, so nothing was affected.
+- Sample of current ledger proofs re-run with the instrumented checker: 2/25 msvc and 3/14 wine lines had repeats
+  while counting exactly 3,000, so they are 1-10 short of 3,000 distinct (0x230ec0 10, 0x2fa4e0 6, 0x175360 5,
+  0x256150 2; 0x1e5f10 17 repeats but 3,044 distinct).
+- D160 (lead, rev5): no revocations. Every counted input was a genuine full comparison and only the counting standard
+  got stricter; D154 is for unsound proofs. Re-proofs meet the new count.
+- 0x000a97e0 (lead's triage): the regress fixture `0x000a97e0_native_boolafter` fails --wine at 3,000 inputs, and the
+  tree block fails the same way at HEAD (job 105470, seed 1950). The cause is a NaN shake offset: ours calls the
+  rotation, while the original's x87 `!= 0` test treats NaN as zero. This is the known held item 8 (a memory-field
+  contract on shake[i].time, build/fix126/held/a97e0_pre.patch).
+  - The block's wine mode is in config/unproven-baseline.json (no proof exists); the msvc proof re-runs equivalent
+    under the current checker (105469, 3,032 inputs, 46/46 edges). Nothing to revoke.
+  - Regress fixtures stay at their counts: a fixture tests one checker rule (here boolafter: a bool read after a call),
+    never the block. A block's own correctness is its ledger proof at 3,000 or its unproven-baseline entry, and a
+    held block's known defect belongs to that entry.

@@ -1644,7 +1644,23 @@ def _job(name, equiv, addr, kw):
               for i in (r.get("level2") or {}).get("issues", [])]
     cov = (r.get("level3") or {}).get("coverage") or {}
     ratio = cov["edges_covered"] / cov["edges_total"] if cov.get("edges_total") else 1.0
-    return name, r["status"], diffs, ratio, (r.get("level3") or {}).get("inputs_run") or 0
+    l3_ = r.get("level3") or {}
+    if "inputs_run" in l3_ and not (isinstance(l3_.get("compared_keys"), list) and
+                                    len(set(l3_["compared_keys"])) == len(l3_["compared_keys"]) == l3_["inputs_run"]):
+        # (integ6; rev5) every run counts distinct compared inputs: inputs_run is the number of distinct compared-input
+        # keys the report lists (an input compared twice counts once, as inputs_repeated)
+        return name, "invariant: inputs_run %s, compared keys %s (%s distinct)" % (
+            l3_["inputs_run"], len(l3_.get("compared_keys") or ()), len(set(l3_.get("compared_keys") or ()))), \
+            diffs, ratio, l3_["inputs_run"]
+    if l3_.get("inputs_repeated", 0) < kw_min_rep.get(name, 0):
+        return name, "invariant: %s repeated input(s), the case has at least %d" % (
+            l3_.get("inputs_repeated", 0), kw_min_rep[name]), diffs, ratio, l3_.get("inputs_run") or 0
+    return name, r["status"], diffs, ratio, l3_.get("inputs_run") or 0
+
+
+# (integ6; rev5) cases whose run compares an input twice (the post phase redraws a bound it drew before): the repeat
+# must be reported as inputs_repeated and not counted (the invariant above checks the count)
+kw_min_rep = {"0x001f87e0_post_proof": 1}
 
 
 def run_jobq(a, names):
