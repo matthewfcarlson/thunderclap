@@ -2815,31 +2815,14 @@ void Closure4_1ba7a0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * p = (
 
 
 // 0x001ba840 Closure4<CRenderManager,unsigned_int,const_char_*,math::Vector,math::Vector,float>::vfunc_2 (12 B): matches/0x001ba840.cpp [wrapped: conflict: Closure2; Function; Method2]
-// sym: ?vfunc_2@Closure2@fn_001ba840@@UAEXHHH@Z
+// sym: ?vfunc_2@Closure_1ba840@fn_001ba840@@QAEXPAX00@Z
 namespace fn_001ba840 {
-// Same code shape as 0x0002ff10 (propagated; names are from that function)
-class CActorManager;
-struct Vector {
-    float x, y, z;
-};
-class Method2 {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void vfunc_2(int, int, int);
-    ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
-};
-class Function {
-  public:
-    virtual void g0();
-};
-class Closure2 : public Method2, public Function {
-  public:
-    int val;
-    virtual void vfunc_2(int, int, int);
-};
-void Closure2::vfunc_2(int x, int a2, int a3) {
-    Method2::vfunc_2(val, a2, a3);
+// (script2) the Closure's invoke passes its object as the first argument to the Method's invoke at 0x001ba120 (a jmp):
+// records, no stand-in vftable; the Method's invoke by its address name, with its record's parameters
+struct Method_1ba120 { void FUN_001ba120(void*, void*, void*); };
+struct Closure_1ba840 { void* vftable; ScriptFunctionFields fields; ScriptMemberFn fn; void* val; void vfunc_2(void* x, void* a2, void* a3); };
+void Closure_1ba840::vfunc_2(void* x, void* a2, void* a3) {
+    ((Method_1ba120*)this)->FUN_001ba120(val, a2, a3);
 }
 } // namespace fn_001ba840
 
@@ -2874,12 +2857,31 @@ Closure1::Closure1(const char* name, Owner_1ba850* object, Fn_1ba850 function) :
 
 
 // 0x001ba8c0 Closure1<CRenderManager,void,unsigned_int>::vfunc_2 (18 B): matches/0x001ba8c0.cpp
-// sym: ?vfunc_2@?$Closure1@VCRenderManager@@XI@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure1_1ba8c0@fn_001ba8c0@@QAEXPAX00@Z
 // Same code shape as 0x0002ed90 (propagated; names are from that function)
-template <> void Closure1<CRenderManager, void, unsigned int>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; const char ** b = (const char **)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure1<CRenderManager, void, unsigned int>::vfunc_2`.
+namespace fn_001ba8c0 {
+struct Closure1_1ba8c0 : hulk_script::FunctionGenView {
+    void (::CRenderManager::*f_1c)(unsigned int);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+#if defined(HULK_PTR64)
+// (script2, stop 6) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells
+void Closure1_1ba8c0::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Args_ { unsigned int a0; };
+    const Args_* a = (const Args_*)__p1;
+    ((*(Obj_**)&this->f_20)->*(*(void (Obj_::**)(unsigned int))&this->f_1c))(a->a0);
+}
+#else
+void Closure1_1ba8c0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; const char ** b = (const char **)__p1; void * c = (void *)__p2;
 
     ((*(CActorManager_1ba8c0 * *)&this->f_20)->*(*(void (CActorManager_1ba8c0::**)(const char *))&this->f_1c))(*b);
 }
+#endif
+} // namespace fn_001ba8c0
 
 
 // 0x001ba940 Closure0<CRenderManager,math::Vector>::vfunc_2 (63 B): equivalent/0x001ba940.cpp

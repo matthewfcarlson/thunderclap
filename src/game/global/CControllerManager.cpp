@@ -356,12 +356,31 @@ Closure2::Closure2(const char* name, Owner_aecd0* object, Fn_aecd0 function) : h
 
 
 // 0x000aed50 Closure2<CControllerManager,void,int,bool>::vfunc_2 (24 B): matches/0x000aed50.cpp
-// sym: ?vfunc_2@?$Closure2@VCControllerManager@@XH_N@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure2_aed50@fn_000aed50@@QAEXPAX00@Z
 // Same code shape as 0x0002ec60 (propagated; names are from that function)
-template <> void Closure2<CControllerManager, void, int, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { Arg_aed50 * p = (Arg_aed50 *)__p1;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure2<CControllerManager, void, int, bool>::vfunc_2`.
+namespace fn_000aed50 {
+struct Closure2_aed50 : hulk_script::FunctionGenView {
+    void (::CControllerManager::*f_1c)(int, bool);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+#if defined(HULK_PTR64)
+// (script2, stop 6) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells
+void Closure2_aed50::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Args_ { int a0; bool a1; };
+    const Args_* a = (const Args_*)__p1;
+    ((*(Obj_**)&this->f_20)->*(*(void (Obj_::**)(int, bool))&this->f_1c))(a->a0, a->a1);
+}
+#else
+void Closure2_aed50::vfunc_2(void* __p0, void* __p1, void* __p2) { Arg_aed50 * p = (Arg_aed50 *)__p1;
 
     ((*(Actor_aed50 * *)&this->f_20)->*(*(void (Actor_aed50::**)(const char *, unsigned char))&this->f_1c))(p->s, p->b);
 }
+#endif
+} // namespace fn_000aed50
 
 namespace fn_f57ff923 {
 

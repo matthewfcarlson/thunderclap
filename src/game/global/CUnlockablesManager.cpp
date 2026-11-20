@@ -1378,12 +1378,31 @@ void* Closure2_946b0::vfunc_0(unsigned int flags) {
 
 
 // 0x000946d0 Closure2<CUnlockablesManager,void,int,bool>::vfunc_2 (24 B): matches/0x000946d0.cpp
-// sym: ?vfunc_2@?$Closure2@VCUnlockablesManager@@XH_N@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure2_946d0@fn_000946d0@@QAEXPAX00@Z
 // Same code shape as 0x0002ec60 (propagated; names are from that function)
-template <> void Closure2<CUnlockablesManager, void, int, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { Arg_946d0 * p = (Arg_946d0 *)__p1;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure2<CUnlockablesManager, void, int, bool>::vfunc_2`.
+namespace fn_000946d0 {
+struct Closure2_946d0 : hulk_script::FunctionGenView {
+    void (::CUnlockablesManager::*f_1c)(int, bool);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+#if defined(HULK_PTR64)
+// (script2, stop 6) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells
+void Closure2_946d0::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Args_ { int a0; bool a1; };
+    const Args_* a = (const Args_*)__p1;
+    ((*(Obj_**)&this->f_20)->*(*(void (Obj_::**)(int, bool))&this->f_1c))(a->a0, a->a1);
+}
+#else
+void Closure2_946d0::vfunc_2(void* __p0, void* __p1, void* __p2) { Arg_946d0 * p = (Arg_946d0 *)__p1;
 
     ((*(Actor_946d0 * *)&this->f_20)->*(*(void (Actor_946d0::**)(const char *, unsigned char))&this->f_1c))(p->s, p->b);
 }
+#endif
+} // namespace fn_000946d0
 
 
 // 0x000946f0 FUN_000946f0 (89 B): matches/0x000946f0.cpp [wrapped: conflict: Closure2]
@@ -1439,12 +1458,31 @@ void* Closure2_94750::vfunc_0(unsigned int flags) {
 
 
 // 0x00094770 Closure2<CUnlockablesManager,void,int,int>::vfunc_2 (22 B): matches/0x00094770.cpp
-// sym: ?vfunc_2@?$Closure2@VCUnlockablesManager@@XHH@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure2_94770@fn_00094770@@QAEXPAX00@Z
 // Same code shape as 0x0002e6d0 (propagated; names are from that function)
-template <> void Closure2<CUnlockablesManager, void, int, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; Pair_94770 * p = (Pair_94770 *)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure2<CUnlockablesManager, void, int, int>::vfunc_2`.
+namespace fn_00094770 {
+struct Closure2_94770 : hulk_script::FunctionGenView {
+    void (::CUnlockablesManager::*f_1c)(int, int);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+#if defined(HULK_PTR64)
+// (script2, stop 6) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells
+void Closure2_94770::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Args_ { int a0; int a1; };
+    const Args_* a = (const Args_*)__p1;
+    ((*(Obj_**)&this->f_20)->*(*(void (Obj_::**)(int, int))&this->f_1c))(a->a0, a->a1);
+}
+#else
+void Closure2_94770::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; Pair_94770 * p = (Pair_94770 *)__p1; void * c = (void *)__p2;
 
     ((*(CActorManager_94770 * *)&this->f_20)->*(*(void (CActorManager_94770::**)(const char *, float))&this->f_1c))(p->s, p->f);
 }
+#endif
+} // namespace fn_00094770
 
 
 // 0x00094790 FUN_00094790 (89 B): matches/0x00094790.cpp [wrapped: conflict: Closure2]
@@ -1499,12 +1537,31 @@ void* Closure2_947f0::vfunc_0(unsigned int flags) {
 
 
 // 0x00094810 Closure2<CUnlockablesManager,void,const_char_*,int>::vfunc_2 (22 B): matches/0x00094810.cpp
-// sym: ?vfunc_2@?$Closure2@VCUnlockablesManager@@XHH@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure2_94810@fn_00094810@@QAEXPAX00@Z
 // Same code shape as 0x0002e6d0 (propagated; names are from that function)
-template <> void Closure2<CUnlockablesManager, void, const char *, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; Pair_94810 * p = (Pair_94810 *)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure2<CUnlockablesManager, void, const char *, int>::vfunc_2`.
+namespace fn_00094810 {
+struct Closure2_94810 : hulk_script::FunctionGenView {
+    void (::CUnlockablesManager::*f_1c)(const char *, int);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+#if defined(HULK_PTR64)
+// (script2, stop 6) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells
+void Closure2_94810::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Args_ { const char* a0; int a1; };
+    const Args_* a = (const Args_*)__p1;
+    ((*(Obj_**)&this->f_20)->*(*(void (Obj_::**)(const char*, int))&this->f_1c))(a->a0, a->a1);
+}
+#else
+void Closure2_94810::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; Pair_94810 * p = (Pair_94810 *)__p1; void * c = (void *)__p2;
 
     ((*(CActorManager_94810 * *)&this->f_20)->*(*(void (CActorManager_94810::**)(const char *, float))&this->f_1c))(p->s, p->f);
 }
+#endif
+} // namespace fn_00094810
 
 
 // 0x00094860 Closure6<CUnlockablesManager,void,const_char_*,int,const_char_*,const_char_*,const_char_*,const_char_*>::vfunc_0 (30 B): matches/0x00094860.cpp
@@ -1622,8 +1679,25 @@ void Closure7_94b10::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused
 
 
 // 0x00094bb0 Closure4<CUnlockablesManager,void,const_char_*,int,const_char_*,const_char_*>::vfunc_2 (39 B): matches/0x00094bb0.cpp
-// sym: ?vfunc_2@?$Closure4@VCUnlockablesManager@@XPBDHPBDPBD@@UAEXPAX00@Z
-template <> void Closure4<CUnlockablesManager, void, const char *, int, const char *, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { const Arguments * arguments = (const Arguments *)__p1;
+// sym: ?vfunc_2@Closure4_94bb0@fn_00094bb0@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure4<CUnlockablesManager, void, const char *, int, const char *, const char *>::vfunc_2`.
+namespace fn_00094bb0 {
+struct Closure4_94bb0 : hulk_script::FunctionGenView {
+    void (::CUnlockablesManager::*f_1c)(const char *, int, const char *, const char *);
+    hulk_intptr f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+#if defined(HULK_PTR64)
+// (script2, stop 6) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells
+void Closure4_94bb0::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Args_ { const char* a0; int a1; const char* a2; const char* a3; };
+    const Args_* a = (const Args_*)__p1;
+    ((*(Obj_**)&this->f_20)->*(*(void (Obj_::**)(const char*, int, const char*, const char*))&this->f_1c))(a->a0, a->a1, a->a2, a->a3);
+}
+#else
+void Closure4_94bb0::vfunc_2(void* __p0, void* __p1, void* __p2) { const Arguments * arguments = (const Arguments *)__p1;
 
     const char** p = (const char**)arguments;
     const char* a = *p++;
@@ -1632,6 +1706,8 @@ template <> void Closure4<CUnlockablesManager, void, const char *, int, const ch
     const char* d = *p++;
     ((*(CUnlockablesManager_94bb0 * *)&this->f_20)->*(*(void (CUnlockablesManager_94bb0::**)(const char *, int, const char *, const char *))&this->f_1c))(a, b, c, d);
 }
+#endif
+} // namespace fn_00094bb0
 
 namespace fn_f8b63219 {
 

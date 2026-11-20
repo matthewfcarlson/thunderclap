@@ -1871,12 +1871,31 @@ void* Closure1_1ce0b0::vfunc_0(unsigned int flags) {
 
 
 // 0x001ce0d0 Closure1<CScenarioManager,void,int>::vfunc_2 (18 B): matches/0x001ce0d0.cpp
-// sym: ?vfunc_2@?$Closure1@VCScenarioManager@@XH@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure1_1ce0d0@fn_001ce0d0@@QAEXPAX00@Z
 // Same code shape as 0x0002ed90 (propagated; names are from that function)
-template <> void Closure1<CScenarioManager, void, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; const char ** b = (const char **)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure1<CScenarioManager, void, int>::vfunc_2`.
+namespace fn_001ce0d0 {
+struct Closure1_1ce0d0 : hulk_script::FunctionGenView {
+    void (::CScenarioManager::*f_1c)(int);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+#if defined(HULK_PTR64)
+// (script2, stop 6) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells
+void Closure1_1ce0d0::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Args_ { int a0; };
+    const Args_* a = (const Args_*)__p1;
+    ((*(Obj_**)&this->f_20)->*(*(void (Obj_::**)(int))&this->f_1c))(a->a0);
+}
+#else
+void Closure1_1ce0d0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; const char ** b = (const char **)__p1; void * c = (void *)__p2;
 
     ((*(CActorManager_1ce0d0 * *)&this->f_20)->*(*(void (CActorManager_1ce0d0::**)(const char *))&this->f_1c))(*b);
 }
+#endif
+} // namespace fn_001ce0d0
 
 
 // 0x001ce130 Closure0<CScenarioManager,int>::vfunc_0 (30 B): matches/0x001ce130.cpp
@@ -2198,9 +2217,27 @@ void* Closure1_1ce3f0::vfunc_0(unsigned int flags) {
 
 
 // 0x001ce410 Closure1<CScenarioManager,float,int>::vfunc_2 (43 B): matches/0x001ce410.cpp
-// sym: ?vfunc_2@?$Closure1@VCScenarioManager@@MH@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure1_1ce410@fn_001ce410@@QAEXPAX00@Z
 // Same code shape as 0x0002e800 (propagated; names are from that function)
-template <> void Closure1<CScenarioManager, float, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr ignored = (hulk_intptr)__p0; const char ** arg = (const char **)__p1; float * out = (float *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure1<CScenarioManager, float, int>::vfunc_2`.
+namespace fn_001ce410 {
+struct Closure1_1ce410 : hulk_script::FunctionGenView {
+    float (::CScenarioManager::*f_1c)(int);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+#if defined(HULK_PTR64)
+// (script2, stop 6) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells
+void Closure1_1ce410::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Args_ { int a0; };
+    const Args_* a = (const Args_*)__p1;
+    float r = ((*(Obj_**)&this->f_20)->*(*(float (Obj_::**)(int))&this->f_1c))(a->a0);
+    if (__p2) *(float*)__p2 = r;
+}
+#else
+void Closure1_1ce410::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr ignored = (hulk_intptr)__p0; const char ** arg = (const char **)__p1; float * out = (float *)__p2;
 
     CActorManager_1ce410* obj = (*(CActorManager_1ce410 * *)&this->f_20);
     Fn_1ce410 fn = (*(Fn_1ce410 *)&this->f_1c);
@@ -2208,6 +2245,8 @@ template <> void Closure1<CScenarioManager, float, int>::vfunc_2(void* __p0, voi
     if (out)
         *out = value;
 }
+#endif
+} // namespace fn_001ce410
 
 
 // 0x001ce440 FUN_001ce440 (89 B): matches/0x001ce440.cpp [wrapped: conflict: Closure2]
@@ -2263,12 +2302,31 @@ void* Closure2_1ce4a0::vfunc_0(unsigned int flags) {
 
 
 // 0x001ce4c0 Closure2<CScenarioManager,void,int,float>::vfunc_2 (22 B): matches/0x001ce4c0.cpp
-// sym: ?vfunc_2@?$Closure2@VCScenarioManager@@XHM@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure2_1ce4c0@fn_001ce4c0@@QAEXPAX00@Z
 // Same code shape as 0x0002e6d0 (propagated; names are from that function)
-template <> void Closure2<CScenarioManager, void, int, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; Pair_1ce4c0 * p = (Pair_1ce4c0 *)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure2<CScenarioManager, void, int, float>::vfunc_2`.
+namespace fn_001ce4c0 {
+struct Closure2_1ce4c0 : hulk_script::FunctionGenView {
+    void (::CScenarioManager::*f_1c)(int, float);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+#if defined(HULK_PTR64)
+// (script2, stop 6) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells
+void Closure2_1ce4c0::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Args_ { int a0; float a1; };
+    const Args_* a = (const Args_*)__p1;
+    ((*(Obj_**)&this->f_20)->*(*(void (Obj_::**)(int, float))&this->f_1c))(a->a0, a->a1);
+}
+#else
+void Closure2_1ce4c0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; Pair_1ce4c0 * p = (Pair_1ce4c0 *)__p1; void * c = (void *)__p2;
 
     ((*(CActorManager_1ce4c0 * *)&this->f_20)->*(*(void (CActorManager_1ce4c0::**)(const char *, float))&this->f_1c))(p->s, p->f);
 }
+#endif
+} // namespace fn_001ce4c0
 
 
 // 0x001ce4e0 FUN_001ce4e0 (89 B): matches/0x001ce4e0.cpp [wrapped: conflict: Closure2]
@@ -2733,12 +2791,31 @@ Closure2::Closure2(const char* name, Owner_1ce8f0* object, Fn_1ce8f0 function) :
 
 
 // 0x001ce970 Closure2<CScenarioManager,void,int,int>::vfunc_2 (22 B): matches/0x001ce970.cpp
-// sym: ?vfunc_2@?$Closure2@VCScenarioManager@@XHM@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure2_1ce970@fn_001ce970@@QAEXPAX00@Z
 // Same code shape as 0x0002e6d0 (propagated; names are from that function)
-template <> void Closure2<CScenarioManager, void, int, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; Pair_1ce970 * p = (Pair_1ce970 *)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure2<CScenarioManager, void, int, int>::vfunc_2`.
+namespace fn_001ce970 {
+struct Closure2_1ce970 : hulk_script::FunctionGenView {
+    void (::CScenarioManager::*f_1c)(int, int);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+#if defined(HULK_PTR64)
+// (script2, stop 6) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells
+void Closure2_1ce970::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Args_ { int a0; int a1; };
+    const Args_* a = (const Args_*)__p1;
+    ((*(Obj_**)&this->f_20)->*(*(void (Obj_::**)(int, int))&this->f_1c))(a->a0, a->a1);
+}
+#else
+void Closure2_1ce970::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; Pair_1ce970 * p = (Pair_1ce970 *)__p1; void * c = (void *)__p2;
 
     ((*(CActorManager_1ce970 * *)&this->f_20)->*(*(void (CActorManager_1ce970::**)(const char *, float))&this->f_1c))(p->s, p->f);
 }
+#endif
+} // namespace fn_001ce970
 
 namespace fn_fdf9c5a9 {
 

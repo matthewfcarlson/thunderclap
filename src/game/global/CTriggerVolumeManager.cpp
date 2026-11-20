@@ -4075,31 +4075,14 @@ void* Closure4_1ffe40::vfunc_0(unsigned int flags) {
 
 
 // 0x001ffe60 Closure4<CTriggerVolumeManager,bool,const_char_*,math::Vector,math::Vector,float>::vfunc_2 (12 B): matches/0x001ffe60.cpp [wrapped: conflict: Closure2; Function; Method2]
-// sym: ?vfunc_2@Closure2@fn_001ffe60@@UAEXHHH@Z
+// sym: ?vfunc_2@Closure_1ffe60@fn_001ffe60@@QAEXPAX00@Z
 namespace fn_001ffe60 {
-// Same code shape as 0x0002ff10 (propagated; names are from that function)
-class CActorManager;
-struct Vector {
-    float x, y, z;
-};
-class Method2 {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void vfunc_2(int, int, int);
-    ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
-};
-class Function {
-  public:
-    virtual void g0();
-};
-class Closure2 : public Method2, public Function {
-  public:
-    int val;
-    virtual void vfunc_2(int, int, int);
-};
-void Closure2::vfunc_2(int x, int a2, int a3) {
-    Method2::vfunc_2(val, a2, a3);
+// (script2) the Closure's invoke passes its object as the first argument to the Method's invoke at 0x001fed30 (a jmp):
+// records, no stand-in vftable; the Method's invoke by its address name, with its record's parameters
+struct Method_1fed30 { void FUN_001fed30(void*, void*, void*); };
+struct Closure_1ffe60 { void* vftable; ScriptFunctionFields fields; ScriptMemberFn fn; void* val; void vfunc_2(void* x, void* a2, void* a3); };
+void Closure_1ffe60::vfunc_2(void* x, void* a2, void* a3) {
+    ((Method_1fed30*)this)->FUN_001fed30(val, a2, a3);
 }
 } // namespace fn_001ffe60
 
@@ -4468,8 +4451,26 @@ void Closure2_200210::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unuse
 
 
 // 0x00200290 Closure4<CTriggerVolumeManager,bool,const_char_*,int,int,bool>::vfunc_2 (62 B): matches/0x00200290.cpp
-// sym: ?vfunc_2@?$Closure4@VCTriggerVolumeManager@@_NPBDHH_N@@UAEXPAX00@Z
-template <> void Closure4<CTriggerVolumeManager, bool, const char *, int, int, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr n = (hulk_intptr)__p0; Args * args = (Args *)__p1; bool * out = (bool *)__p2;
+// sym: ?vfunc_2@Closure4_200290@fn_00200290@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure4<CTriggerVolumeManager, bool, const char *, int, int, bool>::vfunc_2`.
+namespace fn_00200290 {
+struct Closure4_200290 : hulk_script::FunctionGenView {
+    bool (::CTriggerVolumeManager::*f_1c)(const char *, int, int, bool);
+    hulk_intptr f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+#if defined(HULK_PTR64)
+// (script2, stop 6) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells
+void Closure4_200290::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Args_ { const char* a0; int a1; int a2; bool a3; };
+    const Args_* a = (const Args_*)__p1;
+    bool r = ((*(Obj_**)&this->f_20)->*(*(bool (Obj_::**)(const char*, int, int, bool))&this->f_1c))(a->a0, a->a1, a->a2, a->a3);
+    if (__p2) *(bool*)__p2 = r;
+}
+#else
+void Closure4_200290::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr n = (hulk_intptr)__p0; Args * args = (Args *)__p1; bool * out = (bool *)__p2;
 
     CTriggerVolumeManager_200290* o = (*(CTriggerVolumeManager_200290 * *)&this->f_20);
     bool (CTriggerVolumeManager_200290::*fn)(const char*, int, int, bool) = (*(bool (CTriggerVolumeManager_200290::**)(const char *, int, int, bool))&this->f_1c);
@@ -4482,6 +4483,8 @@ template <> void Closure4<CTriggerVolumeManager, bool, const char *, int, int, b
     if (out)
         *out = r;
 }
+#endif
+} // namespace fn_00200290
 
 namespace fn_f3d6a774 {
 

@@ -4824,31 +4824,14 @@ void* Closure5_7df70::vfunc_0(unsigned int flags) {
 
 
 // 0x0007df90 Closure5<CAmbientsManager,void,const_char_*,int,bool,math::Vector,math::Vector>::vfunc_2 (12 B): matches/0x0007df90.cpp [wrapped: conflict: Closure2; Function; Method2]
-// sym: ?vfunc_2@Closure2@fn_0007df90@@UAEXHHH@Z
+// sym: ?vfunc_2@Closure_7df90@fn_0007df90@@QAEXPAX00@Z
 namespace fn_0007df90 {
-// Same code shape as 0x0002ff10 (propagated; names are from that function)
-class CActorManager;
-struct Vector {
-    float x, y, z;
-};
-class Method2 {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void vfunc_2(int, int, int);
-    ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
-};
-class Function {
-  public:
-    virtual void g0();
-};
-class Closure2 : public Method2, public Function {
-  public:
-    int val;
-    virtual void vfunc_2(int, int, int);
-};
-void Closure2::vfunc_2(int x, int a2, int a3) {
-    Method2::vfunc_2(val, a2, a3);
+// (script2) the Closure's invoke passes its object as the first argument to the Method's invoke at 0x0007ced0 (a jmp):
+// records, no stand-in vftable; the Method's invoke by its address name, with its record's parameters
+struct Method_7ced0 { void FUN_0007ced0(void*, void*, void*); };
+struct Closure_7df90 { void* vftable; ScriptFunctionFields fields; ScriptMemberFn fn; void* val; void vfunc_2(void* x, void* a2, void* a3); };
+void Closure_7df90::vfunc_2(void* x, void* a2, void* a3) {
+    ((Method_7ced0*)this)->FUN_0007ced0(val, a2, a3);
 }
 } // namespace fn_0007df90
 
@@ -5257,31 +5240,14 @@ void Closure1_7e3e0::vfunc_2(void* __p0, void* __p1, void* __p2) { unsigned char
 
 
 // 0x0007e450 Closure4<CAmbientsManager,void,const_char_*,int,const_math::Vector,const_math::Vector>::vfunc_2 (12 B): matches/0x0007e450.cpp [wrapped: conflict: Closure2; Function; Method2]
-// sym: ?vfunc_2@Closure2@fn_0007e450@@UAEXHHH@Z
+// sym: ?vfunc_2@Closure_7e450@fn_0007e450@@QAEXPAX00@Z
 namespace fn_0007e450 {
-// Same code shape as 0x0002ff10 (propagated; names are from that function)
-class CActorManager;
-struct Vector {
-    float x, y, z;
-};
-class Method2 {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void vfunc_2(int, int, int);
-    ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
-};
-class Function {
-  public:
-    virtual void g0();
-};
-class Closure2 : public Method2, public Function {
-  public:
-    int val;
-    virtual void vfunc_2(int, int, int);
-};
-void Closure2::vfunc_2(int x, int a2, int a3) {
-    Method2::vfunc_2(val, a2, a3);
+// (script2) the Closure's invoke passes its object as the first argument to the Method's invoke at 0x0007d410 (a jmp):
+// records, no stand-in vftable; the Method's invoke by its address name, with its record's parameters
+struct Method_7d410 { void FUN_0007d410(void*, void*, void*); };
+struct Closure_7e450 { void* vftable; ScriptFunctionFields fields; ScriptMemberFn fn; void* val; void vfunc_2(void* x, void* a2, void* a3); };
+void Closure_7e450::vfunc_2(void* x, void* a2, void* a3) {
+    ((Method_7d410*)this)->FUN_0007d410(val, a2, a3);
 }
 } // namespace fn_0007e450
 

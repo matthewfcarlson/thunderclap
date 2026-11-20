@@ -417,12 +417,31 @@ Closure1::Closure1(const char* name, Owner_d73a0* object, Fn_d73a0 function) : h
 
 
 // 0x000d7410 Closure1<CSimOverlayManager,void,int>::vfunc_2 (18 B): matches/0x000d7410.cpp
-// sym: ?vfunc_2@?$Closure1@VCSimOverlayManager@@XH@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure1_d7410@fn_000d7410@@QAEXPAX00@Z
 // Same code shape as 0x0002ed90 (propagated; names are from that function)
-template <> void Closure1<CSimOverlayManager, void, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; const char ** b = (const char **)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure1<CSimOverlayManager, void, int>::vfunc_2`.
+namespace fn_000d7410 {
+struct Closure1_d7410 : hulk_script::FunctionGenView {
+    void (::CSimOverlayManager::*f_1c)(int);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+#if defined(HULK_PTR64)
+// (script2, stop 6) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells
+void Closure1_d7410::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Args_ { int a0; };
+    const Args_* a = (const Args_*)__p1;
+    ((*(Obj_**)&this->f_20)->*(*(void (Obj_::**)(int))&this->f_1c))(a->a0);
+}
+#else
+void Closure1_d7410::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; const char ** b = (const char **)__p1; void * c = (void *)__p2;
 
     ((*(CActorManager_d7410 * *)&this->f_20)->*(*(void (CActorManager_d7410::**)(const char *))&this->f_1c))(*b);
 }
+#endif
+} // namespace fn_000d7410
 
 
 // 0x000d7490 Closure0<CSimOverlayManager,int>::vfunc_2 (23 B): matches/0x000d7490.cpp

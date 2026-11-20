@@ -2384,12 +2384,31 @@ void* Closure2_1bfdd0::vfunc_0(unsigned int flags) {
 
 
 // 0x001bfdf0 Closure2<CSubtitleManager,void,int,int>::vfunc_2 (22 B): matches/0x001bfdf0.cpp
-// sym: ?vfunc_2@?$Closure2@VCSubtitleManager@@XHH@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure2_1bfdf0@fn_001bfdf0@@QAEXPAX00@Z
 // Same code shape as 0x0002e6d0 (propagated; names are from that function)
-template <> void Closure2<CSubtitleManager, void, int, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; Pair_1bfdf0 * p = (Pair_1bfdf0 *)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure2<CSubtitleManager, void, int, int>::vfunc_2`.
+namespace fn_001bfdf0 {
+struct Closure2_1bfdf0 : hulk_script::FunctionGenView {
+    void (::CSubtitleManager::*f_1c)(int, int);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+#if defined(HULK_PTR64)
+// (script2, stop 6) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells
+void Closure2_1bfdf0::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Args_ { int a0; int a1; };
+    const Args_* a = (const Args_*)__p1;
+    ((*(Obj_**)&this->f_20)->*(*(void (Obj_::**)(int, int))&this->f_1c))(a->a0, a->a1);
+}
+#else
+void Closure2_1bfdf0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; Pair_1bfdf0 * p = (Pair_1bfdf0 *)__p1; void * c = (void *)__p2;
 
     ((*(CActorManager_1bfdf0 * *)&this->f_20)->*(*(void (CActorManager_1bfdf0::**)(const char *, float))&this->f_1c))(p->s, p->f);
 }
+#endif
+} // namespace fn_001bfdf0
 
 
 // 0x001bfe10 FUN_001bfe10 (76 B): matches/0x001bfe10.cpp [wrapped: conflict: Closure1; Method1]
@@ -2510,12 +2529,31 @@ void* Closure1_1bfef0::vfunc_0(unsigned int flags) {
 
 
 // 0x001bff10 Closure1<CSubtitleManager,void,int>::vfunc_2 (18 B): matches/0x001bff10.cpp
-// sym: ?vfunc_2@?$Closure1@VCSubtitleManager@@XH@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure1_1bff10@fn_001bff10@@QAEXPAX00@Z
 // Same code shape as 0x0002ed90 (propagated; names are from that function)
-template <> void Closure1<CSubtitleManager, void, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; const char ** b = (const char **)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure1<CSubtitleManager, void, int>::vfunc_2`.
+namespace fn_001bff10 {
+struct Closure1_1bff10 : hulk_script::FunctionGenView {
+    void (::CSubtitleManager::*f_1c)(int);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+#if defined(HULK_PTR64)
+// (script2, stop 6) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells
+void Closure1_1bff10::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Args_ { int a0; };
+    const Args_* a = (const Args_*)__p1;
+    ((*(Obj_**)&this->f_20)->*(*(void (Obj_::**)(int))&this->f_1c))(a->a0);
+}
+#else
+void Closure1_1bff10::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; const char ** b = (const char **)__p1; void * c = (void *)__p2;
 
     ((*(CActorManager_1bff10 * *)&this->f_20)->*(*(void (CActorManager_1bff10::**)(const char *))&this->f_1c))(*b);
 }
+#endif
+} // namespace fn_001bff10
 
 
 // 0x001bff60 Closure4<CSubtitleManager,void,int,float,const_char_*,float>::vfunc_0 (30 B): matches/0x001bff60.cpp
@@ -2541,14 +2579,33 @@ void* Closure4_1bff60::vfunc_0(unsigned int flags) {
 
 
 // 0x001bff80 Closure4<CSubtitleManager,void,int,float,const_char_*,float>::vfunc_2 (45 B): equivalent/0x001bff80.cpp
-// sym: ?vfunc_2@?$Closure4@VCSubtitleManager@@XHMPBDM@@UAEXPAX00@Z @35da6a76506a @w1cb96e5ab494 @vd0091ffb6088
+// sym: ?vfunc_2@Closure4_1bff80@fn_001bff80@@QAEXPAX00@Z @35da6a76506a @w1cb96e5ab494 @vde024e788179
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Closure4<CSubtitleManager,void,int,float,const_char_*,float>::vfunc_2 @ 0x001bff80
-template <> void Closure4<CSubtitleManager, void, int, float, const char *, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr unused = (hulk_intptr)__p0; Arguments * arguments = (Arguments *)__p1; hulk_intptr other = (hulk_intptr)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure4<CSubtitleManager, void, int, float, const char *, float>::vfunc_2`.
+namespace fn_001bff80 {
+struct Closure4_1bff80 : hulk_script::FunctionGenView {
+    void (::CSubtitleManager::*f_1c)(int, float, const char *, float);
+    hulk_intptr f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+#if defined(HULK_PTR64)
+// (script2, stop 6) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells
+void Closure4_1bff80::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Args_ { int a0; float a1; const char* a2; float a3; };
+    const Args_* a = (const Args_*)__p1;
+    ((*(Obj_**)&this->f_20)->*(*(void (Obj_::**)(int, float, const char*, float))&this->f_1c))(a->a0, a->a1, a->a2, a->a3);
+}
+#else
+void Closure4_1bff80::vfunc_2(void* __p0, void* __p1, void* __p2) { hulk_intptr unused = (hulk_intptr)__p0; Arguments * arguments = (Arguments *)__p1; hulk_intptr other = (hulk_intptr)__p2;
 
     float time = arguments->time;
     ((*(CSubtitleManager_1bff80 * *)&this->f_20)->*(*(void (CSubtitleManager_1bff80::**)(int, float, const char *, float))&this->f_1c))(arguments->number, time, arguments->text, arguments->duration);
 }
+#endif
+} // namespace fn_001bff80
 
 
 // 0x001bffb0 FUN_001bffb0 (89 B): matches/0x001bffb0.cpp [wrapped: conflict: Closure2]
@@ -2688,13 +2745,32 @@ void Closure3_1c01b0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unuse
 
 
 // 0x001c0230 Closure3<CSubtitleManager,void,const_char_*,const_char_*,float>::vfunc_2 (28 B): equivalent/0x001c0230.cpp
-// sym: ?vfunc_2@?$Closure3@VCSubtitleManager@@XPBDPBDM@@UAEXPAX00@Z @737c210bc5da @we909f5656d8a @v94b6de759d9a
+// sym: ?vfunc_2@Closure3_1c0230@fn_001c0230@@QAEXPAX00@Z @737c210bc5da @we909f5656d8a @vb862d4435e16
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // Closure3<CSubtitleManager,void,const_char_*,const_char_*,float>::vfunc_2 @ 0x001c0230
-template <> void Closure3<CSubtitleManager, void, const char *, const char *, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; const SubtitleArgs * args = (const SubtitleArgs *)__p1; void * unused2 = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure3<CSubtitleManager, void, const char *, const char *, float>::vfunc_2`.
+namespace fn_001c0230 {
+struct Closure3_1c0230 : hulk_script::FunctionGenView {
+    void (::CSubtitleManager::*f_1c)(const char *, const char *, float);
+    hulk_intptr f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+#if defined(HULK_PTR64)
+// (script2, stop 6) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells
+void Closure3_1c0230::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Args_ { const char* a0; const char* a1; float a2; };
+    const Args_* a = (const Args_*)__p1;
+    ((*(Obj_**)&this->f_20)->*(*(void (Obj_::**)(const char*, const char*, float))&this->f_1c))(a->a0, a->a1, a->a2);
+}
+#else
+void Closure3_1c0230::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; const SubtitleArgs * args = (const SubtitleArgs *)__p1; void * unused2 = (void *)__p2;
 
     ((*(CSubtitleManager_1c0230 * *)&this->f_20)->*(*(void (CSubtitleManager_1c0230::**)(const char *, const char *, float))&this->f_1c))(args->first, args->second, args->time);
 }
+#endif
+} // namespace fn_001c0230
 
 
 // 0x001c0250 FUN_001c0250 (271 B): equivalent/0x001c0250.cpp [wrapped: conflict: sSubtitleManagerCallback]

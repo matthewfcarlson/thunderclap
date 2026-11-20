@@ -3548,40 +3548,42 @@ Closure2::Closure2(const char* name, Owner_cfef0* object, Fn_cfef0 function) : h
 
 
 // 0x000cff70 Closure2<HUDOverlay,void,int,bool>::vfunc_2 (24 B): matches/0x000cff70.cpp
-// sym: ?vfunc_2@?$Closure2@VHUDOverlay@@XH_N@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure2_cff70@fn_000cff70@@QAEXPAX00@Z
 // Same code shape as 0x0002ec60 (propagated; names are from that function)
-template <> void Closure2<HUDOverlay, void, int, bool>::vfunc_2(void* __p0, void* __p1, void* __p2) { Arg_cff70 * p = (Arg_cff70 *)__p1;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure2<HUDOverlay, void, int, bool>::vfunc_2`.
+namespace fn_000cff70 {
+struct Closure2_cff70 : hulk_script::FunctionGenView {
+    void (::HUDOverlay::*f_1c)(int, bool);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+#if defined(HULK_PTR64)
+// (script2, stop 6) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells
+void Closure2_cff70::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Args_ { int a0; bool a1; };
+    const Args_* a = (const Args_*)__p1;
+    ((*(Obj_**)&this->f_20)->*(*(void (Obj_::**)(int, bool))&this->f_1c))(a->a0, a->a1);
+}
+#else
+void Closure2_cff70::vfunc_2(void* __p0, void* __p1, void* __p2) { Arg_cff70 * p = (Arg_cff70 *)__p1;
 
     ((*(Actor_cff70 * *)&this->f_20)->*(*(void (Actor_cff70::**)(const char *, unsigned char))&this->f_1c))(p->s, p->b);
 }
+#endif
+} // namespace fn_000cff70
 
 
 // 0x000cffe0 Closure4<HUDOverlay,int,int,int,math::Vector,math::Vector>::vfunc_2 (12 B): matches/0x000cffe0.cpp [wrapped: conflict: Closure2; Function; Method2]
-// sym: ?vfunc_2@Closure2@fn_000cffe0@@UAEXHHH@Z
+// sym: ?vfunc_2@Closure_cffe0@fn_000cffe0@@QAEXPAX00@Z
 namespace fn_000cffe0 {
-// Same code shape as 0x0002ff10 (propagated; names are from that function)
-class CActorManager;
-struct Vector {
-    float x, y, z;
-};
-class Method2 {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void vfunc_2(int, int, int);
-    ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
-};
-class Function {
-  public:
-    virtual void g0();
-};
-class Closure2 : public Method2, public Function {
-  public:
-    int val;
-    virtual void vfunc_2(int, int, int);
-};
-void Closure2::vfunc_2(int x, int a2, int a3) {
-    Method2::vfunc_2(val, a2, a3);
+// (script2) the Closure's invoke passes its object as the first argument to the Method's invoke at 0x000cf0e0 (a jmp):
+// records, no stand-in vftable; the Method's invoke by its address name, with its record's parameters
+struct Method_cf0e0 { void FUN_000cf0e0(void*, void*, void*); };
+struct Closure_cffe0 { void* vftable; ScriptFunctionFields fields; ScriptMemberFn fn; void* val; void vfunc_2(void* x, void* a2, void* a3); };
+void Closure_cffe0::vfunc_2(void* x, void* a2, void* a3) {
+    ((Method_cf0e0*)this)->FUN_000cf0e0(val, a2, a3);
 }
 } // namespace fn_000cffe0
 
@@ -3639,40 +3641,42 @@ Closure2::Closure2(const char* name, Owner_d0080* object, Fn_d0080 function) : h
 
 
 // 0x000d0100 Closure2<HUDOverlay,void,int,int>::vfunc_2 (22 B): matches/0x000d0100.cpp
-// sym: ?vfunc_2@?$Closure2@VHUDOverlay@@XHH@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure2_d0100@fn_000d0100@@QAEXPAX00@Z
 // Same code shape as 0x0002e6d0 (propagated; names are from that function)
-template <> void Closure2<HUDOverlay, void, int, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; Pair_d0100 * p = (Pair_d0100 *)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure2<HUDOverlay, void, int, int>::vfunc_2`.
+namespace fn_000d0100 {
+struct Closure2_d0100 : hulk_script::FunctionGenView {
+    void (::HUDOverlay::*f_1c)(int, int);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+#if defined(HULK_PTR64)
+// (script2, stop 6) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells
+void Closure2_d0100::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Args_ { int a0; int a1; };
+    const Args_* a = (const Args_*)__p1;
+    ((*(Obj_**)&this->f_20)->*(*(void (Obj_::**)(int, int))&this->f_1c))(a->a0, a->a1);
+}
+#else
+void Closure2_d0100::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; Pair_d0100 * p = (Pair_d0100 *)__p1; void * c = (void *)__p2;
 
     ((*(CActorManager_d0100 * *)&this->f_20)->*(*(void (CActorManager_d0100::**)(const char *, float))&this->f_1c))(p->s, p->f);
 }
+#endif
+} // namespace fn_000d0100
 
 
 // 0x000d0170 Closure5<HUDOverlay,int,int,const_char_*,math::Vector,math::Vector,math::Vector>::vfunc_2 (12 B): matches/0x000d0170.cpp [wrapped: conflict: Closure2; Function; Method2]
-// sym: ?vfunc_2@Closure2@fn_000d0170@@UAEXHHH@Z
+// sym: ?vfunc_2@Closure_d0170@fn_000d0170@@QAEXPAX00@Z
 namespace fn_000d0170 {
-// Same code shape as 0x0002ff10 (propagated; names are from that function)
-class CActorManager;
-struct Vector {
-    float x, y, z;
-};
-class Method2 {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void vfunc_2(int, int, int);
-    ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
-};
-class Function {
-  public:
-    virtual void g0();
-};
-class Closure2 : public Method2, public Function {
-  public:
-    int val;
-    virtual void vfunc_2(int, int, int);
-};
-void Closure2::vfunc_2(int x, int a2, int a3) {
-    Method2::vfunc_2(val, a2, a3);
+// (script2) the Closure's invoke passes its object as the first argument to the Method's invoke at 0x000cf350 (a jmp):
+// records, no stand-in vftable; the Method's invoke by its address name, with its record's parameters
+struct Method_cf350 { void FUN_000cf350(void*, void*, void*); };
+struct Closure_d0170 { void* vftable; ScriptFunctionFields fields; ScriptMemberFn fn; void* val; void vfunc_2(void* x, void* a2, void* a3); };
+void Closure_d0170::vfunc_2(void* x, void* a2, void* a3) {
+    ((Method_cf350*)this)->FUN_000cf350(val, a2, a3);
 }
 } // namespace fn_000d0170
 

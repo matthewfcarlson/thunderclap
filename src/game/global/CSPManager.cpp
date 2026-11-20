@@ -7102,12 +7102,31 @@ void* Closure1_1e1370::vfunc_0(unsigned int flags) {
 
 
 // 0x001e1390 Closure1<CSPManager,void,int>::vfunc_2 (18 B): matches/0x001e1390.cpp
-// sym: ?vfunc_2@?$Closure1@VCSPManager@@XH@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure1_1e1390@fn_001e1390@@QAEXPAX00@Z
 // Same code shape as 0x0002ed90 (propagated; names are from that function)
-template <> void Closure1<CSPManager, void, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; const char ** b = (const char **)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure1<CSPManager, void, int>::vfunc_2`.
+namespace fn_001e1390 {
+struct Closure1_1e1390 : hulk_script::FunctionGenView {
+    void (::CSPManager::*f_1c)(int);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+#if defined(HULK_PTR64)
+// (script2, stop 6) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells
+void Closure1_1e1390::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Args_ { int a0; };
+    const Args_* a = (const Args_*)__p1;
+    ((*(Obj_**)&this->f_20)->*(*(void (Obj_::**)(int))&this->f_1c))(a->a0);
+}
+#else
+void Closure1_1e1390::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; const char ** b = (const char **)__p1; void * c = (void *)__p2;
 
     ((*(CActorManager_1e1390 * *)&this->f_20)->*(*(void (CActorManager_1e1390::**)(const char *))&this->f_1c))(*b);
 }
+#endif
+} // namespace fn_001e1390
 
 
 // 0x001e13e0 Closure3<CSPManager,bool,const_char_*,int,int>::vfunc_0 (30 B): matches/0x001e13e0.cpp
@@ -7133,14 +7152,34 @@ void* Closure3_1e13e0::vfunc_0(unsigned int flags) {
 
 
 // 0x001e1400 Closure3<CSPManager,bool,const_char_*,int,int>::vfunc_2 (42 B): equivalent/0x001e1400.cpp
-// sym: ?vfunc_2@?$Closure3@VCSPManager@@_NPBDHH@@UAEXPAX00@Z @eec6867036bb @wec43bf295a6c @vc4da44405e2b
+// sym: ?vfunc_2@Closure3_1e1400@fn_001e1400@@QAEXPAX00@Z @eec6867036bb @wec43bf295a6c @ve6fbfe379a13
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // Closure3<CSPManager,bool,const_char_*,int,int>::vfunc_2 @ 0x001e1400
-template <> void Closure3<CSPManager, bool, const char *, int, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { Arguments * args = (Arguments *)__p1; bool * result = (bool *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure3<CSPManager, bool, const char *, int, int>::vfunc_2`.
+namespace fn_001e1400 {
+struct Closure3_1e1400 : hulk_script::FunctionGenView {
+    bool (::CSPManager::*f_1c)(const char *, int, int);
+    hulk_intptr f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+#if defined(HULK_PTR64)
+// (script2, stop 6) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells
+void Closure3_1e1400::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Args_ { const char* a0; int a1; int a2; };
+    const Args_* a = (const Args_*)__p1;
+    bool r = ((*(Obj_**)&this->f_20)->*(*(bool (Obj_::**)(const char*, int, int))&this->f_1c))(a->a0, a->a1, a->a2);
+    if (__p2) *(bool*)__p2 = r;
+}
+#else
+void Closure3_1e1400::vfunc_2(void* __p0, void* __p1, void* __p2) { Arguments * args = (Arguments *)__p1; bool * result = (bool *)__p2;
 
     bool value = ((*(CSPManager_1e1400 * *)&this->f_20)->*(*(bool (CSPManager_1e1400::**)(const char *, int, int))&this->f_1c))(args->text, args->a, args->b);
     if (result) *result = value;
 }
+#endif
+} // namespace fn_001e1400
 
 
 // 0x001e1430 FUN_001e1430 (89 B): matches/0x001e1430.cpp [wrapped: conflict: Closure2]
@@ -7274,14 +7313,34 @@ void* Closure2_1e1540::vfunc_0(unsigned int flags) {
 
 
 // 0x001e1560 Closure2<CSPManager,bool,const_char_*,int>::vfunc_2 (36 B): equivalent/0x001e1560.cpp
-// sym: ?vfunc_2@?$Closure2@VCSPManager@@_NPBDH@@UAEXPAX00@Z @e654de0dce29 @w4e3d89bebec6 @v9bbf3f08117a
+// sym: ?vfunc_2@Closure2_1e1560@fn_001e1560@@QAEXPAX00@Z @e654de0dce29 @w4e3d89bebec6 @v51d9993d4950
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // Closure2<CSPManager,bool,const_char_*,int>::vfunc_2 @ 0x001e1560
-template <> void Closure2<CSPManager, bool, const char *, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; Arguments * args = (Arguments *)__p1; bool * result = (bool *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure2<CSPManager, bool, const char *, int>::vfunc_2`.
+namespace fn_001e1560 {
+struct Closure2_1e1560 : hulk_script::FunctionGenView {
+    bool (::CSPManager::*f_1c)(const char *, int);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+#if defined(HULK_PTR64)
+// (script2, stop 6) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells
+void Closure2_1e1560::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Args_ { const char* a0; int a1; };
+    const Args_* a = (const Args_*)__p1;
+    bool r = ((*(Obj_**)&this->f_20)->*(*(bool (Obj_::**)(const char*, int))&this->f_1c))(a->a0, a->a1);
+    if (__p2) *(bool*)__p2 = r;
+}
+#else
+void Closure2_1e1560::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; Arguments * args = (Arguments *)__p1; bool * result = (bool *)__p2;
 
     bool value = ((*(CSPManager_1e1560 * *)&this->f_20)->*(*(bool (CSPManager_1e1560::**)(const char *, int))&this->f_1c))(args->text, args->number);
     if (result) *result = value;
 }
+#endif
+} // namespace fn_001e1560
 
 
 // 0x001e1590 FUN_001e1590 (76 B): matches/0x001e1590.cpp [wrapped: conflict: Closure1; Method1]
@@ -8384,31 +8443,14 @@ void* Closure4_1e2120::vfunc_0(unsigned int flags) {
 
 
 // 0x001e2140 Closure4<CSPManager,void,const_char_*,const_char_*,math::Vector,math::Vector>::vfunc_2 (12 B): matches/0x001e2140.cpp [wrapped: conflict: Closure2; Function; Method2]
-// sym: ?vfunc_2@Closure2@fn_001e2140@@UAEXHHH@Z
+// sym: ?vfunc_2@Closure_1e2140@fn_001e2140@@QAEXPAX00@Z
 namespace fn_001e2140 {
-// Same code shape as 0x0002ff10 (propagated; names are from that function)
-class CActorManager;
-struct Vector {
-    float x, y, z;
-};
-class Method2 {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void vfunc_2(int, int, int);
-    ScriptFunctionFields fields;   // (script2) Function's fields (was char pad[0x18])
-};
-class Function {
-  public:
-    virtual void g0();
-};
-class Closure2 : public Method2, public Function {
-  public:
-    int val;
-    virtual void vfunc_2(int, int, int);
-};
-void Closure2::vfunc_2(int x, int a2, int a3) {
-    Method2::vfunc_2(val, a2, a3);
+// (script2) the Closure's invoke passes its object as the first argument to the Method's invoke at 0x001e07a0 (a jmp):
+// records, no stand-in vftable; the Method's invoke by its address name, with its record's parameters
+struct Method_1e07a0 { void FUN_001e07a0(void*, void*, void*); };
+struct Closure_1e2140 { void* vftable; ScriptFunctionFields fields; ScriptMemberFn fn; void* val; void vfunc_2(void* x, void* a2, void* a3); };
+void Closure_1e2140::vfunc_2(void* x, void* a2, void* a3) {
+    ((Method_1e07a0*)this)->FUN_001e07a0(val, a2, a3);
 }
 } // namespace fn_001e2140
 
@@ -8698,14 +8740,34 @@ Closure2::Closure2(const char* name, Owner_1e24c0* object, Fn_1e24c0 function) :
 
 
 // 0x001e2540 Closure2<CSPManager,bool,const_char_*,float>::vfunc_2 (40 B): equivalent/0x001e2540.cpp
-// sym: ?vfunc_2@?$Closure2@VCSPManager@@_NPBDM@@UAEXPAX00@Z @e654de0dce29 @w869ed99f0dcb @vc121d5030c19
+// sym: ?vfunc_2@Closure2_1e2540@fn_001e2540@@QAEXPAX00@Z @e654de0dce29 @w869ed99f0dcb @v712433bec23b
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // Closure2<CSPManager,bool,const_char_*,float>::vfunc_2 @ 0x001e2540
-template <> void Closure2<CSPManager, bool, const char *, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; Arguments * args = (Arguments *)__p1; bool * result = (bool *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure2<CSPManager, bool, const char *, float>::vfunc_2`.
+namespace fn_001e2540 {
+struct Closure2_1e2540 : hulk_script::FunctionGenView {
+    bool (::CSPManager::*f_1c)(const char *, float);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+#if defined(HULK_PTR64)
+// (script2, stop 6) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells
+void Closure2_1e2540::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Args_ { const char* a0; float a1; };
+    const Args_* a = (const Args_*)__p1;
+    bool r = ((*(Obj_**)&this->f_20)->*(*(bool (Obj_::**)(const char*, float))&this->f_1c))(a->a0, a->a1);
+    if (__p2) *(bool*)__p2 = r;
+}
+#else
+void Closure2_1e2540::vfunc_2(void* __p0, void* __p1, void* __p2) { void * unused = (void *)__p0; Arguments * args = (Arguments *)__p1; bool * result = (bool *)__p2;
 
     bool value = ((*(CSPManager_1e2540 * *)&this->f_20)->*(*(bool (CSPManager_1e2540::**)(const char *, float))&this->f_1c))(args->text, args->value);
     if (result) *result = value;
 }
+#endif
+} // namespace fn_001e2540
 
 
 // 0x001e25c0 Closure4<CSPManager,bool,const_char_*,float,float,int>::vfunc_2 (67 B): matches/0x001e25c0.cpp

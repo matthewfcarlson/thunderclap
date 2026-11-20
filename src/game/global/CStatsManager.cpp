@@ -1249,12 +1249,31 @@ void* Closure2_90f10::vfunc_0(unsigned int flags) {
 
 
 // 0x00090f30 Closure2<CStatsManager,void,const_char_*,int>::vfunc_2 (22 B): matches/0x00090f30.cpp
-// sym: ?vfunc_2@?$Closure2@VCStatsManager@@XPBDH@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure2_90f30@fn_00090f30@@QAEXPAX00@Z
 // Same code shape as 0x0002e6d0 (propagated; names are from that function)
-template <> void Closure2<CStatsManager, void, const char *, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; Pair_90f30 * p = (Pair_90f30 *)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure2<CStatsManager, void, const char *, int>::vfunc_2`.
+namespace fn_00090f30 {
+struct Closure2_90f30 : hulk_script::FunctionGenView {
+    void (::CStatsManager::*f_1c)(const char *, int);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+#if defined(HULK_PTR64)
+// (script2, stop 6) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells
+void Closure2_90f30::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Args_ { const char* a0; int a1; };
+    const Args_* a = (const Args_*)__p1;
+    ((*(Obj_**)&this->f_20)->*(*(void (Obj_::**)(const char*, int))&this->f_1c))(a->a0, a->a1);
+}
+#else
+void Closure2_90f30::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; Pair_90f30 * p = (Pair_90f30 *)__p1; void * c = (void *)__p2;
 
     ((*(CActorManager_90f30 * *)&this->f_20)->*(*(void (CActorManager_90f30::**)(const char *, float))&this->f_1c))(p->s, p->f);
 }
+#endif
+} // namespace fn_00090f30
 
 
 // 0x00090f50 FUN_00090f50 (76 B): matches/0x00090f50.cpp [wrapped: conflict: Closure1; Method1]

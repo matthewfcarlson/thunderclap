@@ -1513,8 +1513,25 @@ void* Closure6_1f1ea0::vfunc_0(unsigned int flags) {
 
 
 // 0x001f1ec0 Closure6<CSoundSystem,void,char_*,char_*,float,float,float,float>::vfunc_2 (71 B): matches/0x001f1ec0.cpp
-// sym: ?vfunc_2@?$Closure6@VCSoundSystem@@XPADPADMMMM@@UAEXPAX00@Z
-template <> void Closure6<CSoundSystem, void, char *, char *, float, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { void ** a = (void **)__p1;
+// sym: ?vfunc_2@Closure6_1f1ec0@fn_001f1ec0@@QAEXPAX00@Z
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure6<CSoundSystem, void, char *, char *, float, float, float, float>::vfunc_2`.
+namespace fn_001f1ec0 {
+struct Closure6_1f1ec0 : hulk_script::FunctionGenView {
+    void (::CSoundSystem::*f_1c)(char *, char *, float, float, float, float);
+    hulk_intptr f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+#if defined(HULK_PTR64)
+// (script2, stop 6) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells
+void Closure6_1f1ec0::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Args_ { char * a0; char * a1; float a2; float a3; float a4; float a5; };
+    const Args_* a = (const Args_*)__p1;
+    ((*(Obj_**)&this->f_20)->*(*(void (Obj_::**)(char *, char *, float, float, float, float))&this->f_1c))(a->a0, a->a1, a->a2, a->a3, a->a4, a->a5);
+}
+#else
+void Closure6_1f1ec0::vfunc_2(void* __p0, void* __p1, void* __p2) { void ** a = (void **)__p1;
 
     char* x = (char*)*a++;
     char* y = (char*)*a++;
@@ -1524,6 +1541,8 @@ template <> void Closure6<CSoundSystem, void, char *, char *, float, float, floa
     float u = *(float*)a++;
     ((*(CSoundSystem_1f1ec0 * *)&this->f_20)->*(*(void (CSoundSystem_1f1ec0::**)(char *, char *, float, float, float, float))&this->f_1c))(x, y, z, w, v, u);
 }
+#endif
+} // namespace fn_001f1ec0
 
 
 // 0x001f1f60 Closure4<CSoundSystem,void,char_*,char_*,float,float>::vfunc_2 (39 B): equivalent/0x001f1f60.cpp

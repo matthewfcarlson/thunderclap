@@ -1897,12 +1897,31 @@ void* Closure1_8b080::vfunc_0(unsigned int flags) {
 
 
 // 0x0008b0a0 Closure1<CGameFlowManager,void,int>::vfunc_2 (18 B): matches/0x0008b0a0.cpp
-// sym: ?vfunc_2@?$Closure1@VCGameFlowManager@@XH@@UAEXPAX00@Z
+// sym: ?vfunc_2@Closure1_8b0a0@fn_0008b0a0@@QAEXPAX00@Z
 // Same code shape as 0x0002ed90 (propagated; names are from that function)
-template <> void Closure1<CGameFlowManager, void, int>::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; const char ** b = (const char **)__p1; void * c = (void *)__p2;
+// (script2) a plain member of a non-polymorphic record (no stand-in vftable / RTTI natively): was
+// `template <> void Closure1<CGameFlowManager, void, int>::vfunc_2`.
+namespace fn_0008b0a0 {
+struct Closure1_8b0a0 : hulk_script::FunctionGenView {
+    void (::CGameFlowManager::*f_1c)(int);
+    void* f_20;
+    void vfunc_2(void* __p0, void* __p1, void* __p2);
+};
+#if defined(HULK_PTR64)
+// (script2, stop 6) natively: the arguments in their natural layout, the dispatcher 0x001d22a0's native cells
+void Closure1_8b0a0::vfunc_2(void* __p0, void* __p1, void* __p2) {
+    struct Obj_ {};
+    struct Args_ { int a0; };
+    const Args_* a = (const Args_*)__p1;
+    ((*(Obj_**)&this->f_20)->*(*(void (Obj_::**)(int))&this->f_1c))(a->a0);
+}
+#else
+void Closure1_8b0a0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; const char ** b = (const char **)__p1; void * c = (void *)__p2;
 
     ((*(CActorManager_8b0a0 * *)&this->f_20)->*(*(void (CActorManager_8b0a0::**)(const char *))&this->f_1c))(*b);
 }
+#endif
+} // namespace fn_0008b0a0
 
 
 // 0x0008b0c0 FUN_0008b0c0 (76 B): matches/0x0008b0c0.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
