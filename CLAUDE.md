@@ -132,6 +132,9 @@ To call a vftable slot the original loaded before an argument's call (old table,
 include/compat/hulk_vslot.h's hulk_slot / hulk_vcallN, never a local virtual (fix126).
 A pddi/D3D object's status and refcount are separate words: pddiObject is vftable, refcount f_04, status f_08 (natively
 8 and 0xc); a raw `p + 4` / `p + 8` read in the d3d layer is a 32-bit offset: use gen's fields (find3, stop 9).
+Natively the pddi backend's own operator new / delete take the host heap (native_mac's GFX_CXX renames them to
+bgfx_bridge's hulk_gfx_op_*, as wine_link's GFX_CXX does for the Wine image); never route a stand-in's allocation through
+the game's heaps (0x00266e00): they are sized for the game's objects (gfx1).
 pure3d::Entity is 0x14 bytes natively (vftable, count, two name words): views write `void* vftable; int words[3];` or
 `void* vftable; int refs; name`, never `char pad[0x10]`/`pad[8]`; a view of the image registry derives from
 `HulkImageRegistry`. A game name that is another XDK row's name binds through `native_bind.GAME_NAME_ROWS` (D98).
