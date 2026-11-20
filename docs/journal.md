@@ -2022,3 +2022,4 @@ blocks fight::Action's whole family: the records come first there.
     CSoundCommand_SetLoopPitchEvent, Condition.cpp, Track.cpp).
 - 0x00207960 passes its one-byte flag union to 0x00203e90's `bool` natively as `flag.on != 0` (`HULK_PTR64` branch).
   MSVC 7.1 pushes the parameter's whole word, which the 32-bit side keeps.
+- 2026-11-20 (decl1) The two no-prelude iso TUs left out of 67f3d89a8 (unk_0240b0.iso_00027630 and iso_00029010) include compat/ptr.h, as the other iso TUs do, and declare 0x002672f0 with hulk_intptr. A TU marked `(tree_prelude.h: not needed)` has no hulk_intptr, so a generator that writes it there makes the TU fail to compile (`tu_failed`) and materialize refuses its equivalent blocks as unproven.

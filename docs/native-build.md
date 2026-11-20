@@ -6482,3 +6482,5 @@ the literal before writing `sizeof(::Gen)`.
 - 51 files (28 rename TUs, 23 hash files, include/game/global.h, CWorldStreamManager.cpp). Re-proven (MSVC + --wine):
   11 equivalent blocks whose view changed. The x64 gate is ok (whole tree, global.h). The Wine pair and the native
   count are in the commit message.
+
+- decl1 (2026-11-20): the two no-prelude iso TUs now include compat/ptr.h and declare 0x002672f0 with hulk_intptr (code, --wine and view hashes unchanged).
