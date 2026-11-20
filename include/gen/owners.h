@@ -4008,8 +4008,10 @@ struct Obj_ada70 {
 };
 // matches/0x000ae640.cpp (stub C_ae640), size 0x8
 struct C_ae640 {
-    int pad; // +0x00
-    int a; // +0x04
+    // (find3; census1 S6) the controller manager's words: its vftable and its device (pointers; the int view read the
+    // device from the vftable's high half natively, and the game controller's constructor 0x000af110 called it)
+    void* pad; // +0x00
+    hulk_intptr a; // +0x04
     hulk_intptr FUN_000ae640(int i);
 };
 // matches/0x000af0f0.cpp (stub C_af0f0), size 0xd
@@ -4034,13 +4036,13 @@ struct Obj_af650 {
 };
 // matches/0x000afb80.cpp (stub Thing_afb80), size 0x9
 struct Thing_afb80 {
-    char pad[8]; // +0x00
+    void* vftable; int f4; // +0x00 (find3; census1 S7) CHapticController's vftable and f4 (was char pad[8])
     char value; // +0x08
     void FUN_000afb80(char);
 };
 // matches/0x000afdf0.cpp (stub A_afdf0), size 0x5
 struct A_afdf0 {
-    char pad[4]; // +0x00
+    void* vftable; // +0x00 (find3; census1 S7) CHapticControllerManager's vftable (was char pad[4])
     unsigned char flag; // +0x04
     void FUN_000afdf0();
 };
@@ -15437,17 +15439,17 @@ struct C_293e90 {
     void FUN_00293e90(int x);
 };
 // matches/0x00294ed0.cpp (stub Search_294ed0), size 0x44 (0x48)
-struct Search_294ed0 {
-    char pad0[0x38]; // +0x00
-    int count; // +0x38
-    char pad3c[4]; // +0x3c
+struct Search_294ed0 {   // (find3; find2 G11) pure3d::TextureFont's words (TextureFontLoader.cpp; was char pad0[0x38] / pad3c[4])
+    void* vftable; int words[3]; int f10[7]; unsigned int pageCount; void* pages; int defIdx; // +0x00
+    int count; // +0x38 the glyph count
+    void* glyphs; // +0x3c
     unsigned short* values; // +0x40
     int FUN_00294ed0(unsigned short key);
 };
 // matches/0x00295250.cpp (stub C_295250), size 0x38
-struct C_295250 {
-    char pad[0x34]; // +0x00
-    int value; // +0x34
+struct C_295250 {   // (find3; find2 G11) pure3d::TextureFont's words (was char pad[0x34])
+    void* vftable; int words[3]; int f10[7]; unsigned int pageCount; void* pages; // +0x00
+    int value; // +0x34 the default glyph
     bool FUN_00295250(int x);
 };
 // matches/0x002987d0.cpp (stub X_2987d0), size 0x40 (0x50)

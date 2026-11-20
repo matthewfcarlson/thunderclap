@@ -2216,7 +2216,7 @@ extern "C" void FUN_002e9bb0(Thing_2e9bb0* a, void* x, unsigned int n) {
 
 
 // 0x002e9c60 FUN_002e9c60 (861 B): equivalent/0x002e9c60.cpp
-// sym: ?png_handle_zTXt@fn_fb0f1f83@@YAXPAUPngStruct@@PAXI@Z @c5123940e43d @w07c38831191b @v9ff6ff1e7154
+// sym: ?png_handle_zTXt@fn_fb0f1f83@@YAXPAUPngStruct@@PAXI@Z @0ecaf1575fff @w07c38831191b @v9ff6ff1e7154
 // STATUS: equivalent (tools/equiv.py level 3: 1068 inputs, branch coverage 36/38, incomplete)
 // FUN_002e9c60 @ 0x002e9c60
 // libpng png_handle_zTXt (with png_decompress_chunk inlined)

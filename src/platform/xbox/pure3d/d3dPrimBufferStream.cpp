@@ -359,7 +359,6 @@ class d3dPrimBuffer_3277b0 {
     ::pure3d::d3dContext* m38;
 };
 typedef unsigned int U_327800;
-extern int vtd[], vtp[];
 class pddiPrimBuffer {
   public:
     virtual void f0();
@@ -380,19 +379,22 @@ class d3dPrimBuffer : public pddiPrimBuffer {
     virtual void _m_vf12();
     virtual void _m_vf13();
     virtual void _m_vf14();
-    char _m_pad_4[0x28];
-    U_327800 a;
-    union { U_327800 b; void* buffer; };
+    // (find3) gen d3dPrimBuffer's words (was char _m_pad_4[0x28] and 32-bit words for the two buffers)
+    int refs, f08;
+    void* device;
+    int f10, f14;
+    unsigned int f18;
+    int f1c, f20, f24, f28;
+    void* a;   // the index buffer
+    void* buffer;   // the vertex buffer
     char _m_pad_34[0x2];
     uchar locked;
     char _m_pad_37[0x1];
     hulk_uintptr target(int arg);
-    void cleanup();
     d3dPrimBuffer* f3(unsigned char);
 };
-extern void __cdecl helper(U_327800);
-extern void __stdcall release(U_327800);
-extern void __cdecl destroy(d3dPrimBuffer*);
+// (find3) as defined: pddiObject's destructor body 0x0031bae0 (d3dDevice.cpp; `cleanup` had no native definition)
+extern "C" void __fastcall FUN_0031bae0(void* self);
 struct SkinSource_327860 {
     void *FUN_00321da0(const char *name, int index, unsigned int flags, int one);
 };
@@ -939,17 +941,19 @@ d3dPrimBuffer_3277b0::d3dPrimBuffer_3277b0(hulk_intptr arg) {
 // 0x00327800 pure3d::d3dPrimBuffer::vfunc_3 (94 B): matches/0x00327800.cpp
 // sym: ?f3@d3dPrimBuffer@fn_fd8cb2f6@@QAEPAV12@E@Z
 d3dPrimBuffer* d3dPrimBuffer::f3(unsigned char flag) {
-    *(int**)this = vtd;
+    // (find3) the game's vftables by address and the helpers by their own names (`vtd` / `vtp` / `helper` / `release` /
+    // `cleanup` were invented names: natively private variables or missing functions)
+    *(void**)this = (void*)DAT_004334b4;
     if (a) {
-        helper(a);
-        release(a);
+        FUN_0031e210((hulk_intptr)a);
+        D3DResource_Release(a);
     }
-    if (b) {
-        helper(b);
-        release(b);
+    if (buffer) {
+        FUN_0031e210((hulk_intptr)buffer);
+        D3DResource_Release(buffer);
     }
-    *(int**)this = vtp;
-    cleanup();
+    *(void**)this = (void*)DAT_00433424;
+    FUN_0031bae0(this);
     if (flag & 1)
         ::operator delete(this);
     return this;

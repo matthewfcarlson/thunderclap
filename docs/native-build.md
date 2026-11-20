@@ -6247,3 +6247,28 @@ mostly landed (recs1 ec0e69d62, sweep2 1f5b80223 / 517c82262, decl1), but these 
   gen_u64.py's native-only key split in 18 inventory-find views (find2 G4 family). MSVC clean, x64 gate ok (with its
   native compile pass), Wine control 95064 / proof 95404 (HEAD 509f9aa2e) GATE ok.
 - Native mac on the proof's map: unbound 10531 -> 10353, no new names.
+
+### find3, continued: stop 9 (the prim buffer's status) and the controller / haptic / TextureFont owners views
+
+- **Stop 9 (d3dDevice::vfunc_10 0x0031b960 returned null):** the buffer's status slot 2 is pddiObject::vfunc_2
+  0x0031bb20, which returned the raw 32-bit `*(int*)(p + 8)`: natively the reference count f_04 (the vftable is 8
+  bytes), never the status f_08 that 0x0031bac0 sets to 1, so every pddi object reported failure. It reads gen
+  pddiObject::f_08 now. The buffer's deleting destructor 0x00327800 stores the game's vftables 0x004334b4 / 0x00433424
+  by address and calls 0x0031e210, D3DResource_Release and pddiObject's destructor 0x0031bae0 by their own names
+  (`vtd` / `vtp` were invented C++ variables, natively private storage; `helper` / `release` / `cleanup` invented
+  functions), its view on the record's words. The EffectQueue 0x00280120 (CMotionTrail.cpp) is a record: pure3d::Entity's
+  constructor 0x0027b070 by its address name, the game's vftable 0x0042c4dc by address (the block-local polymorphic
+  `Entity_280120` / `EffectQueue` had no native constructor and a clang vftable whose slot `v` was missing).
+- owners.h stubs on the start-up path, which earlier kits fixed privately: C_ae640 (0x000ae640, the controller manager's
+  vftable and device: the device came from the vftable's high half natively; the game controller's constructor called
+  it), Thing_afb80 / A_afdf0 (CHapticController / CHapticControllerManager's vftables), Search_294ed0 / C_295250
+  (0x00294ed0 / 0x00295250: pure3d::TextureFont's words, find2 G11).
+- Checks: every changed matches block MATCH, relocations ok; x64 gate (candidate) ok; whole-tree verify --relocs: 0
+  errors; the mover 0x002e9c60 (D139) re-pinned from the ledger.
+- **Stop 10 (next):** the prim buffer's lock 0x00327190 takes a stream record from the static table DAT_004d3ed0 (four
+  d3dPrimBufferStream objects of 0x54 bytes: vftable, active flag, format, base, counts, element pointers), which
+  config/data.json types as `void*[84]`: natively each 32-bit word became an 8-byte slot, so the record views (
+  Record_327190, Layout_326e90 0x00326e90, the stream's slots 0x00327420..0x00327750) read the vftable from two half
+  words (CDecalQueue then called through 0x...feedfacf). It needs DAT_004d3ed0 typed as four stream records (data_gen)
+  and the stream views on gen's d3dPrimBufferStream; also Record_327190::FUN_00326e90 is declared `(int, int, int, int)`
+  where 0x00326e90 takes `(char*, Format*, unsigned, unsigned)` (missing).

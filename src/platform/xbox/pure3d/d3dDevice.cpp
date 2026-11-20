@@ -445,7 +445,9 @@ namespace fn_f2bbfa1e {
 // sym: ?FUN_0031bb20@fn_f2bbfa1e@@YIHPAX@Z
 // Same code shape as 0x00086320 (propagated; names are from that function)
 int __fastcall FUN_0031bb20(void* p) {
-    return *(int*)((char*)p + 8);
+    // (find3) pddiObject's status word f_08 (0x0031bac0 sets it to 1): the raw 32-bit +8 is the reference count f_04
+    // natively (the vftable is 8 bytes), so every pddi object reported failure (d3dDevice::vfunc_10 0x0031b960)
+    return ((::pure3d::pddiObject*)p)->f_08;
 }
 
 } // namespace fn_f2bbfa1e

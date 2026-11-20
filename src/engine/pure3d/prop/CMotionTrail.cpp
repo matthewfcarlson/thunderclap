@@ -369,17 +369,22 @@ class Object {
     float value;
     void FUN_002a3be0(int, float);
 };
+// (find3) pure3d::Entity's constructor 0x0027b070 by its address name and the game's EffectQueue vftable 0x0042c4dc by
+// address: the block-local polymorphic stand-ins had no native definitions (`Entity_280120()`, `v`), so natively the
+// queue got clang's vftable and the manager 0x00283900's AddRef (slot 0) was missing
+extern "C" char DAT_0042c4dc[];
 class Entity_280120 {
   public:
-    Entity_280120();
-    virtual void v();
+    void* vftable;
+    int refs;   // pure3d::Entity: the count and the two name words (0x14 bytes natively)
+    int name[2];
+    void FUN_0027b070();
+    Entity_280120() { FUN_0027b070(); }
 };
 class EffectQueue : public Entity_280120 {
   public:
-    char pad[12];
     int one;
     char rest[0x60 - 0x14];
-    virtual void v();
     EffectQueue();
 };
 class Item_280160 {
@@ -1493,6 +1498,7 @@ void __stdcall FUN_0027fff0(Object* object, float value) {
 // 0x00280120 FUN_00280120 (56 B): matches/0x00280120.cpp
 // sym: ??0EffectQueue@fn_f4890d4c@@QAE@XZ
 EffectQueue::EffectQueue() {
+    vftable = (void*)DAT_0042c4dc;
     one = 1;
     int* p = (int*)(&rest[0x4c]);
     for (int i = 0; i < 100; ++i) {
