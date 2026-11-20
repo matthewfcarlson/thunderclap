@@ -72,7 +72,9 @@ with `merge=union`; to seed many blocks, harvest committed checkers' reports and
 fixed commit (build/integ2/scripts/seed.py) (D84). Build a Wine proof workspace only after the last `hash --proven`:
 materialize fails on a stale code hash, and only after ~20 minutes (D92).
 A function only a 64-bit branch defines is named `FUN_<addr>`; native_mac and native_unbound bind callers to it by that
-address, and 64-bit-only thunks call their targets by the targets' own names (D35).
+address, and 64-bit-only thunks call their targets by the targets' own names (D35). Several definitions sharing one
+name in a TU (overloads `target(...)`) have no unique 64-bit symbol, so nothing binds to them by address natively:
+name each `FUN_<addr>` (decl1, 0x00086380).
 `regress.py --jobq` ships every dirty file (read a failure's cause before blaming your own change) and submits 2-slot
 jobs, which starve behind low-priority 1-slot work.
 An interactive zsh does not word-split `$VAR`: build `jobq.py submit --files $F` lists inside `sh` scripts (an unsplit
