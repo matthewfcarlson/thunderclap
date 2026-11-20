@@ -153,7 +153,12 @@ an include/ header declares the name, use its prototype exactly (clang rejects a
 where MSVC 7.1 sees `int` both times). An int that the definition receives as a pointer is retyped on the definition and
 on every caller in one change (`hulk_intptr`/`hulk_uintptr` keep the 32-bit type and mangling; a field that stores it is
 retyped too), or the callers still saying `int` stop binding. A binding fix can expose a 32-bit literal allocation
-size to the x64 gate: write `sizeof(record)` (decl1).
+size to the x64 gate: write `sizeof(record)` (decl1). Before writing `sizeof(::Gen)` for an allocation, compare gen's
+32-bit size with the literal: gen can be larger than the object (physics::CollisionSphere is 0x78 in gen, its constructor
+writes 0x48 and every allocation is 0x48); then use the decls record, and fix gen. A constructor view that pads
+fight::Track's words (`char pad[8]` after the vftable) puts the derived fields 4 bytes early natively: spell Track's
+`void*` and `int`. `tree_tu.py pin` without records resolves a block by name and can pick another function of the TU:
+after moving a block's function into a local record, pin with `--records` naming the definition's own symbol (sweep3).
 Script bindings (Function / Method<N> / Closure<N>) use include/game/script_bind.h's records (`hulk_script::ScriptFunction`,
 `ScriptMethodN`, `ScriptClosure`, or a TU-local `VftOf` trait) with the game's vftables by address, never a local `virtual`
 stand-in; their constructors are `throw()` so /GX TUs add no unwind frame. Measure native unbound on the proof's own
