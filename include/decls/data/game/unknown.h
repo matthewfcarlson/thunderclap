@@ -18,7 +18,6 @@ typedef const void* const* hulk_vftable_ptr;  // a pointer to a vftable
 #endif
 
 struct DataLayout_00400520;  // packed layout (bytes and pointers), defined in the data TU
-struct DataLayout_0048e128;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_0049ceb0;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_004dd930;  // packed layout (bytes and pointers), defined in the data TU
 #include "decls/data/records.h"
@@ -163,10 +162,7 @@ extern "C" float DAT_0048e074[4];  // fltTbl_0048e074
 extern "C" int DAT_0048e084;
 extern "C" int DAT_0048e088;
 extern "C" int DAT_0048e08c;
-extern "C" unsigned char DAT_0048e0e5[2];  // unk_0048e0e5
-extern "C" unsigned char DAT_0048e0e7[5];  // zero_0048e0e7
-extern "C" unsigned int DAT_0048e0ec[1];  // unk_0048e0ec
-extern "C" DataLayout_0048e128 DAT_0048e128;  // struct_0048e128
+extern "C" char DAT_0048e128;  // ??_R0.M@8
 extern "C" unsigned char DAT_004dc038[8];
 extern "C" unsigned char DAT_004dc040[4];
 extern "C" unsigned char DAT_004dc044[4];

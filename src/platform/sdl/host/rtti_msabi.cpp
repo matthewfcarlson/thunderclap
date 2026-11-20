@@ -92,12 +92,68 @@ std::string unwrapped(const char* s) {
     return out;
 }
 
+// (gfx1) a decorated type name without the pointer-width qualifier: natively clang's `typeid(char*)` is `.PEAD` (the
+// `E` is __ptr64), the game's descriptor (a 32-bit name, config/data.json rtti_td) `.PAD`. Only an `E` right after a
+// pointer or reference code is dropped, by walking the type's grammar (the built-in codes, pointers / references with
+// their cv letter, classes / structs / unions / enums up to `@@`); a name the walk does not cover entirely is returned
+// unchanged, so every other comparison stays exact.
+static bool ptr64_type(const char*& p, std::string& out) {
+    char c = *p;
+    if (c == 'P' || c == 'Q' || c == 'R' || c == 'S' || c == 'A' || c == 'B') {   // pointer / reference
+        out += *p++;
+        if (*p == 'E')
+            p++;                                   // __ptr64
+        if (*p < 'A' || *p > 'D')                  // the pointee's cv (A none, B const, C volatile, D both)
+            return false;
+        out += *p++;
+        return ptr64_type(p, out);
+    }
+    if (c == '_') {                                // _N bool, _J / _K 64-bit, _W wchar_t
+        if (!p[1])
+            return false;
+        out += *p++;
+        out += *p++;
+        return true;
+    }
+    if (c == 'V' || c == 'U' || c == 'T' || c == 'W') {   // class, struct, union; W4: enum
+        const char* end = strstr(p, "@@");
+        if (!end)
+            return false;
+        out.append(p, end + 2 - p);
+        p = end + 2;
+        return true;
+    }
+    if ((c >= 'C' && c <= 'O') || c == 'X') {       // the built-in types (char .. long double, void)
+        out += *p++;
+        return true;
+    }
+    return false;
+}
+
+std::string ptr64_free(const char* s) {
+    std::string out;
+    const char* p = s;
+    if (*p != '.')
+        return s;
+    out += *p++;
+    if (p[0] == '?' && p[1] == 'A') {               // a class's own descriptor: ".?AV...@@"
+        out += *p++;
+        out += *p++;
+    }
+    if (!ptr64_type(p, out) || *p)
+        return s;
+    return out;
+}
+
 bool same_type(const TypeDescriptor* a, const TypeDescriptor* b) {
     if (a == b)
         return true;
     if (!a || !b)
         return false;
     if (strcmp(a->name, b->name) == 0)
+        return true;
+    if ((strstr(a->name, "PE") || strstr(b->name, "PE") || strstr(a->name, "AE") || strstr(b->name, "AE") ||
+         strstr(a->name, "QE") || strstr(b->name, "QE")) && ptr64_free(a->name) == ptr64_free(b->name))
         return true;
     return (strstr(a->name, "@fn_") || strstr(b->name, "@fn_")) && unwrapped(a->name) == unwrapped(b->name);
 }

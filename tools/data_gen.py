@@ -953,6 +953,14 @@ def write_decls(model, tus):
                     # (the same declaration twice is legal), so the per-function sources that include the old
                     # directory's header still compile
                     by_hdr[(it["layer"], "unknown")].append((it, decl.get(it["cname"])))
+    # (gfx1) the descriptors of non-class types (rtti_td items without a class: `.PAD`, `._N`, ...) are the link's (type
+    # descriptors, natively 64-bit ones), but the sources name them by address: declared here as before they were
+    # code-owned (a char each: the sources take their address)
+    for it in model.items:
+        if it["kind"] == "rtti_td" and not re.match(r"\?\?_R0\.\?A[UV]", it["name"]) and it.get("object") and \
+                it.get("layer") in ("game", "engine", "platform/xbox"):
+            d = os.path.dirname(it["object"]) or "root"
+            by_hdr[(it["layer"], d)].append((dict(it, cname="DAT_%08x" % it["addr"]), "char DAT_%08x" % it["addr"]))
     written = []
     for (layer, d), rows in sorted(by_hdr.items()):
         path = os.path.join(DECLS, layer, d + ".h")

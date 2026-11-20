@@ -584,6 +584,19 @@ class Inventory:
             m = c["mangled"]                         # .?AVFoo@ns@@
             put(c["td"], (8 + len(m) + 1 + 3) & ~3, "rtti_td", name="??_R0%s@8" % m, type="TypeDescriptor",
                 cls=c["name"])
+        # (gfx1) the descriptors of types that are not classes (the built-in types, pointers to them, enums, pointers to
+        # classes: `typeid(char*)` is `.PAD`): no class lists them, but code compares them by address (the script
+        # bindings' argument codes, 0x001d04d0). They are type descriptors too (type_info's vftable, a null spare, the
+        # decorated name), so natively the link emits them as 64-bit descriptors, not raw 32-bit bytes
+        hi_td = self.bss_lo
+        for a_ in range(self.lo, hi_td - 12, 4):
+            if a_ in seen or self.u32(a_) != ti or self.u32(a_ + 4) != 0:
+                continue
+            o = a_ + 8 - self.lo
+            end = self.img.find(b"\0", o, o + 256)
+            m = bytes(self.img[o:end]).decode("latin1") if end > o else ""
+            if re.fullmatch(r"\.[A-Za-z0-9_?$@]+", m):
+                put(a_, (8 + len(m) + 1 + 3) & ~3, "rtti_td", name="??_R0%s@8" % m, type="TypeDescriptor")
         for c in rtti["classes"]:
             core = c["mangled"][4:]                   # Foo@ns@@
             for v in c["vtables"]:

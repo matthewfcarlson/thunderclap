@@ -20,18 +20,10 @@ typedef const void* const* hulk_vftable_ptr;  // a pointer to a vftable
 struct DataLayout_003ffde0;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_004061e8;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_00406a54;  // packed layout (bytes and pointers), defined in the data TU
-struct DataLayout_0048e0f0;  // packed layout (bytes and pointers), defined in the data TU
-struct DataLayout_0048e100;  // packed layout (bytes and pointers), defined in the data TU
-struct DataLayout_0048e134;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_00496168;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_0049b6b4;  // packed layout (bytes and pointers), defined in the data TU
-struct DataLayout_0049b95c;  // packed layout (bytes and pointers), defined in the data TU
-struct DataLayout_0049cad8;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_004a0658;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_004c3c18;  // packed layout (bytes and pointers), defined in the data TU
-struct DataLayout_004c5ca0;  // packed layout (bytes and pointers), defined in the data TU
-struct DataLayout_004c5cbc;  // packed layout (bytes and pointers), defined in the data TU
-struct DataLayout_004c5d10;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_004de658;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_004de660;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_004de668;  // packed layout (bytes and pointers), defined in the data TU
@@ -428,10 +420,10 @@ extern "C" const unsigned int DAT_0043f518[1];  // zero_0043f518
 extern "C" const unsigned int DAT_0043f564[1];  // zero_0043f564
 extern "C" const unsigned int DAT_0043f5e4[1];  // zero_0043f5e4
 extern "C" const unsigned int DAT_0043f62c[1];  // zero_0043f62c
-extern "C" char DAT_0048e0e4;  // tbl_0048e0e4
-extern "C" DataLayout_0048e0f0 DAT_0048e0f0;  // struct_0048e0f0
-extern "C" DataLayout_0048e100 DAT_0048e100;  // struct_0048e100
-extern "C" DataLayout_0048e134 DAT_0048e134;  // struct_0048e134
+extern "C" char DAT_0048e0e4;  // ??_R0._N@8
+extern "C" char DAT_0048e0f0;  // ??_R0.PBD@8
+extern "C" char DAT_0048e100;  // ??_R0.X@8
+extern "C" char DAT_0048e134;  // ??_R0.H@8
 extern "C" unsigned int DAT_0048e384[1];  // zero_0048e384
 extern "C" unsigned int DAT_0048ed74[1];  // zero_0048ed74
 extern "C" unsigned int DAT_0048f4e4[1];  // zero_0048f4e4
@@ -576,7 +568,7 @@ extern "C" float DAT_0049b8e0;  // flt_0049b8e0
 extern "C" float DAT_0049b8e4;  // flt_0049b8e4
 extern "C" float DAT_0049b8e8;  // flt_0049b8e8
 extern "C" float DAT_0049b8ec;  // flt_0049b8ec
-extern "C" DataLayout_0049b95c DAT_0049b95c;  // struct_0049b95c
+extern "C" char DAT_0049b95c;  // ??_R0.I@8
 extern "C" unsigned int DAT_0049bc64[1];  // zero_0049bc64
 extern "C" unsigned int DAT_0049be3c[1];  // zero_0049be3c
 extern "C" float DAT_0049bf0c[4];  // fltTbl_0049bf0c
@@ -4817,10 +4809,7 @@ extern "C" const unsigned int DAT_00478b58[1];  // zero_00478b58
 extern "C" const unsigned int DAT_00478ba4[1];  // zero_00478ba4
 extern "C" const unsigned int DAT_00478bf0[1];  // zero_00478bf0
 extern "C" const unsigned int DAT_00478c40[1];  // zero_00478c40
-extern "C" char DAT_004c55f0;  // tbl_004c55f0
-extern "C" unsigned char DAT_004c55f1[2];  // unk_004c55f1
-extern "C" unsigned char DAT_004c55f3[5];  // zero_004c55f3
-extern "C" char DAT_004c55f8[30];  // s_AW4eMissionObjective_004c55f8
+extern "C" char DAT_004c55f0;  // ??_R0.?AW4eMissionObjectiveState@@@8
 extern "C" unsigned int DAT_004c58e4[1];  // zero_004c58e4
 extern "C" unsigned int DAT_004c5c14[1];  // zero_004c5c14
 extern "C" float DAT_004c5c90[4];  // fltTbl_004c5c90
@@ -5732,7 +5721,7 @@ extern "C" const unsigned int DAT_0044f9d4[1];  // zero_0044f9d4
 extern "C" const unsigned int DAT_0044fa20[1];  // zero_0044fa20
 extern "C" const unsigned int DAT_0044fa6c[1];  // zero_0044fa6c
 extern "C" const unsigned int DAT_0044fab0[1];  // zero_0044fab0
-extern "C" DataLayout_0049cad8 DAT_0049cad8;  // struct_0049cad8
+extern "C" char DAT_0049cad8;  // ??_R0.PAD@8
 extern "C" float DAT_0049ce44[4];  // fltTbl_0049ce44
 
 // global/CSubtitleManager.cpp
@@ -6785,8 +6774,9 @@ extern "C" unsigned char DAT_004e09ec[12];
 // global/Function.cpp
 extern "C" const float DAT_004223ac[7];  // fltTbl_004223ac
 extern "C" const unsigned int DAT_00478cb4[1];  // zero_00478cb4
-extern "C" DataLayout_004c5ca0 DAT_004c5ca0;  // struct_004c5ca0
-extern "C" DataLayout_004c5cbc DAT_004c5cbc;  // struct_004c5cbc
+extern "C" char DAT_004c5ca0;  // ??_R0.PBVCCharacter@@@8
+extern "C" char DAT_004c5cbc;  // ??_R0.PAVCCharacter@@@8
+extern "C" float DAT_004c5cd8[8];  // fltTbl_004c5cd8
 
 // global/HSlider_2.cpp
 extern "C" const char DAT_0040c478[2];  // s_empty_0040c478
@@ -7390,7 +7380,7 @@ extern "C" const unsigned int DAT_00479078[1];  // zero_00479078
 extern "C" const char* DAT_004c5cf8;  // PTR_004c5cf8
 extern "C" int DAT_004c5cfc;
 extern "C" float DAT_004c5d00[4];  // fltTbl_004c5d00
-extern "C" DataLayout_004c5d10 DAT_004c5d10;  // struct_004c5d10
+extern "C" char DAT_004c5d10;  // ??_R0.?AW4script_state@ScriptHandler@@@8
 extern "C" unsigned int DAT_004c5fcc[1];  // zero_004c5fcc
 extern "C" void* DAT_004e23cc[1];
 
