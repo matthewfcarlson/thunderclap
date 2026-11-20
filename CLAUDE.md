@@ -29,7 +29,8 @@ for the plan. Run everything from the repo root with `build/venv/bin/python`.
   venv, extracted disc, generated data TUs).
 - Retired: the model farm (archived 2026-11-13, last commit with `farm/` ac307cc62; its MSVC 7.1 pitfall recipes are
   `docs/msvc71-pitfalls.md`), `hybrid/` (now only hooks for recording sessions in xemu on the hook-only XBE,
-  docs/tasks/record-replay.md "The recording build"; patching our functions into the XBE is retired), build_tree's
+  docs/tasks/record-replay.md "The recording build"; patching our functions into the XBE is retired); a recording's VM snapshots hold the hooks it was recorded with, so probe references come from replays
+  from boot (`hybrid_test.py replay --syncio --ckref`, about 50 min for play3; docs/checkpoints.md), build_tree's
   generation of the tree from per-function sources (its compile/check code is still used), the per-function briefs
   (`docs/agents/`, removed 2026-11-18), most of `docs/tasks/` (historical: they describe the pre-flip
   `matches/`/`equivalent/` workflow) and the fine-tuning/dataset lane (D124; last state b365e7087).
@@ -299,7 +300,7 @@ Terms: the *Wine build* is the 32-bit clang image run under Wine (`tools/wine_*.
 ## Hard rules
 
 - **Never commit game assets or derived game content**: ISO/XBE/RCF, `build/`, `*.sqlite`, BIOS/MCPX/HDD images,
-  captures, RAM dumps, Lua script content, game shader bytes, disassembly listings, game screenshots. The data files
+  captures, RAM dumps, Lua script content, game shader bytes, disassembly listings, game screenshots, checkpoint references (`build/ckpt/*.ckref`). The data files
   are generated locally from the player's own XBE. Never commit `farm/endpoints.json` or `.env.local` (farm/ is gitignored since it was archived). Check
   `git ls-files` and `git diff --cached --stat` before pushing.
 - **Clean-room.** Never use or look at leaked source (Simpsons: Hit & Run, which shares the engine) or leaked XDK
