@@ -209,6 +209,8 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
 - **Stale inputs**: the data TUs (`build/data/src`), `hulk_sdl.lib`, `hulk_movies.lib` and the pddi-win32 objects are local,
   generated inputs; `submit` and the host refuse stale ones (`tools/input_guard.py status` shows what submit would decide).
   A control and its proof take the same inputs (`--data-src` / `--sdl-src` for private copies); `--allow-stale` is not a fix.
+  The shared generated inputs (build/data, build/third_party/out, the sdl/movies libs) are rebuilt only from HEAD; build
+  from uncommitted edits into a private dir under build/<agent>/ (gfx1 blocked other lanes' Wine pairs, 11-19).
 - **Native builds**: `tools/native_mac.py` / `tools/native_elf.py` (`docs/native-build.md`, `docs/native-mac.md`,
   `docs/native-android.md`). The link refuses a compile report with a failed tree or data TU (`--allow-compile-failures`
   only for diagnosis). The unbound names (~22k per target) are fixed in source by root cause, never by a link-time redirect
