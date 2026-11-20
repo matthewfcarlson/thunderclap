@@ -159,7 +159,9 @@ All declarations of one C name in a TU are one function: write one `extern "C"` 
 an include/ header declares the name, use its prototype exactly (clang rejects a differing redeclaration natively even
 where MSVC 7.1 sees `int` both times). An int that the definition receives as a pointer is retyped on the definition and
 on every caller in one change (`hulk_intptr`/`hulk_uintptr` keep the 32-bit type and mangling; a field that stores it is
-retyped too), or the callers still saying `int` stop binding. A binding fix can expose a 32-bit literal allocation
+retyped too), or the callers still saying `int` stop binding. A TU marked `(tree_prelude.h: not needed)` (most iso_
+TUs) has no `hulk_intptr`/`hulk_uintptr`/`hulk_freg`: an edit that writes them there adds `#include "compat/ptr.h"`
+after that line, or the TU fails (`tu_failed`, which a summary of matches statuses misses) (decl1). A binding fix can expose a 32-bit literal allocation
 size to the x64 gate: write `sizeof(record)` (decl1). Before writing `sizeof(::Gen)` for an allocation, compare gen's
 32-bit size with the literal: gen can be larger than the object (physics::CollisionSphere is 0x78 in gen, its constructor
 writes 0x48 and every allocation is 0x48); then use the decls record, and fix gen. A constructor view that pads
