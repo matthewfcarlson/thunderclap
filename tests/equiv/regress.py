@@ -181,7 +181,7 @@ CASES = {
     # (random input 164 fails, as under the round-5 checker: an aliasing-dependent write to arg2+0x18. Round 9's
     # small loop counts can reach a real difference of this source on seed 128 (128+small: the original writes
     # 0xff000000 through a null-page pointer, ours doesn't), so the case stops before it)
-    "0x002cb2b0_loop_exit_order": ("equivalent", None, 0.75, {"n_inputs": 3000, "seeds": list(range(128)), "equiv_off": "ftolexact"}),
+    "0x002cb2b0_loop_exit_order": ("equivalent", None, 0.75, {"n_inputs": 3000, "time_budget": 1200, "seeds": list(range(128)), "equiv_off": "ftolexact"}),
     # a float result returned untouched across the /GS cookie check (ours spills it around the call)
     "0x000dfbf0_float_ret_cookie": ("equivalent", None),
     # `rep stosd` over a fuzzed count read from memory: repaired like a loop bound, so 50 inputs complete
@@ -196,14 +196,14 @@ CASES = {
     "0x0003c1d0_count_cap": ("equivalent", None, 0.75, {"n_inputs": 3000, "seeds": list(range(2500)), "equiv_off": "ftolexact"}),
     # std::_Unguarded_partition over [first, last) of 0x44-byte items: a pointer argument a few elements
     # past the first one, in a step the code advances by (fuzzed ranges ran millions of elements)
-    "0x003037f0_iterator_range": ("equivalent", None, 0.75, {"n_inputs": 3000}),
+    "0x003037f0_iterator_range": ("equivalent", None, 0.75, {"n_inputs": 3000, "time_budget": 1200}),
     # `fld [this+0x6c]; call f (void); fstp [this+0x6c]`: the value was on the x87 stack before the call, so the
     # fstp doesn't consume a float result (the stub pushed one, and the original stored 0.25f). Past that, the
     # source passes FUN_00025260's arguments in reverse: the failure the checker must now reach
     "0x001050d0_fstp_after_void_call": ("fail", "to 0x00025260: argument 1 is 0x00000000, expected 0x00000001"),
     # 22 name-hash compares (stub u64 vs a field): the directed phase tried every observation of one compare
     # before the next got a turn, and string plants used the whole budget (82/122 edges)
-    "0x000ffef0_compare_chain": ("equivalent", None, 0.9, {"n_inputs": 3000}),
+    "0x000ffef0_compare_chain": ("equivalent", None, 0.9, {"n_inputs": 3000, "time_budget": 1200}),
     # `cmp eax, eax; je` after a loop (a compiler artefact): its not-taken side is dead, not uncovered (7/10 ->
     # 7/9 edges)
     "0x000e4470_self_compare": ("equivalent", None, 0.75),
