@@ -123,7 +123,7 @@ class Arg_af310 {
 void* operator new(size_t);
 namespace fn_fb9e703c {
 struct CGameController_af310 {
-    Controller_af310* Build_000af110(int);
+    Controller_af310* Build_000af110(void*);   // (gfx1) as defined (0x000af110 takes the Arg as a pointer; int did not bind natively)
 };
 // (x64t9-mgr) include/decls/managers.h's HulkGameControllerManager (8 bytes in the XBE: the vftable and the
 // controller; the unused flag at 8 that made this view 12 bytes is gone)
@@ -204,7 +204,7 @@ CGameControllerManager_af310* CGameControllerManager_af310::ctor(Arg_af310* a) {
     void* p = operator new(sizeof(CGameController_af110));   // (allocsize1) the controller by its record (the constructor 0x000af110 above)
     Controller_af310* c;
     if (p) {
-        c = ((CGameController_af310*)p)->Build_000af110(((int)((owners::C_ae640 *)a)->FUN_000ae640(0)));
+        c = ((CGameController_af310*)p)->Build_000af110((void*)((owners::C_ae640 *)a)->FUN_000ae640(0));
     } else
         c = 0;
     controller = c;

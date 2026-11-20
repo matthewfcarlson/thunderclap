@@ -7854,6 +7854,7 @@ public:
     int f_222c;
     void* f_2230;
     void* f_2234;
+    int f_2238;  // (gfx1) the object's last word: 0x000fc060 allocates 0x223c bytes
 };
 
 // .?AVParseFunctor@FEThingsBase@@  vftable 0x40bfb8 (1)

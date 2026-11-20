@@ -580,7 +580,7 @@ extern "C" void FUN_000fc020(hulk_uintptr a, U_fc020 b, hulk_uintptr c, ...) {
 // (decl1) the file name, the controllers, the sound manager and the View are pointers (int truncated them natively);
 // the two constructors are called by their addresses (local constructors had no definition natively)
 extern "C" void FUN_000fc060(const char* a1, void* a2, void* a3, void* a4) {
-    void* mem = FUN_0008d690(0x223c);
+    void* mem = FUN_0008d690(sizeof(::FEThings));   // (gfx1) gen FEThings (0x223c on the 32-bit builds)
     FEThings_fc060* mgr = 0;
     if (mem)
         mgr = ((FEThings_fc060*)mem)->FUN_000ddbf0(a4);

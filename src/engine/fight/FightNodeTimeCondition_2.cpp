@@ -106,9 +106,10 @@ class Item_2365b0 {
     virtual void First();
     virtual void Second();
 };
-class Owner_2365b0 {
-  public:
-    char pad[0x10];
+class Owner_2365b0 {           // (gfx1) a fight node: pure3d::Entity's words (vftable, count, name), then the next node
+  public:                       // (unk_232780's Node view: natively at 0x18, where a 32-bit pad[0x10] put it at 0x10)
+    void* vftable;
+    int words[3];
     Item_2365b0* item;
     void Set(Item_2365b0* p);
 };

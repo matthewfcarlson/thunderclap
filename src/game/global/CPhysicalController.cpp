@@ -20,7 +20,7 @@ struct Obj_b0ff0 {
     void Clear();
 };
 void __cdecl thunk_FUN_00267090(void *p);
-void *__cdecl FUN_0008d750(int size, int align);
+void *__cdecl FUN_0008d750(hulk_intptr size, int align);   // (gfx1) as defined (unk_08ceb0.cpp): the size is pointer-sized
 extern "C" int __cdecl FUN_00267760(char *buf, int size, const char *fmt, ...);
 extern void Ensure(int);
 extern void Copy_00267830(void*, const void*, unsigned int);
