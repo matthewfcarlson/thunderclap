@@ -52,9 +52,9 @@ void bgfxExtHardwareSkinning::vfunc_5(int bone, const float* matrix)
         return;
     const float* mv = m_context->worldMatrix();
 #if HULK_PDDI_GAME
-    const uint32_t* stack = *(const uint32_t* const*)((const char*)m_context + 0x20);
+    const GameMatrixStack* stack = *(const GameMatrixStack* const*)((const char*)m_context + kBaseStacks);
     if (stack)
-        mv = (const float*)(uintptr_t)stack[3] + 16 * stack[2];
+        mv = (const float*)stack->matrices + 16 * stack->top;
 #endif
     float r[16], t[12];
     for (int i = 0; i < 4; i++)

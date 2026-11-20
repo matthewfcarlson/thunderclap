@@ -39,11 +39,33 @@
 
 #if HULK_PDDI_GAME && defined(_WIN32)
 
+#if HULK_PDDI_NATIVE
+// The native builds (aarch64-pc-windows-msvc, retargeted: tools/native_mac.py --gfx): bgfx is the host's, behind the C
+// bridge (bgfx_bridge.h), and the few Win32 calls below are the host's subset (src/platform/sdl/host/win32_posix.cpp)
+#include "bgfx_bridge.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+extern "C" void hulk_host_ExitProcess(unsigned int code);
+extern "C" int hulk_host_QueryPerformanceCounter(void* count);
+extern "C" int hulk_host_QueryPerformanceFrequency(void* freq);
+extern "C" void hulk_host_Sleep(unsigned int ms);
+typedef unsigned int DWORD;
+typedef union { long long QuadPart; } LARGE_INTEGER;
+#define ExitProcess hulk_host_ExitProcess
+#define QueryPerformanceCounter hulk_host_QueryPerformanceCounter
+#define QueryPerformanceFrequency hulk_host_QueryPerformanceFrequency
+#define Sleep hulk_host_Sleep
+#define YieldProcessor() ((void)0)
+#define PDDI_PATH_SEP "/"
+#else
 #include <bgfx/bgfx.h>        // the bgfx sink's init callback and renderer choice (the rest goes through draw_sink.h)
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <windows.h>
+#define PDDI_PATH_SEP "\\"
+#endif
 
 #include "../platform_events.h"
 
@@ -57,6 +79,61 @@ static void traceSink(const char* line)
     hulk_native_log(line);
 }
 
+// TGA, 32-bit BGRA, top-left origin; logs the centre and a corner pixel (the check a test reads back)
+static void writeScreenshot(const char* path, uint32_t w, uint32_t h, uint32_t pitch, bool bgra, const void* data,
+                            bool yflip)
+{
+    const unsigned char* px = (const unsigned char*)data;
+    FILE* f = fopen(path, "wb");
+    if (f) {
+        unsigned char hdr[18] = {0, 0, 2};
+        hdr[12] = w & 255; hdr[13] = (w >> 8) & 255; hdr[14] = h & 255; hdr[15] = (h >> 8) & 255;
+        hdr[16] = 32; hdr[17] = 0x28;
+        fwrite(hdr, 18, 1, f);
+        unsigned char* row = (unsigned char*)malloc(w * 4);
+        for (uint32_t y = 0; y < h; y++) {
+            const unsigned char* p = px + (yflip ? h - 1 - y : y) * pitch;
+            for (uint32_t x = 0; x < w; x++, p += 4) {
+                row[x * 4 + 0] = bgra ? p[0] : p[2];
+                row[x * 4 + 1] = p[1];
+                row[x * 4 + 2] = bgra ? p[2] : p[0];
+                row[x * 4 + 3] = p[3];
+            }
+            fwrite(row, w * 4, 1, f);
+        }
+        free(row);
+        fclose(f);
+    }
+    const unsigned char* c = px + (yflip ? h - 1 - h / 2 : h / 2) * pitch + (w / 2) * 4;
+    logf("pddi: screenshot %s %ux%u centre rgb %u,%u,%u\n", path, w, h, bgra ? c[2] : c[0], c[1],
+         bgra ? c[0] : c[2]);
+    const SelfTestProbe* probes;
+    int n = selfTestProbes(&probes);
+    if (n) {
+        int ok = selfTestCheck(px, w, h, pitch, bgra, yflip, traceSink);
+        logf("pddi: self-test probes %d of %d -> %s\n", ok, n, ok == n ? "PASS" : "FAIL");
+    }
+}
+
+#if HULK_PDDI_NATIVE
+// bgfx's callback interface is the bridge's host half (bgfx_bridge.cpp); it calls these (the Callback below on Wine)
+static void cbLog(const char* text)
+{
+    logf("%s", text);
+}
+static void cbFatal(const char* file, uint32_t line, uint32_t code, const char* str)
+{
+    logf("pddi: bgfx fatal %s:%u code %d: %s\n", file, line, (int)code, str);
+    stubReport();
+    ExitProcess(3);
+}
+static void cbScreenshot(const char* path, uint32_t w, uint32_t h, uint32_t pitch, uint32_t bgra, const void* data,
+                         uint32_t yflip)
+{
+    writeScreenshot(path, w, h, pitch, bgra != 0, data, yflip != 0);
+}
+static const hulk_gfx_callbacks s_callback = {cbLog, cbFatal, cbScreenshot};
+#else
 struct Callback : bgfx::CallbackI {
     void fatal(const char* file, uint16_t line, bgfx::Fatal::Enum code, const char* str) override
     {
@@ -81,45 +158,15 @@ struct Callback : bgfx::CallbackI {
     void captureBegin(uint32_t, uint32_t, uint32_t, bgfx::TextureFormat::Enum, bool) override {}
     void captureEnd() override {}
     void captureFrame(const void*, uint32_t) override {}
-    // TGA, 32-bit BGRA, top-left origin; logs the centre and a corner pixel (the check a test reads back)
     void screenShot(const char* path, uint32_t w, uint32_t h, uint32_t pitch, bgfx::TextureFormat::Enum fmt,
                     const void* data, uint32_t, bool yflip) override
     {
-        const unsigned char* px = (const unsigned char*)data;
-        bool bgra = fmt != bgfx::TextureFormat::RGBA8;
-        FILE* f = fopen(path, "wb");
-        if (f) {
-            unsigned char hdr[18] = {0, 0, 2};
-            hdr[12] = w & 255; hdr[13] = (w >> 8) & 255; hdr[14] = h & 255; hdr[15] = (h >> 8) & 255;
-            hdr[16] = 32; hdr[17] = 0x28;
-            fwrite(hdr, 18, 1, f);
-            unsigned char* row = (unsigned char*)malloc(w * 4);
-            for (uint32_t y = 0; y < h; y++) {
-                const unsigned char* p = px + (yflip ? h - 1 - y : y) * pitch;
-                for (uint32_t x = 0; x < w; x++, p += 4) {
-                    row[x * 4 + 0] = bgra ? p[0] : p[2];
-                    row[x * 4 + 1] = p[1];
-                    row[x * 4 + 2] = bgra ? p[2] : p[0];
-                    row[x * 4 + 3] = p[3];
-                }
-                fwrite(row, w * 4, 1, f);
-            }
-            free(row);
-            fclose(f);
-        }
-        const unsigned char* c = px + (yflip ? h - 1 - h / 2 : h / 2) * pitch + (w / 2) * 4;
-        logf("pddi: screenshot %s %ux%u centre rgb %u,%u,%u\n", path, w, h, bgra ? c[2] : c[0], c[1],
-             bgra ? c[0] : c[2]);
-        const SelfTestProbe* probes;
-        int n = selfTestProbes(&probes);
-        if (n) {
-            int ok = selfTestCheck(px, w, h, pitch, bgra, yflip, traceSink);
-            logf("pddi: self-test probes %d of %d -> %s\n", ok, n, ok == n ? "PASS" : "FAIL");
-        }
+        writeScreenshot(path, w, h, pitch, fmt != bgfx::TextureFormat::RGBA8, data, yflip);
     }
 };
 
 static Callback s_callback;
+#endif
 static void* s_window;
 static bgfxDisplay* s_display;
 static unsigned s_shots[16], s_shotCount, s_drawlogLast, s_exitAfter;
@@ -134,6 +181,9 @@ static bool s_drawlogDumped;
 static int rendererFromEnv()
 {
     const char* r = getenv("HULK_GFX_RENDERER");
+#if HULK_PDDI_NATIVE
+    return hulk_gfx_renderer(r);          // the host bgfx's numbering (default: the platform's, Metal / Vulkan)
+#else
     if (!r || !*r || !strcmp(r, "d3d11"))
         return bgfx::RendererType::Direct3D11;
     if (!strcmp(r, "d3d12"))
@@ -145,6 +195,7 @@ static int rendererFromEnv()
     if (!strcmp(r, "noop"))
         return bgfx::RendererType::Noop;
     return bgfx::RendererType::Count;
+#endif
 }
 
 static void readSize(const char* name, unsigned* w, unsigned* h)
@@ -210,6 +261,14 @@ bool platformDisplayInit(bgfxDisplay* d, unsigned width, unsigned height)
     readOptions(&width, &height);
     unsigned winW = width, winH = height;
     readSize("HULK_GFX_WINDOW", &winW, &winH);
+#if HULK_PDDI_NATIVE
+    const char* rn = getenv("HULK_GFX_RENDERER");
+    if (rn && !strcmp(rn, "noop")) {      // headless (CI): bgfx's noop renderer needs no window, so none is made
+        logf("pddi: noop renderer: no window\n");
+        s_display = d;
+        return d->hostInit(0, 0, width, height, rendererFromEnv(), (void*)&s_callback);
+    }
+#endif
     if (!hulk_platform_video_init()) {
         logf("pddi: SDL video init failed: %s\n", hulk_platform_error());
         return false;
@@ -234,7 +293,7 @@ bool platformDisplayInit(bgfxDisplay* d, unsigned width, unsigned height)
     if (fs && *fs == '1')
         hulk_platform_toggle_fullscreen();
     platformPump();
-    if (!d->hostInit(nwh, ndt, width, height, rendererFromEnv(), &s_callback))
+    if (!d->hostInit(nwh, ndt, width, height, rendererFromEnv(), (void*)&s_callback))
         return false;
     if (winW != width || winH != height)
         d->hostResize(winW, winH);           // the frame keeps the mode's size; the window gets it scaled
@@ -270,14 +329,14 @@ void platformBeforeFrame(unsigned frame)
     for (unsigned i = 0; i < s_shotCount; i++)
         if (s_shots[i] == frame) {
             char path[300];
-            _snprintf(path, sizeof(path) - 1, "%s\\shot-%u.tga", s_shotDir, frame);
+            _snprintf(path, sizeof(path) - 1, "%s" PDDI_PATH_SEP "shot-%u.tga", s_shotDir, frame);
             path[sizeof(path) - 1] = 0;
             drawSink()->requestScreenshot(path);
         }
     for (unsigned i = 0; i < s_gameShotCount; i++)
         if (s_gameShots[i] && hulk_native_frame_no >= s_gameShots[i]) {
             char path[300];
-            _snprintf(path, sizeof(path) - 1, "%s\\game-%u.tga", s_shotDir, s_gameShots[i]);
+            _snprintf(path, sizeof(path) - 1, "%s" PDDI_PATH_SEP "game-%u.tga", s_shotDir, s_gameShots[i]);
             path[sizeof(path) - 1] = 0;
             logf("pddi: game frame %u (present %u): screenshot requested\n", hulk_native_frame_no, frame);
             drawSink()->requestScreenshot(path);

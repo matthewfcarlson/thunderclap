@@ -24,8 +24,8 @@ static void identity(float* m)
 #if HULK_PDDI_GAME
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Winvalid-offsetof"
-static_assert(offsetof(bgfxContext, m_base) == 8, "bgfxContext: m_base must be at +8 (declare new members after it)");
-static_assert(offsetof(bgfxContext, m_display) == 0x14c, "bgfxContext: our fields start at +0x14c");
+static_assert(offsetof(bgfxContext, m_base) == kBaseStart, "bgfxContext: m_base must be at +8 (declare new members after it)");
+static_assert(offsetof(bgfxContext, m_display) == kBaseEnd, "bgfxContext: our fields start at +0x14c");
 #pragma clang diagnostic pop
 #endif
 
@@ -124,7 +124,7 @@ bgfxContext::ClearInfo* bgfxContext::clearInfo()
 bgfxContext::ViewBlock* bgfxContext::viewBlock()
 {
 #if HULK_PDDI_GAME
-    return *(ViewBlock**)((char*)this + 0x48);
+    return *(ViewBlock**)((char*)this + kBaseView);
 #else
     return &m_hostView;
 #endif
@@ -202,7 +202,7 @@ void bgfxContext::vfunc_5()
 void bgfxContext::vfunc_6(unsigned int a0) { PDDI_BASE_V(6, FUN_0031d4f0(a0)); }
 int* bgfxContext::vfunc_7(int* a0) { PDDI_BASE(7, FUN_0031d500(a0)); }
 void bgfxContext::vfunc_8(float a0) { PDDI_BASE_V(8, FUN_0031d510(a0)); }   // the depth clear value
-float bgfxContext::vfunc_9() { PDDI_BASE(9, FUN_0031d520()); }
+pddi_freg bgfxContext::vfunc_9() { PDDI_BASE(9, FUN_0031d520()); }
 void bgfxContext::vfunc_10(int a0) { PDDI_BASE_V(10, FUN_0031d530(a0)); }    // the stencil clear value
 int bgfxContext::vfunc_11() { PDDI_BASE(11, FUN_0031d540()); }
 // slot 12 (0x321580): clear (flags: 1 colour, 2 depth, 4 stencil; the values from the base's clear block). bgfx
@@ -270,7 +270,7 @@ int bgfxContext::vfunc_18(int a0) { PDDI_BASE(18, FUN_0031e860(a0)); }
 void bgfxContext::vfunc_19(void* a0) { PDDI_BASE_V(19, FUN_0031d6c0(a0)); }
 void* bgfxContext::vfunc_20() { PDDI_BASE(20, FUN_0031d6e0()); }
 void bgfxContext::vfunc_21(int a0) { PDDI_BASE_V(21, FUN_0031e880(a0)); }
-void bgfxContext::vfunc_22(int a0, int a1) { PDDI_BASE_V(22, FUN_0031e8d0(a0, a1)); }
+void bgfxContext::vfunc_22(int a0, PDDI_NATIVE_TYPE(int, const void*) a1) { PDDI_BASE_V(22, FUN_0031e8d0(a0, a1)); }
 void bgfxContext::vfunc_23(int a0, void* a1) { PDDI_BASE_V(23, FUN_0031e930(a0, a1)); }
 // slot 24 (0x31d6f0): the projection mode (0 perspective, 1 orthographic, 2 pixels: the 2D mode) into the view
 // block, then slot 109
@@ -335,24 +335,24 @@ int bgfxContext::vfunc_34() { PDDI_BASE(34, FUN_0031d900()); }
 void bgfxContext::vfunc_35(void* a0)
 {
 #if HULK_PDDI_GAME
-    reinterpret_cast<GameBase*>(this)->FUN_0031d910(a0);
+    reinterpret_cast<GameBase*>(this)->FUN_0031d910((PDDI_NATIVE_TYPE(void*, int))(intptr_t)a0);   // (an ambient colour)
 #endif
     m_rs.ambient = (unsigned)(uintptr_t)a0;
 }
 int* bgfxContext::vfunc_36(int* a0) { PDDI_BASE(36, FUN_0031d920(a0)); }
-void bgfxContext::vfunc_37(int a0, int a1, int a2) { PDDI_BASE_V(37, FUN_0031d940(a0, a1, a2)); }
+void bgfxContext::vfunc_37(int a0, PDDI_NATIVE_TYPE(int, const void*) a1, PDDI_NATIVE_TYPE(int, unsigned) a2) { PDDI_BASE_V(37, FUN_0031d940(a0, a1, a2)); }
 void bgfxContext::vfunc_38(int a0, int a1) { PDDI_BASE_V(38, FUN_0031da40(a0, a1)); }
 unsigned char bgfxContext::vfunc_39(unsigned int a0) { PDDI_BASE(39, FUN_0031da80(a0)); }
 void bgfxContext::vfunc_40(int a0, int a1) { PDDI_BASE_V(40, FUN_0031daa0(a0, a1)); }
 int bgfxContext::vfunc_41(int a0) { PDDI_BASE(41, FUN_0031dae0(a0)); }
 void bgfxContext::vfunc_42(int a0, int a1) { PDDI_BASE_V(42, FUN_0031db00(a0, a1)); }
-void bgfxContext::vfunc_43(int a0, int a1) { PDDI_BASE_V(43, FUN_0031dba0(a0, a1)); }
-void bgfxContext::vfunc_44(int a0, int a1) { PDDI_BASE_V(44, FUN_0031dbd0(a0, a1)); }
+void bgfxContext::vfunc_43(pddi_intptr a0, int a1) { PDDI_BASE_V(43, FUN_0031dba0(a0, a1)); }
+void bgfxContext::vfunc_44(int a0, pddi_intptr a1) { PDDI_BASE_V(44, FUN_0031dbd0(a0, a1)); }
 void bgfxContext::vfunc_45(int a0, void* a1) { PDDI_BASE_V(45, FUN_0031dc50(a0, a1)); }
-void bgfxContext::vfunc_46(int a0, int a1) { PDDI_BASE_V(46, FUN_0031dc90(a0, a1)); }
+void bgfxContext::vfunc_46(int a0, pddi_intptr a1) { PDDI_BASE_V(46, FUN_0031dc90(a0, a1)); }
 void bgfxContext::vfunc_47(int a0, void* a1) { PDDI_BASE_V(47, FUN_0031dd10(a0, a1)); }
 void bgfxContext::vfunc_48(int a0, float a1) { PDDI_BASE_V(48, FUN_0031dd50(a0, a1)); }
-float bgfxContext::vfunc_49(int a0) { PDDI_BASE(49, FUN_0031dd90(a0)); }
+pddi_freg bgfxContext::vfunc_49(int a0) { PDDI_BASE(49, FUN_0031dd90(a0)); }
 void bgfxContext::vfunc_50(int a0, float a1, float a2, float a3) { PDDI_BASE_V(50, FUN_0031ddb0(a0, a1, a2, a3)); }
 void bgfxContext::vfunc_51(int a0, void* a1, void* a2, void* a3) { PDDI_BASE_V(51, FUN_0031ddf0(a0, a1, a2, a3)); }
 void bgfxContext::vfunc_52(int a0, float a1, float a2, float a3) { PDDI_BASE_V(52, FUN_0031de50(a0, a1, a2, a3)); }
@@ -513,19 +513,19 @@ void bgfxContext::vfunc_81(void* a0, void* a1, void* a2)
 }
 #endif
 int bgfxContext::vfunc_82(int a0) { PDDI_BASE(82, FUN_0031e180(a0)); }
-float bgfxContext::vfunc_83(int a0) { PDDI_BASE(83, FUN_0031e1a0(a0)); }
+pddi_freg bgfxContext::vfunc_83(int a0) { PDDI_BASE(83, FUN_0031e1a0(a0)); }
 unsigned int bgfxContext::vfunc_84() { return 0x800; }      // 0x321d90
 void bgfxContext::vfunc_85(unsigned char a0) { PDDI_BASE_V(85, FUN_0031e1b0(a0)); }
 unsigned char bgfxContext::vfunc_86() { PDDI_BASE(86, FUN_0031e1c0()); }
 void bgfxContext::vfunc_87(int a0) { PDDI_BASE_V(87, FUN_0031f290(a0)); }
 void bgfxContext::vfunc_88(unsigned char a0) { PDDI_BASE_V(88, FUN_0031e9b0(a0)); }
 // slot 89: the extension with this id (0x321ea0), or the base's answer (0) for any other
-int bgfxContext::vfunc_89(int id)
+pddi_intptr bgfxContext::vfunc_89(int id)
 {
     static const int kIds[10] = {0x101, 0x500001, 0x500004, 0x500005, 0x102, 0x500002, 0x106, 0x103, 0x104, 0x105};
     for (int i = 0; i < 10; i++)
         if (kIds[i] == id)
-            return (int)(intptr_t)m_ext[i];
+            return (pddi_intptr)(intptr_t)m_ext[i];
     logf("pddi: extension 0x%x asked for: none\n", id);
     return 0;
 }
@@ -563,7 +563,7 @@ void bgfxContext::vfunc_103() { PDDI_BASE_V(103, FUN_0031d300()); }
 void bgfxContext::vfunc_104() { PDDI_BASE_V(104, FUN_0031d380()); }
 void bgfxContext::vfunc_105() { PDDI_BASE_V(105, FUN_0031d3f0()); }
 void bgfxContext::vfunc_106() { PDDI_STUB(106); }
-float bgfxContext::vfunc_107() { PDDI_STUB(107); return 0.0f; }
+pddi_freg bgfxContext::vfunc_107() { PDDI_STUB(107); return 0.0f; }
 // slot 108 (0x323eb0): load the top of matrix stack n into the device: stack 0 is D3DTS_WORLD (the modelview;
 // D3D's VIEW stays the identity), 1..3 the texture transforms (0x4d3a34: 6, 2, 3, 4)
 void bgfxContext::vfunc_108(int n)
@@ -571,10 +571,10 @@ void bgfxContext::vfunc_108(int n)
     if (n < 0 || n > 3)
         return;
 #if HULK_PDDI_GAME
-    const uint32_t* stack = *(const uint32_t* const*)((const char*)this + 0x20 + 4 * n);
+    const GameMatrixStack* stack = *(const GameMatrixStack* const*)((const char*)this + kBaseStacks + sizeof(void*) * n);
     if (!stack)
         return;
-    const float* m = (const float*)(uintptr_t)stack[3] + 16 * stack[2];
+    const float* m = (const float*)stack->matrices + 16 * stack->top;
 #else
     const float* m = m_hostStack[n][m_hostDepth[n]];
 #endif
@@ -698,7 +698,7 @@ void bgfxContext::vfunc_110(int n, char b)
     m_hostLights = false;
     if (b) {
 #if HULK_PDDI_GAME
-        memcpy(m_lightMatrix[n], (char*)this + 0x5c, 64);
+        memcpy(m_lightMatrix[n], (char*)this + kBaseLightMatrix, 64);
 #else
         memcpy(m_lightMatrix[n], m_world, 64);
 #endif

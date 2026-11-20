@@ -6484,3 +6484,34 @@ the literal before writing `sizeof(::Gen)`.
   count are in the commit message.
 
 - decl1 (2026-11-20): the two no-prelude iso TUs now include compat/ptr.h and declare 0x002672f0 with hulk_intptr (code, --wine and view hashes unchanged).
+
+## gfx1: the native graphics backend (2026-11-20)
+
+- `native_mac.py link --ld --gfx` links the pddi backend natively (docs/native-mac.md section 12): the front end as an
+  MS-ABI group (tools/native_pddi.py), the bgfx sink and the C bridge (src/platform/sdl/pddi/bgfx_bridge.{h,cpp}) on the
+  host's bgfx (Metal + noop), d3dCreateDevice 0x0031ba60 bound to `hulk_pddi_create_device`. The pddi objects' operator
+  new / delete take the host heap (GFX_CXX, as wine_link's): through the game's heap (0x00266e00) our bigger objects
+  exhausted the heap the effect queues allocate from, and the out-of-memory callback DAT_00527f64 is a 4-byte item that
+  holds a truncated function pointer natively (data typing: on the stop list).
+- Wine image: unchanged (bgfx_bridge.cpp is not in its source list; every other edit is `#if HULK_PDDI_NATIVE` or keeps
+  the 32-bit code). The 16 pddi-win32 objects built from this commit's sources are byte-identical to HEAD's, and the
+  linked image is too: Wine builds 103655 (the slot-type commit) and 103656 (this one, `--pddi-src` of its own objects)
+  give the same hulk-strict.exe (sha1 c5e3560d0452...), as does the slot-type commit's proof 103657.
+- `wine_build_job.py submit --pddi-src DIR`: a private pddi-win32/obj (`HULK_TP_OUT=OUT tools/wine_gfx.py pddi --target
+  win32` run in the job's workspace, stamped from its sources), as --sdl-src; input_guard names the flag.
+- Slot types the stand-ins and the game disagreed on natively (a float and an int travel in different registers), now
+  agreeing in gen, the tree and the backend: the prim buffer stream's Position / Normal / UV (slots 0, 1, 11: floats),
+  the context's EndPrims stream (slot 31: a pointer), the framebuffer effects' overlay / colour-correction / bloom
+  settings (slots 1, 4, 8: floats as 0x003225c0 / 0x003239e0 / 0x00322cd0 read them), the skinning bone matrix (slot 5)
+  and the vertex program's buffer (slot 5): pointers; the context's slots 22 / 37 (a matrix, a light: pointers);
+  float results as `pddi_freg` (double natively).
+- Headless start-up (`HULK_GFX_RENDERER=noop`, HEAD + start-up fixes in a private kit): device, display, context and
+  bgfx Noop come up; World init's effect queues (CDecalQueue's prim buffers, CLightQueue's shader, CMotionTrailQueue)
+  pass. Stops found and fixed on the way: the shader factory's slot 11 view took the name as `int` (0x0028edf0), the
+  Entity constructor it calls carried no address (`BaseInit`), CMotionTrailQueue's view padded the container record
+  with 32-bit pads (its flags overwrote the groups pointer, 0x00283730). Next stop: MyFileStream::vfunc_1 / W_1fad00's
+  copy constructor reads a truncated pointer (0x001fad00).
+- Stop list (start-up lane): CB_001f30e0's Lua argument codes (0x001d04d0 compares typeid(char*) with the game's
+  type descriptors: natively the strings arrive as 'b' cells, 0x100000001 = two `true` words); with ASLR off start-up
+  takes another path and stops in the front end (Obj_dddc0 with a null `this`, 0x000fc060's FEThings constructor
+  missing): an address-ordered container or an uninitialised read; DAT_00527f64's width.

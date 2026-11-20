@@ -121,6 +121,28 @@ void platformSelfTest(bgfxContext* context, bgfxDisplay* display);
 } // namespace pddi
 } // namespace hulk
 
+// A byte offset into a game record our code reads (the portable base's words in our context, ...): the 32-bit
+// builds' offset, and the native builds' (the record's 64-bit layout, include/gen/pure3d.h; bgfx_pddi.h lists them,
+// tools/native_mac.py --gfx checks them against gen's layout)
+#if HULK_PDDI_NATIVE
+#define PDDI_SPE(o32, o64) (o64)
+#else
+#define PDDI_SPE(o32, o64) (o32)
+#endif
+
+// Slot types that differ natively (the game's slot as include/gen/pure3d.h declares it): a float result the
+// definitions return as hulk_freg (double natively: d0, not s0), an int that carries a pointer (hulk_intptr). On the
+// 32-bit builds they are the types the slots had (float, int), so the Wine build's objects are unchanged.
+#if HULK_PDDI_NATIVE
+typedef double pddi_freg;
+typedef intptr_t pddi_intptr;
+#define PDDI_NATIVE_TYPE(t32, tnat) tnat
+#else
+typedef float pddi_freg;
+typedef int pddi_intptr;
+#define PDDI_NATIVE_TYPE(t32, tnat) t32
+#endif
+
 #define PDDI_STUB(slot) ::hulk::pddi::stubHit(kClass, slot, __FUNCTION__)
 
 #if HULK_PDDI_GAME

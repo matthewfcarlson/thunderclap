@@ -20,7 +20,7 @@ struct GameBase {
     void FUN_0031d4f0(unsigned int);
     int* FUN_0031d500(int*);
     void FUN_0031d510(float);
-    float FUN_0031d520();
+    pddi_freg FUN_0031d520();
     void FUN_0031d530(int);
     int FUN_0031d540();
     void FUN_0031d560(int);
@@ -38,19 +38,19 @@ struct GameBase {
     void FUN_0031d830(int, int, int, int);
     int FUN_0031d900();
     int* FUN_0031d920(int*);
-    void FUN_0031d940(int, int, int);
+    void FUN_0031d940(int, PDDI_NATIVE_TYPE(int, const void*), PDDI_NATIVE_TYPE(int, unsigned));   // (natively: as defined, a light)
     void FUN_0031da40(int, int);
     unsigned char FUN_0031da80(unsigned int);
     void FUN_0031daa0(int, int);
     int FUN_0031dae0(int);
     void FUN_0031db00(int, int);
-    void FUN_0031dba0(int, int);
-    void FUN_0031dbd0(int, int);
+    void FUN_0031dba0(pddi_intptr, int);
+    void FUN_0031dbd0(int, pddi_intptr);
     void FUN_0031dc50(int, void*);
-    void FUN_0031dc90(int, int);
+    void FUN_0031dc90(int, pddi_intptr);
     void FUN_0031dd10(int, void*);
     void FUN_0031dd50(int, float);
-    float FUN_0031dd90(int);
+    pddi_freg FUN_0031dd90(int);
     void FUN_0031ddb0(int, float, float, float);
     void FUN_0031ddf0(int, void*, void*, void*);
     void FUN_0031de50(int, float, float, float);
@@ -70,7 +70,7 @@ struct GameBase {
     bool FUN_0031e110();
     void FUN_0031e150(void*, void*, void*);
     int FUN_0031e180(int);
-    float FUN_0031e1a0(int);
+    pddi_freg FUN_0031e1a0(int);
     void FUN_0031e1b0(unsigned char);
     unsigned char FUN_0031e1c0();
     void FUN_0031e230(int);
@@ -83,7 +83,7 @@ struct GameBase {
     void FUN_0031e840(int);
     int FUN_0031e860(int);
     void FUN_0031e880(int);
-    void FUN_0031e8d0(int, int);
+    void FUN_0031e8d0(int, PDDI_NATIVE_TYPE(int, const void*));   // (natively: as defined, a matrix)
     void FUN_0031e930(int, void*);
     void FUN_0031e9b0(unsigned char);
     void FUN_0031f190();
@@ -108,7 +108,7 @@ struct GameBase {
     void FUN_0031d4c0();                             // pddiBaseContext slot 5
     bool FUN_0031e2f0(int);                          // pddiBaseContext slot 90
     void FUN_0031def0(int);                          // pddiBaseContext slot 54
-    void FUN_0031d910(void*);                        // slot 35: ambient light (the lighting block +0x3e4)
+    void FUN_0031d910(PDDI_NATIVE_TYPE(void*, int));                        // slot 35: ambient light (the lighting block +0x3e4)
     void FUN_0031df10(char, char, char, char);       // slot 56: colour write mask (*(this+0x4c)+0x18..0x1b)
     void FUN_0031df80(unsigned char);                // slot 58: z enable (+8)
     void FUN_0031dfa0(int);                          // slot 60: z compare (+0xc)

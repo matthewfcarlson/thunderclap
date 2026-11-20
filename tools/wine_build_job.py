@@ -71,6 +71,10 @@ def local_dir(d):
     # with HULK_TP_OUT=<private out>; DIR is its sdl-backends/win32), shipped as the shared one's name
     if d == TP_OUT + "sdl-backends/win32" and os.environ.get("HULK_NB_SDL_SRC"):
         return os.path.abspath(os.environ["HULK_NB_SDL_SRC"])
+    # (gfx1) `--pddi-src DIR`: a private build of the pddi objects (tools/wine_gfx.py pddi --target win32 run in the
+    # job's workspace with HULK_TP_OUT=<private out>; DIR is its pddi-win32/obj, stamped from the workspace's sources)
+    if d == TP_OUT + "pddi-win32/obj" and os.environ.get("HULK_NB_PDDI_SRC"):
+        return os.path.abspath(os.environ["HULK_NB_PDDI_SRC"])
     return os.path.join(ROOT, d)
 
 
@@ -283,6 +287,8 @@ def cmd_prep(a):
         os.environ["HULK_NB_DATA_SRC"] = a.data_src
     if a.sdl_src:
         os.environ["HULK_NB_SDL_SRC"] = a.sdl_src
+    if a.pddi_src:
+        os.environ["HULK_NB_PDDI_SRC"] = a.pddi_src
     cfg = host_cfg(a.host)
     if cfg.get("local"):
         return 0
@@ -409,6 +415,8 @@ def cmd_submit(a):
         os.environ["HULK_NB_DATA_SRC"] = a.data_src
     if a.sdl_src:
         os.environ["HULK_NB_SDL_SRC"] = a.sdl_src
+    if a.pddi_src:
+        os.environ["HULK_NB_PDDI_SRC"] = a.pddi_src
     ws = os.path.abspath(a.workspace or ROOT)
     for d in ("tools", "src", "include"):
         if not os.path.isdir(os.path.join(ws, d)):
@@ -418,7 +426,8 @@ def cmd_submit(a):
     # (guard1) the generated local inputs (data TUs, hulk_sdl.lib, the pddi objects) must fit the job's sources: a stale
     # shared one is rebuilt here when its sources are clean in git, otherwise the submit is refused (tools/input_guard.py)
     import input_guard
-    private = {d for d, f in (("build/data/src", a.data_src), (TP_OUT + "sdl-backends/win32", a.sdl_src)) if f}
+    private = {d for d, f in (("build/data/src", a.data_src), (TP_OUT + "sdl-backends/win32", a.sdl_src),
+                              (TP_OUT + "pddi-win32/obj", a.pddi_src)) if f}
     guard_res, problems = input_guard.check_submit(ws, a.live or [], local_dir, private, allow_stale=a.allow_stale)
     if problems:
         if not a.allow_stale:
@@ -486,6 +495,7 @@ def cmd_submit(a):
     prep = None if local else (["python", "tools/wine_build_job.py", "prep", "--host", "{host}", "--stamp", stamp] +
                                (["--data-src", os.path.abspath(a.data_src)] if a.data_src else []) +
                                (["--sdl-src", os.path.abspath(a.sdl_src)] if a.sdl_src else []) +
+                               (["--pddi-src", os.path.abspath(a.pddi_src)] if a.pddi_src else []) +
                                (["--cache-from", a.cache_from] if a.cache_from else []))
     job = jobq.make_job(a.name, ["python", "nbrun/wine_build_run.py"], "msvc" if not a.replay else "wine", store, ["nb-out"],
                         a.limit, slots, a.attempts, a.prio, jobq.head_commit(), SRC_DIRS, host, prep=prep,
@@ -663,6 +673,8 @@ def main():
                    "(every game TU at -O1 but tools/wine_opt_exclude.txt's)")
     s.add_argument("--sdl-src", help="a private build/third_party/out/sdl-backends/win32 (hulk_sdl.lib of an audio/input "
                    "change under test: HULK_TP_OUT=OUT tools/wine_sdl.py backends --target win32)")
+    s.add_argument("--pddi-src", help="a private build/third_party/out/pddi-win32/obj (the pddi objects of a pddi change "
+                   "under test: HULK_TP_OUT=OUT tools/wine_gfx.py pddi --target win32, run in the job's workspace)")
     s.add_argument("--allow-stale", action="store_true",
                    help="build with generated inputs (data TUs, hulk_sdl.lib, pddi objects) that do not fit the job's sources "
                    "(tools/input_guard.py; default: rebuild them when their sources are clean, else refuse)")
@@ -700,6 +712,7 @@ def main():
     s.add_argument("--stamp", required=True)
     s.add_argument("--data-src")
     s.add_argument("--sdl-src")
+    s.add_argument("--pddi-src")
     s.add_argument("--cache-from")
     a = ap.parse_args()
     return {"submit": cmd_submit, "wait": cmd_wait, "compare": cmd_compare, "sync": cmd_sync,

@@ -412,3 +412,47 @@ ld64 links (rc 0, no warnings). 56,158 undefined symbols, 59,277 references:
 | `FUN_` without a verified definition / library code | 330 | 356 | the platform layer (library.h) |
 | RTTI descriptors by invented names | 62 | 62 | x64-6 |
 | `DAT_` C names (interior of vftables: resolved by the vftable emission, 692) | 68 | | |
+
+## 12. The graphics backend (gfx1, 2026-11-19)
+
+`native_mac.py link --ld --gfx` links the pddi backend (src/platform/sdl/pddi/) in place of pure3d's d3d layer, as
+`wine_link.py --gfx` does for the Wine build: the engine's one call of d3dCreateDevice (0x0031ba60, from
+pure3d::InitPlatform 0x00292560) is bound to `hulk_pddi_create_device` (the one platform entry point: every reference
+carrying the address, or naming the tree's definition, is renamed in the referencing object), so every pddi object the
+game creates from then on is ours.
+
+**The ABI split.** The front end's classes stand in for the game's d3d classes: the game calls them through MS vftable
+slots and their base slots bind to the tree's pddi base functions by the address in their names (game_base.h), so they
+are compiled like the tree (aarch64-pc-windows-msvc, retargeted; mingw-w64's C headers, as the Wine build's pddi
+objects). bgfx on the host is Itanium C++ (its Metal renderer Objective-C++), which the MS ABI front end cannot call.
+The cut is the draw sink (draw_sink.h): the one interface through which the front end hands work to a graphics API,
+whose packets are plain structs of fixed-width types. `bgfx_bridge.h` is that interface as `extern "C"` functions
+(`hulk_gfx_sink_*`): bgfx_sink.cpp (unchanged) and the bridge's host half (bgfx_bridge.cpp, HULK_PDDI_BRIDGE_HOST)
+are compiled for the host against the pinned bgfx; the front end's half (HULK_PDDI_NATIVE) is the DrawSink
+`drawSink()` returns natively. bgfx's callback interface (bgfx::CallbackI) is the host half's; it calls the front end
+back through `hulk_gfx_callbacks`, a const table of C function pointers (sdl_platform.cpp). Bridge arguments are only
+pointers, 32/64-bit integers, floats and void: the Windows AArch64 front end does not widen bool / 8 / 16-bit
+arguments, which the Apple ABI has the caller widen; structs travel by pointer, text is formatted on the side that has
+it (no variadic calls). The Wine build compiles none of it (tools/wine_gfx.py leaves bgfx_bridge.cpp out; every other
+change is under `#if HULK_PDDI_NATIVE` or keeps the 32-bit code: its pddi objects are byte-identical).
+
+**The game's records natively.** `bgfxObject` is packed to 4 bytes natively, so pddiObject's f_08 (the word every
+stand-in keeps as its own first member) lands at 0xc as in gen's 64-bit pddiObject (the MS ABI never reuses a base's
+tail padding). The context's reads of the portable base's words use `kBase*` offsets (PDDI_SPE: the 32-bit and the
+native offset); `tools/native_pddi.py layout` (run by every `--gfx` link) checks them against gen's 64-bit
+pddiBaseContext. Slots whose types differ natively follow the game's definitions: `pddi_freg` (double natively: d0,
+not s0) for the float results, `pddi_intptr` / PDDI_NATIVE_TYPE for the ints that carry pointers.
+
+**Headless.** `HULK_GFX_RENDERER=noop` natively makes no window (bgfx's noop renderer needs none) and runs the real
+buffer paths (prim buffers keep their CPU copies). No frame tick: GameClock 0x00086450 is a replay-pin function and is
+not wrapped natively; draw-log frames are numbered by the display's present count.
+
+Tools: `tools/native_pddi.py compile|layout` (HULK_PDDI_SRC: a private copy of the pddi directory).
+The pddi objects' operator new / delete take the host heap (tools/native_mac.py GFX_CXX renames their references to
+the bridge's `hulk_gfx_op_*`, as wine_link renames them to msvcrt's): the game's heaps are sized for the game's
+objects. `native_mac.py link --gfx` adds the pddi front end's address names to the binding map's index (a Wine map
+lists only the tree's names) and checks `kBase*` against gen before linking.
+
+Measured (2026-11-20, HEAD + the start-up fixes of docs/native-build.md "gfx1"): device, display, context and bgfx
+Noop come up headless and World init's effect queues pass (CDecalQueue's prim buffers, the light queue's shader, the
+motion trail queue); the next stop is outside graphics (0x001fad00, a file stream's truncated pointer).

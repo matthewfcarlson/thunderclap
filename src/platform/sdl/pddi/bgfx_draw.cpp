@@ -14,6 +14,9 @@
 // (docs/shaders.md) with the constant file c96..c191 as `u_vc`. A program whose constant upload is not ported yet
 // (only the skinning extension's is) is drawn with the fixed-function program instead, logged once.
 #include "bgfx_pddi.h"
+#if HULK_PDDI_NATIVE
+#include "bgfx_bridge.h"
+#endif
 
 #include <stddef.h>
 #include <stdlib.h>
@@ -30,6 +33,8 @@ DrawSink* drawSink()
 {
 #if HULK_REMASTER
     return remasterSink();
+#elif HULK_PDDI_NATIVE
+    return bridgeSink();        // the bgfx sink behind the C bridge (bgfx_bridge.h): bgfx is the host's
 #else
     return bgfxSink();
 #endif
@@ -272,14 +277,14 @@ void bgfxContext::updateLights()
 #if HULK_PDDI_GAME
     if (m_hostLights)
         return;
-    const char* set = *(const char* const*)((const char*)this + 0x50);
+    const char* set = *(const char* const*)((const char*)this + kBaseLights);
     for (int i = 0; i < kLights; i++) {
         if (!m_lightDirty[i])
             continue;
         m_lightDirty[i] = false;
         if (!set)
             continue;
-        const char* src = set + 4 + 0x7c * i;
+        const char* src = set + sizeof(void*) + 0x7c * i;       // (the set's vftable, then 8 lights of words)
         const float* pos = (const float*)src;
         const float* dir = (const float*)(src + 0x20);
         const float* m = m_lightMatrix[i];
@@ -678,21 +683,24 @@ void bgfxContext::drawlogState(DrawRecord& r)
 {
 #if HULK_PDDI_GAME
     const char* me = (const char*)this;
-    const uint32_t* a = *(const uint32_t* const*)(me + 0x4c);
-    const uint32_t* st = *(const uint32_t* const*)(me + 0x58);
-    const unsigned char* fog = *(const unsigned char* const*)(me + 0x54);
+    // (the blocks: a vftable, then 32-bit words; natively word 0 is the vftable's high half, the rest as on 32-bit)
+    const char* ap = *(const char* const*)(me + kBaseRender);
+    const char* sp = *(const char* const*)(me + kBaseStencil);
+    const uint32_t* a = ap ? (const uint32_t*)(ap + sizeof(void*) - 4) : 0;
+    const uint32_t* st = sp ? (const uint32_t*)(sp + sizeof(void*) - 4) : 0;
+    const unsigned char* fog = *(const unsigned char* const*)(me + kBaseFog);
     for (int i = 0; i < 6; i++) {
         r.stateA[i] = a ? a[i] : 0;
         r.stateS[i] = st ? st[i] : 0;
     }
-    r.fog = fog ? fog[4] : 0;
+    r.fog = fog ? fog[sizeof(void*)] : 0;
     uint32_t h = 2166136261u;
     for (int i = 0; i < 4; i++) {
-        const uint32_t* stack = *(const uint32_t* const*)(me + 0x20 + 4 * i);   // +8 index, +0xc matrices
+        const GameMatrixStack* stack = *(const GameMatrixStack* const*)(me + kBaseStacks + sizeof(void*) * i);
         if (!stack)
             continue;
-        uint32_t idx = stack[2];
-        const char* m = (const char*)(uintptr_t)stack[3];
+        uint32_t idx = stack->top;
+        const char* m = stack->matrices;
         if (idx < 64 && m)
             h = fnv(h, m + 64 * idx, 64);
     }

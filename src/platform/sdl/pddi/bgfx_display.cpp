@@ -155,7 +155,7 @@ void bgfxDisplay::hostShutdown()
 // slot 4: init from the engine's display config ({width, height, depth, ...}: 0x31ae70 picks a mode from its table
 // and creates the D3D device). Here: the platform's window and the sink on it, at the platform's size (the window's,
 // not the TV mode's; 640x480 by default). The host build's caller brings the sink up itself (hostInit).
-bool bgfxDisplay::vfunc_4(int a0)
+bool bgfxDisplay::vfunc_4(pddi_intptr a0)
 {
     if (m_initialised)
         return true;
@@ -224,7 +224,7 @@ void bgfxDisplay::vfunc_14()
     m_frame++;
 }
 void bgfxDisplay::vfunc_15(int a0, int a1) { PDDI_STUB(15); }   // copy the back buffer rect (CopyRects): G4
-float bgfxDisplay::vfunc_16() { return m_height ? (float)m_width / (float)m_height : 4.0f / 3.0f; }
+pddi_freg bgfxDisplay::vfunc_16() { return m_height ? (float)m_width / (float)m_height : 4.0f / 3.0f; }
 unsigned int bgfxDisplay::vfunc_17() { return 0; }
 
 } // namespace pddi

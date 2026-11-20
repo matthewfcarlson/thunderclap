@@ -205,7 +205,7 @@ class PlatformLib(Guard):
 
 class Pddi(Guard):
     name, what, input, stamp, flag = ("pddi", "pddi/bgfx objects (tools/wine_gfx.py pddi --target win32)",
-                                      TP + "pddi-win32/obj", ".srchash", None)
+                                      TP + "pddi-win32/obj", ".srchash", "--pddi-src")
     unstamped = "mtime"
     optional = True             # (a link without --gfx does not need them)
     pathspecs = (PLAT,)

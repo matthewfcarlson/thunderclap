@@ -2031,3 +2031,18 @@ blocks fight::Action's whole family: the records come first there.
   single reader and no writer. The chain ends at vfunc_35's vftable slot, which no caller probe can follow.
 - The --wine trap check could not see past D152b's outside-domain drop (fixed in D152c). With the fix, every link
   traps on a planted -1.4e-45.
+
+## gfx1: the native graphics backend's ABI cut (2026-11-20)
+
+- The pddi backend natively is cut at the draw sink, not at bgfx's API: draw_sink.h's packets were already plain
+  fixed-width structs, so one extern "C" function per DrawSink member (bgfx_bridge.h) lets the MS-ABI front end use the
+  Itanium bgfx sink unchanged. Bridge arguments avoid bool / 8 / 16-bit integers: clang's Windows AArch64 lowering does
+  not mark them zeroext/signext (only Darwin's does), so an Apple-compiled callee would read garbage upper bits.
+- MS ABI never reuses a base's tail padding: a stand-in whose base is {vftable, refcount} puts its first word at +0x10
+  natively, where the game's pddiObject has f_08 at +0xc. bgfxObject is packed to 4 natively.
+- Several game slots were declared int on one side and float / pointer on the other (prim buffer stream Position,
+  EndPrims, the framebuffer-effect settings): on 32-bit both travel on the stack; natively ints, floats and pointers
+  travel in different registers or widths. A slot's type must be settled from the original's callee (fld vs mov, ret N)
+  and its callers, then made to agree in gen, the tree and the stand-ins.
+- With ASLR off (lldb's default) native start-up takes a different path (stops in the front end); debug with
+  `settings set target.disable-aslr false`.

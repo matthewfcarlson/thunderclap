@@ -66,7 +66,11 @@ void bgfxPrimBuffer::vfunc_5(void* stream)
         ((bgfxPrimBufferStream*)stream)->active = 0;
     m_vertsDirty = true;
 }
+#if HULK_PDDI_NATIVE
+void bgfxPrimBuffer::vfunc_6() {}       // pddiPrimBuffer's slot 6 (0x326d60) is empty (a free function in the tree)
+#else
 void bgfxPrimBuffer::vfunc_6() { PDDI_BASE_V(6, FUN_00326d60()); }
+#endif
 // slot 7 (0x327200): lock the indices -> where to write them (16-bit)
 unsigned int bgfxPrimBuffer::vfunc_7()
 {

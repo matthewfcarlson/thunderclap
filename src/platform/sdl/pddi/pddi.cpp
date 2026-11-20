@@ -96,7 +96,7 @@ void bgfxObject::vfunc_1()
 
 int bgfxObject::vfunc_2()
 {
-    return *(int*)((char*)this + 8);
+    return *(int*)((char*)this + PDDI_SPE(8, 0xc));    // pddiObject's f_08 (natively after the 8-byte vftable)
 }
 
 bgfxObject::~bgfxObject() {}
@@ -192,7 +192,7 @@ bool drawlogDump(const char* path)
 } // namespace pddi
 } // namespace hulk
 
-#if HULK_PDDI_GAME && defined(_WIN32)
+#if HULK_PDDI_GAME && defined(_WIN32) && !HULK_PDDI_NATIVE
 extern "C" void hulk_pddi_run_initializers(void);     // win32_glue.cpp
 #endif
 
@@ -209,7 +209,9 @@ extern "C" int hulk_pddi_create_device(int major, int minor, void** out)
 {
     static hulk::pddi::bgfxDevice* s_device;
 #if HULK_PDDI_GAME && defined(_WIN32)
+#if !HULK_PDDI_NATIVE
     hulk_pddi_run_initializers();                       // bx/bgfx's static initializers (once)
+#endif
     hulk::pddi::platformInit();
     hulk::pddi::logf("pddi: create device %d.%d (bgfx backend)\n", major, minor);
 #endif

@@ -743,6 +743,15 @@ def cmd_link(a):
     if failed and not getattr(a, "allow_compile_failures", False):
         return 2
     objs = sorted(os.path.join(CACHE, os.path.basename(o)) for o in rep["objects"].values())
+    gfx = gfx_objects() if getattr(a, "gfx", False) else None
+    LINK_STATE["gfx"] = gfx
+    if gfx is not None:
+        if gfx["errors"]:
+            print("native link: the graphics backend failed to compile (--gfx):", file=sys.stderr)
+            for u, e in sorted(gfx["errors"].items()):
+                print("  %s: %s" % (u, e[:1500]), file=sys.stderr)
+            return 2
+        objs += gfx["ms"]
     syms = nm_macho(objs)
     defined, undef, refs = set(), set(), collections.Counter()
     dup = collections.Counter()
@@ -776,15 +785,26 @@ def cmd_link(a):
     # names that carry an XBE address bound to the tree's definition there where the IR signatures agree
     # (native_unbound.py; per object, applied by renaming in the link step), verified against the Wine build's
     # binding map of the same tree (--bindings)
+    groups = collections.Counter()
     addr_ren, addr_why, addr_bound = ({}, {}, set()) if getattr(a, "no_addr", False) else nu.plan_link(
         objs, syms, nu.Defs(defined), defined, set(td_names) | set(re.findall(r'^"_(DAT_[0-9a-f]{8})":', owned, re.M)),
-        verify=nu.wine_index(a.bindings) if a.bindings and os.path.exists(a.bindings) else None)
+        verify=gfx_verify(nu.wine_index(a.bindings), gfx, syms) if a.bindings and os.path.exists(a.bindings) else None)
+    if gfx is not None:     # (gfx1) the one platform entry point: d3dCreateDevice -> our device (wine_link: GFX_DEVICE)
+        n_dev = gfx_bind_device(syms, addr_ren, addr_bound, defs)
+        groups["--gfx: d3dCreateDevice references bound to " + GFX_DEVICE_ENTRY] += n_dev
+        # the backend's own allocations take the host's heap, as the Wine image's pddi objects do (wine_link GFX_CXX:
+        # operator new / delete renamed hulk_gfx_op_*): never the game's heaps, which are sized for the game's objects
+        for o in gfx["ms"]:
+            for s_ in syms.get(o, ((), ()))[1]:
+                if s_ in GFX_CXX:
+                    addr_ren.setdefault(o, {})[s_] = GFX_CXX[s_]
+                    addr_bound.add(s_)
     if not a.name_table:
         table, why, amb = None, {}, set()
     else:
         table, why, amb = name_table(a.bindings, defined)
     dem = cp.undname(sorted(s for s in undef if s.startswith("?")))
-    aliases, groups, unbound = {}, collections.Counter(), []
+    aliases, unbound = {}, []
     crt_names, crt_addr = crt_bindings()
     import native_bind as nb
     xdk = nb.XdkTable()
@@ -873,6 +893,69 @@ def cmd_link(a):
     return 1 if a.ld and lk["ld64"].get("native CRT binding problems") else 0
 
 
+# ---------------------------------------------------------------------------------------------- --gfx (gfx1)
+GFX_DEVICE_ADDR = 0x0031ba60        # d3dCreateDevice (pure3d::InitPlatform 0x00292560, its only caller)
+GFX_DEVICE_ENTRY = "hulk_pddi_create_device"    # src/platform/sdl/pddi/pddi.cpp (as tools/wine_link.py GFX_DEVICE_*)
+GFX_CXX = {"??2@YAPEAX_K@Z": "hulk_gfx_op_new", "??3@YAXPEAX@Z": "hulk_gfx_op_delete",      # (bgfx_bridge.cpp)
+           "??_U@YAPEAX_K@Z": "hulk_gfx_op_new_array", "??_V@YAXPEAX@Z": "hulk_gfx_op_delete_array"}
+
+
+def gfx_objects():
+    """The graphics backend's objects (tools/native_pddi.py): {"ms": the front end's MS ABI objects (linked as game
+    objects: their base slots bind to the tree by address), "host": the sink, the bridge's host half and the window
+    code, "libs", "frameworks", "errors"}."""
+    import native_pddi as npd
+    import native_bind as nb
+    miss = npd.inputs_missing()
+    if miss:
+        return {"ms": [], "host": [], "libs": [], "frameworks": [], "errors": {"inputs": "missing (tools/wine_gfx.py "
+                "fetch + build): " + ", ".join(miss)}}
+    front = [x for x in FRONT if x not in ("-S", "-emit-llvm")] + cp.common_native()
+    errs = {}
+    lay = npd.layout_check(front)
+    if lay:
+        errs["layout (bgfx_pddi.h kBase* against include/gen)"] = lay
+    d = os.path.join(OUT, "link", "gfx")
+    gen = npd.gen_dir(d, "metal")
+    ms, e1 = npd.compile_ms(d, gen, retarget, BACK, nu.save_signatures)
+    cfg = nb.macos_sdl()
+    host, e2 = npd.compile_host_mac(d, gen, cfg[0] if cfg else [])
+    errs.update(e1)
+    errs.update(e2)
+    return {"ms": sorted(ms.values()), "host": host, "libs": npd.mac_libs(), "frameworks": npd.MAC_GFX_FRAMEWORKS,
+            "errors": errs}
+
+
+def gfx_verify(idx, gfx, syms):
+    """The Wine binding map's index plus the pddi front end's own address names (--gfx): its base slots name the
+    tree's pddi base functions `FUN_<address>` (game_base.h), which tools/wine_link.py binds by that address for the
+    Wine image (graphics_backend's game_refs); the Wine map of a build without --gfx does not list them."""
+    if gfx is None or idx is None:
+        return idx
+    mine = sorted({s for o in gfx["ms"] for s in syms.get(o, ((), ()))[1] if nu.name_address(s)[0] is not None})
+    dem = cp.undname([s for s in mine if s.startswith("?")])
+    for s in mine:
+        k = nu.norm(dem.get(s, s)) if s.startswith("?") else nu.c_plain32(s)
+        idx.setdefault(k, ("gfx:address name", "0x%08x" % nu.name_address(s)[0], None))
+    return idx
+
+
+def gfx_bind_device(syms, renames, bound, defs):
+    """Every reference to d3dCreateDevice (a name carrying its address, or the tree definition's own name) renamed to
+    hulk_pddi_create_device in the referencing object, as tools/wine_link.py binds the address with --gfx: the one
+    call (0x00292560) then makes our device and every pddi object the game creates from it is ours. Returns the
+    number of references."""
+    own = defs.sym64(GFX_DEVICE_ADDR)
+    n = 0
+    for o, (_d, u) in syms.items():
+        for s in u:
+            if s == own or nu.name_address(s)[0] == GFX_DEVICE_ADDR:
+                renames.setdefault(o, {})[s] = GFX_DEVICE_ENTRY
+                bound.add(s)
+                n += 1
+    return n
+
+
 def cp_shape(s, d):
     if s.startswith("??_R") or "RTTI" in d:
         return "RTTI descriptor"
@@ -920,6 +1003,12 @@ def ld64(objs, aliases, unbound, extra_asm=()):
     if errs:
         return {"status": "shim failed", "errors": errs}
     host = host + shim
+    gfx = LINK_STATE.get("gfx")
+    if gfx is not None:     # (gfx1) the bgfx sink, the bridge's host half, the window code; bgfx's libraries
+        host = host + gfx["host"]
+        shim_lflags = list(shim_lflags) + gfx["libs"]
+        for fw in gfx["frameworks"]:
+            shim_lflags += ["-framework", fw]
     host_syms = nm_macho(host)
     host_def = set().union(*(dd for dd, _u in host_syms.values()))
     host_undef = {s for _dd, u in host_syms.values() for s in u if s.startswith("hulk_")}
@@ -1093,6 +1182,9 @@ def main(argv=None):
                     help="link although tree / data TUs failed to compile (their definitions missing; compile_gate)")
     lk.add_argument("--allow-local-data", action="store_true",
                     help="link although the objects define local data stand-ins (native_local_data.gate)")
+    lk.add_argument("--gfx", action="store_true",
+                    help="the graphics backend: the pddi front end on the bgfx sink (tools/native_pddi.py) in place of "
+                         "pure3d's d3d layer (d3dCreateDevice bound to hulk_pddi_create_device)")
     lk.add_argument("--name-table", action="store_true",
                     help="also bind through the Wine build's binding map (x64-3's inventory; rejected as a link step, "
                          "for comparison only)")

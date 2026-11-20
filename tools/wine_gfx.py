@@ -756,9 +756,13 @@ PDDI_WIN_DIR = os.path.join(OUT, "pddi-win32")
 PLATFORM_EVENTS = os.path.join(ROOT, "src/platform/sdl/platform_events.cpp")
 
 
+NATIVE_ONLY = ("bgfx_bridge.cpp",)   # (gfx1) the native builds' C bridge (tools/native_pddi.py): never in this build
+
+
 def pddi_sources():
     """The backend's units plus the program's window/event code (src/platform/sdl/platform_events.cpp)."""
-    return sorted(os.path.join(PDDI, f) for f in os.listdir(PDDI) if f.endswith(".cpp")) + [PLATFORM_EVENTS]
+    return sorted(os.path.join(PDDI, f) for f in os.listdir(PDDI)
+                  if f.endswith(".cpp") and f not in NATIVE_ONLY) + [PLATFORM_EVENTS]
 
 
 def drop_stale(objdir, srcs, suffix):
