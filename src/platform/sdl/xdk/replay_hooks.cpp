@@ -138,6 +138,7 @@ extern "C" unsigned HULK_CDECL hulk_session_small_hash(hulk_u32 fno) {
     hulk_prng_bytes(pb);
     return hulk_session_state_hash(fno, &st, pb);
 }
+static void hulk_ckref_frame(hulk_u32 fno, const HulkCkptState* st, const unsigned char* pb);
 extern "C" void HULK_CDECL hulk_native_frame(const void* clock) {
     hulk_io_frame_sync();
     hulk_last_clock = clock;
@@ -200,6 +201,7 @@ extern "C" void HULK_CDECL hulk_native_frame(const void* clock) {
             hulk_session_frame(fno, have, have ? hulk_session_state_hash(fno, &st, pb) : 0);
         }
     }
+    hulk_ckref_frame(hulk_native_frame_no - 1, &st, pb);     // (ckpt1: HULK_CKREF, the semantic probe)
     int r = hulk_ckpt_update(&st);
     static unsigned logged, bad;
     HulkCkptStats s;
@@ -749,6 +751,71 @@ extern "C" int HULK_CDECL hulk_replay_seed(void) {
     if (replay_open(&ri))
         return (int)ri.seed;
     return FUN_00267f00();
+}
+
+
+// ckpt1 (docs/checkpoints.md): HULK_CKREF=1 writes the semantic probe's record of every frame (the cheap tags; the full
+// tier every HULK_PROBE_FULL_EVERY frames) plus the legacy hash to HULK_TRACE_FILE + ".ckref" (tools/ckpt_ref.py
+// reads it): "HCKR", format 1, the probe version, then per frame: frame, tag mask, unavailable mask, and per tag in the
+// mask its exact and quantised hashes (little-endian words). HULK_CKREF_DUMP=<from>-<to> logs every hashed value of
+// those frames ("ckdump" lines in the trace). Off when unset.
+#include "../ckpt/ckpt_probe.cpp"
+static void hulk_ckref_dump(void*, int tag, const char* name, unsigned index, unsigned bits, int is_float) {
+    char line[128];
+    hulk_host__snprintf(line, sizeof(line), "ckdump f=%u t=%d %s[%u] %08x%s", hulk_native_frame_no - 1, tag, name, index,
+                        bits, is_float ? " f" : "");
+    hulk_native_log(line);
+}
+static void hulk_ckref_frame(hulk_u32 fno, const HulkCkptState* st, const unsigned char* pb) {
+    static int on = -1;
+    static hulk_host_file* f;
+    static int dump_on;
+    static hulk_u32 dump_from, dump_to;
+    if (on < 0) {
+        const char* v = hulk_host_getenv("HULK_CKREF");
+        on = v && *v == '1';
+        if (on) {
+            const char* tp = hulk_host_getenv("HULK_TRACE_FILE");
+            char path[600];
+            hulk_host__snprintf(path, sizeof(path), "%s.ckref", tp && *tp ? tp : "hulk-startup-trace.txt");
+            f = hulk_host_fopen(path, "wb");
+            hulk_u32 hdr[3] = {0x524b4348u /* "HCKR" */, 1, HULK_PROBE_VERSION};
+            if (f)
+                hulk_host_fwrite(hdr, 4, 3, f);
+            dump_on = hulk_frame_range(hulk_host_getenv("HULK_CKREF_DUMP"), &dump_from, &dump_to);
+        }
+    }
+    if (!on || !f)
+        return;
+    HulkProbeInputs in;
+    in.rng = st->rng;
+    in.boot_step = st->boot_step;
+    in.view_ptr = st->camera_ptr;
+    in.clock = st->clock;
+    in.clock_at_entry = st->clock_at_entry;
+    in.prng = pb;
+    in.snd_rng = hulk_snd_rng;
+    in.snd_rand = &hulk_snd_rand;
+    in.world_ptr = (const void* const*)DAT_004dd700;
+    unsigned mask = HULK_PROBE_CHEAP_MASK | (fno % HULK_PROBE_FULL_EVERY == 0 ? HULK_PROBE_FULL_MASK : 0);
+    HulkProbeRecord rec;
+    int dumping = dump_on && fno >= dump_from && fno <= dump_to;
+    hulk_probe_frame(fno, &in, mask, &rec, dumping ? hulk_ckref_dump : 0, 0);
+    rec.mask |= 1u << HULK_PT_LEGACY;
+    rec.exact[HULK_PT_LEGACY] = rec.quant[HULK_PT_LEGACY] = hulk_ckpt_hash(fno, st);
+    hulk_u32 out[3 + 2 * HULK_PT_COUNT];
+    hulk_u32 n = 0;
+    out[n++] = rec.frame;
+    out[n++] = rec.mask;
+    out[n++] = rec.unavailable;
+    for (int t = 0; t < HULK_PT_COUNT; t++)
+        if (rec.mask & (1u << t)) {
+            out[n++] = rec.exact[t];
+            out[n++] = rec.quant[t];
+        }
+    hulk_host_fwrite(out, 4, n, f);
+    if (fno % 300 == 0)
+        hulk_host_fflush(f);
 }
 
 #else

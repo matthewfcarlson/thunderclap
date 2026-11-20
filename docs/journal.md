@@ -2084,3 +2084,17 @@ blocks fight::Action's whole family: the records come first there.
   (an observable, not game state). Against that reference the Wine build matches flow, clock and mission everywhere;
   its known transients localise to **camera float drift from frame 5,875** (the 5880/5910 checkpoints) and **Hulk /
   actors float drift from 34,240** (34,260): both "drift" (the quantised hashes agree), so 1-ULP class differences.
+
+## 2026-11-20 ckpt1: the semantic probe against the original (D155, D158; docs/checkpoints.md)
+
+- `src/platform/sdl/ckpt/ckpt_probe.{h,cpp}` (probe v3): per-subsystem hashes (flow, clock, gameplay RNG, Hulk, camera,
+  actors, mission; sound and particle generators apart) with exact float bits plus a quantised copy. In the Wine
+  build `HULK_CKREF=1` writes `trace.txt.ckref` (`HULK_CKREF_DUMP=<from>-<to>` logs the values); in the hook-only XBE
+  the `probe` flag fills a ring `hybrid_test.py replay --ckref OUT [--ckref-dump F]` drains; `tools/ckpt_ref.py` makes
+  two-run references (per frame and tag) and checks a run (`--control` for the proof gate, `--cover` for suspects).
+  Wine pair (studio, HEAD fb860bfc6, private input copies): control 105130, proof 105140: ckpt_gate GATE ok (only
+  5880/5910/34260; prng 0 of 2,016 differ).
+- The ckpt_gate transients 5880/5910/34260 are float drift, not logic: against the original's reference the camera
+  drifts from frame 5,875 and Hulk and the actors from 34,240, with the quantised hashes equal.
+- The original itself is not deterministic in pure3d's particle generators after about frame 12,920 of play3, nor in
+  the sound code's own generators: two xemu runs disagree there, so the references drop those tags frame by frame.

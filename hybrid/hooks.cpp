@@ -24,6 +24,9 @@
 #define WIDE_PAGES 256
 #define SKIP_MAX 32
 #define RNGLOG_MAX 2048
+#define PROBE_RING 512             // (keep in sync with tools/patch_xbe.py; the host drains it every 2 s)
+#define PROBE_WORDS 23
+#define PROBE_DUMP_MAX 1024
 
 struct Pad {                          // XINPUT_GAMEPAD plus the frame it applies from
     unsigned int frame;
@@ -111,6 +114,13 @@ struct HybridCtl {
                                       // sequencer's random actions read their generator through this, = &snd_rng
     unsigned int rnglog_count;        // rng-log (diagnostic build patch): calls of the game's RNG accessors
     unsigned int rnglog[RNGLOG_MAX][2];   // ring of (return address | 0x80000000 for 0x964e0, frame)
+    // Third extension (ckpt1, tools/patch_xbe.py CTL_PROBE): HF_PROBE's ring of semantic probe records
+    // (src/platform/sdl/ckpt/ckpt_probe.h): frame, tag mask, unavailable mask, exact[10], quant[10]
+    unsigned int probe_count;         // records written (ring index = count % PROBE_RING)
+    unsigned int probe[PROBE_RING][PROBE_WORDS];
+    unsigned int probe_dump_frame;    // nonzero: every value the probe hashes at this frame goes to probe_dump
+    unsigned int probe_dump_count;    // (tag | is_float << 8, name string address, index, bits)
+    unsigned int probe_dump[PROBE_DUMP_MAX][4];
 };
 
 #define HF_FIXED_DT 1
@@ -125,6 +135,7 @@ struct HybridCtl {
 #define HF_QUANT    1024             // record mode: quantize the analog inputs the game is given (fewer pad changes)
 #define HF_VDATE    4096             // the date (GetLocalTime) follows the virtual clock (hybrid_get_local_time)
 #define HF_VPAD     2048             // the game sees one virtual pad in port 1 (see hybrid_get_device_changes)
+#define HF_PROBE    16384            // the semantic probe every frame (ckpt1; docs/checkpoints.md)
 #define HF_SYNCIO   8192             // the main thread waits after each drive-thread post until that drive is idle
 #define HF_POLLKEY  64               // replay entries are keyed by pad polls instead of frames (tools/trace_capture.py:
                                      // after the new-game load the frame counter races, polls stay ~1 per frame)
@@ -225,6 +236,48 @@ static unsigned int hash_page(unsigned int a, unsigned int len)
         h = (h ^ c) * 16777619u;
     }
     return h;
+}
+
+// ckpt1 (docs/checkpoints.md): the semantic probe, read in the original's memory at its own addresses
+#include "../src/platform/sdl/ckpt/ckpt_probe.cpp"
+
+static void probe_dump(void*, int tag, const char* name, unsigned index, unsigned bits, int is_float)
+{
+    if (g_hybrid.probe_dump_count >= PROBE_DUMP_MAX)
+        return;
+    unsigned int* d = g_hybrid.probe_dump[g_hybrid.probe_dump_count++];
+    d[0] = (unsigned int)tag | ((unsigned int)is_float << 8);
+    d[1] = (unsigned int)name;
+    d[2] = index;
+    d[3] = bits;
+}
+
+static void probe_frame(unsigned int clock)
+{
+    HulkProbeInputs in;
+    in.rng = (const void*)0x4e5ad0;
+    in.boot_step = (const void*)0x49fb40;
+    in.view_ptr = (const void* const*)0x4e231c;
+    in.clock = (const void*)clock;
+    in.clock_at_entry = 0;                    // (called inside GameClock::Update: step and scaled step already zero)
+    in.prng = (const unsigned char*)0x554be4; // the 40 particle RNG bytes, contiguous in the original
+    in.snd_rng = g_hybrid.snd_rng;
+    in.snd_rand = &g_hybrid.snd_rand;
+    in.world_ptr = (const void* const*)0x4dd700;
+    unsigned int f = g_hybrid.frame;
+    unsigned mask = HULK_PROBE_CHEAP_MASK | (f % HULK_PROBE_FULL_EVERY == 0 ? HULK_PROBE_FULL_MASK : 0);
+    HulkProbeRecord r;
+    int dumping = g_hybrid.probe_dump_frame && f == g_hybrid.probe_dump_frame;
+    hulk_probe_frame(f, &in, mask, &r, dumping ? probe_dump : 0, 0);
+    unsigned int* w = g_hybrid.probe[g_hybrid.probe_count % PROBE_RING];
+    w[0] = r.frame;
+    w[1] = r.mask;
+    w[2] = r.unavailable;
+    for (int t = 0; t < HULK_PT_COUNT; t++) {
+        w[3 + t] = r.exact[t];
+        w[3 + HULK_PT_COUNT + t] = r.quant[t];
+    }
+    g_hybrid.probe_count++;
 }
 
 static void checkpoint()
@@ -374,6 +427,8 @@ extern "C" unsigned __int64 __cdecl hybrid_clock_tick()
             ;
         *(volatile unsigned int*)&g_hybrid.halted = 0;
     }
+    if (g_hybrid.flags & HF_PROBE)
+        probe_frame(clock);
     if ((g_hybrid.flags & HF_CKPT) && g_hybrid.ckpt_interval && g_hybrid.frame % g_hybrid.ckpt_interval == 0)
         checkpoint();
     g_hybrid.frame++;

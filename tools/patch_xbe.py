@@ -77,7 +77,8 @@ def cached_obj(src, extra=()):
     """Compile src (cached by content + flags). extra: more cl flags (e.g. /DHYBRID_DRAWLOG for hooks.cpp)."""
     os.makedirs(OBJ_DIR, exist_ok=True)
     flags = DEFAULT_FLAGS + list(extra)
-    h = hashlib.sha1(open(src, "rb").read() + repr(flags if extra else DEFAULT_FLAGS).encode()).hexdigest()[:16]
+    deps = b"".join(open(os.path.join(ROOT, d), "rb").read() for d in HOOK_DEPS) if src == HOOK_SRC else b""
+    h = hashlib.sha1(open(src, "rb").read() + deps + repr(flags if extra else DEFAULT_FLAGS).encode()).hexdigest()[:16]
     path = os.path.join(OBJ_DIR, "%s-%s.obj" % (os.path.splitext(os.path.basename(src))[0], h))
     if not os.path.exists(path):
         tmp = path + ".d%d" % os.getpid()
@@ -394,6 +395,14 @@ EXT2_FIELDS = ("poll_errors", "last_error", "nhandles", "handle0", "handle1", "h
 CTL_SEQ_RNG_PTR = CTL_EXT2 + 4 * len(EXT2_FIELDS) + 4 * 18 * 4
 CTL_RNGLOG = CTL_SEQ_RNG_PTR + 4                  # rnglog_count, then rnglog[RNGLOG_MAX][2]
 RNGLOG_MAX = 2048
+# ckpt1: HF_PROBE's ring of semantic probe records (hooks.cpp probe_count, probe[PROBE_RING][PROBE_WORDS];
+# src/platform/sdl/ckpt/ckpt_probe.h, docs/checkpoints.md)
+CTL_PROBE = CTL_RNGLOG + 4 + 8 * RNGLOG_MAX
+PROBE_RING, PROBE_WORDS = 512, 23
+CTL_PROBE_DUMP = CTL_PROBE + 4 + 4 * PROBE_RING * PROBE_WORDS    # probe_dump_frame, probe_dump_count, probe_dump[][4]
+PROBE_DUMP_MAX = 1024
+# files hooks.cpp includes (part of its object cache key)
+HOOK_DEPS = ["src/platform/sdl/ckpt/ckpt_probe.cpp", "src/platform/sdl/ckpt/ckpt_probe.h"]
 # rng-log: functions that step the RNG inline (read [0x4e5acc] themselves); their entries are logged with id = index + 1
 RNGLOG_FUNCS = [0x000113E0, 0x002382A0, 0x00080BA0, 0x0007A230, 0x0007A420, 0x0007DB80, 0x00081420, 0x00097A30,
                 0x001E4E50, 0x003572B0, 0x0035EF90, 0x0035EFA0]
@@ -415,6 +424,7 @@ DRAWLOG_RING_OFF = 4 * len(DRAWLOG_HDR) + 4 * 16
 HF = {"fixed-dt": 1, "replay": 2, "record": 4, "ckpt": 8, "autostart": 16, "wide": 32, "pollkey": 64,
       "vclock": 128, "iosync": 256, "sound-rng": 512, "quant": 1024,
       "vpad": 2048, "vdate": 4096, "syncio": 8192,
+      "probe": 16384,
       "seq-rng": 0, "rng-log": 0}      # seq-rng: a build-time patch only (SEQ_RNG_SITES), no runtime bit
 
 
@@ -557,6 +567,7 @@ def apply_hooks(x, image, base, syms, hooks, records=()):
     put(CTL["ckpt_interval"], hooks.get("ckpt_interval", 30))
     struct.pack_into("<I", image, ctl + CTL_EXT + 4 * EXT_FIELDS.index("step_us"), hooks.get("step_us", 0))
     struct.pack_into("<I", image, ctl + CTL_EXT + 4 * EXT_FIELDS.index("halt_frame"), hooks.get("halt_frame", 0))
+    struct.pack_into("<I", image, ctl + CTL_PROBE_DUMP, hooks.get("probe_dump_frame", 0))     # (ckpt1)
     struct.pack_into("<I", image, ctl + CTL_EXT + 4 * EXT_FIELDS.index("pre_step_us"), hooks.get("pre_step_us", 4000))
     struct.pack_into("<I", image, ctl + CTL_EXT + 4 * EXT_FIELDS.index("io_timeout_ms"), hooks.get("io_timeout_ms", 200))
     for i, w in enumerate((0x2F6B6F2A, 0x1F123BB5, 0, 0, 0x5EED)):           # sound-rng initial states
@@ -916,7 +927,9 @@ def build(records, out, pad=PAD_SIZE, empty_section=False, tweaks=(), hooks=None
            "g_hybrid_layout": {"ckpt": CTL_CKPT, "ckpt_ring": CKPT_RING, "record": CTL_RECORD,
                                "input_max": INPUT_MAX, "pad_bytes": PAD_BYTES, "wide": CTL_WIDE,
                                "wide_pages": WIDE_PAGES, "ext": CTL_EXT, "ext_fields": list(EXT_FIELDS),
-                               "ext2": CTL_EXT2, "ext2_fields": list(EXT2_FIELDS)},
+                               "ext2": CTL_EXT2, "ext2_fields": list(EXT2_FIELDS),
+                               "probe": CTL_PROBE, "probe_ring": PROBE_RING, "probe_words": PROBE_WORDS,
+                               "probe_dump": CTL_PROBE_DUMP, "probe_dump_max": PROBE_DUMP_MAX},
            "functions": [{k: r.get(k) for k in ("addr", "name", "src", "class", "ours", "sym")} for r in ok]}
     if hook_syms.get("_g_drawlog"):
         man["g_drawlog"] = hook_syms["_g_drawlog"]

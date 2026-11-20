@@ -70,81 +70,101 @@ and cheats/unlocks (58 of 102).
 
 ### One probe, three compilers
 
-The probe (`src/platform/sdl/replay/ckpt_probe.{h,cpp}`) reads named game state **through the tree's own types**
-(`include/gen` classes, `include/decls` records) and writes a canonical byte stream. It is compiled:
+The probe (`src/platform/sdl/ckpt/ckpt_probe.{h,cpp}`, probe version 3) walks the game's state from the globals each
+build hands it (`HulkProbeInputs`) and hashes it per subsystem tag. The same source is compiled:
 
-1. with MSVC 7.1 into the hook-only XBE (`hybrid/`, linked into `.hybrid`): on the original, gen's 32-bit layout is the
-   original's layout (checked class by class by `gen_headers.py --probe`);
-2. with clang i686 into the Wine build;
-3. with the native front ends into the 64-bit builds, where the same field names follow the native layout.
+1. with MSVC 7.1 into the hook-only XBE: `hybrid/hooks.cpp` includes it and calls it from `hybrid_clock_tick` (inside
+   `GameClock::Update`) when the build has the `probe` flag (HF_PROBE), with the original's addresses;
+2. with clang i686 into the Wine build: `src/platform/sdl/xdk/replay_hooks.cpp` includes it and calls it at
+   `GameClock::Update`'s entry when `HULK_CKREF=1`, with the data TUs' `DAT_<addr>` items;
+3. with the native front ends into the 64-bit builds (the native replay driver, once native reaches gameplay).
 
-So no offset is written twice, and a record the game code itself reads correctly natively is read correctly by the
-probe. A field the probe needs that gen still spells as a pad or an untyped `f_XX` gets a proper name and type in gen
-(or a records.h record), through the usual header process (`gen_headers.py --probe`, whole-tree verify).
+Field access: a field `include/gen` spells is read through gen (`offsetof` on the build's layout, checked against the
+original's 32-bit offset at compile time on 32-bit builds) when `HULK_PROBE_GEN` is defined; the words gen does not
+spell yet (the actor's life state and controller slot, the scene-node chain to its position, the actor and scenario
+managers' pointers, which gen only forward-declares) are read at their 32-bit offsets, on 32-bit builds only. A 64-bit
+build reports the tags that need them as **unavailable** (never hashed at a guessed offset) until gen spells those
+words; each read in the probe names the function that shows its offset (the same reads as the session hash of
+multiplayer.md). The Wine build reads the original's offsets directly (identical on 32-bit; gen's include path is not
+on the platform layer's compile line).
 
 ### Canonical encoding
 
-- Little-endian fixed-width values: integers as u8/u16/u32 by their declared width, floats as their IEEE bit patterns,
-  booleans as one byte.
+- Little-endian 32-bit values: integers and enums as they are, floats as their IEEE bit patterns.
 - **Floats are exact.** The port's float work (wine-float.md, native-float64.md, soft-x87.md) aims at bit-exact
   results on every build; quantising would hide exactly the 1-ULP divergences the div8/div9 hunts found. A quantised
-  copy of each float field (2^-10 relative, sign-preserving) is hashed into a separate diagnostic stream only: when
-  the exact hash differs and the quantised one does not, the report says "float drift"; when both differ, "logic".
-- **Pointers are never hashed.** A pointer field is encoded as null / non-null, or as the ordinal of its target in a
-  list the game owns (actor index in the actor manager's order); names as the game's 32-bit tUID hashes; strings by
-  content.
-- Lists are walked in the game's own order (its arrays and linked lists), never in memory order.
-- Each sub-hash is FNV-1a 32 over (frame, tag, stream); the frame record is the list of (tag, hash) pairs.
+  copy of each float (rounded to 10 fraction bits; NaN, infinities and zeros unchanged) is hashed into a second stream
+  for diagnosis only: when the exact hash differs and the quantised one does not, `ckpt_ref` says "float drift";
+  when both differ, "logic".
+- **Pointers are never hashed**: only present / absent; lists are walked in the game's own order.
+- Each tag's hash is FNV-1a 32 over (frame, tag, probe version) and its values, in exact and quantised versions.
 
-### Sub-hashes (tags)
+### Tags (probe v3)
 
-| tag | tier | contents |
-|---|---|---|
-| `flow` | cheap | boot step, game state, current level and mission ids, pause / loading flags |
-| `clock` | cheap | the GameClock (game and scaled time, dt, rate), the virtual clock |
-| `rng` | cheap | gameplay MWC (0x4e5ad0), particle MWCs (0x554be4..), the sound generator, Lua's `rand` state |
-| `hulk` | cheap | position, orientation, velocity, health, rage, current action / state machine id, animation id and time, held prop (ordinal) |
-| `camera` | cheap | position, target, field of view, active camera kind |
-| `actors` | full | count by type; per actor in the actor manager's order: type tUID, position, orientation, health, AI state id |
-| `mission` | full | mission and objective state, timers and counters through the game's mission objects (not the Lua VM: its tables and GC counters depend on pointers and on 32/64-bit sizes) |
-| `fe` | full | the front-end screen stack and selection, HUD state |
-| `save` | event | hash of the save buffer each time the game writes it |
-| `obs` | optional | observables beyond game state: a digest of the frame's draws (the drawlog record, graphics-backend.md) and of the sound events started |
+| id | tag | tier | contents |
+|---:|---|---|---|
+| 0 | `legacy` | every frame | the narrow hash of hulk_replay.h (Wine records only; the recordings carry the original's) |
+| 1 | `flow` | every frame | boot step, world / actor manager present, the scenario manager's mission state |
+| 2 | `clock` | every frame | the GameClock block +0x10..+0x40 (step and scaled step as zeros, as the legacy hash) |
+| 3 | `rng` | every frame | the gameplay MWC (0x4e5ad0) |
+| 4 | `hulk` | every frame | the main actor (CActorManager +0x124): life state, controller slot, health, static ground point, position |
+| 5 | `camera` | every frame | the logic view's position (+0x4c) |
+| 6 | `actors` | every 30 frames | count, then every actor of the actor manager's list as for `hulk` |
+| 7 | `mission` | every 30 frames | mission state, checkpoint, elapsed and end times |
+| 8 | `sound` | every frame | the sound code's own generators (sound-rng): an **observable**, outside the verdict unless `--strict` (the audio backends are not the original's, and the two original runs themselves disagree) |
+| 9 | `particle` | every frame | pure3d's particle generators (40 bytes at 0x554be4) |
 
-The legacy narrow hash stays in the frame record (tag `legacy`) so existing recordings, ckpt_gate and the native
-replay keep working.
+Planned next (each a new tag id and probe version): Hulk's orientation, velocity, rage and action / animation state;
+the camera's target and kind; per-actor type and AI state; the front-end screen stack; a save-buffer hash when the
+game writes one; a draw digest.
 
-**Rate.** The cheap tier every frame, the full tier every 30 frames (the current interval). In xemu the hook writes
-the records into a ring the host drains as it does today (QMP memsave every 2 s); the hook's code and ring stay small
-(a 1.2 MB ring once starved the game of memory: record-replay.md), so the full tier's per-actor streams are hashed in
-the guest and only (tag, hash) pairs leave it.
+In xemu the hook writes one 23-word record per frame into a 512-entry ring in `g_hybrid` (46 KB) that the host drains
+with the checkpoint ring every few seconds; the per-actor values are hashed in the guest and only the hashes leave it.
 
 ## Reference checkpoints from the original
 
-1. Build the hook-only XBE with the probe (`tools/patch_xbe.py --hooks`, the probe compiled with MSVC 7.1 like
-   `hooks.cpp`; no game function is patched).
-2. Replay each recording in xemu through the queue (`--needs xemu`, always `-snapshot`; play3's VM snapshots let
-   shards run in parallel, `--from-snapshot K`), **twice**, ideally on two hosts.
-3. A frame's (tag, hash) is a reference when both runs agree; a frame where the original disagrees with itself is
-   dropped for that tag (this is where the known transients go).
-4. Store `build/ckpt/<recording>.ckref` locally (header: format version, recording name and content hash, XBE hash,
-   probe version, tag list; then per frame the (tag, hash) pairs, plus the quantised hashes). Never committed.
+```sh
+# a from-boot replay of the recording in xemu with the probe (an xemu queue job; -snapshot as always)
+build/venv/bin/python tools/hybrid_test.py replay build/replays/play3.json --syncio --ckref OUT.ckref [--ckref-dump F]
+# twice (two hosts), then the reference: per frame, each tag both runs agree on
+build/venv/bin/python tools/ckpt_ref.py make A.ckref B.ckref --name play3 --out build/ckpt/play3.ckref
+```
 
-A probe change bumps the probe version and needs new references; the tool refuses a reference of another version.
+A recording's VM snapshots hold the hooks they were recorded with, so references come from replays from boot (play3:
+about 50 minutes per run). `make` keeps a (frame, tag) only where both runs agree and drops the disagreeing tags of a
+frame, never the whole frame; the sidecar `play3.ckref.json` counts what was dropped. References are derived game
+data: they stay in `build/ckpt/`, never committed. A probe change bumps the probe version; `ckpt_ref` refuses a run
+and a reference of different versions, so new references are recorded with it.
+
+**play3 (probe v2, two runs on two hosts).** The two original runs agree on flow, clock, Hulk, camera, actors and
+mission at every one of 56,595 frames. They do not agree on the particle generators after about frame 12,920 (the
+recording's own prng checkpoints stop at 12,900 for the same reason) nor on the sound generators: the original is not
+deterministic there, which is why v3 keeps the particle generators apart from the gameplay RNG.
 
 ## Comparing a build (`ckpt_ref`)
 
-`tools/ckpt_ref.py check RUN --ref build/ckpt/play3.ckref` reads the run's frame records (the Wine build writes them
-with `HULK_CKREF=1` beside the trace) and reports, per tag, the first diverging frame, whether it is drift or logic,
-and the overall verdict (every reference frame matched). Localisation:
+```sh
+# a Wine replay with the probe: HULK_CKREF=1 writes trace.txt.ckref beside the trace
+build/venv/bin/python tools/ckpt_ref.py check RUN.ckref --ref build/ckpt/play3.ckref [--cover COVER.json] \
+    [--control CONTROL.ckref] [--strict] [--json OUT]
+build/venv/bin/python tools/ckpt_ref.py diff TRACE_OR_DUMP_A TRACE_OR_DUMP_B --frame F
+```
 
-- **which subsystem**: the first tag to diverge (tags are independent, so `hulk` diverging before `rng` says where);
-- **which fields**: `HULK_CKREF_DUMP=<frame>` makes the Wine or native build write the canonical field stream of that
-  frame by name; the original's is taken from a third xemu run halted at that frame (`halt_frame`) with the same dump;
-  `ckpt_ref.py diff` names the fields that differ;
-- **which code**: the coverage report's first-hit frames give the functions first entered between the last matching
-  and the first diverging frame (the window's suspects), and block coverage of that window (a coverage run started from
-  the last matching frame) narrows it to the functions that ran there.
+`check` reports per tag the frames compared and diverged, the first divergence, whether it is float drift or logic,
+and the last matching frame before it. With `--control` the verdict is the gate: no (frame, tag) that the control run
+matched may diverge in the run (the control's own divergences are the known ones). Localisation:
+
+- **which subsystem**: the first tag to diverge;
+- **which fields**: `HULK_CKREF_DUMP=<from>-<to>` makes the Wine build log every hashed value of those frames
+  (`ckdump` lines in the trace); `hybrid_test.py replay --ckref-dump F` dumps the original's at frame F (OUT.dump.txt,
+  the same format); `ckpt_ref.py diff` names the fields that differ, floats shown as values;
+- **which code**: with `--cover` the functions the coverage report first saw in the window between the last
+  matching and the first diverging frame. A drift in code that was already running needs a coverage run started in
+  that window (or the field dump and the trace probes of wine-replay.md).
+
+**The Wine build against play3's reference (v2):** flow, clock and mission match at every frame. The known
+ckpt_gate transients are float drift (the quantised hashes agree): the camera from frame 5,875 (the 5880/5910
+checkpoints) and Hulk and the actors from 34,240 (34260).
 
 ## Recordings needed for broad coverage
 
@@ -170,4 +190,8 @@ Ctrl-C in the terminal when done.
 ## Status
 
 - Coverage: landed (ckpt1 phase 3 step 1; control 104695, proof 104986, GATE ok).
-- Probe, hook-only XBE with the probe, references and `ckpt_ref`: phase 3, steps 2-5.
+- Probe (v3), `HULK_CKREF` in the Wine build, HF_PROBE in the hook-only XBE, `hybrid_test.py replay --ckref`, and
+  `tools/ckpt_ref.py`: landed (ckpt1 phase 3 steps 2-3 and 5; control 105130, proof 105140, GATE ok).
+- References: play3 v3 from two xemu runs (step 4, local `build/ckpt/play3.ckref`).
+- Native: the probe compiles for the 64-bit builds with the actor / mission tags unavailable until gen spells their
+  words; the native replay driver calls it once native reaches gameplay.

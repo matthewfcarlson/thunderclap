@@ -526,6 +526,10 @@ def replay(args):
         hooks["flags"].append("syncio")
     if getattr(args, "drawlog", None):
         hooks["drawlog"] = patch_xbe.parse_drawlog(args.drawlog)
+    if getattr(args, "ckref", None):
+        hooks["flags"].append("probe")
+        if getattr(args, "ckref_dump", None):
+            hooks["probe_dump_frame"] = args.ckref_dump
     os.makedirs(TEST_DIR, exist_ok=True)
     out = os.path.join(TEST_DIR, "replay-drawlog.xbe" if hooks.get("drawlog") else "replay.xbe")
     man = patch_xbe.build([], out, tweaks=data.get("tweaks", TWEAKS), hooks=hooks)
@@ -540,6 +544,7 @@ def replay(args):
     feeder = ReplayFeeder(man, data["inputs"]) if long else None
     dl = {"seen": 0, "records": [], "lost": 0} if hooks.get("drawlog") else None
     stall = {}
+    probe = {"seen": 0, "records": {}, "lost": 0} if getattr(args, "ckref", None) else None
     try:
         stop = min(want, args.until_frame or want)
         while x.alive() and time.time() - x.t0 < limit and rec["frames"] < stop:
@@ -551,6 +556,8 @@ def replay(args):
                     dl["lost"] += hdr["lost"]
                     dl["seen"], dl["draws"] = hdr["count"], hdr["draws"]
                 st = _drain(x, man, rec, seen)
+                if probe is not None:
+                    _drain_probe(x, man, probe)
                 if feeder:
                     feeder.feed(st)
             except RuntimeError:
@@ -569,10 +576,22 @@ def replay(args):
                 dl["seen"], dl["draws"] = hdr["count"], hdr["draws"]
             except (RuntimeError, OSError):
                 pass
+        if probe is not None and x.alive():
+            try:
+                _drain_probe(x, man, probe)
+                if getattr(args, "ckref_dump", None):
+                    _write_probe_dump(x, man, args.ckref_dump, args.ckref + ".dump.txt")
+            except (RuntimeError, OSError):
+                pass
     finally:
         if feeder:
             feeder.close()
         x.close()
+    if probe is not None:
+        write_ckref(args.ckref, probe["records"])
+        extra_probe = {"ckref": args.ckref, "probe_frames": len(probe["records"]), "probe_lost": probe["lost"]}
+    else:
+        extra_probe = {}
     a, b = [tuple(c) for c in data["checkpoints"]], sorted(rec["checkpoints"].items())
     if dl:
         b = [(f, h) for f, h in b if f <= rec["frames"]]
@@ -594,7 +613,53 @@ def replay(args):
             "matching": sum(1 for f, h in b if ma.get(f) == h),
             "checkpoints": [[f, h] for f, h in b], "polls": rec["polls"], "pads": rec.get("pads"),
             "timeline": rec.get("timeline", []), "syncio": rec.get("syncio"), "stalled_at": stall.get("at"),
-            "identical": d is None and common_frames(a, b, 0) > 0}, **extra)
+            "identical": d is None and common_frames(a, b, 0) > 0}, **dict(extra, **extra_probe))
+
+
+def _drain_probe(x, man, probe):
+    """New records of g_hybrid's probe ring (HF_PROBE) into probe["records"] {frame: words}."""
+    lay = man["g_hybrid_layout"]
+    va = man["g_hybrid"] + lay["probe"]
+    count = struct.unpack("<I", x.read(va, 4))[0]
+    n, words = lay["probe_ring"], lay["probe_words"]
+    i0 = max(probe["seen"], count - n)
+    probe["lost"] += i0 - probe["seen"]
+    for w in _read_ring(x, va + 4, 4 * words, n, i0, count, lambda raw, o: struct.unpack_from("<%dI" % words, raw, o)):
+        probe["records"][w[0]] = w
+    probe["seen"] = count
+
+
+def _write_probe_dump(x, man, frame, path):
+    """HF_PROBE's field dump of one frame (hooks.cpp probe_dump) as `ckdump` lines (the Wine build's format,
+    tools/ckpt_ref.py diff)."""
+    lay = man["g_hybrid_layout"]
+    va = man["g_hybrid"] + lay["probe_dump"]
+    _f0, n = struct.unpack("<2I", x.read(va, 8))
+    n = min(n, lay["probe_dump_max"])
+    raw = x.read(va + 8, 16 * n) if n else b""
+    names = {}
+    with open(path, "w") as out:
+        for i in range(n):
+            tf, sp, idx, bits = struct.unpack_from("<4I", raw, 16 * i)
+            if sp not in names:
+                names[sp] = x.read(sp, 48).split(b"\0")[0].decode("ascii", "replace")
+            out.write("ckdump f=%d t=%d %s[%d] %08x%s\n" % (frame, tf & 0xff, names[sp], idx, bits, " f" if tf >> 8 else ""))
+    return n
+
+
+def write_ckref(path, records, ntags=10):
+    """The probe's records as a tools/ckpt_ref.py run file ("HCKR", format 1, probe version)."""
+    import struct as st_
+    pv = 3
+    with open(path, "wb") as f:
+        f.write(st_.pack("<3I", 0x524b4348, 1, pv))
+        for fr in sorted(records):
+            w = records[fr]
+            mask = w[1]
+            f.write(st_.pack("<3I", fr, mask, w[2]))
+            for t in range(ntags):
+                if mask & (1 << t):
+                    f.write(st_.pack("<2I", w[3 + t], w[3 + ntags + t]))
 
 
 def _stalled(stall, frame, args):
@@ -1076,6 +1141,10 @@ def main(argv):
     p.add_argument("--drawlog", help="also log the pddi state of every draw (hooks.cpp HYBRID_DRAWLOG) in frames "
                    "EVERY[:FIRST[:LAST]] (off by default); checkpoints are still compared")
     p.add_argument("--drawlog-out", help="where to write the draw log (default build/hybrid/test/drawlog.jsonl)")
+    p.add_argument("--ckref-dump", type=int, metavar="FRAME", help="with --ckref: also dump every value the probe hashes "
+                   "at FRAME to OUT.dump.txt (ckdump lines; tools/ckpt_ref.py diff)")
+    p.add_argument("--ckref", metavar="OUT", help="also run the semantic checkpoint probe every frame (hooks.cpp "
+                   "HF_PROBE, docs/checkpoints.md) and write its records to OUT (a run file for tools/ckpt_ref.py)")
     sv = sub.add_parser("salvage")
     sv.add_argument("recording")
     sv.add_argument("out")
