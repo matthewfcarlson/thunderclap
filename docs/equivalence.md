@@ -2503,6 +2503,43 @@ constants, the current heap or fields: artifacts, baseline accepts pending the u
 (F5's first-cast-wins, now view_ambiguous), tool on 0x00283340 / 0x000bc750 (an interior pointer into a view object
 at an offset with no 64-bit counterpart: not modelled).
 
+### Typed allocations (integ3, allocty; D142, rev5)
+
+An allocation's untouched bytes used to be raw and the same byte for byte on both targets. Code that reads a pointer
+field of a fresh allocation before writing it (its stubbed initializer would have set it: 0x0008c470's
+`slot = FUN_0008d6d0(sizeof *slot); thunk_FUN_00271530(slot, ...); if (slot->drive) ...`) then read a 4-byte word on
+i386 and an 8-byte one on x86-64 from the same bytes: the 32-bit run saw 0, the 64-bit run a garbage pointer, a false
+`crash64` (drive1's suspicion that the stubs overwrite the slot was wrong: they write nothing).
+Now an allocation the allocator returns as a record (the cast of its result, `ret_casts` / `site_casts`, else the
+allocator declaration's own return pointee) is typed:
+- the record's leaves are drawn over element 0 as any typed object's (a pointer field is null or an object on both
+  sides); every whole record (up to KMAX = 16) only where the call site's size argument is `n * sizeof(T)` for that
+  record (`alloc_site_arrays`, per call site as `call_site_index`; the allocator's size parameter by ALLOCATOR_AT);
+  any other size (`sizeof(Hdr) + len`, a hard-coded `count * 16`, `n * m * sizeof(T)`) types the header alone;
+- the bytes past the typed records (a header's payload) are raw, the same byte for byte counted from the records' end
+  (payload byte i is one value on both sides; a payload reached at a hard-coded 32-bit offset still differs);
+- a 32-bit request that holds a whole record and a 64-bit request that holds none stops the run as `alloc64`
+  (`layout`: the declared record allocated short natively);
+- the record is the allocation's hint (a pointer to element e translates by the record's size).
+The trust is the one given to a stub's typed out-parameter: the declared type says what the initializer would have
+written. Bytes the code writes before reading are compared as before. The report counts the inputs that drew a typed
+allocation (`allocty`). The x64 gate's AST digest includes every callee's declared result type (`callret`): a
+`void *` -> `Slot *` change leaves the code bytes alone. Known limits: elements past KMAX stay raw (a pointer field
+there read before written can still be a false crash64). Cases `0x0008c470_x64_allocty` (equivalent), `_elem1`
+(`2 * sizeof` site, equivalent), `_hdr` (header + fuzzed payload, equivalent), `_offset` (layout), `_size32` (alloc64
+layout), `_stride` (32-bit stride, crash64), `_straddle` (fails, class wild64, not gating). `EQ64_OFF=allocty`
+switches it off (proves nothing).
+(integ3/integ4, allocty regions) An allocation the body casts at an offset, `int* raw = alloc(n * sizeof(Elem) + 4);
+Elem* e = (Elem*)(raw + 1)` (an array-new cookie, 0x000afbf0), is typed from that offset as Elem records (`n * sizeof(T)
++ c` or the byte form `(Elem*)((char*)raw + 4)`: as many as the 32-bit request holds past the offset; any other size:
+one record), the prefix keeping its raw bytes (`alloc_site_regions`, in the AST digest as `aregions`; a local assigned
+again gets none). Past the region's records the bytes are raw and counted from the records' end, for the image and for
+offsets alike (normalize, off32, off64: `EQ64_OFF=regiontail`): a pointer into the tail of a literal-size request
+(0x002fdc90's `count * 100 + 4`) maps by the difference of the records' sizes. A 64-bit write into part of a pointer
+field (`ptrstore`) is `layout`, as a partial read is (ptrpart). Cases `0x000afbf0_x64_allocregion{,_bytes,_payload}`
+(equivalent), `_stride` (layout), `0x002fdc90_x64_rawint` (equivalent), `0x002fdc90_x64_regiontail_ptr` (a
+pointer-bearing element under the literal 32-bit size: layout).
+
 
 ## 64-bit gate (`tools/x64_gate.py`, gate1)
 

@@ -149,7 +149,7 @@ class Flow(unittest.TestCase):
     def run_gate(self, blocks, results, gone=(), ast=True):
         ran = []
 
-        def fake_changed(ref, head, tus, jobs, workdir, baseline_path=None):
+        def fake_changed(ref, head, tus, jobs, workdir, baseline_path=None, force=None):
             # (rev5's D118 review) the gate's --baseline file chooses the AST-changed blocks too
             self.assertEqual(baseline_path, self.path)
             return {"blocks": blocks, "gone": list(gone), "tus": 1, "head_root": self.tmp.name, "tmp": self.tmp.name + "/x",
@@ -185,6 +185,26 @@ class Flow(unittest.TestCase):
         res4, ran4 = self.run_gate([("0x00000030", "src/game/T.cpp", {"key": None}, "unkeyed")], {"0x00000030": INT})
         self.assertEqual((ran3, ran4), (["0x00000030"], ["0x00000030"]))
         self.assertFalse(res4["failed"])
+
+    def test_forced_blocks(self):
+        """(integ4, --blocks) a forced baseline block that comes back equivalent is `improved` (the ratchet may drop it);
+        a forced address the keyed TUs don't hold stops the gate."""
+        blocks = [("0x00000010", "src/game/T.cpp", {"key": "f1"}, "forced (--blocks)")]
+        captured = {}
+        def fake_changed(ref, head, tus, jobs, workdir, baseline_path=None, force=None):
+            captured["force"] = force
+            return {"blocks": blocks, "gone": [], "tus": 1, "head_root": self.tmp.name, "tmp": self.tmp.name + "/x",
+                    "errors": {}, "keyed": 1}
+        def fake_run(items, *a, **kw):
+            return {a_: dict(EQ, addr=a_) for a_, _ in items}
+        import equiv64
+        with mock.patch.object(g, "changed_blocks", fake_changed), mock.patch.object(g, "run_blocks", fake_run), \
+                mock.patch.object(equiv64, "ast_digests", lambda path, syms: {s_: "A" for s_ in syms}):
+            res = g.gate("HEAD", baseline_path=self.path, quiet=True, force={"0x00000010"})
+            self.assertEqual(captured["force"], {"0x00000010"})
+            self.assertEqual({r["addr"]: r["verdict"] for r in res["rows"]}, {"0x00000010": "improved"})
+            with self.assertRaises(SystemExit):
+                g.gate("HEAD", baseline_path=self.path, quiet=True, force={"0x00000010", "0x00000077"})
 
     def test_stale_types_rerun(self):
         """(x64t12) a cached result whose run built a type the source now lays out differently runs again; one whose

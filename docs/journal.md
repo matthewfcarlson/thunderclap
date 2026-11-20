@@ -1855,3 +1855,13 @@ blocks fight::Action's whole family: the records come first there.
 - An object's size: an array stride is evidence too. CLocator's only constructor runs over arrays with a 0x40
   stride, so the record is 0x40 even though nothing touches 0x24..0x3c.
 - Pointer or float: look at the instructions. CAvoidBehaviour's "pointer" words at 0x2c/0x30 are loaded with fld.
+
+## 2026-11-20 integ4: allocty lands (typed allocations, regions, region tails)
+- 0x0008c470's crash64 was a raw allocation read 4 bytes on i386 and 8 on x86-64 at the same place: a pointer field
+  the stubbed initializer would have set. Allocations now take the record the code casts them to. Across 1,388 blocks
+  six went from fail to equivalent (a constructor stub run on a member of the fresh object, an int field of element 1,
+  0x8c470's slot->drive), and none newly fails.
+- The first regress run caught a region bug: past a one-record region (a literal-size request, `count * 100 + 4`)
+  offsets were divided by the region size as if the allocation were an array of regions. The raw-tail rule now
+  covers offsets as well as bytes.
+- Left to triage: 0x0016d860 (layout -> wild64: element 3 in a region's raw tail) and 0x0030f870 (layout -> untyped).

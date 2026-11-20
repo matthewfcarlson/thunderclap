@@ -96,7 +96,9 @@ the record view; MSVC 7.1 emits the jump), or the native vftable holds a `hulk_x
 words point into itself (a tree's sentinel) is one records.h record: separate items are not adjacent natively. One
 namespace-scope name standing for several objects (`gObj`) passes verify_relocs block by block but binds to one item:
 write each block's own DAT_ name. A private `--workspace` is built from the checkout's HEAD at submit time (older overlay
-files silently revert newer commits); record `hash --proven` from a queue job on the final files (audio1, D140). A code hash follows a block's
+files silently revert newer commits); record `hash --proven` from a queue job on the final files (audio1, D140). `jobq_equiv` / `equiv_batch` records carry no code
+hashes, so `hash --proven` can't record them: prove with `equiv.py --json` runs. A gen include added to a TU can change a
+block's checker view (0x5b280): re-prove view-changed blocks before landing (sweep2). A code hash follows a block's
 references: prove and hash a block from HEAD plus your own hunks only, never from a TU carrying another lane's uncommitted
 edits (fix126).
 A caller's declaration must never become the same function as a definition in its own TU (MSVC inlines the call); keep it
@@ -192,7 +194,9 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   front ends (macos-arm64, linux-x64): a compile error, a missing toolchain or an `--x64` compile_error fails it (integ3).
   It also fails on a dynamic_cast site or vftable RTTI (COL) whose name is not the game's exact one (a TU-local polymorphic
   stand-in) unless `config/rtti-baseline.json` lists it; that list only shrinks (`check --update-baseline`), add only with
-  `x64_gate.py rtti-accept --why` (D147).
+  `x64_gate.py rtti-accept --why` (D147). A checker change that fixes a baseline block: `x64_gate.py check --tus FILE --blocks
+  ADDR,... --update-baseline` (the gate otherwise re-runs only changed code); `--head C` takes an ancestor REF
+  (`--changed-since $(git merge-base ...)`) (integ4).
 - **Unproven-code gate** (D126): materialize refuses an equivalent block whose (mode, code hash) has no promotable ledger
   line unless `config/unproven-baseline.json` lists exactly that hash. The list only shrinks (`hash --proven` removes
   entries); never hand-edit it, add only with `tree_tu.py unproven-accept ADDR --modes M --why TEXT`. verify and

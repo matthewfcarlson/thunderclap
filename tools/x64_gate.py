@@ -480,7 +480,7 @@ def side_keys(root, rels, jobs):
     return out, errs
 
 
-def changed_blocks(ref, head=None, tus=None, jobs=2, workdir=None, baseline_path=None):
+def changed_blocks(ref, head=None, tus=None, jobs=2, workdir=None, baseline_path=None, force=None):
     """The blocks the gate checks: [(addr, rel path, head key record, why changed)], the blocks REF had in those TUs
     that HEAD doesn't, the HEAD-side root, and the key errors."""
     ref_c = rev(ref)
@@ -505,6 +505,11 @@ def changed_blocks(ref, head=None, tus=None, jobs=2, workdir=None, baseline_path
             why = "unkeyed (%s)" % h.get("why")
         elif r[1]["key"] != h["key"]:
             why = "code changed" if r[1]["key"] else "keyed now"
+        elif force and a in force:
+            # (integ4, --blocks; lead/rev5) a named block runs although its code and AST digest are REF's: a checker
+            # change that fixes a baseline block (a model, not the source) can only leave the baseline this way. The
+            # baseline still only shrinks on a fresh equivalent (judge: improved)
+            why = "forced (--blocks)"
         else:
             same.append((a, rel, h, r[1]))
             continue
@@ -1322,10 +1327,14 @@ def judge(blocks, results, baseline):
 
 
 def gate(ref="HEAD", head=None, tus=None, mode="auto", jobs=2, name="x64gate", quiet=False, workdir=None,
-         baseline_path=BASELINE, prio=0, rtti_path=None):
+         baseline_path=BASELINE, prio=0, rtti_path=None, force=None):
     """Run the gate: {"rows": judge's rows, "summary", "gone", "errors", "failed": bool}."""
     base = load_baseline(baseline_path)
-    ch = changed_blocks(ref, head, tus, jobs, workdir, baseline_path)
+    ch = changed_blocks(ref, head, tus, jobs, workdir, baseline_path, force=force)
+    if force:
+        missing_ = sorted(set(force) - {x[0] for x in ch["blocks"]})
+        if missing_:
+            raise SystemExit("x64_gate: --blocks %s: not in the keyed TUs (pass their TUs with --tus)" % ", ".join(missing_))
     try:
         results, todo, hits = {}, [], {}
         for a, rel, h, why in ch["blocks"]:
@@ -1392,6 +1401,12 @@ def gate(ref="HEAD", head=None, tus=None, mode="auto", jobs=2, name="x64gate", q
                "changed": len(rows), "ran": len(fresh), "cached": sum(r["cached"] for r in rows),
                "verdicts": dict(sorted(vs.items())), "classes": dict(sorted(cs.items())), "gone": len(ch["gone"]),
                "gone_in_baseline": len(gone_known), "key_errors": len(ch["errors"])}
+    if force:
+        summary["forced"] = sorted(force)      # (integ4, --blocks; rev5) how a baseline drop was reached
+        if not quiet:
+            print("x64_gate: forced: %d blocks (%s)" % (len(force), " ".join(sorted(force))))
+    if "refanc" in os.environ.get("X64_GATE_OFF", ""):
+        summary["refanc"] = "off (X64_GATE_OFF=refanc: development only, not citable)"
     if native is None:
         summary["native_syntax"] = "off (X64_GATE_OFF=native)"
         native = []
@@ -1512,6 +1527,9 @@ def main(argv=None):
     p.add_argument("--changed-since", default="HEAD", metavar="REF", help="(default HEAD: the uncommitted changes)")
     p.add_argument("--head", metavar="COMMIT", help="gate COMMIT instead of the working tree (validation)")
     p.add_argument("--tus", metavar="FILE", help="key only these TUs (paths relative to the root, one per line)")
+    p.add_argument("--blocks", metavar="ADDR,...", help="(integ4) also run these blocks of the keyed TUs though their code "
+                   "and AST digest are REF's (a checker change); with --update-baseline a fresh equivalent leaves the "
+                   "baseline")
     g = p.add_mutually_exclusive_group()
     g.add_argument("--local", action="store_const", dest="mode", const="local")
     g.add_argument("--jobq", action="store_const", dest="mode", const="jobq")
@@ -1625,8 +1643,21 @@ def main(argv=None):
         print("accepted %s %s" % (addr, cls))
         return 0
     tus = [l.strip() for l in open(a.tus) if l.strip()] if a.tus else None
+    if a.head and _job() is None and "refanc" not in os.environ.get("X64_GATE_OFF", ""):
+        # (integ4, item 5) --head COMMIT is gated against REF: REF must be an ancestor of COMMIT. A side commit made on an
+        # older base checked against the shared checkout's newer HEAD read the newer commit's ratchets (the RTTI and x64
+        # baselines lowered by other lanes) as growth (fix126's 3493a871c against 9727ae393): pass --changed-since BASE
+        r_ = _git("merge-base", "--is-ancestor", rev(a.changed_since), rev(a.head))
+        if r_.returncode:
+            mb_ = _git("merge-base", rev(a.changed_since), rev(a.head)).stdout.strip()
+            raise SystemExit("x64_gate: --changed-since %s is not an ancestor of --head %s: gate the commit against its own "
+                             "base: --changed-since %s (git merge-base %s %s)" % (a.changed_since, a.head, mb_[:12] or "?",
+                                                                                 a.changed_since, a.head))
+    force = {"0x%08x" % int(x, 16) for x in a.blocks.split(",") if x.strip()} if a.blocks else None
+    if force and not tus:
+        raise SystemExit("x64_gate: --blocks needs --tus (the TUs that hold them)")
     res = gate(a.changed_since, a.head, tus, a.mode or "auto", a.jobs, a.name, quiet=a.json, baseline_path=a.baseline,
-               prio=a.prio)
+               prio=a.prio, force=force)
     import tree_tu
     if tree_tu.job_meta() is not None:      # (D10: what the job checked against the checkout's files at submit)
         cand = candidate_tus(rev(a.changed_since), rev(a.head) if a.head else None, tus)
