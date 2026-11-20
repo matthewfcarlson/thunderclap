@@ -52,7 +52,7 @@ struct Clock_87630 { char pad[32]; unsigned __int64 ticks; void FUN_00086450(); 
 struct Sim_87630 { char pad[44]; void* item; void FUN_00088c30(State_87630*,float);  };
 struct Notify_87630 { void FUN_000afe80(); };
 struct Sub_87630 { char pad[24]; Notify_87630* notify; };
-struct World { char pad[84]; Sub_87630* sub; }; 
+struct World { void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */ Sub_87630 *sub; }; 
 struct Stop_87630 { void FUN_001b7970(); };
 struct Update_87630 { void FUN_001eb2a0(float,int); };
 struct Check_87630 { bool FUN_00089e80(void*,unsigned int); };

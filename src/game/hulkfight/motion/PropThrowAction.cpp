@@ -7,6 +7,7 @@
 #include "gen/fight.h"
 #include "gen/hulkfight.h"
 #include "gen/owners.h"
+#include "gen/global.h"
 #define TREE_TU_BEGIN namespace fn_fd95142d {
 #define TREE_TU_END }
 namespace fn_fd95142d {} using namespace fn_fd95142d;
@@ -926,12 +927,12 @@ class ParamValueEnum_185500 : public ParamValue_185500 {
 } // namespace fn_fd95142d
 
 // 0x00183510 hulkfight::motion::PropStateByNameCondition::vfunc_6 (163 B): equivalent/0x00183510.cpp
-// sym: ?vfunc_6@PropStateByNameCondition@motion@hulkfight@@UAE_NPAX00@Z @79b417217c12 @w3b540a2b88c6 @v0087c5f28b04
+// sym: ?vfunc_6@PropStateByNameCondition@motion@hulkfight@@UAE_NPAX00@Z @b7c4a2416fca @w6b371b55f949 @v58a4c092ca08
 // STATUS: equivalent (tools/equiv.py level 3: 3004 inputs, branch coverage 22/22)
 // hulkfight::motion::PropStateByNameCondition::vfunc_6 @ 0x00183510
 bool hulkfight::motion::PropStateByNameCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { int a = (int)__p0; fight::Params_183510 * params = (fight::Params_183510 *)__p1; int c = (int)__p2;
 
-    if (dynamic_cast<CFightParams_183510 *>(params) == 0)
+    if (((CFightParams_183510 *)dynamic_cast<::CFightParams*>((::fight::Params*)(params))) == 0)
         return false;
     Player_183510 *player = params->FUN_000592a0()->FUN_00059a30();
     if (player == 0)
@@ -959,7 +960,7 @@ bool hulkfight::motion::PropStateByNameCondition::vfunc_6(void* __p0, void* __p1
 
 
 // 0x001835c0 hulkfight::motion::GrapplePropStateByNameCondition::vfunc_6 (167 B): equivalent/0x001835c0.cpp [wrapped: conflict: CFightParams; fight::Params; hulkfight::motion::GrapplePropStateByNameCondition]
-// sym: ?vfunc_6@GrapplePropStateByNameCondition@motion@hulkfight@fn_001835c0@@UAE_NHPAVParams@fight@4@H@Z @da2da5d2ce88 @w6f00928608f8 @v99f0fc76e838
+// sym: ?vfunc_6@GrapplePropStateByNameCondition@motion@hulkfight@fn_001835c0@@UAE_NHPAVParams@fight@4@H@Z @454a2352ba91 @wdc51096e91c8 @v5f25368d1793
 namespace fn_001835c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3007 inputs, branch coverage 22/22)
 // hulkfight::motion::GrapplePropStateByNameCondition::vfunc_6 @ 0x001835c0
@@ -1036,7 +1037,7 @@ public:
 
 bool hulkfight::motion::GrapplePropStateByNameCondition::vfunc_6(int a, fight::Params *params, int c)
 {
-    if (dynamic_cast<CFightParams *>(params) == 0)
+    if (((CFightParams *)dynamic_cast<::CFightParams*>((::fight::Params*)(params))) == 0)
         return false;
     Player_1835c0 *player = params->FUN_000592a0()->FUN_00059a30();
     Roster_1835c0 *roster = player->roster;
@@ -1066,7 +1067,7 @@ bool hulkfight::motion::GrapplePropStateByNameCondition::vfunc_6(int a, fight::P
 
 
 // 0x00183670 hulkfight::motion::SmartPropGrabbableCondition::vfunc_6 (363 B): equivalent/0x00183670.cpp [wrapped: conflict: FUN_000592a0]
-// sym: ?vfunc_6@SmartPropGrabbableCondition@fn_00183670@@UAE_NHPAVParams_183670@fight@2@H@Z @95f73904d7a4 @w72c5c53689ca @v6a7bea35213b
+// sym: ?vfunc_6@SmartPropGrabbableCondition@fn_00183670@@UAE_NHPAVParams_183670@fight@2@H@Z @4cd78d874685 @w8a64afc8894a @vd4ebedeea20f
 namespace fn_00183670 {
 // STATUS: equivalent (tools/equiv.py level 3: 106 inputs, branch coverage 38/40, incomplete)
 // hulkfight::motion::SmartPropGrabbableCondition::vfunc_6 @ 0x00183670
@@ -1158,7 +1159,7 @@ public:
 
 bool SmartPropGrabbableCondition::vfunc_6(int arg1, fight::Params_183670 *params, int arg3)
 {
-    if (dynamic_cast<CFightParams_183670 *>(params) == 0)
+    if (((CFightParams_183670 *)dynamic_cast<::CFightParams*>((::fight::Params*)(params))) == 0)
         return false;
 
     Stats_183670 *stats = FUN_00059a30(FUN_000592a0(params));
@@ -1216,12 +1217,12 @@ bool SmartPropGrabbableCondition::vfunc_6(int arg1, fight::Params_183670 *params
 namespace fn_fd95142d {
 
 // 0x001837e0 hulkfight::motion::PropMassCondition::vfunc_6 (336 B): equivalent/0x001837e0.cpp
-// sym: ?vfunc_6@PropMassCondition@fn_fd95142d@@UAE_NPAXPAVParams_1837e0@fight@@H@Z @fbea869bce8a @wf0b2ecaaebd2 @vce570ecfe690
+// sym: ?vfunc_6@PropMassCondition@fn_fd95142d@@UAE_NPAXPAVParams_1837e0@fight@@H@Z @15271788b6a4 @wfce66ffcfb8e @vca32a3a07d11
 // STATUS: equivalent (tools/equiv.py level 3: 111 inputs, branch coverage 26/26)
 // hulkfight::motion::PropMassCondition::vfunc_6 @ 0x001837e0
 bool PropMassCondition::vfunc_6(void *unused, fight::Params_1837e0 *params, int unused2)
 {
-    if (dynamic_cast<CFightParams_1837e0 *>(params) == 0)
+    if (((CFightParams_1837e0 *)dynamic_cast<::CFightParams*>((::fight::Params*)(params))) == 0)
         return false;
     Fighter_1837e0 *fighter = FUN_00059a30(FUN_000592a0(params));
     if (!fighter)

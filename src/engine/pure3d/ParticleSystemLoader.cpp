@@ -10,6 +10,7 @@
 #include "gen/pure3d.h"
 #include "decls/loaders.h"
 #include "decls/particle_emitter.h"
+#include "gen/content.h"
 #define TREE_TU_BEGIN namespace fn_f07ae39e {
 #define TREE_TU_END }
 #define TREE_LOCAL_CAction
@@ -1848,7 +1849,7 @@ ParticlePointGenerator_2abba0 *__stdcall FUN_002abba0(Reader_2abba0 *r, int arg)
 
 
 // 0x002abd90 FUN_002abd90 (543 B): equivalent/0x002abd90.cpp
-// sym: ?FUN_002abd90@fn_f07ae39e@@YGPAVParticlePlaneGenerator_2abd90@1@PAUReader_2abd90@1@H@Z @c6818c7e2e0e @wdd76bf600ef5 @v29facfd4e2a1
+// sym: ?FUN_002abd90@fn_f07ae39e@@YGPAVParticlePlaneGenerator_2abd90@1@PAUReader_2abd90@1@H@Z @9cc7c48fbbb8 @we5ef4a9dea33 @v58c1448fc094
 // STATUS: equivalent (tools/equiv.py level 3: 15652 inputs, branch coverage 18/18)
 // FUN_002abd90 @ 0x002abd90
 ParticlePlaneGenerator_2abd90 * __stdcall FUN_002abd90(Reader_2abd90 *r, int flag)
@@ -1881,7 +1882,7 @@ ParticlePlaneGenerator_2abd90 * __stdcall FUN_002abd90(Reader_2abd90 *r, int fla
         do {
             int id = r->FUN_00266a30();
             if (id == 0x121000) {
-                pure3d::AnimationLoader_2abd90 *al = dynamic_cast<pure3d::AnimationLoader_2abd90 *>(((content :: ObjectLoader_2abd90 *)((owners::Obj_265310 *)((*(Registry_2abd90**)&DAT_00527c58)))->FUN_00265310((hulk_intptr)id)));
+                pure3d::AnimationLoader_2abd90 *al = ((pure3d::AnimationLoader_2abd90 *)dynamic_cast<::pure3d::AnimationLoader*>((::content::ObjectLoader*)(((content :: ObjectLoader_2abd90 *)((owners::Obj_265310 *)((*(Registry_2abd90**)&DAT_00527c58)))->FUN_00265310((hulk_intptr)id)))));
                 al->v0();
                 fr.a = al->FUN_00288e90();
                 al->FUN_00288e80(1);
@@ -1915,7 +1916,7 @@ ParticlePlaneGenerator_2abd90 * __stdcall FUN_002abd90(Reader_2abd90 *r, int fla
 
 
 // 0x002abfb0 FUN_002abfb0 (457 B): equivalent/0x002abfb0.cpp
-// sym: ?FUN_002abfb0@fn_f07ae39e@@YGPAVParticleSphereGenerator_2abfb0@1@PAUReader_2abfb0@1@PAX@Z @b6059c8e9a31 @w31d642e99121 @v4a0849eb06df
+// sym: ?FUN_002abfb0@fn_f07ae39e@@YGPAVParticleSphereGenerator_2abfb0@1@PAUReader_2abfb0@1@PAX@Z @e9656eb5fd17 @w631b34e264e1 @v2f92fc3a24e8
 // STATUS: equivalent (tools/equiv.py level 3: 15709 inputs, branch coverage 18/18)
 // FUN_002abfb0 @ 0x002abfb0
 ParticleSphereGenerator_2abfb0* __stdcall FUN_002abfb0(Reader_2abfb0* r, void* arg)
@@ -1932,7 +1933,7 @@ ParticleSphereGenerator_2abfb0* __stdcall FUN_002abfb0(Reader_2abfb0* r, void* a
     gen->dim1 = f.y;
     while (r->FUN_002669f0() != 0) {
         if (r->FUN_00266a30() == 0x121000) {
-            pure3d::AnimationLoader_2abfb0* loader = dynamic_cast<pure3d::AnimationLoader_2abfb0*>(((content :: ObjectLoader_2abfb0 *)((owners::Obj_265310 *)((*(Registry_2abfb0**)&DAT_00527c58)))->FUN_00265310((hulk_intptr)0x121000)));
+            pure3d::AnimationLoader_2abfb0* loader = ((pure3d::AnimationLoader_2abfb0*)dynamic_cast<::pure3d::AnimationLoader*>((::content::ObjectLoader*)(((content :: ObjectLoader_2abfb0 *)((owners::Obj_265310 *)((*(Registry_2abfb0**)&DAT_00527c58)))->FUN_00265310((hulk_intptr)0x121000)))));
             loader->AddRef();
             f.old = loader->FUN_00288e90();
             loader->FUN_00288e80(1);
@@ -1967,7 +1968,7 @@ ParticleSphereGenerator_2abfb0* __stdcall FUN_002abfb0(Reader_2abfb0* r, void* a
 } // namespace fn_f07ae39e
 
 // 0x002ac180 FUN_002ac180 (787 B): equivalent/0x002ac180.cpp [wrapped: conflict: Reader]
-// sym: ?FUN_002ac180@fn_002ac180@@YGPAVGenerator_2ac180@1@PAUReader@1@PAXH@Z @bbb8d6b1e846 @w3dd1cd8b9bd0 @v7bb76f9117c5
+// sym: ?FUN_002ac180@fn_002ac180@@YGPAVGenerator_2ac180@1@PAUReader@1@PAXH@Z @9d0f474f86d8 @w0b1c631e8f35 @v24aabc5bfcf3
 namespace fn_002ac180 {
 // STATUS: equivalent (tools/equiv.py level 3: 168 inputs, branch coverage 49/52, incomplete)
 // FUN_002ac180 @ 0x002ac180
@@ -2069,7 +2070,7 @@ Generator_2ac180* __stdcall FUN_002ac180(Reader* r, void* arg, int kind)
 {
     Frame_2ac180 f;
     ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((void*)(&f.old), (hulk_intptr)1, 4, (hulk_intptr)1));
-    f.loader = dynamic_cast<pure3d::AnimationLoader_2ac180*>(((content :: ObjectLoader_2ac180 *)((owners::Obj_265310 *)((*(Registry_2ac180**)&DAT_00527c58)))->FUN_00265310((hulk_intptr)0x121000)));
+    f.loader = ((pure3d::AnimationLoader_2ac180*)dynamic_cast<::pure3d::AnimationLoader*>((::content::ObjectLoader*)(((content :: ObjectLoader_2ac180 *)((owners::Obj_265310 *)((*(Registry_2ac180**)&DAT_00527c58)))->FUN_00265310((hulk_intptr)0x121000)))));
     f.loader->AddRef();
     f.old = f.loader->FUN_00288e90();
     f.loader->FUN_00288e80(1);
@@ -2289,7 +2290,7 @@ pure3d::ParticleSystemLoader::ParticleSystemLoader() {
 
 
 // 0x002acd70 FUN_002acd70 (1941 B): equivalent/0x002acd70.cpp [wrapped: conflict: Reader; content::LoadInventory::DynamicCaster; content::ObjectLoader; pure3d::AnimationLoader]
-// sym: ?FUN_002acd70@Loader_2acd70@fn_002acd70@@QAEPAVObj_2acd70@2@PAVReader@2@PAVInv_2acd70@2@@Z @f7a940d42f02 @wf8d1442dedfb @ve6cc4bed865b
+// sym: ?FUN_002acd70@Loader_2acd70@fn_002acd70@@QAEPAVObj_2acd70@2@PAVReader@2@PAVInv_2acd70@2@@Z @1bd7e1b3f4b1 @w7c4437e9bc77 @vfee3e8e6ee3f
 namespace fn_002acd70 {
 // STATUS: equivalent (tools/equiv.py level 3: 300 inputs, branch coverage 68/86, incomplete)
 // FUN_002acd70 @ 0x002acd70
@@ -2620,8 +2621,8 @@ Obj_2acd70 *Loader_2acd70::FUN_002acd70(Reader *R, Inv_2acd70 *a1)
                 obj->f140 = m;
                 m->FUN_0022b980();
             }
-            pure3d::AnimationLoader *ab = dynamic_cast<pure3d::AnimationLoader *>(
-                (content::ObjectLoader *)(*(Pool_2acd70**)&DAT_00527c58)->FUN_00265310(0x121000));
+            pure3d::AnimationLoader *ab = ((pure3d::AnimationLoader *)dynamic_cast<::pure3d::AnimationLoader*>((::content::ObjectLoader*)(
+                (content::ObjectLoader *)(*(Pool_2acd70**)&DAT_00527c58)->FUN_00265310(0x121000))));
             f.x40 = ab;
             ab->AddRef();
             f.x44 = ab->FUN_00288e90();

@@ -5,6 +5,7 @@
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/global.h"
 #include "gen/owners.h"
+#include "gen/pure3d.h"
 #define TREE_TU_BEGIN namespace fn_f3bb83d9 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CEffectStopTrack
@@ -1299,7 +1300,7 @@ hulk_freg SortedMerge::FUN_0029dd30(Block *out)
 
 
 // 0x0029df90 FUN_0029df90 (902 B): equivalent/0x0029df90.cpp
-// sym: ?FUN_0029df90@Manager@fn_f3bb83d9@@QAEXPAUGroup@2@TArg2@2@TArg3@2@@Z @ef679a60dd8e @w42c19e171400 @va3773212d03c
+// sym: ?FUN_0029df90@Manager@fn_f3bb83d9@@QAEXPAUGroup@2@TArg2@2@TArg3@2@@Z @94b717b353c0 @w55f762dc6fe7 @vd0cbfc603ddf
 // STATUS: equivalent (tools/equiv.py level 3: 11440 inputs, branch coverage 47/50, incomplete)
 // FUN_0029df90 @ 0x0029df90
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
@@ -1346,7 +1347,7 @@ void Manager::FUN_0029df90(Group *group, Arg2 a2, Arg3 a3)
         pure3d::Light_29df90 *item = 0;
         if (i < group->size)
             item = group->items[i];
-        pure3d::DirectionalLight_29df90 *light = dynamic_cast<pure3d::DirectionalLight_29df90 *>(item);
+        pure3d::DirectionalLight_29df90 *light = ((pure3d::DirectionalLight_29df90 *)dynamic_cast<::pure3d::DirectionalLight*>((::pure3d::Light*)(item)));
         if (light == 0) {
             void *mem = thunk_FUN_0008d690((int)sizeof(pure3d::DirectionalLight_29df90));
             if (mem != 0)

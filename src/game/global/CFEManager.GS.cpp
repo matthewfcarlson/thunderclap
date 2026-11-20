@@ -1691,8 +1691,8 @@ class Core {
 };
 class World {
   public:
-    char pad[0x54];
-    Core* core;
+    void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */
+    Core *core;
 };
 class Page {
   public:
@@ -2110,7 +2110,7 @@ struct Pts {
     int FUN_00090110();
 };
 struct World {
-    char pad0[0x54];
+    void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */
     Holder54_c2c20 *p54;
 };
 

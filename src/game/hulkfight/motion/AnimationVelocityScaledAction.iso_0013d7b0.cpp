@@ -75,7 +75,7 @@ struct Registry_13d7b0 {
     Services_13d7b0 *FUN_000862a0();
 };
 struct World {
-    char pad[0x54];
+    void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */
     Registry_13d7b0 *registry;       // 0x54
 };
 

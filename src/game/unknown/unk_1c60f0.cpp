@@ -54,7 +54,7 @@ class A_1c6200 {
 struct Mode_1c62f0 { int FUN_000897e0(); };
 struct Manager_1c62f0 {  };
 } // namespace fn_fb68dce8
-struct World { char pad[0x54]; Manager_1c62f0* manager; };
+struct World { void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */ Manager_1c62f0 *manager; };
 namespace fn_fb68dce8 {
 extern "C" int __cdecl FUN_001c62c0(char *, char *);
 struct Obj_1c63e0 {

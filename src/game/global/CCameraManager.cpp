@@ -1132,7 +1132,7 @@ struct State_9a480 { int FUN_00088fa0(); };
 struct Provider_9a480 { char pad[0x80]; State_9a480 state; };
 struct Root_9a480 {  };
 } // namespace fn_f5ef2b3f
-struct World { char pad[0x54]; Root_9a480* root; };
+struct World { void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */ Root_9a480 *root; };
 namespace fn_f5ef2b3f {
 struct Slider_9a480 {
     char pad0[0xb8];
@@ -3062,7 +3062,7 @@ char FUN_001d04d0(const void* typeInfo);                      // type_info test 
 struct Mode_9a500 { int FUN_00088fa0(); };
 struct Context { char pad[0x80]; Mode_9a500 mode; };
 struct Manager_9a500 {  };
-struct World { char pad[0x54]; Manager_9a500* manager; };
+struct World { void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */ Manager_9a500 *manager; };
 struct Receiver_9a500 { void FUN_000a2c60(float,float); };
 struct Object { char pad[0xb8]; Receiver_9a500* receiver; void target(float a,float b); };
 void Object::target(float a,float b) {
@@ -6461,7 +6461,7 @@ struct Key_9d100 { unsigned low, high; };
 struct Inventory_9d100 { virtual void v0(); virtual void v1(); virtual void v2(); virtual pure3d::Animation* Find(content::LoadInventory::DynamicCaster<pure3d::Animation>*, unsigned, unsigned); };
 struct Manager_9d100 { Inventory_9d100* FUN_00203d70(); };
 struct Subsystem_9d100 { Manager_9d100* FUN_000862a0(); };
-struct World { char pad[0x54]; Subsystem_9d100* subsystem; };
+struct World { void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */ Subsystem_9d100 *subsystem; };
 struct Target_9d100 { char pad[0x1c]; int count; pure3d::Animation* animations[8]; float scales[8]; float offsets[8]; bool FUN_0009d100(Key_9d100* key, float scale, float offset); };
 bool Target_9d100::FUN_0009d100(Key_9d100* key, float scale, float offset) { Inventory_9d100* inventory = DAT_004dd700->subsystem->FUN_000862a0()->FUN_00203d70(); content::LoadInventory::DynamicCaster<pure3d::Animation> caster; pure3d::Animation* anim = inventory->Find(&caster, key->low, key->high); if (!anim) return false; int index = count; if(index >= 8) return false; anim->AddRef(); if(animations[index]) animations[index]->Release(); animations[index] = anim; scales[count] = scale > 0.0f ? anim->duration / (scale * anim->rate) : 1.0f; offsets[count] = offset; ++count; return true; }
 } // namespace fn_0009d100

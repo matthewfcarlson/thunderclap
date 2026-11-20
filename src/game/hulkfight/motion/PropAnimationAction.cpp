@@ -84,7 +84,7 @@ struct Mgr54_18b4e0 {
 };
 } // namespace fn_f5669a8c
 struct World {
-    char pad0[0x54];
+    void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */
     Mgr54_18b4e0 *f54;
 };
 namespace fn_f5669a8c {

@@ -198,23 +198,23 @@ void Obj::run(hulk_intptr arg) {
 // FUN_000bc230 @ 0x000bc230
 void QuestionScreen::FUN_000bc230(const char *title, const char *text, const char *ans1, char *buf1, const char *ans2, char *buf2)
 {
-    TextLabel_bc230 *label = dynamic_cast<TextLabel_bc230 *>(FUN_000fc260("fullscreen_question_title"));
+    TextLabel_bc230 *label = ((TextLabel_bc230 *)dynamic_cast<::TextLabel*>((::FEObject*)(FUN_000fc260("fullscreen_question_title"))));
     if (label) {
         label->entry.FUN_000f8500(title, FUN_000fc1b0(), 1);
         label->vfunc_3();
     }
-    TextWindow_bc230 *win = dynamic_cast<TextWindow_bc230 *>(FUN_000fc260("fullscreen_question_text"));
+    TextWindow_bc230 *win = ((TextWindow_bc230 *)dynamic_cast<::TextWindow*>((::FEObject*)(FUN_000fc260("fullscreen_question_text"))));
     if (win) {
         win->entry.FUN_000f8500(text, FUN_000fc1b0(), 1);
         win->vfunc_3();
     }
-    TextButton_bc230 *b1 = dynamic_cast<TextButton_bc230 *>(FUN_000fc260("fullscreen_question_answer1"));
+    TextButton_bc230 *b1 = ((TextButton_bc230 *)dynamic_cast<::TextButton*>((::FEObject*)(FUN_000fc260("fullscreen_question_answer1"))));
     if (b1) {
         b1->entry.FUN_000f8500(ans1, FUN_000fc1b0(), 1);
         // original calls through the previous object (win), not b1
         win->vfunc_3();
     }
-    TextButton_bc230 *b2 = dynamic_cast<TextButton_bc230 *>(FUN_000fc260("fullscreen_question_answer2"));
+    TextButton_bc230 *b2 = ((TextButton_bc230 *)dynamic_cast<::TextButton*>((::FEObject*)(FUN_000fc260("fullscreen_question_answer2"))));
     if (b2) {
         b2->entry.FUN_000f8500(ans2, FUN_000fc1b0(), 1);
         win->vfunc_3();
@@ -340,7 +340,7 @@ extern "C" void FUN_000bc7c0(char* dest) {
 } // namespace fn_f87c96cc
 
 // 0x000bcbf0 FUN_000bcbf0 (533 B): equivalent/0x000bcbf0.cpp [wrapped: conflict: FUN_000fc1b0; FUN_000fc260]
-// sym: ?FUN_000bcbf0@Owner_bcbf0@fn_000bcbf0@@QAEXXZ @9c8b462883da @w15217b0875e1 @vaa8d9d81b382
+// sym: ?FUN_000bcbf0@Owner_bcbf0@fn_000bcbf0@@QAEXXZ @2e95441da9c1 @we355a7ea1037 @vaf50a6fa8f74
 namespace fn_000bcbf0 {
 // STATUS: equivalent (tools/equiv.py level 3: 11601 inputs, branch coverage 26/26)
 // FUN_000bcbf0 @ 0x000bcbf0
@@ -438,18 +438,18 @@ struct Owner_bcbf0 {
 
 void Owner_bcbf0::FUN_000bcbf0()
 {
-    CUnlockableMove_bcbf0 *first = dynamic_cast<CUnlockableMove_bcbf0 *>(((CUnlockable_bcbf0 *)((owners::C_92ad0 *)items)->FUN_00092ad0((hulk_intptr)0x266)));
+    CUnlockableMove_bcbf0 *first = ((CUnlockableMove_bcbf0 *)dynamic_cast<::CUnlockableMove*>((::CUnlockable*)(((CUnlockable_bcbf0 *)((owners::C_92ad0 *)items)->FUN_00092ad0((hulk_intptr)0x266)))));
     if (first == 0)
         return;
     const char *label = first->FUN_00092040();
     if (label == 0)
         return;
-    TextSelector_bcbf0 *sel = dynamic_cast<TextSelector_bcbf0 *>(FUN_000fc260(label));
+    TextSelector_bcbf0 *sel = ((TextSelector_bcbf0 *)dynamic_cast<::TextSelector*>((::FEObject*)(FUN_000fc260(label))));
     if (sel == 0)
         return;
 
     char flag = 0;
-    CUnlockableCheat_bcbf0 *cheat = dynamic_cast<CUnlockableCheat_bcbf0 *>(((CUnlockable_bcbf0 *)((owners::C_92ad0 *)items)->FUN_00092ad0((hulk_intptr)0x1d)));
+    CUnlockableCheat_bcbf0 *cheat = ((CUnlockableCheat_bcbf0 *)dynamic_cast<::CUnlockableCheat*>((::CUnlockable*)(((CUnlockable_bcbf0 *)((owners::C_92ad0 *)items)->FUN_00092ad0((hulk_intptr)0x1d)))));
     if (cheat) {
         if (cheat->f8 != 0)
             flag = 0;
@@ -472,7 +472,7 @@ void Owner_bcbf0::FUN_000bcbf0()
         Pair_bcbf0 *p = ((Pair_bcbf0 *)((owners::C_92bb0 *)items)->FUN_00092bb0(slot));
         if ((p->a | p->b) == 0)
             continue;
-        CUnlockableMove_bcbf0 *move = dynamic_cast<CUnlockableMove_bcbf0 *>(((CUnlockable_bcbf0 *)((owners::C_92ad0 *)items)->FUN_00092ad0((hulk_intptr)slot)));
+        CUnlockableMove_bcbf0 *move = ((CUnlockableMove_bcbf0 *)dynamic_cast<::CUnlockableMove*>((::CUnlockable*)(((CUnlockable_bcbf0 *)((owners::C_92ad0 *)items)->FUN_00092ad0((hulk_intptr)slot)))));
         if (move == 0)
             continue;
         if (!move->FUN_00091f40() && !flag)
@@ -938,7 +938,7 @@ struct Obj86 {
     Sink_bd1b0 *FUN_00086330();
 };
 struct World {
-    char pad0[0x54];
+    void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */
     Obj86 *f54;
 };
 
@@ -1263,7 +1263,7 @@ void Menu_bd1b0::FUN_000bd1b0(unsigned char flag)
 
 
 // 0x000bdd60 FUN_000bdd60 (430 B): equivalent/0x000bdd60.cpp [wrapped: conflict: FEObject; FUN_000fc260; Gfx; Overlay (+1)]
-// sym: ?FUN_000bdd60@Menu_bdd60@fn_000bdd60@@QAEXXZ @e4a25dbd87ec @w86e32f67c750 @v439dd2c41643
+// sym: ?FUN_000bdd60@Menu_bdd60@fn_000bdd60@@QAEXXZ @5c2a35518a93 @w3dfd62e4a3d9 @v159a16bfab66
 namespace fn_000bdd60 {
 // STATUS: equivalent (tools/equiv.py level 3: 20038 inputs, branch coverage 25/25)
 // FUN_000bdd60 @ 0x000bdd60
@@ -1398,7 +1398,7 @@ void Menu_bdd60::FUN_000bdd60()
             const char *name = FUN_000fc310()->GetName();
             if (name != 0) {
                 if (memcmp_inline("fullscreen_message", name, 19) == 0 || memcmp_inline("mission_accept", name, 15) == 0) {
-                    TextLabel *label = dynamic_cast<TextLabel *>(FUN_000fc260("DynamicControlButtonLabel"));
+                    TextLabel *label = ((TextLabel *)dynamic_cast<::TextLabel*>((::FEObject*)(FUN_000fc260("DynamicControlButtonLabel"))));
                     if (label != 0) {
                         float hi = 1.0f;
                         float lo = 0.01f;

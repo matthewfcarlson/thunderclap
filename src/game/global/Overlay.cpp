@@ -364,7 +364,7 @@ struct Inventory_ca3a0 {
 struct Level_ca3a0;
 struct Window_ca3a0 { Level_ca3a0 *FUN_00086310(); };
 struct World {
-    char pad0[0x54];
+    void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */
     Window_ca3a0 *window;
 };
 struct Level_ca3a0 {

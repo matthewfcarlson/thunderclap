@@ -42,7 +42,7 @@ struct Slot_b5030 {  };
 struct Holder_b5030 { Slot_b5030 *FUN_00086270(); };
 } // namespace fn_fedc4c02
 struct World {
-    char pad00[0x54];
+    void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */
     Holder_b5030 *holder;
 };
 namespace fn_fedc4c02 {
@@ -662,7 +662,7 @@ void FUN_000b50c0() {}
 } // namespace fn_fedc4c02
 
 // 0x000b50d0 FUN_000b50d0 (167 B): equivalent/0x000b50d0.cpp [wrapped: conflict: FUN_000fc260; World]
-// sym: ?FUN_000b50d0@JumpMarkerHud@fn_000b50d0@@QAEXXZ @459321ba9968 @w59b543de11a5 @v2aab9ead8a36
+// sym: ?FUN_000b50d0@JumpMarkerHud@fn_000b50d0@@QAEXXZ @10fd217b2fe8 @wd28993643608 @vfd42f46ecec1
 namespace fn_000b50d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20005 inputs, branch coverage 10/10)
 // FUN_000b50d0 @ 0x000b50d0
@@ -743,7 +743,7 @@ void JumpMarkerHud::FUN_000b50d0()
 {
     if (marker == 0 || table == 0)
         return;
-    TextSelector_b50d0 *sel = dynamic_cast<TextSelector_b50d0 *>(FUN_000fc260("jump_marker_selector"));
+    TextSelector_b50d0 *sel = ((TextSelector_b50d0 *)dynamic_cast<::TextSelector*>((::FEObject*)(FUN_000fc260("jump_marker_selector"))));
     if (sel == 0 || sel->items == 0)
         return;
     int id = ((owners::C_89960 *)marker)->FUN_00089960(sel->selected);
@@ -1104,8 +1104,8 @@ struct Ctx_b5b90 {
     Result_b5b90* Get_00086340();
 };
 struct Global_b5b90 {
-    char pad[0x54];
-    Ctx_b5b90* ctx;
+    void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */
+    Ctx_b5b90 *ctx;
 };
 extern Global_b5b90* gGlobal_b5b90;
 void FUN_000b5b90(void* /*this, unused: callers pass it (unb4)*/) {
@@ -1172,7 +1172,7 @@ struct Reg_b5bf0 {
 };
 
 struct World {
-    char pad0[0x54];
+    void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */
     Reg_b5bf0 *f54;
 };
 
@@ -1180,11 +1180,11 @@ FEObject_b5bf0 *__cdecl FUN_000fc260(const char *name);
 
 void FUN_000b5bf0(void* /*this, unused: callers pass it (unb4)*/)
 {
-    TextSelector_b5bf0 *sel = dynamic_cast<TextSelector_b5bf0 *>(FUN_000fc260("cheat_gray_hulk_selector"));
+    TextSelector_b5bf0 *sel = ((TextSelector_b5bf0 *)dynamic_cast<::TextSelector*>((::FEObject*)(FUN_000fc260("cheat_gray_hulk_selector"))));
     if (sel != 0)
         sel->f25(!((Flags_b5bf0 *)((owners::A_86340 *)(DAT_004dd700->f54))->FUN_00086340())->FUN_00092de0(2));
 
-    sel = dynamic_cast<TextSelector_b5bf0 *>(FUN_000fc260("cheat_invulnerability_selector"));
+    sel = ((TextSelector_b5bf0 *)dynamic_cast<::TextSelector*>((::FEObject*)(FUN_000fc260("cheat_invulnerability_selector"))));
     if (sel != 0)
         sel->f25(!((Flags_b5bf0 *)((owners::A_86340 *)(DAT_004dd700->f54))->FUN_00086340())->FUN_00092de0(0x2e4));
 }
@@ -1195,7 +1195,7 @@ void FUN_000b5bf0(void* /*this, unused: callers pass it (unb4)*/)
 
 
 // 0x000b5ca0 FUN_000b5ca0 (1780 B): equivalent/0x000b5ca0.cpp [wrapped: macros]
-// sym: ?FUN_000b5ca0@Env@fn_000b5ca0@@QAEXXZ @bdd368ece318 @wa62148d6e130 @vaa060c7e2682
+// sym: ?FUN_000b5ca0@Env@fn_000b5ca0@@QAEXXZ @2128230b78ad @we9aa6c331275 @vbca6cd6c4f63
 namespace fn_000b5ca0 {
 // STATUS: equivalent (tools/equiv.py level 3: 274 inputs, branch coverage 92/98, incomplete)
 // FUN_000b5ca0 @ 0x000b5ca0
@@ -1281,7 +1281,7 @@ struct Reg {
 };
 
 struct World {
-    char pad0[0x54];
+    void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */
     Reg *f54;
 };
 
@@ -1318,7 +1318,7 @@ public:
 void Env::FUN_000b5ca0()
 {
     Frame f;
-    f.t = dynamic_cast<TextSelector *>(FUN_000fc260("unlocked_cheats"));
+    f.t = ((TextSelector *)dynamic_cast<::TextSelector*>((::FEObject*)(FUN_000fc260("unlocked_cheats"))));
     if (f.t == 0)
         return;
     int n;
@@ -1591,7 +1591,7 @@ void Owner_b7660::update() {
 
 
 // 0x000b76c0 FUN_000b76c0 (153 B): equivalent/0x000b76c0.cpp [wrapped: conflict: FUN_000fc260]
-// sym: ?FUN_000b76c0@PauseScreen@fn_000b76c0@@QAEXXZ @1b10fdfe4f66 @w145f4ce8daf8 @v482518d66fd6
+// sym: ?FUN_000b76c0@PauseScreen@fn_000b76c0@@QAEXXZ @75038e3c0a8a @wd612ed07e3ef @vaf9d81c10a26
 namespace fn_000b76c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 19939 inputs, branch coverage 10/10)
 // FUN_000b76c0 @ 0x000b76c0
@@ -1638,7 +1638,7 @@ public:
 // Marks the pause menu's save button as "complete" for save states 1..7.
 void PauseScreen::FUN_000b76c0()
 {
-    TextButton_b76c0 *button = dynamic_cast<TextButton_b76c0 *>(FUN_000fc260("pause_save"));
+    TextButton_b76c0 *button = ((TextButton_b76c0 *)dynamic_cast<::TextButton*>((::FEObject*)(FUN_000fc260("pause_save"))));
     if (button) {
         int state = stats->counter.FUN_00088fa0();
         int other = stats->counter.FUN_00088fb0();
@@ -1692,7 +1692,7 @@ bool __stdcall FUN_000b77c0(int key, unsigned short *buf, int maxLength, int unu
 } // namespace fn_fedc4c02
 
 // 0x000b7860 FUN_000b7860 (122 B): equivalent/0x000b7860.cpp [wrapped: conflict: FEObject; FUN_000fc260; TextLabel]
-// sym: ?FUN_000b7860@FileLock@fn_000b7860@@QAEXPAUEntry_b7860@2@@Z @caee30b56c68 @wfcc9d9f443f9 @va420541bf1fe
+// sym: ?FUN_000b7860@FileLock@fn_000b7860@@QAEXPAUEntry_b7860@2@@Z @6bbcb630cf28 @wc53e7fb01d1e @v378a86b809a0
 namespace fn_000b7860 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_000b7860 @ 0x000b7860
@@ -1730,7 +1730,7 @@ public:
 void FileLock::FUN_000b7860(Entry_b7860* entry) {
     if (!journal)
         return;
-    TextLabel* text = dynamic_cast<TextLabel*>(FUN_000fc260("blonsky_file_lock_label"));
+    TextLabel* text = ((TextLabel*)dynamic_cast<::TextLabel*>((::FEObject*)(FUN_000fc260("blonsky_file_lock_label"))));
     if (!text)
         return;
     bool found = journal->FUN_00092860(entry->key);
@@ -1740,7 +1740,7 @@ void FileLock::FUN_000b7860(Entry_b7860* entry) {
 
 
 // 0x000b78e0 FUN_000b78e0 (163 B): equivalent/0x000b78e0.cpp [wrapped: conflict: FUN_000fc260]
-// sym: ?FUN_000b78e0@Screen_b78e0@fn_000b78e0@@QAEXPBD@Z @515503a7b785 @wa60d3a5ca173 @va41a5788037c
+// sym: ?FUN_000b78e0@Screen_b78e0@fn_000b78e0@@QAEXPBD@Z @841804235fa9 @wec818de45c4f @vee483653f8d4
 namespace fn_000b78e0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // FUN_000b78e0 @ 0x000b78e0
@@ -1812,14 +1812,14 @@ void Screen_b78e0::FUN_000b78e0(const char *name)
 {
     if (store == 0)
         return;
-    TextSelector_b78e0 *sel = dynamic_cast<TextSelector_b78e0 *>(FUN_000fc260(name));
+    TextSelector_b78e0 *sel = ((TextSelector_b78e0 *)dynamic_cast<::TextSelector*>((::FEObject*)(FUN_000fc260(name))));
     if (sel == 0)
         return;
     if (sel->count == 0)
         return;
     if (cursor != 0)
         cursor->FUN_001be060();
-    CUnlockableBlonskyFile_b78e0 *file = dynamic_cast<CUnlockableBlonskyFile_b78e0 *>(((CUnlockable_b78e0 *)((owners::C_92ad0 *)store)->FUN_00092ad0((hulk_intptr)(sel->list + 0x34))));
+    CUnlockableBlonskyFile_b78e0 *file = ((CUnlockableBlonskyFile_b78e0 *)dynamic_cast<::CUnlockableBlonskyFile*>((::CUnlockable*)(((CUnlockable_b78e0 *)((owners::C_92ad0 *)store)->FUN_00092ad0((hulk_intptr)(sel->list + 0x34))))));
     if (file == 0)
         return;
     sel->link->next->target->f49(((int)(hulk_uintptr)((owners::C_91d20 *)(CUnlockable_b78e0 *)file)->FUN_00091d20()));
@@ -2053,10 +2053,10 @@ struct StoryText {
 FEObject* __cdecl FUN_000fc260(const char* name);
 
 void FUN_000b8940(void* /*this, unused: callers pass it (unb4)*/) {
-    TextSelector* list = dynamic_cast<TextSelector*>(FUN_000fc260("story_recap_list"));
+    TextSelector* list = ((TextSelector*)dynamic_cast<::TextSelector*>((::FEObject*)(FUN_000fc260("story_recap_list"))));
     if (!list)
         return;
-    TextWindow* window = dynamic_cast<TextWindow*>(FUN_000fc260("story_recap_text"));
+    TextWindow* window = ((TextWindow*)dynamic_cast<::TextWindow*>((::FEObject*)(FUN_000fc260("story_recap_text"))));
     if (!window)
         return;
     window->FUN_000e2a60(((StoryText*)&DAT_00406740)[list->selection].text);
@@ -2151,14 +2151,14 @@ void JumpMarkers::FUN_000b8e70(int unused)
 {
     if (table == 0)
         return;
-    TextSelector_b8e70 *selector = dynamic_cast<TextSelector_b8e70 *>(FUN_000fc260("jump_marker_selector"));
+    TextSelector_b8e70 *selector = ((TextSelector_b8e70 *)dynamic_cast<::TextSelector*>((::FEObject*)(FUN_000fc260("jump_marker_selector"))));
     if (selector == 0 || selector->items == 0)
         return;
     int i = ((owners::C_89960 *)index)->FUN_00089960(selector->selection);
     if (i == -1)
         return;
     int marker = table->FUN_00093260(i);
-    MapThing_b8e70 *map = dynamic_cast<MapThing_b8e70 *>(FUN_000fc260("jump_marker_map"));
+    MapThing_b8e70 *map = ((MapThing_b8e70 *)dynamic_cast<::MapThing*>((::FEObject*)(FUN_000fc260("jump_marker_map"))));
     if (map != 0)
         map->SetMarker(marker);
 }

@@ -8,6 +8,8 @@
 #include "decls/data/game/hulkfight/ai.h"
 #include "gen/hulkfight.h"
 #include "gen/owners.h"
+#include "gen/fight.h"
+#include "gen/global.h"
 #define TREE_TU_BEGIN namespace fn_f712cb17 {
 #define TREE_TU_END }
 namespace fn_f712cb17 {} using namespace fn_f712cb17;
@@ -711,7 +713,7 @@ bool hulkfight::ai::TargetTypeCondition::vfunc_6(void* __p0, void* __p1, void* _
 
 
 // 0x001247d0 hulkfight::ai::CanSeeTargetCondition::vfunc_6 (476 B): equivalent/0x001247d0.cpp [wrapped: conflict: World]
-// sym: ?vfunc_6@CanSeeTargetCondition@fn_001247d0@@UAEDHPAVParams_1247d0@fight@2@H@Z @92eb42df0ca6 @wa31f71f34156 @v7cc40d2326f0
+// sym: ?vfunc_6@CanSeeTargetCondition@fn_001247d0@@UAEDHPAVParams_1247d0@fight@2@H@Z @c536cbe2fff6 @w9ed594d1db61 @v9b0c3367c55e
 namespace fn_001247d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3294 inputs, branch coverage 27/28, incomplete; Wine build 689 inputs, 27/28)
 // hulkfight::ai::CanSeeTargetCondition::vfunc_6 @ 0x001247d0
@@ -823,7 +825,7 @@ public:
 
 char CanSeeTargetCondition::vfunc_6(int a, fight::Params_1247d0* params, int c)
 {
-    if (dynamic_cast<CFightParams_1247d0*>(params) == 0)
+    if (((CFightParams_1247d0*)dynamic_cast<::CFightParams*>((::fight::Params*)(params))) == 0)
         return 0;
     Owner_1247d0* owner = FUN_00059a30(FUN_000592a0(params));
     V3_1247d0 pos;

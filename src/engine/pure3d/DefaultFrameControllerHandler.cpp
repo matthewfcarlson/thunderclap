@@ -813,7 +813,7 @@ int pure3d::BlendFrameController::vfunc_25() {
 namespace fn_ff70be84 {
 
 // 0x00284fa0 pure3d::BlendFrameController::vfunc_6 (359 B): equivalent/0x00284fa0.cpp
-// sym: ?vfunc_6@BlendFrameController@fn_ff70be84@@UAEXMD@Z @331d2d8c3689 @wf66917d1c8a2
+// sym: ?vfunc_6@BlendFrameController@fn_ff70be84@@UAEXMD@Z @b0a65f474810 @wc620d26edf2b @v21827efc35f3
 // STATUS: equivalent (tools/equiv.py level 3: 287 inputs, branch coverage 22/22)
 // pure3d::BlendFrameController::vfunc_6 @ 0x00284fa0
 void BlendFrameController::vfunc_6(float dt, char force)
@@ -829,7 +829,7 @@ void BlendFrameController::vfunc_6(float dt, char force)
         Owner_284fa0* owner = t->owner;
         t->cur = owner->FUN_00289db0(&t->f18, &t->f24, t->cur, dt, t->a4, t->a8, t->f1c == 0, t->a20);
 
-        float x = t->remain - step * owner->rate;
+        volatile float x = t->remain - step * owner->rate;  // (fix126 -> sweep2, D126) the original rounds it through a frame slot
         t->remain = x;
         if (x > 0.0f) {
             float y = 1.0f - x * t->fadeRate;

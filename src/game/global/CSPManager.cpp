@@ -4093,7 +4093,7 @@ struct Holder {
 };
 
 struct World2 {
-    char pad0[0x54];
+    void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */
     Holder *f54;
 };
 
@@ -9348,7 +9348,7 @@ struct Holder44_1e2940 { Factory_1e2940 *FUN_00203d70(); Zone_1e2940 *FUN_00204d
 struct Holder28_1e2940 {
     Holder44_1e2940 *FUN_000862a0();
 };
-struct Manager_1e2940 { char pad0[0x54]; Holder28_1e2940 *holder; };
+struct Manager_1e2940 { void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */ Holder28_1e2940 *holder; };
 
 #define DAT_004dd700 (*(Manager_1e2940 * *)&::DAT_004dd700)
 
@@ -9782,7 +9782,7 @@ struct Holder28_1e2ed0 {
 };
 
 struct Manager_1e2ed0 {
-    char pad0[0x54];
+    void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */
     Holder28_1e2ed0 *holder;
 };
 
@@ -9878,7 +9878,7 @@ struct Linked_1e3020 { char pad[0xec]; Prop_1e3020 *prop; };
 struct Resolver_1e3020 { virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual Prop_1e3020 *find(content::LoadInventory::DynamicCaster<CSPHulkProp> *, int, int); };
 struct Service_1e3020 { Resolver_1e3020 *FUN_00203d70(); };
 struct Provider_1e3020 { Service_1e3020 *FUN_000862a0(); };
-struct Owner_1e3020 { char pad[0x54]; Provider_1e3020 *provider; };
+struct Owner_1e3020 { void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */ Provider_1e3020 *provider; };
 struct Record_1e3020 { char pad[8]; int key1; int key2; char pad2[8]; Linked_1e3020 *linked; char pad3[6]; short type; char pad4[4]; };
 struct Flags_1e3020 { unsigned char flags; char pad[19]; };
 struct Game_1e3020 { char pad[0x608]; Record_1e3020 records[0x704]; char rest[0x14618 - 0x608 - 0x704*40]; Flags_1e3020 flags[0x800]; char rest2[0x1e830 - 0x14618 - 0x800*20]; Owner_1e3020 *owner; int FUN_001e3020(int index,int key1,int key2); };
@@ -10074,7 +10074,7 @@ public:
 
 struct Holder44_1e32b0 { Factory_1e32b0 *FUN_00203d70(); };
 struct Holder28_1e32b0 { Holder44_1e32b0 *FUN_000862a0(); };
-struct World { char pad0[0x54]; Holder28_1e32b0 *holder; };
+struct World { void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */ Holder28_1e32b0 *holder; };
 
 struct Slot_1e32b0 {
     unsigned char flags;
@@ -10196,7 +10196,7 @@ public:
 
 struct Holder44_1e3360 { Factory_1e3360 *FUN_00203d70(); };
 struct Holder28_1e3360 { Holder44_1e3360 *FUN_000862a0(); };
-struct World { char pad0[0x54]; Holder28_1e3360 *holder; };
+struct World { void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */ Holder28_1e3360 *holder; };
 
 struct Slot_1e3360 {
     unsigned char flags;
@@ -10779,7 +10779,7 @@ struct Holder1 {
 };
 
 struct World {
-    char pad[0x54];
+    void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */
     Holder1 *f54;                   // 0x54
 };
 
@@ -10959,7 +10959,7 @@ char FUN_001d04d0(const void* typeInfo);                      // type_info test 
 struct State_1e4e50 { int FUN_00088fa0(); int FUN_00088fb0(); };
 struct Player_1e4e50 { char pad[0x80]; State_1e4e50 state; };
 struct Manager_1e4e50 {  };
-struct World { char pad[0x54]; Manager_1e4e50* manager; };
+struct World { void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */ Manager_1e4e50 *manager; };
 struct Random_1e4e50 { hulk_freg FUN_000787e0(float,float); };
 struct Vec_1e4e50 { float x,y,z; };
 struct Matrix { float m[16]; void FUN_0022b980();   };
@@ -11035,7 +11035,7 @@ struct Config_1e4fc0 {
 struct Manager_1e4fc0 {
 };
 struct World {
-    char pad00[0x54];
+    void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */
     Manager_1e4fc0 *manager;
 };
 
@@ -11121,7 +11121,7 @@ struct Config_1e5070 {
 struct Manager_1e5070 {
 };
 struct World {
-    char pad00[0x54];
+    void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */
     Manager_1e5070 *manager;
 };
 
@@ -11205,7 +11205,7 @@ struct Config_1e5110 {
 struct Manager_1e5110 {
 };
 struct World {
-    char pad00[0x54];
+    void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */
     Manager_1e5110 *manager;
 };
 

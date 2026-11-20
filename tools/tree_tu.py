@@ -472,7 +472,36 @@ def check_tu(path, relocs=False, rec=None, obj=None, vs_standalone=False):
                         r["reloc_issues"] = rr["issues"]
                     fn_ = [i[1] for i in rr["issues"] if i[0] == "free_by_other_name"]
                     if fn_:
-                        r["free_by_other_name"] = fn_     # (integ2, D132) reported, not failing (yet)
+                        r["free_by_other_name"] = fn_     # (integ2, D132; D149 gates it against the baseline)
+                        # (integ3, D132 item 6) how each name reaches the free: call, address (stored as data), table
+                        # (an entry of a table the TU defines); a name both called and stored counts as `call`
+                        hw = {}
+                        for f_ in rr.get("free_refs", []):
+                            h_ = "table" if f_["how"].startswith("table") else f_["how"]
+                            if hw.get(f_["name"]) != "call":
+                                hw[f_["name"]] = h_
+                        if any(h_ != "call" for h_ in hw.values()):
+                            r["free_how"] = hw
+                    if os.environ.get("HULK_XTU_RELOCMAP"):     # (integ3) xtu_check report --relocmap input
+                        r["reloc_map"] = {k: v_ for k, v_ in rr["map"].items() if verify_relocs.classify(k) == "symbol"}
+                elif r["kind"] == "equivalent" and r.get("symbol") and "freeequiv" not in OFF:
+                    # (integ3, D149 for equivalent blocks) no byte match pairs their relocations with the original:
+                    # each relocation's name is judged by the address it gives itself (verify_relocs.name_target)
+                    sym = next((s_ for s_ in coff.function_symbols() if s_[0] == r["symbol"]), None)
+                    if sym is None:
+                        r["free_checked"] = "no symbol"     # (rev5) a visible gap, counted by verify, not a pass
+                        continue
+                    fn_ = set()
+                    for _, t_, typ_, _ in coff.function_relocs(sym):
+                        if t_ is None or typ_ not in (verify_relocs.REL32, verify_relocs.DIR32) or \
+                                verify_relocs.classify(t_[0]) != "symbol":
+                            continue
+                        if verify_relocs.free_name_by_name(t_[0]):
+                            fn_.add(t_[0])
+                    r["free_checked"] = "name"
+                    if fn_:
+                        r["free_by_other_name"] = sorted(fn_)
+                        r["free_how"] = {n_: "name" for n_ in fn_}
     return out
 
 
@@ -929,6 +958,8 @@ def _code_key():
     import compare
     import verify_relocs
     h = hashlib.sha1(b"tuverify2\0" + ",".join(sorted(OFF)).encode())
+    if os.environ.get("HULK_XTU_RELOCMAP"):
+        h.update(b"\0relocmap")     # (integ3, rev5's R2) records with reloc_map are cached apart from those without
     for m in (sys.modules[__name__], build_tree, compare, verify_relocs, code_hash, sys.modules["xbe"], sys.modules["disasm"],
               sys.modules["addr_names"]):
         with open(m.__file__, "rb") as f:
@@ -1211,7 +1242,8 @@ def free_names_check(recs, base):
     names)]. new: a name not listed for the block (fails); fixed: listed names the block no longer calls (with relocs)."""
     out = []
     for r in recs:
-        if r.get("kind") != "matches" or r.get("status") != "match" or "relocs" not in r:
+        if not ((r.get("kind") == "matches" and r.get("status") == "match" and "relocs" in r) or
+                (r.get("kind") == "equivalent" and r.get("free_checked") == "name")):
             continue
         tu = r.get("tu") or ""
         have = set(r.get("free_by_other_name", []))
@@ -1692,9 +1724,13 @@ def verify(paths, jobs=4, relocs=False, out=None, vs_standalone=False, wine=True
                 for addr_, v_, names_ in free_names_check(recs, fb):
                     counts["free_by_other_name new" if v_ == "new" else "info: free_by_other_name %s" % v_] += len(names_)
                     if v_ != "known":
+                        hw_ = next((r_.get("free_how", {}) for r_ in recs if r_["addr"] == addr_), {})
                         free_rows.append({"tu": next((r_.get("tu") for r_ in recs if r_.get("tu")), ""), "addr": addr_,
-                                          "verdict": v_, "names": names_})
+                                          "verdict": v_, "names": names_,
+                                          "how": {n_: hw_.get(n_, "call") for n_ in names_}})
             for r in recs:
+                if r.get("free_checked") == "no symbol":
+                    counts["info: free_checked no symbol"] += 1    # (integ3, rev5) unchecked by name: a gap
                 count_codes(counts, r)
                 counts["%s %s" % (r["kind"], r["status"])] += 1
                 if r.get("relocs") and r["relocs"] != "ok":
@@ -2223,11 +2259,18 @@ def main(argv=None):
                        "begins)")
     p.add_argument("checks")
     p.add_argument("--why", required=True)
-    p = sub.add_parser("free-name-accept", help="(D149) list a matches block's call of a free under another name in "
-                       "config/free-name-baseline.json, with a reason")
-    p.add_argument("addr")
-    p.add_argument("--tu", required=True)
-    p.add_argument("--name", required=True, help="the callee's name as verify_relocs reports it")
+    p = sub.add_parser("free-name-accept", help="(D149) list a block's reference of a free under another name in "
+                       "config/free-name-baseline.json, with a reason (a matches block: call / address / table; an "
+                       "equivalent block: name)")
+    p.add_argument("addr", nargs="?")
+    p.add_argument("--tu")
+    p.add_argument("--name", help="the callee's name as verify_relocs reports it")
+    p.add_argument("--records", metavar="JSONL", help="(integ3) instead of ADDR/--tu/--name: accept every reported "
+                   "name of --how's kind in a `verify --relocs --out` records file (the equivalent blocks' seed, once)")
+    p.add_argument("--how", choices=("call", "address", "table", "name"), help="with --records: `name` only (the "
+                   "equivalent blocks' seed); with ADDR: checked against what the fresh check reports")
+    p.add_argument("--job", help="with --records: the queue job id that wrote the records (put in the stamp)")
+    p.add_argument("--commit", help="with --records: the commit the records were checked at (put in the stamp)")
     p.add_argument("--why", required=True)
     p = sub.add_parser("free-name-seed", help="(D149) seed config/free-name-baseline.json from a `verify --relocs --out` "
                        "records file (once, when the gate begins)")
@@ -2256,16 +2299,77 @@ def main(argv=None):
     if a.cmd in ("free-name-accept", "free-name-seed") and not (a.why or "").strip():
         sys.exit("%s: --why must give a reason" % a.cmd)
     if a.cmd == "free-name-accept":
-        recs = check_tu(a.tu)
-        r = next((x for x in recs if x["addr"] == a.addr), None)
-        if r is None or r.get("kind") != "matches":
-            sys.exit("free-name-accept: %s is no matches block of %s" % (a.addr, a.tu))
+        today = __import__("datetime").datetime.now().isoformat(timespec="seconds")
         b = load_free_baseline()
+        if a.records:
+            # (integ3) the reported names of one kind from a whole-tree `verify --relocs --out`, each stamped as an
+            # accept (free_baseline_growth lets a new accept stamp through); rev5 approves the use (the equivalent
+            # blocks' `name` seed when that check began)
+            # (rev5) a once-only seed of one kind, never a standing bulk path: `name` only, refused once any `name`
+            # entry exists here or at REF, and the stamp names the records' job and commit
+            if a.how != "name":
+                sys.exit("free-name-accept --records: only --how name (the equivalent blocks' seed); accept call, "
+                         "address and table rows one by one")
+            if not (a.job and a.commit):
+                sys.exit("free-name-accept --records: give --job and --commit of the verify that wrote the records")
+
+            def has_name_kind(bl):
+                return any("name" in (free_entry(e)[1].get("how") or {}).values()
+                           for ents in bl.get("tus", {}).values() for e in ents.values())
+            if has_name_kind(b):
+                sys.exit("free-name-accept --records: the baseline already holds `name` entries (the seed is once)")
+            # (rev5's residual) REF is always HEAD (in a queue job, the job's base commit): no older REF from before the
+            # seed can be named to re-run it
+            m_ = job_meta()
+            ref = (m_ or {}).get("commit") if m_ is not None and subprocess.run(
+                ["git", "rev-parse", "--git-dir"], cwd=ROOT, capture_output=True).returncode != 0 else "HEAD"
+            try:
+                text = file_at_ref(ref or "HEAD", "config/free-name-baseline.json")
+            except RefReadError as e:
+                sys.exit("free-name-accept --records: %s unreadable: %s" % (ref, e))
+            if text and has_name_kind(json.loads(text)):
+                sys.exit("free-name-accept --records: %s's baseline holds `name` entries (the seed is once)" % ref)
+            why = "%s [records: job %s at %s]" % (a.why.strip(), a.job, a.commit)
+            n = 0
+            for l in open(a.records):
+                if not l.strip():
+                    continue
+                r = json.loads(l)
+                hw = r.get("free_how", {})
+                pick = {x for x in r.get("free_by_other_name", []) if hw.get(x, "call") == a.how}
+                if not pick:
+                    continue
+                names, st = free_entry(b.setdefault("tus", {}).setdefault(r["tu"], {}).get(r["addr"], []))
+                if pick <= names:
+                    continue
+                e = {"names": sorted(names | pick), "accepted": today, "by": "free-name-accept", "why": why}
+                hows = dict(st.get("how", {}))
+                hows.update({x: a.how for x in pick if a.how != "call"})
+                if hows:
+                    e["how"] = hows
+                b["tus"][r["tu"]][r["addr"]] = e
+                n += len(pick - names)
+            write_free_baseline(b)
+            print(n, "names accepted")
+            return 0
+        if not (a.addr and a.tu and a.name):
+            sys.exit("free-name-accept: give ADDR --tu --name (or --records --how)")
+        recs = check_tu(a.tu, relocs=True)
+        r = next((x for x in recs if x["addr"] == a.addr), None)
+        if r is None or r.get("kind") not in ("matches", "equivalent"):
+            sys.exit("free-name-accept: %s is no block of %s" % (a.addr, a.tu))
+        how = r.get("free_how", {}).get(a.name, "call" if r.get("kind") == "matches" else "name")
+        if a.how and a.how != how:
+            sys.exit("free-name-accept: the check reports %s as %s, not %s" % (a.name, how, a.how))
         tu = os.path.relpath(os.path.abspath(a.tu), find_root(a.tu) or ROOT)
         names, st = free_entry(b.setdefault("tus", {}).setdefault(tu, {}).get(a.addr, []))
-        today = __import__("datetime").datetime.now().isoformat(timespec="seconds")
-        b["tus"][tu][a.addr] = {"names": sorted(names | {a.name}), "accepted": today, "by": "free-name-accept",
-                                "why": a.why.strip()}
+        e = {"names": sorted(names | {a.name}), "accepted": today, "by": "free-name-accept", "why": a.why.strip()}
+        hows = dict(st.get("how", {}))
+        if how != "call":
+            hows[a.name] = how
+        if hows:
+            e["how"] = hows
+        b["tus"][tu][a.addr] = e
         write_free_baseline(b)
         print(tu, a.addr, b["tus"][tu][a.addr])
         return 0

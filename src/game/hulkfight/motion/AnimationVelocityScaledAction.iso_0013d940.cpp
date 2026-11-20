@@ -158,7 +158,7 @@ public:
 
 struct Holder44_13d940 { Factory_13d940 *FUN_00203d70(); };
 struct Holder28_13d940 { Holder44_13d940 *FUN_000862a0(); };
-struct World { char pad0[0x54]; Holder28_13d940 *holder; };
+struct World { void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */ Holder28_13d940 *holder; };
 
 class Owner_13d940 {
 public:

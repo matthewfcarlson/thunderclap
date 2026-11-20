@@ -219,7 +219,7 @@ void ReleaseThing_0008d330(int);
 struct State_e2c90 { bool FUN_000b4f20();  };
 struct Manager_e2c90 { State_e2c90* FUN_00086280(); };
 } // namespace fn_fb20b5f7
-struct World { char pad[0x54]; Manager_e2c90* manager; };
+struct World { void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */ Manager_e2c90 *manager; };
 namespace fn_fb20b5f7 {
 struct Controller_e2c90 {
  virtual void slot0();

@@ -11,6 +11,8 @@
 #include "gen/fight.h"
 #include "gen/hulkfight.h"
 #include "gen/owners.h"
+#include "gen/choreo2.h"
+#include "gen/global.h"
 #define TREE_TU_BEGIN namespace fn_f94adb62 {
 #define TREE_TU_END }
 namespace fn_f94adb62 {} using namespace fn_f94adb62;
@@ -1509,7 +1511,7 @@ bool PhaseCondition::vfunc_6(int unused1, Source_15d0c0 *source, int unused3)
 } // namespace fn_f94adb62
 
 // 0x0015d200 hulkfight::motion::JointPlantedCondition::vfunc_6 (595 B): equivalent/0x0015d200.cpp [wrapped: conflict: CFightParams; fight::Params; hulkfight::motion::JointPlantedCondition]
-// sym: ?vfunc_6@JointPlantedCondition@motion@hulkfight@fn_0015d200@@UAE_NHPAVParams@fight@4@H@Z @ccd60deee72e @wccb408e35ad3 @v5534f0fa39ff
+// sym: ?vfunc_6@JointPlantedCondition@motion@hulkfight@fn_0015d200@@UAE_NHPAVParams@fight@4@H@Z @d57f9afd80a6 @w5c2f85c61618 @v2e5357dee0f2
 namespace fn_0015d200 {
 // STATUS: equivalent (tools/equiv.py level 3: 20015 inputs, branch coverage 24/24)
 // hulkfight::motion::JointPlantedCondition::vfunc_6 @ 0x0015d200
@@ -1597,7 +1599,7 @@ public:
 
 bool JointPlantedCondition::vfunc_6(int a1, fight::Params *params, int a3)
 {
-    if (!dynamic_cast<CFightParams *>(params))
+    if (!((CFightParams *)dynamic_cast<::CFightParams*>((::fight::Params*)(params))))
         return false;
 
     Handle_15d200 *handle = ((CFightParams *)params)->FUN_000592a0();
@@ -1716,7 +1718,7 @@ hulk_freg Table_15d4f0::FUN_0015d4f0(float t, float a, float b)
 } // namespace fn_f94adb62
 
 // 0x0015d640 hulkfight::motion::LocomotionStrafeAction::vfunc_3 (736 B): equivalent/0x0015d640.cpp [wrapped: conflict: hulkfight::motion::LocomotionStrafeAction]
-// sym: ?vfunc_3@LocomotionStrafeAction@motion@hulkfight@fn_0015d640@@UAE_NHH@Z @fa4bad02a385 @w2114becfd772 @v1c73cc51ee5d
+// sym: ?vfunc_3@LocomotionStrafeAction@motion@hulkfight@fn_0015d640@@UAE_NHH@Z @b1d27357c735 @wfa373fa60e3b @v3c157fe916a8
 namespace fn_0015d640 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 24/28, incomplete)
 // hulkfight::motion::LocomotionStrafeAction::vfunc_3 @ 0x0015d640
@@ -1836,7 +1838,7 @@ bool LocomotionStrafeAction::vfunc_3(int a, int b)
         unsigned int i = 0;
         do {
             choreo2::Driver *d = q->FUN_00222e20(i);
-            choreo2::LocomotionStrafeDriver *t = dynamic_cast<choreo2::LocomotionStrafeDriver *>(d);
+            choreo2::LocomotionStrafeDriver *t = ((choreo2::LocomotionStrafeDriver *)dynamic_cast<::choreo2::LocomotionStrafeDriver*>((::choreo2::Driver*)(d)));
             if (t != 0) {
                 if (fr.res < 0.0f)
                     fr.res = t->f24;
@@ -2827,7 +2829,7 @@ hulk_freg Table_15ebc0::FUN_0015ebc0(float t, float a, float b)
 
 
 // 0x0015ed10 hulkfight::motion::ClimbLocomotionAction::vfunc_3 (858 B): equivalent/0x0015ed10.cpp
-// sym: ?vfunc_3@ClimbLocomotionAction@fn_f94adb62@@UAE_NHH@Z @af4c3ec6c20e @w53eca553462d @v68c697a63d7a
+// sym: ?vfunc_3@ClimbLocomotionAction@fn_f94adb62@@UAE_NHH@Z @5dcdcaa8bddd @w276256185a23 @v760ecf989935
 // STATUS: equivalent (tools/equiv.py level 3: 349 inputs, branch coverage 32/32)
 // hulkfight::motion::ClimbLocomotionAction::vfunc_3 @ 0x0015ed10
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
@@ -2851,7 +2853,7 @@ bool ClimbLocomotionAction::vfunc_3(int a, int b)
     f.found = 0;
     for (unsigned int i = 0; i < skel->f68; i++) {
         choreo2::Driver_15ed10 *node = ((choreo2 :: Driver_15ed10 *)((owners::C_222e20 *)skel)->FUN_00222e20((unsigned)i));
-        choreo2::LocomotionStrafeDriver_15ed10 *c = dynamic_cast<choreo2::LocomotionStrafeDriver_15ed10 *>(node);
+        choreo2::LocomotionStrafeDriver_15ed10 *c = ((choreo2::LocomotionStrafeDriver_15ed10 *)dynamic_cast<::choreo2::LocomotionStrafeDriver*>((::choreo2::Driver*)(node)));
         if (c) {
             if (f.best < 0.0f)
                 f.best = c->f24;

@@ -4,6 +4,8 @@
 #include "compat/ptr.h"
 #include "gen/hulkfight.h"
 #include "gen/owners.h"
+#include "gen/fight.h"
+#include "gen/global.h"
 #define TREE_TU_BEGIN namespace fn_f88f56f3 {
 #define TREE_TU_END }
 namespace fn_f88f56f3 {} using namespace fn_f88f56f3;
@@ -546,12 +548,12 @@ char RayCastCondition::vfunc_6(int arg0, Obj1_1679c0* target, int arg2)
 
 
 // 0x00167cc0 hulkfight::motion::VelocityCondition::vfunc_6 (320 B): equivalent/0x00167cc0.cpp
-// sym: ?vfunc_6@VelocityCondition@motion@hulkfight@@UAE_NPAX00@Z @a9eec2c2a607 @w0b03bf7e4d67 @v356c2607fe01
+// sym: ?vfunc_6@VelocityCondition@motion@hulkfight@@UAE_NPAX00@Z @a3b2c4d7b709 @wee030c01d623 @v0235b05a0580
 // STATUS: equivalent (tools/equiv.py level 3: 107 inputs, branch coverage 15/16, incomplete)
 // hulkfight::motion::VelocityCondition::vfunc_6 @ 0x00167cc0
 bool hulkfight::motion::VelocityCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { int a1 = (int)__p0; fight::Params_167cc0 * params = (fight::Params_167cc0 *)__p1; int a3 = (int)__p2;
 
-    if (dynamic_cast<CFightParams_167cc0 *>(params) == 0)
+    if (((CFightParams_167cc0 *)dynamic_cast<::CFightParams*>((::fight::Params*)(params))) == 0)
         return false;
 
     Fighter_167cc0 *fighter = params->FUN_000592a0()->FUN_00059a30();
@@ -655,12 +657,12 @@ bool VelocityXZAngleCondition::vfunc_6(void*,Actor_168020* actor,void*) {
 
 
 // 0x00168120 hulkfight::motion::VelocityAnimatedCondition::vfunc_6 (320 B): equivalent/0x00168120.cpp
-// sym: ?vfunc_6@VelocityAnimatedCondition@motion@hulkfight@@UAE_NPAX00@Z @f05da6ce5ccb @w6d1a5d9197a2 @vb03e33cb7bbb
+// sym: ?vfunc_6@VelocityAnimatedCondition@motion@hulkfight@@UAE_NPAX00@Z @372f4276264a @wf3744c109437 @v00db1373ad1b
 // STATUS: equivalent (tools/equiv.py level 3: 107 inputs, branch coverage 15/16, incomplete)
 // hulkfight::motion::VelocityAnimatedCondition::vfunc_6 @ 0x00168120
 bool hulkfight::motion::VelocityAnimatedCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { int a1 = (int)__p0; fight::Params_168120 * params = (fight::Params_168120 *)__p1; int a3 = (int)__p2;
 
-    if (dynamic_cast<CFightParams_168120 *>(params) == 0)
+    if (((CFightParams_168120 *)dynamic_cast<::CFightParams*>((::fight::Params*)(params))) == 0)
         return false;
 
     Fighter_168120 *fighter = params->FUN_000592a0()->FUN_00059a30();

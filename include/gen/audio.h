@@ -318,6 +318,12 @@ public:
     int f_28;
 };
 
+// .?AVMixer@audio@@  type descriptor 0x4c723c only (no vftable or complete object locator in the XBE: no object's
+// complete type is a Mixer, and no class in the XBE derives from one). (sweep2) Defined so that the casts that name it
+// (0x001eab10) carry its exact RTTI name; it has no members the game's code uses.
+class Mixer {
+};
+
 // .?AVMixType@audio@@  vftable 0x4290b8 (3)
 class MixType : public ::om::EntityType {
 public:

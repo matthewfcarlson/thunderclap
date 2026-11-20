@@ -43,6 +43,63 @@ class FreeNames(unittest.TestCase):
         self.assertTrue(t.failing({"free_by_other_name new": 1}))
         self.assertFalse(t.failing({"info: free_by_other_name known": 3, "info: free_by_other_name fixed": 1}))
 
+    def test_equivalent_and_how(self):
+        # (integ3) an equivalent block checked by name (free_checked) is gated like a matches block; one never
+        # checked is ignored; a baseline entry may carry the kind of each name (`how`)
+        e = {"addr": "0x00010040", "kind": "equivalent", "status": "compiled", "tu": TU, "free_checked": "name",
+             "free_by_other_name": ["_FUN_0008d340"], "free_how": {"_FUN_0008d340": "name"}}
+        e2 = dict(e, addr="0x00010050")
+        del e2["free_checked"]
+        base = {"tus": {TU: {"0x00010060": {"names": ["_FUN_00267090"], "how": {"_FUN_00267090": "name"},
+                                            "by": "free-name-accept", "accepted": "t", "why": "w"}}}}
+        e3 = {"addr": "0x00010060", "kind": "equivalent", "status": "compiled", "tu": TU, "free_checked": "name",
+              "free_by_other_name": ["_FUN_00267090"], "free_how": {"_FUN_00267090": "name"}}
+        e4 = dict(e, addr="0x00010080", free_checked="no symbol")                     # (rev5) a gap, never gated
+        self.assertEqual(t.free_names_check([e, e2, e3, e4], base),
+                         [("0x00010040", "new", ["_FUN_0008d340"]), ("0x00010060", "known", ["_FUN_00267090"])])
+
+    def test_accept_records(self):
+        # (integ3) --records --how accepts only that kind, stamped as an accept, with the kind kept
+        recs = os.path.join(self.d.name, "v.jsonl")
+        with open(recs, "w") as f:
+            f.write(json.dumps({"tu": TU, "addr": "0x00010040", "kind": "equivalent", "free_checked": "name",
+                                "free_by_other_name": ["_FUN_0008d340"], "free_how": {"_FUN_0008d340": "name"}}) + "\n")
+            f.write(json.dumps({"tu": TU, "addr": "0x00010070", "kind": "matches",
+                                "free_by_other_name": ["_FUN_0008d330"]}) + "\n")
+        old = t.FREE_BASELINE, t.file_at_ref
+        t.FREE_BASELINE = self.path
+        t.file_at_ref = lambda ref, rel, root=None: None       # (REF had no baseline)
+        acc = ["free-name-accept", "--records", recs, "--job", "123", "--commit", "abc", "--why", "seed equiv"]
+        try:
+            t.write_free_baseline({"tus": {}}, self.path)
+            self.assertEqual(t.main(acc + ["--how", "name"]), 0)
+            got = t.load_free_baseline(self.path)["tus"][TU]
+            # (rev5) only `name`, only once
+            with self.assertRaises(SystemExit):
+                t.main(acc + ["--how", "name"])
+            with self.assertRaises(SystemExit):
+                t.main(acc + ["--how", "address"])
+            with self.assertRaises(SystemExit):
+                t.main(["free-name-accept", "--records", recs, "--how", "name", "--why", "no job"])
+            t.write_free_baseline({"tus": {}}, self.path)
+            t.file_at_ref = lambda ref, rel, root=None: json.dumps({"tus": {TU: {"0x1": {"names": ["n"], "how": {
+                "n": "name"}, "by": "free-name-accept", "accepted": "t", "why": "w"}}}})
+            with self.assertRaises(SystemExit):                 # REF's baseline already had the seed
+                t.main(acc + ["--how", "name"])
+            refs = []
+            t.file_at_ref = lambda ref, rel, root=None: refs.append(ref)     # (REF is HEAD, never chosen)
+            self.assertEqual(t.main(acc + ["--how", "name"]), 0)
+            self.assertEqual(refs, ["HEAD"])
+            t.write_free_baseline({"tus": {}}, self.path)
+            with self.assertRaises(SystemExit):                 # no other REF can be named
+                t.main(acc + ["--how", "name", "--ref", "HEAD~5"])
+        finally:
+            t.FREE_BASELINE, t.file_at_ref = old
+        self.assertEqual(list(got), ["0x00010040"])                                 # the call row is not taken
+        self.assertEqual((got["0x00010040"]["by"], got["0x00010040"]["how"]),
+                         ("free-name-accept", {"_FUN_0008d340": "name"}))
+        self.assertIn("job 123 at abc", got["0x00010040"]["why"])
+
     def test_file_round_trip(self):
         b = {"comment": "c", "tus": {TU: {"0x00010010": ["b", "a"], "0x00010000": {"names": ["z"], "by": "free-name-accept",
                                                                                    "accepted": "t", "why": "w"},

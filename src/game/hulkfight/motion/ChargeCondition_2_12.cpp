@@ -11,6 +11,7 @@
 #include "decls/data/game/unknown.h"
 #include "decls/data/engine/fight.h"   // (gx3, D32) its owner object's data, merged
 #include "gen/fight.h"
+#include "gen/hulkfight.h"
 #define TREE_TU_BEGIN namespace fn_f45cd32f {
 #define TREE_TU_END }
 namespace fn_f45cd32f {} using namespace fn_f45cd32f;
@@ -909,7 +910,7 @@ bool fight::ConditionFactoryCasterTemplate<hulkfight::motion::VelocityAnimatedXZ
 // fight::ConditionFactoryTemplate<hulkfight::motion::RageModeStateCondition> (RTTI 0x004b77d0) from fight::ConditionFactory
 template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::motion::RageModeStateCondition>::vfunc_0(void* __p0) { fight::ConditionFactory_16ab50 * p = (fight::ConditionFactory_16ab50 *)__p0;
 
-    return dynamic_cast<fight::ConditionFactoryTemplate_16ab50<hulkfight::motion::RageModeStateCondition_16ab50>*>(p) != 0;
+    return ((fight::ConditionFactoryTemplate_16ab50<hulkfight::motion::RageModeStateCondition_16ab50>*)dynamic_cast< ::fight::ConditionFactoryTemplate< ::hulkfight::motion::RageModeStateCondition>*>((::fight::ConditionFactory*)(p))) != 0;
 }
 
 

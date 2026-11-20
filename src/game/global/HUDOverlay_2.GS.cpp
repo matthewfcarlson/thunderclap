@@ -243,7 +243,7 @@ struct Pad_d3170 {
     int FUN_00090110();
 };
 struct World {
-    char pad0[0x54];
+    void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */
     Holder_d3170 *f54;
 };
 

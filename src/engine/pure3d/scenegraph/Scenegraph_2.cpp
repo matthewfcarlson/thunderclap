@@ -9,6 +9,7 @@
 #include "decls/data/engine/pure3d/scenegraph.h"
 #include "gen/owners.h"
 #include "gen/pure3d.h"
+#include "gen/content.h"
 #define TREE_TU_BEGIN namespace fn_f9b7dd8c {
 #define TREE_TU_END }
 namespace fn_f9b7dd8c {} using namespace fn_f9b7dd8c;
@@ -2911,7 +2912,7 @@ Node_297680 *SceneLoader_297680::FUN_00297680(Stream_297680 *s, void *ctx)
 } // namespace fn_f9b7dd8c
 
 // 0x00297ba0 FUN_00297ba0 (862 B): equivalent/0x00297ba0.cpp [wrapped: conflict: FUN_000c0de0; Node; pure3d::DrawableContainer; pure3d::DrawableHierarchy]
-// sym: ?FUN_00297ba0@SceneLoader_297ba0@fn_00297ba0@@QAEPAVNode@2@PAUStream@2@PAX@Z @2d06a7e9b8a5 @wfe193ab423e8 @v97b4bc1dfb51
+// sym: ?FUN_00297ba0@SceneLoader_297ba0@fn_00297ba0@@QAEPAVNode@2@PAUStream@2@PAX@Z @5462e48f50bc @w7b9763e06b12 @vb8e198b15154
 namespace fn_00297ba0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3075 inputs, branch coverage 37/37)
 // FUN_00297ba0 @ 0x00297ba0
@@ -3085,7 +3086,7 @@ Node *SceneLoader_297ba0::FUN_00297ba0(Stream *s, void *ctx)
         while (s->FUN_002669f0()) {
             if (s->FUN_00266a30() == 0x12010a) {
                 s->reader->FUN_002647e0(&f.x, 1, 4, 1);
-                dynamic_cast<pure3d::DrawableContainer *>(dh);
+                ((pure3d::DrawableContainer *)dynamic_cast<::pure3d::DrawableContainer*>((::pure3d::DrawableHierarchy*)(dh)));
             }
             s->FUN_00266be0();
         }

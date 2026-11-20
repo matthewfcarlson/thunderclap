@@ -115,7 +115,7 @@ public:
 struct Holder44_22990 { Factory_22990 *FUN_00203d70(); };
 struct Holder28_22990 { Holder44_22990 *FUN_000862a0(); };
 } // namespace fn_fd1175fb
-struct World { char pad0[0x54]; Holder28_22990 *holder; };
+struct World { void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */ Holder28_22990 *holder; };
 namespace fn_fd1175fb {
 class Owner_22990 {
 public:

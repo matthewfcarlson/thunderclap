@@ -44,7 +44,7 @@ struct Sys_abb90 {
 };
 } // namespace fn_ff8a4c81
 struct World {
-    char pad0[0x54];
+    void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */
     Reg_abb90 *f54;
 };
 namespace fn_ff8a4c81 {

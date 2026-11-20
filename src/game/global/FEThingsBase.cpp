@@ -3312,7 +3312,7 @@ struct Sub_e5710 {
     int *FUN_00086270();
 };
 struct World {
-    char pad[0x54];
+    void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */
     Sub_e5710 *sub;
 };
 

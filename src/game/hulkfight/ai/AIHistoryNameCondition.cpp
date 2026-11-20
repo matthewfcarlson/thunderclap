@@ -7,6 +7,7 @@
 #include "gen/fight.h"
 #include "gen/hulkfight.h"
 #include "gen/owners.h"
+#include "gen/global.h"
 #define TREE_TU_BEGIN namespace fn_f49cf0cf {
 #define TREE_TU_END }
 namespace fn_f49cf0cf {} using namespace fn_f49cf0cf;
@@ -669,12 +670,12 @@ HulkAction_10f360::~HulkAction_10f360() {
 
 
 // 0x0010f480 hulkfight::ai::AIHistoryNameCondition::vfunc_6 (394 B): equivalent/0x0010f480.cpp
-// sym: ?FUN_0010f480@AIHistoryNameCondition@fn_f49cf0cf@@QAEDHPAVParams_10f480@fight@@H@Z @f501419946f7 @w814085068346 @v3470486c3432
+// sym: ?FUN_0010f480@AIHistoryNameCondition@fn_f49cf0cf@@QAEDHPAVParams_10f480@fight@@H@Z @763d08451583 @w99b4de22d0e0 @va3c71fadde1c
 // STATUS: equivalent (tools/equiv.py level 3: 20027 inputs, branch coverage 38/38)
 // hulkfight::ai::AIHistoryNameCondition::vfunc_6 @ 0x0010f480
 char AIHistoryNameCondition::FUN_0010f480(int a1, fight::Params_10f480 *params, int a3)
 {
-    if (dynamic_cast<CFightParams_10f480 *>(params) == 0)
+    if (((CFightParams_10f480 *)dynamic_cast<::CFightParams*>((::fight::Params*)(params))) == 0)
         return 0;
 
     Fighter_10f480 *fighter = params->FUN_000592a0()->FUN_00059a30();
@@ -730,12 +731,12 @@ char AIHistoryNameCondition::FUN_0010f480(int a1, fight::Params_10f480 *params, 
 
 
 // 0x0010f630 hulkfight::ai::KeyWordWaitCondition::vfunc_6 (300 B): equivalent/0x0010f630.cpp
-// sym: ?FUN_0010f630@KeyWordWaitCondition@fn_f49cf0cf@@QAE_NHPAVParams_10f630@fight@@H@Z @d83561011bfa @w3ee0892168b2 @vae187e5b29e3
+// sym: ?FUN_0010f630@KeyWordWaitCondition@fn_f49cf0cf@@QAE_NHPAVParams_10f630@fight@@H@Z @8ae33ad988c0 @w6b65ef644b80 @vcf97f474dc5f
 // STATUS: equivalent (tools/equiv.py level 3: 83 inputs, branch coverage 22/24, incomplete)
 // hulkfight::ai::KeyWordWaitCondition::vfunc_6 @ 0x0010f630
 bool KeyWordWaitCondition::FUN_0010f630(int a1, fight::Params_10f630 *params, int a3)
 {
-    if (dynamic_cast<CFightParams_10f630 *>(params) == 0)
+    if (((CFightParams_10f630 *)dynamic_cast<::CFightParams*>((::fight::Params*)(params))) == 0)
         return false;
 
     Fighter_10f630 *fighter = params->FUN_000592a0()->FUN_00059a30();

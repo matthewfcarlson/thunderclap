@@ -161,7 +161,7 @@ struct Flag_86630 { char pad[8]; unsigned char enabled; };
 struct Context { char pad0[4]; Flag_86630* flag; char pad8[4]; Sub_86630* sub; char pad10[48]; Item_86630* item; void FUN_00088940(Target_86630*,Resource_86630*); };
 struct GlobalSub { char pad[16]; Audio_86630* audio; char pad14[4]; Stop_86630* stop; };
 } // namespace fn_f5b26912
-struct World { char pad[84]; GlobalSub* sub; };
+struct World { void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */ GlobalSub *sub; };
 namespace fn_f5b26912 {
 struct Target_86630 { char pad0[4]; State_86630* state; char pad8[4]; Context* context; Audio_86630* audio; char pad14[4]; Stop_86630* stop; Handler_86630* handler; Controller_86630* controller; Panel_86630* panel; Renderer_86630* renderer; Loader_86630* loader; Scene_86630* scene; View* view; Resource_86630* resource; char pad3c[20]; unsigned char enabled; void FUN_00086630(); };
 typedef unsigned int u32_86900;
@@ -965,7 +965,7 @@ bool FUN_0008db80();
 struct Renderer_86790 { char pad[0xd8]; int state; void FUN_0028f9a0(); void FUN_0028faf0(int); };
 struct Manager_86790 { void FUN_000afe80(); };
 struct Subsystem_86790 { char pad[0x18]; Manager_86790* manager; };
-struct World { char pad[0x54]; Subsystem_86790* subsystem; };
+struct World { void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */ Subsystem_86790 *subsystem; };
 struct Animation { void FUN_001ec480(const char*,const char*); void FUN_001eb2a0(float,int); };
 struct Object { char pad0[4]; int* result; char pad8[8]; Source_86790* source; Input_86790* input; char pad18[4]; Switch_86790* gate; Pump_86790* pump; char pad24[12]; Animation* animation; void FUN_00086790(); };
 void Object::FUN_00086790() {
@@ -1146,7 +1146,7 @@ struct Context {
 };
 
 struct World {
-    char pad[0x54];
+    void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */
     Context *ctx;
 };
 
@@ -1843,7 +1843,7 @@ struct Display_872a0 {
 };
 
 struct World {
-    char pad1[0x54];
+    void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */
     Display_872a0 *display;
 };
 

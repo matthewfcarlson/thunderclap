@@ -156,7 +156,7 @@ pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
 
 
 // 0x000e8cf0 FUN_000e8cf0 (389 B): equivalent/0x000e8cf0.cpp [wrapped: conflict: FEControl; FEObject; VScroll]
-// sym: ?FUN_000e8cf0@VScroll@fn_000e8cf0@@QAEXHH@Z @36418bc99efb @w73de4f50b254 @v880a12602eab
+// sym: ?FUN_000e8cf0@VScroll@fn_000e8cf0@@QAEXHH@Z @87c87ad9a6fb @w45f6d6f35dfc @v6d576318512d
 namespace fn_000e8cf0 {
 // STATUS: equivalent (tools/equiv.py level 3: 82 inputs, branch coverage 31/34, incomplete)
 // FUN_000e8cf0 @ 0x000e8cf0
@@ -294,7 +294,7 @@ void VScroll::FUN_000e8cf0(int idx, int mode)
         selected->vfn14(forward ? 2 : 1);
     }
     index = idx;
-    FEControl *cast = dynamic_cast<FEControl *>(items[idx].obj);
+    FEControl *cast = ((FEControl *)dynamic_cast<::FEControl*>((::FEObject*)(items[idx].obj)));   // (sweep2) the game's RTTI names
     Manager_e8cf0 *mgr = manager;
     selected = cast;
     mgr->engine->vfn48(2);

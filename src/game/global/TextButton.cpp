@@ -3,6 +3,7 @@
 #include "tree_prelude.h"
 #include "compat/ptr.h"
 #include "decls/data/engine/pure3d/prop.h"
+#include "gen/pure3d.h"
 #define TREE_TU_BEGIN namespace fn_fdd3d2cc {
 #define TREE_TU_END }
 #define TREE_LOCAL_CCollisionTrack
@@ -162,7 +163,7 @@ void TextButton::vfunc_13(int unused)
     current = target;
     if (parent) {
         pure3d::TextureAnimationController* tac =
-            dynamic_cast<pure3d::TextureAnimationController*>(parent->next->next->holder->GetController(0));
+            ((pure3d::TextureAnimationController*)dynamic_cast<::pure3d::TextureAnimationController*>((::pure3d::FrameController*)(parent->next->next->holder->GetController(0))));
         if (tac)
             tac->SetValue(1.0f);
     }
@@ -174,7 +175,7 @@ void TextButton::vfunc_13(int unused)
 void TextButton::f14(int) {
     saved = val;
     if (obj) {
-        TextureAnimationController* z = dynamic_cast<TextureAnimationController*>(obj->r->w->v->x18(0));
+        TextureAnimationController* z = ((TextureAnimationController*)dynamic_cast<::pure3d::TextureAnimationController*>((::pure3d::FrameController*)(obj->r->w->v->x18(0))));
         if (z)
             z->x12(0);
     }

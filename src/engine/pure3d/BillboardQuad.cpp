@@ -755,12 +755,15 @@ struct Vec3_2bc790 {
 namespace pure3d {
 class Shader_2bc790;
 }
+// (sweep2) the caster as the word its inline constructor writes: the game's vftable by address (a local polymorphic
+// stand-in got clang's own vftable natively, whose slot had no definition)
+extern "C" char DAT_003f3e88[];   // content::LoadInventory::DynamicCaster<pure3d::Shader>'s vftable
 namespace content {
 struct LoadInventory_2bc790 {
     template <class T>
-    class DynamicCaster {
-    public:
-        virtual void *v0() { return 0; }
+    struct DynamicCaster {
+        void *vftable;
+        DynamicCaster() { vftable = (void *)DAT_003f3e88; }
     };
 };
 }
@@ -3478,7 +3481,7 @@ BillboardCutOffQuadGroup_2bc760* BillboardCutOffQuadGroup_2bc760::vfunc_5(signed
 
 
 // 0x002bc790 FUN_002bc790 (1816 B): equivalent/0x002bc790.cpp
-// sym: ?FUN_002bc790@Group_2bc790@fn_fff84c72@@QAEXPAUParent_2bc790@2@PAVReader_2bc790@2@PAVFactory_2bc790@2@@Z @1f3033f32efe @w6fe0554d4bd2 @vecaab3bee06e
+// sym: ?FUN_002bc790@Group_2bc790@fn_fff84c72@@QAEXPAUParent_2bc790@2@PAVReader_2bc790@2@PAVFactory_2bc790@2@@Z @92788624e25a @wb3b1e01d9261 @v5880b362735e
 // STATUS: equivalent (tools/equiv.py level 3: 15709 inputs, branch coverage 78/78)
 // FUN_002bc790 @ 0x002bc790
 void Group_2bc790::FUN_002bc790(Parent_2bc790 *parent, Reader_2bc790 *r, Factory_2bc790 *factory)
@@ -3514,8 +3517,16 @@ void Group_2bc790::FUN_002bc790(Parent_2bc790 *parent, Reader_2bc790 *r, Factory
     ((owners::Target_27b040 *)&(parent->name))->FUN_0027b040((hulk_uintptr)name1);
     ((owners::Target_27b040 *)&(o->name))->FUN_0027b040((hulk_uintptr)name1);
     unsigned __int64 id = FUN_0027b020(name2);
-    new (&fr.count) content::LoadInventory_2bc790::DynamicCaster<pure3d::Shader_2bc790>();
-    ::pure3d::Shader *shader = factory->v3((content::LoadInventory_2bc790::DynamicCaster<pure3d::Shader_2bc790> *)&fr.count, id);
+    // (sweep2) the caster: the original keeps it in the count's frame word (the 32-bit builds still do); natively the
+    // word is too small for its vftable pointer, so there it is a local of its own
+#if defined(HULK_PTR64)
+    content::LoadInventory_2bc790::DynamicCaster<pure3d::Shader_2bc790> casterLocal;
+    content::LoadInventory_2bc790::DynamicCaster<pure3d::Shader_2bc790> *caster = &casterLocal;
+#else
+    content::LoadInventory_2bc790::DynamicCaster<pure3d::Shader_2bc790> *caster =
+        new (&fr.count) content::LoadInventory_2bc790::DynamicCaster<pure3d::Shader_2bc790>();
+#endif
+    ::pure3d::Shader *shader = factory->v3(caster, id);
     if (shader == 0) {
         FUN_0028fcc0("warning : shader \"%s\" not found for billboard quad group \"%s\"\n", name2, name1);
         void *mem2 = FUN_00263ea0(0x20);

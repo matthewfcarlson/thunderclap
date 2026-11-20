@@ -8,6 +8,8 @@
 #include "decls/data/game/hulkfight/ai.h"
 #include "gen/hulkfight.h"
 #include "gen/owners.h"
+#include "gen/fight.h"
+#include "gen/global.h"
 #define TREE_TU_BEGIN namespace fn_fb4fb98f {
 #define TREE_TU_END }
 namespace fn_fb4fb98f {} using namespace fn_fb4fb98f;
@@ -249,12 +251,12 @@ void hulkfight::ai::MotionClosestWaypointAction::vfunc_4() {
 
 
 // 0x00115f40 hulkfight::ai::HasGroundPointCondition::vfunc_6 (103 B): equivalent/0x00115f40.cpp
-// sym: ?vfunc_6@HasGroundPointCondition@ai@hulkfight@@UAE_NPAX00@Z @8626c836c4fd @w36ba08242754 @v553e4aad0678
+// sym: ?vfunc_6@HasGroundPointCondition@ai@hulkfight@@UAE_NPAX00@Z @81b7b8ae7ae8 @w714a3766df55 @v280407fb4355
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 12/12)
 // hulkfight::ai::HasGroundPointCondition::vfunc_6 @ 0x00115f40
 bool hulkfight::ai::HasGroundPointCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { int a = (int)__p0; fight::Params_115f40 * params = (fight::Params_115f40 *)__p1; int c = (int)__p2;
 
-    if (!dynamic_cast<CFightParams_115f40*>(params))
+    if (!((CFightParams_115f40*)dynamic_cast<::CFightParams*>((::fight::Params*)(params))))
         return false;
     Mid_115f40* m = FUN_00059a30(FUN_000592a0(params));
     if (this->f_0d) {

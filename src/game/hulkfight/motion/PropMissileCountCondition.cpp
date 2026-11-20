@@ -3,6 +3,8 @@
 #include "tree_prelude.h"
 #include "gen/hulkfight.h"
 #include "gen/owners.h"
+#include "gen/fight.h"
+#include "gen/global.h"
 #define TREE_TU_BEGIN namespace fn_fc979cf7 {
 #define TREE_TU_END }
 namespace fn_fc979cf7 {} using namespace fn_fc979cf7;
@@ -71,12 +73,12 @@ Fighter_181ae0 *__fastcall FUN_00059a30(Owner_181ae0 *o);
 } // namespace fn_fc979cf7
 
 // 0x001819f0 hulkfight::motion::PropIsAttachedCondition::vfunc_6 (117 B): equivalent/0x001819f0.cpp
-// sym: ?vfunc_6@PropIsAttachedCondition@motion@hulkfight@@UAE_NPAX00@Z @3ce56562e49d @w70a594a5fc82 @v7ef2b7a41fa3
+// sym: ?vfunc_6@PropIsAttachedCondition@motion@hulkfight@@UAE_NPAX00@Z @14963093edf2 @we503a1beb13e @vcd366880c061
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // hulkfight::motion::PropIsAttachedCondition::vfunc_6 @ 0x001819f0
 bool hulkfight::motion::PropIsAttachedCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { int a = (int)__p0; fight::Params_1819f0 * params = (fight::Params_1819f0 *)__p1; int c = (int)__p2;
 
-    CFightParams_1819f0 *fp = dynamic_cast<CFightParams_1819f0 *>(params);
+    CFightParams_1819f0 *fp = ((CFightParams_1819f0 *)dynamic_cast<::CFightParams*>((::fight::Params*)(params)));
     if (fp == 0)
         return false;
     Fighter_1819f0 *f = ((Anchor_1819f0 *)((owners::Object_592a0 *)(((FightHandle *)params)))->FUN_000592a0())->FUN_00059a30();

@@ -11,6 +11,7 @@
 #include "gen/fight.h"
 #include "gen/hulkfight.h"
 #include "gen/owners.h"
+#include "gen/global.h"
 #define TREE_TU_BEGIN namespace fn_f1f11990 {
 #define TREE_TU_END }
 namespace fn_f1f11990 {} using namespace fn_f1f11990;
@@ -1399,14 +1400,14 @@ VarAssignAction_18d440::~VarAssignAction_18d440() {
 
 
 // 0x0018d480 hulkfight::motion::TimerCondition::vfunc_6 (371 B): equivalent/0x0018d480.cpp
-// sym: ?vfunc_6@TimerCondition@fn_f1f11990@@UAE_NHPAVParams_18d480@fight@@H@Z @f76495bc97e8 @w4f1ccf27a760 @v31ddc1e12a4a
+// sym: ?vfunc_6@TimerCondition@fn_f1f11990@@UAE_NHPAVParams_18d480@fight@@H@Z @3536de2721ac @w734e5d1144b0 @v60bac81c6fd7
 // STATUS: equivalent (tools/equiv.py level 3: 108 inputs, branch coverage 26/26)
 // hulkfight::motion::TimerCondition::vfunc_6 @ 0x0018d480
 bool TimerCondition::vfunc_6(int a, fight::Params_18d480* params, int c)
 {
     if (index < 0 || index >= 14)
         return false;
-    if (dynamic_cast<CFightParams_18d480*>(params) == 0)
+    if (((CFightParams_18d480*)dynamic_cast<::CFightParams*>((::fight::Params*)(params))) == 0)
         return false;
     Timing_18d480* timing = params->FUN_000592a0()->FUN_00059a30();
     float target = limit;

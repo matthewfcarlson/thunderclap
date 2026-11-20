@@ -61,8 +61,8 @@ class C1_45670 {
 };
 class Mgr_45670 {
   public:
-    char pad[0x54];
-    C1_45670* m54;
+    void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */
+    C1_45670 *m54;
 };
 extern Mgr_45670* hulk_at_004dd700;
 namespace pure3d {

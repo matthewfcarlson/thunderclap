@@ -31,7 +31,7 @@ struct InputManager {
 };
 } // namespace fn_f57ff923
 struct World {
-    char pad0[0x54];
+    void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */
     InputManager *input;
 };
 namespace fn_f57ff923 {

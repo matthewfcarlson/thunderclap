@@ -705,7 +705,7 @@ public:
 
 struct Holder44 { Factory_1e7290 *FUN_00203d70(); };
 struct Holder28 { Holder44 *FUN_000862a0(); };
-struct Manager_1e7290 { char pad0[0x54]; Holder28 *holder; };
+struct Manager_1e7290 { void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */ Holder28 *holder; };
 
 #define DAT_004dd700 (*(Manager_1e7290 * *)&::DAT_004dd700)
 

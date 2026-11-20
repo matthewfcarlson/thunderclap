@@ -73,7 +73,7 @@ struct Holder28_1e3410 {
 };
 } // namespace fn_f6cc61e0
 struct World {
-    char pad0[0x54];
+    void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */
     Holder28_1e3410 *holder;
 };
 namespace fn_f6cc61e0 {

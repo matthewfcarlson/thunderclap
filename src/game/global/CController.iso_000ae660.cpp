@@ -57,8 +57,8 @@ struct Audio_ae660 {
 };
 
 struct World {
-    char pad00[0x54];
-    Audio_ae660* audio;
+    void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */
+    Audio_ae660 *audio;
 };
 
 struct InputHub {

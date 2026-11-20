@@ -25,7 +25,7 @@ struct Manager_1e8d40 { void FUN_00265920(char *, int *, int); };
 struct Controller_1e95c0 { bool FUN_00266750(); void FUN_00263e90(); };
 struct Subsystem_1e95c0 {  };
 } // namespace fn_f9024596
-struct World { char pad[0x54]; Subsystem_1e95c0* subsystem; };
+struct World { void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */ Subsystem_1e95c0 *subsystem; };
 namespace fn_f9024596 {
 extern "C" int __cdecl FUN_00240750();
 extern "C" void __cdecl FUN_00243090(int, float);

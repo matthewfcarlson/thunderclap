@@ -11,6 +11,8 @@
 #include "gen/fight.h"
 #include "gen/hulkfight.h"
 #include "gen/owners.h"
+#include "gen/choreo2.h"
+#include "gen/global.h"
 #define TREE_TU_BEGIN namespace fn_f30d2d27 {
 #define TREE_TU_END }
 namespace fn_f30d2d27 {} using namespace fn_f30d2d27;
@@ -2329,12 +2331,12 @@ AnimationVelocityScaledTrack* AnimationVelocityScaledTrack::v5(byte_13a9a0 x) {
 namespace fn_f30d2d27 {
 
 // 0x0013a9e0 hulkfight::motion::FrameCondition::vfunc_6 (330 B): equivalent/0x0013a9e0.cpp
-// sym: ?vfunc_6@FrameCondition@fn_f30d2d27@@UAEDHPAVParams_13a9e0@fight@@H@Z @8a1cce5c2a27 @wd3bb9be582db @v8e322118fd8e
+// sym: ?vfunc_6@FrameCondition@fn_f30d2d27@@UAEDHPAVParams_13a9e0@fight@@H@Z @b2bc29e96f3e @w2760c8186a2a @v5d77f9db39c2
 // STATUS: equivalent (tools/equiv.py level 3: 3035 inputs, branch coverage 30/30; Wine build 3036 inputs, 30/30)
 // hulkfight::motion::FrameCondition::vfunc_6 @ 0x0013a9e0
 char FrameCondition::vfunc_6(int a, fight::Params_13a9e0 *params, int c)
 {
-    if (dynamic_cast<CFightParams_13a9e0 *>(params) == 0)
+    if (((CFightParams_13a9e0 *)dynamic_cast<::CFightParams*>((::fight::Params*)(params))) == 0)
         return 0;
     DriverSet_13a9e0 *drivers = FUN_00059a40(FUN_000592a0(params));
     if (drivers == 0)
@@ -2342,7 +2344,7 @@ char FrameCondition::vfunc_6(int a, fight::Params_13a9e0 *params, int c)
 
     unsigned int count = drivers->count;
     for (unsigned int i = 0; i < count; i++) {
-        choreo2::AnimationDriver_13a9e0 *drv = dynamic_cast<choreo2::AnimationDriver_13a9e0 *>(((choreo2 :: Driver_13a9e0 *)((owners::C_222e20 *)drivers)->FUN_00222e20((unsigned)i)));
+        choreo2::AnimationDriver_13a9e0 *drv = ((choreo2::AnimationDriver_13a9e0 *)dynamic_cast<::choreo2::AnimationDriver*>((::choreo2::Driver*)(((choreo2 :: Driver_13a9e0 *)((owners::C_222e20 *)drivers)->FUN_00222e20((unsigned)i)))));
         if (drv == 0 || drv->info == 0)
             continue;
         if (drv->info->idLo != idLo || drv->info->idHi != idHi)
@@ -2364,7 +2366,7 @@ char FrameCondition::vfunc_6(int a, fight::Params_13a9e0 *params, int c)
 } // namespace fn_f30d2d27
 
 // 0x0013ab50 hulkfight::motion::FrameReachedCondition::vfunc_6 (459 B): equivalent/0x0013ab50.cpp [wrapped: conflict: FUN_00059a40]
-// sym: ?vfunc_6@FrameReachedCondition@fn_0013ab50@@UAEDHPAVParams_13ab50@fight@2@H@Z @0a29ee7495d4 @w007bf94d7887 @v7c36010794e2
+// sym: ?vfunc_6@FrameReachedCondition@fn_0013ab50@@UAEDHPAVParams_13ab50@fight@2@H@Z @2dbd00236891 @w98cdcdd54412 @va06bde2c85dd
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)
@@ -2477,14 +2479,14 @@ public:
 
 char FrameReachedCondition::vfunc_6(int a, fight::Params_13ab50 *params, int c)
 {
-    if (dynamic_cast<CFightParams_13ab50 *>(params) == 0)
+    if (((CFightParams_13ab50 *)dynamic_cast<::CFightParams*>((::fight::Params*)(params))) == 0)
         return 0;
     DriverSet_13ab50 *drivers = FUN_00059a40(FUN_000592a0(params));
     if (drivers == 0)
         return 0;
     unsigned int count = drivers->count;
     for (unsigned int i = 0; i < count; i++) {
-        choreo2::AnimationDriver_13ab50 *drv = dynamic_cast<choreo2::AnimationDriver_13ab50 *>(((choreo2 :: Driver_13ab50 *)((owners::C_222e20 *)drivers)->FUN_00222e20((unsigned)i)));
+        choreo2::AnimationDriver_13ab50 *drv = ((choreo2::AnimationDriver_13ab50 *)dynamic_cast<::choreo2::AnimationDriver*>((::choreo2::Driver*)(((choreo2 :: Driver_13ab50 *)((owners::C_222e20 *)drivers)->FUN_00222e20((unsigned)i)))));
         if (drv == 0 || drv->info == 0)
             continue;
         if (drv->info->idLo != idLo || drv->info->idHi != idHi)
@@ -4451,7 +4453,7 @@ extern "C" void __cdecl FUN_0013d3c0(Factory* factory) {
 } // namespace fn_f30d2d27
 
 // 0x0013d410 hulkfight::motion::AnimationAction::vfunc_3 (870 B): equivalent/0x0013d410.cpp [wrapped: conflict: AnimationAction; FUN_00059a40; World; content::LoadInventory::DynamicCaster (+1)]
-// sym: ?vfunc_3@AnimationAction@fn_0013d410@@UAE_NHH@Z @d466df454cd7 @wd203195569a5 @va9e18c45abdf
+// sym: ?vfunc_3@AnimationAction@fn_0013d410@@UAE_NHH@Z @e9c155a433c2 @w0a787d803e28 @vbb6949973142
 namespace fn_0013d410 {
 // STATUS: equivalent (tools/equiv.py level 3: 3254 inputs, branch coverage 52/52; Wine build 700 inputs, 52/52)
 // hulkfight::motion::AnimationAction::vfunc_3 @ 0x0013d410
@@ -4583,7 +4585,7 @@ public:
 
 struct Holder44_13d410 { Factory_13d410 *FUN_00203d70(); };
 struct Holder28_13d410 { Holder44_13d410 *FUN_000862a0(); };
-struct World { char pad0[0x54]; Holder28_13d410 *holder; };
+struct World { void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */ Holder28_13d410 *holder; };
 
 class AnimData_13d410 {
 public:
@@ -4663,7 +4665,7 @@ bool AnimationAction::vfunc_3(int a, int b)
             choreo2::Driver *d = layers->FUN_00222e20(i);
             if (d->id.lo != lo || d->id.hi != hi)
                 continue;
-            choreo2::AnimationDriver *ad = dynamic_cast<choreo2::AnimationDriver *>(d);
+            choreo2::AnimationDriver *ad = ((choreo2::AnimationDriver *)dynamic_cast<::choreo2::AnimationDriver*>((::choreo2::Driver*)(d)));
             if (ad != 0 && ad->anim == anim) {
                 u.v = ad->f23c;
                 found = true;
@@ -4836,7 +4838,7 @@ public:
 
 struct Holder44_13de80 { Factory_13de80 *FUN_00203d70(); };
 struct Holder28_13de80 { Holder44_13de80 *FUN_000862a0(); };
-struct World { char pad0[0x54]; Holder28_13de80 *holder; };
+struct World { void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */ Holder28_13de80 *holder; };
 
 struct Sub_13de80 {
     void *FUN_0027b670(int lo, int hi);
@@ -4982,7 +4984,7 @@ char AnimationChargeAction::vfunc_3(int a, int b)
 
 
 // 0x0013e070 hulkfight::motion::AnimationLinkedAction::vfunc_3 (699 B): equivalent/0x0013e070.cpp [wrapped: conflict: Animation; FUN_00059a40; World; choreo2::Driver (+2)]
-// sym: ?vfunc_3@AnimationLinkedAction@fn_0013e070@@UAE_NHH@Z @27bee7459c17 @w75029972a7dc @v949cb7a724ad
+// sym: ?vfunc_3@AnimationLinkedAction@fn_0013e070@@UAE_NHH@Z @9327a43c6338 @w8211a2899859 @vf597308a39ab
 namespace fn_0013e070 {
 // STATUS: equivalent (tools/equiv.py level 3: 3290 inputs, branch coverage 37/40, incomplete; Wine build 745 inputs, 37/40)
 // hulkfight::motion::AnimationLinkedAction::vfunc_3 @ 0x0013e070
@@ -5107,7 +5109,7 @@ public:
 
 struct Holder44_13e070 { Factory_13e070 *FUN_00203d70(); };
 struct Holder28_13e070 { Holder44_13e070 *FUN_000862a0(); };
-struct World { char pad0[0x54]; Holder28_13e070 *holder; };
+struct World { void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */ Holder28_13e070 *holder; };
 
 class AnimData_13e070 {
 public:
@@ -5177,7 +5179,7 @@ bool AnimationLinkedAction::vfunc_3(int a, int b)
         int key = layers->FUN_00222bf0(d);
         if (key > bestKey)
             continue;
-        choreo2::AnimationDriver *ad = dynamic_cast<choreo2::AnimationDriver *>(d);
+        choreo2::AnimationDriver *ad = ((choreo2::AnimationDriver *)dynamic_cast<::choreo2::AnimationDriver*>((::choreo2::Driver*)(d)));
         if (ad == 0 || ad->anim != anim)
             continue;
         float v = ad->value;

@@ -1672,7 +1672,7 @@ void DifficultyScreen::FUN_000bf160()
         if (normal != 0)
             sel->Select(normal->id);
     }
-    TextButton_bf160 *hard = dynamic_cast<TextButton_bf160 *>((FEObject_bf160 *)FUN_000fc260("difficulty_hard"));
+    TextButton_bf160 *hard = ((TextButton_bf160 *)dynamic_cast<::TextButton*>((::FEObject*)((FEObject_bf160 *)FUN_000fc260("difficulty_hard"))));
     if (hard != 0) {
         unsigned char v = ((owners::Target_893c0 *)settings)->FUN_000893c0();
         hard->f141 = v;
@@ -1735,7 +1735,7 @@ void __fastcall Target(Obj_bf560* p) {
 } // namespace fn_f53c52ab
 
 // 0x000bf5c0 FUN_000bf5c0 (1102 B): equivalent/0x000bf5c0.cpp [wrapped: conflict: FUN_000fc3d0]
-// sym: ?FUN_000bf5c0@Screen_bf5c0@fn_000bf5c0@@QAEDH@Z @d8ef570f05b7 @wf61a8445dcd8 @v35c9b290dace
+// sym: ?FUN_000bf5c0@Screen_bf5c0@fn_000bf5c0@@QAEDH@Z @6e421ac548b6 @w802c307af5c2 @vd335d44c9b5b
 namespace fn_000bf5c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2244 inputs, branch coverage 10/10)
 // FUN_000bf5c0 @ 0x000bf5c0
@@ -1781,7 +1781,7 @@ char Screen_bf5c0::FUN_000bf5c0(int lastRow) {
         const int* p = table[i];
         if (*p != -1) {
             do {
-                CUnlockableMove_bf5c0* m = dynamic_cast<CUnlockableMove_bf5c0*>(((CUnlockable_bf5c0 *)((owners::C_92ad0 *)items)->FUN_00092ad0((hulk_intptr)(*p))));
+                CUnlockableMove_bf5c0* m = ((CUnlockableMove_bf5c0*)dynamic_cast<::CUnlockableMove*>((::CUnlockable*)(((CUnlockable_bf5c0 *)((owners::C_92ad0 *)items)->FUN_00092ad0((hulk_intptr)(*p))))));
                 if (m) {
                     m->flag = 0;
                     m->FUN_00091f30(1);
@@ -2986,7 +2986,7 @@ namespace fn_f53c52ab {
 // sym: ?FUN_000c3db0@Screen_c3db0@fn_f53c52ab@@QAEXXZ
 // FUN_000c3db0 @ 0x000c3db0
 void Screen_c3db0::FUN_000c3db0() {
-    CUnlockableGallery_c3db0* g = dynamic_cast<CUnlockableGallery_c3db0*>(((CUnlockable_c3db0 *)((owners::C_92ad0 *)items)->FUN_00092ad0((hulk_intptr)selected)));
+    CUnlockableGallery_c3db0* g = ((CUnlockableGallery_c3db0*)dynamic_cast<::CUnlockableGallery*>((::CUnlockable*)(((CUnlockable_c3db0 *)((owners::C_92ad0 *)items)->FUN_00092ad0((hulk_intptr)selected)))));
     if (g == 0)
         return;
     if (FUN_000c3900(g->FUN_00092330(), DAT_0049fb34, DAT_0049fb38, 1, g->FUN_00092320(), 0, 1000)) {

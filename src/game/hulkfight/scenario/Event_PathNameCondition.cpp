@@ -12,6 +12,7 @@
 #include "gen/fight.h"
 #include "gen/hulkfight.h"
 #include "gen/owners.h"
+#include "gen/global.h"
 #define TREE_TU_BEGIN namespace fn_fc09f66d {
 #define TREE_TU_END }
 namespace fn_fc09f66d {} using namespace fn_fc09f66d;
@@ -1116,7 +1117,7 @@ bool Event_CharacterTemplateVariationCondition::vfunc_6(void*,void* arg,void*) {
 
 
 // 0x001ab330 hulkfight::scenario::Event_TriggerVolumeNameCondition::vfunc_6 (131 B): equivalent/0x001ab330.cpp
-// sym: ?vfunc_6@Event_TriggerVolumeNameCondition@scenario@hulkfight@@UAE_NPAX00@Z @5c535df6f066 @w4dbd3b5bc23a @vfe3b55fd5256
+// sym: ?vfunc_6@Event_TriggerVolumeNameCondition@scenario@hulkfight@@UAE_NPAX00@Z @f315f1f83583 @w77908814ed84 @v550896b47582
 // STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 10/10)
 // hulkfight::scenario::Event_TriggerVolumeNameCondition::vfunc_6 @ 0x001ab330
 bool hulkfight::scenario::Event_TriggerVolumeNameCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { int a = (int)__p0; fight::Params_1ab330 * params = (fight::Params_1ab330 *)__p1; int c = (int)__p2;
@@ -1124,7 +1125,7 @@ bool hulkfight::scenario::Event_TriggerVolumeNameCondition::vfunc_6(void* __p0, 
     Id64_1ab330 name;
     name.FUN_0027af00();
 
-    CScenarioParams_1ab330 *sp = dynamic_cast<CScenarioParams_1ab330 *>(params);
+    CScenarioParams_1ab330 *sp = ((CScenarioParams_1ab330 *)dynamic_cast<::CScenarioParams*>((::fight::Params*)(params)));
     if (sp != 0) {
         VolumeInfo *info = sp->FUN_001d03c0();
         if (info->type == 0x1d || info->type == 0x1e) {

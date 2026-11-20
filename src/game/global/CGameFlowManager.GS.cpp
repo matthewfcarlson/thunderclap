@@ -19,7 +19,7 @@ namespace fn_f25fffae {
 struct NameList_894d0 { const char** FUN_000b4f40(); };
 struct Manager_894d0 { NameList_894d0* FUN_00086280(); };
 } // namespace fn_f25fffae
-struct World { char pad[0x54]; Manager_894d0* manager; };
+struct World { void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */ Manager_894d0 *manager; };
 namespace fn_f25fffae {
 extern "C" int __cdecl FUN_000964a0(char*, int, const char*, ...);
 extern "C" int __cdecl FUN_00267760(char*, int, const char*, ...);

@@ -13,7 +13,7 @@ struct State_bdf50 { int buttons[35]; struct Stick { unsigned int axis[2]; int u
 struct Device_bdf50 { void FUN_000af0f0(State_bdf50*); };
 struct Input_bdf50 { Device_bdf50* FUN_000af3a0(int); };
 struct Manager_bdf50 { Input_bdf50* FUN_000862d0(); };
-struct World { char pad[0x54]; Manager_bdf50* manager; };
+struct World { void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */ Manager_bdf50 *manager; };
 struct Action { void FUN_000de9a0(int); };
 struct System_bdf50 { char pad[0x182c]; Action* action; };
 System_bdf50* __cdecl FUN_000fc3d0();

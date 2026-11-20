@@ -660,11 +660,12 @@ class CCollisionManager_1b6530 {
 } // namespace fn_f5af65ff
 void* operator new(size_t) HULK_NEW_THROW;
 namespace fn_f5af65ff {
+// (sweep2, find2 G17) a view: the manager is built by its constructor 0x001b6440 (fn_001b6440::CCollisionManager's,
+// called by its address: a local stand-in constructor had no definition natively) on an allocation of that record
 class CCollisionManager_1b6580 {
   public:
-    CCollisionManager_1b6580() throw();
+    CCollisionManager_1b6580* FUN_001b6440();
     virtual void Init() throw();
-    char pad[0x5a8];
 };
 struct Vec3_1b65f0 {
     float x, y, z;
@@ -2347,7 +2348,8 @@ CCollisionManager_1b6530::~CCollisionManager_1b6530() {
 // data: gThing = DAT_004e2158
 extern "C" void * FUN_001b6580() {
     if (!(*(CCollisionManager_1b6580**)&DAT_004e2158)) {
-        (*(CCollisionManager_1b6580**)&DAT_004e2158) = new CCollisionManager_1b6580;
+        CCollisionManager_1b6580* m = (CCollisionManager_1b6580*)operator new(sizeof(fn_001b6440::CCollisionManager));
+        (*(CCollisionManager_1b6580**)&DAT_004e2158) = m ? m->FUN_001b6440() : 0;
         (*(CCollisionManager_1b6580**)&DAT_004e2158)->Init();
         return (CCollisionManager_1b6580 *)((*(CCollisionManager_1b6580**)&DAT_004e2158));
     }

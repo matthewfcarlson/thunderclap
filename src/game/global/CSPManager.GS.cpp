@@ -106,7 +106,7 @@ public:
 struct Holder44_1e4ae0 { Factory_1e4ae0 *FUN_00203d70(); };
 struct Holder28_1e4ae0 { Holder44_1e4ae0 *FUN_000862a0(); };
 } // namespace fn_f743a03c
-struct World { char pad0[0x54]; Holder28_1e4ae0 *holder; };
+struct World { void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */ Holder28_1e4ae0 *holder; };
 namespace fn_f743a03c {
 struct Mat_1e4ae0 {
     float m[16];

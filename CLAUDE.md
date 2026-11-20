@@ -188,7 +188,8 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   line unless `config/unproven-baseline.json` lists exactly that hash. The list only shrinks (`hash --proven` removes
   entries); never hand-edit it, add only with `tree_tu.py unproven-accept ADDR --modes M --why TEXT`. verify and
   materialize report its size as `unproven_baseline`. Cross-TU declaration / allocation / free-name report:
-  `tools/xtu_check.py run --jobq`, then `report build/xtu/facts` (report-only; build/xtu/summary.json).
+  `tools/xtu_check.py run --jobq [--relocmap V.jsonl...]` (verify records for the reloc map need `HULK_XTU_RELOCMAP=1`),
+  then `report build/xtu/facts` (report-only; build/xtu/summary.json).
 - **Range contracts** (D152): a function whose game callers keep an argument in a domain states it with
   `HULK_PRE_RANGE(x, lo, hi)` / `HULK_PRE_GT|GE|LT|LE(x, c)` at the top of the body (include/compat/pre.h; x a parameter's
   name), the matching `// pre: range|gt|ge|lt|le(argN, ...)` item, and `// pre-callers:` citing every XBE reference to the
@@ -209,6 +210,9 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
 - **Stale inputs**: the data TUs (`build/data/src`), `hulk_sdl.lib`, `hulk_movies.lib` and the pddi-win32 objects are local,
   generated inputs; `submit` and the host refuse stale ones (`tools/input_guard.py status` shows what submit would decide).
   A control and its proof take the same inputs (`--data-src` / `--sdl-src` for private copies); `--allow-stale` is not a fix.
+  The shared generated inputs (build/data, build/third_party/out, the sdl/movies libs) are rebuilt only from HEAD, and
+  input_guard hashes the working copy's sources: long-running uncommitted edits to sources of a shared input (the SDL
+  layer, pddi) make it stale for every lane. Keep such work in build/<agent>/ with private inputs until it lands (gfx1).
 - **Native builds**: `tools/native_mac.py` / `tools/native_elf.py` (`docs/native-build.md`, `docs/native-mac.md`,
   `docs/native-android.md`). The link refuses a compile report with a failed tree or data TU (`--allow-compile-failures`
   only for diagnosis). The unbound names (~22k per target) are fixed in source by root cause, never by a link-time redirect

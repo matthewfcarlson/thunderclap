@@ -102,7 +102,7 @@ public:
 struct Holder44_22d00 { Factory_22d00 *FUN_00203d70(); };
 struct Holder28_22d00 { Holder44_22d00 *FUN_000862a0(); };
 } // namespace fn_f089a1f8
-struct World { char pad0[0x54]; Holder28_22d00 *holder; };
+struct World { void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */ Holder28_22d00 *holder; };
 namespace fn_f089a1f8 {
 struct Speed_22d00 {
     char pad0[0x68];

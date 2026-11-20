@@ -346,9 +346,9 @@ struct Sys_8e1f0 {
 };
 
 struct World {
-    char pad[0x54];
+    void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */
     Sys_8e1f0 *f54;
-    char pad58[0x9d - 0x58];
+    void* f58; char name[0x40]; char f9c;
     char b9d;
 };
 
