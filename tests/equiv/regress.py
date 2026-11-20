@@ -514,7 +514,7 @@ CASES = {
     "0x001e2940_native_tree_lstatic": ("equivalent", None, 0, {"native": True, "n_inputs": 300}),
     "0x001e2940_native_tree_lstatic_off": ("fail", "unexpected write to global 0x00421894", 0,
                                            {"src": "0x001e2940_native_tree_lstatic", "native": True, "n_inputs": 300,
-                                            "equiv_off": "lstaticbr"}),
+                                            "equiv_off": "lstaticbr,lsguard"}),     # (integ3: lsguard pairs it too)
     # (tri2, ptrfacts) `call [0x4de948]` (a .bss function pointer, fuzzed): the code its value happens to hit (0x00200000,
     # thiscall) is not the callee, so ecx is no argument there; seeds where the old rule compared it
     "0x000f8280_native_ptrfacts": ("equivalent", None, 0, {"native": True, "seeds": [341, 503, 1117]}),
@@ -1170,6 +1170,18 @@ CASES = {
     # (0x002de520 --wine fails at HEAD too, `call #2 went to 0x00000000 instead of 0xc5bcba4c`: a source matter, no case)
     "0x002de3f0_thiscall_own": ("equivalent", None, 0, {"src": "0x002de520_thiscall_own", "n_inputs": 200}),
     "0x002de3f0_wine_thiscall_own": ("equivalent", None, 0, {"src": "0x002de520_thiscall_own", "native": True, "n_inputs": 200}),
+    # (integ3 chk3, repstep) the original copies with `rep movsd/movsb`, one emulator step per element; the source's element
+    # loops take a few steps per word, and input 236 ran out of the 2x budget (MSVC mode). Our run now gets 8 steps per
+    # byte the original's rep instructions moved. _slow: a 64-iteration busy loop per word still runs out
+    "0x002c84a0_repstep": ("equivalent", None, 0, {"seeds": [236]}),
+    "0x002c84a0_repstep_off": ("fail", "ours timeout", 0, {"src": "0x002c84a0_repstep", "seeds": [236], "equiv_off": "repstep"}),
+    "0x002c84a0_repstep_slow": ("fail", "ours timeout", 0, {"seeds": [236]}),
+    # (integ3 chk3, lsguard) the function-local static guard is clang's `$S1` and MSVC 7.1's `$S3` (0x000418f0): paired by
+    # function and order. _bit: k1 no longer static, so k2 takes the guard's bit 1 where the original's tests bit 2
+    "0x000418f0_native_lsguard": ("equivalent", None, 0, {"native": True, "n_inputs": 100}),
+    "0x000418f0_native_lsguard_off": ("fail", "0x004dc2fc", 0, {"src": "0x000418f0_native_lsguard", "native": True,
+                                                                "n_inputs": 100, "equiv_off": "lsguard"}),
+    "0x000418f0_native_lsguard_bit": ("fail", "missing write to global", 0, {"native": True, "n_inputs": 100}),
 }
 
 # verify_relocs.py cases: name -> (expected status, issue kind it must report or None)

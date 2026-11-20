@@ -3569,6 +3569,17 @@ NATIVE_CI = {}              # (round 18, native) math name -> original address o
 # (round 21, natsteps) clang -O0 runs about 4-8x the instructions of MSVC's code for the same source: ours gets 8x
 # the original's budget in --native (the original's budget is unchanged); 12 of 23 nf2 timeouts passed with --steps 400000.
 NATIVE_STEP_MULT = 8
+# (integ3, repstep) Unicorn charges one step per iteration of a rep string instruction (`rep movsd` over n words costs
+# n + 1 steps), while the same copy written as a loop, or compiled by clang into one, costs a few instructions per
+# element, and per byte when the loop moves bytes. The step budget stands for the work the original did, so our run
+# gets, on top of its multiple of the original's budget, REP_STEP_PER_BYTE steps for every byte the original's run
+# moved, stored or compared with rep string instructions (capped at REP_STEP_CAP). This is a budget, not a comparison:
+# our run is still compared in full, and code that runs away still runs out of steps. A byte loop is load, store,
+# two pointer steps, compare/decrement and branch: 6 instructions per byte; 8 leaves MSVC's volatile and indexed forms
+# room. --wine runs (clang -O0, NATIVE_STEP_MULT) get NATIVE_STEP_MULT times as many per byte.
+REP_STEP_PER_BYTE = 8
+REP_STEP_CAP = 4000000
+_REP_ELEM = {"b": 1, "w": 2, "d": 4, "q": 8}
 NATIVE_MODE = False         # (round 18) verify(native=True) is running
 NATIVE_FRAME = {}           # (wine1, natobj) the clang object's function under test, for its frame's variables (lazy)
 NATIVE_NARROW = {}        # (round 19, natnarrow) original address -> {stack word index: bit width} of declared bool/char/short parameters
@@ -3988,6 +3999,7 @@ class Run:
         self.loop_limits = None     # jcc -> most rounds before the run counts as timed out (runaway loops)
         self.loop_abort = False
         self.nsteps = 0             # instructions executed (the step-budget probe sizes long loops by it)
+        self.rep_bytes = 0          # (integ3, repstep) bytes rep string instructions moved, stored or compared
         self.noreturn = False       # the run ended in a call to a function that never returns
         self.abs_loads = set()      # addresses read as fixed addresses (`fld [0x3f32e0]`)
         self.stack_src = {}         # stack word -> source of the register stored there (directed inputs)
@@ -6768,6 +6780,10 @@ class Run:
                 uc.emu_stop()
                 return
             insn = self.view.decode(addr)
+            if insn is not None and insn.mnemonic.startswith("rep") and self.reg("ecx"):
+                # (integ3, repstep) one iteration of a rep string instruction: one emulator step that moves, stores or
+                # compares one element. See REP_STEP_PER_BYTE
+                self.rep_bytes += _REP_ELEM.get(insn.mnemonic[-1], 4)
             if insn is not None and (insn.x87[0] or insn.x87[1]) and "x87conv" not in EQUIV_OFF:
                 # (round 28, x87conv) an x87 instruction that reads below the stack's top: an empty register (the
                 # hardware's stack fault; Unicorn just moves TOP, so it is checked here). `fstp st(0)` after a callee
@@ -7320,6 +7336,7 @@ class Run:
         out["big_rep"] = self.big_rep
         out["bool_ub"] = self.bool_ub
         out["steps"] = self.nsteps
+        out["rep_bytes"] = self.rep_bytes
         return out
 
 
@@ -10259,6 +10276,36 @@ def _verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappi
                         if k_ and s_[0] not in r_m and s_[0] not in ours_fn and len(bkeys.get(k_, ())) == 1:
                             r_m[s_[0]] = r_m[bkeys[k_][0]]
                             how_m[s_[0]] = "lstaticbr:" + how_m.get(bkeys[k_][0], "?")
+                if "lsguard" not in EQUIV_OFF:
+                    # (integ3, lsguard) a function-local static's guard word is `$S<n>`, and the two compilers number
+                    # it differently (clang per function from 1, MSVC 7.1 by a counter over the translation unit:
+                    # 0x000418f0's only guard is clang's `$S1`, MSVC's `$S3`). The guards of one function pair by
+                    # their order, only when both objects define the same number of guards for that function and
+                    # MSVC's pairing bound every one of them; the guard bits each static tests and sets are still
+                    # compared (a static initialised under another bit fails as before)
+                    def _gkey(n_):
+                        m_ = re.match(r"^\?\$S(\d+)@", n_)
+                        k_ = _lskey(n_) if m_ else None
+                        # (the enclosing function's mangling, back-reference digits taken out as lstaticbr does)
+                        return (re.sub(r"(?<=@)\d+(?=[@A-Z])", "#", k_[1]), int(m_.group(1))) if k_ else None
+                    cguard_, mguard_ = defaultdict(list), defaultdict(list)
+                    for s_ in obj.syms.values():
+                        g_ = _gkey(s_[0])
+                        if g_ and s_[0] not in ours_fn and s_[2] > 0:
+                            cguard_[g_[0]].append((g_[1], s_[0]))
+                    for s_ in mobj.syms.values():
+                        g_ = _gkey(s_[0])
+                        if g_ and s_[2] > 0:
+                            mguard_[g_[0]].append((g_[1], s_[0]))
+                    for fk_, cl_ in cguard_.items():
+                        ml_ = sorted(set(mguard_.get(fk_, ())))
+                        cl_ = sorted(set(cl_))
+                        if len(ml_) != len(cl_) or not all(m_[1] in r_m for m_ in ml_):
+                            continue
+                        for (_, cn_), (_, mn_) in zip(cl_, ml_):
+                            if cn_ not in r_m:
+                                r_m[cn_] = r_m[mn_]
+                                how_m[cn_] = "lsguard:" + how_m.get(mn_, "?")
             if "treeblk" not in EQUIV_OFF and TREE_ADDR:
                 # (tri2, treeblk) a block-scope `extern const float zero_d94e0;` in a function of a wrapped block names
                 # the global `?zero_d94e0@@3MB` for MSVC 7.1 and `?zero_d94e0@fn_000d94e0@@3MB` for clang (the innermost
@@ -10644,6 +10691,8 @@ def _verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappi
     if cov_ > 0.1 * max(l3.get("inputs_run", 0), 1):
         # (integ1, rev4) inputs set aside for an overlapping copy (intrub, memub) hide that much code too
         short.append("%d inputs set aside as copy_overlap (over 10%% of %d)" % (cov_, l3.get("inputs_run", 0)))
+    if l3.get("rep_allow_max"):
+        rep["rep_allow_max"] = l3["rep_allow_max"]     # (integ3, repstep; rev5) the largest extra step allowance given
     rep["promotable"] = rep["status"] == "equivalent" and not short
     if rep["status"] == "equivalent" and short:
         rep["promotable_note"] = "; ".join(short)
@@ -11681,7 +11730,13 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             res["inputs_inconclusive"] += 1
             res["statuses"]["wild"] += 1
             return None
-        rrun = Run(prog, rview, mach, inp, ours_image=(OURS, ours.image), sig=sig, max_steps=steps[0] * (NATIVE_STEP_MULT if NATIVE_MODE and "natsteps" not in EQUIV_OFF else 2),
+        mult_ = NATIVE_STEP_MULT if NATIVE_MODE and "natsteps" not in EQUIV_OFF else 2
+        rep_allow_ = 0
+        if o.get("rep_bytes") and "repstep" not in EQUIV_OFF:
+            # (integ3, repstep) the original's rep string iterations, charged as the loop our code runs instead
+            rep_allow_ = min(REP_STEP_CAP, o["rep_bytes"] * REP_STEP_PER_BYTE * (mult_ // 2))
+            res["rep_allow_max"] = max(res.get("rep_allow_max", 0), rep_allow_)
+        rrun = Run(prog, rview, mach, inp, ours_image=(OURS, ours.image), sig=sig, max_steps=steps[0] * mult_ + rep_allow_,
                    own_float_ret=own_float, helpers=helpers)
         rrun.pointee_sizes = psizes or {}
         rrun.intrinsics = {a: n for a, n in ours.poison.items() if n in INTRINSIC_NAMES}

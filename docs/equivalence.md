@@ -683,6 +683,16 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
   - `natsteps`: clang -O0 runs about 4-8x the instructions MSVC's code needs for the same source; in `--native` ours gets
     8x the original's step budget (`NATIVE_STEP_MULT`, was 2x; the original's budget is unchanged). 12 of 23 nf2 timeouts
     passed with a bigger budget. 0x000f7790.
+  - `repstep` (integ3 chk3, 2026-11-19): Unicorn charges one step per iteration of a rep string instruction (`rep movsd`
+    over 100 words: 101 code-hook calls, and the count stops mid-instruction), while the element loop our source writes
+    for the same copy takes about 4-6 instructions per word, or per byte. Ours' budget was a multiple of the original's
+    budget only, so copy-heavy inputs ran out of steps on our side alone ("original ret but ours timeout"). The original's
+    run now counts the bytes its rep instructions moved, stored or compared (`rep_bytes`, element size from the mnemonic),
+    and ours gets `min(4,000,000, rep_bytes * 8 * mult/2)` more steps (`REP_STEP_PER_BYTE`; mult 2 for MSVC, 8 natively).
+    A budget, not a comparison: ours is compared in full, and code that runs away still runs out (case `_slow`, a busy
+    loop per word). `level3.rep_allow_max` reports the largest allowance. MSVC at 3,000 (were all "ours timeout"):
+    0x000bc900, 0x00201cd0, 0x00219390, 0x0027b270, 0x002c8730, 0x002de790 equivalent; 0x00231690 still fails on another
+    cause (a fuzzed allocation overlapping the source array). Cases `0x002c84a0_repstep[_off,_slow]`.
   - `vptrkeep`: **a vptr loaded before a stub and used after it.** `mov esi, [item]; call F; call [esi+0x24]`: every stub
     replaces all non-stack memory (`_perturb`), so a source that loads the vptr after the call (clang, or MSVC where the order
     of evaluation is open) reads a fuzzed word where the original used the real one - stub havoc, not behaviour (the 49
@@ -1134,6 +1144,14 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
     (`...@3@H@Z@4IA` after MSVC's `?EA@`, `...@2@H@Z@4IA` after clang's `?1`); a second `lstatic` pass with the
     back-reference digits taken out of the key (unique match only). 0x001e2940's guard `$S1` had been paired with a float
     literal. Cases `0x001e2940_native_tree_lstatic[_off]`.
+  - `lsguard` (integ3 chk3): a function-local static's guard word is `$S<n>`, numbered per function from 1 by clang and on
+    from other guards of the translation unit by MSVC 7.1 (0x000418f0: clang `?$S1@?1??FUN_000418f0..`, MSVC `?$S3@?HM@??
+    FUN_000418f0..`), so neither lstatic pass keys them together: clang's guard stayed unbound, our code set its bits in its
+    own bss and the original's `or [0x4dc2fc], 1` was "missing". A third pass pairs the guards of one function (lstaticbr's
+    key, the `$S` number left out) by their order, only when both objects define as many guards for that function and the
+    MSVC object's pairing bound each. The bits each static tests and sets are still compared. 0x000418f0 at 3,000: MSVC
+    and --wine equivalent (--wine failed). Cases `0x000418f0_native_lsguard[_off,_bit]` (_bit: k1 not static, so k2 takes
+    bit 1 where the original's k2 tests bit 2).
   - `nanquiet64`: nanquiet (perf1) for the high word of a double: `fld dword [x]; fstp qword [esp]; call __isnan` keeps a
     fuzzed signalling float NaN signalling in the emulated x87 (a real x87 load quiets it), and cvtss2sd quiets it (bit
     0x00080000). The input is inconclusive, as for nanquiet. 0x00221f90, 0x001d3f60, 0x00261e60; cases
