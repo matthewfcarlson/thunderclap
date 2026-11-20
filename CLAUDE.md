@@ -203,7 +203,10 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
 - **Unproven-code gate** (D126): materialize refuses an equivalent block whose (mode, code hash) has no promotable ledger
   line unless `config/unproven-baseline.json` lists exactly that hash. The list only shrinks (`hash --proven` removes
   entries); never hand-edit it, add only with `tree_tu.py unproven-accept ADDR --modes M --why TEXT`. verify and
-  materialize report its size as `unproven_baseline`. Cross-TU declaration / allocation / free-name report:
+  materialize report its size as `unproven_baseline`. A ledger proof a later checker rule shows unsound is revoked,
+  never edited: `tree_tu.py revoke ADDR --mode M --why TEXT` (config/proof-revoked.jsonl, append-only, merge=union;
+  keyed by the run and its code + checker, so the same checker can't re-prove that code), then `unproven-accept --why
+  "D154: revoked, ..."` or a fresh proof under the fixed checker; there is no un-revoke (D154). Cross-TU declaration / allocation / free-name report:
   `tools/xtu_check.py run --jobq [--relocmap V.jsonl...]` (verify records for the reloc map need `HULK_XTU_RELOCMAP=1`),
   then `report build/xtu/facts` (report-only; build/xtu/summary.json).
 - **Work budgets** (workclock): equiv.py / equiv64.py budgets are work, not time: a host's speed changes how long a
