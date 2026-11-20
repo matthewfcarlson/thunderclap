@@ -56,9 +56,9 @@ struct DeclFrame {
     unsigned int handle;
     unsigned int decl[63];
 };
-class ShaderCache_3290e0 {
+class ShaderCache_3290e0 {   // (find3) the context's light pool / shader cache, laid out as include/platform/xbox/pure3d.h Registry_329430 (0x00329430 builds it)
   public:
-    int pad0;
+    void* owner;   // the d3dContext (was `int pad0`: natively the count sat 4 bytes early)
     unsigned int count;
     ShaderGroup groups[1];
     ShaderEntry* Get(const char* name, unsigned int a, unsigned int flags, int c);
