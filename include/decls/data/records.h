@@ -2011,4 +2011,34 @@ extern "C" const MovieTrackMix DAT_00434260[1];
 extern "C" const MovieTrackMix DAT_00434268[1];
 extern "C" const MovieTrackMix DAT_00434270[1];        // FUN_001b73c0: dolby, radical and the English anims
 
+// (data5, find3 stop 10) The four static vertex streams of the pddi prim buffer (0x00327190 takes a free one;
+// 0x00326e90 lays one out over a locked vertex buffer): gen pure3d::d3dPrimBufferStream's words in a plain record
+// (its vftable word holds the game's stream vftable 0x004334f4, every other word is zero in the XBE), so natively the
+// views read 8-byte pointers where the 32-bit build has 4-byte words. Field for field gen's layout on every build.
+struct PrimBufferStreamStatic {
+    const void* vftable;                    // +0x00 the game's d3dPrimBufferStream vftable (0x004334f4)
+    unsigned char f_04;                     // +0x04 in use
+    char _pad_05[3];
+    void* f_08;                             // +0x08 the vertex format
+    void* f_0c;                             // +0x0c the buffer base
+    int f_10;                               // +0x10 the vertex index
+    unsigned int f_14;
+    int f_18;                               // +0x18 the stride
+    unsigned int f_1c;                      // +0x1c the texture coordinate count
+    unsigned int f_20;                      // +0x20 the blend weight count
+    void* f_24;                             // +0x24 .. +0x50 the element pointers
+    void* f_28;
+    void* f_2c;
+    void* f_30;
+    void* f_34;
+    void* f_38;
+    void* f_3c;
+    void* f_40;
+    void* f_44;
+    void* f_48;
+    void* f_4c;
+    void* f_50;
+};
+extern "C" PrimBufferStreamStatic DAT_004d3ed0[4];
+
 #endif

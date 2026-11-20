@@ -226,7 +226,7 @@ extern "C" const unsigned int DAT_0048b4d4[1];  // zero_0048b4d4
 extern "C" const unsigned int DAT_0048b51c[1];  // zero_0048b51c
 extern "C" const unsigned int DAT_0048b568[1];  // zero_0048b568
 extern "C" int DAT_004d3ea8[10];  // tbl_004d3ea8
-extern "C" hulk_vftable_ptr DAT_004d3ed0[84];  // ptrTbl_004d3ed0
+// DAT_004d3ed0: typed by decls/data/records.h (included above)
 extern "C" char DAT_004d40c0[13];  // s_skin_onebone_004d40c0
 extern "C" char DAT_004d40d0[5];  // s_skin_004d40d0
 extern "C" unsigned char DAT_005555b4[4];
