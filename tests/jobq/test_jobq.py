@@ -170,6 +170,40 @@ class HeldAcrossPasses(unittest.TestCase):
                 c.execute("UPDATE jobs SET state='cancelled' WHERE name LIKE 'held-%'")
 
 
+class SmallMultiSlotHold(unittest.TestCase):
+    """A 2-slot job that has waited HOLD_AFTER_S holds its host against 1-slot jobs; a fresh one does not (11-19: recs1's
+    2- and 3-slot gate/verify/control jobs went undispatched for an hour behind ~1,800 1-slot jobs)."""
+
+    def run_case(self, waited):
+        h = mkhost("hold-h", ["equiv"], cap=4, used=3)     # one slot free: the 2-slot job does not fit yet
+        h.take_any = False                                  # other tests' leftover needs=any jobs must not hold it
+        c = jobq.conn()
+        try:
+            two = jobq.insert_jobs([jobq.make_job("hold-a", ["true"], needs="equiv", slots=2)])[0]
+            ones = jobq.insert_jobs([jobq.make_job("hold-b", ["true"], needs="equiv", limit=7200) for _ in range(3)])
+            with c:
+                c.execute("UPDATE jobs SET submitted=? WHERE id=?", (time.time() - waited, two))
+            d = jobq.Daemon([h])
+            d.run_job = lambda hh, job: None
+            d.dispatch(c)
+            return c.execute("SELECT count(*) FROM jobs WHERE state='running' AND name='hold-b'").fetchone()[0]
+        finally:
+            with c:
+                c.execute("UPDATE jobs SET state='cancelled' WHERE name LIKE 'hold-%'")
+
+    def test_waiting_two_slot_job_holds(self):
+        self.assertEqual(self.run_case(jobq.HOLD_AFTER_S + 300), 0)   # the free slot is kept for the 2-slot job
+
+    def test_fresh_two_slot_job_does_not_hold(self):
+        self.assertEqual(self.run_case(0), 1)                          # not yet: the 1-slot job takes it
+
+    def test_holds(self):
+        now = time.time()
+        self.assertTrue(jobq.holds({"slots": jobq.BIG_SLOTS, "submitted": now}, now))
+        self.assertFalse(jobq.holds({"slots": 1, "submitted": now - 99999}, now))
+        self.assertTrue(jobq.holds({"slots": 2, "submitted": now - jobq.HOLD_AFTER_S}, now))
+
+
 class Lending(unittest.TestCase):
     """Reserved slots a big job leaves idle (load well below `used`) go to 1-slot jobs, within the core count."""
 

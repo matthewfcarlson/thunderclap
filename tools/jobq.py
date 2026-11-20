@@ -50,6 +50,8 @@ IDLE_EXIT = int(os.environ.get("JOBQ_IDLE_EXIT", "900"))
 KEEP_BASES = 4
 BIG_SLOTS = 4       # a queued job this big reserves the hosts it could run on (dispatch), so small jobs cannot starve it
 LEND_MAX_S = 1800  # a host held for a big job lends idle slots only to jobs with a limit this short
+HOLD_AFTER_S = 900  # a queued multi-slot job below BIG_SLOTS holds its hosts too once it has waited this long (else a
+                    # stream of 1-slot jobs takes every slot as it frees and a 2-slot job never finds two free together)
 PER_NAME_HEAD = 400  # dispatch looks at each submitter's first N queued jobs (per name, so nobody is hidden behind a long queue)
 SSH_SPACING = 0.3   # seconds between new ssh connections to one host (Host.ssh_gate)
 FEATURES = ["prep", "affinity", "slots_now", "add_hosts"]   # what this daemon does (hosts-state.json: submitters check)
@@ -642,6 +644,13 @@ class Host:
         return self.used == 0 and self.cap > 0 and (not self.local or needs == "wine-gfx")
 
 
+def holds(job, now):
+    """Whether a queued job that does not fit yet reserves the hosts it could run on (dispatch's `blocked`)."""
+    if job["slots"] >= BIG_SLOTS:
+        return True
+    return job["slots"] > 1 and now - (jget(job, "submitted", now) or now) >= HOLD_AFTER_S
+
+
 def choose_host(job, hosts, now=None, blocked=()):
     """The host a queued job should go to, or None: untried hosts first, then lowest preference value (remotes before
     the laptop), then the least loaded in proportion to its slots. BLOCKED: names of hosts held for a bigger job; they
@@ -894,7 +903,7 @@ class Daemon:
         names = [r["name"] for r in c.execute("SELECT DISTINCT name FROM jobs WHERE state='queued'")]
         rows = []
         for nm in names:
-            rows += c.execute("SELECT id,name,needs,slots,prio,tried,cmd,pin,affinity,affinity_until,limit_s FROM jobs WHERE state='queued' AND name=? "
+            rows += c.execute("SELECT id,name,needs,slots,prio,tried,cmd,pin,affinity,affinity_until,limit_s,submitted FROM jobs WHERE state='queued' AND name=? "
                               "ORDER BY prio DESC, id LIMIT ?", (nm, PER_NAME_HEAD)).fetchall()
         if not rows:
             return 0
@@ -923,14 +932,14 @@ class Daemon:
         for i in order:
             r = rows[i]
             if share is not None and running.get(r["name"], 0) + r["slots"] > share and running.get(r["name"], 0) > 0:
-                if r["slots"] >= BIG_SLOTS:     # over its share this pass, but still holds its hosts against small jobs
+                if holds(r, now):               # over its share this pass, but still holds its hosts against small jobs
                     blocked |= {x.name for x in self.hosts if x.eligible(r, now, capacity=False)}
                 continue
             if r["id"] in self.live:
                 continue
             h = choose_host(r, self.hosts, now, blocked)
             if h is None:
-                if r["slots"] >= BIG_SLOTS:
+                if holds(r, now):
                     blocked |= {x.name for x in self.hosts if x.eligible(r, now, capacity=False)}
                 if all(x.cap - x.used <= 0 or now < x.down_until for x in self.hosts):
                     break
