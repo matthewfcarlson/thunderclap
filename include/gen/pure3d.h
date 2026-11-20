@@ -3464,7 +3464,7 @@ public:
     virtual void vfunc_19(void*) = 0; // slot 19
     virtual void* vfunc_20() = 0; // slot 20
     virtual void vfunc_21(int) = 0; // slot 21
-    virtual void vfunc_22(int, int) = 0; // slot 22
+    virtual void vfunc_22(int, void*) = 0; // slot 22
     virtual void vfunc_23(int, void*) = 0; // slot 23
     virtual void vfunc_24(int) = 0; // slot 24
     virtual unsigned int vfunc_25() = 0; // slot 25
@@ -3473,13 +3473,13 @@ public:
     virtual void vfunc_28(unsigned int, unsigned int, unsigned int, unsigned int) = 0; // slot 28
     virtual void vfunc_29(void*, void*, void*, void*) = 0; // slot 29
     virtual void* vfunc_30(hulk_intptr, int, int, int, int) = 0; // slot 30  (x64t3) the prim stream (0x00321860)
-    virtual void vfunc_31(int) = 0; // slot 31
+    virtual void vfunc_31(void*) = 0; // slot 31
     virtual void vfunc_32(hulk_intptr, hulk_intptr) = 0; // slot 32
     virtual void vfunc_33(int, int, int, int) = 0; // slot 33
     virtual int vfunc_34() = 0; // slot 34
     virtual void vfunc_35(void*) = 0; // slot 35
     virtual void* vfunc_36(int) = 0; // slot 36
-    virtual void vfunc_37(int, int, int) = 0; // slot 37
+    virtual void vfunc_37(int, void*, unsigned int) = 0; // slot 37
     virtual void vfunc_38(int, int) = 0; // slot 38
     virtual unsigned char vfunc_39(unsigned int) = 0; // slot 39
     virtual void vfunc_40(int, int) = 0; // slot 40
@@ -3559,7 +3559,7 @@ public:
     virtual void vfunc_19(void*); // overrides pure3d::pddiRenderContext slot 19
     virtual void* vfunc_20(); // overrides pure3d::pddiRenderContext slot 20
     virtual void vfunc_21(int); // overrides pure3d::pddiRenderContext slot 21
-    virtual void vfunc_22(int, int); // overrides pure3d::pddiRenderContext slot 22
+    virtual void vfunc_22(int, void*); // overrides pure3d::pddiRenderContext slot 22
     virtual void vfunc_23(int, void*); // overrides pure3d::pddiRenderContext slot 23
     virtual void vfunc_24(int); // overrides pure3d::pddiRenderContext slot 24
     virtual unsigned int vfunc_25(); // overrides pure3d::pddiRenderContext slot 25
@@ -3568,13 +3568,13 @@ public:
     virtual void vfunc_28(unsigned int, unsigned int, unsigned int, unsigned int); // overrides pure3d::pddiRenderContext slot 28
     virtual void vfunc_29(void*, void*, void*, void*); // overrides pure3d::pddiRenderContext slot 29
     virtual void* vfunc_30(hulk_intptr, int, int, int, int); // overrides pure3d::pddiRenderContext slot 30
-    virtual void vfunc_31(int); // overrides pure3d::pddiRenderContext slot 31
+    virtual void vfunc_31(void*); // overrides pure3d::pddiRenderContext slot 31
     virtual void vfunc_32(hulk_intptr, hulk_intptr); // overrides pure3d::pddiRenderContext slot 32
     virtual void vfunc_33(int, int, int, int); // overrides pure3d::pddiRenderContext slot 33
     virtual int vfunc_34(); // overrides pure3d::pddiRenderContext slot 34
     virtual void vfunc_35(void*); // overrides pure3d::pddiRenderContext slot 35
     virtual void* vfunc_36(int); // overrides pure3d::pddiRenderContext slot 36
-    virtual void vfunc_37(int, int, int); // overrides pure3d::pddiRenderContext slot 37
+    virtual void vfunc_37(int, void*, unsigned int); // overrides pure3d::pddiRenderContext slot 37
     virtual void vfunc_38(int, int); // overrides pure3d::pddiRenderContext slot 38
     virtual unsigned char vfunc_39(unsigned int); // overrides pure3d::pddiRenderContext slot 39
     virtual void vfunc_40(int, int); // overrides pure3d::pddiRenderContext slot 40
@@ -3695,7 +3695,7 @@ public:
     virtual void vfunc_5(); // overrides pure3d::pddiRenderContext slot 5
     virtual void vfunc_12(int); // overrides pure3d::pddiRenderContext slot 12
     virtual void* vfunc_30(hulk_intptr, int, int, int, int); // overrides pure3d::pddiRenderContext slot 30
-    virtual void vfunc_31(int); // overrides pure3d::pddiRenderContext slot 31
+    virtual void vfunc_31(void*); // overrides pure3d::pddiRenderContext slot 31
     virtual void vfunc_32(hulk_intptr, hulk_intptr); // overrides pure3d::pddiRenderContext slot 32
     virtual void vfunc_35(void*); // overrides pure3d::pddiRenderContext slot 35
     virtual void vfunc_54(int); // overrides pure3d::pddiRenderContext slot 54
@@ -3901,14 +3901,14 @@ public:
 class pddiExtFramebufferEffects : public ::pure3d::pddiExtension {
 public:
     virtual ~pddiExtFramebufferEffects(); // overrides pure3d::pddiExtension slot 0
-    virtual void vfunc_1(unsigned char, int, int, unsigned char) = 0; // slot 1
+    virtual void vfunc_1(unsigned char, float, float, unsigned char) = 0; // slot 1
     virtual void vfunc_2() = 0; // slot 2
     virtual void vfunc_3(unsigned char) = 0; // slot 3
-    virtual void vfunc_4(int, int, int, int, int) = 0; // slot 4
+    virtual void vfunc_4(float, float, float, float, int) = 0; // slot 4
     virtual void vfunc_5() = 0; // slot 5
     virtual void vfunc_6() = 0; // slot 6
     virtual void vfunc_7(unsigned char) = 0; // slot 7
-    virtual void vfunc_8() = 0; // slot 8
+    virtual void vfunc_8(float, int, float, float, unsigned int, float, float, float) = 0; // slot 8
     virtual void vfunc_9() = 0; // slot 9
     virtual void vfunc_10(int) = 0; // slot 10
 };
@@ -3917,14 +3917,14 @@ public:
 class d3dExtFramebufferEffects : public ::pure3d::pddiExtFramebufferEffects {
 public:
     virtual ~d3dExtFramebufferEffects(); // overrides pure3d::pddiExtension slot 0
-    virtual void vfunc_1(unsigned char, int, int, unsigned char); // overrides pure3d::pddiExtFramebufferEffects slot 1
+    virtual void vfunc_1(unsigned char, float, float, unsigned char); // overrides pure3d::pddiExtFramebufferEffects slot 1
     virtual void vfunc_2(); // overrides pure3d::pddiExtFramebufferEffects slot 2
     virtual void vfunc_3(unsigned char); // overrides pure3d::pddiExtFramebufferEffects slot 3
-    virtual void vfunc_4(int, int, int, int, int); // overrides pure3d::pddiExtFramebufferEffects slot 4
+    virtual void vfunc_4(float, float, float, float, int); // overrides pure3d::pddiExtFramebufferEffects slot 4
     virtual void vfunc_5(); // overrides pure3d::pddiExtFramebufferEffects slot 5
     virtual void vfunc_6(); // overrides pure3d::pddiExtFramebufferEffects slot 6
     virtual void vfunc_7(unsigned char); // overrides pure3d::pddiExtFramebufferEffects slot 7
-    virtual void vfunc_8(); // overrides pure3d::pddiExtFramebufferEffects slot 8
+    virtual void vfunc_8(float, int, float, float, unsigned int, float, float, float); // overrides pure3d::pddiExtFramebufferEffects slot 8
     virtual void vfunc_9(); // overrides pure3d::pddiExtFramebufferEffects slot 9
     virtual void vfunc_10(int); // overrides pure3d::pddiExtFramebufferEffects slot 10
     char f_04;
@@ -4006,7 +4006,7 @@ public:
     virtual void vfunc_2() = 0; // slot 2
     virtual void vfunc_3() = 0; // slot 3
     virtual void vfunc_4(int) = 0; // slot 4
-    virtual void vfunc_5(int, int) = 0; // slot 5
+    virtual void vfunc_5(int, hulk_intptr) = 0; // slot 5
     virtual void vfunc_6(hulk_intptr, hulk_intptr) = 0; // slot 6
 };
 
@@ -4018,7 +4018,7 @@ public:
     virtual void vfunc_2(); // overrides pure3d::pddiExtHardwareSkinning slot 2
     virtual void vfunc_3(); // overrides pure3d::pddiExtHardwareSkinning slot 3
     virtual void vfunc_4(int); // overrides pure3d::pddiExtHardwareSkinning slot 4
-    virtual void vfunc_5(int, int); // overrides pure3d::pddiExtHardwareSkinning slot 5
+    virtual void vfunc_5(int, hulk_intptr); // overrides pure3d::pddiExtHardwareSkinning slot 5
     virtual void vfunc_6(hulk_intptr, hulk_intptr); // overrides pure3d::pddiExtHardwareSkinning slot 6
     void* f_04;
 };
@@ -4046,7 +4046,7 @@ public:
     virtual void vfunc_2(hulk_intptr, int, int, int, int) = 0; // slot 2
     virtual void vfunc_3(int, int, int, int) = 0; // slot 3
     virtual void vfunc_4(void*, char) = 0; // slot 4
-    virtual void vfunc_5(int, int) = 0; // slot 5
+    virtual void vfunc_5(void*, int) = 0; // slot 5
     virtual void vfunc_6(unsigned int) = 0; // slot 6
     virtual void vfunc_7(int, int, int) = 0; // slot 7
     virtual void vfunc_8(int, int) = 0; // slot 8
@@ -4060,7 +4060,7 @@ public:
     virtual void vfunc_2(hulk_intptr, int, int, int, int); // overrides pure3d::pddiExtVertexProgram slot 2
     virtual void vfunc_3(int, int, int, int); // overrides pure3d::pddiExtVertexProgram slot 3
     virtual void vfunc_4(void*, char); // overrides pure3d::pddiExtVertexProgram slot 4
-    virtual void vfunc_5(int, int); // overrides pure3d::pddiExtVertexProgram slot 5
+    virtual void vfunc_5(void*, int); // overrides pure3d::pddiExtVertexProgram slot 5
     virtual void vfunc_6(unsigned int); // overrides pure3d::pddiExtVertexProgram slot 6
     virtual void vfunc_7(int, int, int); // overrides pure3d::pddiExtVertexProgram slot 7
     virtual void vfunc_8(int, int); // overrides pure3d::pddiExtVertexProgram slot 8
@@ -4280,8 +4280,8 @@ public:
 // .?AVpddiPrimBufferStream@pure3d@@  vftable 0x433464 (18)
 class pddiPrimBufferStream {
 public:
-    virtual void vfunc_0(int, int, int) = 0; // slot 0
-    virtual void vfunc_1(int, int, int) = 0; // slot 1
+    virtual void vfunc_0(float, float, float) = 0; // slot 0
+    virtual void vfunc_1(float, float, float) = 0; // slot 1
     virtual void vfunc_2(unsigned long, unsigned long, unsigned long); // slot 2
     virtual void vfunc_3(unsigned int, unsigned int, unsigned int); // slot 3
     virtual void vfunc_4(int, int) = 0; // slot 4
@@ -4291,7 +4291,7 @@ public:
     virtual void vfunc_8(int, int, int, int, int) = 0; // slot 8
     virtual void vfunc_9(unsigned int) = 0; // slot 9
     virtual void vfunc_10(char, char, char, char) = 0; // slot 10
-    virtual void vfunc_11(int, int, int) = 0; // slot 11
+    virtual void vfunc_11(float, float, float) = 0; // slot 11
     virtual void vfunc_12(hulk_intptr, hulk_intptr, hulk_intptr) = 0; // slot 12
     virtual void vfunc_13(hulk_intptr, int, hulk_intptr) = 0; // slot 13
     virtual void vfunc_14(hulk_intptr, hulk_intptr) = 0; // slot 14
@@ -4303,8 +4303,8 @@ public:
 // .?AVd3dPrimBufferStream@pure3d@@  vftable 0x4334f4 (18)
 class d3dPrimBufferStream : public ::pure3d::pddiPrimBufferStream {
 public:
-    virtual void vfunc_0(int, int, int); // overrides pure3d::pddiPrimBufferStream slot 0
-    virtual void vfunc_1(int, int, int); // overrides pure3d::pddiPrimBufferStream slot 1
+    virtual void vfunc_0(float, float, float); // overrides pure3d::pddiPrimBufferStream slot 0
+    virtual void vfunc_1(float, float, float); // overrides pure3d::pddiPrimBufferStream slot 1
     virtual void vfunc_2(unsigned long, unsigned long, unsigned long); // overrides pure3d::pddiPrimBufferStream slot 2
     virtual void vfunc_3(unsigned int, unsigned int, unsigned int); // overrides pure3d::pddiPrimBufferStream slot 3
     virtual void vfunc_4(int, int); // overrides pure3d::pddiPrimBufferStream slot 4
@@ -4314,7 +4314,7 @@ public:
     virtual void vfunc_8(int, int, int, int, int); // overrides pure3d::pddiPrimBufferStream slot 8
     virtual void vfunc_9(unsigned int); // overrides pure3d::pddiPrimBufferStream slot 9
     virtual void vfunc_10(char, char, char, char); // overrides pure3d::pddiPrimBufferStream slot 10
-    virtual void vfunc_11(int, int, int); // overrides pure3d::pddiPrimBufferStream slot 11
+    virtual void vfunc_11(float, float, float); // overrides pure3d::pddiPrimBufferStream slot 11
     virtual void vfunc_12(hulk_intptr, hulk_intptr, hulk_intptr); // overrides pure3d::pddiPrimBufferStream slot 12
     virtual void vfunc_13(hulk_intptr, int, hulk_intptr); // overrides pure3d::pddiPrimBufferStream slot 13
     virtual void vfunc_14(hulk_intptr, hulk_intptr); // overrides pure3d::pddiPrimBufferStream slot 14

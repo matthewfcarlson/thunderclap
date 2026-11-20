@@ -1732,9 +1732,9 @@ void* pure3d::pddiBaseContext::vfunc_30(hulk_intptr , int , int , int , int ) { 
 
 
 // 0x0031d810 pure3d::pddiBaseContext::vfunc_31 (3 B): matches/0x0031d810.cpp
-// sym: ?vfunc_31@pddiBaseContext@pure3d@@UAEXH@Z
+// sym: ?vfunc_31@pddiBaseContext@pure3d@@UAEXPAX@Z
 // Same code shape as 0x000fc4c0 (propagated; names are from that function)
-void pure3d::pddiBaseContext::vfunc_31(int a) {
+void pure3d::pddiBaseContext::vfunc_31(void* a) {   // (gfx1) EndPrims(stream): a pointer
     (void)a;
 }
 

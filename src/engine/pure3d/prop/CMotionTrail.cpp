@@ -1852,9 +1852,9 @@ struct Params {
     int f20;
 };
 
-class Part_280690 {
+class Part_280690 {             // pddiPrimBufferStream: slot 0 Position(x, y, z)
 public:
-    virtual void v0(int a, int b, int c);
+    virtual void v0(float x, float y, float z);
 };
 
 class Instance {
@@ -1935,7 +1935,7 @@ pure3d::prop::CDecalQueue::CDecalQueue(int heap)
         entries[i].instance->v0();
         Part_280690 *part = entries[i].instance->v4();
         for (int n = 0x42; n != 0; n--)
-            part->v0(0, 0, 0);
+            part->v0(0.0f, 0.0f, 0.0f);
         entries[i].instance->v5(part);
         entries[i].instance->v6();
     }

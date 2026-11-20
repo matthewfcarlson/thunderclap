@@ -752,12 +752,12 @@ void pure3d::d3dPrimBufferStream::vfunc_8(int , int , int , int , int ) {}
 
 
 // 0x00327450 pure3d::d3dPrimBufferStream::vfunc_0 (37 B): matches/0x00327450.cpp
-// sym: ?vfunc_0@d3dPrimBufferStream@pure3d@@UAEXHHH@Z
+// sym: ?vfunc_0@d3dPrimBufferStream@pure3d@@UAEXMMM@Z
  // namespace pure3d
-void pure3d::d3dPrimBufferStream::vfunc_0(int a, int b, int c) {
-    (*(int * *)&this->f_24)[0] = a;
-    (*(int * *)&this->f_24)[1] = b;
-    (*(int * *)&this->f_24)[2] = c;
+void pure3d::d3dPrimBufferStream::vfunc_0(float a, float b, float c) {   // (gfx1) Position(x, y, z): floats
+    (*(float * *)&this->f_24)[0] = a;
+    (*(float * *)&this->f_24)[1] = b;
+    (*(float * *)&this->f_24)[2] = c;
     ((d3dPrimBufferStream_nv_327450*)this)->Advance();
 }
 
@@ -896,7 +896,7 @@ void pure3d::d3dPrimBufferStream::vfunc_15(void* __p0, void* __p1) { U_327690 * 
     p[0] = a[0];
     p[1] = a[1];
     p[2] = a[2];
-    vfunc_1(b[0], b[1], b[2]);
+    vfunc_1(((float*)b)[0], ((float*)b)[1], ((float*)b)[2]);   // (gfx1) Normal(x, y, z): floats
     ((d3dPrimBufferStream_nv_327690*)this)->finish();
 }
 
@@ -928,7 +928,7 @@ void pure3d::d3dPrimBufferStream::vfunc_13(hulk_intptr __p0, int c, hulk_intptr 
 
 
 // 0x00327750 pure3d::d3dPrimBufferStream::vfunc_12 (76 B): equivalent/0x00327750.cpp
-// sym: ?vfunc_12@d3dPrimBufferStream@pure3d@@UAEXHHH@Z @dcb8fb0a3151 @w1d119a9ddcbf @v123fe2ea85b7
+// sym: ?vfunc_12@d3dPrimBufferStream@pure3d@@UAEXHHH@Z @dcb8fb0a3151 @w27fb15885156 @v123fe2ea85b7
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // pure3d::d3dPrimBufferStream::vfunc_12 @ 0x00327750
 void pure3d::d3dPrimBufferStream::vfunc_12(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { const Triple_327750 * p = (const Triple_327750 *)__p0; const Triple_327750 * n = (const Triple_327750 *)__p1; const Pair_327750 * uv = (const Pair_327750 *)__p2;
@@ -937,7 +937,7 @@ void pure3d::d3dPrimBufferStream::vfunc_12(hulk_intptr __p0, hulk_intptr __p1, h
  out->x=p->x;
  out->y=p->y;
  out->z=p->z;
- vfunc_1(n->x,n->y,n->z);
+ vfunc_1(*(const float*)&n->x,*(const float*)&n->y,*(const float*)&n->z);   // (gfx1) Normal(x, y, z): floats
  Pair_327750* dest=(*(Pair_327750 * *)&this->f_38);
  dest->x=uv->x;
  dest->y=uv->y;
