@@ -132,7 +132,8 @@ pure3d::Entity is 0x14 bytes natively (vftable, count, two name words): views wr
 `void* vftable; int refs; name`, never `char pad[0x10]`/`pad[8]`; a view of the image registry derives from
 `HulkImageRegistry`. A game name that is another XDK row's name binds through `native_bind.GAME_NAME_ROWS` (D98).
 A frame or view sized by a 32-bit pad (`char data[0x18]`) overruns natively: spell it with the record's words or
-`sizeof(record)`. Byte-count ring and vector arithmetic (`(end-begin)>>3`, `count*16`) bakes in the 32-bit element size;
+`sizeof(record)`. A pad macro that maps 32-bit offsets to native ones scales by `sizeof(void*)/4` (or uses offsetof),
+never by `__clang__`: the Wine build is 32-bit clang too (recs1 batch 4). Byte-count ring and vector arithmetic (`(end-begin)>>3`, `count*16`) bakes in the 32-bit element size;
 element-typed pointer arithmetic compiles to the same MSVC bytes. A callee declared with a different IR signature from its
 definition (int vs pointer, void vs a returned pointer) does not bind natively and the run stops on `missing`: declare it
 as defined. A native hang: attach with `lldb -p PID --batch -s FILE` and break in the wait loop's callees (HULK_HANG
