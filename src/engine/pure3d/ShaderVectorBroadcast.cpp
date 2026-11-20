@@ -252,13 +252,13 @@ class Factory_28edf0 {
     virtual void f8();
     virtual void f9();
     virtual void f10();
-    virtual Obj_28edf0* Get(int a, int b);
+    virtual Obj_28edf0* Get(hulk_intptr a, int b);   // (gfx1) the device's slot 11: a = the shader's pddi name (a pointer)
 };
 struct ThisCall_0027b070 {
-    void BaseInit();
+    void FUN_0027b070();   // (gfx1) pure3d::Entity's constructor, by its address (BaseInit carried none: unbound natively)
 };
 Shader* Shader::Ctor(hulk_intptr a, int b) {
-    ((ThisCall_0027b070*)(this))->BaseInit();
+    ((ThisCall_0027b070*)(this))->FUN_0027b070();
     vft = ((hulk_intptr)DAT_0042cb44);
     flag = 0;
     field18 = 0;

@@ -3477,9 +3477,9 @@ struct Target_86420 {
 struct Thing_87940 {
     char pad[4]; // +0x00
     int* state; // +0x04 (+0x08)
-    void Set(int);
-    void StepA();
-    void StepB();
+    void Set_00086980(int);   // (gfx1) the loop's callees by their addresses (Set / StepA / StepB carried none: unbound natively)
+    void Run_00087630();
+    void Run_00086cb0();
     void FUN_00087940();
 };
 // matches/0x00088530.cpp (stub Obj_88530), size 0x1

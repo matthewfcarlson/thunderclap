@@ -300,7 +300,8 @@ class A_86a40 {
     C48* p48;
     void Run(int);
 };
-extern bool __cdecl Check();
+extern bool __cdecl Check_00085d90();   // (gfx1) 0x00085d90 (this TU defines it: a distinct name keeps MSVC from inlining)
+extern bool __cdecl Check_0008db80();   // (gfx1) 0x0008db80 (`Check` stood for both and carried no address: unbound natively)
 class B_86da0 {
   public:
     void a();
@@ -1058,7 +1059,7 @@ void Obj::run() {
 void A_86a40::Run(int arg) {
     p10->F();
     p14->F(arg);
-    if (Check())
+    if (Check_0008db80())
         return;
     if (p4->id != 7) {
         p30->F(arg, 0);
@@ -1891,14 +1892,14 @@ void Tracker_872a0::FUN_000872a0()
 // 0x00087940 FUN_00087940 (73 B): matches/0x00087940.cpp
 // sym: ?FUN_00087940@Thing_87940@owners@@QAEXXZ
 void owners::Thing_87940::FUN_00087940() {
-    if (!Check())
-        Set(1);
+    if (!Check_00085d90())
+        Set_00086980(1);
     while (*state != 8) {
-        StepA();
+        Run_00087630();
         if (*state != 8)
-            StepB();
+            Run_00086cb0();
     }
-    Set(1);
+    Set_00086980(1);
 }
 
 

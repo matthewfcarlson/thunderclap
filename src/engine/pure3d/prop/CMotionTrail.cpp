@@ -7,6 +7,7 @@
 #include "decls/data/game/global.h"
 #include "gen/owners.h"
 #include "gen/pure3d.h"
+#include "decls/drawable_container.h"
 #define TREE_TU_BEGIN namespace fn_f4890d4c {
 #define TREE_TU_END }
 #define TREE_LOCAL_CAction
@@ -3594,10 +3595,9 @@ public:
     void FUN_002a5060();
 };
 
-class CMotionTrailQueue {
-public:
-    hulk_intptr vt;
-    char pad1[0x54];
+class CMotionTrailQueue : public HulkDrawableContainer {   // (gfx1) the container's record, then the queue's words (gen
+public:                                                     // f_58, f_5c): a 32-bit pad put them on the groups natively
+    int f50, f54;
     int f58;
     unsigned char *flags;
     void FUN_002a4e10(int n);
@@ -3608,7 +3608,7 @@ public:
 CMotionTrailQueue *CMotionTrailQueue::FUN_00283730()
 {
     FUN_002a4e10(6);
-    vt = (hulk_intptr)DAT_0042c48c;
+    vftable = (void*)DAT_0042c48c;
     f58 = 1;
     flags = (unsigned char *)FUN_0008d6d0(0x30);
     for (int i = 0; i < 6; i++) {

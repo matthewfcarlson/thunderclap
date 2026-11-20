@@ -105,7 +105,7 @@ struct Owner_1fb1e0 {
     Stream* stream;
     void Fn();
 };
-extern "C" void* __cdecl Alloc(hulk_uintptr);
+extern "C" void* __cdecl thunk_FUN_0008d690(unsigned int);   // (gfx1) the allocator's thunk 0x00263ea0 (was Alloc, unbound natively)
 extern const char filename[];
 extern char hulk_at_0042502c[];
 extern char hulk_at_00425064[];
@@ -395,9 +395,11 @@ struct Iface_1fad00 {
     virtual int Get22();
     virtual bool Ok23();
 };
-struct W_1fad00 {
-    int v;
-    W_1fad00(const W_1fad00& o) { v = o.v; }
+struct W_1fad00 {              // the stream's name (gen MyFileStream::vfunc_1(void*)), passed by value
+    hulk_intptr v;
+#if !defined(HULK_PTR64)
+    W_1fad00(const W_1fad00& o) { v = o.v; }   // (MSVC 7.1's copy; natively a user copy constructor would pass the
+#endif                                         // record by reference where the callers pass the pointer: gfx1)
 };
 void __cdecl Init_002696d0(Iface_1fad00** pp, W_1fad00 w, int a, int b, int c, int d, int e, int f);
 class MyFileStream {
@@ -776,14 +778,16 @@ void Owner_1fb1e0::Fn() {
     local.d = 0;
     if (!stream->Open_00337700(&local, "scripts/all_defs.dhd"))
         stream->Close_003375a0();
-    char* p = (char*)Alloc(0x18);
+    // (gfx1) the handler record: its vftable, four words, then the owner (a pointer: natively 0x20 bytes, not 0x18)
+    struct Handler_1fb1e0 { void* vftable; int f4; int f8; int fc; int f10; void* owner; };
+    Handler_1fb1e0* p = (Handler_1fb1e0*)thunk_FUN_0008d690(sizeof(Handler_1fb1e0));
     if (p) {
-        *(int*)(p + 4) = 0;
-        *(int*)(p + 8) = 0x60000a00;
-        *(int*)(p + 12) = 0;
-        *(int*)(p + 16) = 0;
-        *(void**)p = hulk_at_00425064;
-        *(void**)(p + 20) = this;
+        p->f4 = 0;
+        p->f8 = 0x60000a00;
+        p->fc = 0;
+        p->f10 = 0;
+        p->vftable = hulk_at_00425064;
+        p->owner = this;
     } else
         p = 0;
     (*(Manager_1fb1e0**)&DAT_00527c58)->Add_00265210(p, 0x60000a00);

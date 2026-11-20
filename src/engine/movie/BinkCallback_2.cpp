@@ -264,7 +264,7 @@ class Child_337460 {
   public:
     char pad[0x81c];
     int value;
-    int Check_00338a10();
+    char* Check_00338a10();   // (gfx1) as defined (0x00338a10 returns the token: a pointer)
 };
 class Obj_337460 {
   public:
@@ -368,7 +368,7 @@ void __cdecl thunk_FUN_00267090(void*);
 class Inner_3385f0 {
   public:
     virtual void v0();
-    virtual bool Test(int);
+    virtual bool Test(hulk_intptr);   // (gfx1) the stream's slot 1 (gen MyFileStream::vfunc_1(void*)): the name, a pointer
 };
 class Target_3385f0 {
   public:
@@ -1011,10 +1011,10 @@ namespace fn_f964084a {
 // 0x00337460 FUN_00337460 (49 B): matches/0x00337460.cpp
 // sym: ?Run@Obj_337460@fn_f964084a@@QAEHXZ
 hulk_intptr Obj_337460::Run() {
-    int r;
+    hulk_intptr r;
     int v;
     do {
-        r = child->Check_00338a10();
+        r = (hulk_intptr)child->Check_00338a10();
         v = child->value;
         result = v;
     } while (r == 0 && v == 0);

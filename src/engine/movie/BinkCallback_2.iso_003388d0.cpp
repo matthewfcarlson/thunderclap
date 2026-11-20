@@ -15,6 +15,11 @@ struct T3 {
     char c[3];
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
+#if defined(HULK_PTR64)
+// (gfx1) 0x00338640 is a free stdcall (dst, src): the original calls it with this object still in ecx, which the member
+// declaration reproduces on 32-bit; natively a member call passes `this` as the first argument
+void __stdcall FUN_00338640(char* dst, const char* src);
+#endif
 class O_3388d0 {
   public:
     void* vptr;
@@ -57,7 +62,11 @@ O_3388d0::O_3388d0(hulk_intptr a, int b) {
     s85a = *(const T3*)"//";
     s862 = *(const T3*)"/*";
     s86a = *(const T3*)"/*";
+#if defined(HULK_PTR64)
+    FUN_00338640(b83a, (const char*)L"()[]{}=;");
+#else
     F1_00338640(b83a, (const unsigned short*)L"()[]{}=;");
+#endif
     c872 = 0;
     c1c = 0;
     c41c = 0;
