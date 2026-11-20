@@ -893,7 +893,8 @@ def ledger_line_proves(e):
     proves nothing either: the run is known unsound (a checker rule found since); only a new line proves that code again
     (a fresh run of new code, or of the same code under the fixed checker: another record, another key)."""
     return e.get("promotable") is not False and e.get("status", "equivalent") == "equivalent" and \
-        ledger_line_key(e) not in revoked_lines() and revoked_run(e) is None
+        ledger_line_key(e) not in revoked_lines() and revoked_run(e) is None and \
+        (e.get("carried_from") is None or e["carried_from"] not in revoked_lines())
 
 
 def ledger_index(path=None):
@@ -903,7 +904,7 @@ def ledger_index(path=None):
     path = path or LEDGER
     if not os.path.exists(path):
         return None
-    out = set()
+    out, runs = set(), set()
     with open(path) as f:
         for l in f:
             l = l.strip()
@@ -911,8 +912,76 @@ def ledger_index(path=None):
                 e = json.loads(l)
                 if not ledger_line_proves(e):
                     continue
+                if e.get("carried_from") is not None and e["carried_from"] not in runs:
+                    continue        # (integ6, D159) a carried line proves only after its own proving run line
+                if e.get("carried_from") is None:
+                    runs.add(ledger_line_key(e))
                 out.add((e["addr"], e["mode"], e["code"], e["view"]))
     return out
+
+
+CARRY_PARTS = {"rest", "decls", "pointee_sizes", "bindings"}
+
+
+def carry_check(run, cur):
+    """(integ6, D159; rev5, lead) (ok, delta or why): may the proof of ledger line RUN carry to the checker view CUR
+    ({addr, mode, code, checker, view, view_parts}: the block as it is now) without a new run? Only from a run line
+    (never a carried one, never a line written before D159: no view parts or touched sets) that proves, of the same
+    block, mode, code hash and checker digest, whose view differs from CUR's only in entries of `decls` /
+    `pointee_sizes` (per callee address) or `bindings` (per symbol) that the run never reached: no run of either side
+    called or tail-jumped to the callee, and the symbol is one our code references only by calls to an address no run
+    reached. Every other part of the view must be equal (`rest`: the signature, return kind, conventions, narrowing,
+    issues, conflicts, contracts, switches, and any key a later checker adds): default-deny. The run would have gone
+    exactly as it did under the new view: those entries are read only when a call reaches their callee."""
+    for k in ("addr", "mode", "code", "checker"):
+        if run.get(k) != cur.get(k):
+            return False, "another %s (%s, now %s)" % (k, run.get(k), cur.get(k))
+    if run.get("carried_from") is not None:
+        return False, "a carried line (carry only from a run line)"
+    if not isinstance(run.get("view_parts"), dict) or not isinstance(run.get("touched"), dict) or \
+            not isinstance(run.get("l2_parts"), dict):
+        return False, "a line recorded without view parts and touched sets (before D159): it never carries"
+    if not ledger_line_proves(run):
+        return False, "the line proves nothing (not promotable, failed or revoked)"
+    op, np_ = run["view_parts"], cur.get("view_parts")
+    if not isinstance(np_, dict) or set(op) != CARRY_PARTS or set(np_) != CARRY_PARTS:
+        return False, "view parts %s / %s: only %s are known (default-deny)" % (
+            sorted(op), sorted(np_ or ()), sorted(CARRY_PARTS))
+    if op["rest"] != np_["rest"]:
+        return False, "the view changed outside decls, pointee_sizes and bindings"
+    # (rev5) level 2 reads every callee's declaration and binding, reached or not: under the view now it must pass with
+    # the run's own outcome (issues and declared-arity findings), or the carry is refused
+    cl2_ = cur.get("l2_parts")
+    if not isinstance(cl2_, dict) or set(cl2_) != set(run["l2_parts"]) or set(cl2_) != {"ok", "issues", "decl_arity"}:
+        return False, "level-2 parts %s: only ok, issues, decl_arity are known (default-deny)" % sorted(cl2_ or ())
+    if not cl2_["ok"] or cl2_ != run["l2_parts"]:
+        return False, "level 2 under the view now differs from the run's (%s, run %s)" % (cl2_, run["l2_parts"])
+    t_ = run["touched"]
+    if set(t_) != {"callees", "symbols"}:
+        return False, "touched sets %s: only callees and symbols are known (default-deny)" % sorted(t_)
+    reached = {"callees": set(t_["callees"]), "symbols": set(t_["symbols"])}
+    delta = []
+    for k, tk in (("decls", "callees"), ("pointee_sizes", "callees"), ("bindings", "symbols")):
+        o_, n_ = op[k] or {}, np_[k] or {}
+        for x in sorted(set(o_) | set(n_)):
+            if o_.get(x) != n_.get(x):
+                if x in reached[tk]:
+                    return False, "%s entry %s changed, and the run reached it" % (k, x)
+                delta.append("%s %s" % (k, x))
+    if not delta or run.get("view") == cur.get("view"):
+        return False, "no view change confined to unreached entries"
+    return True, delta
+
+
+def carried_line(run, cur, delta, tu):
+    """(integ6, D159) The ledger line CUR's view gets from RUN's proof: the run's record with the new view and its parts,
+    `carried_from` (the run line's key: a revocation of the run revokes the carry) and the entries that moved."""
+    import datetime
+    e = dict(run)
+    e.update(view=cur["view"], view_parts=cur["view_parts"], carried_from=ledger_line_key(run), carry_delta=delta,
+             carry_l2=cur["l2_parts"],
+             tu=tu, date=datetime.date.today().isoformat())
+    return e
 
 
 def ledger_entry(addr, mode, code, view, rep, tu):
@@ -931,6 +1000,10 @@ def ledger_entry(addr, mode, code, view, rep, tu):
             "compared_sentinel": l3.get("inputs_sentinel", 0),
             "compared_drawn": (l3.get("inputs_run") or 0) - l3.get("inputs_compared_small", 0) - l3.get("inputs_sentinel", 0),
             "job": tc.get("job"), "date": datetime.date.today().isoformat(),
+            # (integ6, D159) the view in parts and what the run reached among its entries: what `hash --carry` reads
+            **({"view_parts": rep["view_parts"], "touched": l3["touched"], "l2_parts": rep["l2_parts"]}
+               if isinstance(rep.get("view_parts"), dict) and isinstance(l3.get("touched"), dict) and
+               isinstance(rep.get("l2_parts"), dict) else {}),
             # (integ5, D155c; lead) a sharded proof's line names every shard's job
             **({"shard_n": rep["shards"]["n"], "shard_jobs": rep["shards"]["jobs"], "job": None}
                if rep.get("shards") else {})}
@@ -2259,7 +2332,7 @@ SHARD_LIST = {"proofcap", "proofdraw", "long_skipped", "input_digest", "coverage
 SHARD_FIRST = {"post_refuted_first", "pre_violation_first"}
 SHARD_EQUAL = {"pre_trap", "pre_trap_words"}
 SHARD_REFUSE = {"time_cut_wall", "unsupported"}
-SHARD_SPECIAL = {"ok", "mismatches", "coverage", "post_pairs", "post_pair_list", "shard", "compared_keys"}
+SHARD_SPECIAL = {"ok", "mismatches", "coverage", "post_pairs", "post_pair_list", "shard", "compared_keys", "touched"}
 
 
 def merge_shards(reps):
@@ -2288,6 +2361,8 @@ def merge_shards(reps):
         return None, "a shard ran with checker switches"
     if len({json.dumps([r.get("post"), r.get("pre")], default=str) for r in reps}) != 1:
         return None, "the shards disagree on the block's contracts"
+    if len({json.dumps(r.get("view_parts"), sort_keys=True) for r in reps}) != 1:
+        return None, "the shards disagree on the checker view's parts"
     for r in reps:
         st_ = r.get("status")
         if st_ == "unsupported" or (r.get("level3") or {}).get("time_cut_wall"):
@@ -2338,6 +2413,11 @@ def merge_shards(reps):
         # (rev5) an input two shards both compared counts once: the compared total is the distinct inputs
         m["compared_duplicates"] = m.get("inputs_run", 0) - len(keys_)
     m["inputs_run"] = len(keys_)
+    if any("touched" in l for l in l3s):
+        # (integ6, D159) what the whole proof reached: the union of the shards' touched sets (a carry reads it); a shard
+        # without one leaves the merged run without one (it then never carries)
+        if all(isinstance(l.get("touched"), dict) for l in l3s):
+            m["touched"] = {k_: sorted({x for l in l3s for x in (l["touched"].get(k_) or ())}) for k_ in ("callees", "symbols")}
     m["ok"] = all(l.get("ok") for l in l3s)
     m["mismatches"] = [x for l in l3s for x in (l.get("mismatches") or [])]
     if any("post_pairs" in l for l in l3s):
@@ -2425,7 +2505,32 @@ def proves(rep, kind, h, view=None):
     return True, why
 
 
-def hash_proven(path, results, addrs=None, dry_run=False, ledger=None, unproven_accepted=False):
+def _ledger_lines(addr, mode, code, path=None):
+    """(integ6, D159) the ledger's lines of (ADDR, MODE, CODE), in file order"""
+    out = []
+    with open(path or LEDGER) as f:
+        for l in f:
+            if ('"%s"' % addr) in l and l.strip().startswith("{"):
+                e = json.loads(l)
+                if (e.get("addr"), e.get("mode"), e.get("code")) == (addr, mode, code):
+                    out.append(e)
+    return out
+
+
+def current_view(path, addr, mode, recs, cobj=None):
+    """(integ6, D159) (view hash, view parts) of block ADDR in MODE as the checker sees it now (a view-only run)."""
+    import equiv
+    was = equiv.VIEW_DECLARITY[0]
+    equiv.VIEW_DECLARITY[0] = True       # (rev5) levels 1 and 2 in full: decl_arity too
+    try:
+        rep = equiv.verify(os.path.abspath(path), int(addr, 16), view_only=True, recs=recs, native=mode == "wine",
+                           obj_path=cobj if mode == "wine" else None)
+    finally:
+        equiv.VIEW_DECLARITY[0] = was
+    return rep.get("view"), rep.get("view_parts"), equiv.l2_parts(rep)
+
+
+def hash_proven(path, results, addrs=None, dry_run=False, ledger=None, unproven_accepted=False, carry=False):
     """Record what RESULTS ({addr: [equiv.py reports]}) prove about PATH's equivalent blocks as they are now (proves():
     the code and the checker's view in each mode): a proven mode's run goes into the proof ledger (integ1, D37), and a
     block whose every mode is proven gets its code hashes and `@v` (D42) written; a mode already in the ledger for its
@@ -2448,7 +2553,8 @@ def hash_proven(path, results, addrs=None, dry_run=False, ledger=None, unproven_
             o["result"] = "no symbol (%s)" % r["status"]
             out.append(o)
             continue
-        if not results.get(r["addr"]) and r.get("code") == "ok" and r.get("wine_code") in ("ok", "no_object"):
+        if not carry and not results.get(r["addr"]) and r.get("code") == "ok" and \
+                r.get("wine_code") in ("ok", "no_object"):
             o["result"] = "skipped: no result for this block (code unchanged)"
             out.append(o)
             continue
@@ -2463,6 +2569,40 @@ def hash_proven(path, results, addrs=None, dry_run=False, ledger=None, unproven_
             h = r.get(key + "_hash")
             if (r["addr"], kind, h, view) in led:
                 o[kind] = "in the ledger"
+                continue
+            if carry:
+                # (integ6, D159) no run: a run line of this code under this checker whose view differs only in entries
+                # the run never reached (carry_check); the new view is recomputed here, with its parts
+                import equiv
+                cobj_ = None
+                tmp_ = None
+                try:
+                    if kind == "wine":
+                        import tempfile
+                        tmp_ = tempfile.TemporaryDirectory(dir=os.path.join(ROOT, "build"))
+                        cobj_ = wine_object(os.path.abspath(path), tmp_.name)
+                    cv_, cp_, cl2_ = current_view(path, r["addr"], kind, recs, cobj_)
+                finally:
+                    if tmp_ is not None:
+                        tmp_.cleanup()
+                if cv_ != view:
+                    o[kind] = "unproven: the view-only run gave view %s, the block's view is %s" % (cv_, view)
+                    continue
+                cur_ = {"addr": r["addr"], "mode": kind, "code": h, "checker": equiv._checker_digest(), "view": view,
+                        "view_parts": cp_, "l2_parts": cl2_}
+                whys_, got_ = [], None
+                for e_ in _ledger_lines(r["addr"], kind, h, ledger):
+                    ok_, d_ = carry_check(e_, cur_)
+                    if ok_:
+                        got_ = carried_line(e_, cur_, d_, tu)
+                        break
+                    whys_.append("%s: %s" % (ledger_line_key(e_)[:10], d_))
+                if got_ is None:
+                    o[kind] = "unproven: no line carries (%s)" % ("; ".join(whys_[-4:]) or "no line of this code")
+                    continue
+                o[kind] = "carried from %s (%s)" % (got_["carried_from"], ", ".join(got_["carry_delta"][:6]))
+                entries.append(got_)
+                o.setdefault("ledger", []).append(got_)
                 continue
             if unproven_accepted:
                 # (integ3, lead) the mode is unproven and config/unproven-baseline.json lists exactly this code (an
@@ -2634,6 +2774,9 @@ def main(argv=None):
     p.add_argument("--from-ledger", action="store_true", help="(integ3, movers) re-pin equivalent blocks whose current "
                    "code AND checker view already have a promotable ledger line in every mode (no new run: the line is the "
                    "proof; MSVC 7.1's header-sensitive spill orders, 0x00027930 & co.); any other block is refused")
+    p.add_argument("--carry", action="store_true", help="(integ6, D159) re-pin equivalent blocks whose code hashes and "
+                   "checker are unchanged and whose view moved only in decls / pointee_sizes / bindings entries the proof "
+                   "run never reached: no run; a carried ledger line names its run line (docs/equivalence.md)")
     p.add_argument("--proven", nargs="+", metavar="RESULT", help="equiv.py --json reports / jsonl: an MSVC run at "
                    "--inputs 3000 (promotable) and a --wine run (>= 3,000) of the code and checker view as they are now")
     p.add_argument("--addr", action="append", help="only these blocks (with --proven)")
@@ -2816,11 +2959,13 @@ def main(argv=None):
                     f.write(json.dumps(r) + "\n")
             print(json.dumps(compute_records.summary, indent=1))
             return 0
-        if (a.from_ledger or a.unproven_accepted) and a.proven:
-            ap.error("hash: --from-ledger / --unproven-accepted take no --proven")
-        if not a.proven and not a.from_ledger and not a.unproven_accepted:
-            ap.error("hash: --proven RESULT... or --compute OUT or --from-ledger or --unproven-accepted")
-        res = {} if (a.from_ledger or a.unproven_accepted) else _load_results(a.proven)
+        if (a.from_ledger or a.unproven_accepted or a.carry) and a.proven:
+            ap.error("hash: --from-ledger / --unproven-accepted / --carry take no --proven")
+        if a.carry and (a.from_ledger or a.unproven_accepted):
+            ap.error("hash: --carry alone")
+        if not a.proven and not a.from_ledger and not a.unproven_accepted and not a.carry:
+            ap.error("hash: --proven RESULT... or --compute OUT or --from-ledger or --unproven-accepted or --carry")
+        res = {} if (a.from_ledger or a.unproven_accepted or a.carry) else _load_results(a.proven)
         addrs = {"0x%08x" % int(x, 16) for x in a.addr} if a.addr else None
         bad = 0
         for sn_ in SHARD_NOTES:     # (integ5, D155c; rev5) each group of shard reports: merged, or refused and why
@@ -2828,7 +2973,7 @@ def main(argv=None):
                 sn_["addr"], "wine" if sn_["native"] else "msvc", sn_["why"]))
         for path in a.paths:
             for o in hash_proven(path, res, addrs, dry_run=a.dry_run, ledger=a.ledger,
-                                 unproven_accepted=a.unproven_accepted):
+                                 unproven_accepted=a.unproven_accepted, carry=a.carry):
                 bad += o["result"].startswith(("unproven", "no symbol"))
                 print(json.dumps(dict(o, tu=path)) if a.json else "%s %s  %s%s" % (
                     o["addr"], o["result"], "msvc: %s " % o["msvc"] if "msvc" in o else "",

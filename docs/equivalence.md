@@ -1710,6 +1710,37 @@ until 3,000 distinct inputs are compared. (The bool-fix counterfactual re-run, `
 the count.) regress checks inputs_run == the number of distinct keys on every case, and that `0x001f87e0_post_proof`
 reports its repeat.
 
+(integ6, D159; rev5, lead) **Carrying a proof to a moved view (`tree_tu.py hash TU --carry [--addr A]`).** A block's
+checker view (`@v`, checker_view) holds, besides the signature and the rest, our declarations of its callees (`decls`),
+their pointer parameters' pointee sizes (`pointee_sizes`, both per callee address) and the level-2 bindings (`bindings`,
+per symbol). Those entries are read only when a run calls or tail-jumps to their callee; an edit elsewhere (a gen
+include, a header) that moves the entry of a callee no run reached changes the view and nothing the proof ran. Each
+report now has `view_parts` (a hash of every view key but those three, `rest`, and per entry a hash of its value;
+symbols hashed: the ledger holds addresses and hashes only) and level3 `touched`: `callees`, every call / tail-jump
+target either side reached in any run of the check (directed, discarded and inconclusive runs included), and
+`symbols`, every bound symbol except those our code (with the helpers that run in place) references only by calls
+(REL32) to an address no run reached: a data reference, a symbol bound to a reached callee, an unresolved or an
+unreferenced one counts as touched. A ledger line written by hash --proven records both (a sharded proof: the union of
+the shards' touched sets; a shard without them leaves the merged line without them). `hash --carry` re-pins a block
+without a run, per mode, only when a ledger line of the same block, mode, code hash and checker digest (the same
+equiv.py and XDK list) exists that
+- is a run line (never a carried line: a carry always goes back to the run's own touched sets) recorded with view parts
+  and touched sets (a line recorded before D159 never carries) and proves (ledger_line_proves);
+- has the same `rest` as the view now (signature, return kind, conventions, narrowing, issues, conflicts, contracts,
+  switches and any key a later checker adds: default-deny), and its parts' and touched sets' keys are exactly the known
+  ones;
+- differs from the view now only in decls / pointee_sizes entries of callees outside `touched.callees` and bindings
+  entries of symbols outside `touched.symbols` (an entry added, removed or changed).
+- (rev5) passes level 2 under the view now with the run's own outcome: level 2 reads every callee's declaration and
+  binding, reached or not, so the carry's view-only run does levels 1 and 2 in full (decl_arity too) and its
+  `l2_parts` (level 2 ok, a hash of its issues and of the declared-arity findings) must equal the run line's (recorded
+  since D159); a new arity finding on an unreached callee refuses the carry.
+The view now is recomputed by that view-only run and must equal the block's view. The carried line is the run line with
+the new view and parts, `carried_from` (the run line's D154 key) `carry_delta` (the entries that moved) and `carry_l2`; it proves
+only while its run line does: revoking the run line (by key or by its code and checker) revokes it, and ledger_index
+counts it only after its proving run line. Tests tests/test_carry.py (mutation-checked: each condition's removal fails
+it).
+
 (integ4, `stubexit`; rev5) **Loops a stub ends.** A loop whose condition is a stubbed callee's result (`while
 (registry->Pending())`, drained by real code elsewhere; `do r = Status(v); while (r != 2)`) never ends on random stub
 results that keep it going, so its inputs time out and its body is never compared. Static half (`_stubexit_sites`, the

@@ -3706,6 +3706,7 @@ REP_STEP_CAP = 4000000
 _REP_ELEM = {"b": 1, "w": 2, "d": 4, "q": 8}
 NATIVE_MODE = False         # (round 18) verify(native=True) is running
 NATIVE_FRAME = {}           # (wine1, natobj) the clang object's function under test, for its frame's variables (lazy)
+TOUCHED_CALLS = set()     # (integ6, D159) every call / tail-jump target either side reached in this check's runs
 NATIVE_NARROW = {}        # (round 19, natnarrow) original address -> {stack word index: bit width} of declared bool/char/short parameters
 NATIVE_BOOL = set()         # (round 18, native) original addresses of callees our source declares to return bool
 NATIVE_F64 = set()          # (round 24, fretwide) original addresses of callees our clang object declares to return double
@@ -7298,6 +7299,7 @@ class Run:
                     target = self._read_u32(self._ea(insn.mem))
                 else:
                     target = self.reg(insn.regs[0])
+                TOUCHED_CALLS.add(target)       # (integ6, D159) what the run reached: a proof's touched callees
                 if target in self.helpers:
                     if self.coverage is not None and self.helpers[target] == "__ftol2" and self.fstack and \
                             self.fstack[0] is not None and self.fstack[0].get("src") is not None and \
@@ -7390,6 +7392,7 @@ class Run:
                     if self.view.in_body(target) and target != self.view.entry:
                         return
                 direct = insn.target is not None
+                TOUCHED_CALLS.add(target)       # (integ6, D159)
                 if direct and target in IGNORED_CALLS and "gstail" not in EQUIV_OFF:
                     # (round 21, gstail) `pop esi; mov ecx, [esp]; add esp, 4; jmp __security_check_cookie`: the check is the
                     # function's last act and returns for it. Skipped like the call form, the cookie it got is still checked
@@ -10669,6 +10672,52 @@ def checker_view(native, fsym, sig, ret_kind, void_eax, convs, rep, psizes, decl
     return hashlib.sha1(json.dumps(c, sort_keys=True).encode()).hexdigest()[:12], c
 
 
+VIEW_DECLARITY = [False]    # (integ6, D159; rev5) a view-only run also reports decl_arity (hash --carry's level-2 check)
+VIEW_ENTRY_KEYS = ("decls", "pointee_sizes", "bindings")     # (integ6, D159) the view's per-callee / per-symbol maps
+
+
+def _h10(x):
+    return hashlib.sha1(json.dumps(x, sort_keys=True).encode()).hexdigest()[:10]
+
+
+def view_parts(c):
+    """(integ6, D159) The checker view C (checker_view's canonical dict) in parts a carry can compare: `rest`, one hash of
+    every key but the three entry maps (any change there, or any key added later, is a change of the rest: default-deny),
+    and per entry of `decls` / `pointee_sizes` (callee address -> hash of its value) and `bindings` (hash of the symbol
+    -> hash of its binding). Hashes and addresses only (the ledger holds no names)."""
+    rest = {k: v for k, v in c.items() if k not in VIEW_ENTRY_KEYS}
+    out = {"rest": _h10(rest)}
+    for k in ("decls", "pointee_sizes"):
+        out[k] = {a: _h10(v) for a, v in (c.get(k) or {}).items()}
+    out["bindings"] = {_h10(n): _h10(v) for n, v in (c.get("bindings") or {}).items()}
+    return out
+
+
+def l2_parts(rep):
+    """(integ6, D159; rev5) the level-2 outcome a carry must find unchanged: whether level 2 passed, and a hash of its
+    issues and of the declared-arity findings (decl_arity reads every callee's declaration, reached or not)"""
+    l2 = rep.get("level2") or {}
+    return {"ok": bool(l2.get("ok")),
+            "issues": _h10(sorted(json.dumps(i, sort_keys=True, default=str) for i in l2.get("issues") or [])),
+            "decl_arity": _h10(sorted(json.dumps(d, sort_keys=True, default=str) for d in rep.get("decl_arity") or []))}
+
+
+def touched_sets(ours, resolved, how):
+    """(integ6, D159) What a check's runs depended on among the view's entries: `callees`, every call / tail-jump target
+    either side reached (TOUCHED_CALLS: the only place a callee's declaration and pointee sizes are read), and `symbols`
+    (hashed as in view_parts), every bound symbol except those our code references only by calls (REL32) whose bound
+    address no run reached: a data reference, a symbol bound to a reached callee, or one with no reference at all counts
+    as touched (default-deny)."""
+    refs = {}
+    for _off, sym, typ, _a in ours.relocs + ours.local_relocs():
+        if sym is not None:
+            refs.setdefault(sym[0], set()).add(typ)
+    reached = {"0x%08x" % (t & M32) for t in TOUCHED_CALLS}
+    call_only = {n for n in how if refs.get(n) and refs[n] == {REL32} and n in resolved and
+                 "0x%08x" % resolved[n] not in reached}
+    return {"callees": sorted(reached), "symbols": sorted(_h10(n) for n in how if n not in call_only)}
+
+
 def _verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mapping=None, max_level=3,
             max_steps=50000, use_names=True, clang=False, obj_path=None, keep_runs=False, time_budget=120,
             conventions=None, level3_fn=None, seeds=None, native=False, src_lines=None, view_only=False):
@@ -10956,7 +11005,7 @@ def _verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappi
                      "mapping": {n: {"addr": "0x%08x" % resolved[n] if n in resolved else None, "how": how[n]}
                                  for n in how},
                      "conflicts": conflicts[:10]}
-    if "declarity" not in EQUIV_OFF and not native and (not view_only or STRICT_DECL):
+    if "declarity" not in EQUIV_OFF and not native and (not view_only or STRICT_DECL or VIEW_DECLARITY[0]):
         # (round 23, declarity) callees whose stack arity our declaration states wrongly: reported; a failure with
         # --strict-decl only (existing promotions keep their status). MSVC mode only: clang's object binds its own
         # symbols by pairing (a destructor call MSVC inlined pairs with another callee), so its names can't be judged
@@ -11271,6 +11320,7 @@ def _verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappi
                 rep["level"] = 1
     try:
         rep["view"], view_ = checker_view(native, fsym, sig, ret_kind, void_eax, convs, rep, psizes, decls, issues)
+        rep["view_parts"] = view_parts(view_)
     except Exception as e_:     # noqa: BLE001 - no view: the report can't record one (hash --proven refuses it)
         rep["view_error"], view_ = repr(e_)[:300], None
     if view_only:
@@ -11293,10 +11343,13 @@ def _verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappi
             rep["x87_decl"] = x87_decl_scan(prog, oview, rview, ret_kind in ("f32", "f64"))
         except Exception as e_:     # noqa: BLE001 - a diagnostic: never fail the check because of it
             rep["x87_decl_error"] = str(e_)[:200]
+    TOUCHED_CALLS.clear()
     l3 = level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs, max_steps, keep_runs,
                 time_budget, psizes=psizes, convs=convs, decls=decls, void_eax=void_eax, seeds=seeds,
                 pre=[it_ for it_ in pre_specs if not _pre_relational(it_[5])], pre_cited=pre_cited,
                 post=post_specs)
+    l3["touched"] = touched_sets(ours, resolved, how)
+    rep["l2_parts"] = l2_parts(rep)
     rep["level3"] = l3
     if pre_specs and native and l3.get("pre_trap") != "fired" and not seeds:
         # (integ1, D54) --wine: an input that violates the contract must hit HULK_PRE_NOTNAN's trap in our code
