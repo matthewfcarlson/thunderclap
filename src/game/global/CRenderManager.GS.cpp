@@ -9,6 +9,7 @@
 #include "decls/data/game/unknown.h"
 #include "decls/data/platform/xbox/core.h"
 #include "gen/owners.h"
+#include "gen/pure3d.h"
 #define TREE_TU_BEGIN namespace fn_faf7c40e {
 #define TREE_TU_END }
 #define TREE_LOCAL_CCollisionTrack
@@ -348,7 +349,7 @@ void Credits_1baab0::FUN_001baab0(bool flag)
                         if (*f.q != 0)
                             f.q++;
                         if ((*(TextObj**)&DAT_004e226c) == 0) {
-                            void *mem = thunk_FUN_0008d690(0x58);
+                            void *mem = thunk_FUN_0008d690((unsigned int)sizeof(::pure3d::TextString));
                             TextObj *t = 0;
                             if (mem != 0)
                                 t = ((TextObj *)mem)->FUN_0029b120(f.font, f.lineBuf, 1.0f, 0);
@@ -686,7 +687,7 @@ extern "C" void __cdecl FUN_001bb0b0(const char *code)
     FUN_001b8970(f.text, 0x14);
     if (font != 0) {
         if ((*(TextObj**)&DAT_004e2268) == 0) {
-            void *mem = thunk_FUN_0008d690(0x58);
+            void *mem = thunk_FUN_0008d690((unsigned int)sizeof(::pure3d::TextString));
             TextObj *t = 0;
             if (mem != 0)
                 t = ((TextObj *)mem)->FUN_0029b120(font, f.text, 1.0f, 0);

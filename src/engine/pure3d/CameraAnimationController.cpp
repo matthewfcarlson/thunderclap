@@ -332,7 +332,7 @@ namespace fn_002939a0 {
 class __declspec(novtable) Camera_2939a0 {
   public:
     virtual void slot0_00038290();
-    char pad[0xd0 - 4];
+    char pad[sizeof(::pure3d::Camera) - sizeof(void*)];   // (sweep3) gen's pure3d::Camera after its vftable (0xd0 bytes on 32-bit)
     void FUN_00292d70();
     Camera_2939a0() { FUN_00292d70(); }
 };

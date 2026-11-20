@@ -2352,6 +2352,7 @@ public:
     void* f_10;
     char _pad_14[0x4];
     int f_18;
+    int f_1c; // (sweep3) the allocation's last word: new allocates 0x20 bytes (decls/shader.h HulkShader); no constructor writes it
 };
 
 // .?AVShaderAnimationController@pure3d@@  vftable 0x42dd24 (27)
@@ -2940,6 +2941,8 @@ public:
     int f_44;
     int f_48;
     int f_4c;
+    unsigned char f_50; // (sweep3) 0x0029b120 sets it from its last argument
+    int f_54; // the allocation's last word: new allocates 0x58 bytes (0x001baab0); no constructor writes it
 };
 
 // .?AVTexture@pure3d@@  vftable 0x42ec20 (6)
@@ -5046,6 +5049,8 @@ public:
     unsigned int f_18;
     void* f_1c;
     void* f_20;
+    int f_24; // (sweep3) the record's last word: new allocates 0x28 bytes (0x002973b0); VisibilityNode's and TransformNode's
+              // words start at 0x28; no constructor writes it
 };
 
 // .?AVDrawableCounter@scenegraph@pure3d@@  vftable 0x42d324 (2)
@@ -5126,8 +5131,10 @@ public:
     virtual void vfunc_9(); // overrides pure3d::scenegraph::Node slot 9
     virtual void* vfunc_16(); // overrides pure3d::scenegraph::Node slot 16
     virtual void* vfunc_17(); // overrides pure3d::scenegraph::Node slot 17
-    char _pad_24[0x84];
+    float f_28[16]; // (sweep3) two matrices 0x00297460 initializes (0x0022b980)
+    float f_68[16];
     void* f_a8;
+    int f_ac; // the allocation's last word: new allocates 0xb0 bytes (0x00297680); no constructor writes it
 };
 
 // .?AVVisibilityNode@scenegraph@pure3d@@  vftable 0x42d414 (20)
@@ -5141,7 +5148,6 @@ public:
     virtual bool vfunc_7(); // overrides pure3d::scenegraph::Node slot 7
     virtual void vfunc_8(hulk_intptr, int, int); // overrides pure3d::scenegraph::Node slot 8
     virtual void vfunc_9(); // overrides pure3d::scenegraph::Node slot 9
-    char _pad_24[0x4];
     unsigned char f_28;
     char _pad_29[0x3];
     void* f_2c;

@@ -6392,3 +6392,27 @@ range as two pointers. LightAnimationController's 0x114 word is a pointer (0x002
   is 256 bytes against gen's 252, but gen is the right record.
 - 0x0005b1a0's checker view changed (its dynamic_cast<CFightParams*> sees CFightParams' new size). It was re-proven
   at 3,000 inputs for msvc, wine and x64 (101374-101376) and hashed in queue job 101381.
+
+### sweep3, batch 3 of the allocsize work (2026-11-20): gen records settled from the original's code
+
+This round fixes gen records that the RTTI merge got wrong, using only the original's constructors and methods. The
+rule from journal "sweep3: gen records completed from their allocations" is followed: compare gen's 32-bit size with
+the literal before writing `sizeof(::Gen)`.
+- Gen too large: CEffectStopAction (its constructor 0x0001f780 writes 0x1c/0x20, every allocation asks for 0x24, and
+  no method reads further) and physics::CollisionSphere (0x48: 0x002efe50, and no method touches 0x48..0x77).
+- Words taken from the class's fight::Param registrations, each setter's store offset and Param kind:
+  SyncToLocatorTrack (0x50: locatorName tUID, the copied init script and its length, rotationOverride,
+  orientOffset, positionOffset, priority, blend times) and HeliLocomotionTrack (0xd8, 37 setters).
+- Taken from the methods' views and the destructor: JointRelativeAction (0x64: start/end rotation and position, the
+  elapsed time) and JointPivotTrackerAction (0x84: two vectors, a matrix, a held reference at 0x80).
+- CLocator is 0x40. Its only constructor 0x001fbf40 is also the only code that writes its vftable, and it runs over
+  arrays with a 0x40 stride; no code reads 0x24..0x3c.
+- BranchNode is 0x28, with a last word nothing writes. VisibilityNode's and TransformNode's words start at 0x28, and
+  TransformNode gets its two matrices (0x00297460) and a last word (0xb0). pure3d::Shader is 0x20; TextString is
+  0x58 (0x0029b120 sets the byte at 0x50).
+- CAvoidBehaviour's 0x2c and 0x30 are floats: 0x00109c00 and 0x0010a040 use them with fld/fstp. The constructor
+  view 0x00109ba0 had them as pointers, so natively it wrote past gen's 96-byte allocation.
+- The VectorCamera view 0x002939a0 now pads from gen's pure3d::Camera. Its fields already agreed natively; the
+  4-byte difference was tail padding only.
+- Held for nat2: GameStateCondition.cpp's six action allocations and CTriggerVolumeManager's CLocator element view
+  (both TUs are in nat2's candidate).

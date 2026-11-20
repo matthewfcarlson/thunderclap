@@ -36,7 +36,7 @@ extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (un
 extern "C" Obj_60980* __cdecl FUN_0005a430(hulk_intptr);   // (decl1) as defined (CFightParamsCollision.cpp)
 
 hulk_intptr CGrappleEffectStopTrack::vfunc_12(hulk_intptr arg) {
-    CEffectStopAction* p = (CEffectStopAction*)FUN_0008d690(0x24);
+    CEffectStopAction* p = (CEffectStopAction*)FUN_0008d690((unsigned int)sizeof(::CEffectStopAction));
     if (p) {
         Obj_60980* o = FUN_0005a430(arg);
         int v = o->field;

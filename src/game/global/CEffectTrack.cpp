@@ -688,7 +688,7 @@ hulk_freg CEffectStopTrack::vfunc_7() {
 // sym: ?vfunc_12@CEffectStopTrack@@UAEHH@Z
 // Same code shape as 0x0005aad0 (propagated; names are from that function)
 hulk_intptr CEffectStopTrack::vfunc_12(hulk_intptr param) {
-    R_60940* p = FUN_0008d690(0x24);
+    R_60940* p = FUN_0008d690((int)sizeof(::CEffectStopAction));
     if (p)
         return p->invoke_0001f780(this, param);
     return 0;

@@ -1847,3 +1847,11 @@ blocks fight::Action's whole family: the records come first there.
   first round on small functions, so the rule mostly matters where many inputs time out (0x00088020).
 - 0x002731d0 (DriveThread) is not this case: its loop exits on `s->stopped`, which another thread writes. That needs
   a model of the flag's writer (a separate item).
+
+## 2026-11-20 sweep3: settling a record's words from the original's code
+- A Track's words: its fight::Param registrations list each member's setter and Param kind. The setter's store
+  offset places the word, and the Param kind types it (float, int, vector, Name tUID, script string + length).
+  HeliLocomotionTrack's 0xd8 bytes come from 37 setters plus its constructor.
+- An object's size: an array stride is evidence too. CLocator's only constructor runs over arrays with a 0x40
+  stride, so the record is 0x40 even though nothing touches 0x24..0x3c.
+- Pointer or float: look at the instructions. CAvoidBehaviour's "pointer" words at 0x2c/0x30 are loaded with fld.

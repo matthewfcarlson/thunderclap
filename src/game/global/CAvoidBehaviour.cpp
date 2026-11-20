@@ -31,8 +31,8 @@ class CAvoidBehaviour_109ba0 {
     void* m20;
     void* m24;
     float m28;
-    void* m2c;
-    void* m30;
+    int m2c;   // (sweep3) floats (0x00109c00 / 0x0010a040 load them with fld), not pointers
+    int m30;
     char m34;
     CAvoidBehaviour_109ba0();
 };

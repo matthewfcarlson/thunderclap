@@ -760,7 +760,8 @@ public:
     void* f_20;
     void* f_24;
     float f_28;
-    char _pad_2c[0x8];
+    float f_2c; // (sweep3) 0x00109c00 / 0x0010a040 load and store both as floats
+    float f_30;
     char f_34;
 };
 
@@ -2456,8 +2457,8 @@ public:
     virtual bool vfunc_6(int); // overrides CAction slot 6
     void* f_1c;
     void* f_20;
-    char _pad_24[0xe0];
-    int f_104;
+    // (sweep3) the object ends at 0x24: the constructor 0x0001f780 writes f_1c/f_20, every allocation asks for 0x24,
+    // and no method reads past 0x24 (the RTTI merge had given it a word at 0x104)
 };
 
 // .?AVCEffectStopTrack@@  vftable 0x3faab4 (14)
@@ -3988,6 +3989,8 @@ public:
     int f_18;
     float f_1c;
     char f_20;
+    int f_24[7]; // (sweep3) the record is 0x40 bytes: its only constructor 0x001fbf40 (the only writer of the vftable
+                 // 0x425120) runs over arrays of 0x40-byte elements (0x001ff580: n*0x40+4); no code reads 0x24..0x3c
 };
 
 // .?AVCLuaNumberCondition@@  vftable 0x3f7304 (8)
