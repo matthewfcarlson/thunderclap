@@ -752,7 +752,7 @@ u64_2c2ab0 GeometryLoader::vfunc_5(Geometry** out, u64_2c2ab0* hashOut, Loader_2
                 if (g->p58)
                     g->p58->Release();
                 g->p58 = a;
-                void* m = FUN_0008d690(0x18);
+                void* m = FUN_0008d690((unsigned int)sizeof(::pure3d::VertexAnimObject));
                 VertexAnimObject_2c2ab0* o;
                 if (m)
                     o = ((VertexAnimObject_2c2ab0*)m)->FUN_002d1090(g);
@@ -875,7 +875,7 @@ Geometry::Geometry(Geometry* source) : DrawableContainer_2c3060(source) {
  if(resource) resource->Release();
  resource=r;
  if(source->helper) {
-  VertexAnimObject_2c3060* h=(VertexAnimObject_2c3060*)FUN_0008d690(0x18);
+  VertexAnimObject_2c3060* h=(VertexAnimObject_2c3060*)FUN_0008d690((unsigned int)sizeof(::pure3d::VertexAnimObject));
   if(h) h=h->FUN_002d1090(this);
   helper=h;
   h->AddRef();

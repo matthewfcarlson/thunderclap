@@ -1073,6 +1073,7 @@ public:
     int f_1c;
     void* f_20;
     float f_24;
+    int f_28; // (sweep3) the allocation's last word: new allocates 0x2c bytes (0x001134e0); no constructor writes it
 };
 
 // .?AVKeywordWaitTrack@ai@hulkfight@@  vftable 0x40dc44 (11)
@@ -3003,6 +3004,7 @@ public:
     unsigned char f_50;
     unsigned char f_51;
     unsigned char f_52;
+    int f_54; // (sweep3) the allocation's last word: new allocates 0x58 bytes (0x0017b5c0); no constructor writes it
 };
 
 // .?AVDriftToPositionTrack@motion@hulkfight@@  vftable 0x417a48 (11)
@@ -3221,6 +3223,9 @@ public:
     int f_8c;
     int f_90;
     int f_94;
+    int f_98[3]; // (sweep3) 0x00233dd0 zeroes the first two words and sets the third to -1
+    int f_a4; // (sweep3) no constructor writes it
+    unsigned int f_a8[2]; // (sweep3) a tUID (0x0027af00): new allocates 0xb0 bytes (0x001a1240)
 };
 
 // .?AVFireMissileAction@motion@hulkfight@@  vftable 0x41b414 (6)
@@ -3533,6 +3538,7 @@ public:
     int f_38;
     float f_3c;
     float f_40;
+    int f_44; // (sweep3) the allocation's last word: new allocates 0x48 bytes (0x0017f250); no constructor writes it
 };
 
 // .?AVFrameCondition@motion@hulkfight@@  vftable 0x412430 (7)
@@ -3697,6 +3703,7 @@ public:
     float f_40;
     float f_44;
     float f_48;
+    int f_4c; // (sweep3) the allocation's last word: new allocates 0x50 bytes (0x00165330); no constructor writes it
 };
 
 // .?AVGrappleOrientationCondition@motion@hulkfight@@  vftable 0x4135f8 (7)
@@ -4889,6 +4896,7 @@ public:
     int f_48;
     int f_4c;
     char f_50;
+    int f_54; // (sweep3) 0x00176300 sets it: new allocates 0x58 bytes (0x0017ba90)
 };
 
 // .?AVMoveJointTrack@motion@hulkfight@@  vftable 0x417a18 (11)

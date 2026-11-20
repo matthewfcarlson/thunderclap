@@ -2,6 +2,7 @@
 // object 0x00019380..0x0001adb0 (kind game, layer game, confidence high), dominant class CCollisionAction
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "decls/physics_world.h"
 #include "decls/address.h"
 #include "decls/data/game/unknown.h"
 #include "gen/fight.h"
@@ -989,7 +990,7 @@ char CCollisionAction::vfunc_6(int arg)
     }
 
     CollisionSphere_1a150 *init = 0;
-    void *mem = FUN_0008d690(0x48);
+    void *mem = FUN_0008d690((unsigned int)sizeof(HulkCollisionSphere));
     if (mem != 0) {
         off.x = 0;
         off.y = 0;

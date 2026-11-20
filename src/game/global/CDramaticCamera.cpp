@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "decls/data/game/global.h"
 #include "gen/owners.h"
+#include "gen/pure3d.h"
 #define TREE_TU_BEGIN namespace fn_f6c39404 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CCollisionTrack
@@ -209,7 +210,7 @@ CDramaticCamera::CDramaticCamera()
         c = ((CameraAnimationController_a8400 *)mem)->FUN_00292eb0();
     controller = c;
     c->AddRef();
-    mem = thunk_FUN_0008d690(0xf8);
+    mem = thunk_FUN_0008d690((unsigned int)sizeof(::pure3d::VectorCamera));
     VectorCamera_a8400 *r = 0;
     if (mem != 0)
         r = ((VectorCamera_a8400 *)mem)->FUN_002939a0();

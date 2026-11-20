@@ -431,7 +431,7 @@ FootPivotAction* FootPivotAction::f2(unsigned char flags) {
 hulk_intptr hulkfight::motion::DriftToPositionTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_17b5c0 a = (u32_17b5c0)__p0; u32_17b5c0 b = (u32_17b5c0)__p1; u32_17b5c0 c = (u32_17b5c0)__p2;
 
     if (FUN_00344e74(c, 0, RTTI1_17b5c0, RTTI2_17b5c0, 0)) {
-        void* p = FUN_0008d690(0x58);
+        void* p = FUN_0008d690((unsigned int)sizeof(::hulkfight::motion::DriftToPositionAction));
         if (p)
             return ((Helper_17b5c0*)p)->run_00174fb0(this, c);
     }
@@ -638,7 +638,7 @@ TargetIconDistanceAction_17ba40* TargetIconDistanceAction_17ba40::vfunc_2(int fl
 hulk_intptr hulkfight::motion::MoveJointTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_17ba90 a = (u32_17ba90)__p0; u32_17ba90 b = (u32_17ba90)__p1; u32_17ba90 c = (u32_17ba90)__p2;
 
     if (FUN_00344e74(c, 0, RTTI1_17ba90, RTTI2_17ba90, 0)) {
-        void* p = FUN_0008d690(0x58);
+        void* p = FUN_0008d690((unsigned int)sizeof(::hulkfight::motion::MoveJointAction));
         if (p)
             return ((Helper_17ba90*)p)->run_00176300(this, c);
     }

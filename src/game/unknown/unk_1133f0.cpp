@@ -178,7 +178,7 @@ SemaphoreClearAction_113490* SemaphoreClearAction_113490::vfunc_2(int flag) {
 // sym: ?vfunc_10@KeywordWaitTrack@ai@hulkfight@@UAEHHHH@Z
 hulk_intptr hulkfight::ai::KeywordWaitTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     if (FUN_00344e74(c, 0, &RTTI_Type1, &RTTI_Type2, 0)) {
-        AllocObj_1134e0* p = (AllocObj_1134e0*)FUN_0008d690(0x2c);
+        AllocObj_1134e0* p = (AllocObj_1134e0*)FUN_0008d690((unsigned int)sizeof(::hulkfight::ai::KeywordWaitAction));
         if (p)
             return p->init_0010fa60(this, c);
     }

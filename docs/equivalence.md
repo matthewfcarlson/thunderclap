@@ -1632,6 +1632,32 @@ is ever called with an out of range input"), one reusable mechanism with the NaN
   `0x0009fb20_x64_range`; tests tests/test_pre_contracts.py, tests/test_contract_flags.py.
 
 
+(integ4, `stubexit`; rev5) **Loops a stub ends.** A loop whose condition is a stubbed callee's result (`while
+(registry->Pending())`, drained by real code elsewhere; `do r = Status(v); while (r != 2)`) never ends on random stub
+results that keep it going, so its inputs time out and its body is never compared. Static half (`_stubexit_sites`, the
+original's code only): `call f` (direct; not a constructor-like `returns_this` or noreturn callee; CRT helpers and
+intrinsics never reach a stub), then only `add esp, imm`, register copies and one `test r, r` / `cmp r, imm`, then
+`je`/`jne`, where the jcc is the loop's back edge, a jump out of it from inside, or a guard in front of it (jumps past its
+end, falls into its head through padding). Dynamic half: when the original runs out of steps, a site whose call repeats
+and whose jcc is among the hot compares (or, `sealed`, a guard in front of a loop nothing leaves, no ret, no jump or jcc
+out, no indirect or noreturn call, where the run is stuck: 0x00088020's anti-piracy `if (FUN_00209a8e("D:\\") != 0x800)
+for (;;) ...`) re-runs the input (label `+sx`) with those callees ending their loops. The original's run decides at its
+own call site, per callee: n results that continue, then one that ends the loop, n redrawn per loop entry from the seed
+(0..3 three times in four, else 3 + 2^k, capped at 64 and at a quarter of the step budget at the timed-out run's cost
+per round; 0 for a sealed guard), and records them per call index (`ret_override`); ours gets the same result for its
+call of that index, so an extra or missing call shifts the indices and fails. Values: `test al` ends on a zero low byte
+(eax 0, or other bits set: a side that tests the whole eax goes on) and continues on a nonzero one; `test eax` continues
+on 1, 0x100, 0x80000000 or another nonzero word (a side that tests only al ends at 0x100); `cmp r, imm` ends on imm and
+continues on imm ^ 1. Every such input is compared in full. Report: `stubexit_runs`, `inputs_stubexit`,
+`stubexit_sealed` (inputs through a sealed guard), `stubexit_n` (the drawn n). `EQUIV_OFF=stubexit` switches it off
+(proves nothing). The evidence it matters: 0x00088020 compared 170 of 3,000 inputs with it off (96703/96704, 7,656
+timeouts); the 3,000-input runs with it on are 101394 (MSVC) and 101395 (--wine). On small functions the old loop
+repair already ends such a loop at its first round, so random inputs reach few rounds: case `0x001f67c0_stubexit` (a wait loop) and its must-fails (`_inverted`, `_extrabody`, `_round6`: an
+extra call on the sixth round only), `0x00086240_stubexit*` (a drain loop: inverted, extra condition call, extra body
+call, wrong exit constant, width), `0x00088020_stubexit_sealed` (the guard inverted: ours never returns), tests
+tests/test_stubexit.py (the sites; a noreturn call unseals a loop). A loop whose exit tests memory a stub doesn't
+write (0x002731d0 DriveThread, `while (!s->stopped)`) is not this rule's.
+
 (integ1, D39, `nanpayload`) **Dropped (user decision D50, 2026-11-15).** A rule to set aside quiet-NaN words that differ
 only in payload (x87 hands on the larger significand when two NaNs meet, SSE the first operand) was written (a07ba065a),
 rejected by rev3 (integer -1/-2 words are qNaN-shaped: an int mutant passed), restricted to words both sides last stored

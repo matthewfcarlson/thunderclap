@@ -157,7 +157,9 @@ size to the x64 gate: write `sizeof(record)` (decl1). Before writing `sizeof(::G
 32-bit size with the literal: gen can be larger than the object (physics::CollisionSphere is 0x78 in gen, its constructor
 writes 0x48 and every allocation is 0x48); then use the decls record, and fix gen. A constructor view that pads
 fight::Track's words (`char pad[8]` after the vftable) puts the derived fields 4 bytes early natively: spell Track's
-`void*` and `int`. `tree_tu.py pin` without records resolves a block by name and can pick another function of the TU:
+`void*` and `int`. A Track's words are settled by its fight::Param registrations (each setter's store offset
+and Param kind: float, int, vector, name, script) and an Action's by its methods' views and destructor: check gen's
+fields against these before writing `sizeof(::Gen)`. `tree_tu.py pin` without records resolves a block by name and can pick another function of the TU:
 after moving a block's function into a local record, pin with `--records` naming the definition's own symbol (sweep3).
 Script bindings (Function / Method<N> / Closure<N>) use include/game/script_bind.h's records (`hulk_script::ScriptFunction`,
 `ScriptMethodN`, `ScriptClosure`, or a TU-local `VftOf` trait) with the game's vftables by address, never a local `virtual`
@@ -203,6 +205,10 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   that lands a checker commit (equiv.py, equiv64.py, wine_gate, tree_tu proof paths, config/equiv-selftest.json) runs
   `tools/host_selftest.py submit`, then `apply` once the jobs finish: a host whose `equiv.py --selftest` differs loses
   its `equiv` cap until a pinned run passes.
+- **Drain loops** (stubexit): a loop whose condition is a stubbed callee (`while (registry->FUN_00264c70())`) gets a
+  terminating stub (true for a drawn number of calls, then false, identically on both sides; the body is compared in
+  full); a sealed guard loop (anti-piracy `for(;;)`) is reported separately as `stubexit_sealed`, never when the loop
+  holds a noreturn/exit/longjmp/throw call. A loop on a memory flag another thread sets is not a drain loop (integ4).
 - **Range contracts** (D152): a function whose game callers keep an argument in a domain states it with
   `HULK_PRE_RANGE(x, lo, hi)` / `HULK_PRE_GT|GE|LT|LE(x, c)` at the top of the body (include/compat/pre.h; x a parameter's
   name), the matching `// pre: range|gt|ge|lt|le(argN, ...)` item, and `// pre-callers:` citing every XBE reference to the

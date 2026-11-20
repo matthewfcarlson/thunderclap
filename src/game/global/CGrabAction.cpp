@@ -2,6 +2,7 @@
 // object 0x0001df20..0x0001e870 (kind game, layer game, confidence high), dominant class CGrabAction
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "decls/physics_world.h"
 #include "decls/address.h"
 #include "gen/owners.h"
 #define TREE_TU_BEGIN namespace fn_faea5d7a {
@@ -457,7 +458,7 @@ char CGrabAction::vfunc_6(int arg)
     stats->FUN_0003b190(0);
     if (stats->active != 0) {
         CollisionSphere_1e480 *init = 0;
-        void *mem = FUN_0008d690(0x48);
+        void *mem = FUN_0008d690((unsigned int)sizeof(HulkCollisionSphere));
         if (mem != 0) {
             Vec3_1e480 zero;
             zero.x = 0; zero.y = 0; zero.z = 0;

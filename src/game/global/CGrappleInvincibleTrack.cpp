@@ -3,6 +3,7 @@
 #include "tree_prelude.h"
 #include "compat/ptr.h"
 #include "gen/fight.h"
+#include "gen/global.h"
 #include "gen/owners.h"
 #define TREE_TU_BEGIN namespace fn_fcb7e3d9 {
 #define TREE_TU_END }
@@ -47,10 +48,6 @@ class CInvincibleTrack_76900 {
     void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 } // namespace fn_fcb7e3d9
-class CGrappleInvincibleTrack : public CInvincibleTrack_76900 {
-  public:
-    CGrappleInvincibleTrack* vfunc_5(signed char flags);
-};
 
 
 // 0x00076860 fight::TrackFactoryCasterTemplate<CGrappleInvincibleTrack>::vfunc_1 (60 B): matches/0x00076860.cpp
@@ -88,7 +85,7 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
 // 0x000768d0 fight::TrackFactoryTemplate<CGrappleInvincibleTrack>::vfunc_5 (38 B): matches/0x000768d0.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VCGrappleInvincibleTrack@@@fight@@UAEPAXXZ
 template <> void* fight::TrackFactoryTemplate<CGrappleInvincibleTrack>::vfunc_5() {
-    CGrappleInvincibleTrack_768d0* p = (CGrappleInvincibleTrack_768d0*)FUN_0008d690(0x18);
+    CGrappleInvincibleTrack_768d0* p = (CGrappleInvincibleTrack_768d0*)FUN_0008d690((unsigned int)sizeof(::CInvincibleTrack));
     if (p) {
         p->Init_0006a070();
         *(hulk_intptr*)p = ((hulk_intptr)DAT_003fe828);
@@ -99,11 +96,16 @@ template <> void* fight::TrackFactoryTemplate<CGrappleInvincibleTrack>::vfunc_5(
 
 
 // 0x00076900 CGrappleInvincibleTrack::vfunc_5 (36 B): matches/0x00076900.cpp
-// sym: ?vfunc_5@CGrappleInvincibleTrack@@QAEPAV1@C@Z
+// sym: ?vfunc_5@CGrappleInvincibleTrack_76900@fn_00076900@@QAEPAU12@C@Z
 // Same code shape as 0x0006b7e0 (propagated; names are from that function)
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
-CGrappleInvincibleTrack* CGrappleInvincibleTrack::vfunc_5(signed char flags) {
+// (sweep3) a local record: gen/global.h's CGrappleInvincibleTrack has no such member (the scalar deleting destructor)
+namespace fn_00076900 {
+struct CGrappleInvincibleTrack_76900 : CInvincibleTrack_76900 {
+    CGrappleInvincibleTrack_76900* vfunc_5(signed char flags);
+};
+CGrappleInvincibleTrack_76900* CGrappleInvincibleTrack_76900::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_003f98d0;
     Destroy_00236d60();
     if (flags & 1) {
@@ -111,4 +113,5 @@ CGrappleInvincibleTrack* CGrappleInvincibleTrack::vfunc_5(signed char flags) {
     }
     return this;
 }
+} // namespace fn_00076900
 

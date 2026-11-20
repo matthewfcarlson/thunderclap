@@ -7,6 +7,7 @@
 #include "decls/data/game/global.h"
 #include "gen/global.h"
 #include "gen/owners.h"
+#include "decls/shader.h"
 #define TREE_TU_BEGIN namespace fn_ff2916d8 {
 #define TREE_TU_END }
 namespace fn_ff2916d8 {} using namespace fn_ff2916d8;
@@ -760,7 +761,7 @@ void ImageSelector::vfunc_5() {
             if (selector->columns > 0) {
                 do {
                     if (*cell) {
-                        void* memory = thunk_FUN_0008d690(0x20);
+                        void* memory = thunk_FUN_0008d690((unsigned int)sizeof(HulkShader));
                         NewObj_ee340* formatted = memory ? (NewObj_ee340*)((Fmt*)memory)->FUN_0028edb0() : 0;
                         formatted->v0();
                         formatted->content->v6(0x444d4c42, 1);

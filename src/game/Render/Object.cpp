@@ -8,6 +8,7 @@
 #include "gen/Render.h"
 #include "gen/owners.h"
 #include "gen/pure3d.h"
+#include "decls/shader.h"
 #define TREE_TU_BEGIN namespace fn_f4431f34 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CAction
@@ -449,7 +450,7 @@ Reader_1c49c0 *Reader_1c49c0::FUN_001c49c0() {
     f34 = 0;
 
     pure3d::Shader *created = 0;
-    void *mem = thunk_FUN_0008d690(0x20);
+    void *mem = thunk_FUN_0008d690((unsigned int)sizeof(HulkShader));
     if (mem != 0) {
         created = ((Shader_nv_1c49c0*)(((pure3d::Shader *)mem)))->FUN_0028edb0();
     }

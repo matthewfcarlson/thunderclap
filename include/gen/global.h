@@ -2733,6 +2733,8 @@ public:
     virtual void* vfunc_3(); // slot 3
     virtual void* vfunc_4(); // slot 4
     int f_08;
+    int f_0c; // (sweep3) 0x00059260 zeroes it: new allocates 0x14 bytes (0x000145b0)
+    int f_10; // (sweep3) 0x00059260 zeroes it
 };
 
 // .?AVCFightParamsCollision@@  vftable 0x3f985c (5)
@@ -2741,7 +2743,7 @@ public:
     virtual ~CFightParamsCollision(); // overrides core::IRefCount slot 2
     virtual void* vfunc_3(); // overrides CFightParams slot 3
     virtual void* vfunc_4(); // overrides CFightParams slot 4
-    char _pad_0c[0x18];
+    char _pad_14[0x10];
     char f_24;
     char _pad_25[0x23];
     int f_48;
@@ -3223,6 +3225,7 @@ public:
     void FUN_0005af80(); // non-virtual
     char _pad_0c[0xc];
     int f_18;
+    void* f_1c; // (sweep3) a reference holder (0x00236e00 clears it, 0x00236ec0 releases it): new allocates 0x20 bytes (0x0006f8e0)
 };
 
 // .?AVCGrappleSizeCondition@@  vftable 0x3f72e0 (8)
@@ -4420,8 +4423,11 @@ public:
     int f_0c;
     int f_10;
     char f_14;
-    char _pad_15[0xf];
+    void* f_18; // (sweep3) 0x001aec00 allocates 0x80 bytes here and points the range 0x1c..0x24 at them
+    void* f_1c;
+    void* f_20;
     void* f_24;
+    int f_28; // (sweep3) the allocation's last word: new allocates 0x2c bytes (0x00088670); no constructor writes it
 };
 
 // .?AVCPatrolPath@@  vftable 0x40d564 (5)
@@ -4431,6 +4437,7 @@ public:
     void* f_10;
     int f_14;
     char f_18;
+    int f_1c; // (sweep3) the allocation's last word: new allocates 0x20 bytes (0x001065b0); no constructor writes it
 };
 
 // .?AVCPatrolPathManager@@  vftable 0x40d630 (4)
@@ -5092,6 +5099,7 @@ public:
     int f_4c;
     int f_50;
     int f_54;
+    unsigned int f_58[2]; // (sweep3) a tUID (0x0027af00, set by 0x0027b040): new allocates 0x60 bytes (0x0006ff10)
 };
 
 // .?AVCSmartPropAttachedCondition@@  vftable 0x3f710c (8)
@@ -5277,6 +5285,7 @@ public:
     int f_bc;
     int f_c0;
     int f_c4;
+    unsigned int f_c8[2]; // (sweep3) a tUID (0x0027af00): new allocates 0xd0 bytes (0x00070270)
 };
 
 // .?AVCSmartPropStateCondition@@  vftable 0x3f7250 (8)

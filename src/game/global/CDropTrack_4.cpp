@@ -3,6 +3,7 @@
 #include "tree_prelude.h"
 #include "compat/ptr.h"
 #include "gen/fight.h"
+#include "gen/global.h"
 #include "gen/owners.h"
 #define TREE_TU_BEGIN namespace fn_f586c699 {
 #define TREE_TU_END }
@@ -64,7 +65,7 @@ template <> void* fight::TrackFactoryCasterTemplate<CDropTrack>::vfunc_1(void* _
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VCDropTrack@@@fight@@UAEPAXXZ
 // Same code shape as 0x00075d20 (propagated; names are from that function)
 template <> void* fight::TrackFactoryTemplate<CDropTrack>::vfunc_5() {
-    CAutoTargetTrack_764d0* p = (CAutoTargetTrack_764d0*)FUN_0008d690(0x3c);
+    CAutoTargetTrack_764d0* p = (CAutoTargetTrack_764d0*)FUN_0008d690((unsigned int)sizeof(::CDropTrack));
     if (p)
         return (void*)(p->initialize_00069430());
     return (void*)(0);

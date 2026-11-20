@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/hulkfight.h"
 #define TREE_TU_BEGIN namespace fn_ff2e6cc6 {
 #define TREE_TU_END }
 namespace fn_ff2e6cc6 {} using namespace fn_ff2e6cc6;
@@ -56,7 +57,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::FireGroun
 // 0x001a1240 fight::TrackFactoryTemplate<hulkfight::motion::FireGroundShockwaveTrack>::vfunc_5 (27 B): matches/0x001a1240.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VFireGroundShockwaveTrack@motion@hulkfight@@@fight@@UAEPAXXZ
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::FireGroundShockwaveTrack>::vfunc_5() {
-    Obj_1a1240* p = (Obj_1a1240*)FUN_0008d690(0xb0);
+    Obj_1a1240* p = (Obj_1a1240*)FUN_0008d690((unsigned int)sizeof(::hulkfight::motion::FireGroundShockwaveTrack));
     if (p)
         return (void*)(p->Init_001945b0());
     return (void*)(0);

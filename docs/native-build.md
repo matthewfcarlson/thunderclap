@@ -6365,3 +6365,30 @@ mostly landed (recs1 ec0e69d62, sweep2 1f5b80223 / 517c82262, decl1), but these 
   unchanged: only unpinned COMDATs and native-only lines go. The rebased TUs are re-checked.
 - Native unbound (control 100607 vs proof 100926, each on its own map): mac 10211 -> 10097, linux-x64 10189 -> 10075,
   android-arm64 10202 -> 10088. No new names.
+
+## sweep3 (2026-11-20): allocation sizes from completed gen records (xtu alloc rows, batch 2)
+
+sweep2's allocsize work, continued from build/sweep2/xtu/report.jsonl. Where gen's 32-bit size was below the
+allocation, the gen record is completed from its constructor: the words it writes (tUIDs as `unsigned int[2]`,
+reference holders and vector ranges as pointers), else the allocation's last word with the usual "no constructor
+writes it" note. Then the site's literal becomes `(unsigned int)sizeof(::Gen)`. 23 gen classes in gen/global.h,
+gen/hulkfight.h and gen/pure3d.h (config/gen-sizes.json updated with `--update-sizes`). Two are layout fixes with no
+32-bit change: CPathManager's 0x18..0x24 range as four pointers (0x001aec00 allocates it), and MatrixPaletteList's
+range as two pointers. LightAnimationController's 0x114 word is a pointer (0x002a8aa0 stores an object there).
+- Sites without a gen class take the decls records: HulkCollisionSphere/Cylinder/AABB (decls/physics_world.h) for the
+  collision volumes CCharacter, CGrabAction, CCollisionAction_2, CAmbientsManager, ProjectileGroundShockwave and
+  WorldCollisionObject allocate. gen's physics::CollisionSphere is 0x78 although 0x002efe50 builds a 0x48-byte
+  object, so gen's tail is wrong there and the decls record is the one to use. The shader sites use HulkShader.
+- sweep2's left-outs: CGrappleDrainHealthTrack_2, CGrappleInvincibleTrack, CGrappleSoundTrack and
+  CGrappleAutoTargetTrack now include gen/global.h. Each had a global-namespace class standing for its ??_G-shaped
+  `vfunc_5`; that is now a local record `fn_<addr>::<Class>_<addr5>`, re-pinned with `tree_tu.py pin --records` (pin's
+  own name lookup picked an inline constructor). EffectAction.new_throw's 0x240 is now
+  sizeof(choreo2::AnimationDriver), and 0x001a9b10 no longer moves. CCharacterGolem.iso_000febc0 uses gen's
+  CAgent/CPathAgent (slots vfunc_0/vfunc_1). The CDropTrack (0x00069430) and CAutoTargetTrack (0x00069c50) views had
+  fight::Track's pointer word as an 8-byte or 4-byte pad, so natively the views' fields sat 4 bytes before gen's. They
+  now spell the pointer, and CDropTrack's view loses a 4-byte pad past the 0x3c allocation.
+- Left out: ShadowSkinLoader.iso_002b6930 (its local pure3d::ShadowMeshBufferImpl / ShadowMeshBufferLoader collide
+  with gen/pure3d.h). The VectorCamera constructor view 0x002939a0 pads the base as `char pad[0xd0 - 4]`: natively it
+  is 256 bytes against gen's 252, but gen is the right record.
+- 0x0005b1a0's checker view changed (its dynamic_cast<CFightParams*> sees CFightParams' new size). It was re-proven
+  at 3,000 inputs for msvc, wine and x64 (101374-101376) and hashed in queue job 101381.

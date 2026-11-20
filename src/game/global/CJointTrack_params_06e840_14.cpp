@@ -5,6 +5,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/global.h"
 #define TREE_TU_BEGIN namespace fn_f23caa2f {
 #define TREE_TU_END }
 namespace fn_f23caa2f {} using namespace fn_f23caa2f;
@@ -65,7 +66,7 @@ template <> void* fight::TrackFactoryCasterTemplate<CGrappleSequenceTrack>::vfun
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VCGrappleSequenceTrack@@@fight@@UAEPAXXZ
 // Same code shape as 0x0006f340 (propagated; names are from that function)
 template <> void* fight::TrackFactoryTemplate<CGrappleSequenceTrack>::vfunc_5() {
-    void* p = FUN_0008d690(0x20);
+    void* p = FUN_0008d690((unsigned int)sizeof(::CGrappleSequenceTrack));
     if (p)
         return (void*)(((Helper_6f8e0*)p)->run_0005af30());
     return (void*)(0);

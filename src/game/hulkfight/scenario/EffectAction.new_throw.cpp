@@ -5,6 +5,7 @@
 #include "decls/data/game/global.h"
 #include "decls/data/game/hulkfight/scenario.h"
 #include "gen/fight.h"
+#include "gen/choreo2.h"
 #define TREE_TU_BEGIN namespace fn_fabb071b {
 #define TREE_TU_END }
 namespace fn_fabb071b {} using namespace fn_fabb071b;
@@ -725,7 +726,7 @@ bool AnimSetup::FUN_001a9b10(Out_1a9b10 *out, const char *animName, const char *
         rig = layers->FUN_002226b0();
     }
 
-    void *mem3 = thunk_FUN_0008d690(0x240);
+    void *mem3 = thunk_FUN_0008d690((unsigned int)sizeof(::choreo2::AnimationDriver));
     Driver *nd = 0;
     if (mem3 != 0)
         nd = ((Driver *)mem3)->FUN_00225950(rig, anim);

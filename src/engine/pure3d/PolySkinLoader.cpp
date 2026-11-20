@@ -3,6 +3,7 @@
 #include "tree_prelude.h"
 #include "compat/ptr.h"
 #include "decls/data/engine/content.h"
+#include "gen/pure3d.h"
 #define TREE_TU_BEGIN namespace fn_f2d93049 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CAction
@@ -327,7 +328,7 @@ void pure3d::PolySkinLoader::vfunc_5(PolySkin **out, unsigned __int64 *outId, St
     stream->reader->FUN_002647e0(f.name2, f.len, 1, 1);
     f.name2[f.len] = 0;
 
-    void *mem = thunk_FUN_0008d690(0x78);
+    void *mem = thunk_FUN_0008d690((unsigned int)sizeof(::pure3d::PolySkin));
     PolySkin *skin = 0;
     if (mem != 0) {
         stream->reader->FUN_002647e0(&f.count, 1, 4, 1);
@@ -345,7 +346,7 @@ void pure3d::PolySkinLoader::vfunc_5(PolySkin **out, unsigned __int64 *outId, St
 #endif
     }
     if (skin->shared != 0) {
-        void *m = FUN_0008d690(0x14);
+        void *m = FUN_0008d690((unsigned int)sizeof(::pure3d::BoneMatrixList));
         SkinInfo *si = 0;
         if (m != 0)
             si = ((SkinInfo *)m)->FUN_002e1750(skin->shared->f10 + 1);
@@ -400,7 +401,7 @@ void pure3d::PolySkinLoader::vfunc_5(PolySkin **out, unsigned __int64 *outId, St
                 if (skin->binderShared != 0)
                     skin->binderShared->Release();
                 skin->binderShared = b;
-                void *m = FUN_0008d690(0x18);
+                void *m = FUN_0008d690((unsigned int)sizeof(::pure3d::VertexAnimObject));
                 Binder *nb = 0;
                 if (m != 0)
                     nb = ((Binder *)m)->FUN_002d0fa0(skin);

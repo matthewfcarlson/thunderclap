@@ -3,6 +3,7 @@
 #include "tree_prelude.h"
 #include "compat/ptr.h"
 #include "gen/fight.h"
+#include "gen/global.h"
 #include "gen/owners.h"
 #define TREE_TU_BEGIN namespace fn_f05850fe {
 #define TREE_TU_END }
@@ -48,10 +49,6 @@ class CAutoTargetTrack_765c0 {
     void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 } // namespace fn_f05850fe
-class CGrappleAutoTargetTrack : public CAutoTargetTrack_765c0 {
-  public:
-    CGrappleAutoTargetTrack* vfunc_5(signed char flags);
-};
 
 
 // 0x00076520 fight::TrackFactoryCasterTemplate<CGrappleAutoTargetTrack>::vfunc_1 (60 B): matches/0x00076520.cpp
@@ -89,7 +86,7 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
 // 0x00076590 fight::TrackFactoryTemplate<CGrappleAutoTargetTrack>::vfunc_5 (38 B): matches/0x00076590.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VCGrappleAutoTargetTrack@@@fight@@UAEPAXXZ
 template <> void* fight::TrackFactoryTemplate<CGrappleAutoTargetTrack>::vfunc_5() {
-    void* p = FUN_0008d690(0x3c);
+    void* p = FUN_0008d690((unsigned int)sizeof(::CAutoTargetTrack));
     if (p) {
         ((Track_76590*)p)->Init_00069c50();
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_003fe6c8);
@@ -100,11 +97,16 @@ template <> void* fight::TrackFactoryTemplate<CGrappleAutoTargetTrack>::vfunc_5(
 
 
 // 0x000765c0 CGrappleAutoTargetTrack::vfunc_5 (36 B): matches/0x000765c0.cpp
-// sym: ?vfunc_5@CGrappleAutoTargetTrack@@QAEPAV1@C@Z
+// sym: ?vfunc_5@CGrappleAutoTargetTrack_765c0@fn_000765c0@@QAEPAU12@C@Z
 // Same code shape as 0x0006b7e0 (propagated; names are from that function)
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
-CGrappleAutoTargetTrack* CGrappleAutoTargetTrack::vfunc_5(signed char flags) {
+// (sweep3) a local record: gen/global.h's CGrappleAutoTargetTrack has no such member (the scalar deleting destructor)
+namespace fn_000765c0 {
+struct CGrappleAutoTargetTrack_765c0 : CAutoTargetTrack_765c0 {
+    CGrappleAutoTargetTrack_765c0* vfunc_5(signed char flags);
+};
+CGrappleAutoTargetTrack_765c0* CGrappleAutoTargetTrack_765c0::vfunc_5(signed char flags) {
     *(void***)this = hulk_at_003f98d0;
     Destroy_00236d60();
     if (flags & 1) {
@@ -112,4 +114,5 @@ CGrappleAutoTargetTrack* CGrappleAutoTargetTrack::vfunc_5(signed char flags) {
     }
     return this;
 }
+} // namespace fn_000765c0
 

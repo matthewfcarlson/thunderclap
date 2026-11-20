@@ -1824,3 +1824,26 @@ blocks fight::Action's whole family: the records come first there.
   (a data declaration's header, `void* dst`, data.json's GameLanguageName typing), sitecasts was retyped as the tree has
   it (equivalent, with a new must-fail _wrong variant), and objkeep's kept object pointer now ends at the virtual call
   (it pinned the word for every later epoch).
+
+## 2026-11-20 sweep3: gen records completed from their allocations
+- gen's 32-bit size can be wrong in both directions. Below the allocation, most gaps are the last word that no
+  constructor writes, or tUIDs (0x0027af00) and helper objects the constructor builds in place. Above it, the RTTI
+  merge attributed fields to the wrong class: physics::CollisionSphere is 0x78 in gen, but its constructor 0x002efe50
+  writes 0x48 bytes and every allocation is 0x48. Before writing `sizeof(::Gen)`, compare gen's size with the literal.
+- Hand-written constructor views that pad fight::Track's words (`char pad[8]` after the vftable) put the derived
+  fields 4 bytes early natively, because Track's f_04 is a pointer. The 32-bit code is the same, so only a native
+  size probe (xtu alloc rows) shows it.
+- `tree_tu.py pin` with no records resolves an unpinned block by its name. When the block's function moves into a
+  local record, that lookup can pick an inline constructor of another class in the TU. Pass `--records` with the
+  definition's own symbol.
+
+## 2026-11-20 integ4: stubexit (loops a stub ends)
+- 0x00088020's 7,656 timeouts were not its load loop: they were the anti-piracy check, `if (FUN_00209a8e("D:\\") !=
+  0x800) for (;;) FUN_001bb0b0("TBS_STOP_PIRATING");`. A stubbed disc check returns 0x800 almost never, so almost every
+  input spun in a loop with no exit. The rule treats a guard in front of a loop nothing leaves as a loop condition and
+  sends it to its returning side (0 rounds); inputs that take that path are reported as `stubexit_sealed`.
+- A drain loop (`while (registry->Pending())`) gets n continuing results then one that ends it, decided at the
+  original's call site and replayed by call index into ours. The old loop repair already ends such loops at their
+  first round on small functions, so the rule mostly matters where many inputs time out (0x00088020).
+- 0x002731d0 (DriveThread) is not this case: its loop exits on `s->stopped`, which another thread writes. That needs
+  a model of the flag's writer (a separate item).

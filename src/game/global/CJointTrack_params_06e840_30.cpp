@@ -5,6 +5,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/global.h"
 #define TREE_TU_BEGIN namespace fn_fe34659b {
 #define TREE_TU_END }
 namespace fn_fe34659b {} using namespace fn_fe34659b;
@@ -66,7 +67,7 @@ template <> void* fight::TrackFactoryCasterTemplate<CSmartPropSpawnTrack>::vfunc
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VCSmartPropSpawnTrack@@@fight@@UAEPAXXZ
 // Same code shape as 0x0006fc10 (propagated; names are from that function)
 template <> void* fight::TrackFactoryTemplate<CSmartPropSpawnTrack>::vfunc_5() {
-    Created_70270* p = (Created_70270*)FUN_0008d690(0xd0);
+    Created_70270* p = (Created_70270*)FUN_0008d690((unsigned int)sizeof(::CSmartPropSpawnTrack));
     if (p)
         return (void*)(p->Initialize_00062510());
     return (void*)(0);

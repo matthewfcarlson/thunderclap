@@ -799,6 +799,7 @@ public:
     virtual ~BoneMatrixList(); // overrides core::IRefCount slot 2
     void* f_08;
     void* f_0c;
+    int f_10; // (sweep3) the allocation's last word: new allocates 0x14 bytes (0x002b7e50); no constructor writes it
 };
 
 // .?AVChannel@pure3d@@  vftable 0x42c920 (3)
@@ -1200,6 +1201,7 @@ public:
     hulk_intptr f_40;
     void* f_44;
     int f_48;
+    int f_4c; // (sweep3) 0x002a9cb0 zeroes it with 0x40..0x48: new allocates 0x50 bytes (0x002867b0)
 };
 
 // .?AVExpressionGroup@pure3d@@  vftable 0x42e35c (5)
@@ -1539,6 +1541,9 @@ public:
     virtual bool vfunc_26(void*); // overrides pure3d::AnimationFrameController slot 26
     virtual void vfunc_27(); // overrides pure3d::BlendFrameController slot 27
     virtual void vfunc_28(); // overrides pure3d::BlendFrameController slot 28
+    char _pad_10c[0x4]; // (sweep3) new allocates 0x118 bytes (0x002867b0)
+    int f_110; // (sweep3) 0x002a87c0 sets it to -1
+    void* f_114; // (sweep3) 0x002a87c0 zeroes it; 0x002a8aa0 sets it (a referenced object)
 };
 
 // .?AVLightGroup@pure3d@@  vftable 0x42d694 (5)
@@ -1644,7 +1649,8 @@ public:
 class MatrixPaletteList : public ::pure3d::NonCopyable {
 public:
     virtual ~MatrixPaletteList(); // overrides core::IRefCount slot 2
-    char _pad_08[0x8];
+    unsigned int* f_08; // (sweep3) the palette range (begin, end; 0x002e2a70 clears both): pointers
+    unsigned int* f_0c;
     int f_10;
 };
 
@@ -1689,6 +1695,8 @@ public:
     int f_44;
     void* f_48;
     void* f_4c;
+    int f_50; // (sweep3) the allocation's last two words: new allocates 0x58 bytes (0x002b3340); no constructor writes them
+    int f_54;
 };
 
 // .?AVMultiControllerLoader@pure3d@@  vftable 0x42e49c (6)
@@ -2089,6 +2097,7 @@ public:
     void* f_68;
     hulk_intptr f_6c;
     hulk_intptr f_70;
+    int f_74; // (sweep3) the allocation's last word: new allocates 0x78 bytes (0x002b8090); no constructor writes it
 };
 
 // .?AVPolySkinLoader@pure3d@@  vftable 0x42e6e4 (6)
@@ -2319,6 +2328,7 @@ public:
     SceneGraphTransformAnimationController* FUN_002a7730(); // non-virtual
     char _pad_10c[0x4];
     hulk_intptr f_110;
+    int f_114; // (sweep3) the allocation's last word: new allocates 0x118 bytes (0x002867b0); no constructor writes it
 };
 
 // .?AVSceneGraphVisibilityAnimationController@pure3d@@  vftable 0x42dc24 (27)
@@ -2500,6 +2510,7 @@ public:
     hulk_intptr f_10;   // (x64t20, D105) DrawablePrimitive's word: pointer-sized natively (decls/drawable_container.h)
     char _pad_14[0x2c];
     void* f_40;
+    int f_44; // (sweep3) the allocation's last word: new allocates 0x48 bytes (0x002b6930); no constructor writes it
 };
 
 // .?AVShadowMeshBufferLoader@pure3d@@  vftable 0x42e654 (7)
@@ -3123,6 +3134,7 @@ public:
     int f_e8;
     float f_ec;
     int f_f0;
+    int f_f4; // (sweep3) the allocation's last word: new allocates 0xf8 bytes (0x000a8400); no constructor writes it
 };
 
 // .?AVVertexAnimController@pure3d@@  vftable 0x42da6c (27)
@@ -3184,6 +3196,9 @@ class VertexAnimObject : public ::pure3d::NonCopyable {
 public:
     virtual ~VertexAnimObject(); // overrides core::IRefCount slot 2
     void* f_08;
+    void** f_0c; // (sweep3) the items (begin, end, capacity end: 0x002d0eb0 sizes them; 0x002d0f10 releases each): new allocates 0x18 bytes (0x002c2ab0)
+    void** f_10;
+    void** f_14;
 };
 
 // .?AVVertexAnimPrimGroup@pure3d@@  vftable 0x42fca4 (11)
@@ -3201,6 +3216,7 @@ public:
     int f_50;
     char _pad_54[0x4];
     void* f_58;
+    void* f_5c; // (sweep3) 0x002e0760 sets it with 0x58: new allocates 0x60 bytes (0x002e22c0)
 };
 
 // .?AVVertexList@pure3d@@  vftable 0x42efc0 (3)

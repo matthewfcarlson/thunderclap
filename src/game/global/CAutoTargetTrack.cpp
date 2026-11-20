@@ -81,7 +81,7 @@ hulk_intptr CAutoTargetTrack::vfunc_0(int index) {
 namespace fn_00069c50 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00069c50 @ 0x00069c50
-struct FUN_00236d40 { virtual hulk_intptr placeholder_00069c40(int); char baseData[4]; FUN_00236d40(); };
+struct FUN_00236d40 { virtual hulk_intptr placeholder_00069c40(int); void* baseData; FUN_00236d40(); };   // (sweep3) fight::Track's pointer word
 struct CAutoTargetTrack : FUN_00236d40 {
     int flag;
     int unknownC;

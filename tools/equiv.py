@@ -5061,6 +5061,25 @@ class Run:
         h = mix(self.inp["seed"], 0xCA11, k)
         d = self.inp.get("dictionary")
         mode = self.inp.get("stub_mode")
+        sx_ = self.inp.get("stubexit")
+        if sx_ is not None and self.coverage is not None and not tail and insn.addr in sx_["sites"] and \
+                k not in self.inp.get("ret_override", {}):
+            # (integ4, stubexit; rev5) a loop whose condition is this stub's result (`while (reg->Pending())`, drained
+            # by real code elsewhere): the original's run decides, at its own call site, n continuing results then
+            # one that ends the loop (n drawn from the seed per loop entry), and records it for call #k; ours gets
+            # the same result for its call #k (ret_override, by index: identical on both sides). The body runs
+            # and is compared in full on every round
+            site_ = sx_["sites"][insn.addr]
+            st_ = sx_["state"].setdefault(site_["group"], [0, 0, None])
+            if st_[2] is None:
+                st_[2] = _stubexit_n(self.inp["seed"], site_["group"], st_[0], sx_["cap"][site_["group"]])
+            cont_ = st_[1] < st_[2]
+            if cont_:
+                st_[1] += 1
+            else:
+                sx_["ns"].append(st_[2])
+                st_[0], st_[1], st_[2] = st_[0] + 1, 0, None
+            self.inp.setdefault("ret_override", {})[k] = _stubexit_value(site_, cont_, self.inp["seed"], k)
         if k in self.inp.get("ret_override", {}):
             eax = self.inp["ret_override"][k]
         elif mode == "zero":
@@ -11395,6 +11414,10 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
     back_edges = [(a, i.target) for a, i in oview.insns.items() if i.kind in ("jcc", "jmp") and
                   i.target is not None and i.target <= a and oview.internal_target(i.target)]
     loop_exits = set()
+    # (integ4, stubexit) loop conditions that are a stub's result (static half of the rule; the dynamic half is the
+    # timed-out run's hot loop, in _run_input)
+    sx_sites = _stubexit_sites(oview, prog) if "stubexit" not in EQUIV_OFF else {}
+    sx_hit = [None]
 
     def reenters(t, lo, b):
         """Does the code at t go straight back into the loop [lo, b] (a body block placed after the loop,
@@ -11477,6 +11500,11 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                 if isinstance(k, tuple) and k[0] == "sentinel":      # walk sentinels planted in memory
                     continue
                 if isinstance(k, tuple) and k[0] in ("stubmode", "arity", "unpinned"):   # (round 11) every stub's result; (round 22); (D153)
+                    continue
+                if isinstance(k, tuple) and k[0] == "stubexit":      # (integ4) loop-condition stubs that end their loops
+                    caps_ = dict(v)
+                    inp["stubexit"] = {"sites": {a_: s_ for a_, s_ in sx_sites.items() if s_["group"] in caps_},
+                                       "state": {}, "cap": caps_, "ns": []}
                     continue
                 if isinstance(k, tuple) and k[0] == "sbyte":         # bytes of a stack argument word
                     _, wi, bo, bn = k
@@ -11860,10 +11888,31 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
         """Run one input on both sides; returns the set of new original edges (None if inconclusive)."""
         fr_ = []
         edge_frames.append(fr_)
+        sx_hit[0] = None
         try:
             out_ = _run_input(seed, overlay, stack_patch, label, _vk, _ar, _bf)
         finally:
             edge_frames.pop()
+        sxh_, sx_hit[0] = sx_hit[0], None
+        if out_ is None and sxh_ is not None and not out_of_time():
+            # (integ4, stubexit) the original ran out of steps in a loop whose condition is a stub's result: the same
+            # input again with those stubs ending their loops (a second loop of the kind found then is added too)
+            old_ = dict((stack_patch or {}).get(("stubexit",)) or ())
+            new_ = dict(old_)
+            for g_, c_ in sxh_.items():
+                new_[g_] = min(c_, new_.get(g_, c_))
+            if new_ != old_:
+                pt_ = dict(stack_patch or {})
+                pt_[("stubexit",)] = tuple(sorted(new_.items()))
+                res["stubexit_runs"] = res.get("stubexit_runs", 0) + 1
+                out_ = run_input(seed, overlay, pt_, label=("%s+sx" % (label if label is not None else seed)),
+                                 _vk=_vk, _ar=_ar, _bf=_bf)
+                if out_ is not None and not old_:
+                    res["inputs_stubexit"] = res.get("inputs_stubexit", 0) + 1
+                if out_ is not None and not old_ and any(c_ == 0 for c_ in new_.values()):
+                    # (rev5) inputs compared through a sealed loop's guard (forced to its returning side), apart
+                    res["stubexit_sealed"] = res.get("stubexit_sealed", 0) + 1
+                return out_
         # (integ3, hostcheck; rev5 (c)) the inputs drawn, in order, with what each gave: two hosts that reach the same
         # counts by different inputs differ here
         input_seq.update(("%s|%s|%s\n" % (seed, label, "x" if out_ is None else (len(out_) if hasattr(out_, "__len__") else 1))).encode())
@@ -11927,6 +11976,29 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
         orun.varargs = varargs
         orun.wild_check = True
         o = orun.run(oview.entry)
+        if inp_o.get("stubexit") is not None and inp_o["stubexit"]["ns"]:
+            for n_ in inp_o["stubexit"]["ns"]:
+                res.setdefault("stubexit_n", Counter())[n_] += 1
+        if sx_sites and o["status"] == "timeout" and not o.get("huge_rep"):
+            # (integ4, stubexit) the dynamic half: a site's call repeats in the loop the run ran out of steps in (its
+            # jcc among the hottest compares)
+            top_ = max(orun.jcc_count.values(), default=0)
+            cnt_ = Counter(c_.get("at") for c_ in o["calls"] if c_.get("at") in sx_sites)
+            grp_ = {}
+            tail_ = [c_.get("at") for c_ in o["calls"][-16:]]
+            for a_, c_ in cnt_.items():
+                s_ = sx_sites[a_]
+                if c_ >= 2 and orun.jcc_count.get(s_["jcc"], 0) >= max(8, top_ // 64):
+                    # (at most a quarter of the step budget in the loop: rounds cost what they cost in this run)
+                    per_ = max(1, o.get("steps", steps[0]) // c_)
+                    grp_[s_["group"]] = min(grp_.get(s_["group"], 64), 64, max(1, steps[0] // (4 * per_)))
+                elif s_["guard"] and s_["sealed"] and len(tail_) >= 8 and \
+                        all(x_ is not None and s_["loop"][0] <= x_ <= s_["loop"][1] for x_ in tail_):
+                    # a guard in front of a loop nothing leaves (`if (f() != 0x800) for (;;) g();`), where the run is
+                    # stuck: its only way past is the guard's other side (0 rounds)
+                    grp_[s_["group"]] = 0
+            if grp_:
+                sx_hit[0] = grp_
         if orun.vp_havoc and not _vk and not mach.stable:
             # (round 21, vptrkeep) the original used a pointer word it loaded before a stub, after the stub's memory havoc
             # replaced it: the real callee leaves it alone, so both sides keep it (from the epoch it was loaded in on)
@@ -13740,6 +13812,157 @@ def _float_plant(x, fv, overlay0, patch0, nstack):
         return ov, patch
     ov[(src[2], ea_)] = struct.pack("<I", bits) if bits is not None else struct.pack("<d", fv)
     return ov, dict(patch0 or {})
+
+
+_SX_NOPS = ("nop", "lea", "mov")
+_SX_R8 = {"eax": "al", "ebx": "bl", "ecx": "cl", "edx": "dl"}
+
+
+def _stubexit_sites(view, prog):
+    """(integ4, stubexit; rev5-approved design) The original's loop conditions that are a stubbed callee's result:
+    `call f; [add esp, n;] [mov r, eax;] test al, al | test eax, eax | cmp eax|al, imm; je|jne` where the jcc ends a
+    loop (a back edge, a jump past a loop's end from inside it) or guards one (a jump past the loop that falls into
+    its head). Nothing between the call and the jcc writes memory or calls. {call address: site}; a site says which
+    callee (its group), the jcc, the compare (kind, width, imm) and whether the loop ends when ZF is set."""
+    back = [(a, i.target) for a, i in view.insns.items() if i.kind in ("jcc", "jmp") and
+            i.target is not None and i.target <= a and view.internal_target(i.target)]
+    out = {}
+    for ca, ci in view.insns.items():
+        if ci.kind != "call" or ci.target is None or not view.in_body(ca):
+            continue
+        t = ci.target
+        try:
+            if prog.returns_this(t) or prog.noreturn(t):
+                continue
+        except Exception:   # noqa: BLE001 - an unreadable callee: not a site
+            continue
+        held = {"eax": 32, "al": 8}         # registers holding the result -> the bits they hold
+        a = ca + ci.size
+        cmp_ = None
+        ok = True
+        for _ in range(6):
+            i = view.insns.get(a)
+            if i is None:
+                ok = False
+                break
+            mn, ops = i.mnemonic, i.ops
+            if i.kind == "jcc":
+                break
+            if i.kind != "other" or cmp_ is not None:
+                ok = False
+                break
+            if mn == "add" and ops and ops[0] == ("reg", "esp") and len(ops) == 2 and ops[1][0] == "imm":
+                a += i.size
+                continue
+            if mn in ("mov", "movzx") and len(ops) == 2 and ops[0][0] == "reg" and ops[1][0] == "reg" and \
+                    ops[1][1] in held:
+                w_ = held[ops[1][1]]
+                held[ops[0][1]] = w_
+                if w_ == 32 and ops[0][1] in _SX_R8:
+                    held[_SX_R8[ops[0][1]]] = 8
+                a += i.size
+                continue
+            if mn == "test" and len(ops) == 2 and ops[0] == ops[1] and ops[0][0] == "reg" and ops[0][1] in held:
+                cmp_ = ("test", 8 if ops[0][1] in ("al", "bl", "cl", "dl") or held[ops[0][1]] == 8 else 32, 0)
+                a += i.size
+                continue
+            if mn == "cmp" and len(ops) == 2 and ops[0][0] == "reg" and ops[0][1] in held and ops[1][0] == "imm":
+                w_ = 8 if ops[0][1] in ("al", "bl", "cl", "dl") or held[ops[0][1]] == 8 else 32
+                cmp_ = ("cmp", w_, ops[1][1] & (0xFF if w_ == 8 else M32))
+                a += i.size
+                continue
+            ok = False
+            break
+        if not ok or cmp_ is None:
+            continue
+        j = a
+        ji = view.insns.get(j)
+        if ji is None or ji.kind != "jcc" or ji.target is None or ji.mnemonic not in ("je", "jne", "jz", "jnz"):
+            continue
+        taken_zf = ji.mnemonic in ("je", "jz")
+        nxt = j + ji.size
+        exit_taken = None
+        loop = None
+        if ji.target <= j and view.internal_target(ji.target):
+            exit_taken = False          # a back edge: taken continues the loop
+            loop = (ji.target, j)
+        else:
+            for b, lo in back:
+                if lo <= j < b < ji.target:
+                    exit_taken = True    # a jump past the loop's end from inside it
+                    loop = (lo, b)
+                    break
+            if exit_taken is None:
+                for b, lo in back:
+                    if j < lo < b < ji.target:
+                        # a guard: falls into the loop's head (through padding only) and jumps past its end
+                        x, pad = nxt, True
+                        while x < lo:
+                            px = view.insns.get(x)
+                            if px is None or px.kind != "other" or px.mnemonic not in _SX_NOPS or \
+                                    (px.mnemonic != "nop" and not (len(px.ops) == 2 and (
+                                        px.ops[0] == px.ops[1] or (px.ops[1][0] == "mem" and px.ops[1][1][1] ==
+                                                                   px.ops[0][1] and px.ops[1][1][2] is None and
+                                                                   not px.ops[1][1][4])))):
+                                pad = False
+                                break
+                            x += px.size
+                        if pad and x == lo:
+                            exit_taken = True
+                            loop = (lo, b)
+                            break
+        if exit_taken is None:
+            continue
+        lo_, b_ = loop
+        # (a loop nothing else leaves: no jcc out of it, no ret in it, `do { ... } while (1)` behind a guard)
+        sealed = not any(x_.kind == "ret" or (x_.kind == "jcc" and (x_.target is None or a_ == b_ or
+                                                                   not lo_ <= x_.target <= b_)) or
+                         (x_.kind == "jmp" and (x_.target is None or not lo_ <= x_.target <= b_)) or
+                         # (rev5) a call that may leave without returning (longjmp, a throw, an exit-like callee) is a
+                         # way out too: an indirect call (unknown) or a noreturn callee
+                         (x_.kind == "call" and (x_.target is None or _sx_noreturn(prog, x_.target)))
+                         for a_, x_ in view.insns.items() if lo_ <= a_ <= b_)
+        out[ca] = {"group": t, "jcc": j, "kind": cmp_[0], "width": cmp_[1], "imm": cmp_[2],
+                   "zf_exit": taken_zf == exit_taken, "loop": loop, "guard": j < lo_, "sealed": sealed}
+    return out
+
+
+def _sx_noreturn(prog, t):
+    try:
+        return bool(prog.noreturn(t))
+    except Exception:   # noqa: BLE001 - unreadable: assume it may not return
+        return True
+
+
+def _stubexit_n(seed, group, episode, cap):
+    """(integ4, stubexit) the rounds a loop's condition stub keeps it going before it ends it: 0..3 three times in four,
+    else log-uniform up to the cap (64, lower when that many rounds would not fit the step budget). Drawn from the
+    input's seed: one value, both sides."""
+    h = mix(seed, 0x5E17, group, episode)
+    if h % 4 != 3:
+        n = (h >> 2) % 4
+    else:
+        n = 3 + (1 << ((h >> 4) % 7))
+    return min(n, cap)
+
+
+def _stubexit_value(site, cont, seed, k):
+    """(integ4, stubexit) the result the k-th call returns at a loop-condition site: one that continues the loop
+    (cont) or ends it. `test al` ends with a zero low byte (eax 0, or other bits set) and continues with a nonzero
+    low byte; `test eax` continues with
+    any nonzero eax, 0x100 among them (a side that tests only al would end there); `cmp r, imm` ends with imm
+    (zero-extended) and continues with another value."""
+    h = mix(seed, 0x5E18, k)
+    w, imm = site["width"], site["imm"]
+    if site["kind"] == "test":
+        nz = (1, 0xFF, (h >> 8) & 0xFF | 1)[h % 3] if w == 8 else (1, 0x100, 0x80000000, (h >> 8) & M32 or 1)[h % 4]
+        # (`test al` ends on a zero low byte whatever the rest holds: a bool callee's `mov al, 0` leaves eax's upper
+        # bytes as they were, so a side that tests the whole eax goes on)
+        zero = (0, 0xFFFFFF00, (h >> 8) & 0xFFFFFF00)[(h >> 2) % 3] if w == 8 else 0
+        return (zero if not cont else nz) if site["zf_exit"] else (nz if not cont else zero)
+    other = (imm ^ 1) & (0xFF if w == 8 else M32)
+    hit = imm
+    return (hit if not cont else other) if site["zf_exit"] else (other if not cont else hit)
 
 
 def _patches_fcmp_r8(ob, overlay0, patch0, nstack):

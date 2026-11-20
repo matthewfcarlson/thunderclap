@@ -5,6 +5,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 #include "gen/owners.h"
+#include "gen/global.h"
 #define TREE_TU_BEGIN namespace fn_fbe82a3f {
 #define TREE_TU_END }
 namespace fn_fbe82a3f {} using namespace fn_fbe82a3f;
@@ -65,7 +66,7 @@ template <> void* fight::TrackFactoryCasterTemplate<CSmartPropAttachTrack>::vfun
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VCSmartPropAttachTrack@@@fight@@UAEPAXXZ
 // Same code shape as 0x0006f220 (propagated; names are from that function)
 template <> void* fight::TrackFactoryTemplate<CSmartPropAttachTrack>::vfunc_5() {
-    void* p = FUN_0008d690(0x60);
+    void* p = FUN_0008d690((unsigned int)sizeof(::CSmartPropAttachTrack));
     if (p)
         return (void*)(((InitObj_6ff10*)p)->Init_00062db0());
     return (void*)(0);

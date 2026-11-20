@@ -310,7 +310,7 @@ void Tracker_145b0::FUN_000145b0(int a1, int a2, int a3)
         counter = counter + 1;
         Source_145b0 *s1 = config->source40;
         if (s1 != 0) {
-            void *mem = FUN_0008d690(0x14);
+            void *mem = FUN_0008d690((unsigned int)sizeof(::CFightParams));
             Ref_145b0 *r = 0;
             if (mem)
                 r = ((Ref_145b0 *)mem)->FUN_00059260(owner->f08);
@@ -326,7 +326,7 @@ void Tracker_145b0::FUN_000145b0(int a1, int a2, int a3)
 
         Source_145b0 *s2 = config->source34;
         if (s2 != 0) {
-            void *mem = FUN_0008d690(0x14);
+            void *mem = FUN_0008d690((unsigned int)sizeof(::CFightParams));
             Ref_145b0 *r = 0;
             if (mem)
                 r = ((Ref_145b0 *)mem)->FUN_00059260(cand->link->first);

@@ -3,6 +3,7 @@
 // object 0x000382c0..0x00044910 (kind game, layer game, confidence medium), dominant class CCharacter
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "decls/physics_world.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
@@ -1662,7 +1663,7 @@ char Chara_42b40::Setup(Rig_42b40 *r)
         vA.y = vA.y + rr + f34;
         void *made;
         if (rr < 0.0f) {
-            Obj48 *o48 = (Obj48 *)FUN_0008d690(0x48);
+            Obj48 *o48 = (Obj48 *)FUN_0008d690((unsigned int)sizeof(HulkCollisionSphere));
             if (o48)
                 made = o48->FUN_002efe50(&vA, f34);
             else
@@ -1674,7 +1675,7 @@ char Chara_42b40::Setup(Rig_42b40 *r)
                 bu.c = 1;
                 rr = rr + f34;
             }
-            Obj8c_42b40 *o8c = (Obj8c_42b40 *)FUN_0008d690(0x8c);
+            Obj8c_42b40 *o8c = (Obj8c_42b40 *)FUN_0008d690((unsigned int)sizeof(HulkCollisionCylinder));
             if (o8c) {
                 V3_42b40 up;
                 up.x = 0;
@@ -1697,7 +1698,7 @@ char Chara_42b40::Setup(Rig_42b40 *r)
             FUN_00018810(&f12c, e);
         }
         if (rig->b2f8) {
-            Obj48 *o48 = (Obj48 *)FUN_0008d690(0x48);
+            Obj48 *o48 = (Obj48 *)FUN_0008d690((unsigned int)sizeof(HulkCollisionSphere));
             Obj48 *ob;
             if (o48)
                 ob = o48->FUN_002efe50((V3_42b40 *)rig->f300, rig->f2fc);
