@@ -2036,6 +2036,113 @@ class Program:
 UC_REGS = None
 
 
+def _fast_uc(uc):
+    """(integ5, D155a) Direct ctypes paths for the Machine's hot unicorn calls, the same values as the binding's own:
+    reg_read of a plain register (the binding's default class, a zeroed uint64 the library fills) and mem_read (a
+    fresh buffer of SIZE bytes) skip the binding's per-call class selection and generic argument building. Other
+    registers (MSR, MMR, x87, vector) and any `aux` go to the binding's method. A plain register's value is kept while
+    the CPU stands still: the cache empties on every reg_write, at the entry of every hook call and around emu_start
+    (registers change only there). EQUIV_OFF=fastuc: the binding's own methods."""
+    if "fastuc" in EQUIV_OFF:
+        return uc
+    import ctypes
+    from unicorn.unicorn_py3 import unicorn as ub_
+    from unicorn.unicorn_py3.arch.intel import UcIntel
+    from unicorn import x86_const as u_
+    if uc._select_reg_class(u_.UC_X86_REG_EAX) is not ub_.Uc._DEFAULT_REGTYPE or \
+            uc._select_reg_class(UcIntel.REG_RANGE_FP[0]) is ub_.Uc._DEFAULT_REGTYPE:
+        return uc       # (a binding whose register classes differ from the one this was written against: its own)
+    special = frozenset(UcIntel.REG_RANGE_MSR) | frozenset(UcIntel.REG_RANGE_MMR) | frozenset(UcIntel.REG_RANGE_FP) | \
+        frozenset(UcIntel.REG_RANGE_XMM) | frozenset(UcIntel.REG_RANGE_YMM) | frozenset(UcIntel.REG_RANGE_ZMM)
+    lib, h, u64, byref, ok = ub_.uclib, uc._uch, ub_.Uc._DEFAULT_REGTYPE, ctypes.byref, ub_.uc.UC_ERR_OK
+    sbuf, UcError_ = ctypes.create_string_buffer, ub_.UcError
+    reg_read0, mem_read0 = uc.reg_read, uc.mem_read
+
+    reg_write0, hook_add0, emu_start0 = uc.reg_write, uc.hook_add, uc.emu_start
+    cache = {}      # plain register -> value, while the CPU stands still (inside one hook call, or between runs)
+
+    def reg_read(reg_id, aux=None):
+        if aux is not None or reg_id in special:
+            return reg_read0(reg_id, aux)
+        v_ = cache.get(reg_id)
+        if v_ is not None:
+            return v_
+        v = u64()
+        st = lib.uc_reg_read(h, reg_id, byref(v))
+        if st != ok:
+            raise UcError_(st, reg_id)
+        cache[reg_id] = v_ = v.value
+        return v_
+
+    def reg_write(reg_id, value):
+        cache.clear()       # (any register: eax, ax and al alias; EFLAGS and the x87 words too)
+        return reg_write0(reg_id, value)
+
+    from unicorn import unicorn_const as uconst_
+    cfuncs = {uconst_.UC_HOOK_CODE: ub_.HOOK_CODE_CFUNC, uconst_.UC_HOOK_MEM_WRITE: ub_.HOOK_MEM_ACCESS_CFUNC,
+              uconst_.UC_HOOK_MEM_UNMAPPED: ub_.HOOK_MEM_INVALID_CFUNC, uconst_.UC_HOOK_INTR: ub_.HOOK_INTR_CFUNC}
+    keep = uc.__dict__.setdefault("_fast_hooks", [])     # (the native callbacks live as long as the engine)
+
+    def hook_add(htype, callback, user_data=None, begin=1, end=0, *a):
+        ft_ = cfuncs.get(htype)
+        if ft_ is None or a:
+            def cb_(*args):
+                cache.clear()
+                return callback(*args)
+            return hook_add0(htype, cb_, user_data, begin, end, *a)
+
+        # the binding's own callback wrapper (uccallback + the per-type adapter) in one frame: the callback gets
+        # (uc, *the native arguments without the handle and key*, user_data); an exception is kept for emu_start to
+        # raise and stops the emulation, as the binding does (a mem-invalid hook then returns false)
+        def native(handle, *args):
+            cache.clear()   # the CPU ran since the last hook: every register may have changed
+            try:
+                return callback(uc, *args[:-1], user_data)
+            except BaseException as e:      # noqa: BLE001
+                if uc._hook_exception is None:
+                    uc._hook_exception = e
+                uc.emu_stop()
+        fp_ = ctypes.cast(ft_(native), ft_)
+        hh_ = ub_.uc_hook_h()
+        st = lib.uc_hook_add(h, ctypes.byref(hh_), htype, fp_, ctypes.cast(0, ctypes.c_void_p),
+                             ctypes.c_uint64(begin), ctypes.c_uint64(end))
+        if st != ok:
+            raise UcError_(st)
+        keep.append(fp_)
+        return hh_.value
+
+    def emu_start(*a, **k):
+        cache.clear()
+        try:
+            return emu_start0(*a, **k)
+        finally:
+            cache.clear()
+
+    def mem_read(address, size):
+        data = sbuf(size)
+        st = lib.uc_mem_read(h, address, data, size)
+        if st != ok:
+            raise UcError_(st, address, size)
+        return bytearray(data)
+    uc.reg_read, uc.mem_read, uc.reg_write, uc.hook_add, uc.emu_start = reg_read, mem_read, reg_write, hook_add, emu_start
+
+    # (rev5) every other binding call that changes or bulk-reads the CPU state empties the cache first: none is used
+    # today, so a first use can't read registers the cache kept from before it
+    def clearing(f_):
+        def g_(*a, **k):
+            cache.clear()
+            try:
+                return f_(*a, **k)
+            finally:
+                cache.clear()
+        return g_
+    for nm_ in ("context_restore", "context_update", "reg_write_batch", "reg_read_batch", "ctl_remove_cache",
+                "ctl_flush_tb", "ctl_request_cache"):
+        if hasattr(uc, nm_):
+            setattr(uc, nm_, clearing(getattr(uc, nm_)))
+    return uc
+
+
 def _uc_regs():
     global UC_REGS
     if UC_REGS is None:
@@ -4116,6 +4223,7 @@ class Run:
             UC_HOOK_MEM_WRITE, UC_HOOK_INTR
         from unicorn import x86_const as u
         uc = self.uc = Uc(UC_ARCH_X86, UC_MODE_32)
+        _fast_uc(uc)
 
         def desc(base, limit, access, flags):
             return struct.pack("<HHBBBB", limit & 0xFFFF, base & 0xFFFF, (base >> 16) & 0xFF, access,
