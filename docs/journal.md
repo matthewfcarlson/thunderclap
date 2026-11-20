@@ -1750,3 +1750,17 @@ blocks fight::Action's whole family: the records come first there.
 - **(script2) hack_IsFieldGoal: a `bool` declaration of a `char` definition does not bind natively.** CGame's
   constructor 0x00087e80 declared 0x00096f40 as returning bool, but the definition returns char. MSVC 7.1 compiles
   either the same, while natively i1 and i8 are different signatures, so it stayed unbound. Declared as defined, it binds.
+
+## 2026-11-19 integ3: D152 range contracts, D153 split pins, the queue's base commit
+
+- D152 (8b982fc60): a range contract (`HULK_PRE_GE(dt, 0.0f)` + `// pre: ge(arg4, 0)` + `// pre-callers:`) is enforced
+  natively (a trap) and repaired into in the checker. Expected follow-on: the callers of a contracted block pass it
+  values from their own fuzzed inputs; 0x000a75d0 (the caller of 0x9fb20) comes out `pre_violation_in_original` as soon
+  as 0x9fb20 is contracted (tau is the fuzzed global DAT_0049ec84). Each such caller needs its own contract, or a model
+  of the global (HULK_RANGE / HULK_RDATA with its census), before it can be proven.
+- D153 (345179548): a split of pushed words that only our own code makes is no evidence; a per-input set-aside of the
+  unpinned inputs made a real bug (0x00264050_msplit_noword) promotable, so the rule fails closed at the block.
+- A repair of a contract word must be applied after any directed patch of the same word (a dict update keeps the old
+  key's position): before D152 a patched input could undo the repair (a false failure only).
+- Coverage-ratio regress cases fail deterministically on mac1 with every checker (0x000ffef0_compare_chain,
+  0x002cb2b0_loop_exit_order, 0x003037f0_iterator_range; control 100463): a host difference, not load.
