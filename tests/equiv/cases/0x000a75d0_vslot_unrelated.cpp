@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3046 inputs, branch coverage 130/130)
 // CChaseCamera::vfunc_35 @ 0x000a75d0
 #include "decls/data/game/global.h"
+#include "compat/pre.h"
 
 extern "C" double __cdecl sqrt(double);
 extern "C" void __fastcall __security_check_cookie(unsigned int);
@@ -177,8 +178,16 @@ struct Frame_a75d0 {
     unsigned int cookie;
 };
 
+// (integ4, D152b) the block's range contract, as the tree block states it since 0x0009fb20 / 0x0009faa0 carry theirs
+// pre: ge(arg2, 0) ge(*0x0049eccc.f32, 0) ge(*0x0049ec84.f32, 0) ge(*0x0049ec88.f32, 0)
+// pre-callers: 0x00405690 (CChaseCamera's vftable slot 35)
+// pre-writers: 0x000a79f9 0x000a81ac 0x000a81dd 0x000a8205 0x000a822d
 void CChaseCamera::vfunc_35(float a1, float dt, float a3, float a4)
 {
+    HULK_PRE_GE(dt, 0.0f);
+    HULK_PRE_GE(*(float*)&DAT_0049eccc, 0.0f);
+    HULK_PRE_GE(*(float*)&DAT_0049ec84, 0.0f);
+    HULK_PRE_GE(*(float*)&DAT_0049ec88, 0.0f);
     Frame_a75d0 f;
     f.cookie = DAT_004d9968;
     if (!bf1) {

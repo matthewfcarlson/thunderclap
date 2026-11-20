@@ -3,11 +3,12 @@
 // object 0x000a75d0..0x000a8340 (kind game, layer game, confidence medium), dominant class CChaseCamera
 // (tree_prelude.h: not needed)
 #include "compat/ptr.h"
+#include "compat/pre.h"
 #include "decls/data/game/global.h"
 
 
 // 0x000a75d0 CChaseCamera::vfunc_35 (3401 B): equivalent/0x000a75d0.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?vfunc_35@CChaseCamera@fn_000a75d0@@QAEXMMMM@Z @ee2f8cdee157 @wa4ea870be460 @v0c7ff9cb95a1
+// sym: ?vfunc_35@CChaseCamera@fn_000a75d0@@QAEXMMMM@Z @ee2f8cdee157 @w1edef1dc5691 @v2eb497497757
 namespace fn_000a75d0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20052 inputs, branch coverage 130/130)
 // CChaseCamera::vfunc_35 @ 0x000a75d0
@@ -189,8 +190,23 @@ struct Frame_a75d0 {
     Mat_a75d0 mat2;
 };
 
+// (integ4, D152b) a range contract: dt is the frame time and the camera time constants DAT_0049eccc, DAT_0049ec84 and
+// DAT_0049ec88 are >= 0; it passes dt to 0x000a1ca0 and 0x000a38c0 (ge(dt, 0)), dt and DAT_0049eccc to 0x0009faa0
+// (ge(a, 0) ge(b, 0)) and, through its helper 0x000a8180, dt and DAT_0049ec84 / DAT_0049ec88 to 0x0009fb20 (ge(dt, 0)
+// ge(tau, 0))
+// pre: ge(arg2, 0) ge(*0x0049eccc.f32, 0) ge(*0x0049ec84.f32, 0) ge(*0x0049ec88.f32, 0)
+// pre-callers: 0x00405690 (CChaseCamera's vftable slot 35: the camera manager's per-frame update passes the frame
+// time). play3 to 60000 (Wine build job 100781, HULK_TRACE_FUNCS on 0x0009faa0): the calls from 0x000a7a0f pass this dt
+// as a, in [0, 0.033333], and DAT_0049eccc as b; the calls to 0x0009fb20 from 0x000a8180 pass dt in [0, 0.033333] and
+// tau 0.1 or 1.0 (DAT_0049ec84 / DAT_0049ec88); none negative or NaN
+// pre-writers: 0x000a79f9 (DAT_0049eccc) 0x000a81ac 0x000a81dd 0x000a8205 (DAT_0049ec84) 0x000a822d (DAT_0049ec88): every
+// reference to the three globals, all reads in this block and its helper 0x000a8180; nothing stores them
 void CChaseCamera::vfunc_35(float a1, float dt, float a3, float a4)
 {
+    HULK_PRE_GE(dt, 0.0f);
+    HULK_PRE_GE(*(float*)&DAT_0049eccc, 0.0f);
+    HULK_PRE_GE(*(float*)&DAT_0049ec84, 0.0f);
+    HULK_PRE_GE(*(float*)&DAT_0049ec88, 0.0f);
     Frame_a75d0 f;
     if (!bf1) {
         p248.FUN_000a06d0(&p170);

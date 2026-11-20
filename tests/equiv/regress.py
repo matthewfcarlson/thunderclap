@@ -30,6 +30,12 @@ CASES = {
     "0x000a1b30_pre_domain": ("equivalent", None, 0.8, {"n_inputs": 300}),
     "0x000a1b30_pre_nocensus": ("fail", "L2 pre_census", 0, {"n_inputs": 300}),
     "0x000a1b30_pre_nowriters": ("fail", "L2 pre_census", 0, {"n_inputs": 300}),
+    # (with 0x0009faa0's contract back in src) no own contract, or none on the global it passes: the original breaks
+    # the callee's contract
+    "0x000a1b30_pre_nodomain": ("unsupported", "pre_violation_in_original", 0, {"n_inputs": 300}),
+    "0x000a1b30_pre_noglobal": ("unsupported", "pre_violation_in_original", 0, {"n_inputs": 300}),
+    # (rev5, D152c) a contracted caller of a contracted callee: the trap check's planted just-outside dt reaches our trap
+    "0x000a1ca0_native_pre_trap": ("equivalent", None, 0, {"native": True, "n_inputs": 100}),
     "0x000a1b30_pre_wrongglobal": ("fail", "L2 pre_macro_mismatch", 0, {"n_inputs": 300}),
     # (integ4, stubexit) a loop whose condition is a stub's result ends after n rounds the original's run draws, the
     # same results by call index on ours; the body is compared every round

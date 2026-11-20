@@ -845,13 +845,20 @@ extern "C" int FUN_0009fa70(int* a, int* b, int* c) {
 
 
 // 0x0009faa0 FUN_0009faa0 (117 B): equivalent/0x0009faa0.cpp
-// sym: ?FUN_0009faa0@fn_f69c308d@@YAMMMMM@Z @4c478b5f1506 @w9a87bf26124e
+// sym: ?FUN_0009faa0@fn_f69c308d@@YAMMMMM@Z @4c478b5f1506 @wef425a73393b @v96031bd03c35
 // STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 4/4; Wine build: input 71 differs only past the double exponent range (80-bit st0 overflow), HEAD failed at input 0)
 // FUN_0009faa0 @ 0x0009faa0
-// (integ4) fix126's range contract (828f4444b: ge(arg3, 0) ge(arg4, 0), play3 job 100781) is withdrawn until its
-// caller 0x000a1b30 can be proven under it (the checker's caller-domain rule and a float global range, integ4)
+// (fix126, D152) a range contract: a (a frame time) and b (a time constant) are >= 0; a negative ratio sends exp past
+// the double range where the original's x87 keeps a 15-bit exponent
+// pre: ge(arg3, 0) ge(arg4, 0)
+// pre-callers: 0x000a1c37 0x000a3afa 0x000a7a0f (in 0x000a1b30, 0x000a38c0, 0x000a75d0: a is the caller's frame
+// time, b a camera time-constant global such as DAT_0049ec8c / DAT_0049eccc). play3 to 60000 (Wine build job 100781,
+// HULK_TRACE_FUNCS probes): 2,661 calls, a in [0, 0.033333], b one of 2.0 / 0.3 / 0.1; none negative or NaN. Its
+// callers state their own domains (integ4, D152b: 0x000a1b30, 0x000a38c0, 0x000a75d0, and 0x000a1ca0 above 0x000a1b30)
 hulk_freg __cdecl FUN_0009faa0(float from, float to, float a, float b)
 {
+    HULK_PRE_GE(a, 0.0f);
+    HULK_PRE_GE(b, 0.0f);
     // the original keeps t and r in st0: t = 1 - exp(-(a/b)) and r = from + (to - from) * t are never rounded;
     // only the dead-zone test uses r stored to float (fst), and the unrounded r is returned
     hulk_freg t;
@@ -1977,11 +1984,20 @@ void Mover_a1930::FUN_000a1930(V3_a1930 pos, int newMode)
 
 
 // 0x000a1b30 FUN_000a1b30 (354 B): equivalent/0x000a1b30.cpp
-// sym: ?FUN_000a1b30@Smoother@fn_f69c308d@@QAEXPAUOwner_a1b30@2@M_N@Z @0098808b04a9 @wb99888763580 @v6ec79cc80a30
+// sym: ?FUN_000a1b30@Smoother@fn_f69c308d@@QAEXPAUOwner_a1b30@2@M_N@Z @0098808b04a9 @we15295b49ee5 @v775091451ed6
 // STATUS: equivalent (tools/equiv.py level 3: 70 inputs, branch coverage 23/24, incomplete)
 // FUN_000a1b30 @ 0x000a1b30
+// (integ4, D152b) a range contract: dt is the frame time and DAT_0049ec8c (a camera time constant) >= 0; it passes both
+// on to 0x0009faa0, whose contract is ge(a, 0) ge(b, 0)
+// pre: ge(arg2, 0) ge(*0x0049ec8c.f32, 0)
+// pre-callers: 0x000a1fcb (in 0x000a1ca0: its own frame time) 0x000a63e5 (in 0x000a62c0: 0, with snap set). play3 to
+// 60000 (Wine build job 100781, HULK_TRACE_FUNCS on 0x0009faa0): every call from 0x000a1c37 passes this dt as a, in
+// [0, 0.033333], and DAT_0049ec8c as b, 2.0; none negative or NaN
+// pre-writers: 0x000a1c21 (the global's only reference, this block's read: nothing stores it; the XBE's .data holds 2.0)
 void Smoother::FUN_000a1b30(Owner_a1b30 *owner, float dt, bool snap)
 {
+    HULK_PRE_GE(dt, 0.0f);
+    HULK_PRE_GE(*(float*)&DAT_0049ec8c, 0.0f);
     if (snap)
         timer = 0.0f;
 
@@ -2017,11 +2033,16 @@ void Smoother::FUN_000a1b30(Owner_a1b30 *owner, float dt, bool snap)
 
 
 // 0x000a1ca0 FUN_000a1ca0 (1074 B): equivalent/0x000a1ca0.cpp
-// sym: ?FUN_000a1ca0@CChaseCamera_a1ca0@fn_f69c308d@@QAEXPAUOwner_a1ca0@2@M@Z @57a7bfe627eb @we67a6b9a321a @v3a78c639adcf
+// sym: ?FUN_000a1ca0@CChaseCamera_a1ca0@fn_f69c308d@@QAEXPAUOwner_a1ca0@2@M@Z @57a7bfe627eb @wafaa2efc2a02 @v5d6d1b100e72
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 38/38)
 // FUN_000a1ca0 @ 0x000a1ca0
+// (integ4, D152b) a range contract: dt is the frame time (>= 0); it passes dt on to 0x000a1b30 (ge(dt, 0))
+// pre: ge(arg2, 0)
+// pre-callers: 0x000a763b (in 0x000a75d0, CChaseCamera::vfunc_35: its own frame time). play3 to 60000 (Wine build job
+// 100781): the dt that reaches 0x0009faa0 through 0x000a1b30 is in [0, 0.033333]; never negative or NaN
 void CChaseCamera_a1ca0::FUN_000a1ca0(Owner_a1ca0 *owner, float dt)
 {
+    HULK_PRE_GE(dt, 0.0f);
     struct Frame {
         V3_a1ca0 tmp1;
         V3_a1ca0 tmp2;
@@ -2917,7 +2938,7 @@ void CChaseCamera_a2f90::FUN_000a2f90(float x, int unused, float z, int arg)
 } // namespace fn_f69c308d
 
 // 0x000a38c0 FUN_000a38c0 (2950 B): equivalent/0x000a38c0.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?Update@CChaseCamera_a38c0@fn_000a38c0@@QAEXMM@Z @4fe3c43dd133 @we76e486943ef @v6a66dde0b344
+// sym: ?Update@CChaseCamera_a38c0@fn_000a38c0@@QAEXMM@Z @4fe3c43dd133 @w754c15c45183 @ve450f9a4ee42
 namespace fn_000a38c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20097 inputs, branch coverage 96/100, incomplete)
 // FUN_000a38c0 @ 0x000a38c0
@@ -3034,8 +3055,17 @@ public:
     void Update(float unused, float dt);
 };
 
+// (integ4, D152b) a range contract: dt is the frame time and DAT_0049ecd8 (a camera time constant) >= 0; it passes both
+// on to 0x0009faa0 (ge(a, 0) ge(b, 0))
+// pre: ge(arg2, 0) ge(*0x0049ecd8.f32, 0)
+// pre-callers: 0x000a7ecd (in 0x000a75d0, CChaseCamera::vfunc_35: its own frame time). play3 to 60000 (Wine build job
+// 100781, HULK_TRACE_FUNCS on 0x0009faa0): the calls from 0x000a3afa pass this dt as a, in [0, 0.033333], and
+// DAT_0049ecd8 as b; none negative or NaN
+// pre-writers: 0x000a3adc 0x000a3ae8 (the global's only references, this block's reads: nothing stores it)
 void CChaseCamera_a38c0::Update(float unused, float dt)
 {
+    HULK_PRE_GE(dt, 0.0f);
+    HULK_PRE_GE(*(float*)&DAT_0049ecd8, 0.0f);
     Frame_a38c0 f;
     float dt0 = dt;
 

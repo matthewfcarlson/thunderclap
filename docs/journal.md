@@ -2023,3 +2023,11 @@ blocks fight::Action's whole family: the records come first there.
 - 0x00207960 passes its one-byte flag union to 0x00203e90's `bool` natively as `flag.on != 0` (`HULK_PTR64` branch).
   MSVC 7.1 pushes the parameter's whole word, which the 32-bit side keeps.
 - 2026-11-20 (decl1) The two no-prelude iso TUs left out of 67f3d89a8 (unk_0240b0.iso_00027630 and iso_00029010) include compat/ptr.h, as the other iso TUs do, and declare 0x002672f0 with hulk_intptr. A TU marked `(tree_prelude.h: not needed)` has no hulk_intptr, so a generator that writes it there makes the TU fail to compile (`tu_failed`) and materialize refuses its equivalent blocks as unproven.
+
+## 2026-11-20 integ4: the frame-time contract chain
+- 0x0009faa0's `ge(a, 0) ge(b, 0)` is back (withdrawn in eb4c8feaa). Each caller now states its own domain:
+  0x000a1b30, 0x000a1ca0, 0x000a38c0 and 0x000a75d0 (CChaseCamera::vfunc_35) take a frame time >= 0, and the
+  camera time-constant globals they pass on (DAT_0049ec8c, ecd8, eccc, ec84, ec88) are >= 0. Each global has a
+  single reader and no writer. The chain ends at vfunc_35's vftable slot, which no caller probe can follow.
+- The --wine trap check could not see past D152b's outside-domain drop (fixed in D152c). With the fix, every link
+  traps on a planted -1.4e-45.

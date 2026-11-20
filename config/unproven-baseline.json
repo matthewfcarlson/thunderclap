@@ -138,17 +138,6 @@
    },
    "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
   },
-  "0x0009faa0": {
-   "modes": {
-    "wine": {
-     "code": "9a87bf26124e",
-     "accepted": "2026-11-20T08:57:47",
-     "by": "unproven-accept",
-     "why": "integ4: fix126's D152 contract (828f4444b) withdrawn: its caller 0x000a1b30 cannot be re-proven under it yet (pre_violation_in_original on fuzzed dt / DAT_0049ec8c; jobs 102922/102923/102928). Back to the pre-contract code, which was listed here before 828f4444b; re-added with 0x000a1b30's own contract after the checker's caller-domain rule"
-    }
-   },
-   "why": "integ4: fix126's D152 contract (828f4444b) withdrawn: its caller 0x000a1b30 cannot be re-proven under it yet (pre_violation_in_original on fuzzed dt / DAT_0049ec8c; jobs 102922/102923/102928). Back to the pre-contract code, which was listed here before 828f4444b; re-added with 0x000a1b30's own contract after the checker's caller-domain rule"
-  },
   "0x000a2800": {
    "modes": {
     "msvc": {
@@ -1346,5 +1335,5 @@
    "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
   }
  },
- "total": 149
+ "total": 148
 }
