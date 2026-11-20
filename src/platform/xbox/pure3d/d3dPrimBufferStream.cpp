@@ -46,17 +46,18 @@ struct d3dPrimBuffer_nv_327050 {
     void BaseDestroy();
 };
 struct VertexFormat_3270c0 { char pad[0x10]; int stride; };
-struct BufferOwner { char pad0[0x1c]; int count; char pad1[0x10]; void *buffer; char pad2[8]; VertexFormat_3270c0 *format; void FUN_003270c0(int n); };
+// (find3) gen d3dPrimBuffer's words (was char pad0[0x1c] / pad1[0x10] / pad2[8]: 32-bit offsets)
+struct BufferOwner { void* vftable; int refs, f08; void* device; int f10, f14; unsigned int f18; int count; int f20, f24, f28; void* indexBuffer; void *buffer; unsigned char f34, f35, f36, f37; void* context; VertexFormat_3270c0 *format; void FUN_003270c0(int n); };
 namespace D3D8 {
 void * __stdcall D3DDevice_CreateVertexBuffer2(int);
 }
-void __cdecl FUN_0031e210(void *);
-extern "C" void __cdecl FUN_0031e1f0(void *,int);
-extern "C" void __stdcall D3DResource_Release(int);
-extern "C" void FreeOld(int);
-extern "C" int __stdcall CreateIndexBuffer(int);
-extern "C" void CheckError(unsigned int);
-extern "C" void InitIndex(int, int);
+// (find3) as defined: 0x0031e210 / 0x0031e1f0 (pddiBaseContext.cpp) take the resource as hulk_intptr, 0x0031c230
+// (d3dDevice.cpp) the error code; the D3D resources are pointers (the XDK shim's hulk_uptr)
+extern "C" void FUN_0031e210(hulk_intptr x);
+extern "C" void FUN_0031e1f0(hulk_intptr a, int b);
+extern "C" void __stdcall D3DResource_Release(void*);
+extern "C" void* __stdcall D3DDevice_CreateIndexBuffer2(int);
+extern "C" void __cdecl FUN_0031c230(int code);
 class pddiObject_3271f0 {
   public:
     virtual void v0();
@@ -341,17 +342,21 @@ struct d3dPrimBufferStream_nv_327750 {
 }
 namespace fn_fd8cb2f6 {
 extern "C" char DAT_004334b4[];   // (decl1) was `int vt_3277b0` (a C++ name bound nowhere natively)
+// (find3) the prim buffer's words as gen d3dPrimBuffer lays them out: the device, the buffers, the context and the
+// shader are pointers (were ints; natively the constructor read the context's display at the raw 32-bit +0x154)
 class d3dPrimBuffer_3277b0 {
   public:
-    d3dPrimBuffer_3277b0(int arg);
-    void InitBase();
+    d3dPrimBuffer_3277b0(hulk_intptr arg);
+    d3dPrimBuffer_3277b0* FUN_0031bac0();   // (find3) pddiObject's constructor 0x0031bac0 (d3dDevice.cpp) by its address (`InitBase` had no native definition)
     hulk_intptr p0;
     int p4, p8;
-    int m0c;
+    void* m0c;
     int p10, p14;
-    int m18, m1c, m20, m24, m28, m2c, m30;
+    int m18, m1c, m20, m24, m28;
+    void* m2c;
+    void* m30;
     unsigned char b34, b35, b36;
-    int m38;
+    ::pure3d::d3dContext* m38;
 };
 typedef unsigned int U_327800;
 extern int vtd[], vtp[];
@@ -391,12 +396,17 @@ extern void __cdecl destroy(d3dPrimBuffer*);
 struct SkinSource_327860 {
     void *FUN_00321da0(const char *name, int index, unsigned int flags, int one);
 };
-struct Skin_327860 {
-    char pad0[0x10];
+struct Skin_327860 {   // (find3) gen d3dPrimBuffer's words (was char pad0[0x10] / pad1[0x1c]: 32-bit offsets)
+    void* vftable;
+    int refs, f08;
+    void* device;
     int field_10;
     int index;
     unsigned int flags;
-    char pad1[0x1c];
+    int vertexCount, indexCount, overrideCount, f28;
+    void* indexBuffer;
+    void* vertexBuffer;
+    unsigned char locked, indexLocked, f36, pad37;
     SkinSource_327860 *source;
     void *result;
     void FUN_003270c0(int a);
@@ -503,18 +513,18 @@ void pure3d::d3dPrimBuffer::vfunc_14(int x) {
 namespace fn_fd8cb2f6 {
 
 // 0x003270c0 FUN_003270c0 (105 B): equivalent/0x003270c0.cpp
-// sym: ?FUN_003270c0@BufferOwner@fn_fd8cb2f6@@QAEXH@Z @e8c5649216e3 @wc720d4b57744 @vcb088a17008e
+// sym: ?FUN_003270c0@BufferOwner@fn_fd8cb2f6@@QAEXH@Z @e8c5649216e3 @wc720d4b57744 @v6e413afa1d84
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // FUN_003270c0 @ 0x003270c0
 void BufferOwner::FUN_003270c0(int n) {
     count = n;
     if (buffer) {
         D3D8::D3DResource_Release(buffer);
-        FUN_0031e210(buffer);
+        FUN_0031e210((hulk_intptr)buffer);
     }
     buffer = D3D8::D3DDevice_CreateVertexBuffer2(format->stride * count);
     int result = buffer ? 0 : 0x8007000e;
-    FUN_0031e1f0(buffer, format->stride * count);
+    FUN_0031e1f0((hulk_intptr)buffer, format->stride * count);
     FUN_0031c230(result);
 }
 
@@ -523,18 +533,20 @@ void BufferOwner::FUN_003270c0(int n) {
 // 0x00327130 FUN_00327130 (96 B): matches/0x00327130.cpp
 // sym: ?FUN_00327130@Buffer_327130@owners@@QAEXH@Z
 void owners::Buffer_327130::FUN_00327130(int n) {
-    int old = resource;
+    // (find3) the D3D index buffer 0x00382ce0 and the helpers by their own names (the invented CreateIndexBuffer /
+    // FreeOld / CheckError / InitIndex had no native definitions), the buffer a pointer
+    void* old = resource;
     count = n;
     if (old) {
         D3DResource_Release(old);
-        FreeOld(resource);
+        FUN_0031e210((hulk_intptr)resource);
     }
     resource = 0;
     if (n) {
         int size = n + n;
-        resource = CreateIndexBuffer(size);
-        CheckError((resource != 0) - 1 & 0x8007000e);
-        InitIndex(resource, size);
+        resource = D3DDevice_CreateIndexBuffer2(size);
+        FUN_0031c230((resource != 0) - 1 & 0x8007000e);
+        FUN_0031e1f0((hulk_intptr)resource, size);
     }
 }
 
@@ -606,7 +618,7 @@ int pure3d::d3dPrimBuffer::vfunc_7() {
 // sym: ?vfunc_8@d3dPrimBuffer@pure3d@@UAEXI@Z
 void pure3d::d3dPrimBuffer::vfunc_8(unsigned int x) {
     *((char*)&this->f_35) = 0;
-    *((unsigned int*)this + 9) = x;
+    *(unsigned int*)&this->f_24 = x;   // (find3) the override count (was word 9: the 32-bit offset)
 }
 
 
@@ -632,7 +644,7 @@ hulk_uintptr d3dPrimBuffer::target(int arg) {
 // 0x00327280 pure3d::d3dPrimBuffer::vfunc_12 (5 B): matches/0x00327280.cpp
 // sym: ?vfunc_12@d3dPrimBuffer@pure3d@@UAEXXZ
 void pure3d::d3dPrimBuffer::vfunc_12() {
-    *((char*)this + 0x36) = 0;
+    this->f_36 = 0;   // (find3) was the raw 32-bit +0x36
 }
 
 
@@ -655,7 +667,7 @@ void pure3d::d3dPrimBuffer::vfunc_9(void* __p0, int count) { const void * src = 
 namespace fn_fd8cb2f6 {
 
 // 0x003272f0 FUN_003272f0 (238 B): equivalent/0x003272f0.cpp
-// sym: ?Draw@MeshBatch@fn_fd8cb2f6@@QAEXXZ @4f005e690c95 @w60922866e0ed @vde3b71046187
+// sym: ?Draw@MeshBatch@fn_fd8cb2f6@@QAEXXZ @4f005e690c95 @w60922866e0ed @v1e863011ce12
 // STATUS: equivalent (tools/equiv.py level 3: 3008 inputs, branch coverage 10/10)
 // FUN_003272f0 @ 0x003272f0
 // equiv-conv: FUN_00326dc0 eax ecx
@@ -906,8 +918,8 @@ namespace fn_fd8cb2f6 {
 
 // 0x003277b0 FUN_003277b0 (71 B): matches/0x003277b0.cpp
 // sym: ??0d3dPrimBuffer_3277b0@fn_fd8cb2f6@@QAE@H@Z
-d3dPrimBuffer_3277b0::d3dPrimBuffer_3277b0(int arg) {
-    InitBase();
+d3dPrimBuffer_3277b0::d3dPrimBuffer_3277b0(hulk_intptr arg) {
+    FUN_0031bac0();
     m18 = 0;
     m1c = 0;
     m20 = 0;
@@ -918,9 +930,9 @@ d3dPrimBuffer_3277b0::d3dPrimBuffer_3277b0(int arg) {
     b34 = 0;
     b35 = 0;
     b36 = 0;
-    m38 = arg;
+    m38 = (::pure3d::d3dContext*)arg;
     this->p0 = (hulk_intptr)&(*(int*)&DAT_004334b4);
-    m0c = *(int*)(*(hulk_intptr*)((char*)arg + 0x154) + 0x10);
+    m0c = ((::pure3d::d3dDisplay*)((::pure3d::d3dContext*)arg)->f_154)->f_10;   // the context's display's D3D device
 }
 
 

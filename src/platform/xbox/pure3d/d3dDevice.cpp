@@ -75,16 +75,19 @@ struct d3dTexture_31b8a0 {
 struct Params_31b960 {
     int p0, p1, p2, p3, p4, p5, p6, p7;
 };
-void* Alloc(hulk_uintptr n);
 } // namespace fn_f2bbfa1e
 inline void* operator new(size_t, void* p) {
     return p;
 }
 namespace fn_f2bbfa1e {
+// (find3) the prim buffer the device makes (gen d3dPrimBuffer; d3dPrimBufferStream.cpp): built by its constructor
+// 0x003277b0 and set up by 0x00327860, both by their address names as defined (the context a pointer, the name a
+// string; `Impl_31b960(int)` and `Setup(..., hulk_intptr)` had no native definition: missing). The slots are the
+// game's (the constructor stores 0x004334b4).
 class Impl_31b960 {
   public:
-    Impl_31b960(int ctx);
-    void Setup(int a, int b, int c, int d, int e, hulk_intptr f);   // (decl1) passes as defined
+    Impl_31b960* FUN_003277b0(hulk_intptr ctx);
+    void FUN_00327860(int index, unsigned int flags, int unused, int vertices, int indices, const char* name);
     virtual void v0();
     virtual void v1();
     virtual int v2();
@@ -299,13 +302,14 @@ void* pure3d::d3dDevice::vfunc_9(hulk_intptr __p0) { Params_31b8a0 * p = (Params
 // sym: ?vfunc_10@d3dDevice@pure3d@@UAEPAXPAX@Z
 void* pure3d::d3dDevice::vfunc_10(void* __p0) { Params_31b960 * p = (Params_31b960 *)__p0;
 
-    void* m = Alloc((int)sizeof(::pure3d::d3dPrimBuffer));   // (allocsize1) the size by gen's record
+    // (find3) the game's operator new 0x0008d690 (D131; `Alloc` was an invented name with no native definition)
+    void* m = FUN_0008d690((unsigned int)sizeof(::pure3d::d3dPrimBuffer));   // (allocsize1) the size by gen's record
     Impl_31b960* o;
     if (m)
-        o = new (m) Impl_31b960(this->f_0c);
+        o = ((Impl_31b960*)m)->FUN_003277b0(this->f_0c);
     else
         o = 0;
-    o->Setup(p->p0, p->p1, 0, p->p4, p->p5, p->p7);
+    o->FUN_00327860(p->p0, p->p1, 0, p->p4, p->p5, (const char*)(hulk_intptr)p->p7);
     this->f_08 = o->v2();
     if (this->f_08 != 1) {
         o->v3(1);

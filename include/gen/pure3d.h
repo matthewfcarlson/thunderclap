@@ -4236,20 +4236,26 @@ public:
     virtual void vfunc_13(int, int); // overrides pure3d::pddiPrimBuffer slot 13
     virtual void vfunc_14(int); // overrides pure3d::pddiPrimBuffer slot 14
     void FUN_00327050(); // non-virtual
-    int f_0c;
-    char _pad_10[0x8];
-    int f_18;
-    int f_1c;
-    int f_20;
-    int f_24;
+    // (find3) the prim buffer's words (0x003277b0 builds it; 0x003272f0 draws it; 0x00327860 sets it up): the D3D
+    // device, the prim type and kind, the format flags, the vertex / index / override counts, the index and vertex
+    // buffers, the lock flags, the context and the shader. The device, the context and the shader are pointers
+    // (were ints: natively the constructor read the context's display at the 32-bit +0x154)
+    void* f_0c;           // the D3D device (the context's display's f_10)
+    int f_10;             // the D3D primitive type
+    int f_14;             // the pddi primitive kind
+    unsigned int f_18;    // the vertex format flags
+    int f_1c;             // the vertex count
+    int f_20;             // the index count
+    int f_24;             // the override count
     int f_28;
-    void* f_2c;
-    void* f_30;
-    char f_34;
-    unsigned char f_35;
-    char _pad_36[0x2];
-    int f_38;
-    int f_3c;
+    void* f_2c;           // the index buffer
+    void* f_30;           // the vertex buffer
+    char f_34;            // the vertex buffer is locked
+    unsigned char f_35;   // the index buffer is locked
+    char f_36;
+    char _pad_37[0x1];
+    void* f_38;           // the d3dContext
+    void* f_3c;           // the shader (0x00321da0's result)
 };
 
 // .?AVpddiPrimBufferStream@pure3d@@  vftable 0x433464 (18)

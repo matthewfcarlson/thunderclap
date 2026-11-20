@@ -6206,3 +6206,37 @@ mostly landed (recs1 ec0e69d62, sweep2 1f5b80223 / 517c82262, decl1), but these 
    raw 32-bit offset +0x154: a d3dPrimBuffer record cluster (unowned; next stop to fix).
 6. Headless (not under lldb) start-up instead dies in FUN_002672f0 via X::X (0x0027b0e0) with a sub-4 GB name pointer
    after stop 4's stand-in: the stops differ with memory layout, as the lead saw; not yet traced.
+
+### find3, continued: the prim buffer / d3dContext cluster (stops 5 and 7; 2026-11-19)
+
+- **Stop 5 (d3dPrimBuffer, d3dDevice::vfunc_10 0x0031b960):** gen pure3d::d3dPrimBuffer is a typed record (the D3D device
+  f_0c, the prim type / kind / flags, the counts, the index and vertex buffers f_2c / f_30, the lock flags, the
+  d3dContext f_38 and the shader f_3c; pointers where they were ints; 0x40 bytes on 32-bit as before). The
+  constructor 0x003277b0 takes the context as hulk_intptr and reads the device through gen d3dContext::f_154 ->
+  d3dDisplay::f_10 (was the raw `+0x154`, then `+0x10`), and calls pddiObject's constructor 0x0031bac0 by its address
+  name (`InitBase` had no native definition). Its views (Skin_327860 0x00327860, BufferOwner 0x003270c0, owners.h
+  Buffer_327130 0x00327130, MeshBatch 0x003272f0) are laid out on the record's words; 0x00327130 calls the index
+  buffer 0x00382ce0 (D3DDevice_CreateIndexBuffer2) and 0x0031e210 / 0x0031c230 / 0x0031e1f0 by their own names (the
+  invented CreateIndexBuffer / FreeOld / CheckError / InitIndex bound nowhere natively); vfunc_8 / vfunc_12 write
+  fields instead of the 32-bit word 9 / byte 0x36. d3dDevice::vfunc_10 allocates with the game's operator new
+  0x0008d690 (D131; was an invented `Alloc`) and builds and sets up the buffer by 0x003277b0 / 0x00327860 as defined.
+  0x00321da0 reads the context's shader cache at HULK_D3DCTX_PAD(f_208) and calls 0x003290e0 by its address name
+  (`go` had no native definition).
+- **Stop 7 (the shader cache f_208 overwritten):** the d3dContext constructor 0x00324e00 does store the cache at gen's
+  f_208 (native +0x278); an lldb watchpoint found the overwrite: d3dContext::vfunc_110 0x003212d0 copies a light
+  matrix to the raw 32-bit `+0x20c + n*0x40` and sets flags at `+0x40c + n` / `+0x414`, natively on top of f_204 /
+  f_208. It and the lighting view 0x00321310 (`char pad0[0x50]`, `pad1[0x20c - 0x54]`) now use HULK_D3DCTX_PAD.
+- Checks: every matches block MATCH with relocations ok; 0x003270c0 and 0x003272f0 (views changed) re-proven at 3,000
+  inputs, MSVC and --wine (jobs 97595-97598), recorded with hash --proven (re-run in a clean queue job: identical);
+  the header edit flips the known mover 0x002ea3c0 (D139), re-pinned with hash --from-ledger. Whole-tree verify
+  --relocs (98414): 0 errors, gen probe ok. x64 gate ok (0x00327220 improved, dropped from the baseline). Wine pair on
+  studio, play3 to 60000: control 98423 (48eca56ee), proof 100010 (seed:98423): ckpt_gate GATE ok (0 of 2,002 common
+  frames differ). Native mac: start-up gets through the prim buffer's construction, set-up and shader lookup.
+- **Stop 8 (the shader cache's count):** ShaderCache_3290e0 (0x003290e0, d3dVertexProgram.cpp) began `int pad0; count`
+  where the cache's record (include/platform/xbox/pure3d.h Registry_329430, built by 0x00329430) begins with the
+  owner pointer: natively the count was read 4 bytes early. Fixed in a separate commit (32-bit unchanged; x64 gate ok).
+  The entries' shader `handle` is still a 32-bit word (the XDK shim's shaders are pointers): next to check.
+- **Stop 9 (next):** d3dDevice::vfunc_10 now returns null: the prim buffer's status slot 2 does not report 1 after
+  Setup, and its delete path 0x00327800 calls an invented `cleanup` (missing); CDecalQueue 0x00280690 then calls the
+  null instance. Also missing on this path: EffectQueue's `Entity_280120` constructor and `EffectQueue::v`.
+- Stop 6 (the script argument buffer's 4-byte slots) went to script2.

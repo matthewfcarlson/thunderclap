@@ -16535,10 +16535,11 @@ struct Obj_326b00 {
 };
 // matches/0x00327130.cpp (stub Buffer_327130), size 0x30
 struct Buffer_327130 {
-    char pad0[0x20]; // +0x00
-    int count; // +0x20
-    char pad24[8]; // +0x24
-    int resource; // +0x2c
+    // (find3) gen pure3d::d3dPrimBuffer's words (was char pad0[0x20] / pad24[8]; the index buffer a pointer)
+    void* vftable; int refs, f08; void* device; int f10, f14; unsigned int f18; int f1c; // +0x00
+    int count; // +0x20 the index count
+    int f24, f28; // +0x24
+    void* resource; // +0x2c the index buffer
     void FUN_00327130(int n);
 };
 // matches/0x00328250.cpp (stub C_328250), size 0x4

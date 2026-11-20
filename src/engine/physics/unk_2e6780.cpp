@@ -2508,7 +2508,7 @@ void* __cdecl FUN_002ea320(Manager_2ea320* m, hulk_intptr param2, int param3) {
 } // namespace fn_fb0f1f83
 
 // 0x002ea3c0 FUN_002ea3c0 (2870 B): equivalent/0x002ea3c0.cpp [wrapped: macros]
-// sym: ?FUN_002ea3c0@fn_002ea3c0@@YAHPAUZInflateBlocks@@PAUZStream@@H@Z @a290fa3b15be @w99b685128fb5 @v172021351f54
+// sym: ?FUN_002ea3c0@fn_002ea3c0@@YAHPAUZInflateBlocks@@PAUZStream@@H@Z @f76878f230af @w99b685128fb5 @v172021351f54
 namespace fn_002ea3c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 19923 inputs, branch coverage 133/142, incomplete)
 // FUN_002ea3c0 @ 0x002ea3c0

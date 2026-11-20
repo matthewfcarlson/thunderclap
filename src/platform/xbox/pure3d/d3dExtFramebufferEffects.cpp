@@ -220,10 +220,10 @@ void __stdcall D3DDevice_SetLight(DWORD index, Light8_321310* light);
 namespace D3D8 {
 void __stdcall D3DDevice_LightEnable(DWORD index, int enable);
 }
-struct LightingState {
-    char pad0[0x50];
+struct LightingState {   // (find3) the context's words at gen d3dContext's offsets (were 32-bit pads)
+    char pad0[HULK_D3DCTX_PAD(f_50, 0x50, 0)];
     LightSet_321310* set;
-    char pad1[0x20c - 0x54];
+    char pad1[HULK_D3DCTX_PAD(_pad_20c, 0x20c, HULK_D3DCTX_PAD(f_50, 0x50, 0) + sizeof(void*))];
     MatrixData_321310 matrices[8];
     unsigned char dirty[8];
     unsigned char anyDirty;
@@ -422,11 +422,13 @@ namespace pure3d {
 class pddiRenderContext_321d90 {};
 }
 namespace fn_f57e27cb {
+// (find3) the context's shader cache (gen d3dContext f_208) and its lookup 0x003290e0 (d3dVertexProgram.cpp) by its
+// address name as defined (`go` had no native definition; `char pad[0x208]` was the 32-bit offset)
 struct Dest_321da0 {
-    hulk_intptr go(hulk_intptr, int, int, int);   // (decl1) passes as defined
+    void* FUN_003290e0(const char* name, unsigned int index, unsigned int flags, int create);
 };
 struct Obj_321da0 {
-    char pad[0x208];
+    char pad[HULK_D3DCTX_PAD(f_208, 0x208, 0)];
     Dest_321da0* member;
     hulk_intptr target(hulk_intptr, int, int, int);
 };
@@ -1659,12 +1661,14 @@ class d3dContext {
     void vfunc_110(int n, char b);
 };
 void d3dContext::vfunc_110(int n, char b) {
+    // (find3) the light matrices, their dirty flags and the any-dirty flag at gen d3dContext's offsets (HULK_D3DCTX_PAD:
+    // the 32-bit 0x20c / 0x40c / 0x414 natively wrote over the prim stream f_204 and the shader cache f_208)
     char* p = (char*)this;
-    p[0x414] = 1;
-    p[n + 0x40c] = 1;
+    p[HULK_D3DCTX_PAD(f_414, 0x414, 0)] = 1;
+    p[n + HULK_D3DCTX_PAD(_pad_20c, 0x20c, 0) + 0x200] = 1;
     if (b) {
         Block_3212d0* s = f20();
-        Block_3212d0* d = (Block_3212d0*)(p + n * 0x40 + 0x20c);
+        Block_3212d0* d = (Block_3212d0*)(p + n * 0x40 + HULK_D3DCTX_PAD(_pad_20c, 0x20c, 0));
         *d = *s;
     }
 }
@@ -3202,7 +3206,7 @@ namespace fn_f57e27cb {
 // 0x00321da0 FUN_00321da0 (11 B): matches/0x00321da0.cpp
 // sym: ?target@Obj_321da0@fn_f57e27cb@@QAEHHHHH@Z
 hulk_intptr Obj_321da0::target(hulk_intptr a0, int a1, int a2, int a3) {
-    return member->go(a0, a1, a2, a3);
+    return (hulk_intptr)member->FUN_003290e0((const char*)a0, a1, a2, a3);
 }
 
 
