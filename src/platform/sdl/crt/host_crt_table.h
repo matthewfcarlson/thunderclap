@@ -126,6 +126,8 @@
     I(kernel32, ExitProcess, 4, "") \
     I(kernel32, VirtualAlloc, 16, "") \
     I(kernel32, VirtualQuery, 12, "") \
+    I(kernel32, VirtualProtect, 16, "") \
+    I(kernel32, AddVectoredExceptionHandler, 8, "") \
     I(kernel32, VirtualAllocEx, 20, "") \
     I(kernel32, CreateProcessA, 40, "") \
     I(kernel32, ResumeThread, 4, "") \

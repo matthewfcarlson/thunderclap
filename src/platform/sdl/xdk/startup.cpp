@@ -771,6 +771,136 @@ static hulk_u32 HULK_STDCALL hulk_profiler(void* arg) {
     return 0;
 }
 
+// HULK_COVER=<file> (cover1, docs/checkpoints.md "Coverage"): one-shot breakpoints. FILE lists image addresses (one
+// hex VA per line, ascending; tools/cover.py makes it from the link's .map: every function entry, or every basic-block
+// leader); an int3 replaces each listed byte before the initializers run, and the first execution of one restores the
+// byte, notes the frame (hulk_native_frame_no) and resumes there, so each address costs one exception per run and the
+// game's code and state are unchanged. The hits (`addr frame` lines after a `cover listed N hit H frame F` header)
+// are rewritten to HULK_TRACE_FILE + ".cov" every 2 s while new ones come in (the run may be killed at any time).
+// 32-bit Wine build only; off when unset.
+#if defined(__i386__) || defined(_M_IX86)
+static hulk_u32* hulk_cov_addr_;
+static hulk_u32* hulk_cov_frame_;
+static unsigned char* hulk_cov_byte_;
+static hulk_u32 hulk_cov_n_;
+static volatile hulk_u32 hulk_cov_hits_;
+
+static int hulk_cov_find(hulk_u32 a) {
+    hulk_u32 lo = 0, hi = hulk_cov_n_;
+    while (lo < hi) {
+        hulk_u32 m = (lo + hi) / 2;
+        if (hulk_cov_addr_[m] < a)
+            lo = m + 1;
+        else
+            hi = m;
+    }
+    return lo < hulk_cov_n_ && hulk_cov_addr_[lo] == a ? (int)lo : -1;
+}
+
+static hulk_u32 HULK_STDCALL hulk_cov_handler(hulk_exception_pointers* ep) {
+    if (ep->record->code != 0x80000003u)    // EXCEPTION_BREAKPOINT
+        return 0;                           // EXCEPTION_CONTINUE_SEARCH
+    hulk_u32 a = ep->record->address;
+    int i = hulk_cov_find(a);
+    if (i < 0 && (i = hulk_cov_find(a - 1)) >= 0)   // (an exception address past the int3)
+        a--;
+    if (i < 0)
+        return 0;
+    if (hulk_cov_frame_[i] == 0xffffffffu) {
+        *(volatile unsigned char*)a = hulk_cov_byte_[i];
+        hulk_cov_frame_[i] = hulk_native_frame_no;
+        hulk_cov_hits_++;
+    }
+    ((hulk_u32*)ep->context)[0xb8 / 4] = a;    // CONTEXT.Eip: run the restored instruction
+    return 0xffffffffu;                         // EXCEPTION_CONTINUE_EXECUTION
+}
+
+static void hulk_cov_dump(void) {
+    const char* tp = hulk_host_getenv("HULK_TRACE_FILE");
+    char path[600], line[64];
+    hulk_host__snprintf(path, sizeof(path), "%s.cov", tp && *tp ? tp : "hulk-startup-trace.txt");
+    hulk_host_file* f = hulk_host_fopen(path, "w");
+    if (!f)
+        return;
+    hulk_host__snprintf(line, sizeof(line), "cover listed %u hit %u frame %u\n", hulk_cov_n_, hulk_cov_hits_,
+                        hulk_native_frame_no);
+    hulk_host_fputs(line, f);
+    for (hulk_u32 i = 0; i < hulk_cov_n_; i++)
+        if (hulk_cov_frame_[i] != 0xffffffffu) {
+            hulk_host__snprintf(line, sizeof(line), "%08x %u\n", hulk_cov_addr_[i], hulk_cov_frame_[i]);
+            hulk_host_fputs(line, f);
+        }
+    hulk_host_fclose(f);
+}
+
+static hulk_u32 HULK_STDCALL hulk_cov_dumper(void*) {
+    hulk_u32 last = 0xffffffffu;
+    for (;;) {
+        hulk_host_Sleep(2000);
+        hulk_u32 h = hulk_cov_hits_;
+        if (h != last)
+            hulk_cov_dump();
+        last = h;
+    }
+    return 0;
+}
+
+static void hulk_cov_init(const char* list) {
+    hulk_host_file* f = hulk_host_fopen(list, "rb");
+    if (!f) {
+        hulk_trace_line("cover: cannot open %s", list);
+        return;
+    }
+    hulk_host_fseek(f, 0, 2);
+    long size = hulk_host_ftell(f);
+    hulk_host_fseek(f, 0, 0);
+    char* text = (char*)hulk_host_malloc((hulk_u32)size + 1);
+    hulk_u32 got = hulk_host_fread(text, 1, (hulk_u32)size, f);
+    hulk_host_fclose(f);
+    text[got] = 0;
+    hulk_u32 cap = got / 9 + 1;
+    hulk_cov_addr_ = (hulk_u32*)hulk_host_malloc(cap * 4);
+    hulk_cov_frame_ = (hulk_u32*)hulk_host_malloc(cap * 4);
+    hulk_cov_byte_ = (unsigned char*)hulk_host_malloc(cap);
+    hulk_u32 n = 0, v = 0, digits = 0, bad = 0;
+    for (char* p = text;; p++) {
+        char c = *p;
+        int d = c >= '0' && c <= '9' ? c - '0' : c >= 'a' && c <= 'f' ? c - 'a' + 10 : c >= 'A' && c <= 'F' ? c - 'A' + 10 : -1;
+        if (d >= 0) {
+            v = v * 16 + (hulk_u32)d;
+            digits++;
+            continue;
+        }
+        if (digits && n < cap) {
+            if (n && v <= hulk_cov_addr_[n - 1])
+                bad++;
+            else
+                hulk_cov_addr_[n++] = v;
+        }
+        v = digits = 0;
+        if (!c)
+            break;
+    }
+    if (!n)
+        return;
+    hulk_u32 old = 0, lo = hulk_cov_addr_[0] & ~0xfffu, hi = (hulk_cov_addr_[n - 1] + 0x1000) & ~0xfffu;
+    if (!hulk_host_VirtualProtect((void*)lo, hi - lo, 0x40 /* PAGE_EXECUTE_READWRITE */, &old)) {
+        hulk_trace_line("cover: VirtualProtect 0x%08x-0x%08x failed", lo, hi);
+        return;
+    }
+    for (hulk_u32 i = 0; i < n; i++) {
+        hulk_cov_byte_[i] = *(unsigned char*)hulk_cov_addr_[i];
+        hulk_cov_frame_[i] = 0xffffffffu;
+    }
+    hulk_cov_n_ = n;
+    hulk_host_AddVectoredExceptionHandler(1, (void*)hulk_cov_handler);
+    for (hulk_u32 i = 0; i < n; i++)
+        *(volatile unsigned char*)hulk_cov_addr_[i] = 0xcc;
+    hulk_host_CreateThread(0, 0, (void*)hulk_cov_dumper, 0, 0, 0);
+    hulk_trace_line("cover: %u addresses armed (0x%08x-0x%08x, %u out of order dropped)", n, lo, hi, bad);
+}
+#endif
+
 // The XBE's data at its own addresses. Verified sources pass XBE data addresses as integer literals: a string in
 // .rdata (`FUN_0027b020((const char*)0x3f3fd8)`), and above all the RTTI type descriptors of every dynamic_cast
 // (`__RTDynamicCast(p, 0, (void*)0x491ca8, (void*)0x492238, 0)`). MSVC 7.1 emits the same immediate whether the
@@ -886,6 +1016,11 @@ extern "C" void HULK_CDECL hulk_native_entry(void) {
         hulk_host_CreateThread(0, 0, (void*)hulk_watchdog, (void*)hang, 0, 0);
     if (hulk_u32 prof = hulk_env_u32("HULK_PROF", 0))
         hulk_host_CreateThread(0, 0, (void*)hulk_profiler, (void*)prof, 0, 0);
+#if defined(__i386__) || defined(_M_IX86)
+    if (const char* cov = hulk_host_getenv("HULK_COVER"))
+        if (*cov)
+            hulk_cov_init(cov);
+#endif
     hulk_trace_line("start initializers=%u", hulk_game_initializer_count);
     static char phase[32];  // (static: a smashed stack must not take the crash report's phase with it)
     // clang's own dynamic initializers: the isolated `.text$yc` sources define their global with its constructor

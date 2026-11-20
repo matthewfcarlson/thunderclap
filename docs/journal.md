@@ -2064,3 +2064,23 @@ blocks fight::Action's whole family: the records come first there.
   Python; sharding (D155c, 8bbae1421) is the wall-clock lever: N jobs on disjoint seed classes, merged with per-field
   default-deny rules, compared inputs counted by distinct keys. An unsharded run compares ~1% of its (seed, overlay,
   patch) triples twice (801 keys for 810 compared): follow-up to count distinct inputs everywhere.
+
+## 2026-11-20 ckpt1: play3's coverage and the first semantic checkpoints against the original (D155, D158)
+
+- **Coverage mode** (`HULK_COVER=<list>`, Wine build; `tools/cover.py`; docs/checkpoints.md "Coverage"): one-shot int3 at
+  every listed address, armed before the initializers; the first execution restores the byte and notes the frame. It
+  leaves the game unchanged: play3 with 160,640 block leaders armed gates ok against a plain control, and the landing
+  pair (control 104695, proof 104986, studio, HEAD aa72b3ad1, `--gfx --replay play3 --frames 60000`, private input
+  copies) is GATE ok (only 5880/5910/34260; prng 0 of 2,013 differ).
+- **play3 reaches 15,379 of 27,486 functions** (56.0%; 66.9% of the bytes by function, ~58% by basic block): game 59%,
+  engine 51%, platform/xbox 20% (its D3D layer is replaced by bgfx under `--gfx`). 12,849 functions are first entered
+  before frame 1,000; the later half of play3 adds almost nothing. 2,054 tree functions sit on lld-ICF-folded
+  addresses (a hit there cannot say which ran). Unreached: whole TUs worth 209 KB, most of the front end, the memory
+  card, movies (recordings run no-fmv), ~40 move families (FireBeam, Surf, BallAndChain, ...).
+- **Semantic probe, first results** (not landed yet; ckpt1 phase 3 step 2): per-subsystem tags read in the original
+  (hook XBE in xemu) and the Wine build. Two from-boot xemu replays of play3 (studio, mac2) agree on flow, clock,
+  Hulk, camera, actors and mission at every frame to 56,594, but **not on the particle RNG after ~12,920** (the
+  original itself; matches the recording's prng checkpoints ending at 12,900) nor on the sound code's own generators
+  (an observable, not game state). Against that reference the Wine build matches flow, clock and mission everywhere;
+  its known transients localise to **camera float drift from frame 5,875** (the 5880/5910 checkpoints) and **Hulk /
+  actors float drift from 34,240** (34,260): both "drift" (the quantised hashes agree), so 1-ULP class differences.

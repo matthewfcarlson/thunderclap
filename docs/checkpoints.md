@@ -169,6 +169,5 @@ Ctrl-C in the terminal when done.
 
 ## Status
 
-- Coverage: tool and image mode written and measured (above); landing with a Wine control/proof pair (ckpt1 phase 3,
-  step 1).
+- Coverage: landed (ckpt1 phase 3 step 1; control 104695, proof 104986, GATE ok).
 - Probe, hook-only XBE with the probe, references and `ckpt_ref`: phase 3, steps 2-5.

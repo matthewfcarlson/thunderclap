@@ -80,6 +80,8 @@ void* HULK_HOST_STDCALL hulk_host_SetUnhandledExceptionFilter(void* filter);
 void HULK_HOST_STDCALL hulk_host_ExitProcess(hulk_u32 code);
 void* HULK_HOST_STDCALL hulk_host_VirtualAlloc(void* addr, hulk_u32 size, hulk_u32 type, hulk_u32 protect);
 hulk_u32 HULK_HOST_STDCALL hulk_host_VirtualQuery(const void* addr, void* info, hulk_u32 size);
+int HULK_HOST_STDCALL hulk_host_VirtualProtect(void* addr, hulk_u32 size, hulk_u32 protect, hulk_u32* old);  // (cover1)
+void* HULK_HOST_STDCALL hulk_host_AddVectoredExceptionHandler(hulk_u32 first, void* handler);              // (cover1)
 void* HULK_HOST_STDCALL hulk_host_VirtualAllocEx(void* process, void* addr, hulk_u32 size, hulk_u32 type, hulk_u32 prot);
 int HULK_HOST_STDCALL hulk_host_CreateProcessA(const char* app, char* cmd, void* pa, void* ta, int inherit, hulk_u32 flags,
                                                void* env, const char* dir, void* startup, void* info);
