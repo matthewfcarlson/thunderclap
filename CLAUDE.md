@@ -67,7 +67,12 @@ until 3,000 inputs are compared, so give big blocks a generous `--time-budget`),
 which also appends config/proof-ledger.jsonl (never write a hash or a ledger line by hand). Runs made with any
 `EQUIV_ON`/`EQUIV_OFF`/`EQ64_OFF` switch prove nothing. A slow proof can run as N queue jobs: `equiv.py TU ADDR --json --inputs 3000
 --shard K/N` for K=0..N-1, then `tree_tu.py hash --proven` on all N reports (they merge; a lone or missing shard proves
-nothing, and the ledger line names every shard's job); the same --time-budget and no switches in every shard (D155c). A 64-bit fix changes the source, never the 32-bit proof:
+nothing, and the ledger line names every shard's job); the same --time-budget and no switches in every shard (D155c).
+Every proof counts distinct compared inputs: an input compared twice (a directed phase rebuilding one) is compared in full
+but counts as `inputs_repeated`, and the proof draws on to 3,000 distinct (integ6; older lines a few inputs short stand,
+D160). `tree_tu.py hash TU --carry [--addr A]` re-pins a block without a run when only decls / pointee_sizes / bindings
+entries the proof run never reached moved, under the same checker and an unchanged level 2 (D159); it never carries from a
+line recorded before D159, and a carried line falls with its run line. A 64-bit fix changes the source, never the 32-bit proof:
 re-check both sides.
 config/proof-ledger.jsonl is appended only by `hash --proven` (or `tree_tu.ledger_append` of a hash job's lines) and merges
 with `merge=union`; to seed many blocks, harvest committed checkers' reports and run hash --proven in queue jobs at a
