@@ -4,7 +4,7 @@
 
 
 // 0x000a4b90 FUN_000a4b90 (2154 B): equivalent/0x000a4b90.cpp [isolated: code differs from its standalone build]
-// sym: ?Update@CChaseCamera_a4b90@fn_f18b1ecf@@QAEXMM@Z @bb65f639a5ca @w1b23d4d42fd2
+// sym: ?Update@CChaseCamera_a4b90@fn_f18b1ecf@@QAEXMM@Z @bb65f639a5ca @w23d96605ec29 @vffb072ede566
 #include "gen/owners.h"
 #include "decls/data/game/global.h"
 namespace fn_f18b1ecf {} using namespace fn_f18b1ecf;
@@ -146,8 +146,9 @@ void CChaseCamera_a4b90::Update(float unused, float dt)
         f.f14 = dot;
     else
         f.f14 = (dot > 1.0f) ? 1.0f : -1.0f;
-    f.f14 = FUN_00018a20(f.f14) * 57.2957764f;
-    if (f.f14 > 76.0f) {
+    hulk_freg deg = FUN_00018a20(f.f14) * 57.2957764f;  // stored, then compared from st (D80)
+    f.f14 = deg;
+    if (deg > 76.0f) {
         V3_a4b90 *r = FUN_0009fef0(&f.tmp, &f.w, &f.dirV, 75.0f);
         f.vB = *r;
         f.f18 = 600.0f;
@@ -190,7 +191,7 @@ void CChaseCamera_a4b90::Update(float unused, float dt)
             f.f1c = 1.0f;
             if (!(*(float *)&bits <= 1e-05f))
                 f.f1c = 1.0f / dt;
-            float speed = f.d2.FUN_0022d110() * f.f1c;
+            hulk_freg speed = f.d2.FUN_0022d110() * f.f1c;  // compared from st (D80)
             if (!(speed < DAT_0049ed30)) {
                 float dw = f.d2.z * f.w.z + f.d2.y * f.w.y + f.d2.x * f.w.x;
                 unsigned int b2 = *(unsigned int *)&dw & 0x7fffffff;

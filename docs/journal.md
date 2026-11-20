@@ -1713,3 +1713,17 @@ blocks fight::Action's whole family: the records come first there.
     first one highest); its unproven-baseline entry is gone;
   - a local native run after symbol changes needs the snapshot's report.json refreshed (build/drive1/scripts/fixreport.py)
     and the binding map extended (augmap3 plus the class-named constructors by hand).
+
+## 2026-11-19 fix126 (D126): float group, first seven (D80)
+
+- 0x000396a0: u, v, dot and the new angle stay in st, and the angle is compared before its store. atan2's differences
+  come from the unrounded result.
+- 0x000a0330: the wrap loops run on a hulk_freg.
+- 0x000a4b90: speed, and the stored-then-compared angle, are hulk_freg.
+- 0x0011ce20: the dot is compared from st.
+- 0x002a5570: the inlined Smooth returns a hulk_freg (a TU-local helper names no external symbol).
+- 0x002b4710: nx/ny/nz are float. The original rounds them through the frame, and the second vertex adds the offsets
+  to the rounded values: the opposite of the triage's guess.
+- 0x0030aef0: `!(|v| >= |newVel|)`, so an unordered (NaN) compare subtracts, as the original's C0 test does.
+- tools/x87_order.py misses roundings inside TU-local helpers (a call leaf); check inlined helpers' return types by
+  hand.

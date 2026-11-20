@@ -31,16 +31,6 @@
    },
    "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
   },
-  "0x000396a0": {
-   "modes": {
-    "wine": {
-     "code": "3ab900913270",
-     "accepted": "2026-11-18T23:06:13",
-     "by": "unproven-seed"
-    }
-   },
-   "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
-  },
   "0x000418f0": {
    "modes": {
     "wine": {
@@ -176,16 +166,6 @@
    },
    "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
   },
-  "0x000a0330": {
-   "modes": {
-    "wine": {
-     "code": "c71e94a0eaad",
-     "accepted": "2026-11-18T23:06:13",
-     "by": "unproven-seed"
-    }
-   },
-   "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
-  },
   "0x000a2800": {
    "modes": {
     "msvc": {
@@ -205,16 +185,6 @@
    "modes": {
     "msvc": {
      "code": "35f739e73c03",
-     "accepted": "2026-11-18T23:06:13",
-     "by": "unproven-seed"
-    }
-   },
-   "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
-  },
-  "0x000a4b90": {
-   "modes": {
-    "wine": {
-     "code": "1b23d4d42fd2",
      "accepted": "2026-11-18T23:06:13",
      "by": "unproven-seed"
     }
@@ -460,16 +430,6 @@
    "modes": {
     "msvc": {
      "code": "569bc49978a2",
-     "accepted": "2026-11-18T23:06:13",
-     "by": "unproven-seed"
-    }
-   },
-   "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
-  },
-  "0x0011ce20": {
-   "modes": {
-    "wine": {
-     "code": "3525a6bec9e5",
      "accepted": "2026-11-18T23:06:13",
      "by": "unproven-seed"
     }
@@ -1096,30 +1056,10 @@
    },
    "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
   },
-  "0x002a5570": {
-   "modes": {
-    "wine": {
-     "code": "21264fddd06f",
-     "accepted": "2026-11-18T23:06:13",
-     "by": "unproven-seed"
-    }
-   },
-   "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
-  },
   "0x002a5fd0": {
    "modes": {
     "wine": {
      "code": "21b5b194f296",
-     "accepted": "2026-11-18T23:06:13",
-     "by": "unproven-seed"
-    }
-   },
-   "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
-  },
-  "0x002b4710": {
-   "modes": {
-    "wine": {
-     "code": "2096b377b924",
      "accepted": "2026-11-18T23:06:13",
      "by": "unproven-seed"
     }
@@ -1406,21 +1346,6 @@
    },
    "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
   },
-  "0x0030aef0": {
-   "modes": {
-    "msvc": {
-     "code": "a384dd6fc65a",
-     "accepted": "2026-11-18T23:06:13",
-     "by": "unproven-seed"
-    },
-    "wine": {
-     "code": "dba9a6e852b5",
-     "accepted": "2026-11-18T23:06:13",
-     "by": "unproven-seed"
-    }
-   },
-   "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
-  },
   "0x00314f50": {
    "modes": {
     "wine": {
@@ -1477,5 +1402,5 @@
    "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
   }
  },
- "total": 164
+ "total": 156
 }

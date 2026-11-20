@@ -1884,7 +1884,7 @@ void physics::PhysicsJoint1D::vfunc_9(float x, float y) {
 
 
 // 0x0030aef0 physics::PhysicsJoint1D::vfunc_11 (670 B): equivalent/0x0030aef0.cpp [wrapped: conflict: PhysicsJoint1D]
-// sym: ?vfunc_11@PhysicsJoint1D@fn_0030aef0@@UAEXMMM@Z @a384dd6fc65a @wdba9a6e852b5
+// sym: ?vfunc_11@PhysicsJoint1D@fn_0030aef0@@UAEXMMM@Z @9fda3784bee0 @w1eac240d834e @vb83c3e2686de
 namespace fn_0030aef0 {
 // STATUS: equivalent (tools/equiv.py level 3: 109 inputs, branch coverage 35/36, incomplete)
 // physics::PhysicsJoint1D::vfunc_11 @ 0x0030aef0
@@ -1952,7 +1952,7 @@ void PhysicsJoint1D::vfunc_11(float a1, float a2, float a3)
     switch (mode) {
     case 0: {
         hulk_freg v = FUN_00083d90(&vel) * ((*(float*)&DAT_003f32dc) - a1) * DAT_004d31b4;
-        if (Abs(v) < Abs(newVel))
+        if (!(Abs(v) >= Abs(newVel)))  // the original's C0 test: unordered (NaN) subtracts too
             vel = newVel - v;
         else
             vel = 0.0f;

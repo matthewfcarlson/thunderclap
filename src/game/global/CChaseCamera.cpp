@@ -1117,7 +1117,7 @@ hulk_freg FUN_000a02a0(float a) {
 
 
 // 0x000a0330 FUN_000a0330 (141 B): equivalent/0x000a0330.cpp
-// sym: ?FUN_000a0330@fn_f69c308d@@YAMM@Z @16990ec69ec7 @wc71e94a0eaad
+// sym: ?FUN_000a0330@fn_f69c308d@@YAMM@Z @5b2c2bf03e18 @w1eddf94ea95e @v1ad62be0b37f
 // STATUS: equivalent (tools/equiv.py level 3: 20016 inputs, branch coverage 12/12)
 // FUN_000a0330 @ 0x000a0330
 // Wrap an angle in degrees into [0, 360). NaN and values beyond +-3600 give 0.
@@ -1132,13 +1132,14 @@ hulk_freg FUN_000a0330(float degrees)
     if (magnitude.f > 3600.0f) {
         return 0.0f;
     }
-    while (degrees < 0.0f) {
-        degrees += 360.0f;
+    hulk_freg d = degrees;  // the wrap loops run in st (D80)
+    while (d < 0.0f) {
+        d += 360.0f;
     }
-    while (degrees >= 360.0f) {
-        degrees -= 360.0f;
+    while (d >= 360.0f) {
+        d -= 360.0f;
     }
-    return degrees;
+    return d;
 }
 
 
