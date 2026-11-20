@@ -4623,6 +4623,7 @@ class Run:
         u = self.u
         uc = self.uc
         self.cpop = None
+        self.own_words = None
         esp = self.reg("esp")
         self.save_slots = {x for x in self.save_slots if x >= esp}     # slots below esp are dead
         self.cdecl_site = False
@@ -4676,6 +4677,7 @@ class Run:
                 if n_ and esp + n_ == ENTRY_ESP:
                     cleanup = n_
             tracked = sorted(s for s in self.tracked if s >= esp)
+            self.own_words = len(tracked)   # (integ3, msplit) the words this side's own code has pending at the call
             if self.view.native and self.view.is_ours and not tracked and cleanup is not None and "clangpop" not in EQUIV_OFF:
                 cleanup = None      # (round 18) clang pushed nothing for this call: a later `add esp` is its frame's epilogue
             if not known and tracked and "ccall" not in EQUIV_OFF:
@@ -5108,7 +5110,7 @@ class Run:
         self.calls.append({"target": target, "args": args, "regs": {r: self.reg(r) for r in Program._REGS},
                            "float_ret": fret, "fret_view": fret_view, "at": insn.addr, "tail": tail, "pointees": pointees, "known": known,
                            "ret_to": insn.addr + insn.size,
-                           "conv": bool(conv), "argw": argw, "esp": esp, "arg_unw": arg_unw, "cpop": self.cpop,
+                           "conv": bool(conv), "argw": argw, "esp": esp, "arg_unw": arg_unw, "cpop": self.cpop, "own_words": self.own_words,
                            "in_body": self.view.in_body(insn.addr),
                            "via_object": self._is_virtual_on_ecx(insn), "cdecl_site": self.cdecl_site, "fuzzed_ptr": fuzzed_ptr,
                            "x87args": x87a})
@@ -8622,6 +8624,23 @@ def compare_runs(o, r, ret_kind, machine, namer, prog, max_report=4, esp_adjust=
 _ICALL_MODEL = {}
 
 
+def _split_pinned(prog, calls, k, taken, pending):
+    """(integ3 chk3, splitpin; rev5) After a vsplit/msplit re-run in which the k-th call took TAKEN bytes of the PENDING
+    words pushed for it: the first later call whose stack arguments include a word it left is a direct call of a
+    function of the image (its arity fixed by its own code), not another indirect call."""
+    if k >= len(calls) or calls[k].get("esp") is None:
+        return False
+    e0 = calls[k]["esp"]
+    left = set(range(e0 + taken, e0 + 4 * pending, 4))
+    for c in calls[k + 1:]:
+        if c.get("tail") or c.get("esp") is None:
+            return False
+        rng = set(range(c["esp"], c["esp"] + 4 * len(c.get("args") or ())))
+        if left & rng:
+            return bool(c.get("known")) and not c.get("fuzzed_ptr") and c.get("target") in prog.funcs
+    return False
+
+
 def _static_icall_pops(entry):
     """(crash2, vstatic) {original indirect call address: feasible pops} of the original function at ENTRY, from
     tools/vcall_scan.py's stack-depth model ({} when it can't resolve the function or the XBE isn't there)."""
@@ -10653,6 +10672,7 @@ def _verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappi
         rep["level2"]["ok"] = False
     if l3["ok"] and rep["level"] == 2:
         rep["level"] = 3
+    unp_ = sum((l3.get("statuses") or {}).get(k_, 0) for k_ in ("msplit_unpinned", "vsplit_unpinned"))
     if l3.get("unsupported"):
         rep["status"] = "unsupported" if not issues else "fail"
     elif l3["ok"] and not issues:
@@ -10668,6 +10688,13 @@ def _verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappi
         rep["status"] = "fail"
         # (round 9) which levels failed (`level` is the highest one passed)
         rep["failed_levels"] = ([2] if issues else []) + ([3] if l3.get("inputs_failed") or not issues else [])
+    if unp_ and rep["status"] in ("equivalent", "inconclusive"):
+        # (integ3, rev5, D153) an argument split nothing in the original's code pins (splitpin) was taken from our own
+        # code: no block whose run needed one is proven, in any mode, until class evidence pins it. In the status, so
+        # every gate refuses it whatever it reads (proves(), wine_gate.judge, the x64 gate)
+        rep["status"] = "unsupported"
+        rep["class"] = "split_unpinned"
+        rep["error"] = "[split_unpinned] %d inputs took an argument split only our own code makes" % unp_
     # `equivalent` only says no difference was seen with some coverage; promotion needs more (an added
     # field, so consumers parsing `status` keep working)
     cov = l3.get("coverage") or {}
@@ -11102,7 +11129,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                     continue
                 if isinstance(k, tuple) and k[0] == "sentinel":      # walk sentinels planted in memory
                     continue
-                if isinstance(k, tuple) and k[0] in ("stubmode", "arity"):   # (round 11) every stub's result; (round 22)
+                if isinstance(k, tuple) and k[0] in ("stubmode", "arity", "unpinned"):   # (round 11) every stub's result; (round 22); (D153)
                     continue
                 if isinstance(k, tuple) and k[0] == "sbyte":         # bytes of a stack argument word
                     _, wi, bo, bn = k
@@ -11782,15 +11809,23 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             return None
         diffs = compare_runs(o, r, ret_kind, mach, Namer(inp, sig, prog), prog, esp_adjust=esp_adjust,
                              skip_saved=set(target_conv or ()), void_eax=void_eax)
-        if diffs and NATIVE_MODE and orun.ambig_calls and not _ar and "vsplit" not in EQUIV_OFF:
+        if diffs and (NATIVE_MODE or "msplit" not in EQUIV_OFF) and orun.ambig_calls and not _ar and "vsplit" not in EQUIV_OFF:
             # (round 22, vsplit) an indirect call whose stack words the original's code leaves open (see _stub): clang's
             # `sub esp, N` after our call says how many our declaration gives it. Re-run with the original's callee popping
             # that many (fewer than were pushed: the rest stay pending for the next call); its own stack balance and every
             # later call are still compared, so a split the original's code can't have fails as before
             ov_ = {}
             for k_, n_ in orun.ambig_calls.items():
-                if k_ < len(r["calls"]) and k_ < len(o["calls"]) and r["calls"][k_].get("cpop") is not None:
-                    cp_ = r["calls"][k_]["cpop"]
+                cp_ = None
+                if k_ < len(r["calls"]) and k_ < len(o["calls"]) and NATIVE_MODE:
+                    cp_ = r["calls"][k_].get("cpop")
+                elif k_ < len(r["calls"]) and k_ < len(o["calls"]) and r["calls"][k_].get("own_words") is not None and \
+                        not r["calls"][k_].get("known"):
+                    # (integ3, msplit) MSVC mode: our object's own pending pushes at its k-th call (an indirect one) are
+                    # the split our declaration makes, as clang's `sub esp` is natively (0x00264050: `push 1; call
+                    # [ebx+0x40]` in the original, where the 1 is Read's; our MSVC code pushes nothing before the call)
+                    cp_ = 4 * r["calls"][k_]["own_words"]
+                if cp_ is not None:
                     if cp_ % 4 == 0 and cp_ // 4 < n_:
                         ov_[k_] = (cp_, cp_ // 4)
             if ov_:
@@ -11809,6 +11844,24 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                 trun.varargs = varargs
                 trun.wild_check = True
                 to_ = trun.run(oview.entry)
+                if to_["status"] == "ret" and to_["esp"] == o["esp"] and "splitpin" not in EQUIV_OFF and \
+                        any(not _split_pinned(prog, to_["calls"], k_, ov_[k_][0], orun.ambig_calls[k_]) for k_ in ov_):
+                    # (integ3 chk3, splitpin; rev5) the split is taken from our own code: only a later call whose arity
+                    # the code fixes can say it is the original's too. The first later call that takes stack words must be
+                    # a direct call of a known function (0x00264050's Read takes the 1 our code pushes for it, and a
+                    # word given to slot 16 instead leaves Read short). Where the words left pending go on to another
+                    # indirect call, both sides would agree by construction: the input proves nothing
+                    # (rev5, D153: fail closed) the re-run under our split still compares: a difference there is a
+                    # failure (the most favourable split for us still differs); an agreeing input is never counted as
+                    # compared, and any such input leaves the block unsupported (split_unpinned), whatever the gates read.
+                    # A re-run that doesn't balance keeps the first comparison's differences: the input fails
+                    if all(to_["saved"][reg_] == o["saved"][reg_] for reg_ in CALLEE_SAVED):
+                        res["vsplit_reruns"] = res.get("vsplit_reruns", 0) + 1
+                        sp_[("unpinned",)] = True
+                        return run_input(seed, overlay, sp_, label, _vk=_vk, _ar=True, _bf=_bf)
+                    res["inputs_inconclusive"] += 1
+                    res["statuses"]["msplit_unpinned" if not NATIVE_MODE else "vsplit_unpinned"] += 1
+                    return None
                 if to_["status"] == "ret" and to_["esp"] == o["esp"] and \
                         all(to_["saved"][reg_] == o["saved"][reg_] for reg_ in CALLEE_SAVED):
                     res["vsplit_reruns"] = res.get("vsplit_reruns", 0) + 1
@@ -11936,6 +11989,11 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             # stack buffer hits the cookie check in one, a smashed saved register in the other)
             res["inputs_inconclusive"] += 1
             res["statuses"]["both_fault"] += 1
+            return None
+        if not diffs and stack_patch and stack_patch.get(("unpinned",)):
+            # (rev5, D153) an unpinned split that agreed: not evidence (the verdict becomes unsupported/split_unpinned)
+            res["inputs_inconclusive"] += 1
+            res["statuses"]["msplit_unpinned" if not NATIVE_MODE else "vsplit_unpinned"] += 1
             return None
         if o["status"] == "ret":
             res["inputs_run"] += 1

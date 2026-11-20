@@ -21,6 +21,14 @@ class Judge(unittest.TestCase):
         self.assertIn("not promotable", why)
         self.assertIn("85/120", why)
 
+    def test_split_unpinned_is_no_proof(self):
+        # (integ3, rev5, D153) a run that needed an argument split nothing pins is unsupported, whatever promotable says
+        r = rep(True)
+        r.update(status="unsupported", **{"class": "split_unpinned"}, error="[split_unpinned] 46 inputs")
+        ok, why = wine_gate.judge(r)
+        self.assertFalse(ok)
+        self.assertIn("unsupported", why)
+
     def test_small_runs_unchanged(self):
         # (a quick --wine run, not a proof: judged as before)
         ok, _ = wine_gate.judge(rep(False, n_asked=200, run=200))

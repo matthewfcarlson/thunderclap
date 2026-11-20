@@ -474,6 +474,23 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
     `0x002de3f0_[wine_]thiscall_own` (a virtual that pops its own word before `push ...; call f; add esp, 4*k`: pending_use
     gives None at 0x002de558 (the pops after the clean-up end its walk) and ("callee", 3) at 0x002de4c4; the rule needs
     "caller" and leaves both alone).
+  - `msplit` (integ3 chk3): vsplit (round 22) for MSVC mode. An indirect call with words pending that nothing in the
+    original's code assigns (0x00264050 with fix126's D146 source: `push 1; call [ebx+0x40]` (slot 16); `call
+    FUN_0026fd50` (cdecl, balanced); `call [ebx+0xc]` (Read, three words): slot 16's implementations pop 0, 4, 8 or 12
+    across the vtables, so the code alone can't tell whose the 1 is). The original is re-run with the split our MSVC object
+    makes: its own pending pushes at that indirect call. Cases `0x00264050_[wine_]msplit[_off,_slotint,_noword]`.
+  - `splitpin` (integ3 chk3; rev5, the lead's D153): a vsplit or msplit split counts as the original's only when it is
+    pinned: the first later call whose stack arguments include a word the split left to it is a direct call of a function
+    of the image (its arity fixed by its own code), not another indirect call or a fuzzed pointer. An unpinned split is
+    taken from our own code, so (fail closed): the original is still re-run under it and a difference there fails (the
+    split most favourable to us still differs); an input that agrees is never compared (`msplit_unpinned` /
+    `vsplit_unpinned`), and a run with any such input is `unsupported`, class `split_unpinned`, in the status, so
+    proves(), wine_gate.judge and the x64 gate all refuse it whatever promotable rule applies. A re-run that does not
+    balance keeps the first comparison's differences: the input fails. Without the pin a wrong declaration that keeps the
+    push pattern passed (`0x00264050_msplit_noword` came out promotable under a per-input set-aside: rejected). Committed
+    proofs whose runs used an unpinned split are unproven again (D153) until class evidence (`// vclass:`) pins them.
+    `EQUIV_OFF=splitpin` is a development switch only: a run made with it proves nothing (equiv_off is recorded and both
+    gates refuse it). Cases `0x00296160_native_vsplit` (unsupported/split_unpinned), `_wrong`, `_off`.
 - (round 17, cl5) Three gaps native14 found, each switchable (`EQUIV_OFF=name`; `RELOC_OFF=thisdecl` / `COMPARE_OFF=thisdecl`
   for compare.py and verify_relocs). Old behaviour = `EQUIV_OFF=ftolexact,ptrext,thisdecl`.
   - `ptrext`: the bytes a callee reads through a pointer into the caller's frame. The extent of a scalar or unknown

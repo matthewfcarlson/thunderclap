@@ -760,7 +760,8 @@ CASES = {
     # (integ1, D53, objkeep; NOT ADOPTED: EQUIV_ON=objkeep until reviewed) --wine: the original reads stream's vptr before the
     # call that computes v3's argument and re-reads this->stream for `this` after it; the stub's havoc fuzzed the re-read
     # word on one side only (input 10: this (ecx) is 3, expected 0). The pointer word is kept across the stub as the vptr is
-    "0x00264050_native_objkeep": ("equivalent", None, 0, {"native": True, "n_inputs": 1000, "equiv_on": "objkeep"}),
+    # (integ3, D153) vsplit's split for 0x00264050 is unpinned: unsupported until class evidence (// vclass:)
+    "0x00264050_native_objkeep": ("unsupported", "split_unpinned", 0, {"native": True, "n_inputs": 1000, "equiv_on": "objkeep"}),
     "0x00264050_native_objkeep_off": ("fail", "this (ecx)", 0, {"src": "0x00264050_native_objkeep", "native": True,
                                                                 "n_inputs": 1000}),
     "0x00264050_native_objkeep_wrong": ("fail", "this (ecx)", 0, {"native": True, "n_inputs": 300, "equiv_on": "objkeep"}),
@@ -770,7 +771,7 @@ CASES = {
     # 0x000e8790 _pin: this->owner read once and reused across v6 and FUN_002998d0, calls after the virtual call objkeep checked
     # (the keep must end at that call); _ctl: the same split re-reading owner each time; _pin_off: _pin fails without objkeep.
     # _pin FAILS (equivalent) at a4a81138a: the keep is an ("after", epoch) overlay that pins the word for every later epoch
-    "0x00264050_native_objkeep_stale": ("equivalent", None, 0, {"native": True, "n_inputs": 1000, "equiv_on": "objkeep"}),
+    "0x00264050_native_objkeep_stale": ("unsupported", "split_unpinned", 0, {"native": True, "n_inputs": 1000, "equiv_on": "objkeep"}),
     "0x000e8790_native_objkeep_ctl": ("equivalent", None, 0, {"native": True, "n_inputs": 1000, "equiv_on": "objkeep"}),
     "0x000e8790_native_objkeep_pin": ("fail", "this (ecx)", 0, {"native": True, "n_inputs": 1000, "equiv_on": "objkeep"}),
     "0x000e8790_native_objkeep_pin_off": ("fail", "this (ecx)", 0, {"src": "0x000e8790_native_objkeep_pin", "native": True,
@@ -940,7 +941,8 @@ CASES = {
     "0x001ca430_native_fillsame_off": ("fail", "local passed as argument 1", 0, {"src": "0x001ca430_native_fillsame", "native": True, "n_inputs": 60, "equiv_off": "fillsame"}),
     "0x001ca430_native_fillsame_wrong": ("fail", None, 0, {"native": True, "n_inputs": 60}),
     # vsplit: `push b; push a; push 0; call [dev+0x48]; push eax; call [vt+0x20]`: who takes a and b is open in the original
-    "0x00296160_native_vsplit": ("equivalent", None, 0, {"native": True, "n_inputs": 60}),
+    # (integ3, D153) the split comes from our own code and no later direct call pins it: unsupported, never proven
+    "0x00296160_native_vsplit": ("unsupported", "split_unpinned", 0, {"native": True, "n_inputs": 60}),
     "0x00296160_native_vsplit_off": ("fail", "argument 2", 0, {"src": "0x00296160_native_vsplit", "native": True, "n_inputs": 60, "equiv_off": "vsplit"}),
     "0x00296160_native_vslotkeep_off": ("fail", "went to", 0, {"src": "0x00296160_native_vsplit", "native": True, "n_inputs": 60, "equiv_off": "vslotkeep"}),
     "0x00296160_native_vsplit_wrong": ("fail", None, 0, {"native": True, "n_inputs": 60}),
@@ -1182,6 +1184,16 @@ CASES = {
     "0x000418f0_native_lsguard_off": ("fail", "0x004dc2fc", 0, {"src": "0x000418f0_native_lsguard", "native": True,
                                                                 "n_inputs": 100, "equiv_off": "lsguard"}),
     "0x000418f0_native_lsguard_bit": ("fail", "missing write to global", 0, {"native": True, "n_inputs": 100}),
+    # (integ3 chk3, msplit + splitpin; rev5, D153) fix126's source for 0x00264050 (D146): the original's `push 1; call
+    # [ebx+0x40]` (slot 16, no argument) pushes Read's third word early; MSVC mode now re-runs the original with the split
+    # our object makes (its own pending pushes at the call). Nothing pins that split (Read is indirect too), so the block
+    # is unsupported (split_unpinned) until class evidence pins it; a difference under our split still fails
+    # (_noword: Read's third word 0; _slotint: slot 16 declared taking a word)
+    "0x00264050_msplit": ("unsupported", "split_unpinned", 0, {"n_inputs": 300}),
+    "0x00264050_msplit_off": ("fail", "call #1", 0, {"src": "0x00264050_msplit", "n_inputs": 100, "equiv_off": "msplit"}),
+    "0x00264050_msplit_slotint": ("fail", "call #3", 0, {"n_inputs": 200}),
+    "0x00264050_msplit_noword": ("fail", "argument 3 is 0x00000000, expected 0x00000001", 0, {"n_inputs": 200}),
+    "0x00264050_wine_msplit": ("unsupported", "split_unpinned", 0, {"src": "0x00264050_msplit", "native": True, "n_inputs": 300}),
 }
 
 # verify_relocs.py cases: name -> (expected status, issue kind it must report or None)
@@ -1488,6 +1500,8 @@ def _job(name, equiv, addr, kw):
     else:
         r = equiv.verify(os.path.join(CASES_DIR, (src or name) + ".cpp"), addr, **kw)
     diffs = [d for m in (r.get("level3") or {}).get("mismatches", []) for d in m["diffs"]]
+    if r.get("error"):
+        diffs.append(r["error"])      # (integ3, D153) an unsupported verdict's reason (`[split_unpinned] ...`)
     # (level-2 issues too, as "L2 kind symbol": round 13's float constants fail there)
     diffs += ["L2 %s %s" % (i.get("kind"), i.get("symbol") or i.get("target") or "")
               for i in (r.get("level2") or {}).get("issues", [])]
