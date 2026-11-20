@@ -23,6 +23,21 @@ CASES_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "cases")
 # name: (expected status, text one of the mismatches must contain or None[, minimum branch coverage[, verify()
 # keyword arguments, e.g. the seeds of the one input in thousands that showed the bug]])
 CASES = {
+    # (integ4, stubexit) a loop whose condition is a stub's result ends after n rounds the original's run draws, the
+    # same results by call index on ours; the body is compared every round
+    "0x00086240_stubexit": ("equivalent", None, 0.9, {"n_inputs": 300}),
+    "0x00086240_stubexit_inverted": ("fail", None, 0, {"n_inputs": 300}),
+    "0x00086240_stubexit_extracond": ("fail", None, 0, {"n_inputs": 300}),
+    "0x00086240_stubexit_extrabody": ("fail", None, 0, {"n_inputs": 300}),
+    "0x00086240_stubexit_exitconst": ("fail", None, 0, {"n_inputs": 300}),
+    "0x00086240_stubexit_width": ("fail", None, 0, {"n_inputs": 300}),
+    # (rev5) a wait loop random draws rarely leave (`while (Status() != 2)`); its must-fails with the rule, one that only
+    # shows on the sixth round; the anti-piracy guard of 0x00088020 inverted (a sealed loop: ours never returns)
+    "0x001f67c0_stubexit": ("equivalent", None, 0.9, {"n_inputs": 300}),
+    "0x001f67c0_stubexit_inverted": ("fail", None, 0, {"n_inputs": 300}),
+    "0x001f67c0_stubexit_extrabody": ("fail", None, 0, {"n_inputs": 300}),
+    "0x001f67c0_stubexit_round6": ("fail", None, 0, {"n_inputs": 300}),
+    "0x00088020_stubexit_sealed": ("fail", "ours timeout", 0, {"n_inputs": 30, "time_budget": 120}),
     # a stack local smaller than what the (stubbed) callee writes through the pointer
     "0x00241390_small_local": ("fail", "writes 0x40 bytes through ecx"),
     "0x00324e00_small_local": ("fail", "writes 0x8 bytes through argument 1"),
