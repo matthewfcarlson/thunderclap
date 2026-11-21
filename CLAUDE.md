@@ -92,7 +92,11 @@ name each `FUN_<addr>` (decl1, 0x00086380). Natively a call binds only through a
 unbound whatever the Wine map says, so name it `FUN_<addr>`. A free `__stdcall`/`__fastcall` definition whose callers pass
 `this` never binds natively: define it as a member. The debug-settings object DAT_004dd6e8's 0x0023f760 (`bool (const
 char*, int key, bool def)`) returns the default; unbound natively it returns 0 and turns off simulation, rendering and
-physics (gfx5).
+physics (gfx5). A float the callee takes but a caller holds as an int word in a register: declare the parameter
+`HULK_TYPE64(int, float)` and pass `HULK_FBITS(x)` (compat/ptr.h): MSVC and the Wine build keep the pushed word, natively
+the float arrives in its FP register with those bits (gfx9, 0x00293da0). An SDL/pddi-layer change shows the Wine image
+unchanged when every pddi unit compiles byte-identical with the Wine build's i686 flags before and after, COFF time
+stamp ignored (build/gfx9/scripts/pddicmp.py); `intptr_t` keeps i686's `int` mangling (D194).
 A regress case run with a development switch (EQ64_OFF=postproof) doesn't exercise the production path: check the real
 block too (integ5). `regress.py --jobq` ships every dirty file (read a failure's cause before blaming your own change) and submits 2-slot
 jobs, which starve behind low-priority 1-slot work.
