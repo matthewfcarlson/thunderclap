@@ -1,11 +1,13 @@
 /* Threads, fibers and waits, cooperatively (docs/wasm-port.md "Threads and fibers").
  *
- * Every thread runs on a fiber (Emscripten's, through Asyncify: a suspended fiber's state is its C stack and its
- * Asyncify buffer, both in the game arena or at the main thread's fixed stack). Exactly one thread runs; it switches
+ * Every thread runs on a fiber: a C stack and an Asyncify buffer, both in the game arena or at the main thread's fixed
+ * stack, switched by the driver below (ff_sched_loop) with Binaryen's Asyncify (the pass runs on the linked module;
+ * the asyncify.* imports are its own functions). A suspended fiber's state is in linear memory, so it is game state
+ * like the rest and the module needs no JS to switch (node and the wasm2c build run it alike). Exactly one thread runs; it switches
  * only when the game waits for an object that isn't signaled, sleeps, exits or switches fibers itself. The next
  * thread is the first runnable one after the current in handle order; when none is runnable the virtual clock jumps to
  * the earliest deadline. So a run is a function of its inputs alone. */
-#include <emscripten/fiber.h>
+#include <emscripten/stack.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include "hulk_host.h"
@@ -18,14 +20,151 @@
 #define INFINITE 0xffffffffu
 #define WAIT_TIMEOUT 0x102u
 
-static emscripten_fiber_t host_ctx;          /* the host's own context (start-up and the end of the run) */
-static char host_async[64 << 10];
+/* ------------------------------------------------------------------------------------------- fibers */
+#define AI(n) __attribute__((import_module("asyncify"), import_name(n)))
+AI("start_unwind") void as_start_unwind(void* data);
+AI("stop_unwind") void as_stop_unwind(void);
+AI("start_rewind") void as_start_rewind(void* data);
+AI("stop_rewind") void as_stop_rewind(void);
+void _emscripten_stack_restore(uintptr_t sp);
+
+/* a fiber's context (in the arena): Asyncify's data header {current, end} first */
+typedef struct {
+    uint32_t ad_cur, ad_end;
+    uint32_t buf, size;         /* the Asyncify buffer */
+    uint32_t sp, stack_hi;      /* the C stack pointer while suspended; the stack's top */
+    uint32_t stack_lo;
+    uint32_t started;
+    void (*fn)(uint32_t);
+    uint32_t arg;
+} hfiber;
+
+static hfiber* next_fiber;      /* set by a fiber that unwinds: whom the driver runs next */
+static hfiber* resuming;        /* the fiber the driver rewinds */
+
+/* setjmp/longjmp (Lua's protected calls, libpng's and the physics' error exits) on the same machinery: a setjmp
+ * unwinds its fiber and keeps a copy of the Asyncify data and the stack pointer (a continuation), then rewinds and
+ * returns 0; a longjmp unwinds its fiber, puts the continuation's data back and rewinds into that setjmp, which
+ * returns the value. As on x86, memory keeps what it holds at the longjmp; wasm locals come back as they were at
+ * the setjmp (registers). Continuations live in the arena (game state), keyed by the jmp_buf's address. */
+enum { SJ_NONE, SJ_CAPTURE, SJ_JUMP };
+#define MAX_CONTS 32
+typedef struct {
+    uint32_t jb, fiber, sp, len, buf, cap, age;
+} hcont;
+static int sj_mode;
+static uint64_t n_swaps, n_setjmps, n_longjmps, sj_bytes;   /* (statistics, host only) */
+static uint32_t sj_jb, sj_value, sj_result;
+
+static hcont* cont_for(uint32_t jb, int make) {
+    if (!SIM->sj_conts) SIM->sj_conts = (uint32_t)(uintptr_t)ff_arena_alloc(MAX_CONTS * sizeof(hcont), 16);
+    hcont* conts = PTR(SIM->sj_conts);
+    hcont* old = &conts[0];
+    for (int i = 0; i < MAX_CONTS; i++) {
+        if (conts[i].jb == jb) return &conts[i];
+        if (conts[i].age < old->age) old = &conts[i];
+    }
+    if (!make) return 0;
+    old->jb = jb;
+    old->len = 0;
+    return old;
+}
+
+/* (the driver, between a fiber's unwind and its rewind) */
+static void sj_step(hfiber* f) {
+    if (sj_mode == SJ_CAPTURE) {
+        hcont* k = cont_for(sj_jb, 1);
+        uint32_t len = f->ad_cur - f->buf;
+        n_setjmps++;
+        sj_bytes += len;
+        if (len > k->cap) {
+            if (k->buf) ff_arena_free(PTR(k->buf));
+            k->cap = (len + 4095) & ~4095u;
+            k->buf = (uint32_t)(uintptr_t)ff_arena_alloc(k->cap, 16);
+        }
+        memcpy(PTR(k->buf), PTR(f->buf), len);
+        k->len = len;
+        k->sp = f->sp;
+        k->fiber = (uint32_t)(uintptr_t)f;
+        k->age = ++SIM->sj_age;
+        sj_result = 0;
+    } else {
+        hcont* k = cont_for(sj_jb, 0);
+        if (!k || !k->len) ff_fatal("longjmp(0x%x): no setjmp", sj_jb);
+        if (k->fiber != (uint32_t)(uintptr_t)f) ff_fatal("longjmp(0x%x) into another fiber", sj_jb);
+        memcpy(PTR(f->buf), PTR(k->buf), k->len);
+        f->ad_cur = f->buf + k->len;
+        f->sp = k->sp;
+        sj_result = sj_value;
+        n_longjmps++;
+    }
+    sj_mode = SJ_NONE;
+}
+
+static hfiber* new_ctx(void (*fn)(uint32_t), uint32_t arg, void* stack, uint32_t stack_size, uint32_t async_size) {
+    hfiber* c = ff_arena_alloc(sizeof *c, 16);
+    c->buf = (uint32_t)(uintptr_t)ff_arena_alloc(async_size, 16);
+    c->size = async_size;
+    c->stack_hi = ((uint32_t)(uintptr_t)stack + stack_size) & ~15u;
+    c->stack_lo = (uint32_t)(uintptr_t)stack;
+    c->fn = fn;
+    c->arg = arg;
+    return c;
+}
+
+/* suspend FROM (the running fiber) and run TO; returns when FROM runs again */
+__attribute__((noinline)) static void fiber_swap(hfiber* from, hfiber* to) {
+    if (resuming) {             /* (rewound: FROM runs again) */
+        as_stop_rewind();
+        resuming = 0;
+        return;
+    }
+    from->sp = (uint32_t)emscripten_stack_get_current();
+    from->ad_cur = from->buf;
+    from->ad_end = from->buf + from->size;
+    next_fiber = to;
+    as_start_unwind(from);
+}
+
+/* the driver (not instrumented: tools/wasm_port.py lists it for Asyncify's removelist): runs fibers until the first
+ * one returns */
+__attribute__((noinline)) void ff_sched_loop(hfiber* f) {
+    uintptr_t mine = emscripten_stack_get_current();
+    while (f) {
+        next_fiber = 0;
+        _emscripten_stack_restore(f->started ? f->sp : f->stack_hi);
+        if (f->started) {
+            resuming = f;
+            as_start_rewind(f);
+        }
+        f->started = 1;
+        f->fn(f->arg);
+        _emscripten_stack_restore(mine);
+        if (!next_fiber) break;
+        if ((uint32_t)(f->ad_cur - f->buf) > f->size) ff_fatal("asyncify buffer overflow");
+        as_stop_unwind();
+        n_swaps++;
+        if (sj_mode) sj_step(f);
+        f = next_fiber;
+    }
+}
 
 static uint64_t deadline(hulk_obj* t) { return (uint64_t)t->deadline_hi << 32 | t->deadline_lo; }
 static void set_deadline(hulk_obj* t, uint64_t d) { t->deadline_lo = (uint32_t)d; t->deadline_hi = (uint32_t)(d >> 32); }
-static emscripten_fiber_t* ctx_of(uint32_t fiber) { return PTR(ff_obj(fiber)->ctx); }
+static hfiber* ctx_of(uint32_t fiber) { return PTR(ff_obj(fiber)->ctx); }
 
-static void fiber_main(void* arg);
+static void fiber_main(uint32_t arg);
+
+/* FN(ARG) on a host stack outside the game state: host work whose bytes depend on the host (a report line with
+ * measured times) leaves no trace on a game stack, where a later uninitialized local could read it, and the state
+ * stays a function of the game's inputs alone */
+static char host_stack[256 << 10] __attribute__((aligned(16)));
+__attribute__((noinline)) void ff_on_host_stack(void (*fn)(void*), void* arg) {
+    uintptr_t sp = emscripten_stack_get_current();
+    _emscripten_stack_restore((uintptr_t)(host_stack + sizeof host_stack));
+    fn(arg);
+    _emscripten_stack_restore(sp);
+}
 
 /* a fiber object with its own context, not started */
 static uint32_t new_fiber(uint32_t entry, uint32_t param, uint32_t thread) {
@@ -34,11 +173,8 @@ static uint32_t new_fiber(uint32_t entry, uint32_t param, uint32_t thread) {
     f->entry = entry;
     f->param = param;
     f->thread = thread;
-    emscripten_fiber_t* c = ff_arena_alloc(sizeof *c, 16);
     void* cs = ff_arena_alloc(FIBER_C_STACK, 16);
-    void* as = ff_arena_alloc(ASYNCIFY_STACK, 16);
-    emscripten_fiber_init(c, fiber_main, (void*)(uintptr_t)h, cs, FIBER_C_STACK, as, ASYNCIFY_STACK);
-    f->ctx = (uint32_t)(uintptr_t)c;
+    f->ctx = (uint32_t)(uintptr_t)new_ctx(fiber_main, h, cs, FIBER_C_STACK, ASYNCIFY_STACK);
     return h;
 }
 
@@ -75,7 +211,7 @@ static void reschedule(void) {
         hulk_obj* from = ff_obj(me);
         hulk_obj* to = ff_obj(next);
         SIM->cur_thread = next;
-        emscripten_fiber_swap(ctx_of(from->fiber), ctx_of(to->fiber));
+        fiber_swap(ctx_of(from->fiber), ctx_of(to->fiber));
         if (cur()->state == T_RUNNABLE) return;     /* (back here when this thread runs again) */
     }
 }
@@ -144,8 +280,7 @@ void ff_poll(void) {
 }
 
 /* a fiber's code: the thread's start routine (threads) or the fiber's (fibers); a thread ends when it returns */
-static void fiber_main(void* arg) {
-    uint32_t h = (uint32_t)(uintptr_t)arg;
+static void fiber_main(uint32_t h) {
     hulk_obj* f = ff_obj(h);
     uint32_t code = ff_call(f->entry, 1, f->param);
     hulk_obj* t = cur();
@@ -159,27 +294,47 @@ static void fiber_main(void* arg) {
 
 /* the game's main thread on a fiber whose stack is at a fixed address (the game keeps stack addresses in objects) */
 static void (*main_entry)(void);
-static void main_fiber(void* arg) {
+/* HULK_SJTEST=1: setjmp/longjmp through a few frames, before the game starts */
+void ffg_00347250(uint32_t, uint32_t, void*, void*);
+void ffg_003471d4(uint32_t, uint32_t, void*, void*);
+__attribute__((noinline)) static int sj_deep(uint32_t* jb, int depth) {
+    if (depth == 0) {
+        uint32_t st[2] = {(uint32_t)(uintptr_t)jb, 7};
+        uint64_t rb;
+        ffg_003471d4(0, 0, st, &rb);
+        return 0;
+    }
+    return sj_deep(jb, depth - 1) + 1;
+}
+static void sj_test(void) {
+    uint32_t jb[16];
+    volatile int passes = 0;
+    uint32_t st[2] = {(uint32_t)(uintptr_t)jb, 0};
+    uint64_t rb = 0;
+    ffg_00347250(0, 0, st, &rb);
+    passes++;
+    if ((uint32_t)rb == 0) sj_deep(jb, 20);
+    fprintf(stderr, "hulk: sjtest: setjmp returned %u on pass %d (want 7 on pass 2)\n", (uint32_t)rb, passes);
+}
+
+static void main_fiber(uint32_t arg) {
     (void)arg;
+    if (getenv("HULK_SJTEST")) sj_test();
     main_entry();
-    ff_run_atexit();
-    emscripten_fiber_swap(ctx_of(cur()->fiber), &host_ctx);
+    ff_run_atexit();        /* (returning ends the driver's loop) */
 }
 
 void ff_run_main(void (*entry)(void)) {
     main_entry = entry;
     uint32_t t = ff_new_obj(OBJ_THREAD);
     uint32_t f = ff_new_obj(OBJ_FIBER);
-    emscripten_fiber_t* c = ff_arena_alloc(sizeof *c, 16);
-    void* as = ff_arena_alloc(1u << 20, 16);
-    emscripten_fiber_init(c, main_fiber, 0, PTR(MAIN_STACK_LO), MAIN_STACK_HI - MAIN_STACK_LO, as, 1u << 20);
+    hfiber* c = new_ctx(main_fiber, 0, PTR(MAIN_STACK_LO), MAIN_STACK_HI - MAIN_STACK_LO, 1u << 20);
     ff_obj(f)->ctx = (uint32_t)(uintptr_t)c;
     ff_obj(f)->thread = t;
     ff_obj(t)->fiber = f;
     ff_obj(t)->state = T_RUNNABLE;
     SIM->cur_thread = t;
-    emscripten_fiber_init_from_current_context(&host_ctx, host_async, sizeof host_async);
-    emscripten_fiber_swap(&host_ctx, c);
+    ff_sched_loop(c);
 }
 
 /* ------------------------------------------------------------------------------------------- XAPI */
@@ -249,7 +404,7 @@ FFG(0035551d) {         /* SwitchToFiber(fiber) */
     if (!ff_obj(to) || ff_obj(to)->kind != OBJ_FIBER) ff_fatal("SwitchToFiber(0x%x): no fiber", to);
     t->fiber = to;
     ff_obj(to)->thread = SIM->cur_thread;
-    emscripten_fiber_swap(ctx_of(from), ctx_of(to));
+    fiber_swap(ctx_of(from), ctx_of(to));
 }
 FFG(0035550a) { UNUSED; ff_close_obj(ARG(0)); RET(0); }                         /* DeleteFiber */
 
@@ -265,4 +420,30 @@ void ff_dump_threads(void) {
         else if (o->kind == OBJ_FIBER)
             fprintf(stderr, "hulk: fiber 0x%x entry 0x%08x\n", HANDLE_BASE + i * 4, o->entry);
     }
+}
+
+/* ------------------------------------------------------------------------------------------- setjmp/longjmp */
+static hfiber* running_ctx(void) { return ctx_of(cur()->fiber); }
+FFG(00347250) {         /* _setjmp3(jmp_buf, count): 0, or a longjmp's value */
+    UNUSED;
+    hfiber* c = running_ctx();
+    sj_mode = SJ_CAPTURE;
+    sj_jb = ARG(0);
+    fiber_swap(c, c);
+    RET(sj_result);
+}
+FFG(003471d4) {         /* longjmp(jmp_buf, value) */
+    UNUSED;
+    hfiber* c = running_ctx();
+    sj_mode = SJ_JUMP;
+    sj_jb = ARG(0);
+    sj_value = ARG(1) ? ARG(1) : 1;
+    fiber_swap(c, c);
+    ff_fatal("longjmp returned");
+}
+
+void ff_sched_stats(void) {
+    fprintf(stderr, "hulk: %llu fiber switches, %llu setjmps (%.0f bytes each), %llu longjmps\n",
+            (unsigned long long)n_swaps, (unsigned long long)n_setjmps, n_setjmps ? (double)sj_bytes / n_setjmps : 0.0,
+            (unsigned long long)n_longjmps);
 }

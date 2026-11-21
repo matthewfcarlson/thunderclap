@@ -1,6 +1,5 @@
 /* The end of a frame (D3D Swap): the virtual clock moves on one 60 Hz field, the next frame's input is applied, and
  * the run's statistics are kept (HULK_FRAMES ends the run; the frame rate is reported every HULK_REPORT frames). */
-#include <emscripten.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include "hulk_host.h"
@@ -23,12 +22,23 @@ uint64_t ff_state_hash(void) {
     return h;
 }
 uint32_t ff_state_bytes(void) { return (XBE_END - STATE_DATA_LO) + 0x00100000u + sizeof(hulk_sim) + (ff_arena_top() - ARENA_LO); }
+/* HULK_DUMP=PATH: the state's bytes at the end of the run, in hash order (finding what differs between runs) */
+#include "hulk_io.h"
+static void dump_state(const char* path) {
+    int32_t f = hio_open(path, HIO_CREATE);
+    if (f < 0) return;
+    uint32_t off = 0;
+    off += (uint32_t)hio_write(f, PTR(STATE_DATA_LO), XBE_END - STATE_DATA_LO, off);
+    off += (uint32_t)hio_write(f, PTR(0x00E00000u), 0x00100000u + sizeof(hulk_sim), off);
+    hio_write(f, PTR(ARENA_LO), ff_arena_top() - ARENA_LO, off);
+    hio_close(f);
+}
 /* a snapshot and a restore of the whole state (timing only: HULK_SNAPTEST) */
 static void snap_test(void) {
     uint32_t n = ff_state_bytes();
     uint8_t* buf = malloc(n);
     if (!buf) return;
-    double a = emscripten_get_now();
+    double a = ff_now_ms();
     int reps = 20;
     for (int r = 0; r < reps; r++) {
         uint8_t* q = buf;
@@ -36,24 +46,26 @@ static void snap_test(void) {
         memcpy(q, PTR(0x00E00000u), 0x00100000u + sizeof(hulk_sim)); q += 0x00100000u + sizeof(hulk_sim);
         memcpy(q, PTR(ARENA_LO), ff_arena_top() - ARENA_LO);
     }
-    double b = emscripten_get_now();
+    double b = ff_now_ms();
     for (int r = 0; r < reps; r++) {
         uint8_t* q = buf;
         memcpy(PTR(STATE_DATA_LO), q, XBE_END - STATE_DATA_LO); q += XBE_END - STATE_DATA_LO;
         memcpy(PTR(0x00E00000u), q, 0x00100000u + sizeof(hulk_sim)); q += 0x00100000u + sizeof(hulk_sim);
         memcpy(PTR(ARENA_LO), q, ff_arena_top() - ARENA_LO);
     }
-    double c = emscripten_get_now();
+    double c = ff_now_ms();
     fprintf(stderr, "hulk: state %.1f MB: snapshot %.2f ms, restore %.2f ms, hash 0x%016llx\n", n / 1048576.0,
             (b - a) / reps, (c - b) / reps, (unsigned long long)ff_state_hash());
     free(buf);
 }
-void ff_frame_end(void) {
+/* (on the host's stack: nothing here leaves bytes on a game stack) */
+static void frame_end(void* unused) {
+    (void)unused;
     static long limit = -1, every = 0;
     if (limit < 0) {
         limit = getenv("HULK_FRAMES") ? atol(getenv("HULK_FRAMES")) : 0;
         every = getenv("HULK_REPORT") ? atol(getenv("HULK_REPORT")) : 600;
-        t0 = t_last = emscripten_get_now();
+        t0 = t_last = ff_now_ms();
     }
     SIM->frame++;
     /* HULK_INPUT="FROM-TO:BUTTONS,...": pad 0's digital buttons (XINPUT_GAMEPAD wButtons, hex) over those frames */
@@ -70,19 +82,23 @@ void ff_frame_end(void) {
         ff_fatal("stack at frame %u (HULK_STACK_AT)", SIM->frame);
     SIM->clock += HULK_TSC_HZ / 60;
     if (every && SIM->frame % every == 0) {
-        double now = emscripten_get_now();
+        double now = ff_now_ms();
         fprintf(stderr, "hulk: frame %u (%.0f frames/s over the last %ld, %.1f s in all)\n", SIM->frame,
                 every * 1000.0 / (now - t_last), every, (now - t0) / 1000.0);
         t_last = now;
     }
     if (limit && SIM->frame >= (uint32_t)limit) {
         void ff_dump_threads(void);
+        void ff_sched_stats(void);
+        ff_sched_stats();
         if (getenv("HULK_THREADS")) ff_dump_threads();
+        if (getenv("HULK_DUMP")) dump_state(getenv("HULK_DUMP"));
         if (getenv("HULK_SNAPTEST")) snap_test();
         else fprintf(stderr, "hulk: state hash 0x%016llx (%u bytes)\n", (unsigned long long)ff_state_hash(), ff_state_bytes());
-        double now = emscripten_get_now();
+        double now = ff_now_ms();
         fprintf(stderr, "hulk: %u frames in %.2f s (%.0f frames/s)\n", SIM->frame, (now - t0) / 1000.0,
                 SIM->frame * 1000.0 / (now - t0));
         exit(0);
     }
 }
+void ff_frame_end(void) { ff_on_host_stack(frame_end, 0); }

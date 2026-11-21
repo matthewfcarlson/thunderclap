@@ -1,6 +1,7 @@
 /* The wasm32 port's entry and failure paths (docs/wasm-port.md). */
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include "hulk_host.h"
 
 void ff_log(const char* fmt, ...) {
@@ -34,6 +35,12 @@ void ff_trace_host_(const char* fn, void* st) {
 void ff_trace_dispatch(uint32_t a, uint32_t ecx, void* st) {
     const uint32_t* s = st;
     fprintf(stderr, "call 0x%08x ecx=%08x (%08x %08x %08x)\n", a, ecx, s[0], s[1], s[2]);
+}
+
+double ff_now_ms(void) {
+    struct timespec ts;
+    clock_gettime(CLOCK_MONOTONIC, &ts);
+    return ts.tv_sec * 1000.0 + ts.tv_nsec / 1e6;
 }
 
 int main(int argc, char** argv) {

@@ -40,6 +40,7 @@ typedef struct {
     uint8_t pads[4][20];              /* XINPUT_GAMEPAD per port (18 bytes used) */
     uint32_t cur_thread;              /* sched.c: the running thread's handle */
     uint32_t polls;                   /* sched.c: polls of the clock (a time slice every 32) */
+    uint32_t sj_conts, sj_age;        /* sched.c: setjmp continuations (an array in the arena), their clock */
     hulk_obj objs[MAX_OBJS];
     /* d3d_null.c */
     uint32_t d3d_device, d3d_back, d3d_depth, d3d_rt, d3d_ds, d3d_vs, d3d_ps, d3d_shaders, d3d_vblank_cb;

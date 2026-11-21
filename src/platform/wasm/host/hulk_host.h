@@ -64,12 +64,14 @@ uint32_t ff_call_this(uint32_t addr, uint32_t self, int n, ...);
 /* a host function the game can call through a pointer (objects the host hands it) */
 uint32_t ff_host_method(ffg_t f);
 
+double ff_now_ms(void);    /* the host's monotonic clock (measurements only, never game state) */
 int ff_boot(const char* xbe);
 void ff_run_atexit(void);
 void ff_run_main(void (*entry)(void));
 uint32_t ff_wait(uint32_t h, uint32_t ms);
 void ff_sleep(uint32_t ms);
 void ff_poll(void);
+void ff_on_host_stack(void (*fn)(void*), void* arg);    /* host work off the game's stacks */
 int ff_host_path(const char* game, char* out, size_t cap);
 void ff_kernel(uint32_t ord, uint32_t ecx, uint32_t edx, void* st, void* rb);
 #endif

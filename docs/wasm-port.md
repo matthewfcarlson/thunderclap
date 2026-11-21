@@ -8,12 +8,15 @@ owner's sibling project (fusion-frenzy-decomp `docs/port.md`); tools/wasm_ir.py 
 ```sh
 PY=build/venv/bin/python
 $PY tools/wasm_port.py compile [--jobs 2] [--only TU ...]   # tree TUs -> build/wasm/obj/*.o (IR cached by content)
-$PY tools/wasm_port.py link                                 # glue + host + emcc -> build/wasm/hulk.{js,wasm}
+$PY tools/wasm_port.py link                                 # glue + host + emcc + Asyncify -> build/wasm/hulk.wasm
 $PY tools/wasm_port.py report                               # the host's work list (unbound entries, named stubs)
-node build/wasm/hulk.js isos/extracted/default.xbe
+$PY tools/wasm_port.py aot [--jobs 2]                       # wasm2c + clang -O2 -> build/wasm/hulk-aot (~1.5 min)
+node src/platform/wasm/run/node.mjs build/wasm/hulk.wasm isos/extracted/default.xbe
+build/wasm/hulk-aot isos/extracted/default.xbe
 ```
 
-Needs Homebrew LLVM (`HULK_LLVM_BIN`, default `/opt/homebrew/opt/llvm/bin`) and Emscripten (`emcc`).
+Needs Homebrew LLVM (`HULK_LLVM_BIN`, default `/opt/homebrew/opt/llvm/bin`), Emscripten (`emcc`; its Binaryen
+`wasm-opt`, or `HULK_WASM_OPT`) and, for `aot`, wabt's `wasm2c` (`brew install wabt`; `HULK_WASM2C`).
 
 **Inputs.** A clang_probe snapshot of the tree (`HULK_WASM_SNAP`, default `build/wasm/cp/snap`: the output of
 `tools/tree_tu.py materialize` copied by `tools/clang_probe.py --snapshot`; manifest.json and report.json give each
@@ -47,7 +50,7 @@ committed).
      DirectSound, XInput, Bink: code in the XBE the tree doesn't define) are always called through their generic
      entry, which the host defines;
    - a function used as a value is its original address (a local one with none gets a synthetic address,
-     `0xF0000000 + (TU index << 14) + n`); every indirect call goes through `ff_dispatch(addr, ...)`, a binary search
+     `0xF0000000 + (TU index << 14) + n`); every indirect call goes through `ff_dispatch(addr, ...)`, a hash table lookup
      over the generic entries;
    - `inalloca` (MS i686's by-value objects with a copy constructor or destructor) becomes an ordinary pointer to the
      caller's argument block: both sides are compiled here.
@@ -83,15 +86,40 @@ threads at the end, `HULK_STACK_AT=N` stops with a stack at frame N, `HULK_FILE_
 `HULK_INPUT="3000-3010:10,..."` holds pad 0's buttons (wButtons, hex) over frame ranges, `HULK_SNAPTEST=1` times a
 snapshot and restore of the state at the end.
 
+## The standalone module
+
+`hulk.wasm` is a standalone module (`-sSTANDALONE_WASM`, no Emscripten JS). Its imports are WASI's stdio, arguments,
+environment, clock and exit (what the C library calls) and nine `hulk` functions for host files by path
+(`host/hulk_io.h`). Two runners define them: `run/node.mjs` (node's WASI) and `run/native.c`, linked with wasm2c's C
+of the module and wabt's runtime into `hulk-aot` (`wasm_port.py aot`: wasm2c splits the module in 32 C files, clang
+-O2, objects cached by content). Both hand the module only the `HULK_*` variables, sorted, and the same argv, so the
+C library's heap holds the same bytes under both: host pointers can reach the game's stacks as dead bytes, which the
+state hash covers. The same build gives the same state hash under node and compiled (20,000 frames with START
+presses). Host work whose bytes depend on the host (the frame-rate report, the end-of-run lines) runs on a host stack
+outside the state (`ff_on_host_stack`), so reporting doesn't change the hash.
+
 ## Threads and fibers
 
-Every thread runs on an Emscripten fiber (`-sASYNCIFY`); one runs at a time and switches only where the game waits
+Every thread runs on a fiber; one runs at a time and switches only where the game waits
 for an object that isn't signaled, sleeps, exits, switches fibers itself, or polls the clock (a time slice every 32
 `QueryPerformanceCounter` calls, as preemption would: the content loader's fiber is run by the main loop while the
 drive thread serves its reads). The next thread is the first runnable one after the current in handle order; when
 none is runnable the virtual clock jumps to the earliest deadline. A suspended fiber's state is its C stack and its
 Asyncify buffer, both in the arena (the main thread's stack is at 0xE00000), so it is game state like the rest.
-Asyncify costs code size (the module grows from 10.7 to 29.9 MB) and speed; measured below.
+
+The switching is Binaryen's Asyncify driven from C (`sched.c`), not Emscripten's fibers: `wasm_port.py link` runs
+`wasm-opt --asyncify` on the linked module with the driver loop `ff_sched_loop` on the removelist and no import
+allowed to unwind; the `asyncify.*` imports (start/stop unwind/rewind) are the pass's own functions. `fiber_swap`
+saves the stack pointer and unwinds into the driver, which rewinds the next fiber (its saved stack pointer first).
+Instrumented, the module grows from 10.8 to 15.3 MB (Emscripten's Asyncify build was 29.9 MB).
+
+**setjmp/longjmp** (Lua's protected calls; libpng's and the physics' error exits) use the same machinery: `_setjmp3`
+unwinds its fiber and keeps a copy of the Asyncify data and the stack pointer (a continuation, in the arena, keyed by
+the jmp_buf's address, 32 kept), then rewinds and returns 0; `longjmp` unwinds, puts the continuation's data back and
+rewinds into that `_setjmp3`, which returns the value. Memory keeps what it holds at the longjmp; wasm locals come back
+as they were at the setjmp, as registers do on x86. A setjmp costs one unwind and rewind of its fiber (start-up and the
+first 20,000 frames: 1,012 setjmps, ~740 bytes of Asyncify data each). `HULK_SJTEST=1` runs a longjmp through 20
+frames before the game starts.
 
 ## Variadic functions
 
@@ -111,6 +139,13 @@ the area has the x86 layout. The host's printf family reads a `va_list` as x86 s
   name; `rtti.c` compares names without it (as the native host does).
 
 ## Status
+
+- 2026-11-21 (wasm2, the standalone module): the C-driven scheduler, setjmp/longjmp and the wasm2c build. Update
+  frames/s (no rendering), idle screen / after START: node (V8) 6,800 / 1,500; compiled (wasm2c, clang -O2, arm64)
+  10,000 / 2,200, and 3,500 after START once the indirect-call dispatch became a hash table (it was a binary search
+  over 28,000 entries, 35% of the compiled run's samples). Snapshot / restore of the 27 MB state (memcpy): node 0.74 /
+  0.70 ms, compiled 0.70 / 0.66 ms. Same state hash under node and compiled, run to run, and with or without
+  reporting. The game's code is still compiled as clang -O0 emits it (`optnone` on every function): the next lever.
 
 - 2026-11-21 (milestones 2 and 3): the game boots under node to its main loop (CGame's tick 0x87940 -> 0x86cb0 ->
   the render manager 0x1b93a0 -> Swap) and presents frames on the null renderer: 20,000 frames run without a stop.

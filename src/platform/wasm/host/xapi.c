@@ -8,9 +8,9 @@
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <sys/stat.h>
-#include <unistd.h>
+#include <strings.h>
 #include "hulk_host.h"
+#include "hulk_io.h"
 #include "sim.h"
 
 /* ------------------------------------------------------------------------------------------- handles */
@@ -45,21 +45,26 @@ static const char* save_dir(void) {
     return d ? d : "build/wasm/save";
 }
 
-#include <dirent.h>
 /* the host spelling of one path component under DIR (case-insensitive), or 0 */
 static int match_name(const char* dir, const char* name, char* out, size_t cap) {
-    DIR* d = opendir(dir);
-    if (!d) return 0;
-    struct dirent* e;
-    int ok = 0;
-    while ((e = readdir(d)))
-        if (!strcasecmp(e->d_name, name)) {
-            snprintf(out, cap, "%s", e->d_name);
-            ok = 1;
-            break;
+    static char* names;
+    static uint32_t room;
+    uint32_t need = hio_list(dir, names, room);
+    if (need > room) {
+        free(names);
+        room = need + 4096;
+        names = malloc(room);
+        need = hio_list(dir, names, room);
+    }
+    for (uint32_t k = 0; k < need && k < room;) {
+        const char* e = names + k;
+        if (!strcasecmp(e, name)) {
+            snprintf(out, cap, "%s", e);
+            return 1;
         }
-    closedir(d);
-    return ok;
+        k += (uint32_t)strlen(e) + 1;
+    }
+    return 0;
 }
 
 /* game path -> host path; components that don't exist keep their spelling (a file to create) */
@@ -69,8 +74,8 @@ int ff_host_path(const char* game, char* out, size_t cap) {
     if (drive == 'D') snprintf(out, cap, "%s", data_dir());
     else if (drive == 'T' || drive == 'U' || drive == 'Z') {
         snprintf(out, cap, "%s/%c", save_dir(), drive);
-        mkdir(save_dir(), 0777);
-        mkdir(out, 0777);
+        hio_mkdir(save_dir());
+        hio_mkdir(out);
     } else return 0;
     const char* p = game + 2;
     char comp[256];
@@ -92,22 +97,19 @@ int ff_host_path(const char* game, char* out, size_t cap) {
 }
 
 /* ------------------------------------------------------------------------------------------- files */
-/* the host streams behind file records: a cache (reopened from the record's path when missing) */
-static FILE* streams[MAX_OBJS];
+/* the host files behind file records: a cache (reopened from the record's path when missing); fd + 1, 0 = none */
+static int32_t streams[MAX_OBJS];
 
-static FILE* stream(uint32_t h, hulk_obj* o) {
+static int32_t stream(uint32_t h, hulk_obj* o) {
     uint32_t i = (h - HANDLE_BASE) / 4;
-    if (!streams[i]) {
-        streams[i] = fopen(o->path, o->writable ? "r+b" : "rb");
-        if (!streams[i]) return 0;
-    }
-    return streams[i];
+    if (!streams[i]) streams[i] = hio_open(o->path, o->writable ? HIO_RDWR : HIO_READ) + 1;
+    return streams[i] - 1;
 }
 
 static void close_stream(uint32_t h) {
     uint32_t i = (h - HANDLE_BASE) / 4;
     if (i < MAX_OBJS && streams[i]) {
-        fclose(streams[i]);
+        hio_close(streams[i] - 1);
         streams[i] = 0;
     }
 }
@@ -127,16 +129,15 @@ FFG(002109f1) {         /* CreateFileA(path, access, share, sa, disposition, fla
     uint32_t access = ARG(1), disp = ARG(4);
     if (!ff_host_path(game, host, sizeof host)) { set_error(3); RET(INVALID_HANDLE); return; }
     int disc = (game[0] | 0x20) == 'd';
-    struct stat sb;
-    int exists = stat(host, &sb) == 0 && S_ISREG(sb.st_mode);
+    int exists = hio_kind(host) == HIO_FILE;
     if (getenv("HULK_FILE_TRACE")) fprintf(stderr, "hulk: CreateFile %s -> %s%s\n", game, host, exists ? "" : " (none)");
     if (disc && (access & GENERIC_WRITE)) { set_error(5); RET(INVALID_HANDLE); return; }
     if (!exists && (disp == OPEN_EXISTING || disp == TRUNCATE_EXISTING)) { set_error(2); RET(INVALID_HANDLE); return; }
     if (exists && disp == CREATE_NEW) { set_error(80); RET(INVALID_HANDLE); return; }
     if (!exists || disp == CREATE_ALWAYS || disp == TRUNCATE_EXISTING) {
-        FILE* f = fopen(host, "wb");
-        if (!f) { set_error(3); RET(INVALID_HANDLE); return; }
-        fclose(f);
+        int32_t f = hio_open(host, HIO_CREATE);
+        if (f < 0) { set_error(3); RET(INVALID_HANDLE); return; }
+        hio_close(f);
     }
     uint32_t h = ff_new_obj(OBJ_FILE);
     hulk_obj* o = ff_obj(h);
@@ -148,41 +149,30 @@ FFG(002109f1) {         /* CreateFileA(path, access, share, sa, disposition, fla
 }
 
 static uint32_t file_size(uint32_t h, hulk_obj* o) {
-    FILE* f = stream(h, o);
-    if (!f) return 0;
-    fseek(f, 0, SEEK_END);
-    return (uint32_t)ftell(f);
+    int32_t f = stream(h, o);
+    return f < 0 ? 0 : hio_size(f);
 }
 
 FFG(0020ff8d) {         /* ReadFile(h, buf, n, done, overlapped) */
     UNUSED;
     hulk_obj* o = ff_obj(ARG(0));
     if (!o || o->kind != OBJ_FILE) { set_error(6); RET(0); return; }
-    FILE* f = stream(ARG(0), o);
-    uint32_t got = 0;
-    if (f) {
-        fseek(f, (long)o->pos, SEEK_SET);
-        got = (uint32_t)fread(PTR(ARG(1)), 1, ARG(2), f);
-        o->pos += got;
-    }
-    if (ARG(3)) *(uint32_t*)PTR(ARG(3)) = got;
-    RET(f != 0);
+    int32_t f = stream(ARG(0), o);
+    int32_t got = f < 0 ? -1 : hio_read(f, PTR(ARG(1)), ARG(2), o->pos);
+    if (got > 0) o->pos += (uint32_t)got;
+    if (ARG(3)) *(uint32_t*)PTR(ARG(3)) = got > 0 ? (uint32_t)got : 0;
+    RET(got >= 0);
 }
 
 FFG(0021007a) {         /* WriteFile(h, buf, n, done, overlapped) */
     UNUSED;
     hulk_obj* o = ff_obj(ARG(0));
     if (!o || o->kind != OBJ_FILE || !o->writable) { set_error(5); RET(0); return; }
-    FILE* f = stream(ARG(0), o);
-    uint32_t put = 0;
-    if (f) {
-        fseek(f, (long)o->pos, SEEK_SET);
-        put = (uint32_t)fwrite(PTR(ARG(1)), 1, ARG(2), f);
-        fflush(f);
-        o->pos += put;
-    }
-    if (ARG(3)) *(uint32_t*)PTR(ARG(3)) = put;
-    RET(f != 0);
+    int32_t f = stream(ARG(0), o);
+    int32_t put = f < 0 ? -1 : hio_write(f, PTR(ARG(1)), ARG(2), o->pos);
+    if (put > 0) o->pos += (uint32_t)put;
+    if (ARG(3)) *(uint32_t*)PTR(ARG(3)) = put > 0 ? (uint32_t)put : 0;
+    RET(put >= 0);
 }
 
 FFG(002101d4) {         /* SetFilePointer(h, lo, hi*, method) */
@@ -211,8 +201,8 @@ FFG(00210150) {         /* SetEndOfFile(h) */
     UNUSED;
     hulk_obj* o = ff_obj(ARG(0));
     if (!o || o->kind != OBJ_FILE || !o->writable) { RET(0); return; }
-    FILE* f = stream(ARG(0), o);
-    RET(f && truncate(o->path, (off_t)o->pos) == 0);
+    int32_t f = stream(ARG(0), o);
+    RET(f >= 0 && hio_truncate(f, o->pos) == 0);
 }
 
 void ff_close_obj(uint32_t h) {

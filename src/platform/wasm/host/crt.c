@@ -247,9 +247,7 @@ FFG(00347aa0) { UNUSED; RET((uintptr_t)ff_arena_alloc(ARG(0) * ARG(1), 16)); }  
 FFG(00347ba4) { UNUSED; RET((uintptr_t)&SIM->crt_errno); }                       /* _errno */
 FFG(00347b53) { UNUSED; RET((uintptr_t)"error"); }                              /* strerror */
 
-/* setjmp/longjmp (Lua's protected calls): setjmp returns 0; a longjmp (a script error) stops the run for now */
-FFG(00347250) { UNUSED; RET(0); }                                               /* _setjmp3 */
-FFG(003471d4) { UNUSED; ff_fatal("longjmp (a Lua error?) not implemented"); }   /* longjmp */
+/* setjmp/longjmp: sched.c (continuations on the fibers' Asyncify machinery) */
 
 /* ------------------------------------------------------------------------------------------- strings, ctype */
 static int lower(int c) { return c >= 'A' && c <= 'Z' ? c + 32 : c; }

@@ -23,7 +23,7 @@ and retargets to wasm32 (after the owner's fusion-frenzy port, tools/wasm_ir.py)
     packer that lays the arguments out as x86 would and calls the generic entry: declarations that disagree with the
     definition keep their x86 meaning instead of trapping;
   * a function used as a value is its original address; every indirect call (vftables, callbacks) goes through
-    `ff_dispatch(addr, ...)`, a binary search over the generic entries.
+    `ff_dispatch(addr, ...)`, a hash table of the generic entries.
 """
 import argparse
 import collections
@@ -33,6 +33,7 @@ import hashlib
 import json
 import os
 import re
+import shutil
 import subprocess
 import sys
 
@@ -1013,6 +1014,85 @@ def host_sources():
                   if f.endswith(".c"))
 
 
+def _wasm_opt():
+    """Binaryen's wasm-opt: HULK_WASM_OPT, Emscripten's own (Homebrew: libexec/binaryen), or on PATH."""
+    if os.environ.get("HULK_WASM_OPT"):
+        return os.environ["HULK_WASM_OPT"]
+    e = os.path.realpath(shutil.which(EMCC) or EMCC)
+    for d in (os.path.dirname(e), os.path.dirname(os.path.dirname(e))):
+        for sub in ("binaryen/bin/wasm-opt", "libexec/binaryen/bin/wasm-opt"):
+            if os.path.exists(os.path.join(d, sub)):
+                return os.path.join(d, sub)
+    return shutil.which("wasm-opt") or "wasm-opt"
+
+
+WASM_OPT = _wasm_opt()
+WASM_FEATURES = ["--enable-bulk-memory", "--enable-sign-ext", "--enable-mutable-globals",
+                 "--enable-nontrapping-float-to-int", "--enable-multivalue", "--enable-reference-types"]
+
+
+def _leb(b, i):
+    v = sh = 0
+    while True:
+        x = b[i]
+        i += 1
+        v |= (x & 0x7f) << sh
+        sh += 7
+        if x < 0x80:
+            return v, i
+
+
+def wasm_imports(path):
+    """[(module, name, kind)] of a wasm module's import section."""
+    b = open(path, "rb").read()
+    i, out = 8, []
+    while i < len(b):
+        sid = b[i]
+        size, i = _leb(b, i + 1)
+        if sid == 2:
+            j = i
+            n, j = _leb(b, j)
+            for _ in range(n):
+                ln, j = _leb(b, j)
+                mod = b[j:j + ln].decode()
+                j += ln
+                ln, j = _leb(b, j)
+                name = b[j:j + ln].decode()
+                j += ln
+                kind = b[j]
+                j += 1
+                if kind == 0:
+                    _, j = _leb(b, j)
+                elif kind == 1:
+                    j += 1
+                    flags, j = _leb(b, j)
+                    _, j = _leb(b, j)
+                    if flags & 1:
+                        _, j = _leb(b, j)
+                elif kind == 2:
+                    flags, j = _leb(b, j)
+                    _, j = _leb(b, j)
+                    if flags & 1:
+                        _, j = _leb(b, j)
+                elif kind == 3:
+                    j += 2
+                else:
+                    raise ValueError("import kind %d" % kind)
+                out.append((mod, name, kind))
+            return out
+        i += size
+    return out
+
+
+def asyncify(raw, out):
+    """Binaryen's Asyncify on the linked module, driven from C (src/platform/wasm/host/sched.c): the driver loop is
+    not instrumented, no import unwinds (the asyncify.* imports are the pass's own functions)."""
+    return subprocess.run([WASM_OPT, raw, "-o", out, "-g", "--asyncify",
+                           "--pass-arg=asyncify-removelist@ff_sched_loop",
+                           "--pass-arg=asyncify-imports@hulk.none", "-O1"] + WASM_FEATURES,
+                          capture_output=True, text=True, errors="replace")
+
+
 def cmd_link(a):
     img = Image()
     names = func_names()
@@ -1107,16 +1187,25 @@ def cmd_link(a):
     entries = sorted(entries)
     for x in entries:
         c.append("void %s(uint32_t, uint32_t, void*, void*);" % x)
-    c.append("static const struct { uint32_t a; ffg_t f; } table[] = {")
-    c += ["  {0x%s, %s}," % (x[4:], x) for x in entries]
+    # an open-addressing hash table (linear probing, at most half full), laid out here: one or two probes a call
+    bits = max(10, (2 * len(entries) - 1).bit_length())
+    slots = [None] * (1 << bits)
+    for x in entries:
+        k = ((int(x[4:], 16) * 0x9E3779B1) & 0xffffffff) >> (32 - bits)
+        while slots[k] is not None:
+            k = (k + 1) & ((1 << bits) - 1)
+        slots[k] = x
+    c.append("#define FF_BITS %d" % bits)
+    c.append("static const struct { uint32_t a; ffg_t f; } table[1 << FF_BITS] = {")
+    c += ["  {0x%s, %s}," % (x[4:], x) if x else "  {0, 0}," for x in slots]
     c.append("};")
     c.append("""ffg_t ff_lookup(uint32_t a) {
-  unsigned lo = 0, hi = sizeof table / sizeof table[0];
-  while (lo < hi) {
-    unsigned m = (lo + hi) / 2;
-    if (table[m].a < a) lo = m + 1; else hi = m;
+  unsigned k = (a * 0x9E3779B1u) >> (32 - FF_BITS);
+  for (;;) {
+    if (table[k].a == a) return table[k].f;
+    if (!table[k].f) return 0;
+    k = (k + 1) & ((1u << FF_BITS) - 1);
   }
-  return lo < sizeof table / sizeof table[0] && table[lo].a == a ? table[lo].f : 0;
 }
 extern int ff_trace_on;
 void ff_trace_dispatch(uint32_t a, uint32_t ecx, void* st);
@@ -1129,7 +1218,7 @@ void ff_dispatch(uint32_t a, uint32_t ecx, uint32_t edx, void* st, void* rb) {
     open(glue, "w").write("\n".join(c) + "\n")
     rsp = os.path.join(gen, "objs.rsp")
     open(rsp, "w").write("\n".join(objs) + "\n")
-    out = os.path.join(OUT, "hulk.js")
+    out = os.path.join(OUT, "hulk.raw.wasm")
     stub_ll = os.path.join(gen, "stubs.ll")
     stub_o = stub_ll[:-3] + ".o"
     if os.path.exists(stub_o):
@@ -1143,16 +1232,15 @@ void ff_dispatch(uint32_t a, uint32_t ecx, uint32_t edx, void* st, void* rb) {
     def run(extra, final):
         cmd = [EMCC, "-O1", "@" + rsp] + host_objs + extra + [
             "-o", out, "-sGLOBAL_BASE=%d" % (1024 << 20), "-sINITIAL_MEMORY=%d" % (1536 << 20),
-            "-sALLOW_MEMORY_GROWTH=0", "-sSTACK_SIZE=%d" % (4 << 20), "-sNODERAWFS=1", "-sEXIT_RUNTIME=1",
-            "-Wl,--no-demangle", "-Wl,--error-limit=0", "--profiling-funcs", "-sASYNCIFY=1",
-            "-sASYNCIFY_STACK_SIZE=65536"]
+            "-sALLOW_MEMORY_GROWTH=0", "-sSTACK_SIZE=%d" % (4 << 20), "-sSTANDALONE_WASM=1",
+            "-sSTACK_OVERFLOW_CHECK=0", "-Wl,--no-demangle", "-Wl,--error-limit=0", "--profiling-funcs"]
         cmd += (["-sERROR_ON_UNDEFINED_SYMBOLS=1"] if final else
                 ["-sERROR_ON_UNDEFINED_SYMBOLS=0", "-Wl,--warn-unresolved-symbols"])
         return subprocess.run(cmd, capture_output=True, text=True, errors="replace")
     r = run([], False)
     missing = set(re.findall(r"undefined symbol: (\S+)", r.stderr))
-    if os.path.exists(out):
-        missing |= set(re.findall(r"abort\('missing function: (.*?)'\);", open(out, errors="replace").read()))
+    if os.path.exists(out):     # (standalone: what the link left undefined is an `env` import)
+        missing |= {n for m, n, kind in wasm_imports(out) if m == "env"}
     missing = sorted(missing)
     if missing:
         want = set(missing)
@@ -1188,6 +1276,8 @@ void ff_dispatch(uint32_t a, uint32_t ecx, uint32_t edx, void* st, void* rb) {
         if rr.returncode:
             raise SystemExit("stubs: " + rr.stderr[-2000:])
     r = run([stub_o] if missing else [], True)
+    if not r.returncode:
+        r = asyncify(out, os.path.join(OUT, "hulk.wasm"))
     warn = collections.Counter()
     for line in r.stderr.splitlines():
         m = re.search(r"(function signature mismatch|undefined symbol): (\S+)", line)
@@ -1217,6 +1307,74 @@ def cmd_report(a):
         print("  warning:", *w)
 
 
+# ---------------------------------------------------------------------------------------------- ahead of time
+WASM2C = os.environ.get("HULK_WASM2C") or shutil.which("wasm2c") or "wasm2c"
+CC = os.environ.get("HULK_CC", "clang")
+
+
+def wabt_share():
+    """wabt's wasm2c runtime sources (wasm-rt-impl.c ...): next to the wasm2c binary's prefix."""
+    pre = os.path.dirname(os.path.dirname(os.path.realpath(WASM2C)))
+    return os.path.join(pre, "share/wabt/wasm2c"), os.path.join(pre, "include")
+
+
+def _cc(job):
+    src, obj, flags = job
+    r = subprocess.run([CC] + flags + ["-c", src, "-o", obj + ".tmp"], capture_output=True, text=True,
+                       errors="replace")
+    if r.returncode:
+        return src, r.stderr[-2000:]
+    os.replace(obj + ".tmp", obj)
+    return src, None
+
+
+def cmd_aot(a):
+    """hulk.wasm -> C (wasm2c, module `game`) -> a native executable (build/wasm/hulk-aot) with the runner
+    src/platform/wasm/run/native.c. Objects are cached by the C file's content."""
+    import time
+    t = time.time()
+    d = os.path.join(OUT, "aot")
+    os.makedirs(d, exist_ok=True)
+    for f in os.listdir(d):
+        if f.endswith(".c") or f.endswith(".h"):
+            os.remove(os.path.join(d, f))
+    r = subprocess.run([WASM2C, os.path.join(OUT, "hulk.wasm"), "-n", "game", "--num-outputs=%d" % a.outputs,
+                        "-o", os.path.join(d, "game.c")], capture_output=True, text=True)
+    if r.returncode:
+        raise SystemExit("wasm2c: " + r.stderr[-2000:])
+    share, inc = wabt_share()
+    flags = [a.opt, "-I", d, "-I", share, "-I", inc, "-w", "-fno-strict-aliasing"]
+    jobs, objs = [], []
+    impl = open(os.path.join(d, "game-impl.h"), "rb").read()
+    for f in sorted(os.listdir(d)) + [os.path.join(share, "wasm-rt-impl.c"), os.path.join(share, "wasm-rt-mem-impl.c"),
+                                      os.path.join(share, "wasm-rt-exceptions-impl.c"),
+                                      os.path.join(HOST_DIR, "run/native.c")]:
+        if not f.endswith(".c"):
+            continue
+        src = f if os.path.isabs(f) else os.path.join(d, f)
+        key = hashlib.sha1(open(src, "rb").read() + impl + " ".join(flags).encode()).hexdigest()[:16]
+        obj = os.path.join(d, "obj", "%s.%s.o" % (os.path.basename(src)[:-2], key))
+        objs.append(obj)
+        if not os.path.exists(obj):
+            jobs.append((src, obj, flags))
+    os.makedirs(os.path.join(d, "obj"), exist_ok=True)
+    keep = set(objs)
+    for f in os.listdir(os.path.join(d, "obj")):
+        if os.path.join(d, "obj", f) not in keep:
+            os.remove(os.path.join(d, "obj", f))
+    print("aot: wasm2c %.0f s; compiling %d of %d C files (%s)" % (time.time() - t, len(jobs), len(objs), a.opt),
+          flush=True)
+    with concurrent.futures.ProcessPoolExecutor(a.jobs) as ex:
+        for src, err in ex.map(_cc, jobs):
+            if err:
+                raise SystemExit("cc %s: %s" % (src, err))
+    out = os.path.join(OUT, "hulk-aot")
+    r = subprocess.run([CC] + objs + ["-o", out, "-lm"], capture_output=True, text=True)
+    if r.returncode:
+        raise SystemExit("link: " + r.stderr[-3000:])
+    print("aot: %s in %.0f s" % (out, time.time() - t))
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sp = ap.add_subparsers(dest="cmd", required=True)
@@ -1225,8 +1383,12 @@ def main(argv=None):
     c.add_argument("--jobs", type=int, default=2)
     sp.add_parser("link")
     sp.add_parser("report")
+    c = sp.add_parser("aot")
+    c.add_argument("--jobs", type=int, default=2)
+    c.add_argument("--outputs", type=int, default=32)
+    c.add_argument("--opt", default="-O2")
     a = ap.parse_args(argv)
-    {"compile": cmd_compile, "link": cmd_link, "report": cmd_report}[a.cmd](a)
+    {"compile": cmd_compile, "link": cmd_link, "report": cmd_report, "aot": cmd_aot}[a.cmd](a)
 
 
 if __name__ == "__main__":

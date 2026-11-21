@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "hulk_host.h"
+#include "hulk_io.h"
 #include "sim.h"
 
 #define KERNEL_KEY 0x5B6D40B6u       /* retail XOR key of the kernel thunk address (public XBE format) */
@@ -19,14 +20,12 @@ static int is_library(uint32_t a) {
 }
 
 static int load_xbe(const char* path) {
-    FILE* f = fopen(path, "rb");
-    if (!f) { perror(path); return -1; }
-    fseek(f, 0, SEEK_END);
-    long n = ftell(f);
-    fseek(f, 0, SEEK_SET);
+    int32_t f = hio_open(path, HIO_READ);
+    if (f < 0) { fprintf(stderr, "hulk: can't open %s\n", path); return -1; }
+    uint32_t n = hio_size(f);
     uint8_t* x = malloc(n);
-    if (!x || fread(x, 1, n, f) != (size_t)n) { fclose(f); free(x); return -1; }
-    fclose(f);
+    if (!x || hio_read(f, x, n, 0) != (int32_t)n) { hio_close(f); free(x); return -1; }
+    hio_close(f);
     if (memcmp(x, "XBEH", 4) || rd32(x + 0x104) != XBE_BASE) {
         fprintf(stderr, "hulk: %s is no XBE\n", path);
         free(x);
