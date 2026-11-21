@@ -431,6 +431,14 @@ bool FUN_00306790(Shape_306790* a, Shape_306790* b, float margin) {
 // 0x003068a0 physics::CollisionVolume::vfunc_12 (54 B): equivalent/0x003068a0.cpp [wrapped: conflict: physics::CollisionVolume]
 // sym: ?vfunc_12@CollisionVolume@physics@fn_003068a0@@UAEXPAU123@PAX@Z @847fdbab3db3 @w1b23463e1896 @v49b13dd7ed96
 namespace fn_003068a0 {
+// HULK_PORT_ABI (include/compat/ptr.h): the overlap test's result. The original tail-calls 0x00306790 and leaves its
+// bool in eax; the narrowphase (0x00302b70: `if (a->Check(b, field))`) tests al. The port builds return it (wasm6),
+// the 32-bit builds keep void.
+#if defined(HULK_PORT_ABI)
+typedef bool Ret_3068a0;
+#else
+typedef void Ret_3068a0;
+#endif
 // STATUS: equivalent (tools/equiv.py level 3: 14802 inputs, branch coverage 4/4)
 // physics::CollisionVolume::vfunc_12 @ 0x003068a0
 // physics::CollisionVolume::vfunc_12 @ 0x003068a0
@@ -448,17 +456,21 @@ struct CollisionVolume {
     virtual void vfunc_9();
     virtual void vfunc_10();
     virtual void vfunc_11();
-    virtual void vfunc_12(CollisionVolume*, void*);
+    virtual Ret_3068a0 vfunc_12(CollisionVolume*, void*);
     char pad[HULK_CV(0x19) - sizeof(void*)];   // (x64t6) the volume's words up to c19 (decls/physics_world.h)
     unsigned char dirty;
 };
 }
 // equiv-conv: FUN_00306790 eax ebx stack
-void __cdecl FUN_00306790(physics::CollisionVolume*, physics::CollisionVolume*, void*);
-void physics::CollisionVolume::vfunc_12(CollisionVolume* other, void* arg) {
+Ret_3068a0 __cdecl FUN_00306790(physics::CollisionVolume*, physics::CollisionVolume*, void*);
+Ret_3068a0 physics::CollisionVolume::vfunc_12(CollisionVolume* other, void* arg) {
     if (!dirty) vfunc_10();
     if (!other->dirty) other->vfunc_10();
+#if defined(HULK_PORT_ABI)
+    return FUN_00306790(this, other, arg);
+#else
     FUN_00306790(this, other, arg);
+#endif
 }
 } // namespace fn_003068a0
 

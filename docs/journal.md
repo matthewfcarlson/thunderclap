@@ -2574,3 +2574,16 @@ passes the controller set-up and the first frame callees and stops in 0x00207410
   It returns the count under HULK_PORT_ABI now (the 32-bit code is unchanged). Records, entries and world objects
   then match the Wine build (220 / 215 / 45). The first divergence stays rng 446: in the reference the props collide
   from frame 442 (0x001b2560 called 5, 5, 20, 21 times in 442..445); on wasm it runs only twice, at 441.
+
+## 2026-11-21 wasm6: the narrowphase overlap test returns its bool on the port builds (rng 446 -> camera 541)
+
+- Wine-build probes (jobs 111395/111396) and wasm entry hooks: SweepAndPrune (0x002ed3d0) hands 0x00302ed0 the same
+  pairs on both (157, 451, 311, 310, 309 in frames 441..445), but on wasm almost no pair reached the contact list.
+- 0x00302b70 tests `a->Check(b, field)` (slot 12) in al; every volume's slot 12 is 0x003068a0
+  (physics::CollisionVolume::vfunc_12), a void in the source that tail-calls the box test 0x00306790 and leaves its
+  bool in eax. On wasm the caller read a stale result word. It returns the bool under HULK_PORT_ABI now (Ret_3068a0;
+  the 32-bit code is unchanged, code ok/ok view ok).
+- wasm play3: the props collide and wake as in the reference; the first divergence moves from rng 446 to camera 541
+  (float drift; rng 542). All 60,000 frames in 37.9 s.
+- Native note: 0x003068a0 passes its third argument (the caller's int `field`) as `void*` to 0x00306790, which reads
+  it as a float: fine on x86 and wasm stack slots, a register-class mismatch on arm64 / x86-64.
