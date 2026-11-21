@@ -138,7 +138,9 @@ as `(hulk_freg)a * b` (D80). Before calling a `--wine` difference float rounding
 a `bool` return that the original passes on as a raw byte (`al`) must be declared `unsigned char` (D112).
 A source-local polymorphic stand-in for an object the code constructs gets clang's own (shorter) vftable natively:
 construct a non-polymorphic record, store the game's vftable by address, and define the slots as plain members of
-record-derived structs. A gen edit that changes a class's 32-bit size is recorded with `gen_headers.py --update-sizes`;
+record-derived structs (a constructor / destructor view is an explicit member, `Construct(int)` / `Destroy()`, writing
+`*(void**)this = DAT_<vftable>`; the eh vector constructor / destructor iterators 0x00011520 / 0x00013420 take
+`sizeof(cell)`, never the 32-bit 8; gfx6, C15). A gen edit that changes a class's 32-bit size is recorded with `gen_headers.py --update-sizes`;
 an anonymous struct keeps a nested pointer struct's native alignment in gen (D92).
 A dynamic_cast / typeid compares RTTI names natively: the source and target types must carry the game's exact names
 (`.?AVTextureLoader@pure3d@@`; gen classes or the game's namespaces), never a block-local stand-in (`@fn_ADDR@@`) or a
@@ -190,7 +192,9 @@ samples show only the loop). `jobq.py cancel --name ME` cancels all your unfinis
 function: the body by its address, then the free when `flags & 1`. A raw `(char*)this + HULK_SPE(k)` in a pad view reads
 as `layout` to the x64 gate when the record moves: give the view a field at that offset. After a symbol change, a local
 native run needs the snapshot's report.json refreshed (TreeDefs binds vftable slots and callers through its address ->
-32-bit symbol table) and the new address names added to a private copy of the binding map (D117).
+32-bit symbol table) and the new address names added to a private copy of the binding map (D117). Rename the old 32-bit symbol in the snapshot's
+cp/snap/report.json too, or the caller stays missing ("definition without a unique 64-bit symbol"). A native trace's frame
+chain stops at libc leaves (memmove): get the caller from `lldb --batch -o run -k 'bt 10'` (gfx6).
 The game's free calls are `operator delete(p)` / `operator delete[](p)`: 0x0008d330 / 0x0008d340 are their definitions
 (unk_08ceb0.cpp); MSVC 7.1 predeclares only the scalar form, so declare `void __cdecl operator delete[](void*)` at global
 scope. Never add a new name for the free (D115). The game's operator new / new[] are defined once, in unk_08ceb0.cpp, forwarding to
