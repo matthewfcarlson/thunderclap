@@ -25,6 +25,26 @@ namespace fn_f49dcb8d { extern "C" char DAT_00425b20[]; }   // (x64t6) the game 
 #include "game/global.h"
 #include "decls/managers.h"
 #include "game/script_bind.h"
+// (gfx7, C16) The views of CWorldStreamManager (decls/managers.h HulkWorldStreamManager) and of its pools
+// (HulkWorldMemoryPool) below place their words by the record's offsets: the 32-bit layout is the one they had, and
+// natively the words follow the record's pointer words. HULK_WSM / HULK_WMP give a word's offset in the manager / a
+// pool, HULK_WMPS a pool word's offset from the pool's state byte (the views that index the pools from +4), and
+// HULK_WSM_AT / HULK_WMP_AT / HULK_WMPS_AT check on every build that a view's word sits where the record's does.
+#if defined(__clang__)
+#define HULK_WSM_OFF(T, f) __builtin_offsetof(T, f)
+#else
+#define HULK_WSM_OFF(T, f) ((unsigned int)(hulk_uintptr)&((T*)0)->f)
+#endif
+#define HULK_WSM(f) HULK_WSM_OFF(HulkWorldStreamManager, f)
+#define HULK_WMP(f) HULK_WSM_OFF(HulkWorldMemoryPool, f)
+#define HULK_WMPS(f) (HULK_WMP(f) - HULK_WMP(state))
+#define HULK_WSM_POOL(n) (HULK_WSM(pools) + (n) * sizeof(HulkWorldMemoryPool))   // pool n's offset
+#define HULK_WSM_CAT2(a, b) a##b
+#define HULK_WSM_CAT(a, b) HULK_WSM_CAT2(a, b)
+#define HULK_WSM_CHECK(c) typedef char HULK_WSM_CAT(hulk_wsm_at_, __LINE__)[(c) ? 1 : -1]
+#define HULK_WSM_AT(V, v, f) HULK_WSM_CHECK(HULK_WSM_OFF(V, v) == HULK_WSM(f))
+#define HULK_WMP_AT(V, v, f) HULK_WSM_CHECK(HULK_WSM_OFF(V, v) == HULK_WMP(f))
+#define HULK_WMPS_AT(V, v, f) HULK_WSM_CHECK(HULK_WSM_OFF(V, v) == HULK_WMPS(f))
 // (ren2) __RTDynamicCast's own name (CRT, C linkage)
 extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
@@ -66,10 +86,12 @@ struct Link_203cd0 { char pad[0x20]; Part_203cd0* part; };
 struct Group_203cd0 { char pad[0xc]; Link_203cd0* link; };
 Holder_203cd0* FUN_001c3d90();
 struct Actor_203cd0 {
-    char pad0[0x588]; Group_203cd0* group;
-    char pad1[0xaf8 - 0x58c]; int busy;
+    char pad0[HULK_WSM(game)]; Group_203cd0* group;
+    char pad1[HULK_WSM(faf8) - HULK_WSM(owner58c)]; int busy;
     int GetValue();
 };
+HULK_WSM_AT(Actor_203cd0, group, game);
+HULK_WSM_AT(Actor_203cd0, busy, faf8);
 } // namespace fn_f49dcb8d
 struct Gfx {
     virtual void a();
@@ -171,10 +193,11 @@ struct Item_203e00 {
 };
 extern void helper();
 struct CWorldStreamManager_203e00 {
-    char pad[0x578];
+    char pad[HULK_WSM(streams)];
     Item_203e00* items[1];
     void target(int index);
 };
+HULK_WSM_AT(CWorldStreamManager_203e00, items, streams);
 struct Manager_203e30 {
     int Get_00264870();
 };
@@ -192,12 +215,14 @@ struct Item_204180 {
 };
 class ItemSet {
 public:
-    char pad0[0x58c];
+    char pad0[HULK_WSM(owner58c)];
     Item_204180* items;
-    char pad1[8];
+    char pad1[HULK_WSM(f598) - HULK_WSM(table590)];
     int count;
     void FUN_00204180(int n);
 };
+HULK_WSM_AT(ItemSet, items, owner58c);
+HULK_WSM_AT(ItemSet, count, f598);
 struct Item {
   public:
     char _m_pad_0[0x56];
@@ -225,35 +250,43 @@ struct Obj_204350 {
 extern Obj_204350* GetQuery_001c3d90();
 class CWorldStreamManager_204410 {
   public:
-    char pad[0x5a4];
+    char pad[HULK_WSM(flags)];
     signed char flags[0x400];
     int Find(int index);
 };
-struct CWorldStreamManager_204440 { char pad[0x5a4]; unsigned char flags[1024]; unsigned int FUN_00204440(int index); };
-struct Entry_204540 {
-    unsigned int data;
+HULK_WSM_AT(CWorldStreamManager_204410, flags, flags);
+struct CWorldStreamManager_204440 { char pad[HULK_WSM(flags)]; unsigned char flags[1024]; unsigned int FUN_00204440(int index); };
+HULK_WSM_AT(CWorldStreamManager_204440, flags, flags);
+struct Entry_204540 {   // a pool (HulkWorldMemoryPool): the vftable, the state, the name and the words after it
+    void* data;
     unsigned char active;
-    char name[55];
+    char name[sizeof(HulkWorldMemoryPool) - HULK_WMP(name)];
 };
+HULK_MGR_SAME(Entry_204540, HulkWorldMemoryPool);
+HULK_WMP_AT(Entry_204540, active, state);
 struct Registry_204540 {
-    char padding[0x48];
+    char padding[HULK_WSM(pools)];
     Entry_204540 primary[20];
     Entry_204540 secondary[2];
     Entry_204540* FUN_00204540(const char* name);
 };
+HULK_WSM_AT(Registry_204540, primary, pools);
 struct Record { char pad[0x56]; short value; };
 struct Lookup { Record* FUN_001c7f10(int index); };
 struct Provider { char pad[4]; Lookup* lookup; };
-struct Game { char pad[0x5a4]; unsigned char states[0x400]; Provider* FUN_001c3d90(); bool FUN_002046b0(int value); };
+struct Game { char pad[HULK_WSM(flags)]; unsigned char states[0x400]; Provider* FUN_001c3d90(); bool FUN_002046b0(int value); };
+HULK_WSM_AT(Game, states, flags);
 class Obj {
-    char a[0x44];
+  public:   // (gfx7) the words' offsets are checked below
+    char a[HULK_WSM(f44)];
     void* m;
-    char b[0x570 - 0x48];
+    char b[HULK_WSM(rooms) - HULK_WSM(pools)];
     void* slots[2];
 
-  public:
     void Add(void* p);
 };
+HULK_WSM_AT(Obj, m, f44);
+HULK_WSM_AT(Obj, slots, rooms);
 struct Resource_2047c0 { virtual void activate(); };
 struct LoadInventory_nv_2047c0 {
     content::LoadInventory* FUN_00266480(void*);
@@ -262,16 +295,23 @@ extern "C" Resource_2047c0* __cdecl FUN_0026cfa0(void*, int, int, const char*);
 extern "C" void __cdecl FUN_002670b0(int, int, Resource_2047c0*);
 extern void* __cdecl FUN_00263ea0(unsigned int);
 struct Object_2047c0 {
- char prefix[5]; char name[33]; short id; short count; char pad[2]; void* context; Resource_2047c0* resource; void* config; content::LoadInventory* helper;
+ void* vftable; char state; char name[33]; short id; short count; char pad[2]; void* context; Resource_2047c0* resource; void* config; content::LoadInventory* helper;
  void FUN_002047c0(const char* text, int identifier, int mode, int amount);
 };
+HULK_MGR_SAME(Object_2047c0, HulkWorldMemoryPool);
+HULK_WMP_AT(Object_2047c0, name, name);
+HULK_WMP_AT(Object_2047c0, id, id);
+HULK_WMP_AT(Object_2047c0, context, context);
+HULK_WMP_AT(Object_2047c0, helper, helper);
 struct Owner_204de0 {
-    char pad[0x58c];
+    char pad[HULK_WSM(owner58c)];
     void* ptr;
-    char pad2[4];
+    char pad2[HULK_WSM(f594) - HULK_WSM(table590)];
     int a;
     int b;
 };
+HULK_WSM_AT(Owner_204de0, ptr, owner58c);
+HULK_WSM_AT(Owner_204de0, a, f594);
 struct Item_204de0 {
     char pad[0x56];
     void Destroy_00208ab0();
@@ -279,14 +319,15 @@ struct Item_204de0 {
 extern unsigned char hulk_at_004c91d8, hulk_at_004c91d9;
 extern int __cdecl switchState_00266da0(int);
 struct Item_204e40 {
-    char pad[0x3c];
+    char pad[sizeof(HulkWorldMemoryPool)];
     void init_002047c0(const char*, int, int, int);
 };
 struct Obj_204e40 {
-    char pad[0x48];
+    char pad[HULK_WSM(pools)];
     Item_204e40 items[20];
     void run();
 };
+HULK_WSM_AT(Obj_204e40, items, pools);
 class Obj_204ea0 {
   public:
     virtual void a();
@@ -298,7 +339,7 @@ class Inner_204ea0 {
 };
 class A_204ea0 {
   public:
-    char p0[4];
+    void* p0;   // (gfx7) a pool (HulkWorldMemoryPool): the vftable
     unsigned char a, b;
     char p1[0x20];
     short value;
@@ -309,6 +350,12 @@ class A_204ea0 {
     Inner_204ea0* ptr38;
     void close();
 };
+HULK_MGR_SAME(A_204ea0, HulkWorldMemoryPool);
+HULK_WMP_AT(A_204ea0, a, state);
+HULK_WMP_AT(A_204ea0, value, id);
+HULK_WMP_AT(A_204ea0, ptr2c, context);
+HULK_WMP_AT(A_204ea0, obj30, resource);
+HULK_WMP_AT(A_204ea0, ptr38, helper);
 extern "C" void FUN_00267110(int);
 class Obj_204f00 {
   public:
@@ -331,17 +378,24 @@ class S_204f00 {
 };
 class A_204f00 {
   public:
-    char pad0[4];
+    void* pad0;   // (gfx7) a pool (HulkWorldMemoryPool): the vftable, the state, the name
     char flag;
-    char pad5[0x21];
+    char name[0x21];
     short x26;
     short x28;
-    char pad2a[6];
+    char pad2a[HULK_WMP(resource) - HULK_WMP(count) - 2];
     Obj_204f00* p30;
     char gap34[4];
     Obj_204f00* p38;
     void finish_002047c0(char*, int, int, int);
 };
+HULK_MGR_SAME(A_204f00, HulkWorldMemoryPool);
+HULK_WMP_AT(A_204f00, flag, state);
+HULK_WMP_AT(A_204f00, name, name);
+HULK_WMP_AT(A_204f00, x26, id);
+HULK_WMP_AT(A_204f00, x28, count);
+HULK_WMP_AT(A_204f00, p30, resource);
+HULK_WMP_AT(A_204f00, p38, helper);
 extern char DAT_0048d5bc;
 extern char DAT_004c9268;
 class DynamicCasterBase {
@@ -464,42 +518,55 @@ struct LoadInventory_nv_205910 {
 };
 extern "C" void __cdecl FUN_00266d90();
 struct Texture_205910 {
- char pad[0x34];
+ char pad[HULK_WMP(config)];
  unsigned int size;
- char tail[4];
+ char tail[sizeof(HulkWorldMemoryPool) - HULK_WMP(config) - 4];
  void FUN_002047c0(const char*, int, int, int);
 };
+HULK_MGR_SAME(Texture_205910, HulkWorldMemoryPool);
+HULK_WMP_AT(Texture_205910, size, config);
 struct Object_205910 {
- char pad0[0x44];
+ char pad0[HULK_WSM(f44)];
  content::LoadInventory* resource;
- char pad1[0x4f8-0x48];
+ char pad1[HULK_WSM_POOL(20) - HULK_WSM(pools)];
  Texture_205910 textures[2];
- char pad2[0xaf4-0x570];
+ char pad2[HULK_WSM(faf4) - HULK_WSM(rooms)];
  unsigned char flag;
  void FUN_00204e40();
  void target();
 };
+HULK_WSM_AT(Object_205910, resource, f44);
+HULK_WSM_CHECK(HULK_WSM_OFF(Object_205910, textures) == HULK_WSM_POOL(20));
+HULK_WSM_AT(Object_205910, flag, faf4);
 struct Resource_2059d0 { virtual void unused(); virtual void release(); void FUN_002665a0(); };
 struct Handle_2059d0 { void FUN_00263e90(); };
-struct Entry_2059d0 {
+struct Entry_2059d0 {   // (gfx7) a pool (HulkWorldMemoryPool) from its state byte up to the next pool's state
  unsigned char active, flag;
- char pad0[32];
+ char pad0[HULK_WMPS(id) - 2];
  short id;
- char pad1[4];
+ char pad1[HULK_WMPS(context) - HULK_WMPS(id) - 2];
  void* allocation;
  Resource_2059d0* resource;
- char pad2[4];
+ char pad2[HULK_WMPS(helper) - HULK_WMPS(config)];
  Handle_2059d0* handle;
- char pad3[4];
+ char pad3[sizeof(HulkWorldMemoryPool) - HULK_WMPS(helper) - sizeof(void*)];
 };
+HULK_MGR_SAME(Entry_2059d0, HulkWorldMemoryPool);
+HULK_WMPS_AT(Entry_2059d0, id, id);
+HULK_WMPS_AT(Entry_2059d0, allocation, context);
+HULK_WMPS_AT(Entry_2059d0, resource, resource);
+HULK_WMPS_AT(Entry_2059d0, handle, helper);
 struct Object {
- char pad[0x44];
+ char pad[HULK_WSM(f44)];
  Resource_2059d0* mainResource;
- char pad1[4];
+ char pad1[HULK_WMP(state)];
  Entry_2059d0 entries[20];
- union { Entry_2059d0 extra[2]; struct {char padding[116]; int values[2];} tail; };
+ union { Entry_2059d0 extra[2]; struct {char padding[HULK_WSM(rooms) - HULK_WSM_POOL(20) - HULK_WMP(state)]; void* values[2];} tail; };
  void cleanup();
 };
+HULK_WSM_AT(Object, mainResource, f44);
+HULK_WSM_CHECK(HULK_WSM_OFF(Object, entries) == HULK_WSM(pools) + HULK_WMP(state));
+HULK_WSM_CHECK(HULK_WSM_OFF(Object, tail.values) == HULK_WSM(rooms));
 class CActorManager_205c70 {
   public:
     void invoke(const char*);
@@ -616,28 +683,33 @@ namespace fn_f49dcb8d {
 struct Slot_2071e0 {
     unsigned char used;            // 0x00
     unsigned char used2;           // 0x01
-    char pad02[0x22 - 2];
+    char pad02[HULK_WMPS(id) - 2];
     short id;                      // 0x22
-    char pad24[4];
+    char pad24[HULK_WMPS(context) - HULK_WMPS(id) - 2];
     void *buf;                     // 0x28
     Voice_2071e0 *voice;                  // 0x2c
-    char pad30[4];
+    char pad30[HULK_WMPS(helper) - HULK_WMPS(config)];
     Handle_2071e0 *handle;                // 0x34
-    char pad38[4];
+    char pad38[sizeof(HulkWorldMemoryPool) - HULK_WMPS(helper) - sizeof(void*)];
 };
+HULK_MGR_SAME(Slot_2071e0, HulkWorldMemoryPool);   // (gfx7) a pool from its state byte (HULK_WMPS)
+HULK_WMPS_AT(Slot_2071e0, id, id);
+HULK_WMPS_AT(Slot_2071e0, buf, context);
+HULK_WMPS_AT(Slot_2071e0, voice, resource);
+HULK_WMPS_AT(Slot_2071e0, handle, helper);
 class Mixer {
 public:
-    char pad0[0x4c];
+    char pad0[HULK_WSM(pools) + HULK_WMP(state)];
     Slot_2071e0 slots[20];                // 0x4c
-    char pad4fc[0x578 - 0x4fc];
+    char pad4fc[HULK_WSM(streams) - HULK_WSM_POOL(20) - HULK_WMP(state)];
     Stream *streams[3];            // 0x578
-    char pad584[0x5a4 - 0x584];
+    char pad584[HULK_WSM(flags) - HULK_WSM(selected)];
     unsigned char flags[0x400];    // 0x5a4
     int field9a4;                  // 0x9a4
     int count;                     // 0x9a8
     int ids[20];                   // 0x9ac
     int vals[20];                  // 0x9fc
-    char pada4c[0xaf1 - 0xa4c];
+    char pada4c[HULK_WSM(faf1) - HULK_WSM(fa4c)];
     unsigned char ready;           // 0xaf1
     char padaf2[2];
     unsigned char dirty;           // 0xaf4
@@ -647,14 +719,22 @@ public:
     void FUN_00207080(int a);
     void FUN_002071e0(int n);
 };
+HULK_WSM_CHECK(HULK_WSM_OFF(Mixer, slots) == HULK_WSM(pools) + HULK_WMP(state));
+HULK_WSM_AT(Mixer, streams, streams);
+HULK_WSM_AT(Mixer, flags, flags);
+HULK_WSM_AT(Mixer, count, slotCount);
+HULK_WSM_AT(Mixer, vals, slotVals);
+HULK_WSM_AT(Mixer, ready, faf1);
+HULK_WSM_AT(Mixer, dirty, faf4);
 struct Slot_207410 {
     void FUN_00266220(int v);
 };
-struct Node_207410 {
-    char pad0[0x38];
+struct Node_207410 {   // (gfx7) a pool (HulkWorldMemoryPool): the inventory
+    char pad0[HULK_WMP(helper)];
     Slot_207410 *slot;
     void FUN_00204f00();
 };
+HULK_WMP_AT(Node_207410, slot, helper);
 struct LoadInventory_nv_207410 {
     int FUN_00266710();
     int FUN_00266700();
@@ -662,10 +742,10 @@ struct LoadInventory_nv_207410 {
 };
 class Player_207410 {
 public:
-    char pad0[0x578];
+    char pad0[HULK_WSM(streams)];
     Slot_207410 *slots[3];
     int curSlot;
-    char pad588[0xaec - 0x588];
+    char pad588[HULK_WSM(faec) - HULK_WSM(selected) - sizeof(int)];
     content::LoadInventory *stream;
     char busy;
     char pad_af1;
@@ -679,6 +759,10 @@ public:
     void FUN_002067d0(int v, int w);
     char FUN_00207410();
 };
+HULK_WSM_AT(Player_207410, slots, streams);
+HULK_WSM_AT(Player_207410, curSlot, selected);
+HULK_WSM_AT(Player_207410, stream, faec);
+HULK_WSM_AT(Player_207410, locked, faf3);
 extern "C" void __stdcall FUN_00203e30(void*);
 class Sub_2078f0 {
   public:
@@ -687,26 +771,29 @@ class Sub_2078f0 {
 };
 class Obj_2078f0 {
   public:
-    char pad[0xaec];
+    char pad[HULK_WSM(faec)];
     Sub_2078f0* m;
     char flag;
     char Run(char);
     void Do_00203e30(Sub_2078f0*);
     char Finish_00207410();
 };
+HULK_WSM_AT(Obj_2078f0, m, faec);
+HULK_WSM_AT(Obj_2078f0, flag, faf0);
 struct CWorldStreamManager_nv_207b90 {
     void FUN_002071e0(int);
 };
 struct Sink_208040 {
 };
 struct Table_208040 {
-    char pad[0x588];
+    char pad[HULK_WSM(game)];
     Sink_208040 *sink;
     // equiv-conv absent: plain thiscall members
     void FUN_00207e80();
     void FUN_00207a00(unsigned short *entry);
     bool FUN_00208040(int a, int b);
 };
+HULK_WSM_AT(Table_208040, sink, game);
 class Subject_208820 {
   public:
     int GetState_00266710();
@@ -732,25 +819,31 @@ struct Buffer_2088a0 {
 struct Slot_2088a0 {
     unsigned char active;       // +0x00
     unsigned char ready;        // +0x01
-    char pad02[0x20];
+    char pad02[HULK_WMPS(id) - 2];
     short handle;               // +0x22
-    char pad24[4];
+    char pad24[HULK_WMPS(context) - HULK_WMPS(id) - 2];
     char *name;                 // +0x28
     Releasable_2088a0 *resource;       // +0x2c
-    char pad30[4];
+    char pad30[HULK_WMPS(helper) - HULK_WMPS(config)];
     Buffer_2088a0 *buffer;             // +0x34
-    char pad38[4];
+    char pad38[sizeof(HulkWorldMemoryPool) - HULK_WMPS(helper) - sizeof(void*)];
 };
+HULK_MGR_SAME(Slot_2088a0, HulkWorldMemoryPool);   // (gfx7) a pool from its state byte (HULK_WMPS)
+HULK_WMPS_AT(Slot_2088a0, handle, id);
+HULK_WMPS_AT(Slot_2088a0, name, context);
+HULK_WMPS_AT(Slot_2088a0, resource, resource);
+HULK_WMPS_AT(Slot_2088a0, buffer, helper);
 class Pool_2088a0 {
 public:
     void FUN_002088a0();
     void FUN_00207e80();
 
-    char pad0[0x4c];
+    char pad0[HULK_WSM(pools) + HULK_WMP(state)];
     Slot_2088a0 slots[20];             // +0x4c
-    char pad4fc[0xaf4 - 0x4fc];
+    char pad4fc[HULK_WSM(faf4) - HULK_WSM_POOL(20) - HULK_WMP(state)];
     char cleared;               // +0xaf4
 };
+HULK_WSM_AT(Pool_2088a0, cleared, faf4);
 int FUN_00267f80();
 struct S_208a90 {
     unsigned short a;
@@ -1039,14 +1132,16 @@ struct Item {
     char pad[0x54];
 };
 class CWorldStreamManager_2042f0 {
-    char pad[0x58c];
+  public:   // (gfx7) the words' offsets are checked below
+    char pad[HULK_WSM(owner58c)];
     Item* items;
-    char pad2[4];
+    char pad2[HULK_WSM(f594) - HULK_WSM(table590)];
     int count;
 
-  public:
     int Find(int id);
 };
+HULK_WSM_AT(CWorldStreamManager_2042f0, items, owner58c);
+HULK_WSM_AT(CWorldStreamManager_2042f0, count, f594);
 int CWorldStreamManager_2042f0::Find(int id) {
     int n = 0;
     for (int i = 0; i < count; i++)
@@ -1318,14 +1413,17 @@ struct Mid_204ad0 {
 };
 
 struct Owner_204ad0 {
-    char pad00[0x588];
+    char pad00[HULK_WSM(game)];
     Mid_204ad0 *mid;
-    char pad58c[0x59c - 0x58c];
+    char pad58c[HULK_WSM(f59c) - HULK_WSM(owner58c)];
     int excludedId;
     char pad5a0[4];
     char flags[1];
     int FUN_00204ad0(int count, int *ignore);
 };
+HULK_WSM_AT(Owner_204ad0, mid, game);
+HULK_WSM_AT(Owner_204ad0, excludedId, f59c);
+HULK_WSM_AT(Owner_204ad0, flags, flags);
 
 Manager_204ad0 *FUN_001c3d90();
 
@@ -1444,12 +1542,14 @@ struct Level1_204c10 {
 
 class Finder_204c10 {
 public:
-    char pad0[0x588];
+    char pad0[HULK_WSM(game)];
     Level1_204c10 *l1;
-    char pad1[0x5a4 - 0x58c];
+    char pad1[HULK_WSM(flags) - HULK_WSM(owner58c)];
     char kind[1];
     int FUN_00204c10(char wantNear);
 };
+HULK_WSM_AT(Finder_204c10, l1, game);
+HULK_WSM_AT(Finder_204c10, kind, flags);
 
 int Finder_204c10::FUN_00204c10(char wantNear)
 {
@@ -1560,7 +1660,7 @@ void __fastcall target(A_204f00* a) {
         a->x26 = 0;
         a->p30->f1();
         a->p30 = 0;
-        a->finish_002047c0((char*)a + 5, old, r, (int)a->x28);
+        a->finish_002047c0(a->name, old, r, (int)a->x28);
     }
 }
 
@@ -2771,6 +2871,11 @@ struct CWorldStreamManager_2061e0 {
     Ref_2061e0* p38;
     void Fini() throw();
 };
+HULK_MGR_SAME(CWorldStreamManager_2061e0, HulkWorldMemoryPool);   // (gfx7) a pool
+HULK_WMP_AT(CWorldStreamManager_2061e0, w26, id);
+HULK_WMP_AT(CWorldStreamManager_2061e0, p2c, context);
+HULK_WMP_AT(CWorldStreamManager_2061e0, p30, resource);
+HULK_WMP_AT(CWorldStreamManager_2061e0, p38, helper);
 void CWorldStreamManager_2061e0::Fini() throw() {
     vf = hulk_at_00425b20;
     if (p38) {
@@ -2793,11 +2898,12 @@ void CWorldStreamManager_2061e0::Fini() throw() {
 }
 struct Target_2061e0 {
     void* vf;
-    char pad[0x44];
+    char pad[HULK_WSM(pools) - sizeof(void*)];
     CWorldStreamManager_2061e0 a[0x14];
     CWorldStreamManager_2061e0 b[2];
     void Dtor() throw();
 };
+HULK_WSM_AT(Target_2061e0, a, pools);
 void Target_2061e0::Dtor() throw() {
     vf = hulk_at_00425cf4;
     CWorldStreamManager_2061e0* p = b + 2;
@@ -3354,14 +3460,14 @@ union Flag_207960 {
 
 class CWorldStreamManager_207960 {
 public:
-    char pad000[0x578];
-    int table[3];
+    char pad000[HULK_WSM(streams)];
+    hulk_intptr table[3];   // (gfx7) the three streams (pointers; 0x00203e90 takes them as such)
     int selected;
-    char pad588[0xaec - 0x588];
+    char pad588[HULK_WSM(faec) - HULK_WSM(selected) - sizeof(int)];
     Playing_207960 *current;
     char padaf0[3];
     char started;
-    char padaf4[8];
+    char padaf4[HULK_WSM(fafc) - HULK_WSM(faf4)];
     unsigned int startTime;
 
     void FUN_00203e30(Playing_207960 *p);
@@ -3375,6 +3481,10 @@ public:
 #endif
     void FUN_00207960(int a, int index, Flag_207960 flag);
 };
+HULK_WSM_AT(CWorldStreamManager_207960, table, streams);
+HULK_WSM_AT(CWorldStreamManager_207960, current, faec);
+HULK_WSM_AT(CWorldStreamManager_207960, started, faf3);
+HULK_WSM_AT(CWorldStreamManager_207960, startTime, fafc);
 
 void CWorldStreamManager_207960::FUN_00207960(int a, int index, Flag_207960 flag)
 {
@@ -3432,21 +3542,22 @@ extern Manager_207ba0* FUN_001c3d90();
 extern int FUN_00267f80();
 
 struct CWorldStreamManager_207ba0 {
-    char pad0[0x5a4];
+    char pad0[HULK_WSM(flags)];
     char kind[0x400];
-    char pad1[0x9a8 - 0x9a4];
+    char pad1[HULK_WSM(slotCount) - HULK_WSM(f9a4)];
     int slotCount;
     int slotId[20];
     int slotVal[20];
     int idCount;
-    int ids[39];
+    int ids[20];
+    char padIds[HULK_WSM(faec) - HULK_WSM(ids) - 20 * sizeof(int)];   // (gfx7) was ids[39] running on to 0xaec
     void* cur;
-    char pad5[0xaf2 - 0xaf0];
+    char pad5[HULK_WSM(faf2) - HULK_WSM(faf0)];
     char flagF2;
     char flagF3;
     char padF4;
     char flagF5;
-    char pad6[0xafc - 0xaf6];
+    char pad6[HULK_WSM(fafc) - HULK_WSM(padAF6)];
     int stamp;
 
     int FUN_00203bb0();
@@ -3458,6 +3569,13 @@ struct CWorldStreamManager_207ba0 {
     char FUN_00207580(int id, int flag);
     void FUN_00207ba0();
 };
+HULK_WSM_AT(CWorldStreamManager_207ba0, kind, flags);
+HULK_WSM_AT(CWorldStreamManager_207ba0, slotCount, slotCount);
+HULK_WSM_AT(CWorldStreamManager_207ba0, idCount, fa4c);
+HULK_WSM_AT(CWorldStreamManager_207ba0, ids, ids);
+HULK_WSM_AT(CWorldStreamManager_207ba0, cur, faec);
+HULK_WSM_AT(CWorldStreamManager_207ba0, flagF5, faf5);
+HULK_WSM_AT(CWorldStreamManager_207ba0, stamp, fafc);
 
 void CWorldStreamManager_207ba0::FUN_00207ba0()
 {
@@ -3552,9 +3670,16 @@ struct Gfx {
  virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15(); virtual void v16(); virtual void v17(); virtual void v18(); virtual void v19(); virtual void v20(); virtual void v21(); virtual void v22(); virtual void v23(); virtual void v24(); virtual void v25(); virtual void v26(); virtual void v27(); virtual void v28(); virtual void v29(); virtual void v30(); virtual void v31(); virtual void v32(); virtual void v33(); virtual void v34(); virtual void v35(); virtual void v36(); virtual void v37(); virtual void v38(); virtual void v39(); virtual void v40(); virtual void v41(); virtual void v42(); virtual void v43(); virtual void v44(); virtual void v45(); virtual void v46(); virtual void v47(); virtual void v48(); virtual void v49(); virtual void v50(); virtual void v51(); virtual void v52(); virtual void v53(); virtual void v54(); virtual void v55(); virtual void v56(); virtual void v57(); virtual void v58(); virtual void v59(); virtual void v60(); virtual void v61(); virtual void v62(); virtual void v63(); virtual void v64(); virtual void v65(); virtual void v66(); virtual void v67(); virtual void v68(); virtual void v69(); virtual void v70(); virtual void v71(); virtual void v72(); virtual void v73(); virtual void v74(); virtual void v75(); virtual void v76(); virtual void v77(); virtual void v78(); virtual void v79(); virtual void v80(); virtual void v81(); virtual void v82(); virtual void v83(); virtual void v84(); virtual void v85(); virtual void v86(); virtual void v87(); virtual void v88(); virtual void v89(); virtual void v90(); virtual void refresh();
 };
 struct CWorldStreamManager_207d80 {
- char pad[0x9a8]; int count; int first[20]; int second[20]; int entryCount; int entries[41]; unsigned char flag1,flag2; char pad2[6]; int state;
+ char pad[HULK_WSM(slotCount)]; int count; int first[20]; int second[20]; int entryCount; int entries[20];
+ char padEntries[HULK_WSM(faf4) - HULK_WSM(ids) - 20 * sizeof(int)];   // (gfx7) was entries[41] running on to 0xaf4
+ unsigned char flag1,flag2; char pad2[HULK_WSM(fafc) - HULK_WSM(padAF6)]; int state;
  int FUN_00267f80(); void FUN_00204e40(); void FUN_00207080(int); void FUN_00207580(int,int); void target();
 };
+HULK_WSM_AT(CWorldStreamManager_207d80, count, slotCount);
+HULK_WSM_AT(CWorldStreamManager_207d80, entryCount, fa4c);
+HULK_WSM_AT(CWorldStreamManager_207d80, entries, ids);
+HULK_WSM_AT(CWorldStreamManager_207d80, flag1, faf4);
+HULK_WSM_AT(CWorldStreamManager_207d80, state, fafc);
 void CWorldStreamManager_207d80::target() {
  state=FUN_00267f80();
  DAT_0052c2a8->refresh();
@@ -4041,13 +4166,13 @@ struct Holder_208920 {
     Item_208920* FUN_00086280();
 };
 struct Actor_208920 {
-    char pad0[0x588];
+    char pad0[HULK_WSM(game)];
     Holder_208920* holder;
-    char pad1[0x10];
+    char pad1[HULK_WSM(f59c) - HULK_WSM(owner58c)];
     int state;
     int previous;
     unsigned char flags[0x400];
-    char pad2[0x148];
+    char pad2[HULK_WSM(faec) - HULK_WSM(f9a4)];
     void* pending;
     int FUN_00203cd0();
     bool FUN_00208040(int, int);
@@ -4055,6 +4180,10 @@ struct Actor_208920 {
     void FUN_00207410();
     bool FUN_00208920();
 };
+HULK_WSM_AT(Actor_208920, holder, game);
+HULK_WSM_AT(Actor_208920, state, f59c);
+HULK_WSM_AT(Actor_208920, flags, flags);
+HULK_WSM_AT(Actor_208920, pending, faec);
 bool Actor_208920::FUN_00208920() {
     bool result = false;
     int next = FUN_00203cd0();

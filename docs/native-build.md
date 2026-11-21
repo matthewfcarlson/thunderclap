@@ -6665,3 +6665,18 @@ name that carries an address any more. Unbound counts: see the commit message (c
 - Local iteration after a symbol change: the snapshot's report.json carries the address -> 32-bit symbol table that
   binds callers (D117); rename the definition's old symbol there and in a private copy of the map
   (build/gfx5/nat/maps/bindings-c15.json), or the caller stays `missing` ("definition without a unique 64-bit symbol").
+
+## gfx7: native start-up, continued (2026-11-21)
+
+- C16: CWorldStreamManager.cpp's ~25 views of the manager and its 22 pools are sized by decls/managers.h's
+  HulkWorldStreamManager / HulkWorldMemoryPool: TU macros HULK_WSM / HULK_WMP / HULK_WMPS (a pool word from the state
+  byte, for the views that index the pools from +4) / HULK_WSM_POOL give the record's offsets (clang
+  `__builtin_offsetof`, MSVC's `&((T*)0)->f` form, which rejects `pools[20]`), the views' pads are sized by them, and
+  HULK_WSM_AT / HULK_WMP_AT / HULK_WMPS_AT check every word's offset on every build. A pad starts at the end of the
+  view's previous word: natively `selected` -> `game` and `ids[20]` -> `faa0` have alignment gaps. Every block's MSVC
+  and clang code and checker view are unchanged (no re-proofs; the Wine image of the TU is the same). 0x002042a0 and
+  0x00208820 stay on gen ::CWorldStreamManager (natively 32-bit pads): casting their `this` to the record reads past
+  gen's native size under `--x64` (fail:layout). The native crash in 0x00207410 is gone.
+- Native stop now: 0x001e95c0 (CSoundSequence.GS.cpp, Target_1e95c0) reads the sound resource manager (RTTI
+  CSoundResourceManager, 0x524 bytes, 0x001f1270 allocates it, DAT_004e3690) at 32-bit offsets: 100 sequences at 8,
+  200 clips at 0x19c, 20 mixes at 0x4c0, the current mix 0x514, the inventory 0x518 are pointers.
