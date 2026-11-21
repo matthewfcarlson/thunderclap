@@ -374,7 +374,10 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
 - **wasm32 port** (wasm1, D188/D190, docs/wasm-port.md): tools/wasm_port.py builds every tree TU to one wasm module linked
   by address (data at XBE addresses, x86-convention packers, an address dispatcher); host code in src/platform/wasm/. It
   races the 64-bit native build on the same play3 test plus rollback needs (thousands of update frames/s, cheap snapshots,
-  determinism; D191).
+  determinism; D191). Outputs only in build/wasm/ (a module built from the game is derived content); it reads a
+  clang_probe snapshot and a Wine binding map of the same tree (`HULK_WASM_SNAP`, `HULK_WASM_BINDINGS`). A block pinned to a
+  this-adjustor thunk (`@@W4AE...`) is a stand-in that makes cl emit the thunk: ports take the thunk from the XBE's
+  bytes. `XGetDiskSectorSizeA("D:\\")` must return 0x800, or the game stays on TBS_STOP_PIRATING (0x88020).
 - Multiplayer/remaster co-op (`docs/multiplayer.md`, `net/worker/`) is designed and partly prototyped but **paused**.
 
 ## Compute
