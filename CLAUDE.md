@@ -183,7 +183,12 @@ A frame or view sized by a 32-bit pad (`char data[0x18]`) overruns natively: spe
 (`bool X::f()`) is declared at C-name call sites with the definition's IR shape (`extern "C" bool FUN_<addr>(void*)`): an
 `int(int)` spelling binds the missing stub, which returns 0 (gfx3: 0x8ed50 made the native loop quit). Merging native_mac
 shard reports merges `inits` (and `objects` / `failed`) too: a missing initializer leaves static objects with null vftables. A pad macro that maps 32-bit offsets to native ones scales by `sizeof(void*)/4` (or uses offsetof),
-never by `__clang__`: the Wine build is 32-bit clang too (recs1 batch 4). Byte-count ring and vector arithmetic (`(end-begin)>>3`, `count*16`) bakes in the 32-bit element size;
+never by `__clang__`: the Wine build is 32-bit clang too (recs1 batch 4). A view's pads can be sized by a record's offsets (clang
+`__builtin_offsetof`; MSVC `(unsigned)(hulk_uintptr)&((T*)0)->f`, which rejects `arr[20]`: add `n*sizeof`) with per-word
+offset asserts: MSVC code, clang code and checker views stay unchanged. Each pad starts at the end of the view's previous
+word, since a native record has alignment gaps. A `(char*)link - 4` step from an embedded link to its item is a 32-bit
+offset: write `- offsetof(Item, link)`. A gen member whose `this` is cast to a larger decls record fails `--x64` layout:
+move the block into a record-derived class (gfx7, C16/C17). Byte-count ring and vector arithmetic (`(end-begin)>>3`, `count*16`) bakes in the 32-bit element size;
 element-typed pointer arithmetic compiles to the same MSVC bytes. A callee declared with a different IR signature from its
 definition (int vs pointer, void vs a returned pointer) does not bind natively and the run stops on `missing`: declare it
 as defined. A native hang: attach with `lldb -p PID --batch -s FILE` and break in the wait loop's callees (HULK_HANG
