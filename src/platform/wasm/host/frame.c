@@ -56,6 +56,16 @@ void ff_frame_end(void) {
         t0 = t_last = emscripten_get_now();
     }
     SIM->frame++;
+    /* HULK_INPUT="FROM-TO:BUTTONS,...": pad 0's digital buttons (XINPUT_GAMEPAD wButtons, hex) over those frames */
+    const char* in = getenv("HULK_INPUT");
+    uint16_t buttons = 0;
+    for (const char* p = in; p && *p;) {
+        unsigned a = 0, b = 0, v = 0;
+        if (sscanf(p, "%u-%u:%x", &a, &b, &v) == 3 && SIM->frame >= a && SIM->frame <= b) buttons = (uint16_t)v;
+        p = strchr(p, ',');
+        if (p) p++;
+    }
+    memcpy(SIM->pads[0], &buttons, 2);
     if (getenv("HULK_STACK_AT") && SIM->frame == (uint32_t)atol(getenv("HULK_STACK_AT")))
         ff_fatal("stack at frame %u (HULK_STACK_AT)", SIM->frame);
     SIM->clock += HULK_TSC_HZ / 60;

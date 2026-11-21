@@ -79,7 +79,9 @@ those bytes, and the same inputs hash the same run to run.
 A host function is `FFG(addr) { ... }` (`hulk_host.h`: `ARG(i)` is the i-th stack slot, `RET`/`RETF` the result).
 `HULK_TRACE=1` prints every host function the game calls, `=2` also every call through `ff_dispatch`;
 `HULK_FRAMES=N` ends the run after N frames, `HULK_REPORT=N` prints the frame rate every N, `HULK_THREADS=1` lists the
-threads at the end, `HULK_STACK_AT=N` stops with a stack at frame N, `HULK_FILE_TRACE=1` lists file opens.
+threads at the end, `HULK_STACK_AT=N` stops with a stack at frame N, `HULK_FILE_TRACE=1` lists file opens,
+`HULK_INPUT="3000-3010:10,..."` holds pad 0's buttons (wButtons, hex) over frame ranges, `HULK_SNAPTEST=1` times a
+snapshot and restore of the state at the end.
 
 ## Threads and fibers
 
@@ -119,6 +121,10 @@ the area has the x86 layout. The host's printf family reads a `va_list` as x86 s
   anti-piracy sector size, this-adjustor thunks (17 blocks), `inalloca` blocks as `byval` (laid out where x86 has
   them, so a caller that declares the arguments one by one meets them), the TU's `// equiv-map:` hints for names the
   map lacks, a time slice for threads that poll the clock, a 1 GB arena and resources freed at their last Release.
+- Next stops: with START/A presses (`HULK_INPUT`) the game leaves the screen it idles on (input is read) and opens
+  `D:\\sound\\scripts\\(null).obj` (a name that comes out null), then calls `?v0@Obj2_274520@fn_fcf3df4f@@UAEXXZ`, a
+  virtual method clang called directly (it devirtualizes a call on an object whose type it knows; cl 7.1 calls
+  through the vftable): such calls need to go back through the vftable (fusion-frenzy's devirt probes).
 - 2026-11-21 (milestone 2, first part): under node the game runs its 457 static initializers, main, the platform
   and content start-up (threads, the loader fiber, the RCF mounts) and presents frames; it stops in the World's
   set-up (0x00088670 -> ... 0x00272fc0, a memory fault). Found on the way: XGetDiskSectorSizeA("D:\\") must be 2048
