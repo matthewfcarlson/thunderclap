@@ -29,6 +29,8 @@ HP_CHECK(CCharacter, f_1b0c, 0x1b0c)
 HP_CHECK(CScenarioManager, f_0c, 0x0c)
 HP_CHECK(CScenarioManager, f_1194, 0x1194)
 HP_CHECK(CScenarioManager, f_1198, 0x1198)
+HP_CHECK(CScenarioManager, f_119c, 0x119c)
+HP_CHECK(CCharacter, _pad_10, 0x10)
 
 #define HP_RAW32_OK (sizeof(void*) == 4)
 
@@ -102,7 +104,7 @@ static void hp_end(HpHash* s, HulkProbeRecord* out) {
 // One actor (CCharacter): life state (+0x20b0, 0x00028c60), controller slot (+0x20a8), health (gen f_1b0c), static
 // ground point (gen f_1a84..), position (0x00059a50: the scene node +0x10, its drawable +0x18, translation +0x40; or
 // the node's own +4). The 0x20a8 / 0x20b0 words and the node chain are 32-bit offsets (gen spells them as pads).
-static void hp_actor(HpHash* s, const char* actor) {
+static void hp_actor(HpHash* s, const HulkProbeInputs* in, const char* actor) {
     hp_u32v(s, "present", actor ? 1 : 0);
     if (!actor)
         return;
@@ -113,14 +115,25 @@ static void hp_actor(HpHash* s, const char* actor) {
     hp_f32(s, "ground_x", hp_load32(g));
     hp_f32(s, "ground_y", hp_load32(g + 4));
     hp_f32(s, "ground_z", hp_load32(g + 8));
-    const char* node = hp_ptr32(actor, 0x10);
-    const char* d = hp_ptr32(node, 0x18);
-    const char* pos = d ? d + 0x40 : node ? node + 4 : 0;
-    hp_u32v(s, "has_position", pos ? 1 : 0);
-    if (pos) {
-        hp_f32(s, "pos_x", hp_load32(pos));
-        hp_f32(s, "pos_y", hp_load32(pos + 4));
-        hp_f32(s, "pos_z", hp_load32(pos + 8));
+    // the scene node: CCharacter's first own word (gen's _pad_10, right after pure3d::Entity)
+    const char* node = *(const char* const*)(actor + HP_GEN_OFF(CCharacter, _pad_10, 0x10));
+    hp_u32 p[3] = {0, 0, 0};
+    int have = 0;
+    if (node && in->position_of) {
+        have = in->position_of(node, p) ? 1 : 0;
+    } else if (node) {
+        const char* d = hp_ptr32(node, 0x18);
+        const char* pos = d ? d + 0x40 : node + 4;
+        p[0] = hp_load32(pos);
+        p[1] = hp_load32(pos + 4);
+        p[2] = hp_load32(pos + 8);
+        have = 1;
+    }
+    hp_u32v(s, "has_position", have);
+    if (have) {
+        hp_f32(s, "pos_x", p[0]);
+        hp_f32(s, "pos_y", p[1]);
+        hp_f32(s, "pos_z", p[2]);
     }
 }
 
@@ -193,7 +206,7 @@ extern "C" void hulk_probe_frame(unsigned frame, const HulkProbeInputs* in, unsi
     if (mask & (1u << HULK_PT_HULK)) {
         // the main actor (CActorManager +0x124: am_GetMainCharacterName 0x000243d0)
         hp_begin(&s, HULK_PT_HULK, frame, dump, ctx);
-        hp_actor(&s, HP_RAW32_OK ? hp_ptr32(am, 0x124) : 0);
+        hp_actor(&s, in, HP_RAW32_OK ? hp_ptr32(am, 0x124) : 0);
         hp_end(&s, out);
         if (!HP_RAW32_OK)
             out->unavailable |= 1u << HULK_PT_HULK;
@@ -225,13 +238,17 @@ extern "C" void hulk_probe_frame(unsigned frame, const HulkProbeInputs* in, unsi
         for (hp_u32 i = 0; i < n; i++) {
             hp_u32 handle = hp_load32(am + 0x10 + i * 4);
             const char* actor = 0;
-            for (hp_u32 k = 0; items && flags && k < tn; k++)
-                if (flags[k] && hp_load32(items + k * 0x24) == handle) {
-                    actor = hp_ptr32(items + k * 0x24, 0x10);
-                    break;
-                }
+            if (in->actor_of) {
+                actor = table ? (const char*)in->actor_of(table, handle) : 0;
+            } else {
+                for (hp_u32 k = 0; items && flags && k < tn; k++)
+                    if (flags[k] && hp_load32(items + k * 0x24) == handle) {
+                        actor = hp_ptr32(items + k * 0x24, 0x10);
+                        break;
+                    }
+            }
             s.index = i;
-            hp_actor(&s, actor);
+            hp_actor(&s, in, actor);
         }
         hp_end(&s, out);
         if (!HP_RAW32_OK)
@@ -244,7 +261,7 @@ extern "C" void hulk_probe_frame(unsigned frame, const HulkProbeInputs* in, unsi
             hp_u32v(&s, "state", hp_load32(sm + HP_GEN_OFF(CScenarioManager, f_0c, 0x0c)));
             hp_u32v(&s, "checkpoint", hp_load32(sm + HP_GEN_OFF(CScenarioManager, f_1194, 0x1194)));
             hp_u32v(&s, "elapsed", hp_load32(sm + HP_GEN_OFF(CScenarioManager, f_1198, 0x1198)));
-            hp_u32v(&s, "end_time", hp_load32(sm + 0x119c));
+            hp_u32v(&s, "end_time", hp_load32(sm + HP_GEN_OFF(CScenarioManager, f_119c, 0x119c)));
         }
         hp_end(&s, out);
         if (!HP_RAW32_OK)

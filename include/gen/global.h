@@ -4888,7 +4888,7 @@ public:
     int f_1190;
     int f_1194;
     int f_1198;
-    char _pad_119c[0x4];
+    int f_119c;
     char f_11a0;
     char _pad_11a1[0xb];
     int f_11ac;

@@ -252,6 +252,34 @@ static void probe_dump(void*, int tag, const char* name, unsigned index, unsigne
     d[3] = bits;
 }
 
+// (D161 B) the original's getters, called at the probe point (inside GameClock::Update, the game thread)
+static const void* probe_actor_of(const void* table, unsigned handle)
+{
+    const void* r;
+    __asm {
+        push handle
+        mov ecx, table
+        mov eax, 0x59c10
+        call eax
+        mov r, eax
+    }
+    return r;
+}
+
+static int probe_position_of(const void* node, unsigned out[3])
+{
+    int r;
+    __asm {
+        push out
+        mov ecx, node
+        mov eax, 0x59a50
+        call eax
+        movzx eax, al
+        mov r, eax
+    }
+    return r;
+}
+
 static void probe_frame(unsigned int clock)
 {
     HulkProbeInputs in;
@@ -264,6 +292,8 @@ static void probe_frame(unsigned int clock)
     in.snd_rng = g_hybrid.snd_rng;
     in.snd_rand = &g_hybrid.snd_rand;
     in.world_ptr = (const void* const*)0x4dd700;
+    in.actor_of = probe_actor_of;
+    in.position_of = probe_position_of;
     unsigned int f = g_hybrid.frame;
     unsigned mask = HULK_PROBE_CHEAP_MASK | (f % HULK_PROBE_FULL_EVERY == 0 ? HULK_PROBE_FULL_MASK : 0);
     HulkProbeRecord r;

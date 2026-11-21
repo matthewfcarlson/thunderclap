@@ -241,7 +241,11 @@ through the records and the native tags become available.
 reading offsets, so its reads follow the game code's own layout on every build: 0x59c10 (handle to actor, through
 0x59ba0) and 0x59a50 (the scene node's position). Each was checked side-effect free from its listing (reads only;
 0x59a50 writes only its output). In xemu they are called at the probe point (inside GameClock::Update, on the game
-thread). Not yet implemented.
+thread), in the Wine build as `FUN_00059c10` / `FUN_00059a50` (thiscall, bound by address). Implemented (D161.2):
+the hashes are the same as with the offset reads (the getters read the same words), so the references stay valid;
+the actor's scene node is read through gen (`CCharacter::_pad_10`, the word after pure3d::Entity) and the scenario
+manager's end time through gen's new `CScenarioManager::f_119c`. What still needs (A): the world and actor-manager
+words and the handle table pointer.
 
 **(C) Particle frames.** See "The particle tag" below.
 

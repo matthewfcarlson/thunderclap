@@ -44,6 +44,10 @@ typedef struct HulkProbeInputs {
     const void* snd_rng;          // the sound code's own MWC (16 bytes) and rand state (4), or 0 (sound-rng off)
     const void* snd_rand;
     const void* const* world_ptr; // the world pointer (0x4dd700): +0x20 actor manager, +0x2c scenario manager
+    // (D161 B) the game's own read-only getters, so these reads follow the game code's layout on every build; 0: the
+    // probe reads the 32-bit offsets itself. Each was checked side-effect free from its listing (reads only).
+    const void* (*actor_of)(const void* table, unsigned handle);   // 0x00059c10 (through 0x00059ba0): handle -> actor
+    int (*position_of)(const void* node, unsigned out[3]);        // 0x00059a50: the scene node's position (writes out)
 } HulkProbeInputs;
 
 typedef struct HulkProbeRecord {

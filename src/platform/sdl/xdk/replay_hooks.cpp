@@ -760,6 +760,11 @@ extern "C" int HULK_CDECL hulk_replay_seed(void) {
 // mask its exact and quantised hashes (little-endian words). HULK_CKREF_DUMP=<from>-<to> logs every hashed value of
 // those frames ("ckdump" lines in the trace). Off when unset.
 #include "../ckpt/ckpt_probe.cpp"
+// (D161 B) the game's getters the probe calls, bound by address (wine_link; native_bind for the 64-bit builds)
+extern "C" const void* __thiscall FUN_00059c10(const void* table, unsigned handle);
+extern "C" bool __thiscall FUN_00059a50(const void* node, unsigned* out);
+static const void* hulk_probe_actor_of(const void* table, unsigned handle) { return FUN_00059c10(table, handle); }
+static int hulk_probe_position_of(const void* node, unsigned out[3]) { return FUN_00059a50(node, out) ? 1 : 0; }
 static void hulk_ckref_dump(void*, int tag, const char* name, unsigned index, unsigned bits, int is_float) {
     char line[128];
     hulk_host__snprintf(line, sizeof(line), "ckdump f=%u t=%d %s[%u] %08x%s", hulk_native_frame_no - 1, tag, name, index,
@@ -797,6 +802,8 @@ static void hulk_ckref_frame(hulk_u32 fno, const HulkCkptState* st, const unsign
     in.snd_rng = hulk_snd_rng;
     in.snd_rand = &hulk_snd_rand;
     in.world_ptr = (const void* const*)DAT_004dd700;
+    in.actor_of = hulk_probe_actor_of;
+    in.position_of = hulk_probe_position_of;
     unsigned mask = HULK_PROBE_CHEAP_MASK | (fno % HULK_PROBE_FULL_EVERY == 0 ? HULK_PROBE_FULL_MASK : 0);
     HulkProbeRecord rec;
     int dumping = dump_on && fno >= dump_from && fno <= dump_to;
