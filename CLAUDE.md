@@ -259,7 +259,10 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   parameter or a global states its own range (`// pre: ge(argN, 0) ge(*0xADDR.f32, 0)`; for a global
   `HULK_PRE_GE(*(float*)&DAT_<addr>, 0.0f)` with `// pre-writers:` citing every reference to it); range items are
   repaired in MSVC mode too. `verify --changed-since` probes every XBE caller of a changed contract and fails one whose
-  original breaks it; vftable-slot callers are listed unprobed.
+  original breaks it; vftable-slot callers are listed unprobed. A contract that compiles into the Wine image (any HULK_PRE_* / HULK_POST_*, new or changed) is a shared
+  change: it lands only with a Wine pair (play3 to 60000, ckpt_gate ok). A range item on an object word also needs every
+  constructor of its class family to store the word in range: a census of writers says nothing about a word nobody writes
+  (integ7: 0x000a97e0's uninitialized idle shake times trapped play3 at frame 8,730).
 - **Field bounds** (x64bounds): a pointer field the code indexes with a caller's index gets `HULK_COUNT(count_field)`
   (typed pointee) or `HULK_COUNT_BYTES(count_field, n)` (void*) on its declaration (include/compat/hulk_annot.h; nothing
   in compiled builds), its comment citing every writer of the pointer; the count field carries `HULK_RANGE(lo, hi)`
