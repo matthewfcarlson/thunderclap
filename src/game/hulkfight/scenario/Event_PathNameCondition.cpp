@@ -1816,8 +1816,8 @@ void __cdecl target(void* a) {
 // 0x001ac040 fight::ParamName<hulkfight::scenario::Event_TriggerVolumeNameCondition>::vfunc_7 (12 B): matches/0x001ac040.cpp
 // sym: ?vfunc_6@ParamBranch@fn_fc09f66d@@UAEXPAX@Z
 // Same code shape as 0x00050240 (propagated; names are from that function)
-void ParamBranch::vfunc_6(void* p) {
-    fn(p);
+hulk_eaxptr ParamBranch::vfunc_6(void* p) {
+    return fn(p);
 }
 
 } // namespace fn_fc09f66d
@@ -1839,11 +1839,11 @@ class ParamValue {};
 class ParamBranch : public ParamValueBranch, public ParamValue {
   public:
     char pad[0x10 - sizeof(void*)];
-    void(__fastcall* fn)(void*);
-    virtual void vfunc_6(void*);
+    hulk_eaxptr(__fastcall* fn)(void*);
+    virtual hulk_eaxptr vfunc_6(void*);
 };
-void ParamBranch::vfunc_6(void* p) {
-    fn(p);
+hulk_eaxptr ParamBranch::vfunc_6(void* p) {
+    return fn(p);
 }
 } // namespace fn_001ac0f0
 
@@ -1865,11 +1865,11 @@ class ParamValue {};
 class ParamBranch : public ParamValueBranch, public ParamValue {
   public:
     char pad[0x10 - sizeof(void*)];
-    void(__fastcall* fn)(void*);
-    virtual void vfunc_6(void*);
+    hulk_eaxptr(__fastcall* fn)(void*);
+    virtual hulk_eaxptr vfunc_6(void*);
 };
-void ParamBranch::vfunc_6(void* p) {
-    fn(p);
+hulk_eaxptr ParamBranch::vfunc_6(void* p) {
+    return fn(p);
 }
 } // namespace fn_001ac140
 
@@ -1891,11 +1891,11 @@ class ParamValue {};
 class ParamBranch : public ParamValueBranch, public ParamValue {
   public:
     char pad[0x10 - sizeof(void*)];
-    void(__fastcall* fn)(void*);
-    virtual void vfunc_6(void*);
+    hulk_eaxptr(__fastcall* fn)(void*);
+    virtual hulk_eaxptr vfunc_6(void*);
 };
-void ParamBranch::vfunc_6(void* p) {
-    fn(p);
+hulk_eaxptr ParamBranch::vfunc_6(void* p) {
+    return fn(p);
 }
 } // namespace fn_001ac190
 

@@ -547,8 +547,8 @@ class ParamBranch_5bcc0 : public ParamValueBranch_5bcc0 {
 class ParamBranch : public ParamValueBranch, public ParamValue {
   public:
     char pad[0x10 - sizeof(void*)];
-    void(__fastcall* fn)(void*);
-    virtual void vfunc_6(void*);
+    hulk_eaxptr(__fastcall* fn)(void*);
+    virtual hulk_eaxptr vfunc_6(void*);
 };
 class ParamValueInt_5bcf0 {
   public:
@@ -2216,8 +2216,8 @@ ParamBranch_5bcc0::ParamBranch_5bcc0(int a, int b) : ParamValueBranch_5bcc0(a), 
 // 0x0005bce0 fight::ParamBranch<CGrappleOpportunityTrack>::vfunc_6 (12 B): matches/0x0005bce0.cpp
 // sym: ?vfunc_6@ParamBranch@fn_f63372f2@@UAEXPAX@Z
 // Same code shape as 0x00050240 (propagated; names are from that function)
-void ParamBranch::vfunc_6(void* p) {
-    fn(p);
+hulk_eaxptr ParamBranch::vfunc_6(void* p) {
+    return fn(p);
 }
 
 
@@ -2271,11 +2271,11 @@ class ParamValue {};
 class ParamBranch : public ParamValueBranch, public ParamValue {
   public:
     char pad[0x10 - sizeof(void*)];
-    void(__fastcall* fn)(void*);
-    virtual void vfunc_6(void*);
+    hulk_eaxptr(__fastcall* fn)(void*);
+    virtual hulk_eaxptr vfunc_6(void*);
 };
-void ParamBranch::vfunc_6(void* p) {
-    fn(p);
+hulk_eaxptr ParamBranch::vfunc_6(void* p) {
+    return fn(p);
 }
 } // namespace fn_0005bd70
 
@@ -2297,11 +2297,11 @@ class ParamValue {};
 class ParamBranch : public ParamValueBranch, public ParamValue {
   public:
     char pad[0x10 - sizeof(void*)];
-    void(__fastcall* fn)(void*);
-    virtual void vfunc_6(void*);
+    hulk_eaxptr(__fastcall* fn)(void*);
+    virtual hulk_eaxptr vfunc_6(void*);
 };
-void ParamBranch::vfunc_6(void* p) {
-    fn(p);
+hulk_eaxptr ParamBranch::vfunc_6(void* p) {
+    return fn(p);
 }
 } // namespace fn_0005bda0
 
@@ -2341,11 +2341,11 @@ class ParamValue {};
 class ParamBranch : public ParamValueBranch, public ParamValue {
   public:
     char pad[0x10 - sizeof(void*)];
-    void(__fastcall* fn)(void*);
-    virtual void vfunc_6(void*);
+    hulk_eaxptr(__fastcall* fn)(void*);
+    virtual hulk_eaxptr vfunc_6(void*);
 };
-void ParamBranch::vfunc_6(void* p) {
-    fn(p);
+hulk_eaxptr ParamBranch::vfunc_6(void* p) {
+    return fn(p);
 }
 } // namespace fn_0005be20
 
@@ -2439,11 +2439,11 @@ class ParamValue {};
 class ParamBranch : public ParamValueBranch, public ParamValue {
   public:
     char pad[0x10 - sizeof(void*)];
-    void(__fastcall* fn)(void*);
-    virtual void vfunc_6(void*);
+    hulk_eaxptr(__fastcall* fn)(void*);
+    virtual hulk_eaxptr vfunc_6(void*);
 };
-void ParamBranch::vfunc_6(void* p) {
-    fn(p);
+hulk_eaxptr ParamBranch::vfunc_6(void* p) {
+    return fn(p);
 }
 } // namespace fn_0005bf90
 
@@ -2606,11 +2606,11 @@ class ParamValue {};
 class ParamBranch : public ParamValueBranch, public ParamValue {
   public:
     char pad[0x10 - sizeof(void*)];
-    void(__fastcall* fn)(void*);
-    virtual void vfunc_6(void*);
+    hulk_eaxptr(__fastcall* fn)(void*);
+    virtual hulk_eaxptr vfunc_6(void*);
 };
-void ParamBranch::vfunc_6(void* p) {
-    fn(p);
+hulk_eaxptr ParamBranch::vfunc_6(void* p) {
+    return fn(p);
 }
 } // namespace fn_0005c590
 
@@ -2632,11 +2632,11 @@ class ParamValue {};
 class ParamBranch : public ParamValueBranch, public ParamValue {
   public:
     char pad[0x10 - sizeof(void*)];
-    void(__fastcall* fn)(void*);
-    virtual void vfunc_6(void*);
+    hulk_eaxptr(__fastcall* fn)(void*);
+    virtual hulk_eaxptr vfunc_6(void*);
 };
-void ParamBranch::vfunc_6(void* p) {
-    fn(p);
+hulk_eaxptr ParamBranch::vfunc_6(void* p) {
+    return fn(p);
 }
 } // namespace fn_0005c5c0
 
@@ -2658,11 +2658,11 @@ class ParamValue {};
 class ParamBranch : public ParamValueBranch, public ParamValue {
   public:
     char pad[0x10 - sizeof(void*)];
-    void(__fastcall* fn)(void*);
-    virtual void vfunc_6(void*);
+    hulk_eaxptr(__fastcall* fn)(void*);
+    virtual hulk_eaxptr vfunc_6(void*);
 };
-void ParamBranch::vfunc_6(void* p) {
-    fn(p);
+hulk_eaxptr ParamBranch::vfunc_6(void* p) {
+    return fn(p);
 }
 } // namespace fn_0005c5f0
 
@@ -2684,11 +2684,11 @@ class ParamValue {};
 class ParamBranch : public ParamValueBranch, public ParamValue {
   public:
     char pad[0x10 - sizeof(void*)];
-    void(__fastcall* fn)(void*);
-    virtual void vfunc_6(void*);
+    hulk_eaxptr(__fastcall* fn)(void*);
+    virtual hulk_eaxptr vfunc_6(void*);
 };
-void ParamBranch::vfunc_6(void* p) {
-    fn(p);
+hulk_eaxptr ParamBranch::vfunc_6(void* p) {
+    return fn(p);
 }
 } // namespace fn_0005c620
 

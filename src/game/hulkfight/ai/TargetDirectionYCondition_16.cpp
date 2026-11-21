@@ -170,8 +170,8 @@ TargetClearAction_1296f0* TargetClearAction_1296f0::vfunc_2(int flag) {
 // 0x001297a0 fight::ParamName<hulkfight::ai::TargetArcCondition>::vfunc_7 (12 B): matches/0x001297a0.cpp
 // sym: ?vfunc_6@ParamBranch@fn_f63a58e9@@UAEXPAX@Z
 // Same code shape as 0x00050240 (propagated; names are from that function)
-void ParamBranch::vfunc_6(void* p) {
-    fn(p);
+hulk_eaxptr ParamBranch::vfunc_6(void* p) {
+    return fn(p);
 }
 
 } // namespace fn_f63a58e9

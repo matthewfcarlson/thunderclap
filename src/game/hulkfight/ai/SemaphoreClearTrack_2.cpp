@@ -61,8 +61,8 @@ namespace fn_f8b71ad1 {
 // 0x00110890 fight::ParamName<hulkfight::ai::SemaphoreClearTrack>::vfunc_7 (12 B): matches/0x00110890.cpp
 // sym: ?vfunc_6@ParamBranch@fn_f8b71ad1@@UAEXPAX@Z
 // Same code shape as 0x00050240 (propagated; names are from that function)
-void ParamBranch::vfunc_6(void* p) {
-    fn(p);
+hulk_eaxptr ParamBranch::vfunc_6(void* p) {
+    return fn(p);
 }
 
 } // namespace fn_f8b71ad1

@@ -1462,8 +1462,8 @@ namespace fn_fff5b4af {
 // 0x00120600 fight::ParamName<hulkfight::ai::PathTrack>::vfunc_7 (12 B): matches/0x00120600.cpp
 // sym: ?vfunc_6@ParamBranch@fn_fff5b4af@@UAEXPAX@Z
 // Same code shape as 0x00050240 (propagated; names are from that function)
-void ParamBranch::vfunc_6(void* p) {
-    fn(p);
+hulk_eaxptr ParamBranch::vfunc_6(void* p) {
+    return fn(p);
 }
 
 } // namespace fn_fff5b4af

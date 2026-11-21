@@ -64,8 +64,8 @@ extern void* FUN_00236ac0(hulk_intptr, void**);   // (gfx1) the name as hulk_int
 class ParamBranch : public ParamValueBranch, public ParamValue {
   public:
     char pad[0x10 - sizeof(void*)];
-    void(__fastcall* fn)(void*);
-    virtual void vfunc_6(void*);
+    hulk_eaxptr(__fastcall* fn)(void*);
+    virtual hulk_eaxptr vfunc_6(void*);
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 } // namespace fn_f4b6f30b
@@ -420,8 +420,8 @@ void FUN_00073000(hulk_uintptr key) {   // (gfx2) the name, pointer-sized
 // 0x00073540 fight::ParamNameConstList<CJointTrack>::vfunc_7 (12 B): matches/0x00073540.cpp
 // sym: ?vfunc_6@ParamBranch@fn_f4b6f30b@@UAEXPAX@Z
 // Same code shape as 0x00050240 (propagated; names are from that function)
-void ParamBranch::vfunc_6(void* p) {
-    fn(p);
+hulk_eaxptr ParamBranch::vfunc_6(void* p) {
+    return fn(p);
 }
 
 } // namespace fn_f4b6f30b
@@ -443,11 +443,11 @@ class ParamValue {};
 class ParamBranch : public ParamValueBranch, public ParamValue {
   public:
     char pad[0x10 - sizeof(void*)];
-    void(__fastcall* fn)(void*);
-    virtual void vfunc_6(void*);
+    hulk_eaxptr(__fastcall* fn)(void*);
+    virtual hulk_eaxptr vfunc_6(void*);
 };
-void ParamBranch::vfunc_6(void* p) {
-    fn(p);
+hulk_eaxptr ParamBranch::vfunc_6(void* p) {
+    return fn(p);
 }
 } // namespace fn_00073570
 
@@ -469,11 +469,11 @@ class ParamValue {};
 class ParamBranch : public ParamValueBranch, public ParamValue {
   public:
     char pad[0x10 - sizeof(void*)];
-    void(__fastcall* fn)(void*);
-    virtual void vfunc_6(void*);
+    hulk_eaxptr(__fastcall* fn)(void*);
+    virtual hulk_eaxptr vfunc_6(void*);
 };
-void ParamBranch::vfunc_6(void* p) {
-    fn(p);
+hulk_eaxptr ParamBranch::vfunc_6(void* p) {
+    return fn(p);
 }
 } // namespace fn_000735a0
 
@@ -495,11 +495,11 @@ class ParamValue {};
 class ParamBranch : public ParamValueBranch, public ParamValue {
   public:
     char pad[0x10 - sizeof(void*)];
-    void(__fastcall* fn)(void*);
-    virtual void vfunc_6(void*);
+    hulk_eaxptr(__fastcall* fn)(void*);
+    virtual hulk_eaxptr vfunc_6(void*);
 };
-void ParamBranch::vfunc_6(void* p) {
-    fn(p);
+hulk_eaxptr ParamBranch::vfunc_6(void* p) {
+    return fn(p);
 }
 } // namespace fn_000735d0
 
@@ -521,11 +521,11 @@ class ParamValue {};
 class ParamBranch : public ParamValueBranch, public ParamValue {
   public:
     char pad[0x10 - sizeof(void*)];
-    void(__fastcall* fn)(void*);
-    virtual void vfunc_6(void*);
+    hulk_eaxptr(__fastcall* fn)(void*);
+    virtual hulk_eaxptr vfunc_6(void*);
 };
-void ParamBranch::vfunc_6(void* p) {
-    fn(p);
+hulk_eaxptr ParamBranch::vfunc_6(void* p) {
+    return fn(p);
 }
 } // namespace fn_00073600
 
@@ -547,11 +547,11 @@ class ParamValue {};
 class ParamBranch : public ParamValueBranch, public ParamValue {
   public:
     char pad[0x10 - sizeof(void*)];
-    void(__fastcall* fn)(void*);
-    virtual void vfunc_6(void*);
+    hulk_eaxptr(__fastcall* fn)(void*);
+    virtual hulk_eaxptr vfunc_6(void*);
 };
-void ParamBranch::vfunc_6(void* p) {
-    fn(p);
+hulk_eaxptr ParamBranch::vfunc_6(void* p) {
+    return fn(p);
 }
 } // namespace fn_00073630
 

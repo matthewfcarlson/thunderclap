@@ -153,8 +153,8 @@ class SnapToGroundAction_17bff0 {
 class ParamBranch : public ParamValueBranch, public ParamValue {
   public:
     char pad[0x10 - sizeof(void*)];
-    void(__fastcall* fn)(void*);
-    virtual void vfunc_6(void*);
+    hulk_eaxptr(__fastcall* fn)(void*);
+    virtual hulk_eaxptr vfunc_6(void*);
 };
 } // namespace fn_f05a6271
 inline void* operator new(size_t, void* p) throw() { return p; }
@@ -1217,8 +1217,8 @@ SnapToGroundAction_17bff0* SnapToGroundAction_17bff0::vfunc_2(int flag) {
 // 0x0017c080 fight::ParamNameConstList<hulkfight::motion::JointTrackerTrack>::vfunc_7 (12 B): matches/0x0017c080.cpp
 // sym: ?vfunc_6@ParamBranch@fn_f05a6271@@UAEXPAX@Z
 // Same code shape as 0x00050240 (propagated; names are from that function)
-void ParamBranch::vfunc_6(void* p) {
-    fn(p);
+hulk_eaxptr ParamBranch::vfunc_6(void* p) {
+    return fn(p);
 }
 
 } // namespace fn_f05a6271
@@ -1240,11 +1240,11 @@ class ParamValue {};
 class ParamBranch : public ParamValueBranch, public ParamValue {
   public:
     char pad[0x10 - sizeof(void*)];
-    void(__fastcall* fn)(void*);
-    virtual void vfunc_6(void*);
+    hulk_eaxptr(__fastcall* fn)(void*);
+    virtual hulk_eaxptr vfunc_6(void*);
 };
-void ParamBranch::vfunc_6(void* p) {
-    fn(p);
+hulk_eaxptr ParamBranch::vfunc_6(void* p) {
+    return fn(p);
 }
 } // namespace fn_0017c0f0
 
@@ -1266,11 +1266,11 @@ class ParamValue {};
 class ParamBranch : public ParamValueBranch, public ParamValue {
   public:
     char pad[0x10 - sizeof(void*)];
-    void(__fastcall* fn)(void*);
-    virtual void vfunc_6(void*);
+    hulk_eaxptr(__fastcall* fn)(void*);
+    virtual hulk_eaxptr vfunc_6(void*);
 };
-void ParamBranch::vfunc_6(void* p) {
-    fn(p);
+hulk_eaxptr ParamBranch::vfunc_6(void* p) {
+    return fn(p);
 }
 } // namespace fn_0017c160
 
@@ -1292,11 +1292,11 @@ class ParamValue {};
 class ParamBranch : public ParamValueBranch, public ParamValue {
   public:
     char pad[0x10 - sizeof(void*)];
-    void(__fastcall* fn)(void*);
-    virtual void vfunc_6(void*);
+    hulk_eaxptr(__fastcall* fn)(void*);
+    virtual hulk_eaxptr vfunc_6(void*);
 };
-void ParamBranch::vfunc_6(void* p) {
-    fn(p);
+hulk_eaxptr ParamBranch::vfunc_6(void* p) {
+    return fn(p);
 }
 } // namespace fn_0017c1b0
 
@@ -1318,11 +1318,11 @@ class ParamValue {};
 class ParamBranch : public ParamValueBranch, public ParamValue {
   public:
     char pad[0x10 - sizeof(void*)];
-    void(__fastcall* fn)(void*);
-    virtual void vfunc_6(void*);
+    hulk_eaxptr(__fastcall* fn)(void*);
+    virtual hulk_eaxptr vfunc_6(void*);
 };
-void ParamBranch::vfunc_6(void* p) {
-    fn(p);
+hulk_eaxptr ParamBranch::vfunc_6(void* p) {
+    return fn(p);
 }
 } // namespace fn_0017c240
 
@@ -1344,11 +1344,11 @@ class ParamValue {};
 class ParamBranch : public ParamValueBranch, public ParamValue {
   public:
     char pad[0x10 - sizeof(void*)];
-    void(__fastcall* fn)(void*);
-    virtual void vfunc_6(void*);
+    hulk_eaxptr(__fastcall* fn)(void*);
+    virtual hulk_eaxptr vfunc_6(void*);
 };
-void ParamBranch::vfunc_6(void* p) {
-    fn(p);
+hulk_eaxptr ParamBranch::vfunc_6(void* p) {
+    return fn(p);
 }
 } // namespace fn_0017c330
 
@@ -1370,11 +1370,11 @@ class ParamValue {};
 class ParamBranch : public ParamValueBranch, public ParamValue {
   public:
     char pad[0x10 - sizeof(void*)];
-    void(__fastcall* fn)(void*);
-    virtual void vfunc_6(void*);
+    hulk_eaxptr(__fastcall* fn)(void*);
+    virtual hulk_eaxptr vfunc_6(void*);
 };
-void ParamBranch::vfunc_6(void* p) {
-    fn(p);
+hulk_eaxptr ParamBranch::vfunc_6(void* p) {
+    return fn(p);
 }
 } // namespace fn_0017c3a0
 
@@ -1396,11 +1396,11 @@ class ParamValue {};
 class ParamBranch : public ParamValueBranch, public ParamValue {
   public:
     char pad[0x10 - sizeof(void*)];
-    void(__fastcall* fn)(void*);
-    virtual void vfunc_6(void*);
+    hulk_eaxptr(__fastcall* fn)(void*);
+    virtual hulk_eaxptr vfunc_6(void*);
 };
-void ParamBranch::vfunc_6(void* p) {
-    fn(p);
+hulk_eaxptr ParamBranch::vfunc_6(void* p) {
+    return fn(p);
 }
 } // namespace fn_0017c510
 

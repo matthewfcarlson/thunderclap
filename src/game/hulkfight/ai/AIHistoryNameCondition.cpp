@@ -1049,8 +1049,8 @@ namespace fn_f49cf0cf {
 // 0x0010fc40 fight::ParamBranch<hulkfight::ai::AIFightNodeCondition>::vfunc_6 (12 B): matches/0x0010fc40.cpp
 // sym: ?vfunc_6@ParamBranch@fn_f49cf0cf@@UAEXPAX@Z
 // Same code shape as 0x00050240 (propagated; names are from that function)
-void ParamBranch::vfunc_6(void* p) {
-    fn(p);
+hulk_eaxptr ParamBranch::vfunc_6(void* p) {
+    return fn(p);
 }
 
 } // namespace fn_f49cf0cf

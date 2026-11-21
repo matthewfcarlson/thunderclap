@@ -232,8 +232,8 @@ class ParamValue {};
 class ParamBranch : public ParamValueBranch, public ParamValue {
   public:
     char pad[0x10 - sizeof(void*)];
-    void(__fastcall* fn)(void*);
-    virtual void vfunc_6(void*);
+    hulk_eaxptr(__fastcall* fn)(void*);
+    virtual hulk_eaxptr vfunc_6(void*);
 };
 extern "C" char DAT_0041116c[];   // fight::TrackFactoryCasterTemplate<hulkfight::PostEvent_StringTrack>'s vftable
 // (sweep-caster-fix1) the caster as the word its inline constructor writes: the game's vftable by address (a local
@@ -556,8 +556,8 @@ PostEvent_StringAction_12dd50* PostEvent_StringAction_12dd50::f2(unsigned char f
 // 0x0012ddd0 fight::ParamName<hulkfight::PostEvent_StringTrack>::vfunc_7 (12 B): matches/0x0012ddd0.cpp
 // sym: ?vfunc_6@ParamBranch@fn_facdac2a@@UAEXPAX@Z
 // Same code shape as 0x00050240 (propagated; names are from that function)
-void ParamBranch::vfunc_6(void* p) {
-    fn(p);
+hulk_eaxptr ParamBranch::vfunc_6(void* p) {
+    return fn(p);
 }
 
 } // namespace fn_facdac2a

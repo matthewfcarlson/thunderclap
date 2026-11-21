@@ -79,8 +79,8 @@ namespace fn_f1475c30 {
 // 0x00110a50 fight::ParamName<hulkfight::ai::HulkActionTrack>::vfunc_7 (12 B): matches/0x00110a50.cpp
 // sym: ?vfunc_6@ParamBranch@fn_f1475c30@@UAEXPAX@Z
 // Same code shape as 0x00050240 (propagated; names are from that function)
-void ParamBranch::vfunc_6(void* p) {
-    fn(p);
+hulk_eaxptr ParamBranch::vfunc_6(void* p) {
+    return fn(p);
 }
 
 } // namespace fn_f1475c30

@@ -61,8 +61,8 @@ namespace fn_fc121c25 {
 // 0x00110df0 fight::ParamName<hulkfight::ai::SemaphoreWaitTrack>::vfunc_7 (12 B): matches/0x00110df0.cpp
 // sym: ?vfunc_6@ParamBranch@fn_fc121c25@@UAEXPAX@Z
 // Same code shape as 0x00050240 (propagated; names are from that function)
-void ParamBranch::vfunc_6(void* p) {
-    fn(p);
+hulk_eaxptr ParamBranch::vfunc_6(void* p) {
+    return fn(p);
 }
 
 } // namespace fn_fc121c25

@@ -2722,8 +2722,8 @@ namespace fn_ffc509e9 {
 // 0x0011a8f0 fight::ParamName<hulkfight::ai::MotionLocatorTrack>::vfunc_7 (12 B): matches/0x0011a8f0.cpp
 // sym: ?vfunc_6@ParamBranch@fn_ffc509e9@@UAEXPAX@Z
 // Same code shape as 0x00050240 (propagated; names are from that function)
-void ParamBranch::vfunc_6(void* p) {
-    fn(p);
+hulk_eaxptr ParamBranch::vfunc_6(void* p) {
+    return fn(p);
 }
 
 } // namespace fn_ffc509e9

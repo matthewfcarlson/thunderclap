@@ -176,8 +176,8 @@ class ParamValueEnum_501b0 : public ParamValue_501b0 {
 class ParamBranch : public ParamValueBranch, public ParamValue {
   public:
     char pad[0x10 - sizeof(void*)];
-    void(__fastcall* fn)(void*);
-    virtual void vfunc_6(void*);
+    hulk_eaxptr(__fastcall* fn)(void*);
+    virtual hulk_eaxptr vfunc_6(void*);
 };
 class CStageCondition_50290;
 class ParamValue_50290 {
@@ -623,8 +623,8 @@ namespace fn_fe626ee4 {
 
 // 0x00050240 fight::ParamBranch<CFightNodePrevCondition>::vfunc_6 (12 B): matches/0x00050240.cpp
 // sym: ?vfunc_6@ParamBranch@fn_fe626ee4@@UAEXPAX@Z
-void ParamBranch::vfunc_6(void* p) {
-    fn(p);
+hulk_eaxptr ParamBranch::vfunc_6(void* p) {
+    return fn(p);
 }
 
 } // namespace fn_fe626ee4

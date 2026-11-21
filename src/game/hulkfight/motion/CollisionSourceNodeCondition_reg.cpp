@@ -54,8 +54,8 @@ class ParamValueEnum_152ef0 : public ParamValue_152ef0 {
 class ParamBranch : public ParamValueBranch, public ParamValue {
   public:
     char pad[0x10 - sizeof(void*)];
-    void(__fastcall* fn)(void*);
-    virtual void vfunc_6(void*);
+    hulk_eaxptr(__fastcall* fn)(void*);
+    virtual hulk_eaxptr vfunc_6(void*);
 };
 class ParamValueBool_152f70 {
   public:
@@ -162,8 +162,8 @@ namespace fn_f3d4a067 {
 // 0x00152f60 fight::ParamBranch<hulkfight::motion::CollisionSourceNodeCondition>::vfunc_6 (12 B): matches/0x00152f60.cpp
 // sym: ?vfunc_6@ParamBranch@fn_f3d4a067@@UAEXPAX@Z
 // Same code shape as 0x00050240 (propagated; names are from that function)
-void ParamBranch::vfunc_6(void* p) {
-    fn(p);
+hulk_eaxptr ParamBranch::vfunc_6(void* p) {
+    return fn(p);
 }
 
 

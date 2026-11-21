@@ -98,4 +98,15 @@ static inline float hulk_fbits(unsigned int bits)
 #define HULK_REFCOUNT_PACK_END
 #endif
 
+// HULK_PORT_ABI: the port builds (64-bit native, and wasm32: HULK_WASM, tools/wasm_port.py), whose callers never see
+// x86's leftover eax. A function the original leaves with a call whose result its callers read returns that result
+// there; the 32-bit builds keep the source's void (the same code). hulk_eaxptr: such a pointer result
+// (`hulk_eaxptr vfunc_6(void* p) { return fn(p); }`, ParamBranch<T>: 0x00235290 reads fn's result, D204).
+#if defined(HULK_PTR64) || defined(HULK_WASM)
+#define HULK_PORT_ABI 1
+typedef void* hulk_eaxptr;
+#else
+typedef void hulk_eaxptr;
+#endif
+
 #endif

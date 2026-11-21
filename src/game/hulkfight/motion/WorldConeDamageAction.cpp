@@ -899,8 +899,8 @@ class MotionTrailStopAction_145d50 {
 class ParamBranch : public ParamValueBranch, public ParamValue {
   public:
     char pad[0x10 - sizeof(void*)];
-    void(__fastcall* fn)(void*);
-    virtual void vfunc_6(void*);
+    hulk_eaxptr(__fastcall* fn)(void*);
+    virtual hulk_eaxptr vfunc_6(void*);
 };
 extern "C" char DAT_004132b8[];   // fight::TrackFactoryCasterTemplate<hulkfight::motion::SlowMotionTrack>::vftable
 struct TrackFactoryCasterTemplate_146130 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
@@ -3187,8 +3187,8 @@ MotionTrailStopAction_145d50* MotionTrailStopAction_145d50::vfunc_2(int flag) {
 // 0x00145e40 fight::ParamName<hulkfight::motion::HitEffectTrack>::vfunc_7 (12 B): matches/0x00145e40.cpp
 // sym: ?vfunc_6@ParamBranch@fn_f3c8e3e3@@UAEXPAX@Z
 // Same code shape as 0x00050240 (propagated; names are from that function)
-void ParamBranch::vfunc_6(void* p) {
-    fn(p);
+hulk_eaxptr ParamBranch::vfunc_6(void* p) {
+    return fn(p);
 }
 
 } // namespace fn_f3c8e3e3
@@ -3210,11 +3210,11 @@ class ParamValue {};
 class ParamBranch : public ParamValueBranch, public ParamValue {
   public:
     char pad[0x10 - sizeof(void*)];
-    void(__fastcall* fn)(void*);
-    virtual void vfunc_6(void*);
+    hulk_eaxptr(__fastcall* fn)(void*);
+    virtual hulk_eaxptr vfunc_6(void*);
 };
-void ParamBranch::vfunc_6(void* p) {
-    fn(p);
+hulk_eaxptr ParamBranch::vfunc_6(void* p) {
+    return fn(p);
 }
 } // namespace fn_00145eb0
 

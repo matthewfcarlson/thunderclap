@@ -130,8 +130,8 @@ class ParamValue {};
 class ParamBranch : public ParamValueBranch, public ParamValue {
   public:
     char pad[0x10 - sizeof(void*)];
-    void(__fastcall* fn)(void*);
-    virtual void vfunc_6(void*);
+    hulk_eaxptr(__fastcall* fn)(void*);
+    virtual hulk_eaxptr vfunc_6(void*);
 };
 extern int hulk_at_0049850c;
 } // namespace fn_f27320e9
@@ -400,8 +400,8 @@ namespace fn_f27320e9 {
 // 0x0023f310 fight::ParamConditionGroup<fight::BreakPointTrack>::vfunc_6 (12 B): matches/0x0023f310.cpp
 // sym: ?vfunc_6@ParamBranch@fn_f27320e9@@UAEXPAX@Z
 // Same code shape as 0x00050240 (propagated; names are from that function)
-void ParamBranch::vfunc_6(void* p) {
-    fn(p);
+hulk_eaxptr ParamBranch::vfunc_6(void* p) {
+    return fn(p);
 }
 
 } // namespace fn_f27320e9

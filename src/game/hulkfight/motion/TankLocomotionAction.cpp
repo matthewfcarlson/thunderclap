@@ -645,8 +645,8 @@ class ImpulseVelocityAction_191810 {
 class ParamBranch : public ParamValueBranch, public ParamValue {
   public:
     char pad[0x10 - sizeof(void*)];
-    void(__fastcall* fn)(void*);
-    virtual void vfunc_6(void*);
+    hulk_eaxptr(__fastcall* fn)(void*);
+    virtual hulk_eaxptr vfunc_6(void*);
 };
 extern "C" char DAT_0041b09c[];   // fight::TrackFactoryCasterTemplate<hulkfight::motion::ImpulseVelocityTrack>::vftable
 struct TrackFactoryCasterTemplate_191910 {   // (sweep-caster-fix1) the word its inline constructor writes (was a local polymorphic stand-in:
@@ -2465,8 +2465,8 @@ ImpulseVelocityAction_191810* ImpulseVelocityAction_191810::vfunc_2(int flag) {
 // 0x001918a0 fight::ParamNameConstList<hulkfight::motion::ImpulseVelocityTrack>::vfunc_7 (12 B): matches/0x001918a0.cpp
 // sym: ?vfunc_6@ParamBranch@fn_fc171dfe@@UAEXPAX@Z
 // Same code shape as 0x00050240 (propagated; names are from that function)
-void ParamBranch::vfunc_6(void* p) {
-    fn(p);
+hulk_eaxptr ParamBranch::vfunc_6(void* p) {
+    return fn(p);
 }
 
 } // namespace fn_fc171dfe
