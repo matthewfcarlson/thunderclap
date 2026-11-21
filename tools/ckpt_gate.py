@@ -117,7 +117,11 @@ def main(argv):
                     off = (json.load(open(sp)) or {}).get("off")
                 except ValueError:
                     off = None
-                if off:
+                if off and name == "proof" and off == {"HULK_CKPT_WORKSPACE": "1"}:
+                    # (ckpt2; rev5) a D162 proof workspace build (workspace-stamped unproven accepts let it materialize):
+                    # a proof side for tools/ckpt_validate.py only, never a control
+                    print("ckpt_gate: the proof %s is a ckpt proof-workspace build (HULK_CKPT_WORKSPACE=1)" % x)
+                elif off:
                     sys.exit("ckpt_gate: the %s %s was built with development switches %s: it proves nothing" % (
                         name, x, off))
     c, p = load(a.control), load(a.proof)

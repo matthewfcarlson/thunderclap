@@ -608,10 +608,11 @@ def main():
             ok = False
     # (integ2, D126; rev5's R4) a build made with a checker or tree development switch proves nothing: recorded, and
     # tools/ckpt_gate.py refuses such a build as control or proof
-    summ["off"] = {k: env[k] for k in ("TREE_TU_OFF", "EQUIV_OFF", "EQ64_OFF", "EQUIV_ON", "RELOC_OFF")
+    summ["off"] = {k: env[k] for k in ("TREE_TU_OFF", "EQUIV_OFF", "EQ64_OFF", "EQUIV_ON", "RELOC_OFF", "HULK_CKPT_WORKSPACE")
                    if (env.get(k) or "").strip()}
     sse = env.get("HULK_WINE_FLOAT", "sse") != "x87"
     summ["float"] = "sse" if sse else "x87"
+    summ["link_noicf"] = env.get("HULK_WINE_NOICF") == "1"     # (ckpt2) a coverage link (tools/ckpt_ledger.py record)
     summ["opt"] = {k: env[k] for k in ("HULK_WINE_OPT", "HULK_WINE_OPT_ONLY", "HULK_WINE_OPT_EXCLUDE") if env.get(k)} or "O0"
     map_built = False
     if reuse == "key":

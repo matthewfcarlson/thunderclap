@@ -345,8 +345,14 @@ def cmd_gate(a):
                        if t in ctl[fr] and ctl[fr][t][0] != h and ckpt_ref.name(t) not in ckpt_ref.OBSERVABLE)
         rok = r.returncode == 0
         ok &= rok
+        # (ckpt2; rev5) the particle frames this validation compared (the tag the originals disagree on most)
+        _m, _v, prf, _pu = ckpt_ref.read(pt + ".ckref")
+        pf = [fr for fr in ref if fr in prf for t in ref[fr] if ckpt_ref.name(t) == "particle" and t in prf[fr]]
+        pd = [fr for fr in ref if fr in prf for t, (h, _q) in ref[fr].items()
+              if ckpt_ref.name(t) == "particle" and t in prf[fr] and prf[fr][t][0] != h]
         out["references"][name] = {"control": c, "proof": q, "gate": gate_line, "ok": rok,
-                                    "control_diverged": len(known), "control_diverged_first": known[:50]}
+                                    "control_diverged": len(known), "control_diverged_first": known[:50],
+                                    "particle_frames": len(pf), "particle_diverged": len(pd)}
         print("gate %s: %s; the control diverges from the original at %d (frame, tag)%s" % (
             name, gate_line, len(known), " (first %d %s)" % known[0] if known else ""))
     out["ok"] = ok
@@ -375,12 +381,13 @@ def main():
         return cmd_gate(a)
     import ckpt_refs
     refs = {e["name"]: e for e in ckpt_refs.verify(ckpt_refs.load(a.manifest))}
-    covers = {}
+    covers, cover_files = {}, {}
     for c in a.cover:
         name, _, path = c.partition("=")
         if name not in refs:
             sys.exit("--cover %s: not a manifest reference" % name)
         covers[name] = load_cover(path)
+        cover_files[name] = {"path": os.path.abspath(path), "sha256": ckpt_refs.sha256(path)}
     if set(covers) != set(refs):
         sys.exit("coverage is needed for every manifest reference: have %s, manifest %s" % (sorted(covers), sorted(refs)))
     ctl, prf = Image(a.control), Image(a.proof)
@@ -405,6 +412,10 @@ def main():
             counts = [ckpt_refs.windows_in(hits[x], n, refs[name]) if x in hits else 0 for x in ch]
             best[name] = min(counts)
         r["r2_windows"] = best
+        # (ckpt2, piece 4) the changed blocks' window bitmaps per reference: the ledger line carries them, so R2 is
+        # re-computed when the line is read (tools/ckpt_ledger.py record; tree_tu.ckpt_line_accepts)
+        r["r2_hits"] = {name: {"epoch": n, "blocks": {"0x%x" % x: hits.get(x, "") for x in ch}}
+                        for name, (n, hits) in covers.items()}
         r["r2"] = r2_ok(best)
         r["eligible"] = r["r4"] is None and r["r2"]
         ok &= r["eligible"]
@@ -416,7 +427,7 @@ def main():
     print("ckpt_validate: %d changed function(s), %d eligible -> %s" % (
         len(report), sum(r["eligible"] for r in report), "ok" if ok and report else "NOT ok"))
     if a.json:
-        json.dump({"ok": ok and bool(report), "min_windows": MIN_WINDOWS, "functions": report,
+        json.dump({"ok": ok and bool(report), "min_windows": MIN_WINDOWS, "functions": report, "covers": cover_files,
                    "control": os.path.abspath(a.control), "proof": os.path.abspath(a.proof)}, open(a.json, "w"), indent=1)
     return 0 if ok and report else 1
 

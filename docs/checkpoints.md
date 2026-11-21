@@ -182,7 +182,7 @@ checkpoints) and Hulk and the actors from 34,240 (34260).
 
 **Adopted** by the user (D162, "adopt + audit"; D163 sets the bar). Status: pieces 1-3 landed (window-counted block
 coverage 9409ed988, the reference manifest `config/ckpt-refs.json` 559d63013, `tools/ckpt_validate.py` b6180f607);
-the ledger kind `ckpt` (4) and the audit (5) are in progress. Until piece 4 lands, nothing is validated this way.
+the ledger kind `ckpt` (4) and the weekly audit (5) landed (ckpt2).
 What D162/D163 add to R1-R5 below:
 
 - A `ckpt` ledger line covers **only the Wine mode**: it satisfies (addr, wine, wine code hash). The MSVC mode still
@@ -202,6 +202,90 @@ What D162/D163 add to R1-R5 below:
 - **Audit** (safeguard 2): weekly, a 5% sample of the live `ckpt` lines (seed from the week id, stratified by
   allowlist entry) also gets a full proof (msvc, `--wine`, `--x64` at 3,000). A failure revokes that line (D154) and
   appends a pause record: no new `ckpt` line is accepted until the user lifts it; existing lines keep counting.
+
+### The `ckpt` ledger kind (piece 4)
+
+`tools/ckpt_ledger.py record` appends one line per validated block to `config/ckpt-ledger.jsonl` (append-only,
+merge=union; its own file, so no reader of `config/proof-ledger.jsonl` can count it, and `ledger_line_proves` rejects a
+`kind: ckpt` line wherever it is found). A line names the block, `mode: wine` and its wine code hash, the allowlist
+entry and tags, per manifest reference the recording's hash, the probe version, the window length and **the window
+bitmap of every changed block** (addresses and bitmaps only), the validator digest (`ckpt_validate.py`, `ckpt_refs.py`,
+`ckpt_ledger.py`, `cover.py`), the gate host, the manifest's commit, the control / proof / coverage jobs, the proof
+image's hash, the GATE lines, the control's divergence count and the particle frames compared. The reports go to
+`build/ckpt/validations/ID/` (local audit material; the line holds their hash).
+
+**A ckpt line vouches for its block's own code at that commit; callees are validated on their own.** The closure part
+of R4 (no indirect call in a changed block, no platform or denied-TU reach) is checked on the images when the line is
+recorded and not again; if a later validator fix shows that image-time part wrong, `tree_tu.py revoke all --mode wine
+--kind ckpt --validator DIGEST --why TEXT` revokes every line recorded under that digest, and record refuses it after.
+
+`record` refuses unless the gate report is ok on every manifest reference for this proof job and the manifest's
+current commit; **one image** throughout: control and proof were linked without ICF (`summary.json` `link_noicf`) and
+without development switches, the blocks report's proof image is the proof job's (`image.sha256`), every coverage job
+ran that image (`wine-out/image.sha1`, written by `ckpt_ledger.py cover`) and its hit file is the one the blocks report
+read (sha256); the function is eligible (R2,
+R4) with its window bitmaps in the report; the proof workspace's `src/` and `include/` files hash as the proof job's
+`sources.json.gz` says (so the wine code hash computed there is the image's code), and the tree the line lands in has
+that same wine code hash for the block now, while its unproven baseline holds no workspace accept and no entry for
+that code (the ckpt line must be the block's only exemption); the block is `equivalent`; the line would be accepted
+when read; and no pause is open.
+
+When a line is read (`tree_tu.ckpt_line_accepts`), all of this is checked again, never trusted from the line: wine
+mode and the block's current wine code hash; neither the line, nor its run (code, validator), nor its validator
+revoked; not dated inside a pause interval (a lift never admits a line dated inside the pause); R4: an `equivalent`
+block whose current TU the **current** allowlist admits under the recorded entry with the recorded tags; R2: from the
+line's own bitmaps, every changed block in at least `MIN_WINDOWS` (and the recorded minimum) windows of **one**
+reference the current manifest still lists with the same recording, within its current compared frames (a reference
+error is a refusal).
+
+Where an accepted line counts: materialize's D126 gate (`unproven_code`, the wine mode only), verify's proof status
+(`proof: ckpt (wine)`, not a failure) and `hash --proven`, which writes the pin's hashes when the wine mode has no wine
+run but an accepted line (`wine: ckpt line KEY`; nothing goes to the proof ledger). It never enters `ledger_index` or
+`code_ledger_index`, so never `--from-ledger`, carry, post contracts, the x64 gate, the unproven ratchet or
+`unproven-accept`'s "already proven". The MSVC mode needs its own proof, and `--x64` its own run, as before.
+
+Revocation: `tree_tu.py revoke ADDR --mode wine --kind ckpt --why TEXT` (the default `--kind equiv` revokes equiv lines
+only, as before) appends to `config/proof-revoked.jsonl` the line keys and the runs (code, `ckpt:VALIDATOR`).
+
+**Workflow.** (1) Prove the MSVC mode (`equiv.py` at 3,000) and record it (`hash --proven`: the ledger line is written;
+the pin waits for the wine mode). (2) Proof workspace (private): HEAD plus the change, and, in that workspace only,
+`tree_tu.py unproven-accept ADDR --tu TU --modes wine --workspace --why "ckpt proof workspace"` and `hash TU
+--unproven-accepted --addr ADDR` so it materializes. The `--workspace` stamp (`unproven-accept-workspace`) is taken by
+materialize only with `HULK_CKPT_WORKSPACE=1` (recorded in the build's `off`: such a build is a ckpt proof side only,
+never a control) and always fails `verify` (`unproven baseline holds workspace accepts`), so it never lands. (3)
+Control (HEAD) and proof Wine builds on one host, both `--env HULK_WINE_NOICF=1` (the proof also
+`--env HULK_CKPT_WORKSPACE=1`), `--gfx --replay play3 --frames 60000`, proof
+`--state seed:CONTROL`, both `--fetch image`. (4) `ckpt_ledger.py cover --proof-job PRF --ref play3 --name ME` for
+every manifest reference: the proof image's coverage replay (every block leader, `HULK_COVER_EPOCH=300`). (5) `ckpt_validate.py gate --pair play3=CTL,PRF --json G` and `ckpt_validate.py blocks
+--control CTL_IMAGE --proof PRF_IMAGE --cover play3=COV --json B`. (6) In the landing tree (HEAD plus the change, no
+workspace-only edits): `ckpt_ledger.py record --blocks B --gate G --proof-tree WS --proof-job PRF --coverage-job play3=COVJ`
+(with `--cover play3=build/jobs/out/COVJ/wine-out/trace.txt.cov` given to `blocks` in step 5), then `hash TU --proven MSVC.json` (the wine mode by the ckpt line), the `--x64` gate, verify, and commit
+the source, the pin, the ckpt line and the MSVC ledger line together.
+
+### The audit (piece 5)
+
+`tools/ckpt_audit.py` runs D162's safeguard 2 once a week (ISO week id, e.g. `2026-W48`). The population is every
+`ckpt` line recorded before the week's Monday 00:00 that is accepted at HEAD (its block's committed wine code is the
+line's, R2/R4 hold, not revoked). It is stratified by allowlist entry; from each entry `ceil(5%)` of its lines are
+drawn by a generator seeded with sha256 of the week id over the lines sorted by key, so anyone recomputes the same
+sample (`ckpt_audit.py sample`). `submit` records the sample in `config/ckpt-audit.jsonl` (append-only, merge=union)
+and submits, per sampled block, `equiv.py --json --inputs 3000` in MSVC, `--wine` and `--x64` at HEAD (queue jobs, no
+overlays). `judge` reads the reports: a mode passes when its run proves the sampled code (`tree_tu.proves`; for `--x64`
+an `equivalent` run, or a failure in the class the x64 baseline lists for that block); it fails on a `fail` run (a
+difference found); anything else (short, unsupported, a run of other code) is inconclusive and `submit --resubmit`
+runs it again. Every verdict is appended to `config/ckpt-audit.jsonl`. A sampled line that no longer counts at HEAD
+when `submit` runs (its block edited, R2/R4 withdrawn, revoked) is replaced by the next line of its entry's seeded
+order that still counts; the order is in the sample record and each replacement is recorded with its reason.
+
+A failure revokes the block's live `ckpt` lines (`tree_tu.py revoke --kind ckpt`, D154) and appends a pause record
+to `config/ckpt-pause.jsonl`, whichever mode failed. An MSVC failure also means that the block's MSVC `equiv` proof
+was unsound or the checker changed (ckpt never covers MSVC): the audit records it as `equiv_suspect` and prints it as a
+D154 revocation candidate for the lead (never revoked by the audit); an `--x64` failure is recorded as `x64_report`
+(an x64 baseline accept or a fix). While a pause is open, `ckpt_ledger.py record` refuses and no line dated inside it is
+ever accepted; lines recorded before it keep counting. Only the user lifts a pause: `ckpt_audit.py lift PAUSE_ID
+--decision Dnnn --why TEXT`, naming their decision. `ckpt_audit.py status` lists the pauses and the audits.
+A skipped audit stops new lines too: `ckpt_ledger.py record` refuses while the previous week's audit (when a ckpt line
+existed before that week) has no sample record or a sampled run without a pass/fail verdict.
 
 The proposal as it was written (R1-R5):
 
@@ -285,6 +369,26 @@ third original run as much as between original runs. After about frame 12,918 th
 audio-driven event timing (wine-replay.md), and two runs can coincide at single frames by chance. So references are
 made from **three** runs (`ckpt_ref.py make A B C`): a (frame, tag) is kept only where all agree, which removes those
 chance agreements; the particle and sound tags stay frame by frame as before.
+
+**The 16 frames after 14,584 (ckpt2).** Against the three-run reference the Wine build differs in the particle tag
+at 16 frames, 14,584-14,670: all reference frames kept after 12,917, where the three runs agree. The tag's moving
+words are two Marsaglia multiply-with-carry generators (0x143100's step: `z = (z & 0xffff) * 0x9069 + (z >> 16)`,
+`w = (w & 0xffff) * 0x4650 + (w >> 16)`): the plane / sphere generator (words 6-7, 0x554bfc) and the sprite emitter
+(8-9, 0x554c04). Field dumps at 14,584 (Wine 107694, a fourth original run in xemu 107687) and the step count between
+the states: the original's state lies **on** the Wine build's sequence, inside its 14,584 -> 14,585 step (plane
+generator 24 of 73 draws, sprite emitter 72 of 135). The two draw the same numbers; the original is less than one
+frame's spawns ahead at the probe point. The fourth original run itself differs from the reference at 14,584 and
+agrees at 14,585 and 14,587. So these frames are where the originals' intra-frame split happened to coincide, as at
+12,923 and 13,542 before; not a Wine divergence. Triage procedure for a particle difference (on demand): field
+dumps of the frame from both sides (Wine `HULK_CKREF_DUMP=F-F`, xemu `hybrid_test.py replay --ckref ... --ckref-dump F`;
+`ckpt_ref.py diff`), then `tools/ckpt_mwc.py` on words 6-7 and on 8-9 of the two runs, and on the run's own frames F
+and F+1 (that frame's draw count). "Inside one frame's step" means the original's state is reached from the run's
+frame-F state in fewer draws than the run makes from F to F+1, for both generators. States not reached at all are a
+real stream divergence. Probe v4 (rev5, the lead): the exact particle hash
+comparison stays as it is; the generator-stream position only adds a classification to a frame that already differs
+("same stream, original ahead by K draws, under one frame's spawns"), never turns a difference into a match, and a
+frame whose streams do not align stays a plain failure. It waits until a real particle regression needs this
+triage more than once or the references are re-recorded for another reason.
 
 ## Recordings needed for broad coverage
 

@@ -892,7 +892,9 @@ def ledger_line_proves(e):
     closed: the materialize gate already refused those modes). (integ4, D154) A line config/proof-revoked.jsonl revokes
     proves nothing either: the run is known unsound (a checker rule found since); only a new line proves that code again
     (a fresh run of new code, or of the same code under the fixed checker: another record, another key)."""
-    return e.get("promotable") is not False and e.get("status", "equivalent") == "equivalent" and \
+    # (ckpt2, D163) a `ckpt` line (config/ckpt-ledger.jsonl) never proves here, wherever it is found
+    return e.get("kind", "equiv") == "equiv" and \
+        e.get("promotable") is not False and e.get("status", "equivalent") == "equivalent" and \
         ledger_line_key(e) not in revoked_lines() and revoked_run(e) is None and \
         (e.get("carried_from") is None or (e["carried_from"] not in revoked_lines() and
                                             same_checker_epoch(e.get("checker"), e.get("carry_checker", e.get("checker")))))
@@ -1223,6 +1225,10 @@ def mark_views(recs, rec, vs, ledger):
             pr["wine"] = "unchecked"
         else:
             pr["wine"] = "proven" if (r["addr"], "wine", r.get("wine_code_hash"), vw) in ledger else "unproven"
+            # (ckpt2, D163) else a ckpt line that accepts this block's current wine code (R2/R4 re-checked now)
+            if pr["wine"] == "unproven" and \
+                    ckpt_accepted(r["addr"], r.get("tu"), r.get("kind"), r.get("wine_code_hash")) is not None:
+                pr["wine"] = "ckpt"
         # (integ5, D157) a mode config/unproven-baseline.json lists for exactly this (addr, mode, code hash), with an
         # accept/seed stamp, is reported (`unproven-baseline`), not failed: the same exact lookup materialize's D126
         # gate uses (unproven_code), never the address alone; edited code has another hash and stays `unproven`
@@ -1240,6 +1246,14 @@ def mark_views(recs, rec, vs, ledger):
 
 
 _UNPROVEN_BASE = []     # (integ5, D157; verify: the unproven baseline, read once before the pool forks)
+
+
+def workspace_accepts(base=None):
+    """(ckpt2; rev5) ["addr mode"] of the unproven baseline's entries stamped `unproven-accept-workspace` (a ckpt proof
+    workspace's, which verify fails on: they never land)"""
+    b = base if base is not None else load_unproven_baseline()
+    return sorted("%s %s" % (addr, mode) for addr, ent in b.get("blocks", {}).items()
+                  for mode, m in (ent.get("modes") or {}).items() if (m or {}).get("by") == "unproven-accept-workspace")
 
 
 def baseline_exempt(base, addr, mode, h):
@@ -1703,7 +1717,140 @@ def code_ledger_index(path=None):
     return out
 
 
-def unproven_code(checks, base=None, ledger=None, wine=True):
+# ------------------------------------------------------------------------------------------------------- ckpt lines
+# (ckpt2, D162/D163 piece 4; rev5 ADOPT) config/ckpt-ledger.jsonl: one line per block a checkpoint validation vouches
+# for (written only by tools/ckpt_ledger.py record). A `ckpt` line satisfies only (addr, wine, wine code hash): it is
+# read by unproven_code (materialize's D126 gate, wine mode) and mark_views (`proof: ckpt (wine)`), never by
+# ledger_index / code_ledger_index, so never for --from-ledger, carry, post contracts, the x64 gate, the baseline
+# ratchet or unproven-accept. R2 and R4 are re-checked when a line is read (ckpt_line_accepts), never trusted from it.
+# A line vouches for its block's own code at its commit; callees are validated on their own.
+CKPT_LEDGER = os.path.join(ROOT, "config", "ckpt-ledger.jsonl")
+CKPT_PAUSE = os.path.join(ROOT, "config", "ckpt-pause.jsonl")
+CKPT_KEY_FIELDS = ("kind", "addr", "mode", "code", "validator", "commit", "date")
+_CKPT = {}
+
+
+def ckpt_line_key(e):
+    """(ckpt2) a ckpt line's identity (its own field set: never equal to an equiv line's ledger_line_key)"""
+    f_ = ["ckpt"] + [str(e.get(k)) for k in CKPT_KEY_FIELDS] + [json.dumps(e.get("jobs") or {}, sort_keys=True)]
+    return hashlib.sha1(json.dumps(f_).encode()).hexdigest()[:20]
+
+
+def _jsonl(path):
+    out = []
+    if os.path.exists(path):
+        with open(path) as f:
+            for l in f:
+                l = l.strip()
+                if l.startswith("{"):
+                    out.append(json.loads(l))
+    return out
+
+
+def ckpt_lines(path=None):
+    """the ckpt ledger's lines, in file order (re-read when the file changes)"""
+    path = path or CKPT_LEDGER
+    try:
+        st = os.stat(path)
+    except OSError:
+        return []
+    k = (path, st.st_mtime_ns, st.st_size)
+    if _CKPT.get(path, (None,))[0] != k:
+        _CKPT[path] = (k, [e for e in _jsonl(path) if e.get("kind") == "ckpt"])
+    return _CKPT[path][1]
+
+
+def ckpt_pauses(path=None):
+    """[(start date, end date or None)] of config/ckpt-pause.jsonl: a pause record {pause: ID, date, ...} stays open
+    until a lift record {lift: ID, decision, date} names it (only the user lifts: piece 5's ckpt_audit.py lift)"""
+    recs = _jsonl(path or CKPT_PAUSE)
+    lifts = {r["lift"]: r.get("date") for r in recs if r.get("lift")}
+    return [(r.get("date") or "", lifts.get(r["pause"])) for r in recs if r.get("pause")]
+
+
+def ckpt_paused(date, pauses=None):
+    """True when DATE (ISO, as ckpt lines and pause records write it) falls inside a pause interval: such a line is
+    never accepted, also after the lift (a lift does not admit retroactively)"""
+    for lo, hi in (pauses if pauses is not None else ckpt_pauses()):
+        if date is None or (date >= lo and (hi is None or date < hi)):
+            return True
+    return False
+
+
+def ckpt_open_pause(pauses=None):
+    return any(hi is None for _lo, hi in (pauses if pauses is not None else ckpt_pauses()))
+
+
+def _ckpt_tu(tu):
+    m = re.search(r"(?:^|/)(src/(?:game|engine|platform/xbox)/.+)$", (tu or "").replace(os.sep, "/"))
+    return m.group(1) if m else tu
+
+
+def ckpt_revoked_validators(path=None):
+    """(ckpt2; rev5) the validator digests `revoke --kind ckpt --validator D` revoked: every ckpt line recorded under
+    one is refused, and record refuses to write another"""
+    return {v for r in _jsonl(path or REVOKED) for v in r.get("validators", ())}
+
+
+def ckpt_line_accepts(e, tu, kind, code, manifest=None, pauses=None):
+    """(ckpt2, D162/D163; rev5) None when ckpt line E vouches for the block now (TU, KIND, CODE: its current tree TU,
+    block kind and wine code hash), else why not. Every condition is re-checked here: wine mode and this code; neither
+    the line nor its run (code, validator) revoked; not dated inside a pause; R4: an equivalent block whose current TU
+    the CURRENT allowlist admits under the recorded entry with the recorded tags; R2: from the line's own window bitmaps,
+    every changed block in >= MIN_WINDOWS windows of ONE reference that the current manifest still lists with the same
+    recording (never summed across references; a RefError is a refusal)."""
+    import ckpt_refs
+    import ckpt_validate
+    if e.get("kind") != "ckpt" or e.get("mode") != "wine":
+        return "not a wine ckpt line"
+    if not code or e.get("code") != code:
+        return "another code"
+    if ckpt_line_key(e) in revoked_lines() or \
+            (e.get("addr"), "wine", e.get("code"), "ckpt:%s" % e.get("validator")) in _revocations()[1]:
+        return "revoked"
+    if e.get("validator") in ckpt_revoked_validators():
+        return "recorded under a revoked validator %s" % e.get("validator")
+    if ckpt_paused(e.get("date"), pauses):
+        return "recorded inside a pause"
+    if kind != "equivalent":
+        return "a %s block" % kind
+    ae = ckpt_validate.allow_entry(_ckpt_tu(tu))
+    al = e.get("allow") or {}
+    if ae is None or ae[0] != al.get("entry") or list(ae[1]) != list(al.get("tags") or ()):
+        return "R4: the allowlist no longer admits %s as %s" % (_ckpt_tu(tu), al.get("entry"))
+    m = manifest if manifest is not None else ckpt_refs.load()
+    cur = {x["name"]: x for x in m.get("references", [])}
+    need = max(ckpt_validate.MIN_WINDOWS, int(e.get("min_windows") or 0))
+    why = "R2: no reference"
+    for name, r in sorted((e.get("refs") or {}).items()):
+        ent = cur.get(name)
+        if ent is None or ent.get("recording_sha256") != r.get("recording_sha256"):
+            why = "R2: reference %s gone or re-recorded" % name
+            continue
+        blocks = r.get("blocks") or {}
+        if not blocks:
+            why = "R2: no changed blocks recorded for %s" % name
+            continue
+        try:
+            w = min(ckpt_refs.windows_in(b or "", int(r.get("epoch") or 0), ent) if b else 0 for b in blocks.values())
+        except (ckpt_refs.RefError, ValueError) as x:
+            why = "R2: %s" % x
+            continue
+        if w >= need:
+            return None
+        why = "R2: %s reaches %d window(s), %d needed" % (name, w, need)
+    return why
+
+
+def ckpt_accepted(addr, tu, kind, code, lines=None, manifest=None):
+    """(ckpt2) the accepting ckpt line of (ADDR, wine, CODE), or None"""
+    for e in (lines if lines is not None else ckpt_lines()):
+        if e.get("addr") == addr and ckpt_line_accepts(e, tu, kind, code, manifest) is None:
+            return e
+    return None
+
+
+def unproven_code(checks, base=None, ledger=None, wine=True, ckpt=None):
     """(integ2, D126) [(addr, mode)] of the equivalent blocks among CHECKS whose current code hash in a mode has no
     passing ledger line under any view and that the unproven baseline doesn't list FOR THAT HASH (rev5's R1: an
     exemption is pinned to the code it was granted for; edited code needs its own proof): what materialize refuses.
@@ -1711,6 +1858,7 @@ def unproven_code(checks, base=None, ledger=None, wine=True):
     base = base if base is not None else load_unproven_baseline()
     led = ledger if ledger is not None else code_ledger_index()
     known = base.get("blocks", {})
+    ck = ckpt_lines() if ckpt is None else ckpt
     out = []
     for r in checks:
         if r.get("kind") != "equivalent":
@@ -1721,7 +1869,14 @@ def unproven_code(checks, base=None, ledger=None, wine=True):
             h = r.get(key)
             if h and (r["addr"], mode, h) in led:
                 continue
-            if h and (known.get(r["addr"], {}).get("modes", {}).get(mode) or {}).get("code") == h:
+            bm = known.get(r["addr"], {}).get("modes", {}).get(mode) or {}
+            # (ckpt2; rev5) a ckpt proof workspace's accept counts only in that workspace's build
+            # (HULK_CKPT_WORKSPACE=1, recorded in the build's `off`: never a control)
+            if h and bm.get("code") == h and (bm.get("by") != "unproven-accept-workspace" or
+                                              os.environ.get("HULK_CKPT_WORKSPACE") == "1"):
+                continue
+            # (ckpt2, D163) a ckpt line satisfies the wine mode only, re-checked as it is read
+            if h and mode == "wine" and ckpt_accepted(r["addr"], r.get("tu"), r.get("kind"), h, lines=ck) is not None:
                 continue
             out.append((r["addr"], mode))
     return out
@@ -1734,6 +1889,7 @@ def failing(counts, unproven=True):
                                                                      "overreach") + (("unproven",) if unproven else ())
                                                  or k in ("unproven code, not in baseline",
                                                           "unproven baseline grew without accept",
+                                                          "unproven baseline holds workspace accepts",
                                                           "free_by_other_name new",
                                                           "free-name baseline grew without accept",
                                                           "contract caller breaks the contract"))
@@ -1819,7 +1975,8 @@ JOB_META = ".jobq/local-inputs.json"
 JOB_REF = ".jobq/ref"
 GEN_PREFIX = "include/gen/"
 CONFIG_READ = {"verify": ["config/data.json", "config/proof-ledger.jsonl", "config/unproven-baseline.json",
-                          "config/free-name-baseline.json"],
+                          "config/free-name-baseline.json", "config/ckpt-ledger.jsonl", "config/ckpt-pause.jsonl",
+                          "config/ckpt-refs.json", "config/proof-revoked.jsonl"],
                "check": ["config/data.json", "config/proof-ledger.jsonl"], "x64": ["config/x64-baseline.json", "config/rtti-baseline.json", "config/data.json"],
                "gen": ["config/gen-sizes.json"]}
 _META = []
@@ -2764,6 +2921,13 @@ def hash_proven(path, results, addrs=None, dry_run=False, ledger=None, unproven_
                     continue
                 o[kind] = "unproven: neither the ledger nor the unproven list holds %s" % h
                 continue
+            if kind == "wine" and not any(x.get("native") for x in results.get(r["addr"], [])):
+                # (ckpt2, D163) no wine run: an accepting ckpt line (R2/R4 re-checked now) lets the pin follow the
+                # code; nothing is written to the proof ledger, so the wine mode stays unproven for every equiv reader
+                ck_ = ckpt_accepted(r["addr"], tu, r["kind"], h)
+                if ck_ is not None:
+                    o[kind] = "ckpt line %s" % ckpt_line_key(ck_)
+                    continue
             why = [(x, proves(x, kind, h, view)) for x in results.get(r["addr"], [])]
             good = [(x, w) for x, (ok, w) in why if ok]
             if good:
@@ -2889,11 +3053,19 @@ def main(argv=None):
     p.add_argument("--tu", required=True, help="the block's tree TU (its hashes are taken from its check)")
     p.add_argument("--modes", default="msvc,wine")
     p.add_argument("--why", required=True)
+    p.add_argument("--workspace", action="store_true",
+                   help="(ckpt2; rev5) a ckpt proof workspace's accept, stamped `unproven-accept-workspace`: materialize "
+                        "takes it, verify fails on it, so it never lands")
     p = sub.add_parser("revoke", help="(integ4, D154) revoke every ledger line that proves ADDR in MODE now (a run a later "
                        "checker rule shows unsound): config/proof-revoked.jsonl, append-only")
     p.add_argument("addr")
     p.add_argument("--mode", required=True, choices=["msvc", "wine"])
     p.add_argument("--why", required=True)
+    p.add_argument("--kind", default="equiv", choices=["equiv", "ckpt"],
+                   help="(ckpt2) ckpt: the ckpt lines of ADDR (config/ckpt-ledger.jsonl; wine mode only); default: "
+                        "the equiv proof-ledger lines only")
+    p.add_argument("--validator", help="(ckpt2; rev5) with --kind ckpt and ADDR 'all': revoke every ckpt line recorded "
+                                       "under this validator digest, and the digest itself")
     p = sub.add_parser("epoch-mark", help="(integ6; rev5) mark checker digest DIGEST as the same semantics as PREV "
                        "(carry may cross the link): config/checker-epochs.jsonl, append-only; only with the reviewer's "
                        "approval of that change, identical selftests on every host and identical regress facts")
@@ -3077,6 +3249,31 @@ def main(argv=None):
         # (integ4, D154) append-only: no un-revoke; a fresh proof (another ledger line) is the only way back
         if not (a.why or "").strip():
             sys.exit("revoke: --why must give a reason")
+        if a.kind == "ckpt":
+            # (ckpt2, D162 audit / rev5) ckpt lines: by address, or every line of one validator digest
+            if a.mode != "wine":
+                sys.exit("revoke --kind ckpt: a ckpt line is wine mode only")
+            if a.validator:
+                if a.addr != "all":
+                    sys.exit("revoke --kind ckpt --validator D: give ADDR 'all'")
+                cl = [e for e in ckpt_lines() if e.get("validator") == a.validator]
+            else:
+                cl = [e for e in ckpt_lines() if e.get("addr") == "0x%08x" % int(a.addr, 16) and
+                      ckpt_line_key(e) not in revoked_lines()]
+            if not cl and not a.validator:
+                sys.exit("revoke: no live ckpt line of %s" % a.addr)
+            rec = {"kind": "ckpt", "addr": a.addr if a.validator else "0x%08x" % int(a.addr, 16), "mode": "wine",
+                   "lines": sorted(ckpt_line_key(e) for e in cl), "codes": sorted({e.get("code") for e in cl}),
+                   "why": a.why.strip(), "by": "revoke",
+                   "date": __import__("datetime").datetime.now().isoformat(timespec="seconds")}
+            if a.validator:
+                rec["validators"] = [a.validator]
+            else:
+                rec["runs"] = sorted({(e.get("code"), "ckpt:%s" % e.get("validator")) for e in cl})
+            with open(REVOKED, "a") as f:
+                f.write(json.dumps(rec, sort_keys=True) + "\n")
+            print("revoked ckpt", rec["addr"], len(cl), "line(s)", ("validator %s" % a.validator) if a.validator else "")
+            return 0
         addr = "0x%08x" % int(a.addr, 16)
         lines = []
         if os.path.exists(LEDGER):
@@ -3114,7 +3311,8 @@ def main(argv=None):
                 sys.exit("unproven-accept: %s has no %s code hash" % (a.addr, mode))
             if (a.addr, mode, h) in led:
                 sys.exit("unproven-accept: %s %s is proven (a ledger line holds its code)" % (a.addr, mode))
-            ent["modes"][mode] = {"code": h, "accepted": today, "by": "unproven-accept", "why": a.why.strip()}
+            ent["modes"][mode] = {"code": h, "accepted": today, "why": a.why.strip(),
+                                  "by": "unproven-accept-workspace" if a.workspace else "unproven-accept"}
         ent["why"] = a.why.strip()
         write_unproven_baseline(b)
         print(a.addr, ent)
@@ -3124,7 +3322,7 @@ def main(argv=None):
             sys.exit("unproven-seed: config/unproven-baseline.json exists (the list only shrinks; add a block with "
                      "unproven-accept)")
         checks = [json.loads(l) for l in open(a.checks) if l.strip()]
-        bad = unproven_code(checks, base={"blocks": {}})
+        bad = unproven_code(checks, base={"blocks": {}}, ckpt=[])
         h_ = {(r["addr"], m): r.get(k) for r in checks for m, k in (("msvc", "code_hash"), ("wine", "wine_code_hash"))}
         today = __import__("datetime").datetime.now().isoformat(timespec="seconds")
         b = {"comment": "D126: equivalent blocks whose code had no passing proof-ledger line when the materialize gate "
@@ -3253,6 +3451,12 @@ def main(argv=None):
             return 0
         s = verify(paths, jobs=a.jobs, relocs=a.relocs, out=a.out, vs_standalone=a.vs_standalone,
                    wine=not a.no_wine_code, ref=a.changed_since, view=not a.no_view)
+        wsa = workspace_accepts()
+        if wsa:
+            # (ckpt2; rev5) a ckpt proof workspace's accepts never land: they would exempt the block's code from the
+            # D126 gate apart from (and after the revocation of) its ckpt line
+            s["counts"]["unproven baseline holds workspace accepts"] = len(wsa)
+            s["unproven_workspace_accepts"] = wsa[:50]
         if a.changed_since and (_CONTRACT_CALLERS or _CONTRACT_SLOTS) and \
                 "contractcallers" not in os.environ.get("TREE_TU_OFF", ""):
             # (integ4, D152b; lead) a contract edit re-checks every XBE caller: none may break it in its original

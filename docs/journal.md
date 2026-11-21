@@ -2191,3 +2191,57 @@ blocks fight::Action's whole family: the records come first there.
   `// equiv-map: ??_V@YAXPAX@Z = 0x0008d340` line fixes the pairing (a hint, not a relaxation).
 - D133: the dead free-helper declarations are gone (common.h's SweepTrack_DeleteThis / operator_delete / ai_free /
   ai_delete, the engine/game headers' `thunk` / `opdel` / `Free` / `FUN_0008d3x0` / `thunk_FUN_00267090`, ~360 in TUs).
+
+## 2026-11-21 ckpt2: the `ckpt` ledger kind and the weekly audit (D162/D163 pieces 4 and 5, rev5 ADOPT)
+
+- **The `ckpt` ledger kind (piece 4).** `tools/ckpt_ledger.py record` appends one line per validated block to
+  `config/ckpt-ledger.jsonl`. It is a file of its own, so no reader of the proof ledger can count it, and
+  `ledger_line_proves` also rejects a `kind: ckpt` line wherever it appears.
+  - **What a line covers:** only (addr, wine, wine code hash). It counts in exactly three places: materialize's D126
+    gate, verify's `proof: ckpt (wine)` status, and `hash --proven` (the pin follows the code; nothing goes into the
+    proof ledger). It never counts for `--from-ledger`, carry, post contracts, the x64 gate or the unproven ratchet.
+  - **What a line carries:** the changed blocks' window bitmaps, so R2 is recomputed whenever the line is read.
+  - **Read-time checks:** wine mode and the block's current code; the line, its run and its validator not revoked;
+    not dated inside a pause; R4 against the current allowlist entry and its tags; R2 within one reference against the
+    current manifest.
+- **Binding (rev5):** every check refers to one image. The pair is linked without ICF (`summary.json` `link_noicf`),
+  and every coverage replay runs the proof job's own image (`ckpt_ledger.py cover` writes the sha1 of the image it
+  ran). The hit file is the one the blocks report read, and the proof workspace's sources hash as the job's
+  `sources.json.gz`. A proof workspace materializes with `unproven-accept --workspace`:
+  - materialize takes those entries only with `HULK_CKPT_WORKSPACE=1`;
+  - that variable is recorded in the build's `off`, so such a build is a proof side only, never a control;
+  - verify always fails on these entries.
+- **Revoking:** `revoke --kind ckpt` revokes one block's ckpt lines; `revoke all --kind ckpt --validator DIGEST`
+  revokes every line recorded under that validator and refuses new ones.
+- **The weekly audit (piece 5).** `tools/ckpt_audit.py`:
+  - **Sample:** 5% per allowlist entry (ceil), seeded by the week id over the lines that count at HEAD and were dated
+    before that Monday. A slot whose line stops counting is redrawn from the stored seeded order.
+  - **Proofs:** msvc, `--wine` and `--x64` at 3,000 inputs at HEAD.
+  - **On a failure in any mode:** the block's ckpt lines are revoked and a pause is opened. An msvc failure is also
+    recorded as `equiv_suspect`, a D154 candidate for the lead, never revoked automatically. An x64 failure is recorded
+    as `x64_report`.
+  - **Lifting a pause:** only the user, with a decision id.
+  - **A skipped audit:** `record` refuses while the previous week's audit is not fully judged.
+- Tests: tests/test_ckpt_ledger.py (15), tests/test_ckpt_audit.py (7). The mutation runs caught every mutation: 15 of
+  15 for piece 4, 15 of 15 for piece 5. regress: REGRESS. Wine pair: PAIR.
+
+## 2026-11-21 ckpt2: play3's 16 particle frames after 14,584 are the original's intra-frame timing, not a divergence
+
+- **The frames.** Against the three-run reference, every Wine build (control 107197 and proof 107231 alike) differs
+  in the particle tag at 16 frames between 14,584 and 14,670. These are all of the reference frames kept after
+  12,917, the frames where the three original runs agree.
+- **The generators.** The tag's moving words are two Marsaglia multiply-with-carry generators, both stepped by
+  0x143100 (`z*0x9069`, `w*0x4650`): the plane/sphere generator (0x554bfc) and the sprite emitter (0x554c04).
+- **The test.** Field dumps at 14,584 from the Wine build (107694, image 105752) and from a fourth original run in
+  xemu (107687), and the number of steps between their states:
+  - The original's state lies on the Wine build's sequence, inside its 14,584 -> 14,585 step: 24 of that frame's 73
+    plane-generator draws, and 72 of the sprite emitter's 135.
+  - Both draw the same numbers. The original is less than one frame's spawns ahead at the probe point (the
+    audio-driven event timing after ~12,918).
+  - The fourth original run itself differs from the reference at 14,584 and agrees with it at 14,585 and 14,587.
+- **Conclusion.** These are coincidences of the originals' intra-frame split, like 12,923 and 13,542 before. Nothing
+  in the Wine build needs fixing.
+- **Follow-up (probe v4, design to rev5 first).** The exact particle-hash comparison stays as it is. The
+  generator-stream position only adds a classification to a frame that already differs ("same stream, original ahead
+  by K draws, K under one frame's spawns"). It never turns a difference into a match, and a frame whose streams don't
+  align stays a plain failure (tools/ckpt_mwc.py; rev5: on demand, v4 waits until a regression needs it twice).

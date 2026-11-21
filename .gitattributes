@@ -2,3 +2,6 @@
 config/proof-ledger.jsonl merge=union
 config/proof-revoked.jsonl merge=union
 config/checker-epochs.jsonl merge=union
+config/ckpt-ledger.jsonl merge=union
+config/ckpt-pause.jsonl merge=union
+config/ckpt-audit.jsonl merge=union
