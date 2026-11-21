@@ -34,6 +34,34 @@ HP_CHECK(CCharacter, _pad_10, 0x10)
 
 #define HP_RAW32_OK (sizeof(void*) == 4)
 
+// (render1) The words of the world and the scenario manager the flow and mission tags read. A 64-bit build that knows
+// their native offsets (the native replay driver: replay_native.cpp's hulk_probe_layout64, checked against include/
+// decls' HulkWorld and gen's CScenarioManager at link time by tools/native_replay.py layout) defines
+// HULK_PROBE_LAYOUT64 and reads them there; every other build reads the 32-bit offsets as before (the same tokens).
+#ifdef HULK_PROBE_LAYOUT64
+typedef struct HulkProbeLayout64 {
+    unsigned world_actor_manager;     // the World's actor manager (32-bit +0x20; decls/managers.h HulkWorld parts[7])
+    unsigned world_scenario_manager;  // the World's scenario manager (32-bit +0x2c; HulkWorld parts[10])
+    unsigned sm_state, sm_checkpoint, sm_elapsed, sm_end_time;   // gen CScenarioManager f_0c, f_1194, f_1198, f_119c
+} HulkProbeLayout64;
+extern "C" const HulkProbeLayout64 hulk_probe_layout64;
+#define HP_WORLD_OK 1
+#define HP_W_AM hulk_probe_layout64.world_actor_manager
+#define HP_W_SM hulk_probe_layout64.world_scenario_manager
+#define HP_SM_STATE hulk_probe_layout64.sm_state
+#define HP_SM_CHECKPOINT hulk_probe_layout64.sm_checkpoint
+#define HP_SM_ELAPSED hulk_probe_layout64.sm_elapsed
+#define HP_SM_END hulk_probe_layout64.sm_end_time
+#else
+#define HP_WORLD_OK HP_RAW32_OK
+#define HP_W_AM 0x20
+#define HP_W_SM 0x2c
+#define HP_SM_STATE HP_GEN_OFF(CScenarioManager, f_0c, 0x0c)
+#define HP_SM_CHECKPOINT HP_GEN_OFF(CScenarioManager, f_1194, 0x1194)
+#define HP_SM_ELAPSED HP_GEN_OFF(CScenarioManager, f_1198, 0x1198)
+#define HP_SM_END HP_GEN_OFF(CScenarioManager, f_119c, 0x119c)
+#endif
+
 namespace {
 
 struct HpHash {
@@ -149,16 +177,16 @@ extern "C" void hulk_probe_frame(unsigned frame, const HulkProbeInputs* in, unsi
         out->exact[t] = out->quant[t] = 0;
     // the world (0x4dd700) and its managers (Sim 0x00088670: +0x20 actor manager, +0x2c scenario manager)
     const char* world = in->world_ptr ? (const char*)*in->world_ptr : 0;
-    const char* am = HP_RAW32_OK ? hp_ptr32(world, 0x20) : 0;
-    const char* sm = HP_RAW32_OK ? hp_ptr32(world, 0x2c) : 0;
+    const char* am = HP_WORLD_OK ? hp_ptr32(world, HP_W_AM) : 0;
+    const char* sm = HP_WORLD_OK ? hp_ptr32(world, HP_W_SM) : 0;
     if (mask & (1u << HULK_PT_FLOW)) {
         hp_begin(&s, HULK_PT_FLOW, frame, dump, ctx);
         hp_u32v(&s, "boot_step", in->boot_step ? hp_load32(in->boot_step) : 0xffffffffu);
         hp_u32v(&s, "world", world ? 1 : 0);
         hp_u32v(&s, "actor_manager", am ? 1 : 0);
-        hp_u32v(&s, "mission_state", sm ? hp_load32(sm + HP_GEN_OFF(CScenarioManager, f_0c, 0x0c)) : 0xffffffffu);
+        hp_u32v(&s, "mission_state", sm ? hp_load32(sm + HP_SM_STATE) : 0xffffffffu);
         hp_end(&s, out);
-        if (!HP_RAW32_OK)
+        if (!HP_WORLD_OK)
             out->unavailable |= 1u << HULK_PT_FLOW;
     }
     if (mask & (1u << HULK_PT_CLOCK)) {
@@ -258,13 +286,13 @@ extern "C" void hulk_probe_frame(unsigned frame, const HulkProbeInputs* in, unsi
         hp_begin(&s, HULK_PT_MISSION, frame, dump, ctx);
         hp_u32v(&s, "present", sm ? 1 : 0);
         if (sm) {
-            hp_u32v(&s, "state", hp_load32(sm + HP_GEN_OFF(CScenarioManager, f_0c, 0x0c)));
-            hp_u32v(&s, "checkpoint", hp_load32(sm + HP_GEN_OFF(CScenarioManager, f_1194, 0x1194)));
-            hp_u32v(&s, "elapsed", hp_load32(sm + HP_GEN_OFF(CScenarioManager, f_1198, 0x1198)));
-            hp_u32v(&s, "end_time", hp_load32(sm + HP_GEN_OFF(CScenarioManager, f_119c, 0x119c)));
+            hp_u32v(&s, "state", hp_load32(sm + HP_SM_STATE));
+            hp_u32v(&s, "checkpoint", hp_load32(sm + HP_SM_CHECKPOINT));
+            hp_u32v(&s, "elapsed", hp_load32(sm + HP_SM_ELAPSED));
+            hp_u32v(&s, "end_time", hp_load32(sm + HP_SM_END));
         }
         hp_end(&s, out);
-        if (!HP_RAW32_OK)
+        if (!HP_WORLD_OK)
             out->unavailable |= 1u << HULK_PT_MISSION;
     }
 }

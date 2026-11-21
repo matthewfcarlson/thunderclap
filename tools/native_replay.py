@@ -10,6 +10,7 @@ the Wine build, and gates its records against the reference with tools/ckpt_ref.
         [--rec play3] [--frames 60000] [--hang 120] [--env K=V ...]
     build/venv/bin/python tools/native_replay.py check RUN.ckref [--ref build/ckpt/play3.ckref] [--frames N] \\
         [--control CONTROL.ckref] [--json OUT]
+    build/venv/bin/python tools/native_replay.py layout   # the probe's native offsets against decls / gen
 
 `run` writes OUT/trace.txt, OUT/trace.txt.ckref, OUT/stdout.txt and OUT/result.json (the frames reached, how the run
 ended, the checkpoint lines' verdicts), stops the process once the trace shows the checkpoint of frame --frames, and
@@ -160,6 +161,47 @@ def cmd_check(a):
     return rc
 
 
+LAYOUT_PROBE = r'''
+#include "tree_prelude.h"
+#include "compat/ptr.h"
+#include "gen/global.h"
+#include "decls/managers.h"
+#define O(c, f) __builtin_offsetof(c, f)
+static_assert(O(HulkWorld, parts[7]) == %(world_actor_manager)s, "world_actor_manager: HulkWorld parts[7] (32-bit +0x20)");
+static_assert(O(HulkWorld, parts[10]) == %(world_scenario_manager)s, "world_scenario_manager: HulkWorld parts[10] (+0x2c)");
+static_assert(O(::CScenarioManager, f_0c) == %(sm_state)s, "sm_state: CScenarioManager::f_0c");
+static_assert(O(::CScenarioManager, f_1194) == %(sm_checkpoint)s, "sm_checkpoint: CScenarioManager::f_1194");
+static_assert(O(::CScenarioManager, f_1198) == %(sm_elapsed)s, "sm_elapsed: CScenarioManager::f_1198");
+static_assert(O(::CScenarioManager, f_119c) == %(sm_end_time)s, "sm_end_time: CScenarioManager::f_119c");
+'''
+LAYOUT_FIELDS = ("world_actor_manager", "world_scenario_manager", "sm_state", "sm_checkpoint", "sm_elapsed", "sm_end_time")
+
+
+def layout_values():
+    """replay_native.cpp's hulk_probe_layout64 initializer, by field."""
+    s = open(os.path.join(ROOT, "src/platform/sdl/host/replay_native.cpp")).read()
+    m = re.search(r"hulk_probe_layout64 = \{([^}]*)\}", s)
+    vals = [v.strip() for v in m.group(1).split(",")] if m else []
+    if len(vals) != len(LAYOUT_FIELDS):
+        raise SystemExit("native_replay: replay_native.cpp's hulk_probe_layout64 initializer not found")
+    return dict(zip(LAYOUT_FIELDS, vals))
+
+
+def layout_check():
+    """None, or the failing static_asserts: the probe's native offsets (hulk_probe_layout64) against decls' HulkWorld
+    and gen's CScenarioManager under the tree's native front end (native_pddi.layout_check's way)."""
+    import clang_probe as cp
+    import native_mac as nmac
+    front = [x for x in nmac.FRONT if x not in ("-S", "-emit-llvm")] + cp.common_native()
+    d = os.path.join(ROOT, "build/native-replay")
+    os.makedirs(d, exist_ok=True)
+    p = os.path.join(d, "layout_probe.cpp")
+    open(p, "w").write(LAYOUT_PROBE % layout_values())
+    r = subprocess.run([cp.tool("clang++")] + front + ["-I" + os.path.join(ROOT, "include"), "-Wno-invalid-offsetof",
+                        "-fsyntax-only", p], capture_output=True, text=True, errors="replace")
+    return None if r.returncode == 0 else r.stderr[-3000:]
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sp = ap.add_subparsers(dest="cmd", required=True)
@@ -181,7 +223,12 @@ def main():
     c.add_argument("--control")
     c.add_argument("--strict", action="store_true")
     c.add_argument("--json")
+    sp.add_parser("layout", help="the probe's native offsets against the headers")
     a = ap.parse_args()
+    if a.cmd == "layout":
+        e = layout_check()
+        print(e or "probe layout: ok (%d offsets)" % len(LAYOUT_FIELDS))
+        sys.exit(1 if e else 0)
     sys.exit(cmd_run(a) if a.cmd == "run" else cmd_check(a))
 
 

@@ -493,3 +493,12 @@ tests/native_host/replay_native_test.py checks the driver, the clock hooks and t
 so a native run without `HULK_GFX_RENDERER=noop` fails "SDL not built with video support". `HULK_MAC_SDL=DIR` points
 native_bind at another SDL3 install; one built with `-DSDL_VIDEO=ON -DSDL_OPENGL=OFF -DSDL_OPENGLES=OFF
 -DSDL_VULKAN=OFF` (otherwise as build_host) opens the window and runs bgfx Metal (600 frames, 0 draws, 2026-11-21).
+
+**Flow and mission natively (render1 C2).** ckpt_probe.cpp reads the World's actor / scenario manager words and the
+scenario manager's mission words at native offsets when its includer defines `HULK_PROBE_LAYOUT64` (replay_native.cpp's
+`hulk_probe_layout64`); every other build preprocesses to the same text as before. The switch is off: in the front end
+natively World+0x58 holds two 32-bit words, not the scenario manager (build/render1/RESUME.md), so the tags stay
+unavailable until the World's and CScenarioManager's writers and views agree with decls/managers.h HulkWorld and gen.
+`tools/native_replay.py layout` (run by every native link with the replay layer: link report `probe layout`) checks
+`hulk_probe_layout64` against those headers with the native front end. tools/macho_retarget.py touches only __TEXT /
+__DATA / __DATA_CONST relocations with an owning symbol (never unwind or debug info).

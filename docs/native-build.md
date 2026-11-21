@@ -6731,3 +6731,8 @@ name that carries an address any more. Unbound counts: see the commit message (c
 - Metal (shelved): the shared host SDL has no video; a private video SDL (HULK_MAC_SDL) gives a bgfx Metal window,
   600 frames presented, 0 draws (bgfxContext slots 106 / 107 are stubs), no crash. HULK_GFX_FRAMES's exit loops
   on hulk_host_ExitProcess (unbound from platformAfterFrame).
+
+### render1 C2 (2026-11-21)
+  probe-layout check, macho_retarget restricted to code/data. Side effect of C1 (f335dc2e4): the no-fmv entry hook
+  binds QueueMovie's callers natively (before: missing stubs), so start-up may queue the intro movie and reach the
+  subtitle stop (gfx9).

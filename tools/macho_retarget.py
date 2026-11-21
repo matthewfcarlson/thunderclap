@@ -14,7 +14,8 @@ and count, the other symbols' indices (the new symbol goes last, in the undefine
 `owners`: the function names (Mach-O spelling, `_` included) whose relocations move; a name prefixed `!` inverts the
 choice (every relocation except those inside that function: an entry hook's own object minus the definition itself).
 A relocation's owner is the last non-temporary symbol at or before its offset in its section (data sections included:
-a vftable's owner is its label). ARM64_RELOC_ADDEND entries (no symbol) are never touched.
+a vftable's owner is its label); only __TEXT / __DATA / __DATA_CONST sections are touched (never unwind or debug
+info) and never a relocation without an owner. ARM64_RELOC_ADDEND entries (no symbol) are never touched.
 
     python tools/macho_retarget.py IN OUT FROM TO [OWNER ...]   # prints the relocations moved
 """
@@ -101,6 +102,8 @@ def retarget(src, dst, plans):
         inv = {n[1:] for n in sel if n.startswith("!")}
         want = {n for n in sel if not n.startswith("!")}
         for si, sec in enumerate(m["sects"], 1):
+            if not sec["name"].startswith(("__TEXT,", "__DATA,", "__DATA_CONST,")):
+                continue    # (unwind, debug info: they describe the function, they do not call it)
             table = owners.get(si, [])
             for k in range(sec["nreloc"]):
                 p = sec["reloff"] + 8 * k
@@ -117,7 +120,7 @@ def retarget(src, dst, plans):
                         own = n
                     else:
                         break
-                hit = (own in want) if want else (own not in inv)
+                hit = own is not None and ((own in want) if want else (own not in inv))
                 if not hit:
                     continue
                 struct.pack_into("<I", data, p + 4, (word & ~0xFFFFFF) | ti)

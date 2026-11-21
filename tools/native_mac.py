@@ -1052,6 +1052,12 @@ def ld64(objs, aliases, unbound, extra_asm=()):
         asm_def |= set().union(*(dd for dd, _u in nm_macho([th + ".o"]).values()))
         hook_rep = {"applied": "yes (rows whose 'applied' is yes)", "rows": rep,
                     "thunks": {n: f for n, f in sorted(thunks.items())}}
+        import native_replay   # (render1) the checkpoint probe's native offsets against decls / gen
+        lay_ = native_replay.layout_check()
+        hook_rep["probe layout"] = "ok" if lay_ is None else lay_
+        if lay_ is not None:
+            print("native link: the checkpoint probe's native offsets (replay_native.cpp hulk_probe_layout64) do not "
+                  "match the headers:\n" + lay_, file=sys.stderr)
     objs, bind_st = nb.apply(objs, binding, game_syms, os.path.join(d, "bound"), "macho", extra=renames,
                              retarget=hook_retarget)
     hooks = host_undef - game_def - asm_def - host_def - sys_def - {"hulk_game_main"}
