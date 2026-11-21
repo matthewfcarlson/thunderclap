@@ -111,7 +111,8 @@ A 5-byte `jmp` vftable slot listed "not yet verified" is a real function: give i
 the record view; MSVC 7.1 emits the jump), or the native vftable holds a `hulk_x_` stub there. A .data structure whose
 words point into itself (a tree's sentinel) is one records.h record: separate items are not adjacent natively. One
 namespace-scope name standing for several objects (`gObj`) passes verify_relocs block by block but binds to one item:
-write each block's own DAT_ name. A private `--workspace` is built from the checkout's HEAD at submit time (older overlay
+write each block's own DAT_ name. A wine_build_job proof workspace is an archive of the current HEAD plus your diff: on an older base the files that moved
+since travel as reverts (integ8). A private `--workspace` is built from the checkout's HEAD at submit time (older overlay
 files silently revert newer commits); record `hash --proven` from a queue job on the final files (audio1, D140). `jobq_equiv` / `equiv_batch` records carry no code
 hashes, so `hash --proven` can't record them: prove with `equiv.py --json` runs. A gen include added to a TU can change a
 block's checker view (0x5b280): re-prove view-changed blocks before landing (sweep2). A code hash follows a block's
@@ -276,7 +277,12 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   original breaks it; vftable-slot callers are listed unprobed. A contract that compiles into the Wine image (any HULK_PRE_* / HULK_POST_*, new or changed) is a shared
   change: it lands only with a Wine pair (play3 to 60000, ckpt_gate ok). A range item on an object word also needs every
   constructor of its class family to store the word in range: a census of writers says nothing about a word nobody writes
-  (integ7: 0x000a97e0's uninitialized idle shake times trapped play3 at frame 8,730). The item names the word with its type (`// pre: ge(*this+0xOFF.f32, c)`; the suffix is required), the macro names
+  (integ7: 0x000a97e0's uninitialized idle shake times trapped play3 at frame 8,730). Return postconditions (D165): `// post: ge(ret, 0)`
+  with `return HULK_POST_RET_GE(v, c);` on every return (nothing under MSVC 7.1; a Wine pair lands it). A matches block's post
+  is proven by a `post` ledger line per mode (`hash --proven`; `revoke --kind post`). A caller in mode M draws a direct
+  callee's return in range only from that mode's proof and names the accepted posts in its view, so landing a callee's post
+  re-proves its equivalent direct callers in the same landing. Every `// post:` line is in the block's checker view: a post
+  edit is a new view (re-prove, never carried) (integ8). The item names the word with its type (`// pre: ge(*this+0xOFF.f32, c)`; the suffix is required), the macro names
   the field (`HULK_PRE_GE(shake[0].time, 0.0f)`; tools/pre_field.py probes the offset), and the block's own `// pre-writers:`
   cites the census's writers (raw ones may be dismissed in `// pre-writers-dismissed: 0xINSN (why)`). `EQUIV_ON=plant:...` plants
   input words for regress cases only; like any switch, a run with it proves nothing (integ7, rev5).
