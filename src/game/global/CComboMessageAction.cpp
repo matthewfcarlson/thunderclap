@@ -36,9 +36,9 @@ class SenderHolder {
 };
 class Manager {
   public:
-    char p[0x20];
+    void* p[8];
     Lookup* lookup;
-    char q[0x18];
+    void* q[6];
     SenderHolder* holder;
 };
 extern Manager* hulk_at_004dd700;

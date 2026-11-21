@@ -21,7 +21,7 @@ struct CCharacter_3ea10 {
 };
 
 struct Group_3ea10 {
-    char pad0[0xc];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008;
     int count;               // 0x0c
     char FUN_000242d0(void *owner);
     CCharacter_3ea10 *FUN_00024190(int index);

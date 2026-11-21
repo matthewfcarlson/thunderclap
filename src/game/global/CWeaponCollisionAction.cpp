@@ -551,7 +551,7 @@ struct Runner {
 };
 
 struct JudgeCfg {
-    char pad0[0x352];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad0[280]; void* hulk_am_124; char pad0_1[540]; void* hulk_am_344; void* hulk_am_348; char pad0_2[6];
     unsigned char b352;
 };
 
@@ -1146,7 +1146,7 @@ struct Entity {
 };
 
 struct EntityList_1c770 {
-    char pad0[0xc];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008;
     int count;
     Entity* FUN_00024190(int index);
 };

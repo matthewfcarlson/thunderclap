@@ -405,7 +405,7 @@ unsigned __int64 FUN_0027b020(const char* s);                 // string hash
 unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash with seed/length
 char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
 
-struct Gate_1d7d50 { bool FUN_000242d0(int); }; struct Mode_1d7d50 { bool FUN_000997a0(); }; struct World { char p[8]; Mode_1d7d50* mode; char q[20]; Gate_1d7d50* gate; }; 
+struct Gate_1d7d50 { bool FUN_000242d0(int); }; struct Mode_1d7d50 { bool FUN_000997a0(); }; struct World { void* p[2]; Mode_1d7d50* mode; void* q[5]; Gate_1d7d50* gate; }; 
 struct State_1d7d50 { char p[8]; int id; int type; };
 struct Resource_1d7d50 { virtual void dummy(); virtual void release(); void FUN_0001b4f0(); };
 struct Flag_1d7d50 { char p[24]; unsigned char active; }; struct Link_1d7d50 { char p[32]; Flag_1d7d50* flag; }; struct Related_1d7d50 { char p[116]; Link_1d7d50* link; };
@@ -1253,7 +1253,7 @@ void Obj_1d8c70::Set(Item_1d8c70* p) {
 } // namespace fn_f9c60317
 
 // 0x001d8cd0 FUN_001d8cd0 (192 B): equivalent/0x001d8cd0.cpp [wrapped: conflict: World]
-// sym: ?FUN_001d8cd0@Object@fn_001d8cd0@@QAEXXZ @de0e3d8b8f56 @wa1dc620e52b7 @vfc7ad5f503a7
+// sym: ?FUN_001d8cd0@Object@fn_001d8cd0@@QAEXXZ @de0e3d8b8f56 @wa1dc620e52b7 @v89222c9305fc
 namespace fn_001d8cd0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_001d8cd0 @ 0x001d8cd0
@@ -1286,7 +1286,7 @@ unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash wit
 char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
 
 struct Resource_1d8cd0 { virtual void slot0(); virtual void release(); };
-struct Manager_1d8cd0 { void FUN_00029c00(unsigned int handle); };
+struct Manager_1d8cd0 { void FUN_00029c00(void* key); };   // (gfx4) as defined: the key reference
 struct World { void* pad[8]; Manager_1d8cd0* manager; };
 struct Handle_1d8cd0 { char pad[0x10]; unsigned int value; };
 struct Object {
@@ -1302,7 +1302,7 @@ struct Object {
 };
 void Object::FUN_001d8cd0() {
  if (DAT_004dd700 && DAT_004dd700->manager) {
-  DAT_004dd700->manager->FUN_00029c00(handle ? handle->value : 0);
+  DAT_004dd700->manager->FUN_00029c00((void*)(hulk_uintptr)(handle ? handle->value : 0));
  }
  if(resource1) { resource1->release(); resource1=0; }
  x208=0; x204=0; x200=0;
@@ -1365,7 +1365,7 @@ struct Manager_1d8d90 {
     void FUN_00067c30(unsigned int, Descriptor_1d8d90*);
 };
 struct Subsystem_1d8d90 {
-    char pad[8];
+    void* hulk_am_000; void* hulk_am_004;
     Manager_1d8d90* manager;
 };
 struct World {
@@ -1480,7 +1480,7 @@ struct Manager_1d8e90 {
     void FUN_00067c80(void*);
 };
 struct Subsystem_1d8e90 {
-    char pad[8];
+    void* hulk_am_000; void* hulk_am_004;
     Manager_1d8e90* manager;
 };
 struct World {
@@ -1807,7 +1807,7 @@ struct Root24 {
 };
 
 struct Q20 {
-    char pad0[8];
+    void* hulk_am_000; void* hulk_am_004;
     Mgr_1d8fc0 *p8;
     void FUN_00029bb0(Entity *e, Obj21c *o, float f);
 };
@@ -1823,15 +1823,15 @@ struct Root0c {
 };
 
 struct Root_1d8fc0 {
-    char pad0[0xc];
+    void* pad0[3];
     Root0c *p0c;
     Root10 *p10;
-    char pad14[0x20 - 0x14];
+    void* pad14[3];
     Q20 *p20;
     Root24 *p24;
-    char pad28[0x34 - 0x28];
+    void* pad28[3];
     Fx34_1d8fc0 *p34;
-    char pad38[0x54 - 0x38];
+    void* pad38[7];
     Mid54 *p54;
 };
 
@@ -2492,7 +2492,7 @@ void CSPHulkPropInstance::FUN_001d8fc0(float dt)
 
 
 // 0x001da350 FUN_001da350 (490 B): equivalent/0x001da350.cpp [wrapped: conflict: World]
-// sym: ?FUN_001da350@Entity@fn_001da350@@QAEDPAVRefCounted_1da350@2@PAURaw3_1da350@2@1I0IIIIII0I@Z @8ddc4c546240 @w7bb8ccdc3c1d @v9527e3a87525
+// sym: ?FUN_001da350@Entity@fn_001da350@@QAEDPAVRefCounted_1da350@2@PAURaw3_1da350@2@1I0IIIIII0I@Z @8ddc4c546240 @wc52909d0abac @vbd74b6df79ef
 namespace fn_001da350 {
 // STATUS: equivalent (tools/equiv.py level 3: 3025 inputs, branch coverage 32/32)
 // FUN_001da350 @ 0x001da350
@@ -2568,9 +2568,9 @@ struct Reg124_1da350 {
 };
 
 struct Reg20_1da350 {
-    char pad[0x124];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad[280];
     Reg124_1da350 *p124;
-    void FUN_00029b50(unsigned a, hulk_uintptr b, unsigned c);
+    void FUN_00029b50(void *a, void *b, float c);   // (gfx4) as defined: two references, the value word
 };
 
 struct World {
@@ -2681,7 +2681,7 @@ char Entity::FUN_001da350(RefCounted_1da350 *a1, Raw3_1da350 *a2, Raw3_1da350 *a
         if (r20 != 0) {
             Reg124_1da350 *r = r20->p124;
             if (r != 0 && r->key == a1)
-                r20->FUN_00029b50(((unsigned)((owners::C_1d72e0 *)this)->FUN_001d72e0()), (hulk_uintptr)rc21c, f218);
+                r20->FUN_00029b50((void *)((owners::C_1d72e0 *)this)->FUN_001d72e0(), rc21c, *(float *)&f218);
         }
     }
     return 1;

@@ -24,7 +24,7 @@ extern "C" int __cdecl atexit(void (__cdecl*)());
 
 struct Entry_27930 { unsigned int first, second; unsigned char active; char padding[7]; };
 struct Owner_27930 {
- char padding[0x380];
+ void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char padding[280]; void* hulk_am_124; char padding_1[540]; void* hulk_am_344; void* hulk_am_348; char padding_2[52];
  Entry_27930 entries[32];
  int count;
  bool FUN_00027930(char* destination, const char* suffix);

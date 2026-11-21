@@ -110,7 +110,7 @@ struct Params {
 };
 
 struct Holder_4a9d0 {
-    char pad00[0x124];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad00[280];
     void *current;
 };
 

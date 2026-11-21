@@ -147,7 +147,7 @@ struct Pick {
 };
 
 struct Pickers {
-    char pad0[0x20];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad0[20];
     Pick *FUN_00024280(u64 name);
 };
 

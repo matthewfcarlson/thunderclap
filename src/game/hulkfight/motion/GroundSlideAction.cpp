@@ -1934,7 +1934,7 @@ HitThrowAction_151f80::~HitThrowAction_151f80() {
 } // namespace fn_f20ed7e3
 
 // 0x00151fd0 hulkfight::motion::HitThrowAction::vfunc_3 (480 B): equivalent/0x00151fd0.cpp [wrapped: conflict: FUN_000592a0; JointDriver]
-// sym: ?vfunc_3@HitThrowAction@fn_00151fd0@@UAE_NHH@Z @ff3c77f86572 @w103d163e02be @ve9bb385f54cd
+// sym: ?vfunc_3@HitThrowAction@fn_00151fd0@@UAE_NHH@Z @ff3c77f86572 @w97fad4a8129e @v4d68023c781e
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)
@@ -2012,7 +2012,7 @@ struct TargetInfo {
     V3_151fd0 pos;
     char pad34[0x84 - 0x34];
     RefObj_151fd0 *ref;
-    int handle;
+    float handle;   // (gfx4) the value 0x00029b50 stores at the manager's +0x34c (a float)
 };
 
 class OwnerObj_151fd0 {
@@ -2048,9 +2048,9 @@ struct Config_151fd0 {
 };
 
 struct Hook_151fd0 {
-    char pad0[0x124];
-    int enabled;
-    void FUN_00029b50(int a, RefObj_151fd0 *b, int c);
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad0[280];
+    void *enabled;   // +0x124 the main actor (HulkActorManager::actor)
+    void FUN_00029b50(void *a, RefObj_151fd0 *b, float c);   // (gfx4) as defined: two references, the value word
 };
 
 struct World {
@@ -2076,7 +2076,7 @@ public:
     OwnerObj_151fd0 *owner;
     JointDriver *driver;
     RefObj_151fd0 *ref;
-    int handle;
+    float handle;   // (gfx4) 0x00152210 reads it as f2c, a float
     float length;
     V3_151fd0 dir;
 };
@@ -2136,7 +2136,7 @@ bool HitThrowAction::vfunc_3(int a, int b)
     if (r && r->kind == 1 && r->linked)
         r->linked->FUN_0003ee70(stats->handle);
     if (ref && DAT_004dd700 && DAT_004dd700->hook && DAT_004dd700->hook->enabled)
-        DAT_004dd700->hook->FUN_00029b50(stats->handle, ref, handle);
+        DAT_004dd700->hook->FUN_00029b50((void *)(hulk_intptr)stats->handle, ref, handle);
     return true;
 }
 } // namespace fn_00151fd0
@@ -2168,7 +2168,7 @@ void Target_1521b0::Run() {
 } // namespace fn_f20ed7e3
 
 // 0x00152210 hulkfight::motion::HitThrowAction::vfunc_5 (571 B): equivalent/0x00152210.cpp [wrapped: conflict: HitThrowAction; World]
-// sym: ?vfunc_5@HitThrowAction@fn_00152210@@QAE_NHM@Z @dceeda686d75 @w050629dec778 @v7ad99d887630
+// sym: ?vfunc_5@HitThrowAction@fn_00152210@@QAE_NHM@Z @dceeda686d75 @w050629dec778 @v0d01bef79365
 namespace fn_00152210 {
 // STATUS: equivalent (tools/equiv.py level 3: 3017 inputs, branch coverage 16/16)
 // hulkfight::motion::HitThrowAction::vfunc_5 @ 0x00152210
@@ -2240,7 +2240,7 @@ struct Anchor_152210 {
 };
 
 struct Pool_152210 {
-    void FUN_00029bb0(int a, int b, float c);
+    void FUN_00029bb0(void* a, void* b, float c);   // (gfx4) as defined: the key reference, the thing, the value
 };
 
 struct World {
@@ -2310,7 +2310,7 @@ bool HitThrowAction::vfunc_5(int skip, float dt)
     if (f28) {
         skip = fighter->inner->f2c;
         if (FUN_00098190(dt, f30, probe->f8c, 0, f28, skip, &fr.v, &vel, 0, 0, 0, 1))
-            DAT_004dd700->pool->FUN_00029bb0(fighter->f12c, f28, f2c);
+            DAT_004dd700->pool->FUN_00029bb0((void*)(hulk_intptr)fighter->f12c, (void*)(hulk_intptr)f28, f2c);
         else
             FUN_001521b0();
     }

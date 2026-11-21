@@ -93,7 +93,7 @@ struct Other_1966f0 {
     void FUN_00035550(V3_1966f0 *out);
 };
 struct Obj20 {
-    char pad0[0x124];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad0[280];
     Other_1966f0 *f124;
 };
 struct IdObj {

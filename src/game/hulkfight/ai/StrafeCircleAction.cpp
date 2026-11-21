@@ -88,7 +88,7 @@ struct Player_11d900 {
     Mount_11d900 *mount;
 };
 struct Hub20_11d900 {
-    char pad0[0x124];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad0[280];
     Player_11d900 *player;
 };
 } // namespace fn_fdd31ee7

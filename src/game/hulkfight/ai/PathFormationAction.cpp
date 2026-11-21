@@ -1188,7 +1188,7 @@ struct Player_11ce20 {
 };
 
 struct Hub20_11ce20 {
-    char pad0[0x124];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad0[280];
     Player_11ce20 *player;
 };
 

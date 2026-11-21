@@ -407,7 +407,7 @@ struct Fader_1679c0 {
 };
 
 struct Player_1679c0 {
-    char pad00[0x124];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad00[280];
     Entity* current;
     void FUN_00025260(int a, int b, int c);
 };

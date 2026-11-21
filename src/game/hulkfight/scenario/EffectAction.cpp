@@ -1606,13 +1606,13 @@ struct Hulk {
     void Fn2_0003dd00(int);
 };
 struct Sub_1a8ee0 {
-    char p[0x124];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char p[280];
     Hulk* h;
 };
 struct Gl {
-    char p[0x20];
+    void* p[8];
     Sub_1a8ee0* s;
-    char q[0x30];
+    void* q[12];
     Mgr_1a8ee0* m;
 };
 extern Gl* g_1a8ee0;
@@ -5234,7 +5234,7 @@ struct Manager_1a5d50 {
  int FUN_00024230(Resource_1a5d50*);
  void FUN_0002a4b0(int,int);
 };
-struct Context { char pad[0x20]; Manager_1a5d50* manager; };
+struct Context { void* pad[8]; Manager_1a5d50* manager; };
 
 #define DAT_004dd700 (*(Context* *)&::DAT_004dd700)
 
@@ -5420,13 +5420,13 @@ struct Ctrl_1a5f00 {
 };
 
 struct List_1a5f00 {
-    char pad0[0xc];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008;
     int count;
     Ctrl_1a5f00 *FUN_00024190(int i);
 };
 
 struct World {
-    char pad0[0x20];
+    void* pad0[8];
     List_1a5f00 *list;
 };
 
@@ -7882,8 +7882,8 @@ struct Script_1aa8e0 { char pad[0x51]; unsigned char flag; };
 struct Character_1aa8e0 { char pad[0xaf1]; unsigned char active; void FUN_00207b90(); };
 struct Result_1aa8e0 { char pad[0xa8]; unsigned char flag; };
 struct Manager_1aa8e0 { void FUN_0003dd00(int); Result_1aa8e0* FUN_00036a80(int); void FUN_0003b620(int); };
-struct World { char pad[0x124]; Manager_1aa8e0* manager; };
-struct Root_1aa8e0 { char pad[0x20]; World* world; };
+struct ActorManager_1aa8e0 {   /* (gfx4) the actor manager (HulkActorManager), not the World */ void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad[280]; Manager_1aa8e0* manager; };
+struct Root_1aa8e0 { void* pad[8]; ActorManager_1aa8e0* world; };
 
 #define DAT_004dd700 (*(Root_1aa8e0* *)&::DAT_004dd700)
 

@@ -421,12 +421,12 @@ public:
 };
 
 struct Game20_166820 {
-    char pad00[0x124];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad00[280];
     void* f124;
 };
 
 struct World {
-    char pad00[0x20];
+    void* pad00[8];
     Game20_166820* f20;
 };
 
@@ -913,12 +913,12 @@ struct Skeleton {
 struct Entity;
 
 struct World {
-    char pad00[0x20];
+    void* pad00[8];
     struct Player_166fc0* player;
 };
 
 struct Player_166fc0 {
-    char pad00[0x124];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad00[280];
     Entity* current;
 };
 

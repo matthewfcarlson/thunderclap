@@ -305,7 +305,7 @@ struct World20_197610 {
     Target_197610 *FUN_00024280(int a, int b);
 };
 struct World {
-    char pad00[0x20];
+    void* pad00[8];
     World20_197610 *f20;
 };
 

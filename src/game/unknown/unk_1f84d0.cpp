@@ -108,11 +108,11 @@ struct Collection_1f89e0 {
     Item_1f89e0* Find_00044ad0(__int64);
 };
 struct Manager_1f89e0 {
-    char pad[4];
+    void* hulk_am_000;
     Collection_1f89e0* item;
 };
 struct Root_1f89e0 {
-    char pad[0x20];
+    void* pad[8];
     Manager_1f89e0* mgr;
 };
 struct Owner_1f89e0 {

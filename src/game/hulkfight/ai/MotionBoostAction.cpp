@@ -168,7 +168,7 @@ struct Reg124_117150 {
 };
 
 struct Reg20_117150 {
-    char pad[0x124];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad[280];
     Reg124_117150 *p124;
 };
 

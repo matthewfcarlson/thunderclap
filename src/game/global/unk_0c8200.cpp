@@ -155,7 +155,7 @@ struct Entry { int active; char pad[0x20]; int x; int y; int z; char tail[8]; };
 namespace fn_000c8490 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 7/8, incomplete)
 // FUN_000c8490 @ 0x000c8490
-struct Entry { int active; char pad[0x2c]; int handle; char rest[4]; }; struct Owner { char pad[0x2258]; Entry entries[32]; void FUN_000c8490(int index); }; struct Manager { void FUN_001e5bc0(int); }; struct Context { char pad[12]; Manager *manager; }; 
+struct Entry { int active; char pad[0x2c]; int handle; char rest[4]; }; struct Owner { char pad[0x2258]; Entry entries[32]; void FUN_000c8490(int index); }; struct Manager { void FUN_001e5bc0(int); }; struct Context { void* pad[3]; Manager *manager; }; 
 #define DAT_004dd700 (*(Context * *)&::DAT_004dd700)
  void Owner::FUN_000c8490(int index) { if (index >= 0 && index < 32) { Entry *entry = &entries[index]; if (entry->active && entry) { DAT_004dd700->manager->FUN_001e5bc0(entry->handle); entry->handle = -1; entry->active = 0; } } }
 } // namespace fn_000c8490
@@ -167,7 +167,7 @@ struct Entry { int active; char pad[0x2c]; int handle; char rest[4]; }; struct O
 namespace fn_000c84e0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3014 inputs, branch coverage 9/12, incomplete)
 // FUN_000c84e0 @ 0x000c84e0
-struct Entry { int active; char pad[0x2c]; int handle; int key; }; struct Backend { void FUN_001e5bc0(int); }; struct Manager { char pad[12]; Backend* backend; }; 
+struct Entry { int active; char pad[0x2c]; int handle; int key; }; struct Backend { void FUN_001e5bc0(int); }; struct Manager { void* pad[3]; Backend* backend; }; 
 #define DAT_004dd700 (*(Manager* *)&::DAT_004dd700)
  struct Owner { char pad[0x2258]; Entry entries[32]; void FUN_000c84e0(int key); }; void Owner::FUN_000c84e0(int key) { for (int i = 0; i < 32; ++i) { Entry& entry = entries[i]; if (entry.active && entry.key == key) { DAT_004dd700->backend->FUN_001e5bc0(entry.handle); entry.handle = -1; entry.active = 0; } } }
 } // namespace fn_000c84e0

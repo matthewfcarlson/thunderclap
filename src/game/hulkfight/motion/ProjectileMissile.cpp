@@ -373,7 +373,7 @@ struct SndOwner_19e910 {
     Snd_19e910 *f4;
 };
 struct Sounds_19e910 {
-    char pad0[0x124];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad0[280];
     Actor_19e910 *f124;
     const char *FUN_00025890(int i);
     int *FUN_00025930(int *out, int z);
@@ -395,21 +395,21 @@ struct Fxm_19e910 {
 };
 
 struct World {
-    char pad0[0xc];
+    void* pad0[3];
     Factory_19e910 *f0c;
     W10_19e910 *f10;
-    char pad14[0x20 - 0x14];
+    void* pad14[3];
     Sounds_19e910 *f20;
     W24_19e910 *f24;
-    char pad28[4];
+    void* pad28;
     Achv_19e910 *f2c;
     Unlocks_19e910 *f30;
     Fxm_19e910 *f34;
     Decals_19e910 *f38;
     SndOwner_19e910 *f3c;
-    char pad40[4];
+    void* pad40;
     Registry_19e910 *f44;
-    char pad48[0x54 - 0x48];
+    void* pad48[3];
     Scene_19e910 *f54;
 };
 

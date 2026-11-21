@@ -32,12 +32,12 @@ struct Node124_81690 {
     Anchor_81690* anchor;
 };
 struct Game20_81690 {
-    char pad00[0x124];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad00[280];
     Node124_81690* f124;
 };
 } // namespace fn_fbd4e3f0
 struct World {
-    char pad00[0x20];
+    void* pad00[8];
     Game20_81690* f20;
 };
 namespace fn_fbd4e3f0 {
@@ -567,7 +567,7 @@ struct Holder_81b20 {
 };
 
 struct Player_81b20 {
-    char pad00[0x124];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad00[280];
     Entity *entity;
     void FUN_00029bb0(struct Slot_81b20 *a, Releasable_81b20 *b, float c);
 };
@@ -614,13 +614,13 @@ struct Holder54_81b20 {
 };
 
 struct World {
-    char pad00[0x20];
+    void* pad00[8];
     Player_81b20 *player;
     W24 *w24;
-    char pad28[8];
+    void* pad28[2];
     Obj30 *obj30;
     Mgr34 *mgr;
-    char pad38[0x54 - 0x38];
+    void* pad38[7];
     Holder54_81b20 *holder;
 };
 

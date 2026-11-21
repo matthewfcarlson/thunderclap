@@ -55,7 +55,7 @@ class Obj_24190 {
     virtual int f15();
     virtual int f16();
     virtual int f17();
-    int pad[2];
+    void* hulk_am_004; void* hulk_am_008;   // (gfx3) CActorManager's words (HulkActorManager; its +0x00 is the world)
     int count;
     int items[1];
     hulk_intptr get(int index);
@@ -70,14 +70,14 @@ struct Item_241c0 {
 struct Sub_241c0 {
 };
 struct Mgr_241c0 {
-    char pad[0x44];
+    void* pad[17];   /* (gfx3) the World's words (HulkWorld) */
     Sub_241c0* sub;
 };
 unsigned __int64 Hash_0027b020(int);
 class List_241c0 {
   public:
     Mgr_241c0* mMgr;
-    char pad[8];
+    void* hulk_am_004; void* hulk_am_008;
     int mCount;
     int mIds[1];
     int Find(int key);
@@ -96,13 +96,13 @@ class Helper_24380 {
 class Obj_24380 {
   public:
     virtual void v0();
-    char pad[8];
+    void* hulk_am_004; void* hulk_am_008;   // (gfx3) CActorManager's words (HulkActorManager)
     int count;
     int items[1];
     bool find(int);
 };
 struct Obj_243d0 {
-    char pad[0x124];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad[280];
     void* member;
     void* go_00036d00();
 };
@@ -125,13 +125,13 @@ class Helper_244e0 {
 };
 class Owner_244e0 {
   public:
-    char pad[0x44];
+    void* pad[17];   /* (gfx3) the World's words (HulkWorld) */
     Helper_244e0* mHelper;
 };
 class Outer_244e0 {
   public:
     Owner_244e0* mOwner;
-    int pad[2];
+    void* hulk_am_004; void* hulk_am_008;
     int count;
     int items[1];
     void run();
@@ -141,20 +141,20 @@ class Helper_24510 {
 };
 class Owner_24510 {
   public:
-    char pad[0x44];
+    void* pad[17];   /* (gfx3) the World's words (HulkWorld) */
     Helper_24510* mHelper;
 };
 class Outer_24510 {
   public:
     Owner_24510* mOwner;
-    int pad[2];
+    void* hulk_am_004; void* hulk_am_008;
     int count;
     int items[1];
     void run();
 };
 class Obj_24570 {
   public:
-    char pad[0x588];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad[280]; void* hulk_am_124; char pad_1[540]; void* hulk_am_344; void* hulk_am_348; char pad_2[572];
     unsigned char mValue;
     void Set(unsigned char value);
 };
@@ -163,13 +163,13 @@ class Inner_24580 {
 };
 class Holder_24580 {
   public:
-    char pad[0x44];
+    void* pad[17];   /* (gfx3) the World's words (HulkWorld) */
     Inner_24580* inner;
 };
 class Obj_24580 {
   public:
     Holder_24580* owner;
-    int pad[2];
+    void* hulk_am_004; void* hulk_am_008;
     int count;
     int values[1];
     void Target(int unused);
@@ -181,7 +181,7 @@ struct Bones_245b0 { char pad[0x1c]; Entry_245b0 *entries; unsigned FUN_002843a0
 struct Owner_245b0 { char pad[0x120]; Bones_245b0 *bones; };
 struct Result_245b0 { void FUN_001c3c10(int, Vec_245b0*); };
 extern Result_245b0* __cdecl FUN_001c3d90();
-struct Target_245b0 { char pad[0x124]; Owner_245b0 *owner; void FUN_000245b0(); };
+struct Target_245b0 { void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad[280]; Owner_245b0 *owner; void FUN_000245b0(); };
 struct Pair {
   public:
     union { int a; int first; };
@@ -194,7 +194,7 @@ extern "C" void* memmove(void*, const void*, unsigned int);
 namespace fn_f6d645d0 {
 class Target_24770 {
   public:
-    char pad[0x584];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad[280]; void* hulk_am_124; char pad_1[540]; void* hulk_am_344; void* hulk_am_348; char pad_2[568];
     int value;
     void Set(int x);
 };
@@ -205,12 +205,12 @@ struct Item_24780 {
 struct Mgr_24780 {
 };
 struct Owner_24780 {
-    char pad[0x44];
+    void* pad[17];   /* (gfx3) the World's words (HulkWorld) */
     Mgr_24780* mgr;
 };
 struct C_24780 {
     Owner_24780* owner;
-    char pad[8];
+    void* hulk_am_004; void* hulk_am_008;
     int count;
     int ids[1];
     int Target(unsigned a);
@@ -220,17 +220,17 @@ class Worker_24800 {
   public:
 };
 struct Container_24800 {
-    char pad[0x44];
+    void* pad[17];   /* (gfx3) the World's words (HulkWorld) */
     Worker_24800* worker;
 };
 class Owner_24800 {
   public:
     Container_24800* mCont; // 0x00
-    int f4;           // 0x04
-    int f8;           // 0x08
+    hulk_intptr f4;           // 0x04
+    hulk_intptr f8;           // 0x08
     int count;        // 0x0c
     int arr[69];      // 0x10 .. 0x123
-    int cmpVal;       // 0x124
+    hulk_intptr cmpVal;       // 0x124
 
     int func();
 };
@@ -241,15 +241,15 @@ struct Item_248e0 {
     void* Get_00036d00();
 };
 struct Owner_248e0 {
-    char pad[0x44];
+    void* pad[17];   /* (gfx3) the World's words (HulkWorld) */
     Sub_248e0* sub;
 };
 struct Thing_248e0 {
     Owner_248e0* owner;
-    char pad[8];
+    void* hulk_am_004; void* hulk_am_008;
     int count;
     int items[69];
-    int excluded;
+    hulk_intptr excluded;
     void* run(int);
 };
 struct Obj_24970 {
@@ -258,7 +258,7 @@ struct Obj_24970 {
     int b;
 };
 struct B_249d0 {
-    char pad[0x44];
+    void* pad[17];   /* (gfx3) the World's words (HulkWorld) */
     struct Lookuper* lk;
 };
 struct Lookuper {
@@ -275,7 +275,7 @@ struct Node {
 class Target_249d0 {
   public:
     B_249d0* mB;
-    int pad1[2];
+    void* hulk_am_004; void* hulk_am_008;
     int mCount;
     int mArr[1];
     bool Process();
@@ -287,14 +287,14 @@ struct Item_24a10 : public Head_24a10, public NodeB_24a10, public NodeA_24a10 {
     void FUN_00037000();
 };
 struct Registry_24a10 {  };
-struct Owner_24a10 { char pad[0x44]; Registry_24a10* registry; };
-struct Inner_24a10 { char pad[0x124]; Item_24a10* current; };
+struct Owner_24a10 { void* pad[17];   /* (gfx3) the World's words (HulkWorld) */ Registry_24a10* registry; };
+struct Inner_24a10 { void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad[280]; Item_24a10* current; };
 } // namespace fn_f6d645d0
-struct World { char pad[0x20]; Inner_24a10* inner; };
+struct World { void* pad[8]; /* (gfx3) the World's words */ Inner_24a10* inner; };
 namespace fn_f6d645d0 {
 struct Group_24a10 {
     Owner_24a10* owner;
-    char pad4[8];
+    void* hulk_am_004; void* hulk_am_008;
     int count;
     int ids[16];
     bool FUN_00024a10();
@@ -308,10 +308,10 @@ struct Name_24b00 {
 };
 struct Item_24b00 { char pad[0x22b8]; Name_24b00 name; };
 struct Registry_24b00 {  };
-struct Owner_24b00 { char pad[0x44]; Registry_24b00* registry; };
+struct Owner_24b00 { void* pad[17];   /* (gfx3) the World's words (HulkWorld) */ Registry_24b00* registry; };
 struct Group_24b00 {
     Owner_24b00* owner;
-    char pad4[8];
+    void* hulk_am_004; void* hulk_am_008;
     int count;
     int ids[16];
     int FUN_00024b00(const Name_24b00* key);
@@ -334,14 +334,14 @@ struct Result {
 struct Provider {
 };
 struct Header {
-    char padding[0x44];
+    void* padding[17];   /* (gfx3) the World's words (HulkWorld) */
     Provider* provider;
 };
 struct Container {
     Header* header;
-    char padding[8];
+    void* hulk_am_004; void* hulk_am_008;   // (gfx3) the manager's two sub-objects (HulkActorManager)
     int count;
-    void* entries[1];
+    int entries[1];                         // (gfx3) character handles (ints), as the manager's ids
     void* FUN_00024e90(int index, void* value);
 };
 class C_24f50 {
@@ -351,14 +351,14 @@ typedef unsigned __int64 U64_24f60;
 struct Detail_24f60 { char pad[0x9e]; unsigned char enabled; char pad9f; unsigned low; unsigned high; };
 struct Item_24f60 { char pad[0x1ca0]; Detail_24f60* detail; };
 struct Manager_24f60 {  };
-struct Owner_24f60 { char pad[0x44]; Manager_24f60* manager; };
+struct Owner_24f60 { void* pad[17];   /* (gfx3) the World's words (HulkWorld) */ Manager_24f60* manager; };
 struct List_24f60 { Owner_24f60* owner; char pad[8]; int count; unsigned ids[1]; int FUN_00024f60(const char* text); };
 typedef unsigned __int64 U64_25010;
 struct Info_25010 { char pad[0x9e]; unsigned char enabled; char pad2; U64_25010 key; };
 struct Item_25010 { char pad[0x1ca0]; Info_25010* info; const char* FUN_00036d00(); };
 struct Registry_25010 {  };
-struct Owner_25010 { char pad[0x44]; Registry_25010* registry; };
-struct Target_25010 { Owner_25010* owner; char pad[8]; int count; int ids[1]; const char* FUN_00025010(const char* name,int occurrence); };
+struct Owner_25010 { void* pad[17];   /* (gfx3) the World's words (HulkWorld) */ Registry_25010* registry; };
+struct Target_25010 { Owner_25010* owner; void* hulk_am_004; void* hulk_am_008; int count; int ids[1]; const char* FUN_00025010(const char* name,int occurrence); };
 struct X_25260 {
 };
 struct Y_25260 {
@@ -397,14 +397,14 @@ class Manager_25470 {
 };
 class C {
   public:
-    char pad[0xd4];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad[200];
     int x;
     int y;
     int z;
     void Set(int a, int b, int c);
 };
 struct O {
-    char pad[0x50];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad[68];
     unsigned char b50;
     char pad2[0x80];
     int d1;
@@ -413,19 +413,19 @@ struct O {
     void Fn();
 };
 struct Obj_25560 {
-    char pad[0x353];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad[280]; void* hulk_am_124; char pad_1[540]; void* hulk_am_344; void* hulk_am_348; char pad_2[7];
     unsigned char m353;
     void Clear();
 };
 class Obj_25570 {
   public:
-    char pad[0x32c];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad[280]; void* hulk_am_124; char pad_1[516];
     int value;
     void Set(int v);
 };
 class Obj_25580 {
   public:
-    char pad[0x32c];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad[280]; void* hulk_am_124; char pad_1[516];
     int m32c;
     int GetX();
 };
@@ -435,7 +435,7 @@ struct Name_25590 {
     int hi;
     void FUN_0027af00();
     void FUN_0027af50();
-    void FUN_0027af70(int v);
+    void FUN_0027af70(const Name_25590* v);   // (gfx4) as defined: 0x0027af70 copies a name pair
 };
 struct Record_25590 {
     char pad0[0x44];
@@ -455,16 +455,16 @@ struct Entry_25590 {              // 0x68 bytes
     unsigned int stamp;     // 0x54
     int f58;
     int f5c;
-    int f60;
+    float f60;              // 0x60 the remaining time (HulkActorManagerEffect::remaining)
     char fixed;             // 0x64
     char pad[3];
 };
 class Mgr_25590 {
 public:
-    char pad0[0x58c];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad0[280]; void* hulk_am_124; char pad0_1[540]; void* hulk_am_344; void* hulk_am_348; char pad0_2[576];
     int count;              // 0x58c
     Entry_25590 entries[16];      // 0x590
-    void FUN_00025590(Record_25590 *rec, int a1, int a2, int a3, int a4, const Mat4_25590 *mat, int a6, unsigned int stamp);
+    void FUN_00025590(Record_25590 *rec, const Name_25590 *a1, int a2, const Name_25590 *a3, int a4, const Mat4_25590 *mat, float a6, unsigned int stamp);
 };
 struct E_25720 {
     char x[0x50];
@@ -476,13 +476,13 @@ extern int __cdecl FUN_00096600(const char*, const char*);
 extern void* __cdecl FUN_00267830(void* dst, const void* src, int n);
 class Table_25820 {
   public:
-    char pad[0xc10];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad[280]; void* hulk_am_124; char pad_1[540]; void* hulk_am_344; void* hulk_am_348; char pad_2[2244];
     char names[9][32];
     void FUN_00025820(const char* name, const void* src);
 };
 class Palette_258b0 {
 public:
-    char pad0[0xd30];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad0[280]; void* hulk_am_124; char pad0_1[540]; void* hulk_am_344; void* hulk_am_348; char pad0_2[2532];
     unsigned int colors[4];
     void FUN_000258b0(const char *name, float r, float g, float b);
 };
@@ -552,7 +552,7 @@ struct ThisNote_00031310 {
     void FUN_00031310();
 };
 struct Thing_25a90 {
-    int f00;
+    hulk_intptr f00;
     CCharacterTemplateManager_25a90 *f04;
     Obj908 *f08;
     int f0c;
@@ -565,7 +565,7 @@ struct Thing_25a90 {
     int fdc;
     int zeros[16];          // 0xe0
     char pad120[0x124 - 0x120];
-    int f124;
+    hulk_intptr f124;
     char f128;
     char pad129[0x228 - 0x129];
     Pair_25a90 pairs[32];         // 0x228
@@ -574,8 +574,8 @@ struct Thing_25a90 {
     char pad330[0x33c - 0x330];
     float f33c;
     int f340;
-    int f344;
-    int f348;
+    hulk_intptr f344;
+    hulk_intptr f348;
     int f34c;
     char f350;
     char f351;
@@ -606,8 +606,8 @@ struct Vec_25d50 { float x,y,z; };
 struct Actor_25d50 { bool FUN_00035ab0(); int FUN_00036d00(); };
 struct Entry_25d50 { Actor_25d50* FUN_00059a30(); void FUN_00059a50(Vec_25d50*); };
 struct Manager_25d50 { Entry_25d50* FUN_00059ba0(int);  };
-struct Owner_25d50 { char pad[0x44]; Manager_25d50* manager; };
-struct Selection_25d50 { Owner_25d50* owner; char pad[8]; int count; int ids[1]; int FUN_00025d50(float x,float y,float z); };
+struct Owner_25d50 { void* pad[17];   /* (gfx3) the World's words (HulkWorld) */ Manager_25d50* manager; };
+struct Selection_25d50 { Owner_25d50* owner; void* hulk_am_004; void* hulk_am_008; int count; int ids[1]; int FUN_00025d50(float x,float y,float z); };
 extern void __fastcall InitThing_00044c00(void*);
 extern "C" __int64 __cdecl Find(int, int, int);
 extern "C" __int64 __cdecl Convert(int, int, int);
@@ -844,7 +844,7 @@ struct Entry_28840 {
 };
 struct Owner_28840 {
     Root_28840* root;
-    char pad04[0x120];
+    void* hulk_am_004; void* hulk_am_008; char pad04[280];
     Entry_28840* current;
     Entry_28840* FUN_00024280(Key_28840 key);
     void FUN_00028840(const char* name, float value);
@@ -869,8 +869,8 @@ class End {
   public:
     char _m_pad_0[0xc8];
     unsigned char flag;
-    void Act_00103b60(int, int, int);
-    void act_00103b60(int, int, int);
+    int Act_00103b60(void*, const char*, unsigned char);   // (gfx4) as defined (0x00103b60: the world, a name, a flag)
+    int act_00103b60(void*, const char*, unsigned char);
 };
 class Mid {
   public:
@@ -899,13 +899,13 @@ class Obj {
 };
 struct Handler {
   public:
-    int field;
+    void* field;   // +0x00 the world (HulkActorManager::world)
     Obj* Find_00024280(__int64);
     void Run(int a, int b);
 };
 class Main {
   public:
-    int value;
+    void* value;   // +0x00 the world (HulkActorManager::world)
     Obj* lookup_00024280(__int64);
     void fn(const char*, int);
 };
@@ -914,8 +914,8 @@ struct Vec_29140 { float x,y,z; };
 struct Transform_29140 {  };
 struct Position_29140 { void FUN_00059a50(Vec_29140*); };
 struct Manager_29140 {  };
-struct Owner_29140 { char pad[0x44]; Manager_29140* manager; };
-struct Target_29140 { Owner_29140* owner; char pad[8]; int count; int ids[1]; void FUN_00029140(Vec_29140 center,float radius); };
+struct Owner_29140 { void* pad[17];   /* (gfx3) the World's words (HulkWorld) */ Manager_29140* manager; };
+struct Target_29140 { Owner_29140* owner; void* hulk_am_004; void* hulk_am_008; int count; int ids[1]; void FUN_00029140(Vec_29140 center,float radius); };
 struct Destination { int FUN_001035f0(int value, int flag, int extra); };
 struct Intermediate { Destination* FUN_000fdc40(); };
 struct Entry { char padding[0x1ca0]; Intermediate* intermediate; };
@@ -943,7 +943,7 @@ struct Entry_29500 {
 };
 struct Owner_29500 {
     Core_29500* core;
-    char pad04[0x120];
+    void* hulk_am_004; void* hulk_am_008; char pad04[280];
     Entry_29500* current;                 // 0x124
     Entry_29500* FUN_00024280(Key_29500 key);
     void FUN_00029500(const char* name, const char* other);
@@ -1017,7 +1017,10 @@ struct Object {
     virtual Vec3_29740 *GetPos(Vec3_29740 *out);
     virtual void _m_vf9();
     virtual void GetTarget(Vec3_29740 *out);
-    char _m_pad_4[0x224];
+    void* hulk_am_004; void* hulk_am_008;   // (gfx3) CActorManager's words (HulkActorManager): the vftable stands for
+    char _m_pad_4[0x118];                   // the world pointer (+0x00), so these are +0x04 / +0x08, +0x124 the actor
+    void* hulk_am_124;
+    char _m_pad_128[0x100];
     Pair entries[32];
     int count;
     int FUN_000246e0(int first, int second);
@@ -1103,21 +1106,21 @@ struct Entity {
 };
 struct Item_29140 { char pad0[0x10]; Position_29140* position; char pad1[0x1ca0-0x14]; Entity* entity; char pad2[0x1cbc-0x1ca4]; float radius; bool FUN_00035ab0(); };
 struct Manager_29990 {  };
-struct Owner_29990 { char pad[0x44]; Manager_29990* manager; };
-struct Target_29990 { Owner_29990* owner; char pad[8]; int count; int ids[1]; int FUN_00029990(); };
+struct Owner_29990 { void* pad[17];   /* (gfx3) the World's words (HulkWorld) */ Manager_29990* manager; };
+struct Target_29990 { Owner_29990* owner; void* hulk_am_004; void* hulk_am_008; int count; int ids[1]; int FUN_00029990(); };
 class Ref_29b50 {
   public:
     virtual void Add();
     virtual void Release();
 };
 class Owner_29b50 {
-    char pad[0x344];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad[280]; void* hulk_am_124; char pad_1[540];
     Ref_29b50* a;
     Ref_29b50* b;
-    int c;
+    float c;
 
   public:
-    void Set(Ref_29b50* x, Ref_29b50* y, int z);
+    void Set(Ref_29b50* x, Ref_29b50* y, float z);
 };
 class Thing_29bb0 {
   public:
@@ -1126,16 +1129,16 @@ class Thing_29bb0 {
 };
 class Owner_29bb0 {
   public:
-    char pad[0x344];
-    int key;
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad[280]; void* hulk_am_124; char pad_1[540];
+    void* key;
     Thing_29bb0* current;
-    int value;
-    void Set(int k, Thing_29bb0* t, int v);
+    float value;
+    void Set(void* k, Thing_29bb0* t, float v);
 };
 struct Resource { virtual void slot0(); virtual void slot1(); };
 struct Owner {
   public:
-    char _m_pad_0[0x344];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char _m_pad_0[280]; void* hulk_am_124; char _m_pad_0_1[540];
     Resource *primary;
     Resource *secondary;
     int state;
@@ -1200,9 +1203,9 @@ union NameSlot_2a0e0 {
     int out;
 };
 struct Group_2a0e0 {
-    char pad000[0x124];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad000[280];
     Pawn_2a0e0 *current;              // 0x124
-    char pad128[0x353 - 0x128];
+    char pad128[540]; void* hulk_am_344; void* hulk_am_348; char pad128_1[7];
     char active;                // 0x353
     Vec3_2a0e0 from;                  // 0x354
     Vec3_2a0e0 to;                    // 0x360
@@ -1233,7 +1236,7 @@ struct Manager_2a800 {
 Manager_2a800 *__cdecl FUN_001b6580();
 struct Item_2a890 { void FUN_0003b620(int); };
 struct Registry_2a890 {  };
-struct Owner_2a890 { char pad[0x44]; Registry_2a890* registry; };
+struct Owner_2a890 { void* pad[17];   /* (gfx3) the World's words (HulkWorld) */ Registry_2a890* registry; };
 struct Component_2a890 { void FUN_00044c30(); void FUN_00046230(); };
 struct Interface_2a890 { virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual void slot4(); virtual void slot5(); virtual void slot6(); virtual void slot7(); };
 struct Entry_2a890 { char pad[0x5c]; Interface_2a890* object; };
@@ -1242,9 +1245,9 @@ struct Resource_2a890 { virtual void slot0(); virtual void release(); };
 struct Target_2a890 {
  Owner_2a890* owner;
  Component_2a890* component;
- int unknown;
+ void* unknown;   // (gfx3) the manager's 0x908-byte object (HulkActorManager f008)
  int count;
- int ids[205];
+ int ids[69]; void* hulk_am_124; int ids_1[135];   // (gfx3) the main actor's pointer word at +0x124
  Resource_2a890* resource1;
  Resource_2a890* resource2;
  void FUN_0002a800();
@@ -1291,11 +1294,11 @@ struct Holder_2a960 {
 };
 struct Context {
   public:
-    char _m_pad_0[0x44];
+    void* _m_pad_0[17];   /* (gfx3) the World's words (HulkWorld) */
     union { Manager_25470* mgr; Roster_2a960 *roster; Slot_2a800 *slot; };
-    char _m_pad_48[0xc];
+    void* _m_pad_48[3];
     Holder_2a960 *holder;
-    char _m_pad_58[0x4];
+    void* _m_pad_58;
     Tree_28050* tree;
 };
 class Manager_24970 {
@@ -1323,7 +1326,7 @@ class Manager_24970 {
 class Thing_24970 {
   public:
     Manager_24970* mgr;
-    char pad4[8];
+    void* hulk_am_004; void* hulk_am_008;
     int count;
     int items[1];
     bool Set(int);
@@ -1331,7 +1334,7 @@ class Thing_24970 {
 class Owner_25470 {
   public:
     Context* ctx;
-    char pad[8];
+    void* hulk_am_004; void* hulk_am_008;
     int count;
     int entries[1];
     void Run(int);
@@ -1339,9 +1342,9 @@ class Owner_25470 {
 class ItemList_2a800 {
 public:
     Context *context;       // 0x0
-    char pad04[8];
+    void* hulk_am_004; void* hulk_am_008;   // (gfx3) the manager's two sub-objects (HulkActorManager)
     int count;              // 0xc
-    void *items[69];        // 0x10
+    int items[69];          // 0x10 (gfx3) character handles (ints): `void*` moved 0x124 natively
     Resource_2a800 *resource;     // 0x124
     void FUN_0002a4b0(int index, int arg);
     bool FUN_0002a800();
@@ -1354,7 +1357,7 @@ struct Frame_2a960 {
 };
 class SpawnWatcher {
 public:
-    char pad00[0xc];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008;
     int count;                   // 0x0c
     int ids[52];                 // 0x10
     int state[1];                // 0xe0
@@ -1399,7 +1402,7 @@ class Lookup_2ab40 {
 public:
 };
 struct Registry_2ab40 {
-    char pad0[0x44];
+    void* pad0[17];   /* (gfx3) the World's words (HulkWorld) */
     Lookup_2ab40 *lookup;
 };
 class AgentSet {
@@ -1409,7 +1412,7 @@ public:
     void FUN_00025ff0(int a0, int a1);
 
     Registry_2ab40 *registry;
-    char pad0[8];
+    void* hulk_am_004; void* hulk_am_008;
     int count;
     int ids[16];
     char pad2[4];
@@ -1424,10 +1427,10 @@ struct Item_2b250 {
  int valueC;
 };
 struct Manager_2b250 {  };
-struct Owner_2b250 { char pad[0x44]; Manager_2b250* manager; };
+struct Owner_2b250 { void* pad[17];   /* (gfx3) the World's words (HulkWorld) */ Manager_2b250* manager; };
 struct Container_2b250 {
  Owner_2b250* owner;
- char pad4[8];
+ void* hulk_am_004; void* hulk_am_008;
  int count;
  int handles[69];
  Item_2b250* excluded;
@@ -1456,14 +1459,14 @@ class Prov_2b3d0 {
 };
 class Sub_2b3d0 {
   public:
-    char pad[0x44];
+    void* pad[17];   /* (gfx3) the World's words (HulkWorld) */
     Prov_2b3d0* prov;
     Ret_2b3d0* Get(int id) { return ((Ret_2b3d0 *)((owners::ThisWrap_00059c10 *)prov)->FUN_00059c10((void *)(hulk_uintptr)(int)id)); }
 };
 class Obj_2b3d0 {
   public:
     Sub_2b3d0* sub;
-    int pad4[2];
+    void* hulk_am_004; void* hulk_am_008;
     int count;
     int items[0x124 / 4 - 4];
     Ret_2b3d0* current;
@@ -1495,11 +1498,11 @@ struct Item_2b590 {
  void FUN_0003e640();
 };
 struct Registry_2b590 {  };
-struct Owner_2b590 { char pad[0x44]; Registry_2b590* registry; };
+struct Owner_2b590 { void* pad[17];   /* (gfx3) the World's words (HulkWorld) */ Registry_2b590* registry; };
 extern unsigned char DAT_0048e0e1;
 struct Manager_2b590 {
  Owner_2b590* owner;
- char pad[8];
+ void* hulk_am_004; void* hulk_am_008;
  int count;
  int ids[69];
  Item_2b590* preserved;
@@ -1520,10 +1523,10 @@ struct Elem_2b690 {
     void Fn_0027af50();
 };
 struct T_2b690 {
-    char p[4];
+    void* hulk_am_000;
     Ref_2b690* r;
     Ref_2b690* q;
-    char p2[0x338];
+    char p2[280]; void* hulk_am_124; char p2_1[540];
     Ref0* c;
     Ref0* d;
     char p3[0x904];
@@ -1552,13 +1555,13 @@ struct Item_2b730 {
 struct Registry_2b730 {
 };
 struct Owner_2b730 {
-    char pad0[0x44];
+    void* pad0[17];   /* (gfx3) the World's words (HulkWorld) */
     Registry_2b730 *registry;         // 0x44
 };
 class Group_2b730 {
 public:
     Owner_2b730 *owner;
-    char pad4[8];
+    void* hulk_am_004; void* hulk_am_008;
     int count;                  // 0xc
     int ids[16];                // 0x10
     bool FUN_0002b730(const char *name);
@@ -1567,8 +1570,8 @@ public:
 struct Vec_2b860 { float x,y,z; };
 struct Item_2b860 { Entity* FUN_00059a30(); void FUN_00059a50(Vec_2b860*); };
 struct Manager_2b860 { Item_2b860* FUN_00059ba0(int);  };
-struct Owner_2b860 { char pad[0x44]; Manager_2b860* manager; };
-struct Target_2b860 { Owner_2b860* owner; char pad[8]; int count; int items[1]; void FUN_0002a4b0(int,int); bool FUN_0002b860(float x,float y,float z); };
+struct Owner_2b860 { void* pad[17];   /* (gfx3) the World's words (HulkWorld) */ Manager_2b860* manager; };
+struct Target_2b860 { Owner_2b860* owner; void* hulk_am_004; void* hulk_am_008; int count; int items[1]; void FUN_0002a4b0(int,int); bool FUN_0002b860(float x,float y,float z); };
 class Thing_2bf50 {
   public:
     bool Check_0002b7d0();
@@ -1590,19 +1593,19 @@ struct Group_2bfd0 {
 };
 class C_2c0e0 {
   public:
-    char pad[0x352];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad[280]; void* hulk_am_124; char pad_1[540]; void* hulk_am_344; void* hulk_am_348; char pad_2[6];
     char m;
     void Set(char x);
 };
 class Obj_2c0f0 {
   public:
-    char pad[0x50];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad[68];
     char flag;
     char GetFlag();
 };
 class Obj_2c100 {
   public:
-    char pad[0x50];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad[68];
     char m50;
     void Set(unsigned char v);
 };
@@ -1680,7 +1683,7 @@ namespace fn_f6d645d0 {
 // sym: ?get@Obj_24190@fn_f6d645d0@@QAEHH@Z
 hulk_intptr Obj_24190::get(int index) {
     if (index >= 0 && index < count) {
-        Helper_24190* h = (Helper_24190*)*(hulk_intptr*)((hulk_intptr)*(int*)this + 0x44);
+        Helper_24190* h = (Helper_24190*)*(hulk_intptr*)((hulk_intptr)*(hulk_intptr*)this + 0x44);   // (gfx3) the world pointer whole
         return ((int)((owners::ThisWrap_00059c10 *)h)->FUN_00059c10((void *)(hulk_uintptr)(int)(items[index])));
     }
     return 0;
@@ -1714,10 +1717,10 @@ namespace fn_00024230 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_00024230 @ 0x00024230
 struct Lookup {  };
-struct Finder { struct Data { char pad[0x44]; Lookup* lookup; }; Data* data; char pad[8]; int count; int entries[1]; int FUN_00024230(hulk_intptr wanted); };
+struct Finder { struct Data { void* pad[17]; /* (gfx3) the World's words */ Lookup* lookup; }; Data* data; void* hulk_am_004; void* hulk_am_008; int count; int entries[1]; int FUN_00024230(hulk_intptr wanted); };
 int Finder::FUN_00024230(hulk_intptr wanted) {
     for (int i = 0; i < count; ++i) {
-        int result = ((int)((owners::ThisWrap_00059c10 *)(data->lookup))->FUN_00059c10((void *)(hulk_uintptr)(int)(entries[i])));
+        hulk_intptr result = ((hulk_intptr)((owners::ThisWrap_00059c10 *)(data->lookup))->FUN_00059c10((void *)(hulk_uintptr)(int)(entries[i])));   // (gfx3) a pointer, compared whole
         if (result != 0 && result == wanted) return i;
     }
     return -1;
@@ -1732,8 +1735,8 @@ namespace fn_00024280 {
 // FUN_00024280 @ 0x00024280
 struct Entry { char pad[8]; int key1; int key2; };
 struct Receiver {  };
-struct Lookup { char pad[0x44]; Receiver* receiver; };
-struct Table { Lookup* lookup; char pad[8]; int count; int items[1]; Entry* FUN_00024280(int key1, int key2); };
+struct Lookup { void* pad[17];   /* (gfx3) the World's words (HulkWorld) */ Receiver* receiver; };
+struct Table { Lookup* lookup; void* hulk_am_004; void* hulk_am_008; int count; int items[1]; Entry* FUN_00024280(int key1, int key2); };
 Entry* Table::FUN_00024280(int key1, int key2) {
     for (int i = 0; i < count; ++i) {
         Entry* result = ((Entry *)((owners::ThisWrap_00059c10 *)(lookup->receiver))->FUN_00059c10((void *)(hulk_uintptr)(int)(items[i])));
@@ -1826,7 +1829,7 @@ void* __fastcall FUN_000243d0(Obj_243d0* self) {
 // 0x000243f0 FUN_000243f0 (14 B): matches/0x000243f0.cpp
 // sym: ?FUN_000243f0@X_243f0@owners@@QAEXH@Z
 void owners::X_243f0::FUN_000243f0(hulk_intptr x) {
-    value = ((int)x);
+    value = x;   // (gfx3) the world pointer, whole (an `int` truncated it natively)
     InitGlobal_000436f0();
 }
 
@@ -2006,7 +2009,7 @@ bool owners::ItemList_24720::FUN_00024720(int a, int b) {
     if (index == -1)
         return false;
     int n = --count;
-    memmove((char*)this + 0x228 + index * 8, (char*)this + 0x230 + index * 8, (n - index) * 8);
+    memmove(pad1 + index * 8, pad1 + 8 + index * 8, (n - index) * 8);   // (gfx3) the pairs at +0x228 by their member (native offset)
     return true;
 }
 
@@ -2043,7 +2046,7 @@ int Owner_24800::func() {
         int* p = arr;
         do {
             Worker_24800* w = mCont->worker;
-            int r = ((int)((owners::ThisWrap_00059c10 *)w)->FUN_00059c10((void *)(hulk_uintptr)(int)(*p)));
+            hulk_intptr r = ((hulk_intptr)((owners::ThisWrap_00059c10 *)w)->FUN_00059c10((void *)(hulk_uintptr)(int)(*p)));   // (gfx3) a pointer, compared whole
             if (r != 0 && r != cmpVal)
                 ++sum;
             ++i;
@@ -2081,14 +2084,14 @@ struct Registry_24840 {
 };
 
 struct Manager_24840 {
-    char pad0[0x44];
+    void* pad0[17];   /* (gfx3) the World's words (HulkWorld) */
     Registry_24840 *registry;     // 0x44
 };
 
 class Group_24840 {
 public:
     Manager_24840 *manager;       // 0x0
-    char pad4[8];
+    void* hulk_am_004; void* hulk_am_008;
     int count;              // 0xc
     int ids[1];             // 0x10
     char pad14[0x124 - 0x14];
@@ -2271,13 +2274,13 @@ struct World {
 };
 
 struct Game_24a90 {
-    char pad[0x44];
+    void* pad[17];   /* (gfx3) the World's words (HulkWorld) */
     World *world;
 };
 
 struct Roster_24a90 {
     Game_24a90 *game;
-    char pad04[8];
+    void* hulk_am_004; void* hulk_am_008;
     int count;
     int handles[1];
     int FUN_00024a90(const char *name);
@@ -2404,7 +2407,7 @@ struct Manager {
 };
 __int64 __cdecl convert_0027b020(int);
 struct Obj {
-    int pad;
+    hulk_intptr pad;
     Manager* mgr;
     void set(int x, int y);
 };
@@ -2463,7 +2466,7 @@ struct Mgr {
     Obj* get_00044ad0(unsigned __int64);
 };
 struct Holder {
-    char pad[4];
+    void* hulk_am_000;
     Mgr* mgr;
     void fn(int a, int b);
 };
@@ -2519,7 +2522,7 @@ struct Manager {
     Result* Get_00044ad0(unsigned int, unsigned int);
 };
 struct Host {
-    char pad[4];
+    void* hulk_am_000;
     Manager* mgr;
     void Fn(int, int);
 };
@@ -2573,7 +2576,7 @@ struct Mid {
     Result* Get_00044ad0(unsigned long long);
 };
 struct Obj {
-    char pad[4];
+    void* hulk_am_000;
     Mid* mid;
     void Fn(int, int);
 };
@@ -2588,14 +2591,15 @@ void Obj::Fn(int a, int b) {
 
 namespace fn_f6d645d0 {
 
-// 0x00024e90 FUN_00024e90 (45 B): equivalent/0x00024e90.cpp
-// sym: ?FUN_00024e90@Container@fn_f6d645d0@@QAEPAXHPAX@Z @98a6fb7f3025 @w870ab00b2b26 @vd7733225252b
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
-// FUN_00024e90 @ 0x00024e90
+// 0x00024e90 FUN_00024e90 (45 B): matches/0x00024e90.cpp
+// sym: ?FUN_00024e90@Container@fn_f6d645d0@@QAEPAXHPAX@Z
+// (gfx4) The entries are the manager's int character handles (HulkActorManager::ids); the provider held in a local
+// first keeps MSVC's load order (the inline cast loaded the handle before the header and no longer matched).
 void* Container::FUN_00024e90(int index, void* value) {
     if (index < 0 || index >= count)
         return this;
-    Result* result = ((Result *)((owners::ThisWrap_00059c10 *)(header->provider))->FUN_00059c10(entries[index]));
+    owners::ThisWrap_00059c10* w = (owners::ThisWrap_00059c10 *)header->provider;
+    Result* result = (Result *)w->FUN_00059c10((void *)(hulk_intptr)entries[index]);
     return result->FUN_00035140(value);
 }
 
@@ -2705,7 +2709,7 @@ struct Source_25110 { char pad[0x328]; Selection_25110* selection; unsigned char
 struct Manager_25110 { unsigned char FUN_001c4050(Vec4_25110*); };
 extern Manager_25110* __cdecl FUN_001c3d90();
 extern unsigned char __cdecl FUN_00096b50(Selection_25110*,Vec3_25110*,float*);
-struct Actor_25110 { char pad0[0x124]; Source_25110* source; char pad1[0x330-0x128]; Vec3_25110 position; float timerReset; float timer; char pad2[0x350-0x344]; unsigned char active; unsigned char inactive; void FUN_00025110(float); };
+struct Actor_25110 { void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad0[280]; Source_25110* source; char pad1[0x330-0x128]; Vec3_25110 position; float timerReset; float timer; void* hulk_am_344; void* hulk_am_348; char pad2[4]; unsigned char active; unsigned char inactive; void FUN_00025110(float); };
 void Actor_25110::FUN_00025110(float delta) {
  Source_25110* s=source; active=0; inactive=0;
  if (!s) return;
@@ -2763,7 +2767,7 @@ struct Item {
 struct Finder {
 };
 struct Root {
-    char pad[0x44];
+    void* pad[17];   /* (gfx3) the World's words (HulkWorld) */
     Finder* finder;
     Item* Get(const int* id) {
         Finder* f = finder;
@@ -2773,7 +2777,7 @@ struct Root {
 class Host {
   public:
     Root* root;
-    char pad[8];
+    void* hulk_am_004; void* hulk_am_008;
     int count;
     int entries[1];
     Item* Get(int i) {
@@ -2908,10 +2912,10 @@ int Obj_25580::GetX() {
 
 
 // 0x00025590 FUN_00025590 (390 B): equivalent/0x00025590.cpp
-// sym: ?FUN_00025590@Mgr_25590@fn_f6d645d0@@QAEXPAURecord_25590@2@HHHHPBUMat4_25590@2@HI@Z @3bbfc5882583 @wf65002d1d0f9 @v58aec9bc049e
+// sym: ?FUN_00025590@Mgr_25590@fn_f6d645d0@@QAEXPAURecord_25590@2@PBUName_25590@2@H1HPBUMat4_25590@2@MI@Z @3bbfc5882583 @w460967d172a4 @v216fe6ae0e6c
 // STATUS: equivalent (tools/equiv.py level 3: 63 inputs, branch coverage 13/14, incomplete)
 // FUN_00025590 @ 0x00025590
-void Mgr_25590::FUN_00025590(Record_25590 *rec, int a1, int a2, int a3, int a4, const Mat4_25590 *mat, int a6, unsigned int stamp)
+void Mgr_25590::FUN_00025590(Record_25590 *rec, const Name_25590 *a1, int a2, const Name_25590 *a3, int a4, const Mat4_25590 *mat, float a6, unsigned int stamp)
 {
     int n = count;
     int i = 0;
@@ -2946,7 +2950,7 @@ void Mgr_25590::FUN_00025590(Record_25590 *rec, int a1, int a2, int a3, int a4, 
             v = a2;
         }
         if ((name.lo | name.hi) != 0) {
-            FUN_0027f250()->FUN_00283a40(&name, mat, a6, v);
+            FUN_0027f250()->FUN_00283a40(&name, mat, *(int *)&a6, v);   // (gfx4) 0x00283a40 is defined with an int there
         }
         name.FUN_0027af50();
         return;
@@ -2972,7 +2976,7 @@ void owners::C_25720::FUN_00025720(int key) {
     int n = count;
     int i = 0;
     if (n > 0) {
-        E_25720* p = (E_25720*)((char*)this + 0x590);
+        E_25720* p = (E_25720*)((char*)&count + 4);   // (gfx3) the effects after their count (+0x590), by member
         do {
             if (p->key == key) {
                 p->flag = 1;
@@ -3009,7 +3013,7 @@ struct Entry_25750 {
 };
 struct Manager_25750 { void FUN_00283a40(Handle_25750*, Entry_25750*, unsigned int, unsigned int); };
 struct Object {
- char pad[0x58c];
+ void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad[280]; void* hulk_am_124; char pad_1[540]; void* hulk_am_344; void* hulk_am_348; char pad_2[576];
  int count;
  Entry_25750 entries[1];
  Manager_25750* FUN_0027f250();
@@ -3057,7 +3061,7 @@ void Table_25820::FUN_00025820(const char* name, const void* src) {
 // sym: ?FUN_00025890@C_25890@owners@@QAEPAXH@Z
 void* owners::C_25890::FUN_00025890(int x) {
     if (x >= 0 && x < 9)
-        return (void*)((char*)this + 0xc10 + x * 0x20);
+        return (void*)names[x];   // (gfx3) +0xc10 by member
     return 0;
 }
 
@@ -3279,7 +3283,7 @@ int Selection_25d50::FUN_00025d50(float x,float y,float z) {
 namespace fn_00025e50 {
 // STATUS: equivalent (tools/equiv.py level 3: 3009 inputs, branch coverage 8/8)
 // FUN_00025e50 @ 0x00025e50
-struct Obj { virtual void FUN_00000000(); virtual void FUN_00000004(); char pad[0x20a4]; int state; }; struct Owner { char pad[0x124]; Obj* object; int FUN_00025e50(Obj* next); }; struct Result { unsigned int FUN_001b4c40(Obj*); }; Result* __cdecl FUN_001b6580(); int Owner::FUN_00025e50(Obj* next) { hulk_uintptr value=(hulk_uintptr)object; if (next != object) { if (next) next->FUN_00000000(); if (object) object->FUN_00000004(); object=next; if (next) next->state=0; Obj* current=object; value=FUN_001b6580()->FUN_001b4c40(current); } return (value & 0xffffff00u)|1; }
+struct Obj { virtual void FUN_00000000(); virtual void FUN_00000004(); char pad[0x20a4]; int state; }; struct Owner { void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad[280]; Obj* object; int FUN_00025e50(Obj* next); }; struct Result { unsigned int FUN_001b4c40(Obj*); }; Result* __cdecl FUN_001b6580(); int Owner::FUN_00025e50(Obj* next) { hulk_uintptr value=(hulk_uintptr)object; if (next != object) { if (next) next->FUN_00000000(); if (object) object->FUN_00000004(); object=next; if (next) next->state=0; Obj* current=object; value=FUN_001b6580()->FUN_001b4c40(current); } return (value & 0xffffff00u)|1; }
 } // namespace fn_00025e50
 
 
@@ -3350,14 +3354,14 @@ struct Ctl_25f10 {
 struct Pawns {
 };
 struct World {
-    char pad[0x44];
+    void* pad[17];   /* (gfx3) the World's words (HulkWorld) */
     Pawns* pawns;
 };
 
 class Group_25f10 {
 public:
     World* world;
-    int pad04[2];
+    void* hulk_am_004; void* hulk_am_008;
     int count;
     int ids[16];
     Pawn_25f10* FUN_00024280(unsigned __int64 key);
@@ -3480,7 +3484,7 @@ struct Entity {
 };
 
 struct EntityTable {
-    char pad00[0x44];
+    void* pad00[17];   /* (gfx3) the World's words (HulkWorld) */
     struct Lookup_25ff0 *f44;
 };
 struct Lookup_25ff0 {
@@ -3513,7 +3517,7 @@ struct Frame_25ff0 {
 class Selector_25ff0 {
 public:
     EntityTable *tbl;
-    char pad04[8];
+    void* hulk_am_004; void* hulk_am_008;
     int count;
     int ids[16];
     char enabled;
@@ -4042,13 +4046,13 @@ struct Position_26e30 { bool FUN_00059a50(Vec_26e30*); };
 struct Category { char pad[0x18]; int index; };
 struct Entity { char pad[0x10]; Position_26e30* position; char pad2[0x108]; Category* category; };
 struct Registry_26e30 {  };
-struct Root_26e30 { char pad[0x44]; Registry_26e30* registry; };
+struct Root_26e30 { void* pad[17];   /* (gfx3) the World's words (HulkWorld) */ Registry_26e30* registry; };
 
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" double __cdecl sqrt(double);
 #endif
 
-struct Target_26e30 { Root_26e30* root; char pad[8]; int count; int ids[69]; Entity* self; int FUN_00026e30(float radius,int* output,int size); };
+struct Target_26e30 { Root_26e30* root; void* hulk_am_004; void* hulk_am_008; int count; int ids[69]; Entity* self; int FUN_00026e30(float radius,int* output,int size); };
 int Target_26e30::FUN_00026e30(float radius,int* output,int size) {
  for(int j=0;j<size;++j) output[j]=0;
  int result=0; Vec_26e30 origin;
@@ -4849,7 +4853,7 @@ extern int __cdecl _atexit(void (__cdecl*)());
 #endif
 
 struct Entry_27730 { unsigned first, second; unsigned char flag; char pad[7]; };
-struct Object { char pad[0x380]; Entry_27730 entries[32]; int count; bool FUN_00027730(char* destination, const char* source); };
+struct Object { void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad[280]; void* hulk_am_124; char pad_1[540]; void* hulk_am_344; void* hulk_am_348; char pad_2[52]; Entry_27730 entries[32]; int count; bool FUN_00027730(char* destination, const char* source); };
 bool Object::FUN_00027730(char* destination, const char* source) {
  if (!((*(unsigned*)&DAT_004dc0f0) & 1)) { (*(unsigned*)&DAT_004dc0f0) |= 1; (*(Key_27730*)&DAT_004dc0e8).FUN_0027af00(); _atexit(FUN_00363b00); }
  if (!destination || !source) return false;
@@ -4881,7 +4885,7 @@ extern int __cdecl _atexit(void (__cdecl*)());
 #endif
 
 struct Entry_27850 { unsigned int first, second; unsigned char enabled; char pad[7]; };
-struct Object { char pad[0x380]; Entry_27850 entries[32]; int count; bool FUN_00027850(char* destination, const char* source); };
+struct Object { void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad[280]; void* hulk_am_124; char pad_1[540]; void* hulk_am_344; void* hulk_am_348; char pad_2[52]; Entry_27850 entries[32]; int count; bool FUN_00027850(char* destination, const char* source); };
 bool Object::FUN_00027850(char* destination, const char* source) {
  if (!((*(unsigned int*)&DAT_004dc100) & 1)) { (*(unsigned int*)&DAT_004dc100) |= 1; (*(Key_27850*)&DAT_004dc0f8).FUN_0027af00(); _atexit(FUN_00363b10); }
  if (!destination || !source) return false;
@@ -4920,7 +4924,7 @@ extern void* __cdecl memmove(void*, const void*, unsigned int);
 #endif
 
 struct Entry_27a50 { unsigned int first, second; char rest[8]; };
-struct Object { char pad[0x380]; Entry_27a50 entries[32]; int count; bool FUN_00027a50(char* destination, const char* suffix); };
+struct Object { void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad[280]; void* hulk_am_124; char pad_1[540]; void* hulk_am_344; void* hulk_am_348; char pad_2[52]; Entry_27a50 entries[32]; int count; bool FUN_00027a50(char* destination, const char* suffix); };
 bool Object::FUN_00027a50(char* destination, const char* suffix) {
  if (!((*(unsigned int*)&DAT_004dc120) & 1)) { (*(unsigned int*)&DAT_004dc120) |= 1; (*(Key_27a50*)&DAT_004dc118).FUN_0027af00(); atexit(FUN_00363b30); }
  if (!destination || !suffix) return false;
@@ -6479,7 +6483,7 @@ void Handler::Run(int a, int b) {
         if (m) {
             End* e = m->Get_000fdc40();
             if (e)
-                e->Act_00103b60(field, b, 0);
+                e->Act_00103b60(field, (const char*)(hulk_intptr)b, 0);
         }
     }
 }
@@ -6507,7 +6511,7 @@ void Main::fn(const char* text, int x) {
     End* e = o->mid->get_000fdc40();
     if (!e)
         return;
-    e->act_00103b60(value, x, 1);
+    e->act_00103b60(value, (const char*)(hulk_intptr)x, 1);
 }
 
 
@@ -6655,7 +6659,7 @@ struct Result { char pad[0x1ca0]; void *field; };
 struct Item { char pad[0x12c]; int value; };
 struct Action { void FUN_000fe4d0(int, int); };
 long long __cdecl FUN_002672f0(hulk_intptr, int, int);
-struct Owner { char pad[0x124]; Item *item; Result *FUN_00024280(int, int); void FUN_000290a0(int); };
+struct Owner { void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad[280]; Item *item; Result *FUN_00024280(int, int); void FUN_000290a0(int); };
 void Owner::FUN_000290a0(int arg) {
     long long pair = FUN_002672f0(arg, 0, 0);
     Result *result = FUN_00024280((int)pair, (int)(pair >> 32));
@@ -6682,7 +6686,7 @@ struct Inner {
 };
 class Obj {
   public:
-    char pad[0x124];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad[280];
     Inner* inner;
     Result* Find_00024280(__int64);
     void Target(void*);
@@ -6739,8 +6743,8 @@ struct Effect_29250 { char pad[0x58]; char data; void FUN_000fe4d0(int, int); };
 struct Position_29250 { void FUN_00059a50(Vec3_29250*); };
 struct Entity { char pad0[0x10]; Position_29250* position; char pad1[0x1ca0-0x14]; Effect_29250* effect; char pad2[0x1cbc-0x1ca4]; float value; bool FUN_00035ab0(); };
 struct Registry_29250 {  };
-struct Owner_29250 { char pad[0x44]; Registry_29250* registry; };
-struct Target_29250 { Owner_29250* owner; char pad[8]; int count; int ids[1]; void FUN_00029250(int, const Vec3_29250*, float, int); };
+struct Owner_29250 { void* pad[17];   /* (gfx3) the World's words (HulkWorld) */ Registry_29250* registry; };
+struct Target_29250 { Owner_29250* owner; void* hulk_am_004; void* hulk_am_008; int count; int ids[1]; void FUN_00029250(int, const Vec3_29250*, float, int); };
 void Target_29250::FUN_00029250(int a, const Vec3_29250* point, float radius, int b) {
  int n=count;
  for(int i=0;i<n;++i) {
@@ -6770,7 +6774,7 @@ namespace fn_00029340 {
 struct Handler { int FUN_000fdf40(int value); };
 struct Result { char pad[0x1ca0]; Handler *handler; };
 struct Node { char pad[0x12c]; int value; };
-struct Owner { char pad[0x124]; Node *node; Result *FUN_00024280(unsigned __int64 value); hulk_intptr FUN_00029340(void *input); };
+struct Owner { void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad[280]; Node *node; Result *FUN_00024280(unsigned __int64 value); hulk_intptr FUN_00029340(void *input); };
 unsigned __int64 __cdecl FUN_002672f0(void *input, int a, int b);
 hulk_intptr Owner::FUN_00029340(void *input) {
     unsigned __int64 key = FUN_002672f0(input, 0, 0);
@@ -7341,9 +7345,9 @@ struct Vec3_29a90 { float x,y,z; };
 struct Owner_29a90 { char pad[0x328]; int identifier; void FUN_000350c0(Vec3_29a90* out); };
 extern void __cdecl FUN_00096a90(void* object, Vec3_29a90* out);
 struct Object {
- char pad0[0x124]; Owner_29a90* owner;
+ void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad0[280]; Owner_29a90* owner;
  char pad1[0x330-0x128]; Vec3_29a90 center; float radius;
- char pad2[4]; void* object; int identifier; float alternateRadius;
+ char pad2[4]; void* object; hulk_intptr identifier; float alternateRadius;
  bool FUN_00029a90();
 };
 bool Object::FUN_00029a90() {
@@ -7367,8 +7371,8 @@ bool Object::FUN_00029a90() {
 namespace fn_f6d645d0 {
 
 // 0x00029b50 FUN_00029b50 (89 B): matches/0x00029b50.cpp
-// sym: ?Set@Owner_29b50@fn_f6d645d0@@QAEXPAVRef_29b50@2@0H@Z
-void Owner_29b50::Set(Ref_29b50* x, Ref_29b50* y, int z) {
+// sym: ?Set@Owner_29b50@fn_f6d645d0@@QAEXPAVRef_29b50@2@0M@Z
+void Owner_29b50::Set(Ref_29b50* x, Ref_29b50* y, float z) {
     if (x)
         x->Add();
     if (a)
@@ -7385,8 +7389,8 @@ void Owner_29b50::Set(Ref_29b50* x, Ref_29b50* y, int z) {
 
 
 // 0x00029bb0 FUN_00029bb0 (66 B): matches/0x00029bb0.cpp
-// sym: ?Set@Owner_29bb0@fn_f6d645d0@@QAEXHPAVThing_29bb0@2@H@Z
-void Owner_29bb0::Set(int k, Thing_29bb0* t, int v) {
+// sym: ?Set@Owner_29bb0@fn_f6d645d0@@QAEXPAXPAVThing_29bb0@2@M@Z
+void Owner_29bb0::Set(void* k, Thing_29bb0* t, float v) {
     if (k == key) {
         if (t)
             t->A();
@@ -8053,7 +8057,7 @@ bool ItemList_2a800::FUN_0002a800()
     }
 
     for (int i = count - 1; i >= 0; i--) {
-        context->slot->FUN_00059c10(items[i])->FUN_00036d40(0);
+        context->slot->FUN_00059c10((void *)(hulk_uintptr)items[i])->FUN_00036d40(0);
         FUN_0002a4b0(i, 0);
     }
     return true;
@@ -8462,7 +8466,7 @@ void T_2b690::A() {
         d = 0;
     }
     globalf_00232bb0();
-    Elem_2b690* e = (Elem_2b690*)((char*)this + 0xc50);
+    Elem_2b690* e = (Elem_2b690*)((char*)p3 + sizeof(p3));   // (gfx3) the effects' end (+0xc50), by member
     for (int i = 0; i < 16; i++) {
         e = (Elem_2b690*)((char*)e - 0x68);
         ((Elem_2b690*)((char*)e + 8))->Fn_0027af50();
@@ -8507,8 +8511,8 @@ namespace fn_0002b7d0 {
 // FUN_0002b7d0 @ 0x0002b7d0
 struct Item { unsigned char FUN_00035ab0(); };
 struct Manager {  };
-struct Owner { char pad[0x44]; Manager* manager; };
-struct Target { Owner* owner; char pad[8]; int count; int entries[1]; void FUN_0002a4b0(int,int); unsigned char FUN_0002b7d0(); };
+struct Owner { void* pad[17];   /* (gfx3) the World's words (HulkWorld) */ Manager* manager; };
+struct Target { Owner* owner; void* hulk_am_004; void* hulk_am_008; int count; int entries[1]; void FUN_0002a4b0(int,int); unsigned char FUN_0002b7d0(); };
 unsigned char Target::FUN_0002b7d0() { for(int i=0;i<count;++i) { Item* item=((Item *)((owners::ThisWrap_00059c10 *)(owner->manager))->FUN_00059c10((void *)(hulk_uintptr)(int)(entries[i]))); if(item && !item->FUN_00035ab0()) { FUN_0002a4b0(i,0); return 1; } } return 0; }
 } // namespace fn_0002b7d0
 
@@ -8656,7 +8660,7 @@ struct Pl2 {
     int f12c;
 };
 struct G20 {
-    char pad0[0x124];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad0[280];
     Pl2 *f124;
 };
 struct World {
@@ -8705,9 +8709,9 @@ class Spawner_2b970 {
 public:
     World *p0;
     Registry_2b970 *p4;
-    char pad8[0x128 - 8];
+    void* hulk_am_008; char pad8[280]; void* hulk_am_124;
     char name[0x100];
-    char pad228[0x584 - 0x228];
+    char pad228[284]; void* hulk_am_344; void* hulk_am_348; char pad228_1[568];
     int f584;
     char b588;
     int FUN_00024280(unsigned int lo, unsigned int hi);

@@ -6615,3 +6615,23 @@ name that carries an address any more. Unbound counts: see the commit message (c
 - 55 TUs, 52 equivalent blocks re-proven (MSVC + --wine), CSoundSystem 0x001f1c80's free as operator delete (free-name
   baseline 2 -> 1). The x64 gate is ok. The 29 allocation-size `layout` blocks this would have exposed are held out.
   The Wine pair is in the commit message.
+
+## gfx4: native start-up, continued (2026-11-21)
+
+- C12b: CActorManager's views on its pointer words (one batch, D172). The record is include/decls/actor_manager.h
+  (HulkActorManager); the views keep their own names and split their 32-bit pads at the six pointer words (`void*
+  hulk_am_XXX`), so the 32-bit layout, MSVC code and checker views stay as they were. Internal: gfx3's unk_0240b0*.cpp
+  views and the owners.h manager stubs. External: build/gfx4/scripts/amloc.py finds each function's World view
+  (DAT_004dd700's type, nearest before the block) and the manager view at its +0x20; wfix.py spells the World's
+  `char` pads in 0x00..0x5c as pointer words (C11's rule, for the views C11 left: CCharacter, CWeaponCollisionTrack,
+  EffectAction, CSPListener, ...), and gfx3's amfix.py splits the manager pads. 134 functions in 60 TUs; by hand:
+  0x000145b0's Root_149b0, CWeaponCollisionTrack's Manager / Provider / Game_65b80 / Root_65c10 / Manager_65c50 (all
+  bound to 0x004dd700), 0x000a1930, 0x001a8ee0, 0x001aa8e0 (its manager view was named `World`), 0x001ab1b0, 0x00036a20,
+  0x000c8490 / 0x000c84e0, 0x000e6e90 (a second `Context`), 0x000e6f60 (raw `obj + 0x124`), 0x00043350 (read the
+  manager through the character view Unit_43350), 0x001825f0.
+- Callee types as defined: 0x00029b50 / 0x00029bb0 / 0x00029c00 take the key reference as a pointer and the value as a
+  float, 0x00025590 two name pointers and a float, 0x00025240 a float; their callers 0x00151fd0, 0x00152210,
+  0x00184940, 0x00184b00, 0x001da350, 0x001d8cd0, 0x001825f0, 0x00016680 / 0x001445d0, 0x00172220 pass them so. Int
+  words that hold the main actor (0x0009d1b0, 0x00151fd0, 0x001afba0) are pointers.
+- Native: past 0x00024800. Start-up now runs the game loop through 0x00086cb0 and stops in a hang (90 s, main thread
+  in the loop; unbound callees from 0x00086cb0: 0x0023f720, 0x0023f760, 0x001b93a0).

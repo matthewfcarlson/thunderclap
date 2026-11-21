@@ -84,7 +84,7 @@ struct Config_145b0 {
     Source_145b0 *source40;           // 0x40
 };
 struct Roster_145b0 {
-    char pad00[0x0c];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008;
     int count;                  // 0x0c
     Actor_145b0 *FUN_00024190(int index);
 };
@@ -227,7 +227,7 @@ struct Manager_149b0 {
     void* Find_00059bf0(int);
 };
 struct Root_149b0 {
-    char pad[0x44];
+    void* pad[17];
     Manager_149b0* mgr;
 };
 extern Root_149b0* hulk_at_004dd700;

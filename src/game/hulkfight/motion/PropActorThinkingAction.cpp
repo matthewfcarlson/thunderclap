@@ -98,7 +98,7 @@ struct Mgr0c {
     void FUN_001dc170(Entity *e, int v);
 };
 struct Ctx20_181d30 {
-    char pad00[0x124];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad00[280];
     Target_181d30 *f124;
 };
 } // namespace fn_f945e56f

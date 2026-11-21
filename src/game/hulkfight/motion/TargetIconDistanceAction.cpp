@@ -21,11 +21,11 @@ struct Player_172220 {
     float scale;
 };
 struct Hero_172220 {
-    char pad[0x124];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad[280];
     Player_172220* player;
     char pad128[0x33c - 0x128];
     float value;
-    void FUN_00025240(int v);
+    void FUN_00025240(float v);   // (gfx4) as defined
 };
 } // namespace fn_f8ae5d41
 struct World {
@@ -42,7 +42,7 @@ struct Range_172220 {
     char pad[0x14];
     float a;
     float b;
-    int code;
+    float code;   // (gfx4) 0x00025240 takes it as a float (the radius it raises)
 };
 
 } // namespace fn_f8ae5d41
@@ -68,7 +68,7 @@ void FUN_00172210() {}
 } // namespace fn_f8ae5d41
 
 // 0x00172220 hulkfight::motion::TargetIconDistanceAction::vfunc_5 (102 B): equivalent/0x00172220.cpp
-// sym: ?vfunc_5@TargetIconDistanceAction@motion@hulkfight@@UAE_NHH@Z @5aa283c2d94d @wc11b87e82229 @v6f9312b9cc98
+// sym: ?vfunc_5@TargetIconDistanceAction@motion@hulkfight@@UAE_NHH@Z @5aa283c2d94d @w1738340db843 @v0ba7da25c351
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // hulkfight::motion::TargetIconDistanceAction::vfunc_5 @ 0x00172220
 bool hulkfight::motion::TargetIconDistanceAction::vfunc_5(hulk_intptr arg, int unused) {

@@ -1322,7 +1322,7 @@ struct Ref_1d6ec0 {
 };
 
 struct Roster_1d6ec0 {
-    char pad0[0x124];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad0[280];
     Fighter_1d6ec0* player;
     bool FUN_000242d0(Fighter_1d6ec0* f);
 };
@@ -1532,7 +1532,7 @@ char FUN_001d04d0(const void* typeInfo);                      // type_info test 
 
 struct Value_1d71e0 { unsigned int value; char rest[28]; void FUN_00067e60(void*); void FUN_000679c0(); };
 struct Manager_1d71e0 {  void FUN_00067c30(unsigned int, Value_1d71e0*); };
-struct Services_1d71e0 { char pad[8]; Manager_1d71e0* manager; };
+struct Services_1d71e0 { void* hulk_am_000; void* hulk_am_004; Manager_1d71e0* manager; };
 struct World { void* pad[8]; Services_1d71e0* services; };
 struct Payload_1d71e0 { char pad[16]; unsigned int* value; };
 struct Reference { virtual void addRef(); virtual void release(); unsigned int reserved; Payload_1d71e0* payload; unsigned int type; };

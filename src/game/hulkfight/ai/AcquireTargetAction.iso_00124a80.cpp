@@ -63,7 +63,7 @@ struct Pool0 {
 };
 
 struct Owner_124a80 {
-    char pad0[0x124];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad0[280];
     Actor_124a80 *current;             // 0x124
 };
 

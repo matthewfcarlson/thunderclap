@@ -105,7 +105,7 @@ struct Fighter {
     void FUN_00059a50(Vec3 *out);
 };
 struct List {
-    char pad000[0xc];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008;
     int count;
     char pad010[0x124 - 0x10];
     Entity *player;
@@ -132,9 +132,9 @@ struct Mgr {
 };
 } // namespace fn_faea5d7a
 struct World {
-    char pad00[0x20];
+    void* pad00[8];
     List *list;
-    char pad24[0x4c - 0x24];
+    void* pad24[10];
     Mgr *mgr;
 };
 namespace fn_faea5d7a {

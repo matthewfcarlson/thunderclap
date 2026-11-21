@@ -829,7 +829,7 @@ int __stdcall FUN_001afb80(Host_1afb80* a, Obj_1afb80* b) {
 } // namespace fn_f7cf5713
 
 // 0x001afba0 FUN_001afba0 (543 B): equivalent/0x001afba0.cpp [wrapped: conflict: World]
-// sym: ?FUN_001afba0@fn_001afba0@@YGHPAUController_1afba0@1@PAUHit_1afba0@1@HHM@Z @1c5385709714 @w58d9af4cf15c @v339635248b59
+// sym: ?FUN_001afba0@fn_001afba0@@YGHPAUController_1afba0@1@PAUHit_1afba0@1@HHM@Z @1c5385709714 @w58d9af4cf15c @vddfd4bf7a16d
 namespace fn_001afba0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3055 inputs, branch coverage 42/42)
 // FUN_001afba0 @ 0x001afba0
@@ -939,12 +939,12 @@ struct Clock_1afba0 {
 };
 
 struct Cue_1afba0 {
-    void FUN_001ec980(int id, const char *name);
+    void FUN_001ec980(void *actor, const char *name);   // (gfx4) the main actor, as 0x001ec980 takes it
 };
 
 struct Slot20_1afba0 {
-    char pad0[0x124];
-    int id;
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad0[280];
+    void *id;   // +0x124 the main actor (HulkActorManager::actor)
 };
 
 struct World {
@@ -1161,7 +1161,7 @@ struct Holder_1afea0 {
 };
 
 struct Focus_1afea0 {
-    char pad0[0x124];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad0[280];
     Current *current;           // 0x124
 };
 
@@ -1694,7 +1694,7 @@ struct World {
     Reg4c* f4c;
 };
 struct Holder_1b05a0 {
-    char pad00[0x124];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad00[280];
     Entity* cur;
 };
 struct HitObj_1b05a0 {
@@ -2026,7 +2026,7 @@ struct Handler_1b0e30 {
 };
 
 struct Chain3_1b0e30 { char pad0[0x12c]; void *f12c; };
-struct Chain2_1b0e30 { char pad0[0x124]; Chain3_1b0e30 *next; };
+struct Chain2_1b0e30 { void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad0[280]; Chain3_1b0e30 *next; };
 struct World { void* pad0[8]; Chain2_1b0e30 *next; };
 
 class Owner_1b0e30 {

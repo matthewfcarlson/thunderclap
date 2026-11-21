@@ -1257,12 +1257,12 @@ struct Item_59db0 {
 };
 
 struct Current_59db0 {
-    char pad0[0x124];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad0[280];
     Res_59db0 *res;           // 0x124
 };
 
 struct World {
-    char pad0[0x20];
+    void* pad0[8];
     Current_59db0 *current;   // 0x20
 };
 

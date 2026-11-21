@@ -55,7 +55,7 @@ struct Actor_96b50 {
     void FUN_000350c0(Vec3_96b50 *out);
 };
 struct Checker_96b50 {
-    char pad[0x20];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad[20];
 };
 } // namespace fn_fe8da7f1
 struct World {

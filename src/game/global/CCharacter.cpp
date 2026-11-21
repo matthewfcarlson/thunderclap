@@ -1754,7 +1754,7 @@ struct Handle_385a0;
 struct Entity;
 struct Resolver_385a0 {  };
 struct Manager_385a0 { bool FUN_000242d0(void* object); };
-struct World { char pad[0x20]; Manager_385a0* manager; };
+struct World { void* pad[8]; Manager_385a0* manager; };
 struct Handle_385a0 {
  virtual void retain();
  virtual void release();
@@ -1859,11 +1859,11 @@ struct Ent_38660 {
 };
 
 struct Player_38660 {
-    char pad0[0x124];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad0[280];
     void* f124;
 };
 struct World {
-    char pad0[0x20];
+    void* pad0[8];
     Player_38660* p20;
 };
 
@@ -2336,12 +2336,12 @@ struct Control_39440 {
 };
 
 struct World {
-    char pad0[0x20];
+    void* pad0[8];
     struct Mode_39440 *mode;
 };
 
 struct Mode_39440 {
-    char pad0[0x124];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad0[280];
     Fighter_39440 *fighter;
 };
 
@@ -3916,14 +3916,14 @@ struct Input_3be00 {
 };
 
 struct Holder_3be00 {
-    char pad00[0x124];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad00[280];
     void *current;
 };
 
 struct World {
-    char pad00[0x20];
+    void* pad00[8];
     Holder_3be00 *holder;
-    char pad24[0x54 - 0x24];
+    void* pad24[12];
     Input_3be00 *input;
 };
 
@@ -4656,7 +4656,7 @@ struct Probe_3e640 {
 };
 
 struct World {
-    char pad0[0x20];
+    void* pad0[8];
     Probe_3e640 *probe;
 };
 
@@ -5472,12 +5472,12 @@ struct Cfg_3f7b0 {
 };
 
 struct Player_3f7b0 {
-    char pad00[0x124];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad00[280];
     struct Chara_3f7b0 *current;
 };
 
 struct World {
-    char pad00[0x20];
+    void* pad00[8];
     Player_3f7b0 *player;
 };
 
@@ -5848,7 +5848,7 @@ public:
 
 class Roster_403f0 {
 public:
-    char pad0[0xc];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008;
     int count;
     Actor_403f0 *FUN_00024190(int index);
     char FUN_000242d0(Actor_403f0 *a);
@@ -5871,7 +5871,7 @@ public:
 };
 
 struct World {
-    char pad0[0x20];
+    void* pad0[8];
     Roster_403f0 *roster;
 };
 
@@ -5992,14 +5992,14 @@ struct Hud_40550 {
 class Fighter_40550;
 
 struct Hero_40550 {
-    char pad0[0x124];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad0[280];
     Fighter_40550 *f124;
 };
 
 struct World {
-    char pad0[0x20];
+    void* pad0[8];
     Hero_40550 *hero;                      // 0x20
-    char pad24[8];
+    void* pad24[2];
     Gate_40550 *gate;                      // 0x2c
     Sink_40550 *sink;                      // 0x30
     Hud_40550 *hud;                        // 0x34
@@ -7112,7 +7112,7 @@ struct Object { char pad[8]; Owner_42990* owner; int kind; char pad2[0x64]; Flag
 struct Local_42990 { unsigned int data[3]; };
 extern "C" void __cdecl FUN_00096a40(Object*, Local_42990*);
 struct Renderer_42990 {   };
-struct World { char pad[0x20]; Renderer_42990* renderer; };
+struct World { void* pad[8]; Renderer_42990* renderer; };
 struct Target_42990 {
  unsigned char FUN_0003e780(unsigned int, Local_42990*, unsigned int,unsigned int,unsigned int);
  unsigned char FUN_00042990(unsigned int,Object*,unsigned int,unsigned int,unsigned int);
@@ -7185,7 +7185,7 @@ CCharacter::~CCharacter() {}
 
 
 // 0x00043350 FUN_00043350 (918 B): equivalent/0x00043350.cpp [wrapped: conflict: World]
-// sym: ?FUN_00043350@Unit_43350@fn_00043350@@QAEDMTArg2_43350@2@HMDTArg6@2@@Z @da35434e99f3 @w9bae3ef77ef4 @v7719c0484853
+// sym: ?FUN_00043350@Unit_43350@fn_00043350@@QAEDMTArg2_43350@2@HMDTArg6@2@@Z @da35434e99f3 @w9bae3ef77ef4 @v4151288221bf
 namespace fn_00043350 {
 // STATUS: equivalent (tools/equiv.py level 3: 20076 inputs, branch coverage 66/76, incomplete)
 // FUN_00043350 @ 0x00043350
@@ -7270,12 +7270,18 @@ struct Listener_43350 {
     void FUN_000fe4d0(void *target, int flag);
 };
 
+struct ActorManager_43350 {   // (gfx4) the actor manager (HulkActorManager); was read through Unit_43350
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad[280];
+    Unit_43350 *link124;              // +0x124 the main actor
+    void FUN_00025720(int v);
+};
+
 struct World {
-    char pad0[0x20];
-    Unit_43350 *player;               // 0x20
-    char pad24[0x2c - 0x24];
+    void* pad0[8];
+    ActorManager_43350 *player;       // 0x20 the actor manager
+    void* pad24[2];
     Hook_43350 *hook;                 // 0x2c
-    char pad30[0x54 - 0x30];
+    void* pad30[9];
     Holder54_43350 *holder;           // 0x54
     Timer *timer;               // 0x58
 };
@@ -7338,7 +7344,7 @@ struct Unit_43350 {
 struct Scale_43350 { float FUN_00045670(); };
 
 struct Frame_43350 {
-    Unit_43350 *player;               // R-8
+    ActorManager_43350 *player;       // R-8
     World *mgr;                   // R-4
 };
 
@@ -7418,7 +7424,7 @@ char Unit_43350::FUN_00043350(float dt, Arg2_43350 p2, int a, float one, char c,
         Holder54_43350 *h = DAT_004dd700->holder;
         h->FUN_000862b0()->FUN_000d6e00(4);
     }
-    Unit_43350 *pl = f.player;
+    ActorManager_43350 *pl = f.player;
     if (pl->link124 != this) {
         if (listener != 0)
             listener->FUN_000fe4d0(pl->link124->f12c, 1);

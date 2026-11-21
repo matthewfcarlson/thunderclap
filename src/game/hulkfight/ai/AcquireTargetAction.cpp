@@ -189,7 +189,7 @@ struct Globals_1245b0 {
     Actor_1245b0 *player;           // 0x20 (struct with +0x124 pointer actually)
 };
 struct Holder_1245b0 {
-    char pad0[0x124];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad0[280];
     Actor_1245b0 *actor;            // 0x124
 };
 } // namespace fn_f712cb17

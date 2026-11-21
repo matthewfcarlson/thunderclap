@@ -780,9 +780,13 @@ class Obj_e6f60 {
   public:
     void run_000363d0();
 };
-struct Manager_e6f60 {
-    char pad[0x20];
-    void* obj;
+struct ActorManager_e6f60 {   // (gfx4) the actor manager's words (HulkActorManager)
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad[280];
+    Obj_e6f60* actor;           // +0x124 the main actor
+};
+struct Manager_e6f60 {          // the World (HulkWorld)
+    void* pad[8];
+    ActorManager_e6f60* obj;    // +0x20 the actor manager
 };
 extern Manager_e6f60* hulk_at_004dd700;
 } // namespace fn_f26f242d
@@ -4846,13 +4850,13 @@ struct Child_e6e90 {
 struct Action {
     void FUN_000363d0();
 };
-struct Context {
-    char pad[0x124];
+struct ActorManager_e6e90 {   // (gfx4) the actor manager (HulkActorManager); was a second `Context`
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad[280];
     Action* action;
 };
 struct World {
     void* pad[8];
-    Context* context;
+    ActorManager_e6e90* context;
 };
 struct FEThingsBase {
     virtual void vfunc_0();
@@ -4960,9 +4964,9 @@ void FEThingsBase::vfunc_23() {
     vfunc_24();
     Manager_e6f60* m = hulk_at_004dd700;
     DAT_004e222c = 1;
-    if (m->obj && *(void**)((char*)m->obj + 0x124) && (*(char*)&DAT_004e2518)) {
+    if (m->obj && m->obj->actor && (*(char*)&DAT_004e2518)) {
         (*(char*)&DAT_004e2518) = 0;
-        ((Obj_e6f60*)*(void**)((char*)m->obj + 0x124))->run_000363d0();
+        m->obj->actor->run_000363d0();
     }
 }
 

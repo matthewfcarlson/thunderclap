@@ -1882,7 +1882,7 @@ void AnimationAction::Destroy() {
 
 
 // 0x00184940 hulkfight::motion::BallAndChainShootAction::vfunc_3 (436 B): equivalent/0x00184940.cpp [wrapped: conflict: BallAndChainShootAction; World]
-// sym: ?vfunc_3@BallAndChainShootAction@fn_00184940@@UAE_NHH@Z @2e37713b4f54 @w1dfe9b0bc97e @ve058335fa11f
+// sym: ?vfunc_3@BallAndChainShootAction@fn_00184940@@UAE_NHH@Z @2e37713b4f54 @w1dfe9b0bc97e @v7da4d75debd4
 namespace fn_00184940 {
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 20/20)
 // hulkfight::motion::BallAndChainShootAction::vfunc_3 @ 0x00184940
@@ -1957,9 +1957,9 @@ public:
 };
 
 struct Manager_184940 {
-    char pad0[0x124];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad0[280];
     Fighter_184940 *active;
-    void FUN_00029b50(int a, Obj_184940 *b, float c);
+    void FUN_00029b50(void *a, Obj_184940 *b, float c);   // (gfx4) as defined: the key reference first
 };
 
 struct World {
@@ -2039,7 +2039,7 @@ bool BallAndChainShootAction::vfunc_3(int a, int b)
             Manager_184940 *m = w->manager;
             if (m != 0) {
                 if (m->active != 0 && m->active == fighter)
-                    m->FUN_00029b50(((int)((owners::C_1d72e0 *)weapon)->FUN_001d72e0()), attached, cur[0]);
+                    m->FUN_00029b50((void *)((owners::C_1d72e0 *)weapon)->FUN_001d72e0(), attached, cur[0]);
             }
         }
     }
@@ -2052,7 +2052,7 @@ bool BallAndChainShootAction::vfunc_3(int a, int b)
 
 
 // 0x00184b00 hulkfight::motion::BallAndChainShootAction::vfunc_5 (1007 B): equivalent/0x00184b00.cpp [wrapped: conflict: World; hulkfight::motion::BallAndChainShootAction]
-// sym: ?vfunc_5@BallAndChainShootAction@motion@hulkfight@fn_00184b00@@UAE_NHM@Z @cbc47d39dfcb @w2e68bd444be2 @v41c336389e47
+// sym: ?vfunc_5@BallAndChainShootAction@motion@hulkfight@fn_00184b00@@UAE_NHM@Z @cbc47d39dfcb @w2e68bd444be2 @v1c6d69f70cb9
 namespace fn_00184b00 {
 // STATUS: equivalent (tools/equiv.py level 3: 3038 inputs, branch coverage 32/32)
 // hulkfight::motion::BallAndChainShootAction::vfunc_5 @ 0x00184b00
@@ -2122,7 +2122,7 @@ public:
     virtual void v13();
     virtual void v14();
     virtual Mat_184b00 *v15();
-    unsigned FUN_001d72e0();
+    hulk_intptr FUN_001d72e0();   // (gfx4) as defined
     void FUN_001d8100();
 };
 
@@ -2188,7 +2188,7 @@ struct Sink_184b00 {
 };
 
 struct Player_184b00 {
-    void FUN_00029bb0(unsigned a, Obj_184b00 *b, float c);
+    void FUN_00029bb0(void *a, Obj_184b00 *b, float c);   // (gfx4) as defined: the key reference first
 };
 
 struct World {
@@ -2278,7 +2278,7 @@ bool BallAndChainShootAction::vfunc_5(int state, float dt)
         if (FUN_00098190(dt, speed, f48, 0, attached, f.sp28, &pos, &dir, 0, 0, 0, 1) != 0) {
             if (f.weapon != 0) {
                 Player_184b00 *player = DAT_004dd700->player;
-                player->FUN_00029bb0(f.weapon->FUN_001d72e0(), attached, timeLeft);
+                player->FUN_00029bb0((void *)f.weapon->FUN_001d72e0(), attached, timeLeft);
             }
         } else {
             if (f.weapon != 0)

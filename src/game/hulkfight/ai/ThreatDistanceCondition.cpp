@@ -245,11 +245,11 @@ struct Obj_12b8e0 {
     int Fn_00067b00(hulk_intptr);
 };
 struct Inner_12b8e0 {
-    char pad[8];
+    void* hulk_am_000; void* hulk_am_004;
     Obj_12b8e0* obj8;
 };
 struct Outer_12b8e0 {
-    char pad[0x20];
+    void* pad[8];
     Inner_12b8e0* inner;
 };
 extern Outer_12b8e0* hulk_at_004dd700;

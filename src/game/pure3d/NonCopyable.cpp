@@ -155,12 +155,12 @@ struct AgentList {
 };
 
 struct Middle {
-    char pad0[4];
+    void* hulk_am_000;
     AgentList *agents;
 };
 
 struct Root {
-    char pad0[0x20];
+    void* pad0[8];
     Middle *middle;
 };
 

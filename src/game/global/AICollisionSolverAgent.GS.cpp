@@ -85,7 +85,7 @@ struct Obj124_1b1710 {
     Thing_1b1710* f12c;
 };
 struct F20_1b1710 {
-    char pad0[0x124];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad0[280];
     Obj124_1b1710* f124;
 };
 struct F34 {

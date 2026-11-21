@@ -1004,7 +1004,7 @@ struct Character_1ab1b0 { unsigned __int64 FUN_000443c0(); };
 struct Entry_1ab1b0 { char pad[0x11c]; Character_1ab1b0* character; };
 struct Registry_1ab1b0 { Entry_1ab1b0* FUN_00059c10(uint_1ab1b0); };
 struct Lookup_1ab1b0 { Character_1ab1b0* FUN_001ab0e0(Key_1ab1b0*); };
-struct Holder_1ab1b0 { uint_1ab1b0 unused; Lookup_1ab1b0* lookup; };
+struct Holder_1ab1b0 { void* unused; Lookup_1ab1b0* lookup; };   // (gfx4) the actor manager: its world, then the template manager (HulkActorManager)
 struct World { void* pad0[8]; Holder_1ab1b0* holder; void* pad1[8]; Registry_1ab1b0* registry; }; 
 namespace hulkfight { namespace scenario {
 struct Event_CharacterTemplateCondition {
@@ -1077,7 +1077,7 @@ struct Variation { unsigned __int64 FUN_00044370(); };
 struct Found_1ab270 { char pad[0x11c]; Variation* variation; };
 struct Lookup_1ab270 { Found_1ab270* FUN_00059c10(int); };
 struct Registry_1ab270 { Variation* FUN_000238b0(Key_1ab270*); };
-struct Group_1ab270 { char pad[4]; Registry_1ab270* registry; };
+struct Group_1ab270 { void* hulk_am_000; Registry_1ab270* registry; };
 struct World { void* pad[8]; Group_1ab270* group; void* pad2[8]; Lookup_1ab270* lookup; };
 struct Character_1ab270 { char pad[4]; int kind; char pad2[0x4c]; Key_1ab270 key; int FUN_001c96e0(int); };
 struct Event_1ab270 { Character_1ab270* FUN_001d03c0(); };

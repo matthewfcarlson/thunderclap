@@ -1165,7 +1165,7 @@ struct List_1005c0 {
     void FUN_00029250(int a, Vec3_1005c0 *p, int b, int c);
 };
 struct World2_1005c0 {
-    char pad00[0x20];
+    void* pad00[8];
     List_1005c0 *list;
 };
 
@@ -1506,7 +1506,7 @@ struct Hub20_100b30 {
     void FUN_00029250(int a, V3_100b30 *v, int b, int c);
 };
 struct World {
-    char pad0[0x20];
+    void* pad0[8];
     Hub20_100b30 *p20;
 };
 
@@ -1841,7 +1841,7 @@ struct Hub20_101270 {
     void FUN_00029250(int, V3_101270*, int, int);
 };
 struct World {
-    char pad[0x20];
+    void* pad[8];
     Hub20_101270* p20;
 };
 struct Rng_101270 {
@@ -2158,7 +2158,7 @@ struct Hub20_101a30 {
     void FUN_00029250(int a, V3_101a30 *v, int b, int c);
 };
 struct World {
-    char pad0[0x20];
+    void* pad0[8];
     Hub20_101a30 *p20;
 };
 

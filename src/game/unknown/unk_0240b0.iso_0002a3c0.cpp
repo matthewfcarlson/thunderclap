@@ -12,9 +12,9 @@ namespace fn_f5e4f10d {
 // FUN_0002a3c0 @ 0x0002a3c0
 struct Item_2a3c0 { char pad0[8]; int a; int b; int* id; char pad14[0x108]; int category; bool FUN_00035ab0(); };
 struct Registry_2a3c0 {  };
-struct Owner_2a3c0 { char pad[0x44]; Registry_2a3c0* registry; };
+struct Owner_2a3c0 { void* pad[17];   /* (gfx3) the World's words (HulkWorld) */ Registry_2a3c0* registry; };
 struct List_2a3c0 {
- Owner_2a3c0* owner; char pad4[8]; int count; int ids[17]; int flags[16]; int extra[17];
+ Owner_2a3c0* owner; void* hulk_am_004; void* hulk_am_008; int count; int ids[17]; int flags[16]; int extra[17];
  int FUN_00024230(Item_2a3c0*); 
  int insert(Item_2a3c0* item);
 };

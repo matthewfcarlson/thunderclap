@@ -117,7 +117,7 @@ extern "C" HX *FUN_001b6580();
 class Mgr_2a4b0 {
 public:
     Ctx_2a4b0 *ctx;
-    char pad4[8];
+    void* hulk_am_004; void* hulk_am_008;
     int count;
     int ids[17];
     int arr1[16];

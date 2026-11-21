@@ -1037,17 +1037,17 @@ public:
 
 class PlayerHolder_1b9020 {
 public:
-    char pad0[0x124];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad0[280];
     Player_1b9020* player;
 };
 
 class World {
 public:
-    char pad0[0x20];
+    void* pad0[8];
     PlayerHolder_1b9020* holder;
-    char pad24[0x3c - 0x24];
+    void* pad24[6];
     Cursor_1b9020* cursor;
-    char pad40[0x54 - 0x40];
+    void* pad40[5];
     Panel_1b9020* panel;
 };
 

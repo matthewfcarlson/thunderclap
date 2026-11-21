@@ -1308,9 +1308,9 @@ struct Sub10_202c30 {
 };
 
 struct World {
-    char pad0[0x10];
+    void* pad0[4];
     Sub10_202c30 *sub10;
-    char pad14[0xc];
+    void* pad14[3];
     World20_202c30 *w20;       // 0x20
     Caster_202c30 *caster;     // 0x24
 };

@@ -138,11 +138,11 @@ struct D {
     float f;
 };
 struct C_90490 {
-    char p[0x124];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char p[280];
     D* d;
 };
 struct G_90490 {
-    char p[0x20];
+    void* p[8];
     C_90490* c;
 };
 extern G_90490* hulk_at_004dd700;

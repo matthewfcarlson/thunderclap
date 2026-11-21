@@ -1056,7 +1056,7 @@ class Obj_65ac0 {
 };
 struct Manager {
   public:
-    char _m_pad_0[0x2c];
+    void* _m_pad_0[11];
     union { void* item; void* ptr; };
 };
 extern Manager* hulk_at_004dd700;
@@ -1101,14 +1101,14 @@ struct Entity {
     void Update_000403f0();
 };
 struct EntList_65b80 {
-    char pad[0xc];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008;
     int count;
     Entity* Get_00024190(int i);
 };
 struct Game_65b80 {
-    char pad[0x20];
+    void* pad[8];
     EntList_65b80* list;
-    char pad2[0x8];
+    void* pad2[2];
     int val;
 };
 extern Game_65b80* g_game_65b80;
@@ -1124,12 +1124,12 @@ struct Obj_65b80 {
     void Tick(int a);
 };
 struct Manager_65c10 {
-    char pad[0x0c];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008;
     int count;
     void* GetItem_00024190(int);
 };
 struct Root_65c10 {
-    char pad[0x20];
+    void* pad[8];
     Manager_65c10* manager;
 };
 extern Root_65c10* gRoot_65c10;
@@ -1139,7 +1139,7 @@ class Finder_65c50 {
 };
 class Manager_65c50 {
   public:
-    char pad[0x20];
+    void* pad[8];
     Finder_65c50* finder;
 };
 extern Manager_65c50* gManager_65c50;
@@ -1227,7 +1227,7 @@ class Obj_660a0 {
     Obj_660a0* Get();
 };
 struct Provider {
-    char pad[0x2c];
+    void* pad[11];
     void* item;
 };
 extern Provider* gProvider;
@@ -5530,7 +5530,7 @@ char FUN_001d04d0(const void* typeInfo);                      // type_info test 
 
 struct Entity { char pad[0x1b0c]; float value; char pad2[0x94]; unsigned char active; };
 struct Manager_662b0 { Entity* FUN_00024280(unsigned int a, unsigned int b); };
-struct World { char pad[0x20]; Manager_662b0* manager; };
+struct World { void* pad[8]; Manager_662b0* manager; };
 struct Entry_662b0 { unsigned int a,b; };
 struct Object { char pad[0x170]; Entry_662b0 entries[40]; int count; bool FUN_000662b0(); };
 bool Object::FUN_000662b0() {
@@ -5607,7 +5607,7 @@ struct TargetTable_66390 {
 };
 
 struct World {
-    char pad0[0x20];
+    void* pad0[8];
     TargetTable_66390 *targets;
 };
 
@@ -6245,7 +6245,7 @@ struct Registry_66d50 {
 };
 
 struct World {
-    char pad00[0x20];
+    void* pad00[8];
     Registry_66d50* registry;
 };
 
@@ -6554,13 +6554,13 @@ struct Target_67230 {
 };
 
 struct TargetTable_67230 {
-    char pad0[0x124];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad0[280];
     Target_67230 *player;
     Target_67230 *FUN_00024280(int a, int b);
 };
 
 struct World {
-    char pad0[0x20];
+    void* pad0[8];
     TargetTable_67230 *targets;
 };
 
@@ -6914,13 +6914,13 @@ public:
 
 class Sub_677d0 {
 public:
-    char pad0[0x124];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad0[280];
     Entity *entity;
 };
 
 class World {
 public:
-    char pad0[0x20];
+    void* pad0[8];
     Sub_677d0 *sub;
 };
 

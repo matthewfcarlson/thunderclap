@@ -309,7 +309,7 @@ class Queue_35930 {
     void Send_001cbc20(void*);
 };
 struct Global_35930 {
-    char pad[0x30];
+    void* pad[12];
     Queue_35930* q;
 };
 extern Global_35930* hulk_at_004dd700;
@@ -769,8 +769,8 @@ struct Obj_36a20 {
     void Make_000359e0(Temp_36a20* t);
 };
 struct Global_36a20 {
-    char pad[0x20];
-    int x;
+    void* pad[8];   // (gfx4) the World's words (HulkWorld)
+    void* x;        // +0x20 the actor manager
 };
 extern Global_36a20* gGlobal_36a20;
 extern "C" bool __stdcall FUN_00025d30(Obj_36a20* o);
@@ -2531,8 +2531,8 @@ struct Scale_37080 { char pad[0x34]; float value; };
 struct Planner {
     char FUN_00067ce0(int a, int b, Vec4_37080 *v, void *buf, int *out);
 };
-struct Holder_37080 { char pad[8]; Planner *planner; };
-struct World { char pad[0x20]; Holder_37080 *holder; };
+struct Holder_37080 { void* hulk_am_000; void* hulk_am_004; Planner *planner; };
+struct World { void* pad[8]; Holder_37080 *holder; };
 
 class Tracker_37080 {
 public:

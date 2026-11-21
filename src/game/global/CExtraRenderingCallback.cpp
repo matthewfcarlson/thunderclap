@@ -612,9 +612,9 @@ struct Hero_1bcc30 {
 };
 
 struct Scene_1bcc30 {
-    char pad0[0x124];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad0[280];
     Hero_1bcc30 *hero;
-    char pad128[0x350 - 0x128];
+    char pad128[540]; void* hulk_am_344; void* hulk_am_348; char pad128_1[4];
     bool active;
 };
 
@@ -1001,9 +1001,9 @@ struct Obj124_1bcef0 {
 };
 
 struct Obj20_1bcef0 {
-    char pad0[0x124];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad0[280];
     Obj124_1bcef0 *f124;
-    char pad128[0x350 - 0x128];
+    char pad128[540]; void* hulk_am_344; void* hulk_am_348; char pad128_1[4];
     char b350;
     char b351;
     void FUN_001bc3e0(V3_1bcef0 *out);

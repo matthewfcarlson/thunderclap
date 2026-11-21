@@ -19,12 +19,12 @@ struct Entry_1725e0 {
     char flag;
 };
 struct Manager_1725e0 {
-    char pad[0xc];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008;
     int count;
     Entry_1725e0* get_00024190(int);
 };
 struct Root_1725e0 {
-    char pad[0x20];
+    void* pad[8];
     Manager_1725e0* manager;
 };
 struct A_1725e0 {

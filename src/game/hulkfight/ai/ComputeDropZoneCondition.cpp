@@ -94,17 +94,17 @@ struct Obj124_115fb0 {
     Sub328 *p12c;
 };
 struct Obj20_115fb0 {
-    char pad0[0x124];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad0[280];
     Obj124_115fb0 *p124;
     void FUN_00025260(int a, int b, int c);
 };
 } // namespace fn_fb4fb98f
 struct World {
-    char pad0[0xc];
+    void* pad0[3];
     Obj0c_115fb0 *p0c;
-    char pad10[0x10];
+    void* pad10[4];
     Obj20_115fb0 *p20;
-    char pad24[0x54 - 0x24];
+    void* pad24[12];
     Sys54 *p54;
 };
 namespace fn_fb4fb98f {

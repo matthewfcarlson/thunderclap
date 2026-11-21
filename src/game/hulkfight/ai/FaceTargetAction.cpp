@@ -143,7 +143,7 @@ struct Owner {
 struct Link {
 };
 struct Hold {
-    char pad0[0x124];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad0[280];
     Me *me;                 // 0x124
 };
 } // namespace fn_f8ed28bc

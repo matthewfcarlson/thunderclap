@@ -6253,14 +6253,14 @@ struct Mgr54 {
 };
 
 struct Sub20 {
-    char pad[0x124];
-    int f124;
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad[280];
+    void* f124;   // +0x124 the main actor (HulkActorManager::actor)
 };
 
 struct World {
-    char pad0[0x20];
+    void* pad0[8];
     Sub20 *f20;
-    char pad1[0x54 - 0x24];
+    void* pad1[12];
     Mgr54 *f54;
 };
 

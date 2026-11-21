@@ -310,7 +310,7 @@ struct Obj_240b0 {
 };
 // matches/0x00024320.cpp (stub ItemList_24320), size 0xd4
 struct ItemList_24320 {
-    int pad0[3]; // +0x00
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; // +0x00
     int count; // +0x0c
     int values[17]; // +0x10
     int field54[16]; // +0x54
@@ -319,19 +319,19 @@ struct ItemList_24320 {
 };
 // matches/0x000243f0.cpp (stub X_243f0), size 0x4
 struct X_243f0 {
-    int value; // +0x00
+    hulk_intptr value; // +0x00
     void FUN_000243f0(hulk_intptr);
 };
 // matches/0x00024540.cpp (stub Obj_24540), size 0xe4
 struct Obj_24540 {
-    char pad[0xe0]; // +0x00
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad[212]; // +0x00
     int values[1]; // +0xe0
     bool FUN_00024540(hulk_intptr);
     int Lookup(int);
 };
 // matches/0x00024720.cpp (stub ItemList_24720), size 0x32c
 struct ItemList_24720 {
-    char pad0[0x228]; // +0x00
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad0[280]; void* hulk_am_124; char pad0_1[256]; // +0x00
     char pad1[0x100]; // +0x228
     int count; // +0x328
     int Find(int, int);
@@ -339,14 +339,14 @@ struct ItemList_24720 {
 };
 // matches/0x00025240.cpp (stub C_25240), size 0x344
 struct C_25240 {
-    char pad[0x340]; // +0x00
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad[280]; void* hulk_am_124; char pad_1[536]; // +0x00
     float value; // +0x340
     void FUN_00025240(float);
 };
 // matches/0x00025260.cpp (stub C_25260), size 0x14 (0x18)
 struct C_25260 {
     void* v; // +0x00
-    int pad[2]; // +0x04 (+0x08)
+    void* hulk_am_004; void* hulk_am_008; // +0x04 (+0x08)
     int count; // +0x0c (+0x10)
     int items[1]; // +0x10 (+0x14)
     void FUN_00025260(int, int, int);
@@ -354,7 +354,7 @@ struct C_25260 {
 // matches/0x00025370.cpp (stub Target_25370), size 0x14 (0x18)
 struct Target_25370 {
     int* vt; // +0x00
-    int pad[2]; // +0x04 (+0x08)
+    void* hulk_am_004; void* hulk_am_008; // +0x04 (+0x08)
     int count; // +0x0c (+0x10)
     int items[1]; // +0x10 (+0x14)
     void FUN_00025370(int arg);
@@ -362,25 +362,26 @@ struct Target_25370 {
 // matches/0x000253c0.cpp (stub Target_253c0), size 0x14 (0x18)
 struct Target_253c0 {
     int* vt; // +0x00
-    int pad[2]; // +0x04 (+0x08)
+    void* hulk_am_004; void* hulk_am_008; // +0x04 (+0x08)
     int count; // +0x0c (+0x10)
     int items[1]; // +0x10 (+0x14)
     void FUN_000253c0(int arg);
 };
 // matches/0x00025720.cpp (stub C_25720), size 0x590
 struct C_25720 {
-    char pad[0x58c]; // +0x00
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad[280]; void* hulk_am_124; char pad_1[540]; void* hulk_am_344; void* hulk_am_348; char pad_2[576]; // +0x00
     int count; // +0x58c
     void FUN_00025720(int);
 };
 // matches/0x00025890.cpp (stub C_25890), size 0xc10
 struct C_25890 {
-    char pad[0xc10]; // +0x00
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad[280]; void* hulk_am_124; char pad_1[540]; void* hulk_am_344; void* hulk_am_348; char pad_2[2244]; // +0x00
+    char names[9][0x20]; // +0xc10 (gfx3)
     void* FUN_00025890(int x);
 };
 // matches/0x00025930.cpp (stub Palette), size 0xd40
 struct Palette_25930 {
-    char pad[0xd30]; // +0x00
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad[280]; void* hulk_am_124; char pad_1[540]; void* hulk_am_344; void* hulk_am_348; char pad_2[2532]; // +0x00
     unsigned int colors[4]; // +0xd30
     unsigned int* FUN_00025930(unsigned int* out, int index);
 };
@@ -391,15 +392,15 @@ struct Obj_259f0 {
 };
 // matches/0x00025eb0.cpp (stub Thing_25eb0), size 0x58c (0x598)
 struct Thing_25eb0 {
-    char pad000[4]; // +0x00
+    void* hulk_am_000; // +0x00
     void* mChild; // +0x04 (+0x08)
-    char pad008[0x48]; // +0x08 (+0x10)
+    void* hulk_am_008; char pad008[68]; // +0x08 (+0x10)
     unsigned char mFlag50; // +0x50 (+0x58)
     char pad051[0x83]; // +0x51 (+0x59)
     int mA; // +0xd4 (+0xdc)
     int mB; // +0xd8 (+0xe0)
     int mC; // +0xdc (+0xe4)
-    char pad0e0[0x270]; // +0xe0 (+0xe8)
+    char pad0e0[68]; void* hulk_am_124; char pad0e0_1[540]; void* hulk_am_344; void* hulk_am_348; char pad0e0_2[4]; // +0xe0 (+0xe8)
     unsigned char m350; // +0x350 (+0x358)
     unsigned char m351; // +0x351 (+0x359)
     unsigned char m352; // +0x352 (+0x35a)
@@ -410,7 +411,7 @@ struct Thing_25eb0 {
 };
 // matches/0x000269f0.cpp (stub C_269f0), size 0x32c
 struct C_269f0 {
-    char pad[0x228]; // +0x00
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad[280]; void* hulk_am_124; char pad_1[256]; // +0x00
     char slots[0x100]; // +0x228
     int count; // +0x328
     int find(int, int);

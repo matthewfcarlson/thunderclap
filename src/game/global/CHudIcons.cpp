@@ -93,7 +93,7 @@ struct Player_c72e0 {
     Pos_c72e0 *pos;               // 0x10
 };
 struct Me_c72e0 {
-    char pad0[0x124];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad0[280];
     Player_c72e0 *player;         // 0x124
 };
 } // namespace fn_f198369f

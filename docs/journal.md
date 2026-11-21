@@ -2320,3 +2320,25 @@ blocks fight::Action's whole family: the records come first there.
 - **0x000a89c0** (CDramaticCamera) had its clang code changed by the pre.h include, and was re-proved in `--wine`.
 - Wine pair (studio): control 108981 (45cd75af4), proof 108991, play3 60000: GATE ok (ref: ok). No trap: integ7's frame
   8,730 trap came from unguarded idle shakes, and the guard now covers them.
+
+## 2026-11-21 gfx4: CActorManager's views on its pointer words (C12b)
+
+- **One batch (D172).** The actor manager's six pointer words (+0x00 world, +0x04 / +0x08 the two sub-objects, +0x124
+  the main actor, +0x344 / +0x348 the reference-counted objects; include/decls/actor_manager.h) now sit in pointer-sized
+  members in every view that reaches them: the ~70 `this` views in unk_0240b0*.cpp and the owners.h stubs (gfx3's
+  amfix.py), and 134 external functions in 60 TUs. In each external function the World view's `char` pads in 0x00..0x5c
+  became `void*` words and the manager view's pads were split at the six words (build/gfx4/scripts/amloc.py finds both
+  views by the block, then wfix.py / amfix.py). Pads split on the 32-bit offsets keep MSVC's code, code hashes and checker
+  views: across the whole tree verify found no MSVC code change and no view change except where a type changed.
+- **Callee types as defined.** The manager's setters take pointers and a float: 0x00029b50 `(Ref*, Ref*, float)` and
+  0x00029bb0 `(void* key, Thing*, float)` still MATCH with those types, 0x00025590 takes its two names as pointers and
+  the remaining time as a float, and 0x00025240 takes a float. Their callers passed handles as `int` / `unsigned` and
+  the value as an `int` (natively a float travels in another register). Ten equivalent blocks whose view or clang code
+  moved were re-proven (msvc and wine at 3,000).
+- **0x00024e90** matches again once the provider is held in a local: the inline cast loaded the int handle before the
+  header and changed the register allocation. It is a matches block now (it was equivalent).
+- **Native.** Start-up no longer faults in 0x00024800 (the world pointer 0x000243f0 stored is whole). It now runs
+  through 0x00086cb0 and hangs in the game loop with unbound callees (0x0023f720 / 0x0023f760 / 0x001b93a0 from
+  0x00086cb0, and decl1's family). Pointer words the manager receives from other objects are still held as `int` by
+  those objects' own views (a fighter's +0x12c, CSPHulkPropInstance's +0xa0 -> +0x10 handle that 0x001d72e0 returns):
+  they bind now, but the values stay truncated until those classes get records.

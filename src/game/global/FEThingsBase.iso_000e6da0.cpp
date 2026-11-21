@@ -14,7 +14,7 @@ struct ResetObject {
     void FUN_000363d0();
 };
 struct ContextChild {
-    char pad[0x124];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad[280];
     ResetObject* reset;
 };
 struct World {

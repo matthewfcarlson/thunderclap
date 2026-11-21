@@ -329,12 +329,12 @@ struct Holder_a1930 {
     Inner_a1930* inner;
 };
 struct Game_a1930 {
-    char pad0[0x124];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad0[280];
     Holder_a1930* holder;
 };
 } // namespace fn_f69c308d
 struct World {
-    char pad0[0x20];
+    void* pad0[8];
     Game_a1930* game;
 };
 namespace fn_f69c308d {

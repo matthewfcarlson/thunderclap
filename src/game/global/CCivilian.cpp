@@ -34,13 +34,13 @@ class Plr {
 };
 class Mgr_81340 {
   public:
-    char pad[0x10];
+    void* pad[4];
     struct Sub_81340* m10;
-    char pad2[0x20 - 0x14];
+    void* pad2[3];
     struct Pl* m20;
 };
 struct Pl {
-    char pad[0x124];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad[280];
     Plr* m124;
 };
 struct Sub_81340 {

@@ -157,7 +157,7 @@ struct Hero_1251f0 {
     V3_1251f0 pos;                 // 0x1a60
 };
 struct Reg_1251f0 {
-    char pad0[0x124];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad0[280];
     Hero_1251f0 *f124;
     Obj10_1251f0 *FUN_00024280(int lo, int hi);
 };
@@ -621,7 +621,7 @@ struct Locator {
 };
 
 struct Slot_125680 {
-    char pad0[0x124];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad0[280];
     Locator *locator;
 };
 

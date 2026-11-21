@@ -34,11 +34,11 @@ struct ModeC {
 };
 
 struct Globals_1a54a0 {
-    char pad0[0xc];
+    void* pad0[3];
     ModeA *modeA;
-    char pad10[0x20 - 0x10];
+    void* pad10[4];
     ModeB_1a54a0 *modeB;
-    char pad24[0x28 - 0x24];
+    void* pad24;
     ModeC *modeC;
 };
 

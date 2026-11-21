@@ -659,7 +659,7 @@ struct Locator {
 };
 
 struct Slot_125820 {
-    char pad0[0x124];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad0[280];
     Locator *locator;
 };
 
@@ -884,7 +884,7 @@ struct Handle_125a90 {
 };
 
 struct Owner_125a90 {
-    char pad00[0x124];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad00[280];
     Fighter_125a90* current;           // 0x124
 };
 

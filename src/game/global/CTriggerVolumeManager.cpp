@@ -2049,7 +2049,7 @@ struct List_1fe280 { int count; Item_1fe280* items; };
 struct Lookup_1fe280 { void FUN_00026c30(Vec_1fe280*, const char*); };
 struct State_1fe280 { char pad[0x59c]; int key; };
 struct Manager_1fe280 {  };
-struct World { char pad[0x20]; Lookup_1fe280* lookup; char gap[0x30]; Manager_1fe280* manager; };
+struct World { void* pad[8]; Lookup_1fe280* lookup; void* gap[12]; Manager_1fe280* manager; };
 
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" double __cdecl sqrt(double);

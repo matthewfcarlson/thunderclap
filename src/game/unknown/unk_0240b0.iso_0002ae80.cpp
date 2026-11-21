@@ -28,8 +28,8 @@ struct Levels { Level_2ae80* FUN_00086310(); };
 struct World { void* p[3]; Events_2ae80* events; void* p2[17]; Levels* levels; };
 struct Debug_2ae80 { void FUN_0023f7b0(Vec_2ae80*,Vec_2ae80*,unsigned,int); void FUN_0023f7d0(Vec_2ae80*,unsigned,float,int); };
 struct Manager_2ae80 {
- Owner_2ae80* owner; char p0[8]; int count; int ids[17]; int flags[16]; int values[19]; int blocked[17]; Actor_2ae80* mainActor;
- char p1[0x353-0x128]; unsigned char debugLine; Vec_2ae80 start,end; unsigned char debugSphere; char p2[3]; Vec_2ae80 sphere;
+ Owner_2ae80* owner; void* hulk_am_004; void* hulk_am_008; int count; int ids[17]; int flags[16]; int values[19]; int blocked[17]; Actor_2ae80* mainActor;
+ char p1[540]; void* hulk_am_344; void* hulk_am_348; char p1_1[7]; unsigned char debugLine; Vec_2ae80 start,end; unsigned char debugSphere; char p2[3]; Vec_2ae80 sphere;
  void FUN_00025750(); void FUN_0002a4b0(int,int); void FUN_00025110(float); void FUN_000245b0(); void target(int arg,float dt);
 };
 void Manager_2ae80::target(int arg,float dt) {

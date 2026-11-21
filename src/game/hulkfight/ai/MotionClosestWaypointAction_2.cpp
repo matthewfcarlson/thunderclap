@@ -1256,9 +1256,9 @@ struct Mgr_118050 {
 };
 
 struct World {
-    char pad00[0xc];
+    void* pad00[3];
     Mgr_118050 *mgr;
-    char pad10[0x20 - 0x10];
+    void* pad10[4];
     Slot_118050 *slot;
 };
 

@@ -771,7 +771,7 @@ struct Actor_1a050 {
  char pad3[0x20b0-0x394]; int disabled;
  int FUN_00038f90(int,int,int);
 };
-struct Collection_1a050 { char pad[0xc]; int count; Actor_1a050* FUN_00024190(int); };
+struct Collection_1a050 { void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; int count; Actor_1a050* FUN_00024190(int); };
 struct World { void* pad[8]; Collection_1a050* collection; };
 struct Config_1a050 { char pad[0x2c]; int value; };
 struct Target_1a050 {

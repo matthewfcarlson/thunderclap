@@ -305,7 +305,7 @@ struct Player_835a0 {
     Fighter_835a0* f10;
 };
 struct List_835a0 {
-    char pad00[0x124];
+    void* hulk_am_000; void* hulk_am_004; void* hulk_am_008; char pad00[280];
     Player_835a0* player;
 };
 class Action;
@@ -320,13 +320,13 @@ struct World {
     void FUN_001dd470(int, Mat_835a0*, float);
 };
 struct Globals_835a0 {
-    char pad00[0xc];
+    void* pad00[3];
     World* world;
-    char pad10[0x10];
+    void* pad10[4];
     List_835a0* list;
-    char pad24[0x10];
+    void* pad24[4];
     Mgr2_835a0* mgr2;
-    char pad38[0x1c];
+    void* pad38[7];
     Holder28_835a0* holder;
 };
 

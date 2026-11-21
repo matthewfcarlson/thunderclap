@@ -33,9 +33,9 @@ class Entity {
 };
 class Sink_1825f0 {
   public:
-    char pad[0x20];
+    void* pad[8];   // (gfx4) the World's words (HulkWorld): the actor manager at +0x20
     void* ptr;
-    void send_00029c00(hulk_intptr);   // (decl1) passes as defined
+    void send_00029c00(void*);   // (decl1) passes as defined; (gfx4) 0x00029c00 takes the key reference
 };
 extern Sink_1825f0* hulk_at_004dd700;
 class End_1825f0 {
@@ -97,7 +97,7 @@ void BallAndChainShootAction_1825f0::vfunc_4() {
         if (root) {
             Sink_1825f0* s = (Sink_1825f0*)root->ptr;
             if (s)
-                s->send_00029c00(((int)((owners::C_1d72e0 *)e)->FUN_001d72e0()));
+                s->send_00029c00((void*)((owners::C_1d72e0 *)e)->FUN_001d72e0());
         }
     }
     End_1825f0* end = getEnd_0027f250();
