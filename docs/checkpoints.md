@@ -178,7 +178,32 @@ matched may diverge in the run (the control's own divergences are the known ones
 ckpt_gate transients are float drift (the quantised hashes agree): the camera from frame 5,875 (the 5880/5910
 checkpoints) and Hulk and the actors from 34,240 (34260).
 
-## Proposal: when a refactor needs no re-proof (D155; not implemented, the user decides)
+## The rule: when a refactor needs no re-proof (D155; adopted as D162, refined as D163)
+
+**Adopted** by the user (D162, "adopt + audit"; D163 sets the bar). Status: pieces 1-3 landed (window-counted block
+coverage 9409ed988, the reference manifest `config/ckpt-refs.json` 559d63013, `tools/ckpt_validate.py` b6180f607);
+the ledger kind `ckpt` (4) and the audit (5) are in progress. Until piece 4 lands, nothing is validated this way.
+What D162/D163 add to R1-R5 below:
+
+- A `ckpt` ledger line covers **only the Wine mode**: it satisfies (addr, wine, wine code hash). The MSVC mode still
+  needs a proof whenever its code changed (a sharded proof is fine). A `ckpt` line never counts as an `equiv` proof:
+  not for `hash --from-ledger`, carries, post contracts or the x64 gate.
+- **R2** is computed from a mechanical block diff of the control and proof images, linked without ICF
+  (`HULK_WINE_NOICF=1`): a different control-flow shape makes the whole function changed. Every changed block must
+  have run in **at least two 300-frame windows** within **one** reference's compared frames (safeguard 1; play3: 25.5%
+  of hit blocks run in a single window, mostly load code). The line records the coverage job and the image hash.
+- **R3**: every manifest reference replayed, `ckpt_gate --require-ref` ok, no frame missing, the manifest's hashes equal
+  to the files used (verified on the gate machine); the control's own divergences are listed and stay exempt only
+  where the control diverges.
+- **R4** is an allowlist tied to the probe's tags (`ckpt_validate.ALLOWLIST`: each entry names the tags that observe
+  it); everything else is denied. The allowlist is policy: an entry is added only with the reviewer's approval and the
+  lead's OK, naming its tags; removing an entry withdraws, at once, the `ckpt` lines that relied on it (R2 and R4 are
+  re-checked when a line is read, never trusted from it). 64-bit-only blocks and `matches` blocks are excluded.
+- **Audit** (safeguard 2): weekly, a 5% sample of the live `ckpt` lines (seed from the week id, stratified by
+  allowlist entry) also gets a full proof (msvc, `--wine`, `--x64` at 3,000). A failure revokes that line (D154) and
+  appends a pause record: no new `ckpt` line is accepted until the user lifts it; existing lines keep counting.
+
+The proposal as it was written (R1-R5):
 
 A change to an `equivalent` or `matches` block today needs a fresh proof (`equiv.py` at 3,000 inputs, `--wine`,
 `--x64`) or a byte match. The proposal: a block whose changed code the reference recordings demonstrably run may
