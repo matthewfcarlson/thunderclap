@@ -765,19 +765,26 @@ public:
     char f_34;
 };
 
+// HULK_PORT_ABI (compat/ptr.h): slot 8 returns the bool its overriders' last call leaves in al (CAxisCondition's
+// vfunc_9, 0x00048650), which vfunc_7 (0x00048440) returns; the 32-bit builds keep void (wasm4)
+#if defined(HULK_PORT_ABI)
+typedef bool CControllerCondition_ret8;
+#else
+typedef void CControllerCondition_ret8;
+#endif
 // .?AVCControllerCondition@@  vftable 0x3f6d98 (9)
 class CControllerCondition : public ::CCondition {
 public:
     CControllerCondition(void* owner = 0) : ::CCondition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual bool vfunc_7(void*); // overrides CCondition slot 7
-    virtual void vfunc_8(hulk_intptr) = 0; // slot 8
+    virtual CControllerCondition_ret8 vfunc_8(hulk_intptr) = 0; // slot 8
 };
 
 // .?AVCAxisCondition@@  vftable 0x3f6e20 (10)
 class CAxisCondition : public ::CControllerCondition {
 public:
     CAxisCondition(void* owner = 0) : ::CControllerCondition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
-    virtual void vfunc_8(hulk_intptr); // overrides CControllerCondition slot 8
+    virtual CControllerCondition_ret8 vfunc_8(hulk_intptr); // overrides CControllerCondition slot 8
     virtual bool vfunc_9(int, int) = 0; // slot 9
     int axis;
 };
@@ -808,7 +815,7 @@ class CAxisDirectionCondition : public ::CControllerCondition {
 public:
     CAxisDirectionCondition(void* owner = 0) : ::CControllerCondition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual void vfunc_8(hulk_intptr); // overrides CControllerCondition slot 8
+    virtual CControllerCondition_ret8 vfunc_8(hulk_intptr); // overrides CControllerCondition slot 8
     int axis;
     float direction;
     float arc;
@@ -911,7 +918,7 @@ class CButtonCondition : public ::CControllerCondition {
 public:
     CButtonCondition(void* owner = 0) : ::CControllerCondition(owner) {} // (dtor1) the owner, on to fight::Condition(void*)
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
-    virtual void vfunc_8(hulk_intptr); // overrides CControllerCondition slot 8
+    virtual CControllerCondition_ret8 vfunc_8(hulk_intptr); // overrides CControllerCondition slot 8
     virtual bool vfunc_9(int); // slot 9
     virtual bool vfunc_10(void*, hulk_intptr) = 0; // slot 10
     int f_0c;

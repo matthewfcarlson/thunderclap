@@ -1010,6 +1010,13 @@ void Obj_1d6b60::run(Block_1d6b60 b, unsigned long arg) {
 // 0x001d6be0 CSPHulkPropInstance::vfunc_15 (22 B): matches/0x001d6be0.cpp [wrapped: conflict: CSPHulkPropInstance]
 // sym: ?vfunc_15@CSPHulkPropInstance@fn_001d6be0@@UAEXXZ
 namespace fn_001d6be0 {
+// HULK_PORT_ABI (include/compat/ptr.h): both paths jump to a function returning int (0x002fc6f0, StateProp's slot 15),
+// and the callers read it; the port builds return it (wasm4)
+#if defined(HULK_PORT_ABI)
+typedef int Ret_1d6be0;
+#else
+typedef void Ret_1d6be0;
+#endif
 class StateProp {
   public:
     virtual void v0();
@@ -1027,23 +1034,23 @@ class StateProp {
     virtual void v12();
     virtual void v13();
     virtual void v14();
-    virtual void vfunc_15();
+    virtual Ret_1d6be0 vfunc_15();
 };
 class CSPHulkPropInstance : public StateProp {
   public:
     char pad[0xa0 - sizeof(StateProp)];
     void* member;
-    void vfunc_15();
+    Ret_1d6be0 vfunc_15();
 };
 class Other_1d6be0 {
   public:
-    void Fnf_002fc6f0();
+    Ret_1d6be0 Fnf_002fc6f0();
 };
-void CSPHulkPropInstance::vfunc_15() {
+Ret_1d6be0 CSPHulkPropInstance::vfunc_15() {
     if (member)
-        ((Other_1d6be0*)member)->Fnf_002fc6f0();
+        return ((Other_1d6be0*)member)->Fnf_002fc6f0();
     else
-        StateProp::vfunc_15();
+        return StateProp::vfunc_15();
 }
 } // namespace fn_001d6be0
 

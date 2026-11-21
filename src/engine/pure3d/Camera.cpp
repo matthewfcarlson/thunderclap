@@ -38,6 +38,13 @@ class Inner_292a10 {
 };
 struct Sub_292a50 {
 };
+// HULK_PORT_ABI (include/compat/ptr.h): vfunc_18 ends with slot 16's call, and its callers read the char that leaves in
+// al; the port builds return it (wasm4)
+#if defined(HULK_PORT_ABI)
+typedef char Ret_292a50;
+#else
+typedef void Ret_292a50;
+#endif
 class Camera {
   public:
     virtual void _m_vf0();
@@ -56,9 +63,9 @@ class Camera {
     virtual void _m_vf13();
     virtual u32_2928e0 a14();
     virtual void f15(void*);
-    virtual void f16(void*, void*);
+    virtual Ret_292a50 f16(void*, void*);
     virtual void f17(int);
-    virtual void vfunc_18(void*, void*);
+    virtual Ret_292a50 vfunc_18(void*, void*);
     virtual int f19(void*);
     virtual void _m_vf20();
     virtual void _m_vf21();
@@ -312,12 +319,12 @@ void Camera::f17(int arg) {
 
 // 0x00292a50 pure3d::Camera::vfunc_18 (63 B): matches/0x00292a50.cpp
 // sym: ?vfunc_18@Camera@fn_f91e2119@@UAEXPAX0@Z
-void Camera::vfunc_18(void* a, void* b) {
+Ret_292a50 Camera::vfunc_18(void* a, void* b) {
     char local[12];
     if (!flag)
         f26();
     ((owners::Mat_22c2b0 *)&sub)->FUN_0022c2b0((float *)a, (float *)local);
-    f16(local, b);
+    return f16(local, b);
 }
 
 } // namespace fn_f91e2119

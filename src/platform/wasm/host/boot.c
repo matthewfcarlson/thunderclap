@@ -114,9 +114,6 @@ void ff_dispatch_miss(uint32_t addr, uint32_t ecx, uint32_t edx, void* st, void*
     }
 }
 
-/* x86's eax after the last packed call (tools/wasm_ir.py EAX_PASS): what a void function hands its callers */
-uint32_t ff_eax;
-
 uint32_t ff_call(uint32_t addr, int n, ...) {
     uint32_t st[16] = {0};
     uint64_t rb[2] = {0};

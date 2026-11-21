@@ -20,9 +20,9 @@ class Helper_48650 {
 
 // 0x00048650 CAxisCondition::vfunc_8 (45 B): matches/0x00048650.cpp
 // sym: ?vfunc_8@CAxisCondition@@UAEXH@Z
-void CAxisCondition::vfunc_8(hulk_intptr arg) {
+CControllerCondition_ret8 CAxisCondition::vfunc_8(hulk_intptr arg) {
     Helper_48650* h = ((Helper_48650 *)((owners::Object_592a0 *)(((Helper_48650*)arg)))->FUN_000592a0());
     int v = h->second_00059a30();
-    vfunc_9(v, v + this->axis * 0x38 + 0x1ff4);
+    return (CControllerCondition_ret8)vfunc_9(v, v + this->axis * 0x38 + 0x1ff4);    // (HULK_PORT_ABI: gen/global.h)
 }
 

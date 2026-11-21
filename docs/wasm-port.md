@@ -23,7 +23,10 @@ Needs Homebrew LLVM (`HULK_LLVM_BIN`, default `/opt/homebrew/opt/llvm/bin`), Ems
 TU's blocks and their pinned symbols) and the Wine build's binding map of the same tree (`HULK_WASM_BINDINGS`,
 default `build/wasm/maps/bindings.json`: which XBE address each name the tree references means). Nothing in the tree
 changes for the build; the outputs stay in `build/wasm/` (a module built from the game is derived content: never
-committed).
+committed). `tools/wasm_inputs.py` makes both at one commit: `submit --name ME` runs a queue job on HEAD (materialize,
+the map from `wine_link.py --no-inventory --no-link`, the snapshot; about 11 minutes on mac2) and `fetch ID` unpacks
+it into `build/wasm-inputs/<commit>/` and prints the two exports; `local --rev REV` does the same from a `git archive`
+workspace here (slow on 2 local jobs). Recompile every TU after a change of inputs.
 
 ## How a TU is built
 
@@ -132,11 +135,18 @@ frees (`??3@YAXPAXI@Z`) go to the game's unsized ones; clang's RTTI type descrip
 Wine link's rules (wrapper namespaces dropped, an `_<hex>` suffix dropped, a unique leaf name), so a cast to a
 stand-in name (`FrameControllerLoader_297680`) finds the game's class.
 
-**EAX_PASS (a stopgap, to go)**: a packer stores the callee's eax in `ff_eax` and the generic entry of a void function
-hands it back, as x86 leaves eax from a void function's last call. The tree's `ParamBranch<T>::vfunc_6`
-(`void vfunc_6(void* p) { fn(p); }`, 147 blocks in 43 fight/hulkfight TUs) is read by its callers as fn's result
-(0x235290); without it the new game's fight data stops parsing at frame ~420. The source fix (HULK_PORT_ABI) replaces
-it.
+**A void whose callers read eax**: x86 leaves eax from a void function's last call, and some callers read it: the
+tree's `ParamBranch<T>::vfunc_6` (147 blocks in 43 fight/hulkfight TUs) is read by its callers as `fn`'s result
+(0x235290); without it the new game's fight data stops parsing at frame ~420. The port builds return such results in
+source (HULK_PORT_ABI, include/compat/ptr.h): `hulk_eaxptr vfunc_6(void* p) { return fn(p); }` (844e08e50), and five
+more voids play3 needs (wasm4): 0x00292a50 pure3d::Camera::vfunc_18 (slot 16's char), 0x001d6be0
+CSPHulkPropInstance::vfunc_15 (an int), 0x00048650 CAxisCondition::vfunc_8 (vfunc_9's bool; gen's
+`CControllerCondition_ret8`), 0x00048440 CControllerCondition::vfunc_7 (a `jmp` to slot 8: its argument and bool) and
+0x00023e60 (0x00088fb0's unsigned). Each is a typedef that is void on the 32-bit builds, so their code is unchanged.
+The binding map is the Wine build's, whose name says void, so `wasm_port.py` binds such a block by its name with the
+void (`X`) spelled `H`, `I`, `PAX`, `_N`, `D` or `E`. They were found by bisecting over every void block with a
+debugging build that hands a void's callers the last packed call's eax (wasm3's EAX_PASS stopgap, which did that for
+every void and is gone): first divergence 439 without them, 446 with them.
 
 ## Threads and fibers
 

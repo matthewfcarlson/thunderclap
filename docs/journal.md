@@ -2535,3 +2535,27 @@ passes the controller set-up and the first frame callees and stops in 0x00207410
   natively stays a stub that returns without writing.
 - Local polymorphic script-binding stand-ins crash only when Lua calls them (slot 2 of clang's short vftable): the
   rtti baseline (~600 Function/Method/Closure entries) is the list to convert to include/game/script_bind.h records.
+
+## 2026-11-21 wasm4: the wasm inputs at HEAD, EAX_PASS gone (D205)
+
+- `tools/wasm_inputs.py` builds the wasm port's inputs at one commit as a queue job (materialize, the binding map
+  from `wine_link.py --no-inventory --no-link`, the snapshot; written under the job workspace's `wasm-in/`, never
+  the host checkout's `build/`): job 111363 at bf539653d, 11 minutes on mac2. The wasm build no longer reads wasm1's
+  snapshot of ~7c6f421a7.
+- The Wine map names a HULK_PORT_ABI function with the 32-bit void (`X`); the port build defines it with a result.
+  `wasm_port.py` binds the definition and callers' declarations by the name with the void spelled `H`/`I`/`PAX`/`_N`/
+  `D`/`E` (147 ParamBranch blocks were otherwise left without a definition on the new snapshot).
+- EAX_PASS (every void hands back the last packed call's eax) hid five more voids whose callers read eax. Without it
+  the first divergence moved from 446 to 439. Bisecting with a debugging build that hands eax back only for the void
+  blocks in an address set (61 replays to frame 450) found exactly five: 0x00292a50 pure3d::Camera::vfunc_18
+  (slot 16's char), 0x001d6be0 CSPHulkPropInstance::vfunc_15 (int), 0x00048650 CAxisCondition::vfunc_8 (vfunc_9's
+  bool; gen's slot 8 is `CControllerCondition_ret8`), 0x00048440 CControllerCondition::vfunc_7 (a `jmp [eax+0x20]`
+  that hands slot 8 its caller's argument and returns its bool: the tree's view passed no argument) and 0x00023e60
+  (0x00088fb0's unsigned). They return it under HULK_PORT_ABI; 32-bit code unchanged (all MATCH). The 64-bit build
+  has the same bugs.
+- play3 on wasm (-O0, compiled): all 60,000 frames in 31 to 38 s, every gameplay tag equal to the reference through frame
+  445 (rng first differs at 446), particle now to 651 (was 565).
+- The frame-446 rng divergence is not "no active ambient cell": the cells 0x0007bbd0 builds come from the tile table
+  (CAmbientsManager::vfunc_1, "BitDef"), and the tiles around the hulk's tile 229 have no road bits in either of the
+  two tables loaded at frame 439, so 0x0007a420 finds no cell from the data. Frame 445 draws 4 here (0x0007a420 1,
+  0x0007a8f0 2: the one path is 270+ units away, one more after them); the reference draws 6.

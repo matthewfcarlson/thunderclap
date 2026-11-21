@@ -37,13 +37,26 @@ class CControllerCondition {
     virtual void vfunc_4();
     virtual void vfunc_5();
     virtual void vfunc_6();
+#if defined(HULK_PORT_ABI)
+    virtual bool vfunc_7(hulk_intptr p);
+    virtual bool vfunc_8(hulk_intptr p);
+#else
     virtual void vfunc_7();
     virtual void vfunc_8();
+#endif
 };
 
+// HULK_PORT_ABI (include/compat/ptr.h): `mov eax, [ecx]; jmp [eax + 0x20]` hands slot 8 the caller's argument and
+// returns slot 8's bool (gen CControllerCondition::vfunc_7(void*)); the port builds say so (wasm4)
+#if defined(HULK_PORT_ABI)
+bool CControllerCondition::vfunc_7(hulk_intptr p) {
+    return vfunc_8(p);
+}
+#else
 void CControllerCondition::vfunc_7() {
     return vfunc_8();
 }
+#endif
 } // namespace fn_00048440
 
 namespace fn_f7d9f22f {

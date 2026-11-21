@@ -47,11 +47,18 @@ struct Obj_23e50 {
     Sub_23e50 sub;
     void* Target();
 };
+// HULK_PORT_ABI (include/compat/ptr.h): Target jumps to 0x00088fb0, whose unsigned result its callers read; the port
+// builds return it (wasm4)
+#if defined(HULK_PORT_ABI)
+typedef unsigned int Ret_23e60;
+#else
+typedef void Ret_23e60;
+#endif
 class Obj_23e60 {
   public:
     char pad[0x80];
-    void Helper_00088fb0();
-    void Target();
+    Ret_23e60 Helper_00088fb0();
+    Ret_23e60 Target();
 };
 struct Pair {
     unsigned a, b;
@@ -131,8 +138,8 @@ void* Obj_23e50::Target() {
 
 // 0x00023e60 FUN_00023e60 (11 B): matches/0x00023e60.cpp
 // sym: ?Target@Obj_23e60@fn_f88922b7@@QAEXXZ
-void Obj_23e60::Target() {
-    ((Obj_23e60*)((char*)this + 0x80))->Helper_00088fb0();
+Ret_23e60 Obj_23e60::Target() {
+    return ((Obj_23e60*)((char*)this + 0x80))->Helper_00088fb0();
 }
 
 

@@ -123,6 +123,24 @@ def binding_map():
 _BASE = None
 
 
+# the return types a HULK_PORT_ABI function returns in place of the 32-bit builds' void (MS mangling: int, unsigned,
+# void*, bool, char, unsigned char)
+RET_CODES = ("H", "I", "PAX", "_N", "D", "E")
+
+
+def port_abi_names(sym):
+    """SYM (MS-mangled, with a void result: `X` after the calling convention) with that result spelled as each of
+    RET_CODES: the names a HULK_PORT_ABI function or a caller's declaration of it has on the port builds."""
+    out = []
+    if "@@" not in sym:
+        return out
+    for k in range(sym.index("@@") + 2, len(sym)):
+        if sym[k] == "X" and sym[k - 1] in "EAGIZ@":
+            out = [sym[:k] + r + sym[k + 1:] for r in RET_CODES]
+            break
+    return out
+
+
 def tu_bindings(tu):
     """{IR spelling of a name: address} for TU: the map's bindings plus its per-TU choice of an ambiguous name."""
     global _BASE
@@ -133,6 +151,13 @@ def tu_bindings(tu):
             if v.get("addr"):
                 for s in coff_names(n):
                     _BASE[s] = int(v["addr"], 16)
+        # HULK_PORT_ABI: a name the map has with a void result (`X`) also binds with the port builds' result there
+        # (a caller's declaration of a function that returns what x86 left in eax, tu_mains)
+        for n, v in m["bindings"].items():
+            if v.get("addr"):
+                for w in port_abi_names(n):
+                    for s in coff_names(w):
+                        _BASE.setdefault(s, int(v["addr"], 16))
         # data a TU defines that is the original's (a static object the game's other code reads at its address)
         for n, a in m.get("local_data", {}).items():
             for s in coff_names(n):
@@ -387,7 +412,8 @@ def block_syms():
 def tu_mains(tu, ir, defmap, alt=None):
     """({IR name: address} of the TU's block definitions, {address: IR name} of blocks that are another block's
     code (identical code under one pinned symbol: a generic entry forwards)). By the map's definition name; else the
-    name with a float result spelled double (hulk_freg: `M` -> `N`); else the block's tree name (undecorated)."""
+    name with a float result spelled double (hulk_freg: `M` -> `N`); else with a void result spelled int or
+    void* (HULK_PORT_ABI: `X` -> `H` / `I` / `PAX` / `_N` / `D` / `E`); else the block's tree name (undecorated)."""
     defs = set(irname(t) for t in re.findall(r'^define [^\n]*?(' + NAME + r')\(', ir, re.M))
     out, rest = {}, []
     for a, sym in sorted(defmap.items()):
@@ -405,6 +431,18 @@ def tu_mains(tu, ir, defmap, alt=None):
                     v = sym[:k] + "N" + sym[k + 1:]
                     if v in defs and v not in out:
                         hit = v
+                        break
+        if hit is None:
+            # HULK_PORT_ABI (include/compat/ptr.h): a void the 32-bit builds keep returns what x86 left in eax here
+            # (hulk_eaxptr, a TU's own typedef): the binding map is the Wine build's, whose name says void (`X`); the one
+            # definition whose name has another return type in that place
+            for k in range(len(sym)):
+                if sym[k] == "X" and "@@" in sym[:k] and sym[k - 1] in "EAGIZ@":
+                    head, tail = sym[:k], sym[k + 1:]
+                    c = [d for d in defs if d not in out and len(d) > len(sym) - 1 and d.startswith(head)
+                         and d.endswith(tail) and d[k:len(d) - len(tail)] in RET_CODES]
+                    if len(c) == 1:
+                        hit = c[0]
                         break
         if hit:
             out[hit] = a
@@ -1009,8 +1047,6 @@ def bind_tu(ir, tu, tu_index, mains, same, bound, game, defsig, deftys):
     if any(k[2] for k in packers):
         lines.append("declare void @ff_dispatch(i32, i32, i32, ptr, ptr)")
     text = "\n".join(lines)
-    if "@ff_eax" in text and "@ff_eax = " not in text:
-        text += "\n@ff_eax = external global i32"
     for intr in ("declare void @llvm.memset.p0.i32(ptr, i8, i32, i1)",
                  "declare void @llvm.memcpy.p0.p0.i32(ptr, ptr, i32, i1)"):
         if intr.split("(")[0].split()[-1] + "(" not in text:
