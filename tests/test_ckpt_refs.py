@@ -4,6 +4,7 @@ need three runs, and coverage windows count only inside a reference's compared f
 Synthetic files only (no game data)."""
 import json
 import os
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -19,6 +20,7 @@ class T(unittest.TestCase):
     def setUp(self):
         self.d = tempfile.mkdtemp(prefix="ckrefs", dir=os.path.join(ROOT, "build") if os.path.isdir(
             os.path.join(ROOT, "build")) else None)
+        self.addCleanup(shutil.rmtree, self.d, True)
         self.ref = os.path.join(self.d, "r.ckref")
         ckpt_ref.write(self.ref, 3, {f: {1: (f, f)} for f in range(100, 3001)}, ckpt_ref.MAGIC_REF)
         self.rec = os.path.join(self.d, "r.hrp")

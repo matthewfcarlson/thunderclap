@@ -2090,7 +2090,9 @@ def lld_link(objects, aliases, undefined, vt_asm=None, dd_asm=None, startup_asm=
     for tag, extra in (("strict", []), ("force", ["/force:multiple"])):
         cmd = [lld, "/nologo", "/machine:x86", "/subsystem:console", "/entry:hulk_native_entry", "/nodefaultlib", "/safeseh:no",
                "/errorlimit:0", "/out:" + os.path.join(d, "hulk-%s.exe" % tag), "/map:" + os.path.join(d, "hulk-%s.map" % tag),
-               "/base:0x10000000", "@" + os.path.join(d, "objects.rsp"), "@" + os.path.join(d, "aliases.rsp")] + list(libs) + extra
+               "/base:0x10000000", "@" + os.path.join(d, "objects.rsp"), "@" + os.path.join(d, "aliases.rsp")] + list(libs) + extra \
+            + (["/opt:noicf"] if os.environ.get("HULK_WINE_NOICF") == "1" else [])   # (ckpt1, D163: coverage links
+        # keep every function at its own address, so a hit says which function ran; tools/ckpt_validate.py)
         r = subprocess.run(cmd, capture_output=True, text=True, errors="replace")
         log = r.stdout + r.stderr
         with open(os.path.join(d, "lld-link-%s.log" % tag), "w") as f:
