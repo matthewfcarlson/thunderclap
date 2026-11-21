@@ -1,0 +1,18 @@
+{
+ "version": 1,
+ "references": [
+  {
+   "name": "play3",
+   "ref": "build/ckpt/play3.ckref",
+   "ref_sha256": "4731a5b168a9d31741abf91ff37036143311a29f49094819376da1dc95e5d87e",
+   "recording": "build/rp1/play3.hrp",
+   "recording_sha256": "2c8fd8196a6826df72294d6af0ea0c33aa91558995dea179d996ca227bb0b6a4",
+   "probe": 3,
+   "runs": 3,
+   "compared": [
+    0,
+    56575
+   ]
+  }
+ ]
+}
