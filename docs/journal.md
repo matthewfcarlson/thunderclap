@@ -2140,3 +2140,18 @@ blocks fight::Action's whole family: the records come first there.
   agree there by chance, so references are now made from three runs (`ckpt_ref.py make A B C`).
 - docs/checkpoints.md has the proposed D155 rule (R1-R5, not implemented; the user decides) and the follow-ups
   (shared records for the probe's pointer chain; the probe calling the game's getters).
+
+## 2026-11-20 integ7: range contracts on object words (held item 8); 0x000a97e0's field items
+
+- `// pre: ge(*this+0xf4.f32, 0)` names a word of the object in ecx (type suffix required); the macro names the field
+  (`HULK_PRE_GE(shake[0].time, 0.0f)`) and tools/pre_field.py's i386 probe ties the two. The word is drawn inside its
+  range at every memory epoch; its writers are a census (typed stores over the tree, raw stores in the RTTI family's
+  methods) cited in the block's `// pre-writers:`. Landed a4b4c3bfc (rev5; regress 727/727).
+- 0x000a97e0 (the six camera shakes' elapsed times >= 0; writers 0x000a9390 and the block itself): MSVC and --wine
+  equivalent at 3,000 with the field items alone (105757 / 105758; no x87_range input), and 12,000 more --wine inputs
+  (105883-105886) found nothing. Still not a proof in --wine: dt is free, and dt = -1000 with time 0 makes clang's
+  exp(-t) overflow (0 * inf, a NaN rotation) where the original's x87 stays finite. Random draws miss it; a planted input
+  (`EQUIV_ON=plant:...`, regress only) shows it (`0x000a97e0_native_orange_negdt`). Only the MSVC proof is recorded;
+  --wine / --x64 wait for a dt contract, whose D152b obligations reach the five derived cameras' vfunc_35 (0x000abb90
+  passes a clock callee's result as dt).
+- The checker digest now covers tools/pre_field.py (a change there changes level 2's verdicts).

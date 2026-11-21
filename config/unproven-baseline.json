@@ -166,12 +166,13 @@
   "0x000a97e0": {
    "modes": {
     "wine": {
-     "code": "8620f342a003",
-     "accepted": "2026-11-18T23:06:13",
-     "by": "unproven-seed"
+     "code": "ab65e7069f67",
+     "accepted": "2026-11-20T18:43:01",
+     "by": "unproven-accept",
+     "why": "integ7 (item 8, rev5): the field items landed, dt is still free: a dt below about -709 overflows clang's exp(-t) (0x000a97e0_native_orange_negdt); --wine waits for the dt contract (D152b on the derived vfunc_35s)"
     }
    },
-   "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
+   "why": "integ7 (item 8, rev5): the field items landed, dt is still free: a dt below about -709 overflows clang's exp(-t) (0x000a97e0_native_orange_negdt); --wine waits for the dt contract (D152b on the derived vfunc_35s)"
   },
   "0x000aa450": {
    "modes": {
