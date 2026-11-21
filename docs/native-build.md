@@ -6733,6 +6733,7 @@ name that carries an address any more. Unbound counts: see the commit message (c
   on hulk_host_ExitProcess (unbound from platformAfterFrame).
 
 ### render1 C2 (2026-11-21)
+- render1 C2: the probe's HULK_PROBE_LAYOUT64 switch (off; World+0x58 natively 0x0cc7c620_0000000b), the link's
   probe-layout check, macho_retarget restricted to code/data. Side effect of C1 (f335dc2e4): the no-fmv entry hook
   binds QueueMovie's callers natively (before: missing stubs), so start-up may queue the intro movie and reach the
   subtitle stop (gfx9).
