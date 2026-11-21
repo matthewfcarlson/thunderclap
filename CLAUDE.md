@@ -273,7 +273,9 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   refuses with "carry instead" when a D159 carry would re-pin it, and verify lists the backlog oldest first
   (`unproven_baseline_view_only`; gfx10, 48a1ea657). No Wine pair or x64 gate is required for these landings, and no whole-tree verify unless a widely included header changed,
   (run the gate when it helps find layout bugs). Checker and tool changes still need regress and the reviewer. The rest
-  of this section is the full bar, which applies again when the mode ends.
+  of this section is the full bar, which applies again when the mode ends. A caller's member call by an unaddressed name (`C20::F`,
+  `A::f8`) never binds natively: name it `FUN_<addr>` and add the 32-bit name to the binding map; a TU-local `g_xxx`
+  standing for a DAT_ is a separate native item: write the DAT_ name (gfx10).
 - **Wine build** (dev/verification): `tools/wine_build_job.py submit/wait/compare` runs tree materialize, clang probe, Wine
   link and an optional replay as one queue job (`docs/compute.md` "Wine builds", `docs/wine-build.md`). It reads the
   committed tree (the only source since merge-once (d); a control of an older commit must be submitted with that
@@ -394,6 +396,11 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   The module is standalone (no Emscripten JS): Binaryen Asyncify driven from C (sched.c `ff_sched_loop`), setjmp/longjmp
   as Asyncify continuations; `wasm_port.py aot` builds build/wasm/hulk-aot through wasm2c (`brew install wabt`). Compare
   wasm builds by the game hash (`HULK_GAMEDUMP`), not the full state hash: dead stack bytes carry host pointers.
+  play3 replays on wasm through `tools/native_replay.py run --exe build/wasm/hulk-aot -- $PWD/isos/extracted/default.xbe`
+  (host driver src/platform/wasm/host/replay.cpp; native_hooks.h rows placed by wasm_port.py at bind time); BinkOpen must
+  succeed (no picture) and DirectSound voices advance as the Wine mixer's, or play3 shifts a frame. HULK_PORT_ABI
+  (compat/ptr.h: 64-bit native and wasm32) marks sources whose callers read a void function's leftover eax;
+  `hulk_eaxptr` is `void*` there and `void` on 32-bit (ParamBranch<T>::vfunc_6, D204).
 - Multiplayer/remaster co-op (`docs/multiplayer.md`, `net/worker/`) is designed and partly prototyped but **paused**.
 
 ## Compute
