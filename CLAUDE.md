@@ -367,7 +367,8 @@ Terms: the *Wine build* is the 32-bit clang image run under Wine (`tools/wine_*.
   files with others' unstaged edits), never by copying whole files over it: a
   whole-file write over a TU with someone's uncommitted edits silently discards them (decl1's landing cp race, 11-18).
   Never apply a checker or tool change to the shared working copy to test it, even briefly: `--dirty` jobs and
-  wine_build_job ship the checkout's tools to every lane; develop and run regress in a private workspace (ckpt2, 11-20).
+  wine_build_job ship the checkout's tools to every lane; develop and run regress in a private workspace (ckpt2, 11-20). To regress a side commit exactly, submit
+  its jobs with that commit as base and no overlay (build/ckpt2/scripts/regress_at.py), never by applying it here.
   Unset `GIT_INDEX_FILE` in a subshell that runs `git status` in a private workspace: with it exported for another
   commit, git reads the wrong index, and a commit built that way silently drops the workspace's edits (recs1).
 - Never relax a comparison in the checker to make something pass; a source that doesn't pass is not promoted.
