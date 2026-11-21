@@ -141,6 +141,10 @@ type_info's vftable word plus a null spare); include/decls/data still declares t
 DAT_x;`), and natively the link emits them as 64-bit descriptors. The native type_info compare ignores only the __ptr64
 `E` (`.PEAD` == `.PAD`; tests/native_host/rtti_ptr64_test.cpp) (gfx1).
 Write `((T*)dynamic_cast<ns::G*>((ns::S*)(p)))->m`: without the outer parentheses `->` binds to the cast (sweep2).
+native_mac binds a call to a native CRT row only by a `FUN_<addr>` name or the CRT's own name, never by a suffix
+(`check_00344e74`): write a __RTDynamicCast stand-in as `__RTDynamicCast(...)` with its arguments through hulk_uintptr.
+Replacing a stubbed stand-in with its real callee can expose truncations the stub hid from the x64 gate (a pointer result
+stored in an int): rerun the gate on every TU such a rename touches (gfx2: 0xe2130, 0xfdc40).
 A TU that both calls a record's virtual slots and writes its words declares the words once as a macro list
 (`HULK_VIEW_WORDS`) used by the plain record and by the TU's slot view: a plain record plus a cast leaves `--x64` with
 `view_ambiguous` or every input crashing on a fuzzed vftable (recs1). `git apply` inside an untracked directory of the
@@ -330,6 +334,8 @@ Terms: the *Wine build* is the 32-bit clang image run under Wine (`tools/wine_*.
   and apply their result to the working copy as a patch (`git apply` of the commit's diff; --3way implies --index and refuses
   files with others' unstaged edits), never by copying whole files over it: a
   whole-file write over a TU with someone's uncommitted edits silently discards them (decl1's landing cp race, 11-18).
+  Never apply a checker or tool change to the shared working copy to test it, even briefly: `--dirty` jobs and
+  wine_build_job ship the checkout's tools to every lane; develop and run regress in a private workspace (ckpt2, 11-20).
   Unset `GIT_INDEX_FILE` in a subshell that runs `git status` in a private workspace: with it exported for another
   commit, git reads the wrong index, and a commit built that way silently drops the workspace's edits (recs1).
 - Never relax a comparison in the checker to make something pass; a source that doesn't pass is not promoted.
