@@ -286,7 +286,7 @@ struct Ground_18170 {
 };
 
 struct World {
-    char pad00[8];
+    void* pad00[2];
     Ground_18170 *ground;
 };
 

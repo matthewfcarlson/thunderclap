@@ -228,7 +228,7 @@ struct Reg20_1b6b00 {
 };
 
 struct World {
-    char pad[0x20];
+    void* pad[8];
     Reg20_1b6b00 *p20;
 };
 

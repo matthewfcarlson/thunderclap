@@ -140,7 +140,7 @@ struct Provider_1b7970 {
 };
 } // namespace fn_ff8e53b8
 struct World {
-    char pad[0x50];
+    void* pad[20];
     Manager_1b7970* manager;
     Provider_1b7970* provider;
 };
@@ -669,7 +669,7 @@ public:
 };
 
 struct World {
-    char pad0[0x50];
+    void* pad0[20];
     Mixer *mixer;
 };
 

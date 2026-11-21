@@ -93,13 +93,13 @@ struct F34 {
 };
 } // namespace fn_fede37ef
 struct World {
-    char pad0[0x20];
+    void* pad0[8];
     F20_1b1710* f20;
-    char pad24[0x34 - 0x24];
+    void* pad24[4];
     F34* f34;
-    char pad38[0x4c - 0x38];
+    void* pad38[5];
     Reg_1b1710* f4c;
-    char pad50[0x58 - 0x50];
+    void* pad50[2];
     F58* f58;
 };
 namespace fn_fede37ef {

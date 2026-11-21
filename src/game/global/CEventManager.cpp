@@ -24,7 +24,7 @@ struct Entry_1c9750 { char pad[0x11c]; Texts_1c9750* texts; char pad2[0x1ca0-0x1
 struct Handle_1c9750 { void FUN_00059a50(void*); };
 struct Manager_1c9750 {  Handle_1c9750* FUN_00059ba0(unsigned); };
 } // namespace fn_ffd7287e
-struct World { char pad[0x44]; Manager_1c9750* manager; };
+struct World { void* pad[17]; Manager_1c9750* manager; };
 namespace fn_ffd7287e {
 extern "C" void __cdecl FUN_00267830(char*, const char*, unsigned);
 typedef unsigned char u8_1c9920;

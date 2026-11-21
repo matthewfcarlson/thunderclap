@@ -36,9 +36,9 @@ struct EventSink_3ea10 {
 };
 
 struct World {
-    char pad0[0x20];
+    void* pad0[8];
     Group_3ea10 *group;            // 0x20
-    char pad24[0x30 - 0x24];
+    void* pad24[3];
     EventSink_3ea10 *sink;         // 0x30
 };
 

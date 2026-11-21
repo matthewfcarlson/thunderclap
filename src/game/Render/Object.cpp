@@ -247,7 +247,7 @@ struct Clock_1c52f0 {
 };
 } // namespace fn_f4431f34
 struct World {
-    char pad0[0x58];
+    void* pad0[22];
     Clock_1c52f0 *clock;
 };
 namespace fn_f4431f34 {

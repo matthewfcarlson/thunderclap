@@ -555,7 +555,7 @@ struct __declspec(align(8)) Value_c7c60 { unsigned int low, high; bool FUN_0027a
 void __cdecl FUN_00096e50(Value_c7c60* result, const void* input);
 struct Lookup_c7c60 { int FUN_00024280(unsigned int low, unsigned int high); };
 struct Checker_c7c60 { bool FUN_001dd7b0(Value_c7c60* value); };
-struct World { char pad[12]; Checker_c7c60* checker; char pad2[16]; Lookup_c7c60* lookup; };
+struct World { void* pad[3]; Checker_c7c60* checker; void* pad2[4]; Lookup_c7c60* lookup; };
 struct Slot_c7c60 { unsigned int key; char padding[36]; char value[24]; };
 struct Owner_c7c60 { char padding[0x258]; Slot_c7c60 slots[128]; int FUN_000c7c60(unsigned int key, const void* input); };
 int Owner_c7c60::FUN_000c7c60(unsigned int key, const void* input) {
@@ -643,9 +643,9 @@ struct Lookup_c7d10 {
 };
 
 struct World {
-    char pad0[0xc];
+    void* pad0[3];
     Lookup_c7d10 *lookup;
-    char pad10[0x20 - 0x10];
+    void* pad10[4];
     Registry_c7d10 *registry;
 };
 

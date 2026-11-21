@@ -97,7 +97,7 @@ struct Projectiles {
 };
 
 struct World {
-    char pad0[0x14];
+    void* pad0[5];
     Projectiles *projectiles;
 };
 

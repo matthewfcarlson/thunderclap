@@ -144,7 +144,7 @@ struct Node { char pad[0x5c]; Link_206320* link; };
 struct Registry_206320 {  };
 struct Fig { Obj_206320* FUN_00024400(const char*, int); };
 } // namespace fn_f43ea553
-struct World { char pad[0x20]; Fig* fig; };
+struct World { void* pad[8]; Fig* fig; };
 namespace fn_f43ea553 {
 struct Timer { void FUN_00265ad0();  };
 struct Nodes_206320 {
@@ -565,7 +565,7 @@ struct Queue_2067d0 {
 };
 
 struct World {
-    char pad0[0x30];
+    void* pad0[12];
     Queue_2067d0 *queue;           // 0x30
 };
 
@@ -804,7 +804,7 @@ struct Target30 {
 };
 
 struct World {
-    char pad00[0x30];
+    void* pad00[12];
     Target30 *f30;
 };
 

@@ -20,7 +20,7 @@ struct Body_1b2c90 { char pad[8]; Actor_1b2c90* actor; int kind; char pad2[0x64]
 struct ContactObject { char pad[0x18]; Body_1b2c90* body; };
 struct Contact_1b2c90 { char pad[8]; ContactObject* first; ContactObject* second; };
 struct Manager_1b2c90 { bool FUN_00079950(void*); };
-struct World { char pad[0x4c]; Manager_1b2c90* manager; };
+struct World { void* pad[19]; Manager_1b2c90* manager; };
 
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" double __cdecl sqrt(double);

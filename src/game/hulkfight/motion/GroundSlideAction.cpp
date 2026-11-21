@@ -2054,7 +2054,7 @@ struct Hook_151fd0 {
 };
 
 struct World {
-    char pad0[0x20];
+    void* pad0[8];
     Hook_151fd0 *hook;
 };
 
@@ -2244,7 +2244,7 @@ struct Pool_152210 {
 };
 
 struct World {
-    char pad0[0x20];
+    void* pad0[8];
     Pool_152210* pool;
 };
 

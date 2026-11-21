@@ -40,7 +40,7 @@ struct Mgr {
 };
 } // namespace fn_f2af3f62
 struct World {
-    char pad0[0xc];
+    void* pad0[3];
     Mgr *mgr;
 };
 namespace fn_f2af3f62 {

@@ -91,7 +91,7 @@ Mgr_3aef0* __cdecl FUN_0027f250();
 
 struct Inventory_3aef0 { void FUN_001e5bb0(Weapon_3aef0* w, int flag); };
 struct World {
-    char pad0[0xc];
+    void* pad0[3];
     Inventory_3aef0* inv;             // 0xc
 };
 

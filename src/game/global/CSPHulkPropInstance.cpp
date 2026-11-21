@@ -1210,7 +1210,7 @@ struct Entry_1d6e10 {
  unsigned int type;
 };
 struct Manager_1d6e10 { bool FUN_000242d0(Resource_1d6e10*); };
-struct World { char pad[0x20]; Manager_1d6e10* manager; };
+struct World { void* pad[8]; Manager_1d6e10* manager; };
 void __cdecl FUN_00018810(Entry_1d6e10**, Entry_1d6e10*);
 struct Owner_1d6e10 {
  char pad[0x24c];
@@ -1332,11 +1332,11 @@ struct Rules {
 };
 
 struct World {
-    char pad0[8];
+    void* pad0[2];
     Rules* rules;
-    char pad0c[0x14];
+    void* pad0c[5];
     Roster_1d6ec0* roster;
-    char pad24[0x30];
+    void* pad24[12];
     Level_1d6ec0* level;
 };
 
@@ -1533,7 +1533,7 @@ char FUN_001d04d0(const void* typeInfo);                      // type_info test 
 struct Value_1d71e0 { unsigned int value; char rest[28]; void FUN_00067e60(void*); void FUN_000679c0(); };
 struct Manager_1d71e0 {  void FUN_00067c30(unsigned int, Value_1d71e0*); };
 struct Services_1d71e0 { char pad[8]; Manager_1d71e0* manager; };
-struct World { char pad[32]; Services_1d71e0* services; };
+struct World { void* pad[8]; Services_1d71e0* services; };
 struct Payload_1d71e0 { char pad[16]; unsigned int* value; };
 struct Reference { virtual void addRef(); virtual void release(); unsigned int reserved; Payload_1d71e0* payload; unsigned int type; };
 struct Object { char pad[0x118]; Reference* reference; char pad2[0x1cc-0x11c]; unsigned int key; void FUN_001d71e0(Reference*); };

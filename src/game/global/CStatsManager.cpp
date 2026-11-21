@@ -212,8 +212,11 @@ struct Actor_90790 {
     Player_90790 *player;
 };
 } // namespace fn_f6df19d8
+// (gfx3) the world by its pointer words, as decls/managers.h's HulkWorld (vftable, parts[21]): the actor manager is
+// parts[7] (World+0x20); a `char pad00[0x20]` view read parts[3] natively
 struct World {
-    char pad00[0x20];
+    void* vftable;
+    void* parts[7];
     Actor_90790 *actor;
 };
 namespace fn_f6df19d8 {
@@ -683,6 +686,8 @@ void owners::C_90720::FUN_00090720(const char* s, int n) {
 // STATUS: equivalent (tools/equiv.py level 3: 20016 inputs, branch coverage 12/12)
 // FUN_00090790 @ 0x00090790
 // FUN_00090790 @ 0x00090790: measures the player's distance or height from a start point and keeps the best value
+// (gfx3) the actor manager through the world's pointer words (parts[7], World+0x20). The manager's +0x124 and the
+// actor's +0x10 stay on the pad views every writer of them uses (0x00025e50).
 void owners::Measure_90790::FUN_00090790()
 {
     if (!active)

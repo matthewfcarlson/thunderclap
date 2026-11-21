@@ -50,7 +50,7 @@ struct Owner_174940 {
 };
 } // namespace fn_f4a7e04a
 struct World {
-    char pad0[0x20];
+    void* pad0[8];
     Wrap_174940 *wrap;
 };
 namespace fn_f4a7e04a {

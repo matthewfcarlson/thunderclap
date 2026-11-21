@@ -121,8 +121,9 @@ V(80) V(81) V(82) V(83) V(84) V(85) V(86) V(87) V(88) V(89) V(90) V(91)
 struct State { unsigned current, previous; };
 struct GameData { char pad0[16]; unsigned a,b,c,d; char pad1[24]; unsigned mode, extra; char pad2[8]; unsigned char active; };
 struct Subsystem { void FUN_0008db60(int);  void FUN_00093c40(const char*); void FUN_00089810(const char*);  void FUN_00089300(const char*); void FUN_001ec3d0(); void FUN_000afe80(); void FUN_001eb4e0(); void FUN_001eb4d0();  };
+// (gfx3) CGame (decls/managers.h's HulkGame) by its pointer words: 32-bit pads put s18 ... s3c early natively
 struct Main {
-unsigned unknown; State *state; GameData *data; char pad[12]; Subsystem *s18,*s1c,*s20; char pad2[12]; Subsystem *s30,*s34,*s38,*s3c;
+void* vftable; State *state; GameData *data; void* pad[3]; Subsystem *s18,*s1c,*s20; void* pad2[3]; Subsystem *s30,*s34,*s38,*s3c;
 void FUN_000865d0(); void FUN_00086630(); void FUN_00086790(); void FUN_000872a0(); void update();
 };
 void Main::update() {
@@ -233,7 +234,8 @@ extern "C" int __cdecl sprintf(char*,const char*,const char*,const char*);
 #endif
 // equiv-conv: FUN_00267760 stack stack stack stack
 int __cdecl FUN_00267760(char*,unsigned,const char*,...);
-struct Obj_88940 { char pad0[8]; Component_88940 *p08,*p0c,*p10,*p14,*p18,*p1c,*p20,*p24,*p28,*p2c,*p30,*p34,*p38,*p3c,*p40,*p44,*p48,*p4c,*p50; char pad54[8]; unsigned char flag5c; char pad5d[63]; unsigned char flag9c; void run(Context*,Mission_88940*); };
+// (gfx3) the World (HulkWorld) by its pointer words (char pads put p08 ... p50 early natively)
+struct Obj_88940 { void* pad0[2]; Component_88940 *p08,*p0c,*p10,*p14,*p18,*p1c,*p20,*p24,*p28,*p2c,*p30,*p34,*p38,*p3c,*p40,*p44,*p48,*p4c,*p50; void* pad54[2]; unsigned char flag5c; char pad5d[63]; unsigned char flag9c; void run(Context*,Mission_88940*); };
 void Obj_88940::run(Context* context,Mission_88940* mission) {
   flag5c=0; flag9c=0;
  p40->FUN_001bdb90(); p08->FUN_0009a090(); p24->FUN_00201bb0(); p10->FUN_001b3f90(this); p0c->FUN_001dbd40(); p14->FUN_001b68d0(this); p18->FUN_001063f0();

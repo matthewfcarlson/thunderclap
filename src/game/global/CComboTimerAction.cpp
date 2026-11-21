@@ -18,7 +18,7 @@ struct Timer {
 };
 } // namespace fn_fe2a0a69
 struct World {
-    char pad[0x2c];
+    void* pad[11];
     Timer* timer;
 };
 namespace fn_fe2a0a69 {

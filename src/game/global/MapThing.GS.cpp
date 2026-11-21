@@ -24,7 +24,7 @@ struct Entry_e39c0 { virtual void slot0(); virtual void slot1(); virtual void sl
 struct Store { Entry_e39c0* FUN_001fd780(const char*); };
 struct Link_e39c0 { char pad[8]; Manager_e39c0* manager; };
 } // namespace fn_f9d36b1d
-struct World { char pad[0x28]; Store* store; char gap[0x10]; Link_e39c0* link; };
+struct World { void* pad[10]; Store* store; void* gap[4]; Link_e39c0* link; };
 namespace fn_f9d36b1d {
 extern "C" int __cdecl FUN_000964a0(char*, int, const char*, ...);   // (x64t14) as defined (CUnlockablesManager.cpp)
 struct MapThing { char pad[0x118]; int id; Entry_e39c0* vfunc_13(); };

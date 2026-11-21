@@ -201,7 +201,7 @@ struct Fx_19470 {
 };
 } // namespace fn_f54c57d3
 struct World {
-    char pad00[0x34];
+    void* pad00[13];
     Fx_19470* f34;
 };
 namespace fn_f54c57d3 {
@@ -772,7 +772,7 @@ struct Actor_1a050 {
  int FUN_00038f90(int,int,int);
 };
 struct Collection_1a050 { char pad[0xc]; int count; Actor_1a050* FUN_00024190(int); };
-struct World { char pad[0x20]; Collection_1a050* collection; };
+struct World { void* pad[8]; Collection_1a050* collection; };
 struct Config_1a050 { char pad[0x2c]; int value; };
 struct Target_1a050 {
  char pad[0x1c]; Owner_1a050* owner; Config_1a050* config;
@@ -933,7 +933,7 @@ struct Table_1a150 {
 };
 
 struct World {
-    char pad0[0xc];
+    void* pad0[3];
     Table_1a150 *table;                // 0x0c
 };
 
@@ -1125,7 +1125,7 @@ struct WorldSys_1a330 {
 };
 
 struct World {
-    char pad0[0xc];
+    void* pad0[3];
     WorldSys_1a330 *f0c;
 };
 

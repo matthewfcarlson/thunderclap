@@ -14,7 +14,7 @@ namespace fn_ff7d2848 {} using namespace fn_ff7d2848;
 namespace fn_ff7d2848 {
 struct Gate_17870 { bool FUN_00099740(); };
 } // namespace fn_ff7d2848
-struct World { char pad[8]; Gate_17870* gate; };
+struct World { void* pad[2]; Gate_17870* gate; };
 namespace fn_ff7d2848 {
 struct Motors { char pad[16]; int count; void FUN_000af530(int index,int channel,float value);  };
 struct Controller_17870 {  float FUN_000afe60(); float FUN_000afe70(); };

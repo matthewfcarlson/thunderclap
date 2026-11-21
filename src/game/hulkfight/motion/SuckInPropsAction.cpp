@@ -103,7 +103,7 @@ struct PropList_176060 {
 };
 } // namespace fn_f3a32d27
 struct World {
-    char pad00[0xc];
+    void* pad00[3];
     PropList_176060* props;
 };
 namespace fn_f3a32d27 {

@@ -73,9 +73,9 @@ struct Mgr_10d9c0 {
 };
 } // namespace fn_fb44886a
 struct World {
-    char pad00[0xc];
+    void* pad00[3];
     Mgr_10d9c0 *mgr;
-    char pad10[0x20 - 0x10];
+    void* pad10[4];
     Slot_10d9c0 *slot;
 };
 namespace fn_fb44886a {

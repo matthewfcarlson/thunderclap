@@ -188,7 +188,7 @@ struct Host_1af540 {
 struct Vec_1af650 { unsigned x,y,z; };
 struct Query_1af650 { void FUN_001b6000(Vec_1af650*, unsigned*, int*); };
 } // namespace fn_f7cf5713
-struct World { char pad[16]; Query_1af650* query; };
+struct World { void* pad[4]; Query_1af650* query; };
 namespace fn_f7cf5713 {
 struct ArgSlots_1af650 { int index; unsigned status; };
 struct Frame_1af650 {
@@ -948,13 +948,13 @@ struct Slot20_1afba0 {
 };
 
 struct World {
-    char pad0[0x20];
+    void* pad0[8];
     Slot20_1afba0 *slot20;
-    char pad24[0x34 - 0x24];
+    void* pad24[4];
     Cue_1afba0 *cue;
-    char pad38[0x4c - 0x38];
+    void* pad38[5];
     Sys4c *sys;
-    char pad50[0x58 - 0x50];
+    void* pad50[2];
     Clock_1afba0 *clock;
 };
 
@@ -1166,7 +1166,7 @@ struct Focus_1afea0 {
 };
 
 struct World {
-    char pad0[0x20];
+    void* pad0[8];
     Focus_1afea0 *focus;               // 0x20
 };
 
@@ -1269,7 +1269,7 @@ struct Clock_1aff50 {
 };
 
 struct World {
-    char pad[0x58];
+    void* pad[22];
     Clock_1aff50* clock;
 };
 
@@ -1350,7 +1350,7 @@ char FUN_001d04d0(const void* typeInfo);                      // type_info test 
 
 struct Info_1b0090 { char pad[0x6c]; int blocked; };
 struct Mgr_1b0090 {  };
-struct World { char pad[0x4c]; Mgr_1b0090* mgr; };
+struct World { void* pad[19]; Mgr_1b0090* mgr; };
 struct Level_1b0090 { char pad[0x50]; char flag; };
 struct Ctx_1b0090 { char pad[0x74]; Level_1b0090* level; };
 struct Unit_1b0090 {
@@ -1685,12 +1685,12 @@ struct Grid38 {
 struct Grid34 {
 };
 struct World {
-    char pad00[0x20];
+    void* pad00[8];
     struct Holder_1b05a0* f20;
-    char pad24[0x34 - 0x24];
+    void* pad24[4];
     Grid34* f34;
     Grid38* f38;
-    char pad3c[0x4c - 0x3c];
+    void* pad3c[4];
     Reg4c* f4c;
 };
 struct Holder_1b05a0 {
@@ -2027,7 +2027,7 @@ struct Handler_1b0e30 {
 
 struct Chain3_1b0e30 { char pad0[0x12c]; void *f12c; };
 struct Chain2_1b0e30 { char pad0[0x124]; Chain3_1b0e30 *next; };
-struct World { char pad0[0x20]; Chain2_1b0e30 *next; };
+struct World { void* pad0[8]; Chain2_1b0e30 *next; };
 
 class Owner_1b0e30 {
 public:
@@ -2148,7 +2148,7 @@ struct Vec_1b0fb0 { float x,y,z; hulk_freg FUN_0022d110(); };
 struct Body_1b0fb0 { char pad[0x14c]; unsigned char enabled; };
 struct Contact_1b0fb0 { char pad0[8]; Body_1b0fb0* body; int type; char pad1[0x40]; Vec_1b0fb0 velocity; };
 struct Manager_1b0fb0 { bool FUN_00079950(void*); };
-struct World { char pad[0x4c]; Manager_1b0fb0* manager; };
+struct World { void* pad[19]; Manager_1b0fb0* manager; };
 
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" double __cdecl sqrt(double);
@@ -2293,7 +2293,7 @@ struct Sink_1b1270 {
 };
 
 struct World {
-    char pad00[0x30];
+    void* pad00[12];
     Sink_1b1270* sink;
 };
 
@@ -2648,9 +2648,9 @@ struct Fx_1b1e90 {
 };
 
 struct World {
-    char pad0[0x34];
+    void* pad0[13];
     Fx_1b1e90 *f34;
-    char pad38[0x4c - 0x38];
+    void* pad38[5];
     Mon *f4c;
 };
 

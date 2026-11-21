@@ -225,11 +225,11 @@ struct Runner {
 };
 
 struct World {
-    char pad0[0xc];
+    void* pad0[3];
     Scale *f0c;
-    char pad10[0x20 - 0x10];
+    void* pad10[4];
     struct JudgeCfg *f20;
-    char pad24[0x30 - 0x24];
+    void* pad24[3];
     Hud *f30;
     Runner *f34;
 };

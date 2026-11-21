@@ -77,9 +77,9 @@ struct DamageSys {
 };
 
 struct World {
-    char pad0[0x24];
+    void* pad0[9];
     RayCaster *f24;
-    char pad28[0x38 - 0x28];
+    void* pad28[4];
     DamageSys *f38;
 };
 

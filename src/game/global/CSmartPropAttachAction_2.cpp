@@ -276,7 +276,7 @@ struct Table_1ead0 {
 };
 
 struct World {
-    char pad0[0xc];
+    void* pad0[3];
     Table_1ead0* table;
 };
 

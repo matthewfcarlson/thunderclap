@@ -148,7 +148,7 @@ struct Hold {
 };
 } // namespace fn_f8ed28bc
 struct World {
-    char pad0[0x20];
+    void* pad0[8];
     Hold *hold;             // 0x20
 };
 namespace fn_f8ed28bc {

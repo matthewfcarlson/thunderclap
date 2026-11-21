@@ -104,7 +104,7 @@ struct Finder_171e60 {
 };
 } // namespace fn_fb0ac428
 struct World {
-    char pad0[0x28];
+    void* pad0[10];
     Finder_171e60 *f28;
 };
 namespace fn_fb0ac428 {

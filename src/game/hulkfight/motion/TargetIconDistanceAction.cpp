@@ -29,7 +29,7 @@ struct Hero_172220 {
 };
 } // namespace fn_f8ae5d41
 struct World {
-    char pad[0x20];
+    void* pad[8];
     Hero_172220* hero;
 };
 namespace fn_f8ae5d41 {

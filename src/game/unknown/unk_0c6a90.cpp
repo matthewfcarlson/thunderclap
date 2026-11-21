@@ -176,7 +176,7 @@ extern "C" void __cdecl FUN_00096e50(ResourceName_c6fe0* result, const char* nam
 struct Lookup_c6fe0 { int FUN_00024280(unsigned int first, unsigned int second); };
 struct Loader_c6fe0 { bool FUN_001dd7b0(ResourceName_c6fe0* name); };
 } // namespace fn_fcfef481
-struct World { char pad0[12]; Loader_c6fe0* loader; char pad1[16]; Lookup_c6fe0* lookup; };
+struct World { void* pad0[3]; Loader_c6fe0* loader; void* pad1[4]; Lookup_c6fe0* lookup; };
 namespace fn_fcfef481 {
 struct Entry_c6fe0 {
  int id;
@@ -520,7 +520,7 @@ struct Service_c71a0 {
  bool FUN_001dd660(Handle_c71a0* handle, Vector* out);
  int FUN_001e3410(Handle_c71a0* handle);
 };
-struct World { char pad0[0xc]; Service_c71a0* service; char pad1[0x10]; Lookup_c71a0* lookup; };
+struct World { void* pad0[3]; Service_c71a0* service; void* pad1[4]; Lookup_c71a0* lookup; };
 struct Entry_c71a0 { Vector position; Handle_c71a0 handle; char pad[12]; };
 struct Owner_c71a0 { char pad[0x64]; Entry_c71a0 entries[1]; bool FUN_000c71a0(unsigned int index, Vector* out); };
 bool Owner_c71a0::FUN_000c71a0(unsigned int index, Vector* out) {

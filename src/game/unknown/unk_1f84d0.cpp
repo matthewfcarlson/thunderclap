@@ -186,9 +186,9 @@ struct Obj_1f8b40 {
 };
 } // namespace fn_f6c21956
 struct World {
-    char pad0[0x28];
+    void* pad0[10];
     Mgr_1f8b40 *mgr;                       // 0x28
-    char pad2c[0x54 - 0x2c];
+    void* pad2c[10];
     Tracker_1f8b40 *tracker;               // 0x54
 };
 namespace fn_f6c21956 {
@@ -673,7 +673,7 @@ struct Factory_1f8f70 {
 };
 
 struct World {
-    char pad[0x28];
+    void* pad[10];
     Factory_1f8f70* factory;       // 0x28
 };
 

@@ -83,7 +83,7 @@ struct Curves_1d57d0 {
 };
 
 struct World {
-    char pad[0xc];
+    void* pad[3];
     Curves_1d57d0 *curves;
 };
 

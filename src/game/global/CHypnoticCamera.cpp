@@ -534,7 +534,7 @@ public:
 };
 
 struct World {
-    char pad0[0x24];
+    void* pad0[9];
     Query_aa2b0 *query;
 };
 

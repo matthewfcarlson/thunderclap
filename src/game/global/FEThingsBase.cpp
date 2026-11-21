@@ -4851,7 +4851,7 @@ struct Context {
     Action* action;
 };
 struct World {
-    char pad[0x20];
+    void* pad[8];
     Context* context;
 };
 struct FEThingsBase {

@@ -84,20 +84,21 @@ class Cq {
   public:
     void Use_000d6f10(int);
 };
+// (gfx3) the World (decls/managers.h's HulkWorld) by its pointer words: its 32-bit pads put every manager early natively
 struct Obj_88b80 {
-    char z[8];
+    void* z[2];
     Ck* p08;
     Ce* p0c;
     Ci* p10;
     Cg* p14;
     Cj* p18;
-    char g1c[4];
+    void* g1c;
     Cf* p20;
     Ch* p24;
     Cc* p28;
     Ca* p2c;
     Cb* p30;
-    char g34[4];
+    void* g34;
     Cm* p38;
     Cq* p3c;
     Cn* p40;

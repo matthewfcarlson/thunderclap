@@ -98,7 +98,7 @@ struct Me_c72e0 {
 };
 } // namespace fn_f198369f
 struct World {
-    char pad0[0x20];
+    void* pad0[8];
     Me_c72e0 *me;                 // 0x20
 };
 namespace fn_f198369f {

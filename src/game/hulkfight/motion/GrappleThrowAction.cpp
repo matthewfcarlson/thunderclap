@@ -421,7 +421,7 @@ struct Dispatcher_147db0 {
 };
 } // namespace fn_f1739f6f
 struct World {
-    char pad0[0x30];
+    void* pad0[12];
     Dispatcher_147db0 *dispatcher;
 };
 namespace fn_f1739f6f {

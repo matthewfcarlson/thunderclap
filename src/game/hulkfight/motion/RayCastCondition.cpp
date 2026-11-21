@@ -413,9 +413,9 @@ struct Player_1679c0 {
 };
 
 struct World {
-    char pad00[0xc];
+    void* pad00[3];
     Fader_1679c0* fader;
-    char pad10[0x10];
+    void* pad10[4];
     Player_1679c0* player;
 };
 

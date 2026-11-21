@@ -25,7 +25,7 @@ struct Events_2ae80 { void FUN_001e53d0(Actor_2ae80*); };
 struct LevelData { int FUN_00088fa0(); int FUN_00088fb0(); };
 struct Level_2ae80 { char p[0x80]; LevelData data; };
 struct Levels { Level_2ae80* FUN_00086310(); };
-struct World { char p[12]; Events_2ae80* events; char p2[0x54-16]; Levels* levels; };
+struct World { void* p[3]; Events_2ae80* events; void* p2[17]; Levels* levels; };
 struct Debug_2ae80 { void FUN_0023f7b0(Vec_2ae80*,Vec_2ae80*,unsigned,int); void FUN_0023f7d0(Vec_2ae80*,unsigned,float,int); };
 struct Manager_2ae80 {
  Owner_2ae80* owner; char p0[8]; int count; int ids[17]; int flags[16]; int values[19]; int blocked[17]; Actor_2ae80* mainActor;

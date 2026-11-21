@@ -99,7 +99,7 @@ struct Scene_175670 {
 };
 } // namespace fn_fe26f56d
 struct World {
-    char pad00[0x20];
+    void* pad00[8];
     Scene_175670 *scene;
 };
 namespace hulkfight { namespace motion {

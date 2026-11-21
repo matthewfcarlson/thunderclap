@@ -68,7 +68,7 @@ struct Owner_124a80 {
 };
 
 struct World {
-    char pad0[0x20];
+    void* pad0[8];
     Owner_124a80 *owner;               // 0x20
 };
 

@@ -24,7 +24,7 @@ struct Widget_b4850 { virtual void v0(); virtual void v1(); virtual void v2(); v
 extern Widget_b4850* __cdecl FUN_00344e74(void*,int,char*,char*,int);
 struct Screen_b4850 {  };
 } // namespace fn_f8e31d33
-struct World { char pad[44]; Screen_b4850* screen; };
+struct World { void* pad[11]; Screen_b4850* screen; };
 
 namespace fn_f8e31d33 {
 

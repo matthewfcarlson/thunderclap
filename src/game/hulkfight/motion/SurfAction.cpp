@@ -116,7 +116,7 @@ struct Lim {
 };
 } // namespace fn_ff2f3be0
 struct World {
-    char pad0[0x24];
+    void* pad0[9];
     Lim *p24;
 };
 namespace fn_ff2f3be0 {

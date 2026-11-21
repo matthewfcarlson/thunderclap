@@ -593,7 +593,7 @@ struct Sink0c {
     void FUN_001dcf60(int a);
 };
 struct World {
-    char pad0[0xc];
+    void* pad0[3];
     Sink0c *f0c;
 };
 
@@ -1096,7 +1096,7 @@ struct Registry_105f50 {
 };
 
 struct World {
-    char pad0[0x1c];
+    void* pad0[7];
     Registry_105f50 *registry;
 };
 

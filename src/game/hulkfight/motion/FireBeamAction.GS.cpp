@@ -75,9 +75,9 @@ struct Mgr_1966f0 {
 struct Obj20;   // (declared here for the next declaration)
 } // namespace fn_f743f879
 struct World {
-    char pad0[0xc];
+    void* pad0[3];
     Mgr_1966f0 *f0c;
-    char pad10[0x20 - 0x10];
+    void* pad10[4];
     struct Obj20 *f20;
 };
 namespace fn_f743f879 {

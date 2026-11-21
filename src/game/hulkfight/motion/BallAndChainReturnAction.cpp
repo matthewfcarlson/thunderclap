@@ -265,7 +265,7 @@ struct Ray_182740 {
 };
 
 struct World {
-    char pad0[0x24];
+    void* pad0[9];
     Ray_182740 *ray;        // 0x24
 };
 

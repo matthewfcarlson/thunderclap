@@ -68,7 +68,7 @@ struct Registry_117480 {
 };
 } // namespace fn_fdfac53b
 struct World {
-    char pad[0x28];
+    void* pad[10];
     Registry_117480 *registry;
 };
 namespace fn_fdfac53b {

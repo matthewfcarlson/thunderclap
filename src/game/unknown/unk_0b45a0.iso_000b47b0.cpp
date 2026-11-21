@@ -29,7 +29,7 @@ extern Widget_b47b0 *__cdecl FUN_00344e74(void *, int, char *, char *, int);
 struct Screen_b47b0 {
 };
 struct World {
-    char pad00[44];
+    void* pad00[11];
     Screen_b47b0 *screen;
 };
 

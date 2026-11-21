@@ -38,7 +38,7 @@ struct Registry_157c0 {
 };
 } // namespace fn_fec14785
 struct World {
-    char pad0[0x44];
+    void* pad0[17];
     Registry_157c0 *registry;
 };
 namespace fn_fec14785 {

@@ -24,7 +24,7 @@ struct Found_c8550 { char pad[16]; Position_c8550* position; };
 struct Lookup_c8550 { Found_c8550* FUN_00024280(unsigned a,unsigned b); };
 struct Manager_c8550 { bool FUN_001dd7b0(Key_c8550* key); bool FUN_001dd5d0(Key_c8550* key, Vector* out); int FUN_001e3410(Key_c8550* key); };
 } // namespace fn_ff187fa7
-struct World { char pad0[12]; Manager_c8550* manager; char pad1[16]; Lookup_c8550* lookup; };
+struct World { void* pad0[3]; Manager_c8550* manager; void* pad1[4]; Lookup_c8550* lookup; };
 namespace fn_ff187fa7 {
 struct Entry_c8550 { unsigned unused; Vector position; char pad[24]; Key_c8550 key; int type; char tail[12]; };
 struct Object { char pad[0x258]; Entry_c8550 entries[1]; bool FUN_000c8550(unsigned index,Vector* out); };
@@ -236,7 +236,7 @@ struct ResultWorker { void FUN_00059a50(Vec_c8630* out); };
 struct Result_c8630 { char pad[16]; ResultWorker* worker; };
 struct Lookup_c8630 { Result_c8630* FUN_00024280(unsigned int a,unsigned int b); };
 struct Store { bool FUN_001dd7b0(Key_c8630* key); bool FUN_001dd5d0(Key_c8630* key,Vec_c8630* out); int FUN_001e3410(Key_c8630* key); };
-struct World { char pad[12]; Store* store; char pad2[16]; Lookup_c8630* lookup; };
+struct World { void* pad[3]; Store* store; void* pad2[4]; Lookup_c8630* lookup; };
 struct Entry_c8630 { unsigned int unused; Vec_c8630 value; Key_c8630 key; char pad[32]; };
 struct Object { char pad[0x2258]; Entry_c8630 entries[1]; bool FUN_000c8630(int index,Vec_c8630* out); };
 bool Object::FUN_000c8630(int index,Vec_c8630* out) {

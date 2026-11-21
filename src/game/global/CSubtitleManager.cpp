@@ -551,7 +551,7 @@ struct Clock_1c04e0 {
 };
 } // namespace fn_fed79ca6
 struct World {
-    char pad[0x58];
+    void* pad[22];
     Clock_1c04e0* clock;
 };
 namespace fn_fed79ca6 {
@@ -2285,7 +2285,7 @@ static float Abs(float v)
 }
 
 struct Clock_1bfcc0 { float FUN_00085f80(); };
-struct World { char pad0[0x58]; Clock_1bfcc0 *clock; };
+struct World { void* pad0[22]; Clock_1bfcc0 *clock; };
 
 class Overlay {
 public:

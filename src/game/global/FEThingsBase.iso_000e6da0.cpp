@@ -18,7 +18,7 @@ struct ContextChild {
     ResetObject* reset;
 };
 struct World {
-    char pad[0x20];
+    void* pad[8];
     ContextChild* child;
 };
 struct Panel_e6da0 {

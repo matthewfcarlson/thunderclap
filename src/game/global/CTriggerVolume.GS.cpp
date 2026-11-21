@@ -51,7 +51,7 @@ struct Packet_1fb5a0 { unsigned type; char text[64]; char rest[628]; void FUN_00
 struct Message_1fb5a0 { char data[84]; void FUN_001caf80(const char*,unsigned); };
 struct Manager_1fb5a0 { void FUN_001d3b00(const char*,Packet_1fb5a0); };
 struct Receiver_1fb5a0 { void FUN_001cbc20(Message_1fb5a0*); };
-struct World { char pad[48]; Receiver_1fb5a0* receiver; };
+struct World { void* pad[12]; Receiver_1fb5a0* receiver; };
 extern Manager_1fb5a0* __cdecl FUN_001d4c90();
 extern int __cdecl _sprintf(char*,const char*,...);
 extern "C" int __cdecl FUN_000964a0(char*, int, const char*, ...);   // (x64t14) as defined (CUnlockablesManager.cpp)
@@ -115,7 +115,7 @@ struct Key_1fb6a0 { char data[84]; void FUN_001cb050(const char*, int); };
 struct Input_1fb6a0 { char pad[8]; int a,b; int* value; int FUN_00036d00(); };
 struct Manager_1fb6a0 { void FUN_001d3b00(const char*, EventData_1fb6a0); };
 struct Receiver_1fb6a0 { void FUN_001cbc20(Key_1fb6a0*); };
-struct World { char pad[48]; Receiver_1fb6a0* receiver; };
+struct World { void* pad[12]; Receiver_1fb6a0* receiver; };
 extern Manager_1fb6a0* __cdecl FUN_001d4c90();
 extern int __cdecl _sprintf(char*, const char*, ...);
 extern "C" int __cdecl FUN_000964a0(char*, int, const char*, ...);   // (x64t14) as defined (CUnlockablesManager.cpp)

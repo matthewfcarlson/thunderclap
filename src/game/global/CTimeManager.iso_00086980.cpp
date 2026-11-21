@@ -28,30 +28,37 @@ struct State_86980 {
 };
 struct Manager_86980 {
     void FUN_00088b80(App *app);
-    int pad0;
+    void* vftable;              // (gfx3) the World's vftable word (HulkWorld)
     State_86980 *state;
 };
 struct Cleaner {  };
 struct Registry_86980 { void FUN_001d2760(); };
 Registry_86980 *FUN_001d4c90();
 
+// (gfx3) CGame (decls/managers.h's HulkGame) by its pointer words: its 32-bit pads put every manager at the wrong
+// word natively (the stats update 0x00090db0 ran on HulkGame+0x24's manager)
 struct App {
     void FUN_00086980(int unused);
-    char pad0[0xc];
-    Manager_86980 *manager;           // 0xc
-    char pad1[0x18 - 0x10];
+    void* vftable;              // 0x0
+    void* triple;               // 0x4
+    void* time;                 // 0x8
+    Manager_86980 *manager;           // 0xc the World
+    void* controllers;          // 0x10
+    void* gameControllers;      // 0x14
     Camera *camera;             // 0x18
-    char pad2[0x20 - 0x1c];
+    void* platform;             // 0x1c
     Audio_86980 *audio;               // 0x20
-    char pad3[0x28 - 0x24];
+    void* render;               // 0x24
     Cleaner *cleaner;           // 0x28
-    char pad4[0x30 - 0x2c];
+    void* overlay;              // 0x2c
     Streamer *streamer;         // 0x30
-    char pad5[0x38 - 0x34];
+    void* fmv;                  // 0x34
     Region_86980 *region;             // 0x38
-    char pad6[0x48 - 0x3c];
-    Viewport_86980 *viewport;         // 0x48
-    char pad7[0x50 - 0x4c];
+    void* unlockables;          // 0x3c
+    void* pair;                 // 0x40
+    void* f44;                  // 0x44
+    Viewport_86980 *viewport;         // 0x48 CStatsManager
+    void* subtitle;             // 0x4c
     char active;
 };
 

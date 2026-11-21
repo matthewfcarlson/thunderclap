@@ -1513,9 +1513,9 @@ struct Player_18f6d0 {
 };
 
 struct World {
-    char pad00[0x20];
+    void* pad00[8];
     Player_18f6d0 *player;
-    char pad24[0x54 - 0x24];
+    void* pad24[12];
     Holder54_18f6d0 *holder;
 };
 

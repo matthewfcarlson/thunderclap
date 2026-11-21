@@ -55,9 +55,9 @@ struct Party {
 };
 
 struct World {
-    char pad0[0x20];
+    void* pad0[8];
     Party *party;            // 0x20
-    char pad24[0x3c - 0x24];
+    void* pad24[6];
     Hud_bf2b0 *hud;                // 0x3c
 };
 

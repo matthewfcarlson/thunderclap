@@ -52,7 +52,7 @@ struct Roster_10ee40 {
 };
 } // namespace fn_fb60e9b1
 struct World {
-    char pad0[0xc];
+    void* pad0[3];
     Roster_10ee40 *roster;
 };
 namespace fn_fb60e9b1 {

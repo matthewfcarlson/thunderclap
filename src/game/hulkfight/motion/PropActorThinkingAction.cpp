@@ -103,9 +103,9 @@ struct Ctx20_181d30 {
 };
 } // namespace fn_f945e56f
 struct World {
-    char pad00[0xc];
+    void* pad00[3];
     Mgr0c *f0c;
-    char pad10[0x20 - 0x10];
+    void* pad10[4];
     Ctx20_181d30 *f20;
 };
 namespace fn_f945e56f {

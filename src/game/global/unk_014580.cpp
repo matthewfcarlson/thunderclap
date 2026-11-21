@@ -90,7 +90,7 @@ struct Roster_145b0 {
 };
 } // namespace fn_f4b0ec38
 struct World {
-    char pad00[0x20];
+    void* pad00[8];
     Roster_145b0 *roster;
 };
 namespace fn_f4b0ec38 {

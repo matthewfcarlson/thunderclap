@@ -108,7 +108,7 @@ struct EntityList_1c430 {
 };
 } // namespace fn_f260fe7b
 struct World {
-    char pad0[0x20];
+    void* pad0[8];
     EntityList_1c430* entities;
 };
 namespace fn_f260fe7b {
@@ -556,11 +556,11 @@ struct JudgeCfg {
 };
 
 struct World {
-    char pad0[0xc];
+    void* pad0[3];
     Scale *f0c;
-    char pad10[0x20 - 0x10];
+    void* pad10[4];
     JudgeCfg *f20;
-    char pad24[0x30 - 0x24];
+    void* pad24[3];
     Hud *f30;
     Runner *f34;
 };
@@ -1152,7 +1152,7 @@ struct EntityList_1c770 {
 };
 
 struct World {
-    char pad0[0x20];
+    void* pad0[8];
     EntityList_1c770* entities;
 };
 

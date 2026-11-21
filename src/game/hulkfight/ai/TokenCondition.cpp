@@ -65,9 +65,9 @@ struct Player_10dcf0 {
 };
 } // namespace fn_f451e068
 struct World {
-    char pad00[0x20];
+    void* pad00[8];
     Player_10dcf0* player;
-    char pad24[0x54 - 0x24];
+    void* pad24[12];
     World_10dcf0* world;
 };
 

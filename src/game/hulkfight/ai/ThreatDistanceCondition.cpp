@@ -311,7 +311,7 @@ struct SinkHolder_12b910 {
 };
 } // namespace fn_f9c2e0ac
 struct World {
-    char pad0[0x20];
+    void* pad0[8];
     SinkHolder_12b910 *holder;
 };
 namespace fn_f9c2e0ac {

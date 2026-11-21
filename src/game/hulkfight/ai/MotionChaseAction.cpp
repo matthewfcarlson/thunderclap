@@ -84,7 +84,7 @@ struct Hub20 {
 };
 } // namespace fn_fae0ed28
 struct World {
-    char pad0[0x20];
+    void* pad0[8];
     Hub20 *p20;
 };
 namespace fn_fae0ed28 {

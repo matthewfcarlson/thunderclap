@@ -120,7 +120,7 @@ public:
 };
 } // namespace fn_f80593ac
 struct World {
-    char pad[0x28];
+    void* pad[10];
     Factory_1f9710 *factory;
 };
 namespace fn_f80593ac {

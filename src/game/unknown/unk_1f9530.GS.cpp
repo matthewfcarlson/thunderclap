@@ -37,7 +37,7 @@ struct Queue_1fa1c0 {
 };
 } // namespace fn_f326376d
 struct World {
-    char pad00[0x30];
+    void* pad00[12];
     Queue_1fa1c0 *queue;             // 0x30
 };
 namespace fn_f326376d {
@@ -243,15 +243,15 @@ struct X {
 };
 
 struct World {
-    char pad0[8];
+    void* pad0[2];
     Zone *f8;
-    char pad0c[0x20 - 0xc];
+    void* pad0c[5];
     Fighter *f20;
-    char pad24[0x28 - 0x24];
+    void* pad24;
     Finder *f28;
-    char pad2c[0x30 - 0x2c];
+    void* pad2c;
     Spawner *f30;
-    char pad34[0x44 - 0x34];
+    void* pad34[4];
     X *f44;
 };
    // tvm_SetSpawnDistanceOffCamera (FUN_001fd4c0), 20 at load
@@ -625,7 +625,7 @@ struct Listener_1fa3a0 {
 };
 
 struct World {
-    char pad00[0x30];
+    void* pad00[12];
     Listener_1fa3a0 *listener;
 };
 

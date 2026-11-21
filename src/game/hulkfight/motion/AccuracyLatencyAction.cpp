@@ -1484,7 +1484,7 @@ struct Intermediate_1949d0 { State_1949d0* FUN_00059a30(); };
 struct Actor_1949d0 { Intermediate_1949d0* FUN_000592a0(); };
 struct Entry_1949d0 { virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual void slot4(); virtual void* slot5(); };
 struct Manager_1949d0 { Entry_1949d0* FUN_001b68e0(int); };
-struct World { char pad[0x14]; Manager_1949d0* manager; };
+struct World { void* pad[5]; Manager_1949d0* manager; };
 namespace hulkfight { namespace motion {
 struct PropGrabbableIsMissileCondition {
 virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual bool vfunc_6(void*,Actor_1949d0*,void*);
@@ -1568,7 +1568,7 @@ struct Registry_194ac0 {
     Entry_194ac0* FUN_001b68e0(int);
 };
 struct World {
-    char pad[0x14];
+    void* pad[5];
     Registry_194ac0* registry;
 };
 namespace hulkfight {
@@ -1645,7 +1645,7 @@ unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash wit
 char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
 
 struct MissileManager { void FUN_001dc0d0(void *missile); };
-struct World { char pad[12]; MissileManager *manager; };
+struct World { void* pad[3]; MissileManager *manager; };
 namespace hulkfight { namespace motion {
 struct ProjectileMissile {
     char pad[0x40];
@@ -1703,7 +1703,7 @@ struct Actor_194bd0 { char pad[0x328]; Link_194bd0* link; char pad2[0x1d60-0x32c
 struct Object { Actor_194bd0* FUN_00059a30(); };
 struct Source_194bd0 { Object* FUN_000592a0(); };
 struct Manager_194bd0 { Entry_194bd0* FUN_00024280(unsigned,unsigned); };
-struct World { char pad[0x20]; Manager_194bd0* manager; };
+struct World { void* pad[8]; Manager_194bd0* manager; };
 namespace hulkfight { namespace motion {
 struct AccuracyLatencyAction {
  virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual bool vfunc_3(unsigned, float); virtual void vfunc_4(); virtual void vfunc_5();

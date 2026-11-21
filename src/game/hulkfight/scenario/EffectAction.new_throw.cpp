@@ -568,7 +568,7 @@ struct ModeB_1a9b10 {
 };
 
 struct World {
-    char pad0[0x20];
+    void* pad0[8];
     ModeB_1a9b10 *modeB;
 };
 template <> inline content::LoadInventory::DynamicCaster<pure3d::Animation>::DynamicCaster() { vftable = DAT_003f3e80; }

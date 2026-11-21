@@ -100,7 +100,7 @@ struct Manager_3f400 {
 };
 
 struct World {
-    char pad00[8];
+    void* pad00[2];
     Manager_3f400* manager;
 };
 

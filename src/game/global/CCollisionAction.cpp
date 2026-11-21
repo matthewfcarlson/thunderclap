@@ -126,11 +126,11 @@ struct Opt_13f20 {
 struct Me_13f20;   // (declared here for the next declaration)
 } // namespace fn_fd8b7d01
 struct World {
-    char pad0[0x20];
+    void* pad0[8];
     struct Me_13f20 *me;          // 0x20
-    char pad24[0x3c - 0x24];
+    void* pad24[6];
     Hud_13f20 *hud;               // 0x3c
-    char pad40[0x54 - 0x40];
+    void* pad40[5];
     Opt_13f20 *opt;               // 0x54
 };
 namespace fn_fd8b7d01 {
@@ -420,7 +420,7 @@ struct Registry_14430 {
 };
 
 struct World {
-    char pad0[0xc];
+    void* pad0[3];
     Registry_14430 *registry;
 };
 

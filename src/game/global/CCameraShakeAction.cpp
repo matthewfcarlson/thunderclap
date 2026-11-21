@@ -32,7 +32,7 @@ struct CameraManager_16d30 {
 };
 } // namespace fn_f06ebc19
 struct World {
-    char pad0[8];
+    void* pad0[2];
     CameraManager_16d30 *camera;
 };
 namespace fn_f06ebc19 {

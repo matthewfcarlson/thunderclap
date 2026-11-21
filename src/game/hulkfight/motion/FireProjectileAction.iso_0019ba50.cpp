@@ -74,7 +74,7 @@ struct Mgr_19ba50 {
     int FUN_001b6d00(int idx, ProjectileGroundShockwave_19ba50* s);
 };
 struct World {
-    char pad0[0x14];
+    void* pad0[5];
     Mgr_19ba50* mgr;
 };
 

@@ -42,7 +42,7 @@ struct Dispatcher {
 };
 
 struct World {
-    char pad0[0x30];
+    void* pad0[12];
     Dispatcher *dispatcher;
 };
 

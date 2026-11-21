@@ -163,7 +163,7 @@ struct Reg_1251f0 {
 };
 } // namespace fn_fd2212ac
 struct World {
-    char pad0[0x20];
+    void* pad0[8];
     Reg_1251f0 *f20;
 };
 namespace fn_fd2212ac {
@@ -626,7 +626,7 @@ struct Slot_125680 {
 };
 
 struct World {
-    char pad0[0x20];
+    void* pad0[8];
     Slot_125680 *slot;
 };
 

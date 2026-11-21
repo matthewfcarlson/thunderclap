@@ -22,7 +22,7 @@ struct Registry_117ab0 {
 };
 } // namespace fn_feb4b85b
 struct World {
-    char pad[0x18];
+    void* pad[6];
     Registry_117ab0 *registry;
 };
 namespace fn_feb4b85b {

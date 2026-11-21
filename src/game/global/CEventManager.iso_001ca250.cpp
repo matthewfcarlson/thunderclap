@@ -17,7 +17,7 @@ struct ActorTable_1ca250 {
 };
 
 struct World {
-    char pad00[0x44];
+    void* pad00[17];
     ActorTable_1ca250 *actors;
 };
 

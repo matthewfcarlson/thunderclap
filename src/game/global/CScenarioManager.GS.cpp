@@ -47,7 +47,7 @@ struct Palette_1cccc0 {
 };
 } // namespace fn_f3574e0c
 struct World {
-    char pad0[0x20];
+    void* pad0[8];
     Palette_1cccc0 *palette;
 };
 struct Singleton_4dd6ec {

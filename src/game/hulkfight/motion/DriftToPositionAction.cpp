@@ -222,7 +222,7 @@ struct Registry_175060 {
 };
 
 struct World {
-    char pad0[0x18];
+    void* pad0[6];
     Registry_175060 *registry;
 };
 

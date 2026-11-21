@@ -59,7 +59,7 @@ struct Checker_96b50 {
 };
 } // namespace fn_fe8da7f1
 struct World {
-    char pad[0x20];
+    void* pad[8];
     Checker_96b50 *checker;
 };
 namespace fn_fe8da7f1 {

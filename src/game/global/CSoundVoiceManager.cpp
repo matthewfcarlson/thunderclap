@@ -463,7 +463,7 @@ struct Id_1f42d0 {
 };
 } // namespace fn_f7fca51a
 struct World {
-    char pad0[8];
+    void* pad0[2];
     struct Gate {
         char FUN_000997a0();
     } *gate;

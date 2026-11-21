@@ -720,7 +720,7 @@ struct Sink_b50d0 {
 };
 
 struct World {
-    char pad0[0x30];
+    void* pad0[12];
     Sink_b50d0 *sink;               // 0x30
 };
 

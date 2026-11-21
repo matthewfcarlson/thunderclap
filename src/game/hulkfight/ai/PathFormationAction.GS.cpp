@@ -19,7 +19,7 @@ struct Listener_11c9a0 { void FUN_001cbc20(Event_11c9a0*); };
 struct PathPoint_11c9a0 {};
 struct Navigation { void FUN_001ae150(PathPoint_11c9a0*); };
 } // namespace fn_fb164a00
-struct World { char pad[0x1c]; Navigation* navigation; char pad2[0x10]; Listener_11c9a0* listener; };
+struct World { void* pad[7]; Navigation* navigation; void* pad2[4]; Listener_11c9a0* listener; };
 namespace fn_fb164a00 {
 struct Request { char pad[0xb4]; int previous; int current; Token_11c9a0* FUN_001034d0(); };
 struct RequestOwner { Request* FUN_000fdc40(); };

@@ -17,9 +17,10 @@ class Other_afe10 {
   public:
     void Run_000afb80(int);
 };
-class Thing_afe10 {
+class Thing_afe10 {   // (gfx3) CHapticControllerManager's words (HulkHapticControllerManager), as Obj_afe80
   public:
-    char pad[5];
+    void* vftable;
+    char f04;
     unsigned char flag;
     Other_afe10* p;
     void Set(int);
@@ -44,10 +45,12 @@ class CKeyPoseTrack {
 struct Child_afe80 {
     void cleanup_000afaf0();
 };
+// (gfx3) CHapticControllerManager (decls/managers.h's HulkHapticControllerManager): the vftable, two flags, its
+// haptic controller; a `char pad[5]` view read the controller at +0x8 natively, inside the flags' word
 struct Obj_afe80 {
-    char pad[5];
+    void* vftable;
+    char f04;
     bool flag;
-    char pad2[2];
     Child_afe80* ptr;
     void run();
 };

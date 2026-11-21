@@ -76,11 +76,11 @@ struct Inner_863e0 {
     void f();
 };
 struct Mid_863e0 {
-    char pad[0x18];
+    void* words[6];   /* (gfx3) CGame's words (HulkGame) */
     Inner_863e0* p;
 };
 struct Root_863e0 {
-    char pad[0x54];
+    void* words[21];   /* (gfx3) the World's words (HulkWorld): +0x54 is CGame */
     Mid_863e0* p;
 };
 extern Root_863e0* g_863e0;
@@ -88,11 +88,11 @@ struct Inner_86400 {
     char pad[0x18];
 };
 struct Mid_86400 {
-    char pad[0x18];
+    void* words[6];   /* (gfx3) CGame's words (HulkGame) */
     Inner_86400* p18;
 };
 struct Outer_86400 {
-    char pad[0x54];
+    void* words[21];   /* (gfx3) the World's words (HulkWorld): +0x54 is CGame */
     Mid_86400* p54;
 };
 extern Outer_86400* gGlobal_86400;
@@ -112,13 +112,13 @@ struct B_86420 {
     void g();
 };
 struct Hub_86420 {
-    char pad[0x10];
+    void* words[4];   /* (gfx3) CGame's words (HulkGame) */
     A_86420* a;
-    char pad2[4];
+    void* haptic;
     B_86420* b;
 };
 struct Manager_86420 {
-    char pad[0x54];
+    void* words[21];   /* (gfx3) the World's words (HulkWorld): +0x54 is CGame */
     Hub_86420* hub;
 };
 extern Manager_86420* gManager_86420;
@@ -180,11 +180,11 @@ struct State_86900 {
     u8 x48;
 };
 struct Obj_86900 {
-    char p0[8];
+    void* p0[2];   /* (gfx3) CGame's words (HulkGame) */
     State_86900* state;
-    char pc[0x10];
+    void* pc[4];
     Worker_86900* worker;
-    char p20[0x10];
+    void* p20[4];
     Tail_86900* tail;
 };
 class A_86940 {
@@ -197,9 +197,9 @@ class B_86940 {
 };
 class Thing_86940 {
   public:
-    char pad[0x18];
+    void* pad[6];   /* (gfx3) CGame's words (HulkGame) */
     A_86940* a;
-    char pad2[0x14];
+    void* pad2[5];
     B_86940* b;
     void Run();
 };
@@ -209,7 +209,7 @@ class Other_86960 {
 };
 class Thing_86960 {
   public:
-    char pad[0x30];
+    void* pad[12];   /* (gfx3) CGame's words (HulkGame) */
     Other_86960* a;
     Other_86960* b;
     void Run();
@@ -224,13 +224,13 @@ struct Second {
     void g();
 };
 struct A {
-    char pad[0x10];
+    void* pad[4];   /* (gfx3) CGame's words (HulkGame) */
     First* first;
-    char pad2[4];
+    void* pad2;
     Second* second;
 };
 struct Root {
-    char pad[0x54];
+    void* pad[21];   /* (gfx3) the World's words (HulkWorld): +0x54 is CGame */
     A* a;
 };
 extern Root* globalRoot;
@@ -284,9 +284,9 @@ struct State_86a40 {
 };
 class A_86a40 {
   public:
-    char pad0[4];
+    void* pad0;   /* (gfx3) CGame's words (HulkGame) */
     State_86a40* p4;
-    char pad8[8];
+    void* pad8[2];
     C10_86a40* p10;
     C14_86a40* p14;
     C18* p18;
@@ -296,7 +296,7 @@ class A_86a40 {
     C28* p28;
     C2c* p2c;
     C30* p30;
-    char pad34[20];
+    void* pad34[5];
     C48* p48;
     void Run(int);
 };
@@ -314,9 +314,9 @@ class C_86da0 {
 };
 class A_86da0 {
   public:
-    char pad[0x1c];
+    void* pad[7];   /* (gfx3) CGame's words (HulkGame) */
     B_86da0* x;
-    char pad2[0x10];
+    void* pad2[4];
     C_86da0* y;
     void tail();
     void run();
@@ -967,10 +967,12 @@ State_86790* FUN_0008e090();
 bool FUN_0008db80();
 struct Renderer_86790 { char pad[0xd8]; int state; void FUN_0028f9a0(); void FUN_0028faf0(int); };
 struct Manager_86790 { void FUN_000afe80(); };
-struct Subsystem_86790 { char pad[0x18]; Manager_86790* manager; };
+struct Subsystem_86790 { void* words[6]; /* (gfx3) CGame's words (HulkGame) */ Manager_86790* manager; };
 struct World { void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */ Subsystem_86790 *subsystem; };
 struct Animation { void FUN_001ec480(const char*,const char*); void FUN_001eb2a0(float,int); };
-struct Object { char pad0[4]; int* result; char pad8[8]; Source_86790* source; Input_86790* input; char pad18[4]; Switch_86790* gate; Pump_86790* pump; char pad24[12]; Animation* animation; void FUN_00086790(); };
+// (gfx3) CGame (decls/managers.h's HulkGame) by its pointer words: its 32-bit pads put the gate, the pump and the
+// sound update words early natively
+struct Object { void* vftable; int* result; void* time; void* world; Source_86790* source; Input_86790* input; void* haptic; Switch_86790* gate; Pump_86790* pump; void* render; void* worldStream; void* overlay; Animation* animation; void FUN_00086790(); };
 void Object::FUN_00086790() {
  gate->FUN_0008db60(1);
  if (!(*(unsigned char*)&DAT_004dd890) && source && input) {
@@ -1268,8 +1270,8 @@ struct Reset_86cb0 {
     void FUN_00024800();
 };
 struct World {
-    char pad[0x20];
-    Reset_86cb0* reset;
+    void* vftable; void* parts[7];   /* (gfx3) the World's words (HulkWorld) */
+    Reset_86cb0* reset;               // +0x20 the actor manager
 };
 struct UI_86cb0 {
     void FUN_0023f720(int*, int);
@@ -1803,16 +1805,16 @@ struct Entity {
 };
 
 struct Holder_872a0 {
-    char pad0[4];
+    void* vftable;   /* (gfx3) the World's words (HulkWorld) */
     Link_872a0 *link;
-    char pad1[0x20 - 8];
-    Entity *entity;
+    void* parts1_6[6];
+    Entity *entity;                   // +0x20 the actor manager
 };
 
 struct Display_872a0 {
-    char pad0[0x10];
+    void* words[4];   /* (gfx3) CGame's words (HulkGame) */
     Body_872a0 *a;
-    char pad1[4];
+    void* gameControllers;
     Body_872a0 *b;
 };
 
@@ -1843,13 +1845,14 @@ public:
     void FUN_000872a0();
     void FUN_00086980(int flag);
 
-    char pad0[4];
+    // (gfx3) CGame (decls/managers.h's HulkGame) by its pointer words (32-bit pads put sub1 / sub0 / camera early)
+    void* vftable;
     Status_872a0 *status;
-    char pad1[4];
+    void* time;
     Holder_872a0 *holder;
-    char pad2[0x20 - 0x10];
+    void* words10[4];
     Sub1_872a0 *sub1;
-    char pad3[0x34 - 0x24];
+    void* words24[4];
     Sub0_872a0 *sub0;
     Camera *camera;
 };

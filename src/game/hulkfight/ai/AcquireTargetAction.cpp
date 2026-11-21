@@ -194,7 +194,7 @@ struct Holder_1245b0 {
 };
 } // namespace fn_f712cb17
 struct World {
-    char pad0[0x20];
+    void* pad0[8];
     Holder_1245b0 *holder;          // 0x20
 };
 namespace fn_f712cb17 {
@@ -799,7 +799,7 @@ struct Ctl_1247d0 {
     void FUN_001dcf60(int a);
 };
 struct World {
-    char pad[0xc];
+    void* pad[3];
     Ctl_1247d0* ctl;
 };
 

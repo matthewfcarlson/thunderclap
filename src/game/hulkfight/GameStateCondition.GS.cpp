@@ -46,7 +46,7 @@ struct Singleton_4dd6ec { Obj3_12f750 *FUN_00086340(); };
 namespace fn_fefa7a64 {
 struct Target_12f750 { void FUN_001ecda0(char *a, int b, char *c, int d); };
 } // namespace fn_fefa7a64
-struct World { char pad[0x34]; Target_12f750 *t34; };
+struct World { void* pad[13]; Target_12f750 *t34; };
 namespace fn_fefa7a64 {
 struct Name64 { char c[0x40]; };
 

@@ -664,7 +664,7 @@ struct Slot_125820 {
 };
 
 struct World {
-    char pad0[0x20];
+    void* pad0[8];
     Slot_125820 *slot;
 };
 
@@ -889,7 +889,7 @@ struct Owner_125a90 {
 };
 
 struct World {
-    char pad00[0x20];
+    void* pad00[8];
     Owner_125a90* owner;               // 0x20
 };
 

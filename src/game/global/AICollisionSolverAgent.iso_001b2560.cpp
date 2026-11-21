@@ -69,7 +69,7 @@ struct Pool_1b2560 {
     char FUN_000242d0(void *shape);
 };
 struct World {
-    char pad0[0x20];
+    void* pad0[8];
     Pool_1b2560 *f20;
 };
 

@@ -238,9 +238,9 @@ struct RegionManager {  };
 struct Holder3c { char pad[8]; RegionManager* mgr; };
 } // namespace fn_ffa3e06c
 struct World {
-    char pad0[0x28];
+    void* pad0[10];
     Registry_e3900* registry;
-    char pad2c[0x10];
+    void* pad2c[4];
     Holder3c* holder;
 };
 namespace fn_ffa3e06c {

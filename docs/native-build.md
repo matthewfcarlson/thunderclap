@@ -6555,3 +6555,25 @@ the literal before writing `sizeof(::Gen)`.
 D131/D133/D134/D135 (see docs/journal.md 2026-11-20 nat2). Natively the game's `operator new` (`??2@YAPEAX_K@Z`) and
 `operator delete` / `delete[]` and content::LoadObject's members are strong tree definitions; no free call binds by a
 name that carries an address any more. Unbound counts: see the commit message (control and proof snapshots, own maps).
+
+## gfx3: native start-up, continued (2026-11-21)
+
+- C11: the World's and CGame's 32-bit pad views as pointer words. Every word of the World (decls/managers.h
+  HulkWorld: vftable, 21 managers, f58; 32-bit 0x00..0x5c) and of CGame (HulkGame, 0x00..0x50) is a pointer, so a
+  view's `char pad[N]` in that range is `void* pad[N/4]`: the same 32-bit layout (MSVC code, code hashes and checker
+  views unchanged: verify reports no code_changed / view changed, so no re-proofs), the native word offsets. The
+  generator build/gfx3/scripts/worldviews.py rewrote 252 pads in 124 TUs' `struct World` views (only TUs whose every
+  other `World` reference is DAT_004dd700: 46 TUs where the name stands for another object, such as the physics world
+  DAT_00554c10, or is passed as a parameter, are left for hand review). By hand: the game loop 0x00087630 (CGame,
+  its World and CGame+0x18 views), CGame's frame update 0x00086980 (its stats update 0x00090db0 ran on HulkGame+0x24's
+  manager, so 0x00090790 measured the player through garbage stats), CTimeManager's getters and loop helpers
+  0x000863e0 .. 0x00086da0 / 0x00086790 / 0x00086cb0 / 0x000872a0, the GS TU's 0x000873a0 / 0x00088940 views, the
+  World update 0x00088b80, 0x00090790's World view (parts[7], the actor manager), and CHapticControllerManager's
+  views 0x000afe10 / 0x000afe80 (vftable, two flags, the controller: `char pad[5]` read the controller inside the
+  flags' word natively).
+- The actor manager (CActorManager, constructor 0x00025a90, 0xd40 bytes, World+0x20): its views (about 60 in
+  unk_0240b0.cpp) disagree natively about its words: the constructor's Thing_25a90 has three pointers first, others
+  `char pad4[8]`, the main actor at +0x124 is written by 0x00025e50 through `char pad[0x124]` (native 0x128) and
+  zeroed by the constructor at native 0x130, the world pointer at +0x00 is stored by 0x000243f0 as an `int`
+  (truncated natively), and raw offsets (`this + 0x228 + i * 8`, `+ 0x590`, `+ 0xc10`) index its tables. A record
+  needs all of them converted at once (ckpt1's follow-up (A)); a record only some views use would make native worse.

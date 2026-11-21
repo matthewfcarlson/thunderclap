@@ -287,9 +287,9 @@ struct Registry_198b30 {
 };
 
 struct World {
-    char pad0[0x24];
+    void* pad0[9];
     Raycast *ray;       // 0x24
-    char pad28[0x34 - 0x28];
+    void* pad28[3];
     Registry_198b30 *reg;      // 0x34
     Spawner_198b30 *spawn;     // 0x38
 };
@@ -663,11 +663,11 @@ struct Own_199060 {
 struct Pool44 {
 };
 struct World {
-    char pad0[0xc];
+    void* pad0[3];
     Holder_199060 *pc;
-    char pad10[0x44 - 0x10];
+    void* pad10[13];
     Pool44 *p44;
-    char pad48[4];
+    void* pad48;
     Hub4c_199060 *p4c;
 };
 

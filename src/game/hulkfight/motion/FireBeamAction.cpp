@@ -215,9 +215,9 @@ struct Scene_1962b0 {
 };
 
 struct World {
-    char pad0[0xc];
+    void* pad0[3];
     Factory_1962b0 *factory;   // 0xc
-    char pad10[0x54 - 0x10];
+    void* pad10[17];
     Scene_1962b0 *scene;       // 0x54
 };
 
@@ -528,7 +528,7 @@ struct Source_197540 { Intermediate_197540* FUN_000592a0(); };
 struct Effects_197540 { void FUN_0027ffb0(unsigned int); };
 extern "C" Effects_197540* __cdecl FUN_0027f250();
 struct Manager_197540 { void FUN_001e5720(Ref_197540*); };
-struct World { char pad0[0xc]; Manager_197540* manager; char pad1[0x10]; Lookup_197540* lookup; };
+struct World { void* pad0[3]; Manager_197540* manager; void* pad1[4]; Lookup_197540* lookup; };
 struct Resources_197540 { char pad[8]; unsigned int first; unsigned int second; };
 namespace hulkfight { namespace motion {
 struct FireBeamAction {

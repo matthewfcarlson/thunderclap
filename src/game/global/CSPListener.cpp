@@ -61,7 +61,7 @@ struct Recorder {
 struct Listener_1d7b80;   // (declared here for the next declaration)
 } // namespace fn_f9c60317
 struct World {
-    char pad00[0xc];
+    void* pad00[3];
     struct Listener_1d7b80 *listener; // 0x0c
 };
 namespace fn_f9c60317 {
@@ -769,9 +769,9 @@ struct Sender {
 };
 
 struct World {
-    char pad0[0x30];
+    void* pad0[12];
     Sender *f30;
-    char pad34[0x54 - 0x34];
+    void* pad34[8];
     Singleton_4dd6ec *f54;
 };
 
@@ -1041,7 +1041,7 @@ struct Hub4c_1d86d0 {
     Req_1d86d0 *FUN_0007ad00(void *p);
 };
 struct World {
-    char pad0[0x4c];
+    void* pad0[19];
     Hub4c_1d86d0 *p4c;
 };
 
@@ -1287,7 +1287,7 @@ char FUN_001d04d0(const void* typeInfo);                      // type_info test 
 
 struct Resource_1d8cd0 { virtual void slot0(); virtual void release(); };
 struct Manager_1d8cd0 { void FUN_00029c00(unsigned int handle); };
-struct World { char pad[0x20]; Manager_1d8cd0* manager; };
+struct World { void* pad[8]; Manager_1d8cd0* manager; };
 struct Handle_1d8cd0 { char pad[0x10]; unsigned int value; };
 struct Object {
  char pad0[0xa0]; Handle_1d8cd0* handle;
@@ -1369,7 +1369,7 @@ struct Subsystem_1d8d90 {
     Manager_1d8d90* manager;
 };
 struct World {
-    char pad[32];
+    void* pad[8];
     Subsystem_1d8d90* subsystem;
 };
 struct Inner_1d8d90 {
@@ -1484,7 +1484,7 @@ struct Subsystem_1d8e90 {
     Manager_1d8e90* manager;
 };
 struct World {
-    char pad[0x20];
+    void* pad[8];
     Subsystem_1d8e90* subsystem;
 };
 struct Handle_1d8e90 {
@@ -2574,7 +2574,7 @@ struct Reg20_1da350 {
 };
 
 struct World {
-    char pad[0x20];
+    void* pad[8];
     Reg20_1da350 *p20;
 };
 
@@ -2891,12 +2891,12 @@ struct Reqs {
 };
 
 struct World {
-    char pad0[0x24];
+    void* pad0[9];
     Ray_1da540 *p24;
-    char pad28[0x30 - 0x28];
+    void* pad28[2];
     Sink30 *p30;
     Fx34_1da540 *p34;
-    char pad38[0x4c - 0x38];
+    void* pad38[5];
     Reqs *p4c;
 };
 

@@ -24,7 +24,7 @@ struct Owner_1f080 { Actor_1f080* FUN_000592a0(); };
 struct Descriptor_1f080 { char pad[16]; char resource[184]; unsigned int flags[2]; };
 struct Manager_1f080 { void FUN_001e5860(char*, const void*, Vec3_1f080); Prop_1f080* FUN_001def30(char*); };
 } // namespace fn_f41a76ff
-struct World { char pad[12]; Manager_1f080* manager; };
+struct World { void* pad[3]; Manager_1f080* manager; };
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" int __cdecl sprintf(char*, const char*, ...);
 #endif

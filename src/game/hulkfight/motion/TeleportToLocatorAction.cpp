@@ -121,7 +121,7 @@ struct Locator {
  virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual void slot4(); virtual void slot5(); virtual void slot6(); virtual void slot7(); virtual void slot8(Vec3_171d90*);
 };
 struct Manager_171d90 { Locator* FUN_001fc8c0(unsigned int,unsigned int); };
-struct World { char pad[0x28]; Manager_171d90* manager; };
+struct World { void* pad[10]; Manager_171d90* manager; };
 struct Offset_171d90 { char pad[0x14]; Vec3_171d90 displacement; };
 namespace hulkfight { namespace motion {
 struct TeleportToLocatorAction {

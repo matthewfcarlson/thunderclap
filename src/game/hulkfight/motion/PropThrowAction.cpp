@@ -59,7 +59,7 @@ struct Scaler_1837e0 {
 };
 } // namespace fn_fd95142d
 struct World {
-    char pad0[0xc];
+    void* pad0[3];
     Scaler_1837e0 *scaler;
 };
 namespace fight {
@@ -1963,7 +1963,7 @@ struct Manager_184940 {
 };
 
 struct World {
-    char pad0[0x20];
+    void* pad0[8];
     Manager_184940 *manager;
 };
 
@@ -2192,10 +2192,10 @@ struct Player_184b00 {
 };
 
 struct World {
-    char pad0[0x20];
+    void* pad0[8];
     Player_184b00 *player;  // 0x20
     Ray_184b00 *ray;        // 0x24
-    char pad28[0x34 - 0x28];
+    void* pad28[3];
     Sink_184b00 *sink;      // 0x34
     Spawn_184b00 *spawn;    // 0x38
 };

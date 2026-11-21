@@ -93,9 +93,9 @@ struct Hub20_11d900 {
 };
 } // namespace fn_fdd31ee7
 struct World {
-    char pad0[0x20];
+    void* pad0[8];
     Hub20_11d900 *hub;
-    char pad24[4];
+    void* pad24;
     Registry_11d900 *registry;
 };
 namespace fn_fdd31ee7 {

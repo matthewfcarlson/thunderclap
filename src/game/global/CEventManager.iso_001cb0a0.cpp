@@ -23,7 +23,7 @@ class Look_1cb0a0 {
   public:
 };
 struct World {
-    char pad[0x44];
+    void* pad[17];
     Look_1cb0a0* look;
 };
 extern "C" Writer_1cb0a0* __cdecl FUN_001d4c90(void);   // (decl1) as defined (ScriptHandler.cpp)

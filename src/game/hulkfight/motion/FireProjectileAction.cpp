@@ -707,7 +707,7 @@ struct Pool_19ae50 {
 };
 } // namespace fn_f740ace1
 struct World {
-    char pad0[0x14];
+    void* pad0[5];
     Pool_19ae50 *pool;
 };
 namespace fn_f740ace1 {
@@ -2352,7 +2352,7 @@ struct Factory_19b460 {
 };
 
 struct World {
-    char pad0[0xc];
+    void* pad0[3];
     Factory_19b460 *factory;       // 0xc
 };
 

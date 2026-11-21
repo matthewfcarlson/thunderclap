@@ -115,7 +115,7 @@ struct Holder_4a9d0 {
 };
 
 struct World {
-    char pad00[0x20];
+    void* pad00[8];
     Holder_4a9d0 *holder;
 };
 

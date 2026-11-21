@@ -236,7 +236,7 @@ struct Sub_1065b0 {
 };
 
 struct World {
-    char pad[0x2c];
+    void* pad[11];
     Sub_1065b0 *sub;
 };
 

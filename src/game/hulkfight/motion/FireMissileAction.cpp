@@ -50,9 +50,9 @@ struct FlagSrc {
 };
 } // namespace fn_fac9c0e0
 struct World {
-    char pad0[0x14];
+    void* pad0[5];
     void *pool;
-    char pad18[0x54 - 0x18];
+    void* pad18[15];
     Holder28_19e430 *holder;
 };
 namespace fn_fac9c0e0 {

@@ -165,11 +165,11 @@ struct Clock {
 };
 
 struct World {
-    char pad0[0x20];
+    void* pad0[8];
     Pickers *f20;
-    char pad24[0x3c - 0x24];
+    void* pad24[6];
     MapHolder *f3c;
-    char pad40[0x58 - 0x40];
+    void* pad40[6];
     Clock *f58;
 };
 

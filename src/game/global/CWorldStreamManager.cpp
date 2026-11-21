@@ -607,9 +607,9 @@ struct Mgr3c {
 };
 } // namespace fn_f49dcb8d
 struct World {
-    char pad0[0x3c];
+    void* pad0[15];
     Mgr3c *mgr3c;          // 0x3c
-    char pad40[0x54 - 0x40];
+    void* pad40[5];
     Mgr54_2071e0 *mgr54;          // 0x54
 };
 namespace fn_f49dcb8d {
@@ -4031,7 +4031,7 @@ struct Queue_208920 {
     void FUN_001cbc20(Transition_208920*);
 };
 struct World {
-    char pad[0x30];
+    void* pad[12];
     Queue_208920* queue;
 };
 struct Item_208920 {

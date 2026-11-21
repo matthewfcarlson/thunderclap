@@ -30,7 +30,7 @@ struct Pool_1a9f10 {
 };
 } // namespace fn_feb3d910
 struct World {
-    char pad0[0x20];
+    void* pad0[8];
     Pool_1a9f10* pool;
 };
 namespace fn_feb3d910 {

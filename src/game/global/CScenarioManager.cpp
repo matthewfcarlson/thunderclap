@@ -318,7 +318,7 @@ struct Owner_1cd5b0 {
 };
 struct Clock_1cd5b0 {  };
 } // namespace fn_fdf9c5a9
-struct World { char pad[0x20]; Clock_1cd5b0 *clock; };
+struct World { void* pad[8]; Clock_1cd5b0 *clock; };
 namespace fn_fdf9c5a9 {
 class CScenarioManager_1cd5b0 {
 public:

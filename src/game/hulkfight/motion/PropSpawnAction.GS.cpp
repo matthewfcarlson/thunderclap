@@ -65,7 +65,7 @@ struct Prop_1820d0 {
 };
 } // namespace fn_fc14b0eb
 struct World {
-    char pad0[0xc];
+    void* pad0[3];
     Spawner_1820d0* spawner;
 };
 

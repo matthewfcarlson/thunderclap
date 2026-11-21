@@ -87,7 +87,7 @@ struct Buf28 {
 struct Sink_171950 { void FUN_001cbc20(Buf28 *b); };
 struct Probe_171950 { bool FUN_001ccff0(); };
 } // namespace fn_ffe35821
-struct World { char pad[0x2c]; Probe_171950 *probe; Sink_171950 *sink; };
+struct World { void* pad[11]; Probe_171950 *probe; Sink_171950 *sink; };
 namespace fn_ffe35821 {
 struct Ctx2_171950 { char pad[0x10]; int *p10; char pad2[0x1e58 - 0x14]; int v1e58; };
 struct Ctx1_171950 { Ctx2_171950 *FUN_00059a30(); };

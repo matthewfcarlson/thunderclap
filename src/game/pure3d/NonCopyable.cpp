@@ -47,7 +47,7 @@ struct ModeB_452e0 {
 };
 } // namespace fn_fd48bef5
 struct World {
-    char pad0[0x20];
+    void* pad0[8];
     ModeB_452e0 *modeB;
 };
 namespace fn_fd48bef5 {

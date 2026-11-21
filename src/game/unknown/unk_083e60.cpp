@@ -72,9 +72,9 @@ struct Controller_843c0 {
 };
 } // namespace fn_fb2690e0
 struct World {
-    char pad00[0xc];
+    void* pad00[3];
     Registry_843c0* registry;         // 0x0c
-    char pad10[0x34 - 0x10];
+    void* pad10[9];
     Controller_843c0* controller;     // 0x34
 };
 namespace fn_fb2690e0 {
@@ -382,10 +382,10 @@ struct Cursor_84610 {
 };
 
 struct World {
-    char pad00[0x0c];
+    void* pad00[3];
     Tracker_84610 *tracker;       // 0x0c
     struct {
-        char pad00[8];
+        void* pad00[2];
         Level_84610 *level;       // 0x08
     } *world;               // 0x10
     char pad14[0x4c - 0x14];
@@ -510,7 +510,7 @@ char FUN_001d04d0(const void* typeInfo);                      // type_info test 
 struct Vec_84830 { float x,y,z; hulk_freg FUN_0022d110();  };
 struct Matrix { float m[16]; void FUN_0022b980();  void FUN_0022bec0(Vec_84830*,Vec_84830*);  };
 struct Renderer_84830 { void FUN_001dd470(unsigned,Matrix*,unsigned); };
-struct World { char pad[12]; Renderer_84830* renderer; }; 
+struct World { void* pad[3]; Renderer_84830* renderer; }; 
 struct Object { char pad[0x34]; unsigned id; char pad2[0x28]; Vec_84830 position; Vec_84830 direction; void FUN_00084830(unsigned arg); };
 void Object::FUN_00084830(unsigned arg) { direction.y=0.0f; direction.FUN_0022d110(); union { float f; unsigned u; } length; length.f=direction.x*direction.x+direction.y*direction.y+direction.z*direction.z; length.u &= 0x7fffffff; if (!(length.f<=1e-05f)) { Matrix rotation; rotation.FUN_0022b980(); ((owners::Mat_22ba70 *)&rotation)->FUN_0022ba70(1.5707963705062866f); ((owners::Obj_22d260 *)&direction)->FUN_0022d260((owners::Obj_22d260 *)(&rotation)); Matrix transform; transform.FUN_0022b980(); Vec_84830 up; up.x=0.0f; up.y=1.0f; up.z=0.0f; transform.FUN_0022bec0(&direction,&up); ((owners::Target_22be40 *)&transform)->FUN_0022be40((const int *)(Vec_84830 *)(&position)); DAT_004dd700->renderer->FUN_001dd470(id,&transform,arg); } }
 } // namespace fn_00084830
@@ -690,15 +690,15 @@ struct Manager_84c40 {
 };
 
 struct World {
-    char pad00[0x0c];
+    void* pad00[3];
     Registry_84c40 *registry;     // 0x0c
-    char pad10[0x20 - 0x10];
+    void* pad10[4];
     CamOwner *camOwner;     // 0x20
-    char pad24[0x34 - 0x24];
+    void* pad24[4];
     Controller_84c40 *controller; // 0x34
-    char pad38[0x4c - 0x38];
+    void* pad38[5];
     Manager_84c40 *manager;       // 0x4c
-    char pad50[4];
+    void* pad50;
     Holder_84c40 *holder;         // 0x54
 };
 

@@ -123,9 +123,9 @@ struct World0c {
 };
 } // namespace fn_f4dda826
 struct World {
-    char pad0[0xc];
+    void* pad0[3];
     World0c *f0c;
-    char pad10[0x30 - 0x10];
+    void* pad10[8];
     Sink_1db230 *f30;
 };
 namespace fn_f4dda826 {

@@ -96,7 +96,7 @@ struct Controller_81420 {
 };
 } // namespace fn_f2e01089
 struct World {
-    char pad00[0x34];
+    void* pad00[13];
     Controller_81420* controller;
 };
 namespace fn_f2e01089 {

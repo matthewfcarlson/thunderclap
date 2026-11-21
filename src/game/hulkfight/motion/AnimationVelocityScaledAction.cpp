@@ -2447,7 +2447,7 @@ struct Clock_13ab50 {
     hulk_freg FUN_000860c0();
 };
 struct World {
-    char pad0[0x58];
+    void* pad0[22];
     Clock_13ab50 *clock;
 };
 

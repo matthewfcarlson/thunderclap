@@ -64,7 +64,7 @@ struct Registry_1d570 {
 };
 } // namespace fn_fbb06d2a
 struct World {
-    char pad0[0x28];
+    void* pad0[10];
     Registry_1d570 *registry;              // 0x28
 };
 namespace fn_fbb06d2a {

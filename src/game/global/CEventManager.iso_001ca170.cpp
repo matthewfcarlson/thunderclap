@@ -11,7 +11,7 @@
 #include "gen/owners.h"
 struct Actor_1ca170 { const char* FUN_00036d00(); };
 struct ActorTable_1ca170 {  };
-struct World { char pad[0x44]; ActorTable_1ca170* actors; };
+struct World { void* pad[17]; ActorTable_1ca170* actors; };
 struct Writer_1ca170 {
     void FUN_001d1d10();
 };

@@ -106,7 +106,7 @@ struct Mgr1 {
 };
 } // namespace fn_f9af4c99
 struct World {
-    char pad00[0x10];
+    void* pad00[4];
     Mgr1* mgr;
 };
 namespace fn_f9af4c99 {

@@ -54,7 +54,7 @@ struct Report {    void FUN_001d1d10(); };
 struct Actor_1ca430 { const char* FUN_00036d00(); };
 struct Registry_1ca430 {  };
 } // namespace fn_f6c94213
-struct World { char pad[0x44]; Registry_1ca430* registry; };
+struct World { void* pad[17]; Registry_1ca430* registry; };
 namespace fn_f6c94213 {
 extern "C" void __cdecl FUN_00096d50(char*, int, int, int);
 struct Target_1ca430 { char pad[0x10]; int actor; char pad14[4]; int prop1; int prop2; int type1; int type2; int index; Report* FUN_001d4c90(); bool run(); };
@@ -301,7 +301,7 @@ char FUN_001d04d0(const void* typeInfo);                      // type_info test 
 
 struct Actor_1ca5b0 { const char* FUN_00036d00(); };
 struct Lookup_1ca5b0 {  };
-struct World { char pad[0x44]; Lookup_1ca5b0* lookup; };
+struct World { void* pad[17]; Lookup_1ca5b0* lookup; };
 struct Reporter_1ca5b0 {   void FUN_001d1d10(); };
 extern void __cdecl FUN_00096d50(char*, unsigned int, unsigned int, unsigned int);
 struct Target_1ca5b0 { char pad[0x10]; unsigned int actor; char pad14[4]; unsigned int propLow,propHigh,typeLow,typeHigh; Reporter_1ca5b0* FUN_001d4c90(); bool FUN_001ca5b0(); };
@@ -407,7 +407,7 @@ char FUN_001d04d0(const void* typeInfo);                      // type_info test 
 
 struct Actor_1ca890 { const char* FUN_00036d00(); };
 struct Registry_1ca890 {  };
-struct World { char pad[0x44]; Registry_1ca890* registry; };
+struct World { void* pad[17]; Registry_1ca890* registry; };
 struct Writer_1ca890 {    void FUN_001d1d10(); };
 extern "C++" void __cdecl FUN_00096d50(char*, int, unsigned int, unsigned int);
 struct Target_1ca890 { char pad[0x10]; unsigned int actor; char pad14[4]; unsigned int propLow, propHigh, typeLow, typeHigh, attachment; Writer_1ca890* FUN_001d4c90(); bool run(); };

@@ -115,7 +115,7 @@ struct EventBuilder {
 };
 } // namespace fn_facdac2a
 struct World {
-    char pad00[0x2c];
+    void* pad00[11];
     StatusCheck *status;     // 0x2c
     EventQueue *queue;       // 0x30
 };

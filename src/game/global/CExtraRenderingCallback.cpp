@@ -619,7 +619,7 @@ struct Scene_1bcc30 {
 };
 
 struct World {
-    char pad0[0x20];
+    void* pad0[8];
     Scene_1bcc30 *scene;
 };
 
@@ -1031,11 +1031,11 @@ struct Obj40 {
 };
 
 struct World {
-    char pad0[8];
+    void* pad0[2];
     Obj8_1bcef0 *f8;
-    char pad0c[0x20 - 0xc];
+    void* pad0c[5];
     Obj20_1bcef0 *f20;
-    char pad24[0x3c - 0x24];
+    void* pad24[6];
     Obj3c_1bcef0 *f3c;
     Obj40 *f40;
 };

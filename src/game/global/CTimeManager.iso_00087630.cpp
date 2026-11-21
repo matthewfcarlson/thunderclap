@@ -49,19 +49,21 @@ struct Queue_87630 { void FUN_0008db00(); bool FUN_0008db20(Target_87630*); };
 bool __cdecl FUN_0008db80(); extern "C" void __cdecl FUN_0008db90();
 struct State_87630 { int mode; int unused; int saved; };
 struct Clock_87630 { char pad[32]; unsigned __int64 ticks; void FUN_00086450(); hulk_freg FUN_000860c0(); };
-struct Sim_87630 { char pad[44]; void* item; void FUN_00088c30(State_87630*,float);  };
+struct Sim_87630 { void* words[11]; /* (gfx3) the World's words (HulkWorld: vftable, parts[0..9]) */ void* item; void FUN_00088c30(State_87630*,float);  };
 struct Notify_87630 { void FUN_000afe80(); };
-struct Sub_87630 { char pad[24]; Notify_87630* notify; };
+struct Sub_87630 { void* words[6]; /* (gfx3) CGame's words (HulkGame) */ Notify_87630* notify; };
 struct World { void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */ Sub_87630 *sub; }; 
 struct Stop_87630 { void FUN_001b7970(); };
 struct Update_87630 { void FUN_001eb2a0(float,int); };
 struct Check_87630 { bool FUN_00089e80(void*,unsigned int); };
 struct UI_87630 { void FUN_0023f6b0(); void FUN_0023f720(int*,int); bool FUN_0023f760(const char*,int,int); void FUN_0023f740(); void FUN_0023f6c0(); };  
-struct Gate_87630 { unsigned int FUN_000b4f20(); }; struct Singleton_4dd6ec { char pad[32]; Gate_87630* gate; }; 
+struct Gate_87630 { unsigned int FUN_000b4f20(); }; struct Singleton_4dd6ec { void* words[8]; /* (gfx3) CGame's words (HulkGame) */ Gate_87630* gate; }; 
 struct Audio_87630 { void FUN_001d1160(float); void FUN_001d15d0(int); }; Audio_87630* __cdecl FUN_001d4c90();
 extern "C" unsigned int __cdecl FUN_00267f80(); unsigned int __cdecl FUN_00267f00(); float __cdecl FUN_00085e60(unsigned int,int); extern "C" void __cdecl FUN_00240bb0();
  
-struct Target_87630 { char pad0[4]; State_87630* state; Clock_87630* clock; Sim_87630* sim; char pad10[12]; Queue_87630* queue; char pad20[16]; Update_87630* update; Stop_87630* stop; Check_87630* check; void FUN_00086ad0(); void FUN_00086790(); void FUN_000873a0(); void FUN_00086a40(float); void run(); };
+// (gfx3) CGame (decls/managers.h's HulkGame) by its pointer words: its 32-bit pads put the platform queue, the sound
+// update, the FMV stop and the game-flow check one or more words early natively
+struct Target_87630 { void* vftable; State_87630* state; Clock_87630* clock; Sim_87630* sim; void* controllers; void* gameControllers; void* haptic; Queue_87630* queue; void* frontEnd; void* render; void* worldStream; void* overlay; Update_87630* update; Stop_87630* stop; Check_87630* check; void FUN_00086ad0(); void FUN_00086790(); void FUN_000873a0(); void FUN_00086a40(float); void run(); };
 void Target_87630::run() {
  queue->FUN_0008db00();
  if (!queue->FUN_0008db20(this)) { if(state->mode==7) stop->FUN_001b7970(); else if(state->mode==6) { state->mode=state->saved; state->saved=0; DAT_004dd700->sub->notify->FUN_000afe80(); } state->mode=8; DAT_004dd700->sub->notify->FUN_000afe80(); }

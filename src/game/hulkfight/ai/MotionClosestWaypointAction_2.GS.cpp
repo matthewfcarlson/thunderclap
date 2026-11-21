@@ -24,7 +24,7 @@ struct Text_117da0 { char data[0x5c]; void FUN_001ca2e0(unsigned, unsigned, unsi
 struct Packet_117da0 { Text_117da0 text; };
 struct Sink_117da0 { void FUN_001cbc20(Packet_117da0*); };
 } // namespace fn_fef696d1
-struct World { char pad[0x30]; Sink_117da0* sink; };
+struct World { void* pad[12]; Sink_117da0* sink; };
 namespace fn_fef696d1 {
 struct Target_117da0 { char pad[0x1c]; Bounds_117da0* bounds; Source_117da0* source; char pad2[0xc]; float magnitude, x, y; char pad3[0xc]; unsigned value; bool run(); };
 

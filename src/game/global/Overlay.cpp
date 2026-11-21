@@ -55,9 +55,9 @@ struct Slots_c9810 {
 };
 } // namespace fn_fd3ccc71
 struct World {
-    char pad0[0xc];
+    void* pad0[3];
     Slots_c9810 *f0c;
-    char pad10[0x20 - 0x10];
+    void* pad10[4];
     WorldSub *f20;
 };
 namespace fn_fd3ccc71 {

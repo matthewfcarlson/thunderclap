@@ -1193,7 +1193,7 @@ struct Hub20_11ce20 {
 };
 
 struct World {
-    char pad0[0x20];
+    void* pad0[8];
     Hub20_11ce20 *hub;
 };
 
@@ -1516,7 +1516,7 @@ struct Hub1c_11d2c0 {
                       float t, int i6);
 };
 struct World {
-    char pad0[0x1c];
+    void* pad0[7];
     Hub1c_11d2c0 *f1c;
 };
 
