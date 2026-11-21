@@ -46,7 +46,12 @@ CASES = {
     "0x001c04e0_calleepost": ("equivalent", None, 0.5, {"n_inputs": 300, "equiv_off": "postproof"}),
     "0x001c04e0_calleepost_wine": ("equivalent", None, 0.5, {"src": "0x001c04e0_calleepost", "native": True,
                                                                "n_inputs": 300, "equiv_off": "postproof"}),
-    "0x001c04e0_calleepost_unproven": ("fail", "write to this+0x0", 0, {"src": "0x001c04e0_calleepost", "n_inputs": 300}),
+    # (integ8) the production path, no switch: 0x00085f80's landed post lines (28dbc2a10) are accepted in each mode
+    # (rev5) it depends on the ledger at HEAD: if 0x00085f80's post line is ever revoked it fails on purpose, and the
+    # fix is a re-proof of 0x00085f80, never a changed expectation
+    "0x001c04e0_calleepost_lined": ("equivalent", None, 0.5, {"src": "0x001c04e0_calleepost", "n_inputs": 300}),
+    "0x001c04e0_calleepost_lined_wine": ("equivalent", None, 0.5, {"src": "0x001c04e0_calleepost", "native": True,
+                                                                     "n_inputs": 300}),
     "0x001c04e0_calleepost_off": ("fail", "write to this+0x0", 0, {"src": "0x001c04e0_calleepost", "n_inputs": 300,
                                                                      "equiv_off": "postproof,calleepost"}),
     # (integ4, D152b; rev5) a caller of a contracted callee (0x0009faa0's ge(a, 0) ge(b, 0), stated in the case's TU copy

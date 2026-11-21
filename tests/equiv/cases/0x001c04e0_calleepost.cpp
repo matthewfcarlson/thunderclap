@@ -2,7 +2,7 @@
 // (integ8, D165; rev5) a caller of 0x00085f80 (`// post: ge(ret, 0)`): this copy takes the step only when it is not
 // negative (`step >= 0.0f &&`), which differs from the original exactly when the stubbed clock returns a negative step.
 // With the callee's return postcondition accepted (EQUIV_OFF=postproof here: regress only, proves nothing) the direct
-// call's stub draws the step inside [0, inf): equivalent. Without it (_unproven: no post line; _off: calleepost) it fails.
+// call's stub draws the step inside [0, inf): equivalent; _lined runs it without a switch (the landed post lines). Without the draw (_off: calleepost) it fails.
 struct Listener_1c04e0 {
     virtual void vf0();
     virtual void vf1();

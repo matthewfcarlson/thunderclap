@@ -260,6 +260,14 @@ counts and the main inconclusive causes. equiv.py's proof-sized runs draw until 
 Runs made with any EQUIV_ON / EQUIV_OFF switch prove nothing either. `--ledger FILE` reads and appends
 another ledger (tests, dry runs).
 
+**A hash job's result (integ8).** In a queue job, write `hash ... --proven R --emit DIR` and fetch DIR: `pins.diff` (the
+TUs' pin lines as a patch, 1 line of context), `ledger.new.jsonl` (the lines this run appended), `baseline_removed.json`
+(the unproven ratchet's removals, for the record) and `manifest.json`. `tree_tu.py hash-apply DIR` applies it to a
+checkout or private workspace: git apply of the patch (refused, with nothing written, when it does not apply: re-run
+the hash on the current files; a patch already applied is skipped), each ledger line once (by its line key), and the
+unproven ratchet re-run there on those lines. It never copies the job's TUs or baseline file, so other lanes' edits and
+entries stay, and nobody re-applies the ratchet by hand. The manifest names the job and the checker digest (hash-apply prints them with the job's base commit). (rev5) After applying, the re-pinned blocks are checked here (check_tu): a code or view that differs from the new pin (another lane's edit outside the hunk, a header) fails the apply with "re-hash on the current files"; the ledger lines stay, being true of the job's code (tests/test_hash_emit.py).
+
 (integ4, D154) **Revoked proofs.** A ledger line a later checker rule shows unsound (D153's audit: a `--wine` proof
 whose inputs took an argument split only our own code makes) is revoked with `tree_tu.py revoke ADDR --mode M --why
 TEXT`: every line proving ADDR in that mode is named in config/proof-revoked.jsonl (append-only, merge=union), by a

@@ -3053,6 +3053,140 @@ def hash_proven(path, results, addrs=None, dry_run=False, ledger=None, unproven_
     return out
 
 
+def _emit_begin(paths, ledger=None):
+    """(integ8) What `hash --emit` compares against: the TUs' texts and the ledger's and baseline's state before the run."""
+    led = ledger or LEDGER
+    root = find_root(os.path.abspath(paths[0])) or ROOT
+    return {"root": root, "ledger": led, "tus": {os.path.relpath(os.path.abspath(p), root): open(p).read() for p in paths},
+            "ledger_n": sum(1 for _ in open(led)) if os.path.exists(led) else 0,
+            "baseline": json.dumps(load_unproven_baseline().get("blocks", {}), sort_keys=True)}
+
+
+def _emit_end(st, outdir):
+    """(integ8) `hash --emit DIR`: the run's changes as a fetchable result (hash_apply applies it)."""
+    import difflib
+    os.makedirs(outdir, exist_ok=True)
+    diff = []
+    for rel, old in sorted(st["tus"].items()):
+        new = open(os.path.join(st["root"], rel)).read()
+        if new != old:
+            diff += difflib.unified_diff(old.splitlines(True), new.splitlines(True), "a/" + rel, "b/" + rel, n=1)
+    with open(os.path.join(outdir, "pins.diff"), "w") as f:
+        f.write("".join(diff))
+    lines = []
+    if os.path.exists(st["ledger"]):
+        with open(st["ledger"]) as f:
+            lines = [l for k, l in enumerate(f) if k >= st["ledger_n"] and l.strip()]
+    with open(os.path.join(outdir, "ledger.new.jsonl"), "w") as f:
+        f.write("".join(lines))
+    before = json.loads(st["baseline"])
+    after = load_unproven_baseline().get("blocks", {})
+    removed = sorted([a_, m_] for a_, e_ in before.items() for m_ in (e_.get("modes") or {})
+                     if m_ not in ((after.get(a_) or {}).get("modes") or {}))
+    with open(os.path.join(outdir, "baseline_removed.json"), "w") as f:
+        json.dump(removed, f)
+    repinned = []
+    for rel, old in sorted(st["tus"].items()):
+        a0, a1 = _pin_lines(old), _pin_lines(open(os.path.join(st["root"], rel)).read())
+        repinned += sorted([rel, a_] for a_ in a1 if a1[a_] != a0.get(a_))
+    import equiv
+    man = {"tus": sorted(st["tus"]), "changed_tus": sorted(r for r, o in st["tus"].items()
+                                                         if open(os.path.join(st["root"], r)).read() != o),
+           "repinned": repinned, "ledger_lines": len(lines), "baseline_removed": removed,
+           "job": os.environ.get("JOBQ_JOB"), "checker": equiv._checker_digest()}
+    with open(os.path.join(outdir, "manifest.json"), "w") as f:
+        json.dump(man, f, indent=1)
+    return man
+
+
+def _pin_lines(text):
+    """(integ8) {block address: its `// sym:` line} of a TU's text."""
+    out, cur = {}, None
+    for l in text.splitlines():
+        m = re.match(r"// (0x[0-9a-f]{8}) ", l)
+        if m:
+            cur = m.group(1)
+        elif cur and l.startswith("// sym: "):
+            out[cur] = l
+            cur = None
+    return out
+
+
+def _job_base_commit(job):
+    """(integ8) the queue's base commit of job JOB, or None"""
+    try:
+        import jobq
+        row = jobq.conn().execute("select base_commit from jobs where id=?", (int(job),)).fetchone()
+        return row[0] if row else None
+    except Exception:       # noqa: BLE001 - a checkout without the queue's state
+        return None
+
+
+def hash_apply(d, dry_run=False, root=None, check=True):
+    """(integ8) Apply a `hash --emit` result D to the checkout at ROOT: the pin patch with git apply (refused when it
+    does not apply: re-run the hash on the current files), the ledger lines not yet present (by ledger_line_key), and
+    the unproven ratchet re-run here on those lines (never a copy of the job's baseline file: other lanes' entries stay).
+    Nothing is written when any step would fail."""
+    root = root or ROOT
+    man = json.load(open(os.path.join(d, "manifest.json")))
+    out = {"ok": False, "manifest": man, "job": man.get("job"), "checker": man.get("checker"),
+           "base_commit": _job_base_commit(man["job"]) if man.get("job") else None}
+    patch = os.path.join(os.path.abspath(d), "pins.diff")
+    has_patch = os.path.getsize(patch) > 0
+    if has_patch:
+        r = subprocess.run(["git", "apply", "--check", patch], cwd=root, capture_output=True, text=True)
+        if r.returncode:
+            if subprocess.run(["git", "apply", "--check", "--reverse", patch], cwd=root,
+                              capture_output=True).returncode == 0:
+                has_patch = False       # (applied already: a second hash-apply of the same result)
+                out["patch_already_applied"] = True
+            else:
+                out["error"] = "the pin patch does not apply: %s" % r.stderr.strip()[:500]
+                return out
+    have = set()
+    if os.path.exists(LEDGER):
+        with open(LEDGER) as f:
+            have = {ledger_line_key(json.loads(l)) for l in f if l.strip().startswith("{")}
+    new = []
+    with open(os.path.join(d, "ledger.new.jsonl")) as f:
+        for l in f:
+            if l.strip().startswith("{"):
+                e = json.loads(l)
+                if ledger_line_key(e) not in have:
+                    have.add(ledger_line_key(e))
+                    new.append(e)
+    out.update(patch=has_patch, ledger_appended=len(new))
+    if dry_run:
+        out.update(ok=True, dry_run=True)
+        return out
+    if has_patch:
+        r = subprocess.run(["git", "apply", patch], cwd=root, capture_output=True, text=True)
+        if r.returncode:
+            out["error"] = "git apply: %s" % r.stderr.strip()[:500]
+            return out
+    if new:
+        with open(LEDGER, "a") as f:
+            for e in new:
+                f.write(json.dumps(e, sort_keys=True) + "\n")
+    out["baseline_removed"] = unproven_baseline_drop(new)
+    out["ok"] = True
+    if check and man.get("repinned"):
+        # (rev5) a code hash follows a block's references: another lane's edit outside the hunk (or in a header) can
+        # change a re-pinned block's code here while the patch applied cleanly. The ledger lines stay (true of the
+        # job's code); a re-pinned block whose code or view is not what the pin says fails the apply
+        bad = []
+        for rel in sorted({r_ for r_, _a in man["repinned"]}):
+            recs, _hit = cached_check(os.path.join(root, rel), wine=True, view=True)
+            want = {a_ for r_, a_ in man["repinned"] if r_ == rel}
+            for r in recs:
+                if r["addr"] in want and (r.get("code_changed") or r.get("view") in ("changed", "error")):
+                    bad.append({"tu": rel, "addr": r["addr"], "code_changed": r.get("code_changed"), "view": r.get("view")})
+        if bad:
+            out.update(ok=False, stale=bad, error="re-pinned blocks whose code or view here differs from the pin: "
+                       "re-hash on the current files (the ledger lines were appended: they are true of the job's code)")
+    return out
+
+
 def post_lines(path=None):
     """(integ8, D165) The live `post` lines of the proof ledger (kind post; none revoked by line or by run)."""
     path = path or LEDGER
@@ -3232,6 +3366,16 @@ def main(argv=None):
     p.add_argument("--ledger", metavar="JSONL", help="with --proven: the proof ledger to read and append to (default "
                    "config/proof-ledger.jsonl)")
     p.add_argument("--json", action="store_true")
+    p.add_argument("--emit", metavar="DIR", help="(integ8) also write what this run changed to DIR for a queue job to "
+                   "fetch: pins.diff (the TUs' pin lines as a patch), ledger.new.jsonl (the lines appended), "
+                   "baseline_removed.json (the unproven ratchet's removals) and manifest.json; `hash-apply DIR` applies "
+                   "it to a checkout")
+    p = sub.add_parser("hash-apply", help="(integ8) apply a `hash --emit DIR` result to this checkout without copying "
+                       "files: git apply of the pin patch, the ledger lines appended (once each), the unproven ratchet "
+                       "re-run here on them")
+    p.add_argument("dir")
+    p.add_argument("--dry-run", action="store_true")
+    p.add_argument("--no-check", action="store_true", help="skip the re-pinned blocks' check_tu after applying (tests)")
     a = ap.parse_args(argv)
     if a.cmd in ("free-name-accept", "free-name-seed") and not (a.why or "").strip():
         sys.exit("%s: --why must give a reason" % a.cmd)
@@ -3474,6 +3618,7 @@ def main(argv=None):
         res = {} if (a.from_ledger or a.unproven_accepted or a.carry) else _load_results(a.proven)
         addrs = {"0x%08x" % int(x, 16) for x in a.addr} if a.addr else None
         bad = 0
+        emit_ = _emit_begin(a.paths, a.ledger) if a.emit else None
         for sn_ in SHARD_NOTES:     # (integ5, D155c; rev5) each group of shard reports: merged, or refused and why
             print(json.dumps({"shard_merge": sn_}) if a.json else "shards %s %s: %s" % (
                 sn_["addr"], "wine" if sn_["native"] else "msvc", sn_["why"]))
@@ -3484,7 +3629,13 @@ def main(argv=None):
                 print(json.dumps(dict(o, tu=path)) if a.json else "%s %s  %s%s" % (
                     o["addr"], o["result"], "msvc: %s " % o["msvc"] if "msvc" in o else "",
                     "wine: %s" % o["wine"] if "wine" in o else ""))
+        if emit_ is not None and not a.dry_run:
+            _emit_end(emit_, a.emit)
         return 1 if bad else 0
+    if a.cmd == "hash-apply":
+        out = hash_apply(a.dir, dry_run=a.dry_run, check=not a.no_check)
+        print(json.dumps(out, indent=1))
+        return 0 if out.get("ok") else 1
     if a.cmd == "layout":
         print(json.dumps(layout(os.path.abspath(a.tree), os.path.abspath(a.root))))
         return 0

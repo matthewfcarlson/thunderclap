@@ -1684,7 +1684,7 @@ so a matches block keeps its bytes). It compiles into the Wine image, so a new o
   `EQUIV_OFF=postproof` accepts a stated post without a line (regress only, proves nothing); `calleepost` switches the
   draw off. --x64 (equiv64) does not draw returns (fail-closed: unconstrained results).
 Cases `0x00085f80_retpost` (+`_wine`), `_wrong` (post_refuted), `_nomacro`, `_othermacro` (L2), `0x001c04e0_calleepost`
-(+`_wine`; equivalent only with the draw), `_unproven`, `_off` (fail); tests tests/test_ret_post.py.
+(+`_wine`; equivalent only with the draw), `_lined` (+`_wine`: the landed post lines, no switch), `_off` (fail); tests tests/test_ret_post.py (the refusals: no line, the other mode's line, a stale post or domain).
 
 (integ5, D155a; rev5) **Speed: the unicorn binding's hot calls.** A slow proof's time is the Python hook logic
 (`_on_code` per instruction, `_stub` per stubbed call); Unicorn's emulation is negligible. `_fast_uc` takes the
