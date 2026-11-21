@@ -2,6 +2,7 @@
 // object 0x00085d90..0x00088e60 (kind game, layer game, confidence high), dominant class CTimeManager
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "compat/pre.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
@@ -515,8 +516,12 @@ void owners::Thing_85f50::FUN_00085f50(unsigned char value) {
 // 0x00085f80 FUN_00085f80 (60 B): matches/0x00085f80.cpp
 // sym: ?FUN_00085f80@Counter_85f80@owners@@QAENXZ
 // data: scale = DAT_003ffaa4
+// post: ge(ret, 0)
+// post-why: value is unsigned __int64 (the code is MSVC's u64->double: fild of the low 63 bits, +2^63 when bit 63 is
+// set), DAT_003ffaa4 is the const float 1e-6 in .rdata (never drawn: equiv._patchable): the product is never negative
+// and never a NaN, for every bit pattern of the counter (integ8, D165; rev5)
 double owners::Counter_85f80::FUN_00085f80() {
-    return (double)value * DAT_003ffaa4;
+    return HULK_POST_RET_GE((double)value * DAT_003ffaa4, 0.0);
 }
 
 

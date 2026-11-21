@@ -5340,6 +5340,22 @@ class Run:
             if h_ & 1:
                 fv = fv * (1.0 + (2 * ((h_ >> 1) % 251) + 1) * 2.0 ** -40)
                 fwide = True
+        rp_ = RET_POSTS_ACTIVE.get(target) if insn.target is not None and not tail and \
+            "calleepost" not in EQUIV_OFF else None
+        if rp_ is not None:
+            # (integ8, D165; rev5) a direct call of a callee whose return postcondition is proven in this mode (an equiv
+            # line, or a matches block's post line): its result is drawn inside the range, one input in twenty at the
+            # range's inner bound. In this one _stub both sides share, so identical on both; a NaN never
+            if fret:
+                nb_ = _pre_range_fix(self.inp["seed"], mix(0xD165, k), struct.pack("<d", fv), 8, rp_ + ("f",), True)
+                if nb_ is not None:
+                    fv = struct.unpack("<d", nb_)[0]
+                    fwide = False
+            else:
+                nb_ = _pre_range_fix(self.inp["seed"], mix(0xD165, k), (eax & M32).to_bytes(4, "little"), 4,
+                                     rp_ + ("i",), True)
+                if nb_ is not None:
+                    eax = int.from_bytes(nb_, "little")
         self.calls.append({"target": target, "args": args, "regs": {r: self.reg(r) for r in Program._REGS},
                            "float_ret": fret, "fret_view": fret_view, "at": insn.addr, "tail": tail, "pointees": pointees, "known": known,
                            "ret_to": insn.addr + insn.size,
@@ -8796,6 +8812,179 @@ POST_PHASE_RUNS = 600   # the post phase's runs at most
 _POST_ITEM = re.compile(r"(gt|ge|lt|le)\(\s*\*arg(\d+)\s*,\s*([^()]*?)\s*\)")
 
 
+RET_POSTS_ACTIVE = {}      # (integ8, D165) this run's {callee address: range} of accepted direct-callee return posts
+CALLEE_POSTS = {}          # (integ8, D165) {callee address: (range, view info)} accepted for the run being prepared
+_RET_POST_IDX = {}
+_RET_POST_ACC = {}
+_RET_POST_BUSY = set()
+_RET_POST_KEYS = {}        # (integ8, rev5) the accepting post line's key, for the report only (never the view)
+
+
+def ret_post_blocks():
+    """(integ8, D165) {address: (TU, kind, post lines, pre lines, pin hashes)} of the tree blocks that state a return
+    postcondition (src/, scanned once)."""
+    if "_" not in _RET_POST_IDX:
+        idx = {}
+        for dp, _dn, fns in os.walk(os.path.join(ROOT, "src")):
+            for f in fns:
+                if not f.endswith(".cpp"):
+                    continue
+                p_ = os.path.join(dp, f)
+                try:
+                    t_ = open(p_, errors="replace").read()
+                except OSError:
+                    continue
+                if "// post:" not in t_:
+                    continue
+                for blk in re.split(r"\n(?=// 0x[0-9a-f]{8} )", t_):
+                    m_ = re.match(r"// (0x[0-9a-f]{8}) .*?\(\d+ B\): (matches|equivalent)", blk)
+                    if not m_:
+                        continue
+                    pl_ = [x.strip() for x in re.findall(r"^\s*//\s*post:\s*(.+?)\s*$", blk, re.M)]
+                    if not any(_POST_RET_ITEM.search(x) for x in pl_):
+                        continue
+                    dl_ = [x.strip() for x in re.findall(r"^\s*//\s*pre:\s*(.+?)\s*$", blk, re.M)]
+                    sm_ = re.search(r"^// sym: (\S+)((?: @\S+)*)", blk, re.M)
+                    idx[int(m_.group(1), 16)] = (p_, m_.group(2), pl_, dl_, sm_.group(2) if sm_ else "")
+        _RET_POST_IDX["_"] = idx
+    return _RET_POST_IDX["_"]
+
+
+def _ret_post_range(pl):
+    """(integ8) The one range of a block's return items (their intersection), or None."""
+    specs, bad = _parse_post(pl)
+    rs = [c for n, c in specs if n == "ret"]
+    if bad or not rs or any(not isinstance(x, (int, float)) for c in rs for x in c[1:3]):
+        return None
+    lo, li, hi, hi_i = float("-inf"), True, float("inf"), True
+    for c in rs:
+        if c[1] > lo or (c[1] == lo and not c[3]):
+            lo, li = c[1], c[3]
+        if c[2] < hi or (c[2] == hi and not c[4]):
+            hi, hi_i = c[2], c[4]
+    return ("range", lo, hi, li, hi_i)
+
+
+def accept_ret_post(addr, native):
+    """(integ8, D165; rev5) (range, info) when a caller run in this mode may rely on ADDR's return postcondition, else
+    (None, why). An equivalent block: a promotable equiv line of this mode for its pinned code whose view, with the other
+    mode's, is the pin's @v (the view holds the post lines). A matches block: a live `post` line of this mode for its code
+    and view as they are now, recording the block's post and domain lines as they are now. A line of the other mode never
+    serves (lead's Q2)."""
+    mode = "wine" if native else "msvc"
+    key = (addr, mode, tuple(sorted(EQUIV_OFF)))     # (a regress worker runs cases under other switches)
+    if key in _RET_POST_ACC:
+        return _RET_POST_ACC[key]
+    if addr in _RET_POST_BUSY:
+        return None, "a cycle through its own callees"
+    ent = ret_post_blocks().get(addr)
+    if ent is None:
+        return None, "no return postcondition"
+    path, kind, pl, dl, pins = ent
+    rng = _ret_post_range(pl)
+    if rng is None:
+        return None, "post unparsed"
+    import tree_tu
+    a = "0x%08x" % addr
+    res = (None, "unproven in %s" % mode)
+    _RET_POST_BUSY.add(addr)
+    try:
+        if kind == "equivalent" and "postproof" not in EQUIV_OFF:
+            code, view = {"msvc": None, "wine": None}, None
+            for h in pins.split():
+                if h.startswith("@w"):
+                    code["wine"] = h[2:]
+                elif h.startswith("@v"):
+                    view = h[2:]
+                elif h.startswith("@"):
+                    code["msvc"] = h[1:]
+            led = tree_tu.ledger_index() or set()
+            other = "msvc" if mode == "wine" else "wine"
+            for (a_, m_, c_, v_) in led:
+                if a_ != a or m_ != mode or c_ != code[mode] or not c_ or view is None:
+                    continue
+                vos = {vv for (a2, m2, c2, vv) in led if a2 == a and m2 == other and c2 == code[other]} \
+                    if code[other] else {None}
+                if any(tree_tu.view_digest(*((v_, vo) if mode == "msvc" else (vo, v_))) == view for vo in vos):
+                    res = (rng, [pl, dl, "equiv", mode, c_, v_])
+                    break
+        elif kind == "matches" and "postproof" not in EQUIV_OFF:
+            recs = tree_tu.check_tu(path)
+            r = next((x for x in recs if x["addr"] == a), None)
+            h = (r or {}).get("post_code_hash")
+            if h and native:
+                h = tree_tu.post_wine_hash(path, r)
+            if h:
+                import tempfile
+                with tempfile.TemporaryDirectory(dir=os.path.join(ROOT, "build")) as tmp_:
+                    cobj_ = tree_tu.wine_object(os.path.abspath(path), tmp_) if native else None
+                    view = tree_tu.current_view(path, a, mode, recs, cobj_)[0]
+                for e in tree_tu.post_lines():
+                    if (e.get("addr"), e.get("mode"), e.get("code"), e.get("view")) == (a, mode, h, view) and \
+                            e.get("post") == pl and (e.get("domain") or []) == dl:
+                        res = (rng, [pl, dl, "post", mode, h, view])
+                        _RET_POST_KEYS[key] = tree_tu.ledger_line_key(e)
+                        break
+        elif "postproof" in EQUIV_OFF:
+            res = (rng, [pl, dl, "unproven (EQUIV_OFF=postproof)", mode])     # (regress only: proves nothing)
+    except Exception as e:      # noqa: BLE001 - fail closed: no draw
+        res = (None, "error: %r" % (e,))
+    finally:
+        _RET_POST_BUSY.discard(addr)
+    _RET_POST_ACC[key] = res
+    return res
+
+
+def ret_post_state():
+    """(integ8, D165) A digest of everything callee-post acceptance reads besides the callee's own code and view: the
+    return-post blocks (address, kind, post and domain lines, pins) and the ledger and revocation lines of their
+    addresses (tree_tu's view cache keys on it: a callee proved, its post edited or revoked is another caller view)."""
+    import tree_tu
+    idx = ret_post_blocks()
+    h = hashlib.sha1(json.dumps(sorted([a, list(v[1:])] for a, v in idx.items())).encode())
+    addrs = {'"0x%08x"' % a for a in idx}
+    for p_ in (tree_tu.LEDGER, tree_tu.REVOKED):
+        try:
+            with open(p_) as f:
+                for l in f:
+                    if any(a in l for a in addrs):
+                        h.update(l.strip().encode())
+        except OSError:
+            pass
+    return h.hexdigest()[:16]
+
+
+def _callee_post_prep(addr, native):
+    """(integ8, D165) {callee: (range, info)} of the return-post blocks the original function at ADDR may call directly
+    (an E8 rel32 to it in its bytes; level 2 keeps the real direct calls), each accepted in this mode. Runs before the
+    caller's own tree state is set (acceptance may run a callee's view)."""
+    idx = ret_post_blocks()
+    if not idx or "calleepost" in EQUIV_OFF:
+        return {}
+    prog = Program.get()
+    f_ = prog.funcs.get(addr)
+    if not f_:
+        return {}
+    try:
+        code_ = prog.read(addr, f_[0])
+    except Exception:       # noqa: BLE001
+        return {}
+    out = {}
+    for t in idx:
+        if t == addr:
+            continue
+        hit = any(code_[i] == 0xE8 and (addr + i + 5 + int.from_bytes(code_[i + 1:i + 5], "little", signed=True)) & M32 == t
+                  for i in range(len(code_) - 4))
+        if hit:
+            rng, info = accept_ret_post(t, native)
+            if rng is not None:
+                out[t] = (rng, info)
+    return out
+
+
+_POST_RET_ITEM = re.compile(r"(gt|ge|lt|le|range)\(\s*ret\s*,")     # (integ8, D165) a return item of a `// post:` line
+
+
 def _parse_post(lines):
     """(integ4, post; rev5) `// post: ITEMS when ret` lines -> ([(n, cond)], [errors]): when the function returns
     nonzero (al for a byte result), the integer *argN lies in cond ("range", lo, hi, lo_incl, hi_incl). A bound is a
@@ -8805,6 +8994,19 @@ def _parse_post(lines):
     out, bad = [], []
     inf = float("inf")
     for l in lines:
+        mr_ = re.findall(r"(gt|ge|lt|le|range)\(\s*ret\s*,([^()]*)\)", l)
+        if mr_ and not re.search(r"\bwhen\b", l):
+            # (integ7, D165; rev5) `// post: ge(ret, 0)`: every return of the function lies in the range (a NaN never)
+            rest_ = re.sub(r"(gt|ge|lt|le|range)\(\s*ret\s*,([^()]*)\)", "", l).replace(",", " ").strip()
+            if rest_:
+                bad.append("post: return items `op(ret, c)`: %r" % l)
+                continue
+            for fn_, args_ in mr_:
+                try:
+                    out.append(("ret", _pre_range_cond(fn_, [x.strip() for x in args_.split(",")])))
+                except (ValueError, KeyError, IndexError):
+                    bad.append("post: constants %r" % args_)
+            continue
         m = re.match(r"^(.*?)\s+when\s+ret\s*$", l)
         if not m:
             bad.append("post: %r: items then `when ret`" % l)
@@ -8827,6 +9029,38 @@ def _parse_post(lines):
     return out, bad
 
 
+def _post_ret_check(post, sig, o):
+    """(integ7, D165) The original's return against the block's `op(ret, c)` items: ("ok", value), a refutation
+    (described), or "unread" (no return value of a known kind)."""
+    items = [c for n, c in post if n == "ret"]
+    if not items:
+        return None
+    rk = (sig or {}).get("ret")
+    if rk in ("f32", "f64"):
+        v = o.get("st0")
+        if v is None:
+            return "unread"
+        if rk == "f32":
+            v = struct.unpack("<f", struct.pack("<f", v))[0]
+    elif rk == "i64":
+        v = ((o.get("edx") or 0) & M32) << 32 | ((o.get("eax") or 0) & M32)
+        v = v - (1 << 64) if v >> 63 else v
+    elif rk in (None, "void", "struct", "ptr"):
+        return "unread"
+    else:
+        v = (o.get("eax") or 0) & M32
+        if rk in ("b8", "i8", "u8", "bool"):
+            v &= 0xFF
+        elif rk in ("i16", "u16"):
+            v &= 0xFFFF
+        elif not str(rk).startswith("u"):
+            v = v - (1 << 32) if v & 0x80000000 else v
+    for c in items:
+        if not _pre_in(float(v), c):     # (a NaN is outside every range: refuted)
+            return "ret = %r outside %r" % (v, c[1:])
+    return ("ok", v)
+
+
 def _post_check(post, sig, inp_o, o, read32):
     """(integ4, post) The first post item the original's return breaks, described, or None (or "unread" when a word
     can't be read). READ32(addr) -> the original's word after its run."""
@@ -8836,6 +9070,8 @@ def _post_check(post, sig, inp_o, o, read32):
     if not ((eax & 0xFF) if rk in ("b8", "i8", "u8", "bool") else (eax & M32)):
         return "zero"
     for n, cond in post:
+        if n == "ret":
+            continue        # (integ7, D165: checked by _post_ret_check)
         wi = _pre_arg_word(sig, n)
         if wi is None or wi >= len(inp_o["stack"]):
             return "unread"
@@ -10707,6 +10943,9 @@ def verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappin
     (merge-once) SRC may be a tree TU (tools/tree_tu.py): the function at ADDR is checked inside the TU's object (the
     MSVC object from the tree's cache, or the TU compiled with clang under --wine), found by the tree's rules, with the
     directives of its own block only."""
+    cp_ = _callee_post_prep(addr, native)      # (integ8, D165) first: acceptance may run a callee's view
+    CALLEE_POSTS.clear()
+    CALLEE_POSTS.update(cp_)
     try:        # (integ3, D152) the contracts the checked file itself states (a callee of the block in the same file)
         _CHECKED[:] = [src, contracts_of_text(open(src, errors="replace").read()) if src and os.path.exists(src) else {}]
     except OSError:
@@ -10821,6 +11060,16 @@ def checker_view(native, fsym, sig, ret_kind, void_eax, convs, rep, psizes, decl
          "conflicts": len(l2.get("conflicts") or [])}
     if rep.get("pre"):
         v["pre"] = list(rep["pre"])       # (integ1, D54) what the proof assumed about its inputs
+    if rep.get("post"):
+        # (integ8, D165; rev5) a postcondition (return items and out-parameter items alike) is part of what the proof
+        # checked: callers rely on it through this view (an equivalent callee's equiv line, a matches callee's post
+        # line), so a post added or edited after a proof is another view (re-proved, never carried: it is in `rest`)
+        v["post"] = list(rep["post"])
+    if rep.get("callee_posts"):
+        # (integ8, D165) the callees' return postconditions this run's stubs draw inside (direct calls only), each with
+        # the callee's domain and the ledger line that accepts it: a callee re-proved, its post edited or revoked is
+        # another check of this code
+        v["callee_posts"] = rep["callee_posts"]
     if (EQUIV_OFF - {""}) or (EQUIV_ON - {""}):
         # (integ1, rev3) a run with non-default switches is another check (no default-run view equals it)
         v["switches"] = {"off": sorted(EQUIV_OFF - {""}), "on": sorted(EQUIV_ON - {""})}
@@ -11002,6 +11251,22 @@ def _verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappi
     oview.build()
     oview.declared_dead = _declared_dead(oview, dead_lines)
     orefs = original_refs(prog, oview, size)
+    RET_POSTS_ACTIVE.clear()
+    cps_ = {}
+    for t_ in sorted({t_ for _a, k_, t_ in orefs if k_ == "call"}):
+        if t_ in CALLEE_POSTS:
+            # (integ8, D165) a direct callee's accepted return postcondition: the stubs draw inside it, and the view
+            # names it with its domain and the accepting line
+            RET_POSTS_ACTIVE[t_] = CALLEE_POSTS[t_][0]
+            cps_["0x%08x" % t_] = CALLEE_POSTS[t_][1]
+    if cps_:
+        # (rev5) the view names the evidence's identity (post and domain lines, kind, mode, code, view), never the
+        # accepting run: a re-proof of an unchanged callee leaves its callers' views alone; the line keys are reported
+        rep["callee_posts"] = cps_
+        lk_ = {a_: k_ for (t_, m_, _o), k_ in _RET_POST_KEYS.items() for a_ in ["0x%08x" % t_]
+               if a_ in cps_ and m_ == ("wine" if native else "msvc")}
+        if lk_:
+            rep["callee_post_lines"] = lk_
     # first link with locals only, so that alignment can read our code
     ours.link({})
     resolved, how, conflicts, exact = resolve_symbols(prog, ours, oview, orefs, explicit, use_names,
@@ -11377,11 +11642,28 @@ def _verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappi
     # a macro needs an item (tools/equiv64.py checks the operands against the record); a post item is never on a
     # parameter that isn't a pointer
     ops_items_ = sorted({("GE" if c_[3] else "GT") if c_[1] != float("-inf") else ("LE" if c_[4] else "LT")
-                         for _n, c_ in post_specs})
+                         for _n, c_ in post_specs if _n != "ret"})
     ops_macros_ = sorted(set(re.findall(r"\bHULK_POST_(GT|GE|LT|LE)\s*\(", code_p_)))
     if ops_items_ != ops_macros_:
         pbad_.append({"kind": "post_macro_mismatch", "why": "post items %s but HULK_POST macros %s" % (ops_items_, ops_macros_)})
+    # (integ7, D165) return items and HULK_POST_RET_GT/GE/LT/LE(value, c) macros (one per return) state one claim
+    ret_items_ = sorted({(("GE" if c_[3] else "GT"), c_[1]) if c_[1] != float("-inf") else
+                         (("LE" if c_[4] else "LT"), c_[2]) for _n, c_ in post_specs if _n == "ret"})
+    ret_macros_ = set()
+    for op_, a_ in re.findall(r"\bHULK_POST_RET_(GT|GE|LT|LE)\s*\(([^;]*)\)", code_p_):
+        try:
+            ret_macros_.add((op_, _pre_num(a_.rsplit(",", 1)[1].rstrip(") "))))
+        except (ValueError, IndexError):
+            pbad_.append({"kind": "post_unparsed", "why": "HULK_POST_RET_%s(%s): constant" % (op_, a_)})
+    if sorted(ret_macros_) != ret_items_:
+        pbad_.append({"kind": "post_macro_mismatch", "why": "return post items %s but HULK_POST_RET macros %s" % (
+            ret_items_, sorted(ret_macros_))})
+    if ret_items_ and any(not re.match(r"\s*HULK_POST_RET_", x_) for x_ in re.findall(r"\breturn\b([^;]*);", code_p_)):
+        # every return statement of the block returns through the macro (else a path returns unchecked)
+        pbad_.append({"kind": "post_macro_mismatch", "why": "a return statement without HULK_POST_RET_*"})
     for n_, _c in post_specs:
+        if n_ == "ret":
+            continue
         if _pre_arg_word(sig, n_) is None or (((sig or {}).get("params") or [None] * n_)[n_ - 1] not in (None, "ptr")):
             pbad_.append({"kind": "post_unparsed", "why": "*arg%d: not a pointer parameter" % n_})
     if pbad_:
@@ -11589,6 +11871,10 @@ def level3_verdict(rep, l3, issues, post_specs, time_budget, t0):
     """The verdict of a run from its level-3 result L3 and its level-2 ISSUES: status, class and promotable. (integ5,
     D155c) One function for a whole run and for a merge of a sharded proof's shards (tools/tree_tu.py merge_shards):
     the same rules read the merged counts."""
+    if post_specs and any(isinstance(x, str) for x in post_specs):
+        # (integ8, D165) a merge passes the report's `post` lines: parsed here (return items and out-parameter items
+        # have their own evidence rules below)
+        post_specs = [("ret" if _POST_RET_ITEM.search(x) else "out", None) for x in post_specs]
     if l3["ok"] and rep["level"] == 2:
         rep["level"] = 3
     unp_ = sum((l3.get("statuses") or {}).get(k_, 0) for k_ in ("msplit_unpinned", "vsplit_unpinned"))
@@ -11613,8 +11899,16 @@ def level3_verdict(rep, l3, issues, post_specs, time_budget, t0):
         rep["status"] = "fail"
         rep["class"] = "post_refuted"
         rep["error"] = "[post_refuted] %d inputs: %s" % (pr_, l3.get("post_refuted_first"))
-    if post_specs and rep["status"] == "equivalent" and ((l3.get("post_checked") or 0) < POST_MIN or
-                                                         (l3.get("post_pairs") or 0) < POST_PAIRS) and \
+    if any(n_ == "ret" for n_, _c in post_specs) and rep["status"] == "equivalent" and \
+            ((l3.get("post_ret_checked") or 0) < POST_MIN or (l3.get("post_ret_values") or 0) < POST_PAIRS) and \
+            "postmin" not in EQUIV_OFF:
+        # (integ7, D165) a return postcondition needs evidence too: returns checked, distinct values among them
+        rep["status"] = "inconclusive"
+        rep["class"] = "post_unverified"
+        rep["inconclusive"] = "the return postcondition was checked on %d returns, %d distinct (at least %d and %d)" % (
+            l3.get("post_ret_checked") or 0, l3.get("post_ret_values") or 0, POST_MIN, POST_PAIRS)
+    if any(n_ != "ret" for n_, _c in post_specs) and rep["status"] == "equivalent" and \
+            ((l3.get("post_checked") or 0) < POST_MIN or (l3.get("post_pairs") or 0) < POST_PAIRS) and \
             "postmin" not in EQUIV_OFF:
         # (integ4, post; rev5) a postcondition callers rely on needs evidence: the original's nonzero returns checked
         rep["status"] = "inconclusive"
@@ -12216,6 +12510,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
     edges_any = set()
 
     pre_off = [False]
+    post_ret_vals = set()       # (integ7, D165) distinct return values the return postcondition was checked on
     proof_draw = [False]        # (integ1, D62) drawing past --inputs until that many inputs are compared
     sret_w = 1 if sig and sig.get("ret") == "struct" else 0
 
@@ -12406,7 +12701,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                     else:
                         ov[("*" if where == "gmem" else 0, x)] = nan
                 saved = (copy.deepcopy(res), set(edges), Counter(hits), set(edges_any),
-                         set(compared_keys), set(post_pairs), list(post_true))     # (integ6) uncounted, as res
+                         set(compared_keys), set(post_pairs), list(post_true), set(post_ret_vals))     # (integ6) uncounted, as res
                 pre_off[0] = True
                 try:
                     run_input(seed0, ov, sp, label=label)
@@ -12422,6 +12717,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                     compared_keys.clear(); compared_keys.update(saved[4])
                     post_pairs.clear(); post_pairs.update(saved[5])
                     post_true[:] = saved[6]
+                    post_ret_vals.clear(); post_ret_vals.update(saved[7])     # (integ8, D165)
                 return (mm_[0]["diffs"] if mm_ else []), stat_
 
             for (where, x), w, cond in ws_:
@@ -12553,7 +12849,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                         break
                     words_ = {wx: struct.pack("<I", fill_(k_)) for k_, (wx, w) in enumerate(ws1_)}
                     saved_ = (copy.deepcopy(res), set(edges), Counter(hits), set(edges_any),
-                             set(compared_keys), set(post_pairs), list(post_true))     # (integ6) uncounted, as res
+                             set(compared_keys), set(post_pairs), list(post_true), set(post_ret_vals))     # (integ6) uncounted, as res
                     pre_off[0] = True
                     try:
                         ov, sp = dict(ov0), dict(sp0)
@@ -12574,6 +12870,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                         compared_keys.clear(); compared_keys.update(saved_[4])
                         post_pairs.clear(); post_pairs.update(saved_[5])
                         post_true[:] = saved_[6]
+                        post_ret_vals.clear(); post_ret_vals.update(saved_[7])     # (integ8, D165)
                     res["pre_defnan_all"] = res.get("pre_defnan_all", 0) + 1
                     if mm_:
                         missing.append("every defnan word holding an allowed NaN (%s, %d words, seed %d): %s" % (
@@ -13214,7 +13511,19 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             if v_:
                 res["statuses"]["pre_violation_in_original"] += 1
                 res.setdefault("pre_violation_first", v_)
-        if o["status"] == "ret" and post:
+        if o["status"] == "ret" and post and any(n_ == "ret" for n_, _c in post) and not pre_off[0]:
+            # (integ7, D165; rev5) a return postcondition, on the original's every return: one outside refutes it
+            rv_ = _post_ret_check(post, sig, o)
+            if rv_ == "unread":
+                res["post_unread"] = res.get("post_unread", 0) + 1
+            elif isinstance(rv_, tuple):
+                res["post_ret_checked"] = res.get("post_ret_checked", 0) + 1
+                post_ret_vals.add(rv_[1])
+                res["post_ret_values"] = len(post_ret_vals)
+            elif rv_ is not None:
+                res["statuses"]["post_refuted"] += 1
+                res.setdefault("post_refuted_first", "seed %s: %s" % (seed, rv_))
+        if o["status"] == "ret" and post and any(n_ != "ret" for n_, _c in post):
             # (integ4, post; rev5) the block's own postcondition, on the original: a return that breaks it refutes it
             pv_ = _post_check(post, sig, inp_o, o, orun._read_u32)
             if pv_ == "unread":
@@ -14011,6 +14320,10 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
         res["post_pairs"] = len(post_pairs)
         if sh_n > 1:
             res["post_pair_list"] = sorted(repr(x) for x in post_pairs)   # (D155c) the merge counts distinct pairs
+    if post_ret_vals:
+        res["post_ret_values"] = len(post_ret_vals)
+        if sh_n > 1:
+            res["post_ret_value_list"] = sorted(repr(x) for x in post_ret_vals)     # (integ8, D165) distinct over shards
     res["coverage"] = coverage_of(oview, edges)
     if sh_n > 1:
         # (integ5, D155c) what a shard merge needs: which shard, and every edge it left uncovered (the merge's coverage is

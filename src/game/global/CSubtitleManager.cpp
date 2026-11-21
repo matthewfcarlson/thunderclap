@@ -2244,7 +2244,7 @@ CSubtitleOverlay_1bfc80* CSubtitleOverlay_1bfc80::f0(unsigned char fl) {
 } // namespace fn_fed79ca6
 
 // 0x001bfcc0 CSubtitleOverlay::vfunc_3 (167 B): equivalent/0x001bfcc0.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?vfunc_3@CSubtitleOverlay@fn_001bfcc0@@UAEXM@Z @8574aeae8576 @we389c51e7a71 @vd7341e0d3399
+// sym: ?vfunc_3@CSubtitleOverlay@fn_001bfcc0@@UAEXM@Z @8574aeae8576 @we389c51e7a71 @v5088774d31bf
 namespace fn_001bfcc0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // CSubtitleOverlay::vfunc_3 @ 0x001bfcc0
@@ -2873,7 +2873,7 @@ void Shake_1c0360::FUN_001c0360(int newMode, int newCount)
 
 
 // 0x001c04e0 FUN_001c04e0 (231 B): equivalent/0x001c04e0.cpp
-// sym: ?Update@Fader_1c04e0@fn_fed79ca6@@QAEXM@Z @b3c00ed792fd @w6778cb5d8182 @v37b4f60285b1
+// sym: ?Update@Fader_1c04e0@fn_fed79ca6@@QAEXM@Z @b3c00ed792fd @w6778cb5d8182 @v545d49e21156
 // STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 22/24, incomplete)
 // FUN_001c04e0 @ 0x001c04e0
 void Fader_1c04e0::Update(float dt) {

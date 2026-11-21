@@ -35,6 +35,20 @@ CASES = {
     "0x001f87e0_post_proof": ("equivalent", None, 0.9, {"src": "0x001f87e0_post", "n_inputs": 3000, "time_budget": 1200}),
     "0x001f87e0_post_wrong_proof": ("fail", "post_refuted", 0, {"src": "0x001f87e0_post_wrong", "n_inputs": 3000, "time_budget": 1200}),
     "0x001f87e0_post_const": ("inconclusive", None, 0, {"n_inputs": 3000, "time_budget": 1200}),
+    # (integ8, D165; rev5) return postconditions `// post: ge(ret, 0)` with HULK_POST_RET_* on every return: the original's
+    # own returns are checked (one outside, a NaN too, refutes); a direct caller's stub draws the callee's result inside
+    # the range only when the post is accepted in the caller's mode (here EQUIV_OFF=postproof: regress only)
+    "0x00085f80_retpost": ("equivalent", None, 0, {"n_inputs": 300}),
+    "0x00085f80_retpost_wine": ("equivalent", None, 0, {"src": "0x00085f80_retpost", "native": True, "n_inputs": 300}),
+    "0x00085f80_retpost_wrong": ("fail", "post_refuted", 0, {"n_inputs": 300}),
+    "0x00085f80_retpost_nomacro": ("fail", "L2 post_macro_mismatch", 0, {"n_inputs": 30}),
+    "0x00085f80_retpost_othermacro": ("fail", "L2 post_macro_mismatch", 0, {"n_inputs": 30}),
+    "0x001c04e0_calleepost": ("equivalent", None, 0.5, {"n_inputs": 300, "equiv_off": "postproof"}),
+    "0x001c04e0_calleepost_wine": ("equivalent", None, 0.5, {"src": "0x001c04e0_calleepost", "native": True,
+                                                               "n_inputs": 300, "equiv_off": "postproof"}),
+    "0x001c04e0_calleepost_unproven": ("fail", "write to this+0x0", 0, {"src": "0x001c04e0_calleepost", "n_inputs": 300}),
+    "0x001c04e0_calleepost_off": ("fail", "write to this+0x0", 0, {"src": "0x001c04e0_calleepost", "n_inputs": 300,
+                                                                     "equiv_off": "postproof,calleepost"}),
     # (integ4, D152b; rev5) a caller of a contracted callee (0x0009faa0's ge(a, 0) ge(b, 0), stated in the case's TU copy
     # of the callee via src/) with its own contract on dt and on the global it passes as b: inputs outside its domain
     # are repaired in both modes, the global drawn inside its range every epoch; without a census, a contract of its

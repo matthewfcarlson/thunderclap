@@ -3965,7 +3965,7 @@ void HUDOverlay::vfunc_3(float dt)
 
 
 // 0x000d05f0 HUDOverlay::vfunc_4 (2754 B): equivalent/0x000d05f0.cpp [wrapped: conflict: Gfx; HUDOverlay; World]
-// sym: ?vfunc_4@HUDOverlay@fn_000d05f0@@UAEXXZ @c425a2cebb0c @w6c5151344659 @v9d1df6c3a10f
+// sym: ?vfunc_4@HUDOverlay@fn_000d05f0@@UAEXXZ @c425a2cebb0c @w6c5151344659 @v126a3877cd09
 namespace fn_000d05f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 171 inputs, branch coverage 76/76)
 // HUDOverlay::vfunc_4 @ 0x000d05f0

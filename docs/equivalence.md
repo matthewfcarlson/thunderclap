@@ -1659,6 +1659,33 @@ Cases `0x001f87e0_post` (equivalent; `_proof` at 3,000), `_wrong` (post_refuted)
 (post_unverified), `0x001fa7d0_x64_post` (equivalent), `_readfalse`, `_stride`, `_wrongcount` (layout); tests
 tests/test_post_contract.py.
 
+(integ8, D165; rev5) **Return postconditions.** `// post: ge(ret, 0)` (gt/ge/lt/le/range on `ret`, no `when`) states that
+every return of the function lies in the range, and never a NaN; the source returns through the macro on every return
+statement (`return HULK_POST_RET_GE(v, 0.0);`, include/compat/pre.h: a statement expression natively, `(v)` under MSVC 7.1,
+so a matches block keeps its bytes). It compiles into the Wine image, so a new or changed one lands with a Wine pair.
+- The block's own runs: the original's return (eax, eax:edx or st0 by the signature's return kind; a pointer, struct or
+  void return is unread) is checked on every run; one outside (a NaN too) fails the run (`post_refuted`). A promotable run
+  needs >= 50 checked returns (`post_ret_checked`) and >= 2 distinct values (`post_ret_values`, a union over shards),
+  else `post_unverified`. L2 `post_macro_mismatch`: items and HULK_POST_RET_* macros differ, or a `return` without one.
+- The view: every block's `// post:` lines (return and out-parameter items alike) are in its checker view, so a post
+  added or edited after a proof is another view: re-proved, never carried (`rest`).
+- Matches blocks: a run of a matches block that states a return post gives a `post` line in config/proof-ledger.jsonl
+  (kind post: addr, mode, the block's code hash in that mode, view, checker, post and domain (`// pre:`) lines,
+  post_ret_checked/values, job), written only by `tree_tu.py hash --proven` from a promotable run of the code and view
+  as they are now; `revoke --kind post` revokes one. It proves nothing else (ledger_line_proves refuses the kind: no
+  pin, no unproven list).
+- Callers (equiv.py, per mode): a run in mode M relies on a direct callee's return post only when it is proven in M: an
+  equivalent callee's equiv line of M for its pinned code whose view, with the other mode's line, is the pin's @v; a
+  matches callee's live post line of M for its code and view now, recording its post and domain lines as they are now.
+  A line of the other mode never serves. Then the stub of a direct, non-tail call draws its result inside the range
+  (st0 or eax; one input in twenty at the inner bound), identically on both sides. A virtual call is never drawn. The
+  accepted callees go into the caller's view (`callee_posts`: post and domain lines, the accepting line), so a callee
+  proved, edited or revoked makes the caller re-prove; tree_tu's view cache keys on `equiv.ret_post_state()`.
+  `EQUIV_OFF=postproof` accepts a stated post without a line (regress only, proves nothing); `calleepost` switches the
+  draw off. --x64 (equiv64) does not draw returns (fail-closed: unconstrained results).
+Cases `0x00085f80_retpost` (+`_wine`), `_wrong` (post_refuted), `_nomacro`, `_othermacro` (L2), `0x001c04e0_calleepost`
+(+`_wine`; equivalent only with the draw), `_unproven`, `_off` (fail); tests tests/test_ret_post.py.
+
 (integ5, D155a; rev5) **Speed: the unicorn binding's hot calls.** A slow proof's time is the Python hook logic
 (`_on_code` per instruction, `_stub` per stubbed call); Unicorn's emulation is negligible. `_fast_uc` takes the
 binding's per-call wrappers out of the Machine's register and memory reads and its four hooks (same values; a register

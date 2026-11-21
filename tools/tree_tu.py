@@ -579,10 +579,33 @@ def code_hashes(coff, rec, pairs, path):
     lines = open(path, errors="replace").read().splitlines()
     fs = {s[0]: s for s in coff.function_symbols()}
     for b, r in pairs:
+        if r["kind"] == "matches" and r.get("symbol") in fs and ret_post_lines(lines[b["lines"][0] - 1:b["lines"][1]]):
+            # (integ8, D165) a matches block that states a return postcondition: its code hash keys the block's `post`
+            # ledger lines (no pin carries it; never marked, so check/verify read the block as before)
+            r["post_code_hash"] = code_hash.function_hash(coff, fs[r["symbol"]], _ext(pairs, r),
+                                                          lines[b["lines"][0] - 1:b["lines"][1]])
+            continue
         if r["kind"] != "equivalent" or not r.get("symbol") or r["symbol"] not in fs:
             continue
         h = code_hash.function_hash(coff, fs[r["symbol"]], _ext(pairs, r), lines[b["lines"][0] - 1:b["lines"][1]])
         _mark(r, b, "msvc", h, rec["path"])
+
+
+_POST_LINE = re.compile(r"^\s*//\s*post:\s*(.+?)\s*$")
+_PRE_LINE = re.compile(r"^\s*//\s*pre:\s*(.+?)\s*$")
+_RET_ITEM = re.compile(r"(gt|ge|lt|le|range)\(\s*ret\s*,")
+
+
+def ret_post_lines(lines):
+    """(integ8, D165) The `// post:` lines of a block's text LINES when one states a return item, else []."""
+    pl = [m.group(1) for m in map(_POST_LINE.match, lines) if m]
+    return pl if any(_RET_ITEM.search(x) for x in pl) else []
+
+
+def post_wine_hash(path, r, rec=None):
+    """(integ8, D165) The clang code hash of matches record R (its block states a return post), as wine_hashes gives an
+    equivalent block's (the --wine object equiv.py checks), or None."""
+    return wine_hashes(path, [dict(r, kind="equivalent")], rec).get(r["addr"])
 
 
 WCACHE = os.path.join(ROOT, "build/tree-cache/whash")
@@ -782,6 +805,8 @@ def views(path, recs, rec=None, wine=True):
         d = include_keys.digest(ap, [include_dir(ap), os.path.join(ROOT, "include")], root=ROOT,
                                 force=["compat/native.h"])
         k.update(b"\0" + str(d).encode())
+    import equiv as equiv_
+    k.update(b"\0retpost " + equiv_.ret_post_state().encode())     # (integ8, D165) callers' views name callee posts
     cp_ = os.path.join(VCACHE, k.hexdigest()[:24] + ".json")
     try:
         with open(cp_) as f:
@@ -2583,6 +2608,13 @@ def proof_code(src, addr, native, recs):
     compile leaves empty)."""
     a = "0x%08x" % addr
     r = next((x for x in recs if x["addr"] == a), None)
+    if r is not None and r["kind"] == "matches" and r.get("post_code_hash") and r.get("symbol"):
+        # (integ8, D165) a matches block's run that checks its return postcondition: the hash its `post` line keys
+        if native:
+            import clang_probe as cp
+            return {"wine": post_wine_hash(src, r), "symbol": r["symbol"], "x87_keep": len(cp._x87_list()),
+                    "post_kind": True}
+        return {"msvc": r["post_code_hash"], "symbol": r["symbol"], "post_kind": True}
     if r is None or r["kind"] != "equivalent" or not r.get("symbol"):
         return {"error": "no equivalent block with a symbol at %s" % a}
     if native:
@@ -2631,7 +2663,7 @@ SHARD_SUM = {"inputs_run", "inputs_inconclusive", "inputs_faulted", "inputs_fail
              "inputs_strcase", "inputs_stubexit", "inputs_tie", "inputs_words", "post_checked", "post_phase", "post_ret0",
              "post_unread", "sentinel_runs", "stubexit_runs", "vsplit_reruns", "work", "edges_withdrawn",
              "pre_defnan_all", "pre_defnan_words", "pre_range_bounds", "stubexit_sealed", "cpu", "sentinel_time",
-             "inputs_repeated"}
+             "inputs_repeated", "post_ret_checked"}
 SHARD_SUM_DICT = {"statuses", "workn", "stubexit_n", "unexplained"}
 SHARD_MAX = {"long_steps", "rep_allow_max", "static_counts", "early_returns"}
 SHARD_ANY = {"huge_rep", "probe_skipped", "covcap", "inconclusive_cap_hit", "time_budget_hit"}
@@ -2639,7 +2671,7 @@ SHARD_LIST = {"proofcap", "proofdraw", "long_skipped", "input_digest", "coverage
 SHARD_FIRST = {"post_refuted_first", "pre_violation_first"}
 SHARD_EQUAL = {"pre_trap", "pre_trap_words"}
 SHARD_REFUSE = {"time_cut_wall", "unsupported"}
-SHARD_SPECIAL = {"ok", "mismatches", "coverage", "post_pairs", "post_pair_list", "shard", "compared_keys", "touched"}
+SHARD_SPECIAL = {"ok", "mismatches", "coverage", "post_pairs", "post_pair_list", "post_ret_values", "post_ret_value_list", "shard", "compared_keys", "touched"}
 
 
 def merge_shards(reps):
@@ -2732,6 +2764,12 @@ def merge_shards(reps):
             return None, "a shard reports post pairs without the list"
         m["post_pair_list"] = sorted({x for l in l3s for x in (l.get("post_pair_list") or [])})
         m["post_pairs"] = len(m["post_pair_list"])     # (rev5) distinct pairs over all shards, not a sum
+    if any("post_ret_values" in l for l in l3s):
+        # (integ8, D165) distinct returns the return postcondition was checked on, over all shards (never a sum)
+        if any(l.get("post_ret_values") and "post_ret_value_list" not in l for l in l3s):
+            return None, "a shard reports checked return values without the list"
+        m["post_ret_value_list"] = sorted({x for l in l3s for x in (l.get("post_ret_value_list") or [])})
+        m["post_ret_values"] = len(m["post_ret_value_list"])
     covs = [l.get("coverage") or {} for l in l3s]
     if any("missing_all" not in c for c in covs):
         return None, "a shard's coverage lacks its uncovered edges"
@@ -2957,11 +2995,78 @@ def hash_proven(path, results, addrs=None, dry_run=False, ledger=None, unproven_
         else:
             o["result"] = "unchanged"
         out.append(o)
+    pentries = []
+    for r in recs:
+        # (integ8, D165; rev5) a matches block that states a return postcondition: a promotable run in a mode, of its
+        # code and view as they are now, that checked the post (the run's own `post` lines are the block's) gives a
+        # `post` line in that mode. Nothing else: no pin, no ledger_index, no unproven list (ledger_line_proves refuses
+        # the kind); callers in that mode alone draw the callee's return inside it (equiv.callee_ret_posts)
+        if r["kind"] != "matches" or not r.get("post_code_hash") or (addrs and r["addr"] not in addrs):
+            continue
+        lines_ = block_lines(path, int(r["addr"], 16))
+        pl_ = ret_post_lines(lines_)
+        dom_ = [m.group(1) for m in map(_PRE_LINE.match, lines_) if m]
+        o = {"addr": r["addr"], "kind": "matches"}
+        if not results.get(r["addr"]):
+            o["result"] = "skipped: no result for this matches block"
+            out.append(o)
+            continue
+        for kind in ("msvc", "wine"):
+            h = r["post_code_hash"] if kind == "msvc" else post_wine_hash(path, r, rec)
+            import tempfile
+            with tempfile.TemporaryDirectory(dir=os.path.join(ROOT, "build")) as tmp_:
+                cobj_ = wine_object(os.path.abspath(path), tmp_) if kind == "wine" and h else None
+                view_ = current_view(path, r["addr"], kind, recs, cobj_)[0] if h else None
+            have_ = {(e.get("addr"), e.get("mode"), e.get("code"), e.get("view")) for e in post_lines(ledger)}
+            if h and (r["addr"], kind, h, view_) in have_:
+                o[kind] = "post line in the ledger"
+                continue
+            why = [(x, proves(x, kind, h, view_)) for x in results.get(r["addr"], [])]
+            good = [(x, w) for x, (ok, w) in why if ok and x.get("post") == pl_ and
+                    (x.get("level3") or {}).get("post_ret_checked")]
+            if not good:
+                o[kind] = "unproven: " + ("; ".join(w for _x, (_ok, w) in why) or "no result") + \
+                    ("" if not any(ok for _x, (ok, _w) in why) else " (no run that checked the block's post as it is now)")
+                continue
+            e_ = ledger_entry(r["addr"], kind, h, view_, good[0][0], tu)
+            l3_ = good[0][0].get("level3") or {}
+            e_.update(kind="post", post=pl_, domain=dom_, post_ret_checked=l3_.get("post_ret_checked"),
+                      post_ret_values=l3_.get("post_ret_values"))
+            if revoked_run(e_) is not None:
+                o[kind] = "unproven: the run's checker was revoked for this code (%s)" % revoked_run(e_)
+                continue
+            o[kind] = "post line: " + good[0][1]
+            pentries.append(e_)
+        o["result"] = "post recorded" if any(str(o.get(k, "")).startswith("post line:") for k in ("msvc", "wine")) \
+            else ("unchanged" if all(str(o.get(k, "")) == "post line in the ledger" for k in ("msvc", "wine")) else
+                  "unproven: no post line")
+        out.append(o)
     if not dry_run:
         if new:
             _write(path, {r["addr"]: r.get("pin") or r["symbol"] for r in recs if r["addr"] in new}, new)
         if entries:
             ledger_append(entries, ledger)
+        if pentries:
+            with open(ledger or LEDGER, "a") as f:
+                for e_ in pentries:
+                    f.write(json.dumps(e_, sort_keys=True) + "\n")
+    return out
+
+
+def post_lines(path=None):
+    """(integ8, D165) The live `post` lines of the proof ledger (kind post; none revoked by line or by run)."""
+    path = path or LEDGER
+    out = []
+    if not os.path.exists(path):
+        return out
+    with open(path) as f:
+        for l in f:
+            if '"post"' not in l or not l.strip().startswith("{"):
+                continue
+            e = json.loads(l)
+            if e.get("kind") == "post" and ledger_line_key(e) not in revoked_lines() and revoked_run(e) is None and \
+                    e.get("status") == "equivalent" and e.get("promotable") is not False:
+                out.append(e)
     return out
 
 
@@ -3061,7 +3166,7 @@ def main(argv=None):
     p.add_argument("addr")
     p.add_argument("--mode", required=True, choices=["msvc", "wine"])
     p.add_argument("--why", required=True)
-    p.add_argument("--kind", default="equiv", choices=["equiv", "ckpt"],
+    p.add_argument("--kind", default="equiv", choices=["equiv", "ckpt", "post"],
                    help="(ckpt2) ckpt: the ckpt lines of ADDR (config/ckpt-ledger.jsonl; wine mode only); default: "
                         "the equiv proof-ledger lines only")
     p.add_argument("--validator", help="(ckpt2; rev5) with --kind ckpt and ADDR 'all': revoke every ckpt line recorded "
@@ -3273,6 +3378,20 @@ def main(argv=None):
             with open(REVOKED, "a") as f:
                 f.write(json.dumps(rec, sort_keys=True) + "\n")
             print("revoked ckpt", rec["addr"], len(cl), "line(s)", ("validator %s" % a.validator) if a.validator else "")
+            return 0
+        if a.kind == "post":
+            # (integ8, D165) a matches block's return-postcondition lines in one mode: by run (code + checker) too
+            addr = "0x%08x" % int(a.addr, 16)
+            pl = [e for e in post_lines() if e.get("addr") == addr and e.get("mode") == a.mode]
+            if not pl:
+                sys.exit("revoke: no live post line of %s %s" % (addr, a.mode))
+            rec = {"kind": "post", "addr": addr, "mode": a.mode, "lines": sorted(ledger_line_key(e) for e in pl),
+                   "codes": sorted({e.get("code") for e in pl}), "jobs": sorted({str(e.get("job")) for e in pl}),
+                   "runs": sorted({(e.get("code"), e.get("checker")) for e in pl}), "why": a.why.strip(), "by": "revoke",
+                   "date": __import__("datetime").datetime.now().isoformat(timespec="seconds")}
+            with open(REVOKED, "a") as f:
+                f.write(json.dumps(rec, sort_keys=True) + "\n")
+            print("revoked post", addr, a.mode, len(pl), "line(s):", rec["codes"])
             return 0
         addr = "0x%08x" % int(a.addr, 16)
         lines = []

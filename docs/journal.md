@@ -2265,3 +2265,26 @@ blocks fight::Action's whole family: the records come first there.
   most serious: 0x000243f0 stores the world pointer as an `int`, so natively every `world->+0x44` read through the
   manager faults on a truncated address (the next stop, 0x00024800 from 0x00086cb0). The full layout is in
   include/decls/actor_manager.h (gfx3's draft, not landed) and in build/gfx3/actor-census.md.
+
+## 2026-11-21 integ8: return postconditions (D165, rev5 ADOPT)
+- **`// post: ge(ret, 0)`.** A function may state that every return lies in a range, NaN never. The source returns
+  through `HULK_POST_RET_GE(v, c)` on every `return`: a statement expression natively, `(v)` under MSVC 7.1, so a
+  matches block keeps its bytes. The block's own runs check the original's return (eax, eax:edx or st0). One outside
+  refutes it (`post_refuted`); a proof needs 50 checked returns and 2 distinct values (`post_unverified` otherwise).
+- **Matches blocks get a `post` ledger kind.** 0x00085f80 (the clock's elapsed seconds) is byte-matched, so it has no
+  equiv proof to carry its post. A run of a matches block that states a return post now gives a `post` line per mode,
+  written only by `hash --proven`, revocable with `revoke --kind post`, and proving nothing else.
+- **Callers draw the return in range, per mode.** A direct, non-tail call's stub draws the result inside the callee's
+  range when the callee's post is proven in the caller's own mode. A msvc line never serves a --wine caller. The
+  accepted callees go into the caller's checker view, by the evidence's identity (code, view, post and domain), not by
+  the run that proved it. A mutant caller (0x1c04e0 with `step >= 0.0f &&`) is equivalent with the draw and fails
+  without it.
+- **0x00085f80 needs no domain.** The counter is `unsigned __int64` (MSVC's u64->double: fild of the low 63 bits plus
+  2^63), and the scale DAT_003ffaa4 is the `.rdata` constant 1e-6 that no run draws. So the `.i64` object words and the
+  `.rdata` global item planned for D165 were dropped (rev5): no block needs them yet.
+- **A hole in integ4's out-parameter posts.** Post lines were not in the checker view, so a post added or edited
+  after a proof still matched the old code and view, and callers relied on a post no run had checked. Every post line is
+  now in the view. 0x001f87e0 was re-proved under its new view, and 0x001fa7d0 (which draws its out-parameter) still
+  passes the forced x64 gate: equivalent, and `layout` with the post switched off.
+- Re-proved callers whose views now name 0x85f80's post: 0xabb90 0xd05f0 0xec360 0x1bfcc0 0x1c04e0 (msvc and --wine at
+  3,000). Regress r2 747/747. tests/test_ret_post.py. The x64 harness does not draw returns yet (fail-closed).

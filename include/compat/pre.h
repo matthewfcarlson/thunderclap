@@ -119,6 +119,14 @@ template <class T> static inline unsigned long long hulk_pre_bits(T x) {
 #define HULK_POST_GT(x, c) HULK_PRE_IF_((x) > (c), x, "post gt(" #x ", " #c ")")
 #define HULK_POST_LT(x, c) HULK_PRE_IF_((x) < (c), x, "post lt(" #x ", " #c ")")
 #define HULK_POST_LE(x, c) HULK_PRE_IF_((x) <= (c), x, "post le(" #x ", " #c ")")
+// (integ7, D165) return postconditions: `return HULK_POST_RET_GE(v, 0.0);` checks the returned value once (a statement
+// expression: v is evaluated once) and returns it; the block's `// post: ge(ret, 0)` item names it
+#define HULK_POST_RET_(v, ok, what) __extension__({ __typeof__(v) hulk_ret_ = (v); \
+    HULK_PRE_IF_(ok, hulk_ret_, what); hulk_ret_; })
+#define HULK_POST_RET_GE(v, c) HULK_POST_RET_(v, hulk_ret_ >= (c), "post ge(ret, " #c ")")
+#define HULK_POST_RET_GT(v, c) HULK_POST_RET_(v, hulk_ret_ > (c), "post gt(ret, " #c ")")
+#define HULK_POST_RET_LT(v, c) HULK_POST_RET_(v, hulk_ret_ < (c), "post lt(ret, " #c ")")
+#define HULK_POST_RET_LE(v, c) HULK_POST_RET_(v, hulk_ret_ <= (c), "post le(ret, " #c ")")
 // (integ7, rev5 (b)) HULK_PRE_GUARD(field OP c) before a field check: the check holds only where the guard does
 // (`HULK_PRE_GUARD(shake[0].duration > 0.0f) HULK_PRE_GE(shake[0].time, 0.0f);`, item `ge(*this+0xf4.f32, 0) if
 // gt(*this+0xf8.f32, 0)`); nothing under MSVC 7.1 (the guard is not even evaluated)
@@ -161,6 +169,10 @@ static inline void hulk_pre_defnan1(float x, const char* fn, const char* what) {
 #define HULK_POST_GT(x, c) ((void)0)
 #define HULK_POST_LT(x, c) ((void)0)
 #define HULK_POST_LE(x, c) ((void)0)
+#define HULK_POST_RET_GE(v, c) (v)
+#define HULK_POST_RET_GT(v, c) (v)
+#define HULK_POST_RET_LT(v, c) (v)
+#define HULK_POST_RET_LE(v, c) (v)
 #define HULK_PRE(cond) ((void)0)
 #define HULK_PRE_GUARD(g)
 #define HULK_PRE_NOTNAN(x) ((void)0)
