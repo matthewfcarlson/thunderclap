@@ -389,7 +389,10 @@ class NonCopyable_268f80 : public ::core::IControllerInputPointXBox {
     virtual NonCopyable_268f80* f2(unsigned char);
 };
 }
-unsigned int GetTime();
+unsigned int FUN_00267f80();   // (gfx9, D197) core's millisecond clock (TimerList.cpp's extern "C" int FUN_00267f80())
+// (gfx9, D197) 0x00269170's two calls by their callees' addresses (the native link binds only names that carry one):
+// GetTime is 0x00267f80, Poll 0x002691f0 (Manager_2691f0 below); MSVC 7.1 inlines the forwarders
+inline unsigned int GetTime() { return FUN_00267f80(); }
 class Pad_269170 {
   public:
     virtual void v0();
@@ -418,7 +421,8 @@ class Pad_269170 {
 HULK_CTL_SIZE(Pad_269170, CoreControllerXBox);
 HULK_CTL_SAME(Pad_269170, mActive, CoreControllerXBox, connected);
 struct ControllerSystemXBox_nv_269170 {
-    void Poll();
+    void FUN_002691f0();
+    void Poll() { FUN_002691f0(); }
 };
 namespace XAPILIB {
 int __stdcall XInputGetState(hulk_uintptr, void *);
