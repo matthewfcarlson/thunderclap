@@ -154,16 +154,18 @@ struct HulkSoundRealTimeManager {
 };
 HULK_MGR_SIZE32(HulkSoundRealTimeManager, 28);
 
-// (sweep-allocsize) CSoundResourceManager (0x001f1270, CSoundSystem.cpp; 0x001eb220 allocates it, 20 bytes, no
-// vftable): its sound engine and sound bank (both allocated there), two words, and the allocation's last word
-struct HulkSoundResourceManager {
+// (sweep-allocsize) CSoundSystem (0x001f1270, CSoundSystem.cpp; 0x001eb220 allocates it, 20 bytes, no vftable; gfx8:
+// it is CSoundSystem, the singleton DAT_004e370c that 0x001f1270 stores and its script bindings' object, not the
+// CSoundResourceManager it allocates, decls/sound_resources.h): its sound engine and sound resource manager (both
+// allocated there), two words, and the allocation's last word
+struct HulkSoundSystem {
     void* engine;
     void* bank;
     int f08;
     int f0c;
     int f10;
 };
-HULK_MGR_SIZE32(HulkSoundResourceManager, 20);
+HULK_MGR_SIZE32(HulkSoundSystem, 20);
 
 // COverlayManager (0x000d6970, 48 bytes): the vftable, its view (0x000d6a20 allocates it; 0x000d6e70 releases it),
 // the state, eight overlay items (0x000d6c70's items) and its camera (0x000d6a20; 0x000d6e70 releases it)
@@ -227,15 +229,20 @@ struct HulkFEManager {
     void* f24;
     unsigned char f28;
     char p29[3];
-    unsigned int f2c, f30;
+    unsigned int f2c;       // a time 0x000bd1b0 keeps
+    // (gfx8) f30 / f38 / f3c are pointers: 0x000bc5c0, 0x000bcf40 and 0x000bf1e0 read through f30 and 0x000bc1e0
+    // calls 0x000863e0 on it; 0x000bf0e0 stores f38 and 0x000bf2b0 calls 0x001cc620 on it; 0x000bd1b0 calls the sound
+    // methods on f3c
+    void* f30;
     void* f34;
-    unsigned int f38, f3c;
+    void* f38;
+    void* f3c;
     void* f40;
     void* f44;
     void* f48;
     void* f4c;
     void* f50;
-    unsigned int f54;
+    void* f54;              // (gfx8) 0x000b90c0 / 0x000b9620 / 0x000bcf40 call render-manager methods on it
     void* f58;
     void* f5c;
     void* f60;

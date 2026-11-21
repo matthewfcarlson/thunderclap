@@ -970,7 +970,7 @@ struct State_86790 { void* vftable; char b4; unsigned char active; };   // (gfx2
 extern "C" void FUN_002684c0();
 State_86790* FUN_0008e090();
 extern "C" unsigned char __cdecl FUN_0008db80(void);   // (decl2) as defined (unk_08ceb0.cpp)
-struct Renderer_86790 { char pad[0xd8]; int state; void FUN_0028f9a0(); void FUN_0028faf0(int); };
+struct Renderer_86790 { /* (gfx8) the pure3d context (gen owners::X_28f9a0) by its words; was a 32-bit pad */ int refs; void* helper; void* f08; char matrices[0xc0]; int a, b, c; int state; void FUN_0028f9a0(); void FUN_0028faf0(int); };
 struct Manager_86790 { void FUN_000afe80(); };
 struct Subsystem_86790 { void* words[6]; /* (gfx3) CGame's words (HulkGame) */ Manager_86790* manager; };
 struct World { void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */ Subsystem_86790 *subsystem; };

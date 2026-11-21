@@ -166,8 +166,8 @@ struct View {
     void FUN_00293da0(unsigned int a, unsigned int b, float c);
     void FUN_00293d40(float a, float b, float c);
 };
-struct Pipe {
-    char pad0[0xd8];
+struct Pipe {   // (gfx8) the pure3d context (gen owners::X_28f9a0) by its words; was a 32-bit pad
+    int refs; void* helper; void* f08; char matrices[0xc0]; int a, b, c;
     int fd8;                // 0xd8
     void FUN_0028f9a0();
     void FUN_0028faf0(int v);

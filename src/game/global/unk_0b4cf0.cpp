@@ -2235,7 +2235,7 @@ extern "C" void __cdecl FUN_000fc2e0();
 void __cdecl FUN_000fc1a0();
 extern "C" unsigned int __cdecl FUN_00267f80();
 extern "C" void __cdecl FUN_000fc300();
-struct Renderer_b92f0 { char pad[0xd8]; int state;  void FUN_0028faf0(int); };
+struct Renderer_b92f0 { /* (gfx8) the pure3d context (gen owners::X_28f9a0) by its words; was a 32-bit pad */ int refs; void* helper; void* f08; char matrices[0xc0]; int a, b, c; int state;  void FUN_0028faf0(int); };
 struct Scene_b92f0 { void FUN_00293ef0(); void FUN_00294080(); };
 struct Owner_b92f0 { char pad[0x20]; Scene_b92f0* scene; void target(int,int,int); };
 void Owner_b92f0::target(int a,int b,int flag) {

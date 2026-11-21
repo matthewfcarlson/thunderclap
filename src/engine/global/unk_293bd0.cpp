@@ -254,9 +254,9 @@ struct Item {
     virtual void v5();
     virtual void slot();
 };
-struct State {
-    char pad[8];
-    int value;
+struct State {   // (gfx8) the pure3d context (gen owners::X_28f9a0) by its words; was a 32-bit pad: value is its word f08
+    int refs; void* helper;
+    void* value;
 };
 struct Owner : HulkView {   // (recs1) a pure3d::View (decls/view.h; was char pad[0x3c])
     void func();
@@ -471,11 +471,12 @@ struct Provider { V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7) V(8) V(9) V(10) V(11) 
 struct Gfx { V(0) V(1) V(2) V(3) V(4) V(5) virtual void set20(unsigned); V(7) virtual void set24(unsigned); V(9) virtual void set28(unsigned); V(11) virtual void set2c(unsigned); V(13) V(14) V(15) V(16) V(17) V(18) V(19) V(20) V(21) V(22) V(23) V(24) V(25) virtual void viewport(unsigned,unsigned,unsigned,unsigned); V(27) V(28) V(29) V(30) V(31) V(32) V(33) V(34) virtual void state(unsigned); V(36) V(37) V(38) V(39) V(40) V(41) V(42) V(43) V(44) V(45) V(46) V(47) V(48) V(49) V(50) V(51) V(52) V(53) V(54) V(55) V(56) V(57) V(58) V(59) V(60) V(61) V(62) V(63) V(64) V(65) V(66) V(67) V(68) V(69) V(70) V(71) V(72) V(73) V(74) V(75) V(76) V(77) virtual void enable(unsigned); V(79) virtual void values(unsigned,unsigned,unsigned); };
 struct Renderer { V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7) V(8) V(9) V(10) V(11) V(12) V(13) V(14) V(15) virtual void reset(unsigned); V(17) V(18) V(19) V(20) V(21) virtual void transform(unsigned,Matrix*); };
 struct Item { V(0) V(1) V(2) V(3) V(4) virtual void bind(unsigned); };
-struct Context { char pad[8]; HulkView* current; void FUN_0028fa40(Matrix*,Matrix*); };
+// (gfx8) the pure3d context (gen owners::X_28f9a0; was `char pad[8]` before the view word, natively its helper)
+struct Context : owners::X_28f9a0 { void FUN_0028fa40(Matrix*,Matrix*); };
 // (recs1) a pure3d::View (decls/view.h; was a view with 32-bit words: char pad[8], then the words as unsigned)
 struct Target : HulkView { void run(); };
 void Target::run() {
- (*(Context**)&DAT_0052c2b4)->current=this;
+ (*(Context**)&DAT_0052c2b4)->f08=this;
  ((Provider*)camera)->activate();
  DAT_0052c2a8->viewport(*(unsigned*)&left,*(unsigned*)&top,*(unsigned*)&right,*(unsigned*)&bottom);
  DAT_0052c2a8->state(ambient);

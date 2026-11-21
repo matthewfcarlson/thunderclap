@@ -10,78 +10,108 @@
 #define TREE_LOCAL_pure3d
 namespace fn_fdbebb2a {} using namespace fn_fdbebb2a;
 #include "game/unknown.h"
+#include "compat/ptr.h"
+#include "decls/managers.h"
+// (gfx8, C18) The functions below are CSubtitleManager's (its constructor binds them as stm_ script functions; the FE
+// manager calls 0x001bdf00 on it): the views place their words by decls/managers.h's HulkSubtitleManager offsets, so
+// the 32-bit layout is the one they had and natively the words follow the record's pointer words. HULK_SUB gives a
+// word's offset, HULK_SUB_AT checks on every build that a view's word sits where the record's does.
+#if defined(__clang__)
+#define HULK_SUB_OFF(T, f) __builtin_offsetof(T, f)
+#else
+#define HULK_SUB_OFF(T, f) ((unsigned int)(hulk_uintptr)&((T*)0)->f)
+#endif
+#define HULK_SUB(f) HULK_SUB_OFF(HulkSubtitleManager, f)
+#define HULK_SUB_CAT2(a, b) a##b
+#define HULK_SUB_CAT(a, b) HULK_SUB_CAT2(a, b)
+#define HULK_SUB_AT(V, v, f) \
+    typedef char HULK_SUB_CAT(hulk_sub_at_, __LINE__)[(HULK_SUB_OFF(V, v) == HULK_SUB(f)) ? 1 : -1]
 
 // ---- declarations shared by the functions below
 namespace fn_fdbebb2a {
 class Obj_1bddc0 {
   public:
-    char pad[0x24];
+    char pad[HULK_SUB(ready)];
     unsigned char value;
     void Set(unsigned char x);
 };
+HULK_SUB_AT(Obj_1bddc0, value, ready);
 class Obj_1bde90 {
   public:
     void clean_000f7850();
 };
 class Thing_1bde90 {
   public:
-    char pad[0x34];
+    char pad[HULK_SUB(resource1)];
     Obj_1bde90* a;
     Obj_1bde90* b;
     void target();
 };
+HULK_SUB_AT(Thing_1bde90, a, resource1);
+HULK_SUB_AT(Thing_1bde90, b, resource2);
 class Obj_1bdeb0 {
   public:
     void clean_000f89e0();
 };
 class Thing_1bdeb0 {
   public:
-    char pad[0x34];
+    char pad[HULK_SUB(resource1)];
     Obj_1bdeb0* a;
     Obj_1bdeb0* b;
     void target();
 };
+HULK_SUB_AT(Thing_1bdeb0, a, resource1);
+HULK_SUB_AT(Thing_1bdeb0, b, resource2);
 struct Ref_1bded0 {
     void FnF_000f8970(void*);
 };
 struct Obj_1bded0 {
-    char pad[0x34];
+    char pad[HULK_SUB(resource1)];
     Ref_1bded0* a;
     Ref_1bded0* b;
     void Clear(void*);
 };
+HULK_SUB_AT(Obj_1bded0, a, resource1);
+HULK_SUB_AT(Obj_1bded0, b, resource2);
 class Obj_1bdf00 {
   public:
     void clean_000f7ce0();
 };
 class Thing_1bdf00 {
   public:
-    char pad[0x34];
+    char pad[HULK_SUB(resource1)];
     Obj_1bdf00* a;
     Obj_1bdf00* b;
     void target();
 };
+HULK_SUB_AT(Thing_1bdf00, a, resource1);
+HULK_SUB_AT(Thing_1bdf00, b, resource2);
 struct Entry {
     float a, b;
     __int64 c;
 };
 class Obj {
   public:
-    char pad[4];
+    char pad[HULK_SUB(count)];
     int count;
     Entry* entries;
     void Set(int i, float a, float x, float b);
 };
+HULK_SUB_AT(Obj, count, count);
+HULK_SUB_AT(Obj, entries, events);
 } // namespace fn_fdbebb2a
 extern "C" __int64 __cdecl FUN_0027b020(float);
 namespace fn_fdbebb2a {
 class Obj_1bdfb0 {
   public:
-    char pad[0x20];
+    char pad[HULK_SUB(d)];
     int value;
     void Set(int v);
 };
-struct Subtitle { char pad[0x38]; struct Sink* sink; char pad2[0x0c]; int key; void FUN_001be060(); };
+HULK_SUB_AT(Obj_1bdfb0, value, d);
+struct Subtitle { char pad[HULK_SUB(resource2)]; struct Sink* sink; char pad2[HULK_SUB(g) - HULK_SUB(resource2) - sizeof(struct Sink*)]; int key; void FUN_001be060(); };
+HULK_SUB_AT(Subtitle, sink, resource2);
+HULK_SUB_AT(Subtitle, key, g);
 struct Sink { void FUN_000f7110(); void FUN_000f7a80(char*); };
 extern const char* __cdecl FUN_000f7120(int);   // (x64t11) the language's name (FEThingsBase_3.cpp)
 extern "C" int __cdecl FUN_000964a0(char*, int, const char*, ...);   // (x64t13) as defined (CUnlockablesManager.cpp)

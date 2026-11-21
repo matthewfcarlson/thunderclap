@@ -212,8 +212,8 @@ struct ProbeHolder {
     char pad00[0x18];
     Probe_2a3250 *probe;            // 0x18
 };
-struct ProbeOwner {
-    char pad00[8];
+struct ProbeOwner {   // (gfx8) the pure3d context (gen owners::X_28f9a0) by its words; was a 32-bit pad
+    int refs; void* helper;
     ProbeHolder *holder;     // 0x08
 };
 struct Target_2a3250 {

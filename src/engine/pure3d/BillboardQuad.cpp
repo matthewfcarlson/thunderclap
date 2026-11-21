@@ -411,8 +411,8 @@ struct Scene_2ba220 {
 struct Display_2ba220 {
     Layer_2ba220 *layer;
 };
-struct Camera {
-    char pad00[8];
+struct Camera {   // (gfx8) the pure3d context (gen owners::X_28f9a0) by its words; was a 32-bit pad
+    int refs; void* helper;
     Scene_2ba220 *scene;
     Matrix *FUN_0028faa0();
 };
@@ -3157,8 +3157,8 @@ struct SceneNode {
     MatrixSource_2bc1b0 *source;
 };
 
-struct Camera {
-    char pad00[8];
+struct Camera {   // (gfx8) the pure3d context (gen owners::X_28f9a0) by its words; was a 32-bit pad
+    int refs; void* helper;
     SceneNode *node;
     Matrix *FUN_0028faa0();
 };

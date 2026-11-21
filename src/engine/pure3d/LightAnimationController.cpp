@@ -112,8 +112,8 @@ class LightAnimationController : public BlendFrameController_2a87c0 {
 };
 struct Sink_2a8840 {
 };
-struct Globals_2a8840 {
-    char pad[8];
+struct Globals_2a8840 {   // (gfx8) the pure3d context (gen owners::X_28f9a0) by its words; was a 32-bit pad
+    int refs; void* helper;
     Sink_2a8840 *sink;
 };
 extern void* hulk_at_0042ddb4[];
@@ -409,8 +409,8 @@ public:
 struct Sink_2a8bb0 {
     void FUN_00293e90(unsigned int color);
 };
-struct SinkHolder_2a8bb0 {
-    char pad0[8];
+struct SinkHolder_2a8bb0 {   // (gfx8) the pure3d context (gen owners::X_28f9a0) by its words; was a 32-bit pad
+    int refs; void* helper;
     Sink_2a8bb0 *f8;
 };
 

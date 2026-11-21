@@ -984,7 +984,7 @@ SoundRealTimeManager_1eb220* SoundRealTimeManager_1eb220::FUN_001eb220(hulk_uint
     third = 100.0f;
     second = 100.0f;
     count = 1;
-    Resource_1eb220* allocated = FUN_0008d710(sizeof(HulkSoundResourceManager), 6);
+    Resource_1eb220* allocated = FUN_0008d710(sizeof(HulkSoundSystem), 6);
     void* result = 0;
     if (allocated)
         result = allocated->FUN_001f1270();

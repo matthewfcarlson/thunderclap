@@ -13,6 +13,21 @@
 namespace fn_f87c96cc {} using namespace fn_f87c96cc;
 void __cdecl operator delete[](void* p);   // (x64t21, D115) the game's 0x0008d340
 #include "game/unknown.h"
+#include "decls/managers.h"
+// (gfx8, C18) The views of CFEManager (decls/managers.h HulkFEManager) below place their words by the record's
+// offsets: the 32-bit layout is the one they had, and natively the words follow the record's pointer words.
+// HULK_FEM gives a word's offset in the manager, HULK_FEM_AT checks on every build that a view's word sits where the
+// record's does.
+#if defined(__clang__)
+#define HULK_FEM_OFF(T, f) __builtin_offsetof(T, f)
+#else
+#define HULK_FEM_OFF(T, f) ((unsigned int)(hulk_uintptr)&((T*)0)->f)
+#endif
+#define HULK_FEM(f) HULK_FEM_OFF(HulkFEManager, f)
+#define HULK_FEM_CAT2(a, b) a##b
+#define HULK_FEM_CAT(a, b) HULK_FEM_CAT2(a, b)
+#define HULK_FEM_AT(V, v, f) \
+    typedef char HULK_FEM_CAT(hulk_fem_at_, __LINE__)[(HULK_FEM_OFF(V, v) == HULK_FEM(f)) ? 1 : -1]
 
 // ---- declarations shared by the functions below
 namespace fn_f87c96cc {
@@ -22,15 +37,18 @@ class Child {
 };
 class Obj {
   public:
-    char a[0x10];
+    char a[HULK_FEM(f10)];
     int state;
-    char b[0x1c];
+    char b[HULK_FEM(f30) - HULK_FEM(f10) - sizeof(int)];
     Child* ptr;
-    char c[0x1cc8];
+    char c[HULK_FEM(f1cfc) - HULK_FEM(f30) - sizeof(Child*)];
     int flag;
     void run(hulk_intptr);
     void f2_000b90c0(int);
 };
+HULK_FEM_AT(Obj, state, f10);
+HULK_FEM_AT(Obj, ptr, f30);
+HULK_FEM_AT(Obj, flag, f1cfc);
 } // namespace fn_f87c96cc
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" char *__cdecl strncpy(char *dst, const char *src, unsigned n);
@@ -105,11 +123,13 @@ struct World {
 namespace fn_f87c96cc {
 class QuestionScreen {
 public:
-    char pad0[0x1c0c];
+    char pad0[HULK_FEM(f1c0c)];
     char answer1[0x40];
     char answer2[0x40];
     void FUN_000bc230(const char *title, const char *text, const char *ans1, char *buf1, const char *ans2, char *buf2);
 };
+HULK_FEM_AT(QuestionScreen, answer1, f1c0c);
+HULK_FEM_AT(QuestionScreen, answer2, f1c4c);
 struct Obj_bc4d0;
 extern void* g_b_bc4d0;
 void __cdecl Fa_000fc130(void*);
@@ -127,27 +147,37 @@ struct Dev_bc4d0 {
     void Fg_00294980(hulk_intptr);   // (decl1) passes as defined
 };
 struct Main_bc4d0 {
-    char pad0[0x10];
+    char pad0[HULK_FEM(f10)];
     int state;
-    char pad1[0xc];
+    char pad1[HULK_FEM(f20) - HULK_FEM(f10) - sizeof(int)];
     Dev_bc4d0* dev;
-    int arg;
-    char pad2[0x34];
+    hulk_intptr arg;   // (gfx8) the camera (f24), passed on to 0x00294980
+    char pad2[HULK_FEM(f5c) - HULK_FEM(f24) - sizeof(hulk_intptr)];
     Sub_bc4d0* sub;
-    char pad3[0xc];
+    char pad3[HULK_FEM(listA) - HULK_FEM(f5c) - sizeof(Sub_bc4d0*)];
     void* a[0x80];
     void* b[0x80];
-    char pad4[0x1bc8 - 0x46c];
+    char pad4[HULK_FEM(f1bc8) - HULK_FEM(f46c)];
     char flag;
     void Run();
 };
+HULK_FEM_AT(Main_bc4d0, state, f10);
+HULK_FEM_AT(Main_bc4d0, dev, f20);
+HULK_FEM_AT(Main_bc4d0, arg, f24);
+HULK_FEM_AT(Main_bc4d0, sub, f5c);
+HULK_FEM_AT(Main_bc4d0, a, listA);
+HULK_FEM_AT(Main_bc4d0, b, listB);
+HULK_FEM_AT(Main_bc4d0, flag, f1bc8);
 struct Listener_bc5c0 { void FUN_00093c40(int); };
 struct Player_bc5c0 {  void FUN_00089810(int);  void FUN_00089300(const char*); void FUN_00089a20(int); };
 struct Object {
- char pad0[0x30]; void* resource; Player_bc5c0* player; char pad38[0x14]; Listener_bc5c0* listener;
+ char pad0[HULK_FEM(f30)]; void* resource; Player_bc5c0* player; char pad38[HULK_FEM(f4c) - HULK_FEM(f34) - sizeof(Player_bc5c0*)]; Listener_bc5c0* listener;
  bool FUN_000b4dc0(const char*);
  void FUN_000bc5c0(const char* name, hulk_intptr id, int mode, int unused);
 };
+HULK_FEM_AT(Object, resource, f30);
+HULK_FEM_AT(Object, player, f34);
+HULK_FEM_AT(Object, listener, f4c);
 class Manager_bc750 {
   public:
     void FnA_00089a30(int);
@@ -160,13 +190,16 @@ class Other_bc750 {
 };
 class Obj_bc750 {
   public:
-    char pad0[0x34];
+    char pad0[HULK_FEM(f34)];
     Manager_bc750* m34;
     Other_bc750* m38;
-    char pad40[0x10];
+    char pad40[HULK_FEM(f4c) - HULK_FEM(f38) - sizeof(Other_bc750*)];
     Other_bc750* m4c;
     void End();
 };
+HULK_FEM_AT(Obj_bc750, m34, f34);
+HULK_FEM_AT(Obj_bc750, m38, f38);
+HULK_FEM_AT(Obj_bc750, m4c, f4c);
 extern "C" {
 int __cdecl FUN_00209f50();
 }
@@ -431,10 +464,11 @@ struct NameSource_bcbf0 {
 };
 
 struct Owner_bcbf0 {
-    char pad0[0x4c];
+    char pad0[HULK_FEM(f4c)];
     Unlockables_bcbf0 *items;
     void FUN_000bcbf0();
 };
+HULK_FEM_AT(Owner_bcbf0, items, f4c);
 
 void Owner_bcbf0::FUN_000bcbf0()
 {
@@ -514,7 +548,7 @@ extern void* __cdecl FUN_000fc260(const char*);
 extern char DAT_0049dba4, DAT_0049dbbc;
 struct Selector_bce10;
 extern Selector_bce10* __cdecl FUN_00344e74(void*,int,void*,void*,int);
-struct Text_bce10 { char storage[36];   void FUN_000f8500(const char*,Manager_bce10*,int);  };
+struct Text_bce10 { union { char storage[sizeof(owners::Obj_f79a0)]; void* align_; };   void FUN_000f8500(const char*,Manager_bce10*,int);  };   // (gfx8) the text object: 36 bytes on the 32-bit builds, its pointer words natively (was char storage[36])
 struct Item_bce10 { int first; int second; const char* FUN_0027b010(); };
 struct List_bce10 {   };
 struct Lookup_bce10 {  };
@@ -523,7 +557,9 @@ struct Selector_bce10 {
  char pad[0x1d54]; int count;
  void FUN_000e36c0();
 };
-struct Target_bce10 { char pad[0x34]; List_bce10* list; char pad2[0x14]; Lookup_bce10* lookup; void FUN_000b8e70(int); void run(); };
+struct Target_bce10 { char pad[HULK_FEM(f34)]; List_bce10* list; char pad2[HULK_FEM(f4c) - HULK_FEM(f34) - sizeof(List_bce10*)]; Lookup_bce10* lookup; void FUN_000b8e70(int); void run(); };
+HULK_FEM_AT(Target_bce10, list, f34);
+HULK_FEM_AT(Target_bce10, lookup, f4c);
 void Target_bce10::run() {
  if (!list || !lookup) return;
  Selector_bce10* sel=FUN_00344e74(FUN_000fc260("jump_marker_selector"),0,&DAT_0049dba4,&DAT_0049dbbc,0);
@@ -602,9 +638,9 @@ extern "C" char __cdecl FUN_000c5d60(int who, int a);
 
 class Menu_bcf40 {
   public:
-    char pad0[0x30];
+    char pad0[HULK_FEM(f30)];
     State_bcf40* current;
-    char pad1[0x54 - 0x34];
+    char pad1[HULK_FEM(f54) - HULK_FEM(f30) - sizeof(State_bcf40*)];
     Widget_bcf40* widget;
     void FUN_000b5a80();
     void FUN_000b5ad0();
@@ -620,6 +656,8 @@ class Menu_bcf40 {
     void FUN_000bc1e0(const char* name);
     void FUN_000bcf40(hulk_intptr who);
 };
+HULK_FEM_AT(Menu_bcf40, current, f30);
+HULK_FEM_AT(Menu_bcf40, widget, f54);
 
 void Menu_bcf40::FUN_000bcf40(hulk_intptr who) {
     if (current->id == 7)
@@ -942,8 +980,8 @@ struct World {
     Obj86 *f54;
 };
 
-struct Sys52 {
-    char pad0[0xd8];
+struct Sys52 {   // (gfx8) the pure3d context (gen owners::X_28f9a0) by its words; was a 32-bit pad
+    int refs; void* helper; void* f08; char matrices[0xc0]; int a, b, c;
     int fd8;
     void FUN_0028f9a0();
     void FUN_0028faf0(int a);
@@ -991,18 +1029,24 @@ struct Frame_bd1b0 {
 
 class Menu_bd1b0 {
 public:
-    char pad0[0x20];
+    char pad0[HULK_FEM(f20)];
     Overlay20 *p20;
-    char pad24[8];
+    char pad24[HULK_FEM(f2c) - HULK_FEM(f20) - sizeof(Overlay20*)];
     unsigned int t2c;
     int *p30;
     Missions_bd1b0 *p34;
-    char pad38[4];
+    char pad38[HULK_FEM(f3c) - HULK_FEM(f34) - sizeof(Missions_bd1b0*)];
     Sound_bd1b0 *p3c;
-    char pad40[0x68 - 0x40];
+    char pad40[HULK_FEM(f68) - HULK_FEM(f3c) - sizeof(Sound_bd1b0*)];
     Obj68_bd1b0 *p68;
     void FUN_000bd1b0(unsigned char flag);
 };
+HULK_FEM_AT(Menu_bd1b0, p20, f20);
+HULK_FEM_AT(Menu_bd1b0, t2c, f2c);
+HULK_FEM_AT(Menu_bd1b0, p30, f30);
+HULK_FEM_AT(Menu_bd1b0, p34, f34);
+HULK_FEM_AT(Menu_bd1b0, p3c, f3c);
+HULK_FEM_AT(Menu_bd1b0, p68, f68);
 
 #include "compat/hulk_vslot.h"
 typedef void (Gfx::*V28_bd1b0)(float a, float b, float c, float d);   // Gfx's slot 28 (v28)
@@ -1372,16 +1416,20 @@ extern "C" float FUN_000186b0(float *v, float *lo, float *hi);
 
 class Menu_bdd60 {
 public:
-    char pad0[0x10];
+    char pad0[HULK_FEM(f10)];
     unsigned int state;
-    char pad14[0x20 - 0x14];
+    char pad14[HULK_FEM(f20) - HULK_FEM(f10) - sizeof(unsigned int)];
     Overlay *overlay;
-    char pad24[0x5c - 0x24];
+    char pad24[HULK_FEM(f5c) - HULK_FEM(f20) - sizeof(Overlay*)];
     Widget_bdd60 *widget;
-    char pad60[0x1cfc - 0x60];
+    char pad60[HULK_FEM(f1cfc) - HULK_FEM(f5c) - sizeof(Widget_bdd60*)];
     float timer;
     void FUN_000bdd60();
 };
+HULK_FEM_AT(Menu_bdd60, state, f10);
+HULK_FEM_AT(Menu_bdd60, overlay, f20);
+HULK_FEM_AT(Menu_bdd60, widget, f5c);
+HULK_FEM_AT(Menu_bdd60, timer, f1cfc);
 
 void Menu_bdd60::FUN_000bdd60()
 {

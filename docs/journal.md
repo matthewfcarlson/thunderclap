@@ -2458,3 +2458,13 @@ passes the controller set-up and the first frame callees and stops in 0x00207410
   len == n leaves no NUL, as MSVC does. The native shim agrees: src/platform/sdl/host/crt_posix.cpp vsnprintf_ms (and
   host_crt_posix.cpp's _snprintf) write n bytes without a NUL and return n when the output is exactly n long, -1 and no
   NUL when longer (the wrapper then terminates at n - 1).
+
+## 2026-11-21 gfx8: C18, the native main loop
+- The pure3d context (DAT_0052c2b4, gen owners::X_28f9a0) had ~11 views written as `char pad[8]` / `pad[0xd8]` /
+  `pad[0xe4]` before one word: natively each read or wrote the helper (+8) instead of f08 (+0x10), or `a` instead of
+  `d`. 0x00294080's `value = 0` cleared the low half of the helper pointer (0x1_xxxxxxxx -> 0x100000000), the next
+  0x0028fa40 faulted reading it. A fault address of exactly 0x100000000 is a heap pointer whose low half a 32-bit
+  view zeroed.
+- 0x001f1270's 20-byte object is CSoundSystem (singleton DAT_004e370c, its script bindings' object): managers.h's
+  record is now HulkSoundSystem; the 0x524-byte CSoundResourceManager it allocates is decls/sound_resources.h's.
+- After C18 native start-up runs the main loop (Lua GC, controller polls) and presents frames with 0 draws, unpaced.

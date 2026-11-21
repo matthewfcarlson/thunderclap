@@ -12388,13 +12388,26 @@ struct A_1b8ae0 {
     unsigned char x; // +0x18
     void FUN_001b8ae0();
 };
-// matches/0x001bde50.cpp (stub Thing_1bde50), size 0x4c (0x58)
+// matches/0x001bde50.cpp (stub Thing_1bde50), size 0x4c (0x70)
+// (gfx8) CSubtitleManager (decls/managers.h HulkSubtitleManager, whose words these are; was `char pad[0x34]` and
+// `char pad2[0x0c]`, natively 0x14 bytes early): a / b its two overlays, value its word at 0x48
 struct Thing_1bde50 {
-    char pad[0x34]; // +0x00
-    Thing_1bde50* a; // +0x34 (+0x38)
-    Thing_1bde50* b; // +0x38 (+0x40)
-    char pad2[0x0c]; // +0x3c (+0x48)
-    int value; // +0x48 (+0x54)
+    float time; // +0x00
+    unsigned int count; // +0x04
+    void* events; // +0x08
+    unsigned char enabled, flag; // +0x0c (+0x10)
+    char pad0e[2]; // +0x0e (+0x12)
+    unsigned int w10, w14, w18, mode, w20; // +0x10 (+0x14)
+    unsigned char ready; // +0x24 (+0x28)
+    char pad25[3]; // +0x25 (+0x29)
+    void* buffers; // +0x28 (+0x30)
+    void* table; // +0x2c (+0x38)
+    void* callback; // +0x30 (+0x40)
+    Thing_1bde50* a; // +0x34 (+0x48)
+    Thing_1bde50* b; // +0x38 (+0x50)
+    void* entries; // +0x3c (+0x58)
+    unsigned int e, f; // +0x40 (+0x60)
+    int value; // +0x48 (+0x68)
     void Prepare(int);
     void Finish();
     bool FUN_001bde50(int);

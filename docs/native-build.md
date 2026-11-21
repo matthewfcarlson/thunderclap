@@ -6695,3 +6695,26 @@ name that carries an address any more. Unbound counts: see the commit message (c
   constructors called by address: the script_bind.h closure in 0x106e90 (0x94fb0/0x1e7470 held out); Bank, Camera and ZeroBlock.
   Allocation-size views are now gen sizeof for 0x56b30, 0x1328a0, 0x139710, 0x23ce70, 0x23d780 and 0x23de30.
   Native unbound (mac): 9571 -> 9558 (control 110325 / proof 110461 snapshots).
+
+## gfx8: native start-up, continued (2026-11-21)
+
+- Wine pair for gfx7's C16 + C17 (landed without one): control 110761 (64f92ee0b), proof 110858 (d3e787489,
+  seed:110761), studio, play3 to 60000: ckpt_gate --require-ref GATE ok (ref: ok), 2010 common frames, 0 differ.
+- C18: CFEManager's views in unk_0bc1e0.cpp (10 views of 0x000bc1e0..0x000bdd60) are sized by decls/managers.h's
+  HulkFEManager (TU macros HULK_FEM / HULK_FEM_AT, as C16); the record's f30 / f38 / f3c / f54 are pointers (the XBE
+  reads through them or calls methods on them; CFEManager.new_plain.cpp's constructor view follows). CSubtitleManager's
+  views in unk_1bddc0.cpp (its stm_ script functions, 0x001bdf00 that the FE manager calls) on HulkSubtitleManager
+  (HULK_SUB / HULK_SUB_AT); gen owners::Thing_1bde50 (0x001bde50, the same manager) spelled with the record's words.
+  The pure3d context (DAT_0052c2b4, gen owners::X_28f9a0) views with 32-bit pads in 11 TUs spell its words
+  (refs, helper, then f08 / d / context): 0x00293ef0 and 0x00294080 wrote the current view and 0 over the context's
+  helper natively, and 0x0028fa40 then called through garbage. HulkSoundResourceManager is renamed HulkSoundSystem
+  (0x001f1270's object is CSoundSystem, the singleton DAT_004e370c; the 0x524-byte manager it allocates is C17's
+  record). 0x000bce10's local text object (`char storage[36]`, natively 0x28 bytes) is sized by gen
+  owners::Obj_f79a0 and pointer-aligned: with the FE manager's words in place the --x64 harness reached it and the
+  constructor overran the frame (crash64). No MSVC or clang code or checker view change.
+- Native (noop renderer) after C18: start-up passes the front end's set-up and runs the main loop (Lua GC, controller
+  polls) presenting frames with 0 draws (4.2 M presents in 60 s: nothing paces or draws yet). Unbound calls seen
+  there: 0x0028faf0 through the Pipe / Stats_1b93a0 views (its definition is Target_28faf0::run), 0x0023f770,
+  0x00293d40 / 0x00293da0 (View), 0x002bdf90 (a vftable stub). 0x0028faf0's callers declare `(int)`, its
+  definition is `Target_28faf0::run(bool)`: declare as defined. unk_0b4cf0.cpp's Temp_b8860 has the same 36-byte
+  text buffer.
