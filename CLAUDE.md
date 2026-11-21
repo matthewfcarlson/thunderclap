@@ -194,7 +194,9 @@ signature); no TU defines a global operator new of its own (D131). content::Load
 LoadStream.cpp (0x263f30 `__declspec(noinline)`); a LoadObject descendant's deleting destructor calls
 `::content::LoadObject::operator delete(this)` (D135, nat2). When the checker pairs an
 unaddressed operator name to the wrong call (`??_V` paired with 0x0008d6d0), add `// equiv-map: NAME = 0xADDR` to the block:
-a mapping hint, not a relaxation (nat2). A `??_G` written as an explicit function keeps `X::~X() {}` (other TUs'
+a mapping hint, not a relaxation (nat2). In `--wine` mode a directed input never patches the original's .rdata, even through a fuzzed
+pointer (`rooverlay`; a run mostly of such inputs is `rooverlay_dominated`): a `--wine` difference on a strcmp/memcmp
+against a literal, on an input pointing an argument into .rdata, is that rule's territory, not a source bug (integ9, 0x000b0a50). A `??_G` written as an explicit function keeps `X::~X() {}` (other TUs'
 native code references `??1X`) and has `??_G`'s signature, `void* vfunc_N(unsigned int flags)` (D114). For the script-binding gen templates (Closure/Method/Function) no native
 `template class` line or destructor specialization is needed any more: either one re-instantiates gen's polymorphic
 templates natively (RTTI, unbound `??1`) (script2, a47fd3f2c).
@@ -288,7 +290,9 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   is proven by a `post` ledger line per mode (`hash --proven`; `revoke --kind post`). A caller in mode M draws a direct
   callee's return in range only from that mode's proof and names the accepted posts in its view, so landing a callee's post
   re-proves its equivalent direct callers in the same landing. Every `// post:` line is in the block's checker view: a post
-  edit is a new view (re-prove, never carried) (integ8). The item names the word with its type (`// pre: ge(*this+0xOFF.f32, c)`; the suffix is required), the macro names
+  edit is a new view (re-prove, never carried) (integ8). An `--x64` caller draws a direct callee's return in its post range
+  only when the post is accepted in both 32-bit modes (AST digest part `calleepost`), so landing or revoking a post re-runs
+  its callers' x64 gate ("callee post changed") (integ9). The item names the word with its type (`// pre: ge(*this+0xOFF.f32, c)`; the suffix is required), the macro names
   the field (`HULK_PRE_GE(shake[0].time, 0.0f)`; tools/pre_field.py probes the offset), and the block's own `// pre-writers:`
   cites the census's writers (raw ones may be dismissed in `// pre-writers-dismissed: 0xINSN (why)`). `EQUIV_ON=plant:...` plants
   input words for regress cases only; like any switch, a run with it proves nothing (integ7, rev5).
