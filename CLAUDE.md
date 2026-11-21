@@ -93,7 +93,9 @@ block too (integ5). `regress.py --jobq` ships every dirty file (read a failure's
 jobs, which starve behind low-priority 1-slot work.
 An interactive zsh does not word-split `$VAR`: build `jobq.py submit --files $F` lists inside `sh` scripts (an unsplit
 list fails remotely as `ssh/remote exit 1` showing the file list). A queue job's `sh -c` command calls
-`build/venv/bin/python`: bare `python` exits 127 on the hosts.
+`build/venv/bin/python`: bare `python` exits 127 on the hosts. `set -- $p` does not split in zsh either: read pairs with `while read a b`. A
+ship list (`--files`) built before a hash job lacks its config/proof-ledger.jsonl lines, and verify then reports the
+hashed blocks unproven: rebuild the list after every hash (gfx4).
 Large additions to a header most TUs reach (records.h, owners.h) can change MSVC 7.1's code in TUs that don't use them:
 run the whole-tree check before building on them, or put new records in a header only their TUs include (D74, D77).
 A records.h, owners.h or include/gen edit has not landed until a whole-tree `tree_tu.py verify . --relocs` (queue job, all
@@ -145,7 +147,11 @@ Write `((T*)dynamic_cast<ns::G*>((ns::S*)(p)))->m`: without the outer parenthese
 native_mac binds a call to a native CRT row only by a `FUN_<addr>` name or the CRT's own name, never by a suffix
 (`check_00344e74`): write a __RTDynamicCast stand-in as `__RTDynamicCast(...)` with its arguments through hulk_uintptr.
 Replacing a stubbed stand-in with its real callee can expose truncations the stub hid from the x64 gate (a pointer result
-stored in an int): rerun the gate on every TU such a rename touches (gfx2: 0xe2130, 0xfdc40).
+stored in an int): rerun the gate on every TU such a rename touches (gfx2: 0xe2130, 0xfdc40). Declaring a callee as
+defined can likewise expose a pointer now reaching an int parameter (0x86a40 -> 0xc5180): fix the definition's type or
+keep the call unbound, never pass `(int)(hulk_intptr)p`. Splitting a view's 32-bit pad at its pointer words (`char pad[N]`
+-> `void* w; char pad[N-4]` at the same 32-bit offsets) leaves MSVC code, code hashes and checker views unchanged; only
+blocks whose member or parameter types changed need re-proofs (gfx4, C12b).
 A TU that both calls a record's virtual slots and writes its words declares the words once as a macro list
 (`HULK_VIEW_WORDS`) used by the plain record and by the TU's slot view: a plain record plus a cast leaves `--x64` with
 `view_ambiguous` or every input crashing on a fuzzed vftable (recs1). `git apply` inside an untracked directory of the
