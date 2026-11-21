@@ -87,7 +87,12 @@ current HEAD before a hash, proof or verify job or a Wine pair: a stale gen head
 A function only a 64-bit branch defines is named `FUN_<addr>`; native_mac and native_unbound bind callers to it by that
 address, and 64-bit-only thunks call their targets by the targets' own names (D35). Several definitions sharing one
 name in a TU (overloads `target(...)`) have no unique 64-bit symbol, so nothing binds to them by address natively:
-name each `FUN_<addr>` (decl1, 0x00086380).
+name each `FUN_<addr>` (decl1, 0x00086380). Natively a call binds only through a name carrying the callee's address
+(`FUN_<addr>` or an `_<addr>` suffix; `native_unbound.plan_link`): a view method named otherwise (`C10_86a40::F`) stays
+unbound whatever the Wine map says, so name it `FUN_<addr>`. A free `__stdcall`/`__fastcall` definition whose callers pass
+`this` never binds natively: define it as a member. The debug-settings object DAT_004dd6e8's 0x0023f760 (`bool (const
+char*, int key, bool def)`) returns the default; unbound natively it returns 0 and turns off simulation, rendering and
+physics (gfx5).
 A regress case run with a development switch (EQ64_OFF=postproof) doesn't exercise the production path: check the real
 block too (integ5). `regress.py --jobq` ships every dirty file (read a failure's cause before blaming your own change) and submits 2-slot
 jobs, which starve behind low-priority 1-slot work.
@@ -159,7 +164,8 @@ checkout (build/ included) silently skips every path: `git init -q` a private wo
 A virtual-slot view must declare the slot definition's parameters and return: a 64-bit key the definition takes as two
 32-bit words, or a pointer returned as int, binds natively with garbage, and no binding check sees calls through vftables.
 To call a vftable slot the original loaded before an argument's call (old table, new object), use
-include/compat/hulk_vslot.h's hulk_slot / hulk_vcallN, never a local virtual (fix126).
+include/compat/hulk_vslot.h's hulk_slot / hulk_vcallN, never a local virtual (fix126). Wine-mode rooverlay exposes such calls
+(`p->f(p->g())` reading the vftable before g): spell them with hulk_slot from a preloaded table (gfx5, 0x1b93a0).
 A pddi/D3D object's status and refcount are separate words: pddiObject is vftable, refcount f_04, status f_08 (natively
 8 and 0xc); a raw `p + 4` / `p + 8` read in the d3d layer is a 32-bit offset: use gen's fields (find3, stop 9).
 Natively the pddi backend's own operator new / delete take the host heap (native_mac's GFX_CXX renames them to
