@@ -341,6 +341,20 @@ def typed_writers(names, offs, tus=None):
                 if toks and (toks[0] in ("++", "--", "&") or toks[-1] in ("++", "--")):
                     lhs = next(iter(c.get_children()), None)
                     what = "address taken" if toks[0] == "&" else "increment"
+            if c.kind == m.CursorKind.CALL_EXPR and lhs is None:
+                # (integ7, rev5 (a) addition 2) a whole-object copy of a family class (its operator= or copy
+                # constructor) writes every word: a writer to cite
+                f_ = c.referenced
+                try:
+                    cp_ = f_ is not None and ((f_.kind == m.CursorKind.CXX_METHOD and f_.spelling == "operator=") or
+                                              (f_.kind == m.CursorKind.CONSTRUCTOR and f_.is_copy_constructor()))
+                except Exception:   # noqa: BLE001
+                    cp_ = False
+                if cp_ and f_.semantic_parent is not None and f_.semantic_parent.spelling in names:
+                    ln = c.location.line
+                    out.append((os.path.relpath(tu_path, ROOT), ln, block_of(ln), "whole-object copy (%s::%s)" % (
+                        f_.semantic_parent.spelling, f_.spelling)))
+                continue
             if lhs is None:
                 continue
             r = _lvalue_offsets(lhs, set(names), m, 0, this_rec)
@@ -410,8 +424,11 @@ def cited(text):
 
 
 def census(src, addr, offs, text):
-    """{"typed": [...], "raw": [...], "missing": [descriptions], "errors": [...], "family": [...]}: the writers of
-    the contract words OFFS of block ADDR and which are uncited in TEXT (the block's comment)."""
+    """{"typed": [...], "raw": [...], "missing": [descriptions], "errors": [...], "family": [...], "ctors": [...]}: the
+    writers of the contract words OFFS ({offset: range cond} or a list of offsets) of block ADDR and which are uncited
+    in TEXT (the block's comment); with conds, the initialization leg (constructors, static instances) too."""
+    conds = offs if isinstance(offs, dict) else None
+    offs = sorted(offs)
     _d, rec = definition(src, addr)
     fam, names = class_family(rec.spelling)
     if not fam:
@@ -427,7 +444,188 @@ def census(src, addr, offs, text):
     for f, ia, what in raw:
         if ia not in c and f not in c and ia not in dis:
             missing.append("raw 0x%08x in 0x%08x: %s" % (ia, f, what))
-    return {"typed": ty, "raw": raw, "missing": missing, "errors": errs, "family": fam}
+    ctors, nstatic = [], 0
+    if conds is not None:
+        m1, ctors = init_census(fam, conds, c, dis, dtor_listed(block_text(text, addr)))
+        m2, nstatic = static_census(names, conds)
+        missing += m1 + m2
+    return {"typed": ty, "raw": raw, "missing": missing, "errors": errs, "family": fam, "ctors": ctors,
+            "static": nstatic}
+
+
+def family_vftables(fam):
+    import equiv
+    p = equiv.Program.get()
+    return sorted({v["address"] for mg in fam for v in p.rtti[mg]["vtables"]})
+
+
+def constructors(fam):
+    """(constructors, destructors) of the family: the functions referencing one of its vftables; those that are
+    themselves vftable slots (a deleting destructor stores its vftable; constructors aren't virtual), or that a
+    destructor calls directly, are destructors (they store the vftable while the object dies, not while it is made)."""
+    import equiv
+    p = equiv.Program.get()
+    vts = family_vftables(fam)
+    refs = set()
+    for vt in vts:
+        for site in equiv.pre_callers(vt):
+            cf = p.containing_func(site)
+            if cf:
+                refs.add(cf[0])
+    slots = {s for mg in fam for v in p.rtti[mg]["vtables"] for s in (v.get("slots") or ())}
+    # a virtual function that stores its class's vftable is a destructor (constructors aren't virtual), and so is
+    # every vftable-referencing function a destructor calls directly (the base destructors), to a fixed point
+    dtor = refs & slots
+    todo = list(dtor)
+    while todo:
+        f = todo.pop()
+        if f not in p.funcs:
+            continue
+        for ci in p.md.disasm(p.read(f, p.funcs[f][0]), f):
+            if ci.mnemonic in ("call", "jmp") and ci.operands and ci.operands[0].type == 2:
+                t = ci.operands[0].imm & 0xFFFFFFFF
+                if t in refs and t not in dtor:
+                    dtor.add(t)
+                    todo.append(t)
+    # a destructor body ends by running its base's destructor (`jmp` / `call` to one): a vftable-referencing function
+    # that calls a known destructor is one too (constructors call base constructors), to a fixed point
+    callees = {}
+    for f in refs:
+        if f in p.funcs:
+            callees[f] = {ci.operands[0].imm & 0xFFFFFFFF for ci in p.md.disasm(p.read(f, p.funcs[f][0]), f)
+                          if ci.mnemonic in ("call", "jmp") and ci.operands and ci.operands[0].type == 2}
+    changed = True
+    while changed:
+        changed = False
+        for f in refs - dtor:
+            if callees.get(f, set()) & dtor:
+                dtor.add(f)
+                changed = True
+    return sorted(refs - dtor), sorted(dtor)
+
+
+def _cond_in(v, cond):
+    import equiv
+    return equiv._pre_in(v, cond)
+
+
+def dtor_listed(text):
+    """{function: reason} of TEXT's `// pre-dtors: 0xF (why) ...` lines."""
+    out = {}
+    for l in text.splitlines():
+        mm = re.match(r"^\s*//\s*pre-dtors:\s*(.*)$", l)
+        if mm:
+            for a, why in re.findall(r"(0x[0-9a-fA-F]+)\s*\(([^()]+)\)", mm.group(1)):
+                out[int(a, 16)] = why.strip()
+    return out
+
+
+def init_census(fam, conds, cited_, dismissed=None, listed=None):
+    """(integ7, rev5 (a)) [missing] for the initialization leg: every constructor of the family stores each contract
+    word (a 4-byte store to [reg + OFF]); an immediate must lie in the item's range, any other value must be cited (the
+    instruction or the constructor in `// pre-writers:`). A constructor that leaves a word unwritten (itself or through a
+    family constructor it calls): pre_uninit. Constructors are found by heuristic (constructors()): a function it takes
+    for one that is not (a destructor body) is dismissed with its reason in `// pre-writers-dismissed: 0xF (why)`."""
+    import struct as _st
+    import capstone
+    from capstone import x86
+    import equiv
+    p = equiv.Program.get()
+    ctors, dtors = constructors(fam)
+    missing = []
+    # (rev5: fail closed) a function the heuristic takes for a destructor is left out only when the block lists it in
+    # `// pre-dtors: 0xF (why)`; an unlisted one stays a constructor, and a listed function the heuristic doesn't take
+    # for a destructor refuses the items
+    listed = listed or {}
+    for f in sorted(listed):
+        if f not in dtors:
+            missing.append("pre_uninit: `// pre-dtors:` lists 0x%08x, which is no destructor of the family by its code" % f)
+    ctors = sorted(set(ctors) | {f for f in dtors if f not in listed})
+    calls = {}
+    stores = {}
+    for f in ctors:
+        seen = stores[f] = {}
+        calls[f] = set()
+        for ci in p.md.disasm(p.read(f, p.funcs[f][0]), f):
+            ops = ci.operands
+            if ci.mnemonic in ("call", "jmp") and ops and ops[0].type == x86.X86_OP_IMM and \
+                    (ops[0].imm & 0xFFFFFFFF) in ctors:
+                calls[f].add(ops[0].imm & 0xFFFFFFFF)
+            for op in ops:
+                if op.type == x86.X86_OP_MEM and (op.access & capstone.CS_AC_WRITE) and \
+                        op.mem.base not in (0, x86.X86_REG_ESP, x86.X86_REG_EBP) and op.mem.disp in conds and op.size == 4:
+                    imm = next((o.imm for o in ops if o.type == x86.X86_OP_IMM), None) if ci.mnemonic == "mov" else None
+                    seen.setdefault(op.mem.disp, []).append((ci.address, imm, "%s %s" % (ci.mnemonic, ci.op_str)))
+    # a constructor that calls a family constructor storing the word (its base's) stores it too
+    sets = {f: set(stores[f]) for f in ctors}
+    changed = True
+    while changed:
+        changed = False
+        for f in ctors:
+            add = set().union(*[sets[g] for g in calls[f]]) - sets[f] if calls[f] else set()
+            if add:
+                sets[f] |= add
+                changed = True
+    for f in ctors:
+        if f in (dismissed or {}):
+            continue        # (a reviewed dismissal with its reason: a destructor body the heuristic took for one)
+        seen = stores[f]
+        for off, cond in sorted(conds.items()):
+            st = seen.get(off)
+            if off not in sets[f]:
+                missing.append("pre_uninit: constructor 0x%08x never stores this+0x%x" % (f, off))
+                continue
+            if not st:
+                continue        # (stored by the base constructor it calls: checked there)
+            for ia, imm, what in st:
+                if imm is not None:
+                    b = _st.pack("<I", imm & 0xFFFFFFFF)
+                    v = _st.unpack("<f" if cond[5] == "f" else "<i", b)[0]
+                    if not _cond_in(v, cond):
+                        missing.append("pre_uninit: constructor 0x%08x stores %r at this+0x%x (0x%x: %s), outside the "
+                                       "range" % (f, v, off, ia, what))
+                elif ia not in cited_ and f not in cited_:
+                    missing.append("constructor 0x%08x stores a computed value at this+0x%x (0x%x: %s): cite it" % (
+                        f, off, ia, what))
+    return missing, ctors
+
+
+def static_census(names, conds, items=None, read=None):
+    """(integ7, rev5 (a) addition 1) [missing]: every statically allocated instance of the family (a config/data.json
+    item whose type names one of its classes) must hold each contract word in range in its initial image (the XBE's
+    bytes, zero for bss)."""
+    import json as _js
+    import struct as _st
+    if read is None:
+        import equiv
+        read = equiv.Program.get().read
+    if items is None:
+        try:
+            items = _js.load(open(os.path.join(ROOT, "config", "data.json")))["items"]
+        except (OSError, ValueError, KeyError) as e:
+            return ["static instances: config/data.json unreadable (%s)" % e], 0
+    pat = re.compile(r"^(?:class |struct )?(?:::)?(?:\w+::)*(%s)$" % "|".join(map(re.escape, names)))
+    missing, n = [], 0
+    for it in items:
+        if it.get("kind") in ("vftable", "rtti_td", "rtti_col", "rtti", "string"):
+            continue
+        ty = it.get("type") or it.get("source_type")
+        if not isinstance(ty, str) or not pat.match(ty.strip()):
+            continue
+        n += 1
+        base = int(it["addr"], 16)
+        for off, cond in sorted(conds.items()):
+            if off + 4 > it.get("size", 0):
+                # (rev5: fail closed) the instance runs past its inventory item (a split or a wrong type): its word's
+                # initial value is unknown here; the reviewer fixes the inventory or the type
+                missing.append("pre_uninit: static instance %s at 0x%x: +0x%x lies outside the data item (0x%x bytes)" % (
+                    it.get("name"), base, off, it.get("size", 0)))
+                continue
+            b = read(base + off, 4)
+            v = _st.unpack("<f" if cond[5] == "f" else "<i", b)[0]
+            if not _cond_in(v, cond):
+                missing.append("pre_uninit: static instance %s at 0x%x holds %r at +0x%x" % (it.get("name"), base, v, off))
+    return missing, n
 
 
 def callee_writers(addr, writers):

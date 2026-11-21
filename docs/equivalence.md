@@ -1831,6 +1831,21 @@ function runs on: `// pre: ge(*this+0xf4.f32, 0)` (one 4-byte word; the type suf
   (`// pre-writers-dismissed: 0xINSN (why)`). A writer (found or cited) the block calls directly refuses the items
   (`pre_writer_callee`). Residual, a reviewed claim: pointer-strided stores outside these methods, other-named views
   outside them, whole-object copies, memset, reference bindings.
+- (integ7, rev5 (a), D164) **Initialization leg** (`pre_uninit`): a word nobody writes is any stale value, so every
+  constructor of the family must store it: the functions referencing a family vftable, less its destructors (a
+  vftable slot that stores the vftable, and any vftable-referencing function that calls a destructor: a destructor
+  body ends in its base's). A constructor stores the word itself (a 4-byte store to [reg + OFF]) or through a family
+  constructor it calls; an immediate must lie in the range, another value is cited (instruction or constructor in
+  `// pre-writers:`); a function the heuristic misreads as a constructor is dismissed with its reason
+  (`// pre-writers-dismissed: 0xF (why)`). Fail closed (rev5): a destructor is left out only when the block lists it
+  in `// pre-dtors: 0xF (why)`; an unlisted one counts as a constructor, and a listed function the code doesn't show to
+  be a destructor refuses the items (cases `_init_dtorunlisted`, `_init_dtorwrong`); tests/test_pre_field.py covers
+  the static-instance leg on synthetic items (a word past its data item's end is refused, never skipped). Every static instance (a config/data.json item typed as a family class)
+  holds the word in range in its initial image (XBE bytes, bss zero). A whole-object copy of a family class (its
+  `operator=` or copy constructor) is a typed writer to cite; memcpy of the object stays residual. 0x000a97e0's time
+  items fail it (the constructors store only the durations): play3 trapped at frame 8,730 on an idle shake's stale time
+  (ckpt1's control 106054; the contract was reverted in cf100e24e). Cases `0x000a97e0_native_orange` (now must-fail),
+  `_init` / `_init_msvc` (the durations' items: pass), `_init_uncited`.
 - 0x000a97e0 (the six shakes' times, >= 0; writers 0x000a9390 time = 0 and the block's own time += dt): MSVC 105757 and
   --wine 105758 equivalent at 3,000 (46/46 edges; no x87_range inputs; EQUIV_OFF=orange 105760 too: the epoch-0 repair
   already covers this block). Only the MSVC proof is recorded (rev5): dt is still free, and dt below about -709 with

@@ -11381,12 +11381,18 @@ def _verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappi
                 # the block calls directly refuses the items (its stub would keep the word in range for it)
                 try:
                     import pre_field
-                    cen_ = pre_field.census(src, addr, oitems_, text_)
+                    cen_ = pre_field.census(src, addr, {it_[3]: it_[5] for it_ in pre_specs if it_[1] == "othis"}, text_)
                     rep["pre_field_census"] = {"typed": len(cen_["typed"]), "raw": len(cen_["raw"]),
-                                               "family": len(cen_["family"]), "errors": cen_["errors"][:5]}
-                    if cen_["missing"] or cen_["errors"]:
+                                               "family": len(cen_["family"]), "errors": cen_["errors"][:5],
+                                               "ctors": ["0x%08x" % x_ for x_ in cen_.get("ctors", [])],
+                                               "static": cen_.get("static", 0)}
+                    unin_ = [x_ for x_ in cen_["missing"] if x_.startswith("pre_uninit")]
+                    if unin_:
+                        # (integ7, rev5 (a)) the initialization leg: a word no constructor stores is any stale value
+                        bad_.append({"kind": "pre_uninit", "why": "object-word range items: %s" % "; ".join(unin_[:6])})
+                    if [x_ for x_ in cen_["missing"] if not x_.startswith("pre_uninit")] or cen_["errors"]:
                         bad_.append({"kind": "pre_census", "why": "object-word range items: writers not cited (%s)%s" % (
-                            "; ".join(cen_["missing"][:10]), (" and TUs the census could not parse: %s" %
+                            "; ".join([x_ for x_ in cen_["missing"] if not x_.startswith("pre_uninit")][:10]), (" and TUs the census could not parse: %s" %
                                                                "; ".join(cen_["errors"][:5])) if cen_["errors"] else "")})
                     wr_ = {b_ for _t, _l, b_, _w in cen_["typed"] if b_ is not None} | {f_ for f_, _i, _w in cen_["raw"]} | \
                         pre_field.cited(pre_field.block_text(text_, addr))[0]

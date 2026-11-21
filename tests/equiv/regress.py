@@ -57,8 +57,18 @@ CASES = {
     # offsetof probe pairs them with the items, the words are kept in range in every epoch, and the writers census (typed
     # over the tree, raw in the class's methods) must be cited. Mutants: no type suffix, a macro on another field or with
     # another type, a writer left uncited, a callee cited as a writer
-    "0x000a97e0_native_orange": ("equivalent", None, 0.9, {"native": True, "n_inputs": 300}),
-    "0x000a97e0_orange_msvc": ("equivalent", None, 0.9, {"src": "0x000a97e0_native_orange", "n_inputs": 300}),
+    # (integ7, rev5 (a)) the time items fail the initialization leg: the constructors (0x000a9400, 0x000a94c0) store the
+    # durations, never the times (play3 trapped on an idle shake's stale time); the durations' items pass it (_init),
+    # and fail when the constructors' computed stores are left uncited (_init_uncited)
+    "0x000a97e0_native_orange": ("fail", "L2 pre_uninit", 0, {"native": True, "n_inputs": 20}),
+    "0x000a97e0_orange_msvc": ("fail", "L2 pre_uninit", 0, {"src": "0x000a97e0_native_orange", "n_inputs": 20}),
+    "0x000a97e0_native_orange_init": ("equivalent", None, 0.9, {"native": True, "n_inputs": 300}),
+    "0x000a97e0_orange_init_msvc": ("equivalent", None, 0.9, {"src": "0x000a97e0_native_orange_init", "n_inputs": 300}),
+    "0x000a97e0_native_orange_init_uncited": ("fail", "L2 pre_census", 0, {"native": True, "n_inputs": 20}),
+    # (rev5: fail closed) a destructor is left out only when `// pre-dtors:` lists it: unlisted it counts as a constructor
+    # (0x000a9620 stores no duration: pre_uninit); a listed constructor refuses the items
+    "0x000a97e0_native_orange_init_dtorunlisted": ("fail", "L2 pre_uninit", 0, {"native": True, "n_inputs": 20}),
+    "0x000a97e0_native_orange_init_dtorwrong": ("fail", "L2 pre_uninit", 0, {"native": True, "n_inputs": 20}),
     "0x000a97e0_native_orange_nosuffix": ("fail", "L2 pre_unparsed", 0, {"native": True, "n_inputs": 20}),
     "0x000a97e0_native_orange_wrongfield": ("fail", "L2 pre_macro_mismatch", 0, {"native": True, "n_inputs": 20}),
     "0x000a97e0_native_orange_i32": ("fail", "L2 pre_macro_mismatch", 0, {"native": True, "n_inputs": 20}),
@@ -67,10 +77,10 @@ CASES = {
     # (rev5) the field items alone leave dt free: a planted dt = -1000 with time 0 (EQUIV_ON=plant:..., a regress switch)
     # still overflows clang's exp(-t) where the original's x87 stays finite (0 * inf: a NaN rotation); MSVC computes as
     # the original. Once 0xa97e0 has its dt contract, the repair moves the planted dt into range: then a must-not
-    "0x000a97e0_native_orange_negdt": ("fail", "0xffc00000", 0, {"src": "0x000a97e0_native_orange", "native": True,
+    "0x000a97e0_native_orange_negdt": ("fail", "0xffc00000", 0, {"src": "0x000a97e0_native_orange_init", "native": True,
                                                                  "n_inputs": 300,
                                                                  "equiv_on": "plant:s1=0xc47a0000,plant:this+0xf4=0"}),
-    "0x000a97e0_orange_negdt_msvc": ("equivalent", None, 0.9, {"src": "0x000a97e0_native_orange", "n_inputs": 300,
+    "0x000a97e0_orange_negdt_msvc": ("equivalent", None, 0.9, {"src": "0x000a97e0_native_orange_init", "n_inputs": 300,
                                                               "equiv_on": "plant:s1=0xc47a0000,plant:this+0xf4=0"}),
     # (integ4, stubexit) a loop whose condition is a stub's result ends after n rounds the original's run draws, the
     # same results by call index on ours; the body is compared every round
