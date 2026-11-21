@@ -13549,7 +13549,7 @@ struct State_1eb220 {
 struct Thing_1eb2a0 {
     char pad[8]; // +0x00
     unsigned char enabled; // +0x08
-    void FUN_001eb2a0(int a, int b);
+    void FUN_001eb2a0(float a, bool b);   // (gfx4) the frame time and the update flag, as 0x001f22f0 takes them
 };
 // matches/0x001eba20.cpp (stub CHapticTrack), size 0x14
 struct CHapticTrack_1eba20 {

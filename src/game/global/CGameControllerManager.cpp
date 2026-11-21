@@ -14,12 +14,12 @@ namespace fn_faa012bb {} using namespace fn_faa012bb;
 // ---- declarations shared by the functions below
 namespace fn_faa012bb {
 struct Y_af3c0 {
-    void Fng_000af170(int);
+    void Fng_000af170(float);   // (gfx4) as defined: the frame time
 };
 struct X_af3c0 {
     char pad[4];
     Y_af3c0* p;
-    void f(int);
+    void f(float);
 };
 extern "C" char DAT_00405e3c[];
 struct Child_af3d0 {
@@ -52,9 +52,9 @@ hulk_intptr owners::C_af3a0::FUN_000af3a0(int i) {
 namespace fn_faa012bb {
 
 // 0x000af3c0 FUN_000af3c0 (8 B): matches/0x000af3c0.cpp
-// sym: ?f@X_af3c0@fn_faa012bb@@QAEXH@Z
+// sym: ?f@X_af3c0@fn_faa012bb@@QAEXM@Z
 // Same code shape as 0x000244a0 (propagated; names are from that function)
-void X_af3c0::f(int a0) {
+void X_af3c0::f(float a0) {
     p->Fng_000af170(a0);
 }
 

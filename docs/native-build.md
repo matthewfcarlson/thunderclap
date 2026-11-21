@@ -6635,3 +6635,5 @@ name that carries an address any more. Unbound counts: see the commit message (c
   words that hold the main actor (0x0009d1b0, 0x00151fd0, 0x001afba0) are pointers.
 - Native: past 0x00024800. Start-up now runs the game loop through 0x00086cb0 and stops in a hang (90 s, main thread
   in the loop; unbound callees from 0x00086cb0: 0x0023f720, 0x0023f760, 0x001b93a0).
+- C13 (gfx4/gfx5): the frame time as a float from 0x00086a40 into its callees (0x000af3c0, 0x000b0080, 0x000d6c30,
+  0x001eb2a0 (float, bool)); see the commit. 0x000c5180 stays unbound (its a3 needs Menu_c5180 records).

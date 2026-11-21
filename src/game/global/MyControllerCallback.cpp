@@ -45,7 +45,7 @@ struct Fx_8dbb0 {
     char pad0[8];
     char enabled;
     void FUN_001eb870();
-    void FUN_001eb2a0(float f, int zero);
+    void FUN_001eb2a0(float f, bool zero);   // (gfx4) as defined
 };
 struct Cam_8dbb0 {
     void FUN_001b8160();
@@ -89,7 +89,7 @@ public:
 
 
 // 0x0008dbb0 MyControllerCallback::vfunc_0 (591 B): equivalent/0x0008dbb0.cpp
-// sym: ?vfunc_0@MyControllerCallback@fn_fd4e848d@@UAEXPAVIController@2@@Z @7e830f2edaed @w470083347d40 @v0b11b43c7c84
+// sym: ?vfunc_0@MyControllerCallback@fn_fd4e848d@@UAEXPAVIController@2@@Z @7e830f2edaed @w470083347d40 @vff45a39f6cb0
 // STATUS: equivalent (tools/equiv.py level 3: 20032 inputs, branch coverage 48/48)
 // MyControllerCallback::vfunc_0 @ 0x0008dbb0
 void MyControllerCallback::vfunc_0(IController *c)

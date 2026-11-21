@@ -5,7 +5,7 @@
 
 
 // 0x00087630 FUN_00087630 (770 B): equivalent/0x00087630.cpp [isolated: code differs from its standalone build]
-// sym: ?run@Target_87630@fn_f2137440@@QAEXXZ @3a76108f2538 @wec9d503a55b9 @v23e6d1008269
+// sym: ?run@Target_87630@fn_f2137440@@QAEXXZ @3a76108f2538 @wec9d503a55b9 @v473f58440276
 #include "gen/owners.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
@@ -57,7 +57,7 @@ struct Notify_87630 { void FUN_000afe80(); };
 struct Sub_87630 { void* words[6]; /* (gfx3) CGame's words (HulkGame) */ Notify_87630* notify; };
 struct World { void* vftable; void* parts[20];   /* (sweep2) the World's words (HulkWorld): +0x54 is CGame */ Sub_87630 *sub; }; 
 struct Stop_87630 { void FUN_001b7970(); };
-struct Update_87630 { void FUN_001eb2a0(float,int); };
+struct Update_87630 { void FUN_001eb2a0(float,bool); };   // (gfx4) as defined
 struct Check_87630 { bool FUN_00089e80(void*,unsigned int); };
 struct UI_87630 { void FUN_0023f6b0(); void FUN_0023f720(int*,int); bool FUN_0023f760(const char*,int,int); void FUN_0023f740(); void FUN_0023f6c0(); };  
 struct Gate_87630 { unsigned int FUN_000b4f20(); }; struct Singleton_4dd6ec { void* words[8]; /* (gfx3) CGame's words (HulkGame) */ Gate_87630* gate; }; 

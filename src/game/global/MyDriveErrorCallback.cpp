@@ -242,7 +242,7 @@ void Method1_8e1d0::vfunc_2(void* __p0, void* __p1, void* __p2) { void * a = (vo
 
 
 // 0x0008e1f0 MyDriveErrorCallback::vfunc_0 (1161 B): equivalent/0x0008e1f0.cpp [wrapped: conflict: FUN_0008e090; MyControllerCallback; MyDriveErrorCallback]
-// sym: ?vfunc_0@MyDriveErrorCallback@fn_0008e1f0@@UAEDIPAXHPBDI@Z @60a9a387765b @wfa58a7dd74a5 @v3ea361a0773e
+// sym: ?vfunc_0@MyDriveErrorCallback@fn_0008e1f0@@UAEDIPAXHPBDI@Z @60a9a387765b @wfa58a7dd74a5 @va17d79836a47
 inline void *operator new(size_t, void *p) throw() { return p; }
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
@@ -322,7 +322,7 @@ struct Fade_8e1f0 {
 
 struct Audio_8e1f0 {
     void FUN_001eb870();
-    void FUN_001eb2a0(float a, int b);
+    void FUN_001eb2a0(float a, bool b);   // (gfx4) as defined
     void FUN_001eb890();
 };
 

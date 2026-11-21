@@ -18,7 +18,7 @@ namespace fn_f8a35d46 {} using namespace fn_f8a35d46;
 namespace fn_f8a35d46 {
 class Obj_b0080 {
   public:
-    void af8_000af8e0(int);
+    void af8_000af8e0(float);   // (gfx4) as defined: the frame time
     void afaf_000afaf0();
 };
 class Thing_b0080 {
@@ -27,7 +27,7 @@ class Thing_b0080 {
     unsigned char flag;
     char pad2[2];
     Obj_b0080* ptr;
-    void target(int);
+    void target(float);
 };
 extern "C" char DAT_00405ea8[];
 class Method4_b00b0 {
@@ -123,8 +123,8 @@ pure3d::NonCopyable* pure3d::NonCopyable::f2(unsigned char param) {
 namespace fn_f8a35d46 {
 
 // 0x000b0080 FUN_000b0080 (48 B): matches/0x000b0080.cpp
-// sym: ?target@Thing_b0080@fn_f8a35d46@@QAEXH@Z
-void Thing_b0080::target(int arg) {
+// sym: ?target@Thing_b0080@fn_f8a35d46@@QAEXM@Z
+void Thing_b0080::target(float arg) {
     if (flag) {
         if (ptr) {
             ptr->af8_000af8e0(arg);

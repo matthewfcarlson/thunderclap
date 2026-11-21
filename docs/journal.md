@@ -2363,3 +2363,12 @@ blocks fight::Action's whole family: the records come first there.
   revoked, and its x64-baseline entries are layout/ptrtrunc/crash64. equiv.py never draws .rdata (globals_ is
   .data/BINKDATA/DOLBY), and equiv64's HULK_RDATA loads the XBE bytes on both sides. .i64 object words and .rdata
   range items reopen as their own D item when a block's failure is a 64-bit word's domain.
+
+## 2026-11-21 gfx4/gfx5: the frame time as a float (C13)
+
+- 0x00087630 hands CGame's update 0x00086a40 the frame time as a float, and the update passes it on to the controller
+  managers (0x000af3c0, 0x000b0080), the message overlay (0x000d6c30) and the sound update (0x001eb2a0, which also
+  takes a bool). The sources took it as an int all the way down: identical MSVC code (the value is only moved), but
+  natively a float travels in a vector register, and every callee's definition disagreed with its callers' IR
+  signature, so none bound. All are typed as defined now; MSVC code unchanged, six equivalent blocks re-proven for
+  their checker views. 0x000c5180's third argument (a C30*) waits for Menu_c5180 records.

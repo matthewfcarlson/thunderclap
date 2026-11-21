@@ -103,7 +103,7 @@ struct Resource_1eb220 {
 extern "C" Resource_1eb220* __cdecl FUN_0008d710(int size, int category);
 class Other_1eb2a0 {
   public:
-    void target_001f22f0(int, int);
+    void target_001f22f0(float, bool);   // (gfx4) as defined
 };
 struct StringList_1eb440 {
     char data[0x48];
@@ -995,8 +995,8 @@ SoundRealTimeManager_1eb220* SoundRealTimeManager_1eb220::FUN_001eb220(hulk_uint
 
 
 // 0x001eb2a0 FUN_001eb2a0 (17 B): matches/0x001eb2a0.cpp
-// sym: ?FUN_001eb2a0@Thing_1eb2a0@owners@@QAEXHH@Z
-void owners::Thing_1eb2a0::FUN_001eb2a0(int a, int b) {
+// sym: ?FUN_001eb2a0@Thing_1eb2a0@owners@@QAEXM_N@Z
+void owners::Thing_1eb2a0::FUN_001eb2a0(float a, bool b) {
     if (enabled)
         ((Other_1eb2a0*)*(void**)this)->target_001f22f0(a, b);
 }

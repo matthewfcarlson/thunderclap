@@ -247,11 +247,11 @@ class C10_86a40 {
 };
 class C14_86a40 {
   public:
-    void F(int);
+    void F(float);   // (gfx4) 0x000af3c0 -> 0x000af170: the frame time, a float
 };
 class C18 {
   public:
-    void F(int);
+    void F(float);   // (gfx4) 0x000b0080 -> 0x000af8e0
 };
 class C1c;
 class C20;
@@ -265,11 +265,11 @@ class C28 {
 };
 class C2c {
   public:
-    void F(int);
+    void F(float);   // (gfx4) 0x000d6c30
 };
 class C30 {
   public:
-    void F(int, int);
+    void F(float, bool);   // (gfx4) 0x001eb2a0 -> 0x001f22f0 (float, bool)
 };
 class C48 {
   public:
@@ -278,7 +278,7 @@ class C48 {
 class A_86a40;
 class C20 {
   public:
-    void F(A_86a40*, int*, int, C30*, C24*);
+    void F(A_86a40*, int*, float, C30*, C24*);   // (gfx4) 0x000c5180 takes a3 as an int: it binds once its Menu view holds the pointer (follow-up)
 };
 struct State_86a40 {
     int id;
@@ -299,7 +299,7 @@ class A_86a40 {
     C30* p30;
     void* pad34[5];
     C48* p48;
-    void Run(int);
+    void Run(float);   // (gfx4) the frame time 0x00087630 passes
 };
 extern bool __cdecl Check_00085d90();   // (gfx1) 0x00085d90 (this TU defines it: a distinct name keeps MSVC from inlining)
 extern bool __cdecl Check_0008db80();   // (gfx1) 0x0008db80 (`Check` stood for both and carried no address: unbound natively)
@@ -929,7 +929,7 @@ void Target_86630::FUN_00086630() {
 } // namespace fn_f5b26912
 
 // 0x00086790 FUN_00086790 (359 B): equivalent/0x00086790.cpp [wrapped: conflict: World]
-// sym: ?FUN_00086790@Object@fn_00086790@@QAEXXZ @5cd506111fd2 @w9d4a3fffc75c @v2c0a98de3332
+// sym: ?FUN_00086790@Object@fn_00086790@@QAEXXZ @5cd506111fd2 @w4663f3f857b1 @v4f37f2096294
 namespace fn_00086790 {
 // STATUS: equivalent (tools/equiv.py level 3: 81 inputs, branch coverage 21/26, incomplete)
 // FUN_00086790 @ 0x00086790
@@ -964,7 +964,7 @@ char FUN_001d04d0(const void* typeInfo);                      // type_info test 
 struct Switch_86790 { void FUN_0008db60(int); };
 struct Item_86790 { void FUN_000af0f0(void*); };
 struct Source_86790 { void FUN_000ae840(); };
-struct Input_86790 { void FUN_000af3c0(int); Item_86790* FUN_000af3a0(int); };
+struct Input_86790 { void FUN_000af3c0(float);   /* (gfx4) the frame time */ Item_86790* FUN_000af3a0(int); };
 struct Pump_86790 { void FUN_000bd1b0(int); };
 struct State_86790 { void* vftable; char b4; unsigned char active; };   // (gfx2) the drive-error callback (0x0008e090)
 extern "C" void FUN_002684c0();
@@ -985,7 +985,7 @@ void Object::FUN_00086790() {
   while (!done) {
    FUN_002684c0();
    source->FUN_000ae840();
-   input->FUN_000af3c0(0);
+   input->FUN_000af3c0(0.0f);
    if (!FUN_0008e090()->active || FUN_0008db80()) { gate->FUN_0008db60(0); return; }
    int data[41];
    input->FUN_000af3a0(0)->FUN_000af0f0(data);
@@ -1061,14 +1061,14 @@ void Obj::run() {
 
 
 // 0x00086a40 FUN_00086a40 (131 B): matches/0x00086a40.cpp
-// sym: ?Run@A_86a40@fn_f5b26912@@QAEXH@Z
-void A_86a40::Run(int arg) {
+// sym: ?Run@A_86a40@fn_f5b26912@@QAEXM@Z
+void A_86a40::Run(float arg) {
     p10->F();
     p14->F(arg);
     if (Check_0008db80())
         return;
     if (p4->id != 7) {
-        p30->F(arg, 0);
+        p30->F(arg, false);
         p48->F();
         p20->F(this, (int*)p4, arg, p30, p24);
         p2c->F(arg);
@@ -1358,7 +1358,7 @@ void A_86da0::run() {
         FUN_002656a0();
     }
     if (y)
-        ((owners::Thing_1eb2a0 *)y)->FUN_001eb2a0(0, 0);
+        ((owners::Thing_1eb2a0 *)y)->FUN_001eb2a0(0.0f, false);
     if (x) {
         while (b80()) {
             FUN_0008db90();

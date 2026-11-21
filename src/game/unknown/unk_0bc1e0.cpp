@@ -664,7 +664,7 @@ void Menu_bcf40::FUN_000bcf40(hulk_intptr who) {
 
 
 // 0x000bd1b0 FUN_000bd1b0 (2851 B): equivalent/0x000bd1b0.cpp [wrapped: conflict: FUN_000fc1b0; World]
-// sym: ?FUN_000bd1b0@Menu_bd1b0@fn_000bd1b0@@QAEXE@Z @df360f4d706c @we90ff5757837 @vb720843f5ce3
+// sym: ?FUN_000bd1b0@Menu_bd1b0@fn_000bd1b0@@QAEXE@Z @df360f4d706c @we90ff5757837 @v66e8545f2d50
 namespace fn_000bd1b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20098 inputs, branch coverage 78/80, incomplete)
 // FUN_000bd1b0 @ 0x000bd1b0
@@ -907,7 +907,7 @@ struct Missions_bd1b0 {
 
 struct Sound_bd1b0 {
     void FUN_001ec480(const char *a, const char *b);
-    void FUN_001eb2a0(float a, int b);
+    void FUN_001eb2a0(float a, bool b);   // (gfx4) as defined
 };
 
 struct Dev10 {

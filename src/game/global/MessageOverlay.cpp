@@ -494,7 +494,7 @@ struct X {
     char pad[4];
     Obj* obj;
     int state;
-    void Run(int);
+    void Run(float);   // (gfx4) the frame time 0x00086a40 passes (unused)
 };
 extern "C" void __cdecl use_000c5a60(void*);
 extern char hulk_at_0049e11c[], hulk_at_004a0a40[];
@@ -2211,8 +2211,8 @@ void Target_d6b20::FUN_000d6b20(hulk_uintptr unused) {
 
 
 // 0x000d6c30 FUN_000d6c30 (63 B): matches/0x000d6c30.cpp
-// sym: ?Run@X@fn_f27eef39@@QAEXH@Z
-void X::Run(int) {
+// sym: ?Run@X@fn_f27eef39@@QAEXM@Z
+void X::Run(float) {
     if (state != 3) {
         void* p = obj->p;
         use_000c5a60(__RTDynamicCast(p, 0, (void*)(hulk_at_0049e11c), (void*)(hulk_at_004a0a40), 0));

@@ -120,7 +120,7 @@ int Obj_c8200::FUN_000c8200(int a0, unsigned int *a1, float a2, float a3, float 
 } // namespace fn_f2af3f62
 
 // 0x000c9550 FUN_000c9550 (381 B): equivalent/0x000c9550.cpp [wrapped: conflict: World]
-// sym: ?FUN_000c9550@fn_000c9550@@YGXPBDPAUTarget_c9550@1@H@Z @a59d82e60e34 @w3a65b8244bca @v4c48eb69df6c
+// sym: ?FUN_000c9550@fn_000c9550@@YGXPBDPAUTarget_c9550@1@H@Z @a59d82e60e34 @w854898c9ea17 @ve23cc3b95288
 namespace fn_000c9550 {
 // STATUS: equivalent (tools/equiv.py level 3: 3020 inputs, branch coverage 14/14)
 // FUN_000c9550 @ 0x000c9550
@@ -236,7 +236,7 @@ void __stdcall FUN_000c9550(const char* name, Target_c9550* target, int arg)
     Scene_c9550* scene = DAT_004dd700->scene;
     while (!f.l2->FUN_00266750()) {
         FUN_002656a0();
-        ((owners::Thing_1eb2a0 *)(scene->FUN_000862e0()))->FUN_001eb2a0(0, 0);
+        ((owners::Thing_1eb2a0 *)(scene->FUN_000862e0()))->FUN_001eb2a0(0.0f, false);
     }
     ((owners::C_264860 *)((*(Mgr_c9550**)&DAT_00527c58)))->FUN_00264860(saved);
     target->FUN_00266220(f.l2->FUN_00266700());
