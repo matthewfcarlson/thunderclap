@@ -651,10 +651,14 @@ class Registry_30290 {
   public:
     void FUN_00030290(const char* a1, Owner* a2, Fn_30290 a3);
 };
-class Closure2_30290 : public ScriptClosureView {
+// (gfx11) named by its constructor's address (natively an unaddressed constructor never binds)
+namespace c_30290 {
+class FUN_0002e650 : public ScriptClosureView {
   public:
-    Closure2_30290(const char*, Owner*, Fn_30290) throw();
+    FUN_0002e650(const char*, Owner*, Fn_30290) throw();
 };
+}
+typedef c_30290::FUN_0002e650 Closure2_30290;
 } // namespace fn_f8e68f21
 namespace fn_f8e68f21 {
 typedef void (Owner::*Fn_302e0)(const char*, int);
@@ -662,21 +666,27 @@ class Registry_302e0 {
   public:
     void FUN_000302e0(const char* a1, Owner* a2, Fn_302e0 a3);
 };
-class Closure2_302e0 : public ScriptClosureView {
+// (gfx11) named by its constructor's address (natively an unaddressed constructor never binds)
+namespace c_302e0 {
+class FUN_0002e6f0 : public ScriptClosureView {
   public:
-
-    Closure2_302e0(const char*, Owner*, Fn_302e0) throw();
+    FUN_0002e6f0(const char*, Owner*, Fn_302e0) throw();
 };
+}
+typedef c_302e0::FUN_0002e6f0 Closure2_302e0;
 typedef bool (Owner::*Fn_30380)(const char*);
 class Registry_30380 {
   public:
     void FUN_00030380(const char* a1, Owner* a2, Fn_30380 a3);
 };
-class Closure1_30380 : public ScriptClosureView {
+// (gfx11) named by its constructor's address (natively an unaddressed constructor never binds)
+namespace c_30380 {
+class FUN_0002e830 : public ScriptClosureView {
   public:
-
-    Closure1_30380(const char*, Owner*, Fn_30380) throw();
+    FUN_0002e830(const char*, Owner*, Fn_30380) throw();
 };
+}
+typedef c_30380::FUN_0002e830 Closure1_30380;
 class CActorManager_303d0 {};
 typedef void (CActorManager_303d0::*Fn_303d0)(const char*, float, bool);
 class Registry_303d0 { public:
@@ -729,11 +739,14 @@ class Registry_305f0 {
   public:
     void FUN_000305f0(const char* a1, Owner* a2, Fn_305f0 a3);
 };
-class Closure2_305f0 : public ScriptClosureView {
+// (gfx11) named by its constructor's address (natively an unaddressed constructor never binds)
+namespace c_305f0 {
+class FUN_0002ebe0 : public ScriptClosureView {
   public:
-
-    Closure2_305f0(const char*, Owner*, Fn_305f0) throw();
+    FUN_0002ebe0(const char*, Owner*, Fn_305f0) throw();
 };
+}
+typedef c_305f0::FUN_0002ebe0 Closure2_305f0;
 typedef void (Owner::*Fn_30640)(float, float);
 class Registry_30640 { public:
     void FUN_00030640(const char* a1, Owner* a2, Fn_30640 a3);
@@ -754,10 +767,14 @@ class Registry_30860 {
   public:
     void FUN_00030860(const char* a1, Owner* a2, Fn_30860 a3);
 };
-class Closure2_30860 {
+// (gfx11) named by its constructor's address (natively an unaddressed constructor never binds)
+namespace c_30860 {
+class FUN_0002eff0 {
   public:
-    Closure2_30860(const char*, Owner*, Fn_30860);
+    FUN_0002eff0(const char*, Owner*, Fn_30860);
 };
+}
+typedef c_30860::FUN_0002eff0 Closure2_30860;
 } // namespace fn_f8e68f21
 namespace math {
 class Vector_309a0 { public: float x, y, z; };
@@ -852,16 +869,23 @@ class Registry_31050 {
   public:
     void FUN_00031050(const char* a1, Owner* a2, Fn_31050 a3);
 };
-class Closure1_31050 : public ScriptClosureView {
+// (gfx11) named by its constructor's address (natively an unaddressed constructor never binds)
+namespace c_31050 {
+class FUN_0002fd70 : public ScriptClosureView {
   public:
-    Closure1_31050(const char*, Owner*, Fn_31050) throw();
+    FUN_0002fd70(const char*, Owner*, Fn_31050) throw();
 };
+}
+typedef c_31050::FUN_0002fd70 Closure1_31050;
 typedef void (Owner::*Fn_311b0)(bool);
-class Closure1_311b0 : public ScriptClosureView {
+// (gfx11) named by its constructor's address (natively an unaddressed constructor never binds)
+namespace c_311b0 {
+class FUN_0002ffd0 : public ScriptClosureView {
   public:
-
-    Closure1_311b0(const char*, Owner*, Fn_311b0) throw();
+    FUN_0002ffd0(const char*, Owner*, Fn_311b0) throw();
 };
+}
+typedef c_311b0::FUN_0002ffd0 Closure1_311b0;
 class Registry_311b0 {
   public:
     void FUN_000311b0(const char* a1, Owner* a2, Fn_311b0 a3);
@@ -3628,7 +3652,7 @@ void* Closure2_2e600::vfunc_0(unsigned int flags) {
 
 
 // 0x0002e620 Closure2<CActorManager,void,const_char_*,math::Vector>::vfunc_2 (47 B): equivalent/0x0002e620.cpp [wrapped: conflict: Arguments; CActorManager; Closure2]
-// sym: ?vfunc_2@Closure2@fn_0002e620@@QAEXPAXPBUArguments@2@0@Z @967618bc6127 @wf30778dea4a0 @v8f4bca6fa706
+// sym: ?vfunc_2@Closure2@fn_0002e620@@QAEXPAXPBUArguments@2@0@Z @a61352f523a4 @w12d187c01981 @v8f4bca6fa706
 namespace fn_0002e620 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // Closure2<CActorManager,void,const_char_*,math::Vector>::vfunc_2 @ 0x0002e620
@@ -3636,18 +3660,20 @@ struct Vector { float x, y, z; };
 struct Arguments { const char *name; Vector position; };
 class CActorManager {};
 class Closure2;
-typedef void (__fastcall *ActorMethod)(CActorManager *, Closure2 *, const char *, Vector);
+typedef void (CActorManager::*ActorMethod)(const char *, Vector);
+// (gfx11) Function's fields after the vftable word (natively 0x20 bytes, not 0x18) and the bound member function
+// called as one (a __fastcall pointer taking the object stood for it: natively the arguments landed one register late)
 class Closure2 { void* vftable;   /* (script2) the vftable word, no stand-in vftable */
 public:
     void vfunc_0();
     void vfunc_1();
     void vfunc_2(void *unused, const Arguments *arguments, void *unused2);
-    char reserved[0x18];
+    ScriptFunctionFields fields;
     ActorMethod method;
     CActorManager *actor;
 };
 void Closure2::vfunc_2(void *unused, const Arguments *arguments, void *unused2) {
-    method(actor, this, arguments->name, arguments->position);
+    (actor->*method)(arguments->name, arguments->position);
 }
 } // namespace fn_0002e620
 
@@ -4982,7 +5008,7 @@ public:
     void vfunc_0();
     void vfunc_1();
     void vfunc_2(void *unused, const Vector *value, unsigned int *result);
-    char reserved[0x18];
+    ScriptFunctionFields fields;   // (gfx11) Function's fields (natively 0x20 bytes; was char reserved[0x18])
     unsigned int (CActorManager::*method)(Vector);
     CActorManager *manager;
 };
@@ -6833,7 +6859,7 @@ void Registry_312c0::FUN_000312c0(const char* a1, Owner* a2, Fn_312c0 a3) {
 } // namespace fn_f8e68f21
 
 // 0x00031310 FUN_00031310 (12490 B): equivalent/0x00031310.cpp [wrapped: macros]
-// sym: ?Register@CActorManager@fn_00031310@@QAEXXZ @d7a3e7541b12 @wfb224a77f298 @v2691680783d7
+// sym: ?Register@CActorManager@fn_00031310@@QAEXXZ @d7a3e7541b12 @wfb224a77f298 @v8808fa7a5fc3
 namespace fn_00031310 {
 // STATUS: equivalent (tools/equiv.py level 3: 79 inputs, branch coverage 314/314)
 // FUN_00031310 @ 0x00031310
@@ -7107,8 +7133,8 @@ public:
     void FUN_0002c100(bool);
 };
 class Entry {public: void* FUN_0002e4f0(const char*, CActorManager*, bool (CActorManager::*)(const char*, bool)); void* FUN_0002e5a0(const char*, CActorManager*, void (CActorManager::*)(const char*, Vector)); void* FUN_0002e650(const char*, CActorManager*, void (CActorManager::*)(const char*, float)); void* FUN_0002e6f0(const char*, CActorManager*, void (CActorManager::*)(const char*, int)); void* FUN_0002ebe0(const char*, CActorManager*, void (CActorManager::*)(const char*, bool)); void* FUN_0002ec80(const char*, CActorManager*, void (CActorManager::*)(float, float)); void* FUN_0002ef40(const char*, CActorManager*, bool (CActorManager::*)(const char*, const char*)); void* FUN_0002eff0(const char*, CActorManager*, void (CActorManager::*)(const char*, const char*)); void* FUN_0002f3b0(const char*, CActorManager*, void (CActorManager::*)(int, const char*)); void* FUN_0002f450(const char*, CActorManager*, void (CActorManager::*)(Vector, float)); void* FUN_0002f500(const char*, CActorManager*, bool (CActorManager::*)(const char*, int)); void* FUN_0002f9c0(const char*, CActorManager*, bool (CActorManager::*)(const char*, float)); void* FUN_0002fb60(const char*, CActorManager*, const char* (CActorManager::*)(const char*, int)); void* FUN_0002fc10(const char*, CActorManager*, int (CActorManager::*)(const char*, const char*)); void* FUN_0002fcc0(const char*, CActorManager*, const char* (CActorManager::*)(const char*, const char*)); void* FUN_0002fe90(const char*, CActorManager*, Vector (CActorManager::*)(Vector, float)); void* FUN_0002ff20(const char*, CActorManager*, float (CActorManager::*)(const char*, const char*)); };
-class Registry {public:void FUN_001d3b70(const char*,void*);
-void* FUN_000303d0(const char*, CActorManager*, void (CActorManager::*)(const char*, float, bool)); void* FUN_00030430(const char*, CActorManager*, void (CActorManager::*)(const char*, float, const char*)); void* FUN_00030530(const char*, CActorManager*, bool (CActorManager::*)(const char*, const char*, const char*, const char*, bool, const char*)); void* FUN_00030590(const char*, CActorManager*, bool (CActorManager::*)(const char*, Vector, float, const char*, const char*, bool, const char*)); void* FUN_000306e0(const char*, CActorManager*, const char* (CActorManager::*)()); void* FUN_00030750(const char*, CActorManager*, int (CActorManager::*)()); void* FUN_000309f0(const char*, CActorManager*, void (CActorManager::*)(const char*, float, float, float, float, float, const char*)); void* FUN_00030b90(const char*, CActorManager*, bool (CActorManager::*)()); void* FUN_00030c00(const char*, CActorManager*, void (CActorManager::*)(const char*, float, int, float)); void* FUN_00030c60(const char*, CActorManager*, void (CActorManager::*)(const char*, float, float, float)); void* FUN_00030cc0(const char*, CActorManager*, void (CActorManager::*)()); void* FUN_00030d30(const char*, CActorManager*, void (CActorManager::*)(const char*, const char*, float, float, float)); void* FUN_00030d90(const char*, CActorManager*, bool (CActorManager::*)(const char*, float, float)); void* FUN_00030df0(const char*, CActorManager*, void (CActorManager::*)(const char*, float, float)); void* FUN_00030ea0(const char*, CActorManager*, void (CActorManager::*)(const char*, const char*, float)); void* FUN_00030f00(const char*, CActorManager*, void (CActorManager::*)(const char*, const char*, float, float)); void* FUN_000310a0(const char*, CActorManager*, float (CActorManager::*)()); void* FUN_00030380(const char*, CActorManager*, bool (CActorManager::*)(const char*)); void* FUN_00030240(const char*, CActorManager*, void (CActorManager::*)(const char*, Vector)); void* FUN_000311b0(const char*, CActorManager*, void (CActorManager::*)(bool)); void* FUN_00031200(const char*, CActorManager*, void (CActorManager::*)(int, int, int)); void* FUN_000305f0(const char*, CActorManager*, void (CActorManager::*)(const char*, bool)); void* FUN_00031050(const char*, CActorManager*, void (CActorManager::*)(float)); void* FUN_00031260(const char*, CActorManager*, bool (CActorManager::*)(const char*, Vector, Vector)); void* FUN_00030860(const char*, CActorManager*, void (CActorManager::*)(const char*, const char*)); void* FUN_000302e0(const char*, CActorManager*, void (CActorManager::*)(const char*, int)); void* FUN_00030290(const char*, CActorManager*, void (CActorManager::*)(const char*, float)); void* FUN_000304e0(const char*, CActorManager*, const char* (CActorManager::*)(const char*)); void* FUN_00030810(const char*, CActorManager*, bool (CActorManager::*)(const char*, const char*)); void* FUN_00030690(const char*, CActorManager*, void (CActorManager::*)(const char*)); void* FUN_000301f0(const char*, CActorManager*, bool (CActorManager::*)(const char*, bool)); void* FUN_000312c0(const char*, CActorManager*, bool (CActorManager::*)(const char*, Vector)); void* FUN_00030af0(const char*, CActorManager*, bool (CActorManager::*)(const char*, int)); void* FUN_00030490(const char*, CActorManager*, int (CActorManager::*)(const char*));
+class Registry {public:void FUN_001d3b70(const char*,void*);   // (gfx11) the registration helpers return nothing (as defined: natively unbound as void*)
+void FUN_000303d0(const char*, CActorManager*, void (CActorManager::*)(const char*, float, bool)); void FUN_00030430(const char*, CActorManager*, void (CActorManager::*)(const char*, float, const char*)); void FUN_00030530(const char*, CActorManager*, bool (CActorManager::*)(const char*, const char*, const char*, const char*, bool, const char*)); void FUN_00030590(const char*, CActorManager*, bool (CActorManager::*)(const char*, Vector, float, const char*, const char*, bool, const char*)); void FUN_000306e0(const char*, CActorManager*, const char* (CActorManager::*)()); void FUN_00030750(const char*, CActorManager*, int (CActorManager::*)()); void FUN_000309f0(const char*, CActorManager*, void (CActorManager::*)(const char*, float, float, float, float, float, const char*)); void FUN_00030b90(const char*, CActorManager*, bool (CActorManager::*)()); void FUN_00030c00(const char*, CActorManager*, void (CActorManager::*)(const char*, float, int, float)); void FUN_00030c60(const char*, CActorManager*, void (CActorManager::*)(const char*, float, float, float)); void FUN_00030cc0(const char*, CActorManager*, void (CActorManager::*)()); void FUN_00030d30(const char*, CActorManager*, void (CActorManager::*)(const char*, const char*, float, float, float)); void FUN_00030d90(const char*, CActorManager*, bool (CActorManager::*)(const char*, float, float)); void FUN_00030df0(const char*, CActorManager*, void (CActorManager::*)(const char*, float, float)); void FUN_00030ea0(const char*, CActorManager*, void (CActorManager::*)(const char*, const char*, float)); void FUN_00030f00(const char*, CActorManager*, void (CActorManager::*)(const char*, const char*, float, float)); void FUN_000310a0(const char*, CActorManager*, float (CActorManager::*)()); void FUN_00030380(const char*, CActorManager*, bool (CActorManager::*)(const char*)); void FUN_00030240(const char*, CActorManager*, void (CActorManager::*)(const char*, Vector)); void FUN_000311b0(const char*, CActorManager*, void (CActorManager::*)(bool)); void FUN_00031200(const char*, CActorManager*, void (CActorManager::*)(int, int, int)); void FUN_000305f0(const char*, CActorManager*, void (CActorManager::*)(const char*, bool)); void FUN_00031050(const char*, CActorManager*, void (CActorManager::*)(float)); void FUN_00031260(const char*, CActorManager*, bool (CActorManager::*)(const char*, Vector, Vector)); void FUN_00030860(const char*, CActorManager*, void (CActorManager::*)(const char*, const char*)); void FUN_000302e0(const char*, CActorManager*, void (CActorManager::*)(const char*, int)); void FUN_00030290(const char*, CActorManager*, void (CActorManager::*)(const char*, float)); void FUN_000304e0(const char*, CActorManager*, const char* (CActorManager::*)(const char*)); void FUN_00030810(const char*, CActorManager*, bool (CActorManager::*)(const char*, const char*)); void FUN_00030690(const char*, CActorManager*, void (CActorManager::*)(const char*)); void FUN_000301f0(const char*, CActorManager*, bool (CActorManager::*)(const char*, bool)); void FUN_000312c0(const char*, CActorManager*, bool (CActorManager::*)(const char*, Vector)); void FUN_00030af0(const char*, CActorManager*, bool (CActorManager::*)(const char*, int)); void FUN_00030490(const char*, CActorManager*, int (CActorManager::*)(const char*));
 };
 extern "C" Registry* FUN_001d4c90();
 #define E(n,a,b) {HULK_SIZE32(ScriptClosureView,0x24);Entry*e=(Entry*)FUN_0008d690((unsigned int)sizeof(ScriptClosureView));void*x=0;if(e)x=e->FUN_##a("am_" #n,this,&CActorManager::FUN_##b);r->FUN_001d3b70("am_" #n,x);}

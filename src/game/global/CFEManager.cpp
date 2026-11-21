@@ -200,7 +200,7 @@ struct S_bf0e0 {
   char pad2[0x1bc8-0x3c]; unsigned char f1bc8;
   char pad3[0x1c0c-0x1bc9]; unsigned char f1c0c;
   char pad4[0x1c4c-0x1c0d]; unsigned char f1c4c;
-  void FUN_000befc0(void*, int, int);
+  void FUN_000befc0(void*, int, HULK_TYPE64(int, bool));   // (gfx11) as defined: (const char*, int, bool)
   void FUN_000bf0e0(Arg_bf0e0*, hulk_intptr);
 };
 extern "C" void __cdecl FUN_000fc100(void*, int);

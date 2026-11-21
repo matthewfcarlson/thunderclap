@@ -10,6 +10,7 @@
 #include "decls/data/script.h"
 #include "gen/global.h"
 #include "gen/owners.h"
+#include "game/script_bind.h"   // (gfx11) Function0 / Function1 on the binding records (0x00087a90, 0x00087b40)
 #define TREE_TU_BEGIN namespace fn_f5b26912 {
 #define TREE_TU_END }
 namespace fn_f5b26912 {} using namespace fn_f5b26912;
@@ -365,6 +366,17 @@ class Function0_87a90 : public MethodBase_87a90 {
 };
 struct Registry_87a90 {
     void FUN_00087a90(const char* name, float (*fn)());
+};
+// (gfx11) Function0<float> as a record with the game's vftable by address (a local polymorphic stand-in had clang's
+// one-slot vftable natively: Lua's call through slot 2 jumped to garbage)
+extern "C" char DAT_003ffb40[];   // Function0<float>'s vftable
+struct Function0f_87a90 : hulk_script::ScriptFunction {
+    float (*fn)();
+    Function0f_87a90(const char* name, float (*g)()) throw() : hulk_script::ScriptFunction(name, 0) {
+        vftable = DAT_003ffb40;
+        fn = g;
+        this->f.retType = FUN_001d04d0(((const char*)&DAT_0048e128));
+    }
 };
 class CActorManager_87cb0 {
   public:
@@ -1926,22 +1938,22 @@ void target() {
 namespace fn_f5b26912 {
 
 // 0x00087a90 FUN_00087a90 (96 B): equivalent/0x00087a90.cpp
-// sym: ?FUN_00087a90@Registry_87a90@fn_f5b26912@@QAEXPBDP6AMXZ@Z @8a4391c56988 @w78a1e31c5a19 @v53b101670b8b
+// sym: ?FUN_00087a90@Registry_87a90@fn_f5b26912@@QAEXPBDP6AMXZ@Z @41715aa3a85d @w1b1d47bda86a @v9aa0e290c0f6
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_00087a90 @ 0x00087a90
 void Registry_87a90::FUN_00087a90(const char* name, float (*fn)()) {
-    HULK_SIZE32(Function0_87a90<float>, 0x20);
-    void* mem = FUN_0008d690((int)sizeof(Function0_87a90<float>));
-    Function0_87a90<float>* c = 0;
+    HULK_SIZE32(Function0f_87a90, 0x20);
+    void* mem = FUN_0008d690((int)sizeof(Function0f_87a90));
+    Function0f_87a90* c = 0;
     if (mem)
-        c = new (mem) Function0_87a90<float>(name, fn);
+        c = new (mem) Function0f_87a90(name, fn);
     ((owners::Obj_1d3b70 *)this)->FUN_001d3b70((hulk_uintptr)name, (hulk_intptr)c);
 }
 
 } // namespace fn_f5b26912
 
 // 0x00087b40 FUN_00087b40 (109 B): equivalent/0x00087b40.cpp [wrapped: conflict: Function1]
-// sym: ?FUN_00087b40@Registry_87b40@fn_00087b40@@QAEXPBDP6APBD0@Z@Z @55b8be934468 @w6de191a5b759 @v9eca1a75e72e
+// sym: ?FUN_00087b40@Registry_87b40@fn_00087b40@@QAEXPBDP6APBD0@Z@Z @60d228bfbbca @w9097e58190ae @v2fee443b986c
 namespace fn_00087b40 {
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_00087b40 @ 0x00087b40
@@ -1983,14 +1995,17 @@ class __declspec(novtable) MethodBase_87b40 : public ScriptFunctionFields {
     MethodBase_87b40(const char* n, int k) { FUN_001d0480(n, k); }
 };
 
+// (gfx11) Function1<const char*, const char*> as a record with the game's vftable by address (was a local
+// polymorphic stand-in: clang's own vftable natively)
+extern "C" char DAT_003ffb60[];   // Function1<const char*, const char*>'s vftable
 template <class A, class R>
-class Function1 : public MethodBase_87b40 {
-  public:
+struct Function1 : hulk_script::ScriptFunction {
     typedef R (*Fn)(A);
-    Function1(const char* name, Fn f) : MethodBase_87b40(name, 1) {
-        fn = f;
-        retType = FUN_001d04d0(((const char*)&DAT_0048e0f0));
-        argTypes[0] = FUN_001d04d0(((const char*)&DAT_0048e0f0));
+    Function1(const char* name, Fn g) throw() : hulk_script::ScriptFunction(name, 1) {
+        vftable = DAT_003ffb60;
+        fn = g;
+        this->f.retType = FUN_001d04d0(((const char*)&DAT_0048e0f0));
+        this->f.argTypes[0] = FUN_001d04d0(((const char*)&DAT_0048e0f0));
     }
     Fn fn;
 };

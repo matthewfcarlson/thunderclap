@@ -481,8 +481,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<fight::CommentCondition>
         ((FactoryCtor*)mem)->init_002343b0();
         TrackFactoryTemplate_23ddf0* t = new (mem) TrackFactoryTemplate_23ddf0();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
-        void FUN_0023dc90();   // (gfx1) its own name: `postInit` stood for several functions natively (ambiguous binding)
-        FUN_0023dc90();
+        ::FUN_0023dc90();   // (gfx11) the global definition (a block-scope declaration names fight::FUN_0023dc90 natively)
         return (void*)(t);
     }
     return (void*)(0);
@@ -528,8 +527,7 @@ template <> void* fight::TrackFactoryCasterTemplate<fight::CommentTrack>::vfunc_
         ((FactoryCtor*)mem)->init_00236a90();
         TrackFactoryTemplate_23de90* t = new (mem) TrackFactoryTemplate_23de90();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
-        void FUN_0023dcf0();   // (gfx1) its own name: `postInit` stood for several functions natively (ambiguous binding)
-        FUN_0023dcf0();
+        ::FUN_0023dcf0();   // (gfx11) the global definition (a block-scope declaration names fight::FUN_0023dcf0 natively)
         return (void*)(t);
     }
     return (void*)(0);

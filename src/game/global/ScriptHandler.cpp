@@ -212,7 +212,7 @@ void __cdecl FUN_00213870(LuaVMState* h, int idx, int v);
 }
 struct Object : public ScriptHandlerFields {
     virtual void v0();
- void FUN_001d1980(const char* key, int mode);
+ bool FUN_001d1980(const char* key, HULK_TYPE64(int, unsigned char) mode);   // (gfx11) as defined (owners::Obj_1d1980: hulk_uintptr, unsigned char): natively unbound as (const char*, int)
  bool target(const char* key, int mode, bool retry);
 };
 extern "C" void __cdecl FUN_00213360(LuaVMState*, int);
@@ -1484,7 +1484,7 @@ int owners::Obj_1d2b10::FUN_001d2b10(int start, int end) {
 namespace fn_f55829c3 {
 
 // 0x001d2ba0 FUN_001d2ba0 (185 B): equivalent/0x001d2ba0.cpp
-// sym: ?target@Object@fn_f55829c3@@QAE_NPBDH_N@Z @237ef19cb865 @w05d882c79acc @v308023bbe783
+// sym: ?target@Object@fn_f55829c3@@QAE_NPBDH_N@Z @237ef19cb865 @w05d882c79acc @v1e19fd9d783c
 // STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 8/8)
 // FUN_001d2ba0 @ 0x001d2ba0
 bool Object::target(const char* key, int mode, bool retry) {
@@ -2030,11 +2030,12 @@ void ScriptRegistry::FUN_001d3bc0()
 
 // 0x001d3c50 FUN_001d3c50 (59 B): matches/0x001d3c50.cpp
 // sym: ?FUN_001d3c50@Thing_1d3c50@owners@@QAEXXZ
+// (gfx11) the loads by 0x001d3600's own name (gen's unaddressed `Load` never bound natively)
 void owners::Thing_1d3c50::FUN_001d3c50() {
-    Load("init.lua", 0);
-    Load("scripts/physics.lua", 0);
-    Load("scripts/damage.lua", 0);
-    Load("scripts/config.lua", 0);
+    ((owners::Object_1d3600*)this)->FUN_001d3600("init.lua", 0);
+    ((owners::Object_1d3600*)this)->FUN_001d3600("scripts/physics.lua", 0);
+    ((owners::Object_1d3600*)this)->FUN_001d3600("scripts/damage.lua", 0);
+    ((owners::Object_1d3600*)this)->FUN_001d3600("scripts/config.lua", 0);
 }
 
 

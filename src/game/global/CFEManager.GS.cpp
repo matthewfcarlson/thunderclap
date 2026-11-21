@@ -3013,7 +3013,7 @@ class MissionMenu {
     const char* names[0x80];
     char pad46c[HULK_FEM_OFF_c4020(f1880) - HULK_FEM_OFF_c4020(listB) - sizeof(void*) * 0x80];
     int f1880;
-    void FUN_000befc0(int a, int b, int c);
+    void FUN_000befc0(hulk_intptr a, int b, HULK_TYPE64(int, bool) c);   // (gfx11) as defined: (const char*, int, bool)
     void FUN_000b8f20();
     void FUN_000bb600();
     void FUN_000c3ea0();

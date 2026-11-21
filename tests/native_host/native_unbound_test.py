@@ -114,6 +114,38 @@ def _plan():
     assert not bound0 and why0[r_ok][0].startswith("not verified")
 
 
+@case("plan_link: one extra leading pointer to a definition without arguments (gfx11)")
+def _plan_extra_this():
+    el = nu.extra_leading_pointer
+    assert el("ptr(ptr)", "ptr()") and el("void(ptr)", "void()") and el("void(ptr)", "ptr()")
+    assert not el("ptr(ptr)", "void()")              # a result read, none returned
+    assert not el("i32(ptr)", "i64()")               # results differ
+    assert not el("void(i32)", "void()")             # not a pointer
+    assert not el("void(ptr, ptr)", "void()")        # two extra arguments
+    assert not el("void(ptr, i32)", "void(i32)")     # the definition takes arguments
+    assert not el("void(ptr)", "void(...)")          # variadic
+    assert not el("void()", "void(ptr)")             # one argument too few
+    # (rev5) a member returning a record: `this` then the hidden struct-return pointer; the free definition takes
+    # the struct-return pointer first (different registers)
+    assert not el("void(ptr, ptr sret(12,4))", "void(ptr sret(12,4))")
+    assert not el("void(ptr sret(12,4))", "void()")
+    assert not el("void(ptr inreg)", "void()")
+    a, b = "/x/a.o", "/x/b.o"
+    d = "FUN_001d4c90"
+    r_this = "?GetObject_001d4c90@Host_92410@fn_f9a5903c@@QEAAPEAVObj_92410@2@XZ"
+    r_two = "?Get_001d4c90@Owner@fn_1@@QEAAPEAXH@Z"
+    syms = {a: ({d}, set()), b: (set(), {r_this, r_two})}
+    sigs = {a: {d: "ptr()"}, b: {r_this: "ptr(ptr)", r_two: "ptr(ptr, i32)"}}
+    ver = FakeVerify({r_this: ("position", "0x001d4c90", d), r_two: ("position", "0x001d4c90", d)})
+    nu.cp.undname = lambda names: {n: n for n in names}
+    ren, why, bound = nu.plan_link([a, b], syms, FakeDefs({0x1d4c90: d}), set(), (), sigs, verify=ver)
+    assert ren == {b: {r_this: d}}, ren
+    assert why[r_this][0].startswith("bound (one extra leading pointer"), why[r_this]
+    assert why[r_two][0] == "ABI mismatch: argument count", why[r_two]
+    rep = nu.plan_report(why, bound)
+    assert rep["worklist: one extra leading pointer (declare the callee as defined)"] == [r_this], rep
+
+
 @case("plan_link: special members of a class named by address")
 def _plan_special():
     a, b = "/x/a.o", "/x/b.o"

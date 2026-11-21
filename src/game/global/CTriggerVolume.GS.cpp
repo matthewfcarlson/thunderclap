@@ -10,7 +10,7 @@ namespace fn_f9c1dcf2 {} using namespace fn_f9c1dcf2;
 
 
 // 0x001fb5a0 CTriggerVolume::vfunc_13 (253 B): equivalent/0x001fb5a0.cpp [wrapped: conflict: CTriggerVolume]
-// sym: ?vfunc_13@CTriggerVolume@fn_001fb5a0@@UAEXPAUInput_1fb5a0@2@@Z @c09d7450bf96 @wffc7320954ce @v02c898249275
+// sym: ?vfunc_13@CTriggerVolume@fn_001fb5a0@@UAEXPAUInput_1fb5a0@2@@Z @d232af5ad534 @wef771ca5e4dc @ve76a869d0a28
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)
@@ -53,7 +53,7 @@ struct Manager_1fb5a0 { void FUN_001d3b00(const char*,Packet_1fb5a0); };
 struct Receiver_1fb5a0 { void FUN_001cbc20(Message_1fb5a0*); };
 struct World { void* pad[12]; Receiver_1fb5a0* receiver; };
 extern Manager_1fb5a0* __cdecl FUN_001d4c90();
-extern int __cdecl _sprintf(char*,const char*,...);
+extern "C" int __cdecl _sprintf(char*, const char*, ...);   // (gfx11) the CRT name (a C++ declaration never binds natively)
 extern "C" int __cdecl FUN_000964a0(char*, int, const char*, ...);   // (x64t14) as defined (CUnlockablesManager.cpp)
 struct CTriggerVolume { virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); virtual void vfunc_7(); virtual void vfunc_8(); virtual void vfunc_9(unsigned,unsigned,int); virtual void vfunc_10(); virtual void vfunc_11(); virtual void vfunc_12(); virtual void vfunc_13(Input_1fb5a0*); char pad[140]; char name[1]; };
 void CTriggerVolume::vfunc_13(Input_1fb5a0* input) {
@@ -77,7 +77,7 @@ void CTriggerVolume::vfunc_13(Input_1fb5a0* input) {
 
 
 // 0x001fb6a0 CTriggerVolume::vfunc_14 (253 B): equivalent/0x001fb6a0.cpp [wrapped: conflict: CTriggerVolume; FUN_001d4c90; World]
-// sym: ?vfunc_14@CTriggerVolume@fn_001fb6a0@@UAEXPAUInput_1fb6a0@2@@Z @87a412e5df98 @w6f131a0d8b7c @v458150ec14db
+// sym: ?vfunc_14@CTriggerVolume@fn_001fb6a0@@UAEXPAUInput_1fb6a0@2@@Z @09554972fdf3 @w5d3b6411b0e1 @v543aaaf34c12
 namespace fn_001fb6a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 10508 inputs, branch coverage 6/6)
 // CTriggerVolume::vfunc_14 @ 0x001fb6a0
@@ -117,7 +117,7 @@ struct Manager_1fb6a0 { void FUN_001d3b00(const char*, EventData_1fb6a0); };
 struct Receiver_1fb6a0 { void FUN_001cbc20(Key_1fb6a0*); };
 struct World { void* pad[12]; Receiver_1fb6a0* receiver; };
 extern Manager_1fb6a0* __cdecl FUN_001d4c90();
-extern int __cdecl _sprintf(char*, const char*, ...);
+extern "C" int __cdecl _sprintf(char*, const char*, ...);   // (gfx11) the CRT name (a C++ declaration never binds natively)
 extern "C" int __cdecl FUN_000964a0(char*, int, const char*, ...);   // (x64t14) as defined (CUnlockablesManager.cpp)
 struct CTriggerVolume {
 virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); virtual void vfunc_7(); virtual void vfunc_8(); virtual void vfunc_9(int,int,int); virtual void vfunc_10(); virtual void vfunc_11(); virtual void vfunc_12(); virtual void vfunc_13(); virtual void vfunc_14(Input_1fb6a0*); virtual void vfunc_15();

@@ -12,6 +12,7 @@
 #define TREE_TU_END }
 namespace fn_fedc4c02 {} using namespace fn_fedc4c02;
 #include "game/global.h"
+#include "decls/managers.h"   // (gfx11) HulkFEManager (0x000bb670)
 // (ren2) __RTDynamicCast's own name (CRT, C linkage)
 extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
@@ -2783,7 +2784,7 @@ extern "C" void __fastcall FUN_000bb5c0(Obj_bb5c0* self) {
 // 0x000bb670 FUN_000bb670 (7 B): matches/0x000bb670.cpp
 // sym: ?FUN_000bb670@fn_fedc4c02@@YIHPAUObject@1@@Z
 hulk_intptr __fastcall FUN_000bb670(Object* self) {
-    return (hulk_intptr)((char*)self + 0x1bc9);
+    return (hulk_intptr)&((HulkFEManager*)self)->f1bc9;   // (gfx11) the language on CFEManager's record (natively not at 0x1bc9)
 }
 
 // 0x000bb800 thunk_FUN_001d04a0 (5 B): not yet verified

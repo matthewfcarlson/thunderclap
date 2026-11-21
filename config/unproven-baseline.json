@@ -21,6 +21,23 @@
    },
    "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
   },
+  "0x0002e620": {
+   "modes": {
+    "msvc": {
+     "code": "a61352f523a4",
+     "accepted": "2026-11-21T14:08:00",
+     "why": "D187 macOS-first: gfx11 C23, Closure2 invoke calls the bound member function as one, on Function's fields (natively the arguments landed one register late)",
+     "by": "unproven-accept"
+    },
+    "wine": {
+     "code": "12d187c01981",
+     "accepted": "2026-11-21T14:08:00",
+     "why": "D187 macOS-first: gfx11 C23, Closure2 invoke calls the bound member function as one, on Function's fields (natively the arguments landed one register late)",
+     "by": "unproven-accept"
+    }
+   },
+   "why": "D187 macOS-first: gfx11 C23, Closure2 invoke calls the bound member function as one, on Function's fields (natively the arguments landed one register late)"
+  },
   "0x0002eb10": {
    "modes": {
     "wine": {
@@ -30,6 +47,27 @@
     }
    },
    "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
+  },
+  "0x00031310": {
+   "modes": {
+    "msvc": {
+     "code": "d7a3e7541b12",
+     "view": "2c3711a12fbb",
+     "view_only": true,
+     "accepted": "2026-11-21T14:08:21",
+     "why": "D187 macOS-first: view-only, gfx11 C23, registration helpers declared void and closure ctors named by address",
+     "by": "unproven-accept"
+    },
+    "wine": {
+     "code": "fb224a77f298",
+     "view": "4d8f499de2ea",
+     "view_only": true,
+     "accepted": "2026-11-21T14:08:21",
+     "why": "D187 macOS-first: view-only, gfx11 C23, registration helpers declared void and closure ctors named by address",
+     "by": "unproven-accept"
+    }
+   },
+   "why": "D187 macOS-first: view-only, gfx11 C23, registration helpers declared void and closure ctors named by address"
   },
   "0x000418f0": {
    "modes": {
@@ -90,6 +128,57 @@
     }
    },
    "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
+  },
+  "0x00087a90": {
+   "modes": {
+    "msvc": {
+     "code": "41715aa3a85d",
+     "accepted": "2026-11-21T14:08:00",
+     "why": "D187 macOS-first: gfx11 C23, Function0<float> on the binding records with the game's vftable (a local stand-in had a one-slot vftable natively)",
+     "by": "unproven-accept"
+    },
+    "wine": {
+     "code": "1b1d47bda86a",
+     "accepted": "2026-11-21T14:08:00",
+     "why": "D187 macOS-first: gfx11 C23, Function0<float> on the binding records with the game's vftable (a local stand-in had a one-slot vftable natively)",
+     "by": "unproven-accept"
+    }
+   },
+   "why": "D187 macOS-first: gfx11 C23, Function0<float> on the binding records with the game's vftable (a local stand-in had a one-slot vftable natively)"
+  },
+  "0x00087b40": {
+   "modes": {
+    "msvc": {
+     "code": "60d228bfbbca",
+     "accepted": "2026-11-21T14:08:01",
+     "why": "D187 macOS-first: gfx11 C23, Function1 on the binding records with the game's vftable",
+     "by": "unproven-accept"
+    },
+    "wine": {
+     "code": "9097e58190ae",
+     "accepted": "2026-11-21T14:08:01",
+     "why": "D187 macOS-first: gfx11 C23, Function1 on the binding records with the game's vftable",
+     "by": "unproven-accept"
+    }
+   },
+   "why": "D187 macOS-first: gfx11 C23, Function1 on the binding records with the game's vftable"
+  },
+  "0x00088020": {
+   "modes": {
+    "msvc": {
+     "code": "0303a91e8a69",
+     "accepted": "2026-11-21T14:08:01",
+     "why": "D187 macOS-first: gfx11 C23, callees declared as defined (0x264c70 int, 0x1ebaf0 __stdcall const char*, 0xbb670 pointer)",
+     "by": "unproven-accept"
+    },
+    "wine": {
+     "code": "0cfb5982394e",
+     "accepted": "2026-11-21T14:08:01",
+     "why": "D187 macOS-first: gfx11 C23, callees declared as defined (0x264c70 int, 0x1ebaf0 __stdcall const char*, 0xbb670 pointer)",
+     "by": "unproven-accept"
+    }
+   },
+   "why": "D187 macOS-first: gfx11 C23, callees declared as defined (0x264c70 int, 0x1ebaf0 __stdcall const char*, 0xbb670 pointer)"
   },
   "0x0008b560": {
    "modes": {
@@ -486,6 +575,27 @@
    },
    "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
   },
+  "0x001d2ba0": {
+   "modes": {
+    "msvc": {
+     "code": "237ef19cb865",
+     "view": "92e36ba4f92f",
+     "view_only": true,
+     "accepted": "2026-11-21T14:08:03",
+     "why": "D187 macOS-first: view-only, gfx11 C23, 0x1d1980 declared as defined",
+     "by": "unproven-accept"
+    },
+    "wine": {
+     "code": "05d882c79acc",
+     "view": "0340fc444119",
+     "view_only": true,
+     "accepted": "2026-11-21T14:08:03",
+     "why": "D187 macOS-first: view-only, gfx11 C23, 0x1d1980 declared as defined",
+     "by": "unproven-accept"
+    }
+   },
+   "why": "D187 macOS-first: view-only, gfx11 C23, 0x1d1980 declared as defined"
+  },
   "0x001dec10": {
    "modes": {
     "msvc": {
@@ -668,6 +778,40 @@
     }
    },
    "why": "recs1 (find2 G20): the CEncounterGenerator record changes this block's clang code; its --wine run fails / is inconclusive exactly as HEAD's own (job 100024 on 205d0924c: the same faults), so it stays unproven in wine as before (was listed with the old hash)"
+  },
+  "0x001fb5a0": {
+   "modes": {
+    "msvc": {
+     "code": "d232af5ad534",
+     "accepted": "2026-11-21T14:08:01",
+     "why": "D187 macOS-first: gfx11 C23, _sprintf declared extern C (a C++ declaration never binds natively)",
+     "by": "unproven-accept"
+    },
+    "wine": {
+     "code": "ef771ca5e4dc",
+     "accepted": "2026-11-21T14:08:01",
+     "why": "D187 macOS-first: gfx11 C23, _sprintf declared extern C (a C++ declaration never binds natively)",
+     "by": "unproven-accept"
+    }
+   },
+   "why": "D187 macOS-first: gfx11 C23, _sprintf declared extern C (a C++ declaration never binds natively)"
+  },
+  "0x001fb6a0": {
+   "modes": {
+    "msvc": {
+     "code": "09554972fdf3",
+     "accepted": "2026-11-21T14:08:02",
+     "why": "D187 macOS-first: gfx11 C23, _sprintf declared extern C (a C++ declaration never binds natively)",
+     "by": "unproven-accept"
+    },
+    "wine": {
+     "code": "5d3b6411b0e1",
+     "accepted": "2026-11-21T14:08:02",
+     "why": "D187 macOS-first: gfx11 C23, _sprintf declared extern C (a C++ declaration never binds natively)",
+     "by": "unproven-accept"
+    }
+   },
+   "why": "D187 macOS-first: gfx11 C23, _sprintf declared extern C (a C++ declaration never binds natively)"
   },
   "0x00200210": {
    "modes": {
@@ -1333,5 +1477,5 @@
    "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
   }
  },
- "total": 146
+ "total": 162
 }

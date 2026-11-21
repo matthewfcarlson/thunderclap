@@ -2554,8 +2554,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::Simulatio
         ((FactoryCtor*)mem)->init_00236a90();
         TrackFactoryTemplate_191b40* t = new (mem) TrackFactoryTemplate_191b40();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
-        void FUN_001910d0();   // (gfx1) its own name: `postInit` stood for several functions natively (ambiguous binding)
-        FUN_001910d0();
+        ::FUN_001910d0();   // (gfx11) the global name, as MSVC 7.1 mangles the block-scope declaration (natively it named fight::FUN_001910d0)
         return (void*)(t);
     }
     return (void*)(0);
@@ -2602,8 +2601,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::TankLocom
         ((FactoryCtor*)mem)->init_00236a90();
         TrackFactoryTemplate_191bf0* t = new (mem) TrackFactoryTemplate_191bf0();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
-        void FUN_00191170();   // (gfx1) its own name: `postInit` stood for several functions natively (ambiguous binding)
-        FUN_00191170();
+        ::FUN_00191170();   // (gfx11) the global name, as MSVC 7.1 mangles the block-scope declaration (natively it named fight::FUN_00191170)
         return (void*)(t);
     }
     return (void*)(0);
@@ -2655,8 +2653,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::ImpulseVe
         ((FactoryCtor*)mem)->init_00236a90();
         TrackFactoryTemplate_191c80* t = new (mem) TrackFactoryTemplate_191c80();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
-        void FUN_00191940();   // (gfx1) its own name: `postInit` stood for several functions natively (ambiguous binding)
-        FUN_00191940();
+        ::FUN_00191940();   // (gfx11) the global name, as MSVC 7.1 mangles the block-scope declaration (natively it named fight::FUN_00191940)
         return (void*)(t);
     }
     return (void*)(0);

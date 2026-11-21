@@ -2525,3 +2525,13 @@ passes the controller set-up and the first frame callees and stops in 0x00207410
   (the drive thread steps on the main thread's turns) ports as two semaphores in the cooperative scheduler.
 - First divergence now: frame 446, the gameplay RNG (6 draws in the reference's frame 445, 4 here): CAmbientsManager's
   spawn search (0x7a420) finds no active cell in the wasm build.
+
+## 2026-11-21 gfx11: native start-up, unbound callees under the first Lua crash
+- The native run's `missing-continue` trace lines (HULK_NATIVE_MISSING=continue) are the exact worklist of unbound
+  callees reached, in order; tools' plan_link class per name tells why (build/gfx11/scripts/why.py).
+- MSVC 7.1 mangles a block-scope function declaration inside a namespace member as global; clang (MS ABI) puts it in
+  the enclosing namespace, so `void FUN_x(); FUN_x();` inside fight::... never binds natively.
+- A C++-linkage CRT declaration in a namespace (`extern int __cdecl _sprintf(...)`) binds on 32-bit through the map but
+  natively stays a stub that returns without writing.
+- Local polymorphic script-binding stand-ins crash only when Lua calls them (slot 2 of clang's short vftable): the
+  rtti baseline (~600 Function/Method/Closure entries) is the list to convert to include/game/script_bind.h records.

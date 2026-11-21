@@ -738,6 +738,26 @@ def abi_key(sig):
     return re.sub(r"\bptr\b", "i64", sig)
 
 
+def extra_leading_pointer(ref, dfn):
+    """(gfx11, lead Q1) A call that passes one extra leading pointer (a member call's `this`, which the original passes
+    in ecx and the callee never reads) to a C definition taking no arguments: `R(ptr)` against `R()`, or `void(ptr)`
+    against any `R()` (the caller ignores the result). Safe on the 64-bit targets: the pointer travels in the first
+    integer argument register (x0 / rdi / rcx), which a function without parameters never reads, and the caller owns
+    no stack space for it. Exactly one extra argument, a pointer, and a definition with an empty parameter list
+    (never variadic); every other shape is an ABI mismatch."""
+    pr = re.match(r"(.*?)\((.*)\)$", ref)
+    pd = re.match(r"(.*?)\((.*)\)$", dfn)
+    if not pr or not pd or pd.group(2).strip():
+        return False
+    if re.search(r"\b(sret|inreg)\b", ref + " " + dfn):
+        return False     # (rev5) a hidden struct-return pointer sits after `this` on a member, first on a free function
+    la = _split_ir(pr.group(2))
+    if len(la) != 1 or _ty(la[0]) != "ptr":
+        return False
+    rr, rd = pr.group(1).strip(), pd.group(1).strip()
+    return rr == rd or _ty(rr) == "void"
+
+
 def plan_link(objs, syms, defs, data_defined, label_defined=(), sigs=None, verify=None, slots=None):
     """The address bindings the link makes: ({obj: {referenced name: definition}}, {name: (class, detail)}).
 
@@ -841,6 +861,8 @@ def plan_link(objs, syms, defs, data_defined, label_defined=(), sigs=None, verif
                         cls = "bound (data within the item)"
                     else:
                         cls, det = "ABI mismatch: data larger or more aligned than the item", "%s / %s" % (rs, ds)
+                elif extra_leading_pointer(rs, ds):
+                    cls, det = "bound (one extra leading pointer to a definition without arguments)", ""
                 else:
                     if sig_diff(abi_key(rs), abi_key(ds)) == "compatible":
                         cls, det = "bound (the caller ignores the result)", ""
@@ -908,8 +930,14 @@ def plan_report(why, bound, refs=None):
     for s, (c, _d) in why.items():
         by[c] += 1
         nref[c] += (refs or {}).get(s, 0)
-    return {"names bound in every object": len(bound),
-            "classes": {c: {"names": n, "references": nref[c]} for c, n in by.most_common()}}
+    out = {"names bound in every object": len(bound),
+           "classes": {c: {"names": n, "references": nref[c]} for c, n in by.most_common()}}
+    # (gfx11, rev5) the extra-leading-pointer bindings are an ABI-safe exception, not the fix: list them as a
+    # source worklist (declare each caller's callee as defined)
+    wl = sorted(s for s, (c, _d) in why.items() if c.startswith("bound (one extra leading pointer"))
+    if wl:
+        out["worklist: one extra leading pointer (declare the callee as defined)"] = wl
+    return out
 
 
 # ------------------------------------------------------------------------------------------------ the classifier

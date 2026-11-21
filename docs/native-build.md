@@ -6785,3 +6785,33 @@ name that carries an address any more. Unbound counts: see the commit message (c
   and 0 from frame 1. Natively the boot step stays 6, because 0x000c4220's caller (CFESoundManager.GS.cpp
   Menu_c5180::FUN_000c4220(int)) does not bind to the definition (State_c4220::update(Player_c4220*)). Handed to
   gfx10 (C20/C21).
+
+## gfx11: native start-up past the first Lua calls (2026-11-21, D187/D205)
+
+### C23: the Lua globals crash at frame 1 and the binding fixes under it
+- The crash in 0x001dbd50 -> Object::target -> lua_rawget was not the globals table (L->_gt is a sane table natively):
+  "constants" was never created because Object::target's callee 0x001d1980 was declared (const char*, int) against
+  its definition (hulk_uintptr, unsigned char) and stayed a stub, so the next rawget read a non-table. And none of
+  init.lua / physics / damage / config had loaded: 0x001d3c50 called gen's unaddressed `Thing_1d3c50::Load`; it now
+  calls 0x001d3600 by its own name on owners::Object_1d3600.
+- The run's `missing-continue` lines are the worklist (153 before the crash). Fixed by class:
+  - 81 block-scope `void FUN_x();` declarations in the fight factories' vfunc_1 (14 TUs): MSVC 7.1 gives them the
+    global name, clang `fight::FUN_x`, which no binding map has. Now `::FUN_x()` with a global declaration.
+  - CActorManager Register's 34 registration helpers return void (declared void*: "result read, none returned"); 7
+    Closure classes whose constructors were unaddressed are named by the constructor's address
+    (`namespace c_<a> { class FUN_<ctor> ... }` plus a typedef: MSVC code unchanged).
+  - 0x00088020: 0x00264c70 returns int natively (HULK_TYPE64), 0x001ebaf0 is a __stdcall (const char*) free function,
+    0x000bb670 returns the language's address (now &HulkFEManager::f1bc9, not +0x1bc9); 0x000befc0's callers pass its
+    bool third argument (HULK_TYPE64).
+  - `extern int __cdecl _sprintf(...)` inside a namespace (CTimeManager.GS.cpp, CTriggerVolume.GS.cpp) is a C++ name
+    that never binds to the CRT: 0x000879c0 formatted an uninitialised buffer into a file name ("art/\xe0...p3d").
+  - Script bindings: Function0<float> (0x00087a90) and Function1 (0x00087b40) on hulk_script::ScriptFunction with the
+    game's vftables by address (the local stand-ins had one-slot clang vftables: Lua's call through slot 2 jumped to
+    garbage); Closure2's invoke 0x0002e620 calls the bound member function as one (a __fastcall pointer stood for it)
+    on Function's fields (`char reserved[0x18]` is 0x20 natively), as does 0x0002f300's view.
+- Link rule (lead Q1, rev5 approved with conditions): native_unbound.plan_link binds a reference R(ptr) to a definition
+  R() (same result, or a void caller), never with sret / inreg on either side; the bindings are reported as their own
+  class and listed under "worklist: one extra leading pointer" in the link report's address bindings (the callers are
+  still to be declared as calling the free function). tests/native_host/native_unbound_test.py covers it.
+- Native play3 now loads the start-up scripts and runs them until the next local script-binding stand-in (0x00203490's
+  Closure1, CWorldCollisionManager): config/rtti-baseline.json lists ~600 such Function/Method/Closure stand-ins.

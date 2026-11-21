@@ -459,8 +459,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<fight::MaybeCondition>::
         ((FactoryCtor*)mem)->init_002343b0();
         TrackFactoryTemplate_238710* t = new (mem) TrackFactoryTemplate_238710();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
-        void FUN_002385b0();   // (gfx1) its own name: `postInit` stood for several functions natively (ambiguous binding)
-        FUN_002385b0();
+        ::FUN_002385b0();   // (gfx11) the global name, as MSVC 7.1 mangles the block-scope declaration (natively it named fight::FUN_002385b0)
         return (void*)(t);
     }
     return (void*)(0);
@@ -506,8 +505,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<fight::RandomCondition>:
         ((FactoryCtor*)mem)->init_002343b0();
         TrackFactoryTemplate_2387b0* t = new (mem) TrackFactoryTemplate_2387b0();
         ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
-        void FUN_00238610();   // (gfx1) its own name: `postInit` stood for several functions natively (ambiguous binding)
-        FUN_00238610();
+        ::FUN_00238610();   // (gfx11) the global name, as MSVC 7.1 mangles the block-scope declaration (natively it named fight::FUN_00238610)
         return (void*)(t);
     }
     return (void*)(0);
