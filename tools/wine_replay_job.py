@@ -20,7 +20,8 @@ Headless by default: HULK_GFX_RENDERER=noop (bgfx's null renderer; checkpoint ha
 Each job gets a private clone of a template Wine prefix (~/hulk-jobs/wine-template, made once per host), so concurrent
 jobs do not share a wineserver. Lockstep I/O (HULK_SYNCIO=5, the default when a recording is open) makes the run
 deterministic; HULK_CKPT=1 HULK_CKPT_ALL=1 write a checkpoint hash for every frame.
-Outputs (under build/jobs/out/ID/wine-out/ (under $JOBQ_DIR when set)): trace.txt, ckpt.txt (`frame hash` lines), result.json.
+Outputs (under build/jobs/out/ID/wine-out/ (under $JOBQ_DIR when set)): trace.txt, ckpt.txt (`frame hash` lines), result.json,
+trace.txt.ckref (the semantic probe's records, HULK_CKREF; docs/checkpoints.md).
 """
 import argparse
 import json
@@ -40,8 +41,10 @@ JOBQ = os.path.join(ROOT, "tools/jobq.py")
 JOBS = os.environ.get("JOBQ_DIR") or os.path.join(ROOT, "build/jobs")
 # HULK_AUDIO_NOMIX (opt1): the headless replay advances the voices without mixing samples (src/platform/sdl/audio/
 # hulk_audio.cpp; play3 checkpoints identical, 12% faster); `--env HULK_AUDIO_NOMIX=0` mixes again
+# HULK_CKREF (ckpt1, D161): the semantic probe's per-frame records (trace.txt.ckref; docs/checkpoints.md), which
+# tools/ckpt_gate.py checks against the original's reference beside the checkpoint gate; `--env HULK_CKREF=0` turns it off
 DEFAULT_ENV = {"HULK_CKPT": "1", "HULK_CKPT_ALL": "1", "HULK_AUDIO_CLOCK": "frame", "HULK_CKPT_REGIONS": "0",
-               "HULK_AUDIO_NOMIX": "1"}
+               "HULK_AUDIO_NOMIX": "1", "HULK_CKREF": "1"}
 
 
 def wpath(p):

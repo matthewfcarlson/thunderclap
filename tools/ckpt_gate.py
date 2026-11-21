@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """The Wine proof gate on replay checkpoints: a proof run must be ok at every checkpoint where the control run is ok.
 
-  tools/ckpt_gate.py CONTROL PROOF [--known 5880,5910,...]     # job ids (build/jobs/out/ID/{nb-out,wine-out}/trace.txt) or traces
+  tools/ckpt_gate.py CONTROL PROOF [--known 5880,5910,...] [--ref build/ckpt/play3.ckref]   # job ids or traces
 
 Both kinds of checkpoint line a Wine replay writes are read (docs/wine-replay.md "Checkpoint hashing" and
 "Particle-RNG checkpoints"):
@@ -13,7 +13,12 @@ frames where the control is ok and the proof diverged. For prng also the hashes 
 (the Wine build's particle stream is deterministic; the recording has prng checkpoints only for the frames where the
 original's replays agree, play3: to 12900): a difference is reported as CHANGED, and fails with --strict-prng.
 A control without prng lines (an image older than div10) leaves
-that kind unchecked against it; the proof's own prng result is still reported. Exit 1 when a gate fails.
+that kind unchecked against it; the proof's own prng result is still reported.
+The reference gate (ckpt1, D161; docs/checkpoints.md): when both runs wrote the semantic probe's records
+(trace.txt.ckref, HULK_CKREF=1, the replay default) and the original's reference is on this machine (--ref, default
+build/ckpt/play3.ckref; local derived data), no (frame, tag) the control matched against the original may diverge in
+the proof (tools/ckpt_ref.py check --control). Not checked (said so) without a reference, or a control without records;
+a proof without records when the control has them fails. Exit 1 when a gate fails.
 """
 import argparse
 import json
@@ -45,6 +50,42 @@ def load(x):
     return out
 
 
+def ckref_path(x):
+    """The run's trace.txt.ckref (beside the trace), or None."""
+    p = trace_path(x) + ".ckref"
+    return p if os.path.exists(p) else None
+
+
+def ref_gate(control, proof, ref_path):
+    """0/1: the reference gate (docs/checkpoints.md "Comparing a build")."""
+    sys.path.insert(0, os.path.join(ROOT, "tools"))
+    import ckpt_ref
+    cp, pp = ckref_path(control), ckref_path(proof)
+    if not os.path.exists(ref_path):
+        print("ref gate: not checked (no reference %s on this machine)" % os.path.relpath(ref_path, ROOT))
+        return 0
+    if not cp:
+        print("ref gate: not checked (the control has no trace.txt.ckref)")
+        return 0
+    if not pp:
+        print("ref gate: FAILED (the proof has no trace.txt.ckref, the control has)")
+        return 1
+    _m, vf, ref, _u = ckpt_ref.read(ref_path)
+    _m, vc, ctl, _u = ckpt_ref.read(cp)
+    _m, vp, run, unav = ckpt_ref.read(pp)
+    if not vf == vc == vp:
+        print("ref gate: not checked (probe versions: reference v%d, control v%d, proof v%d)" % (vf, vc, vp))
+        return 0
+    new, lacks = ckpt_ref.gate(run, unav, ctl, ref)
+    res = ckpt_ref.first_divergence(run, ref, unav)
+    firsts = ", ".join("%s %s%s" % (ckpt_ref.name(t), d["first"], "" if d["drift"] else " logic")
+                       for t, d in sorted(res.items()) if d["first"] is not None)
+    print("ref gate: %d reference frames; proof's first divergences from the original: %s; control-ok/proof-diverged "
+          "(frame, tag) %d%s; reference frames the proof lacks %d" % (
+              len(ref), firsts or "none", len(new), (" (first %d %s)" % new[0]) if new else "", lacks))
+    return 1 if new or lacks else 0
+
+
 def summary(d):
     frames = sorted(d)
     bad = [f for f in frames if not d[f][0]]
@@ -60,6 +101,8 @@ def main(argv):
     ap.add_argument("proof")
     ap.add_argument("--strict-prng", action="store_true", help="also fail when a prng hash differs from the control's")
     ap.add_argument("--known", default="", help="comma list of frames to mark as known transients in the listing")
+    ap.add_argument("--ref", default=os.path.join(ROOT, "build/ckpt/play3.ckref"),
+                    help="the original's reference for the reference gate (tools/ckpt_ref.py make)")
     a = ap.parse_args(argv)
     known = {int(x) for x in a.known.split(",") if x}
     # (integ2, D126; rev5's R4) a build made with a development switch (TREE_TU_OFF, EQUIV_OFF, ...) proves nothing
@@ -112,6 +155,7 @@ def main(argv):
                 " -> FAILED (--strict-prng)" if changed and a.strict_prng else (" (CHANGED: the particles differ; see docs/wine-replay.md)" if changed else "")))
             if changed and a.strict_prng:
                 fail = 1
+    fail |= ref_gate(a.control, a.proof, a.ref)
     print("GATE " + ("FAILED" if fail else "ok"))
     return fail
 

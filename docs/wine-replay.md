@@ -278,6 +278,9 @@ $J tools/replay_pack.py pack OUT.json OUT.hrp
   (`--strict-prng` makes it fail: use it for changes that should not touch effects). A control built before div10 has
   no prng lines: the prng gate is then skipped (reported, not passed silently), the main gate runs unchanged. A
   recording without prng checkpoints logs `recording (none)`; control and proof are still compared hash for hash.
+  (ckpt1, D161) A third gate, `ref`: replays write the semantic probe's records by default (`HULK_CKREF=1`,
+  `trace.txt.ckref`), and where the original's reference is on the machine (`build/ckpt/play3.ckref`, local) no
+  (frame, tag) the control matched against the original may diverge in the proof ([checkpoints.md](checkpoints.md)).
 - **Not done.** The hybrid (`hybrid/hooks.cpp` `checkpoint()`) does not hash the bytes itself; new recordings get their
   prng checkpoints from an rl4 run as above. Making the original reproducible past 12900 needs an audio pin in the
   hybrid (voices ending on frame boundaries in xemu), which would also mean re-recording.

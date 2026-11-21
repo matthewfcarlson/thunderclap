@@ -131,6 +131,25 @@ def first_divergence(run, ref, run_unav):
     return out
 
 
+def gate(run, run_unav, ctl, ref, strict=False):
+    """The proof gate against the original: [(frame, tag)] a control matched and the run does not, and how many
+    reference frames the control has that the run lacks (within the run's range)."""
+    new = []
+    last = max(run) if run else -1
+    for fr in sorted(ref):
+        if fr not in run or fr not in ctl:
+            continue
+        for t, (e, _q) in ref[fr].items():
+            if not strict and name(t) in OBSERVABLE:
+                continue
+            if run_unav.get(fr, 0) & (1 << t):
+                continue
+            if t in ctl[fr] and t in run[fr] and ctl[fr][t][0] == e and run[fr][t][0] != e:
+                new.append((fr, name(t)))
+    lacks = sum(1 for fr in ref if fr in ctl and fr not in run and fr <= last)
+    return new, lacks
+
+
 def cmd_check(a):
     _, pr, run, unav = read(a.run)
     _, pf, ref, _ = read(a.ref)
@@ -170,16 +189,7 @@ def cmd_check(a):
         _, pc, ctl, _cun = read(a.control)
         if pc != pf:
             sys.exit("probe versions differ: control v%d, reference v%d" % (pc, pf))
-        new = []
-        for fr in sorted(ref):
-            if fr not in run or fr not in ctl:
-                continue
-            for t, (e, _q) in ref[fr].items():
-                if not a.strict and name(t) in OBSERVABLE:
-                    continue
-                if t in ctl[fr] and t in run[fr] and ctl[fr][t][0] == e and run[fr][t][0] != e:
-                    new.append((fr, name(t)))
-        lacks = sum(1 for fr in ref if fr in ctl and fr not in run)
+        new, lacks = gate(run, unav, ctl, ref, a.strict)
         print("gate against the control %s: %d (frame, tag) newly diverged%s; %d reference frames the run lacks" % (
             a.control, len(new), " first %d %s" % new[0] if new else "", lacks))
         report["gate"] = {"control": a.control, "new": new[:200], "new_count": len(new), "lacks": lacks}

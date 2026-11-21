@@ -150,6 +150,13 @@ build/venv/bin/python tools/ckpt_ref.py check RUN.ckref --ref build/ckpt/play3.c
 build/venv/bin/python tools/ckpt_ref.py diff TRACE_OR_DUMP_A TRACE_OR_DUMP_B --frame F
 ```
 
+**In the proof flow (D161).** Replays write the records by default (`HULK_CKREF=1` in `wine_replay_job.DEFAULT_ENV`;
+`--env HULK_CKREF=0` turns it off) and `wine_build_run.py` brings `trace.txt.ckref` back beside the trace.
+`tools/ckpt_gate.py CONTROL PROOF` adds the `ref` gate to the checkpoint and prng gates: with the reference on the
+machine (`--ref`, default `build/ckpt/play3.ckref`) and records from both runs, it fails on any (frame, tag) the
+control matched against the original and the proof does not, and on reference frames the proof lacks. It says "not
+checked" without a reference, or for a control without records (a control from before D161).
+
 `check` reports per tag the frames compared and diverged, the first divergence, whether it is float drift or logic,
 and the last matching frame before it. With `--control` the verdict is the gate: no (frame, tag) that the control run
 matched may diverge in the run (the control's own divergences are the known ones). Localisation:
