@@ -4888,7 +4888,8 @@ public:
     void FUN_001ccc90(int); // non-virtual
     int* FUN_001ccf50(int); // non-virtual
     void FUN_001ccfe0(unsigned char); // non-virtual
-    char _pad_04[0x8];
+    void* f_04; // (recs2) the World (0x001cfb20 stores it; 0x001cd5b0 / 0x001cc910 read it)
+    void* f_08; // (recs2) a pointer: 0x001cd3d0 stores it, 0x001cd410 / 0x001cd220 call through it
     int f_0c;
     char _pad_10[0x1180];
     int f_1190;

@@ -16,16 +16,18 @@ namespace fn_fdf9c5a9 {} using namespace fn_fdf9c5a9;
 #include "game/script_bind.h"
 
 // ---- declarations shared by the functions below
+// (recs2) a scenario manager word's offset past f_04 (32-bit offset o): +4 each for the vftable, f_04 and f_08 natively
+#define HULK_SM(o) ((o) + 3 * ((int)sizeof(void*) - 4))
 namespace fn_fdf9c5a9 {
 struct C_1cc600 {
     void run_000d6fb0(void*);
 };
 struct B_1cc600 {
-    char pad[0x3c];
+    void* pad[0x3c / 4];   // (recs2) the World's words (all-pointer)
     C_1cc600* next;
 };
 struct A_1cc600 {
-    char pad[0x0c];
+    void* pad[0x0c / 4];   // (recs2) CGame's words (all-pointer)
     B_1cc600* child;
 };
 extern A_1cc600* hulk_at_004dd6ec;
@@ -33,7 +35,7 @@ struct Fader_1cc620 {
     void FUN_000d6fb0(char flag);
 };
 struct Panel_1cc620 {
-    char pad0[0x3c];
+    void* pad0[0x3c / 4];   // (recs2) the World's words
     Fader_1cc620 *fader;
 };
 struct Counter_1cc620 {
@@ -53,41 +55,46 @@ struct Hud_1cc620 {
 };
 } // namespace fn_fdf9c5a9
 struct Singleton_4dd6ec {
-    char pad0[0xc];
+    void* pad0[0xc / 4];   // (recs2) CGame's words (all-pointer)
     Panel_1cc620 *panel;
-    char pad1[0x20 - 0x10];
+    void* pad1[(0x20 - 0x10) / 4];
     Hud_1cc620 *hud;
-    char pad2[0x38 - 0x24];
+    void* pad2[(0x38 - 0x24) / 4];
     Stats_1cc620 *stats;
     Hud_1cc620 *FUN_00086280();
 };
 namespace fn_fdf9c5a9 {
 void __fastcall FUN_001cc600(char flag);
 class C_1cc860 {
-    char pad[0x1198];
+    void* sm_vftable; void* sm_owner; void* sm_f08;   // (recs2) gen CScenarioManager's vftable, f_04 (the World), f_08
+    char pad[0x1198 - 0xc];
 
   public:
-    float Get() { return *(float*)((char*)this + 0x1198); }
+    float Get() { return *(float*)((char*)this + HULK_SM(0x1198)); }
 };
 struct CScenarioManager_1cc880 {
-    char pad[0x119c];
+    void* sm_vftable; void* sm_owner; void* sm_f08;   // (recs2) gen CScenarioManager's vftable, f_04 (the World), f_08
+    char pad[0x119c - 0xc];
     float value;
     float Get();
 };
 class CScenarioManager_1cc890 {
   public:
-    char pad[0x119c];
+    void* sm_vftable; void* sm_owner; void* sm_f08;   // (recs2) gen CScenarioManager's vftable, f_04 (the World), f_08
+    char pad[0x119c - 0xc];
     int value;
     void Set(int x);
 };
 class C_1cc8a0 {
   public:
-    char pad[0x1198];
+    void* sm_vftable; void* sm_owner; void* sm_f08;   // (recs2) gen CScenarioManager's vftable, f_04 (the World), f_08
+    char pad[0x1198 - 0xc];
     float a;
     float b;
 };
 class C_1cc900 {
-    char pad[0x1194];
+    void* sm_vftable; void* sm_owner; void* sm_f08;   // (recs2) gen CScenarioManager's vftable, f_04 (the World), f_08
+    char pad[0x1194 - 0xc];
 
   public:
     int value;
@@ -105,33 +112,36 @@ struct Sub_1cc910 {
     void FUN_00098ed0(Link_1cc910 *l);
 };
 struct Link_1cc910 {
-    char pad0[8];
+    void* pad0[8 / 4];   // (recs2) the World's words (all-pointer)
     Sub_1cc910 *f8;
     Part_1cc910 *fc;
-    char pad10[0x20 - 0x10];
+    void* pad10[(0x20 - 0x10) / 4];
     Part_1cc910 *f20;
-    char pad24[4];
+    void* pad24[1];
     Part_1cc910 *f28;
 };
 class CScenarioManager_1cc910 {
 public:
-    char pad0[4];
+    void* sm_vftable;   // (recs2) gen CScenarioManager's vftable; link = f_04 (the World)
     Link_1cc910 *link;
-    char pad8[0x1194 - 8];
+    void* sm_f08;
+    char pad8[0x1194 - 0xc];
     int mode;
     void FUN_001cc910(int m);
 };
 Mgr_1cc910 *FUN_001d4c90();
 class CScenarioManager_1cc990 {
   public:
-    char pad[0x10];
+    void* sm_vftable; void* sm_owner; void* sm_f08;   // (recs2) gen CScenarioManager's vftable, f_04 (the World), f_08
+    char pad[0x10 - 0xc];
     float values[0x40];
     float GetFloat(int index);
 };
 extern "C" void __cdecl FUN_00267830(char* destination, const char* source, int size);
 struct Entry_1cc9d0 { float time; char text[256]; int id; };
 struct CScenarioManager_1cc9d0 {
- char padding[0x110];
+ void* sm_vftable; void* sm_owner; void* sm_f08;   // (recs2) gen CScenarioManager's vftable, f_04 (the World), f_08
+ char padding[0x110 - 0xc];
  Entry_1cc9d0 entries[16];
  int nextId;
  int FUN_001cc9d0(float time, const char* text);
@@ -145,30 +155,33 @@ struct B_1ccbc0 {
     void* p;
 };
 struct A_1ccbc0 {
-    char pad[0x3c];
+    void* pad[0x3c / 4];   // (recs2) the World's words (all-pointer)
     B_1ccbc0* b;
-    char pad2[0x14];
+    void* pad2[0x14 / 4];
     C_1ccbc0* c;
 };
 struct Obj_1ccbc0 {
-    char pad[4];
+    void* sm_vftable;   // (recs2) the scenario manager's vftable; a = its f_04
     A_1ccbc0* a;
     hulk_intptr get();
 };
 class CScenarioManager_1ccc00 {
   public:
-    char pad[0x11a4];
+    void* sm_vftable; void* sm_owner; void* sm_f08;   // (recs2) gen CScenarioManager's vftable, f_04 (the World), f_08
+    char pad[0x11a4 - 0xc];
     float value;
     float Get();
 };
 class CScenarioManager_1ccc10 {
   public:
-    char pad[0x11a4];
+    void* sm_vftable; void* sm_owner; void* sm_f08;   // (recs2) gen CScenarioManager's vftable, f_04 (the World), f_08
+    char pad[0x11a4 - 0xc];
     int mVal;
     void Set(int v);
 };
 class C_1ccc20 {
-    char pad[0x11a8];
+    void* sm_vftable; void* sm_owner; void* sm_f08;   // (recs2) gen CScenarioManager's vftable, f_04 (the World), f_08
+    char pad[0x11a8 - 0xc];
 
   public:
     float value;
@@ -185,18 +198,21 @@ struct Entry {
 };
 class CScenarioManager_1ccca0 {
   public:
-    char pad[0x11b0];
+    void* sm_vftable; void* sm_owner; void* sm_f08;   // (recs2) gen CScenarioManager's vftable, f_04 (the World), f_08
+    char pad[0x11b0 - 0xc];
     float value;
     float GetValue();
 };
 class CScenarioManager_1cccb0 {
   public:
-    char pad[0x11b0];
+    void* sm_vftable; void* sm_owner; void* sm_f08;   // (recs2) gen CScenarioManager's vftable, f_04 (the World), f_08
+    char pad[0x11b0 - 0xc];
     int value;
     void Set(int x);
 };
 class CScenarioManager_1cce60 {
-    char pad[0x13f8];
+    void* sm_vftable; void* sm_owner; void* sm_f08;   // (recs2) gen CScenarioManager's vftable, f_04 (the World), f_08
+    char pad[0x13f8 - 0xc];
     char buf[32];
 
   public:
@@ -204,7 +220,8 @@ class CScenarioManager_1cce60 {
 };
 class CScenarioManager_1cce80 {
   public:
-    char pad[0x11b4];
+    void* sm_vftable; void* sm_owner; void* sm_f08;   // (recs2) gen CScenarioManager's vftable, f_04 (the World), f_08
+    char pad[0x11b4 - 0xc];
     int count;
     float values[16];
     char data[0x20];
@@ -213,7 +230,8 @@ class CScenarioManager_1cce80 {
 extern void Copy_00267830(void*, const void*, int);
 class CScenarioManager_1cced0 {
   public:
-    char pad0[0x11a4];
+    void* sm_vftable; void* sm_owner; void* sm_f08;   // (recs2) gen CScenarioManager's vftable, f_04 (the World), f_08
+    char pad0[0x11a4 - 0xc];
     float value;
     int a;
     int b;
@@ -230,7 +248,8 @@ extern "C" char* __cdecl strncpy(char*, const char*, unsigned int);
 #endif
 namespace fn_fdf9c5a9 {
 class CScenarioManager_1ccf70 {
-    char pad[0x1418];
+    void* sm_vftable; void* sm_owner; void* sm_f08;   // (recs2) gen CScenarioManager's vftable, f_04 (the World), f_08
+    char pad[0x1418 - 0xc];
     char names[4][32];
 
   public:
@@ -238,24 +257,28 @@ class CScenarioManager_1ccf70 {
 };
 class CScenarioManager_1ccfa0 {
   public:
-    char pad[0x1498];
+    void* sm_vftable; void* sm_owner; void* sm_f08;   // (recs2) gen CScenarioManager's vftable, f_04 (the World), f_08
+    char pad[0x1498 - 0xc];
     int a[4];
     int f(int i);
 };
 class CScenarioManager_1ccfc0 {
   public:
-    char pad[0x1498];
+    void* sm_vftable; void* sm_owner; void* sm_f08;   // (recs2) gen CScenarioManager's vftable, f_04 (the World), f_08
+    char pad[0x1498 - 0xc];
     int values[4];
     void Set(int index, int value);
 };
 class C_1ccff0 {
-    char pad[0x14a8];
+    void* sm_vftable; void* sm_owner; void* sm_f08;   // (recs2) gen CScenarioManager's vftable, f_04 (the World), f_08
+    char pad[0x14a8 - 0xc];
 
   public:
     unsigned char value;
 };
 class Target_1cd010 {
-    char pad[0x14a9];
+    void* sm_vftable; void* sm_owner; void* sm_f08;   // (recs2) gen CScenarioManager's vftable, f_04 (the World), f_08
+    char pad[0x14a9 - 0xc];
 
   public:
     unsigned char value;
@@ -287,8 +310,8 @@ struct Base_1cd150 {
 };
 class CScenarioManager_1cd150 : public Base_1cd150 {
   public:
-    int m4;
-    int m8;
+    void* m4;   // (recs2) gen f_04: the World (0x001cfb20)
+    void* m8;   // (recs2) gen f_08: a pointer (0x001cd3d0 stores it; 0x001cd410 calls through it)
     int mc;
     char buf[0x100];
     Slot_1cd150 s[16];
@@ -308,12 +331,12 @@ class CScenarioManager_1cd150 : public Base_1cd150 {
 struct Target_1cd5b0 {
     void FUN_000d4620(int a, void *buf, int count, int key, float scale);
 };
-struct P3c_1cd5b0 { char pad[4]; Target_1cd5b0 *target; };
+struct P3c_1cd5b0 { void* pad[1]; Target_1cd5b0 *target; };
 struct P54 { int FUN_00086280(); };
 struct Owner_1cd5b0 {
-    char pad[0x3c];
+    void* pad[0x3c / 4];   // (recs2) the World's words (all-pointer)
     P3c_1cd5b0 *p3c;
-    char pad40[0x54 - 0x40];
+    void* pad40[(0x54 - 0x40) / 4];
     P54 *p54;
 };
 struct Clock_1cd5b0 {  };
@@ -322,9 +345,10 @@ struct World { void* pad[8]; Clock_1cd5b0 *clock; };
 namespace fn_fdf9c5a9 {
 class CScenarioManager_1cd5b0 {
 public:
-    char pad0[4];
+    void* sm_vftable;   // (recs2) gen CScenarioManager's vftable; owner = f_04 (the World)
     Owner_1cd5b0 *owner;
-    char pad8[0x11a4 - 8];
+    void* sm_f08;
+    char pad8[0x11a4 - 0xc];
     int cur;
     int prev;
     int count;
@@ -572,18 +596,19 @@ void __fastcall __security_check_cookie(unsigned int);
 struct Closure2_1ced50 { char data[36]; void FUN_001ce440(int, int, int); void FUN_001d04a0(); };
 struct Owner {
   public:
-    char _m_pad_0[0x3c];
+    void* _m_pad_0[0x3c / 4];   // (recs2) the World's words (all-pointer)
     Entry* entry;
-    char _m_pad_40[0x14];
+    void* _m_pad_40[0x14 / 4];
     Check* check;
     void FUN_001d26d0(int, Closure2_1ced50*);
     void FUN_001ced50(int a, int b, int c);
 };
 struct CScenarioManager_1ccc30 {
-    char pad0[4];
+    void* sm_vftable;   // (recs2) gen CScenarioManager's vftable; owner = f_04 (the World)
     Owner* owner;
-    char pad1[0x11a0];
-    void* stored;
+    void* sm_f08;
+    char pad1[0x11a0 - 4];
+    int stored;   // (recs2) the combo timer's 4 bytes (a float the binding passes; was void*: 8 bytes natively over f_11ac)
     void FUN_001ccc30(void* volatile arg);
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (decl1) as defined (unk_08ceb0.cpp)
@@ -829,7 +854,7 @@ float CScenarioManager_1cc990::GetFloat(int index) {
 // sym: ?FUN_001cc9b0@CScenarioManager@@QAEXHM@Z
 void CScenarioManager::FUN_001cc9b0(int i, float v) {
     if (i >= 0 && i < 0x40)
-        *(float*)((char*)this + i * 4 + 0x10) = v;
+        *(float*)((char*)this + i * 4 + HULK_SM(0x10)) = v;
 }
 
 namespace fn_fdf9c5a9 {
@@ -862,8 +887,8 @@ int CScenarioManager_1cc9d0::FUN_001cc9d0(float time, const char* text) {
 void CScenarioManager::FUN_001cca80(int id) {
     int i;
     for (i = 0; i < 16; ++i) {
-        if (*(int*)((char*)this + 0x214 + i * 0x108) == id) {
-            char* p = (char*)this + 0x110 + i * 0x108;
+        if (*(int*)((char*)this + HULK_SM(0x214) + i * 0x108) == id) {
+            char* p = (char*)this + HULK_SM(0x110) + i * 0x108;
             *(int*)p = (int)0xbf800000;
             p[4] = 0;
             *(int*)(p + 0x104) = -1;
@@ -876,7 +901,7 @@ void CScenarioManager::FUN_001cca80(int id) {
 // 0x001ccb80 FUN_001ccb80 (58 B): matches/0x001ccb80.cpp
 // sym: ?FUN_001ccb80@C_1ccb80@owners@@QAEXXZ
 void owners::C_1ccb80::FUN_001ccb80() {
-    char* p = (char*)this + 0x214;
+    char* p = (char*)this + HULK_SM(0x214);
     int i = 0x10;
     do {
         *(int*)(p - 0x104) = (int)0xbf800000;
@@ -885,7 +910,7 @@ void owners::C_1ccb80::FUN_001ccb80() {
         p += 0x108;
         --i;
     } while (i != 0);
-    *(int*)((char*)this + 0x1190) = 0;
+    *(int*)((char*)this + HULK_SM(0x1190)) = 0;
 }
 
 namespace fn_fdf9c5a9 {
@@ -929,7 +954,7 @@ float __fastcall FUN_001ccc20(C_1ccc20* self) {
 // 0x001ccc30 FUN_001ccc30 (75 B): matches/0x001ccc30.cpp
 // sym: ?FUN_001ccc30@CScenarioManager_1ccc30@fn_fdf9c5a9@@QAEXRAX@Z
 void CScenarioManager_1ccc30::FUN_001ccc30(void* volatile arg) {
-    stored = arg;
+    stored = (int)(hulk_intptr)arg;
     Object* object;
     if (owner && owner->check && owner->check->FUN_00086280() && owner->entry && owner->entry->value)
         object = owner->entry->value;
@@ -993,7 +1018,7 @@ void CScenarioManager_1cced0::init() {
     int i;
     for (i = 0; i < 16; i++) {
         entries[i] = 0;
-        *((char*)this + 0x11f8 + i * 0x20) = 0;
+        *((char*)this + HULK_SM(0x11f8) + i * 0x20) = 0;
     }
     flag = 0;
     a = 0;
@@ -1009,7 +1034,7 @@ void CScenarioManager_1cced0::init() {
 // sym: ?FUN_001ccf50@CScenarioManager@@QAEPAHH@Z
 int* CScenarioManager::FUN_001ccf50(int x) {
     if (x >= 0 && x < 4)
-        return (int*)((int*)((char*)this + x * 0x20 + 0x1418));
+        return (int*)((int*)((char*)this + x * 0x20 + HULK_SM(0x1418)));
     return (int*)(0);
 }
 
@@ -1098,7 +1123,7 @@ CScenarioManager_1cd150::CScenarioManager_1cd150() throw() {
 // 0x001cd3d0 FUN_001cd3d0 (44 B): matches/0x001cd3d0.cpp
 // sym: ?FUN_001cd3d0@Obj_1cd3d0@owners@@QAEXH@Z
 void owners::Obj_1cd3d0::FUN_001cd3d0(hulk_intptr value) {
-    field8 = ((int)value);
+    field8 = (void*)value;   // (recs2) gen f_08 is a pointer
     for (int i = 0; i < 0x40; ++i)
         data[i] = 0;
     last = 0;
@@ -3040,7 +3065,7 @@ struct Closure1 : hulk_script::ScriptClosure<hulk_script::ScriptMethod1<T, R, A>
 class CScenarioManager {
   public:
     virtual void v0();
-    int f4;
+    void* f4;   // (recs2) gen f_04: the World (an int truncated the pointer natively)
     int FUN_001cc5e0();
     void FUN_001cc620(int);
     int FUN_001cc840();
@@ -3113,7 +3138,7 @@ Registry_1cfb20 *FUN_001d4c90();
 
 void CScenarioManager::FUN_001cfb20(hulk_intptr arg)
 {
-    f4 = arg;
+    f4 = (void*)arg;
     Registry_1cfb20 *reg = FUN_001d4c90();
     if (reg) {
     typedef Closure1<CScenarioManager, void, int> Closure_0;

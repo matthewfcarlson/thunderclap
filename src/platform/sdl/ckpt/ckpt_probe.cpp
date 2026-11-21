@@ -52,7 +52,11 @@ extern "C" const HulkProbeLayout64 hulk_probe_layout64;
 #define HP_SM_CHECKPOINT hulk_probe_layout64.sm_checkpoint
 #define HP_SM_ELAPSED hulk_probe_layout64.sm_elapsed
 #define HP_SM_END hulk_probe_layout64.sm_end_time
+// (recs2) the actors tag's actor manager: its handle list and the handle table are still read at 32-bit offsets, so a
+// 64-bit build walks none (count 0; the tag is reported unavailable)
+#define HP_ACT_AM ((const char*)0)
 #else
+#define HP_ACT_AM am
 #define HP_WORLD_OK HP_RAW32_OK
 #define HP_W_AM 0x20
 #define HP_W_SM 0x2c
@@ -255,16 +259,16 @@ extern "C" void hulk_probe_frame(unsigned frame, const HulkProbeInputs* in, unsi
         // through the handle table (*(am) +0x44: 0x00059c10 / 0x00059ba0: +4 count, +8 items of 0x24 bytes (handle
         // at +0, actor at +0x10), +0xc in-use flags)
         hp_begin(&s, HULK_PT_ACTORS, frame, dump, ctx);
-        hp_u32 n = am ? hp_load32(am + 0xc) : 0;
+        hp_u32 n = HP_ACT_AM ? hp_load32(HP_ACT_AM + 0xc) : 0;
         hp_u32v(&s, "count", n);
         if (n > (0x124 - 0x10) / 4)
             n = 0;
-        const char* table = hp_ptr32(hp_ptr32(am, 0), 0x44);
+        const char* table = hp_ptr32(hp_ptr32(HP_ACT_AM, 0), 0x44);
         hp_u32 tn = table ? hp_load32(table + 4) : 0;
         const char* items = hp_ptr32(table, 8);
         const char* flags = hp_ptr32(table, 0xc);
         for (hp_u32 i = 0; i < n; i++) {
-            hp_u32 handle = hp_load32(am + 0x10 + i * 4);
+            hp_u32 handle = hp_load32(HP_ACT_AM + 0x10 + i * 4);
             const char* actor = 0;
             if (in->actor_of) {
                 actor = table ? (const char*)in->actor_of(table, handle) : 0;

@@ -2479,3 +2479,13 @@ passes the controller set-up and the first frame callees and stops in 0x00207410
   at all ("no references"), so the hook never ran until rtti.s pointed the slot at it.
 - The shared host SDL3 is headless by construction (SDL_VIDEO=OFF), so "real renderer" runs failed at SDL video init
   before reaching bgfx; with video on, bgfx Metal comes up and presents.
+
+## recs2: the scenario manager's hidden pointers and the probe's World crash (2026-11-21)
+- gen CScenarioManager's `_pad_04[8]` held two pointers (the World at +4, another at +8). Every native view had been
+  4 or 8 bytes short, and 0x001cfb20 truncated the World into an int. Natively, offsets from f_0c on are 32-bit + 0xc.
+- 0x00088e40's flag at the World's 32-bit +0x9c is a byte of a manager pointer natively, so the sim's "name set" test
+  in 0x00087630 was true every frame.
+- A flow-tag record can be solved by brute force: the hash covers four small words (boot step, world, actor
+  manager, mission state), so trying ~1,100 candidates per frame recovers the reference's values without an xemu
+  dump (build/recs2/scripts/flow_solve.py). For play3 the boot step goes 6 -> 0 at frame 1; mission state is 4 at
+  13,200, 5 at 31,200 and 0 at 33,600.

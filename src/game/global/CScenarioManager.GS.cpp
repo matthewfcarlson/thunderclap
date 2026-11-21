@@ -23,7 +23,8 @@ struct Receiver_1ccad0 { void FUN_001d3f00(const char*, const char*); };
 extern "C" int __cdecl FUN_00267760(char*, unsigned int, const char*, ...);
 struct Timer { float remaining; char text[256]; int id; };
 struct Owner_1ccad0 {
- char pad[0x110]; Timer timers[16];
+ void* sm_vftable; void* sm_owner; void* sm_f08;   // (recs2) gen CScenarioManager's vftable, f_04 (the World), f_08
+ char pad[0x110 - 0xc]; Timer timers[16];
  Receiver_1ccad0* FUN_001d4c90();
  void update(float elapsed);
 };
@@ -31,16 +32,16 @@ struct Overlay_1cccc0 {
     void FUN_000d4620(int one, const char *text, int minusOne, unsigned color, float minusOneF);
 };
 struct Holder_1cccc0 {
-    char pad0[4];
+    void* pad0[1];   // (recs2) the overlay manager's words: its vftable
     Overlay_1cccc0 *overlay;
 };
 struct Checker_1cccc0 {
     int FUN_00086280();
 };
 struct Parent_1cccc0 {
-    char pad0[0x3c];
+    void* pad0[0x3c / 4];   // (recs2) the World's words (all-pointer)
     Holder_1cccc0 *holder;
-    char pad40[0x54 - 0x40];
+    void* pad40[(0x54 - 0x40) / 4];
     Checker_1cccc0 *checker;
 };
 struct Palette_1cccc0 {
@@ -65,9 +66,10 @@ struct Frame_1cccc0 {
 };
 class ComboTracker {
 public:
-    char pad0[4];
+    void* sm_vftable;   // (recs2) gen CScenarioManager's vftable; parent = f_04 (the World)
     Parent_1cccc0 *parent;
-    char pad8[0x11ac - 8];
+    void* sm_f08;
+    char pad8[0x11ac - 0xc];
     int count;
     char pad11b0[4];
     int tierCount;
@@ -279,12 +281,12 @@ struct Visibility {
 };
 
 struct Child_1cd220 {
-    char pad00[0x3c];
+    void* pad00[0x3c / 4];   // (recs2) the World's words (all-pointer)
     Visibility *vis;
 };
 
 struct Singleton_4dd6ec {
-    char pad00[0xc];
+    void* pad00[0xc / 4];   // (recs2) CGame's words (all-pointer)
     Child_1cd220 *child;
 };
 
@@ -316,7 +318,7 @@ struct Names_1cd220 {
 };
 
 struct Target4 {
-    char pad00[0x30];
+    void* pad00[0x30 / 4];   // (recs2) the World's words (all-pointer)
     Sink_1cd220 *sink;
 };
 
@@ -332,7 +334,7 @@ struct Slot_1cd220 {
 
 class Mission_1cd220 {
 public:
-    char pad00[4];
+    void* sm_vftable;   // (recs2) gen CScenarioManager's vftable; f4 = f_04 (the World)
     Target4 *f4;
     Names_1cd220 *names;
     int f0c;
@@ -423,25 +425,25 @@ struct Target_1cd410 {
 struct Part54_1cd410 {  };
 struct Session_1cd410;
 struct Holder_1cd410 { void FUN_0009bc60(Session_1cd410 *s); };
-struct Session_1cd410 {
-    char pad0[8];
+struct Session_1cd410 {   // (recs2) the World's words (all-pointer): the pads as pointer words
+    void* pad0[2];
     Holder_1cd410 *holder;
     Node *p0c;
-    char pad10[4];
+    void* pad10[1];
     Part14 *p14;
-    char pad18[8];
+    void* pad18[2];
     Part20 *p20;
-    char pad24[4];
+    void* pad24[1];
     Part28 *p28;
-    char pad2c[4];
+    void* pad2c[1];
     Part30_1cd410 *p30;
-    char pad34[4];
+    void* pad34[1];
     Part38 *p38;
     Part3c *p3c;
-    char pad40[4];
+    void* pad40[1];
     Part44 *p44;
     Part48 *p48;
-    char pad4c[8];
+    void* pad4c[2];
     Part54_1cd410 *p54;
 };
 struct Names_1cd410 { const char *FUN_0008a2d0(); };
@@ -449,7 +451,7 @@ struct Singleton_1cd410 {  };
 extern Singleton_1cd410 *FUN_001d4c90();
 
 struct Controller_1cd410 {
-    char pad0[4];
+    void* sm_vftable;   // (recs2) gen CScenarioManager's vftable; session = f_04 (the World)
     Session_1cd410 *session;
     Names_1cd410 *names;
     char pad0c[0x14a9 - 0xc];

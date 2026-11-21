@@ -6763,3 +6763,25 @@ name that carries an address any more. Unbound counts: see the commit message (c
   0x5c / 0x1bc9 pads put them in the record's pointer words natively: the replay path's crash in 0x000f6fe0).
   CFMVManager: Player_1b7d10 (0x001b7d10) spells HulkFMVManager's words; the record's f128 is a pointer (the status).
 - Not yet bound (C21, D197): 0x00269170's GetTime / Poll (no address names): the plain start-up never polls the pads.
+
+## recs2: records for the native replay (2026-11-21, D187/D196)
+
+### recs2 C1: the scenario manager, the World's views, the probe's flow and mission tags
+- gen CScenarioManager hid two pointers in `_pad_04[8]`: f_04 is the World (0x001cfb20 stored it through `int f4`,
+  which truncated it natively) and f_08 a pointer 0x001cd3d0 stores and 0x001cd220 / 0x001cd410 call through. They are
+  now `void* f_04; void* f_08;`, so the native layout is the 32-bit offset + 0xc from f_0c on (f_0c 0x18, f_1194 0x11a0).
+  Every scenario-manager view in CScenarioManager.cpp / .GS.cpp and owners.h (C_1ccb80, Obj_1cd3d0, Thing_1cd650,
+  Obj_1ce020) starts with the vftable, f_04 and f_08 words. Raw `this + 0x...` offsets go through the TU's HULK_SM(o).
+  0x001ccc30's combo-timer word is `int`: a `void*` at 0x11a8 wrote 8 bytes over f_11ac natively.
+- World / CGame views in those TUs (pads up to 0x54 in the all-pointer ranges) are `void*` words.
+- owners::A_88e40 (0x00088e40, called every frame from 0x00087630): its flag at 32-bit +0x9c read a byte of a manager
+  pointer natively (parts[18]'s high half), so the sim saw a "world name set" every frame. Now name / flag sit on
+  HulkWorld's words. 0x00088e10 (the name setter) is a HulkWorld-based record (was X's 32-bit buf over parts[]).
+- render1's World+0x58 garbage was not the World: the crash at hulk_probe_frame+0xd5c was the actors tag reading the
+  actor manager's handle list at 32-bit offsets once LAYOUT64 gave it a native `am`. ckpt_probe.cpp's HP_ACT_AM keeps
+  the actors walk off on 64-bit (the 32-bit preprocessed file is identical), and replay_native.cpp turns
+  HULK_PROBE_LAYOUT64 on with {0x40, 0x58, 0x18, 0x11a0, 0x11a4, 0x11a8} (the link's probe-layout check: ok).
+- Native play3 replay: flow and mission are now compared. The reference's flow hash solves to boot step 6 at frame 0
+  and 0 from frame 1. Natively the boot step stays 6, because 0x000c4220's caller (CFESoundManager.GS.cpp
+  Menu_c5180::FUN_000c4220(int)) does not bind to the definition (State_c4220::update(Player_c4220*)). Handed to
+  gfx10 (C20/C21).

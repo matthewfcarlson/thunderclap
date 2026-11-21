@@ -3492,7 +3492,8 @@ struct Obj_88530 {
 };
 // matches/0x00088e40.cpp (stub A_88e40), size 0x9d
 struct A_88e40 {
-    char pad[0x9c]; // +0x00
+    void* words[0x5c / 4]; // +0x00 (recs2) the World's words (decls/managers.h HulkWorld: vftable, parts, f58; was char pad[0x5c])
+    char name[0x40]; // +0x5c the world's name (0x00088e10)
     char flag; // +0x9c
     void* FUN_00088e40();
 };
@@ -12986,13 +12987,14 @@ struct Obj_1cbd40 {
 };
 // matches/0x001ccb80.cpp (stub C_1ccb80), size 0x1190
 struct C_1ccb80 {
-    char pad[0x1190]; // +0x00
+    void* vftable; void* f04; void* f08; // +0x00 (recs2) gen CScenarioManager's vftable, f_04 (the World), f_08 (pointers)
+    char pad[0x1190 - 0xc]; // +0x0c
     void FUN_001ccb80();
 };
 // matches/0x001cd3d0.cpp (stub Obj_1cd3d0), size 0x1198
 struct Obj_1cd3d0 {
-    char pad0[8]; // +0x00
-    int field8; // +0x08
+    void* vftable; void* f04; // +0x00 (recs2) gen CScenarioManager's vftable and f_04 (the World)
+    void* field8; // +0x08 (recs2) gen f_08: a pointer (was int)
     int padc; // +0x0c
     int data[0x40]; // +0x10
     char pad110[0x1194 - 0x110]; // +0x110
@@ -13002,7 +13004,8 @@ struct Obj_1cd3d0 {
 };
 // matches/0x001cd650.cpp (stub Thing_1cd650), size 0x11b4
 struct Thing_1cd650 {
-    char pad[0x11a8]; // +0x00
+    void* vftable; void* f04; void* f08; // +0x00 (recs2) gen CScenarioManager's vftable, f_04 (the World), f_08 (pointers)
+    char pad[0x11a8 - 0xc]; // +0x0c
     float timer; // +0x11a8
     int a; // +0x11ac
     int b; // +0x11b0
@@ -13010,7 +13013,8 @@ struct Thing_1cd650 {
 };
 // matches/0x001ce020.cpp (stub Obj_1ce020), size 0x11a4
 struct Obj_1ce020 {
-    char pad[0x1198]; // +0x00
+    void* vftable; void* f04; void* f08; // +0x00 (recs2) gen CScenarioManager's vftable, f_04 (the World), f_08 (pointers)
+    char pad[0x1198 - 0xc]; // +0x0c
     float value; // +0x1198
     char pad2[4]; // +0x119c
     unsigned char flag; // +0x11a0

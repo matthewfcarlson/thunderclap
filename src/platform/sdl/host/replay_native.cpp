@@ -130,10 +130,10 @@ static void prng_bytes(unsigned char* b) {    // (replay_hooks.cpp hulk_prng_byt
 // (ckpt_probe.cpp HULK_PROBE_LAYOUT64): decls/managers.h HulkWorld parts[7] / parts[10], gen CScenarioManager
 // f_0c / f_1194 / f_1198 / f_119c. tools/native_replay.py layout checks them against those headers with the native
 // front end (the native link runs it).
-// #define HULK_PROBE_LAYOUT64 1   (render1: off: the World words natively crash the probe)
+#define HULK_PROBE_LAYOUT64 1   // (recs2) on: the World's and the scenario manager's words are native (gen CScenarioManager f_04 / f_08 pointers)
 #include "../ckpt/ckpt_probe.cpp"
 #ifdef HULK_PROBE_LAYOUT64
-extern "C" const HulkProbeLayout64 hulk_probe_layout64 = {0x40, 0x58, 0x10, 0x1198, 0x119c, 0x11a0};
+extern "C" const HulkProbeLayout64 hulk_probe_layout64 = {0x40, 0x58, 0x18, 0x11a0, 0x11a4, 0x11a8};
 #endif
 static void ckref_dump(void*, int tag, const char* name, unsigned index, unsigned bits, int is_float) {
     log_line("ckdump f=%u t=%d %s[%u] %08x%s", hulk_native_frame_no - 1, tag, name, index, bits, is_float ? " f" : "");

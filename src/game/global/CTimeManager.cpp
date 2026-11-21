@@ -37,7 +37,6 @@ class X {
     char buf[0x40];
     char flag;
     hulk_freg Get();
-    void Set(const char* s);
 };
 extern float scale_86100;
 extern "C" void __cdecl FUN_001eb200();
@@ -2540,10 +2539,12 @@ void Target_88c30::update(int* kind,void* arg) {
 namespace fn_f5b26912 {
 
 // 0x00088e10 FUN_00088e10 (33 B): matches/0x00088e10.cpp
-// sym: ?Set@X@fn_f5b26912@@QAEXPBD@Z
-void X::Set(const char* s) {
-    strncpy(buf, s, 0x40);
-    flag = 1;
+// sym: ?Set@World_88e10@fn_f5b26912@@QAEXPBD@Z
+// (recs2) the World's name on its record (decls/managers.h HulkWorld; was X's 32-bit buf at +0x5c: natively over the managers)
+struct World_88e10 : HulkWorld { void Set(const char* s); };
+void World_88e10::Set(const char* s) {
+    strncpy(name, s, 0x40);
+    f9c = 1;
 }
 
 } // namespace fn_f5b26912
@@ -2552,7 +2553,7 @@ void X::Set(const char* s) {
 // sym: ?FUN_00088e40@A_88e40@owners@@QAEPAXXZ
 void* owners::A_88e40::FUN_00088e40() {
     if (flag)
-        return (char*)this + 0x5c;
+        return name;   // (recs2) the name's own offset (was this + 0x5c: natively inside the managers)
     return 0;
 }
 
