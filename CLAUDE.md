@@ -175,7 +175,12 @@ native run needs the snapshot's report.json refreshed (TreeDefs binds vftable sl
 32-bit symbol table) and the new address names added to a private copy of the binding map (D117).
 The game's free calls are `operator delete(p)` / `operator delete[](p)`: 0x0008d330 / 0x0008d340 are their definitions
 (unk_08ceb0.cpp); MSVC 7.1 predeclares only the scalar form, so declare `void __cdecl operator delete[](void*)` at global
-scope. Never add a new name for the free (D115). When the checker pairs an
+scope. Never add a new name for the free (D115). The game's operator new / new[] are defined once, in unk_08ceb0.cpp, forwarding to
+0x0008d690 / 0x0008d6d0, whose blocks keep their C names (address-named allocator aliases bind natively only to the `(int)`
+signature); no TU defines a global operator new of its own (D131). content::LoadObject's operator delete / delete[] are
+0x00263f30 / 0x00263f40 (both jump to the scalar 0x0008d330), static members of gen content::LoadObject defined in
+LoadStream.cpp (0x263f30 `__declspec(noinline)`); a LoadObject descendant's deleting destructor calls
+`::content::LoadObject::operator delete(this)` (D135, nat2). When the checker pairs an
 unaddressed operator name to the wrong call (`??_V` paired with 0x0008d6d0), add `// equiv-map: NAME = 0xADDR` to the block:
 a mapping hint, not a relaxation (nat2). A `??_G` written as an explicit function keeps `X::~X() {}` (other TUs'
 native code references `??1X`) and has `??_G`'s signature, `void* vfunc_N(unsigned int flags)` (D114). For the script-binding gen templates (Closure/Method/Function) no native
