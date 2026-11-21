@@ -44,10 +44,10 @@ struct Obj_86180 {
     void Call(int);
 };
 class Obj_861f0;
-class A_861f0 {
+class A_861f0 {   // (gfx10) the FE manager's calls by their addresses (natively unaddressed F / G never bound)
   public:
-    void F();
-    void G(Obj_861f0*, hulk_intptr);   // 0x000c4020: the triple (a pointer)
+    void FUN_000bc100();
+    void FUN_000c4020(Obj_861f0*, hulk_intptr);   // 0x000c4020: the triple (a pointer)
 };
 class Obj_861f0 : public HulkGame {   // (recs1) CGame on its record (was char pad[4], int m4, char pad2[0x18], m20)
   public:
@@ -83,7 +83,6 @@ struct Root_863e0 {
     void* words[21];   /* (gfx3) the World's words (HulkWorld): +0x54 is CGame */
     Mid_863e0* p;
 };
-extern Root_863e0* g_863e0;
 struct Inner_86400 {
     char pad[0x18];
 };
@@ -95,7 +94,6 @@ struct Outer_86400 {
     void* words[21];   /* (gfx3) the World's words (HulkWorld): +0x54 is CGame */
     Mid_86400* p54;
 };
-extern Outer_86400* gGlobal_86400;
 struct Final_86400 {
     void Run();
 };
@@ -121,35 +119,35 @@ struct Manager_86420 {
     void* words[21];   /* (gfx3) the World's words (HulkWorld): +0x54 is CGame */
     Hub_86420* hub;
 };
-extern Manager_86420* gManager_86420;
+// (gfx10) 0x000865d0's callees by their addresses and as defined (natively the unaddressed f2..f8 never bound, so
+// entering the front end never reached 0x000c4020, the FE manager's state 7 that ends the boot sequence)
 struct A_865d0 {
-    void f2();
-    void f4();
-    void f6(int);
-    void f8(void*, hulk_intptr);   // 0x000c4020: the triple (a pointer)
+    void FUN_001d2760();
+    void FUN_001d4530();   // a __fastcall free function taking this object (the same registers)
+    void FUN_001d15d0(HULK_TYPE64(int, char));
+    void FUN_000c4020(void*, hulk_intptr);   // 0x000c4020: the triple (a pointer)
 };
 struct B_865d0 {
-    void f3(int);
+    void FUN_00089a20(HULK_TYPE64(int, unsigned char));
 };
 struct C_865d0 {
-    void f5();
+    void FUN_001edf60();
 };
 struct Obj_865d0 : HulkGame {   // (recs1) CGame on its record (was a view with 32-bit pads)
-    A_865d0* init();
 };
 struct Target_86630;
-struct Audio_86630 { void FUN_000ae9a0(int); void FUN_000ae980(); };
+struct Audio_86630 { void FUN_000ae9a0(HULK_TYPE64(int, unsigned char)); void FUN_000ae980(); };   // (gfx10, D203) as defined natively
 struct Stop_86630 { void FUN_000afe80(); };
-struct Panel_86630 { void FUN_001b8780(int); void FUN_001b8900(int); };
+struct Panel_86630 { void FUN_001b8780(HULK_TYPE64(int, bool)); void FUN_001b8900(HULK_TYPE64(int, bool)); };   // (gfx10, D203)
 struct View { void FUN_001b7590(); };
 struct Resource_86630;
 struct Renderer_86630 { void FUN_00208820(); void FUN_00206320(Resource_86630*); };
 struct State_86630 { int value; };
-struct Controller_86630 { void FUN_000bd1b0(int); void FUN_000bc100(); void FUN_000bf0e0(Target_86630*,State_86630*); void FUN_000bb600(); };
+struct Controller_86630 { void FUN_000bd1b0(HULK_TYPE64(int, unsigned char)); void FUN_000bc100(); void FUN_000bf0e0(Target_86630*,State_86630*); void FUN_000bb600(); };
 struct Service_86630 { void FUN_0022aba0(int); };
 extern int __cdecl FUN_00267f00();
 extern "C" Service_86630* __stdcall FUN_000964d0();
-struct Manager_86630 { void FUN_001d2760(); void FUN_001d4530(); void FUN_001d15d0(int); void FUN_001d3c50(); };
+struct Manager_86630 { void FUN_001d2760(); void FUN_001d4530(); void FUN_001d15d0(HULK_TYPE64(int, char)); void FUN_001d3c50(); };   // (gfx10, D203)
 extern Manager_86630* __cdecl FUN_001d4c90();
 struct Sub_86630 { void FUN_001e11d0(); };
 struct Scene_86630 { void FUN_001ee020(); void FUN_001ec310(int); };
@@ -277,7 +275,7 @@ class C48 {
 class A_86a40;
 class C20 {
   public:
-    void F(A_86a40*, int*, float, C30*, C24*);   // (gfx4) 0x000c5180 takes a3 as an int: it binds once its Menu view holds the pointer (follow-up)
+    void FUN_000c5180(A_86a40*, int*, float, C30*, C24*);   // (gfx10) the FE update 0x000c5180 by its address (natively an unaddressed `F` never bound: the boot step stayed 6); its a3 is pointer-sized (hulk_intptr)
 };
 struct State_86a40 {
     int id;
@@ -377,7 +375,6 @@ class CActorManager_87d40 {
   public:
     void run();
 };
-extern owners::Obj_88530* g_88530;
 struct Sim_88670;
 struct Cfg_88670 { char pad[0x2c]; int v2c; };
 struct Ctx_88670 {
@@ -624,8 +621,8 @@ void __stdcall Target(int a, int b, int c, int d) {
 // 0x000861f0 FUN_000861f0 (26 B): matches/0x000861f0.cpp
 // sym: ?Target@Obj_861f0@fn_f5b26912@@QAEXXZ
 void Obj_861f0::Target() {
-    ((A_861f0*)frontEnd)->F();
-    ((A_861f0*)frontEnd)->G(this, (hulk_intptr)triple);
+    ((A_861f0*)frontEnd)->FUN_000bc100();
+    ((A_861f0*)frontEnd)->FUN_000c4020(this, (hulk_intptr)triple);
 }
 
 
@@ -809,7 +806,7 @@ hulk_uintptr __fastcall FUN_00086380(A_86380* self) {   // (decl1) named by its 
 void owners::Target_863e0::FUN_000863e0(unsigned int x) {
     b = a;
     a = x;
-    g_863e0->p->p->f();
+    ((Root_863e0*)DAT_004dd700)->p->p->f();   // (gfx10) the World by its own DAT_ name (natively g_863e0 was another item)
 }
 
 namespace fn_f5b26912 {
@@ -819,7 +816,7 @@ namespace fn_f5b26912 {
 void Obj_86400::Run() {
     a = c;
     c = 0;
-    ((Final_86400*)gGlobal_86400->p54->p18)->Run();
+    ((Final_86400*)((Outer_86400*)DAT_004dd700)->p54->p18)->Run();   // (gfx10) the World by its DAT_ name
 }
 
 } // namespace fn_f5b26912
@@ -829,8 +826,8 @@ void Obj_86400::Run() {
 void owners::Target_86420::FUN_00086420(int v) {
     value = v;
     if (v == 1)
-        gManager_86420->hub->a->f();
-    gManager_86420->hub->b->g();
+        ((Manager_86420*)DAT_004dd700)->hub->a->f();   // (gfx10) the World by its DAT_ name
+    ((Manager_86420*)DAT_004dd700)->hub->b->g();
 }
 
 
@@ -867,17 +864,17 @@ namespace fn_f5b26912 {
 // sym: ?FUN_000865d0@fn_f5b26912@@YIXPAUObj_865d0@1@@Z
 // data: flag_865d0 = DAT_004dd6f0
 void __fastcall FUN_000865d0(Obj_865d0* self) {   // (decl1) named by its address: four `target` overloads in this TU had no unique 64-bit symbol, so callers bound to none natively
-    A_865d0* edi = self->init();
+    A_865d0* edi = (A_865d0*)FUN_001d4c90();   // (gfx10) a free function (ecx still holds self, as in the original)
     if (!(*(unsigned char*)&DAT_004dd6f0))
-        edi->f2();
+        edi->FUN_001d2760();
     else
         (*(unsigned char*)&DAT_004dd6f0) = 0;
-    ((B_865d0*)self->gameFlow)->f3(0);
-    edi->f4();
-    ((C_865d0*)self->sound)->f5();
-    edi->f6(1);
+    ((B_865d0*)self->gameFlow)->FUN_00089a20(0);
+    edi->FUN_001d4530();
+    ((C_865d0*)self->sound)->FUN_001edf60();
+    edi->FUN_001d15d0(1);
     ((owners::Thing_1d3c50 *)edi)->FUN_001d3c50();
-    ((A_865d0*)self->frontEnd)->f8(self, (hulk_intptr)self->triple);
+    ((A_865d0*)self->frontEnd)->FUN_000c4020(self, (hulk_intptr)self->triple);
 }
 
 
@@ -1069,7 +1066,7 @@ void A_86a40::Run(float arg) {
     if (p4->id != 7) {
         p30->FUN_001eb2a0(arg, false);
         p48->FUN_00090020();
-        p20->F(this, (int*)p4, arg, p30, p24);
+        p20->FUN_000c5180(this, (int*)p4, arg, p30, p24);
         p2c->FUN_000d6c30(arg);
         p28->FUN_002089f0();
         p24->FUN_001b86f0(p1c);
@@ -2283,7 +2280,7 @@ CGame::CGame() { vftable=(void*)DAT_003ffab4; triple=time=0; controllers=gameCon
 // 0x00088530 FUN_00088530 (29 B): matches/0x00088530.cpp
 // sym: ?FUN_00088530@Obj_88530@owners@@QAEXXZ
 void owners::Obj_88530::FUN_00088530() {
-    g_88530 = this;
+    (*(owners::Obj_88530**)&DAT_004dd6ec) = this;   // (gfx10) CGame's global by its DAT_ name (natively g_88530 was another item: DAT_004dd6ec stayed null)
     FUN_00088020();
     FUN_000879c0();
     FUN_00087940();

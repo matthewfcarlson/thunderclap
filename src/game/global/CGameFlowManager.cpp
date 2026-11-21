@@ -201,7 +201,7 @@ class T_89f00 {
 };
 struct Session_8a090 {
     bool FUN_001d1cb0();
-    bool FUN_001d2ba0(void *item, int a, int b);
+    bool FUN_001d2ba0(void *item, int a, HULK_TYPE64(int, bool) b);   // (gfx10) 0x001d2ba0 takes and returns bool (natively unbound as int)
     void FUN_001d1d30();
 };
 struct ThisCall_00089400 {

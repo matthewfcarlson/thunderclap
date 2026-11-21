@@ -332,9 +332,19 @@ struct ThisNote_000c3ea0 {
 };
 struct Player_c4220 { void FUN_001b7310(const char*, unsigned, unsigned char); };   // (gfx9) as defined
 struct Screen_c4220 { void FUN_001edf60(); void FUN_001ec480(const char*, const char*); };
+#if defined(__clang__)
+#define HULK_FEM_OFF_c4220(f) __builtin_offsetof(HulkFEManager, f)
+#else
+#define HULK_FEM_OFF_c4220(f) ((unsigned int)(hulk_uintptr)&((HulkFEManager*)0)->f)
+#endif
 struct State_c4220 {
- char pad0[8]; unsigned char finished; char pad9[7]; int mode; char pad14[0x28]; Screen_c4220* screen; char pad40[0x1b89]; char suffix[1];
- bool FUN_000c3900(const char*,int,int,int,int,int,int);
+ // (gfx10) on decls/managers.h HulkFEManager's offsets (were 32-bit pads: natively the screen and the boot suffix were
+ // read inside the record's pointer words)
+ char pad0[HULK_FEM_OFF_c4220(f8)]; unsigned char finished;
+ char pad9[HULK_FEM_OFF_c4220(f10) - HULK_FEM_OFF_c4220(f8) - 1]; int mode;
+ char pad14[HULK_FEM_OFF_c4220(f3c) - HULK_FEM_OFF_c4220(f10) - 4]; Screen_c4220* screen;
+ char pad40[HULK_FEM_OFF_c4220(f1bc9) - HULK_FEM_OFF_c4220(f3c) - sizeof(void*)]; char suffix[1];
+ bool FUN_000c3900(const char*, unsigned int, unsigned int, int, const char*, unsigned int, unsigned int);   // (gfx10) as defined (0x000c3900 Game::target)
  void update(Player_c4220* player);
 };
 
@@ -1947,12 +1957,12 @@ void UnlockMenu::FUN_000c21b0(volatile int id) {
 
 
 // 0x000c2990 FUN_000c2990 (510 B): equivalent/0x000c2990.cpp [wrapped: conflict: FUN_001d4c90]
-// sym: ?run@Target_c2990@fn_000c2990@@QAEXPAUOutput_c2990@2@@Z @9a15de49e39b @weaec597f9f38 @v8f282526634d
+// sym: ?run@Target_c2990@fn_000c2990@@QAEXPAUOutput_c2990@2@@Z @9a15de49e39b @weaec597f9f38 @vdf82c855ad96
 namespace fn_000c2990 {
 // STATUS: equivalent (tools/equiv.py level 3: 3073 inputs, branch coverage 26/26)
 // FUN_000c2990 @ 0x000c2990
 // cl-flags: /GS
-struct Track { const char* FUN_00092330(); int FUN_00092310(); void FUN_00092360(int); };
+struct Track { const char* FUN_00092330(); int FUN_00092310(); void FUN_00092360(unsigned char); };   // (gfx10) 0x00092360 takes a byte
 struct Lookup_c2990 {  };
 struct Manager_c2990 {  };
 struct Group_c2990 { void FUN_001bdff0(const char*); };
@@ -2980,21 +2990,28 @@ extern "C" void __cdecl FUN_000fc100(int a, int b);
 extern "C" int __cdecl FUN_000964a0(char*, int, const char*, ...);   // (x64t14) as defined (CUnlockablesManager.cpp)
 int FUN_00345804(const char* str, const char* fmt, ...);
 
+// (gfx10) CFEManager (decls/managers.h HulkFEManager) at its record's offsets (were 32-bit pads: natively the state
+// 7 that leaves the boot sequence was written 4 bytes early, into f0c, and the FE manager stayed in state 0)
+#if defined(__clang__)
+#define HULK_FEM_OFF_c4020(f) __builtin_offsetof(HulkFEManager, f)
+#else
+#define HULK_FEM_OFF_c4020(f) ((unsigned int)(hulk_uintptr)&((HulkFEManager*)0)->f)
+#endif
 class MissionMenu {
   public:
-    char pad0[8];
+    char pad0[HULK_FEM_OFF_c4020(f8)];
     char f08;
-    char pad09[7];
+    char pad09[HULK_FEM_OFF_c4020(f10) - HULK_FEM_OFF_c4020(f8) - 1];
     int f10;
-    char pad14[0xc];
+    char pad14[HULK_FEM_OFF_c4020(f20) - HULK_FEM_OFF_c4020(f10) - 4];
     Handle_c4020* f20;
     Ref_c4020* f24;
     char f28;
-    char pad29[0x5c - 0x29];
+    char pad29[HULK_FEM_OFF_c4020(f5c) - HULK_FEM_OFF_c4020(f28) - 1];
     FrontEnd_c4020* f5c;
-    char pad60[0x26c - 0x60];
+    char pad60[HULK_FEM_OFF_c4020(listB) - HULK_FEM_OFF_c4020(f5c) - sizeof(void*)];
     const char* names[0x80];
-    char pad46c[0x1880 - 0x46c];
+    char pad46c[HULK_FEM_OFF_c4020(f1880) - HULK_FEM_OFF_c4020(listB) - sizeof(void*) * 0x80];
     int f1880;
     void FUN_000befc0(int a, int b, int c);
     void FUN_000b8f20();
@@ -3062,7 +3079,7 @@ void MissionMenu::FUN_000c4020(hulk_intptr a, hulk_intptr b)
 namespace fn_f71c7272 {
 
 // 0x000c4220 FUN_000c4220 (348 B): equivalent/0x000c4220.cpp
-// sym: ?update@State_c4220@fn_f71c7272@@QAEXPAUPlayer_c4220@2@@Z @e4adf6679b7d @wacbf346f47c1 @v66658f81573e
+// sym: ?update@State_c4220@fn_f71c7272@@QAEXPAUPlayer_c4220@2@@Z @e4adf6679b7d @wacbf346f47c1 @v9dfff7b6da5b
 // STATUS: equivalent (tools/equiv.py level 3: 19408 inputs, branch coverage 19/19)
 // FUN_000c4220 @ 0x000c4220
 // FUN_000c4220 @ 0x000c4220

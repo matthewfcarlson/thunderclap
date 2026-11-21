@@ -135,8 +135,8 @@ class Obj_1dbd40 {
 };
 class Loader_1dbd50 {
   public:
-    void Config_001d2ba0(const char*, int, int);
-    void Type_001d2ba0(const char*, int, int);
+    void Config_001d2ba0(const char*, int, HULK_TYPE64(int, bool));   // (gfx10) 0x001d2ba0 takes and returns bool (natively unbound as int)
+    void Type_001d2ba0(const char*, int, HULK_TYPE64(int, bool));   // (gfx10) 0x001d2ba0 takes and returns bool (natively unbound as int)
 };
 extern "C" Loader_1dbd50* __cdecl FUN_001d4c90();
 class CSPManager_1dbe60 {

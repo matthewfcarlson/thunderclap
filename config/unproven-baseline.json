@@ -207,6 +207,69 @@
    },
    "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
   },
+  "0x000c2990": {
+   "modes": {
+    "msvc": {
+     "code": "9a15de49e39b",
+     "view": "b07c4ae6ba79",
+     "view_only": true,
+     "accepted": "2026-11-21T11:23:24",
+     "why": "D187 macOS-first: view-only (State_c4220 / callers' declarations as defined; boot step)",
+     "by": "unproven-accept"
+    },
+    "wine": {
+     "code": "eaec597f9f38",
+     "view": "f4581455e3ce",
+     "view_only": true,
+     "accepted": "2026-11-21T11:23:24",
+     "why": "D187 macOS-first: view-only (State_c4220 / callers' declarations as defined; boot step)",
+     "by": "unproven-accept"
+    }
+   },
+   "why": "D187 macOS-first: view-only (State_c4220 / callers' declarations as defined; boot step)"
+  },
+  "0x000c4220": {
+   "modes": {
+    "msvc": {
+     "code": "e4adf6679b7d",
+     "view": "59c863fb3f81",
+     "view_only": true,
+     "accepted": "2026-11-21T11:23:45",
+     "why": "D187 macOS-first: view-only (State_c4220 / callers' declarations as defined; boot step)",
+     "by": "unproven-accept"
+    },
+    "wine": {
+     "code": "acbf346f47c1",
+     "view": "f3be5732cafa",
+     "view_only": true,
+     "accepted": "2026-11-21T11:23:45",
+     "why": "D187 macOS-first: view-only (State_c4220 / callers' declarations as defined; boot step)",
+     "by": "unproven-accept"
+    }
+   },
+   "why": "D187 macOS-first: view-only (State_c4220 / callers' declarations as defined; boot step)"
+  },
+  "0x000c5180": {
+   "modes": {
+    "msvc": {
+     "code": "d012a59b714a",
+     "view": "42564c3e4630",
+     "view_only": true,
+     "accepted": "2026-11-21T11:23:48",
+     "why": "D187 macOS-first: view-only (callers' declarations as defined; boot step)",
+     "by": "unproven-accept"
+    },
+    "wine": {
+     "code": "ed4f834c8f83",
+     "view": "b659a02ef658",
+     "view_only": true,
+     "accepted": "2026-11-21T11:23:48",
+     "why": "D187 macOS-first: view-only (callers' declarations as defined; boot step)",
+     "by": "unproven-accept"
+    }
+   },
+   "why": "D187 macOS-first: view-only (callers' declarations as defined; boot step)"
+  },
   "0x000c5e60": {
    "modes": {
     "wine": {
@@ -1270,5 +1333,5 @@
    "why": "D126: hashed by the 2026-11-11 bulk pass (or later without a passing ledger line); triaged in build/integ2/d126 (frame-UB, budget, x87, float, source bugs)"
   }
  },
- "total": 140
+ "total": 146
 }

@@ -15,7 +15,7 @@ namespace fn_faf408b8 {} using namespace fn_faf408b8;
 namespace fn_faf408b8 {
 struct Reader {
   public:
-    bool FUN_001d2ba0(const char*,int,int);
+    bool FUN_001d2ba0(const char*,int,HULK_TYPE64(int, bool));   // (gfx10) 0x001d2ba0 takes and returns bool (natively unbound as int)
     bool FUN_001d2da0(const char*,int*);
     bool FUN_001d2de0(const char*,int*);
     bool FUN_001d19f0(char*, int, int);

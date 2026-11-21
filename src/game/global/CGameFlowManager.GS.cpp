@@ -213,7 +213,7 @@ unsigned __int64 FUN_002672f0(const char* s, int a, int b);   // string hash wit
 char FUN_001d04d0(const void* typeInfo);                      // type_info test (compares against DAT_0048e100, ...)
 
 struct InfoReader {
- bool FUN_001d2ba0(const char*, int, int);
+ bool FUN_001d2ba0(const char*, int, HULK_TYPE64(int, bool));   // (gfx10) 0x001d2ba0 takes and returns bool (natively unbound as int)
 };
 extern "C" InfoReader* __cdecl FUN_001d4c90();
 extern "C" int __cdecl FUN_000964a0(char*, int, const char*, ...);   // (x64t14) as defined (CUnlockablesManager.cpp)

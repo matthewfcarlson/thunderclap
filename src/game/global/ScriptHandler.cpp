@@ -220,7 +220,7 @@ extern "C" int __cdecl FUN_00267760(char* buf, int size, const char* fmt, ...); 
 class Obj_1d3030 : public ScriptHandlerFields {
   public:
     virtual void v0();
-    char Check_001d2ba0(const char*, int, int);
+    HULK_TYPE64(char, bool) Check_001d2ba0(const char*, int, HULK_TYPE64(int, bool));   // (gfx10) 0x001d2ba0 takes and returns bool (natively unbound as int)
     const char* Run(const char*, const char*);
 };
 class CFEManager_1d3120 {

@@ -78,7 +78,7 @@ public:
 };
 class Scope_464c0 {
 public:
-    char FUN_001d2ba0(const char* name, int a, int b);
+    HULK_TYPE64(char, bool) FUN_001d2ba0(const char* name, int a, HULK_TYPE64(int, bool) b);   // (gfx10) 0x001d2ba0 takes and returns bool (natively unbound as int)
     char FUN_001d2d40(const char* name, float* out);
     void FUN_001d19d0(int n);
 };

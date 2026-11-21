@@ -15,7 +15,7 @@ namespace fn_fefa7a64 {} using namespace fn_fefa7a64;
 namespace fn_fefa7a64 {
 extern "C" int __cdecl FUN_00267760(char* buf, int size, const char* fmt, ...);
 struct Script_12f400 {
-    char FUN_001d2ba0(const char* name, int a, int b);
+    HULK_TYPE64(char, bool) FUN_001d2ba0(const char* name, int a, HULK_TYPE64(int, bool) b);   // (gfx10) 0x001d2ba0 takes and returns bool (natively unbound as int)
 };
 extern "C" Script_12f400* __cdecl FUN_001d4c90();
 struct Item_12f750 { char pad[0x1c]; int f1c; };

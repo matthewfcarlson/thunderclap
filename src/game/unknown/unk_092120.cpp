@@ -73,7 +73,7 @@ struct Obj_92340 {
 };
 class Obj_92410 {
   public:
-    void Setup_001d2ba0(const char*, int, int);
+    void Setup_001d2ba0(const char*, int, HULK_TYPE64(int, bool));   // (gfx10) 0x001d2ba0 takes and returns bool (natively unbound as int)
 };
 class Host_92410 {
   public:

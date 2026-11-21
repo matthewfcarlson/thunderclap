@@ -55,7 +55,7 @@ class ScriptTable : public ScriptHandlerFields {
 public:
     virtual void v0();
     void FUN_001d1cb0();
-    void FUN_001d2ba0(const char *name, int a, int b);
+    void FUN_001d2ba0(const char *name, int a, HULK_TYPE64(int, bool) b);   // (gfx10) 0x001d2ba0 takes and returns bool (natively unbound as int)
     char FUN_001d2ee0(Actor *actor);
 };
 struct Stream { virtual void s0(); virtual void release(); virtual void s2(); virtual void read(char*,int,int); virtual void s4(); virtual void s5(); virtual void s6(); virtual void s7(); virtual void s8(); virtual void s9(); virtual void s10(); virtual void s11(); virtual void s12(); virtual void s13(); virtual void s14(); virtual int size(); virtual void s16(); virtual void s17(); virtual void s18(); virtual void s19(); virtual void s20(); virtual void reset(); virtual void s22(); virtual bool valid(); };

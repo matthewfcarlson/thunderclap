@@ -6,6 +6,7 @@
 #include "decls/data/game/global.h"
 #include "gen/global.h"
 #include "gen/owners.h"
+#include "decls/managers.h"   // (gfx10) HulkFEManager: Menu_c5180 is CFEManager
 #define TREE_TU_BEGIN namespace fn_f65ec8d6 {
 #define TREE_TU_END }
 namespace fn_f65ec8d6 {} using namespace fn_f65ec8d6;
@@ -49,13 +50,13 @@ public:
 namespace fn_f65ec8d6 {
 class Timer {
 public:
-    void FUN_000b0080(int dt);
+    void FUN_000b0080(HULK_TYPE64(int, float) dt);   // (gfx10) 0x000b0080 takes the float (HULK_FBITS)
 };
 class Source_c5180 {
 public:
     void *FUN_000862d0();
     Timer *FUN_00086330();
-    int FUN_00086300();
+    hulk_uintptr FUN_00086300();   // (gfx10) as defined (CTimeManager.cpp: a pointer-sized word)
 };
 class Probe_c5180 {
 public:
@@ -66,10 +67,10 @@ struct Flags_c5180 {
     char pad0[0x9a8];
     char enabled;
 };
-class Block4_c5180 {
+class Block4_c5180 {   // (gfx10) the CFESoundManager (gen: its vftable, then f_04, a pointer: 0x00086a40's C30*)
 public:
-    int f0;
-    int f4;
+    void *f0;
+    hulk_intptr f4;
 };
 class Target34 {
 public:
@@ -83,7 +84,7 @@ public:
 };
 class Aux5c {
 public:
-    void FUN_001c04e0(int dt);
+    void FUN_001c04e0(HULK_TYPE64(int, float) dt);   // (gfx10) 0x001c04e0 takes the float (HULK_FBITS)
 };
 class Aux38 {
 public:
@@ -104,35 +105,43 @@ struct Frame_c5180 {
     Node *cur;
     char name[0x40];
 };
+// (gfx10) CFEManager (decls/managers.h HulkFEManager) at its record's offsets (were 32-bit pads: natively the state, the
+// managers and the names were read inside the record's pointer words); a3 / f3c / the sound manager's f4 are the
+// pointer 0x00086a40 passes (C30*), pointer-sized natively (hulk_intptr keeps the 32-bit type and mangling)
+#if defined(__clang__)
+#define HULK_FEM_OFF_c5180(f) __builtin_offsetof(HulkFEManager, f)
+#else
+#define HULK_FEM_OFF_c5180(f) ((unsigned int)(hulk_uintptr)&((HulkFEManager*)0)->f)
+#endif
 class Menu_c5180 {
 public:
-    char pad0[0x10];
+    char pad0[HULK_FEM_OFF_c5180(f10)];
     int state;
-    char pad14[0x30 - 0x14];
+    char pad14[HULK_FEM_OFF_c5180(f30) - HULK_FEM_OFF_c5180(f10) - 4];
     void *f30;
     Target34 *f34;
     Aux38 *f38;
-    int f3c;
+    hulk_intptr f3c;
     Block4_c5180 *f40;
-    char pad44[0x54 - 0x44];
+    char pad44[HULK_FEM_OFF_c5180(f54) - HULK_FEM_OFF_c5180(f40) - sizeof(void *)];
     Aux54 *f54;
-    char pad58[4];
+    char pad58[HULK_FEM_OFF_c5180(f5c) - HULK_FEM_OFF_c5180(f54) - sizeof(void *)];
     Aux5c *f5c;
-    char pad60[0x1a06 - 0x60];
+    char pad60[HULK_FEM_OFF_c5180(f1a06) - HULK_FEM_OFF_c5180(f5c) - sizeof(void *)];
     char f1a06;
-    char pad1a07[0x1c8c - 0x1a07];
+    char pad1a07[HULK_FEM_OFF_c5180(f1c8c) - HULK_FEM_OFF_c5180(f1a06) - 1];
     char pendingName[0x20];
     char savedName[0x40];
-    char pad1cec[0x1cfc - 0x1cec];
+    char pad1cec[HULK_FEM_OFF_c5180(f1cfc) - HULK_FEM_OFF_c5180(f1cac) - 0x40];
     float f1cfc;
-    char pad1d00[0x1d34 - 0x1d00];
+    char pad1d00[HULK_FEM_OFF_c5180(f1d34) - HULK_FEM_OFF_c5180(f1cfc) - 4];
     float f1d34;
-    void FUN_000bfbe0(Source_c5180 *src, int dt);
+    void FUN_000bfbe0(Source_c5180 *src, HULK_TYPE64(int, float) dt);   // (gfx10) 0x000bfbe0 takes the float
     void FUN_000b8c50(const char *a, const char *b);
     void FUN_000b9620();
     void FUN_000b9ad0();
-    void FUN_000c4220(int a);
-    void FUN_000c2990(int a);
+    void FUN_000c4220(hulk_uintptr a);   // (gfx10) binds natively like the definition's Player_c4220*
+    void FUN_000c2990(hulk_uintptr a);   // (gfx10) binds natively like the definition's Output_c2990*
     void FUN_000c3db0();
     void FUN_000b9650();
     void FUN_000b96e0();
@@ -140,16 +149,16 @@ public:
     void FUN_000b9830();
     void FUN_000b97d0();
     void FUN_000bcf40(void *a);
-    void FUN_000b90c0(int a);
-    void FUN_000c5180(Source_c5180 *src, void *a1, float dt, int a3, Aux54 *a4);
+    void FUN_000b90c0(HULK_TYPE64(int, bool) a);   // (gfx10) 0x000b90c0 takes a bool
+    void FUN_000c5180(Source_c5180 *src, void *a1, float dt, hulk_intptr a3, Aux54 *a4);
 };
 
 
 // 0x000c5180 FUN_000c5180 (1595 B): equivalent/0x000c5180.cpp
-// sym: ?FUN_000c5180@Menu_c5180@fn_f65ec8d6@@QAEXPAVSource_c5180@2@PAXMHPAVAux54@2@@Z @d012a59b714a @wed4f834c8f83 @ve37764adde81
+// sym: ?FUN_000c5180@Menu_c5180@fn_f65ec8d6@@QAEXPAVSource_c5180@2@PAXMHPAVAux54@2@@Z @d012a59b714a @wed4f834c8f83 @v4d077d72d0fd
 // STATUS: equivalent (tools/equiv.py level 3: 3135 inputs, branch coverage 75/80, incomplete)
 // FUN_000c5180 @ 0x000c5180
-void Menu_c5180::FUN_000c5180(Source_c5180 *src, void *a1, float dt, int a3, Aux54 *a4)
+void Menu_c5180::FUN_000c5180(Source_c5180 *src, void *a1, float dt, hulk_intptr a3, Aux54 *a4)
 {
     Frame_c5180 f;
     Block4_c5180 *blk = f40;
@@ -159,7 +168,7 @@ void Menu_c5180::FUN_000c5180(Source_c5180 *src, void *a1, float dt, int a3, Aux
     void *res = src->FUN_000862d0();
     int dtBits = *(int *)&dt;
     f54 = a4;
-    src->FUN_00086330()->FUN_000b0080(dtBits);
+    src->FUN_00086330()->FUN_000b0080(HULK_FBITS(dtBits));
     Probe_c5180 *probe = FUN_000fc3d0();
     if (probe->flags && probe->flags->enabled)
         f1d34 = dt + f1d34;
@@ -171,7 +180,7 @@ void Menu_c5180::FUN_000c5180(Source_c5180 *src, void *a1, float dt, int a3, Aux
         f.cur = FUN_000fc310();
         if (f.cur) {
             if (strcmp(f.cur->vfunc_8(), "main") == 0)
-                FUN_000bfbe0(src, dtBits);
+                FUN_000bfbe0(src, HULK_FBITS(dtBits));
             if (strcmp(f.cur->vfunc_8(), "credits") == 0) {
                 FUN_000b9620();
             } else {
@@ -184,7 +193,7 @@ void Menu_c5180::FUN_000c5180(Source_c5180 *src, void *a1, float dt, int a3, Aux
             FUN_000b9ad0();
         if (f.cur && strcmp(f.cur->vfunc_8(), "blonsky_file") == 0) {
             if (f5c)
-                f5c->FUN_001c04e0(dtBits);
+                f5c->FUN_001c04e0(HULK_FBITS(dtBits));
         }
         break;
     case 1:
@@ -194,7 +203,7 @@ void Menu_c5180::FUN_000c5180(Source_c5180 *src, void *a1, float dt, int a3, Aux
         break;
     case 2:
         FUN_000fc170(dtBits);
-        FUN_000bfbe0(src, dtBits);
+        FUN_000bfbe0(src, HULK_FBITS(dtBits));
         break;
     case 4:
         FUN_0008e090()->on = 1;

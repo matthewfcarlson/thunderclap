@@ -4207,8 +4207,12 @@ struct Foo_b8c90 {
 };
 // matches/0x000b9090.cpp (stub Target_b9090), size 0x14
 struct Target_b9090 {
-    char pad[0x10]; // +0x00
-    int state; // +0x10
+    // (gfx10) CFEManager's words (decls/managers.h HulkFEManager): natively the state is at 0x14
+    void* vftable; // +0x00
+    unsigned int f4; // +0x04 (+0x08)
+    unsigned char f8; // +0x08 (+0x0c)
+    char p9[7];
+    int state; // +0x10 (+0x14)
     void FUN_000b9090(int value);
 };
 // matches/0x000bc9f0.cpp (stub MenuScreen_bc9f0), size 0x1

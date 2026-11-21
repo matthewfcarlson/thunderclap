@@ -171,7 +171,7 @@ struct Finder {
 
 struct Inst {
     char FUN_001d1cb0();
-    char FUN_001d2ba0(const char *s, int a, int b);
+    HULK_TYPE64(char, bool) FUN_001d2ba0(const char *s, int a, HULK_TYPE64(int, bool) b);   // (gfx10) 0x001d2ba0 takes and returns bool (natively unbound as int)
     void FUN_001d1d50(const char *key, const void *v);
     void FUN_001d19d0(int a);
     void FUN_001d1d30();

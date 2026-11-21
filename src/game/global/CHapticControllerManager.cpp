@@ -21,9 +21,10 @@ class Obj_b0080 {
     void af8_000af8e0(float);   // (gfx4) as defined: the frame time
     void afaf_000afaf0();
 };
-class Thing_b0080 {
-  public:
-    char pad[5];
+class Thing_b0080 {   // (gfx10) CHapticControllerManager's words (decls/managers.h HulkHapticControllerManager; was pad[5]:
+  public:              // natively the flag and the device were read inside the vftable)
+    void* vftable;
+    char f04;
     unsigned char flag;
     char pad2[2];
     Obj_b0080* ptr;
