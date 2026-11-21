@@ -65,6 +65,21 @@ CASES = {
     "0x000a97e0_native_orange_init": ("equivalent", None, 0.9, {"native": True, "n_inputs": 300}),
     "0x000a97e0_orange_init_msvc": ("equivalent", None, 0.9, {"src": "0x000a97e0_native_orange_init", "n_inputs": 300}),
     "0x000a97e0_native_orange_init_uncited": ("fail", "L2 pre_census", 0, {"native": True, "n_inputs": 20}),
+    # (integ7, rev5 (b), D164) guarded items `ge(*this+0xf4.f32, 0) if gt(*this+0xf8.f32, 0)` (a shake's time where its
+    # duration is positive), macros `HULK_PRE_GUARD(shake[i].duration > 0.0f) HULK_PRE_GE(shake[i].time, 0.0f)`: the pair
+    # is drawn together each epoch, the trap check plants the guard true (must trap) and false (must not); _idle plants
+    # play3's crash state (time -0.34 on an idle shake): no trap, equivalent; _active plants it on an active shake: the
+    # repair moves the time into range (an input outside the invariant is none of the function's). Mutants: the macro outside its guard, a guard writer that doesn't store the word left unlisted
+    "0x000a97e0_native_orange_guard": ("equivalent", None, 0.9, {"native": True, "n_inputs": 300}),
+    "0x000a97e0_orange_guard_msvc": ("equivalent", None, 0.9, {"src": "0x000a97e0_native_orange_guard", "n_inputs": 300}),
+    "0x000a97e0_native_orange_guard_idle": ("equivalent", None, 0.5, {"src": "0x000a97e0_native_orange_guard", "native": True,
+                                                                      "n_inputs": 100,
+                                                                      "equiv_on": "plant:this+0xf4=0xbeadcae0,plant:this+0xf8=0"}),
+    "0x000a97e0_native_orange_guard_active": ("equivalent", None, 0.5, {"src": "0x000a97e0_native_orange_guard",
+                                                                                "native": True, "n_inputs": 50,
+                                                                                "equiv_on": "plant:this+0xf4=0xbeadcae0,plant:this+0xf8=0x3f800000"}),
+    "0x000a97e0_native_orange_guard_outside": ("fail", "L2 pre_macro_mismatch", 0, {"native": True, "n_inputs": 20}),
+    "0x000a97e0_native_orange_guard_writer": ("fail", "L2 pre_census", 0, {"native": True, "n_inputs": 20}),
     # (rev5: fail closed) a destructor is left out only when `// pre-dtors:` lists it: unlisted it counts as a constructor
     # (0x000a9620 stores no duration: pre_uninit); a listed constructor refuses the items
     "0x000a97e0_native_orange_init_dtorunlisted": ("fail", "L2 pre_uninit", 0, {"native": True, "n_inputs": 20}),

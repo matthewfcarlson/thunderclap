@@ -3933,12 +3933,13 @@ class Machine:
     """Initial memory state for one input: a deterministic function of (seed, epoch, address)."""
 
     def __init__(self, prog, seed, globals_, pristine=False, dictionary=(), pointers=(), overlay=None, sentinels=(),
-                 granges=None, oranges=None):
+                 granges=None, oranges=None, rawplant=None):
         self.overlay = overlay or {}       # {(epoch, addr): bytes} forced by directed inputs
         self.granges = granges or {}       # (integ4, D152b) {global word: range cond}: drawn inside it, per epoch
         # (integ7, item 8; rev5 (b)) {object word: range cond}: the words of the object in ecx a range item names, drawn
         # inside it in every epoch (each stubbed call's havoc redraws memory: the word stays in range on both sides)
         self.oranges = oranges or {}
+        self.rawplant = rawplant or {}      # (integ7) tests/test_orange_pair.py: words of later epochs' raw draws
         # (round 7) values a runaway walk compared its links against (`&tree.nil`): half the words of every
         # data page hold one of them, in every epoch, so list and tree walks end within a few links
         self.sentinels = tuple(sentinels)
@@ -4019,14 +4020,30 @@ class Machine:
             for i, v in pat:
                 arr[(i + rot) & 1023] = v
             b = arr.tobytes()
+        if self.rawplant and epoch >= 1:
+            rp_ = [(a, v) for a, v in self.rawplant.items() if page <= a and a + 4 <= page + PAGE]
+            if rp_:
+                buf = bytearray(b)
+                for a, v in rp_:
+                    buf[a - page:a - page + 4] = struct.pack("<I", v)
+                b = bytes(buf)
         if self.oranges:
             hits_ = [a for a in self.oranges if page <= a and a + 4 <= page + PAGE]
             if hits_:
                 # (integ7, item 8) after every other fill (sentinels too), before the overlay (a trap check's plant wins)
                 buf = bytearray(b)
                 for a in hits_:
+                    cond_, guard_ = self.oranges[a]
+                    if guard_ is not None:
+                        # (rev5 (b)) the pair is drawn together each epoch: the word is repaired only where the guard
+                        # (as this epoch draws it) holds; a guard on another page is read from that page's draw
+                        ga_, gc_ = guard_
+                        gb_ = bytes(buf[ga_ - page:ga_ - page + 4]) if page <= ga_ and ga_ + 4 <= page + PAGE else \
+                            self._guard_bytes(ga_, epoch)
+                        if not _pre_in(_pre_val(gb_, 4, gc_[5]), gc_):
+                            continue
                     nb_ = _pre_range_fix(mix(self.seed, epoch, a, 0x0A7), a, bytes(buf[a - page:a - page + 4]), 4,
-                                         self.oranges[a], False)
+                                         cond_, False)
                     if nb_ is not None:
                         buf[a - page:a - page + 4] = nb_
                 b = bytes(buf)
@@ -4044,6 +4061,17 @@ class Machine:
             self._cache.clear()
         self._cache[key] = b
         return b
+
+    def _guard_bytes(self, ga, epoch):
+        """(integ7, rev5 (b)) The guard word's 4 bytes in EPOCH, from its own page (a cycle reads it unrepaired)."""
+        busy = self.__dict__.setdefault("_gbusy", set())
+        if ga in busy:
+            return bytes(4)
+        busy.add(ga)
+        try:
+            return bytes(self.byte(ga + i, epoch) for i in range(4))
+        finally:
+            busy.discard(ga)
 
     def byte(self, addr, epoch):
         p = addr & ~0xFFF
@@ -4063,6 +4091,7 @@ def _plant_words():
         if m:
             out.append(("s", int(m.group(1)), int(m.group(3), 0) & M32) if m.group(1) is not None else
                        ("this", int(m.group(2), 16), int(m.group(3), 0) & M32))
+
     return out
 
 
@@ -4081,7 +4110,8 @@ def _oranges(pre, ecx):
         if it_[1] == "othis":
             a_ = (ecx + it_[3]) & M32
             if _obj_word_ok(a_):
-                out[a_] = it_[5]
+                # (integ7, rev5 (b)) a guarded word carries its guard (address, cond): repaired only where it holds
+                out[a_] = (it_[5], ((ecx + it_[4][0]) & M32, it_[4][1]) if it_[4] else None)
     return out
 
 
@@ -8522,7 +8552,22 @@ def _pre_range_macros(code):
             t_ = re.findall(r"[A-Za-z_]\w*", p_.split("=")[0])
             names.append(t_[-1] if t_ else None)
     out, bad = set(), []
-    for fn_, args_ in re.findall(r"\bHULK_PRE_(RANGE|GT|GE|LT|LE)\s*\(([^;]*)\)\s*;", code):
+    for mm_ in re.finditer(r"\bHULK_PRE_(RANGE|GT|GE|LT|LE)\s*\(([^;]*)\)\s*;", code):
+        fn_, args_ = mm_.group(1), mm_.group(2)
+        # (integ7, rev5 (b)) `HULK_PRE_GUARD(FIELD OP C) HULK_PRE_GE(...)`: the check holds only where the guard does
+        gm_ = re.search(r"\bHULK_PRE_GUARD\s*\(\s*([^()<>=]+?)\s*(>=|<=|>|<)\s*([^()<>=]+?)\s*\)\s*$", code[:mm_.start()])
+        guard_ = None
+        if gm_:
+            gsub_ = gm_.group(1).replace(" ", "")
+            if not _PRE_FIELD_EXPR.match(gsub_):
+                bad.append("HULK_PRE_GUARD(%s): the guard's subject must be a field of the object" % gm_.group(0))
+                continue
+            try:
+                gc_ = _pre_range_cond({">": "gt", ">=": "ge", "<": "lt", "<=": "le"}[gm_.group(2)], [gm_.group(3)])
+            except (ValueError, KeyError):
+                bad.append("HULK_PRE_GUARD: constant %r" % gm_.group(3))
+                continue
+            guard_ = (re.sub(r"^this->", "", gsub_), gc_)
         a_ = [x.strip() for x in args_.split(",")]
         mg_ = re.match(r"^\*\s*\(\s*(float|int)\s*\*\s*\)\s*&\s*DAT_([0-9a-fA-F]{8})$", a_[0])
         if mg_:
@@ -8546,7 +8591,10 @@ def _pre_range_macros(code):
             if _pre_relational(c_):
                 bad.append("HULK_PRE_%s(%s): a field subject takes constant bounds" % (fn_, args_))
                 continue
-            out.add((("field", re.sub(r"^this->", "", sub_)), c_))
+            out.add((("field", re.sub(r"^this->", "", sub_), guard_), c_))
+            continue
+        if guard_ is not None:
+            bad.append("HULK_PRE_GUARD before a check on %r: only a field check takes a guard" % a_[0])
             continue
         if not re.match(r"^[A-Za-z_]\w*$", a_[0]):
             # (rev5) the subject is evaluated twice (condition and value) and mapped by name: a bare parameter only
@@ -8657,62 +8705,89 @@ def _parse_pre(lines):
     out, bad = [], []
     for l in lines:
         items = _PRE_ITEM.findall(l)
-        rest = _PRE_ITEM.sub("", l).replace(",", " ").strip()
+        rest = re.sub(r"\bif\b", " ", _PRE_ITEM.sub("", l)).replace(",", " ").strip()
         if not items or rest:
             bad.append("not `notnan(LOC)` items: %r" % l)
             continue
-        for fn, loc in items:
-            rng_ = None
-            if fn in _PRE_RANGE:
-                parts_ = [x.strip() for x in loc.split(",")]
-                if len(parts_) != (3 if fn == "range" else 2):
-                    bad.append("%s(LOC, ...) takes %d constants: %r" % (fn, 2 if fn == "range" else 1, loc))
-                    continue
-                try:
-                    rng_ = _pre_range_cond(fn, parts_[1:])
-                except ValueError:
-                    bad.append("%s: constants %r" % (fn, parts_[1:]))
-                    continue
-                loc = parts_[0]
-                mg_ = _PRE_GLOB.match(loc.replace(" ", ""))
-                if mg_:
-                    # (integ4, D152b) a global's word: the item keeps its type; its census is the global's references
-                    out.append((4, "glob", 0, int(mg_.group(1), 16), None, rng_ + ("f" if mg_.group(2) == "f32" else "i",)))
-                    continue
-                mo_ = _PRE_OBJ.match(loc.replace(" ", ""))
-                if mo_:
-                    # (integ7, item 8; rev5 (a)) a word of the object in ecx: one word, its type stated (.f32 / .i32)
-                    out.append((4, "othis", 0, int(mo_.group(1) or "0", 16), None,
-                                rng_ + ("f" if mo_.group(2) == "f32" else "i",)))
-                    continue
-                if loc.replace(" ", "").startswith("*"):
-                    bad.append("%s on memory (%r): `*this+0xOFF.f32` / `*this+0xOFF.i32` (one word of the object in "
-                               "ecx, its type stated), or a global `*0xADDR.f32` / `.i32`" % (fn, loc))
-                    continue
-            m = _PRE_LOC.match(loc.replace(" ", ""))
-            if not m:
-                bad.append("location %r" % loc)
+        # (integ7, rev5 (b)) `ITEM if GUARD`: the item holds wherever the guard (an object word's range) holds
+        ms_ = list(_PRE_ITEM.finditer(l))
+        guard_of, is_guard = {}, set()
+        for k_ in range(len(ms_) - 1):
+            if l[ms_[k_].end():ms_[k_ + 1].start()].strip() == "if":
+                guard_of[k_] = k_ + 1
+                is_guard.add(k_ + 1)
+        if any(l[ms_[k_].end():ms_[k_ + 1].start()].strip() not in ("", ",", "if") for k_ in range(len(ms_) - 1)) or \
+                (ms_ and l[:ms_[0].start()].strip()) or is_guard & set(guard_of):
+            bad.append("guarded items: `ITEM if GUARD`, one guard per item: %r" % l)
+            continue
+        line_ = []
+        for k_, (fn, loc) in enumerate(items):
+            one_ = []
+            line_.append(one_[0] if _parse_pre_one(fn, loc, one_, bad) else None)
+        for k_, g_ in guard_of.items():
+            it_, gd_ = line_[k_], line_[g_]
+            if it_ is None or gd_ is None or it_[1] != "othis" or gd_[1] != "othis" or it_[3] == gd_[3]:
+                bad.append("a guarded item and its guard are two `*this+0xOFF.f32|i32` range items: %r" % l)
+                line_[k_] = None
                 continue
-            w = 8 if fn == "notnan64" else 4
-            cond = "defnan" if fn == "defnan" else "notnan"
-            if rng_ is not None:
-                if not m.group(1):
-                    bad.append("%s on memory (%r): only argN for now (D152)" % (fn, loc))
-                    continue
-                cond = rng_
-                w = 0       # (the parameter's own width and kind, from the signature: _pre_words)
-            off = int(m.group(6), 16) if m.group(6) else 0
-            end = int(m.group(7), 16) if m.group(7) else None
-            if m.group(1):
-                if m.group(6) or m.group(7):
-                    bad.append("argN takes no offset: %r" % loc)
-                    continue
-                out.append((w, "arg", int(m.group(2)), 0, None, cond))
-            elif m.group(3):
-                out.append((w, "parg", int(m.group(4)), off, end, cond))
-            else:
-                out.append((w, "pthis", 0, off, end, cond))
+            line_[k_] = it_[:4] + ((gd_[3], gd_[5]),) + it_[5:]
+        out += [x_ for k_, x_ in enumerate(line_) if x_ is not None and k_ not in is_guard]
     return out, bad
+
+
+def _parse_pre_one(fn, loc, out, bad):
+    """One `// pre:` item into OUT (or an error into BAD); True when it was added."""
+    rng_ = None
+    if fn in _PRE_RANGE:
+        parts_ = [x.strip() for x in loc.split(",")]
+        if len(parts_) != (3 if fn == "range" else 2):
+            bad.append("%s(LOC, ...) takes %d constants: %r" % (fn, 2 if fn == "range" else 1, loc))
+            return False
+        try:
+            rng_ = _pre_range_cond(fn, parts_[1:])
+        except ValueError:
+            bad.append("%s: constants %r" % (fn, parts_[1:]))
+            return False
+        loc = parts_[0]
+        mg_ = _PRE_GLOB.match(loc.replace(" ", ""))
+        if mg_:
+            # (integ4, D152b) a global's word: the item keeps its type; its census is the global's references
+            out.append((4, "glob", 0, int(mg_.group(1), 16), None, rng_ + ("f" if mg_.group(2) == "f32" else "i",)))
+            return True
+        mo_ = _PRE_OBJ.match(loc.replace(" ", ""))
+        if mo_:
+            # (integ7, item 8; rev5 (a)) a word of the object in ecx: one word, its type stated (.f32 / .i32)
+            out.append((4, "othis", 0, int(mo_.group(1) or "0", 16), None,
+                        rng_ + ("f" if mo_.group(2) == "f32" else "i",)))
+            return True
+        if loc.replace(" ", "").startswith("*"):
+            bad.append("%s on memory (%r): `*this+0xOFF.f32` / `*this+0xOFF.i32` (one word of the object in "
+                       "ecx, its type stated), or a global `*0xADDR.f32` / `.i32`" % (fn, loc))
+            return False
+    m = _PRE_LOC.match(loc.replace(" ", ""))
+    if not m:
+        bad.append("location %r" % loc)
+        return False
+    w = 8 if fn == "notnan64" else 4
+    cond = "defnan" if fn == "defnan" else "notnan"
+    if rng_ is not None:
+        if not m.group(1):
+            bad.append("%s on memory (%r): only argN for now (D152)" % (fn, loc))
+            return False
+        cond = rng_
+        w = 0       # (the parameter's own width and kind, from the signature: _pre_words)
+    off = int(m.group(6), 16) if m.group(6) else 0
+    end = int(m.group(7), 16) if m.group(7) else None
+    if m.group(1):
+        if m.group(6) or m.group(7):
+            bad.append("argN takes no offset: %r" % loc)
+            return False
+        out.append((w, "arg", int(m.group(2)), 0, None, cond))
+    elif m.group(3):
+        out.append((w, "parg", int(m.group(4)), off, end, cond))
+    else:
+        out.append((w, "pthis", 0, off, end, cond))
+    return True
 
 
 POST_MIN = 50       # (integ4, post; rev5) nonzero returns of the original a promotable run checks its postcondition on
@@ -11341,12 +11416,15 @@ def _verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappi
         conds_ = {it_[5] for it_ in pre_specs if not isinstance(it_[5], tuple)}
         # (integ3, D152; rev5) each range item and its HULK_PRE_RANGE/GT/GE/LT/LE macro state one claim: the macro's
         # parameter (by name, in the definition's parameter list) and constants must equal the item's, both ways
-        rng_items_ = {((("g", it_[3]) if it_[1] == "glob" else ("o", it_[3], it_[5][5]) if it_[1] == "othis" else it_[2]),
+        rng_items_ = {((("g", it_[3]) if it_[1] == "glob" else ("o", it_[3], it_[5][5], it_[4] and (it_[4][0], it_[4][1][:5],
+                                                                                              it_[4][1][5]))
+                         if it_[1] == "othis" else it_[2]),
                        it_[5][:5] if it_[1] in ("glob", "othis") else it_[5])
                       for it_ in pre_specs if isinstance(it_[5], tuple)}
         rng_macros_, mbad_ = _pre_range_macros(code_)
         bad_ += [{"kind": "pre_unparsed", "why": w_} for w_ in mbad_]
-        fexp_ = sorted({k_[1] for k_, _c in rng_macros_ if isinstance(k_, tuple) and k_[0] == "field"})
+        fexp_ = sorted({k_[1] for k_, _c in rng_macros_ if isinstance(k_, tuple) and k_[0] == "field"} |
+                       {k_[2][0] for k_, _c in rng_macros_ if isinstance(k_, tuple) and k_[0] == "field" and k_[2]})
         oitems_ = sorted({it_[3] for it_ in pre_specs if it_[1] == "othis"})
         if fexp_ or oitems_:
             # (integ7, item 8; rev5 (c)) a field subject's 32-bit offset and type (tools/pre_field.py's probe of the
@@ -11373,7 +11451,14 @@ def _verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappi
                     bad_.append({"kind": "pre_field_probe", "why": "HULK_PRE_* on %s: a %d-byte %s field (a contract "
                                  "word is a float or a signed 32-bit integer)" % (k_[1], size_, kind_)})
                     continue
-                mapped_.add((("o", off_, kind_), c_[:5]))
+                gk_ = None
+                if k_[2]:
+                    rg_ = pr_.get(k_[2][0])
+                    if not isinstance(rg_, tuple) or rg_[2] != 4 or rg_[1] not in ("f", "i"):
+                        bad_.append({"kind": "pre_field_probe", "why": "HULK_PRE_GUARD on %s: %s" % (k_[2][0], rg_)})
+                        continue
+                    gk_ = (rg_[0], k_[2][1][:5], rg_[1])
+                mapped_.add((("o", off_, kind_, gk_), c_[:5]))
             rng_macros_ = mapped_
             if oitems_ and "precensus" not in EQUIV_OFF:
                 # (integ7, item 8; rev5 (d)) the writers of the words: typed stores over the tree and raw stores in the
@@ -11381,7 +11466,8 @@ def _verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappi
                 # the block calls directly refuses the items (its stub would keep the word in range for it)
                 try:
                     import pre_field
-                    cen_ = pre_field.census(src, addr, {it_[3]: it_[5] for it_ in pre_specs if it_[1] == "othis"}, text_)
+                    cen_ = pre_field.census(src, addr, {it_[3]: it_[5] for it_ in pre_specs if it_[1] == "othis"}, text_,
+                                            {it_[3]: it_[4] for it_ in pre_specs if it_[1] == "othis" and it_[4]})
                     rep["pre_field_census"] = {"typed": len(cen_["typed"]), "raw": len(cen_["raw"]),
                                                "family": len(cen_["family"]), "errors": cen_["errors"][:5],
                                                "ctors": ["0x%08x" % x_ for x_ in cen_.get("ctors", [])],
@@ -12098,6 +12184,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
         mach = Machine(prog, seed, globals_, pristine=(seed == 0), dictionary=dictionary, pointers=pointers,
                        granges={it_[3]: it_[5] for it_ in (pre or ()) if it_[1] == "glob"} if "grange" not in EQUIV_OFF else None,
                        oranges=_oranges(pre, inp["regs"].get("ecx", 0)) if "orange" not in EQUIV_OFF else None,
+
                        overlay=overlay, sentinels=(stack_patch or {}).get(("sentinel",), ()))
         # Callee write extents the original's run learns must reach our run too: create the dict
         # before _conv_input's shallow copy so both inputs share it.
@@ -12160,7 +12247,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                 # page, the stack, our object, reserved ranges) it can't be kept in range: the input is set aside
                 # (pre_base_unmapped, _pre_unmapped)
                 a_ = (inp["regs"].get("ecx", 0) + off) & M32
-                if _obj_word_ok(a_):
+                if _obj_word_ok(a_) and (not end or _obj_word_ok((inp["regs"].get("ecx", 0) + end[0]) & M32)):
                     out.append((("mem", a_), 4, cond))
                 continue
             if kind == "pthis":
@@ -12227,11 +12314,22 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                 picks = set(dwords)
             else:
                 picks = {wx for wx in dwords if mix(seed, 0xD65, wx[1]) % 3 == 0}
+        gof_ = {}
+        for it_ in pre or ():
+            if it_[1] == "othis" and it_[4]:
+                ecx_ = inp["regs"].get("ecx", 0)
+                gof_[(ecx_ + it_[3]) & M32] = ((ecx_ + it_[4][0]) & M32, it_[4][1])
         for (where, x), (w, cond) in sorted(conds.items()):
             if only_range and not isinstance(cond, tuple):
                 continue
             if where == "gmem":
                 continue        # (integ4, D152b; rev5) a ranged global is drawn inside its range per epoch (Machine)
+            if where == "mem" and x in gof_:
+                # (integ7, rev5 (b)) a guarded word is repaired only where its guard holds (as the input draws it)
+                ga_, gc_ = gof_[x]
+                gb_ = bytes(mach.byte(ga_ + i, 0) for i in range(4))
+                if not _pre_in(_pre_val(gb_, 4, gc_[5]), gc_):
+                    continue
             if where == "stack":
                 b = b"".join(struct.pack("<I", inp["stack"][x + i] & M32) for i in range(w // 4) if x + i < len(inp["stack"]))
             else:
@@ -12349,15 +12447,45 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                             outs_.append(math.nextafter(in_, -math.inf if side_ == "lo" else math.inf))
                     if typ_ == "f":
                         outs_.append(float("nan"))
+                    gd_ = {}
+                    gfalse_ = None
+                    git_ = pre[i_]
+                    if git_[1] == "othis" and git_[4]:
+                        # (integ7, rev5 (b)) a guarded word: the plants hold the guard true (an extreme inside its
+                        # range); then the guard false with the word outside must not trap and must compute as the
+                        # original
+                        ga_ = (inp0["regs"].get("ecx", 0) + git_[4][0]) & M32
+                        gc_ = git_[4][1]
+                        gin_ = [_pre_inner(gc_, 4, sd_) for sd_ in ("lo", "hi")]
+                        gin_ = [v for v in gin_ if v is not None]
+                        gd_ = {("mem", ga_): _pre_pack(gin_[0], 4, gc_[5])} if gin_ else {}
+                        for sd_ in ("lo", "hi"):
+                            iv_ = _pre_inner(gc_, 4, sd_)
+                            if iv_ is None:
+                                continue
+                            if gc_[5] == "i":
+                                ov_ = iv_ - 1 if sd_ == "lo" else iv_ + 1
+                            else:
+                                ov_ = np_next32(iv_, sd_ != "lo")
+                            gfalse_ = {("mem", ga_): _pre_pack(ov_, 4, gc_[5])}
+                            break
                     for v_ in outs_:
-                        d_, stat_ = one({(where, x): _pre_pack(v_, w, typ_)}, "pre-trap")
+                        d_, stat_ = one({**gd_, (where, x): _pre_pack(v_, w, typ_)}, "pre-trap")
                         checked += 1
                         if not any("ours fault:Invalid_instruction" in x_ for x_ in d_):
                             missing.append("item %d %s 0x%x holding %r (outside): %s" % (
                                 i_ + 1, where, x, v_, ("; ".join(d_)[:120] if d_ else "no trap")))
                             break
+                    if gfalse_ is not None and outs_:
+                        d_, stat_ = one({**gfalse_, (where, x): _pre_pack(outs_[0], w, typ_)}, "pre-guard-off")
+                        res["pre_guard_off"] = res.get("pre_guard_off", 0) + 1
+                        if d_:
+                            missing.append("item %d %s 0x%x holding %r with its guard false: %s" % (
+                                i_ + 1, where, x, outs_[0], "; ".join(d_)[:120]))
+                    elif git_[1] == "othis" and git_[4]:
+                        missing.append("item %d: its guard has no finite bound to plant false" % (i_ + 1))
                     for v_ in ins_:
-                        d_, stat_ = one({(where, x): _pre_pack(v_, w, typ_)}, "pre-inside")
+                        d_, stat_ = one({**gd_, (where, x): _pre_pack(v_, w, typ_)}, "pre-inside")
                         res["pre_range_bounds"] = res.get("pre_range_bounds", 0) + 1
                         if d_:
                             missing.append("item %d %s 0x%x holding %r (inside): %s" % (
@@ -12534,7 +12662,9 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                     overlay[("*", (inp0_["regs"].get("ecx", 0) + k_) & M32)] = struct.pack("<I", v_)
         inp, inp_o, mach = build(seed, overlay, stack_patch)
         if pre and not pre_off[0] and "orange" not in EQUIV_OFF and \
-                any(it_[1] == "othis" and not _obj_word_ok((inp["regs"].get("ecx", 0) + it_[3]) & M32) for it_ in pre):
+                any(it_[1] == "othis" and (not _obj_word_ok((inp["regs"].get("ecx", 0) + it_[3]) & M32) or
+                                           (it_[4] and not _obj_word_ok((inp["regs"].get("ecx", 0) + it_[4][0]) & M32)))
+                    for it_ in pre):
             # (integ7, item 8; rev5) an object-word range item whose word is outside the memory the Machine draws (ecx
             # null, on the stack, ...): the word can't be kept in range, so the input is no input of the contract
             res["statuses"]["pre_base_unmapped"] += 1

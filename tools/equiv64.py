@@ -1355,7 +1355,7 @@ class Heap:
             # (integ7, item 8; rev5 (e)) a word of `this` a `*this+0xOFF.f32|i32` range item names (its 32-bit offset):
             # drawn inside the range, the same value on both sides (the leaf must be the item's type and width)
             import equiv
-            cond_ = orng_[l.o32]
+            cond_, guard_ = orng_[l.o32]
             want_ = "f" if cond_[5] == "f" else "i"
             if l.kind != want_ or l.s32 != 4 or l.s64 != 4:
                 raise Unsupported("pre: *this+0x%x.%s32 is a %s leaf of %d/%d bytes" % (
@@ -1363,6 +1363,17 @@ class Heap:
             v0_ = struct.pack("<f", gen_float(r)) if want_ == "f" else \
                 (gen_int(r, 4, True) & M32).to_bytes(4, "little")
             nb_ = equiv._pre_range_fix(self.seed, l.o32, v0_, 4, cond_, True)
+            if guard_ is not None:
+                # (integ7, rev5 (b)) a guarded word is drawn in range only where its guard (the leaf at the guard's
+                # 32-bit offset, as this input draws it) holds
+                gl_ = o.lay.leaf_at(32, guard_[0])
+                if gl_ is None or gl_.o32 != guard_[0] or gl_.kind != ("f" if guard_[1][5] == "f" else "i") or \
+                        gl_.s32 != 4 or gl_.s64 != 4:
+                    raise Unsupported("pre: the guard *this+0x%x is no 4-byte %s leaf" % (guard_[0], guard_[1][5]))
+                gv_ = self.leaf_value(o, 0, gl_)
+                gb_ = struct.pack("<I", gv_[1] & 0xFFFFFFFF)
+                if not equiv._pre_in(equiv._pre_val(gb_, 4, guard_[1][5]), guard_[1]):
+                    nb_ = None
             b_ = nb_ if nb_ is not None else v0_
             return ("f", struct.unpack("<I", b_)[0]) if want_ == "f" else ("i", struct.unpack("<I", b_)[0])
         if k == "i" and l.s32 == 4 and l.s64 == 8:
@@ -2898,7 +2909,7 @@ def pre_oranges(fn):
     """(integ7, item 8) {32-bit offset: range cond with its type} of FN's `*this+0xOFF.f32|i32` range items."""
     import equiv
     specs, _bad = equiv._parse_pre(pre_lines_of(fn))
-    return {off: cond for (_w, kind, _n, off, _end, cond) in specs if kind == "othis"}
+    return {off: (cond, end) for (_w, kind, _n, off, end, cond) in specs if kind == "othis"}
 
 
 def _pre_and(a, b):

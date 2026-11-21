@@ -1846,6 +1846,21 @@ function runs on: `// pre: ge(*this+0xf4.f32, 0)` (one 4-byte word; the type suf
   items fail it (the constructors store only the durations): play3 trapped at frame 8,730 on an idle shake's stale time
   (ckpt1's control 106054; the contract was reverted in cf100e24e). Cases `0x000a97e0_native_orange` (now must-fail),
   `_init` / `_init_msvc` (the durations' items: pass), `_init_uncited`.
+- (integ7, rev5 (b), D164) **Guarded items**: `ge(*this+0xf4.f32, 0) if gt(*this+0xf8.f32, 0)` is an object invariant:
+  wherever the guard word is in its range, the word is in its. The macro sits after the guard:
+  `HULK_PRE_GUARD(shake[0].duration > 0.0f) HULK_PRE_GE(shake[0].time, 0.0f);` (include/compat/pre.h: `if (g)` in
+  clang, nothing under MSVC 7.1); item and macro pair by both fields' probed offsets, types and bounds. The Machine
+  draws the pair together every epoch and repairs the word only where the guard holds (the guard on another page is
+  read from that page's draw), so a havoc redraw can't make guard-true / word-out; the entry repair and the --x64 leaf
+  draw follow the guard alike. The trap check plants the word outside with the guard true (must trap) and with the
+  guard false (must not trap and must compute as the original, `pre_guard_off`). Census: the guard words' writers are
+  cited too, and a function that writes a guard also writes the word or is listed in `// pre-guard-off: 0xF (why)`
+  (it only makes the guard false); a constructor may make the guard false instead of storing the word (an immediate
+  outside the guard's range, or listed there); a static instance whose guard is false may hold anything. Cases
+  `0x000a97e0_native_orange_guard{,_idle,_active,_outside,_writer}`, `_orange_guard_msvc` (_idle: play3's crash state,
+  an idle shake's stale time -0.34, now no trap). tests/test_orange_pair.py checks the pair draw after havoc directly (a guard-true redraw
+  never leaves the word out; the mutant without the pair logic does): 0x000a97e0 reads its shakes before any call that
+  redraws memory (its runs with EQUIV_OFF=orange stay equivalent), so no case of it reaches that path.
 - 0x000a97e0 (the six shakes' times, >= 0; writers 0x000a9390 time = 0 and the block's own time += dt): MSVC 105757 and
   --wine 105758 equivalent at 3,000 (46/46 edges; no x87_range inputs; EQUIV_OFF=orange 105760 too: the epoch-0 repair
   already covers this block). Only the MSVC proof is recorded (rev5): dt is still free, and dt below about -709 with

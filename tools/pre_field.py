@@ -423,7 +423,19 @@ def cited(text):
     return c, dis
 
 
-def census(src, addr, offs, text):
+def guard_off_listed(text):
+    """{function: reason} of TEXT's `// pre-guard-off: 0xF (why) ...` lines: functions that store a guard word only to
+    make the guard false (rev5 (b))."""
+    out = {}
+    for l in text.splitlines():
+        mm = re.match(r"^\s*//\s*pre-guard-off:\s*(.*)$", l)
+        if mm:
+            for a, why in re.findall(r"(0x[0-9a-fA-F]+)\s*\(([^()]+)\)", mm.group(1)):
+                out[int(a, 16)] = why.strip()
+    return out
+
+
+def census(src, addr, offs, text, guards=None):
     """{"typed": [...], "raw": [...], "missing": [descriptions], "errors": [...], "family": [...], "ctors": [...]}: the
     writers of the contract words OFFS ({offset: range cond} or a list of offsets) of block ADDR and which are uncited
     in TEXT (the block's comment); with conds, the initialization leg (constructors, static instances) too."""
@@ -444,10 +456,34 @@ def census(src, addr, offs, text):
     for f, ia, what in raw:
         if ia not in c and f not in c and ia not in dis:
             missing.append("raw 0x%08x in 0x%08x: %s" % (ia, f, what))
+    guards = guards or {}
+    goff_ = guard_off_listed(block_text(text, addr))
+    if guards:
+        # (integ7, rev5 (b)) a guarded item `W if G`: every writer of a guard word is cited too, and a function that
+        # writes the guard writes the word as well (it establishes W where it makes G true), or it is listed in
+        # `// pre-guard-off: 0xF (why)` (it only makes G false)
+        gw_ = sorted({g[0] for g in guards.values()})
+        tyg, errg = typed_writers(names, gw_)
+        rawg = raw_writers(fam, gw_)
+        errs = errs + errg
+        wfun = {blk for _t, _l, blk, _w in ty if blk is not None} | {f for f, _i, _w in raw}
+        for tu, ln, blk, what in tyg:
+            if blk is None or blk not in c:
+                missing.append("guard typed %s:%d %s (block %s)" % (tu, ln, what, "0x%08x" % blk if blk is not None else
+                                                                    "none"))
+            elif blk not in wfun and blk not in goff_:
+                missing.append("guard writer 0x%08x (%s:%d) stores the guard but not the word: `// pre-guard-off: 0x%08x "
+                               "(why)` if it only makes the guard false" % (blk, tu, ln, blk))
+        for f, ia, what in rawg:
+            if ia not in c and f not in c and ia not in dis:
+                missing.append("guard raw 0x%08x in 0x%08x: %s" % (ia, f, what))
+            elif f not in wfun and f not in goff_ and ia not in dis:
+                missing.append("guard writer 0x%08x stores the guard (0x%x: %s) but not the word: `// pre-guard-off: "
+                               "0x%08x (why)` if it only makes the guard false" % (f, ia, what, f))
     ctors, nstatic = [], 0
     if conds is not None:
-        m1, ctors = init_census(fam, conds, c, dis, dtor_listed(block_text(text, addr)))
-        m2, nstatic = static_census(names, conds)
+        m1, ctors = init_census(fam, conds, c, dis, dtor_listed(block_text(text, addr)), guards, goff_)
+        m2, nstatic = static_census(names, conds, guards=guards)
         missing += m1 + m2
     return {"typed": ty, "raw": raw, "missing": missing, "errors": errs, "family": fam, "ctors": ctors,
             "static": nstatic}
@@ -520,7 +556,7 @@ def dtor_listed(text):
     return out
 
 
-def init_census(fam, conds, cited_, dismissed=None, listed=None):
+def init_census(fam, conds, cited_, dismissed=None, listed=None, guards=None, guard_off=None):
     """(integ7, rev5 (a)) [missing] for the initialization leg: every constructor of the family stores each contract
     word (a 4-byte store to [reg + OFF]); an immediate must lie in the item's range, any other value must be cited (the
     instruction or the constructor in `// pre-writers:`). A constructor that leaves a word unwritten (itself or through a
@@ -552,6 +588,13 @@ def init_census(fam, conds, cited_, dismissed=None, listed=None):
                     (ops[0].imm & 0xFFFFFFFF) in ctors:
                 calls[f].add(ops[0].imm & 0xFFFFFFFF)
             for op in ops:
+                gd_ = {g[0] for g in (guards or {}).values()}
+                if op.type == x86.X86_OP_MEM and (op.access & capstone.CS_AC_WRITE) and op.size == 4 and \
+                        op.mem.base not in (0, x86.X86_REG_ESP, x86.X86_REG_EBP) and op.mem.disp in gd_ and \
+                        op.mem.disp not in conds:
+                    imm = next((o.imm for o in ops if o.type == x86.X86_OP_IMM), None) if ci.mnemonic == "mov" else None
+                    seen.setdefault(op.mem.disp, []).append((ci.address, imm, "%s %s" % (ci.mnemonic, ci.op_str)))
+            for op in ops:
                 if op.type == x86.X86_OP_MEM and (op.access & capstone.CS_AC_WRITE) and \
                         op.mem.base not in (0, x86.X86_REG_ESP, x86.X86_REG_EBP) and op.mem.disp in conds and op.size == 4:
                     imm = next((o.imm for o in ops if o.type == x86.X86_OP_IMM), None) if ci.mnemonic == "mov" else None
@@ -572,6 +615,21 @@ def init_census(fam, conds, cited_, dismissed=None, listed=None):
         seen = stores[f]
         for off, cond in sorted(conds.items()):
             st = seen.get(off)
+            g = (guards or {}).get(off)
+            if off not in sets[f] and g is not None and g[0] in sets[f]:
+                # (rev5 (b)) a guarded word: the constructor makes the guard false instead (an immediate outside the
+                # guard's range, or a constructor listed in `// pre-guard-off:`)
+                for ia, imm, what in seen.get(g[0], ()):
+                    if imm is not None:
+                        v = _st.unpack("<f" if g[1][5] == "f" else "<i", _st.pack("<I", imm & 0xFFFFFFFF))[0]
+                        if _cond_in(v, g[1]):
+                            missing.append("pre_uninit: constructor 0x%08x makes the guard of this+0x%x true (%r at "
+                                           "this+0x%x) without storing the word" % (f, off, v, g[0]))
+                    elif f not in (guard_off or {}):
+                        missing.append("pre_uninit: constructor 0x%08x stores a computed guard at this+0x%x (0x%x: %s) "
+                                       "and not the word this+0x%x: `// pre-guard-off: 0x%08x (why)`" % (
+                                           f, g[0], ia, what, off, f))
+                continue
             if off not in sets[f]:
                 missing.append("pre_uninit: constructor 0x%08x never stores this+0x%x" % (f, off))
                 continue
@@ -590,7 +648,7 @@ def init_census(fam, conds, cited_, dismissed=None, listed=None):
     return missing, ctors
 
 
-def static_census(names, conds, items=None, read=None):
+def static_census(names, conds, items=None, read=None, guards=None):
     """(integ7, rev5 (a) addition 1) [missing]: every statically allocated instance of the family (a config/data.json
     item whose type names one of its classes) must hold each contract word in range in its initial image (the XBE's
     bytes, zero for bss)."""
@@ -623,6 +681,15 @@ def static_census(names, conds, items=None, read=None):
                 continue
             b = read(base + off, 4)
             v = _st.unpack("<f" if cond[5] == "f" else "<i", b)[0]
+            g = (guards or {}).get(off)
+            if g is not None:
+                if g[0] + 4 > it.get("size", 0):
+                    missing.append("pre_uninit: static instance %s at 0x%x: guard +0x%x lies outside the data item" % (
+                        it.get("name"), base, g[0]))
+                    continue
+                gv = _st.unpack("<f" if g[1][5] == "f" else "<i", read(base + g[0], 4))[0]
+                if not _cond_in(gv, g[1]):
+                    continue        # (the guard is false in the image: the word may hold anything)
             if not _cond_in(v, cond):
                 missing.append("pre_uninit: static instance %s at 0x%x holds %r at +0x%x" % (it.get("name"), base, v, off))
     return missing, n

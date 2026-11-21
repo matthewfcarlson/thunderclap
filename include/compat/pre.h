@@ -119,6 +119,10 @@ template <class T> static inline unsigned long long hulk_pre_bits(T x) {
 #define HULK_POST_GT(x, c) HULK_PRE_IF_((x) > (c), x, "post gt(" #x ", " #c ")")
 #define HULK_POST_LT(x, c) HULK_PRE_IF_((x) < (c), x, "post lt(" #x ", " #c ")")
 #define HULK_POST_LE(x, c) HULK_PRE_IF_((x) <= (c), x, "post le(" #x ", " #c ")")
+// (integ7, rev5 (b)) HULK_PRE_GUARD(field OP c) before a field check: the check holds only where the guard does
+// (`HULK_PRE_GUARD(shake[0].duration > 0.0f) HULK_PRE_GE(shake[0].time, 0.0f);`, item `ge(*this+0xf4.f32, 0) if
+// gt(*this+0xf8.f32, 0)`); nothing under MSVC 7.1 (the guard is not even evaluated)
+#define HULK_PRE_GUARD(g) if (g)
 // (not for a proven block: tools/equiv.py can't read an arbitrary condition and refuses it there)
 #define HULK_PRE(cond) HULK_PRE_IF_((cond), 0, "pre(" #cond ")")
 static inline void hulk_pre_notnan_n(const float* p, int n, const char* fn, const char* what) {
@@ -158,6 +162,7 @@ static inline void hulk_pre_defnan1(float x, const char* fn, const char* what) {
 #define HULK_POST_LT(x, c) ((void)0)
 #define HULK_POST_LE(x, c) ((void)0)
 #define HULK_PRE(cond) ((void)0)
+#define HULK_PRE_GUARD(g)
 #define HULK_PRE_NOTNAN(x) ((void)0)
 #define HULK_PRE_NOTNAN_N(p, n) ((void)0)
 #define HULK_PRE_DEFNAN(x) ((void)0)
