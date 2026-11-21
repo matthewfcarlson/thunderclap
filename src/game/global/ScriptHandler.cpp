@@ -639,9 +639,12 @@ bool CB_001d1150::FUN_001d1150(const char * x) {
 
 
 // 0x001d1160 FUN_001d1160 (17 B): matches/0x001d1160.cpp
-// sym: ?FUN_001d1160@fn_f55829c3@@YIXPAUScriptHandlerView@@HH@Z
-void __fastcall FUN_001d1160(ScriptHandlerView* self, int arg, int extra) {
-    FUN_00212d80(self->f.L, 0);
+// sym: ?FUN_001d1160@ScriptHandler_1d1160@fn_f55829c3@@QAEXM@Z
+// (gfx5) ScriptHandler's per-frame update: a member taking the frame time (0x00087630 passes it as a float; it was
+// `__fastcall (self, int, int)`, the same bytes, which natively bound no caller); the time is unused
+struct ScriptHandler_1d1160 : ScriptHandlerView { void FUN_001d1160(float dt); };
+void ScriptHandler_1d1160::FUN_001d1160(float dt) {
+    FUN_00212d80(f.L, 0);
 }
 
 

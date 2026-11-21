@@ -13,8 +13,9 @@ namespace fn_f53749f2 {} using namespace fn_f53749f2;
 namespace fn_f53749f2 {
 
 // 0x00090020 FUN_00090020 (20 B): matches/0x00090020.cpp
-// sym: ?FUN_00090020@fn_f53749f2@@YAXXZ
-void __cdecl FUN_00090020() {
+// sym: ?FUN_00090020@fn_f53749f2@@YAXPAX@Z
+// (gfx5) `this` (its caller 0x00086a40 passes CGame's +0x48 manager) unused, as 0x0023f740
+void __cdecl FUN_00090020(void* /*this, unused*/) {
     char gs_unused[16]; /* dead stack buffer: MSVC /GS protects only functions with a char array */
 }
 

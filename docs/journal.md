@@ -2372,3 +2372,18 @@ blocks fight::Action's whole family: the records come first there.
   natively a float travels in a vector register, and every callee's definition disagreed with its callers' IR
   signature, so none bound. All are typed as defined now; MSVC code unchanged, six equivalent blocks re-proven for
   their checker views. 0x000c5180's third argument (a C30*) waits for Menu_c5180 records.
+
+## 2026-11-21 gfx5: the game loop's frame callees and the debug object (C14)
+
+- **The debug object's switches.** DAT_004dd6e8 is a debug menu whose release build keeps only stubs: 0x0023f760
+  returns its third argument (the switch's default) and 0x0023f720 returns false. Their definitions were a free
+  `__stdcall` function and a vfunc stand-in with the same bytes, while every caller passes `this`; natively no caller
+  bound, and the missing-function stub returned 0, so each switch whose default is on was off: the simulation
+  (0x00087630 "Enable simulation"), the frontend and overlays (0x001b93a0), physics (0x001b5da0), lighting
+  (0x001c82c0), vsync (0x001b86f0). They are members now, `bool (const char*, int, bool)`.
+- **Names without an address bind nothing natively.** native_unbound.plan_link binds only names that carry an XBE
+  address (`FUN_<addr>`, the `_<addr>` suffix); the Wine binding map's position bindings of other names (0x00086a40's
+  `C10_86a40::F` ...) are not used. 0x00086a40's eight callees carry their addresses now.
+- **Old table, new object in 0x001b93a0.** `DAT_0052c2a8->v85(DAT_0052c2a8->v86() == 0)`: the original reads the
+  vftable once and the device again after v86; clang read both before. integ9's Wine-mode rooverlay made it visible
+  (HEAD's source fails --wine at 3 of 41 inputs); hulk_slot spells the original's order.

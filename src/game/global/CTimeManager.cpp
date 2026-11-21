@@ -243,37 +243,37 @@ class Obj {
 };
 class C10_86a40 {
   public:
-    void F();
+    void FUN_000ae840();   // (gfx5) callees named by their addresses: natively a call binds only by a name that carries it
 };
 class C14_86a40 {
   public:
-    void F(float);   // (gfx4) 0x000af3c0 -> 0x000af170: the frame time, a float
+    void FUN_000af3c0(float);   // (gfx4) 0x000af3c0 -> 0x000af170: the frame time, a float
 };
 class C18 {
   public:
-    void F(float);   // (gfx4) 0x000b0080 -> 0x000af8e0
+    void FUN_000b0080(float);   // (gfx4) 0x000b0080 -> 0x000af8e0
 };
 class C1c;
 class C20;
 class C24 {
   public:
-    void F(C1c*);
+    void FUN_001b86f0(C1c*);
 };
 class C28 {
   public:
-    void F();
+    void FUN_002089f0();
 };
 class C2c {
   public:
-    void F(float);   // (gfx4) 0x000d6c30
+    void FUN_000d6c30(float);   // (gfx4) 0x000d6c30
 };
 class C30 {
   public:
-    void F(float, bool);   // (gfx4) 0x001eb2a0 -> 0x001f22f0 (float, bool)
+    void FUN_001eb2a0(float, bool);   // (gfx4) 0x001eb2a0 -> 0x001f22f0 (float, bool)
 };
 class C48 {
   public:
-    void F();
+    void FUN_00090020();
 };
 class A_86a40;
 class C20 {
@@ -302,7 +302,7 @@ class A_86a40 {
     void Run(float);   // (gfx4) the frame time 0x00087630 passes
 };
 extern bool __cdecl Check_00085d90();   // (gfx1) 0x00085d90 (this TU defines it: a distinct name keeps MSVC from inlining)
-extern bool __cdecl Check_0008db80();   // (gfx1) 0x0008db80 (`Check` stood for both and carried no address: unbound natively)
+extern unsigned char __cdecl Check_0008db80();   // (gfx5) unsigned char, as defined; (gfx1) 0x0008db80 (`Check` stood for both and carried no address: unbound natively)
 class B_86da0 {
   public:
     void a();
@@ -1063,20 +1063,20 @@ void Obj::run() {
 // 0x00086a40 FUN_00086a40 (131 B): matches/0x00086a40.cpp
 // sym: ?Run@A_86a40@fn_f5b26912@@QAEXM@Z
 void A_86a40::Run(float arg) {
-    p10->F();
-    p14->F(arg);
+    p10->FUN_000ae840();
+    p14->FUN_000af3c0(arg);
     if (Check_0008db80())
         return;
     if (p4->id != 7) {
-        p30->F(arg, false);
-        p48->F();
+        p30->FUN_001eb2a0(arg, false);
+        p48->FUN_00090020();
         p20->F(this, (int*)p4, arg, p30, p24);
-        p2c->F(arg);
-        p28->F();
-        p24->F(p1c);
+        p2c->FUN_000d6c30(arg);
+        p28->FUN_002089f0();
+        p24->FUN_001b86f0(p1c);
         return;
     }
-    p18->F(arg);
+    p18->FUN_000b0080(arg);
 }
 
 } // namespace fn_f5b26912
@@ -1279,8 +1279,8 @@ struct World {
     Reset_86cb0* reset;               // +0x20 the actor manager
 };
 struct UI_86cb0 {
-    void FUN_0023f720(int*, int);
-    bool FUN_0023f760(const char*, int, int);
+    bool FUN_0023f720(int*, const char*);   // (gfx5) as defined
+    bool FUN_0023f760(const char*, int, bool);   // (gfx5) as defined
     void FUN_0023f740();
 };
 struct Check_86cb0 {
@@ -1290,10 +1290,10 @@ struct Mode_86cb0 {
     int kind;
 };
 struct Special_86cb0 {
-    void FUN_001b7d10(int, int);
+    void FUN_001b7d10(void*, void*);   // (gfx5) as defined: two of CGame's managers
 };
 struct Draw {
-    void FUN_001b93a0(Mode_86cb0*, int, int, int, int, int);
+    void FUN_001b93a0(Mode_86cb0*, void*, void*, void*, hulk_intptr, hulk_intptr);   // (gfx5) as defined
 };
 struct Memory_86cb0 {
     void FUN_0008d0a0(int);
@@ -1301,22 +1301,22 @@ struct Memory_86cb0 {
 extern Memory_86cb0* __stdcall FUN_0008ceb0();
 extern "C" void __cdecl FUN_000969c0(int);
 extern "C" void __cdecl FUN_00096740();
-struct Target_86cb0 {
-    int field0;
+struct Target_86cb0 {   // (gfx5) CGame (decls/managers.h HulkGame): every word is a pointer
+    void* field0;
     Mode_86cb0* mode;
-    int field8;
-    int fieldc;
-    int field10;
-    int field14;
-    int field18;
+    void* field8;
+    void* fieldc;
+    void* field10;
+    void* field14;
+    void* field18;
     Check_86cb0* check;
-    int field20;
+    void* field20;
     Draw* draw;
-    int field28;
-    int field2c;
-    int field30;
+    void* field28;
+    void* field2c;
+    void* field30;
     Special_86cb0* special;
-    int field38;
+    void* field38;
     void FUN_00086cb0();
 };
 void Target_86cb0::FUN_00086cb0() {
@@ -1332,11 +1332,11 @@ void Target_86cb0::FUN_00086cb0() {
         special->FUN_001b7d10(field14, field18);
     } else {
         (*(UI_86cb0**)&DAT_004dd6e8)->FUN_0023f720(&DAT_0049c108, 0);
-        if ((*(unsigned char*)&DAT_004dd83e) || (*(UI_86cb0**)&DAT_004dd6e8)->FUN_0023f760("Display Memory Usage", 0x4d, 0)) {
+        if ((*(unsigned char*)&DAT_004dd83e) || (*(UI_86cb0**)&DAT_004dd6e8)->FUN_0023f760("Display Memory Usage", 0x4d, false)) {
             FUN_0008ceb0()->FUN_0008d0a0(0);
         }
         (*(UI_86cb0**)&DAT_004dd6e8)->FUN_0023f740();
-        draw->FUN_001b93a0(mode, fieldc, field20, field2c, field38, field28);
+        draw->FUN_001b93a0(mode, fieldc, field20, field2c, (hulk_intptr)field38, (hulk_intptr)field28);
     }
     if ((*(unsigned char*)&DAT_004dd8e4))
         FUN_00096740();

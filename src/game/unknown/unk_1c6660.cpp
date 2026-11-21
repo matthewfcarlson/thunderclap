@@ -27,8 +27,8 @@ public:
     bool FUN_001c6660(int a);
 };
 struct Profiler_1c6800 {
- void FUN_0023f720(int*, const char*);
- bool FUN_0023f760(const char*, int, int);
+ bool FUN_0023f720(int*, const char*);   // (gfx5) as defined
+ bool FUN_0023f760(const char*, int, bool);   // (gfx5) as defined
  void FUN_0023f740();
 };
 struct Renderer_1c6800 {
@@ -166,7 +166,7 @@ bool Pool_1c6660::FUN_001c6660(int a)
 
 
 // 0x001c6800 FUN_001c6800 (179 B): equivalent/0x001c6800.cpp
-// sym: ?render@Object@fn_fe13ae73@@QAEXPAURenderer_1c6800@2@PAUQueue_1c6800@2@HH@Z @415e9e200ea9 @w8f0b7622b9d2 @v28c635b9c67c
+// sym: ?render@Object@fn_fe13ae73@@QAEXPAURenderer_1c6800@2@PAUQueue_1c6800@2@HH@Z @415e9e200ea9 @w8f0b7622b9d2 @v6db4c8b3e82b
 // STATUS: equivalent (tools/equiv.py level 3: 2999 inputs, branch coverage 6/6)
 // FUN_001c6800 @ 0x001c6800
 void Object::render(Renderer_1c6800* renderer, Queue_1c6800* queue, int context, int argument) {
@@ -174,7 +174,7 @@ void Object::render(Renderer_1c6800* renderer, Queue_1c6800* queue, int context,
  queue->entries[queue->count] = index;
  ++queue->count;
  (*(Profiler_1c6800**)&DAT_004dd6e8)->FUN_0023f720(&DAT_004c5328, "Rendering");
- bool enabled = (*(Profiler_1c6800**)&DAT_004dd6e8)->FUN_0023f760("Light Room Geo", 0x6c, 0);
+ bool enabled = (*(Profiler_1c6800**)&DAT_004dd6e8)->FUN_0023f760("Light Room Geo", 0x6c, false);
  renderer->FUN_001c1330(enabled ? renderer->option : 0);
  (*(Profiler_1c6800**)&DAT_004dd6e8)->FUN_0023f740();
  if (geometry) {

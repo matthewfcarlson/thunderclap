@@ -6637,3 +6637,12 @@ name that carries an address any more. Unbound counts: see the commit message (c
   in the loop; unbound callees from 0x00086cb0: 0x0023f720, 0x0023f760, 0x001b93a0).
 - C13 (gfx4/gfx5): the frame time as a float from 0x00086a40 into its callees (0x000af3c0, 0x000b0080, 0x000d6c30,
   0x001eb2a0 (float, bool)); see the commit. 0x000c5180 stays unbound (its a3 needs Menu_c5180 records).
+
+## gfx5: native start-up, continued (2026-11-21)
+
+- C13 (with gfx4): the frame time as a float into 0x00086a40's callees (2332f2b08).
+- C14: the game loop's frame callees: 0x00086a40's eight callees named by their addresses (plan_link binds no other
+  name), 0x00086cb0 on CGame's pointer words calling 0x001b93a0 / 0x001b7d10 as defined, the debug object's
+  0x0023f720 / 0x0023f760 as members (their missing stub had switched off the simulation, the frontend, physics,
+  lighting and vsync natively), 0x001d1160 a member taking the frame time. Native env: build/gfx5/nat (the C13
+  proof's snapshot compiled in 12 shards; build/gfx5/nat/step.sh links in build/gfx5/w5 and runs headless noop).

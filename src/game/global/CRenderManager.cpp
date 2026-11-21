@@ -3,6 +3,7 @@
 #include "tree_prelude.h"
 #include "decls/shader.h"   // (allocsize1)
 #include "compat/ptr.h"
+#include "compat/hulk_vslot.h"   // (gfx5) 0x001b93a0
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
@@ -31,8 +32,8 @@ public:
     void FUN_001b8690();
 };
 struct Renderer_1b86f0 {
-    void Setup_0023f720(int* out, const char* name);
-    unsigned char GetBool_0023f760(const char* name, int a, int b);
+    bool Setup_0023f720(int* out, const char* name);   // (gfx5) as defined
+    bool GetBool_0023f760(const char* name, int key, bool value);   // (gfx5) as defined
     void Finish_0023f740();
 };
 struct Ctl_1b86f0 {
@@ -614,11 +615,14 @@ void Owner_1b8690::FUN_001b8690()
 
 
 // 0x001b86f0 FUN_001b86f0 (86 B): matches/0x001b86f0.cpp
-// sym: _FUN_001b86f0@4
+// sym: ?FUN_001b86f0@RenderManager_1b86f0@fn_ff10b020@@QAEXPAUCtl_1b86f0@2@@Z
 // data: gCurrentVsync = DAT_004c4680, gFlag_1b86f0 = DAT_004c4684, gRenderer = DAT_004dd6e8
-extern "C" void __stdcall FUN_001b86f0(Ctl_1b86f0* ctl) {
+// (gfx5) a member (0x00086a40 calls it with CGame's +0x24 manager in ecx; `this` unused): was `extern "C" __stdcall`,
+// the same bytes, which natively took the argument where the caller passes `this`
+struct RenderManager_1b86f0 { void FUN_001b86f0(Ctl_1b86f0* ctl); };
+void RenderManager_1b86f0::FUN_001b86f0(Ctl_1b86f0* ctl) {
     (*(Renderer_1b86f0**)&DAT_004dd6e8)->Setup_0023f720(((int*)&DAT_004c4684), "Rendering");
-    unsigned char value = (*(Renderer_1b86f0**)&DAT_004dd6e8)->GetBool_0023f760("Lock to VSync", 0x60, 1);
+    unsigned char value = (*(Renderer_1b86f0**)&DAT_004dd6e8)->GetBool_0023f760("Lock to VSync", 0x60, true);
     if (value != DAT_004c4680) {
         DAT_004c4680 = value;
         ctl->Apply_0008db60(value);
@@ -1266,7 +1270,7 @@ void __stdcall target(u32_1b92c0 value) {
 
 
 // 0x001b93a0 FUN_001b93a0 (1341 B): equivalent/0x001b93a0.cpp [wrapped: conflict: FUN_001c3d90; World]
-// sym: ?FUN_001b93a0@Frontend_1b93a0@fn_001b93a0@@QAEXPAUFrame_1b93a0@2@PAUScene_1b93a0@2@PAVMenu_1b93a0@2@PAVOverlays_1b93a0@2@HH@Z @bf8ad8ab4db2 @wd3c7ebca4f7c
+// sym: ?FUN_001b93a0@Frontend_1b93a0@fn_001b93a0@@QAEXPAUFrame_1b93a0@2@PAUScene_1b93a0@2@PAVMenu_1b93a0@2@PAVOverlays_1b93a0@2@HH@Z @af90afe6aafe @w03d93b4d836e @v433112a70af3
 namespace fn_001b93a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3080 inputs, branch coverage 83/96, incomplete)
 // FUN_001b93a0 @ 0x001b93a0
@@ -1449,7 +1453,7 @@ public:
 
 class Settings_1b93a0 {
 public:
-    char FUN_0023f760(const char *name, int a, int b);
+    bool FUN_0023f760(const char *name, int key, bool value);   // (gfx5) as defined
     char FUN_0023f770(const char *name, int a);
 };
 
@@ -1523,13 +1527,13 @@ unsigned int FUN_00267f00();
 
 class Frontend_1b93a0 {
 public:
-    void FUN_001b93a0(Frame_1b93a0 *frame, Scene_1b93a0 *scene, Menu_1b93a0 *menu, Overlays_1b93a0 *overlays, int a4, int a5);
+    void FUN_001b93a0(Frame_1b93a0 *frame, Scene_1b93a0 *scene, Menu_1b93a0 *menu, Overlays_1b93a0 *overlays, hulk_intptr a4, hulk_intptr a5);   // (gfx5) a4 / a5: CGame's flow and stream managers, unused
 
     char pad0[0x31];
     char skip;
 };
 
-void Frontend_1b93a0::FUN_001b93a0(Frame_1b93a0 *frame, Scene_1b93a0 *scene, Menu_1b93a0 *menu, Overlays_1b93a0 *overlays, int a4, int a5)
+void Frontend_1b93a0::FUN_001b93a0(Frame_1b93a0 *frame, Scene_1b93a0 *scene, Menu_1b93a0 *menu, Overlays_1b93a0 *overlays, hulk_intptr a4, hulk_intptr a5)
 {
     if (skip)
         return;
@@ -1538,7 +1542,11 @@ void Frontend_1b93a0::FUN_001b93a0(Frame_1b93a0 *frame, Scene_1b93a0 *scene, Men
         startTick = FUN_00267f00();
     (*(Probe_1b93a0**)&DAT_0052c2a4)->v14();
     if ((*(Settings_1b93a0**)&DAT_004dd6e8)->FUN_0023f770("PDDI stats", 0x70)) {
-        DAT_0052c2a8->v85(DAT_0052c2a8->v86() == 0);
+        // (gfx5) the original reads the device's vftable once, calls v86, then reads the device again and calls the
+        // old table's v85 with it (old table, new object: hulk_vslot.h)
+        void* const* vt = *(void* const* const*)DAT_0052c2a8;
+        char on = (DAT_0052c2a8->*hulk_slot<char (Gfx::*)()>(vt, 86))();
+        (DAT_0052c2a8->*hulk_slot<void (Gfx::*)(int)>(vt, 85))(on == 0);
     }
     (*(Stats_1b93a0**)&DAT_0052c2b4)->FUN_0028f9a0();
     if (frame->type == 4 || frame->type == 6) {
@@ -1617,10 +1625,10 @@ void Frontend_1b93a0::FUN_001b93a0(Frame_1b93a0 *frame, Scene_1b93a0 *scene, Men
         scene->fader->FUN_001bf8b0();
     }
     if (frame->type == 4) {
-        if ((*(Settings_1b93a0**)&DAT_004dd6e8)->FUN_0023f760("Render Overlays", 0x23, 1))
+        if ((*(Settings_1b93a0**)&DAT_004dd6e8)->FUN_0023f760("Render Overlays", 0x23, true))
             overlays->FUN_000d6c70();
     }
-    if ((*(Settings_1b93a0**)&DAT_004dd6e8)->FUN_0023f760("Render Frontend", 0x40, 1))
+    if ((*(Settings_1b93a0**)&DAT_004dd6e8)->FUN_0023f760("Render Frontend", 0x40, true))
         menu->FUN_000bdd60();
     if ((*(char*)&DAT_004dd8e4)) {
         unsigned int now = FUN_00267f00();

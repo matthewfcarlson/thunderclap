@@ -87,6 +87,12 @@ class CAgent {
     virtual void vfunc_9();
     virtual void vfunc_10();
 };
+// (gfx5) the debug object at DAT_004dd6e8 (a release build's stubs): a named switch with its key and default
+class Debug_23f760 {
+  public:
+    bool FUN_0023f720(int* counter, const char* group);
+    bool FUN_0023f760(const char* name, int key, bool value);
+};
 typedef unsigned int u32_23f790;
 class CGameCamera {
   public:
@@ -197,9 +203,9 @@ unsigned char ParamValue::vfunc_2() {
 
 
 // 0x0023f720 FUN_0023f720 (5 B): matches/0x0023f720.cpp
-// sym: ?vfunc_10@FEControl@fn_f9c4408d@@UAE_NHH@Z
-// Same code shape as 0x000d7a40 (propagated; names are from that function)
-bool FEControl::vfunc_10(hulk_intptr, hulk_intptr) {
+// sym: ?FUN_0023f720@Debug_23f760@fn_f9c4408d@@QAE_NPAHPBD@Z
+// (gfx5) the debug object's section start (a counter and a group name; its callers pass `this`), a release stub
+bool Debug_23f760::FUN_0023f720(int* counter, const char* group) {
     return false;
 }
 
@@ -227,8 +233,10 @@ void CAgent::vfunc_7(int a) {
 
 
 // 0x0023f760 FUN_0023f760 (7 B): matches/0x0023f760.cpp
-// sym: ?FUN_0023f760@fn_f9c4408d@@YGEIIE@Z
-unsigned char __stdcall FUN_0023f760(unsigned int unused1, unsigned int unused2, unsigned char value) {
+// sym: ?FUN_0023f760@Debug_23f760@fn_f9c4408d@@QAE_NPBDH_N@Z
+// (gfx5) a member of the debug object at DAT_004dd6e8 (its callers pass `this`; a free __stdcall spelling has the same
+// bytes but natively takes the name where the callers pass `this`): a release stub that returns the default
+bool Debug_23f760::FUN_0023f760(const char* name, int key, bool value) {
     return value;
 }
 

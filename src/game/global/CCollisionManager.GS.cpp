@@ -19,7 +19,7 @@ namespace fn_fde88daa {} using namespace fn_fde88daa;
 namespace fn_fde88daa {
 class Settings_1b5da0 {
 public:
-    unsigned char FUN_0023f760(const char *name, int a, int b);
+    bool FUN_0023f760(const char *name, int key, bool value);   // (gfx5) as defined
 };
 class Input_1b5da0 {
 public:
@@ -69,7 +69,7 @@ public:
 void Physics_1b5da0::FUN_001b5da0(hulk_intptr a, hulk_intptr b)
 {
     char gs_unused[16]; /* dead stack buffer: MSVC /GS protects only functions with a char array */
-    if ((*(Settings_1b5da0**)&DAT_004dd6e8)->FUN_0023f760("DoPhysics", 0x66, 1)) {
+    if ((*(Settings_1b5da0**)&DAT_004dd6e8)->FUN_0023f760("DoPhysics", 0x66, true)) {
         Input_1b5da0 *input = ((Input_1b5da0 *)((owners::A_86340 *)(DAT_004dd700->pad))->FUN_00086340());
         union { float f; unsigned int u; } d;
         bool set = false;

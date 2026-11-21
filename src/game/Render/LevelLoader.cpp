@@ -650,7 +650,7 @@ void Target_1c8250::FUN_001c8250()
 } // namespace fn_f9d12736
 
 // 0x001c82c0 FUN_001c82c0 (533 B): equivalent/0x001c82c0.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
-// sym: ?FUN_001c82c0@Renderer_1c82c0@fn_001c82c0@@QAEXPAUScene_1c82c0@2@PAUView@2@H@Z @6851a96601f2 @wbb905f878198 @vc0980d1ac4ea
+// sym: ?FUN_001c82c0@Renderer_1c82c0@fn_001c82c0@@QAEXPAUScene_1c82c0@2@PAUView@2@H@Z @6851a96601f2 @w7012273150a6 @va4e2a72f6033
 namespace fn_001c82c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20039 inputs, branch coverage 20/22, incomplete)
 // FUN_001c82c0 @ 0x001c82c0
@@ -660,7 +660,7 @@ struct Vec3_1c82c0 {
 };
 
 struct Profiler_1c82c0 {
-    char FUN_0023f760(const char *name, int id, int flag);
+    bool FUN_0023f760(const char *name, int key, bool value);   // (gfx5) as defined
 };
 
 struct Viewer {
@@ -763,7 +763,7 @@ void Renderer_1c82c0::FUN_001c82c0(Scene_1c82c0 *scene, View *view, int unused)
     Vec3_1c82c0 pos;
     view->FUN_001c4d30(&pos);
     LightSet_1c82c0 *set = scene->set;
-    if ((*(Profiler_1c82c0**)&DAT_004dd6e8)->FUN_0023f760("Compute Lights", 0x6c, 1)) {
+    if ((*(Profiler_1c82c0**)&DAT_004dd6e8)->FUN_0023f760("Compute Lights", 0x6c, true)) {
         set->FUN_002a1180(2);
         viewer->FUN_002a05c0(set, &pos, 0, 1.0f);
     }
