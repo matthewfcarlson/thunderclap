@@ -337,7 +337,7 @@ class Renderer_a9f00 {
 public:
     Cam_a9f00 *cam;
     void FUN_00293da0(float a, float b, float c);
-    void FUN_00293d40(int a, int b, float c);
+    void FUN_00293d40(float a, float b, float c);   // (gfx9) as defined (the translation)
 };
 
 

@@ -92,6 +92,8 @@ class Debug_23f760 {
   public:
     bool FUN_0023f720(int* counter, const char* group);
     bool FUN_0023f760(const char* name, int key, bool value);
+    bool FUN_0023f770(const char* name, int key);
+    int FUN_0023f790(const char* name, int keyUp, int keyDown, int step, int value);
 };
 typedef unsigned int u32_23f790;
 class CGameCamera {
@@ -242,43 +244,26 @@ bool Debug_23f760::FUN_0023f760(const char* name, int key, bool value) {
 
 } // namespace fn_f9c4408d
 
-// 0x0023f770 FUN_0023f770 (5 B): matches/0x0023f770.cpp [wrapped: same definition as 0x0023f720 in this TU]
-// sym: ?vfunc_10@FEControl@fn_0023f770@@UAE_NHH@Z
-namespace fn_0023f770 {
-// Same code shape as 0x000d7a40 (propagated; names are from that function)
-class FEControl {
-  public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual void f5();
-    virtual void f6();
-    virtual void f7();
-    virtual void f8();
-    virtual void f9();
-    virtual bool vfunc_10(hulk_intptr, int);
-    virtual void f11();
-    virtual void f12();
-    virtual void f13();
-    virtual void f14();
-    virtual void f15();
-    virtual void f16();
-    virtual void f17();
-    virtual void f18();
-};
-bool FEControl::vfunc_10(hulk_intptr, int) {
+// 0x0023f770 FUN_0023f770 (5 B): matches/0x0023f770.cpp
+// sym: ?FUN_0023f770@Debug_23f760@fn_f9c4408d@@QAE_NPBDH@Z
+namespace fn_f9c4408d {
+// (gfx9) a member of the debug object at DAT_004dd6e8 like 0x0023f760 (its four callers pass `this`): a named trigger
+// with its key, a release stub that reports it not pressed (was a propagated FEControl::vfunc_10, which no caller binds
+// to natively)
+bool Debug_23f760::FUN_0023f770(const char* name, int key) {
     return false;
 }
-} // namespace fn_0023f770
+} // namespace fn_f9c4408d
 
 namespace fn_f9c4408d {
 
 // 0x0023f790 FUN_0023f790 (7 B): matches/0x0023f790.cpp
-// sym: ?FUN_0023f790@fn_f9c4408d@@YGIIIIII@Z
-u32_23f790 __stdcall FUN_0023f790(u32_23f790 a, u32_23f790 b, u32_23f790 c, u32_23f790 d, u32_23f790 e) {
-    return e;
+// sym: ?FUN_0023f790@Debug_23f760@fn_f9c4408d@@QAEHPBDHHHH@Z
+// (gfx9) a member of the debug object at DAT_004dd6e8 (0x00086450 passes `this`: "Debug time dilation", its keys, step
+// and default): a release stub that returns the default (the free __stdcall spelling has the same bytes but natively
+// took the name as its first word and returned 0, not the default 16)
+int Debug_23f760::FUN_0023f790(const char* name, int keyUp, int keyDown, int step, int value) {
+    return value;
 }
 
 

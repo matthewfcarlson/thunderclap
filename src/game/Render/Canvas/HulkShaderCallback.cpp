@@ -2791,7 +2791,7 @@ void Target_1c3dc0::F() {
 } // namespace fn_ffffca36
 
 // 0x001c3e10 FUN_001c3e10 (439 B): equivalent/0x001c3e10.cpp [wrapped: conflict: DAT_004dd6ec; DAT_004dd700; World]
-// sym: ?FUN_001c3e10@DebugRender@fn_001c3e10@@QAEXXZ @c2f3b5ce30e3 @w94fbefd405b2 @vda40fc91dc00
+// sym: ?FUN_001c3e10@DebugRender@fn_001c3e10@@QAEXXZ @c2f3b5ce30e3 @w3e952551ca30 @vec1855fc4228
 namespace fn_001c3e10 {
 // STATUS: equivalent (tools/equiv.py level 3: 3025 inputs, branch coverage 28/28)
 // FUN_001c3e10 @ 0x001c3e10
@@ -2799,7 +2799,7 @@ namespace fn_001c3e10 {
 struct Console_1c3e10 {
     void FUN_0023f730(const char *section);
     void FUN_0023f740();
-    char FUN_0023f770(const char *label, int key);
+    bool FUN_0023f770(const char *label, int key);   // (gfx9) as defined
     void FUN_0023f8f0();
 };
 

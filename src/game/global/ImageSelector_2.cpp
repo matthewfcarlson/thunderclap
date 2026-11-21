@@ -88,7 +88,7 @@ struct Dev1 {
 struct Ctx_ee340 {
     Dev1* dev;
     void FUN_00293d00(hulk_uintptr a);
-    void FUN_00293da0(unsigned a, unsigned b, unsigned c);
+    void FUN_00293da0(float a, float b, float c);   // (gfx9) as defined (the scale)
 };
 } // namespace fn_ff2916d8
 struct Gfx {
@@ -318,9 +318,9 @@ struct SelectorView_ee340 {
     char afterSecond[3];
     unsigned secondImage;
     Obj50_ee340* overlay;
-    unsigned transformA;
-    unsigned transformB;
-    unsigned transformC;
+    float transformA;   // (gfx9) the scale (floats; only passed on)
+    float transformB;
+    float transformC;
     char beforeVisibility[0x14];
     unsigned char visible;
     char beforePosition[3];
@@ -699,7 +699,7 @@ void ImageSelector::vfunc_3()
 
 
 // 0x000ee340 ImageSelector::vfunc_5 (1644 B): equivalent/0x000ee340.cpp
-// sym: ?vfunc_5@ImageSelector@@UAEXXZ @74e609eb4cc8 @w83c0f583c541 @v980b2a49e611
+// sym: ?vfunc_5@ImageSelector@@UAEXXZ @74e609eb4cc8 @w1704ebf32136 @v48e1193ef99a
 // STATUS: equivalent (tools/equiv.py level 3: 4231 inputs, branch coverage 28/28)
 // ImageSelector::vfunc_5 @ 0x000ee340
 // ImageSelector::vfunc_5: draw the image grid, selection highlight and captions.

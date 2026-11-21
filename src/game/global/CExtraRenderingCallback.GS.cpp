@@ -163,14 +163,14 @@ struct Context {
 };
 struct View {
     Context *ctx;
-    void FUN_00293da0(unsigned int a, unsigned int b, float c);
+    void FUN_00293da0(HULK_TYPE64(unsigned int, float) a, HULK_TYPE64(unsigned int, float) b, float c);   // (gfx9) natively as defined (the scale: floats)
     void FUN_00293d40(float a, float b, float c);
 };
 struct Pipe {   // (gfx8) the pure3d context (gen owners::X_28f9a0) by its words; was a 32-bit pad
     int refs; void* helper; void* f08; char matrices[0xc0]; int a, b, c;
     int fd8;                // 0xd8
     void FUN_0028f9a0();
-    void FUN_0028faf0(int v);
+    void FUN_0028faf0(bool v);
 };
 union Slot_1bc0c0 {
     float f;
@@ -192,7 +192,7 @@ struct Frame_1bc0c0 {
 
 
 // 0x001bc0c0 FUN_001bc0c0 (687 B): equivalent/0x001bc0c0.cpp
-// sym: _FUN_001bc0c0 @e874b6b2a2b8 @w6a84f0782154 @vcb3a63f8eb8e
+// sym: _FUN_001bc0c0 @e874b6b2a2b8 @w6a84f0782154 @v2dd185a07046
 // STATUS: equivalent (tools/equiv.py level 3: 104 inputs, branch coverage 14/14)
 // FUN_001bc0c0 @ 0x001bc0c0
 extern "C" void FUN_001bc0c0(const char *name, int count, const char *dir)
@@ -239,7 +239,7 @@ extern "C" void FUN_001bc0c0(const char *name, int count, const char *dir)
                 DAT_0052c2a8->SetMode(1);
                 (*(View**)&DAT_0052c2ac)->ctx->v15(0);
                 (*(View**)&DAT_0052c2ac)->ctx->v13(0);
-                (*(View**)&DAT_0052c2ac)->FUN_00293da0(scale, scale, 1.0f);
+                (*(View**)&DAT_0052c2ac)->FUN_00293da0(HULK_FBITS(scale), HULK_FBITS(scale), 1.0f);
                 (*(View**)&DAT_0052c2ac)->FUN_00293d40(-0.5f, -0.375f, 1.0f);
                 dr->Draw(0, 0);
                 (*(View**)&DAT_0052c2ac)->ctx->v16(0);

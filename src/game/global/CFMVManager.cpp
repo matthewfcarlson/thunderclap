@@ -720,13 +720,16 @@ public:
     void FUN_001b7d10(PadManager *pads, Voices *voices);
     void FUN_001b7970();
 
-    char pad0[4];
+    void* vftable;   // (gfx9) the object's vftable (was `char pad0[4]`: natively the words after it sat 4 bytes early)
     unsigned int deadline;
     char done;
     char restart;
     char pad1[2];
     Source_1b7d10 *source;
-    char pad2[0x124 - 0x10];
+    int f10;   // (gfx9) HulkFMVManager's words from here (were `char pad2[0x124 - 0x10]`: natively list / status sat at
+    char f14[0x100];   // 0x130 / 0x138, the record's at 0x138 / 0x140)
+    char f114;
+    void *f118, *f11c, *f120;
     EntryList_1b7d10 *list;
     Status_1b7d10 *status;
 };
@@ -1056,7 +1059,7 @@ class CFMVManager {
     void* field_11c;
     void* pad_120;
     void* field_124;
-    int field_128;
+    void* field_128;   // (gfx9) a pointer (0x001b7d10's status)
     void* field_12c;
     char field_130;
     char field_131;

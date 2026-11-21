@@ -134,12 +134,12 @@ void Obj_1bddc0::Set(unsigned char x) {
 bool owners::Thing_1bde50::FUN_001bde50(int x) {
     value = x;
     if (a) {
-        a->Prepare(x);
-        a->Finish();
+        a->FUN_000f6fe0(x);
+        a->FUN_000f7110();
     }
     if (b) {
-        b->Prepare(value);
-        b->Finish();
+        b->FUN_000f6fe0(value);
+        b->FUN_000f7110();
     }
     return true;
 }

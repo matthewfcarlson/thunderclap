@@ -657,7 +657,7 @@ void TextSelector::vfunc_7(ChooserArg arg)
 } // namespace fn_f12e8a1b
 
 // 0x000ea7c0 TextSelector::vfunc_5 (5060 B): equivalent/0x000ea7c0.cpp [wrapped: conflict: TextSelector]
-// sym: ?vfunc_5@TextSelector@fn_000ea7c0@@UAEXXZ @d592231553a0 @w178ece37650f @ve842ac252ffb
+// sym: ?vfunc_5@TextSelector@fn_000ea7c0@@UAEXXZ @d592231553a0 @w25530bba2303 @v60694373f06a
 namespace fn_000ea7c0 {
 // STATUS: equivalent (tools/equiv.py level 3: 582 inputs, branch coverage 129/142, incomplete)
 // TextSelector::vfunc_5 @ 0x000ea7c0
@@ -832,8 +832,8 @@ struct Pass_ea7c0 {
 struct PassHolder_ea7c0 {
     Pass_ea7c0* pass;
     void FUN_00293d00(const Vec3_ea7c0* v);
-    void FUN_00293da0(int a, int b, int c);
-    void FUN_00293d40(float x, int y, int z);
+    void FUN_00293da0(float a, float b, float c);   // (gfx9) as defined (the scale)
+    void FUN_00293d40(float x, float y, float z);   // (gfx9) as defined (the translation)
 };
 
 class Widget_ea7c0 {
@@ -989,7 +989,7 @@ class TextSelector {
     char pad49[3];
     int val4c;
     Widget_ea7c0* w50;
-    int v54, v58, v5c;
+    float v54, v58, v5c;   // (gfx9) the scale (floats; only passed on)
     Widget_ea7c0* w60;
     Widget_ea7c0* w64;
     char pad68[0x74 - 0x68];

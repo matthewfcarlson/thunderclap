@@ -457,12 +457,12 @@ struct ReceiverBaseB {
     int b;
 };
 struct Receiver_3279e0 : ReceiverBaseA, ReceiverBaseB {
-    void set(unsigned int);
+    void set(hulk_uintptr);
 };
 struct ParameterEntry_3279e0 {
     unsigned int key;
     unsigned int reserved;
-    void (Receiver_3279e0::*setter)(unsigned int);
+    void (Receiver_3279e0::*setter)(hulk_uintptr);   // (gfx9) a value or an object (a texture): pointer-sized natively
     unsigned int extra[2];
 };
 typedef char hulk_entry_size_ParameterEntry_3279e0[(sizeof(ParameterEntry_3279e0) == sizeof(ShaderParamEntry)) ? 1 : -1];   // (x64t6) ShaderParamEntry's size on every build
@@ -473,7 +473,7 @@ struct pddiBaseShader {
     virtual void vfunc_2();
     virtual void vfunc_3();
     virtual void FUN_00344f51();
-    virtual bool vfunc_5(unsigned int key, unsigned int value);
+    virtual bool vfunc_5(unsigned int key, hulk_uintptr value);   // (gfx9) the value can be a texture: pointer-sized natively
     virtual void vfunc_6();
     virtual void vfunc_7();
     virtual void vfunc_8();
@@ -487,7 +487,7 @@ struct pddiBaseShader {
     unsigned int fields[2];
     unsigned int serial;
 };
-bool pddiBaseShader::vfunc_5(unsigned int key, unsigned int value) {
+bool pddiBaseShader::vfunc_5(unsigned int key, hulk_uintptr value) {
     ParameterEntry_3279e0* entry = vfunc_15();
     if (!entry)
         return false;

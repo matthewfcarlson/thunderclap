@@ -1114,7 +1114,7 @@ struct PoseObject {
  virtual void slot4(); virtual void slot5(); virtual void slot6(); virtual void slot7();
  virtual void slot8(int,int);
 };
-struct Manager { Renderer* renderer; void FUN_00293da0(int,int,int); };
+struct Manager { Renderer* renderer; void FUN_00293da0(HULK_TYPE64(int, float),HULK_TYPE64(int, float),HULK_TYPE64(int, float)); };   /* (gfx9) natively as defined (floats) */
 struct FEAnimation { virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); };
 struct FEPoseAnimation : FEAnimation {
  char pad[0x14-4]; char pose[0x40]; int value; char pad2[8]; PoseObject* object;
@@ -1124,7 +1124,7 @@ void FEPoseAnimation::vfunc_3() {
  (*(Manager**)&DAT_0052c2ac)->renderer->slot15(0);
  (*(Manager**)&DAT_0052c2ac)->renderer->slot17(0,pose);
  int v=value;
- (*(Manager**)&DAT_0052c2ac)->FUN_00293da0(v,v,v);
+ (*(Manager**)&DAT_0052c2ac)->FUN_00293da0(HULK_FBITS(v),HULK_FBITS(v),HULK_FBITS(v));
  if (object) object->slot8(0,0);
  (*(Manager**)&DAT_0052c2ac)->renderer->slot16(0);
 }
@@ -1174,7 +1174,7 @@ struct Particle {
 };
 struct Holder {
     RenderInterface* renderer;
-    void FUN_00293da0(int, int, int);
+    void FUN_00293da0(HULK_TYPE64(int, float), HULK_TYPE64(int, float), HULK_TYPE64(int, float));   // (gfx9) natively as defined (floats)
 };
 class FEParticleAnimation {
 public:
@@ -1190,7 +1190,7 @@ void FEParticleAnimation::vfunc_3() {
     (*(Holder**)&DAT_0052c2ac)->renderer->vfunc_15(0);
     (*(Holder**)&DAT_0052c2ac)->renderer->vfunc_17(0, pose);
     int value = particleValue;
-    (*(Holder**)&DAT_0052c2ac)->FUN_00293da0(value, value, value);
+    (*(Holder**)&DAT_0052c2ac)->FUN_00293da0(HULK_FBITS(value), HULK_FBITS(value), HULK_FBITS(value));
     if (particle) particle->vfunc_8(0, 0);
     (*(Holder**)&DAT_0052c2ac)->renderer->vfunc_16(0);
 }
@@ -1266,7 +1266,7 @@ namespace fn_000e16a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2998 inputs, branch coverage 2/2)
 // FEParticleSystem::vfunc_3 @ 0x000e16a0
 
-struct Renderer { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15(int); virtual void v16(int); virtual void v17(int, void*); }; struct Particle { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(int,int); }; struct Manager { Renderer* renderer; void FUN_00293da0(int,int,int); };  struct FEParticleSystem { virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); char pad04[0x24]; Particle* particle; char pad2c[4]; char data30[0x40]; int value70; }; void FEParticleSystem::vfunc_3() { (*(Manager**)&DAT_0052c2ac)->renderer->v15(0); (*(Manager**)&DAT_0052c2ac)->renderer->v17(0,data30); int value=value70; (*(Manager**)&DAT_0052c2ac)->FUN_00293da0(value,value,value); if (particle) particle->v8(0,0); (*(Manager**)&DAT_0052c2ac)->renderer->v16(0); }
+struct Renderer { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15(int); virtual void v16(int); virtual void v17(int, void*); }; struct Particle { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(int,int); }; struct Manager { Renderer* renderer; void FUN_00293da0(HULK_TYPE64(int, float),HULK_TYPE64(int, float),HULK_TYPE64(int, float)); };   /* (gfx9) natively as defined (floats) */  struct FEParticleSystem { virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); char pad04[0x24]; Particle* particle; char pad2c[4]; char data30[0x40]; int value70; }; void FEParticleSystem::vfunc_3() { (*(Manager**)&DAT_0052c2ac)->renderer->v15(0); (*(Manager**)&DAT_0052c2ac)->renderer->v17(0,data30); int value=value70; (*(Manager**)&DAT_0052c2ac)->FUN_00293da0(HULK_FBITS(value),HULK_FBITS(value),HULK_FBITS(value)); if (particle) particle->v8(0,0); (*(Manager**)&DAT_0052c2ac)->renderer->v16(0); }
 } // namespace fn_000e16a0
 
 

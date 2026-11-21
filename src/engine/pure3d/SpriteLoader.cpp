@@ -819,7 +819,15 @@ void pure3d::SpriteObject::vfunc_22(hulk_intptr p) {
     ((ThisCall_002a4500*)(this))->FUN_002a4500(0, (void*)p);
 }
 
-// 0x002bdf90 pure3d::SpriteObject::vfunc_8 (5 B): not yet verified
+// 0x002bdf90 pure3d::SpriteObject::vfunc_8 (5 B): matches
+// sym: ?vfunc_8@SpriteObject@pure3d@@UAEXHH@Z
+// (gfx9) the container's draw (0x002a41e0, DrawableContainer.cpp's Group_2a41e0::FUN_002a41e0(Parent*, int)), which
+// MSVC 7.1 reaches with a jump; natively the slot was the hulk_x_ stub, so a sprite drew nothing
+struct Group_2bdf90 { void FUN_002a41e0(void* parent, int pass); };
+void pure3d::SpriteObject::vfunc_8(hulk_intptr parent, int pass) {
+    ((Group_2bdf90*)this)->FUN_002a41e0((void*)parent, pass);
+}
+
 namespace fn_f43dee86 {
 
 // 0x002bdfa0 FUN_002bdfa0 (30 B): matches/0x002bdfa0.cpp

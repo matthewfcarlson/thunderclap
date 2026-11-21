@@ -107,7 +107,7 @@ struct PassHolder_eca60 {
     Pass_eca60 *pass;
     void FUN_00293d00(const Vec3_eca60 *v);
     void FUN_00293c80(int a, int b, int c);
-    void FUN_00293da0(int a, int b, int c);
+    void FUN_00293da0(float a, float b, float c);   // (gfx9) as defined (the scale)
 };
 class Widget_eca60 {
 public:
@@ -152,7 +152,7 @@ public:
     char pad49[3];
     int val4c;                  // 0x4c
     Child50 *child;             // 0x50
-    int v54, v58, v5c;          // 0x54
+    float v54, v58, v5c;        // 0x54 (gfx9) the scale (floats)
     Widget_eca60 *w60;                // 0x60
     Widget_eca60 *w64;                // 0x64
     char pad68[4];
@@ -175,7 +175,7 @@ struct Frame_eca60 {
 // 0x000eca50 TextLabel::vfunc_3 (5 B): not yet verified
 
 // 0x000eca60 TextLabel::vfunc_5 (781 B): equivalent/0x000eca60.cpp
-// sym: ?vfunc_5@TextLabel@fn_f8e23a7c@@UAEXXZ @fe8373c4eda7 @wf70eda87336c @v9b1f934821fc
+// sym: ?vfunc_5@TextLabel@fn_f8e23a7c@@UAEXXZ @fe8373c4eda7 @w565671b74e4a @v461935d425c3
 // STATUS: equivalent (tools/equiv.py level 3: 57 inputs, branch coverage 17/20, incomplete)
 // TextLabel::vfunc_5 @ 0x000eca60
 void TextLabel::vfunc_5()

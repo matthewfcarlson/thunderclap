@@ -257,7 +257,7 @@ static int fadeStage(bgfxShader* s, int n)
 
 // ---- bgfxShader slots
 const char* bgfxShader::vfunc_4() { return m_name; }
-bool bgfxShader::vfunc_5(int a0, int a1) { PDDI_BASE(5, FUN_003279e0(a0, a1)); }
+bool bgfxShader::vfunc_5(int a0, intptr_t a1) { PDDI_BASE(5, FUN_003279e0(a0, a1)); }
 bool bgfxShader::vfunc_6(int a0, int a1) { PDDI_BASE(6, FUN_00327a40(a0, a1)); }
 unsigned char bgfxShader::vfunc_7(int a0, int a1) { PDDI_BASE(7, FUN_00327aa0(a0, a1)); }
 bool bgfxShader::vfunc_8(int a0, int a1) { PDDI_BASE(8, FUN_00327b00(a0, a1)); }

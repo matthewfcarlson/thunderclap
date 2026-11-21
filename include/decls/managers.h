@@ -207,6 +207,32 @@ struct HulkSubtitleManager {
 };
 HULK_MGR_SIZE32(HulkSubtitleManager, 96);
 
+// (gfx9) CSubtitleOverlay (gen global.h's class, vftable 0x0042147c; 0x001be170 constructs it, 0x001c0cd0 allocates
+// it as the subtitle manager's table, 0x001bfc80 destroys it): its words in gen's order, plus the drop shadow effect at
+// 0x120 (CDropShadowDisplayEffect, vftable + 4 words, built by 0x000dee40) that gen's class leaves out; the shader at
+// 0x18 is a pointer, so natively the words sit where gen's do (the shader 0x20, 0x11c at 0x128)
+struct HulkSubtitleOverlay {
+    void* vftable;                          // +0x00
+    unsigned char shown;                    // +0x04 Overlay's flag: 1
+    char pad05[3];
+    int f08;                                // +0x08
+    unsigned char f0c;                      // +0x0c
+    char pad0d[3];
+    int f10, f14;                           // +0x10
+    void* shader;                           // +0x18 pure3d::Shader (0x0028edb0), released by 0x001bfc80
+    char pad1c[0x100];
+    unsigned char f11c, f11d;               // +0x11c (vfunc_1 / vfunc_2 set and clear 0x11d)
+    char pad11e[2];
+    struct {
+        void* vftable;                      // +0x120
+        int mode;
+        float unused;
+        float scale;                        // 0.1f (0x000dee40)
+        unsigned int color;                 // 0xff000000
+    } shadow;
+};
+HULK_MGR_SIZE32(HulkSubtitleOverlay, 0x134);
+
 // CFEManager (0x000c0e40, 0x1d38 bytes): the words its constructor writes; pointers where 0x000c4ef0 (the set-up
 // 0x00088020 calls with the other managers) stores objects or managers (0x20 the renderer, 0x24 the camera, 0x34 the
 // flow manager, 0x40 the sound manager, 0x44 the haptic manager, 0x48 the platform manager, 0x4c the unlockables
@@ -398,7 +424,7 @@ struct HulkFMVManager {
     void* f11c;
     void* f120;
     void* f124;
-    int f128;
+    void* f128;   // (gfx9) a pointer: 0x001b7d10 reads its state word (Status_1b7d10)
     void* f12c;
     char f130, f131;
     int f134;

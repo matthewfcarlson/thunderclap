@@ -197,7 +197,7 @@ class Owner_293d00 {
     Host_293d00* host;
     void run(Data_293d00* p);
 };
-typedef unsigned int U_293d40;
+typedef float U_293d40;   // (gfx9) the translation x, y, z (floats, only copied: MSVC moves them as words)
 struct Obj_293d40 {
     virtual void f0();
     virtual void f1();
@@ -230,11 +230,11 @@ struct C_293d40 {
 };
 struct G_293da0 {
     void Fna_0022b980();
-    void Fnb_0022be60(int, int, int);
+    void Fnb_0022be60(float, float, float);   // (gfx9) the scale x, y, z, as defined
 };
 struct T_293da0 {
     V* p;
-    void f(int, int, int);
+    void f(float, float, float);
 };
 class Item_293ea0 {
   public:
@@ -358,7 +358,7 @@ void Owner_293d00::run(Data_293d00* p) {
 
 
 // 0x00293d40 FUN_00293d40 (94 B): matches/0x00293d40.cpp
-// sym: ?run@C_293d40@fn_fd6a08a7@@QAEXIII@Z
+// sym: ?run@C_293d40@fn_fd6a08a7@@QAEXMMM@Z
 void C_293d40::run(U_293d40 a, U_293d40 b, U_293d40 c) {
     (*(U_293d40*)&DAT_0052c2c8) = a;
     (*(U_293d40*)&DAT_0052c2cc) = b;
@@ -372,10 +372,10 @@ void C_293d40::run(U_293d40 a, U_293d40 b, U_293d40 c) {
 
 
 // 0x00293da0 FUN_00293da0 (56 B): matches/0x00293da0.cpp
-// sym: ?f@T_293da0@fn_fd6a08a7@@QAEXHHH@Z
+// sym: ?f@T_293da0@fn_fd6a08a7@@QAEXMMM@Z
 // Same code shape as 0x00293c80 (propagated; names are from that function)
 // data: glob_293da0 = DAT_0052c2d8
-void T_293da0::f(int a, int b, int c) {
+void T_293da0::f(float a, float b, float c) {
     (*(G_293da0*)&DAT_0052c2d8).Fna_0022b980();
     (*(G_293da0*)&DAT_0052c2d8).Fnb_0022be60(a, b, c);
     p->x17(0, (hulk_intptr)&(*(G_293da0*)&DAT_0052c2d8));

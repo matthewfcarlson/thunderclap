@@ -93,7 +93,7 @@ struct Device_29b210 {
 };
 struct Context_29b210 {
     Device_29b210* device;
-    void FUN_00293da0(int a, int b, int c);
+    void FUN_00293da0(HULK_TYPE64(int, float) a, HULK_TYPE64(int, float) b, HULK_TYPE64(int, float) c);   // (gfx9) natively as defined (floats)
 };
 class Thing_29b300 {
   public:
@@ -210,7 +210,7 @@ void pure3d::TextString::vfunc_6() {
     int saved = (int)this;
     if (this->f_4c != 0x3f800000) {
         (*(Context_29b210**)&DAT_0052c2ac)->device->PushState(0);
-        (*(Context_29b210**)&DAT_0052c2ac)->FUN_00293da0(this->f_4c, this->f_4c, 0x3f800000);
+        (*(Context_29b210**)&DAT_0052c2ac)->FUN_00293da0(HULK_FBITS(this->f_4c), HULK_FBITS(this->f_4c), HULK_FBITS(0x3f800000));
     }
     (*(Font_29b210 * *)&this->f_40)->GetColour(&saved);
     (*(Font_29b210 * *)&this->f_40)->SetColour(this->f_44);

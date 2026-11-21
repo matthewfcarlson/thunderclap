@@ -184,7 +184,7 @@ void TextButton::f14(int) {
 } // namespace fn_fdd3d2cc
 
 // 0x000e9370 TextButton::vfunc_5 (1163 B): equivalent/0x000e9370.cpp [wrapped: conflict: TextButton; pure3d::TextureAnimationController]
-// sym: ?vfunc_5@TextButton@fn_000e9370@@UAEXXZ @b14a8eee6755 @wbf76a081ccc8 @v1d10c15236d8
+// sym: ?vfunc_5@TextButton@fn_000e9370@@UAEXXZ @b14a8eee6755 @wab4cac7540ff @v3fe721e57d0f
 namespace fn_000e9370 {
 // STATUS: equivalent (tools/equiv.py level 3: 20014 inputs, branch coverage 24/24)
 // TextButton::vfunc_5 @ 0x000e9370
@@ -296,7 +296,7 @@ struct Pass_e9370 {
 struct PassHolder_e9370 {
     Pass_e9370 *pass;
     void FUN_00293d00(const Vec3_e9370 *v);
-    void FUN_00293da0(int a, int b, int c);
+    void FUN_00293da0(float a, float b, float c);   // (gfx9) as defined (the scale)
 };
 
 class Widget_e9370 {
@@ -341,7 +341,7 @@ public:
     char pad49[3];
     int val4c;
     Widget_e9370 *w50;
-    int v54, v58, v5c;
+    float v54, v58, v5c;   // (gfx9) the scale (floats; only passed on)
     Widget_e9370 *w60;
     Widget_e9370 *w64;
     char b68;

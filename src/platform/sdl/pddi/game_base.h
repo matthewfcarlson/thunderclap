@@ -97,7 +97,7 @@ struct GameBase {
     void FUN_003279b0();
     void FUN_003279c0();
     void FUN_003279d0();
-    bool FUN_003279e0(int, int);
+    bool FUN_003279e0(int, intptr_t);   // (gfx9) as defined (hulk_uintptr: a texture natively)
     bool FUN_00327a40(int, int);
     unsigned char FUN_00327aa0(int, int);
     bool FUN_00327b00(int, int);

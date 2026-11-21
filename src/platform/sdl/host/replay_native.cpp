@@ -318,12 +318,12 @@ extern "C" void hulk_nhook_pad_poll(void* system) {
 
 // F no-fmv (tweak bit 1): CFMVManager::QueueMovie 0x001b7310 queues nothing; the FMV render 0x001b7d10, when it has
 // a movie and is not paused, takes its "status 0: finished" path (0x00333ef0, then the stop 0x001b7970). The words
-// are those 0x001b7d10's native code tests: the movie at +0x10, the paused byte at +8 (its Player_1b7d10 view; gen's
-// CFMVManager has the vftable at +0 and f_08 at +0xc natively: render1 reported the view's 32-bit pad to gfx9).
+// are those 0x001b7d10's native code tests (its Player_1b7d10 view on CFMVManager: vftable, deadline, the paused byte
+// at +0xc, the movie at +0x10; decls/managers.h HulkFMVManager f08 / f0c).
 struct HulkFmvLayout64 {
     unsigned movie, paused;
 };
-static const HulkFmvLayout64 kFmv = {0x10, 0x8};
+static const HulkFmvLayout64 kFmv = {0x10, 0xc};
 
 static int no_fmv(void) {
     HulkReplayInfo ri;

@@ -69,6 +69,22 @@ typedef double hulk_freg;
 #define HULK_TYPE64(t32, t64) t32
 #endif
 
+// HULK_FBITS(x) (gfx9): a 32-bit integer holding a float's bits, passed where the callee takes a `float` (declared
+// `HULK_TYPE64(int, float)`): the integer itself on the 32-bit builds, whose verified objects push the word, and natively
+// the float with those bits (a float argument travels in a floating-point register there, so the word would land in
+// the wrong register, and a plain conversion would change the value)
+#if defined(HULK_PTR64)
+static inline float hulk_fbits(unsigned int bits)
+{
+    float f;
+    __builtin_memcpy(&f, &bits, sizeof f);
+    return f;
+}
+#define HULK_FBITS(x) hulk_fbits((unsigned int)(x))
+#else
+#define HULK_FBITS(x) (x)
+#endif
+
 // HULK_REFCOUNT_PACK / HULK_REFCOUNT_PACK_END (x64t7): around a class that is only a vftable and a 4-byte reference
 // count at 4 (pure3d::NonCopyable, and the sources' local stand-ins for it): natively the class packs to 4, so it is
 // 12 bytes and a derived class's words follow the count directly, as in the original and as the hand-written flat

@@ -1554,7 +1554,7 @@ void MessageOverlay_d5980::vfunc_3(float dt)
 } // namespace fn_f27eef39
 
 // 0x000d5b20 MessageOverlay::vfunc_4 (1124 B): equivalent/0x000d5b20.cpp [wrapped: conflict: MessageOverlay]
-// sym: ?v4@MessageOverlay@fn_000d5b20@@UAEXXZ @bab9c6051620 @w5f7282723151 @vee3e12d82103
+// sym: ?v4@MessageOverlay@fn_000d5b20@@UAEXXZ @bab9c6051620 @w6dca0fb1c9e6 @v2796619ca6e7
 namespace fn_000d5b20 {
 // STATUS: equivalent (tools/equiv.py level 3: 20046 inputs, branch coverage 27/28, incomplete)
 // MessageOverlay::vfunc_4 @ 0x000d5b20
@@ -1574,7 +1574,7 @@ class Dev_d5b20 {
 struct Ctx_d5b20 {
     Dev_d5b20 *dev;
     void FUN_00293d00(void *p);
-    void FUN_00293d40(float a, float b, int c);
+    void FUN_00293d40(float a, float b, float c);   // (gfx9) as defined (the translation)
 };
 
 class Obj24_d5b20 {

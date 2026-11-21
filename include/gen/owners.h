@@ -4700,9 +4700,17 @@ struct Holder_f2920 {
     hulk_intptr FUN_000f2920(hulk_intptr arg);
 };
 // matches/0x000f6fe0.cpp (stub C_f6fe0), size 0x110
-struct C_f6fe0 {
-    char pad[0x10c]; // +0x00
-    int value; // +0x10c
+struct C_f6fe0 {   // (gfx9) an FE string table (decls/fe_strings.h HulkFEStringTable): its words up to f10c (was a 32-bit pad)
+    void* pool; // +0x00
+    int poolCapacity, used; // +0x04
+    void* strings; // +0x0c
+    int maxStrings, count; // +0x10
+    void* hashes; // +0x18
+    int maxHashes, hashCount; // +0x1c
+    void* items[25]; // +0x24
+    int itemCount; // +0x88
+    char text[0x80]; // +0x8c
+    int value; // +0x10c (the record's f10c)
     void FUN_000f6fe0(int);
 };
 // matches/0x000f7050.cpp (stub C_f7050), size 0x118
@@ -12391,6 +12399,12 @@ struct A_1b8ae0 {
 // matches/0x001bde50.cpp (stub Thing_1bde50), size 0x4c (0x70)
 // (gfx8) CSubtitleManager (decls/managers.h HulkSubtitleManager, whose words these are; was `char pad[0x34]` and
 // `char pad2[0x0c]`, natively 0x14 bytes early): a / b its two overlays, value its word at 0x48
+// (gfx9) the subtitle manager's two string tables (decls/fe_strings.h HulkFEStringTable, built by 0x000f6ef0): the
+// calls by their addresses (plan_link binds only names that carry one: Prepare / Finish stayed unbound natively)
+struct Table_1bde50 {
+    void FUN_000f6fe0(int language);   // FEThingsBase_3.cpp's owners::C_f6fe0::FUN_000f6fe0
+    void FUN_000f7110();               // FEThingsBase_3.cpp's FUN_000f7110 (its __fastcall `this`)
+};
 struct Thing_1bde50 {
     float time; // +0x00
     unsigned int count; // +0x04
@@ -12403,13 +12417,11 @@ struct Thing_1bde50 {
     void* buffers; // +0x28 (+0x30)
     void* table; // +0x2c (+0x38)
     void* callback; // +0x30 (+0x40)
-    Thing_1bde50* a; // +0x34 (+0x48)
-    Thing_1bde50* b; // +0x38 (+0x50)
+    Table_1bde50* a; // +0x34 (+0x48)
+    Table_1bde50* b; // +0x38 (+0x50)
     void* entries; // +0x3c (+0x58)
     unsigned int e, f; // +0x40 (+0x60)
     int value; // +0x48 (+0x68)
-    void Prepare(int);
-    void Finish();
     bool FUN_001bde50(int);
 };
 // matches/0x001c05d0.cpp (stub Obj_1c05d0), size 0x54 (0x60)
@@ -14216,8 +14228,8 @@ struct Target_22be40 {
 };
 // matches/0x0022be60.cpp (stub C_22be60), size 0x2c
 struct C_22be60 {
-    int a[11]; // +0x00
-    void FUN_0022be60(int p, int q, int r);
+    float a[11]; // +0x00 (gfx9: a scale matrix's floats)
+    void FUN_0022be60(float p, float q, float r);
 };
 // matches/0x0022c0b0.cpp (stub M_22c0b0), size 0x40
 struct M_22c0b0 {

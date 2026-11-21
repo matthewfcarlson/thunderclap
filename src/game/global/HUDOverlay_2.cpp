@@ -554,7 +554,7 @@ struct Pass_cf740 {
 struct PassHolder_cf740 {
     Pass_cf740 *pass;
     void FUN_00293d00(const Vec3_cf740 *color);
-    void FUN_00293da0(int a, int b, int c);   // float bits
+    void FUN_00293da0(HULK_TYPE64(int, float) a, HULK_TYPE64(int, float) b, HULK_TYPE64(int, float) c);   // float bits (gfx9: natively floats, as defined)
     void FUN_00293bf0(float a);
 };
 class Effect_cf740 {
@@ -2821,7 +2821,7 @@ void Effect_cf740::FUN_000cf740()
         zero.z = 0.0f;
         (*(PassHolder_cf740**)&DAT_0052c2ac)->FUN_00293d00(&zero);
         int k = DAT_0049fd0c;
-        (*(PassHolder_cf740**)&DAT_0052c2ac)->FUN_00293da0(k, k, k);
+        (*(PassHolder_cf740**)&DAT_0052c2ac)->FUN_00293da0(HULK_FBITS(k), HULK_FBITS(k), HULK_FBITS(k));
         sprite->v8(0, 0);
         (*(PassHolder_cf740**)&DAT_0052c2ac)->pass->v16(0);
     }

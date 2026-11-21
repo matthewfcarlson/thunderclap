@@ -553,7 +553,7 @@ hulk_freg TextureFont::vfunc_18(const unsigned short* text) {
 
 
 // 0x002952e0 pure3d::TextureFont::vfunc_19 (573 B): equivalent/0x002952e0.cpp [wrapped: conflict: TextureFont]
-// sym: ?vfunc_19@TextureFont@fn_002952e0@@UAEXPBGD@Z @66b8676eb649 @w64d9b29f0dc6 @v98969b8219ec
+// sym: ?vfunc_19@TextureFont@fn_002952e0@@UAEXPBGD@Z @66b8676eb649 @w4cabf0384dda @va12f2ed9c8fd
 extern "C" { extern void* DAT_004dd6ec; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_004dd700; }   // (pinned global: one C name for every view)
 extern "C" { extern void* DAT_0052c2a8; }   // (pinned global: one C name for every view)
@@ -639,7 +639,7 @@ struct Device_2952e0 {
 
 struct Context {
     Device_2952e0* device;
-    void FUN_00293d40(float a, float b, int c);
+    void FUN_00293d40(float a, float b, float c);   // (gfx9) as defined (the translation)
 };
 
 struct Gfx {

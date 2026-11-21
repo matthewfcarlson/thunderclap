@@ -10,6 +10,7 @@
 #include "decls/data/game/unknown.h"
 #include "decls/data/script.h"
 #include "gen/owners.h"
+#include "decls/managers.h"   // (gfx9) HulkFEManager
 #include "decls/content_load.h"   // (recs1) ContentLoadArgs
 #define TREE_TU_BEGIN namespace fn_f71c7272 {
 #define TREE_TU_END }
@@ -329,7 +330,7 @@ struct State_c4220;
 struct ThisNote_000c3ea0 {
     void FUN_000c3ea0();
 };
-struct Player_c4220 { void FUN_001b7310(const char*, int, int); };
+struct Player_c4220 { void FUN_001b7310(const char*, unsigned, unsigned char); };   // (gfx9) as defined
 struct Screen_c4220 { void FUN_001edf60(); void FUN_001ec480(const char*, const char*); };
 struct State_c4220 {
  char pad0[8]; unsigned char finished; char pad9[7]; int mode; char pad14[0x28]; Screen_c4220* screen; char pad40[0x1b89]; char suffix[1];
@@ -935,11 +936,18 @@ struct Frame_c1790 {
     unsigned short text[0x100];
 };
 
+// (gfx9) CFEManager by decls/managers.h HulkFEManager's offsets (was 0x5c / 0x1bc9: natively the subtitle manager
+// pointer was read 0x5c bytes into the record's pointer words)
+#if defined(__clang__)
+#define HULK_FEM_OFF_c1790(f) __builtin_offsetof(HulkFEManager, f)
+#else
+#define HULK_FEM_OFF_c1790(f) ((unsigned int)(hulk_uintptr)&((HulkFEManager*)0)->f)
+#endif
 class FrontEnd_c1790 {
 public:
-    char pad00[0x5c];
+    char pad00[HULK_FEM_OFF_c1790(f5c)];
     Panel_c1790* panel;
-    char pad60[0x1bc9 - 0x60];
+    char pad60[HULK_FEM_OFF_c1790(f1bc9) - HULK_FEM_OFF_c1790(f5c) - sizeof(void*)];
     char lang[8];
     int FUN_000bc900(unsigned short* buf, int pos, const char* key, int idx);
     static void __stdcall FUN_000bc3c0(const char* path, Loader_c1790* loader, int zero);   // (decl1) a free __stdcall function (unk_0bc1e0.GS.cpp), no this
@@ -1939,7 +1947,7 @@ void UnlockMenu::FUN_000c21b0(volatile int id) {
 
 
 // 0x000c2990 FUN_000c2990 (510 B): equivalent/0x000c2990.cpp [wrapped: conflict: FUN_001d4c90]
-// sym: ?run@Target_c2990@fn_000c2990@@QAEXPAUOutput_c2990@2@@Z @9a15de49e39b @weaec597f9f38 @vb4dd7a64a889
+// sym: ?run@Target_c2990@fn_000c2990@@QAEXPAUOutput_c2990@2@@Z @9a15de49e39b @weaec597f9f38 @v8f282526634d
 namespace fn_000c2990 {
 // STATUS: equivalent (tools/equiv.py level 3: 3073 inputs, branch coverage 26/26)
 // FUN_000c2990 @ 0x000c2990
@@ -1948,7 +1956,7 @@ struct Track { const char* FUN_00092330(); int FUN_00092310(); void FUN_00092360
 struct Lookup_c2990 {  };
 struct Manager_c2990 {  };
 struct Group_c2990 { void FUN_001bdff0(const char*); };
-struct Output_c2990 { void FUN_001b7310(const char*,int,int); };
+struct Output_c2990 { void FUN_001b7310(const char*,unsigned,unsigned char); };   // (gfx9) as defined
 extern int DAT_0049dab8, DAT_0049db80;
 extern "C" Track* __cdecl FUN_00344e74(Track*,int,const void*,const void*,int);
 extern "C++" Manager_c2990* __cdecl FUN_001d4c90();
@@ -3054,7 +3062,7 @@ void MissionMenu::FUN_000c4020(hulk_intptr a, hulk_intptr b)
 namespace fn_f71c7272 {
 
 // 0x000c4220 FUN_000c4220 (348 B): equivalent/0x000c4220.cpp
-// sym: ?update@State_c4220@fn_f71c7272@@QAEXPAUPlayer_c4220@2@@Z @e4adf6679b7d @wacbf346f47c1 @v3a8267e31cb4
+// sym: ?update@State_c4220@fn_f71c7272@@QAEXPAUPlayer_c4220@2@@Z @e4adf6679b7d @wacbf346f47c1 @v66658f81573e
 // STATUS: equivalent (tools/equiv.py level 3: 19408 inputs, branch coverage 19/19)
 // FUN_000c4220 @ 0x000c4220
 // FUN_000c4220 @ 0x000c4220

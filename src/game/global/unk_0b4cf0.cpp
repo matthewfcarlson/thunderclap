@@ -2218,7 +2218,7 @@ extern "C" void __cdecl FUN_000b9230(Widget_b9230* widget) {
 } // namespace fn_fedc4c02
 
 // 0x000b92f0 FUN_000b92f0 (250 B): equivalent/0x000b92f0.cpp [wrapped: conflict: DAT_0049dba4; FUN_00344e74]
-// sym: ?target@Owner_b92f0@fn_000b92f0@@QAEXHHH@Z @60742fa808c5 @wbc12881b465a @v9de24c818f7e
+// sym: ?target@Owner_b92f0@fn_000b92f0@@QAEXHHH@Z @60742fa808c5 @wbc12881b465a @ve8275582c25c
 namespace fn_000b92f0 {
 // STATUS: equivalent (tools/equiv.py level 3: 2938 inputs, branch coverage 11/11)
 // FUN_000b92f0 @ 0x000b92f0
@@ -2235,7 +2235,7 @@ extern "C" void __cdecl FUN_000fc2e0();
 void __cdecl FUN_000fc1a0();
 extern "C" unsigned int __cdecl FUN_00267f80();
 extern "C" void __cdecl FUN_000fc300();
-struct Renderer_b92f0 { /* (gfx8) the pure3d context (gen owners::X_28f9a0) by its words; was a 32-bit pad */ int refs; void* helper; void* f08; char matrices[0xc0]; int a, b, c; int state;  void FUN_0028faf0(int); };
+struct Renderer_b92f0 { /* (gfx8) the pure3d context (gen owners::X_28f9a0) by its words; was a 32-bit pad */ int refs; void* helper; void* f08; char matrices[0xc0]; int a, b, c; int state;  void FUN_0028faf0(bool); };
 struct Scene_b92f0 { void FUN_00293ef0(); void FUN_00294080(); };
 struct Owner_b92f0 { char pad[0x20]; Scene_b92f0* scene; void target(int,int,int); };
 void Owner_b92f0::target(int a,int b,int flag) {

@@ -343,7 +343,7 @@ void TextWindow::vfunc_3()
 
 
 // 0x000ed400 TextWindow::vfunc_5 (1053 B): equivalent/0x000ed400.cpp [wrapped: on include/gen/, and its TU merges more functions without the headers]
-// sym: ?vfunc_5@TextWindow@fn_000ed400@@UAEXXZ @6e0859d495ab @wa0f6e73ad254 @v734782e45b4a
+// sym: ?vfunc_5@TextWindow@fn_000ed400@@UAEXXZ @6e0859d495ab @wf9fc502289c1 @vbf58dc5b96cc
 namespace fn_000ed400 {
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 28/28)
 // TextWindow::vfunc_5 @ 0x000ed400
@@ -485,7 +485,7 @@ public:
 struct PassHolder_ed400 {
     Pass_ed400 *pass;
     void FUN_00293d00(const Vec3_ed400 *v);
-    void FUN_00293da0(int a, int b, int c);
+    void FUN_00293da0(float a, float b, float c);   // (gfx9) as defined (the scale)
 };
 
 class Widget_ed400 {
@@ -524,7 +524,7 @@ public:
     char pad49[3];
     int val4c;
     Widget_ed400 *child;              // 0x50
-    int v54, v58, v5c;
+    float v54, v58, v5c;   // (gfx9) the scale (floats; only passed on)
     char pad60[0x6c - 0x60];
     unsigned int v6c;           // 0x6c
     unsigned int v70;           // 0x70

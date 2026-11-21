@@ -334,7 +334,7 @@ void TextTable::vfunc_3()
 
 
 // 0x000edb60 TextTable::vfunc_5 (1015 B): equivalent/0x000edb60.cpp [wrapped: conflict: Builder; TextTable]
-// sym: ?vfunc_5@TextTable@fn_000edb60@@UAEXXZ @f8c85e1ba565 @we9c306ac6e66 @v457294872626
+// sym: ?vfunc_5@TextTable@fn_000edb60@@UAEXXZ @f8c85e1ba565 @w7387ec05e0e3 @v6ad6664c8bfe
 namespace fn_000edb60 {
 // STATUS: equivalent (tools/equiv.py level 3: 515 inputs, branch coverage 32/32)
 // TextTable::vfunc_5 @ 0x000edb60
@@ -476,7 +476,7 @@ public:
 struct PassHolder_edb60 {
     Pass_edb60 *pass;
     void FUN_00293d00(const Vec3_edb60 *v);
-    void FUN_00293da0(int a, int b, int c);
+    void FUN_00293da0(float a, float b, float c);   // (gfx9) as defined (the scale)
 };
 
 class Widget_edb60 {
@@ -529,7 +529,7 @@ public:
     char pad49[3];
     int val4c;
     Widget_edb60 *child;
-    int v54, v58, v5c;
+    float v54, v58, v5c;   // (gfx9) the scale (floats; only passed on)
     char pad60[0x74 - 0x60];
     unsigned char active;
     char pad75[3];

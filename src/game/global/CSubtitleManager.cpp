@@ -8,6 +8,7 @@
 #include "decls/data/game/unknown.h"
 #include "decls/data/records.h"
 #include "decls/data/script.h"
+#include "decls/managers.h"   // (gfx9) HulkSubtitleOverlay
 #include "gen/global.h"
 #include "gen/owners.h"
 #define TREE_TU_BEGIN namespace fn_fed79ca6 {
@@ -19,6 +20,19 @@ namespace fn_fed79ca6 { extern "C" char DAT_0040a47c[], DAT_0042147c[]; }   // (
 #include "game/script_bind.h"
 #include "decls/shader.h"
 
+// (gfx9) The views of CSubtitleManager below spell its words as decls/managers.h's HulkSubtitleManager does (its
+// pointer words as pointers): the 32-bit layout is the one they had, natively the words sit where the record's do.
+// HULK_SUB_AT checks on every build that a view's word sits at the record's word.
+#if defined(__clang__)
+#define HULK_SUB_OFF(T, f) __builtin_offsetof(T, f)
+#else
+#define HULK_SUB_OFF(T, f) ((unsigned int)(hulk_uintptr)&((T*)0)->f)
+#endif
+#define HULK_SUB_CAT2(a, b) a##b
+#define HULK_SUB_CAT(a, b) HULK_SUB_CAT2(a, b)
+#define HULK_SUB_AT(V, v, f) \
+    typedef char HULK_SUB_CAT(hulk_sub_at_, __LINE__)[(HULK_SUB_OFF(V, v) == HULK_SUB_OFF(HulkSubtitleManager, f)) ? 1 : -1]
+
 // ---- declarations shared by the functions below
 namespace fn_fed79ca6 {
 struct Key {
@@ -26,7 +40,7 @@ struct Key {
 };
 class Table {
   public:
-    char pad[0x3c];
+    char pad[HULK_SUB_OFF(HulkSubtitleManager, entries)];
     struct Entry {
         __int64 key;
         char pad[16];
@@ -34,6 +48,8 @@ class Table {
     int count;
     int Find(Key k);
 };
+HULK_SUB_AT(Table, items, entries);
+HULK_SUB_AT(Table, count, e);
 class Overlay_1be200 {
   public:
     virtual void vfunc_0();
@@ -433,10 +449,32 @@ public:
     void FUN_001bf9b0();
 };
 typedef unsigned int u32_1bfc30;
-struct State_1bfc30 {
-    char pad[0x58];
+struct State_1bfc30 {   // (gfx9) CSubtitleManager by HulkSubtitleManager's words (was a 0x58-byte pad and raw offsets)
+    float time;
+    unsigned count;
+    void* events;
+    unsigned char enabled, flag;
+    char pad0e[2];
+    unsigned a, b, c, m1c;
+    int mode;               // +0x20
+    unsigned char ready;    // +0x24
+    char pad25[3];
+    void* buffers;
+    struct { char pad[0xc]; unsigned char flag0c; }* table;   // +0x2c
+    void* callback;
+    void* resource1;
+    void* resource2;
+    void* entries;
+    unsigned e, f, g;
+    void* context;
+    unsigned i;
+    unsigned char j, k;     // +0x54
     int query_001be0e0(int, int);
 };
+HULK_SUB_AT(State_1bfc30, mode, d);
+HULK_SUB_AT(State_1bfc30, ready, ready);
+HULK_SUB_AT(State_1bfc30, table, table);
+HULK_SUB_AT(State_1bfc30, k, k);
 struct sSubtitleCallback_1bfc30 {
     virtual void f0();
     virtual void f1(int, int);
@@ -523,20 +561,32 @@ public:
     Entry_1c0360 *entries;
     char pad0c;
     char flag0d;
-    char pad0e[0x12];
+    char pad0e[2];
+    unsigned a, b, c, m1c;   // (gfx9) HulkSubtitleManager's words (were 32-bit pads)
     int mode;
     char flag24;
-    char pad25[7];
+    char pad25[3];
+    void* buffers;
     Child_1c0360 *child;
-    char pad30[8];
-    int target;
-    char pad3c[0x10];
+    void* callback;
+    void* resource1;
+    int target;   // (gfx9) the record's resource2 (a pointer; passed on as a word to 0x000f6a70: natively truncated)
+#if defined(HULK_PTR64)
+    char pad3c[4];
+#endif
+    void* entries2;
+    unsigned e, f, g;
     Holder_1c0360 *holder;
     int field50;
     char pad54;
     char flag55;
     void FUN_001c0360(int newMode, int newCount);
 };
+HULK_SUB_AT(Shake_1c0360, mode, d);
+HULK_SUB_AT(Shake_1c0360, child, table);
+HULK_SUB_AT(Shake_1c0360, holder, context);
+HULK_SUB_AT(Shake_1c0360, field50, i);
+HULK_SUB_AT(Shake_1c0360, flag55, k);
 struct Listener_1c04e0 {
     virtual void vf0();
     virtual void vf1();
@@ -573,10 +623,11 @@ struct Fader_1c04e0 {
 };
 class Manager {
   public:
-    char pad[0x54];
+    char pad[HULK_SUB_OFF(HulkSubtitleManager, j)];   // (gfx9) the record's offset (was 0x54)
     char flag;
     void Do_001c0650(int, int, int);
 };
+HULK_SUB_AT(Manager, flag, j);
 class sSubtitleCallback_1c06f0 {
   public:
     virtual void vfunc_0(int, int);
@@ -620,16 +671,19 @@ struct Context {
 struct Effect_1c0a40 {
 };
 extern int __cdecl FUN_00266da0(int);
-struct Object {
-    char pad[0x30];
-    unsigned value;
+struct Object {   // (gfx9) CSubtitleManager from its callback word on, by HulkSubtitleManager's words
+    char pad[HULK_SUB_OFF(HulkSubtitleManager, callback)];
+    void* value;
     Effect_1c0a40* first;
     Effect_1c0a40* second;
-    char gap[0x10];
+    void* entries;
+    unsigned e, f, g;
     Context* context;
     void FUN_001c0360(int, int);
     int FUN_001c0a40(Context* arg);
 };
+HULK_SUB_AT(Object, first, resource1);
+HULK_SUB_AT(Object, context, context);
 extern "C" unsigned __int64 __cdecl compute_002672f0(int, int, int);
 class Obj {
   public:
@@ -654,7 +708,7 @@ int Table::Find(Key k) {
 } // namespace fn_fed79ca6
 
 // 0x001be170 FUN_001be170 (131 B): matches/0x001be170.cpp [wrapped: conflict: CSubtitleOverlay]
-// sym: ??0CSubtitleOverlay@fn_001be170@@QAE@XZ
+// sym: ?FUN_001be170@CSubtitleOverlay_1be170@fn_001be170@@QAEPAU12@XZ
 void* operator new(size_t) HULK_NEW_THROW;
 namespace fn_001be170 {
 
@@ -686,44 +740,31 @@ struct Shader_1be170 {
     Shader_1be170* FUN_0028edb0();
 };
 void* FUN_00263ea0(unsigned size);
-class Overlay_1be170 {
-  public:
-    virtual void f0();
-    bool b4;
-    Overlay_1be170() throw() { b4 = true; }
+// (gfx9) CSubtitleOverlay on its record (decls/managers.h HulkSubtitleOverlay): was a TU-local polymorphic stand-in,
+// whose vftable natively was clang's own and whose 32-bit pad put the words off gen's; the game's vftable by address
+struct CSubtitleOverlay_1be170 : HulkSubtitleOverlay {
+    CSubtitleOverlay_1be170* FUN_001be170() throw();
 };
-class CSubtitleOverlay : public Overlay_1be170 {
-  public:
-    int m8;
-    char mc;
-    int m10;
-    int m14;
-    Shader_1be170* m18;
-    char pad[0x11c - 0x1c];
-    char b11c;
-    char b11d;
-    char pad2[2];
-    CDropShadowDisplayEffect_1be170 sub;
-    virtual void f0();
-    CSubtitleOverlay() throw();
-};
-CSubtitleOverlay::CSubtitleOverlay() throw() {
-    m8 = 0;
-    mc = 0;
-    m10 = 0;
-    m14 = 0;
-    m18 = 0;
-    b11c = 0;
-    b11d = 0;
-    sub.Init_000dee40();
+CSubtitleOverlay_1be170* CSubtitleOverlay_1be170::FUN_001be170() throw() {
+    shown = 1;
+    vftable = (void*)DAT_0042147c;
+    f08 = 0;
+    f0c = 0;
+    f10 = 0;
+    f14 = 0;
+    shader = 0;
+    f11c = 0;
+    f11d = 0;
+    ((CDropShadowDisplayEffect_1be170*)&shadow)->Init_000dee40();
     int old = Push_00266da0(0xe);
     HULK_SIZE32(Shader_1be170, 0x20);
-    Shader_1be170* shader = (Shader_1be170*)FUN_00263ea0(sizeof(HulkShader));
-    m18 = shader ? shader->FUN_0028edb0() : 0;
-    m18->init();
-    Shader_1be170* q = m18;
+    Shader_1be170* s = (Shader_1be170*)FUN_00263ea0(sizeof(HulkShader));
+    shader = s ? s->FUN_0028edb0() : 0;
+    ((Shader_1be170*)shader)->init();
+    Shader_1be170* q = (Shader_1be170*)shader;
     q->c->v6(0x444d4c42, true);
     Push_00266da0(old);
+    return this;
 }
 } // namespace fn_001be170
 
@@ -2214,13 +2255,13 @@ void Track::FUN_001bf9b0()
 // sym: ?vfunc_1@sSubtitleManagerCallback@@UAEXHH@Z
 void sSubtitleManagerCallback::vfunc_1(int a, int b) {
     State_1bfc30* p = (*(State_1bfc30 * *)&this->f_04);
-    if (p && p->query_001be0e0(a, b) != -1 && *(int*)((char*)p + 0x20) == 2) {
-        *(u32_1bfc30*)((char*)p + 4) = 0;
-        *(u32_1bfc30*)p = 0xbf800000;
-        *((unsigned char*)p + 0xd) = 0;
-        *((unsigned char*)p + 0x24) = 0;
-        *((unsigned char*)p + 0x55) = 0;
-        *((unsigned char*)(*(hulk_uintptr*)((char*)p + 0x2c)) + 0xc) = 0;
+    if (p && p->query_001be0e0(a, b) != -1 && p->mode == 2) {
+        p->count = 0;
+        *(u32_1bfc30*)&p->time = 0xbf800000;
+        p->flag = 0;
+        p->ready = 0;
+        p->k = 0;
+        p->table->flag0c = 0;
     }
 }
 
@@ -2976,14 +3017,20 @@ public:
     Entry_1c0650 *volatile entries; // 0x08 (re-read between the stores: it can alias this)
     char pad0c;
     char flag0d;
-    char pad0e[0x12];
+    char pad0e[2];
+    unsigned a4, b4, c4, m1c;   // (gfx9) HulkSubtitleManager's words (were 32-bit pads)
     int mode;               // 0x20
     char flag24;
-    char pad25[7];
+    char pad25[3];
+    void* buffers;
     Child_1c0650 *child;           // 0x2c
-    char pad30[0xc];
+    void* callback;
+    void* resource1;
+    void* resource2;
     Track *tracks;          // 0x3c
-    char pad40[0x14];
+    unsigned e, f, g;
+    void* context;
+    unsigned i;
     char flag54;
     char flag55;
     int FUN_001be0e0(int a, int b);
@@ -3135,7 +3182,7 @@ int Object::FUN_001c0a40(Context* arg) {
     int previous = FUN_00266da0(14);
     context = arg;
     State_1c0a40*** result = arg->FUN_000862e0();
-    (**result)->value = value;
+    (**result)->value = (unsigned)(hulk_uintptr)value;
     if (first)
         ((owners::Obj_f86f0 *)first)->FUN_000f86f0(900, (hulk_intptr)50400);
     if (second)

@@ -15,6 +15,7 @@
 namespace fn_f74613ff {} using namespace fn_f74613ff;
 #include "game/global.h"
 #include "decls/managers.h"
+#include "decls/fe_strings.h"   // (gfx9) the subtitle string tables' record
 #include "decls/shader.h"
 
 // ---- declarations shared by the functions below
@@ -75,9 +76,9 @@ p=(Binding_1c0cd0*)FUN_0008d690((int)sizeof(Binding_1c0cd0)); if(p) {p->FUN_001d
 p=(Binding_1c0cd0*)FUN_0008d690((int)sizeof(Binding_1c0cd0)); if(p) {p->FUN_001bf7c0("stm_MapSoundFileToStringKey",(void (*)())FUN_001be9f0); new(p) Closure3<CSubtitleManager,void,const char*,const char*,float>; p->owner=this;} reg->FUN_001d3b70("stm_MapSoundFileToStringKey",p);
 buffers=(void**)FUN_0008d6d0(10*sizeof(void*)); for(int n=0;n<10;++n){void* buf=FUN_0008d6d0(256); buffers[n]=buf;}
 Event_1c0cd0* ev=(Event_1c0cd0*)FUN_0008d6d0(1120); if(ev) for(int n=0;n<70;++n){ev[n].begin=-1.0f;ev[n].end=-1.0f;} events=ev;
-CSubtitleOverlay_1c0cd0* r=(CSubtitleOverlay_1c0cd0*)FUN_0008d690(288); resource1=r?r->FUN_000f6ef0():0; r=(CSubtitleOverlay_1c0cd0*)FUN_0008d690(288); resource2=r?r->FUN_000f6ef0():0;
+CSubtitleOverlay_1c0cd0* r=(CSubtitleOverlay_1c0cd0*)FUN_0008d690((int)sizeof(HulkFEStringTable)); resource1=r?r->FUN_000f6ef0():0; r=(CSubtitleOverlay_1c0cd0*)FUN_0008d690((int)sizeof(HulkFEStringTable)); resource2=r?r->FUN_000f6ef0():0;   // (gfx9) the two string tables (0x000f6ef0 builds a HulkFEStringTable): 288 bytes on 32-bit, natively the record's size (the literal overran the heap block)
 Entry_1c0cd0* en=(Entry_1c0cd0*)FUN_0008d6d0(27600); if(en) for(int n=0;n<1150;++n) en[n].time=-1.0f; entries=en;
-r=(CSubtitleOverlay_1c0cd0*)FUN_0008d690(308); table=r?r->FUN_001be170():0;
+r=(CSubtitleOverlay_1c0cd0*)FUN_0008d690((int)sizeof(HulkSubtitleOverlay)); table=r?r->FUN_001be170():0;   // (gfx9) the overlay's record (308 bytes on 32-bit)
 sSubtitleManagerCallback* cb=(sSubtitleManagerCallback*)FUN_0008d690(sizeof(sSubtitleManagerCallback)); if(cb){new(cb) sSubtitleManagerCallback; cb->owner=this;} callback=cb;
 Shader_1c0cd0* l=(Shader_1c0cd0*)FUN_00263ea0(sizeof(HulkShader)); loader=l?l->FUN_0028edb0():0; loader->start(); loader->stream->configure(0x444d4c42,1); FUN_00266da0(old); return this;
 }

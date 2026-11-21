@@ -252,7 +252,7 @@ struct Obj_bf560 {
 };
 class Manager_bfbe0 {
   public:
-    void Start_001b7310(const char*, int, int);
+    void Start_001b7310(const char*, unsigned, unsigned char);   // (gfx9) as defined (CFMVManager::QueueMovie)
 };
 class Factory_bfbe0 {
   public:

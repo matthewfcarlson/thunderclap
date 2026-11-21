@@ -714,7 +714,7 @@ class bgfxShader : public bgfxObject {
     explicit bgfxShader(bgfxContext* context);
     virtual ~bgfxShader();
     virtual const char* vfunc_4();            // slot 4: the pddi name (pure in d3dShader; each kind returns its own)
-    virtual bool vfunc_5(int, int);           // slot 5: base pddiBaseShader 0x3279e0 (pure3d/pddiBaseShader.cpp)
+    virtual bool vfunc_5(int, intptr_t);      // slot 5: base pddiBaseShader 0x3279e0 (pure3d/pddiBaseShader.cpp); (gfx9) the value can be a texture: pointer-sized natively
     virtual bool vfunc_6(int, int);           // slot 6: base pddiBaseShader 0x327a40 (pure3d/pddiBaseShader.cpp)
     virtual unsigned char vfunc_7(int, int);  // slot 7: base pddiBaseShader 0x327aa0 (pure3d/pddiBaseShader.cpp)
     virtual bool vfunc_8(int, int);           // slot 8: base pddiBaseShader 0x327b00 (pure3d/pddiBaseShader.cpp)

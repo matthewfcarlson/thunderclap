@@ -453,8 +453,8 @@ void owners::Target_22be40::FUN_0022be40(const int* p) {
 
 
 // 0x0022be60 FUN_0022be60 (43 B): matches/0x0022be60.cpp
-// sym: ?FUN_0022be60@C_22be60@owners@@QAEXHHH@Z
-void owners::C_22be60::FUN_0022be60(int p, int q, int r) {
+// sym: ?FUN_0022be60@C_22be60@owners@@QAEXMMM@Z
+void owners::C_22be60::FUN_0022be60(float p, float q, float r) {
     a[0] = p;
     a[1] = 0;
     a[2] = 0;
@@ -985,16 +985,19 @@ hulk_freg Vec_22d110::Normalize() {
 
 
 // 0x0022d180 FUN_0022d180 (59 B): matches/0x0022d180.cpp
-// sym: ?Normalize@fn_f0c6a717@@YIXPAMPAX@Z
+// sym: ?FUN_0022d180@Normal_22d180@fn_f0c6a717@@QAEXXZ
 // data: one = DAT_003f32dc
 // x87: the squared length (x*x + y*y, then + z*z), its root and the reciprocal stay in registers; MSVC drops the
 // (float) cast of sqrt's result
-void __fastcall Normalize(float* p, void*) {
-    hulk_freg s = (hulk_freg)p[0] * p[0] + (hulk_freg)p[1] * p[1] + (hulk_freg)p[2] * p[2];
+// (gfx9) a vector's normalize, a member as every caller calls it (was a __fastcall free function with the same bytes,
+// which natively no member call bound to); its own record, so MSVC never inlines it into this TU's callers
+struct Normal_22d180 { float x, y, z; void FUN_0022d180(); };
+void Normal_22d180::FUN_0022d180() {
+    hulk_freg s = (hulk_freg)x * x + (hulk_freg)y * y + (hulk_freg)z * z;
     hulk_freg f = DAT_003f32dc / (hulk_freg)sqrt((double)s);
-    p[0] = f * p[0];
-    p[1] = f * p[1];
-    p[2] = f * p[2];
+    x = f * x;
+    y = f * y;
+    z = f * z;
 }
 
 } // namespace fn_f0c6a717

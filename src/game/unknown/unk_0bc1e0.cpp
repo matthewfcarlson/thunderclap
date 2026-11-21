@@ -702,7 +702,7 @@ void Menu_bcf40::FUN_000bcf40(hulk_intptr who) {
 
 
 // 0x000bd1b0 FUN_000bd1b0 (2851 B): equivalent/0x000bd1b0.cpp [wrapped: conflict: FUN_000fc1b0; World]
-// sym: ?FUN_000bd1b0@Menu_bd1b0@fn_000bd1b0@@QAEXE@Z @df360f4d706c @we90ff5757837 @v66e8545f2d50
+// sym: ?FUN_000bd1b0@Menu_bd1b0@fn_000bd1b0@@QAEXE@Z @df360f4d706c @we90ff5757837 @vbeef8b8f7dfe
 namespace fn_000bd1b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 20098 inputs, branch coverage 78/80, incomplete)
 // FUN_000bd1b0 @ 0x000bd1b0
@@ -984,7 +984,7 @@ struct Sys52 {   // (gfx8) the pure3d context (gen owners::X_28f9a0) by its word
     int refs; void* helper; void* f08; char matrices[0xc0]; int a, b, c;
     int fd8;
     void FUN_0028f9a0();
-    void FUN_0028faf0(int a);
+    void FUN_0028faf0(bool a);
 };
 
 struct TblEntry {

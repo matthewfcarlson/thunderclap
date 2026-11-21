@@ -6737,3 +6737,29 @@ name that carries an address any more. Unbound counts: see the commit message (c
   probe-layout check, macho_retarget restricted to code/data. Side effect of C1 (f335dc2e4): the no-fmv entry hook
   binds QueueMovie's callers natively (before: missing stubs), so start-up may queue the intro movie and reach the
   subtitle stop (gfx9).
+
+## gfx9: native start-up, continued (2026-11-21)
+
+- C19 (gfx8's): 0x0028faf0's callers declare `(bool)` as defined.
+- Draw path: 0x00293d40 / 0x00293da0 (translate / scale) and 0x0022be60 take floats; their callers declare floats
+  (fields retyped where only passed on; `HULK_TYPE64(int, float)` + `HULK_FBITS(x)` (compat/ptr.h, new) where a local int
+  copy keeps the word in a register, so MSVC's code is unchanged). 0x002bdf90 SpriteObject::vfunc_8 has its block (the
+  5-byte jmp to 0x002a41e0: natively the slot was the hulk_x_ stub). 0x0022d180 is a member (Normal_22d180), as every
+  caller calls it. pddiBaseShader::vfunc_5 (0x003279e0) and the SDL shader's slot 5 take the value pointer-sized (a
+  texture: natively truncated, setTex faulted).
+- Debug object 0x004dd6e8: 0x0023f770 / 0x0023f790 are its members (0x0023f790, the time dilation's default 16,
+  returned 0 natively).
+- Subtitles: CSubtitleOverlay (0x001be170) on decls/managers.h HulkSubtitleOverlay (was a TU-local polymorphic stand-in);
+  the string tables and the overlay are allocated by their records' sizes (288 / 308 overran natively); CSubtitleManager's
+  views in CSubtitleManager.cpp (0x001be0e0, 0x001bfc30, 0x001c06f0, 0x001c0360, 0x001c0650, 0x001c0a40) spell
+  HulkSubtitleManager's words; Thing_1bde50's string-table calls carry their addresses (Prepare / Finish were unbound:
+  plan_link binds only names with an address); gen C_f6fe0 spells the string table's words.
+- Left unbound on purpose: the audio mixer (0x00243090 -> 0x00242f90 / 0x00242860) and voice lists (0x00257ec0 /
+  0x00257ee0 from 0x00240f50): binding them runs 32-bit-shaped audio records (DAT_004e5cac is an `int` holding the
+  mixer pointer; 0x00242bd0 builds the AudioMixer with int words; the pools are sized on 32-bit) and crashes. They need
+  their own records pass.
+- Frame pacing: sdl_platform.cpp platformFramePace already paces like the Xbox (HULK_FPS_CAP); off for noop / replays.
+- CFEManager: FrontEnd_c1790 (0x000c1790) reads the subtitle manager and the language at HulkFEManager's offsets (its
+  0x5c / 0x1bc9 pads put them in the record's pointer words natively: the replay path's crash in 0x000f6fe0).
+  CFMVManager: Player_1b7d10 (0x001b7d10) spells HulkFMVManager's words; the record's f128 is a pointer (the status).
+- Not yet bound (C21, D197): 0x00269170's GetTime / Poll (no address names): the plain start-up never polls the pads.

@@ -1270,7 +1270,7 @@ void __stdcall target(u32_1b92c0 value) {
 
 
 // 0x001b93a0 FUN_001b93a0 (1341 B): equivalent/0x001b93a0.cpp [wrapped: conflict: FUN_001c3d90; World]
-// sym: ?FUN_001b93a0@Frontend_1b93a0@fn_001b93a0@@QAEXPAUFrame_1b93a0@2@PAUScene_1b93a0@2@PAVMenu_1b93a0@2@PAVOverlays_1b93a0@2@HH@Z @af90afe6aafe @w03d93b4d836e @v433112a70af3
+// sym: ?FUN_001b93a0@Frontend_1b93a0@fn_001b93a0@@QAEXPAUFrame_1b93a0@2@PAUScene_1b93a0@2@PAVMenu_1b93a0@2@PAVOverlays_1b93a0@2@HH@Z @af90afe6aafe @w52e75bf34dd2 @v001c2bccc99d
 namespace fn_001b93a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3080 inputs, branch coverage 83/96, incomplete)
 // FUN_001b93a0 @ 0x001b93a0
@@ -1454,7 +1454,7 @@ public:
 class Settings_1b93a0 {
 public:
     bool FUN_0023f760(const char *name, int key, bool value);   // (gfx5) as defined
-    char FUN_0023f770(const char *name, int a);
+    bool FUN_0023f770(const char *name, int a);   // (gfx9) as defined
 };
 
 class Input_1b93a0 {
@@ -1475,7 +1475,7 @@ struct World {
 class Stats_1b93a0 {
 public:
     void FUN_0028f9a0();
-    void FUN_0028faf0(int v);
+    void FUN_0028faf0(bool v);
 };
 
 struct Body_1b93a0 {
