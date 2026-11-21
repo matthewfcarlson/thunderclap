@@ -2342,3 +2342,24 @@ blocks fight::Action's whole family: the records come first there.
   0x00086cb0, and decl1's family). Pointer words the manager receives from other objects are still held as `int` by
   those objects' own views (a fighter's +0x12c, CSPHulkPropInstance's +0xa0 -> +0x10 handle that 0x001d72e0 returns):
   they bind now, but the values stay truncated until those classes get records.
+
+## 2026-11-21 integ9: x64 return-post draws, `rooverlay`, D174 closed
+
+- **x64 callers of a return post (D165 follow-up; rev5 ADOPT).** equiv64 now draws a direct callee's return inside
+  its `// post:` range when the post is accepted in both 32-bit modes (msvc and wine lines; the native callee returns
+  through HULK_POST_RET_* or traps, so no x64 evidence for the callee is needed). Only after a `call rel32` to the
+  stub, never the function under check, never an ambiguous `// sym:`. The AST digest's `calleepost` part holds the
+  accepted evidence, and x64_gate reruns the direct callers of a return-post block whose post or proof lines moved.
+  The latent equiv64 `post_fill` TypeError on `("ret", cond)` items is fixed. At 3,000 inputs, 0x000abb90 goes from
+  `layout` (a read past CHypnoticCamera at +0x4a0 on a negative clock step; the gate's short runs never hit it) to
+  equivalent.
+- **0x000b0a50 --wine (D154's revocation): root cause.** Seed 1550 points b into .rdata (rdata_ptrs). A directed patch
+  steered `walk->count` through b and overwrote the literals "YAxis"/"XAxis" (0x00405f98, 0x00405fa0). The original's
+  strcmp read them, but ours reads its own copies, so call #57 differed. New Wine-mode rule `rooverlay` (rowrite's
+  input side): directed inputs never patch the original's .rdata, even through a pointer. Those runs are counted
+  (`inputs_rooverlay`), and a run they dominate is `rooverlay_dominated`. The re-run at 3,000 no longer differs, but it
+  is `split_unpinned` (3 inputs), so the block's wine mode stays unproven until `// vclass:` evidence pins its splits.
+- **D174 closed with evidence.** Every tree pre/post item is `.f32`. No block that uses a 64-bit type is unproven or
+  revoked, and its x64-baseline entries are layout/ptrtrunc/crash64. equiv.py never draws .rdata (globals_ is
+  .data/BINKDATA/DOLBY), and equiv64's HULK_RDATA loads the XBE bytes on both sides. .i64 object words and .rdata
+  range items reopen as their own D item when a block's failure is a 64-bit word's domain.

@@ -1100,6 +1100,15 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
   - `rowrite`: the original's run stored into its `.rdata` (the input pointed an argument at a string literal the
     function references: `out` of luaO_chunkid 0x00216340, `buffer[length] = 0` landing in the initializer of a
     ScriptHandler local, 0x001d36f0). A store into a literal is undefined, and clang's code may keep the literal elsewhere.
+    (integ9, `rooverlay`) The input side of the same rule: in Wine mode a directed input never patches the original's
+    `.rdata`, not even through a fuzzed pointer (`_patchable`; before, only absolute `.rdata` reads were refused).
+    0x000b0a50's seed 1550 pointed b into `.rdata` (rdata_ptrs) and steered `walk->count` there, overwriting the literals
+    "YAxis"/"XAxis" the original's strcmp reads while ours reads its own copies (D154's revocation). The runs whose
+    compares read the original's `.rdata` through a pointer are counted (`inputs_rooverlay`, summed over shards); a run
+    they dominate (2n >= all run outcomes) is `unsupported`, class `rooverlay_dominated` (rev5: a block can't pass on
+    the inputs left when most needed such patches). Case `0x000b0a50_native_rooverlay[_off]`. 0x000b0a50's --wine run
+    at 3,000 (job 109769) no longer differs (507 such inputs of 3,000); it is `split_unpinned` (3 inputs), so it stays
+    unproven until `// vclass:` evidence pins its splits.
   - `fescape`: the original's run accessed memory through a frame address plus an index register at an address
     outside the whole stack region (`mov ecx, [esp+eax*4+0x2c]` with eax from a stubbed luaO_log2, numuse 0x00219a60).
     No frame object reaches that far: the index is out of bounds, and where it lands depends on the frame layout.
@@ -1682,9 +1691,23 @@ so a matches block keeps its bytes). It compiles into the Wine image, so a new o
   accepted callees go into the caller's view (`callee_posts`: post and domain lines, the accepting line), so a callee
   proved, edited or revoked makes the caller re-prove; tree_tu's view cache keys on `equiv.ret_post_state()`.
   `EQUIV_OFF=postproof` accepts a stated post without a line (regress only, proves nothing); `calleepost` switches the
-  draw off. --x64 (equiv64) does not draw returns (fail-closed: unconstrained results).
+  draw off.
+- x64 callers (integ9; rev5): equiv64 draws a direct callee's return inside its range when the post is accepted in BOTH
+  32-bit modes (`equiv.accept_ret_post` msvc and wine; equiv64.ret_post_accept). The harness compares the 32-bit and
+  64-bit clang objects of one source, so it has no x64 evidence for the callee; it needs none: natively the callee
+  returns through HULK_POST_RET_*, so it returns in range or traps, and the 32-bit proofs say the original never
+  leaves the range. The stub is drawn only after a `call rel32` to it (Side.direct_call: never a vftable slot, a
+  function pointer or a tail jump), never for the function under check, never when its `// sym:` names two return-post
+  blocks; float, double and integer results (a pointer or record never), one input in twenty at the inner bound
+  (equiv._pre_range_fix), the same on both sides. The AST digest's `calleepost` part holds each accepted callee's
+  evidence identity per mode (post and domain lines, kind, code, view; not the line key), so x64_gate re-runs a caller
+  when a callee is proved, edited or revoked. `EQ64_OFF=postproof` accepts a stated post without lines (regress only),
+  `calleepost` switches the draw off. post_fill skips return items (it raised TypeError on them).
 Cases `0x00085f80_retpost` (+`_wine`), `_wrong` (post_refuted), `_nomacro`, `_othermacro` (L2), `0x001c04e0_calleepost`
 (+`_wine`; equivalent only with the draw), `_lined` (+`_wine`: the landed post lines, no switch), `_off` (fail); tests tests/test_ret_post.py (the refusals: no line, the other mode's line, a stale post or domain).
+x64: `0x001c04e0_x64_calleepost` (equivalent only with the draw), `_lined` (no switch), `_off` (layout), `_inrange`
+(+`_lined`: a write inside the range fails with the draw), `_indirect` (through a function pointer: not drawn, layout);
+tests/test_x64_ret_post.py.
 
 (integ5, D155a; rev5) **Speed: the unicorn binding's hot calls.** A slow proof's time is the Python hook logic
 (`_on_code` per instruction, `_stub` per stubbed call); Unicorn's emulation is negligible. `_fast_uc` takes the

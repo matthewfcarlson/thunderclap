@@ -52,6 +52,13 @@ CASES = {
     "0x001c04e0_calleepost_lined": ("equivalent", None, 0.5, {"src": "0x001c04e0_calleepost", "n_inputs": 300}),
     "0x001c04e0_calleepost_lined_wine": ("equivalent", None, 0.5, {"src": "0x001c04e0_calleepost", "native": True,
                                                                      "n_inputs": 300}),
+    # (integ9, rooverlay) Wine mode: a directed input never patches the original's .rdata, even through a fuzzed pointer
+    # (as rowrite: no real input writes a literal). 0x000b0a50's seed 1550 points b into .rdata; its patches of
+    # `walk->count` rewrote "YAxis"/"XAxis", which the original's strcmp reads and ours doesn't: with the rule no input of
+    # that seed is left to compare (unsupported, no difference); _off finds the artefact
+    "0x000b0a50_native_rooverlay": ("unsupported", None, 0, {"native": True, "seeds": [1550]}),
+    "0x000b0a50_native_rooverlay_off": ("fail", "call #57 went to", 0, {"src": "0x000b0a50_native_rooverlay", "native": True,
+                                                                       "seeds": [1550], "equiv_off": "rooverlay"}),
     "0x001c04e0_calleepost_off": ("fail", "write to this+0x0", 0, {"src": "0x001c04e0_calleepost", "n_inputs": 300,
                                                                      "equiv_off": "postproof,calleepost"}),
     # (integ4, D152b; rev5) a caller of a contracted callee (0x0009faa0's ge(a, 0) ge(b, 0), stated in the case's TU copy
@@ -1370,6 +1377,18 @@ X64_CASES = {
     # true: 0x001fa7d0 selects the same encounter; reading it after a false return, a 32-bit stride, a wrong count field fail
     "0x001fa7d0_x64_post": ("equivalent", None, None, 80, {"eq64_off": "postproof"}),
     "0x001fa7d0_x64_post_readfalse": ("fail", "layout", None, 0, {"eq64_off": "postproof"}),
+    # (integ9, D165; rev5) a direct callee's return post (0x00085f80's ge(ret, 0)) accepted for x64 callers in both 32-bit
+    # modes draws the stub's result inside the range on both sides: a raw 32-bit-offset write taken only on a negative
+    # step is never reached; without the draw it fails; a write taken inside the range still fails with the draw (it never
+    # pins a value); the same callee through a function pointer is not drawn (direct calls only). _lined: the production
+    # path, no switch (0x00085f80's landed post lines; if one is ever revoked this fails on purpose: re-prove 0x00085f80)
+    "0x001c04e0_x64_calleepost": ("equivalent", None, None, 50, {"eq64_off": "postproof"}),
+    "0x001c04e0_x64_calleepost_lined": ("equivalent", None, None, 50, {"src": "0x001c04e0_x64_calleepost"}),
+    "0x001c04e0_x64_calleepost_off": ("fail", "layout", None, 0, {"src": "0x001c04e0_x64_calleepost",
+                                                                  "eq64_off": "postproof,calleepost"}),
+    "0x001c04e0_x64_calleepost_inrange": ("fail", "layout", None, 0, {"eq64_off": "postproof"}),
+    "0x001c04e0_x64_calleepost_inrange_lined": ("fail", "layout", None, 0, {"src": "0x001c04e0_x64_calleepost_inrange"}),
+    "0x001c04e0_x64_calleepost_indirect": ("fail", "layout", None, 0, {"eq64_off": "postproof"}),
     "0x001fa7d0_x64_post_stride": ("fail", "layout", None, 0, {"eq64_off": "postproof"}),
     "0x001fa7d0_x64_post_wrongcount": ("fail", "layout", None, 0, {"eq64_off": "postproof"}),
     # (integ4, x64bounds; rev5) a pointer field counted by a cited HULK_RANGE field (HULK_COUNT / HULK_COUNT_BYTES) and a
@@ -1629,9 +1648,10 @@ def x64_job(name):
     want, cls, text, min_done = X64_CASES[name][:4]
     kw = dict(X64_CASES[name][4]) if len(X64_CASES[name]) > 4 else {}     # (integ2) e.g. {"symbol": "??0C@@QAE@H@Z"}
     off = [x for x in kw.pop("eq64_off", "").split(",") if x]       # (integ4) switches the case runs with
+    src = kw.pop("src", None) or name       # (integ9) a case run from another case's source
     equiv64.OFF.update(off)
     try:
-        r = equiv64.verify64(os.path.join(CASES_DIR, name + ".cpp"), int(name.split("_")[0], 16), n_inputs=100, **kw)
+        r = equiv64.verify64(os.path.join(CASES_DIR, src + ".cpp"), int(name.split("_")[0], 16), n_inputs=100, **kw)
     finally:
         equiv64.OFF.difference_update(off)
     got = r.get("diff") or r.get("error") or ""

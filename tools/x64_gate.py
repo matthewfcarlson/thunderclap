@@ -489,6 +489,8 @@ def changed_blocks(ref, head=None, tus=None, jobs=2, workdir=None, baseline_path
     try:
         rroot = snapshot(ref_c, os.path.join(tmp, "ref"))
         hroot = snapshot(rev(head), os.path.join(tmp, "head")) if head else ROOT
+        cpc = {} if "calleepost" in os.environ.get("X64_GATE_OFF", "") else callee_post_callers(rroot, hroot)
+        rels = sorted(set(rels) | set(cpc.values()))
         rk, e1 = side_keys(rroot, rels, jobs)
         hk, e2 = side_keys(hroot, rels, jobs)
     except BaseException:
@@ -505,6 +507,10 @@ def changed_blocks(ref, head=None, tus=None, jobs=2, workdir=None, baseline_path
             why = "unkeyed (%s)" % h.get("why")
         elif r[1]["key"] != h["key"]:
             why = "code changed" if r[1]["key"] else "keyed now"
+        elif a in cpc:
+            # (integ9, D165) a direct caller of a return-post block whose post, pins or proof lines changed: its x64 run
+            # draws that callee's result (or no longer does), so it runs again with code and AST digest unchanged
+            why = "callee post changed"
         elif force and a in force:
             # (integ4, --blocks; lead/rev5) a named block runs although its code and AST digest are REF's: a checker
             # change that fixes a baseline block (a model, not the source) can only leave the baseline this way. The
@@ -527,6 +533,87 @@ def changed_blocks(ref, head=None, tus=None, jobs=2, workdir=None, baseline_path
             "errors": dict(list(e1.items()) + list(e2.items())), "keyed": len(hk)}
 
 
+def _ret_post_digests(root):
+    """(integ9, D165) {address: digest} of ROOT's return-post blocks (equiv.ret_post_blocks' regexes): the block's sym,
+    post and pre lines and its kind, and its lines in ROOT's proof ledger and revocations."""
+    import equiv
+    blocks = {}
+    for dp, _dn, fns in os.walk(os.path.join(root, "src")):
+        for f in fns:
+            if not f.endswith(".cpp"):
+                continue
+            try:
+                with open(os.path.join(dp, f), errors="replace") as f_:
+                    t_ = f_.read()
+            except OSError:
+                continue
+            if "// post:" not in t_:
+                continue
+            for blk in re.split(r"\n(?=// 0x[0-9a-f]{8} )", t_):
+                m_ = re.match(r"// (0x[0-9a-f]{8}) .*?\(\d+ B\): (matches|equivalent)", blk)
+                if not m_:
+                    continue
+                pl_ = [x.strip() for x in re.findall(r"^\s*//\s*post:\s*(.+?)\s*$", blk, re.M)]
+                if not any(equiv._POST_RET_ITEM.search(x) for x in pl_):
+                    continue
+                dl_ = [x.strip() for x in re.findall(r"^\s*//\s*pre:\s*(.+?)\s*$", blk, re.M)]
+                sm_ = re.findall(r"^// sym: .*$", blk, re.M)
+                blocks[m_.group(1)] = [os.path.relpath(os.path.join(dp, f), root), m_.group(2), pl_, dl_, sm_]
+    out = {}
+    for a, v in blocks.items():
+        h = hashlib.sha1(json.dumps(v).encode())
+        for p_ in ("proof-ledger.jsonl", "proof-revoked.jsonl"):
+            try:
+                with open(os.path.join(root, "config", p_)) as f_:
+                    for l in f_:
+                        if '"%s"' % a in l:
+                            h.update(l.strip().encode())
+            except OSError:
+                pass
+        out[int(a, 16)] = h.hexdigest()
+    return out
+
+
+def callee_post_callers(rroot, hroot):
+    """(integ9, D165) {caller address: HEAD tree TU (relative)} of the functions that call (E8 rel32 in the XBE) a
+    return-post block whose digest (_ret_post_digests) differs between REF and HEAD, a block added or dropped too."""
+    import bisect
+    import equiv
+    rd, hd = _ret_post_digests(rroot), _ret_post_digests(hroot)
+    changed = sorted(a for a in set(rd) | set(hd) if rd.get(a) != hd.get(a))
+    if not changed:
+        return {}
+    prog = equiv.Program.get()
+    starts = sorted(prog.funcs)
+    callers = set()
+    for t in changed:
+        for site in equiv.pre_callers(t):
+            try:
+                if prog.read(site, 1) != b"\xe8":
+                    continue
+            except Exception:   # noqa: BLE001
+                continue
+            i = bisect.bisect_right(starts, site) - 1
+            if i >= 0 and site < starts[i] + prog.funcs[starts[i]][0] and starts[i] != t:
+                callers.add(starts[i])
+    out = {}
+    if callers:
+        want = {"// 0x%08x " % a: a for a in callers}
+        for dp, _dn, fns in os.walk(os.path.join(hroot, "src")):
+            for f in fns:
+                if not f.endswith(".cpp"):
+                    continue
+                try:
+                    with open(os.path.join(dp, f), errors="replace") as f_:
+                        t_ = f_.read()
+                except OSError:
+                    continue
+                for h_, a in want.items():
+                    if ("\n" + h_) in t_ or t_.startswith(h_):
+                        out[a] = os.path.relpath(os.path.join(dp, f), hroot)
+    return out
+
+
 def _ast_key_inputs():
     """(integ2, D118; rev5) What every run's AST digest depends on besides the TU and its includes: equiv64.py (the
     digest's code) and the inputs D103's gdata_inputs reads (config/data.json, the function list)."""
@@ -535,6 +622,8 @@ def _ast_key_inputs():
         h = hashlib.sha1(b"astkey1\0")
         for f in (os.path.join(ROOT, "tools", "equiv64.py"), os.path.join(ROOT, "config", "data.json"), equiv.FUNCS_CSV):
             h.update((_sha_file(f) if os.path.exists(f) else "none").encode() + b"\0")
+        # (integ9, D165) the calleepost part reads the return-post blocks and their proof lines
+        h.update(equiv.ret_post_state().encode() + b"\0")
         _AK.append(h.hexdigest())
     return _AK[0]
 

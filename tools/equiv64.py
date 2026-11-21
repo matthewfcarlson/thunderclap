@@ -2262,6 +2262,16 @@ class Checker:
         a = self._post_idx.get("sym", {}).get(TREE_NS.sub("", name or ""))
         return self._post_idx.get(a) if a is not None else None
 
+    def ret_post_of(self, name):
+        """(integ9, D165) The accepted return range of the function NAME stands for (FUN_<addr> in it, or its 32-bit symbol
+        a return-post block's `// sym:` pins), never the function under check (its own recursion); else None."""
+        if "calleepost" in OFF or "post" in OFF:
+            return None
+        a = ret_post_addr(name)
+        if a is None or a == self.addr:
+            return None
+        return ret_post_accept(a)[0]
+
     def stub_addr(self, key):
         return STUBS + 16 * self.stub_by_key[key].idx
 
@@ -2936,6 +2946,94 @@ def _pre_and(a, b):
     return ("range", lo, hi, li, hi_i)
 
 
+_RET_POST_SYMS = {}
+_RET_POST_X64 = {}
+
+
+def ret_post_addr(name):
+    """(integ9, D165) The address of the return-post block (equiv.ret_post_blocks) NAME stands for: FUN_<addr> in it, or
+    the block's `// sym:` pin (tree namespaces dropped); else None."""
+    import equiv
+    idx = equiv.ret_post_blocks()
+    if not idx:
+        return None
+    m = re.search(r"FUN_([0-9a-fA-F]{8})", name or "")
+    if m:
+        a = int(m.group(1), 16)
+        return a if a in idx else None
+    if "_" not in _RET_POST_SYMS:
+        syms = {}
+        for a, ent in idx.items():
+            try:
+                with open(ent[0], errors="replace") as f_:
+                    t_ = f_.read()
+            except OSError:
+                continue
+            for blk in re.split(r"\n(?=// 0x[0-9a-f]{8} )", t_):
+                if blk.startswith("// 0x%08x " % a):
+                    sm = re.search(r"^// sym: (\S+)", blk, re.M)
+                    if sm:
+                        k_ = TREE_NS.sub("", sm.group(1))
+                        syms[k_] = None if k_ in syms and syms[k_] != a else a     # (rev5) ambiguous: no draw
+        _RET_POST_SYMS["_"] = syms
+    return _RET_POST_SYMS["_"].get(TREE_NS.sub("", name or ""))
+
+
+def ret_post_accept(addr):
+    """(integ9, D165; rev5) (range, identity) when an x64 caller may draw ADDR's return inside its postcondition, else
+    (None, why). The x64 harness compares the 32-bit and 64-bit clang objects of one source, whose callee is the same
+    source on both sides: the post serves only when it is accepted in BOTH 32-bit modes (equiv.accept_ret_post: an
+    equivalent block's promotable msvc and wine lines for its pinned code and view, a matches block's live post lines),
+    the identity naming both. EQ64_OFF=postproof accepts the stated post unproven (regress only: proves nothing)."""
+    import equiv
+    key = (addr, "postproof" in OFF)
+    if key in _RET_POST_X64:
+        return _RET_POST_X64[key]
+    ent = equiv.ret_post_blocks().get(addr)
+    if ent is None:
+        res = (None, "no return postcondition")
+    elif "postproof" in OFF:
+        rng = equiv._ret_post_range(ent[2])
+        res = (rng, [ent[2], ent[3], "unproven (EQ64_OFF=postproof)"]) if rng is not None else (None, "post unparsed")
+    else:
+        rm, im = equiv.accept_ret_post(addr, False)
+        rw, iw = equiv.accept_ret_post(addr, True)
+        if rm is None or rw is None:
+            res = (None, "msvc: %s; wine: %s" % (im if rm is None else "ok", iw if rw is None else "ok"))
+        elif rm != rw:
+            res = (None, "the modes' ranges differ")
+        else:
+            res = (rm, [im, iw])
+    _RET_POST_X64[key] = res
+    return res
+
+
+def callee_post_part(fn32):
+    """(integ9, D165) The AST digest's `calleepost` part: [address, acceptance] of every callee FN32's body names that
+    is a return-post block, other than the function itself (the x64 gate re-runs a caller when a callee's post is
+    proved, edited or revoked)."""
+    if "calleepost" in OFF or "post" in OFF:
+        return "off"
+    out = {}
+    self_ = None
+    try:
+        self_ = ret_post_addr(fn32.mangled_name) or ret_post_addr(fn32.spelling)
+    except Exception:   # noqa: BLE001
+        pass
+    for c in fn32.walk_preorder():
+        if c.kind.name in ("CALL_EXPR", "DECL_REF_EXPR", "MEMBER_REF_EXPR") and c.referenced is not None and \
+                c.referenced.kind.name in ("FUNCTION_DECL", "CXX_METHOD"):
+            r = c.referenced
+            try:
+                a = ret_post_addr(r.mangled_name) or ret_post_addr(r.spelling)
+            except Exception:   # noqa: BLE001
+                a = None
+            if a is not None and a != self_ and a not in out:
+                rng, info = ret_post_accept(a)
+                out[a] = [list(rng) if rng is not None else None, info]
+    return sorted([["0x%08x" % a, v] for a, v in out.items()])
+
+
 _POST_IDX = {}
 
 
@@ -3533,6 +3631,10 @@ def ast_digest(c32, c64):
         parts["gdata" + n] = gdata_digest_part(fn.translation_unit)
         # (integ2, D111) the pointer-word globals it reads through a typed cast
         parts["gcasts" + n] = sorted([k, v if v == AMBIGUOUS else sp(v)] for k, v in global_casts(fn).items())
+    try:     # (integ9, D165) the callees' return posts the run draws in range, as accepted now
+        parts["calleepost"] = callee_post_part(c32.get_definition() or c32)
+    except Exception as e:      # noqa: BLE001
+        parts["calleepost"] = "error: %s" % e
     try:     # (integ3, allocty regions) the record regions the body's offset casts give allocations
         parts["aregions"] = sorted([k, [None if r is None else [r[0], r[1], r[2][0].get_canonical().spelling,
                                                                r[2][1].get_canonical().spelling, r[3]] for r in v]]
@@ -4528,6 +4630,10 @@ class Side:
             self.fill_out(this_local, (FakeType("POINTER", 4, sig.method_record[0]), FakeType("POINTER", 8, sig.method_record[1])),
                           st.key, n, 0)
         rv = self.stub_return(sig, st, n, sret, sret_ptr)
+        if rv is not None and st.kind == "func" and not sret and self.direct_call(retaddr, st):
+            rp_ = self.chk.ret_post_of(st.names.get(32) or name or st.label)
+            if rp_ is not None:
+                rv = self.ret_post_draw(rp_, rv, sig, st, n)
         pa_ = self.chk.post_of(st.names.get(32) or name or st.label) if "post" not in OFF and st.kind == "func" else None
         if pa_ and rv is not None and rv[0] == "int":
             rv = self.post_fill(pa_, rv, sig, this_v, pvals, st, n)
@@ -4546,7 +4652,11 @@ class Side:
             return rv
         by_n = {}
         for k, cond in items:
+            if k == "ret":
+                continue        # (integ9, D165) a return item: stub_return's draw (ret_post_of), not an out-parameter
             by_n.setdefault(k, []).append(cond)
+        if not by_n:
+            return rv
         writes = []
         for k, conds in sorted(by_n.items()):
             if k - 1 >= len(pvals) or pvals[k - 1] is None:
@@ -4571,6 +4681,42 @@ class Side:
         for a, x in writes:
             self.write(a, (x & M32).to_bytes(4, "little"))
         return rv
+
+    def direct_call(self, retaddr, st):
+        """(integ9, D165; rev5) Did a direct call reach stub ST: a `call rel32` (E8) ending at RETADDR whose target is
+        the stub? A call through a vftable slot, a function pointer or a tail jump is not (no draw: fail closed)."""
+        try:
+            ins = self.read(retaddr - 5, 5)
+        except Exception:   # noqa: BLE001
+            return False
+        if len(ins) != 5 or ins[0] != 0xE8:
+            return False
+        t = (retaddr + int.from_bytes(ins[1:5], "little", signed=True)) & ((1 << self.bits) - 1)
+        return t == self.chk.stub_addr(st.key)
+
+    def ret_post_draw(self, rng, rv, sig, st, n):
+        """(integ9, D165) A direct callee whose return postcondition is accepted for x64 callers (ret_post_accept): its
+        stub's result lies inside the range, one input in twenty at the range's inner bound (equiv._pre_range_fix, the
+        32-bit checker's draw), from the seed and the call's number: the same on both sides. A NaN never. A pointer or
+        record result is left alone (a return item states a number)."""
+        import equiv
+        b = self.bits
+        rt = sig.ret[0 if b == 32 else 1].get_canonical()
+        k = rt.kind.name
+        if rv[0] in ("f", "d"):
+            w, typ, raw = (4, "f", struct.pack("<f", rv[1])) if rv[0] == "f" else (8, "f", struct.pack("<d", rv[1]))
+        elif rv[0] == "int" and (k == "BOOL" or k == "ENUM" or k in INT_KINDS) and rt.get_size() in (1, 2, 4, 8):
+            w, typ = rt.get_size(), "i"
+            raw = (rv[1] & ((1 << (8 * w)) - 1)).to_bytes(w, "little")
+        else:
+            return rv
+        s_ = Rng(self.seed, "retpost", rng_key(st.key), n).next()
+        nb_ = equiv._pre_range_fix(s_, 0xD165, raw, w, tuple(rng) + (typ,), True)
+        if nb_ is None:
+            return rv
+        if typ == "f":
+            return (rv[0], struct.unpack("<f" if w == 4 else "<d", nb_)[0])
+        return ("int", int.from_bytes(nb_, "little"))
 
     def post_field(self, this_v, off32, st):
         """(integ4, post) The signed 32-bit field at the original's offset OFF32 of the object THIS_V points at (its

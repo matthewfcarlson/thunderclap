@@ -11921,6 +11921,13 @@ def level3_verdict(rep, l3, issues, post_specs, time_budget, t0):
         rep["status"] = "unsupported"
         rep["class"] = "pre_dominated"
         rep["error"] = "[pre_dominated] %d inputs dropped outside the block's own contract" % pod_
+    roo_ = l3.get("inputs_rooverlay") or 0
+    if roo_ and rep["status"] in ("equivalent", "inconclusive") and 2 * roo_ >= max(sum((l3.get("statuses") or {}).values()), 1):
+        # (integ9, rooverlay; rev5) most runs read the original's .rdata through a fuzzed pointer, where the directed
+        # inputs may no longer patch: a run that can't steer most of its inputs doesn't stand for the block
+        rep["status"] = "unsupported"
+        rep["class"] = "rooverlay_dominated"
+        rep["error"] = "[rooverlay_dominated] %d inputs read the original's .rdata through a pointer" % roo_
     pv_ = (l3.get("statuses") or {}).get("pre_violation_in_original", 0)
     if pv_ and rep["status"] in ("equivalent", "inconclusive"):
         # (integ3, D152; rev5 (c)) never promotable: the original's own calls break a callee's range contract
@@ -13122,6 +13129,13 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                                 ENTRY_ESP + 4 <= sr_[0] < ENTRY_ESP + 0x84 and isinstance(o_.get("val"), int):
                             wb_.add((sr_, o_["val"]))
             wreads[(seed, repr(overlay), repr(stack_patch))] = (tuple(wr_), tuple(wb_), overlay, stack_patch)
+        if o["status"] == "ret" and NATIVE_MODE and "rooverlay" not in EQUIV_OFF and any(
+                o_.get("src") and isinstance(o_["src"][0], int) and not o_.get("abs", True) and
+                IMAGE_LO <= o_["src"][0] < IMAGE_HI and any(lo_ <= o_["src"][0] < hi_ for lo_, hi_ in prog.rdata_ranges())
+                for ob_ in obs_run.values() for o_ in (ob_.get("ops") or ())):
+            # (integ9, rooverlay; rev5) an input whose compares read the original's .rdata through a pointer: its
+            # directed patches there are refused (_patchable). Counted; the verdict refuses a run they dominate
+            res["inputs_rooverlay"] = res.get("inputs_rooverlay", 0) + 1
         if o["status"] == "ret":
             directed_ = bool(overlay) or bool(stack_patch)
             for j, ob in obs_run.items():
@@ -14890,10 +14904,16 @@ def _obs_steerable(ob, via=True):
 def _patchable(ea, absolute=True):
     """May a directed input change this memory? Never code (a switch's byte table: ours has its own), nor
     a float constant read at a fixed address in read-only data (ours may load the same value from its own
-    constant, or as fld1/fldz). Data reached through a pointer is fine."""
+    constant, or as fld1/fldz). Data reached through a pointer is fine, except (integ9, rooverlay; Wine mode, as
+    rowrite) the original's .rdata reached through a fuzzed pointer: an input that rewrites it rewrites the original's
+    string literals (0x000b0a50: `walk->count` patched through b into "YAxis"/"XAxis", which the original's strcmp then
+    reads where ours reads its own copies); no real input writes a literal."""
     prog = Program.get()
     if absolute and IMAGE_LO <= ea < IMAGE_HI and getattr(prog, "ours_data", None) is not None and \
             "ourglobal" not in EQUIV_OFF and not any(g <= ea < g + 0x100 for g in prog.ours_data):
+        return False
+    if NATIVE_MODE and "rooverlay" not in EQUIV_OFF and IMAGE_LO <= ea < IMAGE_HI and \
+            any(lo_ <= ea < hi_ for lo_, hi_ in prog.rdata_ranges()):
         return False
     return not prog.is_code(ea) and not (absolute and prog.section_name(ea) == ".rdata")
 
