@@ -406,6 +406,8 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   succeed (no picture) and DirectSound voices advance as the Wine mixer's, or play3 shifts a frame. HULK_PORT_ABI
   (compat/ptr.h: 64-bit native and wasm32) marks sources whose callers read a void function's leftover eax;
   `hulk_eaxptr` is `void*` there and `void` on 32-bit (ParamBranch<T>::vfunc_6, D204).
+  The wasm inputs come from `tools/wasm_inputs.py submit|fetch` (snapshot + binding map at one commit); a HULK_PORT_ABI
+  return that is void on 32-bit binds in the wasm build by the void-name variants (`wasm_port.port_abi_names`) (wasm4).
 - Multiplayer/remaster co-op (`docs/multiplayer.md`, `net/worker/`) is designed and partly prototyped but **paused**.
 
 ## Compute
