@@ -266,10 +266,12 @@ layout: invokes read it as a struct of the instantiation's types, never by 32-bi
   native replay is the check. Start-up fixes land with: matches blocks in touched TUs still MATCH with relocations ok;
   an equivalent block whose code changed recorded with `tree_tu.py unproven-accept ADDR --modes M --why "D187 macOS-first:
   ..."` instead of a re-proof (a proof backlog for later); the native build still compiling and linking, and the commit
-  message saying what native start-up reaches. A block whose code hashes are unchanged in every mode and only its checker view moved
+  message saying what native start-up reaches. An edit to a widely included header (owners.h, managers.h, records.h, include/gen) still needs a
+  whole-tree verify before landing: it can flip other TUs' MSVC code (the D139 blocks), and materialize then refuses
+  `code_changed` for every lane (gfx10, c664c687f). A block whose code hashes are unchanged in every mode and only its checker view moved
   (a declaration edit) takes `tree_tu.py unproven-accept ADDR --view-only --why "D187 macOS-first: view-only ..."`; it
   refuses with "carry instead" when a D159 carry would re-pin it, and verify lists the backlog oldest first
-  (`unproven_baseline_view_only`; gfx10, 48a1ea657). No Wine pair, whole-tree verify or x64 gate is required for these landings
+  (`unproven_baseline_view_only`; gfx10, 48a1ea657). No Wine pair or x64 gate is required for these landings, and no whole-tree verify unless a widely included header changed,
   (run the gate when it helps find layout bugs). Checker and tool changes still need regress and the reviewer. The rest
   of this section is the full bar, which applies again when the mode ends.
 - **Wine build** (dev/verification): `tools/wine_build_job.py submit/wait/compare` runs tree materialize, clang probe, Wine
