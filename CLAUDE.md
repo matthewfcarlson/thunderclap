@@ -201,7 +201,11 @@ move the block into a record-derived class (gfx7, C16/C17). Byte-count ring and 
 element-typed pointer arithmetic compiles to the same MSVC bytes. A callee declared with a different IR signature from its
 definition (int vs pointer, void vs a returned pointer) does not bind natively and the run stops on `missing`: declare it
 as defined. One narrow exception: native_unbound binds a member-declared call to a zero-argument C function
-(R(ptr) -> R(), no sret/inreg) and lists each such site in the link report's worklist (gfx11, rev5). A native hang: attach with `lldb -p PID --batch -s FILE` and break in the wait loop's callees (HULK_HANG
+(R(ptr) -> R(), no sret/inreg) and lists each such site in the link report's worklist (gfx11, rev5). MSVC 7.1 gives a
+block-scope `void FUN_x();` inside a namespace's function the global name, clang the namespace's: call `::FUN_x()` with
+a file-scope declaration. A CRT name declared with C++ linkage inside a namespace (`extern int __cdecl _sprintf(...)`) is a
+stub natively that returns without writing: declare it extern "C". A native run's `missing-continue` trace lines are the
+ordered worklist of unbound callees (gfx11). A native hang: attach with `lldb -p PID --batch -s FILE` and break in the wait loop's callees (HULK_HANG
 samples show only the loop). `jobq.py cancel --name ME` cancels all your unfinished jobs and needs `--all`; cancel by id (D110).
 `pure3d::X::~X() {}` standing for a `??_G` scalar deleting destructor defines nothing natively; write it as an explicit
 function: the body by its address, then the free when `flags & 1`. A raw `(char*)this + HULK_SPE(k)` in a pad view reads
